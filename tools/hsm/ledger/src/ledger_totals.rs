@@ -136,7 +136,7 @@ fn main(r:&Value,ctx:&mut Context)->Result<Value>{
     if mode=="check"{
         let mut errors=a::array(&analysis["validation"]["errors"]).iter().map(|v|a::text(v).to_owned()).collect::<Vec<_>>();errors.extend(stale_markers(&source,&vars));let sidecar=ledger.with_extension("figures.json");
         if sidecar.exists(){match ctx.json(&sidecar){
-            Ok(figures)=>{let expected=vars.iter().filter(|(key,_)|source.contains(&format!("]({key})"))).map(|(k,v)|(k.clone(),json!(v))).collect::<serde_json::Map<_,_>>();if figures.get("/hardware/scripts/_ledger_totals.py").cloned().unwrap_or(json!({}))!=json!(expected){errors.push("purchases.figures.json is stale; run --write".into());}},
+            Ok(figures)=>{let expected=vars.iter().filter(|(key,_)|source.contains(&format!("]({key})"))).map(|(k,v)|(k.clone(),json!(v))).collect::<serde_json::Map<_,_>>();if figures.get(PURCHASES_PROGRAM).cloned().unwrap_or(json!({}))!=json!(expected){errors.push("purchases.figures.json is stale; run --write".into());}},
             Err(_)=>errors.push("purchases.figures.json is invalid".into())
         }}
         for(path,content)in generated(&ledger).into_iter().zip([a::export_json(&analysis)?,a::export_csv(&analysis)?]){if !path.exists()||ctx.read(&path)?!=content{errors.push(format!("{} is missing or stale; run --write",path.file_name().unwrap().to_string_lossy()));}}
@@ -149,7 +149,7 @@ fn main(r:&Value,ctx:&mut Context)->Result<Value>{
         return Ok(main_result(i32::from(has_errors),out))
     }
     if has_errors{return Ok(main_result(1,a::render_report(&analysis,false)?))}
-    ctx.substitute(&ledger,&vars,"/hardware/scripts/_ledger_totals.py")?;analysis["input_fingerprint"]=json!(a::fingerprint(&ctx.read(&ledger)?,&evidence));
+    ctx.substitute(&ledger,&vars,PURCHASES_PROGRAM)?;analysis["input_fingerprint"]=json!(a::fingerprint(&ctx.read(&ledger)?,&evidence));
     for(path,content)in generated(&ledger).into_iter().zip([a::export_json(&analysis)?,a::export_csv(&analysis)?]){ctx.write(&path,content.as_bytes())?;}
     Ok(main_result(0,a::render_report(&analysis,false)?))
 }

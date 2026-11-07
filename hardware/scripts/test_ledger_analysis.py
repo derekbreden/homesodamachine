@@ -13,10 +13,11 @@ from decimal import Decimal
 from pathlib import Path
 
 from _ledger_analysis import (analyze, date_month, export_csv, export_json,
-                              input_fingerprint, parse_date)
-from _ledger_totals import parse, reconcile_orders, variables_from_totals
+                              input_fingerprint, parse, parse_date, reconcile_orders,
+                              variables_from_totals)
+from _rust_part import program
 
-SCRIPT = Path(__file__).with_name("_ledger_totals.py")
+SCRIPT = program("ledger", "purchases")
 TODAY = "2026-10-04"
 
 
@@ -457,7 +458,7 @@ class ParserAndCommandTest(unittest.TestCase):
             "| Status | $ |\n|---|---|\n"
             "| Procurement | [$5.60](LEDGER_GRAND_TOTAL) |\n\n"
             "## Sources\n[value](NAME) texts are updated by:\n"
-            "- " + chr(96) + "/hardware/scripts/_ledger_totals.py" + chr(96) + "\n",
+            "- " + chr(96) + "/hardware/ledger/purchases.rs" + chr(96) + "\n",
             encoding="utf-8")
         rows = parse(self.ledger)[-1]
         evidence = fixture(rows)
@@ -472,7 +473,7 @@ class ParserAndCommandTest(unittest.TestCase):
 
     def command(self, *modes):
         return subprocess.run(
-            [sys.executable, str(SCRIPT), *modes, "--ledger", str(self.ledger),
+            [str(SCRIPT), *modes, "--ledger", str(self.ledger),
              "--orders", str(self.orders), "--evidence", str(self.evidence_path)],
             text=True, capture_output=True, check=False)
 

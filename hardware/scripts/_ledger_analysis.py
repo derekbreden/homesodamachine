@@ -73,3 +73,36 @@ def export_csv(data):
 
 def render_report(data, audit=False):
     return _call('report', data=data, audit=audit)
+
+
+def _row(value):
+    from decimal import Decimal
+    result = dict(value)
+    for name in ('cost', 'unit_price'):
+        if result.get(name) is not None:
+            result[name] = Decimal(str(result[name]))
+    return result
+
+
+def parse(path):
+    """The purchase ledger's status, section and labor totals, its ambiguous rows and its rows."""
+    from decimal import Decimal
+    totals, sections, labor, ambiguous, rows = call('ledger.parse', _program='ledger-analysis', path=path)
+    return ({k: Decimal(v) for k, v in totals.items()},
+            {k: Decimal(v) for k, v in sections.items()}, Decimal(labor),
+            [tuple(value) for value in ambiguous], [_row(value) for value in rows])
+
+
+def reconcile_orders(rows, orders, tolerance=None):
+    from decimal import Decimal
+    tolerance = Decimal('0.01') if tolerance is None else tolerance
+    mismatch, unknown, split = call('ledger.reconcile', _program='ledger-analysis', rows=rows,
+                                    orders=orders, tolerance=tolerance)
+    return ([(oid, Decimal(allocated), Decimal(project), count)
+             for oid, allocated, project, count in mismatch],
+            [(oid, Decimal(allocated)) for oid, allocated in unknown], split)
+
+
+def variables_from_totals(status_totals, sections, labor, analysis=None):
+    return call('ledger.variables', _program='ledger-analysis', statuses=status_totals,
+                sections=sections, labor=labor, analysis=analysis)

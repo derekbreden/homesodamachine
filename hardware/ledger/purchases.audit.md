@@ -15,11 +15,12 @@ A saved order total can corroborate a procurement allocation. It does not establ
 ## Read-only inspection
 
 ```sh
-python3 hardware/scripts/_ledger_totals.py --report
-python3 hardware/scripts/_ledger_totals.py --audit
-python3 hardware/scripts/_ledger_totals.py --export-json
-python3 hardware/scripts/_ledger_totals.py --export-csv
-python3 hardware/scripts/_ledger_totals.py --check
+python3 tools/run.py -- cargo build --release --locked -j 2 --manifest-path tools/hsm/Cargo.toml -p hsm-ledger --bin purchases
+tools/hsm/target/release/purchases --report
+tools/hsm/target/release/purchases --audit
+tools/hsm/target/release/purchases --export-json
+tools/hsm/target/release/purchases --export-csv
+tools/hsm/target/release/purchases --check
 ```
 
 These paths write nothing to the repository. `--check` fails on mechanical integrity errors or stale generated output. Incomplete historical evidence, unknown payment dates and old open orders are coverage findings; a passing integrity check is not full financial reconciliation.
@@ -27,10 +28,10 @@ These paths write nothing to the repository. `--check` fails on mechanical integ
 Regeneration is explicit:
 
 ```sh
-python3 hardware/scripts/_ledger_totals.py --write
+tools/hsm/target/release/purchases --write
 ```
 
-The bare invocation retains its existing regeneration behavior for docgen callers. It updates managed Markdown figures, the figures sidecar and the JSON/CSV exports. Do not hand-edit generated figures or exports.
+The bare invocation regenerates too; it is what the build runs. It updates managed Markdown figures, the figures sidecar and the JSON/CSV exports. Do not hand-edit generated figures or exports.
 
 Synthetic verification:
 

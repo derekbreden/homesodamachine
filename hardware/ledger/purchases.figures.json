@@ -1,5 +1,5 @@
 {
-  "/hardware/scripts/_ledger_totals.py": {
+  "/hardware/ledger/purchases.rs": {
     "LEDGER_ACQUIRED_COMBINED": "$46,869.95",
     "LEDGER_ACQUIRED_HW": "$40,350.44",
     "LEDGER_ESTIMATES": "$4,285.23",

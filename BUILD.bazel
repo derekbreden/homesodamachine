@@ -2053,6 +2053,220 @@ cd .. && rm -rf work-plumbing-scenes
 )
 
 genrule(
+    name = "purchases-program",
+    srcs = [
+        "hardware/ledger/purchases.rs",
+        ":out/cargo-config/tools/hsm/cargo-config.json",
+        "tools/hsm/documents/Cargo.toml",
+        "tools/hsm/documents/src/interop.rs",
+        "tools/hsm/documents/src/interop/standard.rs",
+        "tools/hsm/documents/src/lib.rs",
+        "tools/hsm/documents/src/python_checked.rs",
+        "tools/hsm/kernel/Cargo.toml",
+        "tools/hsm/kernel/src/boolean.rs",
+        "tools/hsm/kernel/src/build.rs",
+        "tools/hsm/kernel/src/dxf.rs",
+        "tools/hsm/kernel/src/edge.rs",
+        "tools/hsm/kernel/src/face.rs",
+        "tools/hsm/kernel/src/import.rs",
+        "tools/hsm/kernel/src/lib.rs",
+        "tools/hsm/kernel/src/mapped.rs",
+        "tools/hsm/kernel/src/mass.rs",
+        "tools/hsm/kernel/src/math.rs",
+        "tools/hsm/kernel/src/part.rs",
+        "tools/hsm/kernel/src/plane.rs",
+        "tools/hsm/kernel/src/profile.rs",
+        "tools/hsm/kernel/src/reads.rs",
+        "tools/hsm/kernel/src/round.rs",
+        "tools/hsm/kernel/src/round/rolled.rs",
+        "tools/hsm/kernel/src/rule.rs",
+        "tools/hsm/kernel/src/screw.rs",
+        "tools/hsm/kernel/src/sketch_hull.rs",
+        "tools/hsm/kernel/src/solid.rs",
+        "tools/hsm/kernel/src/spline.rs",
+        "tools/hsm/kernel/src/step.rs",
+        "tools/hsm/kernel/src/step/analytic.rs",
+        "tools/hsm/kernel/src/sweep.rs",
+        "tools/hsm/kernel/src/text.rs",
+        "tools/hsm/kernel/src/thru.rs",
+        "tools/hsm/kernel/src/topo.rs",
+        "tools/hsm/kernel/src/triangulate.rs",
+        "tools/hsm/kernel/src/write.rs",
+        "tools/hsm/ledger/Cargo.toml",
+        "tools/hsm/ledger/catalog/evidence.json",
+        "tools/hsm/ledger/catalog/printing.json",
+        "tools/hsm/ledger/catalog/tools.json",
+        "tools/hsm/ledger/src/analysis.rs",
+        "tools/hsm/ledger/src/analysis_export.rs",
+        "tools/hsm/ledger/src/analysis_summary.rs",
+        "tools/hsm/ledger/src/analysis_validate.rs",
+        "tools/hsm/ledger/src/bom.rs",
+        "tools/hsm/ledger/src/bom_sync.rs",
+        "tools/hsm/ledger/src/bom_sync_figures.rs",
+        "tools/hsm/ledger/src/build_time.rs",
+        "tools/hsm/ledger/src/labor.rs",
+        "tools/hsm/ledger/src/ledger_money.rs",
+        "tools/hsm/ledger/src/ledger_totals.rs",
+        "tools/hsm/ledger/src/lib.rs",
+        "tools/hsm/ledger/src/printing.rs",
+        "tools/hsm/ledger/src/shared.rs",
+        "tools/hsm/ledger/src/tools.rs",
+        "tools/hsm/run-native/Cargo.toml",
+        "tools/hsm/run-native/src/lib.rs",
+        "tools/hsm/run-slots.defaults.json",
+        "tools/hsm/run-slots/Cargo.toml",
+        "tools/hsm/run-slots/src/ipc.rs",
+        "tools/hsm/run-slots/src/lib.rs",
+        "tools/hsm/run-slots/src/main.rs",
+        "tools/hsm/run-slots/src/runtime.rs",
+        "tools/hsm/run-slots/src/runtime/cad.rs",
+        "tools/hsm/run-slots/src/runtime/install.rs",
+        "tools/hsm/run-slots/src/runtime/runner.rs",
+        "tools/hsm/run-slots/src/runtime/slots.rs",
+        "tools/hsm/vendor/manifold-csg-sys/.cargo_vcs_info.json",
+        "tools/hsm/vendor/manifold-csg-sys/Cargo.lock",
+        "tools/hsm/vendor/manifold-csg-sys/Cargo.toml",
+        "tools/hsm/vendor/manifold-csg-sys/Cargo.toml.orig",
+        "tools/hsm/vendor/manifold-csg-sys/LICENSE-APACHE",
+        "tools/hsm/vendor/manifold-csg-sys/LICENSE-MIT",
+        "tools/hsm/vendor/manifold-csg-sys/README.md",
+        "tools/hsm/vendor/manifold-csg-sys/build.rs",
+        "tools/hsm/vendor/manifold-csg-sys/build/build.rs",
+        "tools/hsm/vendor/manifold-csg-sys/build/fetch.rs",
+        "tools/hsm/vendor/manifold-csg-sys/build/patch.rs",
+        "tools/hsm/vendor/manifold-csg-sys/build/wasm.rs",
+        "tools/hsm/vendor/manifold-csg-sys/cache-version",
+        "tools/hsm/vendor/manifold-csg-sys/patches/README.md",
+        "tools/hsm/vendor/manifold-csg-sys/src/lib.rs",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/CMakeLists.txt",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/diagnose.sh",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/__assertion_handler",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/__config_site",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/memory",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/mutex",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/libcxx-extras.cpp",
+    ],
+    outs = ["out/purchases-program/purchases"],
+    tags = ["no-sandbox"],
+    cmd = """
+set -e
+case "$$(uname -s)" in
+  Darwin)
+    copy_mask=$$((8#$$(umask)))
+    copy_bits=("" x w wx r rx rw rwx)
+    copy_mode="u-$${copy_bits[$$((copy_mask >> 6 & 7))]},g-$${copy_bits[$$((copy_mask >> 3 & 7))]},o-$${copy_bits[$$((copy_mask & 7))]}"
+    copy_file() {
+      local copy_dest="$${!#}" copy_target copy_permissions="$$copy_mode"
+      if [ -e "$$copy_dest" ] || [ -L "$$copy_dest" ]; then
+        if [ ! -f "$$copy_dest" ] || [ -L "$$copy_dest" ]; then cp "$$@"; return; fi
+        copy_permissions=$$(stat -f %Lp "$$copy_dest")
+        copy_target=$$(mktemp "$$copy_dest.hsm-copy.XXXXXX")
+      else copy_target="$$copy_dest"; fi
+      if cp -c "$${@:1:$$(( $$# - 1 ))}" "$$copy_target" 2>/dev/null; then
+        chmod "$$copy_permissions" "$$copy_target"
+        touch "$$copy_target"
+        if [ "$$copy_target" != "$$copy_dest" ]; then mv -f "$$copy_target" "$$copy_dest"; fi
+      else rm -f "$$copy_target"; cp "$$@"; fi
+    };;
+  *) copy_file() { cp "$$@"; };;
+esac
+hsm_run=
+for r in "$$(awk -F'"' '$$2 == "runner" {print $$4}' ~/.local/lib/hsm/runtime.json 2>/dev/null)" "$$HSM_WORKSPACE/tools/hsm/target/release/hsm-run"; do
+  if [ -x "$$r" ] && "$$r" --runtime-info "$$HSM_WORKSPACE" 2>/dev/null | grep -q '"source_match":true'; then hsm_run=$$r; break; fi
+done
+if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run.py" >&2; exit 1; fi
+cargo=$$(command -v cargo || true)
+for c in "$$cargo" /opt/homebrew/opt/rustup/bin/cargo ~/.cargo/bin/cargo; do if [ -x "$$c" ]; then cargo=$$c; break; fi; done
+if [ ! -x "$$cargo" ]; then echo "cargo is not installed (https://rustup.rs)" >&2; exit 1; fi
+export HOME=~ PATH="$$(dirname "$$cargo"):$$PATH"
+O0=$$PWD/$(location out/purchases-program/purchases)
+cd "$$HSM_WORKSPACE/tools/hsm"
+CARGO_TARGET_DIR="$$PWD/target" "$$hsm_run" -- "$$cargo" build --release --locked --quiet --manifest-path ledger/Cargo.toml --bin purchases
+copy_file target/release/purchases "$$O0"
+""",
+)
+
+genrule(
+    name = "purchases",
+    srcs = [
+        ":out/purchases-program/purchases",
+        "hardware/ledger/purchases.evidence.json",
+        "hardware/ledger/purchases.md",
+        "hardware/ledger/purchases.orders.json",
+        "tools/hsm/ledger/catalog/evidence.json",
+        "tools/hsm/ledger/catalog/printing.json",
+        "tools/hsm/ledger/catalog/tools.json",
+        "tools/hsm/run-slots.defaults.json",
+        "tools/hsm/vendor/manifold-csg-sys/.cargo_vcs_info.json",
+        "tools/hsm/vendor/manifold-csg-sys/Cargo.toml.orig",
+        "tools/hsm/vendor/manifold-csg-sys/LICENSE-APACHE",
+        "tools/hsm/vendor/manifold-csg-sys/LICENSE-MIT",
+        "tools/hsm/vendor/manifold-csg-sys/README.md",
+        "tools/hsm/vendor/manifold-csg-sys/cache-version",
+        "tools/hsm/vendor/manifold-csg-sys/patches/README.md",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/CMakeLists.txt",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/diagnose.sh",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/__assertion_handler",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/__config_site",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/memory",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/mutex",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/libcxx-extras.cpp",
+    ],
+    outs = [
+        "out/purchases/hardware/ledger/purchases.export.csv",
+        "out/purchases/hardware/ledger/purchases.export.json",
+        "out/purchases/hardware/ledger/purchases.figures.json",
+        "out/purchases/hardware/ledger/purchases.md",
+    ],
+    cmd = """
+set -e
+case "$$(uname -s)" in
+  Darwin)
+    copy_mask=$$((8#$$(umask)))
+    copy_bits=("" x w wx r rx rw rwx)
+    copy_mode="u-$${copy_bits[$$((copy_mask >> 6 & 7))]},g-$${copy_bits[$$((copy_mask >> 3 & 7))]},o-$${copy_bits[$$((copy_mask & 7))]}"
+    copy_file() {
+      local copy_dest="$${!#}" copy_target copy_permissions="$$copy_mode"
+      if [ -e "$$copy_dest" ] || [ -L "$$copy_dest" ]; then
+        if [ ! -f "$$copy_dest" ] || [ -L "$$copy_dest" ]; then cp "$$@"; return; fi
+        copy_permissions=$$(stat -f %Lp "$$copy_dest")
+        copy_target=$$(mktemp "$$copy_dest.hsm-copy.XXXXXX")
+      else copy_target="$$copy_dest"; fi
+      if cp -c "$${@:1:$$(( $$# - 1 ))}" "$$copy_target" 2>/dev/null; then
+        chmod "$$copy_permissions" "$$copy_target"
+        touch "$$copy_target"
+        if [ "$$copy_target" != "$$copy_dest" ]; then mv -f "$$copy_target" "$$copy_dest"; fi
+      else rm -f "$$copy_target"; cp "$$@"; fi
+    };;
+  *) copy_file() { cp "$$@"; };;
+esac
+hsm_run=
+for r in "$$(awk -F'"' '$$2 == "runner" {print $$4}' ~/.local/lib/hsm/runtime.json 2>/dev/null)" "$$HSM_WORKSPACE/tools/hsm/target/release/hsm-run"; do
+  if [ -x "$$r" ] && "$$r" --runtime-info "$$HSM_WORKSPACE" 2>/dev/null | grep -q '"source_match":true'; then hsm_run=$$r; break; fi
+done
+if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run.py" >&2; exit 1; fi
+O0=$$PWD/$(location out/purchases/hardware/ledger/purchases.export.csv)
+O1=$$PWD/$(location out/purchases/hardware/ledger/purchases.export.json)
+O2=$$PWD/$(location out/purchases/hardware/ledger/purchases.figures.json)
+O3=$$PWD/$(location out/purchases/hardware/ledger/purchases.md)
+rm -rf work
+for f in $(SRCS); do
+  case $$f in
+    */bin/out/*/*) t=$${f#*/bin/out/}; t=$${t#*/};;
+    *) t=$$f;;
+  esac
+  mkdir -p "work/$$(dirname "$$t")"; copy_file -L "$$f" "work/$$t"
+done
+cd work
+"$$hsm_run" -- ./purchases > /dev/null
+copy_file hardware/ledger/purchases.export.csv "$$O0"
+copy_file hardware/ledger/purchases.export.json "$$O1"
+copy_file hardware/ledger/purchases.figures.json "$$O2"
+copy_file hardware/ledger/purchases.md "$$O3"
+""",
+)
+
+genrule(
     name = "installed-machine-program",
     srcs = [
         "hardware/assembly/scenes/model_export/component_order.rs",
@@ -13676,165 +13890,6 @@ cd .. && rm -rf work-bom-masses
 )
 
 genrule(
-    name = "ledger-totals",
-    srcs = [
-        "hardware/ledger/purchases.evidence.json",
-        "hardware/ledger/purchases.export.csv",
-        "hardware/ledger/purchases.md",
-        "hardware/ledger/purchases.orders.json",
-        "hardware/scripts/_build_data.py",
-        "hardware/scripts/_ledger_analysis.py",
-        "hardware/scripts/_ledger_rust.py",
-        "hardware/scripts/_ledger_totals.py",
-        "hardware/scripts/_realized.py",
-        "hardware/scripts/_rust_data.py",
-        "hardware/scripts/_rust_part.py",
-        "tools/docgen/__init__.py",
-        "tools/hsm/build-data/Cargo.toml",
-        "tools/hsm/build-data/src/artifact_cache.rs",
-        "tools/hsm/build-data/src/artifacts.rs",
-        "tools/hsm/build-data/src/assets.rs",
-        "tools/hsm/build-data/src/inventory.rs",
-        "tools/hsm/build-data/src/lib.rs",
-        "tools/hsm/build-data/src/main.rs",
-        "tools/hsm/build-data/src/payload.rs",
-        "tools/hsm/build-data/src/projection.rs",
-        "tools/hsm/build-data/src/publication.rs",
-        "tools/hsm/build-data/src/publication_archive.rs",
-        "tools/hsm/build-data/src/publication_state.rs",
-        "tools/hsm/build-data/src/publication_zlib.rs",
-        "tools/hsm/build-data/src/sources.rs",
-        "tools/hsm/build-data/src/support.rs",
-        "tools/hsm/build-data/src/surfaces.rs",
-        ":out/cargo-config/tools/hsm/cargo-config.json",
-        "tools/hsm/documents/Cargo.toml",
-        "tools/hsm/documents/src/interop.rs",
-        "tools/hsm/documents/src/interop/standard.rs",
-        "tools/hsm/documents/src/lib.rs",
-        "tools/hsm/documents/src/main.rs",
-        "tools/hsm/documents/src/python_checked.rs",
-        "tools/hsm/geometry/Cargo.toml",
-        "tools/hsm/geometry/src/lib.rs",
-        "tools/hsm/geometry/src/payload.rs",
-        "tools/hsm/geometry/src/queries.rs",
-        "tools/hsm/kernel/Cargo.toml",
-        "tools/hsm/kernel/src/boolean.rs",
-        "tools/hsm/kernel/src/build.rs",
-        "tools/hsm/kernel/src/dxf.rs",
-        "tools/hsm/kernel/src/edge.rs",
-        "tools/hsm/kernel/src/face.rs",
-        "tools/hsm/kernel/src/import.rs",
-        "tools/hsm/kernel/src/lib.rs",
-        "tools/hsm/kernel/src/mapped.rs",
-        "tools/hsm/kernel/src/mass.rs",
-        "tools/hsm/kernel/src/math.rs",
-        "tools/hsm/kernel/src/part.rs",
-        "tools/hsm/kernel/src/plane.rs",
-        "tools/hsm/kernel/src/profile.rs",
-        "tools/hsm/kernel/src/reads.rs",
-        "tools/hsm/kernel/src/round.rs",
-        "tools/hsm/kernel/src/round/rolled.rs",
-        "tools/hsm/kernel/src/rule.rs",
-        "tools/hsm/kernel/src/screw.rs",
-        "tools/hsm/kernel/src/sketch_hull.rs",
-        "tools/hsm/kernel/src/solid.rs",
-        "tools/hsm/kernel/src/spline.rs",
-        "tools/hsm/kernel/src/step.rs",
-        "tools/hsm/kernel/src/step/analytic.rs",
-        "tools/hsm/kernel/src/sweep.rs",
-        "tools/hsm/kernel/src/text.rs",
-        "tools/hsm/kernel/src/thru.rs",
-        "tools/hsm/kernel/src/topo.rs",
-        "tools/hsm/kernel/src/triangulate.rs",
-        "tools/hsm/kernel/src/write.rs",
-        "tools/hsm/ledger/Cargo.toml",
-        "tools/hsm/ledger/catalog/evidence.json",
-        "tools/hsm/ledger/catalog/printing.json",
-        "tools/hsm/ledger/catalog/tools.json",
-        "tools/hsm/ledger/src/analysis.rs",
-        "tools/hsm/ledger/src/analysis_export.rs",
-        "tools/hsm/ledger/src/analysis_summary.rs",
-        "tools/hsm/ledger/src/analysis_validate.rs",
-        "tools/hsm/ledger/src/bom.rs",
-        "tools/hsm/ledger/src/bom_sync.rs",
-        "tools/hsm/ledger/src/bom_sync_figures.rs",
-        "tools/hsm/ledger/src/build_time.rs",
-        "tools/hsm/ledger/src/evidence_main.rs",
-        "tools/hsm/ledger/src/labor.rs",
-        "tools/hsm/ledger/src/ledger_money.rs",
-        "tools/hsm/ledger/src/ledger_totals.rs",
-        "tools/hsm/ledger/src/main.rs",
-        "tools/hsm/ledger/src/printing.rs",
-        "tools/hsm/ledger/src/shared.rs",
-        "tools/hsm/ledger/src/tools.rs",
-    ] + glob(
-        [
-            "hardware/ledger/purchases.export.json",
-            "hardware/ledger/purchases.figures.json",
-        ],
-        allow_empty = True,
-    ),
-    outs = [
-        "out/ledger-totals/hardware/ledger/purchases.export.csv",
-        "out/ledger-totals/hardware/ledger/purchases.export.json",
-        "out/ledger-totals/hardware/ledger/purchases.figures.json",
-        "out/ledger-totals/hardware/ledger/purchases.md",
-    ],
-    tags = ["no-sandbox"],
-    cmd = """
-set -e
-case "$$(uname -s)" in
-  Darwin)
-    copy_mask=$$((8#$$(umask)))
-    copy_bits=("" x w wx r rx rw rwx)
-    copy_mode="u-$${copy_bits[$$((copy_mask >> 6 & 7))]},g-$${copy_bits[$$((copy_mask >> 3 & 7))]},o-$${copy_bits[$$((copy_mask & 7))]}"
-    copy_file() {
-      local copy_dest="$${!#}" copy_target copy_permissions="$$copy_mode"
-      if [ -e "$$copy_dest" ] || [ -L "$$copy_dest" ]; then
-        if [ ! -f "$$copy_dest" ] || [ -L "$$copy_dest" ]; then cp "$$@"; return; fi
-        copy_permissions=$$(stat -f %Lp "$$copy_dest")
-        copy_target=$$(mktemp "$$copy_dest.hsm-copy.XXXXXX")
-      else copy_target="$$copy_dest"; fi
-      if cp -c "$${@:1:$$(( $$# - 1 ))}" "$$copy_target" 2>/dev/null; then
-        chmod "$$copy_permissions" "$$copy_target"
-        touch "$$copy_target"
-        if [ "$$copy_target" != "$$copy_dest" ]; then mv -f "$$copy_target" "$$copy_dest"; fi
-      else rm -f "$$copy_target"; cp "$$@"; fi
-    };;
-  *) copy_file() { cp "$$@"; };;
-esac
-O0=$$PWD/$(location out/ledger-totals/hardware/ledger/purchases.export.csv)
-O1=$$PWD/$(location out/ledger-totals/hardware/ledger/purchases.export.json)
-O2=$$PWD/$(location out/ledger-totals/hardware/ledger/purchases.figures.json)
-O3=$$PWD/$(location out/ledger-totals/hardware/ledger/purchases.md)
-rm -rf work-ledger-totals
-for f in $(SRCS); do
-  case $$f in
-    */node_modules/*) continue;;
-    */bin/out/*/*) t=$${f#*/bin/out/}; t=$${t#*/};;
-    *) t=$$f;;
-  esac
-  mkdir -p "work-ledger-totals/$$(dirname "$$t")"; copy_file -L "$$f" "work-ledger-totals/$$t"
-done
-for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
-  if [ -d $$d ]; then mkdir -p work-ledger-totals/$$(dirname $$d); ln -sfn $$PWD/$$d work-ledger-totals/$$d; fi
-done
-for f in hardware/scripts/_run_lock.py hardware/scripts/_run_native.py hardware/scripts/_run_slots.py tools/hsm/run-slots.defaults.json tools/run-slots.mjs tools/run.py; do
-  mkdir -p work-ledger-totals/$$(dirname $$f); cp $$HSM_WORKSPACE/$$f work-ledger-totals/$$f
-done
-cd work-ledger-totals
-ln -sfn $$HSM_WORKSPACE/.cache .cache
-D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/scripts/_ledger_totals.py > /dev/null
-copy_file hardware/ledger/purchases.export.csv "$$O0"
-copy_file hardware/ledger/purchases.export.json "$$O1"
-copy_file hardware/ledger/purchases.figures.json "$$O2"
-copy_file hardware/ledger/purchases.md "$$O3"
-cd .. && rm -rf work-ledger-totals
-""",
-)
-
-genrule(
     name = "machine-time",
     srcs = [
         "hardware/ledger/bom.md",
@@ -15620,6 +15675,7 @@ filegroup(
         ":faucet-industrial-assembly",
         ":render-modern-tee",
         ":plumbing-scenes",
+        ":purchases",
         ":installed-machine",
         ":manifold-layout",
         ":asse-drain-adapter",
@@ -15671,7 +15727,6 @@ filegroup(
         ":funnel",
         ":funnel-frame",
         ":bom-masses",
-        ":ledger-totals",
         ":machine-time",
         ":flute-payload-cold-core",
         ":flute-payload-faucet",

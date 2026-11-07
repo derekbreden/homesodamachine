@@ -63,15 +63,16 @@ Purpose tags are `equipment_tooling`, `components`, `consumables_materials`, `en
 ## Generated views
 
 ```sh
-python3 hardware/scripts/_ledger_totals.py --write
-python3 hardware/scripts/_ledger_totals.py --report
-python3 hardware/scripts/_ledger_totals.py --audit
-python3 hardware/scripts/_ledger_totals.py --export-json
-python3 hardware/scripts/_ledger_totals.py --export-csv
-python3 hardware/scripts/_ledger_totals.py --check
+python3 tools/run.py -- cargo build --release --locked -j 2 --manifest-path tools/hsm/Cargo.toml -p hsm-ledger --bin purchases
+tools/hsm/target/release/purchases --write
+tools/hsm/target/release/purchases --report
+tools/hsm/target/release/purchases --audit
+tools/hsm/target/release/purchases --export-json
+tools/hsm/target/release/purchases --export-csv
+tools/hsm/target/release/purchases --check
 ```
 
-Only `--write` and the compatible bare invocation regenerate files. Inspection, export-to-stdout and check modes are read-only. `--ledger`, `--orders` and `--evidence` select explicit input paths. Regeneration writes `purchases.figures.json`, managed Markdown values, `purchases.export.json` and `purchases.export.csv`.
+Only `--write` and the bare invocation regenerate files. Inspection, export-to-stdout and check modes are read-only. `--ledger`, `--orders` and `--evidence` select explicit input paths. Regeneration writes `purchases.figures.json`, managed Markdown values, `purchases.export.json` and `purchases.export.csv`.
 
 JSON exposes `purchases`, `orders`, `events`, `allocations`, `sources`, `coverage`, `gaps`, `validation` and `summary`. It includes schema version, as-of date, reporting period, currency scales and a deterministic project-input fingerprint. Generated Markdown figures are excluded from the fingerprint. Private bank data and the raw merchant-account archive are not copied into exports.
 
