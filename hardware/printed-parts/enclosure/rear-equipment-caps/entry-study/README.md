@@ -23,10 +23,12 @@ The `regulator-entry-comparison` recipe in
 [pieces.json](../../trial-preparation/pieces.json) prints both receiver-and-cover
 pairs on Mark2. The receivers retain
 back-top's layer direction and print without cavity supports. The caps stand
-on their production axial ends. The plate uses a shared fine layer schedule
-for the receiver, caps and native smooth-timelapse tower; the ordinary
-production cap recipe retains its own layer schedule. Temperatures and
-localized cooling follow the production PET-GF recipe.
+on their production axial ends and use their ordinary production layer
+schedule. Fine layers belong only to the tilted receivers. The articles
+provide time away from each cover between layers, measured from the emitted
+paths separately for each article. The plate has no priming tower and uses
+traditional timelapse. Temperatures and localized cooling follow the
+production PET-GF recipe.
 
 The [prepared plate](prepared-print.json) records the native slice, cooling
 interval and submission state.

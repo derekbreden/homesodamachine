@@ -65,6 +65,13 @@ snap covers, and expects an isolated small cover to overheat without it. This
 is a printing constraint; it does not call for general part cooling or a
 change to the approved snap geometry.
 
+A batch uses the time spent on its other articles. Measure each small part's
+actual return intervals before adding a tower or an away-from-part wait.
+Preserve each article's production layer schedule; a receiver's fine layers
+do not require fine layers on the covers. The
+[regulator comparison](../enclosure/rear-equipment-caps/prints/2026-11-07-taller-tips-mark2/job.json)
+records the separate article schedules and return times on its tower-free plate.
+
 The `single-regulator-cap` recipe in
 [`pieces.json`](../enclosure/trial-preparation/pieces.json) uses native smooth
 timelapse and a prime tower to keep the hot nozzle away between cap layers,
