@@ -202,10 +202,10 @@ PRINT_UP = {"enclosure-back-top": -1.0, "funnel-mold/core": -1.0,
 #: entries mirror it. The nameplate and the rear labels bed on their backs, the
 #: Y0 plane, so their print's up is the box's +Y. `ledge` reads it. These follow the poses
 #: `trial-preparation/pieces.json` and
-#: `trial-preparation/labels.py` print them in.
+#: `trial-preparation/labels.rs` print them in.
 PRINT_TILT_X = {"faucet-shell-base": -15.0, "industrial-shell-base": -15.0,
                 "enclosure-pump-retainer": 90.0,
-                "nameplate-001": 90.0, "data-ring": 90.0,
+                "nameplate-001": 90.0,
                 **{f"rear-identification/rear-label-{which}": 90.0
                    for which in ("water", "co2", "drain", "carb", "flavor-a", "flavor-b")}}
 

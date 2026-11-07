@@ -793,10 +793,10 @@
       "material": "Polymaker Fiberon PET-GF15, white with black, blue, red or black",
       "external": {
         "command": [
-          "hardware/printed-parts/enclosure/trial-preparation/labels.py",
+          "tools/hsm/target/release/enclosure-labels",
           "--slice"
         ],
-        "reason": "Six rear chips, six tube collars and nameplate 0001 on four two-colour plates; each part's body and lettering come from its published STEP."
+        "reason": "Six rear chips, six tube collars and nameplate 0001 on four two-colour plates; each part's body and lettering are the two solids its generator writes beside its STEP."
       }
     },
     "funnel-cover": {

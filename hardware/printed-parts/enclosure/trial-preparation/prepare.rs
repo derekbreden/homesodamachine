@@ -456,7 +456,7 @@ fn prepare(root: &Path, name: &str, printer: Option<&str>, parts: Option<Vec<(Va
         let end = plate.settings.get("machine_end_gcode").and_then(Json::text).unwrap_or("").to_string();
         let mut out = String::new();
         let mut rest = end.as_str();
-        // {max_layer_z + 0.4} and {max_layer_z + 10} stop under the printer's ceiling.
+        // The end routine's two clearance lifts over the last layer stop under the printer's ceiling.
         while let Some(at) = rest.find("{max_layer_z") {
             out.push_str(&rest[..at]);
             let tail = &rest[at..];
@@ -778,7 +778,8 @@ fn prepare(root: &Path, name: &str, printer: Option<&str>, parts: Option<Vec<(Va
     let preparation = json!({
         "piece": name, "printer": printer, "connection_key": machine.get("connection_key").cloned().unwrap_or(json!(printer)),
         "nozzle": nozzle, "material": piece["material"], "bed_type": bed, "requested_z_trim_mm": z_trim,
-        // Bambu's Textured PEI compensation emits 0.02 mm under the request; other plates emit it.
+        // Bambu's Textured PEI compensation emits less than the request, by the amount here;
+        // other plates emit the request.
         "emitted_textured_trim_mm": ((z_trim - if bed == "Textured PEI Plate" { 0.02 } else { 0.0 }) * 1000.0).round() / 1000.0,
         "project": relative(&project, root), "project_sha256": file_sha(&project)?,
         "profile": relative(&profile_path, root), "profile_sha256": file_sha(&profile_path)?,
@@ -902,14 +903,22 @@ fn check_archive(root: &Path, piece: &Value) -> Result<&'static str> {
     Ok(if Some(file_sha(&path)?.as_str()) == piece["archive"]["sha256"].as_str() { "bound" } else { "CHANGED" })
 }
 
-/// A piece whose own preparer still runs as a separate command.
+/// A piece prepared by its own program: a Python script, run with the checkout's Python, or a
+/// program named by its path in the checkout.
 fn run_external(root: &Path, piece: &Value) -> Result<()> {
-    let command: Vec<String> = piece["external"]["command"].as_array().into_iter().flatten().filter_map(Value::as_str).map(|c| {
+    let mut command: Vec<String> = piece["external"]["command"].as_array().into_iter().flatten().filter_map(Value::as_str).map(|c| {
         if c.ends_with(".py") { root.join(c).display().to_string() } else { c.to_string() }
     }).collect();
-    let python = root.join("tools/cad-venv/bin/python");
-    println!("{} {}", python.display(), command.join(" "));
-    let status = std::process::Command::new(&python).args(&command).current_dir(root).status()?;
+    if command.is_empty() {
+        bail!("the external command is empty");
+    }
+    if !command[0].ends_with(".py") {
+        command[0] = root.join(&command[0]).display().to_string();
+    } else {
+        command.insert(0, root.join("tools/cad-venv/bin/python").display().to_string());
+    }
+    println!("{}", command.join(" "));
+    let status = std::process::Command::new(&command[0]).args(&command[1..]).current_dir(root).status()?;
     if !status.success() {
         bail!("{} exited {}", command.first().cloned().unwrap_or_default(), status.code().unwrap_or(-1));
     }

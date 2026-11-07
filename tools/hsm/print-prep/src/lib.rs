@@ -4,6 +4,7 @@
 
 pub mod cooling;
 pub mod derive;
+pub mod gcode;
 pub mod ids;
 pub mod json;
 pub mod mesh;
