@@ -401,6 +401,14 @@ RUST_STEPS = {
     "hardware/printed-parts/cold-core/prv-shroud/prv_shroud.rs":
         ("prv-shroud", "prv-shroud", "hardware/printed-parts/cold-core/prv-shroud"),
     "hardware/ledger/purchases.rs": ("ledger", "purchases", ""),
+    "hardware/printed-parts/enclosure/display-cover/display_cover.rs":
+        ("enclosure-components", "display-cover", "hardware/printed-parts/enclosure/display-cover"),
+    "hardware/printed-parts/enclosure/display-gasket/display_gasket.rs":
+        ("enclosure-components", "display-gasket", "hardware/printed-parts/enclosure/display-gasket"),
+    "hardware/printed-parts/enclosure/data-ring/data_ring.rs":
+        ("enclosure-components", "data-ring", "hardware/printed-parts/enclosure/data-ring"),
+    "hardware/printed-parts/enclosure/rear-identification/rear_identification.rs":
+        ("enclosure-components", "rear-identification", "hardware/printed-parts/enclosure/rear-identification"),
     "hardware/ledger/bom.rs": ("bom", "bom", ""),
     "hardware/ledger/machine_time.rs": ("ledger", "machine-time", ""),
     "hardware/manifold-layout/manifold_layout.rs":

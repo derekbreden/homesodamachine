@@ -33,7 +33,5 @@ wing lands, DATA/OVER alignment and plug/latch-approach readings. Its input hash
 that scope. Insertion force, pullout capacity and endurance require their own evidence;
 accepted nameplate and display results retain their identified print scope.
 
-`data_ring.py` exports the colored plate and lettering. The shared
-[`_data_wing_interface.py`](../enclosure/_data_wing_interface.py) calls the
-[nameplate construction](../enclosure/_nameplate_wing_interface.py) for both
-the plate and its enclosure pocket.
+[`data_ring.rs`](data_ring.rs) cuts the coloured plate and its lettering, its wings the wing
+nameplate's.
