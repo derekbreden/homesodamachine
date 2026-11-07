@@ -2,7 +2,6 @@ use super::*;
 mod common;
 mod faucet_book;
 mod fill_scene;
-mod hold_scene;
 mod ice_scene;
 mod insertion_actions;
 mod preflight;
@@ -11,9 +10,6 @@ pub fn documentation(name: &str) -> Option<&'static str> {
     match name {
         "fill_scene" => Some(
             "Render concentrate bottles, the closed funnel and a framed Fill screen from the current appliance.",
-        ),
-        "hold_scene" => Some(
-            "Draw the app's phone-at-the-faucet illustration from the faucet's source solids.\n\nThe fixed front camera looks down 15 degrees. The phone lies parallel to the\ndisplay, turned 34 degrees toward the hand. A continuous housing silhouette,\nthe cover's front bezel and aperture, the recessed glass, and the three tube\nmouths carry separate pen weights. The app supplies the template image's color.\n\nRegenerate with tools/cad-venv/bin/python tools/install-guide/hold_scene.py.\nAn optional output path writes a study without replacing the app asset.",
         ),
         "ice_scene" => Some("Model and render ice in the owner guides' frozen first-pour scene."),
         "insertion_actions" => {
@@ -35,7 +31,6 @@ pub fn documentation(name: &str) -> Option<&'static str> {
 pub fn source(name: &str) -> Option<&'static str> {
     match name {
         "fill_scene" => Some("tools/install-guide/fill_scene.py"),
-        "hold_scene" => Some("tools/install-guide/hold_scene.py"),
         "ice_scene" => Some("tools/install-guide/ice_scene.py"),
         "insertion_actions" => Some("tools/install-guide/insertion_actions.py"),
         "preflight" => Some("tools/install-guide/preflight.py"),
@@ -48,9 +43,6 @@ pub fn source(name: &str) -> Option<&'static str> {
 pub fn by_path(path: &str) -> Option<&'static str> {
     if path.ends_with("tools/install-guide/fill_scene.py") {
         return Some("fill_scene");
-    }
-    if path.ends_with("tools/install-guide/hold_scene.py") {
-        return Some("hold_scene");
     }
     if path.ends_with("tools/install-guide/ice_scene.py") {
         return Some("ice_scene");
@@ -75,7 +67,6 @@ pub fn by_path(path: &str) -> Option<&'static str> {
 pub fn initialize(rt: Runtime, e: Env, name: &str) -> Result<()> {
     match name {
         "fill_scene" => fill_scene::initialize(rt, e),
-        "hold_scene" => hold_scene::initialize(rt, e),
         "ice_scene" => ice_scene::initialize(rt, e),
         "insertion_actions" => insertion_actions::initialize(rt, e),
         "preflight" => preflight::initialize(rt, e),
@@ -88,7 +79,6 @@ pub fn initialize(rt: Runtime, e: Env, name: &str) -> Result<()> {
 pub fn entrypoint(rt: Runtime, e: Env, name: &str) -> Result<Val> {
     match name {
         "fill_scene" => fill_scene::entrypoint(rt, e),
-        "hold_scene" => hold_scene::entrypoint(rt, e),
         "ice_scene" => ice_scene::entrypoint(rt, e),
         "insertion_actions" => insertion_actions::entrypoint(rt, e),
         "preflight" => preflight::entrypoint(rt, e),

@@ -63,10 +63,7 @@ its PET-GF spool color with its raised word. The power scene carries the white f
 its black nameplate. The glass contains dark cola and rounded ice cubes packed from the base to
 just above the liquid, with a visible rim and no falling streams. The first-pour instructions
 call for a glass filled with ice. The illustration comes from
-`tools/install-guide/ice_scene.py`. `tools/install-guide/hold_scene.py` draws the app's picture
-of a phone held over the faucet display the way one is held at a card reader. Continuous
-silhouettes of the source solids define the housing and phone; finer lines distinguish the
-bezel, recessed glass and three tube ends. The output is the app's tintable vector asset.
+`tools/install-guide/ice_scene.py`.
 
 The concentrate bottle has a rounded PET body, tapered shoulders, an open ribbed neck, dark
 liquid and a wrapped COLA concentrate label. It pours from the front, tipped just past level
