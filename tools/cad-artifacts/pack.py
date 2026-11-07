@@ -178,6 +178,7 @@ BUNDLED_MESH_DIRS = (
     "hardware/printed-parts/fixtures/weld-rotator",
     "hardware/printed-parts/fixtures/water-inlet-jet",
     "hardware/printed-parts/asse-drain-adapter",
+    "hardware/printed-parts/fixtures/tee-valve-bow-trial",
 )
 
 #: Scene meshes the parts viewer opens as themselves. `web/public/js/viewer/parts.js` names `glb`
@@ -251,6 +252,7 @@ BUNDLED_PAYLOAD_DIRS = (
     "hardware/printed-parts/fixtures/water-inlet-jet",
     "hardware/printed-parts/asse-drain-adapter",
     "hardware/printed-parts/asse-straight-cuffs",
+    "hardware/printed-parts/fixtures/tee-valve-bow-trial",
 )
 
 # Explicit model payloads kept with the generated store inventory.

@@ -4395,6 +4395,122 @@ pub(super) fn globals(cx: &mut Context, module: &str) -> Result<Env> {
             e.insert("MOTOR_MOUNT_SQUARE".into(), json!(47.14));
             e.insert("MOTOR_MOUNT_HOLE_DIAMETER".into(), json!(5.2));
         }
+        "tee_valve_bow_trial" => {
+            e.insert("ROOT".into(), path(cx, ""));
+            e.insert("_repo_root".into(), path(cx, ""));
+            e.insert("_repo".into(), path(cx, ""));
+            if let Some(input) = cx.inputs.get(module).and_then(Value::as_object) {
+                e.extend(input.iter().map(|(k, v)| (k.clone(), v.clone())));
+            }
+            e.insert(
+                "HERE".into(),
+                path(cx, "hardware/printed-parts/fixtures/tee-valve-bow-trial"),
+            );
+            e.insert(
+                "_HERE".into(),
+                path(cx, "hardware/printed-parts/fixtures/tee-valve-bow-trial"),
+            );
+            e.insert(
+                "_here".into(),
+                path(
+                    cx,
+                    "hardware/printed-parts/fixtures/tee-valve-bow-trial/tee_valve_bow_trial.py",
+                ),
+            );
+            e.insert("_hw".into(), path(cx, "hardware"));
+            e.insert("HW".into(), path(cx, "hardware"));
+            e.insert("SLEEVE_FACE_SEPARATION".into(), json!(10.0));
+            e.insert("EXPOSED_TUBE_LENGTH".into(), json!(12.0));
+            e.insert("RELEASE_TRAVEL".into(), json!(3.15));
+            e.insert("STROKE_CEILING".into(), json!(4.62));
+            e.insert("TEE_COLLAR_RADIAL_SLIP".into(), json!(0.25));
+            e.insert(
+                "TEE_JOURNAL_RADIUS".into(),
+                b(
+                    "+",
+                    attr(cx, "tee_connector", "BARREL_R")?,
+                    g(&e, "TEE_COLLAR_RADIAL_SLIP"),
+                ),
+            );
+            e.insert("FRAME_X".into(), json!(70.0));
+            {
+                use anyhow::Context as _;
+                use hsm_valve_seat_numbers::tray;
+                let width = g(&e, "FRAME_X").as_f64().context("the trial card's width")?;
+                let stock = tray::stock(width, &[[0.0, 0.0]], hsm_enclosure_interface::fits::slip())
+                    .context("the trial tray has its seat")?;
+                e.insert("tray".into(), json!({"THICK": tray::THICK, "SEAT": tray::SEAT}));
+                e.insert(
+                    "tray_stock".into(),
+                    json!({"slab": stock.slab, "sockets": stock.sockets, "channels": stock.channels}),
+                );
+            }
+            e.insert("FRAME_Z_MIN".into(), u("-", json!(45.0)));
+            e.insert("FRAME_Z_MAX".into(), json!(66.5));
+            e.insert(
+                "VALVE_TRAY_FRAME_Y".into(),
+                u("-", attr_value(g(&e, "tray"), "THICK")),
+            );
+            e.insert(
+                "VALVE_TRAY_FRAME_Z".into(),
+                b(
+                    "+",
+                    g(&e, "SLEEVE_FACE_SEPARATION"),
+                    b("/", attr(cx, "beduan_solenoid", "port_length")?, json!(2.0)),
+                ),
+            );
+            e.insert(
+                "TEE_RUN_Y".into(),
+                b(
+                    "-",
+                    g(&e, "VALVE_TRAY_FRAME_Y"),
+                    b(
+                        "+",
+                        attr(cx, "beduan_solenoid", "port_center_z")?,
+                        attr_value(g(&e, "tray"), "SEAT"),
+                    ),
+                ),
+            );
+            e.insert(
+                "REST_DATUM_Y".into(),
+                b(
+                    "+",
+                    g(&e, "TEE_RUN_Y"),
+                    attr(cx, "tee_connector", "BRANCH_REACH")?,
+                ),
+            );
+            e.insert(
+                "TEE_RUN_CENTRE_Z".into(),
+                u("-", attr(cx, "tee_connector", "RUN_HALF")?),
+            );
+            e.insert("BACKING_FRONT_Y".into(), json!(0.0));
+            e.insert(
+                "TEE_GUIDE_FRONT_Y".into(),
+                b(
+                    "+",
+                    b(
+                        "+",
+                        b("+", g(&e, "TEE_RUN_Y"), g(&e, "STROKE_CEILING")),
+                        attr(cx, "tee_connector", "HALF_W")?,
+                    ),
+                    g(&e, "TEE_COLLAR_RADIAL_SLIP"),
+                ),
+            );
+            e.insert("TEE_GUIDE_HALF_X".into(), json!(16.0));
+            e.insert("TEE_GUIDE_HALF_Z".into(), json!(16.0));
+            e.insert(
+                "BACKING_T".into(),
+                b("-", g(&e, "REST_DATUM_Y"), g(&e, "BACKING_FRONT_Y")),
+            );
+            e.insert("GAUGE_T".into(), json!(2.0));
+            e.insert("GAUGE_BODY_X".into(), json!(22.0));
+            e.insert("GAUGE_BODY_Y".into(), json!(28.0));
+            e.insert("GAUGE_WINDOW_X0".into(), json!(4.0));
+            e.insert("GAUGE_WINDOW_Y0".into(), json!(19.0));
+            e.insert("GAUGE_WINDOW_W".into(), json!(7.0));
+            e.insert("MESH_TOLERANCE".into(), json!(0.02));
+            e.insert("MESH_ANGLE".into(), json!(0.15));
+        }
         "_bound" => {
             e.insert("ROOT".into(), path(cx, ""));
             e.insert("_repo_root".into(), path(cx, ""));
@@ -11021,6 +11137,607 @@ pub(super) fn call(
                     json!(360.0),
                 )],
             ));
+            Ok(Value::Null)
+        }
+        ("tee_valve_bow_trial", "_valve_inlet_world") => {
+            {
+                let temp1 = {
+                    let argv = vec![];
+                    let kwargs = json!({});
+                    call(cx, "beduan_solenoid", "inlet", argv, kwargs, None)?
+                };
+                {
+                    let temp2 = ix(temp1.clone(), json!(0));
+                    e.insert("x".into(), ix(temp2.clone(), json!(0)));
+                    e.insert("y".into(), ix(temp2.clone(), json!(1)));
+                    e.insert("z".into(), ix(temp2.clone(), json!(2)));
+                }
+                e.insert("_axis".into(), ix(temp1.clone(), json!(1)));
+            }
+            e.insert(
+                "z".into(),
+                b("+", g(&e, "z"), attr_value(g(&e, "tray"), "SEAT")),
+            );
+            return Ok(t(vec![
+                g(&e, "x"),
+                b("-", g(&e, "VALVE_TRAY_FRAME_Y"), g(&e, "z")),
+                b("+", g(&e, "VALVE_TRAY_FRAME_Z"), g(&e, "y")),
+            ]));
+            Ok(Value::Null)
+        }
+        ("tee_valve_bow_trial", "_tee_upper_face_world") => {
+            e.insert(
+                "travel".into(),
+                args.get(0)
+                    .cloned()
+                    .or_else(|| kwarg(&kwargs, "travel"))
+                    .unwrap_or_else(|| json!(0.0)),
+            );
+            return Ok(t(vec![
+                json!(0.0),
+                b("+", g(&e, "TEE_RUN_Y"), g(&e, "travel")),
+                b(
+                    "+",
+                    g(&e, "TEE_RUN_CENTRE_Z"),
+                    attr(cx, "tee_connector", "RUN_HALF")?,
+                ),
+            ]));
+            Ok(Value::Null)
+        }
+        ("tee_valve_bow_trial", "_circular_witness") => {
+            e.insert(
+                "chord".into(),
+                args.get(0)
+                    .cloned()
+                    .or_else(|| kwarg(&kwargs, "chord"))
+                    .unwrap_or_else(|| missing("chord")),
+            );
+            e.insert(
+                "arc".into(),
+                args.get(1)
+                    .cloned()
+                    .or_else(|| kwarg(&kwargs, "arc"))
+                    .unwrap_or_else(|| missing("arc")),
+            );
+            if truth(&u(
+                "not",
+                json!(
+                    compare("<", json!(0.0), g(&e, "chord"))
+                        && compare("<", g(&e, "chord"), g(&e, "arc"))
+                ),
+            )) {
+                bail!(
+                    "{}",
+                    string(&json!(
+                        [
+                            "a ".to_owned(),
+                            format_value(g(&e, "arc"), "g")?,
+                            " mm arc cannot span a ".to_owned(),
+                            format_value(g(&e, "chord"), "g")?,
+                            " mm chord".to_owned()
+                        ]
+                        .concat()
+                    ))
+                );
+            } else {
+            }
+            e.insert("lo".into(), b("/", g(&e, "chord"), json!(2.0)));
+            e.insert("hi".into(), json!(1000000.0));
+            for item in seq(builtin("range", vec![json!(100)])) {
+                e.insert("_".into(), item);
+                e.insert(
+                    "radius".into(),
+                    b("/", b("+", g(&e, "lo"), g(&e, "hi")), json!(2.0)),
+                );
+                e.insert(
+                    "length".into(),
+                    b(
+                        "*",
+                        b("*", json!(2.0), g(&e, "radius")),
+                        math_fn(
+                            "asin",
+                            vec![b("/", g(&e, "chord"), b("*", json!(2.0), g(&e, "radius")))],
+                        ),
+                    ),
+                );
+                if truth(&json!(compare(">", g(&e, "length"), g(&e, "arc")))) {
+                    e.insert("lo".into(), g(&e, "radius"));
+                } else {
+                    e.insert("hi".into(), g(&e, "radius"));
+                }
+            }
+            e.insert(
+                "radius".into(),
+                b("/", b("+", g(&e, "lo"), g(&e, "hi")), json!(2.0)),
+            );
+            e.insert(
+                "sag".into(),
+                b(
+                    "-",
+                    g(&e, "radius"),
+                    math_fn(
+                        "sqrt",
+                        vec![b(
+                            "-",
+                            b("*", g(&e, "radius"), g(&e, "radius")),
+                            b("**", b("/", g(&e, "chord"), json!(2.0)), json!(2)),
+                        )],
+                    ),
+                ),
+            );
+            return Ok(t(vec![g(&e, "radius"), g(&e, "sag")]));
+            Ok(Value::Null)
+        }
+        ("tee_valve_bow_trial", "_readings") => {
+            e.insert("inlet".into(), {
+                let argv = vec![];
+                let kwargs = json!({});
+                call(
+                    cx,
+                    "tee_valve_bow_trial",
+                    "_valve_inlet_world",
+                    argv,
+                    kwargs,
+                    Some(&e),
+                )?
+            });
+            e.insert("tee_face".into(), {
+                let argv = vec![];
+                let kwargs = json!({});
+                call(
+                    cx,
+                    "tee_valve_bow_trial",
+                    "_tee_upper_face_world",
+                    argv,
+                    kwargs,
+                    Some(&e),
+                )?
+            });
+            e.insert(
+                "expected".into(),
+                t(vec![
+                    json!(0.0),
+                    g(&e, "TEE_RUN_Y"),
+                    g(&e, "SLEEVE_FACE_SEPARATION"),
+                ]),
+            );
+            if truth(&builtin(
+                "any",
+                vec![{
+                    let mut e = e.clone();
+                    let mut temp3 = Vec::new();
+                    for item in seq(builtin("zip", vec![g(&e, "inlet"), g(&e, "expected")])) {
+                        {
+                            let temp4 = item;
+                            e.insert("a".into(), ix(temp4.clone(), json!(0)));
+                            e.insert("b".into(), ix(temp4.clone(), json!(1)));
+                        }
+                        temp3.push(json!(compare(
+                            ">",
+                            builtin("abs", vec![b("-", g(&e, "a"), g(&e, "b"))]),
+                            json!(1e-09)
+                        )));
+                    }
+                    json!(temp3)
+                }],
+            )) {
+                bail!(
+                    "{}",
+                    string(&json!(
+                        [
+                            "valve inlet is ".to_owned(),
+                            format_value(g(&e, "inlet"), "")?,
+                            ", expected ".to_owned(),
+                            format_value(g(&e, "expected"), "")?
+                        ]
+                        .concat()
+                    ))
+                );
+            } else {
+            }
+            if truth(&builtin(
+                "any",
+                vec![{
+                    let mut e = e.clone();
+                    let mut temp5 = Vec::new();
+                    for item in seq(builtin(
+                        "zip",
+                        vec![
+                            g(&e, "tee_face"),
+                            t(vec![json!(0.0), g(&e, "TEE_RUN_Y"), json!(0.0)]),
+                        ],
+                    )) {
+                        {
+                            let temp6 = item;
+                            e.insert("a".into(), ix(temp6.clone(), json!(0)));
+                            e.insert("b".into(), ix(temp6.clone(), json!(1)));
+                        }
+                        temp5.push(json!(compare(
+                            ">",
+                            builtin("abs", vec![b("-", g(&e, "a"), g(&e, "b"))]),
+                            json!(1e-09)
+                        )));
+                    }
+                    json!(temp5)
+                }],
+            )) {
+                bail!(
+                    "{}",
+                    string(&json!(
+                        [
+                            "tee upper face is ".to_owned(),
+                            format_value(g(&e, "tee_face"), "")?,
+                            ", expected a Z=0 datum".to_owned()
+                        ]
+                        .concat()
+                    ))
+                );
+            } else {
+            }
+            e.insert(
+                "collar_near".into(),
+                b(
+                    "+",
+                    b("+", g(&e, "TEE_RUN_Y"), g(&e, "STROKE_CEILING")),
+                    attr(cx, "tee_connector", "CAP_NEAR")?,
+                ),
+            );
+            e.insert(
+                "engagement".into(),
+                b(
+                    "-",
+                    g(&e, "REST_DATUM_Y"),
+                    builtin(
+                        "max",
+                        vec![g(&e, "TEE_GUIDE_FRONT_Y"), g(&e, "collar_near")],
+                    ),
+                ),
+            );
+            if truth(&json!(compare("<=", g(&e, "engagement"), json!(0.0)))) {
+                bail!(
+                    "{}",
+                    string(&json!(
+                        "the tee branch collar has left its guide before the stroke ceiling"
+                    ))
+                );
+            } else {
+            }
+            e.insert("readings".into(), json!([]));
+            for item in seq(t(vec![
+                t(vec![json!("rest"), json!(0.0)]),
+                t(vec![json!("release"), g(&e, "RELEASE_TRAVEL")]),
+                t(vec![json!("ceiling"), g(&e, "STROKE_CEILING")]),
+            ])) {
+                {
+                    let temp7 = item;
+                    e.insert("label".into(), ix(temp7.clone(), json!(0)));
+                    e.insert("travel".into(), ix(temp7.clone(), json!(1)));
+                }
+                e.insert(
+                    "chord".into(),
+                    math_fn(
+                        "dist",
+                        vec![g(&e, "inlet"), {
+                            let argv = vec![g(&e, "travel")];
+                            let kwargs = json!({});
+                            call(
+                                cx,
+                                "tee_valve_bow_trial",
+                                "_tee_upper_face_world",
+                                argv,
+                                kwargs,
+                                Some(&e),
+                            )?
+                        }],
+                    ),
+                );
+                {
+                    let temp8 = {
+                        let argv = vec![g(&e, "chord"), g(&e, "EXPOSED_TUBE_LENGTH")];
+                        let kwargs = json!({});
+                        call(
+                            cx,
+                            "tee_valve_bow_trial",
+                            "_circular_witness",
+                            argv,
+                            kwargs,
+                            Some(&e),
+                        )?
+                    };
+                    e.insert("radius".into(), ix(temp8.clone(), json!(0)));
+                    e.insert("sag".into(), ix(temp8.clone(), json!(1)));
+                }
+                {
+                    let item = t(vec![
+                        g(&e, "label"),
+                        g(&e, "travel"),
+                        g(&e, "chord"),
+                        g(&e, "radius"),
+                        g(&e, "sag"),
+                    ]);
+                    mutate(&mut e, "readings", "append", item);
+                }
+            }
+            return Ok(t(vec![g(&e, "engagement"), g(&e, "readings")]));
+            Ok(Value::Null)
+        }
+        ("tee_valve_bow_trial", "numbers") => {
+            {
+                let temp9 = {
+                    let argv = vec![];
+                    let kwargs = json!({});
+                    call(
+                        cx,
+                        "tee_valve_bow_trial",
+                        "_readings",
+                        argv,
+                        kwargs,
+                        Some(&e),
+                    )?
+                };
+                e.insert("engagement".into(), ix(temp9.clone(), json!(0)));
+                e.insert("_".into(), ix(temp9.clone(), json!(1)));
+            }
+            return Ok(object(vec![
+                (
+                    json!("backing"),
+                    json!([
+                        (b("/", u("-", g(&e, "FRAME_X")), json!(2))),
+                        (b("/", g(&e, "FRAME_X"), json!(2))),
+                        (g(&e, "BACKING_FRONT_Y")),
+                        (g(&e, "REST_DATUM_Y")),
+                        (g(&e, "FRAME_Z_MIN")),
+                        (g(&e, "FRAME_Z_MAX"))
+                    ]),
+                ),
+                (
+                    json!("guide"),
+                    json!([
+                        (u("-", g(&e, "TEE_GUIDE_HALF_X"))),
+                        (g(&e, "TEE_GUIDE_HALF_X")),
+                        (g(&e, "TEE_GUIDE_FRONT_Y")),
+                        (g(&e, "REST_DATUM_Y")),
+                        (b("-", g(&e, "TEE_RUN_CENTRE_Z"), g(&e, "TEE_GUIDE_HALF_Z"))),
+                        (b("+", g(&e, "TEE_RUN_CENTRE_Z"), g(&e, "TEE_GUIDE_HALF_Z")))
+                    ]),
+                ),
+                (json!("tray"), g(&e, "tray_stock")),
+                (
+                    json!("valve_frame"),
+                    json!([
+                        (json!(0.0)),
+                        (g(&e, "VALVE_TRAY_FRAME_Y")),
+                        (g(&e, "VALVE_TRAY_FRAME_Z"))
+                    ]),
+                ),
+                (
+                    json!("valve_seat_shift"),
+                    json!([
+                        (json!(0.0)),
+                        (json!(0.0)),
+                        (attr_value(g(&e, "tray"), "SEAT"))
+                    ]),
+                ),
+                (
+                    json!("journal"),
+                    json!([
+                        (g(&e, "TEE_JOURNAL_RADIUS")),
+                        (b("-", g(&e, "TEE_GUIDE_FRONT_Y"), json!(1.0))),
+                        (b(
+                            "+",
+                            b("-", g(&e, "REST_DATUM_Y"), g(&e, "TEE_GUIDE_FRONT_Y")),
+                            json!(2.0)
+                        )),
+                        (g(&e, "TEE_RUN_CENTRE_Z"))
+                    ]),
+                ),
+                (
+                    json!("print_shift"),
+                    json!([
+                        (b("/", g(&e, "FRAME_X"), json!(2.0))),
+                        (u("-", g(&e, "FRAME_Z_MIN"))),
+                        (g(&e, "REST_DATUM_Y"))
+                    ]),
+                ),
+                (
+                    json!("gauge_stock"),
+                    json!([
+                        (json!([
+                            (json!(0.0)),
+                            (g(&e, "GAUGE_BODY_X")),
+                            (json!(0.0)),
+                            (g(&e, "GAUGE_BODY_Y")),
+                            (json!(0.0)),
+                            (g(&e, "GAUGE_T"))
+                        ])),
+                        (json!([
+                            (g(&e, "GAUGE_BODY_X")),
+                            (b("+", g(&e, "GAUGE_BODY_X"), g(&e, "RELEASE_TRAVEL"))),
+                            (json!(2.0)),
+                            (json!(7.0)),
+                            (json!(0.0)),
+                            (g(&e, "GAUGE_T"))
+                        ])),
+                        (json!([
+                            (g(&e, "GAUGE_BODY_X")),
+                            (b("+", g(&e, "GAUGE_BODY_X"), g(&e, "STROKE_CEILING"))),
+                            (json!(10.0)),
+                            (json!(18.0)),
+                            (json!(0.0)),
+                            (g(&e, "GAUGE_T"))
+                        ]))
+                    ]),
+                ),
+                (
+                    json!("gauge_window"),
+                    json!([
+                        (g(&e, "GAUGE_WINDOW_X0")),
+                        (b("+", g(&e, "GAUGE_WINDOW_X0"), g(&e, "EXPOSED_TUBE_LENGTH"))),
+                        (g(&e, "GAUGE_WINDOW_Y0")),
+                        (b("+", g(&e, "GAUGE_WINDOW_Y0"), g(&e, "GAUGE_WINDOW_W"))),
+                        (u("-", json!(1.0))),
+                        (b("+", g(&e, "GAUGE_T"), json!(1.0)))
+                    ]),
+                ),
+                (json!("tee_step"), g(&e, "tee_step")),
+                (json!("valve_step"), g(&e, "valve_step")),
+                (
+                    json!("tee_translation"),
+                    json!([
+                        (json!(0.0)),
+                        (g(&e, "TEE_RUN_Y")),
+                        (g(&e, "TEE_RUN_CENTRE_Z"))
+                    ]),
+                ),
+                (
+                    json!("travels"),
+                    json!([
+                        (json!(0.0)),
+                        (g(&e, "RELEASE_TRAVEL")),
+                        (g(&e, "STROKE_CEILING"))
+                    ]),
+                ),
+                (json!("collar_engagement"), g(&e, "engagement")),
+                (
+                    json!("tee_checks"),
+                    object(vec![
+                        (
+                            json!("tolerance"),
+                            attr(cx, "tee_connector", "MEASURE_TOL")?,
+                        ),
+                        (
+                            json!("bounds"),
+                            json!([
+                                (attr(cx, "tee_connector", "RUN_SPAN")?),
+                                (attr(cx, "tee_connector", "RUN_HALF")?),
+                                (attr(cx, "tee_connector", "BRANCH_REACH")?),
+                                (attr(cx, "tee_connector", "COLLAR_ENVELOPE_D")?)
+                            ]),
+                        ),
+                        (
+                            json!("bands"),
+                            json!([
+                                ({
+                                    let mut temp10 = vec![];
+                                    temp10.push(json!(0.0));
+                                    temp10.extend(seq(attr(
+                                        cx,
+                                        "tee_connector",
+                                        "RUN_COLLAR_BAND",
+                                    )?));
+                                    temp10.push(attr(cx, "tee_connector", "BARREL_R")?);
+                                    json!(temp10)
+                                }),
+                                ({
+                                    let mut temp11 = vec![];
+                                    temp11.push(json!(1.0));
+                                    temp11.extend(seq(attr(
+                                        cx,
+                                        "tee_connector",
+                                        "BRANCH_COLLAR_BAND",
+                                    )?));
+                                    temp11.push(attr(cx, "tee_connector", "BARREL_R")?);
+                                    json!(temp11)
+                                }),
+                                ({
+                                    let mut temp12 = vec![];
+                                    temp12.push(json!(1.0));
+                                    temp12.extend(seq(attr(
+                                        cx,
+                                        "tee_connector",
+                                        "BRANCH_ROOT_BAND",
+                                    )?));
+                                    temp12.push(attr(cx, "tee_connector", "ARM_R")?);
+                                    json!(temp12)
+                                })
+                            ]),
+                        ),
+                        (
+                            json!("pressed_branch"),
+                            json!([
+                                (attr(cx, "tee_connector", "BRANCH_FIXED_END")?),
+                                (attr(cx, "tee_connector", "BRANCH_COLLET_TRAVEL")?),
+                                (attr(cx, "tee_connector", "BRANCH_PRESSED_REACH")?)
+                            ]),
+                        ),
+                    ]),
+                ),
+                (json!("black"), json!(seq(g(&e, "black_color")))),
+                (json!("tee_color"), json!(seq(g(&e, "tee_color")))),
+                (json!("valve_color"), json!(seq(g(&e, "valve_color")))),
+            ]));
+            Ok(Value::Null)
+        }
+        ("tee_valve_bow_trial", "_report") => {
+            {
+                let temp13 = {
+                    let argv = vec![];
+                    let kwargs = json!({});
+                    call(
+                        cx,
+                        "tee_valve_bow_trial",
+                        "_readings",
+                        argv,
+                        kwargs,
+                        Some(&e),
+                    )?
+                };
+                e.insert("engagement".into(), ix(temp13.clone(), json!(0)));
+                e.insert("readings".into(), ix(temp13.clone(), json!(1)));
+            }
+            let _ = {
+                let message = vec![string(&json!(
+                    [
+                        "sleeve faces: ".to_owned(),
+                        format_value(g(&e, "SLEEVE_FACE_SEPARATION"), ".2f")?,
+                        " mm apart; tee journal Ø".to_owned(),
+                        format_value(b("*", json!(2.0), g(&e, "TEE_JOURNAL_RADIUS")), ".3f")?,
+                        " mm; ".to_owned(),
+                        format_value(g(&e, "engagement"), ".3f")?,
+                        " mm collar engagement at ceiling".to_owned()
+                    ]
+                    .concat()
+                ))]
+                .join(" ");
+                cx.messages.push(message);
+                Value::Null
+            };
+            for item in seq(g(&e, "readings")) {
+                {
+                    let temp14 = item;
+                    e.insert("label".into(), ix(temp14.clone(), json!(0)));
+                    e.insert("travel".into(), ix(temp14.clone(), json!(1)));
+                    e.insert("chord".into(), ix(temp14.clone(), json!(2)));
+                    e.insert("radius".into(), ix(temp14.clone(), json!(3)));
+                    e.insert("sag".into(), ix(temp14.clone(), json!(4)));
+                }
+                let _ = {
+                    let message = vec![string(&json!(
+                        [
+                            "  ".to_owned(),
+                            format_value(g(&e, "label"), "7s")?,
+                            " Y=".to_owned(),
+                            format_value(g(&e, "travel"), "4.2f")?,
+                            " mm  chord=".to_owned(),
+                            format_value(g(&e, "chord"), "8.5f")?,
+                            " mm  12 mm circular witness R=".to_owned(),
+                            format_value(g(&e, "radius"), "8.5f")?,
+                            ", sag=".to_owned(),
+                            format_value(g(&e, "sag"), "8.5f")?,
+                            " mm".to_owned()
+                        ]
+                        .concat()
+                    ))]
+                    .join(" ");
+                    cx.messages.push(message);
+                    Value::Null
+                };
+            }
+            let _ = {
+                let message = vec![string(&json!("tee-valve bow trial selftest OK"))].join(" ");
+                cx.messages.push(message);
+                Value::Null
+            };
             Ok(Value::Null)
         }
         ("_bound", "exact") => {

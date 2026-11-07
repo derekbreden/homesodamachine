@@ -142,6 +142,7 @@ fn faucet() -> Result<Faucet> {
 /// pilot at the box's west flank, plain and under its flutes.
 fn relay(above: &AboveCore, west: f64) -> Result<Relay> {
     use bought::*;
+    use hsm_enclosure_numbers::rear_wall::hosts::{PILOT_DEPTH, RELAY_SETBACK};
     let x = ["relay-1", "relay-2"]
         .iter()
         .map(|name| Ok(above.parts.get(*name).with_context(|| format!("the above-core layout places no {name}"))?.translation_mm[0]))

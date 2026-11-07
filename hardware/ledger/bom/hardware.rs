@@ -1,8 +1,7 @@
 //! The hardware the BOM counts that no part's numbers count: the screws the supply, the relays
 //! and the C14 inlet take, the relay board and the short insert, the washer under each inlet
 //! screw, the compressor plate's hole inset, reservoir A's and the cap's ties, and the seam rods
-//! and the funnel frame's screws. Back-top's relay inserts stand back and their pilots run as its
-//! rear wall's `hosts` cuts them.
+//! and the funnel frame's screws.
 
 /// The supply's ceiling screws, one through each of its mounting ears.
 pub const PSU_SCREWS: usize = 4;
@@ -14,11 +13,6 @@ pub const RELAY_BOARD: f64 = 1.5;
 
 /// The short RX-M3S insert each relay screw threads into.
 pub const SHORT_INSERT: f64 = 4.0;
-
-/// How far back-top stands each relay insert's face behind its board's hole, and how deep it
-/// bores each wall insert's pilot.
-pub const RELAY_SETBACK: f64 = 2.5;
-pub const PILOT_DEPTH: f64 = 5.0;
 
 /// The C14 inlet's flange screws, one in each ear, their length, and the washer each bears on
 /// over the moulding's countersink.

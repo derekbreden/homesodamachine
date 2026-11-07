@@ -357,7 +357,8 @@ ELSEWHERE = ("tools/", "hardware/pcb/pcba/",
              'hardware/printed-parts/fixtures/valve-socket-fit/',  # retained historical study geometry
              'hardware/printed-parts/zone-c/funnel/cradle-trial/',  # retained historical study geometry
              "hardware/assembly/scenes/render_scenes.py",
-             "hardware/manifold-layout/enclosure_assembly.py",  # the old machine pipeline; the BOM and topology syncs import it
+             "hardware/manifold-layout/enclosure_assembly.py",  # the old machine pipeline; hand-run tools import it
+             "hardware/scripts/flute_payload.py",  # payload cutting for hand-run tools; each piece's program cuts its own
              "hardware/scripts/check_faucet_geometry.py",
              "hardware/printed-parts/enclosure/pump-dock/print-preparation/",
              "hardware/printed-parts/enclosure/enclosure/heat-set-review/print_regions.py",
@@ -694,22 +695,6 @@ def main() -> int:
 
     files = _tracked()
 
-    # A GENERATOR `SPLIT_GENERATORS` WRITES OVER CANNOT BE READ HERE. `inventory` builds the
-    # card wrapper's entry out of the SOURCE's trace and drops whatever stands under the
-    # wrapper's own name, so a reading taken of the wrapper lands in `graph.json`, survives
-    # until the next `inventory()`, and is gone — the run costs minutes and reports what it
-    # read. Named at the entrance, because the drop happens somewhere else.
-    from inventory import SPLIT_GENERATORS
-    written_from = {wrapper: source
-                    for source, wrappers in SPLIT_GENERATORS.items() for wrapper in wrappers}
-    for gen in args.gen:
-        if gen in written_from:
-            print(f"  {gen}'s entry is written from {written_from[gen]}, and a reading of it "
-                  f"here is dropped.\n  Read that one instead:\n"
-                  f"    tools/cad-venv/bin/python tools/bazel/trace_inputs.py "
-                  f"{written_from[gen]}", file=sys.stderr)
-            return 1
-
     # A BARE SWEEP RE-TRACES EVERY GENERATOR SERIALLY, AND THAT IS OVER AN HOUR. It is not the
     # remedy for a target that declared too few inputs — the remedy is the generators the change
     # reached, and `check_declared_imports.py` and `gen_build.py --check` each name those where
@@ -738,10 +723,7 @@ def main() -> int:
             file=sys.stderr)
         return 2
 
-    # A SWEEP READS THE SOURCES AND LEAVES THE WRAPPERS, for the reason the refusal above gives:
-    # `inventory` writes a wrapper's entry out of its source's reading and drops the wrapper's
-    # own. The flute-payload wrappers take their reading from their shared source.
-    gens = args.gen or [gen for gen in _generators(files) if gen not in written_from]
+    gens = args.gen or _generators(files)
 
     # A LINE PER GENERATOR, AS IT LANDS. On the runner stdout is a pipe and Python holds the
     # lines until a buffer fills, so a run killed at its step's deadline shows every reading it

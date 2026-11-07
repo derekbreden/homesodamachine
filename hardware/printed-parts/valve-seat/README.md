@@ -8,8 +8,8 @@ paths provide their positive retention.
     tools/cad-venv/bin/python hardware/printed-parts/valve-seat/valve_seat.py
 
 [`numbers.rs`](numbers.rs) holds the seat's numbers, the tray of seats and the Beduan figures
-they are cut to. `valve_seat.py` serves them through part-data, and the enclosure's valve trays and
-the back-top's flank plinths take them from there too.
+they are cut to. `valve_seat.py` serves them through part-data, and the enclosure's valve trays,
+the back-top's flank plinths and the tee valve bow trial take them from there too.
 
 `build_sockets()` supplies the four cuts for a supporting face. The enclosure's
 [valve trays](/hardware/printed-parts/enclosure/valve-tray/README.md) use these holes

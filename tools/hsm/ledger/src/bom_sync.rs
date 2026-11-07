@@ -510,7 +510,8 @@ fn figures(input: &Inputs, casting: &Value) -> Result<(Variables, Variables)> {
     put("SODA_FAUCET_FT", fmt(input.faucet.soda_cut / FOOT, ".2f"));
 
     // labor.md's assembly: every insert pressed and every screw driven.
-    let m3_screws = reservoir_inserts + touchflo + shelf + condenser + NAMEPLATE_SCREWS + DISPLAY_COVER_SCREWS + c14_screws + funnel;
+    let m3_screws = reservoir_inserts + touchflo + shelf + condenser + NAMEPLATE_SCREWS + DISPLAY_COVER_SCREWS
+        + STATUS_PLATE_SCREWS + c14_screws + funnel;
     let m5_screws = floor + seam_rods + clamp_inserts;
     let mut labor = Variables::new();
     for (name, value) in [
@@ -528,6 +529,7 @@ fn figures(input: &Inputs, casting: &Value) -> Result<(Variables, Variables)> {
         ("SHELF_SCREWS", shelf),
         ("COND_SCREWS", condenser),
         ("DISPLAY_COVER_SCREWS", DISPLAY_COVER_SCREWS),
+        ("STATUS_PLATE_SCREWS", STATUS_PLATE_SCREWS),
         ("C14_SCREWS", c14_screws),
         ("ROOF_CLOSURE_SCREWS", funnel),
         ("NAMEPLATE_SCREWS", NAMEPLATE_SCREWS),

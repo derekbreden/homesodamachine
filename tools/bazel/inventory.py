@@ -179,53 +179,6 @@ IMPLICIT_SOLIDS = {
 # Outputs whose bytes cross between build actions without becoming public artifacts.
 ACTION_INTERMEDIATE = frozenset()
 
-# ONE RUN THAT DOES TWO SEPARABLE JOBS IS TWO RULES, and each wrapper below is the real script
-# an action runs for its half. The reading is still one traced run of the source; what a wrapper
-# takes out of it is a pair of predicates — which writes are its, and which reads.
-#
-# A direct scene-render run can produce both media. The enclosure-assembly producer owns the
-# public GLBs now, cutting them from the named machine it already has in memory. This synthetic
-# card wrapper retains only the browser-driven PNG/JSON outputs from the shared trace, and every
-# read that run took.
-#
-# The shared presentation writer supplies the faucet's rule. The enclosure's and the cold core's
-# Rust producers own their presentations without a separate normal co-writer.
-# Each shared rule takes only its tree's payloads and inputs, plus common helper modules.
-_FLUTE_ROOTS = {
-}
-# Generator-owned enclosure and cap surfaces remain outside every wrapper's shared inputs.
-_FLUTE_TREES = tuple(sorted({r for roots in _FLUTE_ROOTS.values() for r in roots}
-                           | {"hardware/printed-parts/enclosure/enclosure/",
-                              "hardware/printed-parts/faucet/faucet-shell/",
-                              "hardware/printed-parts/faucet/faucet-display-cover/",
-                              "hardware/printed-parts/faucet/above-counter-plate/",
-                              "hardware/printed-parts/faucet/above-counter-gasket/",
-                              "hardware/printed-parts/cold-core/foam-shell/",
-                              "hardware/printed-parts/cold-core/foam-cap/",
-                              "hardware/printed-parts/faucet/asse-vent-seals/"}))
-# Sources inside the trees above that every wrapper reads besides its own tree's. The print
-# payload program the wrappers share is outside them, in tools/hsm/print-payload.
-_FLUTE_SHARED_SOURCES = frozenset()
-
-
-def _one_tree(roots: tuple) -> tuple:
-    return (lambda path: _native("inventory-one-tree", path=path, roots=roots, read=False),
-            lambda path: _native("inventory-one-tree", path=path, roots=roots, read=True))
-
-
-#: `{source: {wrapper: (takes_write, takes_read)}}`. A wrapper is a real script with its own
-#: `__main__`; its graph entry is written from the source's trace and whatever a reading of the
-#: wrapper itself left behind is dropped — `trace_inputs.main` says so at its entrance.
-SPLIT_GENERATORS = {
-    "hardware/scripts/flute_payload.py": {
-        wrapper: _one_tree(roots) for wrapper, roots in _FLUTE_ROOTS.items()
-    },
-}
-
-
-def _split_generators(graph: dict) -> dict:
-    return _native("inventory-split", graph=graph)
-
 #: ONE WALK ANSWERS WHICH `.step` ON THIS DISK IS A GENERATED SOLID, and `pack.py` is where it
 #: lives — `pack.py --check` holds that same walk against the outputs `graph.json` declares, so
 #: the solids a bundle ships and the solids an action is filled from are one reading. Its
@@ -271,8 +224,7 @@ def _native_config():
     """Marshal the authored input groups and their Python container types."""
     return dict(runtime_reads=list(RUNTIME_READS), rust_runtime_reads=list(RUST_RUNTIME_READS),
                 inert_suffixes=BUILD_INERT_SUFFIXES, inert_basenames=list(BUILD_INERT_BASENAMES),
-                implicit_solids=IMPLICIT_SOLIDS, flute_roots=_FLUTE_ROOTS,
-                flute_trees=_FLUTE_TREES, flute_shared=list(_FLUTE_SHARED_SOURCES))
+                implicit_solids=IMPLICIT_SOLIDS)
 
 
 def _publication_config(pack):
