@@ -231,10 +231,14 @@
     "earlier_observed_idle_utc": "2026-11-07T19:19:12+00:00"
   },
   "physical_result": {
-    "status": "awaiting physical review",
+    "status": "user reports print turned out fine",
+    "reported_by": "Derek",
+    "source_quote": "The print turned out fine, but well shoot, I thought we had made all the tips pointier, what happened?",
+    "scope": "Successful single-cover print with this archive and its tower interval; no separate strength or endurance result stated.",
+    "tip_feedback": "Printed regulator lead-in is shorter than the pointed-tip standard requested for every family.",
     "user_constraint": "Batch time between layers is necessary for the established PET-GF recipe.",
     "prior_single_cap_failure_observed": false,
-    "selected_interval_status": "First physical attempt; no claimed qualified minimum cooling time."
+    "selected_interval_status": "Successful reported finish for this recorded cap and process; no universal thermal minimum established."
   },
   "research": [
     {

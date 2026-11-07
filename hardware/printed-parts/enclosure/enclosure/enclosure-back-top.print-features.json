@@ -49,7 +49,7 @@
     }
   ],
   "producer": "enclosure-back-top",
-  "source_stl_sha256": "a8125c23949355845f4236bd0e59345298f864dccbbadea449c7bdbf6f6380c6",
+  "source_stl_sha256": "33194abee2c358ee9412ac2d1819bbc3ea2ec1f46d9bdb1abd6646a550f251f4",
   "support_free_regions": [
     {
       "blocking_bounds_source_mm": [
