@@ -1334,6 +1334,28 @@ dependencies = [
 ]
 
 [[package]]
+name = "hsm-reservoir"
+version = "0.1.0"
+dependencies = [
+ "anyhow",
+ "hsm-cold-core-interface",
+ "hsm-kernel",
+ "hsm-print-payload",
+ "hsm-reservoir-numbers",
+ "serde_json",
+ "sha2",
+]
+
+[[package]]
+name = "hsm-reservoir-numbers"
+version = "0.1.0"
+dependencies = [
+ "hsm-aero-float-numbers",
+ "hsm-cold-core-catalog",
+ "hsm-cold-core-interface",
+]
+
+[[package]]
 name = "hsm-run-native"
 version = "0.1.0"
 dependencies = [
