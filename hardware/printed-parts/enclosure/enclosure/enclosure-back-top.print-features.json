@@ -69,9 +69,9 @@
         348.8
       ],
       "bridge_axis_source": [
-        0,
-        1,
-        0
+        0.0,
+        1.0,
+        0.0
       ],
       "bridge_span_mm": 42.16473021393807,
       "name": "ASSE receiver",
@@ -95,12 +95,64 @@
         348.8
       ],
       "bridge_axis_source": [
-        0,
-        1,
-        0
+        0.0,
+        1.0,
+        0.0
       ],
       "bridge_span_mm": 42.204282797599376,
       "name": "Pisco receiver",
+      "reason": "The fitted catches and end shoulders grow through fine layers without interior supports."
+    },
+    {
+      "blocking_bounds_source_mm": [
+        79.8,
+        102.25,
+        381.5086388104271,
+        448.0086388104271,
+        254.90000000000003,
+        355.0
+      ],
+      "bounds_source_mm": [
+        83.05,
+        99.0,
+        384.7586388104271,
+        444.7586388104271,
+        258.15000000000003,
+        312.45
+      ],
+      "bridge_axis_source": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "bridge_span_mm": 38.0,
+      "name": "Flow meter receiver",
+      "reason": "The fitted catches and end shoulders grow through fine layers without interior supports."
+    },
+    {
+      "blocking_bounds_source_mm": [
+        -61.82391030388001,
+        1.6260896961199958,
+        283.353633714998,
+        331.9600400329926,
+        331.75,
+        355.0
+      ],
+      "bounds_source_mm": [
+        -58.57391030388001,
+        -1.6239103038800042,
+        286.603633714998,
+        328.7100400329926,
+        335.0,
+        346.5
+      ],
+      "bridge_axis_source": [
+        1.0,
+        0.0,
+        0.0
+      ],
+      "bridge_span_mm": 56.95000000000001,
+      "name": "Water regulator receiver",
       "reason": "The fitted catches and end shoulders grow through fine layers without interior supports."
     },
     {
@@ -160,6 +212,7 @@
       ],
       "name": "Wet-column rear face",
       "reason": "The tilted rear face grows through fine layers without trees through its covered bores.",
+      "review_interior": false,
       "support_direction_cosine_min": 0.95,
       "support_print_up_source": [
         0,
@@ -523,7 +576,7 @@
     },
     {
       "blocking_bounds_source_mm": [
-        -101.5,
+        -107.5,
         -89.75000000018628,
         314.79999999962746,
         340.5499999994412,
@@ -573,6 +626,20 @@
           329.79999999962746
         ]
       }
+    }
+  ],
+  "support_regions": [
+    {
+      "bounds_source_mm": [
+        -107.5,
+        12.549999999999997,
+        471.3,
+        474.3,
+        -6.0,
+        355.0
+      ],
+      "name": "Exposed rear exterior",
+      "reason": "Trees remain outside the rear wall where their branches and contacts are accessible."
     }
   ]
 }

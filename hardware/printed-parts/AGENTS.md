@@ -69,11 +69,13 @@ full-size walls prevent screwdriver access. Preserve their approved component
 seats, catch planes and wing travel. The rear enclosure prints with its rear face
 toward the bed and a gentle tilt; its receiver catches and sliding grooves grow
 through successive layers. Fine layers follow the shallow end faces and rear show surface. Native
-preparation excludes supports from the receiver interiors.
+preparation excludes supports from the receiver interiors, including the meter
+and water regulator stocks that could otherwise seed branches through adjacent bores.
 Covered rear bulkhead bores and horizontal valve sockets retain their teardrop
 clearances. The vent cap has a rooted chamfer; its passage stays clear of supports.
-The rails retain their flat bearings and local solid hosts. Accessible exterior
-features receive branching trees. There are no added rectangular groove ribbons.
+The rails retain their flat bearings and local solid hosts. The native exterior
+target field selects the rear part's manual Tree Slim supports, keeping their
+branches outside the rear wall. There are no added rectangular groove ribbons.
 
 The [rear equipment fit trial](../print-tests/rear-snap-retention/physical-result/physical-result.json)
 records easy screwdriver removal of tiny supports in accessible coupons. That

@@ -219,6 +219,26 @@ pub fn bridge_regions() -> Vec<(&'static str, Bounds, f64)> {
         }).collect()
 }
 
+/// The side-facing meter and regulator stocks grow without trees in their cap pockets.
+pub fn side_support_regions() -> Vec<(&'static str, Bounds, f64, P3)> {
+    let frame = &layout().parts.digiten_flow;
+    let centre = frame.point([meter::BODY_CENTER_X, 0.0, meter::BODY_CENTER_Z]);
+    let port = frame.point([0.0; 3]);
+    let wx = |y: f64| frame.point([meter::BODY_CENTER_X, y, meter::BODY_CENTER_Z])[0];
+    let mx = wx(meter::FLANGE_Y) - METER_AIR;
+    let ty = frame.translation_mm[1];
+    let st = station(0.0, port[2]+meter::PORT_COLLAR_RADIUS+METER_AIR-centre[2]+WALL,
+                     [ty+METER_CAP[0],ty+METER_CAP[1]],0.0,wx(meter::UNDERSIDE_Y)-METER_AIR-mx);
+    let meter = [mx,side()+INTO,ty+METER_SEAT[0],ty+METER_SEAT[1],centre[2]-st.outer,centre[2]+st.outer];
+    let mount = &layout().rear_plumbing.regulator_mount;
+    let [a,b] = mount.seat_y;
+    let b = b.max(mount.station.y1+running()+WALL);
+    let regulator = [-b,-a,mount.axis[0]-mount.station.outer,mount.axis[0]+mount.station.outer,
+                     SPLIT,back_top_ceiling_face()+INTO];
+    vec![("Flow meter receiver",meter,METER_CAP[1]-METER_CAP[0],[0.0,1.0,0.0]),
+         ("Water regulator receiver",regulator,b-a,[1.0,0.0,0.0])]
+}
+
 fn asse_station() -> Station {
     let frame = &layout().rear_plumbing.chain_frame;
     let c = running();

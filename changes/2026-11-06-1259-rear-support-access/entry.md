@@ -2,7 +2,7 @@
 title: Rear passages print with pointed roofs and a rooted vent cap
 lede: Covered bulkhead bores and horizontal valve sockets have printable roofs. The vent cap grows from the wall on a chamfer, with its short mouth lip bridging between the sides.
 date: 2026-11-06T12:59:37-06:00
-commit: 65066d840 80d29a9b9
+commit: 65066d840 80d29a9b9 b222fcc32
 model: printed-parts/enclosure/enclosure/enclosure-back-top.step
 ---
 The rear bulkhead passages retain their circular hardware clearance inside teardrop openings. Their pointed ends sit behind the identification plates. Horizontal valve post sockets use the same roof; the build-axis sockets stay circular.

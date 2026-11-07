@@ -22,6 +22,7 @@ import hashlib
 import json
 import math
 import os
+import re
 import shutil
 import subprocess
 import sys
@@ -157,6 +158,7 @@ def derive(mesh: Mesh, declared: list[dict]) -> list[dict]:
             overlap = native["boundary_overlap_mm"]
             regions = [("support_free", r) for r in native["support_free_regions"]]
             regions += [("bridge_direction", r) for r in native.get("bridge_regions", [])]
+            regions += [("support_required", r) for r in native.get("support_regions", [])]
             for region_kind, region in regions:
                 if "support_print_up_source" in region:
                     print_up = mesh.rotation.T @ np.array([0., 0., 1.])
@@ -310,6 +312,12 @@ def prepare(name: str, printer: str | None = None, parts: list[dict] | None = No
         changes["requested_z_trim_mm"] = {"from": machine["z_trim_mm"], "to": z_trim, "reason": piece["z_trim_mm"]["reason"]}
     for key, declared in piece.get("settings", {}).items():
         put(key, declared["value"], declared["reason"])
+    if piece.get("cap_finish_lifts", {}).get("value"):
+        limit = float(settings["printable_height"]) - max(0.0, z_trim)
+        end = re.sub(r"\{max_layer_z\s*\+\s*(0\.4|10)\}",
+                     lambda m: f"{{min(max_layer_z + {m.group(1)}, {limit:g})}}",
+                     settings["machine_end_gcode"])
+        put("machine_end_gcode", end, piece["cap_finish_lifts"]["reason"])
     nozzle = check_nozzle(name, piece, settings, profile_path)
 
     declared_parts = parts if parts is not None else piece["parts"]
@@ -415,11 +423,17 @@ def prepare(name: str, printer: str | None = None, parts: list[dict] | None = No
                 corners = np.array([[x, y, z] for x in (low_b[0], high_b[0])
                                     for y in (low_b[1], high_b[1]) for z in (low_b[2], high_b[2])])
                 placed = (corners - mesh.center) @ (r_yaw @ mesh.rotation).T + translation
-                record["support_free_regions"].append({"name": f["name"],
-                    "box_plate_mm": [placed.min(axis=0).tolist(), placed.max(axis=0).tolist()],
-                    "bounds_source_mm": f["bounds_source_mm"],
-                    **({"void_source": f["void_source"]} if "void_source" in f else {}),
-                    "reason": f["reason"]})
+                if f.get("review_interior", True):
+                    record["support_free_regions"].append({"name": f["name"],
+                        "box_plate_mm": [placed.min(axis=0).tolist(), placed.max(axis=0).tolist()],
+                        "bounds_source_mm": f["bounds_source_mm"],
+                        **({"void_source": f["void_source"]} if "void_source" in f else {}),
+                        "reason": f["reason"]})
+            if f["kind"] == "support_required":
+                low_b, high_b = np.array(f["blocker_source_mm"])
+                vertices, faces = _mesh.box_mesh(low_b-mesh.center,high_b-mesh.center)
+                plate.add_part(obj,f["name"]+" support target",vertices,faces,subtype="support_enforcer")
+                record.setdefault("support_targets",[]).append(entry)
             if f["kind"] == "tie_windows":
                 for window in f["windows"]:
                     low_b, high_b = window["box_print_mm"]

@@ -64,6 +64,19 @@ system presets define, with the per-hotend variant index. `z_trim_mm`, `filament
 against the recipe: the diameter and flow type the slice uses on that side, and the hotend its
 filament maps to.
 
+`cap_finish_lifts` limits the saved end routine's clearance moves to the printer's
+available vertical travel, allowing for the requested trim. Back-top uses it in its tall pose.
+
+Native support regions distinguish functional interiors from exterior request blockers.
+An exterior blocker marked `review_interior: false` still masks support requests; its
+box does not define an inaccessible void. The native record also names accessible
+support targets, which become enforcers in the manual-tree preparation.
+
+The native review intersects each reinforcement modifier's posed section with
+the model section. Solid-host coverage measures the interior beyond the local
+bead radius; the outline coverage remains in the reading. Layer-height coverage
+uses the project's declared bed layer and preserves feature tags across layers.
+
 The requested Z trim is Mark1 +0.18 mm and Mark2 +0.04 mm, written as
 `faucet/refresh_print_project.py` writes it, unless a piece states its own.
 [`petgf_cooling.py`](../../cadlib/petgf_cooling.py) applies the localized cooling to PET-GF
@@ -83,7 +96,7 @@ for fixed-width brim types.
 | --- | --- | --- | --- | --- |
 | `front-top` | Mark1, left 0.4 | PET-GF black | 0.08 mm band over the R6 roof side edges' level run and the R18 display-to-roof roll | Support XY 0.50 mm |
 | `front-bottom` | Mark1, left 0.4 | PET-GF black | Six-wall band through the handhold lifting-edge transition and its corner returns; 0.8 mm boundary strip of the flat lifting ceiling; removable arc fins along the lifting edges | — |
-| `back-top` | Mark2, left 0.4 | PET-GF black | Rear face toward the bed with a gentle tilt; fine layers over the shallow end faces and rear show surface; local solid rail hosts | Tree Slim beneath accessible features; support-free receiver interiors, passages and sockets |
+| `back-top` | Mark2, left 0.4 | PET-GF black | Rear face toward the bed with a gentle tilt; fine layers over the shallow end faces and rear show surface; local solid rail hosts | Manual Tree Slim in the native exterior target field; support-free receiver interiors, passages and sockets |
 | `back-bottom` | Mark2, left 0.4 | PET-GF black | Six-wall band through the handhold lifting-edge transition and its corner returns; 0.8 mm boundary strip of the flat lifting ceiling; removable arc fins on feet along the lifting edges | Plate offset Y +18.8 mm; automatic-tree branch angle 20° |
 | `pump-retainer` | Mark1, left 0.4 | PET-GF black | Broad lower retainer, Y-minus end on the bed; build axis +Y | Three Classic walls; local solid snap hosts |
 | `rear-equipment-caps` | Mark2, left 0.4 | PET-GF black | ASSE, Pisco, regulator and meter caps as exported, mouths up; 15 mm spacing | — |
@@ -168,10 +181,13 @@ slots' roof, and that layer's bottom must clear the loaded stack's top.
   slots, and the ribbons' own layers;
 - the one emitted pause opening its planned layer before any of that layer's moves;
 - sampled bead coverage of the model section inside each solid-host modifier;
-- unbacked model roads in the fine bands, and the second layer's beads over the first;
+- the second layer's beads over the first;
 - each object's support bodies, roots, build-up and interface islands, in plate and CAD
   coordinates ([`enclosure_support_audit.py`](../../../scripts/enclosure_support_audit.py)),
   written as `support-audit-<object>.json` for the removal-lane reading.
 
 `review.json` records every reading and the checks it passes. Support removal, surface
 finish, fit and strength are observations of the printed part.
+
+`--unbacked` requests adjacent-layer road-shadow statistics throughout every fine
+band. The report records whether this optional diagnostic was requested.
