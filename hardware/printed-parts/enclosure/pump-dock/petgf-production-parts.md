@@ -7,7 +7,7 @@ The tube setting jig prints alone on the `factory-tools` plate, as exported, wit
 Manual offline preparation, without starting a printer:
 
 ```sh
-tools/cad-venv/bin/python hardware/printed-parts/enclosure/trial-preparation/prepare.py factory-tools --slice --review
+tools/hsm/target/release/enclosure-print-prep factory-tools --slice --review
 ```
 
 Bind any production project and emitted paths to the current manufacturing mesh. No native project or print is bound to the jig.

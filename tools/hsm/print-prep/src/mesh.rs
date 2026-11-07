@@ -108,6 +108,92 @@ impl Mesh {
     }
 }
 
+impl Mesh {
+    /// The enclosure preparation's merge: corners that are the same 32-bit point are one vertex,
+    /// and the vertices are ordered by their stored bytes, as its numpy reader orders them.
+    pub fn read_stl_exact(path: &Path) -> Result<Mesh> {
+        let bytes = std::fs::read(path).with_context(|| format!("reading {}", path.display()))?;
+        let corners = stl_corners(&bytes).with_context(|| format!("reading {}", path.display()))?;
+        let keys: Vec<[u8; 12]> = corners.iter().map(|c| {
+            let mut k = [0u8; 12];
+            for (i, v) in c.iter().enumerate() {
+                // + 0.0 makes -0.0 the same point as 0.0.
+                k[4 * i..4 * i + 4].copy_from_slice(&((*v as f32) + 0.0f32).to_le_bytes());
+            }
+            k
+        }).collect();
+        let mut unique: Vec<[u8; 12]> = keys.clone();
+        unique.sort_unstable();
+        unique.dedup();
+        let index: HashMap<[u8; 12], usize> = unique.iter().enumerate().map(|(i, k)| (*k, i)).collect();
+        let vertices = unique.iter().map(|k| {
+            [0, 1, 2].map(|i| f32::from_le_bytes([k[4 * i], k[4 * i + 1], k[4 * i + 2], k[4 * i + 3]]) as f64)
+        }).collect();
+        let flat: Vec<usize> = keys.iter().map(|k| index[k]).collect();
+        let faces = flat.chunks(3).map(|c| [c[0], c[1], c[2]]).collect();
+        Ok(Mesh { vertices, faces })
+    }
+}
+
+/// What the enclosure preparation records of a mesh's closure, read from its faces alone.
+pub fn closed_check(faces: &[[usize; 3]]) -> serde_json::Value {
+    let mut counts: HashMap<(usize, usize), (usize, i64)> = HashMap::new();
+    for f in faces {
+        for k in 0..3 {
+            let (a, b) = (f[k], f[(k + 1) % 3]);
+            let entry = counts.entry((a.min(b), a.max(b))).or_default();
+            entry.0 += 1;
+            entry.1 += if a < b { 1 } else { -1 };
+        }
+    }
+    let bodies = vertex_components(faces).into_iter().max().map_or(0, |m| m + 1);
+    let boundary = counts.values().filter(|(c, _)| *c == 1).count();
+    let nonmanifold = counts.values().filter(|(c, _)| *c > 2).count();
+    let inconsistent = counts.values().filter(|(c, b)| *c == 2 && *b != 0).count();
+    let closed = counts.values().all(|(c, b)| *c == 2 && *b == 0) && bodies == 1;
+    serde_json::json!({"edges": counts.len(), "boundary_edges": boundary, "nonmanifold_edges": nonmanifold,
+        "inconsistent_edges": inconsistent, "bodies": bodies, "closed_oriented_single_body": closed})
+}
+
+/// Each face's component, faces joined through shared vertices, numbered in order of each
+/// component's first face, as scipy's connected_components numbers them.
+pub fn vertex_components(faces: &[[usize; 3]]) -> Vec<usize> {
+    let n = faces.len();
+    let mut parent: Vec<usize> = (0..n).collect();
+    fn root(parent: &mut [usize], mut i: usize) -> usize {
+        while parent[i] != i {
+            parent[i] = parent[parent[i]];
+            i = parent[i];
+        }
+        i
+    }
+    let mut owner: HashMap<usize, usize> = HashMap::new();
+    for (fi, f) in faces.iter().enumerate() {
+        for &v in f {
+            match owner.get(&v) {
+                Some(&other) => {
+                    let (a, b) = (root(&mut parent, fi), root(&mut parent, other));
+                    if a != b {
+                        let (low, high) = (a.min(b), a.max(b));
+                        parent[high] = low;
+                    }
+                }
+                None => {
+                    owner.insert(v, fi);
+                }
+            }
+        }
+    }
+    let mut label_of_root: HashMap<usize, usize> = HashMap::new();
+    let mut labels = Vec::with_capacity(n);
+    for i in 0..n {
+        let r = root(&mut parent, i);
+        let next = label_of_root.len();
+        labels.push(*label_of_root.entry(r).or_insert(next));
+    }
+    labels
+}
+
 pub fn bounds(points: &[[f64; 3]]) -> ([f64; 3], [f64; 3]) {
     let mut low = [f64::INFINITY; 3];
     let mut high = [f64::NEG_INFINITY; 3];

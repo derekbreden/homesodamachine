@@ -16,6 +16,7 @@ sha2.workspace = true
 hsm-shared-data = { path = "../shared-data" }
 zip = { version = "9.1.2", default-features = false, features = ["deflate-flate2-zlib-rs"] }
 hsm-faucet-numbers = { path = "../faucet-numbers" }
+hsm-run-slots = { path = "../run-slots" }
 
 [[bin]]
 name = "petgf-cooling"
@@ -24,3 +25,7 @@ path = "../../../hardware/printed-parts/cadlib/petgf_cooling.rs"
 [[bin]]
 name = "faucet-print-project"
 path = "../../../hardware/printed-parts/faucet/faucet_print_project.rs"
+
+[[bin]]
+name = "enclosure-print-prep"
+path = "../../../hardware/printed-parts/enclosure/trial-preparation/prepare.rs"

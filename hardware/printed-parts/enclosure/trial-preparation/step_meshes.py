@@ -8,7 +8,8 @@ Each STEP is read through XCAF as the bodies its generator wrote. A part of seve
 label and its lettering) is fused into the one solid it prints as. The mesh is written beside
 the STEP as `<part>.stl` by `cadlib/print_mesh.py`, at its absolute tolerance and read back the
 way a slicer reads it. `step-meshes.json` binds every STL written here to the STEP digest it was
-cut from; `prepare.py` refuses an STL whose STEP has moved since, and `--check` lists them.
+cut from; the enclosure's print preparation refuses an STL whose STEP has moved since, and
+`--check` lists them.
 """
 from __future__ import annotations
 
