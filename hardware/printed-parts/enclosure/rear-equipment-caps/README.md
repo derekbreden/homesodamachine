@@ -56,10 +56,9 @@ reports tight hardware fits, with the ASSE body seating as the exception. The
 All leaves are 2.0 mm thick, with a 1.5 mm inside root radius and 22.25 mm
 root-to-catch length; the water regulator uses 21.25 mm within its retained
 height. The straight wall above the root blend is 20.75 mm, or 19.75 mm on
-the water regulator. ASSE, PISCO and meter have a 3 mm-rise single planar lead-in ending at a
-pointed free edge above a 1.6 mm solid nose land. The regulator retains its
-1 mm-rise pointed lead-in within the accepted pocket height. The matching receiver ceiling clears the complete point by
-0.5 mm. All retaining noses are solid. The rear receiver bases are continuous,
+the water regulator. Each rear cap has the same single planar lead-in ending at a
+pointed free edge above a solid nose land. Its matching receiver ceiling clears
+the complete point. All retaining noses are solid. The rear receiver bases are continuous,
 with no enclosed screwdriver tunnels. Release the leaves from their exposed
 edges with the surrounding service room open. The front paired-pump cartridge
 uses its separate open flank pry windows. The nominal catch
@@ -101,6 +100,9 @@ neck bearings retain their fits.
 The regulator releases directly downward with its exposed leaves spread.
 The [physical result](../../../print-tests/receiver-tool-access/physical-result/physical-result.json)
 records the accepted first-job fits and the receiver-base release geometry.
+The [regulator tip reading](regulator-tip-review.json) binds the full lead-in,
+matching receiver pocket, retained bearing geometry and enclosure roof stock
+to their generated solids and prepared print.
 
 The standalone STEP and STL files use the print frame, with one axial end
 on Z0 and spring bending within the layer plane. The appliance uses their installed frames.

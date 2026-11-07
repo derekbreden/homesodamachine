@@ -76,11 +76,12 @@ otherwise resizes a single-colour smooth-timelapse tower. Enabling a tower
 alone does not establish a useful interval.
 
 The [individual-regulator print record](../enclosure/rear-equipment-caps/prints/2026-11-07-single-regulator-mark2/job.json)
-holds the selected settings, emitted timing, archive identity and launch. Its
-timing is commanded motion time; finish and strength await physical review.
-It is a starting recipe for that print, not a qualified thermal limit for
-every small part. Read the actual emitted tower paths when preparing another
-shape or height.
+holds the selected settings, emitted timing, archive identity and launch.
+Derek reports that the print turned out fine. Its timing is commanded motion
+time, and no separate strength result is reported. That successful finish
+applies to the recorded cap and recipe; it is not a qualified thermal limit
+for every small part. Read the actual emitted tower paths when preparing
+another shape or height.
 
 [Cura's minimum-layer-time and Lift Head settings](https://support.ultimaker.com/articles/Knowledge/1667417947135)
 provide slowdown and an away-from-part wait. A

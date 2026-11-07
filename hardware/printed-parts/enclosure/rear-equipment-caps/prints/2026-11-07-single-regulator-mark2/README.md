@@ -10,8 +10,10 @@ and archive hashes, bed clearance and research sources. [launch.json](launch.jso
 records the accepted Mark2 job. The native archive and editable project are
 at the durable paths in the job record.
 
-Finish, support removal and snap strength await physical review. The
-commanded timing is a starting choice for this print; it does not establish
+Derek reports that the print turned out fine. That result supports this
+recorded cap's cooling interval and production process. Its short regulator
+lead-in does not meet his requested pointed-tip standard. Support removal
+and snap strength have no separate reported result. The timing does not establish
 a qualified thermal limit for other individual parts. The
 [cooling policy](../../../../cooling/README.md#small-individual-parts) describes
 the batch-time requirement.
