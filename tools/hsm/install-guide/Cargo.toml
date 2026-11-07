@@ -18,3 +18,4 @@ tiny-skia = "0.12.0"
 zip = { version = "9.1.2", default-features = false, features = ["deflate-flate2-zlib-rs"] }
 hsm-pages = { path = "../pages" }
 hsm-faucet-numbers = { path = "../faucet-numbers" }
+hsm-faucet-assembly-numbers = { path = "../faucet-assembly-numbers" }
