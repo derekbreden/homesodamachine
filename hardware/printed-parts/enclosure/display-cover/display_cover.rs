@@ -1,10 +1,12 @@
 //! The face-up display bezel, the status plate beside it, and their matching visible screws and
 //! short inserts. Both plates are drawn in the cover's own frame, so the machine places them
 //! with one transform.
+//!
+//!     display-cover [<output directory>]
 use anyhow::{Context, Result, anyhow, ensure};
 use hsm_enclosure_numbers::display_mount as m;
 use hsm_kernel::{Body, Loop, Pen, Plane, Profile, Seg, Solid, V2, v2, v3};
-use hsm_kernel::part::{args, write_part};
+use hsm_kernel::part::write_part;
 use serde_json::{Value, json};
 
 /// The status plate's black, the catalog's black PETG.
@@ -241,7 +243,7 @@ fn status_led() -> Result<Solid> {
 }
 
 fn main() -> Result<()> {
-    let (n, out) = args()?;
+    let out = hsm_enclosure_components::output("display-cover", "hardware/printed-parts/enclosure/display-cover")?;
     let outer = Loop::rounded_rect(v2(0., 0.), m::WIDTH, m::HEIGHT, m::CORNER)?;
     let window = Loop::rounded_rect(v2(0., 0.), m::WINDOW[0], m::WINDOW[1], m::WINDOW[2])?;
     let mut cover = Plane::XY.at(v3(0., 0., -m::THICK)).extrude(
@@ -253,7 +255,7 @@ fn main() -> Result<()> {
     }
     let hardware_cover = hardware("display", &m::STATIONS)?;
     println!("{}", write_part(&out, "display-cover", &[Body {
-        name: "display-cover", color: Some(n.color("color")?), solid: &cover,
+        name: "display-cover", color: Some(hsm_enclosure_numbers::catalog::wall_color()), solid: &cover,
     }])?);
     let parts = hardware_cover.iter().map(|(name, solid, color)| Body {
         name: name.as_str(), solid, color: Some(*color),

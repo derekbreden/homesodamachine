@@ -35,7 +35,10 @@ name = "valve-tray"
 path = "../../../hardware/printed-parts/enclosure/valve-tray/valve_tray.rs"
 
 [dependencies]
+hsm-bulkhead-ring-numbers = { path = "../bulkhead-ring-numbers" }
 hsm-enclosure-numbers = { path = "../enclosure-numbers" }
 anyhow.workspace = true
 hsm-kernel = { path = "../kernel" }
+hsm-shared-data = { path = "../shared-data" }
+serde = { workspace = true, features = ["derive"] }
 serde_json.workspace = true

@@ -690,12 +690,12 @@ def _selftest() -> int:
     review = ("hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/"
               "native-slice-reviews/2026-09-22-display-cover-mark2-v4")
     if f"{review}/manifest.json" in files:
-        live = "hardware/printed-parts/enclosure/display-cover/display_cover.py"
+        live = "hardware/printed-parts/enclosure/display-cover/display_cover.rs"
         pinned = _pinned_copies({f"{review}/manifest.json",
                                  f"{review}/sources/display_cover.py", live})
         hold("the display cover review's source copy is pinned",
              f"{review}/sources/display_cover.py" in pinned, True)
-        hold("and the live display_cover.py is not", live in pinned, False)
+        hold("and the live display_cover.rs is not", live in pinned, False)
 
     if fails:
         print("check_paths selftest FAILED")

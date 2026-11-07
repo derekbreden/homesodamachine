@@ -1,8 +1,5 @@
-"""Identification chips for the selected six-port rear grid.
-
-The rear flange and nut seating planes stay fixed. Each 1.8 mm tile slides in a
-continuous 2 mm rear channel, 0.2 mm inside the outer wall face, with its bore
-on the corresponding fitting.
+"""The rear identification tiles' recipe as the old enclosure pipeline's above-core shell reads it,
+to cut the tiles' channels. The tiles themselves are cut by `rear_identification.rs`.
 """
 from __future__ import annotations
 
@@ -29,6 +26,3 @@ def __getattr__(name):
 
 from _enclosure_compiled import install as _install
 _install(_sys.modules[__name__])
-
-if __name__ == "__main__":
-    _compiled('rear_identification', action="main")
