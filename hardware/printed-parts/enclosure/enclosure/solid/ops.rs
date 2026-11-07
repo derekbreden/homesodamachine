@@ -26,12 +26,21 @@ fn extruded(axis: usize, z: P2, outline: Loop) -> Result<Solid> {
 }
 
 /// A section extruded over its span; `round` fillets the named vertices, `offset` grows it.
-pub fn prism(axis: usize, span: P2, section: &[P2], round: Option<(&[usize], f64)>, offset: Option<f64>) -> Result<Solid> {
+pub fn prism(
+    axis: usize,
+    span: P2,
+    section: &[P2],
+    round: Option<(&[usize], f64)>,
+    offset: Option<f64>,
+) -> Result<Solid> {
     let points: Vec<V2> = section.iter().map(|&p| p2(p)).collect();
     let mut outline = Loop::polygon(&points);
     if let Some((vertices, radius)) = round.filter(|&(_, radius)| radius > 0.) {
         // A plan names vertices; the kernel names the segment ending there.
-        let corners: Vec<usize> = vertices.iter().map(|&k| (k + points.len() - 1) % points.len()).collect();
+        let corners: Vec<usize> = vertices
+            .iter()
+            .map(|&k| (k + points.len() - 1) % points.len())
+            .collect();
         outline = outline.fillet_corners(&corners, radius)?;
     }
     if let Some(offset) = offset {
@@ -45,7 +54,12 @@ pub fn rounded_box(b: &Bounds, radius: f64) -> Result<Solid> {
     Plane::XY
         .at(v3((lo.x + hi.x) / 2., (lo.y + hi.y) / 2., lo.z))
         .extrude(
-            &Profile::new(Loop::rounded_rect(V2::ZERO, hi.x - lo.x, hi.y - lo.y, radius)?),
+            &Profile::new(Loop::rounded_rect(
+                V2::ZERO,
+                hi.x - lo.x,
+                hi.y - lo.y,
+                radius,
+            )?),
             hi.z - lo.z,
         )
 }
@@ -72,7 +86,13 @@ pub fn cone(axis: usize, centre: P2, radii: P2, span: P2) -> Result<Solid> {
 }
 
 /// A cylinder whose circle breaks at its stations as well as its quarter points.
-pub fn stationed_cylinder(axis: usize, radius: f64, centre: P2, span: P2, stations: P2) -> Result<Solid> {
+pub fn stationed_cylinder(
+    axis: usize,
+    radius: f64,
+    centre: P2,
+    span: P2,
+    stations: P2,
+) -> Result<Solid> {
     let c = p2(centre);
     let r = radius;
     let mut angles = stations.to_vec();
@@ -338,8 +358,8 @@ pub fn handhold_air(h: &HandholdAir) -> Result<Solid> {
     basic.union(&roof_air)?.union(&side_air)?.intersect(&blank)
 }
 
-/// The vent courses that clear the stock's interior on each column, cut together.
-pub fn flank_vents(v: &FlankVents, stock: &Solid, cutters: &[&Solid]) -> Result<Solid> {
+/// The tools for vent courses whose interior probes clear the stock.
+pub fn flank_vent_cuts(v: &FlankVents, stock: &Solid, cutters: &[&Solid]) -> Result<Solid> {
     let columns = &v.columns;
     let courses = &v.courses;
     let clearance = v.clearance;
@@ -384,9 +404,9 @@ pub fn flank_vents(v: &FlankVents, stock: &Solid, cutters: &[&Solid]) -> Result<
         }
     }
     if selected.is_empty() {
-        return Ok(stock.clone());
+        return Ok(Solid::empty());
     }
-    stock.cut(&Solid::compose(&selected))
+    Ok(Solid::compose(&selected))
 }
 
 pub fn bezier_prism(axis: usize, span: P2, segments: &[PlanSeg]) -> Result<Solid> {
@@ -394,7 +414,12 @@ pub fn bezier_prism(axis: usize, span: P2, segments: &[PlanSeg]) -> Result<Solid
         .iter()
         .map(|s| match *s {
             PlanSeg::Line(a, b) => Seg::Line { a: p2(a), b: p2(b) },
-            PlanSeg::Cubic(a, c1, c2, b) => Seg::Cubic { a: p2(a), c1: p2(c1), c2: p2(c2), b: p2(b) },
+            PlanSeg::Cubic(a, c1, c2, b) => Seg::Cubic {
+                a: p2(a),
+                c1: p2(c1),
+                c2: p2(c2),
+                b: p2(b),
+            },
         })
         .collect();
     extruded(axis, span, Loop::new(edges)?)
@@ -403,16 +428,24 @@ pub fn bezier_prism(axis: usize, span: P2, segments: &[PlanSeg]) -> Result<Solid
 /// The pump skirt's explicit, planar ruled correspondence. Repeated points are collapsed
 /// transition vertices, not epsilon edges.
 pub fn ruled_stack(sections: &[Vec<P3>], source: &'static Location<'static>) -> Result<Solid> {
-    let sections: Vec<Vec<V3>> = sections.iter().map(|row| row.iter().map(|&p| p3(p)).collect()).collect();
+    let sections: Vec<Vec<V3>> = sections
+        .iter()
+        .map(|row| row.iter().map(|&p| p3(p)).collect())
+        .collect();
     ensure!(sections.len() >= 2, "a ruled stack needs two sections");
     let n = sections[0].len();
-    ensure!(n >= 3 && sections.iter().all(|row| row.len() == n), "ruled correspondence count");
+    ensure!(
+        n >= 3 && sections.iter().all(|row| row.len() == n),
+        "ruled correspondence count"
+    );
     let rise = sections.last().unwrap()[0].z - sections[0][0].z;
     ensure!(rise != 0.0, "a ruled stack needs distinct end planes");
-    let area: f64 = (0..n).map(|i| {
-        let (a, b) = (sections[0][i], sections[0][(i + 1) % n]);
-        a.x * b.y - b.x * a.y
-    }).sum();
+    let area: f64 = (0..n)
+        .map(|i| {
+            let (a, b) = (sections[0][i], sections[0][(i + 1) % n]);
+            a.x * b.y - b.x * a.y
+        })
+        .sum();
     let flip_side = (rise > 0.0) != (area < 0.0);
     let verts: Vec<_> = sections.iter().flatten().copied().collect();
     let mut tris = Vec::new();
@@ -424,33 +457,71 @@ pub fn ruled_stack(sections: &[Vec<P3>], source: &'static Location<'static>) -> 
         let flat = row.iter().map(|p| v2(p.x, p.y)).collect();
         let cap = hsm_kernel::triangulate::triangulate(&[flat])?;
         let face = faces.len() as u32;
-        faces.push(Face::new(Surface::Plane { p: row[0], n: V3::Z * sense }, "ruled skirt cap", src));
+        faces.push(Face::new(
+            Surface::Plane {
+                p: row[0],
+                n: V3::Z * sense,
+            },
+            "ruled skirt cap",
+            src,
+        ));
         for mut t in cap {
             t.iter_mut().for_each(|k| *k += (i * n) as u32);
-            if sense < 0.0 { t.swap(1, 2); }
-            tris.push(t); face_of.push(face);
+            if sense < 0.0 {
+                t.swap(1, 2);
+            }
+            tris.push(t);
+            face_of.push(face);
         }
     }
     for i in 0..sections.len() - 1 {
         for k in 0..n {
             let next = (k + 1) % n;
-            let ids = [(i * n + k) as u32, ((i + 1) * n + k) as u32,
-                       ((i + 1) * n + next) as u32, (i * n + next) as u32];
+            let ids = [
+                (i * n + k) as u32,
+                ((i + 1) * n + k) as u32,
+                ((i + 1) * n + next) as u32,
+                (i * n + next) as u32,
+            ];
             let mut triangles = Vec::new();
             for mut t in [[ids[0], ids[1], ids[2]], [ids[0], ids[2], ids[3]]] {
-                if flip_side { t.swap(1, 2); }
-                let (a, b, c) = (verts[t[0] as usize], verts[t[1] as usize], verts[t[2] as usize]);
-                if (b - a).cross(c - a).norm() > 1e-12 { triangles.push(t); }
+                if flip_side {
+                    t.swap(1, 2);
+                }
+                let (a, b, c) = (
+                    verts[t[0] as usize],
+                    verts[t[1] as usize],
+                    verts[t[2] as usize],
+                );
+                if (b - a).cross(c - a).norm() > 1e-12 {
+                    triangles.push(t);
+                }
             }
-            if triangles.is_empty() { continue; }
+            if triangles.is_empty() {
+                continue;
+            }
             let t = triangles[0];
-            let (a, b, c) = (verts[t[0] as usize], verts[t[1] as usize], verts[t[2] as usize]);
+            let (a, b, c) = (
+                verts[t[0] as usize],
+                verts[t[1] as usize],
+                verts[t[2] as usize],
+            );
             let normal = (b - a).cross(c - a).unit();
-            ensure!(ids.iter().all(|&j| (verts[j as usize] - a).dot(normal).abs() < 1e-7),
-                    "the ruled skirt face is no longer planar");
+            ensure!(
+                ids.iter()
+                    .all(|&j| (verts[j as usize] - a).dot(normal).abs() < 1e-7),
+                "the ruled skirt face is no longer planar"
+            );
             let face = faces.len() as u32;
-            faces.push(Face::new(Surface::Plane { p: a, n: normal }, "ruled skirt", src));
-            for t in triangles { tris.push(t); face_of.push(face); }
+            faces.push(Face::new(
+                Surface::Plane { p: a, n: normal },
+                "ruled skirt",
+                src,
+            ));
+            for t in triangles {
+                tris.push(t);
+                face_of.push(face);
+            }
         }
     }
     Solid::from_mesh(&verts, &tris, &face_of, &faces)
@@ -543,20 +614,35 @@ pub fn stadium_profile(y: f64, z: f64, fore: f64, aft: f64, points: &[P2]) -> Re
     for pair in rows.windows(2) {
         let (p, q) = (pair[0], pair[1]);
         let length = q.x - p.x;
-        if length < 1.0e-8 { continue; }
+        if length < 1.0e-8 {
+            continue;
+        }
         for cy in [a, b] {
             pieces.push(if (p.y - q.y).abs() < 1.0e-8 {
                 Solid::cylinder(v3(p.x, cy, z), V3::X, p.y, length)?
-            } else { Solid::cone(v3(p.x, cy, z), V3::X, p.y, q.y, length)? });
+            } else {
+                Solid::cone(v3(p.x, cy, z), V3::X, p.y, q.y, length)?
+            });
         }
         if b - a > 1.0e-8 {
-            let outline = [v2(p.x, z - p.y), v2(q.x, z - q.y), v2(q.x, z + q.y), v2(p.x, z + p.y)];
-            pieces.push(Plane::XZ.at(v3(0., a, 0.)).extrude(&Profile::polygon(&outline), -(b - a))?);
+            let outline = [
+                v2(p.x, z - p.y),
+                v2(q.x, z - q.y),
+                v2(q.x, z + q.y),
+                v2(p.x, z + p.y),
+            ];
+            pieces.push(
+                Plane::XZ
+                    .at(v3(0., a, 0.))
+                    .extrude(&Profile::polygon(&outline), -(b - a))?,
+            );
         }
     }
     ensure!(!pieces.is_empty(), "a stadium profile has a run");
     let mut result = pieces.remove(0);
-    for piece in pieces { result = result.union(&piece)?; }
+    for piece in pieces {
+        result = result.union(&piece)?;
+    }
     Ok(result)
 }
 
@@ -575,6 +661,25 @@ pub fn manifold(s: &Solid) -> Result<Manifold> {
 pub fn quantized(shape: &Manifold) -> Result<Manifold> {
     let (v, props, t) = shape.to_mesh_f32();
     Ok(Manifold::from_mesh_f32(&v, props, &t)?)
+}
+
+/// A finished print stage keeps the positions and surface its STL stores.
+pub fn print_solid(shape: &Manifold) -> Result<Solid> {
+    let (vertices, stride, triangles) = shape.to_mesh_f32();
+    let vertices: Vec<_> = vertices
+        .chunks_exact(stride)
+        .map(|p| v3(p[0] as f64, p[1] as f64, p[2] as f64))
+        .collect();
+    let triangles: Vec<_> = triangles
+        .chunks_exact(3)
+        .map(|t| [t[0], t[1], t[2]])
+        .collect();
+    let face = Face::new(
+        Surface::Free { kind: "PRINT" },
+        "print surface",
+        std::panic::Location::caller(),
+    );
+    Solid::from_mesh(&vertices, &triangles, &vec![0; triangles.len()], &[face])
 }
 
 /// The binary STL of a fluted print surface.

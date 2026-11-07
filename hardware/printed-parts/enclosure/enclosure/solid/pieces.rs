@@ -13,13 +13,15 @@ use serde_json::{Value, json};
 use sha2::{Digest, Sha256};
 use std::path::Path;
 
-
 /// `bytes` at `path`, unless the file holds them already; any other lands whole, by a rename.
 pub fn keep(path: &Path, bytes: &[u8]) -> Result<()> {
     if std::fs::read(path).is_ok_and(|held| held == bytes) {
         return Ok(());
     }
-    let file = path.file_name().and_then(|f| f.to_str()).ok_or_else(|| anyhow!("no file name in {}", path.display()))?;
+    let file = path
+        .file_name()
+        .and_then(|f| f.to_str())
+        .ok_or_else(|| anyhow!("no file name in {}", path.display()))?;
     let tmp = path.with_file_name(format!(".{file}.{}.{file}", std::process::id()));
     std::fs::write(&tmp, bytes).with_context(|| format!("writing {}", tmp.display()))?;
     std::fs::rename(&tmp, path).with_context(|| format!("renaming onto {}", path.display()))
@@ -29,37 +31,85 @@ pub fn digest(bytes: &[u8]) -> String {
     format!("{:x}", Sha256::digest(bytes))
 }
 
-pub fn solids<const N: usize>(g: &Graph, outputs: [Shape; N], silhouette: Option<&Silhouette>) -> Result<[Solid; N]> {
-    evaluate(g, &outputs, silhouette)?.try_into().map_err(|_| anyhow!("one solid per plan output"))
+pub fn solids<const N: usize>(
+    g: &Graph,
+    outputs: [Shape; N],
+    silhouette: Option<&Silhouette>,
+) -> Result<[Solid; N]> {
+    evaluate(g, &outputs, silhouette)?
+        .try_into()
+        .map_err(|_| anyhow!("one solid per plan output"))
+}
+
+/// The finished body and its separately constrained authored addition share one evaluation.
+pub fn separated(
+    g: &Graph,
+    result: Shape,
+    silhouette: &Silhouette,
+) -> Result<(Solid, Solid, Solid)> {
+    if let Some((core, band)) = g.additive_parts(result) {
+        let [solid, core, band] = solids(g, [result, core, band], Some(silhouette))?;
+        Ok((solid, core, band))
+    } else {
+        let [solid] = solids(g, [result], Some(silhouette))?;
+        Ok((solid.clone(), solid, Solid::empty()))
+    }
+}
+
+/// The plain band joins the printed body after the wall's flute tool has finished.
+pub fn join_band(core: &manifold_csg::Manifold, band: &Solid) -> Result<manifold_csg::Manifold> {
+    let joined = if band.is_empty() {
+        core.clone()
+    } else {
+        core.union(&crate::ops::manifold(band)?)
+    };
+    crate::ops::quantized(&joined)
 }
 
 /// The STEP and the fine model of a shown body; the model's bytes, which a fine-bound payload
 /// names.
 pub fn shown(dir: &Path, name: &str, solid: &Solid, color: Color) -> Result<(Vec<u8>, Vec<u8>)> {
-    let bodies = [Body { name, color: Some(color), solid }];
-    let step = step_bytes(&bodies, name)?;
-    let model = model_bytes(&bodies);
+    let bodies = [Body {
+        name,
+        color: Some(color),
+        solid,
+    }];
+    let step = crate::cache::phase("STEP", || step_bytes(&bodies, name))?;
+    let model = crate::cache::phase("fine model", || Ok(model_bytes(&bodies)))?;
     keep(&dir.join(format!("{name}.step")), &step)?;
     keep(&dir.join(format!("{name}.step.npz")), &model)?;
     Ok((step, model))
 }
 
 /// The payload cut from a printed STL, naming the file `source` holds the bytes of.
-pub fn payload(dir: &Path, name: &str, color: Color, stl: &[u8], source: &[u8], sources: Option<&Sources>) -> Result<()> {
-    let (mesh, exact) = presentation::weld(stl)?;
+pub fn payload(
+    dir: &Path,
+    name: &str,
+    color: Color,
+    stl: &[u8],
+    source: &[u8],
+    sources: Option<&Sources>,
+) -> Result<()> {
+    let (mesh, exact) = crate::cache::phase("print mesh welding", || presentation::weld(stl))?;
     let lineage = sources.and_then(|s| {
         let triangles: Vec<usize> = s.faces.iter().map(|&f| f as usize).collect();
         presentation::lineage(&s.records, &triangles, mesh.faces.len(), exact)
     });
-    let cut = presentation::cut(&mesh, lineage, Request {
-        name: Value::from(name),
-        color: json!(color),
-        src: &digest(source),
-        crease_deg: CREASE_DEG,
-        deflection_ratio: LINEAR_DEFLECTION_RATIO,
-        preserve: false,
-        unknown: sources.is_some(),
-        check: false,
+    let cut = crate::cache::phase("viewer surface", || {
+        presentation::cut(
+            &mesh,
+            lineage,
+            Request {
+                name: Value::from(name),
+                color: json!(color),
+                src: &digest(source),
+                crease_deg: CREASE_DEG,
+                deflection_ratio: LINEAR_DEFLECTION_RATIO,
+                preserve: true,
+                unknown: sources.is_some(),
+                check: false,
+            },
+        )
     })?;
     keep(&dir.join(format!("{name}.step.mesh")), &cut.payload)
 }

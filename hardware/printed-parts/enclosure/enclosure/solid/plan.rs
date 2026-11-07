@@ -90,26 +90,90 @@ pub enum Op {
     Empty,
     /// The swept exterior silhouette, built from the piece's structure numbers.
     Silhouette,
+    SeamBand {
+        outer: Bounds,
+        centre: f64,
+        exterior: hsm_enclosure_numbers::exterior::Exterior,
+    },
+    Checkpoint(&'static str),
     Box(Bounds),
-    RoundedBox { b: Bounds, radius: f64 },
-    Cylinder { axis: usize, radius: f64, centre: P2, span: P2, stations: Option<P2> },
-    Cone { axis: usize, centre: P2, radii: P2, span: P2 },
-    Prism { axis: usize, span: P2, section: Vec<P2> },
+    RoundedBox {
+        b: Bounds,
+        radius: f64,
+    },
+    Cylinder {
+        axis: usize,
+        radius: f64,
+        centre: P2,
+        span: P2,
+        stations: Option<P2>,
+    },
+    Cone {
+        axis: usize,
+        centre: P2,
+        radii: P2,
+        span: P2,
+    },
+    Prism {
+        axis: usize,
+        span: P2,
+        section: Vec<P2>,
+    },
     /// A prism with fillets at the named section vertices, its outline offset when asked.
-    CornerPrism { axis: usize, span: P2, section: Vec<P2>, corners: Vec<usize>, radius: f64, offset: Option<f64> },
-    HandholdCutter { b: Bounds, radius: f64 },
+    CornerPrism {
+        axis: usize,
+        span: P2,
+        section: Vec<P2>,
+        corners: Vec<usize>,
+        radius: f64,
+        offset: Option<f64>,
+    },
+    HandholdCutter {
+        b: Bounds,
+        radius: f64,
+    },
     HandholdFinishAir(HandholdAir),
     /// The flank vent courses that clear the stock's interior, cut by their cutters.
-    FlankVents(FlankVents),
-    BezierPrism { axis: usize, span: P2, segments: Vec<Seg> },
-    ArcPrism { axis: usize, span: P2, start: P2, segments: Vec<Step> },
+    FlankVentCuts(FlankVents),
+    BezierPrism {
+        axis: usize,
+        span: P2,
+        segments: Vec<Seg>,
+    },
+    ArcPrism {
+        axis: usize,
+        span: P2,
+        start: P2,
+        segments: Vec<Step>,
+    },
     /// Sections in corresponding order, ruled face to face; its faces name the recipe line.
-    RuledStack { sections: Vec<Vec<P3>>, source: &'static Location<'static> },
+    RuledStack {
+        sections: Vec<Vec<P3>>,
+        source: &'static Location<'static>,
+    },
     InletFlange(Flange),
-    TurnedRuns { centre: P2, profile: Vec<P3> },
-    RadialProfile { points: Vec<P2> },
-    StadiumX { y: f64, z: f64, radius: f64, fore: f64, aft: f64, span: P2 },
-    StadiumProfileX { y: f64, z: f64, fore: f64, aft: f64, points: Vec<P2> },
+    TurnedRuns {
+        centre: P2,
+        profile: Vec<P3>,
+    },
+    RadialProfile {
+        points: Vec<P2>,
+    },
+    StadiumX {
+        y: f64,
+        z: f64,
+        radius: f64,
+        fore: f64,
+        aft: f64,
+        span: P2,
+    },
+    StadiumProfileX {
+        y: f64,
+        z: f64,
+        fore: f64,
+        aft: f64,
+        points: Vec<P2>,
+    },
     NameplateStock(Rc<Snap>),
     NameplateCuts(Rc<Snap>),
     DisposalLetters(Rc<Letters>),
@@ -117,10 +181,17 @@ pub enum Op {
     Cut,
     Intersect,
     Translate(P3),
-    Rotate { origin: P3, end: P3, angle: f64 },
+    Rotate {
+        origin: P3,
+        end: P3,
+        angle: f64,
+    },
     Mirror(usize),
     /// A rigid frame: rotation rows and a translation.
-    Placed { rotation: [P3; 3], translation: P3 },
+    Placed {
+        rotation: [P3; 3],
+        translation: P3,
+    },
 }
 
 #[derive(Clone, Debug, PartialEq)]
@@ -138,7 +209,8 @@ pub struct Shape {
 
 impl Shape {
     pub fn bounds(&self) -> Bounds {
-        self.bounds.expect("this feature has no conservative numeric bounds")
+        self.bounds
+            .expect("this feature has no conservative numeric bounds")
     }
 }
 
@@ -146,6 +218,7 @@ impl Shape {
 pub struct Graph {
     pub nodes: Vec<Node>,
     shared: HashMap<String, usize>,
+    additions: HashMap<usize, (Shape, Shape)>,
 }
 
 fn overlaps(a: &Bounds, b: &Bounds) -> bool {
@@ -171,6 +244,22 @@ impl Graph {
         &self.nodes[shape.index].op
     }
 
+    /// Retain the result at a construction boundary across edits to later features.
+    pub fn checkpoint(&mut self, name: &'static str, shape: Shape) -> Shape {
+        self.add(Op::Checkpoint(name), vec![shape.index], shape.bounds)
+    }
+
+    /// An authored addition stays separate while subsequent cuts and limits act on both branches.
+    pub fn additive(&mut self, stock: Shape, feature: Shape) -> Shape {
+        let result = self.boolean_plain(Op::Union, stock, &[feature]);
+        self.additions.insert(result.index, (stock, feature));
+        result
+    }
+
+    pub fn additive_parts(&self, shape: Shape) -> Option<(Shape, Shape)> {
+        self.additions.get(&shape.index).copied()
+    }
+
     /// The swept exterior every piece is trimmed to, bounded by the Box's outer bounds.
     pub fn silhouette(&mut self, outer: Bounds) -> Shape {
         self.add(Op::Silhouette, vec![], Some(outer))
@@ -184,7 +273,15 @@ impl Graph {
         self.add(Op::Box(b), vec![], Some(b))
     }
 
-    pub fn cylinder(&mut self, axis: usize, radius: f64, a: f64, b: f64, lo: f64, hi: f64) -> Shape {
+    pub fn cylinder(
+        &mut self,
+        axis: usize,
+        radius: f64,
+        a: f64,
+        b: f64,
+        lo: f64,
+        hi: f64,
+    ) -> Shape {
         let span = if lo <= hi { [lo, hi] } else { [hi, lo] };
         let mut bounds = [0.0; 6];
         bounds[2 * axis] = span[0];
@@ -194,7 +291,17 @@ impl Graph {
             bounds[2 * k] = centre - radius;
             bounds[2 * k + 1] = centre + radius;
         }
-        self.add(Op::Cylinder { axis, radius, centre: [a, b], span, stations: None }, vec![], Some(bounds))
+        self.add(
+            Op::Cylinder {
+                axis,
+                radius,
+                centre: [a, b],
+                span,
+                stations: None,
+            },
+            vec![],
+            Some(bounds),
+        )
     }
 
     pub fn xcyl(&mut self, r: f64, y: f64, z: f64, x0: f64, x1: f64) -> Shape {
@@ -208,22 +315,50 @@ impl Graph {
     }
 
     /// A Y prism whose roof peaks at the teardrop's apex, for printing a horizontal bore.
-    pub fn teardrop_y(&mut self, roof_angle: f64, radius: f64, x: f64, z: f64, y0: f64, y1: f64, up: f64) -> Shape {
+    pub fn teardrop_y(
+        &mut self,
+        roof_angle: f64,
+        radius: f64,
+        x: f64,
+        z: f64,
+        y0: f64,
+        y1: f64,
+        up: f64,
+    ) -> Shape {
         let angle = roof_angle.to_radians();
         let half = radius * angle.sin();
         let tangent = z + up * radius * angle.cos();
         let apex = z + up * radius / angle.cos();
         let pi2 = std::f64::consts::PI / 2.0;
         let circle = self.add(
-            Op::Cylinder { axis: 1, radius, centre: [x, z], span: [y0, y1],
-                           stations: Some([up * pi2 - angle, up * pi2 + angle]) },
-            vec![], Some([x - radius, x + radius, y0, y1, z - radius, z + radius]));
-        let roof = self.prism(1, y0, y1, vec![[x - half, tangent], [x + half, tangent], [x, apex]]);
+            Op::Cylinder {
+                axis: 1,
+                radius,
+                centre: [x, z],
+                span: [y0, y1],
+                stations: Some([up * pi2 - angle, up * pi2 + angle]),
+            },
+            vec![],
+            Some([x - radius, x + radius, y0, y1, z - radius, z + radius]),
+        );
+        let roof = self.prism(
+            1,
+            y0,
+            y1,
+            vec![[x - half, tangent], [x + half, tangent], [x, apex]],
+        );
         self.union(circle, &[roof])
     }
 
     /// A cylinder whose circle is broken at two stations, the angles its seams stand at.
-    pub fn stationed_cylinder(&mut self, axis: usize, radius: f64, centre: P2, span: P2, stations: P2) -> Shape {
+    pub fn stationed_cylinder(
+        &mut self,
+        axis: usize,
+        radius: f64,
+        centre: P2,
+        span: P2,
+        stations: P2,
+    ) -> Shape {
         let mut bounds = [0.0; 6];
         bounds[2 * axis] = span[0];
         bounds[2 * axis + 1] = span[1];
@@ -232,7 +367,17 @@ impl Graph {
             bounds[2 * k] = c - radius;
             bounds[2 * k + 1] = c + radius;
         }
-        self.add(Op::Cylinder { axis, radius, centre, span, stations: Some(stations) }, vec![], Some(bounds))
+        self.add(
+            Op::Cylinder {
+                axis,
+                radius,
+                centre,
+                span,
+                stations: Some(stations),
+            },
+            vec![],
+            Some(bounds),
+        )
     }
 
     #[track_caller]
@@ -240,9 +385,20 @@ impl Graph {
         let bounds = std::array::from_fn(|i| {
             let k = i / 2;
             let values = sections.iter().flatten().map(|p| p[k]);
-            if i % 2 == 0 { values.fold(f64::INFINITY, f64::min) } else { values.fold(f64::NEG_INFINITY, f64::max) }
+            if i % 2 == 0 {
+                values.fold(f64::INFINITY, f64::min)
+            } else {
+                values.fold(f64::NEG_INFINITY, f64::max)
+            }
         });
-        self.add(Op::RuledStack { sections, source: Location::caller() }, vec![], Some(bounds))
+        self.add(
+            Op::RuledStack {
+                sections,
+                source: Location::caller(),
+            },
+            vec![],
+            Some(bounds),
+        )
     }
 
     /// A line-and-cubic outline in the plane across `axis`, extruded over `span`.
@@ -255,13 +411,29 @@ impl Graph {
             })
             .collect();
         let bounds = Self::prism_bounds(axis, span, &points);
-        self.add(Op::BezierPrism { axis, span, segments }, vec![], Some(bounds))
+        self.add(
+            Op::BezierPrism {
+                axis,
+                span,
+                segments,
+            },
+            vec![],
+            Some(bounds),
+        )
     }
 
     pub fn prism(&mut self, axis: usize, lo: f64, hi: f64, section: Vec<P2>) -> Shape {
         let span = if lo <= hi { [lo, hi] } else { [hi, lo] };
         let bounds = Self::prism_bounds(axis, span, &section);
-        self.add(Op::Prism { axis, span, section }, vec![], Some(bounds))
+        self.add(
+            Op::Prism {
+                axis,
+                span,
+                section,
+            },
+            vec![],
+            Some(bounds),
+        )
     }
     pub fn yz_prism(&mut self, x0: f64, x1: f64, section: Vec<P2>) -> Shape {
         self.prism(0, x0, x1, section)
@@ -280,7 +452,10 @@ impl Graph {
         let other: Vec<usize> = (0..3).filter(|&k| k != axis).collect();
         for (i, k) in other.into_iter().enumerate() {
             bounds[2 * k] = section.iter().map(|p| p[i]).fold(f64::INFINITY, f64::min);
-            bounds[2 * k + 1] = section.iter().map(|p| p[i]).fold(f64::NEG_INFINITY, f64::max);
+            bounds[2 * k + 1] = section
+                .iter()
+                .map(|p| p[i])
+                .fold(f64::NEG_INFINITY, f64::max);
         }
         bounds
     }
@@ -298,10 +473,26 @@ impl Graph {
     }
 
     fn boolean(&mut self, op: Op, stock: Shape, others: &[Shape]) -> Shape {
+        if let Some((core, feature)) = self.additive_parts(stock) {
+            let core = self.boolean_plain(op.clone(), core, others);
+            let feature = if matches!(op, Op::Union) {
+                feature
+            } else {
+                self.boolean_plain(op, feature, others)
+            };
+            return self.additive(core, feature);
+        }
+        self.boolean_plain(op, stock, others)
+    }
+
+    fn boolean_plain(&mut self, op: Op, stock: Shape, others: &[Shape]) -> Shape {
         let mut nodes = vec![stock];
         match (&op, stock.bounds) {
             (Op::Cut, Some(b)) => nodes.extend(
-                others.iter().filter(|o| o.bounds.is_none_or(|ob| overlaps(&b, &ob)))),
+                others
+                    .iter()
+                    .filter(|o| o.bounds.is_none_or(|ob| overlaps(&b, &ob))),
+            ),
             _ => nodes.extend_from_slice(others),
         }
         if nodes.len() == 1 {
@@ -311,14 +502,26 @@ impl Graph {
         let bounds = match (&op, all) {
             (Op::Union, Some(all)) => Some(std::array::from_fn(|i| {
                 let k = i / 2;
-                if i % 2 == 0 { all.iter().map(|b| b[2 * k]).fold(f64::INFINITY, f64::min) }
-                else { all.iter().map(|b| b[2 * k + 1]).fold(f64::NEG_INFINITY, f64::max) }
+                if i % 2 == 0 {
+                    all.iter().map(|b| b[2 * k]).fold(f64::INFINITY, f64::min)
+                } else {
+                    all.iter()
+                        .map(|b| b[2 * k + 1])
+                        .fold(f64::NEG_INFINITY, f64::max)
+                }
             })),
             (Op::Union, None) => None,
             (Op::Intersect, Some(all)) => Some(std::array::from_fn(|i| {
                 let k = i / 2;
-                if i % 2 == 0 { all.iter().map(|b| b[2 * k]).fold(f64::NEG_INFINITY, f64::max) }
-                else { all.iter().map(|b| b[2 * k + 1]).fold(f64::INFINITY, f64::min) }
+                if i % 2 == 0 {
+                    all.iter()
+                        .map(|b| b[2 * k])
+                        .fold(f64::NEG_INFINITY, f64::max)
+                } else {
+                    all.iter()
+                        .map(|b| b[2 * k + 1])
+                        .fold(f64::INFINITY, f64::min)
+                }
             })),
             _ => stock.bounds,
         };
@@ -350,19 +553,34 @@ impl Graph {
     }
 
     pub fn translate(&mut self, shape: Shape, delta: P3) -> Shape {
-        let bounds = shape.bounds.map(|b| std::array::from_fn(|i| b[i] + delta[i / 2]));
+        let bounds = shape
+            .bounds
+            .map(|b| std::array::from_fn(|i| b[i] + delta[i / 2]));
         self.add(Op::Translate(delta), vec![shape.index], bounds)
     }
 
     pub fn rotate(&mut self, shape: Shape, origin: P3, end: P3, angle: f64) -> Shape {
         let bounds = shape.bounds.map(|b| {
             let corners: Vec<P3> = (0..8)
-                .map(|i| rotate_point([b[(i >> 2) & 1], b[2 + ((i >> 1) & 1)], b[4 + (i & 1)]], origin, end, angle))
+                .map(|i| {
+                    rotate_point(
+                        [b[(i >> 2) & 1], b[2 + ((i >> 1) & 1)], b[4 + (i & 1)]],
+                        origin,
+                        end,
+                        angle,
+                    )
+                })
                 .collect();
             std::array::from_fn(|i| {
                 let k = i / 2;
-                if i % 2 == 0 { corners.iter().map(|p| p[k]).fold(f64::INFINITY, f64::min) }
-                else { corners.iter().map(|p| p[k]).fold(f64::NEG_INFINITY, f64::max) }
+                if i % 2 == 0 {
+                    corners.iter().map(|p| p[k]).fold(f64::INFINITY, f64::min)
+                } else {
+                    corners
+                        .iter()
+                        .map(|p| p[k])
+                        .fold(f64::NEG_INFINITY, f64::max)
+                }
             })
         });
         self.add(Op::Rotate { origin, end, angle }, vec![shape.index], bounds)
@@ -379,8 +597,21 @@ impl Graph {
         self.add(Op::Mirror(axis), vec![shape.index], bounds)
     }
 
-    pub fn placed(&mut self, shape: Shape, rotation: [P3; 3], translation: P3, bounds: Option<Bounds>) -> Shape {
-        self.add(Op::Placed { rotation, translation }, vec![shape.index], bounds)
+    pub fn placed(
+        &mut self,
+        shape: Shape,
+        rotation: [P3; 3],
+        translation: P3,
+        bounds: Option<Bounds>,
+    ) -> Shape {
+        self.add(
+            Op::Placed {
+                rotation,
+                translation,
+            },
+            vec![shape.index],
+            bounds,
+        )
     }
 
     /// The nodes reachable from the result (and the extras), renumbered in graph order.
@@ -404,13 +635,21 @@ impl Graph {
             .map(|&i| {
                 let node = &self.nodes[i];
                 let mut row = op_json(&node.op);
-                row.insert("inputs".into(), json!(node.inputs.iter().map(|&k| remap[k]).collect::<Vec<_>>()));
+                row.insert(
+                    "inputs".into(),
+                    json!(node.inputs.iter().map(|&k| remap[k]).collect::<Vec<_>>()),
+                );
                 Value::Object(row)
             })
             .collect();
         let mut out = json!({"nodes": nodes, "result": remap[result.index]});
         if !extras.is_empty() {
-            out["extras"] = Value::Object(extras.iter().map(|(k, s)| (k.to_string(), json!(remap[s.index]))).collect());
+            out["extras"] = Value::Object(
+                extras
+                    .iter()
+                    .map(|(k, s)| (k.to_string(), json!(remap[s.index])))
+                    .collect(),
+            );
         }
         out
     }
@@ -422,71 +661,174 @@ pub fn rotate_point(p: P3, origin: P3, end: P3, angle: f64) -> P3 {
     let axis = axis.map(|a| a / length);
     let (c, s) = (angle.to_radians().cos(), angle.to_radians().sin());
     let q = [p[0] - origin[0], p[1] - origin[1], p[2] - origin[2]];
-    let cross = [axis[1] * q[2] - axis[2] * q[1], axis[2] * q[0] - axis[0] * q[2], axis[0] * q[1] - axis[1] * q[0]];
+    let cross = [
+        axis[1] * q[2] - axis[2] * q[1],
+        axis[2] * q[0] - axis[0] * q[2],
+        axis[0] * q[1] - axis[1] * q[0],
+    ];
     let dot = axis[0] * q[0] + axis[1] * q[1] + axis[2] * q[2];
     std::array::from_fn(|k| origin[k] + c * q[k] + s * cross[k] + (1.0 - c) * dot * axis[k])
 }
 
-fn op_json(op: &Op) -> Map<String, Value> {
+pub(crate) fn op_json(op: &Op) -> Map<String, Value> {
     let (name, fields) = match op {
         Op::Empty => ("empty", json!({})),
         Op::Silhouette => ("silhouette", json!({})),
+        Op::SeamBand {
+            outer,
+            centre,
+            exterior,
+        } => (
+            "seam-band",
+            json!({"outer":outer,"centre":centre,"exterior":exterior}),
+        ),
+        Op::Checkpoint(name) => ("checkpoint", json!({"name":name})),
         Op::Box(b) => ("box", json!({"box": b})),
         Op::RoundedBox { b, radius } => ("rounded-box", json!({"box": b, "radius": radius})),
-        Op::Cylinder { axis, radius, centre, span, stations } => {
+        Op::Cylinder {
+            axis,
+            radius,
+            centre,
+            span,
+            stations,
+        } => {
             let mut v = json!({"axis": axis, "radius": radius, "centre": centre, "span": span});
             if let Some(s) = stations {
                 v["stations"] = json!(s);
             }
             ("cylinder", v)
         }
-        Op::Cone { axis, centre, radii, span } => ("cone", json!({"axis": axis, "centre": centre, "radii": radii, "span": span})),
-        Op::Prism { axis, span, section } => ("prism", json!({"axis": axis, "span": span, "section": section})),
-        Op::CornerPrism { axis, span, section, corners, radius, offset } => {
+        Op::Cone {
+            axis,
+            centre,
+            radii,
+            span,
+        } => (
+            "cone",
+            json!({"axis": axis, "centre": centre, "radii": radii, "span": span}),
+        ),
+        Op::Prism {
+            axis,
+            span,
+            section,
+        } => (
+            "prism",
+            json!({"axis": axis, "span": span, "section": section}),
+        ),
+        Op::CornerPrism {
+            axis,
+            span,
+            section,
+            corners,
+            radius,
+            offset,
+        } => {
             let mut v = json!({"axis": axis, "span": span, "section": section, "corners": corners, "radius": radius});
             if let Some(o) = offset {
                 v["offset"] = json!(o);
             }
             ("corner-prism", v)
         }
-        Op::HandholdCutter { b, radius } => ("handhold-cutter", json!({"box": b, "radius": radius})),
-        Op::HandholdFinishAir(h) => ("handhold-finish-air", json!({
+        Op::HandholdCutter { b, radius } => {
+            ("handhold-cutter", json!({"box": b, "radius": radius}))
+        }
+        Op::HandholdFinishAir(h) => (
+            "handhold-finish-air",
+            json!({
             "bed": h.bed, "roof": h.roof, "crown": h.crown, "y": h.y, "depth": h.depth, "corner": h.corner,
-            "radius": h.radius, "end_stock": h.end_stock, "cutter_depth": h.cutter_depth, "slope": h.slope})),
-        Op::FlankVents(v) => ("flank-vents", json!({
+            "radius": h.radius, "end_stock": h.end_stock, "cutter_depth": h.cutter_depth, "slope": h.slope}),
+        ),
+        Op::FlankVentCuts(v) => (
+            "flank-vents",
+            json!({
             "columns": v.columns.iter().map(|c| json!({"cutters": c.cutters, "probe": c.probe, "side": c.side})).collect::<Vec<_>>(),
-            "courses": v.courses, "clearance": v.clearance, "tolerance": v.tolerance, "island_min": v.island_min})),
-        Op::BezierPrism { axis, span, segments } => ("bezier-prism", json!({"axis": axis, "span": span,
+            "courses": v.courses, "clearance": v.clearance, "tolerance": v.tolerance, "island_min": v.island_min}),
+        ),
+        Op::BezierPrism {
+            axis,
+            span,
+            segments,
+        } => (
+            "bezier-prism",
+            json!({"axis": axis, "span": span,
             "segments": segments.iter().map(|s| match s {
                 Seg::Line(a, b) => json!({"line": [a, b]}),
                 Seg::Cubic(a, b, c, d) => json!({"cubic": [a, b, c, d]}),
-            }).collect::<Vec<_>>()})),
-        Op::ArcPrism { axis, span, start, segments } => ("arc-prism", json!({"axis": axis, "span": span, "start": start,
+            }).collect::<Vec<_>>()}),
+        ),
+        Op::ArcPrism {
+            axis,
+            span,
+            start,
+            segments,
+        } => (
+            "arc-prism",
+            json!({"axis": axis, "span": span, "start": start,
             "segments": segments.iter().map(|s| match s {
                 Step::Arc(m, e) => json!({"arc": [m, e]}),
                 Step::Line(p) => json!({"line": p}),
-            }).collect::<Vec<_>>()})),
-        Op::RuledStack { sections, source } => ("ruled-stack", json!({"sections": sections,
-            "source": {"path": source.file(), "line": source.line()}})),
-        Op::InletFlange(f) => ("inlet-flange", json!({"clearance": f.clearance, "span": f.span, "landmarks": {
+            }).collect::<Vec<_>>()}),
+        ),
+        Op::RuledStack { sections, source } => (
+            "ruled-stack",
+            json!({"sections": sections,
+            "source": {"path": source.file(), "line": source.line()}}),
+        ),
+        Op::InletFlange(f) => (
+            "inlet-flange",
+            json!({"clearance": f.clearance, "span": f.span, "landmarks": {
             "shoulder": f.shoulder, "round_mid": f.round_mid, "tangent_start": f.tangent_start,
-            "ear_tangent": f.ear_tangent, "nose": f.nose, "taper_angle_deg": f.taper_angle_deg}})),
-        Op::TurnedRuns { centre, profile } => ("turned-runs", json!({"centre": centre, "profile": profile})),
+            "ear_tangent": f.ear_tangent, "nose": f.nose, "taper_angle_deg": f.taper_angle_deg}}),
+        ),
+        Op::TurnedRuns { centre, profile } => {
+            ("turned-runs", json!({"centre": centre, "profile": profile}))
+        }
         Op::RadialProfile { points } => ("radial-profile", json!({"points": points})),
-        Op::StadiumX { y, z, radius, fore, aft, span } => ("stadium-x", json!({"y": y, "z": z, "radius": radius, "fore": fore, "aft": aft, "span": span})),
-        Op::StadiumProfileX { y, z, fore, aft, points } => ("stadium-profile-x", json!({"y": y, "z": z, "fore": fore, "aft": aft, "points": points})),
+        Op::StadiumX {
+            y,
+            z,
+            radius,
+            fore,
+            aft,
+            span,
+        } => (
+            "stadium-x",
+            json!({"y": y, "z": z, "radius": radius, "fore": fore, "aft": aft, "span": span}),
+        ),
+        Op::StadiumProfileX {
+            y,
+            z,
+            fore,
+            aft,
+            points,
+        } => (
+            "stadium-profile-x",
+            json!({"y": y, "z": z, "fore": fore, "aft": aft, "points": points}),
+        ),
         Op::NameplateStock(s) => ("nameplate-stock", json!({"snap": snap_json(s)})),
         Op::NameplateCuts(s) => ("nameplate-cuts", json!({"snap": snap_json(s)})),
-        Op::DisposalLetters(l) => ("disposal-letters", json!({"outer": l.outer, "lines": l.lines, "family": l.family,
+        Op::DisposalLetters(l) => (
+            "disposal-letters",
+            json!({"outer": l.outer, "lines": l.lines, "family": l.family,
             "artwork": l.artwork.source, "cap_height": l.cap_height, "depth": l.depth, "embed": l.embed,
-            "line_gap": l.line_gap, "bottom": l.bottom})),
+            "line_gap": l.line_gap, "bottom": l.bottom}),
+        ),
         Op::Union => ("union", json!({})),
         Op::Cut => ("cut", json!({})),
         Op::Intersect => ("intersect", json!({})),
         Op::Translate(d) => ("translate", json!({"delta": d})),
-        Op::Rotate { origin, end, angle } => ("rotate", json!({"origin": origin, "end": end, "angle": angle})),
+        Op::Rotate { origin, end, angle } => (
+            "rotate",
+            json!({"origin": origin, "end": end, "angle": angle}),
+        ),
         Op::Mirror(axis) => ("mirror", json!({"axis": axis})),
-        Op::Placed { rotation, translation } => ("placed", json!({"frame": {"rotation": rotation, "translation_mm": translation}})),
+        Op::Placed {
+            rotation,
+            translation,
+        } => (
+            "placed",
+            json!({"frame": {"rotation": rotation, "translation_mm": translation}}),
+        ),
     };
     let mut row = match fields {
         Value::Object(m) => m,

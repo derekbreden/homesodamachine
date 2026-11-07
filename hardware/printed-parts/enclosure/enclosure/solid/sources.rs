@@ -17,14 +17,20 @@ fn key(mut corners: Triangle) -> Triangle {
 }
 
 fn sources(record: Value) -> Vec<Value> {
-    let mut records = record.get("contributors").and_then(Value::as_array)
-        .cloned().unwrap_or_else(|| vec![record.clone()]);
+    let mut records = record
+        .get("contributors")
+        .and_then(Value::as_array)
+        .cloned()
+        .unwrap_or_else(|| vec![record.clone()]);
     for source in &mut records {
         if let Some(fields) = source.as_object_mut() {
             fields.retain(|key, _| matches!(key.as_str(), "src" | "op" | "via"));
             if let Some(via) = record.get("via") {
-                let via = via.as_str().and_then(|text| text.split_once(" at "))
-                    .map(|(op, src)| json!({"op":op,"src":src})).unwrap_or_else(|| via.clone());
+                let via = via
+                    .as_str()
+                    .and_then(|text| text.split_once(" at "))
+                    .map(|(op, src)| json!({"op":op,"src":src}))
+                    .unwrap_or_else(|| via.clone());
                 fields.insert("via".into(), via);
             }
         }
@@ -34,7 +40,9 @@ fn sources(record: Value) -> Vec<Value> {
 
 fn join(into: &mut Vec<Value>, sources: &[Value]) {
     for source in sources {
-        if !into.contains(source) { into.push(source.clone()); }
+        if !into.contains(source) {
+            into.push(source.clone());
+        }
     }
     into.sort_by_cached_key(Value::to_string);
 }
@@ -43,11 +51,15 @@ fn triangles(shape: &Manifold) -> (Vec<Triangle>, Vec<u32>, Vec<u32>) {
     let mesh = shape.to_meshgl();
     let vertices = mesh.vert_properties();
     let stride = mesh.num_prop();
-    let triangles = mesh.tri_verts().chunks_exact(3).map(|indices| {
-        key(std::array::from_fn(|k| {
-            std::array::from_fn(|j| vertices[indices[k] as usize * stride + j].to_bits())
-        }))
-    }).collect();
+    let triangles = mesh
+        .tri_verts()
+        .chunks_exact(3)
+        .map(|indices| {
+            key(std::array::from_fn(|k| {
+                std::array::from_fn(|j| vertices[indices[k] as usize * stride + j].to_bits())
+            }))
+        })
+        .collect();
     (triangles, mesh.run_index(), mesh.run_original_id())
 }
 
@@ -66,17 +78,44 @@ impl Sources {
     pub fn new(solid: &Solid) -> Self {
         let mut base = HashMap::<Triangle, Vec<Value>>::new();
         for (i, triangle) in solid.tris().iter().enumerate() {
-            let corners = key(triangle.map(|v| solid.verts()[v as usize]
-                .to_array().map(|x| (x as f32).to_bits())));
-            join(base.entry(corners).or_default(), &sources(face_json(solid.face_at(i))));
+            let corners = key(triangle.map(|v| {
+                solid.verts()[v as usize]
+                    .to_array()
+                    .map(|x| (x as f32).to_bits())
+            }));
+            join(
+                base.entry(corners).or_default(),
+                &sources(face_json(solid.face_at(i))),
+            );
         }
-        Self { base, base_ids: HashSet::new(), tools: HashMap::new(), cut: HashMap::new(),
-            records: vec![vec![Value::Null]], faces: vec![] }
+        Self {
+            base,
+            base_ids: HashSet::new(),
+            tools: HashMap::new(),
+            cut: HashMap::new(),
+            records: vec![vec![Value::Null]],
+            faces: vec![],
+        }
     }
 
     pub fn document(&self) -> Value {
         json!({"v":1, "records":self.records, "triangles":self.faces,
             "lineage":"Boolean run IDs and exact oriented f32 triangle correspondence; unmatched facets are unknown."})
+    }
+
+    /// Exact surviving print triangles and added stock carry their sources through a union.
+    pub fn joined(&mut self, before: &Manifold, after: &Manifold, added: &Solid) {
+        let (triangles, _, _) = triangles(before);
+        for (triangle, &group) in triangles.into_iter().zip(&self.faces) {
+            self.cut
+                .insert(triangle, self.records[group as usize].clone());
+        }
+        for (triangle, records) in Self::new(added).base {
+            join(self.cut.entry(triangle).or_default(), &records);
+        }
+        self.records = vec![vec![Value::Null]];
+        self.faces.clear();
+        <Self as crate::skin::FluteObserver>::finished(self, after);
     }
 }
 
@@ -95,11 +134,16 @@ impl crate::skin::FluteObserver for Sources {
         let (triangles, runs, ids) = triangles(shape);
         let mut run = 0;
         for (i, triangle) in triangles.into_iter().enumerate() {
-            while run + 1 < ids.len() && runs[run + 1] as usize <= 3 * i { run += 1; }
+            while run + 1 < ids.len() && runs[run + 1] as usize <= 3 * i {
+                run += 1;
+            }
             let source = match ids.get(run) {
                 Some(id) if self.tools.contains_key(id) => vec![self.tools[id].clone()],
-                Some(id) if self.base_ids.contains(id) =>
-                    self.base.get(&triangle).cloned().unwrap_or_else(|| vec![Value::Null]),
+                Some(id) if self.base_ids.contains(id) => self
+                    .base
+                    .get(&triangle)
+                    .cloned()
+                    .unwrap_or_else(|| vec![Value::Null]),
                 _ => vec![Value::Null],
             };
             join(self.cut.entry(triangle).or_default(), &source);
@@ -111,7 +155,11 @@ impl crate::skin::FluteObserver for Sources {
         let (triangles, _, _) = triangles(shape);
         let mut groups = BTreeMap::from([(Value::Array(vec![Value::Null]).to_string(), 0)]);
         for triangle in triangles {
-            let sources = self.cut.get(&triangle).cloned().unwrap_or_else(|| vec![Value::Null]);
+            let sources = self
+                .cut
+                .get(&triangle)
+                .cloned()
+                .unwrap_or_else(|| vec![Value::Null]);
             let key = Value::Array(sources.clone()).to_string();
             let group = *groups.entry(key).or_insert_with(|| {
                 self.records.push(sources);

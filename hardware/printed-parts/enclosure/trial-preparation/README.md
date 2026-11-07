@@ -124,6 +124,10 @@ Each feature selects faces by orientation and by place on the part's own bounds 
 print frame, and states an `expect` range. A feature whose faces are missing, or whose
 measured extent leaves its range, stops the preparation and reports what was found.
 
+The handhold selectors use `wall_x_mm`, measured from the declared straight walls in the
+source frame. Projecting exterior columns do not move that reference. The lifting rounds
+and ceilings are selected in the lower half of each bottom piece.
+
 - **`fine_band`** — a show surface. Its connected faces' print-Z extent is the
   span; the 0.08 mm layer range starts one ordinary layer below it and ends one fine layer
   above it, so the span's top lies inside a fine layer. Its faces are painted support-blocked.

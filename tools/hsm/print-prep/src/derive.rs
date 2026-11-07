@@ -27,6 +27,8 @@ pub struct Geometry {
     pub zhi: Vec<f64>,
     pub low: [f64; 3],
     pub high: [f64; 3],
+    /// Source-frame distance to a declared straight wall, independent of projecting corners.
+    pub wall_x: Vec<f64>,
 }
 
 /// A feature's record, the facets it paints for support, and its per-facet paint codes.
@@ -72,7 +74,7 @@ impl Geometry {
                 }
             }
         }
-        Geometry { t, faces, n, a, c, zlo, zhi, low, high }
+        Geometry { t, faces, n, a, c, zlo, zhi, low, high, wall_x: vec![] }
     }
 
     pub fn select(&self, spec: &Value) -> Vec<bool> {
@@ -95,6 +97,7 @@ impl Geometry {
             let side_x = (c[0] - self.low[0]).min(self.high[0] - c[0]);
             let side_y = (c[1] - self.low[1]).min(self.high[1] - c[1]);
             if let Some(m) = num(spec, "exterior_x_mm") { keep &= side_x <= m; }
+            if let Some(m) = num(spec, "wall_x_mm") { keep &= self.wall_x.get(i).is_some_and(|d| *d <= m); }
             if let Some(m) = num(spec, "exterior_y_mm") { keep &= side_y <= m; }
             if let Some(half) = spec.get("half").and_then(Value::as_str) {
                 keep &= if half == "lower" { c[2] < middle } else { c[2] >= middle };
