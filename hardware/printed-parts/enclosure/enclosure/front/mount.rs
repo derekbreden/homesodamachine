@@ -6,10 +6,10 @@ use crate::display;
 use crate::funnel;
 use crate::plan::{Bounds, Graph, Op, P2, P3, Shape};
 use crate::pump::{case, offset_polygon, tray};
-use hsm_enclosure_retainer_numbers::{datums, snap_datums};
 use crate::shell::{FRONT_PLANE_Y, WALL, Z_SEAM, shell};
 use crate::spec::Box;
 use crate::structure::profile;
+use hsm_enclosure_retainer_numbers::{datums, snap_datums};
 
 /// The shared electrical corridor's diamond half span.
 const SHARED_HALF_SPAN: f64 = 11.0;
@@ -36,31 +36,58 @@ const LINK_INNER: P3 = [0.0, 78.0, 321.0];
 /// The mount's broad stock, from the pumps' bearing plane to the roof, trimmed to the exterior.
 pub fn stock(g: &mut Graph, b: &Box, silhouette: Shape) -> Shape {
     let d = datums(b);
-    let fill = g.box_([b.inner[0] - 1.0, b.inner[1] + 1.0, FRONT_PLANE_Y - 1.0,
-                       funnel::housing_back_y(funnel::CENTER_Y), d.bearing_z, b.outer[5] + 1.0]);
+    let fill = g.box_([
+        b.inner[0] - 1.0,
+        b.inner[1] + 1.0,
+        FRONT_PLANE_Y - 1.0,
+        funnel::housing_back_y(funnel::CENTER_Y),
+        d.bearing_z,
+        b.outer[5] + 1.0,
+    ]);
     g.intersect(fill, &[silhouette])
 }
 
 /// The opening the cartridge loads up through, from under the seam to its bearing plane.
 pub fn loading_opening(g: &mut Graph, b: &Box) -> Shape {
     let d = datums(b);
-    g.box_([d.x0 - running(), d.x1 + running(), d.y0 - running(), shell().bay_back_y(&b.pack.collet_plate),
-            Z_SEAM - 20.0, d.bearing_z])
+    g.box_([
+        d.x0 - running(),
+        d.x1 + running(),
+        d.y0 - running(),
+        shell().bay_back_y(&b.pack.collet_plate),
+        Z_SEAM - 20.0,
+        d.bearing_z,
+    ])
 }
 
 /// The radius the motor cans' terminal crown opens to under the bay's crown.
 fn terminal_crown_r(b: &Box) -> f64 {
     let t = tray();
     let crown = b.pump_bay[2] - running();
-    let opening = b.pack.pump_trays.iter().map(|p| p[2]).fold(f64::NEG_INFINITY, f64::max) + t.motor_crown
-        + BAY_CROWN_AIR - shell().pump_cartridge_z_clearance;
+    let opening = b
+        .pack
+        .pump_trays
+        .iter()
+        .map(|p| p[2])
+        .fold(f64::NEG_INFINITY, f64::max)
+        + t.motor_crown
+        + BAY_CROWN_AIR
+        - shell().pump_cartridge_z_clearance;
     t.can_half + crown - opening
 }
 
 fn cone(g: &mut Graph, x: f64, y: f64, radii: P2, z0: f64, height: f64) -> Shape {
     let r = radii[0].max(radii[1]);
-    g.add(Op::Cone { axis: 2, centre: [x, y], radii, span: [z0, z0 + height] }, vec![],
-          Some([x - r, x + r, y - r, y + r, z0, z0 + height]))
+    g.add(
+        Op::Cone {
+            axis: 2,
+            centre: [x, y],
+            radii,
+            span: [z0, z0 + height],
+        },
+        vec![],
+        Some([x - r, x + r, y - r, y + r, z0, z0 + height]),
+    )
 }
 
 /// Each pump's inverse: the room its boss takes, the can over it and the terminal crown's
@@ -73,12 +100,23 @@ fn inverse_cuts(g: &mut Graph, b: &Box) -> Vec<Shape> {
     for &[x, y0, z] in &b.pack.pump_trays {
         let flange = z - e.pump_seated_drop;
         let y = y0 + t.rear_axis_y_shift;
-        let room = g.prism(2, 0.0, t.boss_depth, offset_polygon(&case().bore_profile(), e.cap_boss_air));
+        let room = g.prism(
+            2,
+            0.0,
+            t.boss_depth,
+            offset_polygon(&case().bore_profile(), e.cap_boss_air),
+        );
         let lifted = g.translate(room, [0.0, 0.0, finish]);
         let room = g.union(room, &[lifted]);
         out.push(g.translate(room, [x, y, flange]));
         let start = flange + t.motor_crown - WALL;
-        out.push(g.zcyl(t.can_half, x, y, flange + t.boss_depth + finish - 0.01, start + 0.01));
+        out.push(g.zcyl(
+            t.can_half,
+            x,
+            y,
+            flange + t.boss_depth + finish - 0.01,
+            start + 0.01,
+        ));
         let rise = radius - t.can_half;
         out.push(cone(g, x, y, [t.can_half, radius], start, rise));
         let roof = radius * e.teardrop_roof_angle.to_radians().tan();
@@ -88,7 +126,9 @@ fn inverse_cuts(g: &mut Graph, b: &Box) -> Vec<Shape> {
 }
 
 fn box_points(b: &Bounds) -> Vec<P3> {
-    (0..8).map(|i| [b[(i >> 2) & 1], b[2 + ((i >> 1) & 1)], b[4 + (i & 1)]]).collect()
+    (0..8)
+        .map(|i| [b[(i >> 2) & 1], b[2 + ((i >> 1) & 1)], b[4 + (i & 1)]])
+        .collect()
 }
 
 fn diamond([x, y, z]: P3, r: f64) -> [P3; 4] {
@@ -97,7 +137,9 @@ fn diamond([x, y, z]: P3, r: f64) -> [P3; 4] {
 
 /// A display-plane point placed in the machine frame.
 fn on_display(rotation: &[P3; 3], translation: &P3, p: P3) -> P3 {
-    std::array::from_fn(|k| rotation[k][0] * p[0] + rotation[k][1] * p[1] + rotation[k][2] * p[2] + translation[k])
+    std::array::from_fn(|k| {
+        rotation[k][0] * p[0] + rotation[k][1] * p[1] + rotation[k][2] * p[2] + translation[k]
+    })
 }
 
 /// The convex hull of the points' YZ shadow, run over their X span: a corridor no wire's
@@ -120,9 +162,17 @@ fn corridor(g: &mut Graph, points: &[P3]) -> (Shape, Vec<P3>) {
     };
     let mut outline = chain(&mut plan.iter().copied());
     outline.extend(chain(&mut plan.iter().rev().copied()));
-    let span = [points.iter().map(|p| p[0]).fold(f64::INFINITY, f64::min),
-                points.iter().map(|p| p[0]).fold(f64::NEG_INFINITY, f64::max)];
-    let hull: Vec<P3> = span.iter().flat_map(|&x| outline.iter().map(move |&[y, z]| [x, y, z])).collect();
+    let span = [
+        points.iter().map(|p| p[0]).fold(f64::INFINITY, f64::min),
+        points
+            .iter()
+            .map(|p| p[0])
+            .fold(f64::NEG_INFINITY, f64::max),
+    ];
+    let hull: Vec<P3> = span
+        .iter()
+        .flat_map(|&x| outline.iter().map(move |&[y, z]| [x, y, z]))
+        .collect();
     (g.prism(0, span[0], span[1], outline), hull)
 }
 
@@ -138,23 +188,59 @@ fn wire_cuts(g: &mut Graph, b: &Box) -> Vec<(Shape, Vec<P3>)> {
     let cy = d.motor_y;
 
     let r = SHARED_HALF_SPAN;
-    let shared = g.prism(1, cy, rear_y, vec![[-r, rear_z], [0.0, rear_z + r], [r, rear_z], [0.0, rear_z - r]]);
+    let shared = g.prism(
+        1,
+        cy,
+        rear_y,
+        vec![
+            [-r, rear_z],
+            [0.0, rear_z + r],
+            [r, rear_z],
+            [0.0, rear_z - r],
+        ],
+    );
     let mut shared_points = diamond([0.0, cy, rear_z], r).to_vec();
     shared_points.extend(diamond([0.0, rear_y, rear_z], r));
-    let opening = [-r, r, funnel::housing_back_y(funnel::CENTER_Y), rear_y, rear_z, b.pump_bay[2] + 0.01];
+    let opening = [
+        -r,
+        r,
+        funnel::housing_back_y(funnel::CENTER_Y),
+        rear_y,
+        rear_z,
+        b.pump_bay[2] + 0.01,
+    ];
 
     let r = INTERNAL_WIRE_HALF_SPAN;
     let xs = b.pack.pump_trays.iter().map(|p| p[0]);
-    let (xa, xb) = (xs.clone().fold(f64::INFINITY, f64::min), xs.fold(f64::NEG_INFINITY, f64::max));
+    let (xa, xb) = (
+        xs.clone().fold(f64::INFINITY, f64::min),
+        xs.fold(f64::NEG_INFINITY, f64::max),
+    );
     let floor = motor_end - WALL;
-    let section = vec![[cy - r, floor], [cy + r, floor], [cy + r, cross_z], [cy, cross_z + r], [cy - r, cross_z]];
-    let cross_points: Vec<P3> = [xa, xb].iter().flat_map(|&x| section.iter().map(move |&[y, z]| [x, y, z])).collect();
+    let section = vec![
+        [cy - r, floor],
+        [cy + r, floor],
+        [cy + r, cross_z],
+        [cy, cross_z + r],
+        [cy - r, cross_z],
+    ];
+    let cross_points: Vec<P3> = [xa, xb]
+        .iter()
+        .flat_map(|&x| section.iter().map(move |&[y, z]| [x, y, z]))
+        .collect();
     let cross = g.prism(0, xa, xb, section);
 
     let (rotation, translation) = display::frame(&b.outer);
     let normal = profile(&b.outer).normal;
-    let terminal = on_display(&rotation, &translation, [display::BODY_OFFSET_X, display::BODY_OFFSET_SLOPE,
-                                                     -(display::FACET_THICKNESS + display::pcb_cut_through() - 1.0)]);
+    let terminal = on_display(
+        &rotation,
+        &translation,
+        [
+            display::BODY_OFFSET_X,
+            display::BODY_OFFSET_SLOPE,
+            -(display::FACET_THICKNESS + display::pcb_cut_through() - 1.0),
+        ],
+    );
     let link: P3 = std::array::from_fn(|k| terminal[k] - normal[k] * LINK_BACK);
     let entry: P3 = std::array::from_fn(|k| terminal[k] + normal[k] * LINK_ENTRY);
     let r = DISPLAY_LINK_HALF_SPAN;
@@ -168,17 +254,35 @@ fn wire_cuts(g: &mut Graph, b: &Box) -> Vec<(Shape, Vec<P3>)> {
         .collect();
     let bounds: Bounds = std::array::from_fn(|i| {
         let values = local.iter().map(|p| p[i / 2]);
-        if i % 2 == 0 { values.fold(f64::INFINITY, f64::min) - 1.0 } else { values.fold(f64::NEG_INFINITY, f64::max) + 1.0 }
+        if i % 2 == 0 {
+            values.fold(f64::INFINITY, f64::min) - 1.0
+        } else {
+            values.fold(f64::NEG_INFINITY, f64::max) + 1.0
+        }
     });
-    let chimney = [CHIMNEY_X[0], CHIMNEY_X[1], CHIMNEY_Y[0], CHIMNEY_Y[1], rear_z, CHIMNEY_TOP];
-    let mut cloud: Vec<P3> = box_points(&bounds).into_iter().map(|p| on_display(&rotation, &translation, p)).collect();
+    let chimney = [
+        CHIMNEY_X[0],
+        CHIMNEY_X[1],
+        CHIMNEY_Y[0],
+        CHIMNEY_Y[1],
+        rear_z,
+        CHIMNEY_TOP,
+    ];
+    let mut cloud: Vec<P3> = box_points(&bounds)
+        .into_iter()
+        .map(|p| on_display(&rotation, &translation, p))
+        .collect();
     cloud.extend(diamond(link, r));
     cloud.extend(diamond(LINK_INNER, r));
     cloud.extend(box_points(&chimney));
     let (link_body, link_points) = corridor(g, &cloud);
 
-    vec![(shared, shared_points), (g.box_(opening), box_points(&opening)), (cross, cross_points),
-         (link_body, link_points)]
+    vec![
+        (shared, shared_points),
+        (g.box_(opening), box_points(&opening)),
+        (cross, cross_points),
+        (link_body, link_points),
+    ]
 }
 
 /// The room over the motors' crowns up to the PCB, wrapping the cross run and the display link.
@@ -187,18 +291,37 @@ fn upper_wire_room(g: &mut Graph, b: &Box, wires: &[(Shape, Vec<P3>)]) -> Shape 
     let radius = terminal_crown_r(b);
     let base = d.flange_z + t.motor_crown - WALL + radius - t.can_half;
     let peak = base + radius * shell().teardrop_roof_angle.to_radians().tan();
-    let (x0, x1) = (display::BODY_OFFSET_X - display::pcb_x() / 2.0, display::BODY_OFFSET_X + display::pcb_x() / 2.0);
+    let (x0, x1) = (
+        display::BODY_OFFSET_X - display::pcb_x() / 2.0,
+        display::BODY_OFFSET_X + display::pcb_x() / 2.0,
+    );
     // The crowns' run is the PCB's span across the box, where the display stands on the facet.
     let at = display::centre_x(&b.outer);
     let mut cloud: Vec<P3> = [x0 + at, x1 + at]
         .iter()
-        .flat_map(|&x| [[d.motor_y - radius, base], [d.motor_y + radius, base], [d.motor_y, peak]].map(|[y, z]| [x, y, z]))
+        .flat_map(|&x| {
+            [
+                [d.motor_y - radius, base],
+                [d.motor_y + radius, base],
+                [d.motor_y, peak],
+            ]
+            .map(|[y, z]| [x, y, z])
+        })
         .collect();
     let (rotation, translation) = display::frame(&b.outer);
-    let pcb = [x0, x1, display::BODY_OFFSET_SLOPE - display::pcb_slope() / 2.0,
-               display::BODY_OFFSET_SLOPE + display::pcb_slope() / 2.0,
-               -display::FACET_THICKNESS - display::pcb_cut_through(), display::GLASS_SEAT];
-    cloud.extend(box_points(&pcb).into_iter().map(|p| on_display(&rotation, &translation, p)));
+    let pcb = [
+        x0,
+        x1,
+        display::BODY_OFFSET_SLOPE - display::pcb_slope() / 2.0,
+        display::BODY_OFFSET_SLOPE + display::pcb_slope() / 2.0,
+        -display::FACET_THICKNESS - display::pcb_cut_through(),
+        display::GLASS_SEAT,
+    ];
+    cloud.extend(
+        box_points(&pcb)
+            .into_iter()
+            .map(|p| on_display(&rotation, &translation, p)),
+    );
     // The room wraps the cross run and the link within the PCB's span; past it, each is cut in
     // its own right.
     let (lo, hi) = (x0 + at, x1 + at);
@@ -224,30 +347,62 @@ pub fn fixed_cuts(g: &mut Graph, b: &Box) -> Vec<Shape> {
 pub fn snap_receivers(g: &mut Graph, b: &Box, mut piece: Shape) -> Shape {
     let d = snap_datums(b);
     let silhouette = g.silhouette(b.exterior_bounds());
+    // Host replacement acts on the mechanical body; fitted openings constrain the band.
+    let (core, mut exterior) = g
+        .additive_parts(piece)
+        .map(|(core, band)| (core, Some(band)))
+        .unwrap_or((piece, None));
+    piece = core;
     for side in [-1.0, 1.0] {
-        let (x0, x1) = crate::quadrant::sorted(side * d.receiver_inner_x, side * (d.receiver_outer_x + 0.5));
-        let band = g.box_([x0, x1, d.receiver_y0, d.receiver_y1, d.receiver_z0, d.receiver_z1]);
+        let (x0, x1) = crate::quadrant::sorted(
+            side * d.receiver_inner_x,
+            side * (b.exterior_bounds()[1] + 0.5),
+        );
+        let band = g.box_([
+            x0,
+            x1,
+            d.receiver_y0,
+            d.receiver_y1,
+            d.receiver_z0,
+            d.receiver_z1,
+        ]);
         let stock = g.intersect(band, &[silhouette]);
         let reach = d.receiver_back_x - d.receiver_inner_x;
-        let pocket = g.xz_prism(d.receiver_y0, d.receiver_y1, vec![
-            [side * d.receiver_inner_x, d.receiver_floor_z],
-            [side * d.receiver_back_x, d.receiver_floor_z],
-            [side * d.receiver_back_x, d.receiver_roof_z],
-            [side * d.receiver_inner_x, d.receiver_roof_z + reach],
-        ]);
+        let pocket = g.xz_prism(
+            d.receiver_y0,
+            d.receiver_y1,
+            vec![
+                [side * d.receiver_inner_x, d.receiver_floor_z],
+                [side * d.receiver_back_x, d.receiver_floor_z],
+                [side * d.receiver_back_x, d.receiver_roof_z],
+                [side * d.receiver_inner_x, d.receiver_roof_z + reach],
+            ],
+        );
         let (x0, x1) = crate::quadrant::sorted(side * d.port_inner_x, side * d.port_outer_x);
         let port = g.box_([x0, x1, d.port_y0, d.port_y1, d.port_z0, d.receiver_roof_z]);
         let roof_drop = d.port_outer_x - d.receiver_back_x;
-        let corbel = g.xz_prism(d.port_y0, d.port_y1, vec![
-            [side * d.receiver_back_x, d.receiver_roof_z],
-            [side * d.port_outer_x, d.receiver_roof_z],
-            [side * d.port_outer_x, d.receiver_roof_z - roof_drop],
-        ]);
+        let corbel = g.xz_prism(
+            d.port_y0,
+            d.port_y1,
+            vec![
+                [side * d.receiver_back_x, d.receiver_roof_z],
+                [side * d.port_outer_x, d.receiver_roof_z],
+                [side * d.port_outer_x, d.receiver_roof_z - roof_drop],
+            ],
+        );
         let receiver = g.cut(stock, &[pocket]);
         let receiver = g.cut(receiver, &[port]);
         let receiver = g.union(receiver, &[corbel]);
         piece = g.cut(piece, &[band]);
         piece = g.union(piece, &[receiver]);
+        if let Some(stock) = exterior {
+            let port_air = g.cut(port, &[corbel]);
+            exterior = Some(g.cut(stock, &[pocket, port_air]));
+        }
     }
-    piece
+    if let Some(exterior) = exterior {
+        g.additive(piece, exterior)
+    } else {
+        piece
+    }
 }
