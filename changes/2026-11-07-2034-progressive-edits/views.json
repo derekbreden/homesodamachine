@@ -1,0 +1,242 @@
+{
+  "views": [
+    {
+      "name": "band",
+      "caption": "A temporary band edit, published while the other quadrants continued building. The production dimensions are restored after measurement.",
+      "before": "band-before.webp",
+      "after": "band-after.webp",
+      "width": 1000,
+      "height": 800,
+      "marks": [
+        {
+          "x": 512.9,
+          "y": 411.4,
+          "r": 45.5,
+          "label": "Band",
+          "at": [
+            105,
+            3,
+            160
+          ]
+        }
+      ],
+      "model": "manifold-layout/enclosure-assembly.step",
+      "camera": {
+        "projection": "perspective",
+        "position": [
+          246.83978394802332,
+          -142.83978394802332,
+          220.13591357920933
+        ],
+        "target": [
+          99,
+          5,
+          161
+        ],
+        "up": [
+          0,
+          0,
+          1
+        ],
+        "fov": 45,
+        "near": 59.27095627825349,
+        "far": 831.3283475083804,
+        "aspect": 1.25
+      },
+      "highlight": [],
+      "ghost": [],
+      "only": [
+        "enclosure-front-top",
+        "enclosure-front-bottom"
+      ],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "snapshot",
+          "sha256": "ef9980b18ba403e6083ac8407eedaabe349fbf8820f40116ed694daa5478e2bd",
+          "commit": "17e7a20376b2e61c5f36b82a238e34b5ea405e0f",
+          "taken": "2026-11-08T02:27:33.993Z",
+          "published": true
+        },
+        "after": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "snapshot",
+          "sha256": "603fe318a334552b1d4f6937c001103e82c4f644810a69634da658d9bdb26cf6",
+          "commit": "a3962cb6b4050e4a2b4ba17963862a72eb86abd0",
+          "taken": "2026-11-08T02:28:23.314Z",
+          "published": true
+        }
+      },
+      "changed": [
+        "enclosure-front-top",
+        "enclosure-back-top",
+        "enclosure-front-bottom",
+        "enclosure-back-bottom"
+      ],
+      "withinMeshing": []
+    },
+    {
+      "name": "columns",
+      "caption": "A temporary column projection edit tests a broader geometry change. The production dimensions are restored after measurement.",
+      "before": "columns-before.webp",
+      "after": "columns-after.webp",
+      "width": 1000,
+      "height": 800,
+      "marks": [
+        {
+          "x": 512.9,
+          "y": 411.4,
+          "r": 45.5,
+          "label": "Column",
+          "at": [
+            105,
+            3,
+            160
+          ]
+        }
+      ],
+      "model": "manifold-layout/enclosure-assembly.step",
+      "camera": {
+        "projection": "perspective",
+        "position": [
+          246.83978394802332,
+          -142.83978394802332,
+          220.13591357920933
+        ],
+        "target": [
+          99,
+          5,
+          161
+        ],
+        "up": [
+          0,
+          0,
+          1
+        ],
+        "fov": 45,
+        "near": 58.04903061779777,
+        "far": 832.3615158226964,
+        "aspect": 1.25
+      },
+      "highlight": [],
+      "ghost": [],
+      "only": [
+        "enclosure-front-top",
+        "enclosure-front-bottom"
+      ],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "snapshot",
+          "sha256": "ef9980b18ba403e6083ac8407eedaabe349fbf8820f40116ed694daa5478e2bd",
+          "commit": "17e7a20376b2e61c5f36b82a238e34b5ea405e0f",
+          "taken": "2026-11-08T02:27:33.993Z",
+          "published": true
+        },
+        "after": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "snapshot",
+          "sha256": "5b13a1862464bb5158cd97229cad5bbca1abe508fefbbd76635db08cb74a5e82",
+          "commit": "16e05c7cf6237b3b933e1b9ac1a02a1bd1b36fac",
+          "taken": "2026-11-08T02:31:53.869Z",
+          "published": true
+        }
+      },
+      "changed": [
+        "enclosure-front-top",
+        "enclosure-front-bottom",
+        "enclosure-back-top",
+        "enclosure-back-bottom"
+      ],
+      "withinMeshing": []
+    },
+    {
+      "name": "placement",
+      "caption": "A temporary edit to the authored power-supply position exercises assembly placement and its dependent wiring. The production position is restored after measurement.",
+      "before": "placement-before.webp",
+      "after": "placement-after.webp",
+      "width": 1000,
+      "height": 800,
+      "marks": [
+        {
+          "x": 499,
+          "y": 399.6,
+          "r": 36.3,
+          "label": "Power supply",
+          "at": [
+            -26,
+            399,
+            332
+          ]
+        }
+      ],
+      "model": "manifold-layout/enclosure-assembly.step",
+      "camera": {
+        "projection": "perspective",
+        "position": [
+          127.92501355929545,
+          245.47683428006002,
+          485.57315351290873
+        ],
+        "target": [
+          -25.39813995361328,
+          398.79998779296875,
+          332.25
+        ],
+        "up": [
+          0,
+          0,
+          1
+        ],
+        "fov": 45,
+        "near": 186.00599987411323,
+        "far": 392.8554790401242,
+        "aspect": 1.25
+      },
+      "highlight": [],
+      "ghost": [],
+      "only": [
+        "psu",
+        "psu-screw-*",
+        "psu-insert-*"
+      ],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "snapshot",
+          "sha256": "cbb96a792562898ba96bc6c3f329c01cc5ca804366009b32864e6dbf7dace297",
+          "commit": "e6fbdf5ca03211e567f49e14daea8754692cfb11",
+          "taken": "2026-11-08T02:44:58.758Z",
+          "published": true
+        },
+        "after": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "snapshot",
+          "sha256": "1c2264fd700713125a3ee8f0e6ad437a57185587e2cdc6c79cac15862a2f2038",
+          "commit": "38642c47efd4b183d7a6504d792aeab0a9e1217e",
+          "taken": "2026-11-08T02:45:34.010Z",
+          "published": true
+        }
+      },
+      "changed": [
+        "wire-AC2-L",
+        "psu-screw-1",
+        "psu-screw-2",
+        "psu-screw-3",
+        "psu-screw-4",
+        "psu-insert-1",
+        "psu-insert-2",
+        "psu-insert-3",
+        "psu-insert-4",
+        "wire-DC1-GND",
+        "wire-DC1-V12",
+        "wire-AC2-N",
+        "psu"
+      ],
+      "withinMeshing": []
+    }
+  ]
+}

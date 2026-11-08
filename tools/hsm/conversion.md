@@ -285,6 +285,10 @@ separate consumers of the generated solids. Viewer references advance before man
 uploads and input-proof bookkeeping. A publication includes the completed members captured
 for its reference refresh; later completions advance in the next publication.
 
+The [live-publication record](conversion-results/progressive-publication-2026-11-07.json)
+retains source-to-visible timings, per-producer delivery costs, print hashes and consumer
+checks. It records the startup and deployment outlier alongside the warmed measurements.
+
 Whole-machine throughput is measured with `//:everything` with every step rerun, as an
 edit that reaches the enclosure causes, on the compiled workspace and the caches a normal build
 keeps. Most edits reach the enclosure, which nearly every step reads, so most builds come close
