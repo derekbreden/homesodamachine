@@ -264,7 +264,7 @@
     "No claims for pump internals, sealed cavities, material stiffness, screw torque or long-term endurance."
   ],
   "held_out_validation": {
-    "sampling": "Disjoint native point indices; geometric selection only, no rejection by distance to model.",
+    "sampling": "Disjoint native point indices; geometric selection only, no rejection by distance to model. The identified motor scan-artifact patch is excluded.",
     "rows": [
       {
         "pass": 1,
@@ -296,11 +296,11 @@
       {
         "pass": 1,
         "region": "motor",
-        "points": 20349,
-        "median_mm": 0.013746120971650016,
-        "p95_mm": 0.07491795445029815,
-        "p99_mm": 0.1733321114589003,
-        "max_mm": 1.1101680653651942
+        "points": 19132,
+        "median_mm": 0.012905495471651669,
+        "p95_mm": 0.0685143743484938,
+        "p99_mm": 0.1635235788613823,
+        "max_mm": 1.1202210451661991
       },
       {
         "pass": 1,
@@ -341,10 +341,10 @@
       {
         "pass": 2,
         "region": "motor",
-        "points": 22338,
-        "median_mm": 0.02177420216859351,
-        "p95_mm": 0.08581740623695297,
-        "p99_mm": 0.1629504900144963,
+        "points": 20999,
+        "median_mm": 0.02133688481877988,
+        "p95_mm": 0.08064072399867671,
+        "p99_mm": 0.15417062886364702,
         "max_mm": 0.7530072957926656
       },
       {
@@ -357,6 +357,24 @@
         "max_mm": 0.14232051652751543
       }
     ],
-    "model_sha256": "8513b88754647a8848f1f432d9c5014b9f6f12543a3ceefa3316b038f18397d0"
+    "model_sha256": "4ffe5555bee678fd5cb3a956104e41848a9874d23ea894f3f4ec95d759287ee9"
+  },
+  "motor_artifact_correction": {
+    "classification": "Scan defect, excluded from the physical motor",
+    "authority": "Derek",
+    "statement": "That's definitely a scan defect, not something actually on the motor.",
+    "patch_bounds_local_mm": [
+      [
+        -17,
+        -25,
+        49.5
+      ],
+      [
+        -1,
+        -9,
+        63.3
+      ]
+    ],
+    "replacement": "Independent fitted barrel cylinder; other motor and pump surfaces retained"
   }
 }

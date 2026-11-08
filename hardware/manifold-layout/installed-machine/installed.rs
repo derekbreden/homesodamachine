@@ -375,6 +375,9 @@ pub fn installed_instances(root: &Path) -> Result<Value> {
         rows.push(placed(&file, &format!("enclosure-{name}"), None, None, Some(petgf), false));
     }
     let retainer = model(root, "printed-parts/enclosure/enclosure/enclosure-pump-retainer-seated.step")?;
-    rows.push(placed(&retainer, "enclosure-pump-retainer", None, None, None, false));
+    let native=root.join("hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer-seated.step.npz");
+    for (index,name) in entry_names(&native)?.iter().enumerate() {
+        rows.push(placed(&retainer,name,Some(index),None,None,false));
+    }
     Ok(json!({"instances": rows}))
 }
