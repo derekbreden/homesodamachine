@@ -1,30 +1,4 @@
-[ceiling] Wrong print-direction classification for the full-Y spring corridor. The retainer prints on its Y-minus end, with source +Y as the build axis. The named Z197.445 surface is vertical in that print frame; it is not a horizontal print-down ceiling. The source corridor is 3.35 mm wide below the tangent 1.5 mm root blend. The native projects in print-tests/pointed-snaps bind the actual 90 degree X pose.
-alternatives: Filling this corridor joins the spring to its carrier and removes the required inward travel. Returning to a Z-up print changes the layer direction through the flexure. The ceiling classifier uses source Z for this class even when the recorded tilt is used for ledge findings.
+[step] Intentional shallow screw-head seats. Each socket head rests on the flat annular floor below the retainer face; the remaining head projects as drawn. This is the fastener-bearing surface.
+alternatives: Removing the recess loses the positive head seat. A deeper recess reduces the side wall and buries the head. A taper requires different screw hardware.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.step
-click: x=93.825 y=48.257 z=197.445
-click: x=-93.825 y=48.257 z=197.445
-
-[thin] Required 2.0 mm nominal spring wall selected for the production flexure. The reading lies on the hook and posed leaf, with the tangent root and 22.25 mm root-to-catch span. These complete walls have local solid infill in the retained native projects. This is the explicitly thinner flexure, not an ordinary enclosure wall or residual fin. Force, distributed bending and life require the complete paired physical check.
-alternatives: A thicker leaf repeats the reported corner-only bending problem. Filling the spring corridor prevents inward travel. The connected full-Y sample retains both production wings and their matched receivers, with only the non-snap center shortened.
-file: hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.step
-click: x=100.016 y=27.897 z=175.195
-click: x=100.675 y=27.897 z=177.025
-click: x=-100.016 y=68.618 z=175.195
-click: x=-100.675 y=68.618 z=177.025
-click: x=98.263 y=15.303 z=193.888
-click: x=96.267 y=15.303 z=193.874
-click: x=-98.263 y=81.212 z=193.888
-click: x=-96.267 y=81.212 z=193.874
-click: x=96.270 y=65.883 z=193.367
-click: x=98.266 y=65.883 z=193.383
-click: x=-96.270 y=30.632 z=193.367
-click: x=-98.266 y=30.632 z=193.383
-
-[thin] The lower barb is the requested pointed production tip: the shared approved planar lead-in meets its flat catch at the outer corner. The local thickness approaches zero at that edge while the working spring remains 2 mm.
-alternatives: A vertical nose land makes the barb less pointed and adds an extra face. Thickening the leaf changes its bending section. The point and broad flat catch are integral with the retainer.
-file: hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.step
-click: x=-101.338 y=81.914 z=175.195
-click: x=101.338 y=14.601 z=175.195
-click: x=-101.343 y=14.602 z=175.207
-click: x=101.343 y=81.913 z=175.207
-click: x=101.343 y=81.913 z=175.195
+click: x=-38.602 y=20.289 z=196.524
