@@ -335,6 +335,7 @@ function mountScenePart(node, meshes, head, file, location, { current, preserveC
     group.userData.fitWhenReady = !preserveCamera;
   }
   const parts = group.userData.parts;
+  group.userData.sceneLoading = true;
   const prior = parts.get(node.name);
   const key = meshes.map(mesh => mesh.objectKey).join('|');
   const sameGeometry=prior && prior.meshes.length===meshes.length && meshes.every((mesh,i)=>
@@ -370,7 +371,7 @@ function mountScenePart(node, meshes, head, file, location, { current, preserveC
     state.mountedDetail = {type:'step',file,sourceFile:location.file,surface:'mesh',src:latest.src,cut:latest.cut,scene:true};
     nameSurface(location.file,'mesh');loadHiddenForFile(file);applyHiddenComponents();onStepReloaded();
     if (group.userData.fitWhenReady) {resetCamera(group);group.userData.fitWhenReady=false;}
-    window.dispatchEvent(new CustomEvent(HSM_EVENTS.STEP_MOUNTED,{detail:{file,part:node.name,revision:latest.src}}));
+    window.dispatchEvent(new CustomEvent(HSM_EVENTS.STEP_MOUNTED,{detail:{file,part:node.name,revision:latest.src,complete:false}}));
   });
 }
 
@@ -459,11 +460,13 @@ export async function loadStepFile(file, { preserveCamera = false } = {}) {
       if (!current()) return;
       if (state.currentGroup?.userData.sharedFile !== file) {failed('No parts could be loaded');return;}
       state.currentGroup.userData.failedParts = result.errors;
+      state.currentGroup.userData.sceneLoading = false;
       if (result.errors.length) console.warn('Parts retain their last available geometry:',result.errors);
       if (!preserveCamera) resetCamera(state.currentGroup);
       const style=faucetStyleFor(file);
       if (style) {state.faucetStyle=style.id;window.dispatchEvent(new CustomEvent(HSM_EVENTS.FAUCET_OPTIONS));}
       if (location.component) window.dispatchEvent(new CustomEvent(HSM_EVENTS.MATERIAL_PICKED,{detail:{file,name:location.component}}));
+      window.dispatchEvent(new CustomEvent(HSM_EVENTS.STEP_MOUNTED,{detail:{file,revision:result.src,complete:true}}));
       landed = true;
       return;
     }

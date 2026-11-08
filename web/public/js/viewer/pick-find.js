@@ -503,7 +503,8 @@ let pendingFind = null;
 
 export function findWhenMounted(file, text) {
   pendingFind = { file, text };
-  if (state.mountedDetail?.type === "step" && state.mountedDetail.file === file) runPendingFind();
+  if (state.mountedDetail?.type === "step" && state.mountedDetail.file === file
+      && !state.currentGroup?.userData.sceneLoading) runPendingFind();
 }
 
 function runPendingFind() {
@@ -516,7 +517,7 @@ function runPendingFind() {
 }
 
 window.addEventListener(HSM_EVENTS.STEP_MOUNTED, (e) => {
-  if (pendingFind && e.detail?.file === pendingFind.file) runPendingFind();
+  if (pendingFind && e.detail?.file === pendingFind.file && e.detail.complete !== false) runPendingFind();
 });
 
 // --- public API ---
