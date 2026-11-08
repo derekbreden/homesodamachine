@@ -262,7 +262,13 @@ completed print surface. The part payload keeps the printed triangles, and publi
 grafts the finished part into the existing viewers. These are part-edit measurements;
 compilation, publication, print preparation and the full build have separate costs.
 
-The number that matters most is the full build: `//:everything` with every step rerun, as an
+Exterior dimensions are runtime inputs in
+[`exterior.json`](../../hardware/printed-parts/enclosure/enclosure/exterior.json).
+Changing them reruns the affected quadrant generators and reuses their compiled programs.
+Each generator writes its STEP, print STL and viewer payload together. Publication consumes
+the completed part while print-region generation, preparation and slicing run separately.
+
+Whole-machine throughput is measured with `//:everything` with every step rerun, as an
 edit that reaches the enclosure causes, on the compiled workspace and the caches a normal build
 keeps. Most edits reach the enclosure, which nearly every step reads, so most builds come close
 to it. Bazel's profile of each build records its wall time and every step's; the latest build
