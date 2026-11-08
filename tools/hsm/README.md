@@ -95,6 +95,11 @@ from the published store by content hash. Assemblies and named views share the s
 Native archives supply construction and print preparation. A scene without a standalone STEP
 reports its source digest without claiming it is a STEP digest.
 
+Assemblies retain the source inventory and placement of each complete import. A completed
+source reconciles added, renamed and removed bodies through those imports. Named views keep
+their authored body selections. A new source gets its placement from the assembly definition;
+the print build publishes those references when the assembly producer finishes.
+
 Decoded query geometry lives in the daemon's memory, addressed by the payload digest. Unchanged files
 reuse resident geometry by device, inode, size, mtime and ctime. Replaced payloads reload on
 the next request. Two worktrees holding identical bytes share one resident entry.
