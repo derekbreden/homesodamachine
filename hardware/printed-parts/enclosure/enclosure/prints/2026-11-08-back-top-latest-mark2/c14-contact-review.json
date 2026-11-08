@@ -1,0 +1,2443 @@
+{
+  "purpose": "Measures actual model-bead clearance at the C14 trunk proximity flags.",
+  "archive_sha256": "d6e77217811fd4dd4febfe647b2cdd79cb8ae1d8504d81e59c98d3120bda3e5b",
+  "gcode_sha256": "7b2a5185b62a48ebf09c94e663c09ca6db5146081e5044a477263403642fb203",
+  "source_stl_sha256": "c3f7666a64fdee92767becc4f09009602d3ad1149887c47aec5a0e9addc298c1",
+  "flag_count": 27,
+  "matched_flags": 27,
+  "flags_with_overlapping_bead_boxes": 5,
+  "findings": [
+    {
+      "flag": {
+        "bead_clearance_mm": -0.025153150913348965,
+        "feature": "Support",
+        "road": [
+          293.281,
+          95.582,
+          291.873,
+          95.075,
+          0.62
+        ],
+        "z_mm": 15.5765
+      },
+      "support": {
+        "line": 1042039,
+        "z": 15.576,
+        "height": 0.279572,
+        "feature": "Support",
+        "width": 0.62,
+        "road": [
+          293.281,
+          95.582,
+          291.873,
+          95.075,
+          0.62
+        ]
+      },
+      "overlapping_bead_boxes": [
+        {
+          "xy_bead_gap_mm": -0.008097800790110132,
+          "z_bead_gap_mm": -0.023571999999999704,
+          "model": {
+            "line": 1026501,
+            "z": 15.32,
+            "height": 0.24,
+            "feature": "Outer wall",
+            "width": 0.42,
+            "road": [
+              291.365,
+              78.235,
+              291.359,
+              104.128,
+              0.42
+            ]
+          }
+        }
+      ],
+      "closest_models": [
+        {
+          "xy_bead_gap_mm": -0.008097800790110132,
+          "z_bead_gap_mm": -0.023571999999999704,
+          "model": {
+            "line": 1026501,
+            "z": 15.32,
+            "height": 0.24,
+            "feature": "Outer wall",
+            "width": 0.42,
+            "road": [
+              291.365,
+              78.235,
+              291.359,
+              104.128,
+              0.42
+            ]
+          }
+        },
+        {
+          "xy_bead_gap_mm": -0.012000000000018662,
+          "z_bead_gap_mm": 0.2164280000000005,
+          "model": {
+            "line": 1015334,
+            "z": 15.08,
+            "height": 0.24,
+            "feature": "Outer wall",
+            "width": 0.42,
+            "road": [
+              291.365,
+              94.18,
+              291.365,
+              97.519,
+              0.42
+            ]
+          }
+        },
+        {
+          "xy_bead_gap_mm": 0.22674536427865077,
+          "z_bead_gap_mm": -0.023571999999999704,
+          "model": {
+            "line": 1027371,
+            "z": 15.32,
+            "height": 0.24,
+            "feature": "Top surface",
+            "width": 0.45,
+            "road": [
+              291.157,
+              94.815,
+              283.739,
+              102.232,
+              0.45
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "flag": {
+        "bead_clearance_mm": -0.03000500402425177,
+        "feature": "Support",
+        "road": [
+          291.873,
+          95.075,
+          291.872,
+          85.815,
+          0.62
+        ],
+        "z_mm": 15.5765
+      },
+      "support": {
+        "line": 1042040,
+        "z": 15.576,
+        "height": 0.279572,
+        "feature": "Support",
+        "width": 0.62,
+        "road": [
+          291.873,
+          95.075,
+          291.872,
+          85.815,
+          0.62
+        ]
+      },
+      "overlapping_bead_boxes": [
+        {
+          "xy_bead_gap_mm": -0.011243554384240628,
+          "z_bead_gap_mm": -0.023571999999999704,
+          "model": {
+            "line": 1026501,
+            "z": 15.32,
+            "height": 0.24,
+            "feature": "Outer wall",
+            "width": 0.42,
+            "road": [
+              291.365,
+              78.235,
+              291.359,
+              104.128,
+              0.42
+            ]
+          }
+        }
+      ],
+      "closest_models": [
+        {
+          "xy_bead_gap_mm": -0.011243554384240628,
+          "z_bead_gap_mm": -0.023571999999999704,
+          "model": {
+            "line": 1026501,
+            "z": 15.32,
+            "height": 0.24,
+            "feature": "Outer wall",
+            "width": 0.42,
+            "road": [
+              291.365,
+              78.235,
+              291.359,
+              104.128,
+              0.42
+            ]
+          }
+        },
+        {
+          "xy_bead_gap_mm": 0.1780587431423435,
+          "z_bead_gap_mm": -0.023571999999999704,
+          "model": {
+            "line": 1027431,
+            "z": 15.32,
+            "height": 0.24,
+            "feature": "Top surface",
+            "width": 0.45,
+            "road": [
+              283.739,
+              93.779,
+              291.159,
+              86.359,
+              0.45
+            ]
+          }
+        },
+        {
+          "xy_bead_gap_mm": 0.17811965026941667,
+          "z_bead_gap_mm": -0.023571999999999704,
+          "model": {
+            "line": 1027427,
+            "z": 15.32,
+            "height": 0.24,
+            "feature": "Top surface",
+            "width": 0.45,
+            "road": [
+              291.159,
+              86.923,
+              283.739,
+              94.343,
+              0.45
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "flag": {
+        "bead_clearance_mm": -0.025678798968846783,
+        "feature": "Support",
+        "road": [
+          291.872,
+          85.815,
+          293.281,
+          85.307,
+          0.62
+        ],
+        "z_mm": 15.5765
+      },
+      "support": {
+        "line": 1042041,
+        "z": 15.576,
+        "height": 0.279572,
+        "feature": "Support",
+        "width": 0.62,
+        "road": [
+          291.872,
+          85.815,
+          293.281,
+          85.307,
+          0.62
+        ]
+      },
+      "overlapping_bead_boxes": [
+        {
+          "xy_bead_gap_mm": -0.011243554384240628,
+          "z_bead_gap_mm": -0.023571999999999704,
+          "model": {
+            "line": 1026501,
+            "z": 15.32,
+            "height": 0.24,
+            "feature": "Outer wall",
+            "width": 0.42,
+            "road": [
+              291.365,
+              78.235,
+              291.359,
+              104.128,
+              0.42
+            ]
+          }
+        }
+      ],
+      "closest_models": [
+        {
+          "xy_bead_gap_mm": -0.011243554384240628,
+          "z_bead_gap_mm": -0.023571999999999704,
+          "model": {
+            "line": 1026501,
+            "z": 15.32,
+            "height": 0.24,
+            "feature": "Outer wall",
+            "width": 0.42,
+            "road": [
+              291.365,
+              78.235,
+              291.359,
+              104.128,
+              0.42
+            ]
+          }
+        },
+        {
+          "xy_bead_gap_mm": 0.17828044975313295,
+          "z_bead_gap_mm": -0.023571999999999704,
+          "model": {
+            "line": 1027435,
+            "z": 15.32,
+            "height": 0.24,
+            "feature": "Top surface",
+            "width": 0.45,
+            "road": [
+              291.159,
+              85.795,
+              283.739,
+              93.215,
+              0.45
+            ]
+          }
+        },
+        {
+          "xy_bead_gap_mm": -0.012999999999995016,
+          "z_bead_gap_mm": 0.2164280000000005,
+          "model": {
+            "line": 1015329,
+            "z": 15.08,
+            "height": 0.24,
+            "feature": "Outer wall",
+            "width": 0.42,
+            "road": [
+              291.365,
+              84.298,
+              291.365,
+              87.693,
+              0.42
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "flag": {
+        "bead_clearance_mm": -0.021502501905585003,
+        "feature": "Support",
+        "road": [
+          292.493,
+          103.851,
+          291.88,
+          103.851,
+          0.62
+        ],
+        "z_mm": 15.5765
+      },
+      "support": {
+        "line": 1042108,
+        "z": 15.576,
+        "height": 0.279572,
+        "feature": "Support",
+        "width": 0.62,
+        "road": [
+          292.493,
+          103.851,
+          291.88,
+          103.851,
+          0.62
+        ]
+      },
+      "overlapping_bead_boxes": [],
+      "closest_models": [
+        {
+          "xy_bead_gap_mm": 0.0009357987819946789,
+          "z_bead_gap_mm": -0.023571999999999704,
+          "model": {
+            "line": 1026501,
+            "z": 15.32,
+            "height": 0.24,
+            "feature": "Outer wall",
+            "width": 0.42,
+            "road": [
+              291.365,
+              78.235,
+              291.359,
+              104.128,
+              0.42
+            ]
+          }
+        },
+        {
+          "xy_bead_gap_mm": 0.07005931905192053,
+          "z_bead_gap_mm": -0.023571999999999704,
+          "model": {
+            "line": 1026502,
+            "z": 15.32,
+            "height": 0.24,
+            "feature": "Outer wall",
+            "width": 0.42,
+            "road": [
+              291.359,
+              104.128,
+              291.283,
+              105.218,
+              0.42
+            ]
+          }
+        },
+        {
+          "xy_bead_gap_mm": 0.19119900853691507,
+          "z_bead_gap_mm": -0.023571999999999704,
+          "model": {
+            "line": 1027307,
+            "z": 15.32,
+            "height": 0.24,
+            "feature": "Top surface",
+            "width": 0.45,
+            "road": [
+              291.154,
+              103.834,
+              289.478,
+              105.51,
+              0.45
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "flag": {
+        "bead_clearance_mm": -0.024918440289522947,
+        "feature": "Support",
+        "road": [
+          291.88,
+          103.851,
+          291.873,
+          101.536,
+          0.62
+        ],
+        "z_mm": 15.5765
+      },
+      "support": {
+        "line": 1042109,
+        "z": 15.576,
+        "height": 0.279572,
+        "feature": "Support",
+        "width": 0.62,
+        "road": [
+          291.88,
+          103.851,
+          291.873,
+          101.536,
+          0.62
+        ]
+      },
+      "overlapping_bead_boxes": [
+        {
+          "xy_bead_gap_mm": -0.006600639435326738,
+          "z_bead_gap_mm": -0.023571999999999704,
+          "model": {
+            "line": 1026501,
+            "z": 15.32,
+            "height": 0.24,
+            "feature": "Outer wall",
+            "width": 0.42,
+            "road": [
+              291.365,
+              78.235,
+              291.359,
+              104.128,
+              0.42
+            ]
+          }
+        }
+      ],
+      "closest_models": [
+        {
+          "xy_bead_gap_mm": -0.006600639435326738,
+          "z_bead_gap_mm": -0.023571999999999704,
+          "model": {
+            "line": 1026501,
+            "z": 15.32,
+            "height": 0.24,
+            "feature": "Outer wall",
+            "width": 0.42,
+            "road": [
+              291.365,
+              78.235,
+              291.359,
+              104.128,
+              0.42
+            ]
+          }
+        },
+        {
+          "xy_bead_gap_mm": 0.07005931905192053,
+          "z_bead_gap_mm": -0.023571999999999704,
+          "model": {
+            "line": 1026502,
+            "z": 15.32,
+            "height": 0.24,
+            "feature": "Outer wall",
+            "width": 0.42,
+            "road": [
+              291.359,
+              104.128,
+              291.283,
+              105.218,
+              0.42
+            ]
+          }
+        },
+        {
+          "xy_bead_gap_mm": 0.18312673864881857,
+          "z_bead_gap_mm": -0.023571999999999704,
+          "model": {
+            "line": 1027323,
+            "z": 15.32,
+            "height": 0.24,
+            "feature": "Top surface",
+            "width": 0.45,
+            "road": [
+              291.155,
+              101.579,
+              287.224,
+              105.51,
+              0.45
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "flag": {
+        "bead_clearance_mm": -0.024918440289522947,
+        "feature": "Support",
+        "road": [
+          291.873,
+          101.536,
+          293.328,
+          101.005,
+          0.62
+        ],
+        "z_mm": 15.5765
+      },
+      "support": {
+        "line": 1042110,
+        "z": 15.576,
+        "height": 0.279572,
+        "feature": "Support",
+        "width": 0.62,
+        "road": [
+          291.873,
+          101.536,
+          293.328,
+          101.005,
+          0.62
+        ]
+      },
+      "overlapping_bead_boxes": [
+        {
+          "xy_bead_gap_mm": -0.006600639435326738,
+          "z_bead_gap_mm": -0.023571999999999704,
+          "model": {
+            "line": 1026501,
+            "z": 15.32,
+            "height": 0.24,
+            "feature": "Outer wall",
+            "width": 0.42,
+            "road": [
+              291.365,
+              78.235,
+              291.359,
+              104.128,
+              0.42
+            ]
+          }
+        }
+      ],
+      "closest_models": [
+        {
+          "xy_bead_gap_mm": -0.006600639435326738,
+          "z_bead_gap_mm": -0.023571999999999704,
+          "model": {
+            "line": 1026501,
+            "z": 15.32,
+            "height": 0.24,
+            "feature": "Outer wall",
+            "width": 0.42,
+            "road": [
+              291.365,
+              78.235,
+              291.359,
+              104.128,
+              0.42
+            ]
+          }
+        },
+        {
+          "xy_bead_gap_mm": 0.18428645197864302,
+          "z_bead_gap_mm": -0.023571999999999704,
+          "model": {
+            "line": 1027323,
+            "z": 15.32,
+            "height": 0.24,
+            "feature": "Top surface",
+            "width": 0.45,
+            "road": [
+              291.155,
+              101.579,
+              287.224,
+              105.51,
+              0.45
+            ]
+          }
+        },
+        {
+          "xy_bead_gap_mm": -0.012000000000018662,
+          "z_bead_gap_mm": 0.2164280000000005,
+          "model": {
+            "line": 1015336,
+            "z": 15.08,
+            "height": 0.24,
+            "feature": "Outer wall",
+            "width": 0.42,
+            "road": [
+              291.365,
+              99.102,
+              291.365,
+              102.496,
+              0.42
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "flag": {
+        "bead_clearance_mm": -0.16727910691944253,
+        "feature": "Support",
+        "road": [
+          292.428,
+          103.632,
+          290.613,
+          103.632,
+          0.62
+        ],
+        "z_mm": 34.867
+      },
+      "support": {
+        "line": 1669736,
+        "z": 34.867,
+        "height": 0.279572,
+        "feature": "Support",
+        "width": 0.62,
+        "road": [
+          292.428,
+          103.632,
+          290.613,
+          103.632,
+          0.62
+        ]
+      },
+      "overlapping_bead_boxes": [],
+      "closest_models": [
+        {
+          "xy_bead_gap_mm": -0.535,
+          "z_bead_gap_mm": 0.13300000000000267,
+          "model": {
+            "line": 1679934,
+            "z": 35.24,
+            "height": 0.24,
+            "feature": "Overhang wall",
+            "width": 0.45,
+            "road": [
+              291.365,
+              78.808,
+              291.332,
+              104.192,
+              0.45
+            ]
+          }
+        },
+        {
+          "xy_bead_gap_mm": -0.535,
+          "z_bead_gap_mm": 0.13300000000000267,
+          "model": {
+            "line": 1679082,
+            "z": 35.24,
+            "height": 0.24,
+            "feature": "Overhang wall",
+            "width": 0.45,
+            "road": [
+              290.982,
+              78.808,
+              290.948,
+              104.192,
+              0.45
+            ]
+          }
+        },
+        {
+          "xy_bead_gap_mm": 0.024999999999988032,
+          "z_bead_gap_mm": 0.13300000000000267,
+          "model": {
+            "line": 1679088,
+            "z": 35.24,
+            "height": 0.24,
+            "feature": "Inner wall",
+            "width": 0.45,
+            "road": [
+              290.948,
+              104.192,
+              290.932,
+              104.574,
+              0.45
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "flag": {
+        "bead_clearance_mm": -0.16727910691944253,
+        "feature": "Support",
+        "road": [
+          290.613,
+          103.632,
+          291.432,
+          102.728,
+          0.62
+        ],
+        "z_mm": 34.867
+      },
+      "support": {
+        "line": 1669737,
+        "z": 34.867,
+        "height": 0.279572,
+        "feature": "Support",
+        "width": 0.62,
+        "road": [
+          290.613,
+          103.632,
+          291.432,
+          102.728,
+          0.62
+        ]
+      },
+      "overlapping_bead_boxes": [],
+      "closest_models": [
+        {
+          "xy_bead_gap_mm": -0.535,
+          "z_bead_gap_mm": 0.13300000000000267,
+          "model": {
+            "line": 1679934,
+            "z": 35.24,
+            "height": 0.24,
+            "feature": "Overhang wall",
+            "width": 0.45,
+            "road": [
+              291.365,
+              78.808,
+              291.332,
+              104.192,
+              0.45
+            ]
+          }
+        },
+        {
+          "xy_bead_gap_mm": -0.535,
+          "z_bead_gap_mm": 0.13300000000000267,
+          "model": {
+            "line": 1679082,
+            "z": 35.24,
+            "height": 0.24,
+            "feature": "Overhang wall",
+            "width": 0.45,
+            "road": [
+              290.982,
+              78.808,
+              290.948,
+              104.192,
+              0.45
+            ]
+          }
+        },
+        {
+          "xy_bead_gap_mm": 0.11755267986575069,
+          "z_bead_gap_mm": 0.13300000000000267,
+          "model": {
+            "line": 1679088,
+            "z": 35.24,
+            "height": 0.24,
+            "feature": "Inner wall",
+            "width": 0.45,
+            "road": [
+              290.948,
+              104.192,
+              290.932,
+              104.574,
+              0.45
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "flag": {
+        "bead_clearance_mm": -0.16727910691944253,
+        "feature": "Support",
+        "road": [
+          291.432,
+          102.728,
+          292.392,
+          102.119,
+          0.62
+        ],
+        "z_mm": 34.867
+      },
+      "support": {
+        "line": 1669738,
+        "z": 34.867,
+        "height": 0.279572,
+        "feature": "Support",
+        "width": 0.62,
+        "road": [
+          291.432,
+          102.728,
+          292.392,
+          102.119,
+          0.62
+        ]
+      },
+      "overlapping_bead_boxes": [],
+      "closest_models": [
+        {
+          "xy_bead_gap_mm": -0.4369033290349496,
+          "z_bead_gap_mm": 0.13300000000000267,
+          "model": {
+            "line": 1679934,
+            "z": 35.24,
+            "height": 0.24,
+            "feature": "Overhang wall",
+            "width": 0.45,
+            "road": [
+              291.365,
+              78.808,
+              291.332,
+              104.192,
+              0.45
+            ]
+          }
+        },
+        {
+          "xy_bead_gap_mm": -0.05296135266838231,
+          "z_bead_gap_mm": 0.13300000000000267,
+          "model": {
+            "line": 1679082,
+            "z": 35.24,
+            "height": 0.24,
+            "feature": "Overhang wall",
+            "width": 0.45,
+            "road": [
+              290.982,
+              78.808,
+              290.948,
+              104.192,
+              0.45
+            ]
+          }
+        },
+        {
+          "xy_bead_gap_mm": 0.2559180000000296,
+          "z_bead_gap_mm": 0.13300000000000267,
+          "model": {
+            "line": 1680598,
+            "z": 35.24,
+            "height": 0.24,
+            "feature": "Bridge",
+            "width": 0.428164,
+            "road": [
+              290.652,
+              105.629,
+              290.652,
+              78.246,
+              0.428164
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "flag": {
+        "bead_clearance_mm": -0.03286127728684857,
+        "feature": "Support",
+        "road": [
+          292.636,
+          93.898,
+          291.829,
+          93.385,
+          0.62
+        ],
+        "z_mm": 34.867
+      },
+      "support": {
+        "line": 1669768,
+        "z": 34.867,
+        "height": 0.279572,
+        "feature": "Support",
+        "width": 0.62,
+        "road": [
+          292.636,
+          93.898,
+          291.829,
+          93.385,
+          0.62
+        ]
+      },
+      "overlapping_bead_boxes": [],
+      "closest_models": [
+        {
+          "xy_bead_gap_mm": -0.052049848704984136,
+          "z_bead_gap_mm": 0.13300000000000267,
+          "model": {
+            "line": 1679934,
+            "z": 35.24,
+            "height": 0.24,
+            "feature": "Overhang wall",
+            "width": 0.45,
+            "road": [
+              291.365,
+              78.808,
+              291.332,
+              104.192,
+              0.45
+            ]
+          }
+        },
+        {
+          "xy_bead_gap_mm": 0.3315240414844345,
+          "z_bead_gap_mm": 0.13300000000000267,
+          "model": {
+            "line": 1679082,
+            "z": 35.24,
+            "height": 0.24,
+            "feature": "Overhang wall",
+            "width": 0.45,
+            "road": [
+              290.982,
+              78.808,
+              290.948,
+              104.192,
+              0.45
+            ]
+          }
+        },
+        {
+          "xy_bead_gap_mm": -0.03316401417277143,
+          "z_bead_gap_mm": 0.37299999999999756,
+          "model": {
+            "line": 1687364,
+            "z": 35.48,
+            "height": 0.24,
+            "feature": "Outer wall",
+            "width": 0.42,
+            "road": [
+              291.314,
+              81.021,
+              291.365,
+              103.411,
+              0.42
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "flag": {
+        "bead_clearance_mm": -0.16727910691944253,
+        "feature": "Support",
+        "road": [
+          291.829,
+          93.385,
+          291.174,
+          92.688,
+          0.62
+        ],
+        "z_mm": 34.867
+      },
+      "support": {
+        "line": 1669769,
+        "z": 34.867,
+        "height": 0.279572,
+        "feature": "Support",
+        "width": 0.62,
+        "road": [
+          291.829,
+          93.385,
+          291.174,
+          92.688,
+          0.62
+        ]
+      },
+      "overlapping_bead_boxes": [],
+      "closest_models": [
+        {
+          "xy_bead_gap_mm": -0.535,
+          "z_bead_gap_mm": 0.13300000000000267,
+          "model": {
+            "line": 1679934,
+            "z": 35.24,
+            "height": 0.24,
+            "feature": "Overhang wall",
+            "width": 0.45,
+            "road": [
+              291.365,
+              78.808,
+              291.332,
+              104.192,
+              0.45
+            ]
+          }
+        },
+        {
+          "xy_bead_gap_mm": -0.32440895033127426,
+          "z_bead_gap_mm": 0.13300000000000267,
+          "model": {
+            "line": 1679082,
+            "z": 35.24,
+            "height": 0.24,
+            "feature": "Overhang wall",
+            "width": 0.45,
+            "road": [
+              290.982,
+              78.808,
+              290.948,
+              104.192,
+              0.45
+            ]
+          }
+        },
+        {
+          "xy_bead_gap_mm": -0.002082000000008577,
+          "z_bead_gap_mm": 0.13300000000000267,
+          "model": {
+            "line": 1680598,
+            "z": 35.24,
+            "height": 0.24,
+            "feature": "Bridge",
+            "width": 0.428164,
+            "road": [
+              290.652,
+              105.629,
+              290.652,
+              78.246,
+              0.428164
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "flag": {
+        "bead_clearance_mm": -0.16727910691944253,
+        "feature": "Support",
+        "road": [
+          291.174,
+          92.688,
+          290.713,
+          91.85,
+          0.62
+        ],
+        "z_mm": 34.867
+      },
+      "support": {
+        "line": 1669770,
+        "z": 34.867,
+        "height": 0.279572,
+        "feature": "Support",
+        "width": 0.62,
+        "road": [
+          291.174,
+          92.688,
+          290.713,
+          91.85,
+          0.62
+        ]
+      },
+      "overlapping_bead_boxes": [],
+      "closest_models": [
+        {
+          "xy_bead_gap_mm": -0.3620445835952365,
+          "z_bead_gap_mm": 0.13300000000000267,
+          "model": {
+            "line": 1679934,
+            "z": 35.24,
+            "height": 0.24,
+            "feature": "Overhang wall",
+            "width": 0.45,
+            "road": [
+              291.365,
+              78.808,
+              291.332,
+              104.192,
+              0.45
+            ]
+          }
+        },
+        {
+          "xy_bead_gap_mm": -0.535,
+          "z_bead_gap_mm": 0.13300000000000267,
+          "model": {
+            "line": 1679082,
+            "z": 35.24,
+            "height": 0.24,
+            "feature": "Overhang wall",
+            "width": 0.45,
+            "road": [
+              290.982,
+              78.808,
+              290.948,
+              104.192,
+              0.45
+            ]
+          }
+        },
+        {
+          "xy_bead_gap_mm": -0.08608199999995492,
+          "z_bead_gap_mm": 0.13300000000000267,
+          "model": {
+            "line": 1680602,
+            "z": 35.24,
+            "height": 0.24,
+            "feature": "Bridge",
+            "width": 0.428164,
+            "road": [
+              290.275,
+              77.411,
+              290.275,
+              105.589,
+              0.428164
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "flag": {
+        "bead_clearance_mm": -0.16727910691944253,
+        "feature": "Support",
+        "road": [
+          290.713,
+          91.85,
+          290.475,
+          90.923,
+          0.62
+        ],
+        "z_mm": 34.867
+      },
+      "support": {
+        "line": 1669771,
+        "z": 34.867,
+        "height": 0.279572,
+        "feature": "Support",
+        "width": 0.62,
+        "road": [
+          290.713,
+          91.85,
+          290.475,
+          90.923,
+          0.62
+        ]
+      },
+      "overlapping_bead_boxes": [],
+      "closest_models": [
+        {
+          "xy_bead_gap_mm": 0.05291799999999813,
+          "z_bead_gap_mm": 0.13300000000000267,
+          "model": {
+            "line": 1680604,
+            "z": 35.24,
+            "height": 0.24,
+            "feature": "Bridge",
+            "width": 0.428164,
+            "road": [
+              289.898,
+              105.589,
+              289.898,
+              77.411,
+              0.428164
+            ]
+          }
+        },
+        {
+          "xy_bead_gap_mm": 0.10004445233105452,
+          "z_bead_gap_mm": 0.13300000000000267,
+          "model": {
+            "line": 1679934,
+            "z": 35.24,
+            "height": 0.24,
+            "feature": "Overhang wall",
+            "width": 0.45,
+            "road": [
+              291.365,
+              78.808,
+              291.332,
+              104.192,
+              0.45
+            ]
+          }
+        },
+        {
+          "xy_bead_gap_mm": -0.28346902487475795,
+          "z_bead_gap_mm": 0.13300000000000267,
+          "model": {
+            "line": 1679082,
+            "z": 35.24,
+            "height": 0.24,
+            "feature": "Overhang wall",
+            "width": 0.45,
+            "road": [
+              290.982,
+              78.808,
+              290.948,
+              104.192,
+              0.45
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "flag": {
+        "bead_clearance_mm": -0.16727910691944253,
+        "feature": "Support",
+        "road": [
+          290.475,
+          90.923,
+          290.475,
+          89.967,
+          0.62
+        ],
+        "z_mm": 34.867
+      },
+      "support": {
+        "line": 1669772,
+        "z": 34.867,
+        "height": 0.279572,
+        "feature": "Support",
+        "width": 0.62,
+        "road": [
+          290.475,
+          90.923,
+          290.475,
+          89.967,
+          0.62
+        ]
+      },
+      "overlapping_bead_boxes": [],
+      "closest_models": [
+        {
+          "xy_bead_gap_mm": 0.05291799999999813,
+          "z_bead_gap_mm": 0.13300000000000267,
+          "model": {
+            "line": 1680604,
+            "z": 35.24,
+            "height": 0.24,
+            "feature": "Bridge",
+            "width": 0.428164,
+            "road": [
+              289.898,
+              105.589,
+              289.898,
+              77.411,
+              0.428164
+            ]
+          }
+        },
+        {
+          "xy_bead_gap_mm": -0.044227591199392846,
+          "z_bead_gap_mm": 0.13300000000000267,
+          "model": {
+            "line": 1679082,
+            "z": 35.24,
+            "height": 0.24,
+            "feature": "Overhang wall",
+            "width": 0.45,
+            "road": [
+              290.982,
+              78.808,
+              290.948,
+              104.192,
+              0.45
+            ]
+          }
+        },
+        {
+          "xy_bead_gap_mm": -0.32408199999995446,
+          "z_bead_gap_mm": 0.13300000000000267,
+          "model": {
+            "line": 1680602,
+            "z": 35.24,
+            "height": 0.24,
+            "feature": "Bridge",
+            "width": 0.428164,
+            "road": [
+              290.275,
+              77.411,
+              290.275,
+              105.589,
+              0.428164
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "flag": {
+        "bead_clearance_mm": -0.16727910691944253,
+        "feature": "Support",
+        "road": [
+          290.475,
+          89.967,
+          290.713,
+          89.04,
+          0.62
+        ],
+        "z_mm": 34.867
+      },
+      "support": {
+        "line": 1669773,
+        "z": 34.867,
+        "height": 0.279572,
+        "feature": "Support",
+        "width": 0.62,
+        "road": [
+          290.475,
+          89.967,
+          290.713,
+          89.04,
+          0.62
+        ]
+      },
+      "overlapping_bead_boxes": [],
+      "closest_models": [
+        {
+          "xy_bead_gap_mm": 0.05291799999999813,
+          "z_bead_gap_mm": 0.13300000000000267,
+          "model": {
+            "line": 1680604,
+            "z": 35.24,
+            "height": 0.24,
+            "feature": "Bridge",
+            "width": 0.428164,
+            "road": [
+              289.898,
+              105.589,
+              289.898,
+              77.411,
+              0.428164
+            ]
+          }
+        },
+        {
+          "xy_bead_gap_mm": 0.10369753780377322,
+          "z_bead_gap_mm": 0.13300000000000267,
+          "model": {
+            "line": 1679934,
+            "z": 35.24,
+            "height": 0.24,
+            "feature": "Overhang wall",
+            "width": 0.45,
+            "road": [
+              291.365,
+              78.808,
+              291.332,
+              104.192,
+              0.45
+            ]
+          }
+        },
+        {
+          "xy_bead_gap_mm": -0.2797052400379373,
+          "z_bead_gap_mm": 0.13300000000000267,
+          "model": {
+            "line": 1679082,
+            "z": 35.24,
+            "height": 0.24,
+            "feature": "Overhang wall",
+            "width": 0.45,
+            "road": [
+              290.982,
+              78.808,
+              290.948,
+              104.192,
+              0.45
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "flag": {
+        "bead_clearance_mm": -0.16727910691944253,
+        "feature": "Support",
+        "road": [
+          290.713,
+          89.04,
+          291.174,
+          88.202,
+          0.62
+        ],
+        "z_mm": 34.867
+      },
+      "support": {
+        "line": 1669774,
+        "z": 34.867,
+        "height": 0.279572,
+        "feature": "Support",
+        "width": 0.62,
+        "road": [
+          290.713,
+          89.04,
+          291.174,
+          88.202,
+          0.62
+        ]
+      },
+      "overlapping_bead_boxes": [],
+      "closest_models": [
+        {
+          "xy_bead_gap_mm": -0.3562126471430598,
+          "z_bead_gap_mm": 0.13300000000000267,
+          "model": {
+            "line": 1679934,
+            "z": 35.24,
+            "height": 0.24,
+            "feature": "Overhang wall",
+            "width": 0.45,
+            "road": [
+              291.365,
+              78.808,
+              291.332,
+              104.192,
+              0.45
+            ]
+          }
+        },
+        {
+          "xy_bead_gap_mm": -0.535,
+          "z_bead_gap_mm": 0.13300000000000267,
+          "model": {
+            "line": 1679082,
+            "z": 35.24,
+            "height": 0.24,
+            "feature": "Overhang wall",
+            "width": 0.45,
+            "road": [
+              290.982,
+              78.808,
+              290.948,
+              104.192,
+              0.45
+            ]
+          }
+        },
+        {
+          "xy_bead_gap_mm": -0.08608199999995492,
+          "z_bead_gap_mm": 0.13300000000000267,
+          "model": {
+            "line": 1680602,
+            "z": 35.24,
+            "height": 0.24,
+            "feature": "Bridge",
+            "width": 0.428164,
+            "road": [
+              290.275,
+              77.411,
+              290.275,
+              105.589,
+              0.428164
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "flag": {
+        "bead_clearance_mm": -0.16727910691944253,
+        "feature": "Support",
+        "road": [
+          291.174,
+          88.202,
+          291.829,
+          87.504,
+          0.62
+        ],
+        "z_mm": 34.867
+      },
+      "support": {
+        "line": 1669775,
+        "z": 34.867,
+        "height": 0.279572,
+        "feature": "Support",
+        "width": 0.62,
+        "road": [
+          291.174,
+          88.202,
+          291.829,
+          87.504,
+          0.62
+        ]
+      },
+      "overlapping_bead_boxes": [],
+      "closest_models": [
+        {
+          "xy_bead_gap_mm": -0.535,
+          "z_bead_gap_mm": 0.13300000000000267,
+          "model": {
+            "line": 1679934,
+            "z": 35.24,
+            "height": 0.24,
+            "feature": "Overhang wall",
+            "width": 0.45,
+            "road": [
+              291.365,
+              78.808,
+              291.332,
+              104.192,
+              0.45
+            ]
+          }
+        },
+        {
+          "xy_bead_gap_mm": -0.3304176118180991,
+          "z_bead_gap_mm": 0.13300000000000267,
+          "model": {
+            "line": 1679082,
+            "z": 35.24,
+            "height": 0.24,
+            "feature": "Overhang wall",
+            "width": 0.45,
+            "road": [
+              290.982,
+              78.808,
+              290.948,
+              104.192,
+              0.45
+            ]
+          }
+        },
+        {
+          "xy_bead_gap_mm": -0.002082000000008577,
+          "z_bead_gap_mm": 0.13300000000000267,
+          "model": {
+            "line": 1680598,
+            "z": 35.24,
+            "height": 0.24,
+            "feature": "Bridge",
+            "width": 0.428164,
+            "road": [
+              290.652,
+              105.629,
+              290.652,
+              78.246,
+              0.428164
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "flag": {
+        "bead_clearance_mm": -0.030297350415529334,
+        "feature": "Support",
+        "road": [
+          291.829,
+          87.504,
+          292.636,
+          86.992,
+          0.62
+        ],
+        "z_mm": 34.867
+      },
+      "support": {
+        "line": 1669776,
+        "z": 34.867,
+        "height": 0.279572,
+        "feature": "Support",
+        "width": 0.62,
+        "road": [
+          291.829,
+          87.504,
+          292.636,
+          86.992,
+          0.62
+        ]
+      },
+      "overlapping_bead_boxes": [],
+      "closest_models": [
+        {
+          "xy_bead_gap_mm": -0.059695327589346814,
+          "z_bead_gap_mm": 0.13300000000000267,
+          "model": {
+            "line": 1679934,
+            "z": 35.24,
+            "height": 0.24,
+            "feature": "Overhang wall",
+            "width": 0.45,
+            "road": [
+              291.365,
+              78.808,
+              291.332,
+              104.192,
+              0.45
+            ]
+          }
+        },
+        {
+          "xy_bead_gap_mm": 0.3236468818312874,
+          "z_bead_gap_mm": 0.13300000000000267,
+          "model": {
+            "line": 1679082,
+            "z": 35.24,
+            "height": 0.24,
+            "feature": "Overhang wall",
+            "width": 0.45,
+            "road": [
+              290.982,
+              78.808,
+              290.948,
+              104.192,
+              0.45
+            ]
+          }
+        },
+        {
+          "xy_bead_gap_mm": -0.019768291889418976,
+          "z_bead_gap_mm": 0.37299999999999756,
+          "model": {
+            "line": 1687364,
+            "z": 35.48,
+            "height": 0.24,
+            "feature": "Outer wall",
+            "width": 0.42,
+            "road": [
+              291.314,
+              81.021,
+              291.365,
+              103.411,
+              0.42
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "flag": {
+        "bead_clearance_mm": -0.16727910691944253,
+        "feature": "Support",
+        "road": [
+          292.37,
+          94.463,
+          291.43,
+          93.867,
+          0.62
+        ],
+        "z_mm": 34.867
+      },
+      "support": {
+        "line": 1669805,
+        "z": 34.867,
+        "height": 0.279572,
+        "feature": "Support",
+        "width": 0.62,
+        "road": [
+          292.37,
+          94.463,
+          291.43,
+          93.867,
+          0.62
+        ]
+      },
+      "overlapping_bead_boxes": [],
+      "closest_models": [
+        {
+          "xy_bead_gap_mm": -0.4504228968729082,
+          "z_bead_gap_mm": 0.13300000000000267,
+          "model": {
+            "line": 1679934,
+            "z": 35.24,
+            "height": 0.24,
+            "feature": "Overhang wall",
+            "width": 0.45,
+            "road": [
+              291.365,
+              78.808,
+              291.332,
+              104.192,
+              0.45
+            ]
+          }
+        },
+        {
+          "xy_bead_gap_mm": -0.06682999764980041,
+          "z_bead_gap_mm": 0.13300000000000267,
+          "model": {
+            "line": 1679082,
+            "z": 35.24,
+            "height": 0.24,
+            "feature": "Overhang wall",
+            "width": 0.45,
+            "road": [
+              290.982,
+              78.808,
+              290.948,
+              104.192,
+              0.45
+            ]
+          }
+        },
+        {
+          "xy_bead_gap_mm": 0.25391800000001996,
+          "z_bead_gap_mm": 0.13300000000000267,
+          "model": {
+            "line": 1680598,
+            "z": 35.24,
+            "height": 0.24,
+            "feature": "Bridge",
+            "width": 0.428164,
+            "road": [
+              290.652,
+              105.629,
+              290.652,
+              78.246,
+              0.428164
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "flag": {
+        "bead_clearance_mm": -0.16727910691944253,
+        "feature": "Support",
+        "road": [
+          291.43,
+          93.867,
+          290.668,
+          93.055,
+          0.62
+        ],
+        "z_mm": 34.867
+      },
+      "support": {
+        "line": 1669806,
+        "z": 34.867,
+        "height": 0.279572,
+        "feature": "Support",
+        "width": 0.62,
+        "road": [
+          291.43,
+          93.867,
+          290.668,
+          93.055,
+          0.62
+        ]
+      },
+      "overlapping_bead_boxes": [],
+      "closest_models": [
+        {
+          "xy_bead_gap_mm": -0.535,
+          "z_bead_gap_mm": 0.13300000000000267,
+          "model": {
+            "line": 1679934,
+            "z": 35.24,
+            "height": 0.24,
+            "feature": "Overhang wall",
+            "width": 0.45,
+            "road": [
+              291.365,
+              78.808,
+              291.332,
+              104.192,
+              0.45
+            ]
+          }
+        },
+        {
+          "xy_bead_gap_mm": -0.535,
+          "z_bead_gap_mm": 0.13300000000000267,
+          "model": {
+            "line": 1679082,
+            "z": 35.24,
+            "height": 0.24,
+            "feature": "Overhang wall",
+            "width": 0.45,
+            "road": [
+              290.982,
+              78.808,
+              290.948,
+              104.192,
+              0.45
+            ]
+          }
+        },
+        {
+          "xy_bead_gap_mm": -0.13108199999997083,
+          "z_bead_gap_mm": 0.13300000000000267,
+          "model": {
+            "line": 1680602,
+            "z": 35.24,
+            "height": 0.24,
+            "feature": "Bridge",
+            "width": 0.428164,
+            "road": [
+              290.275,
+              77.411,
+              290.275,
+              105.589,
+              0.428164
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "flag": {
+        "bead_clearance_mm": -0.16727910691944253,
+        "feature": "Support",
+        "road": [
+          290.668,
+          93.055,
+          290.132,
+          92.08,
+          0.62
+        ],
+        "z_mm": 34.867
+      },
+      "support": {
+        "line": 1669807,
+        "z": 34.867,
+        "height": 0.279572,
+        "feature": "Support",
+        "width": 0.62,
+        "road": [
+          290.668,
+          93.055,
+          290.132,
+          92.08,
+          0.62
+        ]
+      },
+      "overlapping_bead_boxes": [],
+      "closest_models": [
+        {
+          "xy_bead_gap_mm": 0.0859180000000136,
+          "z_bead_gap_mm": 0.13300000000000267,
+          "model": {
+            "line": 1680606,
+            "z": 35.24,
+            "height": 0.24,
+            "feature": "Bridge",
+            "width": 0.428164,
+            "road": [
+              289.522,
+              77.411,
+              289.522,
+              105.589,
+              0.428164
+            ]
+          }
+        },
+        {
+          "xy_bead_gap_mm": -0.2900820000000195,
+          "z_bead_gap_mm": 0.13300000000000267,
+          "model": {
+            "line": 1680604,
+            "z": 35.24,
+            "height": 0.24,
+            "feature": "Bridge",
+            "width": 0.428164,
+            "road": [
+              289.898,
+              105.589,
+              289.898,
+              77.411,
+              0.428164
+            ]
+          }
+        },
+        {
+          "xy_bead_gap_mm": -0.24008307261775141,
+          "z_bead_gap_mm": 0.13300000000000267,
+          "model": {
+            "line": 1679082,
+            "z": 35.24,
+            "height": 0.24,
+            "feature": "Overhang wall",
+            "width": 0.45,
+            "road": [
+              290.982,
+              78.808,
+              290.948,
+              104.192,
+              0.45
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "flag": {
+        "bead_clearance_mm": -0.16727910691944253,
+        "feature": "Support",
+        "road": [
+          290.132,
+          92.08,
+          289.855,
+          91.001,
+          0.62
+        ],
+        "z_mm": 34.867
+      },
+      "support": {
+        "line": 1669808,
+        "z": 34.867,
+        "height": 0.279572,
+        "feature": "Support",
+        "width": 0.62,
+        "road": [
+          290.132,
+          92.08,
+          289.855,
+          91.001,
+          0.62
+        ]
+      },
+      "overlapping_bead_boxes": [],
+      "closest_models": [
+        {
+          "xy_bead_gap_mm": -0.19108199999997316,
+          "z_bead_gap_mm": 0.13300000000000267,
+          "model": {
+            "line": 1680606,
+            "z": 35.24,
+            "height": 0.24,
+            "feature": "Bridge",
+            "width": 0.428164,
+            "road": [
+              289.522,
+              77.411,
+              289.522,
+              105.589,
+              0.428164
+            ]
+          }
+        },
+        {
+          "xy_bead_gap_mm": -0.5240819999999999,
+          "z_bead_gap_mm": 0.13300000000000267,
+          "model": {
+            "line": 1680604,
+            "z": 35.24,
+            "height": 0.24,
+            "feature": "Bridge",
+            "width": 0.428164,
+            "road": [
+              289.898,
+              105.589,
+              289.898,
+              77.411,
+              0.428164
+            ]
+          }
+        },
+        {
+          "xy_bead_gap_mm": -0.3810820000000277,
+          "z_bead_gap_mm": 0.13300000000000267,
+          "model": {
+            "line": 1680602,
+            "z": 35.24,
+            "height": 0.24,
+            "feature": "Bridge",
+            "width": 0.428164,
+            "road": [
+              290.275,
+              77.411,
+              290.275,
+              105.589,
+              0.428164
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "flag": {
+        "bead_clearance_mm": -0.16727910691944253,
+        "feature": "Support",
+        "road": [
+          289.855,
+          91.001,
+          289.855,
+          89.888,
+          0.62
+        ],
+        "z_mm": 34.867
+      },
+      "support": {
+        "line": 1669809,
+        "z": 34.867,
+        "height": 0.279572,
+        "feature": "Support",
+        "width": 0.62,
+        "road": [
+          289.855,
+          91.001,
+          289.855,
+          89.888,
+          0.62
+        ]
+      },
+      "overlapping_bead_boxes": [],
+      "closest_models": [
+        {
+          "xy_bead_gap_mm": -0.19108199999997316,
+          "z_bead_gap_mm": 0.13300000000000267,
+          "model": {
+            "line": 1680606,
+            "z": 35.24,
+            "height": 0.24,
+            "feature": "Bridge",
+            "width": 0.428164,
+            "road": [
+              289.522,
+              77.411,
+              289.522,
+              105.589,
+              0.428164
+            ]
+          }
+        },
+        {
+          "xy_bead_gap_mm": -0.48108199999999357,
+          "z_bead_gap_mm": 0.13300000000000267,
+          "model": {
+            "line": 1680604,
+            "z": 35.24,
+            "height": 0.24,
+            "feature": "Bridge",
+            "width": 0.428164,
+            "road": [
+              289.898,
+              105.589,
+              289.898,
+              77.411,
+              0.428164
+            ]
+          }
+        },
+        {
+          "xy_bead_gap_mm": -0.10408200000004086,
+          "z_bead_gap_mm": 0.13300000000000267,
+          "model": {
+            "line": 1680602,
+            "z": 35.24,
+            "height": 0.24,
+            "feature": "Bridge",
+            "width": 0.428164,
+            "road": [
+              290.275,
+              77.411,
+              290.275,
+              105.589,
+              0.428164
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "flag": {
+        "bead_clearance_mm": -0.16727910691944253,
+        "feature": "Support",
+        "road": [
+          289.855,
+          89.888,
+          290.132,
+          88.81,
+          0.62
+        ],
+        "z_mm": 34.867
+      },
+      "support": {
+        "line": 1669810,
+        "z": 34.867,
+        "height": 0.279572,
+        "feature": "Support",
+        "width": 0.62,
+        "road": [
+          289.855,
+          89.888,
+          290.132,
+          88.81,
+          0.62
+        ]
+      },
+      "overlapping_bead_boxes": [],
+      "closest_models": [
+        {
+          "xy_bead_gap_mm": -0.19108199999997316,
+          "z_bead_gap_mm": 0.13300000000000267,
+          "model": {
+            "line": 1680606,
+            "z": 35.24,
+            "height": 0.24,
+            "feature": "Bridge",
+            "width": 0.428164,
+            "road": [
+              289.522,
+              77.411,
+              289.522,
+              105.589,
+              0.428164
+            ]
+          }
+        },
+        {
+          "xy_bead_gap_mm": -0.5240819999999999,
+          "z_bead_gap_mm": 0.13300000000000267,
+          "model": {
+            "line": 1680604,
+            "z": 35.24,
+            "height": 0.24,
+            "feature": "Bridge",
+            "width": 0.428164,
+            "road": [
+              289.898,
+              105.589,
+              289.898,
+              77.411,
+              0.428164
+            ]
+          }
+        },
+        {
+          "xy_bead_gap_mm": -0.3810820000000277,
+          "z_bead_gap_mm": 0.13300000000000267,
+          "model": {
+            "line": 1680602,
+            "z": 35.24,
+            "height": 0.24,
+            "feature": "Bridge",
+            "width": 0.428164,
+            "road": [
+              290.275,
+              77.411,
+              290.275,
+              105.589,
+              0.428164
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "flag": {
+        "bead_clearance_mm": -0.16727910691944253,
+        "feature": "Support",
+        "road": [
+          290.132,
+          88.81,
+          290.668,
+          87.834,
+          0.62
+        ],
+        "z_mm": 34.867
+      },
+      "support": {
+        "line": 1669811,
+        "z": 34.867,
+        "height": 0.279572,
+        "feature": "Support",
+        "width": 0.62,
+        "road": [
+          290.132,
+          88.81,
+          290.668,
+          87.834,
+          0.62
+        ]
+      },
+      "overlapping_bead_boxes": [],
+      "closest_models": [
+        {
+          "xy_bead_gap_mm": 0.0859180000000136,
+          "z_bead_gap_mm": 0.13300000000000267,
+          "model": {
+            "line": 1680606,
+            "z": 35.24,
+            "height": 0.24,
+            "feature": "Bridge",
+            "width": 0.428164,
+            "road": [
+              289.522,
+              77.411,
+              289.522,
+              105.589,
+              0.428164
+            ]
+          }
+        },
+        {
+          "xy_bead_gap_mm": -0.2900820000000195,
+          "z_bead_gap_mm": 0.13300000000000267,
+          "model": {
+            "line": 1680604,
+            "z": 35.24,
+            "height": 0.24,
+            "feature": "Bridge",
+            "width": 0.428164,
+            "road": [
+              289.898,
+              105.589,
+              289.898,
+              77.411,
+              0.428164
+            ]
+          }
+        },
+        {
+          "xy_bead_gap_mm": -0.23308993360243435,
+          "z_bead_gap_mm": 0.13300000000000267,
+          "model": {
+            "line": 1679082,
+            "z": 35.24,
+            "height": 0.24,
+            "feature": "Overhang wall",
+            "width": 0.45,
+            "road": [
+              290.982,
+              78.808,
+              290.948,
+              104.192,
+              0.45
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "flag": {
+        "bead_clearance_mm": -0.16727910691944253,
+        "feature": "Support",
+        "road": [
+          290.668,
+          87.834,
+          291.43,
+          87.023,
+          0.62
+        ],
+        "z_mm": 34.867
+      },
+      "support": {
+        "line": 1669812,
+        "z": 34.867,
+        "height": 0.279572,
+        "feature": "Support",
+        "width": 0.62,
+        "road": [
+          290.668,
+          87.834,
+          291.43,
+          87.023,
+          0.62
+        ]
+      },
+      "overlapping_bead_boxes": [],
+      "closest_models": [
+        {
+          "xy_bead_gap_mm": -0.535,
+          "z_bead_gap_mm": 0.13300000000000267,
+          "model": {
+            "line": 1679934,
+            "z": 35.24,
+            "height": 0.24,
+            "feature": "Overhang wall",
+            "width": 0.45,
+            "road": [
+              291.365,
+              78.808,
+              291.332,
+              104.192,
+              0.45
+            ]
+          }
+        },
+        {
+          "xy_bead_gap_mm": -0.535,
+          "z_bead_gap_mm": 0.13300000000000267,
+          "model": {
+            "line": 1679082,
+            "z": 35.24,
+            "height": 0.24,
+            "feature": "Overhang wall",
+            "width": 0.45,
+            "road": [
+              290.982,
+              78.808,
+              290.948,
+              104.192,
+              0.45
+            ]
+          }
+        },
+        {
+          "xy_bead_gap_mm": -0.13108199999997083,
+          "z_bead_gap_mm": 0.13300000000000267,
+          "model": {
+            "line": 1680602,
+            "z": 35.24,
+            "height": 0.24,
+            "feature": "Bridge",
+            "width": 0.428164,
+            "road": [
+              290.275,
+              77.411,
+              290.275,
+              105.589,
+              0.428164
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "flag": {
+        "bead_clearance_mm": -0.16727910691944253,
+        "feature": "Support",
+        "road": [
+          291.43,
+          87.023,
+          292.37,
+          86.426,
+          0.62
+        ],
+        "z_mm": 34.867
+      },
+      "support": {
+        "line": 1669813,
+        "z": 34.867,
+        "height": 0.279572,
+        "feature": "Support",
+        "width": 0.62,
+        "road": [
+          291.43,
+          87.023,
+          292.37,
+          86.426,
+          0.62
+        ]
+      },
+      "overlapping_bead_boxes": [],
+      "closest_models": [
+        {
+          "xy_bead_gap_mm": -0.4593203050491671,
+          "z_bead_gap_mm": 0.13300000000000267,
+          "model": {
+            "line": 1679934,
+            "z": 35.24,
+            "height": 0.24,
+            "feature": "Overhang wall",
+            "width": 0.45,
+            "road": [
+              291.365,
+              78.808,
+              291.332,
+              104.192,
+              0.45
+            ]
+          }
+        },
+        {
+          "xy_bead_gap_mm": -0.07599702377905349,
+          "z_bead_gap_mm": 0.13300000000000267,
+          "model": {
+            "line": 1679082,
+            "z": 35.24,
+            "height": 0.24,
+            "feature": "Overhang wall",
+            "width": 0.45,
+            "road": [
+              290.982,
+              78.808,
+              290.948,
+              104.192,
+              0.45
+            ]
+          }
+        },
+        {
+          "xy_bead_gap_mm": 0.25391800000001996,
+          "z_bead_gap_mm": 0.13300000000000267,
+          "model": {
+            "line": 1680598,
+            "z": 35.24,
+            "height": 0.24,
+            "feature": "Bridge",
+            "width": 0.428164,
+            "road": [
+              290.652,
+              105.629,
+              290.652,
+              78.246,
+              0.428164
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "scope": "Each road uses its commanded Z, feature-specific height and full width. XY capsules and flat bead Z intervals conservatively bound the extrusion; this does not measure physical ooze.",
+  "rounded_bead_model": "A horizontal flat core of width minus height, rounded by a sphere of radius half the bead height; this conservatively caps the road ends.",
+  "rounded_bead_candidates": [
+    {
+      "support_line": 1042039,
+      "model_line": 1026501,
+      "support_z_mm": 15.576,
+      "model_z_mm": 15.32,
+      "rounded_bead_gap_mm": 0.08538642563321391
+    },
+    {
+      "support_line": 1042040,
+      "model_line": 1026501,
+      "support_z_mm": 15.576,
+      "model_z_mm": 15.32,
+      "rounded_bead_gap_mm": 0.08309940515551556
+    },
+    {
+      "support_line": 1042041,
+      "model_line": 1026501,
+      "support_z_mm": 15.576,
+      "model_z_mm": 15.32,
+      "rounded_bead_gap_mm": 0.08309940515551556
+    },
+    {
+      "support_line": 1042109,
+      "model_line": 1026501,
+      "support_z_mm": 15.576,
+      "model_z_mm": 15.32,
+      "rounded_bead_gap_mm": 0.08647962145304433
+    },
+    {
+      "support_line": 1042110,
+      "model_line": 1026501,
+      "support_z_mm": 15.576,
+      "model_z_mm": 15.32,
+      "rounded_bead_gap_mm": 0.08647962145304433
+    }
+  ],
+  "rounded_bead_contact_count": 0,
+  "minimum_rounded_candidate_gap_mm": 0.08309940515551556,
+  "accepted": true
+}

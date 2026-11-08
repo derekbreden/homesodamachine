@@ -1,0 +1,26 @@
+{
+  "printer": "Mark2",
+  "observed_at": "2026-11-08T14:48:46.789823+00:00",
+  "archive": {
+    "name": "2026-11-08-back-top-mark2-d8408187.gcode.3mf",
+    "sha256": "d6e77217811fd4dd4febfe647b2cdd79cb8ae1d8504d81e59c98d3120bda3e5b",
+    "gcode_sha256": "7b2a5185b62a48ebf09c94e663c09ca6db5146081e5044a477263403642fb203",
+    "slots": {
+      "1": {
+        "type": "PET-CF",
+        "colour": "161616"
+      }
+    },
+    "objects": [
+      "enclosure-back-top"
+    ]
+  },
+  "printer_task_id": "1420766203",
+  "gcode_state": "PREPARE",
+  "subtask_name": "2026-11-08-back-top-mark2-d8408187.gcode.3mf",
+  "print_error": 0,
+  "hms": [],
+  "layer_num": 150,
+  "total_layer_num": 150,
+  "mc_remaining_time": 0
+}
