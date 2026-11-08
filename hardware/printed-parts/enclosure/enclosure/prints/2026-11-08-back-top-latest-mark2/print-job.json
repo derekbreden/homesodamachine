@@ -3,7 +3,7 @@
   "part": "HSM-0081",
   "part_name": "Enclosure back top",
   "printer": "Mark2",
-  "status": "started",
+  "status": "stopped",
   "started": true,
   "user_authorization": "Please start a print of enclosure back top on mark2, confirming with your peer \"Fit\" that you got all the latest fixes and settings in your print.",
   "material": "Polymaker Fiberon PET-GF15, black",
@@ -278,5 +278,12 @@
     "raft_first_layer_expansion_mm": 2.0,
     "scope": "Back-top recipe.",
     "reason": "Keep the exterior trees beside the rear wall and clear of the protected cord passage."
-  }
+  },
+  "stopped_by": "user",
+  "user_stop_report": "The print has been stopped.",
+  "stop_reason": "Relay mounting geometry requires revision.",
+  "stop_status_record": "stopped-printer.json",
+  "stop_observed_at_utc": "2026-11-08T18:17:03.655871+00:00",
+  "stop_observed_state": "FAILED",
+  "stop_observed_layer": 0
 }
