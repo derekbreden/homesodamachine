@@ -7,6 +7,11 @@ The PET-GF trim belongs to the textured PEI plate. PETG on the glued Engineering
 Plate uses no Z offset; its emitted command is recorded with the native print archive.
 Derek: *"No. That should be documented as for pet-gf on textured plate."*
 
+The [identification-set right-side clearance trial](enclosure/display-cover/prints/2026-11-08-identification-set-mark1-right-z005/review.json)
+overrides that baseline while a right-side filament prints. Its filament hooks
+drain queued motion before setting the trim and restore the baseline before
+tool changes and maintenance. The left-side filament retains the baseline.
+
 The H2C sets its first-layer height with `G29.1 Z<mm>`, a firmware z-trim the machine start
 G-code writes once per print, cleared to zero at the top of the block and set again by plate
 type and nozzle. Bambu's stock values lower the nozzle on textured PEI, because homing lands
