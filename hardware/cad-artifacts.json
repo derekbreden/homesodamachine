@@ -17,8 +17,8 @@
     "behind": true
   },
   "solids": {
-    "hardware/assembly/scenes/glb/back-half.glb.mesh": "1149616fda6b1079126e86e5653819550dd4669dcde8d79d84e736938507e2a1",
-    "hardware/assembly/scenes/glb/back-top.glb.mesh": "3e7fa7425ff45ac5424765beed003444598e8658f5ba8f7e8e5b1b31934f0548",
+    "hardware/assembly/scenes/glb/back-half.glb.mesh": "85a0e6978ab9877e0a9b819a19f9c9488d39761c14acf0e5cd7f0448ecc1dfe9",
+    "hardware/assembly/scenes/glb/back-top.glb.mesh": "cec1dd3d219266b0c582b4a622335f965e8706bd67a512a5bae3e96c9fec47be",
     "hardware/assembly/scenes/glb/cap-lid-fill.glb.mesh": "832b41cf74c580adb2f94dcc42f4e898198e763637e2eefac32367f3c09a3522",
     "hardware/assembly/scenes/glb/cap-lid.glb.mesh": "040869529c11c652e02a0f505290d17ec5a0e549ac19e370bef64b4411aefb33",
     "hardware/assembly/scenes/glb/cold-core-open.glb.mesh": "a9126662b9bfd90ccca964232e0f2374b03143000f2af7c0aa5ac45c63bfe3e9",
@@ -103,7 +103,7 @@
     "hardware/install-guide/plumbing/modern/art/modern-water-on.png": "28ae8937a70f7a55571a37a303b38477bef45d5c4c9d2aef2c22fe58da4c34f8",
     "hardware/manifold-layout/enclosure-assembly.facts.json": "289dd0ca517fdde26b33aaf10dfb56a80e5be7bf840926aa5ee0481aaf336f2f",
     "hardware/manifold-layout/enclosure-assembly.physical.step.mesh": "96be0d51a69a4bfce5f3984d9f08a82c5a97fa6c220bf7d72d389c15af217370",
-    "hardware/manifold-layout/enclosure-assembly.step.mesh": "133195000bcb308b2cea2cf0d5afb36f4fe4f6d025c06a299bf2fed4bb5ecb7b",
+    "hardware/manifold-layout/enclosure-assembly.step.mesh": "a459bda5c5afa5ba40adcd342e035ec14d5982457cd53332acab3caa0894fac5",
     "hardware/manifold-layout/manifold-layout.step": "271622e26ecef38f7d20c561ff7ea3dd29af67e749958f1a2f220a5495227ad7",
     "hardware/manifold-layout/manifold-layout.step.mesh": "f1b4190ad025622f298695284dab5339e4ec949b89906e3bd20c800e8e416610",
     "hardware/manifold-layout/studies/ceiling-fit/parts/back-wall.step": "8569f20e91df06d2e3e7e8e3175c1c5fdef3d803d3aee809fd2182a4d9517fcd",
@@ -406,7 +406,7 @@
     "hardware/printed-parts/enclosure/enclosure/accepted-fit-integration/placed-psu.step": "20b5ca3a7c11e0bedc16b5d01629096866ba36e5289e124ef8b236348da5039e",
     "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step.mesh": "1bb50018bc2f8c0798c0945ac8cc8603a8e76250c79862f61d64d511bb2d890d",
     "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.stl": "8e5a30ea3706b9f32de9bfdbb79c824e52a06f15f9356861b0179ea110e70781",
-    "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step.mesh": "d056db9fd70aa14d160da03ba069665d8bfaa76643c7a492bcf082fb30b9f6ce",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step.mesh": "4309f87ef293d0a5f21b9896414951ee10c921a75866639ac6ad2aedc7573583",
     "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl": "495e5e42236c486d8a182cda58087741a7f1a5683cf645a5a803af417325cd72",
     "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step.mesh": "237a045c7bc56f3eb0fa450a84662978bff6035bb4b36ce346f60acece1abcb3",
     "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.stl": "633e84c40ca86284da50734d3cf978f3fb368783828ec0b319d673730b52d193",
@@ -425,7 +425,7 @@
     "hardware/printed-parts/enclosure/enclosure/enclosure-pump-tube-setting-jig.step": "048b064adf4bcb8a9fccd82406b3b75d84e721a6163d232e61380e840f69cce1",
     "hardware/printed-parts/enclosure/enclosure/enclosure-pump-tube-setting-jig.step.mesh": "861b43a0a29fac2304e9286c65fa184362b2edf310d21d7f4aae689b0fe22353",
     "hardware/printed-parts/enclosure/enclosure/enclosure-pump-tube-setting-jig.stl": "cfedb813ad4f4e8f609ae3ec724a5d4de918c175fbfcafc1a44b3a69d4a62e3e",
-    "hardware/printed-parts/enclosure/enclosure/enclosure.step.mesh": "70814c18f5500112fbea08102155aff39012d3f16e409c8bfc5f5cf65fe4d26e",
+    "hardware/printed-parts/enclosure/enclosure/enclosure.step.mesh": "14ea0b6747c1c44a646dec447587fb7f5ba5ed1346b415c09f86b124c0793b90",
     "hardware/printed-parts/enclosure/enclosure/magnet-retention/section.step": "2efdc50cbb438c930dd2ded0c90d45b1f64dac06c187b08181357866e4620e4c",
     "hardware/printed-parts/enclosure/enclosure/magnet-retention/section.step.mesh": "d4a852d3ee87e8dbd134c7f859a727d29d5a492f744dc6b5fd4fd1a6834c8103",
     "hardware/printed-parts/enclosure/grip-cover/grip-candidate-back-bottom.step": "ab8b5181f30c8e8fcb2ac29b541075065067cb5eb60636604840c13fd707ed94",
@@ -1614,8 +1614,8 @@
   "sidecars": {},
   "website": {
     "solids": {
-      "hardware/assembly/scenes/glb/back-half.glb.mesh": "1149616fda6b1079126e86e5653819550dd4669dcde8d79d84e736938507e2a1",
-      "hardware/assembly/scenes/glb/back-top.glb.mesh": "3e7fa7425ff45ac5424765beed003444598e8658f5ba8f7e8e5b1b31934f0548",
+      "hardware/assembly/scenes/glb/back-half.glb.mesh": "85a0e6978ab9877e0a9b819a19f9c9488d39761c14acf0e5cd7f0448ecc1dfe9",
+      "hardware/assembly/scenes/glb/back-top.glb.mesh": "cec1dd3d219266b0c582b4a622335f965e8706bd67a512a5bae3e96c9fec47be",
       "hardware/assembly/scenes/glb/cap-lid-fill.glb.mesh": "832b41cf74c580adb2f94dcc42f4e898198e763637e2eefac32367f3c09a3522",
       "hardware/assembly/scenes/glb/cap-lid.glb.mesh": "040869529c11c652e02a0f505290d17ec5a0e549ac19e370bef64b4411aefb33",
       "hardware/assembly/scenes/glb/cold-core-open.glb.mesh": "a9126662b9bfd90ccca964232e0f2374b03143000f2af7c0aa5ac45c63bfe3e9",
@@ -1640,7 +1640,7 @@
       "hardware/faucet-layout/faucet-industrial-assembly.step": "dab99ebc933e9d182955406892cdad3dc5c5276aea5fb1fe3c5905c36fe3ac10",
       "hardware/faucet-layout/faucet-industrial-assembly.step.mesh": "fe28e3401330a3abd8e7ceba118ee10d1a9c6e17631737d47942864f3a7b2074",
       "hardware/manifold-layout/enclosure-assembly.facts.json": "289dd0ca517fdde26b33aaf10dfb56a80e5be7bf840926aa5ee0481aaf336f2f",
-      "hardware/manifold-layout/enclosure-assembly.step.mesh": "133195000bcb308b2cea2cf0d5afb36f4fe4f6d025c06a299bf2fed4bb5ecb7b",
+      "hardware/manifold-layout/enclosure-assembly.step.mesh": "a459bda5c5afa5ba40adcd342e035ec14d5982457cd53332acab3caa0894fac5",
       "hardware/printed-parts/asse-drain-adapter/asse-drain-adapter.step": "4730c636dd33e1431fa4fa3c6df0b4a3a41942efa40f451ce04e4f41e661a92d",
       "hardware/printed-parts/asse-drain-adapter/asse-drain-adapter.step.mesh": "192cb511c9bd723d16f931037c741fb143fa7000b522a574d13fc47f50854806",
       "hardware/printed-parts/asse-drain-adapter/asse-drain-adapter.stl": "ee0584ceb98ba367aaf8ea1508a060946f8e357a0f8e77cc33de567066437d2e",
@@ -1740,7 +1740,7 @@
       "hardware/printed-parts/enclosure/display-gasket/display-gasket.stl": "5bfe020725eb9f1cb4bb741c207454b1e64550e63fa443aadbc61398c7ea4c2a",
       "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step.mesh": "1bb50018bc2f8c0798c0945ac8cc8603a8e76250c79862f61d64d511bb2d890d",
       "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.stl": "8e5a30ea3706b9f32de9bfdbb79c824e52a06f15f9356861b0179ea110e70781",
-      "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step.mesh": "d056db9fd70aa14d160da03ba069665d8bfaa76643c7a492bcf082fb30b9f6ce",
+      "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step.mesh": "4309f87ef293d0a5f21b9896414951ee10c921a75866639ac6ad2aedc7573583",
       "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl": "495e5e42236c486d8a182cda58087741a7f1a5683cf645a5a803af417325cd72",
       "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step.mesh": "237a045c7bc56f3eb0fa450a84662978bff6035bb4b36ce346f60acece1abcb3",
       "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.stl": "633e84c40ca86284da50734d3cf978f3fb368783828ec0b319d673730b52d193",
@@ -2322,7 +2322,6 @@
     "507bcc269998489264bdbc2f9ba4e1e9bdba6f52b5ed3bb6a4eb71568bceb03c",
     "52e68cb67261aadc551ef6addb515e8f6dfdbd5d7cd9deba4de595bb0700d6e2",
     "543b8fd96ca0d65ee185a82c3d76c8b5a768cdc801e049b01d10c62cd0a35ed4",
-    "54eeed519983964ddc968c24ad61c04a898981d3e6b9707fda427110f2ff9afc",
     "5500a3e567f8cfd450cf42b25399d46dd2f28938fb499a4cfd5753435249e56c",
     "554b5f57f112849dad935e70871a8d1a386febe8aa2cfbd8f42b66e66bde3763",
     "5649b91a2e2c5d1171d4bbd7097bfee9276e1d5380d4fd26db03e2608a2d86de",
@@ -2575,6 +2574,7 @@
     "e6a6521ca21dbe3095ead3effe7cc86fa67cb846c17a5f19c97a0f6c41028591",
     "e705fab9eea2a45daa7bd8f92a5eab704ea6ea0fb0b1a3302acee266d0d6c00c",
     "e8ef3a8b1f3c8bb12bdbb891931b8eb04c0ab800dbdba564ea5b7ccec7560ec1",
+    "e957ce1efacc6c750662fbe24919e5b3ac3b4804c1e5e663a6a7c80397ff9f8a",
     "e9609cad85a0da3eecd978075fb8476d189c3908d21f105a937af8f50d28fc83",
     "e975e4e2e4040dda707336ea779fb807f1b85c88c8b29dd9053ef6fb4d623ad1",
     "ea3b43f89e5528ebd0fa2bb042a0cceabe1b7e390cccaba68abe3c11147dea20",
@@ -2612,8 +2612,8 @@
     "ff51ef89d27c89ae0ec0555f1adf8cc803b0cf4e90b57b582379347e005f4990"
   ],
   "moved": {
-    "hardware/assembly/scenes/glb/back-half.glb.mesh": 1794105133,
-    "hardware/assembly/scenes/glb/back-top.glb.mesh": 1794105133,
+    "hardware/assembly/scenes/glb/back-half.glb.mesh": 1794105274,
+    "hardware/assembly/scenes/glb/back-top.glb.mesh": 1794105274,
     "hardware/assembly/scenes/glb/cap-lid-fill.glb.mesh": 1794104699,
     "hardware/assembly/scenes/glb/cap-lid.glb.mesh": 1794104699,
     "hardware/assembly/scenes/glb/cold-core-open.glb.mesh": 1794104699,
@@ -2698,7 +2698,7 @@
     "hardware/install-guide/plumbing/modern/art/modern-water-on.png": 1793830497,
     "hardware/manifold-layout/enclosure-assembly.facts.json": 1794037810,
     "hardware/manifold-layout/enclosure-assembly.physical.step.mesh": 1793858653,
-    "hardware/manifold-layout/enclosure-assembly.step.mesh": 1794105133,
+    "hardware/manifold-layout/enclosure-assembly.step.mesh": 1794105274,
     "hardware/manifold-layout/manifold-layout.step": 1794020197,
     "hardware/manifold-layout/manifold-layout.step.mesh": 1794020197,
     "hardware/manifold-layout/studies/ceiling-fit/parts/back-wall.step": 1792743994,
@@ -3001,7 +3001,7 @@
     "hardware/printed-parts/enclosure/enclosure/accepted-fit-integration/placed-psu.step": 1790817978,
     "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step.mesh": 1794105133,
     "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.stl": 1794105144,
-    "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step.mesh": 1794105133,
+    "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step.mesh": 1794105274,
     "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl": 1794105144,
     "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step.mesh": 1794105121,
     "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.stl": 1794105144,
@@ -3020,7 +3020,7 @@
     "hardware/printed-parts/enclosure/enclosure/enclosure-pump-tube-setting-jig.step": 1793712586,
     "hardware/printed-parts/enclosure/enclosure/enclosure-pump-tube-setting-jig.step.mesh": 1793992414,
     "hardware/printed-parts/enclosure/enclosure/enclosure-pump-tube-setting-jig.stl": 1793712586,
-    "hardware/printed-parts/enclosure/enclosure/enclosure.step.mesh": 1794105133,
+    "hardware/printed-parts/enclosure/enclosure/enclosure.step.mesh": 1794105274,
     "hardware/printed-parts/enclosure/enclosure/magnet-retention/section.step": 1791257167,
     "hardware/printed-parts/enclosure/enclosure/magnet-retention/section.step.mesh": 1791257167,
     "hardware/printed-parts/enclosure/grip-cover/grip-candidate-back-bottom.step": 1791257167,
@@ -4208,11 +4208,11 @@
   },
   "made": {
     "hardware/assembly/scenes/glb/back-half.glb.mesh": {
-      "commit": "9147f076c24d0f2655ab26fdd8e2a4f2dae3fbba",
+      "commit": "af0afb1620bdd8e9c9fa16aedf2d0e1a0fa7340c",
       "unproven": true
     },
     "hardware/assembly/scenes/glb/back-top.glb.mesh": {
-      "commit": "9147f076c24d0f2655ab26fdd8e2a4f2dae3fbba",
+      "commit": "af0afb1620bdd8e9c9fa16aedf2d0e1a0fa7340c",
       "unproven": true
     },
     "hardware/assembly/scenes/glb/cap-lid-fill.glb.mesh": {
@@ -4542,7 +4542,7 @@
       "unproven": true
     },
     "hardware/manifold-layout/enclosure-assembly.step.mesh": {
-      "commit": "9147f076c24d0f2655ab26fdd8e2a4f2dae3fbba",
+      "commit": "af0afb1620bdd8e9c9fa16aedf2d0e1a0fa7340c",
       "unproven": true
     },
     "hardware/manifold-layout/manifold-layout.step": {
@@ -5328,8 +5328,8 @@
       "unproven": true
     },
     "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step.mesh": {
-      "inputs": "eff850dd8949a9b7a28de697aa5cac35d978b9acc62dd4c37d5bae7c0bd60e83",
-      "commit": "9147f076c24d0f2655ab26fdd8e2a4f2dae3fbba",
+      "inputs": "8f88a714a4cf4e79cdc820d40c753cb8fbcaaed0db43b0eb4e23bd1af530be39",
+      "commit": "af0afb1620bdd8e9c9fa16aedf2d0e1a0fa7340c",
       "unproven": true
     },
     "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl": {
@@ -5401,7 +5401,7 @@
       "unproven": true
     },
     "hardware/printed-parts/enclosure/enclosure/enclosure.step.mesh": {
-      "commit": "9147f076c24d0f2655ab26fdd8e2a4f2dae3fbba",
+      "commit": "af0afb1620bdd8e9c9fa16aedf2d0e1a0fa7340c",
       "unproven": true
     },
     "hardware/printed-parts/enclosure/nameplate/nameplate-001.step": {
