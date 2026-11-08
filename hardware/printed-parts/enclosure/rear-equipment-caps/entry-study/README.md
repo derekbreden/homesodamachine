@@ -22,9 +22,9 @@ python3 tools/run.py -- tools/hsm/target/release/rear-equipment-caps --regulator
 The `regulator-entry-comparison` recipe in
 [pieces.json](../../trial-preparation/pieces.json) prints both receiver-and-cover
 pairs on Mark2. The receivers retain
-back-top's layer direction and print without cavity supports. The caps stand
+back-top's ceiling-down layer direction and print without cavity supports. The caps stand
 on their production axial ends and use their ordinary production layer
-schedule. Fine layers belong only to the tilted receivers. The articles
+schedule. The receiver catches bridge between their complete end shoulders. The articles
 provide time away from each cover between layers, measured from the emitted
 paths separately for each article. The plate has no priming tower and uses
 traditional timelapse. Temperatures and localized cooling follow the

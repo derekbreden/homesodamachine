@@ -200,7 +200,7 @@ fn derive_features(root: &Path, mesh: &Mesh, declared: &[Value]) -> Result<Vec<F
                 let overlap = native["boundary_overlap_mm"].as_f64().unwrap_or(0.0);
                 let record_sha = file_sha(&path)?;
                 let mut regions: Vec<(&str, &Value)> = Vec::new();
-                for (k, key) in [("support_free", "support_free_regions"), ("bridge_direction", "bridge_regions"), ("support_required", "support_regions")] {
+                for (k, key) in [("support_free", "support_free_regions"), ("bridge_direction", "bridge_regions"), ("support_required", "support_regions"), ("removable_tree","removable_support_trees")] {
                     for r in native.get(key).and_then(Value::as_array).into_iter().flatten() {
                         regions.push((k, r));
                     }
@@ -238,7 +238,7 @@ fn derive_features(root: &Path, mesh: &Mesh, declared: &[Value]) -> Result<Vec<F
 }
 
 /// Yaw and plate-centre XY for each footprint, packed in rows and centred.
-fn layout(footprints: &[[f64; 2]], low: [f64; 2], high: [f64; 2], spacing: f64, yaw_choice: &Value) -> Vec<(f64, f64, f64)> {
+fn layout(footprints: &[[f64; 2]], low: [f64; 2], high: [f64; 2], spacing: f64, border: f64, yaw_choice: &Value) -> Vec<(f64, f64, f64)> {
     let (width, depth) = (high[0] - low[0], high[1] - low[1]);
     let (cx, cy) = ((low[0] + high[0]) / 2.0, (low[1] + high[1]) / 2.0);
     if footprints.len() == 1 {
@@ -259,7 +259,7 @@ fn layout(footprints: &[[f64; 2]], low: [f64; 2], high: [f64; 2], spacing: f64, 
     let (mut rows, mut row, mut x): (Vec<Vec<(usize, f64, f64, f64)>>, Vec<(usize, f64, f64, f64)>, f64) = (vec![], vec![], 0.0);
     for i in order {
         let [dx, dy] = footprints[i];
-        if !row.is_empty() && x + dx > width - 40.0 {
+        if !row.is_empty() && x + dx > width - 2.0 * border {
             rows.push(std::mem::take(&mut row));
             x = 0.0;
         }
@@ -538,9 +538,9 @@ fn prepare(root: &Path, name: &str, printer: Option<&str>, parts: Option<Vec<(Va
     let yaw_choice = piece.get("yaw_degrees").cloned().unwrap_or(json!("auto"));
     let offset = piece.get("plate_offset_mm").and_then(|o| o.get("value")).and_then(Value::as_array)
         .map(|a| [a[0].as_f64().unwrap_or(0.0), a[1].as_f64().unwrap_or(0.0)]).unwrap_or([0.0, 0.0]);
-    let placements: Vec<(f64, f64, f64)> = layout(&footprints, usable_low, usable_high, spacing, &yaw_choice)
-        .into_iter().map(|(y, cx, cy)| (y, cx + offset[0], cy + offset[1])).collect();
     let border = border.unwrap_or_else(|| piece.get("plate_border_mm").and_then(Value::as_f64).unwrap_or(20.0));
+    let placements: Vec<(f64, f64, f64)> = layout(&footprints, usable_low, usable_high, spacing, border, &yaw_choice)
+        .into_iter().map(|(y, cx, cy)| (y, cx + offset[0], cy + offset[1])).collect();
     let brim_type = plate.settings.first_text("brim_type").unwrap_or("").to_string();
     let brim = if brim_type == "outer_only" || brim_type == "outer_and_inner" {
         plate.settings.first_text("brim_width").and_then(|s| s.parse::<f64>().ok()).unwrap_or(5.0) + 0.5
@@ -634,6 +634,16 @@ fn prepare(root: &Path, name: &str, printer: Option<&str>, parts: Option<Vec<(Va
                     let (v, fc) = box_mesh(sub3(lo, mesh.center), sub3(hi, mesh.center));
                     plate.add_part(index, &format!("{} support target", f.record["name"].as_str().unwrap_or("")), v, fc, "support_enforcer", vec![], None);
                     record.as_object_mut().unwrap().entry("support_targets").or_insert(json!([])).as_array_mut().unwrap().push(Value::Object(entry.clone()));
+                }
+                "removable_tree" => {
+                    let tree = hsm_enclosure_quadrants::shapes::removable_tree(&Value::Object(f.record.clone()))?;
+                    let vertices = tree.verts().iter().map(|p|sub3(p.to_array(),mesh.center)).collect();
+                    let faces = tree.tris().iter().map(|p|p.map(|i|i as usize)).collect();
+                    plate.add_part(index,f.record["name"].as_str().unwrap_or("Removable tree"),vertices,faces,"normal_part",
+                        vec![("wall_loops".into(),"2".into()),("sparse_infill_density".into(),"100%".into())],Some("8"));
+                    record.as_object_mut().unwrap().entry("removable_trees").or_insert(json!([])).as_array_mut().unwrap().push(json!({
+                        "name":f.record["name"],"bounds_source_mm":f.record["bounds_source_mm"],"root_radius_mm":f.record["root_radius_mm"],
+                        "contact_gap_mm":f.record["contact_gap_mm"],"reason":f.record["reason"]}));
                 }
                 "tie_windows" => {
                     let overlap = f.record["blocker_roof_overlap_mm"].as_f64().unwrap_or(0.0);

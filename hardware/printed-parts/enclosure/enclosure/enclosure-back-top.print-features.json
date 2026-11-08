@@ -3,6 +3,132 @@
   "bridge_regions": [
     {
       "bounds_source_mm": [
+        4.6499988712316025,
+        52.9499988712316,
+        469.299,
+        472.799,
+        237.6,
+        243.6
+      ],
+      "bridge_print_axis_source": [
+        1,
+        0,
+        0
+      ],
+      "name": "Identification channel 1 stop",
+      "reason": "The stop bridges between its complete side rails."
+    },
+    {
+      "bounds_source_mm": [
+        52.35,
+        100.65,
+        469.299,
+        472.799,
+        237.6,
+        243.6
+      ],
+      "bridge_print_axis_source": [
+        1,
+        0,
+        0
+      ],
+      "name": "Identification channel 2 stop",
+      "reason": "The stop bridges between its complete side rails."
+    },
+    {
+      "bounds_source_mm": [
+        3.401860222036486,
+        54.19813977796352,
+        393.2032545933731,
+        441.3679848073112,
+        331.2,
+        343.3
+      ],
+      "bridge_axis_source": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "bridge_print_axis_source": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "bridge_span_mm": 42.16473021393807,
+      "name": "ASSE receiver",
+      "reason": "The catch roads bridge along the pocket between its solid end shoulders."
+    },
+    {
+      "bounds_source_mm": [
+        61.84438431246909,
+        91.15561568753091,
+        417.09571720240064,
+        465.3,
+        337.95,
+        343.3
+      ],
+      "bridge_axis_source": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "bridge_print_axis_source": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "bridge_span_mm": 42.204282797599376,
+      "name": "Pisco receiver",
+      "reason": "The catch roads bridge along the pocket between its solid end shoulders."
+    },
+    {
+      "bounds_source_mm": [
+        -58.57391030388001,
+        -16.073910303880005,
+        286.353633714998,
+        328.9600400329926,
+        334.75,
+        340.06514607709613
+      ],
+      "bridge_axis_source": [
+        1.0,
+        0.0,
+        0.0
+      ],
+      "bridge_print_axis_source": [
+        1.0,
+        0.0,
+        0.0
+      ],
+      "bridge_span_mm": 36.50000000000001,
+      "name": "Water regulator receiver",
+      "reason": "The catch roads bridge along the pocket between its solid end shoulders."
+    },
+    {
+      "bounds_source_mm": [
+        83.05,
+        99.0,
+        384.7586388104271,
+        444.7586388104271,
+        309.45,
+        312.7
+      ],
+      "bridge_axis_source": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "bridge_print_axis_source": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "bridge_span_mm": 38.0,
+      "name": "Flow meter receiver roof",
+      "reason": "The catch roads bridge along the pocket between its solid end shoulders."
+    },
+    {
+      "bounds_source_mm": [
         -103.75,
         -93.5,
         199.0,
@@ -46,10 +172,91 @@
       "bridge_span_mm": 10.25,
       "name": "Sliding rail -1",
       "reason": "The fitted sliding bearings retain local solid deposition."
+    },
+    {
+      "bounds_source_mm": [
+        -98.5,
+        -39.965,
+        455.04999999999995,
+        468.29999999999995,
+        314.1,
+        349.0
+      ],
+      "bridge_print_axis_source": [
+        1,
+        0,
+        0
+      ],
+      "name": "Internal C14 passage",
+      "reason": "Bridge the cord passage and internal pocket between the tunnel side walls."
     }
   ],
   "producer": "enclosure-back-top",
-  "source_stl_sha256": "a64ce5aa9859d7bc9fd898ece6443fcc95a910a03a1d8952704afd142b1c5b17",
+  "removable_support_trees": [
+    {
+      "bounds_source_mm": [
+        83.3,
+        98.25,
+        387.0086388104271,
+        389.5086388104271,
+        312.7,
+        346.01
+      ],
+      "contact_box_source_mm": [
+        83.3,
+        98.25,
+        387.0086388104271,
+        389.5086388104271,
+        312.7,
+        313.3
+      ],
+      "contact_gap_mm": 0.25,
+      "inner_contact_x_mm": 84.55,
+      "name": "Meter fore shoulder tree",
+      "neck_flare_mm": 3.0,
+      "neck_length_mm": 1.0,
+      "reason": "Pull the exposed fork to break its neck at the roof; the trunk stays beside the Pisco pocket and branches below it.",
+      "root_radius_mm": 0.5,
+      "root_source_mm": [
+        96.75,
+        388.2586388104271,
+        346.0
+      ],
+      "trunk_radius_mm": 1.25
+    },
+    {
+      "bounds_source_mm": [
+        83.3,
+        98.25,
+        440.0086388104271,
+        442.5086388104271,
+        312.7,
+        346.01
+      ],
+      "contact_box_source_mm": [
+        83.3,
+        98.25,
+        440.0086388104271,
+        442.5086388104271,
+        312.7,
+        313.3
+      ],
+      "contact_gap_mm": 0.25,
+      "inner_contact_x_mm": 84.55,
+      "name": "Meter aft shoulder tree",
+      "neck_flare_mm": 3.0,
+      "neck_length_mm": 1.0,
+      "reason": "Pull the exposed fork to break its neck at the roof; the trunk stays beside the Pisco pocket and branches below it.",
+      "root_radius_mm": 0.5,
+      "root_source_mm": [
+        96.75,
+        441.2586388104271,
+        346.0
+      ],
+      "trunk_radius_mm": 1.25
+    }
+  ],
+  "source_stl_sha256": "668a386468b21dafbcb77465cdec7aaeca5fbe0b88fc0b67ae1d51fc6552aee8",
   "support_free_regions": [
     {
       "blocking_bounds_source_mm": [
@@ -75,7 +282,7 @@
       ],
       "bridge_span_mm": 42.16473021393807,
       "name": "ASSE receiver",
-      "reason": "The fitted catches and end shoulders grow through fine layers without interior supports."
+      "reason": "The fitted catches bridge between their end shoulders in the ceiling-down print without interior supports."
     },
     {
       "blocking_bounds_source_mm": [
@@ -101,7 +308,7 @@
       ],
       "bridge_span_mm": 42.204282797599376,
       "name": "Pisco receiver",
-      "reason": "The fitted catches and end shoulders grow through fine layers without interior supports."
+      "reason": "The fitted catches bridge between their end shoulders in the ceiling-down print without interior supports."
     },
     {
       "blocking_bounds_source_mm": [
@@ -127,7 +334,7 @@
       ],
       "bridge_span_mm": 38.0,
       "name": "Flow meter receiver",
-      "reason": "The fitted catches and end shoulders grow through fine layers without interior supports."
+      "reason": "The fitted catches bridge between their end shoulders in the ceiling-down print without interior supports."
     },
     {
       "blocking_bounds_source_mm": [
@@ -153,7 +360,7 @@
       ],
       "bridge_span_mm": 56.95000000000001,
       "name": "Water regulator receiver",
-      "reason": "The fitted catches and end shoulders grow through fine layers without interior supports."
+      "reason": "The fitted catches bridge between their end shoulders in the ceiling-down print without interior supports."
     },
     {
       "bounds_source_mm": [
@@ -219,26 +426,7 @@
         349.0
       ],
       "name": "Internal C14 mount and cord passage",
-      "reason": "The internal flange pocket, blind pilots and cord passage grow through the tilted fine layers without interior trees."
-    },
-    {
-      "bounds_source_mm": [
-        12.549999999999997,
-        93.0,
-        462.3,
-        474.3,
-        250.0,
-        356.0
-      ],
-      "name": "Wet-column rear face",
-      "reason": "The tilted rear face grows through fine layers without trees through its covered bores.",
-      "review_interior": false,
-      "support_direction_cosine_min": 0.95,
-      "support_print_up_source": [
-        0,
-        -1,
-        0
-      ]
+      "reason": "The internal flange pocket and cord passage bridge across the tunnel sides; the blind pilots remain clear."
     },
     {
       "bounds_source_mm": [
@@ -651,15 +839,51 @@
   "support_regions": [
     {
       "bounds_source_mm": [
-        -107.5,
-        12.549999999999997,
-        471.3,
-        474.3,
-        -6.0,
-        355.0
+        -103.75,
+        -93.5,
+        199.0,
+        311.79999999962746,
+        159.0,
+        178.05
       ],
-      "name": "Exposed rear exterior",
-      "reason": "Trees remain outside the rear wall where their branches and contacts are accessible."
+      "name": "Accessible sliding rail 1",
+      "reason": "The rail bearing contacts are reachable through the open sliding lane and exclude the vent mouth."
+    },
+    {
+      "bounds_source_mm": [
+        -103.75,
+        -93.5,
+        343.5499999994412,
+        456.3,
+        159.0,
+        178.05
+      ],
+      "name": "Accessible sliding rail 1",
+      "reason": "The rail bearing contacts are reachable through the open sliding lane and exclude the vent mouth."
+    },
+    {
+      "bounds_source_mm": [
+        93.5,
+        103.75,
+        199.0,
+        456.3,
+        159.0,
+        178.05
+      ],
+      "name": "Accessible sliding rail -1",
+      "reason": "The rail bearing contacts are reachable through the open sliding lane and exclude the vent mouth."
+    },
+    {
+      "bounds_source_mm": [
+        -107.5,
+        4.6499988712316025,
+        471.3,
+        477.3,
+        -6.0,
+        270.0
+      ],
+      "name": "Accessible dry rear exterior",
+      "reason": "The external nameplate and connector field has an open removal path outside the rear wall."
     }
   ],
   "wall_hosts": {

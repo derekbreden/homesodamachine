@@ -181,10 +181,10 @@
       "material": "Polymaker Fiberon PET-GF15, black",
       "plate_offset_mm": {
         "value": [
-          0.0,
+          -3.5,
           0.0
         ],
-        "reason": "Center the complete rear enclosure and compact tree-root envelope inside the usable bed border."
+        "reason": "Center the asymmetric external tree envelope of the ceiling-down enclosure inside the usable bed border."
       },
       "settings": {
         "max_bridge_length": {
@@ -208,12 +208,12 @@
           "reason": "Cavity supports must be branching trees that can be removed through their access openings."
         },
         "support_on_build_plate_only": {
-          "value": "0",
-          "reason": "Accessible exterior and open cavity features accept tree roots; receiver interiors remain clear."
+          "value": "1",
+          "reason": "Native trees root outside the shell; the meter uses authored removable branches beside the plumbing."
         },
         "tree_support_branch_angle": {
-          "value": "60",
-          "reason": "Route accessible trees to nearby solid hosts instead of through the rear plumbing column."
+          "value": "30",
+          "reason": "Retain compact trunks outside the protected plumbing column."
         },
         "raft_first_layer_expansion": {
           "value": "3",
@@ -237,13 +237,9 @@
           ],
           "reason": "Use the saved lift height as a fixed vertical hop before travel."
         },
-        "support_threshold_angle": {
-          "value": "15",
-          "reason": "The fine-layer rear face grows with overlap at its retained tilt; trees serve only the shallower exterior overhangs."
-        },
         "support_type": {
           "value": "tree(manual)",
-          "reason": "The native exterior support field keeps every branch outside the protected receiver and vent interiors."
+          "reason": "Support only the accessible rail bearings and dry exterior field; bridge the protected plumbing interiors."
         }
       },
       "parts": [
@@ -254,25 +250,26 @@
             "turns": [
               [
                 "x",
-                -107
+                180
               ]
             ]
           },
           "features": [
             {
-              "name": "Shallow end faces",
-              "kind": "fine_band",
+              "name": "Roof side edge transition",
+              "kind": "transition_band",
               "select": {
-                "normal_z": [
-                  -1,
-                  -0.7
+                "bottom_mm": 12,
+                "wall_x_mm": 3.0
+              },
+              "radius_mm": 6.0,
+              "expect": {
+                "chamfer_area_mm2": [
+                  1000,
+                  5000
                 ]
               },
-              "rolls_to_normal_z": -1,
-              "min_component_area_mm2": 10,
-              "layer_height_mm": 0.08,
-              "allow_support": true,
-              "reason": "Fine layers retain bead overlap along the tilted end faces and rear show surface."
+              "reason": "Back-top's roof side edges print on the bed as the additive 0.24 mm treatment. print-readiness.md; printed-parts/AGENTS.md."
             },
             {
               "name": "Rear inaccessible features",
@@ -1289,7 +1286,7 @@
             "turns": [
               [
                 "x",
-                -107
+                180
               ],
               [
                 "z",
@@ -1314,9 +1311,13 @@
               "value": "0",
               "reason": "Print the receiver in its production pose with clear catch pockets."
             },
-            "layer_height": {
-              "value": "0.08",
-              "reason": "Retain the fine growth of the tilted production receiver pockets."
+            "bridge_angle": {
+              "value": "90",
+              "reason": "Run the catch bridges along the receiver end shoulders in this bed-plane rotation."
+            },
+            "max_bridge_length": {
+              "value": "50",
+              "reason": "The complete catch pockets bridge between their retained end shoulders."
             }
           }
         },
@@ -1327,7 +1328,7 @@
             "turns": [
               [
                 "x",
-                -107
+                180
               ],
               [
                 "z",
@@ -1352,9 +1353,13 @@
               "value": "0",
               "reason": "Print the receiver in its production pose with clear catch pockets."
             },
-            "layer_height": {
-              "value": "0.08",
-              "reason": "Retain the fine growth of the tilted production receiver pockets."
+            "bridge_angle": {
+              "value": "90",
+              "reason": "Run the catch bridges along the receiver end shoulders in this bed-plane rotation."
+            },
+            "max_bridge_length": {
+              "value": "50",
+              "reason": "The complete catch pockets bridge between their retained end shoulders."
             }
           }
         }
@@ -1392,10 +1397,10 @@
       },
       "plate_offset_mm": {
         "value": [
-          2.65,
-          0
+          0.0,
+          0.0
         ],
-        "reason": "Center the model, brim and support footprint of the complete comparison."
+        "reason": "Center the complete receiver and cover comparison inside the usable bed border."
       },
       "plate_border_mm": 80.0
     }
