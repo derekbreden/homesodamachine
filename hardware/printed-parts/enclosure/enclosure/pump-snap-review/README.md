@@ -16,8 +16,9 @@ The standalone STEP/STL carries the relaxed 0.35 mm outward tip pose. Both
 complete assemblies and the front-top/pump-mount GLBs carry the 0.10 mm seated
 pose. The cubic curves illustrate positions; they are not elastic analysis.
 The retainer prints Y-end down, with X/Z spring bending within the layer
-plane. Front-top retains its seam-plane pose. Its pockets keep 6.4 mm of
-outer backing and the tool openings keep a 3 mm outer wall.
+plane. Front-top retains its seam-plane pose. Its pockets keep their broad
+outer backing. The tool openings retain the wall section beneath the flute
+valleys and admit the screwdriver working envelope.
 
 The [cartridge-trial geometry reading](../../../../print-tests/pump-cartridge-snaps/geometry-review.json)
 measures the exported fine/printed meshes, both pumps, seated overlap and

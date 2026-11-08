@@ -103,19 +103,123 @@
   ],
   "lead_in_rise_mm": 6.0,
   "prior_lead_in_rise_mm": 4.6,
+  "pry_working_room": [
+    {
+      "backing_sample_bounds_mm": [
+        [
+          -107.5,
+          48.15749999973923,
+          177.70000000018626
+        ],
+        [
+          -103.29999999981374,
+          48.357499999925494,
+          177.89999999962748
+        ]
+      ],
+      "backing_sample_mm": 4.2000000001862645,
+      "shaft_window_overlap_mm3": 0.0,
+      "shaft_working_bounds_mm": [
+        [
+          -102.65000000037253,
+          47.00750000029802,
+          170.29999999981374
+        ],
+        [
+          -100.15000000037253,
+          49.50750000029802,
+          179.0
+        ]
+      ],
+      "side": -1.0
+    },
+    {
+      "backing_sample_bounds_mm": [
+        [
+          103.29999999981374,
+          48.15749999973923,
+          177.70000000018626
+        ],
+        [
+          107.5,
+          48.357499999925494,
+          177.89999999962748
+        ]
+      ],
+      "backing_sample_mm": 4.2000000001862645,
+      "shaft_window_overlap_mm3": 0.0,
+      "shaft_working_bounds_mm": [
+        [
+          100.15000000037253,
+          47.00750000029802,
+          170.29999999981374
+        ],
+        [
+          102.65000000037253,
+          49.50750000029802,
+          179.0
+        ]
+      ],
+      "side": 1.0
+    }
+  ],
   "purpose": "Read the front pump retainer's common longer ramp and complete matching receivers.",
-  "receiver_added_mm3": 0.0,
-  "receiver_removed_mm3": 546.3892000767007,
+  "receiver_added_mm3": 87.60000000577409,
+  "receiver_removed_mm3": 529.5892000696177,
   "scope": "Fine solids retain the wells and spring roots above the lead-in and the hook-bearing planes and lateral reach. Seated overlap is read against complete front-top. The relaxed print carries the deliberate outward spread; physical insertion force and durability require verification.",
   "tip_air_mm": 0.5,
+  "profile_source": "hardware/manifold-layout/above-core.json:rear_plumbing.snap_tip_rise_mm",
+  "installed_mesh_neighbors": [
+    {
+      "neighbor": "enclosure-front-top",
+      "overlap_mm3": 0.0
+    },
+    {
+      "neighbor": "wire-J11-AOUT",
+      "overlap_mm3": 0.0
+    },
+    {
+      "neighbor": "wire-J11-DOUT",
+      "overlap_mm3": 0.0
+    },
+    {
+      "neighbor": "wire-J11-GND",
+      "overlap_mm3": 0.0
+    },
+    {
+      "neighbor": "wire-J11-V5",
+      "overlap_mm3": 0.0
+    },
+    {
+      "neighbor": "wire-J2-FAN",
+      "overlap_mm3": 0.0
+    },
+    {
+      "neighbor": "wire-J2-positive-fan",
+      "overlap_mm3": 0.0
+    }
+  ],
+  "relaxed_pose": "The relaxed print deliberately spreads the hooks outward. Receiver overlap in that pose is the intended spring engagement; the seated pose is used for the complete assembly.",
   "files_sha256": {
-    "hardware/printed-parts/enclosure/enclosure/retainer-numbers/lib.rs": "c7246b026aee86f6a1f65a085e4fd3cb9ebe7d8fed85295398a613b2126766d4",
+    "hardware/printed-parts/enclosure/enclosure/retainer-numbers/lib.rs": "a28bfae3e690b6321daa1af5bca5277498021b72acc449afb9f2200287fa5cf8",
     "hardware/printed-parts/enclosure/enclosure/retainer/retainer.rs": "f303b4af303ee03bb0d8c77cbb4588ece8077eb6612415f3f03c8cb959fa4994",
     "hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.stl": "4a074f43c81e2658129695e610c68d707d1c799ac43e3d28005318c4c451919e",
     "hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer-seated.step.npz": "ac398ad74e8d07516d69c55b7223d36f05f5ab1f807d61b333783238b4039345",
-    "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl": "02373bd00bed68d2d3a6885fdc4ec9f7b23829825a5466583e22508c738a406a",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl": "1e0cbe633fe89b80c5af1c1863f0bc05467a63d1b6eba11de19bf3635213f63d",
     "hardware/manifold-layout/above-core.json": "e71cfa6f55454aafdef07faa9b5557f541ec803bf8e3e9dd5361793fcc4b0026"
   },
-  "profile_source": "hardware/manifold-layout/above-core.json:rear_plumbing.snap_tip_rise_mm",
-  "relaxed_pose": "The relaxed print deliberately spreads the hooks outward. Receiver overlap in that pose is the intended spring engagement; the seated pose is used for the complete assembly."
+  "receiver_wire_overlap_mm3": {
+    "wire-J11-AOUT": 0.0,
+    "wire-J11-DOUT": 0.0,
+    "wire-J11-GND": 0.0,
+    "wire-J11-V5": 0.0,
+    "wire-J2-FAN": 0.0,
+    "wire-J2-positive-fan": 0.0
+  },
+  "pry_opening": {
+    "width_x_mm": 4.8,
+    "width_y_mm": 5.0,
+    "minimum_wall_below_flute_valleys_mm": 3.0,
+    "basis": "retainer-numbers snap datums subtract the shell flute depth before the required wall section; the sampled smooth fine-model backing includes the flute stock."
+  }
 }
