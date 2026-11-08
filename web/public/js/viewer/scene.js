@@ -345,10 +345,17 @@ export function visibleShare() {
 
 // Mounted geometry and scene siblings share the navigation camera depth.
 let _depthGroup = null;
+let _modelBoundsDirty = false, _modelShadowDirty = false;
 const _depthSphere = new THREE.Sphere();
 const _modelDepthBox = new THREE.Box3();
 const _extraDepthBounds = new Map();
 let _depthBoundsRevision = 0, _seenDepthBoundsRevision = -1;
+
+// Geometry edits invalidate the retained group's bounds without moving its camera.
+export function invalidateModelBounds() {
+  _modelBoundsDirty = true;
+  _modelShadowDirty = true;
+}
 
 // Optional scene siblings can extend the camera and fog range while retaining
 // the model's own ground shadow and default framing.
@@ -365,7 +372,7 @@ export function setExtraDepthBounds(key, bounds) {
 function navigationDepthBounds() {
   const group = state.currentGroup;
   if (!group) return;
-  if (group !== _depthGroup) {
+  if (group !== _depthGroup || _modelBoundsDirty) {
     const box = new THREE.Box3().setFromObject(group);
     _modelDepthBox.copy(box);
     _depthBoundsRevision++;
@@ -374,10 +381,13 @@ function navigationDepthBounds() {
     // threw with the mark still unset would re-enter here on every frame and take them with it
     // every time. Marked first, the worst a failure costs is the shadow.
     _depthGroup = group;
-    // Fitted from the same box, in the same branch: this runs when a model is mounted and never
-    // on a frame that only moved the camera. A DXF plate lies flat and has no floor to stand
-    // on, so only a solid gets one.
-    fitGroundShadow(state.mountedDetail?.type === "dxf" ? null : box);
+    _modelBoundsDirty = false;
+    _modelShadowDirty = true;
+  }
+  // The shadow follows the completed model; partial arrivals only update camera depth.
+  if (_modelShadowDirty && !group.userData.sceneLoading) {
+    _modelShadowDirty = false;
+    fitGroundShadow(state.mountedDetail?.type === "dxf" ? null : _modelDepthBox);
   }
   if (_seenDepthBoundsRevision !== _depthBoundsRevision) {
     const box = _modelDepthBox.clone();

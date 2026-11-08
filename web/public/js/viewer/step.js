@@ -7,6 +7,7 @@ export { decodeMeshPayload } from "./mesh-payload.js";
 import { resolveScene } from "./shared-scene.js";
 import { state } from "./state.js";
 import { scene, camera, resetCamera, fitCameraDepth, fitFog, BG_COLOR } from "./scene.js";
+import * as sceneState from "./scene.js";
 import * as xray from "./xray.js";
 import { getOcct, getThumbnailRuntime, stepRuntime } from "./step-runtime.js";
 import { beginCadLoad, disposeCadGroup } from "./cad-resources.js";
@@ -23,6 +24,8 @@ import { stepLocation } from "/contracts/step-locations.js";
 import { matchesBody } from "/contracts/materials.js";
 
 const { applyXray, syncEdgeResolution, setMeshMaterial } = xray;
+// Hot loaders can share a scene module retained by an open page.
+const invalidateModelBounds = () => sceneState.invalidateModelBounds?.();
 
 // --- STEP parsing ---
 async function parseStep(buffer) {
@@ -344,6 +347,7 @@ function mountScenePart(node, meshes, head, file, location, { current, preserveC
     xray.disposeXray?.(group);
     meshes.forEach((mesh,i)=>placeSharedMesh(prior.solids[i],mesh));
     prior.meshes=meshes;prior.key=key;
+    invalidateModelBounds();
   } else if (!prior || prior.key !== key) {
     xray.disposeXray?.(group);
     if (prior) for (const solid of prior.solids) { group.remove(solid); solid.geometry.dispose(); if(solid.userData.ownsMaterial)solid.material.dispose(); }
@@ -351,11 +355,13 @@ function mountScenePart(node, meshes, head, file, location, { current, preserveC
     const solids = [...replacement.children];
     for (const solid of solids) group.add(solid);
     parts.set(node.name, { meshes, solids, key });
+    invalidateModelBounds();
   }
   const present = new Set(head.meshes.map(part => part.name));
   for (const [name,part] of parts) if (!present.has(name)) {
     for (const solid of part.solids) {group.remove(solid);solid.geometry.dispose();if(solid.userData.ownsMaterial)solid.material.dispose();}
     parts.delete(name);
+    invalidateModelBounds();
   }
   group.userData.sharedHead = head;
   if (group.userData.sharedFrame) return;
