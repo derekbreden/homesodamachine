@@ -3,8 +3,24 @@ import { decodeMeshPayload } from './mesh-payload.js';
 import { fetchMember } from './member.js';
 
 const objects = new Map();
+// Unchanged instances retain their world arrays for picking across partial reloads.
+const instances = new Map();
 const CACHE_BYTES = 256 * 1024 * 1024;
+const INSTANCE_BYTES = 512 * 1024 * 1024;
 let retainedBytes = 0;
+let instanceBytes = 0;
+
+function retainInstance(key, meshes) {
+  const bytes = meshes.reduce((sum,mesh)=>sum+
+    mesh.attributes.position.array.byteLength+mesh.attributes.normal.array.byteLength+mesh.index.array.byteLength+
+    (mesh.attributes===mesh.localAttributes?0:mesh.localAttributes.position.array.byteLength+mesh.localAttributes.normal.array.byteLength)+
+    (mesh.index===mesh.localIndex?0:mesh.localIndex.array.byteLength),0);
+  instances.set(key,{meshes,bytes});instanceBytes+=bytes;
+  for(const [name,value]of instances){
+    if(instanceBytes<=INSTANCE_BYTES)break;
+    if(name!==key){instances.delete(name);instanceBytes-=value.bytes;}
+  }
+}
 
 export function sceneHeader(bytes) {
   if (bytes.length < 4) return null;
@@ -86,9 +102,16 @@ export async function resolveScene(bytes, { sourceUrl, signal, onPart } = {}) {
     while (next < head.meshes.length) {
       const index = next++, node = head.meshes[index];
       try {
-        const meshes = await object(node.asset, sourceUrl);
         if (signal?.aborted) throw new DOMException('Aborted', 'AbortError');
-        results[index] = meshes.map((mesh,i)=>placed(mesh,node,i));
+        const key=JSON.stringify([node.asset,node.transform||null,node.entries]);
+        const held=instances.get(key);
+        if(held){
+          instances.delete(key);instances.set(key,held);results[index]=held.meshes;
+        }else{
+          const meshes = await object(node.asset, sourceUrl);
+          if (signal?.aborted) throw new DOMException('Aborted', 'AbortError');
+          results[index]=meshes.map((mesh,i)=>placed(mesh,node,i));retainInstance(key,results[index]);
+        }
         onPart?.(node,results[index],head);
       } catch (error) {
         if (error.name === 'AbortError') throw error;
