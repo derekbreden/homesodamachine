@@ -1,0 +1,4 @@
+# Packed models, previews and save backups are regenerated from the native design.
+*.sc
+*.step.png
+*.bak
