@@ -1,0 +1,178 @@
+{
+  "views": [
+    {
+      "name": "front-pump-ramp",
+      "caption": "Both front pump wings use the shared longer ramp, with matching receiver clearance and retained catches.",
+      "before": "front-pump-ramp-before.webp",
+      "after": "front-pump-ramp-after.webp",
+      "width": 1200,
+      "height": 900,
+      "marks": [
+        {
+          "x": 640,
+          "y": 514.9,
+          "r": 85,
+          "label": "Longer front pump ramp",
+          "at": [
+            99.8,
+            35,
+            178.2
+          ]
+        }
+      ],
+      "model": "manifold-layout/enclosure-assembly.step",
+      "camera": {
+        "projection": "orthographic",
+        "position": [
+          99,
+          -512.0491765687985,
+          206.85245882843992
+        ],
+        "target": [
+          99,
+          35,
+          179.5
+        ],
+        "up": [
+          0,
+          0,
+          1
+        ],
+        "half": 9,
+        "near": 403.6005675039013,
+        "far": 996.977508793864,
+        "aspect": 1.3333333333333333,
+        "section": {
+          "at": [
+            0,
+            35,
+            0
+          ],
+          "normal": [
+            0,
+            -1,
+            0
+          ],
+          "removes": "the side the normal points to"
+        }
+      },
+      "highlight": [
+        "enclosure-pump-retainer"
+      ],
+      "ghost": [],
+      "only": [
+        "enclosure-front-top",
+        "enclosure-pump-retainer"
+      ],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "snapshot",
+          "sha256": "54c5829e70e3e9b203dd90ef0d70b56ff5682c4fd4e8e0e26f516607983e77fb",
+          "commit": "6eacc82f364df7c23fa9172dfb5e986cec903d63",
+          "taken": "2026-11-08T11:15:41.013Z",
+          "published": true
+        },
+        "after": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "tree",
+          "sha256": "11a54136154f76f1764302c6667d924cadd3364da39dea82ae68ddf5f8fa13b8",
+          "commit": "2e839484eb036c2471b850e12ac596ec278bd4bc",
+          "published": true
+        }
+      },
+      "changed": [
+        "enclosure-front-top"
+      ],
+      "withinMeshing": []
+    },
+    {
+      "name": "pry-backing",
+      "caption": "The pry opening retains the wall section beneath the flute valleys and leaves the screwdriver working room clear.",
+      "before": "pry-backing-before.webp",
+      "after": "pry-backing-after.webp",
+      "width": 1200,
+      "height": 900,
+      "marks": [
+        {
+          "x": 765,
+          "y": 450,
+          "r": 60,
+          "label": "Pry-opening backing",
+          "at": [
+            105.7,
+            50.668,
+            177.95
+          ]
+        }
+      ],
+      "model": "manifold-layout/enclosure-assembly.step",
+      "camera": {
+        "projection": "orthographic",
+        "position": [
+          103.5,
+          -496.38117656879854,
+          205.3024588284399
+        ],
+        "target": [
+          103.5,
+          50.668,
+          177.95
+        ],
+        "up": [
+          0,
+          0,
+          1
+        ],
+        "half": 6,
+        "near": 389.05175456012444,
+        "far": 982.4286958500871,
+        "aspect": 1.3333333333333333,
+        "section": {
+          "at": [
+            0,
+            50.668,
+            0
+          ],
+          "normal": [
+            0,
+            -1,
+            0
+          ],
+          "removes": "the side the normal points to"
+        }
+      },
+      "highlight": [
+        "enclosure-front-top"
+      ],
+      "ghost": [],
+      "only": [
+        "enclosure-front-top",
+        "enclosure-pump-retainer"
+      ],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "snapshot",
+          "sha256": "54c5829e70e3e9b203dd90ef0d70b56ff5682c4fd4e8e0e26f516607983e77fb",
+          "commit": "6eacc82f364df7c23fa9172dfb5e986cec903d63",
+          "taken": "2026-11-08T11:15:41.013Z",
+          "published": true
+        },
+        "after": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "tree",
+          "sha256": "11a54136154f76f1764302c6667d924cadd3364da39dea82ae68ddf5f8fa13b8",
+          "commit": "2e839484eb036c2471b850e12ac596ec278bd4bc",
+          "published": true
+        }
+      },
+      "changed": [
+        "enclosure-front-top"
+      ],
+      "withinMeshing": []
+    }
+  ]
+}
