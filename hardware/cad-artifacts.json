@@ -422,8 +422,7 @@
     "hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer-seated.step.mesh": "39fcc67a645ca223b78ec5d7c0df0208587a3c76f324e20436a4c444f8cb2725",
     "hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.step.mesh": "5cf23418d77c354435d579d69ab50c3f345e23191c619d0d84fefa437bffbd79",
     "hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.stl": "c88b02141986bdae52b92b8d5af890856ae55de43247525dbec4f64e71b1cb37",
-    "hardware/printed-parts/enclosure/enclosure/enclosure-pump-tube-setting-jig.step": "048b064adf4bcb8a9fccd82406b3b75d84e721a6163d232e61380e840f69cce1",
-    "hardware/printed-parts/enclosure/enclosure/enclosure-pump-tube-setting-jig.step.mesh": "861b43a0a29fac2304e9286c65fa184362b2edf310d21d7f4aae689b0fe22353",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-pump-tube-setting-jig.step.mesh": "9e6d8302fee7698eb37990977368e420cee6cf095b860a99c2590159788674ae",
     "hardware/printed-parts/enclosure/enclosure/enclosure-pump-tube-setting-jig.stl": "cfedb813ad4f4e8f609ae3ec724a5d4de918c175fbfcafc1a44b3a69d4a62e3e",
     "hardware/printed-parts/enclosure/enclosure/enclosure.step.mesh": "70814c18f5500112fbea08102155aff39012d3f16e409c8bfc5f5cf65fe4d26e",
     "hardware/printed-parts/enclosure/enclosure/magnet-retention/section.step": "2efdc50cbb438c930dd2ded0c90d45b1f64dac06c187b08181357866e4620e4c",
@@ -1748,8 +1747,7 @@
       "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl": "591145e8ada66eefcfe70ace883e7dde2914ffcc9696f15356fd71a4d70b126b",
       "hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.step.mesh": "5cf23418d77c354435d579d69ab50c3f345e23191c619d0d84fefa437bffbd79",
       "hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.stl": "c88b02141986bdae52b92b8d5af890856ae55de43247525dbec4f64e71b1cb37",
-      "hardware/printed-parts/enclosure/enclosure/enclosure-pump-tube-setting-jig.step": "048b064adf4bcb8a9fccd82406b3b75d84e721a6163d232e61380e840f69cce1",
-      "hardware/printed-parts/enclosure/enclosure/enclosure-pump-tube-setting-jig.step.mesh": "861b43a0a29fac2304e9286c65fa184362b2edf310d21d7f4aae689b0fe22353",
+      "hardware/printed-parts/enclosure/enclosure/enclosure-pump-tube-setting-jig.step.mesh": "9e6d8302fee7698eb37990977368e420cee6cf095b860a99c2590159788674ae",
       "hardware/printed-parts/enclosure/enclosure/enclosure-pump-tube-setting-jig.stl": "cfedb813ad4f4e8f609ae3ec724a5d4de918c175fbfcafc1a44b3a69d4a62e3e",
       "hardware/printed-parts/enclosure/grip-cover/grip-cover.step": "418a4ac58a6905d61a812e4a08ec7f4603f8f68e4c394f2c6ff5dc5ad2c98ea1",
       "hardware/printed-parts/enclosure/grip-cover/grip-cover.step.mesh": "7f9d622d4607f9b93fe0020aa21495c76b81ebd0561ad32bb986e84f9d79b129",
@@ -2430,6 +2428,7 @@
     "84eb3f339ed7c7e2135d168d21a3a2d46b3718e6794d1116bc423841ae02ca12",
     "8516b3f69371640c798f457e336834d32f396929eaa694db0bce510d0e23bdc7",
     "85d214ffd61221327ad1eabfe1466e96b1ad600f24cd4ea10b1068fdac53dea0",
+    "85da0926fbeb457e2efa18c63f3613bba4556df5203ce80a34dae378711c7ff0",
     "86af16ab0fef54a719ed1478b08aeffdf0ce30e34d5222900faa93abed965113",
     "8b1c7d2638eb33cf5a14348ab8fc79d02526be31775a7f9931639d88823d6900",
     "8b2644a626e135f7b9dd76cd9aef7cf51cc4a016e03364428c4c41b6bb544de3",
@@ -3053,8 +3052,7 @@
     "hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer-seated.step.mesh": 1794104586,
     "hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.step.mesh": 1794104586,
     "hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.stl": 1793994237,
-    "hardware/printed-parts/enclosure/enclosure/enclosure-pump-tube-setting-jig.step": 1793712586,
-    "hardware/printed-parts/enclosure/enclosure/enclosure-pump-tube-setting-jig.step.mesh": 1793992414,
+    "hardware/printed-parts/enclosure/enclosure/enclosure-pump-tube-setting-jig.step.mesh": 1794106198,
     "hardware/printed-parts/enclosure/enclosure/enclosure-pump-tube-setting-jig.stl": 1793712586,
     "hardware/printed-parts/enclosure/enclosure/enclosure.step.mesh": 1794105526,
     "hardware/printed-parts/enclosure/enclosure/magnet-retention/section.step": 1791257167,
@@ -5421,14 +5419,9 @@
       "commit": "25052a18ea27548807a770a785867bb22e95f460",
       "unproven": true
     },
-    "hardware/printed-parts/enclosure/enclosure/enclosure-pump-tube-setting-jig.step": {
-      "inputs": "1bd1bf5106d2e16b592b0a1b217438b64a5af4c877939453de3fcf490820acb9",
-      "commit": "41976ea8aadc1cfeb0ae6b57aaba91944ba40bf2",
-      "unproven": true
-    },
     "hardware/printed-parts/enclosure/enclosure/enclosure-pump-tube-setting-jig.step.mesh": {
       "inputs": "7fdd2fcc6bbaac9179c756227aa9ef82ed5cb18c06b18031f18ad1a880eef878",
-      "commit": "ac213e2ce43334ce37fba37350f9dca555358ed6",
+      "commit": "ef534ecf2897299c02a566b98c4ae43d4696196e",
       "unproven": true
     },
     "hardware/printed-parts/enclosure/enclosure/enclosure-pump-tube-setting-jig.stl": {
