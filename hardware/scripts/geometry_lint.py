@@ -203,7 +203,6 @@ PRINT_UP = {"enclosure-back-top": -1.0, "funnel-mold/core": -1.0,
 #: `trial-preparation/pieces.json` and
 #: `trial-preparation/labels.rs` print them in.
 PRINT_TILT_X = {"faucet-shell-base": -15.0, "industrial-shell-base": -15.0,
-                "enclosure-pump-retainer": 90.0,
                 "nameplate-001": 90.0,
                 **{f"rear-identification/rear-label-{which}": 90.0
                    for which in ("water", "co2", "drain", "carb", "flavor-a", "flavor-b")}}
@@ -219,6 +218,8 @@ def print_pose_of(stl):
     """The rotation from the box's frame into the print's: `PRINT_UP`'s flip, then the lean
     `PRINT_TILT_X` gives. Findings still report in the box's frame."""
     path = Path(stl)
+    if path.stem == "enclosure-pump-retainer":
+        return np.array([[0.0, 0.0, 1.0], [0.0, 1.0, 0.0], [-1.0, 0.0, 0.0]])
     lean = np.radians(PRINT_TILT_X.get(f"{path.parent.name}/{path.stem}",
                                        PRINT_TILT_X.get(path.stem, 0.0)))
     s = print_up_of(stl)

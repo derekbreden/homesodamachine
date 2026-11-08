@@ -1,6 +1,5 @@
-//! The integral pump mount the front pieces carry: its broad stock up to the roof and the
-//! display housing, the pumps' inverse in front-top, the wiring corridors over the motors, the
-//! opening the cartridge loads through and the receivers its lower retainer's wings catch.
+//! The corbeled pump bay and motor rooms beneath the display housing, with the wiring
+//! corridors and the opening the side-loading cartridge rises through.
 use crate::catalog::{clearance, running};
 use crate::display;
 use crate::funnel;
@@ -9,7 +8,7 @@ use crate::pump::{case, offset_polygon, tray};
 use crate::shell::{FRONT_PLANE_Y, WALL, Z_SEAM, shell};
 use crate::spec::Box;
 use crate::structure::profile;
-use hsm_enclosure_retainer_numbers::{datums, snap_datums};
+use hsm_enclosure_retainer_numbers::{channels, datums};
 
 /// The shared electrical corridor's diamond half span.
 const SHARED_HALF_SPAN: f64 = 11.0;
@@ -57,6 +56,22 @@ pub fn loading_opening(g: &mut Graph, b: &Box) -> Shape {
         shell().bay_back_y(&b.pack.collet_plate),
         Z_SEAM - 20.0,
         d.bearing_z,
+    ])
+}
+
+/// The cartridge's clearance opens below a roof growing inward from the front and tee walls.
+fn corbeled_opening(g: &mut Graph, b: &Box) -> Shape {
+    let d = channels(b);
+    let fore = d.fore_y - running();
+    let aft = d.aft_y + running();
+    let middle = (fore + aft) / 2.0;
+    let spring = d.top_z + running();
+    g.yz_prism(d.x0 - running(), d.x1 + running(), vec![
+        [fore, Z_SEAM - 1.0],
+        [aft, Z_SEAM - 1.0],
+        [aft, spring],
+        [middle, spring + middle - fore],
+        [fore, spring],
     ])
 }
 
@@ -109,6 +124,12 @@ fn inverse_cuts(g: &mut Graph, b: &Box) -> Vec<Shape> {
         let lifted = g.translate(room, [0.0, 0.0, finish]);
         let room = g.union(room, &[lifted]);
         out.push(g.translate(room, [x, y, flange]));
+        let shoulder = offset_polygon(&case().bore_profile(), e.cap_boss_air)
+            .iter()
+            .map(|p| p[0].hypot(p[1]))
+            .fold(0.0, f64::max);
+        out.push(cone(g, x, y, [shoulder, 0.0],
+                      flange + t.boss_depth + finish, shoulder));
         let start = flange + t.motor_crown - WALL;
         out.push(g.zcyl(
             t.can_half,
@@ -119,8 +140,7 @@ fn inverse_cuts(g: &mut Graph, b: &Box) -> Vec<Shape> {
         ));
         let rise = radius - t.can_half;
         out.push(cone(g, x, y, [t.can_half, radius], start, rise));
-        let roof = radius * e.teardrop_roof_angle.to_radians().tan();
-        out.push(cone(g, x, y, [radius, 0.0], start + rise, roof));
+        out.push(cone(g, x, y, [radius, 0.0], start + rise, radius));
     }
     out
 }
@@ -290,7 +310,7 @@ fn upper_wire_room(g: &mut Graph, b: &Box, wires: &[(Shape, Vec<P3>)]) -> Shape 
     let (t, d) = (tray(), datums(b));
     let radius = terminal_crown_r(b);
     let base = d.flange_z + t.motor_crown - WALL + radius - t.can_half;
-    let peak = base + radius * shell().teardrop_roof_angle.to_radians().tan();
+    let peak = base + radius;
     let (x0, x1) = (
         display::BODY_OFFSET_X - display::pcb_x() / 2.0,
         display::BODY_OFFSET_X + display::pcb_x() / 2.0,
@@ -334,75 +354,10 @@ fn upper_wire_room(g: &mut Graph, b: &Box, wires: &[(Shape, Vec<P3>)]) -> Shape 
 /// Everything the mount takes out of front-top: the loading opening, the pumps' inverse, the
 /// wiring's passages and the room over the motors.
 pub fn fixed_cuts(g: &mut Graph, b: &Box) -> Vec<Shape> {
-    let mut out = vec![loading_opening(g, b)];
+    let mut out = vec![loading_opening(g, b), corbeled_opening(g, b)];
     out.extend(inverse_cuts(g, b));
     let wires = wire_cuts(g, b);
     out.extend(wires.iter().map(|(shape, _)| *shape));
     out.push(upper_wire_room(g, b, &wires));
     out
-}
-
-/// Each flank's receiver for the retainer's wing: the band rebuilt from the exterior with the
-/// hook's pocket, the pry port under it and a corbel over the port.
-pub fn snap_receivers(g: &mut Graph, b: &Box, mut piece: Shape) -> Shape {
-    let d = snap_datums(b);
-    let silhouette = g.silhouette(b.exterior_bounds());
-    // Host replacement acts on the mechanical body; fitted openings constrain the band.
-    let (core, mut exterior) = g
-        .additive_parts(piece)
-        .map(|(core, band)| (core, Some(band)))
-        .unwrap_or((piece, None));
-    piece = core;
-    for side in [-1.0, 1.0] {
-        let (x0, x1) = crate::quadrant::sorted(
-            side * d.receiver_inner_x,
-            side * (b.exterior_bounds()[1] + 0.5),
-        );
-        let band = g.box_([
-            x0,
-            x1,
-            d.receiver_y0,
-            d.receiver_y1,
-            d.receiver_z0,
-            d.receiver_z1,
-        ]);
-        let stock = g.intersect(band, &[silhouette]);
-        let reach = d.receiver_back_x - d.receiver_inner_x;
-        let pocket = g.xz_prism(
-            d.receiver_y0,
-            d.receiver_y1,
-            vec![
-                [side * d.receiver_inner_x, d.receiver_floor_z],
-                [side * d.receiver_back_x, d.receiver_floor_z],
-                [side * d.receiver_back_x, d.receiver_roof_z],
-                [side * d.receiver_inner_x, d.receiver_roof_z + reach],
-            ],
-        );
-        let (x0, x1) = crate::quadrant::sorted(side * d.port_inner_x, side * d.port_outer_x);
-        let port = g.box_([x0, x1, d.port_y0, d.port_y1, d.port_z0, d.receiver_roof_z]);
-        let roof_drop = d.port_outer_x - d.receiver_back_x;
-        let corbel = g.xz_prism(
-            d.port_y0,
-            d.port_y1,
-            vec![
-                [side * d.receiver_back_x, d.receiver_roof_z],
-                [side * d.port_outer_x, d.receiver_roof_z],
-                [side * d.port_outer_x, d.receiver_roof_z - roof_drop],
-            ],
-        );
-        let receiver = g.cut(stock, &[pocket]);
-        let receiver = g.cut(receiver, &[port]);
-        let receiver = g.union(receiver, &[corbel]);
-        piece = g.cut(piece, &[band]);
-        piece = g.union(piece, &[receiver]);
-        if let Some(stock) = exterior {
-            let port_air = g.cut(port, &[corbel]);
-            exterior = Some(g.cut(stock, &[pocket, port_air]));
-        }
-    }
-    if let Some(exterior) = exterior {
-        g.additive(piece, exterior)
-    } else {
-        piece
-    }
 }

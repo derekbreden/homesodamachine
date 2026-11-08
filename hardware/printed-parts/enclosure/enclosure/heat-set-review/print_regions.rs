@@ -5,7 +5,7 @@
 //!
 //! Each region is a box of full zig-zag infill through a retention feature and the wall that
 //! roots it: the Y seam's knuckles, the Z rails and their end stops, the compressor posts and
-//! condenser host, the pump snap's hooks and receivers, the rear wall's equipment and nameplate
+//! condenser host, the rear wall's equipment and nameplate
 //! hosts and C14 tunnel, the funnel frame's receivers and the display's side inserts. A box
 //! changes infill within existing material and adds no geometry; it gives no pullout or drop
 //! strength. Each is clipped to its piece's current mesh, and the record binds every piece's STEP
@@ -21,7 +21,6 @@ use hsm_enclosure_quadrants::quadrant::Y;
 use hsm_enclosure_quadrants::shell::{y_stack_low_depth, Y_STACK_HIGH_DEPTH};
 use hsm_enclosure_quadrants::spec::Box;
 use hsm_enclosure_quadrants::ystacks::{y_knuckle, y_stack};
-use hsm_enclosure_retainer_numbers::{datums, snap_datums};
 use hsm_print_prep::mesh::{bounds, stl_corners};
 use hsm_print_prep::profile::relative;
 use hsm_print_prep::{faucet, root};
@@ -43,7 +42,7 @@ const POST_STOCK: f64 = 2.6;
 /// A condenser host's and a display insert's regions reach these half-widths about their axes.
 const CONDENSER_HALF: f64 = 5.0;
 const DISPLAY_HALF: f64 = 6.0;
-const SCOPE: &str = "Local 100% infill modifiers in existing native material; complete insert hosts, blind caps, pump snap wings and receivers, roots and seam load paths. No load capacity or lifetime qualification.";
+const SCOPE: &str = "Local 100% infill modifiers in existing native material; complete insert hosts, blind caps, roots and seam load paths. No load capacity or lifetime qualification.";
 const USE: &str = "Manual print-preparation specification only. Modifier boxes intersect existing material and add no geometry. applied_source_bounds_mm clips each requested box to the model bounds. Bind a fresh native project and emitted paths to these hashes before production printing; this is not a build gate or a sliced-print result.";
 
 /// A number as Python's `{:g}` writes it: six significant digits, trailing zeros dropped.
@@ -202,26 +201,11 @@ fn main() -> Result<()> {
                     [x - CONDENSER_HALF, x + CONDENSER_HALF, y - CONDENSER_HALF, y + CONDENSER_HALF, b.outer[4], tip]);
     }
 
-    // The pump snap: the printed, relaxed wing's whole hook and flexure one wall into the filled
-    // upper root and the inboard carrier, the flex clearance left empty; and the receiver's
-    // complete bearing band through the exterior flank.
     let mut meshes = Map::new();
     for piece in PIECES {
         let corners = stl_corners(&std::fs::read(enc.join(format!("enclosure-{piece}.stl")))?)?;
         meshes.insert(piece.to_string(), json!(bounds(&corners)));
     }
-    let retainer: Vec<Vec<f64>> = meshes["pump-retainer"].as_array().context("retainer bounds")?.iter().map(floats).collect();
-    let (mount, snap) = (datums(&b), snap_datums(&b));
-    let root_inner_x = snap.carrier_inner_x - WALL;
-    for (side, sign) in [("west", -1.0), ("east", 1.0)] {
-        let (xa, xb) = if sign < 0.0 { (retainer[0][0], -root_inner_x) } else { (root_inner_x, retainer[1][0]) };
-        regions.add("pump-retainer", &format!("Pump snap {side} full-Y hook, wing and upper root"),
-                    [xa, xb, mount.y0, mount.y1, snap.floor_z, snap.root_z + WALL]);
-        let (a, c) = (sign * snap.receiver_inner_x, sign * snap.receiver_outer_x);
-        regions.add("front-top", &format!("Pump snap {side} receiver floor and full flank root"),
-                    [a.min(c), a.max(c), snap.receiver_y0, snap.receiver_y1, snap.receiver_z0, snap.receiver_z1]);
-    }
-
     // The rear wall: its equipment hosts, the C14 tunnel, the nameplate's insert lands, and the
     // funnel frame's receivers.
     let features = read(BACK_TOP_FEATURES)?;
