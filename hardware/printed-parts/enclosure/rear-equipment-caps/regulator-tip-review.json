@@ -1,78 +1,8 @@
 {
-  "purpose": "Retain the regulator pointed-tip geometry and its matching production receiver and prepared print.",
-  "recorded_utc": "2026-11-07T21:50:22.893391+00:00",
+  "purpose": "Identify the current regulator pointed tip, matching receiver and physical acceptance.",
+  "production_geometry": "production-fit.json",
   "station_source": "hardware/manifold-layout/above-core.json:rear_plumbing.regulator_mount.station",
-  "geometry": {
-    "below_lead_in_added_mm3": 0.0,
-    "below_lead_in_removed_mm3": 0.0,
-    "cap_bounds_mm": [
-      [
-        -55.323910304345176,
-        286.6036337148398,
-        315.92413759604096
-      ],
-      [
-        -19.32391030434517,
-        328.7100400328636,
-        344.8151460774243
-      ]
-    ],
-    "cap_hardware_overlap_mm3": 0.0,
-    "cap_receiver_overlap_mm3": 0.0,
-    "lead_in_rise_mm": 3.0,
-    "pocket_tip_air_mm": 1.0999999996718657,
-    "purpose": "Measure the regulator point and matching full enclosure receiver.",
-    "roof_columns": [
-      {
-        "missing_stock_mm3": 0.0,
-        "stock_height_from_volume_mm": 9.084854024479394,
-        "xy_mm": [
-          -37.32391030388001,
-          289.278633714998
-        ]
-      },
-      {
-        "missing_stock_mm3": 0.0,
-        "stock_height_from_volume_mm": 9.084853939870099,
-        "xy_mm": [
-          -37.32391030388001,
-          326.0350400329926
-        ]
-      }
-    ],
-    "roof_stock_mm": 9.084853922903847,
-    "scope": "Fine solids, seated geometry and local roof columns. Insertion force and durability remain physical observations."
-  },
-  "files_sha256": {
-    "hardware/manifold-layout/above-core.json": "d3bbe1349e55bf00e0ae3f2d77f312b56a75e3ecce6f18a8dccd5b419c7b242e",
-    "hardware/printed-parts/enclosure/rear-equipment-caps/regulator-snap-cap.stl": "23039efb099d5008eb1c5b96e2a769bb6536fd040945f67a4cf80c937aac7035",
-    "hardware/printed-parts/enclosure/rear-equipment-caps/regulator-snap-cap.step.mesh": "8f23812015877778f1fa20486538b34cec85b9df66aac342b28204b2d454ce7a",
-    "hardware/printed-parts/enclosure/rear-equipment-caps/rear-equipment-caps-installed.step.mesh": "03982515a3a78f0810571ed54828c74dce2ee3c3cac83d3df09097f1fedeef61",
-    "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl": "e312efbba55963b2593440f0375c681e54e251ff3735aa32326cfd5b4010c441",
-    "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step.mesh": "6097eb5eefc94c988061172f1456266ea663861642417b2187d10da320de7f58"
-  },
-  "prepared_print": {
-    "recipe": "single-regulator-cap",
-    "status": "prepared, not submitted",
-    "archive": "/Users/derekbredensteiner/Downloads/HSM-regulator-pointed-2026-11-07/2026-11-07-single-regulator-cap-mark2-13a8c405/2026-11-07-single-regulator-cap-mark2-13a8c405.gcode.3mf",
-    "archive_sha256": "3a08f20c1214b170ff7b98844008668547aea667e237707e7be8afa6dcd41482",
-    "gcode_sha256": "4c76ff2effad605bd2e65026c54def698871e8c2f312582b9fdb0261acbaca02",
-    "project": "/Users/derekbredensteiner/Downloads/HSM-regulator-pointed-2026-11-07/2026-11-07-single-regulator-cap-mark2-13a8c405/2026-11-07-single-regulator-cap-mark2-13a8c405.3mf",
-    "project_sha256": "a8d724a1e53eb5beda5bcacc8dc7c30e4a336f72d4161b2ae243d3709e7066ee",
-    "native_review_passed": true,
-    "minimum_bed_margin_mm": 116.97251,
-    "estimated_seconds": 6484.411276469729,
-    "layer_time": {
-      "every_model_layer_has_tower": true,
-      "minimum_return_lower_bound_s": 23.820273372431075,
-      "minimum_return_target_s": 20.0,
-      "minimum_tower_deposition_after_first_layer_s": 23.555200000000003,
-      "model_layers": 150,
-      "passed": true,
-      "purpose": "Measure the single snap's native tower time and time between model layers.",
-      "scope": "Commanded path length divided by feed plus explicit waits; acceleration, firmware motion and camera delays add time. Native smooth timelapse is enabled at launch."
-    }
-  },
-  "physical_finish_reference": "prints/2026-11-07-single-regulator-mark2/job.json",
-  "physical_tip_result": "awaiting physical review of the corrected geometry"
+  "physical_result": "prints/2026-11-07-ceiling-down-mark2/physical-result.json",
+  "prepared_plate_record": "prints/2026-11-07-ceiling-down-mark2/job.json",
+  "scope": "The accepted comparison archive identifies the physically tested longer regulator cover. Production artifacts and receiver clearances are bound by the production geometry record."
 }

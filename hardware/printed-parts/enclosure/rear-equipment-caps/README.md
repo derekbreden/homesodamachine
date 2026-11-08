@@ -104,11 +104,14 @@ The [regulator tip reading](regulator-tip-review.json) binds the full lead-in,
 matching receiver pocket, retained bearing geometry and enclosure roof stock
 to their generated solids and prepared print.
 
-The [entry comparison](entry-study/README.md) pairs that standard cover with
-a taller planar lead-in at the same lateral position. Each cover has its own
-complete matching receiver. The taller cover's pocket extends into the roof
-stock; the spring walls, roots and retaining faces keep their fitted geometry.
-The entry study records the comparison's scope and physical result.
+All rear caps use the physically approved longer pointed lead-in, including the
+rear pump cap on the cold-core lid. The above-core design owns the common tip
+rise and air above each point. Their complete receivers carry matching pockets
+through any joined ceiling or lid stock. The spring walls, root blends,
+retaining faces, lateral reach and fitted hardware bearings retain their
+approved geometry. The [physical result](prints/2026-11-07-ceiling-down-mark2/physical-result.json)
+records the regulator tip approval. [production-fit.json](production-fit.json)
+binds the shared profile and receiver clearances to the production solids.
 
 The standalone STEP and STL files use the print frame, with one axial end
 on Z0 and spring bending within the layer plane. The appliance uses their installed frames.

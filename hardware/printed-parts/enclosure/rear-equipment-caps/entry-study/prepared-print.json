@@ -3,7 +3,8 @@
   "record": "../prints/2026-11-07-ceiling-down-mark2/job.json",
   "archive": "/Users/derekbredensteiner/Downloads/HSM-regulator-ceiling-down-2026-11-07/2026-11-07-regulator-entry-comparison-mark2-adf8fe0d/2026-11-07-regulator-entry-comparison-mark2-adf8fe0d.gcode.3mf",
   "archive_sha256": "a93d2f360a75ebd7a6c21f9a1d283b05225a7af8a3243a48165a627b3473cdd0",
-  "status": "accepted; physical results pending",
+  "status": "physical longer-tip geometry approved",
   "printer_task_id": "1418882219",
-  "launch_utc": "2026-11-08T00:26:18.060968+00:00"
+  "launch_utc": "2026-11-08T00:26:18.060968+00:00",
+  "physical_result": "../prints/2026-11-07-ceiling-down-mark2/physical-result.json"
 }

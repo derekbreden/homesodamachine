@@ -765,7 +765,16 @@ fn top_lid() -> Result<Solid> {
     let half = pump::CHANNEL_HALF_WIDTH;
     let recess = box3(cx - half, cx + half, fy + fore - OVERCUT, fy + aft + OVERCUT, face - c.selected.cover_channel_recess_mm, face + OVERCUT)
         .transformed(&t);
-    body.cut(&Solid::union_all(&air)?)?.cut(&recess)
+    // The pointed tips keep their full pockets through the lid stock joined beneath the cradle.
+    let s = &c.station;
+    let mut tips = vec![];
+    for side in [-1., 1.] {
+        let near = s.axis_x + side * s.neck;
+        let far = s.axis_x + side * (s.outer + 1.);
+        let pocket = box3(near, far, s.y0 - fits.running, s.y1 + fits.running, s.bearing, s.ceiling);
+        tips.push(pump_cap_world(&pocket, c).transformed(&t));
+    }
+    body.cut(&Solid::union_all(&air)?)?.cut(&recess)?.cut_all(&tips)
 }
 
 // --- The numbers the machine reads -------------------------------------------------------------------

@@ -256,7 +256,7 @@
       "trunk_radius_mm": 1.25
     }
   ],
-  "source_stl_sha256": "6420b36c97c82e33a16934f92d669a385053953895412cfa1bf191160868d48c",
+  "source_stl_sha256": "c3f7666a64fdee92767becc4f09009602d3ad1149887c47aec5a0e9addc298c1",
   "support_free_regions": [
     {
       "blocking_bounds_source_mm": [
@@ -273,7 +273,7 @@
         396.2032545933731,
         438.3679848073112,
         331.2,
-        348.8
+        351.8
       ],
       "bridge_axis_source": [
         0.0,
@@ -299,7 +299,7 @@
         420.09571720240064,
         462.3,
         337.95,
-        348.8
+        351.8
       ],
       "bridge_axis_source": [
         0.0,

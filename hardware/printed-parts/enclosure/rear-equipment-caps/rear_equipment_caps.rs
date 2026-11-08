@@ -17,7 +17,7 @@ use hsm_kernel::part::{write_part, write_shown};
 use hsm_kernel::rule::ring_count;
 use hsm_kernel::{Affine, Body, Loop, Plane, Profile, Seg, Solid, V2, V3, v2, v3};
 use serde::Deserialize;
-use stations::{Meter, NOSE_LAND, REACH, ROOT_RADIUS, TIP_RISE, WALL, asse, catch_air, clearance_profile, interpolate, meter};
+use stations::{Meter, NOSE_LAND, REACH, ROOT_RADIUS, WALL, asse, catch_air, clearance_profile, interpolate, meter, tip_rise};
 use std::f64::consts::{PI, TAU};
 use std::path::PathBuf;
 use std::sync::OnceLock;
@@ -60,9 +60,6 @@ const BEVEL_ENDS: f64 = 0.1;
 /// The water regulator's central bearing ends this far short of the spring ends beside the
 /// outlet's release collet.
 const REGULATOR_OUTLET_SETBACK: f64 = 1.0;
-/// The entry-study lead-in retains its lateral position and spreads entry over a longer rise.
-const ENTRY_TIP_RISE: f64 = 6.0;
-const ENTRY_TIP_AIR: f64 = 0.5;
 /// A turned profile's axis laid fore, along the machine's −Y.
 const FORE: [P3; 3] = [[0.0, 1.0, 0.0], [-1.0, 0.0, 0.0], [0.0, 0.0, 1.0]];
 
@@ -177,21 +174,12 @@ impl Cap {
 
 fn main() -> Result<()> {
     let mut args = std::env::args_os().skip(1);
-    let first = args.next();
-    let entry = first.as_deref() == Some(std::ffi::OsStr::new("--regulator-entry-study"));
-    let out = if entry {
-        args.next().map(PathBuf::from).unwrap_or_else(|| PathBuf::from(OUTPUT).join("entry-study"))
-    } else {
-        first.map(PathBuf::from).unwrap_or_else(|| PathBuf::from(OUTPUT))
-    };
+    let out = args.next().map(PathBuf::from).unwrap_or_else(|| PathBuf::from(OUTPUT));
     if args.next().is_some() {
         bail!("usage: rear-equipment-caps [<output directory>]");
     }
     hsm_kernel::reads::begin();
     std::fs::create_dir_all(&out)?;
-    if entry {
-        return regulator_entry_study(&out);
-    }
     let color = Some(catalog::wall_color());
     let caps = [asse_cap()?, pisco_cap()?, meter_cap()?, regulator_cap()?];
     for cap in &caps {
@@ -388,7 +376,7 @@ fn corner_bevel(west: f64, axis_z: f64) -> Loop {
 /// bearing short of the spring ends beside the outlet, bored to the measured profile on the
 /// regulator's installed axis, then turned a quarter about Z onto it.
 fn regulator_cap() -> Result<Cap> {
-    regulator_cap_with_tip(TIP_RISE, "regulator-snap-cap")
+    regulator_cap_with_tip(tip_rise(), "regulator-snap-cap")
 }
 
 fn regulator_cap_with_tip(rise: f64, name: &'static str) -> Result<Cap> {
@@ -409,60 +397,6 @@ fn regulator_cap_with_tip(rise: f64, name: &'static str) -> Result<Cap> {
     Ok(Cap { name, installed: cap.rotate(V3::ZERO, V3::Z, 90.0), print: V3::Y })
 }
 
-/// Actual fit articles compare the standard lead-in with a taller one, each in its complete
-/// matching receiver; bearing surfaces, spring walls and catches retain the production fit.
-fn regulator_entry_study(out: &std::path::Path) -> Result<()> {
-    use serde_json::json;
-    let l = layout();
-    let mount = &l.rear_plumbing.regulator_mount;
-    let st = &mount.station;
-    let color = Some(catalog::wall_color());
-    let standard = regulator_cap()?;
-    let entry = regulator_cap_with_tip(ENTRY_TIP_RISE, "regulator-snap-cap-entry")?;
-    let solid = entry.printed();
-    println!("{}", write_part(out, entry.name, &[Body { name: entry.name, color, solid: &solid }])?);
-    let source = hsm_kernel::import::model("hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step.npz")?;
-    let rear = &source[0].solid;
-    let low = v3(-mount.seat_y[1].max(st.y1 + running() + WALL), st.axis_x - st.outer, st.split);
-    let high = v3(-mount.seat_y[0], st.axis_x + st.outer, l.enclosure.roof_z_mm);
-    let receiver = rear.intersect(&Solid::cuboid(low, high))?;
-    println!("{}", write_part(out, "regulator-receiver-standard", &[Body { name: "regulator-receiver-standard", color, solid: &receiver }])?);
-    let ceiling = entry.installed.bounds().max.z + ENTRY_TIP_AIR;
-    let mut pockets = Vec::new();
-    for side in [-1.0, 1.0] {
-        let near = st.axis_x + side * st.neck;
-        let far = st.axis_x + side * (st.outer + THROUGH);
-        pockets.push(cuboid([near.min(far), near.max(far), st.y0 - running(), st.y1 + running(),
-                            st.bearing, ceiling]).rotate(V3::ZERO, V3::Z, 90.0));
-    }
-    let entry_receiver = receiver.cut_all(&pockets)?;
-    println!("{}", write_part(out, "regulator-receiver-entry", &[Body { name: "regulator-receiver-entry", color, solid: &entry_receiver }])?);
-    let floor = st.bearing + catch_air() + NOSE_LAND;
-    let below = Solid::cuboid(v3(low.x - WALL, low.y - WALL, mount.cap_bottom - WALL), v3(high.x + WALL, high.y + WALL, floor - 0.00001));
-    let a = standard.installed.intersect(&below)?;
-    let b = entry.installed.intersect(&below)?;
-    let record = json!({
-        "purpose":"Compare standard and taller regulator lead-ins in their complete matching receivers.",
-        "standard_lead_in_rise_mm":TIP_RISE,"entry_lead_in_rise_mm":ENTRY_TIP_RISE,
-        "entry_tip_outset_per_side_mm":0.0,
-        "standard_receiver_ceiling_mm":st.ceiling,"entry_receiver_ceiling_mm":ceiling,
-        "entry_tip_air_mm":ceiling-entry.installed.bounds().max.z,
-        "standard_roof_stock_mm":l.enclosure.roof_z_mm-st.ceiling,
-        "entry_roof_stock_mm":l.enclosure.roof_z_mm-ceiling,
-        "receiver_source":"hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step.npz",
-        "receiver_bounds_mm":[low.to_array(),high.to_array()],
-        "standard_receiver_overlap_mm3":standard.installed.intersect(&receiver)?.volume(),
-        "entry_receiver_overlap_mm3":entry.installed.intersect(&entry_receiver)?.volume(),
-        "entry_in_standard_receiver_overlap_mm3":entry.installed.intersect(&receiver)?.volume(),
-        "standard_ramp_angle_from_insertion_degrees":((st.outer-(st.ledge-REACH))/TIP_RISE).atan().to_degrees(),
-        "entry_ramp_angle_from_insertion_degrees":((st.outer-(st.ledge-REACH))/ENTRY_TIP_RISE).atan().to_degrees(),
-        "below_lead_in_added_mm3":b.cut(&a)?.volume(),"below_lead_in_removed_mm3":a.cut(&b)?.volume(),
-        "scope":"Fitted solids and retained lower profiles; insertion force and directional tolerance await physical comparison."
-    });
-    std::fs::write(out.join("geometry.json"),serde_json::to_string_pretty(&record)?+"\n")?;
-    Ok(())
-}
-
 /// What a cap's body closes under: a flat at a height, or the lower half of a hexagon about the
 /// axis at a height, its corners on the outer walls.
 enum Underside {
@@ -476,7 +410,7 @@ enum Underside {
 /// closes it. The hook stands its reach inside the receiver's ledge, the catch its air over the
 /// receiver's bearing plane. Its lead-in is independent of the receiver ceiling's spare room.
 fn section(st: &Station, under: Underside) -> Result<Loop> {
-    section_with_tip(st, under, TIP_RISE)
+    section_with_tip(st, under, tip_rise())
 }
 
 fn section_with_tip(st: &Station, under: Underside, rise: f64) -> Result<Loop> {

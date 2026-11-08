@@ -9,5 +9,6 @@ ends. Each part uses its ordinary layer schedule, without a priming tower.
 emitted cooling intervals and support reading. [bridge-anchors.json](bridge-anchors.json)
 reads the catch bridge endpoints against the preceding model section. The receiver
 bridges span between solid end shoulders with localized cooling; their pockets
-contain no support paths. Physical bridge finish, insertion effort and durability
-await Derek's review.
+contain no support paths. The [physical result](physical-result.json) records Derek's approval of the longer
+pointed tips. That approval covers this regulator comparison; the other rear
+caps require their own physical verification.

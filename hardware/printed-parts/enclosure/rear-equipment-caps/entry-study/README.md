@@ -10,14 +10,10 @@ enclosure roof stock.
 The standard receiver is cropped from the production back-top solid. The
 taller cover's receiver extends only the same flank pockets upward into the
 roof stock. [geometry.json](geometry.json) records the tip dimensions, retained
-lower profiles, seated overlaps, ramp angles and roof stock. Insertion effort
-and directional tolerance await the physical comparison.
-
-Generate these actual print articles after rebuilding back-top:
-
-```sh
-python3 tools/run.py -- tools/hsm/target/release/rear-equipment-caps --regulator-entry-study
-```
+lower profiles, seated overlaps, ramp angles and roof stock. The [physical result](../prints/2026-11-07-ceiling-down-mark2/physical-result.json)
+records Derek's acceptance of the longer tips. The saved articles and geometry
+record identify this completed comparison; the production generator makes the
+approved lead-in on the rear caps.
 
 The `regulator-entry-comparison` recipe in
 [pieces.json](../../trial-preparation/pieces.json) prints both receiver-and-cover

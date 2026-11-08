@@ -3,7 +3,7 @@
   "source_base_revision": "7f035feee5dfa2519bf9c2eb3ca817d930c5df35",
   "recipe": "regulator-entry-comparison",
   "printer": "Mark2",
-  "status": "accepted; physical results pending",
+  "status": "physical longer-tip geometry approved",
   "archive": {
     "path": "/Users/derekbredensteiner/Downloads/HSM-regulator-ceiling-down-2026-11-07/2026-11-07-regulator-entry-comparison-mark2-adf8fe0d/2026-11-07-regulator-entry-comparison-mark2-adf8fe0d.gcode.3mf",
     "sha256": "a93d2f360a75ebd7a6c21f9a1d283b05225a7af8a3243a48165a627b3473cdd0",
@@ -443,7 +443,7 @@
     "standard_receiver_overlap_mm3": 0.0,
     "standard_roof_stock_mm": 9.084853922903847
   },
-  "physical_result": "pending",
+  "physical_result": "physical-result.json",
   "printer_task_id": "1418882219",
   "launch_utc": "2026-11-08T00:26:18.060968+00:00"
 }

@@ -1,0 +1,397 @@
+{
+  "cap_pairs": [
+    {
+      "a": "asse-snap-cap",
+      "b": "pisco-snap-cap",
+      "overlap_mm3": 0.0
+    },
+    {
+      "a": "asse-snap-cap",
+      "b": "meter-snap-cap",
+      "overlap_mm3": 0.0
+    },
+    {
+      "a": "asse-snap-cap",
+      "b": "regulator-snap-cap",
+      "overlap_mm3": 0.0
+    },
+    {
+      "a": "pisco-snap-cap",
+      "b": "meter-snap-cap",
+      "overlap_mm3": 0.0
+    },
+    {
+      "a": "pisco-snap-cap",
+      "b": "regulator-snap-cap",
+      "overlap_mm3": 0.0
+    },
+    {
+      "a": "meter-snap-cap",
+      "b": "regulator-snap-cap",
+      "overlap_mm3": 0.0
+    }
+  ],
+  "lid_removed_mm3": 2376.308614681049,
+  "pump": {
+    "added_mm3": 833.8500000152319,
+    "bounds_mm": [
+      [
+        -36.579180709086366,
+        -29.029752818867564,
+        0.0
+      ],
+      [
+        36.579180709086366,
+        32.02975281886759,
+        54.5
+      ]
+    ],
+    "lower_profile_added_mm3": 0.0,
+    "lower_profile_removed_mm3": 0.0,
+    "name": "pump-snap-cap",
+    "receiver_overlap_mm3": 0.0,
+    "removed_mm3": 0.0
+  },
+  "pump_added_tip_lid_overlap_mm3": 0.0,
+  "pump_backing": [
+    {
+      "backing_mm": 5.679346931871464,
+      "tip_air_mm": 0.499999999604853,
+      "tip_mm": [
+        -51.76061054448108,
+        415.3180504420662,
+        252.17934693147632
+      ]
+    },
+    {
+      "backing_mm": 5.679346931871464,
+      "tip_air_mm": 0.499999999604853,
+      "tip_mm": [
+        21.397750873691642,
+        415.3180504420662,
+        252.17934693147632
+      ]
+    }
+  ],
+  "pump_installed_bounds_mm": [
+    [
+      -51.76061054448109,
+      388.0680504420662,
+      252.17934693147632
+    ],
+    [
+      21.397750873691642,
+      442.5680504420662,
+      313.2388525692115
+    ]
+  ],
+  "pump_lid_overlap_mm3": 0.0,
+  "pump_old_lid_overlap_mm3": 0.0,
+  "purpose": "Read the approved lower cap profiles and longer tips against the full production receivers.",
+  "rear_added_mm3": 0.0,
+  "rear_caps": [
+    {
+      "added_mm3": 637.4703722794535,
+      "backing": [
+        {
+          "backing_mm": 3.4500000001862645,
+          "tip_air_mm": 0.5,
+          "tip_mm": [
+            3.651860222220421,
+            417.2856197003275,
+            351.04999999981374
+          ]
+        },
+        {
+          "backing_mm": 3.4500000001862645,
+          "tip_air_mm": 0.5,
+          "tip_mm": [
+            53.94813977833837,
+            417.2856197003275,
+            351.04999999981374
+          ]
+        }
+      ],
+      "bounds_mm": [
+        [
+          3.651860222220421,
+          396.45325459353626,
+          309.42107209470123
+        ],
+        [
+          53.94813977833837,
+          461.07825459353626,
+          351.04999999981374
+        ]
+      ],
+      "lower_profile_added_mm3": 0.0,
+      "lower_profile_removed_mm3": 0.0,
+      "name": "asse-snap-cap",
+      "receiver_overlap_mm3": 0.0,
+      "removed_mm3": 0.0
+    },
+    {
+      "added_mm3": 638.0755267608479,
+      "backing": [
+        {
+          "backing_mm": 3.4500000001862645,
+          "tip_air_mm": 0.5,
+          "tip_mm": [
+            62.0943843126297,
+            441.1978586008772,
+            351.04999999981374
+          ]
+        },
+        {
+          "backing_mm": 3.4500000001862645,
+          "tip_air_mm": 0.5,
+          "tip_mm": [
+            90.9056156873703,
+            441.1978586008772,
+            351.04999999981374
+          ]
+        }
+      ],
+      "bounds_mm": [
+        [
+          62.0943843126297,
+          420.3457172019407,
+          316.97259999997914
+        ],
+        [
+          90.9056156873703,
+          462.04999999981374,
+          351.04999999981374
+        ]
+      ],
+      "lower_profile_added_mm3": 0.0,
+      "lower_profile_removed_mm3": 0.0,
+      "name": "pisco-snap-cap",
+      "receiver_overlap_mm3": 0.0,
+      "removed_mm3": 0.0
+    },
+    {
+      "added_mm3": 581.4000000637025,
+      "backing": [
+        {
+          "backing_mm": 10.799999999627474,
+          "tip_air_mm": 0.5,
+          "tip_mm": [
+            96.20000000037253,
+            414.7586388103664,
+            258.1499999996275
+          ]
+        },
+        {
+          "backing_mm": 10.799999999627474,
+          "tip_air_mm": 0.5,
+          "tip_mm": [
+            96.20000000037253,
+            414.7586388103664,
+            312.45000000037254
+          ]
+        }
+      ],
+      "bounds_mm": [
+        [
+          57.34999999981373,
+          395.7586388103664,
+          258.1499999996275
+        ],
+        [
+          96.20000000037253,
+          433.7586388103664,
+          312.45000000037254
+        ]
+      ],
+      "lower_profile_added_mm3": 0.0,
+      "lower_profile_removed_mm3": 0.0,
+      "name": "meter-snap-cap",
+      "receiver_overlap_mm3": 0.0,
+      "removed_mm3": 0.0
+    },
+    {
+      "added_mm3": 550.8000000100583,
+      "backing": [
+        {
+          "backing_mm": 6.684853922575712,
+          "tip_air_mm": 0.5,
+          "tip_mm": [
+            -37.323910304345176,
+            286.6036337148398,
+            347.8151460774243
+          ]
+        },
+        {
+          "backing_mm": 6.684853922575712,
+          "tip_air_mm": 0.5,
+          "tip_mm": [
+            -37.32391030434517,
+            328.7100400328636,
+            347.8151460774243
+          ]
+        }
+      ],
+      "bounds_mm": [
+        [
+          -55.323910304345176,
+          286.6036337148398,
+          315.92413759604096
+        ],
+        [
+          -19.32391030434517,
+          328.7100400328636,
+          347.8151460774243
+        ]
+      ],
+      "lower_profile_added_mm3": 0.0,
+      "lower_profile_removed_mm3": 0.0,
+      "name": "regulator-snap-cap",
+      "receiver_overlap_mm3": 0.0,
+      "removed_mm3": 0.0
+    }
+  ],
+  "rear_removed_mm3": 5669.9859083819865,
+  "profile": {
+    "lead_in_rise_mm": 6.0,
+    "tip_air_mm": 0.5,
+    "source": "hardware/manifold-layout/above-core.json:rear_plumbing.snap_tip_rise_mm",
+    "physical_approval": "prints/2026-11-07-ceiling-down-mark2/physical-result.json"
+  },
+  "files_sha256": {
+    "hardware/manifold-layout/above-core.json": "e71cfa6f55454aafdef07faa9b5557f541ec803bf8e3e9dd5361793fcc4b0026",
+    "hardware/printed-parts/enclosure/rear-equipment-caps/asse-snap-cap.stl": "7dd9150c05aa10466bcbdddd74a192d5ab585efb083b64943484a2f995c0b4e5",
+    "hardware/printed-parts/enclosure/rear-equipment-caps/pisco-snap-cap.stl": "0d8e673e1417aa8eaf205245c56e528ef67c96114e26c8ed91a264d6cf9eb4e2",
+    "hardware/printed-parts/enclosure/rear-equipment-caps/meter-snap-cap.stl": "00d14c563b813b71638f8249d87791489888b66cfc06cd7b7471096342acba5a",
+    "hardware/printed-parts/enclosure/rear-equipment-caps/regulator-snap-cap.stl": "926df4c063127b01220678a06d1fb9dca5b37111769684aaefc02d4d79c0541e",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl": "c3f7666a64fdee92767becc4f09009602d3ad1149887c47aec5a0e9addc298c1",
+    "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.stl": "65bf9b7f660b18311346139886c80063635b158cf6b513aaf54382d75a9a4769",
+    "hardware/printed-parts/cold-core/foam-cap/pump-snap-cap.stl": "3e789119c1475e08b7bd5a9eb7edbf265cb8c85bd486ef4740178c1c10d1050b"
+  },
+  "neighbors": [
+    {
+      "a": "asse-snap-cap",
+      "b": "pisco-snap-cap",
+      "clearance_mm": 8.146244049072266,
+      "overlap_mm3": 0.0
+    },
+    {
+      "a": "asse-snap-cap",
+      "b": "meter-snap-cap",
+      "clearance_mm": 8.711494722773121,
+      "overlap_mm3": 0.0
+    },
+    {
+      "a": "pisco-snap-cap",
+      "b": "meter-snap-cap",
+      "clearance_mm": 4.522583007812443,
+      "overlap_mm3": 0.0
+    },
+    {
+      "a": "meter-snap-cap",
+      "b": "digiten-flow/7",
+      "overlap_mm3": 0.0
+    },
+    {
+      "a": "meter-snap-cap",
+      "b": "digiten-flow/9",
+      "overlap_mm3": 0.0
+    },
+    {
+      "a": "meter-snap-cap",
+      "b": "digiten-flow/10",
+      "overlap_mm3": 0.0
+    },
+    {
+      "a": "meter-snap-cap",
+      "b": "digiten-flow/11",
+      "overlap_mm3": 0.0
+    },
+    {
+      "a": "meter-snap-cap",
+      "b": "digiten-flow/12",
+      "overlap_mm3": 0.0
+    },
+    {
+      "a": "meter-snap-cap",
+      "b": "tube-fluid-14",
+      "overlap_mm3": 0.0
+    },
+    {
+      "a": "meter-snap-cap",
+      "b": "tube-fluid-16",
+      "overlap_mm3": 0.0
+    },
+    {
+      "a": "regulator-snap-cap",
+      "b": "flow-regulator",
+      "overlap_mm3": 0.0
+    },
+    {
+      "a": "cold-core/pump-snap-cap",
+      "b": "tube-fluid-18",
+      "overlap_mm3": 0.0
+    },
+    {
+      "a": "cold-core/pump-snap-cap",
+      "b": "tube-fluid-28",
+      "overlap_mm3": 0.0
+    },
+    {
+      "a": "cold-core/pump-snap-cap",
+      "b": "tube-fluid-16",
+      "overlap_mm3": 0.0
+    },
+    {
+      "a": "cold-core/pump-snap-cap",
+      "b": "cold-core/line-water-in",
+      "overlap_mm3": 0.0
+    },
+    {
+      "a": "cold-core/pump-snap-cap",
+      "b": "cold-core/g-ganen-pump/1",
+      "overlap_mm3": 0.0
+    },
+    {
+      "a": "cold-core/pump-snap-cap",
+      "b": "enclosure-back-top",
+      "overlap_mm3": 0.0
+    },
+    {
+      "a": "cold-core/pump-snap-cap",
+      "b": "wire-AC6-PE",
+      "overlap_mm3": 0.0
+    },
+    {
+      "a": "cold-core/pump-snap-cap",
+      "b": "wire-PE-carbonator",
+      "overlap_mm3": 0.0
+    },
+    {
+      "a": "cold-core/pump-snap-cap",
+      "b": "wire-J6-GND",
+      "overlap_mm3": 0.0
+    },
+    {
+      "a": "cold-core/pump-snap-cap",
+      "b": "wire-J6-RA1",
+      "overlap_mm3": 0.0
+    },
+    {
+      "a": "cold-core/pump-snap-cap",
+      "b": "wire-J6-RA2",
+      "overlap_mm3": 0.0
+    },
+    {
+      "a": "cold-core/pump-snap-cap",
+      "b": "wire-J6-RA3",
+      "overlap_mm3": 0.0
+    },
+    {
+      "a": "cold-core/pump-snap-cap",
+      "b": "wire-J6-RA4",
+      "overlap_mm3": 0.0
+    }
+  ],
+  "scope": "Fine-solid comparisons retain the lower cap profiles, read seated overlap against complete production receivers and sample stock beyond each tip. Website-mesh queries read neighboring components in the rebuilt full machine. Regulator tip effort is physically approved; effort and durability of the other longer caps require their own physical verification."
+}

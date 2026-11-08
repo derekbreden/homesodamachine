@@ -1,0 +1,12 @@
+{
+  "purpose": "Record Derek's physical approval of the longer pointed regulator lead-in.",
+  "date": "2026-11-08",
+  "printer_task_id": "1418882219",
+  "archive_sha256": "a93d2f360a75ebd7a6c21f9a1d283b05225a7af8a3243a48165a627b3473cdd0",
+  "accepted_geometry": "regulator-snap-cap-entry",
+  "lead_in_rise_mm": 6.0,
+  "tip_outset_mm": 0.0,
+  "user_feedback": "The longer pointed tips on the snaps there worked beautifully.",
+  "requested_application": "Let's please get that same length of wingtip on all of our snaps that we can back there, please.",
+  "scope": "Physical acceptance of the longer regulator tips. The other rear caps retain their approved lower fits and require their own physical verification after this profile is applied."
+}
