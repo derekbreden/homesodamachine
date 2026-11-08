@@ -6,6 +6,7 @@ use crate::display;
 use crate::funnel;
 use crate::mount;
 use crate::plan::{Bounds, Graph, P3, Shape};
+use crate::quadrant::Z;
 use crate::shell::*;
 use crate::spec::Box;
 use crate::structure::profile;
@@ -114,7 +115,8 @@ pub fn front_lip(g: &mut Graph, inner: &Bounds, y_joint: f64) -> Shape {
 
 /// The front half: the shell ahead of the joint, the display housing's slab behind the facet
 /// kept solid back to the funnel frame, the pump mount's stock, and the front's own cuts.
-pub fn front_half(g: &mut Graph, b: &Box, silhouette: Shape) -> Shape {
+/// The pump stock belongs to the upper quadrant, with volume above the seam.
+pub fn front_half(g: &mut Graph, b: &Box, silhouette: Shape, z: Z) -> Shape {
     let (inner, outer) = (&b.inner, &b.outer);
     let p = profile(outer);
     let e = extent(outer);
@@ -130,9 +132,11 @@ pub fn front_half(g: &mut Graph, b: &Box, silhouette: Shape) -> Shape {
     ]);
     let keepout = g.intersect(behind, &[reach]);
     let air = cavity(g, inner, 0.0, None);
-    let air = g.cut(air, &[keepout]);
-    let fill = mount::stock(g, b, silhouette);
-    let air = g.cut(air, &[fill]);
+    let mut air = g.cut(air, &[keepout]);
+    if z == Z::Top {
+        let fill = mount::stock(g, b, silhouette);
+        air = g.cut(air, &[fill]);
+    }
     let shell = g.cut(silhouette, &[air]);
     let exterior = b.exterior_bounds();
     let band = g.box_([

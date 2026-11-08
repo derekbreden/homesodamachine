@@ -87,7 +87,7 @@ fn pipeline(g: &mut Graph, k: &Build) -> Shape {
     let skin = flanks::back_bottom_flank_skin(g, inner, y_joint, zj);
     let skin = g.intersect(skin, &[col]);
     piece = g.union(piece, &[skin]);
-    let heads = z_rail_heads(g, inner, y_joint, zj, q.y, Some(&pack.collet_plate));
+    let heads = z_rail_heads(g, inner, y_joint, zj, q.y);
     piece = g.union(piece, &[heads]);
     piece = g.intersect(piece, &[k.silhouette]);
     piece = k.exterior(g, piece);

@@ -4,7 +4,6 @@ use crate::catalog::supported;
 use crate::plan::{Bounds, Graph, Shape};
 use crate::quadrant::{Y, sorted};
 use crate::shell::*;
-use crate::spec::ColletPlate;
 use crate::walls::*;
 
 /// One flank's rail run: its wall, the side it reaches in from, and its Y span.
@@ -17,12 +16,12 @@ pub struct Run {
     pub lane_aft: f64,
 }
 
-pub fn z_rail_runs(inner: &Bounds, y_joint: f64, col: Y, plate: Option<&ColletPlate>) -> [Run; 2] {
+pub fn z_rail_runs(inner: &Bounds, y_joint: f64, col: Y) -> [Run; 2] {
     [(inner[0], 1.0), (inner[1], -1.0)].map(|(x_in, sx)| match col {
         Y::Front => Run {
             x_in,
             sx,
-            y0: plate.map_or(inner[2] + COLUMN_ROUND + WALL, |p| p.wall_aft_y),
+            y0: front_rail_start_y(inner[2]),
             y1: y_joint - WALL - Z_LIP_Y_MARGIN,
             lane_aft: y_joint + LIP_LEN + Z_LIP_Y_MARGIN,
         },
@@ -37,8 +36,8 @@ pub fn z_rail_runs(inner: &Bounds, y_joint: f64, col: Y, plate: Option<&ColletPl
 }
 
 /// How far the top piece slides along its rails before the stops meet.
-pub fn z_rail_travel(inner: &Bounds, y_joint: f64, col: Y, plate: Option<&ColletPlate>) -> f64 {
-    let runs = z_rail_runs(inner, y_joint, col, plate);
+pub fn z_rail_travel(inner: &Bounds, y_joint: f64, col: Y) -> f64 {
+    let runs = z_rail_runs(inner, y_joint, col);
     runs.iter().map(|r| (r.y1 - r.y0).abs()).fold(f64::NEG_INFINITY, f64::max) - RAIL_STOP_LEN + RAIL_ENTRY
 }
 
@@ -100,17 +99,16 @@ pub fn z_rail_heads(
     y_joint: f64,
     zj: f64,
     col: Y,
-    plate: Option<&ColletPlate>,
 ) -> Shape {
     let z_foot = zj + HOOK_FOOT;
     let rim = zj + Z_RISE;
     let catch_z = z_foot + rail_catch_air(col);
     assert!(rim - catch_z >= WALL, "a supported Z-rail catch leaves less than one wall of head stock");
     let mut out: Option<Shape> = None;
-    for run in z_rail_runs(inner, y_joint, col, plate) {
+    for run in z_rail_runs(inner, y_joint, col) {
         let sx = run.sx;
         let sy = if run.y1 > run.y0 { 1.0 } else { -1.0 };
-        let y0 = if col == Y::Front && plate.is_some() { run.y0 + slide_slip() } else { run.y0 };
+        let y0 = if col == Y::Front { run.y0 + slide_slip() } else { run.y0 };
         let y1 = run.y1;
         let x = rail_x(sx, col);
         let arm = g.xz_prism(y0, y1, vec![[x.arm, zj], [x.arm, catch_z], [x.hook, catch_z], [x.hook, rim],
@@ -134,10 +132,10 @@ pub fn z_rail_heads(
 
 /// The feet a top piece stands on over each flank's run: a slab from the wall to the foot face,
 /// and on the front column the rail's lead-in carried on to the Y joint.
-pub fn z_rail_feet(g: &mut Graph, inner: &Bounds, y_joint: f64, zj: f64, col: Y, plate: Option<&ColletPlate>) -> Shape {
+pub fn z_rail_feet(g: &mut Graph, inner: &Bounds, y_joint: f64, zj: f64, col: Y) -> Shape {
     let z_foot = zj + HOOK_FOOT;
     let mut out: Option<Shape> = None;
-    for run in z_rail_runs(inner, y_joint, col, plate) {
+    for run in z_rail_runs(inner, y_joint, col) {
         let (x_in, sx) = (run.x_in, run.sx);
         let sy = if run.y1 > run.y0 { 1.0 } else { -1.0 };
         let (mut y0, mut y1) = (run.y0, run.y1);
@@ -174,12 +172,12 @@ pub fn rail_keep(g: &mut Graph, inner: &Bounds) -> Shape {
 
 /// The channels a top piece's feet ride in: the slot over each run to its stop, the lane on past
 /// the stop at full section, and on the front column the crossing over the Y joint's lip.
-pub fn z_rail_channels(g: &mut Graph, inner: &Bounds, y_joint: f64, zj: f64, col: Y, plate: Option<&ColletPlate>) -> Shape {
+pub fn z_rail_channels(g: &mut Graph, inner: &Bounds, y_joint: f64, zj: f64, col: Y) -> Shape {
     let (z_foot, rim) = (zj + HOOK_FOOT, zj + Z_RISE);
     let z_roof = rim + slide_slip();
     let keep = rail_keep(g, inner);
     let mut out: Option<Shape> = None;
-    for run in z_rail_runs(inner, y_joint, col, plate) {
+    for run in z_rail_runs(inner, y_joint, col) {
         let (x_in, sx, y0, y1, lane_aft) = (run.x_in, run.sx, run.y0, run.y1, run.lane_aft);
         let sy = if y1 > y0 { 1.0 } else { -1.0 };
         let stop = y1 - sy * RAIL_STOP_LEN;
