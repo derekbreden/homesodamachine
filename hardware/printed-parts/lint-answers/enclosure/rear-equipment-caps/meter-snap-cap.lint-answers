@@ -6,14 +6,14 @@ click: x=13.946 y=-25.150 z=32.854
 click: x=-6.085 y=27.150 z=34.613
 click: x=-6.085 y=25.150 z=34.613
 
-[thin] The deliberately pointed free edge joins the single planar lead-in to the outside spring wall. Derek requests this point as the production tip. Its thickness approaches zero at the edge; the working spring remains 2 mm and the continuous solid retaining nose remains 1.6 mm. These locations are on that specified point.
-alternatives: A flat tip land removes the requested point. Thickening the full leaf changes the selected flexure section rather than the lead-in. The point is integral with the cap.
+[thin] The free edge ends the physically approved longer planar lead-in Derek requests across the rear caps. The taper approaches a mathematical point on the outside spring wall. The fitted spring section and solid retaining nose retain their approved geometry.
+alternatives: A flat land removes the requested point. Thickening the spring changes the approved flexure; extending the nose changes the fitted catch. The requested point is integral with the full spring wall along the cap.
 file: hardware/printed-parts/enclosure/rear-equipment-caps/meter-snap-cap.step
-click: x=17.911 y=-27.127 z=0.350
-click: x=17.911 y=-27.150 z=0.350
-click: x=17.911 y=27.127 z=37.650
-click: x=17.911 y=27.150 z=37.650
-click: x=17.823 y=-27.150 z=37.640
-click: x=17.899 y=-27.106 z=37.640
-click: x=17.823 y=27.150 z=0.360
-click: x=17.899 y=27.106 z=0.360
+click: x=19.398 y=-27.127 z=0.353
+click: x=19.398 y=-27.150 z=0.353
+click: x=19.398 y=27.127 z=37.647
+click: x=19.398 y=27.150 z=37.647
+click: x=19.317 y=-27.150 z=37.640
+click: x=19.362 y=-27.097 z=37.640
+click: x=19.317 y=27.150 z=0.360
+click: x=19.362 y=27.097 z=0.360
