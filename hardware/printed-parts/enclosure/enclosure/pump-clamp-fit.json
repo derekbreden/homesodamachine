@@ -60,7 +60,7 @@
       "x_mm": -13.224999999999994
     }
   ],
-  "front_top_components": 3,
+  "front_top_components": 1,
   "guide_diameter_mm": 37.0,
   "guides": [
     {
@@ -75,7 +75,7 @@
     }
   ],
   "horizontal_downward_area_in_pump_bay_mm2": {
-    "after": 743.8271977277212,
+    "after": 825.9791977153831,
     "before": 11347.799576107573
   },
   "installed_bodies": [
@@ -198,9 +198,9 @@
   "inputs": {
     "hardware/manifold-layout/enclosure-box.json": "1f6bb8fee7d04a10b5c1b39ce87ee6112cdd4ceae2b88e4f586f59e415a54cdc",
     "hardware/printed-parts/enclosure/enclosure/front/mount.rs": "ef8af646ba1e04358c1a6d3c91d9d3900deb9091c1ee7ef2e4299f82faee354c",
-    "hardware/printed-parts/enclosure/enclosure/retainer-numbers/lib.rs": "88b6cdd2188276fccfba1a971ccb3f681621b81d02d5b49e5993277aa7ab60c7",
+    "hardware/printed-parts/enclosure/enclosure/retainer-numbers/lib.rs": "f421bc8a3bf7ff2a2aa0eaf29ac9a8fb1ca432dd23f41acc82ac411669861be2",
     "hardware/printed-parts/enclosure/enclosure/retainer/retainer.rs": "b74bcd8096969f77100e3878cc4db07b50b7d398d9e4a2b6f6435bc5737cbdd1",
-    "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step.npz": "7222e10bf3953c2a6a774d008394f916d0c499c44fc4c31ef25c43fd73ea7841",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step.npz": "a22c143bdc853f3685d2f1de66f7d186d9aeb188fa13d3938ccfbf35c7218286",
     "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step.npz": "2abc1745c51028de24e6cd4f19700313b8e280ecdcb32d28fff347d515fb3b12",
     "hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.step.npz": "6c4cdf2a0eb304734fcfc643d582f8c63f3174fb35d57f7bb9a12993dd9f9dd7",
     "hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer-seated.step.npz": "0fa635cab051d880b91a83f16b01008bbc98664b3c8431d0e4fc2b87ad237874",
