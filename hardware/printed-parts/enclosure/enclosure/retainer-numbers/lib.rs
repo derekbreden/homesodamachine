@@ -4,7 +4,7 @@
 use hsm_enclosure_numbers::catalog::{clearance, running};
 use hsm_enclosure_numbers::layout::{snap_tip_air, snap_tip_rise};
 use hsm_enclosure_numbers::pump::tray;
-use hsm_enclosure_numbers::shell::{FRONT_PLANE_Y, FRONT_TOP_FLANK_T, WALL, Z_SEAM, shell};
+use hsm_enclosure_numbers::shell::{FLUTE_DEPTH, FRONT_PLANE_Y, FRONT_TOP_FLANK_T, WALL, Z_SEAM, shell};
 use hsm_enclosure_numbers::spec::Box;
 
 pub const WING_THICK: f64 = 2.0;
@@ -101,7 +101,8 @@ pub fn snap_datums(b: &Box) -> SnapDatums {
         receiver_z1: floor + WING_LENGTH + 3.0 * WALL,
         receiver_roof_z: floor + snap_tip_rise() + snap_tip_air(),
         port_inner_x: outer + running(),
-        port_outer_x: b.outer[1] - WALL,
+        // The pry opening keeps the wall section behind the flute valleys.
+        port_outer_x: b.outer[1] - FLUTE_DEPTH - WALL,
         port_y0: cy - PRY_WIDTH / 2.0,
         port_y1: cy + PRY_WIDTH / 2.0,
         port_z0: floor - 5.0,
