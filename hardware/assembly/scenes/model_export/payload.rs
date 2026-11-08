@@ -329,6 +329,7 @@ impl Payload {
                             host.arrays.insert(key.into(), value.clone());
                         }
                     }
+                    host.meta["_scene"] = surface.meta["_scene"].clone();
                     if let Some(value) = surface.meta.get("face_sources") {
                         host.meta["face_sources"] = value.clone();
                     } else {
