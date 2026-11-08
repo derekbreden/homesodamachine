@@ -1,0 +1,282 @@
+{
+  "purpose": "Records the enclosure back-top print, its reviewed inputs and printer acceptance.",
+  "part": "HSM-0081",
+  "part_name": "Enclosure back top",
+  "printer": "Mark2",
+  "status": "started",
+  "started": true,
+  "user_authorization": "Please start a print of enclosure back top on mark2, confirming with your peer \"Fit\" that you got all the latest fixes and settings in your print.",
+  "material": "Polymaker Fiberon PET-GF15, black",
+  "source_stl": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl",
+  "source_stl_sha256": "c3f7666a64fdee92767becc4f09009602d3ad1149887c47aec5a0e9addc298c1",
+  "prepared_from_revision": "6b1f8c22a9d9f9e76e9fb6dba666730418fb68af",
+  "peer_confirmation": {
+    "thread_title": "Fit",
+    "thread_id": "01a19503-4047-7cf0-ad82-9e42d010912e",
+    "host_id": "local",
+    "source_stl_sha256": "c3f7666a64fdee92767becc4f09009602d3ad1149887c47aec5a0e9addc298c1",
+    "back_top_edits_pending": false,
+    "statement": "For \u201cPrint enclosure back top\u201d: the current back-top STL matches the published artifact, SHA-256 c3f7666a64fdee92767becc4f09009602d3ad1149887c47aec5a0e9addc298c1. No back-top edits are pending from Fit. Use the current enclosure-print-prep back-top --slice --review recipe: ceiling-down, black Fiberon PET-GF15 on Mark2\u2019s left hardened 0.4 mm nozzle, manual Tree Slim at accessible contacts, and support-free receiver interiors. It includes the longer rear tips, restored orientation, solid catch/rail bands and localized overhang/foundation cooling. My current redesign concerns only the front pump mount.",
+    "settings_followup": "Fit confirms that pieces.json and the native feature record hold all retained settings and that no additional private support overrides exist. Fit leaves the print preparation correction to this session."
+  },
+  "fixes": [
+    "Extended rear snap lead-ins and matching receiver clearances",
+    "Ceiling-down production orientation",
+    "Support-free receiver interiors and anchored catch bridges",
+    "Solid catch and rail bands",
+    "Removable meter shoulder trees",
+    "Localized bridge, overhang and foundation cooling",
+    "Teardrop bulkhead clearances and support-free valve sockets and vent passage"
+  ],
+  "preparation_attempts": [
+    {
+      "tree_support_branch_angle_deg": 30,
+      "archive_sha256": "c63f907f14acc9b818774bd628efc12de2c2d347abc1df221558c4d1c6bd9101",
+      "pass": false,
+      "minimum_bead_bed_margin_mm": 18.833000000000027,
+      "excluded_support_crossings": 316,
+      "show_face_support_contacts": 3,
+      "affected_interior": "Internal C14 mount and cord passage"
+    },
+    {
+      "tree_support_branch_angle_deg": 20,
+      "support_object_xy_distance_mm": 0.4,
+      "archive_sha256": "9c7a5a947bb00889397452f5f7bdb984e5246a7030a673324f53ba412ba0603f",
+      "pass": false,
+      "minimum_bead_bed_margin_mm": 19.495000000000005,
+      "excluded_support_crossings": 4,
+      "show_face_support_contacts": 1,
+      "affected_interior": "Internal C14 mount and cord passage"
+    },
+    {
+      "tree_support_branch_angle_deg": 10,
+      "support_object_xy_distance_mm": 0.5,
+      "archive_sha256": "d6e77217811fd4dd4febfe647b2cdd79cb8ae1d8504d81e59c98d3120bda3e5b",
+      "pass": false,
+      "minimum_bead_bed_margin_mm": 20.216093,
+      "excluded_support_crossings": 0,
+      "show_face_support_contacts": 27,
+      "affected_surface": "C14 opening outer edges"
+    },
+    {
+      "tree_support_branch_angle_deg": 10,
+      "support_object_xy_distance_mm": 1.0,
+      "raft_first_layer_expansion_mm": 1.0,
+      "archive_sha256": "d672ab32024041d26c9cbd0f78ccd3c6ca9031c86775a501f0c17d11a72704d9",
+      "pass": false,
+      "minimum_bead_bed_margin_mm": 20.076000000000022,
+      "excluded_support_crossings": 352,
+      "show_face_support_contacts": 22,
+      "affected_interior": "Internal C14 mount and cord passage"
+    }
+  ],
+  "preparation": "/Users/derekbredensteiner/Downloads/HSM-back-top-2026-11-08/clearance-trees/2026-11-08-back-top-mark2-d8408187/preparation.json",
+  "project": "/Users/derekbredensteiner/Downloads/HSM-back-top-2026-11-08/clearance-trees/2026-11-08-back-top-mark2-d8408187/2026-11-08-back-top-mark2-d8408187.3mf",
+  "project_sha256": "492da91621cb384153d2b5da6f6bb3f2ab28e0bdc6bf3c1a0808c8cc0cbbe165",
+  "archive": "/Users/derekbredensteiner/Downloads/HSM-back-top-2026-11-08/clearance-trees/2026-11-08-back-top-mark2-d8408187/2026-11-08-back-top-mark2-d8408187.gcode.3mf",
+  "archive_sha256": "d6e77217811fd4dd4febfe647b2cdd79cb8ae1d8504d81e59c98d3120bda3e5b",
+  "gcode_sha256": "7b2a5185b62a48ebf09c94e663c09ca6db5146081e5044a477263403642fb203",
+  "profile": "hardware/printed-parts/petgf.3mf",
+  "profile_sha256": "1cc426e99a771a24249f97bf0e7659d2c5b5f656a0f2f3abb4814925ec1ff6b7",
+  "settings_sha256": "afe0fbe03e75f72d789081c43136fb792502ce66d53851d15ab0911eca7d0a51",
+  "nozzle": {
+    "diameter_mm": 0.4,
+    "flow": "Standard",
+    "hardened": true,
+    "reason": "Every abrasive stock runs on the left hotend (hardware/ledger/tools.md, Which hotends fit an H2C). Mark2's 2026-10-24 jobs ran black PET-GF on its fixed left hardened 0.4 mm Standard-flow hotend (faucet/industrial/prints/2026-10-24-buttons-sculpted-bands020-mark2/README.md, task 1372253517).",
+    "side": "left",
+    "sliced_diameter_mm": 0.4,
+    "sliced_volume_type": "Standard"
+  },
+  "bed_type": "Textured PEI Plate",
+  "estimated_seconds": 123080.77454745579,
+  "layers": 1117,
+  "minimum_bead_bed_margin_mm": 20.216093,
+  "emitted_z_trim_mm": [
+    0.0,
+    0.02
+  ],
+  "requested_z_trim_mm": 0.04,
+  "native_review_checks": {
+    "archive": true,
+    "bed_border": true,
+    "declared_interiors_support_free": true,
+    "fine_and_transition_bands": true,
+    "show_faces_support_free": false,
+    "solid_hosts_sampled": true,
+    "tie_windows_support_free": true,
+    "z_trim": true
+  },
+  "native_review_pass": false,
+  "review_accepted": true,
+  "c14_contact_review": "c14-contact-review.json",
+  "review_resolution": "The flagged C14 trunk roads have no model contact under the rounded bead envelope. All protected-interior exclusions and bed margins pass.",
+  "source_print_features_sha256": "bc2b45842c9230b9f0ce5d9aed7d7dc47d8fd3ffdebf701255d64982e2f5aaaf",
+  "sliced_settings": {
+    "layer_height": "0.24",
+    "initial_layer_print_height": "0.2",
+    "wall_loops": "2",
+    "sparse_infill_density": "15%",
+    "sparse_infill_pattern": "gyroid",
+    "support_type": "tree(manual)",
+    "support_style": "tree_slim",
+    "support_top_z_distance": "0.45",
+    "support_bottom_z_distance": "0.3",
+    "support_object_xy_distance": "0.5",
+    "tree_support_branch_angle": "10",
+    "raft_first_layer_expansion": "2",
+    "nozzle_temperature_initial_layer": [
+      "265",
+      "265",
+      "270"
+    ],
+    "nozzle_temperature": [
+      "280",
+      "265",
+      "270"
+    ],
+    "textured_plate_temp_initial_layer": [
+      "80"
+    ],
+    "textured_plate_temp": [
+      "80"
+    ],
+    "chamber_temperatures": [
+      "0"
+    ],
+    "fan_min_speed": [
+      "0"
+    ],
+    "fan_max_speed": [
+      "0"
+    ],
+    "overhang_fan_speed": [
+      "70"
+    ],
+    "overhang_fan_threshold": [
+      "50%"
+    ],
+    "additional_cooling_fan_speed": [
+      "0"
+    ],
+    "filament_map": [
+      "1"
+    ],
+    "filament_colour": [
+      "#161616"
+    ]
+  },
+  "cooling_recovery": {
+    "added_commanded_motion_seconds": 11148.618297455789,
+    "archive_sha256": "d6e77217811fd4dd4febfe647b2cdd79cb8ae1d8504d81e59c98d3120bda3e5b",
+    "changed": true,
+    "estimate_scope": "Native estimate plus the added constant-feed motion time; acceleration and fan spin-up are not simulated.",
+    "input_archive_sha256": "3bab8cd8fafbf5c89ad3705db2fe930ec5edbf48e737c12b85cbc791f83be535",
+    "members": [
+      {
+        "added_commanded_motion_seconds": 11148.618297455789,
+        "changed": true,
+        "input_gcode_sha256": "b8ef3ab1f4236721ad66516c0cd47f974d0072f73566a05078511b8e74734a87",
+        "member": "Metadata/plate_1.gcode",
+        "native_cooled_seed_moves": 18632,
+        "ordinary_model_moves": 4569898,
+        "output_gcode_sha256": "7b2a5185b62a48ebf09c94e663c09ca6db5146081e5044a477263403642fb203",
+        "petgf_slots": [
+          0
+        ],
+        "policy": {
+          "grid_mm": 0.2,
+          "height_mm": 0.8
+        },
+        "recovery_by_feature": {
+          "Bridge": [
+            955.0,
+            779.2381584084703,
+            0.0
+          ],
+          "Floating vertical shell": [
+            6577.0,
+            24819.930837442196,
+            865.2756628288779
+          ],
+          "Gap infill": [
+            36.0,
+            19.469505869078667,
+            0.6995915470320323
+          ],
+          "Inner wall": [
+            1768.0,
+            7375.19392864657,
+            251.17836307644768
+          ],
+          "Internal solid infill": [
+            28409.0,
+            269576.9158369209,
+            9451.2862567425
+          ],
+          "Outer wall": [
+            5650.0,
+            9934.936105510273,
+            183.09461264493433
+          ],
+          "Overhang wall": [
+            3.0,
+            9.78007363513132,
+            0.0
+          ],
+          "Sparse infill": [
+            12617.0,
+            11204.617477466945,
+            388.6514995375273
+          ],
+          "Top surface": [
+            117.0,
+            243.09907511573857,
+            8.432311077992724
+          ]
+        },
+        "recovery_fan_percent": [
+          "70"
+        ],
+        "recovery_moves": 56132,
+        "recovery_speed_limit_mm_s": [
+          "25",
+          "25",
+          "25"
+        ],
+        "scope": "The complete centerline lies in a recent native-cooled model footprint. Motion coordinates and extrusion words are retained; only local part cooling and recovery feed rates change.",
+        "speed_limited_moves": 53714
+      }
+    ]
+  },
+  "started_at_utc": "2026-11-08T14:48:46.789823+00:00",
+  "printer_task_id": "1420766203",
+  "accepted_state": "PREPARE",
+  "launch_record": "launch.json",
+  "standing_options_verified": {
+    "timelapse": "On",
+    "bed_leveling": "On",
+    "flow_dynamic_calibration": "Auto",
+    "nozzle_offset_calibration": "Auto"
+  },
+  "startup_spacing": {
+    "other_printer": "H2C",
+    "other_printer_job_id": "1420097198",
+    "other_printer_accepted_at_utc": "2026-11-08T11:05:42.703794+00:00",
+    "seconds_since_other_start": 13384.086029,
+    "prelaunch_status": "prelaunch-printers.json"
+  },
+  "confirmed_state": "RUNNING",
+  "confirmed_at_utc": "2026-11-08T14:49:21.021724+00:00",
+  "startup_status_record": "startup-printers.json",
+  "confirmed_print_error": 0,
+  "confirmed_hms": [],
+  "retained_recipe": "hardware/printed-parts/enclosure/trial-preparation/pieces.json",
+  "back_top_settings": {
+    "tree_support_branch_angle_deg": 10,
+    "support_object_xy_distance_mm": 0.5,
+    "raft_first_layer_expansion_mm": 2.0,
+    "scope": "Back-top recipe.",
+    "reason": "Keep the exterior trees beside the rear wall and clear of the protected cord passage."
+  }
+}

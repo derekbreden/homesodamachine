@@ -212,8 +212,12 @@
           "reason": "Native trees root outside the shell; the meter uses authored removable branches beside the plumbing."
         },
         "tree_support_branch_angle": {
-          "value": "30",
-          "reason": "Retain compact trunks outside the protected plumbing column."
+          "value": "10",
+          "reason": "Keep the exterior trees beside the rear wall and clear of the protected cord passage."
+        },
+        "support_object_xy_distance": {
+          "value": "0.5",
+          "reason": "Separate removable exterior trees from the C14 passage and its adjacent surfaces."
         },
         "raft_first_layer_expansion": {
           "value": "2",
