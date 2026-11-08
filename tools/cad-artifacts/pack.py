@@ -1097,21 +1097,7 @@ def objects_in_store(hashes) -> set:
 
 
 def upload_objects(root: Path, rels: list, solid_hashes: dict, known: set, sources=None) -> bool:
-    """Put each member the release does not already hold on it, one asset per member.
-
-    THE BUNDLE COSTS THE WHOLE TREE TO MOVE THREE MEMBERS. `build` tars and gzips 304 MB in 9.9
-    seconds however few solids moved, the upload carries all 65 MB of it, and the site downloads
-    the same 65 MB to extract what changed. One pointer file move measured on 2026-08-26 moved 3 of 124
-    members. These assets are the same bytes addressed one at a time, so a publish and an
-    adoption both cost what actually moved.
-
-    NAMED BY CONTENT, SO AN UNCHANGED MEMBER IS NOT RE-SENT AND A REVERTED ONE IS ALREADY THERE.
-    `known` is what `objects_on_release` found, so what is skipped is what is demonstrably up.
-    An asset the name already matches holds these bytes, the name being the hash.
-
-    THE BUNDLE IS STILL WRITTEN AND STILL UPLOADED. A container with no solids at all reads one
-    asset rather than 124, and a pointer file this does not finish is a pointer file the tarball still answers.
-    """
+    """Upload changed members by digest, using the release when the store cannot accept them."""
     import concurrent.futures as cf
     import tempfile
 
@@ -1419,6 +1405,9 @@ def _publish_held(grafted: set, staging: Path, viewer_only=False, members=None) 
             print(f"{len(pinned)} member(s) up on their own hash; {data['release']['asset']} stays behind for the reconciler")
             print(f"pointed at from {POINTERS.relative_to(_ROOT)}{_unproven(made)}")
             return 0
+        if viewer_only or members is not None:
+            print("  completed members remain unpublished; the current pointer stays")
+            return 1
         print("  not every object landed; cutting the bundle so this pointer file reads whole")
         known = objects_on_release(_ROOT)
     return cut_bundle(held, rels, now, sidecar_now,

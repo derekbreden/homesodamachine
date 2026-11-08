@@ -456,8 +456,12 @@ def program(crate: str, name: str) -> Path:
     manifest = workspace / "tools" / "hsm" / crate / "Cargo.toml"
     binary = workspace / "tools/hsm/target/release" / name
     receipt = workspace / ".cache/realized/compiled-programs" / crate / f"{name}.json"
+    compiler_variables = {"RUSTFLAGS", "RUSTDOCFLAGS", "RUSTC", "RUSTDOC", "RUSTC_WRAPPER",
+                          "RUSTC_WORKSPACE_WRAPPER", "RUSTC_BOOTSTRAP", "RUSTUP_HOME", "RUSTUP_TOOLCHAIN"}
+    runtime_variables = {"CARGO_TARGET_DIR", "CARGO_BUILD_JOBS", "CARGO_MAKEFLAGS",
+                         "CARGO_TERM_COLOR", "CARGO_TERM_PROGRESS_WHEN", "CARGO_TERM_VERBOSE"}
     recipe = {key: value for key, value in os.environ.items()
-              if key.startswith(("RUST", "CARGO_")) and key != "CARGO_TARGET_DIR"}
+              if key in compiler_variables or (key.startswith("CARGO_") and key not in runtime_variables)}
     # Matching source bytes reuse the executable without entering Cargo's compiler queue.
     def fingerprints(inputs):
         try:
