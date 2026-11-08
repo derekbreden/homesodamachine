@@ -1,5 +1,5 @@
 //! What every printed piece's files share, written from its plan in its own process: its solids,
-//! the STEP and fine model of a shown body, and the payload the page draws, cut from the STL the
+//! the fine model of a shown body, and the payload the page draws, cut from the STL the
 //! slicer reads.
 use crate::eval::evaluate;
 use crate::plan::{Graph, Shape};
@@ -8,7 +8,7 @@ use crate::sources::Sources;
 use crate::structure::Silhouette;
 use anyhow::{Context, Result, anyhow};
 use hsm_enclosure_numbers::Color;
-use hsm_kernel::{Body, Solid, model_bytes, step_bytes};
+use hsm_kernel::{Body, Solid, model_bytes};
 use serde_json::{Value, json};
 use sha2::{Digest, Sha256};
 use std::path::Path;
@@ -66,19 +66,16 @@ pub fn join_band(core: &manifold_csg::Manifold, band: &Solid) -> Result<manifold
     crate::ops::quantized(&joined)
 }
 
-/// The STEP and the fine model of a shown body; the model's bytes, which a fine-bound payload
-/// names.
+/// The fine model binds a shown body to the printed surface derived from its construction.
 pub fn shown(dir: &Path, name: &str, solid: &Solid, color: Color) -> Result<(Vec<u8>, Vec<u8>)> {
     let bodies = [Body {
         name,
         color: Some(color),
         solid,
     }];
-    let step = crate::cache::phase("STEP", || step_bytes(&bodies, name))?;
     let model = crate::cache::phase("fine model", || Ok(model_bytes(&bodies)))?;
-    keep(&dir.join(format!("{name}.step")), &step)?;
     keep(&dir.join(format!("{name}.step.npz")), &model)?;
-    Ok((step, model))
+    Ok((model.clone(), model))
 }
 
 /// The payload cut from a printed STL, naming the file `source` holds the bytes of.
@@ -111,5 +108,7 @@ pub fn payload(
             },
         )
     })?;
-    keep(&dir.join(format!("{name}.step.mesh")), &cut.payload)
+    let mut head=hsm_geometry::scene::pack(&cut.payload)?;
+    head["step_export"]=json!(false);
+    hsm_geometry::scene::persist(&dir.join(format!("{name}.step.mesh")),&head)
 }

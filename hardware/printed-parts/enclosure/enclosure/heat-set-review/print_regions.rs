@@ -268,7 +268,7 @@ fn main() -> Result<()> {
             row["applied_source_bounds_mm"] = json!(clipped);
         }
         let file = |suffix: &str| faucet::file_sha(&enc.join(format!("enclosure-{piece}{suffix}")));
-        artifacts.insert(piece.to_string(), json!({".step": file(".step")?, ".stl": file(".stl")?}));
+        artifacts.insert(piece.to_string(), json!({".step.npz": file(".step.npz")?, ".stl": file(".stl")?}));
     }
     let program = enc.join("heat-set-review/print_regions.rs");
     let mut sources = Map::new();

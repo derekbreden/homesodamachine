@@ -96,6 +96,8 @@ pub fn payload(path: impl AsRef<Path>) -> Result<Vec<Imported>> {
 /// The bodies of the STEP at `path`, through a payload cut from it.
 pub fn step(path: impl AsRef<Path>) -> Result<Vec<Imported>> {
     let path = path.as_ref();
+    let native=std::path::PathBuf::from(format!("{}.npz",path.display()));
+    if !path.is_file() && native.is_file() {return model(&native);}
     let name = name_of(path);
     let data = std::fs::read(path).with_context(|| format!("reading {name}"))?;
     let digest = format!("{:x}", Sha256::digest(&data));
@@ -275,6 +277,7 @@ pub fn body<'a>(bodies: &'a [Imported], name: &str) -> Result<&'a Solid> {
 
 /// The bodies of a payload's bytes, their faces read from the file `name`.
 pub fn bodies(bytes: &[u8], name: &str) -> Result<Vec<Imported>> {
+    if crate::scene::is_scene(bytes) {return bodies(&crate::scene::flatten(bytes)?,name);}
     let head = header(bytes)?;
     ensure!(head["v"] == 3, "{name} is payload version {}, not 3", head["v"]);
     let size = u32::from_le_bytes(bytes[..4].try_into()?) as usize;

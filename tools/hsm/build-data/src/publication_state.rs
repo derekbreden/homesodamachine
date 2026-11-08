@@ -8,8 +8,8 @@ use std::{
     path::Path,
 };
 
-const KEYS: [&str; 9] = [
-    "_", "release", "store", "bundle", "solids", "sidecars", "website", "moved", "made",
+const KEYS: [&str; 10] = [
+    "_", "release", "store", "bundle", "solids", "sidecars", "website", "mesh_assets", "moved", "made",
 ];
 const NOTE: &str = "The pointer file: main points at these bytes on the release, by hash. Written by tools/cad-artifacts/pack.py; web/scripts/fetch-cad-artifacts.mjs reads it at deploy.";
 type Pairs = Vec<(String, Value)>;
@@ -367,6 +367,7 @@ fn pointers(v: &Value) -> Result<Value> {
         ),
         ("solids".into(), v["hashes_order"].clone()),
         ("sidecars".into(), v["sidecar_order"].clone()),
+        ("mesh_assets".into(), v["held"]["mesh_assets"].clone()),
         (
             "moved".into(),
             object(&line_times(&v["held"], &v["hashes"], &v["stamp"])),
@@ -1161,6 +1162,41 @@ pub fn dispatch(v: &Value) -> Result<Option<Value>> {
                 v["level"].as_u64().unwrap_or(9) as u32,
             )?;
             Value::Null
+        }
+        "publication-gzip-many" => {
+            let rows=v["files"].as_array().context("compression files")?;
+            let level=v["level"].as_u64().unwrap_or(1) as u32;
+            let next=std::sync::atomic::AtomicUsize::new(0);
+            std::thread::scope(|scope| -> Result<()> {
+                let workers=(0..rows.len().min(2)).map(|_|scope.spawn(|| -> Result<()> {
+                    loop {
+                        let index=next.fetch_add(1,std::sync::atomic::Ordering::Relaxed);
+                        let Some(row)=rows.get(index) else {break;};
+                        let source=Path::new(row["source"].as_str().context("compression source")?);
+                        let output=Path::new(row["output"].as_str().context("compression output")?);
+                        if output.is_file(){continue;}
+                        fs::create_dir_all(output.parent().context("compression parent")?)?;
+                        let temp=output.with_extension(format!("{}.tmp",std::process::id()));
+                        archive::gzip(source,&temp,level)?;
+                        fs::rename(temp,output)?;
+                    }
+                    Ok(())
+                })).collect::<Vec<_>>();
+                for worker in workers {worker.join().map_err(|_|anyhow::anyhow!("compression worker failed"))??;}
+                Ok(())
+            })?;
+            Value::Null
+        }
+        "publication-freeze" => {
+            let directory=Path::new(text("directory")?);fs::create_dir_all(directory)?;
+            let mut out=Vec::new();
+            for (index,row) in v["files"].as_array().context("publication files")?.iter().enumerate() {
+                let source=Path::new(row["source"].as_str().context("publication source")?);
+                let target=directory.join(format!("{index}.data"));
+                fs::copy(source,&target)?;
+                out.push(json!({"relative":row["relative"],"source":target,"sha256":crate::payload::digest(&target)?}));
+            }
+            json!(out)
         }
         "publication-decompress" => json!(archive::decompress(
             &serde_json::from_value::<Vec<u8>>(v["bytes"].clone())?

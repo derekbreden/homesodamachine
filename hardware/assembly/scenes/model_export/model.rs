@@ -827,11 +827,10 @@ pub fn physical(spec: &Value, output: &Path) -> Result<Value> {
     let model = output.join(format!("{name}.step.npz"));
     let mesh = output.join(format!("{name}.step.mesh"));
     Ok(
-        json!({"files":files,"bodies":names,"model":model,"payload":mesh,"physical_step_sha256":src}),
+        json!({"files":files,"bodies":names,"model":model,"payload":mesh,"source_sha256":src}),
     )
 }
-/// The physical model `name` of `rows` in `output`: its fine archive, its STEP and the payload
-/// drawn from each stored entry's own presentation, or from its solid.
+/// The physical model retains its native archive and the stored entries' presentation surfaces.
 pub fn physical_rows(name: &str, rows: Vec<Ref>, output: &Path) -> Result<()> {
     export(name, rows, &mut Models::new(), None, None, None, output).map(drop)
 }
@@ -852,12 +851,14 @@ fn export(
         .collect();
     drop(rows);
     let mut fine = Model::open_file(&model, false)?;
-    let src = write_step_stream(&mut fine, &step, name)?;
+    let native_only = matches!(name, "enclosure" | "enclosure-assembly" | "installed-wiring");
+    let src = if native_only {stream_digest(&model, false)?} else {write_step_stream(&mut fine, &step, name)?};
     let mut shown = super::payload::placed_surfaces(&placed, &mut fine, sources)?;
     sources.clear();
     let names: Vec<_> = fine.names.iter().map(|name| json!({"name":name})).collect();
     drop(fine);
     shown.header["src"] = json!(src);
+    shown.header["step_export"] = json!(!native_only);
     if let Some(skins) = skins {
         shown.graft(skins)?;
     }
@@ -868,10 +869,10 @@ fn export(
     }
     bind_fresh(&model, &presentation, document)?;
     let mut files = vec![
-        super::output_name(&step, output),
         super::output_name(&model, output),
         super::output_name(&mesh, output),
     ];
+    if !native_only {files.push(super::output_name(&step, output));}
     if presentation != mesh {
         files.push(super::output_name(&presentation, output));
     }

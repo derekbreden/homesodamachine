@@ -14,6 +14,7 @@ use std::{
 pub fn geometry_version() -> String {
     let mut h = Sha256::new();
     h.update(include_str!("../../geometry/src/payload.rs"));
+    h.update(include_str!("../../geometry/src/scene.rs"));
     h.update(include_str!("../../geometry/src/queries.rs"));
     h.update(include_str!("../../geometry/src/lib.rs"));
     h.update(include_str!("../../geometry/Cargo.toml"));
@@ -82,14 +83,18 @@ impl Store {
                 }
             }
         }
-        let budget = before[2].checked_mul(12).context("scene budget overflow")?;
+        let bytes = fs::read(&path)?;
+        let budget = if hsm_geometry::scene::is_scene(&bytes) {
+            let (head,_)=hsm_geometry::scene::header(&bytes)?;
+            head["meshes"].as_array().into_iter().flatten().map(|row|row["bytes"].as_u64().unwrap_or(0)).sum::<u64>()
+                .checked_mul(3).context("scene budget overflow")?
+        } else {before[2].checked_mul(12).context("scene budget overflow")?};
         ensure!(
             budget <= self.budget,
             "scene needs an estimated {} MiB cache; daemon budget is {} MiB",
             budget / 1048576,
             self.budget / 1048576
         );
-        let bytes = fs::read(&path)?;
         ensure!(
             before == signature(&path)?,
             "payload changed while loading; retry the query"

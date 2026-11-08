@@ -102,6 +102,7 @@ genrule(
         "tools/hsm/geometry/src/lib.rs",
         "tools/hsm/geometry/src/payload.rs",
         "tools/hsm/geometry/src/queries.rs",
+        "tools/hsm/geometry/src/scene.rs",
         "tools/hsm/kernel/Cargo.toml",
         "tools/hsm/kernel/src/boolean.rs",
         "tools/hsm/kernel/src/build.rs",
@@ -330,6 +331,7 @@ genrule(
         "tools/hsm/carbonator-tube-numbers/Cargo.toml",
         "tools/hsm/carbonator-tube/Cargo.toml",
         ":out/cargo-config/tools/hsm/cargo-config.json",
+        "tools/hsm/geometry/src/scene.rs",
         "tools/hsm/kernel/Cargo.toml",
         "tools/hsm/kernel/src/boolean.rs",
         "tools/hsm/kernel/src/build.rs",
@@ -520,6 +522,7 @@ genrule(
         ":out/cargo-config/tools/hsm/cargo-config.json",
         "tools/hsm/endcap-circular-numbers/Cargo.toml",
         "tools/hsm/endcap-circular/Cargo.toml",
+        "tools/hsm/geometry/src/scene.rs",
         "tools/hsm/kernel/Cargo.toml",
         "tools/hsm/kernel/src/boolean.rs",
         "tools/hsm/kernel/src/build.rs",
@@ -756,6 +759,7 @@ genrule(
         "tools/hsm/geometry/src/lib.rs",
         "tools/hsm/geometry/src/payload.rs",
         "tools/hsm/geometry/src/queries.rs",
+        "tools/hsm/geometry/src/scene.rs",
         "tools/hsm/kernel/Cargo.toml",
         "tools/hsm/kernel/src/boolean.rs",
         "tools/hsm/kernel/src/build.rs",
@@ -1037,6 +1041,7 @@ genrule(
         "tools/hsm/geometry/src/lib.rs",
         "tools/hsm/geometry/src/payload.rs",
         "tools/hsm/geometry/src/queries.rs",
+        "tools/hsm/geometry/src/scene.rs",
         "tools/hsm/kernel/Cargo.toml",
         "tools/hsm/kernel/src/boolean.rs",
         "tools/hsm/kernel/src/build.rs",
@@ -1464,6 +1469,7 @@ genrule(
         ":out/cargo-config/tools/hsm/cargo-config.json",
         "tools/hsm/enclosure-interface/Cargo.toml",
         "tools/hsm/faucet-numbers/Cargo.toml",
+        "tools/hsm/geometry/src/scene.rs",
         "tools/hsm/kernel/Cargo.toml",
         "tools/hsm/kernel/src/boolean.rs",
         "tools/hsm/kernel/src/build.rs",
@@ -1694,6 +1700,7 @@ genrule(
         "hardware/printed-parts/faucet/numbers/stack.rs",
         ":out/cargo-config/tools/hsm/cargo-config.json",
         "tools/hsm/faucet-numbers/Cargo.toml",
+        "tools/hsm/geometry/src/scene.rs",
         "tools/hsm/kernel/Cargo.toml",
         "tools/hsm/kernel/src/boolean.rs",
         "tools/hsm/kernel/src/build.rs",
@@ -2034,6 +2041,7 @@ genrule(
         "tools/hsm/geometry/src/lib.rs",
         "tools/hsm/geometry/src/payload.rs",
         "tools/hsm/geometry/src/queries.rs",
+        "tools/hsm/geometry/src/scene.rs",
         "tools/hsm/kernel/Cargo.toml",
         "tools/hsm/kernel/src/boolean.rs",
         "tools/hsm/kernel/src/build.rs",
@@ -2332,6 +2340,7 @@ genrule(
         "tools/hsm/documents/src/interop/standard.rs",
         "tools/hsm/documents/src/lib.rs",
         "tools/hsm/documents/src/python_checked.rs",
+        "tools/hsm/geometry/src/scene.rs",
         "tools/hsm/kernel/Cargo.toml",
         "tools/hsm/kernel/src/boolean.rs",
         "tools/hsm/kernel/src/build.rs",
@@ -2539,6 +2548,7 @@ genrule(
         "tools/hsm/documents/src/interop/standard.rs",
         "tools/hsm/documents/src/lib.rs",
         "tools/hsm/documents/src/python_checked.rs",
+        "tools/hsm/geometry/src/scene.rs",
         "tools/hsm/kernel/Cargo.toml",
         "tools/hsm/kernel/src/boolean.rs",
         "tools/hsm/kernel/src/build.rs",
@@ -2827,6 +2837,7 @@ genrule(
         "tools/hsm/geometry/src/lib.rs",
         "tools/hsm/geometry/src/payload.rs",
         "tools/hsm/geometry/src/queries.rs",
+        "tools/hsm/geometry/src/scene.rs",
         "tools/hsm/installed-machine/Cargo.toml",
         "tools/hsm/kernel/Cargo.toml",
         "tools/hsm/kernel/src/boolean.rs",
@@ -3169,19 +3180,18 @@ genrule(
         "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/libcxx-extras.cpp",
     ],
     outs = [
-        "out/installed-machine/hardware/assembly/scenes/glb/back-half.glb",
-        "out/installed-machine/hardware/assembly/scenes/glb/back-top.glb",
-        "out/installed-machine/hardware/assembly/scenes/glb/cap-lid-fill.glb",
-        "out/installed-machine/hardware/assembly/scenes/glb/cap-lid.glb",
-        "out/installed-machine/hardware/assembly/scenes/glb/cold-core-open.glb",
-        "out/installed-machine/hardware/assembly/scenes/glb/cold-core.glb",
-        "out/installed-machine/hardware/assembly/scenes/glb/en04-compressor-bay.glb",
-        "out/installed-machine/hardware/assembly/scenes/glb/en07-electronics-bay.glb",
-        "out/installed-machine/hardware/assembly/scenes/glb/front-top.glb",
-        "out/installed-machine/hardware/assembly/scenes/glb/funnel-drain.glb",
-        "out/installed-machine/hardware/assembly/scenes/glb/pump-mount.glb",
+        "out/installed-machine/hardware/assembly/scenes/glb/back-half.glb.mesh",
+        "out/installed-machine/hardware/assembly/scenes/glb/back-top.glb.mesh",
+        "out/installed-machine/hardware/assembly/scenes/glb/cap-lid-fill.glb.mesh",
+        "out/installed-machine/hardware/assembly/scenes/glb/cap-lid.glb.mesh",
+        "out/installed-machine/hardware/assembly/scenes/glb/cold-core-open.glb.mesh",
+        "out/installed-machine/hardware/assembly/scenes/glb/cold-core.glb.mesh",
+        "out/installed-machine/hardware/assembly/scenes/glb/en04-compressor-bay.glb.mesh",
+        "out/installed-machine/hardware/assembly/scenes/glb/en07-electronics-bay.glb.mesh",
+        "out/installed-machine/hardware/assembly/scenes/glb/front-top.glb.mesh",
+        "out/installed-machine/hardware/assembly/scenes/glb/funnel-drain.glb.mesh",
+        "out/installed-machine/hardware/assembly/scenes/glb/pump-mount.glb.mesh",
         "out/installed-machine/hardware/manifold-layout/enclosure-assembly.facts.json",
-        "out/installed-machine/hardware/manifold-layout/enclosure-assembly.step",
         "out/installed-machine/hardware/manifold-layout/enclosure-assembly.step.mesh",
     ],
     cmd = """
@@ -3211,20 +3221,19 @@ for r in "$$(awk -F'"' '$$2 == "runner" {print $$4}' ~/.local/lib/hsm/runtime.js
   if [ -x "$$r" ] && "$$r" --runtime-info "$$HSM_WORKSPACE" 2>/dev/null | grep -q '"source_match":true'; then hsm_run=$$r; break; fi
 done
 if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run.py" >&2; exit 1; fi
-O0=$$PWD/$(location out/installed-machine/hardware/assembly/scenes/glb/back-half.glb)
-O1=$$PWD/$(location out/installed-machine/hardware/assembly/scenes/glb/back-top.glb)
-O2=$$PWD/$(location out/installed-machine/hardware/assembly/scenes/glb/cap-lid-fill.glb)
-O3=$$PWD/$(location out/installed-machine/hardware/assembly/scenes/glb/cap-lid.glb)
-O4=$$PWD/$(location out/installed-machine/hardware/assembly/scenes/glb/cold-core-open.glb)
-O5=$$PWD/$(location out/installed-machine/hardware/assembly/scenes/glb/cold-core.glb)
-O6=$$PWD/$(location out/installed-machine/hardware/assembly/scenes/glb/en04-compressor-bay.glb)
-O7=$$PWD/$(location out/installed-machine/hardware/assembly/scenes/glb/en07-electronics-bay.glb)
-O8=$$PWD/$(location out/installed-machine/hardware/assembly/scenes/glb/front-top.glb)
-O9=$$PWD/$(location out/installed-machine/hardware/assembly/scenes/glb/funnel-drain.glb)
-O10=$$PWD/$(location out/installed-machine/hardware/assembly/scenes/glb/pump-mount.glb)
+O0=$$PWD/$(location out/installed-machine/hardware/assembly/scenes/glb/back-half.glb.mesh)
+O1=$$PWD/$(location out/installed-machine/hardware/assembly/scenes/glb/back-top.glb.mesh)
+O2=$$PWD/$(location out/installed-machine/hardware/assembly/scenes/glb/cap-lid-fill.glb.mesh)
+O3=$$PWD/$(location out/installed-machine/hardware/assembly/scenes/glb/cap-lid.glb.mesh)
+O4=$$PWD/$(location out/installed-machine/hardware/assembly/scenes/glb/cold-core-open.glb.mesh)
+O5=$$PWD/$(location out/installed-machine/hardware/assembly/scenes/glb/cold-core.glb.mesh)
+O6=$$PWD/$(location out/installed-machine/hardware/assembly/scenes/glb/en04-compressor-bay.glb.mesh)
+O7=$$PWD/$(location out/installed-machine/hardware/assembly/scenes/glb/en07-electronics-bay.glb.mesh)
+O8=$$PWD/$(location out/installed-machine/hardware/assembly/scenes/glb/front-top.glb.mesh)
+O9=$$PWD/$(location out/installed-machine/hardware/assembly/scenes/glb/funnel-drain.glb.mesh)
+O10=$$PWD/$(location out/installed-machine/hardware/assembly/scenes/glb/pump-mount.glb.mesh)
 O11=$$PWD/$(location out/installed-machine/hardware/manifold-layout/enclosure-assembly.facts.json)
-O12=$$PWD/$(location out/installed-machine/hardware/manifold-layout/enclosure-assembly.step)
-O13=$$PWD/$(location out/installed-machine/hardware/manifold-layout/enclosure-assembly.step.mesh)
+O12=$$PWD/$(location out/installed-machine/hardware/manifold-layout/enclosure-assembly.step.mesh)
 rm -rf work
 for f in $(SRCS); do
   case $$f in
@@ -3235,20 +3244,19 @@ for f in $(SRCS); do
 done
 cd work
 "$$hsm_run" -- ./installed-machine > /dev/null
-copy_file hardware/assembly/scenes/glb/back-half.glb "$$O0"
-copy_file hardware/assembly/scenes/glb/back-top.glb "$$O1"
-copy_file hardware/assembly/scenes/glb/cap-lid-fill.glb "$$O2"
-copy_file hardware/assembly/scenes/glb/cap-lid.glb "$$O3"
-copy_file hardware/assembly/scenes/glb/cold-core-open.glb "$$O4"
-copy_file hardware/assembly/scenes/glb/cold-core.glb "$$O5"
-copy_file hardware/assembly/scenes/glb/en04-compressor-bay.glb "$$O6"
-copy_file hardware/assembly/scenes/glb/en07-electronics-bay.glb "$$O7"
-copy_file hardware/assembly/scenes/glb/front-top.glb "$$O8"
-copy_file hardware/assembly/scenes/glb/funnel-drain.glb "$$O9"
-copy_file hardware/assembly/scenes/glb/pump-mount.glb "$$O10"
+copy_file hardware/assembly/scenes/glb/back-half.glb.mesh "$$O0"
+copy_file hardware/assembly/scenes/glb/back-top.glb.mesh "$$O1"
+copy_file hardware/assembly/scenes/glb/cap-lid-fill.glb.mesh "$$O2"
+copy_file hardware/assembly/scenes/glb/cap-lid.glb.mesh "$$O3"
+copy_file hardware/assembly/scenes/glb/cold-core-open.glb.mesh "$$O4"
+copy_file hardware/assembly/scenes/glb/cold-core.glb.mesh "$$O5"
+copy_file hardware/assembly/scenes/glb/en04-compressor-bay.glb.mesh "$$O6"
+copy_file hardware/assembly/scenes/glb/en07-electronics-bay.glb.mesh "$$O7"
+copy_file hardware/assembly/scenes/glb/front-top.glb.mesh "$$O8"
+copy_file hardware/assembly/scenes/glb/funnel-drain.glb.mesh "$$O9"
+copy_file hardware/assembly/scenes/glb/pump-mount.glb.mesh "$$O10"
 copy_file hardware/manifold-layout/enclosure-assembly.facts.json "$$O11"
-copy_file hardware/manifold-layout/enclosure-assembly.step "$$O12"
-copy_file hardware/manifold-layout/enclosure-assembly.step.mesh "$$O13"
+copy_file hardware/manifold-layout/enclosure-assembly.step.mesh "$$O12"
 """,
 )
 
@@ -3269,6 +3277,7 @@ genrule(
         "tools/hsm/geometry/src/lib.rs",
         "tools/hsm/geometry/src/payload.rs",
         "tools/hsm/geometry/src/queries.rs",
+        "tools/hsm/geometry/src/scene.rs",
         "tools/hsm/kernel/Cargo.toml",
         "tools/hsm/kernel/src/boolean.rs",
         "tools/hsm/kernel/src/build.rs",
@@ -3477,6 +3486,7 @@ genrule(
         ":out/cargo-config/tools/hsm/cargo-config.json",
         "tools/hsm/catalog/Cargo.toml",
         "tools/hsm/catalog/src/lib.rs",
+        "tools/hsm/geometry/src/scene.rs",
         "tools/hsm/kernel/Cargo.toml",
         "tools/hsm/kernel/src/boolean.rs",
         "tools/hsm/kernel/src/build.rs",
@@ -3670,6 +3680,7 @@ genrule(
         ":out/cargo-config/tools/hsm/cargo-config.json",
         "tools/hsm/catalog/Cargo.toml",
         "tools/hsm/catalog/src/lib.rs",
+        "tools/hsm/geometry/src/scene.rs",
         "tools/hsm/kernel/Cargo.toml",
         "tools/hsm/kernel/src/boolean.rs",
         "tools/hsm/kernel/src/build.rs",
@@ -3885,6 +3896,7 @@ genrule(
         "tools/hsm/cold-core-catalog/Cargo.toml",
         "tools/hsm/cold-core-interface/Cargo.toml",
         "tools/hsm/endcap-circular-numbers/Cargo.toml",
+        "tools/hsm/geometry/src/scene.rs",
         "tools/hsm/kernel/Cargo.toml",
         "tools/hsm/kernel/src/boolean.rs",
         "tools/hsm/kernel/src/build.rs",
@@ -4137,6 +4149,7 @@ genrule(
         "tools/hsm/foam-assembly-numbers/Cargo.toml",
         "tools/hsm/foam-cap-numbers/Cargo.toml",
         "tools/hsm/foam-shell-numbers/Cargo.toml",
+        "tools/hsm/geometry/src/scene.rs",
         "tools/hsm/kernel/Cargo.toml",
         "tools/hsm/kernel/src/boolean.rs",
         "tools/hsm/kernel/src/build.rs",
@@ -4395,6 +4408,7 @@ genrule(
         "tools/hsm/geometry/src/lib.rs",
         "tools/hsm/geometry/src/payload.rs",
         "tools/hsm/geometry/src/queries.rs",
+        "tools/hsm/geometry/src/scene.rs",
         "tools/hsm/kernel/Cargo.toml",
         "tools/hsm/kernel/src/boolean.rs",
         "tools/hsm/kernel/src/build.rs",
@@ -4657,6 +4671,7 @@ genrule(
         "tools/hsm/geometry/src/lib.rs",
         "tools/hsm/geometry/src/payload.rs",
         "tools/hsm/geometry/src/queries.rs",
+        "tools/hsm/geometry/src/scene.rs",
         "tools/hsm/kernel/Cargo.toml",
         "tools/hsm/kernel/src/boolean.rs",
         "tools/hsm/kernel/src/build.rs",
@@ -4865,6 +4880,7 @@ genrule(
         ":out/cargo-config/tools/hsm/cargo-config.json",
         "tools/hsm/cold-core-catalog/Cargo.toml",
         "tools/hsm/cold-core-interface/Cargo.toml",
+        "tools/hsm/geometry/src/scene.rs",
         "tools/hsm/kernel/Cargo.toml",
         "tools/hsm/kernel/src/boolean.rs",
         "tools/hsm/kernel/src/build.rs",
@@ -5074,6 +5090,7 @@ genrule(
         ":out/cargo-config/tools/hsm/cargo-config.json",
         "tools/hsm/cold-core-catalog/Cargo.toml",
         "tools/hsm/cold-core-interface/Cargo.toml",
+        "tools/hsm/geometry/src/scene.rs",
         "tools/hsm/kernel/Cargo.toml",
         "tools/hsm/kernel/src/boolean.rs",
         "tools/hsm/kernel/src/build.rs",
@@ -5290,6 +5307,7 @@ genrule(
         ":out/cargo-config/tools/hsm/cargo-config.json",
         "tools/hsm/cold-core-catalog/Cargo.toml",
         "tools/hsm/cold-core-interface/Cargo.toml",
+        "tools/hsm/geometry/src/scene.rs",
         "tools/hsm/kernel/Cargo.toml",
         "tools/hsm/kernel/src/boolean.rs",
         "tools/hsm/kernel/src/build.rs",
@@ -5491,6 +5509,7 @@ genrule(
         "tools/hsm/cold-core-catalog/Cargo.toml",
         "tools/hsm/cold-core-interface/Cargo.toml",
         "tools/hsm/endcap-circular-numbers/Cargo.toml",
+        "tools/hsm/geometry/src/scene.rs",
         "tools/hsm/kernel/Cargo.toml",
         "tools/hsm/kernel/src/boolean.rs",
         "tools/hsm/kernel/src/build.rs",
@@ -5707,6 +5726,7 @@ genrule(
         "tools/hsm/geometry/src/lib.rs",
         "tools/hsm/geometry/src/payload.rs",
         "tools/hsm/geometry/src/queries.rs",
+        "tools/hsm/geometry/src/scene.rs",
         "tools/hsm/kernel/Cargo.toml",
         "tools/hsm/kernel/src/boolean.rs",
         "tools/hsm/kernel/src/build.rs",
@@ -5979,6 +5999,7 @@ genrule(
         "tools/hsm/catalog/src/lib.rs",
         "tools/hsm/collet-press-numbers/Cargo.toml",
         "tools/hsm/collet-press/Cargo.toml",
+        "tools/hsm/geometry/src/scene.rs",
         "tools/hsm/kernel/Cargo.toml",
         "tools/hsm/kernel/src/boolean.rs",
         "tools/hsm/kernel/src/build.rs",
@@ -6172,6 +6193,7 @@ genrule(
         "tools/hsm/catalog/src/lib.rs",
         "tools/hsm/diaphragm-pump-sleeve-numbers/Cargo.toml",
         "tools/hsm/diaphragm-pump-sleeve/Cargo.toml",
+        "tools/hsm/geometry/src/scene.rs",
         "tools/hsm/kernel/Cargo.toml",
         "tools/hsm/kernel/src/boolean.rs",
         "tools/hsm/kernel/src/build.rs",
@@ -6363,6 +6385,7 @@ genrule(
         ":out/cargo-config/tools/hsm/cargo-config.json",
         "tools/hsm/catalog/Cargo.toml",
         "tools/hsm/catalog/src/lib.rs",
+        "tools/hsm/geometry/src/scene.rs",
         "tools/hsm/kernel/Cargo.toml",
         "tools/hsm/kernel/src/boolean.rs",
         "tools/hsm/kernel/src/build.rs",
@@ -6587,6 +6610,7 @@ genrule(
         "tools/hsm/enclosure-components/src/lib.rs",
         "tools/hsm/enclosure-interface/Cargo.toml",
         "tools/hsm/enclosure-numbers/Cargo.toml",
+        "tools/hsm/geometry/src/scene.rs",
         "tools/hsm/kernel/Cargo.toml",
         "tools/hsm/kernel/src/boolean.rs",
         "tools/hsm/kernel/src/build.rs",
@@ -6853,6 +6877,7 @@ genrule(
         "tools/hsm/enclosure-components/src/lib.rs",
         "tools/hsm/enclosure-interface/Cargo.toml",
         "tools/hsm/enclosure-numbers/Cargo.toml",
+        "tools/hsm/geometry/src/scene.rs",
         "tools/hsm/kernel/Cargo.toml",
         "tools/hsm/kernel/src/boolean.rs",
         "tools/hsm/kernel/src/build.rs",
@@ -7081,6 +7106,7 @@ genrule(
         "tools/hsm/geometry/src/lib.rs",
         "tools/hsm/geometry/src/payload.rs",
         "tools/hsm/geometry/src/queries.rs",
+        "tools/hsm/geometry/src/scene.rs",
         "tools/hsm/kernel/Cargo.toml",
         "tools/hsm/kernel/src/boolean.rs",
         "tools/hsm/kernel/src/build.rs",
@@ -7229,7 +7255,6 @@ genrule(
         "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/libcxx-extras.cpp",
     ],
     outs = [
-        "out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure.step",
         "out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure.step.mesh",
         "out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure.step.npz",
     ],
@@ -7260,9 +7285,8 @@ for r in "$$(awk -F'"' '$$2 == "runner" {print $$4}' ~/.local/lib/hsm/runtime.js
   if [ -x "$$r" ] && "$$r" --runtime-info "$$HSM_WORKSPACE" 2>/dev/null | grep -q '"source_match":true'; then hsm_run=$$r; break; fi
 done
 if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run.py" >&2; exit 1; fi
-O0=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure.step)
-O1=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure.step.mesh)
-O2=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure.step.npz)
+O0=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure.step.mesh)
+O1=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure.step.npz)
 rm -rf work
 for f in $(SRCS); do
   case $$f in
@@ -7273,9 +7297,8 @@ for f in $(SRCS); do
 done
 cd work
 "$$hsm_run" -- ./enclosure > /dev/null
-copy_file hardware/printed-parts/enclosure/enclosure/enclosure.step "$$O0"
-copy_file hardware/printed-parts/enclosure/enclosure/enclosure.step.mesh "$$O1"
-copy_file hardware/printed-parts/enclosure/enclosure/enclosure.step.npz "$$O2"
+copy_file hardware/printed-parts/enclosure/enclosure/enclosure.step.mesh "$$O0"
+copy_file hardware/printed-parts/enclosure/enclosure/enclosure.step.npz "$$O1"
 """,
 )
 
@@ -7352,6 +7375,7 @@ genrule(
         "tools/hsm/geometry/src/lib.rs",
         "tools/hsm/geometry/src/payload.rs",
         "tools/hsm/geometry/src/queries.rs",
+        "tools/hsm/geometry/src/scene.rs",
         "tools/hsm/kernel/Cargo.toml",
         "tools/hsm/kernel/src/bin/route-preview.rs",
         "tools/hsm/kernel/src/boolean.rs",
@@ -7493,7 +7517,6 @@ genrule(
         "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/libcxx-extras.cpp",
     ],
     outs = [
-        "out/enclosure-back-bottom/hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step",
         "out/enclosure-back-bottom/hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step.mesh",
         "out/enclosure-back-bottom/hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step.npz",
         "out/enclosure-back-bottom/hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.stl",
@@ -7525,10 +7548,9 @@ for r in "$$(awk -F'"' '$$2 == "runner" {print $$4}' ~/.local/lib/hsm/runtime.js
   if [ -x "$$r" ] && "$$r" --runtime-info "$$HSM_WORKSPACE" 2>/dev/null | grep -q '"source_match":true'; then hsm_run=$$r; break; fi
 done
 if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run.py" >&2; exit 1; fi
-O0=$$PWD/$(location out/enclosure-back-bottom/hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step)
-O1=$$PWD/$(location out/enclosure-back-bottom/hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step.mesh)
-O2=$$PWD/$(location out/enclosure-back-bottom/hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step.npz)
-O3=$$PWD/$(location out/enclosure-back-bottom/hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.stl)
+O0=$$PWD/$(location out/enclosure-back-bottom/hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step.mesh)
+O1=$$PWD/$(location out/enclosure-back-bottom/hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step.npz)
+O2=$$PWD/$(location out/enclosure-back-bottom/hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.stl)
 rm -rf work
 for f in $(SRCS); do
   case $$f in
@@ -7539,10 +7561,9 @@ for f in $(SRCS); do
 done
 cd work
 "$$hsm_run" -- ./enclosure-back-bottom > /dev/null
-copy_file hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step "$$O0"
-copy_file hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step.mesh "$$O1"
-copy_file hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step.npz "$$O2"
-copy_file hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.stl "$$O3"
+copy_file hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step.mesh "$$O0"
+copy_file hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step.npz "$$O1"
+copy_file hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.stl "$$O2"
 """,
 )
 
@@ -7623,6 +7644,7 @@ genrule(
         "tools/hsm/geometry/src/lib.rs",
         "tools/hsm/geometry/src/payload.rs",
         "tools/hsm/geometry/src/queries.rs",
+        "tools/hsm/geometry/src/scene.rs",
         "tools/hsm/kernel/Cargo.toml",
         "tools/hsm/kernel/src/bin/route-preview.rs",
         "tools/hsm/kernel/src/boolean.rs",
@@ -7768,7 +7790,6 @@ genrule(
     ],
     outs = [
         "out/enclosure-back-top/hardware/printed-parts/enclosure/enclosure/enclosure-back-top.print-features.json",
-        "out/enclosure-back-top/hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step",
         "out/enclosure-back-top/hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step.mesh",
         "out/enclosure-back-top/hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step.npz",
         "out/enclosure-back-top/hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl",
@@ -7801,10 +7822,9 @@ for r in "$$(awk -F'"' '$$2 == "runner" {print $$4}' ~/.local/lib/hsm/runtime.js
 done
 if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run.py" >&2; exit 1; fi
 O0=$$PWD/$(location out/enclosure-back-top/hardware/printed-parts/enclosure/enclosure/enclosure-back-top.print-features.json)
-O1=$$PWD/$(location out/enclosure-back-top/hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step)
-O2=$$PWD/$(location out/enclosure-back-top/hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step.mesh)
-O3=$$PWD/$(location out/enclosure-back-top/hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step.npz)
-O4=$$PWD/$(location out/enclosure-back-top/hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl)
+O1=$$PWD/$(location out/enclosure-back-top/hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step.mesh)
+O2=$$PWD/$(location out/enclosure-back-top/hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step.npz)
+O3=$$PWD/$(location out/enclosure-back-top/hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl)
 rm -rf work
 for f in $(SRCS); do
   case $$f in
@@ -7816,10 +7836,9 @@ done
 cd work
 "$$hsm_run" -- ./enclosure-back-top > /dev/null
 copy_file hardware/printed-parts/enclosure/enclosure/enclosure-back-top.print-features.json "$$O0"
-copy_file hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step "$$O1"
-copy_file hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step.mesh "$$O2"
-copy_file hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step.npz "$$O3"
-copy_file hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl "$$O4"
+copy_file hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step.mesh "$$O1"
+copy_file hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step.npz "$$O2"
+copy_file hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl "$$O3"
 """,
 )
 
@@ -7900,6 +7919,7 @@ genrule(
         "tools/hsm/geometry/src/lib.rs",
         "tools/hsm/geometry/src/payload.rs",
         "tools/hsm/geometry/src/queries.rs",
+        "tools/hsm/geometry/src/scene.rs",
         "tools/hsm/kernel/Cargo.toml",
         "tools/hsm/kernel/src/bin/route-preview.rs",
         "tools/hsm/kernel/src/boolean.rs",
@@ -8041,7 +8061,6 @@ genrule(
         "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/libcxx-extras.cpp",
     ],
     outs = [
-        "out/enclosure-front-bottom/hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step",
         "out/enclosure-front-bottom/hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step.mesh",
         "out/enclosure-front-bottom/hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step.npz",
         "out/enclosure-front-bottom/hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.stl",
@@ -8073,10 +8092,9 @@ for r in "$$(awk -F'"' '$$2 == "runner" {print $$4}' ~/.local/lib/hsm/runtime.js
   if [ -x "$$r" ] && "$$r" --runtime-info "$$HSM_WORKSPACE" 2>/dev/null | grep -q '"source_match":true'; then hsm_run=$$r; break; fi
 done
 if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run.py" >&2; exit 1; fi
-O0=$$PWD/$(location out/enclosure-front-bottom/hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step)
-O1=$$PWD/$(location out/enclosure-front-bottom/hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step.mesh)
-O2=$$PWD/$(location out/enclosure-front-bottom/hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step.npz)
-O3=$$PWD/$(location out/enclosure-front-bottom/hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.stl)
+O0=$$PWD/$(location out/enclosure-front-bottom/hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step.mesh)
+O1=$$PWD/$(location out/enclosure-front-bottom/hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step.npz)
+O2=$$PWD/$(location out/enclosure-front-bottom/hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.stl)
 rm -rf work
 for f in $(SRCS); do
   case $$f in
@@ -8087,10 +8105,9 @@ for f in $(SRCS); do
 done
 cd work
 "$$hsm_run" -- ./enclosure-front-bottom > /dev/null
-copy_file hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step "$$O0"
-copy_file hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step.mesh "$$O1"
-copy_file hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step.npz "$$O2"
-copy_file hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.stl "$$O3"
+copy_file hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step.mesh "$$O0"
+copy_file hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step.npz "$$O1"
+copy_file hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.stl "$$O2"
 """,
 )
 
@@ -8176,6 +8193,7 @@ genrule(
         "tools/hsm/geometry/src/lib.rs",
         "tools/hsm/geometry/src/payload.rs",
         "tools/hsm/geometry/src/queries.rs",
+        "tools/hsm/geometry/src/scene.rs",
         "tools/hsm/kernel/Cargo.toml",
         "tools/hsm/kernel/src/bin/route-preview.rs",
         "tools/hsm/kernel/src/boolean.rs",
@@ -8319,7 +8337,6 @@ genrule(
         "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/libcxx-extras.cpp",
     ],
     outs = [
-        "out/enclosure-front-top/hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step",
         "out/enclosure-front-top/hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step.mesh",
         "out/enclosure-front-top/hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step.npz",
         "out/enclosure-front-top/hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl",
@@ -8352,11 +8369,10 @@ for r in "$$(awk -F'"' '$$2 == "runner" {print $$4}' ~/.local/lib/hsm/runtime.js
   if [ -x "$$r" ] && "$$r" --runtime-info "$$HSM_WORKSPACE" 2>/dev/null | grep -q '"source_match":true'; then hsm_run=$$r; break; fi
 done
 if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run.py" >&2; exit 1; fi
-O0=$$PWD/$(location out/enclosure-front-top/hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step)
-O1=$$PWD/$(location out/enclosure-front-top/hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step.mesh)
-O2=$$PWD/$(location out/enclosure-front-top/hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step.npz)
-O3=$$PWD/$(location out/enclosure-front-top/hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl)
-O4=$$PWD/$(location out/enclosure-front-top/hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl.sources.json)
+O0=$$PWD/$(location out/enclosure-front-top/hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step.mesh)
+O1=$$PWD/$(location out/enclosure-front-top/hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step.npz)
+O2=$$PWD/$(location out/enclosure-front-top/hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl)
+O3=$$PWD/$(location out/enclosure-front-top/hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl.sources.json)
 rm -rf work
 for f in $(SRCS); do
   case $$f in
@@ -8367,11 +8383,10 @@ for f in $(SRCS); do
 done
 cd work
 "$$hsm_run" -- ./enclosure-front-top > /dev/null
-copy_file hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step "$$O0"
-copy_file hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step.mesh "$$O1"
-copy_file hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step.npz "$$O2"
-copy_file hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl "$$O3"
-copy_file hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl.sources.json "$$O4"
+copy_file hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step.mesh "$$O0"
+copy_file hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step.npz "$$O1"
+copy_file hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl "$$O2"
+copy_file hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl.sources.json "$$O3"
 """,
 )
 
@@ -8422,6 +8437,7 @@ genrule(
         "tools/hsm/geometry/src/lib.rs",
         "tools/hsm/geometry/src/payload.rs",
         "tools/hsm/geometry/src/queries.rs",
+        "tools/hsm/geometry/src/scene.rs",
         "tools/hsm/kernel/Cargo.toml",
         "tools/hsm/kernel/src/boolean.rs",
         "tools/hsm/kernel/src/build.rs",
@@ -8558,10 +8574,8 @@ genrule(
         "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/libcxx-extras.cpp",
     ],
     outs = [
-        "out/enclosure-pump-retainer/hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer-seated.step",
         "out/enclosure-pump-retainer/hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer-seated.step.mesh",
         "out/enclosure-pump-retainer/hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer-seated.step.npz",
-        "out/enclosure-pump-retainer/hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.step",
         "out/enclosure-pump-retainer/hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.step.mesh",
         "out/enclosure-pump-retainer/hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.step.npz",
         "out/enclosure-pump-retainer/hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.stl",
@@ -8593,13 +8607,11 @@ for r in "$$(awk -F'"' '$$2 == "runner" {print $$4}' ~/.local/lib/hsm/runtime.js
   if [ -x "$$r" ] && "$$r" --runtime-info "$$HSM_WORKSPACE" 2>/dev/null | grep -q '"source_match":true'; then hsm_run=$$r; break; fi
 done
 if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run.py" >&2; exit 1; fi
-O0=$$PWD/$(location out/enclosure-pump-retainer/hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer-seated.step)
-O1=$$PWD/$(location out/enclosure-pump-retainer/hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer-seated.step.mesh)
-O2=$$PWD/$(location out/enclosure-pump-retainer/hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer-seated.step.npz)
-O3=$$PWD/$(location out/enclosure-pump-retainer/hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.step)
-O4=$$PWD/$(location out/enclosure-pump-retainer/hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.step.mesh)
-O5=$$PWD/$(location out/enclosure-pump-retainer/hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.step.npz)
-O6=$$PWD/$(location out/enclosure-pump-retainer/hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.stl)
+O0=$$PWD/$(location out/enclosure-pump-retainer/hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer-seated.step.mesh)
+O1=$$PWD/$(location out/enclosure-pump-retainer/hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer-seated.step.npz)
+O2=$$PWD/$(location out/enclosure-pump-retainer/hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.step.mesh)
+O3=$$PWD/$(location out/enclosure-pump-retainer/hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.step.npz)
+O4=$$PWD/$(location out/enclosure-pump-retainer/hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.stl)
 rm -rf work
 for f in $(SRCS); do
   case $$f in
@@ -8610,13 +8622,11 @@ for f in $(SRCS); do
 done
 cd work
 "$$hsm_run" -- ./enclosure-pump-retainer > /dev/null
-copy_file hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer-seated.step "$$O0"
-copy_file hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer-seated.step.mesh "$$O1"
-copy_file hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer-seated.step.npz "$$O2"
-copy_file hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.step "$$O3"
-copy_file hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.step.mesh "$$O4"
-copy_file hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.step.npz "$$O5"
-copy_file hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.stl "$$O6"
+copy_file hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer-seated.step.mesh "$$O0"
+copy_file hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer-seated.step.npz "$$O1"
+copy_file hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.step.mesh "$$O2"
+copy_file hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.step.npz "$$O3"
+copy_file hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.stl "$$O4"
 """,
 )
 
@@ -8668,6 +8678,7 @@ genrule(
         "tools/hsm/geometry/src/lib.rs",
         "tools/hsm/geometry/src/payload.rs",
         "tools/hsm/geometry/src/queries.rs",
+        "tools/hsm/geometry/src/scene.rs",
         "tools/hsm/kernel/Cargo.toml",
         "tools/hsm/kernel/src/boolean.rs",
         "tools/hsm/kernel/src/build.rs",
@@ -8806,7 +8817,6 @@ genrule(
         "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/libcxx-extras.cpp",
     ],
     outs = [
-        "out/enclosure-pump-tube-setting-jig/hardware/printed-parts/enclosure/enclosure/enclosure-pump-tube-setting-jig.step",
         "out/enclosure-pump-tube-setting-jig/hardware/printed-parts/enclosure/enclosure/enclosure-pump-tube-setting-jig.step.mesh",
         "out/enclosure-pump-tube-setting-jig/hardware/printed-parts/enclosure/enclosure/enclosure-pump-tube-setting-jig.step.npz",
         "out/enclosure-pump-tube-setting-jig/hardware/printed-parts/enclosure/enclosure/enclosure-pump-tube-setting-jig.stl",
@@ -8838,10 +8848,9 @@ for r in "$$(awk -F'"' '$$2 == "runner" {print $$4}' ~/.local/lib/hsm/runtime.js
   if [ -x "$$r" ] && "$$r" --runtime-info "$$HSM_WORKSPACE" 2>/dev/null | grep -q '"source_match":true'; then hsm_run=$$r; break; fi
 done
 if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run.py" >&2; exit 1; fi
-O0=$$PWD/$(location out/enclosure-pump-tube-setting-jig/hardware/printed-parts/enclosure/enclosure/enclosure-pump-tube-setting-jig.step)
-O1=$$PWD/$(location out/enclosure-pump-tube-setting-jig/hardware/printed-parts/enclosure/enclosure/enclosure-pump-tube-setting-jig.step.mesh)
-O2=$$PWD/$(location out/enclosure-pump-tube-setting-jig/hardware/printed-parts/enclosure/enclosure/enclosure-pump-tube-setting-jig.step.npz)
-O3=$$PWD/$(location out/enclosure-pump-tube-setting-jig/hardware/printed-parts/enclosure/enclosure/enclosure-pump-tube-setting-jig.stl)
+O0=$$PWD/$(location out/enclosure-pump-tube-setting-jig/hardware/printed-parts/enclosure/enclosure/enclosure-pump-tube-setting-jig.step.mesh)
+O1=$$PWD/$(location out/enclosure-pump-tube-setting-jig/hardware/printed-parts/enclosure/enclosure/enclosure-pump-tube-setting-jig.step.npz)
+O2=$$PWD/$(location out/enclosure-pump-tube-setting-jig/hardware/printed-parts/enclosure/enclosure/enclosure-pump-tube-setting-jig.stl)
 rm -rf work
 for f in $(SRCS); do
   case $$f in
@@ -8852,10 +8861,9 @@ for f in $(SRCS); do
 done
 cd work
 "$$hsm_run" -- ./enclosure-pump-tube-setting-jig > /dev/null
-copy_file hardware/printed-parts/enclosure/enclosure/enclosure-pump-tube-setting-jig.step "$$O0"
-copy_file hardware/printed-parts/enclosure/enclosure/enclosure-pump-tube-setting-jig.step.mesh "$$O1"
-copy_file hardware/printed-parts/enclosure/enclosure/enclosure-pump-tube-setting-jig.step.npz "$$O2"
-copy_file hardware/printed-parts/enclosure/enclosure/enclosure-pump-tube-setting-jig.stl "$$O3"
+copy_file hardware/printed-parts/enclosure/enclosure/enclosure-pump-tube-setting-jig.step.mesh "$$O0"
+copy_file hardware/printed-parts/enclosure/enclosure/enclosure-pump-tube-setting-jig.step.npz "$$O1"
+copy_file hardware/printed-parts/enclosure/enclosure/enclosure-pump-tube-setting-jig.stl "$$O2"
 """,
 )
 
@@ -8902,6 +8910,7 @@ genrule(
         "tools/hsm/enclosure-components/src/lib.rs",
         "tools/hsm/enclosure-interface/Cargo.toml",
         "tools/hsm/enclosure-numbers/Cargo.toml",
+        "tools/hsm/geometry/src/scene.rs",
         "tools/hsm/kernel/Cargo.toml",
         "tools/hsm/kernel/src/boolean.rs",
         "tools/hsm/kernel/src/build.rs",
@@ -9151,6 +9160,7 @@ genrule(
         ":out/cargo-config/tools/hsm/cargo-config.json",
         "tools/hsm/enclosure-interface/Cargo.toml",
         "tools/hsm/enclosure-numbers/Cargo.toml",
+        "tools/hsm/geometry/src/scene.rs",
         "tools/hsm/kernel/Cargo.toml",
         "tools/hsm/kernel/src/boolean.rs",
         "tools/hsm/kernel/src/build.rs",
@@ -9424,6 +9434,7 @@ genrule(
         "tools/hsm/enclosure-components/src/lib.rs",
         "tools/hsm/enclosure-interface/Cargo.toml",
         "tools/hsm/enclosure-numbers/Cargo.toml",
+        "tools/hsm/geometry/src/scene.rs",
         "tools/hsm/kernel/Cargo.toml",
         "tools/hsm/kernel/src/boolean.rs",
         "tools/hsm/kernel/src/build.rs",
@@ -9701,6 +9712,7 @@ genrule(
         "tools/hsm/geometry/src/lib.rs",
         "tools/hsm/geometry/src/payload.rs",
         "tools/hsm/geometry/src/queries.rs",
+        "tools/hsm/geometry/src/scene.rs",
         "tools/hsm/kernel/Cargo.toml",
         "tools/hsm/kernel/src/boolean.rs",
         "tools/hsm/kernel/src/build.rs",
@@ -9912,6 +9924,7 @@ genrule(
         "tools/hsm/geometry/src/lib.rs",
         "tools/hsm/geometry/src/payload.rs",
         "tools/hsm/geometry/src/queries.rs",
+        "tools/hsm/geometry/src/scene.rs",
         "tools/hsm/kernel/Cargo.toml",
         "tools/hsm/kernel/src/boolean.rs",
         "tools/hsm/kernel/src/build.rs",
@@ -10125,6 +10138,7 @@ genrule(
         "tools/hsm/geometry/src/lib.rs",
         "tools/hsm/geometry/src/payload.rs",
         "tools/hsm/geometry/src/queries.rs",
+        "tools/hsm/geometry/src/scene.rs",
         "tools/hsm/kernel/Cargo.toml",
         "tools/hsm/kernel/src/boolean.rs",
         "tools/hsm/kernel/src/build.rs",
@@ -10345,6 +10359,7 @@ genrule(
         "tools/hsm/geometry/src/lib.rs",
         "tools/hsm/geometry/src/payload.rs",
         "tools/hsm/geometry/src/queries.rs",
+        "tools/hsm/geometry/src/scene.rs",
         "tools/hsm/kernel/Cargo.toml",
         "tools/hsm/kernel/src/boolean.rs",
         "tools/hsm/kernel/src/build.rs",
@@ -10568,6 +10583,7 @@ genrule(
         "tools/hsm/geometry/src/lib.rs",
         "tools/hsm/geometry/src/payload.rs",
         "tools/hsm/geometry/src/queries.rs",
+        "tools/hsm/geometry/src/scene.rs",
         "tools/hsm/industrial-faucet-numbers/Cargo.toml",
         "tools/hsm/industrial-faucet/Cargo.toml",
         "tools/hsm/kernel/Cargo.toml",
@@ -10820,6 +10836,7 @@ genrule(
         "tools/hsm/geometry/src/lib.rs",
         "tools/hsm/geometry/src/payload.rs",
         "tools/hsm/geometry/src/queries.rs",
+        "tools/hsm/geometry/src/scene.rs",
         "tools/hsm/kernel/Cargo.toml",
         "tools/hsm/kernel/src/boolean.rs",
         "tools/hsm/kernel/src/build.rs",
@@ -11025,6 +11042,7 @@ genrule(
         "hardware/printed-parts/faucet/tpu-o-ring/tpu_o_ring.rs",
         ":out/cargo-config/tools/hsm/cargo-config.json",
         "tools/hsm/faucet-numbers/Cargo.toml",
+        "tools/hsm/geometry/src/scene.rs",
         "tools/hsm/kernel/Cargo.toml",
         "tools/hsm/kernel/src/boolean.rs",
         "tools/hsm/kernel/src/build.rs",
@@ -11227,6 +11245,7 @@ genrule(
         "tools/hsm/geometry/src/lib.rs",
         "tools/hsm/geometry/src/payload.rs",
         "tools/hsm/geometry/src/queries.rs",
+        "tools/hsm/geometry/src/scene.rs",
         "tools/hsm/kernel/Cargo.toml",
         "tools/hsm/kernel/src/boolean.rs",
         "tools/hsm/kernel/src/build.rs",
@@ -11496,6 +11515,7 @@ genrule(
         "tools/hsm/geometry/src/lib.rs",
         "tools/hsm/geometry/src/payload.rs",
         "tools/hsm/geometry/src/queries.rs",
+        "tools/hsm/geometry/src/scene.rs",
         "tools/hsm/kernel/Cargo.toml",
         "tools/hsm/kernel/src/boolean.rs",
         "tools/hsm/kernel/src/build.rs",
@@ -11695,6 +11715,7 @@ genrule(
         "tools/hsm/catalog/src/lib.rs",
         "tools/hsm/fake-countertop-numbers/Cargo.toml",
         "tools/hsm/fake-countertop/Cargo.toml",
+        "tools/hsm/geometry/src/scene.rs",
         "tools/hsm/kernel/Cargo.toml",
         "tools/hsm/kernel/src/boolean.rs",
         "tools/hsm/kernel/src/build.rs",
@@ -11886,6 +11907,7 @@ genrule(
         ":out/cargo-config/tools/hsm/cargo-config.json",
         "tools/hsm/catalog/Cargo.toml",
         "tools/hsm/catalog/src/lib.rs",
+        "tools/hsm/geometry/src/scene.rs",
         "tools/hsm/kernel/Cargo.toml",
         "tools/hsm/kernel/src/boolean.rs",
         "tools/hsm/kernel/src/build.rs",
@@ -12099,6 +12121,7 @@ genrule(
         "tools/hsm/cold-core-layout/Cargo.toml",
         "tools/hsm/endcap-circular-numbers/Cargo.toml",
         "tools/hsm/foam-shell-numbers/Cargo.toml",
+        "tools/hsm/geometry/src/scene.rs",
         "tools/hsm/kernel/Cargo.toml",
         "tools/hsm/kernel/src/boolean.rs",
         "tools/hsm/kernel/src/build.rs",
@@ -12313,6 +12336,7 @@ genrule(
         "tools/hsm/geometry/src/lib.rs",
         "tools/hsm/geometry/src/payload.rs",
         "tools/hsm/geometry/src/queries.rs",
+        "tools/hsm/geometry/src/scene.rs",
         "tools/hsm/kernel/Cargo.toml",
         "tools/hsm/kernel/src/boolean.rs",
         "tools/hsm/kernel/src/build.rs",
@@ -12674,6 +12698,7 @@ genrule(
         "tools/hsm/catalog/src/lib.rs",
         "tools/hsm/fuse-clamp-numbers/Cargo.toml",
         "tools/hsm/fuse-clamp/Cargo.toml",
+        "tools/hsm/geometry/src/scene.rs",
         "tools/hsm/kernel/Cargo.toml",
         "tools/hsm/kernel/src/boolean.rs",
         "tools/hsm/kernel/src/build.rs",
@@ -12868,6 +12893,7 @@ genrule(
         ":out/cargo-config/tools/hsm/cargo-config.json",
         "tools/hsm/catalog/Cargo.toml",
         "tools/hsm/catalog/src/lib.rs",
+        "tools/hsm/geometry/src/scene.rs",
         "tools/hsm/kernel/Cargo.toml",
         "tools/hsm/kernel/src/boolean.rs",
         "tools/hsm/kernel/src/build.rs",
@@ -13079,6 +13105,7 @@ genrule(
         "tools/hsm/geometry/src/lib.rs",
         "tools/hsm/geometry/src/payload.rs",
         "tools/hsm/geometry/src/queries.rs",
+        "tools/hsm/geometry/src/scene.rs",
         "tools/hsm/kernel/Cargo.toml",
         "tools/hsm/kernel/src/boolean.rs",
         "tools/hsm/kernel/src/build.rs",
@@ -13303,6 +13330,7 @@ genrule(
         "tools/hsm/geometry/src/lib.rs",
         "tools/hsm/geometry/src/payload.rs",
         "tools/hsm/geometry/src/queries.rs",
+        "tools/hsm/geometry/src/scene.rs",
         "tools/hsm/kernel/Cargo.toml",
         "tools/hsm/kernel/src/boolean.rs",
         "tools/hsm/kernel/src/build.rs",
@@ -13549,6 +13577,7 @@ genrule(
         "tools/hsm/geometry/src/lib.rs",
         "tools/hsm/geometry/src/payload.rs",
         "tools/hsm/geometry/src/queries.rs",
+        "tools/hsm/geometry/src/scene.rs",
         "tools/hsm/kernel/Cargo.toml",
         "tools/hsm/kernel/src/boolean.rs",
         "tools/hsm/kernel/src/build.rs",
@@ -13764,6 +13793,7 @@ genrule(
         "tools/hsm/geometry/src/lib.rs",
         "tools/hsm/geometry/src/payload.rs",
         "tools/hsm/geometry/src/queries.rs",
+        "tools/hsm/geometry/src/scene.rs",
         "tools/hsm/kernel/Cargo.toml",
         "tools/hsm/kernel/src/boolean.rs",
         "tools/hsm/kernel/src/build.rs",
@@ -13976,6 +14006,7 @@ genrule(
         "tools/hsm/geometry/src/lib.rs",
         "tools/hsm/geometry/src/payload.rs",
         "tools/hsm/geometry/src/queries.rs",
+        "tools/hsm/geometry/src/scene.rs",
         "tools/hsm/kernel/Cargo.toml",
         "tools/hsm/kernel/src/boolean.rs",
         "tools/hsm/kernel/src/build.rs",
@@ -14180,6 +14211,7 @@ genrule(
         "tools/hsm/documents/src/lib.rs",
         "tools/hsm/documents/src/python_checked.rs",
         "tools/hsm/fluid-topology/Cargo.toml",
+        "tools/hsm/geometry/src/scene.rs",
         "tools/hsm/kernel/Cargo.toml",
         "tools/hsm/kernel/src/boolean.rs",
         "tools/hsm/kernel/src/build.rs",
@@ -14453,6 +14485,7 @@ filegroup(
         "tools/hsm/geometry/src/lib.rs",
         "tools/hsm/geometry/src/payload.rs",
         "tools/hsm/geometry/src/queries.rs",
+        "tools/hsm/geometry/src/scene.rs",
         "tools/hsm/kernel/Cargo.toml",
         "tools/hsm/kernel/src/boolean.rs",
         "tools/hsm/kernel/src/build.rs",

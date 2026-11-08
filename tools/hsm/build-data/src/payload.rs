@@ -119,6 +119,7 @@ pub fn read(path: impl AsRef<Path>) -> Result<Payload> {
 }
 
 pub fn decode(data: &[u8]) -> Result<Payload> {
+    if hsm_geometry::scene::is_scene(data) { return decode(&hsm_geometry::scene::flatten(data)?); }
     ensure!(data.len() >= 4, "truncated payload header");
     let size = u32::from_le_bytes(data[..4].try_into()?) as usize;
     let end = 4usize.checked_add(size).context("payload header overflow")?;
@@ -196,6 +197,5 @@ pub fn ascii_json(text: &str) -> String {
 }
 
 pub fn write(path: impl AsRef<Path>, payload: &Payload) -> Result<()> {
-    fs::write(path, encode(payload)?)?;
-    Ok(())
+    hsm_geometry::scene::write(path.as_ref(), &encode(payload)?)
 }

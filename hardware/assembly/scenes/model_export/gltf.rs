@@ -273,6 +273,9 @@ fn rgba(value: Option<&Value>, entries: &[&Entry]) -> Result<[f64; 4]> {
     ])
 }
 pub fn write_views(spec: &Value, output: &Path) -> Result<Value> {
+    if spec["views"].as_array().context("views")?.iter().all(|view|view["file"].is_null()) {
+        return write_shared_views(spec,output);
+    }
     let outer = Payload::read(Path::new(super::text(spec, "outer_payload")?))?;
     let core = if let Some(path) = spec["core_payload"].as_str() {
         Some(Payload::read(Path::new(path))?)
@@ -340,6 +343,48 @@ pub fn write_views(spec: &Value, output: &Path) -> Result<Value> {
         });
         super::put(&path, &gltf.encode()?)?;
         files.push(super::output_name(&path, output));
+    }
+    Ok(json!({"files":files,"bodies":[]}))
+}
+
+/// Named views select the published part objects and retain their presentation frames.
+fn write_shared_views(spec: &Value, output: &Path) -> Result<Value> {
+    use hsm_geometry::scene;
+    let outer=scene::pack(&super::read(Path::new(super::text(spec,"outer_payload")?))?)?;
+    let core=if let Some(path)=spec["core_payload"].as_str() {
+        scene::pack(&super::read(Path::new(path))?)?
+    } else {json!({"meshes":[]})};
+    let mut files=Vec::new();
+    for view in spec["views"].as_array().context("views")? {
+        let turn=if view.get("transform").is_some(){matrix(view.get("transform"))?}else{multiply(&ZUP,&flip(view.get("flip"))?)};
+        let mut nodes=Vec::new();
+        for value in view.get("bodies").or_else(||view.get("names")).and_then(Value::as_array).context("view bodies")? {
+            let name=value.as_str().context("body name")?;
+            let qualified=if name.starts_with("cold-core/"){name.to_owned()}else{format!("cold-core/{name}")};
+            let find=|head:&Value,key:&str| head["meshes"].as_array().and_then(|rows|rows.iter().find(|row|row["name"]==key)).cloned();
+            let (mut node,inside)=if let Some(node)=find(&outer,name).or_else(||find(&outer,&qualified)) {(node,false)}else{
+                (find(&core,name.strip_prefix("cold-core/").unwrap_or(name)).with_context(||format!("scene missing {name}"))?,true)
+            };
+            let placed=multiply(&turn,&if inside {matrix(spec.get("core_transform"))?} else {ID});
+            let placed=multiply(&placed,&matrix(node.get("transform"))?);
+            node["name"]=json!(name);node["transform"]=json!(&placed[..3]);
+            let source=if inside {name.strip_prefix("cold-core/").unwrap_or(name)}else{node["name"].as_str().unwrap_or(name)};
+            let color=view["overrides"].get(name).or_else(||spec[if inside {"core_colours"} else {"colours"}].get(source)).or_else(||spec["colors"].get(source));
+            if let Some(color)=color {node["color_override"]=color.clone();}
+            if let Some(entries)=node["entries"].as_array_mut() {
+                let count=entries.len();
+                for (i,entry) in entries.iter_mut().enumerate() {
+                    entry["name"]=json!(if count==1{name.to_owned()}else{format!("{name}/{i}")});
+                    if let Some(color)=color {entry["color"]=color.clone();}
+                }
+            }
+            nodes.push(node);
+        }
+        let mut head=json!({"v":4,"meshes":nodes,"sources":outer["sources"],"source_kind":"scene"});
+        head["src"]=json!(scene::digest(&serde_json::to_vec(&head["meshes"])?));
+        let path=output.join(format!("{}.glb.mesh",view["id"].as_str().unwrap_or("scene")));
+        scene::persist(&path,&head)?;
+        files.push(super::output_name(&path,output));
     }
     Ok(json!({"files":files,"bodies":[]}))
 }

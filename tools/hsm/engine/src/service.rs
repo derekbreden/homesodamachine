@@ -274,7 +274,8 @@ pub fn execute(store: &mut Store, builds: &crate::build::Builder, request: Reque
         _ => return Err(anyhow!("unsupported scene operation")),
     };
     Ok(
-        json!({"scene": request.scene, "payload_sha256": payload.digest, "step_sha256": payload.source,
+        json!({"scene": request.scene, "payload_sha256": payload.digest, "source_sha256":payload.source,
+        "step_sha256":if payload.shared {None} else {payload.source.as_ref()},
         "cut": payload.cut.as_ref().and_then(|s| serde_json::from_str::<Value>(s).ok()),
         "units": "mm", "frame": "payload world coordinates", "load_ms": load_ms, "data": result}),
     )

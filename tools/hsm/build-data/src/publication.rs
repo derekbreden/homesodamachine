@@ -245,7 +245,7 @@ pub fn website_paths(
     for relative in available {
         if starts(relative, &config["BUNDLED_ART_DIRS"])
             && ends(relative, &config["BUNDLED_ART_SUFFIXES"])
-            || starts(relative, &config["BUNDLED_GLB_DIRS"]) && relative.ends_with(".glb")
+            || starts(relative, &config["BUNDLED_GLB_DIRS"]) && (relative.ends_with(".glb") || relative.ends_with(".glb.mesh"))
             || boards
                 .iter()
                 .any(|d| relative.starts_with(&format!("{d}/")))
@@ -329,7 +329,7 @@ fn member(
     name.ends_with(".step")
         || name.ends_with(".stl") && starts(relative, &config["BUNDLED_MESH_DIRS"])
         || name.ends_with(".step.mesh") && starts(relative, &config["BUNDLED_PAYLOAD_DIRS"])
-        || name.ends_with(".glb") && starts(relative, &config["BUNDLED_GLB_DIRS"])
+        || (name.ends_with(".glb") || name.ends_with(".glb.mesh")) && starts(relative, &config["BUNDLED_GLB_DIRS"])
         || ends(name, &config["BUNDLED_ART_SUFFIXES"])
             && starts(relative, &config["BUNDLED_ART_DIRS"])
         || names(&config["BUNDLED_PAYLOAD_FILES"]).contains(relative)

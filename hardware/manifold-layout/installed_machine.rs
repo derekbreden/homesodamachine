@@ -1,6 +1,6 @@
 //! The installed machine: every body of the appliance where it goes, placed from the machine's
-//! written-down design and its parts' own files, and written as the STEP and the model the
-//! website shows, its facts and its scene views.
+//! written-down design and its parts' own files, with shared website meshes, native construction
+//! models, facts and scene views.
 use anyhow::{Context, Result};
 use hsm_kernel::part::Numbers;
 use serde_json::{Value, json};
@@ -138,7 +138,7 @@ fn main() -> Result<()> {
     )?;
     let shown = out.join("hardware/manifold-layout");
     std::fs::create_dir_all(&shown)?;
-    for name in ["enclosure-assembly.step", "enclosure-assembly.step.mesh"] {
+    for name in ["enclosure-assembly.step.mesh"] {
         publish(&model_dir.join(name), &shown.join(name))?;
     }
 
