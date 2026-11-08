@@ -192,6 +192,8 @@ hardware/reference/xlaserlab-sup29f-xh/reference-models.zip
 # A scan check's local cache, and the result file the Bambu CLI drops in its working directory.
 .scan-check-cache.npz
 /result.json
+# Prepared Bambu projects are local manufacturing deliverables.
+output/print-build/
 # Sessions' scratch space at the repository root.
 /tmp/
 

@@ -1,0 +1,140 @@
+{
+  "views": [
+    {
+      "name": "band",
+      "caption": "The smooth seam band meets the standing column tangentially.",
+      "before": "band-before.webp",
+      "after": "band-after.webp",
+      "width": 1100,
+      "height": 900,
+      "marks": [
+        {
+          "x": 654.7,
+          "y": 450.5,
+          "r": 21.6,
+          "label": "Seam band",
+          "at": [
+            110.4476638063355,
+            40,
+            159
+          ]
+        }
+      ],
+      "model": "printed-parts/enclosure/enclosure/enclosure.step",
+      "camera": {
+        "projection": "perspective",
+        "position": [
+          233.69846981931013,
+          -110.69846981931013,
+          213.87938792772405
+        ],
+        "target": [
+          99,
+          24,
+          160
+        ],
+        "up": [
+          0,
+          0,
+          1
+        ],
+        "fov": 45,
+        "near": 26.82865818386125,
+        "far": 798.8878151020076,
+        "aspect": 1.2222222222222223
+      },
+      "highlight": [],
+      "ghost": [],
+      "only": [
+        "enclosure_front_top",
+        "enclosure_front_bottom"
+      ],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "printed-parts/enclosure/enclosure/enclosure.step.mesh",
+          "from": "snapshot",
+          "sha256": "a79b03f765b2b1fa458796383fb8f8bf116d013a256c7156a950ab2e17de30bd",
+          "commit": "6ee462a4302862134f5449b6fd97b02d0eed5167",
+          "taken": "2026-11-07T21:33:07.826Z",
+          "published": true
+        },
+        "after": {
+          "payload": "printed-parts/enclosure/enclosure/enclosure.step.mesh",
+          "from": "tree",
+          "sha256": "fffab1c6e26dd82ba4bd6db6df081d88c03782940a60f1987c41147440e0a6dd",
+          "commit": "ea274bf090d4179ac96c77bef1b6abfe3e7eb448",
+          "published": true
+        }
+      },
+      "changed": [
+        "enclosure_back_top",
+        "enclosure_back_bottom",
+        "enclosure_front_bottom",
+        "enclosure_front_top"
+      ],
+      "withinMeshing": []
+    },
+    {
+      "name": "upper-edge",
+      "caption": "The upper round follows the display lip and sides through the front column.",
+      "before": "upper-edge-before.webp",
+      "after": "upper-edge-after.webp",
+      "width": 1100,
+      "height": 900,
+      "model": "printed-parts/enclosure/enclosure/enclosure.step",
+      "camera": {
+        "projection": "perspective",
+        "position": [
+          226.19136989824307,
+          -113.19136989824307,
+          392.674390433858
+        ],
+        "target": [
+          99,
+          14,
+          310
+        ],
+        "up": [
+          0,
+          0,
+          1
+        ],
+        "fov": 45,
+        "near": 116.98898681389167,
+        "far": 710.3682126612207,
+        "aspect": 1.2222222222222223
+      },
+      "highlight": [],
+      "ghost": [],
+      "only": [
+        "enclosure_front_top"
+      ],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "printed-parts/enclosure/enclosure/enclosure.step.mesh",
+          "from": "snapshot",
+          "sha256": "a79b03f765b2b1fa458796383fb8f8bf116d013a256c7156a950ab2e17de30bd",
+          "commit": "6ee462a4302862134f5449b6fd97b02d0eed5167",
+          "taken": "2026-11-07T21:33:07.826Z",
+          "published": true
+        },
+        "after": {
+          "payload": "printed-parts/enclosure/enclosure/enclosure.step.mesh",
+          "from": "tree",
+          "sha256": "fffab1c6e26dd82ba4bd6db6df081d88c03782940a60f1987c41147440e0a6dd",
+          "commit": "ea274bf090d4179ac96c77bef1b6abfe3e7eb448",
+          "published": true
+        }
+      },
+      "changed": [
+        "enclosure_back_top",
+        "enclosure_back_bottom",
+        "enclosure_front_bottom",
+        "enclosure_front_top"
+      ],
+      "withinMeshing": []
+    }
+  ]
+}

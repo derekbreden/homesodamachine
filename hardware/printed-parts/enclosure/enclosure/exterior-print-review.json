@@ -1,0 +1,389 @@
+{
+  "purpose": "This record identifies the reviewed enclosure projects ready to print.",
+  "source_revision": "375748093828bd1f53d17518fbc495c2014e1aeb",
+  "parts": [
+    {
+      "piece": "front-top",
+      "directory": "output/print-build/2026-11-07-exterior/front-top",
+      "project": "output/print-build/2026-11-07-exterior/front-top/2026-11-07-front-top-mark1-ad170c13.3mf",
+      "project_sha256": "7d51b180ad147dceb546f97ecfa8e840e2f5f0a91a610a939b4b88a4b4b78688",
+      "archive": "output/print-build/2026-11-07-exterior/front-top/2026-11-07-front-top-mark1-ad170c13.gcode.3mf",
+      "archive_sha256": "de3031e5b29446d731c2548027c043bcee2d1f651aa6e5ec07160ed93c1cea6e",
+      "objects": [
+        {
+          "name": "enclosure-front-top",
+          "stl": "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl",
+          "stl_sha256": "591145e8ada66eefcfe70ace883e7dde2914ffcc9696f15356fd71a4d70b126b",
+          "step_sha256": "d931f569a094b49f84cb797abccd569aaeaf421d09c717a62549b582b08c796b",
+          "closed": {
+            "bodies": 1,
+            "boundary_edges": 0,
+            "closed_oriented_single_body": true,
+            "edges": 562395,
+            "inconsistent_edges": 0,
+            "nonmanifold_edges": 0
+          },
+          "pose": null,
+          "yaw_degrees": 0.0,
+          "plate_bounds_mm": [
+            [
+              52.0,
+              52.099998474121094,
+              0.0
+            ],
+            [
+              273.0,
+              267.9000015258789,
+              194.75
+            ]
+          ],
+          "verify_spans": [
+            {
+              "layer_height_mm": 0.08,
+              "name": "R6 roof side edges, level run",
+              "print_z_mm": [
+                188.63043212890625,
+                194.75
+              ]
+            },
+            {
+              "layer_height_mm": 0.08,
+              "name": "R18 display-to-roof roll",
+              "print_z_mm": [
+                192.47518920898438,
+                194.6732177734375
+              ]
+            }
+          ]
+        }
+      ],
+      "pass": true,
+      "checks": {
+        "archive": true,
+        "bed_border": true,
+        "fine_and_transition_bands": true,
+        "show_faces_support_free": true,
+        "solid_hosts_sampled": true,
+        "tie_windows_support_free": true,
+        "z_trim": true
+      },
+      "minimum_bed_margin_mm": 51.84391499999998,
+      "slicer_warnings": [],
+      "estimated_seconds": 131232.2093108765,
+      "review_sha256": "3918ee04b3c355dcf2998a6cb9dac5c49269f7a6c06be74d1d58b6f75e1ddcfc"
+    },
+    {
+      "piece": "front-bottom",
+      "directory": "output/print-build/2026-11-07-exterior/front-bottom",
+      "project": "output/print-build/2026-11-07-exterior/front-bottom/2026-11-07-front-bottom-mark1-d3d5cc93.3mf",
+      "project_sha256": "ab2b776271a43294bf83329a9f46d8f480e3468ef55ad7fe5c71795c94b5dd07",
+      "archive": "output/print-build/2026-11-07-exterior/front-bottom/2026-11-07-front-bottom-mark1-d3d5cc93.gcode.3mf",
+      "archive_sha256": "c335d57df4b1e81d8b5e1752c4061ab25e2e533d2f0c9528d8c697dd6f51c3eb",
+      "objects": [
+        {
+          "name": "enclosure-front-bottom",
+          "stl": "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.stl",
+          "stl_sha256": "633e84c40ca86284da50734d3cf978f3fb368783828ec0b319d673730b52d193",
+          "step_sha256": "4655b07a5898627787993931a83a31901d856c2128dfa1d47b0cb84c39239f31",
+          "closed": {
+            "bodies": 1,
+            "boundary_edges": 0,
+            "closed_oriented_single_body": true,
+            "edges": 380712,
+            "inconsistent_edges": 0,
+            "nonmanifold_edges": 0
+          },
+          "pose": null,
+          "yaw_degrees": 0.0,
+          "plate_bounds_mm": [
+            [
+              52.0,
+              52.099998474121094,
+              0.0
+            ],
+            [
+              273.0,
+              267.9000015258789,
+              180.8000030517578
+            ]
+          ],
+          "verify_spans": []
+        }
+      ],
+      "pass": true,
+      "checks": {
+        "archive": true,
+        "bed_border": true,
+        "fine_and_transition_bands": true,
+        "show_faces_support_free": true,
+        "solid_hosts_sampled": true,
+        "tie_windows_support_free": true,
+        "z_trim": true
+      },
+      "minimum_bed_margin_mm": 39.75186,
+      "slicer_warnings": [],
+      "estimated_seconds": 91949.37461798888,
+      "review_sha256": "93d70b744f056bc3a1b1d2160ba809a5d95d2c3a9a7f11b653794f6dd9078759"
+    },
+    {
+      "piece": "back-top",
+      "directory": "output/print-build/2026-11-07-exterior/back-top",
+      "project": "output/print-build/2026-11-07-exterior/back-top/2026-11-07-back-top-mark2-58132406.3mf",
+      "project_sha256": "cbe144f089c9d0dc183623ad3b5525e422334f9efe24ac895c9e7bb0d4d5fa6b",
+      "archive": "output/print-build/2026-11-07-exterior/back-top/2026-11-07-back-top-mark2-58132406.gcode.3mf",
+      "archive_sha256": "91ba0de98911c516a1984e3a22e00fd1938e0ca31e50b83fa765cf0f9300b700",
+      "objects": [
+        {
+          "name": "enclosure-back-top",
+          "stl": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl",
+          "stl_sha256": "a64ce5aa9859d7bc9fd898ece6443fcc95a910a03a1d8952704afd142b1c5b17",
+          "step_sha256": "017d8a7541a4d3e1bcaa9fba9973f9f5241f9e95b28ffd4c5d8e45d1236fd921",
+          "closed": {
+            "bodies": 1,
+            "boundary_edges": 0,
+            "closed_oriented_single_body": true,
+            "edges": 914124,
+            "inconsistent_edges": 0,
+            "nonmanifold_edges": 0
+          },
+          "pose": {
+            "turns": [
+              [
+                "x",
+                -107
+              ]
+            ]
+          },
+          "yaw_degrees": 90.0,
+          "plate_bounds_mm": [
+            [
+              31.919701951117872,
+              49.5,
+              0.0
+            ],
+            [
+              293.0802980488821,
+              270.5,
+              319.11033250519813
+            ]
+          ],
+          "verify_spans": [
+            {
+              "layer_height_mm": 0.08,
+              "name": "Shallow end faces",
+              "print_z_mm": [
+                0.0,
+                305.22698906290907
+              ]
+            }
+          ]
+        }
+      ],
+      "pass": true,
+      "checks": {
+        "archive": true,
+        "bed_border": true,
+        "declared_interiors_support_free": true,
+        "fine_and_transition_bands": true,
+        "show_faces_support_free": true,
+        "solid_hosts_sampled": true,
+        "tie_windows_support_free": true,
+        "z_trim": true
+      },
+      "minimum_bed_margin_mm": 29.72399999999999,
+      "slicer_warnings": [],
+      "estimated_seconds": 313108.57551472844,
+      "review_sha256": "85ca0d36ee613b59f90168873d2106bbd2ec1f2a5f9c349634a9aea1ba10caaa"
+    },
+    {
+      "piece": "back-bottom",
+      "directory": "output/print-build/2026-11-07-exterior/back-bottom",
+      "project": "output/print-build/2026-11-07-exterior/back-bottom/2026-11-07-back-bottom-mark2-61e841ab.3mf",
+      "project_sha256": "89d5345046b2d904027fe40bfce5cb89e75c3cd5f961d0109a5df1ff4b6b2b78",
+      "archive": "output/print-build/2026-11-07-exterior/back-bottom/2026-11-07-back-bottom-mark2-61e841ab.gcode.3mf",
+      "archive_sha256": "e696ba30241245fed8ca1e0896f9b99119c76eca5aa2557fd20b2d13bf1b082e",
+      "objects": [
+        {
+          "name": "enclosure-back-bottom",
+          "stl": "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.stl",
+          "stl_sha256": "8e5a30ea3706b9f32de9bfdbb79c824e52a06f15f9356861b0179ea110e70781",
+          "step_sha256": "f6b1ecda41553f2f80ba69c2c727156a5485c4845d2d85bb744097b2b6e1f54f",
+          "closed": {
+            "bodies": 1,
+            "boundary_edges": 0,
+            "closed_oriented_single_body": true,
+            "edges": 765384,
+            "inconsistent_edges": 0,
+            "nonmanifold_edges": 0
+          },
+          "pose": null,
+          "yaw_degrees": 90.0,
+          "plate_bounds_mm": [
+            [
+              25.425003051757812,
+              68.30000000000001,
+              0.0
+            ],
+            [
+              299.5749969482422,
+              289.3,
+              180.8000030517578
+            ]
+          ],
+          "verify_spans": []
+        }
+      ],
+      "pass": true,
+      "checks": {
+        "archive": true,
+        "bed_border": true,
+        "fine_and_transition_bands": true,
+        "show_faces_support_free": true,
+        "solid_hosts_sampled": true,
+        "tie_windows_support_free": true,
+        "z_trim": true
+      },
+      "minimum_bed_margin_mm": 22.44776999999999,
+      "slicer_warnings": [],
+      "estimated_seconds": 98652.70705024252,
+      "review_sha256": "37a66dd8926c94518823502dd0f2518f42089ff88a1f92f21c0137178f519f61"
+    }
+  ],
+  "joints": {
+    "payload_sha256": "2beb391fd70ee013a6c5004335a81f4c7646a4e5e5801724b9614ae0549b1a2d",
+    "readings": [
+      {
+        "a": "enclosure_front_top",
+        "b": "enclosure_front_bottom",
+        "clearance_mm": 0.2499999999999858,
+        "intersection_volume_mm3": 0.0,
+        "closest_points_mm": [
+          [
+            -103.75,
+            191.3927917480469,
+            174.8000030517578
+          ],
+          [
+            -103.50000000000001,
+            191.39279174804688,
+            174.8000030517578
+          ]
+        ]
+      },
+      {
+        "a": "enclosure_back_top",
+        "b": "enclosure_back_bottom",
+        "clearance_mm": 0.07619363045211681,
+        "intersection_volume_mm3": 0.0,
+        "closest_points_mm": [
+          [
+            98.5,
+            456.2999877929687,
+            174.80000305175778
+          ],
+          [
+            98.47677812271411,
+            456.2274191100759,
+            174.80000305175778
+          ]
+        ]
+      },
+      {
+        "a": "enclosure_front_top",
+        "b": "enclosure_back_top",
+        "clearance_mm": 0.14999389648434658,
+        "intersection_volume_mm3": 0.0,
+        "closest_points_mm": [
+          [
+            -107.48408470124727,
+            200.00000000000003,
+            321.29644775390625
+          ],
+          [
+            -107.48408470124727,
+            200.14999389648438,
+            321.29644775390625
+          ]
+        ]
+      },
+      {
+        "a": "enclosure_front_bottom",
+        "b": "enclosure_back_bottom",
+        "clearance_mm": 0.14999389648434658,
+        "intersection_volume_mm3": 0.0,
+        "closest_points_mm": [
+          [
+            -109.9607378311278,
+            200.0,
+            158.5284531624534
+          ],
+          [
+            -109.9607378311278,
+            200.14999389648435,
+            158.5284531624534
+          ]
+        ]
+      },
+      {
+        "a": "enclosure_front_top",
+        "b": "enclosure_back_bottom",
+        "clearance_mm": 0.29154445455633554,
+        "intersection_volume_mm3": 0.0,
+        "closest_points_mm": [
+          [
+            -105.44652027599423,
+            200.0,
+            160.24999999999997
+          ],
+          [
+            -105.44652027599422,
+            200.14999389648438,
+            160.0
+          ]
+        ]
+      },
+      {
+        "a": "enclosure_back_top",
+        "b": "enclosure_front_bottom",
+        "clearance_mm": 0.2915444545563599,
+        "intersection_volume_mm3": 0.0,
+        "closest_points_mm": [
+          [
+            -104.5,
+            200.14999389648438,
+            160.25
+          ],
+          [
+            -104.5,
+            200.0,
+            160.0
+          ]
+        ]
+      }
+    ],
+    "rear_baseline_sliding_clearance_mm": 0.07619363045211681
+  },
+  "normal_build": {
+    "passed": true,
+    "scope": "Committed normal build and final enclosure/installed-machine rebuild."
+  },
+  "geometry_review": {
+    "scope": "Exterior changes and their interaction with existing openings, supports and joints.",
+    "corrected": [
+      "receiver host replacement through the band",
+      "warning field trimming the column roots",
+      "pressure-relief outlet ending inside the projected exterior"
+    ],
+    "final_outlet_thin_scan": {
+      "stl_sha256": "8e5a30ea3706b9f32de9bfdbb79c824e52a06f15f9356861b0179ea110e70781",
+      "report_sha256": "76f725a7cb228ca62b7d80df673522b58785633b9407c8af710d8503329d8924",
+      "outlet_membrane_present": false,
+      "remaining_findings": 4,
+      "remaining_scope": [
+        "fluted wall stock",
+        "integral disposal lettering"
+      ]
+    },
+    "other_scan_findings": "Interior ledges, fitted features, fluted wall stock and lettering remain reported; this record does not mark them answered."
+  }
+}
