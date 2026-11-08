@@ -1,0 +1,211 @@
+{
+  "views": [
+    {
+      "name": "posts",
+      "caption": "The terminal-end post has an insert at every relay corner.",
+      "before": "posts-before.webp",
+      "after": "posts-after.webp",
+      "width": 1200,
+      "height": 760,
+      "marks": [
+        {
+          "x": 601,
+          "y": 382,
+          "r": 140.7,
+          "label": "Corner insert mouths",
+          "at": [
+            -94.49,
+            442,
+            305
+          ]
+        }
+      ],
+      "model": "manifold-layout/enclosure-assembly.step",
+      "camera": {
+        "projection": "orthographic",
+        "position": [
+          475.7580190494325,
+          282.18775466615887,
+          419.3516038098865
+        ],
+        "target": [
+          -95,
+          442,
+          305.2
+        ],
+        "up": [
+          0,
+          0,
+          1
+        ],
+        "half": 54,
+        "near": 253.9992406561585,
+        "far": 907.901303509321,
+        "aspect": 1.5789473684210527,
+        "section": {
+          "at": [
+            -65,
+            442,
+            305
+          ],
+          "normal": [
+            1,
+            0,
+            0
+          ],
+          "removes": "the side the normal points to"
+        }
+      },
+      "highlight": [
+        "enclosure-back-top"
+      ],
+      "ghost": [],
+      "only": [
+        "enclosure-back-top"
+      ],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "snapshot",
+          "sha256": "78ff6c97588204d102b71805e2ab37ac52aa3e1dad5c0b22ef80a0a12586fd3b",
+          "commit": "ed7fb6bad0a646ba94b5f692a8aaf8fa22ad0422",
+          "taken": "2026-11-08T19:37:16.016Z",
+          "published": true
+        },
+        "after": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "tree",
+          "sha256": "fe7dcfdea8a179344471d0fa7daec9e879ff3850d8623cd08cb5652d100ef38a",
+          "commit": "5a02858b25a45f58e254c07b3155b6fdcf72fb15",
+          "published": true
+        }
+      },
+      "changed": [
+        "relay-1-screw-3",
+        "relay-1-screw-4",
+        "relay-2-screw-3",
+        "relay-2-screw-4",
+        "relay-1-insert-3",
+        "relay-1-insert-4",
+        "relay-2-insert-3",
+        "relay-2-insert-4",
+        "enclosure-back-top",
+        "relay-1-insert-1",
+        "relay-2-insert-1",
+        "relay-1-insert-2",
+        "relay-2-insert-2"
+      ],
+      "withinMeshing": [
+        "enclosure-front-top",
+        "relay-1-screw-1",
+        "relay-2-screw-1",
+        "relay-1-screw-2",
+        "relay-2-screw-2"
+      ]
+    },
+    {
+      "name": "installed",
+      "caption": "The complete corner screw set clamps each relay while its terminal faces remain open.",
+      "before": "installed-before.webp",
+      "after": "installed-after.webp",
+      "width": 1200,
+      "height": 760,
+      "marks": [
+        {
+          "x": 785.1,
+          "y": 376.8,
+          "r": 83.8,
+          "label": "Corner screws",
+          "at": [
+            -90,
+            442,
+            305
+          ]
+        }
+      ],
+      "model": "manifold-layout/enclosure-assembly.step",
+      "camera": {
+        "projection": "orthographic",
+        "position": [
+          475.7580190494325,
+          249.18775466615887,
+          419.3516038098865
+        ],
+        "target": [
+          -95,
+          409,
+          305.2
+        ],
+        "up": [
+          0,
+          0,
+          1
+        ],
+        "half": 68,
+        "near": 258.6479515935713,
+        "far": 912.5500144467338,
+        "aspect": 1.5789473684210527,
+        "section": {
+          "at": [
+            -65,
+            409,
+            305
+          ],
+          "normal": [
+            1,
+            0,
+            0
+          ],
+          "removes": "the side the normal points to"
+        }
+      },
+      "highlight": [],
+      "ghost": [],
+      "only": [
+        "enclosure-back-top",
+        "relay-*"
+      ],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "snapshot",
+          "sha256": "78ff6c97588204d102b71805e2ab37ac52aa3e1dad5c0b22ef80a0a12586fd3b",
+          "commit": "ed7fb6bad0a646ba94b5f692a8aaf8fa22ad0422",
+          "taken": "2026-11-08T19:37:16.016Z",
+          "published": true
+        },
+        "after": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "tree",
+          "sha256": "fe7dcfdea8a179344471d0fa7daec9e879ff3850d8623cd08cb5652d100ef38a",
+          "commit": "5a02858b25a45f58e254c07b3155b6fdcf72fb15",
+          "published": true
+        }
+      },
+      "changed": [
+        "relay-1-screw-3",
+        "relay-1-screw-4",
+        "relay-2-screw-3",
+        "relay-2-screw-4",
+        "relay-1-insert-3",
+        "relay-1-insert-4",
+        "relay-2-insert-3",
+        "relay-2-insert-4",
+        "enclosure-back-top",
+        "relay-1-insert-1",
+        "relay-2-insert-1",
+        "relay-1-insert-2",
+        "relay-2-insert-2"
+      ],
+      "withinMeshing": [
+        "enclosure-front-top",
+        "relay-1-screw-1",
+        "relay-2-screw-1",
+        "relay-1-screw-2",
+        "relay-2-screw-2"
+      ]
+    }
+  ]
+}
