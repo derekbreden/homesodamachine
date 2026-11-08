@@ -1458,6 +1458,7 @@
     "hardware/reference/basics-mtb-0606wp/basics-mtb-0606wp.step.mesh": "ad88d8ea9b91f9327c92de012ff127841a9f5c14b70ac6739427cbff5ad97583",
     "hardware/reference/beduan-solenoid/beduan-solenoid.step": "fcf554f470667fc739c49119942e3142ae25eaf417ab920f8168ff6e3c15c818",
     "hardware/reference/beduan-solenoid/beduan-solenoid.step.mesh": "95052393bbd6a02f0586593a605e8cfc3297dd6f478767819ea63366447926fe",
+    "hardware/reference/beduan-solenoid/solidcraft/beduan-valve.step.mesh": "d181542be606b08fd0fe08feb13f11a1ff848a79c687f62f91a8c3bae24246b8",
     "hardware/reference/branch-stem-tees/john-guest-ci580808w-estimate.step": "7f33972a6f884f5d7b6e77db92be35d9e8e0dae4233bb33cf6aee0366b7935c2",
     "hardware/reference/branch-stem-tees/john-guest-ci580808w-estimate.step.mesh": "df3be3fc40513ebb9047925a0b92e6060e6f3091658b3fc780a4deddd6f62f85",
     "hardware/reference/branch-stem-tees/neofit-atbu444-e-estimate.step": "b3d52d71eef55a5210d5c426def3a8b7e27309a3a63d880c363a2a18b6b0c2a5",
@@ -2105,6 +2106,7 @@
       "hardware/printed-parts/zone-c/funnel/funnel.step.mesh": "1ec2f5ec3e0f447bf4d003f25cf18205bfd61bd1baffe32f20cb6338b7566adf",
       "hardware/reference/beduan-solenoid/beduan-solenoid.step": "fcf554f470667fc739c49119942e3142ae25eaf417ab920f8168ff6e3c15c818",
       "hardware/reference/beduan-solenoid/beduan-solenoid.step.mesh": "95052393bbd6a02f0586593a605e8cfc3297dd6f478767819ea63366447926fe",
+      "hardware/reference/beduan-solenoid/solidcraft/beduan-valve.step.mesh": "d181542be606b08fd0fe08feb13f11a1ff848a79c687f62f91a8c3bae24246b8",
       "hardware/reference/branch-stem-tees/neofit-atbu444-e-estimate.step": "b3d52d71eef55a5210d5c426def3a8b7e27309a3a63d880c363a2a18b6b0c2a5",
       "hardware/reference/branch-stem-tees/neofit-atbu444-e-estimate.step.mesh": "a32b411b55657eebe6091c75f7d54e131ed1735561c21c929ef88b0dd5c06379",
       "hardware/reference/compact-inline-candidates/geometry/candidate-regulator.step": "afdabad8d1023c09c74be96d96a4c409966e7d6d09565dc1991062b0de842523",
@@ -4070,6 +4072,7 @@
     "hardware/reference/basics-mtb-0606wp/basics-mtb-0606wp.step.mesh": 1793568839,
     "hardware/reference/beduan-solenoid/beduan-solenoid.step": 1789884737,
     "hardware/reference/beduan-solenoid/beduan-solenoid.step.mesh": 1793617993,
+    "hardware/reference/beduan-solenoid/solidcraft/beduan-valve.step.mesh": 1794182461,
     "hardware/reference/branch-stem-tees/john-guest-ci580808w-estimate.step": 1792738887,
     "hardware/reference/branch-stem-tees/john-guest-ci580808w-estimate.step.mesh": 1793568839,
     "hardware/reference/branch-stem-tees/neofit-atbu444-e-estimate.step": 1792738887,
@@ -7102,6 +7105,10 @@
     "hardware/wiring/enclosure-wiring.step.mesh": {
       "inputs": "361a16c31db5ebcbb565fa4da5ef02f249d03577ff2e685a3b8bc6112ec1707d",
       "commit": "47f3f1d0ecbe6b54c7e81a6121bf9dea5fe81a0c",
+      "unproven": true
+    },
+    "hardware/reference/beduan-solenoid/solidcraft/beduan-valve.step.mesh": {
+      "commit": "6e5e07e8dd442c74f431cbb98acd830d852df2b5",
       "unproven": true
     }
   }
