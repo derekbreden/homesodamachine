@@ -34,9 +34,9 @@ function numbers(text, re, what) {
 
 test("the page decodes every version the writer stamps", () => {
   const py = read("hardware/scripts/_mesh_payload.py");
-  const js = read("web/public/js/viewer/step.js");
+  const js = read("web/public/js/viewer/mesh-payload.js");
 
-  const written = numbers(py, /^VERSION = (\d+)/m, "_mesh_payload.VERSION");
+  const written = numbers(read("hardware/scripts/_payload_rules.py"), /^VERSION = (\d+)/m, "_payload_rules.VERSION");
   const decodable = numbers(py, /^DECODABLE = \(([^)]*)\)/m, "_mesh_payload.DECODABLE");
   const pageReads = numbers(js, /const MESH_PAYLOAD_VERSIONS = \[([^\]]*)\]/, "step.js");
 

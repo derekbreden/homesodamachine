@@ -49,6 +49,7 @@ let currentFile = null;
 let selection = null;      // selected component name
 let center0 = null;        // THREE.Vector3 — the component's bbox centre at select time (rotation pivot)
 let previewObjs = [];      // meshes + x-ray edges of the selection we drive with a matrix
+const previewFrames = new WeakMap();
 let mode = "translate";
 const model = { tx: 0, ty: 0, tz: 0, axis: "z", deg: 0 }; // the pending move, from the current pose
 
@@ -70,6 +71,7 @@ function drawHighlight() {
     const line = new THREE.LineSegments(new THREE.EdgesGeometry(m.geometry, EDGE_THRESHOLD_DEG), edgeMat);
     line.matrixAutoUpdate = false;
     line.matrix.copy(m.matrix); // ride the same preview transform as the mesh
+    line.userData.previewFrame=m.matrix.clone();
     overlay.add(line);
   }
 }
@@ -175,6 +177,7 @@ function collectPreviewObjs() {
   for (const m of state.currentGroup.children) {
     if ((m.isMesh && m.name === selection) ||
         (m.userData && m.userData.isXrayEdge && m.userData.xrayComponent === selection)) {
+      previewFrames.set(m,{matrix:m.matrix.clone(),auto:m.matrixAutoUpdate});
       m.matrixAutoUpdate = false;
       previewObjs.push(m);
     }
@@ -184,14 +187,15 @@ function collectPreviewObjs() {
 function applyPreview() {
   if (!proxy || !center0) return;
   const d = computeDelta();
-  for (const o of previewObjs) { o.matrix.copy(d); o.updateMatrixWorld(true); }
-  for (const line of overlay.children) { line.matrix.copy(d); line.updateMatrixWorld(true); }
+  for (const o of previewObjs) { o.matrix.multiplyMatrices(d,previewFrames.get(o).matrix); o.updateMatrixWorld(true); }
+  for (const line of overlay.children) { line.matrix.multiplyMatrices(d,line.userData.previewFrame); line.updateMatrixWorld(true); }
 }
 
 function clearPreview() {
   for (const o of previewObjs) {
-    o.matrix.identity();
-    o.matrixAutoUpdate = true;
+    const original=previewFrames.get(o);
+    o.matrix.copy(original.matrix);
+    o.matrixAutoUpdate = original.auto;
     o.updateMatrixWorld(true);
   }
   previewObjs = [];

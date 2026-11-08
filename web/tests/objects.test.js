@@ -294,6 +294,7 @@ test("/api/objects names each model's bytes on the store, and nothing when the s
   const domain = new R2Store({ client: null, bucket: "b", publicUrl: "https://objects.homesodamachine.com/" });
   assert.deepEqual(await ask(domain), {
     base: "https://objects.homesodamachine.com",
+    sceneVersion: 4,
     objects: {
       "faucet-layout/faucet-assembly.step": `https://objects.homesodamachine.com/s-${digest.step}.gz`,
       "faucet-layout/faucet-assembly.step.mesh": `https://objects.homesodamachine.com/s-${digest.mesh}.gz`,

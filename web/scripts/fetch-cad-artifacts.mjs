@@ -46,6 +46,7 @@ import { websitePointers } from "../contracts/artifact-scope.js";
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..", "..");
 const POINTERS = path.join(ROOT, "hardware", "cad-artifacts.json");
 const CHECK = process.argv.includes("--check");
+const ONLY = new Set(process.argv.filter(arg=>arg.startsWith("--only=")).flatMap(arg=>arg.slice(7).split(",")));
 const FOR_BUILD = process.argv.includes("--for-build");
 // A Render build or container holds published artifacts, so cached older bytes need
 // replacement even when buildCommand/prestart did not pass --adopt. A local build
@@ -112,7 +113,7 @@ if (!pointers) {
 
 const scope = FOR_BUILD ? pointers : websitePointers(pointers);
 const solids = Object.fromEntries(Object.entries(scope.solids ?? {})
-  .filter(([rel]) => !isCommittedDocumentFile(rel) && !isArchivedDocumentFile(rel)));
+  .filter(([rel]) => !isCommittedDocumentFile(rel) && !isArchivedDocumentFile(rel) && (!ONLY.size || ONLY.has(rel))));
 const { missing: absent, drifted } = await wanted(solids);
 const OBJECTS = pointers.store?.objects ?? pointers.release?.objects ?? null;
 

@@ -79,6 +79,10 @@ function addBoardFaces(group, file) {
 }
 
 export async function loadGlbFile(file, { preserveCamera = false } = {}) {
+  if (file.startsWith('assembly/scenes/glb/')) {
+    const { loadStepFile } = await import('./step.js');
+    return loadStepFile(file,{preserveCamera});
+  }
   const load = beginCadLoad();
   const { current, signal } = load;
   const loadingEl = state.currentCadWrapper && state.currentCadWrapper.querySelector(".cad-loading");
