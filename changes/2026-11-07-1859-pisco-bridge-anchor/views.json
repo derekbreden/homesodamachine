@@ -1,0 +1,88 @@
+{
+  "views": [
+    {
+      "name": "fore-anchor",
+      "caption": "The service opening leaves a full-thickness end for the catch bridge.",
+      "before": "fore-anchor-before.webp",
+      "after": "fore-anchor-after.webp",
+      "width": 1200,
+      "height": 900,
+      "marks": [
+        {
+          "x": 594.6,
+          "y": 425.3,
+          "r": 29.7,
+          "label": "Fore bridge anchor",
+          "at": [
+            65.5,
+            419,
+            342
+          ]
+        }
+      ],
+      "model": "manifold-layout/enclosure-assembly.step",
+      "camera": {
+        "projection": "perspective",
+        "position": [
+          60.98793761673352,
+          395.83968808366757,
+          339.14396880836676
+        ],
+        "target": [
+          65.7,
+          419.4,
+          341.5
+        ],
+        "up": [
+          0,
+          0,
+          1
+        ],
+        "fov": 45,
+        "near": 0.23495151451084345,
+        "far": 519.8770267035218,
+        "aspect": 1.3333333333333333,
+        "section": {
+          "at": [
+            65,
+            419,
+            342
+          ],
+          "normal": [
+            -1,
+            0,
+            0
+          ],
+          "removes": "the side the normal points to"
+        }
+      },
+      "highlight": [],
+      "ghost": [],
+      "only": [
+        "enclosure-back-top"
+      ],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "snapshot",
+          "sha256": "66217db6e24a4649b802511d5236dd11a3af09bbe84856f44dc8db286026c760",
+          "commit": "7f035feee5dfa2519bf9c2eb3ca817d930c5df35",
+          "taken": "2026-11-08T00:14:34.917Z",
+          "published": true
+        },
+        "after": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "tree",
+          "sha256": "6efba2fce845c02f67428477abaa3b15f34af101dc43e1bdbafdfbf3516a8af3",
+          "commit": "1ba7ffd802cfe2ff62996cd1b59d0d1030afc94e",
+          "published": true
+        }
+      },
+      "changed": [
+        "enclosure-back-top"
+      ],
+      "withinMeshing": []
+    }
+  ]
+}
