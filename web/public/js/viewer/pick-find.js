@@ -189,6 +189,8 @@ let textarea = null;
 let statusEl = null;
 let panelOpen = false;
 let toggleBtn = null;
+// A completed reload refreshes the active query without refocusing the camera.
+let activeFind = null;
 
 function buildPanel() {
   panel = document.createElement("div");
@@ -233,7 +235,7 @@ function buildPanel() {
   clear.type = "button";
   clear.className = "edge-panel-all";
   clear.textContent = "Clear";
-  clear.addEventListener("click", () => { clearOverlay(); setStatus(""); });
+  clear.addEventListener("click", () => { activeFind = null; clearOverlay(); setStatus(""); });
   buttons.appendChild(go);
   buttons.appendChild(clear);
   panel.appendChild(buttons);
@@ -300,20 +302,21 @@ function nameStatus(hits) {
   return out.join(" · ");
 }
 
-async function runFind() {
+async function runFind({ focus = true, text = textarea.value } = {}) {
   // The box is on screen from the moment the modal opens; a big assembly is
   // still parsing for seconds after that. Say so rather than doing nothing.
   if (!state.mountedDetail || state.mountedDetail.type !== "step") {
     setStatus("still loading the model — try again in a moment");
     return;
   }
-  const { picks, files, names, view } = parsePicks(textarea.value);
+  const { picks, files, names, view } = parsePicks(text);
   // Known material descriptions can include units, punctuation and more words
   // than the compact CAD-key grammar used by pasted geometry reports.
-  for (const line of textarea.value.split("\n").map((line) => line.trim()).filter(Boolean))
+  for (const line of text.split("\n").map((line) => line.trim()).filter(Boolean))
     if (searchMaterials(state.materialCatalog, line).length && !names.includes(line)) names.push(line);
   clearOverlay();
   if (!picks.length && !files.length && !names.length) {
+    activeFind = null;
     setStatus("nothing recognizable — type a part name, or paste pick text");
     return;
   }
@@ -331,7 +334,8 @@ async function runFind() {
       return;
     }
   }
-  if (!picks.length && !names.length) { setStatus("opened — nothing to highlight"); return; }
+  if (!picks.length && !names.length) { activeFind = null; setStatus("opened — nothing to highlight"); return; }
+  activeFind = { file: state.mountedDetail.file, text };
 
   const box = new THREE.Box3();
   const status = [];
@@ -383,7 +387,7 @@ async function runFind() {
   }
 
   setStatus(status.filter(Boolean).join(" · "));
-  flyToBox(box, view);
+  if (focus) flyToBox(box, view);
   showLabels(labels);
 }
 
@@ -517,7 +521,9 @@ function runPendingFind() {
 }
 
 window.addEventListener(HSM_EVENTS.STEP_MOUNTED, (e) => {
-  if (pendingFind && e.detail?.file === pendingFind.file && e.detail.complete !== false) runPendingFind();
+  if (e.detail?.complete === false) return;
+  if (pendingFind && e.detail?.file === pendingFind.file) runPendingFind();
+  else if (activeFind && activeFind.file === e.detail?.file) runFind({ focus: false, text: activeFind.text });
 });
 
 // --- public API ---
@@ -534,6 +540,7 @@ export function clearPickFind() {
 // holding the last query), so what has to reset is the open flag — otherwise
 // the first Find click in the next modal toggles a panel nothing can see.
 export function closePickFind() {
+  activeFind = null;
   clearPickFind();
   panelOpen = false;
   if (panel) panel.classList.remove("show");

@@ -149,3 +149,47 @@ test("live STEP reloads retain one renderer and release departed x-ray geometry"
     await fs.rm(hardwareDir, { recursive: true, force: true });
   }
 });
+
+test("Find survives a model refresh, keeps the camera, and respects Clear", { timeout: 60000 }, async () => {
+  const hardwareDir = await fs.mkdtemp(path.join(os.tmpdir(), "hsm-find-refresh-"));
+  let browser, server;
+  try {
+    await fs.mkdir(path.dirname(path.join(hardwareDir, file)), { recursive: true });
+    await fs.writeFile(path.join(hardwareDir, file), "fixture");
+    await fs.writeFile(path.join(hardwareDir, `${file}.mesh`), payload());
+    ({ server } = await start({ dev: false, port: 0, hardwareDir }));
+    browser = await launchBrowser();
+    const page = await browser.newPage();
+    await page.goto(`http://127.0.0.1:${server.address().port}/3d#step:${encodeURIComponent(file)}?find=${encodeURIComponent("solid: fixture-body")}`, { waitUntil: "domcontentloaded" });
+    await page.waitForFunction(() => window.__hsm?.scene.getObjectByName("pick-find")?.children.length > 0);
+    await page.evaluate(() => new Promise(resolve => setTimeout(resolve, 500)));
+    const result = await page.evaluate(async file => {
+      const h = window.__hsm;
+      const { state } = await import("/js/viewer/state.js");
+      h.camera.position.set(30, -40, 50); h.controls.target.set(0, 0, 0); h.controls.update();
+      const before = [...h.camera.position.toArray(), ...h.controls.target.toArray()];
+      const oldGroup = h.currentGroup.uuid;
+      state.stepEtags.clear();
+      await h.loadStepFile(file, { preserveCamera: true });
+      return { highlighted: h.scene.getObjectByName("pick-find").children.length,
+        replaced: h.currentGroup.uuid !== oldGroup,
+        before, after: [...h.camera.position.toArray(), ...h.controls.target.toArray()] };
+    }, file);
+    assert.ok(result.replaced, "the fixture did not reload");
+    assert.ok(result.highlighted > 0, "the selected part lost its highlight");
+    assert.deepEqual(result.after, result.before, "refresh refocused the camera");
+    await page.$eval('.pick-find-toggle', button => button.click());
+    const cleared = await page.evaluate(async file => {
+      [...document.querySelectorAll(".pick-find-buttons button")].find(button => button.textContent === "Clear").click();
+      const { state } = await import("/js/viewer/state.js");
+      state.stepEtags.clear();
+      await window.__hsm.loadStepFile(file, { preserveCamera: true });
+      return window.__hsm.scene.getObjectByName("pick-find").children.length;
+    }, file);
+    assert.equal(cleared, 0, "refresh revived a cleared highlight");
+  } finally {
+    await closeBrowser(browser);
+    await closeServer(server);
+    await fs.rm(hardwareDir, { recursive: true, force: true });
+  }
+});
