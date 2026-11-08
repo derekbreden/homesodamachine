@@ -1,0 +1,53 @@
+{
+  "purpose": "Record the unchanged identification-set archive prepared for the post-drying, rethreaded retry.",
+  "source_archive": "hardware/printed-parts/enclosure/display-cover/prints/2026-11-06-identification-set-mark1-z000/HSM-identification-Mark1-z000.gcode.3mf",
+  "source_sha256": "c41c0ee97b0d47869a71335bdcf0e09b1c48ce0c11deae2666303dc3038428b4",
+  "gcode_sha256": "0d5ec185a13b596213091a24b64700dbb0ef353c24798eadedd9fae0ecb9788c",
+  "submitted_name": "HSM-identification-Mark1-dried-z000.gcode.3mf",
+  "z_offset_commands": [
+    "G29.1 Z0 ; clear z-trim value first",
+    "G29.1 Z0"
+  ],
+  "geometry_and_toolpaths_unchanged": true,
+  "plate": "Engineering Plate, glued",
+  "drying_baseline": "../2026-11-07-identification-set-mark1-white-spare/drying/closed-baseline.json",
+  "excluded_hotend_serial": "20D06A5C1907799",
+  "replacement_white_hotend_serial": "20D06A611023831",
+  "status": "Prepared; Bambu Connect access awaits Mac unlock",
+  "requested_mapping": {
+    "black": {
+      "side": "left",
+      "ams": "HT-A"
+    },
+    "white": {
+      "side": "right",
+      "ams": "A3",
+      "replacement_serial": "20D06A611023831"
+    },
+    "blue": {
+      "side": "right",
+      "ams": "A2"
+    },
+    "red": {
+      "side": "right",
+      "ams": "A1"
+    },
+    "clear": {
+      "side": "right",
+      "ams": "A4"
+    }
+  },
+  "requested_nozzle_diameter_mm": 0.2,
+  "options": {
+    "Timelapse": "On",
+    "Auto bed leveling": "On",
+    "Flow dynamic calibration": "Auto",
+    "Nozzle Offset Calibration": "Auto"
+  },
+  "mark_two_last_launch": {
+    "observed_at": "2026-11-08T00:26:18.060968+00:00",
+    "job_id": "1418882219"
+  },
+  "submitted": false,
+  "ui_blocker": "The Mac is locked and automatic unlock could not unlock it; manual Mac unlock is required to use Bambu Connect."
+}
