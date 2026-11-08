@@ -102,7 +102,6 @@ fn print_features(dir: &Path, b: &spec::Box) -> Result<()> {
         &b.inner,
         b.y_joint,
         quadrant::Y::Back,
-        Some(&b.pack.collet_plate),
     ) {
         let [open, _, far] =
             hsm_enclosure_quadrants::rails::rail_channel_span(run.sx, quadrant::Y::Back);
@@ -234,12 +233,11 @@ fn pipeline(g: &mut Graph, k: &Build) -> Shape {
     let [ox0, ox1, oy0, oy1, _, oz1] = b.exterior_bounds();
     let (zj, up) = (q.zj(b), q.up());
     let pack = &b.pack;
-    let plate = Some(&pack.collet_plate);
     let upper = g.box_([ox0 - 1.0, ox1 + 1.0, oy0 - 1.0, oy1 + 1.0, zj, oz1 + 1.0]);
     let mut piece = g.intersect(k.half, &[upper]);
     let flanks = backtop::flanks(g, b, zj, up);
     piece = g.union(piece, &[flanks]);
-    let feet = z_rail_feet(g, inner, y_joint, zj, q.y, plate);
+    let feet = z_rail_feet(g, inner, y_joint, zj, q.y);
     piece = g.union(piece, &[feet]);
     let wall = backtop::wall(g, b, zj, up);
     piece = g.union(piece, &[wall]);
@@ -257,7 +255,7 @@ fn pipeline(g: &mut Graph, k: &Build) -> Shape {
     if k.airway_in() {
         piece = flank_vents(g, piece, outer, &pack.cond_airway);
     }
-    let channels = z_rail_channels(g, inner, y_joint, zj, q.y, plate);
+    let channels = z_rail_channels(g, inner, y_joint, zj, q.y);
     piece = g.cut(piece, &[channels]);
     piece = seat::funnel_seat(g, piece, b, q, k.silhouette, up);
     piece = routes::apply(g, piece, q);
