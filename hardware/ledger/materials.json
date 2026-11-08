@@ -45,287 +45,58 @@
         }
       ],
       "bom": {
-        "scope": "Machine contents: fitted tubing, inlet fittings, fasteners, the eleven bench harnesses, the fixed AC and DC leads, the compressor lead and the carbonator earth bond. The installation water tube and cylinder tether ship in the install kit. Wire, tubing stock and supplies are costed on the parts and assemblies that use them; cut lengths follow the build records.",
+        "scope": "The prepared enclosure sections, connected refrigeration assembly and removable funnel, plus final closure hardware, display and inter-assembly connections. Each bench assembly owns its fitted parts; cross-assembly tubes and leads keep their recorded identities.",
         "source": "ledger/bom.md",
         "items": [
           {
-            "material": "HSM-0003",
-            "quantity": 1,
-            "unit": "ea",
-            "prefix": "cold-core/"
-          },
-          {
-            "material": "HSM-0038",
-            "quantity": 1,
-            "unit": "ea",
-            "bodies": [
-              "compressor"
-            ]
-          },
-          {
-            "material": "HSM-0039",
-            "quantity": 1,
-            "unit": "ea",
-            "bodies": [
-              "mq6-sensor"
-            ]
-          },
-          {
-            "material": "HSM-0040",
-            "quantity": 1,
-            "unit": "ea",
-            "bodies": [
-              "thermal-fuse",
-              "terminal-fuse-in-lead",
-              "terminal-fuse-out-lead"
-            ]
-          },
-          {
-            "material": "HSM-0041",
-            "quantity": 1,
-            "unit": "ea",
-            "bodies": [
-              "fuse-clamp"
-            ]
-          },
-          {
-            "material": "HSM-0042",
-            "quantity": 10,
-            "unit": "ea",
-            "bodies": [
-              "valve-v-a",
-              "coil-v-a",
-              "valve-v-c",
-              "coil-v-c",
-              "valve-v-e",
-              "coil-v-e",
-              "valve-v-g",
-              "coil-v-g",
-              "valve-v-f",
-              "coil-v-f",
-              "valve-v-d",
-              "coil-v-d",
-              "valve-v-h",
-              "coil-v-h",
-              "valve-v-j",
-              "coil-v-j",
-              "valve-v-i",
-              "coil-v-i",
-              "vk-solenoid"
-            ]
-          },
-          {
-            "material": "HSM-0043",
-            "quantity": 7,
-            "unit": "ea",
-            "bodies": [
-              "tee-y-a",
-              "tee-y-c",
-              "tee-y-d",
-              "tee-y-b",
-              "tee-y-f",
-              "tee-y-g",
-              "water-split"
-            ],
-            "note": "Six flavor-manifold tees and the tap-water split at the ASSE outlet cuff, feeding V-K and the flavor-water regulator."
-          },
-          {
-            "material": "HSM-0330",
-            "quantity": 20,
-            "unit": "ea",
-            "bodies": [
-              "stem-elbow-y-c",
-              "stem-elbow-v-c",
-              "stem-elbow-y-d",
-              "stem-elbow-v-g",
-              "stem-elbow-y-f",
-              "stem-elbow-v-d",
-              "stem-elbow-y-g",
-              "stem-elbow-v-j",
-              "tee-fold",
-              "lower-valve-elbow",
-              "reg-va-elbow",
-              "va-outlet-elbow",
-              "va-south-elbow",
-              "ya-stem-elbow",
-              "drain-outlet-stem",
-              "yb-stem-elbow",
-              "reservoir-a-fill-turn",
-              "reservoir-a-draw-turn",
-              "reservoir-b-fill-turn",
-              "funnel-drain-union"
-            ],
-            "note": "Eight at the pump-dock lower returns, eight at the warm header and return joints, three at the reservoir valves V-F/V-E/V-I and one uncut at the funnel drain."
-          },
-          {
-            "material": "HSM-0161",
+            "material": "HSM-0547",
             "quantity": 1,
             "unit": "ea"
           },
           {
-            "material": "HSM-0324",
-            "quantity": 2,
-            "unit": "ea",
-            "bodies": [
-              "pump-inlet-tpu",
-              "pump-outlet-tpu"
-            ]
+            "material": "HSM-0548",
+            "quantity": 1,
+            "unit": "ea"
           },
           {
-            "material": "HSM-0046",
+            "material": "HSM-0549",
+            "quantity": 1,
+            "unit": "ea"
+          },
+          {
+            "material": "HSM-0550",
+            "quantity": 1,
+            "unit": "ea"
+          },
+          {
+            "material": "HSM-0552",
+            "quantity": 1,
+            "unit": "ea"
+          },
+          {
+            "material": "HSM-0551",
+            "quantity": 1,
+            "unit": "ea"
+          },
+          {
+            "material": "HSM-0330",
             "quantity": 1,
             "unit": "ea",
             "bodies": [
-              "psu"
-            ]
-          },
-          {
-            "material": "HSM-0047",
-            "quantity": 2,
-            "unit": "ea",
-            "bodies": [
-              "relay-2",
-              "relay-1"
-            ]
-          },
-          {
-            "material": "HSM-0049",
-            "quantity": 1,
-            "unit": "ea",
-            "bodies": [
-              "c14-inlet"
-            ]
+              "va-south-elbow"
+            ],
+            "note": "Eight at the pump-dock lower returns, eight at the warm header and return joints, three at the reservoir valves V-F/V-E/V-I and one uncut at the funnel drain."
           },
           {
             "material": "HSM-0050",
-            "quantity": 6,
+            "quantity": 3,
             "unit": "ea",
             "bodies": [
-              "wago-h",
-              "wago-n",
-              "wago-g",
               "wiring-junction-compressor-h",
               "wiring-junction-compressor-n",
               "wiring-junction-pump-positive"
             ],
             "note": "Three seat in the rear wall's printed wells; three free joins under the funnel opening join the compressor's switched hot and neutral and the pump positive."
-          },
-          {
-            "material": "HSM-0052",
-            "quantity": 1,
-            "unit": "ea",
-            "bodies": [
-              "wago-mana"
-            ]
-          },
-          {
-            "material": "HSM-0053",
-            "quantity": 1,
-            "unit": "ea",
-            "bodies": [
-              "wago-manb"
-            ]
-          },
-          {
-            "material": "HSM-0332",
-            "quantity": 1,
-            "unit": "ea",
-            "bodies": [
-              "flow-regulator"
-            ]
-          },
-          {
-            "material": "HSM-0331",
-            "quantity": 1,
-            "unit": "ea",
-            "bodies": [
-              "gas-regulator",
-              "co2-inlet"
-            ]
-          },
-          {
-            "material": "HSM-0059",
-            "quantity": 1,
-            "unit": "ea",
-            "bodies": [
-              "bulkhead-carb",
-              "bulkhead-carb-nut"
-            ]
-          },
-          {
-            "material": "HSM-0060",
-            "quantity": 1,
-            "unit": "ea",
-            "bodies": [
-              "digiten-flow"
-            ]
-          },
-          {
-            "material": "HSM-0061",
-            "quantity": 3,
-            "unit": "ea",
-            "bodies": [
-              "bulkhead-drain",
-              "bulkhead-flavor-a",
-              "bulkhead-flavor-b",
-              "bulkhead-drain-nut",
-              "bulkhead-flavor-a-nut",
-              "bulkhead-flavor-b-nut"
-            ]
-          },
-          {
-            "material": "HSM-0062",
-            "quantity": 1,
-            "unit": "ea",
-            "bodies": [
-              "bulkhead-ring-water",
-              "bulkhead-ring-water-word"
-            ]
-          },
-          {
-            "material": "HSM-0063",
-            "quantity": 1,
-            "unit": "ea",
-            "bodies": [
-              "bulkhead-ring-carb",
-              "bulkhead-ring-carb-word"
-            ]
-          },
-          {
-            "material": "HSM-0064",
-            "quantity": 1,
-            "unit": "ea",
-            "bodies": [
-              "bulkhead-ring-flavor-a",
-              "bulkhead-ring-flavor-a-word"
-            ]
-          },
-          {
-            "material": "HSM-0065",
-            "quantity": 1,
-            "unit": "ea",
-            "bodies": [
-              "bulkhead-ring-flavor-b",
-              "bulkhead-ring-flavor-b-word"
-            ]
-          },
-          {
-            "material": "HSM-0066",
-            "quantity": 1,
-            "unit": "ea",
-            "bodies": [
-              "bulkhead-ring-co2",
-              "bulkhead-ring-co2-word"
-            ]
-          },
-          {
-            "material": "HSM-0067",
-            "quantity": 1,
-            "unit": "ea",
-            "bodies": [
-              "bulkhead-ring-drain",
-              "bulkhead-ring-drain-word"
-            ]
           },
           {
             "material": "HSM-0069",
@@ -334,38 +105,6 @@
             "bodies": [
               "nameplate",
               "nameplate-ink"
-            ]
-          },
-          {
-            "material": "HSM-0070",
-            "quantity": 1,
-            "unit": "ea",
-            "bodies": [
-              "funnel"
-            ]
-          },
-          {
-            "material": "HSM-0071",
-            "quantity": 1,
-            "unit": "ea",
-            "bodies": [
-              "funnel-cover"
-            ]
-          },
-          {
-            "material": "HSM-0072",
-            "quantity": 1,
-            "unit": "ea",
-            "bodies": [
-              "funnel-frame"
-            ]
-          },
-          {
-            "material": "HSM-0073",
-            "quantity": 1,
-            "unit": "ea",
-            "bodies": [
-              "elbow-cradle"
             ]
           },
           {
@@ -393,176 +132,6 @@
             ]
           },
           {
-            "material": "HSM-0078",
-            "quantity": 1,
-            "unit": "ea",
-            "bodies": [
-              "enclosure-front-bottom"
-            ]
-          },
-          {
-            "material": "HSM-0079",
-            "quantity": 1,
-            "unit": "ea",
-            "bodies": [
-              "enclosure-front-top"
-            ]
-          },
-          {
-            "material": "HSM-0080",
-            "quantity": 1,
-            "unit": "ea",
-            "bodies": [
-              "enclosure-back-bottom"
-            ]
-          },
-          {
-            "material": "HSM-0081",
-            "quantity": 1,
-            "unit": "ea",
-            "bodies": [
-              "enclosure-back-top"
-            ]
-          },
-          {
-            "material": "HSM-0173",
-            "quantity": 1,
-            "unit": "ea",
-            "bodies": [
-              "asse1022-assembly"
-            ]
-          },
-          {
-            "material": "HSM-0334",
-            "quantity": 1,
-            "unit": "ea",
-            "bodies": [
-              "asse-inlet-tpu"
-            ]
-          },
-          {
-            "material": "HSM-0335",
-            "quantity": 1,
-            "unit": "ea",
-            "bodies": [
-              "asse-outlet-tpu"
-            ]
-          },
-          {
-            "material": "HSM-0088",
-            "quantity": 1,
-            "unit": "ea",
-            "bodies": [
-              "asse-drain-adapter"
-            ]
-          },
-          {
-            "material": "HSM-0179",
-            "quantity": 1,
-            "unit": "ea",
-            "bodies": [
-              "condenser+fan"
-            ]
-          },
-          {
-            "material": "HSM-0270",
-            "quantity": 1,
-            "unit": "ea",
-            "bodies": [
-              "keystone-jack"
-            ]
-          },
-          {
-            "material": "HSM-0272",
-            "quantity": 1,
-            "unit": "ea",
-            "bodies": [
-              "tube-collar-water",
-              "tube-collar-water-word"
-            ]
-          },
-          {
-            "material": "HSM-0273",
-            "quantity": 1,
-            "unit": "ea",
-            "bodies": [
-              "tube-collar-co2",
-              "tube-collar-co2-word"
-            ]
-          },
-          {
-            "material": "HSM-0277",
-            "quantity": 1,
-            "unit": "ea",
-            "bodies": [
-              "tube-fluid-10"
-            ],
-            "note": "One fitted run; drawn bends and stepped sections belong to this same tube."
-          },
-          {
-            "material": "HSM-0278",
-            "quantity": 1,
-            "unit": "ea",
-            "bodies": [
-              "tube-fluid-13"
-            ],
-            "note": "One fitted run; drawn bends and stepped sections belong to this same tube."
-          },
-          {
-            "material": "HSM-0279",
-            "quantity": 1,
-            "unit": "ea",
-            "bodies": [
-              "tube-fluid-20"
-            ],
-            "note": "One fitted run; drawn bends and stepped sections belong to this same tube."
-          },
-          {
-            "material": "HSM-0280",
-            "quantity": 1,
-            "unit": "ea",
-            "bodies": [
-              "tube-fluid-23"
-            ],
-            "note": "One fitted run; drawn bends and stepped sections belong to this same tube."
-          },
-          {
-            "material": "HSM-0281",
-            "quantity": 1,
-            "unit": "ea",
-            "bodies": [
-              "tube-fluid-9"
-            ],
-            "note": "One fitted run; drawn bends and stepped sections belong to this same tube."
-          },
-          {
-            "material": "HSM-0282",
-            "quantity": 1,
-            "unit": "ea",
-            "bodies": [
-              "tube-fluid-17"
-            ],
-            "note": "One fitted run; drawn bends and stepped sections belong to this same tube."
-          },
-          {
-            "material": "HSM-0283",
-            "quantity": 1,
-            "unit": "ea",
-            "bodies": [
-              "tube-fluid-19"
-            ],
-            "note": "One fitted run; drawn bends and stepped sections belong to this same tube."
-          },
-          {
-            "material": "HSM-0284",
-            "quantity": 1,
-            "unit": "ea",
-            "bodies": [
-              "tube-fluid-27"
-            ],
-            "note": "One fitted run; drawn bends and stepped sections belong to this same tube."
-          },
-          {
             "material": "HSM-0285",
             "quantity": 1,
             "unit": "ea",
@@ -585,164 +154,6 @@
             "note": "One fitted run; drawn bends and stepped sections belong to this same tube."
           },
           {
-            "material": "HSM-0288",
-            "quantity": 1,
-            "unit": "ea",
-            "bodies": [
-              "tube-refrig-3"
-            ],
-            "note": "One fitted run; drawn bends and stepped sections belong to this same tube."
-          },
-          {
-            "material": "HSM-0289",
-            "quantity": 1,
-            "unit": "ea",
-            "bodies": [
-              "tube-refrig-1"
-            ],
-            "note": "One fitted run; drawn bends and stepped sections belong to this same tube."
-          },
-          {
-            "material": "HSM-0290",
-            "quantity": 1,
-            "unit": "ea",
-            "bodies": [
-              "tube-refrig-2"
-            ],
-            "note": "One fitted run; drawn bends and stepped sections belong to this same tube."
-          },
-          {
-            "material": "HSM-0295",
-            "quantity": 1,
-            "unit": "ea",
-            "bodies": [
-              "tube-fluid-1",
-              "tube-above-core-tee-regulator"
-            ],
-            "note": "One fitted run; drawn bends and stepped sections belong to this same tube."
-          },
-          {
-            "material": "HSM-0296",
-            "quantity": 1,
-            "unit": "ea",
-            "bodies": [
-              "tube-water-3",
-              "tube-above-core-tee-vk-link"
-            ],
-            "note": "One fitted run; drawn bends and stepped sections belong to this same tube."
-          },
-          {
-            "material": "HSM-0300",
-            "quantity": 1,
-            "unit": "ea",
-            "bodies": [
-              "tube-fluid-2",
-              "tube-above-core-reg-va-link"
-            ],
-            "note": "One fitted run; drawn bends and stepped sections belong to this same tube."
-          },
-          {
-            "material": "HSM-0302",
-            "quantity": 1,
-            "unit": "ea",
-            "bodies": [
-              "tube-carb-2",
-              "tube-soda-meter-bulkhead"
-            ],
-            "note": "One fitted run; drawn bends and stepped sections belong to this same tube."
-          },
-          {
-            "material": "HSM-0303",
-            "quantity": 1,
-            "unit": "ea",
-            "bodies": [
-              "tube-fluid-28"
-            ],
-            "note": "One fitted run; drawn bends and stepped sections belong to this same tube."
-          },
-          {
-            "material": "HSM-0304",
-            "quantity": 1,
-            "unit": "ea",
-            "bodies": [
-              "tube-fluid-18"
-            ],
-            "note": "One fitted run; drawn bends and stepped sections belong to this same tube."
-          },
-          {
-            "material": "HSM-0309",
-            "quantity": 1,
-            "unit": "ea",
-            "bodies": [
-              "tube-fluid-4",
-              "tube-above-core-drain-vb-east-link"
-            ],
-            "note": "One fitted run; drawn bends and stepped sections belong to this same tube."
-          },
-          {
-            "material": "HSM-0310",
-            "quantity": 1,
-            "unit": "ea",
-            "bodies": [
-              "tube-drain-vent"
-            ],
-            "note": "One fitted run; drawn bends and stepped sections belong to this same tube."
-          },
-          {
-            "material": "HSM-0343",
-            "quantity": 1,
-            "unit": "ea",
-            "bodies": [
-              "terminal-J1",
-              "wire-J1-COM",
-              "wire-J1-OUT1",
-              "wire-J1-OUT2",
-              "wire-J1-OUT3",
-              "wire-J1-OUT4",
-              "wire-J1-OUT5",
-              "wire-J1-OUT6",
-              "wire-J1-OUT7",
-              "wire-J1-OUT8",
-              "wire-J1-positive-A",
-              "wire-J1-positive-B",
-              "wire-J1-positive-C",
-              "wire-J1-positive-D",
-              "wire-J1-positive-E",
-              "wire-J1-positive-F",
-              "wire-J1-positive-G",
-              "wire-J1-positive-H"
-            ]
-          },
-          {
-            "material": "HSM-0344",
-            "quantity": 1,
-            "unit": "ea",
-            "bodies": [
-              "terminal-J2",
-              "wire-J2-COM",
-              "wire-J2-OUT1",
-              "wire-J2-positive-I",
-              "wire-J2-OUT2",
-              "wire-J2-positive-J",
-              "wire-J2-FAN",
-              "wire-J2-positive-fan",
-              "wire-J2-OUT3",
-              "wire-J2-positive-K"
-            ]
-          },
-          {
-            "material": "HSM-0345",
-            "quantity": 1,
-            "unit": "ea",
-            "bodies": [
-              "terminal-J3",
-              "wire-J3-V5",
-              "wire-J3-GND",
-              "wire-J3-IO35",
-              "wire-J3-IO33"
-            ]
-          },
-          {
             "material": "HSM-0346",
             "quantity": 1,
             "unit": "ea",
@@ -758,20 +169,6 @@
               "wire-temp-bus-V",
               "wire-temp-bus-DATA",
               "wire-temp-bus-GND"
-            ]
-          },
-          {
-            "material": "HSM-0347",
-            "quantity": 1,
-            "unit": "ea",
-            "bodies": [
-              "terminal-J5",
-              "wire-J5-V5",
-              "wire-J5-GND",
-              "wire-J5-IO19",
-              "wire-J5-IO2",
-              "wire-relay-bus-V5",
-              "wire-relay-bus-GND"
             ]
           },
           {
@@ -833,70 +230,10 @@
             ]
           },
           {
-            "material": "HSM-0352",
-            "quantity": 1,
-            "unit": "ea",
-            "bodies": [
-              "terminal-J11",
-              "wire-J11-V5",
-              "wire-J11-GND",
-              "wire-J11-DOUT",
-              "wire-J11-AOUT"
-            ]
-          },
-          {
-            "material": "HSM-0353",
-            "quantity": 1,
-            "unit": "ea",
-            "bodies": [
-              "terminal-J13",
-              "wire-J13-AM2",
-              "wire-J13-AM1",
-              "wire-J13-BM2",
-              "wire-J13-BM1"
-            ]
-          },
-          {
-            "material": "HSM-0380",
-            "quantity": 1,
-            "unit": "ea",
-            "bodies": [
-              "terminal-compressor-cord-jacket",
-              "wire-AC4-H",
-              "wire-AC4-fuse",
-              "wire-AC5-N",
-              "wire-AC6-PE",
-              "terminal-fuse-in-splice",
-              "terminal-fuse-out-splice"
-            ]
-          },
-          {
             "material": "HSM-0354",
             "quantity": 1,
             "unit": "ea",
             "note": "Seated in the main board's BT1 holder at bench test."
-          },
-          {
-            "material": "HSM-0355",
-            "quantity": 1,
-            "unit": "ea",
-            "note": "Clamped permanently on the compressor process tube."
-          },
-          {
-            "material": "HSM-0356",
-            "quantity": 1,
-            "unit": "ea",
-            "note": "Brazed between the evaporator coil's outlet stub and the donor suction line."
-          },
-          {
-            "material": "HSM-0357",
-            "quantity": 2,
-            "unit": "ea",
-            "note": "One in each dispense valve outlet, V-G and V-J.",
-            "bodies": [
-              "flavor-reducer-v-g",
-              "flavor-reducer-v-j"
-            ]
           },
           {
             "material": "HSM-0358",
@@ -907,74 +244,11 @@
             ]
           },
           {
-            "material": "HSM-0364",
-            "quantity": 1,
-            "unit": "ea",
-            "note": "One fitted run from the tap-water bulkhead to the ASSE inlet cuff."
-          },
-          {
-            "material": "HSM-0164",
-            "quantity": 6,
-            "unit": "ea",
-            "note": "Two condenser fingers and four funnel-frame ledges.",
-            "bodies": [
-              "funnel-frame-front-east-insert",
-              "funnel-frame-front-west-insert",
-              "funnel-frame-back-east-insert",
-              "funnel-frame-back-west-insert"
-            ]
-          },
-          {
-            "material": "HSM-0136",
-            "quantity": 10,
-            "unit": "ea",
-            "note": "Two C14 bosses, four PSU hosts and four relay diagonals.",
-            "bodies": [
-              "psu-insert-1",
-              "psu-insert-2",
-              "psu-insert-3",
-              "psu-insert-4",
-              "relay-1-insert-1",
-              "relay-1-insert-2",
-              "relay-2-insert-1",
-              "relay-2-insert-2"
-            ]
-          },
-          {
-            "material": "HSM-0132",
-            "quantity": 8,
-            "unit": "ea",
-            "note": "Four compressor floor posts and four Y-seam anchors.",
-            "bodies": [
-              "y-seam-east-lower-insert",
-              "y-seam-east-upper-insert",
-              "y-seam-west-lower-insert",
-              "y-seam-west-upper-insert"
-            ]
-          },
-          {
             "material": "HSM-0138",
-            "quantity": 6,
+            "quantity": 2,
             "unit": "ea",
             "note": "Four relay and two condenser screws.",
-            "bodies": [
-              "relay-1-screw-1",
-              "relay-1-screw-2",
-              "relay-2-screw-1",
-              "relay-2-screw-2"
-            ]
-          },
-          {
-            "material": "HSM-0139",
-            "quantity": 6,
-            "unit": "ea",
-            "note": "Four PSU ceiling screws and the two C14 screws.",
-            "bodies": [
-              "psu-screw-1",
-              "psu-screw-2",
-              "psu-screw-3",
-              "psu-screw-4"
-            ]
+            "bodies": []
           },
           {
             "material": "HSM-0140",
@@ -987,12 +261,6 @@
               "funnel-frame-back-east-screw",
               "funnel-frame-back-west-screw"
             ]
-          },
-          {
-            "material": "HSM-0362",
-            "quantity": 2,
-            "unit": "ea",
-            "note": "Bridging the C14 flange countersinks."
           },
           {
             "material": "HSM-0133",
@@ -1044,45 +312,6 @@
             ]
           },
           {
-            "material": "HSM-0384",
-            "quantity": 1,
-            "unit": "ea",
-            "bodies": [
-              "wire-AC1-L",
-              "wire-AC1-N",
-              "wire-AC1-PE"
-            ]
-          },
-          {
-            "material": "HSM-0385",
-            "quantity": 1,
-            "unit": "ea",
-            "bodies": [
-              "wire-AC2-L",
-              "wire-AC2-N"
-            ]
-          },
-          {
-            "material": "HSM-0386",
-            "quantity": 1,
-            "unit": "ea",
-            "bodies": [
-              "wire-AC3-L",
-              "wire-AC4-pigtail",
-              "wire-AC5-pigtail"
-            ],
-            "note": "AC-3 from the H block to relay 1 COM, and the relay 1 NO and N-block pigtails that meet the compressor lead in the two joins under the funnel opening."
-          },
-          {
-            "material": "HSM-0387",
-            "quantity": 1,
-            "unit": "ea",
-            "bodies": [
-              "wire-DC1-V12",
-              "wire-DC1-GND"
-            ]
-          },
-          {
             "material": "HSM-0388",
             "quantity": 1,
             "unit": "ea",
@@ -1093,83 +322,6 @@
               "wire-DC3-negative"
             ],
             "note": "DC-2 from the V12 block to relay 2 COM; DC-3's relay 2 NO pigtail and pump positive, joined under the funnel opening, and the pump negative from the DC GND block."
-          },
-          {
-            "material": "HSM-0448",
-            "quantity": 1,
-            "unit": "ea",
-            "bodies": [
-              "asse-snap-cap"
-            ]
-          },
-          {
-            "material": "HSM-0449",
-            "quantity": 1,
-            "unit": "ea",
-            "bodies": [
-              "pisco-snap-cap"
-            ]
-          },
-          {
-            "material": "HSM-0450",
-            "quantity": 1,
-            "unit": "ea",
-            "bodies": [
-              "meter-snap-cap"
-            ]
-          },
-          {
-            "material": "HSM-0451",
-            "quantity": 1,
-            "unit": "ea",
-            "bodies": [
-              "regulator-snap-cap"
-            ]
-          },
-          {
-            "material": "HSM-0452",
-            "quantity": 1,
-            "unit": "ea",
-            "bodies": [
-              "gagira-coupling"
-            ],
-            "note": "Between the rear TAP connector and the ASSE 1022 inlet."
-          },
-          {
-            "material": "HSM-0453",
-            "quantity": 1,
-            "unit": "ea",
-            "bodies": [
-              "jg-pi4512f6s"
-            ],
-            "note": "On the ASSE 1022 outlet flare, holding the PP061208W reducer stem."
-          },
-          {
-            "material": "HSM-0109",
-            "quantity": 2.48,
-            "unit": "in",
-            "bodies": [
-              "soda-continuous-insulation"
-            ],
-            "note": "One square-cut piece over the continuous soda inlet and its bend holder."
-          },
-          {
-            "material": "HSM-0294",
-            "quantity": 1,
-            "unit": "ea",
-            "bodies": [
-              "tube-above-core-water-split-stub"
-            ],
-            "note": "One fitted run; drawn bends and stepped sections belong to this same tube."
-          },
-          {
-            "material": "HSM-0460",
-            "quantity": 1,
-            "unit": "ea",
-            "bodies": [
-              "jg-pp061208w"
-            ],
-            "note": "In the ASSE 1022 outlet flare adapter."
           }
         ]
       },
@@ -10430,6 +9582,1147 @@
         "M8x80 cut to 45",
         "B098D7DFYJ"
       ]
+    },
+    {
+      "id": "HSM-0547",
+      "description": "Enclosure back top assembly",
+      "kind": "assembly",
+      "aliases": [
+        "populated back top",
+        "rear upper assembly",
+        "prepared rear panel"
+      ],
+      "contexts": [
+        {
+          "material": "HSM-0001"
+        }
+      ],
+      "documents": [
+        {
+          "title": "Mechanical assembly",
+          "path": "assembly/enclosure-mechanical.md"
+        },
+        {
+          "title": "Rear plumbing",
+          "path": "assembly/internal-plumbing.md"
+        },
+        {
+          "title": "Rear wiring",
+          "path": "assembly/electronics-bay.md"
+        }
+      ],
+      "bom": {
+        "scope": "Back-top prepared on the bench with its water and gas groups, rear ports, identification plates, meter, power supply, relays, mains junctions and landed rear wiring. The funnel frame stays accessible for final handoffs; the core-owned continuous tubes connect to this assembly at installation.",
+        "source": "assembly/enclosure-mechanical.md",
+        "items": [
+          {
+            "material": "HSM-0081",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "enclosure-back-top"
+            ]
+          },
+          {
+            "material": "HSM-0046",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "psu"
+            ]
+          },
+          {
+            "material": "HSM-0047",
+            "quantity": 2,
+            "unit": "ea",
+            "bodies": [
+              "relay-2",
+              "relay-1"
+            ]
+          },
+          {
+            "material": "HSM-0049",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "c14-inlet"
+            ]
+          },
+          {
+            "material": "HSM-0332",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "flow-regulator"
+            ]
+          },
+          {
+            "material": "HSM-0331",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "gas-regulator",
+              "co2-inlet"
+            ]
+          },
+          {
+            "material": "HSM-0059",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "bulkhead-carb",
+              "bulkhead-carb-nut"
+            ]
+          },
+          {
+            "material": "HSM-0060",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "digiten-flow"
+            ]
+          },
+          {
+            "material": "HSM-0061",
+            "quantity": 3,
+            "unit": "ea",
+            "bodies": [
+              "bulkhead-drain",
+              "bulkhead-flavor-a",
+              "bulkhead-flavor-b",
+              "bulkhead-drain-nut",
+              "bulkhead-flavor-a-nut",
+              "bulkhead-flavor-b-nut"
+            ]
+          },
+          {
+            "material": "HSM-0062",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "bulkhead-ring-water",
+              "bulkhead-ring-water-word"
+            ]
+          },
+          {
+            "material": "HSM-0063",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "bulkhead-ring-carb",
+              "bulkhead-ring-carb-word"
+            ]
+          },
+          {
+            "material": "HSM-0064",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "bulkhead-ring-flavor-a",
+              "bulkhead-ring-flavor-a-word"
+            ]
+          },
+          {
+            "material": "HSM-0065",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "bulkhead-ring-flavor-b",
+              "bulkhead-ring-flavor-b-word"
+            ]
+          },
+          {
+            "material": "HSM-0066",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "bulkhead-ring-co2",
+              "bulkhead-ring-co2-word"
+            ]
+          },
+          {
+            "material": "HSM-0067",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "bulkhead-ring-drain",
+              "bulkhead-ring-drain-word"
+            ]
+          },
+          {
+            "material": "HSM-0173",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "asse1022-assembly"
+            ]
+          },
+          {
+            "material": "HSM-0334",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "asse-inlet-tpu"
+            ]
+          },
+          {
+            "material": "HSM-0335",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "asse-outlet-tpu"
+            ]
+          },
+          {
+            "material": "HSM-0088",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "asse-drain-adapter"
+            ]
+          },
+          {
+            "material": "HSM-0270",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "keystone-jack"
+            ]
+          },
+          {
+            "material": "HSM-0272",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "tube-collar-water",
+              "tube-collar-water-word"
+            ]
+          },
+          {
+            "material": "HSM-0273",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "tube-collar-co2",
+              "tube-collar-co2-word"
+            ]
+          },
+          {
+            "material": "HSM-0295",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "tube-fluid-1",
+              "tube-above-core-tee-regulator"
+            ],
+            "note": "One fitted run; drawn bends and stepped sections belong to this same tube."
+          },
+          {
+            "material": "HSM-0296",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "tube-water-3",
+              "tube-above-core-tee-vk-link"
+            ],
+            "note": "One fitted run; drawn bends and stepped sections belong to this same tube."
+          },
+          {
+            "material": "HSM-0300",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "tube-fluid-2",
+              "tube-above-core-reg-va-link"
+            ],
+            "note": "One fitted run; drawn bends and stepped sections belong to this same tube."
+          },
+          {
+            "material": "HSM-0302",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "tube-carb-2",
+              "tube-soda-meter-bulkhead"
+            ],
+            "note": "One fitted run; drawn bends and stepped sections belong to this same tube."
+          },
+          {
+            "material": "HSM-0310",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "tube-drain-vent"
+            ],
+            "note": "One fitted run; drawn bends and stepped sections belong to this same tube."
+          },
+          {
+            "material": "HSM-0345",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "terminal-J3",
+              "wire-J3-V5",
+              "wire-J3-GND",
+              "wire-J3-IO35",
+              "wire-J3-IO33"
+            ]
+          },
+          {
+            "material": "HSM-0347",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "terminal-J5",
+              "wire-J5-V5",
+              "wire-J5-GND",
+              "wire-J5-IO19",
+              "wire-J5-IO2",
+              "wire-relay-bus-V5",
+              "wire-relay-bus-GND"
+            ]
+          },
+          {
+            "material": "HSM-0364",
+            "quantity": 1,
+            "unit": "ea",
+            "note": "One fitted run from the tap-water bulkhead to the ASSE inlet cuff."
+          },
+          {
+            "material": "HSM-0384",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "wire-AC1-L",
+              "wire-AC1-N",
+              "wire-AC1-PE"
+            ]
+          },
+          {
+            "material": "HSM-0385",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "wire-AC2-L",
+              "wire-AC2-N"
+            ]
+          },
+          {
+            "material": "HSM-0386",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "wire-AC3-L",
+              "wire-AC4-pigtail",
+              "wire-AC5-pigtail"
+            ],
+            "note": "AC-3 from the H block to relay 1 COM, and the relay 1 NO and N-block pigtails that meet the compressor lead in the two joins under the funnel opening."
+          },
+          {
+            "material": "HSM-0387",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "wire-DC1-V12",
+              "wire-DC1-GND"
+            ]
+          },
+          {
+            "material": "HSM-0448",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "asse-snap-cap"
+            ]
+          },
+          {
+            "material": "HSM-0449",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "pisco-snap-cap"
+            ]
+          },
+          {
+            "material": "HSM-0450",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "meter-snap-cap"
+            ]
+          },
+          {
+            "material": "HSM-0451",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "regulator-snap-cap"
+            ]
+          },
+          {
+            "material": "HSM-0452",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "gagira-coupling"
+            ],
+            "note": "Between the rear TAP connector and the ASSE 1022 inlet."
+          },
+          {
+            "material": "HSM-0453",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "jg-pi4512f6s"
+            ],
+            "note": "On the ASSE 1022 outlet flare, holding the PP061208W reducer stem."
+          },
+          {
+            "material": "HSM-0109",
+            "quantity": 2.48,
+            "unit": "in",
+            "bodies": [
+              "soda-continuous-insulation"
+            ],
+            "note": "One square-cut piece over the continuous soda inlet and its bend holder."
+          },
+          {
+            "material": "HSM-0294",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "tube-above-core-water-split-stub"
+            ],
+            "note": "One fitted run; drawn bends and stepped sections belong to this same tube."
+          },
+          {
+            "material": "HSM-0460",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "jg-pp061208w"
+            ],
+            "note": "In the ASSE 1022 outlet flare adapter."
+          },
+          {
+            "material": "HSM-0139",
+            "quantity": 6,
+            "unit": "ea",
+            "note": "Four PSU ceiling screws and the two C14 screws.",
+            "bodies": [
+              "psu-screw-1",
+              "psu-screw-2",
+              "psu-screw-3",
+              "psu-screw-4"
+            ]
+          },
+          {
+            "material": "HSM-0362",
+            "quantity": 2,
+            "unit": "ea",
+            "note": "Bridging the C14 flange countersinks."
+          },
+          {
+            "material": "HSM-0042",
+            "quantity": 2,
+            "unit": "ea",
+            "bodies": [
+              "valve-v-a",
+              "coil-v-a",
+              "vk-solenoid"
+            ]
+          },
+          {
+            "material": "HSM-0043",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "water-split"
+            ]
+          },
+          {
+            "material": "HSM-0330",
+            "quantity": 4,
+            "unit": "ea",
+            "bodies": [
+              "tee-fold",
+              "lower-valve-elbow",
+              "reg-va-elbow",
+              "va-outlet-elbow"
+            ]
+          },
+          {
+            "material": "HSM-0050",
+            "quantity": 3,
+            "unit": "ea",
+            "bodies": [
+              "wago-h",
+              "wago-n",
+              "wago-g"
+            ]
+          },
+          {
+            "material": "HSM-0136",
+            "quantity": 10,
+            "unit": "ea",
+            "note": "Two C14 bosses, four PSU hosts and four relay diagonals.",
+            "bodies": [
+              "psu-insert-1",
+              "psu-insert-2",
+              "psu-insert-3",
+              "psu-insert-4",
+              "relay-1-insert-1",
+              "relay-1-insert-2",
+              "relay-2-insert-1",
+              "relay-2-insert-2"
+            ]
+          },
+          {
+            "material": "HSM-0164",
+            "quantity": 2,
+            "unit": "ea",
+            "bodies": [
+              "funnel-frame-back-east-insert",
+              "funnel-frame-back-west-insert"
+            ]
+          },
+          {
+            "material": "HSM-0138",
+            "quantity": 4,
+            "unit": "ea",
+            "bodies": [
+              "relay-1-screw-1",
+              "relay-1-screw-2",
+              "relay-2-screw-1",
+              "relay-2-screw-2"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "HSM-0548",
+      "description": "Enclosure front top assembly",
+      "kind": "assembly",
+      "aliases": [
+        "populated front top",
+        "front manifold assembly"
+      ],
+      "contexts": [
+        {
+          "material": "HSM-0001"
+        }
+      ],
+      "documents": [
+        {
+          "title": "Front manifold assembly",
+          "path": "assembly/internal-plumbing.md"
+        },
+        {
+          "title": "Mechanical assembly",
+          "path": "assembly/enclosure-mechanical.md"
+        },
+        {
+          "title": "Wiring",
+          "path": "assembly/wiring.md"
+        }
+      ],
+      "bom": {
+        "scope": "Front-top prepared on the bench with its retained flavor pumps, fixed valve manifold, fitted tubes, manifold commons and prepared pump and valve looms. Free reservoir and rear-port ends remain accessible for installation. The display and its cover are fitted during final assembly.",
+        "source": "assembly/enclosure-mechanical.md",
+        "items": [
+          {
+            "material": "HSM-0079",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "enclosure-front-top"
+            ]
+          },
+          {
+            "material": "HSM-0161",
+            "quantity": 1,
+            "unit": "ea"
+          },
+          {
+            "material": "HSM-0052",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "wago-mana"
+            ]
+          },
+          {
+            "material": "HSM-0053",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "wago-manb"
+            ]
+          },
+          {
+            "material": "HSM-0277",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "tube-fluid-10"
+            ],
+            "note": "One fitted run; drawn bends and stepped sections belong to this same tube."
+          },
+          {
+            "material": "HSM-0278",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "tube-fluid-13"
+            ],
+            "note": "One fitted run; drawn bends and stepped sections belong to this same tube."
+          },
+          {
+            "material": "HSM-0279",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "tube-fluid-20"
+            ],
+            "note": "One fitted run; drawn bends and stepped sections belong to this same tube."
+          },
+          {
+            "material": "HSM-0280",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "tube-fluid-23"
+            ],
+            "note": "One fitted run; drawn bends and stepped sections belong to this same tube."
+          },
+          {
+            "material": "HSM-0281",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "tube-fluid-9"
+            ],
+            "note": "One fitted run; drawn bends and stepped sections belong to this same tube."
+          },
+          {
+            "material": "HSM-0282",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "tube-fluid-17"
+            ],
+            "note": "One fitted run; drawn bends and stepped sections belong to this same tube."
+          },
+          {
+            "material": "HSM-0283",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "tube-fluid-19"
+            ],
+            "note": "One fitted run; drawn bends and stepped sections belong to this same tube."
+          },
+          {
+            "material": "HSM-0284",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "tube-fluid-27"
+            ],
+            "note": "One fitted run; drawn bends and stepped sections belong to this same tube."
+          },
+          {
+            "material": "HSM-0303",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "tube-fluid-28"
+            ],
+            "note": "One fitted run; drawn bends and stepped sections belong to this same tube."
+          },
+          {
+            "material": "HSM-0304",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "tube-fluid-18"
+            ],
+            "note": "One fitted run; drawn bends and stepped sections belong to this same tube."
+          },
+          {
+            "material": "HSM-0343",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "terminal-J1",
+              "wire-J1-COM",
+              "wire-J1-OUT1",
+              "wire-J1-OUT2",
+              "wire-J1-OUT3",
+              "wire-J1-OUT4",
+              "wire-J1-OUT5",
+              "wire-J1-OUT6",
+              "wire-J1-OUT7",
+              "wire-J1-OUT8",
+              "wire-J1-positive-A",
+              "wire-J1-positive-B",
+              "wire-J1-positive-C",
+              "wire-J1-positive-D",
+              "wire-J1-positive-E",
+              "wire-J1-positive-F",
+              "wire-J1-positive-G",
+              "wire-J1-positive-H"
+            ]
+          },
+          {
+            "material": "HSM-0344",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "terminal-J2",
+              "wire-J2-COM",
+              "wire-J2-OUT1",
+              "wire-J2-positive-I",
+              "wire-J2-OUT2",
+              "wire-J2-positive-J",
+              "wire-J2-FAN",
+              "wire-J2-positive-fan",
+              "wire-J2-OUT3",
+              "wire-J2-positive-K"
+            ]
+          },
+          {
+            "material": "HSM-0353",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "terminal-J13",
+              "wire-J13-AM2",
+              "wire-J13-AM1",
+              "wire-J13-BM2",
+              "wire-J13-BM1"
+            ]
+          },
+          {
+            "material": "HSM-0357",
+            "quantity": 2,
+            "unit": "ea",
+            "note": "One in each dispense valve outlet, V-G and V-J.",
+            "bodies": [
+              "flavor-reducer-v-g",
+              "flavor-reducer-v-j"
+            ]
+          },
+          {
+            "material": "HSM-0042",
+            "quantity": 8,
+            "unit": "ea",
+            "bodies": [
+              "valve-v-c",
+              "coil-v-c",
+              "valve-v-e",
+              "coil-v-e",
+              "valve-v-g",
+              "coil-v-g",
+              "valve-v-f",
+              "coil-v-f",
+              "valve-v-d",
+              "coil-v-d",
+              "valve-v-h",
+              "coil-v-h",
+              "valve-v-j",
+              "coil-v-j",
+              "valve-v-i",
+              "coil-v-i"
+            ]
+          },
+          {
+            "material": "HSM-0043",
+            "quantity": 6,
+            "unit": "ea",
+            "bodies": [
+              "tee-y-a",
+              "tee-y-c",
+              "tee-y-d",
+              "tee-y-b",
+              "tee-y-f",
+              "tee-y-g"
+            ],
+            "note": "Six flavor-manifold tees and the tap-water split at the ASSE outlet cuff, feeding V-K and the flavor-water regulator."
+          },
+          {
+            "material": "HSM-0330",
+            "quantity": 13,
+            "unit": "ea",
+            "bodies": [
+              "stem-elbow-y-c",
+              "stem-elbow-v-c",
+              "stem-elbow-y-d",
+              "stem-elbow-v-g",
+              "stem-elbow-y-f",
+              "stem-elbow-v-d",
+              "stem-elbow-y-g",
+              "stem-elbow-v-j",
+              "ya-stem-elbow",
+              "yb-stem-elbow",
+              "reservoir-a-fill-turn",
+              "reservoir-a-draw-turn",
+              "reservoir-b-fill-turn"
+            ]
+          },
+          {
+            "material": "HSM-0164",
+            "quantity": 2,
+            "unit": "ea",
+            "bodies": [
+              "funnel-frame-front-east-insert",
+              "funnel-frame-front-west-insert"
+            ]
+          },
+          {
+            "material": "HSM-0132",
+            "quantity": 2,
+            "unit": "ea",
+            "bodies": [
+              "y-seam-east-upper-insert",
+              "y-seam-west-upper-insert"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "HSM-0549",
+      "description": "Enclosure front bottom assembly",
+      "kind": "assembly",
+      "aliases": [
+        "prepared front bottom",
+        "front lower assembly"
+      ],
+      "contexts": [
+        {
+          "material": "HSM-0001"
+        }
+      ],
+      "documents": [
+        {
+          "title": "Mechanical assembly",
+          "path": "assembly/enclosure-mechanical.md"
+        },
+        {
+          "title": "Wiring",
+          "path": "assembly/wiring.md"
+        }
+      ],
+      "bom": {
+        "scope": "Front-bottom prepared with its heat-set inserts, gas sensor and sensor harness before mounting the connected refrigeration assembly.",
+        "source": "assembly/enclosure-mechanical.md",
+        "items": [
+          {
+            "material": "HSM-0078",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "enclosure-front-bottom"
+            ]
+          },
+          {
+            "material": "HSM-0039",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "mq6-sensor"
+            ]
+          },
+          {
+            "material": "HSM-0352",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "terminal-J11",
+              "wire-J11-V5",
+              "wire-J11-GND",
+              "wire-J11-DOUT",
+              "wire-J11-AOUT"
+            ]
+          },
+          {
+            "material": "HSM-0164",
+            "quantity": 2,
+            "unit": "ea",
+            "note": "Two condenser fingers and four funnel-frame ledges.",
+            "bodies": []
+          },
+          {
+            "material": "HSM-0132",
+            "quantity": 4,
+            "unit": "ea",
+            "bodies": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "HSM-0550",
+      "description": "Enclosure back bottom assembly",
+      "kind": "assembly",
+      "aliases": [
+        "prepared back bottom",
+        "rear lower assembly"
+      ],
+      "contexts": [
+        {
+          "material": "HSM-0001"
+        }
+      ],
+      "documents": [
+        {
+          "title": "Mechanical assembly",
+          "path": "assembly/enclosure-mechanical.md"
+        }
+      ],
+      "bom": {
+        "scope": "Back-bottom prepared with its seam-anchor inserts and open sliding interfaces before joining the back-top assembly.",
+        "source": "assembly/enclosure-mechanical.md",
+        "items": [
+          {
+            "material": "HSM-0080",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "enclosure-back-bottom"
+            ]
+          },
+          {
+            "material": "HSM-0132",
+            "quantity": 2,
+            "unit": "ea",
+            "note": "Four compressor floor posts and four Y-seam anchors.",
+            "bodies": [
+              "y-seam-east-lower-insert",
+              "y-seam-west-lower-insert"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "HSM-0551",
+      "description": "Flavor-fill funnel assembly",
+      "kind": "assembly",
+      "aliases": [
+        "complete funnel",
+        "removable funnel frame assembly"
+      ],
+      "contexts": [
+        {
+          "material": "HSM-0001"
+        }
+      ],
+      "documents": [
+        {
+          "title": "Mechanical assembly",
+          "path": "assembly/enclosure-mechanical.md"
+        },
+        {
+          "title": "Funnel plumbing",
+          "path": "assembly/internal-plumbing.md"
+        }
+      ],
+      "bom": {
+        "scope": "Removable funnel frame with its drain cradle, outlet fittings and V-B feed tube, carrying the silicone funnel and cover. The frame fasteners and final V-B connection are installed after commissioning.",
+        "source": "assembly/enclosure-mechanical.md",
+        "items": [
+          {
+            "material": "HSM-0070",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "funnel"
+            ]
+          },
+          {
+            "material": "HSM-0071",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "funnel-cover"
+            ]
+          },
+          {
+            "material": "HSM-0072",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "funnel-frame"
+            ]
+          },
+          {
+            "material": "HSM-0073",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "elbow-cradle"
+            ]
+          },
+          {
+            "material": "HSM-0309",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "tube-fluid-4",
+              "tube-above-core-drain-vb-east-link"
+            ],
+            "note": "One fitted run; drawn bends and stepped sections belong to this same tube."
+          },
+          {
+            "material": "HSM-0330",
+            "quantity": 2,
+            "unit": "ea",
+            "bodies": [
+              "drain-outlet-stem",
+              "funnel-drain-union"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "HSM-0552",
+      "description": "Refrigeration assembly",
+      "kind": "assembly",
+      "aliases": [
+        "complete refrigeration loop",
+        "cold core and compressor assembly"
+      ],
+      "contexts": [
+        {
+          "material": "HSM-0001"
+        }
+      ],
+      "documents": [
+        {
+          "title": "Refrigeration assembly",
+          "path": "assembly/refrigerant-loop.md"
+        },
+        {
+          "title": "Cold core",
+          "path": "assembly/cold-core.md"
+        },
+        {
+          "title": "Mechanical assembly",
+          "path": "assembly/enclosure-mechanical.md"
+        }
+      ],
+      "bom": {
+        "scope": "Cold core, compressor and condenser connected by the fitted refrigerant lines, with service fittings, compressor thermal cutoff and prepared compressor lead. The connected loop stays together while the compressor is mounted and the enclosure closes around the core.",
+        "source": "assembly/enclosure-mechanical.md",
+        "items": [
+          {
+            "material": "HSM-0003",
+            "quantity": 1,
+            "unit": "ea",
+            "prefix": "cold-core/"
+          },
+          {
+            "material": "HSM-0038",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "compressor"
+            ]
+          },
+          {
+            "material": "HSM-0179",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "condenser+fan"
+            ]
+          },
+          {
+            "material": "HSM-0288",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "tube-refrig-3"
+            ],
+            "note": "One fitted run; drawn bends and stepped sections belong to this same tube."
+          },
+          {
+            "material": "HSM-0289",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "tube-refrig-1"
+            ],
+            "note": "One fitted run; drawn bends and stepped sections belong to this same tube."
+          },
+          {
+            "material": "HSM-0290",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "tube-refrig-2"
+            ],
+            "note": "One fitted run; drawn bends and stepped sections belong to this same tube."
+          },
+          {
+            "material": "HSM-0355",
+            "quantity": 1,
+            "unit": "ea",
+            "note": "Clamped permanently on the compressor process tube."
+          },
+          {
+            "material": "HSM-0356",
+            "quantity": 1,
+            "unit": "ea",
+            "note": "Brazed between the evaporator coil's outlet stub and the donor suction line."
+          },
+          {
+            "material": "HSM-0040",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "thermal-fuse",
+              "terminal-fuse-in-lead",
+              "terminal-fuse-out-lead"
+            ]
+          },
+          {
+            "material": "HSM-0041",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "fuse-clamp"
+            ]
+          },
+          {
+            "material": "HSM-0380",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "terminal-compressor-cord-jacket",
+              "wire-AC4-H",
+              "wire-AC4-fuse",
+              "wire-AC5-N",
+              "wire-AC6-PE",
+              "terminal-fuse-in-splice",
+              "terminal-fuse-out-splice"
+            ]
+          },
+          {
+            "material": "HSM-0324",
+            "quantity": 2,
+            "unit": "ea",
+            "bodies": [
+              "pump-inlet-tpu",
+              "pump-outlet-tpu"
+            ]
+          }
+        ]
+      }
     }
   ]
 }
