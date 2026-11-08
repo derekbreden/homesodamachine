@@ -1,0 +1,37 @@
+{
+  "purpose": "Record the in-progress white first-layer observation during the right-side clearance trial.",
+  "job_id": "1420097198",
+  "completion": "In progress; finished-print acceptance is not established.",
+  "right_z_trim_mm": 0.05,
+  "left_z_trim_mm": 0.0,
+  "derek_quote": "It's looking a lot better at the same spot, so far at least.",
+  "visual_observation": "White deposition has more uniform parallel lines, with substantially less curling and torn buildup than the preceding failure photograph.",
+  "interpretation": "The improvement supports testing right-side nozzle clearance on this plate and nozzle setup; it does not establish a completed print or rule out other contributors.",
+  "photo": "physical-progress/white-first-layer.jpg",
+  "telemetry": {
+    "observed_at": "2026-11-08T12:15:14.797481+00:00",
+    "job_id": "1420097198",
+    "gcode_state": "RUNNING",
+    "subtask_name": "HSM-identification-Mark1-right-z005.gcode.3mf",
+    "print_error": 0,
+    "hms": [],
+    "layer_num": 1,
+    "total_layer_num": 32,
+    "mc_remaining_time": 1077,
+    "stg_cur": 4,
+    "ams": [
+      {
+        "id": "0",
+        "temperature_c": "30.6",
+        "humidity_raw": "9",
+        "dry_time": 0
+      },
+      {
+        "id": "128",
+        "temperature_c": "25.2",
+        "humidity_raw": "11",
+        "dry_time": 0
+      }
+    ]
+  }
+}

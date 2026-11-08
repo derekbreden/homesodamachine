@@ -12,3 +12,7 @@ records the failure after drying and rethreading.
 
 The [launch record](launch.json) identifies the accepted job, checked material
 slots, selected hotends and calibration options.
+
+The [in-progress observation](physical-progress.json) records more uniform white
+first-layer deposition in Derek's photograph. Finished-print acceptance remains
+open.
