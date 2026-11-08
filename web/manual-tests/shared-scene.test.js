@@ -48,5 +48,6 @@ test('instances reuse downloaded geometry and place reflected triangles consiste
     assert.deepEqual([...result.meshes[1].index.array],[0,2,1]);
     const again=await resolveScene(encoded({v:4,meshes:[second]}));assert.equal(calls,1);
     assert.equal(again.meshes[0].name,'second');
+    assert.equal(again.meshes[0],result.meshes[1]);
   } finally {globalThis.fetch=original;}
 });
