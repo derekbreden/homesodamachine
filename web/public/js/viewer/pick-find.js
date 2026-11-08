@@ -115,20 +115,22 @@ function addPartHighlight(name, box) {
     if (!mesh.isMesh || mesh.name !== name || mesh.visible === false
         || seen.has(mesh.geometry)) continue;
     seen.add(mesh.geometry); // front + back share one geometry — one highlight per solid
+    mesh.updateWorldMatrix(true, false);
+    const geometry = mesh.geometry.clone().applyMatrix4(mesh.matrixWorld);
+    geometry.computeBoundingBox();
     const edges = new THREE.LineSegments(
-      new THREE.EdgesGeometry(mesh.geometry, EDGE_THRESHOLD_DEG),
+      new THREE.EdgesGeometry(geometry, EDGE_THRESHOLD_DEG),
       new THREE.LineBasicMaterial({ color: FIND, transparent: true, opacity: 0.95, depthTest: false, depthWrite: false }),
     );
     edges.renderOrder = 998;
     overlay.add(edges);
-    const shell = new THREE.Mesh(mesh.geometry.clone(), new THREE.MeshBasicMaterial({
+    const shell = new THREE.Mesh(geometry, new THREE.MeshBasicMaterial({
       color: FIND, transparent: true, opacity: 0.16, side: THREE.DoubleSide,
       depthWrite: false, depthTest: false,
     }));
     shell.renderOrder = 997;
     overlay.add(shell);
-    if (!mesh.geometry.boundingBox) mesh.geometry.computeBoundingBox();
-    box.union(mesh.geometry.boundingBox);
+    box.union(geometry.boundingBox);
   }
 }
 

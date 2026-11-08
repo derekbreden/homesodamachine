@@ -100,8 +100,9 @@ function flyToBox(box) {
 function solidsBox(meshes) {
   const box = new THREE.Box3();
   for (const mesh of meshes) {
+    mesh.updateWorldMatrix(true, false);
     if (!mesh.geometry.boundingBox) mesh.geometry.computeBoundingBox();
-    box.union(mesh.geometry.boundingBox);
+    box.union(mesh.geometry.boundingBox.clone().applyMatrix4(mesh.matrixWorld));
   }
   return box;
 }
@@ -137,8 +138,10 @@ function draw() {
   report.shown = solids.length;
   if (subject?.fill) {
     for (const mesh of solids) {
-      overlay.add(new THREE.LineSegments(new THREE.EdgesGeometry(mesh.geometry, EDGE_THRESHOLD_DEG), edgeMat));
-      const shell = new THREE.Mesh(mesh.geometry.clone(), new THREE.MeshBasicMaterial({
+      mesh.updateWorldMatrix(true, false);
+      const geometry = mesh.geometry.clone().applyMatrix4(mesh.matrixWorld);
+      overlay.add(new THREE.LineSegments(new THREE.EdgesGeometry(geometry, EDGE_THRESHOLD_DEG), edgeMat));
+      const shell = new THREE.Mesh(geometry, new THREE.MeshBasicMaterial({
         color: HL, transparent: true, opacity: 0.16, side: THREE.DoubleSide,
         depthWrite: false, depthTest: false,
       }));
