@@ -261,14 +261,14 @@
   "preparation_archive": {
     "directory": "preparation",
     "files": {
+      "fit-initial-frame.py": "38065b2fb186e0635deff886ba383f3e2ee003e59b5bbc4826b0b37c977f1b49",
+      "fit-pcb-frame.py": "305b8721db2a35e4afec1f9c68178a01624d1011c6b6bc7fcb1c212d2535b2de",
       "frame.json": "1ea0d2e71c6f1e4a07070f09a98867a00395ee69c79e8716291f1904e93bbe42",
       "hole-rims.json": "0d9561153a3d7a441d291db8888c5c6b4583a078c7501ba25cca445fda5e6de0",
-      "inspect.py": "38065b2fb186e0635deff886ba383f3e2ee003e59b5bbc4826b0b37c977f1b49",
       "reconstruct.py": "8270fb16c6ba48531383001fc9cdc631dbf5f353189ea837b3b4a438d95f9fce",
-      "refine.py": "305b8721db2a35e4afec1f9c68178a01624d1011c6b6bc7fcb1c212d2535b2de",
       "scan-datums.json": "4424a2e3dfb69eca1ed3cb323a5b3e4c4ad9004931b5074c44897623785780ad",
       "scan_model.rs": "9f4bd184d6efe3b0bb6e77bd45556960689a39a3c7dccb8d0174d4e257b9b551",
-      "validate.py": "d53f4d356132aec1155e4c19a94f5416db9f84875d0f9f2765b406d81a46563c"
+      "validate.py": "baacaeec90fe4f0e952ff6291bf63223ea7ba029c76d7d5d3b1c5784e03b0106"
     },
     "observed_surface": "reconstruction/observed-exterior.npz",
     "observed_surface_sha256": "01dcf54ff2f4e0fc62c0b9ad2ad7e1bf1624eb3e472f83edf58230bd465992bd"
