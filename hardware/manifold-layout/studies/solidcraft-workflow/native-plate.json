@@ -1,0 +1,230 @@
+{
+  "commands": [
+    {
+      "command": "parameters.add",
+      "params": {
+        "name": "plate_width",
+        "expression": "88 mm",
+        "favorite": true
+      }
+    },
+    {
+      "command": "parameters.add",
+      "params": {
+        "name": "plate_height",
+        "expression": "100 mm",
+        "favorite": true
+      }
+    },
+    {
+      "command": "parameters.add",
+      "params": {
+        "name": "plate_thickness",
+        "expression": "3.36 mm",
+        "favorite": true
+      }
+    },
+    {
+      "command": "parameters.add",
+      "params": {
+        "name": "corner_radius",
+        "expression": "5 mm",
+        "favorite": true
+      }
+    },
+    {
+      "command": "parameters.add",
+      "params": {
+        "name": "mount_inset",
+        "expression": "8 mm",
+        "favorite": true
+      }
+    },
+    {
+      "command": "parameters.add",
+      "params": {
+        "name": "mount_diameter",
+        "expression": "3.2 mm",
+        "favorite": true
+      }
+    },
+    {
+      "command": "parameters.add",
+      "params": {
+        "name": "label_height",
+        "expression": "10 mm",
+        "favorite": true
+      }
+    },
+    {
+      "command": "parameters.add",
+      "params": {
+        "name": "engraving_depth",
+        "expression": "0.6 mm",
+        "favorite": true
+      }
+    },
+    {
+      "command": "parameters.add",
+      "params": {
+        "name": "label",
+        "expression": "HSM",
+        "unit": "text",
+        "favorite": true
+      }
+    },
+    {
+      "command": "component.create",
+      "params": {
+        "name": "Service plate",
+        "grounded": true
+      }
+    },
+    {
+      "command": "solid.box",
+      "params": {
+        "length": "plate_width",
+        "width": "plate_height",
+        "height": "plate_thickness",
+        "corner": [
+          "-plate_width / 2",
+          "-plate_height / 2",
+          0
+        ],
+        "body_name": "Service plate",
+        "name": "Plate stock"
+      }
+    },
+    {
+      "command": "solid.fillet",
+      "params": {
+        "body": "Service plate",
+        "edges": [
+          [
+            -44,
+            -50,
+            1.68
+          ],
+          [
+            44,
+            -50,
+            1.68
+          ],
+          [
+            44,
+            50,
+            1.68
+          ],
+          [
+            -44,
+            50,
+            1.68
+          ]
+        ],
+        "radius": "corner_radius"
+      }
+    },
+    {
+      "command": "solid.hole",
+      "params": {
+        "position": [
+          "-plate_width / 2 + mount_inset",
+          "-plate_height / 2 + mount_inset",
+          "plate_thickness"
+        ],
+        "diameter": "mount_diameter",
+        "targets": [
+          "Service plate"
+        ]
+      }
+    },
+    {
+      "command": "solid.hole",
+      "params": {
+        "position": [
+          "-plate_width / 2 + mount_inset",
+          "plate_height / 2 - mount_inset",
+          "plate_thickness"
+        ],
+        "diameter": "mount_diameter",
+        "targets": [
+          "Service plate"
+        ]
+      }
+    },
+    {
+      "command": "solid.hole",
+      "params": {
+        "position": [
+          "plate_width / 2 - mount_inset",
+          "-plate_height / 2 + mount_inset",
+          "plate_thickness"
+        ],
+        "diameter": "mount_diameter",
+        "targets": [
+          "Service plate"
+        ]
+      }
+    },
+    {
+      "command": "solid.hole",
+      "params": {
+        "position": [
+          "plate_width / 2 - mount_inset",
+          "plate_height / 2 - mount_inset",
+          "plate_thickness"
+        ],
+        "diameter": "mount_diameter",
+        "targets": [
+          "Service plate"
+        ]
+      }
+    },
+    {
+      "command": "sketch.create",
+      "params": {
+        "plane": "XY",
+        "offset": "plate_thickness",
+        "name": "Editable label"
+      }
+    },
+    {
+      "command": "sketch.text",
+      "params": {
+        "text_expression": "label",
+        "at": [
+          0,
+          0
+        ],
+        "height": "label_height",
+        "align": "center"
+      }
+    },
+    {
+      "command": "sketch.finish",
+      "params": {}
+    },
+    {
+      "command": "solid.extrude",
+      "params": {
+        "sketch": "Editable label",
+        "distance": "engraving_depth",
+        "direction": "negative",
+        "operation": "cut",
+        "targets": [
+          "Service plate"
+        ],
+        "name": "Label engraving"
+      }
+    },
+    {
+      "command": "appearance.assign",
+      "params": {
+        "bodies": [
+          "Service plate"
+        ],
+        "color": "#325879"
+      }
+    }
+  ]
+}
