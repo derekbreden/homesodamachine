@@ -69,7 +69,11 @@ fn selection(part: Part) -> (Model, Vec<Group>, &'static str) {
         Part::Tee => (Model::Tee, vec![Group { names: None, union: false, cut: None }], "M_JG_BLACK_PP"),
         Part::PumpHead => (Model::Pump, vec![named(&["head"], false)], "C_PUMP_HEAD"),
         Part::PumpBoss => (Model::Pump, vec![named(&["rotor_housing"], false)], "C_PUMP_BOSS"),
+        Part::PumpMount => (Model::Pump, vec![named(&["motor_mount"], false)], "C_PUMP_HEAD"),
         Part::PumpMotor => (Model::Pump, vec![named(&["motor_body"], false)], "C_PUMP_MOTOR"),
+        Part::PumpFasteners => (Model::Pump, vec![named(&["fasteners"], false)], "C_PUMP_MOTOR"),
+        Part::PumpPrimer => (Model::Pump, vec![named(&["primer"], false)], "C_PUMP_HEAD"),
+        Part::PumpSleeves => (Model::Pump, vec![named(&["silicone_outlets"], false)], "C_PUMP_BOSS"),
         Part::StemElbow { stem } => {
             // The stem is cut off where it stops standing in its collet.
             let keep = stem_keep(stem);
@@ -203,14 +207,23 @@ fn main() -> Result<()> {
         };
         let (model, groups, paint) = selection(p.part);
         if !models.contains_key(&model) {
-            models.insert(model, hsm_kernel::import::step(model.step())?);
+            let imported = if model == Model::Pump {
+                hsm_kernel::import::model(format!("{}.npz", model.step()))?
+            } else {
+                hsm_kernel::import::step(model.step())?
+            };
+            models.insert(model, imported);
         }
         let key = format!("{:?}", p.part);
         if !prototypes.contains_key(&key) {
             prototypes.insert(key.clone(), prototype(&groups, &models[&model])?);
         }
         let m = frame(p);
-        let color = material(paint)?;
+        let color = if model == Model::Pump {
+            let name = groups[0].names.context("pump component name")?[0];
+            models[&model].iter().find(|b| b.name == name).and_then(|b| b.color)
+                .context("pump component color")?
+        } else { material(paint)? };
         placed.push(Placed { name: p.name, color, solid: prototypes[&key].transformed(&Affine { m }) });
         let groups: Vec<Value> = groups
             .iter()
