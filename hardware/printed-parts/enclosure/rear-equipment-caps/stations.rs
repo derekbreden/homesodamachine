@@ -23,7 +23,7 @@ const REAR_ROOT_DROP: f64 = 10.0;
 /// The ledge's height off the split, and the hook's solid nose and pointed lead-in above it.
 const LEDGE: f64 = 3.0;
 pub const NOSE_LAND: f64 = 1.6;
-pub const TIP_RISE: f64 = 3.0;
+pub use hsm_enclosure_numbers::layout::{snap_tip_air as tip_air, snap_tip_rise as tip_rise};
 /// How far past a cap's ends a turned run still counts toward the widest the cap clears.
 const CAP_OVERLAP: f64 = 0.25;
 /// The Pisco's seat splits this far above its axis, and its runs take this radial relief past
@@ -148,9 +148,9 @@ fn station(axis_x: f64, neck: f64, [y0, y1]: P2, split: f64, root: f64) -> Stati
     let ledge = neck + REACH + running();
     let inner = ledge + SIDE;
     let catch = (root + FREE_LENGTH).max(split + LEDGE + catch_air());
-    let tip = catch + (NOSE_LAND + TIP_RISE);
+    let tip = catch + (NOSE_LAND + tip_rise());
     Station { axis_x, y0, y1, split, neck, ledge, inner, outer: inner + WING, bearing: catch - catch_air(),
-              ceiling: tip + 2.0 * running(), root, root_radius: ROOT_RADIUS }
+              ceiling: tip + tip_air(), root, root_radius: ROOT_RADIUS }
 }
 
 /// The ASSE chain's station: its cap spans from the bonnet to the coupling's fore end, and its

@@ -76,6 +76,8 @@ pub fn apply(g: &mut Graph, mut piece: Shape, b: &Box, keep_clear: Option<Shape>
     for support in supports(g) {
         piece = g.union(piece, &[support]);
     }
+    let tips = crate::supports::tip_clearances(g);
+    piece = g.cut(piece, &tips);
     // The measured inlet opening stays clear after every integral mount joins.
     g.cut(piece, &inlet)
 }

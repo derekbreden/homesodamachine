@@ -173,6 +173,8 @@ pub struct RearPlumbing {
     /// How far the inlet adapter's fitted room stands above the captured chain's pose.
     pub asse_adapter_rise_mm: f64,
     pub snap_ceiling_z_mm: f64,
+    pub snap_tip_rise_mm: f64,
+    pub snap_tip_air_mm: f64,
     pub regulator_mount: RegulatorMount,
 }
 
@@ -193,4 +195,14 @@ pub fn layout() -> &'static Layout {
         serde_json::from_str(include_str!("../../../../manifold-layout/above-core.json"))
             .expect("the above-core layout parses")
     })
+}
+
+/// The physically approved planar lead-in shared by the rear equipment and pump caps.
+pub fn snap_tip_rise() -> f64 {
+    layout().rear_plumbing.snap_tip_rise_mm
+}
+
+/// The clearance beyond a complete rear snap point in its matching receiver.
+pub fn snap_tip_air() -> f64 {
+    layout().rear_plumbing.snap_tip_air_mm
 }

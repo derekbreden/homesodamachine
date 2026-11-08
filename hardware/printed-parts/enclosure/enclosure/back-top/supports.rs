@@ -2,7 +2,7 @@
 //! the flow meter's and the water regulator's. Each is a block cut round its part's measured
 //! profile, with the flank pockets its snap cap's spring wings ride in.
 use crate::catalog::{clearance, running, slip};
-use crate::layout::{Pose, Station, layout};
+use crate::layout::{Pose, Station, layout, snap_tip_air, snap_tip_rise};
 use crate::plan::{Bounds, Graph, Op, P2, P3, Shape};
 use crate::quadrant::sorted;
 use crate::shapes::place;
@@ -32,7 +32,6 @@ const REAR_ROOT_DROP: f64 = 10.0;
 /// The ledge's height off the split, and the hook's solid nose and pointed lead-in above it.
 const LEDGE: f64 = 3.0;
 const NOSE_LAND: f64 = 1.6;
-const TIP_RISE: f64 = 3.0;
 /// How far past a cap's ends a turned run still counts toward the widest the cap clears.
 const CAP_OVERLAP: f64 = 0.25;
 /// The Pisco: its seat's split above its axis, its radial relief past running air, its cap's
@@ -193,6 +192,38 @@ pub fn supports(g: &mut Graph) -> [Shape; 4] {
     [asse(g), pisco(g), meter(g), regulator(g)]
 }
 
+/// The complete tip pockets stay open after the receivers join the enclosure ceiling and flank.
+pub fn tip_clearances(g: &mut Graph) -> Vec<Shape> {
+    let mut cuts = Vec::new();
+    for st in [asse_station(), pisco_station()] {
+        cuts.extend(tip_pockets(g, &st));
+    }
+    let frame = &layout().parts.digiten_flow;
+    let centre = frame.point([meter::BODY_CENTER_X, 0.0, meter::BODY_CENTER_Z]);
+    let port = frame.point([0.0; 3]);
+    let wx = |y| frame.point([meter::BODY_CENTER_X, y, meter::BODY_CENTER_Z])[0];
+    let mx = wx(meter::FLANGE_Y) - METER_AIR;
+    let ty = frame.translation_mm[1];
+    let st = station(0.0, port[2] + meter::PORT_COLLAR_RADIUS + METER_AIR - centre[2] + WALL,
+                     [ty + METER_CAP[0], ty + METER_CAP[1]], 0.0,
+                     wx(meter::UNDERSIDE_Y) - METER_AIR - mx);
+    for pocket in tip_pockets(g, &st) {
+        let pocket = g.rotate(pocket, [0.0; 3], [0.0, 1.0, 0.0], 90.0);
+        cuts.push(g.translate(pocket, [mx, 0.0, centre[2]]));
+    }
+    for pocket in tip_pockets(g, &layout().rear_plumbing.regulator_mount.station) {
+        cuts.push(g.rotate(pocket, [0.0; 3], [0.0, 0.0, 1.0], 90.0));
+    }
+    cuts
+}
+
+fn tip_pockets(g: &mut Graph, st: &Station) -> Vec<Shape> {
+    [-1.0, 1.0].into_iter().map(|side| {
+        let (x0, x1) = sorted(st.axis_x + side * st.neck, st.axis_x + side * (st.outer + 1.0));
+        g.box_([x0, x1, st.y0 - running(), st.y1 + running(), st.bearing, st.ceiling])
+    }).collect()
+}
+
 /// The cap's spring wing clears its hook this far: one face's slip and its supported finish.
 fn catch_air() -> f64 {
     clearance(false, true, false)
@@ -204,9 +235,9 @@ fn station(axis_x: f64, neck: f64, [y0, y1]: P2, split: f64, root: f64) -> Stati
     let ledge = neck + REACH + running();
     let inner = ledge + SIDE;
     let catch = (root + FREE_LENGTH).max(split + LEDGE + catch_air());
-    let tip = catch + (NOSE_LAND + TIP_RISE);
+    let tip = catch + (NOSE_LAND + snap_tip_rise());
     Station { axis_x, y0, y1, split, neck, ledge, inner, outer: inner + WING, bearing: catch - catch_air(),
-              ceiling: tip + 2.0 * running(), root, root_radius: ROOT_RADIUS }
+              ceiling: tip + snap_tip_air(), root, root_radius: ROOT_RADIUS }
 }
 
 /// Inaccessible rear receiver interiors. Their catches bridge between the full end shoulders.
