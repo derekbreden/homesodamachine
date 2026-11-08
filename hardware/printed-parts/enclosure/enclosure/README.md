@@ -757,8 +757,7 @@ regions. Native exclusions
 keep the receiver interiors and covered passages clear of supports.
 
 The rear receiver catches bridge along their pockets between the complete end
-shoulders. The Pisco entry relief has a sloping ceiling that preserves its fore
-bridge anchor. The sideways meter host uses authored removable trees under its
+shoulders. The Pisco entry relief ends below a full-thickness fore bridge anchor. The sideways meter host uses authored removable trees under its
 exposed end shoulders; their trunks stand beside the Pisco pocket and their
 forks branch below it. Approved component seats, catch planes and wing travel remain
 intact. Local modifiers select the bridge direction and solid catch stock.
