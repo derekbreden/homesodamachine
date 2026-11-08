@@ -15,11 +15,33 @@ fn srgb(c: [f64; 3]) -> [f64; 3] {
     c.map(|x| if x <= 0.04045 { x / 12.92 } else { ((x + 0.055) / 1.055).powf(2.4) })
 }
 
+/// The identified scan blemish is replaced by the independently fitted barrel surface.
+fn clean_motor(motor: &Solid) -> Result<Solid> {
+    let patch = box_between([-17., -25., 49.5], [-1., -9., 63.3]);
+    let tilt = v3(-0.000518049629291531, -0.00388684904451317, 1.).unit();
+    let z = 20.8;
+    let base = v3(0.07408880099347936 + (z - 42.) * tilt.x / tilt.z,
+                  -0.13976974608396667 + (z - 42.) * tilt.y / tilt.z, z);
+    let barrel = Solid::cylinder(base, tilt, 17.76146649471765, (62.55 - z) / tilt.z)?;
+    motor.cut(&patch)?.union(&barrel.intersect(&patch)?)
+}
+
 fn main() -> Result<()> {
     let mut args = std::env::args().skip(1);
     let input = PathBuf::from(args.next().context("observed exterior NPZ")?);
     let out = PathBuf::from(args.next().context("reference output directory")?);
     let imported = import::model(&input)?;
+    if imported.iter().any(|body| body.name == "motor_body") {
+        let parts: Vec<_> = imported.into_iter().map(|body| {
+            let solid = if body.name == "motor_body" {
+                clean_motor(&body.solid.translate(v3(-35., -34., 0.)))?.translate(v3(35., 34., 0.))
+            } else { body.solid };
+            Ok((body.name, body.color, solid))
+        }).collect::<Result<_>>()?;
+        let bodies: Vec<_> = parts.iter().map(|(name, color, solid)| Body { name, color: *color, solid }).collect();
+        println!("{}", part::write_shown(&out, "kamoer-kphm400", &bodies)?);
+        return Ok(());
+    }
     let observed = &imported[0].solid;
     let mut outlets = Vec::new();
     for sign in [-1.0_f64, 1.0] {
@@ -33,7 +55,7 @@ fn main() -> Result<()> {
     let head = band(&rigid, -55., 0.)?;
     let housing = band(&rigid, 0., 11.8)?;
     let mount = band(&rigid, 11.8, 20.8)?;
-    let motor = band(&rigid, 20.8, 75.)?;
+    let motor = clean_motor(&band(&rigid, 20.8, 75.)?)?;
 
     // Component boundaries follow visible hardware; the scan retains the actual recesses.
     let mut fastener_masks = Vec::new();

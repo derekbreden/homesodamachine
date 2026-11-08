@@ -259,6 +259,7 @@ const M3X6: Pack = Pack("7.64", "120");
 const M3X8: Pack = Pack("7.71", "120");
 const M3X10: Pack = Pack("8.57", "120");
 const M3X12: Pack = Pack("8.57", "120");
+const M3X25: Pack = Pack("8.57", "60");
 const RESERVOIR_SCREWS: Pack = Pack("8.66", "120");
 const M5X100: Pack = Pack("7.70", "20");
 const PP0308E: Pack = Pack("68.49", "30");
@@ -414,6 +415,11 @@ fn figures(input: &Inputs, casting: &Value) -> Result<(Variables, Variables)> {
     put("SMALL_WASHERS", fmt(c14_screws, "g"));
     put("SMALL_WASHERS_COST", cost(c14_screws, SMALL_WASHERS)?);
 
+    let pump_clamps = n(input.bodies.iter().filter(|name| name.starts_with("pump-retainer-") && name.ends_with("-screw")).count());
+    put("PUMP_CLAMP_SCREWS",count(pump_clamps));
+    put("M3X25_TOTAL",count(pump_clamps));
+    put("M3X25_COST",cost(pump_clamps,M3X25)?);
+
     // The screws by length.
     let m3x6 = NAMEPLATE_SCREWS + DISPLAY_COVER_SCREWS + STATUS_PLATE_SCREWS;
     let m3x8 = pcba + condenser + relays + touchflo;
@@ -480,7 +486,7 @@ fn figures(input: &Inputs, casting: &Value) -> Result<(Variables, Variables)> {
 
     // The inserts by body.
     let m3_long = deck_inserts + reservoir_inserts + condenser + funnel;
-    let m3_short = NAMEPLATE_SCREWS + DISPLAY_COVER_SCREWS + STATUS_PLATE_SCREWS + touchflo + psu + c14_screws + relays;
+    let m3_short = pump_clamps + NAMEPLATE_SCREWS + DISPLAY_COVER_SCREWS + STATUS_PLATE_SCREWS + touchflo + psu + c14_screws + relays;
     let m3_inserts = m3_long + m3_short;
     let m5_inserts = floor + seam_rods + clamp_inserts;
     put("TOTAL_M3_INSERTS", count(m3_inserts));

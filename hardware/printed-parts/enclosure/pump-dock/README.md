@@ -1,143 +1,57 @@
 # Pump mount and tee wall
 
-Front-top contains the upper fitted pump inverses in one broad body that continues into the
-display housing and enclosure roof. The broad lower retainer, `enclosure-pump-retainer`,
-carries the fitted lower head wells and skirt lands. Two integral wings engage front-top’s
-flank receivers. Each wing is rooted at the top and carries its retaining hook at the bottom.
-The two printed halves capture each pump’s molded skirt; the surrounding stock retains the
-enclosure’s simple outer form.
+Front-top contains tapered pump loading wells, fitted cylindrical motor guides and local
+flange stops in continuous stock up to the display housing and enclosure roof. Each pump
+has an identical solid flange retainer secured from below with socket-head screws and
+short heat-set inserts. The independent retainer pockets leave solid stock between pumps.
+The [mount source](../enclosure/front/mount.rs) and
+[retainer dimensions](../enclosure/retainer-numbers/lib.rs) own their geometry.
 
-The pumps and retainer enter motor-first from the underside while front-top is loose.
-Four bottom-open gates in the tee wall admit their prepared 1/4-inch LLDPE stubs. Fit the
-four purchased John Guest PP0208E tees from aft after the retainer is secured, pushing each
-branch onto its fixed pump tube. The snap-fit mount retains the pumps; each tee's
-branch collet grips and seals its own tube. Complete this work before front-top joins the
-populated lower enclosure.
+The [scan-derived reference](../../../reference/kamoer-kphm400/scan-review.md) supplies the
+pump's actual head, flange, adapter, motor and flexible outlet geometry. The identified
+motor-side scan artifact is replaced by the fitted cylinder. The guide’s straight band retains the bore with the accepted physical motor fit; narrow
+keyways clear the terminals during insertion.
 
-## Tees and tee wall
+## Tees and tube preparation
 
-One PP0208E stands on each pump port: Y-C and Y-D on pump A, Y-F and Y-G on pump B, west to east Y-G, Y-F, Y-C, Y-D. Each tee's branch faces its pump on the pump tube's axis,; its run stands upright.
+Each pump carries straight stubs of the machine's black quarter-inch LLDPE in its flexible
+BPT ends in place of the supplied barbs. The pump head clamps the BPT around each stub.
+Use the [tube-length gauge](../enclosure/enclosure-pump-tube-setting-jig.stl) to prepare
+blanks. Final tube position is established with the actual tee seated at its wall datum
+before tightening the pump-head housing.
 
-Front-top's bay bulkhead is the tee wall: one flat slab of PET-GF across the bay.
-Each tee has a teardropped collet opening through the fore band and a branch bore
-through the wall behind it. Flexible pump stubs feed through the closed bores.
-The bore-face land stops the fixed branch barrel. The wall also roots the fore
-valve tray and joins the continuous pump/display body above it.
+PP0208E tees stand on the pump outlet axes, their branches facing the pumps and their runs
+upright. Each branch enters a teardropped bore through the tee wall, with its extended
+collet clear in the fore opening. The bore locates the branch laterally; its annular face
+stops the fixed barrel fore. The fitted lower return restrains it aft. The collet grips
+the prepared pump tube and its O-ring seals it.
 
-Each tee stands with its fixed branch barrel aft of the bore face, its run axis at. Its branch collet stands extended in the collet plate's hole, its whole stroke fore of the bore face, and grips the pump tube; the tube bottoms at the tee's own stop and seals on the collet's O-ring. The collet reaches past the fixed barrel, and the hole runs on to the bay face, so with the tee pushed fore onto its barrel the collet still stands clear of the wall and keeps its grip.
+Each upper tube joins its fore valve. Each lower return uses NeoFit ATEU44W stem elbows
+and one continuous formed tube to the rear valve. Trim stems against actual insertion
+marks, keep the tube bends clear of the condenser and chassis slide, and tug-check each
+push-fit connection. The production manifold owns the tee, valve and tube stations.
 
-## What holds each tee
+## Factory assembly and service
 
-The bore holds the tee's branch in X and Z. Its fixed branch barrel stops it fore, landing on the bore face's annulus, and its lower return, anchored in the rear valve, stops it aft. The wall's aft face stands clear of the tee's run barrel.
+Follow [internal plumbing](../../../assembly/internal-plumbing.md#3-flavor-manifold-v-a-through-v-j--y-a-y-b-y-c-y-d-y-f-y-g--pumps).
+Keep front-top loose while installing inserts, landing the motor leads, loading each pump
+motor-first and securing its local retainer. Feed the flexible stubs through the closed
+wall bores. Draw wire slack through the shared rear passage without loading the terminals.
+Fit tee and fore-valve groups from aft before the rear valve row and lower returns.
 
-## Fore valves and upper tubes
+The motor guide holds the pump straight while fixed upper stops and the removable lower
+retainer capture the flange. For service, open front-top, disconnect power, release the
+pump's plumbing and motor leads, support it and remove its retainer screws from below.
+The other pump's retainer stays assembled.
 
-V-E, V-F, V-H and V-I stand fixed on their tray posts directly over the tees, bottom collets at. Each fore valve's axis is, over its tee's run axis, so the short upper tube between them, exposed, stands straight.
+## Manufacture and fit
 
-## Lower returns
+Front-top stands on its seam plane. Tapered loading wells reduce the flat overhang area.
+Each retainer is one solid body; its screw seats and bearing lip use local solid infill.
+The screw heads sit in shallow counterbores. Accessible cavity supports use Tree Slim;
+inspect their emitted contacts and removal paths in the native slice.
 
-Each lower return joins a tee's lower collet to its rear valve's bottom collet with two NeoFit ATEU44W stem elbows and one continuous tube of the machine's black 1/4" LLDPE. Both elbow shoulders stand on their collet faces, with stems cut for full seating. The tee's elbow crosses below its collet at. The rear collets stand at, putting their sockets 3.749 mm lower. Two tangent arcs join the parallel socket mouths: R18.084 on the inner pair and R19.36 on the outer pair. Their exposed lengths are and. The outer pair also aims inboard toward V-G and V-J at. The stem lengths are 11.65 mm in the tees and 12 mm in the valves; verify the actual fully seated marks when cutting.
-
-The tee elbows' lowest surface is Z160.913, clear of the Z160 front sliding lip. The complete return's lowest surface is, above the condenser. Both pumps, all four tees and the fore valves retain straight axes. The connecting tubes carry the small height difference.
-
-## Pump tubes and lower retainer
-
-Each pump carries two straight tubes of the machine's black 1/4" LLDPE, pushed into its BPT tube ends in place of Kamoer's barbs. The pump head's own housing, tightened at the factory, clamps the tube around each one. The tubes pass the retainer's open passages and rise through the tee-wall loading gates; their tips stand at, behind the retainer's flat back at, bottomed at the tees' stops.
-
-Set the tips with both pumps seated in the loose lower retainer on the bench. The existing
-tube setting jig bears on that flat rear face. Remove it before raising the prepared unit
-into front-top: the jig's broad body needs the space occupied by the fixed tee wall.
-Installed, the retainer's back stands ahead of the wall's bay face.
-The two lower hooks seat on the receiver floors and retain the molded-skirt capture. Pump
-removal requires opening the front assembly and disconnecting its plumbing and motor leads.
-Each receiver has a central screwdriver opening to flex its wing inward for release.
-
-The pump and display leads share one rear passage through the continuous stock. Its
-22 mm diamond section is centred at X0/Z290; the rear upper half opens as a plain U
-over the bulkhead lip through Y99. Thread DC-5's
-bare pump end through it before crimping and landing the Fastons on the loose pumps. Draw
-slack aft during motor-first insertion. SIG-7 uses the same passage with the display facet
-open; finish the display and loom before installing the funnel frame.
-
-## Snap wings and release access
-
-Each wing, hook and carrier occupies Y14.25–82.265, a 68.015 mm span.
-Its receiver spans Y14–82.515, leaving 0.25 mm at each end. Each 2.0 mm
-leaf has a 22.25 mm root-to-bearing length with a 1.5 mm inside root blend.
-The upper root is Z197.445. Each lower hook has a 1.6 mm nose land, a
-1.0 mm insertion ramp and 2.6 mm of seated bearing past the receiver edge.
-The hooks flex inward during upward insertion and spring outward into
-the receivers. Receiver floors at Z174.795 leave 0.4 mm below the nominal
-Z175.195 hook-bearing faces.
-
-One centered 5 mm-wide opening per receiver admits a small flathead from
-below. The continuous 45° corbel extends from X101.1/Z185.195 to
-X104.5/Z181.795 on the right, mirrored on the left. It retains a 3 mm outer
-wall; the hook pocket retains 6.4 mm of backing. Use the receiver’s lower
-edge as the fulcrum to push the wing inward until its hook clears.
-Support the pump/retainer unit while releasing both sides and lowering it.
-
-The retainer prints on its Y-minus end so that each spring bends within
-the layer plane. Front-top prints on its seam plane. Remove automatic
-cavity supports with a tiny flathead that fits the cavity; their removal
-and the complete cartridge’s seating, release force and repeated use
-require the [cartridge snap trial](../../../print-tests/pump-cartridge-snaps/README.md).
-
-## Factory assembly
-
-The [internal plumbing procedure](../../../assembly/internal-plumbing.md) owns the complete
-sequence. Keep front-top loose, with both valve rows, pump tees, display and funnel frame
-absent while loading and securing the pumps.
-
-1. Seat both prepared pumps in the loose retainer. Set the four tube tips with the jig,
-   tighten the pump-head housings and remove the jig.
-2. Thread the bare DC-5 pump end from the shared rear passage to the open underside. Crimp,
-   ring out and land its Fastons on the loose pumps, with the +X pair serving pump A.
-3. Raise the prepared unit motor-first. Guide the flexible tubes through the wall bores while
-   drawing lead slack aft. Press upward until both wings spring outward and their lower
-   hooks seat on the receiver floors. Inspect both engagements before fitting plumbing.
-4. With the rear valve row absent, make up each tee, upper tube and fore valve, then bring
-   the group in from aft. Push the branch over its fixed pump tube and into its wall bore
-   as the fore valve seats on its posts. Check the actual insertion marks. Seat all four
-   fore groups before pressing the rear valves onto their tray posts.
-5. Cut and fit the lower-return elbows and formed tubes from the open underside. Use
-   actual insertion marks and tug-check every push-fit joint. Finish the remaining front
-   manifold connections and wiring.
-6. Thread the display loom through the shared passage and leave its end accessible at the
-   facet. Join front-top to the populated lower enclosure with pumps, retainer and plumbing
-   secured. Fit and wire the display with the facet open. Complete central connections
-   through the open funnel aperture and plug the XHP-4 into J13 before fitting the frame.
-7. Follow [assembly acceptance](../../../assembly/acceptance-and-burn-in.md).
-
-## Manufacture
-
-| Part / quantity | Material / export stem |
-| --- | --- |
-| Lower pump retainer, 1 | PET-GF; `enclosure-pump-retainer` |
-| Pump tee, | John Guest PP0208E, purchased |
-| Stem elbow, | NeoFit ATEU44W, purchased, stem cut to length |
-| Tube setting jig, factory tool | PET-GF; `enclosure-pump-tube-setting-jig` |
-
-The tee wall, fitted upper pump inverses, display backing and surrounding continuous body
-are printed with front-top standing on its seam plane. The tee and wiring openings have
-printable roofs; the tube-loading gates open at the underside. The
-[PET-GF handoff](petgf-production-parts.md) specifies the jig's process.
-
-The factory tool is separate from the installed mount: the [tube setting jig](../enclosure/enclosure-pump-tube-setting-jig.stl), which seats on the loose retainer's flat back and stops all four tube tips at their datum.
-
-## Engineering evidence
-
-The [accepted pump-holder fit](../../../reference/kamoer-kphm400/physical-fit.json) records
-firm holding without vertical play in its identified cradle and cap. The integral upper
-half and snap-fit underside retainer use the fitted profiles with a direct two-face skirt
-capture. This assembly has no physical fit, retention, release-force, vibration, load-capacity
-or lifetime result. The [pump-snap review](../enclosure/pump-snap-review/README.md) records
-its geometry evidence. The [three-screw mount receipts](../enclosure/pump-mount-review/README.md)
-retain their identified inputs and scope; they do not qualify the snap interface.
-
-The assembled fluid path has no physical seal or cleaning acceptance. Each tee's seating
-force on its fixed pump tube, the tee's aft stop through its lower return, the pump head
-clamp's hold on each tube, the tees' running fit in their gated bores and the sealing of
-the complete assembly remain unmeasured. The valve's seat depth, which sets its elbow's
-stem cut, is a layout estimate, and the stem elbows' seal with a cut stem is unqualified.
-Material data alone do not establish finished wet-part food-contact suitability.
+The [accepted holder result](../../../reference/kamoer-kphm400/physical-fit.json) covers
+its identified holder and good cylindrical motor fit. The independent flange clamps
+require a physical assembly trial. Tube retention and sealing are verified during
+[assembly acceptance](../../../assembly/acceptance-and-burn-in.md).

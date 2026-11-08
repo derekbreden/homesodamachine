@@ -1,4 +1,4 @@
-//! The enclosure model the site draws: its five shown pieces in place, read from their fine
+//! The enclosure model the site draws: its printed pieces in place, read from their fine
 //! models, with the pump dock's purchased tees and stem elbows at the stations the declared Box
 //! sets.
 //!
@@ -49,10 +49,17 @@ fn main() -> Result<()> {
     let document = read(&declared)?;
     let b = Box::from_document(serde_json::from_slice(&document)?).with_context(|| declared.display().to_string())?;
     std::fs::create_dir_all(&out)?;
-    let mut rows: Vec<Ref> = SHOWN
-        .iter()
-        .map(|(file, name)| Ref::stored(&Path::new(PIECES).join(format!("{file}.step.npz")), 0, name, Some(digits(wall_color()))))
-        .collect();
+    let mut rows = Vec::new();
+    for (file,name) in SHOWN {
+        let path=Path::new(PIECES).join(format!("{file}.step.npz"));
+        if file=="enclosure-pump-retainer-seated" {
+            for (index,body) in hsm_kernel::import::model(&path)?.iter().enumerate() {
+                rows.push(Ref::stored(&path,index,&body.name,None));
+            }
+        } else {
+            rows.push(Ref::stored(&path,0,name,Some(digits(wall_color()))));
+        }
+    }
     let parts = dock_parts(&b.pack.collet_plate)?;
     let bodies: Vec<Body> = parts.iter().map(|(name, color, solid)| Body { name, color: Some(*color), solid }).collect();
     rows.extend(Ref::made(&bodies)?);

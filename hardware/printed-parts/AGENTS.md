@@ -15,9 +15,9 @@ payload. Each of the enclosure's printed pieces has a program of its own, named 
 enclosure model from their files. `publish_now.py` grafts the changed payload into both viewer
 hosts — the enclosure aggregate and the appliance assembly — and tells the site.
 
-The pump retainer's standalone files carry its relaxed wings. Its installed shape belongs to
-both native assemblies and the installation GLBs. Rebuild those when changing the snap:
-the publisher retains their seated retainer surface instead of grafting the relaxed print mesh.
+The pump retainer's standalone files carry one printable clamp. Its seated model places
+independent copies and their purchased hardware in both native assemblies and installation
+GLBs. Rebuild those when changing the mount; the publisher retains the installed bodies.
 
 After the publish is live — never before, and never as a gate in the build path — lint the
 piece you changed and fix what it flags while Derek is already looking:
