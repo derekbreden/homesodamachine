@@ -1,0 +1,9 @@
+{
+  "recorded_at_utc": "2026-11-08T19:59:07.763570+00:00",
+  "piece": "enclosure-front-top",
+  "sources": {
+    "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl": "226620a1a95ce374e662a42f94483f4d03b8199c69576a4a049924ed4dada73f",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step.npz": "a22c143bdc853f3685d2f1de66f7d186d9aeb188fa13d3938ccfbf35c7218286",
+    "hardware/printed-parts/enclosure/enclosure/pump-clamp-fit.json": "89aa0c0dcafc212336ddb9cb4f2e44e657af74565309fc5173690a81a0d5b022"
+  }
+}

@@ -1,0 +1,171 @@
+{
+  "piece": "enclosure-front-top",
+  "printer": "Mark2",
+  "status": "started",
+  "source_commit": "f4bb137e389058f80b9d9c363065f467275797c3",
+  "source_stl": "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl",
+  "source_stl_sha256": "226620a1a95ce374e662a42f94483f4d03b8199c69576a4a049924ed4dada73f",
+  "source_orientation": "+Z, seam plane on the bed",
+  "project": "/Users/derekbredensteiner/Downloads/HSM-front-top-2026-11-08/2026-11-08-front-top-mark2-af1f846c/2026-11-08-front-top-mark2-af1f846c.3mf",
+  "project_sha256": "28f6e4034f6fa3ce4bfaa2b4f850793b64d211ef409a8b1b4655d88be5d4a31c",
+  "archive": "/Users/derekbredensteiner/Downloads/HSM-front-top-2026-11-08/2026-11-08-front-top-mark2-af1f846c/2026-11-08-front-top-mark2-af1f846c.gcode.3mf",
+  "archive_sha256": "90951b1a8d0c7c5dc4723304e34e4672185c88e325820978401c9b1d3388c376",
+  "gcode_sha256": "b1ee899038f9db2364c00f467d7c1aa9c37d596560da5e870a549374d80eecd6",
+  "estimated_seconds": 129230.19654885789,
+  "filament_grams": 1000.17,
+  "layers": 1315,
+  "requested_z_trim_mm": 0.04,
+  "emitted_z_trim_mm": [
+    0.0,
+    0.02
+  ],
+  "minimum_bead_bed_margin_mm": 51.849778999999955,
+  "native_review_checks": {
+    "archive": true,
+    "bed_border": true,
+    "fine_and_transition_bands": true,
+    "show_faces_support_free": true,
+    "solid_hosts_sampled": true,
+    "tie_windows_support_free": true,
+    "z_trim": true
+  },
+  "native_review_pass": true,
+  "sliced_settings": {
+    "layer_height": "0.24",
+    "initial_layer_print_height": "0.2",
+    "wall_loops": "2",
+    "sparse_infill_density": "15%",
+    "sparse_infill_pattern": "gyroid",
+    "support_type": "tree(auto)",
+    "support_style": "tree_slim",
+    "support_top_z_distance": "0.45",
+    "support_bottom_z_distance": "0.3",
+    "support_object_xy_distance": "0.5",
+    "fan_min_speed": [
+      "0"
+    ],
+    "fan_max_speed": [
+      "0"
+    ],
+    "overhang_fan_speed": [
+      "70"
+    ],
+    "overhang_fan_threshold": [
+      "50%"
+    ],
+    "additional_cooling_fan_speed": [
+      "0"
+    ],
+    "filament_map": [
+      "1"
+    ],
+    "filament_colour": [
+      "#161616"
+    ]
+  },
+  "cooling_recovery": {
+    "added_commanded_motion_seconds": 6616.962173857884,
+    "archive_sha256": "90951b1a8d0c7c5dc4723304e34e4672185c88e325820978401c9b1d3388c376",
+    "changed": true,
+    "estimate_scope": "Native estimate plus the added constant-feed motion time; acceleration and fan spin-up are not simulated.",
+    "input_archive_sha256": "892f0b1cdb7afa721b07e6db1b1c651ea17610db6ae6ec704cc2ed22936ae275",
+    "members": [
+      {
+        "added_commanded_motion_seconds": 6616.962173857884,
+        "changed": true,
+        "input_gcode_sha256": "6b19954b8691d48f6683e18d20c121e21fa17a9754556d206b88dc694a34ba53",
+        "member": "Metadata/plate_1.gcode",
+        "native_cooled_seed_moves": 52274,
+        "ordinary_model_moves": 8342022,
+        "output_gcode_sha256": "b1ee899038f9db2364c00f467d7c1aa9c37d596560da5e870a549374d80eecd6",
+        "petgf_slots": [
+          0
+        ],
+        "policy": {
+          "grid_mm": 0.2,
+          "height_mm": 0.8
+        },
+        "recovery_by_feature": {
+          "Bridge": [
+            2473.0,
+            1905.0680840087696,
+            0.0
+          ],
+          "Floating vertical shell": [
+            18908.0,
+            60400.07802494528,
+            2083.768450683358
+          ],
+          "Gap infill": [
+            685.0,
+            212.26512736089302,
+            7.474861011495941
+          ],
+          "Inner wall": [
+            30363.0,
+            42302.01615335172,
+            1465.059486633207
+          ],
+          "Internal solid infill": [
+            32966.0,
+            64360.75622325121,
+            2223.0896671797295
+          ],
+          "Outer wall": [
+            38903.0,
+            55571.00375302433,
+            558.4781872831685
+          ],
+          "Overhang wall": [
+            8.0,
+            0.6399999999999295,
+            0.0
+          ],
+          "Sparse infill": [
+            9952.0,
+            7468.933320080554,
+            259.07284569354823
+          ],
+          "Top surface": [
+            224.0,
+            577.1278387650126,
+            20.018675373072863
+          ]
+        },
+        "recovery_fan_percent": [
+          "70"
+        ],
+        "recovery_moves": 134482,
+        "recovery_speed_limit_mm_s": [
+          "25",
+          "25",
+          "25"
+        ],
+        "scope": "The complete centerline lies in a recent native-cooled model footprint. Motion coordinates and extrusion words are retained; only local part cooling and recovery feed rates change.",
+        "speed_limited_moves": 128603
+      }
+    ]
+  },
+  "scope": "The production front-top with independent pump wells and local screw posts. Its pump retainers are separate prints. Physical finish and fit remain observations of the printed part.",
+  "startup_spacing": {
+    "other_printer": "H2C",
+    "other_job_id": "1420097198",
+    "known_running_at_utc": "2026-11-08T20:00:40.260928+00:00",
+    "seconds_since_known_running": 249.42355
+  },
+  "printer_task_id": "1421915295",
+  "accepted_at_utc": "2026-11-08T20:07:16.268910+00:00",
+  "accepted_state": "PREPARE",
+  "launch_record": "launch.json",
+  "standing_options_verified": {
+    "timelapse": "On",
+    "bed_leveling": "On",
+    "flow_dynamic_calibration": "Auto",
+    "nozzle_offset_calibration": "Auto"
+  },
+  "confirmed_at_utc": "2026-11-08T20:07:53.163439+00:00",
+  "confirmed_state": "RUNNING",
+  "confirmed_print_error": 0,
+  "confirmed_hms": [],
+  "startup_status_record": "confirmed-printer.json"
+}
