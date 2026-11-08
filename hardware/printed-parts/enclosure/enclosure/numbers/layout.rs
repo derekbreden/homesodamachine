@@ -197,12 +197,12 @@ pub fn layout() -> &'static Layout {
     })
 }
 
-/// The physically approved planar lead-in shared by the rear equipment and pump caps.
+/// The physically approved planar lead-in shared by the equipment caps and pump retainer.
 pub fn snap_tip_rise() -> f64 {
     layout().rear_plumbing.snap_tip_rise_mm
 }
 
-/// The clearance beyond a complete rear snap point in its matching receiver.
+/// The clearance beyond a complete snap point in its matching receiver.
 pub fn snap_tip_air() -> f64 {
     layout().rear_plumbing.snap_tip_air_mm
 }

@@ -1,0 +1,121 @@
+{
+  "caps": [
+    {
+      "above_lead_in_added_mm3": 0.0,
+      "above_lead_in_removed_mm3": 0.0,
+      "added_mm3": 262.2159564723964,
+      "bounds_mm": [
+        [
+          -101.34999999962747,
+          14.25,
+          175.19500000029802
+        ],
+        [
+          101.34999999962747,
+          82.26499999966472,
+          224.42399999964982
+        ]
+      ],
+      "name": "enclosure-pump-retainer",
+      "new_floor_band_volume_mm3": 69.57205811855519,
+      "old_and_new_catch_faces": [
+        {
+          "floor_z_mm": 175.19500000029802,
+          "outer_x_mm": [
+            -101.34999999962747,
+            101.34999999962747
+          ]
+        },
+        {
+          "floor_z_mm": 175.19500000029802,
+          "outer_x_mm": [
+            -101.34999999962747,
+            101.34999999962747
+          ]
+        }
+      ],
+      "old_bounds_mm": [
+        [
+          -101.34999999962747,
+          14.25,
+          175.19500000029802
+        ],
+        [
+          101.34999999962747,
+          82.26499999966472,
+          224.42399999964982
+        ]
+      ],
+      "old_floor_band_volume_mm3": 69.57110775506852,
+      "receiver_overlap_mm3": 8.181948799099093,
+      "removed_mm3": 0.0
+    },
+    {
+      "above_lead_in_added_mm3": 0.0,
+      "above_lead_in_removed_mm3": 0.0,
+      "added_mm3": 261.9270579345175,
+      "bounds_mm": [
+        [
+          -101.09999999962747,
+          14.25,
+          175.19500000029802
+        ],
+        [
+          101.09999999962747,
+          82.26499999966472,
+          224.42399999964982
+        ]
+      ],
+      "name": "enclosure-pump-retainer-seated",
+      "new_floor_band_volume_mm3": 69.5720557239666,
+      "old_and_new_catch_faces": [
+        {
+          "floor_z_mm": 175.19500000029802,
+          "outer_x_mm": [
+            -101.09999999962747,
+            101.09999999962747
+          ]
+        },
+        {
+          "floor_z_mm": 175.19500000029802,
+          "outer_x_mm": [
+            -101.09999999962747,
+            101.09999999962747
+          ]
+        }
+      ],
+      "old_bounds_mm": [
+        [
+          -101.09999999962747,
+          14.25,
+          175.19500000029802
+        ],
+        [
+          101.09999999962747,
+          82.26499999966472,
+          224.42399999964982
+        ]
+      ],
+      "old_floor_band_volume_mm3": 69.57110650588393,
+      "receiver_overlap_mm3": 0.0,
+      "removed_mm3": 0.0
+    }
+  ],
+  "lead_in_rise_mm": 6.0,
+  "prior_lead_in_rise_mm": 4.6,
+  "purpose": "Read the front pump retainer's common longer ramp and complete matching receivers.",
+  "receiver_added_mm3": 0.0,
+  "receiver_removed_mm3": 546.3892000767007,
+  "scope": "Fine solids retain the wells and spring roots above the lead-in and the hook-bearing planes and lateral reach. Seated overlap is read against complete front-top. The relaxed print carries the deliberate outward spread; physical insertion force and durability require verification.",
+  "tip_air_mm": 0.5,
+  "files_sha256": {
+    "hardware/printed-parts/enclosure/enclosure/retainer-numbers/lib.rs": "c7246b026aee86f6a1f65a085e4fd3cb9ebe7d8fed85295398a613b2126766d4",
+    "hardware/printed-parts/enclosure/enclosure/retainer/retainer.rs": "f303b4af303ee03bb0d8c77cbb4588ece8077eb6612415f3f03c8cb959fa4994",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.stl": "4a074f43c81e2658129695e610c68d707d1c799ac43e3d28005318c4c451919e",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer-seated.step.npz": "ac398ad74e8d07516d69c55b7223d36f05f5ab1f807d61b333783238b4039345",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl": "02373bd00bed68d2d3a6885fdc4ec9f7b23829825a5466583e22508c738a406a",
+    "hardware/manifold-layout/above-core.json": "e71cfa6f55454aafdef07faa9b5557f541ec803bf8e3e9dd5361793fcc4b0026"
+  },
+  "profile_source": "hardware/manifold-layout/above-core.json:rear_plumbing.snap_tip_rise_mm",
+  "relaxed_pose": "The relaxed print deliberately spreads the hooks outward. Receiver overlap in that pose is the intended spring engagement; the seated pose is used for the complete assembly."
+}
