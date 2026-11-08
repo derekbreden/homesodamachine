@@ -45,11 +45,15 @@ export function makeMaterialSearch({ compact = false } = {}) {
     if (!query) { status.textContent = ""; return; }
     const hits = searchCatalog(state.materialCatalog, query);
     const count = hits.length;
-    status.textContent = count ? `${count} result${count === 1 ? "" : "s"}${count > 40 ? " · showing the first 40" : ""}` : "No matches. Try another description or part number.";
+    const suggested = hits[0]?.match === "suggestion";
+    status.textContent = count ? `${suggested ? "No exact matches · " : ""}${count} ${suggested ? "possible match" : "result"}${count === 1 ? "" : "s"}${count > 40 ? " · showing the first 40" : ""}` : "No matches. Try another description or part number.";
     const index = materialIndex(state.materialCatalog);
-    for (const { material: m, line } of hits.slice(0, 40)) {
+    for (const { material: m, line, match, corrections, unmatched } of hits.slice(0, 40)) {
       if (m) {
         let meta = `${m.id} · ${m.kind}`;
+        if (match === "suggestion") meta += " · possible match" + (unmatched.length
+          ? ` · unmatched: ${unmatched.join(", ")}`
+          : ` · spelling: ${corrections.map(({ from, to }) => `${from} → ${to}`).join(", ")}`);
         const counts = bomCounts(state.materialCatalog, m.id, { finish: state.faucetFinish });
         if (counts.total) meta += " · " + bomCountText(counts);
         result("/3d#" + materialHash(m.id, searchView), m.description, meta, () => openMaterial(m.id, true, searchView));

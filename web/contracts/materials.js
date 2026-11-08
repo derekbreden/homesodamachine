@@ -85,6 +85,20 @@ export function searchTerms(query) {
 const runIn = (term, words) => term.find((run) => words.some((_, at) => run.every(({ word, prefix }, i) =>
   words[at + i] === word || (prefix && words[at + i]?.startsWith(word)))));
 
+// A spelling suggestion changes one letter or one adjacent transposition in an alphabetic word.
+function nearbySpelling(a, b) {
+  if (!/^[a-z]{4,}$/.test(a) || !/^[a-z]{4,}$/.test(b) || Math.abs(a.length - b.length) > 1) return false;
+  if (a.length === b.length) {
+    const differences = [...a].flatMap((letter, i) => letter === b[i] ? [] : [i]);
+    return differences.length === 1 || (differences.length === 2 && differences[1] === differences[0] + 1
+      && a[differences[0]] === b[differences[1]] && a[differences[1]] === b[differences[0]]);
+  }
+  const [short, long] = a.length < b.length ? [a, b] : [b, a];
+  let at = 0;
+  while (at < short.length && short[at] === long[at]) at++;
+  return short.slice(at) === long.slice(at + 1);
+}
+
 export function termsMatch(terms, words) {
   return terms.length > 0 && terms.every((term) => runIn(term, words));
 }
@@ -132,6 +146,9 @@ export function searchCatalog(catalog, query) {
   const terms = searchTerms(query);
   if (!catalog || !terms.length) return [];
   const index = searchIndex(catalog), hits = [];
+  const id = String(query).trim().replace(/^hsm[-\s]*0*(\d+)$/i, (_, number) => "HSM-" + number.padStart(4, "0"));
+  const identified = index.materials.find(({ material }) => material.id === id);
+  if (identified) return [{ material: identified.material, score: Number.MAX_SAFE_INTEGER }];
   const scored = (fields) => {
     let score = 0;
     const found = terms.every((term) => fields.some(({ weight, words }) => {
@@ -150,7 +167,30 @@ export function searchCatalog(catalog, query) {
     const score = line.holders.every((holder) => found.has(holder.id)) ? 0 : scored([{ weight: 2, words: line.words }]);
     if (score) hits.push({ line, score });
   }
-  return hits.sort((a, b) => b.score - a.score || !!a.line - !!b.line);
+  if (hits.length) return hits.sort((a, b) => b.score - a.score || !!a.line - !!b.line);
+
+  // With no complete match, retain nearby candidates explicitly as suggestions.
+  // An unmatched remembered word stays visible; it never becomes a synonym.
+  for (const { material, fields } of index.materials) {
+    let score = 0, matched = 0;
+    const corrections = [], unmatched = [];
+    for (const term of terms) {
+      const exact = fields.find(({ words }) => runIn(term, words));
+      if (exact) { score += exact.weight; matched++; continue; }
+      const typed = term[0];
+      const spelling = typed.length === 1 && fields.flatMap(({ words, weight }) =>
+        words.filter((word) => nearbySpelling(typed[0].word, word)).map((word) => ({ word, weight })))[0];
+      if (spelling) {
+        corrections.push({ from: typed[0].word, to: spelling.word });
+        score += spelling.weight - 0.5;
+        matched++;
+      } else unmatched.push(typed.map(({ word }) => word).join(" "));
+    }
+    if (corrections.length > 1 || unmatched.length > 1 || !matched) continue;
+    if (unmatched.length && (terms.length < 3 || matched < 2 || corrections.length)) continue;
+    hits.push({ material, score, match: "suggestion", corrections, unmatched });
+  }
+  return hits.sort((a, b) => a.unmatched.length - b.unmatched.length || b.score - a.score);
 }
 
 export function searchMaterials(catalog, query) {
