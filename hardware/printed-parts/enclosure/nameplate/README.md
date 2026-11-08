@@ -1,10 +1,11 @@
 # Nameplate
 
-An 88 × 100 mm First Edition plate in the shallow rear receiver of
+A First Edition plate in the shallow rear receiver of
 `enclosure-back-top`. The faucet mark, two-line Georgia Bold company name, fine
 divider, matching Helvetica Neue Medium identification lines and QR share one
-vertical centreline. A 0.42 mm rounded white frame surrounds the artwork,
-inset 4.79 mm from each edge of the black face.
+vertical centreline. A rounded white frame surrounds the artwork with an even
+inset from the black face's edges. The plate and its artwork share the scale in
+[`rear_wall.rs`](../enclosure/numbers/rear_wall.rs).
 
 [`nameplate.rs`](nameplate.rs) cuts the two-colour part: [`artwork.rs`](artwork.rs) reads the
 outlines and [`qr.rs`](qr.rs) encodes each unit's code. [`wordmark.svg`](wordmark.svg)
@@ -16,12 +17,11 @@ their combined exterior.
 
 ## QR and identification
 
-Unit 0001 reads `FIRST EDITION` and `UNIT 01 OF 10`. Both identification lines use
-the same 3.5 mm em, weight and tracking. The QR contains `HTTPS://HOSM.US/0001`:
-version 1, error correction M, 21 × 21 active modules at 1.2 mm. Its active square
-is 25.2 mm; the four-module quiet zone makes a 34.8 mm square. The QR and its quiet
-zone clear the frame and text. Diagonal-only white contacts have 0.02 mm corner joins.
-The logo, lettering and QR retain their sizes inside the evenly inset frame.
+The identification lines share their typeface, weight and tracking. Each unit's
+QR addresses its own portal and uses medium error correction. The artwork master,
+including the QR's quiet zone and diagonal contact joins, scales uniformly across
+the face. Its relief and embedded depth keep their authored dimensions. The QR
+and its quiet zone clear the frame and text.
 
 The full-domain address in written instructions is `homesodamachine.com/0001`.
 The separate [appliance marking specification](/hardware/markings/README.md) covers
@@ -31,9 +31,9 @@ ratings, refrigerant warnings and disposal marking low on the enclosure.
 
 Four acquired black BNUOK M3 × 6 socket-head screws fasten the plate to four ruthex
 RX-M3S × 4 short heat-set inserts in the solid receiver of `enclosure-back-top`.
-The screw centres form a 66 × 78 mm rectangle, centred on the plate and 11 mm from
-each nearest plate edge. Each head clears the nearest white border by 3.04 mm
-both horizontally and vertically. Each Ø3.4 mm
+The screw centres form a rectangle centred on the plate, with their edge offsets
+defined in the shared mount record. Each head clears the white border.
+Each Ø3.4 mm
 clearance hole has a Ø6.2 × 1 mm counterbore. The Ø5.5 × 3 mm screw heads stand
 2 mm above the black face; their 2.5 mm hex sockets face directly outward.
 
@@ -55,23 +55,20 @@ purchased-hardware models. The production back-top uses the same stock and
 cavity construction. Hardware is separate from the printable plate's two-colour
 3MF and appears in the installed machine and attachment review.
 
-The plate centre is world X−45.4/Z217 and its face is Y473.3. The complete receiver
-is 94.3 mm wide. Its outside edges leave 2.95 mm to the rear-corner tangent at
-X−95.5 and 2.90 mm to the adjacent color-chip frame at X4.65. The receiver stands
-2 mm proud of the rear wall and has one 45° crown, retaining a 3 mm rim above
-the plate opening. The short inserts clear the cold-core envelope by 0.94 mm;
-screw tips clear it by 1.30 mm. Wago H and N sit 1 mm inward from their nominal
-rear stations, leaving 1.14 mm behind the receiver floor. The screw heads finish
-4 mm beyond the rear wall and 7.83 mm inside the rear extent of
-the bulkheads. All four screws are reached from outside the assembled machine.
-[Production measurements](production-fit.json) record the geometry review.
+The plate's position comes from the rear identification plan in
+[`above-core.json`](/hardware/manifold-layout/above-core.json). Its receiver has
+matching clear space beside the rounded corner root and above the seam band,
+and clears the adjacent port-label rail. The raised field has a sloped crown.
+The short inserts and screw tips clear the cold-core envelope. All screws are
+reached from outside the assembled machine.
+[Production measurements](production-fit.json) record the current geometry review.
 
 ## Printing and assembly
 
 Print the nameplate flat, face up, with its complete back on the bed and the
 counterbores facing up. No supports are needed. Use the shared PET-GF material
 settings, a 0.20 mm first layer, Arachne walls and a 75% minimum bead width on
-the 0.4 mm nozzle to retain the 0.325 mm identification strokes.
+the nozzle to retain the narrow identification strokes.
 
 Preserve the accepted Mark2 black/white alignment compensation in the print
 package; it is not a CAD translation. The [colour registration print records](horizontal-wing-trial/README.md)
@@ -86,8 +83,7 @@ four M3 × 6 screws before tightening. Seat them lightly by hand with a 2.5 mm
 hex key, alternating diagonal corners. The plate must lie flat without bowing.
 Scan the installed QR and compare the unit number with the build record.
 
-The four-screw attachment has Derek's 3D approval. Its physical mounting and
-support cleanup are unqualified; printing is held for the enclosure corner review.
+The plate and receiver's physical fit and support cleanup are unqualified.
 
 ## Generation
 
