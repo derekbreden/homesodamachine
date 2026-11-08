@@ -4,11 +4,11 @@ use hsm_enclosure_numbers::pump::tray;
 use hsm_enclosure_numbers::shell::{FRONT_PLANE_Y, FRONT_TOP_FLANK_T, WALL};
 use hsm_enclosure_numbers::spec::Box;
 
-pub const HALF_X: f64 = 45.0;
+pub const HALF_X: f64 = 45.5;
 pub const SCREW_OFFSET_X: f64 = 39.0;
-pub const POST_HALF_X: f64 = 5.5;
+pub const POST_HALF_X: f64 = 6.5;
 pub const SCREW_Y: f64 = 22.0;
-pub const BAR_AFT_Y: f64 = 26.05;
+pub const BAR_AFT_Y: f64 = 28.05;
 pub const NOTCH_FORE_Y: f64 = 18.25;
 pub const NOTCH_HALF_X: f64 = 27.5;
 pub const BAR_HEIGHT: f64 = 21.0;

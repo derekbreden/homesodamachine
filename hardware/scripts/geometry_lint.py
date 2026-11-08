@@ -182,7 +182,7 @@ def answers_path(stl):
 #: Which way each piece builds along the box's Z. Every coordinate the lint reads and emits
 #: stays in the box's own frame; the sign only says which faces look print-down and where the
 #: bed is: +1 for a piece bedded on its Z- face, -1 for one bedded on its Z+ face.
-PRINT_UP = {"enclosure-back-top": -1.0, "funnel-mold/core": -1.0,
+PRINT_UP = {"enclosure-back-top": -1.0, "enclosure-pump-retainer": -1.0, "funnel-mold/core": -1.0,
             # reservoir/prepare_print.py beds each cap on its exterior Z+ face.
             "reservoir/reservoir-cap-left": -1.0, "reservoir/reservoir-cap-right": -1.0,
             "prv-shroud/prv-shroud": -1.0,
@@ -203,7 +203,6 @@ PRINT_UP = {"enclosure-back-top": -1.0, "funnel-mold/core": -1.0,
 #: `trial-preparation/pieces.json` and
 #: `trial-preparation/labels.rs` print them in.
 PRINT_TILT_X = {"faucet-shell-base": -15.0, "industrial-shell-base": -15.0,
-                "enclosure-pump-retainer": 90.0,
                 "nameplate-001": 90.0,
                 **{f"rear-identification/rear-label-{which}": 90.0
                    for which in ("water", "co2", "drain", "carb", "flavor-a", "flavor-b")}}

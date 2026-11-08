@@ -1149,8 +1149,8 @@ retainer below it resist axial movement. The insert posts root in surrounding st
 pockets and the head wells open at the underside; there is no connecting retainer channel.
 The loading wells taper toward the motor guide to reduce flat overhang area.
 
-Front-top prints on its seam plane. The retainer uses its saved production pose and local
-solid-infill regions at the bearing and screw seats. Use accessible Tree Slim supports
+Front-top prints on its seam plane. The retainer prints with its flange-bearing face on the bed and screw-head recesses
+facing upward, with local solid infill at the bearing and screw seats. Use accessible Tree Slim supports
 only where needed; inspect the native slice before printing this revision.
 
 Service takes place with front-top open, power disconnected and the pump plumbing and

@@ -1,7 +1,7 @@
 {
   "/hardware/ledger/bom.rs": {
     "AERO_FLOATS": "3",
-    "BOM_GRAND": "$1,442.73",
+    "BOM_GRAND": "$1,442.76",
     "BOM_SEC1": "$175.03",
     "BOM_SEC11": "$34.53",
     "BOM_SEC12": "$29.78",
@@ -13,7 +13,7 @@
     "BOM_SEC4": "$133.11",
     "BOM_SEC5": "$143.06",
     "BOM_SEC6": "$20.76",
-    "BOM_SEC7": "$163.92",
+    "BOM_SEC7": "$163.95",
     "BOM_SEC8": "$259.45",
     "BOM_SEC9": "$78.57",
     "C14_BORE": "5.25",

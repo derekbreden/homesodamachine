@@ -57,8 +57,12 @@ pub fn loading_opening(g: &mut Graph, b: &Box) -> Shape {
             Z_SEAM-20., d.bearing_z]));
         for side in [-1., 1.] {
             let port = x + side * tray().outlet_pitch / 2.;
-            rooms.push(g.box_([port-retain::OUTLET_ROOM_HALF, port+retain::OUTLET_ROOM_HALF, d.motor_y+retain::OUTLET_ROOM_FORE,
-                shell().bay_back_y(&b.pack.collet_plate), Z_SEAM-20., d.bearing_z]));
+            let r=retain::OUTLET_ROOM_HALF;
+            rooms.push(g.prism(1,d.motor_y+retain::OUTLET_ROOM_FORE,
+                shell().bay_back_y(&b.pack.collet_plate),
+                vec![[port-r,Z_SEAM-20.],[port+r,Z_SEAM-20.],
+                     [port+r,d.bearing_z-r],[port,d.bearing_z],
+                     [port-r,d.bearing_z-r]]));
         }
         let (y0,y1) = (d.y0-running(), d.y1+running());
         let roof = d.retainer_top_z + clearance(false,true,false);
