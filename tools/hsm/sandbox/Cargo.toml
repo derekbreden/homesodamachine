@@ -10,6 +10,10 @@ publish = false
 name = "kamoer-scan"
 path = "../../../hardware/reference/kamoer-kphm400/scan_model.rs"
 
+[[example]]
+name = "teyleten-scan"
+path = "../../../hardware/reference/teyleten-relay/scan_model.rs"
+
 # A concept is a file in examples/. README.md says how to run one.
 [dependencies]
 anyhow.workspace = true
