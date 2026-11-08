@@ -1,0 +1,178 @@
+{
+  "views": [
+    {
+      "name": "lower-rail",
+      "caption": "Inside the right flank: the lower hook reaches forward beside the pump wells.",
+      "before": "lower-rail-before.webp",
+      "after": "lower-rail-after.webp",
+      "width": 1000,
+      "height": 700,
+      "marks": [
+        {
+          "x": 632,
+          "y": 424.2,
+          "r": 35.7,
+          "label": "Forward rail extension",
+          "at": [
+            99,
+            65,
+            172
+          ]
+        }
+      ],
+      "model": "printed-parts/enclosure/enclosure/enclosure.step",
+      "camera": {
+        "projection": "perspective",
+        "position": [
+          -18.10655906427013,
+          -5.1065590642701295,
+          339.65983859640517
+        ],
+        "target": [
+          99,
+          112,
+          164
+        ],
+        "up": [
+          0,
+          0,
+          1
+        ],
+        "fov": 45,
+        "near": 56.862983730965425,
+        "far": 638.4660852031294,
+        "aspect": 1.4285714285714286,
+        "section": {
+          "at": [
+            90,
+            100,
+            160
+          ],
+          "normal": [
+            -1,
+            0,
+            0
+          ],
+          "removes": "the side the normal points to"
+        }
+      },
+      "highlight": [
+        "enclosure_front_bottom"
+      ],
+      "ghost": [],
+      "only": [
+        "enclosure_front_bottom"
+      ],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "printed-parts/enclosure/enclosure/enclosure.step.mesh",
+          "from": "snapshot",
+          "sha256": "2f10d9b9b04848c177234526063e761a1ccdd38b7b7e886ccd91bdd04d9c725f",
+          "commit": "8d078fc8f0225ac710d04c6bf82a1d077c0d2a76",
+          "taken": "2026-11-08T20:39:57.441Z",
+          "published": false
+        },
+        "after": {
+          "payload": "printed-parts/enclosure/enclosure/enclosure.step.mesh",
+          "from": "tree",
+          "sha256": "2fb8501dcda64e391c50e851e479a89907110ee6a43e9f02808e3beb40ead659",
+          "commit": "3ad21f9ed7fceb201d0d3dc9bf123acd365b59d8",
+          "published": true
+        }
+      },
+      "changed": [
+        "enclosure_front_bottom",
+        "enclosure_front_top"
+      ],
+      "withinMeshing": []
+    },
+    {
+      "name": "upper-channel",
+      "caption": "The matching upper channel, viewed from the seam.",
+      "before": "upper-channel-before.webp",
+      "after": "upper-channel-after.webp",
+      "width": 1000,
+      "height": 700,
+      "marks": [
+        {
+          "x": 628.4,
+          "y": 256.5,
+          "r": 34.8,
+          "label": "Matching channel",
+          "at": [
+            99,
+            65,
+            170
+          ]
+        }
+      ],
+      "model": "printed-parts/enclosure/enclosure/enclosure.step",
+      "camera": {
+        "projection": "perspective",
+        "position": [
+          -18.10655906427013,
+          -5.1065590642701295,
+          -5.659838596405194
+        ],
+        "target": [
+          99,
+          112,
+          170
+        ],
+        "up": [
+          0,
+          0,
+          1
+        ],
+        "fov": 45,
+        "near": 59.65526548730324,
+        "far": 653.032206777266,
+        "aspect": 1.4285714285714286,
+        "section": {
+          "at": [
+            90,
+            100,
+            160
+          ],
+          "normal": [
+            -1,
+            0,
+            0
+          ],
+          "removes": "the side the normal points to"
+        }
+      },
+      "highlight": [
+        "enclosure_front_top"
+      ],
+      "ghost": [],
+      "only": [
+        "enclosure_front_top"
+      ],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "printed-parts/enclosure/enclosure/enclosure.step.mesh",
+          "from": "snapshot",
+          "sha256": "2f10d9b9b04848c177234526063e761a1ccdd38b7b7e886ccd91bdd04d9c725f",
+          "commit": "8d078fc8f0225ac710d04c6bf82a1d077c0d2a76",
+          "taken": "2026-11-08T20:39:57.441Z",
+          "published": false
+        },
+        "after": {
+          "payload": "printed-parts/enclosure/enclosure/enclosure.step.mesh",
+          "from": "tree",
+          "sha256": "2fb8501dcda64e391c50e851e479a89907110ee6a43e9f02808e3beb40ead659",
+          "commit": "3ad21f9ed7fceb201d0d3dc9bf123acd365b59d8",
+          "published": true
+        }
+      },
+      "changed": [
+        "enclosure_front_bottom",
+        "enclosure_front_top"
+      ],
+      "withinMeshing": []
+    }
+  ]
+}
