@@ -21,5 +21,7 @@ Putty-covered underside features are absent. The mounting openings fit their
 visible front rims; bore walls and deep terminal cavities are not fully
 observed. Closed unobserved surfaces are reconstruction closures. Scanning spray
 remains in the measurements, and the surface comparison does not establish
-absolute accuracy or installation clearance. The enclosure's relay retention
-remains unqualified.
+absolute accuracy or installation clearance. The [enclosure mounting
+review](../../printed-parts/enclosure/enclosure/relay-mount-fit.json) defines
+the screw stack and measured geometry scope; physical load retention remains
+unqualified.
