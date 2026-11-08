@@ -517,4 +517,4 @@ click: x=-83.329 y=462.253 z=312.728
 [ceiling] Required lower locating seat of the four-screw nameplate: this flat, 3.36 mm-deep edge supports the rectangular plate while the four screws are started and bounds the front receiver opening. Back-top prints ceiling down. Tree(auto)/Default supports reach this exposed exterior ledge and are removed through the empty mouth before pressing the inserts or fitting the plate. Physical support cleanup is not yet qualified.
 alternatives: Filling the mouth prevents fitting the full plate. A slope in the locating seat changes the rectangular seating profile or leaves a tapered lip; an open-bottom receiver removes this locating edge and the continuous protective frame.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
-click: x=-45.400 y=471.620 z=166.600
+click: x=-41.400 y=471.620 z=174.895

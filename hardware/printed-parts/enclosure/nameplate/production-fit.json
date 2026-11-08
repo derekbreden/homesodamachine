@@ -1,233 +1,119 @@
 {
-  "attachment": "four M3 x 6 socket screws in short RX-M3S x 4 inserts",
+  "purpose": "This record locates the nameplate, its receiver and their exterior clearances in the published machine.",
+  "plate_size_mm": [
+    80.0,
+    90.9090909090909,
+    3.36
+  ],
+  "artwork_scale": 0.9090909090909091,
   "world_plate_back_mm": [
-    -45.4,
+    -41.4,
     469.94,
-    217.0
+    220.75
   ],
   "world_receiver_bounds_mm": [
     [
-      -92.55000305175781,
+      -84.55,
       465.55,
-      163.60000610351562
+      171.89545454545456
     ],
     [
       1.75,
-      473.29998779296875,
-      272.1499938964844
+      473.3,
+      271.3545454545455
     ]
   ],
-  "screw_count": 4,
-  "insert_count": 4,
-  "counterbore_depth_mm": 1.0,
-  "head_proud_mm": 2.0,
-  "bearing_floor_mm": 2.36,
-  "insert_engagement_mm": 3.64,
-  "insert_rear_wall_air_mm": 0.3899999999999997,
-  "open_pilot_axes": [
-    true,
-    true,
-    false,
-    false
-  ],
-  "upper_pilot_depth_mm": 4.39,
-  "upper_pilot_backing_mm": 3.25,
-  "upper_screw_tip_air_mm": 0.7499999999999996,
-  "actual_centre_floor_stock_mm": 4.3900146484375,
-  "insert_core_envelope_gap_mm": 0.9399999999999977,
-  "screw_tip_core_envelope_gap_mm": 1.3000000000000114,
-  "receiver_core_envelope_gap_mm": 0.55,
-  "border_bounds_plate_xz_mm": [
-    [
-      -39.209999999999994,
-      -45.209999999999994
-    ],
-    [
-      39.21,
-      45.21
-    ]
-  ],
-  "white_border_edge_inset_mm": 4.79,
-  "screw_centre_edge_inset_mm": 11.0,
-  "head_to_nearest_white_border_gap_mm": 3.04,
-  "screw_head_rear_world_mm": 475.3,
-  "bulkhead_rear_world_mm": 483.1274108886719,
-  "bulkheads_beyond_screw_heads_mm": 7.827410888671864,
-  "frame_corner_tangent_gap_mm": 2.95,
-  "frame_color_card_gap_mm": 2.9,
-  "seat_overlap_mm3": 0.0,
-  "receiver_obstacle_collisions": [],
-  "driver_diameter_mm": 6.0,
-  "driver_outward_travel_mm": 80.0,
-  "driver_obstacle_collisions": [],
-  "nearby_geometry_checked": [
-    "wago-h",
-    "wago-n"
-  ],
-  "thermal_interference": "Insert OD 4.6 mm in a printed 4.0 mm pilot; intentional heat-set displacement.",
-  "physical_status": "Nameplate appearance and mounting approved in 3D. The production rear-top receiver is printing on Mark2. Physical mounting is unqualified.",
-  "source_sha256": {
-    "hardware/printed-parts/enclosure/nameplate/nameplate-001.step.mesh": "2e362e82e69cfd2033e31385e1623a0bbc63a90102439e052f5c7c9c4b637eec",
-    "hardware/printed-parts/enclosure/nameplate/nameplate-fasteners.step.mesh": "844fab0c1199ef683e0b1d359e5b658c81c87ea389eb2329ad6a6d018a6c09f2",
-    "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl": "afef480e17bbad94f5b12c38e2f63048e052d9ae5dea3b3c5b403ace658ceca0",
-    "hardware/manifold-layout/enclosure-assembly.step.mesh": "945ce009ecff0f13c8d3d0c078bd995c1d73b76cb462a5a5fbb13440642b9a3f"
-  },
-  "native_check": {
-    "artwork_rise_mm": 0.48,
-    "bearing_floor_mm": 2.36,
-    "body_ink_overlap_mm3": 0.0,
-    "bore": "Standalone receiver through; production upper pair ends against existing support-floor backing.",
-    "head_proud_mm": 2.0,
-    "insert_engagement_mm": 3.64,
-    "insert_radial_stock_mm": 3.7,
-    "insert_rear_wall_air_mm": 0.3899999999999997,
-    "mount": {
-      "clearance_diameter": 3.4,
-      "corner": 5.0,
-      "counterbore_depth": 1.0,
-      "counterbore_diameter": 6.2,
-      "crown_y": 1.3599999999999999,
-      "field_proud": 2.0,
-      "floor_rear": -3.0,
-      "floor_stock": 3.0,
-      "frame_bottom": -53.4,
-      "frame_corner": 7.0,
-      "frame_top": 55.15,
-      "frame_width": 94.3,
-      "head_diameter": 5.5,
-      "head_height": 3.0,
-      "height": 100.0,
-      "hex_key": 2.5,
-      "insert_diameter": 4.6,
-      "insert_length": 4.0,
-      "insert_stock_radius": 6.0,
-      "insert_stock_rear": -4.39,
-      "mouth_height": 100.3,
-      "mouth_width": 88.3,
-      "pilot_diameter": 4.0,
-      "pilot_rear": -4.64,
-      "screw_diameter": 3.0,
-      "screw_length": 6.0,
-      "slip": 0.15,
-      "stations": [
-        [
-          -33.0,
-          -39.0
-        ],
-        [
-          33.0,
-          -39.0
-        ],
-        [
-          -33.0,
-          39.0
-        ],
-        [
-          33.0,
-          39.0
-        ]
-      ],
-      "supported": 0.25,
-      "thick": 3.36,
-      "width": 88.0
-    },
-    "payload": "HTTPS://HOSM.US/0001",
-    "pilot_reach_mm": 4.64,
-    "plate_components": 1,
-    "quiet_zone_overlap_mm3": 0.0,
-    "receiver_components": 1,
-    "receiver_floor_stock_mm": 3.0,
-    "screw_artwork_overlap_mm3": 0.0,
-    "seated_overlap_mm3": 0.0,
-    "upper_pilot_depth_mm": 4.39,
-    "valid_body": true,
-    "valid_receiver": true
-  },
-  "frame_proud_of_rear_wall_mm": 2.0,
-  "screw_heads_proud_of_rear_wall_mm": 4.0,
-  "minimum_receiver_floor_stock_mm": 3.0,
+  "corner_root_start_x_mm": -88.33333333333333,
+  "band_top_z_mm": 168.125,
+  "frame_corner_root_gap_mm": 3.7833333333333314,
+  "frame_band_gap_mm": 3.7704545454545553,
+  "frame_label_rail_gap_mm": 2.9000000000000004,
   "screw_grid_mm": [
-    66.0,
-    78.0
+    58.0,
+    68.9090909090909
   ],
-  "normal_machine_plan_verified": true,
-  "wago_translation_delta_mm": {
-    "wago-h": [
-      0.0,
-      -1.0,
-      0.0
+  "mount": {
+    "clearance_diameter": 3.4,
+    "corner": 5.0,
+    "counterbore_depth": 1.0,
+    "counterbore_diameter": 6.2,
+    "crown_y": 1.3599999999999999,
+    "field_proud": 2.0,
+    "floor_rear": -3.0,
+    "floor_stock": 3.0,
+    "frame_bottom": -48.85454545454545,
+    "frame_corner": 7.0,
+    "frame_top": 50.60454545454545,
+    "frame_width": 86.3,
+    "head_diameter": 5.5,
+    "head_height": 3.0,
+    "height": 90.9090909090909,
+    "hex_key": 2.5,
+    "insert_diameter": 4.6,
+    "insert_length": 4.0,
+    "insert_stock_radius": 6.0,
+    "insert_stock_rear": -4.39,
+    "mouth_height": 91.2090909090909,
+    "mouth_width": 80.3,
+    "pilot_diameter": 4.0,
+    "pilot_rear": -4.64,
+    "screw_diameter": 3.0,
+    "screw_length": 6.0,
+    "slip": 0.15,
+    "stations": [
+      [
+        -29.0,
+        -34.45454545454545
+      ],
+      [
+        29.0,
+        -34.45454545454545
+      ],
+      [
+        -29.0,
+        34.45454545454545
+      ],
+      [
+        29.0,
+        34.45454545454545
+      ]
     ],
-    "wago-n": [
-      0.0,
-      -1.0,
-      0.0
-    ]
+    "supported": 0.25,
+    "thick": 3.36,
+    "width": 80.0
   },
-  "wiring_receipt": "hardware/wiring/installed/integration-review.json",
-  "wiring_manifest_sha256": "b5254c17275af14beffda671053a5efeaf533215ea1286beef7c4c930db0d0d6",
+  "plate_receiver_intersection_mm3": 0.0,
+  "plate_ink_intersection_mm3": 1.3256777132205494e-15,
+  "plate_receiver_surface_distance_mm": 0.0,
+  "physical_status": "The resized plate and receiver have visual approval. Physical mounting is unqualified.",
+  "visual_approval": "Looks good to me. I was able to see the change pretty quickly there.",
   "lint_review": {
-    "plate": "Specified 0.48 mm graphic relief and 1 mm counterbores; manual review retained their functional outline and bearing faces.",
-    "back_top": "The blind upper pilots end on the continuous backing plane. The lower pilots continue through the rear lands. The bore-tail thin webs and relief ledge are absent from the current manual mesh reading. Functional keystone catches and cable bearings retain their recorded allowances."
+    "scope": "Nameplate artwork, screw seats and the relocated receiver.",
+    "nameplate": "Reported relief, counterbores and narrow letter outlines follow the artwork and fastener seats. Ceiling readings use the source height axis; the plate prints face up.",
+    "back_top": "The relocated receiver retains its supported mouth and crown. Other reported features lie outside this edit."
   },
-  "guide_review": {
-    "pages": 34,
-    "preflight": "PASS Small Landscape",
-    "minimum_reading_pdf_ppi": 332,
-    "reading_pdf_sha256": "934a0ea00f8e4c127498475b50600c7e0a053272b5aaf023f88459f8b181c961",
-    "visual_pages_reviewed": [
-      18,
-      34
-    ]
+  "live_website": {
+    "purpose": "This record verifies the published nameplate from the live website.",
+    "revision": "100b66c03d65380315b6754c051b96c111253d403a11b2b6c7247afb90dfc9bc",
+    "parts": 424,
+    "plate": {
+      "min_mm": [
+        -81.4000015258789,
+        469.94000244140625,
+        175.2954559326172
+      ],
+      "max_mm": [
+        -1.399999976158142,
+        473.29998779296875,
+        266.20452880859375
+      ]
+    },
+    "loaded_seconds": 6.185
   },
-  "visual_approval": "Nameplate looks good. Thank you.",
-  "lower_pilot_reach_mm": 4.64,
-  "pilot_axis_reading": {
-    "source_stl_sha256": "afef480e17bbad94f5b12c38e2f63048e052d9ae5dea3b3c5b403ace658ceca0",
-    "rays": [
-      {
-        "axis_xz_mm": [
-          -78.4,
-          178
-        ],
-        "hit_y_mm": []
-      },
-      {
-        "axis_xz_mm": [
-          -12.4,
-          178
-        ],
-        "hit_y_mm": []
-      },
-      {
-        "axis_xz_mm": [
-          -78.4,
-          256
-        ],
-        "hit_y_mm": [
-          465.54998779296875,
-          462.29998779296875
-        ]
-      },
-      {
-        "axis_xz_mm": [
-          -12.4,
-          256
-        ],
-        "hit_y_mm": [
-          465.54998779296875,
-          462.29998779296875
-        ]
-      },
-      {
-        "axis_xz_mm": [
-          -45.4,
-          217
-        ],
-        "hit_y_mm": [
-          469.94000244140625,
-          465.54998779296875
-        ]
-      }
-    ]
+  "source_sha256": {
+    "hardware/printed-parts/enclosure/nameplate/nameplate-001.step.mesh": "0c4a97387dee88aabca21138014fc69c61a9440684cdee385847ac11682184bd",
+    "hardware/printed-parts/enclosure/nameplate/nameplate-fasteners.step.mesh": "79dd0d14c744ad7c131f6bfc1c20d1b61f141a974daed12f7d88ef56072a9705",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl": "6420b36c97c82e33a16934f92d669a385053953895412cfa1bf191160868d48c",
+    "hardware/manifold-layout/enclosure-assembly.step.mesh": "3a0e2e745205a7a40bc4425992eae62326259e9f7e7aa14c9467209f17a1bc1a"
   }
 }
