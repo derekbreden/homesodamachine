@@ -28,10 +28,8 @@ pub const WET_PORT_Y: P2 = [458.0, 472.3];
 /// The wall's hosted insert bosses and their pilots.
 pub const BOSS_RADIUS: f64 = 5.0;
 const PILOT_RADIUS: f64 = 2.0;
-/// The PSU's and the relays' native hole half-spacings, and each relay row's edge bar's
-/// half-width.
+/// The PSU's native hole half-spacings and each relay end bar's half-width.
 const PSU_HOLES: P2 = [16.5, 49.0];
-const RELAY_HOLES: P2 = [33.0, 6.5];
 pub const RELAY_BAR_HALF: f64 = 5.0;
 
 /// The PSU's ceiling bosses root at this plane, the relays' bosses and bars this far into the
@@ -389,29 +387,29 @@ pub struct Mount {
     pub root: P3,
     pub axis: P3,
     pub threaded: bool,
+    pub pilot_depth: f64,
 }
 
 /// A hosted part's mounting holes, its native hole pattern placed by its pose.
 fn mounts(
     pose: &Pose,
-    half: P2,
+    holes: &[P2],
     setback: f64,
+    pilot_depth: f64,
     root: impl Fn(P3) -> P3,
-    threaded: impl Fn(usize) -> bool,
 ) -> Vec<Mount> {
     let axis = pose.vector([0.0, 0.0, 1.0]);
-    [(-1.0, -1.0), (-1.0, 1.0), (1.0, -1.0), (1.0, 1.0)]
-        .into_iter()
-        .enumerate()
-        .map(|(i, (sx, sy))| {
-            let point = pose.point([sx * half[0], sy * half[1], 0.0]);
+    holes.iter()
+        .map(|&[x, y]| {
+            let point = pose.point([x, y, 0.0]);
             let face = std::array::from_fn(|k| point[k] - setback * axis[k]);
             Mount {
                 point,
                 face,
                 root: root(point),
                 axis,
-                threaded: threaded(i),
+                threaded: true,
+                pilot_depth,
             }
         })
         .collect()
@@ -433,15 +431,16 @@ fn axial_cylinder(g: &mut Graph, radius: f64, root: P3, axis: P3, length: f64) -
 /// The parts the wall hosts, each with its mounting holes: the PSU on ceiling bosses, then each
 /// relay on west-flank bosses.
 pub fn wall_mounts() -> Vec<(&'static str, Vec<Mount>)> {
-    use crate::rear_wall::hosts::RELAY_SETBACK;
+    use crate::rear_wall::hosts::{PILOT_DEPTH, RELAY_SETBACK, relay_holes, relay_pilot_depth};
     let parts = &layout().parts;
+    let holes = relay_holes();
     let relay = |pose| {
         mounts(
             pose,
-            RELAY_HOLES,
+            &holes,
             RELAY_SETBACK,
+            relay_pilot_depth(),
             |p| [RELAY_ROOT_X, p[1], p[2]],
-            |i| i < 2,
         )
     };
     vec![
@@ -449,10 +448,11 @@ pub fn wall_mounts() -> Vec<(&'static str, Vec<Mount>)> {
             "psu",
             mounts(
                 &parts.psu,
-                PSU_HOLES,
+                &[[-PSU_HOLES[0], -PSU_HOLES[1]], [-PSU_HOLES[0], PSU_HOLES[1]],
+                  [PSU_HOLES[0], -PSU_HOLES[1]], [PSU_HOLES[0], PSU_HOLES[1]]],
                 0.0,
+                PILOT_DEPTH,
                 |p| [p[0], p[1], PSU_ROOT_Z],
-                |_| true,
             ),
         ),
         ("relay-1", relay(&parts.relay_1)),
@@ -460,12 +460,25 @@ pub fn wall_mounts() -> Vec<(&'static str, Vec<Mount>)> {
     ]
 }
 
-/// The PSU's ceiling bosses and the two relays' west-flank bosses, each relay row's edge bar, and
+/// Each relay end's wall-rooted bar joins the corner posts beneath the PCB.
+pub fn relay_bars(hosted: &[(&str, Vec<Mount>)]) -> Vec<Bounds> {
+    let mut bars = Vec::new();
+    for end in [0..2, 2..4] {
+        let row: Vec<_> = hosted.iter().filter(|(part, _)| *part != "psu")
+            .flat_map(|(_, mounts)| &mounts[end.clone()]).collect();
+        let low = |axis| row.iter().map(|m| m.point[axis]).fold(f64::INFINITY, f64::min);
+        let high = |axis| row.iter().map(|m| m.point[axis]).fold(f64::NEG_INFINITY, f64::max);
+        let face = row.iter().map(|m| m.face[0]).fold(f64::INFINITY, f64::min);
+        bars.push([RELAY_ROOT_X, face, low(1) - RELAY_BAR_HALF,
+                   high(1) + RELAY_BAR_HALF, low(2), high(2)]);
+    }
+    bars
+}
+
+/// The PSU's ceiling bosses and the relays' bearing posts, each end's bar, and
 /// every threaded hole's pilot.
 fn hosts(g: &mut Graph, mut piece: Shape) -> Shape {
-    use crate::rear_wall::hosts::PILOT_DEPTH;
     let hosted = wall_mounts();
-    let relays: Vec<&Mount> = hosted[1..].iter().flat_map(|(_, m)| m).collect();
     let mut bosses = Vec::new();
     let mut pilots = Vec::new();
     for m in hosted.iter().flat_map(|(_, m)| m) {
@@ -478,35 +491,12 @@ fn hosts(g: &mut Graph, mut piece: Shape) -> Shape {
                 PILOT_RADIUS,
                 start,
                 m.axis.map(|u| -u),
-                PILOT_DEPTH + 0.01,
+                m.pilot_depth + 0.01,
             ));
         }
     }
-    let mut rows: Vec<f64> = relays
-        .iter()
-        .map(|m| (m.point[1] * 1e6).round() / 1e6)
-        .collect();
-    rows.sort_by(f64::total_cmp);
-    rows.dedup();
-    for y in rows {
-        let row: Vec<&&Mount> = relays
-            .iter()
-            .filter(|m| (m.point[1] - y).abs() < 1e-5)
-            .collect();
-        let z0 = row.iter().map(|m| m.point[2]).fold(f64::INFINITY, f64::min);
-        let z1 = row
-            .iter()
-            .map(|m| m.point[2])
-            .fold(f64::NEG_INFINITY, f64::max);
-        let x = row.iter().map(|m| m.face[0]).fold(f64::INFINITY, f64::min);
-        bosses.push(g.box_([
-            RELAY_ROOT_X,
-            x,
-            y - RELAY_BAR_HALF,
-            y + RELAY_BAR_HALF,
-            z0,
-            z1,
-        ]));
+    for bounds in relay_bars(&hosted) {
+        bosses.push(g.box_(bounds));
     }
     piece = g.union_each(piece, &bosses);
     g.cut_each(piece, &pilots)

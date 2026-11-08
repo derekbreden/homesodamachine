@@ -429,12 +429,12 @@ leads aside, remove the ASSE cap, spread the meter leaves, withdraw 20 mm west,
 relax the leaves and move 40 mm fore. This bench sequence leaves room for
 the complete lower leaf to open.
 
-The PSU mounts base-up to four ceiling hosts with its AC end aft. The two
-relay boards sit on the dry west wall, 20.5 mm apart. Four edge ledges support
-each PCB; rigid 3 mm terminal-end rails retain the opposite end from its two
-header-end M3×8 screws. Slide each board 6.5 mm aft into the rails before
-fitting the screws. The insert faces stand 2.5 mm behind the PCB underside,
-leaving 0.5 mm over the nominal pin envelope.
+The PSU mounts base-up on its ceiling hosts with its AC end aft. The relay
+boards sit on the dry west wall. Each mounts through every corner hole to
+solid wall-rooted posts. The PCB underside bears directly on the post faces,
+and each short insert opens at that bearing plane. Fit each board straight
+onto its posts and install the complete screw set specified in the BOM.
+Both terminal faces and their screwdriver wells remain open.
 
 The shared V69 socket sections carry V-A and V-K. Preserve the
 [accepted valve-fit scope](/hardware/mechanical-qualification/README.md).

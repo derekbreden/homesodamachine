@@ -111,7 +111,6 @@ impl Regions {
 fn wall_hosts(regions: &mut Regions, features: &Value, outer: &[f64; 6]) -> Result<()> {
     let hosts = &features["wall_hosts"];
     let radius = hosts["boss_radius_mm"].as_f64().context("the back-top records no wall hosts; rebuild enclosure-back-top")?;
-    let bar = hosts["row_bar_half_width_mm"].as_f64().context("the wall hosts have no row bar")?;
     for host in hosts["parts"].as_array().into_iter().flatten() {
         let part = host["part"].as_str().context("a wall host without its part")?;
         let mut stations = Vec::new();
@@ -134,18 +133,11 @@ fn wall_hosts(regions: &mut Regions, features: &Value, outer: &[f64; 6]) -> Resu
             };
             regions.add("back-top", &format!("{part} bearing pad, insert host and {rooted} {}", number + 1), b);
         }
-        if part != "psu" {
-            let mut rows: Vec<f64> = stations.iter().map(|(p, ..)| (p[1] * 1e6).round() / 1e6).collect();
-            rows.sort_by(f64::total_cmp);
-            rows.dedup();
-            for y in rows {
-                let row: Vec<_> = stations.iter().filter(|(p, ..)| (p[1] - y).abs() < 1e-5).collect();
-                let face_x = row.iter().map(|(_, f, ..)| f[0]).fold(f64::INFINITY, f64::min);
-                let z0 = row.iter().map(|(p, ..)| p[2]).fold(f64::INFINITY, f64::min);
-                let z1 = row.iter().map(|(p, ..)| p[2]).fold(f64::NEG_INFINITY, f64::max);
-                regions.add("back-top", &format!("{part} connecting host bar and wall root at Y{}", g(y)), [outer[0], face_x, y - bar, y + bar, z0, z1]);
-            }
-        }
+    }
+    for (index, bounds) in hosts["bar_bounds_mm"].as_array().into_iter().flatten().enumerate() {
+        let mut b = std::array::from_fn(|k| bounds[k].as_f64().expect("host bar bound"));
+        b[0] = b[0].min(outer[0]);
+        regions.add("back-top", &format!("Relay end bar and wall root {}", index + 1), b);
     }
     Ok(())
 }
