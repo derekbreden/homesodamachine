@@ -181,7 +181,7 @@
       "material": "Polymaker Fiberon PET-GF15, black",
       "plate_offset_mm": {
         "value": [
-          -3.5,
+          -5.0,
           0.0
         ],
         "reason": "Center the asymmetric external tree envelope of the ceiling-down enclosure inside the usable bed border."
@@ -216,7 +216,7 @@
           "reason": "Retain compact trunks outside the protected plumbing column."
         },
         "raft_first_layer_expansion": {
-          "value": "3",
+          "value": "2",
           "reason": "Compact explicit tree-root brims retain adhesion inside the usable bed border."
         },
         "tree_support_branch_distance": {

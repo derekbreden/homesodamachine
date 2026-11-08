@@ -504,9 +504,8 @@ fn pisco(g: &mut Graph) -> Shape {
                         ceiling() + INTO]);
     let room = turned(g, profile, axis);
     let half = st.outer + PISCO_SERVICE_FLANK + c;
-    let fore = st.y0-c-WALL-1.0;
-    let service = g.prism(0,axis[0]-half,axis[0]+half,
-        vec![[fore,split-1.0],[st.y0+c,split-1.0],[st.y0+c,st.bearing-WALL],[fore,st.bearing]]);
+    let service = g.box_([axis[0]-half,axis[0]+half,st.y0-c-WALL-1.0,st.y0+c,
+                          split-1.0,st.bearing-WALL]);
     let mut cuts = vec![room];
     cuts.extend(pockets(g, &st));
     cuts.push(service);
