@@ -52,7 +52,7 @@ def main():
                     old=Path(str(target)[:-5])
                     if old.is_file():old.unlink()
         if moved:
-            made.append({'seconds':time.monotonic()-started,'files':moved})
+            made.append({'seconds':time.monotonic()-started,'wall_time_ns':time.time_ns(),'files':moved})
             print('[print-build] carried '+', '.join(moved),flush=True)
         if any(name.endswith(('.step.mesh','.glb.mesh')) for name in moved):
             log=(run/f'publish-{len(publishers)}.log').open('w')

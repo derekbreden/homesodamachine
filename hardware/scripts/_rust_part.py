@@ -454,6 +454,28 @@ def program(crate: str, name: str) -> Path:
     where it is."""
     workspace = Path(os.environ.get("HSM_WORKSPACE") or ROOT).resolve()
     manifest = workspace / "tools" / "hsm" / crate / "Cargo.toml"
+    binary = workspace / "tools/hsm/target/release" / name
+    receipt = workspace / ".cache/realized/compiled-programs" / crate / f"{name}.json"
+    # Matching source bytes reuse the executable without entering Cargo's compiler queue.
+    def fingerprints(inputs):
+        try:
+            values = {}
+            for path in inputs:
+                try:
+                    values[path] = hashlib.sha256((workspace / path).read_bytes()).hexdigest()
+                except FileNotFoundError:
+                    values[path] = None
+            return values
+        except OSError:
+            return None
+    try:
+        held = json.loads(receipt.read_text())
+        if (held["sources"] == fingerprints(held["sources"]) and
+                held["binary"] == hashlib.sha256(binary.read_bytes()).hexdigest()):
+            _READ_TARGETS.update(held["sources"])
+            return binary
+    except (OSError, ValueError, KeyError, TypeError):
+        pass
     # Cargo runs the `rustc` it finds on the PATH, and rustup keeps it beside cargo.
     cargo, target = _cargo(), workspace / "tools" / "hsm" / "target"
     env = {**os.environ, "HOME": str(_home()), "CARGO_TARGET_DIR": str(target),
@@ -477,6 +499,13 @@ def program(crate: str, name: str) -> Path:
         from _build_data import request
         inputs = request("program-inputs", path=metadata["path"], workspace=str(workspace), crate=crate)
     _READ_TARGETS.update(inputs)
+    sources = fingerprints(inputs)
+    if sources is not None:
+        receipt.parent.mkdir(parents=True, exist_ok=True)
+        temporary = receipt.with_suffix(f".{os.getpid()}.tmp")
+        temporary.write_text(json.dumps({"sources": sources,
+                                        "binary": hashlib.sha256(binary.read_bytes()).hexdigest()}))
+        os.replace(temporary, receipt)
     return target / "release" / name
 
 
