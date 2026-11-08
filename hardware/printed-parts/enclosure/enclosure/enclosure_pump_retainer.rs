@@ -1,12 +1,11 @@
-//! The lower pump retainer's files from the declared Box: its wings relaxed, as it prints and
-//! the page draws it from its STL, and seated, as the assemblies show it.
+//! The side-loading pump cartridge's print and installed files from the declared Box.
 //!
 //!     enclosure-pump-retainer [--box <declared Box>] [<output directory>]
 #[path = "retainer/retainer.rs"]
 mod retainer;
 
 use anyhow::Result;
-use hsm_enclosure_numbers::{Color, catalog, pump, shell, spec};
+use hsm_enclosure_numbers::{Color, catalog, spec};
 use hsm_enclosure_solid::pieces::{digest, keep, payload, solids};
 use hsm_enclosure_solid::plan::{self, Graph, Shape};
 use hsm_kernel::Body;
@@ -22,8 +21,7 @@ fn main() -> Result<()> {
     Ok(())
 }
 
-/// Relaxed, the retainer prints and draws from its STL; seated, it is drawn from its solid and
-/// not printed.
+/// The standalone cartridge draws from its STL; the installed alias carries the same solid.
 fn write(dir: &Path, g: &Graph, result: Shape, name: &str, seated: bool, color: Color) -> Result<()> {
     let [solid] = solids(g, [result], None)?;
     let bodies = [Body { name, color: Some(color), solid: &solid }];
