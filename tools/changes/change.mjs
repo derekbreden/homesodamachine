@@ -165,13 +165,28 @@ function pointed(rel) {
 // count. A mesh's key is its name, numbered on a repeat, so two versions are compared solid for
 // solid. Its body is the name the viewer stamps on it and the one every flag here matches.
 function readPayload(file) {
-  const buf = fs.readFileSync(file);
-  const headLen = buf.readUInt32LE(0);
+  let buf = fs.readFileSync(file);
+  const sourceSha = sha256(buf);
+  let headLen = buf.readUInt32LE(0);
   let head;
   try {
     head = JSON.parse(buf.toString("utf8", 4, 4 + headLen));
   } catch {
     die(`${file}: not a viewer payload`);
+  }
+  if (head.v === 4) {
+    // The native reader resolves the same shared objects as the geometry queries and renderer.
+    const directory = path.join(REPO_ROOT,'.cache/runs');
+    fs.mkdirSync(directory,{recursive:true});
+    const scratch = fs.mkdtempSync(path.join(directory,'change-surfaces-'));
+    try {
+      const output = path.join(scratch,'resolved.mesh');
+      const result = JSON.parse(execFileSync(path.join(REPO_ROOT,'tools/hsm/target/release/build-data'),[],
+        {input:JSON.stringify({op:'scene-flatten',path:file,output}),encoding:'utf8'}));
+      if (result?.error) die(result.error);
+      buf = fs.readFileSync(output);headLen=buf.readUInt32LE(0);
+      head=JSON.parse(buf.toString('utf8',4,4+headLen));
+    } finally {fs.rmSync(scratch,{recursive:true,force:true});}
   }
   if (!Array.isArray(head.meshes)) die(`${file}: not a viewer payload`);
   // Copied out, as the page does, so the typed arrays below stand on an aligned buffer.
@@ -193,7 +208,7 @@ function readPayload(file) {
       box: bounds(pos),
     };
   });
-  return { file, buf, size: buf.length, sha256: sha256(buf), src: head.src || null, meshes };
+  return { file, buf, size: buf.length, sha256: sourceSha, src: head.src || null, meshes };
 }
 
 function bounds(pos) {
@@ -555,7 +570,7 @@ function snapshot(opts) {
   const stamp = new Date().toISOString().replace(/[-:]/g, "").replace(/\..*/, "").replace("T", "-");
   const out = path.resolve(opts.out || path.join(os.tmpdir(), "hsm-changes", stamp));
   const inside = path.relative(REPO_ROOT, out);
-  if (!inside.startsWith("..") && !path.isAbsolute(inside))
+  if (!inside.startsWith("..") && !path.isAbsolute(inside) && !inside.startsWith('.cache/runs/'))
     die(`a stash goes outside the tree, not into ${out} (the session scratchpad or $TMPDIR)`);
   const head = git("rev-parse", "HEAD");
   const models = {};
