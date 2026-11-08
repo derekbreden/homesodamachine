@@ -63,7 +63,7 @@ against the recipe: the diameter and flow type the slice uses on that side, and 
 filament maps to.
 
 `cap_finish_lifts` limits the saved end routine's clearance moves to the printer's
-available vertical travel, allowing for the requested trim. Back-top uses it in its tall pose.
+available vertical travel, allowing for the requested trim. Back-top retains its ceiling-down pose.
 
 Native support regions distinguish functional interiors from exterior request blockers.
 An exterior blocker marked `review_interior: false` still masks support requests; its
@@ -94,12 +94,12 @@ for fixed-width brim types.
 | --- | --- | --- | --- | --- |
 | `front-top` | Mark1, left 0.4 | PET-GF black | 0.08 mm band over the R6 roof side edges' level run and the R18 display-to-roof roll | Support XY 0.50 mm |
 | `front-bottom` | Mark1, left 0.4 | PET-GF black | Six-wall band through the handhold lifting-edge transition and its corner returns; 0.8 mm boundary strip of the flat lifting ceiling; removable arc fins along the lifting edges | — |
-| `back-top` | Mark2, left 0.4 | PET-GF black | Rear face toward the bed with a gentle tilt; fine layers over the shallow end faces and rear show surface; local solid rail hosts | Manual Tree Slim in the native exterior target field; support-free receiver interiors, passages and sockets |
+| `back-top` | Mark2, left 0.4 | PET-GF black | Ceiling-down, rear flutes clear of the bed; additive roof-edge transition; local solid catch and rail bands | Manual Tree Slim at native accessible contacts; support-free receiver bridges, passages and sockets |
 | `back-bottom` | Mark2, left 0.4 | PET-GF black | Six-wall band through the handhold lifting-edge transition and its corner returns; 0.8 mm boundary strip of the flat lifting ceiling; removable arc fins on feet along the lifting edges | Plate offset Y +18.8 mm; automatic-tree branch angle 20° |
 | `pump-retainer` | Mark1, left 0.4 | PET-GF black | Broad lower retainer, Y-minus end on the bed; build axis +Y | Three Classic walls; local solid snap hosts |
 | `rear-equipment-caps` | Mark2, left 0.4 | PET-GF black | ASSE, Pisco, regulator and meter caps as exported, mouths up; 15 mm spacing | — |
 | `single-regulator-cap` | Mark2, production cap hotend | PET-GF black | Approved regulator cap pose; combined cap and tower envelope centered | Native smooth timelapse and constant-width prime tower; [layer-time record](../rear-equipment-caps/prints/2026-11-07-single-regulator-mark2/job.json) |
-| `regulator-entry-comparison` | Mark2, production cap hotend | PET-GF black | Standard and taller lead-in covers on axial ends; complete matching receivers in back-top's print pose | Ordinary cover layers, fine receiver layers, support-free receivers and cooling time from the other articles; [comparison](../rear-equipment-caps/entry-study/README.md) |
+| `regulator-entry-comparison` | Mark2, production cap hotend | PET-GF black | Standard and taller lead-in covers on axial ends; complete matching receivers in back-top's print pose | Production layer schedules, ceiling-down support-free receivers and cooling time from the other articles; [comparison](../rear-equipment-caps/entry-study/README.md) |
 | `funnel-frame` | Mark2, left 0.4 | PET-GF black | On its lower feet, as exported | No brim or elephant-foot compensation; support XY 0.50 mm |
 | `factory-tools` | Mark2, left 0.4 | PET-GF black | Tube tip setting jig as exported | — |
 | `display-cover` | Mark1, left 0.4 | PET-GF black | Flat back on the bed, counterbores facing upward | Solid deposition; support-free |

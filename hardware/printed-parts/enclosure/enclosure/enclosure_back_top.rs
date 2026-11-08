@@ -71,7 +71,7 @@ fn print_features(dir: &Path, b: &spec::Box) -> Result<()> {
         regions.push(json!({"name": name, "bounds_source_mm": bounds, "bridge_span_mm": span,
             "blocking_bounds_source_mm": blocking,
             "bridge_axis_source": axis,
-            "reason": "The fitted catches and end shoulders grow through fine layers without interior supports."}));
+            "reason": "The fitted catches bridge between their end shoulders in the ceiling-down print without interior supports."}));
     }
     for (index, bounds) in rear_wall::label_channels().into_iter().enumerate() {
         let mut bounds = bounds;
@@ -82,6 +82,22 @@ fn print_features(dir: &Path, b: &spec::Box) -> Result<()> {
             "reason":"The shallow channel stop bridges between its rails, backed by the rear wall; keep its supporting trees out of the bulkhead column."}));
     }
     let mut bridges = vec![];
+    for (index, bounds) in rear_wall::label_channels().into_iter().enumerate() {
+        let mut stop = bounds;
+        stop[4] -= shell::WALL;
+        stop[5] = bounds[4] + shell::WALL;
+        stop[0] -= shell::WALL;
+        stop[1] += shell::WALL;
+        bridges.push(json!({"name":format!("Identification channel {} stop",index+1),
+            "bounds_source_mm":stop,"bridge_print_axis_source":[1,0,0],
+            "reason":"The stop bridges between its complete side rails."}));
+    }
+    for (name, bounds, span, axis) in supports::catch_bridges() {
+        bridges.push(json!({"name":name,"bounds_source_mm":bounds,
+            "bridge_span_mm":span,"bridge_axis_source":axis,"bridge_print_axis_source":axis,
+            "reason":"The catch roads bridge along the pocket between its solid end shoulders."}));
+    }
+    let mut targets = vec![];
     for run in hsm_enclosure_quadrants::rails::z_rail_runs(
         &b.inner,
         b.y_joint,
@@ -96,6 +112,21 @@ fn print_features(dir: &Path, b: &spec::Box) -> Result<()> {
                                 b.splits[1]-1.0,roof+shell::WALL],
             "bridge_span_mm":(far-open).abs(),"bridge_axis_source":[1,0,0],"bridge_print_axis_source":[1,0,0],
             "reason":"The fitted sliding bearings retain local solid deposition."}));
+        let mut spans = vec![[run.y0.min(run.lane_aft),run.y0.max(run.lane_aft)]];
+        if run.sx > 0.0 {
+            for station in &b.pack.vent_chase {
+                let v = hsm_enclosure_quadrants::vent::mouth_blocking_bounds(&b.inner,*station);
+                spans = spans.into_iter().flat_map(|[a,z]| {
+                    [[a,z.min(v[2]-shell::WALL)],[a.max(v[3]+shell::WALL),z]]
+                        .into_iter().filter(|[a,z]| z>a)
+                }).collect();
+            }
+        }
+        for [a,z] in spans {
+            targets.push(json!({"name":format!("Accessible sliding rail {}",run.sx),
+                "bounds_source_mm":[open.min(far),open.max(far),a,z,b.splits[1]-1.0,roof+shell::WALL],
+                "reason":"The rail bearing contacts are reachable through the open sliding lane and exclude the vent mouth."}));
+        }
     }
     let wall = &layout::layout().rear_wall;
     let panel = &wall.interior_panel_relief;
@@ -105,12 +136,10 @@ fn print_features(dir: &Path, b: &spec::Box) -> Result<()> {
     inlet_blocking[3] = b.outer[3] + 1.0;
     regions.push(json!({"name":"Internal C14 mount and cord passage",
         "bounds_source_mm":inlet,"blocking_bounds_source_mm":inlet_blocking,
-        "reason":"The internal flange pocket, blind pilots and cord passage grow through the tilted fine layers without interior trees."}));
-    regions.push(json!({"name":"Wet-column rear face",
-        "bounds_source_mm":[panel.xmin-shell::WALL,panel.xmax+shell::WALL,
-                            wall.rear_wall.ymin,b.outer[3]+shell::WALL,panel.zmin,b.outer[5]+1.0],
-        "support_print_up_source":[0,-1,0],"support_direction_cosine_min":0.95,"review_interior":false,
-        "reason":"The tilted rear face grows through fine layers without trees through its covered bores."}));
+        "reason":"The internal flange pocket and cord passage bridge across the tunnel sides; the blind pilots remain clear."}));
+    bridges.push(json!({"name":"Internal C14 passage",
+        "bounds_source_mm":inlet,"bridge_print_axis_source":[1,0,0],
+        "reason":"Bridge the cord passage and internal pocket between the tunnel side walls."}));
     let roof_angle = shell::shell().teardrop_roof_angle.to_radians();
     for port in &wall.wet_ports {
         let r = port.bore_diameter_mm / 2.0;
@@ -174,17 +203,17 @@ fn print_features(dir: &Path, b: &spec::Box) -> Result<()> {
             "void_source": hsm_enclosure_quadrants::vent::mouth_void(&b.inner, *station),
             "reason": "The cap root and end-wall backing keep supports out of the clear passage."}));
     }
-    let targets = vec![json!({"name":"Exposed rear exterior",
-        "bounds_source_mm":[b.outer[0],panel.xmin-shell::WALL,wall.rear_wall.ymax,b.outer[3]+shell::WALL,
-                            b.outer[4],b.outer[5]],
-        "reason":"Trees remain outside the rear wall where their branches and contacts are accessible."})];
+    targets.push(json!({"name":"Accessible dry rear exterior",
+        "bounds_source_mm":[b.outer[0],rear_wall::label_channels()[0][0]-shell::WALL,wall.rear_wall.ymax,b.exterior_bounds()[3]+shell::WALL,
+                            b.outer[4],layout::layout().rear_identification.nameplate.center_z_mm+rear_wall::PLATE_HEIGHT/2.0+shell::WALL],
+        "reason":"The external nameplate and connector field has an open removal path outside the rear wall."}));
     // The hosted parts' bosses, for the print regions that fill them solid.
     let hosts: Vec<_> = rear::wall_mounts().into_iter().map(|(part, mounts)| json!({"part": part,
         "stations": mounts.iter().map(|m| json!({"point_mm": m.point, "insert_face_mm": m.face, "root_mm": m.root,
                                                   "axis": m.axis, "threaded": m.threaded})).collect::<Vec<_>>()})).collect();
     let record = json!({"source_stl_sha256": digest(&std::fs::read(dir.join("enclosure-back-top.stl"))?),
         "producer": "enclosure-back-top", "boundary_overlap_mm": catalog::running(), "support_free_regions": regions,
-        "bridge_regions":bridges,"support_regions":targets,
+        "bridge_regions":bridges,"support_regions":targets,"removable_support_trees":supports::meter_support_trees()?,
         "wall_hosts": {"boss_radius_mm": rear::BOSS_RADIUS, "row_bar_half_width_mm": rear::RELAY_BAR_HALF, "parts": hosts}});
     keep(
         &dir.join("enclosure-back-top.print-features.json"),

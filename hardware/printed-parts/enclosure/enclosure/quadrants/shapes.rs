@@ -45,3 +45,26 @@ pub fn place(g: &mut Graph, shape: Shape, rotation: [P3; 3], translation: P3) ->
     });
     g.placed(shape, rotation, translation, bounds)
 }
+/// A removable round tree supports an exposed shoulder without routing through fitted pockets.
+pub fn removable_tree(spec: &serde_json::Value) -> anyhow::Result<hsm_kernel::Solid> {
+    use hsm_kernel::{Solid,V3,v3};
+    let root = &spec["root_source_mm"];
+    let (x,y,z) = (root[0].as_f64().unwrap(),root[1].as_f64().unwrap(),root[2].as_f64().unwrap());
+    let neck = spec["neck_length_mm"].as_f64().unwrap();
+    let flare = spec["neck_flare_mm"].as_f64().unwrap();
+    let r0 = spec["root_radius_mm"].as_f64().unwrap();
+    let r = spec["trunk_radius_mm"].as_f64().unwrap();
+    let inner = spec["inner_contact_x_mm"].as_f64().unwrap();
+    let b:Vec<f64> = spec["contact_box_source_mm"].as_array().unwrap().iter().map(|v|v.as_f64().unwrap()).collect();
+    let head = b[5];
+    let parts = vec![
+        Solid::cylinder(v3(x,y,z+0.01),-V3::Z,r0,neck+0.01)?,
+        Solid::cone(v3(x,y,z-neck),-V3::Z,r0,r,flare)?,
+        Solid::cylinder(v3(x,y,z-neck-flare),-V3::Z,r,z-neck-flare-head)?,
+        Solid::cylinder(v3(x,y,head+x-inner),v3(-1.0,0.0,-1.0),r,(x-inner)*2f64.sqrt())?,
+        Solid::cuboid(v3(b[0],b[2],b[4]),v3(b[1],b[3],b[5])),
+    ];
+    let tree = Solid::union_all(&parts)?;
+    let bounds = tree.bounds();
+    tree.intersect(&Solid::cuboid(v3(bounds.min.x-1.0,bounds.min.y-1.0,b[4]),bounds.max+v3(1.0,1.0,1.0)))?.simplified()
+}

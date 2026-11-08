@@ -1,0 +1,11 @@
+{
+  "purpose": "Read catch bridge endpoints against the preceding model section.",
+  "source_section_z_mm": 339.92,
+  "bridge_layer_mm": 15.32,
+  "previous_layer_mm": 15.08,
+  "endpoint_count": 28,
+  "endpoints_in_previous_model": 28,
+  "payload_sha256": "669308b67b278c4ad50eaec77235719fbfd8926f1099abc31d2e0234e354b645",
+  "section_source": "hardware/printed-parts/enclosure/rear-equipment-caps/entry-study/regulator-receiver-standard.step.mesh",
+  "scope": "The emitted bridge endpoints lie within the preceding model section; physical bridge finish is pending."
+}
