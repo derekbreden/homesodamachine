@@ -1,0 +1,84 @@
+{
+  "views": [
+    {
+      "name": "exterior",
+      "caption": "The purchased pump's scanned exterior",
+      "before": "exterior-before.webp",
+      "after": "exterior-after.webp",
+      "width": 960,
+      "height": 760,
+      "model": "manifold-layout/enclosure-assembly.step",
+      "camera": {
+        "projection": "perspective",
+        "position": [
+          295.71594743103265,
+          -175.80467110937332,
+          385.18184214439543
+        ],
+        "target": [
+          52.225,
+          44.859,
+          233
+        ],
+        "up": [
+          0,
+          0,
+          1
+        ],
+        "fov": 45,
+        "near": 266.4743457570243,
+        "far": 514.033583570323,
+        "aspect": 1.263157894736842
+      },
+      "highlight": [],
+      "ghost": [],
+      "only": [
+        "pump-a-*"
+      ],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "snapshot",
+          "sha256": "5e8e748d2d8cf6f2206856d94745a3e2e63530282a8acdfc79dff18b187d40c2",
+          "commit": "c92c1d387bf7790cc179c31f8568f2e4459293b3",
+          "taken": "2026-11-08T15:04:26.632Z",
+          "published": true
+        },
+        "after": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "tree",
+          "sha256": "e26db4b91f16b4adc2b290eaa07277ad7f37271e607e2e8149cd297c86cd9418",
+          "commit": "0342753612db135647aae066ef7cb78f18c09892",
+          "published": true
+        }
+      },
+      "changed": [
+        "pump-a-mount",
+        "pump-b-mount",
+        "pump-a-fasteners",
+        "pump-b-fasteners",
+        "pump-a-sleeves",
+        "pump-b-sleeves",
+        "pump-a-primer",
+        "pump-b-primer",
+        "pump-a-boss",
+        "pump-b-boss",
+        "pump-b-head",
+        "pump-a-head",
+        "wire-J13-BM1",
+        "pump-b-motor",
+        "pump-a-motor",
+        "wire-J13-BM2",
+        "wire-J13-AM2",
+        "wire-J13-AM1"
+      ],
+      "withinMeshing": [
+        "tube-fluid-27",
+        "tube-fluid-19",
+        "tube-fluid-9",
+        "tube-fluid-17"
+      ]
+    }
+  ]
+}
