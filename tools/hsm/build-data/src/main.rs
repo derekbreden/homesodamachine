@@ -153,10 +153,55 @@ fn dispatch(v:&Value)->Result<Value> {
             },owner.as_str())
         },
         "header"=>payload::header(path(v)?),
+        "scene-pack"=>{
+            let input=path(v)?;let bytes=fs::read(input)?;
+            let file=v["output"].as_str().map(Path::new).unwrap_or(input);
+            hsm_geometry::scene::write(file,&bytes)?;
+            Ok(hsm_geometry::scene::header(&fs::read(file)?)?.0)
+        },
+        "scene-replace"=>{
+            let source=Path::new(text(v,"source")?);
+            let bytes=fs::read(source)?;
+            let mut replies=Vec::new();
+            for host in v["hosts"].as_array().context("scene hosts")? {
+                let file=Path::new(host.as_str().context("host path")?);
+                if !file.is_file(){continue;}
+                let mut head=hsm_geometry::scene::pack(&fs::read(file)?)?;
+                let count=hsm_geometry::scene::replace(&mut head,text(v,"relative")?,&bytes)?;
+                if count>0 {hsm_geometry::scene::keep(file,&hsm_geometry::scene::encode(&head,&[])?)?;}
+                replies.push(json!({"path":file,"replaced":count}));
+            }
+            Ok(json!(replies))
+        },
+        "scene-assets"=>{
+            let mut assets=std::collections::BTreeSet::new();
+            for file in v["paths"].as_array().context("scene paths")? {
+                let Ok(head)=payload::header(Path::new(file.as_str().context("scene path")?)) else {continue;};
+                if head["v"] == 4 {
+                    assets.extend(hsm_geometry::scene::assets(&head));
+                }
+            }
+            let rows=assets.into_iter().map(|hash| {
+                Ok(json!({"path":hsm_geometry::scene::asset_path(&hash)?,"sha256":hash}))
+            }).collect::<Result<Vec<_>>>()?;
+            Ok(json!(rows))
+        },
+        "scene-obsolete"=>{
+            let root=Path::new(text(v,"root")?);let mut retired=Vec::new();
+            for row in v["paths"].as_array().context("candidate exports")? {
+                let relative=row.as_str().context("export path")?;
+                if !relative.ends_with(".step") && !relative.ends_with(".glb"){continue;}
+                let file=root.join(format!("{relative}.mesh"));
+                if let Ok(head)=payload::header(&file) {
+                    if head["v"]==4 && (head["step_export"]==false || relative.ends_with(".glb")) {retired.push(relative);}
+                }
+            }
+            Ok(json!(retired))
+        },
         "sha256"=>Ok(json!(payload::digest(path(v)?)?)),
         "read-payload"=>Ok(serde_json::to_value(payload::read(path(v)?)?)?),
         "payload-names"=>{
-            let names=payload::header(path(v)?).ok().filter(|header|matches!(header["v"].as_u64(),Some(2|3)))
+            let names=payload::header(path(v)?).ok().filter(|header|matches!(header["v"].as_u64(),Some(2|3|4)))
                 .and_then(|header|header["meshes"].as_array().map(|rows|rows.iter().map(|m|m["name"].clone()).collect::<Vec<_>>()));
             Ok(json!(names.unwrap_or_default()))
         },

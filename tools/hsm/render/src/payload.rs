@@ -3,6 +3,9 @@
 
 use anyhow::{Context, Result, ensure};
 use serde::Deserialize;
+#[path = "../../geometry/src/scene.rs"]
+#[allow(dead_code)]
+mod shared_scene;
 
 /// Versions the viewer decodes (`MESH_PAYLOAD_VERSIONS` in web/public/js/viewer/step.js).
 const VERSIONS: [u32; 2] = [2, 3];
@@ -77,6 +80,9 @@ fn triples(bytes: &[u8]) -> Vec<[f32; 3]> {
 }
 
 pub fn decode(bytes: &[u8]) -> Result<Vec<RawMesh>> {
+    if shared_scene::is_scene(bytes) {
+        return decode(&shared_scene::flatten(bytes)?);
+    }
     ensure!(bytes.len() >= 4, "truncated payload header");
     let size = u32::from_le_bytes(bytes[..4].try_into()?) as usize;
     let end = size.checked_add(4).context("payload header overflow")?;

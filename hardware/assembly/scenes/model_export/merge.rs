@@ -142,6 +142,10 @@ pub fn append(spec: &Value, output: &Path) -> Result<Value> {
     let host = PathBuf::from(super::text(spec, "host_step")?);
     let wire = PathBuf::from(super::text(spec, "wire_step")?);
     let target = output.join(host.file_name().context("host STEP filename")?);
+    let host_mesh=PathBuf::from(format!("{}.mesh",host.display()));
+    if hsm_geometry::scene::is_scene(&std::fs::read(&host_mesh)?) {
+        return append_native(&host_mesh,&PathBuf::from(format!("{}.mesh",wire.display())),&PathBuf::from(format!("{}.mesh",target.display())));
+    }
     let (physical_sha, installed_sha, physical_records, wiring_sha) = {
         let host_bytes = base(super::read(&host)?)?;
         let text = std::str::from_utf8(&host_bytes)?;
@@ -208,4 +212,19 @@ pub fn append(spec: &Value, output: &Path) -> Result<Value> {
             json!({"path":model,"sha256":super::digest(&super::read(Path::new(model))?)});
     }
     Ok(receipt)
+}
+
+/// Installed wiring extends the native scene references without rewriting physical geometry.
+fn append_native(host:&Path, wire:&Path, target:&Path)->Result<Value> {
+    use hsm_geometry::scene;
+    let mut physical=scene::pack(&super::read(host)?)?;
+    let incoming=scene::pack(&super::read(wire)?)?;
+    let nodes=physical["meshes"].as_array_mut().context("physical instances")?;
+    nodes.retain(|node|!wiring(node["name"].as_str().unwrap_or("")));
+    let retained=nodes.len();nodes.extend(incoming["meshes"].as_array().context("wiring instances")?.iter().cloned());
+    physical["src"]=json!(scene::digest(&serde_json::to_vec(&physical["meshes"])?));
+    physical["source_kind"]=json!("scene");
+    physical["step_export"]=json!(false);
+    scene::persist(target,&physical)?;
+    Ok(json!({"files":[target],"physical_meshes_retained":retained,"wiring_meshes":incoming["meshes"].as_array().unwrap().len(),"bodies":[]}))
 }

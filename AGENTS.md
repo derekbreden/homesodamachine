@@ -178,6 +178,10 @@ shared geometry memo caches (`realized`, `meshes`, `boxes`) and installed runtim
 
 ## Heavy Runs
 
+The normal print build is `python3 tools/run.py -- python3 tools/print_build.py`.
+Additional Bazel labels select smaller builds. Each completed producer reaches the
+website while the remaining producers continue.
+
 Use `python3 tools/run.py -- <command>` for Cargo, Bazel, slicing and rendering.
 Add `--cad` for a native CadQuery/OCP command and `--timing` for a timing run
 that needs the machine to itself. Kernel part generators use the installed

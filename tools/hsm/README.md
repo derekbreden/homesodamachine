@@ -89,7 +89,13 @@ executable; ordinary commands use the installed build. `install.py --legacy-sock
 retains additional endpoints for clients started with a custom socket. Its `--root` selects an
 installation other than `~/.local`. Every daemon loads geometry only when asked for a scene.
 
-Geometry lives only in the daemon's memory, addressed by the payload digest. Unchanged files
+Scene payloads can hold references to immutable mesh objects and their instance placements.
+The cache in `.cache/meshes/scene-assets` retains these objects; missing objects are restored
+from the published store by content hash. Assemblies and named views share the same surfaces.
+Native archives supply construction and print preparation. A scene without a standalone STEP
+reports its source digest without claiming it is a STEP digest.
+
+Decoded query geometry lives in the daemon's memory, addressed by the payload digest. Unchanged files
 reuse resident geometry by device, inode, size, mtime and ctime. Replaced payloads reload on
 the next request. Two worktrees holding identical bytes share one resident entry.
 

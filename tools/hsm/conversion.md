@@ -19,7 +19,7 @@ The enclosure's steps are Rust programs Bazel runs directly: one for each printe
 from its own recipe and the numbers it takes, and one for the enclosure model, built from the
 pieces' files. So is the installed machine: one program places the pack, the equipment, its
 tubes and the installed parts from the written-down design and the parts' own files, and writes
-the machine's STEP, the model the site draws, its facts and its scene views. So is the install
+the machine's native model, shared scene references and facts. So is the install
 guide: one program draws the kit page's items from their models, one renders the counter
 opening, and one composes the booklet from its artwork and writes the reading copy the site
 shows and, for an order, the print files. So are the flavor manifold, the rear equipment caps,
@@ -213,7 +213,7 @@ with the existing build trace registries.
 | `build-data`, `bookkeeping-data` | Mesh payloads, projection, source hashes, fine-asset adoption, print/graft planning, artifact identity/caches, inventory, source stripping, carry/selection/pointers and publication archives |
 | `build-plan` | Generator action planning, dependency rules, graph projections and BUILD rendering |
 | `hsm-run`, `hsm-run-slots`, `hsm-run-native` | Host admission, inherited run/CAD/compiler leases, process execution, viewer notifications and runtime installation |
-| `hsm-print-prep` | Print preparation: each printed part's Bambu project from its meshes and a saved or system printer recipe, the localized PET-GF cooling stage, offline slices, and the print review and support audit that read them. The enclosure's heat-set print regions are still Python |
+| `hsm-print-prep` | Print preparation: each printed part's Bambu project from its meshes and a saved or system printer recipe, the localized PET-GF cooling stage, enclosure print regions, offline slices, and the print review and support audit that read them |
 
 The recipe, reader and document modules of `enclosure-data`, `machine-data`, `cold-core-data`
 and `guides` are Rust generated from their Python modules. Each
@@ -265,8 +265,23 @@ compilation, publication, print preparation and the full build have separate cos
 Exterior dimensions are runtime inputs in
 [`exterior.json`](../../hardware/printed-parts/enclosure/enclosure/exterior.json).
 Changing them reruns the affected quadrant generators and reuses their compiled programs.
-Each generator writes its STEP, print STL and viewer payload together. Publication consumes
-the completed part while print-region generation, preparation and slicing run separately.
+Each quadrant generator writes its native model, print STL and viewer references together.
+Publication replaces that producer's references in the existing machine and named views while
+other producers continue. Print-region generation, preparation and slicing run separately.
+
+`tools/print_build.py` carries each completed Bazel producer into the checkout and requests
+publication immediately. Immutable body meshes are shared across the machine, enclosure,
+named views, the pretty viewer and geometry queries. Their manifests own names, colours,
+placements and source bindings. Placement changes reuse the geometry object. Enclosure and
+installed-machine producers retain native archives for construction and print preparation;
+they generate no standalone STEP or combined GLB exports. The browser keeps unfinished parts'
+last available surfaces and mounts each ready replacement while preserving its camera and
+local visibility choices.
+
+Publication freezes only the files being sent, compresses changed objects with bounded
+workers, uploads objects before their references, then advances the committed pointer. The
+website adopts changed members and notifies open viewers. Manufacturing exports remain
+separate consumers of the generated solids.
 
 Whole-machine throughput is measured with `//:everything` with every step rerun, as an
 edit that reaches the enclosure causes, on the compiled workspace and the caches a normal build

@@ -34,6 +34,8 @@ pub mod dxf;
 pub mod edge;
 pub mod face;
 pub mod import;
+#[path = "../../geometry/src/scene.rs"]
+pub mod scene;
 pub mod mapped;
 pub mod mass;
 pub mod math;
