@@ -34,6 +34,27 @@ canvas memory use the shared reader implementation.
 
 The home page is for someone who knows little more than "soda machine" and has no earlier context. Its main job is to explain the equipment under the kitchen counter, the dedicated faucet above it, and cold, carbonated soda poured into a glass. The integrated appliance is presented as under development. The one-time availability notification signup is a small secondary feature after the explanation. The [home page audience brief](/marketing/lincoln/working-materials.md#home-page-audience-brief) sets the priorities for [`lib/landing.js`](/web/lib/landing.js).
 
+### Refreshing the illustrations
+
+[`render-kitchen-scene.py`](../tools/render/render-kitchen-scene.py) renders the homepage
+illustrations on request, outside the print build and website deployment. It reads the current
+local CAD payloads through the native geometry reader. The display artwork follows the glass
+and cover's placement; the flavor images come from the firmware.
+
+Run Blender through the shared run wrapper, with an output directory for the current run:
+
+```sh
+python3 tools/run.py -- /Applications/Blender.app/Contents/MacOS/Blender \
+  --background --factory-startup --python tools/render/render-kitchen-scene.py
+```
+
+The renderer prints its output directory under `.cache/runs/`. Add `-- --preview` for a draft,
+or `-- --shots kitchen cabinet` to select views. Convert the finished PNGs with the Sharp
+dependency under `tools/render/`: `kitchen.png` becomes `public/landing/kitchen-scene.webp`,
+`faucet.png` becomes `public/landing/faucet-detail.webp`, and `cabinet.png` becomes
+`public/landing/cabinet-detail.webp`. Check the page on phone and desktop, then commit the
+images. Updating them requires no CAD rebuild.
+
 ## Running it
 
 ```bash
