@@ -1,0 +1,333 @@
+{
+  "commands": [
+    {
+      "command": "parameters.add",
+      "params": {
+        "name": "case_width",
+        "expression": "72 mm",
+        "favorite": true
+      }
+    },
+    {
+      "command": "parameters.add",
+      "params": {
+        "name": "case_depth",
+        "expression": "54 mm",
+        "favorite": true
+      }
+    },
+    {
+      "command": "parameters.add",
+      "params": {
+        "name": "case_height",
+        "expression": "38 mm",
+        "favorite": true
+      }
+    },
+    {
+      "command": "parameters.add",
+      "params": {
+        "name": "wall",
+        "expression": "2.4 mm",
+        "favorite": true
+      }
+    },
+    {
+      "command": "parameters.add",
+      "params": {
+        "name": "column_radius",
+        "expression": "6 mm",
+        "favorite": true
+      }
+    },
+    {
+      "command": "parameters.add",
+      "params": {
+        "name": "upper_round",
+        "expression": "0.8 mm",
+        "favorite": true
+      }
+    },
+    {
+      "command": "parameters.add",
+      "params": {
+        "name": "boss_height",
+        "expression": "12 mm",
+        "favorite": true
+      }
+    },
+    {
+      "command": "parameters.add",
+      "params": {
+        "name": "vent_width",
+        "expression": "16 mm",
+        "favorite": true
+      }
+    },
+    {
+      "command": "component.create",
+      "params": {
+        "name": "Enclosure coupon",
+        "grounded": true
+      }
+    },
+    {
+      "command": "solid.box",
+      "params": {
+        "length": "case_width",
+        "width": "case_depth",
+        "height": "case_height",
+        "body_name": "Enclosure coupon",
+        "name": "Outer stock"
+      }
+    },
+    {
+      "command": "solid.fillet",
+      "params": {
+        "body": "Enclosure coupon",
+        "edges": [
+          [
+            0,
+            0,
+            19
+          ],
+          [
+            72,
+            0,
+            19
+          ],
+          [
+            72,
+            54,
+            19
+          ],
+          [
+            0,
+            54,
+            19
+          ]
+        ],
+        "radius": "column_radius"
+      }
+    },
+    {
+      "command": "solid.shell",
+      "params": {
+        "body": "Enclosure coupon",
+        "faces": [
+          [
+            36,
+            27,
+            38
+          ]
+        ],
+        "thickness": "wall",
+        "direction": "inside"
+      }
+    },
+    {
+      "command": "solid.fillet",
+      "params": {
+        "body": "Enclosure coupon",
+        "edges": [
+          [
+            36,
+            0,
+            38
+          ],
+          [
+            72,
+            27,
+            38
+          ],
+          [
+            36,
+            54,
+            38
+          ],
+          [
+            0,
+            27,
+            38
+          ],
+          [
+            1.7573593128807152,
+            1.7573593128807152,
+            38
+          ],
+          [
+            70.24264068711929,
+            1.7573593128807152,
+            38
+          ],
+          [
+            70.24264068711929,
+            52.242640687119284,
+            38
+          ],
+          [
+            1.7573593128807152,
+            52.242640687119284,
+            38
+          ]
+        ],
+        "radius": "upper_round"
+      }
+    },
+    {
+      "command": "solid.cylinder",
+      "params": {
+        "radius": "4 mm",
+        "height": "boss_height",
+        "base": [
+          "10 mm",
+          "10 mm",
+          "wall"
+        ],
+        "operation": "join",
+        "targets": [
+          "Enclosure coupon"
+        ],
+        "name": "Mount boss 1"
+      }
+    },
+    {
+      "command": "solid.hole",
+      "params": {
+        "position": [
+          "10 mm",
+          "10 mm",
+          "wall + boss_height"
+        ],
+        "diameter": "3.2 mm",
+        "depth": "boss_height",
+        "targets": [
+          "Enclosure coupon"
+        ]
+      }
+    },
+    {
+      "command": "solid.cylinder",
+      "params": {
+        "radius": "4 mm",
+        "height": "boss_height",
+        "base": [
+          "10 mm",
+          "case_depth - 10 mm",
+          "wall"
+        ],
+        "operation": "join",
+        "targets": [
+          "Enclosure coupon"
+        ],
+        "name": "Mount boss 2"
+      }
+    },
+    {
+      "command": "solid.hole",
+      "params": {
+        "position": [
+          "10 mm",
+          "case_depth - 10 mm",
+          "wall + boss_height"
+        ],
+        "diameter": "3.2 mm",
+        "depth": "boss_height",
+        "targets": [
+          "Enclosure coupon"
+        ]
+      }
+    },
+    {
+      "command": "solid.cylinder",
+      "params": {
+        "radius": "4 mm",
+        "height": "boss_height",
+        "base": [
+          "case_width - 10 mm",
+          "10 mm",
+          "wall"
+        ],
+        "operation": "join",
+        "targets": [
+          "Enclosure coupon"
+        ],
+        "name": "Mount boss 3"
+      }
+    },
+    {
+      "command": "solid.hole",
+      "params": {
+        "position": [
+          "case_width - 10 mm",
+          "10 mm",
+          "wall + boss_height"
+        ],
+        "diameter": "3.2 mm",
+        "depth": "boss_height",
+        "targets": [
+          "Enclosure coupon"
+        ]
+      }
+    },
+    {
+      "command": "solid.cylinder",
+      "params": {
+        "radius": "4 mm",
+        "height": "boss_height",
+        "base": [
+          "case_width - 10 mm",
+          "case_depth - 10 mm",
+          "wall"
+        ],
+        "operation": "join",
+        "targets": [
+          "Enclosure coupon"
+        ],
+        "name": "Mount boss 4"
+      }
+    },
+    {
+      "command": "solid.hole",
+      "params": {
+        "position": [
+          "case_width - 10 mm",
+          "case_depth - 10 mm",
+          "wall + boss_height"
+        ],
+        "diameter": "3.2 mm",
+        "depth": "boss_height",
+        "targets": [
+          "Enclosure coupon"
+        ]
+      }
+    },
+    {
+      "command": "solid.box",
+      "params": {
+        "length": "vent_width",
+        "width": "wall + 2 mm",
+        "height": "4 mm",
+        "corner": [
+          "(case_width - vent_width) / 2",
+          "-1 mm",
+          "case_height / 2 - 2 mm"
+        ],
+        "operation": "cut",
+        "targets": [
+          "Enclosure coupon"
+        ],
+        "name": "Cable opening"
+      }
+    },
+    {
+      "command": "appearance.assign",
+      "params": {
+        "bodies": [
+          "Enclosure coupon"
+        ],
+        "color": "#b9c9d3"
+      }
+    }
+  ]
+}
