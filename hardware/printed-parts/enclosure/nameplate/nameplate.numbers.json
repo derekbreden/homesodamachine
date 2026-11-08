@@ -8,20 +8,20 @@
     "field_proud": 2.0,
     "floor_rear": -3.0,
     "floor_stock": 3.0,
-    "frame_bottom": -53.4,
+    "frame_bottom": -48.85454545454545,
     "frame_corner": 7.0,
-    "frame_top": 55.15,
-    "frame_width": 94.3,
+    "frame_top": 50.60454545454545,
+    "frame_width": 86.3,
     "head_diameter": 5.5,
     "head_height": 3.0,
-    "height": 100.0,
+    "height": 90.9090909090909,
     "hex_key": 2.5,
     "insert_diameter": 4.6,
     "insert_length": 4.0,
     "insert_stock_radius": 6.0,
     "insert_stock_rear": -4.39,
-    "mouth_height": 100.3,
-    "mouth_width": 88.3,
+    "mouth_height": 91.2090909090909,
+    "mouth_width": 80.3,
     "pilot_diameter": 4.0,
     "pilot_rear": -4.64,
     "screw_diameter": 3.0,
@@ -29,24 +29,24 @@
     "slip": 0.15,
     "stations": [
       [
-        -33.0,
-        -39.0
+        -29.0,
+        -34.45454545454545
       ],
       [
-        33.0,
-        -39.0
+        29.0,
+        -34.45454545454545
       ],
       [
-        -33.0,
-        39.0
+        -29.0,
+        34.45454545454545
       ],
       [
-        33.0,
-        39.0
+        29.0,
+        34.45454545454545
       ]
     ],
     "supported": 0.25,
     "thick": 3.36,
-    "width": 88.0
+    "width": 80.0
   }
 }

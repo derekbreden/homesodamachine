@@ -15,9 +15,9 @@ use anyhow::{Context, Result, anyhow, bail, ensure};
 use artwork::{Contour, Seg as Art};
 use hsm_enclosure_components::write_colored_part;
 use hsm_enclosure_numbers::catalog::{slip, supported, wall_color};
-use hsm_enclosure_numbers::rear_wall::{FIELD_PROUD, PLATE_HEIGHT, PLATE_THICK, PLATE_WIDTH};
+use hsm_enclosure_numbers::rear_wall::{FIELD_PROUD, PLATE_HEIGHT, PLATE_SCALE, PLATE_THICK, PLATE_WIDTH};
 use hsm_kernel::part::{write_part, write_shown};
-use hsm_kernel::{Body, Loop, Plane, Profile, Seg, Solid, V2, v2, v3};
+use hsm_kernel::{Affine, Body, Loop, Plane, Profile, Seg, Solid, V2, v2, v3};
 use snap_geometry::Snap;
 use std::path::PathBuf;
 
@@ -27,6 +27,9 @@ const FOLDER: &str = "hardware/printed-parts/enclosure/nameplate";
 const WIDTH: f64 = PLATE_WIDTH;
 const HEIGHT: f64 = PLATE_HEIGHT;
 const THICK: f64 = PLATE_THICK;
+/// The artwork's master artboard, scaled across the face while its relief keeps its depth.
+const ART_WIDTH: f64 = WIDTH / PLATE_SCALE;
+const ART_HEIGHT: f64 = HEIGHT / PLATE_SCALE;
 /// The artwork's inlay into the black face, and how far it stands proud of it.
 const INK_DEPTH: f64 = 0.72;
 const ARTWORK_RISE: f64 = 0.48;
@@ -34,15 +37,15 @@ const ARTWORK_RISE: f64 = 0.48;
 /// artboard's proportion.
 const LOGO_H: f64 = 12.0;
 const LOGO_CENTER_Z: f64 = 34.0;
-const LOGO_LEFT: f64 = (WIDTH - LOGO_H * 656.0 / 688.0) / 2.0;
+const LOGO_LEFT: f64 = (ART_WIDTH - LOGO_H * 656.0 / 688.0) / 2.0;
 /// The QR code's module pitch, in microns, and the joint across its diagonal-only contacts; the
 /// code is centred across the plate, its centre this far below the plate's middle.
 const QR_PITCH: i64 = 1200;
 const QR_JOINT: i64 = 20;
 const QR_CENTER_Z: f64 = -26.6;
 const QR_ACTIVE: f64 = qr::SIZE as f64 * QR_PITCH as f64 / 1000.0;
-const QR_LEFT: f64 = (WIDTH - QR_ACTIVE) / 2.0;
-const QR_TOP: f64 = HEIGHT / 2.0 - QR_CENTER_Z - QR_ACTIVE / 2.0;
+const QR_LEFT: f64 = (ART_WIDTH - QR_ACTIVE) / 2.0;
+const QR_TOP: f64 = ART_HEIGHT / 2.0 - QR_CENTER_Z - QR_ACTIVE / 2.0;
 /// The portal each unit's code addresses.
 const PORTAL: &str = "HOSM.US";
 /// The plate's black and white PET-GF, as their filaments' sRGB.
@@ -123,9 +126,9 @@ struct Artwork {
 
 impl Artwork {
     fn of(unit: u32) -> Result<Artwork> {
-        let mut wordmark = artwork::wordmark(WIDTH, HEIGHT)?;
+        let mut wordmark = artwork::wordmark(ART_WIDTH, ART_HEIGHT)?;
         wordmark.push(artwork::unit_line(unit)?);
-        let logo = artwork::logo(WIDTH, LOGO_LEFT, LOGO_H, LOGO_CENTER_Z)?;
+        let logo = artwork::logo(ART_WIDTH, LOGO_LEFT, LOGO_H, LOGO_CENTER_Z)?;
         let matrix = qr::matrix(&format!("HTTPS://{PORTAL}/{unit:04}"))?;
         let round6 = |x: f64| -> f64 { format!("{x:.6}").parse().expect("a formatted number parses") };
         let qr = qr::polygons(&matrix, QR_PITCH, QR_JOINT)
@@ -135,7 +138,7 @@ impl Artwork {
                     .iter()
                     .map(|ring| {
                         ring.iter()
-                            .map(|&[x, y]| v2(round6(WIDTH / 2.0 - QR_LEFT - x as f64 * 0.001), round6(HEIGHT / 2.0 - QR_TOP - y as f64 * 0.001)))
+                            .map(|&[x, y]| v2(round6(ART_WIDTH / 2.0 - QR_LEFT - x as f64 * 0.001), round6(ART_HEIGHT / 2.0 - QR_TOP - y as f64 * 0.001)))
                             .collect()
                     })
                     .collect()
@@ -165,7 +168,9 @@ impl Artwork {
             }
             parts.push(xz(&profile, y, depth)?);
         }
-        Ok(Solid::compose(&parts))
+        Ok(Solid::compose(&parts).transformed(&Affine {
+            m: [[PLATE_SCALE, 0., 0., 0.], [0., 1., 0., 0.], [0., 0., PLATE_SCALE, 0.]],
+        }))
     }
 }
 

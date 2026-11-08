@@ -256,7 +256,7 @@
       "trunk_radius_mm": 1.25
     }
   ],
-  "source_stl_sha256": "495e5e42236c486d8a182cda58087741a7f1a5683cf645a5a803af417325cd72",
+  "source_stl_sha256": "6420b36c97c82e33a16934f92d669a385053953895412cfa1bf191160868d48c",
   "support_free_regions": [
     {
       "blocking_bounds_source_mm": [
@@ -880,7 +880,7 @@
         471.3,
         477.3,
         -6.0,
-        270.0
+        269.20454545454544
       ],
       "name": "Accessible dry rear exterior",
       "reason": "The external nameplate and connector field has an open removal path outside the rear wall."

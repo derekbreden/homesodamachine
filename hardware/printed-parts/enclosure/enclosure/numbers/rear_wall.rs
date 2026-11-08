@@ -64,8 +64,9 @@ pub const ROOT_Y: P2 = [469.299, 471.31];
 pub const BOUND_Y: P2 = [471.3, 474.3];
 
 /// The rear nameplate: its plate, and how proud of the wall its raised field stands.
-pub const PLATE_WIDTH: f64 = 88.0;
-pub const PLATE_HEIGHT: f64 = 100.0;
+pub const PLATE_SCALE: f64 = 10.0 / 11.0;
+pub const PLATE_WIDTH: f64 = 88.0 * PLATE_SCALE;
+pub const PLATE_HEIGHT: f64 = 100.0 * PLATE_SCALE;
 pub const PLATE_THICK: f64 = 3.36;
 pub const FIELD_PROUD: f64 = 2.0;
 
