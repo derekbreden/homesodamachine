@@ -1,37 +1,9 @@
 #!/usr/bin/env python3
-"""publish_now.py — move the pointer file from this machine when this tree owes it.
+"""Publish completed geometry and shared scene references from this checkout.
 
-    tools/cad-venv/bin/python tools/publish_now.py           publish if this tree owes it
-    tools/cad-venv/bin/python tools/publish_now.py --check    say what it would do, touch nothing
-    tools/cad-venv/bin/python tools/publish_now.py --selftest # exercise the owed decision
-
-THIS IS THE VISUAL PATH AND PLAIN `pack.py --write` IS THE RECONCILER. This process grafts an
-accepted piece payload into the enclosure and appliance payloads, then `pack.py --write
---publish-held` uploads the bytes already standing on this machine and moves each member's `made`
-line. It never asks Bazel to stand the appliance or run its motion scorecard. Plain `pack.py
---write` cuts the producer rules whose members no line proves, and records what they were cut
-from.
-
-MOVING THE POINTER FILE DEPLOYS NOTHING. It is not among `render.yaml`'s buildFilter paths: the
-running container adopts a pointer file that moved and pushes the changed members to open pages.
-`tell_the_site()` below is what makes that immediate rather than a poll away.
-
-OWED IS READ BEFORE ANYTHING IS PUBLISHED. BYTES: a member
-or scorecard on this disk whose sha256 is not its line, with digests reused while device, inode,
-size, mtime and ctime are unchanged. INPUTS: a member whose `made` line the tree moves — one with
-no line, one whose inputs the tree has moved off, and an unproven one the tree has come back to
-(`tools/_artifact_inputs.py` reads those inputs' blob ids off the index). A tree that moved
-neither starts no other process unless its numbered catalog selects a different website set.
-That catalog selection is reconciled without recutting geometry.
-
-ONE AT A TIME, AND THE LAST REQUEST WINS. Several sessions commit at once and a publish takes
-around a minute, so a second invocation while one is running does not queue behind it — it
-marks the running one to look again when it finishes. Whatever is owed at that point is what
-gets cut, which is the newest state rather than the one that asked.
-
-IT REPORTS AND HOLDS NOTHING. The geometry's own commits are already on main by the time this
-runs; the one commit this makes is the pointer file, and the site is told to look only once main holds
-it. A publish that fails says so, and what it owed is still owed to the next one.
+Changed mesh objects and manufacturing files are uploaded before the committed pointer advances.
+Each completed producer can advance its own references while other producers continue.
+Concurrent requests coalesce onto the latest held output.
 """
 
 from __future__ import annotations
@@ -65,16 +37,21 @@ VIEWER_HOSTS = (
     "hardware/printed-parts/enclosure/enclosure/enclosure.step.mesh",
     "hardware/manifold-layout/enclosure-assembly.step.mesh",
 )
-#: The STEPs beside the viewer hosts, which take the stock colours again after a graft.
-RECOLORED = (
-    "hardware/printed-parts/enclosure/enclosure/enclosure.step",
-    "hardware/manifold-layout/enclosure-assembly.step",
-)
 
 
 def run(args: list, quiet: bool = False) -> subprocess.CompletedProcess:
     return subprocess.run(args, cwd=str(ROOT), text=True,
                           capture_output=quiet)
+
+
+def timing(phase, started, **fields):
+    """Requested publication measurements record elapsed phases outside the normal path."""
+    name = os.environ.get("HSM_PUBLISH_TIMING")
+    if name:
+        row = {"phase": phase, "pid": os.getpid(), "wall_time_ns": time.time_ns(),
+               "seconds": time.monotonic() - started, **fields}
+        with open(name, "a") as log:
+            log.write(json.dumps(row) + "\n")
 
 
 def _pack():
@@ -151,48 +128,26 @@ def _sha256(path: Path) -> str:
 
 
 def piece_payloads(moved: list) -> list:
-    """The enclosure piece payloads among `moved`, which are what the graft carries.
-
-    SOURCE IS NOT A CUT. A source-only checkpoint leaves mutually stamped old STEP/STL/payload
-    bytes on disk, and `surfaces()` correctly says those old siblings agree with each other. The
-    visual path needs a stronger entrance: at least one piece payload must differ from the pointer file
-    before that surface can stand in for the source change. The viewer hosts are outputs of the
-    graft and are not piece payloads: counting one would make a completed graft ask for itself
-    again."""
-    return _native("piece-payloads", moved=moved, prefix=PIECE_PAYLOADS)
+    """Changed mesh outputs can advance existing scene references without a whole-machine build."""
+    return [rel for rel in moved if rel.endswith(".step.mesh") and rel not in VIEWER_HOSTS]
 
 
-def refresh_enclosure_viewer() -> None:
-    """Graft current enclosure piece payloads into both viewer hosts, without building.
-
-    `surfaces` admits a piece only when its payload names the exact STEP beside it.
-    The rigid pieces share the host frame; the pump retainer keeps its native seated pose.
-    The operation reads no CAD source and acquires no Bazel lock.
-    """
-    scripts = ROOT / "hardware" / "scripts"
-    if str(scripts) not in sys.path:
-        sys.path.insert(0, str(scripts))
-    import flute_payload
-
-    count = _native("refresh-count", pieces=[str(step) for step, _stl in
-                                             flute_payload.pieces(flute_payload.ENCLOSURE_DIRS)])
-    fluted = flute_payload.surfaces(flute_payload.ENCLOSURE_DIRS)
-    if len(fluted) != count:
-        print(f"  {len(fluted)} of {count} enclosure piece payload(s) are source-current; "
-              f"the hosts take those")
-    if not fluted:
-        return
-
-    for host in (ROOT / rel for rel in VIEWER_HOSTS):
-        if not host.is_file():
-            print(f"  the viewer host is absent: {host.relative_to(ROOT)}")
-            continue
-        # Each host receives the piece surfaces it holds, in the frame it holds them in.
-        matches = [flute_payload.fluted_key(name, fluted) for name in flute_payload.payload_names(host)]
-        expected = _native("refresh-selection", matches=matches, keys=list(fluted))
-        landed = flute_payload.graft(host, {name: fluted[name] for name in expected},
-                                     same_frame=True) if expected else 0
-        print(f"  {host.relative_to(ROOT)}: {landed} of {len(expected)} piece surface(s) landed")
+def refresh_enclosure_viewer(changed=None) -> None:
+    """Completed source payloads replace their references in the existing published scenes."""
+    from _build_data import request
+    pack = _pack()
+    candidates = pack.solids(ROOT)
+    hosts = [ROOT / rel for rel in candidates if rel.endswith((".step.mesh", ".glb.mesh"))]
+    sources = changed or []
+    for relative in sources:
+        source = ROOT / relative
+        selected = [str(path) for path in hosts if path != source and
+                    path.is_file() and (str(path.relative_to(ROOT)) in VIEWER_HOSTS or
+                     (request("header", path=str(path)).get("v") == 4))]
+        rows = request("scene-replace", source=str(source), relative=relative, hosts=selected)
+        for row in rows:
+            if row["replaced"]:
+                print(f"  {Path(row['path']).relative_to(ROOT)}: {row['replaced']} part reference(s) updated")
 
 
 def tell_the_site() -> None:
@@ -221,16 +176,19 @@ def tell_the_site() -> None:
 
 
 #: The keys of the pointer file a reader fetches by; a commit that moves none of them moves records.
-SERVED = ("release", "bundle", "solids", "sidecars", "website")
+SERVED = ("release", "bundle", "solids", "sidecars", "website", "mesh_assets")
 
 
 def publish(started: float) -> int:
+    phase_started = time.monotonic()
     debt = owed()
+    timing("identify", phase_started, moved=debt.moved)
     if not debt.reason and not debt.heal:
         print(f"  {time.strftime('%H:%M:%S')} nothing owed: member bytes, inputs and website selection agree "
               f"({time.monotonic() - started:.2f}s)")
         return 0
     if debt.reason:
+        phase_started = time.monotonic()
         grafted = []
         if piece_payloads(debt.moved):
             # WHAT IS HELD IS PUBLISHED, refreshed as far as the refresh got. A host the refresh
@@ -239,21 +197,21 @@ def publish(started: float) -> int:
                 if sys.flags.no_site:
                     import site
                     site.main()
-                refresh_enclosure_viewer()
+                refresh_enclosure_viewer(piece_payloads(debt.moved))
             except Exception as exc:  # noqa: BLE001 — printed, and the publish goes on
                 print(f"  the viewer refresh stopped short: {exc}", file=sys.stderr)
                 print("  publishing the bytes held here anyway", file=sys.stderr)
-            # The graft writes the two viewer hosts, so those two take the stock colours again.
-            if run([str(PY), "hardware/scripts/materialize_material_colors.py", "--write",
-                    *RECOLORED]).returncode != 0:
-                return 1
-            grafted = [*VIEWER_HOSTS, *RECOLORED]
+            grafted = [*VIEWER_HOSTS, *[str(p.relative_to(ROOT)) for p in (ROOT / "hardware/assembly/scenes/glb").glob("*.glb.mesh")]]
+        timing("references", phase_started)
+        phase_started = time.monotonic()
         print(f"  {debt.reason}; publishing the bytes held here")
         if run([str(PY), "tools/cad-artifacts/pack.py", "--write", "--publish-held",
                 *(arg for rel in grafted for arg in ("--grafted", rel))]).returncode != 0:
             print("  held publication did not finish; the next publish still owes it",
                   file=sys.stderr)
             return 1
+    timing("objects", phase_started)
+    phase_started = time.monotonic()
     # THE SCORECARDS COMMIT WITH THE POINTER FILE, BECAUSE THE POINTER FILE IS NOT WHERE THEIR BYTES LIVE.
     # `pack.py` keeps them outside the geometry tar and off the release: the pointer file names each
     # one's sha256 and the committed tree is what anyone reads them from. Pointing at a hash whose
@@ -296,9 +254,13 @@ def publish(started: float) -> int:
         print(f"  the pointer file is committed and not on main; the next push carries it "
               f"({time.monotonic() - started:.0f}s)", file=sys.stderr)
         return 1
+    timing("commit-and-push", phase_started)
+    phase_started = time.monotonic()
     print(f"  pointer file moved and pushed ({time.monotonic() - started:.0f}s)")
     if served:
         tell_the_site()
+    timing("notify", phase_started)
+    timing("publication", started)
     return 0
 
 
@@ -333,43 +295,33 @@ def selftest() -> int:
              piece_payloads([rels["step"], rels["stl"], rels["host"], VIEWER_HOSTS[1],
                              rels["payload"]]), [rels["payload"]])
 
-        # Mock only the payload API: exercise the real refresh dispatch and
-        # both hosts without importing CAD or publishing any files.
+        # Exercise reference dispatch without publishing or importing a CAD builder.
         from contextlib import redirect_stdout
         from io import StringIO
         from types import SimpleNamespace
         from unittest.mock import patch
 
-        fixed = {f"enclosure-{name}" for name in (
-            "front-top", "front-bottom", "back-top", "back-bottom")}
         appliance = root / "hardware/manifold-layout/enclosure-assembly.step.mesh"
         appliance.parent.mkdir(parents=True)
         appliance.write_bytes(b"appliance host")
+        candidates = [rels["payload"], rels["host"], VIEWER_HOSTS[1]]
         calls = []
 
-        def graft(host, surfaces, *, same_frame):
-            calls.append((host.relative_to(root).as_posix(), set(surfaces), same_frame))
-            return len(surfaces)
+        def request(operation, **fields):
+            if operation == "scene-replace":
+                calls.append(fields)
+                return [{"path": host, "replaced": 1} for host in fields["hosts"]]
+            raise AssertionError(operation)
 
-        fake = SimpleNamespace(
-            ENCLOSURE_DIRS=(), pieces=lambda _: [
-                (Path(name+".step"), Path(name+".stl"))
-                for name in sorted(fixed | {"enclosure-pump-retainer"})],
-            surfaces=lambda _: {name: object() for name in fixed},
-            payload_names=lambda host: sorted(fixed) + ["unrelated-component"],
-            fluted_key=lambda name, surfaces: name if name in surfaces else None,
-            graft=graft,
-        )
-        with patch.dict(sys.modules, {"flute_payload": fake}), \
+        with patch.dict(sys.modules, {"_build_data": SimpleNamespace(request=request)}), \
                 patch.object(sys.modules[__name__], "ROOT", root), \
+                patch.object(sys.modules[__name__], "_pack", lambda: SimpleNamespace(solids=lambda _: candidates)), \
                 redirect_stdout(StringIO()):
-            refresh_enclosure_viewer()
-        hold("both hosts graft surfaces in their exact assembly frame",
-             [(host, names) for host, names, same in calls if same],
-             [(paths["host"].relative_to(root).as_posix(), fixed),
-              (appliance.relative_to(root).as_posix(), fixed)])
-        hold("refresh never passes an unrelated host entry to the graft",
-             set().union(*(names for _host, names, _same in calls)), fixed)
+            refresh_enclosure_viewer([rels["payload"]])
+        hold("both hosts receive the completed source reference",
+             calls[0]["hosts"], [str(paths["host"]), str(appliance)])
+        hold("refresh identifies the authoritative producer payload",
+             (calls[0]["source"], calls[0]["relative"]), (str(paths["payload"]), rels["payload"]))
 
     # WHAT IS OWED, read off a tree whose one rule writes the piece, its payload and the host.
     with tempfile.TemporaryDirectory() as tmp:

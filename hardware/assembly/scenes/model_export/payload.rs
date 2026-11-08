@@ -3,6 +3,12 @@ use anyhow::{Context, Result, ensure};
 use serde_json::{Value, json};
 use std::path::{Path, PathBuf};
 
+fn publication_source(path:&Path)->Option<String> {
+    let text=path.to_string_lossy();
+    if text.starts_with("hardware/"){Some(text.into_owned())}
+    else{text.find("/hardware/").map(|at|text[at+1..].to_owned())}
+}
+
 const KEYS: [&str; 6] = ["pos", "nrm", "idx", "fac", "col", "uv"];
 
 #[derive(Clone)]
@@ -31,8 +37,21 @@ impl Entry {
             .collect()
     }
     pub fn carried(mut self, frame: &Frame) -> Self {
+        if self.meta.get("_scene").is_none() {
+            let one=Payload {header:json!({"v":3}),meshes:vec![self.clone()]};
+            if let Ok(bytes)=one.encode() {
+                if let Ok(head)=hsm_geometry::scene::pack(&bytes) {self.meta["_scene"]=head["meshes"][0].clone();}
+            }
+        }
         if frame.identity() {
             return self;
+        }
+        if self.meta.get("_scene").is_some() {
+            let old=Frame::read(self.meta["_scene"].get("transform")).unwrap();
+            let placed: [[f64;4];3]=std::array::from_fn(|r|std::array::from_fn(|c| {
+                (0..3).map(|k|frame.0[r][k]*old.0[k][c]).sum::<f64>()+if c==3{frame.0[r][3]}else{0.}
+            }));
+            self.meta["_scene"]["transform"]=json!(placed);
         }
         let rigid = frame.rigid();
         for key in ["pos", "nrm"] {
@@ -82,6 +101,7 @@ impl Payload {
         Self::decode(&super::read(path)?)
     }
     pub fn decode(raw: &[u8]) -> Result<Self> {
+        if hsm_geometry::scene::is_scene(raw) {return Self::decode(&hsm_geometry::scene::flatten(raw)?);}
         ensure!(raw.len() >= 4, "truncated payload");
         let count = u32::from_le_bytes(raw[..4].try_into()?) as usize;
         ensure!(
@@ -190,20 +210,22 @@ impl Payload {
     }
 
     pub fn write(&self, path: &Path) -> Result<()> {
-        use std::io::Write;
-        let (head, _) = self.framing()?;
-        super::model::put_stream(path, |writer| {
-            writer.write_all(&(head.len() as u32).to_le_bytes())?;
-            writer.write_all(&head)?;
-            for mesh in &self.meshes {
-                for key in KEYS {
-                    if let Some(array) = mesh.arrays.get(key) {
-                        writer.write_all(array)?;
-                    }
-                }
+        let mut groups: Vec<(String,Vec<Entry>)>=Vec::new();
+        for entry in &self.meshes {
+            let name=entry.body();let index=groups.iter().position(|(n,_)|n==name).unwrap_or_else(||{groups.push((name.into(),Vec::new()));groups.len()-1});
+            groups[index].1.push(entry.clone());
+        }
+        let mut nodes=Vec::new();let mut sources=serde_json::Map::new();
+        for (_,entries) in groups {
+            let part=Payload{header:json!({"v":3}),meshes:entries};
+            let head=hsm_geometry::scene::pack(&part.encode()?)?;
+            for node in head["meshes"].as_array().unwrap() {
+                if let (Some(source),Some(hash))=(node["source"].as_str(),node["source_sha256"].as_str()) {sources.insert(source.into(),json!(hash));}
+                nodes.push(node.clone());
             }
-            Ok(())
-        })
+        }
+        let mut head=self.header.clone();head["v"]=json!(4);head["meshes"]=json!(nodes);head["sources"]=json!(sources);
+        hsm_geometry::scene::persist(path,&head)
     }
 
     pub fn graft(&mut self, skins: &Value) -> Result<usize> {
@@ -238,7 +260,14 @@ impl Payload {
                     path.display()
                 );
             }
-            let shown = Self::decode(&bytes)?;
+            let mut shown = Self::decode(&bytes)?;
+            if let Some(source)=publication_source(&path) {
+                let sha=super::digest(&bytes);
+                for entry in &mut shown.meshes {
+                    *entry=entry.clone().carried(&Frame::read(None)?);
+                    if entry.meta["_scene"]["source"].is_null() {entry.meta["_scene"]["source"]=json!(source);entry.meta["_scene"]["source_sha256"]=json!(sha);}
+                }
+            }
             if let Some(expected) = skin.get("source_sha256").and_then(Value::as_str) {
                 ensure!(
                     shown.header["src"].as_str() == Some(expected),
@@ -351,7 +380,15 @@ pub fn placed_surfaces(
                         "bound presentation changed"
                     );
                 }
-                Some(Payload::decode(&bytes)?.meshes)
+                let mut shown=Payload::decode(&bytes)?.meshes;
+                if let Some(relative)=publication_source(&payload_path) {
+                    let sha=super::digest(&bytes);
+                    for entry in &mut shown {
+                        *entry=entry.clone().carried(&Frame::read(None)?);
+                        if entry.meta["_scene"]["source"].is_null() {entry.meta["_scene"]["source"]=json!(relative);entry.meta["_scene"]["source_sha256"]=json!(sha);}
+                    }
+                }
+                Some(shown)
             } else {
                 None
             };

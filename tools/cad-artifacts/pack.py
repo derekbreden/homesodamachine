@@ -641,7 +641,7 @@ def _targets_for_members(root: Path, members: set) -> tuple:
 
 
 #: The pointer file's keys, in the order it holds them.
-KEYS = ("_", "release", "store", "bundle", "solids", "sidecars", "website", "moved", "made")
+KEYS = ("_", "release", "store", "bundle", "solids", "sidecars", "website", "mesh_assets", "moved", "made")
 
 
 def _retired(root: Path, rel: str) -> bool:
@@ -1093,7 +1093,7 @@ def objects_in_store(hashes) -> set:
     return out
 
 
-def upload_objects(root: Path, rels: list, solid_hashes: dict, known: set) -> bool:
+def upload_objects(root: Path, rels: list, solid_hashes: dict, known: set, sources=None) -> bool:
     """Put each member the release does not already hold on it, one asset per member.
 
     THE BUNDLE COSTS THE WHOLE TREE TO MOVE THREE MEMBERS. `build` tars and gzips 304 MB in 9.9
@@ -1117,33 +1117,51 @@ def upload_objects(root: Path, rels: list, solid_hashes: dict, known: set) -> bo
         print("  every member is already on the release under its own hash")
         return True
 
-    def send(rel: str, d: str):
-        """gzip one member and put it up. Returns the rel on failure, None on success."""
-        sha = solid_hashes[rel]
-        staged = Path(d) / object_asset(sha)
-        _native("gzip", source=root / rel, output=staged, level=9)
-        try:
-            if put_object(STORE_URL + object_asset(sha), staged):
-                return None
-            # THE RELEASE IS THE FALLBACK, from a machine it lets in. A cloud session it refuses
-            # reports the member as not up, and the pointer file is read from the bundle.
-            return None if _gh(root, "release", "upload", TAG, str(staged),
-                               "--clobber").returncode == 0 else rel
-        finally:
-            staged.unlink(missing_ok=True)
+    # Compressed objects are reusable by the digest of their uncompressed geometry.
+    cache = root / ".cache" / "meshes" / "publication"
+    cache.mkdir(parents=True, exist_ok=True)
+    compressed = {rel: cache / object_asset(solid_hashes[rel]) for rel in todo}
+    _native("gzip-many", files=[{"source": str((sources or {}).get(rel, root / rel)), "output": str(compressed[rel])}
+                               for rel in todo], level=1)
 
-    # FOUR AT A TIME, BECAUSE `gh` SPENDS THE UPLOAD WAITING. Measured at 2.2s a member for the
-    # 124-member backfill, almost none of it this machine's — a member averages a few hundred KB
-    # against a process start and a round trip. Four is enough to hide that and few enough not to
-    # be rate-limited as one client.
-    with tempfile.TemporaryDirectory() as d:
-        with cf.ThreadPoolExecutor(max_workers=min(4, len(todo))) as pool:
-            failures = [r for r in pool.map(lambda rel: send(rel, d), todo) if r]
+    def send(rel):
+        sha = solid_hashes[rel]
+        staged = compressed[rel]
+        if put_object(STORE_URL + object_asset(sha), staged):
+            return None
+        return None if _gh(root, "release", "upload", TAG, str(staged),
+                           "--clobber").returncode == 0 else rel
+
+    with cf.ThreadPoolExecutor(max_workers=min(4, len(todo))) as pool:
+        failures = [r for r in pool.map(send, todo) if r]
     for rel in failures:
         print(f"  {rel} did not upload as {object_asset(solid_hashes[rel])}")
     print(f"  {len(todo) - len(failures)} of {len(todo)} changed object(s) uploaded on their own hash"
           + (f"; {len(failures)} did not, so this pointer file is read from the bundle" if failures else ""))
     return not failures
+
+
+def upload_mesh_assets(root: Path, rels: list, held: dict, sources=None) -> list:
+    """Shared scene objects go up before any manifest that refers to them."""
+    import concurrent.futures as cf
+    sys.path.insert(0, str(root / "hardware/scripts"))
+    from _build_data import request
+    assets = request("scene-assets", paths=[str((sources or {}).get(rel, root / rel)) for rel in rels if rel.endswith((".step.mesh", ".glb.mesh"))])
+    known = set(held.get("mesh_assets") or [])
+    todo = [row for row in assets if row["sha256"] not in known]
+    cache = root / ".cache/meshes/publication"
+    cache.mkdir(parents=True, exist_ok=True)
+    _native("gzip-many", files=[{"source": row["path"], "output": str(cache / object_asset(row["sha256"]))}
+                               for row in todo], level=1)
+    def send(row):
+        sha = row["sha256"]
+        if not put_object(STORE_URL + object_asset(sha), cache / object_asset(sha)):
+            raise RuntimeError(f"mesh object {sha} did not upload")
+    with cf.ThreadPoolExecutor(max_workers=max(1,min(4,len(todo)))) as pool:
+        list(pool.map(send,todo))
+    if todo:
+        print(f"  {len(todo)} shared mesh object(s) uploaded")
+    return sorted(row["sha256"] for row in assets)
 
 
 def upload(root: Path, bundle: Path, asset: str, digest: str, size: int) -> None:
@@ -1276,6 +1294,15 @@ def cut_bundle(held: dict, rels: list, now: dict, sidecar_now: dict, made: dict,
 
 
 def publish_held(grafted: set) -> int:
+    """Each publication holds only its changed objects while their producers continue."""
+    import tempfile
+    directory = _ROOT / ".cache/runs"
+    directory.mkdir(parents=True, exist_ok=True)
+    with tempfile.TemporaryDirectory(prefix="publication-", dir=directory) as staging:
+        return _publish_held(grafted, Path(staging))
+
+
+def _publish_held(grafted: set, staging: Path) -> int:
     """`--write --publish-held`: what this machine cut since main's pointers moved goes up on its
     own hash, and each member's `made` line moves with what moved. Nothing here asks Bazel.
 
@@ -1287,6 +1314,14 @@ def publish_held(grafted: set) -> int:
     index = staged(_ROOT)
     head = _head(_ROOT)
     rels = solids(_ROOT)
+    sys.path.insert(0,str(_ROOT / "hardware/scripts"))
+    from _build_data import request
+    obsolete = set(request("scene-obsolete",root=str(_ROOT),paths=list(held.get("solids",{}))))
+    if obsolete:
+        held = {**held,"solids":{path:sha for path,sha in held.get("solids",{}).items() if path not in obsolete},
+                "made":{path:line for path,line in held.get("made",{}).items() if path not in obsolete}}
+        rels = [path for path in rels if path not in obsolete]
+        print(f"  {len(obsolete)} standalone export(s) retired by their shared-scene producers")
     now = hashes(_ROOT, rels)
     sidecar_now = sidecar_lines(_ROOT, held, graph)
     walked = _native("merge-lines", maps=[now, sidecar_now])
@@ -1304,6 +1339,13 @@ def publish_held(grafted: set) -> int:
     state = _native("held-state", held=held, rels=rels, now=now, sidecar_now=sidecar_now, mtimes=mtimes)
     pinned, side_moved, lines = state["pinned"], state["side_moved"], state["lines"]
     moved = set(state["moved"])
+    stable = _native("freeze", directory=staging,
+                     files=[{"relative":rel,"source":_ROOT / rel} for rel in pinned])
+    sources = {row["relative"]: Path(row["source"]) for row in stable}
+    for row in stable:
+        now[row["relative"]] = row["sha256"]
+        lines[row["relative"]] = row["sha256"]
+        walked[row["relative"]] = row["sha256"]
     whole_lines = _native("merge-lines", maps=[lines, sidecar_now])
     made = made_here(_ROOT, held, graph, index, head, whole_lines, walked, moved, grafted)
 
@@ -1318,7 +1360,8 @@ def publish_held(grafted: set) -> int:
         print(f"{len(side_moved)} scorecard(s) and {records['shifted']} `made` line(s) moved, and no member's bytes{_unproven(made)}")
         return 0
 
-    known = objects_on_release(_ROOT)
+    mesh_assets = upload_mesh_assets(_ROOT, rels, held, sources)
+    known = set()
     prior_bundle = held.get("bundle", {})
     if prior_bundle.get("sha256"):
         pin_hashes = _native("map-values", data=now, paths=pinned)
@@ -1326,10 +1369,10 @@ def publish_held(grafted: set) -> int:
         if make_room(_ROOT, _native("object-count", rels=pinned, hashes=now, known=list(known))):
             known = set(_native("set-plan", first=list(objects_on_release(_ROOT)),
                                 second=list(objects_in_store(pin_hashes)))["union"])
-        if upload_objects(_ROOT, pinned, now, known):
+        if upload_objects(_ROOT, pinned, now, known, sources):
             data = pointers_for(_ROOT, sorted(lines), prior_bundle["sha256"],
                                 prior_bundle.get("bytes", 0), lines, sidecar_now, made, held=held)
-            data = _patch(data, [(('bundle',), prior_bundle), (('bundle', 'behind'), True),
+            data = _patch(data, [(('mesh_assets',), mesh_assets), (('bundle',), prior_bundle), (('bundle', 'behind'), True),
                                  (('release', 'objects'), OBJECT_PREFIX)])
             _write_pointers(data)
             print(f"{len(pinned)} member(s) up on their own hash; {data['release']['asset']} stays behind for the reconciler")

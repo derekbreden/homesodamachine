@@ -51,6 +51,7 @@ pub struct Payload {
     pub source: Option<String>,
     pub cut: Option<String>,
     pub meshes: Vec<Mesh>,
+    pub shared: bool,
 }
 
 impl Mesh {
@@ -77,6 +78,12 @@ fn array(blob: &[u8], [offset, count]: [usize; 2]) -> Result<&[u8]> {
 }
 
 pub fn decode(bytes: &[u8]) -> Result<Payload> {
+    if crate::scene::is_scene(bytes) {
+        let mut payload = decode(&crate::scene::flatten(bytes)?)?;
+        payload.digest = crate::scene::digest(bytes);
+        payload.shared = true;
+        return Ok(payload);
+    }
     ensure!(bytes.len() >= 4, "truncated payload header");
     let size = u32::from_le_bytes(bytes[..4].try_into()?) as usize;
     let end = size.checked_add(4).context("payload header overflow")?;
@@ -162,5 +169,6 @@ pub fn decode(bytes: &[u8]) -> Result<Payload> {
         source: header.src,
         cut: header.cut.map(|v| v.to_string()),
         meshes,
+        shared: false,
     })
 }

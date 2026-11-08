@@ -1,29 +1,7 @@
-"""Hand the viewer the tessellation the generator already had.
+"""Native surface data supplies browser drawing, picking and geometry queries.
 
-The /3d viewer gets a model's geometry by reading the STEP through
-occt-import-js in wasm. That read is the whole cost of opening one: on the
-enclosure assembly it is ~13 s against ~1 s for the tessellation that produced
-the STEP in the first place. The generator is still holding the shape when it
-writes the STEP, so the parse buys nothing but a round trip through text.
-
-This module tessellates that shape into the same `meshes[]` occt-import-js
-returns — one entry per solid, carrying its name, its color, positions,
-normals, indices, and the triangle range of each BREP face — and packs it for
-the browser to unpack (the reader is `decodeMeshPayload` in
-web/public/js/viewer/step.js). Everything downstream of `meshes[]` is
-untouched: the same buildMesh, the same x-ray shading, the same camera, the
-same pickable edges. Where the triangles came from cannot change how the part
-looks, or what a click on it means.
-
-Deflections and colors match what occt-import-js hands the viewer when it
-passes no parameters, so the two routes agree on what a part looks like. They
-do not agree triangle for triangle, and cannot: occt meshes the BREP a STEP
-reconstructs, this meshes the BREP that was written to it, and a surface that
-went out analytic can come back a spline that tessellates differently. Handed
-the same BREP the two are within 0.5%; handed the original the enclosure
-assembly comes out 3.6% lighter, which moves ~1.5% of the thumbnail's pixels
-by an edge's width and nothing else. `selftest` holds the same-BREP agreement,
-which is the half that can regress.
+Python callers use this module to read and write packed surfaces and shared scene references.
+The browser resolves the same mesh objects and retains the generator's face provenance.
 """
 
 import hashlib
@@ -41,19 +19,8 @@ from _payload_rules import LINEAR_DEFLECTION_RATIO, VERSION
 # extents, not of its diagonal, and the box taken without triangulation.
 ANGULAR_DEFLECTION = 0.5
 
-# Stated in the header. VERSION is what `write` stamps; DECODABLE is every
-# version whose arrays a reader can take, and `decodeMeshPayload` in
-# web/public/js/viewer/step.js holds the same set.
-#
-# THE PAGE'S SET IS WIDER THAN THE WRITER'S ON PURPOSE. 2 and 3 lay their
-# triangles out identically — 3 adds `src`, a header field only a WRITER reads,
-# to decide whether a payload on disk still answers to its solid. Refusing 2 on
-# the page would buy nothing and cost the surface: three of these payloads are
-# in no build step's `outs`, so a deploy
-# carries whatever the tree had, and a page that turned those away would fall
-# back to the STEP — which for `pack.BUNDLED_PAYLOAD_DIRS` is the flute-less
-# solid, and the appliance would render as a smooth box.
-DECODABLE = (2, 3)
+# Native readers and the browser resolve packed surfaces and shared scene references.
+DECODABLE = (2, 3, 4)
 
 
 def deflection(shape) -> float:
