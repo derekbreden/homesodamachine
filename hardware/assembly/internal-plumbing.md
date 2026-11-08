@@ -10,7 +10,7 @@ The [fluid topology](/hardware/topology/fluid-topology.md) defines the valve
 functions and logical connections. A logical connection can contain several
 short tubes and directly inserted stem fittings.
 
-Load and snap-retain the pumps from below, then assemble the fixed front manifold while
+Load and screw-retain the pumps from below, then assemble the fixed front manifold while
 front-top is loose. Fit below-lid core
 plumbing before the PCB, then the pump, V-B and other core equipment.
 Prepare V-A, V-K, their fitted plumbing, the complete inlet header, ASSE and
@@ -147,49 +147,32 @@ Build to [`/hardware/topology/fluid-topology.md`](/hardware/topology/fluid-topol
 **This step begins on the bench with `enclosure-front-top` loose and both valve rows,
 pump tees, display and funnel frame absent.** Its upper fitted pump inverses are integral
 with the broad stock continuing into the display housing and roof. The broad
-`enclosure-pump-retainer` holds the fitted lower wells. Its two integral, full-depth snap
-wings engage front-top’s flank receivers and retain the molded-skirt capture between
-the two fitted halves.
+Each `enclosure-pump-retainer` holds one pump's flange from below. Its screws enter
+from the open underside into short heat-set inserts in front-top. Fixed upper stops and
+the fitted cylindrical motor guide align the pump. The loading well tapers toward the
+guide and stock separates the independent retainer pockets.
 
-Front-top also carries the valve trays and tee wall. Load the pumps with only
-their flexible tube stubs attached and feed the stubs through the closed collet
-openings and branch bores. After the retainer is secured, each purchased PP0208E
-tee approaches from aft and pushes onto its fixed pump tube, with its branch in the wall
-bore and its run upright. Y-C and Y-D serve pump A; Y-F and Y-G serve pump B. The extended
-branch collet grips the tube and its O-ring seals it. The [pump mount and tee wall](/hardware/printed-parts/enclosure/pump-dock/README.md)
-describe the fitted mounting surfaces and assembly clearances.
+Flexible pump stubs pass through the tee wall's closed bores. Each purchased PP0208E tee
+approaches from aft; its fixed branch barrel lands on the wall datum while its extended
+collet grips the pump tube. Complete the fore groups before fitting the rear valve row.
 
-**V-A and V-K mount on back-top; V-B mounts in the cold-core lid's upright socket wall.** Their forward runs reach Y-A and Y-B beneath the open funnel aperture. Complete these connections before fitting the drop-in frame.
+1. **Prepare the pump tube blanks.** Remove the supplied barbs from the flexible BPT
+   ends. Cut the LLDPE blanks with the tube-length gauge and insert them under the loosened
+   pump-head housing. Keep the housing loose enough to adjust the tubes against the actual
+   seated tees during the next step. The gauge is a bench tool and stays off the assembly.
 
-While front-top is open, land the J1 and J2 trunks on the front coils V-C through V-J and their `COM` feeds in the 221-420 and 221-415 ([wiring](wiring.md#4-cabinet-side-12-v-runs-dc-3-dc-5-through-dc-9)).
+2. **Install the inserts and land the motor leads.** With front-top loose and power
+   disconnected, install the short heat-set inserts in the pump-retainer posts. Feed the
+   bare pump end of [DC-5](harnesses/j13.md) through the shared rear wire passage and out
+   below. Crimp and ring out its Fastons, then land the +X pair on pump A and the −X pair
+   on pump B with the tabs accessible. Support the free board-end slack.
 
-Lay out the ten Beduan valves and the PP0208E tees. Cut stationary links from the [current manifold geometry](/hardware/manifold-layout/README.md), including engagement at both actual fittings. Exposed path length is not a tube-blank cut length. Use black LLDPE except for `fluid-3`, which uses white. Square-cut, deburr without scoring the sealing surface, and tag each segment.
-
-1. **Prepare the pumps and set the tubes in the loose retainer.** Pull Kamoer's barbed
-   connectors out of both pumps' tube ends. Cut four tubes of
-   black 1/4" LLDPE, square and burr-free with eased outer edges, and push one into each
-   BPT end under the loosened pump-head housing. Seat both pumps in the loose retainer's
-   fitted wells with the tubes facing +Y. Set the tube setting jig on its flat rear face
-   and slide each tube until its tip meets the jig's stop at the seated tee datum. Tighten
-   each pump-head housing to clamp the BPT tube around its LLDPE stub. Keep the stubs
-   straight; check their four tip positions, firm hand retention and pump-end sealing.
-   Take the jig off before approaching front-top: its broad body occupies the tee wall's
-   space and cannot be fitted after the pumps are installed.
-
-2. **Land the pump leads with the motors accessible.** With power disconnected, feed
-   the bare pump end of [DC-5](harnesses/j13.md) forward through the shared rear wire mouth
-   and out of front-top's open underside. Crimp its four Faston receptacles, ring out the
-   [J13 map](harnesses/j13.md#end-to-end-conductor-map), then land the +X pair on pump A
-   and the −X pair on pump B. Keep the board end free and support its slack.
-
-3. **Load and secure the pumps from underneath.** Raise the prepared pumps and retainer
-   motor-first into front-top's fitted upper half. Feed each flexible stub through its tee-wall bore while drawing the lead slack aft through the common wire
-   passage. The lower fitted lands support the molded skirts and the integral upper
-   faces capture them from above. Press the retainer upward so both upper-rooted wings
-   flex inward, then spring outward with their lower hooks seated on the receiver floors.
-   Inspect both engagements and confirm the pumps are seated against their fitted lands. The [accepted holder record](/hardware/reference/kamoer-kphm400/physical-fit.json)
-   applies to its identified cradle and cap; physical fit and retention of this two-face
-   skirt capture remain unqualified. Complete both snap engagements while front-top is loose.
+3. **Load and secure each pump independently.** Raise the pump motor-first through its
+   loading well and into the fitted cylindrical guide. Feed its flexible stubs through the
+   closed tee-wall bores while drawing wire slack aft. Keep the flange against its upper
+   stops, fit its retainer beneath the flange, and snug the screws from below. Confirm the
+   pump is straight, captured and free of wire pinches. The socket heads remain accessible
+   while front-top is loose, before the tees, valves, display and chassis closure.
 
 4. **Fit all four tees with their upper tubes and fore valves.** Keep the rear valve row
    absent for this straight approach from aft. The upper tubes are `fluid-10`
@@ -202,7 +185,9 @@ Lay out the ten Beduan valves and the PP0208E tees. Cut stationary links from th
    tee's upper collet and the fore valve's bottom collet. Bring the tee, tube and valve in
    together from aft, keeping the tee branch coaxial with its fixed pump tube. Push the
    branch onto the tube and into its bore with its collet in the opening ahead of the bore,
-   and press the fore valve onto its tray posts. Verify the pump tube reaches its seated
+   and press the fore valve onto its tray posts. Set the pump stub against the actual tee’s
+   internal stop with the tee barrel on its wall datum, then tighten the pump-head housing
+   to clamp the BPT around the stub. Verify insertion marks and pump-end retention. Verify the pump tube reaches its seated
    mark at the extended branch collet; the pump mount stays fixed while the tee moves.
    The fore valve's
    axis stands over the tee's run axis, so the upper tube stands straight.

@@ -963,8 +963,8 @@ follows `c14_station_x`.
 
 **Front-top owns the complete front exterior and the upper pump mount.** The central
 opening is underneath, between the continuous front skin and tee wall. The plain lower
-retainer fills that opening after the prepared unit enters motor-first. Its outer form is
-rectangular, and its fitted lower wells supply the required pump clearance and bearing lands.
+retainers secure the pumps after they enter motor-first. Their outer form is
+rectangular, with a broad flange-bearing lip and local screw seats.
 Above the fitted upper half the surrounding stock continues to the existing enclosure roof.
 
 A column is the cavity's own shape (`enclosure._cavity`), not a feature bolted into
@@ -1020,8 +1020,7 @@ no physical cleanup result for an older anchor transfers to these supports.
 
 The **pump-loading opening** reaches the underside of loose front-top. It removes the
 central floor under the prepared unit while keeping the continuous front skin, both flanks
-and the tee wall's supporting end regions. The rectangular retainer enters through this
-opening and snaps into the two flank receivers before chassis closure.
+and the tee wall's supporting end regions. Each pump enters through its loading well and is secured by its own flange retainer before chassis closure.
 
 The **tee wall** grows from the seam region into the continuous upper stock. Each branch
 bore and collet opening has a teardropped roof. Flexible pump stubs feed through the
@@ -1072,36 +1071,23 @@ do not establish tie retention, printed load capacity or lifetime.
 
 ## Integral pump mount
 
-`enclosure-front-top` contains the upper inverse of both pumps as part of one broad body.
-The surrounding stock continues from the pump-bearing region into the display housing and
-existing roof silhouette. Only the fitted pump rooms, display receiver, tube clearances,
-wire passages, snap receivers and required fastener holes remove material from that field.
+`enclosure-front-top` carries independent motor-first loading wells in continuous stock
+from its seam to the display housing and roof. Each well tapers into the existing fitted
+cylindrical motor guide. Narrow keyways clear the motor terminals during insertion. The retained cylindrical surface supports the motor along a straight band and keeps the
+pump aligned while local bearings capture its molded flange.
 
-The separate `enclosure-pump-retainer` (`build_pump_retainer`) has a broad rectangular core,
- across, fore–aft and
- high. Its fitted lower wells preserve the head profiles and
-flat skirt lands supplied by `pump_tray.py`. Its outside ends on broad planes rather than
-following the outlines of the pumps. An integral full-depth wing on each side snaps into
-front-top’s flank receiver.
+Each pump uses an identical `enclosure-pump-retainer`. The retainer is a solid bar with
+a broad flange-bearing lip, local screw seats and an open relief behind the lip for the
+head. Socket-head screws enter from the underside and engage short heat-set inserts in
+front-top's local posts. Stock separates the retainers; each recess ends at its pump.
+The screw heads stand in shallow seats matching the appliance's other removable covers.
+The dimensions live in [retainer-numbers](retainer-numbers/lib.rs).
 
-The pump holder stations are X±52.225, Y45.859, Z214.925. The actual seated flange is
-, below that holder datum. The
-reference boss and motor share an axis 1 mm toward Y− from the head datum; their upper
-inverse follows Y44.859. Keeping those two axes distinct preserves the fitted lower wells
-and the four existing tube axes.
-
-Each molded skirt is deep. Its fitted lower land remains at
-, with continuous bearing on X−, Y− and X+ and between
-the two tube passages on Y+. The integral upper bearing plane is
-: the flange datum plus the supported-face allowance.
-The retainer's nonbearing top ends at, leaving nominal
-space between the printed halves. These face allowances describe the CAD and print
-process; they are not a measured axial-play or retention result.
-
-The fitted octagonal boss openings use the case-derived profile and its ledges. The Ø37 mm
-motor bores open into wider terminal rooms and close above them with 36° conical roofs.
-The continuous stock fills the rest of the pump-to-roof volume, around the functional
-hardware and cable rooms.
+The [scan-derived pump](../../../reference/kamoer-kphm400/scan-review.md) supplies the
+rigid head, flange, adapter, motor and outlet geometry. Its identified motor-side scan
+artifact is replaced by the independently fitted barrel surface. The motor guide keeps
+the bore size with the accepted physical fit. The enclosure's outer face and pump poses
+remain the production datums.
 
 ## Integral routing snaps
 
@@ -1131,107 +1117,50 @@ complete back-top print's cleanup, installed release forces or lifetime.
 
 ## Prepared tubes and underside loading
 
-Each pump carries two straight stubs of the machine's black
-1/4-inch LLDPE. The pump head's housing clamps its BPT tube around each stub. Four open
-passages in the retainer clear the molded casings and let the tubes stand straight toward
-the tee wall. Each fitted casing passage is wide around the
- reference casing; each pair has
-axis spacing.
+Each pump carries straight stubs of the machine's black quarter-inch LLDPE in its flexible
+BPT ends. The [tube-length gauge](enclosure-pump-tube-setting-jig.stl) prepares the blanks
+on the bench. Their final position is set by the actual tees seated on the tee wall before
+tightening the pump head's tube clamp. The gauge does not attach to the installed mount.
 
-Set the four tips with both pumps seated in the loose retainer on the bench. The existing
-[tube setting jig](enclosure-pump-tube-setting-jig.stl) seats on its flat rear face at
- and sets the tips to. Tighten the pump-head
-housings and remove the jig before approaching front-top; its broad body needs the space
-occupied by the tee wall.
-
-Thread the bare pump-end ribbon through the common wire passage, then crimp, ring out and
-land its four Fastons on the loose motors. Raise the complete prepared pump/retainer unit
-motor-first from underneath. Guide the flexible tubes through their individual
-tee-wall bores. Draw wire slack aft without loading the terminals. Press upward until
-both wings spring outward and their lower hooks seat on the receiver floors. Inspect both
-engagements while front-top is loose and the tees, valve rows, display and funnel frame are
-absent. The [assembly procedure](../../../assembly/internal-plumbing.md#3-flavor-manifold-v-a-through-v-j--y-a-y-b-y-c-y-d-y-f-y-g--pumps)
-owns the complete order.
+Install the inserts and thread the bare DC-5 pump end through the common wire passage
+with front-top loose. Crimp, ring out and land the Fastons with the motors accessible.
+Raise each pump motor-first through its well, guide its flexible stubs through the closed
+tee-wall bores, and draw wire slack aft. Fit its retainer and screws from below. The
+[internal plumbing procedure](../../../assembly/internal-plumbing.md#3-flavor-manifold-v-a-through-v-j--y-a-y-b-y-c-y-d-y-f-y-g--pumps)
+owns the remaining tee, valve and tube assembly order.
 
 ## Fixed plumbing behind the mount
 
-Four purchased PP0208E tees receive the pump tubes on X±82.1 and X±22.35 at
-. Each branch approaches its fixed tube from aft; the pump mount
-stays in place. The extended branch collet grips the tube and the O-ring seals it. The
-snap-fit retainer holds the pumps in front-top.
+Purchased PP0208E tees enter straight from aft over the prepared pump tubes. Each branch
+barrel lands on the tee wall's bore face, its extended collet grips the stub, and the O-ring
+seals it. Each upper tube joins its fore valve; each lower return uses trimmed stem elbows
+and a continuous formed tube to its rear valve. Complete these connections with front-top
+loose and the rear valve row absent until the fore groups are seated.
 
-Each tee's upper collet takes one short tube up to its fore valve at
-. Its lower return uses two trimmed stem elbows and one
-continuous tube with two tangent bends below to reach the rear valve. Install all four prepared
-tee, upper-tube and fore-valve groups straight from aft before fitting the rear valve row.
-Complete both rows and the returns while front-top is loose, before its aft slide over the populated
-lower enclosure. The [pump-mount record](../pump-dock/README.md) supplies the fitting
-stations and physical qualification scope.
+The tee wall is continuous around its teardropped branch bores and collet openings. Flexible
+stubs feed through the closed bores during pump loading. Front-bottom's front and flank
+lips stop clear of the loading run; the tee wall's lower feet and remaining flank rails
+retain their chassis interfaces.
 
-## The underside opening and tee wall
+## Pump retention, printing and service
 
-Front-top retains its continuous front wall and both
- flanks. The underside loading opening spans X−98.5..98.5, from
-Y14 to the tee wall at. The retainer has running clearance
-around its rectangular core and at the ends of its snap wings. Its bottom is.
-The front face and rounded enclosure corners belong to front-top.
+The motor guide keeps the pump straight. Broad fixed stops above the flange and the local
+retainer below it resist axial movement. The insert posts root in surrounding stock. Their
+pockets and the head wells open at the underside; there is no connecting retainer channel.
+The loading wells taper toward the motor guide to reduce flat overhang area.
 
-The tee wall is one broad slab, deep, reaching aft to
-. The fore collet band ends at the bore
-face,. Each tee stands in a teardropped
- branch bore, with its extended collet in the smaller
- opening ahead of it. The pump loads with only its flexible tube stubs attached;
-the stubs feed through the closed bores. The bore-face land stops the fixed
-branch barrel; its lower return stops the tee aft.
+Front-top prints on its seam plane. The retainer uses its saved production pose and local
+solid-infill regions at the bearing and screw seats. Use accessible Tree Slim supports
+only where needed; inspect the native slice before printing this revision.
 
-Front-bottom's front and flank lips drop over the pump-loading run. Two broad lower feet
-support the tee wall's end regions, each ×, with
- section and a underside. The remaining flank
-rails keep their complete working runs aft of the tee wall.
+Service takes place with front-top open, power disconnected and the pump plumbing and
+motor leads released. Support the pump, remove its retainer screws and lower it motor-first
+out of the guide. Each pump and retainer is independent of the other.
 
-## Pump snap retention and release
-
-Each side’s carrier, wing and lower hook share the retainer’s complete Y14.25–82.265 span.
-The receiver spans Y14–82.515, leaving 0.25 mm at either end. Each 2.0 mm wing
-has a 22.25 mm root-to-bearing length and a tangent 1.5 mm inside root blend.
-The roots are at Z197.445; the retaining hooks are at the bottom. Each hook
-uses the shared approved planar lead-in, running directly to the pointed
-outer corner of the flat retaining face. The above-core design owns the ramp
-rise and point clearance used by the front retainer and rear caps. The matching
-receiver pocket clears the complete insertion face and retains its broad backing.
-The [long-tip reading](pump-snap-review/long-tip-fit.json) binds these ramps and
-matching front-top receivers to the production solids.
-
-The hook-bearing plane is Z175.195. Each seated hook reaches |X|101.1,
-providing 2.6 mm of bearing past the |X|98.5 receiver edge. The relaxed tip
-spreads outward 0.35 mm and the assembly represents a 0.10 mm seated spread.
-The receiver floor is Z174.795, with 0.4 mm static catch clearance. The
-inward spring corridor is 3.35 mm wide; the fitted pump wells and skirt
-bearings keep their dimensions.
-
-One centered, 5 mm Y-wide screwdriver opening per side passes through
-|X|98.5–104.5 and opens from Z170.195. Its continuous corbel
-joins the pocket back to the outer-wall landing; the shared snap datums set
-its roof and pocket planes, mirrored on the opposite flank.
-The pry opening retains its wall section beneath the flute valleys;
-the receiver pocket retains its broad backing. The receiver’s lower edge supplies the fulcrum for pushing
-the wing inward until its hook clears. Support the pump/retainer unit
-while releasing both sides. Complete pump removal with front-top open
-and the pump plumbing and motor leads disconnected.
-
-The retainer prints on its Y-minus end, with the spring’s X/Z bending
-plane within each layer. Front-top retains its seam-plane print pose.
-The [cartridge snap trial](../../../print-tests/pump-cartridge-snaps/README.md)
-binds the production parts, receiver sample and outstanding physical checks.
-
-Derek's [accepted holder fit](../../../reference/kamoer-kphm400/physical-fit.json) reports
-firm holding with no vertical play in its identified separate cradle and cap. The
-[native scan review](../../../reference/kamoer-kphm400/scan-review.md) retains its measured
-surface and registration scope. The integrated upper half and underside retainer use direct
-two-face skirt capture; no physical assembled fit, vibration, load capacity or lifetime
-result is claimed for the snap-fit mount. The [pump-snap review](pump-snap-review/README.md)
-records its exact inputs and geometric scope. The [three-screw mount receipts](pump-mount-review/README.md)
-retain their separately identified exports and assembly queries.
+The [accepted holder record](../../../reference/kamoer-kphm400/physical-fit.json) covers
+its identified holder. The current flange clamp and tapered loading well require a
+physical assembly trial. Geometry and insertion measurements are recorded beside this
+revision; they do not establish vibration performance or lifetime.
 
 ## The pump lead
 

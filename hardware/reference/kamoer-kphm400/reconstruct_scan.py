@@ -30,6 +30,11 @@ def isolated(p, exposed):
     return (body | outlets) & exposed
 
 
+def identified_motor_artifact(p):
+    return ((p[:,0]>-17)&(p[:,0]<-1)&(p[:,1]>-25)&(p[:,1]<-9)
+            &(p[:,2]>49.5)&(p[:,2]<63.3))
+
+
 def barrel_fit(p, n, exposed):
     selected = (exposed & (p[:, 2] > 29) & (p[:, 2] < 55)
                 & (np.hypot(p[:, 0], p[:, 1]) > 16)
@@ -126,7 +131,7 @@ def validate(model, out, archive):
         p = (common - frame['origin_common']) @ rotation.T
         p[:, 2] -= 8
         exposed = common[:, 1] > -18 if pass_id == 1 else common[:, 1] < 16
-        keep = isolated(p, exposed) & (p[:, 1] < 27.4)
+        keep = isolated(p, exposed) & (p[:, 1] < 27.4) & ~identified_motor_artifact(p)
         regions = {'head': p[:, 2] < -8.8,
                    'flange': (p[:, 2] > -8.8) & (p[:, 2] < .7),
                    'adapter': (p[:, 2] >= .7) & (p[:, 2] < 20.8),
@@ -141,7 +146,7 @@ def validate(model, out, archive):
             rows.append({'pass': pass_id, 'region': region, 'points': len(q),
                          'median_mm': float(np.median(d)), 'p95_mm': float(np.quantile(d, .95)),
                          'p99_mm': float(np.quantile(d, .99)), 'max_mm': float(d.max())})
-    report['held_out_validation'] = {'sampling': 'Disjoint native point indices; geometric selection only, no rejection by distance to model.',
+    report['held_out_validation'] = {'sampling': 'Disjoint native point indices; geometric selection only, no rejection by distance to model. The identified motor scan-artifact patch is excluded.',
                                      'rows': rows, 'model_sha256': hashlib.sha256(model.read_bytes()).hexdigest()}
     out.write_text(json.dumps(report, indent=2) + '\n')
     print(json.dumps(rows, indent=2))

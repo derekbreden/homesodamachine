@@ -1,15 +1,15 @@
 //! The integral pump mount the front pieces carry: its broad stock up to the roof and the
 //! display housing, the pumps' inverse in front-top, the wiring corridors over the motors, the
-//! opening the cartridge loads through and the receivers its lower retainer's wings catch.
+//! local flange retainers and their screw anchors.
 use crate::catalog::{clearance, running};
 use crate::display;
 use crate::funnel;
 use crate::plan::{Bounds, Graph, Op, P2, P3, Shape};
-use crate::pump::{case, offset_polygon, tray};
+use crate::pump::tray;
 use crate::shell::{FRONT_PLANE_Y, WALL, Z_SEAM, shell};
 use crate::spec::Box;
 use crate::structure::profile;
-use hsm_enclosure_retainer_numbers::{datums, snap_datums};
+use hsm_enclosure_retainer_numbers::{self as retain, datums};
 
 /// The shared electrical corridor's diamond half span.
 const SHARED_HALF_SPAN: f64 = 11.0;
@@ -33,31 +33,40 @@ const CHIMNEY_Y: P2 = [72.0, 84.0];
 const CHIMNEY_TOP: f64 = 334.0;
 const LINK_INNER: P3 = [0.0, 78.0, 321.0];
 
-/// The mount's broad stock, from the pumps' bearing plane to the roof, trimmed to the exterior.
+/// The mount's broad stock, from the seam to the roof, trimmed to the exterior.
 pub fn stock(g: &mut Graph, b: &Box, silhouette: Shape) -> Shape {
-    let d = datums(b);
     let fill = g.box_([
         b.inner[0] - 1.0,
         b.inner[1] + 1.0,
         FRONT_PLANE_Y - 1.0,
         funnel::housing_back_y(funnel::CENTER_Y),
-        d.bearing_z,
+        Z_SEAM,
         b.outer[5] + 1.0,
     ]);
     g.intersect(fill, &[silhouette])
 }
 
-/// The opening the cartridge loads up through, from under the seam to its bearing plane.
+/// The pump wells and local screw pockets open to the seam; stock remains between retainers.
 pub fn loading_opening(g: &mut Graph, b: &Box) -> Shape {
     let d = datums(b);
-    g.box_([
-        d.x0 - running(),
-        d.x1 + running(),
-        d.y0 - running(),
-        shell().bay_back_y(&b.pack.collet_plate),
-        Z_SEAM - 20.0,
-        d.bearing_z,
-    ])
+    let mut rooms = Vec::new();
+    for p in &b.pack.pump_trays {
+        let x = p[0];
+        rooms.push(g.box_([x-retain::HEAD_WELL_HALF, x+retain::HEAD_WELL_HALF,
+            d.motor_y-retain::HEAD_WELL_HALF, d.motor_y+retain::HEAD_WELL_HALF,
+            Z_SEAM-20., d.bearing_z]));
+        for side in [-1., 1.] {
+            let port = x + side * tray().outlet_pitch / 2.;
+            rooms.push(g.box_([port-retain::OUTLET_ROOM_HALF, port+retain::OUTLET_ROOM_HALF, d.motor_y+retain::OUTLET_ROOM_FORE,
+                shell().bay_back_y(&b.pack.collet_plate), Z_SEAM-20., d.bearing_z]));
+        }
+        let (y0,y1) = (d.y0-running(), d.y1+running());
+        let roof = d.retainer_top_z + clearance(false,true,false);
+        rooms.push(g.yz_prism(x-retain::HALF_X-running(), x+retain::HALF_X+running(),
+            vec![[y0,Z_SEAM-20.],[y1,Z_SEAM-20.],[y1,roof],[y0,roof+2.*(y1-y0)]]));
+    }
+    let empty = g.empty();
+    g.union(empty,&rooms)
 }
 
 /// The radius the motor cans' terminal crown opens to under the bay's crown.
@@ -90,37 +99,37 @@ fn cone(g: &mut Graph, x: f64, y: f64, radii: P2, z0: f64, height: f64) -> Shape
     )
 }
 
-/// Each pump's inverse: the room its boss takes, the can over it and the terminal crown's
-/// flare to a teardrop roof.
+/// The loading room tapers around the adapter into the retained cylindrical motor guide.
 fn inverse_cuts(g: &mut Graph, b: &Box) -> Vec<Shape> {
-    let (t, e) = (tray(), shell());
-    let finish = clearance(false, true, false);
+    let (t,d) = (tray(),datums(b));
     let radius = terminal_crown_r(b);
+    let adapter_z = d.flange_z + retain::ADAPTER_TOP;
+    let guide_z = retain::guide_start(b);
+    let start = retain::guide_end(b);
     let mut out = Vec::new();
-    for &[x, y0, z] in &b.pack.pump_trays {
-        let flange = z - e.pump_seated_drop;
-        let y = y0 + t.rear_axis_y_shift;
-        let room = g.prism(
-            2,
-            0.0,
-            t.boss_depth,
-            offset_polygon(&case().bore_profile(), e.cap_boss_air),
-        );
-        let lifted = g.translate(room, [0.0, 0.0, finish]);
-        let room = g.union(room, &[lifted]);
-        out.push(g.translate(room, [x, y, flange]));
-        let start = flange + t.motor_crown - WALL;
-        out.push(g.zcyl(
-            t.can_half,
-            x,
-            y,
-            flange + t.boss_depth + finish - 0.01,
-            start + 0.01,
-        ));
-        let rise = radius - t.can_half;
-        out.push(cone(g, x, y, [t.can_half, radius], start, rise));
-        let roof = radius * e.teardrop_roof_angle.to_radians().tan();
-        out.push(cone(g, x, y, [radius, 0.0], start + rise, roof));
+    for p in &b.pack.pump_trays {
+        let x = p[0];
+        let transition=cone(g,x,d.motor_y,
+            [retain::HEAD_WELL_HALF*2.0_f64.sqrt(),retain::ADAPTER_RADIUS],
+            d.bearing_z-0.01,adapter_z-d.bearing_z+0.01);
+        let bounds=g.box_([x-retain::HEAD_WELL_HALF,x+retain::HEAD_WELL_HALF,
+            d.motor_y-retain::HEAD_WELL_HALF,d.motor_y+retain::HEAD_WELL_HALF,
+            d.bearing_z-0.02,adapter_z+0.01]);
+        out.push(g.intersect(transition,&[bounds]));
+        out.push(cone(g,x,d.motor_y,[retain::ADAPTER_RADIUS,t.can_half],adapter_z-0.01,guide_z-adapter_z+0.01));
+        out.push(g.zcyl(t.can_half,x,d.motor_y,guide_z-0.01,start+0.01));
+        let rise = radius-t.can_half;
+        out.push(cone(g,x,d.motor_y,[t.can_half,radius],start,rise));
+        out.push(cone(g,x,d.motor_y,[radius,0.],start+rise,radius*shell().teardrop_roof_angle.to_radians().tan()));
+        // Local keyways pass the landed receptacles and leads through the fitted guide.
+        for side in [-1.,1.] {
+            let key_x=x+side*retain::TERMINAL_KEY_X;
+            let key_y=d.motor_y+side*retain::TERMINAL_KEY_Y;
+            let top=d.flange_z+retain::TERMINAL_KEY_TOP;
+            let r=retain::TERMINAL_KEY_RADIUS;
+            out.push(g.zcyl(r,key_x,key_y,d.bearing_z-0.01,top));
+            out.push(cone(g,key_x,key_y,[r,0.],top,r));
+        }
     }
     out
 }
@@ -342,67 +351,24 @@ pub fn fixed_cuts(g: &mut Graph, b: &Box) -> Vec<Shape> {
     out
 }
 
-/// Each flank's receiver for the retainer's wing: the band rebuilt from the exterior with the
-/// hook's pocket, the pry port under it and a corbel over the port.
-pub fn snap_receivers(g: &mut Graph, b: &Box, mut piece: Shape) -> Shape {
-    let d = snap_datums(b);
-    let silhouette = g.silhouette(b.exterior_bounds());
-    // Host replacement acts on the mechanical body; fitted openings constrain the band.
-    let (core, mut exterior) = g
-        .additive_parts(piece)
-        .map(|(core, band)| (core, Some(band)))
-        .unwrap_or((piece, None));
-    piece = core;
-    for side in [-1.0, 1.0] {
-        let (x0, x1) = crate::quadrant::sorted(
-            side * d.receiver_inner_x,
-            side * (b.exterior_bounds()[1] + 0.5),
-        );
-        let band = g.box_([
-            x0,
-            x1,
-            d.receiver_y0,
-            d.receiver_y1,
-            d.receiver_z0,
-            d.receiver_z1,
-        ]);
-        let stock = g.intersect(band, &[silhouette]);
-        let reach = d.receiver_back_x - d.receiver_inner_x;
-        let pocket = g.xz_prism(
-            d.receiver_y0,
-            d.receiver_y1,
-            vec![
-                [side * d.receiver_inner_x, d.receiver_floor_z],
-                [side * d.receiver_back_x, d.receiver_floor_z],
-                [side * d.receiver_back_x, d.receiver_roof_z],
-                [side * d.receiver_inner_x, d.receiver_roof_z + reach],
-            ],
-        );
-        let (x0, x1) = crate::quadrant::sorted(side * d.port_inner_x, side * d.port_outer_x);
-        let port = g.box_([x0, x1, d.port_y0, d.port_y1, d.port_z0, d.receiver_roof_z]);
-        let roof_drop = d.port_outer_x - d.receiver_back_x;
-        let corbel = g.xz_prism(
-            d.port_y0,
-            d.port_y1,
-            vec![
-                [side * d.receiver_back_x, d.receiver_roof_z],
-                [side * d.port_outer_x, d.receiver_roof_z],
-                [side * d.port_outer_x, d.receiver_roof_z - roof_drop],
-            ],
-        );
-        let receiver = g.cut(stock, &[pocket]);
-        let receiver = g.cut(receiver, &[port]);
-        let receiver = g.union(receiver, &[corbel]);
-        piece = g.cut(piece, &[band]);
-        piece = g.union(piece, &[receiver]);
-        if let Some(stock) = exterior {
-            let port_air = g.cut(port, &[corbel]);
-            exterior = Some(g.cut(stock, &[pocket, port_air]));
+/// Broad upper flange stops and local insert posts retain each pump independently.
+pub fn retainer_anchors(g: &mut Graph, b: &Box, piece: Shape) -> Shape {
+    let d=datums(b);
+    let (mut core, exterior)=g.additive_parts(piece).map(|(a,c)|(a,Some(c))).unwrap_or((piece,None));
+    let mut pilots=Vec::new();
+    for p in &b.pack.pump_trays {
+        let stop=g.box_([p[0]-retain::UPPER_STOP_HALF_X,p[0]+retain::UPPER_STOP_HALF_X,
+            retain::UPPER_STOP_FORE_Y,retain::UPPER_STOP_AFT_Y,d.bearing_z,d.bearing_z+4.*WALL]);
+        core=g.union(core,&[stop]);
+        for x in retain::screw_xs(p[0]) {
+            let post=g.box_([x-retain::POST_HALF_X,x+retain::POST_HALF_X,
+                retain::POST_FORE_Y,retain::POST_AFT_Y,d.flange_z+retain::POST_BOTTOM,d.flange_z+retain::POST_TOP]);
+            core=g.union(core,&[post]);
+            let z=retain::insert_start(b);
+            pilots.push(g.zcyl(retain::PILOT_DIAMETER/2.,x,retain::SCREW_Y,z-0.1,z+retain::INSERT_LENGTH));
+            pilots.push(g.zcyl(retain::CLEARANCE_DIAMETER/2.,x,retain::SCREW_Y,z+retain::INSERT_LENGTH-0.01,z+retain::INSERT_LENGTH+retain::TIP_ROOM));
         }
     }
-    if let Some(exterior) = exterior {
-        g.additive(piece, exterior)
-    } else {
-        piece
-    }
+    core=g.cut(core,&pilots);
+    if let Some(exterior)=exterior {g.additive(core,exterior)} else {core}
 }

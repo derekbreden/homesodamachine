@@ -1,12 +1,9 @@
-//! The factory tube-setting jig's files from the declared Box: four open channels on the pump
-//! cartridge's cradle back, their blind ends at each pump tube's seated tip.
+//! The factory tube-length gauge cuts the pump tube blanks against open channels with blind stops.
 //!
 //!     enclosure-pump-tube-setting-jig [--box <declared Box>] [<output directory>]
 use anyhow::Result;
-use hsm_enclosure_dock_numbers::plumbing;
 use hsm_enclosure_numbers::Color;
 use hsm_enclosure_numbers::catalog::{digits, wall_color};
-use hsm_enclosure_numbers::shell::shell;
 use hsm_enclosure_numbers::spec::ColletPlate;
 use hsm_enclosure_solid::pieces::{keep, payload, solids};
 use hsm_enclosure_solid::plan::{Graph, Shape};
@@ -18,21 +15,21 @@ fn main() -> Result<()> {
     let (b, out) = hsm_enclosure_solid::run::arguments("enclosure-pump-tube-setting-jig")?;
     let mut g = Graph::new();
     let plate = &b.pack.collet_plate;
-    let jig = tube_setting_jig(&mut g, plate, shell().pump_cartridge_aft_y(&b.pack.pump_trays, plate));
+    let jig = tube_setting_jig(&mut g, plate);
     write(&out, &g, jig, digits(wall_color()))
 }
 
-/// Factory gauge that seats on the cradle's flat back and catches the four tube tips: four open
-/// channels admit the tubes, and their blind ends are the seated tip datum.
-pub fn tube_setting_jig(g: &mut Graph, plate: &ColletPlate, cradle_back_y: f64) -> Shape {
+/// The tube blank sits against a blind stop and is cut at the gauge's open fore face.
+pub fn tube_setting_jig(g: &mut Graph, plate: &ColletPlate) -> Shape {
     let row = plate.holes[0][1];
-    let tip = plumbing::tip_y(plate.fore_y);
+    let tip = plate.pump_tube_cut;
+    let front = 0.;
     let first = plate.holes[0][0];
     let last = plate.holes[plate.holes.len() - 1][0];
-    let mut body = g.box_([first - 8.0, last + 8.0, cradle_back_y, tip + 3.0, row - 8.0, row + 8.0]);
+    let mut body = g.box_([first - 8.0, last + 8.0, front, tip + 3.0, row - 8.0, row + 8.0]);
     for &[x, z] in &plate.holes {
-        let bore = g.ycyl(3.5, x, z, cradle_back_y - 0.1, tip);
-        let opening = g.box_([x - 3.5, x + 3.5, cradle_back_y - 0.1, tip, z, row + 8.1]);
+        let bore = g.ycyl(3.5, x, z, front - 0.1, tip);
+        let opening = g.box_([x - 3.5, x + 3.5, front - 0.1, tip, z, row + 8.1]);
         let channel = g.union(bore, &[opening]);
         body = g.cut(body, &[channel]);
     }

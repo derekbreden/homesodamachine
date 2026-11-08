@@ -22,6 +22,8 @@ geometric regions, without discarding observations that disagree with the model.
 thickness and absolute scanner accuracy are unmeasured. Closed reconstruction seams and
 occluded internals are not an internal pump model. The sleeves describe the captured flexible
 pose and do not define rigid fit allowances.
+Derek identifies the motor-side loop as a scan defect. Its patch uses the independently fitted
+barrel surface; validation excludes that identified artifact region.
 
 The flange underside supplies the seating datum. The reference retains the assembly's
 placement frame and routed outlet stations. [physical-fit.json](physical-fit.json) contains

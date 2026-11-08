@@ -1,14 +1,14 @@
 # Enclosure insert and seam construction
 
 The customer outcome is an enclosure that keeps its internal components secured,
-captures both pumps in the fixed upper mount and lower retainer and can be handled without its joints opening.
+captures each pump in its fitted motor guide and screw-fastened flange retainer and can be handled without its joints opening.
 The current insert schedule is
 [enclosure mechanical §1](/hardware/assembly/enclosure-mechanical.md#1-stage-the-printed-pieces).
-The snap-fit pump retainer uses two integral wings and no separate fasteners or inserts.
+Each independent pump retainer uses socket-head screws and short heat-set inserts in local posts. The flange bearing, screw seats and complete post roots use the local reinforcement regions.
 
 The [native audit](geometry-check.json) records 13 insert stations and 12 finished
 knuckles in the five enclosure pieces it hashes. Its three pump-retainer stations belong
-to the identified three-screw article; they are outside the current snap interface.
+to the identified three-screw article; they are outside the current independent flange-clamp interface.
 Electronics and C14 hosts carried by the above-core assembly are outside that audit.
 The table below describes those bound exports. The audit reads complete installed insert
 envelopes, open pilots, blind relief, closed stock, insertion access and the Y seam's

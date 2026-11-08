@@ -224,7 +224,7 @@ channels; SIG-7's braid finishes aft of the common mouth.
 
 With front-top loose, feed the free pump end through the common mouth and out underneath
 before crimping the Fastons. Ring out the completed harness, land the Fastons on the loose
-pumps, then raise the prepared pumps and lower retainer motor-first into front-top while
+pumps, then raise each prepared pump motor-first into front-top while
 drawing slack aft. The [J13 bench guide](harnesses/j13.md) gives the complete piece.
 
 The pump ribbon passes the common mouth in J13 order, read in machine X with its striped

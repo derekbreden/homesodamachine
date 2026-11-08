@@ -4009,6 +4009,8 @@
       ],
       "aliases": [
         "enclosure-pump-retainer",
+        "enclosure-pump-retainer-a",
+        "enclosure-pump-retainer-b",
         "pump retainer"
       ]
     },
@@ -4971,7 +4973,7 @@
         }
       ],
       "bom": {
-        "scope": "Two pumps, the snap-fit lower retainer, four prepared pump tubes, and the Fastons that land the J13 ribbon on the motor tabs. The fitted upper inverse is integral front-top material, included in the machine\u2019s enclosure item. The pump tees, upper tubes, lower returns and J13 ribbon belong to the machine. The retainer\u2019s two integral wings engage front-top\u2019s flank receivers and capture the molded pump skirts against the fixed upper mount; the tee collets grip their prepared tubes.",
+        "scope": "Pumps supported by the integral cylindrical motor guides and independently clamped at their flanges by local retainers, socket screws and short heat-set inserts. Prepared pump tubes and motor receptacles complete this group; the tees, upper tubes, returns and J13 ribbon belong to the machine.",
         "source": "assembly/internal-plumbing.md",
         "items": [
           {
@@ -4981,18 +4983,27 @@
             "bodies": [
               "pump-a-head",
               "pump-a-boss",
+              "pump-a-mount",
               "pump-a-motor",
+              "pump-a-fasteners",
+              "pump-a-primer",
+              "pump-a-sleeves",
               "pump-b-head",
               "pump-b-boss",
-              "pump-b-motor"
+              "pump-b-mount",
+              "pump-b-motor",
+              "pump-b-fasteners",
+              "pump-b-primer",
+              "pump-b-sleeves"
             ]
           },
           {
             "material": "HSM-0082",
-            "quantity": 1,
+            "quantity": 2,
             "unit": "ea",
             "bodies": [
-              "enclosure-pump-retainer"
+              "enclosure-pump-retainer-a",
+              "enclosure-pump-retainer-b"
             ]
           },
           {
@@ -5005,13 +5016,35 @@
               "tube-fluid-21",
               "tube-fluid-22"
             ],
-            "note": "Cut 33.2 mm: 13.149 mm held in the BPT tube under the head's clamp and 20.026 mm beyond the barb plane, each tip set against the tube setting jig at the seated datum, where it bottoms in its pump tee."
+            "note": "Cut with the tube-length gauge. Seat the purchased tee on its wall datum before tightening the pump housing around the prepared stub."
           },
           {
             "material": "HSM-0170",
             "quantity": 4,
             "unit": "ea",
             "note": "Two receptacles per pump, on the J13 ribbon's free end. The per-device tab-size map is not yet recorded."
+          },
+          {
+            "material": "HSM-0137",
+            "quantity": 4,
+            "unit": "ea",
+            "bodies": [
+              "pump-retainer-a-west-screw",
+              "pump-retainer-a-east-screw",
+              "pump-retainer-b-west-screw",
+              "pump-retainer-b-east-screw"
+            ]
+          },
+          {
+            "material": "HSM-0136",
+            "quantity": 4,
+            "unit": "ea",
+            "bodies": [
+              "pump-retainer-a-west-insert",
+              "pump-retainer-a-east-insert",
+              "pump-retainer-b-west-insert",
+              "pump-retainer-b-east-insert"
+            ]
           }
         ]
       }
