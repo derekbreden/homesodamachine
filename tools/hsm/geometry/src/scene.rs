@@ -6,6 +6,182 @@ use std::{collections::BTreeMap, fs, path::{Path, PathBuf}, sync::atomic::{Atomi
 
 const ARRAYS: [&str; 6] = ["pos", "nrm", "idx", "fac", "col", "uv"];
 static NEXT: AtomicU64 = AtomicU64::new(0);
+mod imports {
+    //! Source inventories reconcile added and removed bodies without rebuilding unrelated geometry.
+    use super::{body, digest, header, load_asset, pack};
+    use anyhow::{Context, Result, ensure};
+    use serde_json::{Value, json};
+
+    type Frame = [[f64; 4]; 3];
+    const ID: Frame = [[1.,0.,0.,0.],[0.,1.,0.,0.],[0.,0.,1.,0.]];
+
+    fn frame(value: &Value) -> Result<Frame> {
+        if value.is_null() { return Ok(ID); }
+        let mut out = ID;
+        for r in 0..3 { for c in 0..4 {
+            out[r][c] = value[r][c].as_f64().context("source placement number")?;
+        }}
+        Ok(out)
+    }
+
+    fn multiply(a: Frame, b: Frame) -> Frame {
+        std::array::from_fn(|r| std::array::from_fn(|c|
+            (0..3).map(|k| a[r][k]*b[k][c]).sum::<f64>() + if c == 3 {a[r][3]} else {0.}))
+    }
+
+    fn inverse(a: Frame) -> Result<Frame> {
+        let det = a[0][0]*(a[1][1]*a[2][2]-a[1][2]*a[2][1])
+            -a[0][1]*(a[1][0]*a[2][2]-a[1][2]*a[2][0])
+            +a[0][2]*(a[1][0]*a[2][1]-a[1][1]*a[2][0]);
+        ensure!(det.abs()>1e-15, "singular source placement");
+        let mut out = ID;
+        for r in 0..3 { for c in 0..3 {
+            let (r1,r2,c1,c2)=((c+1)%3,(c+2)%3,(r+1)%3,(r+2)%3);
+            out[r][c]=(a[r1][c1]*a[r2][c2]-a[r1][c2]*a[r2][c1])/det;
+        }}
+        for r in 0..3 {out[r][3]=-(0..3).map(|c|out[r][c]*a[c][3]).sum::<f64>();}
+        Ok(out)
+    }
+
+    fn normalized(name: &str) -> String {name.replace('_', "-")}
+
+    fn prefix<'a>(host: &'a str, own: &str) -> Option<&'a str> {
+        let (host_key,own_key)=(normalized(host),normalized(own));
+        if host_key == own_key {Some("")}
+        else if host_key.ends_with(&format!("/{own_key}")) {Some(&host[..host.len()-own.len()])}
+        else {None}
+    }
+
+    fn inventory(head: &Value) -> Result<Vec<Value>> {
+        let mut rows = Vec::new();
+        for node in head["meshes"].as_array().context("source meshes")? {
+            let name=body(node["name"].as_str().context("source body name")?);
+            if !rows.iter().any(|row: &Value| row["name"] == name) {
+                rows.push(json!({"name":name,"transform":if head["v"] == 4 {node["transform"].clone()} else {Value::Null}}));
+            }
+        }
+        Ok(rows)
+    }
+
+    fn own<'a>(host: &Value, rows: &'a [Value]) -> Option<&'a Value> {
+        if let Some(name)=host["source_name"].as_str() {
+            return rows.iter().find(|row| row["name"].as_str().is_some_and(|n| normalized(n)==normalized(name)));
+        }
+        rows.iter().find(|row| prefix(host["name"].as_str().unwrap_or(""),row["name"].as_str().unwrap_or("")).is_some())
+    }
+
+    fn placed(part: &Value, previous: Option<&Value>, name: &str, source: &str, sha: &str, outer: Option<Frame>) -> Result<Value> {
+        let mut node=previous.cloned().unwrap_or_else(||part.clone());
+        node["name"]=json!(name);
+        node["asset"]=part["asset"].clone();node["bytes"]=part["bytes"].clone();
+        if let Some(outer)=outer {node["transform"]=json!(multiply(outer,frame(&part["transform"])?));}
+        let mut entries=part["entries"].as_array().context("source entries")?.clone();
+        let count=entries.len();
+        for (i,entry) in entries.iter_mut().enumerate() {
+            entry["name"]=json!(if count==1 {name.to_owned()} else {format!("{name}/{i}")});
+            if !node["color_override"].is_null() {entry["color"]=node["color_override"].clone();}
+        }
+        node["entries"]=json!(entries);node["source"]=json!(source);
+        node["source_name"]=part["name"].clone();node["source_sha256"]=json!(sha);
+        Ok(node)
+    }
+
+    #[derive(Clone)]
+    struct Group {prefix: String, transform: Frame, members: Vec<usize>}
+
+    fn member(host: &Value, old: &[Value]) -> Result<Option<(String,Frame)>> {
+        let Some(part)=own(host,old) else {return Ok(None)};
+        let Some(prefix)=prefix(host["name"].as_str().context("instance name")?,part["name"].as_str().unwrap()) else {return Ok(None)};
+        Ok(Some((prefix.into(),multiply(frame(&host["transform"])?,inverse(frame(&part["transform"])?)?))))
+    }
+
+    fn same(a: Frame, b: Frame) -> bool {
+        a.iter().flatten().zip(b.iter().flatten()).all(|(a,b)|(a-b).abs()<1e-9)
+    }
+
+    /// Whole imports adopt source membership; named selections keep their authored scope.
+    pub(super) fn replace(head: &mut Value, source: &str, bytes: &[u8], complete: bool) -> Result<usize> {
+        let sha=digest(bytes);
+        if head["sources"][source]==sha && head["source_inventory"][source].is_array() {return Ok(0);}
+        let part=pack(bytes)?;
+        let parts=part["meshes"].as_array().context("part meshes")?;
+        let hosts=head["meshes"].as_array().context("scene meshes")?.clone();
+        let bound=hosts.iter().any(|node|node["source"]==source);
+        let saved=head["source_groups"][source].as_array().cloned().unwrap_or_default();
+        if !bound && saved.is_empty() && !hosts.iter().any(|node|node["source"].is_null() && own(node,parts).is_some()) {return Ok(0);}
+        let current=inventory(&part)?;
+        let previous=hosts.iter().filter(|node|node["source"]==source)
+            .filter_map(|node|node["source_sha256"].as_str()).find(|hash|*hash!=sha)
+            .or_else(||head["sources"][source].as_str().filter(|hash|*hash!=sha));
+        let old=if let Some(rows)=head["source_inventory"][source].as_array() {rows.clone()}
+            else if let Some(previous)=previous.filter(|_|bound) {
+                inventory(&header(&load_asset(previous).with_context(||format!("previous source inventory for {source}"))?)?.0)?
+            } else {current.clone()};
+        let mut groups=Vec::<Group>::new();
+        if complete {
+            for group in saved {
+                groups.push(Group {prefix:group["prefix"].as_str().context("source prefix")?.into(),transform:frame(&group["transform"])?,members:Vec::new()});
+            }
+            let mut candidates=Vec::<Group>::new();
+            for (index,node) in hosts.iter().enumerate().filter(|(_,node)|node["source"]==source) {
+                let Some((prefix,transform))=member(node,&old)? else {continue};
+                let i=candidates.iter().position(|group|group.prefix==prefix && same(group.transform,transform)).unwrap_or_else(||{
+                    candidates.push(Group {prefix,transform,members:Vec::new()});candidates.len()-1
+                });
+                candidates[i].members.push(index);
+            }
+            for group in candidates {
+                let full=!old.is_empty() && old.iter().all(|part|group.members.iter().any(|&i|own(&hosts[i],std::slice::from_ref(part)).is_some()));
+                if full && !groups.iter().any(|g|g.prefix==group.prefix && same(g.transform,group.transform)) {groups.push(group);}
+            }
+            for group in &mut groups {
+                group.members=(0..hosts.len()).filter(|&i|hosts[i]["source"]==source && member(&hosts[i],&old).ok().flatten().is_some_and(|(prefix,transform)|prefix==group.prefix && same(transform,group.transform))).collect();
+            }
+        }
+        let mut output=Vec::new();let mut emitted=vec![false;groups.len()];
+        let emit=|group: &Group, output: &mut Vec<Value>| -> Result<()> {
+            let uniform=group.members.first().map(|&i|hosts[i]["color_override"].clone()).filter(|color|!color.is_null() && group.members.iter().all(|&i|hosts[i]["color_override"]==*color));
+            for part in parts {
+                let previous=group.members.iter().map(|&i|&hosts[i]).find(|node|own(node,std::slice::from_ref(part)).is_some());
+                let name=previous.and_then(|node|node["name"].as_str()).map(str::to_owned).unwrap_or_else(||format!("{}{}",group.prefix,part["name"].as_str().unwrap()));
+                let mut node=placed(part,previous,&name,source,&sha,Some(group.transform))?;
+                if previous.is_none() {if let Some(color)=&uniform {node["color_override"]=color.clone();for entry in node["entries"].as_array_mut().unwrap(){entry["color"]=color.clone();}}}
+                output.push(node);
+            }
+            Ok(())
+        };
+        for (index,host) in hosts.iter().enumerate() {
+            if let Some(i)=groups.iter().position(|group|group.members.contains(&index)) {
+                if !emitted[i] {emit(&groups[i],&mut output)?;emitted[i]=true;}
+                continue;
+            }
+            if host["source"]==source {
+                if let Some(old_part)=own(host,&old) {
+                    if let Some(part)=parts.iter().find(|part|normalized(part["name"].as_str().unwrap())==normalized(old_part["name"].as_str().unwrap())) {
+                        let outer=multiply(frame(&host["transform"])?,inverse(frame(&old_part["transform"])?)?);
+                        output.push(placed(part,Some(host),host["name"].as_str().unwrap(),source,&sha,Some(outer))?);
+                    }
+                    continue;
+                }
+            }
+            let found=if host["source"].is_null() || host["source"]==source {own(host,parts).or_else(||(host["source"]==source && parts.len()==1).then(||&parts[0]))} else {None};
+            output.push(if let Some(part)=found {placed(part,Some(host),host["name"].as_str().context("instance name")?,source,&sha,None)?} else {host.clone()});
+        }
+        for (i,group) in groups.iter().enumerate() {if !emitted[i] {emit(group,&mut output)?;}}
+        let changed=hosts.iter().zip(&output).filter(|(a,b)|a!=b).count()+hosts.len().abs_diff(output.len());
+        if !bound && changed==0 && groups.is_empty() {return Ok(0);}
+        head["meshes"]=json!(output);
+        if !head["sources"].is_object(){head["sources"]=json!({});}
+        if !head["source_inventory"].is_object(){head["source_inventory"]=json!({});}
+        head["sources"][source]=json!(sha);head["source_inventory"][source]=json!(current);
+        if complete && !groups.is_empty() {
+            if !head["source_groups"].is_object(){head["source_groups"]=json!({});}
+            head["source_groups"][source]=json!(groups.iter().map(|group|json!({"prefix":group.prefix,"transform":group.transform})).collect::<Vec<_>>());
+        }
+        head["src"]=json!(digest(&serde_json::to_vec(&head["meshes"])?));head["source_kind"]=json!("scene");
+        Ok(changed.max(1))
+    }
+}
 
 pub fn digest(bytes: &[u8]) -> String { format!("{:x}", Sha256::digest(bytes)) }
 
@@ -205,39 +381,14 @@ pub fn persist(path: &Path, head: &Value) -> Result<()> {
     Ok(())
 }
 
-/// Each completed part replaces its own references while other instances keep their last surfaces.
+/// Completed sources reconcile their imported bodies while unrelated instances retain their surfaces.
 pub fn replace(head: &mut Value, source: &str, bytes: &[u8]) -> Result<usize> {
-    let sha=digest(bytes);
-    if head["sources"][source] == sha {return Ok(0);}
-    let part=pack(bytes)?;let parts=part["meshes"].as_array().context("part meshes")?;
-    let mut changed=0;
-    for host in head["meshes"].as_array_mut().context("scene meshes")? {
-        let normalize=|s:&str|s.replace('_',"-");
-        let name=normalize(host["name"].as_str().context("instance name")?);
-        let found=parts.iter().find(|p| {
-            let own=normalize(p["name"].as_str().unwrap_or(""));
-            if let Some(bound)=host["source"].as_str() {bound==source && (name==own || name.ends_with(&format!("/{own}")) || parts.len()==1)}
-            else {name==own || name.ends_with(&format!("/{own}"))}
-        });
-        if let Some(part)=found {
-            let stem=host["name"].as_str().unwrap().to_owned();
-            host["asset"]=part["asset"].clone();host["bytes"]=part["bytes"].clone();
-            let mut entries=part["entries"].as_array().context("part entries")?.clone();
-            let count=entries.len();
-            for (i,entry) in entries.iter_mut().enumerate() {
-                entry["name"]=json!(if count==1 {stem.clone()} else {format!("{stem}/{i}")});
-                if !host["color_override"].is_null() {entry["color"]=host["color_override"].clone();}
-            }
-                host["entries"]=json!(entries);host["source"]=json!(source);host["source_sha256"]=json!(sha);changed+=1;
-        }
-    }
-    if changed>0 {
-        if !head["sources"].is_object(){head["sources"]=json!({});}
-        head["sources"][source]=json!(sha);
-        head["src"]=json!(digest(&serde_json::to_vec(&head["meshes"])?));
-        head["source_kind"]=json!("scene");
-    }
-    Ok(changed)
+    imports::replace(head,source,bytes,true)
+}
+
+/// A named view updates only its selected bodies when their source membership changes.
+pub fn replace_selected(head: &mut Value, source: &str, bytes: &[u8]) -> Result<usize> {
+    imports::replace(head,source,bytes,false)
 }
 
 #[cfg(test)]
@@ -285,6 +436,110 @@ mod tests {
         assert_eq!(u32::from_le_bytes(idx[4..8].try_into()?),2);
         assert_eq!(scene["meshes"][0]["asset"],asset);
         assert_eq!(pack(&flat)?["meshes"][0]["asset"],asset);
+        Ok(())
+    }
+
+    fn imported(names: &[&str]) -> Result<Value> {
+        let bytes=triangle(names,0.);let sha=store(&bytes)?;
+        let mut scene=pack(&bytes)?;
+        for node in scene["meshes"].as_array_mut().unwrap() {
+            node["source"]=json!("part.mesh");node["source_sha256"]=json!(sha);
+        }
+        scene["sources"]=json!({"part.mesh":sha});
+        Ok(scene)
+    }
+
+    #[test]
+    fn legacy_imports_adopt_new_retainer_bodies_and_keep_unrelated_assets()->Result<()> {
+        let mut scene=imported(&["retainer"])?;
+        let unrelated=pack(&triangle(&["wall"],0.))?["meshes"][0].clone();
+        scene["meshes"].as_array_mut().unwrap().push(unrelated.clone());
+        let source=triangle(&["retainer-a","retainer-b","screw"],2.);
+        assert!(replace(&mut scene,"part.mesh",&source)?>0);
+        let rows=scene["meshes"].as_array().unwrap();
+        assert_eq!(rows.iter().map(|row|row["name"].as_str().unwrap()).collect::<Vec<_>>(),["retainer-a","retainer-b","screw","wall"]);
+        assert_eq!(rows.last(),Some(&unrelated));
+        assert_eq!(replace(&mut scene,"part.mesh",&source)?,0);
+        let flat=flatten(&encode(&scene,&[])?)?;
+        assert_eq!(header(&flat)?.0["meshes"].as_array().unwrap().len(),4);
+        Ok(())
+    }
+
+    #[test]
+    fn imported_membership_survives_removals_empty_sources_and_reintroduction()->Result<()> {
+        let mut scene=imported(&["left","right"])?;
+        replace(&mut scene,"part.mesh",&triangle(&["left","right"],0.))?;
+        replace(&mut scene,"part.mesh",&triangle(&["left","cap"],1.))?;
+        assert_eq!(scene["meshes"][1]["name"],"cap");
+        let empty=triangle(&[],0.);
+        replace(&mut scene,"part.mesh",&empty)?;
+        assert!(scene["meshes"].as_array().unwrap().is_empty());
+        assert_eq!(replace(&mut scene,"part.mesh",&empty)?,0);
+        replace(&mut scene,"part.mesh",&triangle(&["replacement"],3.))?;
+        assert_eq!(scene["meshes"].as_array().unwrap().len(),1);
+        assert_eq!(scene["meshes"][0]["name"],"replacement");
+        Ok(())
+    }
+
+    #[test]
+    fn legacy_partial_refresh_recovers_membership_from_the_retained_body_revision()->Result<()> {
+        let mut scene=imported(&["retainer","screw"])?;
+        let next=triangle(&["retainer-a","retainer-b","screw"],2.);
+        let sha=digest(&next);
+        scene["sources"]["part.mesh"]=json!(sha);
+        scene["meshes"][1]["source_sha256"]=json!(sha);
+        replace(&mut scene,"part.mesh",&next)?;
+        let names:Vec<_>=scene["meshes"].as_array().unwrap().iter().map(|node|node["name"].as_str().unwrap()).collect();
+        assert_eq!(names,["retainer-a","retainer-b","screw"]);
+        Ok(())
+    }
+
+    #[test]
+    fn repeated_imports_place_new_bodies_in_each_assembly_frame()->Result<()> {
+        let old=pack(&triangle(&["cap"],0.))?;
+        let mut source=old.clone();source["meshes"][0]["transform"]=json!([[1.,0.,0.,2.],[0.,1.,0.,0.],[0.,0.,1.,0.]]);
+        let bytes=encode(&source,&[])?;let sha=store(&bytes)?;
+        let mut a=source["meshes"][0].clone();a["name"]=json!("left/cap");a["entries"][0]["name"]=json!("left/cap");
+        a["source"]=json!("part.mesh");a["source_sha256"]=json!(sha);
+        a["transform"]=json!([[-1.,0.,0.,8.],[0.,1.,0.,20.],[0.,0.,1.,30.]]);
+        a["color_override"]=json!([1.,0.,0.]);
+        let mut b=a.clone();b["name"]=json!("right/cap");b["entries"][0]["name"]=json!("right/cap");
+        b["transform"]=json!([[1.,0.,0.,102.],[0.,1.,0.,0.],[0.,0.,1.,0.]]);
+        let mut scene=json!({"v":4,"meshes":[a,b],"sources":{"part.mesh":sha}});
+        let mut next=pack(&triangle(&["cap","nut"],5.))?;
+        for node in next["meshes"].as_array_mut().unwrap(){node["transform"]=source["meshes"][0]["transform"].clone();}
+        replace(&mut scene,"part.mesh",&encode(&next,&[])?)?;
+        let flat=flatten(&encode(&scene,&[])?)?;let (head,start)=header(&flat)?;
+        let node=head["meshes"].as_array().unwrap().iter().find(|row|row["name"]=="left/nut").unwrap();
+        let pos=span(&flat[start..],node,"pos")?;
+        let first:Vec<_>=pos[..12].chunks_exact(4).map(|v|f32::from_le_bytes(v.try_into().unwrap())).collect();
+        assert_eq!(first,[3.,20.,30.]);assert_eq!(node["color"],json!([1.,0.,0.]));
+        let node=head["meshes"].as_array().unwrap().iter().find(|row|row["name"]=="right/nut").unwrap();
+        assert_eq!(f32::from_le_bytes(span(&flat[start..],node,"pos")?[..4].try_into()?),107.);
+        Ok(())
+    }
+
+    #[test]
+    fn named_views_and_partial_imports_keep_their_selection()->Result<()> {
+        let mut selected=imported(&["cap"])?;
+        replace_selected(&mut selected,"part.mesh",&triangle(&["cap","screw"],1.))?;
+        assert_eq!(selected["meshes"].as_array().unwrap().len(),1);
+        replace_selected(&mut selected,"part.mesh",&triangle(&["screw"],2.))?;
+        assert!(selected["meshes"].as_array().unwrap().is_empty());
+        let mut partial=imported(&["cap","omitted"])?;
+        partial["meshes"].as_array_mut().unwrap().pop();
+        partial["meshes"][0]["source_name"]=json!("cap");partial["meshes"][0]["name"]=json!("chosen");
+        replace(&mut partial,"part.mesh",&triangle(&["cap","omitted","screw"],2.))?;
+        assert_eq!(partial["meshes"].as_array().unwrap().len(),1);
+        assert_eq!(partial["meshes"][0]["name"],"chosen");
+        Ok(())
+    }
+
+    #[test]
+    fn unplaced_sources_do_not_invent_assembly_membership()->Result<()> {
+        let mut scene=imported(&["cap"])?;let old=scene.clone();
+        assert_eq!(replace(&mut scene,"unrelated.mesh",&triangle(&["cap","screw"],1.))?,0);
+        assert_eq!(scene,old);
         Ok(())
     }
 }
