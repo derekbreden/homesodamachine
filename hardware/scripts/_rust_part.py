@@ -456,6 +456,8 @@ def program(crate: str, name: str) -> Path:
     manifest = workspace / "tools" / "hsm" / crate / "Cargo.toml"
     binary = workspace / "tools/hsm/target/release" / name
     receipt = workspace / ".cache/realized/compiled-programs" / crate / f"{name}.json"
+    recipe = {key: value for key, value in os.environ.items()
+              if key.startswith(("RUST", "CARGO_")) and key != "CARGO_TARGET_DIR"}
     # Matching source bytes reuse the executable without entering Cargo's compiler queue.
     def fingerprints(inputs):
         try:
@@ -470,9 +472,10 @@ def program(crate: str, name: str) -> Path:
             return None
     try:
         held = json.loads(receipt.read_text())
-        if (held["sources"] == fingerprints(held["sources"]) and
+        if (held.get("environment") == recipe and
+                held["sources"] == fingerprints(held["sources"]) and
                 held["binary"] == hashlib.sha256(binary.read_bytes()).hexdigest()):
-            _READ_TARGETS.update(held["sources"])
+            _READ_TARGETS.update(held.get("inputs", held["sources"]))
             return binary
     except (OSError, ValueError, KeyError, TypeError):
         pass
@@ -499,11 +502,14 @@ def program(crate: str, name: str) -> Path:
         from _build_data import request
         inputs = request("program-inputs", path=metadata["path"], workspace=str(workspace), crate=crate)
     _READ_TARGETS.update(inputs)
-    sources = fingerprints(inputs)
+    configuration = [workspace / "rust-toolchain.toml", workspace / "rust-toolchain",
+                     workspace / ".cargo/config.toml", workspace / "tools/hsm/.cargo/config.toml",
+                     _home() / ".cargo/config.toml"]
+    sources = fingerprints([*inputs, *map(str, configuration)])
     if sources is not None:
         receipt.parent.mkdir(parents=True, exist_ok=True)
         temporary = receipt.with_suffix(f".{os.getpid()}.tmp")
-        temporary.write_text(json.dumps({"sources": sources,
+        temporary.write_text(json.dumps({"sources": sources, "inputs": inputs, "environment": recipe,
                                         "binary": hashlib.sha256(binary.read_bytes()).hexdigest()}))
         os.replace(temporary, receipt)
     return target / "release" / name

@@ -108,7 +108,7 @@ def main():
                 if line.strip():event(json.loads(line))
         code=process.wait()
         publications=[publisher.wait() for publisher in publishers]
-        (run/'result.json').write_text(json.dumps({'purpose':'This record identifies each completed producer carried during the print build.','success':code==0,'wall_seconds':time.monotonic()-started,'carried':made},indent=2)+'\n')
+        (run/'result.json').write_text(json.dumps({'purpose':'This record identifies each completed producer carried during the print build.','success':code==0 and not any(publications),'wall_seconds':time.monotonic()-started,'carried':made},indent=2)+'\n')
         events.unlink(missing_ok=True)
         return code or (1 if any(publications) else 0)
     finally:
