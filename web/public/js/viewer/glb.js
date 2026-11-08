@@ -79,7 +79,7 @@ function addBoardFaces(group, file) {
 }
 
 export async function loadGlbFile(file, { preserveCamera = false } = {}) {
-  if (file.startsWith('assembly/scenes/glb/')) {
+  if (file.startsWith('assembly/scenes/glb/') && (memberUrl(`${file}.mesh`) || !memberUrl(file))) {
     const { loadStepFile } = await import('./step.js');
     return loadStepFile(file,{preserveCamera});
   }
