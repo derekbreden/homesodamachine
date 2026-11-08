@@ -372,6 +372,7 @@ pub fn retainer_anchors(g: &mut Graph, b: &Box, piece: Shape) -> Shape {
             pilots.push(g.zcyl(r0,x,retain::SCREW_Y,z-0.1,shoulder));
             pilots.push(cone(g,x,retain::SCREW_Y,[r0,r1-0.01],shoulder,r0-r1+0.01));
             pilots.push(g.zcyl(r1,x,retain::SCREW_Y,shoulder+r0-r1-0.01,z+retain::INSERT_LENGTH+retain::TIP_ROOM));
+            pilots.push(cone(g,x,retain::SCREW_Y,[r1,0.],z+retain::INSERT_LENGTH+retain::TIP_ROOM,r1));
         }
     }
     core=g.cut(core,&pilots);
