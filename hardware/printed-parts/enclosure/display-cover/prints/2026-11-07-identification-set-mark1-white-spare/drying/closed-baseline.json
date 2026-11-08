@@ -1,0 +1,49 @@
+{
+  "purpose": "Record the closed-AMS baseline after drying and before opening for filament rethreading.",
+  "observed_at": "2026-11-08T09:26:09.541960+00:00",
+  "observed_at_local": "2026-11-08T03:26:09.541960-06:00",
+  "printer": "Mark1",
+  "connection_key": "H2C",
+  "conditions_reported_by_derek": {
+    "drying_completed": true,
+    "both_lids_closed": true,
+    "before_opening_for_rethreading": true
+  },
+  "units": [
+    {
+      "id": "0",
+      "name": "AMS 2 Pro",
+      "contents": [
+        "red A1",
+        "blue A2",
+        "white A3",
+        "clear A4"
+      ],
+      "temperature_c": 30.6,
+      "humidity_raw": 12,
+      "humidity_unit": "percent RH",
+      "dry_time": 0,
+      "dry_setting": {
+        "dry_duration": -1,
+        "dry_filament": "",
+        "dry_temperature": -1
+      }
+    },
+    {
+      "id": "128",
+      "name": "AMS HT",
+      "contents": [
+        "black HT-A"
+      ],
+      "temperature_c": 26.2,
+      "humidity_raw": 12,
+      "humidity_unit": "percent RH",
+      "dry_time": 0,
+      "dry_setting": {
+        "dry_duration": -1,
+        "dry_filament": "",
+        "dry_temperature": -1
+      }
+    }
+  ]
+}
