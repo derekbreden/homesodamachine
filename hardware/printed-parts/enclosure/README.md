@@ -19,10 +19,9 @@ What the core's yaw buys is vertical: a column above and ahead of it, where the 
 **The cold core is the back of the floor.** It stands flat on the floor slab — its bottom cap's lid is a plane and every cap screw is down in a counterbore, so nothing goes under it — and packed off the REAR: its own aft face seats flush on the inner face of the rear Z-seam lip, one `rear_seam_clear` inside `rear_plane_y`. Its front face lands at y and what falls out AHEAD of it is the lane the refrigerant loop's two drawn legs cross. Its cap's lid at z is the service bay's floor. Geometry source: [`/hardware/printed-parts/cold-core/foam-shell/README.md`](/hardware/printed-parts/cold-core/foam-shell/README.md).
 
 **The front flavour manifold** carries eight fixed valves on two decks behind the
-pump bay. A side-loading cartridge captures the pump skirts between continuous upper and
-lower bearing lips, beneath front-top's corbeled cavity. Retention remains open in this
-geometry concept. The prepared pump unit enters motor-first from below; its tube stubs
-rise through the tee-wall bores before the purchased tees, valves, upper tubes
+integral pump mount. Front-top and its broad lower retainer capture the two pumps,
+loaded motor-first from below and secured by two integral snap wings. Their four prepared
+tube stubs rise through tee-wall gates before the purchased tees, valves, upper tubes
 and lower returns are installed on the loose quadrant. V-A mounts on
 back-top's west sidewall seat; V-B lies on its side on its upright wall on the cold-core
 lid, east of the PCB. Their links to Y-A and Y-B are native production routes. Source geometry:
