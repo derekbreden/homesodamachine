@@ -10,6 +10,10 @@ publish = false
 name = "kit-art"
 path = "../../../hardware/install-guide/kit_art.rs"
 
+[[bin]]
+name = "install-illustrations"
+path = "../../install-guide/art.rs"
+
 [dependencies]
 anyhow.workspace = true
 serde_json.workspace = true

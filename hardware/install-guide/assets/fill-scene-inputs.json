@@ -1,114 +1,126 @@
 {
+  "purpose": "The Fill pictures and their motion cue follow the current appliance geometry.",
   "sources": {
-    "hardware/manifold-layout/enclosure-assembly.step": "6a66e9dd57fbe3fe1ec4333154e64958babab9b7d71b648cc3469d83063039a0",
-    "hardware/manifold-layout/enclosure-assembly.step.mesh": "1181b9bf8047d9715811389daa422321054c9d8cd4bfed305f08ef93d56c862a",
-    "hardware/manifold-layout/enclosure-assembly.facts.json": "59bf517420d64c4ed908bae913f87598493612d29a47dd1a0215cdec5d272161",
-    "hardware/printed-parts/enclosure/enclosure/_swept_top.py": "347f941b2b2aed2aa5af26373fc4dcfb852390bab61f8d60cb2d538926221a22",
-    "hardware/printed-parts/enclosure/enclosure/_enclosure_interface.py": "264bb52da73675dcd41f7fff8bc5fce6eabd06336fc3cf8b7a9b8560c21e5040",
-    "tools/install-guide/fill_scene.py": "02cfa33c5d00f5e9b0998970342e863a09b1d32df2d815d73149f9de28f344fe",
-    "tools/install-guide/fill_materials.js": "27a8d103b44e9b9f0cd19676b2bde9cd39a7faa49103f27efea16d19bc4ee6d1"
+    "hardware/manifold-layout/enclosure-assembly.step.mesh": "54c5829e70e3e9b203dd90ef0d70b56ff5682c4fd4e8e0e26f516607983e77fb",
+    "tools/install-guide/art.rs": "0ab857847f0ad7f59a8c3742561235ff706033c9e39ef51148c1b35c035d1856",
+    "tools/install-guide/refresh_art.py": "d4a4b86b8d790e7cf251ec83efe0d9e39d29c923ede06adfda61090c0e05d5a5",
+    "hardware/install-guide/assets/fill-screen.png": "4eea0c80eef7c9d9bc1126d954e08c15fa272d67b9ef1f72f4e35183b3881d10"
   },
-  "funnel_bounds": [
-    -107.5,
-    86.99999207672,
-    306.04999979999997,
-    107.5,
-    277.391507923281,
-    357.9999999
-  ],
   "bottle_mouth": [
     0.0,
-    179.19575,
-    374.6500728067775
+    182.19575119018555,
+    373.0
   ],
-  "bottle_tip": 20,
   "screen": {
-    "width": 103.5,
-    "height": 62.1,
-    "angle_deg": 30.0,
-    "origin": [
+    "centre": [
+      -27.75,
+      50.67210506462308,
+      327.37435565298216
+    ],
+    "height": 60.0,
+    "normal": [
       0.0,
-      51.06710506462308,
-      326.6901954839924
-    ]
+      -0.49999999999999994,
+      0.8660254037844387
+    ],
+    "up": [
+      0.0,
+      0.8660254037844387,
+      0.49999999999999994
+    ],
+    "width": 99.8
   },
+  "arrow": [
+    [
+      0.0,
+      -7.804248809814453,
+      373.0
+    ],
+    [
+      0.0,
+      -7.688505943442635,
+      379.6309043734752
+    ],
+    [
+      0.0,
+      -7.341418359181063,
+      386.2537300113838
+    ],
+    [
+      0.0,
+      -6.7634089297863795,
+      392.86040802085415
+    ],
+    [
+      0.0,
+      -5.955181870712835,
+      399.44288918241244
+    ],
+    [
+      0.0,
+      -4.917721882133975,
+      405.99315375671677
+    ],
+    [
+      0.0,
+      -3.652292949237534,
+      412.5032212553743
+    ],
+    [
+      0.0,
+      -2.16043680225377,
+      418.96516016393684
+    ],
+    [
+      0.0,
+      -0.443971038095043,
+      425.37109760522986
+    ],
+    [
+      0.0,
+      1.4950130941063833,
+      431.71322893124
+    ],
+    [
+      0.0,
+      3.6541532408629394,
+      437.98382723187706
+    ]
+  ],
   "pose": {
     "cam": [
-      1,
+      1.0,
       -0.5,
       0.45
     ],
     "target": [
-      0,
-      150,
-      380
+      0.0,
+      150.0,
+      380.0
     ],
-    "span": 230,
+    "span": 230.0,
     "size": [
       1600,
       1500
     ]
   },
-  "arrow": [
-    [
-      0.0,
-      -45.804249999999996,
-      374.6500728067775
-    ],
-    [
-      0.0,
-      -45.667186079296556,
-      382.5024595648402
-    ],
-    [
-      0.0,
-      -45.256161308460435,
-      390.34527939920565
-    ],
-    [
-      0.0,
-      -44.571676457861486,
-      398.1689770419995
-    ],
-    [
-      0.0,
-      -43.61456546685332,
-      405.9640205227922
-    ],
-    [
-      0.0,
-      -42.385994427746795,
-      413.7209127818368
-    ],
-    [
-      0.0,
-      -40.88746016510626,
-      421.4302032407733
-    ],
-    [
-      0.0,
-      -39.120788412099216,
-      429.0824993167027
-    ],
-    [
-      0.0,
-      -37.08813158612176,
-      436.6684778656023
-    ],
-    [
-      0.0,
-      -34.79196616640954,
-      444.1788965411406
-    ],
-    [
-      0.0,
-      -32.2350896768294,
-      451.60460505505296
-    ]
-  ],
-  "artwork": {
-    "hardware/install-guide/assets/reference/fill-ready.png": "7935b146b3b17a82f3c8e58098eb46b9a9d9c47643e1aa15aea81df9a13e4bd7",
-    "hardware/install-guide/assets/reference/fill-screen-framed.png": "dabe7f476f5f80f9c438377ad47b1379058ff4cb8dd910fd11abfaa855cec05c",
-    "hardware/install-guide/assets/reference/fill-closed.png": "d5d19e9449b50f5037679bbfe3981d394276c72750dc7f38f046f6a1a0730cce"
+  "outputs_sha256": {
+    "hardware/install-guide/assets/steps/fill-ready.png": "eb92f1938216a42348e3b34dd0fca83592a8915df713e6a722ceb8f1c5252c95",
+    "hardware/install-guide/assets/steps/fill-closed.png": "95dbd634ab775ebf405a341f6213b2a291e09d2b99b3b65af607d1b7ed23577c",
+    "hardware/install-guide/assets/fill-screen-framed.png": "b26829d46fdbbbe9b12685bd4f3f9e91f2cd7ff868f71e566bc70746d4ba855c"
+  },
+  "views": {
+    "fill-ready": {
+      "source_payload_sha256": "54c5829e70e3e9b203dd90ef0d70b56ff5682c4fd4e8e0e26f516607983e77fb",
+      "render_sha256": "eb92f1938216a42348e3b34dd0fca83592a8915df713e6a722ceb8f1c5252c95"
+    },
+    "fill-closed": {
+      "source_payload_sha256": "54c5829e70e3e9b203dd90ef0d70b56ff5682c4fd4e8e0e26f516607983e77fb",
+      "render_sha256": "95dbd634ab775ebf405a341f6213b2a291e09d2b99b3b65af607d1b7ed23577c"
+    },
+    "fill-screen-framed": {
+      "source_payload_sha256": "54c5829e70e3e9b203dd90ef0d70b56ff5682c4fd4e8e0e26f516607983e77fb",
+      "render_sha256": "b26829d46fdbbbe9b12685bd4f3f9e91f2cd7ff868f71e566bc70746d4ba855c"
+    }
   }
 }

@@ -23,10 +23,9 @@ The faucet has four attached tubes, including the small white 4 mm DRAIN tail.
 Viewed from behind the machine, the rear ports read CO2 / TAP across the top,
 SODA / FLAVOR across the middle, and DRAIN / FLAVOR across the bottom. Both black
 faucet tubes connect to the right column's FLAVOR ports in either order. The
-identification cards share square visible color faces. The 88 × 100 mm First Edition
-nameplate receiver is centred between the rear-corner tangent and the adjacent FLAVOR
-frame, with approximately 3 mm of visible separation on each side,
-with matching edition and unit-number lines and a centred QR code.
+identification cards share square visible color faces. The First Edition nameplate's
+receiver clears the rounded corner root, the seam band beneath it and the adjacent FLAVOR
+frame. The plate carries matching edition and unit-number lines and a centred QR code.
 Numbered pages 7–8 (PDF pages 8–9) show the seated plate from below, with a shared
 rear narrow slot for both black flavor tubes, white DRAIN and the flat display ribbon.
 The front wide slot carries the shank; the blue SODA tube connects beneath it.
@@ -65,13 +64,12 @@ just above the liquid, with a visible rim and no falling streams. The first-pour
 call for a glass filled with ice. The illustration comes from
 `tools/install-guide/ice_scene.py`.
 
-The concentrate bottle has a rounded PET body, tapered shoulders, an open ribbed neck, dark
-liquid and a wrapped COLA concentrate label. It pours from the front, tipped just past level
-with its mouth over the funnel's and its concentrate settled level; the motion cue follows its
-base's swing. The bottle, the closed funnel and the framed display are snapshots from
-`tools/install-guide/fill_scene.py`, whose funnel and display positions follow the current
-enclosure assembly. The pour shows the funnel without its lift-off cover, as it stands during a
-fill; page 27 shows the same view with the bottle gone and the cover back on the brim.
+The concentrate bottle is an illustration prop with tapered shoulders, an open ribbed neck
+and a wrapped COLA label. It tips from the front with its mouth over the funnel; the motion
+cue follows its base's swing. [`tools/install-guide/refresh_art.py`](../../tools/install-guide/refresh_art.py)
+renders the appliance views on request, using the current shared meshes and the Rust props in
+[`art.rs`](../../tools/install-guide/art.rs). The power connector approaches the recessed inlet.
+The pour shows the funnel without its lift-off cover; the closed view shows the cover on its brim.
 `assets/fill-scene-inputs.json` records the source hashes and motion cue;
 `assets/fill-screen.svg` and its PNG supply the interface. The display cover shares the
 enclosure's matte black PET-GF appearance. Both Fill views use the same exposure, and the
@@ -82,7 +80,7 @@ booklet's artwork, including its Fill-screen illustration and hose-removal scene
 `assets/print-resolution.json` registers crop and arrow coordinates against the native artwork
 dimensions. The back face, rear connections and bottle scene use higher-resolution snapshots
 from their registered cameras; each entry identifies its native coordinate reference by hash.
-`assets/reference/` retains the native Fill views, and `assets/kit/` holds the kit SVGs.
+`assets/reference/` retains the registered views, and `assets/kit/` holds the kit SVGs.
 [`kit_art.rs`](kit_art.rs) draws each supplied item as a hidden-line view of its current model
 in one slate pen at page size. Small machine surface details and dial lettering are left out;
 the cord, washer, bag and booklet are illustration props.
@@ -100,11 +98,12 @@ PDF, the type, the outlined pictures and the pixels the covers are drawn to.
 From the repository root:
 
 ```sh
-tools/cad-venv/bin/python tools/install-guide/fill_scene.py --publish
-tools/cad-venv/bin/python tools/install-guide/fill_scene.py --scale 2 --publish
-python3 tools/run.py -- cargo run --release --manifest-path tools/hsm/kit-art/Cargo.toml
+python3 tools/run.py -- cargo build --release --locked -j 2 --manifest-path tools/hsm/Cargo.toml \
+  -p hsm-kit-art -p hsm-install-guide --bin install-illustrations --bin kit-art --bin install-guide
+python3 tools/run.py -- tools/cad-venv/bin/python tools/install-guide/refresh_art.py
+python3 tools/run.py -- tools/hsm/target/release/kit-art . machine
 python3 tools/run.py -- cargo run --release --manifest-path tools/hsm/opening-scene/Cargo.toml
-python3 tools/run.py -- cargo run --release --manifest-path tools/hsm/install-guide/Cargo.toml
+python3 tools/run.py -- tools/hsm/target/release/install-guide
 tools/cad-venv/bin/python tools/install-guide/preflight.py --json hardware/install-guide/out/landscape/preflight.json
 pdftoppm -scale-to 1000 -png hardware/install-guide/install-guide.pdf hardware/install-guide/out/landscape/page
 ```
@@ -116,6 +115,11 @@ draws each picture with its outline at print resolution from the saved artwork. 
 illustration resolution must be at least 300 PPI at the placed size. The preflight checks the
 finished PDFs' dimensions, page order, fonts, images and reading links. `out/` holds local
 renders and layout measurements. Review every rendered page at reading size before publishing.
+
+The appliance illustrations are manual snapshots. Refreshing them is separate from the print
+build. `refresh_art.py --views` selects individual views; its run directory holds temporary
+scene references and a concise source receipt. The screen graphic follows the display cover's
+frame, and the connection arrows use the native renderer's camera projection.
 
 The preflight uses the CAD Python environment with pypdf and pdfplumber, and Poppler's
 `pdftoppm` and `pdfimages` commands.

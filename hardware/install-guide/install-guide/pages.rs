@@ -323,7 +323,7 @@ pub fn compose(b: &mut Book) -> Result<()> {
 
     // Interior 18
     b.header("Push home. Then tug.", rear, Some(3), None)?;
-    b.pic("steps/connect-rear-open.png", M, 155.0, 283.0, 183.0, Some([60.0, 160.0, 1350.0, 880.0]), true)?;
+    b.pic("steps/connect-rear-open.png", M, 155.0, 283.0, 183.0, Some([0.0, 0.0, 1600.0, 1050.0]), true)?;
     b.caption("Push straight into the fitting, all the way to its stop.", 362.0, M, 264.0)?;
     b.item("CHECK EVERY TUBE", "Push to its stop", "Match each tube label to its port. A fitting can grip before the tube reaches the seal. Push fully home, then tug gently.", 144.0, RIGHT, RW, 13.0)?;
     b.para(
@@ -356,7 +356,7 @@ pub fn compose(b: &mut Book) -> Result<()> {
 
     // Interior 21
     b.header("Connect the red tether", cylinder, Some(4), None)?;
-    let p = b.pic("steps/connect-rear-open.png", M, 156.0, 278.0, 230.0, Some([60.0, 160.0, 1350.0, 880.0]), true)?;
+    let p = b.pic("steps/connect-rear-open.png", M, 156.0, 278.0, 230.0, Some([0.0, 0.0, 1600.0, 1050.0]), true)?;
     let (tube, mouth) = (anchor(b, "steps/connect-rear-open.png", "co2-tube")?, anchor(b, "steps/connect-rear-open.png", "co2-mouth")?);
     b.arrow(&[p.at(tube), p.at(mouth)], 10.0);
     b.caption("Keep the regulator end of the tether assembled.", 402.0, M, 264.0)?;
@@ -391,9 +391,9 @@ pub fn compose(b: &mut Book) -> Result<()> {
     let p = b.pic("steps/power-ready.png", M, 164.0, 278.0, 194.0, Some([0.0, 160.0, 1800.0, 1140.0]), true)?;
     let (cord, socket) = (anchor(b, "steps/power-ready.png", "cord-approach")?, anchor(b, "steps/power-ready.png", "power-mouth")?);
     b.arrow(&[p.at(cord), p.at(socket)], 10.0);
-    b.item("3 / POWER", "Connect the supplied cord", "Push it straight into the power socket at the upper right of the rear panel. Plug into a grounded 120 V outlet.", 144.0, RIGHT, RW, 13.0)?;
+    b.item("3 / POWER", "Connect the supplied cord", "Push it straight into the recessed power socket at the upper right of the rear panel. Plug into a grounded 120 V outlet.", 144.0, RIGHT, RW, 13.0)?;
     b.para(Para::new("The machine chimes and its display starts. Follow the display if it reports an issue.", RIGHT, 296.0, RW))?;
-    b.caption("120 V, 60 Hz; 5 A, 600 W. The inlet's 250 V marking describes the connector.", 396.0, M, CW)?;
+    b.caption("120 V, 60 Hz; 5 A, 600 W. Keep the plug accessible.", 396.0, M, CW)?;
     b.end()?;
 
     // Interior 25
