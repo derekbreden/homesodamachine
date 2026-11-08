@@ -1,0 +1,142 @@
+[
+  {
+    "printer": "Mark2",
+    "observed_at_utc": "2026-11-08T20:00:39.406738+00:00",
+    "job_id": "1420766203",
+    "gcode_state": "FAILED",
+    "subtask_name": "2026-11-08-back-top-mark2-d8408187.gcode.3mf",
+    "mc_percent": 0,
+    "layer_num": 0,
+    "total_layer_num": 1117,
+    "print_error": 0,
+    "hms": [],
+    "nozzle_temper": 32.0,
+    "nozzle_target_temper": 0.0,
+    "bed_temper": 29.0,
+    "bed_target_temper": 0.0,
+    "vir_slot": [
+      {
+        "bed_temp": "0",
+        "bed_temp_type": "0",
+        "cali_idx": -1,
+        "cols": [
+          "161616FF"
+        ],
+        "ctype": 2,
+        "drying_temp": "0",
+        "drying_time": "0",
+        "id": "254",
+        "nozzle_temp_max": "290",
+        "nozzle_temp_min": "260",
+        "remain": 0,
+        "tag_uid": "0000000000000000",
+        "total_len": 330000,
+        "tray_color": "161616FF",
+        "tray_diameter": "1.75",
+        "tray_id_name": "",
+        "tray_info_idx": "GFT01",
+        "tray_sub_brands": "",
+        "tray_type": "PET-CF",
+        "tray_uuid": "00000000000000000000000000000000",
+        "tray_weight": "0",
+        "xcam_info": "000000000000000000000000"
+      },
+      {
+        "bed_temp": "0",
+        "bed_temp_type": "0",
+        "cali_idx": -1,
+        "cols": [
+          "161616FF"
+        ],
+        "ctype": 2,
+        "drying_temp": "0",
+        "drying_time": "0",
+        "id": "255",
+        "nozzle_temp_max": "250",
+        "nozzle_temp_min": "200",
+        "remain": 0,
+        "tag_uid": "0000000000000000",
+        "total_len": 330000,
+        "tray_color": "161616FF",
+        "tray_diameter": "1.75",
+        "tray_id_name": "",
+        "tray_info_idx": "GFU04",
+        "tray_sub_brands": "",
+        "tray_type": "TPU",
+        "tray_uuid": "00000000000000000000000000000000",
+        "tray_weight": "0",
+        "xcam_info": "000000000000000000000000"
+      }
+    ]
+  },
+  {
+    "printer": "H2C",
+    "observed_at_utc": "2026-11-08T20:00:40.260928+00:00",
+    "job_id": "1420097198",
+    "gcode_state": "RUNNING",
+    "subtask_name": "HSM-identification-Mark1-right-z005.gcode.3mf",
+    "mc_percent": 44,
+    "layer_num": 10,
+    "total_layer_num": 32,
+    "print_error": 0,
+    "hms": [],
+    "nozzle_temper": 47.0,
+    "nozzle_target_temper": 25.0,
+    "bed_temper": 70.0,
+    "bed_target_temper": 70.0,
+    "vir_slot": [
+      {
+        "bed_temp": "0",
+        "bed_temp_type": "0",
+        "cali_idx": -1,
+        "cols": [
+          "000000FF"
+        ],
+        "ctype": 2,
+        "drying_temp": "0",
+        "drying_time": "0",
+        "id": "254",
+        "nozzle_temp_max": "290",
+        "nozzle_temp_min": "260",
+        "remain": 0,
+        "tag_uid": "0000000000000000",
+        "total_len": 330000,
+        "tray_color": "000000FF",
+        "tray_diameter": "1.75",
+        "tray_id_name": "",
+        "tray_info_idx": "GFT01",
+        "tray_sub_brands": "",
+        "tray_type": "PET-CF",
+        "tray_uuid": "00000000000000000000000000000000",
+        "tray_weight": "0",
+        "xcam_info": "000000000000000000000000"
+      },
+      {
+        "bed_temp": "0",
+        "bed_temp_type": "0",
+        "cali_idx": -1,
+        "cols": [
+          "FFFFFFFF"
+        ],
+        "ctype": 2,
+        "drying_temp": "0",
+        "drying_time": "0",
+        "id": "255",
+        "nozzle_temp_max": "250",
+        "nozzle_temp_min": "200",
+        "remain": 0,
+        "tag_uid": "0000000000000000",
+        "total_len": 330000,
+        "tray_color": "FFFFFFFF",
+        "tray_diameter": "1.75",
+        "tray_id_name": "",
+        "tray_info_idx": "GFU03",
+        "tray_sub_brands": "",
+        "tray_type": "TPU",
+        "tray_uuid": "00000000000000000000000000000000",
+        "tray_weight": "0",
+        "xcam_info": "000000000000000000000000"
+      }
+    ]
+  }
+]
