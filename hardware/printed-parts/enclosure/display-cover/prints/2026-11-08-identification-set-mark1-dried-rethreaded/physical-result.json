@@ -1,0 +1,131 @@
+{
+  "purpose": "Record the identification-set failure after drying and rethreading.",
+  "job_id": "1419890949",
+  "status": "Cancelled following repeated extrusion-motor overload reported by Derek",
+  "observations": {
+    "derek_report": "The print reaches slightly farther but has the same first-layer curling and white surface defects. The first white square and prime tower look better than the second white square. Black remains consistent.",
+    "cause": "Drying and rethreading do not resolve the failure. A right-side first-layer clearance trial is requested; the cause remains unconfirmed."
+  },
+  "closed_baseline": "../2026-11-07-identification-set-mark1-white-spare/drying/closed-baseline.json",
+  "telemetry_after_cancellation": {
+    "job_id": "1419890949",
+    "gcode_state": "FAILED",
+    "subtask_name": "HSM-identification-Mark1-dried-z000.gcode.3mf",
+    "print_error": 0,
+    "hms": [],
+    "layer_num": 0,
+    "total_layer_num": 32,
+    "stg_cur": -1,
+    "bed_target_temper": 0.0,
+    "nozzle_target_temper": 0.0,
+    "observed_at": "2026-11-08T10:58:21.908062+00:00",
+    "ams": [
+      {
+        "id": "0",
+        "temperature_c": "31.1",
+        "humidity_raw": "10",
+        "dry_time": 0,
+        "dry_setting": {
+          "dry_duration": -1,
+          "dry_filament": "",
+          "dry_temperature": -1
+        },
+        "trays": [
+          {
+            "id": "0",
+            "tray_type": "PETG",
+            "tray_color": "D6001CFF",
+            "tray_info_idx": "GFG00"
+          },
+          {
+            "id": "1",
+            "tray_type": "PETG",
+            "tray_color": "0086D6FF",
+            "tray_info_idx": "GFG00"
+          },
+          {
+            "id": "2",
+            "tray_type": "PETG",
+            "tray_color": "FFFFFFFF",
+            "tray_info_idx": "GFG00"
+          },
+          {
+            "id": "3",
+            "tray_type": "PETG",
+            "tray_color": "00000000",
+            "tray_info_idx": "GFG01"
+          }
+        ]
+      },
+      {
+        "id": "128",
+        "temperature_c": "25.2",
+        "humidity_raw": "12",
+        "dry_time": 0,
+        "dry_setting": {
+          "dry_duration": -1,
+          "dry_filament": "",
+          "dry_temperature": -1
+        },
+        "trays": [
+          {
+            "id": "0",
+            "tray_type": "PETG",
+            "tray_color": "000000FF",
+            "tray_info_idx": "GFG00"
+          }
+        ]
+      }
+    ],
+    "nozzles": [
+      {
+        "id": 16,
+        "type": "HS00",
+        "diameter": 0.2,
+        "sn": "20D06A610907371",
+        "color_m": "00000000",
+        "fila_id": ""
+      },
+      {
+        "id": 1,
+        "type": "HS00",
+        "diameter": 0.2,
+        "sn": "N/A",
+        "color_m": "00000000",
+        "fila_id": ""
+      },
+      {
+        "id": 18,
+        "type": "HS00",
+        "diameter": 0.2,
+        "sn": "20D06A5C1907737",
+        "color_m": "000000FF",
+        "fila_id": "GFG00"
+      },
+      {
+        "id": 0,
+        "type": "HS00",
+        "diameter": 0.2,
+        "sn": "20D06A611023831",
+        "color_m": "FFFFFFFF",
+        "fila_id": "GFG00"
+      },
+      {
+        "id": 19,
+        "type": "HS00",
+        "diameter": 0.2,
+        "sn": "20D06A610906642",
+        "color_m": "00000000",
+        "fila_id": ""
+      }
+    ]
+  },
+  "photos": [
+    "physical-result/photo-1.jpg",
+    "physical-result/photo-2.jpg",
+    "physical-result/photo-3.jpg",
+    "physical-result/photo-4.jpg"
+  ],
+  "retry": "../2026-11-08-identification-set-mark1-right-z005/",
+  "derek_quote": "Let's see if we can change just that one variable of the Z offset and try again."
+}
