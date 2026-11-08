@@ -184,8 +184,22 @@ BOM, and a part number prints that part's cost.
 
 ## Recorded assembly boundaries
 
+The prepared enclosure sections, refrigeration loop and removable funnel are
+numbered assemblies in the machine BOM. Their contents follow the bench and
+closing order in [mechanical assembly](../assembly/enclosure-mechanical.md),
+[plumbing](../assembly/internal-plumbing.md) and
+[wiring](../assembly/electronics-bay.md). Bare printed sections retain their own
+numbers beneath the prepared assemblies. Final closure hardware, the display
+and connections made through the funnel opening remain on the machine.
+
 | Material | Contents and interfaces | Authority |
 | --- | --- | --- |
+| HSM-0547 — Enclosure back top assembly | Prepared rear section with the water and gas groups, rear ports and identification plates, meter, PSU, relays, mains junctions and rear wiring. The core-owned continuous tubes and final electrical handoffs meet it during installation. | [Mechanical assembly](../assembly/enclosure-mechanical.md), [rear plumbing](../assembly/internal-plumbing.md), [rear wiring](../assembly/electronics-bay.md) |
+| HSM-0548 — Enclosure front top assembly | Prepared upper front section with the retained pumps, valve manifold, fitted tubes, commons and prepared looms. Reservoir and rear-port ends remain free for closing; display installation follows closure. | [Front manifold](../assembly/internal-plumbing.md), [mechanical assembly](../assembly/enclosure-mechanical.md) |
+| HSM-0549 — Enclosure front bottom assembly | Lower front section with its heat-set inserts, gas sensor and sensor harness, ready to receive the connected refrigeration assembly. | [Mechanical assembly](../assembly/enclosure-mechanical.md) |
+| HSM-0550 — Enclosure back bottom assembly | Lower rear section with its seam-anchor inserts and open sliding interfaces. | [Mechanical assembly](../assembly/enclosure-mechanical.md) |
+| HSM-0551 — Flavor-fill funnel assembly | Removable frame with its drain cradle, outlet fittings, V-B feed tube, silicone funnel and cover. Frame screws and the V-B connection are final assembly work. | [Mechanical assembly](../assembly/enclosure-mechanical.md), [plumbing](../assembly/internal-plumbing.md) |
+| HSM-0552 — Refrigeration assembly | Cold core, compressor, condenser, connecting refrigerant lines, service fittings, thermal cutoff and prepared compressor lead. The loop stays connected while the enclosure is assembled around it. | [Refrigeration](../assembly/refrigerant-loop.md), [mechanical assembly](../assembly/enclosure-mechanical.md) |
 | HSM-0161 — Pump mount assembly | Both prepared pumps with their four clamped LLDPE tubes, the snap-fit lower retainer, and the Fastons that land DC-5 on the motor tabs. Two full-depth integral wings engage front-top’s flank receivers and hold the lower retainer against the fitted upper half, whose broad stock continues into the display housing and roof. The prepared unit loads motor-first from below on loose front-top, before the pump tees and valve plumbing; pump and display wires share one rear passage. Physical fit and retention retain their qualification scope. | [Pump installation](../assembly/internal-plumbing.md), [pump mount](../printed-parts/enclosure/pump-dock/README.md) |
 | HSM-0004 — Carbonator vessel | Vessel, port fittings, pressure relief, captive float, welded guide rod and top-register float stop. The other two floats and guide rods belong to the cold core's reservoir installation. | [Vessel build](../assembly/pressure-vessel.md) |
 | HSM-0173 — Multiplex 19-0897 ASSE 1022 backflow preventer | The bare purchased body. Its two TPU 85A straight cuffs (HSM-0334, HSM-0335), the branch stem tee in the outlet cuff, the vent sleeve, return tube and saddles belong to the machine. | [Water and gas assembly](../assembly/internal-plumbing.md), [straight cuffs](../printed-parts/asse-straight-cuffs/README.md) |
