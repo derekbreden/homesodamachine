@@ -1,0 +1,16 @@
+{
+  "commands": [
+    {
+      "command": "parameters.change",
+      "params": {
+        "changes": {
+          "case_width": "90 mm",
+          "case_depth": "66 mm",
+          "case_height": "46 mm",
+          "wall": "3 mm",
+          "column_radius": "8 mm"
+        }
+      }
+    }
+  ]
+}

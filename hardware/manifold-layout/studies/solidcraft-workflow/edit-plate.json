@@ -1,0 +1,15 @@
+{
+  "commands": [
+    {
+      "command": "parameters.change",
+      "params": {
+        "changes": {
+          "plate_width": "110 mm",
+          "plate_height": "120 mm",
+          "corner_radius": "8 mm",
+          "label": "SODA"
+        }
+      }
+    }
+  ]
+}
