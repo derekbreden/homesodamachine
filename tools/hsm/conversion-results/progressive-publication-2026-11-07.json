@@ -1,0 +1,453 @@
+{
+  "purpose": "Measured source edits through native producers and publication to painted changes on the live website.",
+  "date": "2026-11-07",
+  "source_commit": "4b742ef78d60d5c892dfea638c08d62563b8af8b",
+  "reader_commit": "ba6fc3ecd402092b0c91716a55fa322a902d5e89",
+  "source_sha256": {
+    "hardware/printed-parts/enclosure/enclosure/enclosure_pump_retainer.rs": "b2933567122dc18dddc2067d546afc10c62b576af017d2d8bc655e89d434a64f",
+    "hardware/printed-parts/enclosure/enclosure/enclosure_pump_tube_setting_jig.rs": "9bb5f8dfc7a5b0a59cfdd8147a5ab9dab46b03d196beabd567c674d1cd89ed32",
+    "tools/print_build.py": "284b1431d3b81a6e692ff4f0fa2999c15dd8b1a9c9375149b11b3714e065f5d3",
+    "tools/publish_now.py": "ff9ec0e36bf0d49a8970fba7977bb6c0f68a83663e2c79594e427f6ea5ef76f5",
+    "tools/cad-artifacts/pack.py": "375efaf0de28a2b01a3acc727a1948aa910a680e79751ba9e14875893f7c2af4",
+    "hardware/scripts/_rust_part.py": "613fa8cf6fa9d5e79c01999d6984b0b90583fee3afaa6204c21083dcdae50b5b",
+    "tools/hsm/geometry/src/scene.rs": "85cdefbd7d3210e761161bcbf7302bde633354ee3300989ad81d135b3213d17e",
+    "web/public/js/viewer/shared-scene.js": "9cd03e856f679f7b9193276891239d572c80d5ab45693d19a7670d6b2be54a38",
+    "web/public/js/viewer/step.js": "1bca3ea8877ec556bcc191e985a1b2837eda6c2f170cdfc9c02bb70b3011532f",
+    "web/lib/artifacts-live.js": "9fb80ffa3e970b152319dbf1b8d475a7b2fa4dd8bbd5ac6f6486fde6f46dbf95",
+    "hardware/assembly/scenes/model_export/payload.rs": "f6841d7b3f6557574c46c876dde7b1c2c1b00d0a073e5b454602abfc1e26e614"
+  },
+  "website": "https://homesodamachine.com/3d#step:manifold-layout%2Fenclosure-assembly.step",
+  "measurement": {
+    "clock": "Source saves and producer completion use the Mac clock; browser painted observations use performance.timeOrigin plus performance.now on the same Mac.",
+    "visible_event": "Changed part keys observed after the mounted event and subsequent animation frames.",
+    "setup": "The published assembly and geometry objects are loaded before the source save. Heavy children inherit the host lease.",
+    "warm_band_target_seconds": 10,
+    "warm_band_target_met": false,
+    "source_edits": [
+      {
+        "file": "hardware/printed-parts/enclosure/enclosure/exterior.json",
+        "field": "band_height",
+        "before": 16,
+        "after": 18
+      },
+      {
+        "file": "hardware/printed-parts/enclosure/enclosure/exterior.json",
+        "field": "column_projection",
+        "before": 3,
+        "after": 4
+      },
+      {
+        "file": "hardware/manifold-layout/above-core.json",
+        "field": "parts.psu.translation_mm[0]",
+        "delta_mm": 2
+      }
+    ],
+    "production_sources_restored": true,
+    "commands": {
+      "quadrants": "python3 tools/run.py -- python3 tools/print_build.py //:enclosure-front-bottom //:enclosure-front-top //:enclosure-back-bottom //:enclosure-back-top",
+      "placement": "python3 tools/run.py -- tools/hsm/target/release/installed-machine OUTPUT; carry its changed scene manifests and run tools/publish_now.py",
+      "regions": "python3 tools/run.py -- tools/hsm/target/release/enclosure-print-regions",
+      "print_project": "python3 tools/run.py -- tools/hsm/target/release/enclosure-print-prep PIECE --output OUTPUT",
+      "print_review": "python3 tools/run.py -- tools/hsm/target/release/enclosure-print-review PROJECT_DIRECTORY --project-only"
+    }
+  },
+  "live_measurements": [
+    {
+      "case": "steady-band",
+      "source_save_ns": 1794106996758338000,
+      "first_visible_seconds": 11.512762069702148,
+      "all_current_seconds": 18.53046202659607,
+      "camera_preserved": true,
+      "reader_commit": "ba6fc3ecd402092b0c91716a55fa322a902d5e89",
+      "phase": "final reader; warmed executables and geometry",
+      "parts": [
+        {
+          "name": "enclosure-front-bottom",
+          "producer_ready_seconds": 2.0723330974578857,
+          "visible_seconds": 11.512762069702148,
+          "ready_to_visible_seconds": 9.440428972244263
+        },
+        {
+          "name": "enclosure-front-top",
+          "producer_ready_seconds": 7.944968938827515,
+          "visible_seconds": 18.058161973953247,
+          "ready_to_visible_seconds": 10.113193035125732
+        },
+        {
+          "name": "enclosure-back-bottom",
+          "producer_ready_seconds": 2.414834976196289,
+          "visible_seconds": 18.226062059402466,
+          "ready_to_visible_seconds": 15.811227083206177
+        },
+        {
+          "name": "enclosure-back-top",
+          "producer_ready_seconds": 3.855483055114746,
+          "visible_seconds": 18.53046202659607,
+          "ready_to_visible_seconds": 14.674978971481323
+        }
+      ]
+    },
+    {
+      "case": "steady-band-restored",
+      "source_save_ns": 1794107021489496000,
+      "first_visible_seconds": 10.526604175567627,
+      "all_current_seconds": 16.57530403137207,
+      "camera_preserved": true,
+      "reader_commit": "ba6fc3ecd402092b0c91716a55fa322a902d5e89",
+      "phase": "final reader; restored production dimensions",
+      "parts": [
+        {
+          "name": "enclosure-front-bottom",
+          "producer_ready_seconds": 1.767448902130127,
+          "visible_seconds": 10.526604175567627,
+          "ready_to_visible_seconds": 8.7591552734375
+        },
+        {
+          "name": "enclosure-front-top",
+          "producer_ready_seconds": 7.288170099258423,
+          "visible_seconds": 16.306803941726685,
+          "ready_to_visible_seconds": 9.018633842468262
+        },
+        {
+          "name": "enclosure-back-bottom",
+          "producer_ready_seconds": 3.3924050331115723,
+          "visible_seconds": 16.57530403137207,
+          "ready_to_visible_seconds": 13.182898998260498
+        },
+        {
+          "name": "enclosure-back-top",
+          "producer_ready_seconds": 5.434215068817139,
+          "visible_seconds": 16.57530403137207,
+          "ready_to_visible_seconds": 11.141088962554932
+        }
+      ]
+    },
+    {
+      "case": "warm-columns",
+      "source_save_ns": 1794105332106208000,
+      "first_visible_seconds": 15.37909197807312,
+      "all_current_seconds": 21.48289203643799,
+      "camera_preserved": true,
+      "reader_commit": "b6bf89bdf4ef8e9345ff5f5321572d2985c2dcff",
+      "phase": "viewer-first publication before the browser instance cache",
+      "parts": [
+        {
+          "name": "enclosure-front-bottom",
+          "producer_ready_seconds": 3.762063980102539,
+          "visible_seconds": 21.48289203643799,
+          "ready_to_visible_seconds": 17.72082805633545
+        },
+        {
+          "name": "enclosure-front-top",
+          "producer_ready_seconds": 7.973031759262085,
+          "visible_seconds": 21.48289203643799,
+          "ready_to_visible_seconds": 13.509860277175903
+        },
+        {
+          "name": "enclosure-back-bottom",
+          "producer_ready_seconds": 2.4298698902130127,
+          "visible_seconds": 15.37909197807312,
+          "ready_to_visible_seconds": 12.949222087860107
+        },
+        {
+          "name": "enclosure-back-top",
+          "producer_ready_seconds": 2.6700279712677,
+          "visible_seconds": 15.381592035293579,
+          "ready_to_visible_seconds": 12.711564064025879
+        }
+      ]
+    },
+    {
+      "case": "reference-placement",
+      "source_save_ns": 1794105898765058000,
+      "first_visible_seconds": 34.13974189758301,
+      "all_current_seconds": 34.13974189758301,
+      "camera_preserved": true,
+      "reader_commit": "b6bf89bdf4ef8e9345ff5f5321572d2985c2dcff",
+      "phase": "native source placement and dependent wiring; retained geometry references",
+      "parts": [
+        {
+          "name": "psu",
+          "producer_ready_seconds": 24.181896924972534,
+          "visible_seconds": 34.13974189758301,
+          "ready_to_visible_seconds": 9.957844972610474
+        }
+      ],
+      "gpu_geometry_reused": true
+    },
+    {
+      "case": "reference-placement-restored",
+      "source_save_ns": 1794105934019203000,
+      "first_visible_seconds": 33.845396995544434,
+      "all_current_seconds": 33.845396995544434,
+      "camera_preserved": true,
+      "reader_commit": "b6bf89bdf4ef8e9345ff5f5321572d2985c2dcff",
+      "phase": "restored production placement",
+      "parts": [
+        {
+          "name": "psu",
+          "producer_ready_seconds": 25.097030878067017,
+          "visible_seconds": 33.845396995544434,
+          "ready_to_visible_seconds": 8.748366117477417
+        }
+      ]
+    }
+  ],
+  "deployment_and_startup_outlier": {
+    "case": "final-band",
+    "source_save_ns": 1794106748689750000,
+    "first_visible_seconds": 121.83165001869202,
+    "all_current_seconds": 122.97965002059937,
+    "camera_preserved": true,
+    "reader_commit": "ba6fc3ecd402092b0c91716a55fa322a902d5e89",
+    "phase": "cold metadata executable receipt during website deployment",
+    "parts": [
+      {
+        "name": "enclosure-front-bottom",
+        "producer_ready_seconds": 2.4234490394592285,
+        "visible_seconds": 121.83165001869202,
+        "ready_to_visible_seconds": 119.40820097923279
+      },
+      {
+        "name": "enclosure-front-top",
+        "producer_ready_seconds": 8.070712089538574,
+        "visible_seconds": 121.92955017089844,
+        "ready_to_visible_seconds": 113.85883808135986
+      },
+      {
+        "name": "enclosure-back-bottom",
+        "producer_ready_seconds": 4.380094051361084,
+        "visible_seconds": 122.04614996910095,
+        "ready_to_visible_seconds": 117.66605591773987
+      },
+      {
+        "name": "enclosure-back-top",
+        "producer_ready_seconds": 6.133984088897705,
+        "visible_seconds": 122.97965002059937,
+        "ready_to_visible_seconds": 116.84566593170166
+      }
+    ],
+    "observation": "Publication startup waited for the host; the live page adopted the new model substantially after publication notification. This run is retained separately from the warmed steady-state measurements."
+  },
+  "production_scene": {
+    "path": "hardware/manifold-layout/enclosure-assembly.step.mesh",
+    "sha256": "26eee2d5133d29ed3d814029ee3476c5fd742d3a3d9f8e6b185ce9c43046644c",
+    "manifest_bytes": 160884,
+    "body_instances": 424,
+    "unique_mesh_objects": 415,
+    "step_export": false
+  },
+  "geometry_roundtrip": {
+    "purpose": "The shared representation retains every current machine drawing array, colour and face source.",
+    "mesh_entries": 611,
+    "array_bytes_compared": 257289168,
+    "all_identical": true
+  },
+  "native_scene_comparison": {
+    "purpose": "World bounds and materials agree within the kernel rule after scene-reference migration.",
+    "before_sha256": "ef9980b18ba403e6083ac8407eedaabe349fbf8820f40116ed694daa5478e2bd",
+    "after_sha256": "cbb96a792562898ba96bc6c3f329c01cc5ca804366009b32864e6dbf7dace297",
+    "meshes": 611,
+    "maximum_bound_difference_mm": 0.0,
+    "colors_identical": true
+  },
+  "browser_partial_update": {
+    "purpose": "The production browser loads shared scene objects and retains unchanged GPU geometry and camera.",
+    "initial": {
+      "parts": 424,
+      "failed": [],
+      "children": 611
+    },
+    "preserved": {
+      "worldArraysSame": true,
+      "sameGeometries": true,
+      "camera": 0
+    },
+    "partial": {
+      "sameGeometries": true,
+      "positionDelta": 2,
+      "hidden": true,
+      "heldFailed": true,
+      "failed": [
+        {
+          "name": "enclosure-back-top",
+          "message": "/scene-meshes/ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff \u2014 404"
+        }
+      ]
+    },
+    "errors": []
+  },
+  "published_consumers": {
+    "purpose": "Published scene consumers draw shared geometry and retain picking.",
+    "results": [
+      {
+        "file": "manifold-layout/enclosure-assembly.step",
+        "parts": 424,
+        "meshes": 611,
+        "failed": []
+      },
+      {
+        "picking": {
+          "name": "enclosure-front-top",
+          "face": 0,
+          "point": [
+            -108.86714426676433,
+            8.084946314493813,
+            162.875
+          ]
+        }
+      },
+      {
+        "file": "assembly/scenes/glb/front-top.glb",
+        "parts": 55,
+        "meshes": 67,
+        "failed": []
+      },
+      {
+        "file": "assembly/scenes/glb/back-half.glb",
+        "parts": 127,
+        "meshes": 277,
+        "failed": []
+      },
+      {
+        "file": "assembly/scenes/glb/cold-core-open.glb",
+        "parts": 87,
+        "meshes": 90,
+        "failed": []
+      },
+      {
+        "file": "assembly/scenes/glb/en07-electronics-bay.glb",
+        "parts": 4,
+        "meshes": 4,
+        "failed": []
+      },
+      {
+        "pretty": {
+          "parts": 611,
+          "source": "900ea18892e2b067c81d03958c4d33fd584d7f6b6fc2e8745810bf137df4188a",
+          "finite": true
+        }
+      }
+    ],
+    "errors": []
+  },
+  "legacy_published_consumer": {
+    "result": {
+      "file": "assembly/scenes/glb/pump-cartridge.glb",
+      "meshes": 12
+    },
+    "errors": []
+  },
+  "print_stls": {
+    "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.stl": {
+      "sha256": "fe986d040422066014c6a8279ce376890ba04274f3c8c6b34b6551c37414cdbc",
+      "unchanged": true
+    },
+    "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.stl": {
+      "sha256": "fa10132c600a16b3ea0a1ff0ff3a32af7fb457747e6b21337176b298945bf7b1",
+      "unchanged": true
+    },
+    "hardware/printed-parts/enclosure/enclosure/enclosure-pump-tube-setting-jig.stl": {
+      "sha256": "cfedb813ad4f4e8f609ae3ec724a5d4de918c175fbfcafc1a44b3a69d4a62e3e",
+      "unchanged": true
+    },
+    "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.stl": {
+      "sha256": "633e84c40ca86284da50734d3cf978f3fb368783828ec0b319d673730b52d193",
+      "unchanged": true
+    },
+    "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.stl": {
+      "sha256": "8e5a30ea3706b9f32de9bfdbb79c824e52a06f15f9356861b0179ea110e70781",
+      "unchanged": true
+    },
+    "hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.stl": {
+      "sha256": "c88b02141986bdae52b92b8d5af890856ae55de43247525dbec4f64e71b1cb37",
+      "unchanged": true
+    },
+    "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl": {
+      "sha256": "495e5e42236c486d8a182cda58087741a7f1a5683cf645a5a803af417325cd72",
+      "unchanged": true
+    },
+    "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl": {
+      "sha256": "591145e8ada66eefcfe70ace883e7dde2914ffcc9696f15356fd71a4d70b126b",
+      "unchanged": true
+    }
+  },
+  "print_projects": [
+    {
+      "part": "front-bottom",
+      "stl_unchanged": true,
+      "prepared": true,
+      "review": "project-only",
+      "directory": "output/print-build/2026-11-07-shared-scenes/front-bottom/2026-11-07-front-bottom-mark1-d3d5cc93",
+      "wall_seconds": 0.2648063749948051
+    },
+    {
+      "part": "front-top",
+      "stl_unchanged": true,
+      "prepared": true,
+      "review": "project-only",
+      "directory": "output/print-build/2026-11-07-shared-scenes/front-top/2026-11-07-front-top-mark1-ad170c13",
+      "wall_seconds": 1.1118750419991557
+    },
+    {
+      "part": "back-bottom",
+      "stl_unchanged": true,
+      "prepared": true,
+      "review": "project-only",
+      "directory": "output/print-build/2026-11-07-shared-scenes/back-bottom/2026-11-07-back-bottom-mark2-61e841ab",
+      "wall_seconds": 3.931635999993887
+    },
+    {
+      "part": "back-top",
+      "stl_unchanged": true,
+      "prepared": true,
+      "review": "project-only",
+      "directory": "output/print-build/2026-11-07-shared-scenes/back-top/2026-11-07-back-top-mark2-a22b61f2",
+      "wall_seconds": 1.6155757089945837
+    }
+  ],
+  "print_review_scope": "Native-model bindings and project reviews; the STLs are byte-identical, so this change does not require a new slicing comparison.",
+  "retired_normal_exports": [
+    "hardware/assembly/scenes/glb/back-half.glb",
+    "hardware/assembly/scenes/glb/back-top.glb",
+    "hardware/assembly/scenes/glb/cap-lid-fill.glb",
+    "hardware/assembly/scenes/glb/cap-lid.glb",
+    "hardware/assembly/scenes/glb/cold-core-open.glb",
+    "hardware/assembly/scenes/glb/cold-core.glb",
+    "hardware/assembly/scenes/glb/en04-compressor-bay.glb",
+    "hardware/assembly/scenes/glb/en07-electronics-bay.glb",
+    "hardware/assembly/scenes/glb/front-top.glb",
+    "hardware/assembly/scenes/glb/funnel-drain.glb",
+    "hardware/assembly/scenes/glb/pump-mount.glb",
+    "hardware/manifold-layout/enclosure-assembly.step",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer-seated.step",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.step",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-pump-tube-setting-jig.step",
+    "hardware/printed-parts/enclosure/enclosure/enclosure.step"
+  ],
+  "manual_checks": {
+    "rust_scene_tests": 2,
+    "web_and_manual_scene_tests": 22,
+    "publisher_selftest": 8,
+    "pack_selftest": 66,
+    "warm_metadata_executable_seconds": 0.007367917001829483,
+    "compiler_flags_invalidate_executable": true,
+    "runtime_logging_and_job_limits_reuse_executable": true,
+    "native_build_plan_compiled": true,
+    "retainer_and_jig_native_build_passed": true
+  },
+  "runtime_reader": {
+    "installed_engine_build": "ee1aff54ce0eed9aceebc32af21e059cbc6bf6303fa5cf561b64f767f3bd5ce5",
+    "fresh_mcp_query_passed": true,
+    "existing_mcp_connections": "Existing connections retain their resolved executable and need a reconnect to use the updated reader."
+  },
+  "remaining_costs": [
+    "The installed-machine placement producer regenerates its dependent wiring before completing.",
+    "Commit/push, website adoption and network delivery remain in source-to-view time.",
+    "The steady-state band target is not met in this record."
+  ]
+}
