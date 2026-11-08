@@ -1,0 +1,17 @@
+{
+  "printer": "Mark2",
+  "observed_at_utc": "2026-11-08T20:07:53.163439+00:00",
+  "job_id": "1421915295",
+  "gcode_state": "RUNNING",
+  "subtask_name": "2026-11-08-front-top-mark2-af1f846c.gcode.3mf",
+  "mc_percent": 0,
+  "layer_num": 0,
+  "total_layer_num": 1315,
+  "mc_remaining_time": 2043,
+  "print_error": 0,
+  "hms": [],
+  "nozzle_temper": 49.0,
+  "nozzle_target_temper": 200.0,
+  "bed_temper": 29.0,
+  "bed_target_temper": 29.0
+}
