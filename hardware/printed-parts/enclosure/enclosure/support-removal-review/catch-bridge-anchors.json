@@ -1,0 +1,571 @@
+{
+  "purpose": "Read the emitted long catch bridges in the restored production pose.",
+  "archive_sha256": "08f7aa12afaf18b69233cbdce3096a3ff3b95877ba45825625d23e1c1c86102a",
+  "source_stl_sha256": "495e5e42236c486d8a182cda58087741a7f1a5683cf645a5a803af417325cd72",
+  "source_step_sha256": "33d2b604baba8f40c3d2135b6da47a0c2141395ddd1e03a7e38d34335514e2e0",
+  "build_rotation": [
+    [
+      0,
+      1,
+      0
+    ],
+    [
+      1,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      -1
+    ]
+  ],
+  "source_center_mm": [
+    0,
+    337.22499084472656,
+    257.625
+  ],
+  "translation_mm": [
+    157.5,
+    160,
+    97.375
+  ],
+  "preceding_layer_z_mm": 11.96,
+  "bridges": [
+    {
+      "receiver": "ASSE",
+      "z_mm": 12.2,
+      "start_source_mm": [
+        7.406000000000006,
+        439.1619908447266,
+        342.8
+      ],
+      "end_source_mm": [
+        7.406000000000006,
+        395.5749908447266,
+        342.8
+      ],
+      "length_mm": 43.58700000000002,
+      "fan_percent": 70,
+      "speed_mm_s": 25,
+      "start_on_previous_model": true,
+      "end_on_previous_model": true
+    },
+    {
+      "receiver": "ASSE",
+      "z_mm": 12.2,
+      "start_source_mm": [
+        7.776999999999987,
+        395.5749908447266,
+        342.8
+      ],
+      "end_source_mm": [
+        7.776999999999987,
+        438.9959908447266,
+        342.8
+      ],
+      "length_mm": 43.42100000000002,
+      "fan_percent": 70,
+      "speed_mm_s": 25,
+      "start_on_previous_model": true,
+      "end_on_previous_model": true
+    },
+    {
+      "receiver": "ASSE",
+      "z_mm": 12.2,
+      "start_source_mm": [
+        8.146999999999991,
+        438.9959908447266,
+        342.8
+      ],
+      "end_source_mm": [
+        8.146999999999991,
+        395.5749908447266,
+        342.8
+      ],
+      "length_mm": 43.42100000000002,
+      "fan_percent": 70,
+      "speed_mm_s": 25,
+      "start_on_previous_model": true,
+      "end_on_previous_model": true
+    },
+    {
+      "receiver": "ASSE",
+      "z_mm": 12.2,
+      "start_source_mm": [
+        8.518,
+        395.5749908447266,
+        342.8
+      ],
+      "end_source_mm": [
+        8.518,
+        438.9959908447266,
+        342.8
+      ],
+      "length_mm": 43.42100000000002,
+      "fan_percent": 70,
+      "speed_mm_s": 25,
+      "start_on_previous_model": true,
+      "end_on_previous_model": true
+    },
+    {
+      "receiver": "ASSE",
+      "z_mm": 12.2,
+      "start_source_mm": [
+        8.888000000000005,
+        438.9959908447266,
+        342.8
+      ],
+      "end_source_mm": [
+        8.888000000000005,
+        395.5749908447266,
+        342.8
+      ],
+      "length_mm": 43.42100000000002,
+      "fan_percent": 70,
+      "speed_mm_s": 25,
+      "start_on_previous_model": true,
+      "end_on_previous_model": true
+    },
+    {
+      "receiver": "ASSE",
+      "z_mm": 12.2,
+      "start_source_mm": [
+        9.258999999999986,
+        395.5749908447266,
+        342.8
+      ],
+      "end_source_mm": [
+        9.258999999999986,
+        438.9959908447266,
+        342.8
+      ],
+      "length_mm": 43.42100000000002,
+      "fan_percent": 70,
+      "speed_mm_s": 25,
+      "start_on_previous_model": true,
+      "end_on_previous_model": true
+    },
+    {
+      "receiver": "ASSE",
+      "z_mm": 12.2,
+      "start_source_mm": [
+        9.619,
+        438.9959908447266,
+        342.8
+      ],
+      "end_source_mm": [
+        9.62899999999999,
+        395.40899084472653,
+        342.8
+      ],
+      "length_mm": 43.587001147131026,
+      "fan_percent": 70,
+      "speed_mm_s": 25,
+      "start_on_previous_model": true,
+      "end_on_previous_model": true
+    },
+    {
+      "receiver": "ASSE",
+      "z_mm": 12.2,
+      "start_source_mm": [
+        50.19399999999999,
+        395.40899084472653,
+        342.8
+      ],
+      "end_source_mm": [
+        50.19399999999999,
+        438.9959908447266,
+        342.8
+      ],
+      "length_mm": 43.58700000000002,
+      "fan_percent": 70,
+      "speed_mm_s": 25,
+      "start_on_previous_model": true,
+      "end_on_previous_model": true
+    },
+    {
+      "receiver": "ASSE",
+      "z_mm": 12.2,
+      "start_source_mm": [
+        49.82300000000001,
+        438.9959908447266,
+        342.8
+      ],
+      "end_source_mm": [
+        49.82300000000001,
+        395.5749908447266,
+        342.8
+      ],
+      "length_mm": 43.42100000000002,
+      "fan_percent": 70,
+      "speed_mm_s": 25,
+      "start_on_previous_model": true,
+      "end_on_previous_model": true
+    },
+    {
+      "receiver": "ASSE",
+      "z_mm": 12.2,
+      "start_source_mm": [
+        49.453,
+        395.5749908447266,
+        342.8
+      ],
+      "end_source_mm": [
+        49.453,
+        438.9959908447266,
+        342.8
+      ],
+      "length_mm": 43.42100000000002,
+      "fan_percent": 70,
+      "speed_mm_s": 25,
+      "start_on_previous_model": true,
+      "end_on_previous_model": true
+    },
+    {
+      "receiver": "ASSE",
+      "z_mm": 12.2,
+      "start_source_mm": [
+        49.081999999999994,
+        438.9959908447266,
+        342.8
+      ],
+      "end_source_mm": [
+        49.081999999999994,
+        395.5749908447266,
+        342.8
+      ],
+      "length_mm": 43.42100000000002,
+      "fan_percent": 70,
+      "speed_mm_s": 25,
+      "start_on_previous_model": true,
+      "end_on_previous_model": true
+    },
+    {
+      "receiver": "ASSE",
+      "z_mm": 12.2,
+      "start_source_mm": [
+        48.71199999999999,
+        395.5749908447266,
+        342.8
+      ],
+      "end_source_mm": [
+        48.71199999999999,
+        438.9959908447266,
+        342.8
+      ],
+      "length_mm": 43.42100000000002,
+      "fan_percent": 70,
+      "speed_mm_s": 25,
+      "start_on_previous_model": true,
+      "end_on_previous_model": true
+    },
+    {
+      "receiver": "ASSE",
+      "z_mm": 12.2,
+      "start_source_mm": [
+        48.34100000000001,
+        438.9959908447266,
+        342.8
+      ],
+      "end_source_mm": [
+        48.34100000000001,
+        395.5749908447266,
+        342.8
+      ],
+      "length_mm": 43.42100000000002,
+      "fan_percent": 70,
+      "speed_mm_s": 25,
+      "start_on_previous_model": true,
+      "end_on_previous_model": true
+    },
+    {
+      "receiver": "ASSE",
+      "z_mm": 12.2,
+      "start_source_mm": [
+        47.980999999999995,
+        395.5749908447266,
+        342.8
+      ],
+      "end_source_mm": [
+        47.971000000000004,
+        439.1619908447266,
+        342.8
+      ],
+      "length_mm": 43.587001147131026,
+      "fan_percent": 70,
+      "speed_mm_s": 25,
+      "start_on_previous_model": true,
+      "end_on_previous_model": true
+    },
+    {
+      "receiver": "Pisco",
+      "z_mm": 12.2,
+      "start_source_mm": [
+        65.84899999999999,
+        463.0939908447266,
+        342.8
+      ],
+      "end_source_mm": [
+        65.84899999999999,
+        419.4669908447265,
+        342.8
+      ],
+      "length_mm": 43.62700000000004,
+      "fan_percent": 70,
+      "speed_mm_s": 25,
+      "start_on_previous_model": true,
+      "end_on_previous_model": true
+    },
+    {
+      "receiver": "Pisco",
+      "z_mm": 12.2,
+      "start_source_mm": [
+        66.219,
+        419.4669908447265,
+        342.8
+      ],
+      "end_source_mm": [
+        66.219,
+        462.92799084472654,
+        342.8
+      ],
+      "length_mm": 43.460999999999984,
+      "fan_percent": 70,
+      "speed_mm_s": 25,
+      "start_on_previous_model": true,
+      "end_on_previous_model": true
+    },
+    {
+      "receiver": "Pisco",
+      "z_mm": 12.2,
+      "start_source_mm": [
+        66.59,
+        462.92799084472654,
+        342.8
+      ],
+      "end_source_mm": [
+        66.59,
+        419.4669908447265,
+        342.8
+      ],
+      "length_mm": 43.460999999999984,
+      "fan_percent": 70,
+      "speed_mm_s": 25,
+      "start_on_previous_model": true,
+      "end_on_previous_model": true
+    },
+    {
+      "receiver": "Pisco",
+      "z_mm": 12.2,
+      "start_source_mm": [
+        66.96000000000001,
+        419.4669908447265,
+        342.8
+      ],
+      "end_source_mm": [
+        66.96000000000001,
+        462.92799084472654,
+        342.8
+      ],
+      "length_mm": 43.460999999999984,
+      "fan_percent": 70,
+      "speed_mm_s": 25,
+      "start_on_previous_model": true,
+      "end_on_previous_model": true
+    },
+    {
+      "receiver": "Pisco",
+      "z_mm": 12.2,
+      "start_source_mm": [
+        67.33099999999999,
+        462.92799084472654,
+        342.8
+      ],
+      "end_source_mm": [
+        67.33099999999999,
+        419.4669908447265,
+        342.8
+      ],
+      "length_mm": 43.460999999999984,
+      "fan_percent": 70,
+      "speed_mm_s": 25,
+      "start_on_previous_model": true,
+      "end_on_previous_model": true
+    },
+    {
+      "receiver": "Pisco",
+      "z_mm": 12.2,
+      "start_source_mm": [
+        67.701,
+        419.4669908447265,
+        342.8
+      ],
+      "end_source_mm": [
+        67.701,
+        462.92799084472654,
+        342.8
+      ],
+      "length_mm": 43.460999999999984,
+      "fan_percent": 70,
+      "speed_mm_s": 25,
+      "start_on_previous_model": true,
+      "end_on_previous_model": true
+    },
+    {
+      "receiver": "Pisco",
+      "z_mm": 12.2,
+      "start_source_mm": [
+        68.06200000000001,
+        462.92799084472654,
+        342.8
+      ],
+      "end_source_mm": [
+        68.072,
+        419.3009908447266,
+        342.8
+      ],
+      "length_mm": 43.62700114607923,
+      "fan_percent": 70,
+      "speed_mm_s": 25,
+      "start_on_previous_model": true,
+      "end_on_previous_model": true
+    },
+    {
+      "receiver": "Pisco",
+      "z_mm": 12.2,
+      "start_source_mm": [
+        87.15100000000001,
+        419.3009908447266,
+        342.8
+      ],
+      "end_source_mm": [
+        87.15100000000001,
+        462.92799084472654,
+        342.8
+      ],
+      "length_mm": 43.62699999999998,
+      "fan_percent": 70,
+      "speed_mm_s": 25,
+      "start_on_previous_model": true,
+      "end_on_previous_model": true
+    },
+    {
+      "receiver": "Pisco",
+      "z_mm": 12.2,
+      "start_source_mm": [
+        86.781,
+        462.92799084472654,
+        342.8
+      ],
+      "end_source_mm": [
+        86.781,
+        419.4669908447265,
+        342.8
+      ],
+      "length_mm": 43.460999999999984,
+      "fan_percent": 70,
+      "speed_mm_s": 25,
+      "start_on_previous_model": true,
+      "end_on_previous_model": true
+    },
+    {
+      "receiver": "Pisco",
+      "z_mm": 12.2,
+      "start_source_mm": [
+        86.41,
+        419.4669908447265,
+        342.8
+      ],
+      "end_source_mm": [
+        86.41,
+        462.92799084472654,
+        342.8
+      ],
+      "length_mm": 43.460999999999984,
+      "fan_percent": 70,
+      "speed_mm_s": 25,
+      "start_on_previous_model": true,
+      "end_on_previous_model": true
+    },
+    {
+      "receiver": "Pisco",
+      "z_mm": 12.2,
+      "start_source_mm": [
+        86.03999999999999,
+        462.92799084472654,
+        342.8
+      ],
+      "end_source_mm": [
+        86.03999999999999,
+        419.4669908447265,
+        342.8
+      ],
+      "length_mm": 43.460999999999984,
+      "fan_percent": 70,
+      "speed_mm_s": 25,
+      "start_on_previous_model": true,
+      "end_on_previous_model": true
+    },
+    {
+      "receiver": "Pisco",
+      "z_mm": 12.2,
+      "start_source_mm": [
+        85.66900000000001,
+        419.4669908447265,
+        342.8
+      ],
+      "end_source_mm": [
+        85.66900000000001,
+        462.92799084472654,
+        342.8
+      ],
+      "length_mm": 43.460999999999984,
+      "fan_percent": 70,
+      "speed_mm_s": 25,
+      "start_on_previous_model": true,
+      "end_on_previous_model": true
+    },
+    {
+      "receiver": "Pisco",
+      "z_mm": 12.2,
+      "start_source_mm": [
+        85.299,
+        462.92799084472654,
+        342.8
+      ],
+      "end_source_mm": [
+        85.299,
+        419.4669908447265,
+        342.8
+      ],
+      "length_mm": 43.460999999999984,
+      "fan_percent": 70,
+      "speed_mm_s": 25,
+      "start_on_previous_model": true,
+      "end_on_previous_model": true
+    },
+    {
+      "receiver": "Pisco",
+      "z_mm": 12.2,
+      "start_source_mm": [
+        84.93799999999999,
+        419.4669908447265,
+        342.8
+      ],
+      "end_source_mm": [
+        84.928,
+        463.0939908447266,
+        342.8
+      ],
+      "length_mm": 43.62700114607929,
+      "fan_percent": 70,
+      "speed_mm_s": 25,
+      "start_on_previous_model": true,
+      "end_on_previous_model": true
+    }
+  ],
+  "section_source_z_mm": 343.16,
+  "section_payload_sha256": "c8cbb161486fa8d465390c9780cd4f300a4a791db5e928599e34c8628298130a",
+  "scope": "Each long catch bridge endpoint is inside the preceding model section. This reads commanded paths and geometry, not physical bridge sag or strength."
+}
