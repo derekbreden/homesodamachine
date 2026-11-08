@@ -101,10 +101,10 @@
     "hardware/install-guide/plumbing/modern/art/modern-tee-tug-check.png": "8f062e9ef1cee06b9cb01395c324d0e82806504b257a2049057ac6a7098d120f",
     "hardware/install-guide/plumbing/modern/art/modern-water-off.png": "208d30cfa3bad79f7173b338a3fe1f6f9fd42f8c2d7aae402fa4720906752e9d",
     "hardware/install-guide/plumbing/modern/art/modern-water-on.png": "28ae8937a70f7a55571a37a303b38477bef45d5c4c9d2aef2c22fe58da4c34f8",
-    "hardware/manifold-layout/enclosure-assembly.facts.json": "4d040418d8b9b02c9b9e23e80f5a186846e9cce6c0d713e65998391aab42ce48",
+    "hardware/manifold-layout/enclosure-assembly.facts.json": "ea7336a280e02e0d1c56a390ac3f9acc288b3a15b701529c525693350726b070",
     "hardware/manifold-layout/enclosure-assembly.physical.step.mesh": "96be0d51a69a4bfce5f3984d9f08a82c5a97fa6c220bf7d72d389c15af217370",
     "hardware/manifold-layout/enclosure-assembly.step.mesh": "fae6ca060c20006df109c5faa9a900514a88fb533c41e653a906aa58aa442766",
-    "hardware/manifold-layout/manifold-layout.step": "d4b4024e88bbfd4fbe63cfea30e8f6301f221cb8bdecc0abe00550df00e0c66b",
+    "hardware/manifold-layout/manifold-layout.step": "3b0b60038786d9dd98b29935dde90f4d36c439164656802433db8ca37605b277",
     "hardware/manifold-layout/manifold-layout.step.mesh": "8a738891bb9a788af280bdbea3b62fe8700b8b2f9e143a594586d0e498907af2",
     "hardware/manifold-layout/studies/ceiling-fit/parts/back-wall.step": "8569f20e91df06d2e3e7e8e3175c1c5fdef3d803d3aee809fd2182a4d9517fcd",
     "hardware/manifold-layout/studies/ceiling-fit/parts/bulkhead-retention-nut-estimate.step": "a74fa46645dc8b79c740c02306368069cf5eef18489b6d6e9f73bedecf4862cd",
@@ -411,7 +411,7 @@
     "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step.mesh": "237a045c7bc56f3eb0fa450a84662978bff6035bb4b36ce346f60acece1abcb3",
     "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.stl": "633e84c40ca86284da50734d3cf978f3fb368783828ec0b319d673730b52d193",
     "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step.mesh": "b88c1f19ee6dae2b3ebc732161732e4e0312bfa0c1c5a146d6b990facd584b9d",
-    "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl": "1e0cbe633fe89b80c5af1c1863f0bc05467a63d1b6eba11de19bf3635213f63d",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl": "1fca68a2516f20f6d3559ee0537a3c7f1ca46123a25b58049499db7d068afc19",
     "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.step": "002676b99d9abd0dcc5c9ef9b16abf7a3de1636a65f003e9077cc63c50ef329a",
     "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.step.mesh": "1106be80aa555dbec51057e85e02651d2995983aff55cd3d5c2f2d5e4d8b54b0",
     "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.stl": "fa10132c600a16b3ea0a1ff0ff3a32af7fb457747e6b21337176b298945bf7b1",
@@ -420,9 +420,9 @@
     "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.stl": "fe986d040422066014c6a8279ce376890ba04274f3c8c6b34b6551c37414cdbc",
     "hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer-seated.step.mesh": "898e9529e108a662875baba55889935bc04ed26972c9e11eb4ab39c14a049353",
     "hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.step.mesh": "5765cb29e1fcdc18b1e2567e731bd840991411c43e48e889cf434562f9b6b082",
-    "hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.stl": "4a074f43c81e2658129695e610c68d707d1c799ac43e3d28005318c4c451919e",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.stl": "70acf65bd4c76605736e161f4421d38b2568f0487ca6dc7814537eb3705f1f09",
     "hardware/printed-parts/enclosure/enclosure/enclosure-pump-tube-setting-jig.step.mesh": "280c1c9be9e45683aa15cf82387ef213a58c3ee4f68d59241500f07fd4cac1f6",
-    "hardware/printed-parts/enclosure/enclosure/enclosure-pump-tube-setting-jig.stl": "cfedb813ad4f4e8f609ae3ec724a5d4de918c175fbfcafc1a44b3a69d4a62e3e",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-pump-tube-setting-jig.stl": "8cca75083a601ffa081cf3ef05e672c1f17bbc4e5e7f32cb4bb9e70298d6dcf9",
     "hardware/printed-parts/enclosure/enclosure/enclosure.step.mesh": "6468e800e6c4094df71a02cfa5673128f921611f52d260ada7285668d0cedee2",
     "hardware/printed-parts/enclosure/enclosure/magnet-retention/section.step": "2efdc50cbb438c930dd2ded0c90d45b1f64dac06c187b08181357866e4620e4c",
     "hardware/printed-parts/enclosure/enclosure/magnet-retention/section.step.mesh": "d4a852d3ee87e8dbd134c7f859a727d29d5a492f744dc6b5fd4fd1a6834c8103",
@@ -1521,9 +1521,9 @@
     "hardware/reference/jhyossthi-pogo-dock/pogo-dock-female.step.mesh": "53c25c1db47960fcfb05e218fb92f05ee8d62cda6a5d8e3b726442cb1ec352da",
     "hardware/reference/jhyossthi-pogo-dock/pogo-dock-male.step": "766f08b3bdeb6aba77e3e26446530465d9c3225e896a2d57fed004bc326349e0",
     "hardware/reference/jhyossthi-pogo-dock/pogo-dock-male.step.mesh": "a72c10795668b4ea7968352c019b44d46a726e52e1e18f666227cc6bab74770b",
-    "hardware/reference/kamoer-kphm400/kamoer-kphm400.step": "e48e67fd84cc32c2c3d95a182768cae81f83429f7ed226aef8de29a8e15f2671",
+    "hardware/reference/kamoer-kphm400/kamoer-kphm400.step": "7953ec09bc8f9d2cbe0f38c39be64987a30d809cff74b9f62fa9c7d2130ee1be",
     "hardware/reference/kamoer-kphm400/kamoer-kphm400.step.mesh": "c41f5c831d798c1756ebe68b5ec50123c14b5645580a7d0563d495875966cf6b",
-    "hardware/reference/kamoer-kphm400/kamoer-kphm400.step.npz": "8513b88754647a8848f1f432d9c5014b9f6f12543a3ceefa3316b038f18397d0",
+    "hardware/reference/kamoer-kphm400/kamoer-kphm400.step.npz": "4ffe5555bee678fd5cb3a956104e41848a9874d23ea894f3f4ec95d759287ee9",
     "hardware/reference/meanwell-irm90/meanwell-irm90.fine.step.npz": "366ce6d9869a8a33efc07478d5350abe74597acf84756dd9deb8dbd188b2a42a",
     "hardware/reference/meanwell-irm90/meanwell-irm90.step": "27cc1e5c3f5bf010f6df8a15a4b9b96dfef7b3836eee4905347e8a0035d033d7",
     "hardware/reference/meanwell-irm90/meanwell-irm90.step.mesh": "5daca63d8261f4dd722024eee72dee2359c0d9f65dd54ae7ef37012f891ce4a4",
@@ -1638,7 +1638,7 @@
       "hardware/faucet-layout/faucet-assembly.step.mesh": "5f2a133895726dd2a60787a7990f505fae730c9bb72c2de522633314fc5d243e",
       "hardware/faucet-layout/faucet-industrial-assembly.step": "dab99ebc933e9d182955406892cdad3dc5c5276aea5fb1fe3c5905c36fe3ac10",
       "hardware/faucet-layout/faucet-industrial-assembly.step.mesh": "fe28e3401330a3abd8e7ceba118ee10d1a9c6e17631737d47942864f3a7b2074",
-      "hardware/manifold-layout/enclosure-assembly.facts.json": "4d040418d8b9b02c9b9e23e80f5a186846e9cce6c0d713e65998391aab42ce48",
+      "hardware/manifold-layout/enclosure-assembly.facts.json": "ea7336a280e02e0d1c56a390ac3f9acc288b3a15b701529c525693350726b070",
       "hardware/manifold-layout/enclosure-assembly.step.mesh": "fae6ca060c20006df109c5faa9a900514a88fb533c41e653a906aa58aa442766",
       "hardware/printed-parts/asse-drain-adapter/asse-drain-adapter.step": "4730c636dd33e1431fa4fa3c6df0b4a3a41942efa40f451ce04e4f41e661a92d",
       "hardware/printed-parts/asse-drain-adapter/asse-drain-adapter.step.mesh": "192cb511c9bd723d16f931037c741fb143fa7000b522a574d13fc47f50854806",
@@ -1744,11 +1744,11 @@
       "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step.mesh": "237a045c7bc56f3eb0fa450a84662978bff6035bb4b36ce346f60acece1abcb3",
       "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.stl": "633e84c40ca86284da50734d3cf978f3fb368783828ec0b319d673730b52d193",
       "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step.mesh": "b88c1f19ee6dae2b3ebc732161732e4e0312bfa0c1c5a146d6b990facd584b9d",
-      "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl": "1e0cbe633fe89b80c5af1c1863f0bc05467a63d1b6eba11de19bf3635213f63d",
+      "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl": "1fca68a2516f20f6d3559ee0537a3c7f1ca46123a25b58049499db7d068afc19",
       "hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.step.mesh": "5765cb29e1fcdc18b1e2567e731bd840991411c43e48e889cf434562f9b6b082",
-      "hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.stl": "4a074f43c81e2658129695e610c68d707d1c799ac43e3d28005318c4c451919e",
+      "hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.stl": "70acf65bd4c76605736e161f4421d38b2568f0487ca6dc7814537eb3705f1f09",
       "hardware/printed-parts/enclosure/enclosure/enclosure-pump-tube-setting-jig.step.mesh": "280c1c9be9e45683aa15cf82387ef213a58c3ee4f68d59241500f07fd4cac1f6",
-      "hardware/printed-parts/enclosure/enclosure/enclosure-pump-tube-setting-jig.stl": "cfedb813ad4f4e8f609ae3ec724a5d4de918c175fbfcafc1a44b3a69d4a62e3e",
+      "hardware/printed-parts/enclosure/enclosure/enclosure-pump-tube-setting-jig.stl": "8cca75083a601ffa081cf3ef05e672c1f17bbc4e5e7f32cb4bb9e70298d6dcf9",
       "hardware/printed-parts/enclosure/grip-cover/grip-cover.step": "418a4ac58a6905d61a812e4a08ec7f4603f8f68e4c394f2c6ff5dc5ad2c98ea1",
       "hardware/printed-parts/enclosure/grip-cover/grip-cover.step.mesh": "7f9d622d4607f9b93fe0020aa21495c76b81ebd0561ad32bb986e84f9d79b129",
       "hardware/printed-parts/enclosure/grip-cover/grip-cover.stl": "acbb8f8cd3e50792a258670bf31c7574de6a435fbbce2629ede73c070378dc03",
@@ -2129,7 +2129,7 @@
       "hardware/reference/jg-pp0408w/jg-pp0408w.step.mesh": "c9e764f9809d9305385f97d83e3f4894f83ec97a4f7765eeb073e224508c105a",
       "hardware/reference/jg-pp061208w/jg-pp061208w.step": "5b9d3c1bba5bc098056a0a8395ddb260188dabfcf9152460b5f39855cb8c13af",
       "hardware/reference/jg-pp061208w/jg-pp061208w.step.mesh": "ddfaeee1030c20712e78e7f7cad4bf5ab9f394e0fd321b9a5d81ee9577ad88fc",
-      "hardware/reference/kamoer-kphm400/kamoer-kphm400.step": "e48e67fd84cc32c2c3d95a182768cae81f83429f7ed226aef8de29a8e15f2671",
+      "hardware/reference/kamoer-kphm400/kamoer-kphm400.step": "7953ec09bc8f9d2cbe0f38c39be64987a30d809cff74b9f62fa9c7d2130ee1be",
       "hardware/reference/kamoer-kphm400/kamoer-kphm400.step.mesh": "c41f5c831d798c1756ebe68b5ec50123c14b5645580a7d0563d495875966cf6b",
       "hardware/reference/meanwell-irm90/meanwell-irm90.step": "27cc1e5c3f5bf010f6df8a15a4b9b96dfef7b3836eee4905347e8a0035d033d7",
       "hardware/reference/meanwell-irm90/meanwell-irm90.step.mesh": "5daca63d8261f4dd722024eee72dee2359c0d9f65dd54ae7ef37012f891ce4a4",
@@ -2189,7 +2189,6 @@
     "0975e1faef9e66701c67b2d2da7a8c48e1972ee903a3b64353dfe1adb64e9705",
     "097893fc2f23ce321390c3243204289cc2434d62d2a3c8fe9bc821edfd4a76d9",
     "0acb28991f10b3e4d71a5d16a0bb483472a7b9dfcf42d357fb8aa5983563760a",
-    "0c346fbc0cb23f26e7be32f5e6c08ea2d9e049bf5e061539e34ac1a4de46ee4e",
     "0c52c4f96cdac701e0fa57586ff6738dd3d67d27b115c733d8d2f69e3dc06ffa",
     "0d212446aaaf864a9b967f92f5eb26afd56159f53723c2d732ea3141cdde7ae7",
     "0e0380e2d44ab88c95c5570e06ff04743cc0d5b0e710ddd0ea02a05ca1493cef",
@@ -2239,7 +2238,6 @@
     "2a47228e27c627ec74dc26247d9e3757900f87af52312837dcd8de6c938edd3b",
     "2a55232ebf0e4134adf7ef1745b4b08a19d0b9ad4f7c625843a7d8bc82d32d4f",
     "2ab17413138329b455062bcc0dcd8cafb52692167b12e7606098af2d0e42b813",
-    "2ae5505bd32c0ca9baadf340d58d0b8cdf34a83e85e890bace9dc25e56c75265",
     "2b452f759003c66e0c604262d22c895f61d9a3420dbb0afb0da22d2b635dd1ea",
     "2cd91c2e8aa0f2ee7057abf31564fc3f255409525800536f350bab2805007d4f",
     "2cdb5f3d8072dcc4e7653cdbac146d42d6b7a1e8a89f9ee7cfeca2efeb13fd00",
@@ -2301,9 +2299,7 @@
     "43b2ebb80a95045ebb0aac5ce12296247f98032ac9b5bee551c9b45ae17a7800",
     "43e4e40b2554086362be50cd27141efac7b4cad1c32fa35e15f9b1add4e6544d",
     "44313cf5aed0b1c574c0e833aa3ab9f8cc7430b3cb239210e2a7e7cef8623eaa",
-    "4599c35987a7fe0e183d35b6a1f49c53a29bc15ddc218978424609f16985eff7",
     "463d8ef1f48c0cd25c3ddc1942d2e4622a79451b7fc5d85d48a95526ab9c72a2",
-    "46737816fd15853350dd6322efd15d0c5367def0035057fd7068855eadcda5b9",
     "46764fd42ca28efdb0a4e6a7da0b28d59df27a6db3486074081f4f6fe519b7ab",
     "46a92b5dfa742e33ba27329f2c3983d8dfdcbd2e164db2b8e4b846f9a52fcd86",
     "47a811a5a36da74cff9cf8aba577c36900c65e97c81ad1770fbff2ee0ab52eae",
@@ -2408,19 +2404,16 @@
     "84eb3f339ed7c7e2135d168d21a3a2d46b3718e6794d1116bc423841ae02ca12",
     "8500d02069af5478efe6e9e7b337583376febdd95d147aa80f79545080898c89",
     "85d21de10297cfccd2d59de71e23deb802bc8624b55a871d9249dc988e6c86c2",
-    "85da0926fbeb457e2efa18c63f3613bba4556df5203ce80a34dae378711c7ff0",
     "86af16ab0fef54a719ed1478b08aeffdf0ce30e34d5222900faa93abed965113",
     "870965ae68a649bd12077b275302b182bb2db9d10851c44c7433793c7a7faa63",
     "8a2e5586399d8f568f036faa894eed5b90222f04ac5cc64b9cf0c8b95a2ea900",
     "8b1c7d2638eb33cf5a14348ab8fc79d02526be31775a7f9931639d88823d6900",
     "8b2644a626e135f7b9dd76cd9aef7cf51cc4a016e03364428c4c41b6bb544de3",
-    "8b6a2324228ba87e104d4d06172e12d987c55dca12d9ec632639659c1ddf773b",
     "8c3a8410cd66c8e68779dd2545262c81d9c4629b056ac8f372e3f751543f66f0",
     "8c5b4291c416984ac14cf59d108640fa576d6b65b10281f543522d75ad123894",
     "8c6f3e9122f4edd2889d9f08867966aaa3af7b0b8dfa226ffbedbf64354c05ad",
     "8df8e398100d4ca2b6387d3aa3343ca9175c8c697ea14160da20af20f421a223",
     "8e05248a5f7a9b2ee0503f44042109b91dc2e78d2306e341c55300d6576768ac",
-    "8ea869037f7954cab214bc92816ad39d2a455ed2ad5d6b48f9f3132a4c0d2f5a",
     "8fdec4f8a38ef9b899b4a494309d9d7d37fe05001b9d7e82302f43a18b47d270",
     "907f029bc3e9032a5b5c59b5935ea9bd843f645b39439fb5cf1ac2c9f0db7ad8",
     "920fcc85dd9162eac51e67077f564fbccf2e67d8e8455cdf225046c0fcfd278f",
@@ -2441,7 +2434,6 @@
     "971fb9e76d8e79e6a49076f0c1af5e4868ad08f1f7455511fea97f93837566a1",
     "97486be931539aebeb08dabc3578f340c74009ca6b216e1bed18786713baa871",
     "9760ecad8a739bd43193beaec6f21bfe68f42b7a8d952afa561d282f80e77db2",
-    "98060a7e18ed74a158002bd5cfa15c12d80faaabe9f6fd2b700d0238018d6446",
     "98490f5b470aad5f909c6a906a0a153c148cc1a148486858687a6d4ea6abfdc4",
     "990943fc1a70f038c6bb75257f08c07b1c2ba4a6b9f65c7df1ac2c4d114938fc",
     "994cc464b915cf367167cc28b9cf0c6bf0296b32748a512c4649baa0be0f3618",
@@ -2579,7 +2571,6 @@
     "dec9e63dadb1a855cd448a3f715f98fde82c928a590b29fd0393a7f0052b1c30",
     "dfec0353098a5fd8c0f8d0e938e456d035f3a8bd29178657523176089d96435b",
     "dff8123d93ed0e6e65a930d26ec2cc125119526caa4d18174e31f09d3368e0ef",
-    "e0fb7c005918ed2cf6e3016da7db2ad3f80f1962a5c8079efb8711da21c20fbe",
     "e14e2b01cafbbdf785a2152c4a7f97e34e3f8a55352757e58e6a30a4da9d87e5",
     "e25a494db86852969a568fd4ce1faedc98974168f47d24b39148219388b28891",
     "e3284c5290ff5ae1f7b158a928ddd08f41d7545104cd64384b3dbecca148a784",
@@ -2623,7 +2614,6 @@
     "fd4e282303c45e1a759b1454300e15028212c5b8c6ef8efc18df47cfb7bd9055",
     "fd77668da7db809d29ed6f8902f0fc436b90f64533513b1464dcb203bf68d72e",
     "fd8d6d8e3f92b414e7235ac17dba1e0bfd53a73a87d879aa676565677a4d0ae0",
-    "fd90ff96a99d24b93ab5c5312a80584a5076af27f3678fdd93d676d935b03c2d",
     "fe212f473bc6e16ac5f361cb730341dfa32afbfd026915d2d2a486387e10605e",
     "ff03f703761ecc4039f509e1df18aeed244680395bccf72b980fa49c13774349",
     "ff51ef89d27c89ae0ec0555f1adf8cc803b0cf4e90b57b582379347e005f4990"
@@ -2713,10 +2703,10 @@
     "hardware/install-guide/plumbing/modern/art/modern-tee-tug-check.png": 1793690801,
     "hardware/install-guide/plumbing/modern/art/modern-water-off.png": 1793830497,
     "hardware/install-guide/plumbing/modern/art/modern-water-on.png": 1793830497,
-    "hardware/manifold-layout/enclosure-assembly.facts.json": 1794152092,
+    "hardware/manifold-layout/enclosure-assembly.facts.json": 1794162814,
     "hardware/manifold-layout/enclosure-assembly.physical.step.mesh": 1793858653,
     "hardware/manifold-layout/enclosure-assembly.step.mesh": 1794162773,
-    "hardware/manifold-layout/manifold-layout.step": 1794152092,
+    "hardware/manifold-layout/manifold-layout.step": 1794162814,
     "hardware/manifold-layout/manifold-layout.step.mesh": 1794162773,
     "hardware/manifold-layout/studies/ceiling-fit/parts/back-wall.step": 1792743994,
     "hardware/manifold-layout/studies/ceiling-fit/parts/bulkhead-retention-nut-estimate.step": 1792743994,
@@ -3023,7 +3013,7 @@
     "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step.mesh": 1794107024,
     "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.stl": 1794107039,
     "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step.mesh": 1794162773,
-    "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl": 1794148794,
+    "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl": 1794162814,
     "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.step": 1792920710,
     "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.step.mesh": 1793787394,
     "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.stl": 1792920710,
@@ -3032,9 +3022,9 @@
     "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.stl": 1792964249,
     "hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer-seated.step.mesh": 1794162773,
     "hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.step.mesh": 1794162773,
-    "hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.stl": 1794148794,
+    "hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.stl": 1794162814,
     "hardware/printed-parts/enclosure/enclosure/enclosure-pump-tube-setting-jig.step.mesh": 1794162773,
-    "hardware/printed-parts/enclosure/enclosure/enclosure-pump-tube-setting-jig.stl": 1793712586,
+    "hardware/printed-parts/enclosure/enclosure/enclosure-pump-tube-setting-jig.stl": 1794162814,
     "hardware/printed-parts/enclosure/enclosure/enclosure.step.mesh": 1794162773,
     "hardware/printed-parts/enclosure/enclosure/magnet-retention/section.step": 1791257167,
     "hardware/printed-parts/enclosure/enclosure/magnet-retention/section.step.mesh": 1791257167,
@@ -4133,9 +4123,9 @@
     "hardware/reference/jhyossthi-pogo-dock/pogo-dock-female.step.mesh": 1793568839,
     "hardware/reference/jhyossthi-pogo-dock/pogo-dock-male.step": 1788350303,
     "hardware/reference/jhyossthi-pogo-dock/pogo-dock-male.step.mesh": 1793568839,
-    "hardware/reference/kamoer-kphm400/kamoer-kphm400.step": 1794152092,
+    "hardware/reference/kamoer-kphm400/kamoer-kphm400.step": 1794162814,
     "hardware/reference/kamoer-kphm400/kamoer-kphm400.step.mesh": 1794162773,
-    "hardware/reference/kamoer-kphm400/kamoer-kphm400.step.npz": 1794152092,
+    "hardware/reference/kamoer-kphm400/kamoer-kphm400.step.npz": 1794162814,
     "hardware/reference/meanwell-irm90/meanwell-irm90.fine.step.npz": 1793697604,
     "hardware/reference/meanwell-irm90/meanwell-irm90.step": 1787354099,
     "hardware/reference/meanwell-irm90/meanwell-irm90.step.mesh": 1793503760,
@@ -4549,8 +4539,7 @@
       "unproven": true
     },
     "hardware/manifold-layout/enclosure-assembly.facts.json": {
-      "inputs": "c95e4d73dd4782a9c54a649fd466bd3733e246baf438d9edf88be940ecaff3d5",
-      "commit": "a058ac37e62c4595ddb0fbc2d532d377adfb6405",
+      "commit": "08c7382964effa559689478075c080d687d7715a",
       "unproven": true
     },
     "hardware/manifold-layout/enclosure-assembly.physical.step.mesh": {
@@ -4562,8 +4551,8 @@
       "unproven": true
     },
     "hardware/manifold-layout/manifold-layout.step": {
-      "inputs": "ea25800de29976f6eb07b944cd0085798bfab08e5845bfc888aa32b6c78f9936",
-      "commit": "a058ac37e62c4595ddb0fbc2d532d377adfb6405",
+      "inputs": "2c4a7140d6aee9ff81e04a225e1c62bfeea58decbdba2b6d1ba9f2856694996f",
+      "commit": "08c7382964effa559689478075c080d687d7715a",
       "unproven": true
     },
     "hardware/manifold-layout/manifold-layout.step.mesh": {
@@ -5366,8 +5355,8 @@
       "unproven": true
     },
     "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl": {
-      "inputs": "1c68dc4852e1e9ed222d17b30edb3bb00c167f483f392084d4191cd3cc0cdc40",
-      "commit": "2f88eed0e92ab23f5466b706452536f0e6de6278",
+      "inputs": "8f40f5e2eca44930833e076dcd80d4ba928f6e8d440a3cc9b1adde3a8aa1a9f0",
+      "commit": "08c7382964effa559689478075c080d687d7715a",
       "unproven": true
     },
     "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.step.mesh": {
@@ -5389,8 +5378,7 @@
       "unproven": true
     },
     "hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.stl": {
-      "inputs": "7c0b977674d503521aa25d8e39b2d90c6222217e66189db73c5b4a81346d2a49",
-      "commit": "2f88eed0e92ab23f5466b706452536f0e6de6278",
+      "commit": "08c7382964effa559689478075c080d687d7715a",
       "unproven": true
     },
     "hardware/printed-parts/enclosure/enclosure/enclosure-pump-tube-setting-jig.step.mesh": {
@@ -5399,8 +5387,8 @@
       "unproven": true
     },
     "hardware/printed-parts/enclosure/enclosure/enclosure-pump-tube-setting-jig.stl": {
-      "inputs": "1bd1bf5106d2e16b592b0a1b217438b64a5af4c877939453de3fcf490820acb9",
-      "commit": "41976ea8aadc1cfeb0ae6b57aaba91944ba40bf2",
+      "inputs": "24d84bab5f9832851569a62dc6a4d72bed2025d2e6b70b6cdf85652a9d53b626",
+      "commit": "08c7382964effa559689478075c080d687d7715a",
       "unproven": true
     },
     "hardware/printed-parts/enclosure/enclosure/enclosure.step.mesh": {
@@ -6777,7 +6765,7 @@
       "unproven": true
     },
     "hardware/reference/kamoer-kphm400/kamoer-kphm400.step": {
-      "commit": "a058ac37e62c4595ddb0fbc2d532d377adfb6405",
+      "commit": "08c7382964effa559689478075c080d687d7715a",
       "unproven": true
     },
     "hardware/reference/kamoer-kphm400/kamoer-kphm400.step.mesh": {
@@ -6785,7 +6773,7 @@
       "unproven": true
     },
     "hardware/reference/kamoer-kphm400/kamoer-kphm400.step.npz": {
-      "commit": "a058ac37e62c4595ddb0fbc2d532d377adfb6405",
+      "commit": "08c7382964effa559689478075c080d687d7715a",
       "unproven": true
     },
     "hardware/reference/meanwell-irm90/meanwell-irm90.fine.step.npz": {
