@@ -751,22 +751,25 @@ enclosure, front pump cavities and lower pump retainer select Tree Slim. Inspect
 the actual branches and removal openings in the emitted native slice. A smaller
 footprint or an open-looking lane alone does not establish easy cleanup.
 
-Back-top uses manual trees selected by its native exterior target field. Their
-branches grow outside the rear wall; the protected interior features grow through
-fine layers and transverse bridges.
+Back-top prints ceiling-down with its rear flutes clear of the bed. Accessible
+exterior features and rails use manual Tree Slim selected by native contact
+regions. Native exclusions
+keep the receiver interiors and covered passages clear of supports.
 
-The rear receiver interiors print without supports. Their flat
-catches grow through fine layers between their complete end shoulders; the approved component
-seats and catch planes remain intact. Native construction emits the exclusion
-regions beside the STL, bound to its digest. Preparation carries them through
-orientation and placement as support blockers and painted surfaces. The covered
-bulkhead bores and horizontal valve sockets use teardrop roofs; build-axis valve
-sockets remain circular and open. The PRV cap has a rooted chamfer and end-wall
-backing; the short mouth lip bridges between its side walls. The native review reads support beads inside these named
-regions, including ordinary support paths without interface labels. Exclusions
-specific to a print direction carry that direction in the native record. The
-rear-face-down preparation supports the identification frames from their exposed
-outside faces and keeps the vent passage clear.
+The rear receiver catches bridge along their pockets between the complete end
+shoulders. The Pisco entry relief has a sloping ceiling that preserves its fore
+bridge anchor. The sideways meter host uses authored removable trees under its
+exposed end shoulders; their trunks stand beside the Pisco pocket and their
+forks branch below it. Approved component seats, catch planes and wing travel remain
+intact. Local modifiers select the bridge direction and solid catch stock.
+Native construction emits the exclusions beside the STL, bound to its digest;
+preparation carries them through orientation and placement as blockers and
+painted surfaces. The covered bulkhead bores and horizontal valve sockets use
+teardrop roofs pointing in the build direction; build-axis valve sockets remain
+circular and open. The PRV cap has a rooted chamfer and end-wall backing, and
+its short mouth lip bridges between the side walls. The native review reads
+support beads inside these named regions, including ordinary support paths
+without interface labels.
 
 A production-profile slice reports the connected support bodies which reach the model and their
 separate interface islands. One body can reach several distinct contact regions. Two further
@@ -782,19 +785,16 @@ are read on the physical print and nowhere else.
 stand in open air, nothing is installed over it, and it leaves in one piece along a straight run.
 It fights when it is walled on several sides, when a branch re-enters a pocket
 behind its own interface, or when the hardware goes in first. The Z-seam catches
-retain their flat sliding bearings. The rear enclosure prints with its rear face
-toward the bed and a gentle tilt; its receiver catches and sliding grooves grow
-through successive layers. A fine band follows the shallow end faces and rear show surface. Local modifiers
-retain solid rail hosts. Its grooves contain no
-rectangular ribbons.
-The [full rear enclosure result](prints/2026-11-05-back-top-smooth-corners-mark2/physical-result.json)
-records trapped rail supports and inaccessible receiver supports. Inspect the
-complete part, rather than applying a coupon's cleanup result to walls that
-block the tool.
+retain their flat sliding bearings and local solid stock. Their supports must
+remain reachable through the open sliding lanes. Localized bridge and foundation
+cooling follows the newly supported bearing courses. The
+[full rear enclosure result](prints/2026-11-05-back-top-smooth-corners-mark2/physical-result.json)
+records removable rail supports with a loose underside and glossy later courses,
+and inaccessible receiver supports. Inspect the complete part rather than
+applying a coupon's cleanup result where walls block the tool.
 
-What a root means depends on the face the piece prints on. The tilted rear-face pose permits
-exterior trees rooted on the bed and interior trees rooted on exposed model stock. The audit
-records each actual root; its position and contact determine the removal lane.
+The audit records each support's actual root. Its position, contact and removal
+lane determine whether it is accessible in the ceiling-down part.
 
 **Expanding print-down show rounds use an additive chamfer/taper at 0.24 mm.**
 The shared construction in `../../cadlib/overhang_round.py` fills the lower corner
@@ -919,8 +919,8 @@ Back-bottom's two slide-head bodies carry the broad flat undersides: the west ru
 ## Print orientation + corner relief
 
 The bottom pieces print floor-down and front-top prints mouth-down on its seam rim.
-Back-top prints with its rear face toward the bed and a gentle tilt. The native
-preparation owns the manufacturing pose. Construction retains the piece's own
+Back-top prints ceiling-down, with its rear flutes clear of the bed. The native
+preparation owns this manufacturing pose, and receiver coupons retain its layer direction. Construction retains the piece's own
 Z sign for its roof, foot and relief geometry (`enclosure.print_up`).
 The mounting forms are described in [Support-removal strategy](#support-removal-strategy).
 The anti-warp relief goes on the arrises
@@ -1034,10 +1034,10 @@ functional faces; no earlier slice establishes cleanup of this geometry.
 
 The rear fluid bores retain their circular hardware envelopes inside teardrop
 roofs. Their covered interiors and the mains inlet's internal flange pocket,
-cord passage and blind insert pilots remain free of supports in the tilted
+cord passage and blind insert pilots remain free of supports in the ceiling-down
 rear-quadrant print. The inlet's broad stock joins the west flank and ceiling;
 its rim bears on the pocket floor and its screws enter from inside. Exterior
-trees remain on accessible surfaces selected by the native feature record.
+trees remain on accessible surfaces outside the native exclusions.
 
 The **PRV chase's closed roof leans from the −X wall too**. Where its open exterior groove
 becomes the closed fall, the groove's roof is level across the

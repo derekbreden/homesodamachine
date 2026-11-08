@@ -66,16 +66,22 @@ normal supports.
 The full rear enclosure's [physical result](enclosure/enclosure/prints/2026-11-05-back-top-smooth-corners-mark2/physical-result.json)
 requires the Pisco and ASSE receiver interiors to print without supports: the
 full-size walls prevent screwdriver access. Preserve their approved component
-seats, catch planes and wing travel. The rear enclosure prints with its rear face
-toward the bed and a gentle tilt; its receiver catches and sliding grooves grow
-through successive layers. Fine layers follow the shallow end faces and rear show surface. Native
-preparation excludes supports from the receiver interiors, including the meter
-and water regulator stocks that could otherwise seed branches through adjacent bores.
-Covered rear bulkhead bores and horizontal valve sockets retain their teardrop
-clearances. The vent cap has a rooted chamfer; its passage stays clear of supports.
-The rails retain their flat bearings and local solid hosts. The native exterior
-target field selects the rear part's manual Tree Slim supports, keeping their
-branches outside the rear wall. There are no added rectangular groove ribbons.
+seats, catch planes and wing travel. Back-top prints ceiling-down, with the
+rear flutes standing clear of the bed. Its catches bridge along their pockets
+between the complete end shoulders. Native preparation selects that bridge
+direction, retains solid catch and rail bands, and excludes supports from the
+receiver interiors. The sideways meter host uses authored removable trees under its exposed end
+shoulders. Their trunks stand beside the Pisco pocket and their forks branch
+below it, outside the fitted cap pocket. Receiver
+coupons retain this production layer direction. Ordinary layers apply except
+where a specific show round requires a fine band.
+Covered rear bulkhead bores and horizontal valve sockets retain teardrop
+clearances pointing in the build direction. The vent cap has a rooted chamfer;
+its passage stays clear of supports. Accessible rail and exterior features use
+manual Tree Slim selected by the native accessible-contact regions, with their
+actual removal openings inspected in the native slice.
+The rail supports were removable in the full-size physical article; its loose
+underside and subsequent glossy courses require localized foundation cooling.
 
 The [rear equipment fit trial](../print-tests/rear-snap-retention/physical-result/physical-result.json)
 records easy screwdriver removal of tiny supports in accessible coupons. That

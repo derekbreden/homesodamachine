@@ -1,0 +1,449 @@
+{
+  "purpose": "Retain the ceiling-down regulator comparison print, its emitted bridge paths and physical-review state.",
+  "source_base_revision": "7f035feee5dfa2519bf9c2eb3ca817d930c5df35",
+  "recipe": "regulator-entry-comparison",
+  "printer": "Mark2",
+  "status": "accepted; physical results pending",
+  "archive": {
+    "path": "/Users/derekbredensteiner/Downloads/HSM-regulator-ceiling-down-2026-11-07/2026-11-07-regulator-entry-comparison-mark2-adf8fe0d/2026-11-07-regulator-entry-comparison-mark2-adf8fe0d.gcode.3mf",
+    "sha256": "a93d2f360a75ebd7a6c21f9a1d283b05225a7af8a3243a48165a627b3473cdd0",
+    "gcode_sha256": "e12791e258c8ce128f095ce7d35673bf5d4d54f04e63063b8736a65475010b9c"
+  },
+  "project": {
+    "path": "/Users/derekbredensteiner/Downloads/HSM-regulator-ceiling-down-2026-11-07/2026-11-07-regulator-entry-comparison-mark2-adf8fe0d/2026-11-07-regulator-entry-comparison-mark2-adf8fe0d.3mf",
+    "sha256": "a6d06a4aeae2b477f30d25b04975f7ce070b98623caa82a0b441c8fd844294f6"
+  },
+  "preparation": {
+    "path": "/Users/derekbredensteiner/Downloads/HSM-regulator-ceiling-down-2026-11-07/2026-11-07-regulator-entry-comparison-mark2-adf8fe0d/preparation.json",
+    "sha256": "27089bcd8321901ba76891bacbdbe9ba48ed770aca2f47996612af7cc3e1a1f6"
+  },
+  "review": {
+    "path": "/Users/derekbredensteiner/Downloads/HSM-regulator-ceiling-down-2026-11-07/2026-11-07-regulator-entry-comparison-mark2-adf8fe0d/review.json",
+    "sha256": "6ca4bc4ab835b140f357b6063b87ae25b12916a699ea579d9fbf23ab368bae37",
+    "checks": {
+      "archive": true,
+      "bed_border": true,
+      "fine_and_transition_bands": true,
+      "show_faces_support_free": true,
+      "solid_hosts_sampled": true,
+      "tie_windows_support_free": true,
+      "z_trim": true
+    },
+    "minimum_bed_margin_mm": 93.7909945
+  },
+  "estimated_seconds": 10014.632104962306,
+  "estimated_material_g": 76.49266052246094,
+  "objects": [
+    {
+      "name": "regulator-snap-cap",
+      "identify_id": 1901,
+      "stl": "hardware/printed-parts/enclosure/rear-equipment-caps/regulator-snap-cap.stl",
+      "stl_sha256": "23039efb099d5008eb1c5b96e2a769bb6536fd040945f67a4cf80c937aac7035",
+      "pose": null,
+      "build_rotation": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "object_settings": {},
+      "plate_bounds_mm": [
+        [
+          202.16091060638428,
+          111.89359283447266,
+          0.0
+        ],
+        [
+          231.05191898345947,
+          154.0,
+          36.0
+        ]
+      ]
+    },
+    {
+      "name": "regulator-snap-cap-entry",
+      "identify_id": 1902,
+      "stl": "hardware/printed-parts/enclosure/rear-equipment-caps/entry-study/regulator-snap-cap-entry.stl",
+      "stl_sha256": "926df4c063127b01220678a06d1fb9dca5b37111769684aaefc02d4d79c0541e",
+      "pose": null,
+      "build_rotation": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "object_settings": {},
+      "plate_bounds_mm": [
+        [
+          146.5544958114624,
+          173.42179614305496,
+          0.0
+        ],
+        [
+          178.4455041885376,
+          215.5282033085823,
+          36.0
+        ]
+      ]
+    },
+    {
+      "name": "regulator-receiver-standard",
+      "identify_id": 1903,
+      "stl": "hardware/printed-parts/enclosure/rear-equipment-caps/entry-study/regulator-receiver-standard.stl",
+      "stl_sha256": "7b8669e906343b6a78f769347b9018056976d2d741b1ddf148add130f6eb1b72",
+      "pose": {
+        "turns": [
+          [
+            "x",
+            180
+          ],
+          [
+            "z",
+            90
+          ]
+        ]
+      },
+      "build_rotation": [
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          -1.0
+        ]
+      ],
+      "object_settings": {
+        "bridge_angle": {
+          "reason": "Run the catch bridges along the receiver end shoulders in this bed-plane rotation.",
+          "value": "90"
+        },
+        "enable_support": {
+          "reason": "Print the receiver in its production pose with clear catch pockets.",
+          "value": "0"
+        },
+        "max_bridge_length": {
+          "reason": "The complete catch pockets bridge between their retained end shoulders.",
+          "value": "50"
+        },
+        "sparse_infill_density": {
+          "reason": "Match back-top bulk deposition.",
+          "value": "15%"
+        },
+        "sparse_infill_pattern": {
+          "reason": "Match back-top bulk deposition.",
+          "value": "gyroid"
+        },
+        "wall_loops": {
+          "reason": "Match the enclosing back-top receiver process.",
+          "value": "2"
+        }
+      },
+      "plate_bounds_mm": [
+        [
+          93.94808101654053,
+          104.4717966914177,
+          0.0
+        ],
+        [
+          136.0544958114624,
+          161.42179614305496,
+          20.0
+        ]
+      ]
+    },
+    {
+      "name": "regulator-receiver-entry",
+      "identify_id": 1904,
+      "stl": "hardware/printed-parts/enclosure/rear-equipment-caps/entry-study/regulator-receiver-entry.stl",
+      "stl_sha256": "8205f7f9712864af203b643b6a80e25655bcf67a524d5475b0aa691d6f69aba7",
+      "pose": {
+        "turns": [
+          [
+            "x",
+            180
+          ],
+          [
+            "z",
+            90
+          ]
+        ]
+      },
+      "build_rotation": [
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          -1.0
+        ]
+      ],
+      "object_settings": {
+        "bridge_angle": {
+          "reason": "Run the catch bridges along the receiver end shoulders in this bed-plane rotation.",
+          "value": "90"
+        },
+        "enable_support": {
+          "reason": "Print the receiver in its production pose with clear catch pockets.",
+          "value": "0"
+        },
+        "max_bridge_length": {
+          "reason": "The complete catch pockets bridge between their retained end shoulders.",
+          "value": "50"
+        },
+        "sparse_infill_density": {
+          "reason": "Match back-top bulk deposition.",
+          "value": "15%"
+        },
+        "sparse_infill_pattern": {
+          "reason": "Match back-top bulk deposition.",
+          "value": "gyroid"
+        },
+        "wall_loops": {
+          "reason": "Match the enclosing back-top receiver process.",
+          "value": "2"
+        }
+      },
+      "plate_bounds_mm": [
+        [
+          148.0544958114624,
+          104.4717966914177,
+          0.0
+        ],
+        [
+          190.16091060638428,
+          161.42179614305496,
+          20.0
+        ]
+      ]
+    }
+  ],
+  "layer_time": {
+    "scope": "Commanded motion and explicit waits are lower bounds; acceleration and firmware delays add time. Return is measured from the last model deposition to the next on the same article.",
+    "objects": {
+      "1902": {
+        "model_layers": 150,
+        "min_return_s": 3.6307565861125113,
+        "median_return_s": 19.945086786608044,
+        "shortest": [
+          {
+            "after_z_mm": 35.0,
+            "next_z_mm": 35.24,
+            "return_s": 3.6307565861125113
+          },
+          {
+            "after_z_mm": 35.48,
+            "next_z_mm": 35.72,
+            "return_s": 3.6525656469175374
+          },
+          {
+            "after_z_mm": 35.24,
+            "next_z_mm": 35.48,
+            "return_s": 3.653170034232062
+          },
+          {
+            "after_z_mm": 35.72,
+            "next_z_mm": 35.96,
+            "return_s": 4.374695568954849
+          },
+          {
+            "after_z_mm": 32.6,
+            "next_z_mm": 32.84,
+            "return_s": 7.37071894352448
+          }
+        ]
+      },
+      "1901": {
+        "model_layers": 150,
+        "min_return_s": 3.8469950619664814,
+        "median_return_s": 20.16246817123192,
+        "shortest": [
+          {
+            "after_z_mm": 35.72,
+            "next_z_mm": 35.96,
+            "return_s": 3.8469950619664814
+          },
+          {
+            "after_z_mm": 35.24,
+            "next_z_mm": 35.48,
+            "return_s": 3.8741989960344654
+          },
+          {
+            "after_z_mm": 35.48,
+            "next_z_mm": 35.72,
+            "return_s": 3.8742200631395463
+          },
+          {
+            "after_z_mm": 33.8,
+            "next_z_mm": 34.04,
+            "return_s": 7.593443016279707
+          },
+          {
+            "after_z_mm": 34.28,
+            "next_z_mm": 34.52,
+            "return_s": 7.596005408266137
+          }
+        ]
+      },
+      "1904": {
+        "model_layers": 84,
+        "min_return_s": 19.486858300339804,
+        "median_return_s": 20.897177556315455,
+        "shortest": [
+          {
+            "after_z_mm": 1.4,
+            "next_z_mm": 1.64,
+            "return_s": 19.486858300339804
+          },
+          {
+            "after_z_mm": 1.64,
+            "next_z_mm": 1.88,
+            "return_s": 19.511785555107906
+          },
+          {
+            "after_z_mm": 5.24,
+            "next_z_mm": 5.48,
+            "return_s": 19.51545883761662
+          },
+          {
+            "after_z_mm": 1.88,
+            "next_z_mm": 2.12,
+            "return_s": 19.5320170297166
+          },
+          {
+            "after_z_mm": 5.0,
+            "next_z_mm": 5.24,
+            "return_s": 19.541064615669143
+          }
+        ]
+      },
+      "1903": {
+        "model_layers": 84,
+        "min_return_s": 19.4246180492471,
+        "median_return_s": 21.053671088843203,
+        "shortest": [
+          {
+            "after_z_mm": 1.4,
+            "next_z_mm": 1.64,
+            "return_s": 19.4246180492471
+          },
+          {
+            "after_z_mm": 4.76,
+            "next_z_mm": 5.0,
+            "return_s": 19.500055926914115
+          },
+          {
+            "after_z_mm": 1.16,
+            "next_z_mm": 1.4,
+            "return_s": 19.517306923773617
+          },
+          {
+            "after_z_mm": 7.16,
+            "next_z_mm": 7.4,
+            "return_s": 19.53848703120275
+          },
+          {
+            "after_z_mm": 1.64,
+            "next_z_mm": 1.88,
+            "return_s": 19.543296088782654
+          }
+        ]
+      }
+    }
+  },
+  "catch_bridges": [
+    {
+      "object": 1904,
+      "z_mm": 15.32,
+      "moves": 26,
+      "length_mm": 533.6870029137989,
+      "max_road_mm": 37.92300159533787,
+      "min_fan_percent": 70.0,
+      "max_speed_mm_s": 25.0,
+      "along_plate_y_moves": 12
+    },
+    {
+      "object": 1903,
+      "z_mm": 15.32,
+      "moves": 26,
+      "length_mm": 533.6870029137989,
+      "max_road_mm": 37.92300159533787,
+      "min_fan_percent": 70.0,
+      "max_speed_mm_s": 25.0,
+      "along_plate_y_moves": 12
+    }
+  ],
+  "bridge_anchors": "bridge-anchors.json",
+  "geometry": {
+    "below_lead_in_added_mm3": 0.0,
+    "below_lead_in_removed_mm3": 0.0,
+    "entry_in_standard_receiver_overlap_mm3": 110.46600004533468,
+    "entry_lead_in_rise_mm": 6.0,
+    "entry_ramp_angle_from_insertion_degrees": 40.36453657309736,
+    "entry_receiver_ceiling_mm": 348.3151460774243,
+    "entry_receiver_overlap_mm3": 0.0,
+    "entry_roof_stock_mm": 6.684853922575712,
+    "entry_tip_air_mm": 0.5,
+    "entry_tip_outset_per_side_mm": 0.0,
+    "purpose": "Compare standard and taller regulator lead-ins in their complete matching receivers.",
+    "receiver_bounds_mm": [
+      [
+        -58.57391030388001,
+        286.603633714998,
+        335.0
+      ],
+      [
+        -1.6239103038800042,
+        328.7100400329926,
+        355.0
+      ]
+    ],
+    "receiver_source": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step.npz",
+    "scope": "Fitted solids and retained lower profiles; insertion force and directional tolerance await physical comparison.",
+    "standard_lead_in_rise_mm": 3.0,
+    "standard_ramp_angle_from_insertion_degrees": 59.53445508054013,
+    "standard_receiver_ceiling_mm": 345.91514607709615,
+    "standard_receiver_overlap_mm3": 0.0,
+    "standard_roof_stock_mm": 9.084853922903847
+  },
+  "physical_result": "pending",
+  "printer_task_id": "1418882219",
+  "launch_utc": "2026-11-08T00:26:18.060968+00:00"
+}

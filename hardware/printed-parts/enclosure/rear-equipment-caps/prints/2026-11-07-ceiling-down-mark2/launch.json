@@ -1,0 +1,29 @@
+{
+  "printer": "Mark2",
+  "observed_at": "2026-11-08T00:26:18.060968+00:00",
+  "archive": {
+    "name": "2026-11-07-regulator-entry-comparison-mark2-adf8fe0d.gcode.3mf",
+    "sha256": "a93d2f360a75ebd7a6c21f9a1d283b05225a7af8a3243a48165a627b3473cdd0",
+    "gcode_sha256": "e12791e258c8ce128f095ce7d35673bf5d4d54f04e63063b8736a65475010b9c",
+    "slots": {
+      "1": {
+        "type": "PET-CF",
+        "colour": "161616"
+      }
+    },
+    "objects": [
+      "regulator-snap-cap",
+      "regulator-snap-cap-entry",
+      "regulator-receiver-standard",
+      "regulator-receiver-entry"
+    ]
+  },
+  "printer_task_id": "1418882219",
+  "gcode_state": "RUNNING",
+  "subtask_name": "2026-11-07-regulator-entry-comparison-mark2-adf8fe0d.gcode.3mf",
+  "print_error": 0,
+  "hms": [],
+  "layer_num": 0,
+  "total_layer_num": 150,
+  "mc_remaining_time": 0
+}

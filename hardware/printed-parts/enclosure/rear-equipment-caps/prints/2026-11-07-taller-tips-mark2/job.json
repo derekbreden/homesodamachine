@@ -7,7 +7,7 @@
   "printer": "Mark2",
   "printer_task_id": "1418641750",
   "launch_utc": "2026-11-07T22:45:45.933388+00:00",
-  "status": "accepted; physical results pending",
+  "status": "stopped by Derek; receiver orientation rejected before completion",
   "archive": {
     "path": "/Users/derekbredensteiner/Downloads/HSM-regulator-tall-2026-11-07/batch/2026-11-07-regulator-entry-comparison-mark2-adf8fe0d/2026-11-07-regulator-entry-comparison-mark2-adf8fe0d.gcode.3mf",
     "sha256": "e044db983951e5720c32cd78d9a2d176184309177688ff2426066c37030aaeb9",
@@ -418,5 +418,12 @@
   "estimated_seconds": 15594.702147224689,
   "estimated_material_g": 77.6457290649414,
   "cancelled_attempt": "tower-attempt.json",
-  "physical_result": "Awaiting Derek\u2019s comparison of insertion effort, directional tolerance, fit and repeated release."
+  "physical_result": "Awaiting Derek\u2019s comparison of insertion effort, directional tolerance, fit and repeated release.",
+  "stop_observation": {
+    "observed_utc": "2026-11-08T00:11:47.649640+00:00",
+    "printer_state": "FAILED",
+    "print_error": 0,
+    "hms": [],
+    "reason": "The receiver coupons used the rejected rear-face-down enclosure orientation."
+  }
 }
