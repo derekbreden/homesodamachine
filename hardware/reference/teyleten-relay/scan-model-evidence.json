@@ -1,0 +1,325 @@
+{
+  "purpose": "Records the Teyleten relay reference capture, measured frame, reconstruction and observed-surface comparison.",
+  "source": {
+    "path": "/Users/derekbredensteiner/Documents/3D Scans/2026-11-08-teyleten-relay/pass-01/native-project/pointclouds/Fused 1108_1 (0.10mm).ply",
+    "sha256": "d054b41f880ed749150002dd81881d2dbaee4c0edd335a9659fcd13168755068",
+    "points": 452673
+  },
+  "native_to_part_rotation": [
+    [
+      0.2769722715073408,
+      -0.3785752914115184,
+      0.8831574658851884
+    ],
+    [
+      -0.5791740389933605,
+      -0.7991611874243195,
+      -0.16093113145277008
+    ],
+    [
+      0.7667097191063779,
+      -0.46692841554914544,
+      -0.44060646997131514
+    ]
+  ],
+  "native_origin": [
+    47.88916873870306,
+    -3.267990891674234,
+    166.54916010681515
+  ],
+  "scale_factor": 1.0,
+  "selection": {
+    "part_box_mm": [
+      [
+        -35.7,
+        -8.8,
+        -3.5
+      ],
+      [
+        35.7,
+        8.8,
+        18.5
+      ]
+    ],
+    "putty_exclusion": "X inside (-1.5,15.8), with Y below -7.5 or Z below -0.3; also outside the part box."
+  },
+  "fit_native_stride": 3,
+  "held_out_native_offsets": [
+    1,
+    2
+  ],
+  "voxel_spacing_mm": 0.13,
+  "screened_poisson": {
+    "depth": 10,
+    "pointweight": 8,
+    "samplespernode": 2,
+    "threads": 1
+  },
+  "samples": 93589,
+  "triangles": 85000,
+  "closed": true,
+  "limits": [
+    "The part carries scanning spray; no coating-thickness correction or scale adjustment is applied.",
+    "Putty-covered underside, internal circuitry, deep terminal cavities and mounting-bore walls are not fully observed.",
+    "Poisson closes unobserved seams. The final model replaces the PCB slab and cuts the fitted front-rim openings through it.",
+    "Scan residuals describe this capture; they do not establish scanner absolute accuracy or screw installation clearance."
+  ],
+  "scan_date": "2026-11-08",
+  "capture_archive": "/Users/derekbredensteiner/Documents/3D Scans/2026-11-08-teyleten-relay",
+  "capture_manifest": "capture-manifest.json",
+  "scanner": {
+    "model": "Revopoint MINI 2",
+    "serial": "A26303035A6H01AB8",
+    "application": "Revo Scan",
+    "application_version": "6.3.2",
+    "frames": 958,
+    "fusion_spacing_mm": 0.1,
+    "native_cleanup": "Fusion only; no isolation, smoothing or hole filling."
+  },
+  "datums": "scan-datums.json",
+  "datum_observations": {
+    "pcb_top_plane_mm": {
+      "n": 11904,
+      "mean": 1.5562053863473024,
+      "median": 1.560276922465754,
+      "rms": 1.5567294363680488,
+      "p05": 1.4953431158139407,
+      "p95": 1.6027407282764214,
+      "abs_p95": 1.6027407282764214,
+      "min": 0.7567594983743271,
+      "max": 2.0571137729200633
+    },
+    "pcb_bottom_plane_mm": {
+      "n": 108,
+      "mean": 0.008709273629682253,
+      "median": 0.0,
+      "rms": 0.17268082807906035,
+      "p05": -0.11527674776269399,
+      "p95": 0.0821213046986564,
+      "abs_p95": 0.11829296075723753,
+      "min": -0.14959231637888082,
+      "max": 1.6911785277526925
+    }
+  },
+  "opening_rim_fit": {
+    "method": "Planar top-face alpha boundary, with straight PCB silhouettes excluded; robust circle fit. Bore-wall diameters remain unqualified.",
+    "rows": [
+      {
+        "xy": [
+          -33.10331262821905,
+          -6.465615166898584
+        ],
+        "radius": 1.4590516485256462,
+        "rim_points": 63,
+        "residual_p95_mm": 0.14331982013358685
+      },
+      {
+        "xy": [
+          -33.069221060532385,
+          6.464495143785295
+        ],
+        "radius": 1.4608639525678722,
+        "rim_points": 55,
+        "residual_p95_mm": 0.15774690779672332
+      },
+      {
+        "xy": [
+          33.250905540455115,
+          -6.4677894659874475
+        ],
+        "radius": 1.4853441410981125,
+        "rim_points": 54,
+        "residual_p95_mm": 0.21960817240151576
+      },
+      {
+        "xy": [
+          33.28053901319124,
+          6.5484421355986875
+        ],
+        "radius": 1.4155314091431457,
+        "rim_points": 54,
+        "residual_p95_mm": 0.31930782084043763
+      }
+    ]
+  },
+  "underside_representation": "Convex envelopes of disjoint fitting samples on observed solder tips, closed at the fitted PCB underside. Covered features are absent.",
+  "user_scope": {
+    "statement": "I saw plenty of the underside in the scan. It\u2019s tiny jagged little bits. I think you got the idea already.",
+    "instruction": "Finish from the current capture."
+  },
+  "held_out_validation": {
+    "purpose": "Compare disjoint native scan points with the finished relay reference surfaces.",
+    "source": {
+      "path": "/Users/derekbredensteiner/Documents/3D Scans/2026-11-08-teyleten-relay/pass-01/native-project/pointclouds/Fused 1108_1 (0.10mm).ply",
+      "sha256": "d054b41f880ed749150002dd81881d2dbaee4c0edd335a9659fcd13168755068",
+      "points": 452673
+    },
+    "model_sha256": "44475755a2edb474160a34fb43a6c3d810a7cf7559ae5de305b45b6756096b2c",
+    "native_point_stride": 18,
+    "native_point_offset": 1,
+    "selection": "Physical part box and putty exclusion; no rejection by model distance. PCB-frame fitting uses the cloud before this disjoint reconstruction validation.",
+    "rows": [
+      {
+        "region": "pcb",
+        "points": 3282,
+        "distance_mm": {
+          "n": 3282,
+          "mean": 0.049926457497778604,
+          "median": 0.02081054496212425,
+          "rms": 0.08916218910054419,
+          "p05": 0.001047962249966832,
+          "p95": 0.2128040523836637,
+          "abs_p95": 0.2128040523836637,
+          "min": 4.109044675650144e-06,
+          "max": 0.5012952535202251
+        },
+        "fraction_over_0_5mm": 0.0003046922608165753
+      },
+      {
+        "region": "logic-terminals",
+        "points": 4708,
+        "distance_mm": {
+          "n": 4708,
+          "mean": 0.006291390480413038,
+          "median": 0.0028669047911419675,
+          "rms": 0.013938506121238446,
+          "p05": 0.0002279733833885396,
+          "p95": 0.021664193261023878,
+          "abs_p95": 0.021664193261023878,
+          "min": 1.8308124550257883e-07,
+          "max": 0.274576405293607
+        },
+        "fraction_over_0_5mm": 0.0
+      },
+      {
+        "region": "contact-terminals",
+        "points": 3463,
+        "distance_mm": {
+          "n": 3463,
+          "mean": 0.007946565176243212,
+          "median": 0.0031473969776907376,
+          "rms": 0.02244564318084173,
+          "p05": 0.00021023370324776129,
+          "p95": 0.02593798711682551,
+          "abs_p95": 0.02593798711682551,
+          "min": 4.887503654519119e-07,
+          "max": 0.47955424131892554
+        },
+        "fraction_over_0_5mm": 0.0
+      },
+      {
+        "region": "relay-can",
+        "points": 5586,
+        "distance_mm": {
+          "n": 5586,
+          "mean": 0.004905196078712408,
+          "median": 0.001882591019311865,
+          "rms": 0.021731716092834603,
+          "p05": 0.0001649095895882217,
+          "p95": 0.011662311660899143,
+          "abs_p95": 0.011662311660899143,
+          "min": 4.0725315934951334e-07,
+          "max": 0.40266523016538613
+        },
+        "fraction_over_0_5mm": 0.0
+      },
+      {
+        "region": "control-components",
+        "points": 642,
+        "distance_mm": {
+          "n": 642,
+          "mean": 0.011075414021251754,
+          "median": 0.005696453134981465,
+          "rms": 0.020708809197252865,
+          "p05": 0.00048288423819996333,
+          "p95": 0.039468317294871595,
+          "abs_p95": 0.039468317294871595,
+          "min": 1.0181427801523708e-05,
+          "max": 0.19703407409369597
+        },
+        "fraction_over_0_5mm": 0.0
+      },
+      {
+        "region": "observed-underside",
+        "points": 54,
+        "distance_mm": {
+          "n": 54,
+          "mean": 0.13181733352021008,
+          "median": 0.09466962187759613,
+          "rms": 0.17212179228293598,
+          "p05": 0.016017913145771057,
+          "p95": 0.3464767046740658,
+          "abs_p95": 0.3464767046740658,
+          "min": 0.003067584698686244,
+          "max": 0.43955198863923783
+        },
+        "fraction_over_0_5mm": 0.0
+      }
+    ],
+    "limitation": "Distances measure reconstruction fidelity on observed surfaces, not scanner absolute accuracy or hidden-feature coverage."
+  },
+  "preparation_archive": {
+    "directory": "preparation",
+    "files": {
+      "frame.json": "1ea0d2e71c6f1e4a07070f09a98867a00395ee69c79e8716291f1904e93bbe42",
+      "hole-rims.json": "0d9561153a3d7a441d291db8888c5c6b4583a078c7501ba25cca445fda5e6de0",
+      "inspect.py": "38065b2fb186e0635deff886ba383f3e2ee003e59b5bbc4826b0b37c977f1b49",
+      "reconstruct.py": "8270fb16c6ba48531383001fc9cdc631dbf5f353189ea837b3b4a438d95f9fce",
+      "refine.py": "305b8721db2a35e4afec1f9c68178a01624d1011c6b6bc7fcb1c212d2535b2de",
+      "scan-datums.json": "4424a2e3dfb69eca1ed3cb323a5b3e4c4ad9004931b5074c44897623785780ad",
+      "scan_model.rs": "9f4bd184d6efe3b0bb6e77bd45556960689a39a3c7dccb8d0174d4e257b9b551",
+      "validate.py": "d53f4d356132aec1155e4c19a94f5416db9f84875d0f9f2765b406d81a46563c"
+    },
+    "observed_surface": "reconstruction/observed-exterior.npz",
+    "observed_surface_sha256": "01dcf54ff2f4e0fc62c0b9ad2ad7e1bf1624eb3e472f83edf58230bd465992bd"
+  },
+  "model": {
+    "bounds_mm": [
+      [
+        -35.16000000014901,
+        -8.599999999627471,
+        -2.3447936000302434
+      ],
+      [
+        35.16000000014901,
+        8.46999999973923,
+        17.529388216410915
+      ]
+    ],
+    "bodies": [
+      {
+        "name": "pcb",
+        "triangles": 2588
+      },
+      {
+        "name": "logic-terminals",
+        "triangles": 20906
+      },
+      {
+        "name": "contact-terminals",
+        "triangles": 18452
+      },
+      {
+        "name": "relay-can",
+        "triangles": 14644
+      },
+      {
+        "name": "control-components",
+        "triangles": 14502
+      },
+      {
+        "name": "logic-solder",
+        "triangles": 70
+      },
+      {
+        "name": "contact-solder",
+        "triangles": 88
+      }
+    ],
+    "sha256": {
+      "teyleten-relay.step": "a949a37e0ff30d4fb37af46049172dc3e6b6d7a39ef2fc89b6a3a9e7526ddba9",
+      "teyleten-relay.step.mesh": "680c9c5370b14e9e1134dc91aa8c1e410daa55598b122b4daee9318c367e5f76",
+      "teyleten-relay.step.npz": "44475755a2edb474160a34fb43a6c3d810a7cf7559ae5de305b45b6756096b2c"
+    }
+  }
+}

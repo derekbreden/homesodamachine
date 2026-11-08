@@ -3138,44 +3138,52 @@ pub(super) fn globals(cx: &mut Context, module: &str) -> Result<Env> {
             );
             e.insert("_hw".into(), path(cx, "hardware"));
             e.insert("HW".into(), path(cx, "hardware"));
-            e.insert("length".into(), json!(70.0));
-            e.insert("width".into(), json!(17.0));
-            e.insert("pcb_t".into(), json!(1.5));
-            e.insert("envelope_z".into(), json!(19.0));
-            e.insert("pin_drop".into(), json!(2.0));
-            e.insert("hole_dia".into(), json!(3.2));
-            e.insert("hole_dx".into(), b("/", json!(66.0), json!(2.0)));
-            e.insert("hole_dy".into(), b("/", json!(13.0), json!(2.0)));
+            let data = parse_json(read_file(
+                cx, b("/", g(&e, "HERE"), json!("scan-datums.json")),
+            )?)?;
+            let size = ix(ix(data.clone(), json!("pcb")), json!("size_mm"));
+            e.insert("length".into(), ix(size.clone(), json!(0)));
+            e.insert("width".into(), ix(size.clone(), json!(1)));
+            e.insert("pcb_t".into(), ix(size, json!(2)));
+            let bounds = ix(data.clone(), json!("observed_bounds_mm"));
+            let low_z = ix(ix(bounds.clone(), json!(0)), json!(2));
+            let high_z = ix(ix(bounds, json!(1)), json!(2));
+            e.insert("envelope_z".into(), b("-", high_z, low_z.clone()));
+            e.insert("pin_drop".into(), u("-", low_z));
+            let holes = seq(ix(data.clone(), json!("holes")));
+            let mut hole_xy = Vec::new();
+            let mut radius = 0.;
+            let mut dx = 0.;
+            let mut dy = 0.;
+            for hole in &holes {
+                let center = ix(hole.clone(), json!("center_mm"));
+                let x = ix(center.clone(), json!(0));
+                let y = ix(center, json!(1));
+                radius += n(&ix(hole.clone(), json!("radius_mm")));
+                dx += n(&x).abs();
+                dy += n(&y).abs();
+                hole_xy.push(t(vec![x, y]));
+            }
+            e.insert("hole_dia".into(), json!(radius * 2. / holes.len() as f64));
+            e.insert("hole_dx".into(), json!(dx / holes.len() as f64));
+            e.insert("hole_dy".into(), json!(dy / holes.len() as f64));
             e.insert("name".into(), json!("relay"));
-            e.insert("holes".into(), {
-                let mut e = e.clone();
-                let mut temp1 = Vec::new();
-                for item in seq(t(vec![u("-", json!(1.0)), json!(1.0)])) {
-                    e.insert("sx".into(), item);
-                    for item in seq(t(vec![u("-", json!(1.0)), json!(1.0)])) {
-                        e.insert("sy".into(), item);
-                        temp1.push(t(vec![
-                            b("*", g(&e, "sx"), g(&e, "hole_dx")),
-                            b("*", g(&e, "sy"), g(&e, "hole_dy")),
-                        ]));
-                    }
-                }
-                json!(temp1)
-            });
-            {
-                let temp2 = t(vec![json!(10.0), json!(10.0)]);
-                e.insert("screw_blk_inset".into(), ix(temp2.clone(), json!(0)));
-                e.insert("screw_blk_h".into(), ix(temp2.clone(), json!(1)));
+            e.insert("holes".into(), json!(hole_xy));
+            let ports = ix(data.clone(), json!("ports"));
+            let contacts = ix(ports.clone(), json!("contacts"));
+            let logic = ix(ports, json!("logic"));
+            let contact_point = ix(contacts.clone(), json!("point_mm"));
+            let logic_point = ix(logic.clone(), json!("point_mm"));
+            e.insert("screw_blk_inset".into(), b("-", b("/", g(&e, "length"), json!(2)), ix(contact_point.clone(), json!(0))));
+            e.insert("header_inset".into(), b("+", b("/", g(&e, "length"), json!(2)), ix(logic_point, json!(0))));
+            let components = seq(ix(data, json!("components")));
+            for (key, name) in [("screw_blk_h", "contact-terminals"), ("header_h", "logic-terminals")] {
+                let component = components.iter().find(|c| ix((*c).clone(), json!("name")) == json!(name)).expect("terminal component");
+                e.insert(key.into(), b("-", ix(component.clone(), json!("surface_top_mm")), g(&e, "pcb_t")));
             }
-            {
-                let temp3 = t(vec![json!(9.0), json!(8.5)]);
-                e.insert("header_inset".into(), ix(temp3.clone(), json!(0)));
-                e.insert("header_h".into(), ix(temp3.clone(), json!(1)));
-            }
-            e.insert(
-                "land_z".into(),
-                b("+", g(&e, "pcb_t"), g(&e, "screw_blk_h")),
-            );
+            e.insert("land_z".into(), ix(contact_point, json!(2)));
+            e.insert("contact_port".into(), contacts);
+            e.insert("logic_port".into(), logic);
         }
         "wago_221" => {
             e.insert("ROOT".into(), path(cx, ""));
@@ -8487,34 +8495,15 @@ pub(super) fn call(
         }
         ("teyleten_relay", "contacts") => {
             return Ok(t(vec![
-                t(vec![
-                    b(
-                        "-",
-                        b("/", g(&e, "length"), json!(2.0)),
-                        g(&e, "screw_blk_inset"),
-                    ),
-                    json!(0.0),
-                    g(&e, "land_z"),
-                ]),
-                t(vec![json!(0.0), json!(0.0), json!(1.0)]),
+                t(seq(ix(g(&e, "contact_port"), json!("point_mm")))),
+                t(seq(ix(g(&e, "contact_port"), json!("outward_axis")))),
             ]));
             Ok(Value::Null)
         }
         ("teyleten_relay", "logic") => {
             return Ok(t(vec![
-                t(vec![
-                    u(
-                        "-",
-                        b(
-                            "-",
-                            b("/", g(&e, "length"), json!(2.0)),
-                            g(&e, "header_inset"),
-                        ),
-                    ),
-                    json!(0.0),
-                    g(&e, "land_z"),
-                ]),
-                t(vec![json!(0.0), json!(0.0), json!(1.0)]),
+                t(seq(ix(g(&e, "logic_port"), json!("point_mm")))),
+                t(seq(ix(g(&e, "logic_port"), json!("outward_axis")))),
             ]));
             Ok(Value::Null)
         }
