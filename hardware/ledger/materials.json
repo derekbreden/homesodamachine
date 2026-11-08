@@ -3983,14 +3983,6 @@
       "models": [
         {
           "file": "printed-parts/enclosure/enclosure/enclosure-back-top.step"
-        },
-        {
-          "file": "printed-parts/enclosure/rear-equipment-caps/entry-study/regulator-receiver-entry.step",
-          "context": true
-        },
-        {
-          "file": "printed-parts/enclosure/rear-equipment-caps/entry-study/regulator-receiver-standard.step",
-          "context": true
         }
       ],
       "documents": [
@@ -8449,9 +8441,6 @@
       "models": [
         {
           "file": "printed-parts/enclosure/rear-equipment-caps/regulator-snap-cap.step"
-        },
-        {
-          "file": "printed-parts/enclosure/rear-equipment-caps/entry-study/regulator-snap-cap-entry.step"
         }
       ],
       "aliases": [
