@@ -6,12 +6,14 @@ click: x=-34.579 y=4.745 z=50.238
 click: x=36.579 y=25.299 z=47.708
 click: x=34.579 y=25.299 z=47.708
 
-[thin] The deliberately pointed free edge joins the single planar lead-in to the outside spring wall. Derek requests this point as the production tip. Its thickness approaches zero at the edge; the working spring remains 2 mm and the continuous solid retaining nose remains 1.6 mm. These locations are on that specified point.
-alternatives: A flat tip land removes the requested point. Thickening the full leaf changes the selected flexure section rather than the lead-in. The point is integral with the cap.
+[thin] The free edge ends the physically approved longer planar lead-in Derek requests across the rear caps. The taper approaches a mathematical point on the outside spring wall. The fitted spring section and solid retaining nose retain their approved geometry.
+alternatives: A flat land removes the requested point. Thickening the spring changes the approved flexure; extending the nose changes the fitted catch. The requested point is integral with the full spring wall along the cap.
 file: hardware/printed-parts/cold-core/foam-cap/pump-snap-cap.step
-click: x=-36.563 y=29.020 z=54.149
-click: x=-36.579 y=29.020 z=54.149
-click: x=36.563 y=29.020 z=0.351
-click: x=36.579 y=29.020 z=0.351
-click: x=36.579 y=28.953 z=54.149
-click: x=36.545 y=29.010 z=54.149
+click: x=-36.563 y=30.511 z=54.151
+click: x=-36.579 y=30.511 z=54.151
+click: x=36.563 y=30.511 z=0.349
+click: x=36.579 y=30.511 z=0.349
+click: x=-36.579 y=30.446 z=0.352
+click: x=-36.538 y=30.481 z=0.352
+click: x=36.579 y=30.446 z=54.148
+click: x=36.538 y=30.481 z=54.148

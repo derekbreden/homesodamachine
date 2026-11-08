@@ -12,10 +12,15 @@ click: x=10.448 y=-19.053 z=30.884
 click: x=-8.553 y=21.053 z=32.631
 click: x=-8.553 y=19.053 z=32.631
 
-[thin] The water-regulator cap's spring leaves and solid retaining nose define its fitted flexure and catch surfaces. Derek has physically approved that fitted section. The free point has its own lead-in above the retaining nose; thin readings at that taper's mathematical edge are inherent in the requested pointed profile. The point and flexible catch are required features, rather than bulk receiver walls.
-alternatives: Increasing the spring thickness changes its accepted bending section. Blunting the nose removes the requested pointed lead-in. Increasing the retaining nose changes its fitted catch plane.
+
+[thin] The free edge ends the physically approved longer planar lead-in Derek requests across the rear caps. The taper approaches a mathematical point on the outside spring wall. The fitted spring section and solid retaining nose retain their approved geometry.
+alternatives: A flat land removes the requested point. Thickening the spring changes the approved flexure; extending the nose changes the fitted catch. The requested point is integral with the full spring wall along the cap.
 file: hardware/printed-parts/enclosure/rear-equipment-caps/regulator-snap-cap.step
-click: x=10.846 y=-17.011 z=24.668
-click: x=12.586 y=-16.670 z=24.668
-click: x=10.846 y=17.011 z=11.332
-click: x=12.586 y=16.670 z=11.332
+click: x=15.917 y=-21.029 z=0.348
+click: x=15.917 y=-21.053 z=0.348
+click: x=15.917 y=21.029 z=35.652
+click: x=15.917 y=21.053 z=35.652
+click: x=15.836 y=-21.053 z=35.640
+click: x=15.882 y=-20.999 z=35.640
+click: x=15.836 y=21.053 z=0.360
+click: x=15.882 y=20.999 z=0.360

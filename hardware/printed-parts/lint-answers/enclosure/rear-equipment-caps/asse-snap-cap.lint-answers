@@ -30,28 +30,28 @@ click: x=0.070 y=13.102 z=30.865
 click: x=0.070 y=17.725 z=50.300
 click: x=0.070 y=14.227 z=30.865
 
-[thin] The deliberately pointed free edge joins the single planar lead-in to the outside spring wall. Derek requests this point as the production tip. Its thickness approaches zero at the edge; the working spring remains 2 mm and the continuous solid retaining nose remains 1.6 mm. These locations are on that specified point.
-alternatives: A flat tip land removes the requested point. Thickening the full leaf changes the selected flexure section rather than the lead-in. The point is integral with the cap.
+[thin] The free edge ends the physically approved longer planar lead-in Derek requests across the rear caps. The taper approaches a mathematical point on the outside spring wall. The fitted spring section and solid retaining nose retain their approved geometry.
+alternatives: A flat land removes the requested point. Thickening the spring changes the approved flexure; extending the nose changes the fitted catch. The requested point is integral with the full spring wall along the cap.
 file: hardware/printed-parts/enclosure/rear-equipment-caps/asse-snap-cap.step
-click: x=-25.127 y=-19.302 z=0.351
-click: x=-25.148 y=-19.302 z=0.351
-click: x=25.127 y=-19.302 z=41.310
-click: x=25.148 y=-19.302 z=41.310
-click: x=25.148 y=-19.249 z=0.352
-click: x=25.119 y=-19.298 z=0.352
-click: x=-25.148 y=-19.220 z=41.307
-click: x=-25.107 y=-19.290 z=41.307
+click: x=-25.127 y=-20.790 z=0.348
+click: x=-25.148 y=-20.790 z=0.348
+click: x=25.127 y=-20.790 z=41.317
+click: x=25.148 y=-20.790 z=41.317
+click: x=25.148 y=-20.739 z=0.351
+click: x=25.111 y=-20.771 z=0.351
+click: x=-25.148 y=-20.712 z=41.306
+click: x=-25.098 y=-20.755 z=41.306
+click: x=25.148 y=-20.551 z=2.586
+click: x=25.018 y=-20.662 z=2.586
+click: x=24.970 y=-20.605 z=35.703
+click: x=25.148 y=-20.605 z=35.703
+click: x=24.960 y=-20.593 z=32.169
+click: x=25.148 y=-20.593 z=32.169
+click: x=25.148 y=-20.509 z=23.479
+click: x=24.997 y=-20.637 z=23.479
 
 [sliver] This 0.676 mm-wide face is one of the adapter pocket's specified conforming hex flats, over the complete 10.25 mm hex band. The flat's direction and the 12.874 mm rounded-corner boundary define the selected fitted section. Derek explicitly retains the conforming hex and ensures its clock when assembling the taped joint.
 alternatives: Removing this plane changes the selected hex fit. Removing the corner boundary opens its rounded-corner envelope; replacing the flat with a circular room removes the hex conformity Derek requests. Adding exterior material does not widen this interior mating face.
 file: hardware/printed-parts/enclosure/rear-equipment-caps/asse-snap-cap.step
 click: x=-12.582 y=-2.080 z=55.318
 click: x=-12.629 y=-2.170 z=55.318
-
-[thin] These 2.302 mm readings cross the specified solid hook wedge between its flat retaining underside and its single pointed lead-in. The inner nose retains 1.6 mm height; the lead-in rises 3 mm over its 5.1 mm run to the outer tip. The complete pointed hook and 2 mm spring section are the selected working catch. The adapter alignment change leaves both wings and hooks geometrically identical.
-alternatives: Raising the retaining underside reduces the hook's catch engagement. Increasing the nose height requires a taller mating pocket or a flatter, less pointed lead-in. Adding a flat tip removes the point Derek requests. Filling the spring corridor prevents release travel.
-file: hardware/printed-parts/enclosure/rear-equipment-caps/asse-snap-cap.step
-click: x=-21.241 y=-17.016 z=34.420
-click: x=-21.241 y=-14.714 z=34.420
-click: x=21.241 y=-17.016 z=7.241
-click: x=21.241 y=-14.714 z=7.241

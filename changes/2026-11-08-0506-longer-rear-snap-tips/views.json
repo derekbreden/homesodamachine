@@ -1,0 +1,266 @@
+{
+  "views": [
+    {
+      "name": "pointed-cap",
+      "caption": "The approved longer planar lead-in on the Pisco cap.",
+      "before": "pointed-cap-before.webp",
+      "after": "pointed-cap-after.webp",
+      "width": 1200,
+      "height": 900,
+      "marks": [
+        {
+          "x": 894.5,
+          "y": 155.5,
+          "r": 40.9,
+          "label": "Longer point",
+          "at": [
+            90.9,
+            441,
+            350
+          ]
+        }
+      ],
+      "model": "printed-parts/enclosure/rear-equipment-caps/rear-equipment-caps-installed.step",
+      "camera": {
+        "projection": "orthographic",
+        "position": [
+          76.5,
+          350.03461347164716,
+          324.58415361659763
+        ],
+        "target": [
+          76.5,
+          441,
+          335.5
+        ],
+        "up": [
+          0,
+          0,
+          1
+        ],
+        "half": 22,
+        "near": 53.475198179306496,
+        "far": 152.72802751903896,
+        "aspect": 1.3333333333333333
+      },
+      "highlight": [
+        "pisco-snap-cap"
+      ],
+      "ghost": [],
+      "only": [
+        "pisco-snap-cap"
+      ],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "printed-parts/enclosure/rear-equipment-caps/rear-equipment-caps-installed.step.mesh",
+          "from": "snapshot",
+          "sha256": "03982515a3a78f0810571ed54828c74dce2ee3c3cac83d3df09097f1fedeef61",
+          "commit": "8875bba8a6200d569c064176a382986a2673e7cb",
+          "taken": "2026-11-08T10:45:14.966Z",
+          "published": true
+        },
+        "after": {
+          "payload": "printed-parts/enclosure/rear-equipment-caps/rear-equipment-caps-installed.step.mesh",
+          "from": "tree",
+          "sha256": "cd6ea09e9d5aa8179db735b81418402d7586870915bf145d65324ac386c0f1fe",
+          "commit": "8d0dc66654bffe35c14b311d7954ad8ab3577b90",
+          "published": true
+        }
+      },
+      "changed": [
+        "asse-snap-cap",
+        "meter-snap-cap",
+        "pisco-snap-cap",
+        "regulator-snap-cap"
+      ],
+      "withinMeshing": []
+    },
+    {
+      "name": "ceiling-pocket",
+      "caption": "The ASSE point clears its deeper pocket while the ceiling retains solid backing.",
+      "before": "ceiling-pocket-before.webp",
+      "after": "ceiling-pocket-after.webp",
+      "width": 1200,
+      "height": 900,
+      "marks": [
+        {
+          "x": 635.2,
+          "y": 261.6,
+          "r": 56.3,
+          "label": "Clear tip pocket",
+          "at": [
+            53.94,
+            417,
+            351.05
+          ]
+        }
+      ],
+      "model": "manifold-layout/enclosure-assembly.step",
+      "camera": {
+        "projection": "orthographic",
+        "position": [
+          53,
+          -183.6063427328554,
+          406.06063427328553
+        ],
+        "target": [
+          53,
+          417,
+          346
+        ],
+        "up": [
+          0,
+          0,
+          1
+        ],
+        "half": 12,
+        "near": 292.6567348515215,
+        "far": 946.558797704684,
+        "aspect": 1.3333333333333333,
+        "section": {
+          "at": [
+            0,
+            417,
+            0
+          ],
+          "normal": [
+            0,
+            -1,
+            0
+          ],
+          "removes": "the side the normal points to"
+        }
+      },
+      "highlight": [
+        "asse-snap-cap"
+      ],
+      "ghost": [],
+      "only": [
+        "enclosure-back-top",
+        "asse-snap-cap"
+      ],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "snapshot",
+          "sha256": "3a0e2e745205a7a40bc4425992eae62326259e9f7e7aa14c9467209f17a1bc1a",
+          "commit": "8875bba8a6200d569c064176a382986a2673e7cb",
+          "taken": "2026-11-08T10:45:43.670Z",
+          "published": true
+        },
+        "after": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "tree",
+          "sha256": "54c5829e70e3e9b203dd90ef0d70b56ff5682c4fd4e8e0e26f516607983e77fb",
+          "commit": "8d0dc66654bffe35c14b311d7954ad8ab3577b90",
+          "published": true
+        }
+      },
+      "changed": [
+        "enclosure-back-top",
+        "cold-core/foam-cap-lid-top",
+        "asse-snap-cap",
+        "cold-core/pump-snap-cap",
+        "meter-snap-cap",
+        "pisco-snap-cap",
+        "regulator-snap-cap"
+      ],
+      "withinMeshing": []
+    },
+    {
+      "name": "pump-lid-pocket",
+      "caption": "The rear pump receives the same longer point, with its pocket continued into the lid.",
+      "before": "pump-lid-pocket-before.webp",
+      "after": "pump-lid-pocket-after.webp",
+      "width": 1200,
+      "height": 900,
+      "marks": [
+        {
+          "x": 640.5,
+          "y": 665.8,
+          "r": 67.5,
+          "label": "Longer point and lid pocket",
+          "at": [
+            21.4,
+            415.3,
+            252.18
+          ]
+        }
+      ],
+      "model": "manifold-layout/enclosure-assembly.step",
+      "camera": {
+        "projection": "orthographic",
+        "position": [
+          20.5,
+          -94.82879588843389,
+          308.01287958884336
+        ],
+        "target": [
+          20.5,
+          415.3,
+          257
+        ],
+        "up": [
+          0,
+          0,
+          1
+        ],
+        "half": 10,
+        "near": 206.47728300784365,
+        "far": 761.8731358628605,
+        "aspect": 1.3333333333333333,
+        "section": {
+          "at": [
+            0,
+            415.3,
+            0
+          ],
+          "normal": [
+            0,
+            -1,
+            0
+          ],
+          "removes": "the side the normal points to"
+        }
+      },
+      "highlight": [
+        "cold-core/pump-snap-cap"
+      ],
+      "ghost": [],
+      "only": [
+        "cold-core/pump-snap-cap",
+        "cold-core/foam-cap-lid-top"
+      ],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "snapshot",
+          "sha256": "3a0e2e745205a7a40bc4425992eae62326259e9f7e7aa14c9467209f17a1bc1a",
+          "commit": "8875bba8a6200d569c064176a382986a2673e7cb",
+          "taken": "2026-11-08T10:45:43.670Z",
+          "published": true
+        },
+        "after": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "tree",
+          "sha256": "54c5829e70e3e9b203dd90ef0d70b56ff5682c4fd4e8e0e26f516607983e77fb",
+          "commit": "8d0dc66654bffe35c14b311d7954ad8ab3577b90",
+          "published": true
+        }
+      },
+      "changed": [
+        "enclosure-back-top",
+        "cold-core/foam-cap-lid-top",
+        "asse-snap-cap",
+        "cold-core/pump-snap-cap",
+        "meter-snap-cap",
+        "pisco-snap-cap",
+        "regulator-snap-cap"
+      ],
+      "withinMeshing": []
+    }
+  ]
+}
