@@ -71,3 +71,17 @@ click: x=-5.499 y=88.375 z=295.499
 alternatives: A flat roof makes a horizontal ceiling over the leads. Ending the channel short of the pocket leaves the leads no way into it. A level foot at the mouth adds a step where the channel meets the pocket wall.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
 click: x=47.786 y=49.529 z=319.335
+
+[ceiling] Functional upper pump-flange bearings. Each flat underside establishes the pump's axial stop opposite its independent screw-fastened retainer. Local Tree Slim supports leave through the open loading well before the pump is installed. Physical support finish and removal remain unqualified.
+alternatives: A corbel below the bearing occupies the flange's insertion envelope. Sloping or removing the bearing changes the axial seating datum and the opposed flange capture. These are local bearing strips, with direct access through the loading well while the front enclosure is loose.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+click: x=-52.225 y=15.055 z=225.074
+click: x=52.225 y=15.055 z=225.074
+
+[ceiling] Functional heat-set insertion faces for the independent pump retainers. Each flat entry supports perpendicular insertion into a full-thickness pilot surround. Local Tree Slim supports leave through the same straight underside pocket before inserts and pumps are installed. Physical support finish and removal remain unqualified.
+alternatives: Sloping the entry removes the perpendicular heat-set seating face and reduces the pilot's surrounding wall. Shortening the post changes the insert seat and screw engagement. Each entry has its own open underside pocket rather than a connecting cavity between pumps.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+click: x=-91.225 y=22.506 z=217.500
+click: x=-13.225 y=22.506 z=217.500
+click: x=13.225 y=22.506 z=217.500
+click: x=91.225 y=22.506 z=217.500

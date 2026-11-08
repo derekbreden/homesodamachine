@@ -1,0 +1,219 @@
+{
+  "views": [
+    {
+      "name": "underside",
+      "caption": "Independent flange retainers and separate loading wells.",
+      "before": "underside-before.webp",
+      "after": "underside-after.webp",
+      "width": 1200,
+      "height": 900,
+      "marks": [
+        {
+          "x": 395.6,
+          "y": 513.4,
+          "r": 31.3,
+          "label": "Independent retainer",
+          "at": [
+            52.225,
+            16.25,
+            195.524
+          ]
+        }
+      ],
+      "model": "printed-parts/enclosure/enclosure/enclosure.step",
+      "camera": {
+        "projection": "orthographic",
+        "position": [
+          0,
+          -115.38979331399653,
+          -299.6326443799885
+        ],
+        "target": [
+          0,
+          42,
+          225
+        ],
+        "up": [
+          0,
+          1,
+          0
+        ],
+        "half": 115,
+        "near": 372.8534474253395,
+        "far": 966.2303887153022,
+        "aspect": 1.3333333333333333
+      },
+      "highlight": [
+        "enclosure_front_top",
+        "enclosure_pump_retainer",
+        "enclosure-pump-retainer-*"
+      ],
+      "ghost": [],
+      "only": [
+        "enclosure_front_top",
+        "enclosure_pump_retainer",
+        "enclosure-pump-retainer-*",
+        "pump-retainer-*"
+      ],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "printed-parts/enclosure/enclosure/enclosure.step.mesh",
+          "from": "snapshot",
+          "sha256": "5f35ba3f63435bcf09410c725d40805751fc2880a09f47666ca07544896315ca",
+          "commit": "a30702a2532e77bcd3d15e5847b3c930c6a8ec24",
+          "taken": "2026-11-08T17:50:41.192Z",
+          "published": true
+        },
+        "after": {
+          "payload": "printed-parts/enclosure/enclosure/enclosure.step.mesh",
+          "from": "tree",
+          "sha256": "84e5758e897b2c153c86c0cbb96385163aa7f083295067d3804d7426fa31f116",
+          "commit": "ee3c5fe127960f6ac48d301ef581d6b26585dbc4",
+          "published": true
+        }
+      },
+      "changed": [
+        "stem-elbow-v-g",
+        "stem-elbow-y-d",
+        "stem-elbow-y-g",
+        "stem-elbow-v-j",
+        "stem-elbow-y-c",
+        "stem-elbow-y-f",
+        "stem-elbow-v-c",
+        "stem-elbow-v-d",
+        "tee-y-d",
+        "tee-y-g",
+        "enclosure-pump-retainer-a",
+        "enclosure-pump-retainer-b",
+        "enclosure_pump_retainer",
+        "pump-retainer-a-east-screw",
+        "pump-retainer-a-west-screw",
+        "pump-retainer-b-east-screw",
+        "pump-retainer-b-west-screw",
+        "pump-retainer-a-east-insert",
+        "pump-retainer-a-west-insert",
+        "pump-retainer-b-east-insert",
+        "pump-retainer-b-west-insert",
+        "tee-y-c",
+        "tee-y-f",
+        "enclosure_front_top"
+      ],
+      "withinMeshing": []
+    },
+    {
+      "name": "guide-section",
+      "caption": "A continuous tapered loading well leads into the retained cylindrical motor guide.",
+      "before": "guide-section-before.webp",
+      "after": "guide-section-after.webp",
+      "width": 1200,
+      "height": 900,
+      "marks": [
+        {
+          "x": 600,
+          "y": 328,
+          "r": 40,
+          "label": "Fitted motor guide",
+          "at": [
+            -52.225,
+            44.859,
+            269.5
+          ]
+        }
+      ],
+      "model": "printed-parts/enclosure/enclosure/enclosure.step",
+      "camera": {
+        "projection": "orthographic",
+        "position": [
+          462.4694129379559,
+          -135.28404452828454,
+          193.5305587062044
+        ],
+        "target": [
+          -52.225,
+          44.859,
+          245
+        ],
+        "up": [
+          0,
+          0,
+          1
+        ],
+        "half": 90,
+        "near": 299.1311802262845,
+        "far": 892.5081215162472,
+        "aspect": 1.3333333333333333,
+        "section": {
+          "at": [
+            -52.225,
+            44.859,
+            240
+          ],
+          "normal": [
+            1,
+            0,
+            0
+          ],
+          "removes": "the side the normal points to"
+        }
+      },
+      "highlight": [
+        "enclosure_front_top",
+        "enclosure_pump_retainer",
+        "enclosure-pump-retainer-*"
+      ],
+      "ghost": [],
+      "only": [
+        "enclosure_front_top",
+        "enclosure_pump_retainer",
+        "enclosure-pump-retainer-*",
+        "pump-retainer-*"
+      ],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "printed-parts/enclosure/enclosure/enclosure.step.mesh",
+          "from": "snapshot",
+          "sha256": "5f35ba3f63435bcf09410c725d40805751fc2880a09f47666ca07544896315ca",
+          "commit": "a30702a2532e77bcd3d15e5847b3c930c6a8ec24",
+          "taken": "2026-11-08T17:50:41.192Z",
+          "published": true
+        },
+        "after": {
+          "payload": "printed-parts/enclosure/enclosure/enclosure.step.mesh",
+          "from": "tree",
+          "sha256": "84e5758e897b2c153c86c0cbb96385163aa7f083295067d3804d7426fa31f116",
+          "commit": "ee3c5fe127960f6ac48d301ef581d6b26585dbc4",
+          "published": true
+        }
+      },
+      "changed": [
+        "stem-elbow-v-g",
+        "stem-elbow-y-d",
+        "stem-elbow-y-g",
+        "stem-elbow-v-j",
+        "stem-elbow-y-c",
+        "stem-elbow-y-f",
+        "stem-elbow-v-c",
+        "stem-elbow-v-d",
+        "tee-y-d",
+        "tee-y-g",
+        "enclosure-pump-retainer-a",
+        "enclosure-pump-retainer-b",
+        "enclosure_pump_retainer",
+        "pump-retainer-a-east-screw",
+        "pump-retainer-a-west-screw",
+        "pump-retainer-b-east-screw",
+        "pump-retainer-b-west-screw",
+        "pump-retainer-a-east-insert",
+        "pump-retainer-a-west-insert",
+        "pump-retainer-b-east-insert",
+        "pump-retainer-b-west-insert",
+        "tee-y-c",
+        "tee-y-f",
+        "enclosure_front_top"
+      ],
+      "withinMeshing": []
+    }
+  ]
+}
