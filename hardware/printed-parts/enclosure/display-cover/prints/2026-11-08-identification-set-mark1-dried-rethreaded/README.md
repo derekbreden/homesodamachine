@@ -9,3 +9,6 @@ records the cooled units before opening to rethread the filament. The
 The [launch record](launch.json) identifies the accepted job, selected hotends,
 material slots and calibration options. The [readiness reading](ready.json)
 records the idle printers and stopped dryers before submission.
+
+The [physical result](physical-result.json) records repeated overload and uneven
+white first-layer deposition after drying and rethreading.

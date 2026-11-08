@@ -1,0 +1,46 @@
+{
+  "purpose": "Record the right-side clearance trial and its unchanged extrusion paths.",
+  "source_archive": "hardware/printed-parts/enclosure/display-cover/prints/2026-11-06-identification-set-mark1-z000/HSM-identification-Mark1-z000.gcode.3mf",
+  "source_sha256": "c41c0ee97b0d47869a71335bdcf0e09b1c48ce0c11deae2666303dc3038428b4",
+  "archive": "HSM-identification-Mark1-right-z005.gcode.3mf",
+  "archive_sha256": "add2ae805c6d02cb27514b305d9cd8dff378f66b04cc6f021e977e0fe44c96a8",
+  "source_gcode_sha256": "0d5ec185a13b596213091a24b64700dbb0ef353c24798eadedd9fae0ecb9788c",
+  "gcode_sha256": "9f593bb8064e7815110f563b19df097cdea1ab26f0d943cc3471691de856d4b3",
+  "editable_project": "HSM-identification-set-Mark1-right-z005.3mf",
+  "plate": "Engineering Plate, glued",
+  "z_trim_mm": {
+    "left_black": 0.0,
+    "right_white_blue_red_clear": 0.05
+  },
+  "implementation": "Per-filament start hooks set the requested absolute firmware trim. Every filament end hook restores zero before native tool changes or the shutdown routine. Each hook drains queued motion before changing trim. The initial machine-start trim commands remain zero.",
+  "filament_start_counts": {
+    "0": 15,
+    "1": 28,
+    "2": 12,
+    "3": 15,
+    "4": 17
+  },
+  "filament_end_reset_count": 87,
+  "added_trim_commands": {
+    "G29.1 Z0": 102,
+    "G29.1 Z0.05": 72
+  },
+  "positive_extrusion_commands_verified_by_filament": {
+    "0": 254588,
+    "1": 111155,
+    "2": 19388,
+    "3": 18214,
+    "4": 7099
+  },
+  "checks": {
+    "all_original_gcode_byte_identical_after_removing_hook_additions_and_restoring_header_comments": true,
+    "no_geometry_changes": true,
+    "no_motion_extrusion_temperature_speed_flow_fan_or_calibration_changes": true,
+    "all_non_hook_profile_settings_unchanged": true,
+    "all_filament_extrusions_match_side_trim": true,
+    "final_trim_zero": true,
+    "zip_crc_and_gcode_md5_valid": true
+  },
+  "excluded_hotend_serial": "20D06A5C1907799",
+  "replacement_white_hotend_serial": "20D06A611023831"
+}

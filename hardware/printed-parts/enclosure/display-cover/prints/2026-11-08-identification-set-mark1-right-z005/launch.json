@@ -1,0 +1,117 @@
+{
+  "purpose": "Record the requested right-side clearance trial launch.",
+  "printer": "Mark1",
+  "connection_key": "H2C",
+  "archive": "HSM-identification-Mark1-right-z005.gcode.3mf",
+  "archive_sha256": "add2ae805c6d02cb27514b305d9cd8dff378f66b04cc6f021e977e0fe44c96a8",
+  "z_trim_mm": {
+    "left_black": 0.0,
+    "right_white_blue_red_clear": 0.05
+  },
+  "before": {
+    "Mark2": {
+      "observed_at": "2026-11-08T11:05:16.969257+00:00",
+      "job_id": "1418882219",
+      "gcode_state": "FINISH",
+      "subtask_name": "2026-11-07-regulator-entry-comparison-mark2-adf8fe0d.gcode.3mf",
+      "print_error": 0,
+      "hms": [],
+      "bed_target_temper": 0.0,
+      "nozzle_target_temper": 0.0
+    },
+    "H2C": {
+      "observed_at": "2026-11-08T11:05:17.570081+00:00",
+      "job_id": "1419890949",
+      "gcode_state": "FAILED",
+      "subtask_name": "HSM-identification-Mark1-dried-z000.gcode.3mf",
+      "print_error": 0,
+      "hms": [],
+      "bed_target_temper": 0.0,
+      "nozzle_target_temper": 0.0,
+      "ams": [
+        {
+          "id": "0",
+          "temperature_c": "31.1",
+          "humidity_raw": "10",
+          "dry_time": 0
+        },
+        {
+          "id": "128",
+          "temperature_c": "25.2",
+          "humidity_raw": "12",
+          "dry_time": 0
+        }
+      ]
+    }
+  },
+  "mapping": {
+    "black": {
+      "side": "left",
+      "ams": "HT-A"
+    },
+    "white": {
+      "side": "right",
+      "ams": "A3",
+      "hotend": "R",
+      "serial": "20D06A611023831"
+    },
+    "blue": {
+      "side": "right",
+      "ams": "A2",
+      "rack": 1
+    },
+    "red": {
+      "side": "right",
+      "ams": "A1",
+      "rack": 3
+    },
+    "clear": {
+      "side": "right",
+      "ams": "A4",
+      "rack": 4
+    }
+  },
+  "options": {
+    "Timelapse": "On",
+    "Auto bed leveling": "On",
+    "Flow dynamic calibration": "Auto",
+    "Nozzle Offset Calibration": "Auto"
+  },
+  "all_selected_nozzles_diameter_mm": 0.2,
+  "reviewed_in_bambu_connect": true,
+  "submitted": true,
+  "mark_two_last_launch": {
+    "observed_at": "2026-11-08T00:26:18.060968+00:00",
+    "job_id": "1418882219"
+  },
+  "submission_observed_at": "2026-11-08T11:05:40.759905+00:00",
+  "latest": {
+    "observed_at": "2026-11-08T11:05:42.703794+00:00",
+    "job_id": "1420097198",
+    "gcode_state": "RUNNING",
+    "subtask_name": "HSM-identification-Mark1-right-z005.gcode.3mf",
+    "print_error": 0,
+    "hms": [],
+    "layer_num": 0,
+    "total_layer_num": 32,
+    "mc_remaining_time": 1128,
+    "stg_cur": -1
+  },
+  "accepted": {
+    "observed_at": "2026-11-08T11:05:42.703794+00:00",
+    "job_id": "1420097198",
+    "gcode_state": "RUNNING",
+    "subtask_name": "HSM-identification-Mark1-right-z005.gcode.3mf",
+    "print_error": 0,
+    "hms": [],
+    "layer_num": 0,
+    "total_layer_num": 32,
+    "mc_remaining_time": 1128,
+    "stg_cur": -1
+  },
+  "verified_in_application": {
+    "printer": "Mark1",
+    "file": "HSM-identification-Mark1-right-z005.gcode.3mf",
+    "stage": "Cooling chamber"
+  }
+}
