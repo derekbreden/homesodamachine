@@ -93,7 +93,7 @@ for fixed-width brim types.
 | Piece | Printer, hotend | Material | Read from the mesh, or pose | Recipe changes |
 | --- | --- | --- | --- | --- |
 | `front-top` | Mark1, left 0.4 | PET-GF black | 0.08 mm band over the R6 roof side edges' level run and the R18 display-to-roof roll | Support XY 0.50 mm |
-| `front-bottom` | Mark1, left 0.4 | PET-GF black | Six-wall band through the handhold lifting-edge transition and its corner returns; 0.8 mm boundary strip of the flat lifting ceiling; removable arc fins along the lifting edges | — |
+| `front-bottom` | Mark1, left 0.4 | PET-GF black | Six-wall band through the handhold lifting-edge transition and its corner returns; 0.8 mm boundary strip of the flat lifting ceiling; removable arc fins along the lifting edges | Tree(auto)/Default; short rail trees rooted on their cavity floors |
 | `back-top` | Mark2, left 0.4 | PET-GF black | Ceiling-down, rear flutes clear of the bed; additive roof-edge transition; local solid catch and rail bands | Manual Tree Slim at native accessible contacts; support-free receiver bridges, passages and sockets |
 | `back-bottom` | Mark2, left 0.4 | PET-GF black | Six-wall band through the handhold lifting-edge transition and its corner returns; 0.8 mm boundary strip of the flat lifting ceiling; removable arc fins on feet along the lifting edges | Plate offset Y +18.8 mm; automatic-tree branch angle 20° |
 | `pump-retainer` | Mark1, left 0.4 | PET-GF black | Broad lower retainer, Y-minus end on the bed; build axis +Y | Three Classic walls; local solid snap hosts |

@@ -108,6 +108,24 @@
     },
     "front-bottom": {
       "printer": "Mark1",
+      "settings": {
+        "support_type": {
+          "value": "tree(auto)",
+          "reason": "Rail cavities retain the locally rooted trees Derek reports are easy to remove."
+        },
+        "support_style": {
+          "value": "default",
+          "reason": "Use the saved Bambu tree style for the rail cavities."
+        },
+        "support_on_build_plate_only": {
+          "value": "0",
+          "reason": "Rail trees start on their own cavity floor."
+        },
+        "tree_support_branch_angle": {
+          "value": "20",
+          "reason": "Keep the rail branches above the cavity floor instead of routing down outside the flank."
+        }
+      },
       "nozzle": {
         "side": "left",
         "diameter_mm": 0.4,
