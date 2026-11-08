@@ -2529,12 +2529,19 @@
       "models": [
         {
           "file": "reference/beduan-solenoid/beduan-solenoid.step"
+        },
+        {
+          "file": "reference/beduan-solenoid/solidcraft/beduan-valve.step"
         }
       ],
       "documents": [
         {
           "title": "Part details",
           "path": "reference/beduan-solenoid/README.md"
+        },
+        {
+          "title": "SolidCraft reference",
+          "path": "reference/beduan-solenoid/solidcraft/README.md"
         }
       ],
       "manufacturer_number": "Beduan 12 V"
