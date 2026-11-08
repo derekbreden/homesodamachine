@@ -1080,17 +1080,20 @@ def objects_in_store(hashes) -> set:
     """Which of these hashes the store already holds, asked one by one; a store that does not
     answer holds nothing, and every member is sent."""
     from urllib.request import Request, urlopen
+    import concurrent.futures as cf
 
-    out = set()
-    for digest in _native("unique", values=list(hashes)):
+    def present(digest):
         try:
             with urlopen(Request(STORE_URL + object_asset(digest), method="HEAD",
                                  headers={"User-Agent": "pack.py"}), timeout=30) as resp:
                 if resp.status == 200:
-                    out.add(digest)
+                    return digest
         except Exception:  # noqa: BLE001 — absent or unreachable reads the same: send it
             pass
-    return out
+        return None
+    values = _native("unique", values=list(hashes))
+    with cf.ThreadPoolExecutor(max_workers=max(1,min(4,len(values)))) as pool:
+        return {digest for digest in pool.map(present,values) if digest}
 
 
 def upload_objects(root: Path, rels: list, solid_hashes: dict, known: set, sources=None) -> bool:
@@ -1123,12 +1126,20 @@ def upload_objects(root: Path, rels: list, solid_hashes: dict, known: set, sourc
     compressed = {rel: cache / object_asset(solid_hashes[rel]) for rel in todo}
     _native("gzip-many", files=[{"source": str((sources or {}).get(rel, root / rel)), "output": str(compressed[rel])}
                                for rel in todo], level=1)
+    import threading
+    fallback_lock = threading.Lock()
+    fallback_ready = False
 
     def send(rel):
+        nonlocal fallback_ready
         sha = solid_hashes[rel]
         staged = compressed[rel]
         if put_object(STORE_URL + object_asset(sha), staged):
             return None
+        with fallback_lock:
+            if not fallback_ready:
+                make_room(root, len(todo))
+                fallback_ready = True
         return None if _gh(root, "release", "upload", TAG, str(staged),
                            "--clobber").returncode == 0 else rel
 
@@ -1141,7 +1152,7 @@ def upload_objects(root: Path, rels: list, solid_hashes: dict, known: set, sourc
     return not failures
 
 
-def upload_mesh_assets(root: Path, rels: list, held: dict, sources=None, lines=None) -> list:
+def upload_mesh_assets(root: Path, rels: list, held: dict, sources=None, lines=None, keep_previous=False) -> list:
     """Shared scene objects go up before any manifest that refers to them."""
     import concurrent.futures as cf
     sys.path.insert(0, str(root / "hardware/scripts"))
@@ -1151,6 +1162,8 @@ def upload_mesh_assets(root: Path, rels: list, held: dict, sources=None, lines=N
     assets = request("scene-assets", paths=list(manifests), expected=manifests)
     known = set(held.get("mesh_assets") or [])
     todo = [row for row in assets if row["sha256"] not in known]
+    present = objects_in_store([row["sha256"] for row in todo])
+    todo = [row for row in todo if row["sha256"] not in present]
     cache = root / ".cache/meshes/publication"
     cache.mkdir(parents=True, exist_ok=True)
     _native("gzip-many", files=[{"source": row["path"], "output": str(cache / object_asset(row["sha256"]))}
@@ -1163,7 +1176,8 @@ def upload_mesh_assets(root: Path, rels: list, held: dict, sources=None, lines=N
         list(pool.map(send,todo))
     if todo:
         print(f"  {len(todo)} shared mesh object(s) uploaded")
-    return sorted(row["sha256"] for row in assets)
+    current = {row["sha256"] for row in assets}
+    return sorted(current | known if keep_previous else current)
 
 
 def upload(root: Path, bundle: Path, asset: str, digest: str, size: int) -> None:
@@ -1295,27 +1309,44 @@ def cut_bundle(held: dict, rels: list, now: dict, sidecar_now: dict, made: dict,
     return 0
 
 
-def publish_held(grafted: set) -> int:
+def publish_held(grafted: set, viewer_only=False, members=None) -> int:
     """Each publication holds only its changed objects while their producers continue."""
     import tempfile
     directory = _ROOT / ".cache/runs"
     directory.mkdir(parents=True, exist_ok=True)
     with tempfile.TemporaryDirectory(prefix="publication-", dir=directory) as staging:
-        return _publish_held(grafted, Path(staging))
+        return _publish_held(grafted, Path(staging), viewer_only, members)
 
 
-def _publish_held(grafted: set, staging: Path) -> int:
+def _measured(phase, started):
+    """Requested measurements separate publication work from network delivery."""
+    target = os.environ.get("HSM_PUBLISH_TIMING")
+    if target:
+        with open(target, "a") as log:
+            log.write(json.dumps({"phase": "pack."+phase, "pid": os.getpid(),
+                                  "wall_time_ns": time.time_ns(),
+                                  "seconds": time.monotonic()-started})+"\n")
+    return time.monotonic()
+
+
+def _publish_held(grafted: set, staging: Path, viewer_only=False, members=None) -> int:
     """`--write --publish-held`: what this machine cut since main's pointers moved goes up on its
     own hash, and each member's `made` line moves with what moved. Nothing here asks Bazel.
 
     WHAT A HELD PUBLISH MOVES IS WHAT THIS MACHINE CUT, and the rest of the file is main's. A
     copy older than its line is taken from the release before anything else is decided, so the
     lines describe a disk that holds main's bytes for every member this machine did not cut."""
+    phase_started = time.monotonic()
     held = read_pointers()
     graph = Graph.load(_ROOT)
     index = staged(_ROOT)
     head = _head(_ROOT)
     rels = solids(_ROOT)
+    if members is not None:
+        selected = set(members)
+        rels = [rel for rel in rels if rel in selected]
+    if viewer_only:
+        rels = [rel for rel in rels if rel.endswith((".step.mesh", ".glb.mesh"))]
     sys.path.insert(0,str(_ROOT / "hardware/scripts"))
     from _build_data import request
     obsolete = set(request("scene-obsolete",root=str(_ROOT),paths=list(held.get("solids",{}))))
@@ -1325,7 +1356,7 @@ def _publish_held(grafted: set, staging: Path) -> int:
         rels = [path for path in rels if path not in obsolete]
         print(f"  {len(obsolete)} standalone export(s) retired by their shared-scene producers")
     now = hashes(_ROOT, rels)
-    sidecar_now = sidecar_lines(_ROOT, held, graph)
+    sidecar_now = held.get("sidecars", {}) if viewer_only else sidecar_lines(_ROOT, held, graph)
     walked = _native("merge-lines", maps=[now, sidecar_now])
     mtimes = _native("mtimes", root=_ROOT, rels=rels) if held.get("solids") else {}
     state = _native("held-state", held=held, rels=rels, now=now, sidecar_now=sidecar_now, mtimes=mtimes)
@@ -1349,7 +1380,13 @@ def _publish_held(grafted: set, staging: Path) -> int:
         lines[row["relative"]] = row["sha256"]
         walked[row["relative"]] = row["sha256"]
     whole_lines = _native("merge-lines", maps=[lines, sidecar_now])
-    made = made_here(_ROOT, held, graph, index, head, whole_lines, walked, moved, grafted)
+    if viewer_only:
+        # Surface references carry their exact source bindings; input-proof bookkeeping follows them.
+        made = dict(held.get("made", {}))
+        for rel in moved:
+            made[rel] = {**made.get(rel, {}), "commit": head, "unproven": True}
+    else:
+        made = made_here(_ROOT, held, graph, index, head, whole_lines, walked, moved, grafted)
 
     if not pinned:
         records = _native("held-record-state", held=held, made=made, side_moved=side_moved,
@@ -1362,16 +1399,18 @@ def _publish_held(grafted: set, staging: Path) -> int:
         print(f"{len(side_moved)} scorecard(s) and {records['shifted']} `made` line(s) moved, and no member's bytes{_unproven(made)}")
         return 0
 
-    mesh_assets = upload_mesh_assets(_ROOT, rels, held, sources, lines)
+    phase_started = _measured("plan", phase_started)
+    asset_members = pinned if viewer_only else [rel for rel in lines if (_ROOT / rel).is_file()]
+    mesh_assets = upload_mesh_assets(_ROOT, asset_members, held, sources, lines, keep_previous=viewer_only)
+    phase_started = _measured("mesh-objects", phase_started)
     known = set()
     prior_bundle = held.get("bundle", {})
     if prior_bundle.get("sha256"):
         pin_hashes = _native("map-values", data=now, paths=pinned)
         known = set(_native("set-plan", first=list(known), second=list(objects_in_store(pin_hashes)))["union"])
-        if make_room(_ROOT, _native("object-count", rels=pinned, hashes=now, known=list(known))):
-            known = set(_native("set-plan", first=list(objects_on_release(_ROOT)),
-                                second=list(objects_in_store(pin_hashes)))["union"])
+        phase_started = _measured("member-heads", phase_started)
         if upload_objects(_ROOT, pinned, now, known, sources):
+            phase_started = _measured("members", phase_started)
             data = pointers_for(_ROOT, sorted(lines), prior_bundle["sha256"],
                                 prior_bundle.get("bytes", 0), lines, sidecar_now, made, held=held)
             data = _patch(data, [(('mesh_assets',), mesh_assets), (('bundle',), prior_bundle), (('bundle', 'behind'), True),
@@ -1395,6 +1434,9 @@ def main(argv) -> int:
     ap.add_argument("--publish-held", action="store_true",
                     help="with --write, publish bytes already on disk without cutting their "
                          "producer rules")
+    ap.add_argument("--viewer-only", action="store_true",
+                    help="with --publish-held, advance viewer members while manufacturing files retain their current lines")
+    ap.add_argument("--members-json", help="with --publish-held, publish only these completed members")
     ap.add_argument("--grafted", action="append", default=[], metavar="PATH",
                     help="with --publish-held, a member the enclosure graft wrote")
     ap.add_argument("--check", action="store_true", help="1 if the pointer file does not name this tree")
@@ -1443,7 +1485,8 @@ def main(argv) -> int:
     if args.allow_retired:
         ap.error("--allow-retired is only valid with --prune")
     if args.publish_held:
-        return publish_held(set(args.grafted))
+        return publish_held(set(args.grafted), args.viewer_only,
+                            json.loads(args.members_json) if args.members_json is not None else None)
 
     graph = Graph.load(_ROOT)
     rels = solids(_ROOT)
