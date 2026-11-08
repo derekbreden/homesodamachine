@@ -2,6 +2,7 @@
 //! planes in the machine frame, and the snap's end planes and the receivers' faces, which
 //! front-top's pump mount takes.
 use hsm_enclosure_numbers::catalog::{clearance, running};
+use hsm_enclosure_numbers::layout::{snap_tip_air, snap_tip_rise};
 use hsm_enclosure_numbers::pump::tray;
 use hsm_enclosure_numbers::shell::{FRONT_PLANE_Y, FRONT_TOP_FLANK_T, WALL, Z_SEAM, shell};
 use hsm_enclosure_numbers::spec::Box;
@@ -11,7 +12,6 @@ pub const WING_LENGTH: f64 = 22.25;
 pub const ROOT_RADIUS: f64 = 1.5;
 pub const CATCH_OVERLAP: f64 = 2.6;
 pub const CATCH_AIR: f64 = 0.4;
-pub const LEAD_RISE: f64 = 4.6;
 pub const PRY_WIDTH: f64 = 5.0;
 pub const RELAXED_SPREAD: f64 = 0.35;
 pub const SEATED_SPREAD: f64 = 0.10;
@@ -88,7 +88,7 @@ pub fn snap_datums(b: &Box) -> SnapDatums {
         wing_inner_x: outer - WING_THICK,
         wing_outer_x: outer,
         hook_outer_x: hook,
-        hook_ramp_z: floor + LEAD_RISE,
+        hook_ramp_z: floor + snap_tip_rise(),
         root_z: floor + WING_LENGTH,
         floor_z: floor,
         receiver_floor_z: floor - CATCH_AIR,
@@ -99,7 +99,7 @@ pub fn snap_datums(b: &Box) -> SnapDatums {
         receiver_y1: d.y1 + running(),
         receiver_z0: Z_SEAM + running(),
         receiver_z1: floor + WING_LENGTH + 3.0 * WALL,
-        receiver_roof_z: floor + LEAD_RISE + 2.0 * running(),
+        receiver_roof_z: floor + snap_tip_rise() + snap_tip_air(),
         port_inner_x: outer + running(),
         port_outer_x: b.outer[1] - WALL,
         port_y0: cy - PRY_WIDTH / 2.0,
