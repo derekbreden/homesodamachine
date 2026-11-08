@@ -12,3 +12,6 @@ The [physical result](physical-result.json) records rough white deposition and a
 repeated extrusion-motor overload with the replacement hotend. It includes the
 follow-up drying readings and matching Bambu filament links. The cause remains
 unconfirmed.
+
+The [closed-AMS baseline](drying/closed-baseline.json) records temperature and
+humidity after drying, before opening the lids to rethread the filament.
