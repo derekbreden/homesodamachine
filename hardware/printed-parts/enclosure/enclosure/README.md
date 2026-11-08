@@ -1195,9 +1195,12 @@ Each side’s carrier, wing and lower hook share the retainer’s complete Y14.2
 The receiver spans Y14–82.515, leaving 0.25 mm at either end. Each 2.0 mm wing
 has a 22.25 mm root-to-bearing length and a tangent 1.5 mm inside root blend.
 The roots are at Z197.445; the retaining hooks are at the bottom. Each hook
-has one 4.6 mm-high planar insertion face running directly to the pointed
-outer corner of the flat retaining face. The matching receiver pocket clears
-the complete insertion face and retains its broad backing.
+uses the shared approved planar lead-in, running directly to the pointed
+outer corner of the flat retaining face. The above-core design owns the ramp
+rise and point clearance used by the front retainer and rear caps. The matching
+receiver pocket clears the complete insertion face and retains its broad backing.
+The [long-tip reading](pump-snap-review/long-tip-fit.json) binds these ramps and
+matching front-top receivers to the production solids.
 
 The hook-bearing plane is Z175.195. Each seated hook reaches |X|101.1,
 providing 2.6 mm of bearing past the |X|98.5 receiver edge. The relaxed tip
@@ -1207,8 +1210,9 @@ inward spring corridor is 3.35 mm wide; the fitted pump wells and skirt
 bearings keep their dimensions.
 
 One centered, 5 mm Y-wide screwdriver opening per side passes through
-|X|98.5–104.5 and opens from Z170.195. Its continuous 45° corbel runs from
-X101.1/Z180.295 to X104.5/Z176.895 on the right, mirrored on the left.
+|X|98.5–104.5 and opens from Z170.195. Its continuous corbel
+joins the pocket back to the outer-wall landing; the shared snap datums set
+its roof and pocket planes, mirrored on the opposite flank.
 The opening retains 3 mm of outer wall; the receiver pocket retains 6.4 mm
 of backing. The receiver’s lower edge supplies the fulcrum for pushing
 the wing inward until its hook clears. Support the pump/retainer unit
