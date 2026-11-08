@@ -172,7 +172,9 @@ fn dispatch(v:&Value)->Result<Value> {
                 let file=Path::new(host.as_str().context("host path")?);
                 if !file.is_file(){continue;}
                 let mut head=hsm_geometry::scene::pack(&fs::read(file)?)?;
-                let count=hsm_geometry::scene::replace(&mut head,text(v,"relative")?,&bytes)?;
+                let count=if file.to_string_lossy().ends_with(".glb.mesh") {
+                    hsm_geometry::scene::replace_selected(&mut head,text(v,"relative")?,&bytes)?
+                } else {hsm_geometry::scene::replace(&mut head,text(v,"relative")?,&bytes)?};
                 if count>0 {hsm_geometry::scene::keep(file,&hsm_geometry::scene::encode(&head,&[])?)?;}
                 replies.push(json!({"path":file,"replaced":count}));
             }
