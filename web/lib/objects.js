@@ -106,7 +106,7 @@ export function mountObjectRoutes(app, { store }) {
 
 /** The hashes a pointer file names: every member, so every object worth keeping. */
 export function namedBy(pointers) {
-  return new Set(Object.values(pointers?.solids ?? {}));
+  return new Set([...Object.values(pointers?.solids ?? {}), ...(pointers?.mesh_assets ?? [])]);
 }
 
 /** Remove what no line names once it is old enough that no publish is still about to name it. */
