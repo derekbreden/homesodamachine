@@ -12,6 +12,7 @@ and regulatory basis is [`/business/regulatory.md`](/business/regulatory.md), an
 
 | Concern | Answer |
 | --- | --- |
+| Removing supports from the rail cavities | Derek: “the tree supports in those rail cavities *are* easy to remove, as long as they are actually in that cavity”. This acceptance excludes rectangular normal supports and tall trees starting below the cavity. Keep the local roots and open sliding lane in the [rail support recipe](/hardware/printed-parts/enclosure/enclosure/README.md#support-removal-strategy). |
 | Teyleten relay screw heads beside the terminal blocks | Derek: “I mean, yes, they overlap and they fit, so you need to see it to see what I mean.” The [relay mount review](/hardware/printed-parts/enclosure/enclosure/relay-mount-fit.json) records the scan intersections and his physical-fit answer. |
 | Earthing the faucet's under-counter plate | Derek: “Adding earth to carbonator only sounds good to me.” The faucet retains its single four-conductor modular display connection. The carbonator has the dedicated protective-earth bond specified in [wiring](/hardware/assembly/wiring.md#1-chassis-ground-bonds-single-point-ground-on-the-cold-core-lid). |
 | Foam pour heat and expansion | Derek reports several earlier pours into PETG-printed foam shells in which nothing melted and no surface was too hot to touch ([cold core](/hardware/assembly/cold-core.md)). |
