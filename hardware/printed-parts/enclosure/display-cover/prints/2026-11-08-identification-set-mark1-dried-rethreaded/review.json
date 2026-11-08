@@ -13,7 +13,7 @@
   "drying_baseline": "../2026-11-07-identification-set-mark1-white-spare/drying/closed-baseline.json",
   "excluded_hotend_serial": "20D06A5C1907799",
   "replacement_white_hotend_serial": "20D06A611023831",
-  "status": "Prepared; Bambu Connect access awaits Mac unlock",
+  "status": "Accepted by Mark One",
   "requested_mapping": {
     "black": {
       "side": "left",
@@ -48,6 +48,6 @@
     "observed_at": "2026-11-08T00:26:18.060968+00:00",
     "job_id": "1418882219"
   },
-  "submitted": false,
-  "ui_blocker": "The Mac is locked and automatic unlock could not unlock it; manual Mac unlock is required to use Bambu Connect."
+  "submitted": true,
+  "accepted_job_id": "1419890949"
 }
