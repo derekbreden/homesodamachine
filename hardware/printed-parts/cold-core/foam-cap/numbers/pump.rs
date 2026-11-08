@@ -7,12 +7,8 @@
 use crate::P3;
 use crate::design::{Can, Placed, PumpMount, Section, above_core, pump_reference};
 
-/// The spring wing the pump's snap cap shares with the rear snaps' caps, whose numbers these are
-/// (`hardware/manifold-layout/rear_snaps.py`, held for the build in machine-data's generated
-/// `rear_snaps`): the stock outside the cap's neck, the flat bearing past the receiver's edge, the
-/// relaxed spring's face off that edge, the wing's section, its free length from root to hook and
-/// the round at its root; the ledge's height off the split, and the hook's solid nose and pointed
-/// lead-in.
+/// The pump cap's shared rear-snap section: spring stock, retaining reach, free length and rooted
+/// bearing geometry. The above-core design owns the pointed lead-in shared by the rear caps.
 pub mod wing {
     pub const WALL: f64 = 3.0;
     pub const REACH: f64 = 2.6;
@@ -22,9 +18,6 @@ pub mod wing {
     pub const ROOT_RADIUS: f64 = 1.5;
     pub const LEDGE: f64 = 3.0;
     pub const NOSE_LAND: f64 = 1.6;
-    pub const TIP_RISE: f64 = 3.0;
-    /// The hook's whole rise above its catch.
-    pub const HOOK: f64 = NOSE_LAND + TIP_RISE;
 }
 
 /// The cap's split: its wings root on the pump's axis.
@@ -225,7 +218,7 @@ fn work() -> Cradle {
     let inner = ledge + wing::SIDE;
     let root = SPLIT;
     let catch = (root + wing::FREE_LENGTH).max(SPLIT + wing::LEDGE + catch_fit);
-    let tip = catch + wing::HOOK;
+    let tip = catch + wing::NOSE_LAND + hsm_enclosure_numbers::layout::snap_tip_rise();
     let outer = inner + wing::WING;
     let ty = frame.translation_mm[1];
     let station = Station {
@@ -241,7 +234,7 @@ fn work() -> Cradle {
         bearing: catch - catch_fit,
         catch,
         tip,
-        ceiling: tip + 2. * fits.running,
+        ceiling: tip + hsm_enclosure_numbers::layout::snap_tip_air(),
         root,
         root_radius: wing::ROOT_RADIUS,
         nose_land: wing::NOSE_LAND,
