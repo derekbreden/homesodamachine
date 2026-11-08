@@ -2,22 +2,36 @@
 
 ## Publish loop
 
-    node tools/changes/change.mjs snapshot
-    python3 tools/run.py -- cargo build --release --locked --manifest-path tools/hsm/Cargo.toml -p hsm-<piece> --bin <piece>
-    python3 tools/run.py -- tools/hsm/target/release/<piece>
-    tools/cad-venv/bin/python tools/publish_now.py
+Find a part by the description Derek uses:
 
-The snapshot sets aside the geometry the generator replaces, for the change's
-[before and after](../../changes/README.md). The piece's own generator cuts its STEP, STL and
-payload. Each of the enclosure's printed pieces has a program of its own, named as its files are:
-`enclosure-front-bottom`, `enclosure-front-top`, `enclosure-back-bottom`, `enclosure-back-top`,
-`enclosure-pump-retainer` and `enclosure-pump-tube-setting-jig`. `enclosure` builds the
-enclosure model from their files. `publish_now.py` grafts the changed payload into both viewer
-hosts — the enclosure aggregate and the appliance assembly — and tells the site.
+    node tools/find-part.mjs "water regulator"
+
+The search shares the website's catalog and matcher. Its source producers and build targets
+come from the build graph. Use the returned targets to select the affected parts; include the
+assembly producer when changing installation or adding a source to an assembly.
+
+Before the first rebuild of an enclosure geometry change, take its
+[before snapshot](../../changes/README.md):
+
+    node tools/changes/change.mjs snapshot
+
+Build and publish through the normal print build, with the selected Bazel targets:
+
+    python3 tools/run.py -- python3 tools/print_build.py //:enclosure-back-top
+
+Multiple target labels select related parts together. With no labels this runs the normal
+print build. It resolves generator programs and dependencies, carries their completed outputs,
+and publishes each changed producer while the rest continue. Use this entry point for an
+ordinary edit; standalone Cargo and generator commands serve investigation of a specific stage.
+
+Link the published model as soon as a relevant changed part is available. Continue focused
+inspection while Derek can view the attempt, and state what remains under review. A partial
+assembly can contain parts from different completed producers; first view does not establish
+print readiness.
 
 The pump retainer's standalone files carry one printable clamp. Its seated model places
-independent copies and their purchased hardware in both native assemblies and installation
-GLBs. Rebuild those when changing the mount; the publisher retains the installed bodies.
+independent copies and their purchased hardware in the assemblies and named views. Select the
+assembly producer when changing their installation; the publisher retains the installed bodies.
 
 After the publish is live — never before, and never as a gate in the build path — lint the
 piece you changed and fix what it flags while Derek is already looking:
@@ -36,15 +50,15 @@ and after, as [`changes/README.md`](../../changes/README.md) describes.
 
 The physical print is the part. The files answer different questions about it:
 
-- CadQuery source and `.step` — the exact B-rep construction and analytic faces. On pieces
-  with a mesh-only show skin the STEP is a smooth body.
+- Rust source and `.step.npz` — the authored construction and its fine model, with recorded
+  surfaces and source contributors. A standalone `.step` is an export where a consumer needs it.
 - `.stl` — the tessellated geometry the slicer reads: the closest file to the print.
-- `.step.mesh` — the payload `/3d` draws, cut from the STL at the viewer's tolerance
-  (`hardware/scripts/flute_payload.py`). Picks arrive in this frame, and the pick's `file:`
-  line names it, with what the reduction cost and the digest it descends from.
+- `.step.mesh` — the payload `/3d` draws. Assembly payloads reference immutable part meshes
+  and their placements. Picks name the displayed payload and its digest.
+- `hsm where`, `gap`, `section` and `ray` answer questions about those exported meshes without
+  rebuilding them. A source edit reaches a query after its producer writes the new payload.
 - `hardware/scripts/pick_text.py` composes pick text from geometry;
-  `hardware/scripts/pick_read.py` answers pasted pick text off all three surfaces at once,
-  nearest first, and says which of them hold the window.
+  `hardware/scripts/pick_read.py` locates pasted pick text on the available representations.
 
 That last reading is a LOCATION AND NOT A VERDICT. The payload's tolerance is a distance
 bound, so a feature shorter than it is collapsed and bridged while the reading never leaves

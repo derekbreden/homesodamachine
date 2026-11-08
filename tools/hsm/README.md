@@ -1,6 +1,6 @@
 # hsm
 
-`hsm` answers geometry questions from the same version 3 triangle payloads that `/3d` displays,
+`hsm` answers geometry questions from the same triangle payloads and shared mesh references that `/3d` displays,
 and draws pictures of them. One local Rust daemon serves the CLI, an MCP server and a Unix socket. Queries load a scene on
 demand. A saved edit starts no build, query, watcher or check.
 
@@ -9,7 +9,7 @@ build at an immutable path under `~/.local/lib/hsm/<build_id>/hsm` and puts a la
 `~/.local/bin/hsm`, which this Mac's shells have on `PATH`:
 
 ```sh
-CARGO_BUILD_JOBS=2 cargo build --release --locked --manifest-path tools/hsm/engine/Cargo.toml
+python3 tools/run.py -- cargo build --release --locked -j 2 --manifest-path tools/hsm/Cargo.toml -p hsm --bin hsm
 python3 tools/hsm/install.py tools/hsm/target/release/hsm
 hsm where tee-y-a
 hsm gap compressor/1 condenser+fan
@@ -46,10 +46,49 @@ carry the payload SHA-256, the recorded STEP digest, any recorded mesh reduction
 time and total service time. Geometry queries describe the mesh on disk. A source edit reaches
 them when its producer exports a new payload.
 
+## Find and inspect a part
+
+`node tools/find-part.mjs "water regulator"` uses the material search that serves `/3d`.
+Descriptions, aliases, brands and part numbers return the same ordered candidates locally
+and in the browser. A spelling or incomplete-word suggestion is labeled; it does not rename
+the part or turn different components into synonyms. An exact material ID selects its identity.
+The local result adds source producers, declared build targets, part documents and assembly
+body bindings from the catalog and build graph. `--json` retains those details for another tool.
+
+An on-demand inspection draws the existing exported geometry and keeps its camera:
+
+```sh
+node tools/inspect-part.mjs HSM-0082 --output .cache/runs/pump-fit/before
+node tools/inspect-part.mjs HSM-0082 --output .cache/runs/pump-fit/after \
+    --reuse .cache/runs/pump-fit/before/render-job.json
+```
+
+`--model` selects an existing assembly and `--body` selects its subject. `--against` measures
+clearance to a named neighbour in that same assembly and draws that neighbour in x-ray;
+unselected bodies are omitted. `--section` opens a section view.
+Ambiguous searches return candidates for explicit selection. The inspection starts no build;
+its image, measurements and source metadata bind to the exported payload digest. The renderer
+runs through the shared scheduler, and the elapsed time includes admission waits.
+Remove inspection images and intermediate records when the question is answered, retaining
+concise results and artifact hashes.
+
+Build the selected targets through the [print build](../../hardware/printed-parts/AGENTS.md#publish-loop).
+Its completed producers reach the site while other work continues.
+[`tools/iteration/`](../iteration/README.md) measures an actual request from its original receipt
+through source edits, review attempts and reference-browser draws when a timing is requested.
+
 ## Geometry
 
 `hsm-geometry` decodes viewer arrays without retessellation or simplification and builds a
-Parry bounding-volume tree. Distance, rays and triangle-plane sections use that tree. Ray hits
+Parry bounding-volume tree for geometric queries. `where` resolves names from the scene header
+and scans matching position arrays for bounds without allocating that tree. Shared-scene
+results also name each instance's source payload, source body, immutable asset and placement.
+Selected gap, overlap, section and moves with an explicit `--against` decode only their selected
+entries, retaining the original scene digest and global indices. `selected_triangles` describes
+a lookup's selected geometry; `scene_triangles` is unknown for a subset. Broad rays and moves
+against the entire machine use the full-scene geometry cache.
+
+Distance, rays and triangle-plane sections use the tree. Ray hits
 and section segments keep viewer triangle and face IDs. Sections are raw triangle segments
 with coplanar triangles reported separately; they are not joined drawing outlines.
 When a payload has aligned `face_sources`, each ray hit or section segment also reports that
@@ -57,6 +96,11 @@ face's complete contributor group. Missing or malformed metadata leaves attribut
 Renderer pixel picks and ray annotations retain the actual mesh, triangle and face IDs, and
 report the same contributors together with the payload digest. Body-centre labels and dimension
 leaders without an authored feature binding have no source attribution.
+
+A kernel mesh-validation failure identifies the failed edge in mesh-local coordinates and
+prints incident triangles with their recorded source contributors. The diagnostic is produced
+only on failure. Print-surface attribution identifies the calling print stage; unrecorded
+upstream ownership remains unknown.
 
 Intersection volumes use the Manifold C++ backend through `manifold-csg`. Coincident seam
 vertices are joined before solid validation. Invalid solids return an error. These are
@@ -82,6 +126,10 @@ starting a daemon. Ping and status report the answering daemon's configuration. 
 `HSM_SOCKET` selects another service; a live daemon of another build or configuration is left
 running and the caller gets an error. `--idle-minutes` configures a daemon this call starts.
 `hsm daemon` runs it in the foreground.
+
+The installed CLI and new MCP connections use the installed build. An already-open MCP server
+retains its resolved executable. Use the installed CLI when that connection still reports an
+older reader or whole-scene cache refusal; reconnecting the MCP server adopts the installed build.
 
 The installer's launcher also retains the executable that earlier MCP clients restart on
 `/tmp/hsm-<uid>/engine.sock`. Only a `daemon` invocation for that endpoint takes the retained

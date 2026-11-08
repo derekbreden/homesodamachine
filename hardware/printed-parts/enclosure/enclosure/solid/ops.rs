@@ -664,6 +664,7 @@ pub fn quantized(shape: &Manifold) -> Result<Manifold> {
 }
 
 /// A finished print stage keeps the positions and surface its STL stores.
+#[track_caller]
 pub fn print_solid(shape: &Manifold) -> Result<Solid> {
     let (vertices, stride, triangles) = shape.to_mesh_f32();
     let vertices: Vec<_> = vertices

@@ -273,12 +273,13 @@ fn queries_restart_worktrees_and_invalidation() {
     let other = f.root.join("other-worktree");
     fs::create_dir(&other).unwrap();
     fs::write(other.join("same.step.mesh"), payload(0.0)).unwrap();
+    let held = f.query(&["status"])["result"]["cache"].clone();
     f.query(&[
         "request",
         &json!({"scene":other.join("same.step.mesh"),"op":"where","pattern":"part-one"})
             .to_string(),
     ]);
-    assert_eq!(f.query(&["status"])["result"]["cache"]["payload_loads"], 1);
+    assert_eq!(f.query(&["status"])["result"]["cache"], held);
 
     fs::write(f.root.join("fixture.step.mesh"), payload(10.0)).unwrap();
     let updated = f.query(&["where", "part-one"]);
@@ -289,13 +290,13 @@ fn queries_restart_worktrees_and_invalidation() {
     assert_eq!(updated["result"]["data"]["parts"][0]["min_mm"][0], 9.0);
     f.query(&["stop"]);
     f.query(&["where"]);
-    assert_eq!(f.query(&["status"])["result"]["cache"]["payload_loads"], 1);
+    assert_eq!(f.query(&["status"])["result"]["cache"]["payload_loads"], 0);
     assert_ne!(f.query(&["status"])["result"]["pid"], pid);
 
     fs::write(f.root.join("fixture.step.mesh"), b"bad").unwrap();
     let bad = f.command().arg("where").output().unwrap();
     assert!(!bad.status.success());
-    assert!(String::from_utf8_lossy(&bad.stdout).contains("truncated payload"));
+    assert!(String::from_utf8_lossy(&bad.stdout).contains("truncated"));
     f.query(&["status"]);
 }
 

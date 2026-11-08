@@ -46,7 +46,8 @@ export function makeMaterialSearch({ compact = false } = {}) {
     const hits = searchCatalog(state.materialCatalog, query);
     const count = hits.length;
     const suggested = hits[0]?.match === "suggestion";
-    status.textContent = count ? `${suggested ? "No exact matches · " : ""}${count} ${suggested ? "possible match" : "result"}${count === 1 ? "" : "s"}${count > 40 ? " · showing the first 40" : ""}` : "No matches. Try another description or part number.";
+    const noun = suggested ? (count === 1 ? "possible match" : "possible matches") : (count === 1 ? "result" : "results");
+    status.textContent = count ? `${suggested ? "No exact matches · " : ""}${count} ${noun}${count > 40 ? " · showing the first 40" : ""}` : "No matches. Try another description or part number.";
     const index = materialIndex(state.materialCatalog);
     for (const { material: m, line, match, corrections, unmatched } of hits.slice(0, 40)) {
       if (m) {

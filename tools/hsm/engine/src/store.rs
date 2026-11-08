@@ -1,6 +1,6 @@
 use anyhow::{Context, Result, ensure};
 use hsm_geometry::payload::{self, Payload};
-use serde_json::json;
+use serde_json::{Value, json};
 use sha2::{Digest, Sha256};
 use std::{
     collections::BTreeMap,
@@ -36,6 +36,113 @@ fn signature(path: &Path) -> Result<[u64; 7]> {
     ])
 }
 
+/// A scene catalog resolves names and source references before query geometry is allocated.
+pub struct Catalog {
+    path: PathBuf,
+    bytes: Vec<u8>,
+    head: Value,
+    pub digest: String,
+    pub shared: bool,
+    pub parts: Vec<CatalogPart>,
+}
+
+pub struct CatalogPart {
+    pub name: String,
+    node: Option<usize>,
+    entry: usize,
+}
+
+impl Catalog {
+    pub fn read(path: &Path) -> Result<Self> {
+        let before = signature(path)?;
+        let bytes = fs::read(path)?;
+        ensure!(before == signature(path)?, "payload changed while loading; retry the query");
+        let (head, _) = hsm_geometry::scene::header(&bytes)?;
+        let shared = head["v"] == 4;
+        ensure!(shared || head["v"] == 3, "unsupported query payload version");
+        let mut parts = Vec::new();
+        for (i, row) in head["meshes"].as_array().context("payload meshes")?.iter().enumerate() {
+            if shared {
+                for (entry, instance) in row["entries"].as_array().context("instance entries")?.iter().enumerate() {
+                    parts.push(CatalogPart {name: instance["name"].as_str().context("instance name")?.into(), node: Some(i), entry});
+                }
+            } else {
+                parts.push(CatalogPart {name: row["name"].as_str().context("mesh name")?.into(), node: None, entry: i});
+            }
+        }
+        Ok(Self {path: path.into(), digest: hsm_geometry::scene::digest(&bytes), bytes, head, shared, parts})
+    }
+
+    pub fn matches(&self, selector: &str) -> Vec<usize> {
+        if selector.is_empty() { return (0..self.parts.len()).collect(); }
+        if let Some(index) = selector.strip_prefix('#').and_then(|s|s.parse::<usize>().ok()) {
+            return (index < self.parts.len()).then_some(index).into_iter().collect();
+        }
+        let needle = selector.to_lowercase();
+        let exact = self.parts.iter().enumerate().filter(|(_,p)|p.name.to_lowercase()==needle).map(|(i,_)|i).collect::<Vec<_>>();
+        if !exact.is_empty() { return exact; }
+        self.parts.iter().enumerate().filter(|(_,p)|p.name.to_lowercase().contains(&needle)).map(|(i,_)|i).collect()
+    }
+
+    pub fn one(&self, selector: &str) -> Result<usize> {
+        let ids = self.matches(selector);
+        ensure!(!ids.is_empty(), "no part matches {selector:?}; use hsm where to list names");
+        ensure!(ids.len()==1, "{selector:?} matches {} solids: {}; select a unique name or #index", ids.len(),
+            ids.iter().take(12).map(|&i|format!("#{i} {}",self.parts[i].name)).collect::<Vec<_>>().join(", "));
+        Ok(ids[0])
+    }
+
+    fn describe(&self, index: usize, bytes: &[u8], row: &Value) -> Result<Value> {
+        let part = &self.parts[index];
+        let node = part.node.map(|i|&self.head["meshes"][i]);
+        let origin = node.or_else(||row.get("_scene")).unwrap_or(&Value::Null);
+        let transform = &origin["transform"];
+        let [min,max] = hsm_geometry::scene::entry_bounds(bytes, row, if self.shared {transform} else {&Value::Null})?;
+        let mut color = node.map(|node|node["entries"][part.entry]["color"].clone()).unwrap_or_else(||row["color"].clone());
+        if color.as_array().is_some_and(|color|color.len()>3) {color=json!(&color.as_array().unwrap()[..3]);}
+        let triangles = row["idx"][1].as_u64().context("triangle index count")?;
+        let faces = row["fac"][1].as_u64().context("face range count")?;
+        ensure!(triangles%3==0 && faces%2==0,"invalid mesh array counts");
+        Ok(json!({"id":format!("#{index}"),"name":part.name,"min_mm":min,"max_mm":max,
+            "size_mm":[max[0]-min[0],max[1]-min[1],max[2]-min[2]],"color":color,
+            "triangles":triangles/3,"faces":faces/2,"source":origin["source"],
+            "source_name":origin["source_name"],"source_sha256":origin["source_sha256"],
+            "asset":origin["asset"],"transform":transform}))
+    }
+
+    pub fn where_data(&self, ids: &[usize]) -> Result<Value> {
+        let mut parts = BTreeMap::new();
+        if self.shared {
+            let mut objects: BTreeMap<String,Vec<usize>> = BTreeMap::new();
+            for &i in ids {
+                let node = &self.head["meshes"][self.parts[i].node.unwrap()];
+                objects.entry(node["asset"].as_str().context("mesh object")?.into()).or_default().push(i);
+            }
+            for (hash, ids) in objects {
+                let bytes = hsm_geometry::scene::load_asset(&hash)?;
+                ensure!(hsm_geometry::scene::digest(&bytes)==hash,"mesh object digest mismatch");
+                let (head, _) = hsm_geometry::scene::header(&bytes)?;
+                for i in ids {
+                    let row = head["meshes"].get(self.parts[i].entry).context("missing object entry")?;
+                    parts.insert(i, self.describe(i,&bytes,row)?);
+                }
+            }
+        } else {
+            for &i in ids { parts.insert(i,self.describe(i,&self.bytes,&self.head["meshes"][self.parts[i].entry])?); }
+        }
+        let parts = parts.into_values().collect::<Vec<_>>();
+        let triangles = parts.iter().map(|p|p["triangles"].as_u64().unwrap()).sum::<u64>();
+        Ok(json!({"parts":parts,"scene_solids":self.parts.len(),"selected_triangles":triangles,
+            "scene_triangles":if ids.len()==self.parts.len() {Some(triangles)} else {None}}))
+    }
+
+    pub fn response(&self, data: Value, load_ms: f64) -> Value {
+        json!({"scene":self.path,"payload_sha256":self.digest,"source_sha256":self.head["src"],
+            "step_sha256":if self.shared {Value::Null} else {self.head["src"].clone()},
+            "cut":self.head["cut"],"units":"mm","frame":"payload world coordinates","load_ms":load_ms,"data":data})
+    }
+}
+
 struct Resident {
     payload: Arc<Payload>,
     used: u64,
@@ -67,6 +174,25 @@ impl Store {
         json!({"resident_payloads": self.resident.len(), "payload_loads": self.loads,
             "cache_budget_bytes": self.budget,
             "estimated_resident_bytes": self.resident.values().map(|v| v.budget).sum::<u64>()})
+    }
+
+    /// Selected entries share the scene revision and keep their global payload indices.
+    pub fn load_selected(&mut self, catalog: &Catalog, ids: &[usize]) -> Result<Arc<Payload>> {
+        let key = format!("{}:{ids:?}",catalog.digest);
+        self.tick += 1;
+        if let Some(held) = self.resident.get_mut(&key) {held.used=self.tick;return Ok(held.payload.clone());}
+        let bytes = hsm_geometry::scene::flatten_selected_with(&catalog.bytes,ids,hsm_geometry::scene::load_asset)?;
+        let budget = (bytes.len() as u64).checked_mul(if catalog.shared {3} else {12}).context("query budget overflow")?;
+        ensure!(budget<=self.budget,"selected geometry needs an estimated {} MiB cache; daemon budget is {} MiB",budget/1048576,self.budget/1048576);
+        while self.resident.values().map(|v|v.budget).sum::<u64>()+budget>self.budget {
+            let oldest=self.resident.iter().min_by_key(|(_,v)|v.used).map(|(k,_)|k.clone());
+            if let Some(key)=oldest {self.resident.remove(&key);} else {break;}
+        }
+        let mut payload = payload::decode(&bytes)?;
+        payload.digest=catalog.digest.clone();payload.shared=catalog.shared;
+        let payload=Arc::new(payload);self.loads+=1;
+        self.resident.insert(key,Resident {payload:payload.clone(),used:self.tick,budget});
+        Ok(payload)
     }
 
     pub fn load(&mut self, path: &Path) -> Result<Arc<Payload>> {

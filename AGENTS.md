@@ -37,6 +37,14 @@ payloads in the checkout. Claude Code and Codex sessions have its tools: `hsm_wh
 measured, so a source edit shows once its producer exports a new payload. `root` (`--root`)
 picks another worktree and `scene` (`--scene`) another assembly.
 
+An already-open MCP connection retains its reader build. If it reports an old-reader or
+whole-scene cache error, use the installed `hsm` CLI, which adopts the installed reader.
+
+For remembered descriptions, brands or part numbers, `node tools/find-part.mjs "water regulator"`
+uses the same material search as `/3d`. It returns candidates, source producers, build targets
+and published model links. Suggestions retain their uncertainty; use the returned identity
+when a description could mean more than one part.
+
 ## Mechanical Layout
 
 Finish the mechanical layout before placing Wagos or routing wires. Position
@@ -116,9 +124,17 @@ machinery goes. Something with no line gets one before anything is built on it.
 
 ## Speed
 
-Every agent's builds run on this one Mac, an 8 GB M3. The goal is that its CPU and memory stop
-limiting how much the agents get done: more agents working in parallel, with their thinking as
-the limit. Agent thinking time is never a cost. Time spent waiting on the machine is.
+Every agent's builds run on this one Mac. The goal is the time from Derek's request to the
+first relevant source-authored change visible on the website. Discovery, tool recovery,
+agent review iterations and machine waits all contribute. Publish completed parts while
+other parts and focused review continue, and say what remains under review. First view,
+checked geometry and print readiness are separate milestones.
+
+Use the existing part search, source attribution, physical fit records and targeted geometry
+queries to answer the next design question. Read the instructions that apply to the task;
+keep detailed constraints beside the geometry or physical record that owns them.
+[`tools/iteration/`](tools/iteration/README.md) records request and view milestones when
+someone asks for a timing measurement. It adds nothing to ordinary edits or builds.
 
 Rust is how the build gets there: it moves off CadQuery, OpenCASCADE and meshcad onto the `hsm`
 kernel. The bet is on Rust. A program converted to Rust lands even when it isn't faster on its

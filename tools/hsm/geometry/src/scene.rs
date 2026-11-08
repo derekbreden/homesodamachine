@@ -322,16 +322,39 @@ fn carry(bytes: &mut [u8], key: &str, frame: &Value) -> Result<()> {
 
 /// Resolve the shared representation for native readers that consume contiguous arrays.
 pub fn flatten_with(bytes: &[u8], mut load: impl FnMut(&str)->Result<Vec<u8>>) -> Result<Vec<u8>> {
+    flatten_selection_with(bytes, None, &mut load)
+}
+
+/// Selected viewer entries retain their source arrays, placements and original scene order.
+pub fn flatten_selected_with(bytes: &[u8], selected: &[usize], mut load: impl FnMut(&str)->Result<Vec<u8>>) -> Result<Vec<u8>> {
+    flatten_selection_with(bytes, Some(selected), &mut load)
+}
+
+fn flatten_selection_with(bytes: &[u8], selected: Option<&[usize]>, load: &mut impl FnMut(&str)->Result<Vec<u8>>) -> Result<Vec<u8>> {
     let (mut head,_) = header(bytes)?;
-    if head["v"] != 4 { return Ok(bytes.to_vec()); }
+    if head["v"] != 4 {
+        if let Some(selected) = selected {
+            let (_,start) = header(bytes)?;
+            head["meshes"] = json!(head["meshes"].as_array().context("surface meshes")?.iter().enumerate()
+                .filter(|(i,_)|selected.contains(i)).map(|(_,row)|row.clone()).collect::<Vec<_>>());
+            return encode(&head, &bytes[start..]);
+        }
+        return Ok(bytes.to_vec());
+    }
     let mut output = Vec::new(); let mut rows = Vec::new();
     let mut held: BTreeMap<String,Vec<u8>> = BTreeMap::new();
+    let mut first = 0;
     for node in head["meshes"].as_array().context("scene instances")? {
+        let count = node["entries"].as_array().context("instance entries")?.len();
+        let base = first; first += count;
+        if selected.is_some_and(|selected|!(base..first).any(|i|selected.contains(&i))) {continue;}
         let hash = node["asset"].as_str().context("mesh object")?;
         if !held.contains_key(hash) { let data=load(hash)?;ensure!(digest(&data)==hash,"mesh object digest mismatch");held.insert(hash.into(),data); }
         let data = &held[hash]; let (object,start) = header(data)?;
         let object_rows=object["meshes"].as_array().context("object meshes")?;
+        ensure!(object_rows.len()==count,"instance entry count differs from mesh object");
         for (index,original) in object_rows.iter().enumerate() {
+            if selected.is_some_and(|selected|!selected.contains(&(base+index))) {continue;}
             let mut row = original.clone();
             let instance=&node["entries"][index];
             row["name"] = instance["name"].clone();
@@ -347,6 +370,34 @@ pub fn flatten_with(bytes: &[u8], mut load: impl FnMut(&str)->Result<Vec<u8>>) -
     }
     head["v"]=json!(3);head["meshes"]=json!(rows);
     encode(&head,&output)
+}
+
+/// Bounds scan the displayed positions without building a triangle acceleration structure.
+pub fn entry_bounds(bytes: &[u8], row: &Value, transform: &Value) -> Result<[[f64; 3]; 2]> {
+    ensure!(bytes.len()>=4,"truncated surface header");
+    let start=4usize.checked_add(u32::from_le_bytes(bytes[..4].try_into()?) as usize).context("surface header overflow")?;
+    ensure!(start%4==0,"unaligned surface header");
+    let positions = span(bytes.get(start..).context("truncated surface header")?, row, "pos")?;
+    ensure!(!positions.is_empty() && positions.len()%12==0,"invalid position count");
+    let mut frame = [[0.;4];3];
+    if !transform.is_null() {
+        for r in 0..3 {for c in 0..4 {frame[r][c]=transform[r][c].as_f64().context("placement number")?;}}
+    }
+    let mut bounds = [[f64::INFINITY;3],[f64::NEG_INFINITY;3]];
+    for xyz in positions.chunks_exact(12) {
+        let p: [f64;3] = std::array::from_fn(|i|f32::from_le_bytes(xyz[i*4..i*4+4].try_into().unwrap()) as f64);
+        ensure!(p.iter().all(|n|n.is_finite()),"non-finite position");
+        for r in 0..3 {
+            let n = if transform.is_null() {p[r]} else {
+                let mut n = frame[r][3];
+                for c in 0..3 {n += frame[r][c]*p[c];}
+                (n as f32) as f64
+            };
+            ensure!(n.is_finite(),"non-finite placed position");
+            bounds[0][r]=bounds[0][r].min(n);bounds[1][r]=bounds[1][r].max(n);
+        }
+    }
+    Ok(bounds)
 }
 
 pub fn flatten(bytes: &[u8]) -> Result<Vec<u8>> {
@@ -436,6 +487,28 @@ mod tests {
         assert_eq!(u32::from_le_bytes(idx[4..8].try_into()?),2);
         assert_eq!(scene["meshes"][0]["asset"],asset);
         assert_eq!(pack(&flat)?["meshes"][0]["asset"],asset);
+        Ok(())
+    }
+
+    #[test]
+    fn selected_entries_skip_unrelated_assets_and_bounds_match_displayed_rounding()->Result<()> {
+        let mut scene=pack(&triangle(&["first","second"],0.1234567))?;
+        scene["meshes"][0]["transform"]=json!([[-0.6,-0.8,0.,5.123456789],[0.8,-0.6,0.,3.987654321],[0.,0.,1.,2.]]);
+        let all=encode(&scene,&[])?;
+        let full=crate::payload::decode(&flatten(&all)?)?;
+        let data=load_asset(scene["meshes"][0]["asset"].as_str().unwrap())?;
+        let (object,_)=header(&data)?;
+        let bounds=entry_bounds(&data,&object["meshes"][0],&scene["meshes"][0]["transform"])?;
+        assert_eq!(bounds,[full.meshes[0].bounds([0.;3]).0,full.meshes[0].bounds([0.;3]).1]);
+        let expected=scene["meshes"][0]["asset"].as_str().unwrap().to_owned();
+        scene["meshes"][1]["asset"]=json!("unavailable");
+        let selected=flatten_selected_with(&encode(&scene,&[])?,&[0],|hash| {
+            assert_eq!(hash,expected);Ok(data.clone())
+        })?;
+        let payload=crate::payload::decode(&selected)?;
+        assert_eq!(payload.meshes.len(),1);
+        assert_eq!(payload.meshes[0].name,"first");
+        assert_eq!(payload.meshes[0].bounds([0.;3]),full.meshes[0].bounds([0.;3]));
         Ok(())
     }
 
