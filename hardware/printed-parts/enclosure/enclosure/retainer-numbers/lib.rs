@@ -1,20 +1,8 @@
-//! The lower pump retainer's numbers: its snap wings' section, catch and spread, the cartridge's
-//! planes in the machine frame, and the snap's end planes and the receivers' faces, which
-//! front-top's pump mount takes.
+//! The pump cartridge's bearing channels and the cavity the enclosure grows over them.
 use hsm_enclosure_numbers::catalog::{clearance, running};
-use hsm_enclosure_numbers::layout::{snap_tip_air, snap_tip_rise};
 use hsm_enclosure_numbers::pump::tray;
-use hsm_enclosure_numbers::shell::{FLUTE_DEPTH, FRONT_PLANE_Y, FRONT_TOP_FLANK_T, WALL, Z_SEAM, shell};
+use hsm_enclosure_numbers::shell::{FRONT_PLANE_Y, FRONT_TOP_FLANK_T, WALL, shell};
 use hsm_enclosure_numbers::spec::Box;
-
-pub const WING_THICK: f64 = 2.0;
-pub const WING_LENGTH: f64 = 22.25;
-pub const ROOT_RADIUS: f64 = 1.5;
-pub const CATCH_OVERLAP: f64 = 2.6;
-pub const CATCH_AIR: f64 = 0.4;
-pub const PRY_WIDTH: f64 = 5.0;
-pub const RELAXED_SPREAD: f64 = 0.35;
-pub const SEATED_SPREAD: f64 = 0.10;
 
 /// The cartridge's planes in the machine frame.
 pub struct Datums {
@@ -50,61 +38,43 @@ pub fn datums(b: &Box) -> Datums {
     }
 }
 
-/// The snap's common end planes, its spring section and the receivers' bearing and access faces.
-pub struct SnapDatums {
-    pub carrier_inner_x: f64,
-    pub wing_inner_x: f64,
-    pub wing_outer_x: f64,
-    pub hook_outer_x: f64,
-    pub hook_ramp_z: f64,
-    pub root_z: f64,
-    pub floor_z: f64,
-    pub receiver_floor_z: f64,
-    pub receiver_inner_x: f64,
-    pub receiver_back_x: f64,
-    pub receiver_outer_x: f64,
-    pub receiver_y0: f64,
-    pub receiver_y1: f64,
-    pub receiver_z0: f64,
-    pub receiver_z1: f64,
-    pub receiver_roof_z: f64,
-    pub port_inner_x: f64,
-    pub port_outer_x: f64,
-    pub port_y0: f64,
-    pub port_y1: f64,
-    pub port_z0: f64,
+/// The slide-in cartridge's section, shared with its corbeled enclosure cavity.
+pub struct Channels {
+    pub x0: f64,
+    pub x1: f64,
+    pub end_x: f64,
+    pub fore_y: f64,
+    pub aft_y: f64,
+    pub fore_groove_y: f64,
+    pub aft_groove_y: f64,
+    pub lower_fore_y: f64,
+    pub lower_aft_y: f64,
+    pub upper_fore_y: f64,
+    pub upper_aft_y: f64,
+    pub support_z: f64,
+    pub bearing_z: f64,
+    pub bottom_z: f64,
+    pub top_z: f64,
 }
 
-pub fn snap_datums(b: &Box) -> SnapDatums {
-    let d = datums(b);
-    let outer = d.x1;
-    let floor = d.bottom_z;
-    let cy = (d.y0 + d.y1) / 2.0;
-    let edge = outer + running();
-    let hook = edge + CATCH_OVERLAP - SEATED_SPREAD;
-    let inward = hook + RELAXED_SPREAD - edge + 0.5;
-    SnapDatums {
-        carrier_inner_x: outer - WING_THICK - inward,
-        wing_inner_x: outer - WING_THICK,
-        wing_outer_x: outer,
-        hook_outer_x: hook,
-        hook_ramp_z: floor + snap_tip_rise(),
-        root_z: floor + WING_LENGTH,
-        floor_z: floor,
-        receiver_floor_z: floor - CATCH_AIR,
-        receiver_inner_x: edge,
-        receiver_back_x: hook + SEATED_SPREAD,
-        receiver_outer_x: b.outer[1],
-        receiver_y0: d.y0 - running(),
-        receiver_y1: d.y1 + running(),
-        receiver_z0: Z_SEAM + running(),
-        receiver_z1: floor + WING_LENGTH + 3.0 * WALL,
-        receiver_roof_z: floor + snap_tip_rise() + snap_tip_air(),
-        port_inner_x: outer + running(),
-        // The pry opening keeps the wall section behind the flute valleys.
-        port_outer_x: b.outer[1] - FLUTE_DEPTH - WALL,
-        port_y0: cy - PRY_WIDTH / 2.0,
-        port_y1: cy + PRY_WIDTH / 2.0,
-        port_z0: floor - 5.0,
+pub fn channels(b: &Box) -> Channels {
+    let (d, e, t) = (datums(b), shell(), tray());
+    let support = e.pump_skirt_support_z(&b.pack.pump_trays);
+    Channels {
+        x0: d.x0,
+        x1: d.x1,
+        end_x: d.x1 - WALL,
+        fore_y: FRONT_PLANE_Y - WALL - running(),
+        aft_y: d.y1,
+        fore_groove_y: d.head_y - t.head_half - e.cap_pump_air,
+        aft_groove_y: d.head_y + t.skirt_open_y_max,
+        lower_fore_y: d.head_y + t.skirt_body_open_y_bounds[0],
+        lower_aft_y: d.head_y + t.skirt_body_open_y_bounds[1],
+        upper_fore_y: d.motor_y - t.boss_half - e.cap_boss_air,
+        upper_aft_y: d.motor_y + t.boss_half + e.cap_boss_air,
+        support_z: support,
+        bearing_z: d.bearing_z,
+        bottom_z: support - 2.0 * WALL,
+        top_z: d.bearing_z + 2.0 * WALL,
     }
 }
