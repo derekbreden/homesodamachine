@@ -281,7 +281,9 @@ local visibility choices.
 Publication freezes only the files being sent, compresses changed objects with bounded
 workers, uploads objects before their references, then advances the committed pointer. The
 website adopts changed members and notifies open viewers. Manufacturing exports remain
-separate consumers of the generated solids.
+separate consumers of the generated solids. Viewer references advance before manufacturing
+uploads and input-proof bookkeeping. A publication includes the completed members captured
+for its reference refresh; later completions advance in the next publication.
 
 Whole-machine throughput is measured with `//:everything` with every step rerun, as an
 edit that reaches the enclosure causes, on the compiled workspace and the caches a normal build

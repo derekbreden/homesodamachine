@@ -109,6 +109,8 @@ def owed() -> Owed:
     held = pack._unorder(state["ordered"])
     graph = pack.Graph.load(ROOT)
     moved = bytes_drifted(pack, held, graph)
+    if moved:
+        return Owed(f"{len(moved)} member(s) have completed bytes to publish", moved, [], [])
     index = staged(ROOT)
     lines = _native("merge-lines", maps=[held.get("solids", {}), held.get("sidecars", {})])
     inputs = pack.made_moves(held.get("made") or {}, pack.tree_digests(ROOT, graph, lines, index))
@@ -190,6 +192,7 @@ def publish(started: float) -> int:
               f"({time.monotonic() - started:.2f}s)")
         return 0
     if debt.reason:
+        viewer_only = any(rel.endswith((".step.mesh", ".glb.mesh")) for rel in debt.moved)
         phase_started = time.monotonic()
         grafted = []
         if piece_payloads(debt.moved):
@@ -208,10 +211,14 @@ def publish(started: float) -> int:
         phase_started = time.monotonic()
         print(f"  {debt.reason}; publishing the bytes held here")
         if run([str(PY), "tools/cad-artifacts/pack.py", "--write", "--publish-held",
+                *(["--viewer-only"] if viewer_only else []),
+                "--members-json", json.dumps([*debt.moved, *grafted]),
                 *(arg for rel in grafted for arg in ("--grafted", rel))]).returncode != 0:
             print("  held publication did not finish; the next publish still owes it",
                   file=sys.stderr)
             return 1
+        if viewer_only and any(not rel.endswith((".step.mesh", ".glb.mesh")) for rel in debt.moved):
+            AGAIN.touch()
     timing("objects", phase_started)
     phase_started = time.monotonic()
     # THE SCORECARDS COMMIT WITH THE POINTER FILE, BECAUSE THE POINTER FILE IS NOT WHERE THEIR BYTES LIVE.

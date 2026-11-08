@@ -2,23 +2,23 @@
   "coordinate_frame": "Source STEP/STL coordinates in the appliance frame",
   "native_artifact_sha256": {
     "back-bottom": {
-      ".step": "f6b1ecda41553f2f80ba69c2c727156a5485c4845d2d85bb744097b2b6e1f54f",
+      ".step.npz": "46fee09617646f75afa707d927e1be88386e8625f44d684ad9bdab82a20ac138",
       ".stl": "8e5a30ea3706b9f32de9bfdbb79c824e52a06f15f9356861b0179ea110e70781"
     },
     "back-top": {
-      ".step": "33d2b604baba8f40c3d2135b6da47a0c2141395ddd1e03a7e38d34335514e2e0",
+      ".step.npz": "c00f5396a5b04ec656d6a635fa6f7466409ab8099c944bb30ece96cd9b17dc23",
       ".stl": "495e5e42236c486d8a182cda58087741a7f1a5683cf645a5a803af417325cd72"
     },
     "front-bottom": {
-      ".step": "4655b07a5898627787993931a83a31901d856c2128dfa1d47b0cb84c39239f31",
+      ".step.npz": "2abc1745c51028de24e6cd4f19700313b8e280ecdcb32d28fff347d515fb3b12",
       ".stl": "633e84c40ca86284da50734d3cf978f3fb368783828ec0b319d673730b52d193"
     },
     "front-top": {
-      ".step": "d931f569a094b49f84cb797abccd569aaeaf421d09c717a62549b582b08c796b",
+      ".step.npz": "913e8b5b81054f3b56736d476a8bce34561ab3b99c3b4f19ad1782ebc28d0692",
       ".stl": "591145e8ada66eefcfe70ace883e7dde2914ffcc9696f15356fd71a4d70b126b"
     },
     "pump-retainer": {
-      ".step": "b72be19c5c32ade44f94d23eb1f9913ed52b98917eaf41366de4df14a7dc08e0",
+      ".step.npz": "60fe6028b946f8188b8182fac76b9c5bde9df97f21ece77c96f3e20aeaeabd75",
       ".stl": "c88b02141986bdae52b92b8d5af890856ae55de43247525dbec4f64e71b1cb37"
     }
   },
@@ -1240,7 +1240,7 @@
     "hardware/manifold-layout/machine-export-physical.numbers.json": "90f9a464b95d19a4de7a9a51a3fd7d6d6bd7b01abe99d64dc01eb0f24b39c0dd",
     "hardware/printed-parts/enclosure/display-cover/mount-dimensions.json": "d6f21b14bb98bfe7eb6a1280109400bdb1e1ca9f483d3451d40d8902de208543",
     "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.print-features.json": "b7041348f2184c6e6c27c0da0c5cc8b1ca9f71e6c06dea5ccbd5f9f6d880e7f5",
-    "hardware/printed-parts/enclosure/enclosure/heat-set-review/print_regions.rs": "e8371fdfa11c7ffbe13b952407a5470d4c7b08baa369f8ad4604671c4b5c19e4",
+    "hardware/printed-parts/enclosure/enclosure/heat-set-review/print_regions.rs": "062e51631411cecbd73bb2bfedeac90c974b122374c30a3c8e2efdde7723c39e",
     "hardware/printed-parts/enclosure/nameplate/nameplate.numbers.json": "71f493d741a59ce7293607e5929a2f6f5fe3b9759e7507c0db5db481f19e7689"
   },
   "use": "Manual print-preparation specification only. Modifier boxes intersect existing material and add no geometry. applied_source_bounds_mm clips each requested box to the model bounds. Bind a fresh native project and emitted paths to these hashes before production printing; this is not a build gate or a sliced-print result."
