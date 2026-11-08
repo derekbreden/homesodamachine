@@ -107,20 +107,18 @@ fn cone(g: &mut Graph, x: f64, y: f64, radii: P2, z0: f64, height: f64) -> Shape
 fn inverse_cuts(g: &mut Graph, b: &Box) -> Vec<Shape> {
     let (t,d) = (tray(),datums(b));
     let radius = terminal_crown_r(b);
-    let adapter_z = d.flange_z + retain::ADAPTER_TOP;
     let guide_z = retain::guide_start(b);
     let start = retain::guide_end(b);
     let mut out = Vec::new();
     for p in &b.pack.pump_trays {
         let x = p[0];
         let transition=cone(g,x,d.motor_y,
-            [retain::HEAD_WELL_HALF*2.0_f64.sqrt(),retain::ADAPTER_RADIUS],
-            d.bearing_z-0.01,adapter_z-d.bearing_z+0.01);
+            [t.can_half+guide_z-d.bearing_z+0.01,t.can_half-0.01],
+            d.bearing_z-0.01,guide_z-d.bearing_z+0.02);
         let bounds=g.box_([x-retain::HEAD_WELL_HALF,x+retain::HEAD_WELL_HALF,
             d.motor_y-retain::HEAD_WELL_HALF,d.motor_y+retain::HEAD_WELL_HALF,
-            d.bearing_z-0.02,adapter_z+0.01]);
+            d.bearing_z-0.02,guide_z+0.02]);
         out.push(g.intersect(transition,&[bounds]));
-        out.push(cone(g,x,d.motor_y,[retain::ADAPTER_RADIUS,t.can_half],adapter_z-0.01,guide_z-adapter_z+0.01));
         out.push(g.zcyl(t.can_half,x,d.motor_y,guide_z-0.01,start+0.01));
         let rise = radius-t.can_half;
         out.push(cone(g,x,d.motor_y,[t.can_half,radius],start,rise));
@@ -369,8 +367,11 @@ pub fn retainer_anchors(g: &mut Graph, b: &Box, piece: Shape) -> Shape {
                 retain::POST_FORE_Y,retain::POST_AFT_Y,d.flange_z+retain::POST_BOTTOM,d.flange_z+retain::POST_TOP]);
             core=g.union(core,&[post]);
             let z=retain::insert_start(b);
-            pilots.push(g.zcyl(retain::PILOT_DIAMETER/2.,x,retain::SCREW_Y,z-0.1,z+retain::INSERT_LENGTH));
-            pilots.push(g.zcyl(retain::CLEARANCE_DIAMETER/2.,x,retain::SCREW_Y,z+retain::INSERT_LENGTH-0.01,z+retain::INSERT_LENGTH+retain::TIP_ROOM));
+            let (r0,r1)=(retain::PILOT_DIAMETER/2.,retain::CLEARANCE_DIAMETER/2.);
+            let shoulder=z+retain::INSERT_LENGTH;
+            pilots.push(g.zcyl(r0,x,retain::SCREW_Y,z-0.1,shoulder));
+            pilots.push(cone(g,x,retain::SCREW_Y,[r0,r1-0.01],shoulder,r0-r1+0.01));
+            pilots.push(g.zcyl(r1,x,retain::SCREW_Y,shoulder+r0-r1-0.01,z+retain::INSERT_LENGTH+retain::TIP_ROOM));
         }
     }
     core=g.cut(core,&pilots);
