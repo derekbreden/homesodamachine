@@ -89,7 +89,9 @@ fn line_svg(bodies: &[(String, Solid)], camera: [f64; 3]) -> String {
 }
 
 fn main() -> Result<()> {
-    let out = std::path::absolute(std::env::args().nth(1).unwrap_or_else(|| ".".into()))?;
+    let mut args=std::env::args().skip(1);
+    let out = std::path::absolute(args.next().unwrap_or_else(|| ".".into()))?;
+    let selected:Vec<String>=args.collect();
     let facts_path = Path::new("hardware/manifold-layout/enclosure-assembly.facts.json");
     let bytes = std::fs::read(facts_path).with_context(|| format!("reading {}", facts_path.display()))?;
     hsm_kernel::reads::read(facts_path, &bytes);
@@ -97,6 +99,7 @@ fn main() -> Result<()> {
     let dir = out.join("hardware/install-guide/assets/kit");
     std::fs::create_dir_all(&dir)?;
     for (name, camera) in VIEWS {
+        if !selected.is_empty() && !selected.iter().any(|s|s==name) {continue;}
         let bodies = item(name, &facts).with_context(|| format!("the kit's {name}"))?;
         std::fs::write(dir.join(format!("{name}.svg")), line_svg(&bodies, camera))?;
     }

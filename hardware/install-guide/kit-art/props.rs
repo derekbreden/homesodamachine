@@ -60,32 +60,36 @@ fn bend(out: &mut Shown, name: &str, p: &[V3], d: f64, r: f64) -> Result<()> {
     Ok(())
 }
 
-/// The appliance's outer shell, split where its two halves meet, its display and funnel cover.
+/// The appliance's envelope, display bezel, status plate and funnel cover as a kit schematic.
 pub fn machine(facts: &Value) -> Result<Shown> {
     let b = numbers(&facts["box"]["outer"])?;
     let outer: [f64; 6] = b.clone().try_into().map_err(|_| anyhow::anyhow!("the box's outer bounds"))?;
     let p = hsm_enclosure_interface::swept::profile(&outer);
-    let side = [
-        v2(b[2], b[4]),
-        v2(b[3], b[4]),
-        v2(b[3], b[5]),
-        v2(p.roof[0], b[5]),
-        v2(p.end[0], p.end[1]),
-        v2(p.start[0], p.start[1]),
-    ];
-    let shell = Plane::YZ.at(v3(b[0], 0., 0.)).extrude(&Profile::polygon(&side), b[1] - b[0])?;
-    let mut out = vec![
-        ("lower".into(), shell.intersect(&block(v3(-500., -500., 0.), v3(1000., 1000., 200.)))?),
-        ("upper".into(), shell.intersect(&block(v3(-500., -500., 200.1), v3(1000., 1000., 500.)))?),
-    ];
-    let display = Plane::new(V3::from(p.origin), V3::X, V3::from(p.normal))?;
-    out.push(("display-frame".into(), display.extrude(&Profile::rect(V2::ZERO, 132.7, 83.3), 0.8)?));
-    out.push(("display-screen".into(), display.extrude(&Profile::rect(V2::ZERO, 103.5, 62.1), 1.)?));
+    let side = [v2(b[2],b[4]),v2(b[3],b[4]),v2(b[3],b[5]),v2(p.roof[0],b[5]),
+        v2(p.end[0],p.end[1]),v2(p.start[0],p.start[1])];
+    let mut out=vec![("envelope".into(),Plane::YZ.at(v3(b[0],0.,0.)).extrude(&Profile::polygon(&side),b[1]-b[0])?)];
+    let normal=V3::from(p.normal);
+    let up=normal.cross(V3::X);
+    for name in ["display-cover","status-plate"] {
+        let c=numbers(&facts["bodies"][name])?;
+        let (dy,dz)=(c[4]-c[1],c[5]-c[2]);
+        let denominator=up.y*normal.z-up.z*(-normal.y);
+        let height=(dy*normal.z-dz*(-normal.y))/denominator;
+        let thick=(up.y*dz-up.z*dy)/denominator;
+        let centre=v3((c[0]+c[3])/2.,(c[1]+c[4])/2.,(c[2]+c[5])/2.)+normal*(thick/2.);
+        let plane=Plane::new(centre,V3::X,normal)?;
+        let profile=Profile::new(Loop::rounded_rect(V2::ZERO,c[3]-c[0],height,5.)?);
+        let mut plate=plane.extrude(&profile,-thick)?;
+        if name=="display-cover" {
+            let glass=numbers(&facts["bodies"]["display"])?;
+            let window=Profile::new(Loop::rounded_rect(V2::ZERO,glass[3]-glass[0]-2.*thick,height-4.*thick,2.5)?);
+            plate=plate.cut(&plane.offset(1.).extrude(&window,-thick-2.)?)?;
+        }
+        out.push((name.into(),plate));
+    }
     let c = numbers(&facts["bodies"]["funnel-cover"])?;
-    out.push((
-        "funnel-cover".into(),
-        rounded(Plane::XY.at(v3((c[0] + c[3]) / 2., (c[1] + c[4]) / 2., c[2])), c[3] - c[0], c[4] - c[1], 5., c[5] - c[2])?,
-    ));
+    out.push(("funnel-cover".into(),rounded(Plane::XY.at(v3((c[0]+c[3])/2.,(c[1]+c[4])/2.,c[2])),
+        c[3]-c[0],c[4]-c[1],5.,c[5]-c[2])?));
     Ok(out)
 }
 
