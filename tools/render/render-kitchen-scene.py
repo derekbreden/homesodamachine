@@ -2,10 +2,10 @@
 
 Manual art tool; it is not part of the build. Run with Blender's Python:
 
-    /Applications/Blender.app/Contents/MacOS/Blender --background --factory-startup \
-      --python tools/render/render-kitchen-scene.py -- --preview --out /tmp/hsm-art
+    python3 tools/run.py -- /Applications/Blender.app/Contents/MacOS/Blender --background --factory-startup \
+      --python tools/render/render-kitchen-scene.py -- --preview
 
-Omit --preview for the three publication-size PNGs. Convert them to WebP with
+Omit --preview for publication-size PNGs. Convert them to WebP with
 the existing render tools' Sharp dependency. Cabinet, sink, glass, cylinder
 and liquids are illustrative staging. Faucet, enclosure and regulator geometry
 come directly from the project's current, locally available mesh payloads.
@@ -20,7 +20,10 @@ from pathlib import Path
 import random
 import re
 import struct
+import subprocess
 import sys
+import tempfile
+import time
 
 ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT / 'hardware/scripts'))
@@ -36,7 +39,7 @@ import numpy as np
 parser = argparse.ArgumentParser()
 parser.add_argument("--preview", action="store_true")
 parser.add_argument("--scene-only", action="store_true", help="Build the shared CAD scene without rendering stills")
-parser.add_argument("--out", default="/tmp/hsm-kitchen-art")
+parser.add_argument("--out", default=str(ROOT / ".cache/runs" / time.strftime("homepage-art-%Y%m%dT%H%M%S")))
 parser.add_argument("--shots", nargs="+", default=["kitchen", "faucet", "cabinet"])
 args = parser.parse_args(sys.argv[sys.argv.index("--") + 1:] if "--" in sys.argv else [])
 OUT = Path(args.out)
@@ -82,7 +85,7 @@ def linear(hex_color):
 
 
 def material(name, color, roughness=0.5, metal=0, transmission=0, ior=1.45):
-    rgb = linear(color) if isinstance(color, str) else tuple(color)
+    rgb = linear(color) if isinstance(color, str) else tuple(color[:3])
     mat = bpy.data.materials.new(name)
     mat.use_nodes = True
     bsdf = mat.node_tree.nodes.get("Principled BSDF")
@@ -259,9 +262,28 @@ def cylinder(name, radius, height, location, mat):
 
 
 def payload(path, predicate, material_for, location=(0, 0, 0), rotation=0, clip_floor=None):
+    """Import selected viewer bodies through the native reader, retaining their placements."""
     source = (ROOT / path).read_bytes()
     count = struct.unpack_from("<I", source)[0]
     header = json.loads(source[4:4 + count])
+    if header.get("v") == 4:
+        header["meshes"] = [node for node in header["meshes"]
+                            if any(predicate(entry["name"]) for entry in node["entries"])]
+        encoded = json.dumps(header).encode()
+        encoded += b" " * (-len(encoded) % 4)
+        with tempfile.TemporaryDirectory(prefix="surfaces-", dir=OUT) as directory:
+            selected = Path(directory) / "selected.mesh"
+            resolved = Path(directory) / "resolved.mesh"
+            selected.write_bytes(struct.pack("<I", len(encoded)) + encoded)
+            reply = subprocess.run([str(ROOT / "tools/hsm/target/release/build-data")],
+                                   input=json.dumps({"op": "scene-flatten", "path": str(selected), "output": str(resolved)}),
+                                   text=True, check=True, capture_output=True)
+            result = json.loads(reply.stdout)
+            if isinstance(result, dict) and result.get("error"):
+                raise RuntimeError(result["error"])
+            source = resolved.read_bytes()
+        count = struct.unpack_from("<I", source)[0]
+        header = json.loads(source[4:4 + count])
     data = memoryview(source)[4 + count:]
     objects = []
     for entry in header["meshes"]:
@@ -367,16 +389,35 @@ nodes.get("Principled BSDF").inputs["Emission Strength"].default_value = 0.18
 screen.data.materials.clear()
 screen.data.materials.append(screen_mat)
 uv = screen.data.uv_layers.new(name="Physical screen UV")
+screen_left = min(vertex.co.x for vertex in screen.data.vertices)
+screen_width = max(vertex.co.x for vertex in screen.data.vertices) - screen_left
+screen_bottom = min(vertex.co.z for vertex in screen.data.vertices)
+screen_height = max(vertex.co.z for vertex in screen.data.vertices) - screen_bottom
 for polygon in screen.data.polygons:
     for loop_index in polygon.loop_indices:
         vertex = screen.data.vertices[screen.data.loops[loop_index].vertex_index].co
-        uv.data[loop_index].uv = ((vertex.x + 0.00888) / 0.01776, (vertex.z - 0.19962) / (0.2251 - 0.19962))
+        uv.data[loop_index].uv = ((vertex.x - screen_left) / screen_width, (vertex.z - screen_bottom) / screen_height)
 
 unit_at = (0.144, -0.154, 0.071)
+
+
+def unit_material(entry):
+    """The appliance retains its CAD colours, with glass and the lit status diffuser shaded."""
+    name = entry["name"]
+    if name.startswith("display/"):
+        return glass_dark
+    if name == "status-plate/3":
+        mat = material("Lit blue status diffuser", "#4189FF", 0.35)
+        shader = mat.node_tree.nodes.get("Principled BSDF")
+        shader.inputs["Emission Color"].default_value = (*linear("#4189FF"), 1)
+        shader.inputs["Emission Strength"].default_value = 0.6
+        return mat
+    return material(name, entry["color"], 0.8)
+
+
 unit_objects = payload("hardware/manifold-layout/enclosure-assembly.step.mesh",
-                       lambda name: name.startswith(("enclosure-", "nameplate", "display", "funnel")) or name == "pump-jack",
-                       lambda entry: glass_dark if entry["name"].startswith("display/") else
-                       material(entry["name"], entry["color"], 0.8) if "ink" in entry["name"] else petgf,
+                       lambda name: name.startswith(("enclosure-", "nameplate", "display", "status-plate", "funnel")) or name == "pump-jack",
+                       unit_material,
                        unit_at)
 
 # The enclosure's current Home page: flavor rail, selected portrait, status pane.
@@ -391,8 +432,19 @@ for mat in (ui_blue, ui_ice, ui_navy, ui_white, ui_orange):
     shader = mat.node_tree.nodes.get("Principled BSDF")
     shader.inputs["Emission Color"].default_value = shader.inputs["Base Color"].default_value
     shader.inputs["Emission Strength"].default_value = 0.16
-ui_center = Vector((unit_at[0], unit_at[1] + 0.0510921, unit_at[2] + 0.3266469))
-ui_up, ui_normal = Vector((0, math.sqrt(3) / 2, 0.5)), Vector((0, -0.5, math.sqrt(3) / 2))
+# The display cover's authored frame supplies the screen's axes; the glass supplies its face.
+unit_source = (ROOT / "hardware/manifold-layout/enclosure-assembly.step.mesh").read_bytes()
+unit_header_size = struct.unpack_from("<I", unit_source)[0]
+unit_header = json.loads(unit_source[4:4 + unit_header_size])
+cover = next(node for node in unit_header["meshes"] if node["name"] == "display-cover")
+cover_frame = cover.get("transform") or cover["_scene"]["transform"]
+ui_up = Vector(tuple(row[1] for row in cover_frame))
+ui_normal = Vector(tuple(row[2] for row in cover_frame))
+glass_points = [vertex.co for obj in unit_objects if obj.name == "display/1" for vertex in obj.data.vertices]
+ui_center = (Vector(unit_at)
+             + Vector(((min(p.x for p in glass_points) + max(p.x for p in glass_points)) / 2, 0, 0))
+             + ui_up * ((min(p.dot(ui_up) for p in glass_points) + max(p.dot(ui_up) for p in glass_points)) / 2)
+             + ui_normal * max(p.dot(ui_normal) for p in glass_points))
 
 
 def ui_point(x, y, lift=0.00035):
@@ -431,7 +483,7 @@ def ui_text(text, x, y, size, mat=ui_white):
     obj = bpy.data.objects.new("UI " + text, curve)
     scene.collection.objects.link(obj)
     obj.location = ui_point(x, y, 0.00062)
-    obj.rotation_euler.x = math.radians(30)
+    obj.rotation_euler.x = math.atan2(ui_up.z, ui_up.y)
     obj.data.materials.append(mat)
 
 
@@ -543,7 +595,7 @@ def pose(position, target, span):
 
 focals = {"faucet": (0.214, -0.093, 1.045), "faucet_base": (0.214, 0.037, 0.85),
           "glass": (0.214, -0.143, 0.90), "machine": (0.144, -0.147, 0.29),
-          "machine_display": (0.144, -0.11, 0.405), "cylinder": (-0.253, -0.184, 0.31),
+          "machine_display": tuple(ui_center), "cylinder": (-0.253, -0.184, 0.31),
           "counter_front": (0, -0.345, 0.813), "counter_rear": (0, 0.375, 0.813)}
 shots = {
     "kitchen": ((1.35, -2.5, 1.50), (0, 0.007, 0.508), 1.29, (1800, 1800)),
