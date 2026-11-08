@@ -300,6 +300,11 @@ along both whole runs** — per flank on the front column,
 face on horizontal printed face after the specified clearance is taken up. The two
 back flanks differ by the PRV passage: it crosses the −X run and takes
  of it, which is the figure that flank is already short by.
+The front rails begin beside the pump-loading wells, behind the rounded front corners.
+Their heads and matching channels follow `front_rail_start_y` in the shell numbers. The
+tee wall and pump stations keep their own positions. Both front quadrants form a matched
+rail pair, and the complete forward slide must be clear before either is fitted or removed.
+
 **The two columns end their runs on different things.** Aft of the front run the top
 piece carries nothing but its own seam band and the Y-seam tongue, and both are inboard
 surfaces the channel may cut — so that lane runs clear off the piece's aft end, nothing is
@@ -1138,8 +1143,8 @@ and a continuous formed tube to its rear valve. Complete these connections with 
 loose and the rear valve row absent until the fore groups are seated.
 
 The tee wall is continuous around its teardropped branch bores and collet openings. Flexible
-stubs feed through the closed bores during pump loading. Front-bottom's front and flank
-lips stop clear of the loading run; the tee wall's lower feet and remaining flank rails
+stubs feed through the closed bores during pump loading. Front-bottom's front lip clears
+the loading run. Its flank rails run beside the pump wells, and the tee wall's lower feet
 retain their chassis interfaces.
 
 ## Pump retention, printing and service

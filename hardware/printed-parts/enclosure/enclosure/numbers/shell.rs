@@ -47,8 +47,15 @@ pub const HOOK_ARM: f64 = 4.5;
 pub const RAIL_STOP_LEN: f64 = 4.0;
 pub const RAIL_ENTRY: f64 = 5.0;
 pub const RAIL_LEAD: f64 = 2.0;
+/// Air behind the front corner's slide lane before the rail begins.
+pub const FRONT_RAIL_CORNER_AIR: f64 = WALL;
 pub const FRONT_HOOK_LAP: f64 = HOOK_LAP + (FRONT_BOTTOM_FLANK_T - 2.0 * WALL);
 pub const BACK_HOOK_LAP: f64 = HOOK_LAP + (BACK_BOTTOM_FLANK_T - 2.0 * WALL);
+
+/// The front rail's entry beside the pump well, behind the rounded corner.
+pub fn front_rail_start_y(inner_y: f64) -> f64 {
+    inner_y + COLUMN_ROUND + WALL + FRONT_RAIL_CORNER_AIR
+}
 
 /// The handholds under each flank.
 pub const HANDHOLD_Y: f64 = 214.0;

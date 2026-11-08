@@ -48,7 +48,7 @@ fn main() -> Result<()> {
 fn construction(b: &Box) -> (Graph, Shape) {
     let mut g = Graph::new();
     let silhouette = g.silhouette(b.exterior_bounds());
-    let half = front_half(&mut g, b, silhouette);
+    let half = front_half(&mut g, b, silhouette, Quadrant::FRONT_BOTTOM.z);
     let piece = pipeline(
         &mut g,
         &Build {
@@ -93,7 +93,7 @@ fn pipeline(g: &mut Graph, k: &Build) -> Shape {
     piece = g.cut(piece, &[flat]);
     let drop = flanks::flank_lip_drop(g, inner, &pack.collet_plate, zj);
     piece = g.cut(piece, &[drop]);
-    let heads = z_rail_heads(g, inner, y_joint, zj, q.y, Some(&pack.collet_plate));
+    let heads = z_rail_heads(g, inner, y_joint, zj, q.y);
     piece = g.union(piece, &[heads]);
     piece = g.intersect(piece, &[k.silhouette]);
     piece = k.exterior(g, piece);

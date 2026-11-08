@@ -1,0 +1,158 @@
+{
+  "bearing_end_y_mm": 191.0,
+  "bearing_length_per_side_mm": 159.0,
+  "bottom_components": 1,
+  "changes_mm3": {
+    "bottom_added": 13703.371530904502,
+    "bottom_removed": 0.0,
+    "top_added": 0.0,
+    "top_removed": 18388.3391996459
+  },
+  "driver_access_scope": "Retainer screws are fitted with front-top loose. The outer driver paths intersect the closed front-bottom; the rail extension adds no obstruction to these existing paths.",
+  "forward_travel_mm": 164.0,
+  "inputs": {
+    "hardware/manifold-layout/enclosure-box.json": "1f6bb8fee7d04a10b5c1b39ce87ee6112cdd4ceae2b88e4f586f59e415a54cdc",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step.npz": "bff98174bd1ec9b15d066c226c2bf0705f660c9dc99d5afe2f4aa1b8fb20a28e",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.stl": "d7ac56f25a2c88c7632a82a3aec4f445e39b72805875d57bb819b7295d8f5000",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step.npz": "aa4c9f4c852bcf9ab5dddd96ce41940fe1dacdca973f29530a10ae935f58c422",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl": "6984c3147e41e6e4a4369c02bbc98b898e1e9b990386f647d027745ce48c2a1f",
+    "hardware/printed-parts/enclosure/enclosure/enclosure_front_bottom.rs": "c27aaeee4c65e440ca6fd386035308447c231166f80996f15988ab5df9460b9e",
+    "hardware/printed-parts/enclosure/enclosure/enclosure_front_top.rs": "b93a92013440d8172c63102ea75a6c3dcf835b70cd844375fd4966101250544d",
+    "hardware/printed-parts/enclosure/enclosure/front/front.rs": "97d371caa5f9460aad2f86967ed4f316ca8a90ec7564a953acd11b8a36fcacc1",
+    "hardware/printed-parts/enclosure/enclosure/numbers/shell.rs": "57c41b9ddd8cad961abc89cde8f07b51fc7f4653da66d304cec1d0fc8432e5da",
+    "hardware/printed-parts/enclosure/enclosure/quadrants/rails.rs": "ea2a4c32e9e26947cd925d17367ebacd1cffd535496710c9241e38bb71047e82"
+  },
+  "lift_capture_overlap_at_one_mm_mm3": 789.3499999999931,
+  "neighbor_hardware": [],
+  "print_meshes": {
+    "enclosure-front-bottom": {
+      "components": 1,
+      "volume_mm3": 1100072.567127736,
+      "watertight": true,
+      "winding_consistent": true
+    },
+    "enclosure-front-top": {
+      "components": 1,
+      "volume_mm3": 2570377.459195947,
+      "watertight": true,
+      "winding_consistent": true
+    }
+  },
+  "pump_bay_difference_mm3": {
+    "added": 0.0,
+    "removed": 0.0
+  },
+  "pump_bay_region_mm": [
+    [
+      -93.0,
+      12.5,
+      165.0
+    ],
+    [
+      93.0,
+      82.515,
+      306.5
+    ]
+  ],
+  "rail_x_mm": {
+    "arm": -98.25,
+    "arm_end": -93.75,
+    "channel": [
+      -103.75,
+      -98.5,
+      -93.25
+    ],
+    "foot": -98.5,
+    "hook": -103.5
+  },
+  "reference_machine": "tmp/installed-machine/model/enclosure-assembly.step.npz",
+  "reference_machine_sha256": "2d7ad01a6243d9142c0451e1c6dd6632316dfeabd7071306b7dc76dea55b5ad3",
+  "retainer_driver_paths": [
+    {
+      "existing_bottom_overlap_mm3": 211.43071759975106,
+      "front_top_overlap_mm3": 0.0,
+      "new_rail_overlap_mm3": 0.0,
+      "x_mm": -91.225
+    },
+    {
+      "existing_bottom_overlap_mm3": 0.0,
+      "front_top_overlap_mm3": 0.0,
+      "new_rail_overlap_mm3": 0.0,
+      "x_mm": -13.225
+    },
+    {
+      "existing_bottom_overlap_mm3": 0.0,
+      "front_top_overlap_mm3": 0.0,
+      "new_rail_overlap_mm3": 0.0,
+      "x_mm": 13.225
+    },
+    {
+      "existing_bottom_overlap_mm3": 136.81754927903214,
+      "front_top_overlap_mm3": 0.0,
+      "new_rail_overlap_mm3": 0.0,
+      "x_mm": 91.225
+    }
+  ],
+  "retainers": [
+    {
+      "bottom_overlap_mm3": 0.0,
+      "name": "enclosure-pump-retainer-a",
+      "top_overlap_mm3": 0.0
+    },
+    {
+      "bottom_overlap_mm3": 0.0,
+      "name": "enclosure-pump-retainer-b",
+      "top_overlap_mm3": 0.0
+    }
+  ],
+  "run_start_y_mm": 32.0,
+  "sampled_slide": [
+    {
+      "forward_mm": 0.0,
+      "overlap_mm3": 0.0
+    },
+    {
+      "forward_mm": 0.25,
+      "overlap_mm3": 0.0
+    },
+    {
+      "forward_mm": 1.0,
+      "overlap_mm3": 0.0
+    },
+    {
+      "forward_mm": 2.0,
+      "overlap_mm3": 0.0
+    },
+    {
+      "forward_mm": 5.0,
+      "overlap_mm3": 0.0
+    },
+    {
+      "forward_mm": 10.0,
+      "overlap_mm3": 0.0
+    },
+    {
+      "forward_mm": 20.0,
+      "overlap_mm3": 0.0
+    },
+    {
+      "forward_mm": 40.0,
+      "overlap_mm3": 0.0
+    },
+    {
+      "forward_mm": 80.0,
+      "overlap_mm3": 0.0
+    },
+    {
+      "forward_mm": 120.0,
+      "overlap_mm3": 0.0
+    },
+    {
+      "forward_mm": 164.0,
+      "overlap_mm3": 0.0
+    }
+  ],
+  "scope": "Measurements of the exported front rail pair, its seated fit and sampled rigid sliding travel. Pump-bay preservation compares the held installed fine model. This is not a physical print or load qualification.",
+  "seated_overlap_mm3": 0.0,
+  "top_components": 1
+}

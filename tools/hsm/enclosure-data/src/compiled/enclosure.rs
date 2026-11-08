@@ -10959,15 +10959,7 @@ Ok(Val::None)})})?;
                 }
                 .truthy()?
                 {
-                    let assigned2826 = if e.get("plate")?.truthy()? {
-                        e.get("plate")?.get(Val::Str("wall_aft_y".into()))?
-                    } else {
-                        binary(
-                            "add",
-                            binary("add", e.get("iy0")?, e.get("column_round")?)?,
-                            e.get("wall")?,
-                        )?
-                    };
+                    let assigned2826 = Val::Float(hsm_enclosure_numbers::shell::front_rail_start_y(e.get("iy0")?.num()?));
                     e.set("y0", assigned2826.clone())?;
                     let assigned2827 = binary(
                         "sub",

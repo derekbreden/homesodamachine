@@ -148,7 +148,7 @@ pub fn valve_trays(g: &mut Graph, mut piece: Shape, b: &Box, q: Quadrant, bands:
     let inner = &b.inner;
     let plate_aft = b.pack.collet_plate.wall_aft_y;
     let front_top = q == Quadrant::FRONT_TOP;
-    let bed = front_top.then(|| (q.zj(b), z_rail_runs(inner, b.y_joint, Y::Front, Some(&b.pack.collet_plate))));
+    let bed = front_top.then(|| (q.zj(b), z_rail_runs(inner, b.y_joint, Y::Front)));
     for (plane, sign, seats) in &b.pack.valve_trays {
         let (plane, sign) = (*plane, *sign);
         if !in_bands(plane, seats, bands) {

@@ -200,8 +200,8 @@
     "hardware/printed-parts/enclosure/enclosure/front/mount.rs": "ef8af646ba1e04358c1a6d3c91d9d3900deb9091c1ee7ef2e4299f82faee354c",
     "hardware/printed-parts/enclosure/enclosure/retainer-numbers/lib.rs": "f421bc8a3bf7ff2a2aa0eaf29ac9a8fb1ca432dd23f41acc82ac411669861be2",
     "hardware/printed-parts/enclosure/enclosure/retainer/retainer.rs": "b74bcd8096969f77100e3878cc4db07b50b7d398d9e4a2b6f6435bc5737cbdd1",
-    "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step.npz": "a22c143bdc853f3685d2f1de66f7d186d9aeb188fa13d3938ccfbf35c7218286",
-    "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step.npz": "2abc1745c51028de24e6cd4f19700313b8e280ecdcb32d28fff347d515fb3b12",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step.npz": "aa4c9f4c852bcf9ab5dddd96ce41940fe1dacdca973f29530a10ae935f58c422",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step.npz": "bff98174bd1ec9b15d066c226c2bf0705f660c9dc99d5afe2f4aa1b8fb20a28e",
     "hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.step.npz": "6c4cdf2a0eb304734fcfc643d582f8c63f3174fb35d57f7bb9a12993dd9f9dd7",
     "hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer-seated.step.npz": "0fa635cab051d880b91a83f16b01008bbc98664b3c8431d0e4fc2b87ad237874",
     "hardware/reference/kamoer-kphm400/kamoer-kphm400.step.npz": "4ffe5555bee678fd5cb3a956104e41848a9874d23ea894f3f4ec95d759287ee9"
@@ -223,5 +223,9 @@
     "surface_selection": "Horizontal downward-facing triangle area; centroid inside region; normal Z below the stored threshold. The comparison measures flat underside area, not total support volume.",
     "downward_normal_z_threshold": -0.99999
   },
-  "terminal_keyway_diameter_mm": 10.0
+  "terminal_keyway_diameter_mm": 10.0,
+  "rail_pair_preservation": {
+    "receipt": "hardware/printed-parts/enclosure/enclosure/front-rail-fit.json",
+    "method": "The exported rail pair has identical pump-bay solid volume within the recorded pump region. The retainer solids are unchanged and remain clear of both front quadrants. The stored pump fit and sampled insertion measurements apply to that preserved region."
+  }
 }

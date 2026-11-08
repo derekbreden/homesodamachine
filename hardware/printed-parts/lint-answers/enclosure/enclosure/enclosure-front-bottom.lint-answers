@@ -13,8 +13,8 @@ click: x=99.479 y=190.000 z=29.250
 [ceiling] Unavoidable square capture interfaces: these Z169.2 flats are the front rail catches. Their opposing feet retain the native 0.50 mm running/support allowance. The flat overlap resists lifting after that play is taken up. Support can leave the open rail lane before assembly; removal effort remains unqualified.
 alternatives: Sloping introduces a camming bearing. Filling the lane enters foot travel; removing the overlap loses capture.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step
-click: x=-100.875 y=144.918 z=169.200
-click: x=100.875 y=144.918 z=169.200
+click: x=-100.875 y=111.750 z=169.200
+click: x=100.875 y=111.750 z=169.200
 
 [slope] The linter is wrong for this channel: this 45° face is the roof of the relief over the lower Y-stack screw passage where it crosses front-bottom's knuckle underside (`_y_bore_reliefs`). It rises toward the passage inside a slot of the passage's own width, so both of its rising edges stand on the slot's walls 5.2 mm apart and each layer of it is carried at both ends as well as by the layer below; the rule reads one wall and its rising edge, a slope hanging sideways off a single wall.
 alternatives: A level roof over the slot is a down-facing ceiling. A roof rising off the slot walls, a gable, dives under the 45° knuckle face along a V and leaves a ridge down the slot. A vertical end wall where the roof lands meets the knuckle face on a 45° arris. The rule could count a slope whose two rising edges stand on opposed walls as carried.

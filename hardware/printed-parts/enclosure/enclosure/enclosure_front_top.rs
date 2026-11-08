@@ -54,7 +54,7 @@ fn main() -> Result<()> {
 fn construction(b: &Box) -> (Graph, Shape) {
     let mut g = Graph::new();
     let silhouette = g.silhouette(b.exterior_bounds());
-    let half = front_half(&mut g, b, silhouette);
+    let half = front_half(&mut g, b, silhouette, Quadrant::FRONT_TOP.z);
     let piece = pipeline(
         &mut g,
         &Build {
@@ -78,14 +78,13 @@ fn pipeline(g: &mut Graph, k: &Build) -> Shape {
     let [ox0, ox1, oy0, oy1, _, oz1] = b.exterior_bounds();
     let (zj, up) = (q.zj(b), q.up());
     let pack = &b.pack;
-    let plate = Some(&pack.collet_plate);
     let upper = g.box_([ox0 - 1.0, ox1 + 1.0, oy0 - 1.0, oy1 + 1.0, zj, oz1 + 1.0]);
     let mut piece = g.intersect(k.half, &[upper]);
     let flanks = fronttop::flanks(g, inner, outer, y_joint, zj);
     piece = g.union(piece, &[flanks]);
     let bedding = flank_bedding_cut(g, inner, y_joint - WALL - 1.0, y_joint + LIP_LEN + 1.0, zj);
     piece = g.cut(piece, &[bedding]);
-    let feet = z_rail_feet(g, inner, y_joint, zj, q.y, plate);
+    let feet = z_rail_feet(g, inner, y_joint, zj, q.y);
     piece = g.union(piece, &[feet]);
     piece = g.intersect(piece, &[k.silhouette]);
     piece = k.exterior(g, piece);
@@ -103,7 +102,7 @@ fn pipeline(g: &mut Graph, k: &Build) -> Shape {
     if k.airway_in() {
         piece = flank_vents(g, piece, outer, &pack.cond_airway);
     }
-    let channels = z_rail_channels(g, inner, y_joint, zj, q.y, plate);
+    let channels = z_rail_channels(g, inner, y_joint, zj, q.y);
     piece = g.cut(piece, &[channels]);
     let channel = y_lip_channel(g, inner, y_joint);
     piece = g.cut(piece, &[channel]);
