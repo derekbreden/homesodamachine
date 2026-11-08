@@ -1,0 +1,103 @@
+{
+  "views": [
+    {
+      "name": "rear",
+      "caption": "The nameplate frame clears the rounded corner and seam band.",
+      "before": "rear-before.webp",
+      "after": "rear-after.webp",
+      "width": 1000,
+      "height": 1100,
+      "marks": [
+        {
+          "x": 881.3,
+          "y": 627,
+          "r": 78.6,
+          "label": "Corner clearance",
+          "at": [
+            -86.4,
+            472,
+            220.75
+          ]
+        },
+        {
+          "x": 639.6,
+          "y": 867.4,
+          "r": 74.6,
+          "label": "Band clearance",
+          "at": [
+            -41.4,
+            472,
+            170
+          ]
+        }
+      ],
+      "model": "manifold-layout/enclosure-assembly.step",
+      "camera": {
+        "projection": "perspective",
+        "position": [
+          -43.6320514778172,
+          726.2670956484767,
+          277.39540626024103
+        ],
+        "target": [
+          -13,
+          471,
+          234
+        ],
+        "up": [
+          0,
+          0,
+          1
+        ],
+        "fov": 45,
+        "near": 88.76838085786238,
+        "far": 909.1431878712938,
+        "aspect": 0.9090909090909091
+      },
+      "highlight": [],
+      "ghost": [],
+      "only": [
+        "enclosure-back-top",
+        "enclosure-back-bottom",
+        "nameplate",
+        "nameplate-ink",
+        "nameplate-screw-*",
+        "nameplate-insert-*",
+        "rear-label-*",
+        "keystone*"
+      ],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "snapshot",
+          "sha256": "26eee2d5133d29ed3d814029ee3476c5fd742d3a3d9f8e6b185ce9c43046644c",
+          "commit": "c2d0ffc6d4e1256bf68564fc2a03d7e876ebdda8",
+          "taken": "2026-11-08T10:00:36.028Z",
+          "published": true
+        },
+        "after": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "tree",
+          "sha256": "3a0e2e745205a7a40bc4425992eae62326259e9f7e7aa14c9467209f17a1bc1a",
+          "commit": "47dd0e37162ced85a2e57b5571556fc6972902ab",
+          "published": true
+        }
+      },
+      "changed": [
+        "nameplate-screw-1",
+        "nameplate",
+        "nameplate-insert-1",
+        "nameplate-ink",
+        "nameplate-screw-2",
+        "nameplate-insert-2",
+        "nameplate-screw-3",
+        "nameplate-insert-3",
+        "enclosure-back-top",
+        "nameplate-screw-4",
+        "nameplate-insert-4"
+      ],
+      "withinMeshing": []
+    }
+  ]
+}
