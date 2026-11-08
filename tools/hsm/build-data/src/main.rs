@@ -159,6 +159,11 @@ fn dispatch(v:&Value)->Result<Value> {
             hsm_geometry::scene::write(file,&bytes)?;
             Ok(hsm_geometry::scene::header(&fs::read(file)?)?.0)
         },
+        "scene-flatten"=>{
+            let bytes=hsm_geometry::scene::read(path(v)?)?;
+            hsm_geometry::scene::keep(Path::new(text(v,"output")?),&bytes)?;
+            Ok(Value::Null)
+        },
         "scene-replace"=>{
             let source=Path::new(text(v,"source")?);
             let bytes=fs::read(source)?;
@@ -176,7 +181,15 @@ fn dispatch(v:&Value)->Result<Value> {
         "scene-assets"=>{
             let mut assets=std::collections::BTreeSet::new();
             for file in v["paths"].as_array().context("scene paths")? {
-                let Ok(head)=payload::header(Path::new(file.as_str().context("scene path")?)) else {continue;};
+                let name=file.as_str().context("scene path")?;
+                let Ok(mut head)=payload::header(Path::new(name)) else {continue;};
+                if head["v"]==4 {
+                    if let Some(expected)=v["expected"][name].as_str() {
+                        if hsm_geometry::scene::digest(&fs::read(name)?)!=expected {
+                            head=hsm_geometry::scene::header(&hsm_geometry::scene::load_asset(expected)?)?.0;
+                        }
+                    }
+                }
                 if head["v"] == 4 {
                     assets.extend(hsm_geometry::scene::assets(&head));
                 }

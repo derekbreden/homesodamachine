@@ -1141,12 +1141,14 @@ def upload_objects(root: Path, rels: list, solid_hashes: dict, known: set, sourc
     return not failures
 
 
-def upload_mesh_assets(root: Path, rels: list, held: dict, sources=None) -> list:
+def upload_mesh_assets(root: Path, rels: list, held: dict, sources=None, lines=None) -> list:
     """Shared scene objects go up before any manifest that refers to them."""
     import concurrent.futures as cf
     sys.path.insert(0, str(root / "hardware/scripts"))
     from _build_data import request
-    assets = request("scene-assets", paths=[str((sources or {}).get(rel, root / rel)) for rel in rels if rel.endswith((".step.mesh", ".glb.mesh"))])
+    manifests = {str((sources or {}).get(rel, root / rel)): (lines or {}).get(rel)
+                 for rel in rels if rel.endswith((".step.mesh", ".glb.mesh"))}
+    assets = request("scene-assets", paths=list(manifests), expected=manifests)
     known = set(held.get("mesh_assets") or [])
     todo = [row for row in assets if row["sha256"] not in known]
     cache = root / ".cache/meshes/publication"
@@ -1360,7 +1362,7 @@ def _publish_held(grafted: set, staging: Path) -> int:
         print(f"{len(side_moved)} scorecard(s) and {records['shifted']} `made` line(s) moved, and no member's bytes{_unproven(made)}")
         return 0
 
-    mesh_assets = upload_mesh_assets(_ROOT, rels, held, sources)
+    mesh_assets = upload_mesh_assets(_ROOT, rels, held, sources, lines)
     known = set()
     prior_bundle = held.get("bundle", {})
     if prior_bundle.get("sha256"):

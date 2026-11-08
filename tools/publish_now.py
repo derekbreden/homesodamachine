@@ -40,8 +40,10 @@ VIEWER_HOSTS = (
 
 
 def run(args: list, quiet: bool = False) -> subprocess.CompletedProcess:
+    sys.path.insert(0, str(ROOT / "hardware/scripts"))
+    import _run_slots
     return subprocess.run(args, cwd=str(ROOT), text=True,
-                          capture_output=quiet)
+                          capture_output=quiet, **_run_slots.subprocess_kwargs())
 
 
 def timing(phase, started, **fields):
