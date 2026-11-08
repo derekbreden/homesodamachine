@@ -380,18 +380,27 @@
           "pose": {
             "turns": [
               [
-                "y",
+                "x",
                 90
               ]
             ],
-            "reason": "The closed end rests on the bed; continuous bearing channels grow along the build direction."
-          }
+            "reason": "Y-end down keeps the X/Z spring bending plane within each layer."
+          },
+          "regions": "pump-retainer"
         }
       ],
       "settings": {
-        "enable_support": {
-          "value": "0",
-          "reason": "The closed end supports the complete channel section; the remaining layers only open its center."
+        "wall_loops": {
+          "value": "3",
+          "reason": "Shared snap trial: three Classic walls through the 2.0 mm spring leaves."
+        },
+        "wall_generator": {
+          "value": "classic",
+          "reason": "Shared snap fixed-width wall recipe."
+        },
+        "support_style": {
+          "value": "tree_slim",
+          "reason": "Branching supports in the pump-mount cavities. Derek reports that the rectangular cavity supports are very difficult to remove."
         }
       }
     },

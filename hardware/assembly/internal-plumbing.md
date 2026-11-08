@@ -145,10 +145,11 @@ reference closures do not specify internal hydraulic geometry.
 Build to [`/hardware/topology/fluid-topology.md`](/hardware/topology/fluid-topology.md) segment-for-segment. The truth table there names every valve, every Y-junction, and every tube segment by number; this step describes the build cadence around that truth table, not its content.
 
 **This step begins on the bench with `enclosure-front-top` loose and both valve rows,
-pump tees, display and funnel frame absent.** The side-loading `enclosure-pump-retainer`
-captures the skirts between the upper and lower lips of its front and rear channels.
-The enclosure cavity over it closes on corbels. This mount is a geometry concept:
-cartridge attachment, lateral pump stops and tube-setting registration remain open.
+pump tees, display and funnel frame absent.** Its upper fitted pump inverses are integral
+with the broad stock continuing into the display housing and roof. The broad
+`enclosure-pump-retainer` holds the fitted lower wells. Its two integral, full-depth snap
+wings engage front-top’s flank receivers and retain the molded-skirt capture between
+the two fitted halves.
 
 Front-top also carries the valve trays and tee wall. Load the pumps with only
 their flexible tube stubs attached and feed the stubs through the closed collet
@@ -164,11 +165,16 @@ While front-top is open, land the J1 and J2 trunks on the front coils V-C throug
 
 Lay out the ten Beduan valves and the PP0208E tees. Cut stationary links from the [current manifold geometry](/hardware/manifold-layout/README.md), including engagement at both actual fittings. Exposed path length is not a tube-blank cut length. Use black LLDPE except for `fluid-3`, which uses white. Square-cut, deburr without scoring the sealing surface, and tag each segment.
 
-1. **Load the loose cartridge.** Slide both pumps sideways through its open end with the
-   outlets facing +Y. The upper and lower channel lips surround each molded skirt. Prepare
-   the black LLDPE pump stubs with square, burr-free ends and clamp them in the BPT tube
-   under the pump-head housings. Tube-tip setting needs a registering fixture for this
-   cartridge; the existing jig does not seat on it.
+1. **Prepare the pumps and set the tubes in the loose retainer.** Pull Kamoer's barbed
+   connectors out of both pumps' tube ends. Cut four tubes of
+   black 1/4" LLDPE, square and burr-free with eased outer edges, and push one into each
+   BPT end under the loosened pump-head housing. Seat both pumps in the loose retainer's
+   fitted wells with the tubes facing +Y. Set the tube setting jig on its flat rear face
+   and slide each tube until its tip meets the jig's stop at the seated tee datum. Tighten
+   each pump-head housing to clamp the BPT tube around its LLDPE stub. Keep the stubs
+   straight; check their four tip positions, firm hand retention and pump-end sealing.
+   Take the jig off before approaching front-top: its broad body occupies the tee wall's
+   space and cannot be fitted after the pumps are installed.
 
 2. **Land the pump leads with the motors accessible.** With power disconnected, feed
    the bare pump end of [DC-5](harnesses/j13.md) forward through the shared rear wire mouth
@@ -176,12 +182,14 @@ Lay out the ten Beduan valves and the PP0208E tees. Cut stationary links from th
    [J13 map](harnesses/j13.md#end-to-end-conductor-map), then land the +X pair on pump A
    and the −X pair on pump B. Keep the board end free and support its slack.
 
-3. **Raise the pump unit from underneath.** Bring the cartridge and pumps motor-first
-   into front-top, guiding the flexible stubs through the tee-wall bores and drawing lead
-   slack aft. The front channel enters the inside wall pocket. Support the unit while
-   reviewing this geometry concept: it has no enclosure attachment. The
-   [accepted holder record](/hardware/reference/kamoer-kphm400/physical-fit.json) applies
-   to its identified cradle and cap; this cartridge has no physical fit or retention result.
+3. **Load and secure the pumps from underneath.** Raise the prepared pumps and retainer
+   motor-first into front-top's fitted upper half. Feed each flexible stub through its tee-wall bore while drawing the lead slack aft through the common wire
+   passage. The lower fitted lands support the molded skirts and the integral upper
+   faces capture them from above. Press the retainer upward so both upper-rooted wings
+   flex inward, then spring outward with their lower hooks seated on the receiver floors.
+   Inspect both engagements and confirm the pumps are seated against their fitted lands. The [accepted holder record](/hardware/reference/kamoer-kphm400/physical-fit.json)
+   applies to its identified cradle and cap; physical fit and retention of this two-face
+   skirt capture remain unqualified. Complete both snap engagements while front-top is loose.
 
 4. **Fit all four tees with their upper tubes and fore valves.** Keep the rear valve row
    absent for this straight approach from aft. The upper tubes are `fluid-10`

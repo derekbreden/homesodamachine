@@ -1,6 +1,6 @@
 //! Front-top's own construction: its grown flanks, the bulkhead and display backing over the pump
 //! bay, the bay floor and the dock's cuts, the funnel's seat ledges, the valve coils' flank
-//! pockets, and the corbeled pump cavity's cuts.
+//! pockets, and the integral pump mount's cuts and receivers.
 use crate::catalog::running;
 use crate::dock;
 use crate::funnel::{self, BODY_WIDTH};
@@ -147,10 +147,10 @@ pub fn flank_pockets(
     piece
 }
 
-/// The motor rooms, wiring passages and the corbeled cartridge opening.
+/// The integral pump mount's cuts, then the retainer's receivers rebuilt into both flanks.
 pub fn pump_mount_cuts(g: &mut Graph, mut piece: Shape, b: &Box) -> Shape {
     for cut in mount::fixed_cuts(g, b) {
         piece = g.cut(piece, &[cut]);
     }
-    piece
+    mount::snap_receivers(g, b, piece)
 }
