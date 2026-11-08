@@ -136,8 +136,8 @@ records the current rigid-slide and final-connection limits.
    (DC-1), relay 2 COM (DC-2), the relay 1 NO and N-junction pigtails (AC-4,
    AC-5), the relay 2 NO pigtail (DC-3), and J5 at the two
    relay modules: IO19 to relay 1 IN, IO2 to relay 2 IN, V5 and GND to both
-   modules. The shared relay-end rail termination remains subject to the
-   installed model's stated termination limit. Punch J3 down on the rear
+   modules. Each relay's complete corner screw set is fitted before these
+   wires; keep the terminal entries and screwdriver wells clear. Punch J3 down on the rear
    keystone. Dress every free end forward so it lies within the funnel
    opening's footprint once the box is closed, clear of the seams and every
    sliding surface, and flag it with its run ID. Retain the specified direct

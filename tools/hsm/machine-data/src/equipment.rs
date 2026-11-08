@@ -497,8 +497,14 @@ pub fn numbers(request: &Value) -> Result<Value> {
             10.,
             0.,
         ),
-        ("relay-1", vec![[-33., -6.5], [-33., 6.5]], 1.5, 8., 2.5),
-        ("relay-2", vec![[-33., -6.5], [-33., 6.5]], 1.5, 8., 2.5),
+        ("relay-1", hsm_enclosure_numbers::rear_wall::hosts::relay_holes(),
+         hsm_enclosure_numbers::rear_wall::hosts::relay_board_thickness(),
+         hsm_enclosure_numbers::rear_wall::hosts::RELAY_SCREW_LENGTH,
+         hsm_enclosure_numbers::rear_wall::hosts::RELAY_SETBACK),
+        ("relay-2", hsm_enclosure_numbers::rear_wall::hosts::relay_holes(),
+         hsm_enclosure_numbers::rear_wall::hosts::relay_board_thickness(),
+         hsm_enclosure_numbers::rear_wall::hosts::RELAY_SCREW_LENGTH,
+         hsm_enclosure_numbers::rear_wall::hosts::RELAY_SETBACK),
     ] {
         let pose = pose(spec, name)?;
         let axis = vector(&pose["rotation"], [0., 0., 1.])?;

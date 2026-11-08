@@ -24,12 +24,43 @@ pub mod c14 {
     pub const PILOT_DEPTH: f64 = crate::shell::HEATSET_DEPTH;
 }
 
-/// The insert bosses back-top's wall carries for the parts it hosts: each relay insert's face
-/// stands back behind its board's hole, and each threaded insert's pilot runs this deep. The
-/// BOM bills the relay screws by them.
+/// The wall hosts' insert faces, screw stack and blind pilots share the relay's scanned PCB datums.
 pub mod hosts {
-    pub const RELAY_SETBACK: f64 = 2.5;
+    use crate::P2;
+    use serde_json::Value;
+    use std::sync::OnceLock;
+
+    pub const RELAY_SETBACK: f64 = 0.0;
+    pub const RELAY_SCREW_LENGTH: f64 = 8.0;
+    pub const RELAY_INSERT_LENGTH: f64 = 4.0;
+    pub const RELAY_TIP_AIR: f64 = 1.0;
     pub const PILOT_DEPTH: f64 = 5.0;
+
+    fn relay_reference() -> &'static Value {
+        static REFERENCE: OnceLock<Value> = OnceLock::new();
+        REFERENCE.get_or_init(|| serde_json::from_str(include_str!(
+            "../../../../reference/teyleten-relay/scan-datums.json"
+        )).expect("the relay scan datums parse"))
+    }
+
+    /// The mounting-hole centres in the relay's native PCB frame.
+    pub fn relay_holes() -> Vec<P2> {
+        relay_reference()["holes"].as_array().expect("the relay's mounting holes")
+            .iter().map(|hole| {
+                let p = &hole["center_mm"];
+                [p[0].as_f64().unwrap(), p[1].as_f64().unwrap()]
+            }).collect()
+    }
+
+    /// The scanned PCB's bearing-to-head thickness.
+    pub fn relay_board_thickness() -> f64 {
+        relay_reference()["pcb"]["size_mm"][2].as_f64().unwrap()
+    }
+
+    /// The blind pilot clears the selected screw after its complete thread engagement.
+    pub fn relay_pilot_depth() -> f64 {
+        RELAY_SCREW_LENGTH - relay_board_thickness() - RELAY_SETBACK + RELAY_TIP_AIR
+    }
 }
 
 /// The keystone jack: its face, the lip it latches behind, the pocket its body swings into and

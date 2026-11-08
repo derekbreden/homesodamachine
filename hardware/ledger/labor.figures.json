@@ -25,7 +25,7 @@
     "LAB_HM9": "55 m",
     "LAB_HM_PRINTED": "1 h 17 m",
     "LAB_PRINT_H": "189.4",
-    "LAB_PRINT_KG": "7.161",
+    "LAB_PRINT_KG": "7.162",
     "LAB_SEC1": "55",
     "LAB_SEC10": "35",
     "LAB_SEC2": "62",
@@ -53,13 +53,13 @@
     "SEAM_INSERTS": "4",
     "SEAM_RODS": "4",
     "SHELF_INSERTS": "4",
-    "SHELF_SCREWS": "12",
+    "SHELF_SCREWS": "16",
     "SOLENOIDS": "10",
     "STATUS_PLATE_SCREWS": "4",
-    "TOTAL_INSERTS": "79",
-    "TOTAL_M3_INSERTS": "51",
+    "TOTAL_INSERTS": "83",
+    "TOTAL_M3_INSERTS": "55",
     "TOTAL_M5_INSERTS": "28",
-    "TOTAL_SCREWS": "75",
+    "TOTAL_SCREWS": "79",
     "TOUCHFLO_SCREWS": "3"
   }
 }

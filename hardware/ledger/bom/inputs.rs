@@ -141,22 +141,26 @@ fn faucet() -> Result<Faucet> {
 /// A relay board's wall screws: back-top's insert faces and pilots, and the wall left behind a
 /// pilot at the box's west flank, plain and under its flutes.
 fn relay(above: &AboveCore, west: f64) -> Result<Relay> {
-    use bought::*;
-    use hsm_enclosure_numbers::rear_wall::hosts::{PILOT_DEPTH, RELAY_SETBACK};
+    use hsm_enclosure_numbers::rear_wall::hosts::{
+        RELAY_INSERT_LENGTH, RELAY_SCREW_LENGTH, RELAY_SETBACK,
+        relay_board_thickness, relay_holes, relay_pilot_depth,
+    };
     let x = ["relay-1", "relay-2"]
         .iter()
         .map(|name| Ok(above.parts.get(*name).with_context(|| format!("the above-core layout places no {name}"))?.translation_mm[0]))
         .collect::<Result<Vec<f64>>>()?
         .into_iter()
         .fold(f64::INFINITY, f64::min);
-    let backing = x - RELAY_SETBACK - PILOT_DEPTH - west;
+    let board = relay_board_thickness();
+    let pilot = relay_pilot_depth();
+    let backing = x - RELAY_SETBACK - pilot - west;
     Ok(Relay {
-        screws: RELAY_SCREWS,
-        board: RELAY_BOARD,
+        screws: relay_holes().len(),
+        board,
         setback: RELAY_SETBACK,
-        insert: SHORT_INSERT,
-        reach: RELAY_SCREW_LENGTH - RELAY_BOARD - RELAY_SETBACK,
-        bore: PILOT_DEPTH,
+        insert: RELAY_INSERT_LENGTH,
+        reach: RELAY_SCREW_LENGTH - board - RELAY_SETBACK,
+        bore: pilot,
         backing,
         fluted_backing: backing - FLUTE_DEPTH,
     })

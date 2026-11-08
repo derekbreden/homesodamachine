@@ -208,13 +208,16 @@ fn print_features(dir: &Path, b: &spec::Box) -> Result<()> {
                             b.outer[4],layout::layout().rear_identification.nameplate.center_z_mm+rear_wall::PLATE_HEIGHT/2.0+shell::WALL],
         "reason":"The external nameplate and connector field has an open removal path outside the rear wall."}));
     // The hosted parts' bosses, for the print regions that fill them solid.
-    let hosts: Vec<_> = rear::wall_mounts().into_iter().map(|(part, mounts)| json!({"part": part,
+    let mounted = rear::wall_mounts();
+    let bars = rear::relay_bars(&mounted);
+    let hosts: Vec<_> = mounted.into_iter().map(|(part, mounts)| json!({"part": part,
         "stations": mounts.iter().map(|m| json!({"point_mm": m.point, "insert_face_mm": m.face, "root_mm": m.root,
-                                                  "axis": m.axis, "threaded": m.threaded})).collect::<Vec<_>>()})).collect();
+            "axis": m.axis, "threaded": m.threaded, "pilot_depth_mm": m.pilot_depth})).collect::<Vec<_>>()})).collect();
     let record = json!({"source_stl_sha256": digest(&std::fs::read(dir.join("enclosure-back-top.stl"))?),
         "producer": "enclosure-back-top", "boundary_overlap_mm": catalog::running(), "support_free_regions": regions,
         "bridge_regions":bridges,"support_regions":targets,"removable_support_trees":supports::meter_support_trees()?,
-        "wall_hosts": {"boss_radius_mm": rear::BOSS_RADIUS, "row_bar_half_width_mm": rear::RELAY_BAR_HALF, "parts": hosts}});
+        "wall_hosts": {"boss_radius_mm": rear::BOSS_RADIUS, "row_bar_half_width_mm": rear::RELAY_BAR_HALF,
+                       "bar_bounds_mm": bars, "parts": hosts}});
     keep(
         &dir.join("enclosure-back-top.print-features.json"),
         &serde_json::to_vec_pretty(&record)?,
