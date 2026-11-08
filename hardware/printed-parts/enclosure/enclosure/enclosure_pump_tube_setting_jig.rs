@@ -8,10 +8,10 @@ use hsm_enclosure_numbers::Color;
 use hsm_enclosure_numbers::catalog::{digits, wall_color};
 use hsm_enclosure_numbers::shell::shell;
 use hsm_enclosure_numbers::spec::ColletPlate;
-use hsm_enclosure_solid::pieces::{payload, solids};
+use hsm_enclosure_solid::pieces::{keep, payload, solids};
 use hsm_enclosure_solid::plan::{Graph, Shape};
 use hsm_kernel::Body;
-use hsm_kernel::part::write_printed;
+use hsm_kernel::write::PrintOutput;
 use std::path::Path;
 
 fn main() -> Result<()> {
@@ -42,8 +42,12 @@ pub fn tube_setting_jig(g: &mut Graph, plate: &ColletPlate, cradle_back_y: f64) 
 fn write(dir: &Path, g: &Graph, result: Shape, color: Color) -> Result<()> {
     let name = "enclosure-pump-tube-setting-jig";
     let [solid] = solids(g, [result], None)?;
-    write_printed(dir, name, &[Body { name, color: Some(color), solid: &solid }])?;
-    let model = std::fs::read(dir.join(format!("{name}.step.npz")))?;
-    let stl = std::fs::read(dir.join(format!("{name}.stl")))?;
+    let bodies=[Body{name,color:Some(color),solid:&solid}];
+    let simple=solid.simplified()?;
+    let print=PrintOutput::new(&[Body{name,color:Some(color),solid:&simple}]);
+    let model=print.model_bytes(&bodies,&format!("{name}.stl"),None)?;
+    let stl=print.into_stl_bytes();
+    keep(&dir.join(format!("{name}.step.npz")),&model)?;
+    keep(&dir.join(format!("{name}.stl")),&stl)?;
     payload(dir, name, color, &stl, &model, None)
 }
