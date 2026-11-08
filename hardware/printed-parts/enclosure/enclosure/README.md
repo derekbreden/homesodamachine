@@ -1213,8 +1213,8 @@ One centered, 5 mm Y-wide screwdriver opening per side passes through
 |X|98.5–104.5 and opens from Z170.195. Its continuous corbel
 joins the pocket back to the outer-wall landing; the shared snap datums set
 its roof and pocket planes, mirrored on the opposite flank.
-The opening retains 3 mm of outer wall; the receiver pocket retains 6.4 mm
-of backing. The receiver’s lower edge supplies the fulcrum for pushing
+The pry opening retains its wall section beneath the flute valleys;
+the receiver pocket retains its broad backing. The receiver’s lower edge supplies the fulcrum for pushing
 the wing inward until its hook clears. Support the pump/retainer unit
 while releasing both sides. Complete pump removal with front-top open
 and the pump plumbing and motor leads disconnected.

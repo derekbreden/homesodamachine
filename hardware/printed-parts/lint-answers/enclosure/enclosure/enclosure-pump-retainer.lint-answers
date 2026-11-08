@@ -15,8 +15,12 @@ click: x=98.263 y=15.303 z=193.888
 click: x=96.267 y=15.303 z=193.874
 click: x=-98.263 y=81.212 z=193.888
 click: x=-96.267 y=81.212 z=193.874
+click: x=96.270 y=65.883 z=193.367
+click: x=98.266 y=65.883 z=193.383
+click: x=-96.270 y=30.632 z=193.367
+click: x=-98.266 y=30.632 z=193.383
 
-[thin] The lower barb is the requested pointed production tip: one 4.6 mm-high planar lead-in meets its flat catch at the outer corner. The local thickness approaches zero at that edge while the working spring remains 2 mm.
+[thin] The lower barb is the requested pointed production tip: the shared approved planar lead-in meets its flat catch at the outer corner. The local thickness approaches zero at that edge while the working spring remains 2 mm.
 alternatives: A vertical nose land makes the barb less pointed and adds an extra face. Thickening the leaf changes its bending section. The point and broad flat catch are integral with the retainer.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.step
 click: x=-101.338 y=81.914 z=175.195
