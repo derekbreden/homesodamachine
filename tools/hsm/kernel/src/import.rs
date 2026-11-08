@@ -461,7 +461,11 @@ mod tests {
         let face = Face::new(Surface::Free { kind: "MESH" }, "import", file_src("open"));
         let verts = [v3(0.0, 0.0, 0.0), v3(1.0, 0.0, 0.0), v3(0.0, 1.0, 0.0), v3(0.0, 0.0, 1.0)];
         let tris = [[0, 2, 1], [0, 1, 3], [1, 2, 3]];
-        assert!(Solid::from_mesh(&verts, &tris, &[0, 0, 0], &[face]).is_err());
+        let error = Solid::from_mesh(&verts, &tris, &[0, 0, 0], &[face]).unwrap_err().to_string();
+        assert!(error.contains("edge:"), "{error}");
+        assert!(error.contains("mesh-local incident triangles:"), "{error}");
+        assert!(error.contains("\"src\":\"open\""), "{error}");
+        assert!(error.contains("\"corners_mm\":"), "{error}");
         let closed = Solid::from_mesh(&verts, &[[0, 2, 1], [0, 1, 3], [1, 2, 3], [0, 3, 2]], &[0; 4], &[face]).unwrap();
         assert!((closed.volume() - 1.0 / 6.0).abs() < 1e-12);
     }

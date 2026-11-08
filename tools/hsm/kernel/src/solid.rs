@@ -209,11 +209,24 @@ impl Solid {
                 *edges.entry((a, b)).or_default() += 1;
             }
         }
-        for (&(a, b), &n) in &edges {
-            if n != 1 || edges.get(&(b, a)) != Some(&1) {
-                let p = self.verts[a as usize];
-                bail!("the surface is open or folded at ({:.4}, {:.4}, {:.4})", p.x, p.y, p.z);
-            }
+        if let Some((&(a, b), &n)) = edges.iter()
+            .filter(|&(&(a, b), &n)| n != 1 || edges.get(&(b, a)) != Some(&1))
+            .min_by_key(|&(&(a, b), _)| (a, b))
+        {
+            let p = self.verts[a as usize];
+            let q = self.verts[b as usize];
+            let reverse = edges.get(&(b, a)).copied().unwrap_or(0);
+            let incident: Vec<_> = self.tris.iter().enumerate()
+                .filter(|(_, t)| t.contains(&a) && t.contains(&b))
+                .take(8)
+                .map(|(i, t)| serde_json::json!({
+                    "triangle": i,
+                    "corners_mm": t.map(|v| self.verts[v as usize].to_array()),
+                    "source": crate::write::face_json(self.face_at(i)),
+                })).collect();
+            bail!("the surface is open or folded at ({:.4}, {:.4}, {:.4}); edge has {n} forward and {reverse} reverse triangles\nedge: ({:.6}, {:.6}, {:.6}) → ({:.6}, {:.6}, {:.6})\nmesh-local incident triangles: {}",
+                p.x, p.y, p.z, p.x, p.y, p.z, q.x, q.y, q.z,
+                serde_json::to_string(&incident)?);
         }
         if !self.is_empty() && self.volume() <= 0.0 {
             bail!("the solid is inside out");
