@@ -1,56 +1,90 @@
 {
   "source": {
-    "commit": "30bb5cb2d5b95f18f43637bd9be26daced05f1f5",
-    "path": "hardware/reference/kamoer-kphm400/kamoer_kphm400.py",
-    "sha256": "f732bc6f64fa6af529a274d877e5ae1b7f15e486411beb57db5b295c9c31770b"
+    "path": "hardware/reference/kamoer-kphm400/scan_model.rs",
+    "sha256": "a8dd86b9f7b2902ef995fbcc32d0beb9ff518c20d4653d1d98577e054727755a"
   },
+  "inputs": {
+    "hardware/reference/kamoer-kphm400/reconstruct_scan.py": "0eccbb7e386420eca33621e7717558873bcab17ca78d7989ad0e88d7fe4b4015",
+    "hardware/reference/kamoer-kphm400/scan-registration.json": "4a8a89c6caf7dd60af29b71a646b8a6f954ea3e0601c69a0d4e4165b90749114",
+    "hardware/reference/kamoer-kphm400/scan-evidence.json": "c3a50570b7b477309261352acebc9be39e3126fe1a83ec172f04db9f92486310"
+  },
+  "evidence": "scan-model-evidence.json",
   "members": {
-    "kamoer-kphm400.step": "d01775a9f13be7d33eef99a81c9bffa3db76de16a212e4ffc0f9498e621f9f1a",
-    "kamoer-kphm400.step.mesh": "0f7d82d980c68d3b97894cf0ebc4f828dc68179fb126f37816b811e60fcff865"
+    "kamoer-kphm400.step": "e48e67fd84cc32c2c3d95a182768cae81f83429f7ed226aef8de29a8e15f2671",
+    "kamoer-kphm400.step.npz": "8513b88754647a8848f1f432d9c5014b9f6f12543a3ceefa3316b038f18397d0",
+    "kamoer-kphm400.step.mesh": "d9634dfc79f9491b35f790cea27b9997eb168dfeca3dee842d726a7faae90c01"
+  },
+  "fine_models": {
+    "kamoer-kphm400.step": {
+      "path": "kamoer-kphm400.step.npz",
+      "sha256": "8513b88754647a8848f1f432d9c5014b9f6f12543a3ceefa3316b038f18397d0",
+      "source_step_sha256": "e48e67fd84cc32c2c3d95a182768cae81f83429f7ed226aef8de29a8e15f2671",
+      "producer": "hardware/reference/kamoer-kphm400/scan_model.rs"
+    }
   },
   "fine_payload": {
-    "source_step_sha256": "d01775a9f13be7d33eef99a81c9bffa3db76de16a212e4ffc0f9498e621f9f1a",
     "path": "kamoer-kphm400.step.mesh",
-    "sha256": "0f7d82d980c68d3b97894cf0ebc4f828dc68179fb126f37816b811e60fcff865",
-    "linear_mm": 0.005,
-    "angular_rad": 0.05,
-    "producer": "hardware/scripts/_rust_part.py:_tessellate",
-    "origin": "new one-time immutable published STEP conversion",
+    "sha256": "d9634dfc79f9491b35f790cea27b9997eb168dfeca3dee842d726a7faae90c01",
+    "source_step_sha256": "e48e67fd84cc32c2c3d95a182768cae81f83429f7ed226aef8de29a8e15f2671",
+    "producer": "hardware/reference/kamoer-kphm400/scan_model.rs",
+    "color_space": "linear-rgb",
     "meshes": [
       {
         "name": "head",
         "color": [
-          0.021980946883559227,
-          0.021980946883559227,
-          0.027211781591176987
-        ],
-        "vertices": 246,
-        "triangles": 300,
-        "face_ranges": 26
-      },
-      {
-        "name": "motor_body",
-        "color": [
-          0.5070785284042358,
-          0.5382355451583862,
-          0.6038273572921753
-        ],
-        "vertices": 1010,
-        "triangles": 1004,
-        "face_ranges": 3
+          0.021980947079887205,
+          0.021980947079887205,
+          0.027211780951381357
+        ]
       },
       {
         "name": "rotor_housing",
         "color": [
-          0.7874122858047485,
-          0.7874122858047485,
-          0.7484140992164612
-        ],
-        "vertices": 144,
-        "triangles": 92,
-        "face_ranges": 26
+          0.7874122893956174,
+          0.7874122893956174,
+          0.748414103499371
+        ]
+      },
+      {
+        "name": "motor_mount",
+        "color": [
+          0.01532520332062848,
+          0.01532520332062848,
+          0.01960664851623822
+        ]
+      },
+      {
+        "name": "motor_body",
+        "color": [
+          0.5070785101492276,
+          0.5382355236010181,
+          0.6038273388553378
+        ]
+      },
+      {
+        "name": "fasteners",
+        "color": [
+          0.47699978456654196,
+          0.5070785101492276,
+          0.5542217602988447
+        ]
+      },
+      {
+        "name": "primer",
+        "color": [
+          0.8688993866725532,
+          0.5382355236010181,
+          0.0015479876160990713
+        ]
+      },
+      {
+        "name": "silicone_outlets",
+        "color": [
+          0.7677687605549981,
+          0.748414103499371,
+          0.5870163508936885
+        ]
       }
-    ],
-    "color_space": "linear-rgb"
+    ]
   }
 }

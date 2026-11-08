@@ -20,10 +20,14 @@ pub enum Part {
     Coil,
     /// The John Guest PP0208E tee.
     Tee,
-    /// The Kamoer pump's head, its rotor housing and its motor.
+    /// The Kamoer pump's observed exterior components.
     PumpHead,
     PumpBoss,
+    PumpMount,
     PumpMotor,
+    PumpFasteners,
+    PumpPrimer,
+    PumpSleeves,
     /// The NeoFit stem elbow with its release collet, its stem trimmed to stand `stem` mm into
     /// the collet it plugs into.
     StemElbow { stem: f64 },

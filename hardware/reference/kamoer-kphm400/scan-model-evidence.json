@@ -1,0 +1,362 @@
+{
+  "schema": 1,
+  "unit": "User-owned Kamoer pump; machine BOM KPHM600-SW3B17, repository compatibility directory kamoer-kphm400",
+  "raw_clouds": [
+    {
+      "path": "/Users/derekbredensteiner/Documents/3D Scans/2026-09-20-kamoer-pump/pass-01-upright/Fused 0920_1 (0.10mm).ply",
+      "sha256": "8df2a6f04f30afec5655df8c1d051a6c9f280283d83fc2f7c197598a54a14c97",
+      "points": 2076077
+    },
+    {
+      "path": "/Users/derekbredensteiner/Documents/3D Scans/2026-09-20-kamoer-pump/pass-02-remounted/Fused 0920_1 (0.10mm).ply",
+      "sha256": "0247db27a6d9a219d0bb00c6c033c97e8e142e15ae20116a2d9edccd21c24fc1",
+      "points": 3053059
+    }
+  ],
+  "registration_sha256": "4a8a89c6caf7dd60af29b71a646b8a6f954ea3e0601c69a0d4e4165b90749114",
+  "scale_factor": 1.0,
+  "bearing_frame": {
+    "selected_points": 14368,
+    "center_common": [
+      -0.5985906280520282,
+      -6.402147022815725,
+      -7.937665469451937
+    ],
+    "normal_common": [
+      -0.0006329402401706617,
+      0.005678012767014201,
+      0.999983679645658
+    ],
+    "origin_common": [
+      0.0,
+      0.0,
+      -7.973638656983071
+    ],
+    "common_to_bearing_rotation": [
+      [
+        0.9999997996933062,
+        3.5938434843169584e-06,
+        0.000632930037141788
+      ],
+      [
+        -4.235164736271502e-22,
+        0.9999838799491231,
+        -0.005678013904358395
+      ],
+      [
+        -0.0006329402401706617,
+        0.005678012767014201,
+        0.999983679645658
+      ]
+    ],
+    "untrimmed_residual_mm": {
+      "n": 14368,
+      "mean": -4.4394085042583656e-14,
+      "median": -0.002177758204622453,
+      "rms": 0.045575032688599165,
+      "p05": -0.07123543512248531,
+      "p95": 0.07133138486983377,
+      "abs_p95": 0.07908658081819701,
+      "min": -0.133794468663595,
+      "max": 0.3650346043937824
+    },
+    "per_region_per_pass": [
+      {
+        "region": "xminus",
+        "pass": 1,
+        "points": 3440,
+        "plane_center": [
+          -27.844816339093228,
+          2.554417101677995,
+          -7.9889827463484995
+        ],
+        "plane_normal": [
+          0.0021029222060023503,
+          0.008421215547479564,
+          0.9999623297139241
+        ],
+        "intercept_mm": -8.026028327456276,
+        "untrimmed_plane_residual_mm": {
+          "n": 3440,
+          "mean": -1.4432705676576227e-14,
+          "median": 0.005140727025321638,
+          "rms": 0.03209765985377416,
+          "p05": -0.06125192969006276,
+          "p95": 0.04012838105934996,
+          "abs_p95": 0.06835913704755363,
+          "min": -0.15961636921732883,
+          "max": 0.18503178566786682
+        }
+      },
+      {
+        "region": "xminus",
+        "pass": 2,
+        "points": 2828,
+        "plane_center": [
+          -27.928257533567308,
+          -0.73248467805819,
+          -7.991763408843232
+        ],
+        "plane_normal": [
+          -0.0006437913347112641,
+          0.002262476407289374,
+          0.9999972333627848
+        ],
+        "intercept_mm": -7.9754406227931165,
+        "untrimmed_plane_residual_mm": {
+          "n": 2828,
+          "mean": 1.2631966822543781e-14,
+          "median": 0.0002769779324538098,
+          "rms": 0.017806165077900057,
+          "p05": -0.02865031402011839,
+          "p95": 0.022308122360348244,
+          "abs_p95": 0.036974092645808684,
+          "min": -0.10616938015300605,
+          "max": 0.07982900574549832
+        }
+      },
+      {
+        "region": "xplus",
+        "pass": 1,
+        "points": 3096,
+        "plane_center": [
+          27.987756025406348,
+          -1.2729569631473425,
+          -7.92177913812386
+        ],
+        "plane_normal": [
+          0.002190121016366618,
+          0.008588872058187235,
+          0.9999607165517563
+        ],
+        "intercept_mm": -7.871413851421593,
+        "untrimmed_plane_residual_mm": {
+          "n": 3096,
+          "mean": -2.722198005340597e-15,
+          "median": -0.004684620781858245,
+          "rms": 0.02270147922238944,
+          "p05": -0.023700124850242376,
+          "p95": 0.03553428918423836,
+          "abs_p95": 0.03589081906127137,
+          "min": -0.04699425868300577,
+          "max": 0.34319105797121174
+        }
+      },
+      {
+        "region": "xplus",
+        "pass": 2,
+        "points": 3011,
+        "plane_center": [
+          27.947929829479826,
+          -0.36608402853882627,
+          -7.984894730195578
+        ],
+        "plane_normal": [
+          0.004981139486575096,
+          0.003944805940664106,
+          0.999979813173999
+        ],
+        "intercept_mm": -7.847123542641497,
+        "untrimmed_plane_residual_mm": {
+          "n": 3011,
+          "mean": 4.725250782190736e-15,
+          "median": -0.0021443421504840077,
+          "rms": 0.01396475222956987,
+          "p05": -0.018452524166195527,
+          "p95": 0.024982005822715505,
+          "abs_p95": 0.025901952701968104,
+          "min": -0.048692500961479104,
+          "max": 0.09827288977878208
+        }
+      },
+      {
+        "region": "yminus",
+        "pass": 1,
+        "points": 839,
+        "plane_center": [
+          -0.27089034389616845,
+          -27.937565254194848,
+          -7.709548307757659
+        ],
+        "plane_normal": [
+          -0.002722678518896692,
+          0.0007281952453039864,
+          0.9999960283687969
+        ],
+        "intercept_mm": -7.7291548404907475,
+        "untrimmed_plane_residual_mm": {
+          "n": 839,
+          "mean": 2.6270867351469885e-15,
+          "median": 0.002653116119750165,
+          "rms": 0.017353813422656024,
+          "p05": -0.02923056352425014,
+          "p95": 0.020035759303630583,
+          "abs_p95": 0.03465616798558774,
+          "min": -0.11583201621072388,
+          "max": 0.06773571255848188
+        }
+      },
+      {
+        "region": "yminus",
+        "pass": 2,
+        "points": 3064,
+        "plane_center": [
+          0.07644761924078576,
+          -28.11954526441234,
+          -7.8109089981300786
+        ],
+        "plane_normal": [
+          -0.003824208467190658,
+          -0.005716491930688461,
+          0.9999763482951014
+        ],
+        "intercept_mm": -7.650452401092152,
+        "untrimmed_plane_residual_mm": {
+          "n": 3064,
+          "mean": -2.0898281654654317e-14,
+          "median": -0.0003225406436613062,
+          "rms": 0.02036914527629424,
+          "p05": -0.039037301009387744,
+          "p95": 0.030001502352418472,
+          "abs_p95": 0.04327650677258844,
+          "min": -0.0880833811417735,
+          "max": 0.06336849863847602
+        }
+      }
+    ]
+  },
+  "bearing_to_flange_z_mm": -8.0,
+  "native_fit_stride": 6,
+  "native_validation_offset": 1,
+  "voxel_spacing_mm": 0.2,
+  "screened_poisson": {
+    "depth": 10,
+    "pointweight": 8,
+    "samplespernode": 2,
+    "threads": 1
+  },
+  "runtime": {
+    "pymeshlab": "2025.7.post1"
+  },
+  "samples": 476854,
+  "reconstructed_triangles": 1204316,
+  "reference_triangles": 90000,
+  "closed": true,
+  "barrel_fit": {
+    "at_z_mm": 42.0,
+    "center_xy_mm": [
+      0.07408880099347936,
+      -0.13976974608396667
+    ],
+    "axis_tilt_xy": [
+      -0.000518049629291531,
+      -0.00388684904451317
+    ],
+    "radius_mm": 17.76146649471765,
+    "points": 76367,
+    "absolute_residual_p95_mm": 0.0824738435090044
+  },
+  "scope": "Observed exterior. Closed seams and occluded internals are not an internal pump model. Flexible sleeves are shown separately; inserted LLDPE stubs are excluded.",
+  "limits": [
+    "No global CAD fit. Fitted holder-derived head geometry is not an independent scan target.",
+    "Scale fixed at 1; scanner residuals do not establish absolute dimensional accuracy. Spray thickness is unmeasured.",
+    "Head transverse Y datum remains provisional; scan motor axis is aligned to the native rear motor opening, retaining the existing -1 mm head/rear-stack relationship.",
+    "No claims for pump internals, sealed cavities, material stiffness, screw torque or long-term endurance."
+  ],
+  "held_out_validation": {
+    "sampling": "Disjoint native point indices; geometric selection only, no rejection by distance to model.",
+    "rows": [
+      {
+        "pass": 1,
+        "region": "head",
+        "points": 29414,
+        "median_mm": 0.008794323932565786,
+        "p95_mm": 0.0589133341419542,
+        "p99_mm": 0.09508632870578587,
+        "max_mm": 0.9086568408933795
+      },
+      {
+        "pass": 1,
+        "region": "flange",
+        "points": 10900,
+        "median_mm": 0.01064863788401655,
+        "p95_mm": 0.07041819320965484,
+        "p99_mm": 0.12501880226789286,
+        "max_mm": 1.326399510961451
+      },
+      {
+        "pass": 1,
+        "region": "adapter",
+        "points": 8617,
+        "median_mm": 0.008959469404774675,
+        "p95_mm": 0.05209353060387452,
+        "p99_mm": 0.10584254836321348,
+        "max_mm": 0.2945060946458358
+      },
+      {
+        "pass": 1,
+        "region": "motor",
+        "points": 20349,
+        "median_mm": 0.013746120971650016,
+        "p95_mm": 0.07491795445029815,
+        "p99_mm": 0.1733321114589003,
+        "max_mm": 1.1101680653651942
+      },
+      {
+        "pass": 1,
+        "region": "rigid_casings",
+        "points": 4036,
+        "median_mm": 0.006120988866427606,
+        "p95_mm": 0.03696649843234662,
+        "p99_mm": 0.06307343971406404,
+        "max_mm": 0.2528140171176382
+      },
+      {
+        "pass": 2,
+        "region": "head",
+        "points": 32311,
+        "median_mm": 0.009534685470427802,
+        "p95_mm": 0.07789259001606688,
+        "p99_mm": 0.1071677583428102,
+        "max_mm": 0.4947926700034163
+      },
+      {
+        "pass": 2,
+        "region": "flange",
+        "points": 18347,
+        "median_mm": 0.007660801354720166,
+        "p95_mm": 0.06323422337364464,
+        "p99_mm": 0.10681526849009494,
+        "max_mm": 0.45538568880943525
+      },
+      {
+        "pass": 2,
+        "region": "adapter",
+        "points": 10636,
+        "median_mm": 0.009250486268171473,
+        "p95_mm": 0.06273049596546175,
+        "p99_mm": 0.1088634721209939,
+        "max_mm": 0.6466561126682709
+      },
+      {
+        "pass": 2,
+        "region": "motor",
+        "points": 22338,
+        "median_mm": 0.02177420216859351,
+        "p95_mm": 0.08581740623695297,
+        "p99_mm": 0.1629504900144963,
+        "max_mm": 0.7530072957926656
+      },
+      {
+        "pass": 2,
+        "region": "rigid_casings",
+        "points": 36,
+        "median_mm": 0.060793289887662874,
+        "p95_mm": 0.11740476314835793,
+        "p99_mm": 0.13412493684491922,
+        "max_mm": 0.14232051652751543
+      }
+    ],
+    "model_sha256": "8513b88754647a8848f1f432d9c5014b9f6f12543a3ceefa3316b038f18397d0"
+  }
+}
