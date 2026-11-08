@@ -1,0 +1,140 @@
+{
+  "scope": "Native support review of the current front rail pair. No printer was contacted.",
+  "physical_feedback": {
+    "date": "2026-11-08",
+    "source": "Derek",
+    "quote": "To be clear, the tree supports in those rail cavities *are* easy to remove, as long as they are actually in that cavity, as they had originally been with bambu defaults, and it is only when we somehow got normal supports or somehow got a tall tree support (i.e. not starting in the cavity, but starting from much lower) that things got wonky and difficult."
+  },
+  "inputs": {
+    "hardware/printed-parts/enclosure/trial-preparation/pieces.json": "e34499b1474c7a5a86019b2779cf6a1bea3584aa6755b9083fe084e605a715c3",
+    "hardware/printed-parts/petgf.3mf": "1cc426e99a771a24249f97bf0e7659d2c5b5f656a0f2f3abb4814925ec1ff6b7",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl": "6984c3147e41e6e4a4369c02bbc98b898e1e9b990386f647d027745ce48c2a1f",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.stl": "d7ac56f25a2c88c7632a82a3aec4f445e39b72805875d57bb819b7295d8f5000"
+  },
+  "parts": {
+    "front-bottom": {
+      "project": "/Users/derekbredensteiner/Downloads/HSM-front-rail-support-review-2026-11-08/front-bottom/2026-11-08-front-bottom-mark2-79e431fc.3mf",
+      "archive": "/Users/derekbredensteiner/Downloads/HSM-front-rail-support-review-2026-11-08/front-bottom/2026-11-08-front-bottom-mark2-79e431fc.gcode.3mf",
+      "audit": "/Users/derekbredensteiner/Downloads/HSM-front-rail-support-review-2026-11-08/front-bottom/support-audit.json",
+      "gcode_sha256": "d1bc080f7342c62491cd5889e62f24ffa7a5adb10be61858517ddd76c784f374",
+      "slicer": "BambuStudio 02.08.02.61",
+      "settings": {
+        "layer_height": "0.24",
+        "support_bottom_z_distance": "0.3",
+        "support_interface_bottom_layers": "2",
+        "support_interface_spacing": "0.5",
+        "support_interface_top_layers": "2",
+        "support_object_xy_distance": "0.4",
+        "support_on_build_plate_only": "0",
+        "support_style": "default",
+        "support_threshold_angle": "35",
+        "support_top_z_distance": "0.45",
+        "support_type": "tree(auto)"
+      },
+      "rail_supports": [
+        {
+          "base_z_mm": 166.52,
+          "bbox_cad_xyz_mm": [
+            -103.7,
+            32.7,
+            160.52,
+            -98.9,
+            190.7,
+            168.68
+          ],
+          "bbox_xy_mm": [
+            58.8,
+            82.8,
+            63.6,
+            240.8
+          ],
+          "first_interface_z_mm": 174.44,
+          "id": "tree-2",
+          "interface_reading": "explicit_feature",
+          "interfaces": [
+            "interface-3"
+          ],
+          "root": "model",
+          "shortest_build_up_mm": 7.92,
+          "top_z_mm": 174.68
+        },
+        {
+          "base_z_mm": 166.52,
+          "bbox_cad_xyz_mm": [
+            99.1,
+            32.7,
+            160.52,
+            103.5,
+            190.7,
+            168.68
+          ],
+          "bbox_xy_mm": [
+            261.6,
+            82.8,
+            266.0,
+            240.8
+          ],
+          "first_interface_z_mm": 174.44,
+          "id": "tree-4",
+          "interface_reading": "explicit_feature",
+          "interfaces": [
+            "interface-4"
+          ],
+          "root": "model",
+          "shortest_build_up_mm": 7.92,
+          "top_z_mm": 174.68
+        }
+      ],
+      "all_support_summary": {
+        "bed_rooted_bodies": 2,
+        "bodies_without_interface_labels": 0,
+        "explicit_interface_islands": 4,
+        "interface_islands": 4,
+        "model_rooted_bodies": 2,
+        "shortest_build_up_mm": 7.92,
+        "shortest_labelled_build_up_mm": 7.92,
+        "support_bodies": 4
+      },
+      "tree_support_branch_angle_degrees": 20,
+      "rail_cavity_floor_z_mm": 160,
+      "rail_catch_z_mm": 169.2,
+      "archive_sha256": "b62f5d03d8eadfaceb47f5dc942533989c05fcf9c7de76c8394f5601f173becd",
+      "project_sha256": "1c6d451c47c8b7dd11a196dda13bd89711bf4a88fe2c5431a634d29558efeb67"
+    },
+    "front-top": {
+      "project": "/Users/derekbredensteiner/Downloads/HSM-front-rail-support-review-2026-11-08/front-top/2026-11-08-front-top-mark2-88ce3f65.3mf",
+      "archive": "/Users/derekbredensteiner/Downloads/HSM-front-rail-support-review-2026-11-08/front-top/2026-11-08-front-top-mark2-88ce3f65.gcode.3mf",
+      "audit": "/Users/derekbredensteiner/Downloads/HSM-front-rail-support-review-2026-11-08/front-top/support-audit.json",
+      "gcode_sha256": "91665c5a68438547420a449b92835d9fa62724050ce26aa68216016b17bb4e8a",
+      "slicer": "BambuStudio 02.08.02.61",
+      "settings": {
+        "layer_height": "0.24",
+        "support_bottom_z_distance": "0.3",
+        "support_interface_bottom_layers": "2",
+        "support_interface_spacing": "0.5",
+        "support_interface_top_layers": "2",
+        "support_object_xy_distance": "0.5",
+        "support_on_build_plate_only": "0",
+        "support_style": "tree_slim",
+        "support_threshold_angle": "35",
+        "support_top_z_distance": "0.45",
+        "support_type": "tree(auto)"
+      },
+      "rail_supports": [],
+      "all_support_summary": {
+        "bed_rooted_bodies": 7,
+        "bodies_without_interface_labels": 0,
+        "explicit_interface_islands": 10,
+        "interface_islands": 10,
+        "model_rooted_bodies": 0,
+        "shortest_build_up_mm": 56.391,
+        "shortest_labelled_build_up_mm": 56.391,
+        "support_bodies": 7
+      },
+      "rail_roof": "The gabled channel roof has no native support bodies in the rail cavity.",
+      "archive_sha256": "36c1a351513c14ffeab3bf3ffbaf528970648446bdb9edb33f5cce98c8c5a36e",
+      "project_sha256": "747d319d9b9a0e92ef24cd101f97613faa23ddd6db62086291373a668cd0668e"
+    }
+  },
+  "prepared_files_scope": "Support review only; the normal native print review remains required before a future launch."
+}

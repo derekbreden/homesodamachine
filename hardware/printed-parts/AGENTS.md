@@ -63,6 +63,12 @@ emitted branches and their removal openings. Geometric access alone does not
 establish easy removal. A bed-footprint constraint does not justify trapped
 normal supports.
 
+Derek confirms easy removal of short Bambu tree supports rooted on the floor inside
+the rail cavities. Preserve that local rooting and the open sliding lane. Normal
+supports and tall trees starting well below the cavity do not share that acceptance.
+Read the actual rail-tree bases and interfaces from the native slice; allowing
+supports on model material alone does not establish where the slicer roots them.
+
 The full rear enclosure's [physical result](enclosure/enclosure/prints/2026-11-05-back-top-smooth-corners-mark2/physical-result.json)
 requires the Pisco and ASSE receiver interiors to print without supports: the
 full-size walls prevent screwdriver access. Preserve their approved component

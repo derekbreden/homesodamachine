@@ -330,7 +330,8 @@ Four M5 screws close the box; the same four open it.
 
 **Every catch is square.** The head's broad underside and the foot's broad top face bear
 flat against lift along both complete runs. Each bottom piece prints the head with support
-under that abrupt ledge. Front-top prints its caught face up from its mouth; back-top prints
+under that abrupt ledge. The rail trees root on the cavity's own floor and leave through
+its open sliding lane. Front-top prints its caught face up from its mouth; back-top prints
 its caught face down from its ceiling and support carries it. The arm's base falls back to
 the lip's underwall on a 45° under-flare. On either column the notch is an open rebate in the
 wall's own inboard face. Back-top closes the channel across that bulk with one **broad,
@@ -780,15 +781,19 @@ separate interface islands. One body can reach several distinct contact regions.
 readings are recorded per body: its build-up, the vertical distance from its own base to its
 first model interface, and its root, the print bed or model material.
 
-**These are measurements of one slice, and none of them ranks a design.** Connected bodies and
-interface islands describe the support topology. Neither build-up nor root kind says anything
-about what it costs to get the support off. Removal effort, trapped branches and contact finish
-are read on the physical print and nowhere else.
+Connected bodies and interface islands describe the support topology. Apply the physical
+result for the corresponding geometry: Derek confirms that short tree supports rooted
+inside the rail cavity are easy to remove. Rectangular normal supports and tall trees
+starting below that cavity do not share that acceptance. Keep the saved Bambu tree style,
+allow roots on model material, and inspect the actual rail-tree bases in the native slice.
 
-**What decides removal is the lane, not the reading.** A body comes away easily when its faces
-stand in open air, nothing is installed over it, and it leaves in one piece along a straight run.
-It fights when it is walled on several sides, when a branch re-enters a pocket
-behind its own interface, or when the hardware goes in first. The Z-seam catches
+The [front rail support reading](front-rail-support-review.json) binds the current
+meshes to their prepared native projects and measured roots. The front-bottom recipe
+keeps its rail trees inside their cavities; front-top's gabled rail roofs print without
+support contacts.
+
+The rail support's root and removal lane both matter. Keep its branches inside the cavity
+above their local floor, with the sliding lane open until cleanup is complete. The Z-seam catches
 retain their flat sliding bearings and local solid stock. Their supports must
 remain reachable through the open sliding lanes. Localized bridge and foundation
 cooling follows the newly supported bearing courses. The
