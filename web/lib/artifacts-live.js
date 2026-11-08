@@ -1,33 +1,5 @@
-// New geometry onto an open page, without a deploy.
-//
-// The site deploys on a push, and the pointer file used to be one of the paths that triggered it — so a
-// cut reached the browser by rebuilding the container around it. That is 40 of the 55 deploying
-// commits on a working day, each a `npm ci`, a 65 MB fetch and a restart, and they do not run in
-// parallel. Four landing inside two minutes puts the fourth eight minutes out.
-//
-// The pointer file is not code. This adopts it in place: read the pointer file GitHub holds, and if it names a
-// bundle this disk does not have, run `fetch-cad-artifacts.mjs --adopt` to bring the members
-// down, then say what moved on the same `files-changed` frame a deploy sends. The viewer's
-// listener (public/js/viewer/live.js) reloads an open model in place, keeping the camera.
-//
-// THE API AND NOT `raw`, BECAUSE `raw` IS FIVE MINUTES STALE. `raw.githubusercontent.com` serves
-// `cache-control: max-age=300`, and measured against a commit seconds old it returns the previous
-// bytes through a cache-buster and a `no-cache` request header alike. `/repos/:o/:r/contents/:p`
-// answers with the commit that is actually on main, inlines this 19 KB file as base64, and costs
-// one call. Unauthenticated is 60/hour against a poll every 2 minutes.
-//
-// TOLD, AND ALSO ASKED. `publish_now.py` posts to `/api/artifacts/refresh` the moment it moves the pointer file, so
-// the usual case is seconds. The poll is what makes the removal from `buildFilter` safe: if the
-// post never arrives — a laptop offline, an endpoint renamed — geometry is late by a poll rather
-// than absent until someone pushes code. The post carries no pointer file and no trust; it says "look
-// now", and what is read is still GitHub's.
-//
-// A COLD BOOT IS STILL THE BUILD'S JOB. `fetch-cad-artifacts.mjs` runs in `buildCommand` and
-// `prestart` as before, so a container starts holding what its own clone's pointer file named. This only
-// carries it forward from there.
-//
-// IT REPORTS AND HOLDS NOTHING. Every failure here leaves the container serving the solids it
-// already has.
+// Published geometry reaches open pages from the committed pointer and shared mesh objects.
+// Main resolves to a commit before its immutable pointer is read; changed files alone are adopted.
 
 import { execFile } from "node:child_process";
 import { createHash } from "node:crypto";
@@ -49,9 +21,6 @@ const WEB = path.resolve(HERE, "..");
 const ROOT = path.resolve(WEB, "..");
 const POINTERS = path.join(ROOT, "hardware", "cad-artifacts.json");
 
-const LOCK_URL =
-  "https://api.github.com/repos/derekbreden/homesodamachine/contents/hardware/cad-artifacts.json?ref=main";
-
 // THE VERDICT IS NOT CODE EITHER. `checks.json` sits under `web/public/`, which `render.yaml`
 // deploys on, so every reading `checks_now.py` pinned rebuilt the container around it — 24 of
 // the 24 deploying commits in the six hours this was measured, each a `npm ci` and a restart,
@@ -67,15 +36,11 @@ const BUILD_TIMES = path.join(WEB, "public", "build-times.json");
 const BUILD_TIMES_URL =
   "https://raw.githubusercontent.com/derekbreden/homesodamachine/main/web/public/build-times.json";
 
-// Two minutes is 30 calls an hour against an unauthenticated ceiling of 60, which leaves room
-// for the posts and for anything else on this address asking GitHub the same way.
+// The poll recovers missed publication notifications.
 const POLL_MS = 120_000;
 
-// The floor under `/api/artifacts/refresh`, so the endpoint cannot be used to make this container
-// fetch 65 MB in a loop. Several sessions publishing at once land inside one of these, and
-// `.githooks/post-commit` fires `publish_now.py` on every commit, so back-to-back cuts are the
-// resting state rather than a burst.
-const MIN_GAP_MS = 10_000;
+// Coalescing holds a later request briefly while retaining its request to look again.
+const MIN_GAP_MS = 1_000;
 
 // A publication whose bytes are unavailable remains eligible for recovery, but a
 // persistent failure must not hash the whole tree on every poll. A new pointer
@@ -84,6 +49,7 @@ const MAX_RETRY_MS = 30 * 60_000;
 let failedAdoption = null;
 
 let running = null;
+let lookAgain = false;
 let lastLook = 0;
 // THE LOOK THE FLOOR TURNS AWAY IS HELD, NOT DROPPED. A cut whose post lands inside the gap of
 // the one before it is the second session's geometry, and dropping the post leaves it for the
@@ -143,13 +109,13 @@ export async function retireSolids(root, have, pointers, { websiteOnly = Boolean
 // Also what the store's prune keeps by (objects.js `pruneUnnamed`): this disk's pointer file is
 // main's only once an adoption settles.
 export async function lockOnMain() {
-  const res = await fetch(LOCK_URL, {
-    headers: { accept: "application/vnd.github+json", "user-agent": "homesodamachine-site" },
-  });
-  if (!res.ok) throw new Error(`GitHub says ${res.status} ${res.statusText}`);
-  const meta = await res.json();
-  if (meta.encoding !== "base64" || !meta.content) throw new Error("no inline content");
-  return JSON.parse(Buffer.from(meta.content, "base64").toString("utf-8"));
+  const refs = await fetch('https://github.com/derekbreden/homesodamachine.git/info/refs?service=git-upload-pack');
+  if (!refs.ok) throw new Error(`Main refs say ${refs.status}`);
+  const commit = (await refs.text()).match(/([a-f0-9]{40}) refs\/heads\/main(?:\x00|\n)/)?.[1];
+  if (!commit) throw new Error('Main has no resolved commit');
+  const response = await fetch(`https://raw.githubusercontent.com/derekbreden/homesodamachine/${commit}/hardware/cad-artifacts.json`);
+  if (!response.ok) throw new Error(`Main pointer says ${response.status}`);
+  return response.json();
 }
 
 // The verdict on main onto this disk, when it is not already the bytes here. Its own read, so a
@@ -298,14 +264,9 @@ async function adopt({ broadcast, setRecent, commit, hardwareDir, detect }) {
   // scorecards sit outside the tar, so `bundle.sha256` is not a function of them: a checker
   // that answers on a tree whose solids did not change leaves the bundle where it was. Read
   // after the gate, that scorecard would wait for the next cut of something else.
-  const sidecars = await carryScorecards(pointers);
-  if (sidecars.carried.length) {
-    console.log(`[artifacts-live] carried ${sidecars.carried.length} scorecard(s) — `
-      + sidecars.carried.join(", "));
-  }
-  for (const line of sidecars.failed) {
-    console.error(`[artifacts-live] ${line} — the bar is the one already here`);
-  }
+  const sidecars = {carried:[],failed:[]};
+  carryScorecards(pointers).then(result=>Object.assign(sidecars,result))
+    .catch(error=>console.error(`[artifacts-live] scorecards: ${error.message}`));
 
   const key = createHash("sha256").update(JSON.stringify(pointers)).digest("hex");
   if (failedAdoption?.key !== key) failedAdoption = null;
@@ -324,13 +285,21 @@ async function adopt({ broadcast, setRecent, commit, hardwareDir, detect }) {
   // The fetcher is the authority on bytes — it holds the bundle to the pointer file's sha256 and every
   // member to its own — so this runs it rather than reimplementing that. `cwd` is `web/`, the
   // directory both of its other callers run it from.
+  const before = websitePointers(have || {}).solids || {};
+  const entries = Object.entries(websitePointers(pointers).solids || {});
+  const changed = (await Promise.all(entries.map(async ([name,hash])=>{
+    if (before[name] !== hash) return name;
+    try { if ((await stat(path.join(ROOT,name))).isFile()) return null; } catch { /* absent */ }
+    return name;
+  }))).filter(Boolean);
+  const selection = changed.length ? [`--only=${changed.join(",")}`] : [];
   let stdout;
   try {
     ({ stdout } = await run(process.execPath,
-      [path.join(WEB, "scripts", "fetch-cad-artifacts.mjs"), "--adopt"],
+      [path.join(WEB, "scripts", "fetch-cad-artifacts.mjs"), "--adopt", ...selection],
       { cwd: WEB, maxBuffer: 8 << 20 }));
     await run(process.execPath,
-      [path.join(WEB, "scripts", "fetch-cad-artifacts.mjs"), "--adopt", "--check"],
+      [path.join(WEB, "scripts", "fetch-cad-artifacts.mjs"), "--adopt", "--check", ...selection],
       { cwd: WEB, maxBuffer: 8 << 20 });
   } catch (err) {
     const delay = Math.min((failedAdoption?.delay ?? POLL_MS / 2) * 2, MAX_RETRY_MS);
@@ -346,7 +315,7 @@ async function adopt({ broadcast, setRecent, commit, hardwareDir, detect }) {
 
   // The same reading a deploy takes, off the same tables: what is on this disk now against what
   // this site last said. A member the pointer file re-pointed to bytes it already had moves nothing.
-  const files = (await Promise.all(detect.map((d) => d(hardwareDir)))).flat();
+  const files = [...new Set(changed.filter(file=>/\.(step|step\.mesh|glb|glb\.mesh)$/.test(file)).map(file=>file.replace(/^hardware\//, "").replace(/\.mesh$/, "")))];
   if (files.length) {
     broadcast({ type: "files-changed", commit, files });
     setRecent({ commit, ts: Date.now(), files });
@@ -356,7 +325,7 @@ async function adopt({ broadcast, setRecent, commit, hardwareDir, detect }) {
 
 /** Look once, coalescing with any look already in flight or already deferred. Never throws. */
 export function refreshArtifacts(ctx, { force = false } = {}) {
-  if (running) return running;
+  if (running) {lookAgain=true;return running;}
   const now = Date.now();
   if (!force && now - lastLook < MIN_GAP_MS) {
     if (!pending) {
@@ -371,31 +340,16 @@ export function refreshArtifacts(ctx, { force = false } = {}) {
     return pending;
   }
   lastLook = now;
-  running = Promise.allSettled([adopt(ctx), carryChecks(), carryBuildTimes()])
-    .then(([geometry, checks, builds]) => {
-      if (checks.status === "fulfilled" && checks.value.moved) {
-        console.log(`[artifacts-live] carried the verdict — `
-          + `${checks.value.green ? "green" : "RED"}, ${checks.value.checks} check(s)`);
-      } else if (checks.status === "rejected") {
-        console.error(`[artifacts-live] ${checks.reason.message} — the band is the one already here`);
-      }
-      if (builds.status === "fulfilled" && builds.value.moved) {
-        console.log(`[artifacts-live] carried the build times — ${builds.value.builds} build(s)`);
-      } else if (builds.status === "rejected") {
-        console.error(`[artifacts-live] ${builds.reason.message} — the build times are the ones already here`);
-      }
-      if (geometry.status === "rejected") throw geometry.reason;
-      const r = geometry.value;
-      if (r.moved) {
-        console.log(`[artifacts-live] adopted ${r.bundle.slice(0, 16)} — ${r.files} file(s) pushed`);
-      }
-      return r;
-    })
-    .catch((err) => {
-      console.error(`[artifacts-live] ${err.message} — serving the solids already here`);
-      return { error: err.message };
-    })
-    .finally(() => { running = null; });
+  running = adopt(ctx).then(result=>{
+    if (result.moved) console.log(`[artifacts-live] adopted ${result.bundle.slice(0,16)} — ${result.files} file(s) pushed`);
+    return result;
+  }).catch(error=>{
+    console.error(`[artifacts-live] ${error.message} — serving the solids already here`);
+    return {error:error.message};
+  }).finally(()=>{
+    running=null;
+    if (lookAgain) {lookAgain=false;setTimeout(()=>refreshArtifacts(ctx,{force:true}),0).unref?.();}
+  });
   return running;
 }
 
@@ -408,7 +362,10 @@ export function mountArtifactsLive(app, ctx) {
     refreshArtifacts(ctx);
   });
 
-  const timer = setInterval(() => refreshArtifacts(ctx), POLL_MS);
+  const timer = setInterval(() => {
+    refreshArtifacts(ctx);
+    Promise.allSettled([carryChecks(),carryBuildTimes()]);
+  }, POLL_MS);
   timer.unref();
   return timer;
 }

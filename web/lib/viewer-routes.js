@@ -101,23 +101,23 @@ export function mountViewerRoutes(app, { hardwareDir, store, pointersPath }) {
     const objects = {};
     for (const [rel, hash] of Object.entries(websitePointers(pointers).solids ?? {})) {
       if (!rel.startsWith("hardware/")) continue;
-      if (!/\.(step|step\.mesh|glb)$/.test(rel)) continue;
+      if (!/\.(step|step\.mesh|glb|glb\.mesh)$/.test(rel)) continue;
       if (!publishedFile(rel.slice("hardware/".length), pointers)) continue;
       objects[rel.slice("hardware/".length)] = `${base}/${prefix}${hash}.gz`;
     }
-    res.json({ base, objects });
+    res.json({ base, objects, sceneVersion: 4 });
   });
 
   // The models a part number names. Local tools can inspect a catalog-free fixture.
   app.get("/api/steps", (req, res) => {
-    const files = walkFiles(hardwareDir, ".step");
+    const files = [...new Set(walkFiles(hardwareDir, [".step", ".step.mesh"]).map(file=>file.replace(/\.step\.mesh$/,'.step')))];
     let catalog = null;
     try { catalog = readMaterialCatalog(hardwareDir); } catch { /* listed whole */ }
     res.json(catalog ? numberedModels(catalog, files) : process.env.RENDER_GIT_COMMIT ? [] : files);
   });
 
   app.get("/api/glbs", (req, res) => {
-    res.json(walkFiles(hardwareDir, ".glb").filter(rel => publishedFile(rel)));
+    res.json([...new Set(walkFiles(hardwareDir, [".glb", ".glb.mesh"]).map(file=>file.replace(/\.glb\.mesh$/,'.glb')))].filter(rel => publishedFile(rel) || publishedFile(`${rel}.mesh`)));
   });
 
   app.get("/api/mermaid", (req, res) => {
@@ -267,6 +267,14 @@ export function mountViewerRoutes(app, { hardwareDir, store, pointersPath }) {
   // `<file>.step.mesh` by hardware/scripts/_cadq_export.py. The page reads these
   // instead of parsing the STEP through occt-import-js in wasm. Not committed —
   // a 404 here is normal, and step.js parses the STEP instead.
+  app.get("/scene-meshes/:hash", (req, res) => {
+    const hash = req.params.hash;
+    if (!/^[a-f0-9]{64}$/.test(hash)) return res.status(404).end();
+    const file = path.join(hardwareDir, '..', '.cache', 'meshes', 'scene-assets', `${hash}.mesh`);
+    if (!fs.existsSync(file)) return res.redirect(302, `/objects/s-${hash}.gz`);
+    res.set('Cache-Control', 'public, max-age=31536000, immutable');
+    streamFile(res, file);
+  });
   app.get("/meshes/*splat", (req, res) => {
     const abs = safeFile(hardwareDir, relOf(req), ".mesh");
     if (!abs) return res.status(400).send("Invalid path");

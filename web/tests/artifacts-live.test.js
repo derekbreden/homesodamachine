@@ -173,6 +173,8 @@ for (const failure of ["download-error", "stale-success", "missing-current"]) {
         if (mode === 'recovered') writeFileSync(body, 'new');
       `);
       globalThis.fetch = async (url) => {
+        if (String(url).includes('/info/refs?')) return new Response('0'.repeat(40) + ' refs/heads/main\n');
+        if (String(url).includes('raw.githubusercontent.com')) return new Response(JSON.stringify(next));
         const value = String(url).includes("cad-artifacts.json") ? next : { checks: [] };
         return new Response(JSON.stringify({
           encoding: "base64", content: Buffer.from(JSON.stringify(value)).toString("base64"),

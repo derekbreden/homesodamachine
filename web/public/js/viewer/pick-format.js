@@ -84,6 +84,7 @@ function numAfter(text, re) {
 export function surfaceText(file, surface) {
   file = String(file).split("?")[0];
   const name = file.split("/").pop();
+  if (surface === 'scene') return `${name}.mesh — assembled from shared part surfaces`;
   return surface === "mesh"
     ? `${name}.mesh — drawn from this, not the STEP above; it can carry surface the solid does not`
     : `${name} — the STEP itself; no payload stood beside it`;

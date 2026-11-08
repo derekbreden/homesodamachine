@@ -2,6 +2,9 @@
 // holds the page's parser, materials and thumbnail renderer across hot imports.
 
 import * as THREE from "three";
+import { decodeMeshPayload } from "./mesh-payload.js";
+export { decodeMeshPayload } from "./mesh-payload.js";
+import { resolveScene } from "./shared-scene.js";
 import { state } from "./state.js";
 import { scene, camera, resetCamera, fitCameraDepth, fitFog, BG_COLOR } from "./scene.js";
 import * as xray from "./xray.js";
@@ -49,43 +52,6 @@ async function parseStep(buffer) {
 // staleness check. Turning 2 away would cost the surface — three payloads are in
 // no build step's outs, so a deploy carries whatever the tree had, and falling
 // back to the STEP for those serves the flute-less solid.
-const MESH_PAYLOAD_VERSIONS = [2, 3]; // keep in sync with DECODABLE in _mesh_payload.py
-
-export function decodeMeshPayload(bytes) {
-  const view = new DataView(bytes.buffer, bytes.byteOffset, bytes.byteLength);
-  const headLen = view.getUint32(0, true);
-  const head = JSON.parse(new TextDecoder().decode(bytes.subarray(4, 4 + headLen)));
-  if (!MESH_PAYLOAD_VERSIONS.includes(head.v)) return null;
-  const blob = bytes.buffer.slice(bytes.byteOffset + 4 + headLen, bytes.byteOffset + bytes.byteLength);
-  const meshes = head.meshes.map((m) => {
-    const fac = new Uint32Array(blob, m.fac[0], m.fac[1]);
-    const sources = Array.isArray(m.face_sources) && m.face_sources.length === fac.length / 2
-      ? m.face_sources : null;
-    const brep_faces = [];
-    for (let i = 0; i + 1 < fac.length; i += 2) {
-      const face = { first: fac[i], last: fac[i + 1] };
-      if (Array.isArray(sources?.[i / 2])) face.sources = sources[i / 2];
-      brep_faces.push(face);
-    }
-    return {
-      name: m.name,
-      color: m.color || undefined,
-      attributes: {
-        position: { array: new Float32Array(blob, m.pos[0], m.pos[1]) },
-        normal: { array: new Float32Array(blob, m.nrm[0], m.nrm[1]) },
-      },
-      index: { array: new Uint32Array(blob, m.idx[0], m.idx[1]) },
-      brep_faces,
-    };
-  });
-  // THE HEADER'S PROVENANCE COMES OUT WITH THE TRIANGLES. `src` is the digest of the STEP
-  // this surface was cut from and `cut` is what the reduction measured against its budget;
-  // the edge picker states both on a pick, because a coordinate off this surface is a
-  // coordinate off a surface, and which one it was is half of what it means. Either may be
-  // absent — a payload that stated neither is still a payload.
-  return { meshes, src: head.src, cut: head.cut };
-}
-
 // occt-import-js copies a product's name onto its mesh only when the product is a
 // single solid. A multi-solid component (our reference sub-assemblies, the pump
 // assemblies, the display) comes back with unnamed leaf meshes — the name lives
@@ -240,13 +206,15 @@ function buildMesh(result, file = null, finishId = state.faucetFinish) {
   const finish = FAUCET_FINISHES.find((f) => f.id === finishId) || FAUCET_FINISHES[0];
 
   result.meshes.forEach((mesh, occtIndex) => {
+    const attributes=mesh.localAttributes || mesh.attributes;
+    const indices=mesh.localIndex || mesh.index;
     const geo = new THREE.BufferGeometry();
-    geo.setAttribute("position", new THREE.Float32BufferAttribute(new Float32Array(mesh.attributes.position.array), 3));
-    if (mesh.attributes.normal) {
-      geo.setAttribute("normal", new THREE.Float32BufferAttribute(new Float32Array(mesh.attributes.normal.array), 3));
+    geo.setAttribute("position", new THREE.Float32BufferAttribute(new Float32Array(attributes.position.array), 3));
+    if (attributes.normal) {
+      geo.setAttribute("normal", new THREE.Float32BufferAttribute(new Float32Array(attributes.normal.array), 3));
     }
-    if (mesh.index) {
-      geo.setIndex(new THREE.BufferAttribute(new Uint32Array(mesh.index.array), 1));
+    if (indices) {
+      geo.setIndex(new THREE.BufferAttribute(new Uint32Array(indices.array), 1));
     }
     geo.computeBoundingBox();
 
@@ -255,20 +223,31 @@ function buildMesh(result, file = null, finishId = state.faucetFinish) {
     // else gray. The occt mesh index rides along so the edge picker's face
     // raycast can map a hit triangle back to its BREP face.
     const name = bodyName(mesh.name);
-    const material = isFaucetFinishBody(file, name)
+    let material = isFaucetFinishBody(file, name)
       ? materialFor(finish.rgb, finish) : materialFor(mesh.color);
+    const owned = mesh.opacity != null && mesh.opacity < 1;
+    if (owned) {material=material.clone();material.transparent=true;material.opacity=mesh.opacity;material.depthWrite=false;}
     const solid = new THREE.Mesh(geo, material);
+    solid.userData.ownsMaterial=owned;
     solid.userData.occtIndex = occtIndex;
     solid.userData.side = "front"; // the name the face raycast selects on
     // Carry the component name (backfilled from the STEP assembly node) onto the mesh so
     // the scorecard's clickable rows can find a solid by name (part-highlight.js).
     solid.name = name;
+    placeSharedMesh(solid,mesh);
     // A body only one faucet finish has (a White faucet's union) is out of the other's view.
     solid.visible = showsInFaucetFinish(file, name, finish.id);
     group.add(solid);
   });
 
   return group;
+}
+
+function placeSharedMesh(solid,mesh) {
+  if (!mesh.geometryKey) return;
+  const m=mesh.placement || [[1,0,0,0],[0,1,0,0],[0,0,1,0]];
+  solid.matrix.set(...m[0],...m[1],...m[2],0,0,0,1);
+  solid.matrixAutoUpdate=false;solid.matrixWorldNeedsUpdate=true;
 }
 
 export function setFaucetFinish(finishId) {
@@ -300,7 +279,7 @@ export function setFaucetFinish(finishId) {
 // without one reads the STEP and shows the same thing.
 // `mounted` says this file is the one already in the scene. It carries the caller's
 // If-None-Match and gates the store's own unchanged answer.
-async function fetchMeshes(file, headers, { mounted = false, signal } = {}) {
+async function fetchMeshes(file, headers, { mounted = false, signal, onPart } = {}) {
   file = stepLocation(file).file;
   try {
     // THE STORE ANSWERS FIRST WHERE IT HAS THESE BYTES. Its URL carries their hash, so a URL
@@ -321,7 +300,7 @@ async function fetchMeshes(file, headers, { mounted = false, signal } = {}) {
       if (!resp.ok) return null;
       bytes = new Uint8Array(await resp.arrayBuffer());
     }
-    const result = decodeMeshPayload(bytes);
+    const result = await resolveScene(bytes, { sourceUrl: resp ? null : url, signal, onPart });
     if (!result) return null; // a payload this code doesn't read is no payload
     // `url` only when the store is where these bytes came from. Whoever mounts them records it
     // as what is on screen; a thumbnail asks through here too and mounts nothing.
@@ -340,13 +319,69 @@ function nameSurface(file, surface) {
   const wrapper = state.currentCadWrapper;
   if (!wrapper) return;                      // headless: no chrome to name
   const here = (wrapper.closest(".cad-workspace") || wrapper).querySelector(".cad-crumb-here");
-  if (here) here.title = surfaceText(file, surface);
+  if (here) here.title = surfaceText(file, state.mountedDetail?.scene ? 'scene' : surface);
+}
+
+// Completed parts replace their own GPU meshes while unfinished parts keep their last drawing.
+function mountScenePart(node, meshes, head, file, location, { current, preserveCamera }) {
+  if (!current()) return;
+  if (location.component) meshes = meshes.filter(mesh => matchesBody(mesh.name, location.component));
+  if (!meshes.length) return;
+  let group = state.currentGroup;
+  if (group?.userData.sharedFile !== file) {
+    if (group) { scene.remove(group); disposeCadGroup(group); }
+    group = new THREE.Group(); group.userData.sharedFile = file;
+    group.userData.parts = new Map(); state.currentGroup = group; scene.add(group);
+    group.userData.fitWhenReady = !preserveCamera;
+  }
+  const parts = group.userData.parts;
+  const prior = parts.get(node.name);
+  const key = meshes.map(mesh => mesh.objectKey).join('|');
+  const sameGeometry=prior && prior.meshes.length===meshes.length && meshes.every((mesh,i)=>
+    mesh.geometryKey===prior.meshes[i].geometryKey && JSON.stringify(mesh.color)===JSON.stringify(prior.meshes[i].color) && mesh.opacity===prior.meshes[i].opacity);
+  if (prior && prior.key!==key && sameGeometry) {
+    xray.disposeXray?.(group);
+    meshes.forEach((mesh,i)=>placeSharedMesh(prior.solids[i],mesh));
+    prior.meshes=meshes;prior.key=key;
+  } else if (!prior || prior.key !== key) {
+    xray.disposeXray?.(group);
+    if (prior) for (const solid of prior.solids) { group.remove(solid); solid.geometry.dispose(); if(solid.userData.ownsMaterial)solid.material.dispose(); }
+    const replacement = buildMesh({ meshes }, file);
+    const solids = [...replacement.children];
+    for (const solid of solids) group.add(solid);
+    parts.set(node.name, { meshes, solids, key });
+  }
+  const present = new Set(head.meshes.map(part => part.name));
+  for (const [name,part] of parts) if (!present.has(name)) {
+    for (const solid of part.solids) {group.remove(solid);solid.geometry.dispose();if(solid.userData.ownsMaterial)solid.material.dispose();}
+    parts.delete(name);
+  }
+  group.userData.sharedHead = head;
+  if (group.userData.sharedFrame) return;
+  group.userData.sharedFrame = requestAnimationFrame(() => {
+    group.userData.sharedFrame = null;
+    if (!current() || state.currentGroup !== group) return;
+    const latest = group.userData.sharedHead;
+    const ordered = latest.meshes.flatMap(part => parts.get(part.name) ? [parts.get(part.name)] : []);
+    const result = { meshes: ordered.flatMap(part => part.meshes), src: latest.src, cut: latest.cut };
+    let index = 0;
+    for (const part of ordered) for (const solid of part.solids) solid.userData.occtIndex = index++;
+    setActiveEdges(result); clearPickFind(); dropHighlight(); clearComponentPicker(); applyXray(group);
+    state.mountedDetail = {type:'step',file,sourceFile:location.file,surface:'mesh',src:latest.src,cut:latest.cut,scene:true};
+    nameSurface(location.file,'mesh');loadHiddenForFile(file);applyHiddenComponents();onStepReloaded();
+    if (group.userData.fitWhenReady) {resetCamera(group);group.userData.fitWhenReady=false;}
+    window.dispatchEvent(new CustomEvent(HSM_EVENTS.STEP_MOUNTED,{detail:{file,part:node.name,revision:latest.src}}));
+  });
 }
 
 export async function loadStepFile(file, { preserveCamera = false } = {}) {
   const location = stepLocation(file);
   const load = beginCadLoad();
   const { current, signal } = load;
+  if (state.currentGroup?.userData.sharedFrame) {
+    cancelAnimationFrame(state.currentGroup.userData.sharedFrame);
+    state.currentGroup.userData.sharedFrame = null;
+  }
   await loadFinishes();   // before any material is built, so none is built at the default
   if (!current()) { load.finish(); return; }
   // Loading pill lives inside the current step wrapper (or none if the
@@ -383,8 +418,13 @@ export async function loadStepFile(file, { preserveCamera = false } = {}) {
     // `pack.BUNDLED_PAYLOAD_DIRS` the payload carries flutes the solid does not, so a reader
     // told only the STEP's name is told the wrong file. The edge picker states this.
     let surface = "step";
-    const meshed = await fetchMeshes(file, headers, { mounted, signal });
+    const meshed = await fetchMeshes(file, headers, { mounted, signal, onPart: (node, meshes, head) => {
+      if (!current()) return;
+      mountScenePart(node, meshes, head, file, location, {current,preserveCamera});
+      if (loadingEl && state.currentGroup?.userData.sharedFile === file) loadingEl.style.display = 'none';
+    }});
     if (!current()) return;
+
     if (meshed?.unchanged) { landed = true; return; }
     if (meshed) {
       if (meshed.etag) state.stepEtags.set(file, meshed.etag);
@@ -413,6 +453,20 @@ export async function loadStepFile(file, { preserveCamera = false } = {}) {
     }
 
     if (!current()) return;
+
+    if (result.scene) {
+      await new Promise(requestAnimationFrame);
+      if (!current()) return;
+      if (state.currentGroup?.userData.sharedFile !== file) {failed('No parts could be loaded');return;}
+      state.currentGroup.userData.failedParts = result.errors;
+      if (result.errors.length) console.warn('Parts retain their last available geometry:',result.errors);
+      if (!preserveCamera) resetCamera(state.currentGroup);
+      const style=faucetStyleFor(file);
+      if (style) {state.faucetStyle=style.id;window.dispatchEvent(new CustomEvent(HSM_EVENTS.FAUCET_OPTIONS));}
+      if (location.component) window.dispatchEvent(new CustomEvent(HSM_EVENTS.MATERIAL_PICKED,{detail:{file,name:location.component}}));
+      landed = true;
+      return;
+    }
 
     if (location.component) {
       result = { ...result, meshes: result.meshes.filter(mesh => matchesBody(mesh.name, location.component)) };

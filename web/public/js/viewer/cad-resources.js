@@ -22,7 +22,7 @@ export function disposeCadGroup(group) {
   const geometries = new Set(), materials = new Set(), textures = new Set(), images = new Set();
   group.traverse(object => {
     if (object.geometry) geometries.add(object.geometry);
-    if (own && object.material) {
+    if ((own || object.userData.ownsMaterial) && object.material) {
       for (const material of Array.isArray(object.material) ? object.material : [object.material]) {
         if (material) materials.add(material);
       }
