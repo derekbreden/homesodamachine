@@ -1,6 +1,7 @@
 // Run on demand: node --test tests/browser/viewer-lifetime.browser.js
 import { test } from "node:test";
 import assert from "node:assert/strict";
+import { createHash } from "node:crypto";
 import fs from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
@@ -39,6 +40,17 @@ function payload() {
   header = Buffer.concat([header, Buffer.alloc((4 - header.length % 4) % 4, 32)]);
   const length = Buffer.alloc(4); length.writeUInt32LE(header.length);
   return Buffer.concat([length, header, ...chunks]);
+}
+
+function sharedPayload() {
+  const object = payload();
+  const sha = createHash("sha256").update(object).digest("hex");
+  let header = Buffer.from(JSON.stringify({ v: 4, src: "fixture", meshes: [
+    { name: mesh.name, asset: sha, entries: [{ name: mesh.name, color: mesh.color }] },
+  ] }));
+  header = Buffer.concat([header, Buffer.alloc((4 - header.length % 4) % 4, 32)]);
+  const length = Buffer.alloc(4); length.writeUInt32LE(header.length);
+  return { object, sha, scene: Buffer.concat([length, header]) };
 }
 
 test("live STEP reloads retain one renderer and release departed x-ray geometry", { timeout: 90000 }, async t => {
@@ -150,16 +162,25 @@ test("live STEP reloads retain one renderer and release departed x-ray geometry"
   }
 });
 
-test("Find survives a model refresh, keeps the camera, and respects Clear", { timeout: 60000 }, async () => {
+for (const shared of [false, true]) test(`Find survives a ${shared ? "shared" : "packed"} model refresh, keeps the camera, and respects Clear`, { timeout: 60000 }, async () => {
   const hardwareDir = await fs.mkdtemp(path.join(os.tmpdir(), "hsm-find-refresh-"));
   let browser, server;
   try {
     await fs.mkdir(path.dirname(path.join(hardwareDir, file)), { recursive: true });
     await fs.writeFile(path.join(hardwareDir, file), "fixture");
-    await fs.writeFile(path.join(hardwareDir, `${file}.mesh`), payload());
+    const current = shared ? sharedPayload() : { scene: payload() };
+    await fs.writeFile(path.join(hardwareDir, `${file}.mesh`), current.scene);
     ({ server } = await start({ dev: false, port: 0, hardwareDir }));
     browser = await launchBrowser();
     const page = await browser.newPage();
+    if (shared) {
+      await page.setRequestInterception(true);
+      page.on("request", request => {
+        if (new URL(request.url()).pathname === `/scene-meshes/${current.sha}`)
+          return request.respond({ status: 200, contentType: "application/octet-stream", body: current.object });
+        return request.continue();
+      });
+    }
     await page.goto(`http://127.0.0.1:${server.address().port}/3d#step:${encodeURIComponent(file)}?find=${encodeURIComponent("solid: fixture-body")}`, { waitUntil: "domcontentloaded" });
     await page.waitForFunction(() => window.__hsm?.scene.getObjectByName("pick-find")?.children.length > 0);
     await page.evaluate(() => new Promise(resolve => setTimeout(resolve, 500)));
@@ -168,14 +189,17 @@ test("Find survives a model refresh, keeps the camera, and respects Clear", { ti
       const { state } = await import("/js/viewer/state.js");
       h.camera.position.set(30, -40, 50); h.controls.target.set(0, 0, 0); h.controls.update();
       const before = [...h.camera.position.toArray(), ...h.controls.target.toArray()];
-      const oldGroup = h.currentGroup.uuid;
+      let mounted = 0;
+      const completed = event => { if (event.detail?.file === file && event.detail.complete !== false) mounted++; };
+      window.addEventListener("hsm:step-mounted", completed);
       state.stepEtags.clear();
       await h.loadStepFile(file, { preserveCamera: true });
+      window.removeEventListener("hsm:step-mounted", completed);
       return { highlighted: h.scene.getObjectByName("pick-find").children.length,
-        replaced: h.currentGroup.uuid !== oldGroup,
+        mounted,
         before, after: [...h.camera.position.toArray(), ...h.controls.target.toArray()] };
     }, file);
-    assert.ok(result.replaced, "the fixture did not reload");
+    assert.ok(result.mounted > 0, "the fixture did not reload");
     assert.ok(result.highlighted > 0, "the selected part lost its highlight");
     assert.deepEqual(result.after, result.before, "refresh refocused the camera");
     await page.$eval('.pick-find-toggle', button => button.click());
@@ -187,6 +211,67 @@ test("Find survives a model refresh, keeps the camera, and respects Clear", { ti
       return window.__hsm.scene.getObjectByName("pick-find").children.length;
     }, file);
     assert.equal(cleared, 0, "refresh revived a cleared highlight");
+  } finally {
+    await closeBrowser(browser);
+    await closeServer(server);
+    await fs.rm(hardwareDir, { recursive: true, force: true });
+  }
+});
+
+test("new shared parts extend clipping bounds while existing GPU geometry stays mounted", { timeout: 60000 }, async () => {
+  const hardwareDir = await fs.mkdtemp(path.join(os.tmpdir(), "hsm-added-part-"));
+  let browser, server;
+  try {
+    const current = sharedPayload();
+    const destination = path.join(hardwareDir, `${file}.mesh`);
+    await fs.mkdir(path.dirname(destination), { recursive: true });
+    await fs.writeFile(path.join(hardwareDir, file), "fixture");
+    await fs.writeFile(destination, current.scene);
+    ({ server } = await start({ dev: false, port: 0, hardwareDir }));
+    browser = await launchBrowser();
+    const page = await browser.newPage();
+    await page.setRequestInterception(true);
+    page.on("request", request => {
+      if (new URL(request.url()).pathname === `/scene-meshes/${current.sha}`)
+        return request.respond({ status: 200, contentType: "application/octet-stream", body: current.object });
+      return request.continue();
+    });
+    await page.goto(`http://127.0.0.1:${server.address().port}/3d#step:${encodeURIComponent(file)}`, { waitUntil: "domcontentloaded" });
+    await page.waitForFunction(() => window.__hsm?.currentGroup?.userData.sceneLoading === false);
+    const before = await page.evaluate(async () => {
+      const h = window.__hsm;
+      h.camera.position.set(30, -40, 50); h.controls.target.set(0, 0, 0); h.controls.update();
+      const { updateDepthRange } = await import("/js/viewer/scene.js");
+      updateDepthRange();
+      return { group: h.currentGroup.uuid, geometry: h.currentGroup.children[0].geometry.uuid, far: h.camera.far };
+    });
+    const head = JSON.parse(current.scene.subarray(4, 4 + current.scene.readUInt32LE(0)));
+    head.src = "expanded";
+    head.meshes.push({ ...head.meshes[0], name: "fixture-added",
+      entries: [{ name: "fixture-added", color: mesh.color }],
+      transform: [[1,0,0,200],[0,1,0,0],[0,0,1,0]],
+    });
+    let header = Buffer.from(JSON.stringify(head));
+    header = Buffer.concat([header, Buffer.alloc((4 - header.length % 4) % 4, 32)]);
+    const size = Buffer.alloc(4); size.writeUInt32LE(header.length);
+    await fs.writeFile(destination, Buffer.concat([size, header]));
+    const after = await page.evaluate(async file => {
+      const h = window.__hsm;
+      const { state } = await import("/js/viewer/state.js");
+      state.stepEtags.clear();
+      await h.loadStepFile(file, { preserveCamera: true });
+      const { updateDepthRange } = await import("/js/viewer/scene.js");
+      updateDepthRange();
+      const added = h.currentGroup.getObjectByName("fixture-added");
+      const distance = added.getWorldPosition(new h.THREE.Vector3()).distanceTo(h.camera.position);
+      return { group: h.currentGroup.uuid, geometry: h.currentGroup.children[0].geometry.uuid,
+        far: h.camera.far, distance, added: !!added };
+    }, file);
+    assert.equal(after.group, before.group);
+    assert.equal(after.geometry, before.geometry);
+    assert.equal(after.added, true);
+    assert.ok(after.far > after.distance, "the new part lies beyond the cached far plane");
+    assert.ok(after.far > before.far, "camera depth retained the old model bounds");
   } finally {
     await closeBrowser(browser);
     await closeServer(server);
