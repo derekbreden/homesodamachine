@@ -1,6 +1,9 @@
 """Publication manifest and digest regressions. Run explicitly with unittest."""
 import json
+import hashlib
 import os
+from contextlib import ExitStack, redirect_stdout
+from io import StringIO
 from pathlib import Path
 import subprocess
 import shutil
@@ -8,6 +11,7 @@ import sys
 import tempfile
 import time
 import unittest
+from types import SimpleNamespace
 from unittest.mock import patch
 
 TOOLS = Path(__file__).resolve().parent
@@ -313,6 +317,102 @@ class ByteDriftTests(unittest.TestCase):
         (self.root / "hardware/cad-artifacts.json").write_text("bad")
         with self.assertRaises(ValueError):
             self.drifted()
+
+
+class PublicationSnapshotTests(unittest.TestCase):
+    def setUp(self):
+        self.temp = tempfile.TemporaryDirectory()
+        self.addCleanup(self.temp.cleanup)
+        self.root = Path(self.temp.name)
+        self.pack = publish_now._pack()
+        self.relative = "hardware/manifold-layout/enclosure-assembly.step.mesh"
+        self.part = self.root / self.relative
+        self.part.parent.mkdir(parents=True)
+        self.part.write_bytes(b"completed mechanics")
+        self.captured = 1_700_000_000.125
+        self.final_time = 1_700_000_000.375
+        os.utime(self.part, ns=(int((self.captured - 1) * 1e9),) * 2)
+        self.clock = self.captured
+        self.held = {
+            "solids": {self.relative: "preceding scene"},
+            "moved": {self.relative: self.captured - 2},
+            "sidecars": {},
+            "bundle": {"sha256": "preceding bundle", "bytes": 1},
+        }
+
+    def run_publication(self, *, bundle=False):
+        pointers = []
+        fallback = []
+        staging = self.root / "staging"
+        staging.mkdir()
+
+        def upload(root, rels, hashes, known, sources):
+            self.assertEqual(sources[self.relative].read_bytes(), b"completed mechanics")
+            self.part.write_bytes(b"completed wiring")
+            os.utime(self.part, ns=(int(self.final_time * 1e9),) * 2)
+            self.clock = self.captured + 10
+            return True
+
+        def mesh_assets(*args, **kwargs):
+            if bundle:
+                self.clock = self.captured + 10
+            return {}
+
+        def cut_bundle(*args, **kwargs):
+            fallback.append(kwargs["stamp"])
+            return 0
+
+        held = {**self.held, "bundle": {} if bundle else self.held["bundle"]}
+        replacements = {
+            "_ROOT": self.root,
+            "POINTERS": self.root / "hardware/cad-artifacts.json",
+            "time": SimpleNamespace(time=lambda: self.clock, monotonic=time.monotonic),
+            "read_pointers": lambda: held,
+            "staged": lambda _: {},
+            "_head": lambda _: "source revision",
+            "solids": lambda _: [self.relative],
+            "sidecar_lines": lambda *args: {},
+            "made_here": lambda *args: {},
+            "upload_mesh_assets": mesh_assets,
+            "objects_in_store": lambda _: [],
+            "upload_objects": upload,
+            "_origin_slug": lambda _: "example/machine",
+            "_write_pointers": pointers.append,
+            "cut_bundle": cut_bundle,
+        }
+        with ExitStack() as stack:
+            for name, value in replacements.items():
+                stack.enter_context(patch.object(self.pack, name, value))
+            stack.enter_context(patch.object(self.pack.Graph, "load", return_value=None))
+            stack.enter_context(redirect_stdout(StringIO()))
+            self.assertEqual(self.pack._publish_held(set(), staging, viewer_only=True), 0)
+        return pointers, fallback
+
+    def test_later_checkpoint_survives_an_intermediate_upload_in_the_same_second(self):
+        pointers, fallback = self.run_publication()
+        self.assertEqual(fallback, [])
+        published = pointers[0]
+        self.assertEqual(published["moved"][self.relative], self.captured)
+        now = {self.relative: hashlib.sha256(self.part.read_bytes()).hexdigest()}
+        mtimes = self.pack._native("mtimes", root=self.root, rels=[self.relative])
+        self.assertGreater(mtimes[self.relative], self.captured)
+        self.assertLess(mtimes[self.relative], int(self.captured) + 1)
+        built, fresh, stale, absent = self.pack.held_publish_plan(published, [self.relative], now, mtimes)
+        self.assertEqual((built, fresh, stale, absent), ([self.relative], [], [], []))
+        state = self.pack._native("held-state", held=published, rels=[self.relative], now=now,
+                                  sidecar_now={}, mtimes=mtimes)
+        self.assertEqual((state["built"], state["stale"]), ([self.relative], []))
+
+    def test_bundle_fallback_keeps_the_original_snapshot_time(self):
+        pointers, fallback = self.run_publication(bundle=True)
+        self.assertEqual(pointers, [])
+        self.assertEqual(fallback, [self.captured])
+
+    def test_genuinely_older_local_bytes_remain_stale(self):
+        now = {self.relative: "different older bytes"}
+        plan = self.pack.held_publish_plan(self.held, [self.relative], now,
+                                           {self.relative: self.captured - 3})
+        self.assertEqual(plan, ([], [], [self.relative], []))
 
 
 if __name__ == "__main__":

@@ -990,11 +990,8 @@ pub fn dispatch(v: &Value) -> Result<Option<Value>> {
                 let stat = crate::artifact_cache::identity(&root.join(&rel))?;
                 out.insert(
                     rel,
-                    json!(
-                        (stat[3].div_euclid(1_000_000_000) as f64
-                            + stat[3].rem_euclid(1_000_000_000) as f64 * 1e-9)
-                            .trunc() as i64
-                    ),
+                    json!(stat[3].div_euclid(1_000_000_000) as f64
+                        + stat[3].rem_euclid(1_000_000_000) as f64 * 1e-9),
                 );
             }
             Value::Object(out)

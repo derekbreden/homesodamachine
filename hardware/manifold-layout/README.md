@@ -87,6 +87,10 @@ Its completed placement and mechanical scenes can reach the website while depend
 continues. A partial scene carries its pending stages; it does not establish print readiness.
 Runtime parameter edits reuse the executable. Construction-code edits rebuild the program.
 
+[`route-overrides.json`](../wiring/installed/route-overrides.json) owns the selected wire-route
+stations. A route edit uses the same command with only `//:installed-machine`; unchanged
+mechanical stages, conductors and terminations keep their retained geometry.
+
 The assembly's retained stages are reported in `.cache/realized/installed-machine/last-run.json`.
 Its wiring's retained fine and presentation entries are reported beside them under
 `wiring/parts/last-run.json`. These are run receipts, outside the website and print outputs.
