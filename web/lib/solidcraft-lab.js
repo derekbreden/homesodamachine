@@ -20,6 +20,7 @@ export function mountSolidcraftLab(app, {
   });
   const nativeModels = {
     tube: 'parts/tube.json', endcap: 'parts/endcap.json', core: 'carbonator.json', parent: 'parent.json',
+    representation: 'representation.json',
   };
   app.get(`${carbonator}/native/:model`, (req, res) => {
     const file = nativeModels[req.params.model];

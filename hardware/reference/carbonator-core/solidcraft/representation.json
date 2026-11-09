@@ -1,0 +1,117 @@
+{
+  "format": "solidcraft/51",
+  "name": "Carbonator assembly envelope",
+  "units": "mm",
+  "metadata": {
+    "description": "The carbonator assembly envelope publishes the exterior layout bounds without loading its exact parts."
+  },
+  "params": [
+    {
+      "name": "outer_diameter",
+      "expr": "127 mm",
+      "unit": "mm",
+      "model": false
+    },
+    {
+      "name": "length",
+      "expr": "152.4 mm",
+      "unit": "mm",
+      "model": false
+    }
+  ],
+  "features": [
+    {
+      "id": 3,
+      "name": "Exterior assembly bounds",
+      "suppressed": false,
+      "body_names": [
+        "Carbonator envelope"
+      ],
+      "param_names": [
+        "d1",
+        "d2"
+      ],
+      "component": 1,
+      "type": "cylinder",
+      "base": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "axis": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "radius": "(outer_diameter) / 2",
+      "height": "length",
+      "operation": "new_body"
+    }
+  ],
+  "next_id": 4,
+  "components": [
+    {
+      "id": 1,
+      "identification_color_index": 0,
+      "name": "Assembly envelope",
+      "parent": 0,
+      "metadata": {
+        "bom_type": "reference"
+      }
+    }
+  ],
+  "next_component_color_index": 1,
+  "occurrences": [
+    {
+      "id": 2,
+      "component": 1,
+      "parent": 0,
+      "name": "Assembly envelope:1",
+      "transform": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "grounded": true
+    }
+  ],
+  "appearances": {
+    "bodies": {
+      "Carbonator envelope": {
+        "name": "Custom",
+        "color": [
+          165,
+          184,
+          215
+        ],
+        "opacity": 1.0,
+        "pbr": {
+          "metallic": 0.2,
+          "roughness": 0.45,
+          "dielectric_ior": 1.5
+        }
+      }
+    }
+  }
+}

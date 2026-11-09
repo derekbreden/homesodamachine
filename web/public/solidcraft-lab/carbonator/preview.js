@@ -21,7 +21,7 @@ export async function createPreview(host, config, load) {
   const controls = new OrbitControls(camera,renderer.domElement);
   controls.enableDamping = false;
   const clipping = new THREE.Plane(new THREE.Vector3(0,1,0),0);
-  const material = new THREE.MeshStandardMaterial({color:'#b4bbc5',metalness:.35,roughness:.38,side:THREE.DoubleSide,clippingPlanes:[clipping]});
+  const material = new THREE.MeshStandardMaterial({color:config.color,metalness:.35,roughness:.38,side:THREE.DoubleSide,clippingPlanes:[]});
   const root=new THREE.Group(); scene.add(root);
   let count=1, expanded=false, exploded=false, childManifest, childGeometries;
   let drawQueued=false, visible=true;
@@ -46,6 +46,7 @@ export async function createPreview(host, config, load) {
     return Array.from({length:count},(_,i)=>[i%columns*config.pitch,Math.floor(i/columns)*config.pitch,0]);
   }
   function rebuild(){
+    material.color.set(expanded?'#b4bbc5':config.color);
     for(const child of [...root.children]){root.remove(child);if(child.isInstancedMesh)child.dispose();}
     if(!expanded){
       const instances=new THREE.InstancedMesh(moduleGeometry,material,count);

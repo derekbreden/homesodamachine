@@ -1,8 +1,13 @@
 {
   "name": "Carbonator core",
-  "sourceVersion": "581bc4bb2115032ff06604a9ba4cc065c86d3e5f955417155dba590bb04c7010",
-  "preview": "/solidcraft-lab/carbonator/assets/carbonator.glb?v=05a5c515bec061c6",
+  "sourceVersion": "96ae697b77d10861db1dd0c52ea8bf6b7848faf29b7b9e80abcec3a9e7cd819c",
+  "preview": "/solidcraft-lab/carbonator/assets/representation.glb?v=b2a39c7b0561a001",
   "children": "/solidcraft-lab/carbonator/children.json",
   "pitch": 190.5,
-  "nativeParent": "/labs/solidcraft/carbonator/native/parent"
+  "nativeParent": "/labs/solidcraft/carbonator/native/parent",
+  "color": "#8fa7ca",
+  "exterior": {
+    "outer_diameter": 127,
+    "length": 152.4
+  }
 }
