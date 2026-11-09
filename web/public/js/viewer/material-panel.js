@@ -5,6 +5,7 @@ import { HSM_EVENTS } from "/contracts/client-events.js";
 import { highlightParts, clearHighlight, leaveHighlight, scenePartNames } from "./part-highlight.js";
 import { clearComponentSelection } from "./component-picker.js";
 import { instancesInScene } from "/contracts/material-instances.js";
+import { materialTab } from "/contracts/material-tabs.js";
 import { makeMaterialLocations } from "./material-locations.js";
 import { enterInstance } from "./instance-view.js";
 import { standsIn } from "/contracts/body-path.js";
@@ -86,7 +87,7 @@ export function mountMaterialPanel(workspace, { file = null, material = null } =
   let status = "";
   // The selection came from a click in the model rather than from this pane or a search.
   let modelPick = false;
-  let locations = null, pendingInstance = null;
+  let locations = null, pendingInstance = null, pendingSection = null;
   function contextPath() {
     const parent = materialForFile(state.materialCatalog, lastFile);
     if (!parent || parent.id === root) return [];
@@ -148,7 +149,7 @@ export function mountMaterialPanel(workspace, { file = null, material = null } =
     status = text;
     let note = panel.querySelector(".material-selection-note");
     if (!text) { note?.remove(); return; }
-    const tree = tab === "bom" && scroll.querySelector(".bom-tree");
+    const tree = tab === "structure" && scroll.querySelector(".bom-tree");
     if (!note && tree) {
       note = el("p", "material-selection-note"); note.setAttribute("role", "status");
       tree.parentElement.prepend(note);
@@ -178,6 +179,7 @@ export function mountMaterialPanel(workspace, { file = null, material = null } =
   // `fromModel`: the reader picked it in the model, so the camera stays, the model stays
   // opaque and the picker keeps its own mark on the body clicked.
   function select(id, path = [], { fromModel = false } = {}) {
+    pendingSection = null;
     if (locations?.material !== id) stopLocations();
     if (!fromModel) clearComponentSelection();
     modelPick = fromModel;
@@ -185,7 +187,7 @@ export function mountMaterialPanel(workspace, { file = null, material = null } =
     selectedBody = null;
     selected = id; selectedPath = path;
     render();
-    scroll.querySelector(".bom-row.selected")?.scrollIntoView({ block: "nearest" });
+    scroll.querySelector(".material-tree-focus")?.scrollIntoView({ block: "nearest" });
     show({ fly: !fromModel });
   }
 
@@ -270,12 +272,12 @@ export function mountMaterialPanel(workspace, { file = null, material = null } =
     render();
   }
 
-  function materialLink(m, label = m.description) {
+  function materialLink(m, label = m.description, view = { panel: "materials" }) {
     const link = el("a", "material-link", label);
-    link.href = "/3d#" + materialHash(m.id, { panel: "materials" });
+    link.href = "/3d#" + materialHash(m.id, view);
     link.addEventListener("click", (event) => {
       if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
-      event.preventDefault(); openMaterial(m.id, true, { panel: "materials" });
+      event.preventDefault(); openMaterial(m.id, true, view);
     });
     return link;
   }
@@ -308,7 +310,6 @@ export function mountMaterialPanel(workspace, { file = null, material = null } =
     if (current?.manufacturer_number) identity.append(el("p", "material-meta", "Manufacturer part: " + current.manufacturer_number));
     const costed = costedIds(), memo = new Map();
     const costOf = (id) => rollupCost(state.materialCatalog, id, options(), memo);
-    const costedRoot = Boolean(rootMaterial && costed.has(rootMaterial.id));
     const costedCurrent = Boolean(current && costed.has(current.id));
     if (selectedPath.length) {
       const row = explodeBom(state.materialCatalog, root, options()).find((r) => pathKey(r.path) === pathKey(selectedPath));
@@ -316,7 +317,6 @@ export function mountMaterialPanel(workspace, { file = null, material = null } =
       if (row) identity.append(el("p", "material-meta", `${quantity(row.quantity, row.item.unit)} in ${rootMaterial.description}` +
         (cost?.costed && row.quantity !== 1 ? ` · ${money(row.quantity * cost.usd)}` : "")));
     }
-    if (costedCurrent) identity.append(costSummary(current, costOf(current.id)));
     if (current) {
       const permanent = materialLink(current, "Permanent link");
       // A regular anchor supports copying, opening in another tab and bookmarks.
@@ -340,35 +340,109 @@ export function mountMaterialPanel(workspace, { file = null, material = null } =
     const activeDrawing = drawings.find(doc => doc.path === drawingView?.drawingPath()) || drawings[0];
     drawingView?.setDrawing(activeDrawing || null);
     headHost.replaceChildren(head);
-    const rows = explodeBom(state.materialCatalog, root, options());
+    const focus = current || rootMaterial;
+    const rows = focus ? explodeBom(state.materialCatalog, focus.id, options())
+      .map(row => ({ ...row, path: [...selectedPath, ...row.path] })) : [];
     const used = current ? materialUses(state.materialCatalog, current.id, options()) : { assemblies: [], tools: [], equipment: [] };
     const docs = materialDocuments(state.materialCatalog, (current || rootMaterial)?.id, options());
-    const counts = { bom: rows.length, cost: Number(costedCurrent), stock: Number(Boolean(current && state.materialCatalog.stock)), used: used.assemblies.length + used.tools.length + used.equipment.length, docs: docs.length };
-    if (!tab) tab = counts.bom ? "bom" : counts.docs ? "docs" : counts.cost ? "cost" : counts.used ? "used" : "bom";
-    panel.classList.toggle("locations-active", tab === "used" && !!wrapper && used.assemblies.length > 0);
+    const counts = { structure: rows.length + used.assemblies.length + used.tools.length + used.equipment.length,
+      "stock-cost": Number(costedCurrent || Boolean(current && state.materialCatalog.stock)),
+      location: Number(Boolean(wrapper && current && used.assemblies.length)), docs: docs.length };
+    if (!tab) tab = rows.length ? "structure" : counts.docs ? "docs" : counts.structure ? "structure" : counts["stock-cost"] ? "stock-cost" : "structure";
+    panel.classList.toggle("locations-active", tab === "location" && !!counts.location);
+    panel.classList.toggle("records-compact", ["structure", "stock-cost", "location"].includes(tab));
     const tabs = el("div", "material-tabs"); tabs.setAttribute("role", "tablist"); tabs.setAttribute("aria-label", "Material relationships");
-    for (const [key, label] of [["bom", "BOM"], ["stock", "Stock"], ["cost", "Cost"], ["docs", "Documents"], ["used", "Where used"]]) {
+    for (const [key, label] of [["structure", "BOM & Where used"], ["stock-cost", "Stock & Cost"], ["location", "Location"], ["docs", "Documents"]]) {
       if (!counts[key] && tab !== key) continue;
-      const button = el("button", "", ["cost", "stock", "used"].includes(key) ? label : `${label} (${counts[key]})`); button.type = "button";
-      if (key === "bom" && rootMaterial) button.title = `BOM items in ${rootMaterial.description}, including every nested level`;
+      const button = el("button", "", key === "docs" ? `${label} (${counts[key]})` : label); button.type = "button";
+      button.dataset.tab = key;
       button.setAttribute("role", "tab"); button.setAttribute("aria-selected", String(tab === key));
       button.addEventListener("click", () => {
         tab = key;
-        if (key !== "used") stopLocations({ restore: true });
-        history.replaceState(history.state, "", "#" + materialHash(root, { tab: key, panel: "materials" }));
+        pendingSection = null;
+        scroll.scrollTop = panel.scrollTop = 0;
+        if (key !== "location") stopLocations({ restore: true });
+        history.replaceState(history.state, "", "#" + materialHash(key === "location" ? current.id : root, { tab: key, panel: "materials" }));
         render();
       }); tabs.append(button);
     }
     tabsHost.replaceChildren(tabs);
     const content = el("div", "material-tab-content"); content.setAttribute("role", "tabpanel");
-    content.setAttribute("aria-label", { bom: "Exploded bill of materials", stock: "Stock and assembly availability", cost: "Cost breakdown", used: "Where used", docs: "Documents" }[tab]);
+    content.setAttribute("aria-label", { structure: "BOM and where used", "stock-cost": "Stock and cost", location: "Installed locations", docs: "Documents" }[tab]);
     scroll.append(content);
-    if (tab === "bom") renderBom(content, rootMaterial, index, rows, costedRoot ? costOf : null);
-    if (tab === "cost") renderCost(content, current, index, costedCurrent ? costOf : null);
-    if (tab === "stock") renderStock(content, current, index);
-    if (tab === "used") renderUsed(content, current, used, index);
+    if (tab === "structure") renderStructure(content, focus, used, index, rows, costedCurrent ? costOf : null);
+    if (tab === "stock-cost") {
+      renderStock(materialSection(content, "stock", "Stock"), current, index);
+      const costs = materialSection(content, "cost", "Cost");
+      if (costedCurrent) costs.append(costSummary(current, costOf(current.id)));
+      renderCost(costs, current, index, costedCurrent ? costOf : null);
+    }
+    if (tab === "location") renderLocations(content, current);
     if (tab === "docs") renderDocs(content, docs);
     scroll.scrollTop = top;
+    if (pendingSection) {
+      const target = pendingSection;
+      requestAnimationFrame(() => {
+        if (disposed || pendingSection !== target) return;
+        const section = scroll.querySelector(`[data-material-section="${target}"]`);
+        if (section) { section.scrollIntoView({ block: "start" }); pendingSection = null; }
+      });
+    }
+  }
+
+  function materialSection(content, key, title) {
+    const section = el("section", "material-subsection");
+    section.dataset.materialSection = key;
+    section.setAttribute("aria-label", title);
+    section.append(el("h3", "material-subsection-title", title));
+    content.append(section);
+    return section;
+  }
+
+  function renderStructure(content, current, used, index, rows, costOf) {
+    if (!current) return;
+    const structure = el("div", "material-structure"); content.append(structure);
+    const parents = materialSection(structure, "used", "Where used");
+    const paths = used.assemblies.map(result => result.path);
+    const full = paths.filter(path => !paths.some(other => other.length > path.length
+      && path.every((id, i) => id === other[other.length - path.length + i])));
+    const roots = new Map();
+    for (const path of full) {
+      let branch = roots;
+      for (const [depth, id] of path.slice(0, -1).entries()) {
+        if (!branch.has(id)) branch.set(id, { id, direct: false, children: new Map() });
+        const node = branch.get(id);
+        node.direct ||= depth === path.length - 2;
+        branch = node.children;
+      }
+    }
+    function parentBranches(branch) {
+      const list = el("ul", "material-parent-tree");
+      for (const { id, direct, children } of branch.values()) {
+        const material = index.get(id); if (!material) continue;
+        const node = el("li", "material-parent-branch"), row = el("div", "material-parent-node");
+        row.append(materialLink(material, material.description, { panel: "materials", tab: "structure" }));
+        row.append(el("span", "material-parent-meta", `${material.id} · ${direct ? "Direct parent" : "Ancestor"}`));
+        node.append(row);
+        if (children.size) node.append(parentBranches(children));
+        list.append(node);
+      }
+      return list;
+    }
+    if (roots.size) parents.append(parentBranches(roots));
+    else parents.append(el("p", "material-empty", "No containing assemblies recorded."));
+    const focus = el("div", "material-tree-focus"); focus.dataset.material = current.id;
+    focus.append(el("span", "material-tree-caption", "This material"), el("strong", "", current.description), el("span", "material-meta", current.id));
+    structure.append(focus);
+    renderBom(materialSection(structure, "bom", "BOM"), current, index, rows, costOf);
+    if (used.tools.length) {
+      const tools = materialSection(content, "tools", "Tools for this material");
+      used.tools.forEach(material => tools.append(materialLink(material)));
+    }
+    if (used.equipment.length) {
+      const equipment = materialSection(content, "equipment", "Used with");
+      used.equipment.forEach(material => equipment.append(materialLink(material)));
+    }
   }
 
   function renderStock(content, material, index) {
@@ -414,42 +488,6 @@ export function mountMaterialPanel(workspace, { file = null, material = null } =
     return box;
   }
 
-  // A material's own cost, one row per kind, under its contents in the tree: the
-  // work of putting it together and what it consumes, so an expanded assembly
-  // visibly adds up to the total on its own row.
-  function ownCostRows(id, depth, pieces, path, total) {
-    const own = directCost(state.materialCatalog, id);
-    if (!own || !bomItems(materialIndex(state.materialCatalog).get(id), options()).length) return [];
-    const groups = new Map();
-    for (const element of own.elements) {
-      const group = groups.get(element.kind) || { parts: 0, labor: 0, minutes: 0, items: [] };
-      group.parts += element.usd || 0;
-      group.labor += laborUsd(state.materialCatalog, element.minutes || 0);
-      group.minutes += element.minutes || 0;
-      group.items.push(element);
-      groups.set(element.kind, group);
-    }
-    return COST_KINDS.filter((kind) => groups.has(kind.id)).map((kind) => {
-      const group = groups.get(kind.id), usd = group.parts + group.labor;
-      const line = el("div", `bom-row bom-own bom-own-${kind.id}`);
-      line.style.setProperty("--depth", depth);
-      const pick = el("button", "bom-select"); pick.type = "button";
-      const detail = kind.id === "labor" ? `${group.items.length} operation${group.items.length === 1 ? "" : "s"} · ${duration(group.minutes * pieces)}`
-        : group.items.map((item) => item.label).slice(0, 2).join(" · ") + (group.items.length > 2 ? ` · ${group.items.length - 2} more` : "")
-          + (group.minutes ? ` · ${duration(group.minutes * pieces)}` : "");
-      pick.append(el("span", "bom-description", kind.id === "labor" ? "Labor on this assembly" : kind.id === "unallocated" ? kind.label : `${kind.label} for this assembly`),
-        el("span", "bom-counts", detail));
-      pick.setAttribute("aria-label", `${kind.label}: ${money(usd * pieces)}, open the cost breakdown`);
-      pick.addEventListener("click", () => { tab = "cost"; select(id, path); });
-      const amount = el("span", "bom-amount");
-      amount.append(el("span", "bom-cost", money(usd * pieces)));
-      const share = el("span", "bom-share");
-      share.append(costBar({ parts: group.parts * pieces, labor: group.labor * pieces }, total));
-      line.append(el("span", "bom-own-mark", kind.id === "labor" ? "◷" : "·"), pick, amount, share);
-      return line;
-    });
-  }
-
   function renderBom(content, rootMaterial, index, rows, costOf) {
     if (!rootMaterial?.bom?.items.length) {
       content.append(el("p", "material-empty", rootMaterial ? "No child materials listed for this part." : "Assembly relationships have not been recorded for this model."));
@@ -457,14 +495,14 @@ export function mountMaterialPanel(workspace, { file = null, material = null } =
       const summary = el("p", "material-bom-counts", bomCountText({ direct: rows.filter(row => row.depth === 0).length, total: rows.length }));
       summary.title = "One item per BOM row; the total includes every nested level. Quantities appear beside each row.";
       content.append(summary);
-      content.append(el("p", "material-scope", rootMaterial.bom.scope));
       const tools = el("div", "bom-tools");
       const all = el("button", "", "Expand all"); all.type = "button";
       const collapse = el("button", "", "Collapse all"); collapse.type = "button";
+      all.hidden = collapse.hidden = !rows.some(row => row.depth > 0);
       all.addEventListener("click", () => { rows.forEach((r) => expanded.add(pathKey(r.path))); render(); });
       collapse.addEventListener("click", () => { expanded.clear(); render(); });
       tools.append(all, collapse);
-      if (costOf) {
+      if (costOf && rows.length > 2) {
         const order = el("div", "bom-order"); order.setAttribute("role", "group"); order.setAttribute("aria-label", "Order");
         for (const [byCost, label] of [[false, "BOM order"], [true, "By cost"]]) {
           const button = el("button", "", label); button.type = "button";
@@ -478,7 +516,7 @@ export function mountMaterialPanel(workspace, { file = null, material = null } =
       const columns = el("div", "bom-columns");
       columns.append(el("span", "", "Item"), el("span", "", costOf ? "Qty · cost in this assembly" : "Qty in this assembly"));
       content.append(columns);
-      const tree = el("div", "bom-tree");
+      const tree = el("ul", "bom-tree");
       const total = costOf ? costOf(rootMaterial.id).usd : 0;
       const extended = (row) => costOf && row.quantity != null ? row.quantity * costOf(row.material.id).usd : 0;
       const children = new Map();
@@ -487,17 +525,23 @@ export function mountMaterialPanel(workspace, { file = null, material = null } =
         if (!children.has(parent)) children.set(parent, []);
         children.get(parent).push(row);
       }
-      const emit = (parentKey, ownerId, depth, pieces, ownerPath) => {
+      const emit = (host, parentKey) => {
         const list = children.get(parentKey) || [];
         for (const row of costOf && sortByCost ? [...list].sort((a, b) => extended(b) - extended(a)) : list) {
-          tree.append(bomRow(row, costOf, total, extended(row)));
+          const node = el("li", "bom-node");
+          node.append(bomRow(row, costOf, total, extended(row)));
           const key = pathKey(row.path);
-          if (expanded.has(key)) emit(key, row.material.id, depth + 1, row.quantity ?? 1, row.path);
+          if (expanded.has(key)) {
+            const branch = el("ul", "bom-branch");
+            emit(branch, key);
+            if (branch.childElementCount) node.append(branch);
+          }
+          host.append(node);
         }
-        if (costOf) tree.append(...ownCostRows(ownerId, depth, pieces, ownerPath, total));
       };
-      emit("", rootMaterial.id, 0, 1, []);
+      emit(tree, pathKey(selectedPath));
       content.append(tree);
+      if (rootMaterial.bom.scope) content.append(el("p", "material-scope", rootMaterial.bom.scope));
       if (status) {
         const note = el("p", "material-selection-note", status); note.setAttribute("role", "status");
         content.prepend(note);
@@ -610,9 +654,9 @@ export function mountMaterialPanel(workspace, { file = null, material = null } =
     content.append(el("p", "material-scope", `Per piece. Purchases, stock and supplies carry their delivered cost from the per-unit cost ledger; labor is attended time at ${money(rate, { cents: false })} an hour. Bulk stock and shared operations are divided across the pieces of a finished unit${batch ? `, and a run's setup across a batch of ${batch} machines` : ""}.`));
   }
 
-  function renderUsed(content, current, used, index) {
+  function renderLocations(content, current) {
     if (!current) return;
-    if (wrapper && used.assemblies.length) {
+    if (wrapper) {
       if (locations?.material !== current.id) {
         stopLocations();
         locations = makeMaterialLocations({ material: current.id,
@@ -624,22 +668,6 @@ export function mountMaterialPanel(workspace, { file = null, material = null } =
         });
       }
       content.append(locations.node);
-    }
-    const records = el("details", "material-assembly-records");
-    records.append(el("summary", "", "Assembly records"));
-    if (!used.assemblies.length) records.append(el("p", "material-empty", "No containing assemblies recorded."));
-    for (const result of used.assemblies) {
-      const card = el("div", "material-used");
-      card.append(materialLink(result.material), el("span", "material-meta", `${result.direct ? "Direct parent" : "Ancestor"} · ${quantity(result.quantity, result.unit)}`));
-      card.append(el("p", "material-path", result.path.map((id) => index.get(id)?.description || id).join(" → "))); records.append(card);
-    }
-    content.append(records);
-    if (used.tools.length) {
-      content.append(el("h3", "", "Tools for this material"));
-      used.tools.forEach((m) => content.append(materialLink(m)));
-    }
-    if (used.equipment.length) {
-      content.append(el("h3", "", "Used with")); used.equipment.forEach((m) => content.append(materialLink(m)));
     }
   }
 
@@ -744,7 +772,8 @@ export function mountMaterialPanel(workspace, { file = null, material = null } =
   function applyRoute({ panel = null, tab: requestedTab = null, instance = null, fly = true } = {}) {
     stopLocations();
     pendingInstance = instance ? { name: instance, fly } : null;
-    tab = ["bom", "cost", "stock", "used"].includes(requestedTab) ? requestedTab : null;
+    const route = materialTab(requestedTab);
+    tab = route.tab; pendingSection = route.section;
     setOpen(panel === "materials" || !!tab);
     render();
     showInstalled();
