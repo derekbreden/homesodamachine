@@ -1,9 +1,9 @@
 {
   "format": "solidcraft/51",
-  "name": "Carbonator assembly envelope",
+  "name": "representation",
   "units": "mm",
   "metadata": {
-    "description": "The carbonator assembly envelope publishes the exterior layout bounds without loading its exact parts."
+    "description": "The saved carbonator exterior retains the tube rim and recessed caps without child designs or assembly joints."
   },
   "params": [
     {
@@ -13,8 +13,38 @@
       "model": false
     },
     {
+      "name": "bore_diameter",
+      "expr": "123.698 mm",
+      "unit": "mm",
+      "model": false
+    },
+    {
       "name": "length",
       "expr": "152.4 mm",
+      "unit": "mm",
+      "model": false
+    },
+    {
+      "name": "cap_diameter",
+      "expr": "123.444 mm",
+      "unit": "mm",
+      "model": false
+    },
+    {
+      "name": "cap_thickness",
+      "expr": "6.35 mm",
+      "unit": "mm",
+      "model": false
+    },
+    {
+      "name": "bottom_recess",
+      "expr": "6.35 mm",
+      "unit": "mm",
+      "model": false
+    },
+    {
+      "name": "top_recess",
+      "expr": "6.35 mm",
       "unit": "mm",
       "model": false
     }
@@ -22,10 +52,10 @@
   "features": [
     {
       "id": 3,
-      "name": "Exterior assembly bounds",
+      "name": "Exterior barrel",
       "suppressed": false,
       "body_names": [
-        "Carbonator envelope"
+        "Core barrel"
       ],
       "param_names": [
         "d1",
@@ -46,14 +76,92 @@
       "radius": "(outer_diameter) / 2",
       "height": "length",
       "operation": "new_body"
+    },
+    {
+      "id": 4,
+      "name": "Barrel bore",
+      "suppressed": false,
+      "param_names": [
+        "d3",
+        "d4"
+      ],
+      "participants": [
+        "Core barrel"
+      ],
+      "type": "cylinder",
+      "base": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "axis": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "radius": "(bore_diameter) / 2",
+      "height": "length",
+      "operation": "cut"
+    },
+    {
+      "id": 5,
+      "name": "Bottom recessed cap",
+      "suppressed": false,
+      "body_names": [
+        "Core lower cap"
+      ],
+      "param_names": [
+        "d5",
+        "d6"
+      ],
+      "type": "cylinder",
+      "base": [
+        0.0,
+        0.0,
+        "bottom_recess"
+      ],
+      "axis": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "radius": "(cap_diameter) / 2",
+      "height": "cap_thickness",
+      "operation": "new_body"
+    },
+    {
+      "id": 6,
+      "name": "Top recessed cap",
+      "suppressed": false,
+      "body_names": [
+        "Core upper cap"
+      ],
+      "param_names": [
+        "d7",
+        "d8"
+      ],
+      "type": "cylinder",
+      "base": [
+        0.0,
+        0.0,
+        "length - top_recess - cap_thickness"
+      ],
+      "axis": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "radius": "(cap_diameter) / 2",
+      "height": "cap_thickness",
+      "operation": "new_body"
     }
   ],
-  "next_id": 4,
+  "next_id": 7,
   "components": [
     {
       "id": 1,
       "identification_color_index": 0,
-      "name": "Assembly envelope",
+      "name": "Saved exterior",
       "parent": 0,
       "metadata": {
         "bom_type": "reference"
@@ -66,7 +174,7 @@
       "id": 2,
       "component": 1,
       "parent": 0,
-      "name": "Assembly envelope:1",
+      "name": "Saved exterior:1",
       "transform": [
         [
           1.0,
@@ -96,19 +204,52 @@
       "grounded": true
     }
   ],
+  "materials": {
+    "Core barrel": "Stainless Steel",
+    "Core lower cap": "Stainless Steel",
+    "Core upper cap": "Stainless Steel"
+  },
   "appearances": {
     "bodies": {
-      "Carbonator envelope": {
+      "Core barrel": {
         "name": "Custom",
         "color": [
-          165,
-          184,
-          215
+          180,
+          187,
+          197
         ],
         "opacity": 1.0,
         "pbr": {
-          "metallic": 0.2,
-          "roughness": 0.45,
+          "metallic": 1.0,
+          "roughness": 0.32,
+          "dielectric_ior": 1.5
+        }
+      },
+      "Core lower cap": {
+        "name": "Custom",
+        "color": [
+          180,
+          187,
+          197
+        ],
+        "opacity": 1.0,
+        "pbr": {
+          "metallic": 1.0,
+          "roughness": 0.32,
+          "dielectric_ior": 1.5
+        }
+      },
+      "Core upper cap": {
+        "name": "Custom",
+        "color": [
+          180,
+          187,
+          197
+        ],
+        "opacity": 1.0,
+        "pbr": {
+          "metallic": 1.0,
+          "roughness": 0.32,
           "dielectric_ior": 1.5
         }
       }
