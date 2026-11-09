@@ -73,28 +73,46 @@ function flyTo({ position, target, up = camera.up }) {
   const startUp = camera.up.clone();
   const token = ++flyToken;
   const t0 = performance.now();
-  function step() {
-    if (token !== flyToken) return;
-    const t = Math.min((performance.now() - t0) / 400, 1);
-    const ease = t * (2 - t);
-    camera.position.lerpVectors(startPos, position, ease);
-    camera.up.lerpVectors(startUp, up, ease).normalize();
-    controls.target.lerpVectors(startTarget, target, ease);
-    camera.lookAt(controls.target);
-    controls.update();
-    if (t < 1) requestAnimationFrame(step);
-  }
-  requestAnimationFrame(step);
+  return new Promise(resolve => {
+    function step() {
+      if (token !== flyToken) { resolve(false); return; }
+      const t = Math.min((performance.now() - t0) / 400, 1);
+      const ease = t * (2 - t);
+      camera.position.lerpVectors(startPos, position, ease);
+      camera.up.lerpVectors(startUp, up, ease).normalize();
+      controls.target.lerpVectors(startTarget, target, ease);
+      camera.lookAt(controls.target);
+      controls.update();
+      if (t < 1) requestAnimationFrame(step);
+      else resolve(true);
+    }
+    requestAnimationFrame(step);
+  });
 }
 
 // Frame `box` in the part of the canvas a phone's Materials sheet leaves uncovered.
-function flyToBox(box) {
-  if (box.isEmpty()) return;
+function flyToBox(box, direction = null) {
+  if (box.isEmpty()) return Promise.resolve(false);
   const center = box.getCenter(new THREE.Vector3());
   const size = box.getSize(new THREE.Vector3());
   const maxDim = Math.max(size.x, size.y, size.z, 2);
-  const dir = camera.position.clone().sub(controls.target).normalize();
-  flyTo({ position: center.clone().addScaledVector(dir, maxDim * 2.4 / visibleShare()), target: center });
+  const dir = direction || camera.position.clone().sub(controls.target).normalize();
+  return flyTo({ position: center.clone().addScaledVector(dir, maxDim * 2.4 / visibleShare()), target: center });
+}
+
+// Installed locations face out from the assembly so its nearby context stays in view.
+export function frameParts(names, { outward = false } = {}) {
+  const want = new Set(names), meshes = bodies(), picked = meshes.filter(mesh => want.has(mesh.name));
+  const box = solidsBox(picked);
+  let direction = null;
+  if (outward && !box.isEmpty()) {
+    const whole = solidsBox(meshes), size = whole.getSize(new THREE.Vector3());
+    direction = box.getCenter(new THREE.Vector3()).sub(whole.getCenter(new THREE.Vector3()));
+    direction.divide(size.max(new THREE.Vector3(1, 1, 1)));
+    if (direction.length() < 0.1) direction = null;
+    else direction.normalize();
+  }
+  return flyToBox(box, direction);
 }
 
 function solidsBox(meshes) {

@@ -51,12 +51,13 @@ function wantFromHash(raw) {
     const [identity, query = ""] = raw.slice("material:".length).split("?");
     const id = decodeHash(identity);
     const params = new URLSearchParams(query);
-    const tab = ["bom", "cost", "stock"].includes(params.get("tab")) ? params.get("tab") : null;
+    const tab = ["bom", "cost", "stock", "used"].includes(params.get("tab")) ? params.get("tab") : null;
     const panel = params.get("panel");
+    const instance = params.get("instance");
     const file = modelForMaterial(state.materialCatalog, id)?.file;
     const remembered = history.state?.materialPath;
     const path = file && Array.isArray(remembered) && remembered.at(-1) === file ? remembered : [file];
-    return { type: file ? "step" : "material", file: file || id, path: file ? path : null, material: id, tab, panel };
+    return { type: file ? "step" : "material", file: file || id, path: file ? path : null, material: id, tab, panel, instance };
   }
   for (const [prefix, type] of Object.entries(HASH_PREFIXES)) {
     if (!raw.startsWith(prefix)) continue;

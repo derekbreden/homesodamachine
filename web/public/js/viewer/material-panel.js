@@ -1,10 +1,12 @@
 // The material panel connects a selected material's contents, records and geometry in its model context.
 import { state } from "./state.js";
-import { materialIndex, materialForFile, explodeBom, bomItems, bomCountText, bomCounts, materialDocuments, materialUses, occurrenceBodies, occurrenceForBody, matchesBody } from "/contracts/materials.js";
+import { materialIndex, materialForFile, materialForComponent, explodeBom, bomItems, bomCountText, bomCounts, materialDocuments, materialUses, occurrenceBodies, occurrenceForBody, matchesBody } from "/contracts/materials.js";
 import { HSM_EVENTS } from "/contracts/client-events.js";
 import { highlightParts, clearHighlight, leaveHighlight, scenePartNames } from "./part-highlight.js";
 import { clearComponentSelection } from "./component-picker.js";
-import { instanceLabel } from "/contracts/features.js";
+import { instancesInScene } from "/contracts/material-instances.js";
+import { makeMaterialLocations } from "./material-locations.js";
+import { enterInstance } from "./instance-view.js";
 import { standsIn } from "/contracts/body-path.js";
 import { openMaterial, materialHash } from "./material-nav.js";
 import { makeMaterialSearch } from "./material-search.js";
@@ -62,7 +64,7 @@ export function mountMaterialPanel(workspace, { file = null, material = null } =
     toggle.addEventListener("click", () => {
       const open = !workspace.classList.contains("materials-open");
       setOpen(open);
-      if (!open) dropSelection();
+      if (!open) keepSelection();
     });
     workspace.querySelector(".cad-header-actions").append(toggle);
     setOpen(false);
@@ -84,7 +86,7 @@ export function mountMaterialPanel(workspace, { file = null, material = null } =
   let status = "";
   // The selection came from a click in the model rather than from this pane or a search.
   let modelPick = false;
-  let keepDrawing = false; // a render that leaves the drawing being read in place
+  let locations = null, pendingInstance = null;
   function contextPath() {
     const parent = materialForFile(state.materialCatalog, lastFile);
     if (!parent || parent.id === root) return [];
@@ -118,7 +120,7 @@ export function mountMaterialPanel(workspace, { file = null, material = null } =
   // to the view from before one that ended; a pick made in the model keeps the camera where
   // the reader has it.
   function show({ fly = true } = {}) {
-    if (disposed || !lastFile) return;
+    if (disposed || !lastFile || locations || pendingInstance) return;
     if (state.mountedDetail?.file !== lastFile) {
       pending = { fly };
       setStatus(hasSubject() ? "The model is loading." : "");
@@ -163,6 +165,9 @@ export function mountMaterialPanel(workspace, { file = null, material = null } =
   }
 
   function setRoot(id) {
+    stopLocations();
+    pendingInstance = null;
+    lastFile = state.currentDetail?.type === "step" ? state.currentDetail.file : lastFile;
     clearComponentSelection();
     modelPick = false;
     root = id; selected = id; selectedPath = []; selectedBody = null; expanded.clear(); tab = null;
@@ -173,6 +178,7 @@ export function mountMaterialPanel(workspace, { file = null, material = null } =
   // `fromModel`: the reader picked it in the model, so the camera stays, the model stays
   // opaque and the picker keeps its own mark on the body clicked.
   function select(id, path = [], { fromModel = false } = {}) {
+    if (locations?.material !== id) stopLocations();
     if (!fromModel) clearComponentSelection();
     modelPick = fromModel;
     if (!fromModel) sheet?.reveal();
@@ -217,18 +223,40 @@ export function mountMaterialPanel(workspace, { file = null, material = null } =
     return true;
   }
 
-  // Closing the pane lets go of what was chosen in it: the model is whole and opaque again,
-  // under the camera it has, and a drawing being read stays on screen. A part picked in the
-  // model is the picker's, and stays.
-  function dropSelection() {
+  function stopLocations(options) {
+    const previous = locations;
+    locations = null;
+    return previous?.dispose(options);
+  }
+
+  // Closing Materials carries its installed selection into the ordinary component view.
+  async function keepSelection() {
+    if (locations) {
+      if (locations.selection()) await locations.enter();
+      return;
+    }
     if (modelPick || !hasSubject()) return;
-    const model = contextPath().length ? materialForFile(state.materialCatalog, lastFile) : null;
-    if (model) reroot(model.id);
-    selectedBody = null; selected = root; selectedPath = []; status = "";
-    keepDrawing = !!drawingView?.showing();
-    render();
-    keepDrawing = false;
-    clearHighlight({ owner: "materials" });
+    const names = subjectNames(scenePartNames());
+    const model = materialForFile(state.materialCatalog, lastFile);
+    const units = model && instancesInScene(state.materialCatalog, model.id, selected, [...scenePartNames()], options())
+      .filter(instance => instance.bodies.every(body => names.includes(body)));
+    if (units?.length === 1 || selectedBody) {
+      const name = selectedBody || units[0].name;
+      if (model) history.replaceState(history.state, "", "#" + materialHash(model.id, { instance: name }));
+      await enterInstance(name, { members: selectedBody ? names : units[0].bodies, fly: false });
+    } else highlightParts(names, { owner: "materials", fly: false, fill: true, fade: false, hold: false });
+  }
+
+  function showInstalled() {
+    if (!pendingInstance || state.mountedDetail?.file !== lastFile || state.currentGroup?.userData.sceneLoading) return;
+    const wanted = pendingInstance;
+    pendingInstance = null;
+    const names = [...scenePartNames()], model = materialForFile(state.materialCatalog, lastFile);
+    const material = materialForComponent(state.materialCatalog, lastFile, wanted.name, options());
+    const unit = model && material && instancesInScene(state.materialCatalog, model.id, material.id, names, options())
+      .find(instance => instance.bodies.includes(wanted.name));
+    const members = unit?.bodies || names.filter(name => standsIn(name, wanted.name));
+    if (members.length) enterInstance(wanted.name, { members, fly: wanted.fly });
   }
 
   // Another surface took the model's selection, or it was cleared from outside (Reset view,
@@ -310,39 +338,26 @@ export function mountMaterialPanel(workspace, { file = null, material = null } =
     }
     const drawings = current?.documents?.filter(doc => doc.kind === "engineering-drawing" && doc.path.endsWith(".pdf")) || [];
     const activeDrawing = drawings.find(doc => doc.path === drawingView?.drawingPath()) || drawings[0];
-    if (!keepDrawing) drawingView?.setDrawing(activeDrawing || null);
+    drawingView?.setDrawing(activeDrawing || null);
     headHost.replaceChildren(head);
-    if (current && current.id !== root && rootMaterial?.kind === "assembly") {
-      const instances = [...new Set(explodeBom(state.materialCatalog, root, options())
-        .filter(row => row.material.id === current.id)
-        .flatMap(row => bindingsFor(row.path, [...scenePartNames()])))];
-      if (instances.length) {
-        const section = el("section", "material-instances");
-        section.append(el("h3", "", "Installed instances"));
-        for (const name of instances) {
-          const button = el("button", "component-holds-row", instanceLabel(name)); button.type = "button";
-          button.title = name;
-          button.addEventListener("click", async () => {
-            const { selectComponent } = await import("./component-picker.js"); selectComponent(name);
-            const { findWhenMounted } = await import("./pick-find.js"); findWhenMounted(lastFile, `solid: ${name}`);
-          });
-          section.append(button);
-        }
-        scroll.append(section);
-      }
-    }
     const rows = explodeBom(state.materialCatalog, root, options());
     const used = current ? materialUses(state.materialCatalog, current.id, options()) : { assemblies: [], tools: [], equipment: [] };
     const docs = materialDocuments(state.materialCatalog, (current || rootMaterial)?.id, options());
     const counts = { bom: rows.length, cost: Number(costedCurrent), stock: Number(Boolean(current && state.materialCatalog.stock)), used: used.assemblies.length + used.tools.length + used.equipment.length, docs: docs.length };
     if (!tab) tab = counts.bom ? "bom" : counts.docs ? "docs" : counts.cost ? "cost" : counts.used ? "used" : "bom";
+    panel.classList.toggle("locations-active", tab === "used" && !!wrapper && used.assemblies.length > 0);
     const tabs = el("div", "material-tabs"); tabs.setAttribute("role", "tablist"); tabs.setAttribute("aria-label", "Material relationships");
     for (const [key, label] of [["bom", "BOM"], ["stock", "Stock"], ["cost", "Cost"], ["docs", "Documents"], ["used", "Where used"]]) {
       if (!counts[key] && tab !== key) continue;
-      const button = el("button", "", key === "cost" || key === "stock" ? label : `${label} (${counts[key]})`); button.type = "button";
+      const button = el("button", "", ["cost", "stock", "used"].includes(key) ? label : `${label} (${counts[key]})`); button.type = "button";
       if (key === "bom" && rootMaterial) button.title = `BOM items in ${rootMaterial.description}, including every nested level`;
       button.setAttribute("role", "tab"); button.setAttribute("aria-selected", String(tab === key));
-      button.addEventListener("click", () => { tab = key; render(); }); tabs.append(button);
+      button.addEventListener("click", () => {
+        tab = key;
+        if (key !== "used") stopLocations({ restore: true });
+        history.replaceState(history.state, "", "#" + materialHash(root, { tab: key, panel: "materials" }));
+        render();
+      }); tabs.append(button);
     }
     tabsHost.replaceChildren(tabs);
     const content = el("div", "material-tab-content"); content.setAttribute("role", "tabpanel");
@@ -597,12 +612,28 @@ export function mountMaterialPanel(workspace, { file = null, material = null } =
 
   function renderUsed(content, current, used, index) {
     if (!current) return;
-    if (!used.assemblies.length) content.append(el("p", "material-empty", "No containing assemblies recorded."));
+    if (wrapper && used.assemblies.length) {
+      if (locations?.material !== current.id) {
+        stopLocations();
+        locations = makeMaterialLocations({ material: current.id,
+          beforeScene: file => { lastFile = file; },
+          onEnter: (group, instance) => {
+            stopLocations();
+            openMaterial(group.assembly, true, { instance: instance.name, fly: false });
+          },
+        });
+      }
+      content.append(locations.node);
+    }
+    const records = el("details", "material-assembly-records");
+    records.append(el("summary", "", "Assembly records"));
+    if (!used.assemblies.length) records.append(el("p", "material-empty", "No containing assemblies recorded."));
     for (const result of used.assemblies) {
       const card = el("div", "material-used");
       card.append(materialLink(result.material), el("span", "material-meta", `${result.direct ? "Direct parent" : "Ancestor"} · ${quantity(result.quantity, result.unit)}`));
-      card.append(el("p", "material-path", result.path.map((id) => index.get(id)?.description || id).join(" → "))); content.append(card);
+      card.append(el("p", "material-path", result.path.map((id) => index.get(id)?.description || id).join(" → "))); records.append(card);
     }
+    content.append(records);
     if (used.tools.length) {
       content.append(el("h3", "", "Tools for this material"));
       used.tools.forEach((m) => content.append(materialLink(m)));
@@ -647,6 +678,7 @@ export function mountMaterialPanel(workspace, { file = null, material = null } =
     if (event?.type === HSM_EVENTS.FAUCET_OPTIONS) search.refresh();
     const mountedFile = state.mountedDetail?.file || file;
     if (file && mountedFile !== lastFile) {
+      stopLocations(); pendingInstance = null;
       // Another model: its own material, nothing selected, under the camera it opened with.
       drawingView?.closeDrawing();
       selectedBody = null; pending = null; status = ""; modelPick = false;
@@ -655,6 +687,8 @@ export function mountMaterialPanel(workspace, { file = null, material = null } =
       show({ fly: false });
       return;
     }
+    if (locations) { locations.sync(event); return; }
+    if (pendingInstance) { showInstalled(); return; }
     render();
     if (state.mountedDetail?.file !== lastFile) return;
     // A selection waiting on the model frames it once the opener has set the camera.
@@ -667,6 +701,11 @@ export function mountMaterialPanel(workspace, { file = null, material = null } =
   function picked(event) {
     if (event.detail.file !== state.mountedDetail?.file) return;
     if (event.detail.feature) return;
+    if (locations) {
+      stopLocations();
+      const model = materialForFile(state.materialCatalog, lastFile);
+      if (model) reroot(model.id);
+    }
     if (!event.detail.name) { leave({ fromModel: true }); return; }
     const pick = { fromModel: true };
     const rootMaterial = materialIndex(state.materialCatalog).get(root);
@@ -702,13 +741,17 @@ export function mountMaterialPanel(workspace, { file = null, material = null } =
   window.addEventListener(HSM_EVENTS.FAUCET_OPTIONS, sync);
   // Visibility belongs to this navigation. Manual toggles last for this view;
   // model links start closed, and material lookups open the pane.
-  function applyRoute({ panel = null, tab: requestedTab = null } = {}) {
-    tab = requestedTab === "bom" || requestedTab === "cost" || requestedTab === "stock" ? requestedTab : null;
+  function applyRoute({ panel = null, tab: requestedTab = null, instance = null, fly = true } = {}) {
+    stopLocations();
+    pendingInstance = instance ? { name: instance, fly } : null;
+    tab = ["bom", "cost", "stock", "used"].includes(requestedTab) ? requestedTab : null;
     setOpen(panel === "materials" || !!tab);
     render();
+    showInstalled();
   }
   const handle = { select, setRoot, sync, applyRoute, leave, closeDrawing: () => drawingView?.closeDrawing(), dispose: () => {
     disposed = true;
+    stopLocations();
     drawingView?.dispose();
     sheet?.dispose();
     window.removeEventListener(HSM_EVENTS.STEP_MOUNTED, sync);
