@@ -332,7 +332,8 @@ mod lookup_tests {
         let mut blob=Vec::new();
         for v in [0f32,0.,0.,1.,0.,0.,0.,1.,0.,0.,0.,1.,0.,0.,1.,0.,0.,1.] {blob.extend_from_slice(&v.to_le_bytes());}
         for v in [0u32,1,2,0,0] {blob.extend_from_slice(&v.to_le_bytes());}
-        let bytes=scene::encode(&json!({"v":3,"meshes":[{"name":"shape","pos":[0,9],"nrm":[36,9],"idx":[72,3],"fac":[84,2]}]}),&blob)?;
+        let bytes=scene::encode(&json!({"v":3,"meshes":[{"name":"shape","pos":[0,9],"nrm":[36,9],"idx":[72,3],"fac":[84,2],
+            "features":[{"id":"mount","label":"Mount surface","source":"fixture","triangles":[[0,0]]}]}]}),&blob)?;
         let packed=scene::pack(&bytes)?;
         let original=&packed["meshes"][0];
         let mut nodes=Vec::new();
@@ -341,7 +342,7 @@ mod lookup_tests {
             node["transform"]=json!([[1.,0.,0.,i as f64*100.],[0.,1.,0.,0.],[0.,0.,1.,0.]]);
             node["source"]=json!("hardware/part.step.mesh");node["source_name"]=json!("shape");node["source_sha256"]=json!("authored-source");
             node["bytes"]=json!(1_000_000_000u64);
-            if i==0 {node["asset"]=json!("ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff");}
+            if i==0 {node["asset"]=json!("ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff");node["feature_count"]=json!(0);}
             nodes.push(node);
         }
         let path=dir.join("fixture.step.mesh");
@@ -360,6 +361,20 @@ mod lookup_tests {
         assert_eq!(result["payload_sha256"],scene::digest(&fs::read(&f.scene)?));
         assert_eq!(result["source_sha256"],"scene-source");assert!(result["step_sha256"].is_null());
         assert_eq!(result["data"]["scene_solids"],4);assert_eq!(result["data"]["selected_triangles"],1);
+        assert_eq!(store.loads,0);
+        Ok(())
+    }
+
+    #[test]
+    fn feature_catalog_skips_unnamed_neighbors_without_loading_query_geometry() -> Result<()> {
+        let f=fixture()?;let mut store=Store::new(0)?;let builds=crate::build::Builder::new(&f.dir,0)?;
+        let result=execute(&mut store,&builds,Request {scene:f.scene.clone(),query:Query::Features {pattern:String::new()}},"test")?;
+        let features=result["data"]["features"].as_array().unwrap();
+        assert_eq!(features.len(),3);
+        assert_eq!(features[0]["name"],"pump-a::mount");
+        assert_eq!(features[0]["min_mm"],json!([100.,0.,0.]));
+        assert_eq!(features[1]["name"],"pump-b::mount");
+        assert_eq!(features[1]["min_mm"],json!([200.,0.,0.]));
         assert_eq!(store.loads,0);
         Ok(())
     }
