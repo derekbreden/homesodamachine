@@ -1,31 +1,31 @@
 {
   "source": {
     "path": "hardware/reference/kamoer-kphm400/scan_model.rs",
-    "sha256": "8215ed06ddf34475c9270d6618b84ca5faeccc4a815f60f6ceb33d57e07ba2cc"
+    "sha256": "597150624d414300db093b6eddb252a0e1a92363932d827ff49c6672f893be5a"
   },
   "inputs": {
-    "hardware/reference/kamoer-kphm400/reconstruct_scan.py": "d2c7e72dc00efcb1923d123a590564eb1e6b626de39cffc059d02e3a5258d04f",
-    "hardware/reference/kamoer-kphm400/scan-registration.json": "4a8a89c6caf7dd60af29b71a646b8a6f954ea3e0601c69a0d4e4165b90749114",
+    "hardware/reference/kamoer-kphm400/scan-measurements.json": "4389eeb0fd000242ee69efa903d60269a6e8e9497c7235d8d48187d5cf9075a9",
+    "hardware/reference/kamoer-kphm400/scan-model-evidence.json": "60d51d8da39c3f4e3620de8542bbc555c25e6f72b64e64b6c4634c2c1381a794",
     "hardware/reference/kamoer-kphm400/scan-evidence.json": "c3a50570b7b477309261352acebc9be39e3126fe1a83ec172f04db9f92486310"
   },
-  "evidence": "scan-model-evidence.json",
+  "evidence": "simplified-model-evidence.json",
   "members": {
-    "kamoer-kphm400.step": "7953ec09bc8f9d2cbe0f38c39be64987a30d809cff74b9f62fa9c7d2130ee1be",
-    "kamoer-kphm400.step.npz": "4ffe5555bee678fd5cb3a956104e41848a9874d23ea894f3f4ec95d759287ee9",
-    "kamoer-kphm400.step.mesh": "c41f5c831d798c1756ebe68b5ec50123c14b5645580a7d0563d495875966cf6b"
+    "kamoer-kphm400.step": "b0ed413ba03c43ed84905b4f8b9c57b5c58094cadef1250f1f8cf5aa683ce772",
+    "kamoer-kphm400.step.npz": "940ef824a874a38ff8caf1a53ac776519f22830fed247a8d6616be29d759fb05",
+    "kamoer-kphm400.step.mesh": "400ea7e4f1b5321ebe60110a3af80a3a9bbe6f54e0783eefa394e902e20b54c9"
   },
   "fine_models": {
     "kamoer-kphm400.step": {
       "path": "kamoer-kphm400.step.npz",
-      "sha256": "4ffe5555bee678fd5cb3a956104e41848a9874d23ea894f3f4ec95d759287ee9",
-      "source_step_sha256": "7953ec09bc8f9d2cbe0f38c39be64987a30d809cff74b9f62fa9c7d2130ee1be",
+      "sha256": "940ef824a874a38ff8caf1a53ac776519f22830fed247a8d6616be29d759fb05",
+      "source_step_sha256": "b0ed413ba03c43ed84905b4f8b9c57b5c58094cadef1250f1f8cf5aa683ce772",
       "producer": "hardware/reference/kamoer-kphm400/scan_model.rs"
     }
   },
   "fine_payload": {
     "path": "kamoer-kphm400.step.mesh",
-    "sha256": "c41f5c831d798c1756ebe68b5ec50123c14b5645580a7d0563d495875966cf6b",
-    "source_step_sha256": "7953ec09bc8f9d2cbe0f38c39be64987a30d809cff74b9f62fa9c7d2130ee1be",
+    "sha256": "400ea7e4f1b5321ebe60110a3af80a3a9bbe6f54e0783eefa394e902e20b54c9",
+    "source_step_sha256": "b0ed413ba03c43ed84905b4f8b9c57b5c58094cadef1250f1f8cf5aa683ce772",
     "producer": "hardware/reference/kamoer-kphm400/scan_model.rs",
     "color_space": "linear-rgb",
     "meshes": [
