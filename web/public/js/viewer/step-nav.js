@@ -217,6 +217,16 @@ export async function previewStep(file) {
   return showStep(file, false, null, { preview: true });
 }
 
+// Opening a preview adds the navigation entry its background model load did not add.
+export function enterStepPreview(file, parents) {
+  trail = [...parents];
+  legs = new Array(trail.length).fill(null);
+  const path = [...trail, file];
+  history.pushState({ materialPath: path }, "", "#" + stepHash(path));
+  pushed += 1;
+  syncCrumb(file);
+}
+
 async function drill(file, view = null) {
   const from = state.mountedDetail && state.mountedDetail.file;
   if (!from || file === from) return;

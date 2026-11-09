@@ -85,6 +85,13 @@ test("locations preview compounds and repeated copies, preserve selection and hi
           assert.ok(await page.$eval('.component-held-here', node => node.getBoundingClientRect().width > 80));
         }
         await capture('pisco-entered');
+        await page.goBack();
+        await page.waitForFunction(() => document.querySelector('.material-locations')?.dataset.instance === 'gas-regulator'
+          && !window.__hsm.currentGroup.userData.sceneLoading, { timeout: 30000 });
+        assert.match(await page.evaluate(() => location.hash), /material:HSM-0331/);
+        await page.goForward();
+        await page.waitForFunction(() => document.querySelector('.component-panel.show .component-body-name')?.textContent === 'CAD body: gas-regulator'
+          && !document.querySelector('.cad-workspace').classList.contains('materials-open'), { timeout: 15000 });
         await page.reload();
         await waitReady(page);
         await page.waitForFunction(() => document.querySelector('.component-panel.show .component-body-name')?.textContent === 'CAD body: gas-regulator', { timeout: 15000 });
