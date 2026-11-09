@@ -177,7 +177,11 @@ export function inspectPart(query, options = {}) {
       view: report, elapsed_ms: performance.now() - started,
     };
     fs.writeFileSync(path.join(out, "inspection.json"), JSON.stringify(result, null, 2) + "\n");
-    return { output: out, image: report ? job.out : null, record: path.join(out, "inspection.json"), camera: path.join(out, "render-job.json"), elapsed_ms: result.elapsed_ms };
+    return { output: out, image: report ? job.out : null, record: path.join(out, "inspection.json"), camera: path.join(out, "render-job.json"),
+      payload_sha256: all.payload_sha256,
+      measurements: { gaps: measured.map(item => item.data), overlaps: overlaps.map(item => item.result.data),
+        rays: rays.map(item => ({ query: item.query, closest: item.result.data.closest })) },
+      elapsed_ms: result.elapsed_ms };
   } finally { fs.rmSync(snapshot, { force: true }); }
 }
 

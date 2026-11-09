@@ -89,6 +89,8 @@ interferences and rays without drawing. Saved inspections and render jobs retain
 bodies, feature, neighbours, mates, rays, section and camera;
 reuse repeats those questions against the latest exported payload. An explicit new query
 reuses the camera without inheriting the other subject's measurement questions.
+The command prints the focused answers and payload digest directly; `inspection.json`
+retains the full measurement and source record.
 
 `--model` also accepts a repository-relative or absolute local payload path. With an explicit
 `--body`, it can inspect a completed part in a temporary output directory before its assembly
