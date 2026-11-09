@@ -14,7 +14,7 @@ let count=Number($('copies').value);
 export function inspectLab(){
   return {route:navigation?.route,selection:navigation?.selection,resources:resources.map(item=>({...item})),preview:preview?.stats(),native:{loaded:Boolean(api),current,loadedModelTexts:Object.keys(models)},busy,count};
 }
-const names={parent:'Parent assembly',core:'Carbonator core',tube:'Tube',endcap:'Endcap',representation:'Assembly envelope'};
+const names={parent:'Parent assembly',core:'Carbonator core',tube:'Tube',endcap:'Endcap',representation:'Saved exterior'};
 const dimensions={tube:{length:'Tube length'},endcap:{thickness:'Plate thickness'},core:{cap_recess:'Cap recess'},parent:{},representation:{}};
 
 function status(text,error=false){$('status').textContent=text;$('status').toggleAttribute('data-error',error);}
@@ -57,7 +57,7 @@ function lock(value,label){
   $('copies').disabled=value||nativeVisible;
   $('section').disabled=value||nativeVisible||!expanded;
   $('explode').disabled=value||nativeVisible||navigation?.kind!=='core';
-  $('state-label').textContent=label||(nativeVisible?names[current]+' · native':navigation?.kind==='parent'?'Assembly envelope':navigation?.kind==='core'?'Exact core display':'Saved part display');
+  $('state-label').textContent=label||(nativeVisible?names[current]+' · native':navigation?.kind==='parent'?'Saved exterior':navigation?.kind==='core'?'Exact core display':'Saved part display');
   $('state-dot').toggleAttribute('data-ready',!value);
 }
 function store(){
@@ -197,7 +197,7 @@ async function importModel(kind,{keep=true}={}){
   await api.request('ui.set',{showBrowser:panels,showTimeline:panels});
   await api.execute('view.ribbon_tabs_only',{on:!panels});
   await api.request('ui.view',{view:'iso'});await api.request('ui.view',{view:'fit'});
-  note(`Open ${names[kind]}`,performance.now()-started,kind==='parent'?'Envelope only; no tube or endcap geometry requested.':kind==='core'?'Exact saved part bodies; leaf histories remain closed.':kind==='representation'?'Exterior bounds published by the exact core.':'Only this part’s editable history is evaluated.');
+  note(`Open ${names[kind]}`,performance.now()-started,kind==='parent'?'Saved exterior only; no child component definitions or histories requested.':kind==='core'?'Exact saved part bodies; leaf histories remain closed.':kind==='representation'?'Finished exterior dimensions and cap placements published by the exact core.':'Only this part’s editable history is evaluated.');
   await capture();await sync();$('cover').hidden=true;
 }
 async function action(label,work){
@@ -271,14 +271,24 @@ $('publish').addEventListener('click',()=>action('Updating linked assemblies',as
       if(solved.errors.length||solved.conflicts.length)throw new Error('The updated core has unresolved joints.');
       await capture();
     }
-    const measured=await api.execute('inspect.measure',{bodies:['Tube wall']});
-    const bounds=measured.bodies[0].bbox;
-    const outerDiameter=Number((bounds.max[0]-bounds.min[0]).toFixed(9));
-    const length=Number((bounds.max[2]-bounds.min[2]).toFixed(9));
-    const changed=outerDiameter!==exterior.outer_diameter||length!==exterior.length;
+    const measured=await api.execute('inspect.measure',{});
+    const tube=measured.bodies.find(body=>body.name==='Tube wall');
+    const caps=measured.bodies.filter(body=>body.name.startsWith('Endcap blank')).sort((a,b)=>a.bbox.min[2]-b.bbox.min[2]);
+    const faces=await api.execute('model.faces',{body:'Tube wall'});
+    const radii=faces.faces.filter(face=>face.cylinder).map(face=>face.cylinder.radius).sort((a,b)=>a-b);
+    const next=Object.fromEntries(Object.entries({
+      outer_diameter:radii.at(-1)*2,
+      bore_diameter:radii[0]*2,
+      length:tube.bbox.max[2]-tube.bbox.min[2],
+      cap_diameter:caps[0].bbox.max[0]-caps[0].bbox.min[0],
+      cap_thickness:caps[0].bbox.max[2]-caps[0].bbox.min[2],
+      bottom_recess:caps[0].bbox.min[2]-tube.bbox.min[2],
+      top_recess:tube.bbox.max[2]-caps[1].bbox.max[2],
+    }).map(([name,value])=>[name,Number(value.toFixed(9))]));
+    const changed=Object.entries(next).some(([name,value])=>value!==exterior[name]);
     if(changed){
       await importModel('representation',{keep:false});
-      await api.execute('parameters.change',{changes:{outer_diameter:`${outerDiameter} mm`,length:`${length} mm`}});
+      await api.execute('parameters.change',{changes:Object.fromEntries(Object.entries(next).map(([name,value])=>[name,value+' mm']))});
       await api.execute('file.save_as',{path:'representation.sc',cache:true,overwrite:true});
       await capture();
     }
@@ -286,12 +296,12 @@ $('publish').addEventListener('click',()=>action('Updating linked assemblies',as
     if(changed){
       const result=await api.execute('component.update_links',{component:'Carbonator core'});
       if(result.failed.length)throw new Error(result.failed[0].error);
-      exterior={outer_diameter:outerDiameter,length};
+      exterior=next;
     }
     await api.request('ui.view',{view:'fit'});
     navigation.go({path:['parent'],count},{replace:true,notify:false});
-    note('Update '+names[leaf]+' → parent',performance.now()-started,changed?'Parent envelope updated from the exterior bounds.':'Parent envelope unchanged; the edit stays inside the exact core.');
-    status(changed?'Parent envelope updated. Exact tube and cap geometry stays in the core.':'Exact core updated. Its exterior bounds are unchanged, so the parent envelope is unchanged.');
+    note('Update '+names[leaf]+' → parent',performance.now()-started,changed?'Saved exterior updated, including the bore, cap thickness and recesses.':'Saved exterior dimensions are unchanged.');
+    status(changed?'Parent exterior updated. The tube rim and cap recesses remain visible without opening child designs.':'Exact core updated. Its saved exterior dimensions are unchanged.');
   }catch(error){
     if(current===leaf)await importModel(leaf,{keep:false});
     throw error;

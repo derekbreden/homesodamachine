@@ -1,105 +1,62 @@
 {
+  "engine": "solidcraft-cli 0.40.0-rc.3",
   "source_files": {
     "parts/tube.json": "5fd1f4b7f910c7d4f55199701c723c2780d59231ea6cd5dc5c9a358e99bd6f13",
     "parts/endcap.json": "34794fa6860c03b67702d316ad4967c9fcc4524b0a999717b57b61a3bf13a1d2",
     "carbonator.json": "b745106cf2920be2e018996235ec7c1049cb2075da192764ee3c9f0fde6aa7b4",
-    "representation.json": "33f4108a8b849c655471c023ba8999c9b8130a591095a035555825104f240476",
-    "parent.json": "42f74fe9e434009ef8992c510d46e07dea26cbab803f9c8072d22f5c4cb2c0d8"
+    "representation.json": "6a1c137e67c8a658003a1ae92246c55551ccc9b55db77577bd63c5e6c045e6dd",
+    "parent.json": "a0062c525b1f40c054bf6cfa681600b966bc4ee58c177241a4d5bf9133b874ad"
   },
-  "engine": "solidcraft-cli 0.40.0-rc.3",
-  "scope": "Independent tube and unported endcap fit-up with a separate native envelope for parent layout.",
+  "scope": "The parent retains the finished barrel and recessed caps as an opaque component without child designs or assembly joints.",
   "construction": {
-    "tube_features": 2,
-    "endcap_features": 2,
-    "core_link_features": 2,
-    "core_body_definitions": 2,
-    "cap_occurrences": 2,
-    "core_joints": 2,
-    "representation_primitive_features": 1,
+    "reference_component_definitions": 1,
+    "reference_primitive_features": 4,
+    "parent_component_definitions": 1,
     "parent_link_features": 1,
-    "parent_body_definitions": 1
-  },
-  "isolated_open": {
-    "core_without_part_files": {
-      "closed_world_bodies": 3
-    },
-    "parent_without_representation_core_or_part_files": {
-      "closed_world_bodies": 1,
-      "body_names": [
-        "Carbonator envelope"
-      ]
+    "parent_saved_body_count": 3,
+    "reference_inputs": {
+      "outer_diameter": 127.0,
+      "bore_diameter": 123.698,
+      "length": 152.4,
+      "cap_diameter": 123.444,
+      "cap_thickness": 6.35,
+      "bottom_recess": 6.35,
+      "top_recess": 6.35
     }
   },
-  "exact_fit": {
-    "radial_clearance_mm": 0.127,
-    "joint_errors": [],
-    "joint_conflicts": [],
-    "floating_occurrences": [],
-    "degrees_of_freedom": [
-      {
-        "dof": 0,
-        "occurrence": 0
-      },
-      {
-        "dof": 0,
-        "occurrence": 2
-      },
-      {
-        "dof": 0,
-        "occurrence": 5
-      },
-      {
-        "dof": 0,
-        "occurrence": 7
-      }
-    ],
-    "interferences": 0,
-    "unchecked_pairs": []
+  "native_geometry_agreement": {
+    "Core barrel": {
+      "source_body": "Tube wall",
+      "max_bbox_difference_mm": 7.574317988046465e-15,
+      "volume_difference_mm3": -1.277076080441475e-06,
+      "closed": true
+    },
+    "Core lower cap": {
+      "source_body": "Endcap blank",
+      "max_bbox_difference_mm": 5.1514348342607263e-14,
+      "volume_difference_mm3": 1.3165990822017193e-06,
+      "closed": true
+    },
+    "Core upper cap": {
+      "source_body": "Endcap blank (Endcap:2)",
+      "max_bbox_difference_mm": 3.410605131648481e-13,
+      "volume_difference_mm3": 1.316584530286491e-06,
+      "closed": true
+    }
+  },
+  "isolated_parent_open": {
+    "representation_file_present": false,
+    "core_file_present": false,
+    "part_files_present": false,
+    "closed_bodies": 3,
+    "feature_errors": []
   },
   "display_cache": {
-    "tube": {
-      "source_triangles": 8704,
-      "display_triangles": 1024,
-      "source_mesh_volume_mm3": 99043.79115873679,
-      "display_mesh_volume_mm3": 99043.79115872298,
-      "bounds": [
-        [
-          -63.5,
-          -63.5,
-          -7.57431769214667e-15
-        ],
-        [
-          63.5,
-          63.5,
-          152.39999389648438
-        ]
-      ],
-      "bytes": 44404
-    },
-    "endcap": {
-      "source_triangles": 94112,
-      "display_triangles": 2044,
-      "source_mesh_volume_mm3": 75996.32641315112,
-      "display_mesh_volume_mm3": 75996.32641318828,
-      "bounds": [
-        [
-          -61.72200012207031,
-          -61.72200012207031,
-          0.0
-        ],
-        [
-          61.72200012207031,
-          61.72200012207031,
-          6.349999904632568
-        ]
-      ],
-      "bytes": 87932
-    },
     "representation": {
-      "source_triangles": 7648,
-      "display_triangles": 508,
-      "source_mesh_volume_mm3": 1929775.1116876083,
-      "display_mesh_volume_mm3": 1929775.111687609,
+      "source_triangles": 205632,
+      "display_triangles": 5112,
+      "source_mesh_volume_mm3": 251036.4770943416,
+      "display_mesh_volume_mm3": 251036.47709430807,
       "bounds": [
         [
           -63.49052047729492,
@@ -112,182 +69,169 @@
           152.39999389648438
         ]
       ],
-      "bytes": 22712
+      "bytes": 218308
     }
   },
   "website_review": {
-    "checked_at": "2026-11-09T03:00:45.659Z",
+    "checked_at": "2026-11-09T04:13:02.299Z",
     "environment": "Local route in headless Chrome on the shared Mac",
+    "source_files": {
+      "main.js": "ae80b9460c2cc2d2faf2ddc8ba7e36a9d680e421b367e4a9e9dabb70424464f3",
+      "component-navigation.js": "6479c2b1ad2406e813532c259f4a35cf902b8108587bc1c818094fa68daafe4c",
+      "preview.js": "20d16b34284dcfe7506d7f0417edc5b2d0db96c5d3472c23a38209fed1b3a3cf",
+      "module.json": "42b64d34bba98358fee569c4f7e5ac16340efcd973c809637bf634771373d68f",
+      "index.html": "d02c1b66206de1d7d3a1636b6b9e06626aac662a363d67640bcb5d733cf51641"
+    },
+    "parent_and_core_recesses_visually_reviewed": true,
+    "parent_and_core_finish_matches": true,
+    "camera_continuity": true,
     "initial_model_resources": [
       {
         "url": "/solidcraft-lab/carbonator/module.json",
         "type": "module interface",
         "label": "Carbonator module",
-        "bytes": 436
+        "bytes": 575
       },
       {
-        "url": "/solidcraft-lab/carbonator/assets/representation.glb?v=b2a39c7b0561a001",
+        "url": "/solidcraft-lab/carbonator/assets/representation.glb?v=0d6293dc87a97fcc",
         "type": "display",
         "label": "Carbonator saved shape",
-        "bytes": 22712
+        "bytes": 218308
       }
     ],
     "initial_native_engine_loaded": false,
-    "initial_editable_designs_loaded": [],
+    "initial_geometry_count": 1,
     "repeated_placements": 64,
-    "repeated_display": {
-      "calls": 1,
-      "triangles": 32512,
-      "count": 64,
-      "expanded": false,
-      "geometries": 1
+    "repeated_draw_calls": 1,
+    "native_parent_features": 1,
+    "native_parent_saved_bodies": 3,
+    "native_parent_child_sources_requested": false,
+    "recess_edit": {
+      "recess_mm": 8,
+      "parent_cap_bboxes": {
+        "Core lower cap": {
+          "max": [
+            61.722,
+            61.722,
+            14.350000000000003
+          ],
+          "min": [
+            -61.722,
+            -61.722,
+            8
+          ]
+        },
+        "Core upper cap": {
+          "max": [
+            61.722,
+            61.722,
+            144.4
+          ],
+          "min": [
+            -61.722,
+            -61.722,
+            138.05
+          ]
+        }
+      },
+      "leaf_sources_requested": false
     },
-    "repeated_model_resource_count": 2,
-    "expanded_authoring_files": [],
-    "direct_native_parent": {
-      "feature_count": 1,
-      "body_names": [
-        "Carbonator envelope"
-      ],
-      "requested_native_sources": [
-        "/labs/solidcraft/carbonator/native/parent"
-      ]
+    "shared_cap_edit": {
+      "thickness_mm": 7.5,
+      "parent_cap_bboxes": {
+        "Core lower cap": {
+          "max": [
+            61.722,
+            61.722,
+            15.5
+          ],
+          "min": [
+            -61.722,
+            -61.722,
+            8
+          ]
+        },
+        "Core upper cap": {
+          "max": [
+            61.722,
+            61.722,
+            144.4
+          ],
+          "min": [
+            -61.722,
+            -61.722,
+            136.89999999999998
+          ]
+        }
+      },
+      "tube_authoring_requested": false
     },
     "tube_edit": {
       "length_mm": 177.8,
-      "updated_parent_features": 1,
-      "updated_parent_body_definitions": 1,
-      "updated_parent_world_bodies": 64,
-      "top_cap_bbox": {
-        "max": [
-          61.722000000000634,
-          61.72199999999994,
-          171.45000000000323
-        ],
-        "min": [
-          -61.72199999999969,
-          -61.72200000000013,
-          165.09999999999698
-        ]
-      },
-      "endcap_authoring_requested": false,
-      "repeated_publication": true
-    },
-    "internal_edit": {
-      "cap_recess_mm": 8,
-      "cap_thickness_mm": 7.5,
-      "cap_bboxes": [
-        {
+      "parent_body_bboxes": {
+        "Core lower cap": {
           "max": [
-            61.72199999999998,
             61.722,
-            15.500000000000052
+            61.722,
+            15.5
           ],
           "min": [
-            -61.72200000000003,
             -61.722,
-            7.9999999999999485
+            -61.722,
+            8
           ]
         },
-        {
+        "Core upper cap": {
           "max": [
-            61.721999999999994,
-            61.722000000000065,
-            144.40000000000026
+            61.722,
+            61.722,
+            169.80000000000004
           ],
           "min": [
-            -61.72200000000001,
-            -61.721999999999966,
-            136.89999999999966
+            -61.722,
+            -61.722,
+            162.3
+          ]
+        },
+        "Core barrel": {
+          "max": [
+            63.5,
+            63.50000000000001,
+            177.80000000000007
+          ],
+          "min": [
+            -63.50000000000001,
+            -63.500000000000014,
+            0
           ]
         }
-      ],
-      "tube_authoring_requested": false,
-      "envelope_authoring_requested": false,
-      "parent_envelope_changed": false
+      }
     },
-    "resume_without_native_source_fetch": true,
-    "background_runtime_unloaded": true,
-    "reference_return_unloads_runtime": true,
     "mobile": {
       "width_css_px": 390,
       "scroll_width_css_px": 390,
-      "native_engine_loaded": false
+      "native_engine_loaded": false,
+      "model_resources": [
+        {
+          "url": "/solidcraft-lab/carbonator/module.json",
+          "type": "module interface",
+          "label": "Carbonator module",
+          "bytes": 575
+        },
+        {
+          "url": "/solidcraft-lab/carbonator/assets/representation.glb?v=0d6293dc87a97fcc",
+          "type": "display",
+          "label": "Carbonator saved shape",
+          "bytes": 218308
+        }
+      ]
     },
     "page_errors": []
   },
   "limits": [
-    "The parent envelope supplies exterior layout bounds. Exact fit, mass and manufacturing use the core or leaf design.",
-    "Native links omit source histories but load all finished bodies embedded in the active representation. They do not automatically stream nested geometry.",
-    "The explicit envelope is authored in SolidCraft and updated from the exact tube exterior by the lab coordinator.",
-    "Repeated simple envelopes test definition reuse and loading boundaries, not complete-enclosure geometry performance."
-  ],
-  "navigation_review": {
-    "checked_at": "2026-11-09T03:27:44.700Z",
-    "environment": "Local route in headless Chrome on the shared Mac",
-    "source_files": {
-      "component-navigation.js": "15ca1ee35bedc452428833a1c94377f9a32b8076862d49b47e9ae7f4ed52b593",
-      "preview.js": "20d16b34284dcfe7506d7f0417edc5b2d0db96c5d3472c23a38209fed1b3a3cf",
-      "main.js": "b8480469a705013f62549f8fa3e271f91b2893c450f658413f590403ff668db3",
-      "children.json": "cb06c9f5f27f0f62c408ed03f9fff60870f4a4dfd75490a6dd963624355349bd",
-      "index.html": "a2e8cc39bf8b3637b6115619c458ac8df2e6d2218685bf1803b66aab8588db09",
-      "style.css": "d4cfab1903d6fec86e0d4c7a38fcef5061627d4c8f39d1a6e17d0e740d727db8"
-    },
-    "canvas_selection_without_descendant_requests": true,
-    "list_selection_highlights_geometry": true,
-    "canvas_retained_across_navigation": true,
-    "camera_preserved_across_core_and_leaf_navigation": true,
-    "browser_back_and_forward": true,
-    "breadcrumb_return": true,
-    "repeated_instance_identity_preserved": true,
-    "hide_and_show_are_view_local": true,
-    "idle_preview_stops_drawing": true,
-    "shared_camera_module": "/js/viewer/navigation.js",
-    "initial_model_resources": [
-      {
-        "url": "/solidcraft-lab/carbonator/module.json",
-        "type": "module interface",
-        "label": "Carbonator module",
-        "bytes": 436
-      },
-      {
-        "url": "/solidcraft-lab/carbonator/assets/representation.glb?v=b2a39c7b0561a001",
-        "type": "display",
-        "label": "Carbonator saved shape",
-        "bytes": 22712
-      }
-    ],
-    "repeated_display_calls": 1,
-    "direct_leaf_model_resources": [
-      {
-        "url": "/solidcraft-lab/carbonator/module.json",
-        "type": "module interface",
-        "label": "Carbonator module",
-        "bytes": 436
-      },
-      {
-        "url": "/solidcraft-lab/carbonator/children.json",
-        "type": "assembly interfaces",
-        "label": "Core part list and placements",
-        "bytes": 2310
-      },
-      {
-        "url": "/solidcraft-lab/carbonator/assets/endcap.glb?v=96de12bb6fc55643",
-        "type": "display",
-        "label": "Endcap saved shape",
-        "bytes": 87932
-      }
-    ],
-    "direct_leaf_native_engine_loaded": false,
-    "native_tube_edit_updates_parent": true,
-    "native_parent_body_definitions": 1,
-    "native_parent_world_bodies": 64,
-    "mobile_width_css_px": 390,
-    "mobile_scroll_width_css_px": 390,
-    "page_errors": [],
-    "section_follows_placed_core": {
-      "checked_at": "2026-11-09T03:35:36.312566+00:00",
-      "review": "Visual section through a core translated along the parent layout axes."
-    }
-  }
+    "The small core keeps the full simple barrel and cap shapes because each contributes to its exterior. Its parent does load that saved geometry.",
+    "Native links omit child histories but load the finished bodies embedded in the active representation together; they do not automatically stream nested geometry.",
+    "The repeated-module case evaluates shared geometry and loading boundaries, not complete-enclosure performance.",
+    "Production fit and manufacturing use the core or leaf design."
+  ]
 }
