@@ -164,12 +164,11 @@
   ],
   "items": [
     {
-      "id": "Main board \u2014 JLCPCB-assembled, delivered (order.md)",
-      "name": "Main board \u2014 JLCPCB-assembled, delivered (order.md)",
+      "id": "Main board — JLCPCB-assembled, delivered (order.md)",
+      "name": "Main board — JLCPCB-assembled, delivered (order.md)",
       "bomLines": [
         15
       ],
-      "perUnit": 1.0,
       "unit": "pieces",
       "supplier": "jlc",
       "priceBasis": "delivered",
@@ -184,19 +183,7 @@
         }
       ],
       "sourceUrl": "https://jlcpcb.com/",
-      "inventory": {
-        "onHand": 10,
-        "incoming": 0,
-        "basis": "ledger_estimate",
-        "estimated": true,
-        "sources": [
-          {
-            "path": "hardware/ledger/purchases.md",
-            "line": 346
-          }
-        ],
-        "note": "Ten batch-2 assembled boards credited, including the reusable bench board, subject to normal acceptance. The ten batch-1 boards are excluded: the bench log records undrilled vias and explicitly rules out rework. See hardware/pcb/pcba/bench-log.md."
-      }
+      "stock": "Main board — JLCPCB-assembled, delivered (order.md)"
     },
     {
       "id": "B0C15WJXL2",
@@ -204,7 +191,6 @@
       "bomLines": [
         16
       ],
-      "perUnit": 1.0,
       "unit": "pieces",
       "supplier": "amazon",
       "priceBasis": "merchandise",
@@ -219,19 +205,7 @@
         }
       ],
       "sourceUrl": "https://www.amazon.com/dp/B0C15WJXL2",
-      "inventory": {
-        "onHand": 9.0,
-        "incoming": 0,
-        "basis": "ledger_estimate",
-        "estimated": true,
-        "sources": [
-          {
-            "path": "hardware/ledger/purchases.md",
-            "line": 444
-          }
-        ],
-        "note": "Acquired quantity from the purchase ledger; usable remainder after development is not separately counted. This is an inventory-credit estimate."
-      }
+      "stock": "B0C15WJXL2"
     },
     {
       "id": "B0D925SBYF",
@@ -239,7 +213,6 @@
       "bomLines": [
         17
       ],
-      "perUnit": 1.0,
       "unit": "pieces",
       "supplier": "amazon",
       "priceBasis": "merchandise",
@@ -254,35 +227,14 @@
         }
       ],
       "sourceUrl": "https://www.amazon.com/dp/B0D925SBYF",
-      "inventory": {
-        "onHand": 3.0,
-        "incoming": 0,
-        "basis": "ledger_estimate",
-        "estimated": true,
-        "sources": [
-          {
-            "path": "hardware/ledger/purchases.md",
-            "line": 338
-          },
-          {
-            "path": "hardware/ledger/purchases.md",
-            "line": 340
-          },
-          {
-            "path": "hardware/ledger/purchases.md",
-            "line": 341
-          }
-        ],
-        "note": "Acquired quantity from the purchase ledger; usable remainder after development is not separately counted. This is an inventory-credit estimate."
-      }
+      "stock": "B0D925SBYF"
     },
     {
       "id": "B0FCF1MGT3",
-      "name": "Waveshare ESP32-S3 1.47\" Touch LCD, 172\u00d7320 (B0FCF1MGT3)",
+      "name": "Waveshare ESP32-S3 1.47\" Touch LCD, 172×320 (B0FCF1MGT3)",
       "bomLines": [
         18
       ],
-      "perUnit": 1.0,
       "unit": "pieces",
       "supplier": "waveshare",
       "priceBasis": "merchandise",
@@ -297,27 +249,7 @@
         }
       ],
       "sourceUrl": "https://www.waveshare.com/esp32-s3-touch-lcd-1.47.htm",
-      "inventory": {
-        "onHand": 5.0,
-        "incoming": 0,
-        "basis": "ledger_estimate",
-        "estimated": true,
-        "sources": [
-          {
-            "path": "hardware/ledger/purchases.md",
-            "line": 339
-          },
-          {
-            "path": "hardware/ledger/purchases.md",
-            "line": 342
-          },
-          {
-            "path": "hardware/ledger/purchases.md",
-            "line": 343
-          }
-        ],
-        "note": "Acquired quantity from the purchase ledger; usable remainder after development is not separately counted. This is an inventory-credit estimate."
-      }
+      "stock": "B0FCF1MGT3"
     },
     {
       "id": "B0CNRST18V",
@@ -325,7 +257,6 @@
       "bomLines": [
         19
       ],
-      "perUnit": 1.0,
       "unit": "pieces",
       "supplier": "amazon",
       "priceBasis": "merchandise",
@@ -340,31 +271,14 @@
         }
       ],
       "sourceUrl": "https://www.amazon.com/dp/B0CNRST18V",
-      "inventory": {
-        "onHand": 2.0,
-        "incoming": 0,
-        "basis": "ledger_estimate",
-        "estimated": true,
-        "sources": [
-          {
-            "path": "hardware/ledger/purchases.md",
-            "line": 456
-          },
-          {
-            "path": "hardware/ledger/purchases.md",
-            "line": 457
-          }
-        ],
-        "note": "Acquired quantity from the purchase ledger; usable remainder after development is not separately counted. This is an inventory-credit estimate."
-      }
+      "stock": "B0CNRST18V"
     },
     {
-      "id": "OnlineMetals #12498 \u2014 5\" OD \u00d7 0.065\" wall 316 welded SS round tube",
-      "name": "OnlineMetals #12498 \u2014 5\" OD \u00d7 0.065\" wall 316 welded SS round tube",
+      "id": "OnlineMetals #12498 — 5\" OD × 0.065\" wall 316 welded SS round tube",
+      "name": "OnlineMetals #12498 — 5\" OD × 0.065\" wall 316 welded SS round tube",
       "bomLines": [
         27
       ],
-      "perUnit": 1.0,
       "unit": "pieces",
       "supplier": "metals",
       "priceBasis": "delivered",
@@ -379,19 +293,7 @@
         }
       ],
       "sourceUrl": "https://www.onlinemetals.com/en/buy/stainless-steel/5-od-x-0-065-wall-x-4-87-id-stainless-round-tube-316-welded/pid/12498",
-      "inventory": {
-        "onHand": 10,
-        "incoming": 0,
-        "basis": "ledger_estimate",
-        "estimated": true,
-        "sources": [
-          {
-            "path": "hardware/ledger/purchases.md",
-            "line": 71
-          }
-        ],
-        "note": "Ten purchased 6-inch tube cuts credited. No completed production-vessel or scrapped-stock count is recorded; remaining usable cuts are an estimate."
-      }
+      "stock": "OnlineMetals #12498 — 5\" OD × 0.065\" wall 316 welded SS round tube"
     },
     {
       "id": "SendCutSend 1/4\"-thick 316 SS circular endcap plate (`endcap-circular-2hole.dxf`)",
@@ -399,7 +301,6 @@
       "bomLines": [
         28
       ],
-      "perUnit": 2.0,
       "unit": "pieces",
       "supplier": "scs",
       "priceBasis": "delivered",
@@ -414,27 +315,14 @@
         }
       ],
       "sourceUrl": "https://sendcutsend.com/",
-      "inventory": {
-        "onHand": 20,
-        "incoming": 0,
-        "basis": "ledger_estimate",
-        "estimated": true,
-        "sources": [
-          {
-            "path": "hardware/ledger/purchases.md",
-            "line": 72
-          }
-        ],
-        "note": "Twenty current 316 endcaps credited; the acquired 304 plan-B plates are excluded. Remaining usable blanks are an estimate."
-      }
+      "stock": "SendCutSend 1/4\"-thick 316 SS circular endcap plate (`endcap-circular-2hole.dxf`)"
     },
     {
       "id": "B0CZ38MYL1",
-      "name": "TAISHER 2PCS 316L SS 90\u00b0 Barstock Street Elbow, 1/4\" NPT M \u00d7 1/4\" NPT F",
+      "name": "TAISHER 2PCS 316L SS 90° Barstock Street Elbow, 1/4\" NPT M × 1/4\" NPT F",
       "bomLines": [
         29
       ],
-      "perUnit": 4.0,
       "unit": "pieces",
       "supplier": "amazon",
       "priceBasis": "merchandise",
@@ -449,35 +337,14 @@
         }
       ],
       "sourceUrl": "https://www.amazon.com/dp/B0CZ38MYL1",
-      "inventory": {
-        "onHand": 5,
-        "incoming": 0,
-        "basis": "ledger_estimate",
-        "estimated": true,
-        "sources": [
-          {
-            "path": "hardware/ledger/purchases.md",
-            "line": 172
-          },
-          {
-            "path": "hardware/ledger/purchases.md",
-            "line": 173
-          },
-          {
-            "path": "hardware/ledger/purchases.md",
-            "line": 180
-          }
-        ],
-        "note": "Six elbows acquired; one is reserved for the destructive jet weld coupon specified in the order. Five are credited to machines; usable remainder is estimated."
-      }
+      "stock": "B0CZ38MYL1"
     },
     {
       "id": "B0FYCJJXCS",
-      "name": "Water-inlet jet cap, 316 SS, nominal \u00d89.5 \u00d7 2 mm with 1/16-inch passage",
+      "name": "Water-inlet jet cap, 316 SS, nominal Ø9.5 × 2 mm with 1/16-inch passage",
       "bomLines": [
         30
       ],
-      "perUnit": 1,
       "unit": "caps",
       "supplier": "amazon",
       "priceBasis": "merchandise",
@@ -492,19 +359,7 @@
         }
       ],
       "sourceUrl": "https://www.amazon.com/dp/B0FYCJJXCS",
-      "inventory": {
-        "onHand": 29.0,
-        "incoming": 0,
-        "basis": "ledger_estimate",
-        "estimated": true,
-        "sources": [
-          {
-            "path": "hardware/ledger/purchases.md",
-            "line": 96
-          }
-        ],
-        "note": "Recorded purchase supplies 30 caps. A provisional one-machine consumption reserve of 1 is deducted for development; the remaining stock is uncounted and marked *."
-      }
+      "stock": "B0FYCJJXCS"
     },
     {
       "id": "B07C9ZV4PG",
@@ -512,7 +367,6 @@
       "bomLines": [
         31
       ],
-      "perUnit": 75,
       "unit": "in",
       "supplier": "amazon",
       "priceBasis": "merchandise",
@@ -527,19 +381,7 @@
         }
       ],
       "sourceUrl": "https://www.amazon.com/dp/B07C9ZV4PG",
-      "inventory": {
-        "onHand": 525.0,
-        "incoming": 0,
-        "basis": "ledger_estimate",
-        "estimated": true,
-        "sources": [
-          {
-            "path": "hardware/ledger/purchases.md",
-            "line": 35
-          }
-        ],
-        "note": "Recorded purchase supplies 600 in. A provisional one-machine consumption reserve of 75 is deducted for development; the remaining stock is uncounted and marked *."
-      }
+      "stock": "B07C9ZV4PG"
     },
     {
       "id": "B00DHMHSGM",
@@ -547,7 +389,6 @@
       "bomLines": [
         32
       ],
-      "perUnit": 1,
       "unit": "builds",
       "supplier": "amazon",
       "priceBasis": "merchandise",
@@ -562,19 +403,7 @@
         }
       ],
       "sourceUrl": "https://www.amazon.com/dp/B00DHMHSGM",
-      "inventory": {
-        "onHand": 33.0,
-        "incoming": 0,
-        "basis": "ledger_estimate",
-        "estimated": true,
-        "sources": [
-          {
-            "path": "hardware/ledger/purchases.md",
-            "line": 49
-          }
-        ],
-        "note": "Recorded purchase supplies 34 builds. A provisional one-machine consumption reserve of 1 is deducted for development; the remaining stock is uncounted and marked *."
-      }
+      "stock": "B00DHMHSGM"
     },
     {
       "id": "B00T46ZH5E",
@@ -582,7 +411,6 @@
       "bomLines": [
         33
       ],
-      "perUnit": 1,
       "unit": "builds",
       "supplier": "amazon",
       "priceBasis": "merchandise",
@@ -598,19 +426,7 @@
         }
       ],
       "sourceUrl": "https://www.amazon.com/dp/B00T46ZH5E",
-      "inventory": {
-        "onHand": 19.0,
-        "incoming": 0,
-        "basis": "ledger_estimate",
-        "estimated": true,
-        "sources": [
-          {
-            "path": "hardware/ledger/purchases.md",
-            "line": 78
-          }
-        ],
-        "note": "Recorded purchase supplies 20 builds. A provisional one-machine consumption reserve of 1 is deducted for development; the remaining stock is uncounted and marked *."
-      }
+      "stock": "B00T46ZH5E"
     },
     {
       "id": "B008BJCOLK",
@@ -618,7 +434,6 @@
       "bomLines": [
         34
       ],
-      "perUnit": 1,
       "unit": "builds",
       "supplier": "amazon",
       "priceBasis": "delivered",
@@ -633,27 +448,14 @@
         }
       ],
       "sourceUrl": "https://www.amazon.com/dp/B008BJCOLK",
-      "inventory": {
-        "onHand": 19.0,
-        "incoming": 0,
-        "basis": "ledger_estimate",
-        "estimated": true,
-        "sources": [
-          {
-            "path": "hardware/ledger/purchases.md",
-            "line": 79
-          }
-        ],
-        "note": "Recorded purchase supplies 20 builds. A provisional one-machine consumption reserve of 1 is deducted for development; the remaining stock is uncounted and marked *."
-      }
+      "stock": "B008BJCOLK"
     },
     {
       "id": "B0GD16CMYL",
-      "name": "Lint-free cleanroom wipes, 9\" \u00d7 9\", cellulose/polyester Grade A (150 pcs)",
+      "name": "Lint-free cleanroom wipes, 9\" × 9\", cellulose/polyester Grade A (150 pcs)",
       "bomLines": [
         35
       ],
-      "perUnit": 6.0,
       "unit": "pieces",
       "supplier": "amazon",
       "priceBasis": "merchandise",
@@ -668,19 +470,7 @@
         }
       ],
       "sourceUrl": "https://www.amazon.com/dp/B0GD16CMYL",
-      "inventory": {
-        "onHand": 144.0,
-        "incoming": 0,
-        "basis": "ledger_estimate",
-        "estimated": true,
-        "sources": [
-          {
-            "path": "hardware/ledger/purchases.md",
-            "line": 80
-          }
-        ],
-        "note": "Recorded purchase supplies 150 pieces. A provisional one-machine consumption reserve of 6 is deducted for development; the remaining stock is uncounted and marked *."
-      }
+      "stock": "B0GD16CMYL"
     },
     {
       "id": "100% RTV silicone caulk (e.g. GE Silicone II)",
@@ -688,7 +478,6 @@
       "bomLines": [
         36
       ],
-      "perUnit": 1,
       "unit": "builds",
       "supplier": "allowances",
       "priceBasis": "delivered",
@@ -702,14 +491,7 @@
           "available": true
         }
       ],
-      "inventory": {
-        "onHand": 0,
-        "incoming": 0,
-        "basis": "unknown",
-        "estimated": true,
-        "sources": [],
-        "note": "No usable production stock quantified in the reviewed records; no stock credit taken."
-      }
+      "stock": "100% RTV silicone caulk (e.g. GE Silicone II)"
     },
     {
       "id": "B01G2F6EMY",
@@ -717,7 +499,6 @@
       "bomLines": [
         37
       ],
-      "perUnit": 1.0,
       "unit": "pieces",
       "supplier": "amazon",
       "priceBasis": "merchandise",
@@ -733,19 +514,7 @@
         }
       ],
       "sourceUrl": "https://www.amazon.com/dp/B01G2F6EMY",
-      "inventory": {
-        "onHand": 1.0,
-        "incoming": 0,
-        "basis": "ledger_estimate",
-        "estimated": true,
-        "sources": [
-          {
-            "path": "hardware/ledger/purchases.md",
-            "line": 122
-          }
-        ],
-        "note": "Acquired quantity from the purchase ledger; usable remainder after development is not separately counted. This is an inventory-credit estimate."
-      }
+      "stock": "B01G2F6EMY"
     },
     {
       "id": "neoFlo black 1/4\" OD LLDPE tubing, 100 ft (FWS, WEBFWS100673540)",
@@ -754,7 +523,6 @@
         38,
         67
       ],
-      "perUnit": 8.3,
       "unit": "ft",
       "supplier": "fws",
       "priceBasis": "merchandise",
@@ -805,23 +573,7 @@
         }
       ],
       "sourceUrl": "https://www.freshwatersystems.com/products/black-1-4-od-lldpe-polyethylene-tubing",
-      "inventory": {
-        "onHand": 291.7,
-        "incoming": 0,
-        "basis": "ledger_estimate",
-        "estimated": true,
-        "sources": [
-          {
-            "path": "hardware/ledger/purchases.md",
-            "line": 143
-          },
-          {
-            "path": "hardware/ledger/purchases.md",
-            "line": 154
-          }
-        ],
-        "note": "Acquired tube lengths minus a provisional one-machine cutting/consumption reserve. Remaining continuous lengths and offcuts are not measured; this stock credit is an estimate."
-      }
+      "stock": "neoFlo black 1/4\" OD LLDPE tubing, 100 ft (FWS, WEBFWS100673540)"
     },
     {
       "id": "B001BZEQ44",
@@ -829,7 +581,6 @@
       "bomLines": [
         39
       ],
-      "perUnit": 1,
       "unit": "containers",
       "supplier": "amazon",
       "priceBasis": "merchandise",
@@ -845,19 +596,7 @@
       ],
       "sourceUrl": "https://www.amazon.com/dp/B001BZEQ44",
       "fixedQuantity": 1,
-      "inventory": {
-        "onHand": 1,
-        "incoming": 0,
-        "basis": "ledger_estimate",
-        "estimated": true,
-        "sources": [
-          {
-            "path": "hardware/ledger/purchases.md",
-            "line": 37
-          }
-        ],
-        "note": "The acquired reusable 6 QT bath container supplies any batch. It is retained as shop equipment, with no new purchase."
-      }
+      "stock": "B001BZEQ44"
     },
     {
       "id": "B0C5NQM8S1",
@@ -865,7 +604,6 @@
       "bomLines": [
         40
       ],
-      "perUnit": 1,
       "unit": "builds",
       "supplier": "amazon",
       "priceBasis": "merchandise",
@@ -880,19 +618,7 @@
         }
       ],
       "sourceUrl": "https://www.amazon.com/dp/B0C5NQM8S1",
-      "inventory": {
-        "onHand": 19.0,
-        "incoming": 0,
-        "basis": "ledger_estimate",
-        "estimated": true,
-        "sources": [
-          {
-            "path": "hardware/ledger/purchases.md",
-            "line": 36
-          }
-        ],
-        "note": "Recorded purchase supplies 20 builds. A provisional one-machine consumption reserve of 1 is deducted for development; the remaining stock is uncounted and marked *."
-      }
+      "stock": "B0C5NQM8S1"
     },
     {
       "id": "B09BKFBXT9",
@@ -900,7 +626,6 @@
       "bomLines": [
         41
       ],
-      "perUnit": 1,
       "unit": "builds",
       "supplier": "amazon",
       "priceBasis": "merchandise",
@@ -916,27 +641,14 @@
         }
       ],
       "sourceUrl": "https://www.amazon.com/dp/B09BKFBXT9",
-      "inventory": {
-        "onHand": 377.0,
-        "incoming": 0,
-        "basis": "ledger_estimate",
-        "estimated": true,
-        "sources": [
-          {
-            "path": "hardware/ledger/purchases.md",
-            "line": 40
-          }
-        ],
-        "note": "Recorded purchase supplies 378 builds. A provisional one-machine consumption reserve of 1 is deducted for development; the remaining stock is uncounted and marked *."
-      }
+      "stock": "B09BKFBXT9"
     },
     {
       "id": "B085G9TZ4L",
-      "name": "Waterdrop 15UC-UF 0.01 \u00b5m inline water filter, 1/4\" QC both ends",
+      "name": "Waterdrop 15UC-UF 0.01 µm inline water filter, 1/4\" QC both ends",
       "bomLines": [
         49
       ],
-      "perUnit": 1.0,
       "unit": "pieces",
       "supplier": "amazon",
       "priceBasis": "merchandise",
@@ -951,19 +663,7 @@
         }
       ],
       "sourceUrl": "https://www.amazon.com/dp/B085G9TZ4L",
-      "inventory": {
-        "onHand": 0,
-        "incoming": 0,
-        "basis": "ledger_estimate",
-        "estimated": true,
-        "sources": [
-          {
-            "path": "hardware/ledger/purchases.md",
-            "line": 138
-          }
-        ],
-        "note": "One acquired filter is prototype stock. Its remaining service life and availability for a customer unit are unrecorded; a new filter is budgeted for each machine."
-      }
+      "stock": "B085G9TZ4L"
     },
     {
       "id": "Multiplex 19-0897 ASSE 1022 backflow preventer",
@@ -971,7 +671,6 @@
       "bomLines": [
         50
       ],
-      "perUnit": 1.0,
       "unit": "pieces",
       "supplier": "midwest",
       "priceBasis": "merchandise",
@@ -987,31 +686,14 @@
         }
       ],
       "sourceUrl": "https://www.midwestbev.com/products/asse-1022-backflow-preventer",
-      "inventory": {
-        "onHand": 5,
-        "incoming": 0,
-        "basis": "ledger_estimate",
-        "estimated": true,
-        "sources": [
-          {
-            "path": "hardware/ledger/purchases.md",
-            "line": 133
-          },
-          {
-            "path": "hardware/ledger/purchases.md",
-            "line": 134
-          }
-        ],
-        "note": "One howdybrewer and four Midwest 19-0897 backflow preventers acquired; five credited subject to usability and final inspection."
-      }
+      "stock": "Multiplex 19-0897 ASSE 1022 backflow preventer"
     },
     {
-      "id": "John Guest PI4512F6S female flare adapter, 3/8\" tube \u00d7 3/8\" FFL",
-      "name": "John Guest PI4512F6S female flare adapter, 3/8\" tube \u00d7 3/8\" FFL",
+      "id": "John Guest PI4512F6S female flare adapter, 3/8\" tube × 3/8\" FFL",
+      "name": "John Guest PI4512F6S female flare adapter, 3/8\" tube × 3/8\" FFL",
       "bomLines": [
         51
       ],
-      "perUnit": 1.0,
       "unit": "pieces",
       "supplier": "fws",
       "priceBasis": "merchandise",
@@ -1041,27 +723,14 @@
         }
       ],
       "sourceUrl": "https://www.freshwatersystems.com/products/john-guest-female-adapter-flare-3-8-x-3-8-flare",
-      "inventory": {
-        "onHand": 10,
-        "incoming": 0,
-        "basis": "ledger_estimate",
-        "estimated": true,
-        "sources": [
-          {
-            "path": "hardware/ledger/purchases.md",
-            "line": 152
-          }
-        ],
-        "note": "Acquired quantity from the purchase ledger; usable remainder after development is not separately counted. This is an inventory-credit estimate."
-      }
+      "stock": "John Guest PI4512F6S female flare adapter, 3/8\" tube × 3/8\" FFL"
     },
     {
-      "id": "John Guest PP061208W reducer, 3/8\" stem \u00d7 1/4\" PTC",
-      "name": "John Guest PP061208W reducer, 3/8\" stem \u00d7 1/4\" PTC",
+      "id": "John Guest PP061208W reducer, 3/8\" stem × 1/4\" PTC",
+      "name": "John Guest PP061208W reducer, 3/8\" stem × 1/4\" PTC",
       "bomLines": [
         52
       ],
-      "perUnit": 1.0,
       "unit": "pieces",
       "supplier": "fws",
       "priceBasis": "merchandise",
@@ -1091,19 +760,7 @@
         }
       ],
       "sourceUrl": "https://www.freshwatersystems.com/products/john-guest-reducer-stem-polypro-3-8-od-stem-x-1-4",
-      "inventory": {
-        "onHand": 10,
-        "incoming": 0,
-        "basis": "ledger_estimate",
-        "estimated": true,
-        "sources": [
-          {
-            "path": "hardware/ledger/purchases.md",
-            "line": 151
-          }
-        ],
-        "note": "Acquired quantity from the purchase ledger; usable remainder after development is not separately counted. This is an inventory-credit estimate."
-      }
+      "stock": "John Guest PP061208W reducer, 3/8\" stem × 1/4\" PTC"
     },
     {
       "id": "John Guest PP0208E 1/4\" union tee, black polypropylene (bag of 10)",
@@ -1113,7 +770,6 @@
         70,
         180
       ],
-      "perUnit": 8.0,
       "unit": "pieces",
       "supplier": "fws",
       "priceBasis": "merchandise",
@@ -1143,31 +799,14 @@
         }
       ],
       "sourceUrl": "https://www.freshwatersystems.com/products/john-guest-union-tee-black-polypropylene-1-4",
-      "inventory": {
-        "onHand": 30,
-        "incoming": 0,
-        "basis": "ledger_estimate",
-        "estimated": true,
-        "sources": [
-          {
-            "path": "hardware/ledger/purchases.md",
-            "line": 149
-          },
-          {
-            "path": "hardware/ledger/purchases.md",
-            "line": 237
-          }
-        ],
-        "note": "Acquired quantity from the purchase ledger; usable remainder after development is not separately counted. This is an inventory-credit estimate."
-      }
+      "stock": "John Guest PP0208E 1/4\" union tee, black polypropylene (bag of 10)"
     },
     {
-      "id": "neoPure reinforced clear PVC tubing, 3/8\" ID \u00d7 0.594\" OD (10 ft)",
-      "name": "neoPure reinforced clear PVC tubing, 3/8\" ID \u00d7 0.594\" OD (10 ft)",
+      "id": "neoPure reinforced clear PVC tubing, 3/8\" ID × 0.594\" OD (10 ft)",
+      "name": "neoPure reinforced clear PVC tubing, 3/8\" ID × 0.594\" OD (10 ft)",
       "bomLines": [
         57
       ],
-      "perUnit": 0.85,
       "unit": "ft",
       "supplier": "fws",
       "priceBasis": "merchandise",
@@ -1197,31 +836,14 @@
         }
       ],
       "sourceUrl": "https://www.freshwatersystems.com/products/reinforced-clear-pvc-tubing-3-8-id-x-594-od",
-      "inventory": {
-        "onHand": 19.15,
-        "incoming": 0,
-        "basis": "ledger_estimate",
-        "estimated": true,
-        "sources": [
-          {
-            "path": "hardware/ledger/purchases.md",
-            "line": 152
-          },
-          {
-            "path": "hardware/ledger/purchases.md",
-            "line": 154
-          }
-        ],
-        "note": "Acquired tube lengths minus a provisional one-machine cutting/consumption reserve. Remaining continuous lengths and offcuts are not measured; this stock credit is an estimate."
-      }
+      "stock": "neoPure reinforced clear PVC tubing, 3/8\" ID × 0.594\" OD (10 ft)"
     },
     {
-      "id": "FWS Basics 316 SS hose clamp, SAE #6 (3/8\"\u20137/8\")",
-      "name": "FWS Basics 316 SS hose clamp, SAE #6 (3/8\"\u20137/8\")",
+      "id": "FWS Basics 316 SS hose clamp, SAE #6 (3/8\"–7/8\")",
+      "name": "FWS Basics 316 SS hose clamp, SAE #6 (3/8\"–7/8\")",
       "bomLines": [
         58
       ],
-      "perUnit": 4.0,
       "unit": "pieces",
       "supplier": "fws",
       "priceBasis": "merchandise",
@@ -1258,23 +880,7 @@
         }
       ],
       "sourceUrl": "https://www.freshwatersystems.com/products/stainless-steel-hose-clamp-316-sae-6-3-8-7-8",
-      "inventory": {
-        "onHand": 20,
-        "incoming": 0,
-        "basis": "ledger_estimate",
-        "estimated": true,
-        "sources": [
-          {
-            "path": "hardware/ledger/purchases.md",
-            "line": 152
-          },
-          {
-            "path": "hardware/ledger/purchases.md",
-            "line": 154
-          }
-        ],
-        "note": "Acquired quantity from the purchase ledger; usable remainder after development is not separately counted. This is an inventory-credit estimate."
-      }
+      "stock": "FWS Basics 316 SS hose clamp, SAE #6 (3/8\"–7/8\")"
     },
     {
       "id": "B07F35PTFR",
@@ -1282,7 +888,6 @@
       "bomLines": [
         59
       ],
-      "perUnit": 1.0,
       "unit": "pieces",
       "supplier": "amazon",
       "priceBasis": "merchandise",
@@ -1297,27 +902,14 @@
         }
       ],
       "sourceUrl": "https://www.amazon.com/dp/B07F35PTFR",
-      "inventory": {
-        "onHand": 1.0,
-        "incoming": 0,
-        "basis": "ledger_estimate",
-        "estimated": true,
-        "sources": [
-          {
-            "path": "hardware/ledger/purchases.md",
-            "line": 181
-          }
-        ],
-        "note": "Acquired quantity from the purchase ledger; usable remainder after development is not separately counted. This is an inventory-credit estimate."
-      }
+      "stock": "B07F35PTFR"
     },
     {
       "id": "B0DMP77B6S",
-      "name": "MAACFLOW SS 1/4\" NPT M \u00d7 3/8\" hose barb (4-pk)",
+      "name": "MAACFLOW SS 1/4\" NPT M × 3/8\" hose barb (4-pk)",
       "bomLines": [
         60
       ],
-      "perUnit": 2.0,
       "unit": "pieces",
       "supplier": "amazon",
       "priceBasis": "delivered",
@@ -1332,28 +924,15 @@
         }
       ],
       "sourceUrl": "https://www.amazon.com/dp/B0DMP77B6S",
-      "inventory": {
-        "onHand": 4.0,
-        "incoming": 0,
-        "basis": "ledger_estimate",
-        "estimated": true,
-        "sources": [
-          {
-            "path": "hardware/ledger/purchases.md",
-            "line": 225
-          }
-        ],
-        "note": "Acquired quantity from the purchase ledger; usable remainder after development is not separately counted. This is an inventory-credit estimate."
-      }
+      "stock": "B0DMP77B6S"
     },
     {
       "id": "B0FV2D2FFX",
-      "name": "GASHER 1/4\" NPT one-way check valve, male \u00d7 female (2-pk, $15.00)",
+      "name": "GASHER 1/4\" NPT one-way check valve, male × female (2-pk, $15.00)",
       "bomLines": [
         61,
         83
       ],
-      "perUnit": 2.0,
       "unit": "pieces",
       "supplier": "amazon",
       "priceBasis": "merchandise",
@@ -1368,32 +947,15 @@
         }
       ],
       "sourceUrl": "https://www.amazon.com/dp/B0FV2D2FFX",
-      "inventory": {
-        "onHand": 6.0,
-        "incoming": 0,
-        "basis": "ledger_estimate",
-        "estimated": true,
-        "sources": [
-          {
-            "path": "hardware/ledger/purchases.md",
-            "line": 169
-          },
-          {
-            "path": "hardware/ledger/purchases.md",
-            "line": 170
-          }
-        ],
-        "note": "Acquired quantity from the purchase ledger; usable remainder after development is not separately counted. This is an inventory-credit estimate."
-      }
+      "stock": "B0FV2D2FFX"
     },
     {
-      "id": "John Guest PP010822E 1/4\" OD \u00d7 1/4\" NPT male connector, black polypropylene (10-pk)",
-      "name": "John Guest PP010822E 1/4\" OD \u00d7 1/4\" NPT male connector, black polypropylene (10-pk)",
+      "id": "John Guest PP010822E 1/4\" OD × 1/4\" NPT male connector, black polypropylene (10-pk)",
+      "name": "John Guest PP010822E 1/4\" OD × 1/4\" NPT male connector, black polypropylene (10-pk)",
       "bomLines": [
         62,
         192
       ],
-      "perUnit": 3.0,
       "unit": "pieces",
       "supplier": "fws",
       "priceBasis": "merchandise",
@@ -1423,27 +985,14 @@
         }
       ],
       "sourceUrl": "https://www.freshwatersystems.com/products/john-guest-male-connector-nptf-black-polypropylene-1-4-x-1-4-nptf",
-      "inventory": {
-        "onHand": 10,
-        "incoming": 0,
-        "basis": "ledger_estimate",
-        "estimated": true,
-        "sources": [
-          {
-            "path": "hardware/ledger/purchases.md",
-            "line": 123
-          }
-        ],
-        "note": "Ten acquired in FWS order WEBFWS100675224. Its May 15 order confirmation lists a bag of 10 John Guest Male Connector NPTF Black Polypropylene 1/4 x 1/4 NPTF at $11.00, the PP010822E bag. Usable remainder after development is not separately counted. This is an inventory-credit estimate."
-      }
+      "stock": "John Guest PP010822E 1/4\" OD × 1/4\" NPT male connector, black polypropylene (10-pk)"
     },
     {
-      "id": "John Guest PP450822E female adapter, 1/4\" OD \u00d7 1/4\" NPTF, black polypropylene (bag of 10)",
-      "name": "John Guest PP450822E female adapter, 1/4\" OD \u00d7 1/4\" NPTF, black polypropylene (bag of 10)",
+      "id": "John Guest PP450822E female adapter, 1/4\" OD × 1/4\" NPTF, black polypropylene (bag of 10)",
+      "name": "John Guest PP450822E female adapter, 1/4\" OD × 1/4\" NPTF, black polypropylene (bag of 10)",
       "bomLines": [
         63
       ],
-      "perUnit": 2.0,
       "unit": "pieces",
       "supplier": "fws",
       "priceBasis": "merchandise",
@@ -1473,31 +1022,14 @@
         }
       ],
       "sourceUrl": "https://www.freshwatersystems.com/products/john-guest-female-adapter-nptf-black-polypropylene-1-4-x-1-4-nptf",
-      "inventory": {
-        "onHand": 20,
-        "incoming": 0,
-        "basis": "ledger_estimate",
-        "estimated": true,
-        "sources": [
-          {
-            "path": "hardware/ledger/purchases.md",
-            "line": 150
-          },
-          {
-            "path": "hardware/ledger/purchases.md",
-            "line": 154
-          }
-        ],
-        "note": "Acquired quantity from the purchase ledger; usable remainder after development is not separately counted. This is an inventory-credit estimate."
-      }
+      "stock": "John Guest PP450822E female adapter, 1/4\" OD × 1/4\" NPTF, black polypropylene (bag of 10)"
     },
     {
       "id": "B0G2XJGZMQ",
-      "name": "GAGIRA 316L SS reducing coupling, 3/8\" NPT F \u00d7 1/4\" NPT F (5-pk, incl. Teflon tape)",
+      "name": "GAGIRA 316L SS reducing coupling, 3/8\" NPT F × 1/4\" NPT F (5-pk, incl. Teflon tape)",
       "bomLines": [
         64
       ],
-      "perUnit": 1.0,
       "unit": "pieces",
       "supplier": "amazon",
       "priceBasis": "delivered",
@@ -1512,19 +1044,7 @@
         }
       ],
       "sourceUrl": "https://www.amazon.com/dp/B0G2XJGZMQ",
-      "inventory": {
-        "onHand": 5.0,
-        "incoming": 0,
-        "basis": "ledger_estimate",
-        "estimated": true,
-        "sources": [
-          {
-            "path": "hardware/ledger/purchases.md",
-            "line": 140
-          }
-        ],
-        "note": "Acquired quantity from the purchase ledger; usable remainder after development is not separately counted. This is an inventory-credit estimate."
-      }
+      "stock": "B0G2XJGZMQ"
     },
     {
       "id": "neoFit acetal black flow-control bulkhead, 1/4\" tube (ABCVU44-E)",
@@ -1532,7 +1052,6 @@
       "bomLines": [
         65
       ],
-      "perUnit": 1,
       "unit": "pieces",
       "supplier": "fws",
       "priceBasis": "merchandise",
@@ -1562,19 +1081,7 @@
         }
       ],
       "sourceUrl": "https://www.freshwatersystems.com/products/neofit-acetal-black-flow-control-bulkhead-1-4-tube",
-      "inventory": {
-        "onHand": 10,
-        "incoming": 0,
-        "basis": "ledger_estimate",
-        "estimated": true,
-        "sources": [
-          {
-            "path": "hardware/ledger/purchases.md",
-            "line": 154
-          }
-        ],
-        "note": "Acquired quantity from the purchase ledger; usable remainder after development is not separately counted. This is an inventory-credit estimate."
-      }
+      "stock": "neoFit acetal black flow-control bulkhead, 1/4\" tube (ABCVU44-E)"
     },
     {
       "id": "neoFlo White 1/4\" OD LLDPE tubing, 100 ft (LLDPE4-WHITE)",
@@ -1583,7 +1090,6 @@
         66,
         195
       ],
-      "perUnit": 7,
       "unit": "ft",
       "supplier": "fws",
       "priceBasis": "merchandise",
@@ -1627,19 +1133,7 @@
         }
       ],
       "sourceUrl": "https://www.freshwatersystems.com/products/white-1-4-od-lldpe-polyethylene-tubing",
-      "inventory": {
-        "onHand": 89.63,
-        "incoming": 0,
-        "basis": "ledger_estimate",
-        "estimated": true,
-        "sources": [
-          {
-            "path": "hardware/ledger/purchases.md",
-            "line": 154
-          }
-        ],
-        "note": "Acquired tube lengths minus a provisional one-machine cutting/consumption reserve. Remaining continuous lengths and offcuts are not measured; this stock credit is an estimate."
-      }
+      "stock": "neoFlo White 1/4\" OD LLDPE tubing, 100 ft (LLDPE4-WHITE)"
     },
     {
       "id": "B00JYFU8MM",
@@ -1648,7 +1142,6 @@
         68,
         177
       ],
-      "perUnit": 2,
       "unit": "pieces",
       "supplier": "fws",
       "priceBasis": "merchandise",
@@ -1678,31 +1171,14 @@
         }
       ],
       "sourceUrl": "https://www.freshwatersystems.com/products/john-guest-bulkhead-union-black-polypropylene-1-4",
-      "inventory": {
-        "onHand": 20,
-        "incoming": 0,
-        "basis": "ledger_estimate",
-        "estimated": true,
-        "sources": [
-          {
-            "path": "hardware/ledger/purchases.md",
-            "line": 155
-          },
-          {
-            "path": "hardware/ledger/purchases.md",
-            "line": 239
-          }
-        ],
-        "note": "Acquired quantity from the purchase ledger; usable remainder after development is not separately counted. This is an inventory-credit estimate."
-      }
+      "stock": "B00JYFU8MM"
     },
     {
-      "id": "John Guest Speedfit ASVPP1LF angle stop adapter valve, 3/8\" \u00d7 3/8\" \u00d7 1/4\" (B003YKF2JC)",
-      "name": "John Guest Speedfit ASVPP1LF angle stop adapter valve, 3/8\" \u00d7 3/8\" \u00d7 1/4\" (B003YKF2JC)",
+      "id": "John Guest Speedfit ASVPP1LF angle stop adapter valve, 3/8\" × 3/8\" × 1/4\" (B003YKF2JC)",
+      "name": "John Guest Speedfit ASVPP1LF angle stop adapter valve, 3/8\" × 3/8\" × 1/4\" (B003YKF2JC)",
       "bomLines": [
         69
       ],
-      "perUnit": 1.0,
       "unit": "pieces",
       "supplier": "fws",
       "priceBasis": "merchandise",
@@ -1739,23 +1215,7 @@
         }
       ],
       "sourceUrl": "https://www.freshwatersystems.com/products/john-guest-angle-stop-adapter-valve-lead-free-3-8-x-3-8-x-1-4",
-      "inventory": {
-        "onHand": 11,
-        "incoming": 0,
-        "basis": "ledger_estimate",
-        "estimated": true,
-        "sources": [
-          {
-            "path": "hardware/ledger/purchases.md",
-            "line": 154
-          },
-          {
-            "path": "hardware/ledger/purchases.md",
-            "line": 156
-          }
-        ],
-        "note": "Acquired quantity from the purchase ledger; usable remainder after development is not separately counted. This is an inventory-credit estimate."
-      }
+      "stock": "John Guest Speedfit ASVPP1LF angle stop adapter valve, 3/8\" × 3/8\" × 1/4\" (B003YKF2JC)"
     },
     {
       "id": "John Guest Blue 1/4\" OD LLDPE Polyethylene Tubing, 100 ft",
@@ -1763,7 +1223,6 @@
       "bomLines": [
         71
       ],
-      "perUnit": 5.0,
       "unit": "ft",
       "supplier": "fws",
       "priceBasis": "merchandise",
@@ -1807,27 +1266,14 @@
         }
       ],
       "sourceUrl": "https://www.freshwatersystems.com/products/blue-1-4-od-lldpe-polyethylene-tubing",
-      "inventory": {
-        "onHand": 95,
-        "incoming": 0,
-        "basis": "ledger_estimate",
-        "estimated": true,
-        "sources": [
-          {
-            "path": "hardware/ledger/purchases.md",
-            "line": 149
-          }
-        ],
-        "note": "Acquired tube lengths minus a provisional one-machine cutting/consumption reserve. Remaining continuous lengths and offcuts are not measured; this stock credit is an estimate."
-      }
+      "stock": "John Guest Blue 1/4\" OD LLDPE Polyethylene Tubing, 100 ft"
     },
     {
-      "id": "Taprite 3741 soda primary CO2 regulator, CGA-320, 0\u2013120 PSI working, 130 \u00b1 4 PSI safety blow-off, 160 PSI and 2000 PSI gauges",
-      "name": "Taprite 3741 soda primary CO2 regulator, CGA-320, 0\u2013120 PSI working, 130 \u00b1 4 PSI safety blow-off, 160 PSI and 2000 PSI gauges",
+      "id": "Taprite 3741 soda primary CO2 regulator, CGA-320, 0–120 PSI working, 130 ± 4 PSI safety blow-off, 160 PSI and 2000 PSI gauges",
+      "name": "Taprite 3741 soda primary CO2 regulator, CGA-320, 0–120 PSI working, 130 ± 4 PSI safety blow-off, 160 PSI and 2000 PSI gauges",
       "bomLines": [
         77
       ],
-      "perUnit": 1.0,
       "unit": "pieces",
       "supplier": "draftwarehouse",
       "priceBasis": "merchandise",
@@ -1842,19 +1288,7 @@
         }
       ],
       "sourceUrl": "https://www.draftwarehouse.com/products/co2-primary-soda-regulator-cga320-in-1-4-flare-outlet-with-check-taprite",
-      "inventory": {
-        "onHand": 1,
-        "incoming": 0,
-        "basis": "counted",
-        "estimated": false,
-        "sources": [
-          {
-            "path": "hardware/ledger/purchases.md",
-            "line": 111
-          }
-        ],
-        "note": "Draft Warehouse order 244592, placed October 5 and delivered October 7."
-      }
+      "stock": "Taprite 3741 soda primary CO2 regulator, CGA-320, 0–120 PSI working, 130 ± 4 PSI safety blow-off, 160 PSI and 2000 PSI gauges"
     },
     {
       "id": "B0CGFCJNMG",
@@ -1862,7 +1296,6 @@
       "bomLines": [
         78
       ],
-      "perUnit": 1.0,
       "unit": "pieces",
       "supplier": "amazon",
       "priceBasis": "merchandise",
@@ -1877,19 +1310,7 @@
         }
       ],
       "sourceUrl": "https://www.amazon.com/dp/B0CGFCJNMG",
-      "inventory": {
-        "onHand": 3,
-        "incoming": 0,
-        "basis": "counted",
-        "estimated": false,
-        "sources": [
-          {
-            "path": "hardware/ledger/purchases.md",
-            "line": 121
-          }
-        ],
-        "note": "Three WR1105 regulators delivered October 7 (Amazon 112-6207769-5063458). The confirmed October 4 charge of $91.56 is excluded from future spending."
-      }
+      "stock": "B0CGFCJNMG"
     },
     {
       "id": "Red 1/4\" OD LLDPE polyethylene tubing",
@@ -1897,7 +1318,6 @@
       "bomLines": [
         79
       ],
-      "perUnit": 2,
       "unit": "ft",
       "supplier": "fws",
       "priceBasis": "merchandise",
@@ -1948,20 +1368,7 @@
         }
       ],
       "sourceUrl": "https://www.freshwatersystems.com/products/red-1-4-od-lldpe-polyethylene-tubing",
-      "inventory": {
-        "onHand": 98,
-        "incoming": 0,
-        "basis": "ledger_estimate",
-        "estimated": true,
-        "sources": [
-          {
-            "path": "hardware/ledger/purchases.md",
-            "line": 153
-          }
-        ],
-        "note": "Acquired tube lengths minus a provisional one-machine cutting/consumption reserve. Remaining continuous lengths and offcuts are not measured; this stock credit is an estimate."
-      },
-      "materialAllowance": 0.25
+      "stock": "Red 1/4\" OD LLDPE polyethylene tubing"
     },
     {
       "id": "neoFit ABU44-E acetal black bulkhead connector, 1/4\" tube (bag of 10)",
@@ -1969,7 +1376,6 @@
       "bomLines": [
         80
       ],
-      "perUnit": 1.0,
       "unit": "pieces",
       "supplier": "fws",
       "priceBasis": "merchandise",
@@ -1999,27 +1405,14 @@
         }
       ],
       "sourceUrl": "https://www.freshwatersystems.com/products/neofit-acetal-black-bulkhead-connector-1-4-tube",
-      "inventory": {
-        "onHand": 10,
-        "incoming": 0,
-        "basis": "ledger_estimate",
-        "estimated": true,
-        "sources": [
-          {
-            "path": "hardware/ledger/purchases.md",
-            "line": 153
-          }
-        ],
-        "note": "Acquired quantity from the purchase ledger; usable remainder after development is not separately counted. This is an inventory-credit estimate."
-      }
+      "stock": "neoFit ABU44-E acetal black bulkhead connector, 1/4\" tube (bag of 10)"
     },
     {
-      "id": "John Guest PI010822S male connector NPTF, 1/4-inch tube \u00d7 1/4-inch NPTF, gray acetal",
-      "name": "John Guest PI010822S male connector NPTF, 1/4-inch tube \u00d7 1/4-inch NPTF, gray acetal",
+      "id": "John Guest PI010822S male connector NPTF, 1/4-inch tube × 1/4-inch NPTF, gray acetal",
+      "name": "John Guest PI010822S male connector NPTF, 1/4-inch tube × 1/4-inch NPTF, gray acetal",
       "bomLines": [
         81
       ],
-      "perUnit": 4.0,
       "unit": "pieces",
       "supplier": "fws",
       "priceBasis": "merchandise",
@@ -2056,31 +1449,14 @@
         }
       ],
       "sourceUrl": "https://www.freshwatersystems.com/products/john-guest-male-connector-nptf-1-4-x-1-4-nptf",
-      "inventory": {
-        "onHand": 20,
-        "incoming": 0,
-        "basis": "ledger_estimate",
-        "estimated": true,
-        "sources": [
-          {
-            "path": "hardware/ledger/purchases.md",
-            "line": 153
-          },
-          {
-            "path": "hardware/ledger/purchases.md",
-            "line": 154
-          }
-        ],
-        "note": "Acquired quantity from the purchase ledger; usable remainder after development is not separately counted. This is an inventory-credit estimate."
-      }
+      "stock": "John Guest PI010822S male connector NPTF, 1/4-inch tube × 1/4-inch NPTF, gray acetal"
     },
     {
-      "id": "John Guest PI450822S female adapter NPTF, 1/4-inch tube \u00d7 1/4-inch NPTF, gray acetal",
-      "name": "John Guest PI450822S female adapter NPTF, 1/4-inch tube \u00d7 1/4-inch NPTF, gray acetal",
+      "id": "John Guest PI450822S female adapter NPTF, 1/4-inch tube × 1/4-inch NPTF, gray acetal",
+      "name": "John Guest PI450822S female adapter NPTF, 1/4-inch tube × 1/4-inch NPTF, gray acetal",
       "bomLines": [
         82
       ],
-      "perUnit": 2.0,
       "unit": "pieces",
       "supplier": "fws",
       "priceBasis": "merchandise",
@@ -2110,19 +1486,7 @@
         }
       ],
       "sourceUrl": "https://www.freshwatersystems.com/products/john-guest-female-adapter-nptf-1-4-x-1-4-nptf",
-      "inventory": {
-        "onHand": 30,
-        "incoming": 0,
-        "basis": "ledger_estimate",
-        "estimated": true,
-        "sources": [
-          {
-            "path": "hardware/ledger/purchases.md",
-            "line": 124
-          }
-        ],
-        "note": "Thirty PI450822S delivered October 5 (FWS WEBFWS100708594). Usable remainder after development is not separately counted; the payment reserve below carries the order until a charge is confirmed."
-      }
+      "stock": "John Guest PI450822S female adapter NPTF, 1/4-inch tube × 1/4-inch NPTF, gray acetal"
     },
     {
       "id": "B07PCZKG94",
@@ -2130,7 +1494,6 @@
       "bomLines": [
         89
       ],
-      "perUnit": 1.0,
       "unit": "pieces",
       "supplier": "amazon",
       "priceBasis": "merchandise",
@@ -2145,27 +1508,14 @@
         }
       ],
       "sourceUrl": "https://www.amazon.com/dp/B07PCZKG94",
-      "inventory": {
-        "onHand": 1.0,
-        "incoming": 0,
-        "basis": "ledger_estimate",
-        "estimated": true,
-        "sources": [
-          {
-            "path": "hardware/ledger/purchases.md",
-            "line": 271
-          }
-        ],
-        "note": "Acquired quantity from the purchase ledger; usable remainder after development is not separately counted. This is an inventory-credit estimate."
-      }
+      "stock": "B07PCZKG94"
     },
     {
       "id": "B0DKSW5VL9",
-      "name": "GOORY 1/4\" OD \u00d7 50 ft ACR copper coil (evaporator)",
+      "name": "GOORY 1/4\" OD × 50 ft ACR copper coil (evaporator)",
       "bomLines": [
         90
       ],
-      "perUnit": 1,
       "unit": "coil cuts",
       "supplier": "amazon",
       "priceBasis": "merchandise",
@@ -2180,19 +1530,7 @@
         }
       ],
       "sourceUrl": "https://www.amazon.com/dp/B0DKSW5VL9",
-      "inventory": {
-        "onHand": 2.0,
-        "incoming": 0,
-        "basis": "ledger_estimate",
-        "estimated": true,
-        "sources": [
-          {
-            "path": "hardware/ledger/purchases.md",
-            "line": 273
-          }
-        ],
-        "note": "Recorded purchase supplies 3 coil cuts. A provisional one-machine consumption reserve of 1 is deducted for development; the remaining stock is uncounted and marked *."
-      }
+      "stock": "B0DKSW5VL9"
     },
     {
       "id": "B07XGZSYJV",
@@ -2200,7 +1538,6 @@
       "bomLines": [
         91
       ],
-      "perUnit": 2.0,
       "unit": "pieces",
       "supplier": "amazon",
       "priceBasis": "merchandise",
@@ -2215,19 +1552,7 @@
         }
       ],
       "sourceUrl": "https://www.amazon.com/dp/B07XGZSYJV",
-      "inventory": {
-        "onHand": 5.0,
-        "incoming": 0,
-        "basis": "ledger_estimate",
-        "estimated": true,
-        "sources": [
-          {
-            "path": "hardware/ledger/purchases.md",
-            "line": 447
-          }
-        ],
-        "note": "Acquired quantity from the purchase ledger; usable remainder after development is not separately counted. This is an inventory-credit estimate."
-      }
+      "stock": "B07XGZSYJV"
     },
     {
       "id": "B0FKG3HT9Q",
@@ -2235,7 +1560,6 @@
       "bomLines": [
         92
       ],
-      "perUnit": 1.0,
       "unit": "pieces",
       "supplier": "amazon",
       "priceBasis": "merchandise",
@@ -2250,19 +1574,7 @@
         }
       ],
       "sourceUrl": "https://www.amazon.com/dp/B0FKG3HT9Q",
-      "inventory": {
-        "onHand": 10.0,
-        "incoming": 0,
-        "basis": "ledger_estimate",
-        "estimated": true,
-        "sources": [
-          {
-            "path": "hardware/ledger/purchases.md",
-            "line": 277
-          }
-        ],
-        "note": "Acquired quantity from the purchase ledger; usable remainder after development is not separately counted. This is an inventory-credit estimate."
-      }
+      "stock": "B0FKG3HT9Q"
     },
     {
       "id": "DS18S20+ TO-92 1-wire sensor, family 0x10 (LCSC C52574)",
@@ -2270,7 +1582,6 @@
       "bomLines": [
         93
       ],
-      "perUnit": 1.0,
       "unit": "pieces",
       "supplier": "lcsc",
       "priceBasis": "merchandise",
@@ -2299,19 +1610,7 @@
         }
       ],
       "sourceUrl": "https://www.lcsc.com/product-detail/C52574.html",
-      "inventory": {
-        "onHand": 10,
-        "incoming": 0,
-        "basis": "ledger_estimate",
-        "estimated": true,
-        "sources": [
-          {
-            "path": "hardware/ledger/purchases.md",
-            "line": 278
-          }
-        ],
-        "note": "Acquired quantity from the purchase ledger; usable remainder after development is not separately counted. This is an inventory-credit estimate."
-      }
+      "stock": "DS18S20+ TO-92 1-wire sensor, family 0x10 (LCSC C52574)"
     },
     {
       "id": "B07DCXKNXQ",
@@ -2319,7 +1618,6 @@
       "bomLines": [
         94
       ],
-      "perUnit": 1.0,
       "unit": "pieces",
       "supplier": "amazon",
       "priceBasis": "merchandise",
@@ -2334,27 +1632,14 @@
         }
       ],
       "sourceUrl": "https://www.amazon.com/dp/B07DCXKNXQ",
-      "inventory": {
-        "onHand": 10.0,
-        "incoming": 0,
-        "basis": "ledger_estimate",
-        "estimated": true,
-        "sources": [
-          {
-            "path": "hardware/ledger/purchases.md",
-            "line": 451
-          }
-        ],
-        "note": "Acquired quantity from the purchase ledger; usable remainder after development is not separately counted. This is an inventory-credit estimate."
-      }
+      "stock": "B07DCXKNXQ"
     },
     {
       "id": "B08VS8D4WC",
-      "name": "Monoprice NEMA 5-15P \u2192 IEC C13 line cord, 18 AWG, 6 ft, UL-listed (6-pk)",
+      "name": "Monoprice NEMA 5-15P → IEC C13 line cord, 18 AWG, 6 ft, UL-listed (6-pk)",
       "bomLines": [
         95
       ],
-      "perUnit": 1.0,
       "unit": "pieces",
       "supplier": "amazon",
       "priceBasis": "merchandise",
@@ -2369,19 +1654,7 @@
         }
       ],
       "sourceUrl": "https://www.amazon.com/dp/B08VS8D4WC",
-      "inventory": {
-        "onHand": 6.0,
-        "incoming": 0,
-        "basis": "ledger_estimate",
-        "estimated": true,
-        "sources": [
-          {
-            "path": "hardware/ledger/purchases.md",
-            "line": 452
-          }
-        ],
-        "note": "Acquired quantity from the purchase ledger; usable remainder after development is not separately counted. This is an inventory-credit estimate."
-      }
+      "stock": "B08VS8D4WC"
     },
     {
       "id": "B0CGG1WH1N",
@@ -2389,7 +1662,6 @@
       "bomLines": [
         96
       ],
-      "perUnit": 1,
       "unit": "charges",
       "supplier": "amazon",
       "priceBasis": "delivered",
@@ -2404,19 +1676,7 @@
         }
       ],
       "sourceUrl": "https://www.amazon.com/dp/B0CGG1WH1N",
-      "inventory": {
-        "onHand": 11.0,
-        "incoming": 0,
-        "basis": "ledger_estimate",
-        "estimated": true,
-        "sources": [
-          {
-            "path": "hardware/ledger/purchases.md",
-            "line": 287
-          }
-        ],
-        "note": "Recorded purchase supplies 12 charges. A provisional one-machine consumption reserve of 1 is deducted for development; the remaining stock is uncounted and marked *."
-      }
+      "stock": "B0CGG1WH1N"
     },
     {
       "id": "B00DM8J3MI",
@@ -2424,7 +1684,6 @@
       "bomLines": [
         97
       ],
-      "perUnit": 1.0,
       "unit": "pieces",
       "supplier": "amazon",
       "priceBasis": "delivered",
@@ -2439,27 +1698,14 @@
         }
       ],
       "sourceUrl": "https://www.amazon.com/dp/B00DM8J3MI",
-      "inventory": {
-        "onHand": 1.0,
-        "incoming": 0,
-        "basis": "ledger_estimate",
-        "estimated": true,
-        "sources": [
-          {
-            "path": "hardware/ledger/purchases.md",
-            "line": 284
-          }
-        ],
-        "note": "Acquired quantity from the purchase ledger; usable remainder after development is not separately counted. This is an inventory-credit estimate."
-      }
+      "stock": "B00DM8J3MI"
     },
     {
       "id": "B0FH549N6D",
-      "name": "HVAC 1/4\" OD copper slip coupling, ACR-grade, sweat \u00d7 sweat (10-pack)",
+      "name": "HVAC 1/4\" OD copper slip coupling, ACR-grade, sweat × sweat (10-pack)",
       "bomLines": [
         98
       ],
-      "perUnit": 1.0,
       "unit": "pieces",
       "supplier": "amazon",
       "priceBasis": "merchandise",
@@ -2474,27 +1720,14 @@
         }
       ],
       "sourceUrl": "https://www.amazon.com/dp/B0FH549N6D",
-      "inventory": {
-        "onHand": 10.0,
-        "incoming": 0,
-        "basis": "ledger_estimate",
-        "estimated": true,
-        "sources": [
-          {
-            "path": "hardware/ledger/purchases.md",
-            "line": 298
-          }
-        ],
-        "note": "Acquired quantity from the purchase ledger; usable remainder after development is not separately counted. This is an inventory-credit estimate."
-      }
+      "stock": "B0FH549N6D"
     },
     {
       "id": "B0DQ3ZMHK7",
-      "name": "BCuP-5 15% Ag silver brazing alloy, 1/16\" \u00d7 1 troy oz rod",
+      "name": "BCuP-5 15% Ag silver brazing alloy, 1/16\" × 1 troy oz rod",
       "bomLines": [
         99
       ],
-      "perUnit": 1.0,
       "unit": "pieces",
       "supplier": "amazon",
       "priceBasis": "delivered",
@@ -2509,27 +1742,14 @@
         }
       ],
       "sourceUrl": "https://www.amazon.com/dp/B0DQ3ZMHK7",
-      "inventory": {
-        "onHand": 2.0,
-        "incoming": 0,
-        "basis": "ledger_estimate",
-        "estimated": true,
-        "sources": [
-          {
-            "path": "hardware/ledger/purchases.md",
-            "line": 296
-          }
-        ],
-        "note": "Recorded purchase supplies 3 pieces. A provisional one-machine consumption reserve of 1 is deducted for development; the remaining stock is uncounted and marked *."
-      }
+      "stock": "B0DQ3ZMHK7"
     },
     {
       "id": "B07CGPCTHT",
-      "name": "3M Scotch-Brite Maroon General Purpose Hand Pads, 6\" \u00d7 9\" (1-pack of 20)",
+      "name": "3M Scotch-Brite Maroon General Purpose Hand Pads, 6\" × 9\" (1-pack of 20)",
       "bomLines": [
         100
       ],
-      "perUnit": 2.0,
       "unit": "pieces",
       "supplier": "amazon",
       "priceBasis": "merchandise",
@@ -2544,19 +1764,7 @@
         }
       ],
       "sourceUrl": "https://www.amazon.com/dp/B07CGPCTHT",
-      "inventory": {
-        "onHand": 18.0,
-        "incoming": 0,
-        "basis": "ledger_estimate",
-        "estimated": true,
-        "sources": [
-          {
-            "path": "hardware/ledger/purchases.md",
-            "line": 297
-          }
-        ],
-        "note": "Recorded purchase supplies 20 pieces. A provisional one-machine consumption reserve of 2 is deducted for development; the remaining stock is uncounted and marked *."
-      }
+      "stock": "B07CGPCTHT"
     },
     {
       "id": "B0BKQ2H9BZ",
@@ -2564,7 +1772,6 @@
       "bomLines": [
         101
       ],
-      "perUnit": 1.3,
       "unit": "ft",
       "supplier": "amazon",
       "priceBasis": "merchandise",
@@ -2580,27 +1787,14 @@
         }
       ],
       "sourceUrl": "https://www.amazon.com/dp/B0BKQ2H9BZ",
-      "inventory": {
-        "onHand": 23.7,
-        "incoming": 0,
-        "basis": "ledger_estimate",
-        "estimated": true,
-        "sources": [
-          {
-            "path": "hardware/ledger/purchases.md",
-            "line": 442
-          }
-        ],
-        "note": "Recorded purchase supplies 25 ft. A provisional one-machine consumption reserve of 1.3 is deducted for development; the remaining stock is uncounted and marked *."
-      }
+      "stock": "B0BKQ2H9BZ"
     },
     {
       "id": "B07Y61YTTK",
-      "name": "BOJACK SF76E SEFUSE thermal fuse, 77 \u00b0C, 10 A / 250 V (10-pack)",
+      "name": "BOJACK SF76E SEFUSE thermal fuse, 77 °C, 10 A / 250 V (10-pack)",
       "bomLines": [
         102
       ],
-      "perUnit": 1.0,
       "unit": "pieces",
       "supplier": "amazon",
       "priceBasis": "merchandise",
@@ -2615,19 +1809,7 @@
         }
       ],
       "sourceUrl": "https://www.amazon.com/dp/B07Y61YTTK",
-      "inventory": {
-        "onHand": 10.0,
-        "incoming": 0,
-        "basis": "ledger_estimate",
-        "estimated": true,
-        "sources": [
-          {
-            "path": "hardware/ledger/purchases.md",
-            "line": 305
-          }
-        ],
-        "note": "Acquired quantity from the purchase ledger; usable remainder after development is not separately counted. This is an inventory-credit estimate."
-      }
+      "stock": "B07Y61YTTK"
     },
     {
       "id": "B0978JSCZ8",
@@ -2635,7 +1817,6 @@
       "bomLines": [
         103
       ],
-      "perUnit": 1.0,
       "unit": "pieces",
       "supplier": "amazon",
       "priceBasis": "merchandise",
@@ -2651,19 +1832,7 @@
         }
       ],
       "sourceUrl": "https://www.amazon.com/dp/B0978JSCZ8",
-      "inventory": {
-        "onHand": 5.0,
-        "incoming": 0,
-        "basis": "ledger_estimate",
-        "estimated": true,
-        "sources": [
-          {
-            "path": "hardware/ledger/purchases.md",
-            "line": 306
-          }
-        ],
-        "note": "Acquired quantity from the purchase ledger; usable remainder after development is not separately counted. This is an inventory-credit estimate."
-      }
+      "stock": "B0978JSCZ8"
     },
     {
       "id": "B08R7TX8QJ",
@@ -2671,7 +1840,6 @@
       "bomLines": [
         110
       ],
-      "perUnit": 1,
       "unit": "builds",
       "supplier": "amazon",
       "priceBasis": "merchandise",
@@ -2686,27 +1854,14 @@
         }
       ],
       "sourceUrl": "https://www.amazon.com/dp/B08R7TX8QJ",
-      "inventory": {
-        "onHand": 6.0,
-        "incoming": 0,
-        "basis": "ledger_estimate",
-        "estimated": true,
-        "sources": [
-          {
-            "path": "hardware/ledger/purchases.md",
-            "line": 275
-          }
-        ],
-        "note": "Recorded purchase supplies 7 builds. A provisional one-machine consumption reserve of 1 is deducted for development; the remaining stock is uncounted and marked *."
-      }
+      "stock": "B08R7TX8QJ"
     },
     {
       "id": "B07BTW7C2N",
-      "name": "3M 425 aluminum foil tape, 2\" \u00d7 180 ft",
+      "name": "3M 425 aluminum foil tape, 2\" × 180 ft",
       "bomLines": [
         111
       ],
-      "perUnit": 15,
       "unit": "ft",
       "supplier": "amazon",
       "priceBasis": "merchandise",
@@ -2721,19 +1876,7 @@
         }
       ],
       "sourceUrl": "https://www.amazon.com/dp/B07BTW7C2N",
-      "inventory": {
-        "onHand": 165.0,
-        "incoming": 0,
-        "basis": "ledger_estimate",
-        "estimated": true,
-        "sources": [
-          {
-            "path": "hardware/ledger/purchases.md",
-            "line": 301
-          }
-        ],
-        "note": "Recorded purchase supplies 180 ft. A provisional one-machine consumption reserve of 15 is deducted for development; the remaining stock is uncounted and marked *."
-      }
+      "stock": "B07BTW7C2N"
     },
     {
       "id": "B08JHH1DBF",
@@ -2741,7 +1884,6 @@
       "bomLines": [
         112
       ],
-      "perUnit": 4.0,
       "unit": "pieces",
       "supplier": "amazon",
       "priceBasis": "merchandise",
@@ -2756,19 +1898,7 @@
         }
       ],
       "sourceUrl": "https://www.amazon.com/dp/B08JHH1DBF",
-      "inventory": {
-        "onHand": 46.0,
-        "incoming": 0,
-        "basis": "ledger_estimate",
-        "estimated": true,
-        "sources": [
-          {
-            "path": "hardware/ledger/purchases.md",
-            "line": 302
-          }
-        ],
-        "note": "Recorded purchase supplies 50 pieces. A provisional one-machine consumption reserve of 4 is deducted for development; the remaining stock is uncounted and marked *."
-      }
+      "stock": "B08JHH1DBF"
     },
     {
       "id": "B09H6ZP447",
@@ -2776,7 +1906,6 @@
       "bomLines": [
         113
       ],
-      "perUnit": 4.0,
       "unit": "pieces",
       "supplier": "amazon",
       "priceBasis": "merchandise",
@@ -2791,19 +1920,7 @@
         }
       ],
       "sourceUrl": "https://www.amazon.com/dp/B09H6ZP447",
-      "inventory": {
-        "onHand": 96.0,
-        "incoming": 0,
-        "basis": "ledger_estimate",
-        "estimated": true,
-        "sources": [
-          {
-            "path": "hardware/ledger/purchases.md",
-            "line": 303
-          }
-        ],
-        "note": "Recorded purchase supplies 100 pieces. A provisional one-machine consumption reserve of 4 is deducted for development; the remaining stock is uncounted and marked *."
-      }
+      "stock": "B09H6ZP447"
     },
     {
       "id": "B0G8SSMVKW",
@@ -2811,7 +1928,6 @@
       "bomLines": [
         114
       ],
-      "perUnit": 1,
       "unit": "pairs",
       "supplier": "amazon",
       "priceBasis": "merchandise",
@@ -2826,19 +1942,7 @@
         }
       ],
       "sourceUrl": "https://www.amazon.com/dp/B0G8SSMVKW",
-      "inventory": {
-        "onHand": 49.0,
-        "incoming": 0,
-        "basis": "ledger_estimate",
-        "estimated": true,
-        "sources": [
-          {
-            "path": "hardware/ledger/purchases.md",
-            "line": 304
-          }
-        ],
-        "note": "Recorded purchase supplies 50 pairs. A provisional one-machine consumption reserve of 1 is deducted for development; the remaining stock is uncounted and marked *."
-      }
+      "stock": "B0G8SSMVKW"
     },
     {
       "id": "B09MVPJXFJ",
@@ -2846,7 +1950,6 @@
       "bomLines": [
         174
       ],
-      "perUnit": 2.0,
       "unit": "pieces",
       "supplier": "amazon",
       "priceBasis": "merchandise",
@@ -2861,23 +1964,7 @@
         }
       ],
       "sourceUrl": "https://www.amazon.com/dp/B09MVPJXFJ",
-      "inventory": {
-        "onHand": 2.0,
-        "incoming": 5,
-        "basis": "ledger_estimate",
-        "estimated": true,
-        "sources": [
-          {
-            "path": "hardware/ledger/purchases.md",
-            "line": 194
-          },
-          {
-            "path": "hardware/ledger/purchases.md",
-            "line": 195
-          }
-        ],
-        "note": "Two acquired pumps plus five ordered October 11 (Amazon 114-5708094-2581869), charged $212.45 on October 12 and arriving October 13. Usable remainder after development is not separately counted."
-      }
+      "stock": "B09MVPJXFJ"
     },
     {
       "id": "B07NWCQJK9",
@@ -2886,7 +1973,6 @@
         175,
         176
       ],
-      "perUnit": 11.0,
       "unit": "pieces",
       "supplier": "amazon",
       "priceBasis": "merchandise",
@@ -2901,47 +1987,14 @@
         }
       ],
       "sourceUrl": "https://www.amazon.com/dp/B07NWCQJK9",
-      "inventory": {
-        "onHand": 14.0,
-        "incoming": 10,
-        "basis": "ledger_estimate",
-        "estimated": true,
-        "sources": [
-          {
-            "path": "hardware/ledger/purchases.md",
-            "line": 196
-          },
-          {
-            "path": "hardware/ledger/purchases.md",
-            "line": 197
-          },
-          {
-            "path": "hardware/ledger/purchases.md",
-            "line": 198
-          },
-          {
-            "path": "hardware/ledger/purchases.md",
-            "line": 199
-          },
-          {
-            "path": "hardware/ledger/purchases.md",
-            "line": 200
-          },
-          {
-            "path": "hardware/ledger/purchases.md",
-            "line": 201
-          }
-        ],
-        "note": "Fourteen acquired valves plus ten ordered October 11 (Amazon 114-5870152-3334654), charged $96.40 on October 12 and arriving October 13. Usable remainder after development is not separately counted."
-      }
+      "stock": "B07NWCQJK9"
     },
     {
       "id": "B0968K4JRN",
-      "name": "PureSec 1/4\" RO push-to-connect 90\u00b0 elbow bulkhead, white polypropylene (5-pk)",
+      "name": "PureSec 1/4\" RO push-to-connect 90° elbow bulkhead, white polypropylene (5-pk)",
       "bomLines": [
         178
       ],
-      "perUnit": 2.0,
       "unit": "pieces",
       "supplier": "amazon",
       "priceBasis": "merchandise",
@@ -2956,27 +2009,14 @@
         }
       ],
       "sourceUrl": "https://www.amazon.com/dp/B0968K4JRN",
-      "inventory": {
-        "onHand": 5.0,
-        "incoming": 0,
-        "basis": "ledger_estimate",
-        "estimated": true,
-        "sources": [
-          {
-            "path": "hardware/ledger/purchases.md",
-            "line": 240
-          }
-        ],
-        "note": "Acquired quantity from the purchase ledger; usable remainder after development is not separately counted. This is an inventory-credit estimate."
-      }
+      "stock": "B0968K4JRN"
     },
     {
       "id": "B07D23JJMR",
-      "name": "uxcell silicone flat washer, \u230016 ID \u00d7 \u230024 OD \u00d7 3 mm, clear (10-pk)",
+      "name": "uxcell silicone flat washer, ⌀16 ID × ⌀24 OD × 3 mm, clear (10-pk)",
       "bomLines": [
         179
       ],
-      "perUnit": 2.0,
       "unit": "pieces",
       "supplier": "amazon",
       "priceBasis": "merchandise",
@@ -2992,19 +2032,7 @@
         }
       ],
       "sourceUrl": "https://www.amazon.com/dp/B07D23JJMR",
-      "inventory": {
-        "onHand": 10.0,
-        "incoming": 0,
-        "basis": "ledger_estimate",
-        "estimated": true,
-        "sources": [
-          {
-            "path": "hardware/ledger/purchases.md",
-            "line": 241
-          }
-        ],
-        "note": "Acquired quantity from the purchase ledger; usable remainder after development is not separately counted. This is an inventory-credit estimate."
-      }
+      "stock": "B07D23JJMR"
     },
     {
       "id": "B0FM77LLM1",
@@ -3012,7 +2040,6 @@
       "bomLines": [
         181
       ],
-      "perUnit": 1.0,
       "unit": "pieces",
       "supplier": "amazon",
       "priceBasis": "merchandise",
@@ -3027,19 +2054,7 @@
         }
       ],
       "sourceUrl": "https://www.amazon.com/dp/B0FM77LLM1",
-      "inventory": {
-        "onHand": 100.0,
-        "incoming": 0,
-        "basis": "ledger_estimate",
-        "estimated": true,
-        "sources": [
-          {
-            "path": "hardware/ledger/purchases.md",
-            "line": 321
-          }
-        ],
-        "note": "Acquired quantity from the purchase ledger; usable remainder after development is not separately counted. This is an inventory-credit estimate."
-      }
+      "stock": "B0FM77LLM1"
     },
     {
       "id": "John Guest PP0308E 1/4\" union elbow, black polypropylene (bag of 10)",
@@ -3047,7 +2062,6 @@
       "bomLines": [
         182
       ],
-      "perUnit": 1.0,
       "unit": "pieces",
       "supplier": "fws",
       "priceBasis": "merchandise",
@@ -3077,23 +2091,7 @@
         }
       ],
       "sourceUrl": "https://www.freshwatersystems.com/products/john-guest-union-elbow-black-polypropylene-1-4",
-      "inventory": {
-        "onHand": 40,
-        "incoming": 0,
-        "basis": "ledger_estimate",
-        "estimated": true,
-        "sources": [
-          {
-            "path": "hardware/ledger/purchases.md",
-            "line": 123
-          },
-          {
-            "path": "hardware/ledger/purchases.md",
-            "line": 238
-          }
-        ],
-        "note": "Forty elbows acquired: ten in FWS order WEBFWS100675224 and thirty in WEBFWS100684731. Usable remainder after development is not separately counted. This is an inventory-credit estimate."
-      }
+      "stock": "John Guest PP0308E 1/4\" union elbow, black polypropylene (bag of 10)"
     },
     {
       "id": "B0FHHBGSQK",
@@ -3101,7 +2099,6 @@
       "bomLines": [
         183
       ],
-      "perUnit": 411,
       "unit": "g",
       "supplier": "amazon",
       "priceBasis": "merchandise",
@@ -3116,19 +2113,7 @@
         }
       ],
       "sourceUrl": "https://www.amazon.com/dp/B0FHHBGSQK",
-      "inventory": {
-        "onHand": 687.0,
-        "incoming": 0,
-        "basis": "ledger_estimate",
-        "estimated": true,
-        "sources": [
-          {
-            "path": "hardware/ledger/purchases.md",
-            "line": 773
-          }
-        ],
-        "note": "Recorded purchase supplies 1098 g. A provisional one-machine consumption reserve of 411 is deducted for development; the remaining stock is uncounted and marked *."
-      }
+      "stock": "B0FHHBGSQK"
     },
     {
       "id": "B0BVR3R58V",
@@ -3136,7 +2121,6 @@
       "bomLines": [
         184
       ],
-      "perUnit": 1.5,
       "unit": "g",
       "supplier": "amazon",
       "priceBasis": "merchandise",
@@ -3151,19 +2135,7 @@
         }
       ],
       "sourceUrl": "https://www.amazon.com/dp/B0BVR3R58V",
-      "inventory": {
-        "onHand": 148.5,
-        "incoming": 0,
-        "basis": "ledger_estimate",
-        "estimated": true,
-        "sources": [
-          {
-            "path": "hardware/ledger/purchases.md",
-            "line": 774
-          }
-        ],
-        "note": "Recorded purchase supplies 150 g. A provisional one-machine consumption reserve of 1.5 is deducted for development; the remaining stock is uncounted and marked *."
-      }
+      "stock": "B0BVR3R58V"
     },
     {
       "id": "B002YEBO1O",
@@ -3171,7 +2143,6 @@
       "bomLines": [
         185
       ],
-      "perUnit": 1,
       "unit": "builds",
       "supplier": "amazon",
       "priceBasis": "merchandise",
@@ -3186,19 +2157,7 @@
         }
       ],
       "sourceUrl": "https://www.amazon.com/dp/B002YEBO1O",
-      "inventory": {
-        "onHand": 49.0,
-        "incoming": 0,
-        "basis": "ledger_estimate",
-        "estimated": true,
-        "sources": [
-          {
-            "path": "hardware/ledger/purchases.md",
-            "line": 775
-          }
-        ],
-        "note": "Recorded purchase supplies 50 builds. A provisional one-machine consumption reserve of 1 is deducted for development; the remaining stock is uncounted and marked *."
-      }
+      "stock": "B002YEBO1O"
     },
     {
       "id": "B08HNCGY4N",
@@ -3206,7 +2165,6 @@
       "bomLines": [
         186
       ],
-      "perUnit": 1.0,
       "unit": "pieces",
       "supplier": "amazon",
       "priceBasis": "merchandise",
@@ -3221,19 +2179,7 @@
         }
       ],
       "sourceUrl": "https://www.amazon.com/dp/B08HNCGY4N",
-      "inventory": {
-        "onHand": 24.0,
-        "incoming": 0,
-        "basis": "ledger_estimate",
-        "estimated": true,
-        "sources": [
-          {
-            "path": "hardware/ledger/purchases.md",
-            "line": 776
-          }
-        ],
-        "note": "Recorded purchase supplies 25 pieces. A provisional one-machine consumption reserve of 1 is deducted for development; the remaining stock is uncounted and marked *."
-      }
+      "stock": "B08HNCGY4N"
     },
     {
       "id": "B0BXFW1J38",
@@ -3241,7 +2187,6 @@
       "bomLines": [
         193
       ],
-      "perUnit": 1.0,
       "unit": "pieces",
       "supplier": "amazon",
       "priceBasis": "merchandise",
@@ -3257,19 +2202,7 @@
         }
       ],
       "sourceUrl": "https://www.amazon.com/dp/B07KH285GJ",
-      "inventory": {
-        "onHand": 1.0,
-        "incoming": 0,
-        "basis": "ledger_estimate",
-        "estimated": true,
-        "sources": [
-          {
-            "path": "hardware/ledger/purchases.md",
-            "line": 313
-          }
-        ],
-        "note": "Acquired quantity from the purchase ledger; usable remainder after development is not separately counted. This is an inventory-credit estimate."
-      }
+      "stock": "B0BXFW1J38"
     },
     {
       "id": "SendCutSend 0.060\" 316 SS under-counter plate (`under_counter_plate.dxf`)",
@@ -3277,7 +2210,6 @@
       "bomLines": [
         194
       ],
-      "perUnit": 1.0,
       "unit": "pieces",
       "supplier": "scs",
       "priceBasis": "delivered",
@@ -3292,19 +2224,7 @@
         }
       ],
       "sourceUrl": "https://sendcutsend.com/",
-      "inventory": {
-        "onHand": 23,
-        "incoming": 0,
-        "basis": "ledger_estimate",
-        "estimated": true,
-        "sources": [
-          {
-            "path": "hardware/ledger/purchases.md",
-            "line": 77
-          }
-        ],
-        "note": "Twenty-three plates in the later acquired order credited; the older ten are excluded from the usable count. Current DXF compatibility and remaining quantity are estimated."
-      }
+      "stock": "SendCutSend 0.060\" 316 SS under-counter plate (`under_counter_plate.dxf`)"
     },
     {
       "id": "neoFlo White 3/8\" OD LLDPE tubing, 25 ft (LLDPE6-WHITE)",
@@ -3312,7 +2232,6 @@
       "bomLines": [
         197
       ],
-      "perUnit": 1.08,
       "unit": "ft",
       "supplier": "fws",
       "priceBasis": "merchandise",
@@ -3356,27 +2275,14 @@
         }
       ],
       "sourceUrl": "https://www.freshwatersystems.com/products/white-3-8-od-lldpe-polyethylene-tubing",
-      "inventory": {
-        "onHand": 23.92,
-        "incoming": 0,
-        "basis": "ledger_estimate",
-        "estimated": true,
-        "sources": [
-          {
-            "path": "hardware/ledger/purchases.md",
-            "line": 154
-          }
-        ],
-        "note": "Acquired tube lengths minus a provisional one-machine cutting/consumption reserve. Remaining continuous lengths and offcuts are not measured; this stock credit is an estimate."
-      }
+      "stock": "neoFlo White 3/8\" OD LLDPE tubing, 25 ft (LLDPE6-WHITE)"
     },
     {
       "id": "B07QRXLRTH",
-      "name": "DIGITEN G1/4\" Hall-effect flow sensor, 0.3\u201310 L/min",
+      "name": "DIGITEN G1/4\" Hall-effect flow sensor, 0.3–10 L/min",
       "bomLines": [
         198
       ],
-      "perUnit": 1.0,
       "unit": "pieces",
       "supplier": "amazon",
       "priceBasis": "delivered",
@@ -3391,31 +2297,14 @@
         }
       ],
       "sourceUrl": "https://www.amazon.com/dp/B07QRXLRTH",
-      "inventory": {
-        "onHand": 4.0,
-        "incoming": 0,
-        "basis": "ledger_estimate",
-        "estimated": true,
-        "sources": [
-          {
-            "path": "hardware/ledger/purchases.md",
-            "line": 322
-          },
-          {
-            "path": "hardware/ledger/purchases.md",
-            "line": 323
-          }
-        ],
-        "note": "Acquired quantity from the purchase ledger; usable remainder after development is not separately counted. This is an inventory-credit estimate."
-      }
+      "stock": "B07QRXLRTH"
     },
     {
       "id": "B0D2XFK337",
-      "name": "CARGEN Pipe Insulation Foam Tube, 1/4\" ID \u00d7 3/8\" wall \u00d7 6 ft, nitrile rubber closed-cell",
+      "name": "CARGEN Pipe Insulation Foam Tube, 1/4\" ID × 3/8\" wall × 6 ft, nitrile rubber closed-cell",
       "bomLines": [
         199
       ],
-      "perUnit": 7,
       "unit": "ft",
       "supplier": "amazon",
       "priceBasis": "merchandise",
@@ -3430,19 +2319,7 @@
         }
       ],
       "sourceUrl": "https://www.amazon.com/dp/B0D2XFK337",
-      "inventory": {
-        "onHand": 5.0,
-        "incoming": 0,
-        "basis": "ledger_estimate",
-        "estimated": true,
-        "sources": [
-          {
-            "path": "hardware/ledger/purchases.md",
-            "line": 326
-          }
-        ],
-        "note": "Recorded purchase supplies 12 ft. A provisional one-machine consumption reserve of 7 is deducted for development; the remaining stock is uncounted and marked *."
-      }
+      "stock": "B0D2XFK337"
     },
     {
       "id": "B07PNPHWMG",
@@ -3450,7 +2327,6 @@
       "bomLines": [
         200
       ],
-      "perUnit": 2,
       "unit": "m",
       "supplier": "amazon",
       "priceBasis": "merchandise",
@@ -3466,19 +2342,7 @@
         }
       ],
       "sourceUrl": "https://www.amazon.com/dp/B07PNPHWMG",
-      "inventory": {
-        "onHand": 13.24,
-        "incoming": 0,
-        "basis": "ledger_estimate",
-        "estimated": true,
-        "sources": [
-          {
-            "path": "hardware/ledger/purchases.md",
-            "line": 426
-          }
-        ],
-        "note": "Recorded purchase supplies 15.24 m. A provisional one-machine consumption reserve of 2 is deducted for development; the remaining stock is uncounted and marked *."
-      }
+      "stock": "B07PNPHWMG"
     },
     {
       "id": "B09X48444N",
@@ -3486,7 +2350,6 @@
       "bomLines": [
         201
       ],
-      "perUnit": 2.2,
       "unit": "m",
       "supplier": "amazon",
       "priceBasis": "merchandise",
@@ -3501,19 +2364,7 @@
         }
       ],
       "sourceUrl": "https://www.amazon.com/dp/B09X48444N",
-      "inventory": {
-        "onHand": 13.04,
-        "incoming": 0,
-        "basis": "ledger_estimate",
-        "estimated": true,
-        "sources": [
-          {
-            "path": "hardware/ledger/purchases.md",
-            "line": 427
-          }
-        ],
-        "note": "Recorded purchase supplies 15.24 m. A provisional one-machine consumption reserve of 2.2 is deducted for development; the remaining stock is uncounted and marked *."
-      }
+      "stock": "B09X48444N"
     },
     {
       "id": "B087RCBF53",
@@ -3521,7 +2372,6 @@
       "bomLines": [
         202
       ],
-      "perUnit": 1.55,
       "unit": "m",
       "supplier": "amazon",
       "priceBasis": "merchandise",
@@ -3537,19 +2387,7 @@
         }
       ],
       "sourceUrl": "https://www.amazon.com/dp/B087RCBF53",
-      "inventory": {
-        "onHand": 13.69,
-        "incoming": 0,
-        "basis": "ledger_estimate",
-        "estimated": true,
-        "sources": [
-          {
-            "path": "hardware/ledger/purchases.md",
-            "line": 428
-          }
-        ],
-        "note": "Recorded purchase supplies 15.24 m. A provisional one-machine consumption reserve of 1.55 is deducted for development; the remaining stock is uncounted and marked *."
-      }
+      "stock": "B087RCBF53"
     },
     {
       "id": "B09X46Y36M",
@@ -3557,7 +2395,6 @@
       "bomLines": [
         203
       ],
-      "perUnit": 1.2,
       "unit": "m",
       "supplier": "amazon",
       "priceBasis": "merchandise",
@@ -3573,27 +2410,14 @@
         }
       ],
       "sourceUrl": "https://www.amazon.com/dp/B09X46Y36M",
-      "inventory": {
-        "onHand": 14.040000000000001,
-        "incoming": 0,
-        "basis": "ledger_estimate",
-        "estimated": true,
-        "sources": [
-          {
-            "path": "hardware/ledger/purchases.md",
-            "line": 429
-          }
-        ],
-        "note": "Recorded purchase supplies 15.24 m. A provisional one-machine consumption reserve of 1.2 is deducted for development; the remaining stock is uncounted and marked *."
-      }
+      "stock": "B09X46Y36M"
     },
     {
       "id": "B08B5VS8ZR",
-      "name": "smseace #4 (M3) insulated ring terminals, 22\u201316 AWG (150 pc)",
+      "name": "smseace #4 (M3) insulated ring terminals, 22–16 AWG (150 pc)",
       "bomLines": [
         216
       ],
-      "perUnit": 10.0,
       "unit": "pieces",
       "supplier": "amazon",
       "priceBasis": "merchandise",
@@ -3608,19 +2432,7 @@
         }
       ],
       "sourceUrl": "https://www.amazon.com/dp/B08B5VS8ZR",
-      "inventory": {
-        "onHand": 140.0,
-        "incoming": 0,
-        "basis": "ledger_estimate",
-        "estimated": true,
-        "sources": [
-          {
-            "path": "hardware/ledger/purchases.md",
-            "line": 396
-          }
-        ],
-        "note": "Recorded purchase supplies 150 pieces. A provisional one-machine consumption reserve of 10 is deducted for development; the remaining stock is uncounted and marked *."
-      }
+      "stock": "B08B5VS8ZR"
     },
     {
       "id": "B0BC1VH4XB",
@@ -3628,7 +2440,6 @@
       "bomLines": [
         219
       ],
-      "perUnit": 23.0,
       "unit": "pieces",
       "supplier": "amazon",
       "priceBasis": "merchandise",
@@ -3643,19 +2454,7 @@
         }
       ],
       "sourceUrl": "https://www.amazon.com/dp/B0BC1VH4XB",
-      "inventory": {
-        "onHand": 177.0,
-        "incoming": 0,
-        "basis": "ledger_estimate",
-        "estimated": true,
-        "sources": [
-          {
-            "path": "hardware/ledger/purchases.md",
-            "line": 433
-          }
-        ],
-        "note": "Recorded purchase supplies 200 pieces. A provisional one-machine consumption reserve of 23 is deducted for development; the remaining stock is uncounted and marked *."
-      }
+      "stock": "B0BC1VH4XB"
     },
     {
       "id": "B0DR8KSVQD",
@@ -3663,7 +2462,6 @@
       "bomLines": [
         220
       ],
-      "perUnit": 7.0,
       "unit": "pieces",
       "supplier": "amazon",
       "priceBasis": "merchandise",
@@ -3678,19 +2476,7 @@
         }
       ],
       "sourceUrl": "https://www.amazon.com/dp/B0DR8KSVQD",
-      "inventory": {
-        "onHand": 93.0,
-        "incoming": 0,
-        "basis": "ledger_estimate",
-        "estimated": true,
-        "sources": [
-          {
-            "path": "hardware/ledger/purchases.md",
-            "line": 432
-          }
-        ],
-        "note": "Recorded purchase supplies 100 pieces. A provisional one-machine consumption reserve of 7 is deducted for development; the remaining stock is uncounted and marked *."
-      }
+      "stock": "B0DR8KSVQD"
     },
     {
       "id": "B08BKSHJ93",
@@ -3698,7 +2484,6 @@
       "bomLines": [
         221
       ],
-      "perUnit": 2.0,
       "unit": "pieces",
       "supplier": "amazon",
       "priceBasis": "merchandise",
@@ -3713,19 +2498,7 @@
         }
       ],
       "sourceUrl": "https://www.amazon.com/dp/B08BKSHJ93",
-      "inventory": {
-        "onHand": 98.0,
-        "incoming": 0,
-        "basis": "ledger_estimate",
-        "estimated": true,
-        "sources": [
-          {
-            "path": "hardware/ledger/purchases.md",
-            "line": 434
-          }
-        ],
-        "note": "Recorded purchase supplies 100 pieces. A provisional one-machine consumption reserve of 2 is deducted for development; the remaining stock is uncounted and marked *."
-      }
+      "stock": "B08BKSHJ93"
     },
     {
       "id": "B0B2RB524Y",
@@ -3733,7 +2506,6 @@
       "bomLines": [
         222
       ],
-      "perUnit": 5.0,
       "unit": "pieces",
       "supplier": "amazon",
       "priceBasis": "merchandise",
@@ -3748,19 +2520,7 @@
         }
       ],
       "sourceUrl": "https://www.amazon.com/dp/B0B2RB524Y",
-      "inventory": {
-        "onHand": 50.0,
-        "incoming": 0,
-        "basis": "ledger_estimate",
-        "estimated": true,
-        "sources": [
-          {
-            "path": "hardware/ledger/purchases.md",
-            "line": 407
-          }
-        ],
-        "note": "Acquired quantity from the purchase ledger; usable remainder after development is not separately counted. This is an inventory-credit estimate."
-      }
+      "stock": "B0B2RB524Y"
     },
     {
       "id": "RiteAV RJ11 6P4C black punchdown keystone jack, 110 IDC (10 pk)",
@@ -3768,7 +2528,6 @@
       "bomLines": [
         223
       ],
-      "perUnit": 1.0,
       "unit": "pieces",
       "supplier": "riteav",
       "priceBasis": "merchandise",
@@ -3784,19 +2543,7 @@
         }
       ],
       "sourceUrl": "https://www.riteav.com/products/riteav-rj11-phone-black-punchdown-type-keystone-jack-10-pack",
-      "inventory": {
-        "onHand": 10,
-        "incoming": 0,
-        "basis": "ledger_estimate",
-        "estimated": true,
-        "sources": [
-          {
-            "path": "hardware/ledger/purchases.md",
-            "line": 460
-          }
-        ],
-        "note": "Acquired quantity from the purchase ledger; usable remainder after development is not separately counted. This is an inventory-credit estimate."
-      }
+      "stock": "RiteAV RJ11 6P4C black punchdown keystone jack, 110 IDC (10 pk)"
     },
     {
       "id": "B0DK4V733Q",
@@ -3804,7 +2551,6 @@
       "bomLines": [
         224
       ],
-      "perUnit": 1.0,
       "unit": "pieces",
       "supplier": "amazon",
       "priceBasis": "merchandise",
@@ -3819,19 +2565,7 @@
         }
       ],
       "sourceUrl": "https://www.amazon.com/dp/B0DK4V733Q",
-      "inventory": {
-        "onHand": 20.0,
-        "incoming": 0,
-        "basis": "ledger_estimate",
-        "estimated": true,
-        "sources": [
-          {
-            "path": "hardware/ledger/purchases.md",
-            "line": 461
-          }
-        ],
-        "note": "Acquired quantity from the purchase ledger; usable remainder after development is not separately counted. This is an inventory-credit estimate."
-      }
+      "stock": "B0DK4V733Q"
     },
     {
       "id": "B0B2R8Q1JL",
@@ -3839,7 +2573,6 @@
       "bomLines": [
         226
       ],
-      "perUnit": 1.0,
       "unit": "pieces",
       "supplier": "amazon",
       "priceBasis": "merchandise",
@@ -3854,19 +2587,7 @@
         }
       ],
       "sourceUrl": "https://www.amazon.com/dp/B0B2R8Q1JL",
-      "inventory": {
-        "onHand": 50.0,
-        "incoming": 0,
-        "basis": "ledger_estimate",
-        "estimated": true,
-        "sources": [
-          {
-            "path": "hardware/ledger/purchases.md",
-            "line": 408
-          }
-        ],
-        "note": "Acquired quantity from the purchase ledger; usable remainder after development is not separately counted. This is an inventory-credit estimate."
-      }
+      "stock": "B0B2R8Q1JL"
     },
     {
       "id": "B0B2R73RQB",
@@ -3874,7 +2595,6 @@
       "bomLines": [
         227
       ],
-      "perUnit": 1.0,
       "unit": "pieces",
       "supplier": "amazon",
       "priceBasis": "merchandise",
@@ -3890,19 +2610,7 @@
         }
       ],
       "sourceUrl": "https://www.amazon.com/dp/B0B2R73RQB",
-      "inventory": {
-        "onHand": 30.0,
-        "incoming": 0,
-        "basis": "ledger_estimate",
-        "estimated": true,
-        "sources": [
-          {
-            "path": "hardware/ledger/purchases.md",
-            "line": 409
-          }
-        ],
-        "note": "Acquired quantity from the purchase ledger; usable remainder after development is not separately counted. This is an inventory-credit estimate."
-      }
+      "stock": "B0B2R73RQB"
     },
     {
       "id": "B0H1MW1LCX",
@@ -3910,7 +2618,6 @@
       "bomLines": [
         230
       ],
-      "perUnit": 2.0,
       "unit": "pieces",
       "supplier": "amazon",
       "priceBasis": "merchandise",
@@ -3925,19 +2632,7 @@
         }
       ],
       "sourceUrl": "https://www.amazon.com/dp/B0H1MW1LCX",
-      "inventory": {
-        "onHand": 15.0,
-        "incoming": 0,
-        "basis": "ledger_estimate",
-        "estimated": true,
-        "sources": [
-          {
-            "path": "hardware/ledger/purchases.md",
-            "line": 398
-          }
-        ],
-        "note": "Acquired quantity from the purchase ledger; usable remainder after development is not separately counted. This is an inventory-credit estimate."
-      }
+      "stock": "B0H1MW1LCX"
     },
     {
       "id": "B0107SYYGU",
@@ -3945,7 +2640,6 @@
       "bomLines": [
         231
       ],
-      "perUnit": 3.0,
       "unit": "pieces",
       "supplier": "amazon",
       "priceBasis": "merchandise",
@@ -3961,19 +2655,7 @@
         }
       ],
       "sourceUrl": "https://www.amazon.com/dp/B0107SYYGU",
-      "inventory": {
-        "onHand": 25.0,
-        "incoming": 0,
-        "basis": "ledger_estimate",
-        "estimated": true,
-        "sources": [
-          {
-            "path": "hardware/ledger/purchases.md",
-            "line": 397
-          }
-        ],
-        "note": "Acquired quantity from the purchase ledger; usable remainder after development is not separately counted. This is an inventory-credit estimate."
-      }
+      "stock": "B0107SYYGU"
     },
     {
       "id": "B07W7W91FX",
@@ -3981,7 +2663,6 @@
       "bomLines": [
         232
       ],
-      "perUnit": 5.0,
       "unit": "pieces",
       "supplier": "amazon",
       "priceBasis": "merchandise",
@@ -3996,19 +2677,7 @@
         }
       ],
       "sourceUrl": "https://www.amazon.com/dp/B07W7W91FX",
-      "inventory": {
-        "onHand": 50.0,
-        "incoming": 0,
-        "basis": "ledger_estimate",
-        "estimated": true,
-        "sources": [
-          {
-            "path": "hardware/ledger/purchases.md",
-            "line": 399
-          }
-        ],
-        "note": "Acquired quantity from the purchase ledger; usable remainder after development is not separately counted. This is an inventory-credit estimate."
-      }
+      "stock": "B07W7W91FX"
     },
     {
       "id": "B06Y2PNW41",
@@ -4016,7 +2685,6 @@
       "bomLines": [
         233
       ],
-      "perUnit": 30,
       "unit": "ft",
       "supplier": "amazon",
       "priceBasis": "merchandise",
@@ -4031,27 +2699,14 @@
         }
       ],
       "sourceUrl": "https://www.amazon.com/dp/B06Y2PNW41",
-      "inventory": {
-        "onHand": 220,
-        "incoming": 0,
-        "basis": "ledger_estimate",
-        "estimated": true,
-        "sources": [
-          {
-            "path": "hardware/ledger/purchases.md",
-            "line": 435
-          }
-        ],
-        "note": "Recorded purchase supplies 250 ft. A provisional one-machine consumption reserve of 30 is deducted for development; the remaining stock is uncounted and marked *."
-      }
+      "stock": "B06Y2PNW41"
     },
     {
       "id": "B075VRDS53",
-      "name": "Umbilical sleeve \u2014 Alex Tech 1\" PET expandable braided sleeve, black/blue, 100 ft",
+      "name": "Umbilical sleeve — Alex Tech 1\" PET expandable braided sleeve, black/blue, 100 ft",
       "bomLines": [
         236
       ],
-      "perUnit": 5,
       "unit": "ft",
       "supplier": "amazon",
       "priceBasis": "merchandise",
@@ -4066,19 +2721,7 @@
         }
       ],
       "sourceUrl": "https://www.amazon.com/dp/B075VRDS53",
-      "inventory": {
-        "onHand": 95,
-        "incoming": 0,
-        "basis": "ledger_estimate",
-        "estimated": true,
-        "sources": [
-          {
-            "path": "hardware/ledger/purchases.md",
-            "line": 440
-          }
-        ],
-        "note": "Recorded purchase supplies 100 ft. A provisional one-machine consumption reserve of 5 is deducted for development; the remaining stock is uncounted and marked *."
-      }
+      "stock": "B075VRDS53"
     },
     {
       "id": "K&J Magnetics RC62 N42 ring magnet",
@@ -4086,7 +2729,6 @@
       "bomLines": [
         252
       ],
-      "perUnit": 3.0,
       "unit": "pieces",
       "supplier": "kj",
       "priceBasis": "merchandise",
@@ -4120,27 +2762,14 @@
         }
       ],
       "sourceUrl": "https://www.kjmagnetics.com/rc62-neodymium-ring-magnet",
-      "inventory": {
-        "onHand": 30,
-        "incoming": 0,
-        "basis": "ledger_estimate",
-        "estimated": true,
-        "sources": [
-          {
-            "path": "hardware/ledger/purchases.md",
-            "line": 369
-          }
-        ],
-        "note": "Acquired quantity from the purchase ledger; usable remainder after development is not separately counted. This is an inventory-credit estimate."
-      }
+      "stock": "K&J Magnetics RC62 N42 ring magnet"
     },
     {
       "id": "B0CY4DWJFQ",
-      "name": "Tandefio 1/8\" \u00d7 12\" 316 SS round rod (5-pk)",
+      "name": "Tandefio 1/8\" × 12\" 316 SS round rod (5-pk)",
       "bomLines": [
         264
       ],
-      "perUnit": 2.5,
       "unit": "rods",
       "supplier": "amazon",
       "priceBasis": "merchandise",
@@ -4155,19 +2784,7 @@
         }
       ],
       "sourceUrl": "https://www.amazon.com/dp/B0CY4DWJFQ",
-      "inventory": {
-        "onHand": 2.5,
-        "incoming": 0,
-        "basis": "ledger_estimate",
-        "estimated": true,
-        "sources": [
-          {
-            "path": "hardware/ledger/purchases.md",
-            "line": 378
-          }
-        ],
-        "note": "Recorded purchase supplies 5 rods. A provisional one-machine consumption reserve of 2.5 is deducted for development; the remaining stock is uncounted and marked *."
-      }
+      "stock": "B0CY4DWJFQ"
     },
     {
       "id": "Littelfuse MDSR-7-10-15 reed switches",
@@ -4175,7 +2792,6 @@
       "bomLines": [
         270
       ],
-      "perUnit": 10.0,
       "unit": "pieces",
       "supplier": "mouser",
       "priceBasis": "merchandise",
@@ -4190,19 +2806,7 @@
         }
       ],
       "sourceUrl": "https://www.mouser.com/ProductDetail/Littelfuse/MDSR-7-10-15",
-      "inventory": {
-        "onHand": 40,
-        "incoming": 0,
-        "basis": "ledger_estimate",
-        "estimated": true,
-        "sources": [
-          {
-            "path": "hardware/ledger/purchases.md",
-            "line": 364
-          }
-        ],
-        "note": "Acquired quantity from the purchase ledger; usable remainder after development is not separately counted. This is an inventory-credit estimate."
-      }
+      "stock": "Littelfuse MDSR-7-10-15 reed switches"
     },
     {
       "id": "B08BCRZZS3",
@@ -4210,7 +2814,6 @@
       "bomLines": [
         297
       ],
-      "perUnit": 40.0,
       "unit": "pieces",
       "supplier": "amazon",
       "priceBasis": "merchandise",
@@ -4225,19 +2828,7 @@
         }
       ],
       "sourceUrl": "https://www.amazon.com/dp/B08BCRZZS3",
-      "inventory": {
-        "onHand": 100.0,
-        "incoming": 0,
-        "basis": "ledger_estimate",
-        "estimated": true,
-        "sources": [
-          {
-            "path": "hardware/ledger/purchases.md",
-            "line": 495
-          }
-        ],
-        "note": "Acquired quantity from the purchase ledger; usable remainder after development is not separately counted. This is an inventory-credit estimate."
-      }
+      "stock": "B08BCRZZS3"
     },
     {
       "id": "B09ZHSGHXD",
@@ -4245,7 +2836,6 @@
       "bomLines": [
         298
       ],
-      "perUnit": 28.0,
       "unit": "pieces",
       "supplier": "amazon",
       "priceBasis": "delivered",
@@ -4260,23 +2850,7 @@
         }
       ],
       "sourceUrl": "https://www.amazon.com/dp/B09ZHSGHXD",
-      "inventory": {
-        "onHand": 200.0,
-        "incoming": 0,
-        "basis": "ledger_estimate",
-        "estimated": true,
-        "sources": [
-          {
-            "path": "hardware/ledger/purchases.md",
-            "line": 493
-          },
-          {
-            "path": "hardware/ledger/purchases.md",
-            "line": 494
-          }
-        ],
-        "note": "Acquired quantity from the purchase ledger; usable remainder after development is not separately counted. This is an inventory-credit estimate."
-      }
+      "stock": "B09ZHSGHXD"
     },
     {
       "id": "B07YSVXWS8",
@@ -4284,7 +2858,6 @@
       "bomLines": [
         299
       ],
-      "perUnit": 4.0,
       "unit": "pieces",
       "supplier": "amazon",
       "priceBasis": "merchandise",
@@ -4299,27 +2872,14 @@
         }
       ],
       "sourceUrl": "https://www.amazon.com/dp/B07YSVXWS8",
-      "inventory": {
-        "onHand": 50.0,
-        "incoming": 0,
-        "basis": "ledger_estimate",
-        "estimated": true,
-        "sources": [
-          {
-            "path": "hardware/ledger/purchases.md",
-            "line": 504
-          }
-        ],
-        "note": "Acquired quantity from the purchase ledger; usable remainder after development is not separately counted. This is an inventory-credit estimate."
-      }
+      "stock": "B07YSVXWS8"
     },
     {
       "id": "B0DJQGMQZM",
-      "name": "BNUOK M3 \u00d7 12 mm DIN 912 socket head cap, 304 stainless steel (18-8), 120 pc",
+      "name": "BNUOK M3 × 12 mm DIN 912 socket head cap, 304 stainless steel (18-8), 120 pc",
       "bomLines": [
         301
       ],
-      "perUnit": 12.0,
       "unit": "pieces",
       "supplier": "amazon",
       "priceBasis": "merchandise",
@@ -4334,27 +2894,14 @@
         }
       ],
       "sourceUrl": "https://www.amazon.com/dp/B0DJQGMQZM",
-      "inventory": {
-        "onHand": 120.0,
-        "incoming": 0,
-        "basis": "ledger_estimate",
-        "estimated": true,
-        "sources": [
-          {
-            "path": "hardware/ledger/purchases.md",
-            "line": 501
-          }
-        ],
-        "note": "Acquired quantity from the purchase ledger; usable remainder after development is not separately counted. This is an inventory-credit estimate."
-      }
+      "stock": "B0DJQGMQZM"
     },
     {
       "id": "B0DJQGF665",
-      "name": "BNUOK M3 \u00d7 25 mm DIN 912 socket head cap, 12.9 alloy steel, black oxide, 60 pc",
+      "name": "BNUOK M3 × 25 mm DIN 912 socket head cap, 12.9 alloy steel, black oxide, 60 pc",
       "bomLines": [
         302
       ],
-      "perUnit": 20.0,
       "unit": "pieces",
       "supplier": "amazon",
       "priceBasis": "merchandise",
@@ -4369,27 +2916,14 @@
         }
       ],
       "sourceUrl": "https://www.amazon.com/dp/B0DJQGF665",
-      "inventory": {
-        "onHand": 60.0,
-        "incoming": 0,
-        "basis": "ledger_estimate",
-        "estimated": true,
-        "sources": [
-          {
-            "path": "hardware/ledger/purchases.md",
-            "line": 497
-          }
-        ],
-        "note": "Acquired quantity from the purchase ledger; usable remainder after development is not separately counted. This is an inventory-credit estimate."
-      }
+      "stock": "B0DJQGF665"
     },
     {
       "id": "B0DJQGPRPV",
-      "name": "BNUOK M3 \u00d7 8 mm DIN 912 socket head cap, 12.9 alloy steel, black oxide, 120 pc",
+      "name": "BNUOK M3 × 8 mm DIN 912 socket head cap, 12.9 alloy steel, black oxide, 120 pc",
       "bomLines": [
         303
       ],
-      "perUnit": 23.0,
       "unit": "pieces",
       "supplier": "amazon",
       "priceBasis": "merchandise",
@@ -4404,27 +2938,14 @@
         }
       ],
       "sourceUrl": "https://www.amazon.com/dp/B0DJQGPRPV",
-      "inventory": {
-        "onHand": 120.0,
-        "incoming": 0,
-        "basis": "ledger_estimate",
-        "estimated": true,
-        "sources": [
-          {
-            "path": "hardware/ledger/purchases.md",
-            "line": 500
-          }
-        ],
-        "note": "Acquired quantity from the purchase ledger; usable remainder after development is not separately counted. This is an inventory-credit estimate."
-      }
+      "stock": "B0DJQGPRPV"
     },
     {
       "id": "B0DJQGGDP2",
-      "name": "BNUOK M3 \u00d7 10 mm DIN 912 socket head cap, 12.9 alloy steel, black oxide, 120 pc",
+      "name": "BNUOK M3 × 10 mm DIN 912 socket head cap, 12.9 alloy steel, black oxide, 120 pc",
       "bomLines": [
         304
       ],
-      "perUnit": 7.0,
       "unit": "pieces",
       "supplier": "amazon",
       "priceBasis": "merchandise",
@@ -4439,27 +2960,14 @@
         }
       ],
       "sourceUrl": "https://www.amazon.com/dp/B0DJQGGDP2",
-      "inventory": {
-        "onHand": 120.0,
-        "incoming": 0,
-        "basis": "ledger_estimate",
-        "estimated": true,
-        "sources": [
-          {
-            "path": "hardware/ledger/purchases.md",
-            "line": 499
-          }
-        ],
-        "note": "Acquired quantity from the purchase ledger; usable remainder after development is not separately counted. This is an inventory-credit estimate."
-      }
+      "stock": "B0DJQGGDP2"
     },
     {
       "id": "B0DJQHNL3H",
-      "name": "BNUOK M3 \u00d7 60 mm DIN 912 socket head cap, 12.9 alloy steel, black oxide, full thread, 60 pc",
+      "name": "BNUOK M3 × 60 mm DIN 912 socket head cap, 12.9 alloy steel, black oxide, full thread, 60 pc",
       "bomLines": [
         305
       ],
-      "perUnit": 2.0,
       "unit": "pieces",
       "supplier": "amazon",
       "priceBasis": "merchandise",
@@ -4475,27 +2983,14 @@
         }
       ],
       "sourceUrl": "https://www.amazon.com/dp/B0DJQHNL3H",
-      "inventory": {
-        "onHand": 60.0,
-        "incoming": 0,
-        "basis": "ledger_estimate",
-        "estimated": true,
-        "sources": [
-          {
-            "path": "hardware/ledger/purchases.md",
-            "line": 507
-          }
-        ],
-        "note": "Acquired quantity from the purchase ledger; usable remainder after development is not separately counted. This is an inventory-credit estimate."
-      }
+      "stock": "B0DJQHNL3H"
     },
     {
       "id": "B0DJR2Q5LP",
-      "name": "BNUOK M3 \u00d7 20 mm DIN 912 socket head cap, 12.9 alloy steel, black oxide, full thread, 60 pc",
+      "name": "BNUOK M3 × 20 mm DIN 912 socket head cap, 12.9 alloy steel, black oxide, full thread, 60 pc",
       "bomLines": [
         306
       ],
-      "perUnit": 4.0,
       "unit": "pieces",
       "supplier": "amazon",
       "priceBasis": "merchandise",
@@ -4510,27 +3005,14 @@
         }
       ],
       "sourceUrl": "https://www.amazon.com/dp/B0DJR2Q5LP",
-      "inventory": {
-        "onHand": 60.0,
-        "incoming": 0,
-        "basis": "ledger_estimate",
-        "estimated": true,
-        "sources": [
-          {
-            "path": "hardware/ledger/purchases.md",
-            "line": 508
-          }
-        ],
-        "note": "Acquired quantity from the purchase ledger; usable remainder after development is not separately counted. This is an inventory-credit estimate."
-      }
+      "stock": "B0DJR2Q5LP"
     },
     {
       "id": "B0FB45MN93",
-      "name": "uxcell M3 flat washer, \u00d89 mm OD \u00d7 0.8 mm, 304 stainless steel, 200 pc",
+      "name": "uxcell M3 flat washer, Ø9 mm OD × 0.8 mm, 304 stainless steel, 200 pc",
       "bomLines": [
         308
       ],
-      "perUnit": 4.0,
       "unit": "pieces",
       "supplier": "amazon",
       "priceBasis": "merchandise",
@@ -4546,27 +3028,14 @@
         }
       ],
       "sourceUrl": "https://www.amazon.com/dp/B0FB45MN93",
-      "inventory": {
-        "onHand": 200.0,
-        "incoming": 0,
-        "basis": "ledger_estimate",
-        "estimated": true,
-        "sources": [
-          {
-            "path": "hardware/ledger/purchases.md",
-            "line": 510
-          }
-        ],
-        "note": "Acquired quantity from the purchase ledger; usable remainder after development is not separately counted. This is an inventory-credit estimate."
-      }
+      "stock": "B0FB45MN93"
     },
     {
       "id": "B0BHZVXNJX",
-      "name": "MewuDecor M5 \u00d7 10 mm socket head cap, 12.9 alloy steel, black oxide, fully threaded, 100 pc",
+      "name": "MewuDecor M5 × 10 mm socket head cap, 12.9 alloy steel, black oxide, fully threaded, 100 pc",
       "bomLines": [
         309
       ],
-      "perUnit": 4.0,
       "unit": "pieces",
       "supplier": "amazon",
       "priceBasis": "merchandise",
@@ -4581,27 +3050,14 @@
         }
       ],
       "sourceUrl": "https://www.amazon.com/dp/B0BHZVXNJX",
-      "inventory": {
-        "onHand": 100.0,
-        "incoming": 0,
-        "basis": "ledger_estimate",
-        "estimated": true,
-        "sources": [
-          {
-            "path": "hardware/ledger/purchases.md",
-            "line": 505
-          }
-        ],
-        "note": "Acquired quantity from the purchase ledger; usable remainder after development is not separately counted. This is an inventory-credit estimate."
-      }
+      "stock": "B0BHZVXNJX"
     },
     {
       "id": "B0GSMDY5GL",
-      "name": "M5 \u00d7 25 mm OD fender washers, 304 stainless steel, 60 pc",
+      "name": "M5 × 25 mm OD fender washers, 304 stainless steel, 60 pc",
       "bomLines": [
         310
       ],
-      "perUnit": 4.0,
       "unit": "pieces",
       "supplier": "amazon",
       "priceBasis": "merchandise",
@@ -4616,27 +3072,14 @@
         }
       ],
       "sourceUrl": "https://www.amazon.com/dp/B0GSMDY5GL",
-      "inventory": {
-        "onHand": 60.0,
-        "incoming": 0,
-        "basis": "ledger_estimate",
-        "estimated": true,
-        "sources": [
-          {
-            "path": "hardware/ledger/purchases.md",
-            "line": 506
-          }
-        ],
-        "note": "Acquired quantity from the purchase ledger; usable remainder after development is not separately counted. This is an inventory-credit estimate."
-      }
+      "stock": "B0GSMDY5GL"
     },
     {
       "id": "B0D41KT345",
-      "name": "LVDALAB PTFE Membrane Filter, \u00f813 mm \u00d7 0.45 \u00b5m, 100 pc, non-sterile",
+      "name": "LVDALAB PTFE Membrane Filter, ø13 mm × 0.45 µm, 100 pc, non-sterile",
       "bomLines": [
         311
       ],
-      "perUnit": 2.0,
       "unit": "pieces",
       "supplier": "amazon",
       "priceBasis": "merchandise",
@@ -4652,19 +3095,7 @@
         }
       ],
       "sourceUrl": "https://www.amazon.com/dp/B0D41KT345",
-      "inventory": {
-        "onHand": 100.0,
-        "incoming": 0,
-        "basis": "ledger_estimate",
-        "estimated": true,
-        "sources": [
-          {
-            "path": "hardware/ledger/purchases.md",
-            "line": 503
-          }
-        ],
-        "note": "Acquired quantity from the purchase ledger; usable remainder after development is not separately counted. This is an inventory-credit estimate."
-      }
+      "stock": "B0D41KT345"
     },
     {
       "id": "B08VW15TK8",
@@ -4672,7 +3103,6 @@
       "bomLines": [
         319
       ],
-      "perUnit": 1.0,
       "unit": "pieces",
       "supplier": "amazon",
       "priceBasis": "merchandise",
@@ -4687,27 +3117,14 @@
         }
       ],
       "sourceUrl": "https://www.amazon.com/dp/B08VW15TK8",
-      "inventory": {
-        "onHand": 3.0,
-        "incoming": 0,
-        "basis": "ledger_estimate",
-        "estimated": true,
-        "sources": [
-          {
-            "path": "hardware/ledger/purchases.md",
-            "line": 512
-          }
-        ],
-        "note": "Acquired quantity from the purchase ledger; usable remainder after development is not separately counted. This is an inventory-credit estimate."
-      }
+      "stock": "B08VW15TK8"
     },
     {
       "id": "disconnect-6.3 mm",
-      "name": "Female spade disconnects, 6.3 mm \u2014 provisional size-specific refill",
+      "name": "Female spade disconnects, 6.3 mm — provisional size-specific refill",
       "bomLines": [
         215
       ],
-      "perUnit": 32,
       "unit": "pieces",
       "supplier": "allowances",
       "priceBasis": "delivered",
@@ -4721,27 +3138,14 @@
           "available": true
         }
       ],
-      "inventory": {
-        "onHand": 100,
-        "incoming": 0,
-        "basis": "ledger_estimate",
-        "estimated": true,
-        "sources": [
-          {
-            "path": "hardware/ledger/purchases.md",
-            "line": 394
-          }
-        ],
-        "note": "One matching 100-piece Baomain pack acquired; the usable remainder is estimated. Other mixed-width assortments are not credited."
-      }
+      "stock": "disconnect-6.3 mm"
     },
     {
       "id": "disconnect-4.8 mm",
-      "name": "Female spade disconnects, 4.8 mm \u2014 provisional size-specific refill",
+      "name": "Female spade disconnects, 4.8 mm — provisional size-specific refill",
       "bomLines": [
         215
       ],
-      "perUnit": 32,
       "unit": "pieces",
       "supplier": "allowances",
       "priceBasis": "delivered",
@@ -4755,27 +3159,14 @@
           "available": true
         }
       ],
-      "inventory": {
-        "onHand": 100,
-        "incoming": 0,
-        "basis": "ledger_estimate",
-        "estimated": true,
-        "sources": [
-          {
-            "path": "hardware/ledger/purchases.md",
-            "line": 395
-          }
-        ],
-        "note": "One matching 100-piece Baomain pack acquired; the usable remainder is estimated. Other mixed-width assortments are not credited."
-      }
+      "stock": "disconnect-4.8 mm"
     },
     {
       "id": "forks",
-      "name": "Insulated #6 fork terminals, 22\u201316 AWG",
+      "name": "Insulated #6 fork terminals, 22–16 AWG",
       "bomLines": [
         217
       ],
-      "perUnit": 7,
       "unit": "pieces",
       "supplier": "allowances",
       "priceBasis": "delivered",
@@ -4789,22 +3180,14 @@
           "available": true
         }
       ],
-      "inventory": {
-        "onHand": 0,
-        "incoming": 0,
-        "basis": "unknown",
-        "estimated": true,
-        "sources": [],
-        "note": "Existing assortments do not have recorded usable counts in the required sizes. No numerical stock credit; size-specific refill/assortment allowance remains *."
-      }
+      "stock": "forks"
     },
     {
       "id": "ferrules-16",
-      "name": "Insulated bootlace ferrules, 16 AWG \u2014 refill allowance",
+      "name": "Insulated bootlace ferrules, 16 AWG — refill allowance",
       "bomLines": [
         235
       ],
-      "perUnit": 35,
       "unit": "pieces",
       "supplier": "allowances",
       "priceBasis": "delivered",
@@ -4818,27 +3201,14 @@
           "available": true
         }
       ],
-      "inventory": {
-        "onHand": 0,
-        "incoming": 0,
-        "basis": "unknown",
-        "estimated": true,
-        "sources": [
-          {
-            "path": "hardware/ledger/purchases.md",
-            "line": 441
-          }
-        ],
-        "note": "Existing assortments do not have recorded usable counts in the required sizes. No numerical stock credit; size-specific refill/assortment allowance remains *."
-      }
+      "stock": "ferrules-16"
     },
     {
       "id": "ferrules-22",
-      "name": "Insulated bootlace ferrules, 22 AWG \u2014 refill allowance",
+      "name": "Insulated bootlace ferrules, 22 AWG — refill allowance",
       "bomLines": [
         235
       ],
-      "perUnit": 35,
       "unit": "pieces",
       "supplier": "allowances",
       "priceBasis": "delivered",
@@ -4852,27 +3222,14 @@
           "available": true
         }
       ],
-      "inventory": {
-        "onHand": 0,
-        "incoming": 0,
-        "basis": "unknown",
-        "estimated": true,
-        "sources": [
-          {
-            "path": "hardware/ledger/purchases.md",
-            "line": 441
-          }
-        ],
-        "note": "Existing assortments do not have recorded usable counts in the required sizes. No numerical stock credit; size-specific refill/assortment allowance remains *."
-      }
+      "stock": "ferrules-22"
     },
     {
       "id": "16awg-kit",
-      "name": "BNTECHGO 16 AWG, five colours \u00d7 25 ft \u2014 colour allocation pending",
+      "name": "BNTECHGO 16 AWG, five colours × 25 ft — colour allocation pending",
       "bomLines": [
         229
       ],
-      "perUnit": 14,
       "unit": "ft",
       "supplier": "amazon",
       "priceBasis": "merchandise",
@@ -4882,7 +3239,7 @@
         {
           "quantity": 125,
           "priceCents": 3798,
-          "label": "5 \u00d7 25 ft colour kit",
+          "label": "5 × 25 ft colour kit",
           "available": true
         }
       ],
@@ -4892,19 +3249,7 @@
         "10": 3,
         "20": 5
       },
-      "inventory": {
-        "onHand": 125,
-        "incoming": 0,
-        "basis": "ledger_estimate",
-        "estimated": true,
-        "sources": [
-          {
-            "path": "hardware/ledger/purchases.md",
-            "line": 430
-          }
-        ],
-        "note": "Acquired quantity from the purchase ledger; usable remainder after development is not separately counted. This is an inventory-credit estimate."
-      }
+      "stock": "16awg-kit"
     },
     {
       "id": "sleeve-1/4 inch",
@@ -4912,7 +3257,6 @@
       "bomLines": [
         234
       ],
-      "perUnit": 2,
       "unit": "ft",
       "supplier": "amazon",
       "priceBasis": "merchandise",
@@ -4927,19 +3271,7 @@
         }
       ],
       "sourceUrl": "https://www.amazon.com/dp/B071JH14WZ",
-      "inventory": {
-        "onHand": 23,
-        "incoming": 0,
-        "basis": "ledger_estimate",
-        "estimated": true,
-        "sources": [
-          {
-            "path": "hardware/ledger/purchases.md",
-            "line": 439
-          }
-        ],
-        "note": "Acquired quantity from the purchase ledger; usable remainder after development is not separately counted. This is an inventory-credit estimate."
-      }
+      "stock": "sleeve-1/4 inch"
     },
     {
       "id": "sleeve-1/2 inch",
@@ -4947,7 +3279,6 @@
       "bomLines": [
         234
       ],
-      "perUnit": 4,
       "unit": "ft",
       "supplier": "amazon",
       "priceBasis": "merchandise",
@@ -4962,19 +3293,7 @@
         }
       ],
       "sourceUrl": "https://www.amazon.com/dp/B074GMNW7T",
-      "inventory": {
-        "onHand": 96,
-        "incoming": 0,
-        "basis": "ledger_estimate",
-        "estimated": true,
-        "sources": [
-          {
-            "path": "hardware/ledger/purchases.md",
-            "line": 437
-          }
-        ],
-        "note": "Acquired quantity from the purchase ledger; usable remainder after development is not separately counted. This is an inventory-credit estimate."
-      }
+      "stock": "sleeve-1/2 inch"
     },
     {
       "id": "sleeve-3/4 inch",
@@ -4982,7 +3301,6 @@
       "bomLines": [
         234
       ],
-      "perUnit": 2,
       "unit": "ft",
       "supplier": "amazon",
       "priceBasis": "merchandise",
@@ -4997,27 +3315,14 @@
         }
       ],
       "sourceUrl": "https://www.amazon.com/dp/B074GMCGZX",
-      "inventory": {
-        "onHand": 98,
-        "incoming": 0,
-        "basis": "ledger_estimate",
-        "estimated": true,
-        "sources": [
-          {
-            "path": "hardware/ledger/purchases.md",
-            "line": 438
-          }
-        ],
-        "note": "Acquired quantity from the purchase ledger; usable remainder after development is not separately counted. This is an inventory-credit estimate."
-      }
+      "stock": "sleeve-3/4 inch"
     },
     {
       "id": "heatshrink",
-      "name": "Ginsco 580-piece heat-shrink kit \u2014 size mix pending",
+      "name": "Ginsco 580-piece heat-shrink kit — size mix pending",
       "bomLines": [
         218
       ],
-      "perUnit": 45,
       "unit": "collars",
       "supplier": "amazon",
       "priceBasis": "merchandise",
@@ -5032,25 +3337,12 @@
         }
       ],
       "sourceUrl": "https://www.amazon.com/dp/B01MFA3OFA",
-      "inventory": {
-        "onHand": 0,
-        "incoming": 0,
-        "basis": "unknown",
-        "estimated": true,
-        "sources": [
-          {
-            "path": "hardware/ledger/purchases.md",
-            "line": 617
-          }
-        ],
-        "note": "Existing assortments do not have recorded usable counts in the required sizes. No numerical stock credit; size-specific refill/assortment allowance remains *."
-      }
+      "stock": "heatshrink"
     },
     {
       "id": "large-shrink",
       "name": "Large-diameter heat shrink for braided sleeve ends",
       "bomLines": [],
-      "perUnit": 0.3,
       "unit": "m",
       "supplier": "allowances",
       "priceBasis": "delivered",
@@ -5064,14 +3356,7 @@
           "available": true
         }
       ],
-      "inventory": {
-        "onHand": 0,
-        "incoming": 0,
-        "basis": "unknown",
-        "estimated": true,
-        "sources": [],
-        "note": "Existing assortments do not have recorded usable counts in the required sizes. No numerical stock credit; size-specific refill/assortment allowance remains *."
-      }
+      "stock": "large-shrink"
     },
     {
       "id": "xh5",
@@ -5079,7 +3364,6 @@
       "bomLines": [
         228
       ],
-      "perUnit": 1,
       "unit": "sets",
       "supplier": "amazon",
       "priceBasis": "merchandise",
@@ -5094,19 +3378,7 @@
         }
       ],
       "sourceUrl": "https://www.amazon.com/dp/B0B2R9P2TS",
-      "inventory": {
-        "onHand": 50,
-        "incoming": 0,
-        "basis": "ledger_estimate",
-        "estimated": true,
-        "sources": [
-          {
-            "path": "hardware/ledger/purchases.md",
-            "line": 421
-          }
-        ],
-        "note": "Acquired quantity from the purchase ledger; usable remainder after development is not separately counted. This is an inventory-credit estimate."
-      }
+      "stock": "xh5"
     },
     {
       "id": "xh7",
@@ -5114,7 +3386,6 @@
       "bomLines": [
         228
       ],
-      "perUnit": 2,
       "unit": "sets",
       "supplier": "amazon",
       "priceBasis": "merchandise",
@@ -5129,19 +3400,7 @@
         }
       ],
       "sourceUrl": "https://www.amazon.com/dp/B0B2R96VS3",
-      "inventory": {
-        "onHand": 50,
-        "incoming": 0,
-        "basis": "ledger_estimate",
-        "estimated": true,
-        "sources": [
-          {
-            "path": "hardware/ledger/purchases.md",
-            "line": 422
-          }
-        ],
-        "note": "Acquired quantity from the purchase ledger; usable remainder after development is not separately counted. This is an inventory-credit estimate."
-      }
+      "stock": "xh7"
     },
     {
       "id": "petgf-black",
@@ -5177,12 +3436,11 @@
         151,
         152
       ],
-      "perUnit": 6.02,
       "unit": "kg",
       "supplier": "amazon",
       "priceBasis": "merchandise",
       "status": "estimate",
-      "note": "Prime 3 kg Black $74.99 / 1 kg $29.99. BOM total 6.171 kg PET-GF per machine; white faucet 0.122 kg, rings/collars split across their six stations (blue, white \u00d72, red, black \u00d72), nameplate half white. Add 15% for supports, purge and rejects; yield and colour split are provisional. 8% multi-item promotion shown but checkout eligibility/limits unconfirmed, so budget uses full price. Black material is planned at 6.02 kg/machine, rounded from the 6.0165 kg BOM split; the 15% process reserve is applied to that planning mass.",
+      "note": "Prime 3 kg Black $74.99 / 1 kg $29.99. BOM total 6.171 kg PET-GF per machine; white faucet 0.122 kg, rings/collars split across their six stations (blue, white ×2, red, black ×2), nameplate half white. Add 15% for supports, purge and rejects; yield and colour split are provisional. 8% multi-item promotion shown but checkout eligibility/limits unconfirmed, so budget uses full price. Black material is planned at 6.02 kg/machine, rounded from the 6.0165 kg BOM split; the 15% process reserve is applied to that planning mass.",
       "options": [
         {
           "quantity": 3,
@@ -5198,20 +3456,7 @@
         }
       ],
       "sourceUrl": "https://www.amazon.com/dp/B0FBWGTW9W",
-      "materialAllowance": 0.15,
-      "inventory": {
-        "onHand": 14.3,
-        "incoming": 0,
-        "basis": "reported",
-        "estimated": true,
-        "sources": [
-          {
-            "path": "hardware/ledger/purchases.md",
-            "line": 585
-          }
-        ],
-        "note": "Approximately 14.3 kg: the October 4 report of about 12 kg, less about 1.6 kg in the prints logged through October 6 and about 5.1 kg in the 35 Black PET-GF15 jobs logged October 7\u201313 (4,590 slicer grams at the profile's 1.29 g/cm\u00b3, 1.43 g/cm\u00b3 for Fiberon; failed and stopped jobs at their upper bounds, jobs still printing in full), plus the three 3 kg spools delivered October 10. This current balance replaces purchase totals as the forecast credit."
-      }
+      "stock": "petgf-black"
     },
     {
       "id": "petgf-white",
@@ -5247,12 +3492,11 @@
         151,
         152
       ],
-      "perUnit": 0.1425,
       "unit": "kg",
       "supplier": "amazon",
       "priceBasis": "merchandise",
       "status": "estimate",
-      "note": "Prime 3 kg Black $74.99 / 1 kg $29.99. BOM total 6.171 kg PET-GF per machine; white faucet 0.122 kg, rings/collars split across their six stations (blue, white \u00d72, red, black \u00d72), nameplate half white. Add 15% for supports, purge and rejects; yield and colour split are provisional. 8% multi-item promotion shown but checkout eligibility/limits unconfirmed, so budget uses full price.",
+      "note": "Prime 3 kg Black $74.99 / 1 kg $29.99. BOM total 6.171 kg PET-GF per machine; white faucet 0.122 kg, rings/collars split across their six stations (blue, white ×2, red, black ×2), nameplate half white. Add 15% for supports, purge and rejects; yield and colour split are provisional. 8% multi-item promotion shown but checkout eligibility/limits unconfirmed, so budget uses full price.",
       "options": [
         {
           "quantity": 1,
@@ -5262,20 +3506,7 @@
         }
       ],
       "sourceUrl": "https://www.amazon.com/dp/B0FBW9JLFR",
-      "materialAllowance": 0.15,
-      "inventory": {
-        "onHand": 0.8,
-        "incoming": 0,
-        "basis": "ledger_estimate",
-        "estimated": true,
-        "sources": [
-          {
-            "path": "hardware/ledger/purchases.md",
-            "line": 582
-          }
-        ],
-        "note": "Remaining quantity is provisional: 0.8 kg credited from acquired stock after a development-use reserve. No current measured balance; estimate marked *."
-      }
+      "stock": "petgf-white"
     },
     {
       "id": "petgf-blue",
@@ -5311,12 +3542,11 @@
         151,
         152
       ],
-      "perUnit": 0.006,
       "unit": "kg",
       "supplier": "amazon",
       "priceBasis": "merchandise",
       "status": "estimate",
-      "note": "Prime 3 kg Black $74.99 / 1 kg $29.99. BOM total 6.171 kg PET-GF per machine; white faucet 0.122 kg, rings/collars split across their six stations (blue, white \u00d72, red, black \u00d72), nameplate half white. Add 15% for supports, purge and rejects; yield and colour split are provisional. 8% multi-item promotion shown but checkout eligibility/limits unconfirmed, so budget uses full price.",
+      "note": "Prime 3 kg Black $74.99 / 1 kg $29.99. BOM total 6.171 kg PET-GF per machine; white faucet 0.122 kg, rings/collars split across their six stations (blue, white ×2, red, black ×2), nameplate half white. Add 15% for supports, purge and rejects; yield and colour split are provisional. 8% multi-item promotion shown but checkout eligibility/limits unconfirmed, so budget uses full price.",
       "options": [
         {
           "quantity": 1,
@@ -5326,20 +3556,7 @@
         }
       ],
       "sourceUrl": "https://www.amazon.com/dp/B0FBWGFGR6",
-      "materialAllowance": 0.15,
-      "inventory": {
-        "onHand": 0.9,
-        "incoming": 0,
-        "basis": "ledger_estimate",
-        "estimated": true,
-        "sources": [
-          {
-            "path": "hardware/ledger/purchases.md",
-            "line": 581
-          }
-        ],
-        "note": "Remaining quantity is provisional: 0.9 kg credited from acquired stock after a development-use reserve. No current measured balance; estimate marked *."
-      }
+      "stock": "petgf-blue"
     },
     {
       "id": "petgf-red",
@@ -5375,12 +3592,11 @@
         151,
         152
       ],
-      "perUnit": 0.006,
       "unit": "kg",
       "supplier": "amazon",
       "priceBasis": "merchandise",
       "status": "estimate",
-      "note": "Prime 3 kg Black $74.99 / 1 kg $29.99. BOM total 6.171 kg PET-GF per machine; white faucet 0.122 kg, rings/collars split across their six stations (blue, white \u00d72, red, black \u00d72), nameplate half white. Add 15% for supports, purge and rejects; yield and colour split are provisional. 8% multi-item promotion shown but checkout eligibility/limits unconfirmed, so budget uses full price.",
+      "note": "Prime 3 kg Black $74.99 / 1 kg $29.99. BOM total 6.171 kg PET-GF per machine; white faucet 0.122 kg, rings/collars split across their six stations (blue, white ×2, red, black ×2), nameplate half white. Add 15% for supports, purge and rejects; yield and colour split are provisional. 8% multi-item promotion shown but checkout eligibility/limits unconfirmed, so budget uses full price.",
       "options": [
         {
           "quantity": 1,
@@ -5390,20 +3606,7 @@
         }
       ],
       "sourceUrl": "https://www.amazon.com/dp/B0FBWQNJZQ",
-      "materialAllowance": 0.15,
-      "inventory": {
-        "onHand": 0.9,
-        "incoming": 0,
-        "basis": "ledger_estimate",
-        "estimated": true,
-        "sources": [
-          {
-            "path": "hardware/ledger/purchases.md",
-            "line": 580
-          }
-        ],
-        "note": "Remaining quantity is provisional: 0.9 kg credited from acquired stock after a development-use reserve. No current measured balance; estimate marked *."
-      }
+      "stock": "petgf-red"
     },
     {
       "id": "petg-clear",
@@ -5439,7 +3642,6 @@
         151,
         152
       ],
-      "perUnit": 0.89,
       "unit": "kg",
       "supplier": "bambu",
       "priceBasis": "merchandise",
@@ -5472,20 +3674,7 @@
         }
       ],
       "sourceUrl": "https://us.store.bambulab.com/products/petg-translucent",
-      "materialAllowance": 0.15,
-      "inventory": {
-        "onHand": 12.3,
-        "incoming": 0,
-        "basis": "reported",
-        "estimated": true,
-        "sources": [
-          {
-            "path": "hardware/ledger/purchases.md",
-            "line": 678
-          }
-        ],
-        "note": "Approximately 12.3 kg: about 3 kg after the prints logged through October 6, less 0.65 kg in the funnel-mold core and the right reservoir and cap printed October 7, plus the ten 1 kg refills delivered October 8. This current balance replaces purchase totals as the forecast credit."
-      }
+      "stock": "petg-clear"
     },
     {
       "id": "petg-black",
@@ -5521,7 +3710,6 @@
         151,
         152
       ],
-      "perUnit": 0.136,
       "unit": "kg",
       "supplier": "bambu",
       "priceBasis": "merchandise",
@@ -5554,15 +3742,7 @@
         }
       ],
       "sourceUrl": "https://us.store.bambulab.com/products/petg-basic",
-      "materialAllowance": 0.15,
-      "inventory": {
-        "onHand": 10,
-        "incoming": 0,
-        "basis": "reported",
-        "estimated": true,
-        "sources": [],
-        "note": "Approximately 10 kg remaining, reported October 4, 2026; no print logged through October 13 uses it. This current balance replaces purchase totals as the forecast credit."
-      }
+      "stock": "petg-black"
     },
     {
       "id": "asa-aero",
@@ -5570,12 +3750,11 @@
       "bomLines": [
         251
       ],
-      "perUnit": 0.042201,
       "unit": "kg",
       "supplier": "bambu",
       "priceBasis": "merchandise",
       "status": "listed",
-      "note": "Bambu store lists White 46100 with spool at $49.99 and orderable on October 13. Three floats \u00d7 14.067 g feed per machine from the accepted v1 slice; v2 and production purge/yield unmeasured. No interchangeable foaming filament assumed.",
+      "note": "Bambu store lists White 46100 with spool at $49.99 and orderable on October 13. Three floats × 14.067 g feed per machine from the accepted v1 slice; v2 and production purge/yield unmeasured. No interchangeable foaming filament assumed.",
       "options": [
         {
           "quantity": 1,
@@ -5585,35 +3764,17 @@
         }
       ],
       "sourceUrl": "https://us.store.bambulab.com/products/asa-aero",
-      "materialAllowance": 0.15,
-      "inventory": {
-        "onHand": 0.958,
-        "incoming": 2,
-        "basis": "ledger_estimate",
-        "estimated": true,
-        "sources": [
-          {
-            "path": "hardware/ledger/purchases.md",
-            "line": 659
-          },
-          {
-            "path": "hardware/ledger/purchases.md",
-            "line": 679
-          }
-        ],
-        "note": "Remaining quantity is provisional: one of the two 1 kg White 46100 spools acquired in April is credited, less the 42 g three-float print of October 8; the other remains reserved for development. Two more spools ordered October 8 are in transit."
-      }
+      "stock": "asa-aero"
     },
     {
       "id": "tpu",
       "name": "Bambu TPU 90A / 85A seal and sleeve stock",
       "bomLines": [],
-      "perUnit": 0.0137,
       "unit": "kg",
       "supplier": "bambu",
       "priceBasis": "merchandise",
       "status": "estimate",
-      "note": "BOM soft seals (TPU 90A gaskets, washers, rings and o-ring; the TPU 85A above-counter gasket) are per-unit-trivial and not costed in the BOM. 10 g per machine is provisional for those, plus about 3.7 g for the TPU 85A ASSE drain sleeve (solid CAD volume at 1.22 g/cm\u00b3; unprinted). Replenishment uses the September 16 Bambu TPU 90A 1 kg price.",
+      "note": "BOM soft seals (TPU 90A gaskets, washers, rings and o-ring; the TPU 85A above-counter gasket) are per-unit-trivial and not costed in the BOM. 10 g per machine is provisional for those, plus about 3.7 g for the TPU 85A ASSE drain sleeve (solid CAD volume at 1.22 g/cm³; unprinted). Replenishment uses the September 16 Bambu TPU 90A 1 kg price.",
       "options": [
         {
           "quantity": 1,
@@ -5622,23 +3783,7 @@
           "available": true
         }
       ],
-      "inventory": {
-        "onHand": 0.4,
-        "incoming": 0,
-        "basis": "ledger_estimate",
-        "estimated": true,
-        "sources": [
-          {
-            "path": "hardware/ledger/purchases.md",
-            "line": 662
-          },
-          {
-            "path": "hardware/ledger/purchases.md",
-            "line": 676
-          }
-        ],
-        "note": "Remaining quantity is provisional: 0.5 kg credited across the acquired Bambu TPU 90A and 85A spools after a development-use reserve, less about 0.1 kg in the TPU jobs logged October 8\u201313. No current measured balance; estimate marked *."
-      }
+      "stock": "tpu"
     },
     {
       "id": "neoFit ABU44M-E acetal black bulkhead connector, 4 mm tube (bag of 10)",
@@ -5647,7 +3792,6 @@
         54,
         198
       ],
-      "perUnit": 3,
       "unit": "pieces",
       "supplier": "fws",
       "priceBasis": "merchandise",
@@ -5677,19 +3821,7 @@
         }
       ],
       "sourceUrl": "https://www.freshwatersystems.com/products/neofit-acetal-black-bulkhead-connector-4mm-5-32-tube",
-      "inventory": {
-        "onHand": 10,
-        "incoming": 0,
-        "basis": "ledger_estimate",
-        "estimated": true,
-        "sources": [
-          {
-            "path": "hardware/ledger/purchases.md",
-            "line": 157
-          }
-        ],
-        "note": "Bag of ten from FWS WEBFWS100711469, delivered October 9. Usable remainder after development is not separately counted. This is an inventory-credit estimate."
-      }
+      "stock": "neoFit ABU44M-E acetal black bulkhead connector, 4 mm tube (bag of 10)"
     },
     {
       "id": "neoFlo White 4 mm OD LLDPE tubing (LLDPE4M-WHITE)",
@@ -5697,7 +3829,6 @@
       "bomLines": [
         56
       ],
-      "perUnit": 1,
       "unit": "8 ft drain cuts",
       "supplier": "fws",
       "priceBasis": "merchandise",
@@ -5720,27 +3851,14 @@
         }
       ],
       "sourceUrl": "https://www.freshwatersystems.com/products/white-4mm-od-lldpe-polyethylene-tubing",
-      "inventory": {
-        "onHand": 11,
-        "incoming": 0,
-        "basis": "ledger_estimate",
-        "estimated": true,
-        "sources": [
-          {
-            "path": "hardware/ledger/purchases.md",
-            "line": 157
-          }
-        ],
-        "note": "Four 25 ft lengths (100 ft) from FWS WEBFWS100711469, delivered October 9, yield twelve cuts. A provisional one-machine reserve of 1 is deducted for the drain fit trials; remaining lengths are not measured."
-      }
+      "stock": "neoFlo White 4 mm OD LLDPE tubing (LLDPE4M-WHITE)"
     },
     {
       "id": "ARD4M4-E",
-      "name": "neoFit ARD4M4-E 4 mm tube \u00d7 1/4-inch stem reducer",
+      "name": "neoFit ARD4M4-E 4 mm tube × 1/4-inch stem reducer",
       "bomLines": [
         197
       ],
-      "perUnit": 2,
       "unit": "pieces",
       "supplier": "fws",
       "priceBasis": "merchandise",
@@ -5763,56 +3881,43 @@
         }
       ],
       "sourceUrl": "https://www.freshwatersystems.com/products/neofit-acetal-black-stem-reducer-4mm-5-32-tube-x-1-4-stem",
-      "inventory": {
-        "onHand": 9,
-        "incoming": 0,
-        "basis": "ledger_estimate",
-        "estimated": true,
-        "sources": [
-          {
-            "path": "hardware/ledger/purchases.md",
-            "line": 157
-          }
-        ],
-        "note": "Bag of ten delivered October 9, with one provisional development/vent reserve; no current stocktake."
-      }
+      "stock": "ARD4M4-E"
     },
     {
       "id": "LLDPE4M-BLACK",
-      "name": "neoFlo black 4 mm flavor tubing \u2014 18 ft cutting allowance per machine",
+      "name": "neoFlo black 4 mm flavor tubing — 18 ft cutting allowance per machine",
       "bomLines": [
         196
       ],
-      "perUnit": 1,
-      "unit": "complete flavor cut sets",
+      "unit": "ft",
       "supplier": "fws",
       "priceBasis": "merchandise",
       "status": "listed",
       "note": "Catalog checked October 21. Each allocation reserves 18 ft for two 1,963 mm external cuts, both internal paths, actual socket engagements and trim. Whole-length yields are conservative allocation counts, not a measured cutting yield. Five-foot options cannot supply a continuous external run.",
       "options": [
         {
-          "quantity": 1,
+          "quantity": 25,
           "priceCents": 450,
           "label": "25 ft: one complete set",
           "available": true,
           "sku": "LLDPE4M-BLACK:25FT"
         },
         {
-          "quantity": 2,
+          "quantity": 50,
           "priceCents": 800,
           "label": "50 ft: two complete sets",
           "available": true,
           "sku": "LLDPE4M-BLACK:50FT"
         },
         {
-          "quantity": 5,
+          "quantity": 100,
           "priceCents": 1300,
           "label": "100 ft: five complete sets",
           "available": true,
           "sku": "LLDPE4M-BLACK:100FT"
         },
         {
-          "quantity": 27,
+          "quantity": 500,
           "priceCents": 6825,
           "label": "500 ft: twenty-seven complete sets",
           "available": true,
@@ -5820,14 +3925,7 @@
         }
       ],
       "sourceUrl": "https://www.freshwatersystems.com/products/black-4mm-od-lldpe-polyethylene-tubing?variant=50723039248568",
-      "inventory": {
-        "onHand": 0,
-        "incoming": 0,
-        "basis": "ledger_estimate",
-        "estimated": true,
-        "sources": [],
-        "note": "No acquired black 4 mm stock in the reviewed ledger or recent-order search."
-      }
+      "stock": "LLDPE4M-BLACK"
     }
   ],
   "allowances": [
