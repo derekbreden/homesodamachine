@@ -1822,9 +1822,68 @@
       "mobile feature name remains readable without horizontal overflow",
       "relay installed instances have distinct links and select relay-2",
       "material search finds the selected feature",
-      "feature search works before mounting a model"
+      "feature search works before mounting a model",
+      "selected feature retains its identity and actual GPU boundary through Build 2 junction restoration"
     ],
     "global_catalog_count": 69
   },
-  "cleanup": "Temporary geometry comparisons, the copied baseline executable, private benchmark caches, browser images and trial projects are removed after validation; shared geometry caches remain."
+  "cleanup": "Temporary geometry comparisons, the copied baseline executable, private benchmark caches, browser images and trial projects are removed after validation; shared geometry caches remain.",
+  "live_progressive_selection": {
+    "baseline": {
+      "at": "2026-11-09T04:16:48.019Z",
+      "revision": "e624f298160bda0167b1bb07847f539d0c48e0da61cdb9b0184b1709556d55de",
+      "asset": "1190b3f889826a617d1ed79cdab37173dc027503b23850950e08cfcfee5cabbc",
+      "geometry_key": "1190b3f889826a617d1ed79cdab37173dc027503b23850950e08cfcfee5cabbc:0:[[1,0,0,0],[0,1,0,0],[0,0,1,0]]:[0.03310476616024971,0.03310476616024971,0.036306485533714294]",
+      "selection": "enclosure-back-top::wago-h-well",
+      "feature": "enclosure-back-top::wago-h-well",
+      "min": [
+        -98.5999984741211,
+        384.75,
+        321.3500061035156
+      ],
+      "max": [
+        -89.05000305175781,
+        399.6499938964844,
+        346
+      ]
+    },
+    "updates": [
+      {
+        "at": "2026-11-09T04:18:05.864Z",
+        "revision": "e6e5e285f55d6be424e8c92da8afc9ec2f4db83c7fcbc99283094db038623fca",
+        "asset": "0cf3effba3509d9dcc960acfadb6f4e8840a1271476e074b42fc34148120a961",
+        "geometry_key": "0cf3effba3509d9dcc960acfadb6f4e8840a1271476e074b42fc34148120a961:0:[[1,0,0,0],[0,1,0,0],[0,0,1,0]]:[0.03310476616024971,0.03310476616024971,0.036306485533714294]",
+        "selection": "enclosure-back-top::wago-h-well",
+        "feature": "enclosure-back-top::wago-h-well",
+        "min": [
+          -98.5,
+          384.8500061035156,
+          320.95001220703125
+        ],
+        "max": [
+          -89.05000305175781,
+          399.54998779296875,
+          346
+        ]
+      },
+      {
+        "at": "2026-11-09T04:18:05.876Z",
+        "revision": "e6e5e285f55d6be424e8c92da8afc9ec2f4db83c7fcbc99283094db038623fca",
+        "asset": "0cf3effba3509d9dcc960acfadb6f4e8840a1271476e074b42fc34148120a961",
+        "geometry_key": "0cf3effba3509d9dcc960acfadb6f4e8840a1271476e074b42fc34148120a961:0:[[1,0,0,0],[0,1,0,0],[0,0,1,0]]:[0.03310476616024971,0.03310476616024971,0.036306485533714294]",
+        "selection": "enclosure-back-top::wago-h-well",
+        "feature": "enclosure-back-top::wago-h-well",
+        "min": [
+          -98.5,
+          384.8500061035156,
+          320.95001220703125
+        ],
+        "max": [
+          -89.05000305175781,
+          399.54998779296875,
+          346
+        ]
+      }
+    ]
+  }
 }
