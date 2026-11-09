@@ -1,0 +1,30 @@
+{
+  "purpose": "Record the CO2 chip comparison fit and Derek's approved production clearance for every identification chip.",
+  "job_id": "1423432994",
+  "status": "Printed comparison assessed; intermediate production clearance approved by Derek",
+  "reported_on": "2026-11-09",
+  "comparison": {
+    "A": {
+      "width_mm": 41.7,
+      "per_side_reduction_mm": 0.15,
+      "fit": "Acceptable; closer to Derek's preference, but a bit tight."
+    },
+    "B": {
+      "width_mm": 41.4,
+      "per_side_reduction_mm": 0.3,
+      "fit": "Acceptable; a bit loose."
+    }
+  },
+  "approved_production": {
+    "per_side_reduction_mm": 0.2,
+    "total_width_reduction_mm": 0.4,
+    "width_mm": 41.6,
+    "scope": ["water", "co2", "drain", "carb", "flavor-a", "flavor-b"],
+    "axis": "Native and installed X, between the retaining rails",
+    "basis": "Derek selects an intermediate clearance from the assessed comparison prints.",
+    "preserved": ["bore geometry and location", "lettering geometry and location", "height", "thickness", "rail geometry and placement"],
+    "source": "../../rear_identification.rs",
+    "constant": "SIDE_CLEARANCE"
+  },
+  "derek_quote": "Like honestly either would be fine. If I'm being really nitpicky though, (A) is closer but a bit tight and (B) is further and a bit loose so let's go with somewhere in between, 0.20 mm per side, as our approved variant implemented on all 6 color chips."
+}

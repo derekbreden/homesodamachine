@@ -1,0 +1,234 @@
+{
+  "purpose": "Record the approved chip edge cuts in the production solids and their printable and displayed outputs.",
+  "physical_approval": "prints/2026-11-09-co2-width-mark1/physical-result.json",
+  "source": "rear_identification.rs",
+  "source_sha256": "022987bafd6d3d7c2138da2bac96664efb11cd85ad10db2064de4c07b34c700c",
+  "side_clearance_mm": 0.2,
+  "parts": [
+    {
+      "part": "water",
+      "width_mm": 41.59999999962747,
+      "edge_reduction_mm": [
+        0.20000000018626451,
+        0.20000000018626451
+      ],
+      "body_bounds_mm": [
+        [
+          -20.799999999813735,
+          0.0,
+          -14.200000000186265
+        ],
+        [
+          20.799999999813735,
+          1.7999999998137355,
+          23.799999999813735
+        ]
+      ],
+      "body_removed_volume_mm3": 27.360000022649274,
+      "expected_rectangular_edge_cuts_mm3": 27.35999999716878,
+      "lettering_mesh_unchanged": true,
+      "body_vertices_away_from_vertical_edges_unchanged": true,
+      "fine_model_sha256": "a338d0e6bc7d10e8cee610190c02c5109ae4b7e2856c24d5e1cfc88986ae48fe",
+      "viewer_payload_sha256": "2932147e60e2c0a5464c42ba74830252661e2bfafd0e2bfcf42c987acf4286e6",
+      "stl_sha256": "08533270ab406d839289220e9468dc4d2d7d2b87d426e0fdb5f922da3f25891d"
+    },
+    {
+      "part": "co2",
+      "width_mm": 41.59999999962747,
+      "edge_reduction_mm": [
+        0.20000000018626451,
+        0.20000000018626451
+      ],
+      "body_bounds_mm": [
+        [
+          -20.799999999813735,
+          0.0,
+          -14.200000000186265
+        ],
+        [
+          20.799999999813735,
+          1.7999999998137355,
+          23.799999999813735
+        ]
+      ],
+      "body_removed_volume_mm3": 27.360000022650183,
+      "expected_rectangular_edge_cuts_mm3": 27.35999999716878,
+      "lettering_mesh_unchanged": true,
+      "body_vertices_away_from_vertical_edges_unchanged": true,
+      "fine_model_sha256": "3ccc0c7408063c72043f48a53ccfa5832251936740f565779de886dca7b81817",
+      "viewer_payload_sha256": "b6460ded2caba8d7a79cf8c3ca916891f60058a72cc91c6998d04d2c2bd4a125",
+      "stl_sha256": "87acbc152f5ae34fe61b82037e9c4b143b73f821cbfcd660d743a30560efa2be"
+    },
+    {
+      "part": "drain",
+      "width_mm": 41.59999999962747,
+      "edge_reduction_mm": [
+        0.20000000018626451,
+        0.20000000018626451
+      ],
+      "body_bounds_mm": [
+        [
+          -20.799999999813735,
+          0.0,
+          -23.40000000037253
+        ],
+        [
+          20.799999999813735,
+          1.7999999998137355,
+          14.599999999627471
+        ]
+      ],
+      "body_removed_volume_mm3": 27.36000002264973,
+      "expected_rectangular_edge_cuts_mm3": 27.35999999716878,
+      "lettering_mesh_unchanged": true,
+      "body_vertices_away_from_vertical_edges_unchanged": true,
+      "fine_model_sha256": "2cbb2fa07300e794cae0ffb6cf471609b8b8171c09c948d3d5808dc856a82bf2",
+      "viewer_payload_sha256": "02f3b931243ab66715afe4aae46d84fe232d37ed7fd294551e8f2ea18464abf7",
+      "stl_sha256": "4fc2d86b3c4e1c632fbbf2ca6f593666c0005d02cddbb25d96a181c9018a0a1b"
+    },
+    {
+      "part": "carb",
+      "width_mm": 41.59999999962747,
+      "edge_reduction_mm": [
+        0.20000000018626451,
+        0.20000000018626451
+      ],
+      "body_bounds_mm": [
+        [
+          -20.799999999813735,
+          0.0,
+          -15.400000000372529
+        ],
+        [
+          20.799999999813735,
+          1.7999999998137355,
+          22.59999999962747
+        ]
+      ],
+      "body_removed_volume_mm3": 27.36000002264973,
+      "expected_rectangular_edge_cuts_mm3": 27.35999999716878,
+      "lettering_mesh_unchanged": true,
+      "body_vertices_away_from_vertical_edges_unchanged": true,
+      "fine_model_sha256": "166fa15754ce0679587b0c3198c57fe4dc6ab65215c8d1d2cac3e94be887b2b8",
+      "viewer_payload_sha256": "8b35621b1c654199dc4304adf01ee993cab81183e44db444ac46bdff8d25f8d2",
+      "stl_sha256": "ac4d3aa8946b200511aa8632a3e128d7c71829f353810952c4b793aeef67b686"
+    },
+    {
+      "part": "flavor-a",
+      "width_mm": 41.59999999962747,
+      "edge_reduction_mm": [
+        0.20000000018626451,
+        0.20000000018626451
+      ],
+      "body_bounds_mm": [
+        [
+          -20.799999999813735,
+          0.0,
+          -15.400000000372529
+        ],
+        [
+          20.799999999813735,
+          1.7999999998137355,
+          22.59999999962747
+        ]
+      ],
+      "body_removed_volume_mm3": 27.36000002264973,
+      "expected_rectangular_edge_cuts_mm3": 27.35999999716878,
+      "lettering_mesh_unchanged": true,
+      "body_vertices_away_from_vertical_edges_unchanged": true,
+      "fine_model_sha256": "5b243d44c1bb9e8e53b279334fc9f350a07c51e1048ac6ebfabaae48466e8906",
+      "viewer_payload_sha256": "d81cbbadd4a9bb0c8e9b5c014de75e1e04c36684041ed2fb96f3a05634422b49",
+      "stl_sha256": "790da266dd208f6cf5b8c69d87d0f8f7d2b3420f7be294a23269723b3a6264cf"
+    },
+    {
+      "part": "flavor-b",
+      "width_mm": 41.59999999962747,
+      "edge_reduction_mm": [
+        0.20000000018626451,
+        0.20000000018626451
+      ],
+      "body_bounds_mm": [
+        [
+          -20.799999999813735,
+          0.0,
+          -23.40000000037253
+        ],
+        [
+          20.799999999813735,
+          1.7999999998137355,
+          14.599999999627471
+        ]
+      ],
+      "body_removed_volume_mm3": 27.36000002264973,
+      "expected_rectangular_edge_cuts_mm3": 27.35999999716878,
+      "lettering_mesh_unchanged": true,
+      "body_vertices_away_from_vertical_edges_unchanged": true,
+      "fine_model_sha256": "d5564907639a1cbad1a127e7a104e4edf5cfe47fe78261f218349ce2ebab2f32",
+      "viewer_payload_sha256": "ed8dbd842511a24ae9a5fd6e312af135ecc745e0e5c0c3bacddb9843151b803f",
+      "stl_sha256": "44f2b34268dd4f63aa4f7783d07d1a1083c5b239f5045ddd0ab5e6544b387257"
+    }
+  ],
+  "checks": {
+    "all_chip_widths_match_approval": true,
+    "symmetric_edge_cuts": true,
+    "height_and_thickness_unchanged": true,
+    "lettering_unchanged": true,
+    "bore_and_other_body_vertices_away_from_vertical_edges_unchanged": true,
+    "removed_volume_matches_edge_cuts_only": true
+  },
+  "lint": {
+    "review": "Existing functional glyph and fitted-cover answers apply; the cover anchors identify the narrowed faces.",
+    "pieces": [
+      {
+        "part": "water",
+        "thin_findings": 2,
+        "answered": 2,
+        "unanswered": 0
+      },
+      {
+        "part": "co2",
+        "thin_findings": 2,
+        "answered": 2,
+        "unanswered": 0
+      },
+      {
+        "part": "drain",
+        "thin_findings": 5,
+        "answered": 5,
+        "unanswered": 0
+      },
+      {
+        "part": "carb",
+        "thin_findings": 4,
+        "answered": 4,
+        "unanswered": 0
+      },
+      {
+        "part": "flavor-a",
+        "thin_findings": 5,
+        "answered": 5,
+        "unanswered": 0
+      },
+      {
+        "part": "flavor-b",
+        "thin_findings": 5,
+        "answered": 5,
+        "unanswered": 0
+      }
+    ],
+    "other_classes": "The full post-publication lint reports no unaddressed non-thin findings."
+  },
+  "published_model": {
+    "path": "hardware/manifold-layout/enclosure-assembly.step.mesh",
+    "sha256": "561e78a8ca1eef07528b97bf77a2df2d9446266407964e346980f5ca9cad8284",
+    "changed_bodies": [
+      "bulkhead-ring-water",
+      "bulkhead-ring-co2",
+      "bulkhead-ring-drain",
+      "bulkhead-ring-carb",
+      "bulkhead-ring-flavor-a",
+      "bulkhead-ring-flavor-b"
+    ],
+    "other_bodies_changed": false
+  }
+}
