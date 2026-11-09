@@ -25,7 +25,7 @@
         <label class="copy-label" for="copies">Repeated assemblies <select id="copies"><option value="1">One assembly</option><option value="8">Eight assemblies</option><option value="64">Sixty-four assemblies</option></select></label>
         <h2 id="component-list-title">Components</h2>
         <div id="component-list" aria-label="Components in this view"></div>
-        <button id="edit-current" type="button" class="primary">Edit parent in SolidCraft</button>
+        <button id="edit-current" type="button" class="native-edit-action">Edit parent in SolidCraft</button>
         <p id="fit-note" class="local-note" hidden></p>
       </section>
       <section id="native-controls" hidden>
@@ -59,7 +59,7 @@
         <section id="component-panel" class="component-panel" aria-label="Selected component" hidden>
           <div class="component-panel-head"><span>Component</span><button id="clear-component" type="button" aria-label="Clear selection">×</button></div>
           <h2 id="selected-component"></h2><p id="component-description"></p>
-          <div id="component-actions" class="component-actions"><button id="open-component" type="button" class="component-open">Open component</button><button id="hide-component" type="button">Hide component</button><button id="edit-component" type="button">Edit in SolidCraft</button></div>
+          <div id="component-actions" class="component-actions"><button id="open-component" type="button" class="component-open">Open component</button><button id="hide-component" type="button">Hide component</button><button id="edit-component" type="button" class="native-edit-action">Edit in SolidCraft</button></div>
           <div id="component-holds" class="component-holds"></div><div id="hidden-components"></div>
         </section>
         <p id="navigation-hint" class="navigation-hint">Click a component, then Open.</p>
