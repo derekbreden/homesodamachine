@@ -1,10 +1,10 @@
 {
   "schema": 1,
-  "purpose": "Verify the simplified exterior against its principal mounting and connection datums.",
+  "purpose": "Record the authored exterior, mounting datums and measured head contact surfaces.",
   "unit": "User-owned Kamoer pump; machine BOM KPHM600-SW3B17, repository compatibility directory kamoer-kphm400",
   "source": {
     "path": "hardware/reference/kamoer-kphm400/scan_model.rs",
-    "sha256": "d343c856730947f955327207577ed2fced4819f1e93628955e3b875f06e74c39"
+    "sha256": "90e51e6fc4da21f84b0a362dc86bd238bd748101bc349275f884844aeb23ba03"
   },
   "inputs": {
     "hardware/reference/kamoer-kphm400/scan-measurements.json": "4389eeb0fd000242ee69efa903d60269a6e8e9497c7235d8d48187d5cf9075a9",
@@ -12,11 +12,11 @@
     "hardware/reference/kamoer-kphm400/scan-evidence.json": "c3a50570b7b477309261352acebc9be39e3126fe1a83ec172f04db9f92486310"
   },
   "members": {
-    "kamoer-kphm400.step": "2766be3508be59bb44c34a31b83fd33bcba6fba836da874e66e9370628ae922b",
-    "kamoer-kphm400.step.npz": "7da8ebf4e499daab25d7c4a8754307235677e6b323df9c0696ddb5c4b9ea9364",
-    "kamoer-kphm400.step.mesh": "2636733585887b6b52c8de11d4c13594a1983fac0a98fac47d0d308d04cb098c"
+    "kamoer-kphm400.step": "a95e0caacd023a046d678ce0a3dc2b4dfaa69236cc265c9ce7a41755910006ec",
+    "kamoer-kphm400.step.npz": "8251bf575cd56d06ac7de70280b01682d80429ace4f0dfb2f73979692f78318f",
+    "kamoer-kphm400.step.mesh": "892a84e81935e5f30a26fad033e41b2eb336ad4bbeae464db33b6831a14abc13"
   },
-  "construction": "Authored planar, cylindrical and circular-sweep surfaces; no imported scan triangles.",
+  "construction": "Authored planar, circular, cylindrical and ruled surfaces; no imported scan triangles.",
   "omitted_details": [
     "Molded flange ribs and pockets",
     "Adapter side pockets",
@@ -46,7 +46,7 @@
   "terminal_end_z_mm": 68.5,
   "dimensional_basis": {
     "flange": "Registered seating strips and outer flange boundary; mounting hole centers from the exterior section.",
-    "head": "Registered transverse sections supply the bowed tube-side profile and principal casing envelope; part photographs identify the plan-view arch.",
+    "head": "Registered transverse sections supply the plan arch; the top photographs identify the molded facets and the registered top observations supply their slopes, levels and circular features.",
     "motor": "Independent barrel fit; nominal coaxial construction omits fitted scanner tilt.",
     "outlets": "Retained routed stations and nominal tube passages; flexible scan pose is simplified.",
     "adapter": "Paired column centers follow the observed cardinal screw stations; their circular exterior retains the observed adapter envelope."
@@ -79,15 +79,15 @@
       "primer",
       "silicone_outlets"
     ],
-    "triangles": 24144,
-    "visual_review": "Whole-pump views and a plan section show the tube-side arch, paired columns, plain flange holes and smooth principal surfaces.",
+    "triangles": 31618,
+    "visual_review": "The top cover is inspected obliquely against the supplied photographs. Its broad ramp, perimeter bevels, label deck, screw collars and recessed primer remain distinct smooth surfaces.",
     "bodies": [
       {
         "name": "head",
         "watertight": true,
         "winding_consistent": true,
-        "volume_mm3": 136188.69651979036,
-        "triangles": 13056
+        "volume_mm3": 135761.61611046107,
+        "triangles": 20530
       },
       {
         "name": "rotor_housing",
@@ -114,14 +114,14 @@
         "name": "fasteners",
         "watertight": true,
         "winding_consistent": true,
-        "volume_mm3": 294.92734090008304,
+        "volume_mm3": 299.8513802276877,
         "triangles": 4064
       },
       {
         "name": "primer",
         "watertight": true,
         "winding_consistent": true,
-        "volume_mm3": 42.9911335369333,
+        "volume_mm3": 68.78581364307782,
         "triangles": 508
       },
       {
@@ -131,9 +131,10 @@
         "volume_mm3": 489.97409413782,
         "triangles": 2048
       }
-    ]
+    ],
+    "primer_disk_recessed_without_overlapping_head_face": true
   },
-  "scope": "Exterior placement reference. Omitted pockets and nominal passages do not qualify internal construction or manufacturing tolerances.",
+  "scope": "Exterior reference for layout and mating-part design. Scan/model comparisons describe observed exterior surfaces, not internal construction or manufacturing tolerances.",
   "head_plan_profile": {
     "HEAD_HALF_WIDTH": 25.7,
     "HEAD_BACK_Y": -26.0,
@@ -219,5 +220,330 @@
       ]
     ],
     "open": true
+  },
+  "head_contact_surfaces": {
+    "construction": "A broad planar ramp meets the raised deck across a valley; ruled perimeter bevels follow the plan outline. The label recess, screw collars and primer opening retain their distinct contact heights.",
+    "parameters": {
+      "HEAD_COVER_EDGE_Z": -44.9,
+      "HEAD_COVER_TOP_Z": -48.65,
+      "HEAD_COVER_INSET": 0.65,
+      "HEAD_COVER_BEVEL_SLOPE": 0.71,
+      "HEAD_COVER_SEAM_Z": -28.5,
+      "HEAD_FACE_SLOPE": 0.195,
+      "HEAD_FACE_LEVEL": -44.88,
+      "HEAD_DECK_SLOPE": -0.74,
+      "HEAD_DECK_LEVEL": -48.36,
+      "HEAD_LABEL_FLOOR_Z": -48.05,
+      "HEAD_LABEL_WIDTH": 33.6,
+      "HEAD_LABEL_DEPTH": 16.0,
+      "HEAD_LABEL_CENTER_Y": 10.7,
+      "HEAD_LABEL_PRIMER_CLEARANCE_RADIUS": 5.0,
+      "HEAD_SCREW_COLLAR_Z": -48.85,
+      "HEAD_SCREW_TOP_Z": -48.65,
+      "HEAD_SCREW_SEAT_Z": -47.0,
+      "HEAD_SCREW_COLLAR_RADIUS": 4.0,
+      "HEAD_SCREW_RECESS_RADIUS": 3.1,
+      "PRIMER_CENTER_Y": 0.5,
+      "PRIMER_RING_RADIUS": 8.3,
+      "PRIMER_RING_TOP_RADIUS": 7.7,
+      "PRIMER_RING_Z": -48.55,
+      "PRIMER_RING_BEVEL_Z": -48.05,
+      "PRIMER_BORE_RADIUS": 4.0,
+      "PRIMER_FACE_Z": -46.5
+    },
+    "plane_fits": {
+      "broad_slope": {
+        "points": 10321,
+        "z_coefficients_xy_constant": [
+          0.0006000256628577462,
+          0.1943109908729181,
+          -44.876257069279006
+        ],
+        "absolute_residual_median_p95_mm": [
+          0.05646869237108376,
+          0.12721893294943953
+        ],
+        "bounds_mm": [
+          [
+            -13.999566270117473,
+            -15.999613482883012,
+            -48.562866477736485
+          ],
+          [
+            13.997652596180256,
+            -7.000848696798198,
+            -46.18294874217692
+          ]
+        ]
+      },
+      "right_bevel": {
+        "points": 2472,
+        "z_coefficients_xy_constant": [
+          0.7092549352828885,
+          0.0055645520335299336,
+          -62.67926660989961
+        ],
+        "absolute_residual_median_p95_mm": [
+          0.009763601711192393,
+          0.07324379369910508
+        ],
+        "bounds_mm": [
+          [
+            21.000958458801037,
+            -10.99928536516971,
+            -47.780034183828896
+          ],
+          [
+            23.999273757789226,
+            12.973629799505575,
+            -45.603135699099724
+          ]
+        ]
+      },
+      "left_bevel": {
+        "points": 2156,
+        "z_coefficients_xy_constant": [
+          -0.7013370794529101,
+          0.002573373179402237,
+          -62.45031074147686
+        ],
+        "absolute_residual_median_p95_mm": [
+          0.03675934403524295,
+          0.07805918699535042
+        ],
+        "bounds_mm": [
+          [
+            -23.998523134882813,
+            -10.996344496547666,
+            -47.78262471528712
+          ],
+          [
+            -21.00131798338961,
+            12.998065254843885,
+            -45.527754094083555
+          ]
+        ]
+      },
+      "back_bevel": {
+        "points": 1517,
+        "z_coefficients_xy_constant": [
+          -0.00048787932649286484,
+          -0.7231288071770895,
+          -63.1372399286245
+        ],
+        "absolute_residual_median_p95_mm": [
+          0.021609739301716502,
+          0.05101367079548712
+        ],
+        "bounds_mm": [
+          [
+            -13.952652747122594,
+            -23.99643452302994,
+            -48.751088356076444
+          ],
+          [
+            13.946391364025589,
+            -21.00171451019444,
+            -45.77764517237869
+          ]
+        ]
+      },
+      "deck_front_bevel": {
+        "points": 772,
+        "z_coefficients_xy_constant": [
+          -2.141654772801787e-05,
+          -0.7408932491457219,
+          -48.35601307019222
+        ],
+        "absolute_residual_median_p95_mm": [
+          0.03302813907881941,
+          0.07272011742830918
+        ],
+        "bounds_mm": [
+          [
+            -14.991926571955963,
+            -2.999309542882008,
+            -48.36943739584691
+          ],
+          [
+            14.992863918233887,
+            -0.0027786638870245504,
+            -46.067602291762064
+          ]
+        ]
+      },
+      "deck_pocket": {
+        "points": 9279,
+        "z_coefficients_xy_constant": [
+          0.0005808340538896096,
+          -0.001137236580227181,
+          -48.04659901480008
+        ],
+        "absolute_residual_median_p95_mm": [
+          0.02213151395192625,
+          0.05877313536706055
+        ],
+        "bounds_mm": [
+          [
+            -13.99337442983335,
+            7.000854317330362,
+            -48.19443476892237
+          ],
+          [
+            13.999399163975179,
+            14.999321601994836,
+            -47.988271387163
+          ]
+        ]
+      },
+      "deck_rim": {
+        "points": 1215,
+        "z_coefficients_xy_constant": [
+          0.0003003260315362552,
+          -0.002559543687174333,
+          -48.62771074674204
+        ],
+        "absolute_residual_median_p95_mm": [
+          0.02418239108209974,
+          0.07717561297790844
+        ],
+        "bounds_mm": [
+          [
+            -19.498104551711876,
+            5.006795317566856,
+            -48.7648419302529
+          ],
+          [
+            19.498296295222403,
+            14.986849270841827,
+            -48.512197605002825
+          ]
+        ]
+      },
+      "primer_disk": {
+        "points": 73,
+        "z_coefficients_xy_constant": [
+          0.005350007776291917,
+          -0.027023383554547722,
+          -46.44541279559045
+        ],
+        "absolute_residual_median_p95_mm": [
+          0.05624552844085429,
+          0.2910797770266837
+        ],
+        "bounds_mm": [
+          [
+            -2.3087000569442075,
+            -0.5784789833124706,
+            -46.778778034092475
+          ],
+          [
+            2.4860405138035193,
+            2.7885070765835827,
+            -46.064969420513236
+          ]
+        ]
+      },
+      "primer_ring": {
+        "points": 1281,
+        "z_coefficients_xy_constant": [
+          -0.00026184194035946273,
+          -0.002957360071194058,
+          -48.541149350946206
+        ],
+        "absolute_residual_median_p95_mm": [
+          0.028718209846331888,
+          0.052509946340663305
+        ],
+        "bounds_mm": [
+          [
+            -6.803855329651099,
+            -6.493614529827668,
+            -48.59438739109375
+          ],
+          [
+            6.759903697935559,
+            -1.0012940396977204,
+            -48.4855837358584
+          ]
+        ]
+      }
+    },
+    "comparison": {
+      "broad_slope": {
+        "samples": 1291,
+        "distance_median_mm": 0.05544216967502632,
+        "distance_p95_mm": 0.11538856468461448,
+        "distance_max_mm": 0.5719743890760622
+      },
+      "right_bevel": {
+        "samples": 309,
+        "distance_median_mm": 0.02489648538223473,
+        "distance_p95_mm": 0.08931705890830392,
+        "distance_max_mm": 0.16897542039648614
+      },
+      "left_bevel": {
+        "samples": 270,
+        "distance_median_mm": 0.030781550402409028,
+        "distance_p95_mm": 0.10590720933348284,
+        "distance_max_mm": 0.15491958042176365
+      },
+      "back_bevel": {
+        "samples": 190,
+        "distance_median_mm": 0.050401800026169376,
+        "distance_p95_mm": 0.07606105745205834,
+        "distance_max_mm": 0.08096672823164137
+      },
+      "deck_front_bevel": {
+        "samples": 97,
+        "distance_median_mm": 0.02515569024969077,
+        "distance_p95_mm": 0.06302786864057587,
+        "distance_max_mm": 0.0769720562468165
+      },
+      "deck_pocket": {
+        "samples": 1160,
+        "distance_median_mm": 0.020322886788225247,
+        "distance_p95_mm": 0.06687953010432679,
+        "distance_max_mm": 0.12221035188261453
+      },
+      "deck_rim": {
+        "samples": 152,
+        "distance_median_mm": 0.023794643857524278,
+        "distance_p95_mm": 0.07790860784904116,
+        "distance_max_mm": 0.1347491650942345
+      },
+      "primer_disk": {
+        "samples": 10,
+        "distance_median_mm": 0.05586176703225476,
+        "distance_p95_mm": 0.12655663723496421,
+        "distance_max_mm": 0.13745882008583976
+      },
+      "primer_ring": {
+        "samples": 161,
+        "distance_median_mm": 0.03570761729519489,
+        "distance_p95_mm": 0.05645444777621833,
+        "distance_max_mm": 0.0610824905305023
+      }
+    },
+    "sampling": "Every eighth retained top-region observation; geometric and normal selections, without rejection by distance to the model. These observations also supply the fitted planes.",
+    "photos": [
+      {
+        "path": "/Users/derekbredensteiner/Documents/3D Scans/2026-09-20-kamoer-pump/top-surface-photos-2026-11-09/Photo 1.jpg",
+        "sha256": "5bb5409040ee1dfc60c5449a4d1d519a2c777ea0352fab6e97fc8faff9e53ad9"
+      },
+      {
+        "path": "/Users/derekbredensteiner/Documents/3D Scans/2026-09-20-kamoer-pump/top-surface-photos-2026-11-09/Photo 2.jpg",
+        "sha256": "eb4b85092aae202fefc9e14d12c054c24eece40df86f0c306dbec7831d905898"
+      },
+      {
+        "path": "/Users/derekbredensteiner/Documents/3D Scans/2026-09-20-kamoer-pump/top-surface-photos-2026-11-09/Photo 3.jpg",
+        "sha256": "c9a95eaf647eb1dbc31d51ee343ebceb67414371ba29e34e45bb6dc06e0930c2"
+      },
+      {
+        "path": "/Users/derekbredensteiner/Documents/3D Scans/2026-09-20-kamoer-pump/top-surface-photos-2026-11-09/Photo 4.jpg",
+        "sha256": "3ce69c311a22aa81f87b234300580e69927a779f07fefcff66d1dab455c4c666"
+      }
+    ],
+    "scope": "The plane fits and geometric selections describe exterior contact regions. The comparisons use the observations that supply the fits and do not establish manufacturing tolerances."
   }
 }
