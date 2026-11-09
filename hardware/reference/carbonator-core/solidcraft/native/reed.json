@@ -1,0 +1,102 @@
+{
+  "format": "solidcraft/51",
+  "name": "Untitled",
+  "units": "mm",
+  "metadata": {
+    "description": "MDSR reed switch glass capture envelope",
+    "part_number": "HSM-0036"
+  },
+  "params": [],
+  "features": [
+    {
+      "id": 3,
+      "name": "Reed switch glass",
+      "suppressed": false,
+      "body_names": [
+        "Reed switch glass"
+      ],
+      "param_names": [
+        "d1",
+        "d2"
+      ],
+      "component": 1,
+      "type": "cylinder",
+      "base": [
+        0.0,
+        0.0,
+        -7.0
+      ],
+      "axis": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "radius": "(2.5 mm) / 2",
+      "height": "14",
+      "operation": "new_body"
+    }
+  ],
+  "next_id": 4,
+  "components": [
+    {
+      "id": 1,
+      "identification_color_index": 0,
+      "name": "Reed switch",
+      "parent": 0
+    }
+  ],
+  "next_component_color_index": 1,
+  "occurrences": [
+    {
+      "id": 2,
+      "component": 1,
+      "parent": 0,
+      "name": "Reed switch:1",
+      "transform": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "grounded": true
+    }
+  ],
+  "appearances": {
+    "bodies": {
+      "Reed switch glass": {
+        "name": "Custom",
+        "color": [
+          101,
+          154,
+          155
+        ],
+        "opacity": 1.0,
+        "pbr": {
+          "metallic": 0.15,
+          "roughness": 0.32,
+          "dielectric_ior": 1.5
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,173 @@
+{
+  "format": "solidcraft/51",
+  "name": "Untitled",
+  "units": "mm",
+  "metadata": {
+    "description": "Earth lead attached terminal and conductor exit interface; free harness dressing is outside the assembly pose",
+    "part_number": "HSM-0378"
+  },
+  "params": [],
+  "features": [
+    {
+      "id": 3,
+      "name": "Earth ring terminal",
+      "suppressed": false,
+      "body_names": [
+        "Earth ring terminal"
+      ],
+      "param_names": [
+        "d1",
+        "d2"
+      ],
+      "component": 1,
+      "type": "cylinder",
+      "base": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "axis": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "radius": "(8 mm) / 2",
+      "height": "0.8",
+      "operation": "new_body"
+    },
+    {
+      "id": 4,
+      "name": "Bore Earth ring terminal",
+      "suppressed": false,
+      "body_names": [
+        "Earth ring terminal"
+      ],
+      "param_names": [
+        "d3",
+        "d4"
+      ],
+      "component": 1,
+      "participants": [
+        "Earth ring terminal"
+      ],
+      "type": "cylinder",
+      "base": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "axis": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "radius": "(3 mm) / 2",
+      "height": "0.8",
+      "operation": "cut"
+    },
+    {
+      "id": 5,
+      "name": "Terminal crimp barrel",
+      "suppressed": false,
+      "body_names": [
+        "Terminal crimp barrel"
+      ],
+      "param_names": [
+        "d5",
+        "d6"
+      ],
+      "component": 1,
+      "type": "cylinder",
+      "base": [
+        0.0,
+        3.0,
+        2.1
+      ],
+      "axis": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "radius": "(4.2 mm) / 2",
+      "height": "6",
+      "operation": "new_body"
+    }
+  ],
+  "next_id": 6,
+  "components": [
+    {
+      "id": 1,
+      "identification_color_index": 0,
+      "name": "Earth lead interface",
+      "parent": 0
+    }
+  ],
+  "next_component_color_index": 1,
+  "occurrences": [
+    {
+      "id": 2,
+      "component": 1,
+      "parent": 0,
+      "name": "Earth lead interface:1",
+      "transform": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "grounded": true
+    }
+  ],
+  "appearances": {
+    "bodies": {
+      "Earth ring terminal": {
+        "name": "Custom",
+        "color": [
+          174,
+          183,
+          192
+        ],
+        "opacity": 1.0,
+        "pbr": {
+          "metallic": 0.8,
+          "roughness": 0.32,
+          "dielectric_ior": 1.5
+        }
+      },
+      "Terminal crimp barrel": {
+        "name": "Custom",
+        "color": [
+          174,
+          183,
+          192
+        ],
+        "opacity": 1.0,
+        "pbr": {
+          "metallic": 0.8,
+          "roughness": 0.32,
+          "dielectric_ior": 1.5
+        }
+      }
+    }
+  }
+}

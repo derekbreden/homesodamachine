@@ -1,0 +1,132 @@
+{
+  "format": "solidcraft/51",
+  "name": "Untitled",
+  "units": "mm",
+  "metadata": {
+    "description": "Earth clamp washer capture envelope",
+    "part_number": "HSM-0381"
+  },
+  "params": [],
+  "features": [
+    {
+      "id": 3,
+      "name": "Earth lockwasher",
+      "suppressed": false,
+      "body_names": [
+        "Earth lockwasher"
+      ],
+      "param_names": [
+        "d1",
+        "d2"
+      ],
+      "component": 1,
+      "type": "cylinder",
+      "base": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "axis": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "radius": "(6 mm) / 2",
+      "height": "0.4",
+      "operation": "new_body"
+    },
+    {
+      "id": 4,
+      "name": "Bore Earth lockwasher",
+      "suppressed": false,
+      "body_names": [
+        "Earth lockwasher"
+      ],
+      "param_names": [
+        "d3",
+        "d4"
+      ],
+      "component": 1,
+      "participants": [
+        "Earth lockwasher"
+      ],
+      "type": "cylinder",
+      "base": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "axis": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "radius": "(3.2 mm) / 2",
+      "height": "0.4",
+      "operation": "cut"
+    }
+  ],
+  "next_id": 5,
+  "components": [
+    {
+      "id": 1,
+      "identification_color_index": 0,
+      "name": "Earth lockwasher",
+      "parent": 0
+    }
+  ],
+  "next_component_color_index": 1,
+  "occurrences": [
+    {
+      "id": 2,
+      "component": 1,
+      "parent": 0,
+      "name": "Earth lockwasher:1",
+      "transform": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "grounded": true
+    }
+  ],
+  "appearances": {
+    "bodies": {
+      "Earth lockwasher": {
+        "name": "Custom",
+        "color": [
+          167,
+          175,
+          186
+        ],
+        "opacity": 1.0,
+        "pbr": {
+          "metallic": 0.8,
+          "roughness": 0.32,
+          "dielectric_ior": 1.5
+        }
+      }
+    }
+  }
+}

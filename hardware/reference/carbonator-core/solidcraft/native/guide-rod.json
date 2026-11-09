@@ -1,0 +1,122 @@
+{
+  "appearances": {
+    "bodies": {
+      "Guide rod": {
+        "color": [
+          174,
+          184,
+          195
+        ],
+        "name": "Custom",
+        "opacity": 1.0,
+        "pbr": {
+          "dielectric_ior": 1.5,
+          "metallic": 0.8,
+          "roughness": 0.32
+        }
+      }
+    }
+  },
+  "components": [
+    {
+      "id": 1,
+      "identification_color_index": 0,
+      "name": "Guide rod",
+      "parent": 0
+    }
+  ],
+  "favorites": [
+    "diameter",
+    "finished_length"
+  ],
+  "features": [
+    {
+      "axis": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "base": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "body_names": [
+        "Guide rod"
+      ],
+      "component": 1,
+      "height": "finished_length",
+      "id": 3,
+      "name": "Guide rod",
+      "operation": "new_body",
+      "param_names": [
+        "d1",
+        "d2"
+      ],
+      "radius": "(diameter) / 2",
+      "suppressed": false,
+      "type": "cylinder"
+    }
+  ],
+  "format": "solidcraft/51",
+  "materials": {
+    "Guide rod": "Stainless Steel"
+  },
+  "metadata": {
+    "description": "Flat-ended float guide rod from the controlled finished-length drawing",
+    "part_number": "HSM-0336"
+  },
+  "name": "Untitled",
+  "next_component_color_index": 1,
+  "next_id": 4,
+  "occurrences": [
+    {
+      "component": 1,
+      "grounded": true,
+      "id": 2,
+      "name": "Guide rod:1",
+      "parent": 0,
+      "transform": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    }
+  ],
+  "params": [
+    {
+      "expr": "129.794 mm",
+      "model": false,
+      "name": "finished_length",
+      "unit": "mm"
+    },
+    {
+      "expr": "3.175 mm",
+      "model": false,
+      "name": "diameter",
+      "unit": "mm"
+    }
+  ],
+  "units": "mm"
+}

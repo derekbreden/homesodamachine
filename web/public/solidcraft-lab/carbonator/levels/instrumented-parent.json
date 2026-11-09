@@ -1,0 +1,40 @@
+{
+  "occurrences": [
+    {
+      "id": "module",
+      "node": "instrumented",
+      "label": "Instrumented carbonator",
+      "transform": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "explode": [
+        0,
+        0,
+        35
+      ]
+    }
+  ]
+}
