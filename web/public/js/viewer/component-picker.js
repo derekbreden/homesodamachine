@@ -437,6 +437,7 @@ function showPanel() {
   panel._nameEl.textContent = "";
   panel._nameEl.title = selection || "";
   const feature = sceneFeature(selection);
+  panel.classList.toggle("feature-selected", !!feature);
   const bodyName = componentBody(selection);
   const availableFeatures = sceneFeatures(bodyName);
   const inside = feature ? [] : [...membersOf(selection || ""),
