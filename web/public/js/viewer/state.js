@@ -16,6 +16,7 @@
 // the scene and updates mounted to match.
 export const state = {
   materialCatalog: null,    // permanent materials, authored BOMs and typed relationships
+  materialCatalogTag: null, // the existing HTTP version keeps record views stable during mesh updates
   materialPanel: null,      // active companion panel's select / sync / dispose handle
   dismissViewerRoute: false, // the next history pop ends a dismissed viewer walk
   allFiles: [],       // STEP files (paths)
