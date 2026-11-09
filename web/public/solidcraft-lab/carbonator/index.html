@@ -9,7 +9,7 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap">
   <link rel="stylesheet" href="/css/site.css"><link rel="stylesheet" href="/solidcraft-lab/beduan.css">
   <link rel="stylesheet" href="/solidcraft-lab/carbonator/style.css">
-  <script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.181.1/build/three.module.js","three/":"https://cdn.jsdelivr.net/npm/three@0.181.1/"}}</script>
+  <script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.min.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/"}}</script>
   <script type="module" src="/solidcraft-lab/carbonator/main.js"></script>
 </head>
 <body>
@@ -20,18 +20,13 @@
   </header>
   <main class="lab-layout">
     <aside class="controls" aria-label="Assembly controls">
-      <p class="intro">A parent places the core’s assembly envelope. Open the core to load its exact parts; open a part to load its editable design.</p>
-      <section class="assembly-tree">
-        <h2>Parent assembly</h2>
+      <p class="intro">Select a component in the model or list, then open it. Each level loads its own saved shape. Choose Edit when you want its native design.</p>
+      <section id="component-browser" class="component-browser">
         <label class="copy-label" for="copies">Repeated cores <select id="copies"><option value="1">One core</option><option value="8">Eight cores</option><option value="64">Sixty-four cores</option></select></label>
-        <button id="open-parent" type="button" class="primary">Open parent in SolidCraft</button>
-        <button id="expand" type="button" aria-expanded="false">▸ Carbonator core <small>Assembly envelope</small></button>
-        <div id="children" hidden>
-          <button id="open-core" type="button">Open core assembly</button>
-          <div class="part-row"><span>Tube</span><button type="button" data-edit="tube">Edit tube</button></div>
-          <div class="part-row"><span>Endcap <small>Shared part</small></span><button type="button" data-edit="endcap">Edit endcap</button></div>
-          <p id="fit-note" class="local-note"></p>
-        </div>
+        <h2 id="component-list-title">Components</h2>
+        <div id="component-list" aria-label="Components in this view"></div>
+        <button id="edit-current" type="button" class="primary">Edit parent in SolidCraft</button>
+        <p id="fit-note" class="local-note" hidden></p>
       </section>
       <section id="native-controls" hidden>
         <h2 id="native-title">Native workspace</h2>
@@ -46,7 +41,7 @@
       </section>
       <section class="timings"><h2>Iteration</h2><ol id="timing-list"></ol></section>
       <details class="about"><summary>What this evaluates</summary>
-        <p>The parent opens an explicit layout envelope, with no tube or endcap geometry. Expanding the core requests its exact display parts. Only choosing a native workspace loads SolidCraft; only editing a leaf requests that leaf’s authoring file.</p>
+        <p>The parent opens an explicit layout envelope, with no tube or endcap geometry. Opening the core requests its exact display parts. Only choosing a native workspace loads SolidCraft; only editing a leaf requests that leaf’s authoring file.</p>
         <p>Native links retain finished bodies. The parent links the envelope; the exact core links a tube and repeated endcap joined at their named faces. Envelope dimensions follow the exact core’s published exterior bounds. Changes to an internal cap can leave the parent envelope unchanged.</p>
         <p>An opened native workspace loads its embedded finished bodies together. Native linking skips child histories; it does not provide streaming of individual bodies inside that saved representation.</p>
         <p>The envelope supplies exterior layout bounds. Exact fit, mass, cut and print work uses the core or leaf design.</p>
@@ -57,10 +52,20 @@
     </aside>
     <section class="workspace" aria-label="Assembly view">
       <div class="workspace-toolbar">
-        <span class="state"><span id="state-dot" data-ready aria-hidden="true"></span><span id="state-label">Loading saved representation</span></span>
+        <div class="workspace-context"><nav id="breadcrumbs" class="cad-crumb" aria-label="Component navigation"></nav><span class="state"><span id="state-dot" data-ready aria-hidden="true"></span><span id="state-label">Loading saved representation</span></span></div>
         <div class="view-actions"><label class="section-label"><input id="section" type="checkbox" disabled> Section</label><button id="explode" type="button">Explode</button><button id="fit" type="button">Fit</button><button id="reference" type="button" hidden>Reference preview</button><button id="pause" type="button" hidden>Pause</button></div>
       </div>
-      <div class="stage" id="stage"><div id="preview"></div><div id="native-stage" hidden></div><div id="cover" class="cover"><div><p class="eyebrow">Saved assembly shape</p><h2 id="cover-title">Opening the carbonator</h2><p id="cover-detail">Its editable parts remain closed.</p><button id="resume" type="button" class="primary" hidden>Resume native workspace</button></div></div></div>
+      <div class="stage" id="stage">
+        <div id="preview"></div><div id="native-stage" hidden></div>
+        <section id="component-panel" class="component-panel" aria-label="Selected component" hidden>
+          <div class="component-panel-head"><span>Component</span><button id="clear-component" type="button" aria-label="Clear selection">×</button></div>
+          <h2 id="selected-component"></h2><p id="component-description"></p>
+          <div id="component-actions" class="component-actions"><button id="open-component" type="button" class="component-open">Open component</button><button id="hide-component" type="button">Hide component</button><button id="edit-component" type="button">Edit in SolidCraft</button></div>
+          <div id="component-holds" class="component-holds"></div><div id="hidden-components"></div>
+        </section>
+        <p id="navigation-hint" class="navigation-hint">Click a component, then Open.</p>
+        <div id="cover" class="cover"><div><p class="eyebrow">Saved assembly shape</p><h2 id="cover-title">Opening the carbonator</h2><p id="cover-detail">Its editable parts remain closed.</p><button id="resume" type="button" class="primary" hidden>Resume native workspace</button></div></div>
+      </div>
       <p id="status" class="status" role="status" aria-live="polite">Loading the saved module representation…</p>
     </section>
   </main>
