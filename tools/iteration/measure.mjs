@@ -217,7 +217,7 @@ async function watch(record, values) {
   const relative = path.relative(path.join(ROOT, "hardware"), file).replaceAll("\\", "/").replace(/\.mesh$/, "");
   const url = values.url || `https://homesodamachine.com/3d#step:${encodeURIComponent(relative)}?find=${encodeURIComponent(target.parts.map((part) => `solid: ${part.name}`).join("\n"))}`;
   try {
-    browser = await launchBrowser();
+    browser = await launchBrowser({ protocolTimeout: timeoutMs + 30000 });
     const page = await browser.newPage();
     const errors = [];
     page.on("pageerror", (error) => errors.push(String(error)));
