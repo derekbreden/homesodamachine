@@ -32,7 +32,7 @@
         <h2 id="native-title">Native workspace</h2>
         <form id="dimensions"><div id="dimension-inputs"></div><button class="primary" type="submit" id="apply">Apply dimension</button></form>
         <div class="design-actions"><button type="button" id="undo">Undo</button><button type="button" id="publish">Update parents</button><button type="button" id="download">Download current design</button></div>
-        <p class="local-note">Native edits stay in this browser. Updating parents solves the exact core and updates its envelope when the exterior changes.</p>
+        <p class="local-note">Native edits stay in this browser. Updating parents solves the exact core and refreshes its saved exterior, including the recessed caps.</p>
       </section>
       <section class="load-audit">
         <h2>What is loaded</h2>
@@ -41,10 +41,10 @@
       </section>
       <section class="timings"><h2>Iteration</h2><ol id="timing-list"></ol></section>
       <details class="about"><summary>What this evaluates</summary>
-        <p>The parent opens an explicit layout envelope, with no tube or endcap geometry. Opening the core requests its exact display parts. Only choosing a native workspace loads SolidCraft; only editing a leaf requests that leaf’s authoring file.</p>
-        <p>Native links retain finished bodies. The parent links the envelope; the exact core links a tube and repeated endcap joined at their named faces. Envelope dimensions follow the exact core’s published exterior bounds. Changes to an internal cap can leave the parent envelope unchanged.</p>
+        <p>The parent opens a saved exterior that retains the tube rim, cap recesses and cap clearance, without child component definitions or histories. Opening the core requests its exact display parts. Only choosing a native workspace loads SolidCraft; only editing a leaf requests that leaf’s authoring file.</p>
+        <p>Native links retain finished bodies. The parent links the saved exterior; the exact core links a tube and repeated endcap joined at their named faces. Exterior dimensions and cap placements come from the exact core. Changes to the tube, cap thickness or recess update that saved geometry.</p>
         <p>An opened native workspace loads its embedded finished bodies together. Native linking skips child histories; it does not provide streaming of individual bodies inside that saved representation.</p>
-        <p>The envelope supplies exterior layout bounds. Exact fit, mass, cut and print work uses the core or leaf design.</p>
+        <p>The saved exterior supplies the assembled appearance and layout interfaces. Exact fit, mass, cut and print work uses the core or leaf design.</p>
         <p>Repeating this simple core tests shared definitions and the loading boundary. It does not establish the performance of the complete enclosure’s geometry.</p>
         <p>This study includes the barrel and recessed endcap blanks. Fluid ports, rod registers, welds, fittings and the cold-core casing belong outside this example.</p>
         <p><a href="/solidcraft-lab/carbonator/project.zip" download>Download native project</a> · <a href="/solidcraft-lab/carbonator/evidence.json">Recorded evaluation</a></p>

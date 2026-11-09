@@ -8,10 +8,11 @@ import bpy
 from mathutils import Vector
 
 args = sys.argv[sys.argv.index('--') + 1:]
-source, output, report = map(Path, args)
+source, output, report = map(Path, args[:3])
+models = args[3:] or ('tube', 'endcap', 'representation')
 output.mkdir(parents=True, exist_ok=True)
 results = {}
-for name in ('tube', 'endcap', 'representation'):
+for name in models:
     bpy.ops.object.select_all(action='SELECT')
     bpy.ops.object.delete(use_global=False)
     bpy.ops.wm.obj_import(filepath=str(source / f'{name}.obj'), forward_axis='Y', up_axis='Z')

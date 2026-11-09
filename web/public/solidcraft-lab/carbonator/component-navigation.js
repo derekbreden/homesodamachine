@@ -40,7 +40,7 @@ export function createComponentNavigation({onRoute,onSelect,onEdit,onHide,onShow
   function items(){
     if(route.path.length===1)return Array.from({length:route.count},(_,i)=>({
       id:'core-'+(i+1),label:route.count===1?'Carbonator core':'Carbonator core '+(i+1),
-      description:'Assembly envelope',kind:'core',path:['parent','core-'+(i+1)],
+      description:'Saved exterior',kind:'core',path:['parent','core-'+(i+1)],
     }));
     return (manifest?.occurrences||[]).filter(item=>route.path.length===2||item.id===route.path[2]).map(item=>({
       id:item.id,label:item.label,description:item.part==='endcap'?'Shared endcap definition':'Tube wall',
