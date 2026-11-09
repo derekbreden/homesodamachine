@@ -94,6 +94,28 @@ def carry_file(source, target):
         temporary.unlink(missing_ok=True)
 
 
+class Publications:
+    """Completed outputs request publication when their bytes have not reached the served pointer."""
+    def __init__(self, root):
+        try:
+            held=json.loads((root/'hardware/cad-artifacts.json').read_text())
+            self.served={**held.get('solids',{}),**held.get('sidecars',{})}
+        except (OSError,ValueError,TypeError):
+            self.served={}
+        self.digests={};self.requested=set()
+
+    def needs(self, name, path, changed):
+        if name not in self.served and not name.endswith(('.mesh','.stl','.step')):return False
+        stat=path.stat()
+        signature=(str(path),stat.st_dev,stat.st_ino,stat.st_size,stat.st_mtime_ns,stat.st_ctime_ns)
+        if signature not in self.digests:
+            with path.open('rb') as file:self.digests[signature]=hashlib.file_digest(file,'sha256').hexdigest()
+        digest=self.digests[signature];key=(name,digest)
+        if not changed and (self.served.get(name)==digest or key in self.requested):return False
+        self.requested.add(key)
+        return True
+
+
 def main():
     args=sys.argv[1:]
     if args[:1]==['--']:args=args[1:]
@@ -105,12 +127,13 @@ def main():
     started=time.monotonic();made=[];publishers=[]
     graph=json.loads((ROOT/'tools/bazel/graph.json').read_text())
     outputs={output for row in graph.values() for output in row.get('writes',[])}
+    publication=Publications(ROOT)
     # The path stays the same between builds, so progress does not change compiler action keys.
     progress=Progress(ROOT/'.cache/realized/print-build-progress.jsonl')
     process=None;preview=[]
     seen=set();sets={};pending=[]
     def carry(files,stage=None):
-        moved=[]
+        moved=[];ready=[]
         for entry in files:
             name=entry.get('name','')
             if name not in outputs:
@@ -121,19 +144,23 @@ def main():
             source=Path(unquote(urlparse(entry.get('uri','')).path))
             if not source.is_file():continue
             target=ROOT/name
-            if target.is_file() and filecmp.cmp(source,target,shallow=False):continue
-            carry_file(source,target);moved.append(name)
+            changed=not(target.is_file() and filecmp.cmp(source,target,shallow=False))
+            if changed:
+                carry_file(source,target);moved.append(name)
+            if publication.needs(name,target,changed):ready.append(name)
             if name.endswith('.mesh'):
                 with target.open('rb') as incoming:
                     size=int.from_bytes(incoming.read(4),'little');head=json.loads(incoming.read(size))
                 if head.get('step_export') is False or name.endswith('.glb.mesh'):
                     old=Path(str(target)[:-5])
                     if old.is_file():old.unlink()
-        if moved:
+        if moved or ready:
             made.append({'seconds':time.monotonic()-started,'wall_time_ns':time.time_ns(),'files':moved,
+                         'publication':ready,
                          **({'stage':stage} if stage else {})})
-            print('[print-build] carried '+', '.join(moved),flush=True)
-        if any(name.endswith(('.step.mesh','.glb.mesh')) for name in moved):
+            if moved:print('[print-build] carried '+', '.join(moved),flush=True)
+            elif ready:print('[print-build] completed outputs await publication: '+', '.join(ready),flush=True)
+        if ready:
             log=(run/f'publish-{len(publishers)}.log').open('w')
             child=subprocess.Popen([str(ROOT/'tools/cad-venv/bin/python'),str(ROOT/'tools/publish_now.py')],cwd=ROOT,stdout=log,stderr=subprocess.STDOUT,**_run_slots.subprocess_kwargs())
             log.close();publishers.append(child)
