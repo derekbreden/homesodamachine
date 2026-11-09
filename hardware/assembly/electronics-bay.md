@@ -116,16 +116,17 @@ records the current rigid-slide and final-connection limits.
    Foam locates the sensor/earth loom below the lid. Thread the lid over all
    seven free ends; the earth lead's ferrule goes on outside the
    lid after dressing. Dress the signals along the west PCB approach and
-   leave PE free for the rear PE WAGO. Complete the
+   leave PE free for the west-wall PE WAGO above the relays. Complete the
    cold-core assembly in
    [cold-core.md](cold-core.md).
 2. On open back-top, seat V-A/V-K with their fitted plumbing. Land their legs
    on the downward blades: J1 `OUT1` and positive-A at V-A, J2 `OUT3` and
    positive-K at V-K, each XH contact crimped but left out of its housing.
    Female-housing fit and connection force remain unqualified.
-   Seat the rear junctions in their named wells and label their electrical purpose.
+   Seat the mains junctions in the west-wall wells above the relays, with their
+   wire entries facing inward, and label their electrical purpose.
    Check that each seated body's levers can open and close before populating
-   it. Fasten the ceiling PSU on open back-top before dressing the rear WAGOs. Mount the relays and
+   it. Fasten the ceiling PSU on open back-top before dressing the west-wall WAGOs. Mount the relays and
    meter, and prepare the meter’s inlet and concealed outlet plumbing. Solder
    J4's flow pair and the sensor-GND branch to the meter's three factory leads,
    heat-shrink each joint, and dress them below V-K's coil, east ahead of the

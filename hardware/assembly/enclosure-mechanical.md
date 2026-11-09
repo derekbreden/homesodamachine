@@ -220,12 +220,12 @@ Fit the PSU into back-top's shallow ceiling recess and both relays to its dry
 west wall. Use four M3 × 10 screws through the PSU ears into short inserts.
 Fit the meter to its rear-facing snap seat and prepare its continuous inlet
 and short, straight rear outlet there.
-Seat the mains WAGOs in the rear-wall
-wells; core-side junctions go in their lid mounts;
+Seat the mains WAGOs in the west-wall wells above the relays, with their wire
+entries facing inward; core-side junctions go in their lid mounts;
 front manifold commons go in front-top. Leave the cross-quadrant conductor ends
 accessible for final connection. Keep PSU terminal screwdriver approaches clear.
 The carbonator bond and the compressor's PE core land in ports 2 and 3 of the
-rear PE WAGO on open back-top. Complete the carbonator bond before closing
+west-wall PE WAGO on open back-top. Complete the carbonator bond before closing
 back-top over the core. The compressor's H and N cores join under the funnel
 opening after closing.
 
