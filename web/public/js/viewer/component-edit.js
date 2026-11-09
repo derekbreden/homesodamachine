@@ -68,10 +68,11 @@ function drawHighlight() {
   for (const m of state.currentGroup.children) {
     if (!m.isMesh || m.name !== selection || m.visible === false || seen.has(m.geometry)) continue;
     seen.add(m.geometry);
+    m.updateWorldMatrix(true, false);
     const line = new THREE.LineSegments(new THREE.EdgesGeometry(m.geometry, EDGE_THRESHOLD_DEG), edgeMat);
     line.matrixAutoUpdate = false;
-    line.matrix.copy(m.matrix); // ride the same preview transform as the mesh
-    line.userData.previewFrame=m.matrix.clone();
+    line.matrix.copy(m.matrixWorld);
+    line.userData.previewFrame=m.matrixWorld.clone();
     overlay.add(line);
   }
 }
@@ -163,6 +164,7 @@ function round(n) { return Math.round(n * 100) / 100; }
 // --- live preview (a matrix on each of the selection's objects) ---
 const _delta = new THREE.Matrix4();
 const _negC = new THREE.Matrix4();
+const _parentInverse = new THREE.Matrix4();
 
 function computeDelta() {
   proxy.updateMatrix(); // Translate(pos) * Rotate(quat), scale 1
@@ -177,7 +179,8 @@ function collectPreviewObjs() {
   for (const m of state.currentGroup.children) {
     if ((m.isMesh && m.name === selection) ||
         (m.userData && m.userData.isXrayEdge && m.userData.xrayComponent === selection)) {
-      previewFrames.set(m,{matrix:m.matrix.clone(),auto:m.matrixAutoUpdate});
+      m.updateWorldMatrix(true, false);
+      previewFrames.set(m,{matrix:m.matrix.clone(),world:m.matrixWorld.clone(),auto:m.matrixAutoUpdate});
       m.matrixAutoUpdate = false;
       previewObjs.push(m);
     }
@@ -187,7 +190,14 @@ function collectPreviewObjs() {
 function applyPreview() {
   if (!proxy || !center0) return;
   const d = computeDelta();
-  for (const o of previewObjs) { o.matrix.multiplyMatrices(d,previewFrames.get(o).matrix); o.updateMatrixWorld(true); }
+  for (const o of previewObjs) {
+    o.matrix.multiplyMatrices(d,previewFrames.get(o).world);
+    if (o.parent) {
+      o.parent.updateWorldMatrix(true, false);
+      o.matrix.premultiply(_parentInverse.copy(o.parent.matrixWorld).invert());
+    }
+    o.updateMatrixWorld(true);
+  }
   for (const line of overlay.children) { line.matrix.multiplyMatrices(d,line.userData.previewFrame); line.updateMatrixWorld(true); }
 }
 
@@ -222,8 +232,9 @@ function componentCenter(name) {
   const box = new THREE.Box3();
   for (const m of state.currentGroup.children) {
     if (m.isMesh && m.name === name) {
+      m.updateWorldMatrix(true, false);
       if (!m.geometry.boundingBox) m.geometry.computeBoundingBox();
-      box.union(m.geometry.boundingBox);
+      box.union(m.geometry.boundingBox.clone().applyMatrix4(m.matrixWorld));
     }
   }
   return box.isEmpty() ? new THREE.Vector3() : box.getCenter(new THREE.Vector3());
