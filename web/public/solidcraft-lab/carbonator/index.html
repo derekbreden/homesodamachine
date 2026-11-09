@@ -10,19 +10,19 @@
   <link rel="stylesheet" href="/css/site.css"><link rel="stylesheet" href="/solidcraft-lab/beduan.css">
   <link rel="stylesheet" href="/solidcraft-lab/carbonator/style.css">
   <script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.min.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/"}}</script>
-  <script type="module" src="/solidcraft-lab/carbonator/main.js"></script>
+  <script type="module" src="/solidcraft-lab/carbonator/assembly.js"></script>
 </head>
 <body>
   <header class="lab-header">
     <a href="/" aria-label="Home Soda Machine home"><img src="/brand/wordmark-reverse.svg" width="1680" height="640" alt="Home Soda Machine"></a>
-    <div><p class="eyebrow">SolidCraft lab · Assembly boundaries</p><h1>Carbonator core</h1></div>
+    <div><p class="eyebrow">SolidCraft lab · Assembly boundaries</p><h1>Instrumented carbonator</h1></div>
     <a class="published" href="/labs/solidcraft/beduan">Beduan example ↗</a>
   </header>
   <main class="lab-layout">
     <aside class="controls" aria-label="Assembly controls">
       <p class="intro">Select a component in the model or list, then open it. Each level loads its own saved shape. Choose Edit when you want its native design.</p>
       <section id="component-browser" class="component-browser">
-        <label class="copy-label" for="copies">Repeated cores <select id="copies"><option value="1">One core</option><option value="8">Eight cores</option><option value="64">Sixty-four cores</option></select></label>
+        <label class="copy-label" for="copies">Repeated assemblies <select id="copies"><option value="1">One assembly</option><option value="8">Eight assemblies</option><option value="64">Sixty-four assemblies</option></select></label>
         <h2 id="component-list-title">Components</h2>
         <div id="component-list" aria-label="Components in this view"></div>
         <button id="edit-current" type="button" class="primary">Edit parent in SolidCraft</button>
@@ -32,7 +32,7 @@
         <h2 id="native-title">Native workspace</h2>
         <form id="dimensions"><div id="dimension-inputs"></div><button class="primary" type="submit" id="apply">Apply dimension</button></form>
         <div class="design-actions"><button type="button" id="undo">Undo</button><button type="button" id="publish">Update parents</button><button type="button" id="download">Download current design</button></div>
-        <p class="local-note">Native edits stay in this browser. Updating parents solves the exact core and refreshes its saved exterior, including the recessed caps.</p>
+        <p class="local-note">Native edits stay in this browser. Update parents refreshes saved references along the affected assembly path. Reference preview shows the published website snapshot.</p>
       </section>
       <section class="load-audit">
         <h2>What is loaded</h2>
@@ -41,13 +41,12 @@
       </section>
       <section class="timings"><h2>Iteration</h2><ol id="timing-list"></ol></section>
       <details class="about"><summary>What this evaluates</summary>
-        <p>The parent opens a saved exterior that retains the tube rim, cap recesses and cap clearance, without child component definitions or histories. Opening the core requests its exact display parts. Only choosing a native workspace loads SolidCraft; only editing a leaf requests that leaf’s authoring file.</p>
-        <p>Native links retain finished bodies. The parent links the saved exterior; the exact core links a tube and repeated endcap joined at their named faces. Exterior dimensions and cap placements come from the exact core. Changes to the tube, cap thickness or recess update that saved geometry.</p>
-        <p>An opened native workspace loads its embedded finished bodies together. Native linking skips child histories; it does not provide streaming of individual bodies inside that saved representation.</p>
-        <p>The saved exterior supplies the assembled appearance and layout interfaces. Exact fit, mass, cut and print work uses the core or leaf design.</p>
-        <p>Repeating this simple core tests shared definitions and the loading boundary. It does not establish the performance of the complete enclosure’s geometry.</p>
-        <p>This study includes the barrel and recessed endcap blanks. Fluid ports, rod registers, welds, fittings and the cold-core casing belong outside this example.</p>
-        <p><a href="/solidcraft-lab/carbonator/project.zip" download>Download native project</a> · <a href="/solidcraft-lab/carbonator/evidence.json">Recorded evaluation</a></p>
+        <p>The parent opens one saved exterior of the instrumented carbonator. Open it to see its direct components, then the fitted vessel, weldment, cap groups and float. Each level keeps the child histories closed.</p>
+        <p>The weldment reference retains the tube rim, cap recesses, clearance and ports. Its captive float and guides load when you open the weldment. The instrumented exterior also retains the copper coil, fittings, reed bridge and probe envelopes.</p>
+        <p>The coil lifts over the reed bridge. The controlled guide rod sits in conical blind registers, and the float has a limited native slider joint. Rigid joints retain the assembled positions of fixed components.</p>
+        <p>Printed shapes follow their source interfaces. Bought parts retain their fit envelopes; thread helices, weld beads and electronic internals are omitted. The earth lead shows its attached terminal and conductor exit. Free conductor dressing and the insulation casing belong outside this assembly.</p>
+        <p>The coil retains its specified tube wall. Open native leaf designs for authoring. These saved references supply display and layout geometry; manufacturing and aggregate mass use the owning detailed designs.</p>
+        <p><a href="/solidcraft-lab/carbonator/levels-project.zip" download>Download native assembly project</a> · <a href="/labs/solidcraft/carbonator/core-study#parent">Original core study</a> · <a href="/solidcraft-lab/carbonator/levels-evidence.json">Recorded evaluation</a></p>
       </details>
     </aside>
     <section class="workspace" aria-label="Assembly view">

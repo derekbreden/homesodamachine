@@ -1,0 +1,209 @@
+{
+  "format": "solidcraft/51",
+  "name": "Untitled",
+  "units": "mm",
+  "metadata": {
+    "description": "TO-92 temperature probe capture envelope",
+    "part_number": "HSM-0016"
+  },
+  "params": [],
+  "features": [
+    {
+      "id": 3,
+      "name": "Box1",
+      "suppressed": false,
+      "body_names": [
+        "Temperature probe"
+      ],
+      "param_names": [
+        "d1",
+        "d2",
+        "d3"
+      ],
+      "component": 1,
+      "type": "box",
+      "corner": [
+        -2.15,
+        -2.15,
+        -2.6
+      ],
+      "length": "4.3",
+      "width": "4.3",
+      "height": "5.2",
+      "operation": "new_body"
+    },
+    {
+      "id": 4,
+      "name": "Package capture corners",
+      "suppressed": false,
+      "param_names": [
+        "d4"
+      ],
+      "component": 1,
+      "edge_refs": [
+        {
+          "dir": [
+            0.0,
+            0.0,
+            1.0
+          ],
+          "min": [
+            -2.15,
+            -2.15,
+            -2.6
+          ],
+          "max": [
+            2.15,
+            2.15,
+            2.6
+          ]
+        },
+        {
+          "dir": [
+            0.0,
+            0.0,
+            1.0
+          ],
+          "min": [
+            -2.15,
+            -2.15,
+            -2.6
+          ],
+          "max": [
+            2.15,
+            2.15,
+            2.6
+          ]
+        },
+        {
+          "dir": [
+            0.0,
+            0.0,
+            1.0
+          ],
+          "min": [
+            -2.15,
+            -2.15,
+            -2.6
+          ],
+          "max": [
+            2.15,
+            2.15,
+            2.6
+          ]
+        },
+        {
+          "dir": [
+            0.0,
+            0.0,
+            1.0
+          ],
+          "min": [
+            -2.15,
+            -2.15,
+            -2.6
+          ],
+          "max": [
+            2.15,
+            2.15,
+            2.6
+          ]
+        }
+      ],
+      "edge_names": [
+        "F3:-x|F3:-y",
+        "F3:+x|F3:-y",
+        "F3:+y|F3:-x",
+        "F3:+x|F3:+y"
+      ],
+      "type": "fillet",
+      "edges": [
+        [
+          -2.15,
+          -2.15,
+          0.0
+        ],
+        [
+          2.15,
+          -2.15,
+          0.0
+        ],
+        [
+          -2.15,
+          2.15,
+          0.0
+        ],
+        [
+          2.15,
+          2.15,
+          0.0
+        ]
+      ],
+      "radius": "1.2",
+      "body": "Temperature probe"
+    }
+  ],
+  "next_id": 5,
+  "components": [
+    {
+      "id": 1,
+      "identification_color_index": 0,
+      "name": "Temperature probe",
+      "parent": 0
+    }
+  ],
+  "next_component_color_index": 1,
+  "occurrences": [
+    {
+      "id": 2,
+      "component": 1,
+      "parent": 0,
+      "name": "Temperature probe:1",
+      "transform": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "grounded": true
+    }
+  ],
+  "appearances": {
+    "bodies": {
+      "Temperature probe": {
+        "name": "Custom",
+        "color": [
+          40,
+          44,
+          50
+        ],
+        "opacity": 1.0,
+        "pbr": {
+          "metallic": 0.0,
+          "roughness": 0.32,
+          "dielectric_ior": 1.5
+        }
+      }
+    }
+  }
+}

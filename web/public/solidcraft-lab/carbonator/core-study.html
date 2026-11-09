@@ -1,0 +1,73 @@
+<!doctype html>
+<!-- The carbonator experiment evaluates assembly boundaries with deferred native editing. -->
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="robots" content="noindex,nofollow"><meta name="theme-color" content="#10319c">
+  <title>Carbonator assembly · SolidCraft lab</title>
+  <link rel="icon" href="/favicon.png">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap">
+  <link rel="stylesheet" href="/css/site.css"><link rel="stylesheet" href="/solidcraft-lab/beduan.css">
+  <link rel="stylesheet" href="/solidcraft-lab/carbonator/style.css">
+  <script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.min.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/"}}</script>
+  <script type="module" src="/solidcraft-lab/carbonator/main.js"></script>
+</head>
+<body>
+  <header class="lab-header">
+    <a href="/" aria-label="Home Soda Machine home"><img src="/brand/wordmark-reverse.svg" width="1680" height="640" alt="Home Soda Machine"></a>
+    <div><p class="eyebrow">SolidCraft lab · Assembly boundaries</p><h1>Carbonator core</h1></div>
+    <a class="published" href="/labs/solidcraft/beduan">Beduan example ↗</a>
+  </header>
+  <main class="lab-layout">
+    <aside class="controls" aria-label="Assembly controls">
+      <p class="intro">Select a component in the model or list, then open it. Each level loads its own saved shape. Choose Edit when you want its native design.</p>
+      <section id="component-browser" class="component-browser">
+        <label class="copy-label" for="copies">Repeated cores <select id="copies"><option value="1">One core</option><option value="8">Eight cores</option><option value="64">Sixty-four cores</option></select></label>
+        <h2 id="component-list-title">Components</h2>
+        <div id="component-list" aria-label="Components in this view"></div>
+        <button id="edit-current" type="button" class="primary">Edit parent in SolidCraft</button>
+        <p id="fit-note" class="local-note" hidden></p>
+      </section>
+      <section id="native-controls" hidden>
+        <h2 id="native-title">Native workspace</h2>
+        <form id="dimensions"><div id="dimension-inputs"></div><button class="primary" type="submit" id="apply">Apply dimension</button></form>
+        <div class="design-actions"><button type="button" id="undo">Undo</button><button type="button" id="publish">Update parents</button><button type="button" id="download">Download current design</button></div>
+        <p class="local-note">Native edits stay in this browser. Updating parents solves the exact core and refreshes its saved exterior, including the recessed caps.</p>
+      </section>
+      <section class="load-audit">
+        <h2>What is loaded</h2>
+        <dl><div><dt>Authoring files requested</dt><dd id="part-files">None</dd></div><div><dt>Native engine</dt><dd id="engine-state">Not loaded</dd></div><div><dt>Native workspace</dt><dd id="native-scope">Closed</dd></div><div><dt>Native body definitions</dt><dd id="native-bodies">Not loaded</dd></div></dl>
+        <details><summary>Requested model resources</summary><ol id="resource-list"></ol></details>
+      </section>
+      <section class="timings"><h2>Iteration</h2><ol id="timing-list"></ol></section>
+      <details class="about"><summary>What this evaluates</summary>
+        <p>The parent opens a saved exterior that retains the tube rim, cap recesses and cap clearance, without child component definitions or histories. Opening the core requests its exact display parts. Only choosing a native workspace loads SolidCraft; only editing a leaf requests that leaf’s authoring file.</p>
+        <p>Native links retain finished bodies. The parent links the saved exterior; the exact core links a tube and repeated endcap joined at their named faces. Exterior dimensions and cap placements come from the exact core. Changes to the tube, cap thickness or recess update that saved geometry.</p>
+        <p>An opened native workspace loads its embedded finished bodies together. Native linking skips child histories; it does not provide streaming of individual bodies inside that saved representation.</p>
+        <p>The saved exterior supplies the assembled appearance and layout interfaces. Exact fit, mass, cut and print work uses the core or leaf design.</p>
+        <p>Repeating this simple core tests shared definitions and the loading boundary. It does not establish the performance of the complete enclosure’s geometry.</p>
+        <p>This study includes the barrel and recessed endcap blanks. Fluid ports, rod registers, welds, fittings and the cold-core casing belong outside this example.</p>
+        <p><a href="/solidcraft-lab/carbonator/project.zip" download>Download native project</a> · <a href="/solidcraft-lab/carbonator/evidence.json">Recorded evaluation</a></p>
+      </details>
+    </aside>
+    <section class="workspace" aria-label="Assembly view">
+      <div class="workspace-toolbar">
+        <div class="workspace-context"><nav id="breadcrumbs" class="cad-crumb" aria-label="Component navigation"></nav><span class="state"><span id="state-dot" data-ready aria-hidden="true"></span><span id="state-label">Loading saved representation</span></span></div>
+        <div class="view-actions"><label class="section-label"><input id="section" type="checkbox" disabled> Section</label><button id="explode" type="button">Explode</button><button id="fit" type="button">Fit</button><button id="reference" type="button" hidden>Reference preview</button><button id="pause" type="button" hidden>Pause</button></div>
+      </div>
+      <div class="stage" id="stage">
+        <div id="preview"></div><div id="native-stage" hidden></div>
+        <section id="component-panel" class="component-panel" aria-label="Selected component" hidden>
+          <div class="component-panel-head"><span>Component</span><button id="clear-component" type="button" aria-label="Clear selection">×</button></div>
+          <h2 id="selected-component"></h2><p id="component-description"></p>
+          <div id="component-actions" class="component-actions"><button id="open-component" type="button" class="component-open">Open component</button><button id="hide-component" type="button">Hide component</button><button id="edit-component" type="button">Edit in SolidCraft</button></div>
+          <div id="component-holds" class="component-holds"></div><div id="hidden-components"></div>
+        </section>
+        <p id="navigation-hint" class="navigation-hint">Click a component, then Open.</p>
+        <div id="cover" class="cover"><div><p class="eyebrow">Saved assembly shape</p><h2 id="cover-title">Opening the carbonator</h2><p id="cover-detail">Its editable parts remain closed.</p><button id="resume" type="button" class="primary" hidden>Resume native workspace</button></div></div>
+      </div>
+      <p id="status" class="status" role="status" aria-live="polite">Loading the saved module representation…</p>
+    </section>
+  </main>
+</body>
+</html>
