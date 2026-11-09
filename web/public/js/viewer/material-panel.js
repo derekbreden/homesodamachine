@@ -1,3 +1,4 @@
+// The material panel connects a selected material's contents, records and geometry in its model context.
 import { state } from "./state.js";
 import { materialIndex, materialForFile, explodeBom, bomItems, bomCountText, bomCounts, materialDocuments, materialUses, occurrenceBodies, occurrenceForBody, matchesBody } from "/contracts/materials.js";
 import { HSM_EVENTS } from "/contracts/client-events.js";
@@ -85,7 +86,11 @@ export function mountMaterialPanel(workspace, { file = null, material = null } =
   let keepDrawing = false; // a render that leaves the drawing being read in place
   function contextPath() {
     const parent = materialForFile(state.materialCatalog, lastFile);
-    return parent && parent.id !== root ? explodeBom(state.materialCatalog, parent.id, options()).find((r) => r.material.id === root)?.path || [] : [];
+    if (!parent || parent.id === root) return [];
+    const occurrence = explodeBom(state.materialCatalog, parent.id, options()).find((r) => r.material.id === root);
+    if (occurrence) return occurrence.path;
+    const relation = parent.relations?.find((r) => r.material === root && r.bodies?.length);
+    return relation ? [relation] : [];
   }
   const bindingsFor = (path, names) => occurrenceBodies(state.materialCatalog, [...contextPath(), ...path], names, options());
 

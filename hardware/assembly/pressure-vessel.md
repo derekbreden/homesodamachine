@@ -99,6 +99,9 @@ to the **top plate's inside face**, over the blind register, before vessel closu
 Keep the through bore and blind register clear of weld and chips. The fixed rod
 passes through the stop into its original blind seat; its finished cut length is controlled by FR-CARB-01.
 
+The cap with its attached stop is **HSM-0566 top endcap and stop assembly**.
+It remains off the tube until the float is installed and the top closure is ready.
+
 Trial-fit the actual inlet elbow and finished jet in the loose top plate. With
 the float against the stop, verify **at least 1 mm axial clearance** from the float
 to every inlet projection through the full upright guide play. The nominal
@@ -154,6 +157,9 @@ Seat the rod in the bottom register and tack it vertically to the bottom plate's
 
 Leave both bottom ports bare for welding, inspection and hydro. Their push-fit elbows install from outside at step 9.
 
+The cap and tacked rod form **HSM-0565 bottom endcap and guide assembly**.
+Move them together into the tube for the bottom closure weld.
+
 ### 3. Weld bottom plate to tube
 
 **Deburr both tube ends first, ID and OD.** Noga NG8150, both ends in one sitting while the tube is still loose and easy to turn. This is a clearance operation, not a fusion one — the cut edge is not a weld surface, since the fillet sits 1/4" below it. What it buys is insertion: the plate has only ~0.005" of radial slip, and a rolled-over saw burr is enough to catch a plate part-way down and hold it off its seated depth, which the corner geometry below depends on. Keep the chamfer light — the 0.065" wall has little to give.
@@ -177,6 +183,11 @@ The 36 mm polymer float cannot pass the finished NPT ports and is captive before
 ### 5. Weld top plate to tube
 
 Close the open end with the top plate. Its blind register (step 1) captures the rod's top end as the plate seats to its 1/4" recess — confirm the plate reaches its seated depth against the spacer / depth-stop (the rod must not hold it proud; verify the inside-face spacing and rod dimensions in step 2). If the register binds laterally on the rod tip, the top pocket may be opened to 5/32" per END-CAP-01; maintain the specified tip depth and cap spacing — the plate-to-tube joint here is a pressure weld. Same recessed corner fillet as step 3. Same rig, with the carbonator inverted so this end is up and the fillet is again welded downhand.
+
+The closed body is **HSM-0567 carbonator vessel weldment**, containing the
+captive float and both prepared endcaps. This unit moves through inspection,
+proof and cleaning before the permanent port fittings complete **HSM-0004**.
+Each operation's result belongs to the actual article's record.
 
 ### 6. Dye-penetrant (PT) inspection of the closure welds
 
