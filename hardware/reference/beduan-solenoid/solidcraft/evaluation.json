@@ -1326,5 +1326,47 @@
     "viewer_inspected": true,
     "viewer_result": "The published valve renders with its white plastic, black encapsulation and metal bodies.",
     "published_mesh_sha256": "ed102233a51b0dd30038771ea6e31799d292890c91b4e73b27708b117e03e9d8"
+  },
+  "browser_lab": {
+    "url": "https://homesodamachine.com/labs/solidcraft/beduan",
+    "checked_at": "2026-11-09T01:05:03.084Z",
+    "implementation_commit": "2ecadc5f2e1603730550c4826919bd4288910047",
+    "source_sha256": "151201d7fe8e02058b42cd7fa6278914a00a6ba6186dd1845dcf26e4e4b09875",
+    "runtime_version": "0.40.0-rc.3",
+    "runtime_archive_sha256": "6fa38d4db63013970e113fea31a5113efa62bc83f7a997c2d385f1e044eacd3a",
+    "environment": "Headless Chrome on the shared Mac",
+    "body_count": 11,
+    "feature_count": 64,
+    "feature_errors": [],
+    "desktop_adapter": "BrowserWebGpu \u00b7 ",
+    "displayed_open_observations": "Open reference\n21.99 s\nEngine startup\n6.60 s",
+    "terminal_length_edit": {
+      "expression": "9.6 mm",
+      "native_value": 9.6,
+      "displayed_observation": "Apply dimensions711 ms7 features rebuilt"
+    },
+    "native_download": {
+      "format": "solidcraft/51",
+      "features": 64
+    },
+    "mobile": {
+      "width_css_px": 390,
+      "scroll_width_css_px": 390,
+      "adapter": "Gl \u00b7 ANGLE (Apple, ANGLE Metal Renderer: Apple M3, Unspecified Version)",
+      "native_panels_visible": false
+    },
+    "verified": {
+      "parameter_edit": true,
+      "undo": true,
+      "restore_reference": true,
+      "native_editor_changes_retained": true,
+      "pause_and_resume": true,
+      "background_runtime_unloaded": true,
+      "native_design_download": true,
+      "main_viewer_resources_loaded": false,
+      "lab_service_worker_installed": false
+    },
+    "page_errors": [],
+    "timing_scope": "Interaction observations from this device and shared-host run, including the command and following browser frames; design loading evaluates the native source."
   }
 }

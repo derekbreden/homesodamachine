@@ -13,7 +13,7 @@ const quick = new Set(['terminal_length', 'post_radius']);
 let phase = 'loading';
 let frame, api, checkpoint, referenceText, referenceHash, model;
 let pollTimer, pollWork, pauseRequested = false;
-let camera;
+let camera, cameraLayout;
 const observations = [];
 
 function status(text, error = false) {
@@ -72,16 +72,20 @@ function syncFields(force = false) {
 }
 function retain() {
   try {
-    localStorage.setItem(storageKey, JSON.stringify({baseHash: referenceHash, text: checkpoint.text, camera}));
+    localStorage.setItem(storageKey, JSON.stringify({baseHash: referenceHash, text: checkpoint.text, camera, cameraLayout}));
   } catch {
     status('The browser could not retain local edits. Download the native design to keep them.', true);
   }
+}
+function currentCameraLayout() {
+  return {width: $('stage').clientWidth, height: $('stage').clientHeight, panels: $('native-panels').checked};
 }
 async function capture({keepCamera = false} = {}) {
   checkpoint = await api.request('document.export');
   if (keepCamera) {
     const view = await api.request('ui.camera');
     camera = Object.fromEntries(['target', 'distance', 'yaw', 'pitch', 'roll'].map(key => [key, view[key]]));
+    cameraLayout = currentCameraLayout();
   }
   retain();
   await api.request('document.saved', {revision: checkpoint.revision});
@@ -229,8 +233,10 @@ async function start() {
     const buildStarted = performance.now();
     const imported = await api.request('document.import', {text: kept?.text || referenceText, name: 'Beduan valve'});
     await setPanels();
-    if (kept?.camera) await api.request('ui.camera', kept.camera);
-    else {
+    if (kept?.camera) {
+      await api.request('ui.camera', kept.camera);
+      if (JSON.stringify(kept.cameraLayout) !== JSON.stringify(currentCameraLayout())) await api.request('ui.view', {view: 'fit'});
+    } else {
       await api.request('ui.view', {view: 'iso'});
       await api.request('ui.view', {view: 'fit'});
     }
