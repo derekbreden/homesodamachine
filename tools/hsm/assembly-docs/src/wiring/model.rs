@@ -34,7 +34,7 @@ pub fn unit(a: V) -> V {
     mul(a, 1. / norm(a))
 }
 pub fn stock() -> Result<Value> {
-    let mut stock: Value = serde_json::from_str(include_str!("stock.json"))?;
+    let mut stock = hsm_kernel::reads::json("tools/hsm/assembly-docs/src/wiring/stock.json")?;
     for (name, color) in [
         ("neutral18", json!([0.9, 0.9, 0.87])),
         ("earth18", json!([0.06, 0.42, 0.12])),

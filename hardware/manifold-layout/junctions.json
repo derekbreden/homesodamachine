@@ -1,0 +1,47 @@
+{
+  "purpose": "The installed enclosure connectors and their printed pockets share these placements and fits.",
+  "units": "mm",
+  "well_fit_mm": 0.15,
+  "junctions": [
+    {
+      "name": "wago-h",
+      "size": "413",
+      "host": "back-top",
+      "rotation": [[0.0, 1.0, 0.0], [0.0, 0.0, 1.0], [1.0, 0.0, 0.0]],
+      "translation_mm": [-89.05, 388.0, 333.5],
+      "mouth_mm": 0.0
+    },
+    {
+      "name": "wago-g",
+      "size": "413",
+      "host": "back-top",
+      "rotation": [[0.0, 1.0, 0.0], [0.0, 0.0, 1.0], [1.0, 0.0, 0.0]],
+      "translation_mm": [-89.05, 404.0, 333.5],
+      "mouth_mm": 0.0
+    },
+    {
+      "name": "wago-n",
+      "size": "413",
+      "host": "back-top",
+      "rotation": [[0.0, 1.0, 0.0], [0.0, 0.0, 1.0], [1.0, 0.0, 0.0]],
+      "translation_mm": [-89.05, 420.0, 333.5],
+      "mouth_mm": 0.0
+    },
+    {
+      "name": "wago-mana",
+      "size": "420",
+      "host": "front-top",
+      "rotation": [[0.0, -1.0, 0.0], [0.0, 0.0, -1.0], [1.0, 0.0, 0.0]],
+      "translation_mm": [95.20, 185.05, 277.0],
+      "mouth_mm": -0.75
+    },
+    {
+      "name": "wago-manb",
+      "size": "415",
+      "host": "front-top",
+      "rotation": [[0.0, -1.0, 0.0], [0.0, 0.0, -1.0], [1.0, 0.0, 0.0]],
+      "translation_mm": [95.05, 177.65, 243.0],
+      "mouth_mm": -0.75
+    }
+  ]
+}

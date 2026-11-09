@@ -38,9 +38,9 @@ pub mod hosts {
 
     fn relay_reference() -> &'static Value {
         static REFERENCE: OnceLock<Value> = OnceLock::new();
-        REFERENCE.get_or_init(|| serde_json::from_str(include_str!(
-            "../../../../reference/teyleten-relay/scan-datums.json"
-        )).expect("the relay scan datums parse"))
+        REFERENCE.get_or_init(|| hsm_enclosure_interface::input::json(
+            "hardware/reference/teyleten-relay/scan-datums.json"
+        ).expect("the relay scan datums parse"))
     }
 
     /// The mounting-hole centres in the relay's native PCB frame.

@@ -5,8 +5,8 @@ six purchased PP0208E tees and the above-core equipment. Its native placements
 and physical tube paths are defined in [above-core.md](above-core.md) and
 [above-core.json](above-core.json). [The installed machine](installed_machine.rs)
 composes those parts with the refrigeration base, cold core, printed enclosure
-and installed wiring, and writes the machine's STEP, the model the site draws, its
-facts and its scene views. The machine's clash checks are off during the Rust conversion;
+and installed wiring, and writes the shared mesh scene the site draws, its
+facts and its named views. The machine's clash checks are off during the Rust conversion;
 they come back written in Rust once the parts they read have moved.
 
 The connections follow [fluid-topology.md](/hardware/topology/fluid-topology.md).
@@ -69,20 +69,42 @@ represented by fabricated continuous tube. Follow the [internal plumbing
 procedure](/hardware/assembly/internal-plumbing.md) and actual fully seated
 marks when making the assembly.
 
+## Iterating on the installed machine
+
+[`above-core.json`](above-core.json) owns the equipment's placements and local dimensions.
+[`junctions.json`](junctions.json) owns the enclosure junctions' placements, connector choices
+and pocket fit. The printed pockets, installed connectors and wire terminals share those
+junction values. These documents are runtime inputs to the compiled Rust programs.
+
+Build the affected printed pieces and installed machine through the normal print build:
+
+```sh
+python3 tools/run.py -- python3 tools/print_build.py //:enclosure-back-top //:installed-machine
+```
+
+The assembly retains unchanged stages and conductor geometry in the shared realized cache.
+Its completed placement and mechanical scenes can reach the website while dependent wiring
+continues. A partial scene carries its pending stages; it does not establish print readiness.
+Runtime parameter edits reuse the executable. Construction-code edits rebuild the program.
+
+The assembly's retained stages are reported in `.cache/realized/installed-machine/last-run.json`.
+Its wiring's retained fine and presentation entries are reported beside them under
+`wiring/parts/last-run.json`. These are run receipts, outside the website and print outputs.
+
 ## Authoring modules
 
-[manifold_layout.py](manifold_layout.py) owns the reusable front manifold,
+[manifold_layout.rs](manifold_layout.rs) owns the reusable front manifold,
 pump-dock connections and their authoring reference frames. Its standalone
 `manifold-layout.step` includes the source-valve authoring construction;
 production takes the selected V-A/V-B poses and source routes from the
 above-core modules instead. The fixed front valve, tee and pump datums retain
 their common source.
 
-[above_core_parts.py](above_core_parts.py) builds the selected native purchased
+[machine_equipment.rs](machine_equipment.rs) builds the selected native purchased
 bodies, trimmed fittings, TPU interfaces and local tubes.
-[above_core_routes.py](above_core_routes.py) continues them to the core and rear
-ports. [above_core_wiring.py](above_core_wiring.py) supplies junction positions
-and their mounting features. The complete electrical graph and conductors
+[machine_routes.rs](machine_routes.rs) continues them to the core and rear
+ports. The enclosure's [junction reader](../printed-parts/enclosure/enclosure/numbers/junctions.rs)
+supplies the shared connector and pocket placements. The complete electrical graph and conductors
 live in [installed wiring](/hardware/wiring/installed/).
 
 The refrigerator loop retains its own compressor, condenser and cold-core

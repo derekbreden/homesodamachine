@@ -143,3 +143,60 @@ pub fn render(name: &str, declaration: &Value, made: &[String], copy_files: &[St
     text += "\"\"\",\n)";
     Ok(Some(text))
 }
+
+#[cfg(test)]
+mod tests {
+    use super::render;
+    use serde_json::{Value, json};
+    use std::collections::BTreeSet;
+
+    fn inputs(text: &str, name: &str) -> BTreeSet<String> {
+        let start = text.find(&format!("    name = \"{name}\",\n")).unwrap();
+        let rule = &text[start..];
+        let start = rule.find("    srcs = [\n").unwrap() + "    srcs = [\n".len();
+        let end = rule[start..].find("    ],\n").unwrap() + start;
+        rule[start..end].lines().map(|line| line.trim().trim_matches(',').trim_matches('"').to_owned()).collect()
+    }
+
+    fn rules(srcs: Value, sources: Value) -> String {
+        render("machine", &json!({
+            "program": {"crate":"installed-machine", "name":"installed-machine", "sources":sources},
+            "srcs":srcs,
+            "outs":["out/machine/hardware/manifold-layout/enclosure-assembly.step.mesh"],
+        }), &["hardware/manifold-layout/enclosure-assembly.step.mesh".into()], &[]).unwrap().unwrap()
+    }
+
+    #[test]
+    fn runtime_parameters_invalidate_the_producer_without_reaching_the_compiler() {
+        let source = "hardware/manifold-layout/installed_machine.rs";
+        let manifest = "tools/hsm/installed-machine/Cargo.toml";
+        let data = [
+            "hardware/manifold-layout/above-core.json",
+            "hardware/manifold-layout/junctions.json",
+            "hardware/manifold-layout/enclosure-box.json",
+        ];
+        let srcs: Vec<_> = [source, manifest].into_iter().chain(data).collect();
+        let text = rules(json!(srcs), json!([source, manifest]));
+        assert_eq!(inputs(&text, "machine-program"), [source, manifest].map(str::to_owned).into_iter().collect());
+        assert_eq!(inputs(&text, "machine"), [":out/machine-program/installed-machine"].into_iter().chain(data).map(str::to_owned).collect());
+    }
+
+    #[test]
+    fn generated_runtime_parameters_do_not_add_their_producer_to_the_compiler() {
+        let source = "hardware/manifold-layout/installed_machine.rs";
+        let runtime = ":out/enclosure-box/hardware/manifold-layout/enclosure-box.json";
+        let text = rules(json!([source, runtime]), json!([source]));
+        assert_eq!(inputs(&text, "machine-program"), [source.to_owned()].into_iter().collect());
+        assert!(inputs(&text, "machine").contains(runtime));
+    }
+
+    #[test]
+    fn data_compiled_with_include_str_remains_a_compiler_input() {
+        let source = "hardware/manifold-layout/installed_machine.rs";
+        let data = "tools/hsm/shared-data/catalog/materials.json";
+        let provider = ":out/catalog/tools/hsm/shared-data/catalog/materials.json";
+        let text = rules(json!([source, provider]), json!([source, data]));
+        assert_eq!(inputs(&text, "machine-program"), [source, provider].map(str::to_owned).into_iter().collect());
+        assert!(inputs(&text, "machine").contains(provider));
+    }
+}
