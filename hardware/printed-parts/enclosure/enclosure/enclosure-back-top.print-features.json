@@ -256,7 +256,7 @@
       "trunk_radius_mm": 1.25
     }
   ],
-  "source_stl_sha256": "1572fc27c147fd701c1a55afa6e612b52097a8a4ad41293b51046c7be8513a12",
+  "source_stl_sha256": "d1ea02ff72880b5966ebf4e7e66689ecc04f88e1457be108418a62cdb5bc4369",
   "support_free_regions": [
     {
       "blocking_bounds_source_mm": [

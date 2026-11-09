@@ -1,14 +1,18 @@
 // On-demand browser checks exercise feature links and scoped picking on the exported quadrant.
 import { test } from "node:test";
 import assert from "node:assert/strict";
+import fs from "node:fs";
+import path from "node:path";
 import { start } from "../../server.js";
 import { launchBrowser, closeBrowser, closeServer } from "../../../tools/render/browser.js";
 
-const file = "printed-parts/enclosure/enclosure/enclosure-back-top.step";
+const file = process.env.HSM_FEATURE_BROWSER_FILE || "printed-parts/enclosure/enclosure/enclosure-back-top.step";
 const key = "enclosure-back-top::wago-h-well";
 
 test("feature links and component drill-down use the same exported identity on desktop and mobile", async () => {
-  const { server } = await start({ dev: false, port: 0 });
+  const { server } = process.env.HSM_FEATURE_BROWSER_BASE ? {} : await start({ dev: false, port: 0 });
+  const origin = process.env.HSM_FEATURE_BROWSER_BASE || `http://127.0.0.1:${server.address().port}`;
+  const output = process.env.HSM_FEATURE_BROWSER_OUTPUT;
   const browser = await launchBrowser({ headless: true, protocolTimeout: 120000 });
   try {
     for (const viewport of [{ width: 1280, height: 960 }, { width: 390, height: 844, isMobile: true, hasTouch: true }]) {
@@ -16,10 +20,12 @@ test("feature links and component drill-down use the same exported identity on d
       const errors = [];
       page.on("pageerror", error => errors.push(error.message));
       await page.setViewport(viewport);
-      await page.setRequestInterception(true);
-      page.on("request", request => request.url().endsWith("/api/objects")
-        ? request.respond({ status: 200, contentType: "application/json", body: '{"objects":{}}' }) : request.continue());
-      await page.goto(`http://127.0.0.1:${server.address().port}/3d#step:${encodeURIComponent(file)}?find=${encodeURIComponent(`feature: ${key}`)}`);
+      if (!process.env.HSM_FEATURE_BROWSER_BASE) {
+        await page.setRequestInterception(true);
+        page.on("request", request => request.url().endsWith("/api/objects")
+          ? request.respond({ status: 200, contentType: "application/json", body: '{"objects":{}}' }) : request.continue());
+      }
+      await page.goto(`${origin}/3d#step:${encodeURIComponent(file)}?find=${encodeURIComponent(`feature: ${key}`)}`);
       await page.waitForFunction(() => window.__hsm?.currentGroup && !window.__hsm.currentGroup.userData.sceneLoading
         && window.__hsm.scene.getObjectByName("pick-find")?.children.some(child => child.isMesh), { timeout: 30000 }).catch(async error => {
           const state = await page.evaluate(() => ({ file: window.__hsm?.mountedStepFile,
@@ -42,6 +48,7 @@ test("feature links and component drill-down use the same exported identity on d
         const { sceneFeature } = await import("/js/viewer/features.js");
         const { THREE, camera, controls, renderer, scene, currentGroup } = window.__hsm;
         const feature = sceneFeature(key), mesh = feature.meshes[0];
+        for (const other of currentGroup.children) if (other.isMesh && other.name !== mesh.name) other.visible=false;
         const indices = mesh.geometry.index.array, positions = mesh.geometry.getAttribute("position");
         const ray = new THREE.Raycaster(), p = new THREE.Vector3(), q = new THREE.Vector3();
         mesh.updateWorldMatrix(true, false);
@@ -85,14 +92,60 @@ test("feature links and component drill-down use the same exported identity on d
       await page.evaluate(async () => (await import('/js/viewer/component-picker.js')).selectComponent('enclosure-back-top'));
       await page.evaluate(key => [...document.querySelectorAll(".component-holds-row")].find(row => row.title === key).click(), key);
       assert.match(await page.$eval(".component-panel .edge-panel-file", el => el.textContent), /connector well/i);
+      assert.ok(await page.$eval('.component-held-here',el=>el.getBoundingClientRect().width>80));
       assert.equal(await page.$eval(".component-copy", el => el.textContent), "Copy feature link");
       await page.evaluate(async () => (await import('/js/viewer/component-picker.js')).clearComponentPicker({preserve:true}));
       assert.match(await page.$eval(".component-panel .edge-panel-file", el => el.textContent), /connector well/i);
+      await page.evaluate(()=>Object.defineProperty(navigator,'clipboard',{configurable:true,value:{writeText:async text=>window.__copiedFeatureLink=text}}));
+      await page.click('.component-copy');
+      assert.match(await page.evaluate(()=>window.__copiedFeatureLink),/find=feature%3A%20enclosure-back-top%3A%3Awago-h-well/);
       assert.deepEqual(errors, []);
       const catalog = await page.evaluate(async file => (await (await fetch(`/api/features?file=${encodeURIComponent(file)}`)).json()).features, file);
       assert.ok(catalog.some(feature => feature.key === key));
       assert.ok(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth));
+      if (output) {
+        fs.mkdirSync(output,{recursive:true});
+        await page.screenshot({path:path.join(output,`${viewport.width}.png`)});
+        const mounted=await page.evaluate(()=>({file:window.__hsm.mountedStepFile,
+          revision:window.__hsm.currentGroup.userData.sharedHead?.src,
+          nodes:window.__hsm.currentGroup.userData.sharedHead?.meshes.filter(n=>n.name==='enclosure-back-top'),
+          parts:window.__hsm.currentGroup.children.filter(m=>m.userData.side==='front' && m.name==='enclosure-back-top')
+            .map(m=>({name:m.name,features:m.userData.features.map(f=>f.id)}))}));
+        fs.writeFileSync(path.join(output,`${viewport.width}.json`),JSON.stringify({origin,viewport,linked,mounted,feature_count:catalog.length,errors},null,2)+'\n');
+      }
+      if (file==='manifold-layout/enclosure-assembly.step') {
+        await page.evaluate(async () => {
+          for (const mesh of window.__hsm.currentGroup.children) if(mesh.isMesh) mesh.visible=true;
+          (await import('/js/viewer/component-picker.js')).applyHiddenComponents();
+        });
+        await page.click('.materials-toggle');
+        await page.type('.material-panel .material-search input','HSM-0047');
+        await page.waitForFunction(()=>['relay-1','relay-2'].every(name=>[...document.querySelectorAll('.material-panel .material-search-results a')]
+          .some(a=>decodeURIComponent(a.href).includes(`find=solid: ${name}`))));
+        const instances=await page.$$eval('.material-panel .material-search-results a',links=>links.map(a=>decodeURIComponent(a.href)).filter(href=>href.includes('find=solid: relay-')));
+        assert.equal(new Set(instances).size,2);
+        await page.evaluate(()=>[...document.querySelectorAll('.material-panel .material-search-results a')]
+          .find(a=>decodeURIComponent(a.href).includes('find=solid: relay-2')).click());
+        await page.waitForFunction(()=>document.querySelector('.component-panel .component-identity')?.textContent.includes('relay-2'));
+        assert.match(await page.$eval('.component-panel .component-identity',el=>el.textContent),/relay-2/);
+        const search=await page.$('.material-panel .material-search input');
+        await search.type(key);
+        await page.waitForFunction(key=>[...document.querySelectorAll('.material-panel .material-search-results a')]
+          .some(a=>decodeURIComponent(a.href).includes(`find=feature: ${key}`)),{},key);
+        if(output) fs.writeFileSync(path.join(output,`${viewport.width}-navigation.json`),JSON.stringify({instances,feature_search:key,errors},null,2)+'\n');
+      }
+      assert.deepEqual(errors,[]);
       await page.close();
     }
-  } finally { await closeBrowser(browser); await closeServer(server); }
+    if (file==='manifold-layout/enclosure-assembly.step') {
+      const page=await browser.newPage();
+      await page.goto(`${origin}/3d`);
+      await page.waitForSelector('.material-search input');
+      await page.type('.material-search input',key);
+      await page.waitForFunction(key=>[...document.querySelectorAll('.material-search-results a')]
+        .some(a=>decodeURIComponent(a.href).includes(`find=feature: ${key}`)),{},key);
+      assert.ok(await page.evaluate(()=>!window.__hsm.currentGroup));
+      await page.close();
+    }
+  } finally { await closeBrowser(browser); if(server) await closeServer(server); }
 });
