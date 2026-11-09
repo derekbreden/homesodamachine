@@ -56,7 +56,8 @@ function renderPurchasePlan(batch, defaultUnits) {
   const maximum = Math.max(...categories.map(category => category.costCents), 1);
   const supplierMaximum = Math.max(...suppliers.map(supplier => supplier.costCents), 1);
   return `<details class="forecast-plan" data-units="${batch.units}"${batch.units === defaultUnits ? " open" : ""}>
-    <summary>First ${batch.units} machines · ${money(batch.partsCents)} in new parts &amp; materials${star}</summary>
+    <summary>First ${batch.units} machines · ${money(batch.partsCents)} in quoted parts &amp; materials${star}</summary>
+    ${(batch.unpriced?.length || batch.undefinedInputs?.length) ? `<div class="forecast-alert"><strong>Inputs needing a definition or purchase quote</strong><p>The quoted budget excludes these requirements.</p><ul>${(batch.unpriced || []).map(row => `<li>${escape(row.name)} · ${count(row.quantity)} ${escape(row.unit)} still needed</li>`).join("")}${(batch.undefinedInputs || []).map(row => `<li>${escape(row.name)} · ${escape(row.reason)}</li>`).join("")}</ul></div>` : ""}
     <div class="forecast-groups" data-group-by="category">${categories.map((category, index) => renderGroup(category, batch, "category", maximum, index === 0, true)).join("")}</div>
     <div class="forecast-groups" data-group-by="supplier" hidden>${suppliers.map(supplier => renderGroup(supplier, batch, "supplier", supplierMaximum, false)).join("")}</div>
   </details>`;
@@ -80,11 +81,11 @@ export function renderBatchForecast(forecast) {
   const shortages = largest.rows.filter(row => row.packages.some(pack => pack.option.listedPackages !== undefined && pack.count > pack.option.listedPackages)).map(row => `${row.name}: ${row.issues.find(issue => /more lot/.test(issue))}`).join(" ");
   return `<section class="cost-forecast" id="batch-forecast" aria-labelledby="forecast-heading" data-checked-at="${data.checkedAt}">
     <h2 class="cost-title" id="forecast-heading">From today&rsquo;s stock to 5, 10 &amp; 20 machines</h2>
-    <p class="cost-prose">Additional spending from ${stockDate}. Each plan starts with the same stock and buys the shortfall in whole supplier packs.</p>
+    <p class="cost-prose">Quoted additional spending using shared stock records updated through ${day(data.inventoryAsOf)}. Completed assemblies reduce the components still required. Each plan starts with the same stock and buys the shortfall in whole supplier packs.</p>
     ${bomChanged ? `<p class="forecast-alert">${star} The BOM has changed since these supplier quantities were checked. This dated forecast needs a quantity review.</p>` : ""}
-    <div class="forecast-cards">${batches.map(batch => `<div data-card-units="${batch.units}"><div class="cost-top-cap">First ${batch.units} machines</div><strong>${money(batch.cashCents)}${star}</strong><p>Additional cash from current stock</p><small>${money(batch.cashCents / batch.units)} per machine · supplies &amp; delivery included</small></div>`).join("")}</div>
+    <div class="forecast-cards">${batches.map(batch => `<div data-card-units="${batch.units}"><div class="cost-top-cap">First ${batch.units} machines</div><strong>${money(batch.cashCents)}${star}</strong><p>Quoted cash from current stock</p><small>${money(batch.cashCents / batch.units)} per machine · unresolved inputs listed below</small></div>`).join("")}</div>
     <h3 class="cost-h2">What we still need to buy</h3>
-    <p class="cost-note forecast-intro">Bars and items are ranked by cost. Expand an item for stock and source details. The cash budget and paid labor breakdown are below.</p>
+    <p class="cost-note forecast-intro">Bars and items are ranked by cost. Expand an item for stock and source details. The cash budget and full-batch labor benchmark breakdown are below.</p>
     <div class="forecast-controls" hidden>
       <fieldset class="forecast-units"><legend>Batch</legend>${batches.map(batch => `<label><input type="radio" name="forecast-units" value="${batch.units}"${batch === first ? " checked" : ""}><span>${batch.units} machines</span></label>`).join("")}</fieldset>
       <label class="forecast-select">Group by<select id="forecast-group"><option value="category">Parts category</option><option value="supplier">Supplier</option></select></label>
@@ -95,7 +96,7 @@ export function renderBatchForecast(forecast) {
     ${batches.map(batch => renderPurchasePlan(batch, first.units)).join("")}
     <noscript><style>.forecast-groups[data-group-by="category"] .forecast-group[hidden], .forecast-part[hidden] { display: block !important; }</style></noscript>
     <p class="cost-note forecast-footnote">${star} Estimated stock, pricing or supply. Supplier prices checked ${date} unless an item notes a later check; availability details are below.</p>
-    <details class="forecast-assumptions forecast-budget"><summary>Cash budget, delivery &amp; paid labor</summary>
+    <details class="forecast-assumptions forecast-budget"><summary>Cash budget, delivery &amp; full-batch labor benchmark</summary>
       <p class="forecast-table-help">Scroll sideways to compare all three plans.</p>
       <div class="forecast-scroll" tabindex="0" role="region" aria-label="Batch expense comparison"><table class="forecast-comparison"><caption class="cost-sr-only">Batch expense forecast</caption><thead><tr><th scope="col">Expense</th>${batches.map(batch => `<th scope="col">${batch.units} machines</th>`).join("")}</tr></thead><tbody>
         ${tableRow("New whole parts & material purchases", "partsCents")}${tableRow("New inbound freight / import reserve", "inboundCents")}${tableRow(`Tax reserve on new purchases (${count(data.taxRate * 100)}%)`, "taxCents")}
@@ -111,12 +112,12 @@ export function renderBatchForecast(forecast) {
       <div class="forecast-alert">${unavailable}${shortages ? `<p><strong>Stock limits for ${largest.units} machines${star}.</strong> ${escape(shortages)}</p>` : ""}<p>Exact Prime sources remain unresolved for several plumbing/refrigeration parts, the flow meter and short M3 inserts. Custom fabrication, PCB assembly and some harness/refrigeration selections use explicit allowances. Expand the relevant purchase for the item, quantity and source.</p></div>
     </details>
     <details class="forecast-assumptions"><summary>Inventory credits, pending orders &amp; allowances</summary>
-      <p><b>Opening filament stock${star}:</b> approximately ${onHand("petgf-black")} kg Black PET-GF15, ${onHand("petg-clear")} kg Clear PETG and ${onHand("petg-black")} kg Black PETG. Ten usable batch-2 boards, ten carbonator tube cuts, twenty endcaps and other credited parts reduce new orders. Remaining quantities from older purchase records are estimates; include parts covered by stock to see every credit.</p>
+      <p><b>Recorded filament stock${star}:</b> ${onHand("petgf-black")} kg Black PET-GF15, ${onHand("petg-clear")} kg Clear PETG and ${onHand("petg-black")} kg Black PETG. Completed parts and assemblies reduce their manufacturing inputs before new purchases are calculated. Include parts covered by stock to see each credit and its evidence.</p>
       <p>${escape(data.scope)}</p><p>${escape(data.inventoryNote)}</p><p>${escape(data.roundingNote)}</p>
       ${first.pendingPayments.map(payment => `<p><b>${escape(payment.name)} · ${money(payment.costCents)}${star}.</b> ${escape(payment.note)}</p>`).join("")}
       ${data.allowances.map(allowance => `<p><b>${escape(allowance.name)}${star}.</b> ${escape(allowance.note)}</p>`).join("")}
       <ul>${data.notes.map(note => `<li>${escape(note)}</li>`).join("")}</ul>
-      <p>Filament includes a provisional 15% allowance for supports, purge and rejected prints. Finished printed parts without a counted usable balance receive no additional credit. Printed material totals and small colour splits require production-yield confirmation. Incomplete cuts and colour/size-specific stock may not supply another complete machine. ${data.bomRowCount} BOM lines are covered.</p>
+      <p>Filament includes the process allowance recorded with its stock definition. Finished parts without a recorded usable balance receive no additional credit. Cutting yield, color and size limitations remain explicit where their physical inputs need definition.</p>
     </details>
   </section>`;
 }

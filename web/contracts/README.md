@@ -46,6 +46,12 @@ tree needs no edit here.
   the BOM program reads it) prices it at any batch, and a purchase carries the
   smallest lot batch-forecast.json buys it in. Read by
   `web/public/js/viewer/{material-panel,parts}.js`, `web/lib/{part-cost-view,cost,batch-forecast}.js`.
+- **material-quantities.js** — physical contents through assembly levels and supported
+  material configurations, shared by `web/lib/{part-costs,material-stock}.js`.
+- **material-stock.js** — material demand after completed-stock credits, shared supply
+  requirements and build capacity. Reads the catalog and projected stock from
+  `web/lib/material-stock.js`; consumed by the material explorer, Build from stock
+  and the purchasing forecast.
 - **faucet-options.js** — the Sculpted and Industrial faucet assemblies and their part paths,
   plus the Black/White PET-GF finish palette and the exact bodies that take it. Both styles
   use the same assembly frame. Read by the viewer's faucet controls, material builder and

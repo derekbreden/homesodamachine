@@ -19,110 +19,11 @@
 import fs from "node:fs";
 import path from "node:path";
 import { bomItems, materialIndex } from "../contracts/materials.js";
-import { FAUCET_FINISHES } from "../contracts/faucet-options.js";
+import { materialConfigurations } from "../contracts/material-quantities.js";
 import { parseRun } from "../contracts/part-costs.js";
 
-const PARTS_RE = /<!--parts\s+([\s\S]*?)-->/;
-const TARGET_RE = /HSM-\d{4,}(?::\d+(?:\.\d+)?)?/g;
-const CATEGORY_RE = /<!--@([a-z][a-z-]*)-->/;
-const MONEY_RE = /\$\s?([0-9][0-9,]*(?:\.[0-9]+)?)/;
-const COMMENT_RE = /<!--[\s\S]*?-->/g;
-
-// Every cell the ledgers hold is prose off a markdown table, and their numbers
-// are docgen markers — `[value](NAME)`. Strip the marker syntax back to the
-// value, and the emphasis around it, so a cell reads as prose.
-export function plainMarkdown(text) {
-  return String(text)
-    .replace(COMMENT_RE, "")
-    .replace(/\[([^\]]*)\]\([^)]*\)/g, "$1")
-    .replace(/`([^`]*)`/g, "$1")
-    .replace(/\*\*([^*]*)\*\*/g, "$1")
-    .replace(/~~([^~]*)~~/g, "$1")
-    .replace(/\s+/g, " ")
-    .trim();
-}
-
-// Drop the purchase pack size from a display name — both the parenthetical form
-// ("(20-pk)", "(2-pack)", "(bag of 10)") and the inline form (", 100 pc",
-// ", 120 pc"). ASINs and part numbers in parentheses carry no pack word and stay;
-// lengths and dimensions ("100 ft spool", "10–16 mm") are not pc/pk and survive.
-export function stripPack(name) {
-  return name
-    .replace(/\s*\([^()]*\b(?:pk|pack|pcs?|ct|sets?|pieces?|count|bag)\b[^()]*\)/gi, "")
-    .replace(/,\s*\d+\s*(?:pc|pcs|pk|pack)\b/gi, "")
-    .replace(/\s{2,}/g, " ")
-    .replace(/\s*,\s*$/g, "")
-    .trim();
-}
-
-const cellsOf = (row) => row.replace(/^\|/, "").replace(/\|$/, "").split("|").map((cell) => cell.trim());
-const isSeparator = (cells) => cells.every((cell) => /^[-:\s]*$/.test(cell));
-const parseMoney = (cell) => {
-  const match = String(cell).replace(COMMENT_RE, "").match(MONEY_RE);
-  return match ? parseFloat(match[1].replace(/,/g, "")) : 0;
-};
-
-export function parseTargets(text) {
-  const tag = String(text).match(PARTS_RE);
-  if (!tag) return null;
-  return [...tag[1].matchAll(TARGET_RE)].map(([token]) => {
-    const [id, weight] = token.split(":");
-    return { id, weight: weight == null ? null : Number(weight) };
-  });
-}
-
-// A quantity cell → a discrete piece count, or null when it is a measure sold
-// by length, weight or fraction ("~5 ft", "1/2 roll", "78 g").
-function parseCount(cell) {
-  const text = plainMarkdown(cell);
-  if (/[/]|\b(ft|kg|g|m|in|inches|oz|roll|pair|set|sets|collars?|columns?)\b/i.test(text)) return null;
-  const match = text.match(/^~?\s*(\d+)\b/);
-  return match ? parseInt(match[1], 10) : null;
-}
-
-// A quantity cell → { value, unit } when it is a length or a mass per build.
-function parseMeasure(cell) {
-  const match = plainMarkdown(cell).match(/^~?\s*([0-9]+(?:\.[0-9]+)?)\s*(ft|m|mm|in|inches|g|kg)\b/i);
-  if (!match) return null;
-  const unit = match[2].toLowerCase() === "inches" ? "in" : match[2].toLowerCase();
-  return { value: Number(match[1]), unit };
-}
-
-export function readBomLines(hardwareDir) {
-  const text = fs.readFileSync(path.join(hardwareDir, "ledger", "bom.md"), "utf-8");
-  const lines = [];
-  let section = null;
-  for (const raw of text.split("\n")) {
-    if (raw.startsWith("## ")) {
-      const match = raw.match(/^## (\d+)\.\s*(.+?)\s*$/);
-      section = match ? { n: Number(match[1]), name: match[2] } : null;
-      continue;
-    }
-    if (!section || !raw.startsWith("|")) continue;
-    const category = raw.match(CATEGORY_RE)?.[1];
-    if (!category) continue; // a data row is one that carries a category
-    const cells = cellsOf(raw);
-    if (isSeparator(cells)) continue;
-    // §7's printed parts read Part | Qty | Material | Mass (kg) | $; every other
-    // table reads Part | Notes | Qty | Unit $ | Line $.
-    const printed = section.n === 7;
-    const qty = printed ? cells[1] : cells[cells.length - 3];
-    lines.push({
-      section: section.n,
-      sectionName: section.name,
-      name: printed ? plainMarkdown(cells[0]) : stripPack(plainMarkdown(cells[0])),
-      href: cells[0].match(/\]\((https?:[^)\s]+)\)/)?.[1] || null,
-      qty: plainMarkdown(qty || ""),
-      count: parseCount(qty || ""),
-      measure: printed ? { value: Number(plainMarkdown(cells[3])), unit: "kg" } : parseMeasure(qty || ""),
-      stock: printed ? plainMarkdown(cells[2]).replace(/\s*\([^)]*[×,][^)]*\)/g, "") : null,
-      usd: parseMoney(cells[cells.length - 1]),
-      category,
-      targets: parseTargets(raw),
-    });
-  }
-  return lines;
-}
+import { plainMarkdown, stripPack, readBomLines, parseTargets, cellsOf, isSeparator } from "./bom-lines.js";
+export { plainMarkdown, stripPack, readBomLines, parseTargets } from "./bom-lines.js";
 
 // The smallest lot batch-forecast.json buys each bom.md line in, on the lines
 // it names by ASIN or by name. A single piece is no lot.
@@ -175,39 +76,6 @@ export function readLaborOperations(hardwareDir) {
   return { rate, batch, operations };
 }
 
-// Total pieces of each material in one unit, through every assembly level.
-// `swap` replaces a material with its variant wherever it occurs.
-function unitQuantities(catalog, rootId, options, swap = null) {
-  const index = materialIndex(catalog);
-  const totals = new Map([[rootId, 1]]);
-  (function visit(id, quantity, seen) {
-    if (seen.has(id)) return;
-    const next = new Set([...seen, id]);
-    for (const item of bomItems(index.get(id), options)) {
-      if (typeof item.quantity !== "number") continue;
-      const child = swap?.get(item.material) || item.material;
-      const pieces = quantity * item.quantity;
-      totals.set(child, (totals.get(child) || 0) + pieces);
-      visit(child, pieces, next);
-    }
-  })(rootId, 1, new Set());
-  return totals;
-}
-
-// The default build first — the first faucet finish and the faucet style the
-// unit names — then each other finish, then each variant of a part in the unit.
-function configurations(catalog, rootId) {
-  const [first, ...others] = FAUCET_FINISHES.map((finish) => finish.id);
-  const base = { options: { finish: first }, swap: null };
-  const configs = [base, ...others.map((finish) => ({ options: { finish }, swap: null }))];
-  const present = unitQuantities(catalog, rootId, base.options);
-  for (const material of catalog.materials)
-    for (const relation of present.has(material.id) ? material.relations || [] : [])
-      if (relation.kind === "variant" && !present.has(relation.material))
-        configs.push({ options: base.options, swap: new Map([[material.id, relation.material]]) });
-  return configs.map((config) => ({ ...config, quantities: unitQuantities(catalog, rootId, config.options, config.swap) }));
-}
-
 function costElement(entry, material, perPiece, fraction, pieces) {
   const { line } = entry;
   if (entry.source === "labor")
@@ -235,7 +103,7 @@ export function allocatePartCosts(catalog, { lines, operations, rate, batch = nu
   const index = materialIndex(catalog);
   const rootId = catalog.cost_root;
   if (!index.has(rootId)) throw new Error("materials.json names no cost_root in the catalog");
-  const configs = configurations(catalog, rootId);
+  const configs = materialConfigurations(catalog, rootId);
   const base = configs[0].quantities;
   const home = new Map();
   configs.forEach((config, c) => { for (const id of config.quantities.keys()) if (!home.has(id)) home.set(id, c); });

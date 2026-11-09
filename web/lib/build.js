@@ -4,7 +4,7 @@ import { readPartCosts } from "./part-costs.js";
 import { readMaterialStock } from "./material-stock.js";
 import { materialIndex } from "../contracts/materials.js";
 import { planMaterial, materialCapacity, stockSummary } from "../contracts/material-stock.js";
-import { rollupCost, duration } from "../contracts/part-costs.js";
+import { duration } from "../contracts/part-costs.js";
 import { renderHead, renderNav, renderPageHeader, renderFooter } from "./shell.js";
 
 const escape = value => String(value ?? "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
@@ -41,9 +41,10 @@ function renderSupply(row, stock, index) {
 function renderPlan(catalog, plan) {
   const index = materialIndex(catalog), material = index.get(plan.material), stock = catalog.stock;
   const capacity = materialCapacity(catalog, material.id, plan.options);
-  const cost = rollupCost(catalog, material.id, plan.options);
-  const runs = stock.builds.filter(run => run.material === material.id && (!run.finish || run.finish === plan.options.finish)
-    && Number.isFinite(run.attendedMinutes) && Number.isFinite(run.quantity) && run.quantity > 0);
+  const completionMinutes = catalog.costs.direct[material.id]?.minutes;
+  const completed = stock.builds.filter(run => run.material === material.id && (!run.finish || run.finish === plan.options.finish)
+    && Number.isFinite(run.quantity) && run.quantity > 0);
+  const runs = completed.filter(run => Number.isFinite(run.attendedMinutes));
   const actual = runs.length ? runs.reduce((sum, run) => sum + run.attendedMinutes, 0) / runs.reduce((sum, run) => sum + run.quantity, 0) : null;
   const shortages = plan.resources.filter(row => row.status === "short");
   const unknown = plan.resources.filter(row => row.status === "unknown");
@@ -58,10 +59,11 @@ function renderPlan(catalog, plan) {
     <p class="build-verdict" data-status="${plan.status}">${stockSummary(plan)}</p>
     <div class="build-metrics">
       <div><span>Material capacity</span><strong>${capacity ? `${number(capacity.quantity)}${capacity.estimated ? " · estimate" : ""}` : "Needs stock records"}</strong></div>
-      <div><span>Planned attended work / item</span><strong>${cost.costed && cost.minutes ? duration(cost.minutes) : "Not recorded"}</strong></div>
-      <div><span>Recorded attended work / item</span><strong>${actual == null ? "No measured runs" : duration(actual)}</strong></div>
+      <div><span>Allocated completion work / item</span><strong>${completionMinutes ? duration(completionMinutes) : "Not allocated"}</strong></div>
+      <div><span>Recorded completion work / item</span><strong>${actual == null ? "No measured runs" : duration(actual)}</strong></div>
     </div>
-    <p class="build-note">Planned work is the labor allocated to this assembly and its contents in the practiced batch estimate. Recorded work uses measured hands-on time.</p>
+    <p class="build-note">Completion work starts with the recorded inputs and ends with this completed item. Work already performed on its components is recorded with those components.</p>
+    ${completed.length ? `<details class="build-covered"><summary>Recorded completions <span>${completed.length}</span></summary><ul class="build-work">${completed.map(run => `<li><div>${escape(new Date(run.completedAt).toLocaleString("en-US", {timeZone:"America/Chicago"}))}<small>${escape(run.note || "Completed work")}</small><small>Inputs: ${run.inputs.map(input => escape((input.resource ? stock.resources[input.resource]?.name : index.get(input.material)?.description) || input.resource || input.material) + " · " + amount(input.quantity, input.unit)).join("; ")}</small></div><span>${amount(run.quantity)} · ${run.attendedMinutes == null ? "Time not measured" : duration(run.attendedMinutes)}</span></li>`).join("")}</ul></details>` : ""}
     ${shortages.length ? `<section><h3>Short of stock</h3>${list(shortages)}</section>` : ""}
     ${unknown.length || plan.gaps.length ? `<section><h3>Stock records needed</h3>${list(unknown)}
       <ul class="stock-gaps">${plan.gaps.map(gap => `<li><a href="${materialHref(gap.material)}">${escape(index.get(gap.material)?.description || gap.material)}</a><span>${escape(gap.reason)}</span></li>`).join("")}</ul></section>` : ""}
@@ -72,7 +74,24 @@ function renderPlan(catalog, plan) {
   </article>`;
 }
 
-export function mountBuildRoutes(app, { hardwareDir }) {
+function renderWorkbench(plan) {
+  return `<section class="stock-workbench" id="stock-workbench" data-material="${plan.material}" data-quantity="${plan.quantity}" data-finish="${plan.options.finish}">
+    <h2>Record physical work</h2><p class="build-note">Record what was completed and the inputs actually used. Component quantities are prefilled; adjust them for the work you did.</p>
+    <form id="stock-completion"><h3>Complete this item</h3><p class="stock-output"></p>
+      <details class="stock-inputs"><summary>Inputs used <span id="stock-input-count"></span></summary><div id="stock-input-list"></div><button type="button" id="stock-add-input">Add an input</button></details>
+      <div class="stock-fields"><label>Hands-on minutes<input id="stock-minutes" type="number" min="0" step="any" placeholder="Leave blank if not measured"></label><label>Completed at<input id="stock-completed-at" type="datetime-local" required></label></div>
+      <label>Work note<textarea id="stock-work-note" rows="2" placeholder="Describe preparation, rework or anything the timing includes"></textarea></label>
+      <button type="submit">Record and publish completion</button><button type="button" id="stock-another" hidden>Record another completion</button>
+    </form>
+    <details class="stock-count-panel"><summary>Record a receipt or stock count</summary><form id="stock-count">
+      <label>Stock item<select id="stock-count-target"></select></label><div class="stock-fields"><label>Activity<select id="stock-count-kind"><option value="receipt">Received</option><option value="count">Counted on hand</option></select></label><label>Quantity <span id="stock-count-unit"></span><input id="stock-count-quantity" type="number" min="0" step="any" required></label></div>
+      <label>Record note<input id="stock-count-note" placeholder="Receipt or physical count evidence"></label><button type="submit">Record and publish stock</button>
+    </form></details>
+    <p class="stock-record-status" role="status" aria-live="polite"></p><button type="button" id="stock-publish-retry" hidden>Retry publication</button>
+  </section>`;
+}
+
+export function mountBuildRoutes(app, { hardwareDir, canRecord = false }) {
   function read() {
     const catalog = readMaterialCatalog(hardwareDir);
     catalog.costs = readPartCosts(hardwareDir, catalog);
@@ -112,7 +131,7 @@ export function mountBuildRoutes(app, { hardwareDir }) {
         <label>Quantity<input name="quantity" type="number" min="1" step="1" value="${plan.quantity}" required></label>
         <label>Faucet finish<select name="finish"><option value="white"${plan.options.finish === "white" ? " selected" : ""}>White</option><option value="black"${plan.options.finish === "black" ? " selected" : ""}>Black</option></select></label><button type="submit">Check stock</button></form>
         <p class="build-opening">${escape(catalog.stock.opening.note)} <a href="https://github.com/derekbreden/homesodamachine/blob/main/hardware/ledger/stock.md">About stock and build records →</a></p>
-        ${renderPlan(catalog, plan)}<section class="build-assemblies"><h2>Build an assembly</h2><p>Each assembly below is an independent stock plan.</p><div>${assemblyCards}</div></section></main>`
+        ${renderPlan(catalog, plan)}${canRecord ? renderWorkbench(plan) : ""}<section class="build-assemblies"><h2>Build an assembly</h2><p>Each assembly below is an independent stock plan.</p><div>${assemblyCards}</div></section></main>${canRecord ? '<script type="module" src="/stock-entry.js"></script>' : ""}`
       + renderFooter({ siteFooter: true }));
   });
 }

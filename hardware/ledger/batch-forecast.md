@@ -10,7 +10,9 @@ read its projected balances.
 ## Inventory and demand
 
 Each forecast is an alternative request for complete integrated machines and
-starts with the same stock. The website selects the supported batch sizes.
+starts with the same stock. Completed machines and subassemblies reduce their
+components before manufacturing inputs are calculated. The website selects the
+supported batch sizes.
 Usable on-hand stock reduces new purchases. Existing orders reduce duplicate
 purchasing; receipt is still required before their material is available to build.
 Reservations reduce the stock available to the plan. An unknown balance receives
@@ -25,13 +27,17 @@ checked dates; an inventory update does not establish a new supplier quote.
 
 The lot calculation compares the sourced purchasable options after stock
 credits and can buy useful excess stock when that lowers the new cash required.
+The quoted budget lists requirements without an input definition or supplier
+quote separately; those requirements are excluded from the quoted amount.
 Stock units and supplier lots describe the same physical quantity. Requirements
 whose usable cutting yield or size allocation remains unresolved retain their
 explicit planning allowance and uncertainty.
 
 The forecast separates merchandise, delivered-price allowances, inbound freight,
 tax reserves, possible remaining payments, shop supplies and planned attended
-labor. Acquired stock creates no new acquisition expense. A fulfillment status
+labor. The labor figure is a practiced full-batch benchmark, rather than the
+remaining effort after stock credits. Actual completion work is recorded with
+its material. Acquired stock creates no new acquisition expense. A fulfillment status
 alone establishes neither a charge nor a refund; payment evidence belongs to
 [`purchases.md`](purchases.md) and its analytical records.
 
