@@ -11,6 +11,7 @@ import { mountPdfjsAssets, renderDocumentReader } from "./document-reader.js";
 import { readMaterialCatalog } from "./material-catalog.js";
 import { numberedModels } from "../contracts/materials.js";
 import { readPartCosts } from "./part-costs.js";
+import { readMaterialStock } from "./material-stock.js";
 import { websitePointers } from "../contracts/artifact-scope.js";
 import { RETIRED_MARKER } from "./retired.js";
 import { madeFrom } from "./made-from.js";
@@ -76,6 +77,7 @@ export function mountViewerRoutes(app, { hardwareDir, store, pointersPath }) {
     catch (error) { return res.status(503).json({ error: "Material catalog unavailable" }); }
     // Costs ride with the catalog; a checkout without the ledgers serves parts uncosted.
     try { catalog.costs = readPartCosts(hardwareDir, catalog); } catch { catalog.costs = null; }
+    try { catalog.stock = readMaterialStock(hardwareDir, catalog); } catch { catalog.stock = null; }
     res.json(catalog);
   });
 
