@@ -48,6 +48,7 @@ pub fn apply(g: &mut Graph, mut piece: Shape, b: &Box, keep_clear: Option<Shape>
         0.0,
         &[0, 1, 2, 3],
     );
+    let relief = g.feature(relief, "rear-interior-relief", "Rear interior panel relief", &[]);
     piece = g.cut(piece, &[relief]);
     for port in &wall.wet_ports {
         let bore = g.teardrop_y(
@@ -59,22 +60,30 @@ pub fn apply(g: &mut Graph, mut piece: Shape, b: &Box, keep_clear: Option<Shape>
             WET_PORT_Y[1].max(b.exterior_bounds()[3] + running()),
             -1.0,
         );
+        let bore = g.feature(bore, "rear-bulkhead-openings", "Rear fluid bulkhead openings", &[]);
         piece = g.cut(piece, &[bore]);
     }
     let stock = g.box_(c14_stock_bounds());
     let outline = g.silhouette(b.exterior_bounds());
     let stock = g.intersect(stock, &[outline]);
+    let stock = g.feature(stock, "power-inlet-mount", "Power inlet mount and tunnel", &["c14-inlet"]);
     piece = g.union(piece, &[stock]);
-    let inlet = c14_cutters(g, b.exterior_bounds()[3]);
+    let inlet = g.scoped("power-inlet-mount", "Power inlet mount and tunnel", &["c14-inlet"], |g| c14_cutters(g, b.exterior_bounds()[3]));
     piece = g.cut(piece, &inlet);
-    piece = keystone(g, piece, &b.pack.core_holds, keep_clear);
-    piece = identify(g, piece, b);
+    piece = g.scoped("keystone-mount", "Ethernet keystone mount", &["keystone"], |g| keystone(g, piece, &b.pack.core_holds, keep_clear));
+    piece = g.scoped("identification-mounts", "Nameplate and connector label mounts", &["nameplate"], |g| identify(g, piece, b));
     piece = hosts(g, piece);
-    piece = valve_seats(g, piece);
-    for support in supports(g) {
+    piece = g.scoped("rear-valve-seats", "Rear valve mounting seats", &["valve-v-a", "vk-solenoid"], |g| valve_seats(g, piece));
+    for ((id, label, part), support) in [
+        ("asse-receiver", "ASSE chain snap receiver", "discharge-chain"),
+        ("pisco-receiver", "Pisco regulator snap receiver", "gas-regulator"),
+        ("flow-meter-receiver", "Flow meter snap receiver", "digiten-flow"),
+        ("water-regulator-receiver", "Water regulator snap receiver", "flow-regulator"),
+    ].into_iter().zip(supports(g)) {
+        let support = g.feature(support, id, label, &[part]);
         piece = g.union(piece, &[support]);
     }
-    let tips = crate::supports::tip_clearances(g);
+    let tips = g.scoped("receiver-catch-pockets", "Snap receiver catch pockets", &[], crate::supports::tip_clearances);
     piece = g.cut(piece, &tips);
     // The measured inlet opening stays clear after every integral mount joins.
     g.cut(piece, &inlet)
@@ -481,22 +490,27 @@ fn hosts(g: &mut Graph, mut piece: Shape) -> Shape {
     let hosted = wall_mounts();
     let mut bosses = Vec::new();
     let mut pilots = Vec::new();
-    for m in hosted.iter().flat_map(|(_, m)| m) {
+    for (part, mounts) in &hosted {
+      for m in mounts {
         let length: f64 = (0..3).map(|k| (m.face[k] - m.root[k]) * m.axis[k]).sum();
-        bosses.push(axial_cylinder(g, BOSS_RADIUS, m.root, m.axis, length));
+        let boss = axial_cylinder(g, BOSS_RADIUS, m.root, m.axis, length);
+        bosses.push(g.feature(boss, format!("{part}-mount"), format!("{part} mounting bosses"), &[part]));
         if m.threaded {
             let start = std::array::from_fn(|k| m.face[k] + 0.01 * m.axis[k]);
-            pilots.push(axial_cylinder(
+            let pilot = axial_cylinder(
                 g,
                 PILOT_RADIUS,
                 start,
                 m.axis.map(|u| -u),
                 m.pilot_depth + 0.01,
-            ));
+            );
+            pilots.push(g.feature(pilot, format!("{part}-mount"), format!("{part} mounting bosses"), &[part]));
         }
+      }
     }
     for bounds in relay_bars(&hosted) {
-        bosses.push(g.box_(bounds));
+        let bar = g.box_(bounds);
+        bosses.push(g.feature(bar, "relay-mount-bars", "Relay mount bearing bars", &["relay-1", "relay-2"]));
     }
     piece = g.union_each(piece, &bosses);
     g.cut_each(piece, &pilots)

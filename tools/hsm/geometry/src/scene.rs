@@ -82,6 +82,8 @@ mod imports {
             if !node["color_override"].is_null() {entry["color"]=node["color_override"].clone();}
         }
         node["entries"]=json!(entries);node["source"]=json!(source);
+        if let Some(count) = part.get("feature_count") { node["feature_count"] = count.clone(); }
+        else { node.as_object_mut().unwrap().remove("feature_count"); }
         node["source_name"]=part["name"].clone();node["source_sha256"]=json!(sha);
         Ok(node)
     }
@@ -279,7 +281,10 @@ pub fn pack(bytes: &[u8]) -> Result<Value> {
         }
         let object = encode(&json!({"v":3,"meshes":geometry}), &data)?;
         let asset = store(&object)?;
-        instances.push(json!({"name":name,"asset":asset,"bytes":object.len(),"entries":entries}));
+        let mut node = json!({"name":name,"asset":asset,"bytes":object.len(),"entries":entries});
+        let features = rows.iter().map(|r| r["features"].as_array().map_or(0, Vec::len)).sum::<usize>();
+        if features > 0 { node["feature_count"] = json!(features); }
+        instances.push(node);
     }
     head["v"] = json!(4); head["meshes"] = json!(instances);
     Ok(head)
@@ -398,6 +403,86 @@ pub fn entry_bounds(bytes: &[u8], row: &Value, transform: &Value) -> Result<[[f6
         }
     }
     Ok(bounds)
+}
+
+/// Bounds of authored surface ranges read existing indices without allocating query geometry.
+pub fn feature_bounds(bytes: &[u8], row: &Value, feature: &Value, transform: &Value) -> Result<[[f64; 3]; 2]> {
+    let (_, start) = header(bytes)?;
+    let blob = &bytes[start..];
+    let positions = span(blob, row, "pos")?;
+    let indices = span(blob, row, "idx")?;
+    let mut bounds = [[f64::INFINITY; 3], [f64::NEG_INFINITY; 3]];
+    for range in feature["triangles"].as_array().context("feature triangle ranges")? {
+        let a = range[0].as_u64().context("feature range start")? as usize;
+        let b = range[1].as_u64().context("feature range end")? as usize;
+        ensure!(a <= b && (b + 1) * 12 <= indices.len(), "feature range outside mesh");
+        for index in indices[a * 12..(b + 1) * 12].chunks_exact(4) {
+            let i = u32::from_le_bytes(index.try_into()?) as usize * 12;
+            let xyz = positions.get(i..i + 12).context("feature vertex outside mesh")?;
+            let p: [f64; 3] = std::array::from_fn(|k| f32::from_le_bytes(xyz[k*4..k*4+4].try_into().unwrap()) as f64);
+            for r in 0..3 {
+                let q = if transform.is_null() { p[r] } else {
+                    let mut q = transform[r][3].as_f64().context("placement translation")?;
+                    for c in 0..3 { q += transform[r][c].as_f64().context("placement rotation")? * p[c]; }
+                    q as f32 as f64
+                };
+                bounds[0][r] = bounds[0][r].min(q); bounds[1][r] = bounds[1][r].max(q);
+            }
+        }
+    }
+    ensure!(bounds.iter().flatten().all(|n| n.is_finite()), "feature has no finite surface");
+    Ok(bounds)
+}
+
+/// Selected exported triangles retain their original viewer identifiers.
+pub struct FeatureSurface {
+    pub vertices: Vec<[f64;3]>,
+    pub triangles: Vec<[u32;3]>,
+    pub triangle_ids: Vec<u32>,
+    pub faces: Vec<[u32;2]>,
+    pub face_sources: Option<Vec<Vec<Value>>>,
+}
+
+/// Query-time feature geometry references the selected exported triangles and compacts their vertices.
+pub fn feature_surface(bytes: &[u8], row: &Value, feature: &Value, transform: &Value) -> Result<FeatureSurface> {
+    let (_, start) = header(bytes)?;
+    let blob = &bytes[start..];
+    let positions = span(blob, row, "pos")?;
+    let indices = span(blob, row, "idx")?;
+    let mut vertices = Vec::new();
+    let mut triangles = Vec::new();
+    let mut original = Vec::new();
+    let mut vertex_ids = BTreeMap::new();
+    for range in feature["triangles"].as_array().context("feature triangle ranges")? {
+        let a = range[0].as_u64().context("feature range start")? as usize;
+        let b = range[1].as_u64().context("feature range end")? as usize;
+        ensure!(a <= b && (b + 1) * 12 <= indices.len(), "feature range outside mesh");
+        for (offset, triangle) in indices[a*12..(b+1)*12].chunks_exact(12).enumerate() {
+            let mut selected = [0;3];
+            for k in 0..3 {
+                let i = u32::from_le_bytes(triangle[k*4..k*4+4].try_into()?);
+                selected[k] = if let Some(&id) = vertex_ids.get(&i) { id } else {
+                    let offset = i as usize * 12;
+                    let xyz = positions.get(offset..offset+12).context("feature vertex outside mesh")?;
+                    let p: [f64;3] = std::array::from_fn(|j| f32::from_le_bytes(xyz[j*4..j*4+4].try_into().unwrap()) as f64);
+                    let mut q = p;
+                    if !transform.is_null() {
+                        for r in 0..3 {
+                            q[r] = transform[r][3].as_f64().context("placement translation")?;
+                            for c in 0..3 { q[r] += transform[r][c].as_f64().context("placement rotation")? * p[c]; }
+                            q[r] = q[r] as f32 as f64;
+                        }
+                    }
+                    let id = vertices.len() as u32; vertices.push(q); vertex_ids.insert(i,id); id
+                };
+            }
+            triangles.push(selected); original.push((a+offset) as u32);
+        }
+    }
+    let ranges = span(blob, row, "fac")?;
+    let faces = ranges.chunks_exact(8).map(|r| [u32::from_le_bytes(r[..4].try_into().unwrap()),u32::from_le_bytes(r[4..].try_into().unwrap())]).collect();
+    let face_sources = row["face_sources"].as_array().and_then(|a| a.iter().map(|r| r.as_array().cloned()).collect());
+    Ok(FeatureSurface { vertices, triangles, triangle_ids: original, faces, face_sources })
 }
 
 pub fn flatten(bytes: &[u8]) -> Result<Vec<u8>> {

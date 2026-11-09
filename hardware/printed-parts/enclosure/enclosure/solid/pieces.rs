@@ -87,13 +87,22 @@ pub fn payload(
     source: &[u8],
     sources: Option<&Sources>,
 ) -> Result<()> {
+    payload_with_features(dir, name, color, stl, source, sources, None)
+}
+
+/// The same printed triangles carry optional construction identities into their shared asset.
+#[allow(clippy::too_many_arguments)]
+pub fn payload_with_features(
+    dir: &Path, name: &str, color: Color, stl: &[u8], source: &[u8],
+    sources: Option<&Sources>, features: Option<presentation::Features>,
+) -> Result<()> {
     let (mesh, exact) = crate::cache::phase("print mesh welding", || presentation::weld(stl))?;
     let lineage = sources.and_then(|s| {
         let triangles: Vec<usize> = s.faces.iter().map(|&f| f as usize).collect();
         presentation::lineage(&s.records, &triangles, mesh.faces.len(), exact)
     });
     let cut = crate::cache::phase("viewer surface", || {
-        presentation::cut(
+        presentation::cut_with_features(
             &mesh,
             lineage,
             Request {
@@ -106,6 +115,7 @@ pub fn payload(
                 unknown: sources.is_some(),
                 check: false,
             },
+            features,
         )
     })?;
     let mut head=hsm_geometry::scene::pack(&cut.payload)?;

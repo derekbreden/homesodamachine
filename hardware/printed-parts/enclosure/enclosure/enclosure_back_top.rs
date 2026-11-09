@@ -24,7 +24,7 @@ use hsm_enclosure_quadrants::ystacks::y_stacks;
 use hsm_enclosure_quadrants::{
     above, funnel, plan, routes, seat, shapes, shell, spec, valves, walls,
 };
-use hsm_enclosure_solid::pieces::{keep, payload, shown, solids};
+use hsm_enclosure_solid::pieces::{keep, payload_with_features as payload, shown, solids};
 use hsm_enclosure_solid::plan::{Graph, Shape};
 use hsm_enclosure_solid::structure::Silhouette;
 use hsm_enclosure_solid::{ops, skin};
@@ -237,31 +237,31 @@ fn pipeline(g: &mut Graph, k: &Build) -> Shape {
     let mut piece = g.intersect(k.half, &[upper]);
     let flanks = backtop::flanks(g, b, zj, up);
     piece = g.union(piece, &[flanks]);
-    let feet = z_rail_feet(g, inner, y_joint, zj, q.y);
+    let feet = g.scoped("z-rails", "Sliding joint rails", &[], |g| z_rail_feet(g, inner, y_joint, zj, q.y));
     piece = g.union(piece, &[feet]);
     let wall = backtop::wall(g, b, zj, up);
     piece = g.union(piece, &[wall]);
     piece = backtop::ceiling(g, piece, b);
     piece = g.intersect(piece, &[k.silhouette]);
-    piece = k.exterior(g, piece);
-    piece = k.rises(g, piece);
+    piece = g.scoped("seam-band", "Seam band", &[], |g| k.exterior(g, piece));
+    piece = g.scoped("equipment-clearances", "Equipment clearance reliefs", &[], |g| k.rises(g, piece));
     let bands = q.bands(b);
     piece = k.floor(g, piece, Some(back_top_wall_face()));
-    piece = vent_chase(g, piece, inner, outer, &b.exterior_bounds(), &pack.vent_chase, bands, up);
-    piece = valves::valve_trays(g, piece, b, q, bands);
-    piece = k.reliefs(g, piece);
+    piece = g.scoped("vent-chase", "Pressure relief vent chase", &[], |g| vent_chase(g, piece, inner, outer, &b.exterior_bounds(), &pack.vent_chase, bands, up));
+    piece = g.scoped("valve-mounts", "Valve mounting trays", &[], |g| valves::valve_trays(g, piece, b, q, bands));
+    piece = g.scoped("equipment-clearances", "Equipment clearance reliefs", &[], |g| k.reliefs(g, piece));
     let (wells, pockets) = above::apply(g, piece, b, q.y);
     piece = rear::apply(g, wells, b, pockets);
     if k.airway_in() {
-        piece = flank_vents(g, piece, outer, &pack.cond_airway);
+        piece = g.scoped("condenser-vents", "Condenser ventilation openings", &["condenser+fan"], |g| flank_vents(g, piece, outer, &pack.cond_airway));
     }
-    let channels = z_rail_channels(g, inner, y_joint, zj, q.y);
+    let channels = g.scoped("z-rails", "Sliding joint rails", &[], |g| z_rail_channels(g, inner, y_joint, zj, q.y));
     piece = g.cut(piece, &[channels]);
-    piece = seat::funnel_seat(g, piece, b, q, k.silhouette, up);
-    piece = routes::apply(g, piece, q);
-    piece = y_stacks(g, piece, inner, k.silhouette, y_joint, q, None);
+    piece = g.scoped("funnel-seat", "Funnel retaining seat", &["funnel"], |g| seat::funnel_seat(g, piece, b, q, k.silhouette, up));
+    piece = g.scoped("route-snaps", "Tube and cable retaining snaps", &[], |g| routes::apply(g, piece, q));
+    piece = g.scoped("y-joint-fasteners", "Front-back joint screw stations", &[], |g| y_stacks(g, piece, inner, k.silhouette, y_joint, q, None));
     let lands = rear::seam_lands(g);
-    seam_fit_reliefs(g, piece, b, q, &lands)
+    g.scoped("joint-fit-reliefs", "Joint fit reliefs", &[], |g| seam_fit_reliefs(g, piece, b, q, &lands))
 }
 
 /// The quadrant's STEP and fine model, and its fluted print: the nameplate field and the raised
@@ -335,9 +335,9 @@ fn write(
             core.union(&ops::manifold(&band)?)
         })
     })?;
-    let stl = hsm_enclosure_solid::cache::phase("print STL", || {
-        Ok(ops::print_stl_bytes(&ops::quantized(&joined)?))
+    let (stl, identities) = hsm_enclosure_solid::cache::phase("print STL", || {
+        Ok(ops::print_stl_with_features(&ops::quantized(&joined)?))
     })?;
     keep(&dir.join(format!("{name}.stl")), &stl)?;
-    payload(dir, name, color, &stl, &step, None)
+    payload(dir, name, color, &stl, &step, None, Some(identities))
 }

@@ -136,6 +136,67 @@ impl Catalog {
             "scene_triangles":if ids.len()==self.parts.len() {Some(triangles)} else {None}}))
     }
 
+    /// Construction children use their installed body's placement and immutable surface revision.
+    pub fn features_data(&self, pattern: &str) -> Result<Value> {
+        let needle = pattern.to_lowercase();
+        let body_pattern = pattern.split_once("::").map(|(body, _)| body);
+        let bodies = self.matches(body_pattern.unwrap_or(pattern));
+        let mut assets = BTreeMap::<String, Vec<u8>>::new();
+        let mut features = Vec::new();
+        for (index, part) in self.parts.iter().enumerate() {
+            if body_pattern.is_some_and(|body| !part.name.eq_ignore_ascii_case(body)) { continue; }
+            let origin = part.node.map(|i| &self.head["meshes"][i]).unwrap_or(&Value::Null);
+            if !bodies.is_empty() && !bodies.contains(&index) { continue; }
+            if bodies.is_empty() && self.shared && origin["feature_count"].as_u64().unwrap_or(0) == 0 { continue; }
+            let bytes = if self.shared {
+                let hash = origin["asset"].as_str().context("feature mesh object")?;
+                if !assets.contains_key(hash) { assets.insert(hash.into(), hsm_geometry::scene::load_asset(hash)?); }
+                &assets[hash]
+            } else { &self.bytes };
+            let (head, _) = hsm_geometry::scene::header(bytes)?;
+            let row = &head["meshes"][part.entry];
+            for record in row["features"].as_array().into_iter().flatten() {
+                let id = record["id"].as_str().context("feature identity")?;
+                let key = format!("{}::{id}",part.name);
+                let text = format!("{key} {} {}", record["label"].as_str().unwrap_or(""), record["related"]);
+                if bodies.is_empty() && !needle.is_empty() && !text.to_lowercase().contains(&needle) { continue; }
+                if body_pattern.is_some() && !key.eq_ignore_ascii_case(pattern) { continue; }
+                let [min, max] = hsm_geometry::scene::feature_bounds(bytes, row, record, &origin["transform"])?;
+                let mut feature = record.clone();
+                feature["name"] = json!(key); feature["body"] = json!(part.name);
+                feature["body_index"] = json!(index); feature["asset"] = origin["asset"].clone();
+                feature["transform"] = origin["transform"].clone();
+                feature["min_mm"] = json!(min); feature["max_mm"] = json!(max);
+                feature["size_mm"] = json!([max[0]-min[0],max[1]-min[1],max[2]-min[2]]);
+                feature["triangle_count"] = json!(record["triangles"].as_array().into_iter().flatten().map(|r| r[1].as_u64().unwrap()-r[0].as_u64().unwrap()+1).sum::<u64>());
+                features.push(feature);
+            }
+        }
+        Ok(json!({"features":features,"scope":"Authored surface selections of the exported body; no separate printable solids."}))
+    }
+
+    fn selection(&self, selector: &str) -> Result<(MeshSelection, usize)> {
+        let (body, feature) = selector.split_once("::").map_or((selector,None), |(b,f)| (b,Some(f)));
+        let index = self.one(body)?;
+        if let Some(feature_id) = feature {
+            let part = &self.parts[index];
+            let origin = part.node.map(|i| &self.head["meshes"][i]).unwrap_or(&Value::Null);
+            let bytes = if self.shared { hsm_geometry::scene::load_asset(origin["asset"].as_str().context("feature object")?)? } else {self.bytes.clone()};
+            let (head, _) = hsm_geometry::scene::header(&bytes)?;
+            let row = &head["meshes"][part.entry];
+            let feature = row["features"].as_array().into_iter().flatten().find(|f|f["id"].as_str().is_some_and(|id|id.eq_ignore_ascii_case(feature_id)))
+                .with_context(|| format!("no feature {feature_id:?} on {body:?}; use hsm features {body}"))?;
+            let surface = hsm_geometry::scene::feature_surface(&bytes,row,feature,&origin["transform"])?;
+            let mut mesh = payload::Mesh::from_arrays(selector,surface.vertices,surface.triangles)?;
+            mesh.triangle_ids = Some(surface.triangle_ids); mesh.faces=surface.faces; mesh.face_sources=surface.face_sources;
+            mesh.features=vec![feature.clone()];
+            Ok((MeshSelection::Feature(mesh),index))
+        } else {
+            let bytes = hsm_geometry::scene::flatten_selected_with(&self.bytes,&[index],hsm_geometry::scene::load_asset)?;
+            Ok((MeshSelection::Bytes(bytes),index))
+        }
+    }
+
     pub fn response(&self, data: Value, load_ms: f64) -> Value {
         json!({"scene":self.path,"payload_sha256":self.digest,"source_sha256":self.head["src"],
             "step_sha256":if self.shared {Value::Null} else {self.head["src"].clone()},
@@ -148,6 +209,8 @@ struct Resident {
     used: u64,
     budget: u64,
 }
+
+enum MeshSelection { Feature(hsm_geometry::payload::Mesh), Bytes(Vec<u8>) }
 
 pub struct Store {
     paths: BTreeMap<PathBuf, ([u64; 7], String)>,
@@ -174,6 +237,36 @@ impl Store {
         json!({"resident_payloads": self.resident.len(), "payload_loads": self.loads,
             "cache_budget_bytes": self.budget,
             "estimated_resident_bytes": self.resident.values().map(|v| v.budget).sum::<u64>()})
+    }
+
+    /// Feature queries build only the requested surface subsets and retain their viewer IDs.
+    pub fn load_features(&mut self, catalog: &Catalog, selectors: &[&str]) -> Result<(Arc<Payload>,Vec<usize>)> {
+        let key = format!("{}:{selectors:?}",catalog.digest);
+        self.tick += 1;
+        let indices = selectors.iter().map(|s| catalog.one(s.split_once("::").map_or(*s,|(body,_)|body))).collect::<Result<Vec<_>>>()?;
+        if let Some(held) = self.resident.get_mut(&key) { held.used=self.tick; return Ok((held.payload.clone(),indices)); }
+        let mut meshes = Vec::new(); let mut budget = 0;
+        for selector in selectors {
+            let (selection,_) = catalog.selection(selector)?;
+            let mesh = match selection {
+                MeshSelection::Feature(mesh) => mesh,
+                MeshSelection::Bytes(bytes) => {
+                    ensure!(bytes.len() as u64*3 <= self.budget,"selected geometry exceeds daemon cache budget");
+                    payload::decode(&bytes)?.meshes.pop().context("selected mesh")?
+                }
+            };
+            budget += mesh.shape.vertices().len() as u64*72 + mesh.shape.indices().len() as u64*128;
+            ensure!(budget <= self.budget,"selected geometry exceeds daemon cache budget");
+            meshes.push(mesh);
+        }
+        while self.resident.values().map(|v|v.budget).sum::<u64>()+budget>self.budget {
+            let oldest=self.resident.iter().min_by_key(|(_,v)|v.used).map(|(k,_)|k.clone());
+            if let Some(key)=oldest {self.resident.remove(&key);} else {break;}
+        }
+        let result = Arc::new(Payload { digest:catalog.digest.clone(),source:catalog.head["src"].as_str().map(str::to_owned),
+            cut: catalog.head.get("cut").map(Value::to_string),meshes,shared:catalog.shared });
+        self.loads+=1;self.resident.insert(key,Resident {payload:result.clone(),used:self.tick,budget});
+        Ok((result,indices))
     }
 
     /// Selected entries share the scene revision and keep their global payload indices.

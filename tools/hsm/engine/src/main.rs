@@ -81,6 +81,11 @@ enum Action {
         #[arg(default_value = "")]
         pattern: String,
     },
+    /// Named construction features, source definitions and bounds from existing surface ranges.
+    Features {
+        #[arg(default_value = "")]
+        pattern: String,
+    },
     /// Surface distance, witnesses and solid clearance between two unique solids.
     Gap {
         a: String,
@@ -111,6 +116,8 @@ enum Action {
     },
     /// The nearest hit in the scene; direction is normalized and distance is in mm.
     Ray {
+        #[arg(long)]
+        part: Option<String>,
         #[arg(long, num_args = 3, allow_hyphen_values = true, required = true)]
         origin: Vec<f64>,
         #[arg(long, num_args = 3, allow_hyphen_values = true, required = true)]
@@ -676,6 +683,7 @@ fn run() -> Result<bool> {
         Action::Generate { target, output, python } => Query::Generate { workspace: client.root.clone(), target, output, python },
         Action::Status => Query::Status,
         Action::Where { pattern } => Query::Where { pattern },
+        Action::Features { pattern } => Query::Features { pattern },
         Action::Gap { a, b } => Query::Gap { a, b },
         Action::Overlap { a, b } => Query::Overlap { a, b },
         Action::Move {
@@ -699,10 +707,12 @@ fn run() -> Result<bool> {
             offset,
         },
         Action::Ray {
+            part,
             origin,
             direction,
             max_distance,
         } => Query::Ray {
+            part,
             origin: triple(origin)?,
             direction: triple(direction)?,
             max_distance,

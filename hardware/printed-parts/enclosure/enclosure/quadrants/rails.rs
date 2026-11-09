@@ -122,6 +122,8 @@ pub fn z_rail_heads(
         let (yb0, yb1) = sorted(y1 - sy * (RAIL_STOP_LEN - slide_slip()), y1);
         let block = g.box_([x.hook.min(x.arm_end), x.hook.max(x.arm_end), yb0, yb1, zj, rim]);
         let head = g.union(arm, &[block]);
+        let name = if x_in_west(run.x_in) { "west" } else { "east" };
+        let head = g.feature(head, format!("{name}-z-rail"), format!("{name} sliding rail"), &[]);
         out = Some(match out {
             None => head,
             Some(o) => g.union(o, &[head]),
@@ -146,6 +148,8 @@ pub fn z_rail_feet(g: &mut Graph, inner: &Bounds, y_joint: f64, zj: f64, col: Y)
         let x_f = rail_x(sx, col).foot;
         let x_root = x_in - sx * 1.0;
         let slab = g.box_([x_root.min(x_f), x_root.max(x_f), y0.min(y1), y0.max(y1), zj, z_foot]);
+        let name = if x_in_west(x_in) { "west" } else { "east" };
+        let slab = g.feature(slab, format!("{name}-z-rail"), format!("{name} sliding rail"), &[]);
         let mut feet = match out {
             None => slab,
             Some(o) => g.union(o, &[slab]),
@@ -155,6 +159,7 @@ pub fn z_rail_feet(g: &mut Graph, inner: &Bounds, y_joint: f64, zj: f64, col: Y)
             let rim = zj + Z_RISE;
             let lead = g.xz_prism(y0, y_joint, vec![[x_root, zj], [x_open, zj], [x_open, rim + (x_in - x_open).abs()],
                                                     [x_in, rim], [x_root, rim]]);
+            let lead = g.feature(lead, format!("{name}-z-rail"), format!("{name} sliding rail"), &[]);
             feet = g.union(feet, &[lead]);
         }
         out = Some(feet);
@@ -206,6 +211,8 @@ pub fn z_rail_channels(g: &mut Graph, inner: &Bounds, y_joint: f64, zj: f64, col
             void = g.union(void, &[crossing]);
         }
         let void = g.intersect(void, &[keep]);
+        let name = if x_in_west(x_in) { "west" } else { "east" };
+        let void = g.feature(void, format!("{name}-z-rail"), format!("{name} sliding rail"), &[]);
         out = Some(match out {
             None => void,
             Some(o) => g.union(o, &[void]),
@@ -213,3 +220,5 @@ pub fn z_rail_channels(g: &mut Graph, inner: &Bounds, y_joint: f64, zj: f64, col
     }
     out.expect("each column has two rail runs")
 }
+
+fn x_in_west(x: f64) -> bool { x < 0.0 }

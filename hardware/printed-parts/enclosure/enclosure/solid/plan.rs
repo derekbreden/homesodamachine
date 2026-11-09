@@ -96,6 +96,7 @@ pub enum Op {
         exterior: hsm_enclosure_numbers::exterior::Exterior,
     },
     Checkpoint(&'static str),
+    Feature(&'static hsm_kernel::feature::Feature),
     Box(Bounds),
     RoundedBox {
         b: Bounds,
@@ -219,6 +220,7 @@ pub struct Graph {
     pub nodes: Vec<Node>,
     shared: HashMap<String, usize>,
     additions: HashMap<usize, (Shape, Shape)>,
+    feature_scope: Option<&'static hsm_kernel::feature::Feature>,
 }
 
 fn overlaps(a: &Bounds, b: &Bounds) -> bool {
@@ -231,22 +233,56 @@ impl Graph {
     }
 
     pub fn add(&mut self, op: Op, inputs: Vec<usize>, bounds: Option<Bounds>) -> Shape {
+        let authored = inputs.is_empty() && !matches!(op, Op::Empty | Op::Feature(_));
         let node = Node { op, inputs };
         let key = format!("{node:?}");
         let index = *self.shared.entry(key).or_insert_with(|| {
             self.nodes.push(node);
             self.nodes.len() - 1
         });
-        Shape { index, bounds }
+        let shape = Shape { index, bounds };
+        if let Some(feature) = self.feature_scope.filter(|_| authored) {
+            return self.add(Op::Feature(feature), vec![index], bounds);
+        }
+        shape
     }
 
     pub fn op(&self, shape: Shape) -> &Op {
-        &self.nodes[shape.index].op
+        let mut index = shape.index;
+        while matches!(self.nodes[index].op, Op::Feature(_)) { index = self.nodes[index].inputs[0]; }
+        &self.nodes[index].op
     }
 
     /// Retain the result at a construction boundary across edits to later features.
     pub fn checkpoint(&mut self, name: &'static str, shape: Shape) -> Shape {
         self.add(Op::Checkpoint(name), vec![shape.index], shape.bounds)
+    }
+
+    /// Name existing construction geometry; subsequent cuts and placements carry its identity.
+    #[track_caller]
+    pub fn feature(&mut self, shape: Shape, id: impl Into<String>, label: impl Into<String>, related: &[&str]) -> Shape {
+        if !crate::features::enabled() { return shape; }
+        let feature = hsm_kernel::feature::intern(hsm_kernel::feature::Feature {
+            id: id.into(), label: label.into(), parent: None,
+            related: related.iter().map(|s| (*s).into()).collect(),
+            source: hsm_kernel::src_line(std::panic::Location::caller()),
+        });
+        self.add(Op::Feature(feature), vec![shape.index], shape.bounds)
+    }
+
+    /// A construction family names the stock and tools it creates, leaving its input body alone.
+    #[track_caller]
+    pub fn scoped<T>(&mut self, id: &str, label: &str, related: &[&str], make: impl FnOnce(&mut Self) -> T) -> T {
+        if !crate::features::enabled() { return make(self); }
+        let feature = hsm_kernel::feature::intern(hsm_kernel::feature::Feature {
+            id: id.into(), label: label.into(), parent: None,
+            related: related.iter().map(|s| (*s).into()).collect(),
+            source: hsm_kernel::src_line(std::panic::Location::caller()),
+        });
+        let previous = self.feature_scope.replace(feature);
+        let result = make(self);
+        self.feature_scope = previous;
+        result
     }
 
     /// An authored addition stays separate while subsequent cuts and limits act on both branches.
@@ -465,7 +501,7 @@ impl Graph {
         if radius <= 0.0 {
             return shape;
         }
-        let Op::Box(_) = self.nodes[shape.index].op else {
+        let Op::Box(_) = self.op(shape) else {
             panic!("the enclosure standing round belongs to rectangular stock");
         };
         let b = shape.bounds();
@@ -683,6 +719,7 @@ pub(crate) fn op_json(op: &Op) -> Map<String, Value> {
             json!({"outer":outer,"centre":centre,"exterior":exterior}),
         ),
         Op::Checkpoint(name) => ("checkpoint", json!({"name":name})),
+        Op::Feature(feature) => ("feature", json!({"identity":feature.json()})),
         Op::Box(b) => ("box", json!({"box": b})),
         Op::RoundedBox { b, radius } => ("rounded-box", json!({"box": b, "radius": radius})),
         Op::Cylinder {

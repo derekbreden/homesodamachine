@@ -23,7 +23,7 @@ use hsm_enclosure_quadrants::walls::lip_underwall;
 use hsm_enclosure_quadrants::ystacks::y_stacks;
 use hsm_enclosure_quadrants::{plan, routes, shell, spec, valves, walls};
 use hsm_enclosure_solid::eval::find;
-use hsm_enclosure_solid::pieces::{keep, payload, shown, solids};
+use hsm_enclosure_solid::pieces::{keep, payload_with_features as payload, shown, solids};
 use hsm_enclosure_solid::plan::{Graph, Op, Shape};
 use hsm_enclosure_solid::structure::Silhouette;
 use hsm_enclosure_solid::{ops, skin};
@@ -87,26 +87,26 @@ fn pipeline(g: &mut Graph, k: &Build) -> Shape {
     let skin = flanks::back_bottom_flank_skin(g, inner, y_joint, zj);
     let skin = g.intersect(skin, &[col]);
     piece = g.union(piece, &[skin]);
-    let heads = z_rail_heads(g, inner, y_joint, zj, q.y);
+    let heads = g.scoped("z-rails", "Sliding joint rails", &[], |g| z_rail_heads(g, inner, y_joint, zj, q.y));
     piece = g.union(piece, &[heads]);
     piece = g.intersect(piece, &[k.silhouette]);
-    piece = k.exterior(g, piece);
-    piece = k.rises(g, piece);
+    piece = g.scoped("seam-band", "Seam band", &[], |g| k.exterior(g, piece));
+    piece = g.scoped("equipment-clearances", "Equipment clearance reliefs", &[], |g| k.rises(g, piece));
     let bands = q.bands(b);
     piece = k.floor(g, piece, None);
-    piece = vent_chase(g, piece, inner, outer, &b.exterior_bounds(), &pack.vent_chase, bands, up);
-    piece = valves::valve_trays(g, piece, b, q, bands);
-    piece = k.reliefs(g, piece);
+    piece = g.scoped("vent-chase", "Pressure relief vent chase", &[], |g| vent_chase(g, piece, inner, outer, &b.exterior_bounds(), &pack.vent_chase, bands, up));
+    piece = g.scoped("valve-mounts", "Valve mounting trays", &[], |g| valves::valve_trays(g, piece, b, q, bands));
+    piece = g.scoped("equipment-clearances", "Equipment clearance reliefs", &[], |g| k.reliefs(g, piece));
     if k.airway_in() {
-        piece = flank_vents(g, piece, outer, &pack.cond_airway);
+        piece = g.scoped("condenser-vents", "Condenser ventilation openings", &["condenser+fan"], |g| flank_vents(g, piece, outer, &pack.cond_airway));
     }
-    piece = handholds(g, piece, inner, y_joint, q.y);
+    piece = g.scoped("handholds", "Lifting handholds", &[], |g| handholds(g, piece, inner, y_joint, q.y));
     let letters = text::disposal_letters(g, outer);
     piece = g.union(piece, &[letters]);
-    piece = routes::apply(g, piece, q);
-    piece = y_stacks(g, piece, inner, k.silhouette, y_joint, q, None);
-    piece = finish_handholds(g, piece, inner);
-    seam_fit_reliefs(g, piece, b, q, &[])
+    piece = g.scoped("route-snaps", "Tube and cable retaining snaps", &[], |g| routes::apply(g, piece, q));
+    piece = g.scoped("y-joint-fasteners", "Front-back joint screw stations", &[], |g| y_stacks(g, piece, inner, k.silhouette, y_joint, q, None));
+    piece = g.scoped("handholds", "Lifting handholds", &[], |g| finish_handholds(g, piece, inner));
+    g.scoped("joint-fit-reliefs", "Joint fit reliefs", &[], |g| seam_fit_reliefs(g, piece, b, q, &[]))
 }
 
 /// The panel's STEP and fine model, and its fluted print: its raised disposal warning stands on
@@ -158,7 +158,7 @@ fn write(
         },
     )?;
     let joined = hsm_enclosure_solid::pieces::join_band(&ops::manifold(&printed_core)?, &band)?;
-    let stl = ops::print_stl_bytes(&joined);
+    let (stl, identities) = ops::print_stl_with_features(&joined);
     keep(&dir.join(format!("{name}.stl")), &stl)?;
-    payload(dir, name, color, &stl, &step, None)
+    payload(dir, name, color, &stl, &step, None, Some(identities))
 }

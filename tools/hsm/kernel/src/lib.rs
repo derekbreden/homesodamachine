@@ -33,6 +33,7 @@ pub mod build;
 pub mod dxf;
 pub mod edge;
 pub mod face;
+pub mod feature;
 pub mod import;
 #[path = "../../geometry/src/scene.rs"]
 pub mod scene;

@@ -389,11 +389,13 @@ pub struct Face {
     pub via: Option<Via>,
     /// The complete model record was null, distinct from an object's nullable source.
     pub record_null: bool,
+    /// The authored construction group, independent of surface and triangle numbering.
+    pub feature: Option<&'static crate::feature::Feature>,
 }
 
 impl Face {
     pub fn new(surface: Surface, op: &'static str, src: Src) -> Face {
-        Face { surface, op, src, via: None, record_null: false }
+        Face { surface, op, src, via: None, record_null: false, feature: None }
     }
 
     pub fn transformed(&self, t: &Affine) -> Face {
@@ -419,6 +421,7 @@ impl Face {
                 src: unknown_src(),
                 via: None,
                 record_null: true,
+                feature: None,
             });
         }
         let number = |key: &str| -> Result<f64> {
@@ -450,6 +453,9 @@ impl Face {
             else { record_src(source.as_str().context("face source is not text or null")?) };
         let mut face = Face::new(surface,
             intern(record["op"].as_str().context("face has no builder")?), source);
+        if let Some(feature) = record.get("feature").filter(|v| !v.is_null()) {
+            face.feature = Some(crate::feature::intern(crate::feature::Feature::read(feature)?));
+        }
         if let Some(records) = record.get("contributors") {
             ensure!(record["src"].is_null() && record["op"] == "", "a contributor set has no primary owner");
             face = face.with_contributors(records)?;

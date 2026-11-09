@@ -26,6 +26,12 @@ pub struct Lineage {
     faces: Vec<usize>,
 }
 
+/// Authored identities and each input triangle's catalog index; zero means unassigned.
+pub struct Features {
+    pub records: Vec<Value>,
+    pub triangles: Vec<u32>,
+}
+
 /// The binary STL's triangles welded at its float32 positions, and whether every weld kept
 /// each corner's exact position.
 pub fn weld(bytes: &[u8]) -> Result<(Mesh, bool)> {
@@ -298,8 +304,8 @@ fn root(parent: &mut [usize], mut i: usize) -> usize {
     }
     i
 }
-type Arrays = (Vec<f32>, Vec<f32>, Vec<u32>, Vec<u32>, Option<Vec<Vec<Value>>>);
-fn creased(mesh: &Mesh, angle: f64, sources: Option<&Lineage>) -> Arrays {
+type Arrays = (Vec<f32>, Vec<f32>, Vec<u32>, Vec<u32>, Option<Vec<Vec<Value>>>, Vec<Value>);
+fn creased(mesh: &Mesh, angle: f64, sources: Option<&Lineage>, features: Option<&Features>) -> Arrays {
     let (normals, areas, edges) = geometry(mesh);
     let mut parent = (0..mesh.faces.len()).collect::<Vec<_>>();
     let mut i = 0;
@@ -354,7 +360,19 @@ fn creased(mesh: &Mesh, angle: f64, sources: Option<&Lineage>) -> Arrays {
     let mut ranges = Vec::new();
     let mut groups = Vec::new();
     let mut begin = 0;
+    let mut feature_ranges: Vec<Vec<[u32; 2]>> = features.map(|f| vec![vec![]; f.records.len()]).unwrap_or_default();
     for (position, &face) in order.iter().enumerate() {
+        if let Some(features) = features {
+            if let Some(id) = features.triangles.get(face).copied().filter(|id| *id > 0) {
+                if let Some(ranges) = feature_ranges.get_mut(id as usize - 1) {
+                    let position = position as u32;
+                    match ranges.last_mut() {
+                        Some(last) if last[1] + 1 == position => last[1] = position,
+                        _ => ranges.push([position, position]),
+                    }
+                }
+            }
+        }
         let weighted = normals[face] * areas[face];
         for &v in &mesh.faces[face] {
             let begin = offsets[v as usize];
@@ -388,10 +406,16 @@ fn creased(mesh: &Mesh, angle: f64, sources: Option<&Lineage>) -> Arrays {
             p.to_array().map(|x| x as f32)
         })
         .collect();
-    (positions, shade, indices, ranges, sources.map(|_| groups))
+    let features = features.map(|f| f.records.iter().zip(feature_ranges).filter_map(|(record, ranges)| {
+        if ranges.is_empty() { return None; }
+        let mut record = record.clone();
+        record["triangles"] = json!(ranges);
+        Some(record)
+    }).collect()).unwrap_or_default();
+    (positions, shade, indices, ranges, sources.map(|_| groups), features)
 }
 fn payload(name: Value, color: Value, src: &str, bound: f64, dev: f64, arrays: Arrays, unknown: bool) -> Result<Vec<u8>> {
-    let (pos, nrm, idx, fac, sources) = arrays;
+    let (pos, nrm, idx, fac, sources, features) = arrays;
     let mut offset = 0;
     let mut entry = json!({"name": name, "color": color});
     for (key, count) in [("pos", pos.len()), ("nrm", nrm.len()), ("idx", idx.len()), ("fac", fac.len())] {
@@ -399,6 +423,7 @@ fn payload(name: Value, color: Value, src: &str, bound: f64, dev: f64, arrays: A
         offset += count * 4;
     }
     let faces = fac.len() / 2;
+    if !features.is_empty() { entry["features"] = json!(features); }
     if let Some(s) = sources {
         entry["face_sources"] = json!(s);
     } else if unknown {
@@ -465,6 +490,11 @@ pub struct Request<'a> {
 /// The payload of a printed mesh: the coarsest reduction inside the deflection budget, its
 /// regions creased at the viewer's angle, its lineage carried through the collapses.
 pub fn cut(mesh: &Mesh, lineage: Option<Lineage>, r: Request) -> Result<Cut> {
+    cut_with_features(mesh, lineage, r, None)
+}
+
+/// Feature ranges follow the existing print triangle ordering without splitting its geometry.
+pub fn cut_with_features(mesh: &Mesh, lineage: Option<Lineage>, r: Request, features: Option<Features>) -> Result<Cut> {
     ensure!(!mesh.faces.is_empty(), "printed mesh has triangles");
     let (normals, _, edges) = geometry(mesh);
     let mut non_manifold = 0;
@@ -513,7 +543,8 @@ pub fn cut(mesh: &Mesh, lineage: Option<Lineage>, r: Request) -> Result<Cut> {
         Some(a) => a,
         None => (Mesh { points: mesh.points.clone(), faces: mesh.faces.clone() }, 0., lineage, 0.),
     };
-    let arrays = creased(&reduced, angle, sources.as_ref());
+    let features = features.filter(|f| reduction == 0. && f.triangles.len() == reduced.faces.len());
+    let arrays = creased(&reduced, angle, sources.as_ref(), features.as_ref());
     Ok(Cut {
         payload: payload(r.name, r.color, r.src, bound, dev, arrays, r.unknown)?,
         printed_triangles: mesh.faces.len(),

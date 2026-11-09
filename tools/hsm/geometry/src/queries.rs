@@ -85,7 +85,20 @@ fn closest(a: &Mesh, b: &Mesh, by: [f64; 3]) -> Result<(f64, u32, u32)> {
 }
 
 impl Mesh {
+    pub fn viewer_triangle(&self, triangle: u32) -> u32 {
+        self.triangle_ids.as_ref().map_or(triangle, |ids| ids[triangle as usize])
+    }
+
+    pub fn feature_names(&self, triangle: u32) -> Vec<String> {
+        let triangle = self.viewer_triangle(triangle) as u64;
+        let body = self.name.split_once("::").map_or(self.name.as_str(), |(body,_)| body);
+        self.features.iter().filter(|f| f["triangles"].as_array().is_some_and(|ranges| ranges.iter().any(|r|
+            r[0].as_u64().zip(r[1].as_u64()).is_some_and(|(a,b)| a <= triangle && triangle <= b))))
+            .filter_map(|f| f["id"].as_str().map(|id| format!("{body}::{id}"))).collect()
+    }
+
     pub fn face(&self, triangle: u32) -> Option<usize> {
+        let triangle = self.viewer_triangle(triangle);
         let i = self.faces.partition_point(|r| r[1] < triangle);
         self.faces.get(i).filter(|r| r[0] <= triangle).map(|_| i)
     }
@@ -101,6 +114,7 @@ impl Mesh {
     }
 
     pub fn solid(&self) -> Result<MutexGuard<'_, Manifold>> {
+        ensure!(self.triangle_ids.is_none(), "a feature selects surfaces of its owner and has no independent solid volume");
         let held = self.solid.get_or_init(|| {
             let vertices: Vec<_> = self
                 .shape
@@ -180,6 +194,7 @@ pub fn contains_probe(mesh: &Mesh, point: [f64; 3], tolerance: f64) -> Result<bo
 
 #[derive(Serialize)]
 pub struct Gap {
+    pub surface_only: bool,
     /// Minimum distance between triangle surfaces; positive for a contained body.
     pub surface_distance_mm: f64,
     pub point_a: Option<[f64; 3]>,
@@ -210,6 +225,10 @@ pub fn gap(a: &Mesh, b: &Mesh, by: [f64; 3]) -> Result<Gap> {
             ClosestPoints::Disjoint => return Err(anyhow!("no closest triangle pair")),
         }
     };
+    if a.triangle_ids.is_some() || b.triangle_ids.is_some() {
+        return Ok(Gap { surface_only: true, surface_distance_mm: distance, point_a: pa, point_b: pb,
+            intersection_volume_mm3: None, clearance_mm: None, volume_error: None });
+    }
     // Disjoint AABBs establish separation without needing closed solids.
     let intersects = a
         .shape
@@ -233,6 +252,7 @@ pub fn gap(a: &Mesh, b: &Mesh, by: [f64; 3]) -> Result<Gap> {
         None
     };
     Ok(Gap {
+        surface_only: false,
         surface_distance_mm: distance,
         point_a: pa,
         point_b: pb,
@@ -251,6 +271,8 @@ pub struct Hit {
     pub face: Option<usize>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub sources: Option<Vec<serde_json::Value>>,
+    #[serde(skip_serializing_if = "Vec::is_empty")]
+    pub features: Vec<String>,
 }
 
 pub fn ray(mesh: &Mesh, origin: [f64; 3], direction: [f64; 3], max: f64) -> Result<Option<Hit>> {
@@ -274,9 +296,10 @@ pub fn ray(mesh: &Mesh, origin: [f64; 3], direction: [f64; 3], max: f64) -> Resu
                 distance_mm: hit.time_of_impact,
                 point: xyz(ray.point_at(hit.time_of_impact)),
                 normal: hit.normal.into(),
-                triangle,
+                triangle: triangle.map(|i| mesh.viewer_triangle(i)),
                 face: triangle.and_then(|i| mesh.face(i)),
                 sources: mesh.sources(triangle.and_then(|i| mesh.face(i))).map(<[_]>::to_vec),
+                features: triangle.map(|i| mesh.feature_names(i)).unwrap_or_default(),
             }
         }))
 }
@@ -288,6 +311,8 @@ pub struct Segment {
     pub face: Option<usize>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub sources: Option<Vec<serde_json::Value>>,
+    #[serde(skip_serializing_if = "Vec::is_empty")]
+    pub features: Vec<String>,
 }
 
 #[derive(Serialize)]
@@ -329,7 +354,7 @@ pub fn section(mesh: &Mesh, normal: [f64; 3], offset: f64) -> Result<Section> {
         let p = [t.a, t.b, t.c];
         let d = p.map(|v| n.dot(&v.coords) - offset);
         if d.iter().all(|v| v.abs() <= tolerance) {
-            result.coplanar_triangles.push(i);
+            result.coplanar_triangles.push(mesh.viewer_triangle(i));
             continue;
         }
         let mut points = Vec::new();
@@ -346,9 +371,10 @@ pub fn section(mesh: &Mesh, normal: [f64; 3], offset: f64) -> Result<Section> {
         if points.len() >= 2 && (points[0] - points[1]).norm() > tolerance {
             result.segments.push(Segment {
                 points: [xyz(points[0]), xyz(points[1])],
-                triangle: i,
+                triangle: mesh.viewer_triangle(i),
                 face: mesh.face(i),
                 sources: mesh.sources(mesh.face(i)).map(<[_]>::to_vec),
+                features: mesh.feature_names(i),
             });
         }
     }
@@ -384,6 +410,7 @@ mod tests {
             shape: TriMesh::new(points, indices).unwrap(),
             faces,
             face_sources: None,
+            features: vec![], triangle_ids: None,
             solid: OnceLock::new(),
         }
     }
@@ -465,6 +492,7 @@ mod tests {
             shape,
             faces: vec![[0, 0]],
             face_sources: None,
+            features: vec![], triangle_ids: None,
             solid: OnceLock::new(),
         };
         let enclosed = cube(0.2, [0.0, 0.0, 0.3]);

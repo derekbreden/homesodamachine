@@ -86,6 +86,7 @@ pub fn evaluate(
         }
     }
     let mut built = 0;
+    let mut identities = 0;
     let mut timings = Vec::new();
     for i in (0..count).filter(|&i| reachable[i]) {
         if live[i].is_some() {
@@ -93,7 +94,13 @@ pub fn evaluate(
         }
         let node = &g.nodes[i];
         let stage = std::time::Instant::now();
-        let shape = build(node, &live, silhouette)
+        let shape = if let Op::Feature(feature) = &node.op {
+            identities += 1;
+            let source = node.inputs[0];
+            if users[source] == 1 {
+                Ok(live[source].take().expect("live feature input").with_feature(feature))
+            } else { build(node, &live, silhouette) }
+        } else { build(node, &live, silhouette) }
             .with_context(|| format!("enclosure node {i} ({})", name(&node.op)))?;
         let seconds = stage.elapsed().as_secs_f64();
         built += 1;
@@ -126,6 +133,7 @@ pub fn evaluate(
         .collect();
     if let Some(path) = std::env::var_os("HSM_STAGE_PROFILE") {
         let report = serde_json::json!({"seconds":started.elapsed().as_secs_f64(),"nodes":count,"built":built,
+            "identity_nodes":identities,"geometry_built":built-identities,
             "implementation":env!("HSM_STAGE_IMPLEMENTATION"),
             "reused":cache.hits,"stored":cache.stored,"bytes_read":cache.bytes_read,"bytes_written":cache.bytes_written,
             "cache_io_seconds":cache.io_seconds,"stages":timings});
@@ -171,6 +179,7 @@ fn build(node: &Node, live: &[Option<Solid>], silhouette: Option<&Silhouette>) -
             exterior,
         } => crate::exterior::band(*outer, *centre, *exterior)?,
         Op::Checkpoint(_) => input(0).clone(),
+        Op::Feature(feature) => input(0).clone().with_feature(feature),
         Op::Box(b) => {
             let (lo, hi) = ops::corners(b);
             Solid::cuboid(lo, hi)
@@ -296,6 +305,7 @@ fn name(op: &Op) -> &'static str {
         Op::Silhouette => "silhouette",
         Op::SeamBand { .. } => "seam band",
         Op::Checkpoint(_) => "checkpoint",
+        Op::Feature(_) => "feature identity",
         Op::Box(_) => "box",
         Op::RoundedBox { .. } => "rounded-box",
         Op::Cylinder { .. } => "cylinder",

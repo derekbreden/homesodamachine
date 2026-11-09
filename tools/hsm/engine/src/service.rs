@@ -18,6 +18,10 @@ pub enum Query {
         #[serde(default)]
         pattern: String,
     },
+    Features {
+        #[serde(default)]
+        pattern: String,
+    },
     Gap {
         a: String,
         b: String,
@@ -39,6 +43,8 @@ pub enum Query {
         offset: f64,
     },
     Ray {
+        #[serde(default)]
+        part: Option<String>,
         origin: [f64; 3],
         direction: [f64; 3],
         #[serde(default = "ray_max")]
@@ -89,7 +95,7 @@ pub struct Request {
 
 impl Query {
     pub fn needs_scene(&self) -> bool {
-        matches!(self, Self::Where { .. } | Self::Gap { .. } | Self::Overlap { .. }
+        matches!(self, Self::Where { .. } | Self::Features { .. } | Self::Gap { .. } | Self::Overlap { .. }
             | Self::Move { .. } | Self::Section { .. } | Self::Ray { .. })
     }
 }
@@ -144,6 +150,7 @@ fn one(payload: &Payload, selector: &str, indices: &[usize]) -> Result<usize> {
 }
 
 fn named(index: usize, mesh: &Mesh, indices: &[usize]) -> Value {
+    if mesh.triangle_ids.is_some() { return json!({"id":mesh.name,"name":mesh.name,"body_id":format!("#{}",indices[index])}); }
     json!({"id": format!("#{}",indices[index]), "name": mesh.name})
 }
 
@@ -166,22 +173,31 @@ pub fn execute(store: &mut Store, builds: &crate::build::Builder, request: Reque
         _ => (),
     }
     let started = Instant::now();
+    if let Query::Features { pattern } = &request.query {
+        let catalog = Catalog::read(&request.scene)?;
+        return Ok(catalog.response(catalog.features_data(pattern)?, started.elapsed().as_secs_f64()*1000.));
+    }
     if let Query::Where { pattern } = &request.query {
         let catalog=Catalog::read(&request.scene)?;
-        let data=catalog.where_data(&catalog.matches(pattern))?;
+        let data=if pattern.contains("::") { catalog.features_data(pattern)? } else { catalog.where_data(&catalog.matches(pattern))? };
         return Ok(catalog.response(data,started.elapsed().as_secs_f64()*1000.));
     }
     let selectors = match &request.query {
         Query::Gap { a,b } | Query::Overlap { a,b } => Some(vec![a.as_str(),b.as_str()]),
         Query::Section { part,.. } => Some(vec![part.as_str()]),
         Query::Move { part,against:Some(against),.. } => Some(vec![part.as_str(),against.as_str()]),
+        Query::Ray { part: Some(part), .. } => Some(vec![part.as_str()]),
         _ => None,
     };
     let (payload,indices)=if let Some(selectors)=selectors {
         let catalog=Catalog::read(&request.scene)?;
+        if selectors.iter().any(|s|s.contains("::")) {
+            store.load_features(&catalog,&selectors)?
+        } else {
         let mut ids=selectors.into_iter().map(|selector|catalog.one(selector)).collect::<Result<Vec<_>>>()?;
         ids.sort_unstable();ids.dedup();
         (store.load_selected(&catalog,&ids)?,ids)
+        }
     } else {
         let payload=store.load(&request.scene)?;
         let ids=(0..payload.meshes.len()).collect();
@@ -190,6 +206,7 @@ pub fn execute(store: &mut Store, builds: &crate::build::Builder, request: Reque
     let load_ms = started.elapsed().as_secs_f64() * 1000.0;
     let meshes = &payload.meshes;
     let result = match request.query {
+        Query::Features { .. } => unreachable!("feature metadata returns before geometry loading"),
         Query::Where { pattern } => {
             let parts: Vec<_> = matches(&payload, &pattern, &indices)
                 .iter()
@@ -263,6 +280,7 @@ pub fn execute(store: &mut Store, builds: &crate::build::Builder, request: Reque
             json!({"part": named(a, &meshes[a], &indices), "section": queries::section(&meshes[a], normal, offset)?})
         }
         Query::Ray {
+            part: _,
             origin,
             direction,
             max_distance,
