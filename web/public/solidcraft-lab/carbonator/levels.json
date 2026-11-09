@@ -1,0 +1,437 @@
+{
+  "name": "Instrumented carbonator and coil assembly",
+  "sourceVersion": "2c4d9611594a1a0feb92b682e70abc07c23477bd89ca19aa1116bc4ed080695c",
+  "pitch": 340,
+  "nodes": {
+    "vessel-tube": {
+      "label": "Prepared carbonator tube",
+      "material": "HSM-0008",
+      "description": "Prepared carbonator tube with rim earth tap",
+      "native": "/labs/solidcraft/carbonator/native/vessel-tube",
+      "preview": "/solidcraft-lab/carbonator/assets/vessel-tube.glb?v=32637f718f255137",
+      "parameters": [
+        "length",
+        "outer_diameter",
+        "bore_diameter"
+      ]
+    },
+    "machined-cap": {
+      "label": "Machined endcap",
+      "material": "HSM-0009",
+      "description": "Machined carbonator endcap with port pilots and conical blind rod register",
+      "native": "/labs/solidcraft/carbonator/native/machined-cap",
+      "preview": "/solidcraft-lab/carbonator/assets/machined-cap.glb?v=08623eb53dcf1f2b",
+      "parameters": [
+        "thickness",
+        "cap_diameter",
+        "tap_pilot",
+        "register_diameter",
+        "register_depth"
+      ]
+    },
+    "guide-rod": {
+      "label": "Float guide rod",
+      "material": "HSM-0336",
+      "description": "Flat-ended float guide rod from the controlled finished-length drawing",
+      "native": "/labs/solidcraft/carbonator/native/guide-rod",
+      "preview": "/solidcraft-lab/carbonator/assets/guide-rod.glb?v=fbd1e9cbd2f268c3",
+      "parameters": [
+        "finished_length",
+        "diameter"
+      ]
+    },
+    "upper-stop": {
+      "label": "Upper float stop",
+      "material": "HSM-0459",
+      "description": "Welded upper float stop",
+      "native": "/labs/solidcraft/carbonator/native/upper-stop",
+      "preview": "/solidcraft-lab/carbonator/assets/upper-stop.glb?v=c8cd6489d297ed09"
+    },
+    "float-shell": {
+      "label": "ASA Aero float shell",
+      "material": "HSM-0033",
+      "description": "ASA Aero float shell with enclosed annular magnet pocket",
+      "native": "/labs/solidcraft/carbonator/native/float-shell",
+      "preview": "/solidcraft-lab/carbonator/assets/float-shell.glb?v=0638aa66718b881e",
+      "parameters": [
+        "diameter",
+        "height",
+        "guide_bore"
+      ]
+    },
+    "ring-magnet": {
+      "label": "RC62 ring magnet",
+      "material": "HSM-0034",
+      "description": "RC62 ring magnet",
+      "native": "/labs/solidcraft/carbonator/native/ring-magnet",
+      "preview": "/solidcraft-lab/carbonator/assets/ring-magnet.glb?v=c43106fea5c70176"
+    },
+    "float": {
+      "label": "Magnetic level float",
+      "material": "HSM-0032",
+      "description": "Magnetic level float",
+      "native": "/labs/solidcraft/carbonator/native/float",
+      "preview": "/solidcraft-lab/carbonator/assets/float-reference.glb?v=d825df12fe8126d1",
+      "reference": true,
+      "omit": [
+        "RC62"
+      ],
+      "children": "/solidcraft-lab/carbonator/levels/float.json",
+      "inputs": [
+        {
+          "node": "float-shell",
+          "component": "Float shell",
+          "source": "float-shell"
+        },
+        {
+          "node": "ring-magnet",
+          "component": "RC62 magnet",
+          "source": "ring-magnet"
+        }
+      ]
+    },
+    "lower-cap": {
+      "label": "Bottom endcap and guide",
+      "material": "HSM-0565",
+      "description": "Bottom endcap and seated guide rod",
+      "native": "/labs/solidcraft/carbonator/native/lower-cap",
+      "preview": "/solidcraft-lab/carbonator/assets/lower-cap-reference.glb?v=8fd3a3d05530e33b",
+      "reference": true,
+      "omit": [],
+      "children": "/solidcraft-lab/carbonator/levels/lower-cap.json",
+      "inputs": [
+        {
+          "node": "machined-cap",
+          "component": "Bottom endcap",
+          "source": "machined-cap"
+        },
+        {
+          "node": "guide-rod",
+          "component": "Guide rod",
+          "source": "guide-rod"
+        }
+      ]
+    },
+    "upper-cap": {
+      "label": "Top endcap and stop",
+      "material": "HSM-0566",
+      "description": "Top endcap and welded float stop",
+      "native": "/labs/solidcraft/carbonator/native/upper-cap",
+      "preview": "/solidcraft-lab/carbonator/assets/upper-cap-reference.glb?v=2e57ab46256ae233",
+      "reference": true,
+      "omit": [],
+      "children": "/solidcraft-lab/carbonator/levels/upper-cap.json",
+      "inputs": [
+        {
+          "node": "machined-cap",
+          "component": "Top endcap",
+          "source": "machined-cap"
+        },
+        {
+          "node": "upper-stop",
+          "component": "Upper stop",
+          "source": "upper-stop"
+        }
+      ]
+    },
+    "weldment": {
+      "label": "Carbonator vessel weldment",
+      "material": "HSM-0567",
+      "description": "Carbonator vessel weldment with captive guided magnetic float",
+      "native": "/labs/solidcraft/carbonator/native/weldment",
+      "preview": "/solidcraft-lab/carbonator/assets/weldment-reference.glb?v=87a8663f957f3f88",
+      "parameters": [
+        "float_z"
+      ],
+      "fit": "The caps retain their inset and port geometry. Open the cap groups or float to inspect their own parts. Section shows the saved shapes at this level.",
+      "reference": true,
+      "omit": [
+        "Vessel tube",
+        "Guide rod",
+        "Upper stop",
+        "ASA Aero"
+      ],
+      "barrel": true,
+      "children": "/solidcraft-lab/carbonator/levels/weldment.json",
+      "inputs": [
+        {
+          "node": "vessel-tube",
+          "component": "Vessel tube",
+          "source": "vessel-tube"
+        },
+        {
+          "node": "lower-cap",
+          "component": "Bottom endcap and guide",
+          "source": "lower-cap-reference"
+        },
+        {
+          "node": "upper-cap",
+          "component": "Top endcap and stop",
+          "source": "upper-cap-reference"
+        },
+        {
+          "node": "float",
+          "component": "Magnetic float",
+          "source": "float-reference"
+        }
+      ]
+    },
+    "street-elbow": {
+      "label": "TAISHER street elbow",
+      "material": "HSM-0010",
+      "description": "TAISHER street elbow with orthogonal flow bores and female socket",
+      "native": "/labs/solidcraft/carbonator/native/street-elbow",
+      "preview": "/solidcraft-lab/carbonator/assets/street-elbow.glb?v=8847f39671917455"
+    },
+    "jet-cap": {
+      "label": "Water inlet jet cap",
+      "material": "HSM-0011",
+      "description": "Drilled water-inlet jet cap",
+      "native": "/labs/solidcraft/carbonator/native/jet-cap",
+      "preview": "/solidcraft-lab/carbonator/assets/jet-cap.glb?v=c1e09cfb72359ce8"
+    },
+    "inlet": {
+      "label": "Water-inlet jet elbow",
+      "material": "HSM-0338",
+      "description": "Water-inlet jet elbow",
+      "native": "/labs/solidcraft/carbonator/native/inlet",
+      "preview": "/solidcraft-lab/carbonator/assets/inlet-reference.glb?v=9ce87b5b2c119757",
+      "reference": true,
+      "omit": [],
+      "children": "/solidcraft-lab/carbonator/levels/inlet.json",
+      "inputs": [
+        {
+          "node": "street-elbow",
+          "component": "Street elbow",
+          "source": "street-elbow"
+        },
+        {
+          "node": "jet-cap",
+          "component": "Jet cap",
+          "source": "jet-cap"
+        }
+      ]
+    },
+    "pushfit-elbow": {
+      "label": "neoFit push-fit elbow",
+      "material": "HSM-0375",
+      "description": "neoFit male push-fit elbow with socket and flow bores",
+      "native": "/labs/solidcraft/carbonator/native/pushfit-elbow",
+      "preview": "/solidcraft-lab/carbonator/assets/pushfit-elbow.glb?v=9ec2a02b4179996d"
+    },
+    "relief-valve": {
+      "label": "SV125 pressure relief valve",
+      "material": "HSM-0012",
+      "description": "SV125 pressure relief valve envelope",
+      "native": "/labs/solidcraft/carbonator/native/relief-valve",
+      "preview": "/solidcraft-lab/carbonator/assets/relief-valve.glb?v=f8160ca2e88d9488"
+    },
+    "prv-shroud": {
+      "label": "PRV shroud",
+      "material": "HSM-0024",
+      "description": "PETG pressure relief shroud with downward vent socket",
+      "native": "/labs/solidcraft/carbonator/native/prv-shroud",
+      "preview": "/solidcraft-lab/carbonator/assets/prv-shroud.glb?v=6756e124de4f912c"
+    },
+    "relief": {
+      "label": "Pressure-relief assembly",
+      "material": "HSM-0553",
+      "description": "Bench-assembled pressure relief elbow, valve and shroud",
+      "native": "/labs/solidcraft/carbonator/native/relief",
+      "preview": "/solidcraft-lab/carbonator/assets/relief-reference.glb?v=08b14d0f06bb4944",
+      "reference": true,
+      "omit": [],
+      "children": "/solidcraft-lab/carbonator/levels/relief.json",
+      "inputs": [
+        {
+          "node": "street-elbow",
+          "component": "Street elbow",
+          "source": "street-elbow"
+        },
+        {
+          "node": "relief-valve",
+          "component": "Pressure relief valve",
+          "source": "relief-valve"
+        },
+        {
+          "node": "prv-shroud",
+          "component": "PRV shroud",
+          "source": "prv-shroud"
+        }
+      ]
+    },
+    "vessel": {
+      "label": "Carbonator vessel",
+      "material": "HSM-0004",
+      "description": "Fitted carbonator vessel",
+      "native": "/labs/solidcraft/carbonator/native/vessel",
+      "preview": "/solidcraft-lab/carbonator/assets/vessel-reference.glb?v=79c97e88164227d0",
+      "reference": true,
+      "omit": [],
+      "children": "/solidcraft-lab/carbonator/levels/vessel.json",
+      "inputs": [
+        {
+          "node": "weldment",
+          "component": "Vessel weldment",
+          "source": "weldment-reference"
+        },
+        {
+          "node": "pushfit-elbow",
+          "component": "co2-in",
+          "source": "pushfit-elbow"
+        },
+        {
+          "node": "pushfit-elbow",
+          "component": "carb-water-out",
+          "source": "pushfit-elbow"
+        },
+        {
+          "node": "inlet",
+          "component": "water-in",
+          "source": "inlet-reference"
+        },
+        {
+          "node": "relief",
+          "component": "prv",
+          "source": "relief-reference"
+        }
+      ]
+    },
+    "coil": {
+      "label": "Evaporator coil and tails",
+      "material": "HSM-0015",
+      "description": "Formed evaporator coil and free tails with reed-bridge lift",
+      "native": "/labs/solidcraft/carbonator/native/coil",
+      "preview": "/solidcraft-lab/carbonator/assets/coil.glb?v=a11c741467bcaa36",
+      "fit": "The winding and tails retain the specified ACR tube wall. Its winding face boundaries retain the shape through native links."
+    },
+    "reed-bridge": {
+      "label": "Reed bridge",
+      "material": "HSM-0029",
+      "description": "Printed reed bridge with cylinder fit, side ramps, glass pockets and lead groove",
+      "native": "/labs/solidcraft/carbonator/native/reed-bridge",
+      "preview": "/solidcraft-lab/carbonator/assets/reed-bridge.glb?v=9ab081c3a5c319d0"
+    },
+    "probe": {
+      "label": "DS18B20 carbonator probe",
+      "material": "HSM-0016",
+      "description": "TO-92 temperature probe capture envelope",
+      "native": "/labs/solidcraft/carbonator/native/probe",
+      "preview": "/solidcraft-lab/carbonator/assets/probe.glb?v=807ca2f8ea5b6db0"
+    },
+    "probe-coil": {
+      "label": "DS18S20 coil probe",
+      "material": "HSM-0017",
+      "description": "TO-92 temperature probe capture envelope",
+      "native": "/labs/solidcraft/carbonator/native/probe-coil",
+      "preview": "/solidcraft-lab/carbonator/assets/probe.glb?v=807ca2f8ea5b6db0"
+    },
+    "reed": {
+      "label": "Carbonator reed switch",
+      "material": "HSM-0036",
+      "description": "MDSR reed switch glass capture envelope",
+      "native": "/labs/solidcraft/carbonator/native/reed",
+      "preview": "/solidcraft-lab/carbonator/assets/reed.glb?v=c770b050ecb7fcac"
+    },
+    "earth-screw": {
+      "label": "Earth clamp screw",
+      "material": "HSM-0382",
+      "description": "Finished carbonator earth clamp screw",
+      "native": "/labs/solidcraft/carbonator/native/earth-screw",
+      "preview": "/solidcraft-lab/carbonator/assets/earth-screw.glb?v=8a695f2219e769c3"
+    },
+    "earth-washer": {
+      "label": "Earth lockwasher",
+      "material": "HSM-0381",
+      "description": "Earth clamp washer capture envelope",
+      "native": "/labs/solidcraft/carbonator/native/earth-washer",
+      "preview": "/solidcraft-lab/carbonator/assets/earth-washer.glb?v=79bbca020b04bfe0"
+    },
+    "earth-lead": {
+      "label": "Earth lead attachment",
+      "material": "HSM-0378",
+      "description": "Earth lead attached terminal and conductor exit interface; free harness dressing is outside the assembly pose",
+      "native": "/labs/solidcraft/carbonator/native/earth-lead",
+      "preview": "/solidcraft-lab/carbonator/assets/earth-lead.glb?v=3b0865246e727e27",
+      "fit": "The attached ring and crimp exit are shown. Free conductor dressing belongs to the installation."
+    },
+    "instrumented": {
+      "label": "Instrumented carbonator and coil assembly",
+      "material": "HSM-0554",
+      "description": "Instrumented carbonator and coil assembly",
+      "native": "/labs/solidcraft/carbonator/native/instrumented",
+      "preview": "/solidcraft-lab/carbonator/assets/instrumented-reference.glb?v=b1e4313c769d662b",
+      "fit": "The coil follows the vessel and lifts over the reed bridge. Its free tails stop at the assembly interface.",
+      "reference": true,
+      "omit": [],
+      "children": "/solidcraft-lab/carbonator/levels/instrumented.json",
+      "inputs": [
+        {
+          "node": "vessel",
+          "component": "Carbonator vessel",
+          "source": "vessel-reference"
+        },
+        {
+          "node": "coil",
+          "component": "Evaporator coil",
+          "source": "coil"
+        },
+        {
+          "node": "reed-bridge",
+          "component": "Reed bridge",
+          "source": "reed-bridge"
+        },
+        {
+          "node": "probe",
+          "component": "DS18B20 carbonator probe",
+          "source": "probe"
+        },
+        {
+          "node": "probe-coil",
+          "component": "DS18S20 coil probe",
+          "source": "probe-coil"
+        },
+        {
+          "node": "reed",
+          "component": "Carbonator reed 1",
+          "source": "reed"
+        },
+        {
+          "node": "reed",
+          "component": "Carbonator reed 2",
+          "source": "reed"
+        },
+        {
+          "node": "earth-screw",
+          "component": "Earth clamp screw",
+          "source": "earth-screw"
+        },
+        {
+          "node": "earth-washer",
+          "component": "Earth lockwasher",
+          "source": "earth-washer"
+        },
+        {
+          "node": "earth-lead",
+          "component": "Earth lead interface",
+          "source": "earth-lead"
+        }
+      ]
+    },
+    "instrumented-parent": {
+      "label": "Repeated assembly study",
+      "material": "",
+      "description": "Repeated instrumented assembly loading study",
+      "native": "/labs/solidcraft/carbonator/native/instrumented-parent",
+      "preview": "/solidcraft-lab/carbonator/assets/instrumented-reference.glb?v=b1e4313c769d662b",
+      "children": "/solidcraft-lab/carbonator/levels/instrumented-parent.json",
+      "inputs": [
+        {
+          "node": "instrumented",
+          "component": "Instrumented carbonator",
+          "source": "instrumented-reference"
+        }
+      ]
+    }
+  }
+}

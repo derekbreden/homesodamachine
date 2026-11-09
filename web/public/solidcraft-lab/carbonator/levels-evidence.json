@@ -1,0 +1,231 @@
+{
+  "scope": "Manual review of the isolated native assembly study; no build or commit gate.",
+  "native_version": "0.40.0-rc.3",
+  "sourceVersion": "2c4d9611594a1a0feb92b682e70abc07c23477bd89ca19aa1116bc4ed080695c",
+  "hierarchy": [
+    "HSM-0554",
+    "HSM-0004",
+    "HSM-0567",
+    "HSM-0565 / HSM-0566 / HSM-0032"
+  ],
+  "native": {
+    "weldment-reference": {
+      "sha256": "a18571417534fd08b2d2d690695ba60a12811fb554275cb39237bb660a19c780",
+      "components": 1,
+      "features": 1,
+      "links": 0,
+      "bodies": 3
+    },
+    "vessel-reference": {
+      "sha256": "5c3df76ce6bc7d848ce0226a82b3f7faa5a180a1f0d348589f8c8ebd5112541e",
+      "components": 1,
+      "features": 1,
+      "links": 0,
+      "bodies": 10
+    },
+    "instrumented-reference": {
+      "sha256": "21c915a5bc369f4f7911ed8c04dd088f0906395aee9244c57f46ce5e0018d3b8",
+      "components": 1,
+      "features": 1,
+      "links": 0,
+      "bodies": 22
+    },
+    "instrumented-parent": {
+      "sha256": "dcc03b56434050e65f72dd533bf1239bb6110048e65c9f41b4f594a9e1bedca3",
+      "components": 1,
+      "features": 1,
+      "links": 1,
+      "bodies": 22
+    }
+  },
+  "fit_interfaces": {
+    "cap_radial_clearance_mm": 0.12699999999999534,
+    "cap_recess_mm": 6.35,
+    "finished_rod_mm": 129.794,
+    "rod_upper_engagement_mm": 0.9115640302672716,
+    "rod_axial_seat_clearance_mm": 0.9708719394654395,
+    "register_point_degrees": 135.0,
+    "float_center_limits_mm": [
+      26.700000000000003,
+      121.70000000000002
+    ],
+    "coil_wall_mm": 0.7874,
+    "coil_bridge_lift_mm": 3.25
+  },
+  "display": {
+    "weldment-reference": {
+      "source_triangles": 11576,
+      "display_triangles": 2932,
+      "source_mesh_volume_mm3": 248481.59418740394,
+      "display_mesh_volume_mm3": 248481.59418740857,
+      "bounds": [
+        [
+          -63.49052047729492,
+          -63.49052047729492,
+          0.0
+        ],
+        [
+          63.49052047729492,
+          63.49052047729492,
+          152.39999389648438
+        ]
+      ],
+      "bytes": 192012
+    },
+    "vessel-reference": {
+      "source_triangles": 94086,
+      "display_triangles": 16400,
+      "source_mesh_volume_mm3": 286764.5955379527,
+      "display_mesh_volume_mm3": 286765.00865051633,
+      "bounds": [
+        [
+          -63.49052047729492,
+          -63.49052047729492,
+          -18.94700050354004
+        ],
+        [
+          63.49052047729492,
+          85.6240005493164,
+          178.94827270507812
+        ]
+      ],
+      "bytes": 970628
+    },
+    "coil": {
+      "source_triangles": 183472,
+      "display_triangles": 173042,
+      "source_mesh_volume_mm3": 60661.12750194892,
+      "display_mesh_volume_mm3": 60659.16312048108,
+      "bounds": [
+        [
+          -143.547607421875,
+          -80.67500305175781,
+          -6.749642848968506
+        ],
+        [
+          69.8497314453125,
+          80.67500305175781,
+          137.58139038085938
+        ]
+      ],
+      "bytes": 8332348
+    },
+    "instrumented-reference": {
+      "source_triangles": 312774,
+      "display_triangles": 195176,
+      "source_mesh_volume_mm3": 354773.1387943861,
+      "display_mesh_volume_mm3": 354771.43468516023,
+      "bounds": [
+        [
+          -143.547607421875,
+          -80.67500305175781,
+          -18.94700050354004
+        ],
+        [
+          69.8497314453125,
+          85.6240005493164,
+          178.94827270507812
+        ]
+      ],
+      "bytes": 9814736
+    }
+  },
+  "review": {
+    "native_build": "All native parts, rigid assembly joints and the limited float slider build successfully.",
+    "opaque_reference": "Published references have one component and one import, with no links or descendant histories.",
+    "portable_packed_project": "A copied cap project updates its selected linked source with the original source absent.",
+    "browser": "Saved-shape selection/Open, breadcrumbs, browser Back/Forward, direct leaf loading, repeated instances sharing one draw and geometry, and phone/desktop layouts pass.",
+    "float_edit": "Moving the captive float updates its native weldment without loading any ancestor native file or any other leaf authoring file.",
+    "shared_cap_update": "The shared cap appearance reaches both cap groups and all ancestors. Only the machined cap authoring file is requested; shared ancestors update once.",
+    "packed_links": "All packed project source hashes match their linked files."
+  },
+  "limits": [
+    "Saved geometry and component loading are evaluated here. Complete-enclosure performance is not established.",
+    "The coil/bridge exact interference operation did not complete its manual time budget; no production fit qualification is asserted.",
+    "References omit hidden internals. Manufacturing and aggregate mass use owning detailed designs."
+  ],
+  "checks": {
+    "browser": [
+      {
+        "label": "initial",
+        "node": "instrumented-parent",
+        "native_workspace": null,
+        "display_files": 1,
+        "authoring_files": [],
+        "draw_calls": 1
+      },
+      {
+        "label": "weldment",
+        "node": "weldment",
+        "native_workspace": null,
+        "display_files": 17,
+        "authoring_files": [],
+        "draw_calls": 4
+      },
+      {
+        "label": "rod",
+        "node": "guide-rod",
+        "native_workspace": null,
+        "display_files": 19,
+        "authoring_files": [],
+        "draw_calls": 1
+      },
+      {
+        "label": "repeated",
+        "node": "instrumented-parent",
+        "native_workspace": null,
+        "display_files": 1,
+        "authoring_files": [],
+        "draw_calls": 1
+      },
+      {
+        "label": "direct leaf",
+        "node": "guide-rod",
+        "native_workspace": null,
+        "display_files": 1,
+        "authoring_files": [],
+        "draw_calls": 1
+      }
+    ],
+    "native-browser": [
+      {
+        "label": "native initial",
+        "node": "weldment",
+        "native_workspace": "weldment",
+        "display_files": 4,
+        "authoring_files": [],
+        "draw_calls": 4
+      },
+      {
+        "label": "float publication",
+        "node": "weldment",
+        "native_workspace": "weldment",
+        "display_files": 4,
+        "authoring_files": [],
+        "draw_calls": 4
+      }
+    ],
+    "native-leaf-browser": [
+      {
+        "label": "native initial",
+        "node": "machined-cap",
+        "native_workspace": "machined-cap",
+        "display_files": 1,
+        "authoring_files": [
+          "Machined endcap"
+        ],
+        "draw_calls": 1
+      },
+      {
+        "label": "shared cap publication",
+        "node": "machined-cap",
+        "native_workspace": "instrumented-parent",
+        "display_files": 1,
+        "authoring_files": [
+          "Machined endcap"
+        ],
+        "draw_calls": 1
+      }
+    ]
+  }
+}

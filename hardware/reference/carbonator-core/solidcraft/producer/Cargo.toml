@@ -1,0 +1,20 @@
+[package]
+name = "solidcraft-carbonator-study"
+version = "0.1.0"
+edition = "2024"
+publish = false
+
+[workspace]
+
+[dependencies]
+serde_json = { version = "=1.0.154", features = ["float_roundtrip"] }
+hsm-carbonator-numbers = { path = "../../../../../tools/hsm/carbonator-numbers" }
+hsm-carbonator-tube-numbers = { path = "../../../../../tools/hsm/carbonator-tube-numbers" }
+hsm-endcap-circular-numbers = { path = "../../../../../tools/hsm/endcap-circular-numbers" }
+hsm-aero-float-numbers = { path = "../../../../../tools/hsm/aero-float-numbers" }
+hsm-cold-core-assembly-numbers = { path = "../../../../../tools/hsm/cold-core-assembly-numbers" }
+hsm-cold-core-catalog = { path = "../../../../../tools/hsm/cold-core-catalog" }
+hsm-coil-numbers = { path = "../../../../../tools/hsm/coil-numbers" }
+hsm-reed-bridge-numbers = { path = "../../../../../tools/hsm/reed-bridge-numbers" }
+hsm-prv-shroud-numbers = { path = "../../../../../tools/hsm/prv-shroud-numbers" }
+hsm-cold-core-data = { path = "../../../../../tools/hsm/cold-core-data" }

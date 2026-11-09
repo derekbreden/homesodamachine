@@ -4,3 +4,6 @@
 *.mtl
 *.bak
 .~*.lock
+
+# Native reference stages are temporary publication inputs.
+native/*-stage.json

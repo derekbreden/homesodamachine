@@ -1,0 +1,135 @@
+{
+  "format": "solidcraft/51",
+  "name": "Untitled",
+  "units": "mm",
+  "metadata": {
+    "description": "Drilled water-inlet jet cap",
+    "part_number": "HSM-0011"
+  },
+  "params": [],
+  "features": [
+    {
+      "id": 3,
+      "name": "Water inlet jet",
+      "suppressed": false,
+      "body_names": [
+        "Water inlet jet"
+      ],
+      "param_names": [
+        "d1",
+        "d2"
+      ],
+      "component": 1,
+      "type": "cylinder",
+      "base": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "axis": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "radius": "(9.5 mm) / 2",
+      "height": "2",
+      "operation": "new_body"
+    },
+    {
+      "id": 4,
+      "name": "Bore Water inlet jet",
+      "suppressed": false,
+      "body_names": [
+        "Water inlet jet"
+      ],
+      "param_names": [
+        "d3",
+        "d4"
+      ],
+      "component": 1,
+      "participants": [
+        "Water inlet jet"
+      ],
+      "type": "cylinder",
+      "base": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "axis": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "radius": "(1.5875 mm) / 2",
+      "height": "2",
+      "operation": "cut"
+    }
+  ],
+  "next_id": 5,
+  "components": [
+    {
+      "id": 1,
+      "identification_color_index": 0,
+      "name": "Water inlet jet",
+      "parent": 0
+    }
+  ],
+  "next_component_color_index": 1,
+  "occurrences": [
+    {
+      "id": 2,
+      "component": 1,
+      "parent": 0,
+      "name": "Water inlet jet:1",
+      "transform": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "grounded": true
+    }
+  ],
+  "materials": {
+    "Water inlet jet": "Stainless Steel"
+  },
+  "appearances": {
+    "bodies": {
+      "Water inlet jet": {
+        "name": "Custom",
+        "color": [
+          180,
+          187,
+          197
+        ],
+        "opacity": 1.0,
+        "pbr": {
+          "metallic": 0.8,
+          "roughness": 0.32,
+          "dielectric_ior": 1.5
+        }
+      }
+    }
+  }
+}

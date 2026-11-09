@@ -18,10 +18,19 @@ export function mountSolidcraftLab(app, {
     res.set('Cache-Control', 'no-cache');
     res.sendFile(path.join(publicDir, 'carbonator/index.html'));
   });
+  app.get(`${carbonator}/core-study`, (_req, res) => {
+    res.set('Cache-Control', 'no-cache');
+    res.sendFile(path.join(publicDir, 'carbonator/core-study.html'));
+  });
   const nativeModels = {
     tube: 'parts/tube.json', endcap: 'parts/endcap.json', core: 'carbonator.json', parent: 'parent.json',
     representation: 'representation.json',
   };
+  const levels = JSON.parse(readFileSync(path.join(publicDir, 'carbonator/levels.json'), 'utf8'));
+  for (const [key, node] of Object.entries(levels.nodes)) {
+    nativeModels[key] = `native/${key}.json`;
+    if (node.reference) nativeModels[key + '-reference'] = `native/${key}-reference.json`;
+  }
   app.get(`${carbonator}/native/:model`, (req, res) => {
     const file = nativeModels[req.params.model];
     if (!file) return res.status(404).end();

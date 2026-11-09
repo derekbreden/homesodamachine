@@ -1,0 +1,517 @@
+{
+  "format": "solidcraft/51",
+  "name": "Untitled",
+  "units": "mm",
+  "metadata": {
+    "description": "TAISHER street elbow with orthogonal flow bores and female socket",
+    "part_number": "HSM-0010"
+  },
+  "params": [],
+  "features": [
+    {
+      "id": 3,
+      "name": "Wrench flats",
+      "suppressed": false,
+      "component": 1,
+      "type": "sketch",
+      "plane": {
+        "type": "custom",
+        "plane": {
+          "origin": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "x_dir": [
+            1.0,
+            0.0,
+            0.0
+          ],
+          "y_dir": [
+            0.0,
+            1.0,
+            0.0
+          ]
+        }
+      },
+      "sketch": {
+        "points": [
+          {
+            "id": "origin",
+            "pos": [
+              0.0,
+              0.0
+            ],
+            "fixed": true
+          },
+          {
+            "id": "l1.start",
+            "pos": [
+              9.165435523385309,
+              0.0
+            ],
+            "fixed": false
+          },
+          {
+            "id": "l1.end",
+            "pos": [
+              4.582717761692655,
+              7.937499999999999
+            ],
+            "fixed": false
+          },
+          {
+            "id": "l2.end",
+            "pos": [
+              -4.582717761692653,
+              7.9375
+            ],
+            "fixed": false
+          },
+          {
+            "id": "l3.end",
+            "pos": [
+              -9.165435523385309,
+              1.1224421276505265e-15
+            ],
+            "fixed": false
+          },
+          {
+            "id": "l4.end",
+            "pos": [
+              -4.582717761692659,
+              -7.937499999999997
+            ],
+            "fixed": false
+          },
+          {
+            "id": "l5.end",
+            "pos": [
+              4.582717761692655,
+              -7.937499999999999
+            ],
+            "fixed": false
+          }
+        ],
+        "curves": [
+          {
+            "id": "l1",
+            "type": "line",
+            "a": 1,
+            "b": 2,
+            "construction": false
+          },
+          {
+            "id": "l2",
+            "type": "line",
+            "a": 2,
+            "b": 3,
+            "construction": false
+          },
+          {
+            "id": "l3",
+            "type": "line",
+            "a": 3,
+            "b": 4,
+            "construction": false
+          },
+          {
+            "id": "l4",
+            "type": "line",
+            "a": 4,
+            "b": 5,
+            "construction": false
+          },
+          {
+            "id": "l5",
+            "type": "line",
+            "a": 5,
+            "b": 6,
+            "construction": false
+          },
+          {
+            "id": "l6",
+            "type": "line",
+            "a": 6,
+            "b": 1,
+            "construction": false
+          }
+        ],
+        "constraints": [],
+        "counters": {
+          "l": 6
+        }
+      }
+    },
+    {
+      "id": 4,
+      "name": "Wrench section",
+      "suppressed": false,
+      "body_names": [
+        "Street elbow"
+      ],
+      "param_names": [
+        "d1"
+      ],
+      "component": 1,
+      "type": "extrude",
+      "sketch": 3,
+      "profiles": {
+        "type": "all"
+      },
+      "extent": {
+        "distance": "21.35",
+        "convention": "total_distance",
+        "direction": "positive"
+      },
+      "operation": "new_body"
+    },
+    {
+      "id": 5,
+      "name": "Wrench flats",
+      "suppressed": false,
+      "component": 1,
+      "type": "sketch",
+      "plane": {
+        "type": "custom",
+        "plane": {
+          "origin": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "x_dir": [
+            0.0,
+            1.0,
+            0.0
+          ],
+          "y_dir": [
+            0.0,
+            0.0,
+            1.0
+          ]
+        }
+      },
+      "sketch": {
+        "points": [
+          {
+            "id": "origin",
+            "pos": [
+              0.0,
+              0.0
+            ],
+            "fixed": true
+          },
+          {
+            "id": "l1.start",
+            "pos": [
+              9.165435523385309,
+              0.0
+            ],
+            "fixed": false
+          },
+          {
+            "id": "l1.end",
+            "pos": [
+              4.582717761692655,
+              7.937499999999999
+            ],
+            "fixed": false
+          },
+          {
+            "id": "l2.end",
+            "pos": [
+              -4.582717761692653,
+              7.9375
+            ],
+            "fixed": false
+          },
+          {
+            "id": "l3.end",
+            "pos": [
+              -9.165435523385309,
+              1.1224421276505265e-15
+            ],
+            "fixed": false
+          },
+          {
+            "id": "l4.end",
+            "pos": [
+              -4.582717761692659,
+              -7.937499999999997
+            ],
+            "fixed": false
+          },
+          {
+            "id": "l5.end",
+            "pos": [
+              4.582717761692655,
+              -7.937499999999999
+            ],
+            "fixed": false
+          }
+        ],
+        "curves": [
+          {
+            "id": "l1",
+            "type": "line",
+            "a": 1,
+            "b": 2,
+            "construction": false
+          },
+          {
+            "id": "l2",
+            "type": "line",
+            "a": 2,
+            "b": 3,
+            "construction": false
+          },
+          {
+            "id": "l3",
+            "type": "line",
+            "a": 3,
+            "b": 4,
+            "construction": false
+          },
+          {
+            "id": "l4",
+            "type": "line",
+            "a": 4,
+            "b": 5,
+            "construction": false
+          },
+          {
+            "id": "l5",
+            "type": "line",
+            "a": 5,
+            "b": 6,
+            "construction": false
+          },
+          {
+            "id": "l6",
+            "type": "line",
+            "a": 6,
+            "b": 1,
+            "construction": false
+          }
+        ],
+        "constraints": [],
+        "counters": {
+          "l": 6
+        }
+      }
+    },
+    {
+      "id": 6,
+      "name": "Wrench section",
+      "suppressed": false,
+      "body_names": [
+        "Street elbow"
+      ],
+      "param_names": [
+        "d2"
+      ],
+      "component": 1,
+      "type": "extrude",
+      "sketch": 5,
+      "profiles": {
+        "type": "all"
+      },
+      "extent": {
+        "distance": "20.574",
+        "convention": "total_distance",
+        "direction": "positive"
+      },
+      "operation": "join",
+      "targets": [
+        "Street elbow"
+      ]
+    },
+    {
+      "id": 7,
+      "name": "Street elbow",
+      "suppressed": false,
+      "body_names": [
+        "Street elbow"
+      ],
+      "param_names": [
+        "d3",
+        "d4"
+      ],
+      "component": 1,
+      "participants": [
+        "Street elbow"
+      ],
+      "type": "cylinder",
+      "base": [
+        0.0,
+        0.0,
+        21.35
+      ],
+      "axis": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "radius": "(11.112499999999999 mm) / 2",
+      "height": "6.604",
+      "operation": "join"
+    },
+    {
+      "id": 8,
+      "name": "Bore Street elbow",
+      "suppressed": false,
+      "body_names": [
+        "Street elbow"
+      ],
+      "param_names": [
+        "d5",
+        "d6"
+      ],
+      "component": 1,
+      "participants": [
+        "Street elbow"
+      ],
+      "type": "cylinder",
+      "base": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "axis": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "radius": "(6.35 mm) / 2",
+      "height": "27.954",
+      "operation": "cut"
+    },
+    {
+      "id": 9,
+      "name": "Bore Street elbow",
+      "suppressed": false,
+      "body_names": [
+        "Street elbow"
+      ],
+      "param_names": [
+        "d7",
+        "d8"
+      ],
+      "component": 1,
+      "participants": [
+        "Street elbow"
+      ],
+      "type": "cylinder",
+      "base": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "axis": [
+        1.0,
+        0.0,
+        0.0
+      ],
+      "radius": "(6.35 mm) / 2",
+      "height": "20.574",
+      "operation": "cut"
+    },
+    {
+      "id": 10,
+      "name": "Bore Street elbow",
+      "suppressed": false,
+      "body_names": [
+        "Street elbow"
+      ],
+      "param_names": [
+        "d9",
+        "d10"
+      ],
+      "component": 1,
+      "participants": [
+        "Street elbow"
+      ],
+      "type": "cylinder",
+      "base": [
+        7.874000000000002,
+        0.0,
+        0.0
+      ],
+      "axis": [
+        1.0,
+        0.0,
+        0.0
+      ],
+      "radius": "(13.716 mm) / 2",
+      "height": "12.7",
+      "operation": "cut"
+    }
+  ],
+  "next_id": 11,
+  "components": [
+    {
+      "id": 1,
+      "identification_color_index": 0,
+      "name": "Street elbow",
+      "parent": 0
+    }
+  ],
+  "next_component_color_index": 1,
+  "occurrences": [
+    {
+      "id": 2,
+      "component": 1,
+      "parent": 0,
+      "name": "Street elbow:1",
+      "transform": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "grounded": true
+    }
+  ],
+  "materials": {
+    "Street elbow": "Stainless Steel"
+  },
+  "appearances": {
+    "bodies": {
+      "Street elbow": {
+        "name": "Custom",
+        "color": [
+          180,
+          187,
+          197
+        ],
+        "opacity": 1.0,
+        "pbr": {
+          "metallic": 0.8,
+          "roughness": 0.32,
+          "dielectric_ior": 1.5
+        }
+      }
+    }
+  }
+}

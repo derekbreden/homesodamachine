@@ -1,0 +1,293 @@
+{
+  "format": "solidcraft/51",
+  "name": "Untitled",
+  "units": "mm",
+  "metadata": {
+    "description": "SV125 pressure relief valve envelope",
+    "part_number": "HSM-0012"
+  },
+  "params": [],
+  "features": [
+    {
+      "id": 3,
+      "name": "Pressure relief valve",
+      "suppressed": false,
+      "body_names": [
+        "Pressure relief valve"
+      ],
+      "param_names": [
+        "d1",
+        "d2"
+      ],
+      "component": 1,
+      "type": "cylinder",
+      "base": [
+        0.0,
+        0.0,
+        -12.7
+      ],
+      "axis": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "radius": "(11.112499999999999 mm) / 2",
+      "height": "12.7",
+      "operation": "new_body"
+    },
+    {
+      "id": 4,
+      "name": "Wrench flats",
+      "suppressed": false,
+      "component": 1,
+      "type": "sketch",
+      "plane": {
+        "type": "custom",
+        "plane": {
+          "origin": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "x_dir": [
+            1.0,
+            0.0,
+            0.0
+          ],
+          "y_dir": [
+            0.0,
+            1.0,
+            0.0
+          ]
+        }
+      },
+      "sketch": {
+        "points": [
+          {
+            "id": "origin",
+            "pos": [
+              0.0,
+              0.0
+            ],
+            "fixed": true
+          },
+          {
+            "id": "l1.start",
+            "pos": [
+              8.248891971046778,
+              0.0
+            ],
+            "fixed": false
+          },
+          {
+            "id": "l1.end",
+            "pos": [
+              4.12444598552339,
+              7.143749999999999
+            ],
+            "fixed": false
+          },
+          {
+            "id": "l2.end",
+            "pos": [
+              -4.124445985523387,
+              7.14375
+            ],
+            "fixed": false
+          },
+          {
+            "id": "l3.end",
+            "pos": [
+              -8.248891971046778,
+              1.0101979148854737e-15
+            ],
+            "fixed": false
+          },
+          {
+            "id": "l4.end",
+            "pos": [
+              -4.124445985523392,
+              -7.143749999999997
+            ],
+            "fixed": false
+          },
+          {
+            "id": "l5.end",
+            "pos": [
+              4.12444598552339,
+              -7.143749999999999
+            ],
+            "fixed": false
+          }
+        ],
+        "curves": [
+          {
+            "id": "l1",
+            "type": "line",
+            "a": 1,
+            "b": 2,
+            "construction": false
+          },
+          {
+            "id": "l2",
+            "type": "line",
+            "a": 2,
+            "b": 3,
+            "construction": false
+          },
+          {
+            "id": "l3",
+            "type": "line",
+            "a": 3,
+            "b": 4,
+            "construction": false
+          },
+          {
+            "id": "l4",
+            "type": "line",
+            "a": 4,
+            "b": 5,
+            "construction": false
+          },
+          {
+            "id": "l5",
+            "type": "line",
+            "a": 5,
+            "b": 6,
+            "construction": false
+          },
+          {
+            "id": "l6",
+            "type": "line",
+            "a": 6,
+            "b": 1,
+            "construction": false
+          }
+        ],
+        "constraints": [],
+        "counters": {
+          "l": 6
+        }
+      }
+    },
+    {
+      "id": 5,
+      "name": "Wrench section",
+      "suppressed": false,
+      "body_names": [
+        "Pressure relief valve"
+      ],
+      "param_names": [
+        "d3"
+      ],
+      "component": 1,
+      "type": "extrude",
+      "sketch": 4,
+      "profiles": {
+        "type": "all"
+      },
+      "extent": {
+        "distance": "11.176",
+        "convention": "total_distance",
+        "direction": "positive"
+      },
+      "operation": "join",
+      "targets": [
+        "Pressure relief valve"
+      ]
+    },
+    {
+      "id": 6,
+      "name": "Pressure relief valve",
+      "suppressed": false,
+      "body_names": [
+        "Pressure relief valve"
+      ],
+      "param_names": [
+        "d4",
+        "d5"
+      ],
+      "component": 1,
+      "participants": [
+        "Pressure relief valve"
+      ],
+      "type": "cylinder",
+      "base": [
+        0.0,
+        0.0,
+        11.176
+      ],
+      "axis": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "radius": "(15.748 mm) / 2",
+      "height": "26.924",
+      "operation": "join"
+    }
+  ],
+  "next_id": 7,
+  "components": [
+    {
+      "id": 1,
+      "identification_color_index": 0,
+      "name": "Pressure relief valve",
+      "parent": 0
+    }
+  ],
+  "next_component_color_index": 1,
+  "occurrences": [
+    {
+      "id": 2,
+      "component": 1,
+      "parent": 0,
+      "name": "Pressure relief valve:1",
+      "transform": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "grounded": true
+    }
+  ],
+  "appearances": {
+    "bodies": {
+      "Pressure relief valve": {
+        "name": "Custom",
+        "color": [
+          181,
+          143,
+          84
+        ],
+        "opacity": 1.0,
+        "pbr": {
+          "metallic": 0.8,
+          "roughness": 0.32,
+          "dielectric_ior": 1.5
+        }
+      }
+    }
+  }
+}
