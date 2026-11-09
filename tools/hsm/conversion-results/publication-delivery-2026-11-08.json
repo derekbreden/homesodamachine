@@ -1,0 +1,530 @@
+{
+  "purpose": "This record compares useful progressive scene publication, delivery timing and coalesced publisher work on the live website.",
+  "source_commit": "d29ecaa5fa054a5bf503c1283941d2c87a4cbd69",
+  "baseline_print_build_commit": "742f27f6f48fbff0c641815c3fed0d69b0e4e091",
+  "baseline_print_build_sha256": "21a149c73e2f58a877e0ae74e86347315caac7957f43a844a85fc7805fecc75b",
+  "measurement_scope": "The observer is loaded before each reversible runtime-input edit. Before trials use the committed print_build implementation from the baseline revision; optimized trials use the current normal entry point. Geometry programs, camera selection and rendering code remain the same. Before and reverse trials edit the same inputs in opposite directions; wire-after-idle repeats the forward edit after logical-start spacing has elapsed. These are observed samples, not distribution estimates.",
+  "delivery_scope": "Website change-event receipt follows server adoption and includes transport to the reference browser. Last notification to eligible matching WebGL draw includes browser loading and mounting. Server internal phase durations and unobstructed pixels are not established.",
+  "request": {
+    "received_at": "2026-11-09T04:52:39.643Z",
+    "words": "Please proceed."
+  },
+  "trials": {
+    "wire-before": {
+      "edit_at": "2026-11-09T04:58:33.497985+00:00",
+      "changes": {
+        "routes": [
+          "AC2-L",
+          "AC2-N"
+        ],
+        "offset_x_before": 12.0,
+        "offset_x_after": 12.5
+      },
+      "metrics": {
+        "edit_to_draw_seconds": 18.149015188217163,
+        "edit_to_admitted_build_seconds": 0.1400918960571289,
+        "admitted_build_to_draw_seconds": 18.008923292160034,
+        "local_update_seconds": 5.427015066146851,
+        "local_to_draw_seconds": 12.722000122070312,
+        "last_notification_to_draw_seconds": 0.9160001277923584,
+        "model_change_notifications_before_draw": 2
+      },
+      "admitted_build_and_publication_command_seconds": 16.40131816599751,
+      "publication_rounds": 2,
+      "publication_processes": {
+        "started": 2
+      },
+      "suppressed_checkpoints": [],
+      "publication_phase_seconds": {
+        "identify": 1.614858,
+        "references": 1.4e-05,
+        "pack.plan": 0.676652,
+        "pack.mesh-objects": 0.384719,
+        "pack.member-heads": 0.717576,
+        "pack.members": 0.000325,
+        "objects": 2.098695,
+        "git.fetch": 3.293201,
+        "git.push": 3.804085,
+        "commit-and-push": 7.944219,
+        "notify": 0.681933,
+        "publication": 11.141984
+      },
+      "publication_round_times": [
+        {
+          "finished_at_ns": 1794200323200020000,
+          "seconds": 5.541191874996002
+        },
+        {
+          "finished_at_ns": 1794200328801964000,
+          "seconds": 5.600791791999654
+        }
+      ],
+      "build_actions": [
+        {
+          "name": "BazelWorkspaceStatusAction stable-status.txt",
+          "seconds": 0.001773
+        },
+        {
+          "name": "Executing genrule //:installed-machine",
+          "seconds": 6.968946
+        }
+      ],
+      "compiler_actions": 0,
+      "expected_artifact": {
+        "path": "hardware/manifold-layout/enclosure-assembly.step.mesh",
+        "sha256": "738995f7a331289f2fa9c963a8707a1b1f7b3cdaf206c8cea52ee68536184c2e",
+        "bytes": 171124
+      },
+      "observed_parts": [
+        "wire-AC2-L",
+        "wire-AC2-N"
+      ],
+      "page_errors": [],
+      "local_event_at": "2026-11-09T04:58:38.925Z",
+      "last_notification_at": "2026-11-09T04:58:50.731Z",
+      "live_draw_at": "2026-11-09T04:58:51.647Z"
+    },
+    "wire-after": {
+      "edit_at": "2026-11-09T05:01:29.944916+00:00",
+      "changes": {
+        "routes": [
+          "AC2-L",
+          "AC2-N"
+        ],
+        "offset_x_before": 12.5,
+        "offset_x_after": 12.0
+      },
+      "metrics": {
+        "edit_to_draw_seconds": 18.043083906173706,
+        "edit_to_admitted_build_seconds": 5.09733247756958,
+        "admitted_build_to_draw_seconds": 12.945751428604126,
+        "local_update_seconds": 9.964083909988403,
+        "local_to_draw_seconds": 8.078999996185303,
+        "last_notification_to_draw_seconds": 1.1159999370574951,
+        "model_change_notifications_before_draw": 1
+      },
+      "admitted_build_and_publication_command_seconds": 11.629169583997282,
+      "publication_rounds": 1,
+      "publication_processes": {
+        "requests": 1,
+        "started": 1,
+        "coalesced": 0,
+        "exit_codes": [
+          0
+        ]
+      },
+      "suppressed_checkpoints": [
+        {
+          "seconds": 3.639808499996434,
+          "stage": "mechanics",
+          "files": [
+            "hardware/manifold-layout/enclosure-assembly.step.mesh"
+          ]
+        }
+      ],
+      "publication_phase_seconds": {
+        "identify": 1.472121,
+        "references": 4e-06,
+        "pack.plan": 0.49251,
+        "pack.mesh-objects": 0.030181,
+        "pack.member-heads": 0.307934,
+        "pack.members": 0.000162,
+        "objects": 1.009345,
+        "git.fetch": 1.582444,
+        "git.push": 1.970994,
+        "commit-and-push": 4.034597,
+        "notify": 0.159914,
+        "publication": 5.453743
+      },
+      "publication_round_times": [
+        {
+          "finished_at_ns": 1794200505400447000,
+          "seconds": 5.453742999998212
+        }
+      ],
+      "build_actions": [
+        {
+          "name": "BazelWorkspaceStatusAction stable-status.txt",
+          "seconds": 0.001739
+        },
+        {
+          "name": "Executing genrule //:installed-machine",
+          "seconds": 6.922928
+        }
+      ],
+      "compiler_actions": 0,
+      "expected_artifact": {
+        "path": "hardware/manifold-layout/enclosure-assembly.step.mesh",
+        "sha256": "373d7ef8925cc521823e7717362efb2353bc7fd3af072664adb3880da4388cbd",
+        "bytes": 171124
+      },
+      "observed_parts": [
+        "wire-AC2-L",
+        "wire-AC2-N"
+      ],
+      "page_errors": [],
+      "local_event_at": "2026-11-09T05:01:39.909Z",
+      "last_notification_at": "2026-11-09T05:01:46.872Z",
+      "live_draw_at": "2026-11-09T05:01:47.988Z"
+    },
+    "wire-after-idle": {
+      "edit_at": "2026-11-09T05:09:27.198213+00:00",
+      "changes": {
+        "routes": [
+          "AC2-L",
+          "AC2-N"
+        ],
+        "offset_x_before": 12.0,
+        "offset_x_after": 12.5
+      },
+      "metrics": {
+        "edit_to_draw_seconds": 13.243786811828613,
+        "edit_to_admitted_build_seconds": 0.17404723167419434,
+        "admitted_build_to_draw_seconds": 13.069739580154419,
+        "local_update_seconds": 5.462786912918091,
+        "local_to_draw_seconds": 7.7809998989105225,
+        "last_notification_to_draw_seconds": 1.3969998359680176,
+        "model_change_notifications_before_draw": 1
+      },
+      "admitted_build_and_publication_command_seconds": 11.448206166998716,
+      "publication_rounds": 1,
+      "publication_processes": {
+        "requests": 1,
+        "started": 1,
+        "coalesced": 0,
+        "exit_codes": [
+          0
+        ]
+      },
+      "suppressed_checkpoints": [
+        {
+          "seconds": 3.9674887500004843,
+          "stage": "mechanics",
+          "files": [
+            "hardware/manifold-layout/enclosure-assembly.step.mesh"
+          ]
+        }
+      ],
+      "publication_phase_seconds": {
+        "identify": 1.529867,
+        "references": 5e-06,
+        "pack.plan": 0.32488,
+        "pack.mesh-objects": 0.330527,
+        "pack.member-heads": 0.244307,
+        "pack.members": 0.000133,
+        "objects": 1.100926,
+        "git.fetch": 1.164917,
+        "git.push": 1.586427,
+        "commit-and-push": 3.174563,
+        "notify": 0.323277,
+        "publication": 4.895342
+      },
+      "publication_round_times": [
+        {
+          "finished_at_ns": 1794200977539260000,
+          "seconds": 4.895341832998383
+        }
+      ],
+      "build_actions": [
+        {
+          "name": "BazelWorkspaceStatusAction stable-status.txt",
+          "seconds": 0.002103
+        },
+        {
+          "name": "Executing genrule //:installed-machine",
+          "seconds": 7.163205
+        }
+      ],
+      "compiler_actions": 0,
+      "expected_artifact": {
+        "path": "hardware/manifold-layout/enclosure-assembly.step.mesh",
+        "sha256": "738995f7a331289f2fa9c963a8707a1b1f7b3cdaf206c8cea52ee68536184c2e",
+        "bytes": 171124
+      },
+      "observed_parts": [
+        "wire-AC2-L",
+        "wire-AC2-N"
+      ],
+      "page_errors": [],
+      "local_event_at": "2026-11-09T05:09:32.661Z",
+      "last_notification_at": "2026-11-09T05:09:39.045Z",
+      "live_draw_at": "2026-11-09T05:09:40.442Z"
+    },
+    "placement-before": {
+      "edit_at": "2026-11-09T05:04:17.595203+00:00",
+      "changes": {
+        "main_wago_z_delta_mm": 0.5,
+        "well_fit_before_mm": 0.15,
+        "well_fit_after_mm": 0.25
+      },
+      "metrics": {
+        "edit_to_draw_seconds": 11.12179708480835,
+        "edit_to_admitted_build_seconds": 0.14165806770324707,
+        "admitted_build_to_draw_seconds": 10.980139017105103,
+        "local_update_seconds": 1.5227971076965332,
+        "local_to_draw_seconds": 9.598999977111816,
+        "last_notification_to_draw_seconds": 1.2290000915527344,
+        "model_change_notifications_before_draw": 1
+      },
+      "admitted_build_and_publication_command_seconds": 41.0746763749994,
+      "publication_rounds": 7,
+      "publication_processes": {
+        "started": 7
+      },
+      "suppressed_checkpoints": [],
+      "publication_phase_seconds": {
+        "identify": 2.508375,
+        "references": 0.403979,
+        "pack.plan": 4.424047,
+        "pack.mesh-objects": 3.194688,
+        "pack.member-heads": 3.174614,
+        "pack.members": 1.452463,
+        "objects": 13.359066,
+        "git.fetch": 7.864445,
+        "git.push": 11.983355,
+        "commit-and-push": 22.181719,
+        "notify": 1.197566,
+        "publication": 38.491496
+      },
+      "publication_round_times": [
+        {
+          "finished_at_ns": 1794200665993113000,
+          "seconds": 6.875987540995993
+        },
+        {
+          "finished_at_ns": 1794200671684775000,
+          "seconds": 5.690336917003151
+        },
+        {
+          "finished_at_ns": 1794200676154287000,
+          "seconds": 4.4684730830049375
+        },
+        {
+          "finished_at_ns": 1794200681908790000,
+          "seconds": 5.753597750001063
+        },
+        {
+          "finished_at_ns": 1794200686237511000,
+          "seconds": 4.327834417003032
+        },
+        {
+          "finished_at_ns": 1794200691755194000,
+          "seconds": 5.516858833005244
+        },
+        {
+          "finished_at_ns": 1794200697614425000,
+          "seconds": 5.858407540996268
+        }
+      ],
+      "build_actions": [
+        {
+          "name": "BazelWorkspaceStatusAction stable-status.txt",
+          "seconds": 0.014655
+        },
+        {
+          "name": "Executing genrule //:enclosure-back-top",
+          "seconds": 2.392891
+        },
+        {
+          "name": "Executing genrule //:enclosure-front-top",
+          "seconds": 6.60895
+        },
+        {
+          "name": "Executing genrule //:installed-machine",
+          "seconds": 19.766564
+        }
+      ],
+      "compiler_actions": 0,
+      "expected_artifact": {
+        "path": "hardware/manifold-layout/enclosure-assembly.step.mesh",
+        "sha256": "83e72d9c41c792b85252fc83b028eed13ebb3c4545092f506740922ae6564ae9",
+        "bytes": 199140
+      },
+      "observed_parts": [
+        "wago-h",
+        "wago-g",
+        "wago-n"
+      ],
+      "page_errors": [],
+      "local_event_at": "2026-11-09T05:04:19.118Z",
+      "last_notification_at": "2026-11-09T05:04:27.488Z",
+      "live_draw_at": "2026-11-09T05:04:28.717Z"
+    },
+    "placement-after": {
+      "edit_at": "2026-11-09T05:06:43.578049+00:00",
+      "changes": {
+        "main_wago_z_delta_mm": -0.5,
+        "well_fit_before_mm": 0.25,
+        "well_fit_after_mm": 0.15
+      },
+      "metrics": {
+        "edit_to_draw_seconds": 11.926951169967651,
+        "edit_to_admitted_build_seconds": 0.15098786354064941,
+        "admitted_build_to_draw_seconds": 11.775963306427002,
+        "local_update_seconds": 1.5439510345458984,
+        "local_to_draw_seconds": 10.383000135421753,
+        "last_notification_to_draw_seconds": 1.4290001392364502,
+        "model_change_notifications_before_draw": 1
+      },
+      "admitted_build_and_publication_command_seconds": 42.278486792005424,
+      "publication_rounds": 6,
+      "publication_processes": {
+        "requests": 7,
+        "started": 2,
+        "coalesced": 6,
+        "exit_codes": [
+          0,
+          0
+        ]
+      },
+      "suppressed_checkpoints": [
+        {
+          "seconds": 11.276992084000085,
+          "stage": "placements",
+          "files": [
+            "hardware/manifold-layout/enclosure-assembly.step.mesh"
+          ]
+        }
+      ],
+      "publication_phase_seconds": {
+        "identify": 3.561099,
+        "references": 0.277176,
+        "pack.plan": 4.612562,
+        "pack.mesh-objects": 3.067569,
+        "pack.member-heads": 2.941575,
+        "pack.members": 1.601315,
+        "objects": 13.183188,
+        "git.fetch": 8.051079,
+        "git.push": 12.462428,
+        "commit-and-push": 22.516297,
+        "notify": 1.258474,
+        "publication": 38.466388
+      },
+      "publication_round_times": [
+        {
+          "finished_at_ns": 1794200812414370000,
+          "seconds": 7.298673833000066
+        },
+        {
+          "finished_at_ns": 1794200819438373000,
+          "seconds": 7.022058792004827
+        },
+        {
+          "finished_at_ns": 1794200826295067000,
+          "seconds": 6.855846625003323
+        },
+        {
+          "finished_at_ns": 1794200831943348000,
+          "seconds": 5.647573958005523
+        },
+        {
+          "finished_at_ns": 1794200838371191000,
+          "seconds": 6.426913208000769
+        },
+        {
+          "finished_at_ns": 1794200843587380000,
+          "seconds": 5.215321916999528
+        }
+      ],
+      "build_actions": [
+        {
+          "name": "BazelWorkspaceStatusAction stable-status.txt",
+          "seconds": 0.001367
+        },
+        {
+          "name": "Executing genrule //:enclosure-back-top",
+          "seconds": 2.275591
+        },
+        {
+          "name": "Executing genrule //:enclosure-front-top",
+          "seconds": 6.372872
+        },
+        {
+          "name": "Executing genrule //:installed-machine",
+          "seconds": 19.896083
+        }
+      ],
+      "compiler_actions": 0,
+      "expected_artifact": {
+        "path": "hardware/manifold-layout/enclosure-assembly.step.mesh",
+        "sha256": "61679d0c8c1b1c78f4cbf7296d11e518ad9af7ceaa7363160758f6f83c9d7699",
+        "bytes": 199140
+      },
+      "observed_parts": [
+        "wago-h",
+        "wago-g",
+        "wago-n"
+      ],
+      "page_errors": [],
+      "local_event_at": "2026-11-09T05:06:45.122Z",
+      "last_notification_at": "2026-11-09T05:06:54.076Z",
+      "live_draw_at": "2026-11-09T05:06:55.505Z"
+    }
+  },
+  "validation": {
+    "print_build_tests_passed": 14,
+    "iteration_tool_tests_passed": 3,
+    "normal_builds_successful": true,
+    "compiler_actions": 0
+  },
+  "restoration": {
+    "status": "complete",
+    "source_input_sha256": {
+      "hardware/manifold-layout/junctions.json": "9dc938e52afd235079fdeaa4a1f4bf726090277696ca286bda7cae788e548c40",
+      "hardware/wiring/installed/route-overrides.json": "f5a49592c26f8616331c1c0381e1d46b503e90ccf94d596cc39f761377580968"
+    },
+    "print_export_sha256": {
+      "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step.mesh": "d05b920a1db3241c517dedb25c90f0e4d1915ac6b17ee38ea298d0bc1ea46e8c",
+      "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.print-features.json": "3e227614ec33508f27ee2952ec7e9d8e219d0267ba11cbc24c92b8cb8f9005b3",
+      "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step.mesh": "ba16513645fcf1f628b9ab7e9efff3bd883f454fa66c3d57c9418bebdb0de2bd",
+      "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl": "d1ea02ff72880b5966ebf4e7e66689ecc04f88e1457be108418a62cdb5bc4369",
+      "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl": "753741de94227f937365c16f5d0a04fb486b6b9ac015ff5fdb3e0fc31bc44663"
+    },
+    "program_sha256": {
+      "installed-machine": "612babaf253800d4b06e9197dd7d7f47baa3b68ee116a1cefbd331256a082585",
+      "enclosure-back-top": "9001073d4515acd05feff0492cfbeddd30bdfacef4922f3cde2e48980606b311",
+      "enclosure-front-top": "05e2b73d1fb77f3ea5d7ea0cd4d31e3413439f06c411b86342d788f73aad6c68"
+    },
+    "body_assets_and_poses_restored": 449,
+    "restored_scene_sha256": "373d7ef8925cc521823e7717362efb2353bc7fd3af072664adb3880da4388cbd",
+    "live_draw_at": "2026-11-09T05:12:36.795Z",
+    "observed_parts": [
+      "enclosure-back-top",
+      "enclosure-front-top",
+      "wago-h",
+      "wago-g",
+      "wago-n",
+      "wire-AC2-L",
+      "wire-AC2-N"
+    ],
+    "observed_artifact": {
+      "path": "hardware/manifold-layout/enclosure-assembly.step.mesh",
+      "sha256": "373d7ef8925cc521823e7717362efb2353bc7fd3af072664adb3880da4388cbd",
+      "bytes": 171124
+    }
+  },
+  "summary": {
+    "wire_edit_to_draw_seconds": {
+      "baseline": 18.149015188217163,
+      "optimized_admission_available": 13.243786811828613
+    },
+    "wire_local_to_draw_seconds": {
+      "baseline": 12.722000122070312,
+      "optimized_admission_available": 7.7809998989105225
+    },
+    "wire_publication_rounds": {
+      "baseline": 2,
+      "optimized": 1
+    },
+    "placement_first_draw_seconds": {
+      "baseline": 11.12179708480835,
+      "optimized": 11.926951169967651
+    },
+    "placement_publisher_processes": {
+      "baseline": 7,
+      "optimized": 2
+    },
+    "queued_sample": "wire-after includes the observed logical-start admission interval; its end-to-end time retains that wait.",
+    "placement_result": "First-preview and full-completion timings remain similar in these samples."
+  }
+}
