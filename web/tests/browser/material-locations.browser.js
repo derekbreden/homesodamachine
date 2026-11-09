@@ -61,6 +61,7 @@ test("locations preview compounds and repeated copies, preserve selection and hi
           await page.waitForFunction(machine => window.__hsm?.mountedStepFile === machine && !window.__hsm.currentGroup.userData.sceneLoading, { timeout: 30000 }, machine);
           await settle(page);
         }
+        await page.evaluate(async () => (await import('/js/viewer/xray.js')).setXrayEnabled(true, { persist: false }));
         await page.click('.location-go');
         await page.waitForFunction(async () => {
           const { state } = await import('/js/viewer/state.js');
@@ -77,6 +78,7 @@ test("locations preview compounds and repeated copies, preserve selection and hi
         });
         assert.ok(entered.hidden.includes('enclosure-back-top'), JSON.stringify(entered));
         assert.equal(entered.faded, false); assert.equal(entered.xray, false);
+        assert.equal(await page.$eval('.xray-toggle', node => node.getAttribute('aria-pressed')), 'false');
         assert.ok(entered.selectedMeshes >= 4, JSON.stringify(entered));
         if (viewport.isMobile) {
           assert.ok(await page.$eval('.component-panel', node => node.getBoundingClientRect().height < 110));
