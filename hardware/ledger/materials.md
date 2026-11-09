@@ -182,6 +182,15 @@ and the [cost page](https://homesodamachine.com/cost#by-part) show the result.
 catalog's piece counts disagree with the ledger; `--tree` prints the costed
 BOM, and a part number prints that part's cost.
 
+## Stock and assembly work
+
+[Build from stock](https://homesodamachine.com/build) follows the catalog's
+assembly quantities and the current BOM's manufacturing inputs. The material
+explorer's Stock tab opens that plan for the selected material.
+[`stock.md`](stock.md) defines usable balances, completed assembly stock,
+reservations and measured attended work; [`stock.json`](stock.json) holds
+observations and the explicit identity bindings to inventory evidence.
+
 ## Recorded assembly boundaries
 
 The prepared enclosure sections, refrigeration loop and removable funnel are

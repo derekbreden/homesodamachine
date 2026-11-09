@@ -10,6 +10,7 @@ import { componentLocation, stepLabel, stepLocation } from "/contracts/step-loca
 import { mountMaterialDrawing } from "./material-drawing.js";
 import { mountMaterialSheet } from "./material-sheet.js";
 import { rollupCost, directCost, laborUsd, money, duration, runText, COST_KINDS } from "/contracts/part-costs.js";
+import { planMaterial, stockSummary } from "/contracts/material-stock.js";
 
 const el = (tag, className, text) => {
   const node = document.createElement(tag);
@@ -308,25 +309,54 @@ export function mountMaterialPanel(workspace, { file = null, material = null } =
     const rows = explodeBom(state.materialCatalog, root, options());
     const used = current ? materialUses(state.materialCatalog, current.id, options()) : { assemblies: [], tools: [], equipment: [] };
     const docs = materialDocuments(state.materialCatalog, (current || rootMaterial)?.id, options());
-    const counts = { bom: rows.length, cost: Number(costedCurrent), used: used.assemblies.length + used.tools.length + used.equipment.length, docs: docs.length };
+    const counts = { bom: rows.length, cost: Number(costedCurrent), stock: Number(Boolean(current && state.materialCatalog.stock)), used: used.assemblies.length + used.tools.length + used.equipment.length, docs: docs.length };
     if (!tab) tab = counts.bom ? "bom" : counts.docs ? "docs" : counts.cost ? "cost" : counts.used ? "used" : "bom";
     const tabs = el("div", "material-tabs"); tabs.setAttribute("role", "tablist"); tabs.setAttribute("aria-label", "Material relationships");
-    for (const [key, label] of [["bom", "BOM"], ["cost", "Cost"], ["docs", "Documents"], ["used", "Where used"]]) {
+    for (const [key, label] of [["bom", "BOM"], ["stock", "Stock"], ["cost", "Cost"], ["docs", "Documents"], ["used", "Where used"]]) {
       if (!counts[key] && tab !== key) continue;
-      const button = el("button", "", key === "cost" ? label : `${label} (${counts[key]})`); button.type = "button";
+      const button = el("button", "", key === "cost" || key === "stock" ? label : `${label} (${counts[key]})`); button.type = "button";
       if (key === "bom" && rootMaterial) button.title = `BOM items in ${rootMaterial.description}, including every nested level`;
       button.setAttribute("role", "tab"); button.setAttribute("aria-selected", String(tab === key));
       button.addEventListener("click", () => { tab = key; render(); }); tabs.append(button);
     }
     tabsHost.replaceChildren(tabs);
     const content = el("div", "material-tab-content"); content.setAttribute("role", "tabpanel");
-    content.setAttribute("aria-label", { bom: "Exploded bill of materials", cost: "Cost breakdown", used: "Where used", docs: "Documents" }[tab]);
+    content.setAttribute("aria-label", { bom: "Exploded bill of materials", stock: "Stock and assembly availability", cost: "Cost breakdown", used: "Where used", docs: "Documents" }[tab]);
     scroll.append(content);
     if (tab === "bom") renderBom(content, rootMaterial, index, rows, costedRoot ? costOf : null);
     if (tab === "cost") renderCost(content, current, index, costedCurrent ? costOf : null);
+    if (tab === "stock") renderStock(content, current, index);
     if (tab === "used") renderUsed(content, current, used, index);
     if (tab === "docs") renderDocs(content, docs);
     scroll.scrollTop = top;
+  }
+
+  function renderStock(content, material, index) {
+    if (!material || !state.materialCatalog.stock) return;
+    const stock = state.materialCatalog.stock;
+    const plan = planMaterial(state.materialCatalog, material.id, 1, options());
+    content.append(el("h3", "material-stock-verdict", stockSummary(plan)));
+    content.append(el("p", "material-scope", "Materials to make one, using dated stock balances. Incoming orders are shown separately."));
+    const link = el("a", "material-link", "Plan a quantity and view stock evidence →");
+    link.href = "/build?material=" + encodeURIComponent(material.id) + "&finish=" + encodeURIComponent(options().finish);
+    content.append(link);
+    const needed = plan.resources.filter(row => row.status !== "covered");
+    for (const row of needed.slice(0, 6)) {
+      const resource = stock.resources[row.resource];
+      const item = el("div", "material-stock-item");
+      item.append(el("strong", "", resource.name));
+      item.append(el("p", "material-meta", row.status === "short" ? `${quantity(row.short, resource.unit)} short`
+        : row.quantityKnown ? "Usable stock count needed" : "Required usable quantity needs recording"));
+      if (resource.incoming) item.append(el("p", "material-meta", quantity(resource.incoming, resource.unit) + " incoming"));
+      content.append(item);
+    }
+    for (const gap of plan.gaps.slice(0, Math.max(0, 6 - needed.length))) {
+      const item = el("div", "material-stock-item");
+      item.append(materialLink(index.get(gap.material) || { id: gap.material, description: gap.material }), el("p", "material-meta", gap.reason));
+      content.append(item);
+    }
+    if (needed.length + plan.gaps.length > 6) content.append(el("p", "material-scope", "The full plan includes the remaining stock records and covered materials."));
+    if (!needed.length && !plan.gaps.length) content.append(el("p", "material-scope", plan.estimated ? "The recorded estimates cover these materials. Confirm remaining quantities as work uses them." : "Recorded available stock covers these materials."));
   }
 
   function costSummary(material, cost) {
@@ -647,7 +677,7 @@ export function mountMaterialPanel(workspace, { file = null, material = null } =
   // Visibility belongs to this navigation. Manual toggles last for this view;
   // model links start closed, and material lookups open the pane.
   function applyRoute({ panel = null, tab: requestedTab = null } = {}) {
-    tab = requestedTab === "bom" || requestedTab === "cost" ? requestedTab : null;
+    tab = requestedTab === "bom" || requestedTab === "cost" || requestedTab === "stock" ? requestedTab : null;
     setOpen(panel === "materials" || !!tab);
     render();
   }

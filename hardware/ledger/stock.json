@@ -1,0 +1,111 @@
+{
+  "schema": 1,
+  "opening": {
+    "source": "ledger/batch-forecast.json",
+    "asOf": "2026-10-13",
+    "note": "Opening credits are the dated estimates documented in the batch forecast, including reusable development stock. Remaining usable quantities need observations as work consumes them."
+  },
+  "printing": {
+    "faucet": ["HSM-0092", "HSM-0094", "HSM-0095", "HSM-0096", "HSM-0111", "HSM-0113", "HSM-0114", "HSM-0268"],
+    "colors": {
+      "HSM-0062": "white", "HSM-0063": "blue", "HSM-0064": "black", "HSM-0065": "black", "HSM-0066": "red", "HSM-0067": "white",
+      "HSM-0272": "white", "HSM-0099": "blue", "HSM-0100": "black", "HSM-0101": "black", "HSM-0273": "red", "HSM-0102": "white"
+    },
+    "mixes": {"HSM-0069": {"black": 0.5, "white": 0.5}}
+  },
+  "bindings": {
+    "HSM-0033": "asa-aero",
+    "HSM-0330": "neofit-ATEU44W",
+    "HSM-0331": "pisco-RVFUP1/4-1/4-0.3",
+    "HSM-0332": "yzmsz-B0CGS34P93",
+    "HSM-0359": "svling-B0GHNNYVDH",
+    "HSM-0362": "uxcell-B0F9KKJ22M",
+    "HSM-0452": "B0G2XJGZMQ",
+    "HSM-0453": "John Guest PI4512F6S female flare adapter, 3/8\" tube × 3/8\" FFL",
+    "HSM-0460": "John Guest PP061208W reducer, 3/8\" stem × 1/4\" PTC",
+    "HSM-0461": "neoPure reinforced clear PVC tubing, 3/8\" ID × 0.594\" OD (10 ft)",
+    "HSM-0462": "neoPure reinforced clear PVC tubing, 3/8\" ID × 0.594\" OD (10 ft)"
+  },
+  "kits": {
+    "B07PCZKG94": ["HSM-0038", "HSM-0179", "HSM-0288", "HSM-0289", "HSM-0290"]
+  },
+  "resources": [
+    {
+      "id": "neofit-ATEU44W",
+      "name": "neoFit ATEU44W stem elbow",
+      "unit": "ea",
+      "onHand": 30,
+      "incoming": 0,
+      "estimated": true,
+      "asOf": "2026-10-28",
+      "note": "Received quantity in the FWS shipment. Remaining loose stock after development is not counted.",
+      "sources": [{"path": "hardware/ledger/purchases.md", "purchase": "pur-43767918757a4173a8b69a9b725d64fd"}]
+    },
+    {
+      "id": "pisco-RVFUP1/4-1/4-0.3",
+      "name": "PISCO RVFUP1/4-1/4-0.3 CO₂ regulator",
+      "unit": "ea",
+      "onHand": 0,
+      "incoming": 2,
+      "estimated": true,
+      "asOf": "2026-10-23",
+      "note": "Ordered; no receipt is recorded. Order is on hold pending payment confirmation.",
+      "sources": [{"path": "hardware/ledger/purchases.md", "purchase": "pur-1ead43e8eead4989adf3de560d23febe"}]
+    },
+    {
+      "id": "yzmsz-B0CGS34P93",
+      "name": "YZMSZ fixed water regulator · 0.3 MPa",
+      "unit": "ea",
+      "onHand": 0,
+      "incoming": 1,
+      "estimated": true,
+      "asOf": "2026-10-23",
+      "note": "Ordered; no receipt is recorded.",
+      "sources": [{"path": "hardware/ledger/purchases.md", "purchase": "pur-abd647629bfa41e1ae7de9bf129dbf44"}]
+    },
+    {
+      "id": "svling-B0GHNNYVDH",
+      "name": "SVLING M5 × 100 socket-head screw",
+      "unit": "ea",
+      "onHand": 0,
+      "incoming": 20,
+      "estimated": true,
+      "asOf": "2026-10-25",
+      "note": "Ordered pack; no receipt is recorded.",
+      "sources": [{"path": "hardware/ledger/purchases.md", "purchase": "pur-7a2c9d6f4b8e4d1a3f6c0b2d4e5f7a96"}]
+    },
+    {
+      "id": "uxcell-B0F9KKJ22M",
+      "name": "uxcell M3 flat washer · Ø7 × 0.5 mm",
+      "unit": "ea",
+      "onHand": 200,
+      "incoming": 0,
+      "estimated": true,
+      "asOf": "2026-09-19",
+      "note": "Acquired pack quantity; remaining loose stock after development is not counted.",
+      "sources": [{"path": "hardware/ledger/purchases.md", "purchase": "pur-a306c668d8404ae7b814b49320456fb2"}]
+    }
+  ],
+  "observations": [
+    {
+      "resource": "LLDPE4M-BLACK",
+      "unit": "ft",
+      "onHand": 100,
+      "incoming": 0,
+      "estimated": true,
+      "asOf": "2026-10-28",
+      "note": "Received continuous black flavor-tubing stock. Use since receipt is not reconciled; required blanks retain their actual receiving-depth allowances.",
+      "sources": [{"path": "hardware/ledger/purchases.md", "purchase": "pur-43767918757a4173a8b69a9b725d64fd"}]
+    },
+    {
+      "resource": "asa-aero",
+      "onHand": 2.958,
+      "incoming": 0,
+      "estimated": true,
+      "asOf": "2026-10-13",
+      "note": "Opening estimated balance plus the filament receipt confirmed in the purchase ledger. Later consumption is not reconciled.",
+      "sources": [{"path": "hardware/ledger/purchases.md", "purchase": "pur-25f35741f88e40729bec555987f79640"}, {"path": "hardware/ledger/batch-forecast.md"}]
+    }
+  ],
+  "builds": []
+}

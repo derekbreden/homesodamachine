@@ -1,0 +1,66 @@
+/* Build pages keep material needs and their stock evidence readable on the bench and on a phone. */
+.build-wrap { max-width: 1100px; margin: 0 auto; padding: 28px 24px 64px; }
+.build-form { display: grid; grid-template-columns: minmax(0, 1fr) 100px 140px auto; gap: 14px; align-items: end; }
+.build-form label { display: grid; gap: 8px; min-width: 0; color: var(--text-2); font-size: .82rem; }
+.build-form select, .build-form input, .build-form button { box-sizing: border-box; width: 100%; min-height: 46px; padding: 10px 12px; border: 1px solid var(--border); border-radius: 7px; background: var(--surface); color: var(--text); font: inherit; font-size: 16px; }
+.build-form select { text-overflow: ellipsis; }
+.build-form button { background: var(--action); color: var(--on-action); border-color: var(--action); cursor: pointer; font-weight: 600; }
+.build-wrap :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+.build-opening, .build-note { color: var(--text-3); font-size: .8rem; line-height: 1.65; }
+.build-opening { margin: 18px 0 28px; }
+.build-wrap a { color: var(--accent); text-underline-offset: .18em; }
+.build-plan { scroll-margin-top: 24px; border: 1px solid var(--border); border-radius: 12px; background: var(--surface); padding: 26px; }
+.build-plan-heading { display: flex; align-items: start; justify-content: space-between; gap: 18px; }
+.build-number { color: var(--text-2); font: .75rem/1.5 ui-monospace, monospace; margin: 0 0 8px; }
+.build-plan h2 { font-size: clamp(24px, 4vw, 32px); margin: 0 0 14px; line-height: 1.2; }
+.build-part-link { flex-shrink: 0; font-size: .8rem; padding: 6px 0; }
+.build-scope { max-width: 80ch; color: var(--text-2); font-size: .87rem; line-height: 1.7; }
+.build-verdict { font-size: 1.25rem; font-weight: 600; margin: 24px 0; }
+.build-verdict[data-status=short], .stock-state[data-status=short] { color: var(--action); }
+.build-metrics { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; padding: 20px 0; border-block: 1px solid var(--border); }
+.build-metrics div { display: grid; gap: 9px; }
+.build-metrics span { color: var(--text-2); font-size: .75rem; }
+.build-metrics strong { font-size: 1rem; line-height: 1.4; font-weight: 600; }
+.build-plan h3 { font-size: 1rem; margin: 28px 0 10px; }
+.stock-supplies, .stock-gaps, .build-work { list-style: none; margin: 0; padding: 0; }
+.stock-supply { border-bottom: 1px solid var(--border); }
+.stock-supply summary { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 7px 18px; padding: 16px 0; cursor: pointer; list-style: none; }
+.stock-supply summary::-webkit-details-marker { display: none; }
+.stock-supply-name { font-size: .87rem; line-height: 1.5; overflow-wrap: anywhere; }
+.stock-supply-name::before { content: "+ "; color: var(--text-3); }
+.stock-supply details[open] .stock-supply-name::before { content: "− "; }
+.stock-state { color: var(--text-2); font-size: .75rem; line-height: 1.6; }
+.stock-supply[data-status=short] .stock-state { color: var(--action); }
+.stock-supply-count { grid-column: 1 / -1; color: var(--text-2); font-size: .78rem; line-height: 1.6; }
+.stock-detail { padding: 0 0 14px 14px; color: var(--text-2); font-size: .8rem; line-height: 1.7; overflow-wrap: anywhere; }
+.stock-detail p { margin: 7px 0; }
+.stock-evidence { font-size: .75rem; }
+.stock-gaps li, .build-work li { display: flex; justify-content: space-between; align-items: start; gap: 16px; padding: 14px 0; border-bottom: 1px solid var(--border); font-size: .82rem; line-height: 1.6; }
+.stock-gaps li > span { max-width: 45%; color: var(--text-3); font-size: .75rem; }
+.build-work small { display: block; color: var(--text-3); font: .72rem/1.6 ui-monospace, monospace; }
+.build-work li > span { flex-shrink: 0; }
+.build-covered { margin: 26px 0; }
+.build-covered > summary { cursor: pointer; font-size: .9rem; padding: 10px 0; }
+.build-covered > summary span { margin-left: 10px; color: var(--text-3); }
+.build-assemblies { margin-top: 42px; }
+.build-assemblies > p { font-size: .82rem; color: var(--text-2); }
+.build-assemblies > div { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; margin-top: 20px; }
+.build-assembly { display: grid; align-content: start; gap: 8px; border: 1px solid var(--border); border-radius: 9px; padding: 18px; text-decoration: none; background: var(--surface); }
+.build-assembly strong { font-size: .9rem; line-height: 1.5; font-weight: 600; color: var(--text); }
+.build-assembly:hover { background: var(--surface-2); }
+@media (max-width: 700px) {
+  .build-wrap { padding: 20px 14px 48px; }
+  .build-form { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+  .build-form > label:first-child, .build-form button { grid-column: 1 / -1; }
+  .build-plan { padding: 20px 16px; }
+  .build-plan-heading { display: block; }
+  .build-part-link { display: inline-block; min-height: 32px; }
+  .build-metrics { grid-template-columns: 1fr; gap: 18px; }
+  .build-metrics div { gap: 5px; }
+  .stock-supply summary { grid-template-columns: 1fr; gap: 5px; }
+  .stock-gaps li { display: grid; gap: 5px; }
+  .stock-gaps li > span { max-width: none; }
+  .build-assemblies > div { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+  .build-assembly { padding: 14px; }
+}
+@media (max-width: 360px) { .build-assemblies > div { grid-template-columns: 1fr; } }
