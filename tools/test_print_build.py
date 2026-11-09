@@ -7,10 +7,25 @@ import unittest
 from concurrent.futures import ThreadPoolExecutor
 from unittest.mock import Mock, patch
 
-from print_build import Progress, carry_file, main, placement_changed, progress_files
+from print_build import Publications, Progress, carry_file, main, placement_changed, progress_files
 
 
 class Checkpoints(unittest.TestCase):
+    def test_completed_local_output_publishes_without_another_copy(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root=Path(directory)
+            name='hardware/manifold-layout/enclosure-assembly.step.mesh'
+            target=root/name;target.parent.mkdir(parents=True)
+            target.write_bytes(b'published scene')
+            pointers=root/'hardware/cad-artifacts.json'
+            pointers.write_text(json.dumps({'solids':{name:hashlib.sha256(target.read_bytes()).hexdigest()}}))
+            publication=Publications(root)
+            self.assertFalse(publication.needs(name,target,False))
+            target.write_bytes(b'completed traced scene')
+            self.assertTrue(publication.needs(name,target,False))
+            self.assertFalse(publication.needs(name,target,False))
+            self.assertTrue(publication.needs(name,target,True))
+
     def test_tail_waits_for_a_complete_new_checkpoint(self):
         with tempfile.TemporaryDirectory() as directory:
             path=Path(directory)/'progress.jsonl'
