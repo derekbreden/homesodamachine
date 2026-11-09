@@ -201,8 +201,10 @@ function drawOverlay(g, name, color, edgeMat, shellOpacity) {
     if (!mesh.isMesh || !standsIn(mesh.name, name) || mesh.visible === false
         || seen.has(mesh.geometry)) continue;
     seen.add(mesh.geometry);
-    g.add(new THREE.LineSegments(new THREE.EdgesGeometry(mesh.geometry, EDGE_THRESHOLD_DEG), edgeMat));
-    const shell = new THREE.Mesh(mesh.geometry.clone(), new THREE.MeshBasicMaterial({
+    mesh.updateWorldMatrix(true, false);
+    const geometry = mesh.geometry.clone().applyMatrix4(mesh.matrixWorld);
+    g.add(new THREE.LineSegments(new THREE.EdgesGeometry(geometry, EDGE_THRESHOLD_DEG), edgeMat));
+    const shell = new THREE.Mesh(geometry, new THREE.MeshBasicMaterial({
       color, transparent: true, opacity: shellOpacity, side: THREE.DoubleSide,
       depthWrite: false, depthTest: false,
     }));
