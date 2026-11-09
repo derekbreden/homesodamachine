@@ -64,3 +64,28 @@
   .build-assembly { padding: 14px; }
 }
 @media (max-width: 360px) { .build-assemblies > div { grid-template-columns: 1fr; } }
+/* Physical-work entry uses the same fields and stock units as the planning view. */
+.stock-workbench { margin-top: 30px; padding: 24px; border: 1px solid var(--border); border-radius: 12px; background: var(--surface); }
+.stock-workbench form { display: grid; gap: 16px; }
+.stock-workbench label { display: grid; gap: 8px; min-width: 0; color: var(--text-2); font-size: .82rem; }
+.stock-workbench input, .stock-workbench select, .stock-workbench textarea, .stock-workbench button { box-sizing: border-box; width: 100%; min-width: 0; min-height: 44px; padding: 10px 12px; border: 1px solid var(--border); border-radius: 6px; background: var(--bg); color: var(--text); font: inherit; font-size: 16px; }
+.stock-workbench button { width: auto; cursor: pointer; }
+.stock-workbench button[type=submit] { background: var(--action); color: var(--on-action); border-color: var(--action); font-weight: 600; }
+.stock-workbench button:disabled { opacity: .6; cursor: default; }
+.stock-workbench h3, .stock-output { margin: 0; }
+.stock-fields { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+.stock-inputs > summary, .stock-count-panel > summary { min-height: 36px; cursor: pointer; padding: 10px 0; }
+.stock-input { display: grid; grid-template-columns: minmax(0, 1fr) 100px 80px auto; gap: 10px; align-items: center; padding: 12px 0; border-top: 1px solid var(--border); }
+.stock-input-unit, .stock-input-balance { color: var(--text-2); font-size: .75rem; overflow-wrap: anywhere; }
+.stock-input-balance { grid-column: 1 / -1; }
+.stock-count-panel { margin-top: 24px; border-top: 1px solid var(--border); padding-top: 14px; }
+.stock-record-status { font-size: .85rem; line-height: 1.6; }
+.stock-workbench [hidden] { display: none; }
+@media (max-width: 700px) {
+  .stock-workbench { padding: 20px 16px; }
+  .stock-fields { grid-template-columns: 1fr; }
+  .stock-input { grid-template-columns: minmax(0, 1fr) 65px auto; }
+  .stock-input > select { grid-column: 1 / -1; }
+  .stock-input > button { font-size: .8rem; padding-inline: 8px; }
+  .stock-input-balance { grid-column: 1 / -1; }
+}
