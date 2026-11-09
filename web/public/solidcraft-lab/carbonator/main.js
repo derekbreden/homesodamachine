@@ -7,13 +7,14 @@ const requests=new Map(), resources=[], timings=[];
 let config, children, preview, expanded=false, exploded=false, busy=false;
 let frame, api, current, pollTimer, pollWork, pauseWanted=false, nativeVisible=false, nativeLoaded=false;
 let models={}, revision, sourceKey, sourceVersion;
+let exterior;
 let canUndo=false;
 let count=Number($('copies').value);
 export function inspectLab(){
   return {resources:resources.map(item=>({...item})),preview:preview?.stats(),native:{loaded:Boolean(api),current,loadedModelTexts:Object.keys(models)},busy,count};
 }
-const names={parent:'Parent assembly',core:'Carbonator core',tube:'Tube',endcap:'Endcap'};
-const dimensions={tube:{length:'Tube length'},endcap:{thickness:'Plate thickness'},core:{cap_recess:'Cap recess'},parent:{}};
+const names={parent:'Parent assembly',core:'Carbonator core',tube:'Tube',endcap:'Endcap',representation:'Assembly envelope'};
+const dimensions={tube:{length:'Tube length'},endcap:{thickness:'Plate thickness'},core:{cap_recess:'Cap recess'},parent:{},representation:{}};
 
 function status(text,error=false){$('status').textContent=text;$('status').toggleAttribute('data-error',error);}
 function note(label,ms,detail=''){
@@ -53,17 +54,17 @@ function lock(value,label){
   $('publish').disabled=value||!api||current==='parent';
   $('copies').disabled=value||nativeVisible;
   $('expand').disabled=value;
-  $('section').disabled=value||nativeVisible||(count>1&&!expanded);
+  $('section').disabled=value||nativeVisible||!expanded;
   for(const control of $('native-controls').querySelectorAll('button,input'))control.disabled=value||!api||!nativeLoaded;
   $('publish').disabled=value||!api||!nativeLoaded||current==='parent';
   $('undo').disabled=value||!api||!nativeLoaded||!canUndo;
-  $('state-label').textContent=label|| (nativeVisible?names[current]+' · native':'Saved reference view');
+  $('state-label').textContent=label|| (nativeVisible?names[current]+' · native':expanded?'Core · exact display':'Parent · assembly envelope');
   $('state-dot').toggleAttribute('data-ready',!value);
 }
 function store(){
   if(!sourceKey)return;
   try{
-    localStorage.setItem(sourceKey,JSON.stringify({version:sourceVersion,current}));
+    localStorage.setItem(sourceKey,JSON.stringify({version:sourceVersion,current,exterior}));
     if(current&&models[current])localStorage.setItem(sourceKey+':'+current,models[current]);
   }
   catch{status('Local storage is unavailable. Download edited native designs to keep them.',true);}
@@ -128,7 +129,7 @@ function showNative(){
 async function showReference(){
   nativeVisible=false;$('preview').hidden=false;$('native-stage').hidden=true;preview.visible(true);
   $('reference').hidden=true;$('pause').hidden=true;$('native-controls').hidden=true;$('cover').hidden=true;
-  $('section').disabled=count>1&&!expanded;$('explode').disabled=false;$('copies').disabled=false;$('expand').disabled=false;
+  $('section').disabled=!expanded;$('explode').disabled=false;$('copies').disabled=false;$('expand').disabled=false;
   $('native-scope').textContent='Closed';$('state-label').textContent='Saved reference view';
   if(expanded&&children)await preview.expand(children);else preview.count(count);
   status('Reference display. Editable designs remain closed until requested.');
@@ -179,7 +180,7 @@ async function importModel(kind,{keep=true}={}){
   await api.request('ui.set',{showBrowser:panels,showTimeline:panels});
   await api.execute('view.ribbon_tabs_only',{on:!panels});
   await api.request('ui.view',{view:'iso'});await api.request('ui.view',{view:'fit'});
-  note(`Open ${names[kind]}`,performance.now()-started,kind==='parent'?'Saved module bodies; no core or leaf sources requested.':kind==='core'?'Saved part bodies; leaf histories remain closed.':'Only this part’s editable history is evaluated.');
+  note(`Open ${names[kind]}`,performance.now()-started,kind==='parent'?'Envelope only; no tube or endcap geometry requested.':kind==='core'?'Exact saved part bodies; leaf histories remain closed.':kind==='representation'?'Exterior bounds published by the exact core.':'Only this part’s editable history is evaluated.');
   await capture();await sync();$('cover').hidden=true;
 }
 async function action(label,work){
@@ -221,27 +222,28 @@ async function expand(){
   if(!children)children=await json(config.children,'assembly interfaces','Core part list and placements');
   if(!nativeVisible)await preview.expand(children);
   expanded=true;$('children').hidden=false;$('expand').setAttribute('aria-expanded','true');
+  if(!nativeVisible){$('section').checked=true;preview.section(true);}
   $('expand').firstChild.textContent='▾ Carbonator core ';
   $('fit-note').textContent=`Nominal radial clearance: ${children.radialClearanceMm.toFixed(3)} mm. Cap placement follows the tube’s end faces.`;
 }
 function resetContext(){
   sourceKey=`hsm-carbonator-lab:${sourceVersion}:${count}`;
   let kept;try{kept=JSON.parse(localStorage.getItem(sourceKey));}catch{}
-  models={};current=kept?.current||'parent';revision=null;
+  models={};current=kept?.current||'parent';revision=null;exterior=kept?.exterior||{...config.exterior};
 }
 
 $('open-parent').addEventListener('click',()=>openNative('parent'));
 $('open-core').addEventListener('click',()=>openNative('core'));
 for(const button of document.querySelectorAll('[data-edit]'))button.addEventListener('click',()=>openNative(button.dataset.edit));
 $('expand').addEventListener('click',()=>action('Opening core display',async()=>{
-  if(expanded){expanded=false;exploded=false;if(!nativeVisible)preview.count(count);$('children').hidden=true;$('expand').setAttribute('aria-expanded','false');$('expand').firstChild.textContent='▸ Carbonator core ';}
+  if(expanded){expanded=false;exploded=false;if(!nativeVisible){preview.count(count);$('section').checked=false;preview.section(false);}$('children').hidden=true;$('expand').setAttribute('aria-expanded','false');$('expand').firstChild.textContent='▸ Carbonator core ';}
   else await expand();
   status('Display parts are available. Their editable designs remain closed.');
 }));
 $('copies').addEventListener('change',()=>{
   count=Number($('copies').value);resetContext();expanded=false;exploded=false;preview.count(count);
-  if(count>1){$('section').checked=false;preview.section(false);}
-  $('section').disabled=count>1;
+  $('section').checked=false;preview.section(false);
+  $('section').disabled=true;
   $('children').hidden=true;$('expand').setAttribute('aria-expanded','false');$('expand').firstChild.textContent='▸ Carbonator core ';
   status(`${count} placements share the saved module shape. No child authoring files were requested.`);
 });
@@ -274,13 +276,26 @@ $('publish').addEventListener('click',()=>action('Updating linked assemblies',as
       if(solved.errors.length||solved.conflicts.length)throw new Error('The updated core has unresolved joints.');
       await capture();
     }
-    await api.execute('file.save_as',{path:'carbonator.sc',cache:true,overwrite:true});
+    const measured=await api.execute('inspect.measure',{bodies:['Tube wall']});
+    const bounds=measured.bodies[0].bbox;
+    const outerDiameter=Number((bounds.max[0]-bounds.min[0]).toFixed(9));
+    const length=Number((bounds.max[2]-bounds.min[2]).toFixed(9));
+    const changed=outerDiameter!==exterior.outer_diameter||length!==exterior.length;
+    if(changed){
+      await importModel('representation',{keep:false});
+      await api.execute('parameters.change',{changes:{outer_diameter:`${outerDiameter} mm`,length:`${length} mm`}});
+      await api.execute('file.save_as',{path:'representation.sc',cache:true,overwrite:true});
+      await capture();
+    }
     await importModel('parent',{keep:false});
-    const result=await api.execute('component.update_links',{component:'Carbonator core'});
-    if(result.failed.length)throw new Error(result.failed[0].error);
+    if(changed){
+      const result=await api.execute('component.update_links',{component:'Carbonator core'});
+      if(result.failed.length)throw new Error(result.failed[0].error);
+      exterior={outer_diameter:outerDiameter,length};
+    }
     await api.request('ui.view',{view:'fit'});
-    note('Update '+names[leaf]+' → parent',performance.now()-started,leaf==='core'?'One module link updated.':'Only the edited part link and the containing module link updated.');
-    status('Parent updated from saved native bodies. Unrelated leaf authoring files were not loaded.');
+    note('Update '+names[leaf]+' → parent',performance.now()-started,changed?'Parent envelope updated from the exterior bounds.':'Parent envelope unchanged; the edit stays inside the exact core.');
+    status(changed?'Parent envelope updated. Exact tube and cap geometry stays in the core.':'Exact core updated. Its exterior bounds are unchanged, so the parent envelope is unchanged.');
   }catch(error){
     if(current===leaf)await importModel(leaf,{keep:false});
     throw error;
@@ -306,6 +321,6 @@ try{
   preview=await createPreview($('preview'),config,load);
   await preview.ready;
   note('Saved assembly view',performance.now(),'Navigation to first render; no native runtime or child histories loaded.');
-  $('cover').hidden=true;lock(false,'Saved reference view');
-  status('Saved module loaded. Native SolidCraft and the editable parts are still closed.');
+  $('cover').hidden=true;lock(false,'Parent · assembly envelope');
+  status('Assembly envelope loaded. Opening the core requests its exact parts; editing a part requests its history.');
 }catch(error){cover('Could not open saved shape',error.message);status(error.message,true);lock(false,'Could not open');}

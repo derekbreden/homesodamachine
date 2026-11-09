@@ -11,7 +11,7 @@ args = sys.argv[sys.argv.index('--') + 1:]
 source, output, report = map(Path, args)
 output.mkdir(parents=True, exist_ok=True)
 results = {}
-for name in ('tube', 'endcap', 'carbonator'):
+for name in ('tube', 'endcap', 'representation'):
     bpy.ops.object.select_all(action='SELECT')
     bpy.ops.object.delete(use_global=False)
     bpy.ops.wm.obj_import(filepath=str(source / f'{name}.obj'), forward_axis='Y', up_axis='Z')
