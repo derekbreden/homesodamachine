@@ -1,0 +1,77 @@
+{
+  "views": [
+    {
+      "name": "handhold",
+      "caption": "The integral roof slopes into the grip while the exterior mouth stays in place.",
+      "before": "handhold-before.webp",
+      "after": "handhold-after.webp",
+      "width": 1200,
+      "height": 800,
+      "marks": [
+        {
+          "x": 390.1,
+          "y": 444.6,
+          "r": 35.3,
+          "label": "Corbel",
+          "at": [
+            -94,
+            235,
+            21.75
+          ]
+        }
+      ],
+      "model": "manifold-layout/enclosure-assembly.step",
+      "camera": {
+        "projection": "orthographic",
+        "position": [
+          -806.6393793260823,
+          -33.32378276412885,
+          -333.3196896630412
+        ],
+        "target": [
+          -100,
+          214,
+          20
+        ],
+        "up": [
+          0,
+          0,
+          1
+        ],
+        "half": 34,
+        "near": 603.1401797170041,
+        "far": 1499.9825520137215,
+        "aspect": 1.5
+      },
+      "highlight": [],
+      "ghost": [],
+      "only": [
+        "enclosure-front-bottom",
+        "enclosure-back-bottom"
+      ],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "snapshot",
+          "sha256": "373d7ef8925cc521823e7717362efb2353bc7fd3af072664adb3880da4388cbd",
+          "commit": "c8407e37200218e74a5d0d1a48abdf008a712161",
+          "taken": "2026-11-09T07:33:04.756Z",
+          "published": true
+        },
+        "after": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "tree",
+          "sha256": "9f06abefd27a838259e1d1488f72aa9bc35c8f0b17657b2a1597a898fbb6e812",
+          "commit": "451ad52e6bd61f1dcb7f17b78b4e0a0285c95f77",
+          "published": true
+        }
+      },
+      "changed": [
+        "enclosure-back-bottom",
+        "enclosure-front-bottom"
+      ],
+      "withinMeshing": []
+    }
+  ]
+}
