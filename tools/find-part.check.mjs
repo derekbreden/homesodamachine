@@ -99,3 +99,23 @@ test("related geometry does not invent installed copies", () => {
   assert.deepEqual(tool.instances, []);
   assert.ok(tool.url.includes("find="));
 });
+
+test("grip context exposes shared part producers and the joint and screw construction", () => {
+  const result = findParts("enclosure-back-bottom::west-handhold", { context: true });
+  const context = result.features[0].context;
+  assert.deepEqual(context.targets, ["//:enclosure-back-bottom", "//:enclosure-front-bottom"]);
+  assert.deepEqual(new Set(context.occurrences.map(item => item.key)), new Set([
+    "enclosure-front-bottom::west-handhold", "enclosure-front-bottom::east-handhold",
+    "enclosure-back-bottom::west-handhold", "enclosure-back-bottom::east-handhold",
+  ]));
+  assert.ok(context.references.some(item => item.file.endsWith("/ystacks.rs") && item.matches.some(match => match.symbols.includes("handhold_levels"))));
+  assert.ok(context.references.some(item => item.file.endsWith("/solid/ops.rs") && item.matches.some(match => match.symbols.includes("HandholdAir"))));
+  assert.ok(context.parameters.some(item => item.text.includes("HANDHOLD_HEIGHT")));
+  assert.ok(context.landmarks.some(item => item.name === "handhold_backing_joint"));
+  assert.ok(context.source_consumers.some(item => item.targets.includes("//:enclosure-back-top")));
+  assert.ok(!context.build_argv.includes("//:installed-machine"));
+  assert.ok(findParts("grips").features.some(item => item.key === result.features[0].key));
+  const ambiguous = findParts("grips", { context: true });
+  assert.ok(ambiguous.context_hint);
+  assert.ok(ambiguous.features.every(item => !item.context));
+});

@@ -4,6 +4,7 @@ import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
 import { performance } from "node:perf_hooks";
+import { createHash } from "node:crypto";
 import { readMaterialCatalog } from "../web/lib/material-catalog.js";
 import { readPartCosts } from "../web/lib/part-costs.js";
 import { searchCatalog, explodeBom, occurrenceBodies, materialIndex, modelForMaterial } from "../web/contracts/materials.js";
@@ -60,7 +61,55 @@ function outputTargets(root) {
 const modelLink = (file, bodies = []) => `${website}#step:${encodeURIComponent(file)}`
   + (bodies.length ? "?find=" + encodeURIComponent(bodies.map((name) => `solid: ${name}`).join("\n")) : "");
 
-export function findParts(query, { root = checkoutRoot, limit = 20 } = {}) {
+// Source context joins exported feature ownership to current compiler inputs and lexical references.
+function sourceContext(feature, features, graph, targets, read) {
+  const source = feature.source?.match(/^(.*?)(?::(\d+))?$/);
+  if (!source) return null;
+  const file = source[1], line = Number(source[2] || 1), text = read(file);
+  if (text === null) return { file, unavailable: true };
+  const lines = text.split("\n");
+  const landmarks = [...text.matchAll(/^(?:pub(?:\([^)]*\))?\s+)?(?:async\s+)?(fn|struct|enum|const|type|static)\s+(\w+)/gm)]
+    .map(match => ({ kind: match[1], name: match[2], line: text.slice(0, match.index).split("\n").length }));
+  const symbols = new Set(landmarks.map(item => item.name));
+  for (const match of text.matchAll(/\bOp::([A-Z]\w*)|\blet\s+(?:mut\s+)?\w+\s*=\s*([A-Z]\w+)\s*\{/g)) symbols.add(match[1] || match[2]);
+  const constants = new Set(text.match(/\b[A-Z][A-Z_0-9]{2,}\b/g) || []);
+  const occurrences = features.filter(item => item.source?.replace(/:\d+$/, "") === file);
+  const producers = [...new Set(occurrences.flatMap(item => item.producers.map(producer => producer.source)))];
+  const inputs = [...new Set(producers.flatMap(producer =>
+    [...graph[producer]?.program?.sources || [], ...graph[producer]?.reads || []]))].filter(input => input.endsWith(".rs"));
+  const references = [], parameters = [];
+  for (const input of inputs) {
+    if (input === file) continue;
+    const content = read(input);
+    if (content === null) continue;
+    const matches = [];
+    for (const [index, code] of content.split("\n").entries()) {
+      const names = [...new Set((code.match(/\b[A-Za-z_]\w*\b/g) || []).filter(word => symbols.has(word)))];
+      if (names.length) matches.push({ line: index + 1, symbols: names, text: code.trim() });
+      const constant = code.match(/^\s*(?:pub(?:\([^)]*\))?\s+)?const\s+(\w+)\b/);
+      if (constant && constants.has(constant[1])) parameters.push({ file: input, line: index + 1, text: code.trim() });
+    }
+    if (matches.length) references.push({ file: input, matches });
+  }
+  const labels = [...new Set(producers.flatMap(producer =>
+    (graph[producer]?.writes || []).flatMap(output => [...targets.get(output) || []])))].sort();
+  const consumers = Object.entries(graph).filter(([, row]) =>
+    row.program?.sources?.includes(file) || row.reads?.includes(file)).map(([source, row]) => ({
+      source, targets: [...new Set((row.writes || []).flatMap(output => [...targets.get(output) || []]))],
+    }));
+  return {
+    scope: "Current source text and compiler-declared inputs. References are lexical leads, not proof of a physical dependency; exported geometry can predate source edits.",
+    file, sha256: createHash("sha256").update(text).digest("hex"), exported_anchor: feature.source,
+    excerpt: lines.slice(Math.max(0, line - 5), line + 5).map((text, index) => ({ line: Math.max(1, line - 4) + index, text })),
+    landmarks, parameters, references, source_consumers: consumers,
+    occurrences: occurrences.map(item => ({ key: item.key, file: item.file, source_model: item.source_model, url: item.url })),
+    targets: labels,
+    build_argv: labels.length ? ["python3", "tools/run.py", "--", "python3", "tools/print_build.py", ...labels] : null,
+    build_scope: "This command selects the exported feature owners. Shared dimension or helper edits also require considering the other source consumers; references do not prove which geometry changes. Installation changes and newly added assembly sources need their assembly producer.",
+  };
+}
+
+export function findParts(query, { root = checkoutRoot, limit = 20, context = false } = {}) {
   const started = performance.now();
   root = path.resolve(root);
   if (!Number.isInteger(limit) || limit < 1 || limit > 100) throw new Error("limit must be an integer from 1 to 100");
@@ -124,7 +173,20 @@ export function findParts(query, { root = checkoutRoot, limit = 20 } = {}) {
     };
   });
   const features = matchFeatures(query, featureCatalog).slice(0, limit);
-  return { query, match: hits.length ? hits[0].match : features.length ? "feature" : "none", hits, features, elapsed_ms: performance.now() - started };
+  if (context) {
+    const sources = new Map();
+    const read = file => {
+      if (!sources.has(file)) {
+        try { sources.set(file, fs.readFileSync(path.join(root, file), "utf8")); }
+        catch (error) { if (error.code !== "ENOENT") throw error; sources.set(file, null); }
+      }
+      return sources.get(file);
+    };
+    if (features.length === 1) features[0].context = sourceContext(features[0], featureCatalog, graph, targets, read);
+  }
+  return { query, match: hits.length ? hits[0].match : features.length ? "feature" : "none", hits, features,
+    ...(context && features.length !== 1 ? { context_hint: "Choose one feature key to read its source context." } : {}),
+    elapsed_ms: performance.now() - started };
 }
 
 function main(args) {
@@ -133,10 +195,11 @@ function main(args) {
   while (args.length) {
     const arg = args.shift();
     if (arg === "--json") json = true;
+    else if (arg === "--context") options.context = true;
     else if (arg === "--limit") options.limit = Number(args.shift());
     else if (arg === "--root") { options.root = args.shift(); if (!options.root) throw new Error("--root needs a path"); }
     else if (arg === "--help" || arg === "-h") {
-      console.log("Usage: node tools/find-part.mjs <description or HSM-id> [--json] [--limit N] [--root PATH]");
+      console.log("Usage: node tools/find-part.mjs <description, feature or HSM-id> [--context] [--json] [--limit N] [--root PATH]");
       return;
     } else if (arg.startsWith("--")) throw new Error(`unknown option ${arg}`);
     else words.push(arg);
@@ -146,6 +209,7 @@ function main(args) {
   if (json) console.log(JSON.stringify(result, null, 2));
   else {
     if (result.match === "suggestion") console.log("No exact matches. Possible matches follow; use an HSM-id to choose one.");
+    if (result.context_hint) console.log(result.context_hint);
     if (!result.hits.length && !result.features.length) console.log("No matches.");
     for (const hit of result.hits) {
       if (hit.line) { console.log(`${hit.line.label} · costed on ${hit.line.holders.map(({ id }) => id).join(", ")}`); continue; }
@@ -158,6 +222,21 @@ function main(args) {
     for (const feature of result.features) {
       console.log(`${feature.label} · ${feature.key}\n  ${feature.url}\n  ${feature.source}`);
       for (const producer of feature.producers) console.log(`  ${producer.targets.join(" ")}`);
+      if (feature.context) {
+        const c = feature.context;
+        if (c.unavailable) { console.log(`  Source unavailable: ${c.file}`); continue; }
+        console.log(`  Shared source: ${[...new Set(c.occurrences.map(item => item.key))].join(", ")}`);
+        if (c.build_argv) console.log(`  Feature build: ${c.build_argv.join(" ")}`);
+        for (const item of c.source_consumers) console.log(`  Source consumer: ${item.source} · ${item.targets.join(" ")}`);
+        console.log(`  ${c.build_scope}`);
+        for (const item of c.landmarks) console.log(`  ${c.file}:${item.line} ${item.kind} ${item.name}`);
+        for (const item of c.parameters) console.log(`  ${item.file}:${item.line} ${item.text}`);
+        for (const item of c.references) {
+          for (const match of item.matches.slice(0, 6)) console.log(`  ${item.file}:${match.line} ${match.text}`);
+          if (item.matches.length > 6) console.log(`  ${item.file}: ${item.matches.length - 6} further references in --json`);
+        }
+        console.log(`  ${c.scope}`);
+      }
     }
   }
 }

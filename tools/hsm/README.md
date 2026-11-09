@@ -54,18 +54,46 @@ and in the browser. A spelling or incomplete-word suggestion is labeled; it does
 the part or turn different components into synonyms. An exact material ID selects its identity.
 The local result adds source producers, declared build targets, part documents and assembly
 body bindings from the catalog and build graph. `--json` retains those details for another tool.
+Remembered grip descriptions also find the authored handholds through the shared feature
+matcher; exact feature identities retain priority.
+
+For an exact feature, current source context is available without a build:
+
+```sh
+node tools/find-part.mjs enclosure-back-bottom::west-handhold --context
+```
+
+The context lists construction functions, dimension declarations, lexical references in the
+compiler's recorded inputs, and other exported feature owners using that source file. The
+returned build command selects those feature owners. Other source consumers are listed so a
+shared helper or dimension edit can include its remaining affected pieces. References identify
+code to read, rather than proving mechanical dependencies. The current source hash and exported anchor remain distinct;
+an unbuilt edit can move a source line without updating its exported geometry.
 
 An on-demand inspection draws the existing exported geometry and keeps its camera:
 
 ```sh
 node tools/inspect-part.mjs HSM-0082 --output .cache/runs/pump-fit/before
-node tools/inspect-part.mjs HSM-0082 --output .cache/runs/pump-fit/after \
-    --reuse .cache/runs/pump-fit/before/render-job.json
+node tools/inspect-part.mjs --output .cache/runs/pump-fit/after \
+    --reuse .cache/runs/pump-fit/before/inspection.json
 ```
 
 `--model` selects an existing assembly and `--body` selects its subject. `--against` measures
 clearance to a named neighbour in that same assembly and draws that neighbour in x-ray;
 unselected bodies are omitted. `--section` opens a section view.
+`--ray` takes a point and direction in the same syntax as `--section`, and reads the containing
+body so an obstruction cannot disappear merely because another feature owns its surface.
+`--overlap` compares the containing parts as solids, so a feature surface cannot hide an
+interference elsewhere in its owner. `--measure-only` records the selected clearances,
+interferences and rays without drawing. Saved inspections and render jobs retain the selected
+bodies, feature, neighbours, mates, rays, section and camera;
+reuse repeats those questions against the latest exported payload. An explicit new query
+reuses the camera without inheriting the other subject's measurement questions.
+
+`--model` also accepts a repository-relative or absolute local payload path. With an explicit
+`--body`, it can inspect a completed part in a temporary output directory before its assembly
+rebuilds, including a part not yet in the material catalog. This reads that export directly;
+the normal print build remains the publication path.
 Ambiguous searches return candidates for explicit selection. The inspection starts no build;
 its image, measurements and source metadata bind to the exported payload digest. The renderer
 runs through the shared scheduler, and the elapsed time includes admission waits.
