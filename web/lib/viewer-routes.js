@@ -15,6 +15,7 @@ import { readMaterialStock } from "./material-stock.js";
 import { websitePointers } from "../contracts/artifact-scope.js";
 import { RETIRED_MARKER } from "./retired.js";
 import { madeFrom } from "./made-from.js";
+import { featureCatalog } from "./feature-catalog.js";
 
 const relOf = (req) => req.params.splat.join("/");
 
@@ -79,6 +80,14 @@ export function mountViewerRoutes(app, { hardwareDir, store, pointersPath }) {
     try { catalog.costs = readPartCosts(hardwareDir, catalog); } catch { catalog.costs = null; }
     try { catalog.stock = readMaterialStock(hardwareDir, catalog); } catch { catalog.stock = null; }
     res.json(catalog);
+  });
+
+  app.get("/api/features", async (req, res) => {
+    const file = typeof req.query.file === "string" ? req.query.file : "manifold-layout/enclosure-assembly.step";
+    if (!safeFile(hardwareDir, `${file}.mesh`, ".step.mesh") || !publishedFile(file)) return res.status(404).end();
+    res.set("Cache-Control", "no-cache");
+    try { res.json(await featureCatalog(hardwareDir, file, store)); }
+    catch (error) { res.status(error.code === "ENOENT" ? 404 : 503).json({ error: "Feature catalog unavailable" }); }
   });
 
   // WHERE THE PAGE FETCHES A MODEL'S BYTES, when the store has a public address. Every member
