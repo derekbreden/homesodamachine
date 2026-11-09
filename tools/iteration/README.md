@@ -55,6 +55,13 @@ count as the first changed view. Start another observation for a later producer 
 The evidence and report retain that first-update scope; `all-live-view` in this mode covers
 the changed bodies in that update, not every body across later producer updates.
 
+Add `--delivery` to record receipt of the website's existing change notification, the selected
+model's member URL, and its target mounting events alongside the matching draw. These timestamps
+separate publication delivery from browser work without changing the running website. Notification
+receipt follows server adoption and includes transport to the reference browser; it does not time
+the server's internal phases. `HSM_PUBLISH_TIMING` names an optional JSONL trace for the same build's
+publication planning, uploads, Git network work, commit/push and notification request.
+
 The instrumented evidence records matching mounted geometry eligible for a completed
 reference-browser draw. It says nothing about unobstructed pixels or the first composite
 on Derek's device. Opening the observer after publication includes its own loading time.
