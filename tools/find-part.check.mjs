@@ -23,6 +23,48 @@ test("an exact material identity stays unambiguous", () => {
   assert.deepEqual(ids(result.hits), ["HSM-0332"]);
 });
 
+test("regulators precede connected tubes and caps, and a water qualifier selects the water regulator", () => {
+  const regulators = ids(searchCatalog(catalog, "regulator"));
+  assert.deepEqual(new Set(regulators.slice(0, 3)), new Set(["HSM-0331", "HSM-0332", "HSM-0370"]));
+  const water = ids(searchCatalog(catalog, "Water Regulator"));
+  assert.equal(water[0], "HSM-0332");
+  for (const id of ["HSM-0295", "HSM-0300", "HSM-0451"]) assert.ok(water.indexOf(id) > 0, id);
+  assert.equal(ids(searchCatalog(catalog, "regulator inlet tube"))[0], "HSM-0295");
+});
+
+test("named objects lead their supports, tools and connected parts across the catalog", () => {
+  for (const [query, expected] of [["fan", "HSM-0543"], ["funnel", "HSM-0070"], ["coil", "HSM-0015"], ["water port connector", "HSM-0013"]]) {
+    assert.equal(ids(searchCatalog(catalog, query))[0], expected, query);
+  }
+  assert.deepEqual(new Set(ids(searchCatalog(catalog, "pump")).slice(0, 2)), new Set(["HSM-0044", "HSM-0178"]));
+  assert.deepEqual(new Set(ids(searchCatalog(catalog, "temperature probe"))), new Set(["HSM-0016", "HSM-0017"]));
+});
+
+test("object relevance is independent of purchase status and catalog allocation order", () => {
+  const materials = [
+    { id: "tube", description: "Water regulator inlet tube · white LLDPE", kind: "purchased", aliases: ["tube-to-regulator", "above_core_regulator"] },
+    { id: "cap", description: "Water regulator snap cap", kind: "purchased", aliases: ["regulator-cap"] },
+    { id: "device", description: "Fixed water regulator", kind: "manufactured" },
+    { id: "assembly", description: "Water regulator and check assembly", kind: "assembly" },
+  ];
+  const expected = ids(searchCatalog({ materials }, "water regulator"));
+  assert.equal(expected[0], "device");
+  assert.equal(expected[1], "assembly");
+  assert.deepEqual(ids(searchCatalog({ materials: [...materials].reverse() }, "water regulator")), expected);
+  assert.equal(ids(searchCatalog({ materials }, "regulator cap"))[0], "cap");
+});
+
+test("precise identifiers and alternate names retain their meaning", () => {
+  const fixture = { materials: [
+    { id: "related", description: "ZX3000 regulator cap", aliases: ["water-regulator"] },
+    { id: "device", description: "Maker pressure controller", manufacturer_number: "ZX3000", aliases: ["water regulator"] },
+    { id: "prefix", description: "Regulatory housing" },
+  ] };
+  assert.equal(ids(searchCatalog(fixture, "ZX3000"))[0], "device");
+  assert.equal(ids(searchCatalog(fixture, "water regulator"))[0], "device");
+  assert.equal(ids(searchCatalog({ materials: [{ id: "long", description: "Regulatory tube" }, { id: "exact", description: "Regulator tube" }] }, "regulator"))[0], "exact");
+});
+
 test("a plausible typo is labeled and an actual spelling wins", () => {
   const result = findParts("pisko");
   assert.equal(result.match, "suggestion");
