@@ -10311,9 +10311,8 @@
           "path": "assembly/cold-core.md"
         },
         {
-          "title": "Evaporator coil engineering drawing",
-          "path": "cold-core-layout/evaporator-coil-drawing.pdf",
-          "kind": "engineering-drawing"
+          "title": "Evaporator coil component drawing",
+          "path": "cold-core-layout/evaporator-coil-drawing.pdf"
         }
       ],
       "bom": {
