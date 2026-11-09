@@ -103,6 +103,26 @@ export function termsMatch(terms, words) {
   return terms.length > 0 && terms.every((term) => runIn(term, words));
 }
 
+// Canonical names put the object before variant suffixes. A supplier code can
+// occupy the opening segment; its descriptive segment names the object instead.
+function objectName(description) {
+  const segments = String(description || "").replace(/\([^)]*\)/g, "").split(/\s*·\s*/);
+  return segments.find(segment => /^[a-z]+$/i.test(segment.trim().split(/\s+/).at(-1))) || segments[0];
+}
+
+// The final noun names a compound's object: a regulator inlet tube is a tube.
+// Conjoined objects and an assembly's constituent noun retain their identities.
+function objectSubjects(name) {
+  return [...new Set(String(name || "").split(/\s+(?:and|&)\s+/i).flatMap(clause => {
+    const words = searchWords(clause);
+    const last = words.at(-1);
+    return last === "assembly" ? words.slice(-2) : words.slice(-1);
+  }))];
+}
+
+const sameWords = (a, b) => a.length === b.length && a.every((word, i) => word === b[i]);
+const wholeRunIn = (run, words) => words.some((_, at) => run.every(({ word }, i) => words[at + i] === word));
+
 // What search reads, built once per served catalog. A material is found by its
 // own names first, then by the listing it is bought as, then by its model
 // files. Stock and supplies have no part number of their own; their ledger
@@ -112,15 +132,28 @@ function searchIndex(catalog) {
   if (searchIndexes.has(catalog)) return searchIndexes.get(catalog);
   const direct = catalog.costs?.direct || {};
   const asin = (href) => href?.match(/\/dp\/([A-Z0-9]{10})/)?.[1] || "";
-  const materials = (catalog.materials || []).map((material) => ({
-    material,
-    fields: [
-      { weight: 3, words: searchWords([material.id, material.description, material.manufacturer_number, ...(material.aliases || [])].join(" ")) },
-      { weight: 2, words: searchWords((direct[material.id]?.elements || []).filter((element) => element.kind === "price")
-        .map((element) => `${element.label} ${asin(element.href)}`).join(" ")) },
-      { weight: 1, words: searchWords((material.models || []).map((model) => model.file).join(" ")) },
-    ],
-  }));
+  const materials = (catalog.materials || []).map((material) => {
+    const primary = objectName(material.description);
+    const aliases = (material.aliases || []).map(alias => ({ name: alias, words: searchWords(alias) }));
+    return {
+      material,
+      primary: searchWords(primary),
+      subjects: objectSubjects(primary),
+      aliasSubjects: [...new Set(aliases.filter(({ name }) => !/[\/_]/.test(name)
+        && (/\s/.test(name) || /^[a-z]+$/i.test(name)) && !/\b(for|from|to|with)\b/i.test(name))
+        .flatMap(({ name }) => objectSubjects(objectName(name))))],
+      names: [searchWords(material.description), ...aliases.map(alias => alias.words)],
+      manufacturer: searchWords(material.manufacturer_number),
+      fields: [
+        { weight: 6, words: searchWords(material.description) },
+        { weight: 6, words: searchWords([material.id, material.manufacturer_number].join(" ")) },
+        ...aliases.map(alias => ({ weight: 4, words: alias.words })),
+        { weight: 2, words: searchWords((direct[material.id]?.elements || []).filter((element) => element.kind === "price")
+          .map((element) => `${element.label} ${asin(element.href)}`).join(" ")) },
+        { weight: 1, words: searchWords((material.models || []).map((model) => model.file).join(" ")) },
+      ],
+    };
+  });
   const lines = new Map();
   for (const [id, cost] of Object.entries(direct)) for (const element of cost.elements || []) {
     if (!["price", "stock", "supplies"].includes(element.kind)) continue;
@@ -139,9 +172,8 @@ function searchIndex(catalog) {
   return index;
 }
 
-// Hits ranked by where each term matched: a material's own names outrank a
-// ledger line, which outranks a model file path, and a synonym ranks below the
-// spelling typed. A line costed only on parts already found is left out.
+// Search favors the named object, complete names and identifiers over incidental
+// mentions in connected parts, aliases, supplier listings and model paths.
 export function searchCatalog(catalog, query) {
   const terms = searchTerms(query);
   if (!catalog || !terms.length) return [];
@@ -150,24 +182,31 @@ export function searchCatalog(catalog, query) {
   const identified = index.materials.find(({ material }) => material.id === id);
   if (identified) return [{ material: identified.material, score: Number.MAX_SAFE_INTEGER }];
   const scored = (fields) => {
-    let score = 0;
-    const found = terms.every((term) => fields.some(({ weight, words }) => {
+    const matches = terms.map(term => Math.max(0, ...fields.map(({ weight, words }) => {
       const run = runIn(term, words);
-      if (run) score += weight - (run.synonym ? 0.5 : 0);
-      return run;
-    }));
-    return found ? score : 0;
+      return run ? weight + (wholeRunIn(run, words) ? 1 : 0) - (run.synonym ? 0.5 : 0) : 0;
+    })));
+    return matches.every(Boolean) ? matches.reduce((a, b) => a + b, 0) : 0;
   };
-  for (const { material, fields } of index.materials) {
-    const score = scored(fields);
-    if (score) hits.push({ material, score });
+  const queryWords = searchWords(query);
+  const subjectMatch = subjects => subjects.length ? subjects.filter(subject => terms.some(term => runIn(term, [subject]))).length / subjects.length : 0;
+  for (const entry of index.materials) {
+    let score = scored(entry.fields);
+    if (!score) continue;
+    score += Math.max(12 * subjectMatch(entry.subjects), 6 * subjectMatch(entry.aliasSubjects));
+    if (entry.names.some(words => sameWords(queryWords, words))) score += 20;
+    if (entry.manufacturer.length && sameWords(queryWords, entry.manufacturer)) score += 100;
+    hits.push({ material: entry.material, score });
   }
   const found = new Set(hits.map((hit) => hit.material.id));
   for (const line of index.lines) {
     const score = line.holders.every((holder) => found.has(holder.id)) ? 0 : scored([{ weight: 2, words: line.words }]);
     if (score) hits.push({ line, score });
   }
-  if (hits.length) return hits.sort((a, b) => b.score - a.score || !!a.line - !!b.line);
+  const compare = (a, b) => b.score - a.score || !!a.line - !!b.line
+    || (a.material?.description || a.line?.label || "").localeCompare(b.material?.description || b.line?.label || "")
+    || (a.material?.id || "").localeCompare(b.material?.id || "");
+  if (hits.length) return hits.sort(compare);
 
   // With no complete match, retain nearby candidates explicitly as suggestions.
   // An unmatched remembered word stays visible; it never becomes a synonym.
@@ -190,7 +229,7 @@ export function searchCatalog(catalog, query) {
     if (unmatched.length && (terms.length < 3 || matched < 2 || corrections.length)) continue;
     hits.push({ material, score, match: "suggestion", corrections, unmatched });
   }
-  return hits.sort((a, b) => a.unmatched.length - b.unmatched.length || b.score - a.score);
+  return hits.sort((a, b) => a.unmatched.length - b.unmatched.length || compare(a, b));
 }
 
 export function searchMaterials(catalog, query) {
