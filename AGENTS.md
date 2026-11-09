@@ -70,6 +70,11 @@ Your MCP reaches my Chrome on this Mac, which is signed in to my Amazon. The Win
 
 Git keeps history. Code and docs in this repo describe current state. Don't write "was X, now Y" or decision narratives in current files. Don't defend the current choice against alternatives the reader hasn't asked about. The repo describes only what is.
 
+When Derek identifies a class of obsolete work, trace why the example persisted and
+investigate the other instances of that class. Removing a design includes its unused
+catalog identities, relationships, publication entries and agent-facing commands.
+Physical print results stay with their identified articles, outside the current catalog.
+
 A commit takes the paths your session changed — `git commit -- <paths>`, with `git add <path>` first for a new file — and every other change stays in the tree as it is. The message ends in one trailer block:
 
 ```text

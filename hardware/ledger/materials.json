@@ -632,7 +632,7 @@
       ],
       "bom": {
         "scope": "Insulated cold-core assembly with its diaphragm water pump and fitted joints, controller, V-B plumbing, distribution junctions and equipment fasteners. It moves as the equipped core into refrigeration integration. Its continuous tubes and sensor leads retain their free ends for enclosure installation.",
-        "source": "cold-core-layout/_bom.py",
+        "source": "cold-core-layout/cold_core_assembly.rs",
         "items": [
           {
             "material": "HSM-0557",
@@ -1903,7 +1903,7 @@
       ],
       "bom": {
         "scope": "ASA Aero float and inserted ring magnet.",
-        "source": "cold-core-layout/_bom.py",
+        "source": "cold-core-layout/cold_core_assembly.rs",
         "items": [
           {
             "material": "HSM-0033",
@@ -1974,37 +1974,11 @@
       ]
     },
     {
-      "id": "HSM-0035",
-      "description": "Float guide rod \u00b7 316 stainless, 1/8 inch",
-      "kind": "purchased",
-      "aliases": [
-        "float rods"
-      ],
-      "contexts": [
-        {
-          "material": "HSM-0003"
-        }
-      ]
-    },
-    {
       "id": "HSM-0036",
       "description": "Littelfuse MDSR-7-10-15 reed switch",
       "kind": "purchased",
       "aliases": [
         "reeds"
-      ],
-      "contexts": [
-        {
-          "material": "HSM-0003"
-        }
-      ]
-    },
-    {
-      "id": "HSM-0037",
-      "description": "Reservoir PTFE vent membrane",
-      "kind": "purchased",
-      "aliases": [
-        "vent membranes"
       ],
       "contexts": [
         {
@@ -2288,26 +2262,6 @@
         }
       ],
       "manufacturer_number": "221-415"
-    },
-    {
-      "id": "HSM-0058",
-      "description": "neoFit ACHV44-E single check valve \u00b7 1/4 inch push-connect \u00b7 0.3 psi crack",
-      "kind": "purchased",
-      "models": [
-        {
-          "file": "reference/neofit-achv44-check/neofit-achv44-check.step"
-        }
-      ],
-      "aliases": [
-        "ACHV44-E"
-      ],
-      "documents": [
-        {
-          "title": "Check-valve specification and qualification scope",
-          "path": "reference/neofit-achv44-check/README.md"
-        }
-      ],
-      "manufacturer_number": "ACHV44-E"
     },
     {
       "id": "HSM-0059",
@@ -2725,60 +2679,6 @@
         "enclosure-pump-retainer-a",
         "enclosure-pump-retainer-b",
         "pump retainer"
-      ]
-    },
-    {
-      "id": "HSM-0084",
-      "description": "Enclosure tee carrier plate",
-      "kind": "manufactured",
-      "models": [
-        {
-          "file": "printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-plate.step"
-        }
-      ],
-      "documents": [
-        {
-          "title": "Part details",
-          "path": "printed-parts/enclosure/tee-carrier/README.md"
-        }
-      ]
-    },
-    {
-      "id": "HSM-0085",
-      "description": "Enclosure window cover \u00b7 west",
-      "kind": "manufactured",
-      "models": [
-        {
-          "file": "printed-parts/enclosure/tee-carrier/enclosure-window-cover-west.step"
-        }
-      ],
-      "documents": [
-        {
-          "title": "Part details",
-          "path": "printed-parts/enclosure/tee-carrier/README.md"
-        }
-      ],
-      "aliases": [
-        "Enclosure window cover west"
-      ]
-    },
-    {
-      "id": "HSM-0086",
-      "description": "Enclosure window cover \u00b7 east",
-      "kind": "manufactured",
-      "models": [
-        {
-          "file": "printed-parts/enclosure/tee-carrier/enclosure-window-cover-east.step"
-        }
-      ],
-      "documents": [
-        {
-          "title": "Part details",
-          "path": "printed-parts/enclosure/tee-carrier/README.md"
-        }
-      ],
-      "aliases": [
-        "Enclosure window cover east"
       ]
     },
     {
@@ -3815,21 +3715,6 @@
       ]
     },
     {
-      "id": "HSM-0165",
-      "description": "M3 \u00d7 60 socket-head screw \u00b7 black oxide",
-      "kind": "purchased",
-      "aliases": [
-        "pump retainer screw",
-        "BNUOK M3x60"
-      ],
-      "documents": [
-        {
-          "title": "Fastener specification",
-          "path": "ledger/bom.md"
-        }
-      ]
-    },
-    {
       "id": "HSM-0168",
       "description": "Pump connecting tube \u00b7 1/4 inch LLDPE",
       "kind": "manufactured",
@@ -3890,22 +3775,6 @@
         {
           "title": "Backflow preventer and fitting chain",
           "path": "reference/asse1022-assembly/README.md"
-        }
-      ]
-    },
-    {
-      "id": "HSM-0177",
-      "description": "John Guest PP450822E \u00b7 1/4 inch female adapter",
-      "kind": "purchased",
-      "manufacturer_number": "PP450822E",
-      "documents": [
-        {
-          "title": "Fitting specification",
-          "path": "ledger/bom.md"
-        },
-        {
-          "title": "Water-pump fitting assembly",
-          "path": "assembly/internal-plumbing.md"
         }
       ]
     },
@@ -4191,30 +4060,6 @@
       ],
       "aliases": [
         "Inlet tube collar \u00b7 CO\u2082"
-      ]
-    },
-    {
-      "id": "HSM-0275",
-      "description": "Tee-carrier return spring \u00b7 304 stainless",
-      "kind": "purchased",
-      "aliases": [
-        "uxcell compression spring",
-        "6 mm OD 27 mm free"
-      ],
-      "documents": [
-        {
-          "title": "Spring dimensions and carrier installation",
-          "path": "printed-parts/enclosure/tee-carrier/README.md"
-        },
-        {
-          "title": "Enclosure assembly",
-          "path": "assembly/enclosure-mechanical.md"
-        }
-      ],
-      "contexts": [
-        {
-          "material": "HSM-0001"
-        }
       ]
     },
     {
@@ -4631,7 +4476,7 @@
         },
         {
           "title": "Potted route geometry",
-          "path": "printed-parts/cold-core/foam-assembly/foam_assembly.py"
+          "path": "printed-parts/cold-core/foam-assembly/foam_assembly.rs"
         }
       ],
       "contexts": [
@@ -4765,7 +4610,7 @@
         },
         {
           "title": "Potted route geometry",
-          "path": "printed-parts/cold-core/foam-assembly/foam_assembly.py"
+          "path": "printed-parts/cold-core/foam-assembly/foam_assembly.rs"
         }
       ],
       "contexts": [
@@ -4838,7 +4683,7 @@
         },
         {
           "title": "Potted route geometry",
-          "path": "printed-parts/cold-core/foam-assembly/foam_assembly.py"
+          "path": "printed-parts/cold-core/foam-assembly/foam_assembly.rs"
         }
       ],
       "contexts": [
@@ -4966,7 +4811,7 @@
         },
         {
           "title": "Potted route geometry",
-          "path": "printed-parts/cold-core/foam-assembly/foam_assembly.py"
+          "path": "printed-parts/cold-core/foam-assembly/foam_assembly.rs"
         }
       ],
       "contexts": [
@@ -5005,7 +4850,7 @@
         },
         {
           "title": "Potted route geometry",
-          "path": "printed-parts/cold-core/foam-assembly/foam_assembly.py"
+          "path": "printed-parts/cold-core/foam-assembly/foam_assembly.rs"
         }
       ],
       "contexts": [
@@ -5044,7 +4889,7 @@
         },
         {
           "title": "Potted route geometry",
-          "path": "printed-parts/cold-core/foam-assembly/foam_assembly.py"
+          "path": "printed-parts/cold-core/foam-assembly/foam_assembly.rs"
         }
       ],
       "contexts": [
@@ -5083,7 +4928,7 @@
         },
         {
           "title": "Potted route geometry",
-          "path": "printed-parts/cold-core/foam-assembly/foam_assembly.py"
+          "path": "printed-parts/cold-core/foam-assembly/foam_assembly.rs"
         }
       ],
       "contexts": [
@@ -5214,7 +5059,7 @@
         },
         {
           "title": "Potted route geometry",
-          "path": "printed-parts/cold-core/foam-assembly/foam_assembly.py"
+          "path": "printed-parts/cold-core/foam-assembly/foam_assembly.rs"
         }
       ],
       "contexts": [
@@ -5387,26 +5232,6 @@
           "path": "reference/yzmsz-water-regulator/README.md"
         }
       ]
-    },
-    {
-      "id": "HSM-0333",
-      "description": "neoFit ATBU444-E branch stem tee \u00b7 1/4 inch",
-      "kind": "purchased",
-      "models": [
-        {
-          "file": "reference/branch-stem-tees/neofit-atbu444-e-estimate.step"
-        }
-      ],
-      "aliases": [
-        "ATBU444-E"
-      ],
-      "documents": [
-        {
-          "title": "Tee representation",
-          "path": "reference/branch-stem-tees/README.md"
-        }
-      ],
-      "manufacturer_number": "ATBU444-E"
     },
     {
       "id": "HSM-0334",
@@ -6427,26 +6252,6 @@
         }
       ],
       "manufacturer_number": "AME4-N2-E"
-    },
-    {
-      "id": "HSM-0376",
-      "description": "Carbonator earth tab \u00b7 304 stainless",
-      "kind": "manufactured",
-      "aliases": [
-        "earth tab",
-        "carbonator-earth-tab"
-      ]
-    },
-    {
-      "id": "HSM-0377",
-      "description": "M3 captive external-tooth locknut \u00b7 stainless",
-      "kind": "purchased",
-      "aliases": [
-        "McMaster 90923A216",
-        "earth-clamp locknut",
-        "carbonator-earth-locknut"
-      ],
-      "manufacturer_number": "90923A216"
     },
     {
       "id": "HSM-0378",

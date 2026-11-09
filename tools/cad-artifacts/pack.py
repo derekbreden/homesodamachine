@@ -154,12 +154,6 @@ BUNDLED_MESH_DIRS = (
     "hardware/printed-parts/faucet/above-counter-gasket",
     "hardware/printed-parts/faucet/asse-vent-seals",
     "hardware/printed-parts/faucet/umbilical-organizer",
-    "hardware/printed-parts/fixtures/faucet-display-snap",
-    "hardware/printed-parts/fixtures/faucet-cover-retention",
-    "hardware/printed-parts/fixtures/valve-socket-fit",
-    "hardware/printed-parts/fixtures/gun-positioner",
-    "hardware/printed-parts/fixtures/gun-positioner-observation",
-    "hardware/gun-positioner/mounting",
     # Parts whose printable meshes sit beside their STEPs, and the rear chips, R14 holder and ASSE
     # cuffs.
     "hardware/printed-parts/cold-core/copper-plugs",
@@ -239,11 +233,6 @@ BUNDLED_PAYLOAD_DIRS = (
     "hardware/printed-parts/faucet/umbilical-organizer",
     "hardware/manifold-layout",
     "hardware/faucet-layout",
-    "hardware/printed-parts/fixtures/faucet-cover-retention",
-    "hardware/printed-parts/fixtures/valve-socket-fit",
-    "hardware/printed-parts/fixtures/gun-positioner",
-    "hardware/printed-parts/fixtures/gun-positioner-observation",
-    "hardware/gun-positioner/mounting",
     "hardware/printed-parts/refrigeration/fuse-clamp",
     "hardware/printed-parts/cold-core/coil-mandrel",
     "hardware/printed-parts/fixtures/weld-rotator",
@@ -287,14 +276,12 @@ BUNDLED_PAYLOAD_FILES = (
 #: Shared installation scene renders travel with generated pictures. The committed
 #: install-guide PDF, cover and sidecar reach the site directly in its checkout.
 BUNDLED_ART_DIRS = (
-    "hardware/install-guide/art",
 )
 
 #: Scene metadata rides beside the picture it describes.
 BUNDLED_ART_SUFFIXES = (".png", ".pdf", ".png.scene.json")
 
 BUNDLED_ART_FILES = (
-    "hardware/install-guide/art/colors.css",
 )
 
 #: A board's rendered set — the fab pack, the copper and mask views, the 3D assembly.
