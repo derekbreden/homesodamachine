@@ -10,6 +10,7 @@
 .component-group { border:0; padding-left:.2rem; font-weight:600; }
 .component-group + .component-row, .component-group ~ .component-row { width:calc(100% - .75rem); margin-left:.75rem; }
 #edit-current { width:100%; }
+#edit-current.native-edit-action { width:auto; padding-inline:0; border-color:transparent; background:transparent; color:#526790; font-weight:400; text-align:left; text-decoration:underline; text-underline-offset:.2em; }
 #native-controls { border-top:1px solid #c7d3e8; padding-top:1.25rem; margin-bottom:1.5rem; }
 #dimensions > button { width:100%; }
 .load-audit { border-top:1px solid #c7d3e8; padding-top:1.25rem; margin-bottom:1.5rem; }
@@ -40,6 +41,7 @@
 #component-description { margin:.3rem 0 .5rem; font-size:.7rem; line-height:1.5; color:#bfcadb; }
 .component-actions { display:flex; flex-wrap:wrap; gap:.4rem; }
 .component-actions button { flex:1 1 auto; padding:.4rem .55rem; font-size:.7rem; }
+#edit-component.native-edit-action { flex:0 0 auto; border-color:transparent; background:transparent; color:#bfcadb; font-weight:400; text-decoration:underline; text-underline-offset:.2em; }
 .workspace button.component-open { border-color:#8db6ff; background:#214b9e; }
 .workspace button.component-open:hover:not(:disabled) { background:#2b60c4; }
 .component-holds { display:flex; flex-wrap:wrap; gap:.3rem; }
