@@ -227,7 +227,7 @@
     "environment": "Local route in headless Chrome on the shared Mac",
     "source_files": {
       "component-navigation.js": "15ca1ee35bedc452428833a1c94377f9a32b8076862d49b47e9ae7f4ed52b593",
-      "preview.js": "4fd37660d4abac5c26e10f93e07cbf43de00a3cb93c1f8eed44d7b5cb586a36b",
+      "preview.js": "20d16b34284dcfe7506d7f0417edc5b2d0db96c5d3472c23a38209fed1b3a3cf",
       "main.js": "b8480469a705013f62549f8fa3e271f91b2893c450f658413f590403ff668db3",
       "children.json": "cb06c9f5f27f0f62c408ed03f9fff60870f4a4dfd75490a6dd963624355349bd",
       "index.html": "a2e8cc39bf8b3637b6115619c458ac8df2e6d2218685bf1803b66aab8588db09",
@@ -284,6 +284,10 @@
     "native_parent_world_bodies": 64,
     "mobile_width_css_px": 390,
     "mobile_scroll_width_css_px": 390,
-    "page_errors": []
+    "page_errors": [],
+    "section_follows_placed_core": {
+      "checked_at": "2026-11-09T03:35:36.312566+00:00",
+      "review": "Visual section through a core translated along the parent layout axes."
+    }
   }
 }
