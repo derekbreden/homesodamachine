@@ -32,6 +32,7 @@ import { routeToStep, parseStepHash, stepFind } from "./step-nav.js";
 import { findWhenMounted } from "./pick-find.js";
 import { openMaterial } from "./material-nav.js";
 import { modelForMaterial } from "/contracts/materials.js";
+import { materialTab } from "/contracts/material-tabs.js";
 
 const decodeHash = (s) => { try { return decodeURIComponent(s); } catch { return s; } };
 
@@ -51,7 +52,7 @@ function wantFromHash(raw) {
     const [identity, query = ""] = raw.slice("material:".length).split("?");
     const id = decodeHash(identity);
     const params = new URLSearchParams(query);
-    const tab = ["bom", "cost", "stock", "used"].includes(params.get("tab")) ? params.get("tab") : null;
+    const tab = materialTab(params.get("tab")).tab ? params.get("tab") : null;
     const panel = params.get("panel");
     const instance = params.get("instance");
     const file = modelForMaterial(state.materialCatalog, id)?.file;

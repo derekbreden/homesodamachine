@@ -80,20 +80,41 @@
 .material-link { color: var(--accent); text-decoration: none; font-size: 0.82rem; display: inline-block; line-height: 1.6; }
 .material-link:hover { text-decoration: underline; }
 .material-tabs { display: flex; overflow-x: auto; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
-.material-tabs button { flex: 1; min-height: 43px; border: 0; border-bottom: 2px solid transparent; background: transparent; color: var(--text-2); font: inherit; font-size: 0.8rem; cursor: pointer; }
+.material-tabs button { flex: 1; min-width: 0; min-height: 43px; padding: 6px 8px; border: 0; border-bottom: 2px solid transparent; background: transparent; color: var(--text-2); font: inherit; font-size: 0.8rem; line-height: 1.35; cursor: pointer; }
 .material-tabs button[aria-selected=true] { border-bottom-color: var(--accent); color: var(--text); background: var(--bg); }
 .material-tab-content { padding: 0 16px; }
+.material-subsection { padding: 4px 0 20px; }
+.material-subsection + .material-subsection { border-top: 1px solid var(--border); }
+.material-panel .material-subsection-title { margin: 16px 0 12px; color: var(--text); font-size: .9rem; font-weight: 600; }
+.material-parent-tree { list-style: none; margin: 0; padding: 0; }
+.material-parent-tree .material-parent-tree { margin-left: 8px; padding-left: 14px; border-left: 1px solid var(--border); }
+.material-parent-branch { position: relative; }
+.material-parent-tree .material-parent-tree > .material-parent-branch::before { content: ""; position: absolute; left: -14px; top: 24px; width: 12px; border-top: 1px solid var(--border); }
+.material-parent-node { display: grid; gap: 2px; padding: 8px 0; }
+.material-parent-meta { color: var(--text-3); font: .68rem/1.5 var(--font-sans); }
+.material-structure { position: relative; padding-left: 14px; border-left: 1px solid var(--border); margin: 0 0 0 5px; }
+.material-tree-focus { position: relative; display: grid; gap: 5px; margin: 4px -2px 4px -7px; padding: 12px; border: 1px solid var(--accent); border-radius: 7px; background: color-mix(in srgb, var(--accent) 8%, var(--bg)); }
+.material-tree-focus::before { content: ""; position: absolute; left: -9px; top: 50%; width: 9px; border-top: 1px solid var(--accent); }
+.material-tree-focus strong { font-size: .84rem; line-height: 1.45; font-weight: 600; }
+.material-tree-focus .material-meta { margin: 0; }
+.material-tree-caption { font-size: .68rem; text-transform: uppercase; letter-spacing: .05em; color: var(--text-2); }
 .material-stock-item { padding: 14px 0; border-bottom: 1px solid var(--border); }
 .material-stock-item strong { font-size: .82rem; line-height: 1.5; font-weight: 600; }
 .material-scope, .material-empty, .material-selection-note { color: var(--text-3); font-size: 0.75rem; line-height: 1.65; margin: 14px 0; }
 .material-bom-counts { color: var(--text-2); font-size: 0.8rem; line-height: 1.5; margin: 14px 0; }
 .material-selection-note:empty { display: none; }
 .bom-tools { display: flex; gap: 6px; align-items: center; flex-wrap: wrap; margin-bottom: 9px; }
+.bom-tools:not(:has(> :not([hidden]))) { display: none; }
 .bom-order { display: flex; margin-left: auto; border: 1px solid var(--border); border-radius: 5px; overflow: hidden; }
 .bom-tools .bom-order button { border: 0; border-radius: 0; background: transparent; color: var(--text-2); font-size: 0.75rem; }
 .bom-tools .bom-order button[aria-pressed=true] { background: var(--surface-2); color: var(--text); font-weight: 600; }
 .bom-columns { display: flex; justify-content: space-between; gap: 12px; margin: 0 -10px; padding: 10px 7px 7px 28px; border-bottom: 1px solid var(--border); color: var(--text-3); font-size: 0.68rem; letter-spacing: .05em; text-transform: uppercase; }
-.bom-tree { margin: 0 -10px; }
+.bom-tree { list-style: none; padding: 0; margin: 0 -10px; }
+.bom-branch { list-style: none; padding: 0 0 0 14px; margin: 0 0 0 11px; border-left: 1px solid var(--border); }
+.bom-node { position: relative; }
+.bom-branch > .bom-node::before { content: ""; position: absolute; left: -14px; top: 25px; width: 14px; border-top: 1px solid var(--border); }
+.bom-node > .bom-row { padding-left: 0; }
+.bom-node .bom-share { left: 28px; }
 .bom-row { position: relative; display: flex; align-items: center; gap: 4px; min-height: 50px; border-bottom: 1px solid var(--border); padding-left: calc(min(var(--depth), 5) * 12px); }
 .bom-row.selected { background: color-mix(in srgb, var(--accent) 12%, transparent); border-radius: 5px; }
 .bom-disclosure { flex: 0 0 24px; height: 36px; border: 0; background: transparent; color: var(--accent); font-size: 17px; cursor: pointer; }
@@ -112,9 +133,6 @@
 /* Each row's share of the assembly at the top of the tree, split like its cost. */
 .bom-share { position: absolute; left: calc(min(var(--depth), 5) * 12px + 28px); right: 7px; bottom: 4px; pointer-events: none; }
 .bom-row:has(> .bom-share) .bom-select { padding-bottom: 12px; }
-.bom-own-mark { flex: 0 0 24px; height: 36px; display: grid; place-items: center; color: var(--text-3); font-size: 15px; }
-.bom-own-labor .bom-own-mark { color: var(--chart-two); }
-.bom-own .bom-description { color: var(--text-2); }
 /* Cost: what is bought, cut, printed or used up in orange; attended time in blue. */
 .material-cost { margin: 12px 0 2px; }
 .material-cost-total { display: flex; align-items: baseline; gap: 8px; margin: 0 0 10px; }
@@ -164,9 +182,7 @@
 .material-locations .material-scope { margin: 0; }
 .material-locations .material-scope:empty { display: none; }
 .material-locations [hidden] { display: none; }
-.material-assembly-records { border-top: 1px solid var(--border); padding-top: 8px; }
-.material-assembly-records > summary { min-height: 44px; box-sizing: border-box; padding: 12px 0; color: var(--text-2); cursor: pointer; font-size: .8rem; }
-.material-locations :focus-visible, .material-assembly-records > summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.material-locations :focus-visible, .material-parent-node a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 .material-document { display: grid; gap: 6px; padding: 16px 0; border-bottom: 1px solid var(--border); color: var(--text); text-decoration: none; }
 .material-document:hover strong { color: var(--accent); }
 .material-document strong { font-size: 0.82rem; font-weight: 500; }
@@ -179,10 +195,10 @@
 .material-record-workspace > .material-panel { width: min(100%, 740px); flex-basis: 740px; border: 0; padding-top: 64px; }
 @media (max-width: 1100px) and (min-width: 701px) { .cad-workspace.materials-open { grid-template-columns: minmax(0, 1fr) 330px; } }
 @media (max-width: 700px) {
-  .material-panel.locations-active > .material-search { padding-top: 8px; padding-bottom: 4px; }
-  .locations-active .material-panel-head { padding-top: 0; padding-bottom: 8px; align-items: center; }
-  .locations-active .material-identity > :not(h2), .locations-active .material-context { display: none; }
-  .locations-active .material-identity h2 { display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; overflow: hidden; font-size: .82rem; line-height: 1.4; margin: 0; }
+  .material-panel.records-compact > .material-search { padding-top: 8px; padding-bottom: 4px; }
+  .records-compact .material-panel-head { padding-top: 0; padding-bottom: 8px; align-items: center; }
+  .records-compact .material-identity > :not(h2), .records-compact .material-context { display: none; }
+  .records-compact .material-identity h2 { display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; overflow: hidden; font-size: .82rem; line-height: 1.4; margin: 0; }
   .locations-active .material-locations { gap: 8px; padding-top: 10px; padding-bottom: 12px; }
   .locations-active .material-locations h3 { display: none; }
   /* One row: the view switch beside the actions, the drawing's controls on a second row. A

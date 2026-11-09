@@ -118,7 +118,7 @@ export function findParts(query, { root = checkoutRoot, limit = 20 } = {}) {
       match: hit.match || "exact", corrections: hit.corrections || [], unmatched: hit.unmatched || [],
       models, documents: material.documents || [], contexts, producers,
       links: { material: `${website}#material:${encodeURIComponent(material.id)}?panel=materials`,
-        ...(contexts.some(context => context.instances.length) ? { locations: `${website}#material:${encodeURIComponent(material.id)}?tab=used&panel=materials` } : {}),
+        ...(contexts.some(context => context.instances.length) ? { locations: `${website}#material:${encodeURIComponent(material.id)}?tab=location&panel=materials` } : {}),
         ...(contexts.find((context) => context.url) ? { model: contexts.find((context) => context.url).url }
           : models[0] ? { model: modelLink(models[0].file, models[0].component ? [models[0].component] : []) } : {}) },
     };

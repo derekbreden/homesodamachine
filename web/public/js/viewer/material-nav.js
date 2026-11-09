@@ -2,10 +2,11 @@ import { state } from "./state.js";
 import { materialIndex, modelForMaterial } from "/contracts/materials.js";
 import { parseStepHash, walkDepth } from "./step-nav.js";
 import { dismissViewerHistory } from "./viewer-history.js";
+import { materialTab } from "/contracts/material-tabs.js";
 
 export function materialHash(id, { tab = null, panel = null, instance = null } = {}) {
   const query = new URLSearchParams();
-  if (["bom", "cost", "stock", "used"].includes(tab)) query.set("tab", tab);
+  if (materialTab(tab).tab) query.set("tab", tab);
   if (panel === "materials") query.set("panel", panel);
   if (instance) query.set("instance", instance);
   return "material:" + encodeURIComponent(id) + (query.size ? "?" + query : "");
