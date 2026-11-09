@@ -23,6 +23,9 @@ const THICK: f64 = 1.8;
 const BORE_OVERRUN: f64 = 0.1;
 const WORD_SIZE: f64 = 5.0;
 
+/// The approved running clearance at each vertical edge of a tile's retaining channel.
+const SIDE_CLEARANCE: f64 = 0.20;
+
 /// The tile each wet port carries, and the order the tiles are written in.
 const PORTS: [(&str, &str); 6] = [
     ("bulkhead-water", "water"),
@@ -166,12 +169,13 @@ fn main() -> Result<()> {
     let words: Value = serde_json::from_str(WORDS)?;
     let scale = WORD_SIZE / words["em_mm"].as_f64().ok_or_else(|| anyhow!("the words name their em"))?;
     let tiles = tiles(&above)?;
+    let width = above.rear_identification.width_mm - 2.0 * SIDE_CLEARANCE;
     let mut placed = vec![];
     for which in ORDER {
         let tile = tiles.iter().find(|t| t.which == which).with_context(|| format!("no {which} tile"))?;
         let &(_, word, fluid) = ring::STATIONS.iter().find(|(s, _, _)| *s == which).with_context(|| format!("no {which} station"))?;
         ensure!(words["words"][word].is_array(), "the label words carry no {word}");
-        let (body, letters, exterior) = build(tile, above.rear_identification.width_mm, &words["words"][word], scale)?;
+        let (body, letters, exterior) = build(tile, width, &words["words"][word], scale)?;
         let (chip, ink) = port_colors(fluid)?;
         let (name, body_name, word_name) = (format!("rear-label-{which}"), format!("bulkhead-ring-{which}"), format!("bulkhead-ring-{which}-word"));
         let bodies = [
@@ -181,7 +185,7 @@ fn main() -> Result<()> {
         println!("{}", write_colored_part(&out, &name, &bodies, &exterior)?);
         placed.push(json!({"name": name, "body_name": body_name, "word_name": word_name, "chip_color": chip, "word_color": ink}));
     }
-    let numbers = json!({"thick": THICK, "stations": placed});
+    let numbers = json!({"thick": THICK, "width": width, "side_clearance": SIDE_CLEARANCE, "stations": placed});
     std::fs::write(out.join("rear-identification.numbers.json"), serde_json::to_string_pretty(&numbers)? + "\n")?;
     Ok(())
 }

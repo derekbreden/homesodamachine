@@ -12,11 +12,13 @@ existing full-width chip remains the comparison reference.
 The [geometry preparation](preparation.json) records the source match, cuts and
 plate placement. [Rust source](prepare_geometry.rs), fine models and STLs are
 retained here with the editable project and native sliced archive. The canonical
-enclosure geometry awaits Derek's fit selection.
+tile generator applies the clearance Derek approves in the
+[physical result](physical-result.json).
 
 The [native slice review](review.json) records the active red and white PETG,
 right-side hotends, full bead envelope and accepted clearance recipe. The
 [launch record](launch.json) identifies the new job, actual AMS assignments,
 calibration options, stopped dryers and shared-circuit spacing.
 
-Physical fit acceptance awaits the printed comparison.
+The physical result records the assessed comparison prints and the approved
+production clearance between them.

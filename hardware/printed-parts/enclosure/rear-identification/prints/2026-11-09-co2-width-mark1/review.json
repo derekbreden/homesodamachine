@@ -117,5 +117,5 @@
     "left": "A",
     "right": "B"
   },
-  "physical_fit_status": "Awaiting the comparison prints and Derek's fit selection."
+  "physical_fit_status": "Comparison prints assessed; Derek's approved production clearance is recorded in physical-result.json."
 }
