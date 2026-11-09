@@ -1,0 +1,8 @@
+{
+  "name": "Carbonator core",
+  "sourceVersion": "581bc4bb2115032ff06604a9ba4cc065c86d3e5f955417155dba590bb04c7010",
+  "preview": "/solidcraft-lab/carbonator/assets/carbonator.glb?v=05a5c515bec061c6",
+  "children": "/solidcraft-lab/carbonator/children.json",
+  "pitch": 190.5,
+  "nativeParent": "/labs/solidcraft/carbonator/native/parent"
+}

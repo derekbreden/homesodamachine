@@ -1,0 +1,6 @@
+# Native evaluated copies are regenerated from the editable JSON designs.
+*.sc
+*.obj
+*.mtl
+*.bak
+.~*.lock
