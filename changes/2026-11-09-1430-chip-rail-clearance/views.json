@@ -1,0 +1,96 @@
+{
+  "views": [
+    {
+      "name": "rail-edge",
+      "caption": "The CO2 chip edge in its retaining channel. Every color chip uses the approved side clearance.",
+      "before": "rail-edge-before.webp",
+      "after": "rail-edge-after.webp",
+      "width": 1200,
+      "height": 900,
+      "marks": [
+        {
+          "x": 600,
+          "y": 450,
+          "r": 45,
+          "label": "Side clearance",
+          "at": [
+            97.4,
+            470.2,
+            337
+          ]
+        }
+      ],
+      "model": "manifold-layout/enclosure-assembly.step",
+      "camera": {
+        "projection": "orthographic",
+        "position": [
+          97.4,
+          470.2,
+          940.6019041721501
+        ],
+        "target": [
+          97.4,
+          470.2,
+          337
+        ],
+        "up": [
+          0,
+          1,
+          0
+        ],
+        "half": 7,
+        "near": 451.0848346093592,
+        "far": 1104.9868974625217,
+        "aspect": 1.3333333333333333,
+        "section": {
+          "at": [
+            97.4,
+            470.2,
+            337
+          ],
+          "normal": [
+            0,
+            0,
+            1
+          ],
+          "removes": "the side the normal points to"
+        }
+      },
+      "highlight": [
+        "bulkhead-ring-co2"
+      ],
+      "ghost": [],
+      "only": [
+        "bulkhead-ring-co2",
+        "enclosure-back-top"
+      ],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "snapshot",
+          "sha256": "9f06abefd27a838259e1d1488f72aa9bc35c8f0b17657b2a1597a898fbb6e812",
+          "commit": "6beb8223e63eaadbc372cfbb27fc2d531f8484de",
+          "taken": "2026-11-09T20:23:10.310Z",
+          "published": true
+        },
+        "after": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "tree",
+          "sha256": "561e78a8ca1eef07528b97bf77a2df2d9446266407964e346980f5ca9cad8284",
+          "commit": "1a7839866fa71f207927dd5b8973c28a487a2d7a",
+          "published": true
+        }
+      },
+      "changed": [],
+      "withinMeshing": [
+        "bulkhead-ring-carb",
+        "bulkhead-ring-co2",
+        "bulkhead-ring-drain",
+        "bulkhead-ring-flavor-a",
+        "bulkhead-ring-flavor-b",
+        "bulkhead-ring-water"
+      ]
+    }
+  ]
+}
