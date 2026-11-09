@@ -61,7 +61,6 @@ export function mountViewerPages(app) {
         renderHead({ title: TITLES[active], pageClass: `site-interior site-viewer-${active}` }) +
         renderNav({ active }) +
         (active === "guides" ? `<header class="document-library-header site-light"><div class="document-library-inner"><div><h1>${INTRO.guides.title}</h1><p>${INTRO.guides.description}</p></div><div id="document-search-slot"></div></div></header>` : renderPageHeader(INTRO[active])) +
-        (active === "parts" ? '<p class="material-build-entry site-content"><a href="/build">Build from stock →</a></p>' : "") +
         readFragment("viewer-body.html") +
         renderFooter({ siteFooter: true }),
       );
