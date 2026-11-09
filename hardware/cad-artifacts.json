@@ -1460,7 +1460,7 @@
     "hardware/reference/beduan-solenoid/beduan-solenoid.step.mesh": "95052393bbd6a02f0586593a605e8cfc3297dd6f478767819ea63366447926fe",
     "hardware/reference/beduan-solenoid/solidcraft/beduan-valve.sc": "bc2db7b40bc1b889b35991971fae7168d29544f3bc308249af0bb6635a4abd02",
     "hardware/reference/beduan-solenoid/solidcraft/beduan-valve.step": "9f934d4397ffb75d85cb60c05c2bf6ef3ee791618ac6dfcd71b205bed73c4579",
-    "hardware/reference/beduan-solenoid/solidcraft/beduan-valve.step.mesh": "d181542be606b08fd0fe08feb13f11a1ff848a79c687f62f91a8c3bae24246b8",
+    "hardware/reference/beduan-solenoid/solidcraft/beduan-valve.step.mesh": "ed102233a51b0dd30038771ea6e31799d292890c91b4e73b27708b117e03e9d8",
     "hardware/reference/beduan-solenoid/solidcraft/beduan-valve.step.png": "cc70c44c3bb371916df34700f43d3f45731b187e6698bf3a10f53363e0778779",
     "hardware/reference/branch-stem-tees/john-guest-ci580808w-estimate.step": "7f33972a6f884f5d7b6e77db92be35d9e8e0dae4233bb33cf6aee0366b7935c2",
     "hardware/reference/branch-stem-tees/john-guest-ci580808w-estimate.step.mesh": "df3be3fc40513ebb9047925a0b92e6060e6f3091658b3fc780a4deddd6f62f85",
@@ -2110,7 +2110,7 @@
       "hardware/reference/beduan-solenoid/beduan-solenoid.step": "fcf554f470667fc739c49119942e3142ae25eaf417ab920f8168ff6e3c15c818",
       "hardware/reference/beduan-solenoid/beduan-solenoid.step.mesh": "95052393bbd6a02f0586593a605e8cfc3297dd6f478767819ea63366447926fe",
       "hardware/reference/beduan-solenoid/solidcraft/beduan-valve.step": "9f934d4397ffb75d85cb60c05c2bf6ef3ee791618ac6dfcd71b205bed73c4579",
-      "hardware/reference/beduan-solenoid/solidcraft/beduan-valve.step.mesh": "d181542be606b08fd0fe08feb13f11a1ff848a79c687f62f91a8c3bae24246b8",
+      "hardware/reference/beduan-solenoid/solidcraft/beduan-valve.step.mesh": "ed102233a51b0dd30038771ea6e31799d292890c91b4e73b27708b117e03e9d8",
       "hardware/reference/beduan-solenoid/solidcraft/beduan-valve.step.png": "cc70c44c3bb371916df34700f43d3f45731b187e6698bf3a10f53363e0778779",
       "hardware/reference/branch-stem-tees/neofit-atbu444-e-estimate.step": "b3d52d71eef55a5210d5c426def3a8b7e27309a3a63d880c363a2a18b6b0c2a5",
       "hardware/reference/branch-stem-tees/neofit-atbu444-e-estimate.step.mesh": "a32b411b55657eebe6091c75f7d54e131ed1735561c21c929ef88b0dd5c06379",
@@ -4079,7 +4079,7 @@
     "hardware/reference/beduan-solenoid/beduan-solenoid.step.mesh": 1793617993,
     "hardware/reference/beduan-solenoid/solidcraft/beduan-valve.sc": 1794182962,
     "hardware/reference/beduan-solenoid/solidcraft/beduan-valve.step": 1794182962,
-    "hardware/reference/beduan-solenoid/solidcraft/beduan-valve.step.mesh": 1794182461,
+    "hardware/reference/beduan-solenoid/solidcraft/beduan-valve.step.mesh": 1794183224,
     "hardware/reference/beduan-solenoid/solidcraft/beduan-valve.step.png": 1794182962,
     "hardware/reference/branch-stem-tees/john-guest-ci580808w-estimate.step": 1792738887,
     "hardware/reference/branch-stem-tees/john-guest-ci580808w-estimate.step.mesh": 1793568839,
@@ -6614,7 +6614,7 @@
       "unproven": true
     },
     "hardware/reference/beduan-solenoid/solidcraft/beduan-valve.step.mesh": {
-      "commit": "6e5e07e8dd442c74f431cbb98acd830d852df2b5",
+      "commit": "daeaf69fe834992b0700648ed4c2c424725bcc9f",
       "unproven": true
     },
     "hardware/reference/beduan-solenoid/solidcraft/beduan-valve.step.png": {
