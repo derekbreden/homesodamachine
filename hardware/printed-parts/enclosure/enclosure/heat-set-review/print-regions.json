@@ -2,16 +2,16 @@
   "coordinate_frame": "Source STEP/STL coordinates in the appliance frame",
   "native_artifact_sha256": {
     "back-bottom": {
-      ".step.npz": "1612d0df6ad52c28c6e0e738bc59215f08f865d17c0f49f0285156758e4b0687",
-      ".stl": "5e03298dac1b3e3cdebaa490a2ba76942eb558258c000ec869adf2b48cb22726"
+      ".step.npz": "bb1fe5491e4ec7b7f31aff3e2e7875379624849c0267278ecf40796c66bbb979",
+      ".stl": "a41f94b4d25fcaeb79ba06e64af1f86ee23709d0c2fc89dcd2b52a9d2bda9d51"
     },
     "back-top": {
-      ".step.npz": "665616e057c5ee79c9b1b723f128c276352c0e89fd82fb712a8d6990efcf297e",
+      ".step.npz": "9ce4b27e377c71b9931a85e535bf2df2dc47866b985e8c6ec5ceb72d0c4a9f01",
       ".stl": "d1ea02ff72880b5966ebf4e7e66689ecc04f88e1457be108418a62cdb5bc4369"
     },
     "front-bottom": {
-      ".step.npz": "c396ac0d268d76ebc122e8ae7917ef36bf0b7ae335dd256875084812017020db",
-      ".stl": "d4938370022b72b814f3aff560ea4ec57c4af854ab61560fa93a3c1bdf1c6a87"
+      ".step.npz": "661557f47a4c3ca15181086034da4a4b440ecf6d2de792c3e6f3eb2f41b918c7",
+      ".stl": "7eb9455df0f38d96e9edd78384e98b5ac11a2dbfbb43dacf7eab3a378d1360a6"
     },
     "front-top": {
       ".step.npz": "1e9bc9f014ade47f9bc677dee4f0873bdc6943cba10cbb6eae316baf9abd2223",

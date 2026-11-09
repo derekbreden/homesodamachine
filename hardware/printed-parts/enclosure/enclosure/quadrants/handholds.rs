@@ -1,5 +1,5 @@
 //! The lifting handholds under each flank of the bottom pieces.
-use crate::catalog::{outward_per_height, running, supported};
+use crate::catalog::{running, supported};
 use crate::plan::{Bounds, Graph, HandholdAir, Op, Shape};
 use crate::quadrant::{Y, sorted};
 use crate::shell::*;
@@ -63,14 +63,17 @@ pub fn handhold_frame(g: &mut Graph, inner: &Bounds, y_joint: f64, x_ext: f64, s
     }
 }
 
-/// The opening under the handhold's roof, rounded on its corners.
+/// The sloping handhold opening and its unchanged exterior flute entry.
 pub fn handhold_cutter(g: &mut Graph, inner: &Bounds, x_ext: f64, sx: f64) -> Shape {
     let [bed, roof, _] = handhold_levels(inner);
     let [y0, y1] = handhold_y();
-    let [_, cap] = band_x(x_ext, sx);
-    let (xa, xb) = sorted(cap - sx * HANDHOLD_WALL, x_ext - sx);
+    let air = handhold_finish_air(g, inner);
+    let air = if sx > 0.0 { air } else { g.mirror(air, 0) };
+    let air = g.translate(air, [x_ext, 0.0, 0.0]);
+    let (xa, xb) = sorted(x_ext, x_ext - sx);
     let b = [xa, xb, y0, y1, bed - 1.0, roof];
-    g.add(Op::HandholdCutter { b, radius: HANDHOLD_CORNER_R }, vec![], Some(b))
+    let entry = g.add(Op::HandholdCutter { b, radius: HANDHOLD_CORNER_R }, vec![], Some(b));
+    g.union(air, &[entry])
 }
 
 pub fn handholds(g: &mut Graph, mut solid: Shape, inner: &Bounds, y_joint: f64, side: Y) -> Shape {
@@ -85,13 +88,18 @@ pub fn handholds(g: &mut Graph, mut solid: Shape, inner: &Bounds, y_joint: f64, 
         solid = g.cut(solid, &[cutter]);
         if side == Y::Front {
             let joint = handhold_backing_joint(g, inner, y_joint, x_ext, sx, side);
-            solid = g.cut(solid, &[joint]);
+            let [bed, roof, _] = handhold_levels(inner);
+            let [_, cap] = band_x(x_ext, sx);
+            let (xa, xb) = sorted(x_ext, cap - sx * HANDHOLD_WALL);
+            // The rear half carries the sloped roof past the tongue's joint plane.
+            let tongue_air = g.box_([xa, xb, y_joint, y_joint + LIP_LEN + running(), bed - 1.0, roof]);
+            solid = g.cut(solid, &[joint, tongue_air]);
         }
     }
     solid
 }
 
-/// The rounded show edges the handhold's opening takes, in the west handhold's frame.
+/// The integral corbel and rounded end walls, in the west handhold's frame.
 pub fn handhold_finish_air(g: &mut Graph, inner: &Bounds) -> Shape {
     let [bed, roof, crown] = handhold_levels(inner);
     let [y0, y1] = handhold_y();
@@ -107,7 +115,7 @@ pub fn handhold_finish_air(g: &mut Graph, inner: &Bounds) -> Shape {
         radius: HANDHOLD_EDGE_R,
         end_stock: end,
         cutter_depth: depth - HANDHOLD_WALL,
-        slope: outward_per_height(),
+        slope: 1.0,
     };
     g.add(Op::HandholdFinishAir(air), vec![], Some([0.0, depth, y0 - end, y1 + end, bed, crown]))
 }

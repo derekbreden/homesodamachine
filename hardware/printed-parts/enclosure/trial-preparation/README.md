@@ -93,9 +93,9 @@ for fixed-width brim types.
 | Piece | Printer, hotend | Material | Read from the mesh, or pose | Recipe changes |
 | --- | --- | --- | --- | --- |
 | `front-top` | Mark1, left 0.4 | PET-GF black | 0.08 mm band over the R6 roof side edges' level run and the R18 display-to-roof roll | Support XY 0.50 mm |
-| `front-bottom` | Mark1, left 0.4 | PET-GF black | Six-wall band through the handhold lifting-edge transition and its corner returns; 0.8 mm boundary strip of the flat lifting ceiling; removable arc fins along the lifting edges | Tree(auto)/Default; short rail trees rooted on their cavity floors |
+| `front-bottom` | Mark1, left 0.4 | PET-GF black | Integral handhold corbels with the shared ordinary layer schedule | Tree(auto)/Default; short rail trees rooted on their cavity floors |
 | `back-top` | Mark2, left 0.4 | PET-GF black | Ceiling-down, rear flutes clear of the bed; additive roof-edge transition; local solid catch and rail bands | Manual Tree Slim at native accessible contacts; support-free receiver bridges, passages and sockets |
-| `back-bottom` | Mark2, left 0.4 | PET-GF black | Six-wall band through the handhold lifting-edge transition and its corner returns; 0.8 mm boundary strip of the flat lifting ceiling; removable arc fins on feet along the lifting edges | Plate offset Y +18.8 mm; automatic-tree branch angle 20° |
+| `back-bottom` | Mark2, left 0.4 | PET-GF black | Integral handhold corbels with the shared ordinary layer schedule | Saved plate offset and automatic-tree branch angle |
 | `pump-retainer` | Mark1, left 0.4 | PET-GF black | Broad lower retainer, Y-minus end on the bed; build axis +Y | Three Classic walls; local solid snap hosts |
 | `rear-equipment-caps` | Mark2, left 0.4 | PET-GF black | ASSE, Pisco, regulator and meter caps as exported, mouths up; 15 mm spacing | — |
 | `single-regulator-cap` | Mark2, production cap hotend | PET-GF black | Approved regulator cap pose; combined cap and tower envelope centered | Native smooth timelapse and constant-width prime tower; [layer-time record](../rear-equipment-caps/prints/2026-11-07-single-regulator-mark2/job.json) |
@@ -124,9 +124,9 @@ Each feature selects faces by orientation and by place on the part's own bounds 
 print frame, and states an `expect` range. A feature whose faces are missing, or whose
 measured extent leaves its range, stops the preparation and reports what was found.
 
-The handhold selectors use `wall_x_mm`, measured from the declared straight walls in the
-source frame. Projecting exterior columns do not move that reference. The lifting rounds
-and ceilings are selected in the lower half of each bottom piece.
+Both bottom quadrants print their continuous planar handhold corbels with the shared
+ordinary layer schedule. The handholds use their integral geometry as the support-free
+gripping surface, with no local layer band or added support fins.
 
 - **`fine_band`** — a show surface. Its connected faces' print-Z extent is the
   span; the 0.08 mm layer range starts one ordinary layer below it and ends one fine layer
@@ -161,10 +161,8 @@ and ceilings are selected in the lower half of each bottom piece.
   `blocker_roof_overlap_mm` extends it into the requesting roof.
 - **`edge_fins`** — interrupted removable walls from the bed to a flat ceiling's exterior
   edge, with narrow blockers over their contact strips
-  ([printed-parts/AGENTS.md](../../AGENTS.md#supports)). Both bottoms carry them along the
-  handhold lifting edges. `foot_outboard_mm`, `foot_inboard_mm` and `foot_height_mm` stand
-  each fin on a flat foot of the same removable part, its own bed anchor; back-bottom's
-  fins have feet.
+  ([printed-parts/AGENTS.md](../../AGENTS.md#supports)). `foot_outboard_mm`,
+  `foot_inboard_mm` and `foot_height_mm` give each fin a flat foot as its bed anchor.
 
 A part may also declare one **`pause`**: parts loaded into closed slots mid-print. Its slot
 boxes become support blockers, overlapping their roofs by `blocker_roof_overlap_mm` so the

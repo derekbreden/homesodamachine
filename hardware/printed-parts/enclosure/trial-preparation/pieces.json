@@ -137,53 +137,7 @@
       "parts": [
         {
           "stl": "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.stl",
-          "regions": "front-bottom",
-          "features": [
-            {
-              "name": "Handhold lifting-edge transition",
-              "kind": "transition_band",
-              "select": {
-                "wall_x_mm": 3.0,
-                "half": "lower"
-              },
-              "radius_mm": 6.0,
-              "expect": {
-                "chamfer_area_mm2": [
-                  60,
-                  600
-                ]
-              },
-              "reason": "Expanding print-down R6 at the handhold's exterior lifting edge, with its corner returns. printed-parts/AGENTS.md; layer-policy-correction/README.md."
-            },
-            {
-              "name": "Handhold lifting ceiling boundary strip",
-              "kind": "ceiling_inset",
-              "select": {
-                "wall_x_mm": 15,
-                "half": "lower"
-              },
-              "inset_mm": 0.8,
-              "expect": {
-                "area_mm2": [
-                  200,
-                  2000
-                ]
-              },
-              "reason": "Tree(auto) supports the flat lifting ceiling and its inner corners; contacts stay 0.8 mm inside its boundary next to the blocked exterior transition. layer-policy-correction/README.md."
-            },
-            {
-              "name": "Handhold lifting edge fins",
-              "kind": "edge_fins",
-              "enabled": true,
-              "wall_mm": 0.9,
-              "outboard_mm": 0.05,
-              "top_gap_mm": 0.24,
-              "segment_mm": 20.0,
-              "release_gap_mm": 2.0,
-              "end_inset_mm": 1.0,
-              "reason": "The handhold lifting edge is a print-down overhang edge on the surface a hand grips. Derek, 942ac2244: \"I'm quite convinced that we need to do this everywhere, that we've got these rough edges on overhangs.\" The accepted faucet-base arcs are faucet/finish-coupons/2026-10-15-edge-supports/base-mark2/physical-result/physical-result.json."
-            }
-          ]
+          "regions": "front-bottom"
         }
       ]
     },
@@ -322,67 +276,18 @@
           0.0,
           18.8
         ],
-        "reason": "Place the asymmetric handhold and rail support envelope within the 20 mm usable-plate border, with the open entry end along the long plate axis. Back-bottom only."
+        "reason": "Place the asymmetric part and accessible support envelope within the usable plate border, with the open entry end along the long plate axis."
       },
       "parts": [
         {
           "stl": "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.stl",
-          "regions": "back-bottom",
-          "features": [
-            {
-              "name": "Handhold lifting-edge transition",
-              "kind": "transition_band",
-              "select": {
-                "wall_x_mm": 3.0,
-                "half": "lower"
-              },
-              "radius_mm": 6.0,
-              "expect": {
-                "chamfer_area_mm2": [
-                  100,
-                  1000
-                ]
-              },
-              "reason": "Expanding print-down R6 at the handhold's exterior lifting edge, with its corner returns. printed-parts/AGENTS.md; layer-policy-correction/README.md."
-            },
-            {
-              "name": "Handhold lifting ceiling boundary strip",
-              "kind": "ceiling_inset",
-              "select": {
-                "wall_x_mm": 15,
-                "half": "lower"
-              },
-              "inset_mm": 0.8,
-              "expect": {
-                "area_mm2": [
-                  400,
-                  3000
-                ]
-              },
-              "reason": "Tree(auto) supports the flat lifting ceiling and its inner corners; contacts stay 0.8 mm inside its boundary next to the blocked exterior transition. layer-policy-correction/README.md."
-            },
-            {
-              "name": "Handhold lifting edge fins",
-              "kind": "edge_fins",
-              "enabled": true,
-              "wall_mm": 0.9,
-              "outboard_mm": 0.05,
-              "top_gap_mm": 0.24,
-              "segment_mm": 20.0,
-              "release_gap_mm": 2.0,
-              "end_inset_mm": 1.0,
-              "foot_outboard_mm": 5.0,
-              "foot_inboard_mm": 4.0,
-              "foot_height_mm": 0.44,
-              "reason": "The handhold lifting edge is a print-down overhang edge on the surface a hand grips. Derek, 942ac2244: \"I'm quite convinced that we need to do this everywhere, that we've got these rough edges on overhangs.\" The accepted faucet-base arcs are faucet/finish-coupons/2026-10-15-edge-supports/base-mark2/physical-result/physical-result.json. Each fin stands on a 0.44 mm foot, 5 mm outboard and 4 mm inboard of it, as its bed anchor: auto_brim gave each bare 0.9 x 22 x 35 mm fin a 15-17 mm brim, which left back-bottom's bead envelope 18.3 mm from the X edges; on feet the slice emits no brim (2026-10-19 Mark2 slice). The inboard foot stops 6.6 mm short of the recess's inner wall. Back-bottom only."
-            }
-          ]
+          "regions": "back-bottom"
         }
       ],
       "settings": {
         "tree_support_branch_angle": {
           "value": "20",
-          "reason": "Keep the automatic trees beneath the entering handhold ceilings close to their contacts so their complete bed-rooted toes fit the 20 mm usable-plate border. Tree(auto)/Default, normal sections and contact settings remain the shared recipe."
+          "reason": "Keep the accessible support branches close to their contacts and their complete bed-rooted toes inside the usable plate border."
         }
       }
     },
