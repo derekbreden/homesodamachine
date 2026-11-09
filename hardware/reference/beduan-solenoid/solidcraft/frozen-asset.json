@@ -8,12 +8,13 @@
   "members": {
     "beduan-valve.sc": "bc2db7b40bc1b889b35991971fae7168d29544f3bc308249af0bb6635a4abd02",
     "beduan-valve.step": "9f934d4397ffb75d85cb60c05c2bf6ef3ee791618ac6dfcd71b205bed73c4579",
-    "beduan-valve.step.mesh": "d181542be606b08fd0fe08feb13f11a1ff848a79c687f62f91a8c3bae24246b8",
+    "beduan-valve.step.mesh": "ed102233a51b0dd30038771ea6e31799d292890c91b4e73b27708b117e03e9d8",
     "beduan-valve.step.png": "cc70c44c3bb371916df34700f43d3f45731b187e6698bf3a10f53363e0778779"
   },
   "viewer_payload": {
     "path": "beduan-valve.step.mesh",
     "source_step_sha256": "9f934d4397ffb75d85cb60c05c2bf6ef3ee791618ac6dfcd71b205bed73c4579",
-    "producer": "hardware/scripts/_rust_part.py:_tessellate"
+    "producer": "hardware/scripts/_rust_part.py:_tessellate",
+    "body_metadata": "STEP solid names and native body appearances, with unchanged tessellated geometry."
   }
 }

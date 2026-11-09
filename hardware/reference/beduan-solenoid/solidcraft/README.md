@@ -46,3 +46,5 @@ python3 tools/run.py -- solidcraft-cli run --in hardware/reference/beduan-soleno
 ```
 
 Save source edits to the native JSON design; SolidCraft keeps that file as plain JSON. Regenerate the packed copy and STEP from it. The STEP supplies CAD interchange and the website's mesh payload. These are manually regenerated reference artifacts; the model adds no recurring build or commit check.
+
+The existing STEP reader groups this component's solids and loses their individual labels and colours. The frozen viewer payload carries the STEP's solid names and the native design's appearances, matched by body bounds. Its geometry buffers retain the STEP tessellation unchanged. The mapping and hashes are recorded in the evaluation; a reusable export adapter remains work for the wider modeling workflow.
