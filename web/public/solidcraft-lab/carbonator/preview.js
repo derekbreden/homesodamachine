@@ -94,6 +94,7 @@ export async function createPreview(host,config,load,{onSelect=()=>{}}={}){
     route={path:[...next.path],count:next.count};manifest=children;hidden=new Set(nextHidden);exploded=false;selected=null;hovered=null;
     clearOverlay(selectionOverlay);clearOverlay(hoverOverlay);
     const parent=route.path.length===1;
+    clipping.constant=parent?0:-position(Number(route.path[1].slice(5))-1)[1];
     if(parent&&!moduleGeometry)moduleGeometry=await geometry(config.preview,'Carbonator saved shape');
     const parts=parent?[]:children.occurrences.filter(item=>route.path.length===2||item.id===route.path[2]);
     const shapes=await Promise.all(parts.map(async item=>[item,await geometry(children.parts[item.part].preview,children.parts[item.part].name+' saved shape')]));
