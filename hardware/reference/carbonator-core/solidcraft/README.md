@@ -24,7 +24,9 @@ This establishes both a representation boundary and an authoring-history boundar
 
 ## Website
 
-The website's initial view loads the module interface and a saved envelope mesh. Expanding it requests exact child display shapes and placements. Choosing a native workspace starts SolidCraft and requests that workspace alone. Previously opened workspaces are kept separately in local browser storage and restored on request. Pausing or backgrounding unloads the native runtime after saving the current workspace.
+The website's initial view loads the module interface and a saved envelope mesh. Selecting a component on the model or in its list highlights it and opens a component panel. **Open** enters that component's saved display; breadcrumbs and browser Back and Forward walk between the parent, core and individual occurrences. The canvas, camera position, roll and orbit point stay in place across that walk. Hide and Show affect only the current display. The preview reuses the parts viewer's camera controls and ViewCube and draws only when the view changes.
+
+Opening the core requests its exact child display shapes and placements. A direct link to a leaf requests that leaf's display without loading sibling or ancestor display meshes. **Edit in SolidCraft** starts the native runtime and requests the selected workspace alone. Previously opened workspaces are kept separately in local browser storage and restored on request. Returning to a saved display, pausing or backgrounding unloads the native runtime after saving the current workspace.
 
 The native update uses SolidCraft's own component extraction, link update, file save and joint solver. The browser writes the selected part into its in-memory native filesystem and updates its core link. When its published exterior changes, it supplies those inputs to the native envelope design, saves the evaluated envelope and updates the parent's link. Source files for unrelated leaves are not needed.
 

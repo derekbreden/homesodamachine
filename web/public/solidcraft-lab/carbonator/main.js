@@ -1,5 +1,6 @@
 // The carbonator lab opens cached assembly representations and loads native workspaces only by request.
 import {createPreview} from './preview.js';
+import {createComponentNavigation} from './component-navigation.js';
 const base='/labs/solidcraft/carbonator';
 const assets='/solidcraft-lab/carbonator/';
 const $=id=>document.getElementById(id);
@@ -7,11 +8,11 @@ const requests=new Map(), resources=[], timings=[];
 let config, children, preview, expanded=false, exploded=false, busy=false;
 let frame, api, current, pollTimer, pollWork, pauseWanted=false, nativeVisible=false, nativeLoaded=false;
 let models={}, revision, sourceKey, sourceVersion;
-let exterior;
+let exterior, navigation, pendingRoute;
 let canUndo=false;
 let count=Number($('copies').value);
 export function inspectLab(){
-  return {resources:resources.map(item=>({...item})),preview:preview?.stats(),native:{loaded:Boolean(api),current,loadedModelTexts:Object.keys(models)},busy,count};
+  return {route:navigation?.route,selection:navigation?.selection,resources:resources.map(item=>({...item})),preview:preview?.stats(),native:{loaded:Boolean(api),current,loadedModelTexts:Object.keys(models)},busy,count};
 }
 const names={parent:'Parent assembly',core:'Carbonator core',tube:'Tube',endcap:'Endcap',representation:'Assembly envelope'};
 const dimensions={tube:{length:'Tube length'},endcap:{thickness:'Plate thickness'},core:{cap_recess:'Cap recess'},parent:{},representation:{}};
@@ -48,17 +49,15 @@ function cover(title,detail,resume=false){
   $('cover').hidden=false;$('cover-title').textContent=title;$('cover-detail').textContent=detail;$('resume').hidden=!resume;
 }
 function lock(value,label){
-  busy=value;
+  busy=value;navigation?.setDisabled(value);
   for(const button of document.querySelectorAll('button,select,.parameter input'))button.disabled=value;
-  $('undo').disabled=value||!api||!canUndo;
-  $('publish').disabled=value||!api||current==='parent';
-  $('copies').disabled=value||nativeVisible;
-  $('expand').disabled=value;
-  $('section').disabled=value||nativeVisible||!expanded;
   for(const control of $('native-controls').querySelectorAll('button,input'))control.disabled=value||!api||!nativeLoaded;
   $('publish').disabled=value||!api||!nativeLoaded||current==='parent';
   $('undo').disabled=value||!api||!nativeLoaded||!canUndo;
-  $('state-label').textContent=label|| (nativeVisible?names[current]+' · native':expanded?'Core · exact display':'Parent · assembly envelope');
+  $('copies').disabled=value||nativeVisible;
+  $('section').disabled=value||nativeVisible||!expanded;
+  $('explode').disabled=value||nativeVisible||navigation?.kind!=='core';
+  $('state-label').textContent=label||(nativeVisible?names[current]+' · native':navigation?.kind==='parent'?'Assembly envelope':navigation?.kind==='core'?'Exact core display':'Saved part display');
   $('state-dot').toggleAttribute('data-ready',!value);
 }
 function store(){
@@ -122,17 +121,35 @@ function schedule(){
   },2500);
 }
 function showNative(){
-  nativeVisible=true;$('preview').hidden=true;$('native-stage').hidden=false;preview.visible(false);
+  nativeVisible=true;navigation.setNative(true);
+  $('preview').hidden=true;$('native-stage').hidden=false;preview.visible(false);
   $('reference').hidden=false;$('pause').hidden=false;$('native-controls').hidden=false;
-  $('section').disabled=true;$('explode').disabled=true;$('copies').disabled=true;
 }
-async function showReference(){
-  nativeVisible=false;$('preview').hidden=false;$('native-stage').hidden=true;preview.visible(true);
+async function unloadEngine(){
+  clearTimeout(pollTimer);
+  if(pollWork)await pollWork;
+  await capture();frame?.remove();frame=null;api=null;nativeLoaded=false;audit();
+}
+async function showReference(route,{fit=false}={}){
+  if(api)await unloadEngine();
+  const countChanged=route.count!==count;
+  if(countChanged){count=route.count;resetContext();}
+  nativeVisible=false;expanded=route.path.length>1;exploded=false;
+  navigation.setNative(false);
+  $('preview').hidden=false;$('native-stage').hidden=true;preview.visible(true);
   $('reference').hidden=true;$('pause').hidden=true;$('native-controls').hidden=true;$('cover').hidden=true;
-  $('section').disabled=!expanded;$('explode').disabled=false;$('copies').disabled=false;$('expand').disabled=false;
-  $('native-scope').textContent='Closed';$('state-label').textContent='Saved reference view';
-  if(expanded&&children)await preview.expand(children);else preview.count(count);
-  status('Reference display. Editable designs remain closed until requested.');
+  $('native-scope').textContent='Closed';$('explode').textContent='Explode';
+  if(expanded&&!children)children=await json(config.children,'assembly interfaces','Core part list and placements');
+  if(children)navigation.setManifest(children);
+  await preview.show(route,children,{fit:fit||countChanged,hidden:navigation.hidden});
+  if(!expanded){$('section').checked=false;preview.section(false);}
+  $('fit-note').hidden=!expanded;
+  if(expanded)$('fit-note').textContent='Nominal radial clearance: '+children.radialClearanceMm.toFixed(3)+' mm. Cap placement follows the tube’s end faces.';
+  status('Select a component, then Open. Native designs stay closed until you choose Edit.');
+}
+async function openReferenceRoute(route){
+  if(busy){pendingRoute=route;return;}
+  await action('Opening component display',()=>showReference(route));
 }
 async function ensureEngine(){
   if(api)return;
@@ -198,11 +215,14 @@ async function action(label,work){
     if(nativeVisible){$('section').disabled=true;$('explode').disabled=true;}
     audit();
     if(pauseWanted||document.hidden){pauseWanted=false;await pause();}else schedule();
+    if(pendingRoute){const next=pendingRoute;pendingRoute=null;queueMicrotask(()=>openReferenceRoute(next));}
   }
 }
-async function openNative(kind){
+async function openNative(kind,path=navigation.route.path){
   await action('Opening '+names[kind],async()=>{
-    showNative();await ensureEngine();await importModel(kind);status(`${names[kind]} is open. Only requested workspaces are loaded.`);
+    showNative();await ensureEngine();await importModel(kind);
+    navigation.go({path,count},{notify:false});
+    status(names[kind]+' is open. Only requested workspaces are loaded.');
   });
 }
 async function pause(){
@@ -211,20 +231,11 @@ async function pause(){
   if(!api)return;
   lock(true,'Saving local workspace');
   try{
-    if(pollWork)await pollWork;
-    await capture();frame.remove();frame=null;api=null;nativeLoaded=false;audit();
+    await unloadEngine();
     if(nativeVisible)cover('Native workspace paused','Its current design is retained locally. Resuming opens that saved workspace, without following its child sources.',true);
     status('Native runtime unloaded. Local workspaces are retained in this browser.');
   }catch(error){status(error.message,true);}
   finally{lock(false,nativeVisible?'Native workspace paused':'Saved reference view');}
-}
-async function expand(){
-  if(!children)children=await json(config.children,'assembly interfaces','Core part list and placements');
-  if(!nativeVisible)await preview.expand(children);
-  expanded=true;$('children').hidden=false;$('expand').setAttribute('aria-expanded','true');
-  if(!nativeVisible){$('section').checked=true;preview.section(true);}
-  $('expand').firstChild.textContent='▾ Carbonator core ';
-  $('fit-note').textContent=`Nominal radial clearance: ${children.radialClearanceMm.toFixed(3)} mm. Cap placement follows the tube’s end faces.`;
 }
 function resetContext(){
   sourceKey=`hsm-carbonator-lab:${sourceVersion}:${count}`;
@@ -232,24 +243,8 @@ function resetContext(){
   models={};current=kept?.current||'parent';revision=null;exterior=kept?.exterior||{...config.exterior};
 }
 
-$('open-parent').addEventListener('click',()=>openNative('parent'));
-$('open-core').addEventListener('click',()=>openNative('core'));
-for(const button of document.querySelectorAll('[data-edit]'))button.addEventListener('click',()=>openNative(button.dataset.edit));
-$('expand').addEventListener('click',()=>action('Opening core display',async()=>{
-  if(expanded){expanded=false;exploded=false;if(!nativeVisible){preview.count(count);$('section').checked=false;preview.section(false);}$('children').hidden=true;$('expand').setAttribute('aria-expanded','false');$('expand').firstChild.textContent='▸ Carbonator core ';}
-  else await expand();
-  status('Display parts are available. Their editable designs remain closed.');
-}));
-$('copies').addEventListener('change',()=>{
-  count=Number($('copies').value);resetContext();expanded=false;exploded=false;preview.count(count);
-  $('section').checked=false;preview.section(false);
-  $('section').disabled=true;
-  $('children').hidden=true;$('expand').setAttribute('aria-expanded','false');$('expand').firstChild.textContent='▸ Carbonator core ';
-  status(`${count} placements share the saved module shape. No child authoring files were requested.`);
-});
 $('section').addEventListener('change',()=>preview.section($('section').checked));
 $('explode').addEventListener('click',()=>action('Exploding reference',async()=>{
-  if(!expanded)await expand();
   exploded=!exploded;preview.explode(exploded);$('explode').textContent=exploded?'Assemble':'Explode';
   status(exploded?'Exploded reference display. Native joints retain the assembled fit-up.':'Assembled reference display.');
 }));
@@ -294,6 +289,7 @@ $('publish').addEventListener('click',()=>action('Updating linked assemblies',as
       exterior={outer_diameter:outerDiameter,length};
     }
     await api.request('ui.view',{view:'fit'});
+    navigation.go({path:['parent'],count},{replace:true,notify:false});
     note('Update '+names[leaf]+' → parent',performance.now()-started,changed?'Parent envelope updated from the exterior bounds.':'Parent envelope unchanged; the edit stays inside the exact core.');
     status(changed?'Parent envelope updated. Exact tube and cap geometry stays in the core.':'Exact core updated. Its exterior bounds are unchanged, so the parent envelope is unchanged.');
   }catch(error){
@@ -308,19 +304,26 @@ $('download').addEventListener('click',()=>action('Downloading native design',as
 }));
 $('pause').addEventListener('click',()=>pause());
 $('resume').addEventListener('click',()=>openNative(current));
-$('reference').addEventListener('click',async()=>{
-  await pause();lock(true,'Opening reference display');
-  try{await showReference();}catch(error){status(error.message,true);}finally{lock(false);}
-});
+$('reference').addEventListener('click',()=>openReferenceRoute(navigation.route));
 document.addEventListener('visibilitychange',()=>{if(document.hidden)pause();else preview?.invalidate();});
 
 try{
   lock(true,'Loading saved representation');
   config=await json(assets+'module.json','module interface','Carbonator module');
   sourceVersion=config.sourceVersion;resetContext();
-  preview=await createPreview($('preview'),config,load);
+  navigation=createComponentNavigation({
+    onRoute:route=>openReferenceRoute(route),
+    onSelect:id=>preview?.select(id),
+    onEdit:(kind,path)=>openNative(kind,path),
+    onHide:id=>preview.hide(id),
+    onShow:id=>preview.showHidden(id),
+  });
+  navigation.setDisabled(true);
+  preview=await createPreview($('preview'),config,load,{onSelect:id=>navigation.select(id)});
+  await showReference(navigation.route,{fit:true});
   await preview.ready;
   note('Saved assembly view',performance.now(),'Navigation to first render; no native runtime or child histories loaded.');
-  $('cover').hidden=true;lock(false,'Parent · assembly envelope');
-  status('Assembly envelope loaded. Opening the core requests its exact parts; editing a part requests its history.');
+  $('cover').hidden=true;lock(false);
+  status('Click a component to select it, then Open to go inside. Edit starts its native workspace.');
+  if(pendingRoute){const next=pendingRoute;pendingRoute=null;await openReferenceRoute(next);}
 }catch(error){cover('Could not open saved shape',error.message);status(error.message,true);lock(false,'Could not open');}
