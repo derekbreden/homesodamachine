@@ -1,0 +1,130 @@
+{
+  "ceiling_bottom_mm": 5.4799999999999995,
+  "connection_key": "H2C",
+  "depth_mm": 24.0,
+  "first_layer_mm": 0.2,
+  "interface_layers": 2,
+  "interface_pattern": "auto",
+  "label_height_mm": 0.48,
+  "layer_height_mm": 0.24,
+  "material": "Polymaker Fiberon PET-GF15",
+  "nozzle": "left hardened Standard",
+  "nozzle_diameter_mm": 0.4,
+  "plate": "Textured PEI Plate",
+  "printer": "Mark1",
+  "profile": "hardware/printed-parts/petgf.3mf",
+  "purpose": "Compare support-roof density while holding the PET-GF process and planned Z gap constant.",
+  "requested_top_z_distance_mm": 0.45,
+  "roof_thickness_mm": 1.92,
+  "specimens": [
+    {
+      "geometry": {
+        "bodies": [
+          {
+            "area": 2113.4652881767447,
+            "max": [
+              12.0,
+              12.0,
+              7.88000000026077
+            ],
+            "min": [
+              -12.0,
+              -12.0,
+              0.0
+            ],
+            "name": "roof-A",
+            "triangles": 76,
+            "volume": 1739.621130141571
+          }
+        ],
+        "files": [
+          "roof-A.step",
+          "roof-A.step.npz",
+          "roof-A.step.mesh",
+          "roof-A.stl"
+        ]
+      },
+      "id": "A",
+      "interface_spacing_mm": 0.5,
+      "position_mm": [
+        126.0,
+        165.0,
+        3.9399999999999995
+      ]
+    },
+    {
+      "geometry": {
+        "bodies": [
+          {
+            "area": 2115.0524061090928,
+            "max": [
+              12.0,
+              12.0,
+              7.88000000026077
+            ],
+            "min": [
+              -12.0,
+              -12.0,
+              0.0
+            ],
+            "name": "roof-B",
+            "triangles": 1064,
+            "volume": 1740.1376789857582
+          }
+        ],
+        "files": [
+          "roof-B.step",
+          "roof-B.step.npz",
+          "roof-B.step.mesh",
+          "roof-B.stl"
+        ]
+      },
+      "id": "B",
+      "interface_spacing_mm": 0.15,
+      "position_mm": [
+        160.0,
+        165.0,
+        3.9399999999999995
+      ]
+    },
+    {
+      "geometry": {
+        "bodies": [
+          {
+            "area": 2113.8325999080716,
+            "max": [
+              12.0,
+              12.0,
+              7.88000000026077
+            ],
+            "min": [
+              -12.0,
+              -12.0,
+              0.0
+            ],
+            "name": "roof-C",
+            "triangles": 1056,
+            "volume": 1739.6334577301434
+          }
+        ],
+        "files": [
+          "roof-C.step",
+          "roof-C.step.npz",
+          "roof-C.step.mesh",
+          "roof-C.stl"
+        ]
+      },
+      "id": "C",
+      "interface_spacing_mm": 0.0,
+      "position_mm": [
+        194.0,
+        165.0,
+        3.9399999999999995
+      ]
+    }
+  ],
+  "total_height_mm": 7.879999999999999,
+  "wall_mm": 1.68,
+  "width_mm": 24.0,
+  "z_trim_mm": 0.18
+}

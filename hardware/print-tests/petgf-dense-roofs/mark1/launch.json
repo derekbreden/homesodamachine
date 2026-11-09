@@ -1,0 +1,28 @@
+{
+  "printer": "H2C",
+  "observed_at": "2026-11-09T23:48:51.267130+00:00",
+  "archive": {
+    "name": "2026-11-09-dense-roofs-left04-z018-mark1.gcode.3mf",
+    "sha256": "33cb01d5be0c8b3b6bf26852eba2e2162b853cea67d61f316a7191e28eb1a8e8",
+    "gcode_sha256": "1a3f61671306948ea7a2d1c40a1e835038fd563d6bfbb168dfa1c6a26788fa34",
+    "slots": {
+      "1": {
+        "type": "PET-CF",
+        "colour": "000000"
+      }
+    },
+    "objects": [
+      "A interface spacing 0.5",
+      "B interface spacing 0.15",
+      "C interface spacing 0.0"
+    ]
+  },
+  "printer_task_id": "1426094680",
+  "gcode_state": "RUNNING",
+  "subtask_name": "2026-11-09-dense-roofs-left04-z018-mark1.gcode.3mf",
+  "print_error": 0,
+  "hms": [],
+  "layer_num": 0,
+  "total_layer_num": 33,
+  "mc_remaining_time": 24
+}

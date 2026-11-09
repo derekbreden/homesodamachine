@@ -1,0 +1,195 @@
+{
+  "archive": "mark1/2026-11-09-dense-roofs-left04-z018-mark1.gcode.3mf",
+  "archive_sha256": "33cb01d5be0c8b3b6bf26852eba2e2162b853cea67d61f316a7191e28eb1a8e8",
+  "gcode_sha256": "1a3f61671306948ea7a2d1c40a1e835038fd563d6bfbb168dfa1c6a26788fa34",
+  "gcode_md5_verified": true,
+  "profile_sha256": "1cc426e99a771a24249f97bf0e7659d2c5b5f656a0f2f3abb4814925ec1ff6b7",
+  "project_sha256": "01aee1611a098a6522390d8465e247faada0f349322b3f7d1734820d713323a6",
+  "trim_commands": [
+    "G29.1 Z0 ; clear z-trim value first",
+    "G29.1 Z0.16"
+  ],
+  "active_deposition_tools": [
+    0
+  ],
+  "nozzle_diameter_mm": 0.4,
+  "filament_map": [
+    "1"
+  ],
+  "plate": "Textured PEI Plate",
+  "bead_bounds_xy_mm": [
+    [
+      114.0,
+      148.034
+    ],
+    [
+      206.0,
+      177.0
+    ]
+  ],
+  "bed_margins_mm": [
+    114.0,
+    148.034,
+    119.0,
+    143.0
+  ],
+  "arc_extrema_included": true,
+  "specimens": [
+    {
+      "id": "A",
+      "requested_spacing_mm": 0.5,
+      "interface_z_mm": [
+        4.76,
+        5.0
+      ],
+      "first_roof_nozzle_z_mm": 5.72,
+      "first_roof_layer_height_mm": 0.24,
+      "roof_bottom_mm": 5.4799999999999995,
+      "planned_gap_mm": 0.48,
+      "top_interface_width_mm": [
+        0.62
+      ],
+      "top_interface_long_strokes": 17,
+      "measured_top_interface_pitch_mm": 1.0684000000000022,
+      "top_interface_total_path_mm": 411.2428104603684,
+      "roof_speed_mm_s": [
+        25.0
+      ]
+    },
+    {
+      "id": "B",
+      "requested_spacing_mm": 0.15,
+      "interface_z_mm": [
+        4.76,
+        5.0
+      ],
+      "first_roof_nozzle_z_mm": 5.72,
+      "first_roof_layer_height_mm": 0.24,
+      "roof_bottom_mm": 5.4799999999999995,
+      "planned_gap_mm": 0.48,
+      "top_interface_width_mm": [
+        0.62
+      ],
+      "top_interface_long_strokes": 25,
+      "measured_top_interface_pitch_mm": 0.7183999999999999,
+      "top_interface_total_path_mm": 593.7869897536809,
+      "roof_speed_mm_s": [
+        25.0
+      ]
+    },
+    {
+      "id": "C",
+      "requested_spacing_mm": 0.0,
+      "interface_z_mm": [
+        4.76,
+        5.0
+      ],
+      "first_roof_nozzle_z_mm": 5.72,
+      "first_roof_layer_height_mm": 0.24,
+      "roof_bottom_mm": 5.4799999999999995,
+      "planned_gap_mm": 0.48,
+      "top_interface_width_mm": [
+        0.62
+      ],
+      "top_interface_long_strokes": 32,
+      "measured_top_interface_pitch_mm": 0.5685000000000002,
+      "top_interface_total_path_mm": 739.7210219540261,
+      "roof_speed_mm_s": [
+        25.0
+      ]
+    }
+  ],
+  "postprocess": {
+    "added_commanded_motion_seconds": 423.8232518732348,
+    "changed": true,
+    "estimate_scope": "Native estimate plus the added constant-feed motion time; acceleration and fan spin-up are not simulated.",
+    "input_archive_sha256": "86897c0bd41d8912fb6c4fcdd1abf389e454a709e649a8ce4417604400706cda",
+    "members": [
+      {
+        "added_commanded_motion_seconds": 423.8232518732348,
+        "changed": true,
+        "input_gcode_sha256": "d6ba448630929c7221c528a099c5d4824b2020a64812dc6a3e6cb8fd86b974bd",
+        "member": "Metadata/plate_1.gcode",
+        "native_cooled_seed_moves": 381,
+        "ordinary_model_moves": 4169,
+        "output_gcode_sha256": "1a3f61671306948ea7a2d1c40a1e835038fd563d6bfbb168dfa1c6a26788fa34",
+        "petgf_slots": [
+          0
+        ],
+        "policy": {
+          "grid_mm": 0.2,
+          "height_mm": 0.8
+        },
+        "recovery_by_feature": {
+          "Internal solid infill": [
+            1491.0,
+            11881.182262028073,
+            416.59503578415973
+          ],
+          "Sparse infill": [
+            150.0,
+            208.385652490563,
+            7.228216089075332
+          ]
+        },
+        "recovery_fan_percent": [
+          "70"
+        ],
+        "recovery_moves": 1641,
+        "recovery_speed_limit_mm_s": [
+          "25",
+          "25",
+          "25"
+        ],
+        "scope": "The complete centerline lies in a recent native-cooled model footprint. Motion coordinates and extrusion words are retained; only local part cooling and recovery feed rates change.",
+        "speed_limited_moves": 1641
+      }
+    ]
+  },
+  "estimated_seconds": 1915,
+  "slicer_filament_grams": 9.53,
+  "physical_results": "Awaiting cooled specimens; commanded clearances do not measure actual sag or release.",
+  "process_snapshot": {
+    "nozzle_temperature": [
+      "280",
+      "265",
+      "270"
+    ],
+    "nozzle_temperature_initial_layer": [
+      "265",
+      "265",
+      "270"
+    ],
+    "textured_plate_temp": [
+      "80"
+    ],
+    "textured_plate_temp_initial_layer": [
+      "80"
+    ],
+    "filament_bridge_speed": [
+      "25",
+      "25",
+      "25"
+    ],
+    "bridge_flow": "1",
+    "support_type": "tree(auto)",
+    "support_style": "default",
+    "support_interface_pattern": "auto",
+    "support_line_width": "0.62",
+    "support_object_xy_distance": "0.4",
+    "layer_height": "0.24",
+    "initial_layer_print_height": "0.2",
+    "wall_loops": "2",
+    "sparse_infill_density": "15%",
+    "fan_min_speed": [
+      "0"
+    ],
+    "fan_max_speed": [
+      "0"
+    ],
+    "overhang_fan_speed": [
+      "70"
+    ]
+  },
+  "source_revision": "c1c572a1b"
+}

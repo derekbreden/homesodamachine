@@ -1,0 +1,73 @@
+{
+  "purpose": "Record the research and staged support experiment after the initial density screen.",
+  "sources": [
+    {
+      "url": "https://raw.githubusercontent.com/bambulab/BambuStudio/v02.08.02.61/src/libslic3r/PrintConfig.cpp",
+      "kind": "Installed slicer version's primary source",
+      "supports": "Top interface spacing controls the space between interface lines; zero requests solid. Interface layer count, pattern and support ironing are separate controls."
+    },
+    {
+      "url": "https://help.prusa3d.com/article/support-material_1698",
+      "kind": "Slicer manufacturer's documentation",
+      "supports": "Dense interface layers provide a more uniform landing surface and reduce sagging. Z contact distance controls separation. Generic recommendations do not select a PET-GF/Bambu setting."
+    },
+    {
+      "url": "https://fiberon.polymaker.com/wp-content/uploads/TDS_FIBERON-PET-GF15_V1.0_EN.pdf",
+      "kind": "Material manufacturer's technical data sheet",
+      "nozzle_temperature_range_c": [280, 310],
+      "bed_temperature_range_c": [70, 80],
+      "general_fan_recommendation": "Off",
+      "scope": "General material guidance; the current profile's first-layer and local bridge cooling are established local treatments, held common in this screen."
+    }
+  ],
+  "initial_screen": {
+    "interface_spacing_mm": [0.5, 0.15, 0.0],
+    "requested_top_z_distance_mm": 0.45,
+    "measured_planned_gap_mm": 0.48,
+    "interface_layers": 2,
+    "reason": "Isolate interface density with a current-spacing control while retaining the existing tree-support release gap.",
+    "inference": "The denser mat may support the first roof course better; successful peel and retained surface quality remain unmeasured."
+  },
+  "next_comparison": {
+    "priority": "Density and Z-gap interaction",
+    "requested_top_z_distances_mm": [0.3, 0.45],
+    "expected_planned_gaps_mm_under_current_layer_schedule": [0.24, 0.48],
+    "interface_spacing": ["Current-spacing control", "Best dense candidate from this plate"],
+    "interface_layers": 2,
+    "repeat_controls": true,
+    "reason": "A smaller gap can reduce sag while increasing fusion; density may change that tradeoff. Existing large tree-support coupons favor the larger release gap, whereas narrow removable-wall coupons favor the smaller gap. Those results apply to their own contact geometry.",
+    "requires": "Physical results from the initial plate and discussion with Derek; no larger plate is scheduled."
+  },
+  "later_factors": [
+    {
+      "factor": "Interface layer count",
+      "candidate_layers": [2, 4],
+      "trigger": "The support mat itself remains uneven or fragile.",
+      "reason": "A thicker mat may distribute support and peel as a sheet; it also costs time and material and does not directly change contact gap."
+    },
+    {
+      "factor": "Representative geometry and direction",
+      "candidate_bridge_directions_degrees": [0, 90],
+      "geometry": ["Repeated open-front ceiling", "Longer ceiling", "Current mating-cavity crop"],
+      "reason": "Assess direction sensitivity, sag, wall-edge adhesion and practical removal access before transferring a flat short coupon result."
+    },
+    {
+      "factor": "First model bridge course",
+      "candidate_native_bridge_flow": [1.0, 1.25],
+      "candidate_effective_bridge_speed_mm_s": [15, 25],
+      "trigger": "An intact support mat releases, but the retained first model course remains loose.",
+      "reason": "Existing PET-GF bridge experiments support these candidates; they do not establish a universal winner for supported ceilings. Hold cooling and contact geometry common."
+    }
+  ],
+  "deferred_variables": [
+    "Interface pattern, tree style, edge setback and ironing remain common during the first density/gap comparisons.",
+    "Nozzle temperature and general cooling remain common; screenshot suggestions for cooler printing do not establish a PET-GF process.",
+    "A different support filament needs its own material compatibility and nozzle arrangement experiment."
+  ],
+  "local_evidence": [
+    "hardware/print-tests/petgf-interface-edges/results.json",
+    "hardware/print-tests/petgf-interface-patterns/results.json",
+    "hardware/print-tests/petgf-fins/under-roof-walls-v8/mark1/physical-result.json",
+    "hardware/print-tests/petgf-fins/profile-transfer-review.json"
+  ]
+}
