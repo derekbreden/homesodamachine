@@ -152,15 +152,15 @@
           {
             "terminal": "wago-g.3",
             "offset": [
+              6.0,
               0.0,
-              -1.6,
-              10.8
+              0.0
             ]
           },
           {
             "point_mm": [
-              -62.0,
-              446.6,
+              -65.0,
+              430.0,
               311.5
             ]
           },
@@ -1549,7 +1549,7 @@
   "carbonator-earth": {
     "jacket": false,
     "kind": "Carbonator protective earth",
-    "description": "The 16 AWG earth conductor occupies the center of the shared cap passage and drops into port 2 of the rear PE WAGO below C14.",
+    "description": "The earth conductor occupies the center of the shared cap passage and joins the west-wall protective-earth junction above the relays.",
     "packed_diameter_mm": 6.6,
     "bend_radius_mm": 5.5,
     "fanout_tangent_mm": [
@@ -1567,15 +1567,23 @@
       "PE-carbonator": {
         "entry_stations": [
           {
+            "terminal": "wago-g.2",
+            "offset": [
+              8.0,
+              0.0,
+              0.0
+            ]
+          },
+          {
             "point_mm": [
-              -85.15,
-              445.0,
+              -72.0,
+              408.2,
               283.5
             ]
           },
           {
             "point_mm": [
-              -85.15,
+              -72.0,
               320.0,
               283.5
             ]
