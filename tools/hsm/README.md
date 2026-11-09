@@ -79,9 +79,10 @@ through source edits, review attempts and reference-browser draws when a timing 
 
 ## Construction features and installed instances
 
-In `/3d`, selecting an enclosure quadrant selects the whole part. **Explore features** enables
-surface picking within that part. Click a feature in the model to select it. Selecting the
-parent returns to the whole component; **Select whole components** leaves feature picking.
+In `/3d`, Component clicking selects whole parts in an assembly. **Open component** enters
+the selected part; Component clicking then selects its named construction features directly
+on the geometry. The parent breadcrumb selects the whole part. Returning to the assembly
+returns picking to whole components.
 Material search also finds these features and lists the individual installed instances of a
 repeated component. A feature's **Copy feature link** action retains its installed owner.
 

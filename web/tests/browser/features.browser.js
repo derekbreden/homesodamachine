@@ -1,4 +1,4 @@
-// On-demand browser checks exercise feature links and scoped picking on the exported quadrant.
+// On-demand browser checks follow component navigation through assemblies and named features.
 import { test } from "node:test";
 import assert from "node:assert/strict";
 import fs from "node:fs";
@@ -59,12 +59,11 @@ test("feature links and component drill-down use the same exported identity on d
         const { selectComponent, setComponentPickEnabled } = await import("/js/viewer/component-picker.js");
         const feature = sceneFeature(key);
         setComponentPickEnabled(true); selectComponent("enclosure-back-top");
-        return { id: feature?.id, source: feature?.source, count: feature?.triangles.reduce((n,[a,b])=>n+b-a+1,0),
-          available: document.querySelector(".component-explore")?.textContent };
+        return { id: feature?.id, source: feature?.source, count: feature?.triangles.reduce((n,[a,b])=>n+b-a+1,0) };
       }, key);
       assert.equal(linked.id, "wago-h-well"); assert.ok(linked.count > 0);
-      assert.equal(linked.available, "Explore features");
-      const point = await page.evaluate(async key => {
+      assert.equal(await page.$('.component-explore'),null);
+      const point = () => page.evaluate(async key => {
         const { sceneFeature } = await import("/js/viewer/features.js");
         const { THREE, camera, controls, renderer, scene, currentGroup } = window.__hsm;
         const feature = sceneFeature(key), mesh = feature.meshes[0];
@@ -92,7 +91,7 @@ test("feature links and component drill-down use the same exported identity on d
         }
         throw new Error('No visible feature triangle for picking');
       },key);
-      const pick = () => page.evaluate(({x,y}) => {
+      const pick = async () => page.evaluate(({x,y}) => {
         let detail;
         const listener=e=>detail=e.detail;
         // Dispatch on the canvas so the open companion panel does not intercept the geometry test.
@@ -103,11 +102,16 @@ test("feature links and component drill-down use the same exported identity on d
           canvas.dispatchEvent(new PointerEvent('pointerup',{clientX:x,clientY:y,bubbles:true,pointerId:1}));
           return detail;
         });
-      },point);
-      assert.equal((await pick()).feature,undefined);
-      await page.click(".component-explore");
+      },await point());
+      if (file==='manifold-layout/enclosure-assembly.step') {
+        assert.equal((await pick()).feature,undefined);
+        await page.click('.component-actions .component-open');
+        await page.waitForFunction(file=>window.__hsm.mountedStepFile!==file
+          && !window.__hsm.currentGroup.userData.sceneLoading,{timeout:30000},file);
+      }
       assert.equal(await page.$eval('.component-panel',el=>/\bholds\b/i.test(el.innerText)),false);
       assert.equal((await pick()).feature,'wago-h-well');
+      assert.equal(await page.$('.component-explore'),null);
       assert.match(await page.$eval(".component-panel .edge-panel-file", el => el.textContent), /connector well/i);
       assert.ok(await page.$eval('.component-held-here',el=>el.getBoundingClientRect().width>80));
       assert.equal(await page.$eval(".component-copy", el => el.textContent), "Copy feature link");
@@ -131,6 +135,10 @@ test("feature links and component drill-down use the same exported identity on d
         fs.writeFileSync(path.join(output,`${viewport.width}.json`),JSON.stringify({origin,viewport,linked,mounted,feature_count:catalog.length,errors},null,2)+'\n');
       }
       if (file==='manifold-layout/enclosure-assembly.step') {
+        await page.goBack();
+        await page.waitForFunction(file=>window.__hsm.mountedStepFile===file
+          && !window.__hsm.currentGroup.userData.sceneLoading,{timeout:30000},file);
+        assert.equal((await pick()).feature,undefined);
         await page.evaluate(async () => {
           for (const mesh of window.__hsm.currentGroup.children) if(mesh.isMesh) mesh.visible=true;
           (await import('/js/viewer/component-picker.js')).applyHiddenComponents();
