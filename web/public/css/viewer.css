@@ -1774,6 +1774,18 @@
     width: max-content;
     max-width: calc(100% - 32px - var(--cube-size, 140px) - 28px);
   }
+  .cad-wrapper > .component-panel.collapsed {
+    top: calc(env(safe-area-inset-top, 0px) + var(--cube-size, 140px) + 28px);
+    width: calc(100% - 32px);
+    max-width: calc(100% - 32px);
+  }
+  .component-panel.collapsed .edge-panel-title { display: none; }
+  .component-panel.collapsed .component-held-here {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+  }
 }
 .cad-wrapper > .sc-modal {
   position: absolute;

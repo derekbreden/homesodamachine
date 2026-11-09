@@ -104,6 +104,8 @@ const inFinish = (name) => showsInFaucetFinish(mountedFile(), name, state.faucet
 // Set mesh.visible from state.hiddenComponents and the faucet's finish. Called after each STEP
 // load (step.js), after every hide/show and after a finish change. Unnamed meshes stay visible.
 export function applyHiddenComponents() {
+  let repaintSelection = false;
+  const selectedNames = selectionBodies || (selection ? [componentBody(selection)] : []);
   if (state.currentGroup) {
     for (const m of state.currentGroup.children) {
       // An x-ray edge answers to isMesh — xray.js draws it as LineSegments2,
@@ -116,13 +118,15 @@ export function applyHiddenComponents() {
         const nm = m.userData.xrayComponent;
         m.visible = !(nm && standsHidden(nm)) && inFinish(nm);
       } else if (m.isMesh) {
-        m.visible = !(m.name && standsHidden(m.name)) && inFinish(m.name);
+        const visible = !(m.name && standsHidden(m.name)) && inFinish(m.name);
+        if (m.visible !== visible && selectedNames.some(name => standsIn(m.name, name))) repaintSelection = true;
+        m.visible = visible;
       }
     }
   }
   invalidateAllEdgesLayer(); // the edge picker's faint all-edges layer must drop hidden solids
   refreshHighlight(); // a selection picks out only what is still drawn
-  if (selection) drawOverlay(selGroup, selection, SEL, selEdgeMat, 0.18);
+  if (repaintSelection) drawOverlay(selGroup, selection, SEL, selEdgeMat, 0.18);
   refreshPanel();
 }
 
