@@ -1,8 +1,10 @@
 import fs from "node:fs";
 import path from "node:path";
-import { createHash } from "node:crypto";
 import { runMinutes } from "../contracts/part-costs.js";
 import { readStockLedger } from "./stock-ledger.js";
+import { readMaterialCatalog } from "./material-catalog.js";
+import { readMaterialStock } from "./material-stock.js";
+import { planMaterial } from "../contracts/material-stock.js";
 
 const gcd = (a, b) => b ? gcd(b, a % b) : a;
 
@@ -84,7 +86,7 @@ export function calculateBatch(data, units, labor) {
     const onHand = item.inventory?.onHand ?? null;
     const incoming = item.inventory?.incoming ?? 0;
     const available = onHand == null ? 0 : Math.max(0, onHand - (item.inventory?.reserved || 0));
-    if (![required, available, incoming].every(n => Number.isFinite(n) && n >= 0) || (onHand != null && onHand < 0)) throw new RangeError("Invalid requirement or inventory credit");
+    if (![required, available, incoming].every(n => Number.isFinite(n) && n >= 0) || (onHand != null && onHand < 0 && !item.inventory?.needsCount)) throw new RangeError("Invalid requirement or inventory credit");
     const openingStock = available + incoming;
     const shortfall = Math.max(0, required - openingStock);
     let target = Math.max(shortfall, (item.minimumPurchaseQuantity?.[String(units)] || 0) - openingStock);
@@ -103,6 +105,7 @@ export function calculateBatch(data, units, labor) {
     if (item.status === "unconfirmed" && purchase.quantity) issues.push("Exact Prime offer unconfirmed; historical delivered-price allowance.");
     if (item.status === "estimate") issues.push("Estimated quantity, price or compatibility; see note.");
     if (item.inventory?.estimated) issues.push("Remaining usable inventory is estimated; see stock note.");
+    if (item.requirementUnknown) issues.push("Usable input quantity is unresolved; the physical planning allowance is provisional.");
     if (incoming) issues.push("Already ordered; delivery pending. Arrival is required before assembly.");
     for (const pack of purchase.packages) {
       if (pack.option.listedPackages !== undefined && pack.count > pack.option.listedPackages) {
@@ -141,23 +144,40 @@ export function calculateBatch(data, units, labor) {
 export function readBatchForecast(hardwareDir, labor) {
   const data = JSON.parse(fs.readFileSync(path.join(hardwareDir, "ledger", "batch-forecast.json"), "utf8"));
   const stock = readStockLedger(hardwareDir);
+  const catalog = readMaterialCatalog(hardwareDir);
+  catalog.stock = readMaterialStock(hardwareDir, catalog);
+  const index = new Map(catalog.materials.map(material => [material.id, material]));
   for (const item of data.items) {
-    const balance = stock.resources[item.stock];
+    const balance = catalog.stock.resources[item.stock];
     item.inventory = { ...balance, note: balance.note || "No stock count recorded" };
+    item.unit = balance.unit;
     item.perUnit = balance.planning.perUnit;
     item.materialAllowance = balance.planning.materialAllowance;
+    item.category = balance.category || "supplies";
   }
   data.inventoryAsOf = stock.asOf.slice(0, 10);
-  if (data.schemaVersion !== 2 || !/^\d{4}-\d{2}-\d{2}$/.test(data.checkedAt) || !/^\d{4}-\d{2}-\d{2}$/.test(data.inventoryAsOf) || !Number.isFinite(data.taxRate) || data.taxRate < 0 || data.taxRate > 1) throw new Error("Invalid batch forecast");
-  if (data.items.some(item => !item.inventory)) throw new Error("Missing inventory reconciliation");
-  if (new Set(data.items.map(item => item.id)).size !== data.items.length) throw new Error("Duplicate purchase SKU");
-  const bom = fs.readFileSync(path.join(hardwareDir, "ledger", "bom.md"), "utf8");
-  const bomChanged = createHash("sha256").update(bom).digest("hex") !== data.bomSha256;
-  const bomLines = bom.split("\n");
-  for (const item of data.items) {
-    item.category = item.bomLines.map(line => bomLines[line - 1]?.match(/<!--@([a-z][a-z-]*)-->/)?.[1]).find(Boolean) || "supplies";
-  }
-  return { data, bomChanged, batches: [5, 10, 20].map(units => calculateBatch(data, units, labor)) };
+  const offered = new Set(data.items.map(item => item.stock));
+  const batches = [5, 10, 20].map(units => {
+    const plan = planMaterial(catalog, catalog.cost_root, units, { finish: "white" });
+    const needs = new Map(plan.resources.map(row => [row.resource, row]));
+    const remaining = plan.materials.find(row => row.material === catalog.cost_root)?.make || 0;
+    const items = data.items.map(item => {
+      const need = needs.get(item.stock);
+      const fixedQuantity = !need ? 0 : need.quantityKnown ? need.needed : item.perUnit * remaining * (1 + (item.materialAllowance || 0));
+      return { ...item, fixedQuantity, requirementUnknown: Boolean(need && !need.quantityKnown),
+        ...(!need && { packageCounts: null, minimumPurchaseQuantity: null }) };
+    });
+    const batch = calculateBatch({ ...data, items: items.filter(item => needs.has(item.stock)) }, units, labor);
+    batch.unpriced = plan.resources.filter(row => !offered.has(row.resource)).flatMap(row => {
+      const resource = catalog.stock.resources[row.resource];
+      const short = row.quantityKnown ? Math.max(0, row.needed - (resource.available || 0) - (resource.incoming || 0)) : null;
+      return short === 0 ? [] : [{ id: row.resource, name: resource.name, quantity: short, unit: resource.unit, href: resource.href }];
+    });
+    batch.undefinedInputs = plan.gaps.map(gap => ({ ...gap, name: index.get(gap.material)?.description || gap.material }));
+    batch.requirementUnknown = batch.rows.some(row => row.requirementUnknown);
+    return batch;
+  });
+  return { data, batches, bomChanged: false };
 }
 
 export { renderBatchForecast, BATCH_FORECAST_CSS } from "./batch-forecast-view.js";

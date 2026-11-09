@@ -1,61 +1,94 @@
-# Stock and build records
+# Stock and physical work
 
-[`stock.json`](stock.json) connects material numbers to dated usable-stock
-evidence and records measured assembly work for [Build from stock](https://homesodamachine.com/build).
-The material explorer's Stock tab opens the same plan for its selected part.
+[`stock.json`](stock.json) owns inventory facts and recorded physical work for
+[Build from stock](https://homesodamachine.com/build) and the
+[purchasing forecast](https://homesodamachine.com/cost#batch-forecast).
+The material explorer reads the same build plan on its Stock tab.
 
-## Available materials
+## Definitions and evidence
 
-The opening balances belong to `resources` in [`stock.json`](stock.json).
-Both buildability and the purchasing forecast read the same projected balances.
-Supplier offers in [`batch-forecast.json`](batch-forecast.json) reference these
-stock identities. Credits are dated estimates, including reusable development
-parts. The current BOM supplies the inputs of each part, and the material catalog
-supplies the contents of each assembly. Purchase evidence and explicitly
-identified stock use `resources`, `bindings` and `observations` in `stock.json`.
-An observation replaces a balance and carries its date, evidence and uncertainty.
-An ordered quantity remains incoming until a receipt is recorded. Physical
-planning allowances belong beside their stock identity; supplier offers carry
-the purchasable lot sizes and prices.
+The material catalog owns identities and assembly contents. The authored
+physical quantities in [`bom.md`](bom.md) supply manufacturing inputs through
+`web/lib/bom-lines.js` and `web/lib/material-stock.js`. Costing reads those same
+BOM lines and material configurations; an input quantity does not depend on its
+price. Unmeasured input quantities retain an explicit physical planning
+allowance or remain unknown.
 
-The plan aggregates shared stock across every occurrence in the requested
-assembly. A donor yields its recorded kit of parts; those outputs share the
-donor requirement. Printed material follows the part's mass allocation, color
-and the forecast's process allowance. Mixed terminal sizes, stock recorded in
-incompatible cutting units and unrecorded manufacturing inputs remain visible
-as missing records. An unknown quantity receives no stock credit.
+`resources` owns the opening on-hand, incoming and reserved balances, physical
+units, planning allowances and evidence. `bindings` connects material identities
+to supplier stock; `printing` selects stock colors; `kits` states the outputs a
+donor supplies together. These identities remain stable when their display names
+or supplier offers change. `observations` carries dated opening corrections.
+Supplier offers and lot prices belong to [`batch-forecast.json`](batch-forecast.json).
 
-The reported capacity counts materials. Assembly instructions and their
-physical qualification records establish the fabrication and fit requirements.
-Each request starts with the same balances; browsing plans reserves nothing.
+Unknown balances receive no credit. Estimates retain their evidence and uncertainty.
+Incoming stock reduces duplicate purchasing and becomes available to build on
+receipt. Completed parts and assemblies satisfy demand before their components
+and manufacturing inputs are expanded. Each browsed plan starts from the same
+balances and reserves nothing.
 
-## Completed parts and assemblies
+## Record physical activity
 
-A material observation uses `material`, `onHand`, `reserved`, `asOf`, `sources`
-and `estimated`. Use `finish` when the stock applies to a particular finish.
-The quantity is usable loose stock of that numbered material, including a
-completed assembly when it is held as a unit. Stock already in an assembly is
-represented by the completed assembly's balance. Its components and consumed
-raw materials receive no second credit.
+Start the workbench on this Mac from the repository root:
 
-The planner uses completed stock before expanding the remaining demand into
-components and manufacturing inputs. A missing completed-stock record offers
-no completed-stock credit; a recorded manufacturing input can still supply
-the work to make it. A physical count can replace an acquired-pack estimate.
-Reservations reduce availability while retaining the physical count.
+```sh
+node tools/stock.mjs serve
+```
 
-## Actual build effort
+The command prints the local address. Open Build from stock there and choose
+the material and output quantity. The local page offers completion, receipt and
+count entry. Recording controls write only through the local workbench.
 
-`events` records physical activity. A completion names its `output`, actual
-`inputs`, `attendedMinutes`, `occurredAt`, `sources` and a short `note`.
-The output names the material, quantity and applicable finish. Inputs name
-the stock resources or completed materials used. The same completion deducts
-those inputs, adds completed stock and supplies the measured-work display.
-Record hands-on time for the stated scope and describe any rework or preparation
-it includes. Equipment waits belong to machine time. Elapsed agent or CAD-build
-duration is not assembly labor.
+A completion starts with the listed inputs and ends with the completed output.
+Prepared components are consumed as components; printing a component consumes
+its manufacturing stock. Standard component quantities are prefilled. Adjust
+them to the quantities actually used, remove unused inputs and add other stock
+when the work requires it. Estimated usage remains marked until measured.
+Record hands-on minutes when known and describe preparation or rework in the note.
+Equipment waits belong to machine time.
 
-The website shows measured attended work beside the labor ledger's allocated
-planning estimate. No measured run is inferred from that estimate. A work
-record carries the actual quantities used. Receipts add received stock and
-reduce incoming quantities; counts establish an observed usable balance.
+**Record and publish completion** saves the consumed inputs, completed stock and
+measured effort in the same ledger entry, then commits and pushes the stock ledger.
+The local plans update immediately; the shared site adopts the published ledger
+through its normal deployment. A publication failure leaves the physical record
+saved and offers publication retry. Retrying the same record cannot consume
+stock again.
+
+Receipts add received stock and reduce incoming quantities. Counts establish
+observed on-hand stock and can correct an estimated balance. Use the actual
+finish for finish-dependent parts; common components share a balance across
+faucet finishes. A purchased material and its supplier stock use the same balance.
+
+## Record structure
+
+`events` holds activity in posting order. Each entry has a stable `id`, `kind`,
+`occurredAt`, `recordedAt`, `note` and evidence `sources`.
+
+A `completion` has an `output` with material, quantity and applicable finish;
+`inputs` with material or resource, quantity and unit; and nullable
+`attendedMinutes`. Its quantities are stored with the work, so a later design
+edit does not recalculate past consumption. A `receipt` or `count` identifies
+the material or resource and quantity. A count may also establish `incoming`
+and `reserved` quantities. The occurrence date describes the physical activity;
+posting order determines the current balance.
+
+Measured completion work appears beside the labor allocated to the same scope.
+Component work already recorded separately is excluded from that completion's
+timing. The complete-unit cost and full-batch labor benchmark retain their
+planning meaning.
+
+Recorded consumption beyond an estimated balance remains visible and calls for
+a physical count. Consumption from an unknown balance does not invent a remainder.
+The ledger writer serializes concurrent entries and replaces the file atomically.
+The lock serves stock recording and adds nothing to CAD or normal builds.
+
+## Agent commands
+
+`node tools/stock.mjs plan <material>` prints a completion draft with its stable
+record identity and proposed inputs. Edit it to describe the actual work, then
+use `node tools/stock.mjs record <event-file> --publish`. The same writer and
+projections serve the workbench. `node tools/stock.mjs publish` retries publication
+of a saved stock record without creating another physical event.
+
+Stock quantities establish material availability. Fabrication methods, fit and
+physical qualification remain in the relevant part and assembly records.

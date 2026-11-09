@@ -1,14 +1,26 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import fs from "node:fs";
-import path from "node:path";
 import { fileURLToPath } from "node:url";
-import { calculateBatch, laborMinutes, optimizePurchase, readBatchForecast, renderBatchForecast } from "../lib/batch-forecast.js";
+import {
+  calculateBatch,
+  laborMinutes,
+  optimizePurchase,
+  readBatchForecast,
+  renderBatchForecast,
+} from "../lib/batch-forecast.js";
 import { readLaborRollup } from "../lib/cost.js";
 import { parseRun, runMinutes } from "../contracts/part-costs.js";
+import { readMaterialCatalog } from "../lib/material-catalog.js";
+import { readMaterialStock } from "../lib/material-stock.js";
+import { planMaterial } from "../contracts/material-stock.js";
 
 const hardware = fileURLToPath(new URL("../../hardware", import.meta.url));
-const lot = (quantity, priceCents, extra = {}) => ({ quantity, priceCents, label: `${quantity}-pack`, ...extra });
+const lot = (quantity, priceCents, extra = {}) => ({
+  quantity,
+  priceCents,
+  label: `${quantity}-pack`,
+  ...extra,
+});
 
 test("whole lots minimize batch cash, mixing sizes and accepting useful excess stock", () => {
   const options = [lot(1, 252), lot(10, 2134), lot(300, 62251)];
@@ -19,18 +31,27 @@ test("whole lots minimize batch cash, mixing sizes and accepting useful excess s
   assert.equal(optimizePurchase(11, options).costCents, 2386);
   const filament = optimizePurchase(69.00115, [lot(3, 7499), lot(1, 2999)]);
   assert.equal(filament.quantity, 70);
-  assert.deepEqual(filament.packages.map(pack => pack.count), [23, 1]);
+  assert.deepEqual(
+    filament.packages.map((pack) => pack.count),
+    [23, 1],
+  );
   assert.ok(filament.costCents < 24 * 7499);
 });
 
 test("discount tiers can make an extra quantity the least expensive order", () => {
-  const plan = optimizePurchase(90, [lot(1, 200, { tiers: [{ minimum: 100, priceCents: 100 }] })]);
+  const plan = optimizePurchase(90, [
+    lot(1, 200, { tiers: [{ minimum: 100, priceCents: 100 }] }),
+  ]);
   assert.equal(plan.quantity, 100);
   assert.equal(plan.costCents, 10000);
 });
 
 test("available lots are preferred; a missing source remains a positive allowance", () => {
-  assert.equal(optimizePurchase(10, [lot(10, 1000, { available: false }), lot(1, 200)]).costCents, 2000);
+  assert.equal(
+    optimizePurchase(10, [lot(10, 1000, { available: false }), lot(1, 200)])
+      .costCents,
+    2000,
+  );
   const plan = optimizePurchase(0.971, [lot(1, 4999, { available: false })]);
   assert.equal(plan.costCents, 4999);
   assert.equal(plan.packages[0].option.available, false);
@@ -45,62 +66,87 @@ test("fractional quantities are covered without rounding a purchase down", () =>
   assert.equal(optimizePurchase(20, [lot(1, 196.11)]).costCents, 3922);
 });
 
-test("the sourced plan covers the current BOM, including shared parts and unpriced requirements", () => {
+test("purchase requirements follow the physical BOM and expose missing quotes", () => {
   const forecast = readBatchForecast(hardware, readLaborRollup(hardware));
-  assert.deepEqual(forecast.batches.map(batch => batch.units), [5, 10, 20]);
-  assert.equal(forecast.bomChanged, false, "BOM changed: review the dated supplier forecast");
-  const bomRows = fs.readFileSync(path.join(hardware, "ledger/bom.md"), "utf8").split("\n")
-    .flatMap((line, index) => line.startsWith("|") && line.includes("<!--@") ? [index + 1] : []);
-  const covered = new Set([...forecast.data.items.flatMap(item => item.bomLines), ...forecast.data.excludedBomLines.map(row => row.line)]);
-  assert.deepEqual([...covered].sort((a, b) => a - b), bomRows);
-  assert.equal(forecast.data.bomRowCount, bomRows.length);
+  const catalog = readMaterialCatalog(hardware);
+  catalog.stock = readMaterialStock(hardware, catalog);
+  assert.deepEqual(
+    forecast.batches.map((batch) => batch.units),
+    [5, 10, 20],
+  );
   for (const batch of forecast.batches) {
+    const plan = planMaterial(catalog, catalog.cost_root, batch.units, {
+      finish: "white",
+    });
+    const needs = new Map(plan.resources.map((row) => [row.resource, row]));
     for (const row of batch.rows) {
-      assert.ok(row.onHand + row.incoming + row.quantity + 1e-8 >= row.required, row.name);
-      assert.ok(row.quantity ? row.costCents > 0 : row.costCents === 0, row.name);
+      const need = needs.get(row.stock);
+      if (need?.quantityKnown)
+        assert.equal(row.required, need.needed, row.name);
+      else if (need) assert.equal(row.requirementUnknown, true, row.name);
+      else assert.equal(row.required, 0, row.name);
     }
-    const valves = batch.rows.find(row => row.id === "B07NWCQJK9");
-    assert.equal(valves.required, 11 * batch.units);
-    const tees = batch.rows.find(row => row.bomLines.includes(53));
-    assert.equal(tees.required, 8 * batch.units);
-    assert.equal(batch.rows.filter(row => row.bomLines.includes(53)).length, 1);
-    const copper = batch.rows.find(row => row.id === "B0DKSW5VL9");
-    assert.equal(copper.packages[0].count, { 5: 1, 10: 3, 20: 6 }[batch.units]);
-    const rod = batch.rows.find(row => row.bomLines.includes(264));
-    assert.equal(rod.packages[0].count, { 5: 2, 10: 5, 20: 10 }[batch.units]);
-    const foam = batch.rows.find(row => row.bomLines.includes(199));
-    assert.equal(foam.packages[0].count, { 5: 5, 10: 11, 20: 23 }[batch.units]);
-    const keystones = batch.rows.find(row => row.bomLines.includes(223));
-    assert.equal(keystones.quantity, batch.units === 20 ? 10 : 0);
-    const red = batch.rows.find(row => row.bomLines.includes(79));
-    assert.equal(red.required, batch.units * 2.5);
-    assert.equal(red.quantity, 0);
-  }
-});
-
-test("known availability shortages are visible and are included in the budget", () => {
-  const forecast = readBatchForecast(hardware, readLaborRollup(hardware));
-  const [, ten, twenty] = forecast.batches;
-  assert.equal(ten.rows.find(row => row.id === "B01G2F6EMY").quantity, 9);
-  assert.match(twenty.rows.find(row => row.id === "B01G2F6EMY").issues.join(" "), /9 more lots/);
-  assert.doesNotMatch(twenty.rows.find(row => row.id === "B07D23JJMR").issues.join(" "), /more lot/);
-  for (const batch of forecast.batches) {
-    const aero = batch.rows.find(row => row.id === "asa-aero");
-    assert.equal(aero.costCents, 0);
-    assert.equal(aero.estimated, true);
+    for (const gap of plan.gaps)
+      assert.ok(
+        batch.undefinedInputs.some((item) => item.material === gap.material),
+      );
+    assert.ok(
+      batch.unpriced.every(
+        (item) => item.quantity == null || item.quantity > 0,
+      ),
+    );
   }
   const html = renderBatchForecast(forecast);
-  assert.match(html, /aria-label="estimate or availability unresolved"/);
   assert.doesNotMatch(html, /NaN|Infinity|undefined/);
-  assert.match(html, /approximately 14.3 kg Black PET-GF15, 12.3 kg Clear PETG and 10 kg Black PETG/);
-  assert.match(html, /from October 13, 2026 inventory/);
-  assert.doesNotMatch(html, /Existing parts inventory is not credited|Full new-purchase budgets/);
+  if (
+    forecast.batches.some(
+      (batch) => batch.unpriced.length || batch.undefinedInputs.length,
+    )
+  )
+    assert.match(html, /quoted budget excludes/);
+});
+
+test("a missing supplier remains visible and positively budgeted", () => {
+  const data = {
+    taxRate: 0,
+    suppliers: [{ id: "shop", shippingCents: { 5: 0 } }],
+    allowances: [],
+    items: [
+      {
+        id: "part",
+        name: "Part",
+        supplier: "shop",
+        unit: "pieces",
+        perUnit: 1,
+        priceBasis: "merchandise",
+        status: "unavailable",
+        inventory: { onHand: 1, incoming: 0 },
+        options: [lot(1, 100, { available: false })],
+      },
+    ],
+  };
+  const batch = calculateBatch(data, 5, null);
+  assert.equal(batch.rows[0].quantity, 4);
+  assert.equal(batch.rows[0].costCents, 400);
+  assert.match(batch.rows[0].issues.join(" "), /Out of stock/);
 });
 
 test("inventory and in-transit orders are deducted before whole-lot rounding and freight", () => {
   const data = {
-    taxRate: 0.1, suppliers: [{ id: "stock", shippingCents: { 10: 800, 20: 800 } }], allowances: [],
-    items: [{ id: "part", supplier: "stock", perUnit: 1, priceBasis: "merchandise", status: "listed", inventory: { onHand: 4, incoming: 6 }, options: [lot(6, 600)] }],
+    taxRate: 0.1,
+    suppliers: [{ id: "stock", shippingCents: { 10: 800, 20: 800 } }],
+    allowances: [],
+    items: [
+      {
+        id: "part",
+        supplier: "stock",
+        perUnit: 1,
+        priceBasis: "merchandise",
+        status: "listed",
+        inventory: { onHand: 4, incoming: 6 },
+        options: [lot(6, 600)],
+      },
+    ],
     pendingPayments: [{ name: "Open order", costCents: 600 }],
   };
   const ten = calculateBatch(data, 10, null);
@@ -108,115 +154,149 @@ test("inventory and in-transit orders are deducted before whole-lot rounding and
   assert.equal(ten.rows[0].quantity, 0);
   assert.equal(ten.inboundCents, 0);
   assert.equal(ten.taxCents, 0);
-  assert.equal(ten.cashCents, 600, "only the possible unpaid balance, with no duplicate order or tax");
+  assert.equal(
+    ten.cashCents,
+    600,
+    "only the possible unpaid balance, with no duplicate order or tax",
+  );
   const twenty = calculateBatch(data, 20, null);
   assert.equal(twenty.rows[0].shortfall, 10);
   assert.equal(twenty.rows[0].quantity, 12);
   assert.equal(twenty.rows[0].remaining, 2);
   assert.equal(twenty.cashCents, 2800);
-  assert.throws(() => calculateBatch({ ...data, items: [{ ...data.items[0], inventory: { onHand: -1 } }] }, 10, null), RangeError);
+  assert.throws(
+    () =>
+      calculateBatch(
+        { ...data, items: [{ ...data.items[0], inventory: { onHand: -1 } }] },
+        10,
+        null,
+      ),
+    RangeError,
+  );
 });
 
-test("current stock changes the actual PCB, filament and pending-order purchase lists", () => {
+test("purchasing and buildability read the same balances and units", () => {
   const forecast = readBatchForecast(hardware, readLaborRollup(hardware));
-  const [, ten, twenty] = forecast.batches;
-  const row = (batch, id) => batch.rows.find(row => row.id === id);
-  const boards = ten.rows.find(row => row.bomLines.includes(15));
-  assert.equal(boards.onHand, 10);
-  assert.equal(boards.quantity, 0);
-  assert.equal(twenty.rows.find(row => row.id === boards.id).quantity, 10);
-  assert.equal(row(ten, "petgf-black").quantity, 55);
-  assert.deepEqual(row(ten, "petgf-black").packages.map(pack => [pack.count, pack.option.quantity]), [[18, 3], [1, 1]]);
-  assert.equal(row(twenty, "petgf-black").quantity, 125);
-  assert.equal(row(ten, "petg-clear").onHand, 12.3);
-  assert.equal(row(ten, "petg-clear").quantity, 0, "the delivered refills and the remaining clear balance cover ten machines");
-  assert.equal(row(twenty, "petg-clear").quantity, 10);
-  assert.equal(row(twenty, "petg-clear").costCents, 11193, "ten new refills use the ten-roll tier");
-  assert.equal(row(ten, "petg-black").quantity, 0);
-  assert.equal(row(twenty, "petg-black").quantity, 0);
-  assert.equal(ten.suppliers.find(supplier => supplier.id === "lcsc").shippingCents, 0);
-  assert.equal(twenty.suppliers.find(supplier => supplier.id === "lcsc").shippingCents, 4000);
-  assert.equal(ten.pendingCents, 9454);
-  assert.equal(twenty.pendingCents, ten.pendingCents, "same opening orders, not doubled for twenty");
-  const elbows = ten.rows.find(row => row.bomLines.includes(182));
-  assert.equal(elbows.onHand, 40, "both FWS elbow orders are credited");
-  assert.equal(elbows.quantity, 0);
-  const connectors = ten.rows.find(row => row.bomLines.includes(192));
-  assert.equal(connectors.onHand, 10, "the May 15 bag is PP010822E");
-  assert.equal(connectors.quantity, 20);
-  assert.equal(row(ten, "16awg-kit").packages[0].count, 2);
-  assert.equal(row(twenty, "16awg-kit").packages[0].count, 4);
+  const catalog = readMaterialCatalog(hardware);
+  catalog.stock = readMaterialStock(hardware, catalog);
+  for (const item of forecast.data.items) {
+    const stock = catalog.stock.resources[item.stock];
+    assert.equal(item.inventory.onHand, stock.onHand, item.name);
+    assert.equal(item.inventory.incoming, stock.incoming, item.name);
+    assert.equal(item.inventory.reserved || 0, stock.reserved || 0, item.name);
+    assert.equal(item.unit, stock.unit, item.name);
+  }
 });
 
-test("five machines use opening stock and whole packs, with small-order reserves and separate labor", () => {
+test("purchase cash and the full-batch labor benchmark stay separate", () => {
   const forecast = readBatchForecast(hardware, readLaborRollup(hardware));
   const [five, ten, twenty] = forecast.batches;
-  const row = id => five.rows.find(row => row.id === id);
-  assert.equal(Math.round(row("petgf-black").shortfall * 1e4) / 1e4, 20.315);
-  assert.equal(row("petgf-black").quantity, 21);
-  assert.deepEqual(row("petgf-black").packages.map(pack => [pack.count, pack.option.quantity]), [[7, 3]]);
-  assert.equal(row("petgf-black").costCents, 52493);
-  assert.equal(row("petg-clear").quantity, 0);
-  assert.equal(row("petg-black").quantity, 0);
-  assert.equal(row("16awg-kit").packages[0].count, 1, "reserve for the limiting colour after the existing kit credit");
-  assert.equal(row("B07NWCQJK9").quantity, 31, "55 solenoids minus 14 on hand and 10 arriving");
-  assert.equal(row("B01G2F6EMY").quantity, 4);
-  for (const id of ["bambu", "jlc", "metals", "scs", "midwest", "kj", "waveshare", "lcsc", "riteav"]) {
-    const supplier = five.suppliers.find(supplier => supplier.id === id);
-    assert.equal(supplier.costCents, 0, id);
-    assert.equal(supplier.shippingCents, 0, `${id}: no new shipment`);
+  assert.equal(five.pendingCents, ten.pendingCents);
+  assert.equal(ten.pendingCents, twenty.pendingCents);
+  for (const batch of forecast.batches) {
+    assert.equal(batch.totalCents, batch.cashCents + batch.laborCents);
+    assert.ok(
+      batch.rows.every((row) =>
+        row.quantity ? row.costCents > 0 : row.costCents === 0,
+      ),
+    );
   }
-  assert.equal(five.pendingCents, ten.pendingCents, "same existing-order reserve, not half the ten-machine balance");
-  assert.equal(five.partsCents, 313016);
-  assert.equal(five.inboundCents, 5000);
-  assert.equal(five.taxCents, 21868);
-  assert.equal(five.allowances.find(allowance => allowance.id === "shop").costCents, 12500);
-  assert.equal(five.cashCents, 421838);
   const labor = readLaborRollup(hardware);
-  assert.equal(Math.round(ten.laborHours * 60 * 1000), Math.round(labor.minutes * 10 * 1000), "ten machines take the ledger's own minutes");
-  assert.ok(five.laborHours / 5 > ten.laborHours / 10, "five machines share each setup among fewer");
+  assert.equal(
+    Math.round(ten.laborHours * 60 * 1000),
+    Math.round(labor.minutes * 10 * 1000),
+  );
+  assert.ok(five.laborHours / 5 > ten.laborHours / 10);
   assert.ok(twenty.laborHours / 20 < ten.laborHours / 10);
-  assert.equal(five.totalCents, five.cashCents + five.laborCents);
-  assert.ok(five.cashCents < ten.cashCents / 2, "inventory makes this a separate calculation");
-  assert.equal(ten.cashCents, 1090602);
-  assert.equal(twenty.cashCents, 2711205);
   const html = renderBatchForecast(forecast);
   assert.match(html, /value="5" checked/);
   assert.match(html, /data-units="5" open/);
-  assert.match(html, /<th scope="col">5 machines<\/th>/);
-  assert.match(html, /\$4,218.38/);
 });
 
 test("delivered historical invoices are not taxed twice; paid labor remains separate", () => {
   const data = {
-    taxRate: 0.1, suppliers: [{ id: "test", shippingCents: { 10: 100, 20: 100 } }], allowances: [],
+    taxRate: 0.1,
+    suppliers: [{ id: "test", shippingCents: { 10: 100, 20: 100 } }],
+    allowances: [],
     items: [
-      { id: "invoice", supplier: "test", perUnit: 1, priceBasis: "delivered", options: [lot(10, 10000)], status: "estimate" },
-      { id: "catalog", supplier: "test", perUnit: 1, priceBasis: "merchandise", options: [lot(1, 100)], status: "listed" },
+      {
+        id: "invoice",
+        supplier: "test",
+        perUnit: 1,
+        priceBasis: "delivered",
+        options: [lot(10, 10000)],
+        status: "estimate",
+      },
+      {
+        id: "catalog",
+        supplier: "test",
+        perUnit: 1,
+        priceBasis: "merchandise",
+        options: [lot(1, 100)],
+        status: "listed",
+      },
     ],
   };
-  const batch = calculateBatch(data, 10, { minutes: 60, rate: 100, opCount: 1 });
+  const batch = calculateBatch(data, 10, {
+    minutes: 60,
+    rate: 100,
+    opCount: 1,
+  });
   assert.equal(batch.partsCents, 11000);
   assert.equal(batch.taxCents, 110);
   assert.equal(batch.cashCents, 11210);
   assert.equal(batch.laborCents, 100000);
   assert.equal(batch.totalCents, 111210);
   assert.equal(calculateBatch(data, 10, null).laborCents, null);
-  assert.throws(() => calculateBatch({ ...data, taxRate: NaN }, 10, null), RangeError);
+  assert.throws(
+    () => calculateBatch({ ...data, taxRate: NaN }, 10, null),
+    RangeError,
+  );
 });
 
 test("a run's setup is shared by the batch; per-machine work is not", () => {
   const run = parseRun("15 m setup a plate of 30 · 30 s a float · 3 a machine");
-  assert.deepEqual(run, { setup: 15, run: "plate", cap: 30, each: 0.5, piece: "float", per: 3 });
+  assert.deepEqual(run, {
+    setup: 15,
+    run: "plate",
+    cap: 30,
+    each: 0.5,
+    piece: "float",
+    per: 3,
+  });
   assert.equal(runMinutes(run, 10), 3, "one plate of thirty for ten machines");
-  assert.equal(runMinutes(run, 1), 16.5, "one plate of three for a single machine");
+  assert.equal(
+    runMinutes(run, 1),
+    16.5,
+    "one plate of three for a single machine",
+  );
   assert.equal(runMinutes(run, 20), 3, "two full plates for twenty");
   const batchRun = parseRun("20 m setup a batch · 3 m a vessel · 1 a machine");
   assert.equal(batchRun.cap, null);
   assert.equal(runMinutes(batchRun, 5), 7);
-  assert.equal(parseRun("20 m setup a plate · 3 m a vessel · 1 a machine"), null, "a plate needs its size");
-  const labor = { minutes: 13, rate: 60, opCount: 2, cats: [{ ops: [{ minutes: 10, run: null }, { minutes: 3, run }] }] };
+  assert.equal(
+    parseRun("20 m setup a plate · 3 m a vessel · 1 a machine"),
+    null,
+    "a plate needs its size",
+  );
+  const labor = {
+    minutes: 13,
+    rate: 60,
+    opCount: 2,
+    cats: [
+      {
+        ops: [
+          { minutes: 10, run: null },
+          { minutes: 3, run },
+        ],
+      },
+    ],
+  };
   assert.equal(laborMinutes(labor, 10), 13);
   assert.equal(laborMinutes(labor, 1), 26.5);
-  assert.equal(laborMinutes({ minutes: 60 }, 5), 60, "a flat figure stays flat");
+  assert.equal(
+    laborMinutes({ minutes: 60 }, 5),
+    60,
+    "a flat figure stays flat",
+  );
 });

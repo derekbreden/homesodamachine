@@ -16,6 +16,7 @@ import { mountWeldPositionRoutes } from "./lib/weld-position.js";
 import { mountPositionerRoutes } from "./lib/positioner.js";
 import { mountCostRoutes } from "./lib/cost.js";
 import { mountBuildRoutes } from "./lib/build.js";
+import { mountStockRoutes } from "./lib/stock-routes.js";
 import { mountUpdatesRoutes } from "./lib/updates.js";
 import { mountChangesRoutes } from "./lib/changes.js";
 import { mountLatestRoutes } from "./lib/latest.js";
@@ -304,7 +305,8 @@ export async function start({ dev = false, port, hardwareDir } = {}) {
   mountWeldPositionRoutes(app);
   mountPositionerRoutes(app);
   mountCostRoutes(app, { hardwareDir: HARDWARE_DIR });
-  mountBuildRoutes(app, { hardwareDir: HARDWARE_DIR });
+  mountBuildRoutes(app, { hardwareDir: HARDWARE_DIR, canRecord: dev && !process.env.RENDER_GIT_COMMIT });
+  mountStockRoutes(app, { hardwareDir: HARDWARE_DIR, enabled: dev && !process.env.RENDER_GIT_COMMIT });
   mountUpdatesRoutes(app, { updatesDir: UPDATES_DIR, publicDir: LANDING_PUBLIC });
   // The feed's entries reach a deployed container without a deploy (web/lib/changes.js), and only
   // there: `RENDER_GIT_COMMIT` is Render's alone, for the reason `mountArtifactsLive` gives below.

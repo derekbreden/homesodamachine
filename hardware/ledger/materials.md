@@ -189,7 +189,10 @@ assembly quantities and the current BOM's manufacturing inputs. The material
 explorer's Stock tab opens that plan for the selected material.
 [`stock.md`](stock.md) defines usable balances, completed assembly stock,
 reservations and measured attended work; [`stock.json`](stock.json) holds
-observations and the explicit identity bindings to inventory evidence.
+observations, physical activity and the explicit identity bindings to inventory
+evidence. Completion consumes its recorded inputs and adds completed stock in
+the same entry. Costing and availability read the authored physical BOM
+quantities; purchasing credits completed stock before expanding those inputs.
 
 ## Recorded assembly boundaries
 
