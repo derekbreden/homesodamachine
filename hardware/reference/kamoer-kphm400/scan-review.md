@@ -6,10 +6,15 @@ The compatibility directory names the pump family.
 
 [scan_model.rs](scan_model.rs) constructs the rounded head, flat mounting flange,
 plain motor adapter, cylindrical motor, fasteners, primer and outlet sleeves.
+The tube side of the head has a broad circular arch in plan, tangent through rounded
+corners to straight sides. Its rear has a straight central span and rounded corners.
+The neck carries the same distinction between the bowed tube side and straighter back.
+The motor adapter has paired circular columns at each cardinal point, with tangent
+flat walls between pairs and a screw on the alternating column of each pair.
 Principal dimensions and connection stations come from the registered observations
 and retained part measurements. Flat faces stay planar and the motor stays cylindrical.
 The reference omits molded pockets, ribs, lettering, motor vents and scan texture.
-The flange retains its mounting holes. The motor retains its bearing boss and electrical tabs.
+The flange retains its plain untapped mounting holes. The motor retains its bearing boss and electrical tabs.
 
 The flange underside supplies the seating datum. The model retains the assembly's
 placement frame, component names and routed outlet stations. The flexible sleeves
