@@ -6,8 +6,8 @@
       ".stl": "8e5a30ea3706b9f32de9bfdbb79c824e52a06f15f9356861b0179ea110e70781"
     },
     "back-top": {
-      ".step.npz": "8bb87c4cb7d63abc31dc14581e1be1cdf1c8812b201a82f0d7a84607d237b091",
-      ".stl": "77d4cbe50870d0556a8c75161b93f690cc429e3dab8febc36b0ac5bab09db96f"
+      ".step.npz": "7440ac8a27bfa8b1cb4a041e26878f57bfcdec19b9a70c65d93718503f0ec8bd",
+      ".stl": "1572fc27c147fd701c1a55afa6e612b52097a8a4ad41293b51046c7be8513a12"
     },
     "front-bottom": {
       ".step.npz": "bff98174bd1ec9b15d066c226c2bf0705f660c9dc99d5afe2f4aa1b8fb20a28e",
@@ -1218,7 +1218,7 @@
     "hardware/manifold-layout/enclosure-box.json": "1f6bb8fee7d04a10b5c1b39ce87ee6112cdd4ceae2b88e4f586f59e415a54cdc",
     "hardware/manifold-layout/machine-export-physical.numbers.json": "90f9a464b95d19a4de7a9a51a3fd7d6d6bd7b01abe99d64dc01eb0f24b39c0dd",
     "hardware/printed-parts/enclosure/display-cover/mount-dimensions.json": "d6f21b14bb98bfe7eb6a1280109400bdb1e1ca9f483d3451d40d8902de208543",
-    "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.print-features.json": "3c59e34489ca80b13cf3f343849950adf4b3154656ad2fe6893323e3a9046142",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.print-features.json": "a13197eb416bf4457bbfc30672f16bb46b072c8ad49360a5dda48e226335f7cb",
     "hardware/printed-parts/enclosure/enclosure/heat-set-review/print_regions.rs": "0c4931a84608719a6991e0fe95144322716361a782f2c86cec5a589e3739ca21",
     "hardware/printed-parts/enclosure/nameplate/nameplate.numbers.json": "3dd3fb288565e6c63bb5808085a8944e4a34962a9e627b85c95055923678060e"
   },

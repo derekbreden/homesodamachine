@@ -19,10 +19,9 @@ pub const WAGO_413: Wago = Wago { size: "413", width: 18.8, depth: 18.6, height:
 pub const WAGO_415: Wago = Wago { size: "415", width: 30.0, depth: 18.6, height: 8.4 };
 pub const WAGO_420: Wago = Wago { size: "420", width: 29.8, depth: 18.3, height: 15.8 };
 
-/// The wiring model's frames, by rotation rows: lever ports fore, the same stood on end, and
-/// lying on the east flank.
-pub const PORTS_FORE: [P3; 3] = [[-1.0, 0.0, 0.0], [0.0, -1.0, 0.0], [0.0, 0.0, 1.0]];
-pub const UPRIGHT_PORTS_FORE: [P3; 3] = [[0.0, 0.0, 1.0], [0.0, -1.0, 0.0], [1.0, 0.0, 0.0]];
+/// The west-wall row exposes its wire entries inward and its levers toward the rear.
+pub const WEST_PORTS_INBOARD: [P3; 3] = [[0.0, 1.0, 0.0], [0.0, 0.0, 1.0], [1.0, 0.0, 0.0]];
+/// The manifold commons lie on the east flank with their ports facing forward.
 pub const EAST_FLANK: [P3; 3] = [[0.0, -1.0, 0.0], [0.0, 0.0, -1.0], [1.0, 0.0, 0.0]];
 
 /// One junction the wiring model mounts on a top piece: its connector, where it stands, and how
@@ -37,14 +36,14 @@ pub struct Junction {
 }
 
 /// The wiring model's junctions on the two top pieces, in its placement order: the mains live,
-/// earth and neutral buses under the ceiling PSU, and the two valve-manifold commons.
+/// earth and neutral buses above the relays, and the two valve-manifold commons.
 pub const JUNCTIONS: [Junction; 5] = [
-    Junction { name: "wago-h", wago: WAGO_413, host: Y::Back, rotation: PORTS_FORE,
-               translation: [-81.0, 456.5, 264.0], mouth: 0.0 },
-    Junction { name: "wago-g", wago: WAGO_413, host: Y::Back, rotation: UPRIGHT_PORTS_FORE,
-               translation: [-90.6, 457.5, 295.5], mouth: 0.0 },
-    Junction { name: "wago-n", wago: WAGO_413, host: Y::Back, rotation: UPRIGHT_PORTS_FORE,
-               translation: [-65.4, 456.5, 267.5], mouth: 0.0 },
+    Junction { name: "wago-h", wago: WAGO_413, host: Y::Back, rotation: WEST_PORTS_INBOARD,
+               translation: [-89.05, 388.0, 333.5], mouth: 0.0 },
+    Junction { name: "wago-g", wago: WAGO_413, host: Y::Back, rotation: WEST_PORTS_INBOARD,
+               translation: [-89.05, 404.0, 333.5], mouth: 0.0 },
+    Junction { name: "wago-n", wago: WAGO_413, host: Y::Back, rotation: WEST_PORTS_INBOARD,
+               translation: [-89.05, 420.0, 333.5], mouth: 0.0 },
     Junction { name: "wago-mana", wago: WAGO_420, host: Y::Front, rotation: EAST_FLANK,
                translation: [95.20, 185.05, 277.0], mouth: -0.75 },
     Junction { name: "wago-manb", wago: WAGO_415, host: Y::Front, rotation: EAST_FLANK,

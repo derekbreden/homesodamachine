@@ -140,7 +140,7 @@ before it is buried, as required by [`wiring.md`](/hardware/assembly/wiring.md).
 
 Keep the opposite wire end free until it has passed through the shared
 seven-core sensor riser at world X−48/Y347 and both cap pieces. Ferrule it
-afterward and land it in port 2 of the rear PE WAGO below C14
+afterward and land it in port 2 of the west-wall PE WAGO above the relays
 ([`electronics-bay.md`](/hardware/assembly/electronics-bay.md) step 4). Fit the steel-side
 clamp before foil and body foam cover its contact faces.
 

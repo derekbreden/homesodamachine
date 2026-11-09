@@ -1,0 +1,1889 @@
+{
+  "purpose": "Records the west-wall mains junction row, its printed pockets and local access measurements.",
+  "source_inputs_sha256": {
+    "hardware/printed-parts/enclosure/enclosure/numbers/junctions.rs": "dde8c60a98395b8f6472c578f856cb81f08e1bc987bb301ef6b81f44311992f8",
+    "hardware/printed-parts/enclosure/enclosure/quadrants/above.rs": "b18e17d6ef06ca6b6874cb760f1c4068cc875bea6284058c4ccb5a19dfbb5c08",
+    "hardware/wiring/installed/route-overrides.json": "f5a49592c26f8616331c1c0381e1d46b503e90ccf94d596cc39f761377580968",
+    "hardware/wiring/installed/bundle-routes.json": "e5b3328a046c51caf719563c8ddc12ab9579b6e557cdc72e5b031077fb161204",
+    "hardware/reference/wago-221/README.md": "b24aa30290916d722878b24fbeebc1d450a8ec9b00d7c12d5de09cb46a06a76f"
+  },
+  "installed_clearance_review": {
+    "purpose": "This review measures the west-wall WAGO row and its affected local wire geometry.",
+    "payload_sha256": "7bdd1e9f063219ab2e6010b6bfa271e624d1df1a9b994a01f3401180e6d87cce",
+    "body_clearances": [
+      {
+        "a": "wago-h",
+        "b": "c14-inlet",
+        "clearance_mm": 40.02572195826126,
+        "intersection_volume_mm3": 0.0,
+        "point_a": [
+          -79.75,
+          396.3999938964844,
+          332.0
+        ],
+        "point_b": [
+          -75.5999984741211,
+          436.2099914550781,
+          332.0
+        ],
+        "surface_distance_mm": 40.02572195826126,
+        "volume_error": null
+      },
+      {
+        "a": "wago-h",
+        "b": "psu",
+        "clearance_mm": 27.35186004638671,
+        "intersection_volume_mm3": 0.0,
+        "point_a": [
+          -79.74999999999999,
+          392.3769837641861,
+          340.29998779296875
+        ],
+        "point_b": [
+          -52.398139953613274,
+          392.37698376418615,
+          340.2999877929687
+        ],
+        "surface_distance_mm": 27.35186004638671,
+        "volume_error": null
+      },
+      {
+        "a": "wago-h",
+        "b": "va-outlet-elbow/1",
+        "clearance_mm": 2.431254335228761,
+        "intersection_volume_mm3": 0.0,
+        "point_a": [
+          -79.75,
+          388.0,
+          325.4413863340832
+        ],
+        "point_b": [
+          -78.79762757180254,
+          385.76304126086825,
+          325.4413863340832
+        ],
+        "surface_distance_mm": 2.431254335228761,
+        "volume_error": null
+      },
+      {
+        "a": "wago-h",
+        "b": "va-south-elbow/1",
+        "clearance_mm": 6.031429100385612,
+        "intersection_volume_mm3": 0.0,
+        "point_a": [
+          -79.75,
+          388.0,
+          328.5306701660156
+        ],
+        "point_b": [
+          -78.92472076416016,
+          382.0252990722656,
+          328.5306701660156
+        ],
+        "surface_distance_mm": 6.031429100385612,
+        "volume_error": null
+      },
+      {
+        "a": "wago-h",
+        "b": "enclosure-back-top",
+        "clearance_mm": 0.14999389648431816,
+        "intersection_volume_mm3": 0.0,
+        "point_a": [
+          -92.18315608927782,
+          388.0,
+          330.33315508562566
+        ],
+        "point_b": [
+          -92.18315608927782,
+          387.8500061035157,
+          330.33315508562566
+        ],
+        "surface_distance_mm": 0.14999389648431816,
+        "volume_error": null
+      },
+      {
+        "a": "wago-h",
+        "b": "relay-2/1",
+        "clearance_mm": 10.223388671874943,
+        "intersection_volume_mm3": 0.0,
+        "point_a": [
+          -93.34940435155639,
+          396.3999938964843,
+          324.10000610351557
+        ],
+        "point_b": [
+          -93.34940435155637,
+          396.3999938964844,
+          313.8766174316406
+        ],
+        "surface_distance_mm": 10.223388671874943,
+        "volume_error": null
+      },
+      {
+        "a": "wago-h",
+        "b": "relay-2/2",
+        "clearance_mm": 10.542388916015625,
+        "intersection_volume_mm3": 0.0,
+        "point_a": [
+          -92.93000030517578,
+          389.3501281738281,
+          324.1000061035156
+        ],
+        "point_b": [
+          -92.93000030517578,
+          389.3501281738281,
+          313.5576171875
+        ],
+        "surface_distance_mm": 10.542388916015625,
+        "volume_error": null
+      },
+      {
+        "a": "wago-h",
+        "b": "relay-2/3",
+        "clearance_mm": 34.12849739087842,
+        "intersection_volume_mm3": 0.0,
+        "point_a": [
+          -92.93000030517578,
+          396.3999938964844,
+          324.1000061035156
+        ],
+        "point_b": [
+          -92.93000030517578,
+          428.8501281738281,
+          313.5291442871094
+        ],
+        "surface_distance_mm": 34.12849739087842,
+        "volume_error": null
+      },
+      {
+        "a": "wago-h",
+        "b": "relay-2/4",
+        "clearance_mm": 16.035249575646528,
+        "intersection_volume_mm3": 0.0,
+        "point_a": [
+          -92.93000030517578,
+          396.3999938964844,
+          324.1000061035156
+        ],
+        "point_b": [
+          -92.93000030517578,
+          407.9676208496094,
+          312.9950866699219
+        ],
+        "surface_distance_mm": 16.035249575646528,
+        "volume_error": null
+      },
+      {
+        "a": "wago-h",
+        "b": "relay-2/5",
+        "clearance_mm": 10.493408203125,
+        "intersection_volume_mm3": 0.0,
+        "point_a": [
+          -92.93000030517578,
+          389.485107421875,
+          324.1000061035156
+        ],
+        "point_b": [
+          -92.93000030517578,
+          389.485107421875,
+          313.6065979003906
+        ],
+        "surface_distance_mm": 10.493408203125,
+        "volume_error": null
+      },
+      {
+        "a": "wago-h",
+        "b": "relay-2/6",
+        "clearance_mm": 13.460971047271896,
+        "intersection_volume_mm3": 0.0,
+        "point_a": [
+          -94.48999786376955,
+          388.0,
+          324.1000061035156
+        ],
+        "point_b": [
+          -94.48999786376955,
+          384.93450927734375,
+          310.99273681640625
+        ],
+        "surface_distance_mm": 13.460971047271896,
+        "volume_error": null
+      },
+      {
+        "a": "wago-h",
+        "b": "relay-2/7",
+        "clearance_mm": 38.81656843875218,
+        "intersection_volume_mm3": 0.0,
+        "point_a": [
+          -94.7705535888672,
+          396.3999938964844,
+          324.1000061035156
+        ],
+        "point_b": [
+          -94.77055358886719,
+          432.6728820800781,
+          310.27960205078125
+        ],
+        "surface_distance_mm": 38.81656843875218,
+        "volume_error": null
+      },
+      {
+        "a": "wago-g",
+        "b": "c14-inlet",
+        "clearance_mm": 24.168957288328297,
+        "intersection_volume_mm3": 0.0,
+        "point_a": [
+          -79.75,
+          412.3999938964844,
+          332.0
+        ],
+        "point_b": [
+          -75.5999984741211,
+          436.2099914550781,
+          332.0
+        ],
+        "surface_distance_mm": 24.168957288328297,
+        "volume_error": null
+      },
+      {
+        "a": "wago-g",
+        "b": "psu",
+        "clearance_mm": 27.35186004638671,
+        "intersection_volume_mm3": 0.0,
+        "point_a": [
+          -79.75,
+          411.991073687441,
+          341.2666625976563
+        ],
+        "point_b": [
+          -52.39813995361329,
+          411.9910736874409,
+          341.26666259765625
+        ],
+        "surface_distance_mm": 27.35186004638671,
+        "volume_error": null
+      },
+      {
+        "a": "wago-g",
+        "b": "va-outlet-elbow/1",
+        "clearance_mm": 17.680431262798457,
+        "intersection_volume_mm3": 0.0,
+        "point_a": [
+          -79.75,
+          404.0,
+          324.2863464355469
+        ],
+        "point_b": [
+          -76.44415283203125,
+          386.6313781738281,
+          324.2863464355469
+        ],
+        "surface_distance_mm": 17.680431262798457,
+        "volume_error": null
+      },
+      {
+        "a": "wago-g",
+        "b": "va-south-elbow/1",
+        "clearance_mm": 21.979237797233345,
+        "intersection_volume_mm3": 0.0,
+        "point_a": [
+          -79.75,
+          404.0,
+          328.682861328125
+        ],
+        "point_b": [
+          -78.74342346191406,
+          382.0438232421875,
+          328.682861328125
+        ],
+        "surface_distance_mm": 21.979237797233345,
+        "volume_error": null
+      },
+      {
+        "a": "wago-g",
+        "b": "enclosure-back-top",
+        "clearance_mm": 0.14999389648431816,
+        "intersection_volume_mm3": 0.0,
+        "point_a": [
+          -98.34999847412111,
+          404.0,
+          342.89999389648443
+        ],
+        "point_b": [
+          -98.3499984741211,
+          403.8500061035157,
+          342.8999938964844
+        ],
+        "surface_distance_mm": 0.14999389648431816,
+        "volume_error": null
+      },
+      {
+        "a": "wago-g",
+        "b": "relay-2/1",
+        "clearance_mm": 10.223388671875,
+        "intersection_volume_mm3": 0.0,
+        "point_a": [
+          -93.34940435155637,
+          404.0,
+          324.1000061035156
+        ],
+        "point_b": [
+          -93.34940435155637,
+          404.0,
+          313.8766174316406
+        ],
+        "surface_distance_mm": 10.223388671875,
+        "volume_error": null
+      },
+      {
+        "a": "wago-g",
+        "b": "relay-2/2",
+        "clearance_mm": 18.04884230580437,
+        "intersection_volume_mm3": 0.0,
+        "point_a": [
+          -92.93000030517578,
+          404.0,
+          324.1000061035156
+        ],
+        "point_b": [
+          -92.93000030517578,
+          389.3501281738281,
+          313.5576171875
+        ],
+        "surface_distance_mm": 18.04884230580437,
+        "volume_error": null
+      },
+      {
+        "a": "wago-g",
+        "b": "relay-2/3",
+        "clearance_mm": 19.553772968002757,
+        "intersection_volume_mm3": 0.0,
+        "point_a": [
+          -92.93000030517578,
+          412.3999938964844,
+          324.1000061035156
+        ],
+        "point_b": [
+          -92.93000030517578,
+          428.8501281738281,
+          313.5291442871094
+        ],
+        "surface_distance_mm": 19.553772968002757,
+        "volume_error": null
+      },
+      {
+        "a": "wago-g",
+        "b": "relay-2/4",
+        "clearance_mm": 10.52362060546875,
+        "intersection_volume_mm3": 0.0,
+        "point_a": [
+          -92.9300003051758,
+          410.8562622070313,
+          324.1000061035156
+        ],
+        "point_b": [
+          -92.93000030517578,
+          410.8562622070313,
+          313.5763854980469
+        ],
+        "surface_distance_mm": 10.52362060546875,
+        "volume_error": null
+      },
+      {
+        "a": "wago-g",
+        "b": "relay-2/5",
+        "clearance_mm": 10.568023681640625,
+        "intersection_volume_mm3": 0.0,
+        "point_a": [
+          -92.93000030517578,
+          405.5894470214844,
+          324.1000061035156
+        ],
+        "point_b": [
+          -92.93000030517578,
+          405.5894470214844,
+          313.531982421875
+        ],
+        "surface_distance_mm": 10.568023681640625,
+        "volume_error": null
+      },
+      {
+        "a": "wago-g",
+        "b": "relay-2/6",
+        "clearance_mm": 23.13640950235127,
+        "intersection_volume_mm3": 0.0,
+        "point_a": [
+          -94.54620738249292,
+          403.99999999999994,
+          324.1000061035156
+        ],
+        "point_b": [
+          -94.54620738249292,
+          384.93450927734375,
+          310.99273681640625
+        ],
+        "surface_distance_mm": 23.13640950235127,
+        "volume_error": null
+      },
+      {
+        "a": "wago-g",
+        "b": "relay-2/7",
+        "clearance_mm": 24.514706850428674,
+        "intersection_volume_mm3": 0.0,
+        "point_a": [
+          -94.80598449707031,
+          412.3999938964844,
+          324.1000061035156
+        ],
+        "point_b": [
+          -94.80598449707031,
+          432.7286376953125,
+          310.3990173339844
+        ],
+        "surface_distance_mm": 24.514706850428674,
+        "volume_error": null
+      },
+      {
+        "a": "wago-n",
+        "b": "c14-inlet",
+        "clearance_mm": 8.844126555519063,
+        "intersection_volume_mm3": 0.0,
+        "point_a": [
+          -79.74999999999999,
+          428.3999938964844,
+          335.0
+        ],
+        "point_b": [
+          -75.5999984741211,
+          436.2099914550781,
+          335.0
+        ],
+        "surface_distance_mm": 8.844126555519063,
+        "volume_error": null
+      },
+      {
+        "a": "wago-n",
+        "b": "psu",
+        "clearance_mm": 27.35186004638671,
+        "intersection_volume_mm3": 0.0,
+        "point_a": [
+          -79.75,
+          427.88103071764874,
+          341.4872769291652
+        ],
+        "point_b": [
+          -52.39813995361329,
+          427.88103071764874,
+          341.48727692916526
+        ],
+        "surface_distance_mm": 27.35186004638671,
+        "volume_error": null
+      },
+      {
+        "a": "wago-n",
+        "b": "va-outlet-elbow/1",
+        "clearance_mm": 33.511727408353416,
+        "intersection_volume_mm3": 0.0,
+        "point_a": [
+          -79.74999999999999,
+          419.99999999999994,
+          324.6607360839844
+        ],
+        "point_b": [
+          -75.99826049804688,
+          386.6989440917968,
+          324.6607360839844
+        ],
+        "surface_distance_mm": 33.511727408353416,
+        "volume_error": null
+      },
+      {
+        "a": "wago-n",
+        "b": "va-south-elbow/1",
+        "clearance_mm": 37.96894970496054,
+        "intersection_volume_mm3": 0.0,
+        "point_a": [
+          -79.75,
+          420.0,
+          328.7337341308594
+        ],
+        "point_b": [
+          -78.68280792236328,
+          382.0460510253906,
+          328.7337341308594
+        ],
+        "surface_distance_mm": 37.96894970496054,
+        "volume_error": null
+      },
+      {
+        "a": "wago-n",
+        "b": "enclosure-back-top",
+        "clearance_mm": 0.14999389648431816,
+        "intersection_volume_mm3": 0.0,
+        "point_a": [
+          -98.34999847412111,
+          428.3999938964844,
+          342.89999389648443
+        ],
+        "point_b": [
+          -98.3499984741211,
+          428.3999938964844,
+          343.04998779296875
+        ],
+        "surface_distance_mm": 0.14999389648431816,
+        "volume_error": null
+      },
+      {
+        "a": "wago-n",
+        "b": "relay-2/1",
+        "clearance_mm": 10.223388671874943,
+        "intersection_volume_mm3": 0.0,
+        "point_a": [
+          -94.48999786376953,
+          428.3999938964844,
+          324.10000610351557
+        ],
+        "point_b": [
+          -94.48999786376953,
+          428.3999938964844,
+          313.8766174316406
+        ],
+        "surface_distance_mm": 10.223388671874943,
+        "volume_error": null
+      },
+      {
+        "a": "wago-n",
+        "b": "relay-2/2",
+        "clearance_mm": 32.41229098686629,
+        "intersection_volume_mm3": 0.0,
+        "point_a": [
+          -92.93000030517578,
+          420.0,
+          324.1000061035156
+        ],
+        "point_b": [
+          -92.93000030517578,
+          389.3501281738281,
+          313.5576171875
+        ],
+        "surface_distance_mm": 32.41229098686629,
+        "volume_error": null
+      },
+      {
+        "a": "wago-n",
+        "b": "relay-2/3",
+        "clearance_mm": 10.534766752812025,
+        "intersection_volume_mm3": 0.0,
+        "point_a": [
+          -92.93000030517578,
+          428.3999938964844,
+          324.1000061035156
+        ],
+        "point_b": [
+          -92.93000030517578,
+          429.04180908203125,
+          313.5848083496094
+        ],
+        "surface_distance_mm": 10.534766752812025,
+        "volume_error": null
+      },
+      {
+        "a": "wago-n",
+        "b": "relay-2/4",
+        "clearance_mm": 10.60577392578125,
+        "intersection_volume_mm3": 0.0,
+        "point_a": [
+          -92.93000030517578,
+          426.9625244140625,
+          324.1000061035156
+        ],
+        "point_b": [
+          -92.93000030517578,
+          426.96252441406256,
+          313.4942321777344
+        ],
+        "surface_distance_mm": 10.60577392578125,
+        "volume_error": null
+      },
+      {
+        "a": "wago-n",
+        "b": "relay-2/5",
+        "clearance_mm": 16.39806270744677,
+        "intersection_volume_mm3": 0.0,
+        "point_a": [
+          -92.93000030517578,
+          420.0,
+          324.1000061035156
+        ],
+        "point_b": [
+          -92.93000030517578,
+          407.6068420410156,
+          313.3619384765625
+        ],
+        "surface_distance_mm": 16.39806270744677,
+        "volume_error": null
+      },
+      {
+        "a": "wago-n",
+        "b": "relay-2/6",
+        "clearance_mm": 37.435132533296745,
+        "intersection_volume_mm3": 0.0,
+        "point_a": [
+          -94.48999786376955,
+          420.0,
+          324.1000061035156
+        ],
+        "point_b": [
+          -94.48999786376955,
+          384.93450927734375,
+          310.99273681640625
+        ],
+        "surface_distance_mm": 37.435132533296745,
+        "volume_error": null
+      },
+      {
+        "a": "wago-n",
+        "b": "relay-2/7",
+        "clearance_mm": 13.99974377435055,
+        "intersection_volume_mm3": 0.0,
+        "point_a": [
+          -94.5647696483754,
+          428.3999938964844,
+          324.1000061035156
+        ],
+        "point_b": [
+          -94.5647696483754,
+          433.35314941406244,
+          311.0057678222656
+        ],
+        "surface_distance_mm": 13.99974377435055,
+        "volume_error": null
+      },
+      {
+        "a": "wago-h",
+        "b": "wago-g",
+        "clearance_mm": 7.600006103515568,
+        "intersection_volume_mm3": 0.0,
+        "point_a": [
+          -79.75,
+          396.39999389648443,
+          325.60277754959804
+        ],
+        "point_b": [
+          -79.75,
+          404.0,
+          325.60277754959804
+        ],
+        "surface_distance_mm": 7.600006103515568,
+        "volume_error": null
+      },
+      {
+        "a": "wago-h",
+        "b": "wago-n",
+        "clearance_mm": 23.600006103515568,
+        "intersection_volume_mm3": 0.0,
+        "point_a": [
+          -79.75,
+          396.39999389648443,
+          325.60277754959804
+        ],
+        "point_b": [
+          -79.75,
+          420.0,
+          325.60277754959804
+        ],
+        "surface_distance_mm": 23.600006103515568,
+        "volume_error": null
+      },
+      {
+        "a": "wago-g",
+        "b": "wago-n",
+        "clearance_mm": 7.600006103515568,
+        "intersection_volume_mm3": 0.0,
+        "point_a": [
+          -91.65269367150535,
+          412.39999389648443,
+          329.78444508943164
+        ],
+        "point_b": [
+          -91.65269367150535,
+          420.0,
+          329.7844450894316
+        ],
+        "surface_distance_mm": 7.600006103515568,
+        "volume_error": null
+      }
+    ],
+    "access": [
+      {
+        "part": "wago-h",
+        "body_bounds_mm": [
+          [
+            -98.3499984741211,
+            388.0,
+            324.1000061035156
+          ],
+          [
+            -79.75,
+            396.3999938964844,
+            342.8999938964844
+          ]
+        ],
+        "lever_height_envelope_mm": 15.25,
+        "lever_bounds_mm": [
+          [
+            -89.05,
+            388.0,
+            324.1
+          ],
+          [
+            -79.75,
+            403.25,
+            342.9
+          ]
+        ],
+        "inward_gap_to_psu_bounds_mm": 27.35186004638672,
+        "body_vertical_air_above_upper_relay_mm": 10.223388671875,
+        "lever_air_to_next_body_or_inlet_mm": 0.75
+      },
+      {
+        "part": "wago-g",
+        "body_bounds_mm": [
+          [
+            -98.3499984741211,
+            404.0,
+            324.1000061035156
+          ],
+          [
+            -79.75,
+            412.3999938964844,
+            342.8999938964844
+          ]
+        ],
+        "lever_height_envelope_mm": 15.25,
+        "lever_bounds_mm": [
+          [
+            -89.05,
+            404.0,
+            324.1
+          ],
+          [
+            -79.75,
+            419.25,
+            342.9
+          ]
+        ],
+        "inward_gap_to_psu_bounds_mm": 27.35186004638672,
+        "body_vertical_air_above_upper_relay_mm": 10.223388671875,
+        "lever_air_to_next_body_or_inlet_mm": 0.75
+      },
+      {
+        "part": "wago-n",
+        "body_bounds_mm": [
+          [
+            -98.3499984741211,
+            420.0,
+            324.1000061035156
+          ],
+          [
+            -79.75,
+            428.3999938964844,
+            342.8999938964844
+          ]
+        ],
+        "lever_height_envelope_mm": 15.25,
+        "lever_bounds_mm": [
+          [
+            -89.05,
+            420.0,
+            324.1
+          ],
+          [
+            -79.75,
+            435.25,
+            342.9
+          ]
+        ],
+        "inward_gap_to_psu_bounds_mm": 27.35186004638672,
+        "body_vertical_air_above_upper_relay_mm": 10.223388671875,
+        "lever_air_to_next_body_or_inlet_mm": 0.959991455078125
+      }
+    ],
+    "wire_clearances": [
+      {
+        "a": "wire-AC1-L",
+        "b": "enclosure-back-top",
+        "clearance_mm": 9.469440612567407,
+        "intersection_volume_mm3": 0.0,
+        "point_a": [
+          -79.75,
+          392.20513916015625,
+          325.73333740234375
+        ],
+        "point_b": [
+          -89.05000305175781,
+          392.20513916015625,
+          323.95001220703125
+        ],
+        "surface_distance_mm": 9.469440612567407,
+        "volume_error": null
+      },
+      {
+        "a": "wire-AC1-N",
+        "b": "enclosure-back-top",
+        "clearance_mm": 9.475334541725628,
+        "intersection_volume_mm3": 0.0,
+        "point_a": [
+          -79.75,
+          424.50360107421875,
+          325.7643737792969
+        ],
+        "point_b": [
+          -89.05000305175781,
+          424.50360107421875,
+          323.95001220703125
+        ],
+        "surface_distance_mm": 9.475334541725628,
+        "volume_error": null
+      },
+      {
+        "a": "wire-AC1-PE",
+        "b": "enclosure-back-top",
+        "clearance_mm": 9.470597715731799,
+        "intersection_volume_mm3": 0.0,
+        "point_a": [
+          -79.75,
+          408.0643005371094,
+          325.7394714355469
+        ],
+        "point_b": [
+          -89.05000305175781,
+          408.0643005371094,
+          323.95001220703125
+        ],
+        "surface_distance_mm": 9.470597715731799,
+        "volume_error": null
+      },
+      {
+        "a": "wire-AC3-L",
+        "b": "wago-g",
+        "clearance_mm": 5.621569612968784,
+        "intersection_volume_mm3": 0.0,
+        "point_a": [
+          -74.17677561622733,
+          403.5726209165138,
+          323.5012056354344
+        ],
+        "point_b": [
+          -79.75,
+          404.0,
+          324.1000061035156
+        ],
+        "surface_distance_mm": 5.621569612968784,
+        "volume_error": null
+      },
+      {
+        "a": "wire-AC3-L",
+        "b": "wago-n",
+        "clearance_mm": 13.851194291691037,
+        "intersection_volume_mm3": 0.0,
+        "point_a": [
+          -73.71036562065916,
+          409.92900145016046,
+          316.7547090993648
+        ],
+        "point_b": [
+          -79.75,
+          420.00000000000006,
+          324.1000061035156
+        ],
+        "surface_distance_mm": 13.851194291691037,
+        "volume_error": null
+      },
+      {
+        "a": "wire-AC3-L",
+        "b": "enclosure-back-top",
+        "clearance_mm": 4.740570068359318,
+        "intersection_volume_mm3": 0.0,
+        "point_a": [
+          -79.75,
+          392.05297851562494,
+          341.2594299316406
+        ],
+        "point_b": [
+          -79.75,
+          392.052978515625,
+          345.99999999999994
+        ],
+        "surface_distance_mm": 4.740570068359318,
+        "volume_error": null
+      },
+      {
+        "a": "wire-AC3-L",
+        "b": "relay-1/4",
+        "clearance_mm": 1.1253005198547938,
+        "intersection_volume_mm3": 0.0,
+        "point_a": [
+          -75.99157388540618,
+          426.9396734164918,
+          289.81226662930055
+        ],
+        "point_b": [
+          -77.1112289428711,
+          426.82836914062506,
+          289.7953796386719
+        ],
+        "surface_distance_mm": 1.1253005198547938,
+        "volume_error": null
+      },
+      {
+        "a": "wire-AC3-L",
+        "b": "relay-2/3",
+        "clearance_mm": 7.695664586489216,
+        "intersection_volume_mm3": 0.0,
+        "point_a": [
+          -74.89503865922924,
+          425.61464401655763,
+          294.27432805307075
+        ],
+        "point_b": [
+          -78.87830352783203,
+          430.914306640625,
+          298.18206787109375
+        ],
+        "surface_distance_mm": 7.695664586489216,
+        "volume_error": null
+      },
+      {
+        "a": "wire-AC3-L",
+        "b": "relay-2/4",
+        "clearance_mm": 1.5727172543041628,
+        "intersection_volume_mm3": 0.0,
+        "point_a": [
+          -75.54248106436407,
+          421.14181234535835,
+          298.2505776866765
+        ],
+        "point_b": [
+          -77.11307260086528,
+          421.1370028284204,
+          298.3321782749318
+        ],
+        "surface_distance_mm": 1.5727172543041628,
+        "volume_error": null
+      },
+      {
+        "a": "wire-AC5-pigtail",
+        "b": "wago-h",
+        "clearance_mm": 13.60799895158674,
+        "intersection_volume_mm3": 0.0,
+        "point_a": [
+          -72.00512845328251,
+          404.67552450405566,
+          316.56938904019455
+        ],
+        "point_b": [
+          -79.75,
+          396.3999938964844,
+          324.1000061035156
+        ],
+        "surface_distance_mm": 13.60799895158674,
+        "volume_error": null
+      },
+      {
+        "a": "wire-AC5-pigtail",
+        "b": "wago-g",
+        "clearance_mm": 8.336264258559952,
+        "intersection_volume_mm3": 0.0,
+        "point_a": [
+          -71.48064197731158,
+          410.9041616041736,
+          323.04595692006035
+        ],
+        "point_b": [
+          -79.75,
+          410.90416160417374,
+          324.1000061035156
+        ],
+        "surface_distance_mm": 8.336264258559952,
+        "volume_error": null
+      },
+      {
+        "a": "wire-AC5-pigtail",
+        "b": "enclosure-back-top",
+        "clearance_mm": 4.740570068359375,
+        "intersection_volume_mm3": 0.0,
+        "point_a": [
+          -79.75,
+          424.05297851562494,
+          341.25942993164057
+        ],
+        "point_b": [
+          -79.74999999999999,
+          424.05297851562494,
+          345.99999999999994
+        ],
+        "surface_distance_mm": 4.740570068359375,
+        "volume_error": null
+      },
+      {
+        "a": "wire-AC5-pigtail",
+        "b": "relay-1/2",
+        "clearance_mm": 2.1823785407664706,
+        "intersection_volume_mm3": 0.0,
+        "point_a": [
+          -76.40129947408174,
+          380.49975238137705,
+          284.3219116097869
+        ],
+        "point_b": [
+          -78.54628753662108,
+          380.9000244140625,
+          284.2821044921875
+        ],
+        "surface_distance_mm": 2.1823785407664706,
+        "volume_error": null
+      },
+      {
+        "a": "wire-AC5-pigtail",
+        "b": "relay-1/4",
+        "clearance_mm": 16.20420274967404,
+        "intersection_volume_mm3": 0.0,
+        "point_a": [
+          -72.97948141449976,
+          396.07919485806445,
+          301.7079474164839
+        ],
+        "point_b": [
+          -77.47677612304688,
+          408.5810852050781,
+          292.43145751953125
+        ],
+        "surface_distance_mm": 16.20420274967404,
+        "volume_error": null
+      },
+      {
+        "a": "wire-AC5-pigtail",
+        "b": "relay-2/2",
+        "clearance_mm": 4.8890953159945365,
+        "intersection_volume_mm3": 0.0,
+        "point_a": [
+          -74.83279369515394,
+          388.24545146730946,
+          295.44905979088105
+        ],
+        "point_b": [
+          -78.71560327664506,
+          386.1747106109374,
+          297.57957030916344
+        ],
+        "surface_distance_mm": 4.8890953159945365,
+        "volume_error": null
+      },
+      {
+        "a": "wire-AC5-pigtail",
+        "b": "relay-2/4",
+        "clearance_mm": 6.286737623037501,
+        "intersection_volume_mm3": 0.0,
+        "point_a": [
+          -72.15567168733565,
+          405.6034944345844,
+          314.7217316545041
+        ],
+        "point_b": [
+          -77.31348419189453,
+          408.7187805175781,
+          312.9286804199219
+        ],
+        "surface_distance_mm": 6.286737623037501,
+        "volume_error": null
+      },
+      {
+        "a": "wire-AC6-PE",
+        "b": "psu",
+        "clearance_mm": 7.073362145378108,
+        "intersection_volume_mm3": 0.0,
+        "point_a": [
+          -59.04258346557617,
+          433.8063659667969,
+          311.0743408203125
+        ],
+        "point_b": [
+          -52.39813995361328,
+          433.8063659667969,
+          313.5
+        ],
+        "surface_distance_mm": 7.073362145378108,
+        "volume_error": null
+      },
+      {
+        "a": "wire-AC6-PE",
+        "b": "enclosure-back-top",
+        "clearance_mm": 4.933319091796875,
+        "intersection_volume_mm3": 0.0,
+        "point_a": [
+          -79.75,
+          408.20001220703125,
+          341.0666809082031
+        ],
+        "point_b": [
+          -79.75,
+          408.20001220703125,
+          346.0
+        ],
+        "surface_distance_mm": 4.933319091796875,
+        "volume_error": null
+      },
+      {
+        "a": "wire-AC6-PE",
+        "b": "relay-1/2",
+        "clearance_mm": 19.751723945952747,
+        "intersection_volume_mm3": 0.0,
+        "point_a": [
+          -61.067950956501114,
+          381.81493437825947,
+          301.037241467378
+        ],
+        "point_b": [
+          -78.46095275878906,
+          381.8167724609375,
+          291.677001953125
+        ],
+        "surface_distance_mm": 19.751723945952747,
+        "volume_error": null
+      },
+      {
+        "a": "wire-AC6-PE",
+        "b": "relay-1/3",
+        "clearance_mm": 19.578551924855535,
+        "intersection_volume_mm3": 0.0,
+        "point_a": [
+          -61.05310154630185,
+          431.5646478174672,
+          301.01941802048924
+        ],
+        "point_b": [
+          -78.5687255859375,
+          431.5667419433593,
+          292.2716979980469
+        ],
+        "surface_distance_mm": 19.578551924855535,
+        "volume_error": null
+      },
+      {
+        "a": "wire-AC6-PE",
+        "b": "relay-1/4",
+        "clearance_mm": 18.360838970540417,
+        "intersection_volume_mm3": 0.0,
+        "point_a": [
+          -61.05976878054033,
+          409.2275321781632,
+          301.0274205669709
+        ],
+        "point_b": [
+          -77.20376586914062,
+          409.2292175292968,
+          292.2814636230469
+        ],
+        "surface_distance_mm": 18.360838970540417,
+        "volume_error": null
+      },
+      {
+        "a": "wire-AC6-PE",
+        "b": "relay-2/2",
+        "clearance_mm": 17.323245604836703,
+        "intersection_volume_mm3": 0.0,
+        "point_a": [
+          -61.29241140072454,
+          385.8782687421743,
+          301.8319696008657
+        ],
+        "point_b": [
+          -78.60456085205078,
+          385.8768005371094,
+          301.2120361328125
+        ],
+        "surface_distance_mm": 17.323245604836703,
+        "volume_error": null
+      },
+      {
+        "a": "wire-AC6-PE",
+        "b": "relay-2/3",
+        "clearance_mm": 11.999870474928326,
+        "intersection_volume_mm3": 0.0,
+        "point_a": [
+          -67.029952446732,
+          428.41095089282726,
+          314.0510412478006
+        ],
+        "point_b": [
+          -78.6048812866211,
+          431.23638916015625,
+          312.62457275390625
+        ],
+        "surface_distance_mm": 11.999870474928326,
+        "volume_error": null
+      },
+      {
+        "a": "wire-AC6-PE",
+        "b": "relay-2/4",
+        "clearance_mm": 10.089474950327228,
+        "intersection_volume_mm3": 0.0,
+        "point_a": [
+          -67.57023955557877,
+          426.4713762605171,
+          315.47630910336557
+        ],
+        "point_b": [
+          -77.20142364501953,
+          426.4547119140625,
+          312.4700622558594
+        ],
+        "surface_distance_mm": 10.089474950327228,
+        "volume_error": null
+      },
+      {
+        "a": "wire-PE-carbonator",
+        "b": "psu",
+        "clearance_mm": 17.89250946044921,
+        "intersection_volume_mm3": 0.0,
+        "point_a": [
+          -70.2906494140625,
+          408.34701538085943,
+          330.90606689453125
+        ],
+        "point_b": [
+          -52.39813995361329,
+          408.34701538085943,
+          330.90606689453125
+        ],
+        "surface_distance_mm": 17.89250946044921,
+        "volume_error": null
+      },
+      {
+        "a": "wire-PE-carbonator",
+        "b": "enclosure-back-top",
+        "clearance_mm": 9.72901309269001,
+        "intersection_volume_mm3": 0.0,
+        "point_a": [
+          -79.75,
+          406.70721435546875,
+          333.64703369140625
+        ],
+        "point_b": [
+          -89.05000305175781,
+          403.8500061035156,
+          333.64703369140625
+        ],
+        "surface_distance_mm": 9.72901309269001,
+        "volume_error": null
+      },
+      {
+        "a": "wire-PE-carbonator",
+        "b": "relay-1/2",
+        "clearance_mm": 5.05889371589566,
+        "intersection_volume_mm3": 0.0,
+        "point_a": [
+          -73.50557267159816,
+          380.90145309814443,
+          283.80475422507914
+        ],
+        "point_b": [
+          -78.55740146035808,
+          380.90256678566243,
+          284.0720186587122
+        ],
+        "surface_distance_mm": 5.05889371589566,
+        "volume_error": null
+      },
+      {
+        "a": "wire-PE-carbonator",
+        "b": "relay-1/4",
+        "clearance_mm": 3.776453448232326,
+        "intersection_volume_mm3": 0.0,
+        "point_a": [
+          -73.46170806884766,
+          408.3001708984375,
+          285.3980712890625
+        ],
+        "point_b": [
+          -77.19184494236532,
+          408.8897415470732,
+          285.4073450022874
+        ],
+        "surface_distance_mm": 3.776453448232326,
+        "volume_error": null
+      },
+      {
+        "a": "wire-PE-carbonator",
+        "b": "relay-2/2",
+        "clearance_mm": 13.694257270331194,
+        "intersection_volume_mm3": 0.0,
+        "point_a": [
+          -72.52532206569144,
+          380.75371519458133,
+          284.9404097733881
+        ],
+        "point_b": [
+          -78.98622131347656,
+          380.7501220703125,
+          297.0147399902344
+        ],
+        "surface_distance_mm": 13.694257270331194,
+        "volume_error": null
+      },
+      {
+        "a": "wire-PE-carbonator",
+        "b": "relay-2/4",
+        "clearance_mm": 3.704536453577575,
+        "intersection_volume_mm3": 0.0,
+        "point_a": [
+          -73.40053007773645,
+          408.3371458319349,
+          299.36713530572956
+        ],
+        "point_b": [
+          -77.05175268382897,
+          408.96321161691736,
+          299.38146881605905
+        ],
+        "surface_distance_mm": 3.704536453577575,
+        "volume_error": null
+      },
+      {
+        "a": "wire-AC2-L",
+        "b": "c14-inlet",
+        "clearance_mm": 13.585228078599858,
+        "intersection_volume_mm3": 0.0,
+        "point_a": [
+          -55.62891857685709,
+          437.54572317639554,
+          310.18408489790215
+        ],
+        "point_b": [
+          -60.29999923706055,
+          444.30999755859375,
+          321.0
+        ],
+        "surface_distance_mm": 13.585228078599858,
+        "volume_error": null
+      },
+      {
+        "a": "wire-AC2-L",
+        "b": "enclosure-back-top",
+        "clearance_mm": 1.5140380859375,
+        "intersection_volume_mm3": 0.0,
+        "point_a": [
+          -22.519508361816406,
+          460.78594970703125,
+          311.6314392089844
+        ],
+        "point_b": [
+          -22.519508361816406,
+          462.29998779296875,
+          311.6314392089844
+        ],
+        "surface_distance_mm": 1.5140380859375,
+        "volume_error": null
+      },
+      {
+        "a": "wire-AC2-L",
+        "b": "relay-2/3",
+        "clearance_mm": 12.230650564157955,
+        "intersection_volume_mm3": 0.0,
+        "point_a": [
+          -66.55335998535156,
+          429.0607604980469,
+          309.6803894042969
+        ],
+        "point_b": [
+          -78.55789947509766,
+          431.3893737792969,
+          309.91998291015625
+        ],
+        "surface_distance_mm": 12.230650564157955,
+        "volume_error": null
+      },
+      {
+        "a": "wire-AC2-L",
+        "b": "relay-2/4",
+        "clearance_mm": 10.24883356131302,
+        "intersection_volume_mm3": 0.0,
+        "point_a": [
+          -67.01706018415724,
+          422.4633477886225,
+          313.6214436340674
+        ],
+        "point_b": [
+          -77.20109558105469,
+          422.47851562500006,
+          312.47088623046875
+        ],
+        "surface_distance_mm": 10.24883356131302,
+        "volume_error": null
+      },
+      {
+        "a": "wire-AC2-N",
+        "b": "c14-inlet",
+        "clearance_mm": 8.491671768511354,
+        "intersection_volume_mm3": 0.0,
+        "point_a": [
+          -65.27194447998654,
+          428.17909551764535,
+          323.03655832196625
+        ],
+        "point_b": [
+          -67.75,
+          436.2099914550781,
+          324.25
+        ],
+        "surface_distance_mm": 8.491671768511354,
+        "volume_error": null
+      },
+      {
+        "a": "wire-AC2-N",
+        "b": "enclosure-back-top",
+        "clearance_mm": 1.5235595703125,
+        "intersection_volume_mm3": 0.0,
+        "point_a": [
+          -30.241954803466797,
+          460.77642822265625,
+          311.59283447265625
+        ],
+        "point_b": [
+          -30.241954803466793,
+          462.29998779296875,
+          311.59283447265625
+        ],
+        "surface_distance_mm": 1.5235595703125,
+        "volume_error": null
+      },
+      {
+        "a": "wire-AC2-N",
+        "b": "relay-2/3",
+        "clearance_mm": 14.780747825129861,
+        "intersection_volume_mm3": 0.0,
+        "point_a": [
+          -64.43715256727933,
+          428.5101109273513,
+          315.86128227934836
+        ],
+        "point_b": [
+          -78.56900787353516,
+          431.3884582519531,
+          312.62457275390625
+        ],
+        "surface_distance_mm": 14.780747825129861,
+        "volume_error": null
+      },
+      {
+        "a": "wire-AC2-N",
+        "b": "relay-2/4",
+        "clearance_mm": 13.257591195370509,
+        "intersection_volume_mm3": 0.0,
+        "point_a": [
+          -64.50600702347832,
+          427.97927945095483,
+          316.12681359146967
+        ],
+        "point_b": [
+          -77.15592956542969,
+          426.8855285644531,
+          312.3127746582031
+        ],
+        "surface_distance_mm": 13.257591195370509,
+        "volume_error": null
+      }
+    ],
+    "wire_assets": {
+      "wire-AC1-L": "17fce10212146232bd81bf8f4a5ae9e11e6288d64d949f6aa4e22e31b28ed763",
+      "wire-AC1-N": "298b61558dfb9d7ce08a8688352fae473d64394d3fb2d23420941c06f2ee91b6",
+      "wire-AC1-PE": "f11f7b7ae18f110ed517f7d4812b4235e668592e4cb12f5bfc913a4b8c3a6985",
+      "wire-AC2-L": "e1ab16503f8811dc4148c664e1e16030b27e9e6b45da1f9ae553b24ee1b45366",
+      "wire-AC2-N": "4c62ecd730b2027dd4b5d7e83417cf226ed209e64aeefda8c15d85f038a1b7ff",
+      "wire-AC3-L": "fc6d46956590ff7f81267397ab3572bce13128e93c6a35b8ecfccfe668039821",
+      "wire-AC5-pigtail": "22eb21e6ee6297e46c369901915079ab79d63b0b41ba6b98450d5136c74a01f6",
+      "wire-AC6-PE": "3bb8cd5671f9c0bcee053db3c6f411e34bf6cdfe1d6c51134e9211e29016186e",
+      "wire-PE-carbonator": "9d17493162c085efeeddb496a29e62396bc8c5abfddd9796159e991d84cb91c1"
+    },
+    "scope": "Nominal closed-body and lever-height envelopes; wire contacts at their named terminal bodies are excluded. This does not measure physical insertion force or hand access.",
+    "body_review_payload_sha256": "97d0864bf6b5959a9bc69907815c6b3c6d0f654bfae7ff10cb453107cb128922",
+    "unchanged_mechanical_bindings": {
+      "psu": {
+        "asset": "fe212f473bc6e16ac5f361cb730341dfa32afbfd026915d2d2a486387e10605e",
+        "transform": [
+          [
+            -1.0,
+            0.0,
+            1.1102230246251565e-16,
+            -26.39813995361328
+          ],
+          [
+            0.0,
+            1.0,
+            0.0,
+            398.8
+          ],
+          [
+            -1.1102230246251565e-16,
+            0.0,
+            -1.0,
+            347.0
+          ]
+        ]
+      },
+      "relay-1": {
+        "asset": "05165d6d4aaf4b7f722af8d6b89de86b09ef68215324271d618fdb44902e4478",
+        "transform": null
+      },
+      "relay-2": {
+        "asset": "ebad0bc2f01fd06af5f012a8cfe249c374f1f8441dcd629cc507bb4c450b8c88",
+        "transform": null
+      },
+      "c14-inlet": {
+        "asset": "3eaf8c92ce19e6a5e0861b281e1e181a3bca27a1c346d815ca29e3227e3ad1b0",
+        "transform": [
+          [
+            1.0,
+            0.0,
+            0.0,
+            -68.5
+          ],
+          [
+            0.0,
+            1.0,
+            0.0,
+            461.21
+          ],
+          [
+            0.0,
+            0.0,
+            1.0,
+            330.0
+          ]
+        ]
+      },
+      "va-outlet-elbow": {
+        "asset": "bb60cc0e54625b4f11002977e367b51bdf51f2bd55fa165f3172aed05c32dbd3",
+        "transform": null
+      },
+      "va-south-elbow": {
+        "asset": "1550823b62777da35cc453d7d66bd035a2fde2ebfc149f68a8ecee8a89003184",
+        "transform": null
+      },
+      "wago-h": {
+        "asset": "03f69b5695d87601809d02f73016a8b299ddd7080ba4920c15276ca2db2c2df5",
+        "transform": [
+          [
+            0.0,
+            1.0,
+            0.0,
+            -89.05
+          ],
+          [
+            0.0,
+            0.0,
+            1.0,
+            388.0
+          ],
+          [
+            1.0,
+            0.0,
+            0.0,
+            333.5
+          ]
+        ]
+      },
+      "wago-g": {
+        "asset": "03f69b5695d87601809d02f73016a8b299ddd7080ba4920c15276ca2db2c2df5",
+        "transform": [
+          [
+            0.0,
+            1.0,
+            0.0,
+            -89.05
+          ],
+          [
+            0.0,
+            0.0,
+            1.0,
+            404.0
+          ],
+          [
+            1.0,
+            0.0,
+            0.0,
+            333.5
+          ]
+        ]
+      },
+      "wago-n": {
+        "asset": "03f69b5695d87601809d02f73016a8b299ddd7080ba4920c15276ca2db2c2df5",
+        "transform": [
+          [
+            0.0,
+            1.0,
+            0.0,
+            -89.05
+          ],
+          [
+            0.0,
+            0.0,
+            1.0,
+            420.0
+          ],
+          [
+            1.0,
+            0.0,
+            0.0,
+            333.5
+          ]
+        ]
+      },
+      "enclosure-back-top": {
+        "asset": "18c08c6899044368250c007dd0916503ceeaaa2d1720fcad9d8ba83d86dfb8d6",
+        "transform": null
+      }
+    }
+  },
+  "printed_pocket_review": {
+    "purpose": "This review measures the printed WAGO seats at the west-wall row.",
+    "source_stl_sha256": "1572fc27c147fd701c1a55afa6e612b52097a8a4ad41293b51046c7be8513a12",
+    "viewer_payload_sha256": "7e59b1aef1c8527560b21d3c1973689b03ffc5d9276aef833d54f4cb467695ce",
+    "method": "Principal-axis rays through the published print-viewer payload, bound to the emitted STL by the print-features record.",
+    "rows": [
+      {
+        "name": "wago-h",
+        "pocket_floor_mm": [
+          -98.5,
+          392.2,
+          333.5
+        ],
+        "pocket_depth_mm": 9.450000000000003,
+        "walls": [
+          {
+            "axis": 1,
+            "direction": -1,
+            "inner_point_mm": [
+              -94.0,
+              387.8500061035156,
+              333.5
+            ],
+            "outer_point_mm": [
+              -94.0,
+              384.8500061035156,
+              333.5
+            ],
+            "thickness_mm": 3.0
+          },
+          {
+            "axis": 1,
+            "direction": 1,
+            "inner_point_mm": [
+              -94.0,
+              396.54998779296875,
+              333.5
+            ],
+            "outer_point_mm": [
+              -94.0,
+              399.54998779296875,
+              333.5
+            ],
+            "thickness_mm": 3.0
+          },
+          {
+            "axis": 2,
+            "direction": -1,
+            "inner_point_mm": [
+              -94.0,
+              392.2,
+              323.95001220703125
+            ],
+            "outer_point_mm": [
+              -94.0,
+              392.2,
+              320.95001220703125
+            ],
+            "thickness_mm": 3.0
+          },
+          {
+            "axis": 2,
+            "direction": 1,
+            "inner_point_mm": [
+              -94.0,
+              392.2,
+              343.04998779296875
+            ],
+            "outer_point_mm": [
+              -94.0,
+              392.2,
+              355.0
+            ],
+            "thickness_mm": 11.95001220703125
+          }
+        ]
+      },
+      {
+        "name": "wago-g",
+        "pocket_floor_mm": [
+          -98.5,
+          408.2,
+          333.5
+        ],
+        "pocket_depth_mm": 9.450000000000003,
+        "walls": [
+          {
+            "axis": 1,
+            "direction": -1,
+            "inner_point_mm": [
+              -94.0,
+              403.8500061035156,
+              333.5
+            ],
+            "outer_point_mm": [
+              -94.0,
+              400.8500061035156,
+              333.5
+            ],
+            "thickness_mm": 3.0
+          },
+          {
+            "axis": 1,
+            "direction": 1,
+            "inner_point_mm": [
+              -94.0,
+              412.54998779296875,
+              333.5
+            ],
+            "outer_point_mm": [
+              -94.0,
+              415.54998779296875,
+              333.5
+            ],
+            "thickness_mm": 3.0
+          },
+          {
+            "axis": 2,
+            "direction": -1,
+            "inner_point_mm": [
+              -94.0,
+              408.2,
+              323.95001220703125
+            ],
+            "outer_point_mm": [
+              -94.0,
+              408.2,
+              320.95001220703125
+            ],
+            "thickness_mm": 3.0
+          },
+          {
+            "axis": 2,
+            "direction": 1,
+            "inner_point_mm": [
+              -94.0,
+              408.2,
+              343.04998779296875
+            ],
+            "outer_point_mm": [
+              -94.0,
+              408.2,
+              355.0
+            ],
+            "thickness_mm": 11.95001220703125
+          }
+        ]
+      },
+      {
+        "name": "wago-n",
+        "pocket_floor_mm": [
+          -98.5,
+          424.2,
+          333.5
+        ],
+        "pocket_depth_mm": 9.450000000000003,
+        "walls": [
+          {
+            "axis": 1,
+            "direction": -1,
+            "inner_point_mm": [
+              -94.0,
+              419.8500061035156,
+              333.5
+            ],
+            "outer_point_mm": [
+              -94.0,
+              416.8500061035156,
+              333.5
+            ],
+            "thickness_mm": 3.0
+          },
+          {
+            "axis": 1,
+            "direction": 1,
+            "inner_point_mm": [
+              -94.0,
+              428.54998779296875,
+              333.5
+            ],
+            "outer_point_mm": [
+              -94.0,
+              431.54998779296875,
+              333.5
+            ],
+            "thickness_mm": 3.0
+          },
+          {
+            "axis": 2,
+            "direction": -1,
+            "inner_point_mm": [
+              -94.0,
+              424.2,
+              323.95001220703125
+            ],
+            "outer_point_mm": [
+              -94.0,
+              424.2,
+              320.95001220703125
+            ],
+            "thickness_mm": 3.0
+          },
+          {
+            "axis": 2,
+            "direction": 1,
+            "inner_point_mm": [
+              -94.0,
+              424.2,
+              343.04998779296875
+            ],
+            "outer_point_mm": [
+              -94.0,
+              424.2,
+              355.0
+            ],
+            "thickness_mm": 11.95001220703125
+          }
+        ]
+      }
+    ],
+    "scope": "Pocket depth, open mouth and retaining walls in the exported geometry. Physical insertion force and lever operation are not measured."
+  },
+  "lever_envelope_basis": "The reference record measures full lever lift from the seating plane. The envelope is transformed with the connector pose; hand access and physical actuation are outside this measurement.",
+  "normal_print_build": {
+    "target": "//:enclosure-back-top",
+    "status": "passed",
+    "source_stl_sha256": "1572fc27c147fd701c1a55afa6e612b52097a8a4ad41293b51046c7be8513a12"
+  },
+  "print_regions": {
+    "path": "heat-set-review/print-regions.json",
+    "sha256": "dc335bf9190bfc4b86a9250908bf6a18bb53f2451e97d9aefeb5204fcfd96f69"
+  },
+  "general_geometry_lint": {
+    "reported_findings": 48,
+    "answered": 40,
+    "source_stl_sha256": "1572fc27c147fd701c1a55afa6e612b52097a8a4ad41293b51046c7be8513a12",
+    "report_sha256": "2571ffea991b237285bfac30146d3d84e79d554e3d0df4d53fcbcbd53a3672e2",
+    "displayed_findings_in_changed_well_region": 0,
+    "scope": "One default lint report after publication; the printed_pocket_review measures every relocated seat independently."
+  }
+}

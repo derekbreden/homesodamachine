@@ -1687,24 +1687,34 @@
   "AC2-N": {
     "stations": [
       {
+        "terminal": "wago-n.2",
+        "offset": [
+          12.0,
+          0.0,
+          0.0
+        ]
+      },
+      {
         "point_mm": [
           -61.0,
-          438.3,
+          430.0,
           309.0
         ]
       },
       {
-        "point_mm": [
-          -41.65,
-          459.3,
-          309.0
+        "terminal": "psu.N",
+        "offset": [
+          0.0,
+          8.0,
+          -27.8
         ]
       },
       {
-        "point_mm": [
-          -41.65,
-          459.3,
-          336.8
+        "terminal": "psu.N",
+        "offset": [
+          0.0,
+          8.0,
+          0.0
         ]
       }
     ],
@@ -1715,7 +1725,7 @@
       8.0
     ],
     "route_status": "selected_layout",
-    "note": "Dressed around the completed pump mount and equipment using the fixed electrical endpoints and actual cable-retainer seats."
+    "note": "The primary lead follows the inboard aisle, passes below the inlet stock and rises at its PSU terminal."
   },
   "J1-COM": {
     "stations": [
@@ -3492,25 +3502,10 @@
     "bend_radius_mm": 3.0,
     "preserve_stations": true,
     "route_status": "selected_layout",
-    "note": "Selected installed route through its native terminals and retained cable supports."
+    "note": "The inlet lead joins the west-wall junction row through its inward-facing wire entries."
   },
   "AC1-N": {
-    "stations": [
-      {
-        "point_mm": [
-          -65.0,
-          438.3,
-          312.0
-        ]
-      },
-      {
-        "point_mm": [
-          -65.0,
-          438.3,
-          284.0
-        ]
-      }
-    ],
+    "stations": [],
     "end_lands_mm": [
       8.0,
       8.0
@@ -3518,36 +3513,39 @@
     "bend_radius_mm": 3.0,
     "preserve_stations": true,
     "route_status": "selected_layout",
-    "note": "Dressed around the completed pump mount and equipment using the fixed electrical endpoints and actual cable-retainer seats."
+    "note": "The inlet lead joins the west-wall junction row through its inward-facing wire entries."
   },
   "AC2-L": {
     "stations": [
       {
-        "point_mm": [
-          -75,
-          440.2,
-          268.2
+        "terminal": "wago-h.2",
+        "offset": [
+          12.0,
+          0.0,
+          0.0
         ]
       },
       {
         "point_mm": [
-          -75,
-          440.2,
-          344
+          -65.0,
+          430.0,
+          309.0
         ]
       },
       {
-        "point_mm": [
-          -75,
-          459.3,
-          344
+        "terminal": "psu.L",
+        "offset": [
+          0.0,
+          8.0,
+          -27.8
         ]
       },
       {
-        "point_mm": [
-          -22.39813995361328,
-          459.3,
-          344
+        "terminal": "psu.L",
+        "offset": [
+          0.0,
+          8.0,
+          0.0
         ]
       }
     ],
@@ -3558,7 +3556,7 @@
       8
     ],
     "route_status": "selected_layout",
-    "note": "Dressed through the fixed cable seats and open aisles around the completed equipment. Only larger installed bodies constrain the insulated conductors."
+    "note": "The primary lead follows the inboard aisle, passes below the inlet stock and rises at its PSU terminal."
   },
   "J11-AOUT": {
     "stations": [
@@ -3780,6 +3778,14 @@
   "AC5-pigtail": {
     "stations": [
       {
+        "terminal": "wago-n.3",
+        "offset": [
+          12.0,
+          0.0,
+          0.0
+        ]
+      },
+      {
         "point_mm": [
           -75.0,
           380.0,
@@ -3808,7 +3814,7 @@
       8.0
     ],
     "route_status": "selected_layout",
-    "note": "Dressed around the completed pump mount and equipment using the fixed electrical endpoints and actual cable-retainer seats."
+    "note": "The neutral pigtail leaves the west-wall junction row through the inboard aisle and joins the retained compressor lead route."
   },
   "DC3-pigtail": {
     "stations": [
@@ -3858,64 +3864,15 @@
     "note": "Dressed through the fixed cable seats and open aisles around the completed equipment. Only larger installed bodies constrain the insulated conductors."
   },
   "AC1-PE": {
-    "stations": [
-      {
-        "terminal": "c14.PE",
-        "offset": [
-          0.0,
-          -15.7,
-          0.0
-        ]
-      },
-      {
-        "terminal": "c14.PE",
-        "offset": [
-          0.0,
-          -15.7,
-          -26.7
-        ]
-      },
-      {
-        "terminal": "c14.PE",
-        "offset": [
-          -6.25,
-          -15.7,
-          -26.7
-        ]
-      },
-      {
-        "terminal": "wago-g.1",
-        "offset": [
-          12.0,
-          -2.75,
-          11.46666666666665
-        ]
-      },
-      {
-        "terminal": "wago-g.1",
-        "offset": [
-          12.0,
-          -2.75,
-          0.0
-        ]
-      },
-      {
-        "terminal": "wago-g.1",
-        "offset": [
-          0.0,
-          -2.75,
-          0.0
-        ]
-      }
-    ],
+    "stations": [],
     "preserve_stations": true,
     "bend_radius_mm": 2.75,
     "endpoint_tangent_fraction": 1.0,
     "route_status": "selected_layout",
-    "note": "The earth lead follows the inlet's native terminal, passes between the relay and data jack, then turns behind the relay into its WAGO.",
+    "note": "The inlet lead joins the west-wall junction row through its inward-facing wire entries.",
     "end_lands_mm": [
-      8,
-      0
+      8.0,
+      8.0
     ]
   },
   "relay-bus-GND": {
