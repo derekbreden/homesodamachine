@@ -1,0 +1,121 @@
+{
+  "purpose": "Record the CO2 chip width trial native slice and retained nozzle clearance recipe.",
+  "archive": "HSM-CO2-width-Mark1-right-z005.gcode.3mf",
+  "archive_sha256": "acd273c593cbc75ab755014ec3a23d6f6158b615c25666d5fe60873f92425532",
+  "gcode_sha256": "0d5d73360406b66233cfd6dddd20a8234e9c2087f927cee10acba72e44c71bc6",
+  "gcode_md5": "1acee80a4b9c449fd397ebdab77ef552",
+  "native_cli_archive_sha256": "9fe770ce88aca675ffdc3ae7b89c3d52859876361dd8d8e83dcbbb437ae5a13b",
+  "metadata_normalization": {
+    "entry": "Metadata/slice_info.config",
+    "key": "printer_model_id",
+    "native_cli_value": "",
+    "retained_value": "O1C2",
+    "source": "hardware/printed-parts/enclosure/display-cover/prints/2026-11-08-identification-set-mark1-right-z005/HSM-identification-Mark1-right-z005.gcode.3mf",
+    "gcode_byte_identical": true
+  },
+  "editable_project": "HSM-CO2-width-Mark1-right-z005.3mf",
+  "plate": "Engineering Plate, glued",
+  "filaments": [
+    {
+      "id": "2",
+      "tray_info_idx": "GFG00",
+      "type": "PETG",
+      "color": "#FFFFFF",
+      "used_m": "0.11",
+      "used_g": "0.32",
+      "group_id": "1",
+      "nozzle_diameter": "0.20",
+      "volume_type": "Standard",
+      "used_for_object": "true",
+      "used_for_support": "false",
+      "total_load_time": "75.00",
+      "total_unload_time": "60.00"
+    },
+    {
+      "id": "4",
+      "tray_info_idx": "GFG00",
+      "type": "PETG",
+      "color": "#D6001C",
+      "used_m": "2.28",
+      "used_g": "6.85",
+      "group_id": "2",
+      "nozzle_diameter": "0.20",
+      "volume_type": "Standard",
+      "used_for_object": "true",
+      "used_for_support": "false",
+      "total_load_time": "75.00",
+      "total_unload_time": "75.00"
+    }
+  ],
+  "nozzles": [
+    {
+      "id": "1",
+      "extruder_id": "2",
+      "nozzle_diameter": "0.2",
+      "volume_type": "Standard"
+    },
+    {
+      "id": "2",
+      "extruder_id": "2",
+      "nozzle_diameter": "0.2",
+      "volume_type": "Standard"
+    }
+  ],
+  "estimated_duration_seconds": 7159.7255859375,
+  "estimated_weight_g": 7.167879730463028,
+  "layer_count": 19,
+  "layer_height_mm": 0.11999999731779099,
+  "infill_percent": 100.0,
+  "wall_loops": 3,
+  "support_used": false,
+  "z_trim_mm": {
+    "left": 0.0,
+    "right": 0.05
+  },
+  "filament_start_count": 10,
+  "filament_end_reset_count": 10,
+  "positive_model_and_tower_extrusion_commands_by_zero_based_filament": {
+    "3": 40182,
+    "1": 5857
+  },
+  "full_bead_model_and_tower_envelope_xy_mm": [
+    [
+      115.65000400000001,
+      116.000004
+    ],
+    [
+      205.199996,
+      215.996
+    ]
+  ],
+  "usable_bed_xy_mm": [
+    [
+      0,
+      0
+    ],
+    [
+      330,
+      320
+    ]
+  ],
+  "edge_margins_mm": {
+    "left": 115.65000400000001,
+    "right": 124.800004,
+    "front": 116.000004,
+    "rear": 104.00399999999999
+  },
+  "checks": {
+    "zip_crc_and_gcode_md5_valid": true,
+    "only_requested_variants": true,
+    "all_active_filaments_use_right_standard_nozzles": true,
+    "all_model_and_tower_extrusions_use_right_trim": true,
+    "final_trim_zero": true,
+    "minimum_bead_edge_margin_mm": 80,
+    "slice_warnings": []
+  },
+  "plate_identity": {
+    "left": "A",
+    "right": "B"
+  },
+  "physical_fit_status": "Awaiting the comparison prints and Derek's fit selection."
+}
