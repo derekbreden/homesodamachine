@@ -1,0 +1,309 @@
+{
+  "purpose": "This record measures on-demand source discovery and repeatable focused inspections for geometry edits.",
+  "implementation_commit": "d682d84ef482e8e8379b9439c063389559f6efd4",
+  "baseline_record": "tools/hsm/conversion-results/grip-corbel-2026-11-09.json",
+  "scope": "Fixed grip lookup and inspection questions against existing exports. This measures tool work, not a new design request or a measured reduction in agent reasoning time. No CAD generator, compiler or normal print build runs.",
+  "lookup_samples": [
+    {
+      "args": [
+        "grips",
+        "--json"
+      ],
+      "wall_ms": 419.134375,
+      "lookup_ms": 257.304875,
+      "feature_keys": [
+        "enclosure-front-bottom::west-handhold",
+        "enclosure-front-bottom::handholds",
+        "enclosure-front-bottom::east-handhold",
+        "enclosure-back-bottom::west-handhold",
+        "enclosure-back-bottom::east-handhold"
+      ]
+    },
+    {
+      "args": [
+        "enclosure-back-bottom::west-handhold",
+        "--context",
+        "--json"
+      ],
+      "wall_ms": 279.300917,
+      "lookup_ms": 193.890083,
+      "feature_keys": [
+        "enclosure-back-bottom::west-handhold"
+      ]
+    }
+  ],
+  "lookup_sequence_wall_ms": 698.435292,
+  "context_evidence": {
+    "source": "hardware/printed-parts/enclosure/enclosure/quadrants/handholds.rs",
+    "source_sha256": "f11c9a9b2853204e3d327f0aac6ef95d12a1fdc080c56c66b83e15d4c3a3e09e",
+    "feature_targets": [
+      "//:enclosure-back-bottom",
+      "//:enclosure-front-bottom"
+    ],
+    "other_source_consumers": [
+      {
+        "source": "hardware/printed-parts/enclosure/enclosure/enclosure_back_bottom.rs",
+        "targets": [
+          "//:enclosure-back-bottom"
+        ]
+      },
+      {
+        "source": "hardware/printed-parts/enclosure/enclosure/enclosure_back_top.rs",
+        "targets": [
+          "//:enclosure-back-top"
+        ]
+      },
+      {
+        "source": "hardware/printed-parts/enclosure/enclosure/enclosure_front_bottom.rs",
+        "targets": [
+          "//:enclosure-front-bottom"
+        ]
+      },
+      {
+        "source": "hardware/printed-parts/enclosure/enclosure/enclosure_front_top.rs",
+        "targets": [
+          "//:enclosure-front-top"
+        ]
+      }
+    ],
+    "shared_occurrences": [
+      "enclosure-front-bottom::west-handhold",
+      "enclosure-front-bottom::east-handhold",
+      "enclosure-back-bottom::west-handhold",
+      "enclosure-back-bottom::east-handhold"
+    ],
+    "joint_and_screw_references": [
+      {
+        "file": "hardware/printed-parts/enclosure/enclosure/quadrants/walls.rs",
+        "matches": [
+          {
+            "line": 6,
+            "symbols": [
+              "handholds",
+              "handhold_backing_end"
+            ],
+            "text": "use crate::handholds::handhold_backing_end;"
+          },
+          {
+            "line": 56,
+            "symbols": [
+              "handhold_backing_end"
+            ],
+            "text": "handhold_backing_end(y_joint, Y::Front), zbed, inner[4]]);"
+          },
+          {
+            "line": 57,
+            "symbols": [
+              "handhold_backing_end"
+            ],
+            "text": "let relief = g.box_([inner[0], inner[1], root, handhold_backing_end(y_joint, Y::Back), zbed - 1.0, inner[4]]);"
+          }
+        ]
+      },
+      {
+        "file": "hardware/printed-parts/enclosure/enclosure/quadrants/ystacks.rs",
+        "matches": [
+          {
+            "line": 5,
+            "symbols": [
+              "handholds",
+              "handhold_levels"
+            ],
+            "text": "use crate::handholds::handhold_levels;"
+          },
+          {
+            "line": 30,
+            "symbols": [
+              "handhold_levels"
+            ],
+            "text": "let [_, ceiling, crown] = handhold_levels(inner);"
+          },
+          {
+            "line": 175,
+            "symbols": [
+              "handhold_levels"
+            ],
+            "text": "let root_z = if head { y_stack(inner).1[0].z0 } else { handhold_levels(inner)[2] - 0.01 };"
+          },
+          {
+            "line": 244,
+            "symbols": [
+              "handhold_levels"
+            ],
+            "text": "let bed = handhold_levels(inner)[0];"
+          }
+        ]
+      }
+    ],
+    "roof_implementation_references": [
+      {
+        "file": "hardware/printed-parts/enclosure/enclosure/solid/ops.rs",
+        "matches": [
+          {
+            "line": 2,
+            "symbols": [
+              "HandholdAir"
+            ],
+            "text": "use crate::plan::{Bounds, Flange, FlankVents, HandholdAir, P2, P3, Seg as PlanSeg, Step};"
+          },
+          {
+            "line": 114,
+            "symbols": [
+              "handhold_cutter"
+            ],
+            "text": "pub fn handhold_cutter(b: &Bounds, radius: f64) -> Result<Solid> {"
+          },
+          {
+            "line": 289,
+            "symbols": [
+              "HandholdAir"
+            ],
+            "text": "pub fn handhold_air(h: &HandholdAir) -> Result<Solid> {"
+          }
+        ]
+      }
+    ],
+    "parameter_declaration_count": 11,
+    "scope": "Current source text and compiler-declared inputs. References are lexical leads, not proof of a physical dependency; exported geometry can predate source edits."
+  },
+  "inspection_samples": {
+    "passage_before_ms": 260.34012500000006,
+    "passage_reuse_ms": 258.3775,
+    "local_export_without_catalog_match_ms": 194.01658299999997,
+    "full_focus_first_ms": 6710.729542,
+    "full_focus_reuse_ms": 4131.185042,
+    "selection": {
+      "query": "enclosure-back-bottom::west-handhold",
+      "model": "hardware/manifold-layout/enclosure-assembly.step",
+      "bodies": [
+        "enclosure-back-bottom"
+      ],
+      "feature": "enclosure-back-bottom::west-handhold",
+      "against": [
+        "enclosure-front-bottom"
+      ],
+      "overlaps": [
+        "enclosure-front-bottom"
+      ],
+      "rays": [
+        "-98.25,208.9,0:0,0,1",
+        "-94.75,208.9,0:0,0,1"
+      ]
+    },
+    "payload_sha256": "561e78a8ca1eef07528b97bf77a2df2d9446266407964e346980f5ca9cad8284",
+    "source_sha256": "9d4a8d2031c6f8191742b99a860ffdfbd0bab2d0ba05c185b44df361ab3907de",
+    "same_selection": true,
+    "same_payload": true,
+    "maximum_camera_scalar_difference": 1.4210854715202004e-14,
+    "gap": {
+      "clearance_mm": null,
+      "intersection_volume_mm3": null,
+      "point_a": [
+        -94,
+        200.14999389648438,
+        28.796370967741936
+      ],
+      "point_b": [
+        -94,
+        200,
+        28.796370967741936
+      ],
+      "surface_distance_mm": 0.149993896484375,
+      "surface_only": true,
+      "volume_error": null
+    },
+    "part_intersection_volume_mm3": 0,
+    "passage_axis_hit": null,
+    "bearing_seat_hit": {
+      "hit": {
+        "distance_mm": 60.79999923706055,
+        "face": 1255,
+        "features": [
+          "enclosure-back-bottom::y-joint-fasteners"
+        ],
+        "normal": [
+          0,
+          0,
+          -1
+        ],
+        "point": [
+          -94.75,
+          208.9,
+          60.79999923706055
+        ],
+        "triangle": 506560
+      },
+      "part": {
+        "id": "#497",
+        "name": "enclosure-back-bottom"
+      }
+    },
+    "local_export_scope": {
+      "model": ".cache/runs/preparation-review-20261109/local-export/enclosure-back-bottom.step",
+      "material_kind": "exported",
+      "bodies": [
+        "enclosure-back-bottom"
+      ],
+      "payload_sha256": "2cfc2d05ae1aadffa9c04246bc69fba83c2249cbbd08118b5f5061e28dbbc734"
+    },
+    "timing_scope": "Ordinary on-demand runs include lookup, snapshot, native queries and rendering where requested. Shared caches are retained; the machine is not exclusively reserved.",
+    "fresh_export_followup": {
+      "elapsed_ms": 415.097083,
+      "payload_sha256": "a432ee1b88143dab30be24d1cf26c0991ca668b284e624d0f4a664bacd7e1280",
+      "previous_payload_sha256": "561e78a8ca1eef07528b97bf77a2df2d9446266407964e346980f5ca9cad8284",
+      "observed_new_payload": true,
+      "retained_selection": false,
+      "passage_axis_hit": null,
+      "bearing_seat_hit": {
+        "hit": {
+          "distance_mm": 60.79999923706055,
+          "face": 1255,
+          "features": [
+            "enclosure-back-bottom::y-joint-fasteners"
+          ],
+          "normal": [
+            0,
+            0,
+            -1
+          ],
+          "point": [
+            -94.75,
+            208.9,
+            60.79999923706055
+          ],
+          "triangle": 506560
+        },
+        "part": {
+          "id": "#477",
+          "name": "enclosure-back-bottom"
+        }
+      },
+      "scope": "Another producer updated the shared assembly during verification. Reusing the saved inspection queried its new export with the same named owner and rays."
+    }
+  },
+  "focused_tests": {
+    "cases_passed": 17,
+    "commands": [
+      "node --test tools/find-part.check.mjs tools/inspect-part.check.mjs web/tests/features.test.js",
+      "node --test tools/inspect-part.check.mjs",
+      "node --test tools/find-part.check.mjs"
+    ],
+    "execution": "Explicit only; no build or commit hook is added."
+  },
+  "source_files_sha256": {
+    "tools/find-part.mjs": "8740186702b96524e82391ae5e89e8fb7cfa9e0fdfa3392984e2aeb8877b2e6c",
+    "tools/inspect-part.mjs": "40eff7ec1652e085e8aad0f9b6dceb5e6a99e4c9877d55e7353ceba61f513d49",
+    "web/contracts/features.js": "bd8c518348d1b9890a9d78377c58ac2c7906cc99cd0ffe044bd06fc9333d63ef",
+    "AGENTS.md": "e073b5e6794209900e65f44531af2fb56096dc6bb43df89f1e161792ac77fcf9",
+    "tools/hsm/README.md": "0dcea76a066a30cde905587535e05adbb00f5804351b52b02bed0a72cd875909"
+  },
+  "live_search": {
+    "status": "awaiting_website_deployment",
+    "url": "https://homesodamachine.com/contracts/features.js",
+    "observed_server_commit": "451ad52e6bd61f1dcb7f17b78b4e0a0285c95f77",
+    "served_matcher_sha256": "f350363d6ca82f2a8e2800dc7294937873e64c2a1fc138d7eebe1128ceeb68d2",
+    "expected_matcher_sha256": "bd8c518348d1b9890a9d78377c58ac2c7906cc99cd0ffe044bd06fc9333d63ef",
+    "last_observed_utc": "2026-11-09T21:42:37Z",
+    "scope": "Cache-bypassed requests still serve the previous code. The repository enables Render auto-deploy for web changes; deployment controls are not exposed in this session. The browser search check waits for code adoption."
+  }
+}
