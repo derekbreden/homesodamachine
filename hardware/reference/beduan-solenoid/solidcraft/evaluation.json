@@ -1318,5 +1318,13 @@
     "geometry_blob_sha256_before": "5f777388c517558173945551788cad819a3a3831e9c1a17db28fb279fde68923",
     "geometry_blob_sha256_after": "5f777388c517558173945551788cad819a3a3831e9c1a17db28fb279fde68923",
     "method": "STEP solid names are matched to native body bounds. Names and linearized native sRGB appearances replace compound-level metadata; geometry buffers stay byte-identical."
+  },
+  "publication": {
+    "model_url": "https://homesodamachine.com/3d#step:reference%2Fbeduan-solenoid%2Fsolidcraft%2Fbeduan-valve.step?find=view%3A%20az%3D45%20el%3D25",
+    "native_files_on_main": true,
+    "frozen_objects_match_published_pointer": true,
+    "viewer_inspected": true,
+    "viewer_result": "The published valve renders with its white plastic, black encapsulation and metal bodies.",
+    "published_mesh_sha256": "ed102233a51b0dd30038771ea6e31799d292890c91b4e73b27708b117e03e9d8"
   }
 }
