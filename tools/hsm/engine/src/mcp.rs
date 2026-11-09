@@ -7,6 +7,12 @@ use std::io::{self, BufRead, Write};
 fn tools() -> Vec<Value> {
     let definitions = [
         (
+            "features",
+            "Find named construction features, source definitions and world bounds from exported surface ranges, without a CAD build.",
+            json!({"pattern":{"type":"string"}}),
+            vec![],
+        ),
+        (
             "where",
             "Find solids by name or #index and read world bounds and dimensions.",
             json!({"pattern":{"type":"string"}}),
@@ -39,7 +45,7 @@ fn tools() -> Vec<Value> {
         (
             "ray",
             "Nearest scene hit with viewer triangle and face IDs; direction is normalized.",
-            json!({"origin":{"type":"array","items":{"type":"number"},"minItems":3,"maxItems":3},"direction":{"type":"array","items":{"type":"number"},"minItems":3,"maxItems":3},"max_distance":{"type":"number","exclusiveMinimum":0}}),
+            json!({"part":{"type":"string","description":"Optional body or body::feature selection"},"origin":{"type":"array","items":{"type":"number"},"minItems":3,"maxItems":3},"direction":{"type":"array","items":{"type":"number"},"minItems":3,"maxItems":3},"max_distance":{"type":"number","exclusiveMinimum":0}}),
             vec!["origin", "direction"],
         ),
     ];
@@ -79,7 +85,7 @@ fn workspace(client: &Client, params: &Value) -> Option<std::path::PathBuf> {
 fn call(client: &Client, params: &Value) -> Result<Value> {
     let name = params["name"].as_str().context("missing tool name")?;
     let op = name.strip_prefix("hsm_").context("unknown tool")?;
-    if !["where", "gap", "overlap", "move", "section", "ray"].contains(&op) {
+    if !["where", "features", "gap", "overlap", "move", "section", "ray"].contains(&op) {
         bail!("unknown tool {name}");
     }
     let mut arguments = params.get("arguments").cloned().unwrap_or(json!({}));

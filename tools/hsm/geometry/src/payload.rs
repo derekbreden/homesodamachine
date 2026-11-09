@@ -25,6 +25,8 @@ pub struct Entry {
     pub fac: [usize; 2],
     /// Optional contributor groups, aligned with the face ranges. Invalid metadata is unknown.
     pub face_sources: Option<serde_json::Value>,
+    #[serde(default)]
+    pub features: Vec<serde_json::Value>,
 }
 
 pub struct Mesh {
@@ -34,6 +36,8 @@ pub struct Mesh {
     /// Inclusive triangle ranges, in the same order as the viewer's face IDs.
     pub faces: Vec<[u32; 2]>,
     pub face_sources: Option<Vec<Vec<serde_json::Value>>>,
+    pub features: Vec<serde_json::Value>,
+    pub triangle_ids: Option<Vec<u32>>,
     pub(crate) solid: OnceLock<Result<Mutex<Manifold>, String>>,
 }
 
@@ -63,7 +67,7 @@ impl Mesh {
                 "vertex index outside {name}");
         let points = vertices.into_iter().map(|p| Point::new(p[0], p[1], p[2])).collect();
         let shape = TriMesh::new(points, indices).map_err(|error| anyhow::anyhow!("{name}: {error}"))?;
-        Ok(Self { name, color: None, shape, faces: Vec::new(), face_sources: None, solid: OnceLock::new() })
+        Ok(Self { name, color: None, shape, faces: Vec::new(), face_sources: None, features: vec![], triangle_ids: None, solid: OnceLock::new() })
     }
 }
 
@@ -161,6 +165,8 @@ pub fn decode(bytes: &[u8]) -> Result<Payload> {
             shape,
             faces,
             face_sources,
+            features: e.features,
+            triangle_ids: None,
             solid: OnceLock::new(),
         });
     }

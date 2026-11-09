@@ -83,12 +83,12 @@ impl Build<'_> {
     pub fn floor(&self, g: &mut Graph, mut piece: Shape, hold_face: Option<f64>) -> Shape {
         let (b, bands) = (self.b, self.q.bands(self.b));
         let (inner, pack) = (&b.inner, &b.pack);
-        piece = floor::floor_bosses(g, piece, inner, &pack.floor_bosses, bands);
-        piece = floor::west_cradle(g, piece, inner, &pack.west_cradle, bands);
-        piece = floor::cond_cradle(g, piece, inner, &pack.cond_cradle, bands);
-        piece = floor::cond_mount(g, piece, inner, &pack.cond_mount, bands);
-        piece = floor::core_stops(g, piece, inner, &pack.core_stops, bands);
-        floor::core_holds(g, piece, inner, &pack.core_holds, bands, hold_face)
+        piece = g.scoped("floor-bosses", "Floor mounting bosses", &[], |g| floor::floor_bosses(g, piece, inner, &pack.floor_bosses, bands));
+        piece = g.scoped("gas-sensor-cradle", "Gas sensor card cradle", &["mq6-sensor"], |g| floor::west_cradle(g, piece, inner, &pack.west_cradle, bands));
+        piece = g.scoped("condenser-cradles", "Condenser slot cradles", &["condenser+fan"], |g| floor::cond_cradle(g, piece, inner, &pack.cond_cradle, bands));
+        piece = g.scoped("condenser-mount", "Condenser mounting bosses", &["condenser+fan"], |g| floor::cond_mount(g, piece, inner, &pack.cond_mount, bands));
+        piece = g.scoped("core-stops", "Cold core locating stops", &["cold-core"], |g| floor::core_stops(g, piece, inner, &pack.core_stops, bands));
+        g.scoped("core-holds", "Cold core retaining mounts", &["cold-core"], |g| floor::core_holds(g, piece, inner, &pack.core_holds, bands, hold_face))
     }
 
     /// The piece with each column relief cut, then its rise cut over it.

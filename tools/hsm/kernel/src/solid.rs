@@ -105,6 +105,12 @@ impl Solid {
         &self.faces
     }
 
+    /// Assign construction identity without changing geometry or its retained backend.
+    pub fn with_feature(mut self, feature: &'static crate::feature::Feature) -> Solid {
+        for face in &mut self.faces { face.feature = Some(feature); }
+        self
+    }
+
     /// Release the cached boolean representation, retaining every mesh array and face record.
     /// A later boolean or simplification builds that representation again on demand.
     pub fn forget_backend(&mut self) {

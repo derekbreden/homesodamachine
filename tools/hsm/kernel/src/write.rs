@@ -398,6 +398,9 @@ pub fn face_json(f: &Face) -> Value {
     o.insert("kind".into(), f.surface.kind().into());
     o.insert("op".into(), f.op.into());
     o.insert("src".into(), if f.src.recorded() { src_line(f.src).into() } else { Value::Null });
+    if let Some(feature) = f.feature {
+        o.insert("feature".into(), feature.json());
+    }
     if let Some(records) = f.src.contributors() {
         o.insert("contributors".into(), Value::Array(records.to_vec()));
     }
