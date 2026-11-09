@@ -31,6 +31,7 @@ import { makeToolChip } from "./tool-rail.js";
 import { heldBy } from "/contracts/body-path.js";
 
 const LS_KEY = "step-xray";
+let chip = null;
 let enabled = (() => {
   try { return localStorage.getItem(LS_KEY) === "1"; } catch { return false; }
 })();
@@ -64,6 +65,7 @@ export function setXrayEnabled(on, { persist = true } = {}) {
     try { localStorage.setItem(LS_KEY, enabled ? "1" : "0"); } catch {}
   }
   applyXray(state.currentGroup);
+  chip?.refresh();
 }
 
 export function isXrayEnabled() {
@@ -71,7 +73,7 @@ export function isXrayEnabled() {
 }
 
 export function makeXrayToggle() {
-  return makeToolChip({
+  chip = makeToolChip({
     className: "xray-toggle",
     label: "X-ray",
     icon: "xray",
@@ -79,4 +81,5 @@ export function makeXrayToggle() {
     read: isXrayEnabled,
     write: setXrayEnabled,
   });
+  return chip;
 }
