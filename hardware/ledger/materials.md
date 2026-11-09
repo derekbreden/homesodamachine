@@ -35,6 +35,12 @@ an alternate object name, while CAD paths and route aliases remain context.
 Ambiguous peers retain a stable alphabetical order. Browser search and the
 local part finder share this ranking.
 
+Search presents each material through its canonical record. Navigation into an
+assembly's model sits beneath that record. Installed-location choices expand
+for repeated materials when their BOM quantities and model bindings identify
+the placements. Separate solids belonging to a material share the installed
+view action; their CAD body names remain geometry identifiers.
+
 ## Names and descriptions
 
 `description` is the canonical material name in search results, BOM rows,
