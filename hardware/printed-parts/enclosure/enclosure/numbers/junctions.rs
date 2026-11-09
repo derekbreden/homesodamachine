@@ -4,6 +4,8 @@
 //! them.
 use crate::P3;
 use crate::quadrant::Y;
+use serde::Deserialize;
+use std::sync::OnceLock;
 
 /// A Wago 221 lever connector, by its body: across its poles, along its wire axis, and its
 /// height, with the catalog size its reference model is named by.
@@ -15,37 +17,80 @@ pub struct Wago {
     pub height: f64,
 }
 
-pub const WAGO_413: Wago = Wago { size: "413", width: 18.8, depth: 18.6, height: 8.4 };
-pub const WAGO_415: Wago = Wago { size: "415", width: 30.0, depth: 18.6, height: 8.4 };
-pub const WAGO_420: Wago = Wago { size: "420", width: 29.8, depth: 18.3, height: 15.8 };
-
-/// The west-wall row exposes its wire entries inward and its levers toward the rear.
-pub const WEST_PORTS_INBOARD: [P3; 3] = [[0.0, 1.0, 0.0], [0.0, 0.0, 1.0], [1.0, 0.0, 0.0]];
-/// The manifold commons lie on the east flank with their ports facing forward.
-pub const EAST_FLANK: [P3; 3] = [[0.0, -1.0, 0.0], [0.0, 0.0, -1.0], [1.0, 0.0, 0.0]];
+pub const WAGO_413: Wago = Wago {
+    size: "413",
+    width: 18.8,
+    depth: 18.6,
+    height: 8.4,
+};
+pub const WAGO_415: Wago = Wago {
+    size: "415",
+    width: 30.0,
+    depth: 18.6,
+    height: 8.4,
+};
+pub const WAGO_420: Wago = Wago {
+    size: "420",
+    width: 29.8,
+    depth: 18.3,
+    height: 15.8,
+};
 
 /// One junction the wiring model mounts on a top piece: its connector, where it stands, and how
 /// far its well's mouth stands back of the lever face.
 pub struct Junction {
-    pub name: &'static str,
+    pub name: String,
     pub wago: Wago,
     pub host: Y,
     pub rotation: [P3; 3],
     pub translation: P3,
     pub mouth: f64,
+    pub fit: f64,
 }
 
-/// The wiring model's junctions on the two top pieces, in its placement order: the mains live,
-/// earth and neutral buses above the relays, and the two valve-manifold commons.
-pub const JUNCTIONS: [Junction; 5] = [
-    Junction { name: "wago-h", wago: WAGO_413, host: Y::Back, rotation: WEST_PORTS_INBOARD,
-               translation: [-89.05, 388.0, 333.5], mouth: 0.0 },
-    Junction { name: "wago-g", wago: WAGO_413, host: Y::Back, rotation: WEST_PORTS_INBOARD,
-               translation: [-89.05, 404.0, 333.5], mouth: 0.0 },
-    Junction { name: "wago-n", wago: WAGO_413, host: Y::Back, rotation: WEST_PORTS_INBOARD,
-               translation: [-89.05, 420.0, 333.5], mouth: 0.0 },
-    Junction { name: "wago-mana", wago: WAGO_420, host: Y::Front, rotation: EAST_FLANK,
-               translation: [95.20, 185.05, 277.0], mouth: -0.75 },
-    Junction { name: "wago-manb", wago: WAGO_415, host: Y::Front, rotation: EAST_FLANK,
-               translation: [95.05, 177.65, 243.0], mouth: -0.75 },
-];
+#[derive(Deserialize)]
+struct Placement {
+    name: String,
+    size: String,
+    host: String,
+    rotation: [P3; 3],
+    translation_mm: P3,
+    mouth_mm: f64,
+}
+
+#[derive(Deserialize)]
+struct Document {
+    well_fit_mm: f64,
+    junctions: Vec<Placement>,
+}
+
+/// The connectors and their printed pockets share these runtime design placements.
+pub fn junctions() -> &'static [Junction] {
+    static JUNCTIONS: OnceLock<Vec<Junction>> = OnceLock::new();
+    JUNCTIONS.get_or_init(|| {
+        let document: Document = crate::input::json("hardware/manifold-layout/junctions.json")
+            .expect("the enclosure junction placements parse");
+        document
+            .junctions
+            .into_iter()
+            .map(|j| Junction {
+                name: j.name,
+                wago: match j.size.as_str() {
+                    "413" => WAGO_413,
+                    "415" => WAGO_415,
+                    "420" => WAGO_420,
+                    size => panic!("no enclosure connector dimensions for WAGO {size}"),
+                },
+                host: match j.host.as_str() {
+                    "front-top" => Y::Front,
+                    "back-top" => Y::Back,
+                    host => panic!("no enclosure junction host {host}"),
+                },
+                rotation: j.rotation,
+                translation: j.translation_mm,
+                mouth: j.mouth_mm,
+                fit: document.well_fit_mm,
+            })
+            .collect()
+    })
+}

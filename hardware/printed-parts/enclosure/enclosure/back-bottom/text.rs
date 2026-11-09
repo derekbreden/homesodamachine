@@ -9,7 +9,7 @@ use std::sync::OnceLock;
 fn artwork() -> Rc<Artwork> {
     static SOURCE: OnceLock<Value> = OnceLock::new();
     let source = SOURCE.get_or_init(|| {
-        let v: Value = serde_json::from_str(include_str!("../disposal-warning-artwork.json"))
+        let v: Value = hsm_enclosure_numbers::input::json("hardware/printed-parts/enclosure/enclosure/disposal-warning-artwork.json")
             .expect("the disposal warning's artwork parses");
         assert!(
             v["family"] == DISPOSAL_FONT && v["kind"] == "bold",

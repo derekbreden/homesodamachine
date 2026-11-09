@@ -54,7 +54,7 @@ struct OverhangRound {
 fn scalars() -> &'static Scalars {
     static SCALARS: OnceLock<Scalars> = OnceLock::new();
     SCALARS.get_or_init(|| {
-        serde_json::from_str(include_str!("../../../../../tools/hsm/shared-data/catalog/scalars.json"))
+        hsm_enclosure_interface::input::json("tools/hsm/shared-data/catalog/scalars.json")
             .expect("the shared scalars catalog parses")
     })
 }

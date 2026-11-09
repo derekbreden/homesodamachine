@@ -587,7 +587,7 @@ pub fn request(request: &Request) -> Result<Value> {
     match request.op.as_str() {
         "connections" => Ok(connections()),
         "graph_constants" => Ok(
-            json!({"UNUSED":serde_json::from_str::<Value>(include_str!("unused.json"))?,"BOUNDARIES":serde_json::from_str::<Value>(include_str!("boundaries.json"))?}),
+            json!({"UNUSED":hsm_kernel::reads::json("tools/hsm/assembly-docs/src/wiring/unused.json")?,"BOUNDARIES":hsm_kernel::reads::json("tools/hsm/assembly-docs/src/wiring/boundaries.json")?}),
         ),
         "owner" => Ok(json!(owner(string(&d["part"])?))),
         "interfaces" => interfaces(&d["terminals"], &d["graph"]),

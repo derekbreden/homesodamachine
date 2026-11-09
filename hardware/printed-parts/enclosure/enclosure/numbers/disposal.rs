@@ -25,7 +25,7 @@ struct Glyph {
 fn metrics() -> &'static Metrics {
     static METRICS: OnceLock<Metrics> = OnceLock::new();
     METRICS.get_or_init(|| {
-        serde_json::from_str(include_str!("../disposal-warning-artwork.json"))
+        hsm_enclosure_interface::input::json("hardware/printed-parts/enclosure/enclosure/disposal-warning-artwork.json")
             .expect("the disposal warning's artwork parses")
     })
 }

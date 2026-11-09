@@ -6,7 +6,7 @@ use serde_json::{Value,json};
 use std::collections::{BTreeMap,BTreeSet};
 type Bends=Vec<(usize,f64,f64,f64)>;
 type Radii=BTreeMap<usize,f64>;
-fn catalog()->Value{serde_json::from_str(include_str!("../catalog/routing.json")).unwrap()}
+fn catalog()->Value{hsm_kernel::reads::json("tools/hsm/shared-data/catalog/routing.json").expect("the shared routing catalog reads")}
 fn normal(face:&Value)->Result<V3>{if face.is_string(){return point(&catalog()["face_normal"][text(face)])}let v=point(face)?;ensure!(v.norm()!=0.,"zero port direction");Ok(v/v.norm())}
 fn face_name(face:&Value)->Result<String>{if let Some(s)=face.as_str(){return Ok(s.into())}let p=normal(face)?;Ok(format!("({})",[p.x,p.y,p.z].map(|v|format(v,"+.3f")).join(", ")))}
 fn skew(a:V3,b:V3,d:V3)->f64{let v=b-a;let n=v.norm();if n<1e-9{0.}else{(v.dot(d)/n).clamp(-1.,1.).acos().to_degrees()}}

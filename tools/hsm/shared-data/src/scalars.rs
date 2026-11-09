@@ -5,7 +5,7 @@ use serde_json::{Value,json};
 use std::f64::consts::PI;
 
 fn constants()->Value{
-    let mut v:Value=serde_json::from_str(include_str!("../catalog/scalars.json")).unwrap();
+    let mut v=hsm_kernel::reads::json("tools/hsm/shared-data/catalog/scalars.json").expect("the shared scalars catalog reads");
     v["fits"]["running"]=json!(v["fits"]["slip"].as_f64().unwrap()+v["fits"]["sliding_extra"].as_f64().unwrap());
     let grid=v["cable_clip"]["GRID"].as_f64().unwrap();
     for(name,factor)in[("DEPTH",3.),("BACKING",1.),("HEIGHT",13.),("RUN",6.),("RAMP",2.)]{v["cable_clip"][name]=json!(grid*factor);}

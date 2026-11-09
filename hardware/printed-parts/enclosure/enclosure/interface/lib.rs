@@ -4,6 +4,7 @@
 //! anchor cap that closes the tube anchors. The enclosure's own numbers build on these.
 pub mod anchor_cap;
 pub mod fits;
+pub mod input;
 pub mod swept;
 
 use fits::{running, slip, supported};

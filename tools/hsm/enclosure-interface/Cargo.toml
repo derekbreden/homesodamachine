@@ -10,5 +10,7 @@ publish = false
 path = "../../../hardware/printed-parts/enclosure/enclosure/interface/lib.rs"
 
 [dependencies]
+anyhow.workspace = true
+hsm-kernel = { path = "../kernel", default-features = false }
 serde = { workspace = true, features = ["derive"] }
 serde_json = { workspace = true, features = ["float_roundtrip"] }

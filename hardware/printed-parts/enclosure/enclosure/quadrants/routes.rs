@@ -25,7 +25,7 @@ struct CableSite {
 fn cable_sites() -> &'static [CableSite] {
     static SITES: OnceLock<Vec<CableSite>> = OnceLock::new();
     SITES.get_or_init(|| {
-        serde_json::from_str(include_str!("../../../../../tools/hsm/assembly-docs/src/wiring/cable-sites.json"))
+        hsm_enclosure_numbers::input::json("tools/hsm/assembly-docs/src/wiring/cable-sites.json")
             .expect("the wiring's cable sites parse")
     })
 }

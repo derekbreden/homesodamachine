@@ -13,6 +13,15 @@ use std::sync::Once;
 
 static BEGUN: Once = Once::new();
 
+/// A runtime JSON document, recorded among the inputs that decide this run's outputs.
+pub fn json(path: impl AsRef<Path>) -> anyhow::Result<serde_json::Value> {
+    use anyhow::Context;
+    let path = path.as_ref();
+    let bytes = std::fs::read(path).with_context(|| format!("reading {}", path.display()))?;
+    read(path, &bytes);
+    serde_json::from_slice(&bytes).with_context(|| format!("parsing {}", path.display()))
+}
+
 /// Say that this program names its reads, before it has read anything.
 pub fn begin() {
     BEGUN.call_once(|| {
@@ -31,9 +40,13 @@ pub fn read(path: &Path, bytes: &[u8]) {
 
 /// The file at `path`, read, whose SHA-256 is `digest`.
 pub fn digest(path: &Path, digest: &str) {
-    let Some(log) = std::env::var_os("HSM_READS") else { return };
+    let Some(log) = std::env::var_os("HSM_READS") else {
+        return;
+    };
     begin();
-    let full = std::env::current_dir().map(|d| d.join(path)).unwrap_or_else(|_| path.to_path_buf());
+    let full = std::env::current_dir()
+        .map(|d| d.join(path))
+        .unwrap_or_else(|_| path.to_path_buf());
     // One write of one line, appended, so lines from two threads never interleave.
     let line = format!("{}\t{digest}\n", full.display());
     if let Ok(mut f) = std::fs::OpenOptions::new().append(true).open(log) {

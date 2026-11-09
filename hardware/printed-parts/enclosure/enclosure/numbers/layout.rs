@@ -192,7 +192,7 @@ pub struct Layout {
 pub fn layout() -> &'static Layout {
     static LAYOUT: OnceLock<Layout> = OnceLock::new();
     LAYOUT.get_or_init(|| {
-        serde_json::from_str(include_str!("../../../../manifold-layout/above-core.json"))
+        hsm_enclosure_interface::input::json("hardware/manifold-layout/above-core.json")
             .expect("the above-core layout parses")
     })
 }

@@ -15,9 +15,9 @@ struct BranchMeasurements {
 fn branch() -> &'static BranchMeasurements {
     static BRANCH: OnceLock<BranchMeasurements> = OnceLock::new();
     BRANCH.get_or_init(|| {
-        serde_json::from_str(include_str!(
-            "../../../../reference/jg-pp0208e-tee/branch-operating-measurements.json"
-        ))
+        hsm_enclosure_numbers::input::json(
+            "hardware/reference/jg-pp0208e-tee/branch-operating-measurements.json"
+        )
         .expect("the tee's branch measurements parse")
     })
 }
@@ -100,9 +100,9 @@ pub mod stem_elbow {
     fn parameters() -> &'static Parameters {
         static PARAMETERS: OnceLock<Parameters> = OnceLock::new();
         PARAMETERS.get_or_init(|| {
-            serde_json::from_str(include_str!(
-                "../../../../reference/neofit-stem-elbow/reference-parameters.json"
-            ))
+            hsm_enclosure_numbers::input::json(
+                "hardware/reference/neofit-stem-elbow/reference-parameters.json"
+            )
             .expect("the stem elbow's parameters parse")
         })
     }

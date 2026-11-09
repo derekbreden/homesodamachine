@@ -157,7 +157,7 @@ fn material(name: &str) -> Result<[f64; 3]> {
 
 /// The colour of the tube stock a run is cut from: its own spool, else its kind's.
 fn spool_color(run: &str) -> Result<[f64; 3]> {
-    let routing: Value = serde_json::from_str(include_str!("../../tools/hsm/shared-data/catalog/routing.json"))?;
+    let routing = hsm_kernel::reads::json("tools/hsm/shared-data/catalog/routing.json")?;
     let kind = run.split('-').next().unwrap_or(run);
     let spool = routing["spool_of"][run]
         .as_str()

@@ -15,7 +15,7 @@ fn has(value: &Value, key: &str) -> bool {
     value.get(key).is_some()
 }
 pub fn manifold_site() -> Result<Value> {
-    let mut out: Value = serde_json::from_str(include_str!("manifold-bank.json"))?;
+    let mut out = hsm_kernel::reads::json("tools/hsm/assembly-docs/src/wiring/manifold-bank.json")?;
     out["target_centers"] = json!({});
     for (x, z, wires) in [
         (
@@ -42,7 +42,7 @@ pub fn manifold_site() -> Result<Value> {
     Ok(out)
 }
 pub fn rear_site() -> Result<Value> {
-    let mut out: Value = serde_json::from_str(include_str!("rear-level-hook.json"))?;
+    let mut out = hsm_kernel::reads::json("tools/hsm/assembly-docs/src/wiring/rear-level-hook.json")?;
     out["target_centers"] = json!({});
     for (i, id) in ["J6-GND", "J6-RA4", "J6-RA3", "J6-RA2", "J6-RA1"]
         .into_iter()
@@ -53,7 +53,7 @@ pub fn rear_site() -> Result<Value> {
     Ok(out)
 }
 fn cable_sites() -> Result<Value> {
-    Ok(serde_json::from_str(include_str!("cable-sites.json"))?)
+    hsm_kernel::reads::json("tools/hsm/assembly-docs/src/wiring/cable-sites.json")
 }
 pub fn pump_internal(at: &Value, x: f64, terminal_x: f64, lane: f64, n: f64) -> Result<Vec<V>> {
     let rear = v(&at["passages"]["front-top-electrical"]["points_mm"][0])?;

@@ -159,7 +159,7 @@ struct Routing {
 
 /// The outer diameter of the routing catalog's stock `name`.
 pub fn stock_od(name: &str) -> Result<f64> {
-    let routing: Routing = serde_json::from_str(include_str!("../../../tools/hsm/shared-data/catalog/routing.json"))?;
+    let routing: Routing = hsm_enclosure_numbers::input::json("tools/hsm/shared-data/catalog/routing.json")?;
     routing.stocks.into_iter().find(|s| s.name == name).map(|s| s.od).with_context(|| format!("no stock {name} in the routing catalog"))
 }
 

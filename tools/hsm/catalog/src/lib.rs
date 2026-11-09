@@ -34,7 +34,8 @@ struct Scalars {
 pub fn fits() -> Fits {
     static FITS: OnceLock<Fits> = OnceLock::new();
     *FITS.get_or_init(|| {
-        serde_json::from_str::<Scalars>(include_str!("../../shared-data/catalog/scalars.json"))
+        serde_json::from_value::<Scalars>(hsm_kernel::reads::json("tools/hsm/shared-data/catalog/scalars.json")
+            .expect("the shared scalars catalog reads"))
             .expect("the shared scalars catalog parses")
             .fits
     })
