@@ -219,6 +219,13 @@ Rinse through all four open ports, drain and dry. Clean and passivate the welded
 
 ### 9. Install elbows and PRV
 
+The cured elbow, valve and shroud are the **HSM-0553 pressure-relief assembly**.
+The **HSM-0032 magnetic level float** is captive inside the welded vessel.
+With its permanent port fittings installed, the **HSM-0004 carbonator** moves
+to the **HSM-0554 instrumented carbonator and coil assembly** in
+[cold-core.md](cold-core.md). The water-inlet tube adapter is fitted during
+body-side installation there.
+
 After passivation, the carbonator receives its permanent port fittings. Per [`/hardware/printed-parts/cold-core/foam-shell/README.md`](/hardware/printed-parts/cold-core/foam-shell/README.md) "Carbonator-port fittings", every port gets a 1/4" NPT 90° elbow as the first downstream fitting, turning the line laterally so the rest of the stack fits within the ~ vertical envelope above and below the carbonator.
 
 The top plate's two ports get a TAISHER 316L SS street elbow and the bottom plate's two a neoFit AME4-N2-E push-fit male elbow. Each threads MNPT into the plate's FNPT on Millrose PTFE tape. Downstream stack varies by port:

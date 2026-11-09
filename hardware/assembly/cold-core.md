@@ -10,7 +10,12 @@ In: one hydro-tested + passivated carbonator (output of [`pressure-vessel.md`](/
 
 Out: a fully foam-poured cold core, capped with exterior foil-sealed dry joints, with the wound evaporator coil bonded around the carbonator and its inlet/outlet stubs protruding through the foam-shell's copper exits — of inlet stub, of outlet stub, measured from the shell face.
 
-Not in scope: refrigerant-loop integration ([`refrigerant-loop.md`](/hardware/assembly/refrigerant-loop.md)) — brazing of the coil stubs onto the donor unit's cap tube and suction line, vacuum, charge, run-up. Also not in scope: enclosure-side assembly (electronics bay, compressor + condenser + fan placement, AC wiring), faucet install, final integration.
+The closed, insulated output is **HSM-0557**. Populating its equipment lid
+with the pump, controller, V-B and junctions completes the **HSM-0003 cold
+core**, the input to **HSM-0552 refrigeration assembly**. Tubes and conductors
+remain free for their later enclosure connections.
+
+Not in scope: refrigerant-loop integration ([`refrigerant-loop.md`](/hardware/assembly/refrigerant-loop.md)) — brazing of the coil stubs onto the donor unit's cap tube and suction line, vacuum, charge, run-up. Also not in scope: enclosure-side power distribution, compressor and condenser mounting, AC wiring, faucet installation and final integration.
 
 ## Inputs per appliance
 
@@ -40,6 +45,11 @@ Per-unit BOM lives in [`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) §5 (
 ## Procedure
 
 ### 1. Dress the carbonator wall, then wind the evaporator coil
+
+This operation takes the **HSM-0004 carbonator** and produces the
+**HSM-0554 instrumented carbonator and coil assembly**. The vessel, bonded
+coil, attached probes and reeds, and earth lead move together into the casing;
+support their loose tails and conductors during that move.
 
 Everything that has to touch bare 316L goes on **before** the foil, at the bench, with the carbonator in the open:
 
@@ -116,6 +126,11 @@ junction wells travel with the lid; thread B-fill through its separate bend hold
 at step 6.
 
 ### 4. Reservoir subassembly (both, at the bench)
+
+The closed units are **HSM-0555 fitted reservoir A** and **HSM-0556 fitted
+reservoir B**. Each carries its cap, gasket, captive float and guide, grips and
+closure hardware. Continuous tubes are fitted during body-side installation;
+the dry reed columns enter after the foam cure.
 
 Both flavor reservoirs are built closed here, off the shell, and go into their pockets as finished units at step 5. Nothing in this step touches the foam shell. The geometry — rod length, float travel, reed heights, cap register, vent stack — is owned by [`reservoir.py`](/hardware/printed-parts/cold-core/reservoir/reservoir.py), [`reservoir/level-sensing.md`](/hardware/printed-parts/cold-core/reservoir/level-sensing.md) and [`reservoir/vent.md`](/hardware/printed-parts/cold-core/reservoir/vent.md); this step is the order the bench builds in.
 
@@ -200,6 +215,11 @@ plain window. The flat equipment face stays at appliance Z253.4 mm. Ten M5 × 10
 screws seat in Ø9 recesses and engage the raised shell-face inserts. Tighten these
 before the PCB covers any driver path. Apply 3M 425 to the dry exterior perimeter
 and guide-window boundary without covering functional tube or vent lumens.
+
+The closed casing, cured insulation, installed sensing columns and supported
+free lines form **HSM-0557 insulated cold-core assembly**. It moves together
+to equipment population. The pump, controller, V-B and junctions complete
+**HSM-0003**, with their installation order below.
 
 Terminate J10 on the loose PCB before fastening it to its four lid posts with
 M3 × 8 screws. Fit the pump and V-B plumbing, then dress the connector branches
