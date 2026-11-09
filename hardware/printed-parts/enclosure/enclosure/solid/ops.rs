@@ -285,36 +285,34 @@ fn handhold_loft(sections: &[LoftSection]) -> Result<Solid> {
     Solid::loft(&regions)
 }
 
-/// The rounded show edges a handhold's opening takes, in the west handhold's frame.
+/// The handhold's roof descends inward while its end walls retain the exterior mouth.
 pub fn handhold_air(h: &HandholdAir) -> Result<Solid> {
     let (bed, roof, crown) = (h.bed, h.roof, h.crown);
     let y = h.y;
     let (corner, radius, depth) = (h.corner, h.radius, h.depth);
     let slope = h.slope;
-    let height = radius - radius * slope / (1.0_f64 + slope * slope).sqrt();
-    let foot = radius - radius / (1.0_f64 + slope * slope).sqrt() + slope * height;
-    let tangent_depth = foot - slope * height;
     let mut depths: Vec<f64> = (0..=90)
         .step_by(2)
         .map(|a| radius * (1.0 - math::sin(math::radians(a as f64))))
         .collect();
-    depths.extend([0.0, radius, foot, tangent_depth, foot - 0.01, foot + 0.01]);
+    depths.extend([0.0, radius, h.cutter_depth]);
+    depths.retain(|&d| d <= h.cutter_depth);
     depths.sort_by(f64::total_cmp);
     depths.dedup_by(|a, b| *a == *b);
-    let (left, right, zl) = (y[0] + corner, y[1] - corner, roof - corner);
-    let section = |d: f64, ceiling: bool| -> LoftSection {
-        let side = radius - (radius * radius - (radius - d).powi(2)).max(0.0).sqrt();
-        let top = if d <= tangent_depth {
-            side
-        } else {
-            ((foot - d) / slope).max(0.0)
-        };
+    let (left, right) = (y[0] + corner, y[1] - corner);
+    let section = |d: f64| -> LoftSection {
+        let side = if d < radius {
+            radius - (radius * radius - (radius - d).powi(2)).max(0.0).sqrt()
+        } else { 0.0 };
+        let top = roof + radius - d / slope;
+        let round = corner + side;
+        let zl = top - round;
         let at = |y, z| v3(d, y, z);
         let line = |a, b| LoftEdge::Line { a, b };
         let arc = |cy, a0, a1| LoftEdge::Conic {
             c: at(cy, zl),
-            x: v3(0.0, corner + side, 0.0),
-            y: v3(0.0, 0.0, corner + top),
+            x: v3(0.0, round, 0.0),
+            y: v3(0.0, 0.0, round),
             t0: math::radians(a0),
             t1: math::radians(a1),
         };
@@ -324,38 +322,19 @@ pub fn handhold_air(h: &HandholdAir) -> Result<Solid> {
             line(at(y[1] + side, low), at(y[1] + side, zl)),
             arc(right, 0.0, 90.0),
         ];
-        if ceiling {
-            edges.push(line(at(right, roof + top), at(left, roof + top)));
-        } else {
-            edges.extend([
-                line(at(right, roof), at(right, zl)),
-                line(at(right, zl), at(left, zl)),
-                line(at(left, zl), at(left, roof)),
-            ]);
-        }
+        edges.push(line(at(right, top), at(left, top)));
         edges.extend([
             arc(left, 90.0, 180.0),
             line(at(y[0] - side, zl), at(y[0] - side, low)),
         ]);
         LoftSection::new(edges)
     };
-    let with_roof: Vec<_> = depths
-        .iter()
-        .filter(|&&d| d <= foot)
-        .map(|&d| section(d, true))
-        .collect();
-    let returns: Vec<_> = depths
-        .iter()
-        .filter(|&&d| d >= foot)
-        .map(|&d| section(d, false))
-        .collect();
-    let roof_air = handhold_loft(&with_roof)?;
-    let side_air = handhold_loft(&returns)?;
-    let basic = handhold_cutter(&[-1.0, h.cutter_depth, y[0], y[1], bed - 1.0, roof], corner)?;
-    // The blank's share of the ordinary opening and both rim lofts.
+    let sections: Vec<_> = depths.iter().map(|&d| section(d)).collect();
+    let air = handhold_loft(&sections)?;
+    // The cutter stays inside the handhold's stock and leaves its blind inner wall.
     let end = h.end_stock;
     let blank = Solid::cuboid(v3(0.0, y[0] - end, bed), v3(depth, y[1] + end, crown));
-    basic.union(&roof_air)?.union(&side_air)?.intersect(&blank)
+    air.intersect(&blank)
 }
 
 /// The tools for vent courses whose interior probes clear the stock.
