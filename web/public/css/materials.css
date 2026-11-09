@@ -70,10 +70,14 @@
 .material-actions button, .bom-tools button { border: 1px solid var(--border); border-radius: 5px; background: var(--bg); color: var(--text); padding: 6px 9px; font: inherit; font-size: 0.8rem; cursor: pointer; }
 .material-link { color: var(--accent); text-decoration: none; font-size: 0.82rem; display: inline-block; line-height: 1.6; }
 .material-link:hover { text-decoration: underline; }
-.material-tabs { display: flex; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+.material-tabs { display: flex; overflow-x: auto; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
 .material-tabs button { flex: 1; min-height: 43px; border: 0; border-bottom: 2px solid transparent; background: transparent; color: var(--text-2); font: inherit; font-size: 0.8rem; cursor: pointer; }
 .material-tabs button[aria-selected=true] { border-bottom-color: var(--accent); color: var(--text); background: var(--bg); }
 .material-tab-content { padding: 0 16px; }
+.material-build-entry { margin: 0 auto; padding: 0 24px 22px; }
+.material-build-entry a { color: var(--accent); font-size: .9rem; text-underline-offset: .18em; }
+.material-stock-item { padding: 14px 0; border-bottom: 1px solid var(--border); }
+.material-stock-item strong { font-size: .82rem; line-height: 1.5; font-weight: 600; }
 .material-scope, .material-empty, .material-selection-note { color: var(--text-3); font-size: 0.75rem; line-height: 1.65; margin: 14px 0; }
 .material-bom-counts { color: var(--text-2); font-size: 0.8rem; line-height: 1.5; margin: 14px 0; }
 .material-selection-note:empty { display: none; }
