@@ -90,3 +90,12 @@ test("source and assembly links follow the existing build and occurrence records
   assert.ok(decodeURIComponent(cap.links.model).includes("solid: regulator-snap-cap"));
   assert.equal(findParts("HSM-0046").hits[0].producers.length, 0);
 });
+
+test("related geometry does not invent installed copies", () => {
+  const [clamp] = findParts("HSM-0157").hits;
+  const tool = clamp.contexts.find(context => context.material === "HSM-0006");
+  assert.ok(tool.bodies.includes("rail-schematic"));
+  assert.ok(tool.bodies.includes("wood-handle-envelope"));
+  assert.deepEqual(tool.instances, []);
+  assert.ok(tool.url.includes("find="));
+});
