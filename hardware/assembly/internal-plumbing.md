@@ -76,6 +76,10 @@ body band.
 
 ### 1. Rear gas group
 
+The regulator and outlet check form **HSM-0559**, prepared before entering
+back-top together. The retaining cap and continuous core tube are installed
+with the carrier open.
+
 Fit the ACVUS-44 stem check directly into the PISCO regulator's outlet, following
 both flow arrows. With back-top inverted, lower the pair into its seat 16 mm
 forward and slide it aft. The regulator's inlet neck passes the CO2 hole;
@@ -93,6 +97,13 @@ support-ring lane. The guide adds no tube cut or socket. Use the actual fully
 seated marks at the check and carbonator fitting when cutting the blank.
 
 ### 2. Water group
+
+**HSM-0558** is the threaded TAP/backflow-preventer chain, made up before it
+enters the back-top seat. **HSM-0560** is the prepared pump discharge joint:
+reinforced cuff, trimmed reducer, stem clamp, outlet fold and check. The pump
+enters its equipment-lid seat bare per its
+[installation procedure](../reference/g-ganen-pump/installation/README.md);
+the discharge joint and barb clamp are fitted afterward while the core is open.
 
 TAP enters the PP010822E and GAGIRA threaded inlet chain. The ASSE lies
 fore–aft with its vent downward. Its PI4512F6S and PP061208W outlet fittings
@@ -155,6 +166,10 @@ guide and stock separates the independent retainer pockets.
 Flexible pump stubs pass through the tee wall's closed bores. Each purchased PP0208E tee
 approaches from aft; its fixed branch barrel lands on the wall datum while its extended
 collet grips the pump tube. Complete the fore groups before fitting the rear valve row.
+
+The tee, upper tube and fore valve move together as **HSM-0561** (Y-C to V-E),
+**HSM-0562** (Y-D to V-F), **HSM-0563** (Y-F to V-H) and **HSM-0564**
+(Y-G to V-I). Their preparation and insertion follow the sequence below.
 
 1. **Prepare the pump tube blanks.** Remove the supplied barbs from the flexible BPT
    ends. Cut the LLDPE blanks with the tube-length gauge and insert them under the loosened

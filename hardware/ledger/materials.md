@@ -196,6 +196,38 @@ quantities; purchasing credits completed stock before expanding those inputs.
 
 ## Recorded assembly boundaries
 
+The bench handoffs follow the existing build path. A completed handoff moves
+as a unit into the next operation, with free tubes and conductors supported.
+The float and fitted relief assembly enter the carbonator; the instrumented
+carbonator and closed reservoirs enter the insulated core; the equipped core
+enters the connected refrigeration assembly.
+
+| Material | Completed handoff | Next assembly |
+| --- | --- | --- |
+| HSM-0032 — Magnetic level float | Printed body with its captive magnet | Carbonator or fitted reservoir |
+| HSM-0553 — Carbonator pressure-relief assembly | Elbow, relief valve and shroud with its seal cured | HSM-0004 carbonator |
+| HSM-0004 — Carbonator vessel | Welded vessel, captive float and guides, port elbows and relief assembly | HSM-0554 instrumented carbonator and coil |
+| HSM-0554 — Instrumented carbonator and coil assembly | Carbonator, bonded coil, probes, reed bridge and reeds, and earth lead | HSM-0557 insulated core |
+| HSM-0555 — Fitted flavor reservoir assembly · channel A | Closed reservoir with its gasket, float, guide, tube grips and closure hardware | HSM-0557 insulated core |
+| HSM-0556 — Fitted flavor reservoir assembly · channel B | Closed reservoir with its gasket, float, guide, tube grips and closure hardware | HSM-0557 insulated core |
+| HSM-0557 — Insulated cold-core assembly | Cured insulation, instrumented carbonator, fitted reservoirs, routed continuous tubes, dry reed columns and looms, and closed casing | HSM-0003 equipped cold core |
+| HSM-0558 — Backflow-preventer threaded assembly | TAP connector, reducing coupling, ASSE body, flare adapter and stem reducer made up together | HSM-0547 back-top |
+| HSM-0559 — CO₂ secondary regulator and check assembly | PISCO regulator with its outlet stem check connected | HSM-0547 back-top |
+| HSM-0560 — Water-pump discharge joint assembly | Reinforced cuff, trimmed reducer, stem clamp, fold and check | HSM-0003 equipped cold core, after the bare pump is seated |
+| HSM-0561 — Flavor A fore-valve assembly · Y-C to V-E | Tee, upper tube and fore valve | HSM-0548 front-top |
+| HSM-0562 — Flavor A fore-valve assembly · Y-D to V-F | Tee, upper tube and fore valve | HSM-0548 front-top |
+| HSM-0563 — Flavor B fore-valve assembly · Y-F to V-H | Tee, upper tube and fore valve | HSM-0548 front-top |
+| HSM-0564 — Flavor B fore-valve assembly · Y-G to V-I | Tee, upper tube and fore valve | HSM-0548 front-top |
+
+The [cold-core procedure](../assembly/cold-core.md),
+[vessel procedure](../assembly/pressure-vessel.md),
+[relief procedure](../printed-parts/cold-core/prv-shroud/README.md) and
+[plumbing procedure](../assembly/internal-plumbing.md) own the handoff sequence.
+Reservoir tubes are fitted after the closed reservoirs enter their casing
+pockets. The water pump enters its lid seat bare; its prepared discharge joint
+is fitted afterward. Cure, test and calibration evidence stays with the actual
+article and operation.
+
 The prepared enclosure sections, refrigeration loop and removable funnel are
 numbered assemblies in the machine BOM. Their contents follow the bench and
 closing order in [mechanical assembly](../assembly/enclosure-mechanical.md),
@@ -212,7 +244,7 @@ and connections made through the funnel opening remain on the machine.
 | HSM-0550 — Enclosure back bottom assembly | Lower rear section with its seam-anchor inserts and open sliding interfaces. | [Mechanical assembly](../assembly/enclosure-mechanical.md) |
 | HSM-0551 — Flavor-fill funnel assembly | Removable frame with its drain cradle, outlet fittings, V-B feed tube, silicone funnel and cover. Frame screws and the V-B connection are final assembly work. | [Mechanical assembly](../assembly/enclosure-mechanical.md), [plumbing](../assembly/internal-plumbing.md) |
 | HSM-0552 — Refrigeration assembly | Cold core, compressor, condenser, connecting refrigerant lines, service fittings, thermal cutoff and prepared compressor lead. The loop stays connected while the enclosure is assembled around it. | [Refrigeration](../assembly/refrigerant-loop.md), [mechanical assembly](../assembly/enclosure-mechanical.md) |
-| HSM-0161 — Pump mount assembly | Both prepared pumps with their four clamped LLDPE tubes, the snap-fit lower retainer, and the Fastons that land DC-5 on the motor tabs. Two full-depth integral wings engage front-top’s flank receivers and hold the lower retainer against the fitted upper half, whose broad stock continues into the display housing and roof. The prepared unit loads motor-first from below on loose front-top, before the pump tees and valve plumbing; pump and display wires share one rear passage. Physical fit and retention retain their qualification scope. | [Pump installation](../assembly/internal-plumbing.md), [pump mount](../printed-parts/enclosure/pump-dock/README.md) |
+| HSM-0161 — Fixed pump assembly | The installed pump pair with prepared stubs, motor receptacles and independent flange retainers. Each pump loads motor-first into its own integral guide on loose front-top and is secured from below. The actual seated tees set the stubs before their clamps are tightened. | [Pump installation](../assembly/internal-plumbing.md), [pump mount](../printed-parts/enclosure/pump-dock/README.md) |
 | HSM-0004 — Carbonator vessel | Vessel, port fittings, pressure relief, captive float, welded guide rod and top-register float stop. The other two floats and guide rods belong to the cold core's reservoir installation. | [Vessel build](../assembly/pressure-vessel.md) |
 | HSM-0173 — Multiplex 19-0897 ASSE 1022 backflow preventer | The bare purchased body. Its two TPU 85A straight cuffs (HSM-0334, HSM-0335), the branch stem tee in the outlet cuff, the vent sleeve, return tube and saddles belong to the machine. | [Water and gas assembly](../assembly/internal-plumbing.md), [straight cuffs](../printed-parts/asse-straight-cuffs/README.md) |
 | HSM-0058 — neoFit ACHV44-E single check valve | One 1/4-inch push-connect check with a nominal 0.3 psi crack pressure, used at both the pump discharge and downstream of the PISCO CO2 regulator. Tubes, elbows and installation hardware belong to the machine. | [Water and gas assembly](../assembly/internal-plumbing.md), [check-valve scope](../reference/neofit-achv44-check/README.md) |

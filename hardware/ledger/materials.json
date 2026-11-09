@@ -172,43 +172,6 @@
             ]
           },
           {
-            "material": "HSM-0348",
-            "quantity": 1,
-            "unit": "ea",
-            "bodies": [
-              "terminal-J6",
-              "wire-J6-GND",
-              "wire-J6-RA1",
-              "wire-J6-RA2",
-              "wire-J6-RA3",
-              "wire-J6-RA4",
-              "wire-J6-earth-1",
-              "wire-J6-earth-2",
-              "wire-J6-earth-3"
-            ]
-          },
-          {
-            "material": "HSM-0349",
-            "quantity": 1,
-            "unit": "ea",
-            "bodies": [
-              "terminal-J7",
-              "wire-J7-GND",
-              "wire-J7-RB1",
-              "wire-J7-RB2",
-              "wire-J7-RB3",
-              "wire-J7-RB4",
-              "wire-J7-earth-1",
-              "wire-J7-earth-2",
-              "wire-J7-earth-3",
-              "wire-J7-earth-4",
-              "wire-J7-CLO",
-              "wire-J7-CHI",
-              "wire-J7-carb-earth-1",
-              "wire-J7-carb-earth-2"
-            ]
-          },
-          {
             "material": "HSM-0350",
             "quantity": 1,
             "unit": "ea",
@@ -284,31 +247,6 @@
               "y-seam-east-upper-screw",
               "y-seam-west-lower-screw",
               "y-seam-west-upper-screw"
-            ]
-          },
-          {
-            "material": "HSM-0383",
-            "quantity": 1,
-            "unit": "ea",
-            "bodies": [
-              "gas-check"
-            ]
-          },
-          {
-            "material": "HSM-0013",
-            "quantity": 1,
-            "unit": "ea",
-            "bodies": [
-              "bulkhead-water"
-            ]
-          },
-          {
-            "material": "HSM-0378",
-            "quantity": 1,
-            "unit": "ea",
-            "bodies": [
-              "wire-PE-carbonator",
-              "terminal-carbonator-pe"
             ]
           },
           {
@@ -657,370 +595,18 @@
         }
       ],
       "bom": {
-        "scope": "Carbonator, insulation stack, reservoirs, sensing hardware, the tubes potted through the shell (each whole, its free end included), the top-lid equipment (water pump and its joints, main board, V-B and the four core-lid wiring junctions) and the fasteners that close them. Foam, tape and other supplies are costed on the cold core itself.",
+        "scope": "Insulated cold-core assembly with its diaphragm water pump and fitted joints, controller, V-B plumbing, distribution junctions and equipment fasteners. It moves as the equipped core into refrigeration integration. Its continuous tubes and sensor leads retain their free ends for enclosure installation.",
         "source": "cold-core-layout/_bom.py",
         "items": [
           {
-            "material": "HSM-0004",
+            "material": "HSM-0557",
             "quantity": 1,
             "unit": "ea"
           },
           {
-            "material": "HSM-0015",
+            "material": "HSM-0560",
             "quantity": 1,
-            "unit": "ea",
-            "bodies": [
-              "evap-coil",
-              "evap-tail-inlet",
-              "evap-tail-outlet"
-            ]
-          },
-          {
-            "material": "HSM-0016",
-            "quantity": 1,
-            "unit": "ea",
-            "bodies": [
-              "probe-carbonator-ds18b20"
-            ]
-          },
-          {
-            "material": "HSM-0017",
-            "quantity": 1,
-            "unit": "ea",
-            "bodies": [
-              "probe-coil-ds18s20"
-            ]
-          },
-          {
-            "material": "HSM-0018",
-            "quantity": 1,
-            "unit": "ea",
-            "bodies": [
-              "foam-shell"
-            ]
-          },
-          {
-            "material": "HSM-0019",
-            "quantity": 1,
-            "unit": "ea",
-            "bodies": [
-              "foam-cap-top"
-            ]
-          },
-          {
-            "material": "HSM-0020",
-            "quantity": 1,
-            "unit": "ea",
-            "bodies": [
-              "foam-cap-lid-top"
-            ]
-          },
-          {
-            "material": "HSM-0021",
-            "quantity": 1,
-            "unit": "ea",
-            "bodies": [
-              "foam-cap-bottom"
-            ]
-          },
-          {
-            "material": "HSM-0022",
-            "quantity": 1,
-            "unit": "ea",
-            "bodies": [
-              "foam-cap-lid-bottom"
-            ]
-          },
-          {
-            "material": "HSM-0024",
-            "quantity": 1,
-            "unit": "ea",
-            "bodies": [
-              "prv-shroud"
-            ]
-          },
-          {
-            "material": "HSM-0025",
-            "quantity": 1,
-            "unit": "ea",
-            "bodies": [
-              "reservoir-b"
-            ]
-          },
-          {
-            "material": "HSM-0026",
-            "quantity": 1,
-            "unit": "ea",
-            "bodies": [
-              "reservoir-a"
-            ]
-          },
-          {
-            "material": "HSM-0027",
-            "quantity": 1,
-            "unit": "ea",
-            "bodies": [
-              "reservoir-b-cap"
-            ]
-          },
-          {
-            "material": "HSM-0028",
-            "quantity": 1,
-            "unit": "ea",
-            "bodies": [
-              "reservoir-a-cap"
-            ]
-          },
-          {
-            "material": "HSM-0029",
-            "quantity": 1,
-            "unit": "ea",
-            "bodies": [
-              "reed-bridge"
-            ]
-          },
-          {
-            "material": "HSM-0032",
-            "quantity": 2,
-            "unit": "ea",
-            "bodies": [
-              "float-a",
-              "float-b"
-            ]
-          },
-          {
-            "material": "HSM-0339",
-            "quantity": 2,
-            "unit": "ea",
-            "bodies": [
-              "float-rod-a",
-              "float-rod-b"
-            ]
-          },
-          {
-            "material": "HSM-0036",
-            "quantity": 10,
-            "unit": "ea",
-            "bodies": [
-              "reed-carb-1",
-              "reed-carb-2",
-              "reed-a-1",
-              "reed-a-2",
-              "reed-a-3",
-              "reed-a-4",
-              "reed-b-1",
-              "reed-b-2",
-              "reed-b-3",
-              "reed-b-4"
-            ]
-          },
-          {
-            "material": "HSM-0301",
-            "quantity": 1,
-            "unit": "ea",
-            "bodies": [
-              "line-carb-water-out",
-              "../tube-carb-1",
-              "../tube-soda-core-rise"
-            ],
-            "note": "One continuous tube. The cold core pots its lower span; the machine model draws its free end above the lid."
-          },
-          {
-            "material": "HSM-0299",
-            "quantity": 1,
-            "unit": "ea",
-            "bodies": [
-              "line-co2-in",
-              "../tube-co2-2",
-              "../tube-above-core-gas-core-drop"
-            ],
-            "note": "One continuous tube. The cold core pots its lower span; the machine model draws its free end above the lid."
-          },
-          {
-            "material": "HSM-0315",
-            "quantity": 1,
-            "unit": "ea",
-            "bodies": [
-              "line-prv-vent"
-            ]
-          },
-          {
-            "material": "HSM-0308",
-            "quantity": 1,
-            "unit": "ea",
-            "bodies": [
-              "line-reservoir-a",
-              "../tube-fluid-16"
-            ],
-            "note": "One continuous tube. The cold core pots its lower span; the machine model draws its free end above the lid."
-          },
-          {
-            "material": "HSM-0307",
-            "quantity": 1,
-            "unit": "ea",
-            "bodies": [
-              "line-reservoir-a-fill",
-              "../tube-fluid-14"
-            ],
-            "note": "One continuous tube. The cold core pots its lower span; the machine model draws its free end above the lid."
-          },
-          {
-            "material": "HSM-0306",
-            "quantity": 1,
-            "unit": "ea",
-            "bodies": [
-              "line-reservoir-b",
-              "../tube-fluid-26"
-            ],
-            "note": "One continuous tube. The cold core pots its lower span; the machine model draws its free end above the lid."
-          },
-          {
-            "material": "HSM-0305",
-            "quantity": 1,
-            "unit": "ea",
-            "bodies": [
-              "line-reservoir-b-fill",
-              "../tube-fluid-24"
-            ],
-            "note": "One continuous tube. The cold core pots its lower span; the machine model draws its free end above the lid."
-          },
-          {
-            "material": "HSM-0293",
-            "quantity": 1,
-            "unit": "ea",
-            "bodies": [
-              "line-water-in",
-              "tube-water-5"
-            ],
-            "note": "One continuous tube through the lid's plain guide. The cold core pots its lower span; the span above the lid runs to the check."
-          },
-          {
-            "material": "HSM-0164",
-            "quantity": 16,
-            "unit": "ea",
-            "note": "Four top-lid PCB posts and twelve reservoir-cap inserts."
-          },
-          {
-            "material": "HSM-0363",
-            "quantity": 12,
-            "unit": "ea",
-            "note": "Six M3 x 12 screws through each reservoir cap and gasket."
-          },
-          {
-            "material": "HSM-0381",
-            "quantity": 1,
-            "unit": "ea",
-            "note": "A2 stainless DIN 6797A M3 tooth washer under the carbonator rim clamp screw, above the closed-ring tongue.",
-            "bodies": [
-              "carbonator-earth-lockwasher"
-            ]
-          },
-          {
-            "material": "HSM-0365",
-            "quantity": 2,
-            "unit": "ea",
-            "note": "Cut 31.25 mm, one through each reservoir cap's air grip.",
-            "bodies": [
-              "tube-reservoir-air-a",
-              "tube-reservoir-air-b"
-            ]
-          },
-          {
-            "material": "HSM-0382",
-            "quantity": 1,
-            "unit": "ea",
-            "note": "Acquired 304 stainless M3 x 12 stock finished to 4 mm under the head; clamps the closed ring and tooth washer into the tapped upper tube rim.",
-            "bodies": [
-              "carbonator-earth-screw"
-            ]
-          },
-          {
-            "material": "HSM-0383",
-            "quantity": 1,
-            "unit": "ea",
-            "bodies": [
-              "discharge-chain"
-            ]
-          },
-          {
-            "material": "HSM-0359",
-            "quantity": 20,
-            "unit": "ea",
-            "bodies": [
-              "cap-clamp-top-1",
-              "cap-clamp-top-2",
-              "cap-clamp-top-3",
-              "cap-clamp-top-4",
-              "cap-clamp-top-5",
-              "cap-clamp-top-6",
-              "cap-clamp-top-7",
-              "cap-clamp-top-8",
-              "cap-clamp-top-9",
-              "cap-clamp-top-10",
-              "cap-clamp-bottom-1",
-              "cap-clamp-bottom-2",
-              "cap-clamp-bottom-3",
-              "cap-clamp-bottom-4",
-              "cap-clamp-bottom-5",
-              "cap-clamp-bottom-6",
-              "cap-clamp-bottom-7",
-              "cap-clamp-bottom-8",
-              "cap-clamp-bottom-9",
-              "cap-clamp-bottom-10"
-            ],
-            "note": "Cold-core closure screws, ten through each cap face."
-          },
-          {
-            "material": "HSM-0132",
-            "quantity": 20,
-            "unit": "ea",
-            "note": "Shell-face closure inserts, ten under each cap face."
-          },
-          {
-            "material": "HSM-0456",
-            "quantity": 2,
-            "unit": "ea",
-            "bodies": [
-              "reservoir-a-gasket",
-              "reservoir-b-gasket"
-            ]
-          },
-          {
-            "material": "HSM-0457",
-            "quantity": 4,
-            "unit": "ea",
-            "bodies": [
-              "reservoir-grip-a-fill",
-              "reservoir-grip-a-draw",
-              "reservoir-grip-b-fill",
-              "reservoir-grip-b-draw"
-            ]
-          },
-          {
-            "material": "HSM-0458",
-            "quantity": 2,
-            "unit": "ea",
-            "bodies": [
-              "reservoir-grip-a-air",
-              "reservoir-grip-b-air"
-            ]
-          },
-          {
-            "material": "HSM-0454",
-            "quantity": 1,
-            "unit": "ea",
-            "bodies": [
-              "reservoir-b-fill-guide"
-            ]
-          },
-          {
-            "material": "HSM-0178",
-            "quantity": 1,
-            "unit": "ea",
-            "bodies": [
-              "g-ganen-pump"
-            ],
-            "note": "Bare motor in the top lid's integral half-pipe saddle."
+            "unit": "ea"
           },
           {
             "material": "HSM-0455",
@@ -1031,56 +617,10 @@
             ]
           },
           {
-            "material": "HSM-0461",
-            "quantity": 1,
-            "unit": "ea",
-            "bodies": [
-              "suction-tube"
-            ],
-            "note": "Cut 22.49 mm: the suction barb's length plus the trimmed reducer stem."
-          },
-          {
-            "material": "HSM-0462",
-            "quantity": 1,
-            "unit": "ea",
-            "bodies": [
-              "discharge-tube"
-            ],
-            "note": "Cut 22.24 mm: the discharge barb's length plus the trimmed reducer stem."
-          },
-          {
-            "material": "HSM-0460",
+            "material": "HSM-0330",
             "quantity": 2,
             "unit": "ea",
             "bodies": [
-              "suction-reducer",
-              "discharge-reducer"
-            ],
-            "note": "One trimmed stem at each pump joint."
-          },
-          {
-            "material": "HSM-0325",
-            "quantity": 4,
-            "unit": "ea",
-            "bodies": [
-              "suction-barb-clamp",
-              "suction-barb-key",
-              "suction-stem-clamp",
-              "suction-stem-key",
-              "discharge-barb-clamp",
-              "discharge-barb-key",
-              "discharge-stem-clamp",
-              "discharge-stem-key"
-            ],
-            "note": "Two on each pump joint, one over the barb and one over the stem."
-          },
-          {
-            "material": "HSM-0330",
-            "quantity": 4,
-            "unit": "ea",
-            "bodies": [
-              "lower-pump-elbow",
-              "carbonator-fold",
               "vb-inlet-turn",
               "vb-outlet-stem"
             ],
@@ -1146,6 +686,56 @@
               "tube-above-core-vb-yb-cross"
             ],
             "note": "One fitted run; drawn bends and stepped sections belong to this same tube."
+          },
+          {
+            "material": "HSM-0178",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "g-ganen-pump"
+            ],
+            "note": "Bare motor in the top lid's integral half-pipe saddle."
+          },
+          {
+            "material": "HSM-0461",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "suction-tube"
+            ],
+            "note": "Cut 22.49 mm: the suction barb's length plus the trimmed reducer stem."
+          },
+          {
+            "material": "HSM-0460",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "suction-reducer"
+            ],
+            "note": "Trimmed reducer fitted at the pump suction joint."
+          },
+          {
+            "material": "HSM-0325",
+            "quantity": 3,
+            "unit": "ea",
+            "bodies": [
+              "suction-barb-clamp",
+              "suction-barb-key",
+              "suction-stem-clamp",
+              "suction-stem-key",
+              "discharge-barb-clamp",
+              "discharge-barb-key"
+            ],
+            "note": "Clamps fitted at the suction joint and discharge barb during pump installation."
+          },
+          {
+            "material": "HSM-0330",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "lower-pump-elbow"
+            ],
+            "note": "Suction-side elbow fitted during core equipment installation."
           }
         ]
       }
@@ -1175,7 +765,7 @@
         }
       ],
       "bom": {
-        "scope": "Vessel, port fittings, pressure relief, captive magnetic float, welded guide rod and top-register float stop. The upper tube rim carries the tapped earth-clamp interface. Filler wire, thread tape, inspection and passivation supplies are costed on the vessel itself.",
+        "scope": "Welded vessel with its captive magnetic float, guide rod, upper stop, fitted port connections and completed pressure-relief assembly. The finished unit enters carbonator instrumentation and coil winding. Vessel inspection and qualification follow the vessel procedure.",
         "source": "assembly/pressure-vessel.md",
         "items": [
           {
@@ -1196,33 +786,9 @@
             ]
           },
           {
-            "material": "HSM-0010",
-            "quantity": 1,
-            "unit": "ea",
-            "bodies": [
-              "carbonator-elbow-prv"
-            ]
-          },
-          {
             "material": "HSM-0338",
             "quantity": 1,
             "unit": "ea"
-          },
-          {
-            "material": "HSM-0012",
-            "quantity": 1,
-            "unit": "ea",
-            "bodies": [
-              "prv-sv125"
-            ]
-          },
-          {
-            "material": "HSM-0013",
-            "quantity": 1,
-            "unit": "ea",
-            "bodies": [
-              "collet-water-in"
-            ]
           },
           {
             "material": "HSM-0375",
@@ -1256,6 +822,11 @@
             "bodies": [
               "float-stop-carb-top"
             ]
+          },
+          {
+            "material": "HSM-0553",
+            "quantity": 1,
+            "unit": "ea"
           }
         ]
       },
@@ -9631,6 +9202,16 @@
             ]
           },
           {
+            "material": "HSM-0558",
+            "quantity": 1,
+            "unit": "ea"
+          },
+          {
+            "material": "HSM-0559",
+            "quantity": 1,
+            "unit": "ea"
+          },
+          {
             "material": "HSM-0046",
             "quantity": 1,
             "unit": "ea",
@@ -9661,15 +9242,6 @@
             "unit": "ea",
             "bodies": [
               "flow-regulator"
-            ]
-          },
-          {
-            "material": "HSM-0331",
-            "quantity": 1,
-            "unit": "ea",
-            "bodies": [
-              "gas-regulator",
-              "co2-inlet"
             ]
           },
           {
@@ -9754,14 +9326,6 @@
             "bodies": [
               "bulkhead-ring-drain",
               "bulkhead-ring-drain-word"
-            ]
-          },
-          {
-            "material": "HSM-0173",
-            "quantity": 1,
-            "unit": "ea",
-            "bodies": [
-              "asse1022-assembly"
             ]
           },
           {
@@ -9967,24 +9531,6 @@
             ]
           },
           {
-            "material": "HSM-0452",
-            "quantity": 1,
-            "unit": "ea",
-            "bodies": [
-              "gagira-coupling"
-            ],
-            "note": "Between the rear TAP connector and the ASSE 1022 inlet."
-          },
-          {
-            "material": "HSM-0453",
-            "quantity": 1,
-            "unit": "ea",
-            "bodies": [
-              "jg-pi4512f6s"
-            ],
-            "note": "On the ASSE 1022 outlet flare, holding the PP061208W reducer stem."
-          },
-          {
             "material": "HSM-0109",
             "quantity": 2.48,
             "unit": "in",
@@ -10001,15 +9547,6 @@
               "tube-above-core-water-split-stub"
             ],
             "note": "One fitted run; drawn bends and stepped sections belong to this same tube."
-          },
-          {
-            "material": "HSM-0460",
-            "quantity": 1,
-            "unit": "ea",
-            "bodies": [
-              "jg-pp061208w"
-            ],
-            "note": "In the ASSE 1022 outlet flare adapter."
           },
           {
             "material": "HSM-0139",
@@ -10168,42 +9705,6 @@
             ]
           },
           {
-            "material": "HSM-0277",
-            "quantity": 1,
-            "unit": "ea",
-            "bodies": [
-              "tube-fluid-10"
-            ],
-            "note": "One fitted run; drawn bends and stepped sections belong to this same tube."
-          },
-          {
-            "material": "HSM-0278",
-            "quantity": 1,
-            "unit": "ea",
-            "bodies": [
-              "tube-fluid-13"
-            ],
-            "note": "One fitted run; drawn bends and stepped sections belong to this same tube."
-          },
-          {
-            "material": "HSM-0279",
-            "quantity": 1,
-            "unit": "ea",
-            "bodies": [
-              "tube-fluid-20"
-            ],
-            "note": "One fitted run; drawn bends and stepped sections belong to this same tube."
-          },
-          {
-            "material": "HSM-0280",
-            "quantity": 1,
-            "unit": "ea",
-            "bodies": [
-              "tube-fluid-23"
-            ],
-            "note": "One fitted run; drawn bends and stepped sections belong to this same tube."
-          },
-          {
             "material": "HSM-0281",
             "quantity": 1,
             "unit": "ea",
@@ -10323,38 +9824,26 @@
           },
           {
             "material": "HSM-0042",
-            "quantity": 8,
+            "quantity": 4,
             "unit": "ea",
             "bodies": [
               "valve-v-c",
               "coil-v-c",
-              "valve-v-e",
-              "coil-v-e",
               "valve-v-g",
               "coil-v-g",
-              "valve-v-f",
-              "coil-v-f",
               "valve-v-d",
               "coil-v-d",
-              "valve-v-h",
-              "coil-v-h",
               "valve-v-j",
-              "coil-v-j",
-              "valve-v-i",
-              "coil-v-i"
+              "coil-v-j"
             ]
           },
           {
             "material": "HSM-0043",
-            "quantity": 6,
+            "quantity": 2,
             "unit": "ea",
             "bodies": [
               "tee-y-a",
-              "tee-y-c",
-              "tee-y-d",
-              "tee-y-b",
-              "tee-y-f",
-              "tee-y-g"
+              "tee-y-b"
             ],
             "note": "Six flavor-manifold tees and the tap-water split at the ASSE outlet cuff, feeding V-K and the flavor-water regulator."
           },
@@ -10395,6 +9884,26 @@
               "y-seam-east-upper-insert",
               "y-seam-west-upper-insert"
             ]
+          },
+          {
+            "material": "HSM-0561",
+            "quantity": 1,
+            "unit": "ea"
+          },
+          {
+            "material": "HSM-0562",
+            "quantity": 1,
+            "unit": "ea"
+          },
+          {
+            "material": "HSM-0563",
+            "quantity": 1,
+            "unit": "ea"
+          },
+          {
+            "material": "HSM-0564",
+            "quantity": 1,
+            "unit": "ea"
           }
         ]
       }
@@ -10726,6 +10235,1033 @@
             "bodies": [
               "pump-inlet-tpu",
               "pump-outlet-tpu"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "HSM-0553",
+      "description": "Carbonator pressure-relief assembly",
+      "kind": "assembly",
+      "aliases": [
+        "PRV assembly",
+        "cured relief unit",
+        "shrouded relief valve"
+      ],
+      "contexts": [
+        {
+          "material": "HSM-0003"
+        }
+      ],
+      "documents": [
+        {
+          "title": "Assembly procedure",
+          "path": "printed-parts/cold-core/prv-shroud/README.md"
+        }
+      ],
+      "bom": {
+        "source": "printed-parts/cold-core/prv-shroud/README.md",
+        "scope": "Street elbow, pressure-relief valve and shroud assembled on the bench with the shroud seal cured. The unit threads into the carbonator; its vent tube is fitted during core assembly. The valve check and installed relief qualification retain their procedure scope.",
+        "items": [
+          {
+            "material": "HSM-0010",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "carbonator-elbow-prv"
+            ]
+          },
+          {
+            "material": "HSM-0012",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "prv-sv125"
+            ]
+          },
+          {
+            "material": "HSM-0024",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "prv-shroud"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "HSM-0554",
+      "description": "Instrumented carbonator and coil assembly",
+      "kind": "assembly",
+      "aliases": [
+        "instrumented vessel",
+        "wrapped carbonator",
+        "carbonator with evaporator"
+      ],
+      "contexts": [
+        {
+          "material": "HSM-0001"
+        }
+      ],
+      "documents": [
+        {
+          "title": "Assembly procedure",
+          "path": "assembly/cold-core.md"
+        },
+        {
+          "title": "Evaporator coil engineering drawing",
+          "path": "cold-core-layout/evaporator-coil-drawing.pdf",
+          "kind": "engineering-drawing"
+        }
+      ],
+      "bom": {
+        "source": "assembly/cold-core.md",
+        "scope": "Finished carbonator with its bonded evaporator coil, temperature probes, carbonator reeds and bridge, and attached earth lead and clamp. These move together into the insulation casing with the free copper tails and conductors supported; the casing and reservoirs are fitted afterward.",
+        "items": [
+          {
+            "material": "HSM-0004",
+            "quantity": 1,
+            "unit": "ea"
+          },
+          {
+            "material": "HSM-0015",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "evap-coil",
+              "evap-tail-inlet",
+              "evap-tail-outlet"
+            ]
+          },
+          {
+            "material": "HSM-0016",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "probe-carbonator-ds18b20"
+            ]
+          },
+          {
+            "material": "HSM-0017",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "probe-coil-ds18s20"
+            ]
+          },
+          {
+            "material": "HSM-0029",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "reed-bridge"
+            ]
+          },
+          {
+            "material": "HSM-0036",
+            "quantity": 2,
+            "unit": "ea",
+            "bodies": [
+              "reed-carb-1",
+              "reed-carb-2"
+            ]
+          },
+          {
+            "material": "HSM-0381",
+            "quantity": 1,
+            "unit": "ea",
+            "note": "A2 stainless DIN 6797A M3 tooth washer under the carbonator rim clamp screw, above the closed-ring tongue.",
+            "bodies": [
+              "carbonator-earth-lockwasher"
+            ]
+          },
+          {
+            "material": "HSM-0382",
+            "quantity": 1,
+            "unit": "ea",
+            "note": "Acquired 304 stainless M3 x 12 stock finished to 4 mm under the head; clamps the closed ring and tooth washer into the tapped upper tube rim.",
+            "bodies": [
+              "carbonator-earth-screw"
+            ]
+          },
+          {
+            "material": "HSM-0378",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "../../../wire-PE-carbonator",
+              "../../../terminal-carbonator-pe"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "HSM-0555",
+      "description": "Fitted flavor reservoir assembly \u00b7 channel A",
+      "kind": "assembly",
+      "aliases": [
+        "prepared reservoir A",
+        "complete reservoir A"
+      ],
+      "contexts": [
+        {
+          "material": "HSM-0001"
+        }
+      ],
+      "documents": [
+        {
+          "title": "Assembly procedure",
+          "path": "assembly/cold-core.md"
+        }
+      ],
+      "bom": {
+        "source": "assembly/cold-core.md",
+        "scope": "Closed reservoir body and gasketed cap with its captive float and guide, liquid and air grips, and closure hardware. This unit moves into the casing before continuous tubes are fitted during body-side installation. The dry external reed column is installed after the foam cure.",
+        "items": [
+          {
+            "material": "HSM-0026",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "reservoir-a"
+            ]
+          },
+          {
+            "material": "HSM-0028",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "reservoir-a-cap"
+            ]
+          },
+          {
+            "material": "HSM-0032",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "float-a"
+            ]
+          },
+          {
+            "material": "HSM-0339",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "float-rod-a"
+            ]
+          },
+          {
+            "material": "HSM-0456",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "reservoir-a-gasket"
+            ]
+          },
+          {
+            "material": "HSM-0457",
+            "quantity": 2,
+            "unit": "ea",
+            "bodies": [
+              "reservoir-grip-a-fill",
+              "reservoir-grip-a-draw"
+            ]
+          },
+          {
+            "material": "HSM-0458",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "reservoir-grip-a-air"
+            ]
+          },
+          {
+            "material": "HSM-0164",
+            "quantity": 6,
+            "unit": "ea",
+            "note": "Reservoir-cap inserts fitted before cap closure."
+          },
+          {
+            "material": "HSM-0363",
+            "quantity": 6,
+            "unit": "ea",
+            "note": "Screws through the reservoir cap and gasket."
+          }
+        ]
+      }
+    },
+    {
+      "id": "HSM-0556",
+      "description": "Fitted flavor reservoir assembly \u00b7 channel B",
+      "kind": "assembly",
+      "aliases": [
+        "prepared reservoir B",
+        "complete reservoir B"
+      ],
+      "contexts": [
+        {
+          "material": "HSM-0001"
+        }
+      ],
+      "documents": [
+        {
+          "title": "Assembly procedure",
+          "path": "assembly/cold-core.md"
+        }
+      ],
+      "bom": {
+        "source": "assembly/cold-core.md",
+        "scope": "Closed reservoir body and gasketed cap with its captive float and guide, liquid and air grips, and closure hardware. This unit moves into the casing before continuous tubes are fitted during body-side installation. The dry external reed column is installed after the foam cure.",
+        "items": [
+          {
+            "material": "HSM-0025",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "reservoir-b"
+            ]
+          },
+          {
+            "material": "HSM-0027",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "reservoir-b-cap"
+            ]
+          },
+          {
+            "material": "HSM-0032",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "float-b"
+            ]
+          },
+          {
+            "material": "HSM-0339",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "float-rod-b"
+            ]
+          },
+          {
+            "material": "HSM-0456",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "reservoir-b-gasket"
+            ]
+          },
+          {
+            "material": "HSM-0457",
+            "quantity": 2,
+            "unit": "ea",
+            "bodies": [
+              "reservoir-grip-b-fill",
+              "reservoir-grip-b-draw"
+            ]
+          },
+          {
+            "material": "HSM-0458",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "reservoir-grip-b-air"
+            ]
+          },
+          {
+            "material": "HSM-0164",
+            "quantity": 6,
+            "unit": "ea",
+            "note": "Reservoir-cap inserts fitted before cap closure."
+          },
+          {
+            "material": "HSM-0363",
+            "quantity": 6,
+            "unit": "ea",
+            "note": "Screws through the reservoir cap and gasket."
+          }
+        ]
+      }
+    },
+    {
+      "id": "HSM-0557",
+      "description": "Insulated cold-core assembly",
+      "kind": "assembly",
+      "aliases": [
+        "foamed core",
+        "closed insulated core",
+        "cold core before equipment"
+      ],
+      "contexts": [
+        {
+          "material": "HSM-0001"
+        }
+      ],
+      "documents": [
+        {
+          "title": "Assembly procedure",
+          "path": "assembly/cold-core.md"
+        }
+      ],
+      "bom": {
+        "source": "assembly/cold-core.md",
+        "scope": "Instrumented carbonator and coil, fitted reservoirs, potted continuous fluid lines, cured insulation, dry reed columns and their looms, and the closed casing with its prepared equipment lid. This unit moves to warm-side equipment installation; the controller, water pump, V-B and distribution junctions are installed afterward. Free lines and leads remain supported for those handoffs.",
+        "items": [
+          {
+            "material": "HSM-0554",
+            "quantity": 1,
+            "unit": "ea"
+          },
+          {
+            "material": "HSM-0555",
+            "quantity": 1,
+            "unit": "ea"
+          },
+          {
+            "material": "HSM-0556",
+            "quantity": 1,
+            "unit": "ea"
+          },
+          {
+            "material": "HSM-0018",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "foam-shell"
+            ]
+          },
+          {
+            "material": "HSM-0019",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "foam-cap-top"
+            ]
+          },
+          {
+            "material": "HSM-0020",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "foam-cap-lid-top"
+            ]
+          },
+          {
+            "material": "HSM-0021",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "foam-cap-bottom"
+            ]
+          },
+          {
+            "material": "HSM-0022",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "foam-cap-lid-bottom"
+            ]
+          },
+          {
+            "material": "HSM-0036",
+            "quantity": 8,
+            "unit": "ea",
+            "bodies": [
+              "reed-a-1",
+              "reed-a-2",
+              "reed-a-3",
+              "reed-a-4",
+              "reed-b-1",
+              "reed-b-2",
+              "reed-b-3",
+              "reed-b-4"
+            ]
+          },
+          {
+            "material": "HSM-0301",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "line-carb-water-out",
+              "../../tube-carb-1",
+              "../../tube-soda-core-rise"
+            ],
+            "note": "One continuous tube. The cold core pots its lower span; the machine model draws its free end above the lid."
+          },
+          {
+            "material": "HSM-0299",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "line-co2-in",
+              "../../tube-co2-2",
+              "../../tube-above-core-gas-core-drop"
+            ],
+            "note": "One continuous tube. The cold core pots its lower span; the machine model draws its free end above the lid."
+          },
+          {
+            "material": "HSM-0315",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "line-prv-vent"
+            ]
+          },
+          {
+            "material": "HSM-0293",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "line-water-in",
+              "tube-water-5"
+            ],
+            "note": "One continuous tube through the lid's plain guide. The cold core pots its lower span; the span above the lid runs to the check."
+          },
+          {
+            "material": "HSM-0164",
+            "quantity": 4,
+            "unit": "ea",
+            "note": "Four top-lid PCB posts and twelve reservoir-cap inserts."
+          },
+          {
+            "material": "HSM-0359",
+            "quantity": 20,
+            "unit": "ea",
+            "bodies": [
+              "cap-clamp-top-1",
+              "cap-clamp-top-2",
+              "cap-clamp-top-3",
+              "cap-clamp-top-4",
+              "cap-clamp-top-5",
+              "cap-clamp-top-6",
+              "cap-clamp-top-7",
+              "cap-clamp-top-8",
+              "cap-clamp-top-9",
+              "cap-clamp-top-10",
+              "cap-clamp-bottom-1",
+              "cap-clamp-bottom-2",
+              "cap-clamp-bottom-3",
+              "cap-clamp-bottom-4",
+              "cap-clamp-bottom-5",
+              "cap-clamp-bottom-6",
+              "cap-clamp-bottom-7",
+              "cap-clamp-bottom-8",
+              "cap-clamp-bottom-9",
+              "cap-clamp-bottom-10"
+            ],
+            "note": "Cold-core closure screws, ten through each cap face."
+          },
+          {
+            "material": "HSM-0132",
+            "quantity": 20,
+            "unit": "ea",
+            "note": "Shell-face closure inserts, ten under each cap face."
+          },
+          {
+            "material": "HSM-0348",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "../../terminal-J6",
+              "../../wire-J6-GND",
+              "../../wire-J6-RA1",
+              "../../wire-J6-RA2",
+              "../../wire-J6-RA3",
+              "../../wire-J6-RA4",
+              "../../wire-J6-earth-1",
+              "../../wire-J6-earth-2",
+              "../../wire-J6-earth-3"
+            ]
+          },
+          {
+            "material": "HSM-0349",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "../../terminal-J7",
+              "../../wire-J7-GND",
+              "../../wire-J7-RB1",
+              "../../wire-J7-RB2",
+              "../../wire-J7-RB3",
+              "../../wire-J7-RB4",
+              "../../wire-J7-earth-1",
+              "../../wire-J7-earth-2",
+              "../../wire-J7-earth-3",
+              "../../wire-J7-earth-4",
+              "../../wire-J7-CLO",
+              "../../wire-J7-CHI",
+              "../../wire-J7-carb-earth-1",
+              "../../wire-J7-carb-earth-2"
+            ]
+          },
+          {
+            "material": "HSM-0308",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "line-reservoir-a",
+              "../../tube-fluid-16"
+            ],
+            "note": "One continuous tube. The cold core pots its lower span; the machine model draws its free end above the lid."
+          },
+          {
+            "material": "HSM-0307",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "line-reservoir-a-fill",
+              "../../tube-fluid-14"
+            ],
+            "note": "One continuous tube. The cold core pots its lower span; the machine model draws its free end above the lid."
+          },
+          {
+            "material": "HSM-0306",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "line-reservoir-b",
+              "../../tube-fluid-26"
+            ],
+            "note": "One continuous tube. The cold core pots its lower span; the machine model draws its free end above the lid."
+          },
+          {
+            "material": "HSM-0305",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "line-reservoir-b-fill",
+              "../../tube-fluid-24"
+            ],
+            "note": "One continuous tube. The cold core pots its lower span; the machine model draws its free end above the lid."
+          },
+          {
+            "material": "HSM-0454",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "reservoir-b-fill-guide"
+            ]
+          },
+          {
+            "material": "HSM-0365",
+            "quantity": 2,
+            "unit": "ea",
+            "note": "An open air tube fits through each reservoir cap grip during body-side installation.",
+            "bodies": [
+              "tube-reservoir-air-a",
+              "tube-reservoir-air-b"
+            ]
+          },
+          {
+            "material": "HSM-0013",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "collet-water-in"
+            ],
+            "note": "The water-inlet elbow adapter is fitted during body-side installation."
+          }
+        ]
+      }
+    },
+    {
+      "id": "HSM-0558",
+      "description": "Backflow-preventer threaded assembly",
+      "kind": "assembly",
+      "aliases": [
+        "ASSE threaded chain",
+        "prepared backflow preventer",
+        "water inlet threaded chain"
+      ],
+      "contexts": [
+        {
+          "material": "HSM-0001"
+        }
+      ],
+      "documents": [
+        {
+          "title": "Assembly procedure",
+          "path": "assembly/internal-plumbing.md"
+        }
+      ],
+      "bom": {
+        "source": "assembly/internal-plumbing.md",
+        "scope": "Rear TAP connector, inlet reducing coupling, ASSE body, outlet flare adapter and stem reducer made up and clocked on the bench. This threaded unit enters the back-top seat together. The retaining cap, cuffs, vent connection, header tee and free tube links are fitted with back-top open.",
+        "items": [
+          {
+            "material": "HSM-0013",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "bulkhead-water"
+            ]
+          },
+          {
+            "material": "HSM-0452",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "gagira-coupling"
+            ],
+            "note": "Between the rear TAP connector and the ASSE 1022 inlet."
+          },
+          {
+            "material": "HSM-0173",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "asse1022-assembly"
+            ]
+          },
+          {
+            "material": "HSM-0453",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "jg-pi4512f6s"
+            ],
+            "note": "On the ASSE 1022 outlet flare, holding the PP061208W reducer stem."
+          },
+          {
+            "material": "HSM-0460",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "jg-pp061208w"
+            ],
+            "note": "In the ASSE 1022 outlet flare adapter."
+          }
+        ]
+      }
+    },
+    {
+      "id": "HSM-0559",
+      "description": "CO\u2082 secondary regulator and check assembly",
+      "kind": "assembly",
+      "aliases": [
+        "prepared gas regulator",
+        "PISCO check pair",
+        "CO2 regulator assembly"
+      ],
+      "contexts": [
+        {
+          "material": "HSM-0001"
+        }
+      ],
+      "documents": [
+        {
+          "title": "Assembly procedure",
+          "path": "assembly/internal-plumbing.md"
+        }
+      ],
+      "bom": {
+        "source": "assembly/internal-plumbing.md",
+        "scope": "PISCO secondary regulator with its outlet stem check connected in the specified flow direction. The pair moves into back-top together; its cap and continuous core tube are fitted during installation.",
+        "items": [
+          {
+            "material": "HSM-0331",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "gas-regulator",
+              "co2-inlet"
+            ]
+          },
+          {
+            "material": "HSM-0383",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "gas-check"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "HSM-0560",
+      "description": "Water-pump discharge joint assembly",
+      "kind": "assembly",
+      "aliases": [
+        "prepared pump discharge joint",
+        "discharge cuff and check",
+        "water pump outlet adapter"
+      ],
+      "contexts": [
+        {
+          "material": "HSM-0001"
+        }
+      ],
+      "documents": [
+        {
+          "title": "Assembly procedure",
+          "path": "assembly/internal-plumbing.md"
+        }
+      ],
+      "bom": {
+        "source": "assembly/internal-plumbing.md",
+        "scope": "Reinforced discharge cuff with its trimmed reducer, stem clamp, outlet fold and stem check connected. This unit fits onto the diaphragm pump after the bare pump is seated on the equipment lid. The barb clamp, suction joint and continuous carbonator feed are fitted during core population.",
+        "items": [
+          {
+            "material": "HSM-0462",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "discharge-tube"
+            ],
+            "note": "Cut 22.24 mm: the discharge barb's length plus the trimmed reducer stem."
+          },
+          {
+            "material": "HSM-0460",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "discharge-reducer"
+            ],
+            "note": "Trimmed reducer seated in the reinforced discharge cuff."
+          },
+          {
+            "material": "HSM-0325",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "discharge-stem-clamp",
+              "discharge-stem-key"
+            ],
+            "note": "Clamp around the discharge reducer stem."
+          },
+          {
+            "material": "HSM-0330",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "carbonator-fold"
+            ],
+            "note": "Discharge fold between the reducer and stem check."
+          },
+          {
+            "material": "HSM-0383",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "discharge-chain"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "HSM-0561",
+      "description": "Flavor A fore-valve assembly \u00b7 Y-C to V-E",
+      "kind": "assembly",
+      "aliases": [
+        "Y-C to V-E group",
+        "fore valve E assembly"
+      ],
+      "contexts": [
+        {
+          "material": "HSM-0001"
+        }
+      ],
+      "documents": [
+        {
+          "title": "Assembly procedure",
+          "path": "assembly/internal-plumbing.md"
+        }
+      ],
+      "bom": {
+        "source": "assembly/internal-plumbing.md",
+        "scope": "Pump tee, fitted upper tube and fore valve connected on the bench. They enter loose front-top together from aft, with the rear valve row absent. The actual seated tee sets the pump stub before its clamp is tightened; rear valves and lower returns follow afterward.",
+        "items": [
+          {
+            "material": "HSM-0043",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "tee-y-c"
+            ],
+            "note": "Pump tee carried into the tee wall with its upper tube and fore valve."
+          },
+          {
+            "material": "HSM-0277",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "tube-fluid-10"
+            ],
+            "note": "One fitted run; drawn bends and stepped sections belong to this same tube."
+          },
+          {
+            "material": "HSM-0042",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "valve-v-e",
+              "coil-v-e"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "HSM-0562",
+      "description": "Flavor A fore-valve assembly \u00b7 Y-D to V-F",
+      "kind": "assembly",
+      "aliases": [
+        "Y-D to V-F group",
+        "fore valve F assembly"
+      ],
+      "contexts": [
+        {
+          "material": "HSM-0001"
+        }
+      ],
+      "documents": [
+        {
+          "title": "Assembly procedure",
+          "path": "assembly/internal-plumbing.md"
+        }
+      ],
+      "bom": {
+        "source": "assembly/internal-plumbing.md",
+        "scope": "Pump tee, fitted upper tube and fore valve connected on the bench. They enter loose front-top together from aft, with the rear valve row absent. The actual seated tee sets the pump stub before its clamp is tightened; rear valves and lower returns follow afterward.",
+        "items": [
+          {
+            "material": "HSM-0043",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "tee-y-d"
+            ],
+            "note": "Pump tee carried into the tee wall with its upper tube and fore valve."
+          },
+          {
+            "material": "HSM-0278",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "tube-fluid-13"
+            ],
+            "note": "One fitted run; drawn bends and stepped sections belong to this same tube."
+          },
+          {
+            "material": "HSM-0042",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "valve-v-f",
+              "coil-v-f"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "HSM-0563",
+      "description": "Flavor B fore-valve assembly \u00b7 Y-F to V-H",
+      "kind": "assembly",
+      "aliases": [
+        "Y-F to V-H group",
+        "fore valve H assembly"
+      ],
+      "contexts": [
+        {
+          "material": "HSM-0001"
+        }
+      ],
+      "documents": [
+        {
+          "title": "Assembly procedure",
+          "path": "assembly/internal-plumbing.md"
+        }
+      ],
+      "bom": {
+        "source": "assembly/internal-plumbing.md",
+        "scope": "Pump tee, fitted upper tube and fore valve connected on the bench. They enter loose front-top together from aft, with the rear valve row absent. The actual seated tee sets the pump stub before its clamp is tightened; rear valves and lower returns follow afterward.",
+        "items": [
+          {
+            "material": "HSM-0043",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "tee-y-f"
+            ],
+            "note": "Pump tee carried into the tee wall with its upper tube and fore valve."
+          },
+          {
+            "material": "HSM-0279",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "tube-fluid-20"
+            ],
+            "note": "One fitted run; drawn bends and stepped sections belong to this same tube."
+          },
+          {
+            "material": "HSM-0042",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "valve-v-h",
+              "coil-v-h"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "HSM-0564",
+      "description": "Flavor B fore-valve assembly \u00b7 Y-G to V-I",
+      "kind": "assembly",
+      "aliases": [
+        "Y-G to V-I group",
+        "fore valve I assembly"
+      ],
+      "contexts": [
+        {
+          "material": "HSM-0001"
+        }
+      ],
+      "documents": [
+        {
+          "title": "Assembly procedure",
+          "path": "assembly/internal-plumbing.md"
+        }
+      ],
+      "bom": {
+        "source": "assembly/internal-plumbing.md",
+        "scope": "Pump tee, fitted upper tube and fore valve connected on the bench. They enter loose front-top together from aft, with the rear valve row absent. The actual seated tee sets the pump stub before its clamp is tightened; rear valves and lower returns follow afterward.",
+        "items": [
+          {
+            "material": "HSM-0043",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "tee-y-g"
+            ],
+            "note": "Pump tee carried into the tee wall with its upper tube and fore valve."
+          },
+          {
+            "material": "HSM-0280",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "tube-fluid-23"
+            ],
+            "note": "One fitted run; drawn bends and stepped sections belong to this same tube."
+          },
+          {
+            "material": "HSM-0042",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "valve-v-i",
+              "coil-v-i"
             ]
           }
         ]
