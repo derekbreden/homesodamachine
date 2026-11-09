@@ -24,6 +24,10 @@ These are the steps a person actually estimates in. "40 minutes" claims a precis
 
 `bom --check` rejects an estimate that lands anywhere else, so the convention holds as rows get added. A run row's minutes, the subtotals and the grand total are arithmetic and land where it puts them.
 
+Shared operation allowances are allocated provisionally among the handoffs they
+produce. The operation total stays with the estimate; completion records in
+[stock](stock.md) hold the actual attended work.
+
 The linked fabrication procedures define each operation. [Letter shop guides](/hardware/assembly/guides/README.md) illustrate drilling and cutting, molds, refrigeration and the carbonator weld operation.
 
 ## 1. Machining
@@ -38,7 +42,7 @@ Drilling, tapping, chamfering, cutting and deburring for the carbonator, its upp
 | Cut three level rods to length, deburr | [reservoir rods](/hardware/assembly/handwork.md#cut--seat-the-reservoir-float-rods), [pressure-vessel](/hardware/assembly/pressure-vessel.md) | 1/8" 316: one at 5.110 ±0.005 in and two at 203.8 mm; the setup is a stop set and proved for each length | 20 m setup a batch · 1 m a rod · 3 a machine | 5 <!--parts HSM-0336 HSM-0339--> |
 | Deburr the tube; Scotch-Brite the two fillet bands | [pressure-vessel](/hardware/assembly/pressure-vessel.md) | ~30 s per joint of prep is what the weld needs; the rest is handling | | 10 <!--parts HSM-0008--> |
 | Drill the jet handling blank, cut the cap, deburr and clean | [Jet procedure](/hardware/assembly/water-inlet-jet.md) | Provisional, unmeasured attended-time estimate; the drilling fixture, already made, is set up once a batch | 20 m setup a batch · 3 m a cap · 1 a machine | 5 <!--parts HSM-0011--> |
-| Bore, cut, deburr and clean the upper float stop | [pressure-vessel](/hardware/assembly/pressure-vessel.md#upper-float-stop) | Provisional, unmeasured allowance: clamp the stainless handling blank, bore Ø9/64 inch before the 4 mm cutoff, deburr both mouths and inspect length | 20 m setup a batch · 3 m a stop · 1 a machine | 5 <!--parts HSM-0004--> |
+| Bore, cut, deburr and clean the upper float stop | [pressure-vessel](/hardware/assembly/pressure-vessel.md#upper-float-stop) | Provisional, unmeasured allowance: clamp the stainless handling blank, bore Ø9/64 inch before the 4 mm cutoff, deburr both mouths and inspect length | 20 m setup a batch · 3 m a stop · 1 a machine | 5 <!--parts HSM-0459--> |
 | **Machining** | | | | **[55](LAB_SEC1)** |
 
 ## 2. Welding & brazing
@@ -47,9 +51,9 @@ Five laser operations serve the carbonator: the float-rod tack, upper float-stop
 
 | Operation | Procedure | Notes | Run | Minutes |
 |---|---|---|---|---:|
-| Tack the float rod into the bottom register and the upper stop over the top register | [pressure-vessel](/hardware/assembly/pressure-vessel.md) | Provisional, unmeasured allowance for both loose-cap tacks; welder, argon and fixture are set up once for the session the plate fillets share | 20 m setup a session of 10 · 5 m a vessel · 1 a machine | 7 <!--parts HSM-0004--> |
-| Weld the bottom-plate corner fillet under argon | [pressure-vessel](/hardware/assembly/pressure-vessel.md) | ~15" of recessed corner fillet, handheld X1 Pro, keep heat moving | | 10 <!--parts HSM-0004--> |
-| Close the carbonator — top-plate fillet, float captive | [pressure-vessel](/hardware/assembly/pressure-vessel.md) | Same joint, one shot, nothing comes back out after this | | 10 <!--parts HSM-0004--> |
+| Tack the float rod into the bottom register and the upper stop over the top register | [pressure-vessel](/hardware/assembly/pressure-vessel.md) | Provisional, unmeasured allowance for both loose-cap tacks; welder, argon and fixture are set up once for the session the plate fillets share | 20 m setup a session of 10 · 5 m a vessel · 1 a machine | 7 <!--parts HSM-0565 HSM-0566--> |
+| Weld the bottom-plate corner fillet under argon | [pressure-vessel](/hardware/assembly/pressure-vessel.md) | ~15" of recessed corner fillet, handheld X1 Pro, keep heat moving | | 10 <!--parts HSM-0567--> |
+| Close the carbonator — top-plate fillet, float captive | [pressure-vessel](/hardware/assembly/pressure-vessel.md) | Same joint, one shot, nothing comes back out after this | | 10 <!--parts HSM-0567--> |
 | Fixture, purge and weld the water-inlet jet cap | [Jet procedure](/hardware/assembly/water-inlet-jet.md) | Provisional, unmeasured estimate for a qualified, repeatable process; destructive development coupons are excluded | | 10 <!--parts HSM-0338--> |
 | Cut the loop, tie in the suction line, pinch-swage the capillary | [refrigerant-loop](/hardware/assembly/refrigerant-loop.md) | Brazing the harvested compressor path with argon flowing through the tube | | 25 <!--parts HSM-0552--> |
 | **Welding & brazing** | | | | **[62](LAB_SEC2)** |
@@ -134,8 +138,8 @@ are also unpopulated. Neither adds a moisture-sensor harness.
 | J3 · Faucet → rear-wall keystone | [cable-assemblies](/hardware/assembly/cable-assemblies.md#faucet-display-sig-6) | Four JST contacts, four 110 IDC landings, dressing, label and end-to-end check; inboard cable only | 5 <!--parts HSM-0345--> |
 | J4 · Sensors → temperature bus and flow meter | [cable-assemblies](/hardware/assembly/cable-assemblies.md) | Five populated JST positions, temperature-bus connections, flow-meter branch and shared-ground 221-415; terminate, dress and test; IO23/IO27 empty | 10 <!--parts HSM-0346--> |
 | J5 · Relays → both relay modules | [cable-assemblies](/hardware/assembly/cable-assemblies.md) | Four JST contacts, relay-end ferrules and shared V5/GND branches, dressing, label and test | 5 <!--parts HSM-0347--> |
-| J6 · Reeds A → four reservoir reeds | [cable-assemblies](/hardware/assembly/cable-assemblies.md) | Five JST contacts, four reed pairs soldered and insulated, shared-ground 221-415, lacing and magnet/continuity check; excludes installing the finished column | 10 <!--parts HSM-0348--> |
-| J7 · Reeds B → four reservoir and two carbonator reeds | [cable-assemblies](/hardware/assembly/cable-assemblies.md) | Seven JST contacts, six reed pairs soldered and insulated, shared-ground 221-420, dressing and magnet/continuity check; excludes mounting reeds or column | 15 <!--parts HSM-0349--> |
+| J6 · Reeds A → four reservoir reeds | [cable-assemblies](/hardware/assembly/cable-assemblies.md) | Reservoir reed soldering, insulation, lacing and magnet/continuity check; board contacts and housing completed after lid threading; excludes installing the column | 10 <!--parts HSM-0348:4 HSM-0557:1--> |
+| J7 · Reeds B → four reservoir and two carbonator reeds | [cable-assemblies](/hardware/assembly/cable-assemblies.md) | Reservoir column and carbonator reed soldering, insulation, dressing and magnet/continuity check; board contacts, housing and lid common completed after threading; excludes mounting reeds or column | 15 <!--parts HSM-0349:4 HSM-0554:2 HSM-0557:1--> |
 | J9 · Display → enclosure LCD | [cable-assemblies](/hardware/assembly/cable-assemblies.md) | Four JST contacts, four ferruled display-terminal ends, dressing, label and test | 5 <!--parts HSM-0350--> |
 | J11 · Gas → MQ-6 sensor | [cable-assemblies](/hardware/assembly/cable-assemblies.md) | Four JST contacts, four sensor-end connections, dressing, label and test | 5 <!--parts HSM-0352--> |
 | J13 · Pumps → both motors | [J13 bench guide](/hardware/assembly/harnesses/j13.md) | 4P ribbon, four JST contacts in the XHP-4, free motor-lead pairs through the shared rear passage and motor wells before four motor Fastons, +X leads to pump A and −X leads to pump B; label and test; excludes landing on the motor tabs | 5 <!--parts HSM-0353--> |
@@ -166,7 +170,7 @@ Every wetted and gas joint in the unit: the carbonator's four port elbows, the s
 | Install the four port elbows, qualified jet elbow and PRV shroud | [pressure-vessel](/hardware/assembly/pressure-vessel.md) | One outside elbow per port, the bottom two aimed at their lines; recurring jet work is counted in §§1–3 | 15 <!--parts HSM-0004:4 HSM-0553:1--> |
 | Route the cold-core passages; form and seal the copper exits | [cold-core](/hardware/assembly/cold-core.md) | Done before the body foam locks them in | 10 <!--parts HSM-0557--> |
 | CO2 path — +Y wall of back-top to cold core | [internal-plumbing](/hardware/assembly/internal-plumbing.md) | | 10 <!--parts HSM-0001--> |
-| Water path — +Y wall of back-top to cold core | [internal-plumbing](/hardware/assembly/internal-plumbing.md) | Filter, backflow, pump, top-plate port | 10 <!--parts HSM-0001--> |
+| Water path — +Y wall of back-top to cold core | [internal-plumbing](/hardware/assembly/internal-plumbing.md) | Filter, backflow, pump, top-plate port | 10 <!--parts HSM-0570:1 HSM-0560:1 HSM-0558:1 HSM-0001:7--> |
 | Flavor manifold — fixed valves, pump tees, upper tubes and lower returns, prepared pumps and channels | [internal-plumbing](/hardware/assembly/internal-plumbing.md) | [10](SOLENOIDS) fixed valves total. Prepare the pump tube blanks with the setting jig. Thread the motor ribbon through loose front-top, land the motor leads, load each pump independently and fasten its flange retainer. Set the stubs against the seated tees before tightening their pump-head clamps. Fit each pump tee, its upper tube and its fore valve as a group, sliding the tee forward over its fixed pump tube to the insertion stop with its branch in the tee-wall bore. Fit all four fore groups before seating the rear valves; cut eight stem elbows' stems, push them up into the tees and rear valves, and fit the four straight return tubes. This assembly time is an unmeasured allowance | 15 <!--parts HSM-0548:4 HSM-0161:1--> |
 | Risers to the umbilical bulkheads | [internal-plumbing](/hardware/assembly/internal-plumbing.md) | | 5 <!--parts HSM-0001--> |
 | Witness and tidy every joint | [internal-plumbing](/hardware/assembly/internal-plumbing.md) | The pass that makes the next leak someone else's fault | 5 <!--parts HSM-0001--> |
@@ -202,13 +206,13 @@ The print model allocates [7.162](LAB_PRINT_KG) kg of filament and [189.4](LAB_P
 | Drive the [79](TOTAL_SCREWS) M3/M5 build screws | — | [20](FOAM_SCREWS) foam-cap, [12](RES_SCREWS) reservoir-cap, [3](TOUCHFLO_SCREWS) faucet base, [16](SHELF_SCREWS) electronics, [2](COND_SCREWS) condenser, [4](ROOF_CLOSURE_SCREWS) funnel-frame, [4](DISPLAY_COVER_SCREWS) display plate, [4](STATUS_PLATE_SCREWS) status plate, [4](NAMEPLATE_SCREWS) nameplate, [4](SEAM_RODS) M5 enclosure Y-seam screws, two upward through the handholds and two downward through the roof, each with one flat washer, [4](FLOOR_SCREWS) floor, [2](C14_SCREWS) C14 inlet | 5 <!--parts HSM-0555:6 HSM-0556:6 HSM-0557:20 HSM-0001:32 HSM-0002:3 HSM-0007:3--> |
 | Wind the evaporator coil on the mandrel; transfer it, set the band | [cold-core](/hardware/assembly/cold-core.md) | | 10 <!--parts HSM-0554--> |
 | Dress the carbonator wall — reeds, probe, foil; bond the coil probe | [cold-core](/hardware/assembly/cold-core.md) | | 10 <!--parts HSM-0554--> |
-| Fit the finished reed columns; seat rods and floats; close the reservoirs | [cold-core](/hardware/assembly/cold-core.md) | Two reservoirs, gaskets, caps, vent filters; J6/J7 soldering and insulation are counted in Wiring | 15 <!--parts HSM-0555:1 HSM-0556:1 HSM-0557:1--> |
+| Fit the finished reed columns; seat rods and floats; close the reservoirs | [cold-core](/hardware/assembly/cold-core.md) | Cap-grip preparation, reservoir closure and column installation; J6/J7 soldering and insulation are counted in Wiring | 15 <!--parts HSM-0568:1 HSM-0569:1 HSM-0555:4 HSM-0556:4 HSM-0557:5--> |
 | Lower the carbonator; seat the reservoirs in their pockets | [cold-core](/hardware/assembly/cold-core.md) | | 5 <!--parts HSM-0557--> |
 | Populate the WAGO wells; mount PSU, relays and PCB | [electronics-bay](/hardware/assembly/electronics-bay.md) | The PCB uses the core's full-length cap inserts. The PSU's four west-sidewall hosts use [4](SHELF_INSERTS) short inserts, and each relay fastens at two diagonal short inserts | 5 <!--parts HSM-0001--> |
 | Stage the printed enclosure and dock parts and the +Y wall's seven bodies; bolt the compressor down to the slab | [enclosure-mechanical](/hardware/assembly/enclosure-mechanical.md) | Four quadrants, lower pump retainer and four pump tees; rear-wall set includes the RJ11 keystone. Four floor posts, one M5 and a fender washer each, snugged onto the post crowns | 10 <!--parts HSM-0001--> |
 | Seat the cold core; condenser, electronics bay, close the box | [enclosure-mechanical](/hardware/assembly/enclosure-mechanical.md) | | 10 <!--parts HSM-0001--> |
 | Cut, route and sleeve the umbilical; bag it with the under-counter plate | [faucet-and-umbilical](/hardware/assembly/faucet-and-umbilical.md) | Three LLDPE tubes, braid, the bag | 10 <!--parts HSM-0002 HSM-0007--> |
-| Assemble the faucet — two-piece shell, display cover, plate, gasket and o-ring | — | Route tubes and ribbon before closing the plate; PET-GF prints, TPU seals | 5 <!--parts HSM-0002 HSM-0007--> |
+| Assemble the faucet — valve insert, two-piece shell, display cover, plate, gasket and sealing thimble | — | Route tubes and ribbon before closing the plate; PET-GF prints, TPU seals | 5 <!--parts HSM-0571:1 HSM-0002:2 HSM-0007:2--> |
 | **Assembly** | | | **[172.5](LAB_SEC8)** |
 
 ## 9. Power-on & testing
@@ -236,7 +240,7 @@ The unit passed. Empty it, clean it up, name it, box it.
 | Wipe down + final inspection | [finish-pack-ship](/hardware/assembly/finish-pack-ship.md) | | 5 <!--parts HSM-0001--> |
 | Scan the nameplate QR and snap its horizontal wings into the back-top receiver | [finish-pack-ship](/hardware/assembly/finish-pack-ship.md) | Match the four-digit unit number to the order and per-unit archive; confirm full seating and retention per [finish procedure](/hardware/assembly/finish-pack-ship.md#3-apply-the-per-unit-nameplate) | 5 <!--parts HSM-0001--> |
 | Cap the inlets + photograph | [finish-pack-ship](/hardware/assembly/finish-pack-ship.md) | | 5 <!--parts HSM-0001--> |
-| Make up the customer's runs; pack the install kit, the cold kit and the carton | [finish-pack-ship](/hardware/assembly/finish-pack-ship.md) | | 10 <!--parts HSM-0341:5 HSM-0342:1 HSM-0340:4--> |
+| Make up the customer's runs; pack the install kit, the cold kit and the carton | [finish-pack-ship](/hardware/assembly/finish-pack-ship.md) | | 10 <!--parts HSM-0572:2 HSM-0573:1 HSM-0341:2 HSM-0342:1 HSM-0340:4--> |
 | Weigh, label, hand off | [finish-pack-ship](/hardware/assembly/finish-pack-ship.md) | | 5 <!--parts HSM-0340--> |
 | **Finishing & packing** | | | **[35](LAB_SEC10)** |
 

@@ -119,6 +119,13 @@ terminations and provisional attended-time estimate together. Its ribbon and
 stripe assignment is a proposed build convention, not an observation of the
 completed reference sample.
 
+The reservoir reed-column handoffs are **HSM-0348 J6** and **HSM-0349 J7**.
+Their soldered reservoir reeds and lacing move with the ribbon. Keep their
+board ends free until the columns and leads have passed through the cold-core
+lid. Complete the housings and J7 common junction there; the carbonator reed
+pair travels with **HSM-0554 instrumented carbonator** and joins J7 during
+core installation. Follow that threading order before the termination steps.
+
 For each cable assembly in the schedule below:
 
 1. **Cut to length.** For a loom, take the pair and preparation length in § Ribbon pairs; those blanks include termination and dressing reserve. Trim the shorter conductors at their landings. For a fan-out branch or an AC run, use its preparation length from the AC wiring schedule. All-black except the AC mains trio.

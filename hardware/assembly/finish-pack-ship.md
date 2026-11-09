@@ -131,6 +131,13 @@ Whether the per-serial archive ships with the machine (USB stick in the box, clo
 
 ### 6. Pack the install kit
 
+The prepared water run is **HSM-0572 filtered installation water-line assembly**:
+tee, jumper, filtered run and TAP collar. The regulator, outlet adapter, red
+tether and CO₂ collar form **HSM-0573 primary regulator and tether assembly**.
+These connected units travel into the kit together; the alternative angle-stop
+valve remains bagged separately. Acceptance and setting records belong to the
+actual appliance.
+
 First make up the customer's two runs and thread their collars, the way the umbilical's three are threaded in [`faucet-and-umbilical.md`](/hardware/assembly/faucet-and-umbilical.md) §4: `tube-collar-water` onto the white run's `TAP` end, `tube-collar-co2` onto the red tether's `CO2` end, each run up its bare tail by hand with its flag turned outward. The white run carries the Waterdrop 15UC-UF filter inline, pushed home at both of its collets; the tether's regulator end has been in the primary regulator's PI010822S since acceptance step 1. Tug-check that joint and leave the two together.
 
 Then tie the tee. The short jumper pushes home into one run port of the PP0208E and the white run's bare end into the branch, both to their 15.7 mm insertion depth, so the tee leaves this step as **one subassembly with three legs** — jumper, open run port, and the coiled white run. This is the piece the install guide's Step 2 draws approaching the customer's existing coupler, and tying it here is what keeps the field down to two pushes at that fitting instead of four. The scenario-B ASVPP1LF is not tied to anything: it goes in its own bag, since the kitchen that needs it does not use the jumper, and its own branch takes the white run by push.
