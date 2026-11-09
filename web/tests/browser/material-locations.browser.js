@@ -7,6 +7,8 @@ import { start } from "../../server.js";
 import { launchBrowser, closeBrowser, closeServer } from "../../../tools/render/browser.js";
 
 const machine = "manifold-layout/enclosure-assembly.step";
+// Panel layout checks reuse the loaded assembly between installed selections.
+const focusTabs = process.env.HSM_LOCATIONS_BROWSER_FOCUS === 'tabs';
 const waitReady = page => page.waitForFunction(() => window.__hsm?.currentGroup && !window.__hsm.currentGroup.userData.sceneLoading, { timeout: 45000 });
 const settle = page => page.evaluate(() => new Promise(resolve => setTimeout(resolve, 650)));
 
@@ -19,6 +21,7 @@ test("locations preview compounds and repeated copies, preserve selection and hi
   try {
     for (const viewport of [{ width: 1280, height: 960 }, { width: 390, height: 844, isMobile: true, hasTouch: true }]) {
       const page = await browser.newPage(), errors = [];
+      page.setDefaultNavigationTimeout(120000);
       page.on("pageerror", error => errors.push(error.message));
       await page.setViewport(viewport);
       if (!process.env.HSM_LOCATIONS_BROWSER_BASE) {
@@ -34,14 +37,31 @@ test("locations preview compounds and repeated copies, preserve selection and hi
       try {
         await page.goto(`${origin}/3d#material:HSM-0331?panel=materials`);
         await waitReady(page);
-        const used = await page.$('.material-tabs button:last-child');
-        assert.match(await used.evaluate(button => button.textContent), /Where used/);
-        await used.click();
+        assert.deepEqual(await page.$$eval('.material-tabs button', nodes => nodes.map(node => node.textContent)),
+          ['BOM & Where used', 'Stock & Cost', 'Location']);
+        assert.equal(await page.$('.material-locations'), null);
+        assert.match(await page.$eval('.material-parent-tree', node => node.textContent), /Soda machine/);
+        assert.match(await page.$eval('.material-parent-tree', node => node.textContent), /Direct parent/);
+        assert.equal(await page.$eval('.material-tree-focus', node => node.dataset.material), 'HSM-0331');
+        assert.deepEqual(await page.$$eval('.material-structure > section', nodes => nodes.map(node => node.getAttribute('aria-label'))), ['Where used', 'BOM']);
+        assert.equal(await page.$('.material-assembly-records'), null);
+        await capture('pisco-structure');
+        await page.click('.material-tabs [data-tab="stock-cost"]');
+        assert.deepEqual(await page.$$eval('.material-tab-content > section', nodes => nodes.map(node => node.getAttribute('aria-label'))), ['Stock', 'Cost']);
+        assert.ok(await page.evaluate(() => {
+          const stock = document.querySelector('[data-material-section="stock"]').getBoundingClientRect();
+          const cost = document.querySelector('[data-material-section="cost"]').getBoundingClientRect();
+          return cost.top >= stock.bottom;
+        }));
+        await capture('pisco-stock-cost');
+        await page.evaluate(async () => (await import('/js/viewer/state.js')).state.materialPanel.applyRoute({tab:'cost',panel:'materials'}));
+        await settle(page);
+        assert.equal(await page.$eval('.material-tabs [aria-selected="true"]', node => node.dataset.tab), 'stock-cost');
+        await page.click('.material-tabs [data-tab="location"]');
         await page.waitForFunction(machine => window.__hsm?.mountedStepFile === machine
           && !window.__hsm.currentGroup.userData.sceneLoading
           && document.querySelector('.material-locations')?.dataset.instance === 'gas-regulator', { timeout: 45000 }, machine);
         await settle(page);
-        assert.equal(await page.$eval('.material-assembly-records', node => node.open), false);
         assert.match(await page.$eval('.material-panel h2', node => node.textContent), /PISCO/);
         assert.equal(await page.$eval('.location-position', node => node.textContent), '1 / 1');
         assert.match(await page.$eval('.location-go', node => node.href), /instance=gas-regulator/);
@@ -52,12 +72,10 @@ test("locations preview compounds and repeated copies, preserve selection and hi
         }), 'Location controls stay visible beside the phone preview');
         await capture('pisco-preview');
         if (!viewport.isMobile) {
-          const cost = await page.evaluateHandle(() => [...document.querySelectorAll('.material-tabs button')].find(button => button.textContent === 'Cost'));
-          await cost.asElement().click();
+          await page.click('.material-tabs [data-tab="stock-cost"]');
           await page.waitForFunction(() => window.__hsm?.mountedStepFile === 'reference/compact-inline-candidates/geometry/candidate-regulator.step'
             && !window.__hsm.currentGroup.userData.sceneLoading, { timeout: 15000 });
-          const usedAgain = await page.evaluateHandle(() => [...document.querySelectorAll('.material-tabs button')].find(button => button.textContent === 'Where used'));
-          await usedAgain.asElement().click();
+          await page.click('.material-tabs [data-tab="location"]');
           await page.waitForFunction(machine => window.__hsm?.mountedStepFile === machine && !window.__hsm.currentGroup.userData.sceneLoading, { timeout: 30000 }, machine);
           await settle(page);
         }
@@ -85,6 +103,7 @@ test("locations preview compounds and repeated copies, preserve selection and hi
           assert.ok(await page.$eval('.component-held-here', node => node.getBoundingClientRect().width > 80));
         }
         await capture('pisco-entered');
+        if (!focusTabs) {
         await page.goBack();
         await page.waitForFunction(() => document.querySelector('.material-locations')?.dataset.instance === 'gas-regulator'
           && !window.__hsm.currentGroup.userData.sceneLoading, { timeout: 30000 });
@@ -97,8 +116,22 @@ test("locations preview compounds and repeated copies, preserve selection and hi
         await page.waitForFunction(() => document.querySelector('.component-panel.show .component-body-name')?.textContent === 'CAD body: gas-regulator', { timeout: 15000 });
         await settle(page);
         assert.equal(await page.$eval('.materials-toggle', button => button.getAttribute('aria-expanded')), 'false');
+        }
 
-        await page.evaluate(async () => (await import('/js/viewer/material-nav.js')).openMaterial('HSM-0559', true, { panel: 'materials' }));
+        await page.evaluate(async () => (await import('/js/viewer/material-nav.js')).openMaterial('HSM-0001', true, { panel: 'materials', tab: 'structure' }));
+        const firstBranch = await page.$('.bom-tree > .bom-node:has(> .bom-row > .bom-disclosure:not(:disabled))');
+        assert.ok(firstBranch);
+        const childID = await firstBranch.$eval('.bom-number', node => node.textContent);
+        await (await firstBranch.$('.bom-disclosure')).click();
+        assert.ok(await page.$('.bom-branch > .bom-node'));
+        await capture('assembly-tree');
+        const selectedBranch = await page.$('.bom-tree > .bom-node:has(> .bom-row > .bom-disclosure[aria-expanded="true"]) > .bom-row > .bom-select');
+        await selectedBranch.click();
+        assert.equal(await page.$eval('.material-tree-focus', node => node.dataset.material), childID);
+        assert.ok(await page.$('.bom-tree > .bom-node'));
+        assert.equal(await page.$('.bom-own'), null);
+        await page.evaluate(async () => (await import('/js/viewer/material-nav.js')).openMaterial('HSM-0559', true, { panel: 'materials', tab: 'structure' }));
+        await capture('pisco-assembly-tree');
         const row = await page.evaluateHandle(() => [...document.querySelectorAll('.bom-select')].find(row => row.textContent.includes('HSM-0331')));
         assert.ok(row?.asElement());
         await row.asElement().click();
@@ -108,7 +141,17 @@ test("locations preview compounds and repeated copies, preserve selection and hi
         await page.waitForFunction(async () => (await import('/js/viewer/state.js')).state.autoHiddenComponents.has('enclosure-back-top'));
         await capture('pisco-pane-closed');
 
-        await page.goto(`${origin}/3d#material:HSM-0047?tab=used&panel=materials`);
+        if (focusTabs) {
+          await page.evaluate(async () => {
+            const {state}=await import('/js/viewer/state.js');
+            const {explodeBom}=await import('/contracts/materials.js');
+            await (await import('/js/viewer/material-nav.js')).openMaterial('HSM-0001',true,{panel:'materials',tab:'structure'});
+            const row=explodeBom(state.materialCatalog,'HSM-0001').find(row=>row.material.id==='HSM-0047');
+            state.materialPanel.select(row.material.id,row.path);
+          });
+          await page.click('.material-tabs [data-tab="location"]');
+          assert.match(await page.evaluate(()=>location.hash), /material:HSM-0047\?tab=location/);
+        } else await page.goto(`${origin}/3d#material:HSM-0047?tab=location&panel=materials`);
         await page.waitForFunction(() => document.querySelector('.location-position')?.textContent === '1 / 2'
           && !window.__hsm?.currentGroup?.userData.sceneLoading, { timeout: 45000 });
         await settle(page);
