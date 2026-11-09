@@ -221,5 +221,69 @@
     "Native links omit source histories but load all finished bodies embedded in the active representation. They do not automatically stream nested geometry.",
     "The explicit envelope is authored in SolidCraft and updated from the exact tube exterior by the lab coordinator.",
     "Repeated simple envelopes test definition reuse and loading boundaries, not complete-enclosure geometry performance."
-  ]
+  ],
+  "navigation_review": {
+    "checked_at": "2026-11-09T03:27:44.700Z",
+    "environment": "Local route in headless Chrome on the shared Mac",
+    "source_files": {
+      "component-navigation.js": "15ca1ee35bedc452428833a1c94377f9a32b8076862d49b47e9ae7f4ed52b593",
+      "preview.js": "4fd37660d4abac5c26e10f93e07cbf43de00a3cb93c1f8eed44d7b5cb586a36b",
+      "main.js": "b8480469a705013f62549f8fa3e271f91b2893c450f658413f590403ff668db3",
+      "children.json": "cb06c9f5f27f0f62c408ed03f9fff60870f4a4dfd75490a6dd963624355349bd",
+      "index.html": "a2e8cc39bf8b3637b6115619c458ac8df2e6d2218685bf1803b66aab8588db09",
+      "style.css": "d4cfab1903d6fec86e0d4c7a38fcef5061627d4c8f39d1a6e17d0e740d727db8"
+    },
+    "canvas_selection_without_descendant_requests": true,
+    "list_selection_highlights_geometry": true,
+    "canvas_retained_across_navigation": true,
+    "camera_preserved_across_core_and_leaf_navigation": true,
+    "browser_back_and_forward": true,
+    "breadcrumb_return": true,
+    "repeated_instance_identity_preserved": true,
+    "hide_and_show_are_view_local": true,
+    "idle_preview_stops_drawing": true,
+    "shared_camera_module": "/js/viewer/navigation.js",
+    "initial_model_resources": [
+      {
+        "url": "/solidcraft-lab/carbonator/module.json",
+        "type": "module interface",
+        "label": "Carbonator module",
+        "bytes": 436
+      },
+      {
+        "url": "/solidcraft-lab/carbonator/assets/representation.glb?v=b2a39c7b0561a001",
+        "type": "display",
+        "label": "Carbonator saved shape",
+        "bytes": 22712
+      }
+    ],
+    "repeated_display_calls": 1,
+    "direct_leaf_model_resources": [
+      {
+        "url": "/solidcraft-lab/carbonator/module.json",
+        "type": "module interface",
+        "label": "Carbonator module",
+        "bytes": 436
+      },
+      {
+        "url": "/solidcraft-lab/carbonator/children.json",
+        "type": "assembly interfaces",
+        "label": "Core part list and placements",
+        "bytes": 2310
+      },
+      {
+        "url": "/solidcraft-lab/carbonator/assets/endcap.glb?v=96de12bb6fc55643",
+        "type": "display",
+        "label": "Endcap saved shape",
+        "bytes": 87932
+      }
+    ],
+    "direct_leaf_native_engine_loaded": false,
+    "native_tube_edit_updates_parent": true,
+    "native_parent_body_definitions": 1,
+    "native_parent_world_bodies": 64,
+    "mobile_width_css_px": 390,
+    "mobile_scroll_width_css_px": 390,
+    "page_errors": []
+  }
 }

@@ -45,7 +45,9 @@
         0,
         0,
         0
-      ]
+      ],
+      "id": "tube",
+      "label": "Tube"
     },
     {
       "part": "endcap",
@@ -80,7 +82,9 @@
         0.0,
         0.0,
         -76.2
-      ]
+      ],
+      "id": "bottom-endcap",
+      "label": "Bottom endcap"
     },
     {
       "part": "endcap",
@@ -115,7 +119,9 @@
         0.0,
         0.0,
         76.2
-      ]
+      ],
+      "id": "top-endcap",
+      "label": "Top endcap"
     }
   ],
   "radialClearanceMm": 0.127
