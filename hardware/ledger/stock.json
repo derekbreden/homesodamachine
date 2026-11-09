@@ -515,7 +515,8 @@
       "planning": {
         "root": "HSM-0340",
         "perUnit": 1,
-        "materialAllowance": 0
+        "materialAllowance": 0,
+        "reusable": true
       }
     },
     {
@@ -3020,7 +3021,7 @@
       "estimated": true,
       "asOf": "2026-10-13",
       "basis": "ledger_estimate",
-      "note": "Acquired quantity from the purchase ledger; usable remainder after development is not separately counted. This is an inventory-credit estimate.",
+      "note": "Acquired quantity from the purchase ledger; usable remainder after development is not separately counted. This is an inventory-credit estimate. Color allocation is unmeasured; the provisional purchase reserve scales with unmet physical demand.",
       "sources": [
         {
           "path": "hardware/ledger/purchases.md",
@@ -3030,7 +3031,12 @@
       "planning": {
         "root": "HSM-0340",
         "perUnit": 14,
-        "materialAllowance": 0
+        "materialAllowance": 0,
+        "purchaseReserve": {
+          "5": 250,
+          "10": 375,
+          "20": 625
+        }
       }
     },
     {

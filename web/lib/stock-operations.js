@@ -116,7 +116,8 @@ export function completionProposal(
       });
   }
   for (const input of (catalog.stock.inputs[material] || []).filter(
-    (input) => !input.finish || input.finish === finish,
+    (input) =>
+      input.mode !== "reusable" && (!input.finish || input.finish === finish),
   ))
     add({
       resource: input.resource,
@@ -196,6 +197,13 @@ function normalize(catalog, payload, existing) {
     };
     event.inputs = payload.inputs.map((input) => {
       const target = canonicalTarget(catalog, input);
+      if (
+        target.resource &&
+        catalog.stock.resources[target.resource].planning?.reusable
+      )
+        throw new Error(
+          "Reusable equipment stays in stock and is not consumed",
+        );
       if (!positive(input.quantity))
         throw new Error(
           "Enter the actual quantity for every input, or remove unused inputs",

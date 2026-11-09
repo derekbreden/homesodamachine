@@ -20,6 +20,10 @@ to supplier stock; `printing` selects stock colors; `kits` states the outputs a
 donor supplies together. These identities remain stable when their display names
 or supplier offers change. `observations` carries dated opening corrections.
 Supplier offers and lot prices belong to [`batch-forecast.json`](batch-forecast.json).
+Reusable equipment is required across a batch and stays available after work.
+Provisional purchasing reserves, such as an unmeasured wire-color allocation,
+belong to the stock definition and shrink with the remaining physical demand.
+Shared BOM-line allocations retain their estimated status.
 
 Unknown balances receive no credit. Estimates retain their evidence and uncertainty.
 Incoming stock reduces duplicate purchasing and becomes available to build on
