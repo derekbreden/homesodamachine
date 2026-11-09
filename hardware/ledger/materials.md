@@ -125,6 +125,16 @@ part of that product.
 
 `models` lists representations belonging to the material. BOM-item `bodies`
 names the geometry representing that occurrence, relative to its parent's model.
+`placements` groups the bodies of each individually modeled copy and can give
+each placement a readable `label`. A compound part keeps its pieces together in
+that body set. Placement bindings use the same frame as `bodies`; the material's
+geometry includes both forms of binding.
+
+The required count stays in `quantity`. Placements can cover only the drawn
+copies of a partly modeled item; undrawn quantities do not create locations.
+Stock and cost calculations use the BOM quantities independently of placements.
+Lengths and other stock measures do not imply a count of installed copies.
+
 `prefix` carries a child's model namespace into its containing model; the cold
 core's prefix in the soda machine is `cold-core/`. A binding that begins `../`
 names geometry the containing model draws: each tube the cold core pots is one

@@ -9,7 +9,7 @@ import { readPartCosts } from "../web/lib/part-costs.js";
 import { searchCatalog, explodeBom, occurrenceBodies, materialIndex, modelForMaterial } from "../web/contracts/materials.js";
 import { stepLocation } from "../web/contracts/step-locations.js";
 import { localFeatureCatalog } from "../web/lib/feature-catalog.js";
-import { instanceLabel, matchFeatures } from "../web/contracts/features.js";
+import { matchFeatures } from "../web/contracts/features.js";
 import { instancesInScene, instanceMaterialHash } from "../web/contracts/material-instances.js";
 
 export const checkoutRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
@@ -108,8 +108,7 @@ export function findParts(query, { root = checkoutRoot, limit = 20 } = {}) {
       const names = headers.get(file), bodies = [...new Set(rows.flatMap((row) => occurrenceBodies(catalog, row.path, names)))];
       const installed = instancesInScene(catalog, assembly.id, material.id, names);
       contexts.push({ material: assembly.id, description: assembly.description, file, bodies,
-        instances: (installed.length ? installed : bodies.map(name => ({ name, label: instanceLabel(name), bodies: [name] })))
-          .map(instance => ({ ...instance, url: `${website}#${instanceMaterialHash(assembly.id, instance.name)}`,
+        instances: installed.map(instance => ({ ...instance, url: `${website}#${instanceMaterialHash(assembly.id, instance.name)}`,
             features: featureCatalog.filter(feature => feature.file === file && instance.bodies.some(name =>
               feature.body === name || feature.related?.includes(name))) })),
         bindings: rows.map((row) => row.path), ...(bodies.length ? { url: modelLink(file, bodies) } : {}) });

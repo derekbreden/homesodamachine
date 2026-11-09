@@ -317,7 +317,7 @@ export function matchesBody(name, binding) {
 export function occurrenceBodies(catalog, path, availableNames, options = {}) {
   const index = materialIndex(catalog), bindings = [];
   function collect(item, frames, seen) {
-    for (const name of item.bodies || []) {
+    for (const name of [...(item.bodies || []), ...(item.placements || []).flatMap(placement => placement.bodies || [])]) {
       const up = name.match(/^(\.\.\/)*/)[0].length / 3;
       if (up <= frames.length) bindings.push(frames.slice(0, frames.length - up).join("") + name.slice(up * 3));
     }
