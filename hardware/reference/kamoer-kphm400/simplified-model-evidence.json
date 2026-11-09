@@ -4,7 +4,7 @@
   "unit": "User-owned Kamoer pump; machine BOM KPHM600-SW3B17, repository compatibility directory kamoer-kphm400",
   "source": {
     "path": "hardware/reference/kamoer-kphm400/scan_model.rs",
-    "sha256": "597150624d414300db093b6eddb252a0e1a92363932d827ff49c6672f893be5a"
+    "sha256": "d343c856730947f955327207577ed2fced4819f1e93628955e3b875f06e74c39"
   },
   "inputs": {
     "hardware/reference/kamoer-kphm400/scan-measurements.json": "4389eeb0fd000242ee69efa903d60269a6e8e9497c7235d8d48187d5cf9075a9",
@@ -12,9 +12,9 @@
     "hardware/reference/kamoer-kphm400/scan-evidence.json": "c3a50570b7b477309261352acebc9be39e3126fe1a83ec172f04db9f92486310"
   },
   "members": {
-    "kamoer-kphm400.step": "b0ed413ba03c43ed84905b4f8b9c57b5c58094cadef1250f1f8cf5aa683ce772",
-    "kamoer-kphm400.step.npz": "940ef824a874a38ff8caf1a53ac776519f22830fed247a8d6616be29d759fb05",
-    "kamoer-kphm400.step.mesh": "400ea7e4f1b5321ebe60110a3af80a3a9bbe6f54e0783eefa394e902e20b54c9"
+    "kamoer-kphm400.step": "2766be3508be59bb44c34a31b83fd33bcba6fba836da874e66e9370628ae922b",
+    "kamoer-kphm400.step.npz": "7da8ebf4e499daab25d7c4a8754307235677e6b323df9c0696ddb5c4b9ea9364",
+    "kamoer-kphm400.step.mesh": "2636733585887b6b52c8de11d4c13594a1983fac0a98fac47d0d308d04cb098c"
   },
   "construction": "Authored planar, cylindrical and circular-sweep surfaces; no imported scan triangles.",
   "omitted_details": [
@@ -46,9 +46,10 @@
   "terminal_end_z_mm": 68.5,
   "dimensional_basis": {
     "flange": "Registered seating strips and outer flange boundary; mounting hole centers from the exterior section.",
-    "head": "Rounded principal casing envelope from registered sections and part photographs.",
+    "head": "Registered transverse sections supply the bowed tube-side profile and principal casing envelope; part photographs identify the plan-view arch.",
     "motor": "Independent barrel fit; nominal coaxial construction omits fitted scanner tilt.",
-    "outlets": "Retained routed stations and nominal tube passages; flexible scan pose is simplified."
+    "outlets": "Retained routed stations and nominal tube passages; flexible scan pose is simplified.",
+    "adapter": "Paired column centers follow the observed cardinal screw stations; their circular exterior retains the observed adapter envelope."
   },
   "verification": {
     "watertight_bodies": [
@@ -78,8 +79,145 @@
       "primer",
       "silicone_outlets"
     ],
-    "triangles": 22820,
-    "visual_review": "The reference is inspected with the same saved camera as the captured model; flange and adapter faces are flat and the motor barrel is smooth."
+    "triangles": 24144,
+    "visual_review": "Whole-pump views and a plan section show the tube-side arch, paired columns, plain flange holes and smooth principal surfaces.",
+    "bodies": [
+      {
+        "name": "head",
+        "watertight": true,
+        "winding_consistent": true,
+        "volume_mm3": 136188.69651979036,
+        "triangles": 13056
+      },
+      {
+        "name": "rotor_housing",
+        "watertight": true,
+        "winding_consistent": true,
+        "volume_mm3": 20242.176002886932,
+        "triangles": 1164
+      },
+      {
+        "name": "motor_mount",
+        "watertight": true,
+        "winding_consistent": true,
+        "volume_mm3": 10148.536300527456,
+        "triangles": 1708
+      },
+      {
+        "name": "motor_body",
+        "watertight": true,
+        "winding_consistent": true,
+        "volume_mm3": 41722.22062459074,
+        "triangles": 1596
+      },
+      {
+        "name": "fasteners",
+        "watertight": true,
+        "winding_consistent": true,
+        "volume_mm3": 294.92734090008304,
+        "triangles": 4064
+      },
+      {
+        "name": "primer",
+        "watertight": true,
+        "winding_consistent": true,
+        "volume_mm3": 42.9911335369333,
+        "triangles": 508
+      },
+      {
+        "name": "silicone_outlets",
+        "watertight": true,
+        "winding_consistent": true,
+        "volume_mm3": 489.97409413782,
+        "triangles": 2048
+      }
+    ]
   },
-  "scope": "Exterior placement reference. Omitted pockets and nominal passages do not qualify internal construction or manufacturing tolerances."
+  "scope": "Exterior placement reference. Omitted pockets and nominal passages do not qualify internal construction or manufacturing tolerances.",
+  "head_plan_profile": {
+    "HEAD_HALF_WIDTH": 25.7,
+    "HEAD_BACK_Y": -26.0,
+    "HEAD_BACK_RADIUS": 11.0,
+    "HEAD_FRONT_CROWN_Y": 28.3,
+    "HEAD_FRONT_RADIUS": 52.0,
+    "HEAD_FRONT_CORNER_RADIUS": 13.0,
+    "construction": "The tube side is a circular arch tangent through corner arcs to straight sides; the back has a straight central span.",
+    "central_scan_arc_fits": [
+      {
+        "z_mm": -40.0,
+        "points": 915,
+        "circle_center_y_radius_mm": [
+          -23.158293863575913,
+          50.956269775762046
+        ],
+        "radial_residual_median_p95_mm": [
+          0.02582352840580171,
+          0.05457328465985895
+        ]
+      },
+      {
+        "z_mm": -30.0,
+        "points": 992,
+        "circle_center_y_radius_mm": [
+          -23.889667876297167,
+          52.234850259396474
+        ],
+        "radial_residual_median_p95_mm": [
+          0.03217866607202069,
+          0.07195512379653905
+        ]
+      },
+      {
+        "z_mm": -20.0,
+        "points": 975,
+        "circle_center_y_radius_mm": [
+          -22.988589420548713,
+          50.89314590268455
+        ],
+        "radial_residual_median_p95_mm": [
+          0.028300711221682207,
+          0.06311845665264428
+        ]
+      }
+    ],
+    "observation_selection": {
+      "capture_pass": 1,
+      "axial_half_band_mm": 1.0,
+      "absolute_x_max_mm": 18.0,
+      "y_min_mm": 20.0,
+      "absolute_normal_z_max": 0.2,
+      "normal_y_min": 0.7,
+      "symmetry_axis_x_mm": 0.0,
+      "sampling": "Registered exposed native observations; no rejection by distance to the idealized model."
+    }
+  },
+  "adapter_columns": {
+    "ADAPTER_COLUMN_REACH": 23.5,
+    "ADAPTER_COLUMN_OFFSET": 2.3,
+    "ADAPTER_COLUMN_RADIUS": 2.8,
+    "construction": "Paired circular columns at each cardinal point, joined by tangent flat walls; screw positions follow their recorded column centers."
+  },
+  "flange_holes": {
+    "form": "Plain untapped bores",
+    "radius_mm": 1.6,
+    "centers_world_xy_mm": [
+      [
+        9.8,
+        8.599999999999998
+      ],
+      [
+        9.8,
+        59.0
+      ],
+      [
+        60.2,
+        8.599999999999998
+      ],
+      [
+        60.2,
+        59.0
+      ]
+    ],
+    "open": true
+  }
 }

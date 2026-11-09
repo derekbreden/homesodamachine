@@ -1,6 +1,6 @@
 //! The purchased pump reference uses smooth primitives around its measured mounting and outlet datums.
 use anyhow::{Context, Result};
-use hsm_kernel::{Body, Loop, Path, Plane, Profile, Solid, V2, V3, part, v2, v3};
+use hsm_kernel::{Body, Loop, Path, Plane, Profile, Seg, Solid, V2, V3, part, v2, v3};
 use std::path::PathBuf;
 
 const FRAME: V3 = v3(35., 34., 0.);
@@ -13,7 +13,16 @@ const FLANGE_HOLE_PITCH: f64 = 50.4;
 const FLANGE_HOLE_RADIUS: f64 = 1.6;
 const HEAD_FRONT_Z: f64 = -47.;
 const HEAD_SHOULDER_Z: f64 = -12.;
+const HEAD_HALF_WIDTH: f64 = 25.7;
+const HEAD_BACK_Y: f64 = -26.;
+const HEAD_BACK_RADIUS: f64 = 11.;
+const HEAD_FRONT_CROWN_Y: f64 = 28.3;
+const HEAD_FRONT_RADIUS: f64 = 52.;
+const HEAD_FRONT_CORNER_RADIUS: f64 = 13.;
 const ADAPTER_TOP_Z: f64 = 11.8;
+const ADAPTER_COLUMN_REACH: f64 = 23.5;
+const ADAPTER_COLUMN_OFFSET: f64 = 2.3;
+const ADAPTER_COLUMN_RADIUS: f64 = 2.8;
 const MOUNT_TOP_Z: f64 = 13.5;
 const MOTOR_START_Z: f64 = 20.8;
 const MOTOR_END_Z: f64 = 62.55;
@@ -31,17 +40,60 @@ fn rounded_block(center: V2, width: f64, depth: f64, radius: f64, lo: f64, hi: f
         .extrude(&Profile::new(Loop::rounded_rect(center, width, depth, radius)?), hi - lo)
 }
 
+/// The tube side bows across the width in plan; the side and rear lands stay straight.
+fn head_profile(half_width: f64, back: f64, back_radius: f64,
+                crown: f64, front_radius: f64, front_corner: f64) -> Result<Profile> {
+    let front_center = v2(0., crown - front_radius);
+    let right_center = v2(half_width - front_corner,
+        front_center.y + ((front_radius - front_corner).powi(2)
+                         - (half_width - front_corner).powi(2)).sqrt());
+    let tangent = front_center + (right_center - front_center)
+        * (front_radius / (front_radius - front_corner));
+    let a = v2(-half_width + back_radius, back);
+    let b = v2(half_width - back_radius, back);
+    let c = v2(half_width, back + back_radius);
+    let d = v2(half_width, right_center.y);
+    let e = tangent;
+    let f = v2(-tangent.x, tangent.y);
+    let g = v2(-half_width, right_center.y);
+    let h = v2(-half_width, back + back_radius);
+    Ok(Profile::new(Loop::new(vec![
+        Seg::Line { a, b },
+        Seg::Arc { a: b, b: c, c: v2(half_width - back_radius, back + back_radius), ccw: true },
+        Seg::Line { a: c, b: d },
+        Seg::Arc { a: d, b: e, c: right_center, ccw: true },
+        Seg::Arc { a: e, b: f, c: front_center, ccw: true },
+        Seg::Arc { a: f, b: g, c: v2(-right_center.x, right_center.y), ccw: true },
+        Seg::Line { a: g, b: h },
+        Seg::Arc { a: h, b: a, c: v2(-half_width + back_radius, back + back_radius), ccw: true },
+    ])?))
+}
+
 fn cylinder(x: f64, y: f64, radius: f64, lo: f64, hi: f64) -> Result<Solid> {
     Solid::cylinder(v3(x, y, lo), V3::Z, radius, hi - lo)
 }
 
 fn adapter(lo: f64, hi: f64) -> Result<Solid> {
-    let reach = 26.3;
-    let tip = 2.8;
-    let outline = Loop::polygon(&[
-        v2(reach, -tip), v2(reach, tip), v2(tip, reach), v2(-tip, reach),
-        v2(-reach, tip), v2(-reach, -tip), v2(-tip, -reach), v2(tip, -reach),
-    ]).fillet(1.8)?;
+    let c = ADAPTER_COLUMN_REACH;
+    let d = ADAPTER_COLUMN_OFFSET;
+    let r = ADAPTER_COLUMN_RADIUS;
+    let diagonal = r / 2_f64.sqrt();
+    let lower = v2(c + diagonal, -d - diagonal);
+    let notch = v2(c + (r * r - d * d).sqrt(), 0.);
+    let upper = v2(c + diagonal, d + diagonal);
+    let quarter = |p: V2, k: usize| match k % 4 {
+        0 => p, 1 => v2(-p.y, p.x), 2 => -p, _ => v2(p.y, -p.x),
+    };
+    // Each circular pair meets in a shallow valley; tangent flats connect adjacent pairs.
+    let mut edges = Vec::new();
+    for k in 0..4 {
+        edges.push(Seg::Arc { a: quarter(lower, k), b: quarter(notch, k),
+                             c: quarter(v2(c, -d), k), ccw: true });
+        edges.push(Seg::Arc { a: quarter(notch, k), b: quarter(upper, k),
+                             c: quarter(v2(c, d), k), ccw: true });
+        edges.push(Seg::Line { a: quarter(upper, k), b: quarter(lower, k + 1) });
+    }
+    let outline = Loop::new(edges)?;
     Plane::XY.at(v3(0., 0., lo)).extrude(&Profile::new(outline), hi - lo)
 }
 
@@ -65,10 +117,13 @@ fn srgb(c: [f64; 3]) -> [f64; 3] {
 fn main() -> Result<()> {
     let out = PathBuf::from(std::env::args().nth(1).context("reference output directory")?);
     std::fs::create_dir_all(&out)?;
+    let casing = head_profile(HEAD_HALF_WIDTH, HEAD_BACK_Y, HEAD_BACK_RADIUS,
+                              HEAD_FRONT_CROWN_Y, HEAD_FRONT_RADIUS, HEAD_FRONT_CORNER_RADIUS)?;
+    let neck = head_profile(23., -24., 7., 27., 50., 9.)?;
     let mut head = rounded_block(v2(0., -0.2), FLANGE_WIDTH, FLANGE_DEPTH, FLANGE_RADIUS,
                                  SEAT_Z, FLANGE_TOP_Z)?
-        .union(&rounded_block(v2(0., 1.), 51.4, 54., 11., HEAD_FRONT_Z, HEAD_SHOULDER_Z)?)?
-        .union(&rounded_block(v2(0., 1.5), 46., 51., 7., HEAD_SHOULDER_Z, SEAT_Z)?)?;
+        .union(&Plane::XY.at(v3(0., 0., HEAD_FRONT_Z)).extrude(&casing, HEAD_SHOULDER_Z - HEAD_FRONT_Z)?)?
+        .union(&Plane::XY.at(v3(0., 0., HEAD_SHOULDER_Z)).extrude(&neck, SEAT_Z - HEAD_SHOULDER_Z)?)?;
     for x in [-FLANGE_HOLE_PITCH / 2., FLANGE_HOLE_PITCH / 2.] {
         for y in [-FLANGE_HOLE_PITCH / 2., FLANGE_HOLE_PITCH / 2.] {
             head = head.cut(&cylinder(x, y - 0.2, FLANGE_HOLE_RADIUS, SEAT_Z - 0.1, FLANGE_TOP_Z + 0.1)?)?;
