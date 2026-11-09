@@ -9,11 +9,17 @@ plain motor adapter, cylindrical motor, fasteners, primer and outlet sleeves.
 The tube side of the head has a broad circular arch in plan, tangent through rounded
 corners to straight sides. Its rear has a straight central span and rounded corners.
 The neck carries the same distinction between the bowed tube side and straighter back.
+The head cover has a broad sloping face, steeper perimeter bevels and a raised label
+deck with a shallow flat recess. Its circular screw collars hold recessed heads;
+the primer sits below its beveled opening. The cover wall has a slight molded draft.
+The named plane fits and surface comparisons in the model evidence describe these
+contact surfaces. Label lettering and surface texture are omitted.
 The motor adapter has paired circular columns at each cardinal point, with tangent
 flat walls between pairs and a screw on the alternating column of each pair.
 Principal dimensions and connection stations come from the registered observations
 and retained part measurements. Flat faces stay planar and the motor stays cylindrical.
-The reference omits molded pockets, ribs, lettering, motor vents and scan texture.
+The reference omits flange ribs and pockets, adapter side pockets, lettering,
+motor vents and scan texture.
 The flange retains its plain untapped mounting holes. The motor retains its bearing boss and electrical tabs.
 
 The flange underside supplies the seating datum. The model retains the assembly's

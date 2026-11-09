@@ -11,7 +11,32 @@ const SEAT_Z: f64 = -8.;
 const FLANGE_TOP_Z: f64 = 0.;
 const FLANGE_HOLE_PITCH: f64 = 50.4;
 const FLANGE_HOLE_RADIUS: f64 = 1.6;
-const HEAD_FRONT_Z: f64 = -47.;
+const HEAD_COVER_EDGE_Z: f64 = -44.9;
+const HEAD_COVER_TOP_Z: f64 = -48.65;
+const HEAD_COVER_INSET: f64 = 0.65;
+const HEAD_COVER_BEVEL_SLOPE: f64 = 0.71;
+const HEAD_COVER_SEAM_Z: f64 = -28.5;
+const HEAD_FACE_SLOPE: f64 = 0.195;
+const HEAD_FACE_LEVEL: f64 = -44.88;
+const HEAD_DECK_SLOPE: f64 = -0.74;
+const HEAD_DECK_LEVEL: f64 = -48.36;
+const HEAD_LABEL_FLOOR_Z: f64 = -48.05;
+const HEAD_LABEL_WIDTH: f64 = 33.6;
+const HEAD_LABEL_DEPTH: f64 = 16.;
+const HEAD_LABEL_CENTER_Y: f64 = 10.7;
+const HEAD_LABEL_PRIMER_CLEARANCE_RADIUS: f64 = 5.;
+const HEAD_SCREW_COLLAR_Z: f64 = -48.85;
+const HEAD_SCREW_TOP_Z: f64 = -48.65;
+const HEAD_SCREW_SEAT_Z: f64 = -47.;
+const HEAD_SCREW_COLLAR_RADIUS: f64 = 4.;
+const HEAD_SCREW_RECESS_RADIUS: f64 = 3.1;
+const PRIMER_CENTER_Y: f64 = 0.5;
+const PRIMER_RING_RADIUS: f64 = 8.3;
+const PRIMER_RING_TOP_RADIUS: f64 = 7.7;
+const PRIMER_RING_Z: f64 = -48.55;
+const PRIMER_RING_BEVEL_Z: f64 = -48.05;
+const PRIMER_BORE_RADIUS: f64 = 4.;
+const PRIMER_FACE_Z: f64 = -46.5;
 const HEAD_SHOULDER_Z: f64 = -12.;
 const HEAD_HALF_WIDTH: f64 = 25.7;
 const HEAD_BACK_Y: f64 = -26.;
@@ -73,6 +98,55 @@ fn cylinder(x: f64, y: f64, radius: f64, lo: f64, hi: f64) -> Result<Solid> {
     Solid::cylinder(v3(x, y, lo), V3::Z, radius, hi - lo)
 }
 
+/// The material lies behind the top plane; its positive normal cuts the empty side.
+fn behind_face(solid: &Solid, slope: f64, level: f64) -> Result<Solid> {
+    let plane = Plane::new(v3(0., 0., level), V3::X, v3(0., slope, -1.))?;
+    solid.cut(&plane.extrude(&Profile::rect(V2::ZERO, 200., 200.), 100.)?)
+}
+
+/// The cover's broad ramp, raised deck and perimeter bevels follow the molded contact surfaces.
+fn head_cover(casing: &Profile) -> Result<Solid> {
+    let outer = casing.offset(-HEAD_COVER_INSET, false)?;
+    let inset = HEAD_COVER_INSET
+        + (HEAD_COVER_EDGE_Z - HEAD_COVER_TOP_Z) / HEAD_COVER_BEVEL_SLOPE;
+    let crown = casing.offset(-inset, false)?;
+    let bevel = Solid::loft(&[
+        crown.place(&Plane::XY.at(v3(0., 0., HEAD_COVER_TOP_Z))),
+        outer.place(&Plane::XY.at(v3(0., 0., HEAD_COVER_EDGE_Z))),
+    ])?;
+    let ramp = behind_face(&bevel, HEAD_FACE_SLOPE, HEAD_FACE_LEVEL)?;
+    let deck = behind_face(&bevel, HEAD_DECK_SLOPE, HEAD_DECK_LEVEL)?;
+    let wall = Solid::loft(&[
+        outer.place(&Plane::XY.at(v3(0., 0., HEAD_COVER_EDGE_Z))),
+        casing.place(&Plane::XY.at(v3(0., 0., HEAD_COVER_SEAM_Z))),
+    ])?;
+    let mut cover = ramp.union(&deck)?.union(&wall)?;
+    let ring = cylinder(0., PRIMER_CENTER_Y, PRIMER_RING_RADIUS,
+                        PRIMER_RING_BEVEL_Z, HEAD_COVER_EDGE_Z)?
+        .union(&Solid::cone(v3(0., PRIMER_CENTER_Y, PRIMER_RING_Z), V3::Z,
+                            PRIMER_RING_TOP_RADIUS, PRIMER_RING_RADIUS,
+                            PRIMER_RING_BEVEL_Z - PRIMER_RING_Z)?)?;
+    cover = cover.union(&ring)?;
+    // The broad label recess follows the primer opening; lettering and sticker texture are omitted.
+    let pocket = rounded_block(v2(0., HEAD_LABEL_CENTER_Y), HEAD_LABEL_WIDTH,
+                               HEAD_LABEL_DEPTH, 2., HEAD_COVER_TOP_Z - 1., HEAD_LABEL_FLOOR_Z)?
+        .cut(&cylinder(0., PRIMER_CENTER_Y, HEAD_LABEL_PRIMER_CLEARANCE_RADIUS,
+                        HEAD_COVER_TOP_Z - 2., HEAD_COVER_EDGE_Z + 1.)?)?;
+    cover = cover.cut(&pocket)?;
+    for x in [-17., 17.] {
+        for y in [-18.7, 18.7] {
+            let collar = Solid::cone(v3(x, y, HEAD_SCREW_COLLAR_Z), V3::Z,
+                                      HEAD_SCREW_COLLAR_RADIUS, HEAD_SCREW_COLLAR_RADIUS + 0.25,
+                                      HEAD_COVER_EDGE_Z - HEAD_SCREW_COLLAR_Z)?;
+            cover = cover.union(&collar)?
+                .cut(&cylinder(x, y, HEAD_SCREW_RECESS_RADIUS,
+                                HEAD_SCREW_COLLAR_Z - 1., HEAD_SCREW_SEAT_Z)?)?;
+        }
+    }
+    cover.cut(&cylinder(0., PRIMER_CENTER_Y, PRIMER_BORE_RADIUS,
+                         PRIMER_RING_Z - 1., HEAD_COVER_EDGE_Z)?)
+}
+
 fn adapter(lo: f64, hi: f64) -> Result<Solid> {
     let c = ADAPTER_COLUMN_REACH;
     let d = ADAPTER_COLUMN_OFFSET;
@@ -122,7 +196,9 @@ fn main() -> Result<()> {
     let neck = head_profile(23., -24., 7., 27., 50., 9.)?;
     let mut head = rounded_block(v2(0., -0.2), FLANGE_WIDTH, FLANGE_DEPTH, FLANGE_RADIUS,
                                  SEAT_Z, FLANGE_TOP_Z)?
-        .union(&Plane::XY.at(v3(0., 0., HEAD_FRONT_Z)).extrude(&casing, HEAD_SHOULDER_Z - HEAD_FRONT_Z)?)?
+        .union(&Plane::XY.at(v3(0., 0., HEAD_COVER_SEAM_Z))
+            .extrude(&casing, HEAD_SHOULDER_Z - HEAD_COVER_SEAM_Z)?)?
+        .union(&head_cover(&casing)?)?
         .union(&Plane::XY.at(v3(0., 0., HEAD_SHOULDER_Z)).extrude(&neck, SEAT_Z - HEAD_SHOULDER_Z)?)?;
     for x in [-FLANGE_HOLE_PITCH / 2., FLANGE_HOLE_PITCH / 2.] {
         for y in [-FLANGE_HOLE_PITCH / 2., FLANGE_HOLE_PITCH / 2.] {
@@ -154,13 +230,13 @@ fn main() -> Result<()> {
     let mut fasteners = Vec::new();
     for x in [-17., 17.] {
         for y in [-18.7, 18.7] {
-            fasteners.push(cylinder(x, y, 2.8, -48.6, HEAD_FRONT_Z)?);
+            fasteners.push(cylinder(x, y, 2.8, HEAD_SCREW_TOP_Z, HEAD_SCREW_SEAT_Z)?);
         }
     }
     for (x, y) in [(-23.5, 2.3), (2.3, 23.5), (23.5, -2.3), (-2.3, -23.5)] {
         fasteners.push(cylinder(x, y, 2.7, MOUNT_TOP_Z, 15.)?);
     }
-    let primer = cylinder(0., 0.5, 3.7, -48., HEAD_FRONT_Z)?;
+    let primer = cylinder(0., PRIMER_CENTER_Y, 3.7, PRIMER_FACE_Z, HEAD_COVER_EDGE_Z)?;
     let pieces = [
         ("head", srgb([0.16, 0.16, 0.18]), head),
         ("rotor_housing", srgb([0.9, 0.9, 0.88]), housing),
