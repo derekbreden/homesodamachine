@@ -147,7 +147,9 @@ test("feature links and component drill-down use the same exported identity on d
         await page.type('.material-panel .material-search input','HSM-0047');
         await page.waitForFunction(()=>['relay-1','relay-2'].every(name=>[...document.querySelectorAll('.material-panel .material-search-results a')]
           .some(a=>decodeURIComponent(a.href).includes(`find=solid: ${name}`))));
-        const instances=await page.$$eval('.material-panel .material-search-results a',links=>links.map(a=>decodeURIComponent(a.href)).filter(href=>href.includes('find=solid: relay-')));
+        assert.equal(await page.$$eval('.material-panel .material-search-entry',rows=>rows.length),1);
+        await page.click('.material-panel .material-search-locations > summary');
+        const instances=await page.$$eval('.material-panel .material-search-location',links=>links.map(a=>decodeURIComponent(a.href)));
         assert.equal(new Set(instances).size,2);
         await page.evaluate(()=>[...document.querySelectorAll('.material-panel .material-search-results a')]
           .find(a=>decodeURIComponent(a.href).includes('find=solid: relay-2')).click());
