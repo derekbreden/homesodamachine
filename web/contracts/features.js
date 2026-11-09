@@ -46,7 +46,8 @@ export function matchFeatures(query, features) {
   if (!needle) return [];
   const exact = features.filter(f => [f.key, f.id, f.label].some(s => normalize(s) === needle));
   if (exact.length) return exact;
-  const words = needle.split(/\s+/);
+  const words = needle.split(/\s+/).map(word =>
+    ({ grip: "handhold", grips: "handhold", handholds: "handhold" })[word] || word);
   return features.filter(f => {
     const haystack = normalize([f.body, f.id, f.label, ...(f.related || []),
       ...(f.related || []).map(instanceLabel)].join(" "));

@@ -23,3 +23,12 @@ test("membership ranges are ordered, disjoint and inside the existing mesh", () 
     assert.equal(validFeatures([feature(ranges)], 6).length, 0);
   assert.equal(matchFeatures("mains live", [{id:"well",label:"Well",related:["wago-h"]}]).length,1);
 });
+
+test("remembered grip words find handholds while exact feature identities win", () => {
+  const handhold = { key: "enclosure-back-bottom::west-handhold", id: "west-handhold", label: "west lifting handhold" };
+  for (const query of ["grip", "grips", "west grip", "lifting grips"])
+    assert.deepEqual(matchFeatures(query, [handhold]), [handhold]);
+  const grip = { key: "reservoir::grip", id: "grip", label: "Bottle grip" };
+  assert.deepEqual(matchFeatures("grip", [handhold, grip]), [grip]);
+  assert.deepEqual(matchFeatures(handhold.key, [handhold, grip]), [handhold]);
+});
