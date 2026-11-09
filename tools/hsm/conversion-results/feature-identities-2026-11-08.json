@@ -1598,7 +1598,9 @@
         "name": "2026-11-08-back-top-mark2-4797722d.3mf",
         "sha256": "6b210b58c91d9679bb5f6a51c126bb670c7f5cc2771c491e791190ac5a622b4a"
       }
-    ]
+    ],
+    "region_bindings_sha256": "b6f943270ac952ffce9765a3aec31459db4008dc70b93d7d644680a3e347cc1c",
+    "region_bindings_match_current_exports": true
   },
   "live_browser": {
     "1280": {
