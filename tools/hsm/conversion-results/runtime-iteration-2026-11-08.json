@@ -1,0 +1,350 @@
+{
+  "purpose": "This record measures compiled-program reuse, retained geometry and observed website updates from runtime input edits.",
+  "units": {
+    "duration": "seconds",
+    "length": "mm"
+  },
+  "measurement_scope": "Each sample starts at the authored JSON edit with an already-open reference browser on the live website. The normal selective print build includes scheduler waits, geometry generation and publication. This is an input-edit benchmark after implementation, not a design-request timing sample.",
+  "draw_evidence_scope": "The mounted geometry matches the expected immutable assets and placements in an eligible completed WebGL draw. Occlusion, unobstructed pixels and the user device paint are not established.",
+  "implementation_commits": [
+    "c8f90bc7d57c5a051c52f43fb86516503716cc1a",
+    "9105eadf7",
+    "60dc46ba2",
+    "08d4223ac"
+  ],
+  "samples": {
+    "placement_and_pocket_fit": {
+      "source_commit": "352963ecc1ed9e48abdf8d4f397f2f6c9a653cc3",
+      "edit_at": "2026-11-09T04:38:09.919357+00:00",
+      "first_live_draw_at": "2026-11-09T04:38:29.410Z",
+      "edit_to_first_live_draw_seconds": 19.490643,
+      "admitted_build_and_publication_seconds": 89.3128074999986,
+      "edit_to_build_and_publication_finished_seconds": 89.45326042175293,
+      "compiler_actions": 0,
+      "binaries_unchanged": true,
+      "binary_sha256": {
+        "installed-machine": "612babaf253800d4b06e9197dd7d7f47baa3b68ee116a1cefbd331256a082585",
+        "enclosure-back-top": "9001073d4515acd05feff0492cfbeddd30bdfacef4922f3cde2e48980606b311",
+        "enclosure-front-top": "05e2b73d1fb77f3ea5d7ea0cd4d31e3413439f06c411b86342d788f73aad6c68"
+      },
+      "build_actions": [
+        {
+          "name": "BazelWorkspaceStatusAction stable-status.txt",
+          "seconds": 0.002292
+        },
+        {
+          "name": "Executing genrule //:enclosure-back-top",
+          "seconds": 2.212922
+        },
+        {
+          "name": "Executing genrule //:enclosure-front-top",
+          "seconds": 6.135712
+        },
+        {
+          "name": "Executing genrule //:installed-machine",
+          "seconds": 20.488753
+        }
+      ],
+      "completed_checkpoints": [
+        {
+          "stage": "placements",
+          "seconds_from_admitted_build": 1.7144883329965523
+        },
+        {
+          "stage": "producer complete",
+          "seconds_from_admitted_build": 4.219599374999234
+        },
+        {
+          "stage": "producer complete",
+          "seconds_from_admitted_build": 8.350075957998342
+        },
+        {
+          "stage": "placements",
+          "seconds_from_admitted_build": 11.213695582999208
+        },
+        {
+          "stage": "mechanics",
+          "seconds_from_admitted_build": 22.092889749997994
+        },
+        {
+          "stage": "installed",
+          "seconds_from_admitted_build": 26.57954433299892
+        },
+        {
+          "stage": "producer complete",
+          "seconds_from_admitted_build": 28.61290254099731
+        }
+      ],
+      "reuse": {
+        "assembly": [
+          {
+            "reused": true,
+            "seconds": 0.664428708,
+            "stage": "references"
+          },
+          {
+            "reused": true,
+            "seconds": 0.0630775,
+            "stage": "equipment"
+          },
+          {
+            "reused": true,
+            "seconds": 0.002791958,
+            "stage": "routes"
+          },
+          {
+            "reused": true,
+            "seconds": 0.001908333,
+            "stage": "dock"
+          },
+          {
+            "retained": true,
+            "reused": false,
+            "seconds": 1.4136496250000001,
+            "stage": "placement"
+          },
+          {
+            "retained": true,
+            "reused": false,
+            "seconds": 9.242678208,
+            "stage": "mechanical model"
+          },
+          {
+            "retained": true,
+            "reused": false,
+            "seconds": 3.100801958,
+            "stage": "wire attachments"
+          },
+          {
+            "retained": true,
+            "reused": false,
+            "seconds": 0.001850959,
+            "stage": "presentation-state"
+          }
+        ],
+        "fine_rebuilt": [
+          "fine route:wire-AC1-L",
+          "fine route:wire-AC1-N",
+          "fine route:wire-AC1-PE",
+          "fine route:wire-AC2-L",
+          "fine route:wire-AC2-N",
+          "fine route:wire-AC3-L",
+          "fine route:wire-AC5-pigtail",
+          "fine route:wire-AC6-PE",
+          "fine route:wire-PE-carbonator"
+        ],
+        "presentation_rebuilt": [
+          "presentation wire-AC1-L",
+          "presentation wire-AC1-N",
+          "presentation wire-AC1-PE",
+          "presentation wire-AC2-L",
+          "presentation wire-AC2-N",
+          "presentation wire-AC3-L",
+          "presentation wire-AC5-pigtail",
+          "presentation wire-AC6-PE",
+          "presentation wire-PE-carbonator"
+        ],
+        "wire_entries_reused": 220,
+        "wire_assembly_seconds": 0.867196792
+      },
+      "observed_parts": [
+        "wago-h",
+        "wago-g",
+        "wago-n"
+      ],
+      "expected_artifact": {
+        "path": "hardware/manifold-layout/enclosure-assembly.step.mesh",
+        "sha256": "83e72d9c41c792b85252fc83b028eed13ebb3c4545092f506740922ae6564ae9",
+        "bytes": 199140
+      },
+      "input": "hardware/manifold-layout/junctions.json",
+      "changes": {
+        "main_wago_z_mm": 0.5,
+        "well_fit_mm": 0.25
+      },
+      "measured_pocket_clearances_mm": {
+        "h": 0.24999999999994316,
+        "mana": 0.2499999999999858
+      },
+      "measured_intersection_volumes_mm3": {
+        "h": 0.0,
+        "mana": 0.0
+      }
+    },
+    "two_wire_routes": {
+      "source_commit": "08d4223ac7e7c7713745d666fcb6f67bcce618a6",
+      "edit_at": "2026-11-09T04:36:16.972604+00:00",
+      "first_live_draw_at": "2026-11-09T04:36:42.972Z",
+      "edit_to_first_live_draw_seconds": 25.999396,
+      "admitted_build_and_publication_seconds": 16.75571887499973,
+      "edit_to_build_and_publication_finished_seconds": 24.683765649795532,
+      "compiler_actions": 0,
+      "binaries_unchanged": true,
+      "binary_sha256": {
+        "installed-machine": "612babaf253800d4b06e9197dd7d7f47baa3b68ee116a1cefbd331256a082585",
+        "enclosure-back-top": "9001073d4515acd05feff0492cfbeddd30bdfacef4922f3cde2e48980606b311",
+        "enclosure-front-top": "05e2b73d1fb77f3ea5d7ea0cd4d31e3413439f06c411b86342d788f73aad6c68"
+      },
+      "build_actions": [
+        {
+          "name": "BazelWorkspaceStatusAction stable-status.txt",
+          "seconds": 0.002525
+        },
+        {
+          "name": "Executing genrule //:installed-machine",
+          "seconds": 6.981902
+        }
+      ],
+      "completed_checkpoints": [
+        {
+          "stage": "mechanics",
+          "seconds_from_admitted_build": 3.650618375002523
+        },
+        {
+          "stage": "installed",
+          "seconds_from_admitted_build": 4.939826458998141
+        }
+      ],
+      "reuse": {
+        "assembly": [
+          {
+            "reused": true,
+            "seconds": 0.611404583,
+            "stage": "references"
+          },
+          {
+            "reused": true,
+            "seconds": 0.065650375,
+            "stage": "equipment"
+          },
+          {
+            "reused": true,
+            "seconds": 0.00285925,
+            "stage": "routes"
+          },
+          {
+            "reused": true,
+            "seconds": 0.00184475,
+            "stage": "dock"
+          },
+          {
+            "reused": true,
+            "seconds": 0.066264292,
+            "stage": "placement"
+          },
+          {
+            "reused": true,
+            "seconds": 0.042729375,
+            "stage": "mechanical model"
+          },
+          {
+            "reused": true,
+            "seconds": 0.008751833,
+            "stage": "wire attachments"
+          },
+          {
+            "retained": true,
+            "reused": false,
+            "seconds": 0.002321958,
+            "stage": "presentation-state"
+          }
+        ],
+        "fine_rebuilt": [
+          "fine route:wire-AC2-L",
+          "fine route:wire-AC2-N"
+        ],
+        "presentation_rebuilt": [
+          "presentation wire-AC2-L",
+          "presentation wire-AC2-N"
+        ],
+        "wire_entries_reused": 234,
+        "wire_assembly_seconds": 1.027026917
+      },
+      "observed_parts": [
+        "wire-AC2-L",
+        "wire-AC2-N"
+      ],
+      "expected_artifact": {
+        "path": "hardware/manifold-layout/enclosure-assembly.step.mesh",
+        "sha256": "738995f7a331289f2fa9c963a8707a1b1f7b3cdaf206c8cea52ee68536184c2e",
+        "bytes": 171124
+      },
+      "input": "hardware/wiring/installed/route-overrides.json",
+      "edited_routes": [
+        "AC2-L",
+        "AC2-N"
+      ],
+      "station_offset_x_mm": {
+        "before": 12.0,
+        "after": 12.5
+      },
+      "changed_scene_nodes": [
+        "wire-AC2-L",
+        "wire-AC2-N"
+      ]
+    }
+  },
+  "focused_validation": {
+    "print_build_tests_passed": 7,
+    "installed_machine_tests_passed": 7,
+    "compile_runtime_split_tests_passed": 3,
+    "snapshot_publication_tests_passed": 3,
+    "standalone_wiring_step_export": true,
+    "standalone_wiring_exports": [
+      {
+        "name": "enclosure-wiring.step",
+        "sha256": "a08e717f674e883752bc1872082e9e247f1a010cf8706ebeb7b84ae4a386e416",
+        "bytes": 59327
+      },
+      {
+        "name": "enclosure-wiring.step.npz",
+        "sha256": "3080922a6238d7122e5db59e9decf179616d3fcaadd7b40309de7211c1d6262f",
+        "bytes": 304228
+      },
+      {
+        "name": "enclosure-wiring.step.mesh",
+        "sha256": "9e977b451b32b9a46caf528f9db8cc152913acc6881fdc4fe8727054844ff466",
+        "bytes": 356
+      },
+      {
+        "name": "e85a32c5ed39efa20e511f217f5f28d051a7669571d3ad9927c9dec1e3f1dab2.step.mesh",
+        "sha256": "e1887e23a4b1ef930902a2f004409e7d91e5c02ba1bb98c411175efc370d0855",
+        "bytes": 360
+      }
+    ]
+  },
+  "production_restoration": {
+    "status": "complete",
+    "authored_input_sha256": {
+      "hardware/manifold-layout/junctions.json": "9dc938e52afd235079fdeaa4a1f4bf726090277696ca286bda7cae788e548c40",
+      "hardware/wiring/installed/route-overrides.json": "f5a49592c26f8616331c1c0381e1d46b503e90ccf94d596cc39f761377580968"
+    },
+    "inputs_restored_exactly": true,
+    "geometry_and_placement_nodes_restored": 449,
+    "printed_exports_restored_byte_identical": {
+      "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step.mesh": true,
+      "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.print-features.json": true,
+      "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step.mesh": true,
+      "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl": true,
+      "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl": true
+    },
+    "scene_sha256": "373d7ef8925cc521823e7717362efb2353bc7fd3af072664adb3880da4388cbd",
+    "live_draw_at": "2026-11-09T04:42:00.533Z",
+    "observed_parts": [
+      "enclosure-back-top",
+      "enclosure-front-top",
+      "wago-h",
+      "wago-g",
+      "wago-n",
+      "wire-AC2-L",
+      "wire-AC2-N"
+    ],
+    "observed_artifact": {
+      "path": "hardware/manifold-layout/enclosure-assembly.step.mesh",
+      "sha256": "373d7ef8925cc521823e7717362efb2353bc7fd3af072664adb3880da4388cbd",
+      "bytes": 171124
+    },
+    "production_wago_h_clearance_mm": 0.14999389648431816
+  },
+  "sample_count_per_case": 1
+}
