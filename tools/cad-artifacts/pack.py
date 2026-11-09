@@ -415,14 +415,12 @@ def hashes(root: Path, rels: list) -> dict:
     return cached_hashes(root, rels)
 
 
-def line_times(held: dict, solid_hashes: dict, stamp: int) -> dict:
+def line_times(held: dict, solid_hashes: dict, stamp: float) -> dict:
     """When each line of the pointer file last moved, by member.
 
-    A line whose hash is the one main's line already names keeps the time it has; a line this
-    publish moves is stamped now. It is what a later publish on any machine reads to tell a
-    copy it built from a copy it is merely holding: a file newer than its line was cut here
-    since main last pointed at that member, a file older than its line is main's earlier
-    bytes, and main's are the ones to take."""
+    A line whose hash main already names keeps its time. A moved line carries the time this
+    cut collected its bytes. A local file newer than that snapshot is another completed cut,
+    including one that finishes while the current snapshot uploads."""
     return _native("line-times", held=held, hashes=solid_hashes, stamp=stamp)
 
 
@@ -661,14 +659,14 @@ def website_for(root: Path, data: dict) -> dict:
 
 def pointers_for(root: Path, rels: list, digest: str, size: int, solid_hashes: dict = None,
              sidecar_hashes: dict = None, made: dict = None, held: dict = None,
-             stamp: int = None) -> dict:
+             stamp: float = None) -> dict:
     solid_hashes = solid_hashes if solid_hashes is not None else hashes(root, rels)
     sidecar_hashes = sidecar_hashes if sidecar_hashes is not None else hashes(root, sidecars(root))
     return _unorder(_native("pointers", root=root, rels=rels, digest=digest, size=size,
         slug=_origin_slug(root), tag=TAG, store_url=STORE_URL, prefix=OBJECT_PREFIX,
         hashes=solid_hashes, hashes_order=_ordered(solid_hashes),
         sidecar_order=_ordered(sidecar_hashes), made=made, made_order=_ordered(made),
-        held=held or {}, stamp=stamp if stamp is not None else int(time.time())))
+        held=held or {}, stamp=stamp if stamp is not None else time.time()))
 
 
 def _pointer_file(data: dict) -> dict:
@@ -1261,7 +1259,7 @@ def cut_whole_bundle(held: dict, rels: list, now: dict, sidecar_now: dict, made:
 
 
 def cut_bundle(held: dict, rels: list, now: dict, sidecar_now: dict, made: dict,
-               known: set) -> int:
+               known: set, stamp: float = None) -> int:
     """A whole bundle of `rels` up on the release with every member it lacks, and pointed at."""
     import tempfile
 
@@ -1270,7 +1268,7 @@ def cut_bundle(held: dict, rels: list, now: dict, sidecar_now: dict, made: dict,
         bundle = Path(d) / "bundle.tar.gz"
         digest = build(_ROOT, rels, bundle)
         size = bundle.stat().st_size
-        data = pointers_for(_ROOT, rels, digest, size, now, sidecar_now, made, held=held)
+        data = pointers_for(_ROOT, rels, digest, size, now, sidecar_now, made, held=held, stamp=stamp)
         print(f"bundle {data['release']['asset']} — {size / 1e6:.1f} MB "
               f"({100 * size / total:.0f}% of the tree's bytes)")
         # THIS CUT'S OWN BUNDLE PLUS EVERY MEMBER THAT MOVED, asked for before a byte goes up.
@@ -1322,6 +1320,8 @@ def _publish_held(grafted: set, staging: Path, viewer_only=False, members=None) 
     WHAT A HELD PUBLISH MOVES IS WHAT THIS MACHINE CUT, and the rest of the file is main's. A
     copy older than its line is taken from the release before anything else is decided, so the
     lines describe a disk that holds main's bytes for every member this machine did not cut."""
+    # Pointer times identify when this cut's member bytes are collected.
+    captured = time.time()
     phase_started = time.monotonic()
     held = read_pointers()
     graph = Graph.load(_ROOT)
@@ -1398,7 +1398,8 @@ def _publish_held(grafted: set, staging: Path, viewer_only=False, members=None) 
         if upload_objects(_ROOT, pinned, now, known, sources):
             phase_started = _measured("members", phase_started)
             data = pointers_for(_ROOT, sorted(lines), prior_bundle["sha256"],
-                                prior_bundle.get("bytes", 0), lines, sidecar_now, made, held=held)
+                                prior_bundle.get("bytes", 0), lines, sidecar_now, made, held=held,
+                                stamp=captured)
             data = _patch(data, [(('mesh_assets',), mesh_assets), (('bundle',), prior_bundle), (('bundle', 'behind'), True),
                                  (('release', 'objects'), OBJECT_PREFIX)])
             _write_pointers(data)
@@ -1411,7 +1412,8 @@ def _publish_held(grafted: set, staging: Path, viewer_only=False, members=None) 
         print("  not every object landed; cutting the bundle so this pointer file reads whole")
         known = objects_on_release(_ROOT)
     return cut_bundle(held, rels, now, sidecar_now,
-                      made_here(_ROOT, held, graph, index, head, state["whole"], walked, moved, grafted), known)
+                      made_here(_ROOT, held, graph, index, head, state["whole"], walked, moved, grafted),
+                      known, stamp=captured)
 
 
 def main(argv) -> int:
