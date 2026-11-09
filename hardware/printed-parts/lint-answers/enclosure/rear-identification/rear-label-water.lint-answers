@@ -4,7 +4,7 @@ file: hardware/printed-parts/enclosure/rear-identification/rear-label-water.step
 click: x=0.293 y=2.280 z=15.769
 
 [thin] Functional glyph strokes and diagonal joins of the compact port legend. The narrow sections belong to the letter outlines, including the closing points of A and R, rather than a wall or a leftover cut intersection. The shared font and relief retain the accepted TAP/FLAVOR appearance process.
-alternatives: Three-millimetre strokes close the counters at this text size; preserving those counters enlarges the word beyond the 42 mm tile. Engraved or flush text changes the selected raised two-colour legend.
+alternatives: Three-millimetre strokes close the counters at this text size; preserving those counters enlarges the word beyond the available tile width. Engraved or flush text changes the selected raised two-colour legend.
 file: hardware/printed-parts/enclosure/rear-identification/rear-label-water.step
 click: x=0.026 y=1.920 z=15.356
 click: x=0.026 y=1.920 z=15.976
@@ -12,5 +12,5 @@ click: x=0.026 y=1.920 z=15.976
 [thin] Fitted sliding label cover: the tile is 1.8 mm thick in its 2.0 mm channel allowance, retaining 0.2 mm face clearance and the complete bulkhead bore. This is the separate cover section; the receiver and its rails carry their own full wall stock.
 alternatives: A 3 mm tile needs a 1.2 mm deeper channel, reducing the retained rear-wall backing from 4 mm to 2.8 mm, or a proud tile and moved bulkhead flange plane. Each changes the fitted panel stack.
 file: hardware/printed-parts/enclosure/rear-identification/rear-label-water.step
-click: x=-19.925 y=0.000 z=20.633
-click: x=-19.925 y=1.800 z=20.633
+click: x=-19.743 y=0.000 z=20.633
+click: x=-19.743 y=1.800 z=20.633
