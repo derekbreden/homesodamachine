@@ -118,19 +118,46 @@ fn wiring(name: &str) -> bool {
         .any(|prefix| name.starts_with(prefix))
 }
 
-/// Place unchanged reference geometry from the same recipe used by the mechanical producer.
-pub fn placements(
+fn replace_source(head: &mut Value, source: &str, bytes: &[u8]) -> Result<usize> {
+    if !head["source_inventory"][source].is_array() {
+        let incoming = scene::digest(bytes);
+        let nodes = head["meshes"].as_array().context("scene nodes")?;
+        let bound = nodes.iter().any(|node| node["source"] == source);
+        let historical = nodes
+            .iter()
+            .filter(|node| node["source"] == source)
+            .filter_map(|node| node["source_sha256"].as_str())
+            .find(|hash| *hash != incoming)
+            .or_else(|| {
+                head["sources"][source]
+                    .as_str()
+                    .filter(|hash| *hash != incoming)
+            });
+        if let Some(hash) = historical.filter(|_| bound) {
+            let path = scene::asset_path(hash)?;
+            let retained = std::fs::read(&path).with_context(|| {
+                format!("previous source inventory for {source} is not retained")
+            })?;
+            ensure!(
+                scene::digest(&retained) == hash,
+                "previous source inventory for {source} differs from its digest"
+            );
+        }
+    }
+    scene::replace(head, source, bytes)
+}
+
+fn prepare_placements(
     cache: &mut Cache,
     root: &Path,
     state: &Value,
     previous_scene: &Path,
-    out: &Path,
-) -> Result<bool> {
+) -> Result<Option<Value>> {
     let Some(previous) = cache.previous("presentation-state") else {
-        return Ok(false);
+        return Ok(None);
     };
     if previous["implementation"] != state["implementation"] || !previous_scene.is_file() {
-        return Ok(false);
+        return Ok(None);
     }
     let mut head = read(previous_scene)?;
     let mut changed = Vec::new();
@@ -150,7 +177,7 @@ pub fn placements(
             continue;
         }
         let bytes = std::fs::read(&path)?;
-        if scene::replace(&mut head, &source, &bytes)? > 0 {
+        if replace_source(&mut head, &source, &bytes)? > 0 {
             changed.push(source);
         }
     }
@@ -190,9 +217,31 @@ pub fn placements(
         }
     }
     if changed.is_empty() {
-        return Ok(false);
+        return Ok(None);
     }
     head["iteration"] = json!({"stage":"placements","complete":false,"changed":changed,"pending":["mechanical geometry","wiring"]});
+    Ok(Some(head))
+}
+
+/// Place unchanged source geometry when its retained baseline can be reconciled without rebuilding.
+pub fn placements(
+    cache: &mut Cache,
+    root: &Path,
+    state: &Value,
+    previous_scene: &Path,
+    out: &Path,
+) -> Result<bool> {
+    let head = match prepare_placements(cache, root, state, previous_scene) {
+        Ok(Some(head)) => head,
+        Ok(None) => return Ok(false),
+        Err(error) => {
+            let _ = writeln!(
+                std::io::stderr(),
+                "[installed-machine] placement preview unavailable: {error:#}"
+            );
+            return Ok(false);
+        }
+    };
     write(out, head)?;
     emit(out, "placements")?;
     Ok(true)
@@ -286,6 +335,46 @@ pub fn remember(
 ) -> Result<()> {
     let bytes = std::fs::read(scene)?;
     state["scene_sha256"] = json!(hsm_model_export::digest(&bytes));
+    let mut head = hsm_geometry::scene::pack(&bytes)?;
+    let imports: Vec<_> = head["sources"]
+        .as_object()
+        .into_iter()
+        .flatten()
+        .filter(|(source, _)| !head["source_inventory"][source.as_str()].is_array())
+        .map(|(source, hash)| (source.clone(), hash.clone()))
+        .collect();
+    for (source, expected) in imports {
+        let update = (|| -> Result<()> {
+            let path = Path::new(&source);
+            if !path.is_file() {
+                return Ok(());
+            }
+            if cache.input_digest(path)?.as_str() != expected.as_str().unwrap_or("") {
+                return Ok(());
+            }
+            let incoming = std::fs::read(path)?;
+            if scene::digest(&incoming) != expected.as_str().unwrap_or("") {
+                return Ok(());
+            }
+            if head["meshes"].as_array().into_iter().flatten().any(|node| {
+                node["source"] == source
+                    && !node["source_sha256"].is_null()
+                    && node["source_sha256"] != expected
+            }) {
+                return Ok(());
+            }
+            replace_source(&mut head, &source, &incoming)?;
+            Ok(())
+        })();
+        if let Err(error) = update {
+            let _ = writeln!(
+                std::io::stderr(),
+                "[installed-machine] retained source inventory unavailable: {error:#}"
+            );
+        }
+    }
+    let bytes = hsm_geometry::scene::encode(&head, &[])?;
+    state["retained_scene_sha256"] = json!(hsm_model_export::digest(&bytes));
     let value = state.clone();
     cache.run(
         "presentation-state",
@@ -302,6 +391,74 @@ pub fn remember(
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    #[test]
+    fn missing_source_inventory_skips_preview_and_current_baseline_retains_inventory() -> Result<()>
+    {
+        struct Restore(Option<std::ffi::OsString>);
+        impl Drop for Restore {
+            fn drop(&mut self) {
+                unsafe {
+                    match &self.0 {
+                        Some(value) => std::env::set_var("HSM_READS", value),
+                        None => std::env::remove_var("HSM_READS"),
+                    }
+                }
+            }
+        }
+        let base = std::env::temp_dir().join(format!(
+            "hsm-preview-inventory-{}-{}",
+            std::process::id(),
+            std::time::SystemTime::now()
+                .duration_since(std::time::UNIX_EPOCH)?
+                .as_nanos()
+        ));
+        std::fs::create_dir_all(&base)?;
+        let _restore = Restore(std::env::var_os("HSM_READS"));
+        let log = base.join("reads.log");
+        std::fs::write(&log, "hsm-reads 1\n")?;
+        unsafe {
+            std::env::set_var("HSM_READS", &log);
+        }
+        let mut cache = Cache::new(&base, &base.join("work"))?;
+        let state = json!({"implementation":cache.implementation(),"items":[]});
+        cache.run("presentation-state", &state, &[], || Ok(state.clone()))?;
+        let source = base.join("part.step.mesh");
+        scene::persist(
+            &source,
+            &json!({"v":4,"meshes":[{"name":"part","asset":"a".repeat(64),"bytes":0,
+            "entries":[{"name":"part","color":[0.1,0.2,0.3]}]}]}),
+        )?;
+        let incoming = std::fs::read(&source)?;
+        let hash = scene::digest(&incoming);
+        let source = source.to_string_lossy().into_owned();
+        let historical = scene::digest(
+            base.join("unavailable historical source")
+                .to_string_lossy()
+                .as_bytes(),
+        );
+        let previous = base.join("previous.step.mesh");
+        let old = json!({"v":4,"sources":{(source.clone()):historical.clone()},"meshes":[{
+            "name":"part","source":source,"source_sha256":historical,"asset":"b".repeat(64),"bytes":0,
+            "entries":[{"name":"part","color":[0.1,0.2,0.3]}]}]});
+        write(&previous, old.clone())?;
+        let output = base.join("output.step.mesh");
+        write(&output, old)?;
+        let before = std::fs::read(&output)?;
+        assert!(!placements(&mut cache, &base, &state, &previous, &output)?);
+        assert_eq!(std::fs::read(&output)?, before);
+
+        let current = json!({"v":4,"sources":{(source.clone()):hash.clone()},"meshes":[{
+            "name":"part","source":source,"source_sha256":hash,"asset":"a".repeat(64),"bytes":0,
+            "entries":[{"name":"part","color":[0.1,0.2,0.3]}]}]});
+        write(&output, current)?;
+        remember(&mut cache, state, &output, &previous)?;
+        let retained = read(&previous)?;
+        assert!(retained["source_inventory"][&source].is_array());
+        drop(cache);
+        std::fs::remove_dir_all(base)?;
+        Ok(())
+    }
 
     #[test]
     fn relative_placements_preserve_mirrored_multisolid_frames() -> Result<()> {
