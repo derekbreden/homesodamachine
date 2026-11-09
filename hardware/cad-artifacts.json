@@ -17,8 +17,8 @@
     "behind": true
   },
   "solids": {
-    "hardware/assembly/scenes/glb/back-half.glb.mesh": "70b143dd96f77fde8b1e6ddac4c3cde3d93ee63261705e51cf6275f2d7ebdcf5",
-    "hardware/assembly/scenes/glb/back-top.glb.mesh": "429b965291bb899c7c9a8ebf8684535105e026e974b5582f6af4eee6036abc76",
+    "hardware/assembly/scenes/glb/back-half.glb.mesh": "0cc0371bf8d5731c028f75eb5ec257e11c21d2ae2d2b3a714fa70b962825a94f",
+    "hardware/assembly/scenes/glb/back-top.glb.mesh": "2025b03979fb65603f78f2d604056fc0ad5f10f0285544e02658852f459e64fe",
     "hardware/assembly/scenes/glb/cap-lid-fill.glb.mesh": "a8c3e10869a2d6fe8096ebca1a1be728d3e09864d4fd97637f3e4bdb9a9939c9",
     "hardware/assembly/scenes/glb/cap-lid.glb.mesh": "7dafd275d2867330638dacd22169c7c7be7f16098bd2219f5fd4d9b7b768932d",
     "hardware/assembly/scenes/glb/cold-core-open.glb.mesh": "250168b59bc7033ef8d427596ee841e742f33a0fa42fbfad0960307d8d2f61ea",
@@ -1618,8 +1618,8 @@
   "sidecars": {},
   "website": {
     "solids": {
-      "hardware/assembly/scenes/glb/back-half.glb.mesh": "70b143dd96f77fde8b1e6ddac4c3cde3d93ee63261705e51cf6275f2d7ebdcf5",
-      "hardware/assembly/scenes/glb/back-top.glb.mesh": "429b965291bb899c7c9a8ebf8684535105e026e974b5582f6af4eee6036abc76",
+      "hardware/assembly/scenes/glb/back-half.glb.mesh": "0cc0371bf8d5731c028f75eb5ec257e11c21d2ae2d2b3a714fa70b962825a94f",
+      "hardware/assembly/scenes/glb/back-top.glb.mesh": "2025b03979fb65603f78f2d604056fc0ad5f10f0285544e02658852f459e64fe",
       "hardware/assembly/scenes/glb/cap-lid-fill.glb.mesh": "a8c3e10869a2d6fe8096ebca1a1be728d3e09864d4fd97637f3e4bdb9a9939c9",
       "hardware/assembly/scenes/glb/cap-lid.glb.mesh": "7dafd275d2867330638dacd22169c7c7be7f16098bd2219f5fd4d9b7b768932d",
       "hardware/assembly/scenes/glb/cold-core-open.glb.mesh": "250168b59bc7033ef8d427596ee841e742f33a0fa42fbfad0960307d8d2f61ea",
@@ -2638,8 +2638,8 @@
     "ff51ef89d27c89ae0ec0555f1adf8cc803b0cf4e90b57b582379347e005f4990"
   ],
   "moved": {
-    "hardware/assembly/scenes/glb/back-half.glb.mesh": 1794197877,
-    "hardware/assembly/scenes/glb/back-top.glb.mesh": 1794197877,
+    "hardware/assembly/scenes/glb/back-half.glb.mesh": 1794197893,
+    "hardware/assembly/scenes/glb/back-top.glb.mesh": 1794197893,
     "hardware/assembly/scenes/glb/cap-lid-fill.glb.mesh": 1794197412,
     "hardware/assembly/scenes/glb/cap-lid.glb.mesh": 1794197412,
     "hardware/assembly/scenes/glb/cold-core-open.glb.mesh": 1794197412,
@@ -4238,11 +4238,11 @@
   },
   "made": {
     "hardware/assembly/scenes/glb/back-half.glb.mesh": {
-      "commit": "5b0dc3b3ea94e6dbdb062b2ba03e196104416255",
+      "commit": "b8bdc89155e2a0584ff647f5e0b040ca38457f26",
       "unproven": true
     },
     "hardware/assembly/scenes/glb/back-top.glb.mesh": {
-      "commit": "5b0dc3b3ea94e6dbdb062b2ba03e196104416255",
+      "commit": "b8bdc89155e2a0584ff647f5e0b040ca38457f26",
       "unproven": true
     },
     "hardware/assembly/scenes/glb/cap-lid-fill.glb.mesh": {
