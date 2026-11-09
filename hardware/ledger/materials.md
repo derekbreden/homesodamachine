@@ -26,6 +26,15 @@ several model files and documents. A numbered assembly describes a coherent unit
 its identity alone makes no promise about separate stocking, sale or replacement.
 Build and service documents establish those meanings and their acceptance scope.
 
+Search favors the object named by the canonical description over connected
+parts that mention it: a water regulator leads its inlet tube and snap cap.
+Variant suffixes supply qualifiers; a supplier-code opening segment uses the
+following descriptive segment to identify its object. Complete names, aliases
+and manufacturer numbers retain their identity value. Human aliases can supply
+an alternate object name, while CAD paths and route aliases remain context.
+Ambiguous peers retain a stable alphabetical order. Browser search and the
+local part finder share this ranking.
+
 ## Names and descriptions
 
 `description` is the canonical material name in search results, BOM rows,
