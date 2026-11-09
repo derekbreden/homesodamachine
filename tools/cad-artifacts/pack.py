@@ -218,7 +218,6 @@ BUNDLED_PAYLOAD_DIRS = (
     "hardware/printed-parts/calibration/soda-studies",
     "hardware/printed-parts/fixtures/tube-insertion",
     "hardware/printed-parts/fixtures/pgfun-positioner",
-    "hardware/printed-parts/enclosure/grip-cover",
     "hardware/printed-parts/enclosure/display-cover",
     "hardware/printed-parts/enclosure/rear-identification",
     "hardware/printed-parts/enclosure/rear-equipment-caps",
