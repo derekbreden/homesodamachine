@@ -63,6 +63,8 @@ test("feature links and component drill-down use the same exported identity on d
       }, key);
       assert.equal(linked.id, "wago-h-well"); assert.ok(linked.count > 0);
       assert.equal(await page.$('.component-explore'),null);
+      if (await page.$eval('.component-panel', panel => panel.classList.contains('collapsed')))
+        await page.click('.component-panel .edge-panel-collapse');
       const point = () => page.evaluate(async key => {
         const { sceneFeature } = await import("/js/viewer/features.js");
         const { THREE, camera, controls, renderer, scene, currentGroup } = window.__hsm;
@@ -143,18 +145,22 @@ test("feature links and component drill-down use the same exported identity on d
           for (const mesh of window.__hsm.currentGroup.children) if(mesh.isMesh) mesh.visible=true;
           (await import('/js/viewer/component-picker.js')).applyHiddenComponents();
         });
-        await page.click('.materials-toggle');
+        if (await page.$eval('.materials-toggle', button => button.getAttribute('aria-expanded') !== 'true'))
+          await page.click('.materials-toggle');
         await page.type('.material-panel .material-search input','HSM-0047');
         await page.waitForFunction(()=>['relay-1','relay-2'].every(name=>[...document.querySelectorAll('.material-panel .material-search-results a')]
-          .some(a=>decodeURIComponent(a.href).includes(`find=solid: ${name}`))));
+          .some(a=>decodeURIComponent(a.href).includes(`instance=${name}`))));
         assert.equal(await page.$$eval('.material-panel .material-search-entry',rows=>rows.length),1);
-        await page.click('.material-panel .material-search-locations > summary');
+        await page.waitForSelector('.material-panel .material-search-locations > summary', { visible: true });
+        await page.$eval('.material-panel .material-search-locations > summary', node => node.click());
         const instances=await page.$$eval('.material-panel .material-search-location',links=>links.map(a=>decodeURIComponent(a.href)));
         assert.equal(new Set(instances).size,2);
         await page.evaluate(()=>[...document.querySelectorAll('.material-panel .material-search-results a')]
-          .find(a=>decodeURIComponent(a.href).includes('find=solid: relay-2')).click());
+          .find(a=>decodeURIComponent(a.href).includes('instance=relay-2')).click());
         await page.waitForFunction(()=>document.querySelector('.component-panel .component-identity')?.textContent.includes('relay-2'));
         assert.match(await page.$eval('.component-panel .component-identity',el=>el.textContent),/relay-2/);
+        if (await page.$eval('.materials-toggle', button => button.getAttribute('aria-expanded') !== 'true'))
+          await page.click('.materials-toggle');
         const search=await page.$('.material-panel .material-search input');
         await search.type(key);
         await page.waitForFunction(key=>[...document.querySelectorAll('.material-panel .material-search-results a')]

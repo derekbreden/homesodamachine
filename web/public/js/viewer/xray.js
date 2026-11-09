@@ -28,6 +28,7 @@
 import { createXrayRenderer } from "./xray-render.js";
 import { state } from "./state.js";
 import { makeToolChip } from "./tool-rail.js";
+import { heldBy } from "/contracts/body-path.js";
 
 const LS_KEY = "step-xray";
 let enabled = (() => {
@@ -35,7 +36,8 @@ let enabled = (() => {
 })();
 const rendering = createXrayRenderer({
   enabled,
-  isMeshVisible: mesh => !(mesh.name && state.hiddenComponents?.has(mesh.name)),
+  isMeshVisible: mesh => ![mesh.name, ...heldBy(mesh.name || "")].some(name =>
+    state.hiddenComponents.has(name) || state.autoHiddenComponents.has(name)),
 });
 
 // These exports also serve STEP thumbnails and the standalone render tools.

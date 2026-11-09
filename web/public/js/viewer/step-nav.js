@@ -120,7 +120,7 @@ function surfaceOfOpen(file) {
   return surfaceText(file, state.mountedDetail && state.mountedDetail.surface);
 }
 
-function syncCrumb(file) {
+function syncCrumb(file, parents = trail) {
   const wrapper = state.currentCadWrapper;
   if (!wrapper) return;
   const context = wrapper.closest(".cad-workspace")?.querySelector(".cad-context") || wrapper;
@@ -139,7 +139,7 @@ function syncCrumb(file) {
     context.appendChild(crumb);
   }
   crumb.textContent = "";
-  trail.forEach((ancestor, i) => {
+  parents.forEach((ancestor, i) => {
     const btn = document.createElement("button");
     btn.type = "button";
     btn.className = "cad-crumb-step";
@@ -169,10 +169,10 @@ function syncCrumb(file) {
 // that bar mounts, and which file the editor writes to. A component step
 // carries the live camera in either direction; every unrelated move takes the
 // camera stored for its file.
-async function showStep(file, push, view = null) {
+async function showStep(file, push, view = null, { preview = false } = {}) {
   const from = state.mountedDetail && state.mountedDetail.file;
   if (!from || file === from) return false;
-  state.materialPanel?.applyRoute();
+  if (!preview) state.materialPanel?.applyRoute();
   saveCameraState(from);
   state.currentDetail = { type: "step", file };
   if (push) {
@@ -203,13 +203,18 @@ async function showStep(file, push, view = null) {
   } else {
     applyCameraState(file);
   }
-  syncCrumb(file);
+  syncCrumb(file, preview ? [] : trail);
   if (state.currentCadWrapper) {
     mountScorecard(state.currentCadWrapper, file);
-    mountRelated(state.currentCadWrapper, file, trail);
+    mountRelated(state.currentCadWrapper, file, preview ? [] : trail);
   }
   probeEditor(file);
   return true;
+}
+
+// A location preview changes the existing canvas without navigating away from its material.
+export async function previewStep(file) {
+  return showStep(file, false, null, { preview: true });
 }
 
 async function drill(file, view = null) {
@@ -306,6 +311,7 @@ export async function jumpToStep(file) {
   legs = [];
   const moved = await showStep(file, false);
   if (moved) history.replaceState(null, "", "#" + stepHash([file]));
+  else syncCrumb(file);
   return moved;
 }
 

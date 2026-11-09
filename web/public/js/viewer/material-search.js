@@ -1,7 +1,8 @@
 // Material search presents canonical records with contextual model actions and construction features.
 import { state } from "./state.js";
-import { searchCatalog, materialIndex, bomCounts, bomCountText, materialForFile, explodeBom, occurrenceBodies } from "/contracts/materials.js";
-import { instanceBody, instanceLabel, matchFeatures } from "/contracts/features.js";
+import { searchCatalog, materialIndex, bomCounts, bomCountText, materialForFile } from "/contracts/materials.js";
+import { instanceLabel, matchFeatures } from "/contracts/features.js";
+import { instancesInScene } from "/contracts/material-instances.js";
 import { sceneFeatures, featureUrl } from "./features.js";
 import { COST_KINDS } from "/contracts/part-costs.js";
 import { openMaterial, materialHash } from "./material-nav.js";
@@ -45,22 +46,14 @@ export function makeMaterialSearch({ compact = false } = {}) {
     destination.append(link);
     return link;
   }
-  function installedAction(file, text, label, destination, selection = null) {
-    const link = result(`/3d#step:${encodeURIComponent(file)}?find=${encodeURIComponent(text)}`, label, null, async () => {
-      if (state.mountedDetail?.file !== file) {
-        location.hash = `step:${encodeURIComponent(file)}?find=${encodeURIComponent(text)}`; return;
-      }
-      const { selectComponent, clearComponentSelection } = await import("./component-picker.js");
-      if (selection) selectComponent(selection);
-      else {
-        clearComponentSelection();
-        const { clearHighlight } = await import("./part-highlight.js"); clearHighlight();
-      }
-      const { findWhenMounted } = await import("./pick-find.js"); findWhenMounted(file, text);
-    }, destination);
-    return link;
+  function installedAction(assembly, instance, label, destination) {
+    const view = { instance: instance.name };
+    return result(`/3d#${materialHash(assembly, view)}`, label, null,
+      () => openMaterial(assembly, true, view), destination);
   }
   function update() {
+    const expanded = new Set([...results.querySelectorAll('.material-search-locations[open]')]
+      .map(node => node.closest('.material-search-entry').dataset.material));
     results.replaceChildren();
     const query = input.value.trim();
     results.hidden = !query;
@@ -99,28 +92,19 @@ export function makeMaterialSearch({ compact = false } = {}) {
         if (owner?.kind === "assembly") {
           const names = state.currentGroup ? [...new Set(state.currentGroup.children.filter(mesh => mesh.userData?.side === "front").map(mesh => mesh.name))] : remote.instances;
           const options = { finish: state.faucetFinish };
-          const rows = explodeBom(state.materialCatalog, owner.id, options).filter(row => row.material.id === m.id);
-          const instances = [...new Set(rows.flatMap(row => occurrenceBodies(state.materialCatalog, row.path, names, options)))];
+          const instances = instancesInScene(state.materialCatalog, owner.id, m.id, names, options);
           if (instances.length) {
-            // BOM quantities distinguish repeated parts from several solids representing a part.
-            const quantity = rows.every(row => row.item.unit === "ea" && Number.isSafeInteger(row.quantity))
-              ? rows.reduce((sum, row) => sum + row.quantity, 0) : null;
-            const groups = new Map();
-            for (const name of instances) {
-              const body = instanceBody(name);
-              if (!groups.has(body)) groups.set(body, []);
-              groups.get(body).push(name);
-            }
-            if (quantity > 1 && groups.size === quantity) {
+            if (instances.length > 1) {
               const locations = document.createElement("details"); locations.className = "material-search-locations";
+              locations.open = expanded.has(m.id);
               const summary = document.createElement("summary"); summary.textContent = `Show installed locations in ${owner.description}`;
               locations.append(summary);
-              for (const [body, bodies] of [...groups].sort(([a], [b]) => a.localeCompare(b))) {
-                installedAction(file, bodies.map(name => `solid: ${name}`).join("\n"), instanceLabel(body), locations, body).classList.add("material-search-location");
+              for (const instance of instances) {
+                installedAction(owner.id, instance, instance.label, locations).classList.add("material-search-location");
               }
               entry.append(locations);
             } else {
-              installedAction(file, m.id, `Show in ${owner.description}`, entry).classList.add("material-search-installed");
+              installedAction(owner.id, instances[0], `Show in ${owner.description}`, entry).classList.add("material-search-installed");
             }
           }
         }

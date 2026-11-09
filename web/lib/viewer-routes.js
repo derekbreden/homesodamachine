@@ -16,6 +16,7 @@ import { websitePointers } from "../contracts/artifact-scope.js";
 import { RETIRED_MARKER } from "./retired.js";
 import { madeFrom } from "./made-from.js";
 import { featureCatalog } from "./feature-catalog.js";
+import { materialInstances } from "./material-instances.js";
 
 const relOf = (req) => req.params.splat.join("/");
 
@@ -80,6 +81,15 @@ export function mountViewerRoutes(app, { hardwareDir, store, pointersPath }) {
     try { catalog.costs = readPartCosts(hardwareDir, catalog); } catch { catalog.costs = null; }
     try { catalog.stock = readMaterialStock(hardwareDir, catalog); } catch { catalog.stock = null; }
     res.json(catalog);
+  });
+
+  app.get("/api/material-instances/:material", (req, res) => {
+    res.set("Cache-Control", "no-cache");
+    try {
+      const catalog = readMaterialCatalog(hardwareDir);
+      if (!catalog.materials.some(material => material.id === req.params.material)) return res.status(404).end();
+      res.json(materialInstances(hardwareDir, catalog, req.params.material, { finish: req.query.finish || "black" }));
+    } catch { res.status(503).json({ error: "Installed locations unavailable" }); }
   });
 
   app.get("/api/features", async (req, res) => {

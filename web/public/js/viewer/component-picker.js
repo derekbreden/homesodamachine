@@ -44,6 +44,7 @@ let enabled = (() => {
 })();
 
 let selection = null;   // selected component name, or null
+let selectionBodies = null; // the bodies of a compound installed unit
 let hoverName = null;   // hovered component name, or null
 
 // The model on screen, and the bare name of a file the drill-down could reach.
@@ -74,6 +75,10 @@ function insideOpenedPart(body) {
 function hiddenKey(file) { return `step-hidden:${file}`; }
 
 export function loadHiddenForFile(file) {
+  if (state.autoHiddenFile !== file) {
+    state.autoHiddenComponents.clear();
+    state.autoHiddenFile = file;
+  }
   let names = [];
   try {
     const raw = localStorage.getItem(hiddenKey(file));
@@ -117,6 +122,7 @@ export function applyHiddenComponents() {
   }
   invalidateAllEdgesLayer(); // the edge picker's faint all-edges layer must drop hidden solids
   refreshHighlight(); // a selection picks out only what is still drawn
+  if (selection) drawOverlay(selGroup, selection, SEL, selEdgeMat, 0.18);
   refreshPanel();
 }
 
@@ -171,6 +177,7 @@ export function membersOf(group) {
 // stored set is neither written nor cleared, which also makes `isolateComponent(null, …)` a
 // restore to "nothing hidden" that gives them their own saved view back on the next load.
 export function isolateComponent(name, { persist = true } = {}) {
+  state.autoHiddenComponents.clear();
   if (!name) {
     state.hiddenComponents = new Set();
   } else {
@@ -187,10 +194,10 @@ export function isolateComponent(name, { persist = true } = {}) {
   applyHiddenComponents();
 }
 
-/** Whether `name` is hidden outright or stands inside something that is. *//** Whether `name` is hidden outright or stands inside something that is. */
-function standsHidden(name) {
-  if (state.hiddenComponents.has(name)) return true;
-  return heldBy(name).some((held) => state.hiddenComponents.has(held));
+/** Whether `name` is hidden outright or stands inside something that is. */
+export function standsHidden(name) {
+  return [name, ...heldBy(name)].some(held =>
+    state.hiddenComponents.has(held) || state.autoHiddenComponents.has(held));
 }
 
 // One overlay Group per role so we can rebuild each independently.
@@ -213,9 +220,10 @@ function drawOverlay(g, name, color, edgeMat, shellOpacity) {
   if (!name || !state.currentGroup) return;
   const seen = new Set();
   const feature = sceneFeature(name);
+  const members = g === selGroup && selectionBodies ? selectionBodies : [componentBody(name)];
   // A sub-assembly lights up as the whole of what it holds.
   for (const mesh of state.currentGroup.children) {
-    if (!mesh.isMesh || !standsIn(mesh.name, componentBody(name)) || mesh.visible === false
+    if (!mesh.isMesh || !members.some(body => standsIn(mesh.name, body)) || mesh.visible === false
         || seen.has(mesh.geometry)) continue;
     seen.add(mesh.geometry);
     mesh.updateWorldMatrix(true, false);
@@ -265,9 +273,10 @@ function pickComponent(clientX, clientY) {
 }
 
 // --- selection + hover ---
-export function selectComponent(name) {
+export function selectComponent(name, { members = null } = {}) {
   const feature = sceneFeature(name);
   selection = name;
+  selectionBodies = members?.length ? [...members] : null;
   drawOverlay(selGroup, name, SEL, selEdgeMat, 0.18);
   setHover(null);
   showPanel();
@@ -278,6 +287,7 @@ export function selectComponent(name) {
 
 function clearSelectionOverlay() {
   selection = null;
+  selectionBodies = null;
   disposeGroup(selGroup);
 }
 
@@ -339,7 +349,9 @@ function buildPanel() {
   close.addEventListener("click", deselect);
   head.appendChild(title);
   head.appendChild(nameEl);
-  head.appendChild(makePanelCollapse(panel, "step-component-panel-collapsed"));
+  head.appendChild(makePanelCollapse(panel, "step-component-panel-collapsed", {
+    defaultCollapsed: matchMedia("(max-width: 700px)").matches,
+  }));
   head.appendChild(close);
   panel.appendChild(head);
   panel._nameEl = nameEl;
@@ -379,7 +391,7 @@ function buildPanel() {
   hideBtn.textContent = "Hide component";
   hideBtn.addEventListener("click", () => {
     if (!selection) return;
-    state.hiddenComponents.add(selection);
+    for (const name of selectionBodies || [selection]) state.hiddenComponents.add(name);
     persistHidden();
     clearSelectionOverlay();
     applyHiddenComponents();
@@ -509,7 +521,7 @@ function showPanel() {
   // Hidden list.
   const hidden = panel._hidden;
   hidden.textContent = "";
-  const names = [...state.hiddenComponents].sort();
+  const names = [...new Set([...state.hiddenComponents, ...state.autoHiddenComponents])].sort();
   if (names.length) {
     const head = document.createElement("div");
     head.className = "component-hidden-head";
@@ -521,6 +533,7 @@ function showPanel() {
     showAll.textContent = "Show all";
     showAll.addEventListener("click", () => {
       state.hiddenComponents.clear();
+      state.autoHiddenComponents.clear();
       persistHidden();
       applyHiddenComponents();
     });
@@ -545,6 +558,7 @@ function showPanel() {
       show.textContent = "Show";
       show.addEventListener("click", () => {
         state.hiddenComponents.delete(name);
+        state.autoHiddenComponents.delete(name);
         persistHidden();
         applyHiddenComponents();
       });
