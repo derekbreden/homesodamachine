@@ -1507,7 +1507,7 @@
     "hardware/reference/jhyossthi-pogo-dock/pogo-dock-male.step": "766f08b3bdeb6aba77e3e26446530465d9c3225e896a2d57fed004bc326349e0",
     "hardware/reference/jhyossthi-pogo-dock/pogo-dock-male.step.mesh": "a72c10795668b4ea7968352c019b44d46a726e52e1e18f666227cc6bab74770b",
     "hardware/reference/kamoer-kphm400/kamoer-kphm400.step": "2766be3508be59bb44c34a31b83fd33bcba6fba836da874e66e9370628ae922b",
-    "hardware/reference/kamoer-kphm400/kamoer-kphm400.step.mesh": "2636733585887b6b52c8de11d4c13594a1983fac0a98fac47d0d308d04cb098c",
+    "hardware/reference/kamoer-kphm400/kamoer-kphm400.step.mesh": "892a84e81935e5f30a26fad033e41b2eb336ad4bbeae464db33b6831a14abc13",
     "hardware/reference/kamoer-kphm400/kamoer-kphm400.step.npz": "7da8ebf4e499daab25d7c4a8754307235677e6b323df9c0696ddb5c4b9ea9364",
     "hardware/reference/meanwell-irm90/meanwell-irm90.fine.step.npz": "366ce6d9869a8a33efc07478d5350abe74597acf84756dd9deb8dbd188b2a42a",
     "hardware/reference/meanwell-irm90/meanwell-irm90.step": "27cc1e5c3f5bf010f6df8a15a4b9b96dfef7b3836eee4905347e8a0035d033d7",
@@ -2116,7 +2116,7 @@
       "hardware/reference/jg-pp061208w/jg-pp061208w.step": "5b9d3c1bba5bc098056a0a8395ddb260188dabfcf9152460b5f39855cb8c13af",
       "hardware/reference/jg-pp061208w/jg-pp061208w.step.mesh": "ddfaeee1030c20712e78e7f7cad4bf5ab9f394e0fd321b9a5d81ee9577ad88fc",
       "hardware/reference/kamoer-kphm400/kamoer-kphm400.step": "2766be3508be59bb44c34a31b83fd33bcba6fba836da874e66e9370628ae922b",
-      "hardware/reference/kamoer-kphm400/kamoer-kphm400.step.mesh": "2636733585887b6b52c8de11d4c13594a1983fac0a98fac47d0d308d04cb098c",
+      "hardware/reference/kamoer-kphm400/kamoer-kphm400.step.mesh": "892a84e81935e5f30a26fad033e41b2eb336ad4bbeae464db33b6831a14abc13",
       "hardware/reference/meanwell-irm90/meanwell-irm90.step": "27cc1e5c3f5bf010f6df8a15a4b9b96dfef7b3836eee4905347e8a0035d033d7",
       "hardware/reference/meanwell-irm90/meanwell-irm90.step.mesh": "5daca63d8261f4dd722024eee72dee2359c0d9f65dd54ae7ef37012f891ce4a4",
       "hardware/reference/mq6-gas-sensor/mq6-gas-sensor.step": "b3707fb5112ceee44ed47d0b1c1adeed17979ec6e06f187009d2eaee0c740ee1",
@@ -4092,7 +4092,7 @@
     "hardware/reference/jhyossthi-pogo-dock/pogo-dock-male.step": 1788350303,
     "hardware/reference/jhyossthi-pogo-dock/pogo-dock-male.step.mesh": 1793568839,
     "hardware/reference/kamoer-kphm400/kamoer-kphm400.step": 1794260749.220649,
-    "hardware/reference/kamoer-kphm400/kamoer-kphm400.step.mesh": 1794260719.0262258,
+    "hardware/reference/kamoer-kphm400/kamoer-kphm400.step.mesh": 1794267445.2022579,
     "hardware/reference/kamoer-kphm400/kamoer-kphm400.step.npz": 1794260749.220649,
     "hardware/reference/meanwell-irm90/meanwell-irm90.fine.step.npz": 1793697604,
     "hardware/reference/meanwell-irm90/meanwell-irm90.step": 1787354099,
@@ -6763,7 +6763,7 @@
       "unproven": true
     },
     "hardware/reference/kamoer-kphm400/kamoer-kphm400.step.mesh": {
-      "commit": "98db6bd621c81739c6872155b3c7f9e5485599b8",
+      "commit": "47dea4d074b9376a2939f4e7a0c0b0e74429bb05",
       "unproven": true
     },
     "hardware/reference/kamoer-kphm400/kamoer-kphm400.step.npz": {
