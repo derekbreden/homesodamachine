@@ -133,17 +133,22 @@ export function mountFlavorPath(wrapper, chips) {
     for (const mesh of mountedGroup.children) {
       if (mesh.userData.side !== "front" || !wanted.has(mesh.name)) continue;
       found.add(mesh.name);
+      mesh.updateWorldMatrix(true, false);
       const tube = TUBES.has(mesh.name);
       const shell = new THREE.Mesh(mesh.geometry, new THREE.MeshBasicMaterial({
         color: COLOR, transparent: true, opacity: tube ? 1 : 0.20,
         depthTest: false, depthWrite: false, side: THREE.DoubleSide,
       }));
       shell.name = mesh.name;
+      shell.matrixAutoUpdate = false;
+      shell.matrix.copy(mesh.matrixWorld);
       shell.renderOrder = tube ? 992 : 990;
       overlay.add(shell);
       if (!tube) {
         const edge = new THREE.LineSegments(new THREE.EdgesGeometry(mesh.geometry, 30),
           new THREE.LineBasicMaterial({ color: COLOR, transparent: true, opacity: 0.8, depthTest: false, depthWrite: false }));
+        edge.matrixAutoUpdate = false;
+        edge.matrix.copy(mesh.matrixWorld);
         edge.renderOrder = 991;
         overlay.add(edge);
       }
