@@ -1367,6 +1367,13 @@
       "lab_service_worker_installed": false
     },
     "page_errors": [],
-    "timing_scope": "Interaction observations from this device and shared-host run, including the command and following browser frames; design loading evaluates the native source."
+    "timing_scope": "Interaction observations from this device and shared-host run, including the command and following browser frames; design loading evaluates the native source.",
+    "camera_restore": {
+      "checked_at": "2026-11-09T01:09:46.428Z",
+      "controller_sha256": "9ee68011124e62fe3ab8603495fa34a788cccccfa201cfa65c13d1d4912b6d44",
+      "scope": "Candidate controller with the published native runtime",
+      "different_viewport_refits": true,
+      "same_viewport_preserves_adjusted_camera": true
+    }
   }
 }
