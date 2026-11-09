@@ -34,6 +34,26 @@ test("feature links and component drill-down use the same exported identity on d
             loading: document.querySelector(".cad-loading")?.textContent }));
           throw new Error(`${error.message}: ${JSON.stringify({ state, errors })}`);
         });
+      if (file==='manifold-layout/enclosure-assembly.step') {
+        await page.evaluate(async()=>{
+          const {state}=await import('/js/viewer/state.js');
+          const picker=await import('/js/viewer/component-picker.js');
+          picker.clearComponentPicker();
+          state.hiddenComponents=new Set(['enclosure-back-bottom','enclosure-front-bottom','cold-core/foam-shell']);
+          picker.applyHiddenComponents();
+        });
+        assert.equal(await page.$eval('.component-panel',el=>/\bholds\b/i.test(el.innerText)),false);
+        assert.equal(await page.$$eval('.component-hidden-row',rows=>rows.length),3);
+        if(output) {
+          fs.mkdirSync(output,{recursive:true});
+          await page.screenshot({path:path.join(output,`${viewport.width}-hidden.png`)});
+        }
+        await page.evaluate(async()=>{
+          const {state}=await import('/js/viewer/state.js');
+          state.hiddenComponents.clear();
+          (await import('/js/viewer/component-picker.js')).applyHiddenComponents();
+        });
+      }
       const linked = await page.evaluate(async key => {
         const { sceneFeature } = await import("/js/viewer/features.js");
         const { selectComponent, setComponentPickEnabled } = await import("/js/viewer/component-picker.js");
@@ -86,11 +106,8 @@ test("feature links and component drill-down use the same exported identity on d
       },point);
       assert.equal((await pick()).feature,undefined);
       await page.click(".component-explore");
-      const rows = await page.$$eval(".component-holds-row", rows => rows.map(row => row.title));
-      assert.ok(rows.includes(key));
+      assert.equal(await page.$eval('.component-panel',el=>/\bholds\b/i.test(el.innerText)),false);
       assert.equal((await pick()).feature,'wago-h-well');
-      await page.evaluate(async () => (await import('/js/viewer/component-picker.js')).selectComponent('enclosure-back-top'));
-      await page.evaluate(key => [...document.querySelectorAll(".component-holds-row")].find(row => row.title === key).click(), key);
       assert.match(await page.$eval(".component-panel .edge-panel-file", el => el.textContent), /connector well/i);
       assert.ok(await page.$eval('.component-held-here',el=>el.getBoundingClientRect().width>80));
       assert.equal(await page.$eval(".component-copy", el => el.textContent), "Copy feature link");
