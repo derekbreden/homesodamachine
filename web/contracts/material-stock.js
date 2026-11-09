@@ -49,7 +49,8 @@ export function planMaterial(catalog, id, quantity = 1, options = {}) {
       resourceRow.uses.add(materialId);
       resourceRow.estimated ||= Boolean(input.estimated);
       if (Number.isFinite(input.quantity) && input.quantity >= 0) {
-        if (input.mode === "kit") resourceRow.kit[materialId] = (resourceRow.kit[materialId] || 0) + remaining * input.quantity;
+        if (input.mode === "reusable") resourceRow.reusable = Math.max(resourceRow.reusable || 0, input.quantity);
+        else if (input.mode === "kit") resourceRow.kit[materialId] = (resourceRow.kit[materialId] || 0) + remaining * input.quantity;
         else resourceRow.needed += remaining * input.quantity;
       }
       else resourceRow.quantityKnown = false;
@@ -65,7 +66,7 @@ export function planMaterial(catalog, id, quantity = 1, options = {}) {
   need(id, quantity, new Set());
   const supplies = [...resources.values()].map(row => {
     const resource = stock.resources[row.resource] || {};
-    row.needed += Math.max(0, ...Object.values(row.kit));
+    row.needed += Math.max(0, ...Object.values(row.kit)) + (row.reusable || 0);
     if (["ea", "pieces", "piece", "sets", "set", "caps", "collars", "rods", "coil cuts"].includes(resource.unit))
       row.needed = Math.ceil(row.needed - EPSILON);
     const available = Number.isFinite(resource.onHand) ? Math.max(0, resource.onHand - (resource.reserved || 0)) : null;

@@ -32,6 +32,9 @@ quote separately; those requirements are excluded from the quoted amount.
 Stock units and supplier lots describe the same physical quantity. Requirements
 whose usable cutting yield or size allocation remains unresolved retain their
 explicit planning allowance and uncertainty.
+Reusable equipment supplies the batch without being consumed. A provisional
+purchase reserve scales with unmet material demand before supplier lots are
+selected, so completed-stock credits reduce the reserve too.
 
 The forecast separates merchandise, delivered-price allowances, inbound freight,
 tax reserves, possible remaining payments, shop supplies and planned attended
