@@ -3,14 +3,15 @@
 Format: facts only. Direct quotes from Derek where applicable. Settings observed in
 committed `.3mf` snapshots.
 
-The PET-GF trim belongs to the textured PEI plate. PETG on the glued Engineering
-Plate uses no Z offset; its emitted command is recorded with the native print archive.
+The PET-GF trim belongs to the textured PEI plate. Each PETG Engineering Plate
+recipe records its emitted trim with its native print archive.
 Derek: *"No. That should be documented as for pet-gf on textured plate."*
 
-The [identification-set right-side clearance trial](enclosure/display-cover/prints/2026-11-08-identification-set-mark1-right-z005/review.json)
-overrides that baseline while a right-side filament prints. Its filament hooks
-drain queued motion before setting the trim and restore the baseline before
-tool changes and maintenance. The left-side filament retains the baseline.
+The [accepted identification-set print](enclosure/display-cover/prints/2026-11-08-identification-set-mark1-right-z005/physical-result.json)
+owns the right-side clearance setting for its PETG, plate and nozzle setup. It
+applies its clearance while a right-side filament prints. Its filament hooks
+drain queued motion before setting the trim and clear it before tool changes and
+maintenance. The left-side filament retains zero trim.
 
 The H2C sets its first-layer height with `G29.1 Z<mm>`, a firmware z-trim the machine start
 G-code writes once per print, cleared to zero at the top of the block and set again by plate

@@ -1,0 +1,15 @@
+{
+  "purpose": "Define the side-to-side CO2 chip fit trials without changing the bore, lettering or thickness.",
+  "source": "hardware/printed-parts/enclosure/rear-identification/rear-label-co2.step.npz",
+  "span_axis": "local and installed X; between the retaining rails",
+  "variants": [
+    {
+      "id": "A",
+      "per_side_reduction_mm": 0.15
+    },
+    {
+      "id": "B",
+      "per_side_reduction_mm": 0.3
+    }
+  ]
+}
