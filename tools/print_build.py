@@ -94,6 +94,54 @@ def carry_file(source, target):
         temporary.unlink(missing_ok=True)
 
 
+def unchanged_checkpoint(source, target):
+    """Non-final shared-scene status changes retain the already held scene and its identity."""
+    def scene(path):
+        with path.open('rb') as file:
+            size=file.read(4)
+            if len(size)!=4:return None
+            head=json.loads(file.read(int.from_bytes(size,'little')))
+            if not isinstance(head,dict) or head.get('v')!=4 or file.read(1):return None
+            return head
+    try:
+        incoming=scene(source);held=scene(target)
+    except (OSError,ValueError,TypeError):
+        return False
+    if incoming is None or held is None:return False
+    status=incoming.get('iteration')
+    if isinstance(status,dict) and status.get('complete'):return False
+    return ({key:value for key,value in incoming.items() if key!='iteration'}==
+            {key:value for key,value in held.items() if key!='iteration'})
+
+
+class PublicationQueue:
+    """Publish the first completed output immediately and coalesce later outputs until its child finishes."""
+    def __init__(self, start):
+        self.start=start;self.active=None;self.pending=False
+        self.requests=0;self.started=0;self.coalesced=0;self.codes=[]
+
+    def request(self):
+        self.requests+=1
+        if self.active is not None and self.active.poll() is None:self.coalesced+=1
+        self.pending=True
+        self.poll()
+
+    def poll(self):
+        if self.active is not None:
+            code=self.active.poll()
+            if code is not None:
+                self.codes.append(code);self.active=None
+        if self.active is None and self.pending:
+            self.active=self.start()
+            self.pending=False;self.started+=1
+
+    def drain(self):
+        while self.active is not None or self.pending:
+            self.poll()
+            if self.active is not None:self.active.wait()
+        return list(self.codes)
+
+
 class Publications:
     """Completed outputs request publication when their bytes have not reached the served pointer."""
     def __init__(self, root):
@@ -124,7 +172,7 @@ def main():
     events=run/'events.jsonl'
     # One admitted run carries its lease through the build and the required viewer work.
     command=[sys.executable,str(ROOT/'tools/run.py'),'--','bazel','build','--keep_going','--build_event_publish_all_actions',f'--build_event_json_file={events}',*(args or ['//:everything'])]
-    started=time.monotonic();made=[];publishers=[]
+    started=time.monotonic();made=[];publishers=[];suppressed=[]
     graph=json.loads((ROOT/'tools/bazel/graph.json').read_text())
     outputs={output for row in graph.values() for output in row.get('writes',[])}
     publication=Publications(ROOT)
@@ -132,8 +180,17 @@ def main():
     progress=Progress(ROOT/'.cache/realized/print-build-progress.jsonl')
     process=None;preview=[]
     seen=set();sets={};pending=[]
+    def start_publication():
+        log=(run/f'publish-{len(publishers)}.log').open('w')
+        try:
+            child=subprocess.Popen([str(ROOT/'tools/cad-venv/bin/python'),str(ROOT/'tools/publish_now.py')],cwd=ROOT,stdout=log,stderr=subprocess.STDOUT,**_run_slots.subprocess_kwargs())
+        finally:
+            log.close()
+        publishers.append(child)
+        return child
+    publishing=PublicationQueue(start_publication)
     def carry(files,stage=None):
-        moved=[];ready=[]
+        moved=[];ready=[];status_only=[]
         for entry in files:
             name=entry.get('name','')
             if name not in outputs:
@@ -145,6 +202,8 @@ def main():
             if not source.is_file():continue
             target=ROOT/name
             changed=not(target.is_file() and filecmp.cmp(source,target,shallow=False))
+            if changed and stage and name.endswith('.mesh') and unchanged_checkpoint(source,target):
+                status_only.append(name);changed=False
             if changed:
                 carry_file(source,target);moved.append(name)
             if publication.needs(name,target,changed):ready.append(name)
@@ -154,6 +213,8 @@ def main():
                 if head.get('step_export') is False or name.endswith('.glb.mesh'):
                     old=Path(str(target)[:-5])
                     if old.is_file():old.unlink()
+        if status_only:
+            suppressed.append({'seconds':time.monotonic()-started,'stage':stage,'files':status_only})
         if moved or ready:
             made.append({'seconds':time.monotonic()-started,'wall_time_ns':time.time_ns(),'files':moved,
                          'publication':ready,
@@ -161,9 +222,7 @@ def main():
             if moved:print('[print-build] carried '+', '.join(moved),flush=True)
             elif ready:print('[print-build] completed outputs await publication: '+', '.join(ready),flush=True)
         if ready:
-            log=(run/f'publish-{len(publishers)}.log').open('w')
-            child=subprocess.Popen([str(ROOT/'tools/cad-venv/bin/python'),str(ROOT/'tools/publish_now.py')],cwd=ROOT,stdout=log,stderr=subprocess.STDOUT,**_run_slots.subprocess_kwargs())
-            log.close();publishers.append(child)
+            publishing.request()
     def files_for(key,visiting=None):
         visiting=set() if visiting is None else visiting
         if key in visiting:return []
@@ -233,6 +292,7 @@ def main():
         process=subprocess.Popen(command,cwd=ROOT,**_run_slots.subprocess_kwargs())
         while process.poll() is None or (events.exists() and stream is None):
             checkpoints()
+            publishing.poll()
             if stream is None and events.exists():stream=events.open()
             if stream:
                 text=stream.read()
@@ -246,8 +306,9 @@ def main():
                 if line.strip():event(json.loads(line))
         checkpoints()
         code=process.wait()
-        publications=[publisher.wait() for publisher in publishers]
-        (run/'result.json').write_text(json.dumps({'purpose':'This record identifies each completed producer carried during the print build.','success':code==0 and not any(publications),'wall_seconds':time.monotonic()-started,'preview':preview,'checkpoint_errors':progress.errors,'carried':made},indent=2)+'\n')
+        publications=publishing.drain()
+        (run/'result.json').write_text(json.dumps({'purpose':'This record identifies each completed producer carried during the print build.','success':code==0 and not any(publications),'wall_seconds':time.monotonic()-started,'preview':preview,'checkpoint_errors':progress.errors,'carried':made,
+            'suppressed_checkpoints':suppressed,'publication_queue':{'requests':publishing.requests,'started':publishing.started,'coalesced':publishing.coalesced,'exit_codes':publications}},indent=2)+'\n')
         events.unlink(missing_ok=True)
         return code or (1 if any(publications) else 0)
     finally:
