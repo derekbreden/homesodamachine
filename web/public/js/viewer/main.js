@@ -63,6 +63,7 @@ export async function fetchFiles() {
     fetch("/api/materials").catch(() => null),
   ]);
   state.materialCatalog = materialResp?.ok ? await materialResp.json() : null;
+  state.materialCatalogTag = materialResp?.ok ? materialResp.headers.get("ETag") : null;
   // Where each model's bytes are on the store, when the store has a public address; empty
   // otherwise, and every loader reads this site's own routes.
   state.memberUrls.clear();

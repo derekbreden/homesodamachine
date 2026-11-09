@@ -9,10 +9,12 @@ import { launchBrowser, closeBrowser, closeServer } from "../../../tools/render/
 const machine = "manifold-layout/enclosure-assembly.step";
 // Panel layout checks reuse the loaded assembly between installed selections.
 const focusTabs = process.env.HSM_LOCATIONS_BROWSER_FOCUS === 'tabs';
+const recordsOnly = process.env.HSM_LOCATIONS_BROWSER_FOCUS === 'records';
 const waitReady = page => page.waitForFunction(() => window.__hsm?.currentGroup && !window.__hsm.currentGroup.userData.sceneLoading, { timeout: 45000 });
 const settle = page => page.evaluate(() => new Promise(resolve => setTimeout(resolve, 650)));
 
-test("locations preview compounds and repeated copies, preserve selection and hide only obstructions", async () => {
+test(recordsOnly ? "material record trees and combined sections retain their state through refreshes"
+  : "locations preview compounds and repeated copies, preserve selection and hide only obstructions", async () => {
   const { server } = process.env.HSM_LOCATIONS_BROWSER_BASE ? {} : await start({ dev: false, port: 0 });
   const origin = process.env.HSM_LOCATIONS_BROWSER_BASE || `http://127.0.0.1:${server.address().port}`;
   const output = process.env.HSM_LOCATIONS_BROWSER_OUTPUT;
@@ -45,6 +47,22 @@ test("locations preview compounds and repeated copies, preserve selection and hi
         assert.equal(await page.$eval('.material-tree-focus', node => node.dataset.material), 'HSM-0331');
         assert.deepEqual(await page.$$eval('.material-structure > section', nodes => nodes.map(node => node.getAttribute('aria-label'))), ['Where used', 'BOM']);
         assert.equal(await page.$('.material-assembly-records'), null);
+        assert.ok(await page.evaluate(async () => {
+          const {state}=await import('/js/viewer/state.js');
+          const {HSM_EVENTS}=await import('/contracts/client-events.js');
+          const before=document.querySelector('.material-tree-focus');
+          window.dispatchEvent(new CustomEvent(HSM_EVENTS.STEP_MOUNTED,{detail:{file:state.mountedDetail.file,complete:false}}));
+          if(before!==document.querySelector('.material-tree-focus')) return false;
+          state.materialCatalog={...state.materialCatalog};
+          state.materialPanel.sync();
+          if(!state.materialCatalogTag || before!==document.querySelector('.material-tree-focus')) return false;
+          const tag=state.materialCatalogTag;
+          state.materialCatalogTag=tag+'-changed';
+          state.materialPanel.sync();
+          const changed=before!==document.querySelector('.material-tree-focus');
+          state.materialCatalogTag=tag; state.materialPanel.sync();
+          return changed;
+        }), 'Unchanged records retain their tree while mesh updates and refetches arrive');
         await capture('pisco-structure');
         await page.click('.material-tabs [data-tab="stock-cost"]');
         assert.deepEqual(await page.$$eval('.material-tab-content > section', nodes => nodes.map(node => node.getAttribute('aria-label'))), ['Stock', 'Cost']);
@@ -57,6 +75,15 @@ test("locations preview compounds and repeated copies, preserve selection and hi
         await page.evaluate(async () => (await import('/js/viewer/state.js')).state.materialPanel.applyRoute({tab:'cost',panel:'materials'}));
         await settle(page);
         assert.equal(await page.$eval('.material-tabs [aria-selected="true"]', node => node.dataset.tab), 'stock-cost');
+        if (recordsOnly) {
+          await page.evaluate(async () => (await import('/js/viewer/state.js')).state.materialPanel.applyRoute({tab:'used',panel:'materials'}));
+          await settle(page);
+          assert.equal(await page.$eval('.material-tabs [aria-selected="true"]', node => node.dataset.tab), 'structure');
+          assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));
+          assert.deepEqual(errors, []);
+          results.push({width:viewport.width,records:true});
+          continue;
+        }
         await page.click('.material-tabs [data-tab="location"]');
         await page.waitForFunction(machine => window.__hsm?.mountedStepFile === machine
           && !window.__hsm.currentGroup.userData.sceneLoading
@@ -132,9 +159,7 @@ test("locations preview compounds and repeated copies, preserve selection and hi
         assert.equal(await page.$('.bom-own'), null);
         await page.evaluate(async () => (await import('/js/viewer/material-nav.js')).openMaterial('HSM-0559', true, { panel: 'materials', tab: 'structure' }));
         await capture('pisco-assembly-tree');
-        const row = await page.evaluateHandle(() => [...document.querySelectorAll('.bom-select')].find(row => row.textContent.includes('HSM-0331')));
-        assert.ok(row?.asElement());
-        await row.asElement().click();
+        await page.locator('.bom-select').filter(node => node.textContent.includes('HSM-0331')).click();
         await settle(page);
         await page.click('.materials-toggle');
         await page.waitForFunction(() => document.querySelector('.component-panel.show .component-body-name')?.textContent === 'CAD body: gas-regulator');

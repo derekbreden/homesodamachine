@@ -88,6 +88,8 @@ export function mountMaterialPanel(workspace, { file = null, material = null } =
   // The selection came from a click in the model rather than from this pane or a search.
   let modelPick = false;
   let locations = null, pendingInstance = null, pendingSection = null;
+  const recordsVersion = () => state.materialCatalogTag || state.materialCatalog;
+  let shownRecords = recordsVersion();
   function contextPath() {
     const parent = materialForFile(state.materialCatalog, lastFile);
     if (!parent || parent.id === root) return [];
@@ -283,6 +285,7 @@ export function mountMaterialPanel(workspace, { file = null, material = null } =
   }
 
   function render() {
+    shownRecords = recordsVersion();
     const top = scroll.scrollTop;
     scroll.replaceChildren();
     const index = materialIndex(state.materialCatalog), current = index.get(selected), rootMaterial = index.get(root);
@@ -717,7 +720,8 @@ export function mountMaterialPanel(workspace, { file = null, material = null } =
     }
     if (locations) { locations.sync(event); return; }
     if (pendingInstance) { showInstalled(); return; }
-    render();
+    // Geometry arrivals update the highlight without replacing the record tree under a click.
+    if (shownRecords !== recordsVersion() || event?.type === HSM_EVENTS.FAUCET_OPTIONS) render();
     if (state.mountedDetail?.file !== lastFile) return;
     // A selection waiting on the model frames it once the opener has set the camera.
     const waiting = pending;
