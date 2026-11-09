@@ -12,6 +12,7 @@ const checkout = path.resolve(path.dirname(fileURLToPath(import.meta.url)), ".."
 const usage = `Usage: node tools/inspect-part.mjs <material ID or description> --output DIR
   --model FILE        Inspect an existing assembly instead of the material's own model
   --body NAME         Frame this body (repeat for related bodies)
+  --feature ID        Frame an authored feature of the selected body
   --against NAME      Measure clearance from the framed body (repeat for neighbours)
   --view NAME         iso, front, back, left, right, top or bottom
   --section X,Y,Z:NX,NY,NZ
@@ -46,12 +47,15 @@ export function inspectPart(query, options = {}) {
   if (!options.output) throw new Error("--output DIR is required");
   const found = findParts(query, { root, limit: 20 });
   const exactId = found.hits.find((hit) => hit.id?.toLowerCase() === query.toLowerCase());
-  const hit = exactId || (found.match === "exact" && found.hits.length === 1 ? found.hits[0] : null);
+  const featureHit = !options.feature && (found.features?.find(f => f.key === query)
+    || (found.match !== "exact" && found.features?.length === 1 ? found.features[0] : null));
+  const hit = exactId || (found.match === "exact" && found.hits.length === 1 ? found.hits[0] : null)
+    || (featureHit ? { kind: "feature", description: featureHit.label, models: [{ file: featureHit.file }], contexts: [] } : null);
   if (!hit) {
     const candidates = found.hits.map((item) => `${item.id}: ${item.description}`).join("\n");
     throw new Error(`Choose a material ID for this inspection. ${found.match === "suggestion" ? "Search returned suggestions." : "Search is ambiguous or empty."}\n${candidates}`);
   }
-  if (!hit.id) throw new Error("A ledger cost line has no model of its own; select one of its material holders with tools/find-part.mjs");
+  if (!hit.id && !featureHit) throw new Error("A ledger cost line has no model of its own; select one of its material holders with tools/find-part.mjs");
   const own = hit.models?.find((model) => !model.context && (!model.type || model.type === "step"));
   const representation = own || hit.models?.find((model) => !model.type || model.type === "step");
   const chosen = options.model || representation?.file;
@@ -60,7 +64,7 @@ export function inspectPart(query, options = {}) {
   if (!options.model && representation?.component) location.component = representation.component;
   const model = location.file.replace(/^hardware\//, "");
   const binding = hit.contexts?.find((context) => context.file === model);
-  const requested = options.bodies?.length ? options.bodies : location.component ? [location.component] : binding?.bodies || [];
+  const requested = options.bodies?.length ? options.bodies : featureHit ? [featureHit.body] : location.component ? [location.component] : binding?.bodies || [];
   const out = path.resolve(root, options.output);
   fs.mkdirSync(out, { recursive: true });
   const snapshot = path.join(out, "inspection.step.mesh");
@@ -79,7 +83,10 @@ export function inspectPart(query, options = {}) {
     if (!bodies.length) throw new Error(`No exported bodies in ${model}`);
     if (options.against?.length && bodies.length !== 1) throw new Error("--against requires one exact --body in the selected model");
 
-    const measured = (options.against || []).map((other) => native(root, ["--scene", snapshot, "gap", bodies[0], other]));
+    const featureKey = featureHit?.key || (options.feature ? `${bodies[0]}::${options.feature}` : null);
+    const feature = featureKey ? native(root, ["--scene", snapshot, "features", featureKey]).data.features?.[0] : null;
+    if (featureKey && !feature) throw new Error(`No exported construction feature ${featureKey}`);
+    const measured = (options.against || []).map((other) => native(root, ["--scene", snapshot, "gap", featureKey || bodies[0], other]));
     const previous = options.reuse ? JSON.parse(fs.readFileSync(path.resolve(root, options.reuse), "utf8")) : null;
     const job = {
       ...(previous || { frame: "look", view: options.view || "iso", ortho: true,
@@ -88,6 +95,8 @@ export function inspectPart(query, options = {}) {
       step: model, payload: snapshot, out: path.join(out, "view.png"), only: bodies,
       ...(options.against?.length ? { xray: options.against } : {}),
       ...(options.section ? { section: section(options.section) } : {}),
+      ...(feature && !previous ? { target: feature.min_mm.map((n,i)=>(n+feature.max_mm[i])/2),
+        span: Math.max(...feature.size_mm,1)*0.7 } : {}),
     };
     if (options.view && previous) throw new Error("Use either --view or --reuse to choose the camera");
     const jobs = path.join(out, "render-input.json");
@@ -110,7 +119,7 @@ export function inspectPart(query, options = {}) {
     fs.writeFileSync(path.join(out, "render-job.json"), JSON.stringify(frozen, null, 2) + "\n");
     const result = {
       purpose: "This inspection binds a local view and neighbour measurements to exported geometry.",
-      received_query: query, material: hit, model, payload_sha256: all.payload_sha256,
+      received_query: query, material: hit, model, feature, payload_sha256: all.payload_sha256,
       source_sha256: all.source_sha256 ?? all.step_sha256 ?? null,
       scope: "Exported geometry; source edits appear after their producer exports new payloads.",
       bodies: all.data.parts.filter((part) => bodies.includes(part.name)), measurements: measured,
@@ -129,7 +138,7 @@ if (process.argv[1] && import.meta.url === pathToFileURL(path.resolve(process.ar
       const key = args[at];
       if (key === "--help" || key === "-h") { console.log(usage); process.exit(0); }
       if (!key.startsWith("--")) { words.push(key); continue; }
-      if (!["--output", "--model", "--body", "--against", "--view", "--section", "--reuse", "--root"].includes(key)) throw new Error(`Unknown option ${key}`);
+      if (!["--output", "--model", "--body", "--feature", "--against", "--view", "--section", "--reuse", "--root"].includes(key)) throw new Error(`Unknown option ${key}`);
       if (!args[at + 1] || args[at + 1].startsWith("--")) throw new Error(`Missing value for ${key}`);
       const value = args[++at];
       if (key === "--body") options.bodies.push(value);

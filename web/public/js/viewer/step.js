@@ -233,6 +233,7 @@ function buildMesh(result, file = null, finishId = state.faucetFinish) {
     const solid = new THREE.Mesh(geo, material);
     solid.userData.ownsMaterial=owned;
     solid.userData.occtIndex = occtIndex;
+    solid.userData.features = mesh.features || [];
     solid.userData.side = "front"; // the name the face raycast selects on
     // Carry the component name (backfilled from the STEP assembly node) onto the mesh so
     // the scorecard's clickable rows can find a solid by name (part-highlight.js).
@@ -373,7 +374,7 @@ function mountScenePart(node, meshes, head, file, location, { current, preserveC
     const result = { meshes: ordered.flatMap(part => part.meshes), src: latest.src, cut: latest.cut };
     let index = 0;
     for (const part of ordered) for (const solid of part.solids) solid.userData.occtIndex = index++;
-    setActiveEdges(result); clearPickFind(); dropHighlight(); clearComponentPicker(); applyXray(group);
+    setActiveEdges(result); clearPickFind(); dropHighlight(); clearComponentPicker({ preserve: true }); applyXray(group);
     state.mountedDetail = {type:'step',file,sourceFile:location.file,surface:'mesh',src:latest.src,cut:latest.cut,scene:true};
     nameSurface(location.file,'mesh');loadHiddenForFile(file);applyHiddenComponents();onStepReloaded();
     if (group.userData.fitWhenReady) {resetCamera(group);group.userData.fitWhenReady=false;}

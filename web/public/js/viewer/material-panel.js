@@ -4,6 +4,7 @@ import { materialIndex, materialForFile, explodeBom, bomItems, bomCountText, bom
 import { HSM_EVENTS } from "/contracts/client-events.js";
 import { highlightParts, clearHighlight, leaveHighlight, scenePartNames } from "./part-highlight.js";
 import { clearComponentSelection } from "./component-picker.js";
+import { instanceLabel } from "/contracts/features.js";
 import { standsIn } from "/contracts/body-path.js";
 import { openMaterial, materialHash } from "./material-nav.js";
 import { makeMaterialSearch } from "./material-search.js";
@@ -311,6 +312,25 @@ export function mountMaterialPanel(workspace, { file = null, material = null } =
     const activeDrawing = drawings.find(doc => doc.path === drawingView?.drawingPath()) || drawings[0];
     if (!keepDrawing) drawingView?.setDrawing(activeDrawing || null);
     headHost.replaceChildren(head);
+    if (current && current.id !== root && rootMaterial?.kind === "assembly") {
+      const instances = [...new Set(explodeBom(state.materialCatalog, root, options())
+        .filter(row => row.material.id === current.id)
+        .flatMap(row => bindingsFor(row.path, [...scenePartNames()])))];
+      if (instances.length) {
+        const section = el("section", "material-instances");
+        section.append(el("h3", "", "Installed instances"));
+        for (const name of instances) {
+          const button = el("button", "component-holds-row", instanceLabel(name)); button.type = "button";
+          button.title = name;
+          button.addEventListener("click", async () => {
+            const { selectComponent } = await import("./component-picker.js"); selectComponent(name);
+            const { findWhenMounted } = await import("./pick-find.js"); findWhenMounted(lastFile, `solid: ${name}`);
+          });
+          section.append(button);
+        }
+        scroll.append(section);
+      }
+    }
     const rows = explodeBom(state.materialCatalog, root, options());
     const used = current ? materialUses(state.materialCatalog, current.id, options()) : { assemblies: [], tools: [], equipment: [] };
     const docs = materialDocuments(state.materialCatalog, (current || rootMaterial)?.id, options());
@@ -646,6 +666,7 @@ export function mountMaterialPanel(workspace, { file = null, material = null } =
   // or the Component panel's ×, lets go.
   function picked(event) {
     if (event.detail.file !== state.mountedDetail?.file) return;
+    if (event.detail.feature) return;
     if (!event.detail.name) { leave({ fromModel: true }); return; }
     const pick = { fromModel: true };
     const rootMaterial = materialIndex(state.materialCatalog).get(root);

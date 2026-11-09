@@ -148,6 +148,8 @@ impl Mesh {
 
 /// Intersection volume includes containment. A zero-volume contact is not penetration.
 pub fn overlap(a: &Mesh, b: &Mesh, by: [f64; 3]) -> Result<f64> {
+    ensure!(a.triangle_ids.is_none() && b.triangle_ids.is_none(),
+        "a feature selects surfaces of its owner and has no independent solid volume");
     if !a
         .shape
         .local_aabb()

@@ -32,6 +32,8 @@ import { drillTo, drillToComponent } from "./step-nav.js";
 import { makePanelCollapse } from "./tool-rail.js";
 import { refreshHighlight, fadedBody } from "./part-highlight.js";
 import { renderMeasure } from "./hsm.js";
+import { containsTriangle, splitFeatureKey, instanceLabel } from "/contracts/features.js";
+import { sceneFeatures, sceneFeature, featureGeometry, featureUrl } from "./features.js";
 
 const LS_KEY = "step-component-pick";
 const SEL = 0xffa733;   // selection highlight — warm amber (distinct from edge yellow, part-highlight cyan, find magenta)
@@ -44,14 +46,16 @@ let enabled = (() => {
 
 let selection = null;   // selected component name, or null
 let hoverName = null;   // hovered component name, or null
+let featureScope = null;
 
 // The model on screen, and the bare name of a file the drill-down could reach.
 const mountedFile = () =>
   (state.mountedDetail && state.mountedDetail.type === "step" ? state.mountedDetail.file : null);
 const stemOf = (file) => file.slice(file.lastIndexOf("/") + 1).replace(/\.step$/i, "");
 const namingOptions = () => ({ finish: state.faucetFinish });
-const materialOf = (name) => materialForComponent(state.materialCatalog, mountedFile(), name, namingOptions());
-const componentName = (name) => materialOf(name)?.description || leafOf(name);
+const componentBody = name => splitFeatureKey(name)?.body || name;
+const materialOf = (name) => materialForComponent(state.materialCatalog, mountedFile(), componentBody(name), namingOptions());
+const componentName = (name) => sceneFeature(name)?.label || materialOf(name)?.description || leafOf(name);
 const modelName = (file) => materialForView(state.materialCatalog, file, namingOptions())?.description || stemOf(file);
 
 // --- hidden-set persistence (per open file, view-only) ---
@@ -196,13 +200,16 @@ function drawOverlay(g, name, color, edgeMat, shellOpacity) {
   disposeGroup(g);
   if (!name || !state.currentGroup) return;
   const seen = new Set();
+  const feature = sceneFeature(name);
   // A sub-assembly lights up as the whole of what it holds.
   for (const mesh of state.currentGroup.children) {
-    if (!mesh.isMesh || !standsIn(mesh.name, name) || mesh.visible === false
+    if (!mesh.isMesh || !standsIn(mesh.name, componentBody(name)) || mesh.visible === false
         || seen.has(mesh.geometry)) continue;
     seen.add(mesh.geometry);
     mesh.updateWorldMatrix(true, false);
-    const geometry = mesh.geometry.clone().applyMatrix4(mesh.matrixWorld);
+    const record = feature && mesh.userData.features?.find(f => f.id === feature.id);
+    if (feature && !record) continue;
+    const geometry = record ? featureGeometry(mesh, record) : mesh.geometry.clone().applyMatrix4(mesh.matrixWorld);
     g.add(new THREE.LineSegments(new THREE.EdgesGeometry(geometry, EDGE_THRESHOLD_DEG), edgeMat));
     const shell = new THREE.Mesh(geometry, new THREE.MeshBasicMaterial({
       color, transparent: true, opacity: shellOpacity, side: THREE.DoubleSide,
@@ -237,17 +244,25 @@ function pickComponent(clientX, clientY) {
   // Behind a part chosen in the Materials pane the rest of the model is faded, and a click
   // goes through what is faded to what stands out.
   const hit = hits.find((h) => !fadedBody(h.object)) || hits[0];
-  return hit ? hit.object.name || null : null;
+  if (!hit) return null;
+  if (featureScope === hit.object.name) {
+    const feature = hit.object.userData.features?.find(f => containsTriangle(f, hit.faceIndex));
+    if (feature) return `${hit.object.name}::${feature.id}`;
+  }
+  return hit.object.name || null;
 }
 
 // --- selection + hover ---
-function selectComponent(name) {
+export function selectComponent(name) {
+  const feature = sceneFeature(name);
+  if (feature) featureScope = feature.body;
+  else if (featureScope !== name) featureScope = null;
   selection = name;
   drawOverlay(selGroup, name, SEL, selEdgeMat, 0.18);
   setHover(null);
   showPanel();
   window.dispatchEvent(new CustomEvent(HSM_EVENTS.MATERIAL_PICKED, {
-    detail: { file: state.mountedDetail?.file, name },
+    detail: { file: state.mountedDetail?.file, name: componentBody(name), ...(feature ? { feature: feature.id } : {}) },
   }));
 }
 
@@ -275,7 +290,12 @@ export function clearComponentSelection() {
   return true;
 }
 
-export function clearComponentPicker() {
+export function clearComponentPicker({ preserve = false } = {}) {
+  if (preserve && selection && (!splitFeatureKey(selection) || sceneFeature(selection))) {
+    drawOverlay(selGroup, selection, SEL, selEdgeMat, 0.18);
+    setHover(null); refreshPanel(); return;
+  }
+  featureScope = null;
   clearSelectionOverlay();
   setHover(null);
   hidePanel();
@@ -337,8 +357,9 @@ function buildPanel() {
   openBtn.textContent = "Open part";
   openBtn.addEventListener("click", () => {
     if (!selection) return;
-    const file = sourceFileFor(selection, state.allFiles, mountedFile(), state.materialCatalog, { finish: state.faucetFinish });
-    drillToComponent(file && file !== mountedFile() ? file : componentLocation(mountedFile(), selection), selection);
+    const body = componentBody(selection);
+    const file = sourceFileFor(body, state.allFiles, mountedFile(), state.materialCatalog, { finish: state.faucetFinish });
+    drillToComponent(file && file !== mountedFile() ? file : componentLocation(mountedFile(), body), body);
   });
   actions.appendChild(openBtn);
   panel._openBtn = openBtn;
@@ -356,6 +377,24 @@ function buildPanel() {
   });
   actions.appendChild(hideBtn);
   panel._hideBtn = hideBtn;
+
+  const explore = document.createElement("button");
+  explore.type = "button"; explore.className = "edge-panel-all component-explore";
+  explore.addEventListener("click", () => {
+    const body = componentBody(selection);
+    featureScope = featureScope === body ? null : body;
+    selectComponent(body);
+  });
+  actions.append(explore); panel._explore = explore;
+
+  const copy = document.createElement("button");
+  copy.type = "button"; copy.className = "edge-panel-all component-copy";
+  copy.textContent = "Copy feature link";
+  copy.addEventListener("click", async () => {
+    await navigator.clipboard.writeText(featureUrl(selection));
+    copy.textContent = "Link copied";
+  });
+  actions.append(copy); panel._copy = copy;
 
   panel.appendChild(actions);
 
@@ -397,9 +436,13 @@ function showPanel() {
   // Material descriptions name the walkable path; CAD keys identify the selected geometry.
   panel._nameEl.textContent = "";
   panel._nameEl.title = selection || "";
-  const inside = membersOf(selection || "");
+  const feature = sceneFeature(selection);
+  const bodyName = componentBody(selection);
+  const availableFeatures = sceneFeatures(bodyName);
+  const inside = feature ? [] : [...membersOf(selection || ""),
+    ...(featureScope === selection ? availableFeatures.map(f => f.key) : [])];
   if (selection) {
-    heldBy(selection).forEach((held) => {
+    [...heldBy(bodyName), ...(feature ? [bodyName] : [])].forEach((held) => {
       const step = document.createElement("button");
       step.type = "button";
       step.className = "component-held-step";
@@ -423,6 +466,7 @@ function showPanel() {
       panel._nameEl.appendChild(count);
     }
   }
+  panel.querySelector(".edge-panel-title").textContent = feature ? "Feature" : "Component";
   panel._identity.replaceChildren();
   if (selection) {
     const material = materialOf(selection);
@@ -434,22 +478,26 @@ function showPanel() {
     }
     const body = document.createElement("span");
     body.className = "component-body-name";
-    body.textContent = `CAD body: ${selection}`;
+    body.textContent = feature ? `Feature of ${componentName(bodyName)}` : `CAD body: ${selection}`;
     panel._identity.appendChild(body);
   }
-  renderMeasure(panel._measure, selection, {
+  renderMeasure(panel._measure, feature ? null : selection, {
     file: state.mountedDetail?.sourceFile,
     solids: selection ? frontMeshes().filter((m) => m.name === selection).length : 0,
     label: componentName,
   });
   panel._close.style.display = selection ? "" : "none";
   const already = selection && standsHidden(selection);
-  panel._hideBtn.style.display = selection ? "block" : "none";
+  panel._hideBtn.style.display = selection && !feature ? "block" : "none";
   panel._hideBtn.disabled = !!already;
   panel._hideBtn.textContent = already ? "Already hidden"
     : inside.length ? `Hide ${componentName(selection)} (${inside.length})` : "Hide component";
 
-  const source = selection ? sourceFileFor(selection, state.allFiles, mountedFile(), state.materialCatalog, { finish: state.faucetFinish }) : null;
+  panel._explore.hidden = !selection || !availableFeatures.length;
+  panel._explore.textContent = featureScope === bodyName ? "Select whole components" : "Explore features";
+  panel._copy.hidden = !feature;
+  panel._copy.textContent = "Copy feature link";
+  const source = selection ? sourceFileFor(bodyName, state.allFiles, mountedFile(), state.materialCatalog, { finish: state.faucetFinish }) : null;
   const goes = source && source !== mountedFile() ? source : null;
   panel._openBtn.style.display = selection ? "block" : "none";
   const destination = goes && materialForView(state.materialCatalog, goes, namingOptions());
@@ -457,6 +505,7 @@ function showPanel() {
   panel._openBtn.textContent = goes && destination?.id !== selectedMaterial?.id
     ? `Open ${modelName(goes)}` : "Open component";
   panel._openBtn.title = goes ? `Open ${goes}` : "Open this component from the assembly";
+  if (feature) panel._openBtn.textContent = "Open containing part";
 
   // The destination is named beside the selected component, unless Open part already goes there.
   const offered = selection ? relatedStepsForComponent(selection, state.allFiles)[0] : null;
@@ -482,7 +531,8 @@ function showPanel() {
       row.textContent = componentName(name);
       const body = document.createElement("span");
       body.className = "component-body-name";
-      body.textContent = leafOf(name);
+      const child = sceneFeature(name);
+      body.textContent = child ? (child.related || []).map(instanceLabel).join(", ") : leafOf(name);
       row.appendChild(body);
       row.title = name;
       row.addEventListener("click", () => selectComponent(name));

@@ -77,7 +77,9 @@ fn payload(shift: f32) -> Vec<u8> {
         for i in [0u32, 11] {
             blob.extend_from_slice(&i.to_le_bytes());
         }
-        meshes.push(json!({"name":name,"color":null,"pos":[pos,24],"nrm":[nrm,24],"idx":[idx,36],"fac":[fac,2]}));
+        meshes.push(json!({"name":name,"color":null,"pos":[pos,24],"nrm":[nrm,24],"idx":[idx,36],"fac":[fac,2],
+            "features":[{"id":"top","label":"Top surface","source":"fixture","triangles":[[2,3]]},
+                {"id":"side","label":"Side surface","source":"fixture","triangles":[[6,7]]}]}));
     }
     let mut header =
         serde_json::to_vec(&json!({"v":3,"meshes":meshes,"src":"fixture","cut":{"bound":0.01}}))
@@ -301,6 +303,38 @@ fn queries_restart_worktrees_and_invalidation() {
 }
 
 #[test]
+fn feature_queries_keep_installed_names_and_original_viewer_triangles() {
+    let f = Fixture::new();
+    let feature = f.query(&["features", "part-one::top"]);
+    let record = &feature["result"]["data"]["features"][0];
+    assert_eq!(record["name"], "part-one::top");
+    assert_eq!(record["min_mm"], json!([-1., -1., 1.]));
+    assert_eq!(record["max_mm"], json!([1., 1., 1.]));
+    assert_eq!(f.query(&["features", "part-two::top"])["result"]["data"]["features"][0]["min_mm"], json!([4., -1., 1.]));
+    let ray = f.query(&["ray", "--part", "part-one::top", "--origin", "0", "0", "5", "--direction", "0", "0", "-1"]);
+    let hit = &ray["result"]["data"]["closest"]["hit"];
+    assert_eq!(hit["distance_mm"], 4.);
+    assert!([2, 3].contains(&hit["triangle"].as_u64().unwrap()));
+    assert_eq!(hit["features"], json!(["part-one::top"]));
+    let section = f.query(&["section", "part-one::side", "--normal", "0", "0", "1", "--offset", "0"]);
+    let segments = section["result"]["data"]["section"]["segments"].as_array().unwrap();
+    assert!(!segments.is_empty());
+    assert!(segments.iter().all(|s| [6, 7].contains(&s["triangle"].as_u64().unwrap()) && s["features"] == json!(["part-one::side"])));
+    let gap = f.query(&["gap", "part-one::side", "part-two"]);
+    assert_eq!(gap["result"]["data"]["gap"]["surface_distance_mm"], 3.);
+    assert_eq!(gap["result"]["data"]["gap"]["surface_only"], true);
+    assert!(gap["result"]["data"]["gap"]["intersection_volume_mm3"].is_null());
+    let refused = f.command().args(["overlap", "part-one::top", "part-two"]).output().unwrap();
+    assert!(!refused.status.success());
+    assert!(String::from_utf8_lossy(&refused.stdout).contains("no independent solid volume"));
+    fs::write(f.root.join("fixture.step.mesh"), payload(10.)).unwrap();
+    let moved = f.query(&["features", "part-one::top"]);
+    assert_eq!(moved["result"]["data"]["features"][0]["name"], record["name"]);
+    assert_eq!(moved["result"]["data"]["features"][0]["min_mm"], json!([9., -1., 1.]));
+    assert_ne!(feature["result"]["payload_sha256"], moved["result"]["payload_sha256"]);
+}
+
+#[test]
 fn mcp_is_json_rpc_and_uses_the_shared_daemon() {
     let f = Fixture::new();
     let mut child = f
@@ -335,7 +369,7 @@ fn mcp_is_json_rpc_and_uses_the_shared_daemon() {
         .map(|l| serde_json::from_str(l).unwrap())
         .collect();
     assert_eq!(lines.len(), 4);
-    assert_eq!(lines[1]["result"]["tools"].as_array().unwrap().len(), 6);
+    assert!(lines[1]["result"]["tools"].as_array().unwrap().iter().any(|tool| tool["name"] == "hsm_features"));
     assert_eq!(lines[2]["result"]["isError"], false);
     assert_eq!(
         lines[2]["result"]["structuredContent"]["result"]["data"]["gap"]["clearance_mm"],

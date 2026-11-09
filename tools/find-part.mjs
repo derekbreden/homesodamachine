@@ -8,6 +8,8 @@ import { readMaterialCatalog } from "../web/lib/material-catalog.js";
 import { readPartCosts } from "../web/lib/part-costs.js";
 import { searchCatalog, explodeBom, occurrenceBodies, materialIndex, modelForMaterial } from "../web/contracts/materials.js";
 import { stepLocation } from "../web/contracts/step-locations.js";
+import { localFeatureCatalog } from "../web/lib/feature-catalog.js";
+import { instanceLabel, matchFeatures } from "../web/contracts/features.js";
 
 export const checkoutRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const website = "https://homesodamachine.com/3d";
@@ -66,6 +68,17 @@ export function findParts(query, { root = checkoutRoot, limit = 20 } = {}) {
   const index = materialIndex(catalog), graph = jsonFile(path.join(root, "tools/bazel/graph.json"), {});
   const targets = outputTargets(root), headers = new Map(), assemblyRows = new Map();
   const roots = (catalog.roots || []).map((id) => index.get(id)).filter(Boolean);
+  const featureCatalog = roots.flatMap(assembly => {
+    const model = modelForMaterial(catalog, assembly.id);
+    if (!model) return [];
+    try { return localFeatureCatalog(hardware, stepLocation(model.file).file).features; }
+    catch (error) { if (error.code === "ENOENT") return []; throw error; }
+  }).map(feature => ({ ...feature,
+    url: `${website}#step:${encodeURIComponent(feature.file)}?find=${encodeURIComponent(`feature: ${feature.key}`)}`,
+    producers: Object.entries(graph).filter(([, row]) => row.writes?.includes(feature.source_model)).map(([source, row]) => ({
+      source, targets: [...new Set(row.writes.flatMap(file => [...targets.get(file) || []]))],
+    })),
+  }));
   for (const assembly of roots) assemblyRows.set(assembly.id, explodeBom(catalog, assembly.id));
   const hits = searchCatalog(catalog, query).slice(0, limit).map((hit) => {
     if (!hit.material) return { match: "exact", line: { ...hit.line, kinds: [...hit.line.kinds] } };
@@ -93,6 +106,8 @@ export function findParts(query, { root = checkoutRoot, limit = 20 } = {}) {
       if (!headers.has(file)) headers.set(file, sceneNames(root, file));
       const names = headers.get(file), bodies = [...new Set(rows.flatMap((row) => occurrenceBodies(catalog, row.path, names)))];
       contexts.push({ material: assembly.id, description: assembly.description, file, bodies,
+        instances: bodies.map(name => ({ name, label: instanceLabel(name), url: modelLink(file, [name]),
+          features: featureCatalog.filter(feature => feature.file === file && (feature.body === name || feature.related?.includes(name))) })),
         bindings: rows.map((row) => row.path), ...(bodies.length ? { url: modelLink(file, bodies) } : {}) });
     }
     return {
@@ -104,7 +119,8 @@ export function findParts(query, { root = checkoutRoot, limit = 20 } = {}) {
           : models[0] ? { model: modelLink(models[0].file, models[0].component ? [models[0].component] : []) } : {}) },
     };
   });
-  return { query, match: hits.length ? hits[0].match : "none", hits, elapsed_ms: performance.now() - started };
+  const features = matchFeatures(query, featureCatalog).slice(0, limit);
+  return { query, match: hits.length ? hits[0].match : features.length ? "feature" : "none", hits, features, elapsed_ms: performance.now() - started };
 }
 
 function main(args) {
@@ -126,7 +142,7 @@ function main(args) {
   if (json) console.log(JSON.stringify(result, null, 2));
   else {
     if (result.match === "suggestion") console.log("No exact matches. Possible matches follow; use an HSM-id to choose one.");
-    if (!result.hits.length) console.log("No matches.");
+    if (!result.hits.length && !result.features.length) console.log("No matches.");
     for (const hit of result.hits) {
       if (hit.line) { console.log(`${hit.line.label} · costed on ${hit.line.holders.map(({ id }) => id).join(", ")}`); continue; }
       console.log(`${hit.id}  ${hit.description}`);
@@ -134,6 +150,10 @@ function main(args) {
       if (hit.corrections.length) console.log(`  Spelling: ${hit.corrections.map(({ from, to }) => `${from} → ${to}`).join(", ")}`);
       if (hit.links.model) console.log(`  ${hit.links.model}`);
       for (const producer of hit.producers) console.log(`  ${producer.source}${producer.targets.length ? " · " + producer.targets.join(" ") : ""}`);
+    }
+    for (const feature of result.features) {
+      console.log(`${feature.label} · ${feature.key}\n  ${feature.url}\n  ${feature.source}`);
+      for (const producer of feature.producers) console.log(`  ${producer.targets.join(" ")}`);
     }
   }
 }

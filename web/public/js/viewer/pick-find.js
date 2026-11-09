@@ -27,6 +27,8 @@ import { jumpToStep } from "./step-nav.js";
 import { makeToolButton } from "./tool-rail.js";
 import { materialForFile, materialForComponent, searchMaterials, explodeBom, occurrenceBodies, matchesBody } from "/contracts/materials.js";
 import { HSM_EVENTS } from "/contracts/client-events.js";
+import { matchFeatures } from "/contracts/features.js";
+import { sceneFeatures, featureGeometry } from "./features.js";
 
 const FIND = 0xff5ce1; // found-entity highlight (magenta — distinct from select/hover)
 const EDGE_THRESHOLD_DEG = 30; // feature-edge angle for a whole-solid highlight
@@ -309,13 +311,16 @@ async function runFind({ focus = true, text = textarea.value } = {}) {
     setStatus("still loading the model — try again in a moment");
     return;
   }
-  const { picks, files, names, view } = parsePicks(text);
+  const featureQueries = text.split("\n").map(s => s.trim()).filter(s => /^feature\s*:/i.test(s));
+  const regularText = text.split("\n").filter(s => !/^\s*feature\s*:/i.test(s)).join("\n");
+  const { picks, files, names, view } = parsePicks(regularText);
+  if (!picks.length && !files.length && !names.length && text.trim() && !featureQueries.length) featureQueries.push(text.trim());
   // Known material descriptions can include units, punctuation and more words
   // than the compact CAD-key grammar used by pasted geometry reports.
   for (const line of text.split("\n").map((line) => line.trim()).filter(Boolean))
     if (searchMaterials(state.materialCatalog, line).length && !names.includes(line)) names.push(line);
   clearOverlay();
-  if (!picks.length && !files.length && !names.length) {
+  if (!picks.length && !files.length && !names.length && !featureQueries.length) {
     activeFind = null;
     setStatus("nothing recognizable — type a part name, or paste pick text");
     return;
@@ -334,7 +339,7 @@ async function runFind({ focus = true, text = textarea.value } = {}) {
       return;
     }
   }
-  if (!picks.length && !names.length) { activeFind = null; setStatus("opened — nothing to highlight"); return; }
+  if (!picks.length && !names.length && !featureQueries.length) { activeFind = null; setStatus("opened — nothing to highlight"); return; }
   activeFind = { file: state.mountedDetail.file, text };
 
   const box = new THREE.Box3();
@@ -353,6 +358,20 @@ async function runFind({ focus = true, text = textarea.value } = {}) {
   }
 
   const labels = [];
+  const allFeatures = sceneFeatures();
+  const featureMatches = new Map();
+  for (const query of [...featureQueries, ...names]) {
+    for (const feature of matchFeatures(query, allFeatures)) featureMatches.set(feature.key, feature);
+  }
+  for (const feature of featureMatches.values()) {
+    for (const mesh of feature.meshes) {
+      if (mesh.visible === false) continue;
+      const record = mesh.userData.features.find(f => f.id === feature.id);
+      const { at, lit } = addSurfaceHighlight(featureGeometry(mesh, record), box);
+      if (at) labels.push({ at, lit, text: feature.label });
+    }
+  }
+  if (featureQueries.length || featureMatches.size) status.push(`${featureMatches.size} feature${featureMatches.size === 1 ? "" : "s"} matched`);
   if (picks.length) {
     const { edges, faces } = getFindData();
     const results = matchPicks(picks, edges, faces);
