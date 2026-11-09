@@ -1,0 +1,1830 @@
+{
+  "purpose": "Manual measurements of construction identity stability, printed shape equivalence and generator cost; no automatic check runs from this record.",
+  "date": "2026-11-08",
+  "feature_core_commit": "bec1c79513e574388ee1c94ccb7c86738e5736da",
+  "benchmark_program_sha256": "9001073d4515acd05feff0492cfbeddd30bdfacef4922f3cde2e48980606b311",
+  "setup": {
+    "machine": "shared Mac M3",
+    "fresh": "HSM_STAGE_CACHE_OFF=1; alternating feature-off/on runs of the same release executable",
+    "warm": "Private stage cache; only all-hit runs included in warm summary",
+    "off_switch": "HSM_FEATURES_OFF=1",
+    "runtime_inputs_sha256": {
+      "hardware/manifold-layout/above-core.json": "ceb5fcceeec71904b64d7b7eb381273064eb09bb92fe098ecf8d43ac576bba7a",
+      "hardware/manifold-layout/enclosure-box.json": "1f6bb8fee7d04a10b5c1b39ce87ee6112cdd4ceae2b88e4f586f59e415a54cdc",
+      "hardware/manifold-layout/junctions.json": "9dc938e52afd235079fdeaa4a1f4bf726090277696ca286bda7cae788e548c40",
+      "hardware/printed-parts/enclosure/enclosure/disposal-warning-artwork.json": "8d0da7b088df681ad63da151d34077541d80f99356a6791de8f046c2bb637774",
+      "hardware/printed-parts/enclosure/enclosure/exterior.json": "d8e661026498932059c3401cbab275ee710d6d94aac2af31b0c67e44b3b67ca7",
+      "hardware/printed-parts/enclosure/enclosure/rear-seat-profiles.json": "a2426e1130bcc81bcfb1aefe0875bd2ec48b607012e6fecd0def6919ddc8fee6",
+      "hardware/reference/compact-inline-candidates/dimensions.json": "d7df0bb6120d808979aaa5594bacd28925cbd194b775fc94199550aabe2dc161",
+      "hardware/reference/jg-pp0208e-tee/branch-operating-measurements.json": "3cc495fbbe5961671e4de73f0aee90cf9deae479c9aaa88f041a48c39d9d34d2",
+      "hardware/reference/teyleten-relay/scan-datums.json": "4424a2e3dfb69eca1ed3cb323a5b3e4c4ad9004931b5074c44897623785780ad",
+      "hardware/reference/yzmsz-water-regulator/reference-parameters.json": "078df0097af8af534ce1b0701e27d9ea7e109f75af1bcb8a6d5517fe5c810816",
+      "tools/hsm/assembly-docs/src/wiring/cable-sites.json": "e68fd25300224400d3f84bc31fd5550c69c281f6fb92dbe887e3b99798d83de2",
+      "tools/hsm/run-slots.defaults.json": "bb2df07e3ee0248b58930844369118448d30a8e7c8d8e9472bceb929dae4e4fa",
+      "tools/hsm/shared-data/catalog/materials.json": "80a97f615e467e9d75131d4ec97d316a99bba031093b781bfa5ccdf962445288",
+      "tools/hsm/shared-data/catalog/scalars.json": "702035e0f3b70c142502a2758cdcd327217071f5d3568782917207ed31585465"
+    }
+  },
+  "summary_seconds": {
+    "fresh": {
+      "off": 6.089106458499373,
+      "on": 6.161270208498536,
+      "relative_delta": 0.01185128729329965
+    },
+    "warm": {
+      "off": 0.9685240415001317,
+      "on": 0.9267448954997235,
+      "relative_delta": -0.04313692196602281
+    }
+  },
+  "timing_runs": [
+    {
+      "mode": "off",
+      "cache_enabled": false,
+      "seconds": 6.1299744169991754,
+      "maximum_resident_set_bytes": 1272479744,
+      "geometry_built": 488,
+      "identity_nodes": 0,
+      "cache_hits": 0,
+      "phases": [
+        {
+          "ok": true,
+          "seconds": 0.0065055,
+          "stage": "fine model"
+        },
+        {
+          "ok": true,
+          "seconds": 3.429517875,
+          "stage": "back-top print surface"
+        },
+        {
+          "ok": true,
+          "seconds": 0.081344,
+          "stage": "join seam band"
+        },
+        {
+          "ok": true,
+          "seconds": 0.197497875,
+          "stage": "print STL"
+        },
+        {
+          "ok": true,
+          "seconds": 0.058169333,
+          "stage": "print mesh welding"
+        },
+        {
+          "ok": true,
+          "seconds": 0.144987666,
+          "stage": "viewer surface"
+        }
+      ]
+    },
+    {
+      "mode": "on",
+      "cache_enabled": false,
+      "seconds": 6.048311457998352,
+      "maximum_resident_set_bytes": 1261322240,
+      "geometry_built": 508,
+      "identity_nodes": 188,
+      "cache_hits": 0,
+      "phases": [
+        {
+          "ok": true,
+          "seconds": 0.00682925,
+          "stage": "fine model"
+        },
+        {
+          "ok": true,
+          "seconds": 3.259864125,
+          "stage": "back-top print surface"
+        },
+        {
+          "ok": true,
+          "seconds": 0.088704209,
+          "stage": "join seam band"
+        },
+        {
+          "ok": true,
+          "seconds": 0.208034584,
+          "stage": "print STL"
+        },
+        {
+          "ok": true,
+          "seconds": 0.057653167,
+          "stage": "print mesh welding"
+        },
+        {
+          "ok": true,
+          "seconds": 0.15227525,
+          "stage": "viewer surface"
+        }
+      ]
+    },
+    {
+      "mode": "on",
+      "cache_enabled": false,
+      "seconds": 6.2742289589987195,
+      "maximum_resident_set_bytes": 1211138048,
+      "geometry_built": 508,
+      "identity_nodes": 188,
+      "cache_hits": 0,
+      "phases": [
+        {
+          "ok": true,
+          "seconds": 0.006815959,
+          "stage": "fine model"
+        },
+        {
+          "ok": true,
+          "seconds": 3.410492083,
+          "stage": "back-top print surface"
+        },
+        {
+          "ok": true,
+          "seconds": 0.0855655,
+          "stage": "join seam band"
+        },
+        {
+          "ok": true,
+          "seconds": 0.208176625,
+          "stage": "print STL"
+        },
+        {
+          "ok": true,
+          "seconds": 0.057641209,
+          "stage": "print mesh welding"
+        },
+        {
+          "ok": true,
+          "seconds": 0.145029625,
+          "stage": "viewer surface"
+        }
+      ]
+    },
+    {
+      "mode": "off",
+      "cache_enabled": false,
+      "seconds": 6.04823849999957,
+      "maximum_resident_set_bytes": 1129054208,
+      "geometry_built": 488,
+      "identity_nodes": 0,
+      "cache_hits": 0,
+      "phases": [
+        {
+          "ok": true,
+          "seconds": 0.006317917,
+          "stage": "fine model"
+        },
+        {
+          "ok": true,
+          "seconds": 3.279245959,
+          "stage": "back-top print surface"
+        },
+        {
+          "ok": true,
+          "seconds": 0.087749,
+          "stage": "join seam band"
+        },
+        {
+          "ok": true,
+          "seconds": 0.209891459,
+          "stage": "print STL"
+        },
+        {
+          "ok": true,
+          "seconds": 0.05836225,
+          "stage": "print mesh welding"
+        },
+        {
+          "ok": true,
+          "seconds": 0.144849916,
+          "stage": "viewer surface"
+        }
+      ]
+    },
+    {
+      "mode": "off",
+      "cache_enabled": true,
+      "seconds": 6.181717208000919,
+      "maximum_resident_set_bytes": 1185218560,
+      "geometry_built": 488,
+      "identity_nodes": 0,
+      "cache_hits": 0,
+      "phases": [
+        {
+          "ok": true,
+          "seconds": 0.005994166,
+          "stage": "fine model"
+        },
+        {
+          "bytes_read": 0,
+          "bytes_written": 17226915,
+          "cache_io_seconds": 0.057996875999999996,
+          "reused": 0,
+          "seconds": 3.38549225,
+          "stage": "back-top print surface"
+        },
+        {
+          "ok": true,
+          "seconds": 0.08631275,
+          "stage": "join seam band"
+        },
+        {
+          "ok": true,
+          "seconds": 0.205676458,
+          "stage": "print STL"
+        },
+        {
+          "ok": true,
+          "seconds": 0.057813291,
+          "stage": "print mesh welding"
+        },
+        {
+          "ok": true,
+          "seconds": 0.144654625,
+          "stage": "viewer surface"
+        }
+      ]
+    },
+    {
+      "mode": "on",
+      "cache_enabled": true,
+      "seconds": 6.164030416999594,
+      "maximum_resident_set_bytes": 1267040256,
+      "geometry_built": 501,
+      "identity_nodes": 188,
+      "cache_hits": 3,
+      "phases": [
+        {
+          "ok": true,
+          "seconds": 0.006718917,
+          "stage": "fine model"
+        },
+        {
+          "bytes_read": 0,
+          "bytes_written": 17252720,
+          "cache_io_seconds": 0.056411875,
+          "reused": 0,
+          "seconds": 3.397450042,
+          "stage": "back-top print surface"
+        },
+        {
+          "ok": true,
+          "seconds": 0.088014458,
+          "stage": "join seam band"
+        },
+        {
+          "ok": true,
+          "seconds": 0.20885575,
+          "stage": "print STL"
+        },
+        {
+          "ok": true,
+          "seconds": 0.05940275,
+          "stage": "print mesh welding"
+        },
+        {
+          "ok": true,
+          "seconds": 0.147565792,
+          "stage": "viewer surface"
+        }
+      ]
+    },
+    {
+      "mode": "on",
+      "cache_enabled": true,
+      "seconds": 0.9269084999978077,
+      "maximum_resident_set_bytes": 679657472,
+      "geometry_built": 0,
+      "identity_nodes": 0,
+      "cache_hits": 4,
+      "phases": [
+        {
+          "ok": true,
+          "seconds": 0.005958417,
+          "stage": "fine model"
+        },
+        {
+          "bytes_read": 17252720,
+          "bytes_written": 0,
+          "cache_io_seconds": 0.23585625,
+          "reused": 1,
+          "seconds": 0.245383416,
+          "stage": "back-top print surface"
+        },
+        {
+          "ok": true,
+          "seconds": 0.087675083,
+          "stage": "join seam band"
+        },
+        {
+          "ok": true,
+          "seconds": 0.202814541,
+          "stage": "print STL"
+        },
+        {
+          "ok": true,
+          "seconds": 0.05728775,
+          "stage": "print mesh welding"
+        },
+        {
+          "ok": true,
+          "seconds": 0.143663625,
+          "stage": "viewer surface"
+        }
+      ]
+    },
+    {
+      "mode": "off",
+      "cache_enabled": true,
+      "seconds": 0.9181452080010786,
+      "maximum_resident_set_bytes": 684851200,
+      "geometry_built": 0,
+      "identity_nodes": 0,
+      "cache_hits": 4,
+      "phases": [
+        {
+          "ok": true,
+          "seconds": 0.005170042,
+          "stage": "fine model"
+        },
+        {
+          "bytes_read": 17226915,
+          "bytes_written": 0,
+          "cache_io_seconds": 0.241136208,
+          "reused": 1,
+          "seconds": 0.249747333,
+          "stage": "back-top print surface"
+        },
+        {
+          "ok": true,
+          "seconds": 0.092255542,
+          "stage": "join seam band"
+        },
+        {
+          "ok": true,
+          "seconds": 0.202389167,
+          "stage": "print STL"
+        },
+        {
+          "ok": true,
+          "seconds": 0.0549525,
+          "stage": "print mesh welding"
+        },
+        {
+          "ok": true,
+          "seconds": 0.142246916,
+          "stage": "viewer surface"
+        }
+      ]
+    },
+    {
+      "mode": "off",
+      "cache_enabled": true,
+      "seconds": 1.0189028749991849,
+      "maximum_resident_set_bytes": 682721280,
+      "geometry_built": 0,
+      "identity_nodes": 0,
+      "cache_hits": 4,
+      "phases": [
+        {
+          "ok": true,
+          "seconds": 0.005202,
+          "stage": "fine model"
+        },
+        {
+          "bytes_read": 17226915,
+          "bytes_written": 0,
+          "cache_io_seconds": 0.235132,
+          "reused": 1,
+          "seconds": 0.243890708,
+          "stage": "back-top print surface"
+        },
+        {
+          "ok": true,
+          "seconds": 0.11580275,
+          "stage": "join seam band"
+        },
+        {
+          "ok": true,
+          "seconds": 0.281753458,
+          "stage": "print STL"
+        },
+        {
+          "ok": true,
+          "seconds": 0.060807375,
+          "stage": "print mesh welding"
+        },
+        {
+          "ok": true,
+          "seconds": 0.144284667,
+          "stage": "viewer surface"
+        }
+      ]
+    },
+    {
+      "mode": "on",
+      "cache_enabled": true,
+      "seconds": 0.9265812910016393,
+      "maximum_resident_set_bytes": 678477824,
+      "geometry_built": 0,
+      "identity_nodes": 0,
+      "cache_hits": 4,
+      "phases": [
+        {
+          "ok": true,
+          "seconds": 0.005866416,
+          "stage": "fine model"
+        },
+        {
+          "bytes_read": 17252720,
+          "bytes_written": 0,
+          "cache_io_seconds": 0.241436375,
+          "reused": 1,
+          "seconds": 0.250904167,
+          "stage": "back-top print surface"
+        },
+        {
+          "ok": true,
+          "seconds": 0.090912959,
+          "stage": "join seam band"
+        },
+        {
+          "ok": true,
+          "seconds": 0.203675709,
+          "stage": "print STL"
+        },
+        {
+          "ok": true,
+          "seconds": 0.055076208,
+          "stage": "print mesh welding"
+        },
+        {
+          "ok": true,
+          "seconds": 0.144963417,
+          "stage": "viewer surface"
+        }
+      ]
+    }
+  ],
+  "geometry_comparisons": [
+    {
+      "piece": "enclosure-front-top",
+      "off": {
+        "fine_triangles": 60386,
+        "fine_geometry_sha256": "950abed3eb530448ea95079760ca37f66ce3b90c1aeb005da194c308342bb2bd",
+        "stl_sha256": "6984c3147e41e6e4a4369c02bbc98b898e1e9b990386f647d027745ce48c2a1f",
+        "print_triangles": 385176,
+        "print_volume_mm3": 2570377.4591959445,
+        "print_min_mm": [
+          -110.5,
+          2.0,
+          160.25
+        ],
+        "print_max_mm": [
+          110.5,
+          217.8000030517578,
+          355.0
+        ]
+      },
+      "on": {
+        "fine_triangles": 60386,
+        "fine_geometry_sha256": "950abed3eb530448ea95079760ca37f66ce3b90c1aeb005da194c308342bb2bd",
+        "stl_sha256": "753741de94227f937365c16f5d0a04fb486b6b9ac015ff5fdb3e0fc31bc44663",
+        "print_triangles": 385134,
+        "print_volume_mm3": 2570377.4591908734,
+        "print_min_mm": [
+          -110.5,
+          2.0,
+          160.25
+        ],
+        "print_max_mm": [
+          110.5,
+          217.8000030517578,
+          355.0
+        ]
+      },
+      "volume_delta_mm3": -5.0710514187812805e-06
+    },
+    {
+      "piece": "enclosure-front-bottom",
+      "off": {
+        "fine_triangles": 42278,
+        "fine_geometry_sha256": "9f3d14f12d32c457d8d058c46331dcf8b6082f20ac4b7fb75ffcbabce1ec09f1",
+        "stl_sha256": "d7ac56f25a2c88c7632a82a3aec4f445e39b72805875d57bb819b7295d8f5000",
+        "print_triangles": 253838,
+        "print_volume_mm3": 1100072.5671277368,
+        "print_min_mm": [
+          -110.5,
+          2.0,
+          -6.0
+        ],
+        "print_max_mm": [
+          110.5,
+          217.8000030517578,
+          174.8000030517578
+        ]
+      },
+      "on": {
+        "fine_triangles": 42278,
+        "fine_geometry_sha256": "9f3d14f12d32c457d8d058c46331dcf8b6082f20ac4b7fb75ffcbabce1ec09f1",
+        "stl_sha256": "d4938370022b72b814f3aff560ea4ec57c4af854ab61560fa93a3c1bdf1c6a87",
+        "print_triangles": 253842,
+        "print_volume_mm3": 1100072.567127768,
+        "print_min_mm": [
+          -110.5,
+          2.0,
+          -6.0
+        ],
+        "print_max_mm": [
+          110.5,
+          217.8000030517578,
+          174.8000030517578
+        ]
+      },
+      "volume_delta_mm3": 3.119930624961853e-08
+    },
+    {
+      "piece": "enclosure-back-bottom",
+      "off": {
+        "fine_triangles": 87504,
+        "fine_geometry_sha256": "741be4e5d4d4e4af1faa051845d64e5d0c0b88d9c613a3ed4c33bdb9ff178a7a",
+        "stl_sha256": "8e5a30ea3706b9f32de9bfdbb79c824e52a06f15f9356861b0179ea110e70781",
+        "print_triangles": 510256,
+        "print_volume_mm3": 1294293.1319253312,
+        "print_min_mm": [
+          -110.5,
+          200.14999389648438,
+          -6.0
+        ],
+        "print_max_mm": [
+          110.5,
+          474.29998779296875,
+          174.8000030517578
+        ]
+      },
+      "on": {
+        "fine_triangles": 87504,
+        "fine_geometry_sha256": "741be4e5d4d4e4af1faa051845d64e5d0c0b88d9c613a3ed4c33bdb9ff178a7a",
+        "stl_sha256": "5e03298dac1b3e3cdebaa490a2ba76942eb558258c000ec869adf2b48cb22726",
+        "print_triangles": 512762,
+        "print_volume_mm3": 1294293.1318407792,
+        "print_min_mm": [
+          -110.5,
+          200.14999389648438,
+          -6.0
+        ],
+        "print_max_mm": [
+          110.5,
+          474.29998779296875,
+          174.8000030517578
+        ]
+      },
+      "volume_delta_mm3": -8.455198258161545e-05
+    },
+    {
+      "piece": "enclosure-back-top",
+      "off": {
+        "fine_triangles": 56048,
+        "fine_geometry_sha256": "c3de525c30c8c88ec0af261aa43f49a01d3fed463658279fbd40eb09a1b9d1b9",
+        "stl_sha256": "1572fc27c147fd701c1a55afa6e612b52097a8a4ad41293b51046c7be8513a12",
+        "print_triangles": 626798,
+        "print_volume_mm3": 1555708.2557503327,
+        "print_min_mm": [
+          -110.5,
+          200.14999389648438,
+          160.25
+        ],
+        "print_max_mm": [
+          110.5,
+          474.29998779296875,
+          355.0
+        ]
+      },
+      "on": {
+        "fine_triangles": 56048,
+        "fine_geometry_sha256": "c3de525c30c8c88ec0af261aa43f49a01d3fed463658279fbd40eb09a1b9d1b9",
+        "stl_sha256": "d1ea02ff72880b5966ebf4e7e66689ecc04f88e1457be108418a62cdb5bc4369",
+        "print_triangles": 627462,
+        "print_volume_mm3": 1555708.2557235186,
+        "print_min_mm": [
+          -110.5,
+          200.14999389648438,
+          160.25
+        ],
+        "print_max_mm": [
+          110.5,
+          474.29998779296875,
+          355.0
+        ]
+      },
+      "volume_delta_mm3": -2.681417390704155e-05
+    }
+  ],
+  "coverage": [
+    {
+      "body": "enclosure-front-top",
+      "payload_sha256": "ba16513645fcf1f628b9ab7e9efff3bd883f454fa66c3d57c9418bebdb0de2bd",
+      "features": [
+        {
+          "id": "west-z-rail",
+          "label": "west sliding rail",
+          "source": "hardware/printed-parts/enclosure/enclosure/quadrants/rails.rs:152",
+          "triangle_count": 47
+        },
+        {
+          "id": "east-z-rail",
+          "label": "east sliding rail",
+          "source": "hardware/printed-parts/enclosure/enclosure/quadrants/rails.rs:152",
+          "triangle_count": 51
+        },
+        {
+          "id": "pump-bulkhead",
+          "label": "Pump bay bulkhead and ridge",
+          "source": "hardware/printed-parts/enclosure/enclosure/enclosure_front_top.rs:95",
+          "triangle_count": 487
+        },
+        {
+          "id": "valve-mounts",
+          "label": "Valve mounting trays",
+          "source": "hardware/printed-parts/enclosure/enclosure/enclosure_front_top.rs:96",
+          "triangle_count": 14435
+        },
+        {
+          "id": "pump-dock",
+          "label": "Pump bay and dock",
+          "source": "hardware/printed-parts/enclosure/enclosure/enclosure_front_top.rs:97",
+          "triangle_count": 353
+        },
+        {
+          "id": "pump-seat-ledges",
+          "label": "Pump seat ledges",
+          "source": "hardware/printed-parts/enclosure/enclosure/enclosure_front_top.rs:98",
+          "triangle_count": 50
+        },
+        {
+          "id": "pump-loading-openings",
+          "label": "Pump loading openings",
+          "source": "hardware/printed-parts/enclosure/enclosure/enclosure_front_top.rs:99",
+          "triangle_count": 2579
+        },
+        {
+          "id": "wago-mana-well",
+          "label": "wago-mana connector well",
+          "source": "hardware/printed-parts/enclosure/enclosure/quadrants/above.rs:51",
+          "triangle_count": 10
+        },
+        {
+          "id": "wago-manb-well",
+          "label": "wago-manb connector well",
+          "source": "hardware/printed-parts/enclosure/enclosure/quadrants/above.rs:51",
+          "triangle_count": 10
+        },
+        {
+          "id": "y-telescope",
+          "label": "Front-back telescope channel",
+          "source": "hardware/printed-parts/enclosure/enclosure/enclosure_front_top.rs:107",
+          "triangle_count": 8
+        },
+        {
+          "id": "funnel-seat",
+          "label": "Funnel retaining seat",
+          "source": "hardware/printed-parts/enclosure/enclosure/enclosure_front_top.rs:109",
+          "triangle_count": 5945
+        },
+        {
+          "id": "front-flank-pockets",
+          "label": "Front flank equipment pockets",
+          "source": "hardware/printed-parts/enclosure/enclosure/enclosure_front_top.rs:110",
+          "triangle_count": 28
+        },
+        {
+          "id": "route-snaps",
+          "label": "Tube and cable retaining snaps",
+          "source": "hardware/printed-parts/enclosure/enclosure/enclosure_front_top.rs:111",
+          "triangle_count": 30
+        },
+        {
+          "id": "y-joint-fasteners",
+          "label": "Front-back joint screw stations",
+          "source": "hardware/printed-parts/enclosure/enclosure/enclosure_front_top.rs:113",
+          "triangle_count": 3180
+        },
+        {
+          "id": "joint-fit-reliefs",
+          "label": "Joint fit reliefs",
+          "source": "hardware/printed-parts/enclosure/enclosure/enclosure_front_top.rs:114",
+          "triangle_count": 705
+        },
+        {
+          "id": "pump-mount-cuts",
+          "label": "Pump mounting sockets",
+          "source": "hardware/printed-parts/enclosure/enclosure/enclosure_front_top.rs:115",
+          "triangle_count": 12013
+        },
+        {
+          "id": "seam-band",
+          "label": "Seam band",
+          "source": "hardware/printed-parts/enclosure/enclosure/enclosure_front_top.rs:90",
+          "triangle_count": 10276
+        }
+      ]
+    },
+    {
+      "body": "enclosure-front-bottom",
+      "payload_sha256": "cf640900329181ebc8380a590835968216b5b3a98664e5e9e8fdf545a6959274",
+      "features": [
+        {
+          "id": "west-z-rail",
+          "label": "west sliding rail",
+          "source": "hardware/printed-parts/enclosure/enclosure/quadrants/rails.rs:126",
+          "triangle_count": 56
+        },
+        {
+          "id": "east-z-rail",
+          "label": "east sliding rail",
+          "source": "hardware/printed-parts/enclosure/enclosure/quadrants/rails.rs:126",
+          "triangle_count": 45
+        },
+        {
+          "id": "equipment-clearances",
+          "label": "Equipment clearance reliefs",
+          "source": "hardware/printed-parts/enclosure/enclosure/enclosure_front_bottom.rs:100",
+          "triangle_count": 127
+        },
+        {
+          "id": "floor-bosses",
+          "label": "Floor mounting bosses",
+          "source": "hardware/printed-parts/enclosure/enclosure/quadrants/piece.rs:86",
+          "triangle_count": 3576
+        },
+        {
+          "id": "gas-sensor-cradle",
+          "label": "Gas sensor card cradle",
+          "source": "hardware/printed-parts/enclosure/enclosure/quadrants/piece.rs:87",
+          "triangle_count": 64
+        },
+        {
+          "id": "condenser-cradles",
+          "label": "Condenser slot cradles",
+          "source": "hardware/printed-parts/enclosure/enclosure/quadrants/piece.rs:88",
+          "triangle_count": 111
+        },
+        {
+          "id": "condenser-mount",
+          "label": "Condenser mounting bosses",
+          "source": "hardware/printed-parts/enclosure/enclosure/quadrants/piece.rs:89",
+          "triangle_count": 1044
+        },
+        {
+          "id": "core-stops",
+          "label": "Cold core locating stops",
+          "source": "hardware/printed-parts/enclosure/enclosure/quadrants/piece.rs:90",
+          "triangle_count": 149
+        },
+        {
+          "id": "condenser-vents",
+          "label": "Condenser ventilation openings",
+          "source": "hardware/printed-parts/enclosure/enclosure/enclosure_front_bottom.rs:107",
+          "triangle_count": 7582
+        },
+        {
+          "id": "y-telescope",
+          "label": "Front-back telescope channel",
+          "source": "hardware/printed-parts/enclosure/enclosure/enclosure_front_bottom.rs:109",
+          "triangle_count": 21
+        },
+        {
+          "id": "west-handhold",
+          "label": "west lifting handhold",
+          "source": "hardware/printed-parts/enclosure/enclosure/quadrants/handholds.rs:81",
+          "triangle_count": 9858
+        },
+        {
+          "id": "handholds",
+          "label": "Lifting handholds",
+          "source": "hardware/printed-parts/enclosure/enclosure/enclosure_front_bottom.rs:111",
+          "triangle_count": 8
+        },
+        {
+          "id": "east-handhold",
+          "label": "east lifting handhold",
+          "source": "hardware/printed-parts/enclosure/enclosure/quadrants/handholds.rs:81",
+          "triangle_count": 9768
+        },
+        {
+          "id": "route-snaps",
+          "label": "Tube and cable retaining snaps",
+          "source": "hardware/printed-parts/enclosure/enclosure/enclosure_front_bottom.rs:112",
+          "triangle_count": 30
+        },
+        {
+          "id": "y-joint-fasteners",
+          "label": "Front-back joint screw stations",
+          "source": "hardware/printed-parts/enclosure/enclosure/enclosure_front_bottom.rs:113",
+          "triangle_count": 1171
+        },
+        {
+          "id": "joint-fit-reliefs",
+          "label": "Joint fit reliefs",
+          "source": "hardware/printed-parts/enclosure/enclosure/enclosure_front_bottom.rs:115",
+          "triangle_count": 278
+        },
+        {
+          "id": "seam-band",
+          "label": "Seam band",
+          "source": "hardware/printed-parts/enclosure/enclosure/enclosure_front_bottom.rs:99",
+          "triangle_count": 10590
+        }
+      ]
+    },
+    {
+      "body": "enclosure-back-bottom",
+      "payload_sha256": "bfc3fc161a67cd362aa9026a4d773ea37d5b9f15b91d57886fbab47f96026a1a",
+      "features": [
+        {
+          "id": "west-z-rail",
+          "label": "west sliding rail",
+          "source": "hardware/printed-parts/enclosure/enclosure/quadrants/rails.rs:126",
+          "triangle_count": 65
+        },
+        {
+          "id": "east-z-rail",
+          "label": "east sliding rail",
+          "source": "hardware/printed-parts/enclosure/enclosure/quadrants/rails.rs:126",
+          "triangle_count": 50
+        },
+        {
+          "id": "vent-chase",
+          "label": "Pressure relief vent chase",
+          "source": "hardware/printed-parts/enclosure/enclosure/enclosure_back_bottom.rs:97",
+          "triangle_count": 205
+        },
+        {
+          "id": "west-handhold",
+          "label": "west lifting handhold",
+          "source": "hardware/printed-parts/enclosure/enclosure/quadrants/handholds.rs:81",
+          "triangle_count": 9346
+        },
+        {
+          "id": "east-handhold",
+          "label": "east lifting handhold",
+          "source": "hardware/printed-parts/enclosure/enclosure/quadrants/handholds.rs:81",
+          "triangle_count": 9399
+        },
+        {
+          "id": "y-joint-fasteners",
+          "label": "Front-back joint screw stations",
+          "source": "hardware/printed-parts/enclosure/enclosure/enclosure_back_bottom.rs:107",
+          "triangle_count": 3736
+        },
+        {
+          "id": "joint-fit-reliefs",
+          "label": "Joint fit reliefs",
+          "source": "hardware/printed-parts/enclosure/enclosure/enclosure_back_bottom.rs:109",
+          "triangle_count": 306
+        },
+        {
+          "id": "seam-band",
+          "label": "Seam band",
+          "source": "hardware/printed-parts/enclosure/enclosure/enclosure_back_bottom.rs:93",
+          "triangle_count": 11245
+        }
+      ]
+    },
+    {
+      "body": "enclosure-back-top",
+      "payload_sha256": "d05b920a1db3241c517dedb25c90f0e4d1915ac6b17ee38ea298d0bc1ea46e8c",
+      "features": [
+        {
+          "id": "west-z-rail",
+          "label": "west sliding rail",
+          "source": "hardware/printed-parts/enclosure/enclosure/quadrants/rails.rs:152",
+          "triangle_count": 39
+        },
+        {
+          "id": "east-z-rail",
+          "label": "east sliding rail",
+          "source": "hardware/printed-parts/enclosure/enclosure/quadrants/rails.rs:152",
+          "triangle_count": 21
+        },
+        {
+          "id": "core-holds",
+          "label": "Cold core retaining mounts",
+          "source": "hardware/printed-parts/enclosure/enclosure/quadrants/piece.rs:91",
+          "triangle_count": 30
+        },
+        {
+          "id": "vent-chase",
+          "label": "Pressure relief vent chase",
+          "source": "hardware/printed-parts/enclosure/enclosure/enclosure_back_top.rs:250",
+          "triangle_count": 152
+        },
+        {
+          "id": "wago-h-well",
+          "label": "wago-h connector well",
+          "source": "hardware/printed-parts/enclosure/enclosure/quadrants/above.rs:48",
+          "triangle_count": 24
+        },
+        {
+          "id": "wago-g-well",
+          "label": "wago-g connector well",
+          "source": "hardware/printed-parts/enclosure/enclosure/quadrants/above.rs:48",
+          "triangle_count": 24
+        },
+        {
+          "id": "wago-n-well",
+          "label": "wago-n connector well",
+          "source": "hardware/printed-parts/enclosure/enclosure/quadrants/above.rs:48",
+          "triangle_count": 24
+        },
+        {
+          "id": "rear-interior-relief",
+          "label": "Rear interior panel relief",
+          "source": "hardware/printed-parts/enclosure/enclosure/back-top/rear.rs:51",
+          "triangle_count": 773
+        },
+        {
+          "id": "rear-bulkhead-openings",
+          "label": "Rear fluid bulkhead openings",
+          "source": "hardware/printed-parts/enclosure/enclosure/back-top/rear.rs:63",
+          "triangle_count": 1248
+        },
+        {
+          "id": "power-inlet-mount",
+          "label": "Power inlet mount and tunnel",
+          "source": "hardware/printed-parts/enclosure/enclosure/back-top/rear.rs:69",
+          "triangle_count": 3346
+        },
+        {
+          "id": "keystone-mount",
+          "label": "Ethernet keystone mount",
+          "source": "hardware/printed-parts/enclosure/enclosure/back-top/rear.rs:73",
+          "triangle_count": 209
+        },
+        {
+          "id": "identification-mounts",
+          "label": "Nameplate and connector label mounts",
+          "source": "hardware/printed-parts/enclosure/enclosure/back-top/rear.rs:74",
+          "triangle_count": 2823
+        },
+        {
+          "id": "psu-mount",
+          "label": "psu mounting bosses",
+          "source": "hardware/printed-parts/enclosure/enclosure/back-top/rear.rs:497",
+          "triangle_count": 3576
+        },
+        {
+          "id": "relay-1-mount",
+          "label": "relay-1 mounting bosses",
+          "source": "hardware/printed-parts/enclosure/enclosure/back-top/rear.rs:497",
+          "triangle_count": 2883
+        },
+        {
+          "id": "relay-2-mount",
+          "label": "relay-2 mounting bosses",
+          "source": "hardware/printed-parts/enclosure/enclosure/back-top/rear.rs:497",
+          "triangle_count": 2897
+        },
+        {
+          "id": "relay-mount-bars",
+          "label": "Relay mount bearing bars",
+          "source": "hardware/printed-parts/enclosure/enclosure/back-top/rear.rs:513",
+          "triangle_count": 680
+        },
+        {
+          "id": "rear-valve-seats",
+          "label": "Rear valve mounting seats",
+          "source": "hardware/printed-parts/enclosure/enclosure/back-top/rear.rs:76",
+          "triangle_count": 4263
+        },
+        {
+          "id": "asse-receiver",
+          "label": "ASSE chain snap receiver",
+          "source": "hardware/printed-parts/enclosure/enclosure/back-top/rear.rs:83",
+          "triangle_count": 933
+        },
+        {
+          "id": "pisco-receiver",
+          "label": "Pisco regulator snap receiver",
+          "source": "hardware/printed-parts/enclosure/enclosure/back-top/rear.rs:83",
+          "triangle_count": 785
+        },
+        {
+          "id": "flow-meter-receiver",
+          "label": "Flow meter snap receiver",
+          "source": "hardware/printed-parts/enclosure/enclosure/back-top/rear.rs:83",
+          "triangle_count": 3468
+        },
+        {
+          "id": "water-regulator-receiver",
+          "label": "Water regulator snap receiver",
+          "source": "hardware/printed-parts/enclosure/enclosure/back-top/rear.rs:83",
+          "triangle_count": 5321
+        },
+        {
+          "id": "receiver-catch-pockets",
+          "label": "Snap receiver catch pockets",
+          "source": "hardware/printed-parts/enclosure/enclosure/back-top/rear.rs:86",
+          "triangle_count": 144
+        },
+        {
+          "id": "funnel-seat",
+          "label": "Funnel retaining seat",
+          "source": "hardware/printed-parts/enclosure/enclosure/enclosure_back_top.rs:260",
+          "triangle_count": 1432
+        },
+        {
+          "id": "route-snaps",
+          "label": "Tube and cable retaining snaps",
+          "source": "hardware/printed-parts/enclosure/enclosure/enclosure_back_top.rs:261",
+          "triangle_count": 1095
+        },
+        {
+          "id": "y-joint-fasteners",
+          "label": "Front-back joint screw stations",
+          "source": "hardware/printed-parts/enclosure/enclosure/enclosure_back_top.rs:262",
+          "triangle_count": 1556
+        },
+        {
+          "id": "joint-fit-reliefs",
+          "label": "Joint fit reliefs",
+          "source": "hardware/printed-parts/enclosure/enclosure/enclosure_back_top.rs:264",
+          "triangle_count": 1322
+        },
+        {
+          "id": "seam-band",
+          "label": "Seam band",
+          "source": "hardware/printed-parts/enclosure/enclosure/enclosure_back_top.rs:246",
+          "triangle_count": 11085
+        }
+      ]
+    }
+  ],
+  "stability_cases": [
+    {
+      "case": "baseline",
+      "seconds": 6.700243917002808,
+      "payload_sha256": "d05b920a1db3241c517dedb25c90f0e4d1915ac6b17ee38ea298d0bc1ea46e8c",
+      "all_ids": [
+        "asse-receiver",
+        "core-holds",
+        "east-z-rail",
+        "flow-meter-receiver",
+        "funnel-seat",
+        "identification-mounts",
+        "joint-fit-reliefs",
+        "keystone-mount",
+        "pisco-receiver",
+        "power-inlet-mount",
+        "psu-mount",
+        "rear-bulkhead-openings",
+        "rear-interior-relief",
+        "rear-valve-seats",
+        "receiver-catch-pockets",
+        "relay-1-mount",
+        "relay-2-mount",
+        "relay-mount-bars",
+        "route-snaps",
+        "seam-band",
+        "vent-chase",
+        "wago-g-well",
+        "wago-h-well",
+        "wago-n-well",
+        "water-regulator-receiver",
+        "west-z-rail",
+        "y-joint-fasteners"
+      ],
+      "feature": {
+        "name": "enclosure-back-top::wago-h-well",
+        "id": "wago-h-well",
+        "related": [
+          "wago-h"
+        ],
+        "min_mm": [
+          -98.5,
+          384.8500061035156,
+          320.95001220703125
+        ],
+        "max_mm": [
+          -89.05000305175781,
+          399.54998779296875,
+          346.0
+        ],
+        "triangle_count": 24
+      },
+      "cache_hits": 0,
+      "geometry_built": 508
+    },
+    {
+      "case": "move",
+      "seconds": 5.80652149999878,
+      "payload_sha256": "c63b9e1d9992ea6e4554c666af97d72bed1c844c7d7bc66cc0d5a901fecf3ad1",
+      "all_ids": [
+        "asse-receiver",
+        "core-holds",
+        "east-z-rail",
+        "flow-meter-receiver",
+        "funnel-seat",
+        "identification-mounts",
+        "joint-fit-reliefs",
+        "keystone-mount",
+        "pisco-receiver",
+        "power-inlet-mount",
+        "psu-mount",
+        "rear-bulkhead-openings",
+        "rear-interior-relief",
+        "rear-valve-seats",
+        "receiver-catch-pockets",
+        "relay-1-mount",
+        "relay-2-mount",
+        "relay-mount-bars",
+        "route-snaps",
+        "seam-band",
+        "vent-chase",
+        "wago-g-well",
+        "wago-h-well",
+        "wago-n-well",
+        "water-regulator-receiver",
+        "west-z-rail",
+        "y-joint-fasteners"
+      ],
+      "feature": {
+        "name": "enclosure-back-top::wago-h-well",
+        "id": "wago-h-well",
+        "related": [
+          "wago-h"
+        ],
+        "min_mm": [
+          -98.5,
+          384.8500061035156,
+          319.95001220703125
+        ],
+        "max_mm": [
+          -89.05000305175781,
+          399.54998779296875,
+          345.04998779296875
+        ],
+        "triangle_count": 26
+      },
+      "cache_hits": 4,
+      "geometry_built": 442
+    },
+    {
+      "case": "resize",
+      "seconds": 5.9801545000009355,
+      "payload_sha256": "5ea8e022b6416c033189628c8512a8636f3be5ecca7dfba34d8994a51a0477e3",
+      "all_ids": [
+        "asse-receiver",
+        "core-holds",
+        "east-z-rail",
+        "flow-meter-receiver",
+        "funnel-seat",
+        "identification-mounts",
+        "joint-fit-reliefs",
+        "keystone-mount",
+        "pisco-receiver",
+        "power-inlet-mount",
+        "psu-mount",
+        "rear-bulkhead-openings",
+        "rear-interior-relief",
+        "rear-valve-seats",
+        "receiver-catch-pockets",
+        "relay-1-mount",
+        "relay-2-mount",
+        "relay-mount-bars",
+        "route-snaps",
+        "seam-band",
+        "vent-chase",
+        "wago-g-well",
+        "wago-h-well",
+        "wago-n-well",
+        "water-regulator-receiver",
+        "west-z-rail",
+        "y-joint-fasteners"
+      ],
+      "feature": {
+        "name": "enclosure-back-top::wago-h-well",
+        "id": "wago-h-well",
+        "related": [
+          "wago-h"
+        ],
+        "min_mm": [
+          -98.5999984741211,
+          384.75,
+          320.8500061035156
+        ],
+        "max_mm": [
+          -89.05000305175781,
+          399.6499938964844,
+          346.0
+        ],
+        "triangle_count": 24
+      },
+      "cache_hits": 4,
+      "geometry_built": 442
+    },
+    {
+      "case": "unrelated-insertion",
+      "seconds": 0.9548496249990421,
+      "payload_sha256": "d05b920a1db3241c517dedb25c90f0e4d1915ac6b17ee38ea298d0bc1ea46e8c",
+      "all_ids": [
+        "asse-receiver",
+        "core-holds",
+        "east-z-rail",
+        "flow-meter-receiver",
+        "funnel-seat",
+        "identification-mounts",
+        "joint-fit-reliefs",
+        "keystone-mount",
+        "pisco-receiver",
+        "power-inlet-mount",
+        "psu-mount",
+        "rear-bulkhead-openings",
+        "rear-interior-relief",
+        "rear-valve-seats",
+        "receiver-catch-pockets",
+        "relay-1-mount",
+        "relay-2-mount",
+        "relay-mount-bars",
+        "route-snaps",
+        "seam-band",
+        "vent-chase",
+        "wago-g-well",
+        "wago-h-well",
+        "wago-n-well",
+        "water-regulator-receiver",
+        "west-z-rail",
+        "y-joint-fasteners"
+      ],
+      "feature": {
+        "name": "enclosure-back-top::wago-h-well",
+        "id": "wago-h-well",
+        "related": [
+          "wago-h"
+        ],
+        "min_mm": [
+          -98.5,
+          384.8500061035156,
+          320.95001220703125
+        ],
+        "max_mm": [
+          -89.05000305175781,
+          399.54998779296875,
+          346.0
+        ],
+        "triangle_count": 24
+      },
+      "cache_hits": 4,
+      "geometry_built": 0
+    },
+    {
+      "case": "cache-reload",
+      "seconds": 0.9307855000006384,
+      "payload_sha256": "d05b920a1db3241c517dedb25c90f0e4d1915ac6b17ee38ea298d0bc1ea46e8c",
+      "all_ids": [
+        "asse-receiver",
+        "core-holds",
+        "east-z-rail",
+        "flow-meter-receiver",
+        "funnel-seat",
+        "identification-mounts",
+        "joint-fit-reliefs",
+        "keystone-mount",
+        "pisco-receiver",
+        "power-inlet-mount",
+        "psu-mount",
+        "rear-bulkhead-openings",
+        "rear-interior-relief",
+        "rear-valve-seats",
+        "receiver-catch-pockets",
+        "relay-1-mount",
+        "relay-2-mount",
+        "relay-mount-bars",
+        "route-snaps",
+        "seam-band",
+        "vent-chase",
+        "wago-g-well",
+        "wago-h-well",
+        "wago-n-well",
+        "water-regulator-receiver",
+        "west-z-rail",
+        "y-joint-fasteners"
+      ],
+      "feature": {
+        "name": "enclosure-back-top::wago-h-well",
+        "id": "wago-h-well",
+        "related": [
+          "wago-h"
+        ],
+        "min_mm": [
+          -98.5,
+          384.8500061035156,
+          320.95001220703125
+        ],
+        "max_mm": [
+          -89.05000305175781,
+          399.54998779296875,
+          346.0
+        ],
+        "triangle_count": 24
+      },
+      "cache_hits": 4,
+      "geometry_built": 0
+    }
+  ],
+  "scope": "Named construction surfaces within each existing quadrant. Untagged shell and finish faces remain owned by the quadrant. No separate feature solids or exports.",
+  "lookup": {
+    "query": "enclosure-back-top::wago-h-well",
+    "milliseconds": 44.451958000000005,
+    "producer": [
+      {
+        "source": "hardware/printed-parts/enclosure/enclosure/enclosure_back_top.rs",
+        "targets": [
+          "//:enclosure-back-top"
+        ]
+      }
+    ]
+  },
+  "native_validation": [
+    "kernel construction move/resize/cut/import test",
+    "retained print precision identity test",
+    "CLI feature bounds, sections, rays, surface distance, volume refusal and revision invalidation tests",
+    "assembly-wide feature metadata lookup with zero query geometry budget and an unavailable unnamed neighbor"
+  ],
+  "local_browser": {
+    "1280": {
+      "origin": "http://127.0.0.1:58106",
+      "viewport": {
+        "width": 1280,
+        "height": 960
+      },
+      "linked": {
+        "id": "wago-h-well",
+        "source": "hardware/printed-parts/enclosure/enclosure/quadrants/above.rs:48",
+        "count": 24,
+        "available": "Explore features"
+      },
+      "mounted": {
+        "file": "manifold-layout/enclosure-assembly.step",
+        "revision": "73b7b8a81219b635ccf3372b6712bd31a9f10f54c063f4562ea5dcb81f79fba6",
+        "nodes": [
+          {
+            "asset": "0cf3effba3509d9dcc960acfadb6f4e8840a1271476e074b42fc34148120a961",
+            "bytes": 15606116,
+            "entries": [
+              {
+                "color": [
+                  0.03310476616024971,
+                  0.03310476616024971,
+                  0.036306485533714294
+                ],
+                "name": "enclosure-back-top"
+              }
+            ],
+            "feature_count": 27,
+            "name": "enclosure-back-top",
+            "source": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step.mesh",
+            "source_name": "enclosure-back-top",
+            "source_sha256": "d05b920a1db3241c517dedb25c90f0e4d1915ac6b17ee38ea298d0bc1ea46e8c",
+            "transform": [
+              [
+                1,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                1,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                1,
+                0
+              ]
+            ]
+          }
+        ],
+        "parts": [
+          {
+            "name": "enclosure-back-top",
+            "features": [
+              "west-z-rail",
+              "east-z-rail",
+              "core-holds",
+              "vent-chase",
+              "wago-h-well",
+              "wago-g-well",
+              "wago-n-well",
+              "rear-interior-relief",
+              "rear-bulkhead-openings",
+              "power-inlet-mount",
+              "keystone-mount",
+              "identification-mounts",
+              "psu-mount",
+              "relay-1-mount",
+              "relay-2-mount",
+              "relay-mount-bars",
+              "rear-valve-seats",
+              "asse-receiver",
+              "pisco-receiver",
+              "flow-meter-receiver",
+              "water-regulator-receiver",
+              "receiver-catch-pockets",
+              "funnel-seat",
+              "route-snaps",
+              "y-joint-fasteners",
+              "joint-fit-reliefs",
+              "seam-band"
+            ]
+          }
+        ]
+      },
+      "feature_count": 69,
+      "errors": []
+    },
+    "390": {
+      "origin": "http://127.0.0.1:58106",
+      "viewport": {
+        "width": 390,
+        "height": 844,
+        "isMobile": true,
+        "hasTouch": true
+      },
+      "linked": {
+        "id": "wago-h-well",
+        "source": "hardware/printed-parts/enclosure/enclosure/quadrants/above.rs:48",
+        "count": 24,
+        "available": "Explore features"
+      },
+      "mounted": {
+        "file": "manifold-layout/enclosure-assembly.step",
+        "revision": "73b7b8a81219b635ccf3372b6712bd31a9f10f54c063f4562ea5dcb81f79fba6",
+        "nodes": [
+          {
+            "asset": "0cf3effba3509d9dcc960acfadb6f4e8840a1271476e074b42fc34148120a961",
+            "bytes": 15606116,
+            "entries": [
+              {
+                "color": [
+                  0.03310476616024971,
+                  0.03310476616024971,
+                  0.036306485533714294
+                ],
+                "name": "enclosure-back-top"
+              }
+            ],
+            "feature_count": 27,
+            "name": "enclosure-back-top",
+            "source": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step.mesh",
+            "source_name": "enclosure-back-top",
+            "source_sha256": "d05b920a1db3241c517dedb25c90f0e4d1915ac6b17ee38ea298d0bc1ea46e8c",
+            "transform": [
+              [
+                1,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                1,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                1,
+                0
+              ]
+            ]
+          }
+        ],
+        "parts": [
+          {
+            "name": "enclosure-back-top",
+            "features": [
+              "west-z-rail",
+              "east-z-rail",
+              "core-holds",
+              "vent-chase",
+              "wago-h-well",
+              "wago-g-well",
+              "wago-n-well",
+              "rear-interior-relief",
+              "rear-bulkhead-openings",
+              "power-inlet-mount",
+              "keystone-mount",
+              "identification-mounts",
+              "psu-mount",
+              "relay-1-mount",
+              "relay-2-mount",
+              "relay-mount-bars",
+              "rear-valve-seats",
+              "asse-receiver",
+              "pisco-receiver",
+              "flow-meter-receiver",
+              "water-regulator-receiver",
+              "receiver-catch-pockets",
+              "funnel-seat",
+              "route-snaps",
+              "y-joint-fasteners",
+              "joint-fit-reliefs",
+              "seam-band"
+            ]
+          }
+        ]
+      },
+      "feature_count": 69,
+      "errors": []
+    }
+  },
+  "local_navigation": {
+    "1280": {
+      "instances": [
+        "http://127.0.0.1:58106/3d#step:manifold-layout/enclosure-assembly.step?find=solid: relay-1",
+        "http://127.0.0.1:58106/3d#step:manifold-layout/enclosure-assembly.step?find=solid: relay-2"
+      ],
+      "feature_search": "enclosure-back-top::wago-h-well",
+      "errors": []
+    },
+    "390": {
+      "instances": [
+        "http://127.0.0.1:58106/3d#step:manifold-layout/enclosure-assembly.step?find=solid: relay-1",
+        "http://127.0.0.1:58106/3d#step:manifold-layout/enclosure-assembly.step?find=solid: relay-2"
+      ],
+      "feature_search": "enclosure-back-top::wago-h-well",
+      "errors": []
+    }
+  },
+  "publication": {
+    "selective_build": {
+      "purpose": "This record identifies each completed producer carried during the print build.",
+      "success": true,
+      "wall_seconds": 21.114018041000236,
+      "preview": [],
+      "checkpoint_errors": [],
+      "carried": []
+    },
+    "note": "Successful input traces already carried matching outputs, so this no-copy build launched no publisher. The existing publish_now entry point published those completed bytes explicitly.",
+    "live_feature_count": 69
+  },
+  "source_sha256": {
+    "hardware/printed-parts/enclosure/enclosure/solid/plan.rs": "17562e1f95487a2fbafb8564ee0e50801a13dcf9139c1bb1e2daf598fef3e19a",
+    "hardware/printed-parts/enclosure/enclosure/solid/features.rs": "0f5a573f16c655011546bbebfe13c710f0dfaa959b77aee4836d33882501e918",
+    "hardware/printed-parts/enclosure/enclosure/quadrants/above.rs": "81266bffcff9c2d78e23997b638bf151f6f562484ed44b738a698332ee23a5fa",
+    "tools/hsm/kernel/src/feature.rs": "72ac4620494281db5d5dde99f535fc3bb7ef270cf9dc6d48b134d5a3ad0129e4",
+    "tools/hsm/print-payload/src/lib.rs": "a6cf6851cdafcedee1290fcc16c2c32dda0f710aaaf5eb15f9d2f2a0c5d2af8f",
+    "web/contracts/features.js": "f350363d6ca82f2a8e2800dc7294937873e64c2a1fc138d7eebe1128ceeb68d2",
+    "web/public/js/viewer/features.js": "69fe8008e00b4a9fa9afc28b0e5d03e29140a683a584051d53dd02d9547e437c"
+  },
+  "native_catalog": {
+    "count": 69,
+    "elapsed_ms": 34.518042,
+    "payload_sha256": "77586263d1e308e0822eaeb86276d3918a378fd0bc4c5353bcdc85cdb808c28b"
+  },
+  "timing_interpretation": "Paired samples show a small fresh mean delta and no warm increase. Run-to-run spread is larger than the mean delta; the warm delta is not evidence of a speed improvement.",
+  "manufacturing_validation": {
+    "preparer": "enclosure-print-prep back-top",
+    "success": true,
+    "scope": "Current geometry bindings and project preparation; no slicing requested.",
+    "projects": [
+      {
+        "name": "2026-11-08-back-top-mark2-4797722d.3mf",
+        "sha256": "6b210b58c91d9679bb5f6a51c126bb670c7f5cc2771c491e791190ac5a622b4a"
+      }
+    ]
+  },
+  "live_browser": {
+    "1280": {
+      "origin": "https://homesodamachine.com",
+      "viewport": {
+        "width": 1280,
+        "height": 960
+      },
+      "linked": {
+        "id": "wago-h-well",
+        "source": "hardware/printed-parts/enclosure/enclosure/quadrants/above.rs:48",
+        "count": 24,
+        "available": "Explore features"
+      },
+      "mounted": {
+        "file": "manifold-layout/enclosure-assembly.step",
+        "revision": "5bf3c070b5d599a8727c2b50a95c3c0b22a9d021a099b2e9c5240ea82d9047ea",
+        "nodes": [
+          {
+            "asset": "0cf3effba3509d9dcc960acfadb6f4e8840a1271476e074b42fc34148120a961",
+            "bytes": 15606116,
+            "entries": [
+              {
+                "color": [
+                  0.03310476616024971,
+                  0.03310476616024971,
+                  0.036306485533714294
+                ],
+                "name": "enclosure-back-top"
+              }
+            ],
+            "feature_count": 27,
+            "name": "enclosure-back-top",
+            "source": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step.mesh",
+            "source_name": "enclosure-back-top",
+            "source_sha256": "d05b920a1db3241c517dedb25c90f0e4d1915ac6b17ee38ea298d0bc1ea46e8c",
+            "transform": [
+              [
+                1,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                1,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                1,
+                0
+              ]
+            ]
+          }
+        ],
+        "parts": [
+          {
+            "name": "enclosure-back-top",
+            "features": [
+              "west-z-rail",
+              "east-z-rail",
+              "core-holds",
+              "vent-chase",
+              "wago-h-well",
+              "wago-g-well",
+              "wago-n-well",
+              "rear-interior-relief",
+              "rear-bulkhead-openings",
+              "power-inlet-mount",
+              "keystone-mount",
+              "identification-mounts",
+              "psu-mount",
+              "relay-1-mount",
+              "relay-2-mount",
+              "relay-mount-bars",
+              "rear-valve-seats",
+              "asse-receiver",
+              "pisco-receiver",
+              "flow-meter-receiver",
+              "water-regulator-receiver",
+              "receiver-catch-pockets",
+              "funnel-seat",
+              "route-snaps",
+              "y-joint-fasteners",
+              "joint-fit-reliefs",
+              "seam-band"
+            ]
+          }
+        ]
+      },
+      "feature_count": 69,
+      "errors": []
+    },
+    "390": {
+      "origin": "https://homesodamachine.com",
+      "viewport": {
+        "width": 390,
+        "height": 844,
+        "isMobile": true,
+        "hasTouch": true
+      },
+      "linked": {
+        "id": "wago-h-well",
+        "source": "hardware/printed-parts/enclosure/enclosure/quadrants/above.rs:48",
+        "count": 24,
+        "available": "Explore features"
+      },
+      "mounted": {
+        "file": "manifold-layout/enclosure-assembly.step",
+        "revision": "5bf3c070b5d599a8727c2b50a95c3c0b22a9d021a099b2e9c5240ea82d9047ea",
+        "nodes": [
+          {
+            "asset": "0cf3effba3509d9dcc960acfadb6f4e8840a1271476e074b42fc34148120a961",
+            "bytes": 15606116,
+            "entries": [
+              {
+                "color": [
+                  0.03310476616024971,
+                  0.03310476616024971,
+                  0.036306485533714294
+                ],
+                "name": "enclosure-back-top"
+              }
+            ],
+            "feature_count": 27,
+            "name": "enclosure-back-top",
+            "source": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step.mesh",
+            "source_name": "enclosure-back-top",
+            "source_sha256": "d05b920a1db3241c517dedb25c90f0e4d1915ac6b17ee38ea298d0bc1ea46e8c",
+            "transform": [
+              [
+                1,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                1,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                1,
+                0
+              ]
+            ]
+          }
+        ],
+        "parts": [
+          {
+            "name": "enclosure-back-top",
+            "features": [
+              "west-z-rail",
+              "east-z-rail",
+              "core-holds",
+              "vent-chase",
+              "wago-h-well",
+              "wago-g-well",
+              "wago-n-well",
+              "rear-interior-relief",
+              "rear-bulkhead-openings",
+              "power-inlet-mount",
+              "keystone-mount",
+              "identification-mounts",
+              "psu-mount",
+              "relay-1-mount",
+              "relay-2-mount",
+              "relay-mount-bars",
+              "rear-valve-seats",
+              "asse-receiver",
+              "pisco-receiver",
+              "flow-meter-receiver",
+              "water-regulator-receiver",
+              "receiver-catch-pockets",
+              "funnel-seat",
+              "route-snaps",
+              "y-joint-fasteners",
+              "joint-fit-reliefs",
+              "seam-band"
+            ]
+          }
+        ]
+      },
+      "feature_count": 69,
+      "errors": []
+    }
+  },
+  "live_navigation": {
+    "1280": {
+      "instances": [
+        "https://homesodamachine.com/3d#step:manifold-layout/enclosure-assembly.step?find=solid: relay-1",
+        "https://homesodamachine.com/3d#step:manifold-layout/enclosure-assembly.step?find=solid: relay-2"
+      ],
+      "feature_search": "enclosure-back-top::wago-h-well",
+      "errors": []
+    },
+    "390": {
+      "instances": [
+        "https://homesodamachine.com/3d#step:manifold-layout/enclosure-assembly.step?find=solid: relay-1",
+        "https://homesodamachine.com/3d#step:manifold-layout/enclosure-assembly.step?find=solid: relay-2"
+      ],
+      "feature_search": "enclosure-back-top::wago-h-well",
+      "errors": []
+    }
+  },
+  "live_validation": {
+    "success": true,
+    "viewer_commit": "6ff5c6277405d37efdb4eb696541e680e8a2687c",
+    "tests": [
+      "feature link draws selected exported triangles",
+      "whole component picking remains the default",
+      "Explore features enables surface picking",
+      "selected feature survives picker refresh",
+      "copied feature link retains installed owner",
+      "mobile feature name remains readable without horizontal overflow",
+      "relay installed instances have distinct links and select relay-2",
+      "material search finds the selected feature",
+      "feature search works before mounting a model"
+    ],
+    "global_catalog_count": 69
+  },
+  "cleanup": "Temporary geometry comparisons, the copied baseline executable, private benchmark caches, browser images and trial projects are removed after validation; shared geometry caches remain."
+}
