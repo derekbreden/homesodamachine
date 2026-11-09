@@ -78,6 +78,10 @@ test("locations preview compounds and repeated copies, preserve selection and hi
         assert.ok(entered.hidden.includes('enclosure-back-top'), JSON.stringify(entered));
         assert.equal(entered.faded, false); assert.equal(entered.xray, false);
         assert.ok(entered.selectedMeshes >= 4, JSON.stringify(entered));
+        if (viewport.isMobile) {
+          assert.ok(await page.$eval('.component-panel', node => node.getBoundingClientRect().height < 110));
+          assert.ok(await page.$eval('.component-held-here', node => node.getBoundingClientRect().width > 80));
+        }
         await capture('pisco-entered');
         await page.reload();
         await waitReady(page);
