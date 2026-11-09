@@ -511,12 +511,13 @@ fn flute_mesh_observed(
     rails: &[Rail],
     extra_plain: &[Bounds],
     mut observer: Option<&mut dyn FluteObserver>,
+    base: Manifold,
 ) -> Result<Manifold> {
     let mut rails = rails.to_vec();
     for rail in &mut rails {
         rail.plain.extend_from_slice(extra_plain);
     }
-    let mut operands = vec![mesh.manifold()?];
+    let mut operands = vec![base];
     if let Some(watch) = observer.as_mut() {
         watch.base(&operands[0]);
     }
@@ -544,10 +545,15 @@ fn flute_mesh_observed(
         if let Some(watch) = observer.as_mut() {
             watch.cut(&cut);
         }
-        let (vertices, props, triangles) = cut.to_mesh_f32();
-        drop(cut);
-        // A second construction from the positions its STL can store.
-        Manifold::from_mesh_f32(&vertices, props, &triangles)?
+        if crate::features::enabled() {
+            let mesh = cut.to_meshgl();
+            drop(cut);
+            Manifold::from_meshgl(&mesh)?
+        } else {
+            let (v, props, t) = cut.to_mesh_f32();
+            drop(cut);
+            Manifold::from_mesh_f32(&v, props, &t)?
+        }
     };
     if let Some(watch) = observer.as_mut() {
         watch.finished(&out);
@@ -564,7 +570,7 @@ fn mesh(solid: &hsm_kernel::Solid) -> Mesh {
 
 /// The print field cut into a structural kernel body; `extra_plain` lands stay smooth.
 pub fn flute_solid(solid: &hsm_kernel::Solid, field: &Field, rails: &[Rail], extra_plain: &[Bounds]) -> Result<Manifold> {
-    flute_mesh_observed(&mesh(solid), field, rails, extra_plain, None)
+    flute_mesh_observed(&mesh(solid), field, rails, extra_plain, None, crate::features::manifold(solid)?)
 }
 
 /// Observers read relations beside the print path; they cannot supply or alter its meshes.
@@ -582,5 +588,5 @@ pub fn flute_solid_observed(
     extra_plain: &[Bounds],
     observer: &mut dyn FluteObserver,
 ) -> Result<Manifold> {
-    flute_mesh_observed(&mesh(solid), field, rails, extra_plain, Some(observer))
+    flute_mesh_observed(&mesh(solid), field, rails, extra_plain, Some(observer), crate::features::manifold(solid)?)
 }

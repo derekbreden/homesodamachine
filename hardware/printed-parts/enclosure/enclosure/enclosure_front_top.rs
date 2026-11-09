@@ -23,7 +23,7 @@ use hsm_enclosure_quadrants::vent::{flank_vents, vent_chase};
 use hsm_enclosure_quadrants::walls::{flank_bedding_cut, y_lip_channel};
 use hsm_enclosure_quadrants::ystacks::y_stacks;
 use hsm_enclosure_quadrants::{above, funnel, plan, routes, seat, shell, spec, valves, walls};
-use hsm_enclosure_solid::pieces::{digest, keep, payload, shown};
+use hsm_enclosure_solid::pieces::{digest, keep, payload_with_features as payload, shown};
 use hsm_enclosure_solid::plan::{Graph, Shape};
 use hsm_enclosure_solid::sources::Sources;
 use hsm_enclosure_solid::structure::Silhouette;
@@ -84,35 +84,35 @@ fn pipeline(g: &mut Graph, k: &Build) -> Shape {
     piece = g.union(piece, &[flanks]);
     let bedding = flank_bedding_cut(g, inner, y_joint - WALL - 1.0, y_joint + LIP_LEN + 1.0, zj);
     piece = g.cut(piece, &[bedding]);
-    let feet = z_rail_feet(g, inner, y_joint, zj, q.y);
+    let feet = g.scoped("z-rails", "Sliding joint rails", &[], |g| z_rail_feet(g, inner, y_joint, zj, q.y));
     piece = g.union(piece, &[feet]);
     piece = g.intersect(piece, &[k.silhouette]);
-    piece = k.exterior(g, piece);
-    piece = k.rises(g, piece);
+    piece = g.scoped("seam-band", "Seam band", &[], |g| k.exterior(g, piece));
+    piece = g.scoped("equipment-clearances", "Equipment clearance reliefs", &[], |g| k.rises(g, piece));
     let bands = q.bands(b);
     piece = k.floor(g, piece, None);
-    piece = vent_chase(g, piece, inner, outer, &b.exterior_bounds(), &pack.vent_chase, bands, up);
-    piece = fronttop::bulkhead_and_ridge(g, piece, b);
-    piece = valves::valve_trays(g, piece, b, q, bands);
-    piece = fronttop::dock_and_bay(g, piece, b);
-    piece = fronttop::seat_ledge_corbels(g, piece, b);
-    piece = fronttop::loading_and_dock_cuts(g, piece, b);
-    piece = k.reliefs(g, piece);
+    piece = g.scoped("vent-chase", "Pressure relief vent chase", &[], |g| vent_chase(g, piece, inner, outer, &b.exterior_bounds(), &pack.vent_chase, bands, up));
+    piece = g.scoped("pump-bulkhead", "Pump bay bulkhead and ridge", &["pump-a-mount", "pump-b-mount"], |g| fronttop::bulkhead_and_ridge(g, piece, b));
+    piece = g.scoped("valve-mounts", "Valve mounting trays", &[], |g| valves::valve_trays(g, piece, b, q, bands));
+    piece = g.scoped("pump-dock", "Pump bay and dock", &[], |g| fronttop::dock_and_bay(g, piece, b));
+    piece = g.scoped("pump-seat-ledges", "Pump seat ledges", &[], |g| fronttop::seat_ledge_corbels(g, piece, b));
+    piece = g.scoped("pump-loading-openings", "Pump loading openings", &[], |g| fronttop::loading_and_dock_cuts(g, piece, b));
+    piece = g.scoped("equipment-clearances", "Equipment clearance reliefs", &[], |g| k.reliefs(g, piece));
     (piece, _) = above::apply(g, piece, b, q.y);
     if k.airway_in() {
-        piece = flank_vents(g, piece, outer, &pack.cond_airway);
+        piece = g.scoped("condenser-vents", "Condenser ventilation openings", &["condenser+fan"], |g| flank_vents(g, piece, outer, &pack.cond_airway));
     }
-    let channels = z_rail_channels(g, inner, y_joint, zj, q.y);
+    let channels = g.scoped("z-rails", "Sliding joint rails", &[], |g| z_rail_channels(g, inner, y_joint, zj, q.y));
     piece = g.cut(piece, &[channels]);
-    let channel = y_lip_channel(g, inner, y_joint);
+    let channel = g.scoped("y-telescope", "Front-back telescope channel", &[], |g| y_lip_channel(g, inner, y_joint));
     piece = g.cut(piece, &[channel]);
-    piece = seat::funnel_seat(g, piece, b, q, k.silhouette, up);
-    piece = fronttop::flank_pockets(g, piece, &pack.front_flank_reliefs);
-    piece = routes::apply(g, piece, q);
+    piece = g.scoped("funnel-seat", "Funnel retaining seat", &["funnel"], |g| seat::funnel_seat(g, piece, b, q, k.silhouette, up));
+    piece = g.scoped("front-flank-pockets", "Front flank equipment pockets", &[], |g| fronttop::flank_pockets(g, piece, &pack.front_flank_reliefs));
+    piece = g.scoped("route-snaps", "Tube and cable retaining snaps", &[], |g| routes::apply(g, piece, q));
     let knuckle_cut = funnel_cut(g, inner, outer, pack.funnel);
-    piece = y_stacks(g, piece, inner, k.silhouette, y_joint, q, Some(knuckle_cut));
-    piece = seam_fit_reliefs(g, piece, b, q, &[]);
-    fronttop::pump_mount_cuts(g, piece, b)
+    piece = g.scoped("y-joint-fasteners", "Front-back joint screw stations", &[], |g| y_stacks(g, piece, inner, k.silhouette, y_joint, q, Some(knuckle_cut)));
+    piece = g.scoped("joint-fit-reliefs", "Joint fit reliefs", &[], |g| seam_fit_reliefs(g, piece, b, q, &[]));
+    g.scoped("pump-mount-cuts", "Pump mounting sockets", &["pump-a-mount", "pump-b-mount"], |g| fronttop::pump_mount_cuts(g, piece, b))
 }
 
 /// The quadrant's STEP and fine model, and its fluted print with each triangle's lineage.
@@ -138,7 +138,7 @@ fn write(
     let printed_core = skin::flute_solid_observed(&core, field, rails, &[], &mut sources)?;
     let shape = hsm_enclosure_solid::pieces::join_band(&printed_core, &band)?;
     sources.joined(&printed_core, &shape, &band);
-    let stl = ops::print_stl_bytes(&shape);
+    let (stl, identities) = ops::print_stl_with_features(&shape);
     keep(&dir.join(format!("{name}.stl")), &stl)?;
     let mut document = sources.document();
     document["sha256"] = digest(&stl).into();
@@ -146,5 +146,5 @@ fn write(
         &dir.join(format!("{name}.stl.sources.json")),
         &serde_json::to_vec(&document)?,
     )?;
-    payload(dir, name, color, &stl, &step, Some(&sources))
+    payload(dir, name, color, &stl, &step, Some(&sources), Some(identities))
 }

@@ -648,44 +648,38 @@ pub fn stadium_profile(y: f64, z: f64, fore: f64, aft: f64, points: &[P2]) -> Re
 
 /// A kernel solid as Manifold takes it: float32 positions, its own triangles.
 pub fn manifold(s: &Solid) -> Result<Manifold> {
-    let vertices: Vec<f32> = s
-        .verts()
-        .iter()
-        .flat_map(|p| p.to_array().map(|x| x as f32))
-        .collect();
-    let triangles: Vec<u32> = s.tris().iter().flatten().copied().collect();
-    Ok(Manifold::from_mesh_f32(&vertices, 3, &triangles)?)
+    crate::features::manifold(s)
 }
 
-/// The shape read back from the float32 positions its STL stores.
+/// The same float mesh retains operand identities while its positions enter STL precision.
 pub fn quantized(shape: &Manifold) -> Result<Manifold> {
-    let (v, props, t) = shape.to_mesh_f32();
-    Ok(Manifold::from_mesh_f32(&v, props, &t)?)
+    if !crate::features::enabled() {
+        let (v, props, t) = shape.to_mesh_f32();
+        return Ok(Manifold::from_mesh_f32(&v, props, &t)?);
+    }
+    Ok(Manifold::from_meshgl(&shape.to_meshgl())?)
 }
 
-/// A finished print stage keeps the positions and surface its STL stores.
+/// A finished print stage retains its construction identities with the STL surface.
 #[track_caller]
 pub fn print_solid(shape: &Manifold) -> Result<Solid> {
-    let (vertices, stride, triangles) = shape.to_mesh_f32();
-    let vertices: Vec<_> = vertices
-        .chunks_exact(stride)
-        .map(|p| v3(p[0] as f64, p[1] as f64, p[2] as f64))
-        .collect();
-    let triangles: Vec<_> = triangles
-        .chunks_exact(3)
-        .map(|t| [t[0], t[1], t[2]])
-        .collect();
-    let face = Face::new(
-        Surface::Free { kind: "PRINT" },
-        "print surface",
-        std::panic::Location::caller(),
-    );
-    Solid::from_mesh(&vertices, &triangles, &vec![0; triangles.len()], &[face])
+    crate::features::print_solid(shape)
 }
 
 /// The binary STL of a fluted print surface.
 pub fn print_stl_bytes(shape: &Manifold) -> Vec<u8> {
-    let (v, props, t) = shape.to_mesh_f32();
+    stl_mesh(&shape.to_meshgl())
+}
+
+/// Print output and selection records share one float mesh conversion.
+pub fn print_stl_with_features(shape: &Manifold) -> (Vec<u8>, crate::presentation::Features) {
+    let mesh = shape.to_meshgl();
+    let (records, triangles) = crate::features::mesh_triangles(&mesh);
+    (stl_mesh(&mesh), crate::presentation::Features { records: records.into_iter().map(|f| f.json()).collect(), triangles })
+}
+
+fn stl_mesh(mesh: &manifold_csg::MeshGL) -> Vec<u8> {
+    let (v, props, t) = (mesh.vert_properties(), mesh.num_prop(), mesh.tri_verts());
     let mut out = Vec::with_capacity(84 + t.len() / 3 * 50);
     let mut header = [b' '; 80];
     let title = b"hsm enclosure print surface";

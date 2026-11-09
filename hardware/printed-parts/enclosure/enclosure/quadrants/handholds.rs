@@ -77,8 +77,11 @@ pub fn handholds(g: &mut Graph, mut solid: Shape, inner: &Bounds, y_joint: f64, 
     for (x_in, sx) in [(inner[0], 1.0), (inner[1], -1.0)] {
         let x_ext = x_in - sx * WALL;
         let frame = handhold_frame(g, inner, y_joint, x_ext, sx, side);
+        let name = if sx > 0.0 { "west" } else { "east" };
+        let frame = g.feature(frame, format!("{name}-handhold"), format!("{name} lifting handhold"), &[]);
         solid = g.union(solid, &[frame]);
         let cutter = handhold_cutter(g, inner, x_ext, sx);
+        let cutter = g.feature(cutter, format!("{name}-handhold"), format!("{name} lifting handhold"), &[]);
         solid = g.cut(solid, &[cutter]);
         if side == Y::Front {
             let joint = handhold_backing_joint(g, inner, y_joint, x_ext, sx, side);
@@ -114,6 +117,8 @@ pub fn finish_handholds(g: &mut Graph, mut solid: Shape, inner: &Bounds) -> Shap
     for (x_in, sx) in [(inner[0], 1.0), (inner[1], -1.0)] {
         let placed = if sx > 0.0 { air } else { g.mirror(air, 0) };
         let placed = g.translate(placed, [x_in - sx * WALL, 0.0, 0.0]);
+        let name = if sx > 0.0 { "west" } else { "east" };
+        let placed = g.feature(placed, format!("{name}-handhold"), format!("{name} lifting handhold"), &[]);
         solid = g.cut(solid, &[placed]);
     }
     solid
