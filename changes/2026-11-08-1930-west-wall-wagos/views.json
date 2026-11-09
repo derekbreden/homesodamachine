@@ -1,0 +1,94 @@
+{
+  "views": [
+    {
+      "name": "west-wall-row",
+      "caption": "The mains junctions sit above the relays with their wire entries facing inward. The section exposes the west wall.",
+      "before": "west-wall-row-before.webp",
+      "after": "west-wall-row-after.webp",
+      "width": 1200,
+      "height": 900,
+      "marks": [
+        {
+          "x": 563.7,
+          "y": 341.8,
+          "r": 39.7,
+          "label": "Accessible junction row",
+          "at": [
+            -89.05,
+            408.2,
+            333.5
+          ]
+        }
+      ],
+      "model": "manifold-layout/enclosure-assembly.step",
+      "camera": {
+        "projection": "perspective",
+        "position": [
+          135.7489993933962,
+          261.9757004246227,
+          273.1376500909906
+        ],
+        "target": [
+          -90,
+          420,
+          307
+        ],
+        "up": [
+          0,
+          0,
+          1
+        ],
+        "fov": 45,
+        "near": 0.31196723454800773,
+        "far": 558.3848867221039,
+        "aspect": 1.3333333333333333,
+        "section": {
+          "at": [
+            -60,
+            0,
+            0
+          ],
+          "normal": [
+            1,
+            0,
+            0
+          ],
+          "removes": "the side the normal points to"
+        }
+      },
+      "highlight": [],
+      "ghost": [],
+      "only": [
+        "wago-*",
+        "relay-*",
+        "enclosure-back-top",
+        "c14-inlet",
+        "va-*"
+      ],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "snapshot selection",
+          "sha256": "5d7195471e0f195ad7b7d40728483651f8fa71fefad4974720c621d78aa8eea2",
+          "commit": "2ecadc5f2e1603730550c4826919bd4288910047",
+          "full_scene_sha256": "201d516dfd6bfe8d51067a72d98e0c11580f737c7bc484c27363e901eb6c4b36"
+        },
+        "after": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "published mechanical selection",
+          "sha256": "88249df6fcdd4c3ad1bc6b8cff05e9cf0e16dc7413f0ae16a2a588cb0dfaf651",
+          "commit": "1ddcc81d8042fa49aff098ab01d589affe16f544",
+          "full_scene_sha256": "97d0864bf6b5959a9bc69907815c6b3c6d0f654bfae7ff10cb453107cb128922"
+        }
+      },
+      "changed": [
+        "wago-h",
+        "wago-n",
+        "wago-g",
+        "enclosure-back-top"
+      ],
+      "withinMeshing": []
+    }
+  ]
+}
