@@ -3,13 +3,16 @@
   "source_inputs_sha256": {
     "hardware/printed-parts/enclosure/enclosure/back-top/rear.rs": "f594ffe6b7b39f71be905caf37fc440602e16ad7d690d32da8e84486c334771f",
     "hardware/printed-parts/enclosure/enclosure/numbers/rear_wall.rs": "5008ca32e4c5066d51796ef40bd3ceca145115eb496da58b88f09a6125a0b6d6",
-    "hardware/reference/teyleten-relay/scan-datums.json": "4424a2e3dfb69eca1ed3cb323a5b3e4c4ad9004931b5074c44897623785780ad"
+    "hardware/reference/teyleten-relay/scan-datums.json": "4424a2e3dfb69eca1ed3cb323a5b3e4c4ad9004931b5074c44897623785780ad",
+    "hardware/manifold-layout/above-core.json": "ceb5fcceeec71904b64d7b7eb381273064eb09bb92fe098ecf8d43ac576bba7a",
+    "hardware/wiring/installed/route-overrides.json": "6438bef6a72e1c1165c503a7aab0ec64398dbd6248a44f3f33053429b302b971"
   },
   "print_mesh_review": {
-    "purpose": "Measure the relay bearing planes, open pilot mouths and blind floors on the print STL.",
-    "source_stl_sha256": "2fa385fecf09f1c0a7a8154a93bd2220b3d88372c1aeeb75345f248af757d0c6",
+    "purpose": "This review measures the relocated printed relay seats and blind pilots.",
+    "source_stl_sha256": "77d4cbe50870d0556a8c75161b93f690cc429e3dab8febc36b0ac5bab09db96f",
     "reference_model_sha256": "44475755a2edb474160a34fb43a6c3d810a7cf7559ae5de305b45b6756096b2c",
-    "method": "Principal-axis rays through STL triangles, at every pilot centre and bearing ring. No geometry rebuild or ideal surface substitution.",
+    "viewer_payload_sha256": "b39a75844af75590e9f92b194f72092784a4927b94696b0c7153b11d491b2812",
+    "method": "Principal-axis rays through the current print-viewer payload, bound by the emitted print features to the current STL. Pilot depths, bearing rings and backing are measured at the emitted wall-host stations. The screw stack is unchanged.",
     "rows": [
       {
         "part": "relay-1",
@@ -17,20 +20,20 @@
         "bearing_point_mm": [
           -94.49,
           375.7471390792555,
-          288.4406056937776
+          278.4406056937776
         ],
         "insert_face_mm": [
           -94.49,
           375.7471390792555,
-          288.4406056937776
+          278.4406056937776
         ],
         "threaded": true,
-        "measured_pilot_depth_mm": 7.440000000000012,
+        "measured_pilot_depth_mm": 7.440000305175786,
         "declared_pilot_depth_mm": 7.4399999999999995,
         "screw_receiving_projection_mm": 6.4399999999999995,
-        "screw_tip_air_mm": 1.0000000000000142,
-        "blind_backing_to_print_surface_mm": 4.420035999999996,
-        "bearing_probe_error_mm": 1.9999999949504854e-06
+        "screw_tip_air_mm": 1.0000003051757869,
+        "blind_backing_to_print_surface_mm": 4.42003539641874,
+        "bearing_probe_error_mm": 2.1362304636340923e-06
       },
       {
         "part": "relay-1",
@@ -38,20 +41,20 @@
         "bearing_point_mm": [
           -94.49,
           375.78113907925547,
-          301.37060569377763
+          291.37060569377763
         ],
         "insert_face_mm": [
           -94.49,
           375.78113907925547,
-          301.37060569377763
+          291.37060569377763
         ],
         "threaded": true,
-        "measured_pilot_depth_mm": 7.440000000000012,
+        "measured_pilot_depth_mm": 7.440000305175786,
         "declared_pilot_depth_mm": 7.4399999999999995,
         "screw_receiving_projection_mm": 6.4399999999999995,
-        "screw_tip_air_mm": 1.0000000000000142,
-        "blind_backing_to_print_surface_mm": 4.412542999999999,
-        "bearing_probe_error_mm": 1.9999999949504854e-06
+        "screw_tip_air_mm": 1.0000003051757869,
+        "blind_backing_to_print_surface_mm": 4.41254283746278,
+        "bearing_probe_error_mm": 2.1362304636340923e-06
       },
       {
         "part": "relay-1",
@@ -59,20 +62,20 @@
         "bearing_point_mm": [
           -94.49,
           442.10113907925546,
-          288.4386056937776
+          278.4386056937776
         ],
         "insert_face_mm": [
           -94.49,
           442.10113907925546,
-          288.4386056937776
+          278.4386056937776
         ],
         "threaded": true,
-        "measured_pilot_depth_mm": 7.440000000000012,
+        "measured_pilot_depth_mm": 7.440000305175786,
         "declared_pilot_depth_mm": 7.4399999999999995,
         "screw_receiving_projection_mm": 6.4399999999999995,
-        "screw_tip_air_mm": 1.0000000000000142,
-        "blind_backing_to_print_surface_mm": 4.925340999999989,
-        "bearing_probe_error_mm": 1.9999999949504854e-06
+        "screw_tip_air_mm": 1.0000003051757869,
+        "blind_backing_to_print_surface_mm": 4.9253411516889685,
+        "bearing_probe_error_mm": 2.1362304636340923e-06
       },
       {
         "part": "relay-1",
@@ -80,20 +83,20 @@
         "bearing_point_mm": [
           -94.49,
           442.1311390792555,
-          301.45460569377764
+          291.45460569377764
         ],
         "insert_face_mm": [
           -94.49,
           442.1311390792555,
-          301.45460569377764
+          291.45460569377764
         ],
         "threaded": true,
-        "measured_pilot_depth_mm": 7.440000000000012,
+        "measured_pilot_depth_mm": 7.440000305175786,
         "declared_pilot_depth_mm": 7.4399999999999995,
         "screw_receiving_projection_mm": 6.4399999999999995,
-        "screw_tip_air_mm": 1.0000000000000142,
-        "blind_backing_to_print_surface_mm": 4.948419999999999,
-        "bearing_probe_error_mm": 1.9999999949504854e-06
+        "screw_tip_air_mm": 1.0000003051757869,
+        "blind_backing_to_print_surface_mm": 4.948419791798884,
+        "bearing_probe_error_mm": 2.1362304636340923e-06
       },
       {
         "part": "relay-2",
@@ -101,20 +104,20 @@
         "bearing_point_mm": [
           -94.49,
           375.74713907925553,
-          308.9406056937776
+          298.9406056937776
         ],
         "insert_face_mm": [
           -94.49,
           375.74713907925553,
-          308.9406056937776
+          298.9406056937776
         ],
         "threaded": true,
-        "measured_pilot_depth_mm": 7.440000000000012,
+        "measured_pilot_depth_mm": 7.440000305175786,
         "declared_pilot_depth_mm": 7.4399999999999995,
         "screw_receiving_projection_mm": 6.4399999999999995,
-        "screw_tip_air_mm": 1.0000000000000142,
-        "blind_backing_to_print_surface_mm": 4.420035999999996,
-        "bearing_probe_error_mm": 1.9999999949504854e-06
+        "screw_tip_air_mm": 1.0000003051757869,
+        "blind_backing_to_print_surface_mm": 4.42003539641874,
+        "bearing_probe_error_mm": 2.1362304636340923e-06
       },
       {
         "part": "relay-2",
@@ -122,20 +125,20 @@
         "bearing_point_mm": [
           -94.49,
           375.7811390792555,
-          321.87060569377763
+          311.87060569377763
         ],
         "insert_face_mm": [
           -94.49,
           375.7811390792555,
-          321.87060569377763
+          311.87060569377763
         ],
         "threaded": true,
-        "measured_pilot_depth_mm": 7.440000000000012,
+        "measured_pilot_depth_mm": 7.440000305175786,
         "declared_pilot_depth_mm": 7.4399999999999995,
         "screw_receiving_projection_mm": 6.4399999999999995,
-        "screw_tip_air_mm": 1.0000000000000142,
-        "blind_backing_to_print_surface_mm": 4.412542999999999,
-        "bearing_probe_error_mm": 1.9999999949504854e-06
+        "screw_tip_air_mm": 1.0000003051757869,
+        "blind_backing_to_print_surface_mm": 4.412542837462766,
+        "bearing_probe_error_mm": 2.1362304636340923e-06
       },
       {
         "part": "relay-2",
@@ -143,20 +146,20 @@
         "bearing_point_mm": [
           -94.49,
           442.1011390792555,
-          308.9386056937776
+          298.9386056937776
         ],
         "insert_face_mm": [
           -94.49,
           442.1011390792555,
-          308.9386056937776
+          298.9386056937776
         ],
         "threaded": true,
-        "measured_pilot_depth_mm": 7.440000000000012,
+        "measured_pilot_depth_mm": 7.440000305175786,
         "declared_pilot_depth_mm": 7.4399999999999995,
         "screw_receiving_projection_mm": 6.4399999999999995,
-        "screw_tip_air_mm": 1.0000000000000142,
-        "blind_backing_to_print_surface_mm": 4.925340999999989,
-        "bearing_probe_error_mm": 1.9999999949504854e-06
+        "screw_tip_air_mm": 1.0000003051757869,
+        "blind_backing_to_print_surface_mm": 4.925341151689011,
+        "bearing_probe_error_mm": 2.1362304636340923e-06
       },
       {
         "part": "relay-2",
@@ -164,20 +167,20 @@
         "bearing_point_mm": [
           -94.49,
           442.13113907925555,
-          321.95460569377764
+          311.95460569377764
         ],
         "insert_face_mm": [
           -94.49,
           442.13113907925555,
-          321.95460569377764
+          311.95460569377764
         ],
         "threaded": true,
-        "measured_pilot_depth_mm": 7.440000000000012,
+        "measured_pilot_depth_mm": 7.440000305175786,
         "declared_pilot_depth_mm": 7.4399999999999995,
         "screw_receiving_projection_mm": 6.4399999999999995,
-        "screw_tip_air_mm": 1.0000000000000142,
-        "blind_backing_to_print_surface_mm": 4.948419999999999,
-        "bearing_probe_error_mm": 1.9999999949504854e-06
+        "screw_tip_air_mm": 1.0000003051757869,
+        "blind_backing_to_print_surface_mm": 4.948419791798926,
+        "bearing_probe_error_mm": 2.1362304636340923e-06
       }
     ],
     "observed_solder_clearances": [
@@ -187,9 +190,9 @@
         "tip_world_mm": [
           -96.7781622,
           383.4267130792555,
-          300.50634949377763
+          290.50634949377763
         ],
-        "clearance_to_print_mm": 1.721837800000003
+        "clearance_to_print_mm": 1.7218378000000027
       },
       {
         "part": "relay-1",
@@ -197,7 +200,7 @@
         "tip_world_mm": [
           -96.8347936,
           433.38787477925547,
-          299.8961863937776
+          289.8961863937776
         ],
         "clearance_to_print_mm": 1.6652064000000024
       },
@@ -207,9 +210,9 @@
         "tip_world_mm": [
           -96.7781622,
           383.42671307925553,
-          321.00634949377763
+          311.00634949377763
         ],
-        "clearance_to_print_mm": 1.721837800000003
+        "clearance_to_print_mm": 1.7218378000000027
       },
       {
         "part": "relay-2",
@@ -217,12 +220,12 @@
         "tip_world_mm": [
           -96.8347936,
           433.3878747792555,
-          320.3961863937776
+          310.3961863937776
         ],
         "clearance_to_print_mm": 1.6652064000000024
       }
     ],
-    "scope": "Printed bearing, open-pilot and blind-floor geometry; scan-observed solder envelope. This is not a physical insert-pullout or load test."
+    "scope": "Exported print geometry and scan-observed solder envelope; intrinsic screw/tool fit retains the recorded physical scope."
   },
   "scan_component_review": {
     "driver_radius_mm": 1.5,
@@ -305,15 +308,213 @@
   "general_geometry_lint": {
     "findings": 51,
     "answered": 40,
-    "unanswered_outside_changed_mount_region": 11,
-    "relay_mount_findings": 0
+    "source_stl_sha256": "77d4cbe50870d0556a8c75161b93f690cc429e3dab8febc36b0ac5bab09db96f",
+    "report_sha256": "1e2ddcbfdabeb9384720707ea320829fbf917eead6f465a7d5abf18a6daf23b7",
+    "displayed_findings_in_relocated_mount_region": 0,
+    "scope": "The default lint report is read once after publication. Its displayed findings lie outside the relocated relay mounts; print_mesh_review measures each changed seat and pilot independently."
   },
   "scope": "Geometry and access for the full corner fastener set. Physical insert installation, pullout strength and lifetime are not tested by these measurements.",
   "normal_print_build": {
     "target": "//:enclosure-back-top",
     "status": "passed",
-    "normal_output_stl_sha256": "2fa385fecf09f1c0a7a8154a93bd2220b3d88372c1aeeb75345f248af757d0c6",
-    "published_output_stl_sha256": "2fa385fecf09f1c0a7a8154a93bd2220b3d88372c1aeeb75345f248af757d0c6",
+    "normal_output_stl_sha256": "77d4cbe50870d0556a8c75161b93f690cc429e3dab8febc36b0ac5bab09db96f",
+    "published_output_stl_sha256": "77d4cbe50870d0556a8c75161b93f690cc429e3dab8febc36b0ac5bab09db96f",
     "same_bytes": true
+  },
+  "installed_clearance_review": {
+    "purpose": "Measures the relocated relay pair against the adjacent fixed mechanics.",
+    "measured_payload_sha256": "fe70c14ea756c240f1a3af3618abda62b304b3116fa6f4d4d113d854f002cce0",
+    "before_payload_sha256": "ae9ccffd47dc7e387b5c1ab817643ea0ede64ca056c4b97064d72ca0e8f7ca1e",
+    "translation_mm": [
+      0,
+      0,
+      -10
+    ],
+    "relocated_component_and_fastener_meshes": 30,
+    "maximum_bounds_translation_error_mm": 0.0,
+    "before_elbow_measurements": [
+      {
+        "relay_mesh": "relay-2/2",
+        "neighbor": "va-outlet-elbow/1",
+        "clearance_mm": 0.0,
+        "intersection_volume_mm3": 25.329193407365377,
+        "point_a": null,
+        "point_b": null,
+        "surface_distance_mm": 0.0,
+        "volume_error": null
+      },
+      {
+        "relay_mesh": "relay-2/2",
+        "neighbor": "va-south-elbow/1",
+        "clearance_mm": 1.2777611049862205,
+        "intersection_volume_mm3": 0.0,
+        "point_a": [
+          -78.53343963623047,
+          380.47979736328125,
+          322.16583251953125
+        ],
+        "point_b": [
+          -77.62017271103063,
+          380.017244365965,
+          322.9304642540449
+        ],
+        "surface_distance_mm": 1.2777611049862205,
+        "volume_error": null
+      }
+    ],
+    "clearance_queries": 49,
+    "minimum_neighbor_clearances": [
+      {
+        "relay_mesh": "relay-2/2",
+        "neighbor": "va-outlet-elbow/1",
+        "clearance_mm": 3.132392683092075,
+        "intersection_volume_mm3": 0.0,
+        "point_a": [
+          -78.53343963623047,
+          380.47979736328125,
+          312.16583251953125
+        ],
+        "point_b": [
+          -77.21077506206765,
+          380.0479453327915,
+          314.97224413743504
+        ],
+        "surface_distance_mm": 3.132392683092075,
+        "volume_error": null
+      },
+      {
+        "relay_mesh": "relay-2/2",
+        "neighbor": "va-south-elbow/1",
+        "clearance_mm": 7.176261147515718,
+        "intersection_volume_mm3": 0.0,
+        "point_a": [
+          -78.53343963623047,
+          380.47979736328125,
+          312.16583251953125
+        ],
+        "point_b": [
+          -71.4181989520308,
+          379.6481601864,
+          312.59063090616013
+        ],
+        "surface_distance_mm": 7.176261147515718,
+        "volume_error": null
+      },
+      {
+        "relay_mesh": "relay-2/2",
+        "neighbor": "va-outlet-elbow/2",
+        "clearance_mm": 5.866319197731654,
+        "intersection_volume_mm3": 0.0,
+        "point_a": [
+          -78.53343963623047,
+          380.4797973632813,
+          312.1658325195313
+        ],
+        "point_b": [
+          -72.99912821874078,
+          380.03494174245867,
+          314.0598234225033
+        ],
+        "surface_distance_mm": 5.866319197731654,
+        "volume_error": null
+      },
+      {
+        "relay_mesh": "relay-1/4",
+        "neighbor": "tube-fluid-28",
+        "clearance_mm": 106.64024160695323,
+        "intersection_volume_mm3": 0.0,
+        "point_a": [
+          -76.98189544677734,
+          426.6774597167969,
+          277.3414611816406
+        ],
+        "point_b": [
+          27.255780613019116,
+          445.0155932190921,
+          264.28922461872577
+        ],
+        "surface_distance_mm": 106.64024160695323,
+        "volume_error": null
+      },
+      {
+        "relay_mesh": "relay-1/2",
+        "neighbor": "cold-core/discharge-chain",
+        "clearance_mm": 3.521548529350354,
+        "intersection_volume_mm3": 0.0,
+        "point_a": [
+          -81.36958562712806,
+          381.05419790885617,
+          276.37850692388383
+        ],
+        "point_b": [
+          -81.40306091308594,
+          380.987060546875,
+          272.8577575683594
+        ],
+        "surface_distance_mm": 3.521548529350354,
+        "volume_error": null
+      },
+      {
+        "relay_mesh": "relay-1/4",
+        "neighbor": "cold-core/foam-cap-lid-top",
+        "clearance_mm": 7.057527413096799,
+        "intersection_volume_mm3": 0.0,
+        "point_a": [
+          -78.11378479003906,
+          420.8179626464844,
+          276.8066101074219
+        ],
+        "point_b": [
+          -78.0,
+          420.8179626464844,
+          269.75
+        ],
+        "surface_distance_mm": 7.057527413096799,
+        "volume_error": null
+      }
+    ],
+    "scope": "All relay component submeshes against the adjacent elbows, the nearby fluid tube or lower cold-core neighbours. Wiring follows the selected mechanics and is reviewed separately."
+  },
+  "wiring_relocation_review": {
+    "purpose": "Checks the relay buses and connected conductor payloads after routing follows the mechanical placement.",
+    "viewer_payload_sha256": "201d516dfd6bfe8d51067a72d98e0c11580f737c7bc484c27363e901eb6c4b36",
+    "route_overrides_sha256": "6438bef6a72e1c1165c503a7aab0ec64398dbd6248a44f3f33053429b302b971",
+    "regenerated_conductors": [
+      "wire-AC4-pigtail",
+      "wire-DC2-V12",
+      "wire-J5-V5",
+      "wire-relay-bus-V5",
+      "wire-J5-GND",
+      "wire-relay-bus-GND",
+      "wire-J5-IO19",
+      "wire-J5-IO2"
+    ],
+    "bus_bounds_deltas_mm": {
+      "wire-relay-bus-V5": [
+        [
+          0.0,
+          0.0,
+          -10.0
+        ],
+        [
+          0.0,
+          0.0,
+          -10.0
+        ]
+      ],
+      "wire-relay-bus-GND": [
+        [
+          0.0,
+          0.0,
+          -10.0
+        ],
+        [
+          0.0,
+          0.0,
+          -10.0
+        ]
+      ]
+    },
+    "scope": "Both relay buses retain their geometry and translate with the pair. All connected conductor payloads are regenerated from their fixed and moved terminal endpoints. This scope does not qualify the complete wiring harness."
   }
 }
