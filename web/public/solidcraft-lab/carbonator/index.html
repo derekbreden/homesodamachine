@@ -20,12 +20,12 @@
   </header>
   <main class="lab-layout">
     <aside class="controls" aria-label="Assembly controls">
-      <p class="intro">A parent uses the core’s saved shape. Open the core to see its parts; open a part to load its editable design.</p>
+      <p class="intro">A parent places the core’s assembly envelope. Open the core to load its exact parts; open a part to load its editable design.</p>
       <section class="assembly-tree">
         <h2>Parent assembly</h2>
         <label class="copy-label" for="copies">Repeated cores <select id="copies"><option value="1">One core</option><option value="8">Eight cores</option><option value="64">Sixty-four cores</option></select></label>
         <button id="open-parent" type="button" class="primary">Open parent in SolidCraft</button>
-        <button id="expand" type="button" aria-expanded="false">▸ Carbonator core <small>Saved representation</small></button>
+        <button id="expand" type="button" aria-expanded="false">▸ Carbonator core <small>Assembly envelope</small></button>
         <div id="children" hidden>
           <button id="open-core" type="button">Open core assembly</button>
           <div class="part-row"><span>Tube</span><button type="button" data-edit="tube">Edit tube</button></div>
@@ -37,18 +37,19 @@
         <h2 id="native-title">Native workspace</h2>
         <form id="dimensions"><div id="dimension-inputs"></div><button class="primary" type="submit" id="apply">Apply dimension</button></form>
         <div class="design-actions"><button type="button" id="undo">Undo</button><button type="button" id="publish">Update parents</button><button type="button" id="download">Download current design</button></div>
-        <p class="local-note">Native edits stay in this browser. Updating parents replaces the saved shape and solves its assembly joints.</p>
+        <p class="local-note">Native edits stay in this browser. Updating parents solves the exact core and updates its envelope when the exterior changes.</p>
       </section>
       <section class="load-audit">
         <h2>What is loaded</h2>
-        <dl><div><dt>Editable part files</dt><dd id="part-files">None</dd></div><div><dt>Native engine</dt><dd id="engine-state">Not loaded</dd></div><div><dt>Native workspace</dt><dd id="native-scope">Closed</dd></div><div><dt>Native body definitions</dt><dd id="native-bodies">Not loaded</dd></div></dl>
+        <dl><div><dt>Authoring files requested</dt><dd id="part-files">None</dd></div><div><dt>Native engine</dt><dd id="engine-state">Not loaded</dd></div><div><dt>Native workspace</dt><dd id="native-scope">Closed</dd></div><div><dt>Native body definitions</dt><dd id="native-bodies">Not loaded</dd></div></dl>
         <details><summary>Requested model resources</summary><ol id="resource-list"></ol></details>
       </section>
       <section class="timings"><h2>Iteration</h2><ol id="timing-list"></ol></section>
       <details class="about"><summary>What this evaluates</summary>
-        <p>The parent opens a saved display representation. Expanding the core requests its display parts. Only choosing a native workspace loads SolidCraft; only editing a leaf requests that leaf’s authoring file.</p>
-        <p>Native links retain exact finished bodies. The parent holds the core as a linked component; the core holds a tube and repeated endcap joined at their named faces. Child sources are read by an explicit update, rather than by ordinary assembly opening.</p>
+        <p>The parent opens an explicit layout envelope, with no tube or endcap geometry. Expanding the core requests its exact display parts. Only choosing a native workspace loads SolidCraft; only editing a leaf requests that leaf’s authoring file.</p>
+        <p>Native links retain finished bodies. The parent links the envelope; the exact core links a tube and repeated endcap joined at their named faces. Envelope dimensions follow the exact core’s published exterior bounds. Changes to an internal cap can leave the parent envelope unchanged.</p>
         <p>An opened native workspace loads its embedded finished bodies together. Native linking skips child histories; it does not provide streaming of individual bodies inside that saved representation.</p>
+        <p>The envelope supplies exterior layout bounds. Exact fit, mass, cut and print work uses the core or leaf design.</p>
         <p>Repeating this simple core tests shared definitions and the loading boundary. It does not establish the performance of the complete enclosure’s geometry.</p>
         <p>This study includes the barrel and recessed endcap blanks. Fluid ports, rod registers, welds, fittings and the cold-core casing belong outside this example.</p>
         <p><a href="/solidcraft-lab/carbonator/project.zip" download>Download native project</a> · <a href="/solidcraft-lab/carbonator/evidence.json">Recorded evaluation</a></p>
@@ -57,7 +58,7 @@
     <section class="workspace" aria-label="Assembly view">
       <div class="workspace-toolbar">
         <span class="state"><span id="state-dot" data-ready aria-hidden="true"></span><span id="state-label">Loading saved representation</span></span>
-        <div class="view-actions"><label class="section-label"><input id="section" type="checkbox" checked> Section</label><button id="explode" type="button">Explode</button><button id="fit" type="button">Fit</button><button id="reference" type="button" hidden>Reference preview</button><button id="pause" type="button" hidden>Pause</button></div>
+        <div class="view-actions"><label class="section-label"><input id="section" type="checkbox" disabled> Section</label><button id="explode" type="button">Explode</button><button id="fit" type="button">Fit</button><button id="reference" type="button" hidden>Reference preview</button><button id="pause" type="button" hidden>Pause</button></div>
       </div>
       <div class="stage" id="stage"><div id="preview"></div><div id="native-stage" hidden></div><div id="cover" class="cover"><div><p class="eyebrow">Saved assembly shape</p><h2 id="cover-title">Opening the carbonator</h2><p id="cover-detail">Its editable parts remain closed.</p><button id="resume" type="button" class="primary" hidden>Resume native workspace</button></div></div></div>
       <p id="status" class="status" role="status" aria-live="polite">Loading the saved module representation…</p>

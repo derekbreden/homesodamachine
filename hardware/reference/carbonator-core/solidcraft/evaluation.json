@@ -3,37 +3,58 @@
     "parts/tube.json": "5fd1f4b7f910c7d4f55199701c723c2780d59231ea6cd5dc5c9a358e99bd6f13",
     "parts/endcap.json": "34794fa6860c03b67702d316ad4967c9fcc4524b0a999717b57b61a3bf13a1d2",
     "carbonator.json": "b745106cf2920be2e018996235ec7c1049cb2075da192764ee3c9f0fde6aa7b4",
-    "parent.json": "5286a46aead435f118b4399aee37f3016b29b44f43db2238c6c45b4a9e6025be"
+    "representation.json": "33f4108a8b849c655471c023ba8999c9b8130a591095a035555825104f240476",
+    "parent.json": "42f74fe9e434009ef8992c510d46e07dea26cbab803f9c8072d22f5c4cb2c0d8"
   },
   "engine": "solidcraft-cli 0.40.0-rc.3",
-  "scope": "Independent tube and unported endcap assembly; opaque linked parent representation.",
+  "scope": "Independent tube and unported endcap fit-up with a separate native envelope for parent layout.",
   "construction": {
     "tube_features": 2,
     "endcap_features": 2,
     "core_link_features": 2,
-    "parent_link_features": 1,
+    "core_body_definitions": 2,
     "cap_occurrences": 2,
-    "core_joints": 2
+    "core_joints": 2,
+    "representation_primitive_features": 1,
+    "parent_link_features": 1,
+    "parent_body_definitions": 1
   },
   "isolated_open": {
-    "core_without_part_sources": true,
-    "parent_without_core_or_part_sources": true
+    "core_without_part_files": {
+      "closed_world_bodies": 3
+    },
+    "parent_without_representation_core_or_part_files": {
+      "closed_world_bodies": 1,
+      "body_names": [
+        "Carbonator envelope"
+      ]
+    }
   },
-  "browser_selective_update": {
-    "loaded_leaf": "tube",
-    "endcap_authoring_file_loaded": false,
-    "tube_length_mm": 177.8,
-    "native_edit_recomputed": 1,
-    "core_link_updated": [
-      "Tube"
-    ],
-    "parent_link_updated": [
-      "Carbonator core"
-    ],
-    "parent_feature_count": 1,
-    "parent_world_body_count": 3,
+  "exact_fit": {
+    "radial_clearance_mm": 0.127,
     "joint_errors": [],
-    "elapsed_ms": 4870.300000000745
+    "joint_conflicts": [],
+    "floating_occurrences": [],
+    "degrees_of_freedom": [
+      {
+        "dof": 0,
+        "occurrence": 0
+      },
+      {
+        "dof": 0,
+        "occurrence": 2
+      },
+      {
+        "dof": 0,
+        "occurrence": 5
+      },
+      {
+        "dof": 0,
+        "occurrence": 7
+      }
+    ],
+    "interferences": 0,
+    "unchecked_pairs": []
   },
   "display_cache": {
     "tube": {
@@ -74,41 +95,41 @@
       ],
       "bytes": 87932
     },
-    "carbonator": {
-      "source_triangles": 196928,
-      "display_triangles": 5112,
-      "source_mesh_volume_mm3": 251036.5181729991,
-      "display_mesh_volume_mm3": 251036.51817287138,
+    "representation": {
+      "source_triangles": 7648,
+      "display_triangles": 508,
+      "source_mesh_volume_mm3": 1929775.1116876083,
+      "display_mesh_volume_mm3": 1929775.111687609,
       "bounds": [
         [
-          -63.5,
-          -63.5,
-          -7.57431769214667e-15
+          -63.49052047729492,
+          -63.49052047729492,
+          0.0
         ],
         [
-          63.5,
-          63.5,
+          63.49052047729492,
+          63.49052047729492,
           152.39999389648438
         ]
       ],
-      "bytes": 218352
+      "bytes": 22712
     }
   },
   "website_review": {
-    "checked_at": "2026-11-09T02:17:35.090Z",
-    "environment": "Headless Chrome on the shared Mac",
+    "checked_at": "2026-11-09T03:00:45.659Z",
+    "environment": "Local route in headless Chrome on the shared Mac",
     "initial_model_resources": [
       {
         "url": "/solidcraft-lab/carbonator/module.json",
         "type": "module interface",
         "label": "Carbonator module",
-        "bytes": 727
+        "bytes": 436
       },
       {
-        "url": "/solidcraft-lab/carbonator/assets/carbonator.glb?v=05a5c515bec061c6",
+        "url": "/solidcraft-lab/carbonator/assets/representation.glb?v=b2a39c7b0561a001",
         "type": "display",
         "label": "Carbonator saved shape",
-        "bytes": 218352
+        "bytes": 22712
       }
     ],
     "initial_native_engine_loaded": false,
@@ -116,34 +137,78 @@
     "repeated_placements": 64,
     "repeated_display": {
       "calls": 1,
-      "triangles": 327168,
+      "triangles": 32512,
       "count": 64,
       "expanded": false,
       "geometries": 1
     },
     "repeated_model_resource_count": 2,
     "expanded_authoring_files": [],
-    "selected_leaf_authoring_files": [
-      "Tube"
-    ],
-    "updated_parent_feature_count": 1,
-    "updated_parent_body_definitions": 3,
-    "updated_parent_world_bodies": 192,
-    "top_cap_after_tube_length_change": {
-      "max": [
-        61.722000000000634,
-        61.721999999999944,
-        171.45000000000323
+    "direct_native_parent": {
+      "feature_count": 1,
+      "body_names": [
+        "Carbonator envelope"
       ],
-      "min": [
-        -61.72199999999969,
-        -61.72200000000013,
-        165.09999999999698
+      "requested_native_sources": [
+        "/labs/solidcraft/carbonator/native/parent"
       ]
     },
-    "repeated_leaf_publication": true,
+    "tube_edit": {
+      "length_mm": 177.8,
+      "updated_parent_features": 1,
+      "updated_parent_body_definitions": 1,
+      "updated_parent_world_bodies": 64,
+      "top_cap_bbox": {
+        "max": [
+          61.722000000000634,
+          61.72199999999994,
+          171.45000000000323
+        ],
+        "min": [
+          -61.72199999999969,
+          -61.72200000000013,
+          165.09999999999698
+        ]
+      },
+      "endcap_authoring_requested": false,
+      "repeated_publication": true
+    },
+    "internal_edit": {
+      "cap_recess_mm": 8,
+      "cap_thickness_mm": 7.5,
+      "cap_bboxes": [
+        {
+          "max": [
+            61.72199999999998,
+            61.722,
+            15.500000000000052
+          ],
+          "min": [
+            -61.72200000000003,
+            -61.722,
+            7.9999999999999485
+          ]
+        },
+        {
+          "max": [
+            61.721999999999994,
+            61.722000000000065,
+            144.40000000000026
+          ],
+          "min": [
+            -61.72200000000001,
+            -61.721999999999966,
+            136.89999999999966
+          ]
+        }
+      ],
+      "tube_authoring_requested": false,
+      "envelope_authoring_requested": false,
+      "parent_envelope_changed": false
+    },
     "resume_without_native_source_fetch": true,
     "background_runtime_unloaded": true,
+    "reference_return_unloads_runtime": true,
     "mobile": {
       "width_css_px": 390,
       "scroll_width_css_px": 390,
@@ -152,8 +217,9 @@
     "page_errors": []
   },
   "limits": [
-    "Native links omit the child authoring history but load all finished bodies embedded in the active native snapshot.",
-    "The cached website view defers native workspaces and child display resources until requested.",
-    "The repeated-module case tests sharing and loading boundaries, not complete-enclosure geometry performance."
+    "The parent envelope supplies exterior layout bounds. Exact fit, mass and manufacturing use the core or leaf design.",
+    "Native links omit source histories but load all finished bodies embedded in the active representation. They do not automatically stream nested geometry.",
+    "The explicit envelope is authored in SolidCraft and updated from the exact tube exterior by the lab coordinator.",
+    "Repeated simple envelopes test definition reuse and loading boundaries, not complete-enclosure geometry performance."
   ]
 }
