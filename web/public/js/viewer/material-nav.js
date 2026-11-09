@@ -23,9 +23,16 @@ export async function openMaterial(id, pushHistory = true, { tab = null, panel =
   }
   const file = modelForMaterial(state.materialCatalog, id)?.file;
   if (file) {
+    const originHash = location.hash.slice(1);
+    const originID = originHash.startsWith("material:") ? decodeURIComponent(originHash.slice(9).split("?")[0]) : null;
+    const originFile = originID && modelForMaterial(state.materialCatalog, originID)?.file;
+    const enterPreview = instance && pushHistory && originFile && originFile !== file && state.mountedDetail?.file === file;
     if (state.currentCadWrapper && (pushHistory || state.mountedDetail?.file === file)) {
-      const { drillTo, jumpToStep } = await import("./step-nav.js");
-      if (instance) await jumpToStep(file);
+      const { drillTo, jumpToStep, enterStepPreview } = await import("./step-nav.js");
+      if (enterPreview) {
+        const parents = history.state?.materialPath;
+        enterStepPreview(file, parents?.at(-1) === originFile ? parents : [originFile]);
+      } else if (instance) await jumpToStep(file);
       else if (state.mountedDetail?.type === "step") await drillTo(file);
       else await jumpToStep(file);
       if (state.currentDetail?.file !== file) return;

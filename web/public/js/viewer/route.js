@@ -81,8 +81,12 @@ window.addEventListener("popstate", () => {
   // Already showing the right thing? Nothing to do.
   if (want.type && state.currentDetail
       && state.currentDetail.type === want.type && state.currentDetail.file === want.file) {
-    if (want.material) state.materialPanel?.setRoot(want.material);
-    state.materialPanel?.applyRoute(want);
+    const apply = () => {
+      if (want.material) state.materialPanel?.setRoot(want.material);
+      state.materialPanel?.applyRoute(want);
+    };
+    if (want.type === "step" && state.mountedDetail?.file === want.file) routeToStep(want.path).then(apply);
+    else apply();
     return;
   }
   // STEP to STEP with the modal already up — the drill-down's own move, and the
