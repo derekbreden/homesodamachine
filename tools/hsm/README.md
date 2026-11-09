@@ -79,8 +79,8 @@ through source edits, review attempts and reference-browser draws when a timing 
 
 ## Construction features and installed instances
 
-In `/3d`, selecting an enclosure quadrant selects the whole part. **Explore features** opens
-its named construction children and enables surface picking within that part. Selecting the
+In `/3d`, selecting an enclosure quadrant selects the whole part. **Explore features** enables
+surface picking within that part. Click a feature in the model to select it. Selecting the
 parent returns to the whole component; **Select whole components** leaves feature picking.
 Material search also finds these features and lists the individual installed instances of a
 repeated component. A feature's **Copy feature link** action retains its installed owner.

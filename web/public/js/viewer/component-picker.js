@@ -32,7 +32,7 @@ import { drillTo, drillToComponent } from "./step-nav.js";
 import { makePanelCollapse } from "./tool-rail.js";
 import { refreshHighlight, fadedBody } from "./part-highlight.js";
 import { renderMeasure } from "./hsm.js";
-import { containsTriangle, splitFeatureKey, instanceLabel } from "/contracts/features.js";
+import { containsTriangle, splitFeatureKey } from "/contracts/features.js";
 import { sceneFeatures, sceneFeature, featureGeometry, featureUrl } from "./features.js";
 
 const LS_KEY = "step-component-pick";
@@ -409,11 +409,6 @@ function buildPanel() {
   panel.appendChild(relatedBtn);
   panel._relatedBtn = relatedBtn;
 
-  const holds = document.createElement("div");
-  holds.className = "component-holds";
-  panel.appendChild(holds);
-  panel._holds = holds;
-
   const hidden = document.createElement("div");
   hidden.className = "component-hidden";
   panel.appendChild(hidden);
@@ -439,9 +434,8 @@ function showPanel() {
   const feature = sceneFeature(selection);
   panel.classList.toggle("feature-selected", !!feature);
   const bodyName = componentBody(selection);
-  const availableFeatures = sceneFeatures(bodyName);
-  const inside = feature ? [] : [...membersOf(selection || ""),
-    ...(featureScope === selection ? availableFeatures.map(f => f.key) : [])];
+  const availableFeatures = selection ? sceneFeatures(bodyName) : [];
+  const inside = feature || !selection ? [] : membersOf(selection);
   if (selection) {
     [...heldBy(bodyName), ...(feature ? [bodyName] : [])].forEach((held) => {
       const step = document.createElement("button");
@@ -514,32 +508,6 @@ function showPanel() {
   panel._relatedBtn.style.display = related ? "block" : "none";
   panel._relatedBtn.textContent = related ? `Open ${modelName(related.file)}` : "";
   panel._relatedBtn.title = related ? `Open ${related.file}` : "";
-
-  // WHAT STANDS INSIDE IT. Picking the core in the appliance is picking one thing; this is
-  // how the 62 it holds are reached without hunting for them in the model. Nothing here is
-  // hidden by the listing — every one of them is drawn, and this only says where they are.
-  const holds = panel._holds;
-  holds.textContent = "";
-  if (inside.length) {
-    const head = document.createElement("div");
-    head.className = "component-holds-head";
-    head.textContent = `${componentName(selection)} holds ${inside.length}`;
-    holds.appendChild(head);
-    for (const name of inside) {
-      const row = document.createElement("button");
-      row.type = "button";
-      row.className = "component-holds-row";
-      row.textContent = componentName(name);
-      const body = document.createElement("span");
-      body.className = "component-body-name";
-      const child = sceneFeature(name);
-      body.textContent = child ? (child.related || []).map(instanceLabel).join(", ") : leafOf(name);
-      row.appendChild(body);
-      row.title = name;
-      row.addEventListener("click", () => selectComponent(name));
-      holds.appendChild(row);
-    }
-  }
 
   // Hidden list.
   const hidden = panel._hidden;
