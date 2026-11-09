@@ -147,7 +147,7 @@ impl Catalog {
             if body_pattern.is_some_and(|body| !part.name.eq_ignore_ascii_case(body)) { continue; }
             let origin = part.node.map(|i| &self.head["meshes"][i]).unwrap_or(&Value::Null);
             if !bodies.is_empty() && !bodies.contains(&index) { continue; }
-            if bodies.is_empty() && self.shared && origin["feature_count"].as_u64().unwrap_or(0) == 0 { continue; }
+            if self.shared && origin["feature_count"].as_u64().unwrap_or(0) == 0 { continue; }
             let bytes = if self.shared {
                 let hash = origin["asset"].as_str().context("feature mesh object")?;
                 if !assets.contains_key(hash) { assets.insert(hash.into(), hsm_geometry::scene::load_asset(hash)?); }
