@@ -47,6 +47,7 @@ Non-zero only when it is not, which is the one thing the caller cannot find out 
 from __future__ import annotations
 
 import argparse
+import json
 import os
 import shlex
 import shutil
@@ -87,9 +88,24 @@ ENV["HSM_PUSHING"] = "1"
 ENV["HSM_SKIP_PRECOMMIT"] = "1"
 
 
+def network_timing(args, started, code):
+    """Requested publication traces separate Git network time from local commit work."""
+    if started is None:
+        return
+    try:
+        with open(os.environ["HSM_PUBLISH_TIMING"], "a") as log:
+            log.write(json.dumps({"phase": "git." + args[0], "pid": os.getpid(),
+                                  "wall_time_ns": time.time_ns(),
+                                  "seconds": time.monotonic() - started, "exit_code": code}) + "\n")
+    except OSError as error:
+        print(f"  publication timing unavailable: {error}", file=sys.stderr)
+
+
 def git(*args: str, check: bool = True, cwd: Path | None = None) -> str:
+    started = time.monotonic() if os.environ.get("HSM_PUBLISH_TIMING") and args[0] in ("fetch", "push") else None
     run = subprocess.run(["git", *args], cwd=str(cwd or ROOT),
                          capture_output=True, text=True, env=ENV)
+    network_timing(args, started, run.returncode)
     if check and run.returncode != 0:
         detail = (run.stderr or run.stdout).strip().splitlines()
         raise SystemExit(f"  git {' '.join(args)} did not answer: "
@@ -98,8 +114,11 @@ def git(*args: str, check: bool = True, cwd: Path | None = None) -> str:
 
 
 def ok(*args: str, cwd: Path | None = None) -> bool:
-    return subprocess.run(["git", *args], cwd=str(cwd or ROOT),
-                          capture_output=True, text=True, env=ENV).returncode == 0
+    started = time.monotonic() if os.environ.get("HSM_PUBLISH_TIMING") and args[0] in ("fetch", "push") else None
+    result = subprocess.run(["git", *args], cwd=str(cwd or ROOT),
+                            capture_output=True, text=True, env=ENV)
+    network_timing(args, started, result.returncode)
+    return result.returncode == 0
 
 
 ROOT = Path(subprocess.run(["git", "rev-parse", "--show-toplevel"],

@@ -1302,14 +1302,14 @@ def publish_held(grafted: set, viewer_only=False, members=None) -> int:
         return _publish_held(grafted, Path(staging), viewer_only, members)
 
 
-def _measured(phase, started):
+def _measured(phase, started, **fields):
     """Requested measurements separate publication work from network delivery."""
     target = os.environ.get("HSM_PUBLISH_TIMING")
     if target:
         with open(target, "a") as log:
             log.write(json.dumps({"phase": "pack."+phase, "pid": os.getpid(),
                                   "wall_time_ns": time.time_ns(),
-                                  "seconds": time.monotonic()-started})+"\n")
+                                  "seconds": time.monotonic()-started, **fields})+"\n")
     return time.monotonic()
 
 
@@ -1385,7 +1385,7 @@ def _publish_held(grafted: set, staging: Path, viewer_only=False, members=None) 
         print(f"{len(side_moved)} scorecard(s) and {records['shifted']} `made` line(s) moved, and no member's bytes{_unproven(made)}")
         return 0
 
-    phase_started = _measured("plan", phase_started)
+    phase_started = _measured("plan", phase_started, members=pinned)
     asset_members = pinned if viewer_only else [rel for rel in lines if (_ROOT / rel).is_file()]
     mesh_assets = upload_mesh_assets(_ROOT, asset_members, held, sources, lines, keep_previous=viewer_only)
     phase_started = _measured("mesh-objects", phase_started)

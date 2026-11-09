@@ -170,6 +170,7 @@ def tell_the_site() -> None:
     import urllib.request
 
     try:
+        timing("notify-start", time.monotonic())
         urllib.request.urlopen(
             urllib.request.Request("https://homesodamachine.com/api/artifacts/refresh",
                                    data=b"", method="POST"),

@@ -18,6 +18,7 @@ const HELP = `On-demand request-to-view measurement; nothing installs a watcher 
 
 PHASE: source-edit, review, local-view, live-view, published, complete
 watch: --source PATH selects imported bodies instead of --part; --next waits for selected local geometry to change.
+       --delivery records website notifications, member URLs and target mounting alongside the draw.
        --url URL overrides the published model link; --timeout SECONDS bounds observation.
 Receipt time is the original user-message timestamp, including investigation before this tool starts.
 `;
@@ -221,6 +222,34 @@ async function watch(record, values) {
     const page = await browser.newPage();
     const errors = [];
     page.on("pageerror", (error) => errors.push(String(error)));
+    if (values.delivery) {
+      const delivery = (stage, detail, at = new Date().toISOString()) => append(record, "delivery-event", {
+        at, evidence: { kind: "reference-browser-delivery", stage, file: relative, ...detail },
+      });
+      await page.exposeFunction("__hsmIterationDelivery", (stage, detail, at) => delivery(stage, detail, at));
+      await page.evaluateOnNewDocument(({ file, names }) => {
+        const send = (stage, detail) => {
+          window.__hsmIterationDelivery?.(stage, detail, new Date().toISOString()).catch(() => {});
+        };
+        window.addEventListener("hsm:files-changed", (event) => {
+          if (event.detail?.files?.includes(file)) send("server-change-received", { files: event.detail.files });
+        });
+        window.addEventListener("hsm:step-mounted", (event) => {
+          const detail = event.detail;
+          if (detail?.file === file && (!detail.part || names.includes(detail.part))) send("target-mounted", detail);
+        });
+      }, { file: relative, names: requestedNames });
+      page.on("response", (response) => {
+        if (new URL(response.url()).pathname !== "/api/objects" || response.status() !== 200) return;
+        const at = new Date().toISOString();
+        response.json().then(data => {
+          const address = data.objects?.[relative + ".mesh"];
+          return delivery("member-urls-received", {
+            ...(address ? { member_url: new URL(address, url).origin + new URL(address, url).pathname } : {}),
+          }, at);
+        }).catch(() => {});
+      });
+    }
     await page.goto(url, { waitUntil: "domcontentloaded", timeout: timeoutMs });
     await page.waitForFunction(() => window.__hsm?.currentGroup?.userData?.parts?.size, { timeout: timeoutMs });
     const ready = await append(record, "observer-ready", { evidence: { kind: "reference-browser", url, opened_at: opened, next: !!values.next } });
@@ -236,6 +265,10 @@ async function watch(record, values) {
         if (JSON.stringify(current.parts.map(({ name, key }) => [name, key])) !== before) {
           target = { ...current, parts: current.parts.filter((part) => part.key !== old.get(part.name)) };
           snapshot = currentSnapshot;
+          if (values.delivery) await append(record, "delivery-event", { evidence: {
+            kind: "local-producer-update", stage: "local-update", artifact: snapshot.artifact,
+            parts: target.parts.map(({ name, asset, key }) => ({ name, asset, key })),
+          } });
           break;
         }
       }
@@ -271,7 +304,7 @@ export async function main(argv = process.argv.slice(2)) {
     "received-at": { type: "string" }, request: { type: "string" }, run: { type: "string" },
     at: { type: "string" }, note: { type: "string" }, artifact: { type: "string", multiple: true },
     mesh: { type: "string" }, part: { type: "string", multiple: true }, source: { type: "string" },
-    url: { type: "string" }, timeout: { type: "string" }, next: { type: "boolean" },
+    url: { type: "string" }, timeout: { type: "string" }, next: { type: "boolean" }, delivery: { type: "boolean" },
     json: { type: "boolean" }, help: { type: "boolean", short: "h" },
   } });
   const [command, record, phase] = positionals;
