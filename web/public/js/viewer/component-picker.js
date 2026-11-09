@@ -1,7 +1,6 @@
-// Component (assembly-solid) picker for the STEP viewer. A toggle (persisted
-// per-browser in localStorage under "step-component-pick") that turns the loaded
-// STEP into a click-to-select surface at the whole-component level: click a solid
-// to select the named component it belongs to, then hide it from your own view.
+// Component picking selects installed parts in assemblies and named construction
+// surfaces inside an opened part. The standard Component toggle is persisted
+// per-browser in localStorage under "step-component-pick".
 //
 // This is the whole-solid sibling of edge-picker.js (which picks edges + faces).
 // The two are mutually exclusive — arming one disarms the other over the shared
@@ -24,7 +23,7 @@ import { scene, camera, renderer } from "./scene.js";
 import { state } from "./state.js";
 import { setEdgePickEnabled, syncEdgeToggle, invalidateAllEdgesLayer } from "./edge-picker.js";
 import { sourceFileFor } from "/contracts/component-sources.js";
-import { componentLocation } from "/contracts/step-locations.js";
+import { componentLocation, stepLocation } from "/contracts/step-locations.js";
 import { materialForComponent, materialForView } from "/contracts/materials.js";
 import { relatedStepsForComponent } from "/contracts/related-steps.js";
 import { showsInFaucetFinish } from "/contracts/faucet-options.js";
@@ -33,7 +32,7 @@ import { makePanelCollapse } from "./tool-rail.js";
 import { refreshHighlight, fadedBody } from "./part-highlight.js";
 import { renderMeasure } from "./hsm.js";
 import { containsTriangle, splitFeatureKey } from "/contracts/features.js";
-import { sceneFeatures, sceneFeature, featureGeometry, featureUrl } from "./features.js";
+import { sceneFeature, featureGeometry, featureUrl } from "./features.js";
 
 const LS_KEY = "step-component-pick";
 const SEL = 0xffa733;   // selection highlight — warm amber (distinct from edge yellow, part-highlight cyan, find magenta)
@@ -46,7 +45,6 @@ let enabled = (() => {
 
 let selection = null;   // selected component name, or null
 let hoverName = null;   // hovered component name, or null
-let featureScope = null;
 
 // The model on screen, and the bare name of a file the drill-down could reach.
 const mountedFile = () =>
@@ -57,6 +55,20 @@ const componentBody = name => splitFeatureKey(name)?.body || name;
 const materialOf = (name) => materialForComponent(state.materialCatalog, mountedFile(), componentBody(name), namingOptions());
 const componentName = (name) => sceneFeature(name)?.label || materialOf(name)?.description || leafOf(name);
 const modelName = (file) => materialForView(state.materialCatalog, file, namingOptions())?.description || stemOf(file);
+
+// The opened view defines the selection depth; hiding surrounding parts changes no hierarchy.
+function insideOpenedPart(body) {
+  const file = mountedFile();
+  if (!file) return false;
+  const { component } = stepLocation(file);
+  if (component) return body === component;
+  const material = materialForView(state.materialCatalog, file, namingOptions());
+  if (material) return material.kind !== "assembly";
+  const head = state.currentGroup?.userData.sharedHead;
+  const names = head ? head.meshes.map(node => node.name)
+    : (state.currentGroup?.children || []).filter(mesh => mesh.userData?.side === "front").map(mesh => mesh.name);
+  return new Set(names).size === 1;
+}
 
 // --- hidden-set persistence (per open file, view-only) ---
 function hiddenKey(file) { return `step-hidden:${file}`; }
@@ -245,7 +257,7 @@ function pickComponent(clientX, clientY) {
   // goes through what is faded to what stands out.
   const hit = hits.find((h) => !fadedBody(h.object)) || hits[0];
   if (!hit) return null;
-  if (featureScope === hit.object.name) {
+  if (insideOpenedPart(hit.object.name)) {
     const feature = hit.object.userData.features?.find(f => containsTriangle(f, hit.faceIndex));
     if (feature) return `${hit.object.name}::${feature.id}`;
   }
@@ -255,8 +267,6 @@ function pickComponent(clientX, clientY) {
 // --- selection + hover ---
 export function selectComponent(name) {
   const feature = sceneFeature(name);
-  if (feature) featureScope = feature.body;
-  else if (featureScope !== name) featureScope = null;
   selection = name;
   drawOverlay(selGroup, name, SEL, selEdgeMat, 0.18);
   setHover(null);
@@ -295,7 +305,6 @@ export function clearComponentPicker({ preserve = false } = {}) {
     drawOverlay(selGroup, selection, SEL, selEdgeMat, 0.18);
     setHover(null); refreshPanel(); return;
   }
-  featureScope = null;
   clearSelectionOverlay();
   setHover(null);
   hidePanel();
@@ -378,15 +387,6 @@ function buildPanel() {
   actions.appendChild(hideBtn);
   panel._hideBtn = hideBtn;
 
-  const explore = document.createElement("button");
-  explore.type = "button"; explore.className = "edge-panel-all component-explore";
-  explore.addEventListener("click", () => {
-    const body = componentBody(selection);
-    featureScope = featureScope === body ? null : body;
-    selectComponent(body);
-  });
-  actions.append(explore); panel._explore = explore;
-
   const copy = document.createElement("button");
   copy.type = "button"; copy.className = "edge-panel-all component-copy";
   copy.textContent = "Copy feature link";
@@ -434,7 +434,6 @@ function showPanel() {
   const feature = sceneFeature(selection);
   panel.classList.toggle("feature-selected", !!feature);
   const bodyName = componentBody(selection);
-  const availableFeatures = selection ? sceneFeatures(bodyName) : [];
   const inside = feature || !selection ? [] : membersOf(selection);
   if (selection) {
     [...heldBy(bodyName), ...(feature ? [bodyName] : [])].forEach((held) => {
@@ -488,8 +487,6 @@ function showPanel() {
   panel._hideBtn.textContent = already ? "Already hidden"
     : inside.length ? `Hide ${componentName(selection)} (${inside.length})` : "Hide component";
 
-  panel._explore.hidden = !selection || !availableFeatures.length;
-  panel._explore.textContent = featureScope === bodyName ? "Select whole components" : "Explore features";
   panel._copy.hidden = !feature;
   panel._copy.textContent = "Copy feature link";
   const source = selection ? sourceFileFor(bodyName, state.allFiles, mountedFile(), state.materialCatalog, { finish: state.faucetFinish }) : null;
