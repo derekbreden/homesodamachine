@@ -1,0 +1,93 @@
+{
+  "views": [
+    {
+      "name": "relay-clearance",
+      "caption": "The relay pair and its corner hardware sit below the stem elbows.",
+      "before": "relay-clearance-before.webp",
+      "after": "relay-clearance-after.webp",
+      "width": 1200,
+      "height": 900,
+      "marks": [
+        {
+          "x": 495.9,
+          "y": 417.9,
+          "r": 24.1,
+          "label": "Elbow clearance",
+          "at": [
+            -77.872107,
+            380.263871,
+            313.569038
+          ]
+        }
+      ],
+      "model": "manifold-layout/enclosure-assembly.step",
+      "camera": {
+        "projection": "perspective",
+        "position": [
+          24.67320080720887,
+          492.90588072648796,
+          269.31437971747687
+        ],
+        "target": [
+          -83,
+          396,
+          307
+        ],
+        "up": [
+          0,
+          0,
+          1
+        ],
+        "fov": 45,
+        "near": 68.64308894556117,
+        "far": 259.0575521645766,
+        "aspect": 1.3333333333333333
+      },
+      "highlight": [],
+      "ghost": [],
+      "only": [
+        "relay-*",
+        "va-outlet-elbow*",
+        "va-south-elbow*"
+      ],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "snapshot selection",
+          "sha256": "1ace646e7ebebb22bf020ca0643893ff90520c25d7a670abd2a0e2ab130fd310",
+          "commit": "2bb3348f35d4665580306d7da588ef3075977fdb",
+          "full_scene_sha256": "ae9ccffd47dc7e387b5c1ab817643ea0ede64ca056c4b97064d72ca0e8f7ca1e"
+        },
+        "after": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "current selection",
+          "sha256": "3b5d6b4da05f35816f7045a8e61906da7c9d579f1b92e2fe21849bc7cb70994d",
+          "commit": "5f1f4862d7bce3bf53874cefca924fdcef5b16fd",
+          "full_scene_sha256": "201d516dfd6bfe8d51067a72d98e0c11580f737c7bc484c27363e901eb6c4b36"
+        }
+      },
+      "changed": [
+        "relay-1",
+        "relay-2",
+        "relay-1-screw-1",
+        "relay-1-screw-2",
+        "relay-1-screw-3",
+        "relay-1-screw-4",
+        "relay-2-screw-1",
+        "relay-2-screw-2",
+        "relay-2-screw-3",
+        "relay-2-screw-4",
+        "relay-1-insert-1",
+        "relay-1-insert-2",
+        "relay-1-insert-3",
+        "relay-1-insert-4",
+        "relay-2-insert-1",
+        "relay-2-insert-2",
+        "relay-2-insert-3",
+        "relay-2-insert-4"
+      ],
+      "withinMeshing": []
+    }
+  ]
+}
