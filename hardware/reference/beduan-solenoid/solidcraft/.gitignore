@@ -1,4 +1,5 @@
-# Packed models, previews and save backups are regenerated from the native design.
+# Packed models, previews and editor state stay outside the native design source.
 *.sc
 *.step.png
 *.bak
+.~*.lock
