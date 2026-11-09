@@ -1,0 +1,122 @@
+{
+  "parts": {
+    "tube": {
+      "name": "Tube",
+      "preview": "/solidcraft-lab/carbonator/assets/tube.glb?v=efe32acc852d0e2d",
+      "native": "/labs/solidcraft/carbonator/native/tube"
+    },
+    "endcap": {
+      "name": "Endcap",
+      "preview": "/solidcraft-lab/carbonator/assets/endcap.glb?v=96de12bb6fc55643",
+      "native": "/labs/solidcraft/carbonator/native/endcap"
+    }
+  },
+  "occurrences": [
+    {
+      "part": "tube",
+      "name": "Tube:1",
+      "transform": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "explode": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "part": "endcap",
+      "name": "Endcap:1",
+      "transform": [
+        [
+          1.0,
+          -6.393710591394088e-32,
+          8.347946826439413e-16,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          7.659021702371276e-17,
+          0.0
+        ],
+        [
+          -8.347946826439413e-16,
+          -7.659021702371276e-17,
+          1.0,
+          0.0
+        ],
+        [
+          -1.2954258610368723e-14,
+          4.478945451660865e-15,
+          6.35,
+          1.0
+        ]
+      ],
+      "explode": [
+        0.0,
+        0.0,
+        -76.2
+      ]
+    },
+    {
+      "part": "endcap",
+      "name": "Endcap:2",
+      "transform": [
+        [
+          1.0,
+          -5.207864054338323e-44,
+          1.0586109621485943e-29,
+          0.0
+        ],
+        [
+          0.0,
+          -1.0,
+          -4.919525907580116e-15,
+          0.0
+        ],
+        [
+          1.0586109621485943e-29,
+          4.919525907580116e-15,
+          -1.0,
+          0.0
+        ],
+        [
+          1.862858483506134e-17,
+          2.2816004393624967e-14,
+          146.04999999999998,
+          1.0
+        ]
+      ],
+      "explode": [
+        0.0,
+        0.0,
+        76.2
+      ]
+    }
+  ],
+  "radialClearanceMm": 0.127
+}

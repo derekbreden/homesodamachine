@@ -1,0 +1,159 @@
+{
+  "source_files": {
+    "parts/tube.json": "5fd1f4b7f910c7d4f55199701c723c2780d59231ea6cd5dc5c9a358e99bd6f13",
+    "parts/endcap.json": "34794fa6860c03b67702d316ad4967c9fcc4524b0a999717b57b61a3bf13a1d2",
+    "carbonator.json": "b745106cf2920be2e018996235ec7c1049cb2075da192764ee3c9f0fde6aa7b4",
+    "parent.json": "5286a46aead435f118b4399aee37f3016b29b44f43db2238c6c45b4a9e6025be"
+  },
+  "engine": "solidcraft-cli 0.40.0-rc.3",
+  "scope": "Independent tube and unported endcap assembly; opaque linked parent representation.",
+  "construction": {
+    "tube_features": 2,
+    "endcap_features": 2,
+    "core_link_features": 2,
+    "parent_link_features": 1,
+    "cap_occurrences": 2,
+    "core_joints": 2
+  },
+  "isolated_open": {
+    "core_without_part_sources": true,
+    "parent_without_core_or_part_sources": true
+  },
+  "browser_selective_update": {
+    "loaded_leaf": "tube",
+    "endcap_authoring_file_loaded": false,
+    "tube_length_mm": 177.8,
+    "native_edit_recomputed": 1,
+    "core_link_updated": [
+      "Tube"
+    ],
+    "parent_link_updated": [
+      "Carbonator core"
+    ],
+    "parent_feature_count": 1,
+    "parent_world_body_count": 3,
+    "joint_errors": [],
+    "elapsed_ms": 4870.300000000745
+  },
+  "display_cache": {
+    "tube": {
+      "source_triangles": 8704,
+      "display_triangles": 1024,
+      "source_mesh_volume_mm3": 99043.79115873679,
+      "display_mesh_volume_mm3": 99043.79115872298,
+      "bounds": [
+        [
+          -63.5,
+          -63.5,
+          -7.57431769214667e-15
+        ],
+        [
+          63.5,
+          63.5,
+          152.39999389648438
+        ]
+      ],
+      "bytes": 44404
+    },
+    "endcap": {
+      "source_triangles": 94112,
+      "display_triangles": 2044,
+      "source_mesh_volume_mm3": 75996.32641315112,
+      "display_mesh_volume_mm3": 75996.32641318828,
+      "bounds": [
+        [
+          -61.72200012207031,
+          -61.72200012207031,
+          0.0
+        ],
+        [
+          61.72200012207031,
+          61.72200012207031,
+          6.349999904632568
+        ]
+      ],
+      "bytes": 87932
+    },
+    "carbonator": {
+      "source_triangles": 196928,
+      "display_triangles": 5112,
+      "source_mesh_volume_mm3": 251036.5181729991,
+      "display_mesh_volume_mm3": 251036.51817287138,
+      "bounds": [
+        [
+          -63.5,
+          -63.5,
+          -7.57431769214667e-15
+        ],
+        [
+          63.5,
+          63.5,
+          152.39999389648438
+        ]
+      ],
+      "bytes": 218352
+    }
+  },
+  "website_review": {
+    "checked_at": "2026-11-09T02:17:35.090Z",
+    "environment": "Headless Chrome on the shared Mac",
+    "initial_model_resources": [
+      {
+        "url": "/solidcraft-lab/carbonator/module.json",
+        "type": "module interface",
+        "label": "Carbonator module",
+        "bytes": 727
+      },
+      {
+        "url": "/solidcraft-lab/carbonator/assets/carbonator.glb?v=05a5c515bec061c6",
+        "type": "display",
+        "label": "Carbonator saved shape",
+        "bytes": 218352
+      }
+    ],
+    "initial_native_engine_loaded": false,
+    "initial_editable_designs_loaded": [],
+    "repeated_placements": 64,
+    "repeated_display": {
+      "calls": 1,
+      "triangles": 327168,
+      "count": 64,
+      "expanded": false,
+      "geometries": 1
+    },
+    "repeated_model_resource_count": 2,
+    "expanded_authoring_files": [],
+    "selected_leaf_authoring_files": [
+      "Tube"
+    ],
+    "updated_parent_feature_count": 1,
+    "updated_parent_body_definitions": 3,
+    "updated_parent_world_bodies": 192,
+    "top_cap_after_tube_length_change": {
+      "max": [
+        61.722000000000634,
+        61.721999999999944,
+        171.45000000000323
+      ],
+      "min": [
+        -61.72199999999969,
+        -61.72200000000013,
+        165.09999999999698
+      ]
+    },
+    "repeated_leaf_publication": true,
+    "resume_without_native_source_fetch": true,
+    "background_runtime_unloaded": true,
+    "mobile": {
+      "width_css_px": 390,
+      "scroll_width_css_px": 390,
+      "native_engine_loaded": false
+    },
+    "page_errors": []
+  },
+  "limits": [
+    "Native links omit the child authoring history but load all finished bodies embedded in the active native snapshot.",
+    "The cached website view defers native workspaces and child display resources until requested.",
+    "The repeated-module case tests sharing and loading boundaries, not complete-enclosure geometry performance."
+  ]
+}

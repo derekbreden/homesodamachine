@@ -1,4 +1,4 @@
-// The SolidCraft lab serves the native valve and streams its pinned browser runtime only on demand.
+// The SolidCraft lab serves isolated native examples and streams its pinned browser runtime only on demand.
 import path from 'node:path';
 import { readFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
@@ -13,6 +13,20 @@ const release = `https://github.com/derekbreden/homesodamachine/releases/downloa
 export function mountSolidcraftLab(app, {
   hardwareDir = fileURLToPath(new URL('../../hardware/', import.meta.url)), runtimeDirectory,
 } = {}) {
+  const carbonator = '/labs/solidcraft/carbonator';
+  app.get([carbonator, `${carbonator}/`], (_req, res) => {
+    res.set('Cache-Control', 'no-cache');
+    res.sendFile(path.join(publicDir, 'carbonator/index.html'));
+  });
+  const nativeModels = {
+    tube: 'parts/tube.json', endcap: 'parts/endcap.json', core: 'carbonator.json', parent: 'parent.json',
+  };
+  app.get(`${carbonator}/native/:model`, (req, res) => {
+    const file = nativeModels[req.params.model];
+    if (!file) return res.status(404).end();
+    res.set('Cache-Control', 'no-cache');
+    res.sendFile(path.join(hardwareDir, 'reference/carbonator-core/solidcraft', file));
+  });
   app.get([base, `${base}/`], (_req, res) => {
     res.set('Cache-Control', 'no-cache');
     res.sendFile(path.join(publicDir, 'beduan.html'));

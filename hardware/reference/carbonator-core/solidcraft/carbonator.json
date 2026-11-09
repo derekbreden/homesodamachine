@@ -1,0 +1,458 @@
+{
+  "format": "solidcraft/51",
+  "name": "Carbonator core",
+  "units": "mm",
+  "params": [
+    {
+      "name": "cap_recess",
+      "expr": "6.35 mm",
+      "unit": "mm",
+      "model": false
+    }
+  ],
+  "features": [
+    {
+      "id": 3,
+      "name": "Tube",
+      "suppressed": false,
+      "body_names": [
+        "Tube wall"
+      ],
+      "component": 1,
+      "link_faces": [
+        [
+          "F4:side:c1",
+          "F4:side:c2",
+          "F4:start",
+          "F4:top"
+        ]
+      ],
+      "type": "import",
+      "file": "tube.sc",
+      "step": "ISO-10303-21;\nHEADER;\nFILE_DESCRIPTION(('SolidCraft model'),'2;1');\nFILE_NAME('tube.step','',(''),(''),'SolidCraft','SolidCraft','');\nFILE_SCHEMA(('AP242_MANAGED_MODEL_BASED_3D_ENGINEERING_MIM_LF { 1 0 10303 442 1 1 4 }'));\nENDSEC;\nDATA;\n#1=APPLICATION_CONTEXT('managed model based 3d engineering');\n#2=APPLICATION_PROTOCOL_DEFINITION('international standard','ap242_managed_model_based_3d_engineering',2014,#1);\n#3=PRODUCT_CONTEXT('',#1,'mechanical');\n#4=PRODUCT_DEFINITION_CONTEXT('part definition',#1,'design');\n#5=(LENGTH_UNIT()NAMED_UNIT(*)SI_UNIT(.MILLI.,.METRE.));\n#6=(NAMED_UNIT(*)PLANE_ANGLE_UNIT()SI_UNIT($,.RADIAN.));\n#7=(NAMED_UNIT(*)SI_UNIT($,.STERADIAN.)SOLID_ANGLE_UNIT());\n#8=UNCERTAINTY_MEASURE_WITH_UNIT(LENGTH_MEASURE(2.E-5),#5,'distance_accuracy_value','confusion accuracy');\n#9=(GEOMETRIC_REPRESENTATION_CONTEXT(3)GLOBAL_UNCERTAINTY_ASSIGNED_CONTEXT((#8))GLOBAL_UNIT_ASSIGNED_CONTEXT((#5,#6,#7))REPRESENTATION_CONTEXT('Context #1','3D Context with UNIT and UNCERTAINTY'));\n#10=CARTESIAN_POINT('',(0.0,0.0,0.0));\n#11=DIRECTION('',(1.0,0.0,0.0));\n#12=DIRECTION('',(0.0,0.0,1.0));\n#13=AXIS2_PLACEMENT_3D('',#10,#12,#11);\n#14=PRODUCT('tube','tube','',(#3));\n#15=PRODUCT_DEFINITION_FORMATION('','',#14);\n#16=PRODUCT_DEFINITION('design','',#15,#4);\n#17=PRODUCT_DEFINITION_SHAPE('','',#16);\n#18=SHAPE_REPRESENTATION('tube',(#13),#9);\n#19=SHAPE_DEFINITION_REPRESENTATION(#17,#18);\n#20=CYLINDRICAL_SURFACE('',#13,63.5);\n#21=CARTESIAN_POINT('',(63.5,0.0,0.0));\n#22=VERTEX_POINT('',#21);\n#23=CARTESIAN_POINT('',(63.5,0.0,152.4));\n#24=VERTEX_POINT('',#23);\n#25=VECTOR('',#12,1.0);\n#26=LINE('',#21,#25);\n#27=EDGE_CURVE('',#22,#24,#26,.T.);\n#28=ORIENTED_EDGE('',*,*,#27,.F.);\n#29=CIRCLE('',#13,63.5);\n#30=CARTESIAN_POINT('',(98.7828173317607,-98.78281733176073,0.0));\n#31=DIRECTION('',(-1.0,0.0,0.0));\n#32=DIRECTION('',(0.0,0.0,-1.0));\n#33=AXIS2_PLACEMENT_3D('',#30,#32,#31);\n#34=PLANE('',#33);\n#35=CARTESIAN_POINT('',(35.2828173317607,98.78281733176074));\n#36=CARTESIAN_POINT('',(35.282817331760704,162.28281733176075));\n#37=CARTESIAN_POINT('',(98.7828173317607,162.28281733176073));\n#38=CARTESIAN_POINT('',(162.28281733176064,162.28281733176075));\n#39=CARTESIAN_POINT('',(162.2828173317607,98.78281733176074));\n#40=CARTESIAN_POINT('',(162.2828173317607,35.28281733176074));\n#41=CARTESIAN_POINT('',(98.78281733176071,35.282817331760725));\n#42=CARTESIAN_POINT('',(35.28281733176071,35.28281733176071));\n#43=(BOUNDED_CURVE()B_SPLINE_CURVE(2,(#35,#36,#37,#38,#39,#40,#41,#42,#35),.UNSPECIFIED.,.U.,.U.)B_SPLINE_CURVE_WITH_KNOTS((3,2,2,2,3),(0.0,99.7455667514759,199.49113350295184,299.2367002544278,398.98226700590374),.UNSPECIFIED.)CURVE()GEOMETRIC_REPRESENTATION_ITEM()RATIONAL_B_SPLINE_CURVE((1.0,0.7071067811865476,1.0,0.7071067811865476,1.0,0.7071067811865476,1.0,0.7071067811865476,1.0))REPRESENTATION_ITEM(''));\n#44=(GEOMETRIC_REPRESENTATION_CONTEXT(2)PARAMETRIC_REPRESENTATION_CONTEXT()REPRESENTATION_CONTEXT('2D SPACE',''));\n#45=DEFINITIONAL_REPRESENTATION('',(#43),#44);\n#46=PCURVE('',#34,#45);\n#47=SURFACE_CURVE('',#29,(#46),.CURVE_3D.);\n#48=EDGE_CURVE('',#22,#22,#47,.T.);\n#49=ORIENTED_EDGE('',*,*,#48,.T.);\n#50=ORIENTED_EDGE('',*,*,#27,.T.);\n#51=CARTESIAN_POINT('',(0.0,0.0,152.39999999999998));\n#52=AXIS2_PLACEMENT_3D('',#51,#12,#11);\n#53=CIRCLE('',#52,63.5);\n#54=CARTESIAN_POINT('',(98.7828173317607,-98.78281733176073,152.4));\n#55=DIRECTION('',(0.0,1.0,0.0));\n#56=DIRECTION('',(0.0,-0.0,1.0));\n#57=AXIS2_PLACEMENT_3D('',#54,#56,#55);\n#58=PLANE('',#57);\n#59=CARTESIAN_POINT('',(98.78281733176074,35.2828173317607));\n#60=CARTESIAN_POINT('',(162.28281733176075,35.282817331760704));\n#61=CARTESIAN_POINT('',(162.28281733176073,98.7828173317607));\n#62=CARTESIAN_POINT('',(162.28281733176075,162.28281733176064));\n#63=CARTESIAN_POINT('',(98.78281733176074,162.2828173317607));\n#64=CARTESIAN_POINT('',(35.28281733176074,162.2828173317607));\n#65=CARTESIAN_POINT('',(35.282817331760725,98.78281733176071));\n#66=(BOUNDED_CURVE()B_SPLINE_CURVE(2,(#59,#60,#61,#62,#63,#64,#65,#42,#59),.UNSPECIFIED.,.U.,.U.)B_SPLINE_CURVE_WITH_KNOTS((3,2,2,2,3),(0.0,99.74556675147592,199.49113350295184,299.2367002544278,398.98226700590374),.UNSPECIFIED.)CURVE()GEOMETRIC_REPRESENTATION_ITEM()RATIONAL_B_SPLINE_CURVE((1.0,0.7071067811865476,1.0,0.7071067811865476,1.0,0.7071067811865476,1.0,0.7071067811865476,1.0))REPRESENTATION_ITEM(''));\n#67=DEFINITIONAL_REPRESENTATION('',(#66),#44);\n#68=PCURVE('',#58,#67);\n#69=SURFACE_CURVE('',#53,(#68),.CURVE_3D.);\n#70=EDGE_CURVE('',#24,#24,#69,.T.);\n#71=ORIENTED_EDGE('',*,*,#70,.F.);\n#72=EDGE_LOOP('',(#28,#49,#50,#71));\n#73=FACE_OUTER_BOUND('',#72,.T.);\n#74=ADVANCED_FACE('',(#73),#20,.T.);\n#75=DIRECTION('',(1.0,-2.4492935982947064E-16,0.0));\n#76=DIRECTION('',(2.999519565323715E-32,1.2246467991473532E-16,1.0));\n#77=AXIS2_PLACEMENT_3D('',#10,#76,#75);\n#78=CYLINDRICAL_SURFACE('',#77,61.849);\n#79=CARTESIAN_POINT('',(61.849,-1.514863597609293E-14,0.0));\n#80=VERTEX_POINT('',#79);\n#81=CARTESIAN_POINT('',(61.849,3.5149812429127347E-15,152.4));\n#82=VERTEX_POINT('',#81);\n#83=DIRECTION('',(0.0,1.2246467991473515E-16,1.0));\n#84=VECTOR('',#83,1.0);\n#85=LINE('',#79,#84);\n#86=EDGE_CURVE('',#80,#82,#85,.T.);\n#87=ORIENTED_EDGE('',*,*,#86,.T.);\n#88=CARTESIAN_POINT('',(4.571267817553342E-30,1.8663617219005664E-14,152.4));\n#89=AXIS2_PLACEMENT_3D('',#88,#76,#75);\n#90=CIRCLE('',#89,61.849);\n#91=CARTESIAN_POINT('',(98.78281733176074,36.9338173317607));\n#92=CARTESIAN_POINT('',(160.63181733176071,36.933817331760686));\n#93=CARTESIAN_POINT('',(160.63181733176074,98.78281733176068));\n#94=CARTESIAN_POINT('',(160.63181733176077,160.63181733176066));\n#95=CARTESIAN_POINT('',(98.78281733176078,160.6318173317607));\n#96=CARTESIAN_POINT('',(36.93381733176078,160.63181733176071));\n#97=CARTESIAN_POINT('',(36.93381733176075,98.78281733176074));\n#98=CARTESIAN_POINT('',(36.93381733176073,36.933817331760736));\n#99=(BOUNDED_CURVE()B_SPLINE_CURVE(2,(#91,#92,#93,#94,#95,#96,#97,#98,#91),.UNSPECIFIED.,.U.,.U.)B_SPLINE_CURVE_WITH_KNOTS((3,2,2,2,3),(0.0,97.15218201593757,194.30436403187514,291.4565460478127,388.6087280637503),.UNSPECIFIED.)CURVE()GEOMETRIC_REPRESENTATION_ITEM()RATIONAL_B_SPLINE_CURVE((1.0,0.7071067811865476,1.0,0.7071067811865476,1.0,0.7071067811865476,1.0,0.7071067811865476,1.0))REPRESENTATION_ITEM(''));\n#100=DEFINITIONAL_REPRESENTATION('',(#99),#44);\n#101=PCURVE('',#58,#100);\n#102=SURFACE_CURVE('',#90,(#101),.CURVE_3D.);\n#103=EDGE_CURVE('',#82,#82,#102,.T.);\n#104=ORIENTED_EDGE('',*,*,#103,.T.);\n#105=ORIENTED_EDGE('',*,*,#86,.F.);\n#106=CARTESIAN_POINT('',(1.7513425669168187E-78,7.150398662439536E-63,5.838743601353404E-47));\n#107=AXIS2_PLACEMENT_3D('',#106,#76,#75);\n#108=CIRCLE('',#107,61.849);\n#109=CARTESIAN_POINT('',(36.9338173317607,98.78281733176071));\n#110=CARTESIAN_POINT('',(36.933817331760686,160.63181733176071));\n#111=CARTESIAN_POINT('',(98.78281733176068,160.63181733176071));\n#112=CARTESIAN_POINT('',(160.63181733176066,160.63181733176077));\n#113=CARTESIAN_POINT('',(160.6318173317607,98.78281733176075));\n#114=CARTESIAN_POINT('',(160.63181733176071,36.93381733176075));\n#115=CARTESIAN_POINT('',(98.78281733176074,36.93381733176073));\n#116=CARTESIAN_POINT('',(36.933817331760736,36.93381733176071));\n#117=(BOUNDED_CURVE()B_SPLINE_CURVE(2,(#109,#110,#111,#112,#113,#114,#115,#116,#109),.UNSPECIFIED.,.U.,.U.)B_SPLINE_CURVE_WITH_KNOTS((3,2,2,2,3),(0.0,97.15218201593757,194.30436403187514,291.4565460478127,388.6087280637503),.UNSPECIFIED.)CURVE()GEOMETRIC_REPRESENTATION_ITEM()RATIONAL_B_SPLINE_CURVE((1.0,0.7071067811865476,1.0,0.7071067811865476,1.0,0.7071067811865476,1.0,0.7071067811865476,1.0))REPRESENTATION_ITEM(''));\n#118=DEFINITIONAL_REPRESENTATION('',(#117),#44);\n#119=PCURVE('',#34,#118);\n#120=SURFACE_CURVE('',#108,(#119),.CURVE_3D.);\n#121=EDGE_CURVE('',#80,#80,#120,.T.);\n#122=ORIENTED_EDGE('',*,*,#121,.F.);\n#123=EDGE_LOOP('',(#87,#104,#105,#122));\n#124=FACE_OUTER_BOUND('',#123,.T.);\n#125=ADVANCED_FACE('',(#124),#78,.F.);\n#126=ORIENTED_EDGE('',*,*,#48,.F.);\n#127=EDGE_LOOP('',(#126));\n#128=FACE_OUTER_BOUND('',#127,.T.);\n#129=ORIENTED_EDGE('',*,*,#121,.T.);\n#130=EDGE_LOOP('',(#129));\n#131=FACE_BOUND('',#130,.T.);\n#132=ADVANCED_FACE('',(#128,#131),#34,.T.);\n#133=ORIENTED_EDGE('',*,*,#70,.T.);\n#134=EDGE_LOOP('',(#133));\n#135=FACE_OUTER_BOUND('',#134,.T.);\n#136=ORIENTED_EDGE('',*,*,#103,.F.);\n#137=EDGE_LOOP('',(#136));\n#138=FACE_BOUND('',#137,.T.);\n#139=ADVANCED_FACE('',(#135,#138),#58,.T.);\n#140=CLOSED_SHELL('',(#74,#125,#132,#139));\n#141=MANIFOLD_SOLID_BREP('Tube wall',#140);\n#142=COLOUR_RGB('',0.7058823704719543,0.7333333492279053,0.772549033164978);\n#143=FILL_AREA_STYLE_COLOUR('',#142);\n#144=FILL_AREA_STYLE('',(#143));\n#145=SURFACE_STYLE_FILL_AREA(#144);\n#146=SURFACE_SIDE_STYLE('',(#145));\n#147=SURFACE_STYLE_USAGE(.BOTH.,#146);\n#148=PRESENTATION_STYLE_ASSIGNMENT((#147));\n#149=STYLED_ITEM('color',(#148),#141);\n#150=ADVANCED_BREP_SHAPE_REPRESENTATION('tube',(#141,#13),#9);\n#151=SHAPE_REPRESENTATION_RELATIONSHIP('','',#18,#150);\n#152=PRODUCT_RELATED_PRODUCT_CATEGORY('part','',(#14));\n#153=MECHANICAL_DESIGN_GEOMETRIC_PRESENTATION_REPRESENTATION('',(#149),#9);\nENDSEC;\nEND-ISO-10303-21;\n",
+      "components": [
+        {
+          "name": "tube",
+          "transform": [
+            [
+              1.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              1.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.0,
+              1.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ]
+          ],
+          "bodies": [
+            0
+          ]
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "name": "Endcap",
+      "suppressed": false,
+      "body_names": [
+        "Endcap blank"
+      ],
+      "component": 4,
+      "link_faces": [
+        [
+          "F4:side:c1",
+          "F4:top",
+          "F4:start"
+        ]
+      ],
+      "type": "import",
+      "file": "endcap.sc",
+      "step": "ISO-10303-21;\nHEADER;\nFILE_DESCRIPTION(('SolidCraft model'),'2;1');\nFILE_NAME('endcap.step','',(''),(''),'SolidCraft','SolidCraft','');\nFILE_SCHEMA(('AP242_MANAGED_MODEL_BASED_3D_ENGINEERING_MIM_LF { 1 0 10303 442 1 1 4 }'));\nENDSEC;\nDATA;\n#1=APPLICATION_CONTEXT('managed model based 3d engineering');\n#2=APPLICATION_PROTOCOL_DEFINITION('international standard','ap242_managed_model_based_3d_engineering',2014,#1);\n#3=PRODUCT_CONTEXT('',#1,'mechanical');\n#4=PRODUCT_DEFINITION_CONTEXT('part definition',#1,'design');\n#5=(LENGTH_UNIT()NAMED_UNIT(*)SI_UNIT(.MILLI.,.METRE.));\n#6=(NAMED_UNIT(*)PLANE_ANGLE_UNIT()SI_UNIT($,.RADIAN.));\n#7=(NAMED_UNIT(*)SI_UNIT($,.STERADIAN.)SOLID_ANGLE_UNIT());\n#8=UNCERTAINTY_MEASURE_WITH_UNIT(LENGTH_MEASURE(2.E-5),#5,'distance_accuracy_value','confusion accuracy');\n#9=(GEOMETRIC_REPRESENTATION_CONTEXT(3)GLOBAL_UNCERTAINTY_ASSIGNED_CONTEXT((#8))GLOBAL_UNIT_ASSIGNED_CONTEXT((#5,#6,#7))REPRESENTATION_CONTEXT('Context #1','3D Context with UNIT and UNCERTAINTY'));\n#10=CARTESIAN_POINT('',(0.0,0.0,0.0));\n#11=DIRECTION('',(1.0,0.0,0.0));\n#12=DIRECTION('',(0.0,0.0,1.0));\n#13=AXIS2_PLACEMENT_3D('',#10,#12,#11);\n#14=PRODUCT('endcap','endcap','',(#3));\n#15=PRODUCT_DEFINITION_FORMATION('','',#14);\n#16=PRODUCT_DEFINITION('design','',#15,#4);\n#17=PRODUCT_DEFINITION_SHAPE('','',#16);\n#18=SHAPE_REPRESENTATION('endcap',(#13),#9);\n#19=SHAPE_DEFINITION_REPRESENTATION(#17,#18);\n#20=CYLINDRICAL_SURFACE('',#13,61.721999999999994);\n#21=CARTESIAN_POINT('',(61.721999999999994,0.0,0.0));\n#22=VERTEX_POINT('',#21);\n#23=CARTESIAN_POINT('',(61.721999999999994,0.0,6.35));\n#24=VERTEX_POINT('',#23);\n#25=VECTOR('',#12,1.0);\n#26=LINE('',#21,#25);\n#27=EDGE_CURVE('',#22,#24,#26,.T.);\n#28=ORIENTED_EDGE('',*,*,#27,.F.);\n#29=CIRCLE('',#13,61.722);\n#30=CARTESIAN_POINT('',(96.0168984464714,-96.0168984464714,0.0));\n#31=DIRECTION('',(-1.0,0.0,0.0));\n#32=DIRECTION('',(0.0,0.0,-1.0));\n#33=AXIS2_PLACEMENT_3D('',#30,#32,#31);\n#34=PLANE('',#33);\n#35=CARTESIAN_POINT('',(34.29489844647141,96.0168984464714));\n#36=CARTESIAN_POINT('',(34.29489844647141,157.73889844647138));\n#37=CARTESIAN_POINT('',(96.0168984464714,157.7388984464714));\n#38=CARTESIAN_POINT('',(157.73889844647138,157.73889844647144));\n#39=CARTESIAN_POINT('',(157.7388984464714,96.01689844647143));\n#40=CARTESIAN_POINT('',(157.73889844647144,34.29489844647142));\n#41=CARTESIAN_POINT('',(96.01689844647143,34.29489844647141));\n#42=CARTESIAN_POINT('',(34.29489844647142,34.29489844647139));\n#43=(BOUNDED_CURVE()B_SPLINE_CURVE(2,(#35,#36,#37,#38,#39,#40,#41,#42,#35),.UNSPECIFIED.,.U.,.U.)B_SPLINE_CURVE_WITH_KNOTS((3,2,2,2,3),(0.0,96.95269088243464,193.90538176486925,290.85807264730386,387.8107635297383),.UNSPECIFIED.)CURVE()GEOMETRIC_REPRESENTATION_ITEM()RATIONAL_B_SPLINE_CURVE((1.0,0.7071067811865476,1.0,0.7071067811865476,1.0,0.7071067811865476,1.0,0.7071067811865476,1.0))REPRESENTATION_ITEM(''));\n#44=(GEOMETRIC_REPRESENTATION_CONTEXT(2)PARAMETRIC_REPRESENTATION_CONTEXT()REPRESENTATION_CONTEXT('2D SPACE',''));\n#45=DEFINITIONAL_REPRESENTATION('',(#43),#44);\n#46=PCURVE('',#34,#45);\n#47=SURFACE_CURVE('',#29,(#46),.CURVE_3D.);\n#48=EDGE_CURVE('',#22,#22,#47,.T.);\n#49=ORIENTED_EDGE('',*,*,#48,.T.);\n#50=ORIENTED_EDGE('',*,*,#27,.T.);\n#51=CARTESIAN_POINT('',(0.0,0.0,6.349999999999999));\n#52=AXIS2_PLACEMENT_3D('',#51,#12,#11);\n#53=CIRCLE('',#52,61.722);\n#54=CARTESIAN_POINT('',(96.0168984464714,-96.0168984464714,6.349999999999995));\n#55=DIRECTION('',(0.0,1.0,1.8500460524566456E-17));\n#56=DIRECTION('',(1.8500460524566456E-17,-1.8500460524566456E-17,1.0));\n#57=AXIS2_PLACEMENT_3D('',#54,#56,#55);\n#58=PLANE('',#57);\n#59=CARTESIAN_POINT('',(96.0168984464714,34.29489844647141));\n#60=CARTESIAN_POINT('',(157.73889844647138,34.29489844647141));\n#61=CARTESIAN_POINT('',(157.7388984464714,96.0168984464714));\n#62=CARTESIAN_POINT('',(157.73889844647144,157.73889844647138));\n#63=CARTESIAN_POINT('',(96.01689844647143,157.7388984464714));\n#64=CARTESIAN_POINT('',(34.29489844647142,157.73889844647144));\n#65=CARTESIAN_POINT('',(34.29489844647141,96.01689844647143));\n#66=CARTESIAN_POINT('',(34.29489844647139,34.29489844647142));\n#67=(BOUNDED_CURVE()B_SPLINE_CURVE(2,(#59,#60,#61,#62,#63,#64,#65,#66,#59),.UNSPECIFIED.,.U.,.U.)B_SPLINE_CURVE_WITH_KNOTS((3,2,2,2,3),(0.0,96.95269088243462,193.90538176486925,290.85807264730386,387.8107635297383),.UNSPECIFIED.)CURVE()GEOMETRIC_REPRESENTATION_ITEM()RATIONAL_B_SPLINE_CURVE((1.0,0.7071067811865476,1.0,0.7071067811865476,1.0,0.7071067811865476,1.0,0.7071067811865476,1.0))REPRESENTATION_ITEM(''));\n#68=DEFINITIONAL_REPRESENTATION('',(#67),#44);\n#69=PCURVE('',#58,#68);\n#70=SURFACE_CURVE('',#53,(#69),.CURVE_3D.);\n#71=EDGE_CURVE('',#24,#24,#70,.T.);\n#72=ORIENTED_EDGE('',*,*,#71,.F.);\n#73=EDGE_LOOP('',(#28,#49,#50,#72));\n#74=FACE_OUTER_BOUND('',#73,.T.);\n#75=ADVANCED_FACE('',(#74),#20,.T.);\n#76=ORIENTED_EDGE('',*,*,#71,.T.);\n#77=EDGE_LOOP('',(#76));\n#78=FACE_OUTER_BOUND('',#77,.T.);\n#79=ADVANCED_FACE('',(#78),#58,.T.);\n#80=ORIENTED_EDGE('',*,*,#48,.F.);\n#81=EDGE_LOOP('',(#80));\n#82=FACE_OUTER_BOUND('',#81,.T.);\n#83=ADVANCED_FACE('',(#82),#34,.T.);\n#84=CLOSED_SHELL('',(#75,#79,#83));\n#85=MANIFOLD_SOLID_BREP('Endcap blank',#84);\n#86=COLOUR_RGB('',0.7058823704719543,0.7333333492279053,0.772549033164978);\n#87=FILL_AREA_STYLE_COLOUR('',#86);\n#88=FILL_AREA_STYLE('',(#87));\n#89=SURFACE_STYLE_FILL_AREA(#88);\n#90=SURFACE_SIDE_STYLE('',(#89));\n#91=SURFACE_STYLE_USAGE(.BOTH.,#90);\n#92=PRESENTATION_STYLE_ASSIGNMENT((#91));\n#93=STYLED_ITEM('color',(#92),#85);\n#94=ADVANCED_BREP_SHAPE_REPRESENTATION('endcap',(#85,#13),#9);\n#95=SHAPE_REPRESENTATION_RELATIONSHIP('','',#18,#94);\n#96=PRODUCT_RELATED_PRODUCT_CATEGORY('part','',(#14));\n#97=MECHANICAL_DESIGN_GEOMETRIC_PRESENTATION_REPRESENTATION('',(#93),#9);\nENDSEC;\nEND-ISO-10303-21;\n",
+      "components": [
+        {
+          "name": "endcap",
+          "transform": [
+            [
+              1.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              1.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.0,
+              1.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ]
+          ],
+          "bodies": [
+            0
+          ]
+        }
+      ]
+    }
+  ],
+  "next_id": 11,
+  "components": [
+    {
+      "id": 1,
+      "identification_color_index": 0,
+      "name": "Tube",
+      "parent": 0,
+      "metadata": {
+        "description": "The native tube defines the carbonator core barrel and its annular end interfaces."
+      }
+    },
+    {
+      "id": 4,
+      "identification_color_index": 1,
+      "name": "Endcap",
+      "parent": 0,
+      "metadata": {
+        "description": "The native endcap blank defines the carbonator core disc without external connections."
+      }
+    }
+  ],
+  "next_component_color_index": 2,
+  "occurrences": [
+    {
+      "id": 2,
+      "component": 1,
+      "parent": 0,
+      "name": "Tube:1",
+      "transform": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "grounded": true
+    },
+    {
+      "id": 5,
+      "component": 4,
+      "parent": 0,
+      "name": "Endcap:1",
+      "transform": [
+        [
+          1.0,
+          -6.393710591394088e-32,
+          8.347946826439413e-16,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          7.659021702371276e-17,
+          0.0
+        ],
+        [
+          -8.347946826439413e-16,
+          -7.659021702371276e-17,
+          1.0,
+          0.0
+        ],
+        [
+          -1.2954258610368723e-14,
+          4.478945451660865e-15,
+          6.35,
+          1.0
+        ]
+      ],
+      "grounded": false
+    },
+    {
+      "id": 7,
+      "component": 4,
+      "parent": 0,
+      "name": "Endcap:2",
+      "transform": [
+        [
+          1.0,
+          -5.207864054338323e-44,
+          1.0586109621485943e-29,
+          0.0
+        ],
+        [
+          0.0,
+          -1.0,
+          -4.919525907580116e-15,
+          0.0
+        ],
+        [
+          1.0586109621485943e-29,
+          4.919525907580116e-15,
+          -1.0,
+          0.0
+        ],
+        [
+          1.862858483506134e-17,
+          2.2816004393624967e-14,
+          146.04999999999998,
+          1.0
+        ]
+      ],
+      "grounded": false
+    }
+  ],
+  "assembly": {
+    "joints": [
+      {
+        "id": 8,
+        "name": "Bottom cap recess",
+        "kind": "rigid",
+        "a": {
+          "occurrence": 2,
+          "snap": {
+            "type": "face_center",
+            "pick": [
+              43.846730454984716,
+              -44.87399831697069,
+              0.0
+            ],
+            "face": "F3:link:216d1340ccb3719d",
+            "x": [
+              1.0,
+              0.0,
+              0.0
+            ]
+          }
+        },
+        "b": {
+          "occurrence": 5,
+          "snap": {
+            "type": "face_center",
+            "pick": [
+              3.3831108453162355,
+              60.853322200787034,
+              0.0
+            ],
+            "face": "F6:link:216d1340ccb3719d",
+            "x": [
+              1.0,
+              0.0,
+              0.0
+            ]
+          }
+        },
+        "values": [],
+        "limits": [],
+        "flip": true,
+        "offset": -6.35,
+        "angle": 0.0,
+        "exprs": {
+          "offset": "-cap_recess"
+        }
+      },
+      {
+        "id": 9,
+        "name": "Top cap recess",
+        "kind": "rigid",
+        "a": {
+          "occurrence": 2,
+          "snap": {
+            "type": "face_center",
+            "pick": [
+              43.84673045498471,
+              -44.873998316970685,
+              152.4
+            ],
+            "face": "F3:link:ea3dc0b771113d36",
+            "x": [
+              1.0,
+              0.0,
+              0.0
+            ]
+          }
+        },
+        "b": {
+          "occurrence": 7,
+          "snap": {
+            "type": "face_center",
+            "pick": [
+              3.3831108453162355,
+              60.853322200787034,
+              0.0
+            ],
+            "face": "F6:link:216d1340ccb3719d",
+            "x": [
+              1.0,
+              0.0,
+              0.0
+            ]
+          }
+        },
+        "values": [],
+        "limits": [],
+        "flip": true,
+        "offset": -6.35,
+        "angle": 0.0,
+        "exprs": {
+          "offset": "-cap_recess"
+        }
+      }
+    ],
+    "exploded": [
+      {
+        "id": 10,
+        "name": "Fit-up",
+        "moves": [
+          [
+            5,
+            [
+              0.0,
+              0.0,
+              -76.2
+            ]
+          ],
+          [
+            7,
+            [
+              0.0,
+              0.0,
+              76.2
+            ]
+          ]
+        ]
+      }
+    ]
+  },
+  "links": {
+    "1": {
+      "path": "parts/tube.sc",
+      "feature": 3,
+      "inherited": [
+        {
+          "material": "Stainless Steel",
+          "appearance": {
+            "name": "Custom",
+            "color": [
+              180,
+              187,
+              197
+            ],
+            "opacity": 1.0,
+            "pbr": {
+              "metallic": 1.0,
+              "roughness": 0.32,
+              "dielectric_ior": 1.5
+            }
+          },
+          "faces": []
+        }
+      ],
+      "file_sha256": "9d138c8466c6d7b46da5c192c771776e110fa76ebc910b286878a575c2e58d08"
+    },
+    "4": {
+      "path": "parts/endcap.sc",
+      "feature": 6,
+      "inherited": [
+        {
+          "material": "Stainless Steel",
+          "appearance": {
+            "name": "Custom",
+            "color": [
+              180,
+              187,
+              197
+            ],
+            "opacity": 1.0,
+            "pbr": {
+              "metallic": 1.0,
+              "roughness": 0.32,
+              "dielectric_ior": 1.5
+            }
+          },
+          "faces": []
+        }
+      ],
+      "file_sha256": "c9fbc438945e81372ccd3f853cc6718860813ae0cdc6b8cfd904c3cae97f04c1"
+    }
+  },
+  "favorites": [
+    "cap_recess"
+  ],
+  "materials": {
+    "Endcap blank": "Stainless Steel",
+    "Tube wall": "Stainless Steel"
+  },
+  "appearances": {
+    "bodies": {
+      "Endcap blank": {
+        "name": "Custom",
+        "color": [
+          180,
+          187,
+          197
+        ],
+        "opacity": 1.0,
+        "pbr": {
+          "metallic": 1.0,
+          "roughness": 0.32,
+          "dielectric_ior": 1.5
+        }
+      },
+      "Tube wall": {
+        "name": "Custom",
+        "color": [
+          180,
+          187,
+          197
+        ],
+        "opacity": 1.0,
+        "pbr": {
+          "metallic": 1.0,
+          "roughness": 0.32,
+          "dielectric_ior": 1.5
+        }
+      }
+    }
+  }
+}

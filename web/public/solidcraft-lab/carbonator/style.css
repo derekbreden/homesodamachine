@@ -1,0 +1,31 @@
+/* The assembly lab separates the component tree, loading evidence and the two view modes. */
+.lab-layout { grid-template-columns: 20rem minmax(0,1fr); }
+.assembly-tree { margin-bottom: 1.5rem; }
+.copy-label { display: flex; align-items: center; justify-content: space-between; gap: .5rem; font-size: .75rem; margin: 0 0 .9rem; }
+.copy-label select { max-width: 10rem; padding: .6rem .4rem; min-height: 44px; border: 1px solid #c7d3e8; border-radius: 4px; background: #fff; color: #10319c; font-size: .7rem; }
+#open-parent, #expand, #open-core { width: 100%; margin: .35rem 0; }
+#expand { text-align: left; }
+#expand small { display: block; font-weight: 400; color: #526790; padding-left: .9rem; margin-top: .35rem; font-size: .65rem; }
+#children { border-left: 1px solid #c7d3e8; padding-left: .8rem; margin-top: .5rem; }
+.part-row { display: flex; align-items: center; justify-content: space-between; gap: .5rem; font-size: .75rem; margin: .6rem 0; }
+.part-row small { display: block; color: #526790; margin-top: .25rem; font-size: .65rem; }
+#native-controls { border-top: 1px solid #c7d3e8; padding-top: 1.25rem; margin-bottom: 1.5rem; }
+#dimensions > button { width: 100%; }
+.load-audit { border-top: 1px solid #c7d3e8; padding-top: 1.25rem; margin-bottom: 1.5rem; }
+.load-audit dl { font-size: .7rem; line-height: 1.6; }
+.load-audit dl > div { display: flex; justify-content: space-between; gap: 1rem; margin: .6rem 0; }
+.load-audit dt { color: #526790; }
+.load-audit dd { margin: 0; text-align: right; max-width: 13ch; overflow-wrap: anywhere; }
+#resource-list { padding-left: 1.1rem; font-size: .65rem; color: #526790; line-height: 1.7; overflow-wrap: anywhere; }
+#resource-list li { margin: .5rem 0; }
+.workspace { height: calc(100svh - 5.9rem); }
+.workspace-toolbar { min-height: 60px; }
+.view-actions { flex-wrap: wrap; align-items: center; }
+.section-label { display: flex; align-items: center; gap: .4rem; min-height: 44px; padding-right: .3rem; font-size: .75rem; }
+.section-label input { accent-color: #ff9152; width: 1rem; height: 1rem; }
+#preview, #native-stage { position: absolute; inset: 0; }
+#preview canvas { width: 100%; height: 100%; display: block; touch-action: none; }
+#timing-list li { font-size: .7rem; }
+.mode-label { color: #ffb478; }
+@media (max-width:1000px) { .lab-layout { grid-template-columns: 17rem minmax(0,1fr); } }
+@media (max-width:700px) { .lab-layout { display:flex; } .workspace { height:72svh; } .workspace-toolbar { padding-block:.4rem; gap:.2rem 1rem; } .view-actions button { padding-inline:.65rem; } .controls { padding-inline:1.25rem; } }
