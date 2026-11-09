@@ -1,8 +1,7 @@
 // Material stock joins the current BOM's physical inputs to dated inventory evidence for the website and agents.
-import fs from "node:fs";
-import path from "node:path";
 import { explodeBom } from "../contracts/materials.js";
 import { readBomLines, readPartCosts, stripPack, plainMarkdown } from "./part-costs.js";
+import { readStockLedger } from "./stock-ledger.js";
 
 const normalUnit = unit => ({ pieces: "ea", piece: "ea", sets: "ea", set: "ea", caps: "ea", collars: "ea", rods: "ea", inches: "in" })[unit] || unit;
 const units = { mm: ["length", 1], m: ["length", 1000], ft: ["length", 304.8], in: ["length", 25.4], kg: ["mass", 1000], g: ["mass", 1], ea: ["count", 1] };
@@ -18,16 +17,14 @@ function convert(value, from, to) {
 }
 
 export function readMaterialStock(hardwareDir, catalog) {
-  const record = JSON.parse(fs.readFileSync(path.join(hardwareDir, "ledger/stock.json"), "utf8"));
-  const forecast = JSON.parse(fs.readFileSync(path.join(hardwareDir, record.opening.source), "utf8"));
+  const ledger = readStockLedger(hardwareDir), record = ledger.record;
+  const forecast = { items: Object.values(ledger.resources).map(item => ({ ...item, sourceUrl: item.href, inventory: item, perUnit: item.planning?.perUnit, materialAllowance: item.planning?.materialAllowance })) };
   const costs = catalog.costs || readPartCosts(hardwareDir, catalog);
-  const inputs = {}, resources = {}, materials = {};
+  const inputs = {}, resources = structuredClone(ledger.resources), materials = ledger.materials;
   const lines = readBomLines(hardwareDir);
   const quantities = new Map([[catalog.cost_root, 1]]);
   for (const row of explodeBom(catalog, catalog.cost_root, costs.options))
     quantities.set(row.material.id, (quantities.get(row.material.id) || 0) + (row.quantity || 0));
-  const update = key => Object.assign(resources[key], ...record.observations.filter(value => value.resource === key));
-  for (const definition of record.resources || []) { resources[definition.id] = { ...definition }; update(definition.id); }
 
   function resource(item) {
     const key = item.id;
@@ -37,7 +34,6 @@ export function readMaterialStock(hardwareDir, catalog) {
       estimated: item.inventory?.estimated !== false, asOf: item.inventory?.asOf || record.opening.asOf,
       note: item.inventory?.note || "No usable stock count recorded", sources: item.inventory?.sources || [],
     };
-    update(key);
     return key;
   }
   function match(id, element) {
@@ -87,7 +83,6 @@ export function readMaterialStock(hardwareDir, catalog) {
       onHand: null, incoming: 0, reserved: 0, estimated: false, asOf: null,
       note: "No usable balance for this stock is recorded", sources: [{ path: "hardware/ledger/bom.md" }],
     };
-    update(key);
     let quantity = null;
     if (element.measure) quantity = convert(element.measure.value, element.measure.unit, resources[key].unit);
     const present = (line?.targets || []).filter(target => quantities.get(target.id) > 0);
@@ -106,11 +101,5 @@ export function readMaterialStock(hardwareDir, catalog) {
     add(id, key, kit ? 1 : quantity, { ...(kit && { mode: "kit" }), estimated: quantity == null || Boolean(item?.inventory?.estimated) });
   }
 
-  // Observations replace a balance; reserved stock is retained separately from the physical count.
-  for (const observation of record.observations) {
-    const target = observation.resource ? resources[observation.resource]
-      : (materials[observation.material + (observation.finish ? ":" + observation.finish : "")] ||= {});
-    if (target) Object.assign(target, observation);
-  }
-  return { opening: record.opening, resources, inputs, materials, builds: record.builds };
+  return { opening: record.opening, resources, inputs, materials, builds: ledger.builds, events: ledger.events, asOf: ledger.asOf };
 }

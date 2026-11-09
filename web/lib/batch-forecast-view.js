@@ -1,7 +1,7 @@
 import { categoryName } from "./cost-categories.js";
 
 const money = cents => "$" + (cents / 100).toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-const count = n => n.toLocaleString("en-US", { maximumFractionDigits: 3 });
+const count = n => Number.isFinite(n) ? n.toLocaleString("en-US", { maximumFractionDigits: 3 }) : "Unknown";
 const escape = value => String(value).replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c]);
 const star = '<sup class="forecast-star" aria-label="estimate or availability unresolved">*</sup>';
 

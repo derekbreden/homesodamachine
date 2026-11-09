@@ -2,6 +2,7 @@ import fs from "node:fs";
 import path from "node:path";
 import { createHash } from "node:crypto";
 import { runMinutes } from "../contracts/part-costs.js";
+import { readStockLedger } from "./stock-ledger.js";
 
 const gcd = (a, b) => b ? gcd(b, a % b) : a;
 
@@ -80,10 +81,11 @@ export function calculateBatch(data, units, labor) {
   let leftoverCents = 0;
   const rows = data.items.map(item => {
     const required = item.fixedQuantity ?? item.perUnit * units * (1 + (item.materialAllowance || 0));
-    const onHand = item.inventory?.onHand ?? 0;
+    const onHand = item.inventory?.onHand ?? null;
     const incoming = item.inventory?.incoming ?? 0;
-    if (![required, onHand, incoming].every(n => Number.isFinite(n) && n >= 0)) throw new RangeError("Invalid requirement or inventory credit");
-    const openingStock = onHand + incoming;
+    const available = onHand == null ? 0 : Math.max(0, onHand - (item.inventory?.reserved || 0));
+    if (![required, available, incoming].every(n => Number.isFinite(n) && n >= 0) || (onHand != null && onHand < 0)) throw new RangeError("Invalid requirement or inventory credit");
+    const openingStock = available + incoming;
     const shortfall = Math.max(0, required - openingStock);
     let target = Math.max(shortfall, (item.minimumPurchaseQuantity?.[String(units)] || 0) - openingStock);
     // A colour kit must cover its limiting colour, not just aggregate feet.
@@ -108,7 +110,7 @@ export function calculateBatch(data, units, labor) {
         issues.push(`Listed stock: ${pack.option.listedPackages} lots; ${missing} more ${missing === 1 ? "lot needs" : "lots need"} a source or replenishment.`);
       }
     }
-    const row = { ...item, ...purchase, onHand, incoming, openingStock, shortfall, issues, estimated: issues.length > 0 };
+    const row = { ...item, ...purchase, onHand, available, incoming, openingStock, shortfall, issues, estimated: issues.length > 0 };
     const supplier = suppliers.find(supplier => supplier.id === item.supplier);
     if (!supplier) throw new Error(`Missing supplier ${item.supplier}`);
     supplier.rows.push(row);
@@ -138,6 +140,14 @@ export function calculateBatch(data, units, labor) {
 
 export function readBatchForecast(hardwareDir, labor) {
   const data = JSON.parse(fs.readFileSync(path.join(hardwareDir, "ledger", "batch-forecast.json"), "utf8"));
+  const stock = readStockLedger(hardwareDir);
+  for (const item of data.items) {
+    const balance = stock.resources[item.stock];
+    item.inventory = { ...balance, note: balance.note || "No stock count recorded" };
+    item.perUnit = balance.planning.perUnit;
+    item.materialAllowance = balance.planning.materialAllowance;
+  }
+  data.inventoryAsOf = stock.asOf.slice(0, 10);
   if (data.schemaVersion !== 2 || !/^\d{4}-\d{2}-\d{2}$/.test(data.checkedAt) || !/^\d{4}-\d{2}-\d{2}$/.test(data.inventoryAsOf) || !Number.isFinite(data.taxRate) || data.taxRate < 0 || data.taxRate > 1) throw new Error("Invalid batch forecast");
   if (data.items.some(item => !item.inventory)) throw new Error("Missing inventory reconciliation");
   if (new Set(data.items.map(item => item.id)).size !== data.items.length) throw new Error("Duplicate purchase SKU");
