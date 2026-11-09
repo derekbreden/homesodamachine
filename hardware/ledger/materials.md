@@ -7,6 +7,10 @@ records there and in `bom.source` are for agents and are not shown.
 An assembly's contents can include other assemblies; quantities and ancestry follow
 those relationships through every level.
 
+The catalog describes current parts, installation references and active tooling.
+Completed trial articles leave the catalog. Their physical results remain with
+the print records; obsolete generators and exports are recoverable from Git.
+
 ## Identity
 
 Each material has a permanent `id`, a readable `description` and a `kind`. The

@@ -4194,26 +4194,6 @@
       ]
     },
     {
-      "id": "HSM-0274",
-      "description": "Grip receiver and cover coupons \u00b7 recorded test articles",
-      "kind": "reference",
-      "aliases": [
-        "grip liner",
-        "handle cover"
-      ],
-      "models": [
-        {
-          "file": "printed-parts/enclosure/grip-cover/grip-cover.step"
-        }
-      ],
-      "documents": [
-        {
-          "title": "Bound grip-coupon geometry and physical acceptance",
-          "path": "printed-parts/enclosure/grip-cover/README.md"
-        }
-      ]
-    },
-    {
       "id": "HSM-0275",
       "description": "Tee-carrier return spring \u00b7 304 stainless",
       "kind": "purchased",
