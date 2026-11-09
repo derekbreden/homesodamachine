@@ -45,6 +45,13 @@ uses the same material search as `/3d`. It returns candidates, source producers,
 and published model links. Suggestions retain their uncertainty; use the returned identity
 when a description could mean more than one part.
 
+For a named construction feature, add `--context` to its exact key in `find-part.mjs`.
+It reads the current source, dimensions, compiler-recorded references and other exported
+features authored in that file. References are leads to inspect, not inferred fit constraints.
+Use `tools/inspect-part.mjs` for a focused view or `--measure-only` for a clearance, interference or passage
+question. Reuse its saved inspection to retain the subject, camera, neighbours and rays while
+reading the next export. These commands run only when the current question needs them.
+
 ## Mechanical Layout
 
 Finish the mechanical layout before placing Wagos or routing wires. Position
