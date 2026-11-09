@@ -1,4 +1,4 @@
-// /cost — build cost, planned sale price, and investment recovery.
+// /cost connects production planning, build costs, planned price and investment recovery.
 //
 // Two rollups, two ledgers:
 //   * PARTS — hardware/ledger/bom.md, keyed by the hidden <!--@TAG--> category
@@ -15,7 +15,7 @@
 import path from "path";
 import fs from "fs";
 import { renderHead, renderNav, renderPageHeader, renderFooter } from "./shell.js";
-import { readBatchForecast, renderBatchForecast, BATCH_FORECAST_CSS } from "./batch-forecast.js";
+import { readProductionPlanner, renderProductionPlanner } from "./production-planner.js";
 import { categoryName } from "./cost-categories.js";
 import { plainMarkdown, stripPack, readPartCosts } from "./part-costs.js";
 import { parseRun, runText, duration } from "../contracts/part-costs.js";
@@ -251,7 +251,7 @@ export const COST_CSS = `
 .cost-sr-only { position: absolute; width: 1px; height: 1px; padding: 0; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
 .cost-wrap a:focus-visible, .cost-wrap summary:focus-visible, .cost-wrap input:focus-visible { outline: 2px solid var(--action); outline-offset: 4px; }
 .cost-contents { margin: 1.75rem 0 1rem; }
-.cost-contents ol { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: .6rem; list-style: none; margin: .6rem 0 0; padding: 0; }
+.cost-contents ol { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: .6rem; list-style: none; margin: .6rem 0 0; padding: 0; }
 .cost-contents a { display: flex; align-items: baseline; gap: .5rem; padding: .65rem .5rem; height: 100%; box-sizing: border-box; border-bottom: 2px solid var(--border); text-decoration: none; color: var(--text-2); font-size: .8rem; line-height: 1.4; }
 .cost-contents a:hover, .cost-contents a[aria-expanded="true"] { border-color: var(--accent); color: var(--text); }
 .cost-contents a > span { color: var(--text-3); font-size: .7rem; }
@@ -269,7 +269,7 @@ export const COST_CSS = `
 .cost-panel-marker::after { content: "+"; }
 .cost-panel[open] > summary .cost-panel-marker::after { content: "−"; }
 .cost-panel-content { border-top: 1px solid var(--border); padding: 1.25rem; background: var(--bg); border-radius: 0 0 12px 12px; }
-.cost-panel-content > .cost-recovery, .cost-panel-content > .cost-forecast { margin: 0; }
+.cost-panel-content > .cost-recovery { margin: 0; }
 .cost-panel-content .cost-title { font-size: 1.25rem; }
 @media (max-width: 560px) {
   .cost-contents a { padding: .5rem .2rem; gap: .3rem; font-size: .72rem; }
@@ -278,7 +278,6 @@ export const COST_CSS = `
   .cost-panel-value strong { font-size: 1.3rem; }
   .cost-panel-marker { grid-column: 2; grid-row: 1 / 3; }
   .cost-panel-content { padding: 1rem .7rem; }
-  .cost-panel-content .forecast-cards > div { padding: .85rem .5rem; }
   .cost-panel-content .forecast-cards strong { font-size: clamp(1rem,4.8vw,1.8rem); }
   .cost-panel-content .cost-items tbody { display: block; }
   .cost-panel-content .cost-items tr { display: grid; grid-template-columns: minmax(0,1fr) 5rem; grid-template-areas: "name cost" "qty qty"; border-top: 1px solid var(--border); }
@@ -577,7 +576,7 @@ function renderTopline(total, labor) {
       <a class="cost-top-leg" href="#parts"><i class="cost-key"></i>Parts <b>${money(total)}</b></a>
       <a class="cost-top-leg" href="#labor"><i class="cost-key l"></i>Labor <b>${money(labour)}</b> ${hm(labor.minutes)} at ${rateStr(labor.rate)}/h</a>
     </div>
-    <p class="cost-top-context">Parts plus planned batch labor. Our early builds take substantially longer. <a href="#by-part">Cost by part</a> · <a href="#assumptions">What we&rsquo;re assuming</a> · <a href="#batch-forecast">Purchases for 5, 10 &amp; 20 machines</a></p>
+    <p class="cost-top-context">Parts plus planned batch labor. Our early builds take substantially longer. <a href="#by-part">Cost by part</a> · <a href="#assumptions">What we&rsquo;re assuming</a> · <a href="#batch-forecast">Plan stock &amp; purchases</a></p>
   </section>
 `;
 }
@@ -737,13 +736,8 @@ ${labor ? renderLaborSection(labor, harness) : ""}${mach ? renderMachineSection(
     metrics: metric(`<span data-recovery-overview="range">${plan ? recoveryRange(plan) : "Unavailable"}</span>`, `<span data-recovery-overview="label">${plan?.recordedUnits === null ? "At the planned build cost" : "Machines to recover investment"}</span>`),
     body: renderRecovery(unitCost, labor, investment),
   }];
-  if (forecast) panels.push({
-    id: "forecast-panel", anchor: "batch-forecast", title: "First 5, 10 & 20 machines",
-    caption: "Additional cash from current stock · supplies & delivery included",
-    metrics: forecast.batches.map(batch => metric(`${money(batch.cashCents / 100)}<sup aria-label="estimate">*</sup>`, `First ${batch.units} machines`)).join(""),
-    body: renderBatchForecast(forecast),
-  });
   return `<main class="cost-wrap site-content">
+${renderProductionPlanner(forecast)}
 ${renderPrice(unitCost)}
   <nav class="cost-contents" aria-label="Cost sections"><div class="cost-top-cap">On this page</div><ol>${panels.map((panel, index) => `<li><a href="#${panel.anchor}" aria-controls="${panel.id}"><span aria-hidden="true">${index + 1}</span>${escape(panel.title)}</a></li>`).join("")}</ol></nav>
   <div class="cost-sections">${panels.map(renderCostPanel).join("")}</div>
@@ -774,7 +768,7 @@ export function mountCostRoutes(app, { hardwareDir }) {
       investment = readInvestmentRollup(hardwareDir);
     } catch (e) { /* missing or inconsistent purchase totals */ }
     try {
-      forecast = readBatchForecast(hardwareDir, labor);
+      forecast = readProductionPlanner(hardwareDir, labor);
     } catch (e) { /* optional supplier forecast */ }
     try {
       harness.J2 = readJ2Harness(hardwareDir);
@@ -795,15 +789,15 @@ export function mountCostRoutes(app, { hardwareDir }) {
     }
     res.send(
       renderHead({
-        title: "Price & Cost · Home Soda Machine", pageStyles: COST_CSS + PART_COST_CSS + BATCH_FORECAST_CSS, pageClass: "site-interior",
-        pageHead: '<link rel="stylesheet" href="/css/harness.css">',
+        title: "Production planning & cost · Home Soda Machine", pageStyles: COST_CSS + PART_COST_CSS, pageClass: "site-interior",
+        pageHead: '<link rel="stylesheet" href="/css/harness.css"><link rel="stylesheet" href="/css/production-planner.css">',
         importMap: { imports: {
           three: "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.min.js",
           "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/",
         } },
       }) +
       renderNav({ active: "cost" }) +
-      renderPageHeader({ eyebrow: "Price, cost & investment", title: "What goes into a machine.", description: "The planned price, parts, labor, and investment behind the build. Explore the estimates and the first production batches." }) +
+      renderPageHeader({ eyebrow: "Production, stock & cost", title: "Plan the next machine.", description: "See what the stock covers, choose purchase batches, and follow the materials into future builds." }) +
       body +
       renderFooter({ siteFooter: true }),
     );
