@@ -1,7 +1,7 @@
-"""The scanned purchased pump's frozen reference and compatibility routing datums.
+"""The purchased pump's simplified reference and compatibility routing datums.
 
-The exterior belongs to frozen-asset.json. reconstruct_scan.py reconstructs the
-registered observations, and scan_model.rs separates their visible components.
+The exterior belongs to frozen-asset.json. scan_model.rs constructs smooth
+primitive solids from measured principal dimensions and connection stations.
 The compatibility directory names the pump family; scan-evidence.json identifies
 the scanned unit. Holder-derived dimensions remain compatibility datums for
 current consumers and do not construct or constrain the visible exterior.
