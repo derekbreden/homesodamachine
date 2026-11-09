@@ -8,6 +8,8 @@ This model builds the measured Beduan exterior as editable SolidCraft features f
 
 Open [beduan-valve.json](beduan-valve.json) in SolidCraft to edit the source. The **Parameters** table's favorites expose the mounting, bearing, port and terminal interfaces. The history folders follow the physical features. [beduan-valve.sc](beduan-valve.sc) is the packed native copy. Both contain the parameters, sketches and feature history.
 
+The [native browser lab](https://homesodamachine.com/labs/solidcraft/beduan) edits and renders this valve in an isolated SolidCraft session. Its local edits, pause and resume controls and update observations are described beside the [lab implementation](../../../../web/public/solidcraft-lab/README.md).
+
 ## Construction
 
 The origin is on the mounting-post ends, centered on their rectangular pattern. X crosses the flow axis, Y points toward the outlet and terminals, and Z rises through the coil. The nominal mounting dimensions agree with the [production valve interface](../../../printed-parts/valve-seat/numbers.rs). Printer allowance belongs to the receiving printed part; the purchased-part reference retains the measured nominal surfaces.
