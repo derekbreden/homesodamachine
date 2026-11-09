@@ -100,10 +100,12 @@ seated marks at the check and carbonator fitting when cutting the blank.
 
 **HSM-0558** is the threaded TAP/backflow-preventer chain, made up before it
 enters the back-top seat. **HSM-0560** is the prepared pump discharge joint:
-reinforced cuff, trimmed reducer, stem clamp, outlet fold and check. The pump
+reinforced cuff, trimmed reducer, stem clamp, outlet fold and check.
+**HSM-0570** is the prepared suction joint: cuff, trimmed reducer, stem clamp
+and receiving elbow. Both travel with their pump ends open. The pump
 enters its equipment-lid seat bare per its
 [installation procedure](../reference/g-ganen-pump/installation/README.md);
-the discharge joint and barb clamp are fitted afterward while the core is open.
+the prepared joints and barb clamps are fitted afterward while the core is open.
 
 TAP enters the PP010822E and GAGIRA threaded inlet chain. The ASSE lies
 fore–aft with its vent downward. Its PI4512F6S and PP061208W outlet fittings

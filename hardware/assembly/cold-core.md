@@ -136,13 +136,23 @@ Both flavor reservoirs are built closed here, off the shell, and go into their p
 
 **Reed columns — two, one per reservoir.** Each reservoir's level gauge is four MDSR-7-10-15 reeds standing outside the syrup, on the side the pocket's reed channel runs up. Calibrate their liquid crossings per the [float installation procedure](/hardware/printed-parts/cold-core/magnetic-float/all-aero/installation.md#reed-calibration), then solder all four onto a single 5-conductor 22 AWG spine — four signal lines plus one shared common — running the column's full length, reed 1 lowest. Lace it with heat-shrink between reeds so the column drops into its channel as one stiff piece. Prove every reed with the printed RC62 float **before** lacing — closed with the magnet alongside, open with it away; a reed that fails after lacing costs the whole column. The columns are not installed here: the channels stay open through the body pour and take their columns at step 7.
 
+The prepared columns are **HSM-0348 J6** and **HSM-0349 J7**. Each includes
+its attached reservoir reeds. J7's carbonator reeds travel with **HSM-0554**;
+the column's carbonator branch stays free for connection. Leave board ends
+free for lid threading, then complete the board housings and shared common
+during core closure.
+
 **Float and guide.** Use the one-piece 36 × 28 mm ASA Aero float with a midplane RC62 and 4.8 mm bore. Reservoir rods stand 20 mm from the wet far wall, at (±106.25, 32.5) mm. The cap register and body boss share that axis. Check free travel and calibrate liquid switching before fixing reed heights; [current datums and procedure](/hardware/printed-parts/cold-core/magnetic-float/all-aero/installation.md).
 
+**Prepare the cap.** Fit two liquid-tube TPU spools and one air-tube spool into
+the lid's matching 45° seats; both ends sit flush with the 4 mm plate.
+The cap with its captured grips forms **HSM-0568 reservoir cap assembly A** or
+**HSM-0569 reservoir cap assembly B**. It moves onto the body over the guide.
+The perimeter gasket, body inserts and screws complete the reservoir closure.
+
 **Close the reservoir.** Press six ruthex M3 full-length inserts into the wall-top
-bosses, in the 7 mm pockets. Fit two liquid-tube TPU spools and one air-tube
-spool into the lid's matching 45° seats; both ends sit flush with the 4 mm
-plate. Lay the perimeter TPU gasket on the body rim, lower the lid over the
-rod and drive six M3 × 12 SHCS into the inserts. The rod remains short of its
+bosses, in the 7 mm pockets. Lay the perimeter TPU gasket on the body rim,
+lower the prepared cap over the rod and drive six M3 × 12 SHCS into the inserts. The rod remains short of its
 seat-to-seat span so it cannot hold the lid off the gasket.
 
 The closed reservoir has a freely sliding float, a clamped rim gasket, two

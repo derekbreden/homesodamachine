@@ -83,6 +83,9 @@ export function findParts(query, { root = checkoutRoot, limit = 20 } = {}) {
     const contexts = [];
     for (const assembly of roots) {
       const rows = assemblyRows.get(assembly.id).filter((row) => row.material.id === material.id);
+      if (!rows.length) rows.push(...(assembly.relations || [])
+        .filter((relation) => relation.material === material.id && relation.bodies?.length)
+        .map((relation) => ({ path: [relation] })));
       if (!rows.length) continue;
       const model = modelForMaterial(catalog, assembly.id);
       if (!model) continue;

@@ -77,6 +77,10 @@ Full spec and part rationale: [`/hardware/assembly/cable-assemblies.md`](/hardwa
 
 ### 1. Cut and stage the tubes
 
+The outlet cut is **HSM-0574 dispensing tube**; the blue inlet cut is
+**HSM-0575 supply tube**. **HSM-0106** names the tubing cut set. The outlet
+enters the valve insert, while the supply cut waits for the mounting hardware.
+
 Cut each continuous black 4 mm flavor run to ** mm**, blue 1/4-inch soda supply to ** mm**, the 3/8-inch soda faucet tube to ** mm**, and white 4 mm DRAIN to ** mm**. These are factory lengths including cabinet/service reach; the beverage ends at the dispense face are trimmed flush after assembly. The SIG-6 ribbon's wall end is cut at step 2, where its plug is crimped. Cut square with the owned tube cutter and keep the sealing surfaces free of scratches.
 
 The flavor runs have no intermediate fittings. Route them through the mounting row, organizer and R30 returns into the pack beside the insulated blue tube. The DRAIN path uses R25 returns. Keep every 4 mm bend at or above its **25 mm centerline minimum**; the 1/4-inch stock's bench bend result does not apply to it.
@@ -100,6 +104,8 @@ and [`faucet shell assembly`](/hardware/printed-parts/faucet/faucet-shell/ASSEMB
    top port, cap first. TPU slides much more easily against the metal than
    against LLDPE; a sleeve put in the port first scrunches beneath the tube.
    The installed tube blocks the lever's aft disengagement.
+   The donor, attached lever, sealing thimble and outlet tube now form
+   **HSM-0571 faucet valve insert assembly**. Move them together into the shell.
 4. Flip the attached lever up, feed the soda tube through the lower neck and
    insert the donor through the shell's open foot. The shell pushes the lever
    forward as the donor advances. Once fully seated, the shell blocks the

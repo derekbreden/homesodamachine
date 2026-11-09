@@ -296,6 +296,44 @@
           "bodies": [
             "tube-drain-umbilical"
           ]
+        },
+        {
+          "kind": "used-with",
+          "material": "HSM-0272",
+          "quantity": 1,
+          "unit": "ea",
+          "bodies": [
+            "tube-collar-water",
+            "tube-collar-water-word"
+          ]
+        },
+        {
+          "kind": "used-with",
+          "material": "HSM-0273",
+          "quantity": 1,
+          "unit": "ea",
+          "bodies": [
+            "tube-collar-co2",
+            "tube-collar-co2-word"
+          ]
+        },
+        {
+          "kind": "used-with",
+          "material": "HSM-0572",
+          "bodies": [
+            "tube-customer-water",
+            "tube-collar-water",
+            "tube-collar-water-word"
+          ]
+        },
+        {
+          "kind": "used-with",
+          "material": "HSM-0573",
+          "bodies": [
+            "tube-customer-co2",
+            "tube-collar-co2",
+            "tube-collar-co2-word"
+          ]
         }
       ]
     },
@@ -324,20 +362,9 @@
         "source": "assembly/faucet-and-umbilical.md",
         "items": [
           {
-            "material": "HSM-0089",
+            "material": "HSM-0571",
             "quantity": 1,
-            "unit": "ea",
-            "bodies": [
-              "westbrass"
-            ]
-          },
-          {
-            "material": "HSM-0090",
-            "quantity": 1,
-            "unit": "ea",
-            "bodies": [
-              "tpu_o_ring"
-            ]
+            "unit": "ea"
           },
           {
             "material": "HSM-0091",
@@ -473,15 +500,6 @@
             ]
           },
           {
-            "material": "HSM-0106",
-            "quantity": 1,
-            "unit": "cut set",
-            "bodies": [
-              "soda_faucet_tube",
-              "soda_umbilical_tube"
-            ]
-          },
-          {
             "material": "HSM-0107",
             "quantity": 2,
             "unit": "cut sets",
@@ -519,14 +537,6 @@
             ]
           },
           {
-            "material": "HSM-0268",
-            "quantity": 1,
-            "unit": "ea",
-            "bodies": [
-              "lever"
-            ]
-          },
-          {
             "material": "HSM-0269",
             "quantity": 1,
             "unit": "ea",
@@ -545,6 +555,14 @@
             "quantity": 1,
             "unit": "ea",
             "note": "Crimped on the signal ribbon's wall end."
+          },
+          {
+            "material": "HSM-0575",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "soda_umbilical_tube"
+            ]
           }
         ],
         "context": [
@@ -570,6 +588,14 @@
           "material": "HSM-0322",
           "bodies": [
             "countertop"
+          ]
+        },
+        {
+          "kind": "used-with",
+          "material": "HSM-0106",
+          "bodies": [
+            "soda_faucet_tube",
+            "soda_umbilical_tube"
           ]
         }
       ]
@@ -624,7 +650,7 @@
               "vb-inlet-turn",
               "vb-outlet-stem"
             ],
-            "note": "The pump-inlet elbow, the carbonator fold between the discharge reducer and its check, and V-B's inlet turn and outlet stem."
+            "note": "V-B's inlet turn and outlet stem."
           },
           {
             "material": "HSM-0042",
@@ -697,45 +723,21 @@
             "note": "Bare motor in the top lid's integral half-pipe saddle."
           },
           {
-            "material": "HSM-0461",
-            "quantity": 1,
-            "unit": "ea",
-            "bodies": [
-              "suction-tube"
-            ],
-            "note": "Cut 22.49 mm: the suction barb's length plus the trimmed reducer stem."
-          },
-          {
-            "material": "HSM-0460",
-            "quantity": 1,
-            "unit": "ea",
-            "bodies": [
-              "suction-reducer"
-            ],
-            "note": "Trimmed reducer fitted at the pump suction joint."
-          },
-          {
             "material": "HSM-0325",
-            "quantity": 3,
+            "quantity": 2,
             "unit": "ea",
             "bodies": [
               "suction-barb-clamp",
               "suction-barb-key",
-              "suction-stem-clamp",
-              "suction-stem-key",
               "discharge-barb-clamp",
               "discharge-barb-key"
             ],
-            "note": "Clamps fitted at the suction joint and discharge barb during pump installation."
+            "note": "Barb clamps fitted after the bare pump is seated."
           },
           {
-            "material": "HSM-0330",
+            "material": "HSM-0570",
             "quantity": 1,
-            "unit": "ea",
-            "bodies": [
-              "lower-pump-elbow"
-            ],
-            "note": "Suction-side elbow fitted during core equipment installation."
+            "unit": "ea"
           }
         ]
       }
@@ -751,9 +753,8 @@
       ],
       "documents": [
         {
-          "title": "Vessel weldment engineering drawing",
-          "path": "cold-core-layout/carbonator-vessel-weldment-drawing.pdf",
-          "kind": "engineering-drawing"
+          "title": "Vessel weldment component drawing",
+          "path": "cold-core-layout/carbonator-vessel-weldment-drawing.pdf"
         },
         {
           "title": "Drill and weld guide",
@@ -769,21 +770,9 @@
         "source": "assembly/pressure-vessel.md",
         "items": [
           {
-            "material": "HSM-0008",
+            "material": "HSM-0567",
             "quantity": 1,
-            "unit": "ea",
-            "bodies": [
-              "carbonator-tube"
-            ]
-          },
-          {
-            "material": "HSM-0009",
-            "quantity": 2,
-            "unit": "ea",
-            "bodies": [
-              "endcap-bottom",
-              "endcap-top"
-            ]
+            "unit": "ea"
           },
           {
             "material": "HSM-0338",
@@ -797,30 +786,6 @@
             "bodies": [
               "carbonator-elbow-co2-in",
               "carbonator-elbow-carb-water-out"
-            ]
-          },
-          {
-            "material": "HSM-0032",
-            "quantity": 1,
-            "unit": "ea",
-            "bodies": [
-              "float-carb"
-            ]
-          },
-          {
-            "material": "HSM-0336",
-            "quantity": 1,
-            "unit": "ea",
-            "bodies": [
-              "float-rod-carb"
-            ]
-          },
-          {
-            "material": "HSM-0459",
-            "quantity": 1,
-            "unit": "ea",
-            "bodies": [
-              "float-stop-carb-top"
             ]
           },
           {
@@ -1295,20 +1260,9 @@
         "source": "assembly/faucet-and-umbilical.md",
         "items": [
           {
-            "material": "HSM-0089",
+            "material": "HSM-0571",
             "quantity": 1,
-            "unit": "ea",
-            "bodies": [
-              "westbrass"
-            ]
-          },
-          {
-            "material": "HSM-0090",
-            "quantity": 1,
-            "unit": "ea",
-            "bodies": [
-              "tpu_o_ring"
-            ]
+            "unit": "ea"
           },
           {
             "material": "HSM-0091",
@@ -1444,15 +1398,6 @@
             ]
           },
           {
-            "material": "HSM-0106",
-            "quantity": 1,
-            "unit": "cut set",
-            "bodies": [
-              "soda_faucet_tube",
-              "soda_umbilical_tube"
-            ]
-          },
-          {
             "material": "HSM-0107",
             "quantity": 2,
             "unit": "cut sets",
@@ -1490,14 +1435,6 @@
             ]
           },
           {
-            "material": "HSM-0268",
-            "quantity": 1,
-            "unit": "ea",
-            "bodies": [
-              "lever"
-            ]
-          },
-          {
             "material": "HSM-0269",
             "quantity": 1,
             "unit": "ea",
@@ -1516,6 +1453,14 @@
             "quantity": 1,
             "unit": "ea",
             "note": "Crimped on the signal ribbon's wall end."
+          },
+          {
+            "material": "HSM-0575",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "soda_umbilical_tube"
+            ]
           }
         ],
         "context": [
@@ -1541,6 +1486,14 @@
           "material": "HSM-0322",
           "bodies": [
             "countertop"
+          ]
+        },
+        {
+          "kind": "used-with",
+          "material": "HSM-0106",
+          "bodies": [
+            "soda_faucet_tube",
+            "soda_umbilical_tube"
           ]
         }
       ]
@@ -3087,13 +3040,39 @@
     },
     {
       "id": "HSM-0106",
-      "description": "Faucet carbonated-water tubing",
-      "kind": "purchased",
+      "description": "Faucet carbonated-water tubing cut set",
+      "kind": "assembly",
       "contexts": [
         {
           "material": "HSM-0002"
         }
-      ]
+      ],
+      "aliases": [
+        "faucet carbonated-water tubing",
+        "soda tubing cut set"
+      ],
+      "bom": {
+        "source": "assembly/faucet-and-umbilical.md",
+        "scope": "Dispense and supply tube cuts prepared for a faucet. The dispense cut enters the valve insert; the blue supply cut is attached after the countertop hardware is threaded. This set names both cuts; the product BOM places each at its physical handoff.",
+        "items": [
+          {
+            "material": "HSM-0574",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "soda_faucet_tube"
+            ]
+          },
+          {
+            "material": "HSM-0575",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "soda_umbilical_tube"
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "HSM-0107",
@@ -5155,10 +5134,11 @@
     },
     {
       "id": "HSM-0311",
-      "description": "Install-kit water connection tube",
+      "description": "Install-kit water connection tubing",
       "kind": "manufactured",
       "aliases": [
-        "tube-customer-water"
+        "tube-customer-water",
+        "install-kit water connection tube"
       ],
       "documents": [
         {
@@ -5641,26 +5621,14 @@
         "source": "assembly/finish-pack-ship.md",
         "items": [
           {
-            "material": "HSM-0311",
+            "material": "HSM-0572",
             "quantity": 1,
             "unit": "ea"
           },
           {
-            "material": "HSM-0043",
-            "quantity": 1,
-            "unit": "ea",
-            "note": "Scenario A tee for an existing 1/4 inch line."
-          },
-          {
-            "material": "HSM-0312",
+            "material": "HSM-0573",
             "quantity": 1,
             "unit": "ea"
-          },
-          {
-            "material": "HSM-0014",
-            "quantity": 1,
-            "unit": "ea",
-            "note": "In the CO\u2082 regulator outlet, holding the tether."
           },
           {
             "material": "HSM-0342",
@@ -5668,22 +5636,10 @@
             "unit": "ea"
           },
           {
-            "material": "HSM-0368",
-            "quantity": 1,
-            "unit": "ea",
-            "note": "Inline in the white tap-water run."
-          },
-          {
             "material": "HSM-0369",
             "quantity": 1,
             "unit": "ea",
             "note": "Scenario B tee for an existing 3/8 inch angle stop."
-          },
-          {
-            "material": "HSM-0370",
-            "quantity": 1,
-            "unit": "ea",
-            "note": "Set to 75 PSI and locked at acceptance; the tether rides in its outlet."
           },
           {
             "material": "HSM-0371",
@@ -5818,7 +5774,7 @@
     {
       "id": "HSM-0348",
       "description": "Reservoir A reed harness \u00b7 J6",
-      "kind": "manufactured",
+      "kind": "assembly",
       "aliases": [
         "J6",
         "J6 REEDS A",
@@ -5829,12 +5785,34 @@
           "title": "Cable assemblies",
           "path": "assembly/cable-assemblies.md"
         }
-      ]
+      ],
+      "contexts": [
+        {
+          "material": "HSM-0001"
+        }
+      ],
+      "bom": {
+        "source": "assembly/cold-core.md",
+        "scope": "Reservoir A reed column, continuous common, signal ribbon and lacing, with free board ends for lid threading. The board housing is completed after threading.",
+        "items": [
+          {
+            "material": "HSM-0036",
+            "quantity": 4,
+            "unit": "ea",
+            "bodies": [
+              "reed-a-1",
+              "reed-a-2",
+              "reed-a-3",
+              "reed-a-4"
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "HSM-0349",
       "description": "Reservoir B and carbonator reed harness \u00b7 J7",
-      "kind": "manufactured",
+      "kind": "assembly",
       "aliases": [
         "J7",
         "J7 REEDS B",
@@ -5846,7 +5824,29 @@
           "title": "Cable assemblies",
           "path": "assembly/cable-assemblies.md"
         }
-      ]
+      ],
+      "contexts": [
+        {
+          "material": "HSM-0001"
+        }
+      ],
+      "bom": {
+        "source": "assembly/cold-core.md",
+        "scope": "Reservoir B reed column with its paired J7 ribbon and free carbonator connection branch. The carbonator reeds belong to the instrumented vessel. Thread the reservoir leads before completing the shared board housing and common junction.",
+        "items": [
+          {
+            "material": "HSM-0036",
+            "quantity": 4,
+            "unit": "ea",
+            "bodies": [
+              "reed-b-1",
+              "reed-b-2",
+              "reed-b-3",
+              "reed-b-4"
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "HSM-0350",
@@ -9361,24 +9361,6 @@
             ]
           },
           {
-            "material": "HSM-0272",
-            "quantity": 1,
-            "unit": "ea",
-            "bodies": [
-              "tube-collar-water",
-              "tube-collar-water-word"
-            ]
-          },
-          {
-            "material": "HSM-0273",
-            "quantity": 1,
-            "unit": "ea",
-            "bodies": [
-              "tube-collar-co2",
-              "tube-collar-co2-word"
-            ]
-          },
-          {
             "material": "HSM-0295",
             "quantity": 1,
             "unit": "ea",
@@ -10429,12 +10411,9 @@
             ]
           },
           {
-            "material": "HSM-0028",
+            "material": "HSM-0568",
             "quantity": 1,
-            "unit": "ea",
-            "bodies": [
-              "reservoir-a-cap"
-            ]
+            "unit": "ea"
           },
           {
             "material": "HSM-0032",
@@ -10458,23 +10437,6 @@
             "unit": "ea",
             "bodies": [
               "reservoir-a-gasket"
-            ]
-          },
-          {
-            "material": "HSM-0457",
-            "quantity": 2,
-            "unit": "ea",
-            "bodies": [
-              "reservoir-grip-a-fill",
-              "reservoir-grip-a-draw"
-            ]
-          },
-          {
-            "material": "HSM-0458",
-            "quantity": 1,
-            "unit": "ea",
-            "bodies": [
-              "reservoir-grip-a-air"
             ]
           },
           {
@@ -10524,12 +10486,9 @@
             ]
           },
           {
-            "material": "HSM-0027",
+            "material": "HSM-0569",
             "quantity": 1,
-            "unit": "ea",
-            "bodies": [
-              "reservoir-b-cap"
-            ]
+            "unit": "ea"
           },
           {
             "material": "HSM-0032",
@@ -10553,23 +10512,6 @@
             "unit": "ea",
             "bodies": [
               "reservoir-b-gasket"
-            ]
-          },
-          {
-            "material": "HSM-0457",
-            "quantity": 2,
-            "unit": "ea",
-            "bodies": [
-              "reservoir-grip-b-fill",
-              "reservoir-grip-b-draw"
-            ]
-          },
-          {
-            "material": "HSM-0458",
-            "quantity": 1,
-            "unit": "ea",
-            "bodies": [
-              "reservoir-grip-b-air"
             ]
           },
           {
@@ -10664,21 +10606,6 @@
             "unit": "ea",
             "bodies": [
               "foam-cap-lid-bottom"
-            ]
-          },
-          {
-            "material": "HSM-0036",
-            "quantity": 8,
-            "unit": "ea",
-            "bodies": [
-              "reed-a-1",
-              "reed-a-2",
-              "reed-a-3",
-              "reed-a-4",
-              "reed-b-1",
-              "reed-b-2",
-              "reed-b-3",
-              "reed-b-4"
             ]
           },
           {
@@ -11265,6 +11192,534 @@
           }
         ]
       }
+    },
+    {
+      "id": "HSM-0565",
+      "description": "Carbonator bottom endcap and guide assembly",
+      "kind": "assembly",
+      "aliases": [
+        "bottom cap with rod",
+        "carbonator lower plate assembly"
+      ],
+      "contexts": [
+        {
+          "material": "HSM-0003"
+        }
+      ],
+      "documents": [
+        {
+          "title": "Assembly procedure",
+          "path": "assembly/pressure-vessel.md"
+        }
+      ],
+      "bom": {
+        "source": "assembly/pressure-vessel.md",
+        "scope": "Machined bottom endcap with the float guide rod tacked into its register. This plate-and-rod unit enters the tube for bottom closure welding; the float and top closure follow.",
+        "items": [
+          {
+            "material": "HSM-0009",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "endcap-bottom"
+            ]
+          },
+          {
+            "material": "HSM-0336",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "float-rod-carb"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "HSM-0566",
+      "description": "Carbonator top endcap and stop assembly",
+      "kind": "assembly",
+      "aliases": [
+        "top cap with stop",
+        "carbonator upper plate assembly"
+      ],
+      "contexts": [
+        {
+          "material": "HSM-0003"
+        }
+      ],
+      "documents": [
+        {
+          "title": "Assembly procedure",
+          "path": "assembly/pressure-vessel.md"
+        }
+      ],
+      "bom": {
+        "source": "assembly/pressure-vessel.md",
+        "scope": "Machined top endcap with the upper float stop tacked over its register. It closes the tube after the float is installed on the bottom guide; permanent port fittings are installed after vessel inspection and cleaning.",
+        "items": [
+          {
+            "material": "HSM-0009",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "endcap-top"
+            ]
+          },
+          {
+            "material": "HSM-0459",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "float-stop-carb-top"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "HSM-0567",
+      "description": "Carbonator vessel weldment",
+      "kind": "assembly",
+      "aliases": [
+        "bare carbonator weldment",
+        "closed carbonator body",
+        "welded tank"
+      ],
+      "contexts": [
+        {
+          "material": "HSM-0003"
+        }
+      ],
+      "documents": [
+        {
+          "title": "Assembly procedure",
+          "path": "assembly/pressure-vessel.md"
+        },
+        {
+          "title": "Vessel weldment engineering drawing",
+          "path": "cold-core-layout/carbonator-vessel-weldment-drawing.pdf",
+          "kind": "engineering-drawing"
+        }
+      ],
+      "bom": {
+        "source": "assembly/pressure-vessel.md",
+        "scope": "Closed tube with the welded bottom guide plate, captive magnetic float and welded top stop plate. This physical unit passes through inspection, proof and cleaning operations before its permanent port fittings are installed. Those operations keep their article-specific records.",
+        "items": [
+          {
+            "material": "HSM-0008",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "carbonator-tube"
+            ]
+          },
+          {
+            "material": "HSM-0565",
+            "quantity": 1,
+            "unit": "ea"
+          },
+          {
+            "material": "HSM-0032",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "float-carb"
+            ]
+          },
+          {
+            "material": "HSM-0566",
+            "quantity": 1,
+            "unit": "ea"
+          }
+        ]
+      }
+    },
+    {
+      "id": "HSM-0568",
+      "description": "Flavor reservoir cap assembly \u00b7 channel A",
+      "kind": "assembly",
+      "aliases": [
+        "prepared reservoir A cap",
+        "reservoir A lid with grips"
+      ],
+      "contexts": [
+        {
+          "material": "HSM-0001"
+        }
+      ],
+      "documents": [
+        {
+          "title": "Assembly procedure",
+          "path": "assembly/cold-core.md"
+        }
+      ],
+      "bom": {
+        "source": "assembly/cold-core.md",
+        "scope": "Reservoir cap with its liquid and air tube grips seated. This prepared cap moves onto the body over the float guide. The perimeter gasket, body inserts and cap screws belong to reservoir closure; continuous tubes are fitted during core installation.",
+        "items": [
+          {
+            "material": "HSM-0028",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "reservoir-a-cap"
+            ]
+          },
+          {
+            "material": "HSM-0457",
+            "quantity": 2,
+            "unit": "ea",
+            "bodies": [
+              "reservoir-grip-a-fill",
+              "reservoir-grip-a-draw"
+            ]
+          },
+          {
+            "material": "HSM-0458",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "reservoir-grip-a-air"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "HSM-0569",
+      "description": "Flavor reservoir cap assembly \u00b7 channel B",
+      "kind": "assembly",
+      "aliases": [
+        "prepared reservoir B cap",
+        "reservoir B lid with grips"
+      ],
+      "contexts": [
+        {
+          "material": "HSM-0001"
+        }
+      ],
+      "documents": [
+        {
+          "title": "Assembly procedure",
+          "path": "assembly/cold-core.md"
+        }
+      ],
+      "bom": {
+        "source": "assembly/cold-core.md",
+        "scope": "Reservoir cap with its liquid and air tube grips seated. This prepared cap moves onto the body over the float guide. The perimeter gasket, body inserts and cap screws belong to reservoir closure; continuous tubes are fitted during core installation.",
+        "items": [
+          {
+            "material": "HSM-0027",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "reservoir-b-cap"
+            ]
+          },
+          {
+            "material": "HSM-0457",
+            "quantity": 2,
+            "unit": "ea",
+            "bodies": [
+              "reservoir-grip-b-fill",
+              "reservoir-grip-b-draw"
+            ]
+          },
+          {
+            "material": "HSM-0458",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "reservoir-grip-b-air"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "HSM-0570",
+      "description": "Water-pump suction joint assembly",
+      "kind": "assembly",
+      "aliases": [
+        "prepared suction joint",
+        "pump inlet cuff assembly"
+      ],
+      "contexts": [
+        {
+          "material": "HSM-0001"
+        }
+      ],
+      "documents": [
+        {
+          "title": "Assembly procedure",
+          "path": "assembly/internal-plumbing.md"
+        }
+      ],
+      "bom": {
+        "source": "assembly/internal-plumbing.md",
+        "scope": "Reinforced suction cuff with its trimmed reducer, stem clamp and receiving elbow. The open cuff end fits the diaphragm pump after the bare pump is seated on its lid. The barb clamp and short inlet link are fitted during core population; round joints retain their assembly clocking.",
+        "items": [
+          {
+            "material": "HSM-0461",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "suction-tube"
+            ],
+            "note": "Cut 22.49 mm: the suction barb's length plus the trimmed reducer stem."
+          },
+          {
+            "material": "HSM-0460",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "suction-reducer"
+            ],
+            "note": "Trimmed reducer fitted at the pump suction joint."
+          },
+          {
+            "material": "HSM-0325",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "suction-stem-clamp",
+              "suction-stem-key"
+            ],
+            "note": "Clamp around the suction reducer stem."
+          },
+          {
+            "material": "HSM-0330",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "lower-pump-elbow"
+            ],
+            "note": "Suction-side receiving elbow; the final short link and rear connection remain loose for clocking."
+          }
+        ]
+      }
+    },
+    {
+      "id": "HSM-0571",
+      "description": "Faucet valve insert assembly",
+      "kind": "assembly",
+      "aliases": [
+        "valve lever and soda tube",
+        "prepared faucet insert"
+      ],
+      "contexts": [
+        {
+          "material": "HSM-0002"
+        }
+      ],
+      "documents": [
+        {
+          "title": "Assembly procedure",
+          "path": "assembly/faucet-and-umbilical.md"
+        },
+        {
+          "title": "Faucet assembly guide",
+          "path": "faucet-assembly-guide/faucet-assembly-guide.pdf"
+        }
+      ],
+      "bom": {
+        "source": "assembly/faucet-and-umbilical.md",
+        "scope": "Westbrass valve with its attached lever and the dispensing tube seated through its TPU sealing thimble. This unit enters the open faucet shell together. The blue supply tube and compression stiffener are attached after the gasket and captive countertop hardware are threaded.",
+        "items": [
+          {
+            "material": "HSM-0089",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "westbrass"
+            ]
+          },
+          {
+            "material": "HSM-0268",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "lever"
+            ]
+          },
+          {
+            "material": "HSM-0090",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "tpu_o_ring"
+            ]
+          },
+          {
+            "material": "HSM-0574",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "soda_faucet_tube"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "HSM-0572",
+      "description": "Filtered installation water-line assembly",
+      "kind": "assembly",
+      "aliases": [
+        "prepared customer water run",
+        "filtered tee and jumper",
+        "installation water assembly"
+      ],
+      "contexts": [
+        {
+          "material": "HSM-0001"
+        }
+      ],
+      "documents": [
+        {
+          "title": "Assembly procedure",
+          "path": "assembly/finish-pack-ship.md"
+        },
+        {
+          "title": "Customer installation guide",
+          "path": "install-guide/install-guide.pdf"
+        }
+      ],
+      "bom": {
+        "source": "assembly/finish-pack-ship.md",
+        "scope": "Scenario-A tee with its jumper, filtered water run and TAP collar made up before packing. These connected parts move together into the install kit and to the customer connection. The alternative angle-stop valve is supplied separately.",
+        "items": [
+          {
+            "material": "HSM-0311",
+            "quantity": 1,
+            "unit": "ea"
+          },
+          {
+            "material": "HSM-0043",
+            "quantity": 1,
+            "unit": "ea",
+            "note": "Scenario A tee for an existing 1/4 inch line."
+          },
+          {
+            "material": "HSM-0368",
+            "quantity": 1,
+            "unit": "ea",
+            "note": "Inline in the white tap-water run."
+          },
+          {
+            "material": "HSM-0272",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "tube-collar-water",
+              "tube-collar-water-word"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "HSM-0573",
+      "description": "Primary CO\u2082 regulator and tether assembly",
+      "kind": "assembly",
+      "aliases": [
+        "prepared CO2 supply",
+        "regulator and red tether"
+      ],
+      "contexts": [
+        {
+          "material": "HSM-0001"
+        }
+      ],
+      "documents": [
+        {
+          "title": "Assembly procedure",
+          "path": "assembly/finish-pack-ship.md"
+        },
+        {
+          "title": "Customer installation guide",
+          "path": "install-guide/install-guide.pdf"
+        }
+      ],
+      "bom": {
+        "source": "assembly/finish-pack-ship.md",
+        "scope": "Primary regulator with its outlet adapter, connected tether and CO\u2082 collar. The assembly is used during acceptance and remains connected for packing and customer installation. Setting and acceptance are recorded with the actual appliance.",
+        "items": [
+          {
+            "material": "HSM-0370",
+            "quantity": 1,
+            "unit": "ea",
+            "note": "Set to 75 PSI and locked at acceptance; the tether rides in its outlet."
+          },
+          {
+            "material": "HSM-0014",
+            "quantity": 1,
+            "unit": "ea",
+            "note": "In the CO\u2082 regulator outlet, holding the tether."
+          },
+          {
+            "material": "HSM-0312",
+            "quantity": 1,
+            "unit": "ea"
+          },
+          {
+            "material": "HSM-0273",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "tube-collar-co2",
+              "tube-collar-co2-word"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "HSM-0574",
+      "description": "Faucet dispensing tube \u00b7 3/8 inch LLDPE",
+      "kind": "manufactured",
+      "aliases": [
+        "soda_faucet_tube"
+      ],
+      "contexts": [
+        {
+          "material": "HSM-0002"
+        }
+      ],
+      "documents": [
+        {
+          "title": "Faucet assembly guide",
+          "path": "faucet-assembly-guide/faucet-assembly-guide.pdf"
+        },
+        {
+          "title": "Cut and insertion procedure",
+          "path": "assembly/faucet-and-umbilical.md"
+        }
+      ]
+    },
+    {
+      "id": "HSM-0575",
+      "description": "Faucet supply tube \u00b7 1/4 inch blue LLDPE",
+      "kind": "manufactured",
+      "aliases": [
+        "soda_umbilical_tube"
+      ],
+      "contexts": [
+        {
+          "material": "HSM-0002"
+        }
+      ],
+      "documents": [
+        {
+          "title": "Faucet assembly guide",
+          "path": "faucet-assembly-guide/faucet-assembly-guide.pdf"
+        },
+        {
+          "title": "Cut and insertion procedure",
+          "path": "assembly/faucet-and-umbilical.md"
+        }
+      ]
     }
   ]
 }

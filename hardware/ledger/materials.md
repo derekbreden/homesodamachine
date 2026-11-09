@@ -124,6 +124,10 @@ highlights its represented contents. A representation may also specify
 `context: true` to use a particular enclosing model file. Context representations
 do not allocate that enclosing model's identity to the contained material.
 
+A related material with explicit `bodies` can use that relationship as its
+inspection context. An installation-line assembly's relationship supplies its
+geometry when the machine model draws it; its install-kit BOM supplies quantities.
+
 Some cataloged hardware has no individual geometry in the containing model. Their BOM quantities and document links remain available
 without claiming independently selectable geometry.
 
@@ -205,19 +209,30 @@ enters the connected refrigeration assembly.
 | Material | Completed handoff | Next assembly |
 | --- | --- | --- |
 | HSM-0032 — Magnetic level float | Printed body with its captive magnet | Carbonator or fitted reservoir |
+| HSM-0565 — Carbonator bottom endcap and guide assembly | Machined cap with its tacked guide rod | HSM-0567 vessel weldment |
+| HSM-0566 — Carbonator top endcap and stop assembly | Machined cap with its tacked upper stop | HSM-0567 vessel weldment, after the float enters |
+| HSM-0567 — Carbonator vessel weldment | Closed tube, prepared caps and captive float | Inspection, proof and cleaning, then HSM-0004 port fitting |
 | HSM-0553 — Carbonator pressure-relief assembly | Elbow, relief valve and shroud with its seal cured | HSM-0004 carbonator |
 | HSM-0004 — Carbonator vessel | Welded vessel, captive float and guides, port elbows and relief assembly | HSM-0554 instrumented carbonator and coil |
 | HSM-0554 — Instrumented carbonator and coil assembly | Carbonator, bonded coil, probes, reed bridge and reeds, and earth lead | HSM-0557 insulated core |
+| HSM-0568 — Flavor reservoir cap assembly · channel A | Cap with captured liquid and air grips | HSM-0555 fitted reservoir A |
+| HSM-0569 — Flavor reservoir cap assembly · channel B | Cap with captured liquid and air grips | HSM-0556 fitted reservoir B |
 | HSM-0555 — Fitted flavor reservoir assembly · channel A | Closed reservoir with its gasket, float, guide, tube grips and closure hardware | HSM-0557 insulated core |
 | HSM-0556 — Fitted flavor reservoir assembly · channel B | Closed reservoir with its gasket, float, guide, tube grips and closure hardware | HSM-0557 insulated core |
+| HSM-0348 — Reservoir A reed harness · J6 | Soldered and laced column with its reservoir reeds and free board ends | HSM-0557 insulated core, then board housing completion |
+| HSM-0349 — Reservoir B and carbonator reed harness · J7 | Soldered reservoir B column with its paired ribbon and free carbonator branch | HSM-0557 insulated core, joining the instrumented vessel's reed pair |
 | HSM-0557 — Insulated cold-core assembly | Cured insulation, instrumented carbonator, fitted reservoirs, routed continuous tubes, dry reed columns and looms, and closed casing | HSM-0003 equipped cold core |
 | HSM-0558 — Backflow-preventer threaded assembly | TAP connector, reducing coupling, ASSE body, flare adapter and stem reducer made up together | HSM-0547 back-top |
 | HSM-0559 — CO₂ secondary regulator and check assembly | PISCO regulator with its outlet stem check connected | HSM-0547 back-top |
 | HSM-0560 — Water-pump discharge joint assembly | Reinforced cuff, trimmed reducer, stem clamp, fold and check | HSM-0003 equipped cold core, after the bare pump is seated |
+| HSM-0570 — Water-pump suction joint assembly | Reinforced cuff, trimmed reducer, stem clamp and receiving elbow | HSM-0003 equipped cold core, after the bare pump is seated |
 | HSM-0561 — Flavor A fore-valve assembly · Y-C to V-E | Tee, upper tube and fore valve | HSM-0548 front-top |
 | HSM-0562 — Flavor A fore-valve assembly · Y-D to V-F | Tee, upper tube and fore valve | HSM-0548 front-top |
 | HSM-0563 — Flavor B fore-valve assembly · Y-F to V-H | Tee, upper tube and fore valve | HSM-0548 front-top |
 | HSM-0564 — Flavor B fore-valve assembly · Y-G to V-I | Tee, upper tube and fore valve | HSM-0548 front-top |
+| HSM-0571 — Faucet valve insert assembly | Donor valve, attached lever, thimble and dispensing tube | Faucet shell installation, before the supply connection |
+| HSM-0572 — Filtered installation water-line assembly | Tee, jumper, filtered run and TAP collar | HSM-0341 installation kit |
+| HSM-0573 — Primary CO₂ regulator and tether assembly | Regulator, outlet adapter, red tether and CO₂ collar | Acceptance, then HSM-0341 installation kit |
 
 The [cold-core procedure](../assembly/cold-core.md),
 [vessel procedure](../assembly/pressure-vessel.md),
@@ -227,6 +242,13 @@ Reservoir tubes are fitted after the closed reservoirs enter their casing
 pockets. The water pump enters its lid seat bare; its prepared discharge joint
 is fitted afterward. Cure, test and calibration evidence stays with the actual
 article and operation.
+
+The faucet's **HSM-0106 tubing cut set** contains **HSM-0574 dispensing tube**
+and **HSM-0575 supply tube**. Product BOMs place these cuts at their actual
+handoffs: the dispensing cut in the valve insert and the supply cut in the
+completed faucet. The cut set remains searchable as their preparation set.
+Reed-column manufacturing inputs are ribbon, reeds and supplies; the completed
+column is the assembly output.
 
 The prepared enclosure sections, refrigeration loop and removable funnel are
 numbered assemblies in the machine BOM. Their contents follow the bench and
