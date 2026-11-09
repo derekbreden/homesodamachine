@@ -154,12 +154,9 @@ planes retain their stated datums. The [aggregate reading](m5-pass-fit-aggregate
 identifies the same four native parts in both assemblies and preserves every
 other native record and viewer body.
 
-**The lower opening and the handhold's lip:** the lip's R6 roll and its print chamfer take
-the first 2.29 mm of the lifting ceiling from the outer face, and the lower opening begins
-4.75 mm in, so 2.46 mm of flat ceiling stands between them; 1.2 mm above the ceiling the
-stock between the opening and the roll is 3 mm. The opening cannot move inboard: the head
-passes the handhold's inner wall with 0.14 mm to spare, and that wall stands 0.25 mm off the
-cold core.
+**The lower opening and the handhold:** each screw's head passage opens through the
+handhold toward its inner wall. The lifting corbel keeps the driver passage accessible
+and retains the wall's clearance from the cold core.
 
 Remove the two upper screws to free front-top, which draws fore off its rails. Removing all
 four lets the halves part. The upper screws need about 110 mm of clear space above the roof,
@@ -205,7 +202,7 @@ and its blend into the roof retain their construction datums.
 The flutes use the same pitch, depth and 5 mm runout on these surfaces. Their
 ends taper into the rounded shoulder; the smooth shoulder continues through
 the corner and onto the lifting ceiling. The band, standing columns and their
-roots remain smooth. The handhold rims retain their lifting rounds and ceilings.
+roots remain smooth. The handhold openings retain their exterior edge locations.
 The wall, component, aperture and joint datums stay fixed.
 Straight-wall groove coordinates also locate the condenser vents.
 
@@ -217,24 +214,16 @@ Hardware openings follow their mating parts.
 
 ## Handholds
 
-One handhold in each ±X flank opens through the standing floor. The recesses are
- long in Y, centered at **Y**, and
- high from the slab's underside to the uncovered lifting ceiling.
-The inside corner rounds join the ceiling to the end walls.
-The exterior lifting edges retain their rounds.
-Each ceiling carries a full section,
-joined to the floor by the opening's end walls and to the corner stack above it.
-The R6 roll joins the flat lifting ceiling, end walls and fluted exterior
-tangentially, including the two corner blends. Its full section and flute
-runout follow the top's side shoulder.
+One handhold in each ±X flank opens through the standing floor. Its continuous planar
+corbel runs from the exterior roof edge down to the lower inner edge. Complete end walls
+join the lifting roof to the floor and the corner stack above it. The exterior opening
+edge keeps its authored location.
 One complete handhold profile spans both Y halves and is mirrored onto the two
-flanks. It cuts the finished shell and seam blocks together. The central lifting
-ceiling remains exactly planar; the exterior transition and both rounded ends
-share the same boundary across the seam.
+flanks. It cuts the finished shell and seam blocks together, with a common gripping
+surface across the seam.
 
-The printed ceiling is the exposed gripping surface. The end walls are complete;
-there are no grip covers, cover seats or wing slots. Tree(auto)/Default supports
-the flat ceiling during printing. Surface finish and gripping comfort remain
+The printed corbel is the exposed gripping surface. It prints support-free with the
+shared ordinary layer schedule. The grip is integral with the quadrant. Surface finish and gripping comfort remain
 unqualified on the complete production handholds.
 
 The inner wall stands between |X|90.75 and |X|93.75,
@@ -243,14 +232,8 @@ rounded ends, uses that offset. Each opening
 is closed toward the interior and open outward and downward. Both bottom pieces form each
 handhold; its inner wall closes on square, full-thickness ends with one running
 fit between the faces.
-The central recess reaches 13.75 mm from the exterior plane to the wall's finger-facing
-plane. The exterior transition ends at |X|105.208, leaving 11.458 mm of flat central
-lifting-ceiling depth before the screw-pocket openings. The block's 13.75 mm reach
-uses a different reference, `interior_x`; it includes the retained blind wall.
-The floor tongue continues across the middle of the enclosure. The lower seam screws drive up
-through the handhold ceilings. Each head sits in an opening that ends on the inner wall's
-finger-facing plane, its face 6.55 mm above the finger surface. The openings remain exposed
-during use.
+The floor tongue continues across the middle of the enclosure. The lower seam screws remain
+accessible through the handholds, with their head passages open toward the inner wall.
 
 `handholds` reads the upward entry space, full lifting sections, complete end posts and inner walls
 on the finished pair, including the inner-wall joint's running clearance. These are geometry
@@ -809,9 +792,9 @@ lane determine whether it is accessible in the ceiling-down part.
 The shared construction in `../../cadlib/overhang_round.py` fills the lower corner
 inside its unrounded envelope, with a 0.5 outward/build-rise slope tangent to the
 retained circular taper. R6 has a 3.317 mm straight transition and a 2.292 mm initial
-inset; each 0.24 mm layer advances at most 0.12 mm on that section. The enclosure applies it to handhold upper rims
-and roof side edges.
-Flat lifting ceilings and mating planes keep their required dimensions.
+inset; each 0.24 mm layer advances at most 0.12 mm on that section. The enclosure applies it to
+roof side edges. Handhold lifting roofs use their continuous planar corbels and the shared
+ordinary layer schedule. Mating planes keep their required dimensions.
 
 Use a 0.20 mm first bed layer, six walls locally through the expanding band,
 and the saved wall-first order, speeds and 15% overlap. Keep support contacts off
@@ -826,8 +809,7 @@ Printed working faces meet the clearance, supported-surface and stock requiremen
 A seating or bearing role does not waive them. The face keeps its required working
 shape. Accessible trees or anchored bridge paths carry it in the print.
 The C14 inlet's flange pocket keeps its floor, because that floor is what the receptacle lands
-on; each handhold keeps its flat lifting ceiling, because that ceiling is the surface a hand
-pulls up on; the Z-seam catches are broad square planes because they bear against lift along the
+on; the Z-seam catches are broad square planes because they bear against lift along the
 complete rails; a corner stack's knuckles keep their square bearing
 faces; a pump boss lands on a flat shoulder. A corbel carries the material behind one of
 those faces. It does not replace the bearing, locating, sliding, sealing, clamping, insertion or

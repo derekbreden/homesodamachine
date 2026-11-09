@@ -239,8 +239,9 @@ fn knuckle_air(g: &mut Graph, f: Flank, row: &Row, depth: f64) -> Shape {
 pub fn y_stack_bores(g: &mut Graph, x_in: f64, sx: f64, y_joint: f64, inner: &Bounds) -> [Shape; 6] {
     let [lx, ly] = y_stack_axis(x_in, sx, y_joint, true);
     let [ux, uy] = y_stack_axis(x_in, sx, y_joint, false);
-    let (lower, upper) = y_stack(inner);
-    let (ceiling, roof) = (lower[0].z0, upper[2].z1);
+    let (_, upper) = y_stack(inner);
+    let roof = upper[2].z1;
+    let bed = handhold_levels(inner)[0];
     let [low, high] = y_stack_rods(inner);
     let (rc, rp, ri) = (Y_STACK_CBORE_DIA / 2.0, m5_thread_pass_dia() / 2.0, FLOOR_HEATSET_DIA / 2.0);
     let head_access = |g: &mut Graph, ax: f64, ay: f64, z0: f64, z1: f64, x_end: f64| {
@@ -255,7 +256,7 @@ pub fn y_stack_bores(g: &mut Graph, x_in: f64, sx: f64, y_joint: f64, inner: &Bo
     let (xa, xb) = sorted(ux, mouth);
     let slot = g.box_([xa, xb, uy - rc, y_joint + LIP_LEN + running(), roof - Y_STACK_CBORE_DEPTH, roof + 1.0]);
     let upper_head = g.union(upper_head, &[slot]);
-    let lower_head = head_access(g, lx, ly, ceiling - 0.01, low.seat, wall_face);
+    let lower_head = head_access(g, lx, ly, bed - 0.01, low.seat, wall_face);
     [
         lower_head,
         g.zcyl(rp, lx, ly, low.seat - 0.01, low.insert[0] + 0.01),
