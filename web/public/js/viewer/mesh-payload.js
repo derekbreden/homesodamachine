@@ -1,4 +1,5 @@
 // Browser mesh decoding preserves the arrays, face ranges and provenance written by the generator.
+import { validFeatures } from "/contracts/features.js";
 const MESH_PAYLOAD_VERSIONS = [2, 3, 4];
 
 export function decodeMeshPayload(bytes) {
@@ -27,6 +28,7 @@ export function decodeMeshPayload(bytes) {
       },
       index: { array: new Uint32Array(blob, m.idx[0], m.idx[1]) },
       brep_faces,
+      features: validFeatures(m.features, m.idx[1] / 3),
     };
   });
   // THE HEADER'S PROVENANCE COMES OUT WITH THE TRIANGLES. `src` is the digest of the STEP
