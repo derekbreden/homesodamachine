@@ -44,9 +44,11 @@ fn wells(g: &mut Graph, host: Y) -> (Vec<Shape>, Vec<Shape>) {
         let Wago { width: w, depth: d, height: h, .. } = j.wago;
         let rear = -d / 2.0 - fit - wall;
         let stock = g.box_([-w / 2.0 - fit - wall, w / 2.0 + fit + wall, rear, j.mouth, -fit - wall, h + fit + wall]);
-        stocks.push(place(g, stock, j.rotation, j.translation));
+        let stock = place(g, stock, j.rotation, j.translation);
+        stocks.push(g.feature(stock, format!("{}-well", j.name), format!("{} connector well", j.name), &[&j.name]));
         let pocket = g.box_([-w / 2.0 - fit, w / 2.0 + fit, -d / 2.0 - fit, 1.0, -fit, h + fit]);
-        pockets.push(place(g, pocket, j.rotation, j.translation));
+        let pocket = place(g, pocket, j.rotation, j.translation);
+        pockets.push(g.feature(pocket, format!("{}-well", j.name), format!("{} connector well", j.name), &[&j.name]));
     }
     (stocks, pockets)
 }

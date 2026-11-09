@@ -77,6 +77,50 @@ Its completed producers reach the site while other work continues.
 [`tools/iteration/`](../iteration/README.md) measures an actual request from its original receipt
 through source edits, review attempts and reference-browser draws when a timing is requested.
 
+## Construction features and installed instances
+
+In `/3d`, selecting an enclosure quadrant selects the whole part. **Explore features** opens
+its named construction children and enables surface picking within that part. Selecting the
+parent returns to the whole component; **Select whole components** leaves feature picking.
+Material search also finds these features and lists the individual installed instances of a
+repeated component. A feature's **Copy feature link** action retains its installed owner.
+
+The browser and local tools use the identities in the same exported payload:
+
+```sh
+hsm features enclosure-back-top
+hsm where enclosure-back-top::relay-2-mount
+hsm gap enclosure-back-top::water-regulator-receiver flow-regulator
+node tools/find-part.mjs "relay mount" --json
+node tools/inspect-part.mjs enclosure-back-top::wago-h-well --output .cache/runs/well-inspection
+```
+
+A feature inspection frames and clips its containing part around the measured feature bounds,
+using a neutral surface color to make the local construction readable. Its image labels the
+open clipping planes; nearby owner surfaces can remain inside the crop. The saved job retains
+that camera and presentation for another attempt.
+
+`body::feature` identifies authored surfaces of an installed body. Feature bounds, ray hits,
+sections and surface distances use its existing triangle ranges and owner placement. Triangle
+references retain their original viewer indices. A feature has no independent closed solid:
+feature distance replies set `surface_only`, and volume queries require the containing part.
+The replies retain the payload revision, so an unbuilt source edit cannot masquerade as a new
+measurement. `hsm_features` exposes the same catalog through MCP; an already-open MCP session
+needs to reconnect to discover an added tool.
+
+The enclosure producer names stock and cut tools beside their construction with `Graph::feature`
+or `Graph::scoped`. IDs describe their purpose and installed role rather than a face index or
+list position. A scope names the primitives it constructs; it does not rename its incoming
+whole part. Existing boolean, transform, retained-model and print conversion work carries the
+identity. Viewer payloads store membership beside their existing triangles; no feature mesh or
+separate manufacturing export is produced. Unnamed shell and finish surfaces remain selectable
+as part of their owner. Mesh reduction drops feature metadata when it cannot retain membership;
+the enclosure quadrant payloads preserve their print surfaces.
+
+Feature lookup and inspection run on demand. The explicit `HSM_FEATURES_OFF` comparison switch
+omits identity bookkeeping in enclosure generators; it is for manual production-cost measurements,
+not publication. It adds no automatic benchmark or validation step.
+
 ## Geometry
 
 `hsm-geometry` decodes viewer arrays without retessellation or simplification and builds a

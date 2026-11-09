@@ -96,7 +96,12 @@ export function inspectPart(query, options = {}) {
       ...(options.against?.length ? { xray: options.against } : {}),
       ...(options.section ? { section: section(options.section) } : {}),
       ...(feature && !previous ? { target: feature.min_mm.map((n,i)=>(n+feature.max_mm[i])/2),
-        span: Math.max(...feature.size_mm,1)*0.7 } : {}),
+        span: Math.max(...feature.size_mm,1)*0.7,
+        distance: Math.max(...feature.size_mm,1)*3,
+        clip: ['x','y','z'].map((axis,i)=>({axis,
+          lo:feature.min_mm[i]-Math.max(...feature.size_mm,1)*0.1,
+          hi:feature.max_mm[i]+Math.max(...feature.size_mm,1)*0.1})),
+        materials: [{names:bodies,color:'#b6b8bf',roughness:0.8,metalness:0}] } : {}),
     };
     if (options.view && previous) throw new Error("Use either --view or --reuse to choose the camera");
     const jobs = path.join(out, "render-input.json");
