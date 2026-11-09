@@ -1130,6 +1130,193 @@
   "limits": [
     "The scan is a coated sample without independent absolute scale calibration.",
     "Unobserved fluid passages and closure faces are outside the measured exterior reference.",
-    "A purchased-part example does not qualify compliant printed snap geometry."
-  ]
+    "A purchased-part example does not qualify compliant printed snap geometry.",
+    "The existing STEP-to-payload reader groups the component and loses its per-solid labels and colors; the frozen display payload restores these from the native design without changing geometry."
+  ],
+  "viewer_interchange": {
+    "purpose": "This record preserves native body identity and appearance through the website payload.",
+    "source_step_sha256": "9f934d4397ffb75d85cb60c05c2bf6ef3ee791618ac6dfcd71b205bed73c4579",
+    "source_design_sha256": "151201d7fe8e02058b42cd7fa6278914a00a6ba6186dd1845dcf26e4e4b09875",
+    "mapping": [
+      {
+        "step_solid_name": "Valve body",
+        "previous_compound_name": "Beduan valve:1/1",
+        "name": "Valve body",
+        "bounds_max_error_mm": 3.552713678800501e-15,
+        "native_srgb": [
+          237,
+          237,
+          232
+        ],
+        "viewer_linear_rgb": [
+          0.846873231509858,
+          0.846873231509858,
+          0.8069522576692516
+        ]
+      },
+      {
+        "step_solid_name": "Outlet collet",
+        "previous_compound_name": "Beduan valve:1/2",
+        "name": "Outlet collet",
+        "bounds_max_error_mm": 0.00038375854492400663,
+        "native_srgb": [
+          237,
+          237,
+          232
+        ],
+        "viewer_linear_rgb": [
+          0.846873231509858,
+          0.846873231509858,
+          0.8069522576692516
+        ]
+      },
+      {
+        "step_solid_name": "Inlet collet",
+        "previous_compound_name": "Beduan valve:1/3",
+        "name": "Inlet collet",
+        "bounds_max_error_mm": 7.629394573882564e-07,
+        "native_srgb": [
+          237,
+          237,
+          232
+        ],
+        "viewer_linear_rgb": [
+          0.846873231509858,
+          0.846873231509858,
+          0.8069522576692516
+        ]
+      },
+      {
+        "step_solid_name": "Coil housing",
+        "previous_compound_name": "Beduan valve:1/4",
+        "name": "Coil housing",
+        "bounds_max_error_mm": 1.1444091796875e-05,
+        "native_srgb": [
+          23,
+          23,
+          26
+        ],
+        "viewer_linear_rgb": [
+          0.008568125618069307,
+          0.008568125618069307,
+          0.010329823029626936
+        ]
+      },
+      {
+        "step_solid_name": "Steel yoke",
+        "previous_compound_name": "Beduan valve:1/5",
+        "name": "Steel yoke",
+        "bounds_max_error_mm": 1.5258789076710855e-06,
+        "native_srgb": [
+          186,
+          193,
+          197
+        ],
+        "viewer_linear_rgb": [
+          0.4910208498478356,
+          0.5332764040105052,
+          0.5583403896342679
+        ]
+      },
+      {
+        "step_solid_name": "Left terminal",
+        "previous_compound_name": "Beduan valve:1/6",
+        "name": "Left terminal",
+        "bounds_max_error_mm": 1.5258789076710855e-06,
+        "native_srgb": [
+          199,
+          203,
+          208
+        ],
+        "viewer_linear_rgb": [
+          0.5711248294648731,
+          0.5972017883637634,
+          0.6307571363461468
+        ]
+      },
+      {
+        "step_solid_name": "Right terminal",
+        "previous_compound_name": "Beduan valve:1/7",
+        "name": "Right terminal",
+        "bounds_max_error_mm": 1.5259720385074615e-06,
+        "native_srgb": [
+          199,
+          203,
+          208
+        ],
+        "viewer_linear_rgb": [
+          0.5711248294648731,
+          0.5972017883637634,
+          0.6307571363461468
+        ]
+      },
+      {
+        "step_solid_name": "Screw head",
+        "previous_compound_name": "Beduan valve:1/8",
+        "name": "Screw head",
+        "bounds_max_error_mm": 0.00016784667968927636,
+        "native_srgb": [
+          186,
+          193,
+          197
+        ],
+        "viewer_linear_rgb": [
+          0.4910208498478356,
+          0.5332764040105052,
+          0.5583403896342679
+        ]
+      },
+      {
+        "step_solid_name": "Screw head (2)",
+        "previous_compound_name": "Beduan valve:1/9",
+        "name": "Screw head (2)",
+        "bounds_max_error_mm": 0.0001678466796875,
+        "native_srgb": [
+          186,
+          193,
+          197
+        ],
+        "viewer_linear_rgb": [
+          0.4910208498478356,
+          0.5332764040105052,
+          0.5583403896342679
+        ]
+      },
+      {
+        "step_solid_name": "Screw head (3)",
+        "previous_compound_name": "Beduan valve:1/10",
+        "name": "Screw head (3)",
+        "bounds_max_error_mm": 0.00016784667968927636,
+        "native_srgb": [
+          186,
+          193,
+          197
+        ],
+        "viewer_linear_rgb": [
+          0.4910208498478356,
+          0.5332764040105052,
+          0.5583403896342679
+        ]
+      },
+      {
+        "step_solid_name": "Screw head (4)",
+        "previous_compound_name": "Beduan valve:1/11",
+        "name": "Screw head (4)",
+        "bounds_max_error_mm": 0.0001678466796875,
+        "native_srgb": [
+          186,
+          193,
+          197
+        ],
+        "viewer_linear_rgb": [
+          0.4910208498478356,
+          0.5332764040105052,
+          0.5583403896342679
+        ]
+      }
+    ],
+    "geometry_blob_sha256_before": "5f777388c517558173945551788cad819a3a3831e9c1a17db28fb279fde68923",
+    "geometry_blob_sha256_after": "5f777388c517558173945551788cad819a3a3831e9c1a17db28fb279fde68923",
+    "method": "STEP solid names are matched to native body bounds. Names and linearized native sRGB appearances replace compound-level metadata; geometry buffers stay byte-identical."
+  }
 }
