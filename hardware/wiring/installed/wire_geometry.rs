@@ -97,7 +97,11 @@ fn presentation(solid: &Solid, tolerance: f64) -> Result<Solid> {
         }
     };
     let mut origins = Vec::new();
-    for face in solid.faces().iter().filter(|face| !matches!(face.surface, Surface::Plane { .. })) {
+    for face in solid
+        .faces()
+        .iter()
+        .filter(|face| !matches!(face.surface, Surface::Plane { .. }))
+    {
         let inherited = face.src.contributors();
         let records = if face.record_null {
             vec![Value::Null]
@@ -114,21 +118,31 @@ fn presentation(solid: &Solid, tolerance: f64) -> Result<Solid> {
         }
     }
     let face = Face::new(
-        Surface::Free { kind: "PRESENTATION" },
+        Surface::Free {
+            kind: "PRESENTATION",
+        },
         "",
         hsm_kernel::face::unknown_src(),
     )
     .with_contributors(&Value::Array(origins))?;
     let mut faces = vec![face];
-    let face_indices: Vec<u32> = solid.faces().iter().map(|face| {
-        if matches!(face.surface, Surface::Plane { .. }) {
-            faces.push(*face);
-            faces.len() as u32 - 1
-        } else {
-            0
-        }
-    }).collect();
-    let face_of: Vec<u32> = solid.face_of().iter().map(|&face| face_indices[face as usize]).collect();
+    let face_indices: Vec<u32> = solid
+        .faces()
+        .iter()
+        .map(|face| {
+            if matches!(face.surface, Surface::Plane { .. }) {
+                faces.push(*face);
+                faces.len() as u32 - 1
+            } else {
+                0
+            }
+        })
+        .collect();
+    let face_of: Vec<u32> = solid
+        .face_of()
+        .iter()
+        .map(|&face| face_indices[face as usize])
+        .collect();
     let mut skin = Solid::from_mesh(solid.verts(), solid.tris(), &face_of, &faces)?;
     let mut shown = skin.simplified_to(tolerance)?;
     skin.forget_backend();
@@ -140,140 +154,45 @@ mod wire_components;
 
 fn main() -> Result<()> {
     let (numbers, output) = part::args()?;
-    println!("{}", run(&numbers, &output)?);
+    let mut result = run(&numbers, &output)?;
+    if output != std::path::Path::new("--check") {
+        let root = numbers.text("name")?;
+        let name = numbers
+            .get("file_stem")
+            .ok()
+            .and_then(Value::as_str)
+            .unwrap_or(root);
+        let mesh = output.join(format!("{name}.step.mesh"));
+        let shown = hsm_kernel::import::payload(&mesh)?;
+        let bodies: Vec<_> = shown
+            .iter()
+            .map(|body| hsm_kernel::Body {
+                name: &body.name,
+                color: body.color,
+                solid: &body.solid,
+            })
+            .collect();
+        let step = hsm_kernel::step_bytes(&bodies, root)?;
+        hsm_model_export::put(&output.join(format!("{name}.step")), &step)?;
+        let mut head = hsm_geometry::scene::pack(&std::fs::read(&mesh)?)?;
+        head["src"] = json!(hsm_model_export::digest(&step));
+        head["source_kind"] = json!("step");
+        head["step_export"] = json!(true);
+        hsm_geometry::scene::persist(&mesh, &head)?;
+        hsm_model_export::model::bind(&output.join(format!("{name}.step.npz")), &mesh)?;
+        result["files"]
+            .as_array_mut()
+            .context("wire output files")?
+            .push(json!(format!("{name}.step")));
+    }
+    println!("{result}");
     Ok(())
 }
 
-/// The installed conductors cut into `output`, and what it wrote there.
+#[path = "wire_retained.rs"]
+mod retained;
+
+/// The installed conductors reuse unchanged fine and presentation entries between route edits.
 pub fn run(numbers: &part::Numbers, output: &std::path::Path) -> Result<Value> {
-    let routes = numbers
-        .get("routes")?
-        .as_array()
-        .context("routes is an ordered array")?;
-    let mut fine = Vec::with_capacity(routes.len());
-    let mut names = Vec::with_capacity(routes.len());
-    let mut colors = Vec::with_capacity(routes.len());
-    for route in routes {
-        let name = route["name"].as_str().context("wire component name")?;
-        let diameter = route["diameter_mm"].as_f64().context("wire diameter")?;
-        let segments = route["segments"].as_array().context("wire segments")?;
-        let color = route["linear_rgb"].as_array().context("wire linear RGB")?;
-        ensure!(color.len() == 3, "wire RGB has {} channels", color.len());
-        let mut rgb = [0.0; 3];
-        for (i, channel) in color.iter().enumerate() {
-            rgb[i] = channel
-                .as_f64()
-                .filter(|v| v.is_finite())
-                .context("non-finite wire RGB")?;
-        }
-        let mut solid = wire(segments, diameter).with_context(|| format!("building {name}"))?;
-        solid.forget_backend();
-        names.push(name);
-        colors.push(rgb);
-        fine.push(solid);
-    }
-    let mut component_diameters = Vec::new();
-    if let Ok(components) = numbers.get("components") {
-        for component in components
-            .as_array()
-            .context("ordered installed components")?
-        {
-            let name = component["name"]
-                .as_str()
-                .context("installed component name")?;
-            let rgb = point(&component["linear_rgb"])?.to_array();
-            let parts =
-                wire_components::build(component).with_context(|| format!("building {name}"))?;
-            for mut solid in parts {
-                solid.forget_backend();
-                names.push(name);
-                colors.push(rgb);
-                fine.push(solid);
-                component_diameters.push(component["diameter_mm"].as_f64());
-            }
-        }
-    }
-    if output == std::path::Path::new("--check") {
-        let rows: Vec<Value> = fine
-            .iter()
-            .zip(&names)
-            .zip(&colors)
-            .map(|((s, name), color)| {
-                let b = s.bounds();
-                json!({"name":name,"color":color,"min":b.min.to_array(),"max":b.max.to_array(),
-                   "volume":s.volume(),"center":s.centroid().to_array(),
-                   "vertices":s.verts().len(),"triangles":s.tris().len(),
-                   "faces":s.faces().len()})
-            })
-            .collect();
-        return Ok(json!({"files":[],"bodies":rows}));
-    }
-    let first = fine.first().context("wire assembly is empty")?.bounds();
-    let (mut lower, mut upper) = (first.min, first.max);
-    for solid in &fine {
-        let b = solid.bounds();
-        lower = lower.min(b.min);
-        upper = upper.max(b.max);
-    }
-    let span = upper - lower;
-    let deflection =
-        (span.x + span.y + span.z) / 3.0 * numbers.f("presentation_deflection_ratio")?;
-    let angular = numbers.f("presentation_angular_deflection_rad")?;
-    let radius = routes
-        .iter()
-        .filter_map(|route| route["diameter_mm"].as_f64())
-        .fold(f64::INFINITY, f64::min)
-        / 2.0;
-    let presentation_tolerance = deflection.min(radius * (1.0 - (angular / 2.0).cos()));
-    let angular_tolerance = |diameter: f64| {
-        deflection.min(diameter / 2.0 * (1.0 - (angular / 2.0).cos()))
-    };
-    let tolerances: Vec<f64> = routes.iter()
-        .map(|route| angular_tolerance(route["diameter_mm"].as_f64().unwrap()))
-        .chain(component_diameters.iter().map(|diameter| {
-            diameter.map_or(presentation_tolerance, |d| {
-                angular_tolerance(d)
-            })
-        }))
-        .collect();
-    let presentation: Vec<Solid> = fine
-        .iter_mut()
-        .zip(&tolerances)
-        .zip(&names)
-        .map(|((solid, tolerance), name)| {
-            let shown = presentation(solid, *tolerance)
-                .with_context(|| format!("presenting {name}"))?;
-            solid.forget_backend();
-            Ok(shown)
-        })
-        .collect::<Result<_>>()?;
-    let bodies: Vec<part::AssemblyBody> = fine
-        .iter()
-        .zip(&presentation)
-        .enumerate()
-        .map(|(i, (fine, presentation))| part::AssemblyBody {
-            name: names[i],
-            color: Some(colors[i]),
-            fine,
-            presentation,
-        })
-        .collect();
-    std::fs::create_dir_all(&output)?;
-    let document = json!({"schema":"hsm-installed-wires-1","frame":"Enclosure assembly XYZ; Z up",
-                          "presentation_tolerance_mm":presentation_tolerance,
-                          "presentation_angular_deflection_rad":angular,
-                          "presentation_surface_partitions":"coalesced with complete fine-face contributors",
-                          "presentation_tolerance_by_name_mm":names.iter().zip(&tolerances)
-                              .map(|(name,tolerance)|((*name).to_owned(),json!(tolerance)))
-                              .collect::<serde_json::Map<_,_>>(),
-                          "alpha_by_name":names.iter().map(|name|((*name).to_owned(),json!(1.0))).collect::<serde_json::Map<_,_>>()});
-    let root_name = numbers.text("name")?;
-    let file_stem = match numbers.get("file_stem") {
-        Ok(value) => value.as_str().context("assembly file stem")?,
-        Err(_) => root_name,
-    };
-    let said = part::write_assembly_with_root(
-        &output, file_stem, root_name, &bodies, Some(&document),
-    )?;
-    Ok(said)
+    retained::run(numbers, output)
 }

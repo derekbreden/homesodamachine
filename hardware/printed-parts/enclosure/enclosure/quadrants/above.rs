@@ -6,10 +6,7 @@ use crate::quadrant::Y;
 use crate::shapes::place;
 use crate::shell::WAGO_WELL_WALL;
 use crate::spec::Box;
-use crate::junctions::{JUNCTIONS, Wago};
-
-/// The connector's fit in its well's pocket; the well's stock round it is the shell's.
-const WELL_FIT: f64 = 0.15;
+use crate::junctions::{junctions, Wago};
 
 /// The piece with every above-core feature it carries, and the wells' pockets, which back-top's
 /// wall features keep clear of.
@@ -39,10 +36,11 @@ fn union_all(g: &mut Graph, shapes: &[Shape]) -> Option<Shape> {
 /// and the pocket it inserts into butt first. Back-top seats its row against the west wall;
 /// front-top carries its wells on the manifold towers.
 fn wells(g: &mut Graph, host: Y) -> (Vec<Shape>, Vec<Shape>) {
-    let (wall, fit) = (WAGO_WELL_WALL, WELL_FIT);
+    let wall = WAGO_WELL_WALL;
     let mut stocks = Vec::new();
     let mut pockets = Vec::new();
-    for j in JUNCTIONS.iter().filter(|j| j.host == host) {
+    for j in junctions().iter().filter(|j| j.host == host) {
+        let fit = j.fit;
         let Wago { width: w, depth: d, height: h, .. } = j.wago;
         let rear = -d / 2.0 - fit - wall;
         let stock = g.box_([-w / 2.0 - fit - wall, w / 2.0 + fit + wall, rear, j.mouth, -fit - wall, h + fit + wall]);

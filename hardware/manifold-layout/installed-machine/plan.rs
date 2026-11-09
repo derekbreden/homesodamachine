@@ -124,10 +124,10 @@ struct Junction {
 /// The wiring's connectors: the top pieces' from the enclosure's junction table, the cold core's
 /// from the wells its foam cap publishes, in the wiring's placement order.
 fn junction_poses(root: &Path) -> Result<Vec<Junction>> {
-    use hsm_enclosure_numbers::{junctions::JUNCTIONS, quadrant::Y};
+    use hsm_enclosure_numbers::{junctions::junctions, quadrant::Y};
     let top = |host: Y, owner: &'static str| {
-        JUNCTIONS.iter().filter(move |j| j.host == host).map(move |j| Junction {
-            name: j.name.into(), size: j.wago.size.into(), host: owner.into(),
+        junctions().iter().filter(move |j| j.host == host).map(move |j| Junction {
+            name: j.name.clone(), size: j.wago.size.into(), host: owner.into(),
             rotation: json!(j.rotation), translation: json!(j.translation),
         })
     };

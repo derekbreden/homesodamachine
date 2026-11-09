@@ -66,25 +66,35 @@ const FILE_STEM: &str = "enclosure-wiring";
 /// The request the installed-wires program cuts the machine's wiring from: every conductor's
 /// routed segments and every termination and jacket, resolved against the bodies of the
 /// physical fine model at `physical_model` as the plan `spec` placed them.
-pub fn wiring_request(root: &Path, spec: &Value, physical_model: &Path) -> Result<Value> {
+pub fn wiring_request(
+    root: &Path,
+    spec: &Value,
+    physical_model: &Path,
+    cache: &mut crate::cache::Cache,
+) -> Result<Value> {
     let _host = Host::enter(sources::Sources::read(root, spec)?);
-    let rows = measure::summaries(physical_model, None, &solids_read())?;
-    let grouped = readers::request(&Request {
-        op: "model_bodies".into(),
-        data: json!({"rows": rows, "grid": hsm_kernel::GRID}),
-        root: root.into(),
+    let recipe = json!({"plan":spec,"physical_model":physical_model,
+        "fits":{"slip":hsm_enclosure_numbers::catalog::slip(),"running":hsm_enclosure_numbers::catalog::running(),
+            "supported":hsm_enclosure_numbers::catalog::supported(),"m5_thread_pass":hsm_enclosure_numbers::catalog::m5_thread_pass_dia()}});
+    let attachments = cache.run("wire attachments", &recipe, &[], || {
+        let rows = measure::summaries(physical_model, None, &solids_read())?;
+        let grouped = readers::request(&Request {
+            op: "model_bodies".into(),
+            data: json!({"rows": rows, "grid": hsm_kernel::GRID}),
+            root: root.into(),
+        })?;
+        let mut scene = json!({});
+        for (name, row) in grouped.as_object().context("the physical model's bodies")? {
+            scene[name] = row[0].clone();
+        }
+        let attachments = terminals::init(&scene)?;
+        terminals::request(&Request {
+            op: "terminal_resolve".into(),
+            data: json!({"state": attachments}),
+            root: root.into(),
+        })
     })?;
-    let mut scene = json!({});
-    for (name, row) in grouped.as_object().context("the physical model's bodies")? {
-        scene[name] = row[0].clone();
-    }
-    let attachments = terminals::init(&scene)?;
-    let attachments = terminals::request(&Request {
-        op: "terminal_resolve".into(),
-        data: json!({"state": attachments}),
-        root: root.into(),
-    })?;
-    let (mut numbers, _review) = build::numeric(root, &attachments)?;
+    let mut numbers = build::numeric_only(root, &attachments)?;
     numbers["file_stem"] = json!(FILE_STEM);
     Ok(numbers)
 }
@@ -92,9 +102,17 @@ pub fn wiring_request(root: &Path, spec: &Value, physical_model: &Path) -> Resul
 /// The bodies whose separate solids the terminals read, under both names the model may give
 /// them: the valves' and coils' spade tabs and the compressor's power cover.
 fn solids_read() -> BTreeSet<String> {
-    let mut hosts = vec!["compressor".to_owned(), "valve-v-a".into(), "valve-v-b".into(), "vk-solenoid".into()];
+    let mut hosts = vec![
+        "compressor".to_owned(),
+        "valve-v-a".into(),
+        "valve-v-b".into(),
+        "vk-solenoid".into(),
+    ];
     hosts.extend("cdefghij".chars().map(|c| format!("coil-v-{c}")));
-    hosts.iter().flat_map(|h| [h.clone(), format!("cold-core/{h}")]).collect()
+    hosts
+        .iter()
+        .flat_map(|h| [h.clone(), format!("cold-core/{h}")])
+        .collect()
 }
 
 /// One operation of the included wiring code, as its own dispatchers take it.

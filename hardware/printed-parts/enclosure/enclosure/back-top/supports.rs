@@ -118,7 +118,7 @@ struct Runs {
 fn profiles() -> &'static SeatProfiles {
     static PROFILES: OnceLock<SeatProfiles> = OnceLock::new();
     PROFILES.get_or_init(|| {
-        serde_json::from_str(include_str!("../rear-seat-profiles.json")).expect("the rear seat profiles parse")
+        hsm_enclosure_numbers::input::json("hardware/printed-parts/enclosure/enclosure/rear-seat-profiles.json").expect("the rear seat profiles parse")
     })
 }
 
@@ -148,7 +148,7 @@ fn pisco_exterior() -> &'static FittedExterior {
     static PISCO: OnceLock<Candidates> = OnceLock::new();
     &PISCO
         .get_or_init(|| {
-            serde_json::from_str(include_str!("../../../../reference/compact-inline-candidates/dimensions.json"))
+            hsm_enclosure_numbers::input::json("hardware/reference/compact-inline-candidates/dimensions.json")
                 .expect("the inline candidates' dimensions parse")
         })
         .pisco_rvfup_quarter
@@ -165,7 +165,7 @@ fn regulator_profile() -> &'static [P2] {
     static REGULATOR: OnceLock<Regulator> = OnceLock::new();
     &REGULATOR
         .get_or_init(|| {
-            serde_json::from_str(include_str!("../../../../reference/yzmsz-water-regulator/reference-parameters.json"))
+            hsm_enclosure_numbers::input::json("hardware/reference/yzmsz-water-regulator/reference-parameters.json")
                 .expect("the water regulator's reference parses")
         })
         .profile_x_radius_mm

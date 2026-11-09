@@ -17,7 +17,7 @@ struct Scalars {
 fn fits() -> &'static Fits {
     static FITS: OnceLock<Fits> = OnceLock::new();
     FITS.get_or_init(|| {
-        serde_json::from_str::<Scalars>(include_str!("../../../../../tools/hsm/shared-data/catalog/scalars.json"))
+        crate::input::json::<Scalars>("tools/hsm/shared-data/catalog/scalars.json")
             .expect("the shared scalars catalog parses")
             .fits
     })

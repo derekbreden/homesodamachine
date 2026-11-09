@@ -7,7 +7,7 @@ fn set(value: &Value) -> Result<BTreeSet<String>> {
         .collect::<Result<_>>()?)
 }
 fn defaults() -> Result<Value> {
-    let mut c: Value = serde_json::from_str(include_str!("scene-constants.json"))?;
+    let mut c = hsm_kernel::reads::json("tools/hsm/assembly-docs/src/wiring/scene-constants.json")?;
     for name in ["psu", "relay-1", "relay-2"] {
         for kind in ["screw", "insert"] {
             let numbers = if name == "psu" {
