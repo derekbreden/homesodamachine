@@ -1,0 +1,177 @@
+{
+  "ceiling_bottom_mm": 5.4799999999999995,
+  "connection_key": "H2C",
+  "depth_mm": 24.0,
+  "first_layer_mm": 0.2,
+  "interface_layers": 2,
+  "interface_pattern": "auto",
+  "label_height_mm": 0.48,
+  "layer_height_mm": 0.24,
+  "material": "Polymaker Fiberon PET-GF15",
+  "nozzle": "left hardened Standard",
+  "nozzle_diameter_mm": 0.4,
+  "plate": "Textured PEI Plate",
+  "printer": "Mark1",
+  "profile": "hardware/printed-parts/petgf.3mf",
+  "purpose": "Compare support-roof density while holding the PET-GF process and planned Z gap constant.",
+  "requested_top_z_distance_mm": 0.45,
+  "roof_thickness_mm": 1.92,
+  "specimens": [
+    {
+      "geometry": {
+        "bodies": [
+          {
+            "area": 2113.4652881767447,
+            "max": [
+              12.0,
+              12.0,
+              7.88000000026077
+            ],
+            "min": [
+              -12.0,
+              -12.0,
+              0.0
+            ],
+            "name": "roof-A",
+            "triangles": 76,
+            "volume": 1739.621130141571
+          }
+        ],
+        "files": [
+          "roof-A.step",
+          "roof-A.step.npz",
+          "roof-A.step.mesh",
+          "roof-A.stl"
+        ]
+      },
+      "id": "A",
+      "interface_spacing_mm": 0.5,
+      "position_mm": [
+        126.0,
+        165.0,
+        3.9399999999999995
+      ],
+      "stl_sha256": "3fec4f5dd569efaaf3edd95accd53f5b3dd75ce193cac6d8d5ce24940ae98296",
+      "bounds_mm": [
+        [
+          -12.0,
+          -12.0,
+          0.0
+        ],
+        [
+          12.0,
+          12.0,
+          7.880000114440918
+        ]
+      ],
+      "watertight": true
+    },
+    {
+      "geometry": {
+        "bodies": [
+          {
+            "area": 2115.0524061090928,
+            "max": [
+              12.0,
+              12.0,
+              7.88000000026077
+            ],
+            "min": [
+              -12.0,
+              -12.0,
+              0.0
+            ],
+            "name": "roof-B",
+            "triangles": 1064,
+            "volume": 1740.1376789857582
+          }
+        ],
+        "files": [
+          "roof-B.step",
+          "roof-B.step.npz",
+          "roof-B.step.mesh",
+          "roof-B.stl"
+        ]
+      },
+      "id": "B",
+      "interface_spacing_mm": 0.15,
+      "position_mm": [
+        160.0,
+        165.0,
+        3.9399999999999995
+      ],
+      "stl_sha256": "5721e1abd340e3bdff22be1a55ad1f3797f76ddafea8565dd69710bfba7a12ff",
+      "bounds_mm": [
+        [
+          -12.0,
+          -12.0,
+          0.0
+        ],
+        [
+          12.0,
+          12.0,
+          7.880000114440918
+        ]
+      ],
+      "watertight": true
+    },
+    {
+      "geometry": {
+        "bodies": [
+          {
+            "area": 2113.8325999080716,
+            "max": [
+              12.0,
+              12.0,
+              7.88000000026077
+            ],
+            "min": [
+              -12.0,
+              -12.0,
+              0.0
+            ],
+            "name": "roof-C",
+            "triangles": 1056,
+            "volume": 1739.6334577301434
+          }
+        ],
+        "files": [
+          "roof-C.step",
+          "roof-C.step.npz",
+          "roof-C.step.mesh",
+          "roof-C.stl"
+        ]
+      },
+      "id": "C",
+      "interface_spacing_mm": 0.0,
+      "position_mm": [
+        194.0,
+        165.0,
+        3.9399999999999995
+      ],
+      "stl_sha256": "e5f5c42927fa41093c7f5080abed4d5776ee6a5825d35ca4fa655a9cb3185014",
+      "bounds_mm": [
+        [
+          -12.0,
+          -12.0,
+          0.0
+        ],
+        [
+          12.0,
+          12.0,
+          7.880000114440918
+        ]
+      ],
+      "watertight": true
+    }
+  ],
+  "total_height_mm": 7.879999999999999,
+  "wall_mm": 1.68,
+  "width_mm": 24.0,
+  "z_trim_mm": 0.18,
+  "project": "2026-11-09-dense-roofs-left04-z018-mark1.3mf",
+  "project_sha256": "01aee1611a098a6522390d8465e247faada0f349322b3f7d1734820d713323a6",
+  "source_profile_sha256": "1cc426e99a771a24249f97bf0e7659d2c5b5f656a0f2f3abb4814925ec1ff6b7",
+  "mesh_template": "hardware/print-tests/petgf-interface-patterns/interface-patterns.3mf",
+  "source_code_sha256": "737bb1e6a9e6731ebe7898fdc7ef253bcc979e7ccaecdd63245c057dff34f57f"
+}
