@@ -1,7 +1,8 @@
+// The cost page connects the production workspace, cost disclosures and investment controls.
 import {
   dollars, recoveryPlan, recoveryRange, recoverySummary, salesBalance, renderRecoveryChart,
 } from "./cost-recovery.js";
-import "./batch-forecast.js";
+import "./production-planner.js";
 
 const panels = [...document.querySelectorAll(".cost-panel")];
 const contents = [...document.querySelectorAll(".cost-contents a")];

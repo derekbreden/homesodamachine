@@ -1,3 +1,4 @@
+// Purchasing forecast tests check physical requirements, supplier lots, cash and batch labor.
 import { test } from "node:test";
 import assert from "node:assert/strict";
 import { fileURLToPath } from "node:url";
@@ -6,7 +7,6 @@ import {
   laborMinutes,
   optimizePurchase,
   readBatchForecast,
-  renderBatchForecast,
 } from "../lib/batch-forecast.js";
 import { readLaborRollup } from "../lib/cost.js";
 import { parseRun, runMinutes } from "../contracts/part-costs.js";
@@ -96,14 +96,7 @@ test("purchase requirements follow the physical BOM and expose missing quotes", 
       ),
     );
   }
-  const html = renderBatchForecast(forecast);
-  assert.doesNotMatch(html, /NaN|Infinity|undefined/);
-  if (
-    forecast.batches.some(
-      (batch) => batch.unpriced.length || batch.undefinedInputs.length,
-    )
-  )
-    assert.match(html, /quoted budget excludes/);
+
 });
 
 test("a missing supplier remains visible and positively budgeted", () => {
@@ -208,9 +201,7 @@ test("purchase cash and the full-batch labor benchmark stay separate", () => {
   );
   assert.ok(five.laborHours / 5 > ten.laborHours / 10);
   assert.ok(twenty.laborHours / 20 < ten.laborHours / 10);
-  const html = renderBatchForecast(forecast);
-  assert.match(html, /value="5" checked/);
-  assert.match(html, /data-units="5" open/);
+
 });
 
 test("delivered historical invoices are not taxed twice; paid labor remains separate", () => {
