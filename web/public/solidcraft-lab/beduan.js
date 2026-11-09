@@ -78,7 +78,7 @@ function retain() {
   }
 }
 function currentCameraLayout() {
-  return {width: $('stage').clientWidth, height: $('stage').clientHeight, panels: $('native-panels').checked};
+  return {width: $('stage').clientWidth, height: innerHeight, panels: $('native-panels').checked};
 }
 async function capture({keepCamera = false} = {}) {
   checkpoint = await api.request('document.export');
