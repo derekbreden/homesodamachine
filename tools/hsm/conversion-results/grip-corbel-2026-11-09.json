@@ -1,0 +1,1269 @@
+{
+  "purpose": "This record measures the requested enclosure grip corbels from request receipt through source edits, live geometry and native slicing.",
+  "units": {
+    "duration": "seconds",
+    "length": "mm",
+    "volume": "mm^3",
+    "angle": "degrees"
+  },
+  "source_commit": "3dc5416a8ec6d0b16eb18d157ab49c4c53fe8550",
+  "change_gallery": "changes/2026-11-09-0213-grip-corbels",
+  "measurement_scope": "One real construction-code change on the shared busy Mac. Discovery, agent review, compilation, geometry, publication and native slicing are included in request elapsed milestones. Action durations overlap and include lock waits and host contention; they are not CPU time. This is not a runtime-input benchmark.",
+  "request_received_at": "2026-11-09T07:32:17.552Z",
+  "milestones": {
+    "source_edit": {
+      "at": "2026-11-09T07:44:32.244Z",
+      "seconds_from_request": 734.692
+    },
+    "first_live_attempt": {
+      "at": "2026-11-09T07:53:54.300Z",
+      "seconds_from_request": 1296.748,
+      "parts": [
+        "enclosure-back-bottom"
+      ],
+      "artifact": {
+        "path": "hardware/manifold-layout/enclosure-assembly.step.mesh",
+        "sha256": "525ba73d8764a4b1ca2fcc364022f8deda49d4993833a2256a18a6018e7081d1",
+        "bytes": 171584
+      },
+      "scope": "First selected completed producer update, before screw-access and joint-clearance corrections."
+    },
+    "final_live_model_observed": {
+      "at": "2026-11-09T08:15:03.979Z",
+      "seconds_from_request": 2566.427,
+      "parts": [
+        "enclosure-front-bottom",
+        "enclosure-back-bottom"
+      ],
+      "artifact": {
+        "path": "hardware/manifold-layout/enclosure-assembly.step.mesh",
+        "sha256": "9f06abefd27a838259e1d1488f72aa9bc35c8f0b17657b2a1597a898fbb6e812",
+        "bytes": 171124
+      },
+      "scope": "The reference browser opened after final publication, so this includes time before observation began."
+    },
+    "native_print_checked": {
+      "at": "2026-11-09T08:31:12.348Z",
+      "seconds_from_request": 3534.796,
+      "scope": "Both native slices plus localized support review; no printer submission."
+    }
+  },
+  "live_evidence_scope": "Matching mounted geometry was eligible for completed reference-browser draws. Unobstructed pixels and the user device paint are not established.",
+  "geometry": {
+    "baseline": {
+      "purpose": "This record binds the grip corbel attempt to the before exports and its expected roof section.",
+      "exports": {
+        "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step.mesh": "bfc3fc161a67cd362aa9026a4d773ea37d5b9f15b91d57886fbab47f96026a1a",
+        "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.stl": "d4938370022b72b814f3aff560ea4ec57c4af854ab61560fa93a3c1bdf1c6a87",
+        "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.stl": "5e03298dac1b3e3cdebaa490a2ba76942eb558258c000ec869adf2b48cb22726",
+        "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step.mesh": "cf640900329181ebc8380a590835968216b5b3a98664e5e9e8fdf545a6959274"
+      },
+      "before_roof_samples": [
+        {
+          "x": -106.5,
+          "y": 190.0,
+          "z": 31.833593981474998
+        },
+        {
+          "x": -100.0,
+          "y": 190.0,
+          "z": 29.25
+        },
+        {
+          "x": -94.0,
+          "y": 190.0,
+          "z": 29.25
+        }
+      ],
+      "target": {
+        "outer_roof_z_mm": 35.25,
+        "inner_roof_z_mm": 21.5,
+        "inner_face_abs_x_mm": 93.75,
+        "roof_run_mm": 13.75,
+        "rise_per_run": 1.0
+      }
+    },
+    "roof_samples": [
+      {
+        "part": "enclosure-front-bottom",
+        "x_mm": -107.25,
+        "y_mm": 190.0,
+        "inward_depth_mm": 0.25,
+        "roof_z_mm": 34.999999531130754,
+        "expected_z_mm": 35.0,
+        "angle_degrees": 44.998664527443644,
+        "payload_sha256": "9f06abefd27a838259e1d1488f72aa9bc35c8f0b17657b2a1597a898fbb6e812"
+      },
+      {
+        "part": "enclosure-front-bottom",
+        "x_mm": -100.625,
+        "y_mm": 190.0,
+        "inward_depth_mm": 6.875,
+        "roof_z_mm": 28.375,
+        "expected_z_mm": 28.375,
+        "angle_degrees": 45.00000000000001,
+        "payload_sha256": "9f06abefd27a838259e1d1488f72aa9bc35c8f0b17657b2a1597a898fbb6e812"
+      },
+      {
+        "part": "enclosure-front-bottom",
+        "x_mm": -94.0,
+        "y_mm": 190.0,
+        "inward_depth_mm": 13.5,
+        "roof_z_mm": 21.75,
+        "expected_z_mm": 21.75,
+        "angle_degrees": 45.00000000000001,
+        "payload_sha256": "9f06abefd27a838259e1d1488f72aa9bc35c8f0b17657b2a1597a898fbb6e812"
+      },
+      {
+        "part": "enclosure-front-bottom",
+        "x_mm": 107.25,
+        "y_mm": 190.0,
+        "inward_depth_mm": 0.25,
+        "roof_z_mm": 34.999997529738316,
+        "expected_z_mm": 35.0,
+        "angle_degrees": 45.00202004239573,
+        "payload_sha256": "9f06abefd27a838259e1d1488f72aa9bc35c8f0b17657b2a1597a898fbb6e812"
+      },
+      {
+        "part": "enclosure-front-bottom",
+        "x_mm": 100.625,
+        "y_mm": 190.0,
+        "inward_depth_mm": 6.875,
+        "roof_z_mm": 28.375,
+        "expected_z_mm": 28.375,
+        "angle_degrees": 45.00000000000001,
+        "payload_sha256": "9f06abefd27a838259e1d1488f72aa9bc35c8f0b17657b2a1597a898fbb6e812"
+      },
+      {
+        "part": "enclosure-front-bottom",
+        "x_mm": 94.0,
+        "y_mm": 190.0,
+        "inward_depth_mm": 13.5,
+        "roof_z_mm": 21.75,
+        "expected_z_mm": 21.75,
+        "angle_degrees": 45.00000000000001,
+        "payload_sha256": "9f06abefd27a838259e1d1488f72aa9bc35c8f0b17657b2a1597a898fbb6e812"
+      },
+      {
+        "part": "enclosure-back-bottom",
+        "x_mm": -107.25,
+        "y_mm": 235.0,
+        "inward_depth_mm": 0.25,
+        "roof_z_mm": 35.000002436226495,
+        "expected_z_mm": 35.0,
+        "angle_degrees": 45.0035401511685,
+        "payload_sha256": "9f06abefd27a838259e1d1488f72aa9bc35c8f0b17657b2a1597a898fbb6e812"
+      },
+      {
+        "part": "enclosure-back-bottom",
+        "x_mm": -100.625,
+        "y_mm": 235.0,
+        "inward_depth_mm": 6.875,
+        "roof_z_mm": 28.374999938418725,
+        "expected_z_mm": 28.375,
+        "angle_degrees": 44.999507308371804,
+        "payload_sha256": "9f06abefd27a838259e1d1488f72aa9bc35c8f0b17657b2a1597a898fbb6e812"
+      },
+      {
+        "part": "enclosure-back-bottom",
+        "x_mm": -94.0,
+        "y_mm": 235.0,
+        "inward_depth_mm": 13.5,
+        "roof_z_mm": 21.75,
+        "expected_z_mm": 21.75,
+        "angle_degrees": 45.00000000000001,
+        "payload_sha256": "9f06abefd27a838259e1d1488f72aa9bc35c8f0b17657b2a1597a898fbb6e812"
+      },
+      {
+        "part": "enclosure-back-bottom",
+        "x_mm": 107.25,
+        "y_mm": 235.0,
+        "inward_depth_mm": 0.25,
+        "roof_z_mm": 35.00000170210778,
+        "expected_z_mm": 35.0,
+        "angle_degrees": 45.003579341267276,
+        "payload_sha256": "9f06abefd27a838259e1d1488f72aa9bc35c8f0b17657b2a1597a898fbb6e812"
+      },
+      {
+        "part": "enclosure-back-bottom",
+        "x_mm": 100.625,
+        "y_mm": 235.0,
+        "inward_depth_mm": 6.875,
+        "roof_z_mm": 28.374999531140823,
+        "expected_z_mm": 28.375,
+        "angle_degrees": 45.000015350654195,
+        "payload_sha256": "9f06abefd27a838259e1d1488f72aa9bc35c8f0b17657b2a1597a898fbb6e812"
+      },
+      {
+        "part": "enclosure-back-bottom",
+        "x_mm": 94.0,
+        "y_mm": 235.0,
+        "inward_depth_mm": 13.5,
+        "roof_z_mm": 21.749999926648663,
+        "expected_z_mm": 21.75,
+        "angle_degrees": 44.99998618510709,
+        "payload_sha256": "9f06abefd27a838259e1d1488f72aa9bc35c8f0b17657b2a1597a898fbb6e812"
+      }
+    ],
+    "maximum_roof_height_error_mm": 2.470261684095476e-06,
+    "sampled_roof_angle_range_degrees": [
+      44.998664527443644,
+      45.003579341267276
+    ],
+    "front_back_intersection_volume_mm3": {
+      "baseline": 0.0,
+      "first_candidate": 0.6936820651894112,
+      "final": 0.0
+    },
+    "screw_head_axis": {
+      "closest": null
+    },
+    "retained_screw_seat": {
+      "closest": {
+        "hit": {
+          "distance_mm": 60.79999923706055,
+          "face": 1255,
+          "features": [
+            "enclosure-back-bottom::y-joint-fasteners"
+          ],
+          "normal": [
+            0.0,
+            0.0,
+            -1.0
+          ],
+          "point": [
+            -94.75,
+            208.9,
+            60.79999923706055
+          ],
+          "triangle": 506560
+        },
+        "part": {
+          "id": "#497",
+          "name": "enclosure-back-bottom"
+        }
+      }
+    },
+    "construction": "The shared air loft preserves the outer rounded mouth and lowers its inner roof to a continuous self-supporting corbel. Rounded end returns steepen inboard. The blind wall and screw seats remain in place. The front tongue retains its original opening clearance across the rear corbel."
+  },
+  "review_corrections": [
+    {
+      "at": "2026-11-09T07:56:14.569Z",
+      "finding": "The lowered roof closed part of the lower screw-head approach.",
+      "correction": "Extend the existing head-access cut to the opening floor while retaining its seat and axis."
+    },
+    {
+      "at": "2026-11-09T08:06:27.934Z",
+      "finding": "Thin front tongue remnants entered the rear corbel at the joint.",
+      "correction": "Retain the original handhold air clearance through the front tongue; the rear half carries the corbel across the seam."
+    }
+  ],
+  "builds": [
+    {
+      "attempt": "initial-corbel",
+      "bazel_profile_sha256": "ea633443aa1d557ef38614f3d1b8b985f1069a020a38a1a729ec9ba338a3b971",
+      "bazel_profile_started_utc": "2026-11-09T07:46:00.797401Z",
+      "print_build_wall_seconds": 626.1563648750016,
+      "compiler_action_count": 5,
+      "actions": [
+        {
+          "target": "BazelWorkspaceStatusAction stable-status.txt",
+          "seconds": 0.193719,
+          "start_seconds_from_profile": 11.115946,
+          "kind": "status"
+        },
+        {
+          "target": "enclosure-back-bottom-program",
+          "seconds": 357.846451,
+          "start_seconds_from_profile": 33.113793,
+          "kind": "compiler"
+        },
+        {
+          "target": "enclosure-front-bottom-program",
+          "seconds": 380.640324,
+          "start_seconds_from_profile": 33.122449,
+          "kind": "compiler"
+        },
+        {
+          "target": "enclosure-back-bottom",
+          "seconds": 50.805833,
+          "start_seconds_from_profile": 391.321674,
+          "kind": "geometry"
+        },
+        {
+          "target": "enclosure-front-bottom",
+          "seconds": 30.38691,
+          "start_seconds_from_profile": 413.802261,
+          "kind": "geometry"
+        },
+        {
+          "target": "enclosure-pump-retainer-program",
+          "seconds": 13.647171,
+          "start_seconds_from_profile": 442.664806,
+          "kind": "compiler"
+        },
+        {
+          "target": "enclosure-pump-retainer",
+          "seconds": 3.976823,
+          "start_seconds_from_profile": 456.375494,
+          "kind": "geometry"
+        },
+        {
+          "target": "enclosure-back-top-program",
+          "seconds": 29.071695,
+          "start_seconds_from_profile": 444.312135,
+          "kind": "compiler"
+        },
+        {
+          "target": "enclosure-front-top-program",
+          "seconds": 35.016434,
+          "start_seconds_from_profile": 460.45989,
+          "kind": "compiler"
+        },
+        {
+          "target": "enclosure-back-top",
+          "seconds": 30.992573,
+          "start_seconds_from_profile": 473.77655,
+          "kind": "geometry"
+        },
+        {
+          "target": "enclosure-front-top",
+          "seconds": 26.685009,
+          "start_seconds_from_profile": 495.568298,
+          "kind": "geometry"
+        },
+        {
+          "target": "installed-machine",
+          "seconds": 48.531164,
+          "start_seconds_from_profile": 522.293541,
+          "kind": "assembly"
+        }
+      ],
+      "carried": [
+        {
+          "seconds": 447.3618463330058,
+          "wall_time_ns": 1794210802722228000,
+          "files": [
+            "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step.mesh",
+            "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step.npz",
+            "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.stl"
+          ]
+        },
+        {
+          "seconds": 448.9227149580038,
+          "wall_time_ns": 1794210804283123000,
+          "files": [
+            "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step.mesh",
+            "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step.npz",
+            "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.stl"
+          ]
+        },
+        {
+          "seconds": 509.9819683750029,
+          "wall_time_ns": 1794210865343331000,
+          "files": [
+            "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step.mesh",
+            "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step.npz"
+          ]
+        },
+        {
+          "seconds": 535.1102128330022,
+          "wall_time_ns": 1794210890471967000,
+          "files": [
+            "hardware/manifold-layout/enclosure-assembly.step.mesh"
+          ]
+        },
+        {
+          "seconds": 558.6694260000004,
+          "wall_time_ns": 1794210914031568000,
+          "files": [
+            "hardware/manifold-layout/enclosure-assembly.step.mesh"
+          ]
+        },
+        {
+          "seconds": 568.6338334160027,
+          "wall_time_ns": 1794210923996119000,
+          "files": [
+            "hardware/manifold-layout/enclosure-assembly.step.mesh"
+          ]
+        },
+        {
+          "seconds": 575.6360881660003,
+          "wall_time_ns": 1794210930998478000,
+          "files": [
+            "hardware/assembly/scenes/glb/back-half.glb.mesh",
+            "hardware/assembly/scenes/glb/back-top.glb.mesh",
+            "hardware/assembly/scenes/glb/cap-lid-fill.glb.mesh",
+            "hardware/assembly/scenes/glb/cap-lid.glb.mesh",
+            "hardware/assembly/scenes/glb/cold-core-open.glb.mesh",
+            "hardware/assembly/scenes/glb/cold-core.glb.mesh",
+            "hardware/assembly/scenes/glb/en04-compressor-bay.glb.mesh",
+            "hardware/assembly/scenes/glb/en07-electronics-bay.glb.mesh",
+            "hardware/assembly/scenes/glb/front-top.glb.mesh",
+            "hardware/assembly/scenes/glb/funnel-drain.glb.mesh",
+            "hardware/assembly/scenes/glb/pump-mount.glb.mesh"
+          ]
+        }
+      ],
+      "publication_queue": {
+        "requests": 7,
+        "started": 6,
+        "coalesced": 4,
+        "exit_codes": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      "checkpoint_errors": [],
+      "bazel_elapsed_seconds": 573.906,
+      "bazel_critical_path_seconds": 463.76,
+      "reported_action_cache_hits": 42,
+      "first_completed_producer_utc": "2026-11-09T07:53:22.722228+00:00",
+      "first_completed_producer_seconds_from_admitted_build": 447.3618463330058
+    },
+    {
+      "attempt": "screw-access",
+      "bazel_profile_sha256": "34e43d914af14b743ebba949fe9145c344f1306bcd4138619c22b84252b4b4ca",
+      "bazel_profile_started_utc": "2026-11-09T07:57:55.542940Z",
+      "print_build_wall_seconds": 248.75249549999717,
+      "compiler_action_count": 4,
+      "actions": [
+        {
+          "target": "BazelWorkspaceStatusAction stable-status.txt",
+          "seconds": 0.025106,
+          "start_seconds_from_profile": 1.892998,
+          "kind": "status"
+        },
+        {
+          "target": "enclosure-front-bottom-program",
+          "seconds": 38.542347,
+          "start_seconds_from_profile": 1.929701,
+          "kind": "compiler"
+        },
+        {
+          "target": "enclosure-front-top-program",
+          "seconds": 47.31996,
+          "start_seconds_from_profile": 2.117148,
+          "kind": "compiler"
+        },
+        {
+          "target": "enclosure-front-bottom",
+          "seconds": 31.661057,
+          "start_seconds_from_profile": 40.60521,
+          "kind": "geometry"
+        },
+        {
+          "target": "enclosure-front-top",
+          "seconds": 50.393414,
+          "start_seconds_from_profile": 49.454889,
+          "kind": "geometry"
+        },
+        {
+          "target": "enclosure-back-bottom-program",
+          "seconds": 32.8756,
+          "start_seconds_from_profile": 73.284781,
+          "kind": "compiler"
+        },
+        {
+          "target": "enclosure-back-top-program",
+          "seconds": 28.273084,
+          "start_seconds_from_profile": 100.200842,
+          "kind": "compiler"
+        },
+        {
+          "target": "enclosure-back-bottom",
+          "seconds": 22.130754,
+          "start_seconds_from_profile": 106.343173,
+          "kind": "geometry"
+        },
+        {
+          "target": "enclosure-back-top",
+          "seconds": 13.244769,
+          "start_seconds_from_profile": 128.550975,
+          "kind": "geometry"
+        },
+        {
+          "target": "installed-machine",
+          "seconds": 61.21253,
+          "start_seconds_from_profile": 141.91067,
+          "kind": "assembly"
+        }
+      ],
+      "carried": [
+        {
+          "seconds": 75.39023020799505,
+          "wall_time_ns": 1794211148497394000,
+          "files": [
+            "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step.mesh",
+            "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step.npz",
+            "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.stl"
+          ]
+        },
+        {
+          "seconds": 130.78619949999847,
+          "wall_time_ns": 1794211203894225000,
+          "files": [
+            "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step.mesh",
+            "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step.npz",
+            "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.stl"
+          ]
+        },
+        {
+          "seconds": 168.03397204099747,
+          "wall_time_ns": 1794211241160464000,
+          "files": [
+            "hardware/manifold-layout/enclosure-assembly.step.mesh"
+          ]
+        },
+        {
+          "seconds": 189.92465974999504,
+          "wall_time_ns": 1794211263058817000,
+          "files": [
+            "hardware/manifold-layout/enclosure-assembly.step.mesh"
+          ]
+        },
+        {
+          "seconds": 198.85996258299565,
+          "wall_time_ns": 1794211271996187000,
+          "files": [
+            "hardware/manifold-layout/enclosure-assembly.step.mesh"
+          ]
+        },
+        {
+          "seconds": 205.54697812499944,
+          "wall_time_ns": 1794211278682933000,
+          "files": [
+            "hardware/assembly/scenes/glb/back-half.glb.mesh",
+            "hardware/assembly/scenes/glb/back-top.glb.mesh",
+            "hardware/assembly/scenes/glb/cap-lid-fill.glb.mesh",
+            "hardware/assembly/scenes/glb/cap-lid.glb.mesh",
+            "hardware/assembly/scenes/glb/cold-core-open.glb.mesh",
+            "hardware/assembly/scenes/glb/cold-core.glb.mesh",
+            "hardware/assembly/scenes/glb/en04-compressor-bay.glb.mesh",
+            "hardware/assembly/scenes/glb/en07-electronics-bay.glb.mesh",
+            "hardware/assembly/scenes/glb/front-top.glb.mesh",
+            "hardware/assembly/scenes/glb/funnel-drain.glb.mesh",
+            "hardware/assembly/scenes/glb/pump-mount.glb.mesh"
+          ]
+        }
+      ],
+      "publication_queue": {
+        "requests": 6,
+        "started": 2,
+        "coalesced": 5,
+        "exit_codes": [
+          0,
+          0
+        ]
+      },
+      "checkpoint_errors": [],
+      "bazel_elapsed_seconds": 206.129,
+      "bazel_critical_path_seconds": 158.85,
+      "reported_action_cache_hits": 0,
+      "first_completed_producer_utc": "2026-11-09T07:59:08.497394+00:00",
+      "first_completed_producer_seconds_from_admitted_build": 75.39023020799505
+    },
+    {
+      "attempt": "joint-clearance",
+      "bazel_profile_sha256": "06744f3e34890f8307ccea2d42d03d5e0680dabda352ea405512a5e07a70dc4b",
+      "bazel_profile_started_utc": "2026-11-09T08:06:29.338068Z",
+      "print_build_wall_seconds": 150.6049220000059,
+      "compiler_action_count": 4,
+      "actions": [
+        {
+          "target": "BazelWorkspaceStatusAction stable-status.txt",
+          "seconds": 0.025342,
+          "start_seconds_from_profile": 1.036285,
+          "kind": "status"
+        },
+        {
+          "target": "enclosure-back-bottom-program",
+          "seconds": 10.523921,
+          "start_seconds_from_profile": 1.065429,
+          "kind": "compiler"
+        },
+        {
+          "target": "enclosure-front-bottom-program",
+          "seconds": 13.461969,
+          "start_seconds_from_profile": 1.070976,
+          "kind": "compiler"
+        },
+        {
+          "target": "enclosure-front-bottom",
+          "seconds": 11.32459,
+          "start_seconds_from_profile": 14.540344,
+          "kind": "geometry"
+        },
+        {
+          "target": "enclosure-back-bottom",
+          "seconds": 15.607786,
+          "start_seconds_from_profile": 11.605644,
+          "kind": "geometry"
+        },
+        {
+          "target": "enclosure-front-top-program",
+          "seconds": 3.000225,
+          "start_seconds_from_profile": 25.980265,
+          "kind": "compiler"
+        },
+        {
+          "target": "enclosure-back-top-program",
+          "seconds": 6.244187,
+          "start_seconds_from_profile": 27.220705,
+          "kind": "compiler"
+        },
+        {
+          "target": "enclosure-back-top",
+          "seconds": 5.343134,
+          "start_seconds_from_profile": 33.468566,
+          "kind": "geometry"
+        },
+        {
+          "target": "enclosure-front-top",
+          "seconds": 13.204619,
+          "start_seconds_from_profile": 28.984069,
+          "kind": "geometry"
+        },
+        {
+          "target": "installed-machine",
+          "seconds": 99.450387,
+          "start_seconds_from_profile": 42.200125,
+          "kind": "assembly"
+        }
+      ],
+      "carried": [
+        {
+          "seconds": 27.08334995900077,
+          "wall_time_ns": 1794211615546553000,
+          "files": [
+            "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step.mesh",
+            "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step.npz",
+            "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.stl"
+          ]
+        },
+        {
+          "seconds": 28.353345292001904,
+          "wall_time_ns": 1794211616816574000,
+          "files": [
+            "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step.mesh",
+            "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step.npz"
+          ]
+        },
+        {
+          "seconds": 48.969902875003754,
+          "wall_time_ns": 1794211637433571000,
+          "files": [
+            "hardware/manifold-layout/enclosure-assembly.step.mesh"
+          ]
+        },
+        {
+          "seconds": 72.12634916700335,
+          "wall_time_ns": 1794211660590515000,
+          "files": [
+            "hardware/manifold-layout/enclosure-assembly.step.mesh"
+          ]
+        },
+        {
+          "seconds": 102.03042779200041,
+          "wall_time_ns": 1794211690495233000,
+          "files": [
+            "hardware/manifold-layout/enclosure-assembly.step.mesh"
+          ]
+        },
+        {
+          "seconds": 143.62032608400477,
+          "wall_time_ns": 1794211732086012000,
+          "files": [
+            "hardware/assembly/scenes/glb/back-half.glb.mesh",
+            "hardware/assembly/scenes/glb/back-top.glb.mesh",
+            "hardware/assembly/scenes/glb/cap-lid-fill.glb.mesh",
+            "hardware/assembly/scenes/glb/cap-lid.glb.mesh",
+            "hardware/assembly/scenes/glb/cold-core-open.glb.mesh",
+            "hardware/assembly/scenes/glb/cold-core.glb.mesh",
+            "hardware/assembly/scenes/glb/en04-compressor-bay.glb.mesh",
+            "hardware/assembly/scenes/glb/en07-electronics-bay.glb.mesh",
+            "hardware/assembly/scenes/glb/front-top.glb.mesh",
+            "hardware/assembly/scenes/glb/funnel-drain.glb.mesh",
+            "hardware/assembly/scenes/glb/pump-mount.glb.mesh"
+          ]
+        }
+      ],
+      "publication_queue": {
+        "requests": 6,
+        "started": 4,
+        "coalesced": 3,
+        "exit_codes": [
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      "checkpoint_errors": [],
+      "bazel_elapsed_seconds": 144.084,
+      "bazel_critical_path_seconds": 125.5,
+      "reported_action_cache_hits": 0,
+      "first_completed_producer_utc": "2026-11-09T08:06:55.546553+00:00",
+      "first_completed_producer_seconds_from_admitted_build": 27.08334995900077
+    }
+  ],
+  "build_totals": {
+    "attempts": 3,
+    "compiler_actions": 13,
+    "print_build_wall_seconds_sum": 1025.5137823750047,
+    "bazel_elapsed_seconds_sum": 924.1189999999999,
+    "scope": "Sequential build-run wall times; publication subphases and action durations overlap and are not added to these totals."
+  },
+  "host_contention_sample": {
+    "purpose": "This sample records host contention during the requested grip corbel build.",
+    "processes": [
+      "42654  1131 Ss     0.0    07:55 /Users/derekbredensteiner/.local/lib/hsm/runtime/670c162265dade157c68cf6a8e71974b70ed8c565c5fed6cd914e1f5898367d9/hsm-run",
+      "42828  1131 Ss     0.0    06:33 /Users/derekbredensteiner/.local/lib/hsm/runtime/670c162265dade157c68cf6a8e71974b70ed8c565c5fed6cd914e1f5898367d9/hsm-run",
+      "42832 42830 S      0.0    06:32 /Users/derekbredensteiner/.local/lib/hsm/runtime/670c162265dade157c68cf6a8e71974b70ed8c565c5fed6cd914e1f5898367d9/hsm-run",
+      "42920 42893 S      0.0    05:43 /Users/derekbredensteiner/.local/lib/hsm/runtime/670c162265dade157c68cf6a8e71974b70ed8c565c5fed6cd914e1f5898367d9/hsm-run",
+      "42921 42894 S      0.0    05:43 /Users/derekbredensteiner/.local/lib/hsm/runtime/670c162265dade157c68cf6a8e71974b70ed8c565c5fed6cd914e1f5898367d9/hsm-run",
+      "42922 42921 S      0.0    05:42 /Users/derekbredensteiner/.rustup/toolchains/stable-aarch64-apple-darwin/bin/cargo",
+      "42923 42920 S      0.0    05:42 /Users/derekbredensteiner/.rustup/toolchains/stable-aarch64-apple-darwin/bin/cargo",
+      "43518 42923 R     66.0    00:06 /Users/derekbredensteiner/.rustup/toolchains/stable-aarch64-apple-darwin/bin/rustc"
+    ],
+    "memory_pressure": "The system has 8589934592 (524288 pages with a page size of 16384).\nSystem-wide memory free percentage: 17%\n",
+    "swap": "vm.swapusage: total = 8192.00M  used = 7411.56M  free = 780.44M  (encrypted)\n"
+  },
+  "artifacts": {
+    "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.stl": {
+      "sha256": "7eb9455df0f38d96e9edd78384e98b5ac11a2dbfbb43dacf7eab3a378d1360a6",
+      "bytes": 12261784
+    },
+    "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.stl": {
+      "sha256": "a41f94b4d25fcaeb79ba06e64af1f86ee23709d0c2fc89dcd2b52a9d2bda9d51",
+      "bytes": 25625684
+    },
+    "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step.mesh": {
+      "sha256": "8e77f5e7d8afd79bafbe951124b84820fd4077ee9a3fe4a4edee48571ab11cc7",
+      "bytes": 412
+    },
+    "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step.mesh": {
+      "sha256": "2cfc2d05ae1aadffa9c04246bc69fba83c2249cbbd08118b5f5061e28dbbc734",
+      "bytes": 408
+    },
+    "hardware/manifold-layout/enclosure-assembly.step.mesh": {
+      "sha256": "9f06abefd27a838259e1d1488f72aa9bc35c8f0b17657b2a1597a898fbb6e812",
+      "bytes": 171124
+    }
+  },
+  "native_print_verification": {
+    "front_bottom": {
+      "purpose": "This record verifies ordinary grip layers and native support locations for the final corbel slice.",
+      "git_head": "c8ce1f979747e90cb76714fd492ede0870729656",
+      "source_stl": "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.stl",
+      "source_stl_sha256": "7eb9455df0f38d96e9edd78384e98b5ac11a2dbfbb43dacf7eab3a378d1360a6",
+      "project_sha256": "4b99ceae062383f87663b4a856f0ad7cf073c99fede7ecf0116649820c659848",
+      "archive_sha256": "c6158ed12d211acbb9000f82cda04077fa38ae5de8e8adc7dac25ebcc68dcfb0",
+      "gcode_sha256": "d2eed7a4993737ea2e9e9c3584a817069642b7dee2d85a1368ba0f7428705070",
+      "native_review_pass": true,
+      "native_checks": {
+        "archive": true,
+        "bed_border": true,
+        "fine_and_transition_bands": true,
+        "show_faces_support_free": true,
+        "solid_hosts_sampled": true,
+        "tie_windows_support_free": true,
+        "z_trim": true
+      },
+      "minimum_bed_margin_mm": 51.853639499999986,
+      "layer_verification": {
+        "method": "Positive wall extrusion layers from the final archived G-code; repeated sections at one Z are grouped. Nominal histogram rounds observed heights to printing precision.",
+        "model_wall_layers": 754,
+        "nominal_height_histogram_layers": {
+          "0.2": 1,
+          "0.24": 753
+        },
+        "first_layer_mm": [
+          0.2
+        ],
+        "remaining_nominal_layer_height_mm": 0.24,
+        "remaining_observed_height_range_mm": [
+          0.23999,
+          0.240005
+        ],
+        "height_tolerance_mm": 0.001,
+        "first_layer_top_mm": 0.2,
+        "last_layer_top_mm": 180.92,
+        "wrong_height_layers": [],
+        "missing_or_irregular_layer_steps": [],
+        "corbel_source_contract": "geometry.baseline.target",
+        "corbel_source_z_mm": [
+          21.5,
+          35.25
+        ],
+        "corbel_print_z_mm": [
+          27.5,
+          41.25
+        ],
+        "corbel_layers": 59,
+        "corbel_observed_height_range_mm": [
+          0.239998,
+          0.240002
+        ],
+        "corbel_nominal_layer_height_mm": 0.24,
+        "pass": true
+      },
+      "added_fin_bodies": 0,
+      "normal_part_count": 1,
+      "local_layer_ranges": [],
+      "grip_features": [],
+      "support_summary": {
+        "bed_rooted_bodies": 0,
+        "bodies_without_interface_labels": 0,
+        "explicit_interface_islands": 2,
+        "interface_islands": 2,
+        "model_rooted_bodies": 2,
+        "shortest_build_up_mm": 7.92,
+        "shortest_labelled_build_up_mm": 7.92,
+        "support_bodies": 2
+      },
+      "support_tree_source_bounds_mm": [
+        {
+          "id": "tree-1",
+          "bounds": [
+            -103.3,
+            32.7,
+            160.52,
+            -98.9,
+            190.7,
+            168.68
+          ]
+        },
+        {
+          "id": "tree-2",
+          "bounds": [
+            99.1,
+            32.7,
+            160.52,
+            103.9,
+            190.7,
+            168.68
+          ]
+        }
+      ],
+      "support_contacts_on_corbel": false,
+      "support_scope": "A support interface outside the corbel height range cannot contact it. Any candidate within that range needs localized XY review; unlabelled contacts remain unknown.",
+      "submitted_to_printer": false,
+      "support_interface_source_bounds_mm": [
+        {
+          "id": "interface-1",
+          "bounds": [
+            -103.3,
+            33.1,
+            168.44,
+            -98.9,
+            190.7,
+            168.68
+          ]
+        },
+        {
+          "id": "interface-2",
+          "bounds": [
+            99.1,
+            32.7,
+            168.44,
+            103.5,
+            190.7,
+            168.68
+          ]
+        }
+      ],
+      "scheduler_timing_evidence": {
+        "method": "Elapsed process snapshot during the admitted native slice; the difference includes scheduler wait and preparation startup.",
+        "runner_pid": 53921,
+        "runner_elapsed_seconds": 186,
+        "preparer_pid": 54059,
+        "preparer_elapsed_seconds": 103,
+        "wait_plus_startup_seconds_at_snapshot": 83,
+        "precision_seconds": 1,
+        "wait_reason": "Used host swap exceeded the scheduler threshold.",
+        "wait_log_samples": [
+          "[run] waiting: host pressure level=2, swap=12109807616 bytes",
+          "[run] waiting: host pressure level=2, swap=11069292544 bytes"
+        ],
+        "native_slicer_started_utc": "2026-11-09T08:11:45.424397Z",
+        "scope": "The process snapshot is retrospective evidence, not an exact separate scheduler timer."
+      },
+      "support_contact_candidates_by_corbel_z": [],
+      "slicer": "BambuStudio 02.08.02.61",
+      "slicer_settings": {
+        "layer_height": "0.24",
+        "support_bottom_z_distance": "0.3",
+        "support_interface_bottom_layers": "2",
+        "support_interface_spacing": "0.5",
+        "support_interface_top_layers": "2",
+        "support_object_xy_distance": "0.4",
+        "support_on_build_plate_only": "0",
+        "support_style": "default",
+        "support_threshold_angle": "35",
+        "support_top_z_distance": "0.45",
+        "support_type": "tree(auto)"
+      },
+      "native_slicer_result_written_utc": "2026-11-09T08:16:38.562316+00:00",
+      "native_review_written_utc": "2026-11-09T08:16:58.256965+00:00",
+      "native_slicer_started_utc": "2026-11-09T08:11:45.424397Z",
+      "native_slice_elapsed_seconds_from_log_to_result": 293.137919,
+      "result_to_native_review_seconds": 19.694649
+    },
+    "back_bottom": {
+      "purpose": "This record verifies ordinary grip layers and native support locations for the final corbel slice.",
+      "git_head": "c8ce1f979747e90cb76714fd492ede0870729656",
+      "source_stl": "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.stl",
+      "source_stl_sha256": "a41f94b4d25fcaeb79ba06e64af1f86ee23709d0c2fc89dcd2b52a9d2bda9d51",
+      "project_sha256": "9daae635645b0b499836114126252755039801d734fb99a71fc1262529efcf11",
+      "archive_sha256": "3f95f69f1410e2d0ce0856002ad43c4b6d3b8087ff30109549796d7ceec89cc9",
+      "gcode_sha256": "8513d132fe8d245300a00442906d619b6e406cd29adaaeb79064f538d2b41db0",
+      "native_review_pass": true,
+      "native_checks": {
+        "archive": true,
+        "bed_border": true,
+        "fine_and_transition_bands": true,
+        "show_faces_support_free": true,
+        "solid_hosts_sampled": true,
+        "tie_windows_support_free": true,
+        "z_trim": true
+      },
+      "minimum_bed_margin_mm": 22.926995000000034,
+      "layer_verification": {
+        "method": "Positive wall extrusion layers from the final archived G-code; repeated sections at one Z are grouped. Nominal histogram rounds observed heights to printing precision.",
+        "model_wall_layers": 754,
+        "nominal_height_histogram_layers": {
+          "0.2": 1,
+          "0.24": 753
+        },
+        "first_layer_mm": [
+          0.2
+        ],
+        "remaining_nominal_layer_height_mm": 0.24,
+        "remaining_observed_height_range_mm": [
+          0.23999,
+          0.240005
+        ],
+        "height_tolerance_mm": 0.001,
+        "first_layer_top_mm": 0.2,
+        "last_layer_top_mm": 180.92,
+        "wrong_height_layers": [],
+        "missing_or_irregular_layer_steps": [],
+        "corbel_source_contract": "geometry.baseline.target",
+        "corbel_source_z_mm": [
+          21.5,
+          35.25
+        ],
+        "corbel_print_z_mm": [
+          27.5,
+          41.25
+        ],
+        "corbel_layers": 59,
+        "corbel_observed_height_range_mm": [
+          0.239998,
+          0.240002
+        ],
+        "corbel_nominal_layer_height_mm": 0.24,
+        "pass": true
+      },
+      "added_fin_bodies": 0,
+      "normal_part_count": 1,
+      "local_layer_ranges": [],
+      "grip_features": [],
+      "support_summary": {
+        "bed_rooted_bodies": 2,
+        "bodies_without_interface_labels": 0,
+        "explicit_interface_islands": 7,
+        "interface_islands": 7,
+        "model_rooted_bodies": 3,
+        "shortest_build_up_mm": 8.16,
+        "shortest_labelled_build_up_mm": 8.16,
+        "support_bodies": 5
+      },
+      "support_tree_source_bounds_mm": [
+        {
+          "id": "tree-1",
+          "bounds": [
+            -103.6,
+            329.725,
+            160.52,
+            -98.8,
+            455.725,
+            168.92
+          ]
+        },
+        {
+          "id": "tree-2",
+          "bounds": [
+            98.8,
+            224.125,
+            160.52,
+            104.0,
+            455.725,
+            168.92
+          ]
+        },
+        {
+          "id": "tree-3",
+          "bounds": [
+            -103.6,
+            224.125,
+            160.52,
+            -98.8,
+            317.725,
+            168.92
+          ]
+        },
+        {
+          "id": "tree-4",
+          "bounds": [
+            -103.6,
+            198.125,
+            -5.8,
+            -88.0,
+            214.125,
+            60.44
+          ]
+        },
+        {
+          "id": "tree-5",
+          "bounds": [
+            86.4,
+            197.725,
+            -5.8,
+            102.0,
+            214.125,
+            60.44
+          ]
+        }
+      ],
+      "support_interface_source_bounds_mm": [
+        {
+          "id": "interface-1",
+          "bounds": [
+            -94.4,
+            200.125,
+            28.28,
+            -90.8,
+            214.125,
+            28.76
+          ]
+        },
+        {
+          "id": "interface-2",
+          "bounds": [
+            90.8,
+            200.125,
+            28.28,
+            94.8,
+            214.125,
+            28.76
+          ]
+        },
+        {
+          "id": "interface-3",
+          "bounds": [
+            94.4,
+            204.925,
+            59.96,
+            102.0,
+            212.925,
+            60.44
+          ]
+        },
+        {
+          "id": "interface-4",
+          "bounds": [
+            -102.0,
+            204.925,
+            59.96,
+            -94.4,
+            212.525,
+            60.44
+          ]
+        },
+        {
+          "id": "interface-5",
+          "bounds": [
+            -103.6,
+            329.725,
+            168.68,
+            -98.8,
+            455.725,
+            168.92
+          ]
+        },
+        {
+          "id": "interface-6",
+          "bounds": [
+            98.8,
+            224.125,
+            168.68,
+            103.6,
+            455.725,
+            168.92
+          ]
+        },
+        {
+          "id": "interface-7",
+          "bounds": [
+            -103.6,
+            224.125,
+            168.68,
+            -98.8,
+            317.325,
+            168.92
+          ]
+        }
+      ],
+      "support_contacts_on_corbel": false,
+      "support_contact_candidates_by_corbel_z": [
+        "interface-1",
+        "interface-2"
+      ],
+      "support_scope": "A support interface outside the corbel height range cannot contact it. Any candidate within that range needs localized XY review; unlabelled contacts remain unknown.",
+      "submitted_to_printer": false,
+      "localized_contact_review": {
+        "candidate_interfaces": [
+          "interface-1",
+          "interface-2"
+        ],
+        "finding": "The grip-height interfaces support the existing Y-joint fastener ledges behind the blind finger wall. They do not reach the sloping roof.",
+        "rays": {
+          "back-support-ledge-before": {
+            "hit": {
+              "distance_mm": 29.25,
+              "face": 1,
+              "features": [
+                "enclosure-back-bottom::y-joint-fasteners"
+              ],
+              "normal": [
+                0.0,
+                0.0,
+                -1.0
+              ],
+              "point": [
+                -92.5,
+                207.0,
+                29.25
+              ],
+              "triangle": 440439
+            },
+            "part": {
+              "id": "#497",
+              "name": "enclosure-back-bottom"
+            }
+          },
+          "back-support-ledge-west": {
+            "hit": {
+              "distance_mm": 29.25,
+              "face": 1254,
+              "features": [
+                "enclosure-back-bottom::y-joint-fasteners"
+              ],
+              "normal": [
+                0.0,
+                0.0,
+                -1.0
+              ],
+              "point": [
+                -92.5,
+                207.0,
+                29.25
+              ],
+              "triangle": 506361
+            },
+            "part": {
+              "id": "#497",
+              "name": "enclosure-back-bottom"
+            }
+          },
+          "back-support-ledge-east": {
+            "hit": {
+              "distance_mm": 29.25,
+              "face": 1270,
+              "features": [
+                "enclosure-back-bottom::y-joint-fasteners"
+              ],
+              "normal": [
+                0.0,
+                0.0,
+                -1.0
+              ],
+              "point": [
+                92.5,
+                207.0,
+                29.25
+              ],
+              "triangle": 508030
+            },
+            "part": {
+              "id": "#497",
+              "name": "enclosure-back-bottom"
+            }
+          },
+          "back-support-corbel-edge": {
+            "hit": {
+              "distance_mm": 60.79999923706055,
+              "face": 1272,
+              "features": [
+                "enclosure-back-bottom::y-joint-fasteners"
+              ],
+              "normal": [
+                0.0,
+                0.0,
+                -1.0
+              ],
+              "point": [
+                94.8,
+                207.0,
+                60.79999923706055
+              ],
+              "triangle": 508036
+            },
+            "part": {
+              "id": "#497",
+              "name": "enclosure-back-bottom"
+            }
+          }
+        },
+        "maximum_candidate_abs_x_mm": 94.8,
+        "lateral_bead_allowance_mm": 0.5,
+        "maximum_corbel_roof_z_with_allowance_mm": 23.049999999999997,
+        "minimum_candidate_interface_z_mm": 28.28,
+        "vertical_separation_from_corbel_mm": 5.230000000000004,
+        "scope": "Within the interface bounds, the planar roof is below the support interface. Where the screw entry removes the roof, the measured remaining ceiling is the retained bearing seat. All other interfaces lie above the grip height."
+      },
+      "native_slicer_started_utc": "2026-11-09T08:19:22.879206Z",
+      "native_slicer_result_written_utc": "2026-11-09T08:26:46.725519+00:00",
+      "native_review_written_utc": "2026-11-09T08:27:12.119680+00:00",
+      "slicer": "BambuStudio 02.08.02.61",
+      "slicer_settings": {
+        "layer_height": "0.24",
+        "support_bottom_z_distance": "0.3",
+        "support_interface_bottom_layers": "2",
+        "support_interface_spacing": "0.5",
+        "support_interface_top_layers": "2",
+        "support_object_xy_distance": "0.4",
+        "support_on_build_plate_only": "0",
+        "support_style": "default",
+        "support_threshold_angle": "35",
+        "support_top_z_distance": "0.45",
+        "support_type": "tree(auto)"
+      },
+      "native_slice_elapsed_seconds_from_log_to_result": 443.846313,
+      "result_to_native_review_seconds": 25.394161
+    },
+    "scope": "Final archived G-code and its native review establish commanded layers and support placement. Surface finish and load behavior require a physical print."
+  },
+  "physical_print_performed": false,
+  "gallery_verified": {
+    "url": "https://homesodamachine.com/changes/2026-11-09-0213-grip-corbels",
+    "http_status": 200,
+    "title_and_both_images_in_page": true
+  }
+}
