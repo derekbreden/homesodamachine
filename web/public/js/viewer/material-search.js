@@ -45,14 +45,13 @@ export function makeMaterialSearch({ compact = false } = {}) {
     destination.append(link);
     return link;
   }
-  function installedAction(file, names, label, destination, selection = null) {
-    const text = names.map(name => `solid: ${name}`).join("\n");
+  function installedAction(file, text, label, destination, selection = null) {
     const link = result(`/3d#step:${encodeURIComponent(file)}?find=${encodeURIComponent(text)}`, label, null, async () => {
       if (state.mountedDetail?.file !== file) {
         location.hash = `step:${encodeURIComponent(file)}?find=${encodeURIComponent(text)}`; return;
       }
       const { selectComponent, clearComponentSelection } = await import("./component-picker.js");
-      if (selection || names.length === 1) selectComponent(selection || names[0]);
+      if (selection) selectComponent(selection);
       else {
         clearComponentSelection();
         const { clearHighlight } = await import("./part-highlight.js"); clearHighlight();
@@ -117,11 +116,11 @@ export function makeMaterialSearch({ compact = false } = {}) {
               const summary = document.createElement("summary"); summary.textContent = `Show installed locations in ${owner.description}`;
               locations.append(summary);
               for (const [body, bodies] of [...groups].sort(([a], [b]) => a.localeCompare(b))) {
-                installedAction(file, bodies, instanceLabel(body), locations, body).classList.add("material-search-location");
+                installedAction(file, bodies.map(name => `solid: ${name}`).join("\n"), instanceLabel(body), locations, body).classList.add("material-search-location");
               }
               entry.append(locations);
             } else {
-              installedAction(file, instances, `Show in ${owner.description}`, entry).classList.add("material-search-installed");
+              installedAction(file, m.id, `Show in ${owner.description}`, entry).classList.add("material-search-installed");
             }
           }
         }
