@@ -1,0 +1,221 @@
+{
+  "purpose": "Record the CO2 width comparison geometry and inherited print recipe.",
+  "source_project": "hardware/printed-parts/enclosure/display-cover/prints/2026-11-08-identification-set-mark1-right-z005/HSM-identification-set-Mark1-right-z005.3mf",
+  "source_project_sha256": "822fecf8bea54e54dfffdc020919236d9de85a4283348430fbf5df52d7780193",
+  "project": "HSM-CO2-width-Mark1-right-z005.3mf",
+  "project_sha256": "81f5d558324f12cd2c2b51a208c0b20c2bb745d72afa4472c0cd87a3152b8786",
+  "canonical_source_matches_approved_print": {
+    "permutation": [
+      0,
+      2,
+      1
+    ],
+    "signs": [
+      -1,
+      1,
+      1
+    ],
+    "translation": [
+      140.0,
+      171.20000000018626,
+      0.0
+    ],
+    "max_mesh_vertex_distance_mm": [
+      6.9614714578445665e-09,
+      6.9733228325332825e-09
+    ]
+  },
+  "geometry": {
+    "variants": [
+      {
+        "files": {
+          "bodies": [
+            {
+              "area": 3285.594639522593,
+              "max": [
+                20.84999999962747,
+                1.7999999998137355,
+                23.799999999813735
+              ],
+              "min": [
+                -20.84999999962747,
+                0.0,
+                -14.200000000186265
+              ],
+              "name": "bulkhead-ring-co2",
+              "triangles": 3396,
+              "volume": 2563.742401770611
+            },
+            {
+              "area": 112.25802401516702,
+              "max": [
+                4.927978515625,
+                2.2800000004470364,
+                18.319760469570326
+              ],
+              "min": [
+                -4.927978515625,
+                0.8,
+                14.511166719570326
+              ],
+              "name": "bulkhead-ring-co2-word",
+              "triangles": 2860,
+              "volume": 25.440816787459454
+            }
+          ],
+          "files": [
+            "co2-fit-a.step.npz",
+            "co2-fit-a.stl"
+          ],
+          "sha256": {
+            "co2-fit-a.step.npz": "d4e9d4597d71616179ced639a7cd49f46d184b92e4a1dbedc8a49d9f1b2297f2",
+            "co2-fit-a.stl": "098f1c6842c950e3c6e37df3f05764733d3ae1f12eb2e4c0c190d1c5e881beb6"
+          }
+        },
+        "id": "A",
+        "per_side_reduction_mm": 0.15,
+        "width_mm": 41.69999999925494
+      },
+      {
+        "files": {
+          "bodies": [
+            {
+              "area": 3261.714639611664,
+              "max": [
+                20.700000000186265,
+                1.7999999998137355,
+                23.799999999813735
+              ],
+              "min": [
+                -20.700000000186265,
+                0.0,
+                -14.200000000186265
+              ],
+              "name": "bulkhead-ring-co2",
+              "triangles": 3396,
+              "volume": 2543.222401849178
+            },
+            {
+              "area": 112.25802401516702,
+              "max": [
+                4.927978515625,
+                2.2800000004470364,
+                18.319760469570326
+              ],
+              "min": [
+                -4.927978515625,
+                0.8,
+                14.511166719570326
+              ],
+              "name": "bulkhead-ring-co2-word",
+              "triangles": 2860,
+              "volume": 25.440816787459454
+            }
+          ],
+          "files": [
+            "co2-fit-b.step.npz",
+            "co2-fit-b.stl"
+          ],
+          "sha256": {
+            "co2-fit-b.step.npz": "d22525017a8a353f3754ef50d72ab5023cab5777b2a4cca801ff881e85824a98",
+            "co2-fit-b.stl": "019eaeb2a8f74480bb232905259e15112af74d34f164e77b95857582209540f4"
+          }
+        },
+        "id": "B",
+        "per_side_reduction_mm": 0.3,
+        "width_mm": 41.40000000037253
+      }
+    ]
+  },
+  "plate_parts": [
+    {
+      "variant": "A",
+      "part": "red body",
+      "bounds_mm": [
+        [
+          115.65000000037253,
+          115.99999999981372,
+          0.0
+        ],
+        [
+          157.34999999962747,
+          153.99999999981372,
+          1.7999999998137355
+        ]
+      ],
+      "triangles": 3396
+    },
+    {
+      "variant": "A",
+      "part": "white lettering",
+      "bounds_mm": [
+        [
+          131.572021484375,
+          144.71116671957031,
+          0.8
+        ],
+        [
+          141.427978515625,
+          148.51976046957031,
+          2.2800000004470364
+        ]
+      ],
+      "triangles": 2860
+    },
+    {
+      "variant": "B",
+      "part": "red body",
+      "bounds_mm": [
+        [
+          163.79999999981374,
+          115.99999999981372,
+          0.0
+        ],
+        [
+          205.20000000018626,
+          153.99999999981372,
+          1.7999999998137355
+        ]
+      ],
+      "triangles": 3396
+    },
+    {
+      "variant": "B",
+      "part": "white lettering",
+      "bounds_mm": [
+        [
+          179.572021484375,
+          144.71116671957031,
+          0.8
+        ],
+        [
+          189.427978515625,
+          148.51976046957031,
+          2.2800000004470364
+        ]
+      ],
+      "triangles": 2860
+    }
+  ],
+  "layout": {
+    "A_center_x_mm": 136.5,
+    "B_center_x_mm": 184.5,
+    "front_to_back_center_y_mm": 135.0,
+    "wipe_tower_origin_mm": [
+      132,
+      185
+    ]
+  },
+  "z_trim_mm": {
+    "left": 0.0,
+    "right": 0.05
+  },
+  "recipe": "Accepted identification-set PETG recipe, including its filament-start trim and filament-end resets.",
+  "changed_profile_settings": [
+    "wipe_tower_x",
+    "wipe_tower_y"
+  ],
+  "no_baseline_reprint": true,
+  "no_bore_text_or_thickness_change": true,
+  "source_span_axis": "Native/installed X, between the retaining rails."
+}

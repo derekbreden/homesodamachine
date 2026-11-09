@@ -1,0 +1,89 @@
+{
+    "error_string": "Success.",
+    "export_time": 1229,
+    "layer_height": 0.11999999731779099,
+    "plate_index": 0,
+    "prepare_time": 44,
+    "return_code": 0,
+    "sliced_plates": [
+        {
+            "feature_type_times": {
+                "Bottom surface": 336.8167724609375,
+                "Custom": 510.2120361328125,
+                "Flush": 285.0,
+                "Gap infill": 2.90435791015625,
+                "Inner wall": 337.5024108886719,
+                "Internal solid infill": 3460.810546875,
+                "Outer wall": 229.37171936035156,
+                "Prime tower": 860.4515380859375,
+                "Sparse infill": 627.5599365234375,
+                "Top surface": 332.0040588378906,
+                "Travel": 187.30422973632813,
+                "Undefined": 177.4522705078125
+            },
+            "filament_change_times": 0,
+            "filaments": [
+                {
+                    "filament_id": "GFG00",
+                    "id": 2,
+                    "main_used_g": 0.056805968284606934,
+                    "total_used_g": 0.3226605951786041
+                },
+                {
+                    "filament_id": "GFG00",
+                    "id": 4,
+                    "main_used_g": 6.098653793334961,
+                    "total_used_g": 6.845219135284424
+                }
+            ],
+            "generate_support_material_time": 21,
+            "id": 1,
+            "infill_time": 88,
+            "layer_filament_change": 0,
+            "main_predication": 5498.9140625,
+            "make_perimeters_time": 148,
+            "obj_cached_cnt": 0,
+            "objects": [
+                {
+                    "bbox": {
+                        "depth": 38.0,
+                        "height": 2.2799999713897705,
+                        "width": 41.70000076293945,
+                        "x": 115.65000915527344,
+                        "y": 116.0,
+                        "z": 0.0
+                    },
+                    "id": 5,
+                    "name": "CO2 A width 41.7",
+                    "triangle_count": 6256
+                },
+                {
+                    "bbox": {
+                        "depth": 38.0,
+                        "height": 2.2799999713897705,
+                        "width": 41.399993896484375,
+                        "x": 163.8000030517578,
+                        "y": 116.0,
+                        "z": 0.0
+                    },
+                    "id": 9,
+                    "name": "CO2 B width 41.4",
+                    "triangle_count": 6256
+                }
+            ],
+            "sliced_time": 863,
+            "sliced_time_with_cache": 550,
+            "total_predication": 7159.7255859375,
+            "triangle_count": 12512,
+            "warning_message": ""
+        }
+    ],
+    "sparse_infill_density": 100.0,
+    "upward_compatible_machine": [
+        "Bambu Lab H2S 0.2 nozzle",
+        "Bambu Lab H2D 0.2 nozzle",
+        "Bambu Lab H2D Pro 0.2 nozzle",
+        "Bambu Lab A2L 0.2 nozzle"
+    ],
+    "wall_loops": 3
+}

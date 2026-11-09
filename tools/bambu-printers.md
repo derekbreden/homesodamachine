@@ -143,12 +143,13 @@ The [Engineering Plate clear-PETG reservoir retry](../hardware/printed-parts/col
 retains zero added user trim and emits **`G29.1 Z0`** for its plate compensation.
 The preceding Textured PEI print emitted **−0.02 mm**, the stock compensation.
 
-Mark1's PET-GF trim applies only to the textured PEI plate. PETG on the glued
-Engineering Plate uses no Z offset. The
-[identification-set retry](../hardware/printed-parts/enclosure/display-cover/prints/2026-11-06-identification-set-mark1-z000/review.json)
-records the emitted command for its nozzle. The clear PETG reservoir keeps its
-own recorded recipe. Other trim changes require explicit authorization for their
-specific print.
+Mark1's PET-GF trim applies only to the textured PEI plate. The
+[accepted identification set](../hardware/printed-parts/enclosure/display-cover/prints/2026-11-08-identification-set-mark1-right-z005/physical-result.json)
+owns the PETG Engineering Plate settings for its nozzle arrangement. Its filament
+hooks apply the right-side clearance while the left retains its baseline, and
+clear the trim before tool changes and maintenance. The clear PETG reservoir
+keeps its own recorded recipe. Other trim changes require explicit authorization
+for their specific print.
 
 Bambu's Textured PEI compensation subtracts 0.02 mm from the requested trim with
 the 0.4 and 0.8 mm nozzles above; other plates emit the requested value. The shared

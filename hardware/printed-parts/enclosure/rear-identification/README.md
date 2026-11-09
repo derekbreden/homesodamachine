@@ -31,4 +31,7 @@ machine places and colours them by. The nameplate uses the existing unit-0001 pa
 contact with C14, RJ11, all six bulkheads and their nuts. It also records
 the cap profiles, roof stock, meter loading clearance and rear tube routes.
 These are CAD clearances. The installed wire review checks the current conductors against the receiver region. The accepted receiver-coupon fit retains its own scope, and
-physical fit in this enclosure is unmeasured.
+the [completed multicolor print](../display-cover/prints/2026-11-08-identification-set-mark1-right-z005/physical-result.json)
+has accepted appearance and visual nozzle registration. Its chips fit tightly
+between the retaining rails. The [CO2 width comparison](prints/2026-11-09-co2-width-mark1/variants.json)
+keeps the bore, lettering and thickness while reducing the side-to-side span.
