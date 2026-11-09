@@ -110,7 +110,7 @@
       "translation_mm": [
         -94.49,
         408.8501390792555,
-        294.90660569377764
+        284.90660569377764
       ],
       "reference": "hardware/reference/teyleten-relay/teyleten-relay.step"
     },
@@ -135,7 +135,7 @@
       "translation_mm": [
         -94.49,
         408.85013907925554,
-        315.40660569377764
+        305.40660569377764
       ],
       "reference": "hardware/reference/teyleten-relay/teyleten-relay.step"
     },
