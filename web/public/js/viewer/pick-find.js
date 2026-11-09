@@ -313,12 +313,15 @@ async function runFind({ focus = true, text = textarea.value } = {}) {
   }
   const featureQueries = text.split("\n").map(s => s.trim()).filter(s => /^feature\s*:/i.test(s));
   const regularText = text.split("\n").filter(s => !/^\s*feature\s*:/i.test(s)).join("\n");
-  const { picks, files, names, view } = parsePicks(regularText);
+  const { picks, files, names, solids, view } = parsePicks(regularText);
+  const literalSolids = new Set(picks.length ? [] : solids);
   if (!picks.length && !files.length && !names.length && text.trim() && !featureQueries.length) featureQueries.push(text.trim());
   // Known material descriptions can include units, punctuation and more words
   // than the compact CAD-key grammar used by pasted geometry reports.
-  for (const line of text.split("\n").map((line) => line.trim()).filter(Boolean))
+  for (const line of text.split("\n").map((line) => line.trim()).filter(Boolean)) {
+    if (/^(?:solid|feature|file|sources|view|edge|face\w*|box|click)\s*:/i.test(line)) continue;
     if (searchMaterials(state.materialCatalog, line).length && !names.includes(line)) names.push(line);
+  }
   clearOverlay();
   if (!picks.length && !files.length && !names.length && !featureQueries.length) {
     activeFind = null;
@@ -349,6 +352,8 @@ async function runFind({ focus = true, text = textarea.value } = {}) {
   // built, while the picks may still be waiting on the edge reconstruction.
   const available = scenePartNames();
   const nameHits = names.map((query) => {
+    // Explicit solid references identify geometry independently of catalog search vocabulary.
+    if (literalSolids.has(query)) return matchNames([query], available)[0];
     const bodies = materialBodies(query, available);
     return bodies ? { query, names: bodies } : matchNames([query], available)[0];
   });
@@ -360,7 +365,7 @@ async function runFind({ focus = true, text = textarea.value } = {}) {
   const labels = [];
   const allFeatures = sceneFeatures();
   const featureMatches = new Map();
-  for (const query of [...featureQueries, ...names]) {
+  for (const query of [...featureQueries, ...names.filter(name => !literalSolids.has(name))]) {
     for (const feature of matchFeatures(query, allFeatures)) featureMatches.set(feature.key, feature);
   }
   for (const feature of featureMatches.values()) {

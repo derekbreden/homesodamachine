@@ -46,9 +46,9 @@ export function formatFace(face) {
 // --- parsing ---
 // Accepts the copy-all blob format, individual rows, or any mix — one
 // pick per line. Labels ("edge:", "faceA:", "click:", …) are optional;
-// lines are recognized by content. Returns { picks, files, names } where
+// lines are recognized by content. Returns { picks, files, names, solids } where
 // picks carry a `kind` and a `line` (the trimmed source text for status
-// UI) and names are the typed component names (parseNames).
+// UI), names are lookup text, and solids retain explicit CAD-body references.
 const TRIPLE_RE = /x=(-?\d+(?:\.\d+)?)\s+y=(-?\d+(?:\.\d+)?)\s+z=(-?\d+(?:\.\d+)?)/g;
 const NUM = "(-?\\d+(?:\\.\\d+)?)";
 
@@ -256,7 +256,7 @@ export function parsePicks(text) {
   // container, not the target, so it stands only when nothing else does. A
   // paste of just that one line is someone asking for the whole part.
   if (!picks.length) names.push(...solids);
-  return { picks, files, names, view };
+  return { picks, files, names, solids, view };
 }
 
 // --- name matching ---

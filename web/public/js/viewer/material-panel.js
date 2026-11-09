@@ -711,7 +711,7 @@ export function mountMaterialPanel(workspace, { file = null, material = null } =
     const rootMaterial = materialIndex(state.materialCatalog).get(root);
     const names = [...scenePartNames()];
     if (rootMaterial && names.length && names.every(name => matchesBody(name, event.detail.name)) &&
-        (!stepLocation(lastFile).component || !explodeBom(state.materialCatalog, root, options()).some(row => row.item.bodies?.length || row.item.prefix) || rootMaterial.models?.some(model => model.file === lastFile))) {
+        (!stepLocation(lastFile).component || !explodeBom(state.materialCatalog, root, options()).some(row => row.item.bodies?.length || row.item.placements?.length || row.item.prefix) || rootMaterial.models?.some(model => model.file === lastFile))) {
       select(root, [], pick); return;
     }
     const row = explodeBom(state.materialCatalog, root, options()).filter((r) =>

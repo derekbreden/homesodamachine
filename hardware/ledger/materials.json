@@ -503,13 +503,23 @@
             "material": "HSM-0107",
             "quantity": 2,
             "unit": "cut sets",
-            "bodies": [
-              "flavor_tube_pos_x",
-              "flavor_tube_bridge_pos_x",
-              "flavor_umbilical_tube_pos_x",
-              "flavor_tube_neg_x",
-              "flavor_tube_bridge_neg_x",
-              "flavor_umbilical_tube_neg_x"
+            "placements": [
+              {
+                "label": "Flavor tube set \u00b7 +X side",
+                "bodies": [
+                  "flavor_tube_pos_x",
+                  "flavor_tube_bridge_pos_x",
+                  "flavor_umbilical_tube_pos_x"
+                ]
+              },
+              {
+                "label": "Flavor tube set \u00b7 \u2212X side",
+                "bodies": [
+                  "flavor_tube_neg_x",
+                  "flavor_tube_bridge_neg_x",
+                  "flavor_umbilical_tube_neg_x"
+                ]
+              }
             ]
           },
           {
@@ -726,13 +736,23 @@
             "material": "HSM-0325",
             "quantity": 2,
             "unit": "ea",
-            "bodies": [
-              "suction-barb-clamp",
-              "suction-barb-key",
-              "discharge-barb-clamp",
-              "discharge-barb-key"
-            ],
-            "note": "Barb clamps fitted after the bare pump is seated."
+            "note": "Barb clamps fitted after the bare pump is seated.",
+            "placements": [
+              {
+                "label": "Suction barb clamp",
+                "bodies": [
+                  "suction-barb-clamp",
+                  "suction-barb-key"
+                ]
+              },
+              {
+                "label": "Discharge barb clamp",
+                "bodies": [
+                  "discharge-barb-clamp",
+                  "discharge-barb-key"
+                ]
+              }
+            ]
           },
           {
             "material": "HSM-0570",
@@ -1401,13 +1421,23 @@
             "material": "HSM-0107",
             "quantity": 2,
             "unit": "cut sets",
-            "bodies": [
-              "flavor_tube_pos_x",
-              "flavor_tube_bridge_pos_x",
-              "flavor_umbilical_tube_pos_x",
-              "flavor_tube_neg_x",
-              "flavor_tube_bridge_neg_x",
-              "flavor_umbilical_tube_neg_x"
+            "placements": [
+              {
+                "label": "Flavor tube set \u00b7 +X side",
+                "bodies": [
+                  "flavor_tube_pos_x",
+                  "flavor_tube_bridge_pos_x",
+                  "flavor_umbilical_tube_pos_x"
+                ]
+              },
+              {
+                "label": "Flavor tube set \u00b7 \u2212X side",
+                "bodies": [
+                  "flavor_tube_neg_x",
+                  "flavor_tube_bridge_neg_x",
+                  "flavor_umbilical_tube_neg_x"
+                ]
+              }
             ]
           },
           {
@@ -3689,21 +3719,31 @@
             "material": "HSM-0044",
             "quantity": 2,
             "unit": "ea",
-            "bodies": [
-              "pump-a-head",
-              "pump-a-boss",
-              "pump-a-mount",
-              "pump-a-motor",
-              "pump-a-fasteners",
-              "pump-a-primer",
-              "pump-a-sleeves",
-              "pump-b-head",
-              "pump-b-boss",
-              "pump-b-mount",
-              "pump-b-motor",
-              "pump-b-fasteners",
-              "pump-b-primer",
-              "pump-b-sleeves"
+            "placements": [
+              {
+                "label": "Flavor A pump",
+                "bodies": [
+                  "pump-a-head",
+                  "pump-a-boss",
+                  "pump-a-mount",
+                  "pump-a-motor",
+                  "pump-a-fasteners",
+                  "pump-a-primer",
+                  "pump-a-sleeves"
+                ]
+              },
+              {
+                "label": "Flavor B pump",
+                "bodies": [
+                  "pump-b-head",
+                  "pump-b-boss",
+                  "pump-b-mount",
+                  "pump-b-motor",
+                  "pump-b-fasteners",
+                  "pump-b-primer",
+                  "pump-b-sleeves"
+                ]
+              }
             ]
           },
           {
@@ -9265,13 +9305,28 @@
             "material": "HSM-0061",
             "quantity": 3,
             "unit": "ea",
-            "bodies": [
-              "bulkhead-drain",
-              "bulkhead-flavor-a",
-              "bulkhead-flavor-b",
-              "bulkhead-drain-nut",
-              "bulkhead-flavor-a-nut",
-              "bulkhead-flavor-b-nut"
+            "placements": [
+              {
+                "label": "Drain bulkhead",
+                "bodies": [
+                  "bulkhead-drain",
+                  "bulkhead-drain-nut"
+                ]
+              },
+              {
+                "label": "Flavor A bulkhead",
+                "bodies": [
+                  "bulkhead-flavor-a",
+                  "bulkhead-flavor-a-nut"
+                ]
+              },
+              {
+                "label": "Flavor B bulkhead",
+                "bodies": [
+                  "bulkhead-flavor-b",
+                  "bulkhead-flavor-b-nut"
+                ]
+              }
             ]
           },
           {
@@ -9535,11 +9590,27 @@
             "quantity": 6,
             "unit": "ea",
             "note": "Four PSU ceiling screws and the two C14 screws.",
-            "bodies": [
-              "psu-screw-1",
-              "psu-screw-2",
-              "psu-screw-3",
-              "psu-screw-4"
+            "placements": [
+              {
+                "bodies": [
+                  "psu-screw-1"
+                ]
+              },
+              {
+                "bodies": [
+                  "psu-screw-2"
+                ]
+              },
+              {
+                "bodies": [
+                  "psu-screw-3"
+                ]
+              },
+              {
+                "bodies": [
+                  "psu-screw-4"
+                ]
+              }
             ]
           },
           {
@@ -9552,10 +9623,20 @@
             "material": "HSM-0042",
             "quantity": 2,
             "unit": "ea",
-            "bodies": [
-              "valve-v-a",
-              "coil-v-a",
-              "vk-solenoid"
+            "placements": [
+              {
+                "label": "V-A valve",
+                "bodies": [
+                  "valve-v-a",
+                  "coil-v-a"
+                ]
+              },
+              {
+                "label": "V-K valve",
+                "bodies": [
+                  "vk-solenoid"
+                ]
+              }
             ]
           },
           {
@@ -9592,15 +9673,47 @@
             "quantity": 10,
             "unit": "ea",
             "note": "Two C14 bosses, four PSU hosts and four relay diagonals.",
-            "bodies": [
-              "psu-insert-1",
-              "psu-insert-2",
-              "psu-insert-3",
-              "psu-insert-4",
-              "relay-1-insert-1",
-              "relay-1-insert-2",
-              "relay-2-insert-1",
-              "relay-2-insert-2"
+            "placements": [
+              {
+                "bodies": [
+                  "psu-insert-1"
+                ]
+              },
+              {
+                "bodies": [
+                  "psu-insert-2"
+                ]
+              },
+              {
+                "bodies": [
+                  "psu-insert-3"
+                ]
+              },
+              {
+                "bodies": [
+                  "psu-insert-4"
+                ]
+              },
+              {
+                "bodies": [
+                  "relay-1-insert-1"
+                ]
+              },
+              {
+                "bodies": [
+                  "relay-1-insert-2"
+                ]
+              },
+              {
+                "bodies": [
+                  "relay-2-insert-1"
+                ]
+              },
+              {
+                "bodies": [
+                  "relay-2-insert-2"
+                ]
+              }
             ]
           },
           {
@@ -9808,15 +9921,35 @@
             "material": "HSM-0042",
             "quantity": 4,
             "unit": "ea",
-            "bodies": [
-              "valve-v-c",
-              "coil-v-c",
-              "valve-v-g",
-              "coil-v-g",
-              "valve-v-d",
-              "coil-v-d",
-              "valve-v-j",
-              "coil-v-j"
+            "placements": [
+              {
+                "label": "V-C valve",
+                "bodies": [
+                  "valve-v-c",
+                  "coil-v-c"
+                ]
+              },
+              {
+                "label": "V-G valve",
+                "bodies": [
+                  "valve-v-g",
+                  "coil-v-g"
+                ]
+              },
+              {
+                "label": "V-D valve",
+                "bodies": [
+                  "valve-v-d",
+                  "coil-v-d"
+                ]
+              },
+              {
+                "label": "V-J valve",
+                "bodies": [
+                  "valve-v-j",
+                  "coil-v-j"
+                ]
+              }
             ]
           },
           {

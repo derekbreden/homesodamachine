@@ -2,6 +2,12 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
 import { instancesInScene, instanceMaterialHash } from "../contracts/material-instances.js";
+import { explodeBom, occurrenceBodies, materialForComponent } from "../contracts/materials.js";
+import { unitQuantities } from "../contracts/material-quantities.js";
+import { readMaterialCatalog } from "../lib/material-catalog.js";
+import { readMeshHeader } from "../lib/feature-catalog.js";
+import { materialInstances } from "../lib/material-instances.js";
+import { fileURLToPath } from "node:url";
 
 const part = { id: "part", description: "Part" };
 const catalog = item => ({ materials: [part, { id: "root", description: "Machine", bom: { items: [{ material: "part", ...item }] } }] });
@@ -28,4 +34,49 @@ test("a compound repeated binding keeps each copy's nested geometry together", (
 
 test("undrawn BOM quantities do not create pretend locations", () => {
   assert.deepEqual(instancesInScene(catalog({ quantity: 4, bodies: ["missing"] }), "root", "part", ["elsewhere"]), []);
+});
+
+test("a stock length is not interpreted as a count of installed copies", () => {
+  const units = instancesInScene(catalog({ quantity: 2, unit: "m", bodies: ["tube", "sleeve"] }),
+    "root", "part", ["tube", "sleeve"]);
+  assert.deepEqual(units.map(unit => unit.bodies), [["tube", "sleeve"]]);
+});
+
+test("authored placements distinguish compound copies and preserve nested frames", () => {
+  const nested = { materials: [part,
+    { id: "root", bom: { items: [{ material: "stage", quantity: 1, prefix: "frame/" }] } },
+    { id: "stage", description: "Stage", bom: { items: [{ material: "part", quantity: 3, placements: [
+      { label: "Left copy", bodies: ["left/body", "left/collet"] },
+      { label: "Right copy", bodies: ["right/body", "right/collet"] },
+      { label: "Undrawn copy", bodies: ["missing"] },
+    ] }] } },
+  ] };
+  const names = ["frame/right/body/1", "frame/left/body/1", "frame/left/collet", "frame/right/collet", "left/body"];
+  const units = instancesInScene(nested, "root", "part", names);
+  assert.deepEqual(units.map(unit => [unit.label, unit.bodies]), [
+    ["Left copy", ["frame/left/body", "frame/left/collet"]],
+    ["Right copy", ["frame/right/body", "frame/right/collet"]],
+  ]);
+  const row = explodeBom(nested, "root").find(row => row.material.id === "part");
+  assert.deepEqual(new Set(occurrenceBodies(nested, row.path, names)), new Set(names.filter(name => name.startsWith("frame/"))));
+});
+
+test("the machine's compound purchased parts resolve complete individual placements", () => {
+  const hardware = fileURLToPath(new URL("../../hardware/", import.meta.url));
+  const actual = readMaterialCatalog(hardware), file = "manifold-layout/enclosure-assembly.step";
+  const names = readMeshHeader(hardware + file + ".mesh").meshes.map(mesh => mesh.name);
+  const quantities = unitQuantities(actual, "HSM-0001", { finish: "black" });
+  for (const id of ["HSM-0331", "HSM-0047", "HSM-0044", "HSM-0061", "HSM-0042", "HSM-0325"]) {
+    const units = instancesInScene(actual, "HSM-0001", id, names);
+    assert.equal(units.length, quantities.get(id), id);
+    assert.equal(new Set(units.flatMap(unit => unit.bodies)).size, units.flatMap(unit => unit.bodies).length, id);
+    for (const unit of units) assert.equal(materialForComponent(actual, file, unit.name).id, id, unit.name);
+  }
+  assert.deepEqual(instancesInScene(actual, "HSM-0001", "HSM-0044", names).map(unit => unit.label), ["Flavor A pump", "Flavor B pump"]);
+  const screws = instancesInScene(actual, "HSM-0001", "HSM-0139", names);
+  assert.ok(screws.length > 1 && screws.length < quantities.get("HSM-0139"));
+  assert.ok(screws.every(unit => unit.bodies.length === 1));
+  const tubes = materialInstances(hardware, actual, "HSM-0107").groups.find(group => group.assembly === "HSM-0002").instances;
+  assert.equal(tubes.length, unitQuantities(actual, "HSM-0002", { finish: "black" }).get("HSM-0107"));
+  assert.ok(tubes.every(unit => unit.bodies.length > 1));
 });

@@ -208,11 +208,21 @@ test("a scorecard's component.port reference lands on the component", () => {
 });
 
 test("a copy blob's solid: line stands alone but never over its own picks", () => {
-  assert.deepEqual(parsePicks("solid: fluid-17").names, ["fluid-17"]);
+  const explicit = parsePicks("solid: fluid-17");
+  assert.deepEqual(explicit.names, ["fluid-17"]);
+  assert.deepEqual(explicit.solids, ["fluid-17"]);
   const blob = ["solid: fluid-17", STRAIGHT_LINE].join("\n");
-  const { picks, names } = parsePicks(blob);
+  const { picks, names, solids } = parsePicks(blob);
   assert.equal(picks.length, 1);
   assert.deepEqual(names, []); // the picks are the target; the solid is the container
+  assert.deepEqual(solids, ["fluid-17"]);
+});
+
+test("explicit CAD references remain distinct from human material lookup text", () => {
+  const { names, solids } = parsePicks("solid: gas-regulator\nsolid: co2-inlet\nHSM-0331\nwater regulator");
+  assert.deepEqual(solids, ["gas-regulator", "co2-inlet"]);
+  assert.ok(names.includes("HSM-0331") && names.includes("water regulator"));
+  assert.deepEqual(parsePicks("gas-regulator").solids, []);
 });
 
 test("a name query survives the words around it", () => {
