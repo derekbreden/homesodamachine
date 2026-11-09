@@ -139,6 +139,61 @@ test("reservations reduce availability consistently", () => {
   assert.equal(row(forecast, "screws").available, 6);
 });
 
+test("reusable equipment covers a batch and remains after completion", () => {
+  const folder = stockFixture(),
+    file = path.join(folder, "ledger/stock.json"),
+    stock = JSON.parse(fs.readFileSync(file, "utf8"));
+  stock.resources.push({
+    id: "bath",
+    name: "Bath",
+    unit: "ea",
+    onHand: 1,
+    planning: { root: "HSM-1000", perUnit: 1, reusable: true },
+  });
+  fs.writeFileSync(file, JSON.stringify(stock));
+  fs.appendFileSync(
+    path.join(folder, "ledger/bom.md"),
+    "\n## 12. Shop\n| Bath | | 1 | $1 | $1 <!--@consumables--><!--parts HSM-1002--> |\n",
+  );
+  const value = catalog(folder);
+  const plan = planMaterial(value, "HSM-1000", 20, { finish: "white" });
+  const bath = plan.resources.find((input) => input.resource === "bath");
+  assert.equal(bath.needed, 1);
+  assert.equal(bath.status, "covered");
+  const proposal = completionProposal(value, "HSM-1002");
+  assert.ok(!proposal.inputs.some((input) => input.resource === "bath"));
+  record(folder, proposal);
+  assert.equal(readStockLedger(folder).resources.bath.onHand, 1);
+  assert.throws(
+    () =>
+      record(folder, {
+        ...proposal,
+        id: randomUUID(),
+        inputs: [{ resource: "bath", quantity: 1, unit: "ea" }],
+      }),
+    /Reusable/,
+  );
+});
+
+test("provisional purchasing reserves shrink with completed-stock credits", () => {
+  const folder = stockFixture(),
+    file = path.join(folder, "ledger/stock.json"),
+    stock = JSON.parse(fs.readFileSync(file, "utf8"));
+  const material = stock.resources.find((item) => item.id === "petgf-black");
+  material.onHand = 0;
+  material.planning.purchaseReserve = { 5: 10, 10: 20, 20: 40 };
+  fs.writeFileSync(file, JSON.stringify(stock));
+  const before = row(readBatchForecast(folder, null), "petgf-black");
+  assert.equal(before.required, 2.5);
+  assert.equal(before.quantity, 10);
+  count(folder, "HSM-1002", 4);
+  const after = row(readBatchForecast(folder, null), "petgf-black");
+  assert.equal(after.required, 0.5);
+  assert.equal(after.quantity, 2);
+  count(folder, "HSM-1000", 5, { finish: "white" });
+  assert.equal(row(readBatchForecast(folder, null), "petgf-black"), undefined);
+});
+
 test("finish applies to colored parts and stays off common assemblies", () => {
   const folder = stockFixture();
   const proposal = completionProposal(catalog(folder), "HSM-1001", 1, "black");

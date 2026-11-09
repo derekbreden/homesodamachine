@@ -524,7 +524,6 @@
         }
       ],
       "sourceUrl": "https://www.amazon.com/dp/B001BZEQ44",
-      "fixedQuantity": 1,
       "stock": "B001BZEQ44"
     },
     {
@@ -2850,7 +2849,7 @@
       "supplier": "amazon",
       "priceBasis": "merchandise",
       "status": "estimate",
-      "note": "Prime $37.98/kit. Two kits for 5, three for 10 and five for 20 reserve 50/75/125 ft of EACH colour before deducting the existing kit. The 14 ft total per machine is from the BOM; the limiting colour remains unmeasured. Allocation is provisional rather than dividing total feet by 125.",
+      "note": "The recorded Prime offer supplies the stated color kit. The stock ledger carries a provisional purchase reserve for unmeasured color allocation; completed-stock credits reduce that reserve before supplier lots are selected.",
       "options": [
         {
           "quantity": 125,
@@ -2860,11 +2859,6 @@
         }
       ],
       "sourceUrl": "https://www.amazon.com/dp/B06Y557TCL",
-      "packageCounts": {
-        "5": 2,
-        "10": 3,
-        "20": 5
-      },
       "stock": "16awg-kit"
     },
     {

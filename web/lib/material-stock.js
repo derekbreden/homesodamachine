@@ -156,8 +156,12 @@ export function readMaterialStock(hardwareDir, catalog) {
         if (item.unit === "coil cuts" && id === "HSM-0015") quantity = 1;
         const kit = record.kits?.[key]?.includes(id);
         add(id, key, kit ? 1 : quantity, {
-          ...(kit && { mode: "kit" }),
-          estimated: allowance || quantity == null,
+          ...(item.planning?.reusable
+            ? { mode: "reusable" }
+            : kit
+              ? { mode: "kit" }
+              : {}),
+          estimated: allowance || quantity == null || present.length > 1,
         });
       }
     });

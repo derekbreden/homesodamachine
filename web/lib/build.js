@@ -31,7 +31,7 @@ function renderSupply(row, stock, index) {
     <summary><span class="stock-supply-name">${escape(resource.name)}</span><span class="stock-state">${escape(state)}</span>
       <span class="stock-supply-count">${row.quantityKnown ? "Need " + escape(amount(row.needed, resource.unit)) : "Usage not recorded"} · Available ${escape(amount(row.available, resource.unit))}${resource.incoming ? ` · ${escape(amount(resource.incoming, resource.unit))} incoming` : ""}</span></summary>
     <div class="stock-detail"><p>Used by ${uses}.</p>
-      <p>${escape(resource.note)}</p>${resource.asOf ? `<p>Balance dated ${escape(resource.asOf)}${resource.estimated ? " · estimate" : ""}.</p>` : ""}
+      <p>${escape(resource.note)}</p>${row.reusable ? "<p>Reusable equipment stays available after completion.</p>" : ""}${resource.asOf ? `<p>Balance dated ${escape(resource.asOf)}${resource.estimated ? " · estimate" : ""}.</p>` : ""}
       ${resource.reserved ? `<p>${escape(amount(resource.reserved, resource.unit))} reserved.</p>` : ""}
       ${!row.quantityKnown ? `<p>The required usable quantity has not been established in this stock unit.</p>` : ""}
       ${renderSources(resource)}${resource.href ? `<p><a href="${escape(resource.href)}">Supplier listing</a></p>` : ""}</div>

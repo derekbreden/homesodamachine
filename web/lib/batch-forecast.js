@@ -1,3 +1,4 @@
+// The purchasing forecast turns shared net material demand into supplier lots and a quoted cash budget.
 import fs from "node:fs";
 import path from "node:path";
 import { runMinutes } from "../contracts/part-costs.js";
@@ -89,14 +90,7 @@ export function calculateBatch(data, units, labor) {
     if (![required, available, incoming].every(n => Number.isFinite(n) && n >= 0) || (onHand != null && onHand < 0 && !item.inventory?.needsCount)) throw new RangeError("Invalid requirement or inventory credit");
     const openingStock = available + incoming;
     const shortfall = Math.max(0, required - openingStock);
-    let target = Math.max(shortfall, (item.minimumPurchaseQuantity?.[String(units)] || 0) - openingStock);
-    // A colour kit must cover its limiting colour, not just aggregate feet.
-    // The provisional gross kit allocation is reduced by the existing kit.
-    if (item.packageCounts) {
-      const lots = item.packageCounts[String(units)];
-      if (!Number.isInteger(lots) || lots < 1 || lots * item.options[0].quantity < required) throw new RangeError("Invalid provisional lot count");
-      target = Math.max(target, lots * item.options[0].quantity - openingStock);
-    }
+    const target = Math.max(shortfall, (item.minimumPurchaseQuantity?.[String(units)] || 0) - openingStock);
     let purchase = target > 1e-8 ? optimizePurchase(target, item.options) : { quantity: 0, costCents: 0, packages: [] };
     purchase.required = required;
     purchase.remaining = Math.max(0, openingStock + purchase.quantity - required);
@@ -160,12 +154,17 @@ export function readBatchForecast(hardwareDir, labor) {
   const batches = [5, 10, 20].map(units => {
     const plan = planMaterial(catalog, catalog.cost_root, units, { finish: "white" });
     const needs = new Map(plan.resources.map(row => [row.resource, row]));
+    const gross = planMaterial({ ...catalog, stock: { ...catalog.stock, materials: {} } }, catalog.cost_root, units, { finish: "white" });
+    const grossNeeds = new Map(gross.resources.map(row => [row.resource, row]));
     const remaining = plan.materials.find(row => row.material === catalog.cost_root)?.make || 0;
     const items = data.items.map(item => {
       const need = needs.get(item.stock);
       const fixedQuantity = !need ? 0 : need.quantityKnown ? need.needed : item.perUnit * remaining * (1 + (item.materialAllowance || 0));
+      const reserve = catalog.stock.resources[item.stock].planning?.purchaseReserve?.[String(units)];
+      const original = grossNeeds.get(item.stock);
+      const fraction = need?.quantityKnown && original?.quantityKnown && original.needed > 0 ? need.needed / original.needed : remaining / units;
       return { ...item, fixedQuantity, requirementUnknown: Boolean(need && !need.quantityKnown),
-        ...(!need && { packageCounts: null, minimumPurchaseQuantity: null }) };
+        minimumPurchaseQuantity: need && reserve ? { [units]: reserve * fraction } : null };
     });
     const batch = calculateBatch({ ...data, items: items.filter(item => needs.has(item.stock)) }, units, labor);
     batch.unpriced = plan.resources.filter(row => !offered.has(row.resource)).flatMap(row => {
