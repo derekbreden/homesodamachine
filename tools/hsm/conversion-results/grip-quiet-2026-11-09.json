@@ -1,0 +1,281 @@
+{
+  "purpose": "This record compares fresh corbel exports and native slicing on a reserved host with the earlier busy-host request.",
+  "started_at": "2026-11-09T20:54:05.670906+00:00",
+  "source_commit": "db3b5f2036bca7bb8c3ffa106a6d974a3b9b5fef",
+  "host_before": {
+    "swap": "vm.swapusage: total = 6144.00M  used = 5243.12M  free = 900.88M  (encrypted)",
+    "memory": "The system has 8589934592 (524288 pages with a page size of 16384).\nSystem-wide memory free percentage: 23%",
+    "load": "vm.loadavg: { 3.89 3.69 3.82 }"
+  },
+  "samples": [
+    {
+      "part": "enclosure-front-bottom",
+      "stage_cache": "initially-empty-private-stage-cache",
+      "binary_sha256": "f6296b4f6a7904982fba7d9c5a28b85377cc5e046711151e4a188e0205182d9a",
+      "started_at": "2026-11-09T20:54:05.726638+00:00",
+      "finished_at": "2026-11-09T20:54:12.233516+00:00",
+      "seconds": 6.501248208005563,
+      "exit_code": 0,
+      "stl_sha256": "7eb9455df0f38d96e9edd78384e98b5ac11a2dbfbb43dacf7eab3a378d1360a6",
+      "matches_busy_run_stl": true,
+      "phases": [
+        {
+          "ok": true,
+          "seconds": 0.020278291,
+          "stage": "fine model"
+        },
+        {
+          "bytes_read": 0,
+          "bytes_written": 6620179,
+          "cache_io_seconds": 0.031221416,
+          "reused": 0,
+          "seconds": 2.982139709,
+          "stage": "front-bottom print surface"
+        },
+        {
+          "ok": true,
+          "seconds": 0.036949167,
+          "stage": "print mesh welding"
+        },
+        {
+          "ok": true,
+          "seconds": 0.1019385,
+          "stage": "viewer surface"
+        }
+      ]
+    },
+    {
+      "part": "enclosure-back-bottom",
+      "stage_cache": "initially-empty-private-stage-cache",
+      "binary_sha256": "547d51c4825e58e649969c6e692bc3aafbb0621245ed6594fbad4d3d84f2d941",
+      "started_at": "2026-11-09T20:54:12.252058+00:00",
+      "finished_at": "2026-11-09T20:54:21.879113+00:00",
+      "seconds": 9.622314833992277,
+      "exit_code": 0,
+      "stl_sha256": "a41f94b4d25fcaeb79ba06e64af1f86ee23709d0c2fc89dcd2b52a9d2bda9d51",
+      "matches_busy_run_stl": true,
+      "phases": [
+        {
+          "ok": true,
+          "seconds": 0.049477875,
+          "stage": "fine model"
+        },
+        {
+          "bytes_read": 0,
+          "bytes_written": 14106109,
+          "cache_io_seconds": 0.066588876,
+          "reused": 0,
+          "seconds": 4.802502042,
+          "stage": "back-bottom print surface"
+        },
+        {
+          "ok": true,
+          "seconds": 0.088342375,
+          "stage": "print mesh welding"
+        },
+        {
+          "ok": true,
+          "seconds": 0.209991666,
+          "stage": "viewer surface"
+        }
+      ]
+    },
+    {
+      "part": "enclosure-front-bottom",
+      "stage_cache": "warm-private-stage-cache",
+      "binary_sha256": "f6296b4f6a7904982fba7d9c5a28b85377cc5e046711151e4a188e0205182d9a",
+      "started_at": "2026-11-09T20:54:21.911504+00:00",
+      "finished_at": "2026-11-09T20:54:22.527019+00:00",
+      "seconds": 0.6102680420008255,
+      "exit_code": 0,
+      "stl_sha256": "7eb9455df0f38d96e9edd78384e98b5ac11a2dbfbb43dacf7eab3a378d1360a6",
+      "matches_busy_run_stl": true,
+      "phases": [
+        {
+          "ok": true,
+          "seconds": 0.008920458,
+          "stage": "fine model"
+        },
+        {
+          "bytes_read": 6620179,
+          "bytes_written": 0,
+          "cache_io_seconds": 0.080001167,
+          "reused": 1,
+          "seconds": 0.093669959,
+          "stage": "front-bottom print surface"
+        },
+        {
+          "ok": true,
+          "seconds": 0.039121041,
+          "stage": "print mesh welding"
+        },
+        {
+          "ok": true,
+          "seconds": 0.105010333,
+          "stage": "viewer surface"
+        }
+      ]
+    },
+    {
+      "part": "enclosure-back-bottom",
+      "stage_cache": "warm-private-stage-cache",
+      "binary_sha256": "547d51c4825e58e649969c6e692bc3aafbb0621245ed6594fbad4d3d84f2d941",
+      "started_at": "2026-11-09T20:54:22.546882+00:00",
+      "finished_at": "2026-11-09T20:54:23.948744+00:00",
+      "seconds": 1.3971577090123901,
+      "exit_code": 0,
+      "stl_sha256": "a41f94b4d25fcaeb79ba06e64af1f86ee23709d0c2fc89dcd2b52a9d2bda9d51",
+      "matches_busy_run_stl": true,
+      "phases": [
+        {
+          "ok": true,
+          "seconds": 0.027234083,
+          "stage": "fine model"
+        },
+        {
+          "bytes_read": 14106109,
+          "bytes_written": 0,
+          "cache_io_seconds": 0.217232417,
+          "reused": 1,
+          "seconds": 0.255840375,
+          "stage": "back-bottom print surface"
+        },
+        {
+          "ok": true,
+          "seconds": 0.070521334,
+          "stage": "print mesh welding"
+        },
+        {
+          "ok": true,
+          "seconds": 0.211911917,
+          "stage": "viewer surface"
+        }
+      ]
+    }
+  ],
+  "native_front": {
+    "started_at": "2026-11-09T20:54:23.981484+00:00",
+    "finished_at": "2026-11-09T20:58:08.958880+00:00",
+    "wall_seconds": 224.97564162500203,
+    "exit_code": 0
+  },
+  "host_after": {
+    "swap": "vm.swapusage: total = 7168.00M  used = 6115.62M  free = 1052.38M  (encrypted)",
+    "memory": "The system has 8589934592 (524288 pages with a page size of 16384).\nSystem-wide memory free percentage: 33%",
+    "load": "vm.loadavg: { 8.09 6.98 5.34 }"
+  },
+  "finished_at": "2026-11-09T20:58:08.985651+00:00",
+  "units": {
+    "duration": "seconds",
+    "length": "mm"
+  },
+  "baseline_record": "tools/hsm/conversion-results/grip-corbel-2026-11-09.json",
+  "command": "python3 tools/run.py --timing -- python3 .cache/runs/grip-quiet-20261109/measure.py",
+  "scope": "The host scheduler reserves all heavy-run slots for sequential native program executions. Existing compiled programs are reused. This excludes compilation, assembly and website publication; it does not replay the full design request.",
+  "stage_cache_scope": "The private cache is empty at the beginning of the first pair. Front runs before back, so common stages may carry between parts. The second pair reuses that private cache. Shared production caches are neither cleared nor copied.",
+  "sample_count_per_case": 1,
+  "retrospective_elapsed_accounting": {
+    "request_to_complete_seconds": 3604.606,
+    "build_and_publication_runs_seconds": 1025.5137823750047,
+    "native_slices_and_cooling_archive_seconds": 736.984232,
+    "native_post_slice_review_seconds": 45.088809999999995,
+    "explicit_build_slice_review_seconds_sum": 1807.5868243750047,
+    "residual_elapsed_seconds": 1797.0191756249956,
+    "additional_approximate_admission_plus_startup_seconds": 83,
+    "residual_after_approximate_admission_seconds": 1714.0191756249956,
+    "pre_first_source_edit_seconds": 734.692,
+    "first_edit_to_first_observed_live_seconds": 562.056,
+    "scope": "These are elapsed stage durations, not CPU time or a complete machine-versus-agent attribution. Admission evidence is approximate. Agent review overlapped local work. The residual includes unclassified tool work, browser observation, editing, reasoning and delivery."
+  },
+  "geometry_pair_seconds": {
+    "initially-empty-private-stage-cache": 16.12356304199784,
+    "warm-private-stage-cache": 2.0074257510132156
+  },
+  "native_comparison": {
+    "project_sha256": "4b99ceae062383f87663b4a856f0ad7cf073c99fede7ecf0116649820c659848",
+    "project_bytes_identical_to_baseline": true,
+    "source_stl_sha256": "7eb9455df0f38d96e9edd78384e98b5ac11a2dbfbb43dacf7eab3a378d1360a6",
+    "slicer": "BambuStudio 02.08.02.61",
+    "slicer_matches_baseline": true,
+    "quiet_started_utc": "2026-11-09T20:54:24.990892+00:00",
+    "quiet_cooling_archive_result_written_utc": "2026-11-09T20:57:26.410018+00:00",
+    "quiet_review_written_utc": "2026-11-09T20:58:08.931298+00:00",
+    "quiet_slice_cooling_archive_seconds": 181.419126,
+    "busy_slice_cooling_archive_seconds": 293.137919,
+    "quiet_post_slice_review_seconds": 42.52128,
+    "busy_post_slice_review_seconds": 19.694649,
+    "slice_cooling_archive_time_ratio_quiet_to_busy": 0.6188865862829571,
+    "quiet_review_pass": true,
+    "checks": {
+      "archive": true,
+      "bed_border": true,
+      "fine_and_transition_bands": true,
+      "show_faces_support_free": true,
+      "solid_hosts_sampled": true,
+      "tie_windows_support_free": true,
+      "z_trim": true
+    },
+    "layers": 754,
+    "local_layer_ranges": [],
+    "fins": [],
+    "support_summary": {
+      "bed_rooted_bodies": 0,
+      "bodies_without_interface_labels": 0,
+      "explicit_interface_islands": 2,
+      "interface_islands": 2,
+      "model_rooted_bodies": 2,
+      "shortest_build_up_mm": 7.92,
+      "shortest_labelled_build_up_mm": 7.92,
+      "support_bodies": 2
+    },
+    "support_interfaces": [
+      {
+        "bbox_cad_xyz_mm": [
+          -103.3,
+          33.1,
+          168.44,
+          -98.9,
+          190.7,
+          168.68
+        ],
+        "bbox_xy_mm": [
+          59.2,
+          83.2,
+          63.6,
+          240.8
+        ],
+        "build_up_mm": 7.92,
+        "first_z_mm": 174.44,
+        "id": "interface-1",
+        "last_z_mm": 174.68,
+        "tree": "tree-1"
+      },
+      {
+        "bbox_cad_xyz_mm": [
+          99.1,
+          32.7,
+          168.44,
+          103.5,
+          190.7,
+          168.68
+        ],
+        "bbox_xy_mm": [
+          261.6,
+          82.8,
+          266.0,
+          240.8
+        ],
+        "build_up_mm": 7.92,
+        "first_z_mm": 174.44,
+        "id": "interface-2",
+        "last_z_mm": 174.68,
+        "tree": "tree-2"
+      }
+    ],
+    "archive_sha256": "ca1c37a4e84651bb56f74e015a721d79796c79df5ae2cd920fab63d828085fe3",
+    "gcode_sha256": "a944d35cfb30dd98fa64ebc3a4ba9d70d89c234cd95b6f8647c52ad2e460a3a9",
+    "submitted_to_printer": false,
+    "timing_boundary": "The native result is read after cooling postprocessing and archive rewriting, matching the recorded busy-run boundary. This is broader than the first slicer-completion observation.",
+    "inference_limit": "The input and slicer version match, and heavy scheduler slots are reserved. The busy run lacks equivalent resource and cache telemetry, so the elapsed reduction is not attributed entirely to contention."
+  }
+}
