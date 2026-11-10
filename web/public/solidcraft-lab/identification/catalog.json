@@ -1,0 +1,350 @@
+{
+  "purpose": "Complete native and Rust chips replay the approved historical side clearance.",
+  "source_revision": "1a7839866fa71f207927dd5b8973c28a487a2d7a",
+  "change_revision": "117ada0b44e4ef2e930ac93ad6a9ce5ca95007ce",
+  "parts": [
+    {
+      "key": "water",
+      "label": "TAP",
+      "transform": [
+        [
+          -1,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          1,
+          0,
+          0
+        ],
+        [
+          -50,
+          -25,
+          0,
+          1
+        ]
+      ]
+    },
+    {
+      "key": "co2",
+      "label": "CO2",
+      "transform": [
+        [
+          -1,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          -25,
+          0,
+          1
+        ]
+      ]
+    },
+    {
+      "key": "drain",
+      "label": "DRAIN",
+      "transform": [
+        [
+          -1,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          1,
+          0,
+          0
+        ],
+        [
+          50,
+          -25,
+          0,
+          1
+        ]
+      ]
+    },
+    {
+      "key": "carb",
+      "label": "SODA",
+      "transform": [
+        [
+          -1,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          1,
+          0,
+          0
+        ],
+        [
+          -50,
+          25,
+          0,
+          1
+        ]
+      ]
+    },
+    {
+      "key": "flavor-a",
+      "label": "FLAVOR-A",
+      "transform": [
+        [
+          -1,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          25,
+          0,
+          1
+        ]
+      ]
+    },
+    {
+      "key": "flavor-b",
+      "label": "FLAVOR-B",
+      "transform": [
+        [
+          -1,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          1,
+          0,
+          0
+        ],
+        [
+          50,
+          25,
+          0,
+          1
+        ]
+      ]
+    }
+  ],
+  "variants": {
+    "before": {
+      "width": 42
+    },
+    "after": {
+      "width": 41.6
+    }
+  },
+  "models": {
+    "native": {
+      "before": {
+        "parts": {
+          "water": {
+            "kind": "native-export",
+            "label": "SolidCraft export",
+            "url": "/solidcraft-lab/identification/assets/native-before/water.3mf?v=d275506d9284a8ce",
+            "sha256": "d275506d9284a8ce240ed3efea74c244c05a441bdc6234cc69875ff45f5df703",
+            "bytes": 40952
+          },
+          "co2": {
+            "kind": "native-export",
+            "label": "SolidCraft export",
+            "url": "/solidcraft-lab/identification/assets/native-before/co2.3mf?v=a436b9de7fb95b04",
+            "sha256": "a436b9de7fb95b04d6221dead2b0e84f638aa029c2b7bc1dc539efa73d6b7db2",
+            "bytes": 180298
+          },
+          "drain": {
+            "kind": "native-export",
+            "label": "SolidCraft export",
+            "url": "/solidcraft-lab/identification/assets/native-before/drain.3mf?v=4b266c4d4227a6c7",
+            "sha256": "4b266c4d4227a6c71b8edf5119e103468776235c94c81c1751f56d9b6b2f049e",
+            "bytes": 77311
+          },
+          "carb": {
+            "kind": "native-export",
+            "label": "SolidCraft export",
+            "url": "/solidcraft-lab/identification/assets/native-before/carb.3mf?v=baeba8e4ddcecc00",
+            "sha256": "baeba8e4ddcecc00e03e0059d2a99be8b386538002cac1c9bf24591c0d95275f",
+            "bytes": 169130
+          },
+          "flavor-a": {
+            "kind": "native-export",
+            "label": "SolidCraft export",
+            "url": "/solidcraft-lab/identification/assets/native-before/flavor-a.3mf?v=2009955a6b3e5505",
+            "sha256": "2009955a6b3e55052239dfd8059a98f08e2566c67d4b8ee5a3d8ad0a9a31a9d1",
+            "bytes": 111601
+          },
+          "flavor-b": {
+            "kind": "native-export",
+            "label": "SolidCraft export",
+            "url": "/solidcraft-lab/identification/assets/native-before/flavor-b.3mf?v=aff276f323cf3f44",
+            "sha256": "aff276f323cf3f44bca3a7340f60c16f3c62c7b6dad4531257fd6c86cfb02941",
+            "bytes": 110898
+          }
+        },
+        "downloads": [
+          {
+            "label": "Complete two-material set · 3MF",
+            "url": "/solidcraft-lab/identification/assets/native-before/complete-set.3mf"
+          },
+          {
+            "label": "WATER · fused STL",
+            "url": "/solidcraft-lab/identification/assets/native-before/water.stl"
+          },
+          {
+            "label": "CO2 · fused STL",
+            "url": "/solidcraft-lab/identification/assets/native-before/co2.stl"
+          },
+          {
+            "label": "DRAIN · fused STL",
+            "url": "/solidcraft-lab/identification/assets/native-before/drain.stl"
+          },
+          {
+            "label": "CARB · fused STL",
+            "url": "/solidcraft-lab/identification/assets/native-before/carb.stl"
+          },
+          {
+            "label": "FLAVOR-A · fused STL",
+            "url": "/solidcraft-lab/identification/assets/native-before/flavor-a.stl"
+          },
+          {
+            "label": "FLAVOR-B · fused STL",
+            "url": "/solidcraft-lab/identification/assets/native-before/flavor-b.stl"
+          }
+        ],
+        "design": "/solidcraft-lab/identification/designs/before.json"
+      }
+    },
+    "rust": {
+      "before": {
+        "parts": {
+          "water": {
+            "kind": "rust-payload",
+            "label": "Rust production payload",
+            "url": "/solidcraft-lab/identification/assets/rust-before/rear-label-water.step.mesh?v=9424da437fc9fa8b",
+            "sha256": "9424da437fc9fa8be3487a705ed3824a40bd9acde7d684b02ede6f7821724f05",
+            "bytes": 75324
+          },
+          "co2": {
+            "kind": "rust-payload",
+            "label": "Rust production payload",
+            "url": "/solidcraft-lab/identification/assets/rust-before/rear-label-co2.step.mesh?v=afa3157d3c7952af",
+            "sha256": "afa3157d3c7952af759f324d58ee8e00d09380d2b2a9d5fbba850798c90f9c96",
+            "bytes": 242212
+          },
+          "drain": {
+            "kind": "rust-payload",
+            "label": "Rust production payload",
+            "url": "/solidcraft-lab/identification/assets/rust-before/rear-label-drain.step.mesh?v=a9f2ab60f8666f52",
+            "sha256": "a9f2ab60f8666f52e647e0f66d79eaf03c0e8af634fb13c3b38accb718359c89",
+            "bytes": 150148
+          },
+          "carb": {
+            "kind": "rust-payload",
+            "label": "Rust production payload",
+            "url": "/solidcraft-lab/identification/assets/rust-before/rear-label-carb.step.mesh?v=fa0c3ab8a8832e90",
+            "sha256": "fa0c3ab8a8832e908d663ce4d1fb39bac31259b52e0502246b2ea7ec1a4e85a2",
+            "bytes": 264804
+          },
+          "flavor-a": {
+            "kind": "rust-payload",
+            "label": "Rust production payload",
+            "url": "/solidcraft-lab/identification/assets/rust-before/rear-label-flavor-a.step.mesh?v=dbd85c7170a2e276",
+            "sha256": "dbd85c7170a2e27699d6f9700eec6f3fd96e83c87221d0f34e4be328dbfa3e29",
+            "bytes": 192744
+          },
+          "flavor-b": {
+            "kind": "rust-payload",
+            "label": "Rust production payload",
+            "url": "/solidcraft-lab/identification/assets/rust-before/rear-label-flavor-b.step.mesh?v=521e562e51d9b833",
+            "sha256": "521e562e51d9b83348cba04cbc00f7a427f6063216aa6948f195eae96190e05f",
+            "bytes": 192744
+          }
+        },
+        "downloads": [
+          {
+            "label": "WATER · fused STL",
+            "url": "/solidcraft-lab/identification/assets/rust-before/rear-label-water.stl"
+          },
+          {
+            "label": "CO2 · fused STL",
+            "url": "/solidcraft-lab/identification/assets/rust-before/rear-label-co2.stl"
+          },
+          {
+            "label": "DRAIN · fused STL",
+            "url": "/solidcraft-lab/identification/assets/rust-before/rear-label-drain.stl"
+          },
+          {
+            "label": "CARB · fused STL",
+            "url": "/solidcraft-lab/identification/assets/rust-before/rear-label-carb.stl"
+          },
+          {
+            "label": "FLAVOR-A · fused STL",
+            "url": "/solidcraft-lab/identification/assets/rust-before/rear-label-flavor-a.stl"
+          },
+          {
+            "label": "FLAVOR-B · fused STL",
+            "url": "/solidcraft-lab/identification/assets/rust-before/rear-label-flavor-b.stl"
+          }
+        ]
+      }
+    }
+  }
+}

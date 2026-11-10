@@ -3,7 +3,7 @@ import * as THREE from 'three';
 import {createNavigation} from '/js/viewer/navigation.js';
 import {readNativeDisplay} from './native-display.js';
 
-export async function createPreview(host,config,load,{onSelect=()=>{}}={}){
+export async function createPreview(host,config,load,{onSelect=()=>{},readDisplay=readNativeDisplay}={}){
   const renderer=new THREE.WebGLRenderer({antialias:true,powerPreference:'low-power'});
   renderer.setPixelRatio(Math.min(devicePixelRatio,2));renderer.setClearColor('#292e37');
   renderer.localClippingEnabled=true;renderer.toneMapping=THREE.ACESFilmicToneMapping;renderer.toneMappingExposure=1.2;
@@ -35,10 +35,10 @@ export async function createPreview(host,config,load,{onSelect=()=>{}}={}){
   }
   async function geometry(node){
     const display=displayMode==='native'?node.display:{url:node.preview,kind:'packed-preview'};
-    const {url,kind}=display,label=node.label+' · '+(kind==='saved-preview'||kind==='assembly-preview'?'SolidCraft saved display':kind==='native-export'?'SolidCraft mesh export':'packed comparison');
+    const {url,kind}=display,label=node.label+' · '+(display.label||(kind==='saved-preview'||kind==='assembly-preview'?'SolidCraft saved display':kind==='native-export'?'SolidCraft mesh export':'packed comparison'));
     if(!geometries.has(url))geometries.set(url,(async()=>{
       const bytes=embedded.get(display.file)||await load(url,kind,label);
-      if(kind!=='packed-preview')return readNativeDisplay(bytes,kind,{onEmbedded:(file,bytes)=>embedded.set(file,bytes)});
+      if(kind!=='packed-preview')return readDisplay(bytes,kind,{onEmbedded:(file,bytes)=>embedded.set(file,bytes)});
       const {GLTFLoader}=await import('three/addons/loaders/GLTFLoader.js');
       const gltf=await new GLTFLoader().parseAsync(bytes,location.origin+'/');
       gltf.scene.updateMatrixWorld(true);let result;

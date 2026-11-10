@@ -1,0 +1,3 @@
+# Evaluated native copies are retained in the downloadable project.
+native/*.sc
+*.bak
