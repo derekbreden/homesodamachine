@@ -38,6 +38,10 @@ path = "../../../hardware/reference/waveshare-43b-display/replica.rs"
 name = "meanwell-irm90-replica"
 path = "../../../hardware/reference/meanwell-irm90/meanwell_irm90.rs"
 
+[[example]]
+name = "g-ganen-replica"
+path = "../../../hardware/reference/g-ganen-pump/replica.rs"
+
 # A concept is a file in examples/. README.md says how to run one.
 [dependencies]
 anyhow.workspace = true

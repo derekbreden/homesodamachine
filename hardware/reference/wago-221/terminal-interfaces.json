@@ -1,0 +1,16 @@
+{
+  "purpose": "This record supplies shared WAGO wire-mouth datums to the reference geometry and installed wiring.",
+  "units": "mm",
+  "frame": {
+    "x": "width; pole order increases toward +X",
+    "y": "depth; conductors enter the +Y face",
+    "z": "height above the seated base"
+  },
+  "pole_pitch_mm": 5.6,
+  "entry_center_z_mm": 3.05,
+  "pole_centering": "The pole group is centered at source X = 0.",
+  "entry_face": "source Y = depth / 2",
+  "row_order": "The first row is at entry_center_z_mm. A stacked second row is at height - entry_center_z_mm.",
+  "accuracy": "The envelope is manufacturer-dimensioned; these local mouth datums are visual estimates from the official orthographic product images.",
+  "evidence": "replica-evidence.json"
+}
