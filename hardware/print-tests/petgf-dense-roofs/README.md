@@ -64,8 +64,10 @@ material guidance and the local bridge results inform a later controlled
 thermal comparison.
 
 [`recommendations.json`](recommendations.json) holds the proposed factor levels,
-source links and scope of each recommendation. A larger plate awaits these
-physical results and discussion with Derek.
+source links and scope of each recommendation. The
+[representative enclosure scenarios](../enclosure-support-scenarios/README.md)
+provide rail, handhold and holed-pad samples for carrying selected densities
+forward after the initial physical results.
 
 ## Reproduce
 

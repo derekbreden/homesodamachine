@@ -1,0 +1,295 @@
+{
+  "purpose": "Confirm the requested scenario geometry, locally rooted rail trees and native density comparisons before any print submission.",
+  "archive": "ready/2026-11-09-enclosure-support-scenarios-left04-z018-mark1.gcode.3mf",
+  "archive_sha256": "54e6bd0569e534146af12d6f95e7dbc43ef047c151586e514897c5c1a3571da9",
+  "gcode_sha256": "34ef6e5c77b84b63e715800a373458031f1a2d1ec68f87bda7ac8e62b562ac72",
+  "project_sha256": "5c00d14aad90aeb63a7b29b6789cad85b069f8aed5e54469ea707d2d7d675b43",
+  "gcode_md5_verified": true,
+  "trim_commands": [
+    "G29.1 Z0 ; clear z-trim value first",
+    "G29.1 Z0.16"
+  ],
+  "active_tools": [
+    0
+  ],
+  "bead_bounds_xy_mm": [
+    [
+      101.488,
+      84.506
+    ],
+    [
+      221.323,
+      235.5
+    ]
+  ],
+  "bed_margins_mm": [
+    101.488,
+    84.506,
+    103.67699999999999,
+    84.5
+  ],
+  "arc_extrema_included": true,
+  "specimens": [
+    {
+      "id": "RA",
+      "interface_spacing_mm": 0.5,
+      "support_style": "default",
+      "first_support_nozzle_z_mm": 6.2,
+      "root": "model",
+      "interface_z_mm": [
+        14.12,
+        14.36
+      ],
+      "first_supported_model_nozzle_z_mm": 15.08,
+      "first_supported_model_layer_height_mm": 0.24,
+      "first_supported_model_bottom_mm": 14.84,
+      "actual_top_gap_mm": 0.48,
+      "top_interface_extrusion_mm": 191.46619191918603,
+      "top_interface_widths_mm": [
+        0.62
+      ],
+      "production_layer_phase_preserved": true
+    },
+    {
+      "id": "RB",
+      "interface_spacing_mm": 0.15,
+      "support_style": "default",
+      "first_support_nozzle_z_mm": 6.2,
+      "root": "model",
+      "interface_z_mm": [
+        14.12,
+        14.36
+      ],
+      "first_supported_model_nozzle_z_mm": 15.08,
+      "first_supported_model_layer_height_mm": 0.24,
+      "first_supported_model_bottom_mm": 14.84,
+      "actual_top_gap_mm": 0.48,
+      "top_interface_extrusion_mm": 266.59850509277067,
+      "top_interface_widths_mm": [
+        0.62
+      ],
+      "production_layer_phase_preserved": true
+    },
+    {
+      "id": "RC",
+      "interface_spacing_mm": 0.0,
+      "support_style": "default",
+      "first_support_nozzle_z_mm": 6.2,
+      "root": "model",
+      "interface_z_mm": [
+        14.12,
+        14.36
+      ],
+      "first_supported_model_nozzle_z_mm": 15.08,
+      "first_supported_model_layer_height_mm": 0.24,
+      "first_supported_model_bottom_mm": 14.84,
+      "actual_top_gap_mm": 0.48,
+      "top_interface_extrusion_mm": 325.42018625822766,
+      "top_interface_widths_mm": [
+        0.62
+      ],
+      "production_layer_phase_preserved": true
+    },
+    {
+      "id": "HA",
+      "interface_spacing_mm": 0.5,
+      "support_style": "default",
+      "first_support_nozzle_z_mm": 0.2,
+      "root": "bed",
+      "interface_z_mm": [
+        10.76,
+        11.0
+      ],
+      "first_supported_model_nozzle_z_mm": 11.72,
+      "first_supported_model_layer_height_mm": 0.240001,
+      "first_supported_model_bottom_mm": 11.479999000000001,
+      "actual_top_gap_mm": 0.48,
+      "top_interface_extrusion_mm": 43.643819024521626,
+      "top_interface_widths_mm": [
+        0.62
+      ],
+      "production_layer_phase_preserved": true
+    },
+    {
+      "id": "HB",
+      "interface_spacing_mm": 0.15,
+      "support_style": "default",
+      "first_support_nozzle_z_mm": 0.2,
+      "root": "bed",
+      "interface_z_mm": [
+        10.76,
+        11.0
+      ],
+      "first_supported_model_nozzle_z_mm": 11.72,
+      "first_supported_model_layer_height_mm": 0.240001,
+      "first_supported_model_bottom_mm": 11.479999000000001,
+      "actual_top_gap_mm": 0.48,
+      "top_interface_extrusion_mm": 57.288510324832785,
+      "top_interface_widths_mm": [
+        0.62
+      ],
+      "production_layer_phase_preserved": true
+    },
+    {
+      "id": "HC",
+      "interface_spacing_mm": 0.0,
+      "support_style": "default",
+      "first_support_nozzle_z_mm": 0.2,
+      "root": "bed",
+      "interface_z_mm": [
+        10.76,
+        11.0
+      ],
+      "first_supported_model_nozzle_z_mm": 11.72,
+      "first_supported_model_layer_height_mm": 0.240001,
+      "first_supported_model_bottom_mm": 11.479999000000001,
+      "actual_top_gap_mm": 0.48,
+      "top_interface_extrusion_mm": 69.4825139679758,
+      "top_interface_widths_mm": [
+        0.62
+      ],
+      "production_layer_phase_preserved": true
+    },
+    {
+      "id": "PA",
+      "interface_spacing_mm": 0.5,
+      "support_style": "tree_slim",
+      "first_support_nozzle_z_mm": 0.2,
+      "root": "bed",
+      "interface_z_mm": [
+        6.68,
+        6.95
+      ],
+      "first_supported_model_nozzle_z_mm": 7.64,
+      "first_supported_model_layer_height_mm": 0.24,
+      "first_supported_model_bottom_mm": 7.3999999999999995,
+      "actual_top_gap_mm": 0.45,
+      "top_interface_extrusion_mm": 159.09631401106265,
+      "top_interface_widths_mm": [
+        0.62
+      ],
+      "production_layer_phase_preserved": true
+    },
+    {
+      "id": "PB",
+      "interface_spacing_mm": 0.15,
+      "support_style": "tree_slim",
+      "first_support_nozzle_z_mm": 0.2,
+      "root": "bed",
+      "interface_z_mm": [
+        6.68,
+        6.95
+      ],
+      "first_supported_model_nozzle_z_mm": 7.64,
+      "first_supported_model_layer_height_mm": 0.24,
+      "first_supported_model_bottom_mm": 7.3999999999999995,
+      "actual_top_gap_mm": 0.45,
+      "top_interface_extrusion_mm": 210.50658343079843,
+      "top_interface_widths_mm": [
+        0.62
+      ],
+      "production_layer_phase_preserved": true
+    },
+    {
+      "id": "PC",
+      "interface_spacing_mm": 0.0,
+      "support_style": "tree_slim",
+      "first_support_nozzle_z_mm": 0.2,
+      "root": "bed",
+      "interface_z_mm": [
+        6.68,
+        6.95
+      ],
+      "first_supported_model_nozzle_z_mm": 7.64,
+      "first_supported_model_layer_height_mm": 0.24,
+      "first_supported_model_bottom_mm": 7.3999999999999995,
+      "actual_top_gap_mm": 0.45,
+      "top_interface_extrusion_mm": 239.80321376968615,
+      "top_interface_widths_mm": [
+        0.62
+      ],
+      "production_layer_phase_preserved": true
+    }
+  ],
+  "rail_cavity_floor_to_catch_mm": 9.199999999999989,
+  "cooling": {
+    "added_commanded_motion_seconds": 1523.6146380257117,
+    "changed": true,
+    "estimate_scope": "Native estimate plus the added constant-feed motion time; acceleration and fan spin-up are not simulated.",
+    "input_archive_sha256": "61b8449e116be0d957b3b5d284dc70bb5ccd470ded78d3d6aed59943d5e133da",
+    "members": [
+      {
+        "added_commanded_motion_seconds": 1523.6146380257117,
+        "changed": true,
+        "input_gcode_sha256": "a8370b49e9b9a6b98f23ec70a546670adff02a1c80430f2c3994b0331f18f1e9",
+        "member": "Metadata/plate_1.gcode",
+        "native_cooled_seed_moves": 3978,
+        "ordinary_model_moves": 244352,
+        "output_gcode_sha256": "34ef6e5c77b84b63e715800a373458031f1a2d1ec68f87bda7ac8e62b562ac72",
+        "petgf_slots": [
+          0
+        ],
+        "policy": {
+          "grid_mm": 0.2,
+          "height_mm": 0.8
+        },
+        "recovery_by_feature": {
+          "Bridge": [
+            90.0,
+            89.58128131393534,
+            0.0
+          ],
+          "Floating vertical shell": [
+            1491.0,
+            7396.837058587464,
+            250.89893884825426
+          ],
+          "Gap infill": [
+            330.0,
+            136.67198132269024,
+            4.792574201088943
+          ],
+          "Inner wall": [
+            2316.0,
+            9010.90180783064,
+            312.5586845638992
+          ],
+          "Internal solid infill": [
+            6054.0,
+            22159.66662245538,
+            773.7383021113478
+          ],
+          "Outer wall": [
+            4642.0,
+            9961.374506361275,
+            130.1579206826274
+          ],
+          "Sparse infill": [
+            1677.0,
+            1481.7777929964343,
+            51.398020716692685
+          ],
+          "Top surface": [
+            3.0,
+            2.023739607755875,
+            0.07019690184065083
+          ]
+        },
+        "recovery_fan_percent": [
+          "70"
+        ],
+        "recovery_moves": 16603,
+        "recovery_speed_limit_mm_s": [
+          "25",
+          "25",
+          "25"
+        ],
+        "scope": "The complete centerline lies in a recent native-cooled model footprint. Motion coordinates and extrusion words are retained; only local part cooling and recovery feed rates change.",
+        "speed_limited_moves": 16426
+      }
+    ]
+  },
+  "estimated_seconds": 10373,
+  "layer_count": 125,
+  "status": "Offline preparation only; no printer submission. Physical surface and removal results are pending."
+}
