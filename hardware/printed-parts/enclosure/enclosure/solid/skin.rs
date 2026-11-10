@@ -5,7 +5,6 @@ use crate::plan::Bounds;
 use anyhow::{Context, Result, ensure};
 use hsm_manifold::Manifold;
 use serde_json::json;
-use std::collections::HashMap;
 
 type P2 = [f64; 2];
 type P3 = [f64; 3];
@@ -100,55 +99,56 @@ fn section(mesh: &Mesh, triangle: &[usize; 3], z: f64) -> Option<[P2; 2]> {
     (hits.len() == 2).then(|| [hits[0], hits[1]])
 }
 
+/// Test the nearest uniform outline samples with the source sampling expression.
+fn sampled_segment_hit(point: P2, a: P2, b: P2, count: usize, cell: f64) -> bool {
+    if norm(sub(b, point)) < cell { return true; }
+    let delta = sub(b, a);
+    let offset = sub(point, a);
+    let squared = delta[0] * delta[0] + delta[1] * delta[1];
+    let nearest = if squared == 0.0 { 0 } else {
+        (((offset[0] * delta[0] + offset[1] * delta[1]) / squared * count as f64)
+            .round().clamp(0.0, count as f64)) as usize
+    };
+    (nearest.saturating_sub(1)..=nearest.saturating_add(1).min(count)).any(|k| {
+        if k == count { return false; }
+        let s = k as f64 / count as f64;
+        norm(sub([a[0] + delta[0] * s, a[1] + delta[1] * s], point)) < cell
+    })
+}
+
 fn show_mask(mesh: &Mesh, rail: &Rail, rows: &[f64], field: &Field) -> Vec<bool> {
     let (n, h) = (rail.point.len(), rows.len());
     let mut mask = vec![false; n * h];
     let cell = field.face_tol;
-    let key = |p: P2| ((p[0] / cell).floor() as i64, (p[1] / cell).floor() as i64);
-    // Put the query stations in the grid once. Each outline sample then touches only its
-    // neighboring cells; no slice constructs the many sampled points it will never read.
-    let mut grid: HashMap<(i64, i64), Vec<usize>> = HashMap::new();
-    for (i, &p) in rail.point.iter().enumerate() {
-        grid.entry(key(p)).or_default().push(i);
-    }
-    let ranges: Vec<(f64, f64)> = mesh
-        .triangles
-        .iter()
-        .map(|t| {
-            let z = t.map(|i| mesh.points[i][2]);
-            (
-                z.into_iter().fold(f64::INFINITY, f64::min),
-                z.into_iter().fold(f64::NEG_INFINITY, f64::max),
-            )
-        })
-        .collect();
+    let ordered: [Vec<usize>; 2] = std::array::from_fn(|axis| {
+        let mut indices: Vec<_> = (0..n).collect();
+        indices.sort_unstable_by(|&a, &b| rail.point[a][axis].total_cmp(&rail.point[b][axis]));
+        indices
+    });
+    let ranges: Vec<(f64, f64)> = mesh.triangles.iter().map(|t| {
+        let z = t.map(|i| mesh.points[i][2]);
+        (z.into_iter().fold(f64::INFINITY, f64::min), z.into_iter().fold(f64::NEG_INFINITY, f64::max))
+    }).collect();
     for (j, &z) in rows.iter().enumerate() {
-        let mut sample = |p: P2| {
-            let (x, y) = key(p);
-            for dx in -1..=1 {
-                for dy in -1..=1 {
-                    if let Some(indices) = grid.get(&(x + dx, y + dy)) {
-                        for &i in indices {
-                            if !mask[i * h + j] && norm(sub(p, rail.point[i])) < cell {
-                                mask[i * h + j] = true;
-                            }
-                        }
-                    }
-                }
-            }
-        };
         for (t, &(lo, hi)) in mesh.triangles.iter().zip(&ranges) {
-            if z < lo - 1e-8 || z > hi + 1e-8 {
-                continue;
-            }
-            if let Some([a, b]) = section(mesh, t, z) {
-                let length = norm(sub(b, a));
-                let count = ((length / (cell / 2.0)) as usize).max(1);
-                for k in 0..count {
-                    let s = k as f64 / count as f64;
-                    sample([a[0] + (b[0] - a[0]) * s, a[1] + (b[1] - a[1]) * s]);
-                }
-                sample(b);
+            if z < lo - 1e-8 || z > hi + 1e-8 { continue; }
+            let Some([a, b]) = section(mesh, t, z) else { continue; };
+            let count = ((norm(sub(b, a)) / (cell / 2.0)) as usize).max(1);
+            let bounds: [(f64, f64); 2] = std::array::from_fn(|axis| {
+                let padding = cell + f64::EPSILON * (a[axis].abs().max(b[axis].abs()) + cell + 1.0) * 8.0;
+                (a[axis].min(b[axis]) - padding, a[axis].max(b[axis]) + padding)
+            });
+            let spans: [(usize, usize); 2] = std::array::from_fn(|axis| (
+                ordered[axis].partition_point(|&i| rail.point[i][axis] < bounds[axis].0),
+                ordered[axis].partition_point(|&i| rail.point[i][axis] <= bounds[axis].1),
+            ));
+            let axis = usize::from(spans[1].1 - spans[1].0 < spans[0].1 - spans[0].0);
+            for &i in &ordered[axis][spans[axis].0..spans[axis].1] {
+                if mask[i * h + j] { continue; }
+                let other = 1 - axis;
+                let p = rail.point[i];
+                if p[other] < bounds[other].0 || p[other] > bounds[other].1 { continue; }
+                if sampled_segment_hit(p, a, b, count, cell) { mask[i * h + j] = true; }
             }
         }
     }
@@ -589,4 +589,41 @@ pub fn flute_solid_observed(
     observer: &mut dyn FluteObserver,
 ) -> Result<Manifold> {
     flute_mesh_observed(&mesh(solid), field, rails, extra_plain, Some(observer), crate::features::manifold(solid)?)
+}
+
+#[cfg(test)]
+mod outline_tests {
+    use super::*;
+
+    fn dense_hit(p: P2, a: P2, b: P2, count: usize, cell: f64) -> bool {
+        (0..count).any(|k| { let t=k as f64/count as f64;
+            norm(sub([a[0]+(b[0]-a[0])*t,a[1]+(b[1]-a[1])*t],p))<cell
+        }) || norm(sub(b,p))<cell
+    }
+
+    #[test]
+    fn sampled_outline_retains_discrete_samples_and_endpoints() {
+        let a=[-2.0,0.0];let b=[2.0,0.0];
+        assert!(sampled_segment_hit([-1.0,0.09],a,b,4,0.1));
+        assert!(!sampled_segment_hit([-1.5,0.0],a,b,4,0.1));
+        assert!(sampled_segment_hit([2.09,0.0],a,b,4,0.1));
+        assert!(!sampled_segment_hit([2.11,0.0],a,b,4,0.1));
+        assert!(sampled_segment_hit(a,a,a,1,0.1));
+    }
+
+    #[test]
+    fn nearest_outline_samples_match_dense_sampling_near_boundaries() {
+        let mut state=0x37a0_2edb_c51d_u64;
+        let mut next=|| {state=state.wrapping_mul(6364136223846793005).wrapping_add(1);(state>>11) as f64/((1u64<<53) as f64)};
+        for _ in 0..512 {
+            let a=[next()*400.0-200.0,next()*400.0-200.0];
+            let b=[next()*400.0-200.0,next()*400.0-200.0];
+            let count=(next()*128.0) as usize+1;let cell=next()*0.2+0.001;
+            let t=next();let offset=[next()*cell*2.0-cell,next()*cell*2.0-cell];
+            for p in [[a[0]+(b[0]-a[0])*t+offset[0],a[1]+(b[1]-a[1])*t+offset[1]],a,b] {
+                assert_eq!(sampled_segment_hit(p,a,b,count,cell),dense_hit(p,a,b,count,cell),
+                    "point {p:?}, segment {a:?} {b:?}, count {count}, cell {cell}");
+            }
+        }
+    }
 }

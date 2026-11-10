@@ -27,6 +27,7 @@ fn main() {
     for path in [
         workspace.join("kernel/src"),
         workspace.join("manifold/src"),
+        root.join("vendor/manifold-rust/src"),
         root.join("hardware/printed-parts/enclosure/enclosure/numbers"),
         solid,
     ] {
@@ -35,6 +36,8 @@ fn main() {
     for path in [
         workspace.join("kernel/Cargo.toml"),
         workspace.join("manifold/Cargo.toml"),
+        workspace.join("manifold/build.rs"),
+        root.join("vendor/manifold-rust/Cargo.toml"),
         manifest.join("Cargo.toml"),
         manifest.join("build.rs"),
         root.join("hardware/printed-parts/enclosure/nameplate/snap_geometry.rs"),

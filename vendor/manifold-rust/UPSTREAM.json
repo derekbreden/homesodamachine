@@ -1,0 +1,20 @@
+{
+  "purpose": "This record identifies the pinned Rust boolean source and its local inlining patch.",
+  "crate": "manifold-rust",
+  "version": "0.19.2",
+  "git_revision": "1e4564ca101674ecdab1dac67a6f6ede18442cd1",
+  "crate_sha256": "ddad329fd20646de626e339ea1146de838464060824cb3edd5593d8d061a3f95",
+  "upstream": "https://github.com/larsbrubaker/manifold-rust",
+  "modified_files": {
+    "src/boolean3_kernels.rs": {
+      "change": "Inline the hot exact-intersection helpers into their callers under standard floating-point rules.",
+      "functions": [
+        "interpolate",
+        "shadow01",
+        "kernel11",
+        "kernel02",
+        "kernel12"
+      ]
+    }
+  }
+}
