@@ -88,6 +88,10 @@ records broken tree stems with contact material retained on the base. D's
 removal acceptance covers the tested flat rail ceilings and their access;
 inclined and curved faucet contacts remain unqualified. Prepare the incline
 comparisons before treating D as an accepted faucet support recipe.
+The [explicit Slim faucet trial](https://github.com/derekbreden/homesodamachine/blob/1fe50e4ff3209adc4afd6299082bfca21cd8511c/hardware/print-tests/petgf-dense-roofs/inclines/prints/2026-11-10-faucet-slim-mark1/physical-result/physical-result.json)
+also failed release despite generating interface paths along the curve. The
+[active larger-gap trial](../print-tests/petgf-dense-roofs/inclines/prints/2026-11-10-faucet-slim-gap048-mark1/print-job.json)
+retains the dense roof and changes only the requested top contact gap.
 The [active incline comparisons](../print-tests/petgf-dense-roofs/inclines/matrix.json)
 retain D's dense interface and vary contact gap and tree generation. Interface
 density and the contact footprint selected by the tree algorithm are distinct.
@@ -126,6 +130,18 @@ clearances pointing in the build direction. The vent cap has a rooted chamfer;
 its passage stays clear of supports. Accessible rail and exterior features use
 manual Tree Slim selected by the native accessible-contact regions, with their
 actual removal openings inspected in the native slice.
+Those regions include exposed joint ends, funnel receivers,
+the valve seat, initial boss curves and routing lands. Keep blind pilot roofs
+outside support enforcers. Connector insertion pockets bridge between their well
+walls and remain support-free. Read each exposed underside's first deposited courses
+and its actual support contacts; the support topology alone does not establish
+coverage. Derive contact bands from the complete receiver stock and its exposed
+undersides; keep the self-supporting bed chamfer outside joint enforcers.
+The current back-top recipe retains bed-only native roots. Its
+[replacement audit](enclosure/enclosure/prints/2026-11-10-back-top-D-coverage-mark1/support-audit.json)
+remains unqualified: adding contact targets does not establish passage clearance
+or a compliant bed envelope. Model-floor roots on other parts retain their own
+removal paths.
 The rail supports were removable in the full-size physical article; its loose
 underside and subsequent glossy courses require localized foundation cooling.
 

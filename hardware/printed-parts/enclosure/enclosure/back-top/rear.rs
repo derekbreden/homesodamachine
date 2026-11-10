@@ -561,28 +561,7 @@ fn valve_seats(g: &mut Graph, piece: Shape) -> Shape {
     let inlet = &l.parts.valve_v_a;
     let inlet = place(g, native, inlet.rotation, inlet.translation_mm);
     let vk = &l.parts.vk_solenoid;
-    let mut block: Bounds = std::array::from_fn(|i| {
-        if i % 2 == 0 {
-            f64::INFINITY
-        } else {
-            f64::NEG_INFINITY
-        }
-    });
-    for &(sx, sy) in &corners {
-        for z in [seat::SOCKET_FLOOR_Z - seat::WALL, seat::SEAT_TOP_Z] {
-            let p = vk.point([sx * half_x, sy * half_y, z]);
-            for k in 0..3 {
-                block[2 * k] = block[2 * k].min(p[k]);
-                block[2 * k + 1] = block[2 * k + 1].max(p[k]);
-            }
-        }
-    }
-    if vk.translation_mm[0] < 0.0 {
-        block[0] = -SEAT_ROOT_X;
-    } else {
-        block[1] = SEAT_ROOT_X;
-    }
-    let block = g.box_(block);
+    let block = g.box_(solenoid_seat_bounds());
     let vk_sockets: Vec<Shape> = corners
         .iter()
         .map(|&(sx, sy)| {
@@ -607,9 +586,37 @@ fn valve_seats(g: &mut Graph, piece: Shape) -> Shape {
     g.union(piece, &[solenoid])
 }
 
+/// The solenoid seat stock whose exposed underside takes removable support.
+pub fn solenoid_seat_bounds() -> Bounds {
+    let vk = &layout().parts.vk_solenoid;
+    let (half_x, half_y) = (seat::half_x(), seat::half_y());
+    let mut bounds: Bounds = std::array::from_fn(|i| {
+        if i % 2 == 0 {
+            f64::INFINITY
+        } else {
+            f64::NEG_INFINITY
+        }
+    });
+    for (sx, sy) in [(-1.0, -1.0), (-1.0, 1.0), (1.0, -1.0), (1.0, 1.0)] {
+        for z in [seat::SOCKET_FLOOR_Z - seat::WALL, seat::SEAT_TOP_Z] {
+            let p = vk.point([sx * half_x, sy * half_y, z]);
+            for k in 0..3 {
+                bounds[2 * k] = bounds[2 * k].min(p[k]);
+                bounds[2 * k + 1] = bounds[2 * k + 1].max(p[k]);
+            }
+        }
+    }
+    if vk.translation_mm[0] < 0.0 {
+        bounds[0] = -SEAT_ROOT_X;
+    } else {
+        bounds[1] = SEAT_ROOT_X;
+    }
+    bounds
+}
+
 /// The nameplate receiver's frame on the rear face, from the wall's inner face to past the
 /// plate's face.
-fn snap_lip() -> Bounds {
+pub fn nameplate_receiver_bounds() -> Bounds {
     let s = snap();
     let p = &layout().rear_identification.nameplate;
     let half = s.frame_width / 2.0;
@@ -626,7 +633,7 @@ fn snap_lip() -> Bounds {
 /// Back-top's plain lands on the rear face: the warning's field, the nameplate receiver's frame,
 /// the tile rails' roots and bounds, and the keystone's land.
 pub fn back_top_plain(outer: &Bounds) -> Vec<Bounds> {
-    let mut plain = vec![disposal_field(outer), snap_lip()];
+    let mut plain = vec![disposal_field(outer), nameplate_receiver_bounds()];
     plain.extend(rail_roots());
     plain.extend(rail_bounds());
     plain.push(keystone_land());

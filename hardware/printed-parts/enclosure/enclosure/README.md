@@ -718,9 +718,9 @@ are outside this pass's fit assessment.
 Heat-set pilots follow the manufacturer's installation dimensions.
 Finger openings, flexible-tube routing and vibration-isolation spaces have their own envelopes.
 
-`petgf.3mf` carries a 0.45 mm requested support top Z distance, two top interface layers,
-0.50 mm top interface spacing and the automatic interface pattern. At the profile's 0.24 mm
-layer height, the organic-support slice produces a 0.48 mm interface-to-model gap.
+[`petgf.3mf`](../../petgf.3mf) owns Support D's contact and interface recipe.
+Prepared projects inherit it; the native archive owns the emitted contact planes.
+The requested vertical gap does not describe a uniform clearance around an incline.
 
 `petgf.3mf` uses `auto_brim`. Enclosure projects retain that automatic setting by default;
 individual prepared plates record their brim setting in their
@@ -742,6 +742,17 @@ Back-top prints ceiling-down with its rear flutes clear of the bed. Accessible
 exterior features and rails use manual Tree Slim selected by native contact
 regions. Native exclusions
 keep the receiver interiors and covered passages clear of supports.
+The contact regions also cover front joint ends, funnel receiver undersides,
+the valve-seat underside, initial relay-boss curves,
+cable-hook lands and the tube seat's outer underside. Pilot roofs stay outside
+the contact targets. Connector insertion pockets bridge between their well walls
+and remain support-free. The current back-top recipe retains bed-only native
+roots. Its [replacement audit](prints/2026-11-10-back-top-D-coverage-mark1/support-audit.json)
+remains unqualified for passage clearance and bed placement. Inspect the first
+deposited courses beneath each contact; a support
+body or interface-island count alone does not establish complete coverage. The
+nameplate target includes its complete receiver frame; joint targets follow the
+raked ends and counterbore roofs above the bed chamfer.
 
 The rear receiver catches bridge along their pockets between the complete end
 shoulders. The Pisco entry relief ends below a full-thickness fore bridge anchor. The sideways meter host uses authored removable trees under its

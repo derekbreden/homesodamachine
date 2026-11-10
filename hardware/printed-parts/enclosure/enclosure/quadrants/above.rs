@@ -53,6 +53,15 @@ fn wells(g: &mut Graph, host: Y) -> (Vec<Shape>, Vec<Shape>) {
     (stocks, pockets)
 }
 
+/// The connector insertion pockets that bridge between their surrounding well walls.
+pub fn pocket_regions(host: Y) -> Vec<(String, Bounds)> {
+    let mut graph = Graph::new();
+    let (_, pockets) = wells(&mut graph, host);
+    junctions().iter().filter(|junction| junction.host == host).zip(pockets).map(|(junction, pocket)| {
+        (format!("{} insertion pocket", junction.name), pocket.bounds())
+    }).collect()
+}
+
 /// Front-top's wells as towers: each overlapping group of well stocks one box, standing on a
 /// wedge that runs it out to its flank.
 fn stacked_towers(g: &mut Graph, stocks: &[Shape], inner: &Bounds) -> Shape {

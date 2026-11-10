@@ -1,7 +1,7 @@
 [
   {
     "bed_target_temper": 0.0,
-    "bed_temper": 63.0,
+    "bed_temper": 48.0,
     "external_spools": {
       "254": {
         "colour": "000000FF",
@@ -12,9 +12,9 @@
         "type": "TPU"
       }
     },
-    "gcode_state": "FAILED",
+    "gcode_state": "FINISH",
     "hms": [],
-    "layer_num": 0,
+    "layer_num": 134,
     "lights_report": [
       {
         "mode": "on",
@@ -29,10 +29,10 @@
         "node": "chamber_light2"
       }
     ],
-    "mc_percent": 0,
+    "mc_percent": 100,
     "mc_remaining_time": 0,
     "nozzle_target_temper": 0.0,
-    "nozzle_temper": 88.0,
+    "nozzle_temper": 43.0,
     "nozzle_type": "HS00-0.2",
     "nozzles": [
       {
@@ -66,11 +66,11 @@
         "type": "HS00"
       }
     ],
-    "observed_at": "2026-11-10T19:05:09+00:00",
-    "print_error": 50348044,
+    "observed_at": "2026-11-10T21:09:49+00:00",
+    "print_error": 0,
     "printer": "H2C",
-    "subtask_name": "2026-11-10-back-top-D-left04-z018-mark1-print-only.gcode.3mf",
-    "total_layer_num": 1112
+    "subtask_name": "faucet-slim-left04-z018-mark1-print-only.gcode.3mf",
+    "total_layer_num": 134
   },
   {
     "bed_target_temper": 80.0,
@@ -87,7 +87,7 @@
     },
     "gcode_state": "RUNNING",
     "hms": [],
-    "layer_num": 23,
+    "layer_num": 114,
     "lights_report": [
       {
         "mode": "on",
@@ -102,8 +102,8 @@
         "node": "chamber_light2"
       }
     ],
-    "mc_percent": 20,
-    "mc_remaining_time": 1125,
+    "mc_percent": 29,
+    "mc_remaining_time": 994,
     "nozzle_target_temper": 280.0,
     "nozzle_temper": 280.0,
     "nozzle_type": "HS01-0.4",
@@ -139,7 +139,7 @@
         "type": "HH01"
       }
     ],
-    "observed_at": "2026-11-10T19:05:09+00:00",
+    "observed_at": "2026-11-10T21:09:48+00:00",
     "print_error": 0,
     "printer": "Mark2",
     "subtask_name": "2026-11-10-back-bottom-D-arch-left04-z004-mark2-print-only.gcode.3mf",

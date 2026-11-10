@@ -129,6 +129,57 @@
     },
     {
       "bounds_source_mm": [
+        -98.5,
+        -88.05,
+        384.85,
+        399.55,
+        323.95,
+        343.05
+      ],
+      "bridge_print_axis_source": [
+        0,
+        1,
+        0
+      ],
+      "name": "wago-h insertion pocket",
+      "reason": "Bridge the closed well end across the pocket between its side walls."
+    },
+    {
+      "bounds_source_mm": [
+        -98.5,
+        -88.05,
+        400.85,
+        415.55,
+        323.95,
+        343.05
+      ],
+      "bridge_print_axis_source": [
+        0,
+        1,
+        0
+      ],
+      "name": "wago-g insertion pocket",
+      "reason": "Bridge the closed well end across the pocket between its side walls."
+    },
+    {
+      "bounds_source_mm": [
+        -98.5,
+        -88.05,
+        416.85,
+        431.55,
+        323.95,
+        343.05
+      ],
+      "bridge_print_axis_source": [
+        0,
+        1,
+        0
+      ],
+      "name": "wago-n insertion pocket",
+      "reason": "Bridge the closed well end across the pocket between its side walls."
+    },
+    {
+      "bounds_source_mm": [
         -103.75,
         -93.5,
         199.0,
@@ -409,6 +460,42 @@
       ]
     },
     {
+      "bounds_source_mm": [
+        -98.5,
+        -88.05,
+        387.85,
+        396.55,
+        323.95,
+        343.05
+      ],
+      "name": "wago-h insertion pocket",
+      "reason": "The connector insertion pocket bridges between the surrounding well walls and remains clear for the connector body."
+    },
+    {
+      "bounds_source_mm": [
+        -98.5,
+        -88.05,
+        403.85,
+        412.55,
+        323.95,
+        343.05
+      ],
+      "name": "wago-g insertion pocket",
+      "reason": "The connector insertion pocket bridges between the surrounding well walls and remains clear for the connector body."
+    },
+    {
+      "bounds_source_mm": [
+        -98.5,
+        -88.05,
+        419.85,
+        428.55,
+        323.95,
+        343.05
+      ],
+      "name": "wago-n insertion pocket",
+      "reason": "The connector insertion pocket bridges between the surrounding well walls and remains clear for the connector body."
+    },
+    {
       "blocking_bounds_source_mm": [
         -98.5,
         -39.965,
@@ -427,6 +514,291 @@
       ],
       "name": "Internal C14 mount and cord passage",
       "reason": "The internal flange pocket and cord passage bridge across the tunnel sides; the blind pilots remain clear."
+    },
+    {
+      "blocking_bounds_source_mm": [
+        -82.65,
+        -54.35,
+        463.04999999999995,
+        474.3,
+        320.1,
+        339.65
+      ],
+      "bounds_source_mm": [
+        -82.65,
+        -54.35,
+        463.04999999999995,
+        471.3,
+        320.1,
+        339.65
+      ],
+      "name": "C14 cord opening through rear wall",
+      "reason": "Keep the complete cord passage through the rear wall core clear of supports.",
+      "void_source": {
+        "kind": "prism_y",
+        "profile_xz_mm": [
+          [
+            -54.35,
+            338.15
+          ],
+          [
+            -54.35821715694759,
+            338.30679269490145
+          ],
+          [
+            -54.38277859889929,
+            338.46186753622663
+          ],
+          [
+            -54.42341522555727,
+            338.61352549156237
+          ],
+          [
+            -54.479681813536104,
+            338.7601049646137
+          ],
+          [
+            -54.55096189432334,
+            338.9
+          ],
+          [
+            -54.63647450843758,
+            339.0316778784387
+          ],
+          [
+            -54.73528276178391,
+            339.15369590953827
+          ],
+          [
+            -54.846304090461715,
+            339.26471723821606
+          ],
+          [
+            -54.96832212156129,
+            339.36352549156237
+          ],
+          [
+            -55.1,
+            339.44903810567666
+          ],
+          [
+            -55.239895035386304,
+            339.5203181864639
+          ],
+          [
+            -55.38647450843758,
+            339.5765847744427
+          ],
+          [
+            -55.538132463773366,
+            339.61722140110066
+          ],
+          [
+            -55.69320730509852,
+            339.6417828430524
+          ],
+          [
+            -55.85,
+            339.65
+          ],
+          [
+            -81.15,
+            339.65
+          ],
+          [
+            -81.30679269490149,
+            339.6417828430524
+          ],
+          [
+            -81.46186753622665,
+            339.61722140110066
+          ],
+          [
+            -81.61352549156243,
+            339.5765847744427
+          ],
+          [
+            -81.7601049646137,
+            339.5203181864639
+          ],
+          [
+            -81.9,
+            339.44903810567666
+          ],
+          [
+            -82.03167787843871,
+            339.36352549156237
+          ],
+          [
+            -82.1536959095383,
+            339.26471723821606
+          ],
+          [
+            -82.2647172382161,
+            339.15369590953827
+          ],
+          [
+            -82.36352549156243,
+            339.0316778784387
+          ],
+          [
+            -82.44903810567666,
+            338.9
+          ],
+          [
+            -82.52031818646391,
+            338.7601049646137
+          ],
+          [
+            -82.57658477444274,
+            338.61352549156237
+          ],
+          [
+            -82.61722140110072,
+            338.46186753622663
+          ],
+          [
+            -82.64178284305241,
+            338.30679269490145
+          ],
+          [
+            -82.65,
+            338.15
+          ],
+          [
+            -82.65,
+            321.6
+          ],
+          [
+            -82.64178284305241,
+            321.44320730509855
+          ],
+          [
+            -82.61722140110072,
+            321.28813246377337
+          ],
+          [
+            -82.57658477444274,
+            321.13647450843763
+          ],
+          [
+            -82.52031818646391,
+            320.9898950353863
+          ],
+          [
+            -82.44903810567666,
+            320.85
+          ],
+          [
+            -82.36352549156243,
+            320.7183221215613
+          ],
+          [
+            -82.2647172382161,
+            320.59630409046173
+          ],
+          [
+            -82.1536959095383,
+            320.48528276178394
+          ],
+          [
+            -82.03167787843871,
+            320.38647450843763
+          ],
+          [
+            -81.9,
+            320.3009618943234
+          ],
+          [
+            -81.7601049646137,
+            320.2296818135361
+          ],
+          [
+            -81.61352549156243,
+            320.1734152255573
+          ],
+          [
+            -81.46186753622665,
+            320.13277859889934
+          ],
+          [
+            -81.30679269490149,
+            320.1082171569476
+          ],
+          [
+            -81.15,
+            320.1
+          ],
+          [
+            -55.85,
+            320.1
+          ],
+          [
+            -55.693207305098525,
+            320.1082171569476
+          ],
+          [
+            -55.538132463773366,
+            320.13277859889934
+          ],
+          [
+            -55.38647450843758,
+            320.1734152255573
+          ],
+          [
+            -55.239895035386304,
+            320.2296818135361
+          ],
+          [
+            -55.1,
+            320.30096189432334
+          ],
+          [
+            -54.96832212156129,
+            320.38647450843763
+          ],
+          [
+            -54.846304090461715,
+            320.48528276178394
+          ],
+          [
+            -54.73528276178391,
+            320.59630409046173
+          ],
+          [
+            -54.63647450843758,
+            320.7183221215613
+          ],
+          [
+            -54.55096189432334,
+            320.85
+          ],
+          [
+            -54.479681813536104,
+            320.9898950353863
+          ],
+          [
+            -54.42341522555727,
+            321.13647450843763
+          ],
+          [
+            -54.38277859889929,
+            321.28813246377337
+          ],
+          [
+            -54.35821715694759,
+            321.44320730509855
+          ],
+          [
+            -54.35,
+            321.6
+          ]
+        ],
+        "span_y_mm": [
+          463.04999999999995,
+          471.3
+        ]
+      }
     },
     {
       "bounds_source_mm": [
@@ -839,6 +1211,102 @@
   "support_regions": [
     {
       "bounds_source_mm": [
+        -105.5,
+        -91.5,
+        200.0,
+        219.81,
+        318.1464466094067,
+        339.19644660940673
+      ],
+      "name": "Accessible front joint underside 1",
+      "reason": "Support the exposed sloping joint end and counterbore roof through the open front removal path; the bed-edge chamfer lies outside this contact band."
+    },
+    {
+      "bounds_source_mm": [
+        91.5,
+        105.5,
+        200.0,
+        219.81,
+        318.1464466094067,
+        339.19644660940673
+      ],
+      "name": "Accessible front joint underside -1",
+      "reason": "Support the exposed sloping joint end and counterbore roof through the open front removal path; the bed-edge chamfer lies outside this contact band."
+    },
+    {
+      "bounds_source_mm": [
+        -107.5,
+        107.5,
+        253.4915079232813,
+        265.4915079232813,
+        345.75,
+        346.25
+      ],
+      "name": "Accessible funnel frame receiver undersides",
+      "reason": "Support the exposed receiver undersides through each flank's open removal path, keeping their blind pilot roofs outside the target."
+    },
+    {
+      "bounds_source_mm": [
+        58.95799977207788,
+        98.51,
+        292.81499514598534,
+        302.0149951459853,
+        317.4577674110736,
+        317.9577674110736
+      ],
+      "name": "Accessible soda valve seat underside",
+      "reason": "Support the cantilevered seat from its first underside course, below the protected valve sockets."
+    },
+    {
+      "bounds_source_mm": [
+        -95.75,
+        -95.0,
+        312.5,
+        328.5,
+        254.10000000000002,
+        254.60000000000002
+      ],
+      "name": "Accessible cable hook 1 land 5",
+      "reason": "Support the accessible outer contact land while leaving the fitted bore roof outside the target."
+    },
+    {
+      "bounds_source_mm": [
+        -97.05,
+        -96.3,
+        259.0,
+        275.0,
+        273.875,
+        274.375
+      ],
+      "name": "Accessible cable hook 2 land 5",
+      "reason": "Support the accessible outer contact land while leaving the fitted bore roof outside the target."
+    },
+    {
+      "bounds_source_mm": [
+        96.3,
+        96.9,
+        270.0,
+        278.0,
+        318.65000000000003,
+        319.15000000000003
+      ],
+      "name": "Accessible cable hook 3 land 5",
+      "reason": "Support the accessible outer contact land while leaving the fitted bore roof outside the target."
+    },
+    {
+      "bounds_source_mm": [
+        88.735,
+        99.885,
+        261.0,
+        269.0,
+        262.442120305115,
+        268.365
+      ],
+      "name": "Accessible tube seat outer underside",
+      "reason": "Support the accessible outer contact land while leaving the fitted bore roof outside the target."
+    },
+    {
+      "bounds_source_mm": [
         -103.75,
         -93.5,
         199.0,
@@ -880,10 +1348,106 @@
         471.3,
         477.3,
         -6.0,
-        269.20454545454544
+        271.3545454545455
       ],
       "name": "Accessible dry rear exterior",
       "reason": "The external nameplate and connector field has an open removal path outside the rear wall."
+    },
+    {
+      "bounds_source_mm": [
+        -98.52,
+        -94.49,
+        370.7471390792555,
+        380.7471390792555,
+        281.97613959971034,
+        283.4406056937776
+      ],
+      "name": "Accessible relay-1 boss underside 1",
+      "reason": "Support the initial outer radius of the wall-mounted boss while keeping the pilot bore outside the contact target."
+    },
+    {
+      "bounds_source_mm": [
+        -98.52,
+        -94.49,
+        370.78113907925547,
+        380.78113907925547,
+        294.9061395997104,
+        296.37060569377763
+      ],
+      "name": "Accessible relay-1 boss underside 2",
+      "reason": "Support the initial outer radius of the wall-mounted boss while keeping the pilot bore outside the contact target."
+    },
+    {
+      "bounds_source_mm": [
+        -98.52,
+        -94.49,
+        437.10113907925546,
+        447.10113907925546,
+        281.9741395997104,
+        283.4386056937776
+      ],
+      "name": "Accessible relay-1 boss underside 3",
+      "reason": "Support the initial outer radius of the wall-mounted boss while keeping the pilot bore outside the contact target."
+    },
+    {
+      "bounds_source_mm": [
+        -98.52,
+        -94.49,
+        437.1311390792555,
+        447.1311390792555,
+        294.99013959971035,
+        296.45460569377764
+      ],
+      "name": "Accessible relay-1 boss underside 4",
+      "reason": "Support the initial outer radius of the wall-mounted boss while keeping the pilot bore outside the contact target."
+    },
+    {
+      "bounds_source_mm": [
+        -98.52,
+        -94.49,
+        370.74713907925553,
+        380.74713907925553,
+        302.47613959971034,
+        303.9406056937776
+      ],
+      "name": "Accessible relay-2 boss underside 1",
+      "reason": "Support the initial outer radius of the wall-mounted boss while keeping the pilot bore outside the contact target."
+    },
+    {
+      "bounds_source_mm": [
+        -98.52,
+        -94.49,
+        370.7811390792555,
+        380.7811390792555,
+        315.4061395997104,
+        316.87060569377763
+      ],
+      "name": "Accessible relay-2 boss underside 2",
+      "reason": "Support the initial outer radius of the wall-mounted boss while keeping the pilot bore outside the contact target."
+    },
+    {
+      "bounds_source_mm": [
+        -98.52,
+        -94.49,
+        437.1011390792555,
+        447.1011390792555,
+        302.4741395997104,
+        303.9386056937776
+      ],
+      "name": "Accessible relay-2 boss underside 3",
+      "reason": "Support the initial outer radius of the wall-mounted boss while keeping the pilot bore outside the contact target."
+    },
+    {
+      "bounds_source_mm": [
+        -98.52,
+        -94.49,
+        437.13113907925555,
+        447.13113907925555,
+        315.49013959971035,
+        316.95460569377764
+      ],
+      "name": "Accessible relay-2 boss underside 4",
+      "reason": "Support the initial outer radius of the wall-mounted boss while keeping the pilot bore outside the contact target."
     }
   ],
   "wall_hosts": {
@@ -922,6 +1486,7 @@
               347.0
             ],
             "pilot_depth_mm": 5.0,
+            "pilot_radius_mm": 2.0,
             "point_mm": [
               -9.898139953613281,
               349.8,
@@ -946,6 +1511,7 @@
               347.0
             ],
             "pilot_depth_mm": 5.0,
+            "pilot_radius_mm": 2.0,
             "point_mm": [
               -9.898139953613281,
               447.8,
@@ -970,6 +1536,7 @@
               347.0
             ],
             "pilot_depth_mm": 5.0,
+            "pilot_radius_mm": 2.0,
             "point_mm": [
               -42.89813995361328,
               349.8,
@@ -994,6 +1561,7 @@
               347.0
             ],
             "pilot_depth_mm": 5.0,
+            "pilot_radius_mm": 2.0,
             "point_mm": [
               -42.89813995361328,
               447.8,
@@ -1023,6 +1591,7 @@
               278.4406056937776
             ],
             "pilot_depth_mm": 5.4399999999999995,
+            "pilot_radius_mm": 1.6,
             "point_mm": [
               -94.49,
               375.7471390792555,
@@ -1047,6 +1616,7 @@
               291.37060569377763
             ],
             "pilot_depth_mm": 5.4399999999999995,
+            "pilot_radius_mm": 1.6,
             "point_mm": [
               -94.49,
               375.78113907925547,
@@ -1071,6 +1641,7 @@
               278.4386056937776
             ],
             "pilot_depth_mm": 5.4399999999999995,
+            "pilot_radius_mm": 1.6,
             "point_mm": [
               -94.49,
               442.10113907925546,
@@ -1095,6 +1666,7 @@
               291.45460569377764
             ],
             "pilot_depth_mm": 5.4399999999999995,
+            "pilot_radius_mm": 1.6,
             "point_mm": [
               -94.49,
               442.1311390792555,
@@ -1124,6 +1696,7 @@
               298.9406056937776
             ],
             "pilot_depth_mm": 5.4399999999999995,
+            "pilot_radius_mm": 1.6,
             "point_mm": [
               -94.49,
               375.74713907925553,
@@ -1148,6 +1721,7 @@
               311.87060569377763
             ],
             "pilot_depth_mm": 5.4399999999999995,
+            "pilot_radius_mm": 1.6,
             "point_mm": [
               -94.49,
               375.7811390792555,
@@ -1172,6 +1746,7 @@
               298.9386056937776
             ],
             "pilot_depth_mm": 5.4399999999999995,
+            "pilot_radius_mm": 1.6,
             "point_mm": [
               -94.49,
               442.1011390792555,
@@ -1196,6 +1771,7 @@
               311.95460569377764
             ],
             "pilot_depth_mm": 5.4399999999999995,
+            "pilot_radius_mm": 1.6,
             "point_mm": [
               -94.49,
               442.13113907925555,

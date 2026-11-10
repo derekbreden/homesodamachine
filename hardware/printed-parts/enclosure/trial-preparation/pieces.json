@@ -160,8 +160,8 @@
       },
       "settings": {
         "max_bridge_length": {
-          "value": "50",
-          "reason": "Support in back-top's zip-tie cavities is impossible to remove (2026-10-09 Mark1 article). With a 50 mm bridge limit the native 2026-10-10 slice has no support in the tie windows and its article drew no tie-cavity report. drain-readiness/prints/2026-10-09-current-back-top-tree-mark1/physical-result.json; drain-readiness/prints/2026-10-10-current-back-top-bridge50-mark1/README.md. Back-top only."
+          "value": "0",
+          "reason": "Native contact targets request the exposed undersides; explicit pocket exclusions keep the fitted interiors clear without a global bridge-support suppression."
         },
         "tree_support_branch_diameter_angle": {
           "value": "0",
@@ -169,7 +169,7 @@
         },
         "tree_support_branch_diameter": {
           "value": "3",
-          "reason": "The tree trunks retain a broad root section toward their contact tips."
+          "reason": "Keep the exterior tree trunks beside the rear wall and outside the protected cord passage."
         },
         "elefant_foot_compensation": {
           "value": "0",
@@ -181,11 +181,11 @@
         },
         "support_on_build_plate_only": {
           "value": "1",
-          "reason": "Native trees root outside the shell; the meter uses authored removable branches beside the plumbing."
+          "reason": "Retain the back-top bed-rooted native trees; the meter uses authored removable branches beside the plumbing."
         },
         "tree_support_branch_angle": {
           "value": "10",
-          "reason": "Keep the exterior trees beside the rear wall and clear of the protected cord passage."
+          "reason": "Keep exterior trunks beside the rear wall and clear of the protected cord passage."
         },
         "support_object_xy_distance": {
           "value": "0.5",
@@ -193,7 +193,7 @@
         },
         "raft_first_layer_expansion": {
           "value": "1.25",
-          "reason": "Compact explicit tree-root brims retain adhesion and keep the emitted Support D envelope inside the usable bed border."
+          "reason": "Retain the saved tree-root brims; the emitted bead envelope requires native placement review."
         },
         "tree_support_branch_distance": {
           "value": "8",
@@ -215,7 +215,7 @@
         },
         "support_type": {
           "value": "tree(manual)",
-          "reason": "Support only the accessible rail bearings and dry exterior field; bridge the protected plumbing interiors."
+          "reason": "Request the accessible source-authored contacts while keeping contact targets away from inaccessible receiver pockets and the cord passage; read branch routing from the native archive."
         }
       },
       "parts": [

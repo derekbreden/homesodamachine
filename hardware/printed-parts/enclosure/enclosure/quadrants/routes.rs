@@ -1,7 +1,7 @@
 //! The integral cable hooks each quadrant grows for the wire routes the wiring model lays
 //! against its walls, and the tube seats that hold the fluid routes' straights.
 use crate::catalog::{route_root_overlap, route_tube_tip_degrees};
-use crate::plan::{Graph, Op, P2, P3, Shape, Step};
+use crate::plan::{Bounds, Graph, Op, P2, P3, Shape, Step};
 use crate::quadrant::Quadrant;
 use crate::shapes::place;
 use crate::walls::back_top_flank_face;
@@ -49,18 +49,23 @@ fn frame_place(g: &mut Graph, shape: Shape, origin: P3, x: P3, y: P3, z: P3) -> 
 fn cable_hook(g: &mut Graph, site: &CableSite) -> Shape {
     let (n, p) = (unit(site.outward), unit(site.profile_up));
     let u = unit(cross(n, p));
-    let (d, h, span, stock, beak) = (site.seat_depth, site.seat_height, site.span, site.stock, site.beak);
+    let span = site.span;
+    let origin = std::array::from_fn(|k| site.origin[k] - u[k] * span / 2.0);
+    let hook = g.prism(2, 0.0, span, cable_section(site));
+    frame_place(g, hook, origin, n, p, u)
+}
+
+/// The cable hook's section is shared by its stock and underside contact regions.
+fn cable_section(site: &CableSite) -> Vec<P2> {
+    let (d, h, stock, beak) = (site.seat_depth, site.seat_height, site.stock, site.beak);
     let projection = d + stock;
     let floor = projection + stock;
     let roof = floor + h;
     let top = roof + beak + stock;
     let mouth = d - beak;
     let ro = route_root_overlap();
-    let section = vec![[-ro, -ro], [projection, projection], [projection, top], [d, top], [mouth, top - beak],
-                       [mouth, roof], [d, roof], [d, floor], [-ro, floor]];
-    let origin = std::array::from_fn(|k| site.origin[k] - u[k] * span / 2.0);
-    let hook = g.prism(2, 0.0, span, section);
-    frame_place(g, hook, origin, n, p, u)
+    vec![[-ro, -ro], [projection, projection], [projection, top], [d, top], [mouth, top - beak],
+         [mouth, roof], [d, roof], [d, floor], [-ro, floor]]
 }
 
 /// One integral tube seat: its host, the straight of the fluid route it holds, the axis and
@@ -140,4 +145,46 @@ pub fn apply(g: &mut Graph, piece: Shape, q: Quadrant) -> Shape {
         parts.push(tube_seat(g, site, [0.0, 0.0, q.up()]));
     }
     g.union(piece, &parts)
+}
+
+/// Accessible hook lands and the tube seat's outer underside, clear of the fitted bore roof.
+pub fn underside_support_regions(q: Quadrant) -> Vec<(String, Bounds)> {
+    let host = format!("enclosure-{}", q.name());
+    let mut regions = Vec::new();
+    let air = crate::catalog::running();
+    for (index, site) in cable_sites().iter().filter(|site| site.host == host).enumerate() {
+        let (n, p) = (unit(site.outward), unit(site.profile_up));
+        let u = unit(cross(n, p));
+        let section = cable_section(site);
+        for (edge, a) in section.iter().enumerate() {
+            let b = section[(edge+1)%section.len()];
+            let (dx, dy) = (b[0]-a[0], b[1]-a[1]);
+            if dy*n[2]-dx*p[2] < 0.99*dx.hypot(dy) {continue;}
+            let points: Vec<P3> = [*a,b].into_iter().flat_map(|point| [-0.5,0.5].map(|end| {
+                std::array::from_fn(|k| site.origin[k]+n[k]*point[0]+p[k]*point[1]+u[k]*site.span*end)
+            })).collect();
+            let mut bounds: Bounds = std::array::from_fn(|i| {
+                let values = points.iter().map(|point|point[i/2]);
+                if i%2==0 {values.fold(f64::INFINITY,f64::min)} else {values.fold(f64::NEG_INFINITY,f64::max)}
+            });
+            bounds[4] -= air;
+            bounds[5] += air;
+            regions.push((format!("Accessible cable hook {} land {edge}",index+1),bounds));
+        }
+    }
+    for site in tube_sites().iter().filter(|site|site.host==q) {
+        let centre: P3 = std::array::from_fn(|k|(site.endpoints[0][k]+site.endpoints[1][k])/2.0);
+        let u = unit(std::array::from_fn(|k|site.endpoints[1][k]-site.endpoints[0][k]));
+        let n = unit(site.outward);
+        let t = unit(cross(u,n));
+        let outer = site.bore/2.0+site.wing;
+        let reach = (site.face-centre[site.face_axis]).abs()+route_root_overlap();
+        let half: P3 = std::array::from_fn(|k|
+            (outer+reach)*t[k].abs()+outer.max(reach)*n[k].abs()+TUBE_SEAT_SPAN/2.0*u[k].abs());
+        let mut bounds: Bounds = std::array::from_fn(|i|
+            centre[i/2]+if i%2==0 {-half[i/2]} else {half[i/2]});
+        bounds[4] = centre[2]+outer*std::f64::consts::FRAC_1_SQRT_2;
+        regions.push(("Accessible tube seat outer underside".into(),bounds));
+    }
+    regions
 }
