@@ -1,0 +1,33 @@
+{
+  "purpose": "Record the production status plate's accepted illumination and preserve the supplied unlit and lit photographs.",
+  "status": "Illumination accepted by Derek",
+  "reported_on": "2026-11-09",
+  "part": "status-plate",
+  "configuration": {
+    "diffuser": "Translucent PETG window through the complete plate thickness, flush with both faces",
+    "light": "Blue LED"
+  },
+  "acceptance": {
+    "assessment": "Derek reports that the LED lights the diffuser well in person.",
+    "photographic_scope": "Derek reports that the photographs do not do the in-person result justice.",
+    "basis": "Derek's direct assessment and supplied photographs"
+  },
+  "source_print": {
+    "job_id": "1420097198",
+    "archive_sha256": "add2ae805c6d02cb27514b305d9cd8dff378f66b04cc6f021e977e0fe44c96a8",
+    "physical_result": "https://github.com/derekbreden/homesodamachine/blob/96b61e28d35e599c5620c705ff14f275b9b4aa03/hardware/printed-parts/enclosure/display-cover/prints/2026-11-08-identification-set-mark1-right-z005/physical-result.json"
+  },
+  "photos": [
+    {
+      "file": "unlit.jpg",
+      "condition": "Status window unlit",
+      "sha256": "a8a07aa9a1ae8b705fce45b11fecc8596d9bcc9c564b85e0a138c6169966f112"
+    },
+    {
+      "file": "lit.jpg",
+      "condition": "Status window illuminated by the blue LED",
+      "sha256": "dd2e6248a26c7d07e0ac0e696ba3192b31c51ea1fca54941aa5750251aed5268"
+    }
+  ],
+  "derek_quote": "LED lights it well. Photos don’t do it justice."
+}
