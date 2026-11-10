@@ -40,31 +40,25 @@
     "physical_result": "All coupons self-release from supports during cooling; retained roof strands remain separate and locally projecting. No acceptable candidate."
   },
   "next_comparison": {
-    "priority": "Tighter contacts and improved first-roof bonding on tiny ceilings",
-    "active_experiment": "close-contact/README.md",
-    "ids": [
-      "D",
-      "E",
-      "F"
+    "priority": "D transfer to reduced anchoring and representative pad contact",
+    "active_experiment": "peel-scenarios/README.md",
+    "process_source": "close-contact/2026-11-09-close-contact-DEF-left04-z018-mark1.3mf",
+    "selection_basis": "D and E retain the first roof layer during removal in the enclosed fixture; Derek explicitly selects D alone for the next plate.",
+    "scenarios": [
+      "Larger cantilever with a model wall on one edge",
+      "Larger wall-free panel",
+      "Wall-free holed panel",
+      "Production holed-pad underside and wall root"
     ],
-    "interface_spacing_mm": 0.0,
     "interface_layers": 3,
-    "support_style": "tree_slim",
-    "requested_top_z_distances_mm": [
-      0.24,
-      0.12,
-      0.06
-    ],
-    "measured_planned_bead_gaps_mm": [
-      0.18,
-      0.06,
-      0.02
-    ],
+    "interface_spacing_mm": 0.0,
+    "requested_top_z_distance_mm": 0.24,
+    "measured_planned_bead_gap_mm": 0.18,
     "bridge_flow_ratio": 1.25,
     "effective_bridge_speed_mm_s": 15,
-    "reason": "The first screen self-releases and retains loose model roof strands. The current comparison strengthens the landing surface and first model course while varying only the contact gap within the plate.",
-    "repeat_initial_conditions": false,
-    "larger_plate_status": "Prepared representative enclosure geometry is deferred pending a useful ceiling-contact result."
+    "estimated_seconds": 3428.3605567853774,
+    "intended_printer": "Mark1 left fixed hardened Standard 0.4 mm, PET-GF",
+    "shared_profile_changed": false
   },
   "later_factors": [
     {

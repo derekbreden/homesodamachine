@@ -1,0 +1,97 @@
+{
+  "purpose": "Test D's contact process on roofs with less model anchoring and representative enclosure support surfaces.",
+  "profile": "hardware/print-tests/petgf-dense-roofs/close-contact/2026-11-09-close-contact-DEF-left04-z018-mark1.3mf",
+  "interface_spacing_mm": {
+    "D": 0.0
+  },
+  "column_x_mm": [
+    160.0
+  ],
+  "label_height_mm": 0.48,
+  "ceiling_bottom_mm": 3.08,
+  "roof_thickness_mm": 1.2,
+  "wall_thickness_mm": 1.68,
+  "common_object_settings": {
+    "support_top_z_distance": "0.24",
+    "support_interface_top_layers": "3",
+    "support_interface_spacing": "0",
+    "support_style": "tree_slim"
+  },
+  "families": [
+    {
+      "id": "X",
+      "name": "Cantilever with west wall",
+      "kind": "panel",
+      "size_mm": [
+        32.0,
+        24.0
+      ],
+      "wall": "west",
+      "hole_diameter_mm": 0.0,
+      "column_x_mm": [
+        140
+      ],
+      "row_y_mm": 140,
+      "settings": {}
+    },
+    {
+      "id": "N",
+      "name": "Unanchored flat panel",
+      "kind": "panel",
+      "size_mm": [
+        32.0,
+        24.0
+      ],
+      "wall": "none",
+      "hole_diameter_mm": 0.0,
+      "column_x_mm": [
+        184
+      ],
+      "row_y_mm": 140,
+      "settings": {}
+    },
+    {
+      "id": "O",
+      "name": "Unanchored holed panel",
+      "kind": "panel",
+      "size_mm": [
+        24.0,
+        24.0
+      ],
+      "wall": "none",
+      "hole_diameter_mm": 4.0,
+      "column_x_mm": [
+        140
+      ],
+      "row_y_mm": 180,
+      "settings": {}
+    },
+    {
+      "id": "P",
+      "name": "Production holed-pad underside",
+      "kind": "crop",
+      "source": "hardware/print-tests/enclosure-support-scenarios/parts/PA.stl",
+      "source_z_shift_mm": 210.17,
+      "crop_min_mm": [
+        -22.725,
+        14.0,
+        214.42
+      ],
+      "crop_max_mm": [
+        -3.725,
+        35.0,
+        218.7
+      ],
+      "label_center_world_mm": [
+        -13.225,
+        25.5,
+        218.7
+      ],
+      "column_x_mm": [
+        184
+      ],
+      "row_y_mm": 180,
+      "settings": {}
+    }
+  ]
+}
