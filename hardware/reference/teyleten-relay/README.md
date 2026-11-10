@@ -13,6 +13,8 @@ Its PCB outline and mounting openings use fitted scan datums. Observed solder
 tips use smooth closed envelopes at their measured positions and downward extent.
 [scan-datums.json](scan-datums.json) owns these dimensions and the wire-entry
 interfaces exposed by [teyleten_relay.py](teyleten_relay.py).
+Each interface locates the central wire mouth and points outward from its
+terminal housing face.
 
 [scan_model.rs](scan_model.rs) prepares the reference manually from those datums;
 this purchased part has no normal build.

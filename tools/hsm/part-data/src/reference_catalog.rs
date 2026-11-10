@@ -1663,6 +1663,10 @@ pub(super) fn globals(cx: &mut Context, module: &str) -> Result<Env> {
                 ]),
             );
             e.insert("block_len".into(), json!(8.0));
+            let parameters = parse_json(read_file(
+                cx, b("/", g(&e, "HERE"), json!("replica-parameters.json")),
+            )?)?;
+            e.insert("terminal_interfaces".into(), ix(parameters, json!("terminal_interfaces")));
         }
         "mq6_gas_sensor" => {
             e.insert("ROOT".into(), path(cx, ""));
@@ -7069,21 +7073,11 @@ pub(super) fn call(
                     .or_else(|| kwarg(&kwargs, "sy"))
                     .unwrap_or_else(|| missing("sy")),
             );
+            let side = if n(&g(&e, "sy")) > 0. { "ac" } else { "dc" };
+            let terminal = ix(g(&e, "terminal_interfaces"), json!(side));
             return Ok(t(vec![
-                t(vec![
-                    json!(0.0),
-                    b(
-                        "*",
-                        g(&e, "sy"),
-                        b(
-                            "-",
-                            b("/", g(&e, "length"), json!(2.0)),
-                            g(&e, "block_inset"),
-                        ),
-                    ),
-                    b("+", g(&e, "ledge_h"), g(&e, "block_h")),
-                ]),
-                t(vec![json!(0.0), json!(0.0), json!(1.0)]),
+                t(seq(ix(terminal.clone(), json!("screw_center")))),
+                t(seq(ix(terminal, json!("screw_axis")))),
             ]));
             Ok(Value::Null)
         }
@@ -7111,25 +7105,11 @@ pub(super) fn call(
                     .or_else(|| kwarg(&kwargs, "side"))
                     .unwrap_or_else(|| missing("side")),
             );
+            let side = if n(&g(&e, "side")) > 0. { "ac" } else { "dc" };
+            let terminal = ix(g(&e, "terminal_interfaces"), json!(side));
             return Ok(t(vec![
-                t(vec![
-                    json!(0.0),
-                    b(
-                        "*",
-                        g(&e, "side"),
-                        b(
-                            "+",
-                            b(
-                                "-",
-                                b("/", g(&e, "length"), json!(2.0)),
-                                g(&e, "block_inset"),
-                            ),
-                            b("/", g(&e, "block_len"), json!(2.0)),
-                        ),
-                    ),
-                    b("+", g(&e, "ledge_h"), b("/", g(&e, "block_h"), json!(2.0))),
-                ]),
-                t(vec![json!(0.0), g(&e, "side"), json!(0.0)]),
+                t(seq(ix(terminal.clone(), json!("wire_center")))),
+                t(seq(ix(terminal, json!("wire_axis")))),
             ]));
             Ok(Value::Null)
         }
