@@ -1,0 +1,36 @@
+{
+  "printer": "Mark2",
+  "observed_at": "2026-11-10T05:08:16.667790+00:00",
+  "accepted_at_from_sender": "2026-11-10T05:05:11.898184+00:00",
+  "archive": {
+    "name": "2026-11-09-D-faucet-arch-pad-left04-z004-mark2.gcode.3mf",
+    "sha256": "2194ee0d24026c790b33aad8402e7b3f27451198b5bf87ba5fc78f7fb971937d",
+    "gcode_sha256": "cf446360481a6e6ae776af5ed961c6528f0f4f5b9f7d0444cd1a2a7dab06fa7f",
+    "slots": {
+      "1": {
+        "type": "PET-CF",
+        "colour": "161616"
+      }
+    },
+    "objects": [
+      "FD Faucet base through first lower curve",
+      "HD Rounded handhold arch",
+      "PD Holed pump-retainer pad"
+    ]
+  },
+  "printer_task_id": "1426768924",
+  "submission_method": "Bambu background accessibility sender",
+  "options": {
+    "Timelapse": "On",
+    "Auto bed leveling": "On",
+    "Flow dynamic calibration": "Auto",
+    "Nozzle Offset Calibration": "Auto"
+  },
+  "gcode_state": "RUNNING",
+  "subtask_name": "2026-11-09-D-faucet-arch-pad-left04-z004-mark2.gcode.3mf",
+  "print_error": 0,
+  "hms": [],
+  "layer_num": 0,
+  "total_layer_num": 184,
+  "mc_remaining_time": 110
+}

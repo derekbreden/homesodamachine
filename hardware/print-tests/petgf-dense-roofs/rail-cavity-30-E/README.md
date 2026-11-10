@@ -13,8 +13,10 @@ support roots, deposited bed envelope and archive hashes. The native rail slice
 rounds the requested distance onto a full model-layer step. The record distinguishes
 the requested contact distance from the nominal bridge-bead overlap at the interface.
 
-Mark1's accepted job and startup reading are in [`mark1/`](mark1/). The support
-removal result remains pending.
+Mark1's accepted job and startup reading are in [`mark1/`](mark1/). The
+[physical result](physical-result.json) records removable supports with more
+effort than the usual rail trees, fragmented removal and a pale roughened
+corner. The user selects D for the following trials.
 
 The [D peel result](../peel-scenarios/physical-result.json) records clean removal
 reported by the user and the retained underside photographs. The complete rail

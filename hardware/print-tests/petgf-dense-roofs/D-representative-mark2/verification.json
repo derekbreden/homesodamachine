@@ -1,0 +1,180 @@
+{
+  "purpose": "Bind D contact treatment, the original faucet bed pose and actual support paths to the Mark2 plate.",
+  "archive": "ready/2026-11-09-D-faucet-arch-pad-left04-z004-mark2.gcode.3mf",
+  "archive_sha256": "2194ee0d24026c790b33aad8402e7b3f27451198b5bf87ba5fc78f7fb971937d",
+  "gcode_sha256": "cf446360481a6e6ae776af5ed961c6528f0f4f5b9f7d0444cd1a2a7dab06fa7f",
+  "gcode_md5_verified": true,
+  "native_object_settings": [
+    {
+      "name": "FD Faucet base through first lower curve",
+      "extruder": "1",
+      "sparse_infill_density": "15%",
+      "sparse_infill_pattern": "grid",
+      "support_interface_spacing": "0",
+      "support_interface_top_layers": "3",
+      "support_object_xy_distance": "0.4",
+      "support_on_build_plate_only": "0",
+      "support_style": "default",
+      "support_top_z_distance": "0.24",
+      "support_type": "tree(auto)",
+      "tree_support_branch_angle": "45",
+      "wall_generator": "arachne"
+    },
+    {
+      "name": "HD Rounded handhold arch",
+      "extruder": "1",
+      "sparse_infill_density": "15%",
+      "sparse_infill_pattern": "grid",
+      "support_interface_spacing": "0",
+      "support_interface_top_layers": "3",
+      "support_object_xy_distance": "0.4",
+      "support_on_build_plate_only": "0",
+      "support_style": "tree_slim",
+      "support_top_z_distance": "0.24",
+      "support_type": "tree(auto)",
+      "tree_support_branch_angle": "45"
+    },
+    {
+      "name": "PD Holed pump-retainer pad",
+      "extruder": "1",
+      "sparse_infill_density": "100%",
+      "sparse_infill_pattern": "zig-zag",
+      "support_interface_spacing": "0",
+      "support_interface_top_layers": "3",
+      "support_object_xy_distance": "0.5",
+      "support_on_build_plate_only": "0",
+      "support_style": "tree_slim",
+      "support_top_z_distance": "0.24",
+      "support_type": "tree(auto)"
+    }
+  ],
+  "contact_readings": [
+    {
+      "id": "FD",
+      "bounds_mm": [
+        [
+          -29.5,
+          -28.494811875527514,
+          0.0
+        ],
+        [
+          29.5,
+          37.41184740308651,
+          32.12000000011176
+        ]
+      ],
+      "source_sha256": "dc855eb7d8eae75886222d8b4aee8b9e02fe1d55ae4740c1ae5b4b64cf6ba742",
+      "support_first_nozzle_z_mm": 0.2,
+      "support_last_nozzle_z_mm": 23.72,
+      "interface_z_mm": [
+        10.52,
+        10.76,
+        11.0,
+        11.24,
+        11.48
+      ],
+      "first_bridge_nozzle_z_mm": 0.68,
+      "rotation_x_degrees": -15,
+      "source_pose_bed_lift_mm": 7.635161830524362,
+      "full_original_bed_contact_retained": true,
+      "first_lower_curve_reference_band_mm": [
+        17,
+        29
+      ]
+    },
+    {
+      "id": "HD",
+      "bounds_mm": [
+        [
+          -107.5,
+          200.14999389648438,
+          0.0
+        ],
+        [
+          -90.75,
+          263.0,
+          24.72000000048429
+        ]
+      ],
+      "source_sha256": "a41f94b4d25fcaeb79ba06e64af1f86ee23709d0c2fc89dcd2b52a9d2bda9d51",
+      "support_first_nozzle_z_mm": 0.2,
+      "support_last_nozzle_z_mm": 11.24,
+      "interface_z_mm": [
+        10.76,
+        11.0,
+        11.24
+      ],
+      "first_bridge_nozzle_z_mm": 11.72
+    },
+    {
+      "id": "PD",
+      "bounds_mm": [
+        [
+          -22.72499999962747,
+          14.0,
+          0.0
+        ],
+        [
+          -3.724999999627471,
+          35.0,
+          22.310000000335265
+        ]
+      ],
+      "source_sha256": "0c68361aa05168a087ba9208a0d59d500f3dbf375cb6c1515eec01d601beb26a",
+      "support_first_nozzle_z_mm": 0.2,
+      "support_last_nozzle_z_mm": 7.16,
+      "interface_z_mm": [
+        6.603,
+        6.882,
+        7.16
+      ],
+      "first_bridge_nozzle_z_mm": 7.64,
+      "first_pad_roof_nozzle_z_mm": 7.64,
+      "nominal_bridge_bead_height_mm": 0.3,
+      "nominal_bead_gap_mm": 0.17999999999999972
+    }
+  ],
+  "support_reading_scope": "Spatially separated native support paths reach the bed beneath each crop. The support-audit reader fragments independently spaced support courses and is not used to count physical trees here.",
+  "requested_top_z_distance_mm": 0.24,
+  "interface_spacing_mm": 0,
+  "interface_layers": 3,
+  "bridge_flow": 1.25,
+  "bridge_speed_mm_s": 15,
+  "trim_commands": [
+    "G29.1 Z0 ; clear z-trim value first",
+    "G29.1 Z0.02"
+  ],
+  "filament_colour": "#161616",
+  "filament_map": [
+    1
+  ],
+  "nozzle_diameter_mm": 0.4,
+  "deposited_bounds_xy_mm": [
+    [
+      99.3712555,
+      95.0112555
+    ],
+    [
+      222.7637445,
+      206.8237445
+    ]
+  ],
+  "bed_margins_mm": [
+    99.3712555,
+    95.0112555,
+    102.2362555,
+    113.1762555
+  ],
+  "envelope_scope": "Linear extrusion endpoints and full-circle bounds for any deposited arc, padded for the maximum annotated bead radius and rounding.",
+  "deposited_arc_commands": 0,
+  "maximum_annotated_bead_width_mm": 0.717489,
+  "padding_mm": 0.6087445,
+  "estimated_seconds": 8371.540994785459,
+  "slicer_estimated_filament_g": 42.145721435546875,
+  "Mark1_task_id": "1426744585",
+  "Mark1_accepted_at": "2026-11-10T04:49:46.290900+00:00",
+  "seconds_since_Mark1_acceptance_at_verification": 824.072906,
+  "status": "Native slice verified and accepted by the printer; physical finish and removal remain pending.",
+  "printer_task_id": "1426768924",
+  "estimate_scope": "Native estimate plus the added constant-feed recovery motion time; acceleration and fan spin-up are not simulated."
+}

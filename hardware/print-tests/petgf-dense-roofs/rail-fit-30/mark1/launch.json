@@ -1,0 +1,35 @@
+{
+  "printer": "H2C",
+  "observed_at": "2026-11-10T05:08:16.398859+00:00",
+  "accepted_at_from_sender": "2026-11-10T04:49:46.290900+00:00",
+  "archive": {
+    "name": "2026-11-09-rail-fit-pair-30-D-left04-z018-mark1.gcode.3mf",
+    "sha256": "a0368e2ac9ec2ab49442a1814e065237d6008275da7fdfae709c5ce92d5b543b",
+    "gcode_sha256": "04b315d5209d2c5064199b6ade21f5e7f85299875fd65ecfabd98e51166042dc",
+    "slots": {
+      "1": {
+        "type": "PET-CF",
+        "colour": "000000"
+      }
+    },
+    "objects": [
+      "RD Complete rail cavity",
+      "MD Matching front-top rail and wall"
+    ]
+  },
+  "printer_task_id": "1426744585",
+  "submission_method": "Bambu background accessibility sender",
+  "options": {
+    "Timelapse": "On",
+    "Auto bed leveling": "On",
+    "Flow dynamic calibration": "Auto",
+    "Nozzle Offset Calibration": "Auto"
+  },
+  "gcode_state": "RUNNING",
+  "subtask_name": "2026-11-09-rail-fit-pair-30-D-left04-z018-mark1.gcode.3mf",
+  "print_error": 0,
+  "hms": [],
+  "layer_num": 25,
+  "total_layer_num": 98,
+  "mc_remaining_time": 19
+}

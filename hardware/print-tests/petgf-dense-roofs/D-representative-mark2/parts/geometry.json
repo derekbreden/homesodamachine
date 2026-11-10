@@ -1,0 +1,223 @@
+{
+  "spec": {
+    "column_x_mm": [
+      162.5
+    ],
+    "common_object_settings": {
+      "support_interface_spacing": "0",
+      "support_interface_top_layers": "3",
+      "support_top_z_distance": "0.24"
+    },
+    "families": [
+      {
+        "actual_crop_min_z_mm": 0.0,
+        "column_x_mm": [
+          155
+        ],
+        "crop_max_mm": [
+          40,
+          50,
+          32.12
+        ],
+        "crop_min_mm": [
+          -40,
+          -50,
+          0
+        ],
+        "feature": "Industrial faucet approved production base",
+        "first_curve_print_band_reference_mm": [
+          17,
+          29
+        ],
+        "id": "F",
+        "label_center_world_mm": null,
+        "name": "Faucet base through first lower curve",
+        "normalize_pose_to_original_bed": true,
+        "retains": "Complete production base width, tilted starting contact, low underside and first lower rounded transition.",
+        "rotation_x_degrees": -15,
+        "row_y_mm": 130,
+        "settings": {
+          "sparse_infill_density": "15%",
+          "sparse_infill_pattern": "grid",
+          "support_object_xy_distance": "0.4",
+          "support_on_build_plate_only": "0",
+          "support_style": "default",
+          "tree_support_branch_angle": "45",
+          "wall_generator": "arachne"
+        },
+        "source": "hardware/printed-parts/faucet/industrial/production/2026-10-25/industrial-shell-base.stl",
+        "source_pose_bed_lift_mm": 7.635161830524362,
+        "source_production_selection": "hardware/printed-parts/faucet/industrial/production-selection.json",
+        "source_sha256": "dc855eb7d8eae75886222d8b4aee8b9e02fe1d55ae4740c1ae5b4b64cf6ba742",
+        "support_scope": "D dense interfaces on native automatic trees over the complete lower base section."
+      },
+      {
+        "actual_crop_min_z_mm": 17.759999999776483,
+        "column_x_mm": [
+          210
+        ],
+        "crop_max_mm": [
+          -90.5,
+          263.0,
+          42.0
+        ],
+        "crop_min_mm": [
+          -110.5,
+          200.0,
+          17.76
+        ],
+        "feature": "enclosure-back-bottom::west-handhold",
+        "id": "H",
+        "label_center_world_mm": [
+          -103.0,
+          244.0,
+          42.0
+        ],
+        "name": "Rounded handhold arch",
+        "production_bed_world_z_mm": -6.0,
+        "retains": "The production corbel, curved opening end, complete open seam end, underside and wall junction; lower empty height and unrelated enclosure stock are cropped.",
+        "row_y_mm": 175,
+        "settings": {
+          "sparse_infill_density": "15%",
+          "sparse_infill_pattern": "grid",
+          "support_object_xy_distance": "0.4",
+          "support_on_build_plate_only": "0",
+          "support_style": "tree_slim",
+          "tree_support_branch_angle": "45"
+        },
+        "source": "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.stl",
+        "source_pose_bed_lift_mm": 0.0,
+        "source_sha256": "a41f94b4d25fcaeb79ba06e64af1f86ee23709d0c2fc89dcd2b52a9d2bda9d51",
+        "target_support_root": "bed"
+      },
+      {
+        "actual_crop_min_z_mm": 210.1699999999255,
+        "column_x_mm": [
+          110
+        ],
+        "crop_max_mm": [
+          -3.725,
+          35.0,
+          232.0
+        ],
+        "crop_min_mm": [
+          -22.725,
+          14.0,
+          210.17
+        ],
+        "feature": "enclosure-front-top::pump-mount-cuts",
+        "id": "P",
+        "label_center_world_mm": [
+          -13.225,
+          25.5,
+          232.0
+        ],
+        "name": "Holed pump-retainer pad",
+        "production_bed_world_z_mm": 160.25,
+        "retains": "The complete square underside, hole mouth, blind pilot and closing tip with its surrounding wall root; tall empty space below and excess solid cap above are cropped.",
+        "row_y_mm": 185,
+        "settings": {
+          "sparse_infill_density": "100%",
+          "sparse_infill_pattern": "zig-zag",
+          "support_object_xy_distance": "0.5",
+          "support_on_build_plate_only": "0",
+          "support_style": "tree_slim"
+        },
+        "source": "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl",
+        "source_contact_plane_z_mm": 217.5,
+        "source_pick_world_mm": [
+          -16.916,
+          24.629,
+          217.5
+        ],
+        "source_pose_bed_lift_mm": 0.0,
+        "source_sha256": "0c68361aa05168a087ba9208a0d59d500f3dbf375cb6c1515eec01d601beb26a",
+        "target_support_root": "bed"
+      }
+    ],
+    "interface_spacing_mm": {
+      "D": 0.0
+    },
+    "label_height_mm": 0.48,
+    "machine_overrides": {
+      "filament_colour": [
+        "#161616"
+      ],
+      "printer_settings_id": "Bambu Lab H2C 0.4 Standard +0.04 Z trim"
+    },
+    "profile": "hardware/print-tests/petgf-dense-roofs/close-contact/2026-11-09-close-contact-DEF-left04-z018-mark1.3mf",
+    "purpose": "Transfer D contact treatment to the production faucet lower curve, rounded handhold arch and holed pad on Mark2.",
+    "requested_z_trim_mm": 0.04
+  },
+  "specimens": [
+    {
+      "bounds_mm": [
+        [
+          -29.5,
+          -28.494811875527514,
+          0.0
+        ],
+        [
+          29.5,
+          37.41184740308651,
+          32.12000000011176
+        ]
+      ],
+      "condition": "D",
+      "family": "F",
+      "id": "FD",
+      "posed_z_to_print_z_mm": -0.0,
+      "rotation_x_degrees": -15.0,
+      "solids": 1,
+      "source_pose_bed_lift_mm": 7.635161830524362,
+      "volume_mm3": 40105.29812147141,
+      "watertight": true
+    },
+    {
+      "bounds_mm": [
+        [
+          -107.5,
+          200.14999389648438,
+          0.0
+        ],
+        [
+          -90.75,
+          263.0,
+          24.72000000048429
+        ]
+      ],
+      "condition": "D",
+      "family": "H",
+      "id": "HD",
+      "posed_z_to_print_z_mm": -17.759999999776483,
+      "rotation_x_degrees": 0.0,
+      "solids": 1,
+      "source_pose_bed_lift_mm": 0.0,
+      "volume_mm3": 14336.066591007067,
+      "watertight": true
+    },
+    {
+      "bounds_mm": [
+        [
+          -22.72499999962747,
+          14.0,
+          0.0
+        ],
+        [
+          -3.724999999627471,
+          35.0,
+          22.310000000335265
+        ]
+      ],
+      "condition": "D",
+      "family": "P",
+      "id": "PD",
+      "posed_z_to_print_z_mm": -210.1699999999255,
+      "rotation_x_degrees": 0.0,
+      "solids": 1,
+      "source_pose_bed_lift_mm": 0.0,
+      "volume_mm3": 5832.902728563306,
+      "watertight": true
+    }
+  ]
+}

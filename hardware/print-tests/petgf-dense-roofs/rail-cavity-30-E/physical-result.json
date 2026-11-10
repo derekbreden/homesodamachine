@@ -1,0 +1,43 @@
+{
+  "purpose": "Retain E rail removal effort, fragmented supports and local corner damage reported by the user.",
+  "date": "2026-11-09",
+  "printer": "Mark1",
+  "printer_task_id": "1426648651",
+  "status": "Removable with greater effort than the usual rail supports; fragmented removal and local rough separation reported.",
+  "user_observations": [
+    {
+      "verbatim": "Well, that support was removable, though it certainly wasn't as easy as the rail supports, rail cavity supports normally are."
+    },
+    {
+      "verbatim": "And I think that has more to do with the denser interface layer than anything else, that normally when they remove, like, it bends easier and the trees all come off as a single unit, but here it broke into several pieces, every tree or every couple of trees, and that's maybe just to be expected."
+    },
+    {
+      "verbatim": "But still, it was a little bit difficult to remove, and I took a close-up photo there where you can see maybe that, like, right along the edge you get some lighter coloration from where it fused a bit there, and you can see from how it separated that it was not a clean separation, at least right on the corner there as I'm photographing it."
+    },
+    {
+      "verbatim": "So in any case, I think I'd like to go with D for a while here, and both printers are now available."
+    }
+  ],
+  "visual_observations": "The cavity underside retains parallel roads; a pale irregular strip is visible along the photographed corner.",
+  "interpretation_scope": "The user attributes the stiffer fragmented mat mainly to interface density. Density and closer E contact are not independently isolated against the usual rail recipe by this result. Removal force and damaged area are unmeasured.",
+  "requested_top_z_distance_mm": 0.12,
+  "nominal_bead_gap_mm": -0.0600000000000005,
+  "photos": [
+    {
+      "source_name": "1-Photo-1.jpg",
+      "path": "photos/01-removed-support-and-cavity.jpg",
+      "source_sha256": "c201ea3429fd4172d93409f8e7744636b63888de06d29bbd0ed618dfbe138a77",
+      "sha256": "d5ffc2a3cc453487f4663fb30333cc4dd384577891289fa3327630b3d1d7f839",
+      "processing": "JPEG scan data and decoded pixels preserved; private metadata and comments omitted; orientation retained."
+    },
+    {
+      "source_name": "2-Photo-2.jpg",
+      "path": "photos/02-pale-roughened-corner.jpg",
+      "source_sha256": "f71982dba1eeea67b500ad9e9f08d8a8d8ebb7cccd547a624c413378f49636ee",
+      "sha256": "6082e51c25d93cefa517b7995bdd98266b7af3fbb7425bbdb9336d85faaeaf63",
+      "processing": "JPEG scan data and decoded pixels preserved; private metadata and comments omitted; orientation retained."
+    }
+  ],
+  "selected_followup_process": "D",
+  "D_requested_top_z_distance_mm": 0.24
+}
