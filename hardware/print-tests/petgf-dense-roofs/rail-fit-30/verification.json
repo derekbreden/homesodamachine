@@ -1,0 +1,119 @@
+{
+  "purpose": "Record native slice time and preserve the rail contact geometry for the longer coupon and its optional mating section.",
+  "status": "Prepared offline; not submitted to a printer.",
+  "archive": "ready/2026-11-09-rail-fit-pair-30-D-left04-z018-mark1.gcode.3mf",
+  "archive_sha256": "a0368e2ac9ec2ab49442a1814e065237d6008275da7fdfae709c5ce92d5b543b",
+  "gcode_sha256": "04b315d5209d2c5064199b6ade21f5e7f85299875fd65ecfabd98e51166042dc",
+  "gcode_md5_verified": true,
+  "parts": [
+    {
+      "id": "RD",
+      "dimensions_mm": [
+        19.749069213867188,
+        30.0,
+        18.31999969482422
+      ],
+      "source_sha256": "7eb9455df0f38d96e9edd78384e98b5ac11a2dbfbb43dacf7eab3a378d1360a6",
+      "stl_sha256": "094c501e43c487c806072ddbda032a6e5a67f6ff69aeee7a44bbe8b6ca3060c0"
+    },
+    {
+      "id": "MD",
+      "dimensions_mm": [
+        20.249069213867188,
+        30.0,
+        23.59000015258789
+      ],
+      "source_sha256": "0c68361aa05168a087ba9208a0d59d500f3dbf375cb6c1515eec01d601beb26a",
+      "stl_sha256": "97a7042f500e81770d2f3653f5c84bad1d075c8b07fe0b8decd0faacb49bb383"
+    }
+  ],
+  "rail_cavity_height_mm": 9.2,
+  "rail_floor_stock_mm": 3.04,
+  "rail_arm_stock_mm": 4.5,
+  "rail_roof_stock_mm": 5.6,
+  "native_object_settings": [
+    {
+      "name": "RD Complete rail cavity",
+      "extruder": "1",
+      "support_type": "tree(auto)",
+      "support_interface_top_layers": "3",
+      "support_top_z_distance": "0.24",
+      "support_interface_spacing": "0",
+      "sparse_infill_density": "100%",
+      "sparse_infill_pattern": "zig-zag",
+      "support_on_build_plate_only": "0",
+      "support_style": "default",
+      "tree_support_branch_angle": "20"
+    },
+    {
+      "name": "MD Matching front-top rail and wall",
+      "extruder": "1",
+      "support_type": "tree(auto)",
+      "support_interface_top_layers": "3",
+      "support_top_z_distance": "0.24",
+      "support_interface_spacing": "0",
+      "sparse_infill_density": "100%",
+      "sparse_infill_pattern": "zig-zag",
+      "support_on_build_plate_only": "0",
+      "support_style": "default",
+      "tree_support_branch_angle": "20"
+    }
+  ],
+  "support_summary": {
+    "bed_rooted_bodies": 0,
+    "bodies_without_interface_labels": 0,
+    "explicit_interface_islands": 1,
+    "interface_islands": 1,
+    "model_rooted_bodies": 1,
+    "shortest_build_up_mm": 7.92,
+    "shortest_labelled_build_up_mm": 7.92,
+    "support_bodies": 1
+  },
+  "support_body": {
+    "base_z_mm": 3.56,
+    "bbox_xy_mm": [
+      142.0,
+      145.2,
+      146.8,
+      175.2
+    ],
+    "first_interface_z_mm": 11.48,
+    "id": "tree-1",
+    "interface_reading": "explicit_feature",
+    "interfaces": [
+      "interface-1"
+    ],
+    "root": "model",
+    "shortest_build_up_mm": 7.92,
+    "top_z_mm": 11.96
+  },
+  "interface_z_mm": [
+    11.48,
+    11.72,
+    11.96
+  ],
+  "first_roof_nozzle_z_mm": 12.44,
+  "nominal_bridge_bead_height_mm": 0.3,
+  "planned_bead_gap_mm": 0.17999999999999794,
+  "bridge_speed_mm_s": 15,
+  "estimated_seconds": 2254.6598452455887,
+  "estimate_scope": "Native slice estimate plus the recorded PET-GF cooling motion adjustment.",
+  "slicer_estimated_filament_g": 15.800369262695312,
+  "mating_fit": {
+    "frame": "Untranslated production crops without labels",
+    "overlap_mm3": 0.0
+  },
+  "mating_section_stock_mm": {
+    "beyond_channel_far_wall": 3,
+    "above_channel_peak": 3.06
+  },
+  "nominal_production_clearances_mm": {
+    "foot_above_floor": 0.25,
+    "foot_below_catch": 0.5,
+    "foot_to_arm": 0.25,
+    "hook_to_channel_open": 0.25,
+    "head_to_channel_shoulder": 0.25,
+    "arm_end_to_channel_far_wall": 0.5
+  },
+  "mating_scope": "Full sliding cross-sections at the source assembly coordinates, with open cropped ends; physical sliding and removal remain untested."
+}
