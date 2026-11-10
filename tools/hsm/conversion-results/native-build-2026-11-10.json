@@ -1,0 +1,570 @@
+{
+  "schema": 1,
+  "date": "2026-11-10",
+  "purpose": "This record preserves native build cutover measurements, artifact identity and live-view evidence.",
+  "status": "complete",
+  "source_commits": {
+    "display_artwork": "1e792b234981deb082a28e8440fea1979234791c",
+    "display_bitmap_retirement": "aecbaf3b890dec7bcc5879a7efeac34cf844fb63",
+    "native_orchestration": "3808b900868f158514810f820df125412ff5c8f2",
+    "assembly_result_cache": "acf82f7cc6d8d2286bfb8cd36563f2746b2bbd8b",
+    "cold_reference_resolution": "71dedf4660a541d7cc8d5ec4f1b865abe830989f",
+    "reference_publication": "a3ce614b8e982b7b5f5ad1af389ff61b53b6400c"
+  },
+  "controlled_timings": {
+    "unit": "seconds",
+    "old_backend": "Bazel-backed progressive driver",
+    "native_backend": "native planner and engine program/result cache",
+    "baseline_revision": "bd3f9933917d16a56da25a4b6a9a4acd0350a7fc",
+    "native_revision": "3808b900868f158514810f820df125412ff5c8f2",
+    "scope": [
+      "Warm shared geometry/import caches; native trials follow the old trials and may reuse retained variants produced earlier.",
+      "Old controlled trials use a no-op publisher (/usr/bin/true); native controlled trials use --no-publish. These exclude actual website publication.",
+      "Outer command and driver intervals are distinct; neither includes agent request/discovery. These are individual observations, not cold-cache or statistical comparisons.",
+      "The relay placement edit also changes dependent enclosure geometry; it is not an isolated rigid-body transform."
+    ],
+    "edits": {
+      "part": {
+        "source": "hardware/printed-parts/asse-drain-adapter/numbers.rs",
+        "parameter": "GROOVE_DEPTH",
+        "original_mm": 0.5,
+        "trial_mm": 0.51
+      },
+      "placement": {
+        "source": "hardware/manifold-layout/above-core.json",
+        "part": "relay-1",
+        "axis": "translation_mm[2]",
+        "delta_mm": -0.1
+      },
+      "restored": true
+    },
+    "rows": [
+      {
+        "case": "part-unchanged",
+        "target": "//:asse-drain-adapter",
+        "old": {
+          "command_seconds": 0.371992958,
+          "driver_seconds": 0.337705541
+        },
+        "native": {
+          "command_seconds": 1.1482139580000001,
+          "driver_seconds": 0.112172292,
+          "counts": {
+            "cached": 2
+          },
+          "cargo_invocations": 0
+        },
+        "exit_codes": [
+          0,
+          0
+        ]
+      },
+      {
+        "case": "part-edit",
+        "target": "//:asse-drain-adapter",
+        "old": {
+          "command_seconds": 2.9502105840000006,
+          "driver_seconds": 2.936607583
+        },
+        "native": {
+          "command_seconds": 2.520012917,
+          "driver_seconds": 2.252683791,
+          "counts": {
+            "built": 1,
+            "cached": 1
+          },
+          "cargo_invocations": 1
+        },
+        "exit_codes": [
+          0,
+          0
+        ]
+      },
+      {
+        "case": "part-restored",
+        "target": "//:asse-drain-adapter",
+        "old": {
+          "command_seconds": 1.3842317910000002,
+          "driver_seconds": 1.366823583
+        },
+        "native": {
+          "command_seconds": 0.40439358300000006,
+          "driver_seconds": 0.1213305,
+          "counts": {
+            "cached": 2
+          },
+          "cargo_invocations": 0
+        },
+        "exit_codes": [
+          0,
+          0
+        ]
+      },
+      {
+        "case": "placement-edit",
+        "target": "//:installed-machine",
+        "old": {
+          "command_seconds": 65.156202125,
+          "driver_seconds": 65.134951084
+        },
+        "native": {
+          "command_seconds": 61.068493624999995,
+          "driver_seconds": 60.785546,
+          "counts": {
+            "built": 19,
+            "cached": 8
+          },
+          "cargo_invocations": 13
+        },
+        "exit_codes": [
+          0,
+          0
+        ]
+      },
+      {
+        "case": "placement-restored",
+        "target": "//:installed-machine",
+        "old": {
+          "command_seconds": 61.439007958000005,
+          "driver_seconds": 61.412441416
+        },
+        "native": {
+          "command_seconds": 33.042794917,
+          "driver_seconds": 32.241835,
+          "counts": {
+            "built": 2,
+            "cached": 25
+          },
+          "cargo_invocations": 0
+        },
+        "exit_codes": [
+          0,
+          0
+        ]
+      }
+    ],
+    "evidence": {
+      "old": {
+        "path": ".cache/runs/native-build-20261110/baseline-edits.json",
+        "sha256": "8084efca41ae03c6b62a393e4275fd74f0c193af9eadde199d9406f982803319"
+      },
+      "native": {
+        "path": ".cache/runs/native-build-20261110/native-edits.json",
+        "sha256": "01228353430ab2f044b7a334e8adeaebade910349f5bb387afc22b55436139f0"
+      }
+    }
+  },
+  "full_warm_build": {
+    "old_driver_seconds": 9.350149333,
+    "native_driver_seconds": 4.302244083,
+    "native_cached_targets": 61,
+    "native_built_targets": 0,
+    "native_cargo_invocations": 0,
+    "native_source_commit": "ac77fc7058000ad54eab9b2020865d658f097125",
+    "publication_processes_started": 0,
+    "scope": "All selected native targets reused engine results with retained shared caches; this is not a cold build or a live-publication latency.",
+    "evidence": {
+      "path": ".cache/runs/native-build-20261110/native-all-cached/result.json",
+      "sha256": "05d0fc3f994440cc8ad2973460ed4860c9e7864cc84068ee674e985c21849348"
+    },
+    "baseline_scope": "The old full-driver observation includes Bazel server startup, partially reused actions and a publication process; its mode and cache state are not controlled against the native observation.",
+    "source_scope": "The source commit is the recorded checkout HEAD; the cache fix in the working tree is subsequently committed as assembly_result_cache."
+  },
+  "initial_artifact_comparison": {
+    "print_stls": 91,
+    "byte_identical": 91,
+    "stl_path_sha256_manifest_sha256": "cad2bf80de7d98a99b2a3ee87e153ebaa8e6f46a5638072f3d461137e9d4183b",
+    "manifest_encoding": "UTF-8 JSON of repository-path-sorted [path, sha256] pairs followed by LF",
+    "mesh_wrapper_hash_differences": 5,
+    "scope": "Initial exact STL comparison against the captured shared-checkout baseline; final comparison is recorded separately.",
+    "evidence": {
+      "baseline": {
+        "path": ".cache/runs/native-build-20261110/artifact-baseline.json",
+        "sha256": "bffa7cec3d22fd1458eb816230e182694c2c03023bb1115f25e1e908a1bb856c"
+      },
+      "comparison": {
+        "path": ".cache/runs/native-build-20261110/artifact-comparison.json",
+        "sha256": "544ce1f2c09445d04334c6c253bd275451cd242a87f97aedd9614cb57c2db1e5"
+      }
+    }
+  },
+  "live_geometry": {
+    "nameplate": {
+      "source": "hardware/printed-parts/enclosure/nameplate/nameplate.rs",
+      "edit": "Nameplate thickness +0.05 mm",
+      "source_edit_at": "2026-11-10T18:00:14.400Z",
+      "matching_reference_draw_at": "2026-11-10T18:00:37.465Z",
+      "seconds": 23.065,
+      "metric": "source edit to matching geometry eligible for a completed reference-browser draw",
+      "excluded": [
+        "request receipt",
+        "agent discovery and reasoning",
+        "initial viewer load",
+        "proof of unobstructed pixels or user-device paint"
+      ],
+      "url": "https://homesodamachine.com/3d#step:manifold-layout%2Fenclosure-assembly.step?find=solid%3A%20nameplate",
+      "expected_artifact": {
+        "path": "hardware/manifold-layout/enclosure-assembly.step.mesh",
+        "sha256": "dab91b0e924689bfad7637b3ed107b0a3e275e2b393c18dfa316d5db710c7691",
+        "bytes": 186712
+      },
+      "body": {
+        "name": "nameplate",
+        "source": "hardware/printed-parts/enclosure/nameplate/nameplate-001.step.mesh",
+        "source_sha256": "0f23e13414da567ead1b9e919613a0dc8bf40eae82a8e4474b66f5679825107b",
+        "asset_sha256": "d73323264ec6c61ac9b47cf446139df7bb6d41400b1c4709b63102798693034e"
+      },
+      "source_edit_sha256": "674a2d3f6d323bea46a879a6ad5e25a13b08fe2560d0c488453d93b6c4e5fa4c",
+      "draw_revision": "5345761155939a6c51c71d9a4ea8946cb6a902a0d039cf66b6cac1c6d2f2be98",
+      "observer_scope": "Matching mounted geometry is eligible for this completed reference draw. Unobstructed pixels, occlusion and the user's device paint are not established.",
+      "selection_scope": "Only bodies changed in the first selected local producer update are observed; later producer updates are outside this observation.",
+      "scene_loading_at_draw": true,
+      "page_errors": [],
+      "source_restored_at": "2026-11-10T18:00:46.763Z",
+      "restored_source_sha256": "8c72bd6022685f39bc3ecaa01063d9d1264c9d2b836a004085c4806ba06ddb1d",
+      "restore_build_exit_code": 0,
+      "restore_publication_exit_codes": [
+        0
+      ],
+      "evidence": {
+        "iteration": {
+          "path": ".cache/runs/native-build-cutover/iteration.json",
+          "sha256": "e381691d1b96879a5dfcb6eb8c69a834646855cef006a0917c11d0d4aae76517"
+        },
+        "events": {
+          "path": ".cache/runs/native-build-cutover/iteration.events.jsonl",
+          "sha256": "af68c2acf88917e93750204f3720d60d0a5daa8647cde11d114298b54581508a"
+        },
+        "trial": {
+          "path": ".cache/runs/native-build-20261110/nameplate-live-trial.json",
+          "sha256": "e6d54dfd99e7e187b09a3ea455d5cc1fbf417766bd6a49c8f88331be830f29b1"
+        }
+      }
+    },
+    "unsuccessful_asse_trial": {
+      "source": "hardware/printed-parts/asse-drain-adapter/numbers.rs",
+      "edit": "GROOVE_DEPTH 0.50 -> 0.51 -> 0.50",
+      "source_edit_at": "2026-11-10T17:55:39.501Z",
+      "observer_exit_code": 1,
+      "outcome": "No selected local assembly geometry change was observed before timeout: the standalone ASSE edit did not affect the inline assembly shape. This is not a successful live-geometry timing.",
+      "source_restored_at": "2026-11-10T17:58:40.299Z",
+      "restore_exit_code": 0,
+      "correction": "The nameplate trial uses the actual source-bound nameplate body and expected payload hashes.",
+      "evidence": {
+        "path": ".cache/runs/native-build-20261110/live-trial.json",
+        "sha256": "065aa4d476106a10d421238c3e1c9417ab4d66f42360ded8ef858a339bbaa36b"
+      }
+    },
+    "final_current_view": {
+      "status": "passed",
+      "observed_at": "2026-11-10T18:45:05.989Z",
+      "source_commit": "0307a3875d7caf9d5f03daa6ef0b508d9e7fd866",
+      "evidence": {
+        "kind": "reference-browser-draw-eligibility",
+        "names": [
+          "nameplate",
+          "enclosure-back-top"
+        ],
+        "expected_artifact": {
+          "path": "hardware/manifold-layout/enclosure-assembly.step.mesh",
+          "sha256": "387179cfccaeeba17fa98367139329a0bf17ed2cdfe7a15846dc042f17f453a2",
+          "bytes": 186504
+        },
+        "selection": {
+          "mode": "current-local-snapshot",
+          "requested_names": [
+            "nameplate",
+            "enclosure-back-top"
+          ],
+          "observed_names": [
+            "nameplate",
+            "enclosure-back-top"
+          ],
+          "scope": "Only the selected bodies in this local artifact snapshot are observed."
+        },
+        "failed_parts": [],
+        "page_errors": []
+      },
+      "scope": "Current local snapshot matched the existing published viewer after restoring all controlled edits. This is a delivery verification, not a source-edit latency.",
+      "event_stream_sha256": "26994d9b80107ef7d85b60d881843c700f684f283f732ba7171d3dd773d93aee"
+    },
+    "request_record": {
+      "received_at": "2026-11-10T17:11:05.000Z",
+      "completed_at": "2026-11-10T18:57:12.722Z",
+      "scope": "The approval covers the architecture implementation; controlled edit latency is recorded separately from this full task interval."
+    }
+  },
+  "ci_and_cold_reference": {
+    "initial_ci": {
+      "status": "failed",
+      "cause": "B-rep STEP import required a private import-cache entry unavailable in CI.",
+      "run_urls": [
+        "https://github.com/derekbreden/homesodamachine/actions/runs/42870726806",
+        "https://github.com/derekbreden/homesodamachine/actions/runs/42872989784"
+      ]
+    },
+    "repair": {
+      "status": "committed-and-published",
+      "reference_count": 6,
+      "payload_policy": "Bind exact existing reference payload bytes; no geometry regeneration.",
+      "references": [
+        {
+          "source": "hardware/reference/beduan-solenoid/beduan-solenoid.step",
+          "source_sha256": "fcf554f470667fc739c49119942e3142ae25eaf417ab920f8168ff6e3c15c818",
+          "payload": "hardware/reference/beduan-solenoid/beduan-solenoid.step.mesh",
+          "payload_sha256": "95052393bbd6a02f0586593a605e8cfc3297dd6f478767819ea63366447926fe",
+          "binding": "fine_payload",
+          "quality": "recorded fine"
+        },
+        {
+          "source": "hardware/reference/neofit-stem-elbow/neofit-stem-elbow.step",
+          "source_sha256": "3019e6b26531b3e2d9b9454a689264ae45c352d0fc28ca9712928a90e7f42f53",
+          "payload": "hardware/reference/neofit-stem-elbow/neofit-stem-elbow.import.step.mesh",
+          "payload_sha256": "1444d3313796ba84f14296dadb3a91992640f73228b8d61ad151dfe3060fc6bf",
+          "binding": "preserved_step_imports",
+          "quality": "unknown"
+        },
+        {
+          "source": "hardware/reference/tee-connector/tee-connector.step",
+          "source_sha256": "bba36626afe1765fefd3affc790120cad6de786a3a23992f745037bf549bac36",
+          "payload": "hardware/reference/tee-connector/tee-connector.step.mesh",
+          "payload_sha256": "7a1d9fccd08701a5304e1246e24c72f59a2ed13e4e1a2c4b2579e4d3092e4405",
+          "binding": "fine_payload",
+          "quality": "recorded fine"
+        },
+        {
+          "source": "hardware/reference/touch-flo-faucet/display-reference/button-left.step",
+          "source_sha256": "d802e4c740ed808daa07d19f8eba0db25d59b76c3b61c03e90ad0945694c2fdc",
+          "payload": "hardware/reference/touch-flo-faucet/display-reference/button-left.step.mesh",
+          "payload_sha256": "df61fa63e71c2dbcad4a39d93176237768d1bf8afc4357834cc51fcda17b694b",
+          "binding": "preserved_step_imports",
+          "quality": "unknown"
+        },
+        {
+          "source": "hardware/reference/touch-flo-faucet/display-reference/button-right.step",
+          "source_sha256": "b515134b75baa15f5bd048f48835b65631c5b7a9c423f3cc3343cb7dcef9bdca",
+          "payload": "hardware/reference/touch-flo-faucet/display-reference/button-right.step.mesh",
+          "payload_sha256": "8f0e8161868c57a2f746a785bc1b99290180f4c33187167101d0510b09320eb3",
+          "binding": "preserved_step_imports",
+          "quality": "unknown"
+        },
+        {
+          "source": "hardware/reference/touch-flo-faucet/westbrass-reference/westbrass-reference.step",
+          "source_sha256": "6bb4f673332fc80c74ad94e62ad4c24f47b451824f2d64e155cc22a45c9251a2",
+          "payload": "hardware/reference/touch-flo-faucet/westbrass-reference/westbrass-reference.step.mesh",
+          "payload_sha256": "235b08ce268d7adc8e373705594fbcd6f07ddaf4cb4c31a25ca2aebd7d5fe492",
+          "binding": "fine_payload",
+          "quality": "recorded fine"
+        }
+      ],
+      "new_published_objects": 3,
+      "publication_confirmed_objects": 3,
+      "evidence": {
+        "path": ".cache/runs/native-build-20261110/cold-import-audit.json",
+        "sha256": "94d3e77c04e2f8795b94be1ccc7860f64519382bf06553107928808c0be8179e"
+      }
+    },
+    "empty_private_import_validation": {
+      "status": "passed",
+      "scope": "Production binaries use an empty HSM_IMPORT_DIR; other shared caches are retained. This does not establish an entirely cold normal build.",
+      "import_cache_stays_empty": true,
+      "focused_import_tests_passed": 7,
+      "cases": [
+        {
+          "program": "manifold-layout",
+          "exit_code": 0,
+          "seconds": 6.164305833999999,
+          "bodies": 72,
+          "geometry_arrays_names_colors_equal": true,
+          "geometry_sha256": "0fa99bbda0f87e32c4c4f54af71937d50ed80541e953e347787d02229f09deed",
+          "before_payload_sha256": "5bc1a479000435de4940d2d5d84beda42ae48d99a164f7eb6fb134810d15ba73",
+          "after_payload_sha256": "bab8b49406c2fc510d46d51e99acfcc8bd70c6e1608564d3e03e6dbd0f4dafbe"
+        },
+        {
+          "program": "faucet-assembly",
+          "exit_code": 0,
+          "seconds": 1.9958735419999993,
+          "bodies": 37,
+          "geometry_arrays_names_colors_equal": true,
+          "geometry_sha256": "193736e4f95f5d39f2152c01fefa98b14bbb1e6b9dc1e771e90a502ea181d552",
+          "before_payload_sha256": "610b97884a27b4f8cee3959fb76ee6dbb20314ab2d9dcc367c4a925fb3e3a82a",
+          "after_payload_sha256": "5f2a133895726dd2a60787a7990f505fae730c9bb72c2de522633314fc5d243e"
+        },
+        {
+          "program": "faucet-industrial-assembly",
+          "exit_code": 0,
+          "seconds": 1.6125149999999995,
+          "bodies": 37,
+          "geometry_arrays_names_colors_equal": true,
+          "geometry_sha256": "a5fa006461131e7804532abab215852ce5fe5bde173a329c345e01097f4081dc",
+          "before_payload_sha256": "89f15b0d69e6107dba2cb5b6da10cf3cdd9bcafdc7a813b563976686d4d6f7bf",
+          "after_payload_sha256": "fe28e3401330a3abd8e7ceba118ee10d1a9c6e17631737d47942864f3a7b2074"
+        }
+      ],
+      "evidence": {
+        "path": ".cache/runs/native-build-20261110/cold-reference-validation.json",
+        "sha256": "5473adf36bd1c36fd4fd2cc9da3fe2dad49ae29fd1121e06b837c9e525c9e8af"
+      }
+    }
+  },
+  "final_native_build_and_artifact_comparison": {
+    "status": "passed",
+    "source_commit": "71dedf4660a541d7cc8d5ec4f1b865abe830989f",
+    "driver_seconds": 272.623061333,
+    "counts": {
+      "built": 59,
+      "cached": 2
+    },
+    "checkpoint_errors": [],
+    "publication_queue": {
+      "coalesced": 4,
+      "exit_codes": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "requests": 9,
+      "started": 7
+    },
+    "artifacts": {
+      "print_stls": 91,
+      "byte_identical": 91,
+      "changed": [],
+      "manifest_sha256": "cad2bf80de7d98a99b2a3ee87e153ebaa8e6f46a5638072f3d461137e9d4183b",
+      "print_stls_sha256": {
+        "hardware/printed-parts/asse-drain-adapter/asse-drain-adapter.stl": "ee0584ceb98ba367aaf8ea1508a060946f8e357a0f8e77cc33de567066437d2e",
+        "hardware/printed-parts/asse-straight-cuffs/asse-inlet-cuff.stl": "05476e57b5513d349b5e799a7a4576de2a689cb934c2b48d0903b63337a64173",
+        "hardware/printed-parts/asse-straight-cuffs/asse-outlet-cuff.stl": "8412a13f173f666288fc00a34d4272afa076e35dffc6bc95bf91d0d61e2a809b",
+        "hardware/printed-parts/cold-core/coil-mandrel/coil-mandrel.stl": "88ce9688c63c6614811545febac096fbed1c2096a9c699d1818af29e6f0c007f",
+        "hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.stl": "acdcff8c0842d7158aa15ed797dc22ef6173eb27f662f7e19d505000f4c84e0a",
+        "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.stl": "65bf9b7f660b18311346139886c80063635b158cf6b513aaf54382d75a9a4769",
+        "hardware/printed-parts/cold-core/foam-cap/pump-snap-cap.stl": "3e789119c1475e08b7bd5a9eb7edbf265cb8c85bd486ef4740178c1c10d1050b",
+        "hardware/printed-parts/cold-core/foam-cap/reservoir-b-fill-guide.stl": "3f1fb479bf4599050149102ac96e540a2d1ca1892a99460c8f63ab4cb62c4987",
+        "hardware/printed-parts/cold-core/foam-shell/foam-shell.stl": "132c06ecc887624ae36c98c168f97efaa533deb278a4b93a3d2f725455d93164",
+        "hardware/printed-parts/cold-core/magnetic-float/all-aero/float-aero.stl": "2228d0933e0a2a7bdd9dd8d6fce4d003a48ac61db1c69f402e5fa5047ae1cef5",
+        "hardware/printed-parts/cold-core/magnetic-float/body-aero.stl": "404d68abd9ea96fd53b77ec03ff403544a0c59bb59cafe8dc7f6a23c9c1e368c",
+        "hardware/printed-parts/cold-core/magnetic-float/body-petg.stl": "c7a94f946d45024b98223e1606fc462d138d6341d5352d9518d14763f4910f46",
+        "hardware/printed-parts/cold-core/magnetic-float/insert-aero.stl": "7d346e39e3b26ef5b294ec715c2e4f9b9f7535a13e1abc6ce01ee09405bffaf0",
+        "hardware/printed-parts/cold-core/prv-shroud/prv-shroud.stl": "b2553b37c6e6f3299ee5d6cef88e36bd5948b154b652fdc184aec7761906f14f",
+        "hardware/printed-parts/cold-core/reed-bridge/reed-bridge-setting-gauge.stl": "54b2c72d9c34022e322332c7f98a882a62300c28098cf37cd416404bb77bb5f0",
+        "hardware/printed-parts/cold-core/reed-bridge/reed-bridge.stl": "8f943b4f02d81f009a3a6fd2d8c1511ae6e02d8f19030ae0c44bec8968e89654",
+        "hardware/printed-parts/cold-core/reservoir/reservoir-air-grip.stl": "8672f89f6d3889ef55259418d5f47089e99a448e744cfae9fe94c538d409cad9",
+        "hardware/printed-parts/cold-core/reservoir/reservoir-cap-left.stl": "f4d38c45e24efecccd0cd85f28e2a702a8d8d27197bb85d6dbe32ff49f202e13",
+        "hardware/printed-parts/cold-core/reservoir/reservoir-cap-right.stl": "f88fb33c8e3af9b131bd02fd26636a14f5eb399d7e606c5950c8051f5e53d75b",
+        "hardware/printed-parts/cold-core/reservoir/reservoir-gasket.stl": "07cd9bf1c8a47dc4b907efa2f9ffe611a53a750e2d56f66c95d11451eb74222e",
+        "hardware/printed-parts/cold-core/reservoir/reservoir-left.stl": "58489e732352dc57132485cc98a15cf033a40d52c929b83d81cfb634fd7ea101",
+        "hardware/printed-parts/cold-core/reservoir/reservoir-right.stl": "cffce729a02e9fcdd72a1ec1ff984eb69e57f3a05a0943e1b520a8ed98138be1",
+        "hardware/printed-parts/cold-core/reservoir/reservoir-tube-grip.stl": "0b7af9247334655bb4129277ad30d1b92f6e9f029f69dcb98700615befcb0cfb",
+        "hardware/printed-parts/collet-press/collet-press.stl": "c7844502e96123f02d6653b0a793f2dcd74964f7022f125d3b3929ebbd0c9141",
+        "hardware/printed-parts/diaphragm-pump-sleeve/diaphragm-pump-sleeve.stl": "0ebe7cbc53bf9abdc17ca9391438432b33010b1537f22608a00358023efbe79a",
+        "hardware/printed-parts/enclosure/display-cover/display-cover-fasteners.stl": "44a17deeebd511cd607216cc71944618e5ce37179438c5e3a0d6dc677aaa3608",
+        "hardware/printed-parts/enclosure/display-cover/display-cover.stl": "3594ee4fb113b440326981b1e5cef4bba11f439d2fa586544a5fae44e4dc5f34",
+        "hardware/printed-parts/enclosure/display-cover/status-plate-fasteners.stl": "05e70be91b044b674453dfd8cc3623cd4b3ee6a97c112fb493e83c3fb1bf4ed3",
+        "hardware/printed-parts/enclosure/display-cover/status-plate.stl": "33ac2a5347fb7a49618d87461e89233e7ad79c878c9db106f82f7fa7be3ba901",
+        "hardware/printed-parts/enclosure/display-gasket/display-gasket.stl": "5bfe020725eb9f1cb4bb741c207454b1e64550e63fa443aadbc61398c7ea4c2a",
+        "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.stl": "a41f94b4d25fcaeb79ba06e64af1f86ee23709d0c2fc89dcd2b52a9d2bda9d51",
+        "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl": "14ca155df697d912670f155000820f304a76937857d82535641505ec21a3c82b",
+        "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.stl": "7eb9455df0f38d96e9edd78384e98b5ac11a2dbfbb43dacf7eab3a378d1360a6",
+        "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl": "8263cda99078487fa0c2a68e02f00907145d8a7e9facb98028dea7f2be874f2e",
+        "hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.stl": "579faf7f25b348af118b404336d5823cce72c7a49b569b1f39a498f7a554f879",
+        "hardware/printed-parts/enclosure/enclosure/enclosure-pump-tube-setting-jig.stl": "8cca75083a601ffa081cf3ef05e672c1f17bbc4e5e7f32cb4bb9e70298d6dcf9",
+        "hardware/printed-parts/enclosure/nameplate/nameplate-001.stl": "16788d40137e93302d4a212de32d09625b8075bde34478b5a7689a1d3eda1973",
+        "hardware/printed-parts/enclosure/nameplate/nameplate-receiver.stl": "c7c3defaa5f1f72f023fa273ed3547822c4c38e387295f00ec944459842c643d",
+        "hardware/printed-parts/enclosure/rear-equipment-caps/asse-snap-cap.stl": "7dd9150c05aa10466bcbdddd74a192d5ab585efb083b64943484a2f995c0b4e5",
+        "hardware/printed-parts/enclosure/rear-equipment-caps/meter-snap-cap.stl": "00d14c563b813b71638f8249d87791489888b66cfc06cd7b7471096342acba5a",
+        "hardware/printed-parts/enclosure/rear-equipment-caps/pisco-snap-cap.stl": "0d8e673e1417aa8eaf205245c56e528ef67c96114e26c8ed91a264d6cf9eb4e2",
+        "hardware/printed-parts/enclosure/rear-equipment-caps/regulator-snap-cap.stl": "926df4c063127b01220678a06d1fb9dca5b37111769684aaefc02d4d79c0541e",
+        "hardware/printed-parts/enclosure/rear-identification/rear-label-carb.stl": "ac4d3aa8946b200511aa8632a3e128d7c71829f353810952c4b793aeef67b686",
+        "hardware/printed-parts/enclosure/rear-identification/rear-label-co2.stl": "87acbc152f5ae34fe61b82037e9c4b143b73f821cbfcd660d743a30560efa2be",
+        "hardware/printed-parts/enclosure/rear-identification/rear-label-drain.stl": "4fc2d86b3c4e1c632fbbf2ca6f593666c0005d02cddbb25d96a181c9018a0a1b",
+        "hardware/printed-parts/enclosure/rear-identification/rear-label-flavor-a.stl": "790da266dd208f6cf5b8c69d87d0f8f7d2b3420f7be294a23269723b3a6264cf",
+        "hardware/printed-parts/enclosure/rear-identification/rear-label-flavor-b.stl": "44f2b34268dd4f63aa4f7783d07d1a1083c5b239f5045ddd0ab5e6544b387257",
+        "hardware/printed-parts/enclosure/rear-identification/rear-label-water.stl": "08533270ab406d839289220e9468dc4d2d7d2b87d426e0fdb5f922da3f25891d",
+        "hardware/printed-parts/faucet/above-counter-gasket/above-counter-gasket.stl": "f41031f281214c6c535e6c267ef1a6c33b0e5b21997c1d239cddb892c5d6b5ee",
+        "hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.stl": "cf69dac0a0ce01845ce261d050fbbb876be24baec78d3db77f8d97839bc32990",
+        "hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.stl": "3a1182b480110d50cb8943dfc4be8d5b5b2344bdcbf10b37052ef2e6423c9cfa",
+        "hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.stl": "f49e8818fa749ad57445aca26972ff107d840ed53102d33e6fff7837f46c1bfb",
+        "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.stl": "a3f80020d3756ea99dc7135a3173c89f9ed05bebebb63ce211d0492e92dc14ad",
+        "hardware/printed-parts/faucet/industrial/industrial-above-counter-gasket.stl": "4dfefcced0e35110d8f7bdac1b07be5a374a66e03bf339beb426236b5d19a894",
+        "hardware/printed-parts/faucet/industrial/industrial-above-counter-plate.stl": "09106291fc6feec82e351353239b9e9f3e27e7ebdc36364ef69950b4f07519d2",
+        "hardware/printed-parts/faucet/industrial/industrial-display-cover.stl": "abdcb313ca246ab797897859c700eb2b2b5578931893046ec8c76467b560d812",
+        "hardware/printed-parts/faucet/industrial/industrial-shell-base.stl": "d5af4190a44abf5f63d0a77147037414728616a97d4794343c82e354561c2b46",
+        "hardware/printed-parts/faucet/lever-replica/lever-replica-side-down.stl": "19d420b9193d0d691959aadb80095523164afe380189aae1af9eb0c13f8f2d21",
+        "hardware/printed-parts/faucet/lever-replica/lever-replica.stl": "ee18c91f4891228a6a76ae1381414d2fb31e17694e746bb298a5f2c524e512ee",
+        "hardware/printed-parts/faucet/tpu-o-ring/tpu-o-ring.stl": "48d4c54b05741faaf3ede29bde6b7abe4280a61d4b2a253d2d4449969c012d19",
+        "hardware/printed-parts/faucet/tube-collar/tube-collar-carb.stl": "82c141b07191c15e78f138d30ba45b42aa55f3769b47f543c3a3d89ad2688d0a",
+        "hardware/printed-parts/faucet/tube-collar/tube-collar-co2.stl": "82c141b07191c15e78f138d30ba45b42aa55f3769b47f543c3a3d89ad2688d0a",
+        "hardware/printed-parts/faucet/tube-collar/tube-collar-drain.stl": "0d7140b8d1c8888b4e1fb7669cf53b37ee9b524b99ce6bb4020afb6856180aa7",
+        "hardware/printed-parts/faucet/tube-collar/tube-collar-flavor-a.stl": "0d7140b8d1c8888b4e1fb7669cf53b37ee9b524b99ce6bb4020afb6856180aa7",
+        "hardware/printed-parts/faucet/tube-collar/tube-collar-flavor-b.stl": "0d7140b8d1c8888b4e1fb7669cf53b37ee9b524b99ce6bb4020afb6856180aa7",
+        "hardware/printed-parts/faucet/tube-collar/tube-collar-water.stl": "82c141b07191c15e78f138d30ba45b42aa55f3769b47f543c3a3d89ad2688d0a",
+        "hardware/printed-parts/faucet/umbilical-organizer/umbilical-organizer.stl": "87641a741b3d2cb750984c325a9175adc10e82833c6fdffcc45ab55302001fc6",
+        "hardware/printed-parts/fixtures/fake-countertop/fake-countertop.stl": "9e51861af0d4d93e33a418f8d6cc24f5e792f963abeb2ca57704c45665ce39d2",
+        "hardware/printed-parts/fixtures/tube-miter-box/tube-miter-box.stl": "3fe5a1fdf2df47768bcc2d1395ccd3dddb5499e68e304452793c4a429de8515e",
+        "hardware/printed-parts/fixtures/water-inlet-jet/water-inlet-jet-fixture-fixed.stl": "3da5f4d3fb203ce55222ea330acb72963ca692138ba56bd008acc95c48686105",
+        "hardware/printed-parts/fixtures/water-inlet-jet/water-inlet-jet-fixture-loose.stl": "cb72908a0c3588a4b27f30969928007aa7758bd8e0aa79cf43bb8b64b2f614ed",
+        "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-ball-cage.stl": "7eb0ddf0087b5c556ad5d9e9432b037bc967b08ca83e6ab092a0a44ef67836ac",
+        "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-base-foot.stl": "d0013ed7dfd8d3a359227521b36953f23b4c27e76806609217728e4da9f01117",
+        "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-base.stl": "9af41dc6390bd81e9c95582c54d94d6044171791d94356f92a728b45997787f1",
+        "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-ground-arm.stl": "2830d1fa3fc6d95490c663de906b180b6373907b0fdd42355984c86e30bae00a",
+        "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-ground-tower.stl": "a2a2a1bfd1aa81b4ef77d40999738522ce61b652ca2ef6bec0c80d3ef8b49aa5",
+        "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-motor-carriage.stl": "bcd6d4d6043e569c2e24478708e8e81c9f1cf79917a64130df7d43c6f432cc63",
+        "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-motor-clamp-pad.stl": "aea6517a3d8c0810e132af0748770f95ab39b0a9dcc76865db5974c0391bcb49",
+        "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-motor-tower.stl": "e9bed81b9be26dbc260bb3239b703259a1cb58a0b07c60b083a6e27fc8cce40a",
+        "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-race-ring.stl": "d26434f89b0cb08162230b3b81130c2a680bace66e0dde8379063b2a6115a54b",
+        "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-spool.stl": "27a7c297e3c66bfba7335db59596c716d49ed41e98c2fff5374cc8975ab232bd",
+        "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-tube-nest.stl": "56fcc133a2d4a1a69c78274632d700b91a417684589a8be121e473a8f2d70367",
+        "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-turntable-90t.stl": "648c2de7cd6e7bbec76add2586aef9b93b6fd6c409a31296890e12879dab7fdd",
+        "hardware/printed-parts/refrigeration/fuse-clamp/fuse-clamp.stl": "fb4db7bf16cab5a6206f4d055fc0f1f7f41469559c431096b1dc2a1a9cd55528",
+        "hardware/printed-parts/soda-bend-holder/soda-bend-holder.stl": "37c31f1c8b8efcc812134ac9765e9cfdbe898791565156b37ea2c358b3484766",
+        "hardware/printed-parts/zone-c/funnel-cover/funnel-cover-print.stl": "6dfd3b318040dae6ac3053d06e607f4b2a6d8f8793128de0774e978454d24a09",
+        "hardware/printed-parts/zone-c/funnel-cover/funnel-cover.stl": "8d6011183082a8df09dce32dc1d2955c0fbe5ba07e27b61b072fff7e166971c2",
+        "hardware/printed-parts/zone-c/funnel-mold/cavity.stl": "a5ae1b39b716e956d030fab9c10843968383bad95f15a89171f23c4574ba4ae5",
+        "hardware/printed-parts/zone-c/funnel-mold/core.stl": "078f9385bc7d0d28b789a19f510dba548ff79dc152e7869497137fb8f7cf0182",
+        "hardware/printed-parts/zone-c/funnel/elbow-cradle.stl": "59ac96f327ffa74e41fbff08a954fcd51d29a8aa5684978047146be15a42f52b",
+        "hardware/printed-parts/zone-c/funnel/funnel-frame.stl": "9f9948f9488ab0c5c68971f06380582954213a5dc750624b1a34553a327b3768"
+      }
+    },
+    "scope": "Full native print graph after kernel import source changes; shared geometry caches are retained.",
+    "receipt_sha256": "bc48c33ac1c6a8a3824d52e63031dfd0fc7eae5104ea54baa91169ef84a4ea7d"
+  },
+  "final_warm_build": {
+    "status": "passed",
+    "source_commit": "abf78abcb308d244f2b03b58e119c669d46ae80d",
+    "driver_seconds": 4.201925958,
+    "counts": {
+      "cached": 61
+    },
+    "publication_queue": {
+      "coalesced": 0,
+      "exit_codes": [],
+      "requests": 0,
+      "started": 0
+    },
+    "result_sha256": "ac00a69844ec1885a8a592126f649e23b6f215c592d3e8cdbffe3b90c2f7871d",
+    "scope": "Unchanged full native graph with shared caches retained and publication disabled; driver interval excludes scheduler admission."
+  },
+  "evidence_retention": "Concise measurements, source revisions and artifact hashes are retained here; temporary source copies, binaries, staged trees, generated comparison outputs and command logs are removed.",
+  "final_ci": {
+    "status": "passed",
+    "run_url": "https://github.com/derekbreden/homesodamachine/actions/runs/42877372514",
+    "run_id": 42877372514,
+    "source_commit": "71dedf4660a541d7cc8d5ec4f1b865abe830989f",
+    "created_at": "2026-11-10T18:39:15Z",
+    "completed_at": "2026-11-10T18:55:57Z",
+    "job_id": 130045603329,
+    "build_started_at": "2026-11-10T18:46:21Z",
+    "build_completed_at": "2026-11-10T18:54:40Z",
+    "build_step_seconds": 499,
+    "counts": {
+      "cached": 1,
+      "built": 60
+    },
+    "scope": "Full native print graph on the GitHub Linux runner; previous Cargo/engine caches were restored and source changes rebuilt affected programs.",
+    "concurrent_main_update": "Other build inputs advanced main during the run; the workflow queued its normal follow-up. This successful run verifies the recorded cutover source commit."
+  }
+}

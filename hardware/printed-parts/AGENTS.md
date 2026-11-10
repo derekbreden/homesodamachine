@@ -15,7 +15,7 @@ Before the first rebuild of an enclosure geometry change, take its
 
     node tools/changes/change.mjs snapshot
 
-Build and publish through the normal print build, with the selected Bazel targets:
+Build and publish through the normal print build, with the selected native targets:
 
     tools/run -- hsm-print-build -- //:enclosure-back-top
 
