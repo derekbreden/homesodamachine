@@ -228,13 +228,22 @@ fn main() -> Result<()> {
     let mut board = plane.extrude(&Profile::new(outline), size.z)?;
     for hole in data["holes"].as_array().context("mounting holes")? {
         let p = point(&hole["center_mm"])?;
+        let radius = number(&hole["radius_mm"])?;
         let bore = Solid::cylinder(
             v3(p.x, p.y, center.z - size.z),
             V3::Z,
-            number(&hole["radius_mm"])?,
+            radius,
             size.z * 3.,
         )?;
-        board = board.cut(&bore)?;
+        let taper_start = number(&pcb["opening_taper_start_z_mm"])?;
+        let entry = Solid::cone(
+            v3(p.x, p.y, center.z + taper_start),
+            V3::Z,
+            radius,
+            number(&hole["opening_rim_radius_mm"])?,
+            size.z - taper_start,
+        )?;
+        board = board.cut(&bore.union(&entry)?)?;
     }
     let geometry = &data["replica_geometry"];
     let mut pieces = vec![("pcb".to_owned(), srgb([0.08, 0.34, 0.21]), board)];

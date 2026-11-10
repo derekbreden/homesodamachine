@@ -29,7 +29,7 @@ of tip air. The four blind pilots end below the full 3 mm roof show skin.
 | Pump joints | Reinforced 3/8-inch PVC, trimmed PP061208W reducers and two butterfly clamps per barb | Clamped barb and reducer engagements |
 | Pump discharge check | ACVUS-44 stem directly in the discharge elbow | Discharge joint; continuous inlet enters the core guide |
 | Mean Well IRM-90 | Base upward in its shallow ceiling well, AC end aft | Four integral ceiling hosts |
-| Teyleten relays | One above the other on the west wall | Four edge ledges, rigid terminal-end rails and two header-end screws |
+| Teyleten relays | One above the other on the west wall | Board-plane corner bearings and M2 screw-and-insert sets |
 | PCB and V-B | Board flat and connector-up; V-B on its side east of it | Core columns and the integral V-B socket wall |
 
 ASSE, Pisco and meter enter their seats 16 mm fore of their stations and slide
@@ -161,8 +161,11 @@ part sequence and actual insertion-mark method. Native CAD describes placement
 and fit; the named physical acceptance records retain their material and part
 scope.
 
-The relay boards stand 20.5 mm apart on four edge ledges each. Two M3×8
-screws retain each header end; solid 3 mm rails capture the terminal end.
-Load the boards 6.5 mm fore of their seated positions and slide aft into
-the open-ended rails before tightening the screws. Their insert faces
-stand 2.5 mm behind the PCB underside, clear of the pins.
+Seat each relay directly against its wall-mounted corner bearings. Fit the M2
+socket-head screws through every board mounting hole into the RX-M2×4 inserts,
+aligning the board before tightening. The insert mouths share the PCB bearing
+plane. The [wall-host datums](../printed-parts/enclosure/enclosure/numbers/rear_wall.rs)
+own the hole pattern, screw stack and blind pilots; the
+[relay reference](../reference/teyleten-relay/README.md) owns the board and component
+geometry. The [BOM](../ledger/bom.md#13-mechanical-attach-hardware) identifies the
+acquired hardware.

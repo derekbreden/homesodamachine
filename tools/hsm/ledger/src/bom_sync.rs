@@ -255,6 +255,7 @@ const FOUR_INCH_TIES: Pack = Pack("4.28", "200");
 const SIX_INCH_TIES: Pack = Pack("6.42", "100");
 const SOLID16_SPOOL: Pack = Pack("12.86", "7.62");
 const SMALL_WASHERS: Pack = Pack("7.82", "200");
+const M2X6: Pack = Pack("18.22", "105");
 const M3X6: Pack = Pack("7.64", "120");
 const M3X8: Pack = Pack("7.71", "120");
 const M3X10: Pack = Pack("8.57", "120");
@@ -263,6 +264,7 @@ const M3X25: Pack = Pack("8.57", "60");
 const RESERVOIR_SCREWS: Pack = Pack("8.66", "120");
 const M5X100: Pack = Pack("7.70", "20");
 const PP0308E: Pack = Pack("68.49", "30");
+const M2_INSERTS: Pack = Pack("10.71", "70");
 const M3_INSERTS: Pack = Pack("10.71", "100");
 const M5_INSERTS: Pack = Pack("10.71", "50");
 
@@ -421,10 +423,14 @@ fn figures(input: &Inputs, casting: &Value) -> Result<(Variables, Variables)> {
     put("M3X25_COST",cost(pump_clamps,M3X25)?);
 
     // The screws by length.
+    let m2x6 = relays;
     let m3x6 = NAMEPLATE_SCREWS + DISPLAY_COVER_SCREWS + STATUS_PLATE_SCREWS;
-    let m3x8 = pcba + condenser + relays + touchflo;
+    let m3x8 = pcba + condenser + touchflo;
     let m3x10 = c14_screws + psu;
     let funnel = n(input.funnel_screws);
+    put("M2X6_TOTAL", count(m2x6));
+    put("M2X6_UNIT_COST", cost(1., M2X6)?);
+    put("M2X6_COST", cost(m2x6, M2X6)?);
     put("M3X6_TOTAL", count(m3x6));
     put("M3X6_COST", cost(m3x6, M3X6)?);
     put("M3X8_TOTAL", count(m3x8));
@@ -485,10 +491,14 @@ fn figures(input: &Inputs, casting: &Value) -> Result<(Variables, Variables)> {
     put("GROMMET_SQUEEZE", fmt(input.floor_grommet_squeeze, ".4g"));
 
     // The inserts by body.
+    let m2_inserts = relays;
     let m3_long = deck_inserts + reservoir_inserts + condenser + funnel;
-    let m3_short = pump_clamps + NAMEPLATE_SCREWS + DISPLAY_COVER_SCREWS + STATUS_PLATE_SCREWS + touchflo + psu + c14_screws + relays;
+    let m3_short = pump_clamps + NAMEPLATE_SCREWS + DISPLAY_COVER_SCREWS + STATUS_PLATE_SCREWS + touchflo + psu + c14_screws;
     let m3_inserts = m3_long + m3_short;
     let m5_inserts = floor + seam_rods + clamp_inserts;
+    put("TOTAL_M2_INSERTS", count(m2_inserts));
+    put("M2_INSERT_UNIT_COST", cost(1., M2_INSERTS)?);
+    put("M2_INSERTS_COST", cost(m2_inserts, M2_INSERTS)?);
     put("TOTAL_M3_INSERTS", count(m3_inserts));
     put("M3_LONG_INSERTS", count(m3_long));
     put("M3_LONG_INSERTS_COST", cost(m3_long, M3_INSERTS)?);
@@ -516,13 +526,14 @@ fn figures(input: &Inputs, casting: &Value) -> Result<(Variables, Variables)> {
     put("SODA_FAUCET_FT", fmt(input.faucet.soda_cut / FOOT, ".2f"));
 
     // labor.md's assembly: every insert pressed and every screw driven.
-    let m3_screws = reservoir_inserts + touchflo + shelf + condenser + NAMEPLATE_SCREWS + DISPLAY_COVER_SCREWS
+    let m3_screws = reservoir_inserts + touchflo + pcba + psu + condenser + NAMEPLATE_SCREWS + DISPLAY_COVER_SCREWS
         + STATUS_PLATE_SCREWS + c14_screws + funnel;
     let m5_screws = floor + seam_rods + clamp_inserts;
     let mut labor = Variables::new();
     for (name, value) in [
-        ("TOTAL_INSERTS", m3_inserts + m5_inserts),
-        ("TOTAL_SCREWS", m3_screws + m5_screws),
+        ("TOTAL_INSERTS", m2_inserts + m3_inserts + m5_inserts),
+        ("TOTAL_SCREWS", m2x6 + m3_screws + m5_screws),
+        ("TOTAL_M2_INSERTS", m2_inserts),
         ("TOTAL_M3_INSERTS", m3_inserts),
         ("TOTAL_M5_INSERTS", m5_inserts),
         ("SEAM_INSERTS", seam_rods),

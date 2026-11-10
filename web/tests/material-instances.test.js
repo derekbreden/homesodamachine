@@ -7,6 +7,8 @@ import { unitQuantities } from "../contracts/material-quantities.js";
 import { readMaterialCatalog } from "../lib/material-catalog.js";
 import { readMeshHeader } from "../lib/feature-catalog.js";
 import { materialInstances } from "../lib/material-instances.js";
+import { readPartCosts } from "../lib/part-costs.js";
+import { directCost } from "../contracts/part-costs.js";
 import { fileURLToPath } from "node:url";
 
 const part = { id: "part", description: "Part", kind: "purchased" };
@@ -118,4 +120,51 @@ test("the machine's compound purchased parts resolve complete individual placeme
   const tubes = materialInstances(hardware, actual, "HSM-0107").groups.find(group => group.assembly === "HSM-0002").instances;
   assert.equal(tubes.length, unitQuantities(actual, "HSM-0002", { finish: "black" }).get("HSM-0107"));
   assert.ok(tubes.every(unit => unit.bodies.length > 1));
+});
+
+test("every installed relay corner resolves its purchased fastener size and cost", () => {
+  const hardware = fileURLToPath(new URL("../../hardware/", import.meta.url));
+  const actual = readMaterialCatalog(hardware), file = "manifold-layout/enclosure-assembly.step";
+  actual.costs = readPartCosts(hardware, actual);
+  const names = readMeshHeader(hardware + file + ".mesh").meshes
+    .flatMap(mesh => (mesh.entries || [mesh]).map(entry => entry.name));
+  for (const relay of [1, 2]) for (const corner of [1, 2, 3, 4]) {
+    for (const [kind, id, size, asin, pack, packPrice] of [
+      ["screw", "HSM-0576", /M2 × 6/, "B0CXQ7Q7L3", 105, 18.22],
+      ["insert", "HSM-0577", /M2 × 4/, "B088QJG676", 70, 10.71],
+    ]) {
+      const name = `relay-${relay}-${kind}-${corner}`;
+      assert.ok(names.includes(name), name);
+      const material = materialForComponent(actual, file, name);
+      assert.equal(material?.id, id, name);
+      assert.equal(material.kind, "purchased");
+      assert.match(material.description, size);
+      const cost = directCost(actual, id);
+      assert.ok(cost?.usd > 0, name);
+      const price = cost.elements.find(element => element.kind === "price" && element.href?.includes(asin));
+      assert.ok(price?.usd > 0, name);
+      assert.equal(price.lot?.quantity, pack, name);
+      assert.equal(price.usd, Math.round(packPrice * 8 / pack * 100) / 100 / 8, name);
+    }
+  }
+});
+
+test("display and status source children retain their individual material identities", () => {
+  const hardware = fileURLToPath(new URL("../../hardware/", import.meta.url));
+  const actual = readMaterialCatalog(hardware), file = "manifold-layout/enclosure-assembly.step";
+  const sourceNames = ["display-cover-fasteners", "status-plate", "status-plate-fasteners"]
+    .flatMap(part => readMeshHeader(`${hardware}printed-parts/enclosure/display-cover/${part}.step.mesh`).meshes
+      .flatMap(mesh => (mesh.entries || [mesh]).map(entry => entry.name)));
+  const expected = [
+    ...["display", "status", "nameplate"].flatMap(prefix => [1, 2, 3, 4].flatMap(corner => [
+      [`${prefix}-screw-${corner}`, "HSM-0578"],
+      [`${prefix}-insert-${corner}`, "HSM-0136"],
+    ])),
+    ["status-plate", "HSM-0579"], ["status-plate-ink", "HSM-0579"],
+    ["status-plate-diffuser", "HSM-0579"], ["status-led", "HSM-0580"],
+  ];
+  for (const [name, id] of expected) {
+    if (!name.startsWith("nameplate-")) assert.ok(sourceNames.includes(name), name);
+    assert.equal(materialForComponent(actual, file, name)?.id, id, name);
+  }
 });

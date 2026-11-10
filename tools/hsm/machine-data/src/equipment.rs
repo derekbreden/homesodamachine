@@ -493,29 +493,42 @@ pub fn numbers(request: &Value) -> Result<Value> {
             json!({"source":SOURCES[22],"select":[name]}),
         )?;
     }
-    for (name, holes, reach, length, setback) in [
+    use hsm_enclosure_numbers::rear_wall::hosts;
+    let psu_hardware = json!({
+        "screw":{"shaft_radius":1.5,"head_radius":2.75,"head_height":3.,
+                 "socket_af":2.5,"socket_depth":1.5},
+        "insert":{"radius":2.3,"length":4.,"bore_radius":1.25},
+    });
+    let relay_hardware = json!({
+        "screw":{"shaft_radius":hosts::RELAY_SCREW_RADIUS,
+                 "head_radius":hosts::RELAY_HEAD_RADIUS,"head_height":hosts::RELAY_HEAD_HEIGHT,
+                 "socket_af":hosts::RELAY_SOCKET_AF,"socket_depth":hosts::RELAY_SOCKET_DEPTH},
+        "insert":{"radius":hosts::RELAY_INSERT_RADIUS,"length":hosts::RELAY_INSERT_LENGTH,
+                  "bore_radius":hosts::RELAY_INSERT_BORE_RADIUS},
+    });
+    for (name, holes, reach, length, setback, hardware, screw_color) in [
         (
             "psu",
             vec![[-16.5, -49.], [-16.5, 49.], [16.5, -49.], [16.5, 49.]],
             6.7,
             10.,
             0.,
+            &psu_hardware,
+            "M_STAINLESS",
         ),
-        ("relay-1", hsm_enclosure_numbers::rear_wall::hosts::relay_holes(),
-         hsm_enclosure_numbers::rear_wall::hosts::relay_board_thickness(),
-         hsm_enclosure_numbers::rear_wall::hosts::RELAY_SCREW_LENGTH,
-         hsm_enclosure_numbers::rear_wall::hosts::RELAY_SETBACK),
-        ("relay-2", hsm_enclosure_numbers::rear_wall::hosts::relay_holes(),
-         hsm_enclosure_numbers::rear_wall::hosts::relay_board_thickness(),
-         hsm_enclosure_numbers::rear_wall::hosts::RELAY_SCREW_LENGTH,
-         hsm_enclosure_numbers::rear_wall::hosts::RELAY_SETBACK),
+        ("relay-1", hosts::relay_holes(), hosts::relay_board_thickness(),
+         hosts::RELAY_SCREW_LENGTH, hosts::RELAY_SETBACK, &relay_hardware, "M_DONOR_BLACK"),
+        ("relay-2", hosts::relay_holes(), hosts::relay_board_thickness(),
+         hosts::RELAY_SCREW_LENGTH, hosts::RELAY_SETBACK, &relay_hardware, "M_DONOR_BLACK"),
     ] {
         let pose = pose(spec, name)?;
         let axis = vector(&pose["rotation"], [0., 0., 1.])?;
         for (index, hole) in holes.iter().enumerate() {
             let at = point(&pose, [hole[0], hole[1], 0.])?;
-            for (kind, color) in [("screw", "M_STAINLESS"), ("insert", "M_BRASS")] {
-                b.add(&format!("{name}-{kind}-{}",index+1),"mount-hardware",identity.clone(),color,json!({"kind":kind,"axis":axis,"point":at,"head_reach":reach,"length":length,"setback":setback}))?;
+            for (kind, color) in [("screw", screw_color), ("insert", "M_BRASS")] {
+                b.add(&format!("{name}-{kind}-{}",index+1),"mount-hardware",identity.clone(),color,
+                    json!({"kind":kind,"axis":axis,"point":at,"head_reach":reach,
+                           "length":length,"setback":setback,"dimensions":hardware[kind]}))?;
             }
         }
     }
