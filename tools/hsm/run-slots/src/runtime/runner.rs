@@ -444,7 +444,7 @@ pub fn run(args: &[String]) -> Result<i32> {
             }
             "-h" | "--help" => {
                 println!(
-                    "Run one heavy command under the host's shared admission policy.\n\nUsage: python3 tools/run.py [--count 1..4] [--timing] [--cad] [--key NAME] -- COMMAND..."
+                    "Run one heavy command under the host's shared admission policy.\n\nUsage: tools/run [--count 1..4] [--timing] [--cad] [--key NAME] -- COMMAND..."
                 );
                 return Ok(0);
             }
@@ -473,6 +473,25 @@ pub fn run(args: &[String]) -> Result<i32> {
         return Ok(if slots::current("run") { 0 } else { 1 });
     }
     ensure!(!command.is_empty(), "usage: name a command after --");
+    if !env::split_paths(&env::var_os("PATH").unwrap_or_default())
+        .any(|dir| dir.join("cargo").is_file())
+    {
+        let mut candidates = vec![PathBuf::from("/opt/homebrew/opt/rustup/bin")];
+        if let Some(home) = env::var_os("HOME") {
+            candidates.push(PathBuf::from(home).join(".cargo/bin"));
+        }
+        if let Some(directory) = candidates
+            .into_iter()
+            .find(|dir| dir.join("cargo").is_file())
+        {
+            let mut paths = vec![directory];
+            paths.extend(env::split_paths(&env::var_os("PATH").unwrap_or_default()));
+            // The runner is single-threaded while preparing its command environment.
+            unsafe {
+                env::set_var("PATH", env::join_paths(paths)?);
+            }
+        }
+    }
     let root = workspace_root();
     let key = key.unwrap_or_else(|| script_key(&command, &env::current_dir().unwrap_or_default()));
     let producer = viewer_producer(&command, &root).unwrap_or(Value::Null);

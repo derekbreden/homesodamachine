@@ -150,7 +150,122 @@ pub fn install_runtime(root: &Path, destination: &Path) -> Result<Value> {
         (serde_json::to_string_pretty(&receipt)? + "\n").as_bytes(),
         0o644,
     )?;
+    put(
+        &destination.join("bin/hsm-run"),
+        launcher(&runner_out, None, &[]).as_bytes(),
+        0o755,
+    )?;
     Ok(receipt)
+}
+
+/// Rebuild the host runner and its adapter library under the existing compiler lease.
+pub fn rebuild_runtime(root: &Path) -> Result<()> {
+    slots::acquire_run(Some("hsm:runtime-bootstrap"), false, None)?;
+    slots::acquire_aux("compiler")?;
+    let cargo = env::var_os("CARGO")
+        .map(PathBuf::from)
+        .filter(|path| path.is_file())
+        .or_else(|| {
+            [
+                PathBuf::from("/opt/homebrew/opt/rustup/bin/cargo"),
+                prefix()
+                    .parent()
+                    .unwrap_or(Path::new("/"))
+                    .join(".cargo/bin/cargo"),
+            ]
+            .into_iter()
+            .find(|path| path.is_file())
+        })
+        .unwrap_or_else(|| PathBuf::from("cargo"));
+    let mut cmd = Command::new(&cargo);
+    cmd.args([
+        "build",
+        "--release",
+        "--locked",
+        "--jobs=2",
+        "--manifest-path",
+    ])
+    .arg(root.join("tools/hsm/Cargo.toml"))
+    .args(["-p", "hsm-run-slots", "-p", "hsm-run-native"])
+    .current_dir(root)
+    .env("CARGO_TARGET_DIR", root.join("tools/hsm/target"));
+    if let Some(directory) = cargo.parent().filter(|p| !p.as_os_str().is_empty()) {
+        let mut paths = vec![directory.to_path_buf()];
+        paths.extend(env::split_paths(&env::var_os("PATH").unwrap_or_default()));
+        cmd.env("PATH", env::join_paths(paths)?);
+    }
+    slots::context()?.apply(&mut cmd)?;
+    ensure!(
+        ipc::spawn(&mut cmd)?.wait()?.success(),
+        "native runtime build failed"
+    );
+    let mut install = Command::new(root.join("tools/hsm/target/release/hsm-run"));
+    install.arg("--install-runtime").arg(root);
+    slots::context()?.apply(&mut install)?;
+    ensure!(
+        ipc::spawn(&mut install)?.wait()?.success(),
+        "native runtime installation failed"
+    );
+    Ok(())
+}
+
+/// Run through the runner compiled from this checkout's host policy.
+pub fn run_current(root: &Path, args: &[String]) -> Result<i32> {
+    let current = info(root)?;
+    if current["source_match"] == true {
+        return runner::run(args);
+    }
+    let mut bootstrap = Command::new(env::current_exe()?);
+    bootstrap.arg("--rebuild-runtime").arg(root);
+    if let Some(lease) = crate::inherited()? {
+        lease.apply(&mut bootstrap)?;
+    }
+    ensure!(
+        ipc::spawn(&mut bootstrap)?.wait()?.success(),
+        "native runtime refresh failed"
+    );
+    let mut fresh = Command::new(root.join("tools/hsm/target/release/hsm-run"));
+    fresh.arg("--workspace").arg(root).args(args);
+    if let Some(lease) = crate::inherited()? {
+        lease.apply(&mut fresh)?;
+    }
+    let status = ipc::spawn(&mut fresh)?.wait()?;
+    Ok(status.code().unwrap_or(1))
+}
+
+/// Install command artifacts without replacing an executable a running job still holds.
+pub fn install_tools(root: &Path, destination: &Path, binaries: &[PathBuf]) -> Result<Value> {
+    let mut installed = Vec::new();
+    for binary in binaries {
+        let binary = if binary.is_absolute() {
+            binary.clone()
+        } else {
+            root.join(binary)
+        };
+        let binary = binary.canonicalize()?;
+        let name = binary.file_name().context("tool name")?.to_string_lossy();
+        ensure!(
+            !name.is_empty()
+                && name
+                    .bytes()
+                    .all(|b| b.is_ascii_alphanumeric() || b == b'-' || b == b'_'),
+            "tool name {name}"
+        );
+        let bytes = fs::read(&binary)?;
+        let digest = hash(&bytes);
+        let artifact = destination
+            .join("lib/hsm/tools")
+            .join(&digest)
+            .join(name.as_ref());
+        if !artifact.exists() {
+            put(&artifact, &bytes, 0o555)?;
+        }
+        let command = destination.join("bin").join(name.as_ref());
+        put(&command, launcher(&artifact, None, &[]).as_bytes(), 0o755)?;
+        installed
+            .push(json!({"name":name,"sha256":digest,"executable":artifact,"command":command}));
+    }
+    Ok(json!({"tools":installed}))
 }
 pub fn bootstrap(root: &Path) -> Result<Value> {
     slots::acquire_run(Some("hsm:runtime-bootstrap"), false, None)?;
