@@ -1,0 +1,83 @@
+{
+  "spec": {
+    "column_x_mm": [
+      162.5
+    ],
+    "common_object_settings": {
+      "sparse_infill_density": "100%",
+      "sparse_infill_pattern": "zig-zag",
+      "support_interface_spacing": "0",
+      "support_interface_top_layers": "3",
+      "support_on_build_plate_only": "0",
+      "support_style": "default",
+      "support_top_z_distance": "0.24",
+      "tree_support_branch_angle": "20"
+    },
+    "families": [
+      {
+        "actual_crop_min_z_mm": 156.95999999996275,
+        "crop_max_mm": [
+          -90.75,
+          90.0,
+          174.8
+        ],
+        "crop_min_mm": [
+          -110.5,
+          70.0,
+          156.96
+        ],
+        "feature": "enclosure-front-bottom::west-z-rail",
+        "growth_setting_basis": "Production front-bottom rail tree style and branch angle keep the support rooted on the cavity floor. D contact spacing, interface count, requested gap, bridge flow, bridge speed, temperatures and cooling are retained. Production rail solid-stock settings are retained.",
+        "id": "R",
+        "label_center_world_mm": [
+          -98.625,
+          80.0,
+          174.8
+        ],
+        "name": "Complete rail cavity",
+        "production_bed_world_z_mm": -6.0,
+        "retains": "The complete floor, arm, catch overhang, roof stock and open sliding/removal mouth across the selected rail section.",
+        "row_y_mm": 160.0,
+        "settings": {},
+        "source": "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.stl",
+        "source_arm_outer_x_mm": -93.75,
+        "source_catch_top_z_mm": 174.8,
+        "source_catch_z_mm": 169.2,
+        "source_cavity_floor_z_mm": 160.0,
+        "source_cavity_inner_x_mm": -98.25,
+        "source_lip_x_mm": -103.5,
+        "source_sha256": "7eb9455df0f38d96e9edd78384e98b5ac11a2dbfbb43dacf7eab3a378d1360a6",
+        "target_support_root": "model"
+      }
+    ],
+    "interface_spacing_mm": {
+      "D": 0.0
+    },
+    "label_height_mm": 0.48,
+    "profile": "hardware/print-tests/petgf-dense-roofs/close-contact/2026-11-09-close-contact-DEF-left04-z018-mark1.3mf",
+    "purpose": "Preserve the complete production rail cross-section and local support height in a short longitudinal coupon."
+  },
+  "specimens": [
+    {
+      "bounds_mm": [
+        [
+          -110.49906921386719,
+          70.0,
+          0.0
+        ],
+        [
+          -90.75,
+          90.0,
+          18.320000000298023
+        ]
+      ],
+      "condition": "D",
+      "family": "R",
+      "id": "RD",
+      "solids": 1,
+      "volume_mm3": 3047.733585776918,
+      "watertight": true,
+      "world_z_to_print_z_mm": -156.95999999996275
+    }
+  ]
+}
