@@ -146,5 +146,35 @@
     "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step.npz": "736715fa88f8c60b27044a64f7ee10345fca202c2e3549403ea96b3b101c6a5b"
   },
   "measurement_limits": "The reference-browser milestone establishes matching mounted geometry eligible to draw, not an unobstructed composite on Derek\u2019s device. Fit evidence concerns the declared CAD geometry; no new physical print is claimed.",
-  "automatic_checks_added": false
+  "automatic_checks_added": false,
+  "delivery_completed_at": "2026-11-10T02:00:07.626Z",
+  "receipt_to_complete_seconds": 1078.808,
+  "live_delivery_verification": {
+    "at": "2026-11-10T01:58:36.898Z",
+    "results": [
+      {
+        "path": "/changes/2026-11-09-1954-led-channel-junction",
+        "status": 200,
+        "bytes": 26330,
+        "sha256": "54a805741054fdac2b397bb6d8911f3b23bb39ae2cf746007c884bdafc00aa9b"
+      },
+      {
+        "path": "/changes/2026-11-09-1954-led-channel-junction/junction-before.webp?v=a1ba37ab04b8",
+        "status": 200,
+        "bytes": 10282,
+        "sha256": "a1ba37ab04b8f3497a863f6b339172650889592217d7af4f0cbd9760249de475"
+      },
+      {
+        "path": "/changes/2026-11-09-1954-led-channel-junction/junction-after.webp?v=eb419597be1e",
+        "status": 200,
+        "bytes": 11288,
+        "sha256": "eb419597be1e3c94de9a2b66f0ab4828c103d73e2f56a05613ced8476eeae811"
+      }
+    ],
+    "model": {
+      "status": 200,
+      "sha256": "a79f8228a460fe4d21c56baae41ec8a0fba65c94e99248b8f8eb0cb069e7bbc8",
+      "expected": "a79f8228a460fe4d21c56baae41ec8a0fba65c94e99248b8f8eb0cb069e7bbc8"
+    }
+  }
 }
