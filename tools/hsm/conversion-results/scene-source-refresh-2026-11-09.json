@@ -1,0 +1,236 @@
+{
+  "purpose": "This on-demand audit records source ownership and installed-frame repair across the shared-reference publication inventory.",
+  "implementation_commits": [
+    "ba6321c9860856f12461ec4f9688ed259a42fd1e",
+    "5e71a9f4613f79a20b938af5a3e3f9fe3d66e09a"
+  ],
+  "root_cause": "A partial source refresh adopted independently constructed bodies by display name and replaced their installed geometry with source-local prototypes.",
+  "additional_defect": "Stored references and explicit skin exports omitted original source-body identities before installed aliases were applied. Refreshing an aliased multi-body source advanced the source table while retaining the aliases at their previous revision.",
+  "repair": "Refresh ownership follows explicit source bindings; presentation exports bind original source-body names before applying installed names. Affected assemblies and named views are regenerated from their authored producers.",
+  "scope": {
+    "published_pointer_inventory": 949,
+    "shared_reference_payloads": 21,
+    "public_models": 19,
+    "assembly_input_payloads": 2,
+    "bound_occurrences": 545,
+    "source_revisions": 42,
+    "missing_original_body_identities_before": 417,
+    "missing_original_body_identities_after": 0,
+    "exact_source_asset_matches_after": 545
+  },
+  "geometry_comparisons": [
+    {
+      "payload": "hardware/cold-core-layout/cold-core-assembly.step.mesh",
+      "authored_archive": "hardware/cold-core-layout/cold-core-assembly.scene.npz",
+      "matched_bodies": 82,
+      "maximum_bound_difference_mm": 0.08029968477785587,
+      "unmatched_viewer_bodies": 0,
+      "unmatched_authored_bodies": 0
+    },
+    {
+      "payload": "hardware/manifold-layout/enclosure-assembly.step.mesh",
+      "authored_archive": ".cache/realized/installed-machine/mechanics/enclosure-assembly.step.npz",
+      "matched_bodies": 449,
+      "maximum_bound_difference_mm": 0.14579010009765625,
+      "unmatched_viewer_bodies": 0,
+      "unmatched_authored_bodies": 0
+    },
+    {
+      "payload": "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step.mesh",
+      "authored_archive": "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step.npz",
+      "matched_bodies": 1,
+      "maximum_bound_difference_mm": 1.2206844985485077e-05,
+      "unmatched_viewer_bodies": 0,
+      "unmatched_authored_bodies": 0
+    },
+    {
+      "payload": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step.mesh",
+      "authored_archive": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step.npz",
+      "matched_bodies": 1,
+      "maximum_bound_difference_mm": 1.2206844985485077e-05,
+      "unmatched_viewer_bodies": 0,
+      "unmatched_authored_bodies": 0
+    },
+    {
+      "payload": "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step.mesh",
+      "authored_archive": "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step.npz",
+      "matched_bodies": 1,
+      "maximum_bound_difference_mm": 3.051944077014923e-06,
+      "unmatched_viewer_bodies": 0,
+      "unmatched_authored_bodies": 0
+    },
+    {
+      "payload": "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step.mesh",
+      "authored_archive": "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step.npz",
+      "matched_bodies": 1,
+      "maximum_bound_difference_mm": 3.051944077014923e-06,
+      "unmatched_viewer_bodies": 0,
+      "unmatched_authored_bodies": 0
+    },
+    {
+      "payload": "hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer-seated.step.mesh",
+      "authored_archive": "hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer-seated.step.npz",
+      "matched_bodies": 10,
+      "maximum_bound_difference_mm": 3.051944077014923e-06,
+      "unmatched_viewer_bodies": 0,
+      "unmatched_authored_bodies": 0
+    },
+    {
+      "payload": "hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.step.mesh",
+      "authored_archive": "hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.step.npz",
+      "matched_bodies": 1,
+      "maximum_bound_difference_mm": 2.074986696243286e-06,
+      "unmatched_viewer_bodies": 0,
+      "unmatched_authored_bodies": 0
+    },
+    {
+      "payload": "hardware/printed-parts/enclosure/enclosure/enclosure-pump-tube-setting-jig.step.mesh",
+      "authored_archive": "hardware/printed-parts/enclosure/enclosure/enclosure-pump-tube-setting-jig.step.npz",
+      "matched_bodies": 1,
+      "maximum_bound_difference_mm": 4.027970135211945e-06,
+      "unmatched_viewer_bodies": 0,
+      "unmatched_authored_bodies": 0
+    },
+    {
+      "payload": "hardware/printed-parts/enclosure/enclosure/enclosure.step.mesh",
+      "authored_archive": "hardware/printed-parts/enclosure/enclosure/enclosure.step.npz",
+      "matched_bodies": 26,
+      "maximum_bound_difference_mm": 1.2206844985485077e-05,
+      "unmatched_viewer_bodies": 0,
+      "unmatched_authored_bodies": 0
+    }
+  ],
+  "named_view_composition": {
+    "views": 11,
+    "body_occurrences": 601,
+    "asset_or_frame_differences": 0
+  },
+  "rebuild_comparison": {
+    "purpose": "This comparison checks the rebuilt machine against its snapshot ahead of the ownership metadata repair.",
+    "matched_nodes": 449,
+    "array_identical_asset_metadata_changes": [
+      "tee-y-c",
+      "tee-y-d",
+      "tee-y-f",
+      "tee-y-g"
+    ],
+    "geometry_or_frame_differences": [],
+    "maximum_color_value_rounding": 4.993709890044329e-10
+  },
+  "regression": {
+    "command": "python3 tools/run.py -- cargo test --release --locked -j 2 --manifest-path tools/hsm/Cargo.toml -p hsm-model-export payload::tests -- --nocapture",
+    "passed": 1,
+    "cases": [
+      "stored references",
+      "explicit skins",
+      "different fitting and nut placements",
+      "shape refresh",
+      "selected membership",
+      "removed source body"
+    ],
+    "before": {
+      "purpose": "Reproduce alias refresh on isolated scene headers without publishing geometry.",
+      "reply": [
+        {
+          "replaced": 1
+        }
+      ],
+      "expected_source_sha256": "fc61173ff9ddc455412fea4558e66c5e87c7ab857e189ed3b4d860e9f5c46277",
+      "source_table_updated": true,
+      "aliases": [
+        {
+          "name": "bulkhead-carb",
+          "source_name": null,
+          "before": "3cd20fc9658b32fd7a78f1b08e2ec6b716c811a2bb6319a70be48471da7a62b6",
+          "after": "3cd20fc9658b32fd7a78f1b08e2ec6b716c811a2bb6319a70be48471da7a62b6",
+          "transform_preserved": true
+        },
+        {
+          "name": "bulkhead-carb-nut",
+          "source_name": null,
+          "before": "3cd20fc9658b32fd7a78f1b08e2ec6b716c811a2bb6319a70be48471da7a62b6",
+          "after": "3cd20fc9658b32fd7a78f1b08e2ec6b716c811a2bb6319a70be48471da7a62b6",
+          "transform_preserved": true
+        }
+      ]
+    },
+    "after": {
+      "purpose": "Reproduce alias refresh on isolated scene headers without publishing geometry.",
+      "reply": [
+        {
+          "replaced": 2
+        }
+      ],
+      "expected_source_sha256": "fc61173ff9ddc455412fea4558e66c5e87c7ab857e189ed3b4d860e9f5c46277",
+      "source_table_updated": true,
+      "aliases": [
+        {
+          "name": "bulkhead-carb",
+          "source_name": "fitting",
+          "before": "3cd20fc9658b32fd7a78f1b08e2ec6b716c811a2bb6319a70be48471da7a62b6",
+          "after": "fc61173ff9ddc455412fea4558e66c5e87c7ab857e189ed3b4d860e9f5c46277",
+          "transform_preserved": true
+        },
+        {
+          "name": "bulkhead-carb-nut",
+          "source_name": "nut",
+          "before": "3cd20fc9658b32fd7a78f1b08e2ec6b716c811a2bb6319a70be48471da7a62b6",
+          "after": "fc61173ff9ddc455412fea4558e66c5e87c7ab857e189ed3b4d860e9f5c46277",
+          "transform_preserved": true
+        }
+      ]
+    }
+  },
+  "rebuild": {
+    "targets": [
+      "//:enclosure",
+      "//:installed-machine"
+    ],
+    "success": true,
+    "wall_seconds": 96.54559449999942,
+    "publication_exit_codes": [
+      0,
+      0,
+      0,
+      0
+    ]
+  },
+  "live": {
+    "observed_at": "2026-11-10T00:35:12.037Z",
+    "payloads_checked": 21,
+    "matching_payload_hashes": 21,
+    "bound_occurrences": 545,
+    "missing_original_body_identities": 0,
+    "browser": {
+      "url": "https://homesodamachine.com/3d",
+      "observed_at": "2026-11-10T00:37:08.740Z",
+      "card": "Soda machine\nHSM-0001 \u00b7 $2,290.87\n25 direct \u00b7 246 total BOM items \u2192",
+      "page_errors": []
+    },
+    "machine_card_visually_inspected": true
+  },
+  "payload_revisions": {
+    "hardware/assembly/scenes/glb/back-half.glb.mesh": "57730abd65c6e7a2f9728f017cd3b81839f1bd12de809eabf88f83d6b8f958fd",
+    "hardware/assembly/scenes/glb/back-top.glb.mesh": "005694de3f2dbd46cdbb80021626306f9f546746d22948f100c294f570918291",
+    "hardware/assembly/scenes/glb/cap-lid-fill.glb.mesh": "93f85360b8e38505bbbb66c24b69d0e1e894747500a87082d3fd890ae7f342e4",
+    "hardware/assembly/scenes/glb/cap-lid.glb.mesh": "4c6e009833cc64f7c15331ccc764e5f8aaaa93e969b882440214f21445f4f941",
+    "hardware/assembly/scenes/glb/cold-core-open.glb.mesh": "dce8f237e5062c8e7536c5efdc334ddac5235a7496ea79f5779fccfb1cb850c8",
+    "hardware/assembly/scenes/glb/cold-core.glb.mesh": "b1a6d186e3b4e2bcd3663a889e7d6ad80c889d7edd38d46852336d658a3f1095",
+    "hardware/assembly/scenes/glb/en04-compressor-bay.glb.mesh": "31b9c9c8c83198fb744f61c253e28be042ce2961704862ac6a998c9e85bd1f00",
+    "hardware/assembly/scenes/glb/en07-electronics-bay.glb.mesh": "8ee3909e7ce2f1c08ca247213db784982f7e4fc3d0e71d48fe329819ec210f9c",
+    "hardware/assembly/scenes/glb/front-top.glb.mesh": "cb11adbdbfa3cdd5c7432a6943b31d5cac498eac989f17c512826d0fea00bf46",
+    "hardware/assembly/scenes/glb/funnel-drain.glb.mesh": "eae8898c0eb1b7fd6abcab8c891a46061b63d4e9986e461af206f7b8e45a3701",
+    "hardware/assembly/scenes/glb/pump-mount.glb.mesh": "60bdd96be571c18ed20285319b0a04c0b1d1df1072147ef882a85267226c710c",
+    "hardware/cold-core-layout/cold-core-assembly.step.mesh": "e6f09e5cecdf9535691fb2a586dc5e7e1a84959eb7582f7d97eb39a8bd149f3b",
+    "hardware/manifold-layout/enclosure-assembly.step.mesh": "57c7811a399beaea78ac2dfec213ecd510080e87ba497a59fad6828586e9b536",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step.mesh": "2cfc2d05ae1aadffa9c04246bc69fba83c2249cbbd08118b5f5061e28dbbc734",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step.mesh": "bf88221d0705b2c13d5bfccaae1e6e3d27a7c97f3d92d97c7a50789dd9489fce",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step.mesh": "8e77f5e7d8afd79bafbe951124b84820fd4077ee9a3fe4a4edee48571ab11cc7",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step.mesh": "ba16513645fcf1f628b9ab7e9efff3bd883f454fa66c3d57c9418bebdb0de2bd",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer-seated.step.mesh": "c3f61c225e670841b284266a5e711e45b1fb5c5a6542b264901c25d226ab3c26",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.step.mesh": "304b3e9791847f1d8065fc2d72640d20f17d9d611ad80e049950a4c0a291a5d2",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-pump-tube-setting-jig.step.mesh": "280c1c9be9e45683aa15cf82387ef213a58c3ee4f68d59241500f07fd4cac1f6",
+    "hardware/printed-parts/enclosure/enclosure/enclosure.step.mesh": "bdaa0554846d5a5679c22bae4b9869c54c94d81b3e2168bc3895d931c44638ce"
+  },
+  "automatic_checks_added": false
+}
