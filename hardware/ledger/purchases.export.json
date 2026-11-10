@@ -1721,6 +1721,27 @@
       "vendor": "Howdy Brewer"
     },
     {
+      "checked_at": "2026-11-10",
+      "complete_period": null,
+      "coverage": "partial",
+      "coverage_id": "coverage-14e884ad6ddc4f9a98fefe64c6d6948b",
+      "evidence_type": "shipment_and_pending_transactions",
+      "examined_period": {
+        "end": "2026-11-10",
+        "start": "2026-11-09"
+      },
+      "note": "New shipment notification matched against both exact order-detail pages, their shared tracker links and order-scoped pending payments. No new purchase, completed charge or delivery is inferred from the combined shipment total or estimated arrival.",
+      "order_ids": [
+        "amazon:112-3519445-7276244",
+        "amazon:112-8336005-3642625"
+      ],
+      "source_ids": [
+        "src-73fadd67b373402ab590db8148bbb3c8"
+      ],
+      "stream": "two named orders in one shipment",
+      "vendor": "Amazon"
+    },
+    {
       "checked_at": "2026-10-04",
       "complete_period": null,
       "coverage": "unknown",
@@ -3786,7 +3807,10 @@
       "amount_minor": 3216,
       "confirmation": "expected",
       "currency": "USD",
-      "event_date": null,
+      "event_date": {
+        "precision": "day",
+        "value": "2026-11-10"
+      },
       "event_id": "evt-0daeac8a24434db6abdfdeb3d8dc4a57",
       "event_type": "charge",
       "order_ids": [
@@ -3796,7 +3820,8 @@
         "pur-89b25fbe2a3e44adb4cbb188ab8a820f"
       ],
       "source_ids": [
-        "src-562754f7ecd34ad9a37d14abe9d1a9ce"
+        "src-562754f7ecd34ad9a37d14abe9d1a9ce",
+        "src-73fadd67b373402ab590db8148bbb3c8"
       ],
       "unallocated_to_purchase_minor": 0,
       "vendor": "Amazon",
@@ -7028,6 +7053,7 @@
       ],
       "source_ids": [
         "src-37ceea4a8ea54360a5ba11cafbcef9eb",
+        "src-73fadd67b373402ab590db8148bbb3c8",
         "src-821de3ba9cfc4967ac712f6960983312"
       ],
       "unallocated_to_purchase_minor": 0,
@@ -9338,7 +9364,7 @@
       ]
     }
   ],
-  "input_fingerprint": "sha256:09ab0628d177411945d7ce56bab1aad5ae967644b3f718a52aba2808cbd63564",
+  "input_fingerprint": "sha256:57726c619f0e69398f5298a17063e30e29835b09b24e9fac3acca70f5c29d33e",
   "orders": [
     {
       "allocation_status": "all_project",
@@ -10952,6 +10978,7 @@
       "reference": "112-3519445-7276244",
       "source_ids": [
         "src-37ceea4a8ea54360a5ba11cafbcef9eb",
+        "src-73fadd67b373402ab590db8148bbb3c8",
         "src-821de3ba9cfc4967ac712f6960983312"
       ],
       "vendor": "Amazon"
@@ -13332,7 +13359,8 @@
       ],
       "reference": "112-8336005-3642625",
       "source_ids": [
-        "src-562754f7ecd34ad9a37d14abe9d1a9ce"
+        "src-562754f7ecd34ad9a37d14abe9d1a9ce",
+        "src-73fadd67b373402ab590db8148bbb3c8"
       ],
       "vendor": "Amazon"
     },
@@ -37412,7 +37440,8 @@
       "section": "11. Enclosure hardware",
       "service_period": null,
       "source_ids": [
-        "src-562754f7ecd34ad9a37d14abe9d1a9ce"
+        "src-562754f7ecd34ad9a37d14abe9d1a9ce",
+        "src-73fadd67b373402ab590db8148bbb3c8"
       ],
       "split_charge": false,
       "stream": "purchase",
@@ -52502,6 +52531,7 @@
       "service_period": null,
       "source_ids": [
         "src-37ceea4a8ea54360a5ba11cafbcef9eb",
+        "src-73fadd67b373402ab590db8148bbb3c8",
         "src-821de3ba9cfc4967ac712f6960983312"
       ],
       "split_charge": false,
@@ -62941,6 +62971,23 @@
       "verified_at": "2026-10-11"
     },
     {
+      "document_date": null,
+      "document_type": "merchant_shared_shipment_and_pending_transactions",
+      "note": "Shipment notification and signed-in Mac Chrome tracking page identify two orders in one package. The companion order-details link explicitly opens the SVLING order from the ruthex shipment. The combined project shipment amount USD 41.33 consists of the existing USD 32.16 ruthex order and USD 9.17 SVLING order, not another purchase or charge. Both Order Details show placed 2026-11-09. Tracker status is Shipped with expected arrival 2026-11-10; no actual delivery is established. Order-scoped merchant transactions remain separately Pending on 2026-11-10 at USD 32.16 and USD 9.17.",
+      "notification_date": {
+        "precision": "day",
+        "value": "2026-11-10"
+      },
+      "proves": [
+        "price",
+        "order_date"
+      ],
+      "reference": "112-8336005-3642625 + 112-3519445-7276244",
+      "source_id": "src-73fadd67b373402ab590db8148bbb3c8",
+      "vendor": "Amazon",
+      "verified_at": "2026-11-10"
+    },
+    {
       "document_date": {
         "precision": "day",
         "value": "2026-10-13"
@@ -67485,6 +67532,7 @@
           "currency": "USD",
           "event_ids": [
             "evt-03528b8bbe2f47c39bee9b7de9b837c3",
+            "evt-0daeac8a24434db6abdfdeb3d8dc4a57",
             "evt-173ae81452be441989c194ea73607128",
             "evt-212f0cc5453646209e86acf44a509e60",
             "evt-46ab695dde87410681a27f2d7fd8a499",
@@ -67536,7 +67584,6 @@
           "currency": "USD",
           "event_ids": [
             "evt-0447af18f1f34778b9cd0f9facee2d40",
-            "evt-0daeac8a24434db6abdfdeb3d8dc4a57",
             "evt-1399a1a835ce4be3a489628c06225b33",
             "evt-1bead24454464c688dab3d4b9f2bc2bc",
             "evt-44d3b6c0a264492589465271e6914753",
@@ -68573,6 +68620,7 @@
       "incomplete_coverage_ids": [
         "coverage-008d521abab24498bf9db4a8c5993e38",
         "coverage-013f6586dbf840c8836ae7289d9827b3",
+        "coverage-14e884ad6ddc4f9a98fefe64c6d6948b",
         "coverage-17d84ca75543489fb09003261546862a",
         "coverage-1878a530d362418e8ecdb144070b9ac9",
         "coverage-1c8782429890444fbca3fed65fa0243c",
@@ -69672,7 +69720,6 @@
       ],
       "undated_unallocated_event_ids": [
         "evt-0447af18f1f34778b9cd0f9facee2d40",
-        "evt-0daeac8a24434db6abdfdeb3d8dc4a57",
         "evt-1399a1a835ce4be3a489628c06225b33",
         "evt-1bead24454464c688dab3d4b9f2bc2bc",
         "evt-44d3b6c0a264492589465271e6914753",
@@ -69830,6 +69877,7 @@
       "16 authored evidence gap(s) remain",
       "coverage-008d521abab24498bf9db4a8c5993e38: evidence coverage is unknown",
       "coverage-013f6586dbf840c8836ae7289d9827b3: evidence coverage is partial",
+      "coverage-14e884ad6ddc4f9a98fefe64c6d6948b: evidence coverage is partial",
       "coverage-17d84ca75543489fb09003261546862a: evidence coverage is unknown",
       "coverage-1878a530d362418e8ecdb144070b9ac9: evidence coverage is partial",
       "coverage-1c8782429890444fbca3fed65fa0243c: evidence coverage is unknown",
