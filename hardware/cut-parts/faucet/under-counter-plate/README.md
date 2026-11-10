@@ -13,7 +13,7 @@ by the faucet, rigid plate and TPU gasket, and
 not part of the normal build; rerun it when the plate's numbers change:
 
 ```
-python3 tools/run.py -- cargo run --release -j 2 --manifest-path tools/hsm/Cargo.toml -p hsm-under-counter-plate
+tools/run -- cargo run --release -j 2 --manifest-path tools/hsm/Cargo.toml -p hsm-under-counter-plate
 ```
 
 [Finished plate engineering drawing](under-counter-plate-drawing.pdf)
@@ -22,7 +22,7 @@ channel widths and cap centers, thickness and finished edge requirements.
 Linear dimensions are ±0.13 mm unless specified; stock thickness is
 1.52 ±0.13 mm. The finished plate has a 0.10 mm maximum edge break and a
 0.25 mm maximum free-state gap on a flat inspection surface.
-[under_counter_plate_drawing.py](under_counter_plate_drawing.py) generates
+[under_counter_plate_drawing.py](https://github.com/derekbreden/homesodamachine/blob/a518a57a878f02d9ac5b8b638c1c5883cadf6669/hardware/cut-parts/faucet/under-counter-plate/under_counter_plate_drawing.py) generates
 the sheet from the production outline and shared interface dimensions.
 
 | Feature | Dimension |

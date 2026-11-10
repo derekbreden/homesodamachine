@@ -1,10 +1,10 @@
 {
-  "title": "PGFUN two-axis weld positioner",
-  "subtitle": "Illustrated shop guide - 35 pages, Letter 8.5 x 11 in",
-  "pages": 35,
   "cover": "gun-positioner-guide.cover.png",
   "cover_size": [
     800,
     1036
-  ]
+  ],
+  "pages": 36,
+  "subtitle": "Illustrated shop guide - 36 pages, Letter 8.5 x 11 in",
+  "title": "PGFUN two-axis weld positioner"
 }

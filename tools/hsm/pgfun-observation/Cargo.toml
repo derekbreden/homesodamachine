@@ -1,0 +1,20 @@
+[package]
+name = "hsm-pgfun-observation"
+version = "0.1.0"
+edition.workspace = true
+license.workspace = true
+rust-version.workspace = true
+publish = false
+
+[dependencies]
+anyhow.workspace = true
+serde.workspace = true
+serde_json.workspace = true
+sha2.workspace = true
+libc = "0.2"
+png = "0.18.1"
+jpeg-decoder = "0.3"
+fastrand = "2"
+
+[lib]
+path = "../../../tools/gun-positioner-observation/src/lib.rs"

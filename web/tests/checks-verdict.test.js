@@ -1,16 +1,8 @@
 // The gear's dot is the whole board, reduced to one colour, on every page. It reads
-// `public/checks.json`, which `tools/checks_now.py` pins after every commit.
+// `public/checks.json`, which `repo-tools checks-now` pins when requested.
 //
-// WHY THIS BREAKS SILENTLY. `render.yaml` holds that file out of the build filter on purpose — a
-// pin is the most frequent commit in this tree and none of them is worth an `npm ci` and a
-// restart — so `artifacts-live.js` carries it onto the running container instead. Read once at
-// module load, the process then keeps whatever verdict it booted with while the file underneath
-// it moves: `/checks.json` serves green and the dot beside it stays red, until something
-// unrelated pushes `web/**` and restarts the process. Nothing raises, no request fails, and the
-// only symptom is a colour that disagrees with the file it claims to be showing.
-//
-// So the subject here is not the mapping from statuses to a class. It is that a second look at a
-// file that has changed answers differently from the first.
+// artifacts-live.js refreshes this file without a deploy. These fixtures verify that the
+// next page render reads the changed verdict and its gear agrees with the served JSON.
 
 import { test } from "node:test";
 import assert from "node:assert/strict";

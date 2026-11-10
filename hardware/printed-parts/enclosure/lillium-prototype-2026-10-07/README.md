@@ -36,18 +36,9 @@ The back top has no physical fit or print-cleanup result in this package.
 These geometric checks do not establish strength, lifetime or wet prototype
 acceptance.
 
-## Restore the back top
+## Article sources
 
-From the repository root:
-
-```sh
-python3 hardware/printed-parts/enclosure/lillium-prototype-2026-10-07/materialize.py
-```
-
-This writes `enclosure-back-top.step`, `enclosure-back-top.stl` and
-`enclosure-back-top.step.mesh` under `.cache/lillium-prototype-2026-10-07/`.
-Use `--all` to restore the fixed fit fixtures, print profile, solid-host
-regions and source archive too, or `--output-dir` to choose another directory.
+The [materialization source](https://github.com/derekbreden/homesodamachine/blob/d24b111b5d10e1eed4574db786e5ae1d0b96d445/hardware/printed-parts/enclosure/lillium-prototype-2026-10-07/materialize.py) is archived in Git. The saved exports identify this prototype article.
 
 **Slice the STL.** It includes the fluted print surface; the STEP is the native
 construction body. The restored part is in machine coordinates. Print it on
@@ -66,11 +57,4 @@ This mesh needs a fresh native slice and emitted support/solid-host review
 before submission. The back-top v9 review binds a different mesh. This
 package submits no printer job.
 
-## Repeat the fit check
-
-```sh
-tools/cad-venv/bin/python hardware/printed-parts/enclosure/lillium-prototype-2026-10-07/verify_fit.py
-```
-
-The check restores and hashes every frozen input before evaluating geometry.
-It writes only this package's fit report and its separate materialized files.
+The [fit comparison source](https://github.com/derekbreden/homesodamachine/blob/d24b111b5d10e1eed4574db786e5ae1d0b96d445/hardware/printed-parts/enclosure/lillium-prototype-2026-10-07/verify_fit.py) is archived in Git. Its bound report remains with the identified prototype.

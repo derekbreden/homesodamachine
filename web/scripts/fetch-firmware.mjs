@@ -84,11 +84,11 @@ const images = pointers.images ?? {};
 await mkdir(DEST, { recursive: true });
 const { missing, drifted } = await wanted(images);
 
-// Named either way: an image carrying other bytes is what `publish_firmware.py --write` is for.
+// Named either way: an image carrying other bytes is what `hsm-publish-firmware --write` is for.
 if (drifted.length) {
   console.log(`[firmware] ${drifted.length} image(s) hold bytes the pointer file does not name, left as they are:`);
   for (const target of drifted) console.log(`    ${target}`);
-  console.log("    ~/.platformio/penv/bin/python tools/publish_firmware.py --write");
+  console.log("    tools/run -- hsm-publish-firmware --write");
 }
 
 if (missing.length === 0) {

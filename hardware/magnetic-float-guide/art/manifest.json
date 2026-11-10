@@ -125,5 +125,11 @@
         1600
       ]
     }
+  },
+  "source_revision": "7877f6193ead05647b529972ee9f50de305c8d44",
+  "source_archive": {
+    "tools/magnetic-float-guide/float_art.py": "https://github.com/derekbreden/homesodamachine/blob/7877f6193ead05647b529972ee9f50de305c8d44/tools/magnetic-float-guide/float_art.py",
+    "hardware/printed-parts/cold-core/magnetic-float/all-aero/all_aero_float.py": "https://github.com/derekbreden/homesodamachine/blob/7877f6193ead05647b529972ee9f50de305c8d44/hardware/printed-parts/cold-core/magnetic-float/all-aero/all_aero_float.py",
+    "hardware/printed-parts/cold-core/_float_interface.py": "https://github.com/derekbreden/homesodamachine/blob/7877f6193ead05647b529972ee9f50de305c8d44/hardware/printed-parts/cold-core/_float_interface.py"
   }
 }

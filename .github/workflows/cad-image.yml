@@ -1,22 +1,4 @@
-# THE PREBUILT CAD ENVIRONMENT, published to this repo's own registry.
-#
-# `derive` runs INSIDE this image, so everything it would otherwise install on every run is
-# already on the disk when the job starts: the 840 MB CadQuery toolchain at its pin, the
-# renderers and the Chromium the card deck drives, Mesa's lavapipe for the pictures `hsm-render`
-# draws, express for the scene server, rsvg-convert and bazel at `.bazelversion`.
-# Blender supports the manual kitchen illustrations and studio film.
-#
-# It rebuilds when one of its declared inputs moves, independently of the design loop. Manual
-# dispatch remains available for registry recovery. A derive run also compares `HSM_REQ_SHA`
-# against its checkout, so an image that lags is named rather than silently accepted.
-#
-# The content tag is the digest of every copied toolchain input, so `:latest` moves with a build and the
-# content tag is what a run can be held against afterwards.
-#
-# THE LAYER CACHE IS THE POINT OF `type=gha`. The apt layers and the pip layer are the whole
-# cost, and they are keyed on the files copied into them — a lockfile bump reinstalls node
-# modules and leaves the 840 MB pip layer alone.
-
+# The image supplies native build and rendering dependencies for derived outputs.
 name: cad-image
 
 on:
@@ -24,9 +6,7 @@ on:
     branches: [main]
     paths:
       - tools/ci-image/Dockerfile
-      - tools/ci-image/digest.py
-      - tools/cad-requirements.txt
-      - tools/cad-venv-site/**
+      - tools/hsm/cargo-config/**
       - tools/render/package.json
       - tools/render/package-lock.json
       - web/package.json
@@ -50,13 +30,10 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      # THE DIGEST OF WHAT THE IMAGE IS MADE OF. `derive` recomputes this
-      # from its own checkout and holds the image it pulled against it, so a run that lands
-      # while the image is still rebuilding says so instead of quietly using yesterday's.
       - name: The tag the inputs name
         id: tag
         run: |
-          sha=$(python3 tools/ci-image/digest.py)
+          sha=$(cargo run --release --locked -j 2 --manifest-path tools/hsm/Cargo.toml -p hsm-cargo-config --bin hsm-ci-image-digest -- --root "$GITHUB_WORKSPACE")
           echo "sha=$sha" >> "$GITHUB_OUTPUT"
           echo "image=ghcr.io/${GITHUB_REPOSITORY,,}-cad" >> "$GITHUB_OUTPUT"
           echo "cad-$sha" >> "$GITHUB_STEP_SUMMARY"

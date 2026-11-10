@@ -38,7 +38,7 @@ follows. Nine were never commits here — SHAs in the `rectdiff` and `circuit-js
 forks, and payload content hashes, which are hex of a different kind and belong to whatever
 produced them.
 
-[`check_paths.py`](/tools/check_paths.py) reports a blob URL pinned to a commit this repo does
+[`repo-tools paths`](/tools/hsm/repo-tools/src/paths.rs) reports a blob URL pinned to a commit this repo does
 not have, and this file is what answers it. It guards the PATH half of a reference; a bare SHA
 in prose is not a path, so nothing derives it and nothing catches it when a rewrite orphans
 it. That is why the sweep is a sweep and not a check.

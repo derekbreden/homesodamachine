@@ -139,13 +139,11 @@ independently establish full seating, leak tightness or a force rating.
 
 ## Evidence and regeneration
 
-The [manual fixture geometry review](geometry-review.json) covers the rigid
-variants, the donor reference, 330 mm tube, sealing thimble, four
-screws, four nuts, two washers and the schematic factory clamp envelopes.
-It samples 0–20 mm travel at 0.5 mm increments. All six print variants are
-valid single analytic solids. The 41 sampled poses have no unintended
-B-rep intersections; designed TPU interference is recorded separately.
-All four nominal Ø30 contact disks have uninterrupted solid backing.
+The [manual fixture geometry review](geometry-review.json) covers the print
+variants, donor reference, complete tube, sealing thimble, stock fasteners and
+schematic factory clamps. It samples the full stop-to-stop travel. The native
+mesh review records closed print solids, unintended intersections, designed TPU
+interference and backing at the factory pad stations.
 
 The [centred grip review](centered-grip-review.json) establishes zero axial
 screw offset, 1 mm of added flat backing per liner, 1 mm projection beyond
@@ -176,19 +174,22 @@ printed tool or workpiece. The accepted sealing thimble's
 lever's [physical record](../../faucet/lever-replica/physical-acceptance.json)
 retain their identified scope.
 
-[`tube_insertion.py`](tube_insertion.py) supplies `build_parts`, the
-individual builders, `build_assembly(stroke=0..20)`, `clamp_stations` and
+The issued print payloads have their [producer receipt](parts.json) and
+[producer source in Git](https://github.com/derekbreden/homesodamachine/blob/5104eaa428a79683c5315f14aedc8b6b6c09ef0d/hardware/printed-parts/fixtures/tube-insertion/tube_insertion.py).
+
+[`tube_insertion.rs`](tube_insertion.rs) supplies `build_parts`, the
+individual builders, `assembly`, `clamp_stations` and
 the separately scoped `build_clamp_reference` schematic. Importing builders
 writes no files. Generate CAD explicitly:
 
 ```sh
-HSM_NO_BUILD_LOCK=1 tools/cad-venv/bin/python hardware/printed-parts/fixtures/tube-insertion/tube_insertion.py
+tools/run --cad -- hsm-manual-guides fixture tube-insertion
 ```
 
 The question-specific review remains separate:
 
 ```sh
-tools/cad-venv/bin/python hardware/printed-parts/fixtures/tube-insertion/review_geometry.py
+tools/run --cad -- hsm-manual-guides review tube-insertion
 ```
 
 Neither operation is added to a build, hook, watcher or print-launch path.

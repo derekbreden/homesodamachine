@@ -5,7 +5,7 @@ The joint on each of the G Ganen pump's two barbs, from three bought parts:
 | Part | Source | Use |
 |---|---|---|
 | neoPure PVCR-0610 reinforced clear PVC, 3/8 in ID × 0.594 in OD | FWS, [purchases.md](../../ledger/purchases.md) | A short piece pushed over the barb to its casing-clear end plane |
-| John Guest PP061208W reducer, 3/8 in stem × 1/4 in push-to-connect | FWS, [purchases.md](../../ledger/purchases.md), [reference](../jg-pp061208w/jg_pp061208w.py) | Its stem trimmed to 10 mm and pushed into the tube's other end up to the shoulder |
+| John Guest PP061208W reducer, 3/8 in stem × 1/4 in push-to-connect | FWS, [purchases.md](../../ledger/purchases.md), [reference](https://github.com/derekbreden/homesodamachine/blob/a518a57a878f02d9ac5b8b638c1c5883cadf6669/hardware/reference/jg-pp061208w/jg_pp061208w.py) | Its stem trimmed to 10 mm and pushed into the tube's other end up to the shoulder |
 | YDS butterfly SS W2 hose clamp, 10–16 mm, 9 mm band | [B07C33VLQ6](https://www.amazon.com/dp/B07C33VLQ6) | Two: one on the tube over the barb, one over the stem |
 
 The trimmed stem's tip meets the barb's tip inside the tube, so the tube is the barb's length plus
@@ -14,7 +14,7 @@ square-cut tube ends stand 0.9 mm outward of the first scanned profile station,
 clear of the molded head shoulder. Each band is centred on
 the length of fitting the tube covers. The reducer's 1/4 in collet carries the line on.
 
-[`pump_barb_joint.py`](pump_barb_joint.py) draws the tube installed: its bore follows the barb's
+[pump_barb_joint.py](https://github.com/derekbreden/homesodamachine/blob/a518a57a878f02d9ac5b8b638c1c5883cadf6669/hardware/reference/pump-barb-joint/pump_barb_joint.py) draws the tube installed: its bore follows the barb's
 scanned profile and the stem, and its outside opens to keep the tube's section. Each band closes on
 the tube's widest outside under it. Its frame has +X on the port's outward axis and the barb's tip
 at X = 0.
@@ -40,6 +40,4 @@ Taken from Derek's photograph, not measured:
 - the clamp's housing, screw end and key, read against its 9 mm band. The key turns with the screw,
   so it is drawn flat in the band's plane, and a placement picks which side it runs to.
 
-```sh
-tools/cad-venv/bin/python hardware/reference/pump-barb-joint/pump_barb_joint.py
-```
+The model and measurements are retained with their [source derivations](https://github.com/derekbreden/homesodamachine/blob/a518a57a878f02d9ac5b8b638c1c5883cadf6669/hardware/reference/pump-barb-joint/pump_barb_joint.py).

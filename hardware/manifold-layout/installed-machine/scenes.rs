@@ -462,58 +462,9 @@ fn translucent_materials() -> Result<Vec<([f64; 3], f64)>> {
 /// filaments at the finish of the PET-GF they print in, and the tube stock's spools, merged by
 /// the shared colour code as the website's finish table is.
 fn finishes(root: &Path) -> Result<Value> {
-    let color = |op: &str, request: Value| crate::color::dispatch(op, &request);
-    let catalog = color("catalog", json!({}))?;
-    let chips = crate::color::chips()?;
-    let record = |name: &str| -> Result<Value> {
-        let source = catalog["aliases"][name].as_str().unwrap_or(name);
-        let args = catalog["colors"].get(source).with_context(|| format!("no colour {name} in the materials catalog"))?;
-        Ok(json!({"args": args, "kwargs": {}}))
-    };
-    let rows = catalog["finishes"].as_array().context("the catalog's finishes")?;
-    let mut finishes = Vec::new();
-    let mut pet_gf = None;
-    for row in rows {
-        let name = row[0].as_str().context("a finish's material")?;
-        if name == "M_PETGF_BLACK" {
-            pet_gf = Some((row[1].clone(), row[2].clone()));
-        }
-        finishes.push(json!([record(name)?, row[1], row[2]]));
-    }
-    let (rough, metal) = pet_gf.context("the catalog states no PET-GF finish")?;
-    let order = chips["filament_order"].as_array().context("the chips' filament order")?;
-    let mut rgbs = Vec::new();
-    for fluid in order {
-        rgbs.push(chips["chip_filaments"][fluid.as_str().context("a fluid")?][1].clone());
-    }
-    for fluid in order {
-        rgbs.push(chips["chip_word_colors"][fluid.as_str().context("a fluid")?].clone());
-    }
-    for args in color("palette_constructors", json!({"rgbs": rgbs}))?.as_array().context("the palette")? {
-        finishes.push(json!([{"args": args, "kwargs": {}}, rough, metal]));
-    }
-    let mut named = Map::new();
-    for name in catalog["colors"].as_object().into_iter().flatten().map(|(k, _)| k)
-        .chain(catalog["aliases"].as_object().into_iter().flatten().map(|(k, _)| k))
-    {
-        named.insert(name.clone(), record(name)?);
-    }
+    let catalog = crate::color::dispatch("catalog", &json!({}))?;
     let routing = crate::design::read(root.join("tools/hsm/shared-data/catalog/routing.json"))?;
-    let mut spools = Map::new();
-    for (name, spool) in routing["spools"].as_object().context("the tube stock's spools")? {
-        let own = &spool["color"];
-        let rgb = if own["bytes"].is_array() {
-            own["bytes"].clone()
-        } else {
-            let palette = own["palette"].as_str().with_context(|| format!("spool {name} names no colour"))?;
-            chips["port_colors"][palette].clone()
-        };
-        let mut row = spool.clone();
-        row.as_object_mut().context("a spool")?.remove("color");
-        row["rgb"] = rgb;
-        spools.insert(name.clone(), row);
-    }
-    color("all_finishes", json!({"finishes": finishes, "named": named, "spools": spools, "shared": catalog["shared"]}))
+    Ok(json!(crate::color::catalog_finishes(&catalog, &routing)?))
 }
 
 /// The bodies of the fine model at `path`, each with its colour where it has one, read from the

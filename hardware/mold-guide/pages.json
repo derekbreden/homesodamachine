@@ -1,0 +1,1322 @@
+{
+  "purpose": "Author the molding shop guide from its operation records and schematic drawing primitives.",
+  "layout": "mold",
+  "title": "Mold operations",
+  "subtitle": "Shop guide - silicone funnel and three cold-core foam pours",
+  "sources": ["hardware/printed-parts/zone-c/funnel-mold/README.md", "hardware/printed-parts/zone-c/funnel-mold/silicone.md", "hardware/printed-parts/zone-c/funnel-mold/design.json", "hardware/printed-parts/zone-c/funnel-mold/print-log.md", "hardware/assembly/cold-core.md", "hardware/printed-parts/cold-core/foam-shell/README.md", "hardware/cold-core-layout/coil/numbers.rs", "hardware/mechanical-qualification/core-and-faucet-heatsets.json", "hardware/printed-parts/cold-core/reservoir/wetted-surface-test.md"],
+  "extra": {
+    "manufacturer_sources": {
+      "BBDINO 40A": "https://bbdino.com/products/bbdino-40a-clear-silicone-mold-making-trial-kit-gp-platinum-cure-high-hardness",
+      "Ease Release 200": "https://www.smooth-on.com/products/ease-release-200/",
+      "Sealers and release": "https://www.smooth-on.com/page/sealers-releases/",
+      "Degassing example": "https://www.smooth-on.com/tutorials/making-piece-cut-block-mold/vacuum-de-gassing/",
+      "FSD pour foam": "https://fiberglasssupplydepot.com/Expandable-Polyurethane-Pour-Foam-2lb.html",
+      "FSD foam SDS": "https://fiberglasssupplydepot.com/pour-foam-sds"
+    },
+    "source_review_date": "2026-10-05",
+    "qualification_scope": "Illustrated shop sequence; physical acceptance remains with the identified tooling and materials."
+  },
+  "pages": [
+    {
+      "title": "Make the soft parts",
+      "subtitle": "Silicone funnel + two foam caps + one body pour. A picture for each bench move.",
+      "series": "MOLD OPERATIONS / START HERE",
+      "illustration": {
+        "origin": [72.9203539823009, 169],
+        "scale": 0.9026548672566371,
+        "panel": [32, 155, 547, 334],
+        "drawing": [
+          {"kind": "shape", "points": [[15, 37], [205, 37], [237, 135], [47, 135]], "fill": "#C9EEEE", "stroke": "#202337", "width": 1.5, "close": true},
+          {"kind": "shape", "points": [[47, 135], [237, 135], [237, 145], [47, 145]], "fill": "#C9EEEE", "stroke": "#202337", "width": 1.5, "close": true},
+          {"kind": "shape", "points": [[47, 56], [179, 56], [201, 115], [69, 115]], "fill": "#FCFCFA", "stroke": "#202337", "width": 1.5, "close": true},
+          {"kind": "shape", "points": [[65, 70], [165, 70], [184, 103], [82, 103]], "fill": "#C9EEEE", "stroke": "#202337", "width": 1.5, "close": true},
+          {"kind": "rect", "x": 105.0, "y": 92, "width": 32, "height": 18, "fill": "#FCFCFA", "stroke": "#202337"},
+          {"kind": "ellipse", "x": 30, "y": 44, "width": 6, "height": 4, "fill": "#FCFCFA", "stroke": "#202337", "line_width": 1.5},
+          {"kind": "ellipse", "x": 107.0, "y": 44, "width": 6, "height": 4, "fill": "#FCFCFA", "stroke": "#202337", "line_width": 1.5},
+          {"kind": "ellipse", "x": 189, "y": 44, "width": 6, "height": 4, "fill": "#FCFCFA", "stroke": "#202337", "line_width": 1.5},
+          {"kind": "ellipse", "x": 215, "y": 84.0, "width": 6, "height": 4, "fill": "#FCFCFA", "stroke": "#202337", "line_width": 1.5},
+          {"kind": "ellipse", "x": 220, "y": 128, "width": 6, "height": 4, "fill": "#FCFCFA", "stroke": "#202337", "line_width": 1.5},
+          {"kind": "ellipse", "x": 136.0, "y": 128, "width": 6, "height": 4, "fill": "#FCFCFA", "stroke": "#202337", "line_width": 1.5},
+          {"kind": "ellipse", "x": 54, "y": 128, "width": 6, "height": 4, "fill": "#FCFCFA", "stroke": "#202337", "line_width": 1.5},
+          {"kind": "ellipse", "x": 31, "y": 84.0, "width": 6, "height": 4, "fill": "#FCFCFA", "stroke": "#202337", "line_width": 1.5},
+          {"kind": "shape", "points": [[279, 37], [464, 37], [496, 135], [311, 135]], "fill": "#EEDDB2", "stroke": "#202337", "width": 1.5, "close": true},
+          {"kind": "shape", "points": [[311, 135], [496, 135], [496, 145], [311, 145]], "fill": "#EEDDB2", "stroke": "#202337", "width": 1.5, "close": true},
+          {"kind": "shape", "points": [[316, 67], [440, 67], [461, 113], [335, 113]], "fill": "#EEDDB2", "stroke": "#202337", "width": 1.5, "close": true},
+          {"kind": "line", "start": [316, 67], "end": [319, 53], "color": "#202337", "width": 1.4, "dash": []},
+          {"kind": "ellipse", "x": 294, "y": 44, "width": 6, "height": 4, "fill": "#FCFCFA", "stroke": "#202337", "line_width": 1.5},
+          {"kind": "ellipse", "x": 368.5, "y": 44, "width": 6, "height": 4, "fill": "#FCFCFA", "stroke": "#202337", "line_width": 1.5},
+          {"kind": "ellipse", "x": 448, "y": 44, "width": 6, "height": 4, "fill": "#FCFCFA", "stroke": "#202337", "line_width": 1.5},
+          {"kind": "ellipse", "x": 474, "y": 84.0, "width": 6, "height": 4, "fill": "#FCFCFA", "stroke": "#202337", "line_width": 1.5},
+          {"kind": "ellipse", "x": 479, "y": 128, "width": 6, "height": 4, "fill": "#FCFCFA", "stroke": "#202337", "line_width": 1.5},
+          {"kind": "ellipse", "x": 397.5, "y": 128, "width": 6, "height": 4, "fill": "#FCFCFA", "stroke": "#202337", "line_width": 1.5},
+          {"kind": "ellipse", "x": 318, "y": 128, "width": 6, "height": 4, "fill": "#FCFCFA", "stroke": "#202337", "line_width": 1.5},
+          {"kind": "ellipse", "x": 295, "y": 84.0, "width": 6, "height": 4, "fill": "#FCFCFA", "stroke": "#202337", "line_width": 1.5},
+          {"kind": "arrow", "start": [222, 80], "end": [268, 80], "color": "#E95A2C", "width": 2, "head": 6},
+          {"kind": "label", "value": "FUNNEL", "x": 263, "y": 18, "size": 16, "color": "#1749D1", "font": "PlexBold", "align": "center"},
+          {"kind": "label", "value": "cavity + core + steel rod", "x": 263, "y": 172, "size": 11, "color": "#202337", "font": "PlexSemi", "align": "center"},
+          {"kind": "rect", "x": 239, "y": 247, "width": 222, "height": 31, "fill": "#FFE2CC", "stroke": "#202337"},
+          {"kind": "rect", "x": 239, "y": 292, "width": 222, "height": 31, "fill": "#FFE2CC", "stroke": "#202337"},
+          {"kind": "rect", "x": 48, "y": 232, "width": 146, "height": 94, "fill": "#E4E8EE", "stroke": "#202337"},
+          {"kind": "label", "value": "BODY", "x": 121, "y": 283, "size": 12, "color": "#202337", "font": "PlexBold", "align": "center"},
+          {"kind": "label", "value": "TOP CAP", "x": 350, "y": 268, "size": 11, "color": "#202337", "font": "PlexBold", "align": "center"},
+          {"kind": "label", "value": "BOTTOM CAP", "x": 350, "y": 313, "size": 11, "color": "#202337", "font": "PlexBold", "align": "center"},
+          {"kind": "label", "value": "THREE COLD-CORE POURS", "x": 263, "y": 220, "size": 14, "color": "#1749D1", "font": "PlexBold", "align": "center"}
+        ]
+      },
+      "actions": [
+        {
+          "title": "Funnel: pages 2-16",
+          "body": "Finish the printed tooling, prove the material stack, cast, open and inspect the removable funnel."
+        },
+        {
+          "title": "Cold core: pages 17-22",
+          "body": "Two cap pours bolted to the shell's top face, then the body pour through its open top. Each mixes 1:1."
+        }
+      ],
+      "actions_y": 506,
+      "result": {
+        "title": "USE THIS AT THE BENCH",
+        "body": "Coral marks the current move. Blue marks gauges, air paths and surfaces to keep clear. Pictures are schematic; named dimensions govern.",
+        "y": 682,
+        "tone": "#1749D1"
+      },
+      "source": "Scope: funnel-mold/README.md; cold-core.md steps 3, 5-7",
+      "url": "https://github.com/derekbreden/homesodamachine/blob/main/hardware/mold-guide/README.md"
+    },
+    {
+      "title": "Stage the casting bench",
+      "subtitle": "Lay out the whole job before silicone A meets silicone B.",
+      "series": "MOLD OPERATIONS / FUNNEL",
+      "illustration": {
+        "origin": [48.0, 169],
+        "scale": 1.0,
+        "panel": [32, 155, 547, 330],
+        "drawing": [
+          {"kind": "shape", "points": [[10, 20], [163, 20], [195, 98], [42, 98]], "fill": "#C9EEEE", "stroke": "#202337", "width": 1.5, "close": true},
+          {"kind": "shape", "points": [[42, 98], [195, 98], [195, 108], [42, 108]], "fill": "#C9EEEE", "stroke": "#202337", "width": 1.5, "close": true},
+          {"kind": "shape", "points": [[42, 39], [137, 39], [159, 78], [64, 78]], "fill": "#FCFCFA", "stroke": "#202337", "width": 1.5, "close": true},
+          {"kind": "shape", "points": [[60, 53], [123, 53], [142, 66], [77, 66]], "fill": "#C9EEEE", "stroke": "#202337", "width": 1.5, "close": true},
+          {"kind": "rect", "x": 81.5, "y": 55, "width": 32, "height": 18, "fill": "#FCFCFA", "stroke": "#202337"},
+          {"kind": "ellipse", "x": 25, "y": 27, "width": 6, "height": 4, "fill": "#FCFCFA", "stroke": "#202337", "line_width": 1.5},
+          {"kind": "ellipse", "x": 83.5, "y": 27, "width": 6, "height": 4, "fill": "#FCFCFA", "stroke": "#202337", "line_width": 1.5},
+          {"kind": "ellipse", "x": 147, "y": 27, "width": 6, "height": 4, "fill": "#FCFCFA", "stroke": "#202337", "line_width": 1.5},
+          {"kind": "ellipse", "x": 173, "y": 57.0, "width": 6, "height": 4, "fill": "#FCFCFA", "stroke": "#202337", "line_width": 1.5},
+          {"kind": "ellipse", "x": 178, "y": 91, "width": 6, "height": 4, "fill": "#FCFCFA", "stroke": "#202337", "line_width": 1.5},
+          {"kind": "ellipse", "x": 112.5, "y": 91, "width": 6, "height": 4, "fill": "#FCFCFA", "stroke": "#202337", "line_width": 1.5},
+          {"kind": "ellipse", "x": 49, "y": 91, "width": 6, "height": 4, "fill": "#FCFCFA", "stroke": "#202337", "line_width": 1.5},
+          {"kind": "ellipse", "x": 26, "y": 57.0, "width": 6, "height": 4, "fill": "#FCFCFA", "stroke": "#202337", "line_width": 1.5},
+          {"kind": "shape", "points": [[288, 20], [441, 20], [473, 98], [320, 98]], "fill": "#EEDDB2", "stroke": "#202337", "width": 1.5, "close": true},
+          {"kind": "shape", "points": [[320, 98], [473, 98], [473, 108], [320, 108]], "fill": "#EEDDB2", "stroke": "#202337", "width": 1.5, "close": true},
+          {"kind": "shape", "points": [[325, 50], [417, 50], [438, 76], [344, 76]], "fill": "#EEDDB2", "stroke": "#202337", "width": 1.5, "close": true},
+          {"kind": "line", "start": [325, 50], "end": [328, 36], "color": "#202337", "width": 1.4, "dash": []},
+          {"kind": "ellipse", "x": 303, "y": 27, "width": 6, "height": 4, "fill": "#FCFCFA", "stroke": "#202337", "line_width": 1.5},
+          {"kind": "ellipse", "x": 361.5, "y": 27, "width": 6, "height": 4, "fill": "#FCFCFA", "stroke": "#202337", "line_width": 1.5},
+          {"kind": "ellipse", "x": 425, "y": 27, "width": 6, "height": 4, "fill": "#FCFCFA", "stroke": "#202337", "line_width": 1.5},
+          {"kind": "ellipse", "x": 451, "y": 57.0, "width": 6, "height": 4, "fill": "#FCFCFA", "stroke": "#202337", "line_width": 1.5},
+          {"kind": "ellipse", "x": 456, "y": 91, "width": 6, "height": 4, "fill": "#FCFCFA", "stroke": "#202337", "line_width": 1.5},
+          {"kind": "ellipse", "x": 390.5, "y": 91, "width": 6, "height": 4, "fill": "#FCFCFA", "stroke": "#202337", "line_width": 1.5},
+          {"kind": "ellipse", "x": 327, "y": 91, "width": 6, "height": 4, "fill": "#FCFCFA", "stroke": "#202337", "line_width": 1.5},
+          {"kind": "ellipse", "x": 304, "y": 57.0, "width": 6, "height": 4, "fill": "#FCFCFA", "stroke": "#202337", "line_width": 1.5},
+          {"kind": "label", "value": "cavity", "x": 105, "y": 132, "size": 11, "color": "#202337", "font": "PlexSemi", "align": "center"},
+          {"kind": "label", "value": "core", "x": 380, "y": 132, "size": 11, "color": "#202337", "font": "PlexSemi", "align": "center"},
+          {"kind": "rect", "x": 233.0, "y": 20, "width": 24.0, "height": 100, "fill": "#E95A2C", "stroke": "#202337"},
+          {"kind": "label", "value": "steel rod", "x": 245, "y": 140, "size": 11, "color": "#202337", "font": "PlexSemi", "align": "center"},
+          {"kind": "rect", "x": 25, "y": 180, "width": 35, "height": 12, "fill": "#202337", "stroke": null},
+          {"kind": "shape", "points": [[25, 192], [60, 192], [60, 202], [70, 213], [70, 281], [15, 281], [15, 213], [25, 202]], "fill": "#C9EEEE", "stroke": "#202337", "width": 1.5, "close": true},
+          {"kind": "rect", "x": 22, "y": 226, "width": 41, "height": 33, "fill": "#FCFCFA", "stroke": null},
+          {"kind": "label", "value": "A", "x": 42.5, "y": 248, "size": 16, "color": "#202337", "font": "PlexBold", "align": "center"},
+          {"kind": "rect", "x": 100, "y": 180, "width": 35, "height": 12, "fill": "#202337", "stroke": null},
+          {"kind": "shape", "points": [[100, 192], [135, 192], [135, 202], [145, 213], [145, 281], [90, 281], [90, 213], [100, 202]], "fill": "#EEDDB2", "stroke": "#202337", "width": 1.5, "close": true},
+          {"kind": "rect", "x": 97, "y": 226, "width": 41, "height": 33, "fill": "#FCFCFA", "stroke": null},
+          {"kind": "label", "value": "B", "x": 117.5, "y": 248, "size": 16, "color": "#202337", "font": "PlexBold", "align": "center"},
+          {"kind": "shape", "points": [[186, 195], [250, 195], [242, 278], [194, 278]], "fill": "#FCFCFA", "stroke": "#202337", "width": 1.5, "close": true},
+          {"kind": "shape", "points": [[192.0, 257.25], [244.0, 257.25], [242, 278], [194, 278]], "fill": "#E95A2C", "stroke": null, "width": 1.5, "close": true},
+          {"kind": "line", "start": [186, 195], "end": [250, 195], "color": "#202337", "width": 1.4, "dash": []},
+          {"kind": "line", "start": [240, 213], "end": [247, 213], "color": "#606A78", "width": 0.6, "dash": []},
+          {"kind": "line", "start": [240, 231], "end": [247, 231], "color": "#606A78", "width": 0.6, "dash": []},
+          {"kind": "line", "start": [240, 249], "end": [247, 249], "color": "#606A78", "width": 0.6, "dash": []},
+          {"kind": "line", "start": [240, 267], "end": [247, 267], "color": "#606A78", "width": 0.6, "dash": []},
+          {"kind": "label", "value": "mix cup", "x": 218.0, "y": 298, "size": 10, "color": "#202337", "font": "PlexSemi", "align": "center"},
+          {"kind": "rect", "x": 213, "y": 164, "width": 7, "height": 48, "fill": "#E4E8EE", "stroke": "#202337"},
+          {"kind": "rect", "x": 287, "y": 239, "width": 93, "height": 35, "fill": "#E4E8EE", "stroke": "#202337"},
+          {"kind": "rect", "x": 305, "y": 248, "width": 56, "height": 17, "fill": "#FCFCFA", "stroke": "#202337"},
+          {"kind": "label", "value": "0.0 g", "x": 333, "y": 261, "size": 11, "color": "#1749D1", "font": "PlexSemi", "align": "center"},
+          {"kind": "label", "value": "scale", "x": 333, "y": 300, "size": 11, "color": "#202337", "font": "PlexSemi", "align": "center"},
+          {"kind": "rect", "x": 421, "y": 204, "width": 63, "height": 77, "fill": "#FCFCFA", "stroke": "#202337"},
+          {"kind": "rect", "x": 437, "y": 180, "width": 32, "height": 24, "fill": "#E4E8EE", "stroke": "#202337"},
+          {"kind": "label", "value": "ER200", "x": 451, "y": 247, "size": 10, "color": "#1749D1", "font": "PlexSemi", "align": "center"},
+          {"kind": "label", "value": "release", "x": 452, "y": 300, "size": 11, "color": "#202337", "font": "PlexSemi", "align": "center"}
+        ]
+      },
+      "actions": [
+        {
+          "title": "Tooling + closure",
+          "body": "Cavity, core, stock steel rod, eight M4 x 20 bolts, 9 mm OD washers and nuts; a sharp blade for cured flash."
+        },
+        {
+          "title": "Liquids + handling",
+          "body": "BBDINO 40A A/B, compatible black pigment, scale, cups, sticks, release, catch tray, vacuum chamber and pump."
+        },
+        {
+          "title": "Dry, ventilated work",
+          "body": "Read the container instructions. Wear eye protection and appropriate gloves; keep release spray away from ignition sources."
+        }
+      ],
+      "actions_y": 506,
+      "result": {
+        "title": "READY",
+        "body": "Room, materials and tooling are at the recorded batch temperature. The open mold and catch tray fit through the actual chamber opening.",
+        "y": 682,
+        "tone": "#1749D1"
+      },
+      "source": "Tooling: funnel-mold/README.md. Release: Smooth-On ER200 instructions.",
+      "url": "https://github.com/derekbreden/homesodamachine/blob/main/hardware/printed-parts/zone-c/funnel-mold/README.md"
+    },
+    {
+      "title": "Finish the forming faces",
+      "subtitle": "The coating allowance belongs to the forming surfaces. The parting lands remain bare.",
+      "series": "MOLD OPERATIONS / FUNNEL",
+      "illustration": {
+        "origin": [48.0, 169],
+        "scale": 1.0,
+        "panel": [32, 155, 547, 330],
+        "drawing": [
+          {"kind": "shape", "points": [[50, 78], [390, 78], [422, 239], [82, 239]], "fill": "#C9EEEE", "stroke": "#202337", "width": 1.5, "close": true},
+          {"kind": "shape", "points": [[82, 239], [422, 239], [422, 249], [82, 249]], "fill": "#C9EEEE", "stroke": "#202337", "width": 1.5, "close": true},
+          {"kind": "shape", "points": [[82, 97], [364, 97], [386, 219], [104, 219]], "fill": "#FCFCFA", "stroke": "#202337", "width": 1.5, "close": true},
+          {"kind": "shape", "points": [[100, 111], [350, 111], [369, 207], [117, 207]], "fill": "#C9EEEE", "stroke": "#202337", "width": 1.5, "close": true},
+          {"kind": "rect", "x": 215.0, "y": 196, "width": 32, "height": 18, "fill": "#FCFCFA", "stroke": "#202337"},
+          {"kind": "ellipse", "x": 65, "y": 85, "width": 6, "height": 4, "fill": "#FCFCFA", "stroke": "#202337", "line_width": 1.5},
+          {"kind": "ellipse", "x": 217.0, "y": 85, "width": 6, "height": 4, "fill": "#FCFCFA", "stroke": "#202337", "line_width": 1.5},
+          {"kind": "ellipse", "x": 374, "y": 85, "width": 6, "height": 4, "fill": "#FCFCFA", "stroke": "#202337", "line_width": 1.5},
+          {"kind": "ellipse", "x": 400, "y": 156.5, "width": 6, "height": 4, "fill": "#FCFCFA", "stroke": "#202337", "line_width": 1.5},
+          {"kind": "ellipse", "x": 405, "y": 232, "width": 6, "height": 4, "fill": "#FCFCFA", "stroke": "#202337", "line_width": 1.5},
+          {"kind": "ellipse", "x": 246.0, "y": 232, "width": 6, "height": 4, "fill": "#FCFCFA", "stroke": "#202337", "line_width": 1.5},
+          {"kind": "ellipse", "x": 89, "y": 232, "width": 6, "height": 4, "fill": "#FCFCFA", "stroke": "#202337", "line_width": 1.5},
+          {"kind": "ellipse", "x": 66, "y": 156.5, "width": 6, "height": 4, "fill": "#FCFCFA", "stroke": "#202337", "line_width": 1.5},
+          {"kind": "shape", "points": [[84, 96], [364, 96], [389, 215], [104, 215]], "fill": "#E95A2C", "stroke": "#202337", "width": 1.5, "close": true},
+          {"kind": "rect", "x": 52, "y": 77, "width": 337, "height": 14, "fill": "#1749D1", "stroke": null},
+          {"kind": "shape", "points": [[55, 90], [75, 90], [97, 231], [78, 231]], "fill": "#1749D1", "stroke": null, "width": 1.5, "close": true},
+          {"kind": "shape", "points": [[370, 90], [390, 90], [415, 231], [395, 231]], "fill": "#1749D1", "stroke": null, "width": 1.5, "close": true},
+          {"kind": "rect", "x": 81, "y": 229, "width": 335, "height": 14, "fill": "#1749D1", "stroke": null},
+          {"kind": "label", "value": "SAND + SEAL + RELEASE", "x": 246, "y": 162, "size": 14, "color": "#FCFCFA", "font": "PlexBold", "align": "center"},
+          {"kind": "label", "value": "forming faces: 0.30 mm net reserve", "x": 246, "y": 184, "size": 11, "color": "#FCFCFA", "font": "PlexSemi", "align": "center"},
+          {"kind": "arrow", "start": [33, 24], "end": [74, 78], "color": "#1749D1", "width": 2, "head": 6},
+          {"kind": "label", "value": "mask bare lands", "x": 26, "y": 17, "size": 11, "color": "#1749D1", "font": "PlexSemi", "align": "left"},
+          {"kind": "arrow", "start": [455, 47], "end": [404, 133], "color": "#1749D1", "width": 2, "head": 6},
+          {"kind": "label", "value": "mask holes", "x": 481, "y": 38, "size": 11, "color": "#1749D1", "font": "PlexSemi", "align": "right"},
+          {"kind": "label", "value": "also mask: locators, rod guides and axial stops", "x": 258, "y": 289, "size": 11, "color": "#1749D1", "font": "PlexSemi", "align": "center"}
+        ]
+      },
+      "actions": [
+        {
+          "title": "Clear supports and open infill",
+          "body": "Remove bolt-pocket supports. Drill 1.5 mm dry-side breathers: cavity sides 3.2 mm deep, core flat back 1.8 mm deep. Positions: mold README."
+        },
+        {
+          "title": "Measure a witness",
+          "body": "Use the actual PETG, sanding and finish stack on a sample. Measure net growth; the shell reserve is 0.30 mm normal to the face."
+        },
+        {
+          "title": "Mask closure datums",
+          "body": "Keep lands, pegs/holes, bolt bores, rod guides and end stops bare. Coated lands change closure height."
+        }
+      ],
+      "actions_y": 506,
+      "result": {
+        "title": "BEFORE CONTINUING",
+        "body": "The finish is dry and coherent, and the coated halves still close on the bare lands. Coating compatibility and closure need a physical check.",
+        "y": 682,
+        "tone": "#E95A2C"
+      },
+      "source": "Funnel-mold/README.md: forming surfaces and fit; print-log.md",
+      "url": "https://github.com/derekbreden/homesodamachine/blob/main/hardware/printed-parts/zone-c/funnel-mold/README.md"
+    },
+    {
+      "title": "Prepare the steel rod",
+      "subtitle": "One stock 6 mm x 25 mm rod forms the entire straight outlet bore.",
+      "series": "MOLD OPERATIONS / FUNNEL",
+      "illustration": {
+        "origin": [67.33534743202418, 169],
+        "scale": 0.9244712990936556,
+        "panel": [32, 155, 547, 334],
+        "drawing": [
+          {"kind": "rect", "x": 152.32, "y": 22, "width": 63.36, "height": 264, "fill": "#E4E8EE", "stroke": "#202337"},
+          {"kind": "dimension", "start": [117, 22], "end": [117, 286], "color": "#1749D1"},
+          {"kind": "label", "value": "25 mm", "x": 74, "y": 143, "size": 12, "color": "#1749D1", "font": "PlexSemi", "align": "center"},
+          {"kind": "dimension", "start": [152.3, 305], "end": [215.7, 305], "color": "#1749D1"},
+          {"kind": "label", "value": "6 mm diameter", "x": 184, "y": 330, "size": 11, "color": "#1749D1", "font": "PlexSemi", "align": "center"},
+          {"kind": "label", "value": "304 STAINLESS STEEL", "x": 303, "y": 95, "size": 13, "color": "#1749D1", "font": "PlexBold", "align": "left"},
+          {"kind": "label", "value": "smooth stock cylinder", "x": 303, "y": 125, "size": 11, "color": "#202337", "font": "PlexSemi", "align": "left"},
+          {"kind": "label", "value": "clean + light release film", "x": 303, "y": 151, "size": 11, "color": "#202337", "font": "PlexSemi", "align": "left"},
+          {"kind": "label", "value": "ends stay outside the cast", "x": 303, "y": 177, "size": 11, "color": "#202337", "font": "PlexSemi", "align": "left"}
+        ]
+      },
+      "actions": [
+        {
+          "title": "Select the stock rod",
+          "body": "Use the specified smooth 6 mm x 25 mm stainless dowel. Its factory end chamfers stay outside the silicone forming span."
+        },
+        {
+          "title": "Clean the cylinder",
+          "body": "Remove oil and debris, then dry. Keep the cylindrical surface smooth and free of dents or raised burrs."
+        },
+        {
+          "title": "Apply release",
+          "body": "Apply the same light release film used on the mold. Keep the rod and both printed guides clean for a loose drop-in fit."
+        }
+      ],
+      "actions_y": 506,
+      "result": {
+        "title": "READY",
+        "body": "The straight rod slides through the open core guide and rests on the cavity's lower floor. Its upper end stays visible.",
+        "y": 682,
+        "tone": "#1749D1"
+      },
+      "source": "Funnel-mold/README.md: stock rod and open guide",
+      "url": "https://github.com/derekbreden/homesodamachine/blob/main/hardware/printed-parts/zone-c/funnel-mold/README.md"
+    },
+    {
+      "title": "Prove the material stack",
+      "subtitle": "A small same-stack witness protects the first full casting.",
+      "series": "MOLD OPERATIONS / FUNNEL",
+      "illustration": {
+        "origin": [48.0, 169],
+        "scale": 1.0,
+        "panel": [32, 155, 547, 330],
+        "drawing": [
+          {"kind": "rect", "x": 18, "y": 80, "width": 144, "height": 79, "fill": "#E4E8EE", "stroke": "#202337"},
+          {"kind": "rect", "x": 27, "y": 96, "width": 126, "height": 10, "fill": "#1749D1", "stroke": null},
+          {"kind": "rect", "x": 27, "y": 107, "width": 126, "height": 25, "fill": "#E95A2C", "stroke": null},
+          {"kind": "label", "value": "PETG", "x": 90, "y": 52, "size": 14, "color": "#1749D1", "font": "PlexBold", "align": "center"},
+          {"kind": "label", "value": "shell + steel rod", "x": 90, "y": 188, "size": 10, "color": "#202337", "font": "PlexSemi", "align": "center"},
+          {"kind": "arrow", "start": [172, 225], "end": [146, 140], "color": "#E95A2C", "width": 2, "head": 6},
+          {"kind": "rect", "x": 190, "y": 80, "width": 144, "height": 79, "fill": "#E4E8EE", "stroke": "#202337"},
+          {"kind": "rect", "x": 199, "y": 96, "width": 126, "height": 10, "fill": "#1749D1", "stroke": null},
+          {"kind": "rect", "x": 199, "y": 107, "width": 126, "height": 25, "fill": "#E95A2C", "stroke": null},
+          {"kind": "label", "value": "FINISH", "x": 262, "y": 52, "size": 14, "color": "#1749D1", "font": "PlexBold", "align": "center"},
+          {"kind": "label", "value": "sealer + release", "x": 262, "y": 188, "size": 10, "color": "#202337", "font": "PlexSemi", "align": "center"},
+          {"kind": "arrow", "start": [344, 225], "end": [318, 140], "color": "#E95A2C", "width": 2, "head": 6},
+          {"kind": "rect", "x": 362, "y": 80, "width": 144, "height": 79, "fill": "#E4E8EE", "stroke": "#202337"},
+          {"kind": "rect", "x": 371, "y": 96, "width": 126, "height": 10, "fill": "#1749D1", "stroke": null},
+          {"kind": "rect", "x": 371, "y": 107, "width": 126, "height": 25, "fill": "#E95A2C", "stroke": null},
+          {"kind": "label", "value": "PIGMENT", "x": 434, "y": 52, "size": 14, "color": "#1749D1", "font": "PlexBold", "align": "center"},
+          {"kind": "label", "value": "actual concentration", "x": 434, "y": 188, "size": 10, "color": "#202337", "font": "PlexSemi", "align": "center"},
+          {"kind": "arrow", "start": [516, 225], "end": [490, 140], "color": "#E95A2C", "width": 2, "head": 6},
+          {"kind": "label", "value": "actual 40A silicone + actual pigment on each actual contact stack", "x": 262, "y": 258, "size": 11, "color": "#202337", "font": "PlexSemi", "align": "center"},
+          {"kind": "label", "value": "cure, then peel and inspect the contact face", "x": 262, "y": 283, "size": 12, "color": "#1749D1", "font": "PlexSemi", "align": "center"}
+        ]
+      },
+      "actions": [
+        {
+          "title": "Make the witness representative",
+          "body": "Use the actual shell PETG and finish, steel rod, release and silicone batch. Include the planned pigment concentration."
+        },
+        {
+          "title": "Keep the stack clean",
+          "body": "Use clean cups, tools and contact surfaces. Test the exact finishing products and pigment that will touch this platinum-cure silicone."
+        },
+        {
+          "title": "Inspect after cure",
+          "body": "The rubber must cure at the contact face and release without tack, tearing or coating transfer. Record that result before the full cast."
+        }
+      ],
+      "actions_y": 506,
+      "result": {
+        "title": "HOLD IF GUMMY",
+        "body": "A firm outer surface can hide inhibited rubber at the tool. Cure/release compatibility has no accepted full-tool record yet.",
+        "y": 682,
+        "tone": "#E95A2C"
+      },
+      "source": "Funnel-mold/README.md; Smooth-On sealer/release reference",
+      "url": "https://github.com/derekbreden/homesodamachine/blob/main/hardware/printed-parts/zone-c/funnel-mold/README.md"
+    },
+    {
+      "title": "Drop in the steel rod",
+      "subtitle": "The open core guide leads the rod into the cavity's lower floor seat.",
+      "series": "MOLD OPERATIONS / FUNNEL",
+      "illustration": {
+        "origin": [63.70552147239263, 169],
+        "scale": 0.9386503067484663,
+        "panel": [32, 155, 547, 334],
+        "drawing": [
+          {"kind": "shape", "points": [[15.0, 95.0], [50.26066350710901, 95.0], [50.26066350710901, 108.22274881516589], [65.6872037914692, 108.22274881516589], [65.6872037914692, 146.75824644549763], [67.89099526066352, 160.01184834123222], [211.90876777251185, 187.55924170616115], [211.90876777251185, 202.87559241706163], [244.52488151658773, 202.87559241706163], [244.52488151658773, 206.1812796208531], [258.62914691943126, 206.1812796208531], [258.62914691943126, 202.87559241706163], [291.2452606635071, 202.87559241706163], [291.2452606635071, 187.55924170616115], [427.1090047393365, 160.01184834123222], [429.31279620853087, 146.75824644549763], [429.31279620853087, 108.22274881516589], [444.739336492891, 108.22274881516589], [444.739336492891, 95.0], [480.00000000000006, 95.0], [480.00000000000006, 106.01895734597156], [429.1475118483413, 207.7239336492891], [429.1475118483413, 218.74289099526067], [65.85248815165878, 218.74289099526067], [65.85248815165878, 207.7239336492891], [15.0, 106.01895734597156], [15.0, 95.0]], "fill": "#C9EEEE", "stroke": "#202337", "width": 1.5, "close": true},
+          {"kind": "shape", "points": [[50.26066350710901, 95.0], [50.26066350710901, 108.22274881516589], [65.6872037914692, 108.22274881516589], [65.6872037914692, 146.75824644549763], [67.89099526066352, 160.01184834123222], [211.90876777251185, 187.55924170616115], [211.90876777251185, 202.87559241706163], [244.52488151658773, 202.87559241706163], [244.52488151658773, 206.1812796208531], [258.62914691943126, 206.1812796208531], [258.62914691943126, 202.87559241706163], [291.2452606635071, 202.87559241706163], [291.2452606635071, 187.55924170616115], [427.1090047393365, 160.01184834123222], [429.31279620853087, 146.75824644549763], [429.31279620853087, 108.22274881516589], [444.739336492891, 108.22274881516589], [444.739336492891, 95.0]], "fill": "#EAF0FC", "stroke": null, "width": 1.5, "close": true},
+          {"kind": "shape", "points": [[15.0, 83.98104265402844], [480.00000000000006, 83.98104265402844], [480.00000000000006, 95.0], [444.739336492891, 95.0], [444.739336492891, 94.3388625592417], [416.09004739336496, 94.3388625592417], [416.09004739336496, 146.75824644549763], [258.18838862559244, 178.05027599526068], [244.96563981042655, 178.05027599526068], [78.90995260663507, 146.75824644549763], [78.90995260663507, 94.3388625592417], [50.26066350710901, 94.3388625592417], [50.26066350710901, 95.0], [15.0, 95.0]], "fill": "#EEDDB2", "stroke": "#202337", "width": 1.5, "close": true},
+          {"kind": "shape", "points": [[206.30562796208534, 83.98104265402844], [296.8484004739337, 83.98104265402844], [258.62914691943126, 160.41994424170616], [244.52488151658773, 160.41994424170616]], "fill": "#FCFCFA", "stroke": null, "width": 1.5, "close": true},
+          {"kind": "shape", "points": [[244.52488151658773, 160.41994424170616], [258.62914691943126, 160.41994424170616], [258.62914691943126, 178.05027599526068], [244.52488151658773, 178.05027599526068]], "fill": "#FCFCFA", "stroke": "#202337", "width": 1.5, "close": true},
+          {"kind": "rect", "x": 244.96563981042655, "y": 151.08649289099526, "width": 13.222748815165879, "height": 55.09478672985782, "fill": "#E4E8EE", "stroke": "#202337"},
+          {"kind": "label", "value": "SECTION / straight stock rod", "x": 263, "y": 21, "size": 12, "color": "#1749D1", "font": "PlexSemi", "align": "center"},
+          {"kind": "label", "value": "open 6.4 mm guide", "x": 43, "y": 55, "size": 11, "color": "#1749D1", "font": "PlexSemi", "align": "left"},
+          {"kind": "line", "start": [158, 59], "end": [251.57701421800948, 160.41994424170616], "color": "#1749D1", "width": 0.8, "dash": []},
+          {"kind": "label", "value": "6 x 25 mm steel rod", "x": 330, "y": 142, "size": 11, "color": "#1749D1", "font": "PlexSemi", "align": "left"},
+          {"kind": "line", "start": [323, 143], "end": [258.18838862559244, 183.15165876777252], "color": "#1749D1", "width": 0.8, "dash": []},
+          {"kind": "label", "value": "lower seat / 1.5 mm deep", "x": 323, "y": 244, "size": 10.5, "color": "#1749D1", "font": "PlexSemi", "align": "right"},
+          {"kind": "line", "start": [270, 231], "end": [258.62914691943126, 206.1812796208531], "color": "#1749D1", "width": 0.8, "dash": []},
+          {"kind": "label", "value": "6 mm silicone space", "x": 27, "y": 280, "size": 11, "color": "#1749D1", "font": "PlexSemi", "align": "left"},
+          {"kind": "line", "start": [109, 261], "end": [159.3483412322275, 176.5402843601896], "color": "#1749D1", "width": 0.8, "dash": []},
+          {"kind": "label", "value": "PETG ramp backing: 5 mm minimum", "x": 300, "y": 280, "size": 10.5, "color": "#202337", "font": "PlexSemi", "align": "center"},
+          {"kind": "label", "value": "core brim pocket backing: 4.7 mm", "x": 300, "y": 299, "size": 10, "color": "#202337", "font": "PlexSemi", "align": "center"},
+          {"kind": "label", "value": "open guide allows air and small silicone overflow", "x": 263, "y": 329, "size": 10, "color": "#606A78", "font": "PlexSemi", "align": "center"}
+        ]
+      },
+      "actions": [
+        {
+          "title": "Close the empty mold",
+          "body": "Seat the locators and bare flange lands. The core guide must align with the cavity's lower seat."
+        },
+        {
+          "title": "Drop the rod through the guide",
+          "body": "Lower the stock rod from the open dry back. It rests on the lower floor, 1.5 mm below the block-bottom face."
+        },
+        {
+          "title": "Check free movement",
+          "body": "Lift the rod and let it settle again without pressing. The upper end projects about 4.2 mm above the guide."
+        }
+      ],
+      "actions_y": 506,
+      "result": {
+        "title": "READY",
+        "body": "The mold closes on its bare lands independently of rod length. Clear support residue if the rod catches.",
+        "y": 682,
+        "tone": "#1749D1"
+      },
+      "source": "Funnel-mold/README.md: straight rod and open guide",
+      "url": "https://github.com/derekbreden/homesodamachine/blob/main/hardware/printed-parts/zone-c/funnel-mold/README.md"
+    },
+    {
+      "title": "Dry-close the mold",
+      "subtitle": "Bring the bare parting lands together before adding liquid.",
+      "series": "MOLD OPERATIONS / FUNNEL",
+      "illustration": {
+        "origin": [59.19999999999999, 169],
+        "scale": 0.95625,
+        "panel": [32, 155, 547, 334],
+        "drawing": [
+          {"kind": "rect", "x": 76, "y": 46, "width": 355, "height": 210, "fill": "#C9EEEE", "stroke": "#202337"},
+          {"kind": "rect", "x": 90, "y": 60, "width": 327, "height": 182, "fill": "#EEDDB2", "stroke": "#202337"},
+          {"kind": "ellipse", "x": 88, "y": 57, "width": 22, "height": 22, "fill": "#E95A2C", "stroke": "#202337", "line_width": 1.5},
+          {"kind": "label", "value": "1", "x": 99, "y": 72, "size": 10, "color": "#FCFCFA", "font": "PlexBold", "align": "center"},
+          {"kind": "ellipse", "x": 396, "y": 220, "width": 22, "height": 22, "fill": "#E95A2C", "stroke": "#202337", "line_width": 1.5},
+          {"kind": "label", "value": "2", "x": 407, "y": 235, "size": 10, "color": "#FCFCFA", "font": "PlexBold", "align": "center"},
+          {"kind": "ellipse", "x": 396, "y": 57, "width": 22, "height": 22, "fill": "#E95A2C", "stroke": "#202337", "line_width": 1.5},
+          {"kind": "label", "value": "3", "x": 407, "y": 72, "size": 10, "color": "#FCFCFA", "font": "PlexBold", "align": "center"},
+          {"kind": "ellipse", "x": 88, "y": 220, "width": 22, "height": 22, "fill": "#E95A2C", "stroke": "#202337", "line_width": 1.5},
+          {"kind": "label", "value": "4", "x": 99, "y": 235, "size": 10, "color": "#FCFCFA", "font": "PlexBold", "align": "center"},
+          {"kind": "ellipse", "x": 242, "y": 57, "width": 22, "height": 22, "fill": "#E95A2C", "stroke": "#202337", "line_width": 1.5},
+          {"kind": "label", "value": "5", "x": 253, "y": 72, "size": 10, "color": "#FCFCFA", "font": "PlexBold", "align": "center"},
+          {"kind": "ellipse", "x": 242, "y": 220, "width": 22, "height": 22, "fill": "#E95A2C", "stroke": "#202337", "line_width": 1.5},
+          {"kind": "label", "value": "6", "x": 253, "y": 235, "size": 10, "color": "#FCFCFA", "font": "PlexBold", "align": "center"},
+          {"kind": "ellipse", "x": 88, "y": 138, "width": 22, "height": 22, "fill": "#E95A2C", "stroke": "#202337", "line_width": 1.5},
+          {"kind": "label", "value": "7", "x": 99, "y": 153, "size": 10, "color": "#FCFCFA", "font": "PlexBold", "align": "center"},
+          {"kind": "ellipse", "x": 396, "y": 138, "width": 22, "height": 22, "fill": "#E95A2C", "stroke": "#202337", "line_width": 1.5},
+          {"kind": "label", "value": "8", "x": 407, "y": 153, "size": 10, "color": "#FCFCFA", "font": "PlexBold", "align": "center"},
+          {"kind": "rect", "x": 123, "y": 98, "width": 260, "height": 106, "fill": "#EEDDB2", "stroke": "#202337"},
+          {"kind": "label", "value": "8 x M4 x 20", "x": 252, "y": 144, "size": 17, "color": "#202337", "font": "PlexBold", "align": "center"},
+          {"kind": "label", "value": "9 mm OD washers + nuts", "x": 252, "y": 166, "size": 11, "color": "#202337", "font": "PlexSemi", "align": "center"},
+          {"kind": "label", "value": "opposite stations / small increments", "x": 252, "y": 291, "size": 12, "color": "#1749D1", "font": "PlexSemi", "align": "center"},
+          {"kind": "label", "value": "bolt order schematic; actual asymmetric locators set orientation", "x": 252, "y": 315, "size": 9.5, "color": "#606A78", "font": "PlexSemi", "align": "center"}
+        ]
+      },
+      "actions": [
+        {
+          "title": "Locate without force",
+          "body": "The asymmetric short pegs establish drain orientation. One mating hole is slotted to accommodate spacing error."
+        },
+        {
+          "title": "Close opposite stations",
+          "body": "Use eight bolts, washers and nuts or small clamps on the flat flange backs. Tighten incrementally until bare lands meet."
+        },
+        {
+          "title": "Backlight the seam",
+          "body": "Check closure with the steel rod resting on the lower floor. Reopen for release and filling after this dry fit succeeds."
+        }
+      ],
+      "actions_y": 506,
+      "result": {
+        "title": "CHECK",
+        "body": "The bare flange lands meet, the rod rests on its lower floor, and the open upper guide leaves its end accessible.",
+        "y": 682,
+        "tone": "#1749D1"
+      },
+      "source": "Funnel-mold/README.md: closure; print-log.md: physical evidence scope",
+      "url": "https://github.com/derekbreden/homesodamachine/blob/main/hardware/printed-parts/zone-c/funnel-mold/README.md"
+    },
+    {
+      "title": "Apply a light release film",
+      "subtitle": "A thin, dry, continuous film reaches the small wet features too.",
+      "series": "MOLD OPERATIONS / FUNNEL",
+      "illustration": {
+        "origin": [48.0, 169],
+        "scale": 1.0,
+        "panel": [32, 155, 547, 330],
+        "drawing": [
+          {"kind": "shape", "points": [[160, 125], [430, 125], [462, 258], [192, 258]], "fill": "#C9EEEE", "stroke": "#202337", "width": 1.5, "close": true},
+          {"kind": "shape", "points": [[192, 258], [462, 258], [462, 268], [192, 268]], "fill": "#C9EEEE", "stroke": "#202337", "width": 1.5, "close": true},
+          {"kind": "shape", "points": [[192, 144], [404, 144], [426, 238], [214, 238]], "fill": "#FCFCFA", "stroke": "#202337", "width": 1.5, "close": true},
+          {"kind": "shape", "points": [[210, 158], [390, 158], [409, 226], [227, 226]], "fill": "#C9EEEE", "stroke": "#202337", "width": 1.5, "close": true},
+          {"kind": "rect", "x": 290.0, "y": 215, "width": 32, "height": 18, "fill": "#FCFCFA", "stroke": "#202337"},
+          {"kind": "ellipse", "x": 175, "y": 132, "width": 6, "height": 4, "fill": "#FCFCFA", "stroke": "#202337", "line_width": 1.5},
+          {"kind": "ellipse", "x": 292.0, "y": 132, "width": 6, "height": 4, "fill": "#FCFCFA", "stroke": "#202337", "line_width": 1.5},
+          {"kind": "ellipse", "x": 414, "y": 132, "width": 6, "height": 4, "fill": "#FCFCFA", "stroke": "#202337", "line_width": 1.5},
+          {"kind": "ellipse", "x": 440, "y": 189.5, "width": 6, "height": 4, "fill": "#FCFCFA", "stroke": "#202337", "line_width": 1.5},
+          {"kind": "ellipse", "x": 445, "y": 251, "width": 6, "height": 4, "fill": "#FCFCFA", "stroke": "#202337", "line_width": 1.5},
+          {"kind": "ellipse", "x": 321.0, "y": 251, "width": 6, "height": 4, "fill": "#FCFCFA", "stroke": "#202337", "line_width": 1.5},
+          {"kind": "ellipse", "x": 199, "y": 251, "width": 6, "height": 4, "fill": "#FCFCFA", "stroke": "#202337", "line_width": 1.5},
+          {"kind": "ellipse", "x": 176, "y": 189.5, "width": 6, "height": 4, "fill": "#FCFCFA", "stroke": "#202337", "line_width": 1.5},
+          {"kind": "rect", "x": 38, "y": 96, "width": 54, "height": 109, "fill": "#E4E8EE", "stroke": "#202337"},
+          {"kind": "rect", "x": 45, "y": 82, "width": 40, "height": 16, "fill": "#E95A2C", "stroke": "#202337"},
+          {"kind": "rect", "x": 69, "y": 79, "width": 18, "height": 8, "fill": "#202337", "stroke": null},
+          {"kind": "line", "start": [87, 88], "end": [194, 127], "color": "#1749D1", "width": 0.7, "dash": [2, 5]},
+          {"kind": "line", "start": [87, 88], "end": [194, 147], "color": "#1749D1", "width": 0.7, "dash": [2, 5]},
+          {"kind": "line", "start": [87, 88], "end": [194, 170], "color": "#1749D1", "width": 0.7, "dash": [2, 5]},
+          {"kind": "dimension", "start": [86, 58], "end": [195, 58], "color": "#1749D1"},
+          {"kind": "label", "value": "6-8 in", "x": 143, "y": 42, "size": 14, "color": "#1749D1", "font": "PlexBold", "align": "center"},
+          {"kind": "label", "value": "15-20 cm", "x": 143, "y": 75, "size": 10, "color": "#1749D1", "font": "PlexSemi", "align": "center"},
+          {"kind": "label", "value": "mist / brush detail / mist / dry", "x": 284, "y": 302, "size": 13, "color": "#1749D1", "font": "PlexSemi", "align": "center"}
+        ]
+      },
+      "actions": [
+        {
+          "title": "Clean and shake",
+          "body": "Use a suitable cleaner for the proven finish stack. Shake Ease Release 200 well; spray with ventilation and eye/skin protection."
+        },
+        {
+          "title": "Mist from 6-8 inches",
+          "body": "Apply lightly, brush over fine details and add a second light mist. Coat the steel rod lightly; keep the guide and fill/vent holes open."
+        },
+        {
+          "title": "Let it dry",
+          "body": "Recheck bare closure datums, rod guides and port openings. Apply a light fresh release film before each cast."
+        }
+      ],
+      "actions_y": 506,
+      "result": {
+        "title": "RELEASE CHECK",
+        "body": "The same-stack witness must already have passed. Spray application does not establish compatibility, cleanability or finished food-contact acceptance.",
+        "y": 682,
+        "tone": "#E95A2C"
+      },
+      "source": "Smooth-On Ease Release 200 instructions + sealer/release reference",
+      "url": "https://github.com/derekbreden/homesodamachine/blob/main/hardware/mold-guide/README.md#manufacturer-sources"
+    },
+    {
+      "title": "Measure, color and mix",
+      "subtitle": "BBDINO 40A uses equal A and B. Choose one measurement basis for the whole batch.",
+      "series": "MOLD OPERATIONS / FUNNEL",
+      "illustration": {
+        "origin": [48.0, 169],
+        "scale": 1.0,
+        "panel": [32, 155, 547, 330],
+        "drawing": [
+          {"kind": "rect", "x": 33, "y": 48, "width": 35, "height": 12, "fill": "#202337", "stroke": null},
+          {"kind": "shape", "points": [[33, 60], [68, 60], [68, 70], [78, 81], [78, 149], [23, 149], [23, 81], [33, 70]], "fill": "#C9EEEE", "stroke": "#202337", "width": 1.5, "close": true},
+          {"kind": "rect", "x": 30, "y": 94, "width": 41, "height": 33, "fill": "#FCFCFA", "stroke": null},
+          {"kind": "label", "value": "A", "x": 50.5, "y": 116, "size": 16, "color": "#202337", "font": "PlexBold", "align": "center"},
+          {"kind": "rect", "x": 413, "y": 48, "width": 35, "height": 12, "fill": "#202337", "stroke": null},
+          {"kind": "shape", "points": [[413, 60], [448, 60], [448, 70], [458, 81], [458, 149], [403, 149], [403, 81], [413, 70]], "fill": "#EEDDB2", "stroke": "#202337", "width": 1.5, "close": true},
+          {"kind": "rect", "x": 410, "y": 94, "width": 41, "height": 33, "fill": "#FCFCFA", "stroke": null},
+          {"kind": "label", "value": "B", "x": 430.5, "y": 116, "size": 16, "color": "#202337", "font": "PlexBold", "align": "center"},
+          {"kind": "shape", "points": [[149, 101], [243, 101], [235, 218], [157, 218]], "fill": "#FCFCFA", "stroke": "#202337", "width": 1.5, "close": true},
+          {"kind": "shape", "points": [[153.8, 171.2], [238.2, 171.2], [235, 218], [157, 218]], "fill": "#C9EEEE", "stroke": null, "width": 1.5, "close": true},
+          {"kind": "line", "start": [149, 101], "end": [243, 101], "color": "#202337", "width": 1.4, "dash": []},
+          {"kind": "line", "start": [233, 119], "end": [240, 119], "color": "#606A78", "width": 0.6, "dash": []},
+          {"kind": "line", "start": [233, 137], "end": [240, 137], "color": "#606A78", "width": 0.6, "dash": []},
+          {"kind": "line", "start": [233, 155], "end": [240, 155], "color": "#606A78", "width": 0.6, "dash": []},
+          {"kind": "line", "start": [233, 173], "end": [240, 173], "color": "#606A78", "width": 0.6, "dash": []},
+          {"kind": "line", "start": [233, 191], "end": [240, 191], "color": "#606A78", "width": 0.6, "dash": []},
+          {"kind": "line", "start": [233, 209], "end": [240, 209], "color": "#606A78", "width": 0.6, "dash": []},
+          {"kind": "label", "value": "M / 2", "x": 196.0, "y": 238, "size": 10, "color": "#202337", "font": "PlexSemi", "align": "center"},
+          {"kind": "shape", "points": [[284, 101], [378, 101], [370, 218], [292, 218]], "fill": "#FCFCFA", "stroke": "#202337", "width": 1.5, "close": true},
+          {"kind": "shape", "points": [[288.8, 171.2], [373.2, 171.2], [370, 218], [292, 218]], "fill": "#EEDDB2", "stroke": null, "width": 1.5, "close": true},
+          {"kind": "line", "start": [284, 101], "end": [378, 101], "color": "#202337", "width": 1.4, "dash": []},
+          {"kind": "line", "start": [368, 119], "end": [375, 119], "color": "#606A78", "width": 0.6, "dash": []},
+          {"kind": "line", "start": [368, 137], "end": [375, 137], "color": "#606A78", "width": 0.6, "dash": []},
+          {"kind": "line", "start": [368, 155], "end": [375, 155], "color": "#606A78", "width": 0.6, "dash": []},
+          {"kind": "line", "start": [368, 173], "end": [375, 173], "color": "#606A78", "width": 0.6, "dash": []},
+          {"kind": "line", "start": [368, 191], "end": [375, 191], "color": "#606A78", "width": 0.6, "dash": []},
+          {"kind": "line", "start": [368, 209], "end": [375, 209], "color": "#606A78", "width": 0.6, "dash": []},
+          {"kind": "label", "value": "M / 2", "x": 331.0, "y": 238, "size": 10, "color": "#202337", "font": "PlexSemi", "align": "center"},
+          {"kind": "label", "value": "1 A : 1 B", "x": 263, "y": 55, "size": 25, "color": "#1749D1", "font": "PlexBold", "align": "center"},
+          {"kind": "label", "value": "BY WEIGHT OR BY VOLUME", "x": 263, "y": 80, "size": 11, "color": "#1749D1", "font": "PlexSemi", "align": "center"},
+          {"kind": "line", "start": [75, 181], "end": [136, 181], "color": "#E95A2C", "width": 2, "dash": []},
+          {"kind": "arrow", "start": [463, 181], "end": [390, 181], "color": "#E95A2C", "width": 2, "head": 6},
+          {"kind": "label", "value": "{{funnel_volume_ml}} mL nominal casting", "x": 263, "y": 275, "size": 17, "color": "#202337", "font": "PlexBold", "align": "center"},
+          {"kind": "label", "value": "about {{silicone_mass_g}} g rubber + ports and mixing allowance", "x": 263, "y": 301, "size": 11, "color": "#202337", "font": "PlexSemi", "align": "center"}
+        ]
+      },
+      "actions": [
+        {
+          "title": "Set a batch quantity",
+          "body": "Nominal geometry is {{funnel_volume_ml}} mL. The ~1.13 g/mL material estimate gives ~{{silicone_mass_g}} g in the casting; allow extra for fill ports and mixing loss."
+        },
+        {
+          "title": "Weigh the pigment",
+          "body": "Use the actual BBDINO platinum-compatible black. Project limit: at most 2% by weight. Include it in the same-stack cure/release witness."
+        },
+        {
+          "title": "Mix the measured components",
+          "body": "Scrape the cup wall and bottom until uniform. Start the working-time clock when A and B meet; no unmixed streaks remain."
+        }
+      ],
+      "actions_y": 506,
+      "result": {
+        "title": "BATCH CLOCK",
+        "body": "Maker working time: 30 min at 23 C. Record room and liquid temperature; warmer conditions shorten the window. Follow the supplied batch instructions.",
+        "y": 682,
+        "tone": "#1749D1"
+      },
+      "source": "Funnel silicone.md; design.json; BBDINO 40A manufacturer product page",
+      "url": "https://github.com/derekbreden/homesodamachine/blob/main/hardware/printed-parts/zone-c/funnel-mold/silicone.md"
+    },
+    {
+      "title": "Degas the mixed silicone",
+      "subtitle": "This 40A grade requires degassing. Give the rising foam room above the liquid.",
+      "series": "MOLD OPERATIONS / FUNNEL",
+      "illustration": {
+        "origin": [48.0, 169],
+        "scale": 1.0,
+        "panel": [32, 155, 547, 330],
+        "drawing": [
+          {"kind": "rect", "x": 17, "y": 52, "width": 147, "height": 174, "fill": "#E4E8EE", "stroke": "#202337"},
+          {"kind": "rect", "x": 25, "y": 63, "width": 131, "height": 152, "fill": "#FCFCFA", "stroke": "#202337"},
+          {"kind": "rect", "x": 14, "y": 45, "width": 153, "height": 10, "fill": "#1749D1", "stroke": "#202337"},
+          {"kind": "shape", "points": [[51, 97], [129, 97], [121, 202], [59, 202]], "fill": "#FCFCFA", "stroke": "#202337", "width": 1.5, "close": true},
+          {"kind": "shape", "points": [[53.4, 128.5], [126.6, 128.5], [121, 202], [59, 202]], "fill": "#E95A2C", "stroke": null, "width": 1.5, "close": true},
+          {"kind": "line", "start": [51, 97], "end": [129, 97], "color": "#202337", "width": 1.4, "dash": []},
+          {"kind": "line", "start": [119, 115], "end": [126, 115], "color": "#606A78", "width": 0.6, "dash": []},
+          {"kind": "line", "start": [119, 133], "end": [126, 133], "color": "#606A78", "width": 0.6, "dash": []},
+          {"kind": "line", "start": [119, 151], "end": [126, 151], "color": "#606A78", "width": 0.6, "dash": []},
+          {"kind": "line", "start": [119, 169], "end": [126, 169], "color": "#606A78", "width": 0.6, "dash": []},
+          {"kind": "line", "start": [119, 187], "end": [126, 187], "color": "#606A78", "width": 0.6, "dash": []},
+          {"kind": "ellipse", "x": 74, "y": 136, "width": 7, "height": 7, "fill": "#FCFCFA", "stroke": "#E95A2C", "line_width": 0.6},
+          {"kind": "ellipse", "x": 97, "y": 138, "width": 7, "height": 7, "fill": "#FCFCFA", "stroke": "#E95A2C", "line_width": 0.6},
+          {"kind": "ellipse", "x": 90, "y": 112, "width": 7, "height": 7, "fill": "#FCFCFA", "stroke": "#E95A2C", "line_width": 0.6},
+          {"kind": "ellipse", "x": 122, "y": 155, "width": 7, "height": 7, "fill": "#FCFCFA", "stroke": "#E95A2C", "line_width": 0.6},
+          {"kind": "ellipse", "x": 82, "y": 156, "width": 7, "height": 7, "fill": "#FCFCFA", "stroke": "#E95A2C", "line_width": 0.6},
+          {"kind": "arrow", "start": [92, 41], "end": [92, 13], "color": "#1749D1", "width": 2, "head": 6},
+          {"kind": "label", "value": "rise", "x": 90, "y": 256, "size": 13, "color": "#1749D1", "font": "PlexSemi", "align": "center"},
+          {"kind": "rect", "x": 190, "y": 52, "width": 147, "height": 174, "fill": "#E4E8EE", "stroke": "#202337"},
+          {"kind": "rect", "x": 198, "y": 63, "width": 131, "height": 152, "fill": "#FCFCFA", "stroke": "#202337"},
+          {"kind": "rect", "x": 187, "y": 45, "width": 153, "height": 10, "fill": "#1749D1", "stroke": "#202337"},
+          {"kind": "shape", "points": [[224, 97], [302, 97], [294, 202], [232, 202]], "fill": "#FCFCFA", "stroke": "#202337", "width": 1.5, "close": true},
+          {"kind": "shape", "points": [[229.76, 172.6], [296.24, 172.6], [294, 202], [232, 202]], "fill": "#E95A2C", "stroke": null, "width": 1.5, "close": true},
+          {"kind": "line", "start": [224, 97], "end": [302, 97], "color": "#202337", "width": 1.4, "dash": []},
+          {"kind": "line", "start": [292, 115], "end": [299, 115], "color": "#606A78", "width": 0.6, "dash": []},
+          {"kind": "line", "start": [292, 133], "end": [299, 133], "color": "#606A78", "width": 0.6, "dash": []},
+          {"kind": "line", "start": [292, 151], "end": [299, 151], "color": "#606A78", "width": 0.6, "dash": []},
+          {"kind": "line", "start": [292, 169], "end": [299, 169], "color": "#606A78", "width": 0.6, "dash": []},
+          {"kind": "line", "start": [292, 187], "end": [299, 187], "color": "#606A78", "width": 0.6, "dash": []},
+          {"kind": "arrow", "start": [265, 41], "end": [265, 13], "color": "#1749D1", "width": 2, "head": 6},
+          {"kind": "label", "value": "collapse", "x": 263, "y": 256, "size": 13, "color": "#1749D1", "font": "PlexSemi", "align": "center"},
+          {"kind": "rect", "x": 363, "y": 52, "width": 147, "height": 174, "fill": "#E4E8EE", "stroke": "#202337"},
+          {"kind": "rect", "x": 371, "y": 63, "width": 131, "height": 152, "fill": "#FCFCFA", "stroke": "#202337"},
+          {"kind": "rect", "x": 360, "y": 45, "width": 153, "height": 10, "fill": "#1749D1", "stroke": "#202337"},
+          {"kind": "shape", "points": [[397, 97], [475, 97], [467, 202], [405, 202]], "fill": "#FCFCFA", "stroke": "#202337", "width": 1.5, "close": true},
+          {"kind": "shape", "points": [[403.0, 175.75], [469.0, 175.75], [467, 202], [405, 202]], "fill": "#E95A2C", "stroke": null, "width": 1.5, "close": true},
+          {"kind": "line", "start": [397, 97], "end": [475, 97], "color": "#202337", "width": 1.4, "dash": []},
+          {"kind": "line", "start": [465, 115], "end": [472, 115], "color": "#606A78", "width": 0.6, "dash": []},
+          {"kind": "line", "start": [465, 133], "end": [472, 133], "color": "#606A78", "width": 0.6, "dash": []},
+          {"kind": "line", "start": [465, 151], "end": [472, 151], "color": "#606A78", "width": 0.6, "dash": []},
+          {"kind": "line", "start": [465, 169], "end": [472, 169], "color": "#606A78", "width": 0.6, "dash": []},
+          {"kind": "line", "start": [465, 187], "end": [472, 187], "color": "#606A78", "width": 0.6, "dash": []},
+          {"kind": "arrow", "start": [437, 8], "end": [437, 43], "color": "#1749D1", "width": 2, "head": 6},
+          {"kind": "label", "value": "vent slowly", "x": 436, "y": 256, "size": 13, "color": "#1749D1", "font": "PlexSemi", "align": "center"},
+          {"kind": "label", "value": "headroom above actual batch / catch tray below", "x": 263, "y": 292, "size": 11, "color": "#202337", "font": "PlexSemi", "align": "center"}
+        ]
+      },
+      "actions": [
+        {
+          "title": "Choose an ample cup",
+          "body": "Mixed silicone rises during evacuation. Use a larger container or split the batch if the available cup cannot contain the froth."
+        },
+        {
+          "title": "Evacuate under control",
+          "body": "Degas in a separate container with expansion space. Observe the rise and collapse; control the valve to prevent overflow."
+        },
+        {
+          "title": "Vent and pour while fluid",
+          "body": "Vent slowly, remove the cup and continue the casting sequence within the measured working-time window."
+        }
+      ],
+      "actions_y": 506,
+      "result": {
+        "title": "USE THE ACTUAL EQUIPMENT INSTRUCTIONS",
+        "body": "The guide supplies no universal vacuum setpoint or timer. Follow the chamber/pump and silicone batch instructions; watch the material.",
+        "y": 682,
+        "tone": "#1749D1"
+      },
+      "source": "Funnel-mold/README.md; BBDINO 40A; Smooth-On degassing example",
+      "url": "https://github.com/derekbreden/homesodamachine/blob/main/hardware/printed-parts/zone-c/funnel-mold/README.md"
+    },
+    {
+      "title": "Fill, lower, then top up",
+      "subtitle": "Set the rod in the lower seat, fill the open cavity, then lower the core slowly over it.",
+      "series": "MOLD OPERATIONS / FUNNEL",
+      "illustration": {
+        "origin": [64.44036697247705, 169],
+        "scale": 0.9357798165137615,
+        "panel": [32, 155, 547, 334],
+        "drawing": [
+          {"kind": "rect", "x": 18, "y": 4, "width": 20, "height": 20, "fill": "#1749D1", "stroke": null},
+          {"kind": "label", "value": "1", "x": 28, "y": 18, "size": 11, "color": "#FCFCFA", "font": "PlexBold", "align": "center"},
+          {"kind": "label", "value": "Rod seated / fill cavity", "x": 46, "y": 18, "size": 10, "color": "#202337", "font": "PlexSemi", "align": "left"},
+          {"kind": "shape", "points": [[14.0, 66.0], [30.682464454976305, 66.0], [30.682464454976305, 72.25592417061611], [37.98104265402844, 72.25592417061611], [37.98104265402844, 90.48777251184835], [39.02369668246446, 96.75829383886256], [107.1611374407583, 109.79146919431281], [107.1611374407583, 117.03791469194314], [122.59241706161139, 117.03791469194314], [122.59241706161139, 118.60189573459716], [129.26540284360192, 118.60189573459716], [129.26540284360192, 117.03791469194314], [144.696682464455, 117.03791469194314], [144.696682464455, 109.79146919431281], [208.97630331753555, 96.75829383886256], [210.0189573459716, 90.48777251184835], [210.0189573459716, 72.25592417061611], [217.31753554502373, 72.25592417061611], [217.31753554502373, 66.0], [234.00000000000003, 66.0], [234.00000000000003, 71.2132701421801], [209.94075829383888, 119.33175355450237], [209.94075829383888, 124.54502369668248], [38.059241706161146, 124.54502369668248], [38.059241706161146, 119.33175355450237], [14.0, 71.2132701421801], [14.0, 66.0]], "fill": "#C9EEEE", "stroke": "#202337", "width": 1.5, "close": true},
+          {"kind": "shape", "points": [[30.682464454976305, 66.0], [30.682464454976305, 72.25592417061611], [37.98104265402844, 72.25592417061611], [37.98104265402844, 90.48777251184835], [39.02369668246446, 96.75829383886256], [107.1611374407583, 109.79146919431281], [107.1611374407583, 117.03791469194314], [122.59241706161139, 117.03791469194314], [122.59241706161139, 118.60189573459716], [129.26540284360192, 118.60189573459716], [129.26540284360192, 117.03791469194314], [144.696682464455, 117.03791469194314], [144.696682464455, 109.79146919431281], [208.97630331753555, 96.75829383886256], [210.0189573459716, 90.48777251184835], [210.0189573459716, 72.25592417061611], [217.31753554502373, 72.25592417061611], [217.31753554502373, 66.0]], "fill": "#E95A2C", "stroke": null, "width": 1.5, "close": true},
+          {"kind": "rect", "x": 122.80094786729859, "y": 92.53554502369668, "width": 6.255924170616114, "height": 26.066350710900476, "fill": "#E4E8EE", "stroke": "#202337"},
+          {"kind": "shape", "points": [[57, 32], [106, 32], [98, 69], [65, 69]], "fill": "#FCFCFA", "stroke": "#202337", "width": 1.5, "close": true},
+          {"kind": "shape", "points": [[62.6, 57.9], [100.4, 57.9], [98, 69], [65, 69]], "fill": "#E95A2C", "stroke": null, "width": 1.5, "close": true},
+          {"kind": "line", "start": [57, 32], "end": [106, 32], "color": "#202337", "width": 1.4, "dash": []},
+          {"kind": "line", "start": [96, 50], "end": [103, 50], "color": "#606A78", "width": 0.6, "dash": []},
+          {"kind": "line", "start": [96, 68], "end": [103, 68], "color": "#606A78", "width": 0.6, "dash": []},
+          {"kind": "arrow", "start": [81, 69], "end": [81, 88], "color": "#E95A2C", "width": 2, "head": 6},
+          {"kind": "rect", "x": 287, "y": 4, "width": 20, "height": 20, "fill": "#1749D1", "stroke": null},
+          {"kind": "label", "value": "2", "x": 297, "y": 18, "size": 11, "color": "#FCFCFA", "font": "PlexBold", "align": "center"},
+          {"kind": "label", "value": "Lower the core slowly", "x": 315, "y": 18, "size": 10, "color": "#202337", "font": "PlexSemi", "align": "left"},
+          {"kind": "shape", "points": [[289.0, 111.0], [305.6824644549763, 111.0], [305.6824644549763, 117.25592417061611], [312.98104265402844, 117.25592417061611], [312.98104265402844, 135.48777251184833], [314.02369668246445, 141.75829383886256], [382.1611374407583, 154.7914691943128], [382.1611374407583, 162.03791469194314], [397.5924170616114, 162.03791469194314], [397.5924170616114, 163.60189573459718], [404.2654028436019, 163.60189573459718], [404.2654028436019, 162.03791469194314], [419.69668246445497, 162.03791469194314], [419.69668246445497, 154.7914691943128], [483.97630331753555, 141.75829383886256], [485.01895734597156, 135.48777251184833], [485.01895734597156, 117.25592417061611], [492.3175355450237, 117.25592417061611], [492.3175355450237, 111.0], [509.0, 111.0], [509.0, 116.2132701421801], [484.9407582938389, 164.33175355450237], [484.9407582938389, 169.54502369668248], [313.0592417061611, 169.54502369668248], [313.0592417061611, 164.33175355450237], [289.0, 116.2132701421801], [289.0, 111.0]], "fill": "#C9EEEE", "stroke": "#202337", "width": 1.5, "close": true},
+          {"kind": "shape", "points": [[305.6824644549763, 111.0], [305.6824644549763, 117.25592417061611], [312.98104265402844, 117.25592417061611], [312.98104265402844, 135.48777251184833], [314.02369668246445, 141.75829383886256], [382.1611374407583, 154.7914691943128], [382.1611374407583, 162.03791469194314], [397.5924170616114, 162.03791469194314], [397.5924170616114, 163.60189573459718], [404.2654028436019, 163.60189573459718], [404.2654028436019, 162.03791469194314], [419.69668246445497, 162.03791469194314], [419.69668246445497, 154.7914691943128], [483.97630331753555, 141.75829383886256], [485.01895734597156, 135.48777251184833], [485.01895734597156, 117.25592417061611], [492.3175355450237, 117.25592417061611], [492.3175355450237, 111.0]], "fill": "#E95A2C", "stroke": null, "width": 1.5, "close": true},
+          {"kind": "shape", "points": [[289.0, 105.7867298578199], [509.0, 105.7867298578199], [509.0, 111.0], [492.3175355450237, 111.0], [492.3175355450237, 110.68720379146919], [478.7630331753555, 110.68720379146919], [478.7630331753555, 135.48777251184833], [404.0568720379147, 150.29260369668248], [397.8009478672986, 150.29260369668248], [319.2369668246446, 135.48777251184833], [319.2369668246446, 110.68720379146919], [305.6824644549763, 110.68720379146919], [305.6824644549763, 111.0], [289.0, 111.0]], "fill": "#EEDDB2", "stroke": "#202337", "width": 1.5, "close": true},
+          {"kind": "shape", "points": [[379.51018957345974, 105.7867298578199], [422.3476303317536, 105.7867298578199], [404.2654028436019, 141.95137146919433], [397.5924170616114, 141.95137146919433]], "fill": "#FCFCFA", "stroke": null, "width": 1.5, "close": true},
+          {"kind": "shape", "points": [[397.5924170616114, 141.95137146919433], [404.2654028436019, 141.95137146919433], [404.2654028436019, 150.29260369668248], [397.5924170616114, 150.29260369668248]], "fill": "#E95A2C", "stroke": "#202337", "width": 1.5, "close": true},
+          {"kind": "rect", "x": 397.8009478672986, "y": 137.53554502369667, "width": 6.255924170616114, "height": 26.066350710900476, "fill": "#E4E8EE", "stroke": "#202337"},
+          {"kind": "arrow", "start": [352, 58], "end": [352, 98], "color": "#E95A2C", "width": 2, "head": 6},
+          {"kind": "arrow", "start": [445, 58], "end": [445, 98], "color": "#E95A2C", "width": 2, "head": 6},
+          {"kind": "label", "value": "small guide overflow trims after cure", "x": 263, "y": 208, "size": 10.5, "color": "#202337", "font": "PlexSemi", "align": "center"},
+          {"kind": "rect", "x": 133, "y": 272, "width": 256, "height": 27, "fill": "#EEDDB2", "stroke": "#202337"},
+          {"kind": "ellipse", "x": 262, "y": 277, "width": 19, "height": 13, "fill": "#E95A2C", "stroke": "#202337", "line_width": 1.5},
+          {"kind": "ellipse", "x": 163, "y": 282, "width": 7, "height": 7, "fill": "#EAF0FC", "stroke": "#1749D1", "line_width": 1.5},
+          {"kind": "arrow", "start": [166, 273], "end": [166, 248], "color": "#1749D1", "width": 1.2, "head": 4},
+          {"kind": "ellipse", "x": 206, "y": 282, "width": 7, "height": 7, "fill": "#EAF0FC", "stroke": "#1749D1", "line_width": 1.5},
+          {"kind": "arrow", "start": [209, 273], "end": [209, 248], "color": "#1749D1", "width": 1.2, "head": 4},
+          {"kind": "ellipse", "x": 329, "y": 282, "width": 7, "height": 7, "fill": "#EAF0FC", "stroke": "#1749D1", "line_width": 1.5},
+          {"kind": "arrow", "start": [332, 273], "end": [332, 248], "color": "#1749D1", "width": 1.2, "head": 4},
+          {"kind": "ellipse", "x": 359, "y": 282, "width": 7, "height": 7, "fill": "#EAF0FC", "stroke": "#1749D1", "line_width": 1.5},
+          {"kind": "arrow", "start": [362, 273], "end": [362, 248], "color": "#1749D1", "width": 1.2, "head": 4},
+          {"kind": "ellipse", "x": 374, "y": 282, "width": 7, "height": 7, "fill": "#EAF0FC", "stroke": "#1749D1", "line_width": 1.5},
+          {"kind": "arrow", "start": [377, 273], "end": [377, 248], "color": "#1749D1", "width": 1.2, "head": 4},
+          {"kind": "arrow", "start": [272, 247], "end": [272, 271], "color": "#E95A2C", "width": 2, "head": 6},
+          {"kind": "label", "value": "3  Top up: 11 mm fill / 5 x 4 mm vents open", "x": 265, "y": 324, "size": 12, "color": "#1749D1", "font": "PlexSemi", "align": "center"}
+        ]
+      },
+      "actions": [
+        {
+          "title": "Seat the rod, then fill",
+          "body": "Set the steel rod on the lower seat floor. Fill around the rod and drain block while the degassed silicone still flows."
+        },
+        {
+          "title": "Seat the core evenly",
+          "body": "Lower slowly over the rod. Let air escape through the open rod guide; close the bare flange lands without force."
+        },
+        {
+          "title": "Top up through the fill hole",
+          "body": "Use the 11 mm fill opening. The five 4 mm vents, rod access and dry-side infill breathers remain open; catch overflow."
+        }
+      ],
+      "actions_y": 506,
+      "result": {
+        "title": "CHECK",
+        "body": "The parting lands remain closed, the rod stays seated, and liquid reaches the block and continuous 6 mm ramp space. No pressure injection.",
+        "y": 682,
+        "tone": "#1749D1"
+      },
+      "source": "Funnel-mold/README.md: cast and open, steps 2-3",
+      "url": "https://github.com/derekbreden/homesodamachine/blob/main/hardware/printed-parts/zone-c/funnel-mold/README.md"
+    },
+    {
+      "title": "Cycle the filled mold gently",
+      "subtitle": "If using a filled-mold vacuum cycle, the whole tool shares the chamber pressure.",
+      "series": "MOLD OPERATIONS / FUNNEL",
+      "illustration": {
+        "origin": [60.72049689440993, 169],
+        "scale": 0.9503105590062112,
+        "panel": [32, 155, 547, 334],
+        "drawing": [
+          {"kind": "rect", "x": 25, "y": 31, "width": 473, "height": 241, "fill": "#E4E8EE", "stroke": "#202337"},
+          {"kind": "rect", "x": 37, "y": 43, "width": 449, "height": 216, "fill": "#FCFCFA", "stroke": "#202337"},
+          {"kind": "rect", "x": 20, "y": 19, "width": 483, "height": 19, "fill": "#1749D1", "stroke": "#202337"},
+          {"kind": "rect", "x": 56, "y": 239, "width": 410, "height": 9, "fill": "#202337", "stroke": null},
+          {"kind": "rect", "x": 60, "y": 211, "width": 405, "height": 28, "fill": "#EAF0FC", "stroke": "#202337"},
+          {"kind": "shape", "points": [[67.0, 132.0], [96.80094786729858, 132.0], [96.80094786729858, 143.17535545023696], [109.8388625592417, 143.17535545023696], [109.8388625592417, 175.7440663507109], [111.70142180094787, 186.94549763033174], [233.4196682464455, 210.22748815165878], [233.4196682464455, 223.1722748815166], [260.98554502369666, 223.1722748815166], [260.98554502369666, 225.96611374407584], [272.9059241706161, 225.96611374407584], [272.9059241706161, 223.1722748815166], [300.4718009478673, 223.1722748815166], [300.4718009478673, 210.22748815165878], [415.29857819905214, 186.94549763033174], [417.1611374407583, 175.7440663507109], [417.1611374407583, 143.17535545023696], [430.1990521327014, 143.17535545023696], [430.1990521327014, 132.0], [460.0, 132.0], [460.0, 141.3127962085308], [417.02144549763034, 227.26990521327014], [417.02144549763034, 236.58270142180095], [109.97855450236968, 236.58270142180095], [109.97855450236968, 227.26990521327014], [67.0, 141.3127962085308], [67.0, 132.0]], "fill": "#C9EEEE", "stroke": "#202337", "width": 1.5, "close": true},
+          {"kind": "shape", "points": [[96.80094786729858, 132.0], [96.80094786729858, 143.17535545023696], [109.8388625592417, 143.17535545023696], [109.8388625592417, 175.7440663507109], [111.70142180094787, 186.94549763033174], [233.4196682464455, 210.22748815165878], [233.4196682464455, 223.1722748815166], [260.98554502369666, 223.1722748815166], [260.98554502369666, 225.96611374407584], [272.9059241706161, 225.96611374407584], [272.9059241706161, 223.1722748815166], [300.4718009478673, 223.1722748815166], [300.4718009478673, 210.22748815165878], [415.29857819905214, 186.94549763033174], [417.1611374407583, 175.7440663507109], [417.1611374407583, 143.17535545023696], [430.1990521327014, 143.17535545023696], [430.1990521327014, 132.0]], "fill": "#E95A2C", "stroke": null, "width": 1.5, "close": true},
+          {"kind": "shape", "points": [[67.0, 122.68720379146919], [460.0, 122.68720379146919], [460.0, 132.0], [430.1990521327014, 132.0], [430.1990521327014, 131.44123222748814], [405.98578199052133, 131.44123222748814], [405.98578199052133, 175.7440663507109], [272.5334123222749, 202.19087842180096], [261.3580568720379, 202.19087842180096], [121.01421800947867, 175.7440663507109], [121.01421800947867, 131.44123222748814], [96.80094786729858, 131.44123222748814], [96.80094786729858, 132.0], [67.0, 132.0]], "fill": "#EEDDB2", "stroke": "#202337", "width": 1.5, "close": true},
+          {"kind": "shape", "points": [[228.6841113744076, 122.68720379146919], [305.2073578199052, 122.68720379146919], [272.9059241706161, 187.29040448815167], [260.98554502369666, 187.29040448815167]], "fill": "#FCFCFA", "stroke": null, "width": 1.5, "close": true},
+          {"kind": "shape", "points": [[260.98554502369666, 187.29040448815167], [272.9059241706161, 187.29040448815167], [272.9059241706161, 202.19087842180096], [260.98554502369666, 202.19087842180096]], "fill": "#E95A2C", "stroke": "#202337", "width": 1.5, "close": true},
+          {"kind": "rect", "x": 261.3580568720379, "y": 179.4021327014218, "width": 11.175355450236967, "height": 46.56398104265403, "fill": "#E4E8EE", "stroke": "#202337"},
+          {"kind": "arrow", "start": [96, 129], "end": [96, 98], "color": "#1749D1", "width": 2, "head": 6},
+          {"kind": "arrow", "start": [435, 129], "end": [435, 98], "color": "#1749D1", "width": 2, "head": 6},
+          {"kind": "arrow", "start": [218, 119], "end": [218, 80], "color": "#1749D1", "width": 2, "head": 6},
+          {"kind": "arrow", "start": [313, 118], "end": [336, 80], "color": "#1749D1", "width": 2, "head": 6},
+          {"kind": "arrow", "start": [86, 194], "end": [51, 209], "color": "#1749D1", "width": 2, "head": 6},
+          {"kind": "label", "value": "fill + vents + rod access + infill breathers open", "x": 268, "y": 299, "size": 11, "color": "#1749D1", "font": "PlexSemi", "align": "center"},
+          {"kind": "label", "value": "catch tray / overflow clear of pressure paths", "x": 268, "y": 321, "size": 10, "color": "#202337", "font": "PlexSemi", "align": "center"}
+        ]
+      },
+      "actions": [
+        {
+          "title": "Keep openings connected",
+          "body": "Check the assembled mold and catch tray through the chamber's actual opening. Keep fill, vents, rod access and drilled breathers open."
+        },
+        {
+          "title": "Evacuate and vent slowly",
+          "body": "Perform any cycle while silicone is fluid. Observe tool/overflow behavior, vent gently, then recheck and top up the fill level."
+        },
+        {
+          "title": "Return to ambient for cure",
+          "body": "Keep the flanges held together through room-temperature cure. The tooling is not rated for a sealed atmosphere differential."
+        }
+      ],
+      "actions_y": 506,
+      "result": {
+        "title": "KEEP PRESSURE PATHS OPEN",
+        "body": "Liquid head is about 0.6 kPa. Six walls and 15% gyroid rely on open infill breathers during slow vacuum cycling. Stop on distortion or a blocked path.",
+        "y": 682,
+        "tone": "#E95A2C"
+      },
+      "source": "Funnel-mold/README.md: load and vacuum; cast and open step 4",
+      "url": "https://github.com/derekbreden/homesodamachine/blob/main/hardware/printed-parts/zone-c/funnel-mold/README.md"
+    },
+    {
+      "title": "Hold the flanges through cure",
+      "subtitle": "Leave the tool undisturbed at ambient pressure while the silicone develops its cure.",
+      "series": "MOLD OPERATIONS / FUNNEL",
+      "illustration": {
+        "origin": [56.88328075709779, 169],
+        "scale": 0.9652996845425867,
+        "panel": [32, 155, 547, 334],
+        "drawing": [
+          {"kind": "shape", "points": [[99.0, 120.0], [124.25118483412322, 120.0], [124.25118483412322, 129.46919431279622], [135.29857819905214, 129.46919431279622], [135.29857819905214, 157.06558293838862], [136.87677725118482, 166.5568720379147], [240.01208530805687, 186.28436018957348], [240.01208530805687, 197.25284360189573], [263.36943127962087, 197.25284360189573], [263.36943127962087, 199.62014218009477], [273.4699052132701, 199.62014218009477], [273.4699052132701, 197.25284360189573], [296.8272511848341, 197.25284360189573], [296.8272511848341, 186.28436018957348], [394.1232227488152, 166.5568720379147], [395.70142180094786, 157.06558293838862], [395.70142180094786, 129.46919431279622], [406.74881516587675, 129.46919431279622], [406.74881516587675, 120.0], [432.0, 120.0], [432.0, 127.8909952606635], [395.5830568720379, 200.7248815165877], [395.5830568720379, 208.61587677725117], [135.4169431279621, 208.61587677725117], [135.4169431279621, 200.7248815165877], [99.0, 127.8909952606635], [99.0, 120.0]], "fill": "#C9EEEE", "stroke": "#202337", "width": 1.5, "close": true},
+          {"kind": "shape", "points": [[124.25118483412322, 120.0], [124.25118483412322, 129.46919431279622], [135.29857819905214, 129.46919431279622], [135.29857819905214, 157.06558293838862], [136.87677725118482, 166.5568720379147], [240.01208530805687, 186.28436018957348], [240.01208530805687, 197.25284360189573], [263.36943127962087, 197.25284360189573], [263.36943127962087, 199.62014218009477], [273.4699052132701, 199.62014218009477], [273.4699052132701, 197.25284360189573], [296.8272511848341, 197.25284360189573], [296.8272511848341, 186.28436018957348], [394.1232227488152, 166.5568720379147], [395.70142180094786, 157.06558293838862], [395.70142180094786, 129.46919431279622], [406.74881516587675, 129.46919431279622], [406.74881516587675, 120.0]], "fill": "#E95A2C", "stroke": null, "width": 1.5, "close": true},
+          {"kind": "shape", "points": [[99.0, 112.1090047393365], [432.0, 112.1090047393365], [432.0, 120.0], [406.74881516587675, 120.0], [406.74881516587675, 119.5265402843602], [386.23222748815164, 119.5265402843602], [386.23222748815164, 157.06558293838862], [273.1542654028436, 179.47471377725117], [263.68507109004736, 179.47471377725117], [144.76777251184834, 157.06558293838862], [144.76777251184834, 119.5265402843602], [124.25118483412322, 119.5265402843602], [124.25118483412322, 120.0], [99.0, 120.0]], "fill": "#EEDDB2", "stroke": "#202337", "width": 1.5, "close": true},
+          {"kind": "shape", "points": [[235.9995142180095, 112.1090047393365], [300.8398222748815, 112.1090047393365], [273.4699052132701, 166.84912136018957], [263.36943127962087, 166.84912136018957]], "fill": "#FCFCFA", "stroke": null, "width": 1.5, "close": true},
+          {"kind": "shape", "points": [[263.36943127962087, 166.84912136018957], [273.4699052132701, 166.84912136018957], [273.4699052132701, 179.47471377725117], [263.36943127962087, 179.47471377725117]], "fill": "#E95A2C", "stroke": "#202337", "width": 1.5, "close": true},
+          {"kind": "rect", "x": 263.6850710900474, "y": 160.16516587677725, "width": 9.469194312796208, "height": 39.45497630331754, "fill": "#E4E8EE", "stroke": "#202337"},
+          {"kind": "rect", "x": 111, "y": 109, "width": 5, "height": 24, "fill": "#202337", "stroke": null},
+          {"kind": "rect", "x": 107, "y": 106, "width": 13, "height": 7, "fill": "#E95A2C", "stroke": "#202337"},
+          {"kind": "rect", "x": 420, "y": 109, "width": 5, "height": 24, "fill": "#202337", "stroke": null},
+          {"kind": "rect", "x": 416, "y": 106, "width": 13, "height": 7, "fill": "#E95A2C", "stroke": "#202337"},
+          {"kind": "ellipse", "x": 8, "y": 8, "width": 98, "height": 98, "fill": "#EAF0FC", "stroke": "#1749D1", "line_width": 1.5},
+          {"kind": "line", "start": [57, 57], "end": [57, 29], "color": "#1749D1", "width": 3, "dash": []},
+          {"kind": "line", "start": [57, 57], "end": [80, 66], "color": "#1749D1", "width": 3, "dash": []},
+          {"kind": "label", "value": "23 C", "x": 463, "y": 70, "size": 16, "color": "#1749D1", "font": "PlexBold", "align": "center"},
+          {"kind": "label", "value": "reference", "x": 463, "y": 89, "size": 10, "color": "#1749D1", "font": "PlexSemi", "align": "center"},
+          {"kind": "label", "value": "5 h project demold hold", "x": 268, "y": 245, "size": 19, "color": "#1749D1", "font": "PlexBold", "align": "center"},
+          {"kind": "label", "value": "24 h project full-use hold", "x": 268, "y": 278, "size": 15, "color": "#202337", "font": "PlexSemi", "align": "center"},
+          {"kind": "label", "value": "also inspect a same-batch witness", "x": 268, "y": 311, "size": 12, "color": "#202337", "font": "PlexSemi", "align": "center"}
+        ]
+      },
+      "actions": [
+        {
+          "title": "Log time and temperature",
+          "body": "Record A/B mixing start, pour finish, room/liquid temperature and batch identity. Warmer and cooler shops change the cure window."
+        },
+        {
+          "title": "Use the conservative project hold",
+          "body": "Project material record uses 5 h before demold at 23 C and 24 h before full use. Check the supplied batch insert and cured witness."
+        },
+        {
+          "title": "Keep the tool assembled",
+          "body": "Maintain ambient pressure and closed flanges. Leave the casting and steel rod seated until their contact surfaces have cured."
+        }
+      ],
+      "actions_y": 506,
+      "result": {
+        "title": "CURE IS NOT FOOD-CONTACT RELEASE",
+        "body": "The manufacturer's direct page lists 3 h; the project holds 5 h conservatively. No qualified post-cure bake schedule is established.",
+        "y": 682,
+        "tone": "#E95A2C"
+      },
+      "source": "Funnel silicone.md; BBDINO direct page checked 04 Oct 2026",
+      "url": "https://github.com/derekbreden/homesodamachine/blob/main/hardware/printed-parts/zone-c/funnel-mold/silicone.md"
+    },
+    {
+      "title": "Open in small movements",
+      "subtitle": "Free the core first; keep the casting and steel rod together while peeling from the cavity.",
+      "series": "MOLD OPERATIONS / FUNNEL",
+      "illustration": {
+        "origin": [68.04819277108433, 169],
+        "scale": 0.9216867469879518,
+        "panel": [32, 155, 547, 334],
+        "drawing": [
+          {"kind": "shape", "points": [[25.0, 152.0], [59.502369668246445, 152.0], [59.502369668246445, 164.9383886255924], [74.59715639810426, 164.9383886255924], [74.59715639810426, 202.64516587677724], [76.75355450236967, 215.61374407582937], [217.6741706161137, 242.56872037914692], [217.6741706161137, 257.5556872037915], [249.5888625592417, 257.5556872037915], [249.5888625592417, 260.79028436018956], [263.3898104265403, 260.79028436018956], [263.3898104265403, 257.5556872037915], [295.3045023696682, 257.5556872037915], [295.3045023696682, 242.56872037914692], [428.2464454976303, 215.61374407582937], [430.4028436018957, 202.64516587677724], [430.4028436018957, 164.9383886255924], [445.49763033175356, 164.9383886255924], [445.49763033175356, 152.0], [480.0, 152.0], [480.0, 162.781990521327], [430.24111374407585, 262.29976303317534], [430.24111374407585, 273.08175355450237], [74.75888625592418, 273.08175355450237], [74.75888625592418, 262.29976303317534], [25.0, 162.781990521327], [25.0, 152.0]], "fill": "#C9EEEE", "stroke": "#202337", "width": 1.5, "close": true},
+          {"kind": "shape", "points": [[59.502369668246445, 152.0], [59.502369668246445, 164.9383886255924], [74.59715639810426, 164.9383886255924], [74.59715639810426, 202.64516587677724], [76.75355450236967, 215.61374407582937], [217.6741706161137, 242.56872037914692], [217.6741706161137, 257.5556872037915], [249.5888625592417, 257.5556872037915], [249.5888625592417, 260.79028436018956], [263.3898104265403, 260.79028436018956], [263.3898104265403, 257.5556872037915], [295.3045023696682, 257.5556872037915], [295.3045023696682, 242.56872037914692], [428.2464454976303, 215.61374407582937], [430.4028436018957, 202.64516587677724], [430.4028436018957, 164.9383886255924], [445.49763033175356, 164.9383886255924], [445.49763033175356, 152.0]], "fill": "#E95A2C", "stroke": null, "width": 1.5, "close": true},
+          {"kind": "shape", "points": [[25.0, 141.218009478673], [480.0, 141.218009478673], [480.0, 152.0], [445.49763033175356, 152.0], [445.49763033175356, 151.35308056872037], [417.46445497630333, 151.35308056872037], [417.46445497630333, 202.64516587677724], [262.9585308056872, 233.26424855450236], [250.02014218009478, 233.26424855450236], [87.53554502369668, 202.64516587677724], [87.53554502369668, 151.35308056872037], [59.502369668246445, 151.35308056872037], [59.502369668246445, 152.0], [25.0, 152.0]], "fill": "#EEDDB2", "stroke": "#202337", "width": 1.5, "close": true},
+          {"kind": "shape", "points": [[212.19152843601896, 141.218009478673], [300.787144549763, 141.218009478673], [263.3898104265403, 216.01306372037914], [249.5888625592417, 216.01306372037914]], "fill": "#FCFCFA", "stroke": null, "width": 1.5, "close": true},
+          {"kind": "shape", "points": [[249.5888625592417, 216.01306372037914], [263.3898104265403, 216.01306372037914], [263.3898104265403, 233.26424855450236], [249.5888625592417, 233.26424855450236]], "fill": "#E95A2C", "stroke": "#202337", "width": 1.5, "close": true},
+          {"kind": "rect", "x": 250.02014218009475, "y": 206.88033175355451, "width": 12.938388625592417, "height": 53.90995260663507, "fill": "#E4E8EE", "stroke": "#202337"},
+          {"kind": "arrow", "start": [117, 141], "end": [117, 97], "color": "#E95A2C", "width": 2, "head": 6},
+          {"kind": "arrow", "start": [396, 141], "end": [396, 97], "color": "#E95A2C", "width": 2, "head": 6},
+          {"kind": "label", "value": "lift core straight off the steel rod", "x": 256, "y": 65, "size": 14, "color": "#E95A2C", "font": "PlexSemi", "align": "center"},
+          {"kind": "line", "start": [40, 150], "end": [23, 136], "color": "#1749D1", "width": 3, "dash": []},
+          {"kind": "line", "start": [468, 150], "end": [488, 136], "color": "#1749D1", "width": 3, "dash": []},
+          {"kind": "label", "value": "alternate opposite notches", "x": 256, "y": 320, "size": 12, "color": "#1749D1", "font": "PlexSemi", "align": "center"},
+          {"kind": "label", "value": "peel accessible brim to admit air", "x": 256, "y": 341, "size": 11, "color": "#202337", "font": "PlexSemi", "align": "center"}
+        ]
+      },
+      "actions": [
+        {
+          "title": "Clear the opening points",
+          "body": "Trim overflow at port mouths and remove the flange bolts or clamps. Keep the casting supported while freeing the core."
+        },
+        {
+          "title": "Alternate opening points",
+          "body": "Use a blunt tool at opposing edge notches, moving a little at a time. Peel accessible silicone brim to let air enter."
+        },
+        {
+          "title": "Lift, then peel",
+          "body": "Lift the core straight off the rod. Peel the casting and rod together from the cavity; support the drain block."
+        }
+      ],
+      "actions_y": 506,
+      "result": {
+        "title": "STOP ON STICKING",
+        "body": "Peel the accessible brim to admit air; keep opening movements small. Support the drain block without levering on the rod.",
+        "y": 682,
+        "tone": "#E95A2C"
+      },
+      "source": "Funnel-mold/README.md: cast and open step 5",
+      "url": "https://github.com/derekbreden/homesodamachine/blob/main/hardware/printed-parts/zone-c/funnel-mold/README.md"
+    },
+    {
+      "title": "Pull the rod and trim flash",
+      "subtitle": "Support the silicone block while sliding the straight steel rod out.",
+      "series": "MOLD OPERATIONS / FUNNEL",
+      "illustration": {
+        "origin": [62.22222222222223, 169],
+        "scale": 0.9444444444444444,
+        "panel": [32, 155, 547, 334],
+        "drawing": [
+          {"kind": "rect", "x": 31, "y": 129, "width": 124, "height": 84, "fill": "#E95A2C", "stroke": "#202337"},
+          {"kind": "rect", "x": 74.52, "y": 45, "width": 36.96, "height": 154, "fill": "#E4E8EE", "stroke": "#202337"},
+          {"kind": "arrow", "start": [154, 147], "end": [154, 57], "color": "#1749D1", "width": 2.5, "head": 8},
+          {"kind": "label", "value": "1  Slide rod out", "x": 93, "y": 22, "size": 11, "color": "#1749D1", "font": "PlexSemi", "align": "center"},
+          {"kind": "rect", "x": 206, "y": 129, "width": 124, "height": 84, "fill": "#E95A2C", "stroke": "#202337"},
+          {"kind": "rect", "x": 248, "y": 213, "width": 40, "height": 17, "fill": "#E95A2C", "stroke": "#202337"},
+          {"kind": "line", "start": [199, 213], "end": [337, 213], "color": "#1749D1", "width": 1.2, "dash": [4, 3]},
+          {"kind": "shape", "points": [[179, 226], [224, 216], [200, 240]], "fill": "#E4E8EE", "stroke": "#202337", "width": 1.5, "close": true},
+          {"kind": "label", "value": "2  Trim flush", "x": 268, "y": 22, "size": 11, "color": "#1749D1", "font": "PlexSemi", "align": "center"},
+          {"kind": "rect", "x": 390, "y": 129, "width": 104, "height": 84, "fill": "#E95A2C", "stroke": "#202337"},
+          {"kind": "rect", "x": 430, "y": 127, "width": 24, "height": 88, "fill": "#FCFCFA", "stroke": "#202337"},
+          {"kind": "label", "value": "STRAIGHT", "x": 442, "y": 256, "size": 12, "color": "#1749D1", "font": "PlexBold", "align": "center"},
+          {"kind": "label", "value": "6 mm bore", "x": 442, "y": 278, "size": 11, "color": "#1749D1", "font": "PlexSemi", "align": "center"}
+        ]
+      },
+      "actions": [
+        {
+          "title": "Withdraw the straight rod",
+          "body": "Support the block and slide the released steel rod out along its axis. Peel the silicone from it if needed."
+        },
+        {
+          "title": "Trim the accessible collars",
+          "body": "Cut lower-seat flash flush with the block bottom and guide overflow flush with the bowl throat. Trim port and vent flash."
+        },
+        {
+          "title": "Keep the bore intact",
+          "body": "Leave the cylindrical 6 mm wall smooth. Clean the rod and guide openings before the next casting."
+        }
+      ],
+      "actions_y": 506,
+      "result": {
+        "title": "READY",
+        "body": "The straight outlet is open end to end, its edge is clean, and the flat bearing face is intact.",
+        "y": 682,
+        "tone": "#1749D1"
+      },
+      "source": "Funnel-mold/README.md: opening, rod withdrawal and flash trim",
+      "url": "https://github.com/derekbreden/homesodamachine/blob/main/hardware/printed-parts/zone-c/funnel-mold/README.md"
+    },
+    {
+      "title": "Inspect and clean the funnel",
+      "subtitle": "A complete casting has a continuous ramp, an open straight bore and an intact bearing face.",
+      "series": "MOLD OPERATIONS / FUNNEL",
+      "illustration": {
+        "origin": [64.44036697247705, 169],
+        "scale": 0.9357798165137615,
+        "panel": [32, 155, 547, 334],
+        "drawing": [
+          {"kind": "shape", "points": [[56, 64], [453, 64], [437, 85], [426, 122], [274, 208], [259, 218], [245, 208], [77, 122], [65, 85]], "fill": "#FFE2CC", "stroke": "#202337", "width": 1.5, "close": true},
+          {"kind": "shape", "points": [[65, 65], [440, 65], [424, 87], [401, 115], [274, 172], [247, 181], [96, 111], [74, 87]], "fill": "#FCFCFA", "stroke": "#202337", "width": 1.5, "close": true},
+          {"kind": "rect", "x": 229, "y": 207, "width": 63, "height": 76, "fill": "#E95A2C", "stroke": "#202337"},
+          {"kind": "ellipse", "x": 250, "y": 213, "width": 21, "height": 56, "fill": "#FCFCFA", "stroke": "#1749D1", "line_width": 1.5},
+          {"kind": "line", "start": [299, 259], "end": [393, 266], "color": "#1749D1", "width": 0.9, "dash": []},
+          {"kind": "label", "value": "straight bore", "x": 397, "y": 270, "size": 11, "color": "#1749D1", "font": "PlexSemi", "align": "left"},
+          {"kind": "line", "start": [195, 171], "end": [88, 215], "color": "#1749D1", "width": 0.9, "dash": []},
+          {"kind": "label", "value": "ramp + brim", "x": 22, "y": 228, "size": 11, "color": "#1749D1", "font": "PlexSemi", "align": "left"},
+          {"kind": "line", "start": [258, 285], "end": [258, 316], "color": "#1749D1", "width": 0.9, "dash": []},
+          {"kind": "label", "value": "flat bearing face", "x": 258, "y": 339, "size": 11, "color": "#1749D1", "font": "PlexSemi", "align": "center"}
+        ]
+      },
+      "actions": [
+        {
+          "title": "Inspect every wetted surface",
+          "body": "Look for pinholes, bubbles, tack, tears and coating transfer. Inspect the straight bore and both trimmed outlet ends."
+        },
+        {
+          "title": "Clean with the qualified process",
+          "body": "Release traces and residue must be removed. The finished silicone, black pigment and post-process need the wetted-surface qualification."
+        },
+        {
+          "title": "Check its actual installation",
+          "body": "The block bears on the cradle's hook tops. Its 6 mm bore grips the 6.35 mm LLDPE drain stub. Check seating, lift-out and leaks."
+        }
+      ],
+      "actions_y": 506,
+      "result": {
+        "title": "HOLD FROM FOOD SERVICE",
+        "body": "No qualified bake schedule or finished-mixture food-contact result is recorded. A cured, attractive part alone does not close that gate.",
+        "y": 682,
+        "tone": "#E95A2C"
+      },
+      "source": "Funnel silicone.md; funnel-mold/README.md; wetted-surface-test.md",
+      "url": "https://github.com/derekbreden/homesodamachine/blob/main/hardware/printed-parts/zone-c/funnel-mold/silicone.md"
+    },
+    {
+      "title": "Prepare the three foam pours",
+      "subtitle": "Two cap cavities and one body cavity use the acquired FSD 2 lb closed-cell PU foam.",
+      "series": "MOLD OPERATIONS / COLD CORE",
+      "illustration": {
+        "origin": [64.44036697247705, 169],
+        "scale": 0.9357798165137615,
+        "panel": [32, 155, 547, 334],
+        "drawing": [
+          {"kind": "rect", "x": 37, "y": 45, "width": 35, "height": 12, "fill": "#202337", "stroke": null},
+          {"kind": "shape", "points": [[37, 57], [72, 57], [72, 67], [82, 78], [82, 146], [27, 146], [27, 78], [37, 67]], "fill": "#C9EEEE", "stroke": "#202337", "width": 1.5, "close": true},
+          {"kind": "rect", "x": 34, "y": 91, "width": 41, "height": 33, "fill": "#FCFCFA", "stroke": null},
+          {"kind": "label", "value": "A", "x": 54.5, "y": 113, "size": 16, "color": "#202337", "font": "PlexBold", "align": "center"},
+          {"kind": "rect", "x": 123, "y": 45, "width": 35, "height": 12, "fill": "#202337", "stroke": null},
+          {"kind": "shape", "points": [[123, 57], [158, 57], [158, 67], [168, 78], [168, 146], [113, 146], [113, 78], [123, 67]], "fill": "#EEDDB2", "stroke": "#202337", "width": 1.5, "close": true},
+          {"kind": "rect", "x": 120, "y": 91, "width": 41, "height": 33, "fill": "#FCFCFA", "stroke": null},
+          {"kind": "label", "value": "B", "x": 140.5, "y": 113, "size": 16, "color": "#202337", "font": "PlexBold", "align": "center"},
+          {"kind": "arrow", "start": [190, 99], "end": [251, 99], "color": "#E95A2C", "width": 2, "head": 6},
+          {"kind": "rect", "x": 275, "y": 33, "width": 222, "height": 264, "fill": "#FCFCFA", "stroke": "#202337"},
+          {"kind": "label", "value": "MIX 1:1", "x": 291, "y": 59, "size": 16, "color": "#1749D1", "font": "PlexBold", "align": "left"},
+          {"kind": "label", "value": "measured shot per pour", "x": 291, "y": 87, "size": 10, "color": "#202337", "font": "PlexSemi", "align": "left"},
+          {"kind": "line", "start": [291, 101], "end": [478, 101], "color": "#DCE2EB", "width": 1, "dash": []},
+          {"kind": "label", "value": "top cap / 12.6 mm deep", "x": 291, "y": 121, "size": 10, "color": "#202337", "font": "PlexSemi", "align": "left"},
+          {"kind": "line", "start": [291, 135], "end": [478, 135], "color": "#DCE2EB", "width": 1, "dash": []},
+          {"kind": "label", "value": "bottom cap / 16 mm deep", "x": 291, "y": 155, "size": 10, "color": "#202337", "font": "PlexSemi", "align": "left"},
+          {"kind": "line", "start": [291, 169], "end": [478, 169], "color": "#DCE2EB", "width": 1, "dash": []},
+          {"kind": "label", "value": "body / open top, all at once", "x": 291, "y": 189, "size": 10, "color": "#202337", "font": "PlexSemi", "align": "left"},
+          {"kind": "line", "start": [291, 203], "end": [478, 203], "color": "#DCE2EB", "width": 1, "dash": []},
+          {"kind": "label", "value": "~5 L risen foam per build", "x": 291, "y": 223, "size": 10, "color": "#202337", "font": "PlexSemi", "align": "left"},
+          {"kind": "line", "start": [291, 237], "end": [478, 237], "color": "#DCE2EB", "width": 1, "dash": []},
+          {"kind": "label", "value": "TOP / BOTTOM / BODY", "x": 265, "y": 330, "size": 13, "color": "#1749D1", "font": "PlexSemi", "align": "center"}
+        ]
+      },
+      "actions": [
+        {
+          "title": "Use the acquired foam",
+          "body": "FSD B08R7TX8QJ two-part 2 lb closed-cell PU. Mix the two parts 1:1 in measured shots, one shot per pour."
+        },
+        {
+          "title": "Stage three separate pours",
+          "body": "Each cap pours bolted to the shell's top face; the body pours last through its open top. A build fills ~5 L of risen foam (~4 L cavity + waste), about 1/7 of the 1 qt kit."
+        },
+        {
+          "title": "Stage a dry, ventilated bench",
+          "body": "Use dry cups/tools, protective gloves and chemical eye protection. Keep moisture out of the liquids and vapors away from the operator."
+        }
+      ],
+      "actions_y": 506,
+      "result": {
+        "title": "GLOVES ON",
+        "body": "The PU foam's isocyanate component is a skin sensitizer. Clamp each cap before mixing its shot.",
+        "y": 682,
+        "tone": "#E95A2C"
+      },
+      "source": "Cold-core.md steps 3 and 6; BOM foam row; FSD official foam page + SDS",
+      "url": "https://github.com/derekbreden/homesodamachine/blob/main/hardware/assembly/cold-core.md"
+    },
+    {
+      "title": "Clamp each cap mouth-up",
+      "subtitle": "Use the shell's top face as the pour fixture for both cap stacks, one after the other.",
+      "series": "MOLD OPERATIONS / COLD CORE",
+      "illustration": {
+        "origin": [60.72049689440993, 169],
+        "scale": 0.9503105590062112,
+        "panel": [32, 155, 547, 334],
+        "drawing": [
+          {"kind": "rect", "x": 20, "y": 208, "width": 455, "height": 27, "fill": "#E4E8EE", "stroke": "#202337"},
+          {"kind": "rect", "x": 32, "y": 192, "width": 431, "height": 13, "fill": "#FCFCFA", "stroke": "#202337"},
+          {"kind": "rect", "x": 32, "y": 130, "width": 16, "height": 62, "fill": "#FCFCFA", "stroke": "#202337"},
+          {"kind": "rect", "x": 447, "y": 130, "width": 16, "height": 62, "fill": "#FCFCFA", "stroke": "#202337"},
+          {"kind": "rect", "x": 32, "y": 117, "width": 431, "height": 13, "fill": "#E95A2C", "stroke": "#202337"},
+          {"kind": "rect", "x": 34, "y": 213, "width": 10, "height": 16, "fill": "#B8722C", "stroke": "#202337"},
+          {"kind": "rect", "x": 37, "y": 128, "width": 4, "height": 96, "fill": "#202337", "stroke": null},
+          {"kind": "rect", "x": 33, "y": 118, "width": 12, "height": 10, "fill": "#202337", "stroke": null},
+          {"kind": "rect", "x": 450, "y": 213, "width": 10, "height": 16, "fill": "#B8722C", "stroke": "#202337"},
+          {"kind": "rect", "x": 453, "y": 128, "width": 4, "height": 96, "fill": "#202337", "stroke": null},
+          {"kind": "rect", "x": 449, "y": 118, "width": 12, "height": 10, "fill": "#202337", "stroke": null},
+          {"kind": "rect", "x": 320, "y": 116, "width": 30, "height": 14, "fill": "#FCFCFA", "stroke": "#202337"},
+          {"kind": "rect", "x": 110, "y": 116, "width": 9, "height": 14, "fill": "#FCFCFA", "stroke": "#202337"},
+          {"kind": "rect", "x": 419, "y": 116, "width": 9, "height": 14, "fill": "#FCFCFA", "stroke": "#202337"},
+          {"kind": "rect", "x": 32, "y": 130, "width": 16, "height": 13, "fill": "#E95A2C", "stroke": "#202337"},
+          {"kind": "rect", "x": 447, "y": 130, "width": 16, "height": 13, "fill": "#E95A2C", "stroke": "#202337"},
+          {"kind": "label", "value": "lid / pads into BOTTOM cup", "x": 44, "y": 74, "size": 11, "color": "#E95A2C", "font": "PlexSemi", "align": "left"},
+          {"kind": "line", "start": [99, 78], "end": [53, 126], "color": "#E95A2C", "width": 0.8, "dash": []},
+          {"kind": "label", "value": "cap floor", "x": 109, "y": 256, "size": 11, "color": "#202337", "font": "PlexSemi", "align": "left"},
+          {"kind": "line", "start": [178, 251], "end": [153, 199], "color": "#202337", "width": 0.8, "dash": []},
+          {"kind": "label", "value": "shell top face + inserts", "x": 276, "y": 277, "size": 11, "color": "#1749D1", "font": "PlexSemi", "align": "left"},
+          {"kind": "line", "start": [369, 261], "end": [370, 227], "color": "#1749D1", "width": 0.8, "dash": []},
+          {"kind": "label", "value": "10 x M3 x 25 through lid + cap", "x": 263, "y": 25, "size": 14, "color": "#1749D1", "font": "PlexSemi", "align": "center"},
+          {"kind": "label", "value": "TOP: flat lid underside / 4 deck inserts first", "x": 263, "y": 306, "size": 11, "color": "#1749D1", "font": "PlexSemi", "align": "center"},
+          {"kind": "label", "value": "BOTTOM: counterbore pads face into the cup", "x": 263, "y": 326, "size": 11, "color": "#202337", "font": "PlexSemi", "align": "center"}
+        ]
+      },
+      "actions": [
+        {
+          "title": "Label TOP and BOTTOM",
+          "body": "The top cap carries conduits and four deck-mount columns. Press the four full-length RX-M3x5.7 inserts into those columns before pouring."
+        },
+        {
+          "title": "Use installed shell threads",
+          "body": "Ten full-length M3 inserts in the shell's top face supply the pour-clamp threads. Lid and cap have clearance holes."
+        },
+        {
+          "title": "Build the correct stack",
+          "body": "Cap floor down on the shell. Bottom lid pads enter the cup; top lid underside is flat. Close with ten M3 x 25 screws."
+        }
+      ],
+      "actions_y": 506,
+      "result": {
+        "title": "CHECK",
+        "body": "The lid is held by the complete screw pattern, not its own threads. All top-cap conduits and both vent paths remain open.",
+        "y": 682,
+        "tone": "#1749D1"
+      },
+      "source": "Cold-core.md step 3; foam-shell/README.md cap stack; heat-set geometry record",
+      "url": "https://github.com/derekbreden/homesodamachine/blob/main/hardware/assembly/cold-core.md"
+    },
+    {
+      "title": "Pour the two cap cavities",
+      "subtitle": "Liquid enters through the lid's 20 mm hole and air leaves through both vents.",
+      "series": "MOLD OPERATIONS / COLD CORE",
+      "illustration": {
+        "origin": [60.72049689440993, 169],
+        "scale": 0.9503105590062112,
+        "panel": [32, 155, 547, 334],
+        "drawing": [
+          {"kind": "rect", "x": 20, "y": 238, "width": 455, "height": 27, "fill": "#E4E8EE", "stroke": "#202337"},
+          {"kind": "rect", "x": 32, "y": 222, "width": 431, "height": 13, "fill": "#FCFCFA", "stroke": "#202337"},
+          {"kind": "rect", "x": 32, "y": 160, "width": 16, "height": 62, "fill": "#FCFCFA", "stroke": "#202337"},
+          {"kind": "rect", "x": 447, "y": 160, "width": 16, "height": 62, "fill": "#FCFCFA", "stroke": "#202337"},
+          {"kind": "rect", "x": 48, "y": 160, "width": 399, "height": 62, "fill": "#FFE2CC", "stroke": null},
+          {"kind": "rect", "x": 32, "y": 147, "width": 431, "height": 13, "fill": "#E95A2C", "stroke": "#202337"},
+          {"kind": "rect", "x": 34, "y": 243, "width": 10, "height": 16, "fill": "#B8722C", "stroke": "#202337"},
+          {"kind": "rect", "x": 37, "y": 158, "width": 4, "height": 96, "fill": "#202337", "stroke": null},
+          {"kind": "rect", "x": 33, "y": 148, "width": 12, "height": 10, "fill": "#202337", "stroke": null},
+          {"kind": "rect", "x": 450, "y": 243, "width": 10, "height": 16, "fill": "#B8722C", "stroke": "#202337"},
+          {"kind": "rect", "x": 453, "y": 158, "width": 4, "height": 96, "fill": "#202337", "stroke": null},
+          {"kind": "rect", "x": 449, "y": 148, "width": 12, "height": 10, "fill": "#202337", "stroke": null},
+          {"kind": "rect", "x": 196, "y": 146, "width": 18, "height": 90, "fill": "#FCFCFA", "stroke": "#202337"},
+          {"kind": "rect", "x": 181, "y": 160, "width": 15, "height": 62, "fill": "#FCFCFA", "stroke": "#202337"},
+          {"kind": "rect", "x": 214, "y": 160, "width": 15, "height": 62, "fill": "#FCFCFA", "stroke": "#202337"},
+          {"kind": "rect", "x": 320, "y": 146, "width": 30, "height": 14, "fill": "#FCFCFA", "stroke": "#202337"},
+          {"kind": "rect", "x": 110, "y": 146, "width": 9, "height": 14, "fill": "#FCFCFA", "stroke": "#202337"},
+          {"kind": "rect", "x": 419, "y": 146, "width": 9, "height": 14, "fill": "#FCFCFA", "stroke": "#202337"},
+          {"kind": "arrow", "start": [335, 107], "end": [335, 164], "color": "#E95A2C", "width": 3, "head": 8},
+          {"kind": "arrow", "start": [116, 165], "end": [116, 101], "color": "#1749D1", "width": 2, "head": 7},
+          {"kind": "arrow", "start": [424, 165], "end": [424, 101], "color": "#1749D1", "width": 2, "head": 7},
+          {"kind": "label", "value": "20 mm pour", "x": 331, "y": 80, "size": 13, "color": "#E95A2C", "font": "PlexSemi", "align": "center"},
+          {"kind": "label", "value": "6 mm vents x 2", "x": 119, "y": 52, "size": 12, "color": "#1749D1", "font": "PlexSemi", "align": "left"},
+          {"kind": "label", "value": "TOP 12.6 mm / BOTTOM 16 mm pour depth", "x": 262, "y": 298, "size": 13, "color": "#1749D1", "font": "PlexSemi", "align": "center"},
+          {"kind": "label", "value": "top-cap section / one stack at a time", "x": 262, "y": 324, "size": 11, "color": "#202337", "font": "PlexSemi", "align": "center"}
+        ]
+      },
+      "actions": [
+        {
+          "title": "Mix 1:1",
+          "body": "Mix the two parts 1:1 with the clamped cap ready beside you, and pour as soon as the shot is mixed."
+        },
+        {
+          "title": "Pour into the 20 mm hole",
+          "body": "Keep the two 6 mm vents clear while foam expands. The lid stays clamped; do not cover the vent paths to force fill."
+        },
+        {
+          "title": "Cure, trim, unbolt, repeat",
+          "body": "After cure, trim pour/vent overflow to the plate, never into a cradle. Remove the ten screws and repeat for the other labeled cap."
+        }
+      ],
+      "actions_y": 506,
+      "result": {
+        "title": "PRESERVE THE TOP FEATURES",
+        "body": "Trim flush without cutting a valve cradle, conduit, anchor or deck-mount feature. Every conduit bore stays open end to end.",
+        "y": 682,
+        "tone": "#E95A2C"
+      },
+      "source": "Cold-core.md step 3; foam-shell/README.md cap pour",
+      "url": "https://github.com/derekbreden/homesodamachine/blob/main/hardware/assembly/cold-core.md"
+    },
+    {
+      "title": "Seal the copper exits; protect access",
+      "subtitle": "Everything foam will bury is installed, routed and proved before the body pour.",
+      "series": "MOLD OPERATIONS / COLD CORE",
+      "illustration": {
+        "origin": [71.54896142433233, 169],
+        "scale": 0.9080118694362018,
+        "panel": [32, 155, 547, 334],
+        "drawing": [
+          {"kind": "rect", "x": 191, "y": 47, "width": 30, "height": 104, "fill": "#E4E8EE", "stroke": "#202337"},
+          {"kind": "rect", "x": 191, "y": 199, "width": 30, "height": 97, "fill": "#E4E8EE", "stroke": "#202337"},
+          {"kind": "rect", "x": 38, "y": 153, "width": 414, "height": 44, "fill": "#B8722C", "stroke": "#202337"},
+          {"kind": "rect", "x": 185, "y": 119, "width": 6, "height": 112, "fill": "#E95A2C", "stroke": "#202337"},
+          {"kind": "rect", "x": 154, "y": 147, "width": 37, "height": 6, "fill": "#E95A2C", "stroke": "#202337"},
+          {"kind": "rect", "x": 154, "y": 197, "width": 37, "height": 6, "fill": "#E95A2C", "stroke": "#202337"},
+          {"kind": "label", "value": "outside", "x": 105, "y": 38, "size": 12, "color": "#1749D1", "font": "PlexSemi", "align": "center"},
+          {"kind": "label", "value": "foam cavity", "x": 342, "y": 38, "size": 12, "color": "#1749D1", "font": "PlexSemi", "align": "center"},
+          {"kind": "label", "value": "plain 2.38 mm wall", "x": 316, "y": 94, "size": 12, "color": "#202337", "font": "PlexSemi", "align": "left"},
+          {"kind": "line", "start": [302, 98], "end": [213, 106], "color": "#202337", "width": 0.9, "dash": []},
+          {"kind": "label", "value": "7.5 mm round hole", "x": 316, "y": 125, "size": 12, "color": "#202337", "font": "PlexSemi", "align": "left"},
+          {"kind": "line", "start": [303, 130], "end": [222, 151], "color": "#202337", "width": 0.9, "dash": []},
+          {"kind": "label", "value": "6.35 mm OD copper", "x": 316, "y": 251, "size": 12, "color": "#B8722C", "font": "PlexSemi", "align": "left"},
+          {"kind": "line", "start": [303, 244], "end": [277, 193], "color": "#B8722C", "width": 0.9, "dash": []},
+          {"kind": "label", "value": "burnished 3M 425 collar", "x": 14, "y": 267, "size": 12, "color": "#E95A2C", "font": "PlexSemi", "align": "left"},
+          {"kind": "line", "start": [161, 259], "end": [185, 226], "color": "#E95A2C", "width": 0.9, "dash": []},
+          {"kind": "label", "value": "Seal the annulus before pouring foam", "x": 262, "y": 333, "size": 12, "color": "#1749D1", "font": "PlexSemi", "align": "center"}
+        ]
+      },
+      "actions": [
+        {
+          "title": "Prove the buried work",
+          "body": "Carbonator and inlet jet qualified; coil/probes/reeds and fitted fluid lines checked. Tug-test inaccessible push fittings before encapsulating."
+        },
+        {
+          "title": "Form, inspect and seal the exits",
+          "body": "Feed bare tails through their holes while lowering the core. Support broad bends in the copper; reject kinks or flattening. Burnish foil collars to clean copper and shell around both annuli."
+        },
+        {
+          "title": "Keep service paths open",
+          "body": "Protect reservoir vent/fill openings, top conduits, relief outlet and both reed channels. Reed columns are installed after body foam cure."
+        }
+      ],
+      "actions_y": 506,
+      "result": {
+        "title": "PROBE AND ACCESS CHECK",
+        "body": "Both probes and lead entries need foam coverage without a trapped void. Do not bury an unproved sensor, line, relief path or fitting.",
+        "y": 682,
+        "tone": "#E95A2C"
+      },
+      "source": "Cold-core.md steps 1, 5-6; foam-shell/README.md",
+      "url": "https://github.com/derekbreden/homesodamachine/blob/main/hardware/assembly/cold-core.md"
+    },
+    {
+      "title": "Pour through the open top",
+      "subtitle": "The body foam fills around the sealed carbonator and reservoirs; its connected zone reaches the coil.",
+      "series": "MOLD OPERATIONS / COLD CORE",
+      "illustration": {
+        "origin": [74.94736842105263, 169],
+        "scale": 0.8947368421052632,
+        "panel": [32, 155, 547, 334],
+        "drawing": [
+          {"kind": "rect", "x": 26, "y": 64, "width": 460, "height": 230, "fill": "#E4E8EE", "stroke": "#202337"},
+          {"kind": "rect", "x": 36, "y": 74, "width": 440, "height": 210, "fill": "#FFE2CC", "stroke": "#202337"},
+          {"kind": "shape", "points": [[45, 96], [159, 96], [142, 128], [129, 180], [142, 232], [159, 262], [45, 262]], "fill": "#FCFCFA", "stroke": "#202337", "width": 1.5, "close": true},
+          {"kind": "shape", "points": [[467, 96], [353, 96], [370, 128], [383, 180], [370, 232], [353, 262], [467, 262]], "fill": "#FCFCFA", "stroke": "#202337", "width": 1.5, "close": true},
+          {"kind": "ellipse", "x": 172.0, "y": 95.0, "width": 168, "height": 168, "fill": "#FCFCFA", "stroke": "#202337", "line_width": 1.5},
+          {"kind": "ellipse", "x": 165.0, "y": 88.0, "width": 182, "height": 182, "fill": null, "stroke": "#B8722C", "line_width": 3},
+          {"kind": "rect", "x": 31, "y": 148, "width": 8, "height": 63, "fill": "#1749D1", "stroke": null},
+          {"kind": "rect", "x": 473, "y": 148, "width": 8, "height": 63, "fill": "#1749D1", "stroke": null},
+          {"kind": "label", "value": "RESERVOIR A", "x": 96, "y": 180, "size": 9, "color": "#202337", "font": "PlexSemi", "align": "center"},
+          {"kind": "label", "value": "RESERVOIR B", "x": 416, "y": 180, "size": 9, "color": "#202337", "font": "PlexSemi", "align": "center"},
+          {"kind": "label", "value": "SEALED", "x": 256.0, "y": 172, "size": 10, "color": "#202337", "font": "PlexSemi", "align": "center"},
+          {"kind": "label", "value": "CARBONATOR", "x": 256.0, "y": 190, "size": 10, "color": "#202337", "font": "PlexSemi", "align": "center"},
+          {"kind": "arrow", "start": [206, 56], "end": [169, 81], "color": "#E95A2C", "width": 3, "head": 8},
+          {"kind": "arrow", "start": [302, 56], "end": [338, 81], "color": "#E95A2C", "width": 3, "head": 8},
+          {"kind": "arrow", "start": [173, 207], "end": [158, 171], "color": "#E95A2C", "width": 3, "head": 8},
+          {"kind": "arrow", "start": [351, 155], "end": [365, 186], "color": "#E95A2C", "width": 3, "head": 8},
+          {"kind": "label", "value": "OPEN +Z TOP / no cap during the pour", "x": 263, "y": 31, "size": 14, "color": "#1749D1", "font": "PlexSemi", "align": "center"},
+          {"kind": "line", "start": [50, 194], "end": [14, 312], "color": "#1749D1", "width": 0.9, "dash": []},
+          {"kind": "label", "value": "reed channel", "x": 8, "y": 330, "size": 10, "color": "#1749D1", "font": "PlexSemi", "align": "left"},
+          {"kind": "line", "start": [480, 194], "end": [503, 312], "color": "#1749D1", "width": 0.9, "dash": []},
+          {"kind": "label", "value": "reed channel", "x": 507, "y": 330, "size": 10, "color": "#1749D1", "font": "PlexSemi", "align": "right"},
+          {"kind": "label", "value": "blue channels stay empty", "x": 264, "y": 330, "size": 11, "color": "#1749D1", "font": "PlexSemi", "align": "center"},
+          {"kind": "label", "value": "CORAL = foam zone / sealed vessel interiors take no foam", "x": 263, "y": 350, "size": 10, "color": "#606A78", "font": "PlexSemi", "align": "center"}
+        ]
+      },
+      "actions": [
+        {
+          "title": "Mix the body shot 1:1",
+          "body": "Mix 1:1 and pour all at once into the open +Z top, with no lid and no down-channels. The cap stacks are already poured separately."
+        },
+        {
+          "title": "Pour directly into the body",
+          "body": "One pour fills the connected outer gap and space around the carbonator/coil, through the open paths at the reservoir-pocket ends."
+        },
+        {
+          "title": "Watch fill and squeeze-out",
+          "body": "Preserve empty reservoir/reed cavities and open tube paths. Beads squeeze out at the lane slots and tight tube exits; trim them after cure."
+        }
+      ],
+      "actions_y": 506,
+      "result": {
+        "title": "A VOID AT A PROBE IS THE DEFECT",
+        "body": "The pour must fully wet each probe and its lead entry. Trapped air condenses and frosts on the cold metal.",
+        "y": 682,
+        "tone": "#E95A2C"
+      },
+      "source": "Cold-core.md step 6; foam-shell/README.md body pour paths",
+      "url": "https://github.com/derekbreden/homesodamachine/blob/main/hardware/printed-parts/cold-core/foam-shell/README.md"
+    },
+    {
+      "title": "Trim and close the cold core",
+      "subtitle": "All three pours are cured before the gaskets and caps complete the insulated stack.",
+      "series": "MOLD OPERATIONS / COLD CORE",
+      "illustration": {
+        "origin": [93.41935483870967, 169],
+        "scale": 0.8225806451612904,
+        "panel": [32, 155, 547, 334],
+        "drawing": [
+          {"kind": "rect", "x": 158, "y": 161, "width": 211, "height": 137, "fill": "#E4E8EE", "stroke": "#202337"},
+          {"kind": "rect", "x": 146, "y": 122, "width": 235, "height": 28, "fill": "#FFE2CC", "stroke": "#202337"},
+          {"kind": "rect", "x": 149, "y": 149, "width": 229, "height": 8, "fill": "#1749D1", "stroke": null},
+          {"kind": "rect", "x": 149, "y": 308, "width": 229, "height": 8, "fill": "#1749D1", "stroke": null},
+          {"kind": "rect", "x": 146, "y": 321, "width": 235, "height": 28, "fill": "#FFE2CC", "stroke": "#202337"},
+          {"kind": "rect", "x": 175, "y": 82, "width": 8, "height": 28, "fill": "#E95A2C", "stroke": "#202337"},
+          {"kind": "rect", "x": 172, "y": 78, "width": 14, "height": 7, "fill": "#E95A2C", "stroke": "#202337"},
+          {"kind": "arrow", "start": [179, 112], "end": [179, 127], "color": "#E95A2C", "width": 2, "head": 6},
+          {"kind": "rect", "x": 210, "y": 82, "width": 8, "height": 28, "fill": "#E95A2C", "stroke": "#202337"},
+          {"kind": "rect", "x": 207, "y": 78, "width": 14, "height": 7, "fill": "#E95A2C", "stroke": "#202337"},
+          {"kind": "arrow", "start": [214, 112], "end": [214, 127], "color": "#E95A2C", "width": 2, "head": 6},
+          {"kind": "rect", "x": 285, "y": 82, "width": 8, "height": 28, "fill": "#E95A2C", "stroke": "#202337"},
+          {"kind": "rect", "x": 282, "y": 78, "width": 14, "height": 7, "fill": "#E95A2C", "stroke": "#202337"},
+          {"kind": "arrow", "start": [289, 112], "end": [289, 127], "color": "#E95A2C", "width": 2, "head": 6},
+          {"kind": "rect", "x": 328, "y": 82, "width": 8, "height": 28, "fill": "#E95A2C", "stroke": "#202337"},
+          {"kind": "rect", "x": 325, "y": 78, "width": 14, "height": 7, "fill": "#E95A2C", "stroke": "#202337"},
+          {"kind": "arrow", "start": [332, 112], "end": [332, 127], "color": "#E95A2C", "width": 2, "head": 6},
+          {"kind": "label", "value": "10 M3 x 25", "x": 429, "y": 211, "size": 10, "color": "#1749D1", "font": "PlexSemi", "align": "center"},
+          {"kind": "label", "value": "per end", "x": 429, "y": 230, "size": 10, "color": "#1749D1", "font": "PlexSemi", "align": "center"},
+          {"kind": "arrow", "start": [391, 123], "end": [391, 160], "color": "#E95A2C", "width": 2, "head": 6},
+          {"kind": "arrow", "start": [391, 320], "end": [391, 297], "color": "#E95A2C", "width": 2, "head": 6},
+          {"kind": "label", "value": "TOP / installed rotation 180 deg", "x": 266, "y": 60, "size": 13, "color": "#1749D1", "font": "PlexSemi", "align": "center"},
+          {"kind": "label", "value": "gasket", "x": 78, "y": 154, "size": 11, "color": "#1749D1", "font": "PlexSemi", "align": "left"},
+          {"kind": "line", "start": [120, 151], "end": [148, 151], "color": "#1749D1", "width": 0.8, "dash": []},
+          {"kind": "label", "value": "gasket", "x": 78, "y": 314, "size": 11, "color": "#1749D1", "font": "PlexSemi", "align": "left"},
+          {"kind": "line", "start": [120, 310], "end": [148, 310], "color": "#1749D1", "width": 0.8, "dash": []},
+          {"kind": "label", "value": "BOTTOM / mouth down", "x": 266, "y": 376, "size": 13, "color": "#1749D1", "font": "PlexSemi", "align": "center"}
+        ]
+      },
+      "actions": [
+        {
+          "title": "Trim only cured overflow",
+          "body": "Trim to the plate, never into a cradle. Protect tubes/leads, copper exits, cradles and insert hosts; clear all conduits, vents and reed channels."
+        },
+        {
+          "title": "Install reeds, gaskets and caps",
+          "body": "Drop reservoir reed columns in, route their cables out the top, and lay both TPU gaskets. Top cap rotates 180 deg; bottom mouth faces down."
+        },
+        {
+          "title": "Close and inspect",
+          "body": "Ten M3 x 25 screws per end. Identify top orientation by deck/cradle features. Check open paths, gasket seating and recessed screw heads."
+        }
+      ],
+      "actions_y": 506,
+      "result": {
+        "title": "FINISHED",
+        "body": "Both caps and body cured; exposed foam flush; probes wetted in with no void; channels and relief path open.",
+        "y": 686,
+        "tone": "#1749D1"
+      },
+      "source": "Cold-core.md output condition + step 7; foam-shell/README.md",
+      "url": "https://github.com/derekbreden/homesodamachine/blob/main/hardware/assembly/cold-core.md"
+    }
+  ]
+}

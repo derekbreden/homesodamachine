@@ -46,8 +46,8 @@ The joint cylinder fit has a 0.009 mm median and 0.037 mm 95th-percentile residu
 to the captured points. These are fitting residuals, not scanner accuracy.
 
 [alignment.json](alignment.json) supplies the exact native-to-model transform:
-`model = (native - origin) @ basis_rows.T`. [fit_frame.py](fit_frame.py)
-recomputes it from the committed source cloud.
+`model = (native - origin) @ basis_rows.T`. [fit_frame.py](https://github.com/derekbreden/homesodamachine/blob/a518a57a878f02d9ac5b8b638c1c5883cadf6669/hardware/reference/xlaserlab-sup29f-xh/fit_frame.py)
+records the fit against the committed source cloud.
 
 ## Measured and estimated geometry
 
@@ -93,7 +93,7 @@ reference pose. The remaining umbilical and the fine filler wire are outside
 the model. Color is for identification and does not specify construction
 materials. No physical mount fit or load qualification is recorded.
 
-## Source and rebuilding
+## Source and frozen derivation
 
 [scan-evidence.json](scan-evidence.json) identifies the 378,299-point Revo Scan
 capture, its hashes, scan settings, archive and all eight photographs. The
@@ -106,33 +106,7 @@ and normals. The pinned closed housing/feeder surfaces are in
 `source/reconstructed-surfaces.npz`. Photographs under `photos/` are 1824 × 1368
 derivatives without EXIF location metadata.
 
-The usual rebuild uses those pinned surfaces and the editable parameters in
-[xlaserlab_sup29f_xh.py](xlaserlab_sup29f_xh.py):
+The retained model package, delivery manifest and validation records bind the
+reference to its source cloud, measured frame and reconstructed surfaces.
 
-```sh
-python reconstruct.py --output /absolute/path/to/output
-```
-
-Run from a Python environment with [requirements.txt](requirements.txt) and the
-repository CAD helpers available. Outputs default to the repository's
-`output/xlaserlab-sup29f-xh/` directory. `--remesh` recomputes the closed surfaces
-from the point cloud and writes them into the output directory. Surface
-reconstruction uses screened Poisson, depth 9, point weight 8, two samples per
-node and one thread; its
-[PyMeshLab documentation](https://pymeshlab.readthedocs.io/en/latest/filter_list.html#generate_surface_reconstruction_screened_poisson)
-describes the implementation. Explicit face/end constraints complete unobserved
-regions, and the bracket hollows remain clear.
-
-The final union retains Y ≥ 0 and reflects it. A 0.0001 mm CSG cleanup removes
-numerical seam slivers before export; the saved binary STL is reloaded and
-checked. `validate.py` checks topology, reflected surfaces, hollow probes,
-glTF scale and scan agreement. `measure_photos.py` recreates the marked photos.
-`render_reference.py` draws the four inspection views from the detailed GLB
-with `hsm-render`:
-
-```sh
-python3 tools/run.py -- tools/cad-venv/bin/python \
-  hardware/reference/xlaserlab-sup29f-xh/render_reference.py
-```
-
-`--model` selects another delivered GLB path; `--out` selects the picture directory.
+The source derivations are preserved at their recorded revision: [measure_photos.py](https://github.com/derekbreden/homesodamachine/blob/a518a57a878f02d9ac5b8b638c1c5883cadf6669/hardware/reference/xlaserlab-sup29f-xh/measure_photos.py), [mesh_tools.py](https://github.com/derekbreden/homesodamachine/blob/a518a57a878f02d9ac5b8b638c1c5883cadf6669/hardware/reference/xlaserlab-sup29f-xh/mesh_tools.py), [package_models.py](https://github.com/derekbreden/homesodamachine/blob/a518a57a878f02d9ac5b8b638c1c5883cadf6669/hardware/reference/xlaserlab-sup29f-xh/package_models.py), [reconstruct.py](https://github.com/derekbreden/homesodamachine/blob/a518a57a878f02d9ac5b8b638c1c5883cadf6669/hardware/reference/xlaserlab-sup29f-xh/reconstruct.py), [render_reference.py](https://github.com/derekbreden/homesodamachine/blob/a518a57a878f02d9ac5b8b638c1c5883cadf6669/hardware/reference/xlaserlab-sup29f-xh/render_reference.py), [validate.py](https://github.com/derekbreden/homesodamachine/blob/a518a57a878f02d9ac5b8b638c1c5883cadf6669/hardware/reference/xlaserlab-sup29f-xh/validate.py), [xlaserlab_sup29f_xh.py](https://github.com/derekbreden/homesodamachine/blob/a518a57a878f02d9ac5b8b638c1c5883cadf6669/hardware/reference/xlaserlab-sup29f-xh/xlaserlab_sup29f_xh.py).

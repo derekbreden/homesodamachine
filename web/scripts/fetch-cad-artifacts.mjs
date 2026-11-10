@@ -21,7 +21,7 @@
 // that cut the solids itself runs this to completion without reaching the network.
 //
 // LOCAL STARTUP PRESERVES UNPUBLISHED CUTS. A solid present and carrying other bytes can be a
-// generator's fresh cut waiting for `pack.py --write`, so local `prestart` reports drift and
+// generator's fresh cut waiting for `hsm-pack --write`, so local `prestart` reports drift and
 // leaves it standing unless `--adopt` is passed. Render always adopts the pointer file,
 // replacing any older published members inherited from its build cache.
 //
@@ -123,7 +123,7 @@ const STORE = OBJECTS ? await storeFromEnv().catch(() => null) : null;
 
 // `--adopt`: A SERVER HOLDS NO CUT OF ITS OWN, SO DRIFT THERE IS AGE, NOT WORK. Without it a
 // solid present under other bytes is left alone, because on a machine that cuts geometry those
-// bytes are a generator's fresh work and `pack.py --write` is what settles them. A container
+// bytes are a generator's fresh work and `hsm-pack --write` is what settles them. A container
 // cuts nothing: everything it holds came from a bundle, so a hash the pointer file does not name means
 // the pointer file moved on, and the newer bytes are the ones to serve. `web/lib/artifacts-live.js`
 // passes this when it adopts a pointer file without a deploy.
@@ -131,7 +131,7 @@ const missing = ADOPT ? [...absent, ...drifted] : absent;
 if (drifted.length && !ADOPT) {
   console.log(`[cad-artifacts] ${drifted.length} solid(s) hold bytes the pointer file does not name, left as they are:`);
   for (const rel of drifted.slice(0, 8)) console.log(`    ${rel}`);
-  console.log("    tools/cad-venv/bin/python tools/cad-artifacts/pack.py --write");
+  console.log("    hsm-pack --write");
 }
 if (drifted.length && ADOPT) {
   console.log(`[cad-artifacts] ${drifted.length} solid(s) hold older bytes — taking the pointer file's`);
@@ -147,7 +147,7 @@ if (CHECK) {
   process.exit(1);
 }
 
-// EVERY MEMBER IS WORTH ASKING FOR BY NAME, AND THE WHOLE POINTER FILE IS TOO. `pack.py` puts every
+// EVERY MEMBER IS WORTH ASKING FOR BY NAME, AND THE WHOLE POINTER FILE IS TOO. `hsm-pack` puts every
 // member of a pointer file on the release under its own hash as well as inside the bundle, and says so
 // with `release.objects`. Asking by name costs what actually moved; the bundle costs the tree
 // however little did. There is no member count at which the bundle is the cheaper read:

@@ -5,7 +5,7 @@ snapshots retained only in Git history. The explicit `git:<revision>:<path>` ref
 are evidence for these printed plates, not current slicer deliverables.
 
 Geometry: the six-piece box from
-[`enclosure.py`](/hardware/printed-parts/enclosure/enclosure/enclosure.py) — four quadrants,
+[`enclosure.py`](https://github.com/derekbreden/homesodamachine/blob/a518a57a878f02d9ac5b8b638c1c5883cadf6669/hardware/printed-parts/enclosure/enclosure/enclosure.py) — four quadrants,
 the lower pump cradle and its top clamp, one piece per plate — sizes in
 [README.md](README.md), which the generator writes.
 

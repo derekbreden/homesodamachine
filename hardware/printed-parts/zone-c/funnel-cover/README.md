@@ -60,8 +60,8 @@ never contacting a printer. The slice must lay only the cover's roads, from the
 left hotend, with no supports and its second layer standing on its first:
 
 ```sh
-python3 tools/run.py -- cargo build --release --locked -j 2 --manifest-path tools/hsm/Cargo.toml -p hsm-print-prep --bin funnel-cover-print-project
-python3 tools/run.py -- tools/hsm/target/release/funnel-cover-print-project
+tools/run -- cargo build --release --locked -j 2 --manifest-path tools/hsm/Cargo.toml -p hsm-print-prep --bin funnel-cover-print-project
+tools/run -- tools/hsm/target/release/funnel-cover-print-project
 ```
 
 The [native check](geometry-check.json) identifies the cover, funnel and
@@ -76,8 +76,8 @@ thickness ranking's cutoff. The
 record these locations and their functions. The recess stays outside the mouth.
 
 ```sh
-python3 tools/run.py -- cargo build --release --locked -j 2 --manifest-path tools/hsm/Cargo.toml -p hsm-funnel
-python3 tools/run.py -- tools/hsm/target/release/funnel-cover
+tools/run -- cargo build --release --locked -j 2 --manifest-path tools/hsm/Cargo.toml -p hsm-funnel
+tools/run -- tools/hsm/target/release/funnel-cover
 ```
 
 `funnel-cover.step` and `funnel-cover.stl` use the assembled seating datum.

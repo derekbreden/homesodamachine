@@ -18,6 +18,10 @@ pub enum Query {
         #[serde(default)]
         pattern: String,
     },
+    Around {
+        part: String,
+        within: f64,
+    },
     Features {
         #[serde(default)]
         pattern: String,
@@ -67,15 +71,6 @@ pub enum Query {
         #[serde(default)]
         args: Vec<String>,
     },
-    /// A declared Python generator action, staged and kept by the existing part store.
-    Generate {
-        workspace: PathBuf,
-        target: String,
-        #[serde(default)]
-        output: Option<PathBuf>,
-        #[serde(default)]
-        python: Option<PathBuf>,
-    },
 }
 
 fn ray_max() -> f64 {
@@ -95,7 +90,7 @@ pub struct Request {
 
 impl Query {
     pub fn needs_scene(&self) -> bool {
-        matches!(self, Self::Where { .. } | Self::Features { .. } | Self::Gap { .. } | Self::Overlap { .. }
+        matches!(self, Self::Where { .. } | Self::Around { .. } | Self::Features { .. } | Self::Gap { .. } | Self::Overlap { .. }
             | Self::Move { .. } | Self::Section { .. } | Self::Ray { .. })
     }
 }
@@ -154,6 +149,83 @@ fn named(index: usize, mesh: &Mesh, indices: &[usize]) -> Value {
     json!({"id": format!("#{}",indices[index]), "name": mesh.name})
 }
 
+/// Nearby bodies use catalog bounds before any selected pair allocates query geometry.
+fn around(store: &mut Store, catalog: &Catalog, part: &str, within: f64) -> Result<Value> {
+    ensure!(
+        within.is_finite() && within >= 0.0,
+        "--within must be a finite nonnegative distance"
+    );
+    let subject_id = catalog.one(part)?;
+    let data = catalog.where_data(&(0..catalog.parts.len()).collect::<Vec<_>>())?;
+    let parts = data["parts"].as_array().unwrap();
+    let subject = &parts[subject_id];
+    let mut neighbors = Vec::new();
+    let mut unresolved = Vec::new();
+    let mut candidates = 0;
+    for (id, row) in parts.iter().enumerate() {
+        if id == subject_id {
+            continue;
+        }
+        let box_distance = (0..3)
+            .map(|k| {
+                (row["min_mm"][k].as_f64().unwrap() - subject["max_mm"][k].as_f64().unwrap())
+                    .max(
+                        subject["min_mm"][k].as_f64().unwrap() - row["max_mm"][k].as_f64().unwrap(),
+                    )
+                    .max(0.0)
+                    .powi(2)
+            })
+            .sum::<f64>()
+            .sqrt();
+        if box_distance > within {
+            continue;
+        }
+        candidates += 1;
+        let mut ids = [subject_id, id];
+        ids.sort_unstable();
+        let gap = (|| {
+            let payload = store.load_selected(catalog, &ids)?;
+            let first = usize::from(ids[0] != subject_id);
+            queries::gap(&payload.meshes[first], &payload.meshes[1 - first], [0.0; 3])
+        })();
+        let mut row = row.clone();
+        match gap {
+            Ok(gap) => {
+                if let Some(distance) = gap.clearance_mm {
+                    if distance <= within {
+                        row["distance_mm"] = json!(distance);
+                        row["gap"] = json!(gap);
+                        neighbors.push(row);
+                    }
+                } else {
+                    row["error"] = json!(
+                        gap.volume_error
+                            .as_deref()
+                            .unwrap_or("solid clearance is unavailable")
+                    );
+                    row["gap"] = json!(gap);
+                    unresolved.push(row);
+                }
+            }
+            Err(error) => {
+                row["error"] = json!(format!("{error:#}"));
+                unresolved.push(row);
+            }
+        }
+    }
+    neighbors.sort_by(|a, b| {
+        a["distance_mm"]
+            .as_f64()
+            .unwrap()
+            .total_cmp(&b["distance_mm"].as_f64().unwrap())
+            .then_with(|| a["name"].as_str().cmp(&b["name"].as_str()))
+    });
+    Ok(
+        json!({"subject":subject,"within_mm":within,"neighbors":neighbors,"unresolved":unresolved,
+        "candidate_solids":candidates,"scene_solids":catalog.parts.len()}),
+    )
+}
+
 pub fn execute(store: &mut Store, builds: &crate::build::Builder, request: Request, build_id: &str) -> Result<Value> {
     match request.query {
         Query::Ping => {
@@ -169,7 +241,7 @@ pub fn execute(store: &mut Store, builds: &crate::build::Builder, request: Reque
         }
         Query::Shutdown => return Ok(json!({"stopping": true})),
         Query::Render { .. } => return Err(anyhow!("a render is answered off the query loop")),
-        Query::Run { .. } | Query::Generate { .. } => return Err(anyhow!("a run is answered off the query loop")),
+        Query::Run { .. } => return Err(anyhow!("a run is answered off the query loop")),
         _ => (),
     }
     let started = Instant::now();
@@ -181,6 +253,11 @@ pub fn execute(store: &mut Store, builds: &crate::build::Builder, request: Reque
         let catalog=Catalog::read(&request.scene)?;
         let data=if pattern.contains("::") { catalog.features_data(pattern)? } else { catalog.where_data(&catalog.matches(pattern))? };
         return Ok(catalog.response(data,started.elapsed().as_secs_f64()*1000.));
+    }
+    if let Query::Around { part, within } = &request.query {
+        let catalog = Catalog::read(&request.scene)?;
+        let data = around(store, &catalog, part, *within)?;
+        return Ok(catalog.response(data, started.elapsed().as_secs_f64()*1000.));
     }
     let selectors = match &request.query {
         Query::Gap { a,b } | Query::Overlap { a,b } => Some(vec![a.as_str(),b.as_str()]),
@@ -207,6 +284,7 @@ pub fn execute(store: &mut Store, builds: &crate::build::Builder, request: Reque
     let meshes = &payload.meshes;
     let result = match request.query {
         Query::Features { .. } => unreachable!("feature metadata returns before geometry loading"),
+        Query::Around { .. } => unreachable!("neighborhood selection returns before whole-scene loading"),
         Query::Where { pattern } => {
             let parts: Vec<_> = matches(&payload, &pattern, &indices)
                 .iter()
@@ -391,6 +469,70 @@ mod lookup_tests {
         assert_eq!(result["data"]["part"]["name"],"pump-b");assert_eq!(result["data"]["part"]["id"],"#2");
         let error=execute(&mut store,&builds,Request {scene:f.scene.clone(),query:Query::Gap {a:"pump".into(),b:"nameplate".into()}},"test").unwrap_err().to_string();
         assert!(error.contains("#1 pump-a, #2 pump-b"),"{error}");
+        Ok(())
+    }
+
+    #[test]
+    fn around_prefilters_before_decoding_and_keeps_unknown_candidates_explicit() -> Result<()> {
+        let f = fixture()?;
+        let (mut head, _) = scene::header(&fs::read(&f.scene)?)?;
+        head["meshes"].as_array_mut().unwrap().remove(0);
+        fs::write(&f.scene, scene::encode(&head, &[])?)?;
+        let builds = crate::build::Builder::new(&f.dir, 0)?;
+        let request = || Request {
+            scene: f.scene.clone(),
+            query: Query::Around {
+                part: "#0".into(),
+                within: 100.,
+            },
+        };
+        let mut store = Store::new(1)?;
+        let result = execute(&mut store, &builds, request(), "test")?;
+        assert_eq!(result["data"]["subject"]["name"], "pump-a");
+        assert_eq!(result["data"]["subject"]["id"], "#0");
+        assert_eq!(result["data"]["neighbors"].as_array().unwrap().len(), 1);
+        assert_eq!(result["data"]["neighbors"][0]["name"], "pump-b");
+        assert_eq!(result["data"]["neighbors"][0]["id"], "#1");
+        assert_eq!(result["data"]["neighbors"][0]["distance_mm"], 99.);
+        assert_eq!(result["data"]["candidate_solids"], 1);
+        assert_eq!(store.loads, 1);
+        let mut no_cache = Store::new(0)?;
+        let result = execute(&mut no_cache, &builds, request(), "test")?;
+        assert!(result["data"]["neighbors"].as_array().unwrap().is_empty());
+        assert_eq!(result["data"]["unresolved"][0]["id"], "#1");
+        assert!(
+            result["data"]["unresolved"][0]["error"]
+                .as_str()
+                .unwrap()
+                .contains("cache")
+        );
+        assert_eq!(no_cache.loads, 0);
+        let ambiguous = Request {
+            scene: f.scene.clone(),
+            query: Query::Around {
+                part: "pump".into(),
+                within: 100.,
+            },
+        };
+        assert!(
+            execute(&mut store, &builds, ambiguous, "test")
+                .unwrap_err()
+                .to_string()
+                .contains("matches 2 solids")
+        );
+        let invalid = Request {
+            scene: f.scene.clone(),
+            query: Query::Around {
+                part: "#0".into(),
+                within: -1.,
+            },
+        };
+        assert!(
+            execute(&mut store, &builds, invalid, "test")
+                .unwrap_err()
+                .to_string()
+                .contains("nonnegative")
+        );
         Ok(())
     }
 }

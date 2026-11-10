@@ -128,5 +128,5 @@ print trials and the fixture detail.
 Regenerate from the repository root:
 
 ```sh
-python3 tools/run.py -- cargo run --release --manifest-path tools/hsm/diaphragm-pump-sleeve/Cargo.toml
+tools/run -- cargo run --release --manifest-path tools/hsm/diaphragm-pump-sleeve/Cargo.toml
 ```

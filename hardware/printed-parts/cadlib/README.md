@@ -1,14 +1,10 @@
-# cadlib
+# CAD compatibility helpers
 
-CadQuery library code shared across generators in this repo. Reusable helpers that don't belong inside any one generator's directory.
+`world_workplane.py` maps world coordinates into the workplanes used by the remaining
+CadQuery reference adapters. Read [_world_workplane.md](_world_workplane.md) for its interface.
+`_scalar_provider.py` reads native scalar values for those adapters.
 
-Read `_world_workplane.md` if your generator uses `xz_plane_y_up` (or any other workplane with a registered non-identity frame transform).
-
-`world_workplane.py` is the world-coordinate interface: CadQuery reads coordinates in a workplane's own local frame, and for half the named planes that frame is not world, so a generator that wants world coordinates goes through here. `snap.py` is the snap-fit vocabulary — bump, notch and the ramps between them, applied to walls a generator already has.
-
-`flute_skin.py` cuts the fluted show surfaces into the mesh a printer reads, and
-`flute-evidence/` holds the two full-size photographs its appearance claims are read off.
-
-`plan.py` holds a set of pockets as one figure in the XY plane — union, a closing that fills any gap narrower than a wall, the stock's plan as the edge — and cuts the prism that stands on it, mouths rounded where the figure turns and square where it leaves the stock.
-
-`reeding.py` is the flute vocabulary the texture generators share — fields that read (across, along) in mm ON the surface, so a tile and a standing wall lay down the same texture.
+The native [fit catalog](/tools/hsm/catalog/src/lib.rs) reads the authored allowances in
+[scalars.json](/tools/hsm/shared-data/catalog/scalars.json).
+The native enclosure [skin](/hardware/printed-parts/enclosure/enclosure/solid/skin.rs)
+defines its show surface. [Flute photographs](flute-evidence/README.md) record the physical appearance.

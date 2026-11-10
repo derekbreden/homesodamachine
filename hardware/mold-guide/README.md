@@ -50,7 +50,6 @@ Funnel tooling is two printed PETG mold bodies and one straight 6 × 25 mm steel
 [mold procedure](../printed-parts/zone-c/funnel-mold/README.md),
 [material record](../printed-parts/zone-c/funnel-mold/silicone.md),
 [tool dimensions](../printed-parts/zone-c/funnel-mold/design.json)
-and [native tool check](../printed-parts/zone-c/funnel-mold/rod-check.json)
 govern its dimensions and handling order. Its
 [physical print record](../printed-parts/zone-c/funnel-mold/print-log.md)
 retains the recorded stock-dowel and printed-shell scopes.
@@ -118,21 +117,18 @@ Reviewed 2026-10-04. Batch/container instructions govern the material actually u
 
 This document is hand-authored and committed. It is not a machine-build step,
 CAD generator, card-sync target or publication derive operation. Its shared page
-furniture lives in [common.py](../../tools/assembly-guides/common.py); its
-[builder](../../tools/mold-guide/build.py) reads selected small source JSON for
+furniture lives in [letter.rs](../../tools/hsm/fabrication-guides/src/letter.rs); its
+[native builder](../../tools/assembly-guides/guide.rs) reads the editable
+[page records](pages.json) and selected source JSON for
 dimensions and hashes the reviewed sources. It imports no geometry.
 
-Requires Python 3 with ReportLab, Pillow and pypdf, plus Poppler's `pdftoppm`
-available on `PATH` for covers and page rendering.
-
 ```sh
-python3 tools/mold-guide/build.py
-pdftoppm -r 110 -png output/pdf/mold-guide.pdf /tmp/mold-guide-proof
+tools/run hsm-manual-guides build mold-guide
 ```
 
 The builder writes the delivery PDF and source receipt in `output/pdf/`, then an
 identical canonical PDF, cover and catalog sidecar here. Render and inspect every
-page after editing; the builder rejects action text that exceeds its allotted box.
+page after editing.
 
 Letter is 8.5 x 11 in. Content is centered at 98%; the cobalt top and coral right
 bands extend 0.25 in beyond the page and 0.333 in inward. Print at 100% / no scaling

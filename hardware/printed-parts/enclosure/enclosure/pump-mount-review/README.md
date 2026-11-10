@@ -173,11 +173,7 @@ nonjoint mounting-stock and display-fit comparisons.
 `verify_main_joint_rebase.py` binds the landed joint review, compares its
 top/front-bottom native material with the original path inputs, and checks
 the complete swept domains affected by those additions.
-`extract_native_subset.py <aggregate.step> <cache-index.json> --out <subset.step>
---report <receipt.json>` retains selected AP214 geometry and ancestor placement
-records for the final named-body comparison. `verify_export_lineage.py` checks
-viewer source headers and the six shown retainer-hardware stations using only
-the frozen export metadata.
+The [subset extraction](https://github.com/derekbreden/homesodamachine/blob/d24b111b5d10e1eed4574db786e5ae1d0b96d445/hardware/printed-parts/enclosure/enclosure/pump-mount-review/extract_native_subset.py) and [export lineage](https://github.com/derekbreden/homesodamachine/blob/d24b111b5d10e1eed4574db786e5ae1d0b96d445/hardware/printed-parts/enclosure/enclosure/pump-mount-review/verify_export_lineage.py) sources are archived in Git beside their bound review records.
 
 A complete translation is bounded by native minimum-distance intervals. Each
 proved interval is shorter than the current solid-to-solid gap, after a

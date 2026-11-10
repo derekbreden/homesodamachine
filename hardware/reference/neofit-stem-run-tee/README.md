@@ -6,8 +6,6 @@ The [manufacturer dimensional sheet](https://assets.freshwatersystems.com/image/
 
 The complete stem remains in the model. In a matching neoFit socket, nominal insertion is 16.891 mm and the stem shoulder stands 4.1148 mm from the host's resting mouth. For another host, use its own depth: the measured JG tee is 11.65 mm from the resting face, and unmeasured valve/check sockets use a 12.7 mm layout estimate (10–15 mm range). These place the shoulder 9.3558 mm and 8.3058 mm from the host mouth respectively. No layout assumes the stem disappears all the way to its shoulder.
 
-`neofit-stem-run-tee.step` and `neofit-stem-run-tee.npz` contain the same native shape. The NPZ keys are `v` and `f`. `neofit_stem_run_tee.py` provides `build()` and `ports()`. This is a component-layout reference; exterior estimates do not establish fit, pressure performance or material qualification.
+`neofit-stem-run-tee.step` and `neofit-stem-run-tee.npz` contain the same native shape. The NPZ keys are `v` and `f`. [neofit_stem_run_tee.py](https://github.com/derekbreden/homesodamachine/blob/a518a57a878f02d9ac5b8b638c1c5883cadf6669/hardware/reference/neofit-stem-run-tee/neofit_stem_run_tee.py) provides `build()` and `ports()`. This is a component-layout reference; exterior estimates do not establish fit, pressure performance or material qualification.
 
-```sh
-PYTHONPATH=. tmp/takeover/cadq "neoFit run-stem tee reference" -- tools/cad-venv/bin/python hardware/reference/neofit-stem-run-tee/neofit_stem_run_tee.py
-```
+The model and measurements are retained with their [source derivations](https://github.com/derekbreden/homesodamachine/blob/a518a57a878f02d9ac5b8b638c1c5883cadf6669/hardware/reference/neofit-stem-run-tee/neofit_stem_run_tee.py).

@@ -56,61 +56,9 @@ pub fn dispatch(input: Value, callback: Host) -> Result<Value> {
         op if op.starts_with("cad_") => {
             cad::request(op, data, Path::new(text(&input["root"])?), callback)
         }
-        op if op.starts_with("runner_") => runner::request(op, data),
-        op if op.starts_with("single_") => single(op, data),
         op if op.starts_with("socket_") => socket(op, data, callback),
         _ => slots::request(op, data, callback),
     }
-}
-fn single(op: &str, d: &Value) -> Result<Value> {
-    fn holder(path: &Path) -> i32 {
-        fs::read_to_string(path)
-            .ok()
-            .and_then(|v| v.trim().parse().ok())
-            .unwrap_or(0)
-    }
-    fn alive(pid: i32) -> bool {
-        pid > 0
-            && (unsafe { libc::kill(pid, 0) } == 0
-                || std::io::Error::last_os_error().raw_os_error() == Some(libc::EPERM))
-    }
-    Ok(match op {
-        "single_holder" => json!(holder(Path::new(text(&d["path"])?))),
-        "single_alive" => json!(alive(d["pid"].as_i64().unwrap_or(0) as i32)),
-        "single_take" => {
-            let path = Path::new(text(&d["path"])?);
-            let mut cleared = 0;
-            let mut fd = None;
-            for _ in 0..2 {
-                match OpenOptions::new()
-                    .write(true)
-                    .create_new(true)
-                    .mode(0o777)
-                    .open(path)
-                {
-                    Ok(file) => {
-                        fd = Some(file.into_raw_fd());
-                        break;
-                    }
-                    Err(error) if error.kind() == std::io::ErrorKind::AlreadyExists => {
-                        let held = holder(path);
-                        if alive(held) {
-                            break;
-                        }
-                        cleared = held;
-                        match fs::remove_file(path) {
-                            Ok(()) => (),
-                            Err(error) if error.kind() == std::io::ErrorKind::NotFound => (),
-                            Err(error) => return Err(error.into()),
-                        }
-                    }
-                    Err(error) => return Err(error.into()),
-                }
-            }
-            json!([fd, cleared])
-        }
-        _ => bail!("unknown single-flight operation {op}"),
-    })
 }
 fn socket(op: &str, d: &Value, callback: Host) -> Result<Value> {
     if op == "socket_send" {

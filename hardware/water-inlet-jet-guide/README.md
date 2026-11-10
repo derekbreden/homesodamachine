@@ -35,11 +35,12 @@ measured performance.
 Run by hand from the repository root:
 
 ```sh
-tools/cad-venv/bin/python tools/water-inlet-jet-guide/build.py
+tools/run hsm-manual-guides build water-inlet-jet-guide
 ```
 
-The generator projects the issued STL files and uses the shared Letter-guide
-typography and vector primitives. It runs no appliance build, print job or
+The native generator reads the editable [page records](pages.json), projects the
+issued STL files and uses the shared Letter typography and vector primitives.
+It runs no appliance build, print job or
 welder. [guide-sources.json](guide-sources.json) records selected numeric
 inputs, file hashes and reference links. The PDF, cover and publication sidecar
 are committed for the document library and both jet material records.

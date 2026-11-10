@@ -322,24 +322,27 @@ test("fpt formats negative zero away", () => {
   assert.equal(fpt({ x: -0.0001, y: 1, z: -2 }), "x=0.000 y=1.000 z=-2.000");
 });
 
-test("pick_text.py composer output round-trips through the parser", (t) => {
-  // hardware/scripts/pick_text.py is the CAD-side composer; its demo
-  // emits one line of each kind off a small solid. Skipped when the
-  // CadQuery venv isn't present (CI without the toolchain).
-  const venvPython = path.join(REPO_ROOT, "tools", "cad-venv", "bin", "python");
-  const script = path.join(REPO_ROOT, "hardware", "scripts", "pick_text.py");
-  if (!fs.existsSync(venvPython) || !fs.existsSync(script)) {
-    return t.skip("cad venv or pick_text.py unavailable");
-  }
-  const out = execFileSync(venvPython, [script], { encoding: "utf8", timeout: 120_000 });
-  const { picks } = parsePicks(out);
+const NATIVE_PICK_FIXTURE = JSON.parse(fs.readFileSync(path.join(REPO_ROOT, "tools/hsm/inspection/fixtures/picks.json"), "utf8"));
+
+test("native picker fixture round-trips through the browser parser", () => {
+  const { picks, files, solids, view } = parsePicks(NATIVE_PICK_FIXTURE.text);
   const kinds = picks.map((p) => p.kind).sort();
   assert.deepEqual(kinds, ["box", "circle", "edge", "edge-arc", "face-at", "face-cylinder", "face-plane", "point"]);
-  // Every non-empty line parsed — the composer emits nothing the parser drops.
-  assert.equal(picks.length, out.trim().split("\n").length);
-  // And the words it gave a pick come back as that pick's words, not as coordinates.
+  assert.deepEqual(files, ["hardware/example part.step.mesh"]);
+  assert.deepEqual(solids, ["fixture"]);
+  assert.deepEqual(view, { az: -70, el: 25 });
   assert.equal(picks.find((p) => p.kind === "point").text, "the click · 3.75 up");
   assert.equal(picks.find((p) => p.kind === "box").text, "the far end");
+});
+
+test("hsm-pick composes the shared browser fixture", (t) => {
+  const candidates = [process.env.HSM_PICK, path.join(REPO_ROOT, "tools/hsm/target/release/hsm-pick")].filter(Boolean);
+  const executable = candidates.find((candidate) => fs.existsSync(candidate));
+  if (!executable) return t.skip("native hsm-pick is not installed; no build requested");
+  const out = execFileSync(executable, ["--root", REPO_ROOT, "compose"], {
+    input: JSON.stringify(NATIVE_PICK_FIXTURE.request), encoding: "utf8", timeout: 10_000,
+  });
+  assert.equal(out.trimEnd(), NATIVE_PICK_FIXTURE.text);
 });
 
 // --- pointing at a feature: face at a point, box, view, words ---

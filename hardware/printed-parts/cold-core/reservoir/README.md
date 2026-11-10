@@ -170,7 +170,7 @@ meshes, centered bed placement and preservation of the frozen native base
 with the declared May adaptation, ironing and assignment settings.
 
 ```sh
-python3 tools/run.py -- cargo build --release --locked -j 2 --manifest-path tools/hsm/Cargo.toml -p hsm-print-prep --bin reservoir-print-project
+tools/run -- cargo build --release --locked -j 2 --manifest-path tools/hsm/Cargo.toml -p hsm-print-prep --bin reservoir-print-project
 tools/hsm/target/release/reservoir-print-project
 ```
 
@@ -180,8 +180,8 @@ of ironing, right-nozzle assignment, Mark1 Z trim, full bead inset and bed-roote
 [`slice-review.json`](slice-review.json):
 
 ```sh
-python3 tools/run.py -- cargo build --release --locked -j 2 --manifest-path tools/hsm/Cargo.toml -p hsm-print-prep --bin reservoir-slice-review
-python3 tools/run.py -- tools/hsm/target/release/reservoir-slice-review
+tools/run -- cargo build --release --locked -j 2 --manifest-path tools/hsm/Cargo.toml -p hsm-print-prep --bin reservoir-slice-review
+tools/run -- tools/hsm/target/release/reservoir-slice-review
 ```
 
 Past settings, reported outcomes and source commits are in the

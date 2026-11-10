@@ -21,7 +21,9 @@ voicings and a sparse glass-like figure. `effects-stem.wav` supplies restrained
 enclosure motion, finite gas admission, jet and entrainment, refrigerant flow,
 pour and fizz textures. The pictured pour and its sound run from 87.500 to
 95.300 seconds. The score and effects ease below narration. All musical and
-effects sounds are synthesized by `../make-audio.py`; no stock audio is used.
+effects sounds are synthesized by
+[`hsm-marketing explainer-audio`](../../../../tools/hsm/marketing/src/film/sound.rs);
+no stock audio is used.
 
 `captions-edited.json` and `narration-edited-words.json` describe the edited voice
 clock. The canonical word list retains the script's spelling; the raw Whisper
@@ -32,13 +34,13 @@ recognition is retained in `narration-words.json` and `transcription.json`.
 Rebuild derived sound from the retained recording and timing metadata:
 
 ```sh
-tools/video-venv/bin/python marketing/video/how-carbonation-works/edit-audio.py
-tools/video-venv/bin/python marketing/video/how-carbonation-works/make-audio.py
+tools/run -- hsm-marketing explainer-edit
+tools/run -- hsm-marketing explainer-audio
 ```
 
-`../generate-narration.py --align-only` regenerates raw word and phrase timing
-from the retained recording with the installed MLX Whisper model. Running that
-script without `--align-only` requests a new Gemini performance.
+`tools/run -- hsm-marketing film-narration --film explainer --align-only`
+regenerates raw word and phrase timing from the retained recording with the
+installed MLX Whisper model. Omitting `--align-only` requests a new Gemini performance.
 
 `audio-report.json` records the stereo master measurements, hashes, sound clock,
 stems and original composition parameters. `audio-review.txt` records an

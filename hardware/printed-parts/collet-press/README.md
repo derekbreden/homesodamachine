@@ -67,7 +67,7 @@ foam, and the atmospheric PRV vent because this jaw does not fit them.
 ## Regenerate
 
 ```sh
-python3 tools/run.py -- cargo run --release --manifest-path tools/hsm/collet-press/Cargo.toml
+tools/run -- cargo run --release --manifest-path tools/hsm/collet-press/Cargo.toml
 ```
 
 This writes `collet-press.step`, its payload and model, and `collet-press.stl`.

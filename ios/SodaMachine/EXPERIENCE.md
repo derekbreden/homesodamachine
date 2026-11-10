@@ -230,7 +230,7 @@ These checks are specific to this experience task and are not build or commit
 hooks.
 
 The pure navigation, draft, removal, and firmware-comparison checks run manually
-on macOS with `python3 ios/SodaMachine/Checks/run.py`. They compile the app's
+on macOS with `hsm-peripheral ios-checks`. They compile the app's
 actual Foundation/Observation sources and use no simulator. They do not verify
 SwiftUI view lifetimes, gestures, or Bluetooth transport; those need the
 source review and physical-device journeys below.

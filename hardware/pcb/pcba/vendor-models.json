@@ -1,0 +1,595 @@
+{
+  "purpose": "Reviewed supplier model prototypes preserve detailed purchased geometry and colours for native board placement.",
+  "mesh_source": "vendor-models.glb",
+  "mesh_sha256": "b22be5fae1624cad068343c5e08f990474d569241306c75d613ae2c878f70bce",
+  "source_assembly_sha256": "16314ee4bb4a38c002eb73cec124cf7b83115b179e3f4fa2c206cdb7c30fba5d",
+  "exporter": {
+    "path": "hardware/pcb/pcba/board-3d.py",
+    "source_revision": "50dc0d823a5da1d1b88a59b20001b5aef7e763b7",
+    "source_sha256": "247d610304ecad8acecdcbd9cc16d8b54d20d424d68d26e9e27a7de2dc175338"
+  },
+  "units": "metres",
+  "models": {
+    "https://modelcdn.tscircuit.com/easyeda_models/assets/C5365915.step?uuid=97e47c867b624ee8a0b22f9881406067&cachebust_origin=": {
+      "node": 0,
+      "supplier_step_sha256": "d55ff38a8e2501581efbc435804384e401a8a6c119af9c2ccdd5f1f9a7262c33",
+      "supplier_model": "C5365915"
+    },
+    "https://modelcdn.tscircuit.com/easyeda_models/assets/C9866.step?uuid=5eab397ba6c7470199f8f0425efad579&cachebust_origin=": {
+      "node": 1,
+      "supplier_step_sha256": "2527e512cdfaaf16deae6111e0234a70aea69e6160e111dfaa8332fd8019aae7",
+      "supplier_model": "C9866"
+    },
+    "https://modelcdn.tscircuit.com/easyeda_models/assets/C49678.step?uuid=b87ab0c5465a48b3a1c9a6dac8d30bc5&cachebust_origin=": {
+      "node": 2,
+      "supplier_step_sha256": "67f86cfc9ebba2ff889d65b12f5d49d5a90b265b73635a931d68c6a27d34e11f",
+      "supplier_model": "C49678"
+    },
+    "https://modelcdn.tscircuit.com/easyeda_models/assets/C701341.step?uuid=cad43509223249168514859e4520db8a&cachebust_origin=": {
+      "node": 3,
+      "supplier_step_sha256": "664957cbe23159121b0259687a25aa6dcc06626cd7ae279f6d6eb1160222dd58",
+      "supplier_model": "C701341"
+    },
+    "https://modelcdn.tscircuit.com/easyeda_models/assets/C15849.step?uuid=ac9b32e974bc448eab36b1293f859dcb&cachebust_origin=": {
+      "node": 4,
+      "supplier_step_sha256": "5f7216cf66690dab2ac39e25f5ad1bda3a067967e55809dd781fa60d385df110",
+      "supplier_model": "C15849"
+    },
+    "https://modelcdn.tscircuit.com/easyeda_models/assets/C98220.step?uuid=6bd5cd867e9542ebae21caaf5d2d4c4d&cachebust_origin=": {
+      "node": 5,
+      "supplier_step_sha256": "a3e5d4a02bc66be2c69fddff5e8b86374b250660f3f7001a0bb9debcd5b9adbc",
+      "supplier_model": "C98220"
+    },
+    "https://modelcdn.tscircuit.com/easyeda_models/assets/C15850.step?uuid=b87ab0c5465a48b3a1c9a6dac8d30bc5&cachebust_origin=": {
+      "node": 6,
+      "supplier_step_sha256": "67f86cfc9ebba2ff889d65b12f5d49d5a90b265b73635a931d68c6a27d34e11f",
+      "supplier_model": "C15850"
+    },
+    "https://modelcdn.tscircuit.com/easyeda_models/assets/C51949447.step?uuid=7abc64c95a1a4a04a4ef38f9097c870b&cachebust_origin=": {
+      "node": 7,
+      "supplier_step_sha256": "70f46697efa1daced22df982a5fd03c112d6cf25207f9a1afdf37b49a391ab84",
+      "supplier_model": "C51949447"
+    },
+    "https://modelcdn.tscircuit.com/easyeda_models/assets/C22787.step?uuid=6bd5cd867e9542ebae21caaf5d2d4c4d&cachebust_origin=": {
+      "node": 8,
+      "supplier_step_sha256": "a3e5d4a02bc66be2c69fddff5e8b86374b250660f3f7001a0bb9debcd5b9adbc",
+      "supplier_model": "C22787"
+    },
+    "https://modelcdn.tscircuit.com/easyeda_models/assets/C12067.step?uuid=cefd4596db214da394d9632b2b88f8f2&cachebust_origin=": {
+      "node": 9,
+      "supplier_step_sha256": "c9a82c26510eaf3f266d1d61eb7c4addbfd4f1bef9c428b719678ad8455821cc",
+      "supplier_model": "C12067"
+    },
+    "https://modelcdn.tscircuit.com/easyeda_models/assets/C6186.step?uuid=e80246a9471445bfb635be848806a22e&cachebust_origin=": {
+      "node": 10,
+      "supplier_step_sha256": "090f152b09da2dc32c800632cc5a1edff6fea3752c10f1a442c6c7e0ca80d04c",
+      "supplier_model": "C6186"
+    },
+    "https://modelcdn.tscircuit.com/easyeda_models/assets/C45783.step?uuid=b87ab0c5465a48b3a1c9a6dac8d30bc5&cachebust_origin=": {
+      "node": 11,
+      "supplier_step_sha256": "67f86cfc9ebba2ff889d65b12f5d49d5a90b265b73635a931d68c6a27d34e11f",
+      "supplier_model": "C45783"
+    },
+    "https://modelcdn.tscircuit.com/easyeda_models/assets/C18212380.step?uuid=06df226ccd3445e79e15a1a814b913ad&cachebust_origin=": {
+      "node": 12,
+      "supplier_step_sha256": "251a4bd0b6da0b157559788ea68fe3adec016c0f3c191f666d33fcc872aaa798",
+      "supplier_model": "C18212380"
+    },
+    "https://modelcdn.tscircuit.com/easyeda_models/assets/C86590.step?uuid=bc65995474e34a35a984be00a21713ca&cachebust_origin=": {
+      "node": 13,
+      "supplier_step_sha256": "eb1e79c9bcc8d7b47a4db33c5592031b1ff3ada3b83d5b601e1c1d44802894cd",
+      "supplier_model": "C86590"
+    },
+    "https://modelcdn.tscircuit.com/easyeda_models/assets/C5127778.step?uuid=da5f078ee43c429f91838a456f48f0a8&cachebust_origin=": {
+      "node": 14,
+      "supplier_step_sha256": "ca0f6c898b6c5ac572fcabb6f326264b985a8cd3c0f7fa407526b8d2ce209713",
+      "supplier_model": "C5127778"
+    },
+    "https://modelcdn.tscircuit.com/easyeda_models/assets/C47023.step?uuid=1787df1233ec4c78b05b202f6f794fef&cachebust_origin=": {
+      "node": 15,
+      "supplier_step_sha256": "47177a2fcb7aea6ed74fccdb88cadd192aab048ac0f5ea7785f39837be679129",
+      "supplier_model": "C47023"
+    },
+    "https://modelcdn.tscircuit.com/easyeda_models/assets/C165895.step?uuid=fc3a93654c1b420498d6b79940c8e856&cachebust_origin=": {
+      "node": 16,
+      "supplier_step_sha256": "ecf9aa5bf32e9319b55b7ee1735b663c78e3d3a733ab3e0a27eb014514cb9e3c",
+      "supplier_model": "C165895"
+    },
+    "https://modelcdn.tscircuit.com/easyeda_models/assets/C94598.step?uuid=5e71db11d9fa48278b90d6344e196479&cachebust_origin=": {
+      "node": 17,
+      "supplier_step_sha256": "867309604960a2d7b111a32890275508b957a192f906f17a71728fc991489fac",
+      "supplier_model": "C94598"
+    },
+    "https://modelcdn.tscircuit.com/easyeda_models/assets/C2146.step?uuid=cefd4596db214da394d9632b2b88f8f2&cachebust_origin=": {
+      "node": 18,
+      "supplier_step_sha256": "c9a82c26510eaf3f266d1d61eb7c4addbfd4f1bef9c428b719678ad8455821cc",
+      "supplier_model": "C2146"
+    },
+    "https://modelcdn.tscircuit.com/easyeda_models/assets/C21190.step?uuid=6bd5cd867e9542ebae21caaf5d2d4c4d&cachebust_origin=": {
+      "node": 19,
+      "supplier_step_sha256": "a3e5d4a02bc66be2c69fddff5e8b86374b250660f3f7001a0bb9debcd5b9adbc",
+      "supplier_model": "C21190"
+    },
+    "https://modelcdn.tscircuit.com/easyeda_models/assets/C5359637.step?uuid=d4094786c1e94a1c800475e3e29e2d10&cachebust_origin=": {
+      "node": 20,
+      "supplier_step_sha256": "780b1d3dd2a0cb6476364e9ebe98efa46df1ad1e7217919ff96379179bddce5b",
+      "supplier_model": "C5359637"
+    },
+    "https://modelcdn.tscircuit.com/easyeda_models/assets/C5359634.step?uuid=7eb11e45495244088378b19bd8a4dc5f&cachebust_origin=": {
+      "node": 21,
+      "supplier_step_sha256": "714eeade04af2133c30cc1211be5d4efad97164bf6565638a1f5f0feb2b5edf1",
+      "supplier_model": "C5359634"
+    },
+    "https://modelcdn.tscircuit.com/easyeda_models/assets/C5359632.step?uuid=0c24b14046bf4569801f186f9b426daa&cachebust_origin=": {
+      "node": 22,
+      "supplier_step_sha256": "6a53b2c2713d01d8bb1b882e442a4c65dfe1da2c2eef80562f3ab3057f3b9654",
+      "supplier_model": "C5359632"
+    },
+    "https://modelcdn.tscircuit.com/easyeda_models/assets/C5359635.step?uuid=7ee3caeb75114dc8ac6b488e06803f66&cachebust_origin=": {
+      "node": 23,
+      "supplier_step_sha256": "d5ae6634d177c5f519877a88f8a3e01a7151638e3cbbc697d794a997c5748176",
+      "supplier_model": "C5359635"
+    },
+    "https://modelcdn.tscircuit.com/easyeda_models/assets/C5359633.step?uuid=734fe54367814b879ac1b4031d994be3&cachebust_origin=": {
+      "node": 24,
+      "supplier_step_sha256": "6d65b295d8ecd3b23d22920d34dbdeeb3194475024d0f70a5830565f4a0f4b5f",
+      "supplier_model": "C5359633"
+    },
+    "https://modelcdn.tscircuit.com/easyeda_models/assets/C23162.step?uuid=6bd5cd867e9542ebae21caaf5d2d4c4d&cachebust_origin=": {
+      "node": 25,
+      "supplier_step_sha256": "a3e5d4a02bc66be2c69fddff5e8b86374b250660f3f7001a0bb9debcd5b9adbc",
+      "supplier_model": "C23162"
+    },
+    "https://modelcdn.tscircuit.com/easyeda_models/assets/C474881.step?uuid=ccfba28652874fb7a69eea8ba34eb61b&cachebust_origin=": {
+      "node": 26,
+      "supplier_step_sha256": "169c3325836a92565d0a5bbcbe7eee56af7776d6063ef12b37e345a5f0f147e7",
+      "supplier_model": "C474881"
+    },
+    "https://modelcdn.tscircuit.com/easyeda_models/assets/C347478.step?uuid=d777607a152f4f3aac9bb0d0c14ed6fd&cachebust_origin=": {
+      "node": 27,
+      "supplier_step_sha256": "404e2c1e10e1ebdc38126eb298c04d95ad998039e4ddaf854293dcb8b285a876",
+      "supplier_model": "C347478"
+    },
+    "https://modelcdn.tscircuit.com/easyeda_models/assets/C173427.step?uuid=4d7f235d12124480ae44c354a7fd93dd&cachebust_origin=": {
+      "node": 28,
+      "supplier_step_sha256": "825e88d43e09a11ae72d6d516c8d824f94ddc7c0c32990cae7e6a2d84f904217",
+      "supplier_model": "C173427"
+    },
+    "https://modelcdn.tscircuit.com/easyeda_models/assets/C60491.step?uuid=026a4a15ab5c4a92ac0e421d6d013717&cachebust_origin=": {
+      "node": 29,
+      "supplier_step_sha256": "055d10977e0e0b859b0b263328e4e4bfd98261ad252688cb3736f72f67aa4729",
+      "supplier_model": "C60491"
+    },
+    "https://modelcdn.tscircuit.com/easyeda_models/assets/C4190.step?uuid=6bd5cd867e9542ebae21caaf5d2d4c4d&cachebust_origin=": {
+      "node": 30,
+      "supplier_step_sha256": "a3e5d4a02bc66be2c69fddff5e8b86374b250660f3f7001a0bb9debcd5b9adbc",
+      "supplier_model": "C4190"
+    },
+    "https://modelcdn.tscircuit.com/easyeda_models/assets/C22978.step?uuid=6bd5cd867e9542ebae21caaf5d2d4c4d&cachebust_origin=": {
+      "node": 31,
+      "supplier_step_sha256": "a3e5d4a02bc66be2c69fddff5e8b86374b250660f3f7001a0bb9debcd5b9adbc",
+      "supplier_model": "C22978"
+    },
+    "https://modelcdn.tscircuit.com/easyeda_models/assets/C12512.step?uuid=cb969c45c1dd4fed98451329f3c3c26e&cachebust_origin=": {
+      "node": 32,
+      "supplier_step_sha256": "32b702d64cfea3ea331bfbe137736ebc7e16fc9e96e83a7d85a9e125885f81d8",
+      "supplier_model": "C12512"
+    },
+    "https://modelcdn.tscircuit.com/easyeda_models/assets/C1525.step?uuid=32fe2cf9314f444ca2785a33c2db7189&cachebust_origin=": {
+      "node": 33,
+      "supplier_step_sha256": "b49e77a39a55d45c078607d8c791cc5521719fc0140e660f44a3e122fe57af14",
+      "supplier_model": "C1525"
+    },
+    "https://modelcdn.tscircuit.com/easyeda_models/assets/C81598.step?uuid=114f2449d65947c2a2476b7fb75383eb&cachebust_origin=": {
+      "node": 34,
+      "supplier_step_sha256": "5f681dd489820f845a8709c012eef50d2bdf7fa031a8601d9b23f2e12b57be79",
+      "supplier_model": "C81598"
+    },
+    "https://modelcdn.tscircuit.com/easyeda_models/assets/C17168.step?uuid=026a4a15ab5c4a92ac0e421d6d013717&cachebust_origin=": {
+      "node": 35,
+      "supplier_step_sha256": "055d10977e0e0b859b0b263328e4e4bfd98261ad252688cb3736f72f67aa4729",
+      "supplier_model": "C17168"
+    },
+    "https://modelcdn.tscircuit.com/easyeda_models/assets/C571368.step?uuid=4689b37d740647079f86f5f772d33885&cachebust_origin=": {
+      "node": 36,
+      "supplier_step_sha256": "e943fe2fa6acd35272e91b371639a5c11311b518fbbfa08b9f6c5f8cc6447963",
+      "supplier_model": "C571368"
+    },
+    "https://modelcdn.tscircuit.com/easyeda_models/assets/C350206.step?uuid=f40519fab00548e1a81f96812540c2eb&cachebust_origin=": {
+      "node": 37,
+      "supplier_step_sha256": "3fdaaa8a9a832208a695846d61311d5d443be119eb26ad941d00a0cc32d1f57b",
+      "supplier_model": "C350206"
+    },
+    "https://modelcdn.tscircuit.com/easyeda_models/assets/C11702.step?uuid=026a4a15ab5c4a92ac0e421d6d013717&cachebust_origin=": {
+      "node": 38,
+      "supplier_step_sha256": "055d10977e0e0b859b0b263328e4e4bfd98261ad252688cb3736f72f67aa4729",
+      "supplier_model": "C11702"
+    },
+    "https://modelcdn.tscircuit.com/easyeda_models/assets/C25900.step?uuid=026a4a15ab5c4a92ac0e421d6d013717&cachebust_origin=": {
+      "node": 39,
+      "supplier_step_sha256": "055d10977e0e0b859b0b263328e4e4bfd98261ad252688cb3736f72f67aa4729",
+      "supplier_model": "C25900"
+    },
+    "https://modelcdn.tscircuit.com/easyeda_models/assets/C25091.step?uuid=026a4a15ab5c4a92ac0e421d6d013717&cachebust_origin=": {
+      "node": 40,
+      "supplier_step_sha256": "055d10977e0e0b859b0b263328e4e4bfd98261ad252688cb3736f72f67aa4729",
+      "supplier_model": "C25091"
+    },
+    "https://modelcdn.tscircuit.com/easyeda_models/assets/C96512.step?uuid=a4c9f70a097a4133a99076e04275cb3c&cachebust_origin=": {
+      "node": 41,
+      "supplier_step_sha256": "0d8faf0be75044c6a45be59fe6146061946ee88c801ce82d9194df59973bee8c",
+      "supplier_model": "C96512"
+    },
+    "https://modelcdn.tscircuit.com/easyeda_models/assets/C2286.step?uuid=0da0275bf7a84667bce8747a921fb9e3&cachebust_origin=": {
+      "node": 42,
+      "supplier_step_sha256": "ddd7b4ab6a9f605348c5cd721490a60a4fd7d41b22d8dea6ca9e77575f3b47bd",
+      "supplier_model": "C2286"
+    },
+    "https://modelcdn.tscircuit.com/easyeda_models/assets/C12624.step?uuid=3c2caa1a3e7d4a5a87f46b87d898ef41&cachebust_origin=": {
+      "node": 43,
+      "supplier_step_sha256": "9bdeb63033ceac88354455674ee121da881bc361a6060cf18c61c33411b46b19",
+      "supplier_model": "C12624"
+    },
+    "https://modelcdn.tscircuit.com/easyeda_models/assets/C2288.step?uuid=3c2caa1a3e7d4a5a87f46b87d898ef41&cachebust_origin=": {
+      "node": 44,
+      "supplier_step_sha256": "9bdeb63033ceac88354455674ee121da881bc361a6060cf18c61c33411b46b19",
+      "supplier_model": "C2288"
+    },
+    "https://modelcdn.tscircuit.com/easyeda_models/assets/C23179.step?uuid=6bd5cd867e9542ebae21caaf5d2d4c4d&cachebust_origin=": {
+      "node": 45,
+      "supplier_step_sha256": "a3e5d4a02bc66be2c69fddff5e8b86374b250660f3f7001a0bb9debcd5b9adbc",
+      "supplier_model": "C23179"
+    },
+    "https://modelcdn.tscircuit.com/easyeda_models/assets/C165948.step?uuid=617b05f9bba7410b96c001093d8189e4&cachebust_origin=": {
+      "node": 46,
+      "supplier_step_sha256": "3806dacd6082a75cfb24d3ba4b86b3d0c96213134c67e1385eb1599a89b2c461",
+      "supplier_model": "C165948"
+    },
+    "https://modelcdn.tscircuit.com/easyeda_models/assets/C2687116.step?uuid=229b69761e2c45dba6a83d8866dec72d&cachebust_origin=": {
+      "node": 47,
+      "supplier_step_sha256": "53901e8dbe77366e4c00f90fd3613933fd2db1f1453ddc9eee51d8a18d44dbff",
+      "supplier_model": "C2687116"
+    },
+    "https://modelcdn.tscircuit.com/easyeda_models/assets/C81010.step?uuid=9adfdf34b7774b23880141fd3e8b4dbb&cachebust_origin=": {
+      "node": 48,
+      "supplier_step_sha256": "c0e6819896d1e2d00b8974b87f8451caea45177f395ff1e5dff8fe94301f4707",
+      "supplier_model": "C81010"
+    },
+    "https://modelcdn.tscircuit.com/easyeda_models/assets/C23186.step?uuid=6bd5cd867e9542ebae21caaf5d2d4c4d&cachebust_origin=": {
+      "node": 49,
+      "supplier_step_sha256": "a3e5d4a02bc66be2c69fddff5e8b86374b250660f3f7001a0bb9debcd5b9adbc",
+      "supplier_model": "C23186"
+    },
+    "https://modelcdn.tscircuit.com/easyeda_models/assets/C318884.step?uuid=91b67c1735f643ffb2e7226c23dd3492&cachebust_origin=": {
+      "node": 50,
+      "supplier_step_sha256": "669d33d64e4bb5871e39872bf68bec043ba2015c985b7979c02451287bdadbd6",
+      "supplier_model": "C318884"
+    }
+  },
+  "material_names": [
+    {
+      "name": "mat_0",
+      "color": [
+        0.4019777774810791,
+        0.44520118832588196,
+        0.5520114302635193,
+        1
+      ]
+    },
+    {
+      "name": "mat_1",
+      "color": [
+        0,
+        0.2158605009317398,
+        0.5271151065826416,
+        1
+      ]
+    },
+    {
+      "name": "mat_2",
+      "color": [
+        0.5271151065826416,
+        0.5271151065826416,
+        0.5271151065826416,
+        1
+      ]
+    },
+    {
+      "name": "mat_3",
+      "color": [
+        0.05126945674419403,
+        0.05126945674419403,
+        0.05126945674419403,
+        1
+      ]
+    },
+    {
+      "name": "mat_4",
+      "color": [
+        1,
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "mat_5",
+      "color": [
+        0.7758222222328186,
+        0.7758222222328186,
+        0.7758222222328186,
+        1
+      ]
+    },
+    {
+      "name": "mat_6",
+      "color": [
+        0.5520114302635193,
+        0.5520114302635193,
+        0.5520114302635193,
+        1
+      ]
+    },
+    {
+      "name": "mat_7",
+      "color": [
+        0.30946892499923706,
+        0.18116424977779388,
+        0,
+        1
+      ]
+    },
+    {
+      "name": "mat_8",
+      "color": [
+        0.7011018991470337,
+        0.7011018991470337,
+        0.7011018991470337,
+        1
+      ]
+    },
+    {
+      "name": "mat_9",
+      "color": [
+        0.3762621283531189,
+        0.23074005544185638,
+        0,
+        1
+      ]
+    },
+    {
+      "name": "mat_10",
+      "color": [
+        0.07227185368537903,
+        0.07227185368537903,
+        0.07227185368537903,
+        1
+      ]
+    },
+    {
+      "name": "mat_11",
+      "color": [
+        0.040915198624134064,
+        0.040915198624134064,
+        0.040915198624134064,
+        1
+      ]
+    },
+    {
+      "name": "mat_12",
+      "color": [
+        0.3762621283531189,
+        0.34191441535949707,
+        0.3049873113632202,
+        1
+      ]
+    },
+    {
+      "name": "mat_13",
+      "color": [
+        0.21223075687885284,
+        0.21223075687885284,
+        0.21223075687885284,
+        1
+      ]
+    },
+    {
+      "name": "mat_14",
+      "color": [
+        0,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "name": "mat_15",
+      "color": [
+        0.16202937066555023,
+        0.16202937066555023,
+        0.16202937066555023,
+        1
+      ]
+    },
+    {
+      "name": "mat_16",
+      "color": [
+        0.6938717365264893,
+        0.6938717365264893,
+        0.6938717365264893,
+        1
+      ]
+    },
+    {
+      "name": "mat_17",
+      "color": [
+        0.3762621283531189,
+        0.3762621283531189,
+        0.3762621283531189,
+        1
+      ]
+    },
+    {
+      "name": "mat_18",
+      "color": [
+        0.37123769521713257,
+        0.33716362714767456,
+        0.31854677200317383,
+        1
+      ]
+    },
+    {
+      "name": "mat_19",
+      "color": [
+        0.44520118832588196,
+        0.44520118832588196,
+        0.44520118832588196,
+        1
+      ]
+    },
+    {
+      "name": "mat_20",
+      "color": [
+        0.366252601146698,
+        0.4019777774810791,
+        0.42869049310684204,
+        1
+      ]
+    },
+    {
+      "name": "mat_21",
+      "color": [
+        0.37123769521713257,
+        0.41788506507873535,
+        0.44520118832588196,
+        1
+      ]
+    },
+    {
+      "name": "mat_22",
+      "color": [
+        0.03688944876194,
+        0.15896083414554596,
+        0.44520118832588196,
+        1
+      ]
+    },
+    {
+      "name": "mat_23",
+      "color": [
+        0.2158605009317398,
+        0.2158605009317398,
+        0.2158605009317398,
+        1
+      ]
+    },
+    {
+      "name": "mat_24",
+      "color": [
+        0.5906188488006592,
+        0.637596845626831,
+        0.8549926280975342,
+        1
+      ]
+    },
+    {
+      "name": "mat_25",
+      "color": [
+        0.23839756846427917,
+        0.23839756846427917,
+        0.23839756846427917,
+        1
+      ]
+    },
+    {
+      "name": "mat_26",
+      "color": [
+        0.5149176716804504,
+        0.8307698965072632,
+        0.9734452962875366,
+        1
+      ]
+    },
+    {
+      "name": "mat_27",
+      "color": [
+        0.6583748459815979,
+        0.40724021196365356,
+        0.015208514407277107,
+        1
+      ]
+    },
+    {
+      "name": "mat_28",
+      "color": [
+        0.838798999786377,
+        0.838798999786377,
+        0.838798999786377,
+        1
+      ]
+    },
+    {
+      "name": "mat_29",
+      "color": [
+        0,
+        1,
+        0,
+        1
+      ]
+    },
+    {
+      "name": "mat_30",
+      "color": [
+        0.5972017645835876,
+        0.6444796919822693,
+        0.8631572127342224,
+        1
+      ]
+    },
+    {
+      "name": "mat_31",
+      "color": [
+        0.5271151065826416,
+        0.5271151065826416,
+        0,
+        1
+      ]
+    },
+    {
+      "name": "mat_32",
+      "color": [
+        0.8879231214523315,
+        0.5394794940948486,
+        0.027320891618728638,
+        1
+      ]
+    },
+    {
+      "name": "mat_33",
+      "color": [
+        0.6583748459815979,
+        0.672443151473999,
+        0.6583748459815979,
+        1
+      ]
+    },
+    {
+      "name": "mat_34",
+      "color": [
+        0.01032982300966978,
+        0.01032982300966978,
+        0.01032982300966978,
+        1
+      ]
+    },
+    {
+      "name": "mat_35",
+      "color": [
+        0.010022825561463833,
+        0.19599418342113495,
+        0.03310476616024971,
+        1
+      ]
+    }
+  ]
+}

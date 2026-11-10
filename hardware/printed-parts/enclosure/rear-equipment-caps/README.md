@@ -141,6 +141,6 @@ its recorded envelope has 65 mm of reach and a short handle. These are
 modeled tool envelopes; removal effort remains a physical print check.
 
 ```sh
-python3 tools/run.py -- cargo build --release -j 2 --manifest-path tools/hsm/Cargo.toml -p hsm-rear-equipment-caps
-python3 tools/run.py -- tools/hsm/target/release/rear-equipment-caps
+tools/run -- cargo build --release -j 2 --manifest-path tools/hsm/Cargo.toml -p hsm-rear-equipment-caps
+tools/run -- tools/hsm/target/release/rear-equipment-caps
 ```

@@ -7,7 +7,7 @@ tube and the factory drier. NingBo Anuodan / HuaJun **HD48Y11A**, 110-120 V ~
 [`../ice-maker/README.md`](/hardware/reference/ice-maker/README.md).
 
 There is no vendor solid and no scan. The part was calipered, and
-[`compressor.py`](compressor.py) draws the envelope the pack takes of it and the
+[compressor.py](https://github.com/derekbreden/homesodamachine/blob/a518a57a878f02d9ac5b8b638c1c5883cadf6669/hardware/reference/compressor/compressor.py) draws the envelope the pack takes of it and the
 bolt pattern it stands on. `compressor.step` is that envelope, for the viewer and
 for anyone measuring clearance against it.
 
@@ -91,18 +91,14 @@ BPV31's saddle bands it. The valve goes on once and stays for the life of the ap
 ## Where it stands
 
 Which way the compressor faces and what stands beside it is the machine's, not this
-module's — [`enclosure_assembly.py`](/hardware/manifold-layout/enclosure_assembly.py) and
+module's — [`machine_layout.rs`](/hardware/manifold-layout/machine_layout.rs) and
 [`../../printed-parts/enclosure/README.md`](/hardware/printed-parts/enclosure/README.md).
 It sits on the enclosure floor slab and is bolted down to it: `enclosure._floor_bosses`
 stands a post under each of the four plate holes, and each rises *through* its hole to
 the plate's crown, so the posts locate the part as well as fasten it.
 
-## Regenerate
+## Model inputs
 
-```
-tools/cad-venv/bin/python hardware/reference/compressor/compressor.py
-```
+The model and measurements are retained with their [source derivations](https://github.com/derekbreden/homesodamachine/blob/a518a57a878f02d9ac5b8b638c1c5883cadf6669/hardware/reference/compressor/compressor.py).
 
-```
-tools/cad-venv/bin/python hardware/reference/compressor/compressor.py selftest
-```
+The model and measurements are retained with their [source derivations](https://github.com/derekbreden/homesodamachine/blob/a518a57a878f02d9ac5b8b638c1c5883cadf6669/hardware/reference/compressor/compressor.py).

@@ -1,58 +1,69 @@
 {
-  "pdf": "assembly-drill-and-weld-letter.pdf",
-  "pages": 3,
-  "page_inches": [
-    8.5,
-    11
-  ],
-  "print_layout": {
-    "content_scale": 0.98,
-    "content_alignment": "centered",
-    "bleed_overhang_inches": 0.25,
-    "colored_band_inset_inches": 0.3333333333333333,
-    "bleed_layer_scale": 1,
-    "printer": "Epson ET-8550",
-    "media_source": "rear",
-    "media_type": "photographic-glossy",
-    "media_margins": "zero / Letter.Fullbleed",
-    "sides": "one-sided"
-  },
-  "artwork": "vector schematic; dimensions govern; no drilling template or qualified gun pose",
-  "source_sha256": {
-    "hardware/cut-parts/carbonation/endcaps-circular/endcap_circular_dxf.py": "171fcd7fc0b2852e157ce33b403eeea7f8f20eb198d563201a82a4865c3364a6",
-    "hardware/printed-parts/cold-core/_float_interface.py": "d2fc9c9029101bf471e06f81f9b1acbc4c6c841ba629e561fd9a33833319a72a",
-    "hardware/printed-parts/fixtures/weld-rotator/_rotator_interface.py": "f311ff6b36b0ad61d928c46109adaf6bcdf31e767baee5cb8433c1d29ffff584",
-    "hardware/assembly/pressure-vessel.md": "a401a10be5b85f2f60b2f13e36ad168e77133c50b16f2af8d2980f1b9740d671",
-    "hardware/assembly/weld-rotation-rig.md": "ec06b5329db659f51e610d827232e8543ba17ffdb8b59df9e149b3d4f49d56f9",
-    "hardware/weld-rotator-guide/46-the-per-weld-sequence.html": "ce10fcbfb0a5bbe7a050620e5451eabf1bd53766d4921a458e769b99f4e74e08",
-    "firmware/src_weld_rotator/README.md": "859a580436b9e8052b767f391a4e0fa49185006db5264fc1e6be00ef82ba282f"
-  },
-  "manufacturer_source": "https://www.xlaserlab.com/pages/xlaserlab-x1-pro-instruction-manual",
+  "artwork": "vector schematic; dimensions govern; not a full-size template",
   "endcap_inches": {
     "disc_diameter": 4.86,
     "disc_thickness": 0.25,
     "hole_diameter": 0.438,
     "hole_spacing": 1.5,
-    "register_radius": 1.6475984251968505,
+    "register_depth": 0.1,
     "register_drill_diameter": 0.140625,
-    "register_depth": 0.1
+    "register_radius": 1.6475984251968505
+  },
+  "manufacturer_source": "https://www.xlaserlab.com/pages/xlaserlab-x1-pro-instruction-manual",
+  "page_inches": [
+    8.5,
+    11.0
+  ],
+  "pages": 3,
+  "pdf": "assembly-drill-and-weld-letter.pdf",
+  "pdf_sha256": "afe9cb32db3df9d7f88c42fda2261f21ae8bdbba267810a90d9d302faf347ad7",
+  "practice_recipe": {
+    "feed": 12,
+    "gas": 2,
+    "hz": 80,
+    "power": 60,
+    "sweep": 2,
+    "tacks": 8,
+    "wire_suffix": "030"
+  },
+  "print_layout": {
+    "bleed_layer_scale": 1,
+    "bleed_overhang_inches": 0.25,
+    "colored_band_inset_inches": 0.3333333333333333,
+    "content_scale": 0.98,
+    "media_source": "rear",
+    "print_scaling": "100% / none"
   },
   "rotator_mm": {
-    "TUBE_OD": 127.0,
-    "TUBE_ID": 123.698,
-    "TUBE_WALL": 1.651,
     "ENDCAP_RECESS": 6.35,
+    "OVERLAP_DEGREES": 20.0,
     "TRAVEL_NOMINAL": 8.0,
-    "OVERLAP_DEGREES": 20.0
+    "TUBE_ID": 123.698,
+    "TUBE_OD": 127.0,
+    "TUBE_WALL": 1.651
   },
-  "practice_recipe": {
-    "power_percent": "60",
-    "wobble_hz": "80",
-    "sweep_mm": "2",
-    "wire_mm_s": "12",
-    "argon_pre_post_s": "2",
-    "wire_inches_suffix": "030",
-    "tacks": "8"
-  },
-  "pdf_sha256": "837b7fe262d0ea60373335ae058a161966d81acc57fe624fbf82296c348158e2"
+  "source_sha256": {
+    "firmware/src_weld_rotator/README.md": "99bf08dd2c482f22e2989c205974110e25b6203376e86c07f6ba651a93d32f4e",
+    "hardware/assembly/pressure-vessel.md": "aaa162238e8333728567d021420bc2bea56e216d28364230fadf6a1dc692a1f0",
+    "hardware/assembly/weld-rotation-rig.md": "e0eaf1ba888c241b88492439f7562795507d227f0fa90897d54e4c48a0ca04e8",
+    "hardware/cut-parts/carbonation/endcaps-circular/endcap_circular_drawing.rs": "2095284a67b40b826ee888b624d0071053ccfb11ab611d9e013b656f65bafaa8",
+    "hardware/cut-parts/carbonation/endcaps-circular/endcap_circular_dxf.rs": "1f110a8ff83e86f22cc3b01c5ad4be5ec86b1abad21b8e5136cbfb2fa053566b",
+    "hardware/cut-parts/carbonation/endcaps-circular/numbers.rs": "5cb5caa5118204fcbf86f4f24743749c3fcdbc99824829eb03feb111130e053a",
+    "hardware/faucet-layout/assembly/cuts.rs": "9d1e13748041f116d84d532adf9812719465d4b14188a70dc14cec83db49c238",
+    "hardware/faucet-layout/assembly/legs.rs": "89c38f0149999b733881ec652757f4f6d6ba02f927a0509d0c8fd0571c47d033",
+    "hardware/faucet-layout/assembly/metrics.rs": "ec7e328ff30fae6acf20e172952de6749e5118d61973c120946043158840f212",
+    "hardware/faucet-layout/numbers.rs": "939b1c6a1b07c85c2a5c1117926a9d042cefea256fda968d67f5827fb19b6662",
+    "hardware/manifold-layout/manifold/lib.rs": "d57bcaecd08f7132a4d7d16576a0787b76efdba22e6dfc24cfd3b0f444e2f884",
+    "hardware/printed-parts/cold-core/magnetic-float/all-aero/numbers.rs": "ff821e7c8218a680239135b15a52cbbbc767770d75728900d02b5fcaef4eac4f",
+    "hardware/printed-parts/cold-core/reservoir/numbers.rs": "a1924f516e5ebd20fab3eac83d63795f78731cd84b61bac318c1df44170fd15d",
+    "hardware/printed-parts/faucet/numbers/paths.rs": "1446b0162ffe66a0a193f90ea38a70994518ea3fa7043620d73266bf12094c04",
+    "hardware/printed-parts/faucet/numbers/shell.rs": "a2f5b380ff14e8c4cd9a0098c0cafb6e52fe21ae01e953e71cfdf036e6385809",
+    "hardware/printed-parts/fixtures/weld-rotator/numbers.rs": "0b84b3324874851e918fb9832b5a8f788cc0da79bb6d5dfaa3a22d59904ea16c",
+    "hardware/weld-rotator-guide/46-the-per-weld-sequence.html": "ce10fcbfb0a5bbe7a050620e5451eabf1bd53766d4921a458e769b99f4e74e08",
+    "tools/hsm/cold-core-data/src/lib.rs": "aab2c1396ffb2f8fba0a2f045f048cf60e5d3ae741f85e67330f2823560f564b",
+    "tools/hsm/fabrication-guides/src/assembly.rs": "ff1f482286134a57168afc6222d41dc3372b10a1dc0b3c18f3b8abb57654baa0",
+    "tools/hsm/fabrication-guides/src/cuts.rs": "28fae0df655f27af6eb08565b11e5457a49e9a54eb35be29c92492e0bf7479da",
+    "tools/hsm/fabrication-guides/src/letter.rs": "c882780383eb0ecdc7d1bbe2e596cff57eed40651f982b91031d0a94e4f2c5ea",
+    "tools/hsm/fabrication-guides/src/lib.rs": "5cc49af1da1fe2925fd05101c80dbe80c95f48ca6b670af5f00c50e9ab32dc6e"
+  }
 }

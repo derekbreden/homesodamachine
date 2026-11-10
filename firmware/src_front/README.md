@@ -76,14 +76,14 @@ The 16-frame On tap faucet animation is generated from the canonical
 [`brand/mark.svg`](../../brand/mark.svg) at 360×360 by:
 
 ```
-tools/cad-venv/bin/python tools/gen_animation_frames.py
+hsm-marketing animation-frames
 ```
 
 The orange circle gently falls; the next bead grows beneath the outlet as the
 falling one diminishes. The faucet stays still through the 1.6-second
 loop. [Motion options](../../web/public/brand/motion.html) compares the exact
 display frames with Pulse and Float. The generator writes
-`images/anim_00.h`..`anim_15.h`; `tools/make_art.py enclosure` packages them in the
+`images/anim_00.h`..`anim_15.h`; `hsm-marketing make-art enclosure` packages them in the
 mapped `art` partition during the build. Boot and the explicit `LOCK:SHOW` diagnostic
 use this full-screen animation. Normal pages and operational progress remain static
 except where their displayed state changes.
@@ -113,7 +113,7 @@ display powered while its USB cable was reconnected, ask the main board to make 
 PHY detach and timer-wake:
 
 ```
-~/.platformio/penv/bin/python tools/display_usb.py
+hsm-peripheral display-usb
 ```
 
 This is only an explicit development request over J9; no boot path sends it. The 500 ms
@@ -181,7 +181,7 @@ ladder above). The difference from the faucet display is the backlight itself:
   lives in PSRAM (`flags.fb_in_psram`), and a flash write suspends the cache PSRAM is
   reached through, so the DMA refilling its bounce buffer faults on the next line —
   `Cache disabled but cached memory region accessed`, and the panic takes the USB PHY
-  down with it (`tools/display_usb.py` brings it back). A ratio and a flavor's chosen
+  down with it (`hsm-peripheral display-usb` brings it back). A ratio and a flavor's chosen
   logo are therefore display-local, and the durable home for both is the main board,
   where the faucet's own selection already lives.
 - The faucet fades its backlight with PWM. This board's backlight is a *digital*
@@ -230,7 +230,7 @@ shows. On black, the panel's own:
 
 `TEST:<s>` on this board's own USB console shows it without the main board.
 
-[`tools/panelcam-rectify.py`](/tools/panelcam-rectify.py) reads the fiducials' centres, the
+[`hsm-peripheral panelcam-rectify`](/tools/hsm/peripheral/src/panel.rs) reads the fiducials' centres, the
 stripe blocks at x 240..303 and 368..431, y 268..331, the palette row at x 80 + 64k, y 168..215 in
 the order drawn here, and the wedge's black and white ends at y 56..103; move any of them and it
 has to follow.
@@ -548,11 +548,11 @@ connector that carries the RS485 pair. With its own USB also plugged in it has t
 and reconnecting the cable while J9 keeps the board powered can leave the USB device absent.
 `J9.V12` runs straight to the board's V12 island with no switched load in its path.
 
-[`/tools/display_usb.py`](/tools/display_usb.py) sends the explicit `display usb` development
+[`hsm-peripheral display-usb`](/tools/hsm/peripheral/src/serials.rs) sends the explicit `display usb` development
 request through the main board. The display acknowledges it, enters 500 ms of timer-wake deep
 sleep, and therefore powers down the S3 USB PHY long enough for the host to observe a real
 detach and fresh attachment. It does not switch V12 and nothing sends this request during a
-production boot. [`/tools/boards.py`](/tools/boards.py) offers that command when it sees the
+production boot. [`hsm-peripheral boards`](/tools/hsm/peripheral/src/serials.rs) offers that command when it sees the
 main board but not the S3.
 
 The request requires the display application to be running and answering on J9. A missing,

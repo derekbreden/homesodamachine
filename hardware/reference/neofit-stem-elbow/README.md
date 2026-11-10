@@ -3,7 +3,7 @@
 **HSM-0330**, the [white acetal stem elbow](https://www.freshwatersystems.com/products/neofit-acetal-white-stem-elbow-1-4-tube-x-1-4-stem).
 The male stem enters another 1/4-inch push-fit socket and turns the path 90 degrees.
 The reference follows two sprayed specimens mounted at opposite ends in one
-MINI 2 capture. It contains an editable fixed body/stem and a separate oval
+MINI 2 capture. It contains a fixed body/stem and a separate oval
 release collet. The STEP contains two valid solids; the portable STL contains
 two watertight shells.
 
@@ -45,7 +45,7 @@ fused cloud and capture manifest are under
 contains the two registered observation sets, portable STEP/STL files, preview,
 model manifest and cleanup receipt.
 
-[`analyze_scan.py`](analyze_scan.py) fits the marker-table plane and registers
+[analyze_scan.py](https://github.com/derekbreden/homesodamachine/blob/a518a57a878f02d9ac5b8b638c1c5883cadf6669/hardware/reference/neofit-stem-elbow/analyze_scan.py) fits the marker-table plane and registers
 each specimen separately using its straight stem and drafted socket collar.
 Fixed physical bounds and a 15 mm table-height cutoff exclude the fixture.
 Specimen A retains **124,435 observations**, including the free stem tip and
@@ -57,9 +57,9 @@ Outward-facing 95th-percentile radii in 0.10 mm bins, a three-bin median and
 0.035 mm radial simplification supply the turned profiles. The collet's outer
 ellipse is fitted independently and retains a circular nominal tube corridor.
 The exposed outer bend supplies the round core; rotational and bend symmetry
-continue obscured sectors. [`reference-parameters.json`](reference-parameters.json)
-is frozen into [`neofit_stem_elbow.py`](neofit_stem_elbow.py), so layout imports
-need no scan archive or measurement JSON at runtime.
+continue obscured sectors. [reference-parameters.json](reference-parameters.json)
+and the fine model named in [frozen-asset.json](frozen-asset.json) supply the native
+layout without opening the scan archive.
 
 ![Independent observation sets against the exported model](scan-model-check.png)
 
@@ -95,12 +95,4 @@ internal tube stops or qualify another fitting's engagement.
 nominal constraints and published family dimensions. Other material variants
 have no tooling-equivalence claim from this capture.
 
-Rebuild from the repository root:
-
-```sh
-tools/cad-venv/bin/python hardware/reference/neofit-stem-elbow/analyze_scan.py
-tools/cad-venv/bin/python hardware/reference/neofit-stem-elbow/neofit_stem_elbow.py
-tools/cad-venv/bin/python hardware/reference/neofit-stem-elbow/validate_scan.py
-```
-
-The generator accepts `--stl /absolute/output/path.stl` for a portable mesh.
+The source derivations are preserved at their recorded revision: [analyze_scan.py](https://github.com/derekbreden/homesodamachine/blob/a518a57a878f02d9ac5b8b638c1c5883cadf6669/hardware/reference/neofit-stem-elbow/analyze_scan.py), [validate_scan.py](https://github.com/derekbreden/homesodamachine/blob/a518a57a878f02d9ac5b8b638c1c5883cadf6669/hardware/reference/neofit-stem-elbow/validate_scan.py).

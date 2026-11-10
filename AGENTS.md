@@ -104,8 +104,8 @@ Every change to the enclosure's geometry has an entry in [`changes/`](changes/RE
 ## Showing the Machine
 
 To show me a part or a spot in the machine, link the published model on the site. A link that
-closes on `?find=` lights and labels what it points at and turns the camera to it; `link()` in
-[`hardware/scripts/pick_text.py`](hardware/scripts/pick_text.py) writes one. No agent publishes a
+closes on `?find=` lights and labels what it points at and turns the camera to it;
+[`hsm-pick link`](tools/hsm/inspection/README.md) writes one. No agent publishes a
 3D scene of its own to show something.
 
 ## What Counts
@@ -209,11 +209,11 @@ shared geometry memo caches (`realized`, `meshes`, `boxes`) and installed runtim
 
 ## Heavy Runs
 
-The normal print build is `python3 tools/run.py -- python3 tools/print_build.py`.
+The normal print build is `tools/run -- hsm-print-build --`.
 Additional Bazel labels select smaller builds. Each completed producer reaches the
 website while the remaining producers continue.
 
-Use `python3 tools/run.py -- <command>` for Cargo, Bazel, slicing and rendering.
+Use `tools/run -- <command>` for Cargo, Bazel, slicing and rendering.
 Add `--cad` for a native CadQuery/OCP command and `--timing` for a timing run
 that needs the machine to itself. Kernel part generators use the installed
 `hsm` engine. Ordinary runs need no coordinator grant.
@@ -221,7 +221,7 @@ that needs the machine to itself. Kernel part generators use the installed
 The shared host scheduler admits at most four logical runs, spaces concurrent
 starts by 30 seconds, and waits before a new run while macOS memory pressure is
 critical or used swap exceeds 10 GiB. Running jobs continue. Set the live count
-with `python3 tools/run.py --count 1` or `--count 4`.
+with `tools/run --count 1` or `--count 4`.
 
 Children share their parent's verified lease. Native work also takes the CAD
 lock; `HSM_NO_BUILD_LOCK=1` alone bypasses neither admission nor that lock. Keep

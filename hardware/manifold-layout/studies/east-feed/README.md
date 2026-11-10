@@ -92,10 +92,4 @@ reservoir routes, final WAGO positions and production-pack migration remain
 deferred. Valve seats, relays, rear fittings and the gas path retain their
 wall-supported poses.
 
-Rebuild the study roof manually through the shared CAD queue, then query
-the two selected arrangements:
-
-```sh
-PYTHONPATH=. tmp/takeover/cadq "Inline water regulator roof" -- tools/cad-venv/bin/python hardware/manifold-layout/studies/ceiling-fit/ceiling.py --plan hardware/manifold-layout/studies/east-feed/ceiling-plan.json --out hardware/manifold-layout/studies/east-feed/parts/east-feed-ceiling
-tools/cad-venv/bin/python hardware/manifold-layout/studies/east-feed/study.py --check
-```
+The model and measurements are retained with their [source derivations](https://github.com/derekbreden/homesodamachine/blob/a518a57a878f02d9ac5b8b638c1c5883cadf6669/hardware/manifold-layout/studies/east-feed/study.py).

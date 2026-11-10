@@ -1,0 +1,25 @@
+[package]
+name = "hsm-repo-tools"
+version = "0.1.0"
+edition.workspace = true
+license.workspace = true
+rust-version.workspace = true
+publish = false
+
+[[bin]]
+name = "repo-tools"
+path = "src/main.rs"
+
+[dependencies]
+anyhow.workspace = true
+serde.workspace = true
+serde_json.workspace = true
+sha2.workspace = true
+regex = "1"
+libc = "0.2"
+hsm-faucet-assembly = { path = "../faucet-assembly" }
+hsm-faucet-assembly-numbers = { path = "../faucet-assembly-numbers" }
+hsm-build-data = { path = "../build-data" }
+hsm-enclosure-numbers = { path = "../enclosure-numbers" }
+hsm-enclosure-quadrants = { path = "../enclosure-quadrants" }
+

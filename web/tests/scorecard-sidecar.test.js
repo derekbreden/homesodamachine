@@ -40,7 +40,7 @@ test("the artifact pointer file points at every committed viewer scorecard", (t)
       `${rel} stays under hardware/`);
     assert.ok(fs.existsSync(full), `${rel} is committed beside its pointer file`);
     const actual = createHash("sha256").update(fs.readFileSync(full)).digest("hex");
-    // A MISS HERE IS NOT WORK FOR THE READER. `.githooks/post-commit` runs publish_now.py
+    // A MISS HERE IS NOT WORK FOR THE READER. `.githooks/post-commit` runs hsm-publish
     // detached after every commit, and that re-points this hash — so a miss means the commit
     // that moved the scorecard has not been made yet, or its publish is still in flight.
     // Commit, or read .cache/publish-now.log. Running pack.py --write by hand races it.

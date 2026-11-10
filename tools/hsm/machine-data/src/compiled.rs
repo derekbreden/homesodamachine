@@ -109,8 +109,7 @@ impl Runtime {
             e.set("__file__",Val::Path(self.0.root.join(path)))?;
             self.0.modules.borrow_mut().insert(name.into(),e.clone());
             self.0.active.borrow_mut().push(name.into());
-            let result=modules::initialize(self.clone(),e.clone(),name)
-                .and_then(|_| crate::native_profiles::install(self.clone(), &e, name));
+            let result=modules::initialize(self.clone(),e.clone(),name);
             self.0.active.borrow_mut().pop();
             if result.is_err(){self.0.modules.borrow_mut().remove(name);}
             result.with_context(||format!("initialize {name}"))?;

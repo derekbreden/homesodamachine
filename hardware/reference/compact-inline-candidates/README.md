@@ -38,7 +38,7 @@ fused cloud and SHA-256 capture manifest are in
 `~/Documents/3D Scans/2026-10-29-pisco-rvfup-regulator/`. The same directory holds
 registered observations and portable STEP/STL files.
 
-[`analyze_regulator_scan.py`](analyze_regulator_scan.py) fits the broad marker
+[analyze_regulator_scan.py](https://github.com/derekbreden/homesodamachine/blob/a518a57a878f02d9ac5b8b638c1c5883cadf6669/hardware/reference/compact-inline-candidates/analyze_regulator_scan.py) fits the broad marker
 table and exposed round housing, then locates the release-face patches. The
 registration is rigid at native scale. A fixed plane above 21 mm from the table
 removes the putty and markers, retaining **305,203 observations** without
@@ -46,7 +46,7 @@ distance-to-CAD rejection. Outward-facing 95th-percentile radii in 0.15 mm axial
 bins, a three-bin median and a 0.04 mm radial simplification define the exterior.
 [`regulator-scan-evidence.json`](regulator-scan-evidence.json) retains transforms,
 physical selections, fit residuals and source hashes;
-[`regulator-scan-parameters.json`](regulator-scan-parameters.json) supplies the generator.
+[`regulator-scan-parameters.json`](regulator-scan-parameters.json) records the fitted model inputs.
 
 ![Captured PISCO surface against the reference](regulator-scan-model-check.png)
 
@@ -87,21 +87,12 @@ POM family; this reference does not establish exact CO₂ duty qualification.
 `geometry/candidate-regulator.step` and `geometry/candidate-check.step` are
 native assemblies with separate body and collet solids. The corresponding
 NPZ files have `v` and `f` arrays in the same frame.
-`build.py` is editable; `dimensions.json` separates published dimensions,
-the PISCO fitted exterior, Fluidfit estimated details and source evidence.
-`model.py` supplies a NumPy-only `library()`, transformed `ports(kind)` and
-an `instance(kind)` helper, where `kind` is `regulator` or `check`.
+`dimensions.json` separates published dimensions, the PISCO fitted exterior,
+Fluidfit estimated details and source evidence. The retained native models supply
+the assembly references.
 
-Rebuild both references manually through the CAD queue:
+The model and measurements are retained with their [source derivations](https://github.com/derekbreden/homesodamachine/blob/a518a57a878f02d9ac5b8b638c1c5883cadf6669/hardware/reference/compact-inline-candidates/build.py).
 
-```sh
-PYTHONPATH=. tmp/takeover/cadq "Compact inline reference models" -- tools/cad-venv/bin/python hardware/reference/compact-inline-candidates/build.py
-```
+The source derivations are preserved at their recorded revision: [analyze_regulator_scan.py](https://github.com/derekbreden/homesodamachine/blob/a518a57a878f02d9ac5b8b638c1c5883cadf6669/hardware/reference/compact-inline-candidates/analyze_regulator_scan.py), [validate_regulator_scan.py](https://github.com/derekbreden/homesodamachine/blob/a518a57a878f02d9ac5b8b638c1c5883cadf6669/hardware/reference/compact-inline-candidates/validate_regulator_scan.py).
 
-To derive and export only the captured PISCO reference:
-
-```sh
-tools/cad-venv/bin/python hardware/reference/compact-inline-candidates/analyze_regulator_scan.py
-tools/cad-venv/bin/python hardware/reference/compact-inline-candidates/build.py --regulator-only
-tools/cad-venv/bin/python hardware/reference/compact-inline-candidates/validate_regulator_scan.py
-```
+The source derivations are preserved at their recorded revision: [model.py](https://github.com/derekbreden/homesodamachine/blob/a518a57a878f02d9ac5b8b638c1c5883cadf6669/hardware/reference/compact-inline-candidates/model.py).

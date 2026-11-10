@@ -607,7 +607,7 @@ fn acceptance_and_burn_in(request: &Request) -> Result<Output> {
     let co2_primary_relief_tol_psi: f64 = 4.0;
     let secondary_listed_psi: f64 = 44.0;
     let co2_centerline_psi: f64 = n(input, "secondary_regulator_pressure_psi")?;
-    let glass_capacity_oz: f64 = 12.0;
+    let glass_capacity_oz: f64 = crate::calibration_inputs::GLASS_CAPACITY_OZ;
     let graduated_cyl_min_ml: f64 = 250.0;
     let thermo_range_low_c: f64 = 0.0;
     let thermo_range_high_c: f64 = 20.0;
@@ -622,14 +622,14 @@ fn acceptance_and_burn_in(request: &Request) -> Result<Output> {
     );
     let prv_hold_min: f64 = 2.0;
     let wall_disp_gate_c: f64 = carbonator_wall_setpoint_c + carbonator_wall_band_c;
-    let dispense_temp_max_c: f64 = 6.0;
+    let dispense_temp_max_c: f64 = crate::calibration_inputs::DISPENSE_TEMP_MAX_C;
     let foam_head_hold_sec: f64 = 10.0;
-    let syrup_ratio_water: f64 = 20.0;
+    let syrup_ratio_water: f64 = crate::calibration_inputs::SYRUP_RATIO_WATER;
     let syrup_ratio_syrup: f64 = 1.0;
-    let metered_water_ml: f64 = 250.0;
-    let metered_flavor_ml: f64 = metered_water_ml / syrup_ratio_water;
-    let metered_total_ml: f64 = metered_water_ml + metered_flavor_ml;
-    let ratio_volume_tol_pct: f64 = 5.0;
+    let metered_water_ml: f64 = crate::calibration_inputs::METERED_WATER_ML;
+    let metered_flavor_ml: f64 = crate::calibration_inputs::METERED_FLAVOR_ML;
+    let metered_total_ml: f64 = crate::calibration_inputs::METERED_TOTAL_ML;
+    let ratio_volume_tol_pct: f64 = crate::calibration_inputs::RATIO_VOLUME_TOL_PCT;
     let metered_total_low_ml: f64 =
         round(metered_total_ml * (1.0 - (ratio_volume_tol_pct / 100.0)), 0);
     let metered_total_high_ml: f64 =

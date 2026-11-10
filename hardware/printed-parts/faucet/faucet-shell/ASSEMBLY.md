@@ -236,8 +236,10 @@ before a countertop compatibility range is published.
 
 ## Verification
 
-`hardware/scripts/check_faucet_geometry.py` records validity, interference,
-assembly motion and measured sections in `centered-vent-check.json`.
+`hsm --scene faucet` measures the saved assembly. Use
+[`inspect-part.mjs`](/tools/inspect-part.mjs) for a retained view and targeted clearance,
+interference or passage reading, and the [native printed-mesh review](/tools/hsm/mesh-review/README.md)
+for local print-surface anomalies.
 [Vent qualification](../vent-qualification/README.md) separates the native
 current drip-hole geometry from physical discharge behavior and complete device qualification. These checks
 cover nominal geometry. The fit print must establish actual slip, insert

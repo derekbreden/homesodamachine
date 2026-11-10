@@ -52,3 +52,5 @@ Run it through `python3 tools/run.py --cad -- <CAD Python> .../build.py`.
 `prepare.py --piece pump-fit-base` prepares and reviews only the base; it never
 sends a job. The cap archive retains the already reviewed production G-code
 without reslicing.
+
+The [recorded preparation source](https://github.com/derekbreden/homesodamachine/blob/a518a57a878f02d9ac5b8b638c1c5883cadf6669/hardware/print-tests/pump-mount-fit/build.py) retains the source revision for these physical artifacts.

@@ -97,8 +97,10 @@ compares that preparation's geometry snapshot, source STL bytes and all
 eight embedded receiver meshes. Its recorded hashes and source reference
 scope the reading to this archive.
 
-The retained [preparation script](prepare.py) and [path reader](review_slice.py)
+The retained [preparation script](https://github.com/derekbreden/homesodamachine/blob/e50eb3e4372a4d5b70248795469c02ed8d51d2d3/hardware/printed-parts/enclosure/pump-dock/print-preparation/2026-10-18-receivers-siraya85a-mark1/prepare.py) and [path reader](https://github.com/derekbreden/homesodamachine/blob/e50eb3e4372a4d5b70248795469c02ed8d51d2d3/hardware/printed-parts/enclosure/pump-dock/print-preparation/2026-10-18-receivers-siraya85a-mark1/review_slice.py)
 document this archive's process. Their straight-receiver source name and
 vertical-bore rotation are not a preparation recipe for current wet parts.
 Current junctions and returns require one object per plate in their own
 manufacturing pose, with a review of their emitted paths.
+
+The [recorded source](https://github.com/derekbreden/homesodamachine/blob/e50eb3e4372a4d5b70248795469c02ed8d51d2d3/hardware/printed-parts/enclosure/pump-dock/print-preparation/2026-10-18-receivers-siraya85a-mark1/audit_bindings.py) defines this artifact's preparation and reading.

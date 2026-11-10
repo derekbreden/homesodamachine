@@ -76,9 +76,4 @@ The [v2 physical result](../v2/physical-result/physical-result.json) records
 the fit observations this trial answers. The pump-base fracture is an
 observation only and requests no geometry change.
 
-The scripts these commands run are in Git at [`f5e8bed091`](https://github.com/derekbreden/homesodamachine/tree/f5e8bed091).
-
-```sh
-python3 tools/run.py --cad -- tools/cad-venv/bin/python hardware/print-tests/rear-snap-retention/build.py --output hardware/print-tests/rear-snap-retention/v3 --check-fit
-python3 tools/run.py -- tools/cad-venv/bin/python hardware/print-tests/rear-snap-retention/prepare.py --trial hardware/print-tests/rear-snap-retention/v3 --plate all
-```
+The trial’s [geometry recipe](https://github.com/derekbreden/homesodamachine/blob/f5e8bed0919827aec6fba620a4b8f15010b70d3d/hardware/print-tests/rear-snap-retention/build.py) and [print preparer](https://github.com/derekbreden/homesodamachine/blob/f5e8bed0919827aec6fba620a4b8f15010b70d3d/hardware/print-tests/rear-snap-retention/prepare.py) are archived in Git.

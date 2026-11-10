@@ -29,11 +29,7 @@ both pumps and no vertical play in the assembled cradle/cap. The exact print dat
 of that assembly and its individual contact faces are unconfirmed. The retained
 September 13 print is the available earlier printable comparison.
 
-Run from the repository root:
-
-```sh
-HSM_NO_BUILD_LOCK=1 tools/cad-venv/bin/python hardware/printed-parts/enclosure/pump-tray/pump_tray.py selftest
-```
+The comparison’s [pump-tray recipe](https://github.com/derekbreden/homesodamachine/blob/a518a57a878f02d9ac5b8b638c1c5883cadf6669/hardware/printed-parts/enclosure/pump-tray/pump_tray.py) is archived in Git.
 
 The audit ([`check_fitted_well.py`](https://github.com/derekbreden/homesodamachine/blob/9884d0e7f4/hardware/reference/kamoer-kphm400/fitted-well-audit/check_fitted_well.py), in Git at `9884d0e7f4`) hashes its script, imported project sources, print input, provenance, scan
 reports and supplied Box, checks both raw-cloud digests, and rejects inputs that

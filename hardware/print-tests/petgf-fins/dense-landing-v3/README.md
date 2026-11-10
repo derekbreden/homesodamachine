@@ -43,7 +43,5 @@ plate trim, 101 mm bed-edge inset, zero support extrusions, fan-off paths and
 Run [`make_plate.py`](https://github.com/derekbreden/homesodamachine/blob/f5e8bed091/hardware/print-tests/petgf-fins/dense-landing-v3/make_plate.py) (in Git at `f5e8bed091`) manually with `tools/cad-venv/bin/python`; it calls the
 parameterized short-span generator and writes only this directory. Slice with
 Bambu Studio `--arrange 0 --orient 0 --slice 0`, an absolute output directory,
-and `--export-3mf`. The short-span `inspect_slice.py` and `trace_landing.py`
-accept this directory through their Python entry points. These experiment
-tools do not join a build or commit path. Physical formation, release and
+and `--export-3mf`. The short-span [slice inspection](https://github.com/derekbreden/homesodamachine/blob/d24b111b5d10e1eed4574db786e5ae1d0b96d445/hardware/print-tests/petgf-fins/short-spans-v2/inspect_slice.py) and [landing trace](https://github.com/derekbreden/homesodamachine/blob/d24b111b5d10e1eed4574db786e5ae1d0b96d445/hardware/print-tests/petgf-fins/short-spans-v2/trace_landing.py) sources are archived in Git. Physical formation, release and
 retained finish remain unmeasured.

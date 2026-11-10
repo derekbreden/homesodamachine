@@ -27,10 +27,9 @@ the plumbing charts and the ledgers: the bill of materials with the attended lab
 farm's time and the purchases. So are the cold core's: one program for each printed part, from its
 own numbers crate and the numbers it takes by name, and one for each of its two assemblies,
 built from the parts' files. Geometry and generated-document producers run as Rust programs.
-Build supervision, publication and dependency tracing retain Python entrypoints, and Cargo
-configuration is a Python producer. Python compatibility modules serve the manual tools that
-still import their APIs. The build planner (`tools/bazel/trace_inputs.py`) records a Rust step
-from what Cargo compiled into its program and the files that program reads.
+The native print driver, publisher and build planner carry these outputs to the website.
+`hsm-cargo-config` produces the compilation configuration. `hsm-build-plan trace-inputs`
+records each program's compiler sources and runtime reads without importing a Python recipe.
 
 ## What an output is made from
 
@@ -84,10 +83,10 @@ read there, with each Python file replaced by the Rust that took its place.
     tool someone runs when they rearrange the machine, and its answer is written down;
   - only what is left is converted.
 - **True dependencies come first** ([What an output is made from](#what-an-output-is-made-from)).
-  A step whose outputs come out the same stops the reruns after it. Today a Python step's
-  recorded inputs are everything compiled into the programs it calls, the shared Python, and
+  A step whose outputs come out the same stops the reruns after it. A native step's
+  recorded inputs include its compiled sources and
   `tools/hsm/cargo-config.json`, the part of the workspace manifest and lock file that can change
-  a program (`tools/bazel/cargo_config.py`). The job runner is not among them: each step copies
+  a program (`tools/hsm/cargo-config`). The job runner is not among them: each step copies
   the checkout's runner files in when it runs. Of a generated recipe crate, a step takes only the
   modules it reaches from the stubs it calls, so an edit to one recipe module reruns the steps
   that reach it. A hand-written crate is taken whole, and an edit to the kernel or the
@@ -134,7 +133,7 @@ explicit input recipes come from Rust data providers.
 | Enclosure pieces | `enclosure-front-bottom`, `enclosure-front-top`, `enclosure-back-bottom`, `enclosure-back-top`, `enclosure-pump-retainer`, `enclosure-pump-tube-setting-jig`; each printed piece's files from the declared Box through its typed recipe | `hardware/printed-parts/enclosure/enclosure/enclosure_*.rs` |
 | Enclosure model | `enclosure`; the shown pieces in place from their fine models, with the dock's tees and stem elbows | `hardware/printed-parts/enclosure/enclosure/enclosure.rs` |
 | Enclosure measurements | `enclosure-checks`; piece bounds and Box measurements | `hardware/printed-parts/enclosure/enclosure/enclosure_checks.rs` |
-| Print surfaces | `print-payload`, for the payloads `flute_payload.py` cuts, and the library the enclosure, cold-core and faucet piece programs link; reduction, shading and source records | `tools/hsm/print-payload/` |
+| Print surfaces | `print-payload` and the library the enclosure, cold-core and faucet piece programs link; reduction, shading and source records | `tools/hsm/print-payload/` |
 | End cap | `endcap-circular-step`; the machined cap's files from the numbers crates of the tube, the float and the cap | `hardware/cut-parts/carbonation/endcaps-circular/endcap_circular_step.rs` |
 | End cap drawing and laser file | `endcap-circular-drawing`, `endcap-circular-dxf`; the cut build's sheet and DXF, run when an order needs them | `hardware/cut-parts/carbonation/endcaps-circular/endcap_circular_drawing.rs`, `hardware/cut-parts/carbonation/endcaps-circular/endcap_circular_dxf.rs` |
 | Cold-core parts | `prv-shroud`, `reservoir`, `foam-shell`, `foam-cap`, `magnetic-float`, `all-aero-float`, `coil-mandrel`, `reed-bridge`; each printed part's files from its numbers crate, its payloads cut in process | `hardware/printed-parts/cold-core/*/` |
@@ -173,54 +172,52 @@ not state that every raw surface matches.
 
 ## Current coverage
 
-The normal geometry and generated-document producers execute in Rust and load no CadQuery,
-OCP or meshcad. Cargo configuration, build supervision, publication and dependency tracing
-retain Python entrypoints. Compatibility modules preserve Python imports and public types for
-the manual tools that call Rust providers.
+The normal geometry, generated-document, configuration, supervision, publication and tracing
+programs execute in Rust. Their normal build loads no Python, CadQuery, OCP or meshcad.
 
 `tools/bazel/graph.json` records the maintained producers and their inputs and outputs. Cargo's
 dependency records describe each Rust program's compiled sources. Retained comparisons cover
 complete pieces on fixed inputs; the combined normal build exercises their integration.
 
-The end-cap engineering drawing and laser file are separate Rust order commands, outside the
-normal build. Manual CAD probes, wiring review/search/drawing commands, scan tools and print
-studies also remain outside the normal build. No optional native CAD path supplies a
-normal-build result.
+The cut and PCB builds, manual books and artwork, PGFUN fixture and controller tools,
+printer operations and firmware releases run only when requested. They remain separate from
+the normal print build. Their package READMEs name their native entrypoints.
+
+Python application adapters remain where an external host requires that language: Blender's
+`bpy` bridge and PlatformIO's SCons pre-build hook delegate to native tools. Compatibility
+providers used by active reference-model work are isolated from the normal build. Git retains
+retired recipes and closed studies; current directories retain their actual physical records.
 
 ## Scalar, recipe and document programs
 
-`hardware/scripts/_rust_data.py` carries JSON between compatibility modules and resident Rust
-programs. Reentrant callbacks retain native object identities. Interrupted requests discard
-their worker; objects from that process cannot be used after a restart. Cargo dep-info supplies
-compiled source dependencies, and the adapters register raw data and maintained output paths
-with the existing build trace registries.
+Typed commands own maintained build, inspection and optional authoring work. Compatibility
+providers remain only while a current Python caller needs them; they are not build entrypoints.
 
 | Program | Converted work |
 | --- | --- |
 | `hsm-documents` | The ledger's managed markers, Sources blocks and figure sidecars, tables, formatting, placement, PDF/DXF normalization and native value/library interoperation |
 | `ledger-analysis` | Purchase evidence, exact decimal reconciliation, validation, CSV/JSON and reports, for the synthetic ledger tests |
 | `assembly-docs` | Assembly constants, electrical budgets, schedules, fluid-topology diagrams and the installed wiring model, routing and readers |
-| `cold-core-data` | The cold-core recipes the fabrication drawings, the docs and the review tools still import, and the float, coil, mandrel and bond providers they call, which answer from the typed crates |
-| `faucet-data` | The faucet's recipes for the Python readers that remain: the shell's and the assembly's CadQuery builders and the tubes' cut lengths, scalar interfaces, tube paths, seals and plumbing scenes, read from the parts' typed numbers crates |
-| `enclosure-data` | Complete enclosure sizing, interface/datums, panel/dock/tray/cap/nameplate recipes, measurement graph and document providers |
-| `machine-data` | Manifold and assembly placement recipes, equipment/routes/check inputs, mounting ledgers, facts, Boxes, fine archives, reports and scene composition |
+| `cold-core-data` | Typed carbonator rod requirements and jet interfaces for native fabrication tools |
+| `machine-data` | Retained model, equipment, archive and geometry-query interfaces for active compatibility callers |
 | `part-data` | Purchased reference providers, storage catalogues, refrigeration/printing fixtures, drain adapters, cuffs, press, sleeve, trays, and the funnel's, frame's and cradle's datums for the hand-run tools that read them |
 | `shared-data` | Materials, finishes, colour arithmetic, stock routing and shared fit/snap/reeding/cooling helpers |
 | `layout-data` | Appliance frames, fitting names, native tube construction and sampling, reservoir routes and soda inlet/holder recipes |
-| `guides`, `guide-native` | The faucet guide and the install guide's hand-run art tools and print preflight: layout, artwork and mask/shading calculations through ReportLab, Pillow and pypdf handles; no build step runs them |
-| `build-data`, `bookkeeping-data` | Mesh payloads, projection, source hashes, fine-asset adoption, print/graft planning, artifact identity/caches, inventory, source stripping, carry/selection/pointers and publication archives |
-| `build-plan` | Generator action planning, dependency rules, graph projections and BUILD rendering |
-| `hsm-run`, `hsm-run-slots`, `hsm-run-native` | Host admission, inherited run/CAD/compiler leases, process execution, viewer notifications and runtime installation |
+| `hsm-manual-guides`, `hsm-fabrication-guides`, `hsm-install-art` | Optional books, fixture art, engineering reference sheets and selected install illustrations |
+| `hsm-build-data`, `hsm-build-plan` | Mesh and artifact identity, native producer inventory, dependency tracing, BUILD rendering, affected targets and completed-output carry |
+| `hsm-cargo-config`, `hsm-print-build`, `hsm-publication`, `hsm-git-tools` | Compilation configuration, progressive delivery, immutable member uploads and path-scoped landing |
+| `hsm-wiring`, `hsm-mesh-review`, `hsm-repo-tools` | Explicit wiring exports, geometry lint and repository readings |
+| `hsm-marketing`, `hsm-peripheral`, `hsm-pcb-tools`, `hsm-printer-tools` | Optional artwork/media, device utilities, detailed board models and printer operations |
+| `hsm-pgfun-positioner`, `hsm-pgfun-host`, `hsm-pgfun-observation` | Fixture geometry, offline review, controller host and saved-image measurements |
+| `hsm-run`, `hsm-run-slots`, `hsm-run-native` | Host admission, inherited run/CAD/compiler leases, process execution and runtime installation |
 | `hsm-print-prep` | Print preparation: each printed part's Bambu project from its meshes and a saved or system printer recipe, the localized PET-GF cooling stage, enclosure print regions, offline slices, and the print review and support audit that read them |
 
-The recipe, reader and document modules of `enclosure-data`, `machine-data`, `cold-core-data`
-and `guides` are Rust generated from their Python modules. Each
+Some compatibility reader and document modules use generated Rust. Each
 generated module is one `initialize` function over `hsm_documents::interop::Val`: Python
 names resolve at run time through `Env` scopes, and a module outside the compiled set is
 imported through the Python adapter's callback. No generator is retained, so edits go into
-the generated files. The four crates compile at opt-level 0, while `hsm-documents`' value
-runtime and their other dependencies keep the release optimization. The guides' hand-written
-mesh and mask loops are in `guide-native`, a dependency of `guides`. Typed Rust replaces each
+the generated files. These compatibility crates compile at opt-level 0, while `hsm-documents`' value
+runtime and their other dependencies keep the release optimization. Typed Rust replaces each
 module as the steps that use it convert, and a module goes when no step uses it.
 
 ## Fixed-input evidence
@@ -267,7 +264,7 @@ Each quadrant generator writes its native model, print STL and viewer references
 Publication replaces that producer's references in the existing machine and named views while
 other producers continue. Print-region generation, preparation and slicing run separately.
 
-`tools/print_build.py` carries each completed Bazel producer into the checkout and requests
+`hsm-print-build` carries each completed Bazel producer into the checkout and requests
 publication immediately. Immutable body meshes are shared across the machine, enclosure,
 named views, the pretty viewer and geometry queries. Their manifests own names, colours,
 placements and source bindings. Placement changes reuse the geometry object. Enclosure and
@@ -312,9 +309,8 @@ main. Independent pieces run in parallel.
 | Installed placement | Reference names and bounds avoid unrelated model data |
 | Fine-model reading | Typed array values decode directly into final vertex and triangle rows |
 
-`enclosure.py` and `enclosure_assembly.py` have no native CAD builders or native-mode switches.
-The automatic local back-top preview uses fresh Rust/scalar sizing and Rust scene export.
-Manual fine-model probes use their existing saved-model reader.
+An explicit local build uses the same native producer targets and progressive publication as
+the print build. Saving source starts no build. Manual fine-model probes read saved exports.
 
 The exporter stages physical and installed drawings as separate files. The physical fine model
 names the drawing with the same body identities; generated wiring is appended to the installed

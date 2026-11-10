@@ -1,47 +1,46 @@
 {
-  "pdf": "mold-guide.pdf",
-  "pages": 22,
+  "artwork": "vector schematic; dimensions govern; not a full-size template",
+  "manufacturer_sources": {
+    "BBDINO 40A": "https://bbdino.com/products/bbdino-40a-clear-silicone-mold-making-trial-kit-gp-platinum-cure-high-hardness",
+    "Degassing example": "https://www.smooth-on.com/tutorials/making-piece-cut-block-mold/vacuum-de-gassing/",
+    "Ease Release 200": "https://www.smooth-on.com/products/ease-release-200/",
+    "FSD foam SDS": "https://fiberglasssupplydepot.com/pour-foam-sds",
+    "FSD pour foam": "https://fiberglasssupplydepot.com/Expandable-Polyurethane-Pour-Foam-2lb.html",
+    "Sealers and release": "https://www.smooth-on.com/page/sealers-releases/"
+  },
   "page_inches": [
     8.5,
-    11
+    11.0
   ],
+  "pages": 22,
+  "pdf": "mold-guide.pdf",
+  "pdf_sha256": "2d9b1af6bcfe910d1f3253b392950645ecf02ba34d7f66416037a9d63a1af7f4",
   "print_layout": {
-    "content_scale": 0.98,
+    "bleed_layer_scale": 1,
     "bleed_overhang_inches": 0.25,
     "colored_band_inset_inches": 0.3333333333333333,
-    "bleed_layer_scale": 1,
+    "content_scale": 0.98,
     "media_source": "rear",
     "print_scaling": "100% / none"
   },
-  "artwork": "vector schematic; dimensions govern; not a full-size template",
-  "source_sha256": {
-    "hardware/printed-parts/zone-c/funnel-mold/README.md": "ccbf247e268f770b07165d9b4f829684cfed7687cc2835157c2a4c31f9befbba",
-    "hardware/printed-parts/zone-c/funnel-mold/silicone.md": "5e0bc66c84b08b438b492c7825b81f437c17ce64fb0d3258e71ba03c470d35a8",
-    "hardware/printed-parts/zone-c/funnel-mold/design.json": "8101cec99c4548b9e3ef9b2a4782e41d6379ab3cd0886499b5f29273fe50b9d3",
-    "hardware/printed-parts/zone-c/funnel-mold/rod-check.json": "87bede87f33ed0eb13176cee86d0471b0d2de7a391aafc18d8e32210d8e8ca5c",
-    "hardware/printed-parts/zone-c/funnel-mold/print-log.md": "b995941bdbfc4344147261bcf22f95ccd978bf0d4a6fa8501139e98616e2f6a2",
-    "hardware/printed-parts/zone-c/funnel/wall-review.json": "4fcf0de5662fda77e5c30e5dad90da7ccd7a578010c3e00b968b07663480e568",
-    "hardware/assembly/cold-core.md": "2d42ec39c92d3e9113612c4615abff15df75a956b2168be2711f533f73a08666",
-    "hardware/printed-parts/cold-core/foam-shell/README.md": "b1e70bdd18e8df02353ffc2320d8dcbefb251c7c55a73ad30bfde5aa6af8ab6d",
-    "hardware/printed-parts/cold-core/_copper_ports.py": "c85f7a0206583c09f9e5771baf2d6efe81034ef665b5f53b662070fbb01fda93",
-    "hardware/mechanical-qualification/core-and-faucet-heatsets.json": "146992419e112c95ac89113074506295c75505d73beb3f175af2786204c5499f",
-    "hardware/printed-parts/cold-core/reservoir/wetted-surface-test.md": "89ecbae2fdd8da5595cfb5d4e652003b97a7ce3bf05f470cbab2fa3aceb19f00",
-    "hardware/printed-parts/zone-c/funnel-mold/containment-review.json": "bbb711f0bcff5e70d7953f1f0a32d1c6f6c84cae36b674411058d92e7e954c63",
-    "hardware/printed-parts/zone-c/funnel-mold/chamber-check.json": "2e482875d3419d00b99e93b1d8edba89469f49fb14e368035ebb4534cb922b9f"
-  },
-  "pdf_sha256": "d8b26c541bd3076d20434ff043f555be52e72568f92f0f3be8b5577ad09e5954",
-  "manufacturer_sources": {
-    "BBDINO 40A": "https://bbdino.com/products/bbdino-40a-clear-silicone-mold-making-trial-kit-gp-platinum-cure-high-hardness",
-    "Ease Release 200": "https://www.smooth-on.com/products/ease-release-200/",
-    "Sealers and release": "https://www.smooth-on.com/page/sealers-releases/",
-    "Degassing example": "https://www.smooth-on.com/tutorials/making-piece-cut-block-mold/vacuum-de-gassing/",
-    "FSD pour foam": "https://fiberglasssupplydepot.com/Expandable-Polyurethane-Pour-Foam-2lb.html",
-    "FSD foam SDS": "https://fiberglasssupplydepot.com/pour-foam-sds"
-  },
+  "qualification_scope": "Illustrated shop sequence; physical acceptance remains with the identified tooling and materials.",
   "source_review_date": "2026-10-05",
-  "recipe_limits": [
-    "Foam mixes 1:1; a build fills ~5 L of risen foam, about 1/7 of the 1 qt kit. Pot life, cure time, pour temperature window and trim method remain cold-core.md open items.",
-    "Project silicone hold is 5h demold/24h full use at23C; the direct manufacturer page states3h. No qualified post-cure bake or finished food-contact release is recorded.",
-    "Current molding operations exclude the unbuilt silicone reservoir alternative and printed ASA Aero floats."
-  ]
+  "source_sha256": {
+    "hardware/assembly/cold-core.md": "bf588130d69b8a4caf287f19cf83f3bb36f98d6fdae90892f1ab2637921f7005",
+    "hardware/cold-core-layout/coil/numbers.rs": "0b6cb80dc4c64f5de74237017abf8e873c6dd61c7f0969c4f4c3fb06505c4d02",
+    "hardware/guide-assets/fonts/PlexMono-Regular.ttf": "7639b1ca47f4a7dbd8191ba5e0f67ce57ba950a3d3e0c39c87c38bd1883935bb",
+    "hardware/install-guide/fonts/Plex-Bold.ttf": "f0140013596c67e52c6f004b46bf8b46e183511dc1885996c4e7ab174345938d",
+    "hardware/install-guide/fonts/Plex-Regular.ttf": "c16b158b219c947baf8b4e7be073f14b7870238d9904eebf4b8ebd0b66d0a971",
+    "hardware/install-guide/fonts/Plex-Semibold.ttf": "8bc60fb0075e3b56a099e6355379e38049ea5251bcfda5228494b0bab9c6d02c",
+    "hardware/mechanical-qualification/core-and-faucet-heatsets.json": "146992419e112c95ac89113074506295c75505d73beb3f175af2786204c5499f",
+    "hardware/mold-guide/pages.json": "858b90f0393f8989eb5da638851e3183327f5e117322c7e69c04a79c0695e71e",
+    "hardware/printed-parts/cold-core/foam-shell/README.md": "66035c53dcb181d1a552868c7988cd1315f90e6719c018998e2a5a20a9d3791a",
+    "hardware/printed-parts/cold-core/reservoir/wetted-surface-test.md": "89ecbae2fdd8da5595cfb5d4e652003b97a7ce3bf05f470cbab2fa3aceb19f00",
+    "hardware/printed-parts/zone-c/funnel-mold/README.md": "1aec44360c315bdcf25fed1ed2408943468d1e1a49a665f10fc359809aa451d9",
+    "hardware/printed-parts/zone-c/funnel-mold/design.json": "4e7e1d7cf0d4896cdddfc41e86b343a0ddb190d7b22faafc181f5774e94ccc39",
+    "hardware/printed-parts/zone-c/funnel-mold/print-log.md": "b995941bdbfc4344147261bcf22f95ccd978bf0d4a6fa8501139e98616e2f6a2",
+    "hardware/printed-parts/zone-c/funnel-mold/silicone.md": "13bd1439f63ad89512c171f74329d0d300074ec76de9640e40f4b281b03f3c77",
+    "tools/assembly-guides/guide.rs": "12aebe168f6c98842d1e98ab022a1b1852b42ad94fec0e3c18d2458e116d15d7",
+    "tools/hsm/fabrication-guides/src/letter.rs": "c882780383eb0ecdc7d1bbe2e596cff57eed40651f982b91031d0a94e4f2c5ea"
+  }
 }

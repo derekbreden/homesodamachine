@@ -19,4 +19,5 @@ the task, the same reply tells Derek. "Carries no load", "not a freestanding wal
 complete stock" and "prints fine" are all "eh its not hurting nobody".
 
 An entry is a `[class] reason` line, an `alternatives:` line and one `click:` per instance;
-`hardware/scripts/geometry_lint.py` reads them and says what an answer does and does not do.
+`geometry-lint` in [`tools/hsm/mesh-review`](../../../tools/hsm/mesh-review/README.md) reads
+them and says what an answer does and does not do.

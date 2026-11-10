@@ -65,7 +65,7 @@ as a group.
 
 With no constraints, `route("R7.pin1", "C12.pin1")` is the straight pad-to-pad tie. The
 `pcbPathRelativeTo="board"` on the trace makes the numeric points board coordinates — exactly
-what the viewer and [`plot-region.py`](plot-region.py) read. Every via is one full-stack
+what the viewer and [`hsm-pcb plot-region`](../../../tools/hsm/pcb-tools/src/routing.rs) read. Every via is one full-stack
 through-hole **drill** (JLCPCB drills no blind/buried); the copper may enter and leave it on
 any layer — `route` stays on top, `routeBottom` pairs top pads through the bottom, and
 `routeInner` drops onto a plane layer (the barrel record spans the whole column, so pours
@@ -95,7 +95,7 @@ the plane stitcher lands a via-in-pad on every poured-net pad, and pad-via-to-pa
 signal pad gets to the bottom — so a bottom (or inner) lane never crosses under a foreign pad's
 outline. A lane through a pad row spends every crossed pad's via column and walls those pins off
 the bottom for good. The `pad-shadow` rows in `errors` gate this ([`clearance.ts`](clearance.ts));
-[`trace-check.py`](trace-check.py) reports the same approaches as `shadow`. Thread *between* pad
+[`hsm-pcb trace-check`](../../../tools/hsm/pcb-tools/src/routing.rs) reports the same approaches as `shadow`. Thread *between* pad
 columns, or take a lane clear of the row's y-band entirely.
 
 ## Moving a component tighter
@@ -130,10 +130,10 @@ bun render-board.ts pcba.tsx          # writes out/pcba.circuit.json + out/pcba.
 - **Zoom in** — the failure mode is routing from coordinates you can't see. Plot a region:
 
   ```
-  tools/cad-venv/bin/python plot-region.py out/pcba.circuit.json -63 -52 13 23 /tmp/corner.png
+  hsm-pcb plot-region out/pcba.circuit.json -63 -52 13 23 /tmp/corner.png
   ```
 
-  [`plot-region.py`](plot-region.py) draws pads, traces (by layer), vias, and pin labels for the
+  [`hsm-pcb plot-region`](../../../tools/hsm/pcb-tools/src/routing.rs) draws pads, traces (by layer), vias, and pin labels for the
   board mm box `X0 X1 Y0 Y1`, so you place copper against what's actually there. For exact
   numbers, read the geometry straight from `out/pcba.circuit.json` (`pcb_smtpad` /
   `pcb_plated_hole` pads, `pcb_trace.route` copper, `pcb_via` vias).

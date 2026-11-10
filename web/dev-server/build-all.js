@@ -1,195 +1,120 @@
-// Batch rebuild of every CAD generator in dependency order — producers before
-// the assemblies that load their STEPs — then every PCB board (its own bun
-// pipeline, render-board.ts). The live watcher (server.js) keeps things fresh
-// during editing, but only while it is running and only from the edit forward;
-// a part changed while the watcher was down (or by a tool that doesn't trigger
-// it) leaves its STEP-load consumers — or a board's committed views — silently
-// stale. This walks the whole graph so the tree is self-consistent again.
-//
-//   node dev-server/build-all.js          rebuild everything, producers first
-//   node dev-server/build-all.js --list   print the order, build nothing
-//   node dev-server/build-all.js --check  rebuild, then exit 1 if any output
-//                                         changed (CI: fail when something was
-//                                         committed stale). Leaves the corrected
-//                                         outputs in the tree — commit them.
-//
-// --check is the guard that would have caught the week-long enclosure staleness.
-//
-// It runs every generator in the tree, each as its own CadQuery process, so it
-// costs minutes; `--list` prints the count without building.
-//
-// STDOUT IS THE ANSWER AND NOTHING ELSE — what failed, what was stale, and a final
-// line that stands alone as the verdict. The per-generator progress goes to stderr,
-// where the generators' own tracebacks already land. A run that finds nothing says
-// so in one line, so there is no transcript here to filter and no reason for a
-// caller to pipe this anywhere: whatever reads stdout gets the whole answer, and
-// the exit code survives to mean what it says.
-
-import fs from "fs";
-import path from "path";
-import { spawn, execFileSync } from "child_process";
-import { fileURLToPath } from "url";
-
-import { contentRoots, buildOrder } from "./deps.js";
+// Explicit local builds use the native progressive print driver and a separate requested PCB path.
+import path from "node:path";
+import { spawn, execFileSync } from "node:child_process";
+import { fileURLToPath } from "node:url";
+import { contentRoots, nativeBuildPlan, buildTargetsForSources, buildOrder } from "./deps.js";
 import { walkPcbBoards } from "../lib/walk.js";
 
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const PROJECT_ROOT = path.resolve(__dirname, "../..");
-const PYTHON_BIN = path.join(PROJECT_ROOT, "tools", "cad-venv", "bin", "python");
-const ROOTS = contentRoots(PROJECT_ROOT);
+const PROJECT_ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../..");
 
-const rel = (p) => path.relative(PROJECT_ROOT, p);
+export function printBuildCommand(projectRoot, targets = []) {
+  return {
+    file: path.join(projectRoot, "tools/run"),
+    args: ["--", path.join(projectRoot, "tools/hsm/target/release/hsm-print-build"), "--root", projectRoot, "--", ...(targets.length ? targets : ["//:everything"])],
+    cwd: projectRoot,
+  };
+}
 
-function run(script) {
-  return new Promise((resolve) => {
-    // stderr inherited so Python tracebacks surface; stdout suppressed (the
-    // generators print diagnostic dimensions on every run).
-    const proc = spawn(PYTHON_BIN, [script], {
-      cwd: path.dirname(script),
-      stdio: ["ignore", "ignore", "inherit"],
+function processRun(command, { capture = false, spawnProcess = spawn } = {}) {
+  return new Promise(resolve => {
+    let stderr = "";
+    const child = spawnProcess(command.file, command.args, {
+      cwd: command.cwd, stdio: ["ignore", "inherit", capture ? "pipe" : "inherit"],
+      env: { ...process.env, ...command.env, HSM_BUILD_SOURCE: "dev-server (explicit build)" },
     });
-    proc.on("close", (code) => resolve(code ?? 0));
-    proc.on("error", () => resolve(1));
+    if (capture && child.stderr) {
+      child.stderr.setEncoding("utf8");
+      child.stderr.on("data", text => { stderr = (stderr + text).slice(-8000); });
+    }
+    child.once("error", error => resolve({ code: 1, stderr: (stderr + error.message).slice(-8000) }));
+    child.once("close", code => resolve({ code: code ?? 1, stderr }));
   });
 }
 
-// Doc-sync drivers that read the PLACED MACHINE. They are `_`-prefixed, which is how
-// `isRunnableScript` tells a shared module from a generator, so the CAD graph above skips
-// them — but they are runnable entry points and what they write is a tracked file under a
-// content root, which is exactly what --check already guards. They run after the graph,
-// because the figures they copy are read off the STEPs it builds.
-//
-// NAMED, NOT DISCOVERED, and the naming is the point. Twenty-five `_`-prefixed scripts
-// import `docgen`, and most are the ledger chain — §7's masses feed the totals, the totals
-// feed the machine-hours — so running them in any order but that one leaves a doc stale
-// after a full run, which is a --check that reports the same file forever. The ones here
-// write a single doc apiece off the machine and settle in one pass. The ledger drivers
-// remain separate tools because their values flow through one another in their own order.
-const DOC_SYNCS = ["hardware/printed-parts/enclosure/_enclosure_dimensions.py"];
-
-function docSyncDrivers() {
-  return DOC_SYNCS.map((p) => path.join(PROJECT_ROOT, p)).filter((p) => fs.existsSync(p));
+export function runPrintBuild({ projectRoot = PROJECT_ROOT, sources = [], capture = false, runCommand = processRun } = {}) {
+  const targets = sources.length ? buildTargetsForSources(sources, projectRoot) : [];
+  return runCommand(printBuildCommand(projectRoot, targets), { capture });
 }
 
-// PCB boards are generated by their own bun pipeline (render-board.ts), not the
-// CadQuery graph, so they get their own pass: every board source under a content
-// root, run as `bun render-board.ts <board>.tsx` in the board's directory. The
-// outputs (the three deterministic copper view SVGs/PNGs + gerbers) land in
-// out/, under the content roots, so --check's dirtyOutputs already guards them.
-function pcbBoards() {
-  const boards = [];
-  for (const root of ROOTS) {
-    for (const b of walkPcbBoards(root)) {
-      boards.push({ dir: path.join(root, path.dirname(b.source)), file: path.basename(b.source) });
+function pcbBoards(projectRoot) {
+  return contentRoots(projectRoot).flatMap(root => [...walkPcbBoards(root)].map(board => ({
+    source: path.join(root, board.source), dir: path.join(root, path.dirname(board.source)),
+  })));
+}
+
+// PCB fabrication runs only when explicitly selected and keeps its detailed native board model.
+export function pcbCommands(projectRoot, board) {
+  const wrapper = path.join(projectRoot, "tools/run");
+  const name = path.basename(board.source, ".tsx");
+  return [
+    { file: wrapper, args: ["--", "bun", "render-board.ts", path.basename(board.source)], cwd: board.dir, env: { RENDER_SOURCE: "build-all (explicit PCB)" } },
+    { file: wrapper, args: ["--", path.join(projectRoot, "tools/hsm/target/release/hsm-pcb"), "--root", projectRoot, "model", path.join(board.dir, "out", `${name}.circuit.json`)], cwd: board.dir },
+  ];
+}
+
+function dirtyOutputs(projectRoot) {
+  const roots = contentRoots(projectRoot);
+  if (!roots.length) return [];
+  const output = execFileSync("git", ["status", "--porcelain=v1", "-z", "--", ...roots], { cwd: projectRoot });
+  const fields = output.toString("utf8").split("\0"), paths = [];
+  for (let at = 0; at < fields.length && fields[at]; at++) {
+    const status = fields[at].slice(0, 2);
+    paths.push(fields[at].slice(3));
+    if (status.includes("R") || status.includes("C")) at++;
+  }
+  return paths;
+}
+
+export async function main(argv = process.argv.slice(2), {
+  projectRoot = PROJECT_ROOT, runCommand = processRun, dirty = dirtyOutputs,
+  listBoards = pcbBoards, output = console,
+} = {}) {
+  let list = false, check = false, pcb = false;
+  const sources = [];
+  for (let at = 0; at < argv.length; at++) {
+    switch (argv[at]) {
+      case "--list": list = true; break;
+      case "--check": check = true; break;
+      case "--pcb": pcb = true; break;
+      case "--source":
+        if (!argv[at + 1] || argv[at + 1].startsWith("--")) throw new Error("--source requires a declared producer or input path");
+        sources.push(argv[++at]); break;
+      case "--help": case "-h":
+        output.log("Usage: node dev-server/build-all.js [--list] [--check] [--source SOURCE ...]\n       node dev-server/build-all.js --pcb [--list] [--check]\nThe default is the native progressive print build. PCB fabrication is explicit.");
+        return 0;
+      default: throw new Error(`Unknown build option ${argv[at]}`);
     }
   }
-  return boards;
+  if (pcb && sources.length) throw new Error("Select the print build's sources or the separate PCB build");
+  if (list) {
+    if (pcb) for (const board of listBoards(projectRoot)) output.log(path.relative(projectRoot, board.source));
+    else {
+      const plan = nativeBuildPlan(projectRoot);
+      const selected = sources.length ? new Set(buildTargetsForSources(sources, projectRoot, plan)) : null;
+      for (const producer of buildOrder(plan)) if (!selected || selected.has(producer.label)) output.log(`${producer.label} ${producer.sources.join(" ")}`);
+    }
+    return 0;
+  }
+  const before = check ? new Set(dirty(projectRoot)) : null;
+  let failed = 0;
+  if (pcb) {
+    for (const board of listBoards(projectRoot)) for (const command of pcbCommands(projectRoot, board)) {
+      const result = await runCommand(command);
+      if (result.code !== 0) { output.error(`PCB build failed: ${path.relative(projectRoot, board.source)} (${result.code})`); failed++; break; }
+    }
+  } else {
+    const result = await runPrintBuild({ projectRoot, sources, runCommand });
+    if (result.code !== 0) { output.error(`Print build failed (${result.code}).`); failed++; }
+  }
+  const stale = check ? dirty(projectRoot).filter(file => !before.has(file)) : [];
+  if (stale.length) {
+    output.log("Outputs regenerated by the requested build:");
+    for (const file of stale) output.log(`  ${file}`);
+  }
+  output.log(failed ? "Requested build failed." : check ? stale.length ? "Requested build completed with stale outputs regenerated." : "Requested build completed; nothing stale." : "Requested build completed.");
+  return failed || stale.length ? 1 : 0;
 }
 
-function runBoard(board) {
-  return new Promise((resolve) => {
-    const proc = spawn("bun", ["render-board.ts", board.file], {
-      cwd: board.dir,
-      stdio: ["ignore", "ignore", "inherit"],
-      env: { ...process.env, RENDER_SOURCE: "build-all" },
-    });
-    proc.on("close", (code) => resolve(code ?? 0));
-    proc.on("error", () => resolve(1));
-  });
+if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
+  main().then(code => { process.exitCode = code; }).catch(error => { console.error(error.message); process.exitCode = 1; });
 }
-
-// Read-only: tracked outputs under the content roots that currently differ from
-// HEAD. Used by --check to tell "this run made it dirty" (stale) from "it was
-// already dirty" (someone's in-flight work).
-function dirtyOutputs() {
-  try {
-    const out = execFileSync("git", ["status", "--porcelain", "--", ...ROOTS], {
-      cwd: PROJECT_ROOT,
-      encoding: "utf-8",
-    });
-    return out
-      .split("\n")
-      .filter((l) => l.trim())
-      .map((l) => l.slice(3));
-  } catch {
-    return [];
-  }
-}
-
-async function main() {
-  const mode = process.argv[2];
-  // `buildOrder` throws on a cycle rather than hand back an order with a producer
-  // standing after its consumer. Nothing here can run correctly on that, so this stops —
-  // with the ring as the last line, the way the verdict below is the last line.
-  let order;
-  try {
-    order = buildOrder(ROOTS);
-  } catch (err) {
-    console.error(err.message);
-    process.exit(1);
-  }
-  const boards = pcbBoards();
-  const syncs = docSyncDrivers();
-
-  if (mode === "--list") {
-    for (const s of order) console.log(rel(s));
-    for (const b of boards) console.log(`${rel(path.join(b.dir, b.file))} (bun render-board.ts)`);
-    for (const s of syncs) console.log(`${rel(s)} (doc-sync)`);
-    console.log(`\n${order.length} generators (producers first) + ${boards.length} PCB boards`
-                + ` + ${syncs.length} doc-sync.`);
-    return;
-  }
-
-  const before = mode === "--check" ? new Set(dirtyOutputs()) : null;
-
-  const failed = [];
-  // Progress on stderr, beside the tracebacks it explains: a line that only says a
-  // step is under way is stale the moment the next one starts, and stdout is
-  // reserved for what is still true when the run ends.
-  const step = (label, name) => process.stderr.write(`[${label}] ${name} ... `);
-  const done = (code, name) => {
-    process.stderr.write(code === 0 ? "ok\n" : `FAILED (${code})\n`);
-    if (code !== 0) failed.push(name);
-  };
-
-  for (let i = 0; i < order.length; i++) {
-    const name = rel(order[i]);
-    step(`${i + 1}/${order.length}`, name);
-    done(await run(order[i]), name);
-  }
-  for (let i = 0; i < boards.length; i++) {
-    const b = boards[i];
-    const name = rel(path.join(b.dir, b.file));
-    step(`board ${i + 1}/${boards.length}`, name);
-    done(await runBoard(b), name);
-  }
-  for (let i = 0; i < syncs.length; i++) {
-    const name = rel(syncs[i]);
-    step(`doc-sync ${i + 1}/${syncs.length}`, name);
-    done(await run(syncs[i]), name);
-  }
-  const total = order.length + boards.length + syncs.length;
-
-  if (failed.length > 0) {
-    console.log(`${failed.length} of ${total} failed to build (traceback on stderr):`);
-    for (const f of failed) console.log(`  ${f}`);
-  }
-
-  const stale = mode === "--check" ? dirtyOutputs().filter((f) => !before.has(f)) : [];
-  if (stale.length > 0) {
-    console.log(`${stale.length} output(s) were stale, regenerated in the tree — commit them:`);
-    for (const f of stale) console.log(`  ${f}`);
-  }
-
-  // The last line is the whole verdict on its own, so a caller who reads nothing
-  // else still reads the truth.
-  const verdict = [
-    failed.length > 0 ? `${failed.length} failed` : null,
-    mode === "--check" ? (stale.length > 0 ? `${stale.length} stale` : "nothing stale") : null,
-  ].filter(Boolean);
-  console.log(`${total} run, ${verdict.length ? verdict.join(", ") : "0 failed"}.`);
-
-  if (failed.length > 0 || stale.length > 0) process.exit(1);
-}
-
-main();

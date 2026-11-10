@@ -134,7 +134,7 @@ The safe live check observes this data without opening the main board's reset-ca
 port or driving any load:
 
 ```bash
-~/.platformio/penv/bin/python tools/firmware_faucet_check.py
+hsm-peripheral firmware-faucet-check
 ```
 
 `--toggle` changes the flavor once, proves main board and cache persistence, and restores the

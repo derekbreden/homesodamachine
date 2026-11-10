@@ -11,7 +11,7 @@ strip follows a 72.34 mm route within one six-inch narrow tie.
 and actual published equipment and wire bodies. The pump has 1.52 mm CAD air;
 the closest wire has 1.10 mm. Native faces and edges outside the support region
 match the held lid exactly. Other supports, C2 jaws, passages and equipment
-positions are retained. The manual [bearing review](../check_bridge_review.py)
+positions are retained. The manual [bearing review](https://github.com/derekbreden/homesodamachine/blob/a518a57a878f02d9ac5b8b638c1c5883cadf6669/hardware/printed-parts/cold-core/foam-cap/check_bridge_review.py)
 checks the complete quarter bearing, 3 mm lid backing and four driver columns.
 
 [Assembly readings](aggregate.json) bind the native foam stack, cold core,

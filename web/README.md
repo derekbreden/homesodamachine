@@ -36,24 +36,44 @@ The home page is for someone who knows little more than "soda machine" and has n
 
 ### Refreshing the illustrations
 
-[`render-kitchen-scene.py`](../tools/render/render-kitchen-scene.py) renders the homepage
-illustrations on request, outside the print build and website deployment. It reads the current
-local CAD payloads through the native geometry reader. The display artwork follows the glass
-and cover's placement; the flavor images come from the firmware.
+[`hsm-marketing kitchen-scene`](../tools/hsm/marketing/README.md) renders the
+homepage illustrations on request, outside the print build and website deployment.
+It reads the current local CAD payloads through the native geometry reader.
+The display artwork follows the glass and cover placement; the flavor images
+come from the firmware.
 
-Run Blender through the shared run wrapper, with an output directory for the current run:
+From the repository root, render a draft into a directory for the current run:
 
 ```sh
-python3 tools/run.py -- /Applications/Blender.app/Contents/MacOS/Blender \
-  --background --factory-startup --python tools/render/render-kitchen-scene.py
+art_dir=".cache/runs/homepage-art-$(date +%s)"
+tools/run -- hsm-marketing kitchen-scene --preview --out "$art_dir"
 ```
 
-The renderer prints its output directory under `.cache/runs/`. Add `-- --preview` for a draft,
-or `-- --shots kitchen cabinet` to select views. Convert the finished PNGs with the Sharp
-dependency under `tools/render/`: `kitchen.png` becomes `public/landing/kitchen-scene.webp`,
-`faucet.png` becomes `public/landing/faucet-detail.webp`, and `cabinet.png` becomes
-`public/landing/cabinet-detail.webp`. Check the page on phone and desktop, then commit the
-images. Updating them requires no CAD rebuild.
+`--shots kitchen cabinet` selects views. The available names are `kitchen`,
+`faucet` and `cabinet`. Review the draft PNGs, then render the finished views
+without `--preview` before converting them with the Sharp dependency under
+`tools/render/`:
+
+```sh
+tools/run -- hsm-marketing kitchen-scene --out "$art_dir"
+HSM_KITCHEN_OUT="$art_dir" tools/run -- node --input-type=module <<'JS'
+import { createRequire } from "node:module";
+import path from "node:path";
+const require = createRequire(path.resolve("tools/render/package.json"));
+const sharp = require("sharp");
+for (const [source, target] of [
+  ["kitchen.png", "kitchen-scene.webp"],
+  ["faucet.png", "faucet-detail.webp"],
+  ["cabinet.png", "cabinet-detail.webp"],
+]) {
+  await sharp(path.join(process.env.HSM_KITCHEN_OUT, source))
+    .webp().toFile(path.join("web/public/landing", target));
+}
+JS
+```
+
+Check the page on phone and desktop, then commit the finished WebP images.
+Updating them requires no CAD rebuild.
 
 ## Running it
 
@@ -61,7 +81,7 @@ images. Updating them requires no CAD rebuild.
 cd web
 npm ci             # installs package-lock.json exactly — what Render runs
 npm start          # production server (port 3001 by default; PORT env overrides)
-npm run dev        # dev wrapper: chokidar + Python runner + WebSocket hot reload (port 3000)
+npm run dev        # dev wrapper: output watching + native explicit builds + WebSocket hot reload (port 3000)
 npm run dev -- --no-watch  # same server, no watchers: nothing rebuilds on save
 npm test           # route mount, walkers, contracts — no browser, no DB
 npm run test:browser # the browser pass (tests/browser/), on demand
@@ -107,7 +127,7 @@ estimates for practiced hands with the map, tools and materials ready;
 development and lookup time are excluded.
 
 Regenerate the native PCB crops on demand with
-`tools/cad-venv/bin/python tools/harness/extract-j2-board.py J2 J13` from the
+`hsm-pcb harness-crops J2 J13` from the
 repository root. The producer clips the published PCB and embeds its original
 fabrication pixels; the provenance records its source hashes and bench pose.
 
@@ -180,7 +200,7 @@ Served flat via `express.static(public/)`.
 |---|---|---|
 | [`public/boot.js`](/web/public/boot.js) | every page (`<script defer>`) | SW navigate bridge, notifications state mirror + bell + toast + warm-tap auto-redirect, WebSocket owner, `/api/version` deploy/activation check (reloads the page on a new build unless the viewer claims it via `window.__hsmDeploySoft`). Module-local state — never touches `window.__hsm`. |
 | [`public/landing.js`](/web/public/landing.js) | `/` | Loads the film player when its local poster is activated; handles availability signup and feedback. The poster links to YouTube without JavaScript. |
-| [`public/landing/`](/web/public/landing/) | `/` | Kitchen and component illustrations rendered from the current CAD meshes by [`../tools/render/render-kitchen-scene.py`](../tools/render/render-kitchen-scene.py), plus the film poster. The scene renderer is run on demand. |
+| [`public/landing/`](/web/public/landing/) | `/` | Kitchen and component illustrations rendered from the current CAD meshes by [`hsm-marketing kitchen-scene`](../tools/hsm/marketing/src/kitchen.rs), plus the film poster. The scene renderer is run on demand. |
 | [`public/pretty/`](/web/public/pretty/) | `/pretty/`, `/pretty/enclosure/` | Interactive studio views of the PP061208W reducer and full enclosure. Rotate, pan, scroll or pinch to zoom, and reset. The enclosure offers front-open, rear-open, all-open and closed shell views, with a separate core-insulation toggle. |
 | [`public/suppliers/`](/web/public/suppliers/) | `/` | White logos for the landing page's suppliers section, each from the supplier's own site. Fresh Water Systems: its white footer logo. JLCPCB: its header logo, the `logo` glyph (U+E6CC) of its icon font, written as a path. SendCutSend: the approved white logo from its [brand assets](https://sendcutsend.com/brand-assets/) page, its canvas trimmed to the artwork; the approved colors are black, red and white, and only its approved logos may be used. Lulu: its site logo, filled white. |
 | [`public/cost.js`](/web/public/cost.js) | `/cost` | Cost overview navigation and sales scenario controls. Three accordion cards show per-unit cost, investment recovery and the 5/10/20 forecast in that order, with headline totals visible while collapsed. Jump links and direct section links reveal the relevant card; recovery controls update its summary. `cost-recovery.js` shares recovery math and the SVG chart with the server. `batch-forecast.js` selects the 5/10/20 plan, defaults to Parts category, and filters suppliers and stock-covered parts. Compact purchase lists scroll; each item expands for source, lots and stock evidence. The overview, category grouping and all three batch disclosures work without JavaScript. |
@@ -188,7 +208,7 @@ Served flat via `express.static(public/)`.
 | [`public/changes.js`](/web/public/changes.js) | `/changes` | Loads more cards as the feed scrolls and opens a card's entry in ContentViewer with its `/changes/<id>` URL pushed, so Back closes it. A tap on a picture, or ← and →, flips each view between Before and After; without it the cards are links, the feed ends in a link to older entries, and the views are radios. |
 | [`public/settings.js`](/web/public/settings.js) | `/settings` | Notification + live-reload debug toggles. |
 | [`public/style-guide.js`](/web/public/style-guide.js) | `/style-guide` | Local sample search, tabs, row selection, copy markup and computed style readouts. |
-| [`public/brand/mark.svg`](/web/public/brand/mark.svg) | every page | The faucet mark in the Home link and landing hero. Generated from [`../brand/mark.svg`](../brand/mark.svg) by [`../tools/build_brand_assets.py`](../tools/build_brand_assets.py). |
+| [`public/brand/mark.svg`](/web/public/brand/mark.svg) | every page | The faucet mark in the Home link and landing hero. Generated from [`../brand/mark.svg`](../brand/mark.svg) by [`hsm-marketing brand-assets`](../tools/hsm/marketing/src/brand.rs). |
 | [`public/pan-zoom.js`](/web/public/pan-zoom.js) | `/3d`, `/charts` | Generic pan + pinch-zoom + wheel-zoom. |
 | [`public/content-viewer.js`](/web/public/content-viewer.js) | `/3d`, `/charts` | Modal singleton: open / close / swipe-down / Esc / X / backdrop. |
 | `public/js/viewer/*.js` | `/3d`, `/charts` | The parts/charts viewer modules — see below. |

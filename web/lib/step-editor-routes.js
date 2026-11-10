@@ -28,7 +28,7 @@ import path from "path";
 // EMPTY. An entry belongs here only when its generator READS that sidecar and
 // applies the moves as it places — the route writes the file and re-runs the
 // generator, and nothing else carries the edit into the geometry. No generator
-// in the tree reads one: `hardware/manifold-layout/enclosure_assembly.py`, which builds
+// in the tree reads one: `hardware/manifold-layout/installed_machine.rs`, which builds
 // the enclosure assembly, seats every body from its own source. So nothing is
 // editable, every route below 404s, and the viewer hides the Edit toggle.
 const EDITABLE = {};
@@ -88,7 +88,7 @@ function cleanOverride(body) {
  * @param hardwareDir the content root every editable path is relative to.
  * @param rebuild async (generatorPath) => { ok, error } — runs the generator,
  *   captures failure output, and broadcasts the new .step on success. Supplied
- *   by the dev server, which owns the Python runner + the WebSocket.
+ *   by the dev server, which owns the explicit native build request and WebSocket.
  */
 export function mountStepEditorRoutes(app, { hardwareDir }, rebuild) {
 

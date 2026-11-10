@@ -83,7 +83,7 @@ The asset bridges that replace it with the real thing:
   [`out/pcba.glb`](../../../hardware/pcb/pcba/out/) and the faucet STEP→glTF for
   exploded-assembly reveals and cross-sections. (Not yet added — v1 is 2D.)
 - **Interop with footage** — a Remotion clip drops into
-  [`cut.py`](../cut.py) as B-roll; `<OffthreadVideo>` embeds real footage inside
+  [`hsm-marketing cut`](../../../tools/hsm/marketing/src/video/edit.rs) as B-roll; `<OffthreadVideo>` embeds real footage inside
   a composition; `@remotion/captions` ingests the existing Whisper JSON.
 
 ## Notes

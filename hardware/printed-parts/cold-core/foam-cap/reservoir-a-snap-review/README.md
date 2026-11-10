@@ -41,7 +41,7 @@ root stress concentration or material model. They do not establish a safe
 material limit, force, repeated-use performance or retained load.
 
 The [native reading](native-review.json), produced manually by
-[`review_reservoir_a_snap.py`](../../../../../tools/reviews/review_reservoir_a_snap.py),
+[`review_reservoir_a_snap.py`](https://github.com/derekbreden/homesodamachine/blob/fa658f2927cea008103ecb80685b65f879c2f2cb/tools/reviews/review_reservoir_a_snap.py),
 binds its identified source and exported geometry. It includes seated fit, both
 axial stops, the 6.65 mm cap approach and a native outward-bending section.
 Its bent shape is a geometric motion proxy. The complete cap starts above

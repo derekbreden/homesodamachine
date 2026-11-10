@@ -5,7 +5,7 @@
 // the solids it already has and says so to nobody. The cut that was refused then waits for the
 // 120s poll — twelve times the 10s floor it was refused for — and the only symptom is the human
 // watching homesodamachine.com for geometry that published two minutes ago. Four sessions commit
-// into this checkout and `.githooks/post-commit` fires `publish_now.py` on every commit, so a
+// into this checkout and `.githooks/post-commit` fires `hsm-publish` on every commit, so a
 // post landing inside another post's floor is the resting state, not a burst.
 //
 // `fetch` is replaced so `adopt()` fails at its first call: nothing is written, no bundle is

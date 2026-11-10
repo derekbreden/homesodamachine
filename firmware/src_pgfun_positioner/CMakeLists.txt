@@ -9,8 +9,10 @@ set(PICO_BOARD pico CACHE STRING "SKR Pico RP2040, 2MB flash")
 set(PICO_NO_PICOTOOL 1)
 include(${PICO_SDK_PATH}/external/pico_sdk_import.cmake)
 project(pgfun_positioner C CXX ASM)
-find_package(Python3 REQUIRED COMPONENTS Interpreter)
-execute_process(COMMAND ${Python3_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/make_geometry.py --check
+find_program(HSM_PERIPHERAL NAMES hsm-peripheral
+  HINTS ${CMAKE_CURRENT_SOURCE_DIR}/../../tools/hsm/target/release REQUIRED)
+execute_process(COMMAND ${HSM_PERIPHERAL} --root ${CMAKE_CURRENT_SOURCE_DIR}/../..
+  positioner-geometry --check
   RESULT_VARIABLE GEOMETRY_STATUS)
 if(NOT GEOMETRY_STATUS EQUAL 0)
   message(FATAL_ERROR "Regenerate geometry before building")
@@ -21,6 +23,17 @@ set_property(DIRECTORY APPEND PROPERTY CMAKE_CONFIGURE_DEPENDS
 set(CMAKE_C_STANDARD 11)
 set(CMAKE_CXX_STANDARD 17)
 pico_sdk_init()
+# The native generator pads and checksums the SDK's compiled boot stage.
+get_target_property(HSM_BOOT2_DIR bs2_default BINARY_DIR)
+set(HSM_BOOT2_ASM ${CMAKE_CURRENT_BINARY_DIR}/boot2-padded.S)
+add_custom_command(OUTPUT ${HSM_BOOT2_ASM}
+  COMMAND ${HSM_PERIPHERAL} --root ${CMAKE_CURRENT_SOURCE_DIR}/../..
+    pico-pad-checksum -s 0xffffffff ${HSM_BOOT2_DIR}/bs2_default.bin ${HSM_BOOT2_ASM}
+  DEPENDS bs2_default_bin
+  VERBATIM)
+add_custom_target(hsm_boot2_native DEPENDS ${HSM_BOOT2_ASM})
+set_property(TARGET bs2_default_library PROPERTY SOURCES ${HSM_BOOT2_ASM})
+add_dependencies(bs2_default_library hsm_boot2_native)
 add_executable(pgfun_positioner main.cpp)
 target_link_libraries(pgfun_positioner pico_stdlib pico_rand hardware_adc hardware_uart hardware_watchdog)
 target_compile_options(pgfun_positioner PRIVATE -Wall -Wextra -Werror)

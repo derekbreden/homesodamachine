@@ -49,18 +49,18 @@ path, datums, fonts and provenance.
 
 ## Render
 
-Use Node, FFmpeg, the existing `tools/render` Node dependencies, Chrome and
-`tools/video-venv`. The renderer restores local JSON working copies from the
+Use the [native marketing tools](../../../tools/hsm/marketing/README.md), Node,
+FFmpeg, the existing `tools/render` Node dependencies and Chrome. The renderer restores local JSON working copies from the
 committed gzip assets and caches pinned Three.js 0.160.1 in the ignored output
 directory. It does not rebuild the hardware.
 
 From the repository root:
 
 ```sh
-tools/video-venv/bin/python marketing/video/how-carbonation-works/edit-audio.py
-tools/video-venv/bin/python marketing/video/how-carbonation-works/make-audio.py
-node marketing/video/how-carbonation-works/render.mjs --stills
-node marketing/video/how-carbonation-works/render.mjs --render
+tools/run -- hsm-marketing explainer-edit
+tools/run -- hsm-marketing explainer-audio
+tools/run -- node marketing/video/how-carbonation-works/render.mjs --stills
+tools/run -- node marketing/video/how-carbonation-works/render.mjs --render
 ```
 
 The full render creates resumable H.264 scene clips in `out/segments`, joins
@@ -70,9 +70,9 @@ clips. `--stills` writes the review frames and thumbnail source. Render outputs,
 intermediate audio, and local CAD working copies are ignored.
 
 `--stills --times 4.2,20.2,36.7,65.1` selects specific review frames. The
-fixed hardware and closed half-section sources can be extracted from the
-existing STEP files with `prepare-carbonator-assets.py` in `tools/cad-venv`.
-That export does not change or rebuild the hardware.
+fixed hardware and closed half-section sources are exported from current
+native CAD payloads with `tools/run -- hsm-marketing explainer-assets --bundle carbonator`.
+That manual export does not rebuild the hardware.
 
 For the local player and the animated scene preview:
 
@@ -85,7 +85,7 @@ Open `http://127.0.0.1:8794/watch.html` for the finished movie, or
 has no sound. `studio.html?t=47.2` selects an explicit picture time.
 
 To record a new Gemini performance, edit `narration.json` and run
-`generate-narration.py` with the video Python environment. It reads the local
+`tools/run -- hsm-marketing film-narration --film explainer`. It reads the local
 Gemini credential or its environment variable, records the source WAV, and
 aligns the words with local Whisper. Recording is separate from a normal render.
 The original WAV, script, alignment and audio recipes are sufficient to rebuild

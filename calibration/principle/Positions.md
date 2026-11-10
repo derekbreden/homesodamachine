@@ -56,7 +56,7 @@ Reading the repo's note on what memory is for before I save anything, as the hoo
 
 The repo teaches agents to search. Three things in it push them that way:
 
-- **The docs say to.** AGENTS.md sends every agent to [hardware/README.md](/hardware/README.md). That file describes [probe.py](/hardware/scripts/probe.py) as the tool that "asks the placed machine a geometry question instead of reasoning about it," and probe.py's first line says the same. Both were committed on 2026-07-23, before commits quoted you, so git can't say whether that wording was yours.
+- **The docs say to.** AGENTS.md sends every agent to [hardware/README.md](/hardware/README.md). That file describes [probe.py](https://github.com/derekbreden/homesodamachine/blob/162933b808aabeb95538cf951df2bcc51c81b28a/hardware/scripts/probe.py) as the tool that "asks the placed machine a geometry question instead of reasoning about it," and probe.py's first line says the same. Both were committed on 2026-07-23, before commits quoted you, so git can't say whether that wording was yours.
 - **The study is written that way.** [study.py](https://github.com/derekbreden/homesodamachine/blob/365ab749aa0b4bfb3f3955ef02cee1c5a8d2a1bc/hardware/manifold-layout/studies/rear-port-rebuild/study.py) finds the V-K stub's length by stepping half a millimetre at a time, and it finds the CO2 route by trying a grid of positions. That session had just done the CO2 move with that same grid search, and agents copy the code around them.
 - **A search lets the agent skip working out what's in the way.** Reading positions makes it name that part first.
 

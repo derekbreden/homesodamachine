@@ -73,12 +73,12 @@ outline centre that the installed machine's wiring reads.
 Regenerate from the repository root:
 
 ```sh
-python3 tools/run.py -- cargo run --release --manifest-path tools/hsm/pcba-assembly/Cargo.toml
+tools/run -- cargo run --release --manifest-path tools/hsm/pcba-assembly/Cargo.toml
 ```
 
 When the board's design changes, export the fab model again and then write its component
 stock down:
 
 ```sh
-python3 tools/run.py -- cargo run --release --manifest-path tools/hsm/pcba-assembly/Cargo.toml -- --read-fab-model
+tools/run -- cargo run --release --manifest-path tools/hsm/pcba-assembly/Cargo.toml -- --read-fab-model
 ```

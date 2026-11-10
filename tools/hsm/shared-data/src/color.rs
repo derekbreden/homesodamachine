@@ -31,9 +31,9 @@ fn stock_srgb(name:&str)->Result<[f64;3]>{let args=constructor(&stock()["colors"
 /// The machine's port colours: each port's own colour, the filament its chip on the wall prints
 /// in, and the colour of the word on that chip. The wall's chips, the faucet's tube collars, the
 /// routes and the palette all take them from here.
-pub fn chips()->Result<Value>{
+pub fn chips()->Result<Value>{chip_palette(stock_srgb("M_PETGF_BLACK")?.map(|c|c*255.))}
+fn chip_palette(black:[f64;3])->Result<Value>{
     let colors=json!({"carb":[31,111,235],"drain":[255,255,255],"water":[255,255,255],"co2":[214,58,58],"flavor":[38,38,41]});
-    let black=stock_srgb("M_PETGF_BLACK")?.map(|c|c*255.);
     let white=json!([235,236,234]);
     let filaments=json!({"drain":["Fiberon PET-GF15 White",white],"water":["Fiberon PET-GF15 White",white],
         "carb":["Fiberon PET-GF15 Blue",[105,180,247]],"co2":["Fiberon PET-GF15 Red",[228,83,87]],"flavor":["Fiberon PET-GF15 Black",black]});
@@ -82,6 +82,31 @@ fn all_finishes(r:&Value)->Result<Vec<Value>>{
     }
     out.sort_by(|a,b|{for i in 0..3{let c=a["rgb"][i].as_f64().unwrap().total_cmp(&b["rgb"][i].as_f64().unwrap());if !c.is_eq(){return c}}std::cmp::Ordering::Equal});Ok(out)
 }
+/// The authored material constructors and aliases used by native colour consumers.
+pub fn material_catalog(input:&Value)->Result<Value>{
+    let mut data=input.clone();data["whitest"]=json!(254./255.);
+    let colors=data["colors"].as_object().context("the material catalog's colours")?.iter().map(|(k,v)|Ok((k.clone(),constructor(v)?))).collect::<Result<serde_json::Map<String,Value>>>()?;
+    data["colors"]=json!(colors);let mut parts=array(&data["petgf_black_parts"]).to_vec();parts.extend(array(&data["wall_names"]).iter().map(|n|json!(format!("enclosure-{}",text(n)))));data["petgf_black_parts"]=json!(parts);Ok(data)
+}
+/// The viewer's finishes merged from an already-read material catalog and tube-stock catalog.
+pub fn catalog_finishes(catalog:&Value,routing:&Value)->Result<Vec<Value>>{
+    let record=|name:&str|->Result<Value>{let source=catalog["aliases"][name].as_str().unwrap_or(name);let args=catalog["colors"].get(source).with_context(||format!("no colour {name} in the materials catalog"))?;Ok(json!({"args":args,"kwargs":{}}))};
+    let black=rgba(&catalog["colors"]["M_PETGF_BLACK"],&json!({}))?.context("the PET-GF colour")?;
+    let chips=chip_palette(srgb([black[0],black[1],black[2]]).map(|c|c*255.))?;
+    let mut finishes=Vec::new();let mut pet_gf=None;
+    for row in catalog["finishes"].as_array().context("the catalog's finishes")?{
+        let name=row[0].as_str().context("a finish's material")?;if name=="M_PETGF_BLACK"{pet_gf=Some((row[1].clone(),row[2].clone()));}finishes.push(json!([record(name)?,row[1],row[2]]));
+    }
+    let(rough,metal)=pet_gf.context("the catalog states no PET-GF finish")?;let order=chips["filament_order"].as_array().context("the chips' filament order")?;let mut rgbs=Vec::new();
+    for fluid in order{rgbs.push(chips["chip_filaments"][fluid.as_str().context("a fluid")?][1].clone());}
+    for fluid in order{rgbs.push(chips["chip_word_colors"][fluid.as_str().context("a fluid")?].clone());}
+    for args in dispatch("palette_constructors",&json!({"rgbs":rgbs}))?.as_array().context("the palette")?{finishes.push(json!([{"args":args,"kwargs":{}},rough,metal]));}
+    let mut named=serde_json::Map::new();for name in catalog["colors"].as_object().into_iter().flatten().map(|(k,_)|k).chain(catalog["aliases"].as_object().into_iter().flatten().map(|(k,_)|k)){named.insert(name.clone(),record(name)?);}
+    let mut spools=serde_json::Map::new();for(name,spool)in routing["spools"].as_object().context("the tube stock's spools")?{
+        let own=&spool["color"];let rgb=if own["bytes"].is_array(){own["bytes"].clone()}else{let palette=own["palette"].as_str().with_context(||format!("spool {name} names no colour"))?;chips["port_colors"][palette].clone()};let mut row=spool.clone();row.as_object_mut().context("a spool")?.remove("color");row["rgb"]=rgb;spools.insert(name.clone(),row);
+    }
+    all_finishes(&json!({"finishes":finishes,"named":named,"spools":spools,"shared":catalog["shared"]}))
+}
 fn petgf(r:&Value)->Result<Value>{
     let normalized=text(&r["name"]).replace('_',"-");let mut parts=normalized.split('/').collect::<Vec<_>>();
     if parts.last().is_some_and(|s|!s.is_empty()&&s.bytes().all(|c|c.is_ascii_digit())){parts.pop();}
@@ -106,7 +131,7 @@ pub fn dispatch(op:&str,r:&Value)->Result<Value>{
         "rgba"=>json!(rgba(&r["args"],&r["kwargs"])?),"srgb"=>json!(srgb([number(&r["rgb"][0])?,number(&r["rgb"][1])?,number(&r["rgb"][2])?])),
         "f32"=>json!(number(&r["value"])?as f32 as f64),"curve"=>json!(curve(number(&r["value"])?)),"curve32"=>json!(curve32_input(number(&r["value"])?)),"inverse"=>json!(inverse(number(&r["value"])?)),
         "rgb8_linear"=>json!(rgb8_linear(&r["rgb"],r["step_safe"].as_bool().unwrap_or(false))?),
-        "catalog"=>{let mut data=stock();data["whitest"]=json!(254./255.);let colors=data["colors"].as_object().unwrap().iter().map(|(k,v)|Ok((k.clone(),constructor(v)?))).collect::<Result<serde_json::Map<String,Value>>>()?;data["colors"]=json!(colors);let mut parts=array(&data["petgf_black_parts"]).to_vec();parts.extend(array(&data["wall_names"]).iter().map(|n|json!(format!("enclosure-{}",text(n)))));data["petgf_black_parts"]=json!(parts);data},
+        "catalog"=>material_catalog(&stock())?,
         "palette_constructors"=>{let mut seen=BTreeSet::new();let mut out=vec![];for rgb in array(&r["rgbs"]){if seen.insert(rgb.to_string()){out.push(constructor(&json!({"bytes":rgb}))?);}}json!(out)},
         "stock_srgb"=>json!(stock_srgb(text(&r["name"]))?),
         "chips"=>chips()?,

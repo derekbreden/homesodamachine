@@ -37,9 +37,10 @@ Show motion as a sequence. Keep dimensions beside their datum, distinguish a
 schematic from a full-size template, and place the pass/hold check at the step
 where it changes what Derek does.
 
-`tools/assembly-guides/common.py` supplies the vector Letter page furniture.
-`hardware/guide-assets/fonts/` supplies shared webfonts for HTML guides. These
-assets carry no assembly or geometry logic.
+The [native Letter furniture](../../../tools/hsm/fabrication-guides/src/letter.rs)
+supplies the vector page primitives. The [manual guide commands](../../../tools/hsm/manual-guides/README.md)
+bind authored HTML or draw typed operation records through `hsm-pages`.
+`hardware/guide-assets/fonts/` supplies the shared HTML and PDF fonts.
 
 ## Epson Letter photo printing
 

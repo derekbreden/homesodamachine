@@ -83,9 +83,7 @@ the inlet and outlet axes:
 - **−X** the inlet axis, out toward the cylinder — the CGA-320 nut.
 - **+X** the cylinder-contents dial.
 
-```sh
-tools/cad-venv/bin/python hardware/reference/taprite-3741-regulator/taprite_3741_regulator.py
-```
+The model and measurements are retained with their [source derivations](https://github.com/derekbreden/homesodamachine/blob/a518a57a878f02d9ac5b8b638c1c5883cadf6669/hardware/reference/taprite-3741-regulator/taprite_3741_regulator.py).
 
 It writes `taprite-3741-regulator.step` and holds the six extremes of that file to the stations it
 states.

@@ -59,17 +59,6 @@ pub struct Ask {
     pub args: Vec<String>,
 }
 
-/// A declared Python generator action. The shared plan supplies its inputs and outputs.
-#[derive(Debug, Deserialize, Serialize)]
-pub struct Generate {
-    pub workspace: PathBuf,
-    pub target: String,
-    #[serde(default)]
-    pub output: Option<PathBuf>,
-    #[serde(default)]
-    pub python: Option<PathBuf>,
-}
-
 /// A kept run.
 #[derive(Clone, Deserialize, Serialize)]
 struct Kept {
@@ -84,13 +73,6 @@ struct Kept {
     /// The run's key by its program's portable code.
     portable: String,
     sources: Vec<String>,
-    #[serde(default)]
-    action: Option<Value>,
-}
-
-struct Generated {
-    kept: Kept,
-    answer: Value,
 }
 
 /// A program's two identities. `native` is the toolchain with the sources: a built program and a
@@ -362,166 +344,6 @@ impl Builder {
             "program_seconds": kept.seconds, "peak_bytes": kept.peak,
             "code": code.native, "key": key, "seconds": started.elapsed().as_secs_f64(),
         }))
-    }
-
-    fn generator_command(workspace: &Path, python: &Path, mode: &str) -> Command {
-        let mut command = Command::new(python);
-        command.arg(workspace.join("tools/hsm/generate.py")).arg(mode)
-            .current_dir(workspace).env_clear().envs(cargo_env(&home()))
-            .env("PYTHONDONTWRITEBYTECODE", "1");
-        command
-    }
-
-    fn generate(&self, mut ask: Generate, socket: &Path, mut lease: Option<Lease>) -> Result<Value> {
-        let started = Instant::now();
-        ask.workspace = ask.workspace.canonicalize()?;
-        let python = ask.workspace.join(ask.python.as_deref().unwrap_or(Path::new("tools/cad-venv/bin/python")));
-        ensure!(plain(&ask.target), "a generator target is a plain name");
-        let output = normal(&ask.workspace.join(ask.output.as_deref().unwrap_or(&ask.workspace)));
-        let mut describe = Self::generator_command(&ask.workspace, &python, "describe");
-        describe.arg(&ask.target);
-        let described = finish(describe)?;
-        ensure!(described.ok, "generator plan failed:\n{}", String::from_utf8_lossy(&described.stderr));
-        let plan: Value = serde_json::from_slice(&described.stdout)?;
-        let mut completed: HashMap<String, Kept> = HashMap::new();
-        let mut answers = vec![];
-        let mut leaf = None;
-        for declared in plan["actions"].as_array().context("generator action plan")? {
-            let mut recipe = declared.clone();
-            let target = recipe["target"].as_str().context("generator target")?.to_owned();
-            ensure!(!completed.contains_key(&target), "duplicate generator action: {target}");
-            for dependency in recipe["dependencies"].as_array().context("generator dependencies")? {
-                let dependency = dependency.as_str().context("generator dependency")?;
-                ensure!(completed.contains_key(dependency), "producer has not completed: {dependency}");
-            }
-            for row in recipe["inputs"].as_array_mut().context("generator inputs")? {
-                if let Some(producer) = row["producer"].as_str() {
-                    let path = row["path"].as_str().context("producer input path")?;
-                    let output = match row.get("producer_output") {
-                        Some(value) => value.as_str().context("producer output path")?,
-                        None => path,
-                    };
-                    let produced = completed.get(producer)
-                        .with_context(|| format!("producer has not completed: {producer}"))?;
-                    let digest = produced.files.iter().find(|(name, _)| name == output)
-                        .map(|(_, digest)| digest)
-                        .with_context(|| format!("producer {producer} did not write {output}"))?;
-                    ensure!(self.dir.join("blobs").join(digest).is_file(), "missing producer blob: {path}");
-                    // Only this request's completed output can bind a generated input.
-                    // The checkout's path is neither read nor used as a fallback.
-                    row["sha256"] = json!(digest);
-                }
-            }
-            let generated = self.generate_action(&ask.workspace, &python, &recipe, socket, &mut lease)?;
-            answers.push(generated.answer.clone());
-            if target == ask.target { leaf = Some((recipe, generated.answer.clone())); }
-            completed.insert(target, generated.kept);
-        }
-        let (recipe, mut answer) = leaf.context("requested generator is absent from its plan")?;
-        let kept = completed.get(&ask.target).context("requested generator did not complete")?;
-        self.place_generator(&ask.workspace, &python, &recipe, kept, &output)?;
-        answer["output"] = json!(output);
-        answer["actions"] = json!(answers);
-        answer["seconds"] = json!(started.elapsed().as_secs_f64());
-        Ok(answer)
-    }
-
-    fn generate_action(&self, workspace: &Path, python: &Path, recipe: &Value,
-                       socket: &Path, lease: &mut Option<Lease>) -> Result<Generated> {
-        let started = Instant::now();
-        let target = recipe["target"].as_str().context("generator target")?;
-        let code = format!("{:x}", Sha256::digest(serde_json::to_vec(&recipe)?));
-        let key = format!("{:x}", Sha256::digest(format!("hsm generator 2\n{code}")));
-        // Existing runtime-read resolution is portable across the requesting checkouts.
-        let logical = Ask { workspace: workspace.to_path_buf(), root: workspace.to_path_buf(),
-                            krate: "generator".into(), name: target.to_owned(), args: vec![] };
-        let mut hit = self.lookup(&key, &logical)?;
-        if hit.is_none() {
-            *lease = Some(hsm_run_slots::acquire(&format!("generator:{target}"), lease.take(), false)?);
-        }
-        let mut flight = None;
-        if hit.is_none() {
-            let (f, leader) = {
-                let mut flights = self.flights.lock().unwrap();
-                match flights.get(&key) {
-                    Some(f) => (f.clone(), false),
-                    None => {
-                        let f = Arc::new(Flight::default());
-                        flights.insert(key.clone(), f.clone());
-                        (f, true)
-                    }
-                }
-            };
-            if leader { flight = Some(f); }
-            else {
-                let mut done = f.done.lock().unwrap();
-                while !*done { done = f.landed.wait(done).unwrap(); }
-                drop(done);
-                hit = self.lookup(&key, &logical)?;
-            }
-        }
-        let landing = Landing { builder: self, key: &key, flight };
-        let was_kept = hit.is_some();
-        let scratch = self.dir.join("tmp").join(format!("{}-{}", std::process::id(), self.serial()));
-        fs::create_dir_all(&scratch)?;
-        let result = (|| {
-            let recipe_path = scratch.join("recipe.json");
-            fs::write(&recipe_path, serde_json::to_vec(&recipe)?)?;
-            let (kept, kept_now) = match hit {
-                Some(kept) => (kept, false),
-                None => {
-                    let mut command = Self::generator_command(workspace, python, "execute");
-                    command.arg(&recipe_path).arg(&scratch).arg(socket).arg(self.dir.join("blobs"));
-                    lease.as_ref().unwrap().apply(&mut command)?;
-                    // This Python process synchronously asks this same engine to run Rust.
-                    // It owns the host lease, but no outer memory/compiler ticket that its
-                    // admitted inner Cargo/program would have to wait for.
-                    let done = finish(command)?;
-                    ensure!(done.ok, "generator {} exited {}:\n{}", target, done.code,
-                            String::from_utf8_lossy(&done.stderr));
-                    self.measured(&format!("generator {target}"), done.peak);
-                    let receipt: Value = serde_json::from_slice(&fs::read(scratch.join("receipt.json"))?)?;
-                    let reads = serde_json::from_value(receipt["external_reads"].clone())?;
-                    let sources = recipe["inputs"].as_array().context("generator inputs")?.iter()
-                        .map(|row| row["path"].as_str().map(str::to_owned).context("generator input path"))
-                        .collect::<Result<Vec<_>>>()?;
-                    let kept = Kept { reads, files: self.ingest(&scratch.join("out"))?,
-                        stdout: String::from_utf8(done.stdout)?, stderr: String::from_utf8_lossy(&done.stderr).into_owned(),
-                        seconds: done.seconds, peak: done.peak, code: code.clone(), portable: key.clone(),
-                        sources, action: Some(receipt.clone()) };
-                    let keepable = receipt["keepable"] == true;
-                    if keepable { self.keep(&key, &kept)?; }
-                    (kept, keepable)
-                }
-            };
-            let answer = json!({"target":target,"hit":was_kept,"kept":was_kept || kept_now,
-                "key":key,"code":code,"recipe":recipe,"reads":kept.reads,"files":kept.files,
-                "receipt":kept.action,"stdout":kept.stdout,"stderr":kept.stderr,
-                "program_seconds":kept.seconds,"peak_bytes":kept.peak,"seconds":started.elapsed().as_secs_f64()});
-            Ok(Generated { kept, answer })
-        })();
-        let _ = fs::remove_dir_all(&scratch);
-        drop(landing);
-        result
-    }
-
-    fn place_generator(&self, workspace: &Path, python: &Path, recipe: &Value,
-                       kept: &Kept, output: &Path) -> Result<()> {
-        let scratch = self.dir.join("tmp").join(format!("{}-{}", std::process::id(), self.serial()));
-        fs::create_dir_all(&scratch)?;
-        let result = (|| {
-            fs::write(scratch.join("placement.json"), serde_json::to_vec(&json!({"recipe":recipe,"files":kept.files}))?)?;
-            let mut command = Self::generator_command(workspace, python, "place");
-            command.arg(scratch.join("placement.json")).arg(self.dir.join("blobs")).arg(output);
-            let placed = finish(command)?;
-            ensure!(placed.ok, "generator carry failed:\n{}", String::from_utf8_lossy(&placed.stderr));
-            let rewritten: BTreeSet<&str> = recipe["rewritten"].as_array().context("rewritten outputs")?
-                .iter().filter_map(Value::as_str).collect();
-            self.place(&kept.files.iter().filter(|(path, _)| !rewritten.contains(path.as_str()))
-                       .cloned().collect::<Vec<_>>(), output)
-        })();
-        let _ = fs::remove_dir_all(&scratch);
-        result
     }
 
     /// Each argument: the one directory is where the files go, a file is read by its bytes, and
@@ -832,7 +654,6 @@ impl Builder {
                     code: code.native.clone(),
                     portable: primary(&code.portable, args),
                     sources: sources.to_vec(),
-                    action: None,
                 },
                 storable,
             ))
@@ -1036,10 +857,6 @@ impl Entered {
     /// Answer the ask: its files placed, and what the program said.
     pub fn answer(self, ask: Ask, lease: Option<Lease>) -> Result<Value> {
         self.0.run(ask, lease)
-    }
-
-    pub fn generate(self, ask: Generate, socket: &Path, lease: Option<Lease>) -> Result<Value> {
-        self.0.generate(ask, socket, lease)
     }
 }
 

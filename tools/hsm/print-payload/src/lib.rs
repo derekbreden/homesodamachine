@@ -430,7 +430,7 @@ fn payload(name: Value, color: Value, src: &str, bound: f64, dev: f64, arrays: A
         entry["face_sources"] = json!(vec![vec![Value::Null]; faces]);
     }
     let round = |x: f64| format!("{x:.4}").parse::<f64>().unwrap();
-    let header = json!({"v": 3, "meshes": [entry], "src": src, "cut": {"dev": round(dev), "bound": round(bound)}});
+    let header = json!({"v": hsm_kernel::write::MESH_PAYLOAD_VERSION, "meshes": [entry], "src": src, "cut": {"dev": round(dev), "bound": round(bound)}});
     let mut text = serde_json::to_vec(&header)?;
     while (text.len() + 4) % 4 != 0 {
         text.push(b' ');

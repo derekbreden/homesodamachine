@@ -4,9 +4,11 @@ use anyhow::{Context, Result, ensure};
 use flate2::read::MultiGzDecoder;
 use sha2::{Digest, Sha256};
 use std::{
+    collections::BTreeMap,
     fs::{self, File},
     io::{Read, Write},
     path::Path,
+    path::PathBuf,
 };
 
 fn number(value: u64, width: usize) -> Vec<u8> {
@@ -53,11 +55,25 @@ fn zeros(out: &mut impl Write, count: u64) -> Result<()> {
     Ok(())
 }
 pub fn bundle(root: &Path, rels: &[String], target: &Path) -> Result<String> {
+    bundle_sources(root, rels, target, &BTreeMap::new(), &BTreeMap::new())
+}
+/// Bundle members read their frozen source when available and retain their expected content identity.
+pub fn bundle_sources(
+    root: &Path,
+    rels: &[String],
+    target: &Path,
+    sources: &BTreeMap<String, PathBuf>,
+    expected: &BTreeMap<String, String>,
+) -> Result<String> {
     let mut output = Gzip::new(target, 6)?;
     let mut offset = 0u64;
     for relative in rels {
-        let path = root.join(relative);
-        let size = path.metadata()?.len();
+        let path = sources
+            .get(relative)
+            .cloned()
+            .unwrap_or_else(|| root.join(relative));
+        let mut input = File::open(&path)?;
+        let size = input.metadata()?.len();
         if relative.len() > 100 {
             let bytes = relative.as_bytes();
             let size = bytes.len() as u64 + 1;
@@ -69,8 +85,23 @@ pub fn bundle(root: &Path, rels: &[String], target: &Path) -> Result<String> {
             offset += 512 + size + padding;
         }
         output.write_all(&header(relative, size, 0o644, b'0'))?;
-        let copied = std::io::copy(&mut File::open(&path)?.take(size), &mut output)?;
-        ensure!(copied == size, "unexpected end of data: {}", path.display());
+        let mut copied = 0;
+        let mut hash = Sha256::new();
+        let mut bytes = [0_u8; 65536];
+        while copied < size {
+            let limit = (size - copied).min(bytes.len() as u64) as usize;
+            let n = input.read(&mut bytes[..limit])?;
+            ensure!(n > 0, "unexpected end of data: {}", path.display());
+            hash.update(&bytes[..n]);
+            output.write_all(&bytes[..n])?;
+            copied += n as u64;
+        }
+        if let Some(digest) = expected.get(relative) {
+            ensure!(
+                format!("{:x}", hash.finalize()) == *digest,
+                "member changed during bundle collection: {relative}"
+            );
+        }
         let padding = (512 - size % 512) % 512;
         zeros(&mut output, padding)?;
         offset += 512 + size + padding;

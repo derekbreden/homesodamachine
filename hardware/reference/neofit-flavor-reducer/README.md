@@ -18,3 +18,5 @@ The analytic model runs along local +Y, with its shoulder at the origin. Its cyl
 The valve reference retains an occupied socket envelope. The inserted stems therefore appear as connected overlaps in the assembly’s general clash report; the nominal shoulder datum does not qualify physical insertion depth.
 
 The complete path and qualification scope are in [flavor dispense lines](../../printed-parts/faucet/flavor-lines/README.md).
+
+The source derivations are preserved at their recorded revision: [neofit_flavor_reducer.py](https://github.com/derekbreden/homesodamachine/blob/a518a57a878f02d9ac5b8b638c1c5883cadf6669/hardware/reference/neofit-flavor-reducer/neofit_flavor_reducer.py).

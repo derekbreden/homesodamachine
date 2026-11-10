@@ -1,0 +1,310 @@
+{
+  "_": "The program registry names each native producer and its output prefix for dependency tracing.",
+  "programs": {
+    "hardware/cold-core-layout/cold_core_assembly.rs": {
+      "crate": "cold-core-assembly",
+      "name": "cold-core-assembly",
+      "output": "hardware/cold-core-layout"
+    },
+    "hardware/cut-parts/carbonation/carbonator-tube/carbonator_tube_step.rs": {
+      "crate": "carbonator-tube",
+      "name": "carbonator-tube-step",
+      "output": "hardware/cut-parts/carbonation/carbonator-tube"
+    },
+    "hardware/cut-parts/carbonation/endcaps-circular/endcap_circular_step.rs": {
+      "crate": "endcap-circular",
+      "name": "endcap-circular-step",
+      "output": "hardware/cut-parts/carbonation/endcaps-circular"
+    },
+    "hardware/faucet-layout/faucet_assembly.rs": {
+      "crate": "faucet-assembly",
+      "name": "faucet-assembly",
+      "output": "hardware/faucet-layout"
+    },
+    "hardware/faucet-layout/faucet_industrial_assembly.rs": {
+      "crate": "faucet-assembly",
+      "name": "faucet-industrial-assembly",
+      "output": "hardware/faucet-layout"
+    },
+    "hardware/install-guide/install_guide.rs": {
+      "crate": "install-guide",
+      "name": "install-guide",
+      "output": ""
+    },
+    "hardware/install-guide/kit_art.rs": {
+      "crate": "kit-art",
+      "name": "kit-art",
+      "output": ""
+    },
+    "hardware/install-guide/opening_scene.rs": {
+      "crate": "opening-scene",
+      "name": "opening-scene",
+      "output": ""
+    },
+    "hardware/ledger/bom.rs": {
+      "crate": "bom",
+      "name": "bom",
+      "output": ""
+    },
+    "hardware/ledger/machine_time.rs": {
+      "crate": "ledger",
+      "name": "machine-time",
+      "output": ""
+    },
+    "hardware/ledger/purchases.rs": {
+      "crate": "ledger",
+      "name": "purchases",
+      "output": ""
+    },
+    "hardware/manifold-layout/installed_machine.rs": {
+      "crate": "installed-machine",
+      "name": "installed-machine",
+      "output": ""
+    },
+    "hardware/manifold-layout/manifold_layout.rs": {
+      "crate": "manifold-layout",
+      "name": "manifold-layout",
+      "output": "hardware/manifold-layout"
+    },
+    "hardware/printed-parts/asse-drain-adapter/asse_drain_adapter.rs": {
+      "crate": "asse-drain-adapter",
+      "name": "asse-drain-adapter",
+      "output": "hardware/printed-parts/asse-drain-adapter"
+    },
+    "hardware/printed-parts/asse-straight-cuffs/asse_straight_cuffs.rs": {
+      "crate": "asse-straight-cuffs",
+      "name": "asse-straight-cuffs",
+      "output": "hardware/printed-parts/asse-straight-cuffs"
+    },
+    "hardware/printed-parts/cold-core/coil-mandrel/coil_mandrel.rs": {
+      "crate": "coil-mandrel",
+      "name": "coil-mandrel",
+      "output": "hardware/printed-parts/cold-core/coil-mandrel"
+    },
+    "hardware/printed-parts/cold-core/foam-assembly/foam_assembly.rs": {
+      "crate": "foam-assembly",
+      "name": "foam-assembly",
+      "output": "hardware/printed-parts/cold-core/foam-assembly"
+    },
+    "hardware/printed-parts/cold-core/foam-cap/foam_cap.rs": {
+      "crate": "foam-cap",
+      "name": "foam-cap",
+      "output": "hardware/printed-parts/cold-core/foam-cap"
+    },
+    "hardware/printed-parts/cold-core/foam-shell/foam_shell.rs": {
+      "crate": "foam-shell",
+      "name": "foam-shell",
+      "output": "hardware/printed-parts/cold-core/foam-shell"
+    },
+    "hardware/printed-parts/cold-core/magnetic-float/all-aero/all_aero_float.rs": {
+      "crate": "all-aero-float",
+      "name": "all-aero-float",
+      "output": "hardware/printed-parts/cold-core/magnetic-float/all-aero"
+    },
+    "hardware/printed-parts/cold-core/magnetic-float/magnetic_float.rs": {
+      "crate": "magnetic-float",
+      "name": "magnetic-float",
+      "output": "hardware/printed-parts/cold-core/magnetic-float"
+    },
+    "hardware/printed-parts/cold-core/prv-shroud/prv_shroud.rs": {
+      "crate": "prv-shroud",
+      "name": "prv-shroud",
+      "output": "hardware/printed-parts/cold-core/prv-shroud"
+    },
+    "hardware/printed-parts/cold-core/reed-bridge/reed_bridge.rs": {
+      "crate": "reed-bridge",
+      "name": "reed-bridge",
+      "output": "hardware/printed-parts/cold-core/reed-bridge"
+    },
+    "hardware/printed-parts/cold-core/reservoir/reservoir.rs": {
+      "crate": "reservoir",
+      "name": "reservoir",
+      "output": "hardware/printed-parts/cold-core/reservoir"
+    },
+    "hardware/printed-parts/collet-press/collet_press.rs": {
+      "crate": "collet-press",
+      "name": "collet-press",
+      "output": "hardware/printed-parts/collet-press"
+    },
+    "hardware/printed-parts/diaphragm-pump-sleeve/diaphragm_pump_sleeve.rs": {
+      "crate": "diaphragm-pump-sleeve",
+      "name": "diaphragm-pump-sleeve",
+      "output": "hardware/printed-parts/diaphragm-pump-sleeve"
+    },
+    "hardware/printed-parts/electronics/pcba-tray/pcba_assembly.rs": {
+      "crate": "pcba-assembly",
+      "name": "pcba-assembly",
+      "output": "hardware/printed-parts/electronics/pcba-tray"
+    },
+    "hardware/printed-parts/enclosure/display-cover/display_cover.rs": {
+      "crate": "enclosure-components",
+      "name": "display-cover",
+      "output": "hardware/printed-parts/enclosure/display-cover"
+    },
+    "hardware/printed-parts/enclosure/display-gasket/display_gasket.rs": {
+      "crate": "enclosure-components",
+      "name": "display-gasket",
+      "output": "hardware/printed-parts/enclosure/display-gasket"
+    },
+    "hardware/printed-parts/enclosure/enclosure/enclosure.rs": {
+      "crate": "enclosure",
+      "name": "enclosure",
+      "output": "hardware/printed-parts/enclosure/enclosure"
+    },
+    "hardware/printed-parts/enclosure/enclosure/enclosure_back_bottom.rs": {
+      "crate": "enclosure-back-bottom",
+      "name": "enclosure-back-bottom",
+      "output": "hardware/printed-parts/enclosure/enclosure"
+    },
+    "hardware/printed-parts/enclosure/enclosure/enclosure_back_top.rs": {
+      "crate": "enclosure-back-top",
+      "name": "enclosure-back-top",
+      "output": "hardware/printed-parts/enclosure/enclosure"
+    },
+    "hardware/printed-parts/enclosure/enclosure/enclosure_front_bottom.rs": {
+      "crate": "enclosure-front-bottom",
+      "name": "enclosure-front-bottom",
+      "output": "hardware/printed-parts/enclosure/enclosure"
+    },
+    "hardware/printed-parts/enclosure/enclosure/enclosure_front_top.rs": {
+      "crate": "enclosure-front-top",
+      "name": "enclosure-front-top",
+      "output": "hardware/printed-parts/enclosure/enclosure"
+    },
+    "hardware/printed-parts/enclosure/enclosure/enclosure_pump_retainer.rs": {
+      "crate": "enclosure-pump-retainer",
+      "name": "enclosure-pump-retainer",
+      "output": "hardware/printed-parts/enclosure/enclosure"
+    },
+    "hardware/printed-parts/enclosure/enclosure/enclosure_pump_tube_setting_jig.rs": {
+      "crate": "enclosure-pump-tube-setting-jig",
+      "name": "enclosure-pump-tube-setting-jig",
+      "output": "hardware/printed-parts/enclosure/enclosure"
+    },
+    "hardware/printed-parts/enclosure/nameplate/nameplate.rs": {
+      "crate": "enclosure-components",
+      "name": "nameplate",
+      "output": "hardware/printed-parts/enclosure/nameplate"
+    },
+    "hardware/printed-parts/enclosure/rear-equipment-caps/rear_equipment_caps.rs": {
+      "crate": "rear-equipment-caps",
+      "name": "rear-equipment-caps",
+      "output": "hardware/printed-parts/enclosure/rear-equipment-caps"
+    },
+    "hardware/printed-parts/enclosure/rear-identification/rear_identification.rs": {
+      "crate": "enclosure-components",
+      "name": "rear-identification",
+      "output": "hardware/printed-parts/enclosure/rear-identification"
+    },
+    "hardware/printed-parts/faucet/above-counter-gasket/above_counter_gasket.rs": {
+      "crate": "above-counter-gasket",
+      "name": "above-counter-gasket",
+      "output": "hardware/printed-parts/faucet/above-counter-gasket"
+    },
+    "hardware/printed-parts/faucet/above-counter-plate/above_counter_plate.rs": {
+      "crate": "above-counter-plate",
+      "name": "above-counter-plate",
+      "output": "hardware/printed-parts/faucet/above-counter-plate"
+    },
+    "hardware/printed-parts/faucet/faucet-display-cover/faucet_display_cover.rs": {
+      "crate": "faucet-display-cover",
+      "name": "faucet-display-cover",
+      "output": "hardware/printed-parts/faucet/faucet-display-cover"
+    },
+    "hardware/printed-parts/faucet/faucet-shell/faucet_shell.rs": {
+      "crate": "faucet-shell",
+      "name": "faucet-shell",
+      "output": "hardware/printed-parts/faucet/faucet-shell"
+    },
+    "hardware/printed-parts/faucet/industrial/industrial_faucet.rs": {
+      "crate": "industrial-faucet",
+      "name": "industrial-faucet",
+      "output": "hardware/printed-parts/faucet/industrial"
+    },
+    "hardware/printed-parts/faucet/lever-replica/lever_replica.rs": {
+      "crate": "lever-replica",
+      "name": "lever-replica",
+      "output": "hardware/printed-parts/faucet/lever-replica"
+    },
+    "hardware/printed-parts/faucet/tpu-o-ring/tpu_o_ring.rs": {
+      "crate": "tpu-o-ring",
+      "name": "tpu-o-ring",
+      "output": "hardware/printed-parts/faucet/tpu-o-ring"
+    },
+    "hardware/printed-parts/faucet/tube-collar/tube_collar.rs": {
+      "crate": "tube-collar",
+      "name": "tube-collar",
+      "output": "hardware/printed-parts/faucet/tube-collar"
+    },
+    "hardware/printed-parts/faucet/umbilical-organizer/umbilical_organizer.rs": {
+      "crate": "umbilical-organizer",
+      "name": "umbilical-organizer",
+      "output": "hardware/printed-parts/faucet/umbilical-organizer"
+    },
+    "hardware/printed-parts/fixtures/fake-countertop/fake_countertop.rs": {
+      "crate": "fake-countertop",
+      "name": "fake-countertop",
+      "output": "hardware/printed-parts/fixtures/fake-countertop"
+    },
+    "hardware/printed-parts/fixtures/tube-miter-box/tube_miter_box.rs": {
+      "crate": "tube-miter-box",
+      "name": "tube-miter-box",
+      "output": "hardware/printed-parts/fixtures/tube-miter-box"
+    },
+    "hardware/printed-parts/fixtures/water-inlet-jet/water_inlet_jet_fixture.rs": {
+      "crate": "water-inlet-jet-fixture",
+      "name": "water-inlet-jet-fixture",
+      "output": "hardware/printed-parts/fixtures/water-inlet-jet"
+    },
+    "hardware/printed-parts/fixtures/weld-rotator/weld_rotator.rs": {
+      "crate": "weld-rotator",
+      "name": "weld-rotator",
+      "output": "hardware/printed-parts/fixtures/weld-rotator"
+    },
+    "hardware/printed-parts/refrigeration/fuse-clamp/fuse_clamp.rs": {
+      "crate": "fuse-clamp",
+      "name": "fuse-clamp",
+      "output": "hardware/printed-parts/refrigeration/fuse-clamp"
+    },
+    "hardware/printed-parts/soda-bend-holder/soda_bend_holder.rs": {
+      "crate": "soda-bend-holder",
+      "name": "soda-bend-holder",
+      "output": "hardware/printed-parts/soda-bend-holder"
+    },
+    "hardware/printed-parts/zone-c/funnel-cover/funnel_cover.rs": {
+      "crate": "funnel",
+      "name": "funnel-cover",
+      "output": "hardware/printed-parts/zone-c/funnel-cover"
+    },
+    "hardware/printed-parts/zone-c/funnel-mold/funnel_mold.rs": {
+      "crate": "funnel",
+      "name": "funnel-mold",
+      "output": "hardware/printed-parts/zone-c/funnel-mold"
+    },
+    "hardware/printed-parts/zone-c/funnel/elbow_cradle.rs": {
+      "crate": "funnel",
+      "name": "elbow-cradle",
+      "output": "hardware/printed-parts/zone-c/funnel"
+    },
+    "hardware/printed-parts/zone-c/funnel/funnel.rs": {
+      "crate": "funnel",
+      "name": "funnel",
+      "output": "hardware/printed-parts/zone-c/funnel"
+    },
+    "hardware/printed-parts/zone-c/funnel/funnel_frame.rs": {
+      "crate": "funnel",
+      "name": "funnel-frame",
+      "output": "hardware/printed-parts/zone-c/funnel"
+    },
+    "hardware/topology/fluid_topology.rs": {
+      "crate": "fluid-topology",
+      "name": "fluid-topology",
+      "output": ""
+    },
+    "tools/hsm/cargo-config/src/cargo_config.rs": {
+      "crate": "cargo-config",
+      "name": "hsm-cargo-config",
+      "output": ""
+    }
+  }
+}

@@ -23,17 +23,11 @@ import { fileURLToPath } from "url";
 import { PARTS_SVG, CHARTS_SVG, GUIDES_SVG, PCB_SVG, DOLLAR_SVG, LATEST_SVG, GEAR_SVG, BELL_SVG } from "./icons.js";
 
 // The check verdict the site is showing — `public/checks.json`, written by
-// `tools/checks.py --json` and committed by `tools/checks_now.py` when it is run.
+// `repo-tools checks --json` and pinned by `repo-tools checks-now` when requested.
 //
-// READ ON DEMAND, NOT ONCE AT MODULE LOAD. A boot-time constant was right while the file shipped
-// with a deploy and moved when one restarted this process. It does not any more: `render.yaml`
-// holds a pin out of the build filter rather than buy an `npm ci` and a restart for each one, so
-// `artifacts-live.js` carries the file onto the running container instead. Under a constant this process kept whatever verdict it booted
-// with — the gear stayed red over a board that had gone green until something unrelated pushed
-// `web/**` and restarted it, which is the same way a scorecard used to reach the site.
-//
-// The cost is a stat per render; the parse happens only when the file has actually moved. A disk
-// that holds no such file, or holds one this cannot parse, reads as null the way it always did.
+// Read on demand: artifacts-live.js refreshes the file without restarting this process.
+// A stat identifies each version; parsing happens when the file changes. An absent or
+// unreadable verdict returns null.
 const PUBLIC_DIR = path.join(path.dirname(fileURLToPath(import.meta.url)), "..", "public");
 const CHECKS_FILE = path.join(PUBLIC_DIR, "checks.json");
 
@@ -447,7 +441,7 @@ ${pageHead}
 // available space and leave a big gap between them).
 
 // The class the gear wears for this deploy's verdict: `checks-ok`, `checks-red`, or nothing
-// when no verdict shipped. `tools/checks_now.py` writes it when it is run, and /settings names
+// when no verdict shipped. `repo-tools checks-now` writes it when requested, and /settings names
 // what is red.
 export function checksNavClass() {
   const CHECKS = readChecks();

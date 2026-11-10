@@ -67,6 +67,6 @@ The native trim commands are `G29.1 Z0` and `G29.1 Z0.02`.
 [`prepare.py`](https://github.com/derekbreden/homesodamachine/blob/306268f870/hardware/printed-parts/faucet/faucet-display-cover/prints/2026-10-25-front-overlap-black-mark2/prepare.py) (in Git at `306268f870`) writes the centered one-cover project. Slice with Bambu Studio
 `--slice 0 --arrange 0 --orient 0 --outputdir <directory> --export-3mf <basename.gcode.3mf>`;
 the export argument is a basename inside the output directory. [`review.py`](https://github.com/derekbreden/homesodamachine/blob/306268f870/hardware/printed-parts/faucet/faucet-display-cover/prints/2026-10-25-front-overlap-black-mark2/review.py) (in Git at `306268f870`)
-reads the native archive. `observe_launch.py` only watches acceptance and does
+reads the native archive. [recorded acceptance observer](https://github.com/derekbreden/homesodamachine/blob/7cf7b55608deefa5f3cae6bb20f83bce14ff706f/hardware/printed-parts/faucet/faucet-display-cover/prints/2026-10-25-front-overlap-black-mark2/observe_launch.py) only watches acceptance and does
 not issue a print command. The imported Connect copy is separate from the
 preserved native archive, with matching bytes at submission.

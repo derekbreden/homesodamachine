@@ -2,7 +2,7 @@
 
 This is the **9 × 7 inch landscape edition with 32 interior pages**. The two upload PDFs are in
 the order bundle with a reading copy, these instructions and SHA-256 checksums.
-`HSM_PRESS=1 python3 tools/run.py -- cargo run --release --manifest-path tools/hsm/install-guide/Cargo.toml` writes the bundle in
+`HSM_PRESS=1 tools/run -- cargo run --release --manifest-path tools/hsm/install-guide/Cargo.toml` writes the bundle in
 `output/pdf/` from the current guide; the normal build does not.
 
 ## Lulu settings

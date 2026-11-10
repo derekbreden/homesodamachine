@@ -1,10 +1,10 @@
 {
-  "title": "Refrigeration bench guide",
-  "subtitle": "Coil, donor circuit, argon-purged brazing, mounts and commissioning - 27 illustrated Letter pages",
-  "pages": 27,
   "cover": "refrigeration-guide.cover.png",
   "cover_size": [
     800,
     1036
-  ]
+  ],
+  "pages": 27,
+  "subtitle": "Coil, donor circuit, argon-purged brazing, mounts and commissioning - 27 illustrated Letter pages",
+  "title": "Refrigeration bench guide"
 }

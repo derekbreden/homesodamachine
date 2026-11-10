@@ -22,7 +22,7 @@ const usage = `Usage: node tools/inspect-part.mjs <material ID or description> -
   --reuse FILE        Reuse inspection.json or render-job.json, including its selection
   --root PATH         Select the checkout to inspect
 
-Rendering uses tools/run.py. No geometry build starts. inspection.json names the
+Rendering uses tools/run. No geometry build starts. inspection.json names the
 exported revision; render-job.json retains the camera for the next source edit.`;
 
 function native(root, args) {
@@ -148,7 +148,7 @@ export function inspectPart(query, options = {}) {
     if (!options.measureOnly) {
       const jobs = path.join(out, "render-input.json");
       fs.writeFileSync(jobs, JSON.stringify([job], null, 2) + "\n");
-      const drawing = spawnSync("python3", [path.join(root, "tools/run.py"), "--", process.env.HSM_BIN || "hsm", "--root", root,
+      const drawing = spawnSync(path.join(root, "tools/run"), ["--", process.env.HSM_BIN || "hsm", "--root", root,
         "render", "--jobs", jobs, "--json"], { cwd: root, encoding: "utf8", maxBuffer: 16 * 1024 * 1024 });
       if (drawing.error) throw drawing.error;
       if (drawing.status) throw new Error(drawing.stderr.trim() || drawing.stdout.trim() || "render failed");

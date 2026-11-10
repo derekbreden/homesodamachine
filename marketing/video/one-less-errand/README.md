@@ -18,16 +18,16 @@ synchronized case contacts, pouring and carbonation.
 artwork provenance and resumable render workflow. The source and recording live
 in [`studio/`](studio/).
 
-From the repository root, with Blender, FFmpeg, the existing `tools/render`
-Node dependencies and `tools/video-venv` installed:
+From the repository root, with the [native marketing tools](../../../tools/hsm/marketing/README.md),
+Blender and FFmpeg installed:
 
 ```sh
-tools/video-venv/bin/python marketing/video/one-less-errand/studio/render.py \
+tools/run -- hsm-marketing studio-render \
   --timing marketing/video/one-less-errand/studio/pacing-review.json \
   --profile story-breathing \
   --chunk-frames 8 \
   --out marketing/video/one-less-errand/studio/out/connected-benefits-review
-node marketing/video/one-less-errand/serve.mjs --studio
+node marketing/video/one-less-errand/serve.mjs
 ```
 
 The delivered master is `studio/out/one-less-errand-delivery.mp4`, with matching

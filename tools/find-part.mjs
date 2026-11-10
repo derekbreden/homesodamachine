@@ -104,7 +104,7 @@ function sourceContext(feature, features, graph, targets, read) {
     landmarks, parameters, references, source_consumers: consumers,
     occurrences: occurrences.map(item => ({ key: item.key, file: item.file, source_model: item.source_model, url: item.url })),
     targets: labels,
-    build_argv: labels.length ? ["python3", "tools/run.py", "--", "python3", "tools/print_build.py", ...labels] : null,
+    build_argv: labels.length ? ["tools/run", "--", "hsm-print-build", "--", ...labels] : null,
     build_scope: "This command selects the exported feature owners. Shared dimension or helper edits also require considering the other source consumers; references do not prove which geometry changes. Installation changes and newly added assembly sources need their assembly producer.",
   };
 }

@@ -17,13 +17,13 @@ bun render-board.ts pcba.tsx
 
 regenerates the fab + 2D set: the gerbers + drill (`out/pcba.gerbers.zip`), the 2D
 copper/mask views (`out/pcba.{top,bottom,overlay,…}.{svg,png}`), the routed circuit-json,
-the BOM/CPL, and `picks.json`. It runs on every save and is meant to stay fast, so it does
-**not** build the 3D (CadQuery is ~14 s) — iterate freely without waiting on it.
+the BOM/CPL, and `picks.json`.
 
 The 3D assembly (`out/pcba.glb` + the `top3d/bottom3d` face textures, composed by
-[`board-3d.py`](board-3d.py) → [`board-texture.ts`](board-texture.ts)) is rebuilt in the
-background by the dev-server for the live `/3d` view, or directly with
-`tools/cad-venv/bin/python board-3d.py`. Gerber-injected silk (the LED knockout badges,
+[`hsm-pcb model`](../../../tools/hsm/pcb-tools/src/model.rs) → [`board-texture.ts`](board-texture.ts)) is rebuilt on demand with
+`tools/run -- hsm-pcb model` from the repository root. The
+[supplier source pack](vendor-models.json) binds its detailed purchased geometry
+and colors. Gerber-injected silk (the LED knockout badges,
 [`led-knockout.ts`](led-knockout.ts)) reaches the 3D too, since the face textures are
 composed from those gerbers.
 

@@ -60,10 +60,12 @@ geometry.
 Run the reference producer from the repository root:
 
 ```sh
-python3 tools/run.py -- cargo run --release --locked -j2 --manifest-path tools/hsm/Cargo.toml -p hsm-sandbox --example kamoer-scan -- hardware/reference/kamoer-kphm400
+tools/run -- cargo run --release --locked -j2 --manifest-path tools/hsm/Cargo.toml -p hsm-sandbox --example kamoer-scan -- hardware/reference/kamoer-kphm400
 ```
 
 The producer needs no scan archive or reconstructed mesh. The normal print build
 consumes the frozen reference. [frozen-asset.json](frozen-asset.json) names the STEP,
 fine model and viewer payload by digest; generated reference assets stay outside
 source control. Publication replaces the reference in the website's existing scenes.
+
+The source derivations are preserved at their recorded revision: [analyze_scan.py](https://github.com/derekbreden/homesodamachine/blob/a518a57a878f02d9ac5b8b638c1c5883cadf6669/hardware/reference/kamoer-kphm400/analyze_scan.py), [register_scan.py](https://github.com/derekbreden/homesodamachine/blob/a518a57a878f02d9ac5b8b638c1c5883cadf6669/hardware/reference/kamoer-kphm400/register_scan.py).

@@ -90,7 +90,7 @@ existing roof and display housing. The display seat, motor/terminal wells,
 loading gates and internal wire passages are functional voids. J13’s pump leads
 and SIG-7’s display ribbon leave through one rear mouth below the funnel frame.
 The [native mount review](enclosure/pump-mount-review/native-review.json) and
-[installed wiring review](../../wiring/installed/above-core-review/README.md)
+[installed wiring review](https://github.com/derekbreden/homesodamachine/blob/fa658f2927cea008103ecb80685b65f879c2f2cb/hardware/wiring/installed/above-core-review/README.md)
 record their current artifact scopes. The earlier
 [display-backing review](enclosure/fixed-pump-lead-review.json) retains its
 identified export scope.

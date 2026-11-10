@@ -32,8 +32,6 @@ at −Y and the male outlet at +Y, centered on X/Z, +Z up.
 Terminals: `inlet()` (socket mouth) and `outlet()` (stub end), each
 `(position, outward axis)`.
 
-## Regenerate
+## Model inputs
 
-```
-tools/cad-venv/bin/python hardware/reference/gasher-check-valve/gasher_check_valve.py
-```
+The model and measurements are retained with their [source derivations](https://github.com/derekbreden/homesodamachine/blob/a518a57a878f02d9ac5b8b638c1c5883cadf6669/hardware/reference/gasher-check-valve/gasher_check_valve.py).

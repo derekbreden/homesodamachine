@@ -15,10 +15,10 @@ gasket + bulkhead seals were in the 2026-05-30 watertight test — see
 
 | Part (STEP) | Source | × | Footprint | CAD material |
 | --- | --- | --- | --- | --- |
-| `reservoir-gasket` | [`cold-core/reservoir/reservoir.py`](/hardware/printed-parts/cold-core/reservoir/reservoir.py) | 2 | 2323 mm² | TPU 85A |
+| `reservoir-gasket` | [`cold-core/reservoir/reservoir.py`](https://github.com/derekbreden/homesodamachine/blob/a518a57a878f02d9ac5b8b638c1c5883cadf6669/hardware/printed-parts/cold-core/reservoir/reservoir.py) | 2 | 2323 mm² | TPU 85A |
 | `above-counter-gasket` | [`faucet/above-counter-gasket/above_counter_gasket.rs`](/hardware/printed-parts/faucet/above-counter-gasket/above_counter_gasket.rs) | 2 | 2065 mm² | TPU 90A |
-| `reservoir-bulkhead-seal-dry` | [`cold-core/reservoir/reservoir.py`](/hardware/printed-parts/cold-core/reservoir/reservoir.py) | 2 | 67.7 mm² | TPU washer |
-| `reservoir-retaining-ring` | [`cold-core/reservoir/reservoir.py`](/hardware/printed-parts/cold-core/reservoir/reservoir.py) | 2 | 77.4 mm² | TPU 90A |
+| `reservoir-bulkhead-seal-dry` | [`cold-core/reservoir/reservoir.py`](https://github.com/derekbreden/homesodamachine/blob/a518a57a878f02d9ac5b8b638c1c5883cadf6669/hardware/printed-parts/cold-core/reservoir/reservoir.py) | 2 | 67.7 mm² | TPU washer |
+| `reservoir-retaining-ring` | [`cold-core/reservoir/reservoir.py`](https://github.com/derekbreden/homesodamachine/blob/a518a57a878f02d9ac5b8b638c1c5883cadf6669/hardware/printed-parts/cold-core/reservoir/reservoir.py) | 2 | 77.4 mm² | TPU 90A |
 
 Part roles (geometry authoritative in the sources above):
 - **reservoir-gasket** — 2.0 mm flat gasket, 5 mm-wide perimeter ring,

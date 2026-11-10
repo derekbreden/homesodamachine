@@ -27,7 +27,7 @@
 # pixel (i, j). `<target>.panel.png` beside it is the mean of each such block: one pixel per panel
 # pixel, the frame as the camera read it; `<target>.palette.png` is that picture with every pixel the
 # camera reads as one of the firmware's palette colours drawn in that colour, which an aim learns from
-# the test screen. `panelcam-rectify.py` says what the warp keeps and how a colour is read.
+# the test screen. `hsm-peripheral panelcam-rectify` says what the warp keeps and how a colour is read.
 
 set -euo pipefail
 
@@ -37,8 +37,7 @@ OUT_DIR="${PANELCAM_OUT:-$HERE/../.panelcam}"
 APP="$HERE/panelcam-shot/PanelCamShot.app"
 LOGFILE="$HOME/.panelcam-shot.log"
 UVC_JS="$HERE/panelcam-uvc/uvc.js"
-RECTIFY="$HERE/panelcam-rectify.py"
-PY="$HERE/cad-venv/bin/python"
+PERIPHERAL="${HSM_PERIPHERAL_BIN:-hsm-peripheral}"
 
 die() { echo "panelcam: $*" >&2; exit 1; }
 
@@ -140,7 +139,7 @@ cmd_shot() {
   # A dark panel photographs as an unlit rectangle; the machine is told a finger landed.
   local console; console="$(target_field_opt "$target" console)"
   [ "$wake" -eq 1 ] || console=""
-  [ -n "$console" ] && python3 "$HERE/panelcam-wake.py" "$console" >/dev/null 2>&1 || true
+  [ -n "$console" ] && "$PERIPHERAL" panelcam-wake "$console" >/dev/null 2>&1 || true
 
   mkdir -p "$OUT_DIR"
   out="${out:-$OUT_DIR/$target.png}"
@@ -153,7 +152,7 @@ cmd_shot() {
   # again and the shot taken once more; the second answer stands.
   local best; best="$(best_score)"
   if [ -z "$best" ] || awk -v b="${best:-0}" -v f="$floor" 'BEGIN { exit !(b < f) }'; then
-    [ -n "$console" ] && python3 "$HERE/panelcam-wake.py" "$console" >/dev/null 2>&1 || true
+    [ -n "$console" ] && "$PERIPHERAL" panelcam-wake "$console" >/dev/null 2>&1 || true
     take_frame "$raw" "$target"
     best="$(best_score)"
   fi
@@ -163,10 +162,10 @@ cmd_shot() {
   if [ "$full" -eq 1 ]; then
     mv "$raw" "$out"
   else
-    "$PY" "$RECTIFY" warp "$raw" "$out" --corners "$corners" --panel "$panel" --scale "$scale"
-    "$PY" "$RECTIFY" reduce "$out" "${out%.png}.panel.png" --scale "$scale"
+    "$PERIPHERAL" panelcam-rectify warp "$raw" "$out" --corners "$corners" --panel "$panel" --scale "$scale"
+    "$PERIPHERAL" panelcam-rectify reduce "$out" "${out%.png}.panel.png" --scale "$scale"
     local palette; palette="$(target_field_opt "$target" palette)"
-    [ -n "$palette" ] && "$PY" "$RECTIFY" classify "${out%.png}.panel.png" "${out%.png}.palette.png" --palette "$palette" >/dev/null
+    [ -n "$palette" ] && "$PERIPHERAL" panelcam-rectify classify "${out%.png}.panel.png" "${out%.png}.palette.png" --palette "$palette" >/dev/null
     rm -f "$raw"
   fi
 
@@ -189,12 +188,12 @@ cmd_aim() {
   [ -n "$console" ] || die "target '$target' has no console: the test screen is what an aim reads"
   mkdir -p "$OUT_DIR"
   local full="$OUT_DIR/$target.test.png"
-  python3 "$HERE/panelcam-console.py" "$console" test 120 | grep -q -i test ||
+  "$PERIPHERAL" panelcam-console "$console" test 120 | grep -q -i test ||
     die "the console on $console did not put the test screen up"
   take_frame "$full" "$target"
-  python3 "$HERE/panelcam-console.py" "$console" test off >/dev/null 2>&1 || true
+  "$PERIPHERAL" panelcam-console "$console" test off >/dev/null 2>&1 || true
   [ -f "$full" ] || die "no frame — $(tail -1 "$LOGFILE" 2>/dev/null)"
-  local found; found="$("$PY" "$RECTIFY" find "$full")" || die "could not read the test screen in $full"
+  local found; found="$("$PERIPHERAL" panelcam-rectify find "$full")" || die "could not read the test screen in $full"
   local corners score
   corners="$(sed -n 's/^corners //p' <<<"$found")"; score="$(sed -n 's/^score //p' <<<"$found")"
   awk -v t="$target" -v s="$score" -v c="$corners" '
@@ -204,16 +203,16 @@ cmd_aim() {
   # The proof: laid onto its grid, the screen's one-pixel stripes come out as alternate columns and
   # the panel's pixel lattice lands at `scale` px per panel px.
   local proof="$OUT_DIR/$target.aim.png"
-  "$PY" "$RECTIFY" warp "$full" "$proof" --corners "$corners" \
+  "$PERIPHERAL" panelcam-rectify warp "$full" "$proof" --corners "$corners" \
     --panel "$(target_field "$target" panel)" --scale "$(target_field "$target" scale)"
-  local read; read="$("$PY" "$RECTIFY" palette "$proof" --scale "$(target_field "$target" scale)")"
+  local read; read="$("$PERIPHERAL" panelcam-rectify palette "$proof" --scale "$(target_field "$target" scale)")"
   local palette; palette="$(sed -n 's/^palette //p' <<<"$read")"
   awk -v t="$target" -v p="$palette" '
     $1 == t && $2 == "palette" { $0 = sprintf("%-7s %-12s %s", t, "palette", p) }
     { print }' "$CONF" > "$CONF.new" && mv "$CONF.new" "$CONF"
   echo "$full"
   echo "  corners $corners  -> written to $(basename "$CONF")"
-  "$PY" "$RECTIFY" check "$proof" --scale "$(target_field "$target" scale)" | sed 's/^/  /'
+  "$PERIPHERAL" panelcam-rectify check "$proof" --scale "$(target_field "$target" scale)" | sed 's/^/  /'
   echo "  palette: $(wc -w <<<"$palette" | tr -d ' ') colours -> written; $(sed -n 's/^closest as captured: //p' <<<"$read")"
 }
 

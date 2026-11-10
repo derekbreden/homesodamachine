@@ -25,7 +25,7 @@ prevention of moisture-related problems has not been measured.
 From the repository root:
 
 ```sh
-python3 tools/h2c-purge/prepare.py
+hsm-printer purge-archive
 ```
 
 The builder uses the checked-in G-code and package metadata, verifies the program
@@ -66,16 +66,6 @@ The six-minute duration and 0.14 g shown by Connect are packaging estimates;
 0.14 g accounts only for the explicit purge. They are not a slicer measurement of
 the complete maintenance routine.
 
-## Trial status
+## Accepted trial
 
-H2C job **1298050950** reports FINISH at 100%, zero printed layers, no print error
-and no HMS. The observed stages include homing, surface/nozzle checks, material
-preparation and nozzle wiping. Connect confirms both nozzle heater targets, bed
-target and chamber target are zero at completion.
-
-[The trial record](trial-v1/result.json) includes the user's confirmation of
-successful filament-blob ejection and no printing on the plate. The loose blob
-landed on the plate. Tip cleanliness was not separately inspected. Prevention of
-the reported idle-time extrusion overload is untested. This trial does not
-establish a maintenance interval or compatibility with another nozzle/material
-combination.
+The [accepted trial record](https://github.com/derekbreden/homesodamachine/blob/05a3ada6274265e013d664ceeb34c6861f740c27/tools/h2c-purge/trial-v1/result.json) contains the printer telemetry and the user's confirmation of blob ejection with no printing on the plate. The loose blob can land on the plate. Tip cleanliness and prevention of idle-time extrusion overload remain unmeasured. The trial qualifies the documented nozzle and material configuration.

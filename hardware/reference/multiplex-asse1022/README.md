@@ -43,7 +43,7 @@ cloud and SHA-256 capture manifest are preserved in
 the registered observations and portable STL. The STEP and its viewer payload
 are generated beside this README and published through the CAD artifact store.
 
-[`analyze_scan.py`](analyze_scan.py) finds the broad marker-table plane, fits the
+[analyze_scan.py](https://github.com/derekbreden/homesodamachine/blob/a518a57a878f02d9ac5b8b638c1c5883cadf6669/hardware/reference/multiplex-asse1022/analyze_scan.py) finds the broad marker-table plane, fits the
 three exposed flats of each wrench section, and fits the vent stem. The fixed
 support-plane selection retains **416,569 observations** above 15.5 mm from the
 table. It removes the putty and table without selecting points by their distance
@@ -66,10 +66,4 @@ performance. Optical scale and paint thickness are not independently calibrated;
 fusion spacing and fit residuals are not absolute dimensional tolerances. This
 reference does not qualify cuff or drain-sleeve fits.
 
-```sh
-tools/cad-venv/bin/python hardware/reference/multiplex-asse1022/analyze_scan.py
-tools/cad-venv/bin/python hardware/reference/multiplex-asse1022/multiplex_asse1022.py
-tools/cad-venv/bin/python hardware/reference/multiplex-asse1022/validate_scan.py
-```
-
-Pass `--stl /absolute/output/path.stl` to the model generator for a portable mesh.
+The source derivations are preserved at their recorded revision: [analyze_scan.py](https://github.com/derekbreden/homesodamachine/blob/a518a57a878f02d9ac5b8b638c1c5883cadf6669/hardware/reference/multiplex-asse1022/analyze_scan.py), [validate_scan.py](https://github.com/derekbreden/homesodamachine/blob/a518a57a878f02d9ac5b8b638c1c5883cadf6669/hardware/reference/multiplex-asse1022/validate_scan.py).

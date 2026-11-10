@@ -36,3 +36,5 @@ source. [`prepare.py`](https://github.com/derekbreden/homesodamachine/blob/30626
 `*-launch.json` records hold the accepted printer task IDs: Mark1 **1385666436**
 and Mark2 **1385672893**. Both acceptance readings report RUNNING with no print
 errors. The recorded lower bound on startup spacing is 190.99 seconds.
+
+The [recorded preparation source](https://github.com/derekbreden/homesodamachine/blob/a518a57a878f02d9ac5b8b638c1c5883cadf6669/hardware/printed-parts/cold-core/foam-cap/prints/2026-10-28-b-fill-local/generate.py) retains the source revision for these physical artifacts.

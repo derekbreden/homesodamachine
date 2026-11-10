@@ -43,8 +43,8 @@ opening. These samples support the cosmetic overlap; they do not establish
 occlusion at every angle, a liquid seal or physical installation performance of
 this extension.
 
-`review.py` generates the native STEP/STL proposal, measurements and packed
-before/after meshes. Run it with `tools/cad-venv/bin/python` from the repository.
-Its inputs are the local exports from the linked fit study's `measure.py` and
-`button_relief.py`. Generated native files retain their hashes in the reading.
+[review.py](https://github.com/derekbreden/homesodamachine/blob/e50eb3e4372a4d5b70248795469c02ed8d51d2d3/hardware/printed-parts/faucet/faucet-display-cover/corner-overlap-review/2026-10-25/review.py) generates the native STEP/STL proposal, measurements and packed
+before/after meshes.
+Its inputs are the local exports from the linked fit study's [measure.py](https://github.com/derekbreden/homesodamachine/blob/e50eb3e4372a4d5b70248795469c02ed8d51d2d3/hardware/printed-parts/faucet/faucet-display-cover/fit-review/2026-10-24/measure.py) and
+[button_relief.py](https://github.com/derekbreden/homesodamachine/blob/e50eb3e4372a4d5b70248795469c02ed8d51d2d3/hardware/printed-parts/faucet/faucet-display-cover/fit-review/2026-10-24/button_relief.py). Generated native files retain their hashes in the reading.
 The published production cover builder is unchanged.

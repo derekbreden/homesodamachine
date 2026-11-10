@@ -3,7 +3,7 @@
 // A COLOUR IS HALF OF WHAT A MATERIAL LOOKS LIKE. The other half — how the stock takes the
 // light — cannot ride a STEP, which carries `COLOUR_RGB` and nothing else, so it is carried
 // beside the model in `web/public/finishes.json` and found again by the colour it belongs to.
-// hardware/scripts/_finishes.py writes that file and web/public/js/viewer/step.js reads it,
+// hsm-finishes writes that file and web/public/js/viewer/step.js reads it,
 // which are different languages in different trees with no import between them.
 //
 // WHAT DISAGREEMENT COSTS IS SILENCE, again. `finishFor` answers a colour it cannot place with

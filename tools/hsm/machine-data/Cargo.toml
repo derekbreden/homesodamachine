@@ -11,8 +11,6 @@ name = "machine-data"
 path = "src/main.rs"
 
 [dependencies]
-hsm-pcba-numbers = { path = "../pcba-numbers" }
-hsm-cold-core-interface = { path = "../cold-core-interface" }
 hsm-enclosure-numbers = { path = "../enclosure-numbers" }
 anyhow.workspace = true
 serde_json = { workspace = true, features = ["float_roundtrip"] }
@@ -21,4 +19,3 @@ hsm-layout-data = { path = "../layout-data" }
 
 serde.workspace = true
 hsm-documents = { path = "../documents" }
-hsm-enclosure-interface = { path = "../enclosure-interface" }

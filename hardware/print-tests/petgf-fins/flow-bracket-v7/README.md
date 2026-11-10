@@ -76,10 +76,7 @@ The [Mark2 finish matrix](../finish-matrix-v6/README.md) supplies the matched fi
 speed, direction and ramp comparisons. This plate assesses permanent-post
 bridges; fin removal and slicer support-interface finish have separate scope.
 
-[`prepare.py`](https://github.com/derekbreden/homesodamachine/blob/0a648015e0/hardware/print-tests/petgf-fins/flow-bracket-v7/prepare.py) (in Git at `0a648015e0`) creates the editable project and meshes using the existing v4
-geometry helper. Slice with the installed Bambu Studio CLI, preserving
-placement and orientation, to `mark1/native.gcode.3mf`. `finish.py` applies
-only named first-roof Bridge-feature E multipliers and per-object fan commands.
-Those local G-code treatments are absent from the editable project alone.
+The [recorded finish source](https://github.com/derekbreden/homesodamachine/blob/7cf7b55608deefa5f3cae6bb20f83bce14ff706f/hardware/print-tests/petgf-fins/flow-bracket-v7/finish.py) defines the local roof extrusion and per-object
+fan treatments. Those treatments are absent from the editable project alone.
 The [print-only packaging record](mark1/packaging.json) binds unchanged reviewed
 G-code bytes to the submission archive.

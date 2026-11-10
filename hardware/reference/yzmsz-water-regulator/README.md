@@ -38,7 +38,7 @@ preview, fused cloud and SHA-256 manifest are in
 `~/Documents/3D Scans/2026-10-29-yzmsz-water-regulator/`. That directory also
 holds registered observations and portable STEP/STL files.
 
-[`analyze_scan.py`](analyze_scan.py) fits the broad marker-table plane and
+[analyze_scan.py](https://github.com/derekbreden/homesodamachine/blob/a518a57a878f02d9ac5b8b638c1c5883cadf6669/hardware/reference/yzmsz-water-regulator/analyze_scan.py) fits the broad marker-table plane and
 long housing axis, including its small molding draft, at unit scale. It fits
 the exposed release-face patches independently. A fixed table-height selection
 above 15 mm removes the support and markers; **466,634 observations** remain.
@@ -48,7 +48,7 @@ radial simplification supply the turned profile. Exposed cap-window bottoms
 and release-recess profiles provide the localized details.
 [`scan-evidence.json`](scan-evidence.json) preserves transforms, physical
 selections, residuals and source hashes;
-[`reference-parameters.json`](reference-parameters.json) supplies the model generator.
+[`reference-parameters.json`](reference-parameters.json) records the fitted model inputs.
 
 ![Captured surface against the reference](scan-model-check.png)
 
@@ -70,8 +70,6 @@ scale are not independently calibrated.
 `model.py` exposes `library()`, `instances()`, `ports()` and `mates()` using
 the frozen NumPy mesh, without importing production CAD.
 
-```sh
-tools/cad-venv/bin/python hardware/reference/yzmsz-water-regulator/analyze_scan.py
-tools/cad-venv/bin/python hardware/reference/yzmsz-water-regulator/build.py
-tools/cad-venv/bin/python hardware/reference/yzmsz-water-regulator/validate_scan.py
-```
+The source derivations are preserved at their recorded revision: [analyze_scan.py](https://github.com/derekbreden/homesodamachine/blob/a518a57a878f02d9ac5b8b638c1c5883cadf6669/hardware/reference/yzmsz-water-regulator/analyze_scan.py), [validate_scan.py](https://github.com/derekbreden/homesodamachine/blob/a518a57a878f02d9ac5b8b638c1c5883cadf6669/hardware/reference/yzmsz-water-regulator/validate_scan.py).
+
+The source derivations are preserved at their recorded revision: [model.py](https://github.com/derekbreden/homesodamachine/blob/a518a57a878f02d9ac5b8b638c1c5883cadf6669/hardware/reference/yzmsz-water-regulator/model.py).

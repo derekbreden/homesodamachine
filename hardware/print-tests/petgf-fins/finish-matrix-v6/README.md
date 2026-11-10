@@ -174,12 +174,9 @@ bridge variable. The treatment range here follows this PET-GF physical evidence;
 it is not a manufacturer's qualified PET-GF recipe. The shared production
 material profile is unchanged.
 
-Run [`prepare.py`](https://github.com/derekbreden/homesodamachine/blob/0a648015e0/hardware/print-tests/petgf-fins/finish-matrix-v6/prepare.py) (in Git at `0a648015e0`) with `tools/cad-venv/bin/python`, slice the saved source with
-Bambu Studio `--arrange 0 --orient 0 --slice 0 --outputdir <absolute mark2 folder>
---export-3mf native.gcode.3mf <absolute project>`, then run `finish.py` with the
-same Python runtime. The latter applies the named local E/fan treatments and
-first-roof speed changes, restoring native speed on other motion. The editable
-3MF alone does not contain the final G-code treatments. These tools run manually.
+The [recorded finish source](https://github.com/derekbreden/homesodamachine/blob/7cf7b55608deefa5f3cae6bb20f83bce14ff706f/hardware/print-tests/petgf-fins/finish-matrix-v6/finish.py) defines the local extrusion, fan and roof-speed
+treatments for the submitted artifact. The editable project alone does not
+contain those G-code treatments.
 
 The [packaging record](mark2/packaging.json) confirms the print-only archive has
 identical reviewed G-code and embedded MD5. The launch binds its hash to printer

@@ -1,6 +1,6 @@
 # Cold-core printed fits
 
-`cadlib/fits.py` supplies 0.15 mm per mating face for static assembly and
+The [native fit catalog](/tools/hsm/catalog/src/lib.rs) supplies 0.15 mm per mating face for static assembly and
 0.25 mm for a sliding face. Each supported mating face gets an additional 0.25 mm allowance for the
 retained bridge strands, allocated once on that face or its mate. Two supported
 faces contribute 0.50 mm to their shared gap. Cylindrical fits

@@ -2,9 +2,8 @@
 
 `enclosure-cad.json.gz` and `cold-core-cad.json.gz` contain the genuine named
 CAD parts used in the opening reveal. The local `.json` working copies are
-ignored. `../prepare-assets.py` extracts them from the existing repository
-payloads with conservative display-mesh simplification; it does not rebuild or
-change the hardware.
+ignored. `tools/run -- hsm-marketing explainer-assets` exports current native
+CAD payloads on request; it does not rebuild or change the hardware.
 
 Each bundle has `meshes`, an array of objects containing `name`, `group`,
 `color`, `positions`, `normals`, `indices` and `bounds`. All geometry arrays are
@@ -50,8 +49,8 @@ smooth.
 
 ## Animated carbonator
 
-`../prepare-carbonator-assets.py` reads the existing current STEP assemblies
-and exports persistent hardware in local Y-up coordinates. Its outputs are
+`tools/run -- hsm-marketing explainer-assets --bundle carbonator` reads current
+native CAD payloads and exports persistent hardware in local Y-up coordinates. Its outputs are
 `carbonator-hardware-full.json.gz`, `carbonator-hardware-section.json.gz`,
 `magnetic-float-cad.json.gz` and `carbonator-datums.json`. The corresponding
 uncompressed CAD JSON files are ignored working copies.
@@ -77,3 +76,9 @@ a 36 mm cylindrical body, 28 mm tall, with a 4.8 mm axial guide bore and an
 enclosed coaxial RC62 ring. Its local origin is the magnet midplane, with body
 Y −14 to +14 mm. Place it at `(0, level − 8.766, −41.849)` mm using the
 provisional dry-foam immersion model. The ring belongs inside the opaque body.
+
+The saved bundles retain the source hashes in `cad-manifest.json`. Their archived
+[asset extraction](https://github.com/derekbreden/homesodamachine/blob/cda0198e0ef242566aae20e850c16bf4641403d5/marketing/video/how-carbonation-works/prepare-assets.py)
+and [carbonator extraction](https://github.com/derekbreden/homesodamachine/blob/cda0198e0ef242566aae20e850c16bf4641403d5/marketing/video/how-carbonation-works/prepare-carbonator-assets.py)
+recipes remain available at the recorded revision. Current exports use the
+[native asset producer](../../../../tools/hsm/marketing/src/film/assets.rs).

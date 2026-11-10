@@ -23,6 +23,8 @@ pub struct Body<'a> {
 }
 
 pub const STL_HEADER: &[u8] = b"hsm-kernel binary STL";
+/// The flat mesh payload format stamped by native part and print writers.
+pub const MESH_PAYLOAD_VERSION: u32 = 3;
 
 fn tri_normal(a: V3, b: V3, c: V3) -> V3 {
     let n = (b - a).cross(c - a);
@@ -361,7 +363,7 @@ fn payload(bodies: &[Body], src: Option<&str>, cut: Option<&Value>, sources: boo
             color_json(b.color)
         ));
     }
-    let mut head = format!(r#"{{"v":3,"meshes":[{}]"#, entries.join(","));
+    let mut head = format!(r#"{{"v":{},"meshes":[{}]"#, MESH_PAYLOAD_VERSION, entries.join(","));
     if let Some(s) = src {
         head.push_str(&format!(r#","src":{}"#, Value::from(s)));
     }

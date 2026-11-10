@@ -20,12 +20,12 @@ stub, elbow and drain cradle travel with the removable frame; disconnect the
 V-B feed before lifting it.
 
 The production placements are in
-[`above_core.py`](/hardware/manifold-layout/above_core.py) and
-[`above_core_wiring.py`](/hardware/manifold-layout/above_core_wiring.py).
+[`machine_layout.rs`](/hardware/manifold-layout/machine_layout.rs) and
+[`routes.rs`](/tools/hsm/assembly-docs/src/wiring/routes.rs).
 The complete installed electrical graph, native terminal frames, individual
 conductors, connector housings and shared cable routes are in
 [`installed/`](/hardware/wiring/installed/). These are proposed installed
-geometry. The [native review records](/hardware/wiring/installed/above-core-review/)
+geometry. The [native review records](https://github.com/derekbreden/homesodamachine/blob/fa658f2927cea008103ecb80685b65f879c2f2cb/hardware/wiring/installed/above-core-review/README.md)
 state their artifact-bound geometry scopes. Actual harness dressing, connector
 fit and donor terminal locations retain their stated qualification limits.
 
@@ -83,7 +83,7 @@ water pump's fixed rails. Lower the bare pump into the lid's fitted half pipe
 and close its continuous 54.5 mm upper clip before installing the PCB, per the
 [pump installation](../reference/g-ganen-pump/installation/README.md).
 The PSU ceiling and relay wall-host stacks are defined by
-[`_above_core_shell.py`](/hardware/printed-parts/enclosure/enclosure/_above_core_shell.py)
+[`rear.rs`](/hardware/printed-parts/enclosure/enclosure/back-top/rear.rs)
 and allocated in the [BOM](/hardware/ledger/bom.md); use the stack assigned to
 each device.
 

@@ -163,9 +163,7 @@ Run `tools/cad-venv/bin/python
 hardware/print-tests/petgf-fins/short-spans-v2/make_plate.py` from the repository
 root. Slice each `.3mf` with the installed Bambu Studio using
 `--arrange 0 --orient 0 --slice 0` and an absolute output directory.
-Run `inspect_slice.py <saved-native-archive>` to collect native path evidence.
-Run `trace_landing.py` for the saved fan-off roof/perimeter landing trace.
-These commands are manual experiment tools and do not join a build or commit path.
+The [slice inspection](https://github.com/derekbreden/homesodamachine/blob/d24b111b5d10e1eed4574db786e5ae1d0b96d445/hardware/print-tests/petgf-fins/short-spans-v2/inspect_slice.py) and [landing trace](https://github.com/derekbreden/homesodamachine/blob/d24b111b5d10e1eed4574db786e5ae1d0b96d445/hardware/print-tests/petgf-fins/short-spans-v2/trace_landing.py) sources are archived in Git.
 
 Use the documented [saved-slice print submission](../../../../tools/bambu-printers.md#bambu-studio-send-from-an-existing-slice)
 with Timelapse On, Bed Leveling On, Flow Dynamics Calibration Auto and Nozzle

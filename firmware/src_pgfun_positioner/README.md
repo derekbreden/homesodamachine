@@ -12,22 +12,30 @@ Use [wiring](../../hardware/gun-positioner/control.md),
 ## Install and flash
 
 The released image is [pgfun-positioner-r1.uf2](assets/pgfun-positioner-r1.uf2).
-Its [build receipt](assets/build-receipt.json) binds source and geometry hashes,
-compiler/SDK versions and binary/UF2 digests. With motor supply disconnected
+Its [build receipt](assets/build-receipt.json) binds exact source and geometry
+hashes, compiler/SDK identities and binary/UF2 digests.
+`hsm-peripheral positioner-verify` verifies the source hashes, image payload and
+current generated motion header. With motor supply disconnected
 and motors unplugged, use the manufacturer's BOOT/USB procedure to mount
 RPI-RP2, copy that UF2, then remove the boot jumper and reconnect normally.
 Do not flash another controller merely because it exposes a boot disk.
 No device was flashed during release preparation.
 
-Use the existing CAD Python environment, or create a separate Python 3.11+
-virtual environment and install `host/requirements.txt`. The Mac capture
-helper lives in `tools/gun-positioner-observation/helper/`; rebuild it with
+`pgfun-host` provides the native operator console, camera observer and saved-data
+calibration commands. Build it with:
+
+```sh
+tools/run -- cargo build --manifest-path tools/hsm/Cargo.toml --release --locked -j 2 \
+  -p hsm-pgfun-host
+```
+
+The Mac capture helper lives in `tools/gun-positioner-observation/helper/`; rebuild it with
 `build.sh --adhoc` only if the app bundle is absent or source changed.
 Allow camera access to that app for physical capture.
 
 ```sh
-tools/cad-venv/bin/python firmware/src_pgfun_positioner/host/positioner.py --list
-tools/cad-venv/bin/python firmware/src_pgfun_positioner/host/positioner.py \
+tools/hsm/target/release/pgfun-host console --list
+tools/hsm/target/release/pgfun-host console \
   --port /dev/cu.YOUR_POSITIONER --log /tmp/pgfun-console.jsonl
 ```
 
@@ -60,28 +68,31 @@ must qualify the existing time-based rotation.
 
 ## Build and checks
 
-Use Raspberry Pi pico-sdk **2.2.0**, Arm GNU **14.2.rel1**, CMake 3.21+ and Ninja.
-Their absolute installation paths are supplied by the builder's environment.
+Use the Raspberry Pi SDK and Arm GNU toolchain recorded in the build receipt,
+CMake, Make and the installed `hsm-peripheral` commands. Their absolute
+installation paths are supplied by the builder's environment.
 Build outside the source directory:
 
 ```sh
-python3 firmware/src_pgfun_positioner/make_geometry.py
-cmake -S firmware/src_pgfun_positioner -B .cache/pgfun-build -G Ninja \
+hsm-peripheral positioner-geometry
+tools/run -- cmake -S firmware/src_pgfun_positioner -B .cache/runs/pgfun-build -G 'Unix Makefiles' \
   -DPICO_SDK_PATH=/absolute/path/pico-sdk \
   -DPICO_TOOLCHAIN_PATH=/absolute/path/arm-gnu-toolchain/bin
-cmake --build .cache/pgfun-build
-python3 firmware/src_pgfun_positioner/make_uf2.py \
-  .cache/pgfun-build/pgfun_positioner.bin \
+tools/run -- cmake --build .cache/runs/pgfun-build --parallel 2
+hsm-peripheral uf2 \
+  .cache/runs/pgfun-build/pgfun_positioner.bin \
   firmware/src_pgfun_positioner/assets/pgfun-positioner-r1.uf2
-c++ -std=c++17 -Wall -Wextra -Werror -Wno-misleading-indentation \
+tools/run -- c++ -std=c++17 -Wall -Wextra -Werror \
   -I firmware/src_pgfun_positioner firmware/src_pgfun_positioner/tests/test_policy.cpp \
   -o /tmp/pgfun-policy-test
 /tmp/pgfun-policy-test
-tools/cad-venv/bin/python -m unittest discover -s firmware/src_pgfun_positioner/tests
+tools/run -- cargo test --manifest-path tools/hsm/Cargo.toml --release --locked -j 2 \
+  -p hsm-pgfun-host -p hsm-pgfun-observation -- --test-threads=2
 ```
 
 Policy tests exercise real pulse counts, bounds, continuous replay, pedal
-release, independent faults, UART CRC/framing and watchdog liveness. Python
-tests use synthetic observations to check fitting, independent holdouts,
-trajectory envelopes and stale-data refusal. These results verify software
+release, independent faults, UART CRC/framing and watchdog liveness. Native
+host tests use saved images, synthetic observations and fixture transports to
+check fitting, independent holdouts, trajectory envelopes, stale-data refusal
+and uncertain command acceptance. These results verify software
 behaviour; they are not physical gun-positioning records.

@@ -19,14 +19,14 @@ The identical delivery copy is `output/pdf/carbonator-filming-guide.pdf`.
 ## Manual regeneration
 
 ```bash
-tools/cad-venv/bin/python tools/carbonator-filming-guide/build.py
+tools/run hsm-manual-guides bind carbonator-filming-guide
 ```
 
-The script writes the numbered HTML leaves and vector framing sketches, renders
-them through the existing Letter guide renderer, binds the PDF and writes the
-cover, document sidecar and delivery receipt. Sources and final artifacts are
-committed. The local `out/` directory is ignored. No hook, watcher, build target
-or recurring verification invokes this script.
+The numbered HTML leaves and inline vector framing sketches are the editable
+sources. The native command renders them through the Letter guide renderer,
+binds the PDF and writes the cover, document sidecar and delivery receipt.
+Sources and final artifacts are committed. The local `out/` directory is ignored.
+This command runs on demand, outside the appliance build.
 
 The [filming plan](../../marketing/video/carbonator-weld-shooting-plan.md) holds
 the preparation notes. The [rotator procedure](../assembly/weld-rotation-rig.md)

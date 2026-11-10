@@ -36,8 +36,6 @@ that sRGB to the linear a STEP round trip delivers — the same expression `_mes
 every other part through. A picture drawn from this payload is the picture the STEP would have
 drawn, with the surface it actually has.
 
-    tools/cad-venv/bin/python hardware/scripts/flute_payload_enclosure.py
-    tools/cad-venv/bin/python hardware/scripts/flute_payload_faucet.py
     tools/cad-venv/bin/python hardware/scripts/flute_payload.py            # every tree
     tools/cad-venv/bin/python hardware/scripts/flute_payload.py selftest
     tools/cad-venv/bin/python hardware/scripts/flute_payload.py selftest-matching

@@ -43,7 +43,7 @@ the centre the placement moves it by.
 ## Installation
 
 One organizer ships per umbilical, on both faucet styles and finishes. The
-[`faucet assembly`](../../../faucet-layout/faucet_assembly.py) places its top
+[`faucet assembly`](/hardware/faucet-layout/faucet_assembly.rs) places its top
 at Z=−88 mm and bottom at Z=−98 mm. That puts its top 50.476 mm below the
 steel plate for the illustrated 30 mm slab, or 42.476 mm below the plate for a
 38 mm slab. These are modeled gaps, not a reported washer/nut access result.
@@ -95,5 +95,5 @@ organizer layout and signal-slot fit remain unassessed.
 The separate frozen [Ø4.30 mm drain-fit archive](https://github.com/derekbreden/homesodamachine/blob/2f2d9c94a1c3fbf007dfa1bd7e93095197079895/future/umbilical-organizer-exploration/drain-fit-mark2/README.md)
 is an unsubmitted trial, outside the current production selection.
 Regenerate the production geometry with
-`python3 tools/run.py -- cargo run --release -j 2 --manifest-path tools/hsm/Cargo.toml -p hsm-umbilical-organizer`,
+`tools/run -- cargo run --release -j 2 --manifest-path tools/hsm/Cargo.toml -p hsm-umbilical-organizer`,
 which writes into this folder.

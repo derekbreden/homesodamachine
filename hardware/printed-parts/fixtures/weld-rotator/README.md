@@ -362,7 +362,7 @@ motor only while the table turns and for ten seconds after a release.
 ## Regenerate
 
 ```bash
-python3 tools/run.py -- cargo run --release --manifest-path tools/hsm/weld-rotator/Cargo.toml
+tools/run -- cargo run --release --manifest-path tools/hsm/weld-rotator/Cargo.toml
 ```
 
 ## Reference data

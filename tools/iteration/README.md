@@ -38,7 +38,7 @@ clipping planes are considered too. These checks establish eligibility for a com
 draw; they cannot establish occlusion or unobstructed pixels.
 
 ```sh
-python3 tools/run.py -- node tools/iteration/measure.mjs watch "$HSM_ITERATION_RECORD" \
+tools/run -- node tools/iteration/measure.mjs watch "$HSM_ITERATION_RECORD" \
   --mesh hardware/manifold-layout/enclosure-assembly.step.mesh \
   --part enclosure-front-top --part enclosure-front-bottom
 ```
@@ -90,5 +90,5 @@ node --test tools/iteration/measure.test.mjs
 The draw-eligibility fixture uses the published viewer's own Three.js in a private browser:
 
 ```sh
-python3 tools/run.py -- node --test tools/iteration/visibility.browser.mjs
+tools/run -- node --test tools/iteration/visibility.browser.mjs
 ```

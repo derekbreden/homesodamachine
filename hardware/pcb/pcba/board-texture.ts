@@ -1,6 +1,6 @@
 /**
  * Render the board's top and bottom faces as green-soldermask textures for the
- * 3D model (board-3d.py maps them onto the GLB board's faces). Reads the
+ * 3D model (the viewer maps them onto the GLB board's faces). Reads the
  * fabrication Gerbers from out/<board>.gerbers.zip, composes them in the green
  * board3d scheme (gerber-compose), and rasterizes each to a PNG.
  *

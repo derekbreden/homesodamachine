@@ -12,7 +12,7 @@ Form GOORY 1/4" OD × 0.031" wall ACR copper tubing to the complete
 [EVAP-01 production drawing](/hardware/cold-core-layout/evaporator-coil-drawing.pdf).
 The final winding is 9½ right-hand turns over 119.4 mm at
 pitch on the 5" OD vessel, with the specified local relief over the reed bridge.
-Use the undersized printed [coil mandrel](/hardware/printed-parts/cold-core/coil-mandrel/coil_mandrel.py)
+Use the undersized printed [coil mandrel](/hardware/printed-parts/cold-core/coil-mandrel/coil_mandrel.rs)
 for rough forming, then feed material from the unfinished ends as the finished
 winding is set on the vessel fixture. Form the R15 tangent tails and verify
 their exit stations before foam. Copper allocation is in

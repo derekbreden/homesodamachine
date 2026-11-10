@@ -2,7 +2,7 @@
 
 The production fitting is the **John Guest PP0208E** 1/4 inch union tee, black
 polypropylene. The manifold and water split share the generated
-`tee-connector.step` from `tee_connector.py`.
+`tee-connector.step` from [tee_connector.py](https://github.com/derekbreden/homesodamachine/blob/a518a57a878f02d9ac5b8b638c1c5883cadf6669/hardware/reference/tee-connector/tee_connector.py).
 
 The reference uses the unscaled five-view scan registered in
 [`../jg-pp0208e-tee/scan-registration.json`](../jg-pp0208e-tee/scan-registration.json).
@@ -44,10 +44,7 @@ The bores show Ø6.35 mm tube clearance. They do not claim teeth, O-rings, the
 hydraulic bore or an inferred internal stop. The stop is the measured insertion
 station below.
 
-```sh
-tools/cad-venv/bin/python hardware/reference/tee-connector/tee_connector.py
-tools/cad-venv/bin/python hardware/reference/tee-connector/tee_connector.py selftest
-```
+The model and measurements are retained with their [source derivations](https://github.com/derekbreden/homesodamachine/blob/a518a57a878f02d9ac5b8b638c1c5883cadf6669/hardware/reference/tee-connector/tee_connector.py).
 
 ## Measured on the PP0208E in hand
 

@@ -48,24 +48,15 @@ exterior pose. The full-stem comparison retains the 10–15 mm host-depth study.
 
 [`socket-layout.json`](socket-layout.json) names the geometry and agreed poses
 in the self-contained `socket-layout.npz` benchmark. These are layout meshes;
-the individual stem fittings also have editable builders and native STEP files
-in their reference directories. Square-cut variants have native STEP and NPZ
+the individual stem fittings retain native STEP files in their reference
+directories. Square-cut variants have native STEP and NPZ
 geometry under `trimmed/`; the stock part references retain their full stems.
-`study.py` uses those references and writes
+[study.py](https://github.com/derekbreden/homesodamachine/blob/a518a57a878f02d9ac5b8b638c1c5883cadf6669/hardware/manifold-layout/studies/stem-fittings/study.py) uses those references and writes
 the numerical report and a compact viewer dataset under ignored `out/`.
 
-Regenerate the square-cut study parts through the serial CAD queue:
+The model and measurements are retained with their [source derivations](https://github.com/derekbreden/homesodamachine/blob/a518a57a878f02d9ac5b8b638c1c5883cadf6669/hardware/manifold-layout/studies/stem-fittings/trim_stems.py).
 
-```sh
-PYTHONPATH=. tmp/takeover/cadq "Trim stem fitting references" -- \
-  tools/cad-venv/bin/python hardware/manifold-layout/studies/stem-fittings/trim_stems.py
-```
+The model and measurements are retained with their [source derivations](https://github.com/derekbreden/homesodamachine/blob/a518a57a878f02d9ac5b8b638c1c5883cadf6669/hardware/manifold-layout/studies/stem-fittings/study.py).
 
-Run the mesh-only study from the repository root:
-
-```sh
-tools/cad-venv/bin/python hardware/manifold-layout/studies/stem-fittings/study.py --check
-```
-
-`--check` runs the exterior interference question on demand. The study is not
-part of the enclosure build or an automatic check.
+The source derivation defines the exterior interference reading for these fixed
+study inputs.

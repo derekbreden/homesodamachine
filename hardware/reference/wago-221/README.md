@@ -1,8 +1,8 @@
 # WAGO splice reference family
 
 The references show the molded housing, individual closed levers and wire-entry
-mouths of the purchased connectors. The seated frame, envelope dimensions and
-open-lever clearance stay with the dimensions exposed by `wago_221.py`.
+mouths of the purchased connectors. The frozen references retain the seated
+frame, envelope dimensions and open-lever clearance.
 
 The housing retains the existing model body name. `closed-levers` contains the
 orange actuator solids, including the opposed faces of the stacked connector.
@@ -29,7 +29,9 @@ in the website viewer. Orange is reserved for the actuators.
 
 ## Regeneration
 
-    python3 tools/run.py -- cargo run --release --locked -j2 --manifest-path tools/hsm/Cargo.toml \
+    tools/run -- cargo run --release --locked -j2 --manifest-path tools/hsm/Cargo.toml \
         -p hsm-sandbox --example wago-221 -- hardware/reference/wago-221
 
 `frozen-asset.json` and `native-queries.json` accompany the exported reference.
+
+The source derivations are preserved at their recorded revision: [wago_221.py](https://github.com/derekbreden/homesodamachine/blob/a518a57a878f02d9ac5b8b638c1c5883cadf6669/hardware/reference/wago-221/wago_221.py).

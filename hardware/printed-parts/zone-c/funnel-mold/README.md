@@ -96,7 +96,7 @@ The acquired [5-gallon chamber](../../../ledger/tools.md) is recorded with a
 **297.64 mm circle**, leaving **1.04 mm radial clearance**. With the specified
 M4 × 20 closure hardware it is about **73.35 mm high**. Use a catch tray no
 larger than 260 mm across and keep it clear of the breathers. The
-[chamber check](chamber-check.json) binds these dimensions to the native parts
+[chamber check](https://github.com/derekbreden/homesodamachine/blob/fa658f2927cea008103ecb80685b65f879c2f2cb/hardware/printed-parts/zone-c/funnel-mold/chamber-check.json) binds these dimensions to the native parts
 and the acquired chamber record; physical insertion is not recorded.
 
 ## Print files and checks
@@ -133,21 +133,19 @@ binds the apron to its current source and assembly exports.
 
 The [physical print log](print-log.md), [October 6 slice and cavity retry](native-slice-reviews/2026-10-06-mark1-retry-z004-v2/README.md),
 [matching core launch](native-slice-reviews/2026-10-07-mark1-core-matching-cavity-v1/README.md),
-[rod check](rod-check.json) and [closure check](containment-review.json) retain
+[rod check](https://github.com/derekbreden/homesodamachine/blob/fa658f2927cea008103ecb80685b65f879c2f2cb/hardware/printed-parts/zone-c/funnel-mold/rod-check.json) and [closure check](https://github.com/derekbreden/homesodamachine/blob/fa658f2927cea008103ecb80685b65f879c2f2cb/hardware/printed-parts/zone-c/funnel-mold/containment-review.json) retain
 their identified artifact scope.
 
 ```sh
-python3 tools/run.py -- cargo build --release --locked -j 2 --manifest-path tools/hsm/Cargo.toml -p hsm-funnel
-python3 tools/run.py -- tools/hsm/target/release/funnel
-python3 tools/run.py -- tools/hsm/target/release/funnel-mold
-python3 tools/run.py -- cargo build --release --locked -j 2 --manifest-path tools/hsm/Cargo.toml -p hsm-print-prep --bin funnel-mold-print-project
-python3 tools/run.py -- tools/hsm/target/release/funnel-mold-print-project --models hardware/printed-parts/zone-c/funnel-mold \
+tools/run -- cargo build --release --locked -j 2 --manifest-path tools/hsm/Cargo.toml -p hsm-funnel
+tools/run -- tools/hsm/target/release/funnel
+tools/run -- tools/hsm/target/release/funnel-mold
+tools/run -- cargo build --release --locked -j 2 --manifest-path tools/hsm/Cargo.toml -p hsm-print-prep --bin funnel-mold-print-project
+tools/run -- tools/hsm/target/release/funnel-mold-print-project --models hardware/printed-parts/zone-c/funnel-mold \
   --output .cache/prints/funnel-mold/funnel-mold.3mf --label "Funnel mold" --slice
-tools/cad-venv/bin/python tools/funnel-mold-print/review_rod.py
-tools/cad-venv/bin/python tools/funnel-mold-print/review_containment.py \
-  --output hardware/printed-parts/zone-c/funnel-mold/containment-review.json
-tools/cad-venv/bin/python tools/funnel-mold-print/review_chamber.py
+hsm --scene printed-parts/zone-c/funnel-mold/assembly.step where rod
 ```
 
-After publication, run `tools/funnel-mold-print/review_geometry.py --models hardware/printed-parts/zone-c/funnel-mold` in the
-recorded print orientations and address its findings.
+After publication, run the [native printed-mesh review](/tools/hsm/mesh-review/README.md)
+with `--models hardware/printed-parts/zone-c/funnel-mold` in the recorded print orientations
+and address its findings.

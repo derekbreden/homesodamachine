@@ -30,7 +30,7 @@ screw-access axes point downward.
 Generate the reference through the shared run wrapper:
 
 ```sh
-python3 tools/run.py -- cargo run --release --locked -j2 \
+tools/run -- cargo run --release --locked -j2 \
     --manifest-path tools/hsm/Cargo.toml -p hsm-sandbox \
     --example meanwell-irm90-replica -- hardware/reference/meanwell-irm90
 ```
@@ -39,3 +39,5 @@ The [assembly-fit review](../../printed-parts/enclosure/enclosure/assembly-fit-r
 records the module placement and installed-wire fit scope. The
 [conditional electrical Plan B](/future/carbonation-plan-b.md) depends on
 measured current and voltage under the intended load schedule.
+
+The source derivations are preserved at their recorded revision: [meanwell_irm90.py](https://github.com/derekbreden/homesodamachine/blob/a518a57a878f02d9ac5b8b638c1c5883cadf6669/hardware/reference/meanwell-irm90/meanwell_irm90.py).

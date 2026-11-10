@@ -1,11 +1,9 @@
+//! Shared path, label and pattern helpers keep native selection and carrying consistent.
 use anyhow::{Context, Result};
 use regex::Regex;
-use serde_json::{Value, json};
+use serde_json::Value;
 use std::{collections::BTreeSet, fs, path::Path};
 pub const CAD: [&str; 4] = [".step", ".stl", ".glb", ".step.mesh"];
-pub fn text<'a>(v: &'a Value, k: &str) -> &'a str {
-    v[k].as_str().unwrap_or("")
-}
 pub fn strings(v: &Value) -> Vec<String> {
     v.as_array()
         .map(|v| {
@@ -25,21 +23,6 @@ pub fn suffix(path: &str) -> &str {
         Some(i) if i > 0 && i + 1 < name.len() => &name[i..],
         _ => "",
     }
-}
-pub fn truthy(v: &Value) -> bool {
-    match v {
-        Value::Null => false,
-        Value::Bool(v) => *v,
-        Value::String(v) => !v.is_empty(),
-        Value::Number(v) => v.as_f64() != Some(0.),
-        Value::Array(v) => !v.is_empty(),
-        Value::Object(v) => !v.is_empty(),
-    }
-}
-pub fn graph(path: &str) -> Option<Value> {
-    fs::read(path)
-        .ok()
-        .and_then(|v| serde_json::from_slice(&v).ok())
 }
 pub fn names(v: &Value) -> BTreeSet<String> {
     v.as_object()
@@ -61,27 +44,6 @@ pub fn labels(raw: &str) -> Vec<String> {
         .collect::<BTreeSet<_>>()
         .into_iter()
         .collect()
-}
-pub fn failed(v: &Value) -> Value {
-    let mut out = BTreeSet::new();
-    for line in strings(&v["lines"]) {
-        if let Ok(event) = serde_json::from_str::<Value>(&line) {
-            for (kind, state) in [
-                ("targetCompleted", "completed"),
-                ("actionCompleted", "action"),
-            ] {
-                if let Some(label) = event["id"][kind]["label"]
-                    .as_str()
-                    .filter(|s| !s.is_empty())
-                {
-                    if !truthy(&event[state]["success"]) {
-                        out.insert(label.to_owned());
-                    }
-                }
-            }
-        }
-    }
-    json!(out)
 }
 pub fn target_name(path: &str, shared: &BTreeSet<String>) -> String {
     let path = Path::new(path);

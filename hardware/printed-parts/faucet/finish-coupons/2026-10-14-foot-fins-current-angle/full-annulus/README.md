@@ -130,14 +130,6 @@ material recipe, so the two plates do not form a controlled two-by-two experimen
 No production profile, complete faucet model or accepted upper finish is promoted
 by this prepared coupon.
 
-## Manual reproduction
+## Article sources
 
-From the repository root, using `tools/cad-venv/bin/python`, run this directory's
-parent scripts in order: `prepare-revised.py`, `rim-path-review.py full-annulus`,
-`annulus-review.py full-annulus`, `review-revised.py`, and `render-rim-review.py`.
-The engine checkout is `.cache/support-fins-faucet` at the recorded pin. These
-are manual experiment tools, with no build, commit or printer-control integration.
-
-For the Mark1 copy, run `prepare-mark1.py`, then `rim-path-review.py full-annulus
-mark1`, `annulus-review.py full-annulus mark1`, and `review-revised.py mark1`.
-Preparation refuses to overwrite an accepted launch.
+The [rim-render source](https://github.com/derekbreden/homesodamachine/blob/d24b111b5d10e1eed4574db786e5ae1d0b96d445/hardware/printed-parts/faucet/finish-coupons/2026-10-14-foot-fins-current-angle/render-rim-review.py) is archived in Git. The retained projects, native reviews and launch records identify each prepared article.

@@ -1,8 +1,8 @@
 # Above-core arrangement
 
 [above-core.json](above-core.json) owns the appliance-world native frames.
-[above_core_parts.py](above_core_parts.py) builds the purchased bodies;
-[rear_plumbing.py](rear_plumbing.py) builds the inlet header, pump joints,
+[machine_equipment.rs](/hardware/manifold-layout/machine_equipment.rs) builds the purchased bodies;
+[rear.rs](/tools/hsm/layout-data/src/rear.rs) builds the inlet header, pump joints,
 short links and rear continuations. The enclosure, core mounts and installed
 wiring use those same frames. Front is −Y, rear is +Y and up is +Z.
 

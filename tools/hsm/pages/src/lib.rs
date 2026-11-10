@@ -8,6 +8,7 @@ pub mod pdf;
 pub mod picture;
 pub mod raster;
 pub mod reads;
+pub mod rich_text;
 pub mod text;
 
 pub use font::Font;

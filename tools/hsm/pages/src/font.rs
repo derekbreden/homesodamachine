@@ -8,6 +8,7 @@ pub struct Font {
     pub name: String,
     pub data: Vec<u8>,
     units_per_em: f64,
+    face_index: u32,
     glyphs: HashMap<char, u16>,
     /// Advance widths in thousandths of an em, by glyph.
     advances: Vec<f64>,
@@ -22,7 +23,12 @@ pub struct Font {
 
 impl Font {
     pub fn new(name: &str, data: Vec<u8>) -> Result<Font> {
-        let face = ttf_parser::Face::parse(&data, 0).with_context(|| format!("{name}: a TrueType font"))?;
+        Self::from_collection(name, data, 0)
+    }
+
+    /// Select a face from a TrueType collection for measurement and outlined artwork.
+    pub fn from_collection(name: &str, data: Vec<u8>, face_index: u32) -> Result<Font> {
+        let face = ttf_parser::Face::parse(&data, face_index).with_context(|| format!("{name}: a TrueType font"))?;
         let units_per_em = face.units_per_em() as f64;
         let k = 1000.0 / units_per_em;
         let advances = (0..face.number_of_glyphs())
@@ -46,6 +52,7 @@ impl Font {
         Ok(Font {
             name: name.to_owned(),
             units_per_em,
+            face_index,
             glyphs,
             advances,
             ascent: face.typographic_ascender().unwrap_or(face.ascender()) as f64 * k,
@@ -78,7 +85,7 @@ impl Font {
 
     /// A glyph's outline in em units scaled to `size`, with its origin at `origin` and y up.
     pub fn outline(&self, glyph: u16, size: f64, origin: [f64; 2], to: &mut tiny_skia::PathBuilder) {
-        let face = ttf_parser::Face::parse(&self.data, 0).expect("parsed when the font was read");
+        let face = ttf_parser::Face::parse(&self.data, self.face_index).expect("parsed when the font was read");
         let s = size / self.units_per_em;
         let mut sink = Outline { to, s, origin };
         face.outline_glyph(ttf_parser::GlyphId(glyph), &mut sink);

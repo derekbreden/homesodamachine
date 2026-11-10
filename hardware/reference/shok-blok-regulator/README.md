@@ -16,5 +16,7 @@ length and photograph-scaled sections, including a 34.3 mm body ring. Those
 sections, the assigned inlet/outlet ends and the 10 mm tube insertion are
 estimates. Internal working parts are omitted.
 
-[`shok_blok_regulator.py`](shok_blok_regulator.py) authors the reference with
-flow along +X and the inlet face at the origin.
+The [frozen reference](frozen-asset.json) places flow along +X with the inlet
+face at the origin.
+
+The source derivations are preserved at their recorded revision: [shok_blok_regulator.py](https://github.com/derekbreden/homesodamachine/blob/a518a57a878f02d9ac5b8b638c1c5883cadf6669/hardware/reference/shok-blok-regulator/shok_blok_regulator.py).

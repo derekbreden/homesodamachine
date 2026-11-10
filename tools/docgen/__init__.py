@@ -111,7 +111,7 @@ def substitute_md(md_path, variables):
     caller_path = _caller_repo_path()
     caller = _caller_file()
     hardware = next((p for p in caller.parents if p.name == "hardware"), None) if caller else None
-    figures = bool(hardware and (hardware / "scripts" / "_realized.py").is_file())
+    figures = bool(hardware and (hardware.parent / "tools" / "hsm" / "Cargo.toml").is_file())
     _substitute(md_path, variables, "md", caller_path, figures)
 
 

@@ -21,6 +21,6 @@ Same plate as the machine's other soft seals. No supports; the ring lies flat.
 ## Regenerate
 
 ```
-python3 tools/run.py -- cargo build --release --locked --manifest-path tools/hsm/Cargo.toml -p hsm-enclosure-components --bin display-gasket
-python3 tools/run.py -- tools/hsm/target/release/display-gasket
+tools/run -- cargo build --release --locked --manifest-path tools/hsm/Cargo.toml -p hsm-enclosure-components --bin display-gasket
+tools/run -- tools/hsm/target/release/display-gasket
 ```

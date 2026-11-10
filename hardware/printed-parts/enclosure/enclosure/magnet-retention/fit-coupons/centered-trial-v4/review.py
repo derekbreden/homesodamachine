@@ -11,7 +11,7 @@ import zipfile
 import numpy as np
 
 HERE = Path(__file__).resolve().parent
-ROOT = next(path for path in HERE.parents if (path / 'tools/publish_now.py').is_file())
+ROOT = next(path for path in HERE.parents if (path / 'tools/hsm/Cargo.toml').is_file())
 sys.path.insert(0, str(ROOT / 'hardware/printed-parts/enclosure/enclosure/support-bottom-gap'))
 from read_roads import layers, MODEL, WALL
 

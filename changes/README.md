@@ -101,7 +101,7 @@ changes when something reads better.
 - The body is the detail the entry opens to, in the subset `/updates` reads: `## ` headings,
   paragraphs, `- ` bullets, `**bold**`, `[text](href)`.
 - A link into the 3D viewer opens the published machine or part, and `?find=` lights and labels
-  what it points at; `link()` in [`hardware/scripts/pick_text.py`](../hardware/scripts/pick_text.py)
+  what it points at; [`hsm-pick link`](../tools/hsm/inspection/README.md)
   writes one.
 
 `views.json` and the images are the render tool's. Each view is a before and an after of one

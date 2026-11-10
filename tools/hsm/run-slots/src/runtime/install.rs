@@ -131,9 +131,6 @@ pub fn install_runtime(root: &Path, destination: &Path) -> Result<Value> {
         "hardware/scripts/_run_native.py",
         "hardware/scripts/_run_slots.py",
         "hardware/scripts/_run_lock.py",
-        "tools/run.py",
-        "tools/_single_flight.py",
-        "tools/hsm/install.py",
     ] {
         if let Ok(bytes) = fs::read(root.join(path)) {
             sources[path] = json!(hash(&bytes));

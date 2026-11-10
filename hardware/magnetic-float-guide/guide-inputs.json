@@ -1,7 +1,29 @@
 {
-  "title": "ASA Aero magnetic float build guide",
   "current_cad_revision": "v2-upper-clearance",
   "current_native_slice_state": "review_pending",
+  "inputs_sha256": {
+    "hardware/magnetic-float-guide/templates/01-cover.html.in": "1471befd2d6c387bd7769fac30c4a0c0da737b54389dce36e3f0e582bb288f3a",
+    "hardware/magnetic-float-guide/templates/02-one-body-one-ring.html.in": "36df222a233ac354d37baece6ce94f37729209ea515d3b00cf11e4ff9c7746a7",
+    "hardware/magnetic-float-guide/templates/03-dry-the-filament.html.in": "fafec6446907db97561a75f952e885b9b3b6e72388bf700acb8756fb1ec45fb2",
+    "hardware/magnetic-float-guide/templates/04-set-up-mark2.html.in": "aac6df4da6be13534d28e7e98e36804ba64ab029a4dff5c11644530812c65d99",
+    "hardware/magnetic-float-guide/templates/05-prepare-the-current-slice.html.in": "0900f1a05f5f8ce7c54a5312663cdb749544be7652805780e5308a9ef842baea",
+    "hardware/magnetic-float-guide/templates/06-review-the-insertion-pause.html.in": "e26bf6dbef11193f86f0aea20b9c91eda75092fe5079b0738f8a96e836e1b75b",
+    "hardware/magnetic-float-guide/templates/07-seat-the-magnet.html.in": "38957eb733a97c0ccb09f64c2dc36ecb96d549e1148e26bd8b7e3b4d9212e3ee",
+    "hardware/magnetic-float-guide/templates/08-resume-and-close.html.in": "753aad84efa231091a4334083b1c315b633bbb7c33c39ab9dce65a779e3ff146",
+    "hardware/magnetic-float-guide/templates/09-release-and-inspect.html.in": "3acc738d1fd88a3f65e604ae2c2ffe381b52fe04fe695a2f3f1ff6491ec0c8b3",
+    "hardware/magnetic-float-guide/templates/10-install-on-the-guide.html.in": "a8ae048fef1edd9dced918d9bc476090fbb7f7a89a0539040b1faec7a49a57cf",
+    "hardware/magnetic-float-guide/templates/11-calibrate-the-reeds.html.in": "71b0929ff68f63ffdf11827f2ab29aab9519a2f609501e81b54a2af2e6310144",
+    "hardware/magnetic-float-guide/templates/12-identified-print-evidence.html.in": "0d609564070decd71576e5becd8651020e2e5715b5d2b0476d5b0647cc1af4bc",
+    "hardware/magnetic-float-guide/templates/13-files-and-sources.html.in": "3a17770066f14a66d4852ed48a9eafa1952e7daba3b531d4505af49a15264636",
+    "hardware/printed-parts/cold-core/magnetic-float/all-aero/design.json": "7fabe0be0b7ddf708f9ccbefd36e2d3f20ecc9397ddb7e3249bc927d881a4e51",
+    "hardware/printed-parts/cold-core/magnetic-float/all-aero/integration-check.json": "b54a639215ffcf4aaeeab2c85c02b684b9645b9ae8ab692d03b9e5381d788cf9",
+    "hardware/printed-parts/cold-core/magnetic-float/all-aero/mark2-print/v1/float-preflight.json": "1c6fc5dc599ee36fbbfa64221d0c92b517c758ee5e31be75a7f36fc5a34d550c",
+    "hardware/printed-parts/cold-core/magnetic-float/all-aero/physical-observations.json": "98e0d6ff6279750202439dae0441767bab120295626a8fc0d4d3bd89f6e10e11",
+    "hardware/printed-parts/cold-core/reservoir/numbers.rs": "a1924f516e5ebd20fab3eac83d63795f78731cd84b61bac318c1df44170fd15d",
+    "tools/hsm/cold-core-data/src/lib.rs": "48a6e8380a345f62ea8ab5bad96c7c1c0c57e1bd14ec0955bb7a57647bf035db",
+    "tools/hsm/manual-guides/src/float.rs": "1fe27fabcef5ca46816ab496c22387b4eaca8221b56d57bf981cbf2ea885f0f9",
+    "tools/magnetic-float-guide/build-recipe-sources.json": "567e365de4c983ca17a64d2f6591da553ffd478e841add5ec22d65f6a35b1651"
+  },
   "pages": [
     "01-cover.html",
     "02-one-body-one-ring.html",
@@ -17,23 +39,7 @@
     "12-identified-print-evidence.html",
     "13-files-and-sources.html"
   ],
+  "purpose": "Record current float design and evidence used by the authored guide.",
   "recipe_sources": "../../tools/magnetic-float-guide/build-recipe-sources.json",
-  "inputs_sha256": {
-    "hardware/printed-parts/cold-core/magnetic-float/all-aero/design.json": "26d56f4b34bbb391548c9f226014884ba1e8e12235564fb32aea22353873dfeb",
-    "hardware/printed-parts/cold-core/magnetic-float/all-aero/all_aero_float.py": "dec55e28dcbd0c4e7156b4dbf5e4c178d82ff56dcd4b25eb82460ece106cd440",
-    "hardware/printed-parts/cold-core/magnetic-float/all-aero/float-aero.stl": "3399efb10948de1ebd86b20bf13f0ce8f4989a10eff061200fd1a8cab066fb4e",
-    "hardware/printed-parts/cold-core/magnetic-float/all-aero/prepare_print.py": "2b2d08d643ea5c80d457ac78c038c8cfc8bf459390587fd28e6b8c7752f27da7",
-    "hardware/printed-parts/cold-core/magnetic-float/all-aero/README.md": "7c70d0beab0dc40fe05d21d83c4ad649a66d4d1af8346cb624ca3dcb937cfcb4",
-    "hardware/printed-parts/cold-core/magnetic-float/all-aero/installation.md": "ed5796515a499b3080c3f9fe097d34bc0313eefa032f2192c30eda2062a606f4",
-    "hardware/printed-parts/cold-core/magnetic-float/all-aero/installation.figures.json": "08896a82fc9891f18cad9c3ca80c05eefb680ee4a465208adfd012c75b278ea3",
-    "hardware/printed-parts/cold-core/magnetic-float/all-aero/physical-observations.json": "67f7ae668054a076388c50a6568e9c4e345dda6559eef7f381fc4dc7077bbe38",
-    "hardware/printed-parts/cold-core/magnetic-float/all-aero/integration-check.json": "0aa3ec3c4d9ef32f39ebcd08c8229d0a2881cd706bfdc2846a00b70bea9c54fc",
-    "hardware/printed-parts/cold-core/magnetic-float/all-aero/all-aero-float.3mf": "926b0964f7dd0289a10a29ba45281281d6d1b5c5f32b38c3e3df6a5d8fd1a936",
-    "hardware/printed-parts/cold-core/magnetic-float/all-aero/mark2-print/v1/float-preflight.json": "1c6fc5dc599ee36fbbfa64221d0c92b517c758ee5e31be75a7f36fc5a34d550c",
-    "hardware/printed-parts/cold-core/magnetic-float/all-aero/mark2-print/v1/float-mark2-launch.json": "7dbfb3aaeaf38a8bc7e4b8fb6d276a06536a5e12599cd151e8efb731bbc5f8d5",
-    "hardware/printed-parts/cold-core/magnetic-float/all-aero/mark2-print/v1/evidence/magnet-insertion-overprint-2026-10-03.jpg": "5cf085bba95407c77af32557fb85ef49bb4849e2b47385c53d09759ced32944c",
-    "tools/magnetic-float-guide/author.py": "c7a5ce658c56e65e099885f67cc414ca2de44066ae6ba9dff4c09e4738e13298",
-    "hardware/printed-parts/cold-core/_float_interface.py": "d2fc9c9029101bf471e06f81f9b1acbc4c6c841ba629e561fd9a33833319a72a",
-    "tools/magnetic-float-guide/build-recipe-sources.json": "567e365de4c983ca17a64d2f6591da553ffd478e841add5ec22d65f6a35b1651"
-  }
+  "title": "ASA Aero magnetic float build guide"
 }

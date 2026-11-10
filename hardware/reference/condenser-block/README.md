@@ -3,7 +3,7 @@
 The refrigeration loop's hot end: a finned serpentine with its fan bolted to
 one face, harvested from the donor appliance along with the compressor. There
 is **no STEP here** — the block was calipered, not scanned.
-[`condenser_block.py`](condenser_block.py) draws the envelope the pack takes,
+[`condenser_block.py`](https://github.com/derekbreden/homesodamachine/blob/a518a57a878f02d9ac5b8b638c1c5883cadf6669/hardware/reference/condenser-block/condenser_block.py) draws the envelope the pack takes,
 declares the three arrivals on it, and cuts the two holes it hangs off.
 
 ## Geometry (calipered)
@@ -26,8 +26,8 @@ reach them. Each stands on the COLUMN AND PLANE of the mouth it answers to — t
 inlet on the compressor's discharge stub, the outlet on the cold core's
 evaporator-inlet station — so the only thing left between them is the lane, and each
 is crossed as one straight length of tube.
-[`enclosure_assembly.refrigerant_joints()`](/hardware/manifold-layout/enclosure_assembly.py) measures
-both at every build — a mating on its two stations, a tube on both its mouths. The fan
+[native layout](/hardware/manifold-layout/machine_layout.rs) defines
+both station pairs and the tubes between their mouths. The fan
 is on the face its air leaves by.
 
 `stations_hold()` holds all three to the box this module draws: each stands
@@ -60,7 +60,7 @@ something instead.
 `mount_seats()` is the same line read as a pair of FACES rather than holes — the
 underside of each flange, which is where a screw down that line closes and what a
 boss under it has to reach. The machine sets the block down unturned
-([`enclosure_assembly.build_condenser`](/hardware/manifold-layout/enclosure_assembly.py)), so
+([native layout](/hardware/manifold-layout/machine_layout.rs)), so
 those two insets read off the world's X− and Y+ faces at this pose.
 
 `mounts_hold()` holds both holes clear of all four flanks, inside the aft
@@ -71,7 +71,7 @@ the solid for material or air where each of those puts it.
 
 Which wall the block stands against, which way its air crosses the cabinet,
 and what the lane beside it is worth are the machine's —
-[`enclosure_assembly.py`](/hardware/manifold-layout/enclosure_assembly.py) and
+[`machine_layout.rs`](/hardware/manifold-layout/machine_layout.rs) and
 [`../../printed-parts/enclosure/README.md`](/hardware/printed-parts/enclosure/README.md).
 The mating on the compressor's own +X tangent is what PLACES it — the pair is struck
 there and centred as one — and it then goes EAST off that plane, as far as the +X wall's

@@ -12,7 +12,7 @@ pocket closes. Three articles serve the carbonator and the two flavor reservoirs
 Each 3.175 mm guide rod stands **20 mm from the inside wall**. The 4.8 mm
 float bore provides running clearance; the body has 2 mm nominal wall clearance.
 The carbonator register and reservoir rod bosses derive from the same
-[`_float_interface.py`](../_float_interface.py) dimensions.
+[`numbers.rs`](/hardware/printed-parts/cold-core/magnetic-float/numbers.rs) dimensions.
 
 ## Reed reach
 

@@ -2,8 +2,8 @@
 
 The [release manifest](release-manifest.json) binds the print pack, CAD
 parameters, numerical checks, compiled controller and current shop guide.
-[Release verification](release-verification.json) records executed geometry
-and software checks. [Publication verification](publication-verification.json)
+[Release verification](https://github.com/derekbreden/homesodamachine/blob/c9cd815236966d9185d3981eb987c98321f5ac78/hardware/gun-positioner/release-verification.json) records the executed geometry
+and software checks at the controller release's source revision. [Publication verification](publication-verification.json)
 records actual served bytes after publication.
 
 The [guide inspection](../gun-positioner-guide/qa-receipt.json) covers all 35

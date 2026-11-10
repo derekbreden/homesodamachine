@@ -94,3 +94,5 @@ pump, check that the fixed rails seat, the molded cable cover clears the lid
 and the head underside remains outside the bearing surfaces. Record rocking,
 axial play, insertion/release force, whitening and residual leaf bend. Running
 pump vibration and repeated-cycle endurance require their physical tests.
+
+The [recorded preparation source](https://github.com/derekbreden/homesodamachine/blob/a518a57a878f02d9ac5b8b638c1c5883cadf6669/hardware/print-tests/rear-snap-retention/build.py) retains the source revision for these physical artifacts.

@@ -1,11 +1,13 @@
 use super::*;
+use crate::calibration_inputs::{bunsen, carbonation_volumes, headspace_air_atm, vapor_atm};
 pub fn pressure_vessel(request: &Request) -> Result<Output> {
     let input = &request.input;
     let mm_per_in: f64 = 25.4;
-    let psi_per_bar: f64 = 14.5038;
-    let psi_per_atm: f64 = 14.6959;
-    let secondary_regulator_bar: f64 = 3.0;
-    let secondary_regulator_pressure_psi: f64 = round(secondary_regulator_bar * psi_per_bar, 1);
+    let psi_per_bar: f64 = crate::calibration_inputs::PSI_PER_BAR;
+    let psi_per_atm: f64 = crate::calibration_inputs::PSI_PER_ATM;
+    let secondary_regulator_bar: f64 = crate::calibration_inputs::SECONDARY_REGULATOR_BAR;
+    let secondary_regulator_pressure_psi: f64 =
+        crate::calibration_inputs::secondary_regulator_pressure_psi();
     let tube_wall: f64 = 0.065 * mm_per_in;
     let hoop_stress_psi: f64 =
         (secondary_regulator_pressure_psi * n(input, "carbonator_outer_radius")?) / tube_wall;
@@ -951,36 +953,6 @@ pub fn cable_assemblies(request: &Request) -> Result<Output> {
     Ok(output)
 }
 
-// Fresh-water Bunsen coefficients: Weiss (1970); CO2 solubility: Weiss (1974).
-// Incoming water is saturated with air at 15 C; the sealed headspace settles
-// where the outgoing water carries the incoming dissolved air.
-fn vapor_atm(t_c: f64) -> f64 {
-    0.61121 * ((18.678 - t_c / 234.5) * (t_c / (257.14 + t_c))).exp() / 101.325
-}
-fn bunsen(a1: f64, a2: f64, a3: f64, t_c: f64) -> f64 {
-    let t = t_c + 273.15;
-    (a1 + a2 * (100.0 / t) + a3 * (t / 100.0).ln()).exp()
-}
-fn headspace_air_atm(t_c: f64) -> f64 {
-    let dry = 1.0 - vapor_atm(15.0);
-    [
-        (0.78084, -59.6274, 85.7661, 24.3696),
-        (0.20946, -58.3877, 85.8079, 23.8439),
-        (0.00934, -55.6578, 82.0262, 22.5929),
-    ]
-    .into_iter()
-    .map(|(x, a1, a2, a3)| x * dry * bunsen(a1, a2, a3, 15.0) / bunsen(a1, a2, a3, t_c))
-    .sum()
-}
-fn carbonation_volumes(t_c: f64, air: bool, secondary_psi: f64) -> f64 {
-    let t = t_c + 273.15;
-    let p_total = secondary_psi / 14.6959 + 1.0;
-    let p_co2 = p_total - vapor_atm(t_c) - if air { headspace_air_atm(t_c) } else { 0.0 };
-    let k0 = (-58.0931 + 90.5069 * (100.0 / t) + 22.2940 * (t / 100.0).ln()).exp();
-    let b = -1636.75 + 12.0408 * t - 3.27957e-2 * t.powi(2) + 3.16528e-5 * t.powi(3);
-    let fugacity = p_co2 * (b * p_total / (82.0578 * t)).exp();
-    k0 * fugacity * 22.26
-}
 fn constexpr(root: &Path, name: &str) -> Result<f64> {
     let path = root.join("firmware/lib/machine_policy/cold_policy.h");
     let pattern = regex::Regex::new(&format!(

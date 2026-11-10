@@ -5,7 +5,7 @@
 <g font-family="IBM Plex Sans, Arial, sans-serif" stroke-linejoin="round" stroke-linecap="round">
 <text x="14" y="24" font-size="12" font-weight="600" text-anchor="start" fill="#1749D1">REAR / COMPONENT SIDE</text>
 <text x="14" y="43" font-size="11" font-weight="400" text-anchor="start" fill="#606A78">Glass faces away from you</text>
-<polygon points="357.8,20 444.2,20 457,34.4 457,220 444.2,234.4 357.8,234.4 345,220 345,34.4" fill="#30353D" stroke="#30353D" stroke-width="1.5"/>
+<path d="M357.8 20 L444.2 20 L457 34.4 L457 220 L444.2 234.4 L357.8 234.4 L345 220 L345 34.4 Z" fill="#30353D" stroke="#30353D" stroke-width="1.5"/>
 <ellipse cx="361.4" cy="35.6" rx="6" ry="6" fill="#C89542" stroke="#C89542" stroke-width="1.2"/>
 <ellipse cx="361.4" cy="35.6" rx="2.8" ry="2.8" fill="#30353D" stroke="#30353D" stroke-width="1.2"/>
 <ellipse cx="440.6" cy="35.6" rx="6" ry="6" fill="#C89542" stroke="#C89542" stroke-width="1.2"/>
@@ -108,33 +108,33 @@
 <text x="435.4" y="199.52" font-size="3.84" font-weight="600" text-anchor="end" fill="#DCE2EB">7</text>
 <text x="14" y="73" font-size="17" font-weight="700" text-anchor="start" fill="#202337">C1  VBUS</text>
 <text x="14" y="89" font-size="10.7" font-weight="400" text-anchor="start" fill="#606A78">P1-1  ·  +5 V input</text>
-<polyline points="267,230 267,129 360.2,80.8" fill="none" stroke="#272A30" stroke-width="4"/>
+<path d="M267 230 L267 129 L360.2 80.8 " fill="none" stroke="#272A30" stroke-width="4"/>
 <ellipse cx="360.2" cy="80.8" rx="3" ry="3" fill="#EBC77D" stroke="#272A30" stroke-width="1"/>
 <text x="267" y="248" font-size="10" font-weight="600" text-anchor="middle" fill="#202337">C1</text>
 <text x="14" y="116" font-size="17" font-weight="700" text-anchor="start" fill="#202337">C2  GND</text>
 <text x="14" y="132" font-size="10.7" font-weight="400" text-anchor="start" fill="#606A78">P1-3  ·  0 V return</text>
-<polyline points="283,230 283,144 360.2,92.48" fill="none" stroke="#272A30" stroke-width="4"/>
+<path d="M283 230 L283 144 L360.2 92.48 " fill="none" stroke="#272A30" stroke-width="4"/>
 <ellipse cx="360.2" cy="92.48" rx="3" ry="3" fill="#EBC77D" stroke="#272A30" stroke-width="1"/>
 <text x="283" y="248" font-size="10" font-weight="600" text-anchor="middle" fill="#202337">C2</text>
 <text x="14" y="159" font-size="17" font-weight="700" text-anchor="start" fill="#202337">C3  TXD</text>
 <text x="14" y="175" font-size="10.7" font-weight="400" text-anchor="start" fill="#606A78">P1-5  ·  GPIO43, display TX</text>
-<polyline points="299,230 299,159 360.2,104.16" fill="none" stroke="#272A30" stroke-width="4"/>
+<path d="M299 230 L299 159 L360.2 104.16 " fill="none" stroke="#272A30" stroke-width="4"/>
 <ellipse cx="360.2" cy="104.16" rx="3" ry="3" fill="#EBC77D" stroke="#272A30" stroke-width="1"/>
 <text x="299" y="248" font-size="10" font-weight="600" text-anchor="middle" fill="#202337">C3</text>
 <text x="14" y="202" font-size="17" font-weight="700" text-anchor="start" fill="#202337">C4  RXD</text>
 <text x="14" y="218" font-size="10.7" font-weight="400" text-anchor="start" fill="#606A78">P1-7  ·  GPIO44, display RX</text>
-<polyline points="315,230 315,174 360.2,115.84" fill="none" stroke="#272A30" stroke-width="4"/>
+<path d="M315 230 L315 174 L360.2 115.84 " fill="none" stroke="#272A30" stroke-width="4"/>
 <ellipse cx="360.2" cy="115.84" rx="3" ry="3" fill="#EBC77D" stroke="#272A30" stroke-width="1"/>
 <text x="315" y="248" font-size="10" font-weight="600" text-anchor="middle" fill="#202337">C4</text>
 <line x1="267" y1="211" x2="267" y2="225" stroke="#FCFCFA" stroke-width="2"/>
 <text x="14" y="235" font-size="11" font-weight="600" text-anchor="start" fill="#202337">All four wires are BLACK</text>
 <text x="14" y="252" font-size="10.2" font-weight="600" text-anchor="start" fill="#1749D1">Add a white C1 mark at both ends</text>
 <line x1="226" y1="246" x2="263" y2="222" stroke="#1749D1" stroke-width="1.2"/>
-<polygon points="263,222 261.099,225.519 259.011,222.301" fill="#1749D1" stroke="none" stroke-width="1.5"/>
+<path d="M263 222 L261.099 225.519 L259.011 222.301 Z" fill="#1749D1" stroke="none" stroke-width="1.5"/>
 <text x="411" y="252" font-size="10.5" font-weight="600" text-anchor="middle" fill="#1749D1">USB-C AT TOP</text>
 <rect x="8" y="266" width="504" height="100" fill="#EAF0FC" stroke="#DCE2EB" stroke-width="1.5"/>
 <text x="20" y="284" font-size="11" font-weight="700" text-anchor="start" fill="#1749D1">INSTALLED: USB-C TOWARD THE DISPENSE FACE</text>
-<polygon points="180,320 240,320 245.698,320.142 251.381,320.57 257.036,321.28 262.648,322.272 268.204,323.544 273.689,325.092 279.09,326.912 284.394,328.999 289.586,331.349 294.655,333.956 299.586,336.812 304.369,339.912 308.991,343.246 313.441,346.808 301.845,360.575 298.098,357.576 294.206,354.768 290.178,352.158 286.025,349.752 281.757,347.557 277.384,345.578 272.918,343.82 268.37,342.288 263.751,340.984 259.072,339.914 254.346,339.078 249.584,338.48 244.798,338.12 240,338 180,338" fill="#E4E8EE" stroke="#202337" stroke-width="1.5"/>
+<path d="M180 320 L240 320 L245.698 320.142 L251.381 320.57 L257.036 321.28 L262.648 322.272 L268.204 323.544 L273.689 325.092 L279.09 326.912 L284.394 328.999 L289.586 331.349 L294.655 333.956 L299.586 336.812 L304.369 339.912 L308.991 343.246 L313.441 346.808 L301.845 360.575 L298.098 357.576 L294.206 354.768 L290.178 352.158 L286.025 349.752 L281.757 347.557 L277.384 345.578 L272.918 343.82 L268.37 342.288 L263.751 340.984 L259.072 339.914 L254.346 339.078 L249.584 338.48 L244.798 338.12 L240 338 L180 338 Z" fill="#E4E8EE" stroke="#202337" stroke-width="1.5"/>
 <line x1="180" y1="320" x2="180" y2="338" stroke="#1749D1" stroke-width="3"/>
 <rect x="186" y="299" width="90" height="4" fill="#B7DAF1" stroke="#1749D1" stroke-width="1.5"/>
 <rect x="186" y="303" width="90" height="12" fill="#30353D" stroke="#30353D" stroke-width="1.5"/>
@@ -143,14 +143,14 @@
 <text x="234" y="295" font-size="9" font-weight="600" text-anchor="middle" fill="#606A78">display</text>
 <text x="24" y="311" font-size="12" font-weight="700" text-anchor="start" fill="#E95A2C">USB-C</text>
 <line x1="112" y1="309" x2="177" y2="311" stroke="#E95A2C" stroke-width="1.8"/>
-<polygon points="177,311 172.54,313.261 172.688,308.469" fill="#E95A2C" stroke="none" stroke-width="1.5"/>
+<path d="M177 311 L172.54 313.261 L172.688 308.469 Z" fill="#E95A2C" stroke="none" stroke-width="1.5"/>
 <text x="24" y="339" font-size="11" font-weight="600" text-anchor="start" fill="#1749D1">dispense face</text>
 <line x1="135" y1="334" x2="177" y2="331" stroke="#1749D1" stroke-width="1.5"/>
-<polygon points="177,331 172.794,333.704 172.452,328.922" fill="#1749D1" stroke="none" stroke-width="1.5"/>
+<path d="M177 331 L172.794 333.704 L172.452 328.922 Z" fill="#1749D1" stroke="none" stroke-width="1.5"/>
 <text x="378" y="324" font-size="12" font-weight="600" text-anchor="start" fill="#1749D1">gooseneck</text>
 <text x="378" y="342" font-size="9" font-weight="400" text-anchor="start" fill="#606A78">toward faucet base</text>
 <line x1="370" y1="328" x2="309" y2="350" stroke="#1749D1" stroke-width="1.5"/>
-<polygon points="309,350 312.314,346.256 313.941,350.766" fill="#1749D1" stroke="none" stroke-width="1.5"/>
+<path d="M309 350 L312.314 346.256 L313.941 350.766 Z" fill="#1749D1" stroke="none" stroke-width="1.5"/>
 <text x="24" y="360" font-size="8.5" font-weight="400" text-anchor="start" fill="#606A78">Side section; tip shown level</text>
 </g>
 </svg>

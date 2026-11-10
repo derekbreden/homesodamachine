@@ -136,15 +136,15 @@ production implementation.
 Requires macOS, Xcode, XcodeGen and an installed iOS 18.5 Simulator runtime.
 
 ```sh
-python3 ios/AdaptiveStudy/capture.py
+hsm-peripheral ios-capture
 node ios/AdaptiveStudy/review.mjs
 ```
 
-`capture.py --quick` renders Machine, Sound, and Crop at three sizes. The full run
+`hsm-peripheral ios-capture --quick` renders Machine, Sound, and Crop at the focused canvases. The full run
 captures the matrix into the ignored `renders/` directory. `review.mjs` writes
 the compact 1× WebP matrix, overview, and index into `preview/`, and selected
 native 2× lossless WebP copies into `preview/detail/`.
-Use `capture.py --routes home,offline` to refresh only those routes while retaining
+Use `hsm-peripheral ios-capture --routes home,offline` to refresh only those routes while retaining
 the other captured screens.
 
 To package the in-chat review, pass `--inline-dir <current-chat-visualization-dir>`

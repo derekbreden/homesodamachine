@@ -6,7 +6,8 @@ installation and release. Tube and wire runs seat directly in the printed part.
 
 The [routes recipe](../quadrants/routes.rs) holds each tube seat's straight, host plane and
 section, and builds the seats and hooks. The
-[cable-site provider](../../../../wiring/installed/retainers.py) supplies each
+[cable-site datums](/tools/hsm/assembly-docs/src/wiring/cable-sites.json) and
+[route dressing](/tools/hsm/assembly-docs/src/wiring/routes.rs) supply each
 hook's frame, retained conductors and local route dressing. Positions belong to
 those sources rather than a second coordinate table here.
 

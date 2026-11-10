@@ -5,7 +5,7 @@ The faucet display + touch toggle (BOM §1, ASIN
 capacitive-touch LCD on an ESP32-S3R8 board (JD9853 display driver,
 AXS5106L touch chip).
 
-The faucet assembly ([`/hardware/faucet-layout/faucet_assembly.py`](/hardware/faucet-layout/faucet_assembly.py))
+The faucet assembly ([`/hardware/faucet-layout/faucet_assembly.rs`](/hardware/faucet-layout/faucet_assembly.rs))
 models this as a **dimensioned stand-in** (the `display` numbers the kernel
 cuts it from, and `build_display_body` + `build_display_screen` for the
 module's CadQuery readers), not the vendor STEP: the vendor solid is 14 MB

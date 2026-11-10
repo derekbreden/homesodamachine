@@ -15,7 +15,7 @@
 // is the summary of — shell.js colours that dot, this page names the rows.
 //
 // Below the checks, the Build time section: how long each full build took,
-// newest first, out of `public/build-times.json` (`tools/build_times.py`).
+// newest first, out of `public/build-times.json` (`hsm-build-times`).
 // Both are read per request, since artifacts-live.js carries both files onto
 // the running container.
 

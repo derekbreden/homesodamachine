@@ -18,7 +18,7 @@ The selected displacement is the correction to apply to white;
 the measured relative error has the opposite sign. Do not extrapolate beyond
 the coupon. A photograph perpendicular to the surface can document the reading.
 
-`registration.py` builds the two-colour reference. [`prepare_print.py`](https://github.com/derekbreden/homesodamachine/blob/306268f870/hardware/printed-parts/calibration/dual-nozzle-registration/prepare_print.py) (in Git at `306268f870`) packages
+The [geometry source](https://github.com/derekbreden/homesodamachine/blob/d24b111b5d10e1eed4574db786e5ae1d0b96d445/hardware/printed-parts/calibration/dual-nozzle-registration/registration.py) is archived in Git. [`prepare_print.py`](https://github.com/derekbreden/homesodamachine/blob/306268f870/hardware/printed-parts/calibration/dual-nozzle-registration/prepare_print.py) (in Git at `306268f870`) packages
 it with the saved PET-GF profiles. [`verify_print.py`](https://github.com/derekbreden/homesodamachine/blob/9884d0e7f4/hardware/printed-parts/calibration/dual-nozzle-registration/verify_print.py) (in Git at `9884d0e7f4`) checks all 60 emitted
 candidate displacements across both rows and both raised layers. It also checks
 the native checksum, source hashes, filament mapping, layer planes and no support.

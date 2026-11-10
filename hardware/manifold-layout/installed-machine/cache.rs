@@ -55,6 +55,41 @@ pub fn try_lock(work: &Path) -> Result<Option<WorkLock>> {
     work_lock(work, false)
 }
 
+/// Reads a retained stage for a manual consumer and restores its checkout-relative paths.
+pub fn retained_value(root: &Path, work: &Path, name: &str) -> Result<Option<Value>> {
+    fn restore(root: &Path, value: Value) -> Value {
+        match value {
+            Value::String(text) if text.starts_with("@input/") => {
+                json!(root.join(text.strip_prefix("@input/").unwrap()))
+            }
+            Value::Array(rows) => {
+                Value::Array(rows.into_iter().map(|v| restore(root, v)).collect())
+            }
+            Value::Object(rows) => Value::Object(
+                rows.into_iter()
+                    .map(|(k, v)| (k, restore(root, v)))
+                    .collect(),
+            ),
+            value => value,
+        }
+    }
+    let key = format!("{:x}", Sha256::digest(name.as_bytes()));
+    let path = work.join("receipts").join(format!("{key}.json"));
+    match std::fs::read(&path) {
+        Ok(bytes) => {
+            let mut record: Value = serde_json::from_slice(&bytes)
+                .with_context(|| format!("reading retained {name} from {}", path.display()))?;
+            let value = record
+                .get_mut("value")
+                .context("retained stage value")?
+                .take();
+            Ok(Some(restore(root, value)))
+        }
+        Err(error) if error.kind() == std::io::ErrorKind::NotFound => Ok(None),
+        Err(error) => Err(error).with_context(|| format!("reading {}", path.display())),
+    }
+}
+
 fn digest_file(path: &Path) -> Result<String> {
     let mut file =
         std::fs::File::open(path).with_context(|| format!("reading {}", path.display()))?;

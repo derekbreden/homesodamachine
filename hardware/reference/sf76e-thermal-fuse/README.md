@@ -46,7 +46,7 @@ thermal contact.**
 
 Lying along the compressor's power box — the +X flank of the donor's moulded
 cover over the terminal block and the PTC start relay, which
-[`compressor.power_face()`](../compressor/compressor.py) states and
+[`compressor.power_face()`](https://github.com/derekbreden/homesodamachine/blob/a518a57a878f02d9ac5b8b638c1c5883cadf6669/hardware/reference/compressor/compressor.py) states and
 `enclosure_assembly.build_thermal_fuse` seats it on. The box is narrower than the
 plate it stands on, so the case lies against the cover on one side and stands in the
 open on the other five, over the can's own metal and clear of the machine's depth.
@@ -58,8 +58,6 @@ the outboard generatrix, so it is pinched between the cover and the clamp with i
 whole diameter between the two. The channel is open at both ends and the fuse threads out along
 it, which is what replacing a one-shot part is.
 
-## Regenerate
+## Model inputs
 
-```
-tools/cad-venv/bin/python hardware/reference/sf76e-thermal-fuse/sf76e_thermal_fuse.py
-```
+The model and measurements are retained with their [source derivations](https://github.com/derekbreden/homesodamachine/blob/a518a57a878f02d9ac5b8b638c1c5883cadf6669/hardware/reference/sf76e-thermal-fuse/sf76e_thermal_fuse.py).

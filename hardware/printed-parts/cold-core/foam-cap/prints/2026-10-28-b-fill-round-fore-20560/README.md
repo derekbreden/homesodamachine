@@ -30,3 +30,5 @@ Mark1 accepted task **1385812966** with no print errors. The slicer estimate is
 well. Clamps the tube well where it needs to be. All fits.” The
 [physical result](physical-result.json) binds this fit and clamp acceptance
 to the printed archive and its production-source geometry.
+
+The [recorded preparation source](https://github.com/derekbreden/homesodamachine/blob/a518a57a878f02d9ac5b8b638c1c5883cadf6669/hardware/printed-parts/cold-core/foam-cap/prints/2026-10-28-b-fill-round-fore-20560/generate.py) retains the source revision for these physical artifacts.

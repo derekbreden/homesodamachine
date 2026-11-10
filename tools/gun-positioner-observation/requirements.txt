@@ -1,3 +1,0 @@
-# Tested with numpy 2.4.4 / 2.5.0 and Pillow 12.2.0 on Python 3.13.
-numpy>=1.26
-Pillow>=10      # decoding JPEG frames and writing PNG frames

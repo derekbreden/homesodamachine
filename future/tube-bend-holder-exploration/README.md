@@ -1,6 +1,6 @@
 # Tube bend holders
 
-A free PET-GF sleeve that holds 1/4" LLDPE round the stock's tightest bend. `_routing.STOCKS`
+A free PET-GF sleeve that holds 1/4" LLDPE round the stock's tightest bend. The [tube-stock catalog](/tools/hsm/shared-data/catalog/routing.json)
 puts that bend at a centreline radius, from the spool bench test, and every
 1/4" LLDPE run in the enclosure turns at least one corner there. The tube reached that
 radius only wrapped tightly round a dense cylinder. The holder is a body round the bend that keeps the tube from
@@ -53,7 +53,7 @@ sides of the holder's square footprint.
 | 2 mm | square | |
 | 3 mm | square | |
 
-[`tube_bend_holder.py`](tube_bend_holder.py) writes `holder-w2`, `holder-w3` and `holder-w4`,
+The [archived geometry source](https://github.com/derekbreden/homesodamachine/blob/d24b111b5d10e1eed4574db786e5ae1d0b96d445/future/tube-bend-holder-exploration/tube_bend_holder.py) defines `holder-w2`, `holder-w3` and `holder-w4`,
 and `holder-w2-leg1`, `-leg2` and `-leg3`, each as a STEP and the STL the slicer reads.
 
 ## Prints

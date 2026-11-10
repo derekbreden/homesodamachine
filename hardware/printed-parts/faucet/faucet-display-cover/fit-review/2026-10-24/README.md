@@ -35,7 +35,7 @@ are coordinated dimensions of one 0.50 mm correction; they do not sum to 1 mm.
 The bezel crown is N19.35, matching the lowered Industrial cover, 1.82249 mm
 above the uncut round tube crown. The module itself retains its lowered seat.
 
-`measure.py` exports the cover alternatives; `button_relief.py` cuts the two
+[measure.py](https://github.com/derekbreden/homesodamachine/blob/e50eb3e4372a4d5b70248795469c02ed8d51d2d3/hardware/printed-parts/faucet/faucet-display-cover/fit-review/2026-10-24/measure.py) exports the cover alternatives; [button_relief.py](https://github.com/derekbreden/homesodamachine/blob/e50eb3e4372a4d5b70248795469c02ed8d51d2d3/hardware/printed-parts/faucet/faucet-display-cover/fit-review/2026-10-24/button_relief.py) cuts the two
 switch pockets into the exact lowered tip. The corrected relaxed cover STL
 and corrected tip STL are embedded in the
 [requested complete fit print](../../../industrial/prints/2026-10-24-buttons-sculpted-bands020-mark2/README.md).

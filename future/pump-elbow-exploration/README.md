@@ -4,7 +4,7 @@ The elbow studied here is the production
 [diaphragm pump elbow](../../hardware/printed-parts/diaphragm-pump-sleeve/README.md):
 the assembly places one on each G Ganen barb and runs `water-7` and `water-6` to
 them on 1/4" LLDPE ([internal plumbing](../../hardware/assembly/internal-plumbing.md) §2).
-The 715 mL funnel and the relocations it needs remain a proposal.
+The [archived layout study](https://github.com/derekbreden/homesodamachine/blob/f0d1e837bdaa383ecb435e62b88c9e1d6d1cf180/future/pump-elbow-exploration/placement.json) records its separate filling-bowl and relocation proposal.
 
 **Status: deposited-path Siraya pair accepted on Mark2: no strings reported,
 and seal seems as good as before.**
@@ -53,9 +53,8 @@ The completed rough-edged 225°C article has a
 [reported firm, stretchy friction fit](prints/2026-10-13-compact-single-tpu85a-outer10-engineering-z000-mark1/physical-result.json)
 with manageable manual insertion and no jig. Its cuff dimensions and walls
 are the fit baseline; fit after correcting the surfaces or changing the print
-recipe remains unassessed. The compact layout study includes the water
-connections and a 715 mL funnel proposal. Its occupancy result applies to the
-compact fitting envelopes. The Mark2 pair has the qualitative seal acceptance
+recipe remains unassessed. The [archived layout study](https://github.com/derekbreden/homesodamachine/blob/f0d1e837bdaa383ecb435e62b88c9e1d6d1cf180/future/pump-elbow-exploration/placement.json) records the water connections and separate
+filling-bowl proposal. Its occupancy result applies to the compact fitting envelopes. The Mark2 pair has the qualitative seal acceptance
 linked above; quantified pressure holding, retained grip and lifetime remain
 unmeasured.
 
@@ -124,7 +123,7 @@ neighboring hardware are considered together.
 - [715 mL silicone bowl](funnel-715ml.step) and
   [matching rigid frame](funnel-frame-715ml.step) and
   [lift-off cover](funnel-cover-715ml.step) are separate native parts.
-- [Placement record](placement.json), [elbow geometry](geometry.json) and
+- [Archived placement record](https://github.com/derekbreden/homesodamachine/blob/f0d1e837bdaa383ecb435e62b88c9e1d6d1cf180/future/pump-elbow-exploration/placement.json), [elbow geometry](geometry.json) and
   [native slice](native-slice.json) bind the measurements and evidence limits.
 
 ## Why printing TPU is a credible route

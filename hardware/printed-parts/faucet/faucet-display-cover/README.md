@@ -134,8 +134,9 @@ and [retention reading](../sculpted/prints/2026-10-17-localized-cooling-display-
 bind the raised seat, hardware clearance, display loading, axial approach and
 snap geometry. The [rear-opening reading](../sculpted/prints/2026-10-17-localized-cooling-display-clearance-mark2/rear-opening-rim.json)
 measures complete rim boundaries and material sections in both nominal seated
-and relaxed shapes. The [full faucet audit](../faucet-shell/centered-vent-check.json)
-retains the geometry hashes and electronics reading for its identified inputs.
+and relaxed shapes. Current geometry questions use `hsm --scene faucet` and
+[`inspect-part.mjs`](/tools/inspect-part.mjs) against the saved exports. The
+[native printed-mesh review](/tools/hsm/mesh-review/README.md) inspects the printable cover.
 Those geometric readings do not measure the printed snap's force or durability.
 The [physical trial log](https://github.com/derekbreden/homesodamachine/blob/b57b985c648c34346481a57fde897374b0e8f068/hardware/printed-parts/fixtures/faucet-display-snap/print-log.md)
 records the reported print and retention observations.

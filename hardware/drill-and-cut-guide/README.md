@@ -20,7 +20,7 @@ committed. Source hashes and the selected small numeric inputs are recorded in
 | 5-6 | Locate and drill both blind rod registers; prove tip depth | Same; [`endcap_circular_dxf.rs`](/hardware/cut-parts/carbonation/endcaps-circular/endcap_circular_dxf.rs) |
 | 7 | Inside lead-in / outside burr-only perimeter treatment | `pressure-vessel.md` steps 1, 3 |
 | 8 | Deburr both vessel tube ends, ID and OD; check seating | `pressure-vessel.md` step 3 |
-| 9-10 | Cut three float rods, deburr, hand-fit the carbonator rod | [`handwork.md`](/hardware/assembly/handwork.md), `pressure-vessel.md` steps 2, 5 |
+| 9-10 | Finish the float rods to their drawings; verify register fit and cap seating | [`handwork.md`](/hardware/assembly/handwork.md), `pressure-vessel.md` steps 2, 5 |
 | 11 | Measure candidate jet stock, elbow land and tapped-plate fit | [`water-inlet-jet.md`](/hardware/assembly/water-inlet-jet.md) |
 | 12 | Saw a 50-60 mm handling blank | Same, step 1 |
 | 13 | Split-jaw clamping and stopped-spindle grip/clearance trial | [`jet fixture`](/hardware/printed-parts/fixtures/water-inlet-jet/README.md) |
@@ -31,10 +31,10 @@ committed. Source hashes and the selected small numeric inputs are recorded in
 | 18 | Crosscut the C110 rotator contact shoe | [`rotator fixture`](/hardware/printed-parts/fixtures/weld-rotator/README.md) |
 | 19 | Clean square metal-tube cuts and bench-fit argon purge links | `water-inlet-jet.md` step 2; [`refrigerant-loop.md`](/hardware/assembly/refrigerant-loop.md) |
 | 20 | Square-cut LLDPE; inspect round ends and full insertion | [`internal-plumbing.md`](/hardware/assembly/internal-plumbing.md) |
-| 21 | Black/White faucet factory tube cut schedules | [`faucet-and-umbilical.md`](/hardware/assembly/faucet-and-umbilical.md) step 1 |
+| 21 | Continuous faucet flavor, supply, outlet and DRAIN cut schedule | [`faucet-and-umbilical.md`](/hardware/assembly/faucet-and-umbilical.md) step 1 |
 | 22 | Trim the three outlets flush at the printed faucet tip | [`faucet shell assembly`](/hardware/printed-parts/faucet/faucet-shell/ASSEMBLY.md) |
 | 23 | Internal fluid color/ID cut plan, engagement and fit limits; PRV mouth | `internal-plumbing.md`; [`cold-core.md`](/hardware/assembly/cold-core.md) |
-| 24 | Pump elbow tubes, ASSE vent tube end, funnel drain stub | `internal-plumbing.md` step 2; [`enclosure-mechanical.md`](/hardware/assembly/enclosure-mechanical.md) |
+| 24 | Prepare pump tube blanks with the bench gauge; adjust at the actual seated tees | `internal-plumbing.md` step 3 |
 | 25 | Cut fitted insulation/braid; flush-cut ties | `faucet-and-umbilical.md` step 3; `internal-plumbing.md`; [`cable-assemblies.md`](/hardware/assembly/cable-assemblies.md) |
 | 26 | Ribbon/bulk-wire blanks, branch trimming, terminal-length stripping | `cable-assemblies.md`; [`wiring run schedule`](/hardware/wiring/ac-wiring-schedule.md) |
 | 27 | Snip attached filler wire; dress its stub without grinding the crater | `pressure-vessel.md` step 3 |
@@ -65,11 +65,12 @@ paper source is the rear feeder.
   fabrication trials. Candidate dimensions and 1100 rpm are labeled at their steps.
 - The production NPT fixture and elbow clock/engagement trial remain open. A turns
   count alone does not establish port fit.
-- Generated internal routes do not establish received-fitting insertion lengths,
-  warm CO2 placement, moving bowed-link blank lengths or the stated fluid-2 clearance.
-  Those steps call for the actual fit, without asserting acceptance.
-- The vessel blank must be fitted to actual conical registers. The reservoir rods
-  retain the written procedure's end clearance and cap-seat check.
+- Generated internal routes do not establish received-fitting insertion lengths
+  or physical routing around installed parts. Continuous runs through plain
+  guides remain unbroken; use the actual end fittings' insertion marks.
+- The finished vessel rod and plate spacing follow their drawings. Check the
+  conical register engagement, free float travel and fully seated cap. The
+  reservoir rods retain their own endplay and cap-seat requirements.
 - The printed razor miter box is CAD-checked and physically untested. The Mudder
   remains the illustrated baseline cutter.
 - Ribbon web peeling, sleeve sizing and the current donor compressor connector
@@ -90,13 +91,14 @@ Verified 2026-10-04 from WEN's own product-page manual links:
 ## Build by hand
 
 ```sh
-python3 tools/drill-and-cut-guide/build.py
+tools/run -- cargo run --manifest-path tools/hsm/Cargo.toml \
+  --release --locked -j2 -p hsm-fabrication-guides -- drill-and-cut-guide
 ```
 
-Any Python with ReportLab, Pillow and `pdftoppm` available can run the same builder.
-It reads selected arithmetic constants and bracketed procedure figures without
-evaluating appliance geometry. Content and pictures require deliberate document
-review when a source changes. It writes:
+The Rust builder uses `hsm-pages` for vector artwork, embedded type, PDF and the
+cover thumbnail. It reads the source parameters and measures the faucet's
+authored tube centrelines without evaluating appliance solids. Content and
+pictures require deliberate document review when a source changes. It writes:
 
 - `hardware/drill-and-cut-guide/drill-and-cut-guide.pdf`
 - `hardware/drill-and-cut-guide/drill-and-cut-guide.cover.png`

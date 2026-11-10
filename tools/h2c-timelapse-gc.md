@@ -1,6 +1,6 @@
 # Bambu timelapse retention
 
-`h2c_timelapse_gc.py` retains the newest **96 timelapse clips per printer**.
+`hsm-printer gc` retains the newest **96 timelapse clips per printer**.
 Older clips are archived to the Mac and verified before removal from the
 printer. Retention is based on file count; a size limit is optional.
 
@@ -30,13 +30,13 @@ keep them outside this public repository.
 
 ```sh
 # Inventory only:
-python3 tools/h2c_timelapse_gc.py --list
+hsm-printer gc --list
 
 # Dry run: retain 96 clips, regardless of their total size:
-python3 tools/h2c_timelapse_gc.py --keep 96
+hsm-printer gc --keep 96
 
 # Verified archive, then removal of older clips:
-python3 tools/h2c_timelapse_gc.py --keep 96 \
+hsm-printer gc --keep 96 \
     --archive-dir ~/Bambu-timelapses/Mark1 --apply
 ```
 
@@ -49,7 +49,7 @@ than `--min-age-hours` (default 2), and unknown timestamps are protected.
 They count toward the 96-clip total. If protected files alone exceed the limit, they all remain.
 Every deletion requires `--apply` and `--archive-dir`.
 
-Before removal, the script checks remote size and modification time, downloads
+Before removal, the command checks remote size and modification time, downloads
 the complete clip, flushes it to disk, verifies its SHA-256 by reading it back,
 and writes a `.sha256` sidecar. It checks remote metadata again before deleting.
 A changed clip, incomplete transfer, disk error, or mismatching existing backup
@@ -67,8 +67,9 @@ The existing macOS LaunchAgent runs every six hours. Its private runner applies
 `--keep 96 --keep-gb 0` and archives clips under
 `~/Bambu-timelapses/Mark1` and `~/Bambu-timelapses/Mark2`. An unavailable printer
 is logged and skipped until the next run. The runner then applies
-[`cache_gc.py`](cache_gc.py) `--days 3`, which deletes scratch in the repository's
-`.cache` that has gone three days without a write.
+[`repo-tools cache-gc`](hsm/repo-tools/README.md) `--days 3 --apply`, which deletes
+scratch in the repository's `.cache` that has gone three days without a write. Shared geometry
+memo caches, the printer-control environment and installed runtimes remain.
 
 Agent comparisons and publication snapshots use `.cache/runs/<purpose>-<run-id>`.
 Each run expires independently, so a new run does not keep old snapshots alive.
@@ -80,7 +81,7 @@ Finished deliverables and physical print records live outside `.cache`.
 - LaunchAgent: `~/Library/LaunchAgents/com.homesodamachine.h2c-timelapse-gc.plist`,
   `StartInterval` 21600 seconds.
 - Log: `~/.config/h2c-gc/gc.log`.
-- Runtime: `/opt/homebrew/bin/python3`.
+- Runtime: the installed `hsm-printer` and `repo-tools` commands.
 
 ```sh
 sh ~/.config/h2c-gc/run.sh
@@ -91,5 +92,5 @@ launchctl bootstrap gui/$(id -u) ~/Library/LaunchAgents/com.homesodamachine.h2c-
 Validate without contacting a printer:
 
 ```sh
-python3 -m unittest discover -s tools -p test_h2c_timelapse_gc.py
+tools/run -- cargo test --manifest-path tools/hsm/Cargo.toml --release --locked -j 2 -p hsm-printer-tools
 ```

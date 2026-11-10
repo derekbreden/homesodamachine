@@ -5,7 +5,7 @@ Xinghan Laser board running RT-Thread 4.1.0 (build Sep 29 2025), presenting
 RT-Thread's `msh` shell at **115200 8N1**. The owned unit answers as SN
 `693FB526`. Two tools reach it from a Mac over the
 [Waveshare FT232RL isolated USB-to-RS232/485/TTL adapter](https://www.amazon.com/dp/B07L2VLY5D):
-`capture.py` listens without transmitting, and `console.py` sends one command
+`hsm-peripheral x1-capture` listens without transmitting, and `hsm-peripheral x1-console` sends one command
 line and records the reply. The customer outcome is computer access to weld
 recipes and process status.
 
@@ -47,7 +47,7 @@ and leave the DB25 and the factory emergency-stop connection in their normal
 configuration. The [DSD TECH SH-U09B3](../../hardware/ledger/tools.md) (3.3 V
 TTL) and the ALMOCN RS485 modules cannot drive this RS232 port.
 
-For listen-only work, omit the pin-3 wire; `capture.py` then sees only the
+For listen-only work, omit the transmit conductor; `hsm-peripheral x1-capture` then sees only the
 machine's output and signal ground.
 
 Hardware and costs are recorded in
@@ -56,33 +56,32 @@ with quantities in [diagnostic inventory](../../hardware/ledger/inventory.md#dia
 
 ## Tools
 
-Use an installed Python with pyserial; the system Python and the PlatformIO
-environment both provide it. Enumerating ports does not open them:
+Use the installed `hsm-peripheral` command. Enumerating ports does not open them:
 
 ```sh
-python3 tools/x1_control/console.py --list
+hsm-peripheral x1-console --list
 ```
 
 Choose the adapter's own device explicitly; do not use another controller's
 serial device merely because it is present. Store captures and transcripts
 outside this public repository, and give each run a new output directory.
 
-`capture.py` records received bytes only — no writes, no modem-control
+`hsm-peripheral x1-capture` records received bytes only — no writes, no modem-control
 assertion — into `raw.bin`, timestamped `events.jsonl` and `capture.json`:
 
 ```sh
-python3 tools/x1_control/capture.py \
+hsm-peripheral x1-capture \
   --port /dev/cu.YOUR_RS232_ADAPTER --baud 115200 --seconds 30 \
   --output /tmp/x1-boot --label 'cold boot' --rx-only-wiring-confirmed
 ```
 
-`console.py` sends one command line (CR by default, which is what the shell runs
+`hsm-peripheral x1-console` sends one command line (CR by default, which is what the shell runs
 on) and captures the reply for a few seconds. Send read commands only during
 discovery; do not script `onkey`, `power`, `pilot`, `gas`, `pulse`, a
 `dflt*`/`fac*` restore, or `reboot`:
 
 ```sh
-python3 tools/x1_control/console.py \
+hsm-peripheral x1-console \
   --port /dev/cu.YOUR_RS232_ADAPTER --cmd status \
   --output /tmp/x1-status --label 'idle state, key off'
 ```

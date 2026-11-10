@@ -1,7 +1,27 @@
 {
-  "geometry_sha256": "09f3665148688bdbd9795258021a0ef286fc9b484ecf4db4f7ca0f8d2c31727b",
-  "assembly_mesh_sha256": "af05e3b005ce304e3510eb0b014e1f37c135a1947db4ead8d714a5141001e158",
-  "reference_mesh_sha256": "4b9e4651bc799bdb67ef6e4fbceb42a4f97c36fe26d12b26cfbbc66090ffe205",
+  "assembly_mesh_sha256": "c3570885ff562771ac0775f44e39c8b264308e9647b7c09269f8c1737a8e95b7",
+  "geometry_sha256": "a2df443043284d9804a77a7942adb7e5720643fd6ed9bf4a08c14d620236a5c1",
+  "intentional_key_interference_and_stop_contact": [
+    {
+      "overlap_mm3": 10.6968,
+      "parts": [
+        "pitch-journal",
+        "pitch-output-adapter"
+      ],
+      "pitch_deg": 0.0,
+      "yaw_deg": 0.0
+    },
+    {
+      "overlap_mm3": 10.6968,
+      "parts": [
+        "yaw-journal",
+        "yaw-output-adapter"
+      ],
+      "pitch_deg": 0.0,
+      "yaw_deg": 0.0
+    }
+  ],
+  "pair_evaluations": 64948,
   "poses_deg": [
     [
       -1.5,
@@ -104,28 +124,8 @@
       1.5
     ]
   ],
-  "pair_evaluations": 64948,
+  "reference_mesh_sha256": "7a04c8032cdc9cb4c28dc652904bce20e03f3fe48e77750a40fdea3a53c830cb",
   "reporting_threshold_mm3": 0.5,
-  "intentional_key_interference_and_stop_contact": [
-    {
-      "yaw_deg": 0.0,
-      "pitch_deg": 0.0,
-      "parts": [
-        "pitch-journal",
-        "pitch-output-adapter"
-      ],
-      "overlap_mm3": 10.6977
-    },
-    {
-      "yaw_deg": 0.0,
-      "pitch_deg": 0.0,
-      "parts": [
-        "yaw-journal",
-        "yaw-output-adapter"
-      ],
-      "overlap_mm3": 10.6974
-    }
-  ],
-  "unintended_intersections": [],
-  "scope": "Full-precision tessellated solids; 25 sampled poses. Fastener heads, physical cable, roller levers and continuous swept volumes require assembly checks."
+  "scope": "Full-precision tessellated solids at sampled extreme and working poses. Fastener heads, physical cable, roller levers and continuous swept volumes require assembly checks.",
+  "unintended_intersections": []
 }

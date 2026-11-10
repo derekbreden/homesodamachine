@@ -19,7 +19,7 @@ silicone-bearing measurements. It does not establish physical assembly force or 
 
 ## The box
 
-Four printed PET-GF15 quadrants — `enclosure-front-bottom`, `enclosure-front-top`, `enclosure-back-bottom`, `enclosure-back-top` — measuring over the outside ([`enclosure.py`](/hardware/printed-parts/enclosure/enclosure/enclosure.py)), plus an identical screw-fastened flange retainer for each pump (`enclosure-pump-retainer`). Every standing face is a wall of a quadrant: the rear face is the back pieces' own +Y wall, and the complete front face, 30° display plane and tangent curves belong to `enclosure-front-top`. Its fitted motor guides and tapered pump-loading wells occupy continuous stock into the display housing and roof. The funnel opening is cut in the top wall, both top pieces taking their share of it.
+Four printed PET-GF15 quadrants — `enclosure-front-bottom`, `enclosure-front-top`, `enclosure-back-bottom`, `enclosure-back-top` — measuring over the outside ([`enclosure.rs`](/hardware/printed-parts/enclosure/enclosure/enclosure.rs)), plus an identical screw-fastened flange retainer for each pump (`enclosure-pump-retainer`). Every standing face is a wall of a quadrant: the rear face is the back pieces' own +Y wall, and the complete front face, 30° display plane and tangent curves belong to `enclosure-front-top`. Its fitted motor guides and tapered pump-loading wells occupy continuous stock into the display housing and roof. The funnel opening is cut in the top wall, both top pieces taking their share of it.
 
 - **The Y seam is stated at.** The front pieces' +Y walls telescope into the back pieces — a proud tongue on the side walls and ceiling, and a full-thickness, square-ended tongue inside the floor slab, so the floor stays flat where the cold core rides across it. Four identical fully threaded M5 × 100 screws hold the alternating corner knuckles. At each ±X corner, a enters upward through back-bottom, front-bottom and back-bottom into the insert under the Z seam. An enters downward through front-top's roof head block, back-top's middle block and front-top's lower insert block, ending in a blind pocket. Each end pair belongs to one piece and captures the other piece's middle knuckle on the screw.
 - **The Z seam is one stated plane, both columns, at ** — the seam line runs level round the box and the four pieces meet at a four-way corner on each side wall. Both columns run solid there (the compressor bay and flavour deck forward, the cold core and service bay aft), so the seam runs through each on the lane its lip's ring keeps of the pack. The bottom pieces carry the lips and hooked rails; the top pieces carry the mating feet and channels. The Z seams take no screws; at the corners the seam's screws hold the tops down.
@@ -78,7 +78,7 @@ identifies those branches; it does not establish physical cleanup effort.
 
 **This step is the one place in the build that presses both M3 bodies, and they are indistinguishable in the hand but for length.** RX-M3x5.7 and RX-M3Sx4.0 carry the same ⌀4.6 knurl into the same ⌀4 hole; a short one pressed where the long one belongs is a weaker joint that looks finished, and a long one pressed where it does not fit will not seat flush. Work from two labelled troughs, not one dish:
 
-- **Full-length RX-M3×5.7.** The condenser fingers and the four funnel-frame ledges take full-length inserts. The core's PCB columns use the [cold-core mount schedule](/hardware/printed-parts/cold-core/_above_core_mounts.py), with the lid removed for insert installation.
+- **Full-length RX-M3×5.7.** The condenser fingers and the four funnel-frame ledges take full-length inserts. The core's PCB columns use the [cold-core mount schedule](/hardware/printed-parts/cold-core/foam-cap/numbers/lib.rs), with the lid removed for insert installation.
 - **Short RX-M3S×4.0.** The mains inlet's internal mounting block, the PSU hosts and every relay corner take short inserts. Install them before the purchased bodies. Use the screw stacks assigned in the [BOM](/hardware/ledger/bom.md). Each relay board bears directly on its corner posts, with the insert faces at the PCB underside. Lower the board straight onto the posts and fasten every corner before landing the terminal wires. The [wall-host schedule](/hardware/printed-parts/enclosure/enclosure/back-top/rear.rs) defines the bearing tips and insert-face datums.
 - **M5 — eight.** The four posts standing off the floor slab under the compressor's feet, and the Y seam's four corner-stack stations: back-bottom's two knuckles under the Z seam and front-top's two knuckles under the funnel frame, each pressed in from above. Use the M5 tip from the T18 heat-set insert tip kit.
 
@@ -213,7 +213,7 @@ Mount the PCB flat west/forward on the core lid. Fit the pump with its
 motor fore–aft and discharge −X, on four identical rubber feet. V-B enters its
 upright socket wall east of the PCB. Use the actual mount holes, fasteners and
 insert datums in [electronics-bay.md](electronics-bay.md) and the
-[core mount source](/hardware/printed-parts/cold-core/_above_core_mounts.py).
+[core mount source](/hardware/printed-parts/cold-core/foam-cap/numbers/lib.rs).
 The lid's below-board fluid fittings and routes go in before the PCB.
 
 Fit the PSU into back-top's shallow ceiling recess and both relays to its dry

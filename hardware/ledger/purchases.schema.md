@@ -63,7 +63,7 @@ Purpose tags are `equipment_tooling`, `components`, `consumables_materials`, `en
 ## Generated views
 
 ```sh
-python3 tools/run.py -- cargo build --release --locked -j 2 --manifest-path tools/hsm/Cargo.toml -p hsm-ledger --bin purchases
+tools/run -- cargo build --release --locked -j 2 --manifest-path tools/hsm/Cargo.toml -p hsm-ledger --bin purchases
 tools/hsm/target/release/purchases --write
 tools/hsm/target/release/purchases --report
 tools/hsm/target/release/purchases --audit

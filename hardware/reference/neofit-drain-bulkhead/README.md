@@ -54,7 +54,7 @@ preview, fused cloud and SHA-256 manifest are in
 `~/Documents/3D Scans/2026-10-29-neofit-abu44m-bulkhead/`. That directory also
 holds registered observations, portable STEP/STL files and a rendered preview.
 
-[`analyze_scan.py`](analyze_scan.py) fits the marker-table plane and common end
+[analyze_scan.py](https://github.com/derekbreden/homesodamachine/blob/a518a57a878f02d9ac5b8b638c1c5883cadf6669/hardware/reference/neofit-drain-bulkhead/analyze_scan.py) fits the marker-table plane and common end
 axis from surface-normal rays, then fits exposed panel, nut and mouth planes.
 Independent flat fits locate and clock the body and nut hexes. A fixed table
 height above 17 mm removes the support and markers, retaining **206,384
@@ -88,10 +88,4 @@ captured nut; `parts()` and `build_assembly()` expose both. `panel_hole_d()` ret
 the nominal M15 clearance interface, and the footprint helpers use the fitted
 exterior envelopes.
 
-```sh
-tools/cad-venv/bin/python hardware/reference/neofit-drain-bulkhead/analyze_scan.py
-tools/cad-venv/bin/python hardware/reference/neofit-drain-bulkhead/neofit_drain_bulkhead.py
-tools/cad-venv/bin/python hardware/reference/neofit-drain-bulkhead/validate_scan.py
-```
-
-The generator accepts `--stl /absolute/output/path.stl` for a portable mesh.
+The source derivations are preserved at their recorded revision: [analyze_scan.py](https://github.com/derekbreden/homesodamachine/blob/a518a57a878f02d9ac5b8b638c1c5883cadf6669/hardware/reference/neofit-drain-bulkhead/analyze_scan.py).

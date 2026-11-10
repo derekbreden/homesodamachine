@@ -13,7 +13,7 @@ to ship. This preparation records manufacturing inputs and emitted paths; it doe
 reduce that objective to fit or qualify the assembled machine by itself.
 
 ```sh
-python3 tools/run.py -- cargo build --release --locked --manifest-path tools/hsm/Cargo.toml -p hsm-print-prep
+tools/run -- cargo build --release --locked --manifest-path tools/hsm/Cargo.toml -p hsm-print-prep
 tools/hsm/target/release/enclosure-print-prep list
 tools/hsm/target/release/enclosure-print-prep back-top --slice --review
 tools/hsm/target/release/enclosure-print-prep all --slice --review
@@ -56,6 +56,12 @@ A piece starts from [`petgf.3mf`](../../petgf.3mf) unless it names its own saved
 layer, 0.24 mm layers, `auto_brim` and Tree(auto)/Default supports. Two walls and 15% gyroid
 remain the production baseline unless Derek explicitly requests a change. The local solid
 modifiers, six-wall surface bands and part-specific recipes below retain their specified settings.
+PET-GF contact and bridge settings inherit Support D from the shared profile, including
+when the rest of a recipe comes from an accepted older project. Embedded filament bridge
+speeds follow the same recipe. Part-specific support styles, roots, fins, manual targets
+and inaccessible-interior exclusions retain their own settings. The
+[rollout record](../../support-D-rollout.json) binds the current projects and slice status;
+historical machine archives retain their recorded process.
 `filament_from` takes another saved project's filament block: every setting the filament's
 system presets define, with the per-hotend variant index. `z_trim_mm`, `filament_colour` and
 `filament_mapping` replace the printer's defaults, each with its reason. `nozzle` is checked
@@ -133,7 +139,7 @@ gripping surface, with no local layer band or added support fins.
   above it, so the span's top lies inside a fine layer. Its faces are painted support-blocked.
   `allow_support` retains accessible external contacts on a supported show surface.
 - **`transition_band`** — an expanding print-down round with the 0.5:1 additive chamfer of
-  [`overhang_round.py`](../../cadlib/overhang_round.py). The foot is where the straight run
+  [`lib.rs`](/hardware/printed-parts/enclosure/enclosure/interface/lib.rs). The foot is where the straight run
   starts, the lowest point of the chamfer faces that reach its top; the rise from it matches
   the declared radius within 10%. A corner return follows its arc lower, so the band runs from
   the lowest chamfer face through the retained arc at 0.24 mm with six walls, and its downward

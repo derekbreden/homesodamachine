@@ -1,0 +1,22 @@
+[package]
+name = "hsm-peripheral"
+version = "0.1.0"
+edition.workspace = true
+license.workspace = true
+rust-version.workspace = true
+publish = false
+
+[dependencies]
+anyhow.workspace = true
+serde.workspace = true
+serde_json.workspace = true
+sha2.workspace = true
+hsm-run-slots = { path = "../run-slots" }
+libc = "0.2"
+flate2 = "1"
+png = "0.18.1"
+serialport = { version = "4.10.1", default-features = false }
+
+[[bin]]
+name = "hsm-peripheral"
+path = "src/main.rs"

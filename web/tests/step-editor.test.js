@@ -81,13 +81,13 @@ function del(body) {
 
 test("the live enclosure assembly is not editable", async () => {
   // A tripwire, not a preference: adding `manifold-layout/enclosure-assembly.step` to
-  // EDITABLE only works if enclosure_assembly.py reads its `.overrides.json` and applies
+  // EDITABLE only works if installed_machine.rs reads its `.overrides.json` and applies
   // the moves as it places. Until it does, the route writes a sidecar nothing
   // reads, spends a full CAD rebuild, and returns the body to where it started.
   const res = await get(LIVE_STEP);
   assert.equal(
     res.status, 404,
-    "enclosure-assembly.step is listed as editable — confirm enclosure_assembly.py applies "
+    "enclosure-assembly.step is listed as editable — confirm installed_machine.rs applies "
     + "the overrides sidecar",
   );
 });

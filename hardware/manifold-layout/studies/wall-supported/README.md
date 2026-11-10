@@ -31,7 +31,7 @@ Their 9.2 mm depth includes 3 mm behind the blind socket floors. The space
 under each plate remains open; each lower fitting clears its plate by about
 2.68 mm. There is no floor-height crosswall or separate support piece.
 
-The [native build](build.py) exports each complete wall as one valid solid.
+The [native build](https://github.com/derekbreden/homesodamachine/blob/a518a57a878f02d9ac5b8b638c1c5883cadf6669/hardware/manifold-layout/studies/wall-supported/build.py) exports each complete wall as one valid solid.
 Highlight meshes duplicate only the added features for the transparent-wall
 viewer; they are not separate printable pieces. The [selected mesh query](study.json)
 reports no unrelated body or local-connection interference. The
@@ -49,8 +49,4 @@ outside this arrangement. The V69 fit acceptance and the earlier RJ11 print
 fit retain their identified article/orientation scope. These native seats do
 not establish installed fit or load capacity in the new shell.
 
-```sh
-PYTHONPATH=. tmp/takeover/cadq "Wall-supported layout" -- tools/cad-venv/bin/python hardware/manifold-layout/studies/wall-supported/build.py
-tools/cad-venv/bin/python hardware/manifold-layout/studies/wall-supported/study.py --check
-tools/cad-venv/bin/python hardware/manifold-layout/studies/wall-supported/access.py
-```
+The source derivations are preserved at their recorded revision: [access.py](https://github.com/derekbreden/homesodamachine/blob/a518a57a878f02d9ac5b8b638c1c5883cadf6669/hardware/manifold-layout/studies/wall-supported/access.py), [build.py](https://github.com/derekbreden/homesodamachine/blob/a518a57a878f02d9ac5b8b638c1c5883cadf6669/hardware/manifold-layout/studies/wall-supported/build.py), [study.py](https://github.com/derekbreden/homesodamachine/blob/a518a57a878f02d9ac5b8b638c1c5883cadf6669/hardware/manifold-layout/studies/wall-supported/study.py).

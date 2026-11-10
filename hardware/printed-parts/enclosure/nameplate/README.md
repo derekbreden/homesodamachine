@@ -88,8 +88,8 @@ The plate and receiver's physical fit and support cleanup are unqualified.
 ## Generation
 
 ```sh
-python3 tools/run.py -- cargo build --release --locked --manifest-path tools/hsm/Cargo.toml -p hsm-enclosure-components --bin nameplate
-python3 tools/run.py -- tools/hsm/target/release/nameplate --unit 1
+tools/run -- cargo build --release --locked --manifest-path tools/hsm/Cargo.toml -p hsm-enclosure-components --bin nameplate
+tools/run -- tools/hsm/target/release/nameplate --unit 1
 ```
 
 The first unit also writes the receiver, its fasteners and the receiver's dimensions that the

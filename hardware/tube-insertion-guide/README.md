@@ -106,12 +106,12 @@ A supplier clamp specification does not rate this complete assembly.
 ## Manual regeneration
 
 ```bash
-tools/cad-venv/bin/python tools/tube-insertion-guide/insertion_art.py
-tools/cad-venv/bin/python tools/tube-insertion-guide/build.py
+tools/run --cad -- hsm-manual-guides art tube-insertion-guide
+tools/run hsm-manual-guides bind tube-insertion-guide
 ```
 
-The art script accepts individual scene names; `--list` lists them. The binder
+The artwork command accepts individual names with `--scenes`. The binder
 renders the HTML leaves, checks their authored page bounds and joins them in
 numbered order, then writes the identical delivery copy and source receipt.
-These scripts run by hand. No build target, hook, watcher or recurring check
+These commands run by hand. No build target, hook, watcher or recurring check
 invokes them. The HTML, artwork, PDF, cover and metadata are committed artifacts.

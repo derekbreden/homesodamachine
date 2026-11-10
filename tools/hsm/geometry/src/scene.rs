@@ -511,7 +511,9 @@ pub fn write(path: &Path, bytes: &[u8]) -> Result<()> { keep(path, &encode(&pack
 
 pub fn persist(path: &Path, head: &Value) -> Result<()> {
     keep(path,&encode(head,&[])?)?;
-    if (head["step_export"]==false && path.to_string_lossy().ends_with(".step.mesh")) || path.to_string_lossy().ends_with(".glb.mesh") {
+    let named_view = path.to_string_lossy().ends_with(".glb.mesh")
+        && path.parent().is_some_and(|parent|parent.ends_with("hardware/assembly/scenes/glb"));
+    if (head["step_export"]==false && path.to_string_lossy().ends_with(".step.mesh")) || named_view {
         let old=PathBuf::from(path.to_string_lossy().trim_end_matches(".mesh"));
         if old.is_file() {fs::remove_file(old)?;}
     }
@@ -531,6 +533,22 @@ pub fn replace_selected(head: &mut Value, source: &str, bytes: &[u8]) -> Result<
 #[cfg(test)]
 mod tests {
     use super::*;
+    #[test]
+    fn only_named_assembly_views_retire_their_raw_glb() -> Result<()> {
+        let root=std::env::temp_dir().join(format!("hsm-glb-boundary-{}-{}",std::process::id(),NEXT.fetch_add(1,Ordering::Relaxed)));
+        let named=root.join("hardware/assembly/scenes/glb/view.glb");
+        let pcb=root.join("hardware/pcb/board.glb");
+        let head=json!({"v":4,"meshes":[],"step_export":false});
+        for path in [&named,&pcb] {
+            fs::create_dir_all(path.parent().unwrap())?;
+            fs::write(path,b"retained browser GLB")?;
+            persist(&PathBuf::from(format!("{}.mesh",path.display())),&head)?;
+        }
+        assert!(!named.exists());
+        assert_eq!(fs::read(&pcb)?,b"retained browser GLB");
+        fs::remove_dir_all(root)?;
+        Ok(())
+    }
     fn triangle(names:&[&str], shift:f32)->Vec<u8> {
         let mut blob=Vec::new();let mut rows=Vec::new();
         for name in names {

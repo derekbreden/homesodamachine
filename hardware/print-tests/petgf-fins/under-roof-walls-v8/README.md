@@ -102,13 +102,8 @@ established by this coupon. No additional fixture or purchase is requested.
 
 ![Reported plate; middle column preferred for support and release](mark1/photos/01-result.jpg)
 
-## Manual reproduction
+## Preparation source
 
-Preserve the submitted files before regenerating them. [`prepare.py`](https://github.com/derekbreden/homesodamachine/blob/0a648015e0/hardware/print-tests/petgf-fins/under-roof-walls-v8/prepare.py) (in Git at `0a648015e0`) writes the
-editable project, meshes and manifest using the repository CadQuery runtime.
-Slice with Bambu Studio `--arrange 0 --orient 0 --slice 0`, exporting
-`native.gcode.3mf` to the absolute `mark1` output directory. `finish.py` applies
-the named local E/fan/speed treatments, reviews native wall crossings, draws
-the paths and packages a new print-only archive. The editable project alone
-does not contain those local G-code treatments. These are manual experiment
-tools; no build or commit check is added.
+The [recorded finish source](https://github.com/derekbreden/homesodamachine/blob/7cf7b55608deefa5f3cae6bb20f83bce14ff706f/hardware/print-tests/petgf-fins/under-roof-walls-v8/finish.py) defines the local extrusion, fan and speed treatments,
+wall-crossing review and print-only packaging for the submitted artifacts.
+The editable project alone does not contain those G-code treatments.

@@ -1,17 +1,9 @@
 # Build plan
 
-`build-plan` owns generator grouping, action inputs, dependency rules and BUILD
-rendering. `tools/bazel/gen_build.py` preserves its import and command interface;
-its graph-projection command uses the smaller `build-data` support service.
-
-The maintained implementation is the compiled Rust module
-`src/compiled/modules/gen_build.rs`. Its loops, branches and calculations execute
-in Rust. `src/compiled.rs` supplies native values, scopes and explicit library
-callbacks; it does not parse or evaluate Python source.
-
-The `build-data-runtime` filegroup declares the support service's compiled
-sources, Cargo manifests and Python/runtime boundaries. Each generator action
-retains its own declared source and output set.
+`hsm-build-plan` owns native producer grouping, action inputs, dependency rules,
+graph projections and BUILD rendering. `src/planning.rs` shares typed declarations
+with affected-target discovery. `inventory.json` classifies inputs and outputs;
+`programs.json` names the native producer entrypoints used by tracing.
 
 Rust program rules take their compiler inputs from Cargo's dependency records.
 The producer rule stages the files the program reads at runtime, including
@@ -20,12 +12,31 @@ while reusing the compiled program. Data embedded with `include_str!` or
 `include_bytes!` belongs to the compiler rule as well; its filename does not
 decide whether it is code or runtime data.
 
-The compiler and producer input split is checked on demand:
+`program.runtime_inputs` retains explicitly logged runtime reads that are also
+compiler sources, including a producer that reads Cargo manifests while running.
+The producer reads its staged repository through `HSM_REPO_ROOT`; compilation and
+retained geometry use the host checkout through `HSM_WORKSPACE`.
+
+The commands run on request:
 
 ```sh
-python3 tools/run.py -- cargo test --release --locked -j 2 \
-  --manifest-path tools/hsm/Cargo.toml -p hsm-build-plan rust_step::tests
+tools/run -- tools/hsm/target/release/hsm-build-plan render --only installed-machine
+tools/run -- tools/hsm/target/release/hsm-build-plan write
+tools/run -- tools/hsm/target/release/hsm-build-plan affected --artifacts --manifest
+tools/run -- tools/hsm/target/release/hsm-build-plan trace-inputs hardware/manifold-layout/installed_machine.rs
+tools/run -- tools/hsm/target/release/hsm-build-plan sync-tree --help
 ```
 
-The [conversion record](../conversion-results/build-final-2026-11-04.json)
-includes the fixed-input whole-renderer comparison and combined-build result.
+`render` prints without writing. `write` updates BUILD.bazel and this checkout's
+`.bazelrc.paths`; `--root` selects an explicit repository. `project-graph-file
+GENERATOR INPUT OUTPUT` writes a reader projection using only its named graph
+input. `inventory`, `actions` and `dependency-rules` expose the same native
+metadata as JSON. `check` and `cycles` are explicit questions, never build hooks.
+
+The compiler/runtime split, producer edges and maintenance commands are checked
+on demand:
+
+```sh
+tools/run -- cargo test --release --locked -j 2 \
+  --manifest-path tools/hsm/Cargo.toml -p hsm-build-plan
+```

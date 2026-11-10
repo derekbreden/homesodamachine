@@ -97,12 +97,11 @@ the selected process, supports and per-printer trim. The source set is separate
 from the design generators used for CAD studies. Preparing a project does not
 submit it to a printer.
 
-The [Industrial geometry readings](industrial/geometry-check.json) cover the
-saved solids, hardware, lever travel and named wall sections. The
-[display cover readings](industrial/display-cover-check.json) cover display fit,
-wing geometry, loading and seating. Their reproducible readers are
-[`check_geometry.py`](industrial/check_geometry.py) and
-[`check_display_cover.py`](industrial/check_display_cover.py).
+`hsm --scene faucet` reads the current exported assembly for positions,
+clearances, intersections, sections and rays. [`inspect-part.mjs`](/tools/inspect-part.mjs)
+retains the selected geometry, camera and targeted measurements between exports.
+The [native printed-mesh review](/tools/hsm/mesh-review/README.md) ranks local
+anomalies in the preserved print meshes without rebuilding the faucet.
 
 The [simple drip geometry reading](vent-qualification/simple-drip-check.json)
 binds both bases and the shared tip, verifies the joint and nominal tube

@@ -46,8 +46,7 @@ pub fn part(path: &str) -> Result<Vec<Imported>> {
 }
 
 /// `bodies`, each a name, a colour and a solid, as the viewer's files in `dir`: `<name>.step`,
-/// `<name>.step.npz` and `<name>.step.mesh`. Prints the STEP's path, which `tools/viz/build.py`
-/// takes. `hsm_kernel::part::write_part` writes the same with an STL, for a concept to print.
+/// `<name>.step.npz` and `<name>.step.mesh`. Prints the STEP's path for native rendering. `hsm_kernel::part::write_part` writes the same with an STL, for a concept to print.
 pub fn show(dir: &Path, name: &str, bodies: &[(&str, [f64; 3], &Solid)]) -> Result<()> {
     let bodies: Vec<Body> = bodies.iter().map(|&(name, color, solid)| Body { name, color: Some(color), solid }).collect();
     hsm_kernel::part::write_shown(dir, name, &bodies)?;

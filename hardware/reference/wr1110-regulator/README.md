@@ -36,7 +36,7 @@ Revo Scan 6.3.2 used MINI 2 High Accuracy, feature tracking, normal object mode,
 colour off, exposure 1, base removal off and a 120–250 mm range. Fusion spacing is
 0.10 mm; smoothing, mesh hole filling and rescaling are not applied.
 
-[`analyze_scan.py`](analyze_scan.py) finds the marker-covered table in each native
+[analyze_scan.py](https://github.com/derekbreden/homesodamachine/blob/a518a57a878f02d9ac5b8b638c1c5883cadf6669/hardware/reference/wr1110-regulator/analyze_scan.py) finds the marker-covered table in each native
 preview, fits the exposed barrel at unit scale, locates the inlet face, and clocks
 the wrench-flat normals. The owner's half turn selects the complementary hex
 orientation, which the symmetric flats otherwise determine only modulo 60°.
@@ -51,7 +51,7 @@ strip. [`scan-profiles.png`](scan-profiles.png) shows the two retained surfaces.
 Optical scale and spray thickness are not independently calibrated; the fitted
 precision is not a statement of absolute accuracy.
 
-[`validate_scan.py`](validate_scan.py) compares observations with the CAD surface
+[validate_scan.py](https://github.com/derekbreden/homesodamachine/blob/a518a57a878f02d9ac5b8b638c1c5883cadf6669/hardware/reference/wr1110-regulator/validate_scan.py) compares observations with the CAD surface
 without dropping distant points. At 0.25 mm observation sampling and 0.025 mm CAD
 tessellation, 95% of retained observations are within 0.204 mm; the mounting barrel's
 95th-percentile distance is 0.019 mm. Thread-envelope differences reach 0.55 mm,
@@ -65,8 +65,4 @@ results and diagram are in [`scan-model-check.json`](scan-model-check.json) and
 exterior's placement in an enclosure CO₂ chain with GASHER and gray-acetal
 adapters. The appliance carries none of these parts.
 
-```sh
-tools/cad-venv/bin/python hardware/reference/wr1110-regulator/analyze_scan.py
-tools/cad-venv/bin/python hardware/reference/wr1110-regulator/wr1110_regulator.py
-tools/cad-venv/bin/python hardware/reference/wr1110-regulator/validate_scan.py
-```
+The source derivations are preserved at their recorded revision: [analyze_scan.py](https://github.com/derekbreden/homesodamachine/blob/a518a57a878f02d9ac5b8b638c1c5883cadf6669/hardware/reference/wr1110-regulator/analyze_scan.py), [validate_scan.py](https://github.com/derekbreden/homesodamachine/blob/a518a57a878f02d9ac5b8b638c1c5883cadf6669/hardware/reference/wr1110-regulator/validate_scan.py).

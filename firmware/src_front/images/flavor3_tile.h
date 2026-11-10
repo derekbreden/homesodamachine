@@ -1,5 +1,5 @@
 // flavor_4 - 86x160 RGB565 bitmap
-// Auto-generated from flavor_4.png by tools/png_to_rgb565.py
+// Auto-generated from flavor_4.png by hsm-peripheral png-to-rgb565
 #pragma once
 
 #include <Arduino.h>
