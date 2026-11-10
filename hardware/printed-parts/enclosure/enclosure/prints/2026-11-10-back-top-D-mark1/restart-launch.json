@@ -1,0 +1,26 @@
+{
+  "archive": {
+    "gcode_sha256": "85ab1c4fc7fd5b40964cebd03ef4a27e22d0f2f4e73a79a817996d322c09144f",
+    "name": "2026-11-10-back-top-D-left04-z018-mark1-print-only.gcode.3mf",
+    "objects": [
+      "enclosure-back-top"
+    ],
+    "sha256": "c7592a9cf987029a3b88ad11db19b0cbbe61cd6c9fe997eea281f9c3fb098bf8",
+    "slots": {
+      "1": {
+        "colour": "000000",
+        "type": "PET-CF"
+      }
+    }
+  },
+  "gcode_state": "RUNNING",
+  "hms": [],
+  "layer_num": 0,
+  "mc_remaining_time": 1921,
+  "observed_at": "2026-11-10T06:52:04+00:00",
+  "print_error": 0,
+  "printer": "H2C",
+  "printer_task_id": "1426940190",
+  "subtask_name": "2026-11-10-back-top-D-left04-z018-mark1-print-only.gcode.3mf",
+  "total_layer_num": 1112
+}

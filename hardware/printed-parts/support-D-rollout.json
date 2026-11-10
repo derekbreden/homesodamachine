@@ -1259,7 +1259,7 @@
     "full_back_top_native_and_supplemental_review": "hardware/printed-parts/enclosure/enclosure/prints/2026-11-10-back-top-D-mark1/print-review.json"
   },
   "current_full_part": "hardware/printed-parts/enclosure/enclosure/prints/2026-11-10-back-top-D-mark1/print-job.json",
-  "current_full_part_status": "Cancelled at layer zero at the user request; held while peer conversations resolve.",
+  "current_full_part_status": "RUNNING on Mark1 after completed peer conversations and unchanged print-input verification.",
   "historical_archives": "Preserved with their recorded process. Current editable projects require a fresh slice before their next print.",
   "scope": "Support D is selected for current PET-GF preparations; each full part retains its native slice and physical-removal qualification."
 }
