@@ -4,6 +4,8 @@
 
 The [schema and external private reconciliation contract](/hardware/ledger/purchases.schema.md) defines authoritative fields, date precision, allocation rules and the public/private boundary.
 
+The [ledger-maintenance skill](/tools/ledger-maintenance/SKILL.md) carries the Gmail-to-ledger workflow, private processing checkpoint and publication handoff for the dot and local agents.
+
 ## Preserved vendor records
 
 `purchases.orders.json` is a preserved Amazon source archive. Older delivery banners disappear from Amazon; the saved dates and project classifications are irreplaceable evidence. Recorded mixed-order allocations and replacement relationships remain in that archive. A fresh page lacking an older field does not override it.
