@@ -1,0 +1,914 @@
+{
+  "schema": 1,
+  "purpose": "Close the Python source and adapter work deferred for concurrent reference and print sessions.",
+  "recorded_at": "2026-11-10T07:39:54.312Z",
+  "source_commits": {
+    "cleanup": "524574c5b1a59cfefa7d1d1df1ef4722f020298d",
+    "workspace": "c4fc4ff8facc2a62c9aeca798bd4a64c73f92386",
+    "observed_head": "955f00c9bfdbafc0387dcb086171e4752856cd5c"
+  },
+  "archive_revision": "0785c32f89a6e08609e5348aa2beb0096d560326",
+  "retirement": {
+    "python_sources": 81,
+    "reference_sources": 36,
+    "closed_print_scripts": 6,
+    "global_adapters": 39,
+    "retired_python_paths": [
+      "hardware/print-tests/enclosure-support-scenarios/prepare.py",
+      "hardware/print-tests/petgf-dense-roofs/rail-cavity-20/prepare.py",
+      "hardware/printed-parts/cadlib/_scalar_provider.py",
+      "hardware/printed-parts/cadlib/world_workplane.py",
+      "hardware/printed-parts/enclosure/display-cover/face-up-trial/face_up_trial.py",
+      "hardware/printed-parts/enclosure/enclosure/magnet-retention/fit-coupons/centered-trial-v4/review.py",
+      "hardware/printed-parts/enclosure/enclosure/magnet-retention/prepare_prints.py",
+      "hardware/printed-parts/enclosure/enclosure/support-bottom-gap/read_roads.py",
+      "hardware/reference/_reference_data.py",
+      "hardware/reference/g-ganen-pump/analyze_registered.py",
+      "hardware/reference/g-ganen-pump/analyze_scan.py",
+      "hardware/reference/g-ganen-pump/benchmark_native.py",
+      "hardware/reference/g-ganen-pump/build_reference.py",
+      "hardware/reference/g-ganen-pump/common-foot/g_ganen_foot.py",
+      "hardware/reference/g-ganen-pump/common-foot/inspect_axial_faces.py",
+      "hardware/reference/g-ganen-pump/common-foot/inspect_common_foot.py",
+      "hardware/reference/g-ganen-pump/common-foot/measure_common_foot.py",
+      "hardware/reference/g-ganen-pump/common-foot/plot_sections.py",
+      "hardware/reference/g-ganen-pump/common-foot/preview_common_foot.py",
+      "hardware/reference/g-ganen-pump/common-foot/prior-evidence/freeze_reference.py",
+      "hardware/reference/g-ganen-pump/common-foot/prior-evidence/g_ganen_pump.py",
+      "hardware/reference/g-ganen-pump/common-foot/prior-evidence/integration-envelope/derive_envelope.py",
+      "hardware/reference/g-ganen-pump/common-foot/prior-evidence/integration-envelope/freeze_envelope.py",
+      "hardware/reference/g-ganen-pump/common-foot/update_native_reference.py",
+      "hardware/reference/g-ganen-pump/derive_casing.py",
+      "hardware/reference/g-ganen-pump/freeze_reference.py",
+      "hardware/reference/g-ganen-pump/g_ganen_pump.py",
+      "hardware/reference/g-ganen-pump/inspect_scan.py",
+      "hardware/reference/g-ganen-pump/installation/g_ganen_installation.py",
+      "hardware/reference/g-ganen-pump/integration-envelope/benchmark_component_sections.py",
+      "hardware/reference/g-ganen-pump/integration-envelope/benchmark_integration.py",
+      "hardware/reference/g-ganen-pump/integration-envelope/derive_envelope.py",
+      "hardware/reference/g-ganen-pump/integration-envelope/export_envelope.py",
+      "hardware/reference/g-ganen-pump/integration-envelope/freeze_envelope.py",
+      "hardware/reference/g-ganen-pump/integration-envelope/g_ganen_integration.py",
+      "hardware/reference/g-ganen-pump/integration-envelope/native_queries.py",
+      "hardware/reference/g-ganen-pump/integration-envelope/selftest_envelope.py",
+      "hardware/reference/g-ganen-pump/measure_interfaces.py",
+      "hardware/reference/g-ganen-pump/register_scan.py",
+      "hardware/reference/g-ganen-pump/scan_tools.py",
+      "hardware/reference/g-ganen-pump/selftest_analysis.py",
+      "hardware/reference/g-ganen-pump/under-head-clearance/measure.py",
+      "hardware/reference/g-ganen-pump/under-head-clearance/update_reference.py",
+      "hardware/reference/g-ganen-pump/validate_reference.py",
+      "hardware/reference/waveshare-43b-display/waveshare_43b_display.py",
+      "hardware/scripts/_assembly_model.py",
+      "hardware/scripts/_build_data.py",
+      "hardware/scripts/_cadq_export.py",
+      "hardware/scripts/_document_export.py",
+      "hardware/scripts/_ledger_rust.py",
+      "hardware/scripts/_machine_data.py",
+      "hardware/scripts/_machine_export.py",
+      "hardware/scripts/_material_base.py",
+      "hardware/scripts/_materials.py",
+      "hardware/scripts/_mesh_payload.py",
+      "hardware/scripts/_occt_color.py",
+      "hardware/scripts/_payload_rules.py",
+      "hardware/scripts/_run_lock.py",
+      "hardware/scripts/_run_native.py",
+      "hardware/scripts/_run_slots.py",
+      "hardware/scripts/_rust_data.py",
+      "hardware/scripts/_rust_objects.py",
+      "hardware/scripts/_rust_part.py",
+      "hardware/scripts/_rust_print_payload.py",
+      "hardware/scripts/_shared_data.py",
+      "hardware/scripts/flute_payload.py",
+      "hardware/scripts/meshcad/__init__.py",
+      "hardware/scripts/meshcad/build.py",
+      "hardware/scripts/meshcad/fillet.py",
+      "hardware/scripts/meshcad/grow.py",
+      "hardware/scripts/meshcad/imports.py",
+      "hardware/scripts/meshcad/presentation.py",
+      "hardware/scripts/meshcad/rule.py",
+      "hardware/scripts/meshcad/scene.py",
+      "hardware/scripts/meshcad/solids.py",
+      "hardware/scripts/meshcad/sweep.py",
+      "hardware/scripts/meshcad/topo.py",
+      "hardware/scripts/meshcad/write.py",
+      "tools/cad-venv-site/_hsm_novtk.py",
+      "tools/cad-venv-site/install.py",
+      "tools/docgen/__init__.py"
+    ],
+    "deleted_native_adapter_library": [
+      "tools/hsm/run-native/Cargo.toml",
+      "tools/hsm/run-native/src/lib.rs"
+    ],
+    "closed_trial_trees": {
+      "status": "tracked retired trees removed; exact original source/physical records retained in Git",
+      "source_revision": "0785c32f89a6e08609e5348aa2beb0096d560326",
+      "trees": [
+        "hardware/print-tests/petgf-dense-roofs/rail-cavity-20",
+        "hardware/printed-parts/enclosure/display-cover/face-up-trial"
+      ],
+      "tracked_files": {
+        "hardware/print-tests/petgf-dense-roofs/rail-cavity-20/2026-11-09-complete-rail-cavity-20-D-left04-z018-mark1.3mf": {
+          "source_revision": "0785c32f89a6e08609e5348aa2beb0096d560326",
+          "sha256": "633c0c429883baa68d5fb3900ca97ecf358338ac0b299451338e0ea5005e9a90"
+        },
+        "hardware/print-tests/petgf-dense-roofs/rail-cavity-20/README.md": {
+          "source_revision": "0785c32f89a6e08609e5348aa2beb0096d560326",
+          "sha256": "f24a260bf300c28634cff69b5b721c92d09483ab42572f7016418ef806d761ee",
+          "discarded_owned_source_retirement_edit_sha256": "24611166c60f94f70f2c2dda485598ed90951707300cb141df0ad4069a96ce21"
+        },
+        "hardware/print-tests/petgf-dense-roofs/rail-cavity-20/parts/RD.stl": {
+          "source_revision": "0785c32f89a6e08609e5348aa2beb0096d560326",
+          "sha256": "b56c6971e1f397c0e8478665514e7b096e77d678982baa3f4dc0f0aba9338d46"
+        },
+        "hardware/print-tests/petgf-dense-roofs/rail-cavity-20/parts/geometry.json": {
+          "source_revision": "0785c32f89a6e08609e5348aa2beb0096d560326",
+          "sha256": "a3258a6c5a520a5574fa477a24c5501bf950512eafd7bea06a87d894446caff4"
+        },
+        "hardware/print-tests/petgf-dense-roofs/rail-cavity-20/preparation.json": {
+          "source_revision": "0785c32f89a6e08609e5348aa2beb0096d560326",
+          "sha256": "50eca8f2b58b3a521abb99c76aa6729ce5245ce5912210cb5d3246cd105ed33f"
+        },
+        "hardware/print-tests/petgf-dense-roofs/rail-cavity-20/prepare.py": {
+          "source_revision": "0785c32f89a6e08609e5348aa2beb0096d560326",
+          "sha256": "7c93beb18e074bb37c2e4ea8cc7c86ff744d090b292371d52cad4d80f2873aac"
+        },
+        "hardware/print-tests/petgf-dense-roofs/rail-cavity-20/ready/2026-11-09-complete-rail-cavity-20-D-left04-z018-mark1.gcode.3mf": {
+          "source_revision": "0785c32f89a6e08609e5348aa2beb0096d560326",
+          "sha256": "196911f507740b3ab6e70a3488ac2b00b194cfa32357973953f785c94669d475"
+        },
+        "hardware/print-tests/petgf-dense-roofs/rail-cavity-20/ready/slice-result.json": {
+          "source_revision": "0785c32f89a6e08609e5348aa2beb0096d560326",
+          "sha256": "7df39344fc812ac38365365ff211e60e001113b1d328e0ba7111abaf8959a2c1"
+        },
+        "hardware/print-tests/petgf-dense-roofs/rail-cavity-20/samples.json": {
+          "source_revision": "0785c32f89a6e08609e5348aa2beb0096d560326",
+          "sha256": "b50e9da1489a9656e0ac8f92e09ccf2a7fea7c8efa3cca7cbf3ae0f9def35c91"
+        },
+        "hardware/print-tests/petgf-dense-roofs/rail-cavity-20/samples.rs": {
+          "source_revision": "0785c32f89a6e08609e5348aa2beb0096d560326",
+          "sha256": "40e5c14b6a51a3c9ded0fc22f9fa2e9fb1071d6e5f3cd63e71ff5198dcd357c8"
+        },
+        "hardware/print-tests/petgf-dense-roofs/rail-cavity-20/verification.json": {
+          "source_revision": "0785c32f89a6e08609e5348aa2beb0096d560326",
+          "sha256": "5d45f0c69440efe17eeadd676eb2461af98545b8fee607c2739b92bd7ba9a0b7"
+        },
+        "hardware/printed-parts/enclosure/display-cover/face-up-trial/README.md": {
+          "source_revision": "0785c32f89a6e08609e5348aa2beb0096d560326",
+          "sha256": "665413bb5e928208df37e5fd875a81db894d8e7fcb5c86e5d02e78f6dd801b60",
+          "discarded_owned_source_retirement_edit_sha256": "c9cf9f7f30a30cba41422dc17daa8fcee57e33b4cbc320bf49db262196a9e86e"
+        },
+        "hardware/printed-parts/enclosure/display-cover/face-up-trial/face_up_trial.py": {
+          "source_revision": "0785c32f89a6e08609e5348aa2beb0096d560326",
+          "sha256": "406303e006b630c12d0486922cdc43cdd9b76ce3bdbe1315ea8c76dcc1ed190a"
+        },
+        "hardware/printed-parts/enclosure/display-cover/face-up-trial/geometry-check.json": {
+          "source_revision": "0785c32f89a6e08609e5348aa2beb0096d560326",
+          "sha256": "aaa46c26ea015610d8f5a2d708becb3561361d3f9aaeca7221cf7b03feba56f7"
+        },
+        "hardware/printed-parts/enclosure/display-cover/face-up-trial/insertion-envelope.json": {
+          "source_revision": "0785c32f89a6e08609e5348aa2beb0096d560326",
+          "sha256": "4de2cb39a908d38ee9d8ef57a8368b76651a3fe37e96dd009202e890c8b430d2"
+        },
+        "hardware/printed-parts/enclosure/display-cover/face-up-trial/physical-acceptance.json": {
+          "source_revision": "0785c32f89a6e08609e5348aa2beb0096d560326",
+          "sha256": "c04264de8898dd4900dee6629cb4f166aa3929ea1edf46d1aa9149bfc0f3526a"
+        }
+      },
+      "removed_untracked_outputs": [
+        {
+          "path": "hardware/printed-parts/enclosure/display-cover/face-up-trial/__pycache__/face_up_trial.cpython-313.pyc",
+          "sha256": "2d2276404c1f09932f28acde04fe1b7a148623578be0806a0026fa07a4ff9267",
+          "bytes": 19407,
+          "classification": "closed bytecode cache",
+          "git_archived": false
+        },
+        {
+          "path": "hardware/printed-parts/enclosure/display-cover/face-up-trial/__pycache__/prepare_print.cpython-313.pyc",
+          "sha256": "8e2790df7cad1c730e0d8749292c5b0b6432b771e03a93857a28f336a7512b6b",
+          "bytes": 6794,
+          "classification": "closed bytecode cache",
+          "git_archived": false
+        },
+        {
+          "path": "hardware/printed-parts/enclosure/display-cover/face-up-trial/__pycache__/prepare_receiver.cpython-313.pyc",
+          "sha256": "7f7b9e51eeb11d6900d97a8739fac4fda3cf260ac78f32caf6ea2f1c9420ea41",
+          "bytes": 5587,
+          "classification": "closed bytecode cache",
+          "git_archived": false
+        },
+        {
+          "path": "hardware/printed-parts/enclosure/display-cover/face-up-trial/display-cover-flat-wings.step",
+          "sha256": "2ef12c8034de1b401fa10fe9f3157b797da236a9d55be915435f129082226d52",
+          "bytes": 111097,
+          "classification": "retired local generated CAD output",
+          "git_archived": false,
+          "historical_publication_pointer": {
+            "git_revision": "0785c32f89a6e08609e5348aa2beb0096d560326",
+            "sha256": "2ef12c8034de1b401fa10fe9f3157b797da236a9d55be915435f129082226d52",
+            "matches_local_bytes": true
+          }
+        },
+        {
+          "path": "hardware/printed-parts/enclosure/display-cover/face-up-trial/display-cover-flat-wings.step.mesh",
+          "sha256": "77c5d076a4abb649555664d09bd69239c9588fc78ef30e1fd1991e74f3e8bc53",
+          "bytes": 111732,
+          "classification": "retired local generated CAD output",
+          "git_archived": false,
+          "historical_publication_pointer": {
+            "git_revision": "0785c32f89a6e08609e5348aa2beb0096d560326",
+            "sha256": "77c5d076a4abb649555664d09bd69239c9588fc78ef30e1fd1991e74f3e8bc53",
+            "matches_local_bytes": true
+          }
+        },
+        {
+          "path": "hardware/printed-parts/enclosure/display-cover/face-up-trial/display-cover-flat-wings.stl",
+          "sha256": "bd0545aa076fed3d7adc895df205b098f11a08b6fc37c883893115aec83dd5f2",
+          "bytes": 154484,
+          "classification": "retired local generated CAD output",
+          "git_archived": false,
+          "historical_publication_pointer": {
+            "git_revision": "0785c32f89a6e08609e5348aa2beb0096d560326",
+            "sha256": "bd0545aa076fed3d7adc895df205b098f11a08b6fc37c883893115aec83dd5f2",
+            "matches_local_bytes": true
+          }
+        },
+        {
+          "path": "hardware/printed-parts/enclosure/display-cover/face-up-trial/display-receiver-flat-wings.step",
+          "sha256": "7141a82043aebf5dd361d7709ec6c33b1f8dfc00acdc0347a811c8db25c69bf5",
+          "bytes": 208038,
+          "classification": "retired local generated CAD output",
+          "git_archived": false,
+          "historical_publication_pointer": {
+            "git_revision": "0785c32f89a6e08609e5348aa2beb0096d560326",
+            "sha256": "7141a82043aebf5dd361d7709ec6c33b1f8dfc00acdc0347a811c8db25c69bf5",
+            "matches_local_bytes": true
+          }
+        },
+        {
+          "path": "hardware/printed-parts/enclosure/display-cover/face-up-trial/display-receiver-flat-wings.step.mesh",
+          "sha256": "65643c732ef66e409e36dfab70bbcbd7222bced4481070c06dec782f687730e6",
+          "bytes": 80088,
+          "classification": "retired local generated CAD output",
+          "git_archived": false,
+          "historical_publication_pointer": {
+            "git_revision": "0785c32f89a6e08609e5348aa2beb0096d560326",
+            "sha256": "65643c732ef66e409e36dfab70bbcbd7222bced4481070c06dec782f687730e6",
+            "matches_local_bytes": true
+          }
+        },
+        {
+          "path": "hardware/printed-parts/enclosure/display-cover/face-up-trial/display-receiver-flat-wings.stl",
+          "sha256": "6bb5588a932e1e92bb488d8acd36ca900377277e35ad2af78131e67f80edbbdd",
+          "bytes": 110084,
+          "classification": "retired local generated CAD output",
+          "git_archived": false,
+          "historical_publication_pointer": {
+            "git_revision": "0785c32f89a6e08609e5348aa2beb0096d560326",
+            "sha256": "6bb5588a932e1e92bb488d8acd36ca900377277e35ad2af78131e67f80edbbdd",
+            "matches_local_bytes": true
+          }
+        }
+      ],
+      "absent_closed_scratch": [
+        ".cache/runs/rail-cavity-20-2026-11-09",
+        "tools/hsm/sandbox/examples/rail-cavity-20.rs"
+      ],
+      "global_publication_pointer_cleanup": {
+        "owner": "root",
+        "file": "hardware/cad-artifacts.json",
+        "run_publisher": false,
+        "entries": {
+          "solids": {
+            "hardware/printed-parts/enclosure/display-cover/face-up-trial/display-cover-flat-wings.step": "2ef12c8034de1b401fa10fe9f3157b797da236a9d55be915435f129082226d52",
+            "hardware/printed-parts/enclosure/display-cover/face-up-trial/display-cover-flat-wings.step.mesh": "77c5d076a4abb649555664d09bd69239c9588fc78ef30e1fd1991e74f3e8bc53",
+            "hardware/printed-parts/enclosure/display-cover/face-up-trial/display-cover-flat-wings.stl": "bd0545aa076fed3d7adc895df205b098f11a08b6fc37c883893115aec83dd5f2",
+            "hardware/printed-parts/enclosure/display-cover/face-up-trial/display-receiver-flat-wings.step": "7141a82043aebf5dd361d7709ec6c33b1f8dfc00acdc0347a811c8db25c69bf5",
+            "hardware/printed-parts/enclosure/display-cover/face-up-trial/display-receiver-flat-wings.step.mesh": "65643c732ef66e409e36dfab70bbcbd7222bced4481070c06dec782f687730e6",
+            "hardware/printed-parts/enclosure/display-cover/face-up-trial/display-receiver-flat-wings.stl": "6bb5588a932e1e92bb488d8acd36ca900377277e35ad2af78131e67f80edbbdd"
+          },
+          "moved": {
+            "hardware/printed-parts/enclosure/display-cover/face-up-trial/display-cover-flat-wings.step": 1791257167,
+            "hardware/printed-parts/enclosure/display-cover/face-up-trial/display-cover-flat-wings.step.mesh": 1791257167,
+            "hardware/printed-parts/enclosure/display-cover/face-up-trial/display-cover-flat-wings.stl": 1790720655,
+            "hardware/printed-parts/enclosure/display-cover/face-up-trial/display-receiver-flat-wings.step": 1791257167,
+            "hardware/printed-parts/enclosure/display-cover/face-up-trial/display-receiver-flat-wings.step.mesh": 1791257167,
+            "hardware/printed-parts/enclosure/display-cover/face-up-trial/display-receiver-flat-wings.stl": 1790801436
+          }
+        }
+      },
+      "material_catalog_scan": {
+        "files": [
+          "hardware/ledger/materials.json",
+          "tools/hsm/shared-data/catalog/materials.json",
+          "hardware/printed-parts/enclosure/enclosure/numbers/catalog.rs"
+        ],
+        "matches": 0,
+        "edited": false
+      },
+      "native_build_graph_scan": {
+        "files": [
+          "tools/bazel/graph.json",
+          "tools/hsm/build-plan/inventory.json"
+        ],
+        "matches": 0,
+        "edited": false
+      }
+    },
+    "additional_retired_publication": {
+      "reason": "Only closed print records reference these outputs; current native labels and build graph use other exports.",
+      "removed": {
+        "solids": {
+          "hardware/printed-parts/enclosure/bulkhead-ring/face-up-trial/bulkhead-ring-flavor-a-raised.step": "efaa44a307a13f6ef79d57b8deb606b94a257f68051f50802a38ba09240e3b28",
+          "hardware/printed-parts/enclosure/bulkhead-ring/face-up-trial/bulkhead-ring-flavor-b-raised.step": "a7782a38db70145c2f13fe2b6039e4c1403edfa0c39aae4915d365447691ffd1",
+          "hardware/printed-parts/enclosure/bulkhead-ring/face-up-trial/bulkhead-ring-water-raised.step": "6d1d2bb0cfa38e480f79d567f4edac834ea376955ac8b8f493851722c7fd9fee"
+        },
+        "moved": {
+          "hardware/printed-parts/enclosure/bulkhead-ring/face-up-trial/bulkhead-ring-flavor-a-raised.step": 1790720655,
+          "hardware/printed-parts/enclosure/bulkhead-ring/face-up-trial/bulkhead-ring-flavor-b-raised.step": 1790720655,
+          "hardware/printed-parts/enclosure/bulkhead-ring/face-up-trial/bulkhead-ring-water-raised.step": 1790720655
+        }
+      },
+      "local_generated_removed": [
+        "hardware/printed-parts/enclosure/bulkhead-ring/face-up-trial/bulkhead-ring-flavor-a-raised.step",
+        "hardware/printed-parts/enclosure/bulkhead-ring/face-up-trial/bulkhead-ring-flavor-a-raised.step.mesh",
+        "hardware/printed-parts/enclosure/bulkhead-ring/face-up-trial/bulkhead-ring-flavor-b-raised.step",
+        "hardware/printed-parts/enclosure/bulkhead-ring/face-up-trial/bulkhead-ring-flavor-b-raised.step.mesh",
+        "hardware/printed-parts/enclosure/bulkhead-ring/face-up-trial/bulkhead-ring-water-raised.step",
+        "hardware/printed-parts/enclosure/bulkhead-ring/face-up-trial/bulkhead-ring-water-raised.step.mesh"
+      ]
+    },
+    "retired_publication_members": [
+      "hardware/printed-parts/enclosure/display-cover/face-up-trial/display-cover-flat-wings.step",
+      "hardware/printed-parts/enclosure/display-cover/face-up-trial/display-cover-flat-wings.step.mesh",
+      "hardware/printed-parts/enclosure/display-cover/face-up-trial/display-cover-flat-wings.stl",
+      "hardware/printed-parts/enclosure/display-cover/face-up-trial/display-receiver-flat-wings.step",
+      "hardware/printed-parts/enclosure/display-cover/face-up-trial/display-receiver-flat-wings.step.mesh",
+      "hardware/printed-parts/enclosure/display-cover/face-up-trial/display-receiver-flat-wings.stl",
+      "hardware/printed-parts/enclosure/bulkhead-ring/face-up-trial/bulkhead-ring-flavor-a-raised.step",
+      "hardware/printed-parts/enclosure/bulkhead-ring/face-up-trial/bulkhead-ring-flavor-b-raised.step",
+      "hardware/printed-parts/enclosure/bulkhead-ring/face-up-trial/bulkhead-ring-water-raised.step"
+    ]
+  },
+  "native_reference_validation": {
+    "preserved_native_exports_data_and_evidence": 129,
+    "preserved_assets_byte_identical": true,
+    "frozen_member_bindings_match": true,
+    "native_accessor_after_python_removal": [
+      {
+        "module": "g_ganen_pump",
+        "method": "parameters",
+        "exit": 0,
+        "same_result_sha256": true
+      },
+      {
+        "module": "g_ganen_foot",
+        "method": "parameters",
+        "exit": 0,
+        "same_result_sha256": true
+      },
+      {
+        "module": "g_ganen_installation",
+        "method": "mount_stations",
+        "exit": 0,
+        "same_result_sha256": true
+      },
+      {
+        "module": "waveshare_43b_display",
+        "method": "state",
+        "exit": 0,
+        "same_response_sha256": true
+      }
+    ],
+    "scoped_diff_check": true,
+    "remaining_python_under_owned_roots": [],
+    "modified_doc_local_link_leads": [],
+    "cargo_build_render_or_republication": false
+  },
+  "retained_print_validation": {
+    "source_only": true,
+    "tracked_archived_tree_members": 16,
+    "retired_local_untracked_outputs": 9,
+    "other_retained_artifacts_unchanged": 121,
+    "authorized_tracked_artifacts_archived": 12,
+    "foreign_dirty_back_top_inputs_unchanged": true,
+    "foreign_materials_ledger_written": false,
+    "links_checked": 160,
+    "owned_diff_whitespace": "pass",
+    "heavy_runs": 0,
+    "printer_ui_actions": 0,
+    "publisher_runs": 0
+  },
+  "normal_graph": {
+    "producers": 61,
+    "python_inputs": [],
+    "retired_adapter_library_inputs": [],
+    "graph_sha256": "b6c661b4ca64f9e60b37a684ac16506597ed4ba9f016531e670e528641c7e276",
+    "build_sha256": "a43e9424c8fdf82e4fcb62b7ffe4a957f27bb0af3bff295a7c2fe101b25ccc14"
+  },
+  "runtime": {
+    "source_id": "1af2dc8eebfdbdf42040744da84b7fee7fc0d8857bc6260467c09ce8b6439e81",
+    "receipt": {
+      "artifact_id": "c2a163de9e5750330995bea5c8f01214e4f1a5d67487f056aa455afa22d11020",
+      "root": "/Users/derekbredensteiner/Developer/homesodamachine",
+      "runner": "/Users/derekbredensteiner/.local/lib/hsm/runtime/c2a163de9e5750330995bea5c8f01214e4f1a5d67487f056aa455afa22d11020/hsm-run",
+      "runner_sha256": "e2f8874821c3631bad092ed5fdbafe8df0607693b38b45ef2c208d8b1db502c2",
+      "schema": 2,
+      "source_id": "1af2dc8eebfdbdf42040744da84b7fee7fc0d8857bc6260467c09ce8b6439e81",
+      "source_sha256": {
+        "tools/hsm/run-slots.defaults.json": "bb2df07e3ee0248b58930844369118448d30a8e7c8d8e9472bceb929dae4e4fa",
+        "tools/hsm/run-slots/Cargo.toml": "36667a0e6cb4b4fca7e524f1f11de0a6e5d6328ab5afccb2db927580dd115b60",
+        "tools/hsm/run-slots/src/ipc.rs": "c00a7bdf644e0f42ae6bad07b462a81ca8902874018dbfaf5f74e4a597261753",
+        "tools/hsm/run-slots/src/lib.rs": "9727fe47627f37c81669c937a80df4b2711f3a2d2fe9650ad7970f0a1ef24600",
+        "tools/hsm/run-slots/src/main.rs": "453dafc0616b66e244f9aa6fe4cca9363825d27666cdcabccd9a476499b4656a",
+        "tools/hsm/run-slots/src/runtime.rs": "3986d8c6a1370989d3639e28e7b703fddb0f30b082ae1902f5d3ee241fca8572",
+        "tools/hsm/run-slots/src/runtime/cad.rs": "97d9819ead537dfc2dba3a0d9bfac65b80468881b519c857efc49b068cffcb79",
+        "tools/hsm/run-slots/src/runtime/install.rs": "58fa6038ec3cb0102a2d0c281c2e8bd9dab31126b39e4531af2967d68121d387",
+        "tools/hsm/run-slots/src/runtime/runner.rs": "8117b36aa3ec73437f446b51f349fffc8673daa871613b1fa9c71440f7f29333",
+        "tools/hsm/run-slots/src/runtime/slots.rs": "e22234753c5c1e58a039d02f8aca98a552da01a8d959725fc1c1e2113a1c5b98"
+      }
+    },
+    "self_bootstrap": "passed; native runner rebuilt and installed without the adapter library",
+    "self_build_seconds": 5.47,
+    "final_unit_tests": 7,
+    "smoke": {
+      "purpose": "Verify the library-free native runner, nested CAD lease and remaining independent oracle environment.",
+      "inherited_run_checked": true,
+      "nested_cad_exit": 23,
+      "expected_exit": 23,
+      "oracle_interpreter": {
+        "python_sources_parsed": 10,
+        "cadquery": "2.7.0",
+        "ezdxf": "1.4.3",
+        "independent_cadquery": true
+      },
+      "seconds": 3.110808333
+    },
+    "caller_audit": {
+      "retired": {
+        "hsm-run-native cdylib": "Only _run_native.py loads hsm_run_request/hsm_run_free; the transport adapters are retired by the coordinating agent. No Rust dependency consumes this crate.",
+        "runtime Host/host/ffi_request/ffi_free/dispatch/socket": "Only the retired cdylib and --request transport expose these callbacks. Native IPC in src/ipc.rs remains.",
+        "directory_override/refresh_environment/answer": "Only the retired runtime request dispatcher uses the adapter override/state replies.",
+        "slots::request": "The native runner used only set_count; it now calls typed set_count directly. Other operation names and their adapter command fixture have no remaining callers.",
+        "cad::request": "The native runner used only cad_record; it now calls typed record directly. Other request operations and their exclusive live/unlocked callback helpers are removed.",
+        "--bootstrap": "Only _run_native.py invoked it through hsm Query::Run to build an adapter library. Native --rebuild-runtime remains.",
+        "installer adapter hashes/library": "No native installer/runtime-info consumer requires a dynamic library or adapter source hashes."
+      },
+      "retained": {
+        "src/lib.rs": "Native programs, engine and planner consume verified inherited leases, process admission and descriptor validation.",
+        "src/ipc.rs": "Engine/broker SCM_RIGHTS framing and process spawn retain actual native consumers.",
+        "runtime::slots": "Runner and native refresh consume admission, count, CAD/compiler aux leases, child environment and broker lifetimes; planner consumes broker_config.",
+        "runtime::cad": "Runner consumes native CAD acquire/release, legacy-holder wait and matching-command follow/record. Old installed executables and existing jobs are left untouched.",
+        "runtime::install": "Runner refresh and native hsm/tool installation consume source matching, atomic receipts and immutable artifacts.",
+        "tools/run": "The existing POSIX launcher remains unchanged."
+      }
+    }
+  },
+  "focused_tests": {
+    "native_initial": {
+      "runner": 7,
+      "build_data": 12,
+      "build_plan": 28,
+      "engine_unit": 4,
+      "engine_cli": 9,
+      "failures": 0,
+      "compile_seconds": 51.02
+    },
+    "runtime_after_final_unused_field_cleanup": {
+      "passed": 7,
+      "failures": 0
+    },
+    "web": {
+      "existing_js_tests": {
+        "command": "node --test web/tests/body-path.test.js web/tests/mesh-payload-version.test.js web/tests/pick-format.test.js",
+        "passed": 52,
+        "failed": 0,
+        "skipped": 0,
+        "duration_ms": 110.113291
+      },
+      "syntax_checked": [
+        "web/lib/viewer-routes.js",
+        "web/lib/made-from.js",
+        "web/contracts/body-path.js",
+        "web/public/js/viewer/step.js",
+        "web/public/js/viewer/pick-format.js"
+      ],
+      "comments_only_followup": [
+        "web/tests/scorecard-sidecar.test.js",
+        "web/tests/artifacts-live.test.js",
+        "web/public/js/viewer/glb.js"
+      ],
+      "comments_followup_tests": "Not rerun per parent instruction; comments and error advice only.",
+      "whitespace": "Final git diff --check passed for all assigned paths.",
+      "retired_reference_audit": "No retired Python, _cadq_export, _mesh_payload, flute_payload, _materials or _routing references remain in the assigned paths."
+    },
+    "related_results": {
+      "graph_sha256": "e0453e1c420eac0ed5dc86d99a22d96cbb3e48ece113e6c2867bb7efd755d320",
+      "python_producer_keys": [],
+      "retired_shared_folder_reads": [],
+      "models_compared": 110,
+      "mapped_models": 100,
+      "changed": [],
+      "documented_source_targets": [
+        "//:bom",
+        "//:enclosure",
+        "//:enclosure-back-top",
+        "//:fluid-topology",
+        "//:install-guide",
+        "//:installed-machine",
+        "//:kit-art"
+      ]
+    },
+    "additional_automatic_gates": []
+  },
+  "normal_build": {
+    "command": "tools/run -- hsm-print-build -- //:everything",
+    "purpose": "This record identifies each completed producer carried during the print build.",
+    "success": true,
+    "wall_seconds": 310.36970175,
+    "preview": [],
+    "checkpoint_errors": [],
+    "carried": [
+      {
+        "seconds": 223.995232541,
+        "wall_time_ns": 1794296123290584000,
+        "files": [],
+        "publication": [
+          "hardware/printed-parts/enclosure/nameplate/nameplate-fasteners.step.mesh"
+        ]
+      },
+      {
+        "seconds": 231.235071875,
+        "wall_time_ns": 1794296130529971000,
+        "files": [
+          "hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer-seated.step.mesh"
+        ],
+        "publication": [
+          "hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer-seated.step.mesh"
+        ]
+      },
+      {
+        "seconds": 261.166811833,
+        "wall_time_ns": 1794296160461290000,
+        "files": [
+          "hardware/printed-parts/enclosure/enclosure/enclosure.step.mesh",
+          "hardware/printed-parts/enclosure/enclosure/enclosure.step.npz"
+        ],
+        "publication": [
+          "hardware/printed-parts/enclosure/enclosure/enclosure.step.mesh"
+        ]
+      },
+      {
+        "seconds": 281.096044583,
+        "wall_time_ns": 1794296180390662000,
+        "files": [
+          "hardware/manifold-layout/enclosure-assembly.step.mesh"
+        ],
+        "publication": [
+          "hardware/manifold-layout/enclosure-assembly.step.mesh"
+        ],
+        "stage": "mechanics"
+      },
+      {
+        "seconds": 292.838512791,
+        "wall_time_ns": 1794296192133248000,
+        "files": [
+          "hardware/manifold-layout/enclosure-assembly.step.mesh"
+        ],
+        "publication": [
+          "hardware/manifold-layout/enclosure-assembly.step.mesh"
+        ],
+        "stage": "installed"
+      },
+      {
+        "seconds": 294.892758,
+        "wall_time_ns": 1794296194187515000,
+        "files": [
+          "hardware/assembly/scenes/glb/back-half.glb.mesh",
+          "hardware/assembly/scenes/glb/back-top.glb.mesh",
+          "hardware/assembly/scenes/glb/cap-lid-fill.glb.mesh",
+          "hardware/assembly/scenes/glb/cap-lid.glb.mesh",
+          "hardware/assembly/scenes/glb/cold-core-open.glb.mesh",
+          "hardware/assembly/scenes/glb/cold-core.glb.mesh",
+          "hardware/assembly/scenes/glb/en04-compressor-bay.glb.mesh",
+          "hardware/assembly/scenes/glb/en07-electronics-bay.glb.mesh",
+          "hardware/assembly/scenes/glb/front-top.glb.mesh",
+          "hardware/assembly/scenes/glb/funnel-drain.glb.mesh",
+          "hardware/assembly/scenes/glb/pump-mount.glb.mesh"
+        ],
+        "publication": [
+          "hardware/assembly/scenes/glb/back-half.glb.mesh",
+          "hardware/assembly/scenes/glb/back-top.glb.mesh",
+          "hardware/assembly/scenes/glb/cap-lid-fill.glb.mesh",
+          "hardware/assembly/scenes/glb/cap-lid.glb.mesh",
+          "hardware/assembly/scenes/glb/cold-core-open.glb.mesh",
+          "hardware/assembly/scenes/glb/cold-core.glb.mesh",
+          "hardware/assembly/scenes/glb/en04-compressor-bay.glb.mesh",
+          "hardware/assembly/scenes/glb/en07-electronics-bay.glb.mesh",
+          "hardware/assembly/scenes/glb/front-top.glb.mesh",
+          "hardware/assembly/scenes/glb/funnel-drain.glb.mesh",
+          "hardware/assembly/scenes/glb/pump-mount.glb.mesh"
+        ]
+      }
+    ],
+    "suppressed_checkpoints": [],
+    "publication_queue": {
+      "requests": 6,
+      "started": 6,
+      "coalesced": 1,
+      "exit_codes": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    "bazel_seconds": 297.631,
+    "bazel_actions": 121,
+    "action_cache_hits": 2,
+    "scope": "Integration rebuild after shared native runtime changes, using existing caches on the shared Mac; not a matched speed benchmark or request-to-view measurement."
+  },
+  "production_exports": {
+    "purpose": "Compare current production print and assembly exports after native runtime cleanup.",
+    "artifacts": 94,
+    "print_stls": 91,
+    "identical_print_stls": 91,
+    "missing": [],
+    "changed": [
+      {
+        "path": "hardware/manifold-layout/enclosure-assembly.step.mesh",
+        "before": "acbc71bc4002163ba085b35778789b01a36c86f917fd817be6912deafab2ed1c",
+        "after": "0782498d1b1e426ddc2c2b151f2163df01c83b3f7f7db8d6edf8acd3c4641937"
+      },
+      {
+        "path": "hardware/printed-parts/enclosure/enclosure/enclosure.step.mesh",
+        "before": "de69a561f5e6ca4af88245944389a41b1e05e3d5f3a83a826fabd3b552224343",
+        "after": "bc0e41587d2cc46616e3ada38a6403fef64c301338e37bc49d6e7c8696db0700"
+      }
+    ]
+  },
+  "assembly_manifests": [
+    {
+      "path": "hardware/manifold-layout/enclosure-assembly.step.mesh",
+      "before_sha256": "acbc71bc4002163ba085b35778789b01a36c86f917fd817be6912deafab2ed1c",
+      "old_source": "537303dba55310c4d9cb3f778acc6daa5a8d4d5902224f59abcbdeccef66bc2b",
+      "new_source": "5bba5fffcbae1e688aceec2d446029a8aa279444ee4c0b44d50c4c1a1d21d930",
+      "old_parts": 466,
+      "new_parts": 466,
+      "changed": [
+        {
+          "name": "enclosure-pump-retainer-a",
+          "before": "a93b9574f1b859f9cc5a2e1ed32b9de8d59083d785db203ed2691dd66c4ee341",
+          "after": "cbc1a7a1cbf1a2861b94ef95d7a2443c8664296a96d132e85727ea0ed731fd8c",
+          "non_digest_fields_equal": true
+        },
+        {
+          "name": "enclosure-pump-retainer-b",
+          "before": "b728e8d5fb399d2854c79f9255d8b559328e9c815affd0aab01a994ce4552005",
+          "after": "49a76ea4f5a4aeadfad7cf246b63ad896367656fafc278f5938b7d82546adc7a",
+          "non_digest_fields_equal": true
+        },
+        {
+          "name": "tee-y-g",
+          "before": "6ac03f01937b7a3503d144f19ef0a75b40c57708b4f72237a1dc7f9f5cb68449",
+          "after": "dcda2234e1da83a0783f9f6a84f3620a7dc94a588d8b2ac5b4ba7b90be9ca072",
+          "non_digest_fields_equal": true
+        },
+        {
+          "name": "tee-y-f",
+          "before": "fb0af1c5ef5d6f71335b4077df96907c6c77904c4735dd9d79ea891f6c40e399",
+          "after": "c45aefbd069cae03d6fe4f9808e16d31f8db8737a94b79cdbd82189b32323d8b",
+          "non_digest_fields_equal": true
+        },
+        {
+          "name": "tee-y-c",
+          "before": "5cda6a4e1e8a49426e0be62a9e9ec6a131c494ed5a75cc856d849f4db6909679",
+          "after": "6f476614bc8697b9d97a04c48b048a8bdd1cdf2a2f065ec0afc7d1b7992f9a26",
+          "non_digest_fields_equal": true
+        },
+        {
+          "name": "tee-y-d",
+          "before": "f6bf1d80a6310c1fca598755ceb3d624754bcb8d824f5fad13ece5be5bf26959",
+          "after": "a02f358ebbbc3f0ccf62b5df0eb62258aa2c19b155172520cc222152781c9c71",
+          "non_digest_fields_equal": true
+        }
+      ]
+    },
+    {
+      "path": "hardware/printed-parts/enclosure/enclosure/enclosure.step.mesh",
+      "before_sha256": "de69a561f5e6ca4af88245944389a41b1e05e3d5f3a83a826fabd3b552224343",
+      "old_source": "b94b95ca7fa1677daf06254f4246213fd0caac211de86adca13afc78e26027df",
+      "new_source": "b94b95ca7fa1677daf06254f4246213fd0caac211de86adca13afc78e26027df",
+      "old_parts": 26,
+      "new_parts": 26,
+      "changed": [
+        {
+          "name": "enclosure-pump-retainer-a",
+          "before": "a93b9574f1b859f9cc5a2e1ed32b9de8d59083d785db203ed2691dd66c4ee341",
+          "after": "cbc1a7a1cbf1a2861b94ef95d7a2443c8664296a96d132e85727ea0ed731fd8c",
+          "non_digest_fields_equal": true
+        },
+        {
+          "name": "enclosure-pump-retainer-b",
+          "before": "b728e8d5fb399d2854c79f9255d8b559328e9c815affd0aab01a994ce4552005",
+          "after": "49a76ea4f5a4aeadfad7cf246b63ad896367656fafc278f5938b7d82546adc7a",
+          "non_digest_fields_equal": true
+        }
+      ]
+    }
+  ],
+  "shared_object_geometry": {
+    "purpose": "Distinguish source-record changes from visible geometry changes in regenerated shared objects.",
+    "comparisons": [
+      {
+        "name": "enclosure-pump-retainer-a",
+        "before": "a93b9574f1b859f9cc5a2e1ed32b9de8d59083d785db203ed2691dd66c4ee341",
+        "after": "cbc1a7a1cbf1a2861b94ef95d7a2443c8664296a96d132e85727ea0ed731fd8c",
+        "meshes": 1,
+        "geometry_buffers_and_materials_identical": false,
+        "changed_geometry_fields": [
+          "0:nrm"
+        ],
+        "changed_metadata_fields": [],
+        "normals": {
+          "components": 6288,
+          "different_bits_or_signed_zero": 1576,
+          "maximum_absolute_numeric_difference": 0,
+          "all_finite": true
+        },
+        "positions_topology_uv_materials_identical": true,
+        "normals_numerically_identical": true
+      },
+      {
+        "name": "enclosure-pump-retainer-b",
+        "before": "b728e8d5fb399d2854c79f9255d8b559328e9c815affd0aab01a994ce4552005",
+        "after": "49a76ea4f5a4aeadfad7cf246b63ad896367656fafc278f5938b7d82546adc7a",
+        "meshes": 1,
+        "geometry_buffers_and_materials_identical": false,
+        "changed_geometry_fields": [
+          "0:nrm"
+        ],
+        "changed_metadata_fields": [],
+        "normals": {
+          "components": 6288,
+          "different_bits_or_signed_zero": 1576,
+          "maximum_absolute_numeric_difference": 0,
+          "all_finite": true
+        },
+        "positions_topology_uv_materials_identical": true,
+        "normals_numerically_identical": true
+      },
+      {
+        "name": "tee-y-g",
+        "before": "6ac03f01937b7a3503d144f19ef0a75b40c57708b4f72237a1dc7f9f5cb68449",
+        "after": "dcda2234e1da83a0783f9f6a84f3620a7dc94a588d8b2ac5b4ba7b90be9ca072",
+        "meshes": 1,
+        "geometry_buffers_and_materials_identical": true,
+        "changed_geometry_fields": [],
+        "changed_metadata_fields": [
+          "face_sources"
+        ],
+        "normals": {
+          "components": 42246,
+          "different_bits_or_signed_zero": 0,
+          "maximum_absolute_numeric_difference": 0,
+          "all_finite": true
+        },
+        "positions_topology_uv_materials_identical": true,
+        "normals_numerically_identical": true
+      },
+      {
+        "name": "tee-y-f",
+        "before": "fb0af1c5ef5d6f71335b4077df96907c6c77904c4735dd9d79ea891f6c40e399",
+        "after": "c45aefbd069cae03d6fe4f9808e16d31f8db8737a94b79cdbd82189b32323d8b",
+        "meshes": 1,
+        "geometry_buffers_and_materials_identical": true,
+        "changed_geometry_fields": [],
+        "changed_metadata_fields": [
+          "face_sources"
+        ],
+        "normals": {
+          "components": 42246,
+          "different_bits_or_signed_zero": 0,
+          "maximum_absolute_numeric_difference": 0,
+          "all_finite": true
+        },
+        "positions_topology_uv_materials_identical": true,
+        "normals_numerically_identical": true
+      },
+      {
+        "name": "tee-y-c",
+        "before": "5cda6a4e1e8a49426e0be62a9e9ec6a131c494ed5a75cc856d849f4db6909679",
+        "after": "6f476614bc8697b9d97a04c48b048a8bdd1cdf2a2f065ec0afc7d1b7992f9a26",
+        "meshes": 1,
+        "geometry_buffers_and_materials_identical": true,
+        "changed_geometry_fields": [],
+        "changed_metadata_fields": [
+          "face_sources"
+        ],
+        "normals": {
+          "components": 42246,
+          "different_bits_or_signed_zero": 0,
+          "maximum_absolute_numeric_difference": 0,
+          "all_finite": true
+        },
+        "positions_topology_uv_materials_identical": true,
+        "normals_numerically_identical": true
+      },
+      {
+        "name": "tee-y-d",
+        "before": "f6bf1d80a6310c1fca598755ceb3d624754bcb8d824f5fad13ece5be5bf26959",
+        "after": "a02f358ebbbc3f0ccf62b5df0eb62258aa2c19b155172520cc222152781c9c71",
+        "meshes": 1,
+        "geometry_buffers_and_materials_identical": true,
+        "changed_geometry_fields": [],
+        "changed_metadata_fields": [
+          "face_sources"
+        ],
+        "normals": {
+          "components": 42246,
+          "different_bits_or_signed_zero": 0,
+          "maximum_absolute_numeric_difference": 0,
+          "all_finite": true
+        },
+        "positions_topology_uv_materials_identical": true,
+        "normals_numerically_identical": true
+      }
+    ],
+    "all_geometry_identical": true,
+    "all_positions_topology_uv_materials_identical": true,
+    "all_normals_numerically_identical": true,
+    "all_buffers_bitwise_identical": false,
+    "normal_difference_scope": "The retainer normals differ only in the sign bit of zero; all numeric normal components are identical."
+  },
+  "website": {
+    "assembly": {
+      "purpose": "Verify the Python-tail cleanup retains the current assembly on the live website.",
+      "url": "https://homesodamachine.com/3d#step:manifold-layout%2Fenclosure-assembly.step",
+      "opened_at": "2026-11-10T07:37:44.204Z",
+      "observation_seconds": 9.175088375,
+      "local_artifact": {
+        "path": "hardware/manifold-layout/enclosure-assembly.step.mesh",
+        "sha256": "0782498d1b1e426ddc2c2b151f2163df01c83b3f7f7db8d6edf8acd3c4641937",
+        "bytes": 186504,
+        "source": "5bba5fffcbae1e688aceec2d446029a8aa279444ee4c0b44d50c4c1a1d21d930"
+      },
+      "at": "2026-11-10T07:37:53.327Z",
+      "header_matches": true,
+      "mounted_parts": 466,
+      "matched_parts": 466,
+      "failed_parts": [],
+      "meshes": 682,
+      "triangles": 9027648,
+      "draw": {
+        "frames": [
+          {
+            "at": "2026-11-10T07:37:53.314Z",
+            "matched": [
+              "enclosure-front-bottom",
+              "enclosure-front-top",
+              "enclosure-back-bottom",
+              "enclosure-back-top"
+            ],
+            "revision": "5bba5fffcbae1e688aceec2d446029a8aa279444ee4c0b44d50c4c1a1d21d930",
+            "seconds_from_observer": 0.005,
+            "scene_loading": false,
+            "eligibility": "Matching mounted geometry has visible ancestors and materials, intersects the camera frustum and lies within its depth bounds; occlusion is not established."
+          }
+        ],
+        "failed_parts": []
+      },
+      "page_errors": [],
+      "scope": "Observation begins after publication; completed reference-browser drawing is measured, not user request-to-view or the user device paint."
+    },
+    "retired_members": {
+      "at": "2026-11-10T07:39:54.395Z",
+      "declared_members": 9,
+      "viewer_members": 7,
+      "remaining_in_live_object_map": [],
+      "scope": "The live object map includes viewer formats; the committed pointer removes manufacturing members too."
+    }
+  },
+  "remaining_python": {
+    "count": 10,
+    "external_host_bridges": [
+      "firmware/pre_build.py",
+      "tools/render/blender_adapter.py"
+    ],
+    "independent_occt_reference_generators": [
+      "tools/hsm/kernel/tests/dxf_reference.py",
+      "tools/hsm/kernel/tests/mapped_reference.py",
+      "tools/hsm/kernel/tests/occt_reference.py",
+      "tools/hsm/kernel/tests/round_reference.py",
+      "tools/hsm/kernel/tests/screw_reference.py",
+      "tools/hsm/kernel/tests/sketch_hull_reference.py",
+      "tools/hsm/kernel/tests/spline_reference.py",
+      "tools/hsm/kernel/tests/thru_reference.py"
+    ],
+    "scope": "No concurrent-work exception remains. External host bridges invoke native commands; independent OCCT scripts regenerate saved comparison fixtures only on request."
+  },
+  "preserved_concurrent_work": "Unrelated ledger, geometry, physical-print and workspace-member-order changes remain outside these commits.",
+  "temporary_files": "Private comparison inputs and browser images are removed after saving this source-bound record. Installed runtimes and shared geometry caches remain."
+}
