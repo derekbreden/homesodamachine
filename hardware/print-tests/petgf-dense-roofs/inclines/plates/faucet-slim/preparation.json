@@ -1,0 +1,344 @@
+{
+  "purpose": "Prepare the actual failed faucet lower curve with explicit Tree Slim and unchanged D contact settings.",
+  "status": "prepared-unprinted",
+  "source_project": "https://github.com/derekbreden/homesodamachine/blob/de202da37ef6b132a07fe1863b304381f4ccc394/hardware/print-tests/petgf-dense-roofs/D-representative-mark2/2026-11-09-D-faucet-arch-pad-left04-z004-mark2.3mf",
+  "source_project_sha256": "fb79895469e0098f5ca1fca710075df9bd49c7e2cf1db621b181b75bb9debae7",
+  "editable_project": "faucet-slim.3mf",
+  "editable_project_sha256": "9ac56ae546fc4ae997874802616453843297e9772aa9e40e1c9999404c85b136",
+  "mesh_archive_member": "3D/Objects/object_1.model",
+  "mesh_archive_member_sha256": "82cd013a7b7d249a182abb0228acb8e0f493a6adbb338dc77f5d6fb7f3af40e5",
+  "geometry_matches_failed_article": true,
+  "global_settings_match_failed_article": true,
+  "effective_object_settings_change": {
+    "support_style": {
+      "from": "default",
+      "to": "tree_slim"
+    }
+  },
+  "other_objects_removed": [
+    "HD",
+    "PD"
+  ],
+  "faucet_object_id": 1901,
+  "object_overrides": {
+    "sparse_infill_density": "15%",
+    "sparse_infill_pattern": "grid",
+    "support_object_xy_distance": "0.4",
+    "support_on_build_plate_only": "0",
+    "support_style": "tree_slim",
+    "tree_support_branch_angle": "45",
+    "wall_generator": "arachne",
+    "name": "FD Faucet base through first lower curve",
+    "extruder": "1",
+    "support_type": "tree(auto)",
+    "support_interface_top_layers": "3",
+    "support_top_z_distance": "0.24",
+    "support_interface_spacing": "0"
+  },
+  "build_transform": "1 0 0 0 1 0 0 0 1 155 130 16.059999465942383",
+  "physical_release": "Unmeasured; the comparison changes contact generation, not the accepted rail result.",
+  "native_archive": "faucet-slim.gcode.3mf",
+  "native_archive_sha256": "e29434494b905c6565b8c6393ed42e4c9a69e018864e0fd120e5d97aae107bb3",
+  "gcode_sha256": "54ca19e2f22e34965efea947ef3550bee390a59743b02ed5fc20bf1688eba7f1",
+  "slicer_version": "02.08.02.61",
+  "native_result": {
+    "error_string": "Success.",
+    "export_time": 1867,
+    "layer_height": 0.23999999463558197,
+    "plate_index": 0,
+    "prepare_time": 40,
+    "return_code": 0,
+    "sliced_plates": [
+      {
+        "feature_type_times": {
+          "Bridge": 658.7955322265625,
+          "Custom": 304.1358947753906,
+          "Flush": 15.0,
+          "Gap infill": 11.138922691345215,
+          "Inner wall": 253.71311950683594,
+          "Internal solid infill": 230.09812927246094,
+          "Outer wall": 296.7910461425781,
+          "Overhang wall": 387.6739807128906,
+          "Sparse infill": 531.93994140625,
+          "Support": 991.0932006835938,
+          "Support interface": 158.94778442382812,
+          "Support transition": 351.822509765625,
+          "Top surface": 81.05078125,
+          "Travel": 895.3482666015625,
+          "Undefined": 886.98828125
+        },
+        "filament_change_times": 0,
+        "filaments": [
+          {
+            "filament_id": "GFT01",
+            "id": 1,
+            "main_used_g": 27.82392120361328,
+            "total_used_g": 27.823923110961914
+          }
+        ],
+        "generate_support_material_time": 666,
+        "id": 1,
+        "infill_time": 253,
+        "layer_filament_change": 0,
+        "main_predication": 4833.20361328125,
+        "make_perimeters_time": 383,
+        "obj_cached_cnt": 0,
+        "objects": [
+          {
+            "bbox": {
+              "depth": 65.90664672851562,
+              "height": 32.119998931884766,
+              "width": 59.0,
+              "x": 125.5,
+              "y": 97.04667663574219,
+              "z": 0.0
+            },
+            "id": 5,
+            "name": "FD Faucet base through first lower curve",
+            "triangle_count": 10752
+          }
+        ],
+        "sliced_time": 3222,
+        "sliced_time_with_cache": 1688,
+        "total_predication": 6040.3357513446945,
+        "triangle_count": 10752,
+        "warning_message": ""
+      }
+    ],
+    "sparse_infill_density": 15.0,
+    "upward_compatible_machine": [
+      "Bambu Lab H2S 0.4 nozzle",
+      "Bambu Lab H2D 0.4 nozzle",
+      "Bambu Lab H2D Pro 0.4 nozzle",
+      "Bambu Lab A2L 0.4 nozzle"
+    ],
+    "wall_loops": 2
+  },
+  "cooling": {
+    "added_commanded_motion_seconds": 881.3562591571948,
+    "changed": true,
+    "estimate_scope": "Native estimate plus the added constant-feed motion time; acceleration and fan spin-up are not simulated.",
+    "input_archive_sha256": "4d1411c0a448c0fab94fcc7df6252b280e9ac3a6e508828a38012a65ea8303e3",
+    "members": [
+      {
+        "added_commanded_motion_seconds": 881.3562591571948,
+        "changed": true,
+        "input_gcode_sha256": "94a9df58ba525d39331227ce7f0f31ae286f3c1a53942a00297933a763e922d3",
+        "member": "Metadata/plate_1.gcode",
+        "native_cooled_seed_moves": 4702,
+        "ordinary_model_moves": 90975,
+        "output_gcode_sha256": "54ca19e2f22e34965efea947ef3550bee390a59743b02ed5fc20bf1688eba7f1",
+        "petgf_slots": [
+          0
+        ],
+        "policy": {
+          "grid_mm": 0.2,
+          "height_mm": 0.8
+        },
+        "recovery_by_feature": {
+          "Bridge": [
+            1686.0,
+            6145.62761702718,
+            0.0
+          ],
+          "Floating vertical shell": [
+            1693.0,
+            846.8209718633595,
+            51.89154545270519
+          ],
+          "Gap infill": [
+            54.0,
+            13.355859842915356,
+            0.8359539184473411
+          ],
+          "Inner wall": [
+            8638.0,
+            1915.7036175623343,
+            95.89143532987224
+          ],
+          "Internal solid infill": [
+            3526.0,
+            9955.000719639378,
+            611.7855889409972
+          ],
+          "Outer wall": [
+            6554.0,
+            1299.3676721884758,
+            56.75462501032113
+          ],
+          "Overhang wall": [
+            3.0,
+            1.231785560350072,
+            0.0
+          ],
+          "Sparse infill": [
+            1090.0,
+            962.5293624890041,
+            59.0544422015987
+          ],
+          "Top surface": [
+            35.0,
+            83.8204385459479,
+            5.1426683032548794
+          ]
+        },
+        "recovery_fan_percent": [
+          "70"
+        ],
+        "recovery_moves": 23279,
+        "recovery_speed_limit_mm_s": [
+          "15"
+        ],
+        "scope": "The complete centerline lies in a recent native-cooled model footprint. Motion coordinates and extrusion words are retained; only local part cooling and recovery feed rates change.",
+        "speed_limited_moves": 18098
+      }
+    ]
+  },
+  "estimate_seconds_including_cooling_motion": 6040.3357513446945,
+  "filament_grams": 27.823923110961914,
+  "support_path_segments": {
+    "Support": 105219,
+    "Support interface": 4526,
+    "Support transition": 2277
+  },
+  "interface_planes_mm": [
+    0.44,
+    0.68,
+    0.92,
+    1.16,
+    1.4,
+    1.64,
+    1.88,
+    2.12,
+    2.36,
+    2.6,
+    2.84,
+    3.08,
+    3.32,
+    3.56,
+    3.8,
+    4.04,
+    4.28,
+    4.52,
+    4.76,
+    5.0,
+    5.24,
+    5.48,
+    5.72,
+    5.96,
+    6.2,
+    6.44,
+    6.68,
+    6.92,
+    7.16,
+    7.4,
+    7.64,
+    7.88,
+    8.12,
+    8.36,
+    8.6,
+    8.84,
+    9.08,
+    9.32,
+    9.56,
+    9.8,
+    10.04,
+    10.28,
+    10.52,
+    10.76,
+    11.0,
+    11.24,
+    11.48,
+    11.72,
+    11.96,
+    12.2,
+    12.44,
+    12.68,
+    12.92,
+    13.16,
+    13.4,
+    13.64,
+    13.88,
+    14.12,
+    14.36,
+    14.6,
+    14.84,
+    15.08,
+    15.32,
+    15.56,
+    15.8,
+    16.04,
+    16.28,
+    16.52,
+    16.76,
+    17.0,
+    18.2,
+    18.44,
+    18.68,
+    18.92,
+    19.16,
+    19.4,
+    19.64,
+    19.88,
+    20.12,
+    20.36,
+    20.6,
+    20.84,
+    21.08,
+    21.32,
+    21.56,
+    21.8
+  ],
+  "interface_segments_at_or_above_z_mm": {
+    "threshold": 16.5,
+    "count": 1049
+  },
+  "support_path_height_range_mm": {
+    "Support": [
+      0.2,
+      23.48
+    ],
+    "Support interface": [
+      0.44,
+      21.8
+    ],
+    "Support transition": [
+      0.44,
+      21.08
+    ]
+  },
+  "layer_bead_bounds_xy_mm": [
+    [
+      121.523,
+      96.883
+    ],
+    [
+      188.17,
+      162.913997
+    ]
+  ],
+  "minimum_usable_left_bed_margin_mm": 96.883,
+  "emitted_plate_compensation_mm": [
+    0.0,
+    0.02
+  ],
+  "preview_payload_sha256": "5eb1ebf6cc5c62f17e11e7fe15d887b6a6d151bf9a63dc524e06b108c8a72524",
+  "preview_scope": "Authored model triangles and rectangular envelopes at the commanded support bead width, height and Z; no adhesion or molten material simulation.",
+  "unchanged_contact_and_bridge_settings": {
+    "support_top_z_distance": "0.24",
+    "support_interface_top_layers": "3",
+    "support_interface_spacing": "0",
+    "support_object_xy_distance": "0.4",
+    "bridge_flow": "1.25",
+    "bridge_speed": [
+      "15",
+      "15",
+      "15",
+      "15",
+      "15"
+    ],
+    "filament_bridge_speed": [
+      "15"
+    ]
+  }
+}
