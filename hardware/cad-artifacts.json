@@ -17,18 +17,18 @@
     "solids": 1045
   },
   "solids": {
-    "hardware/assembly/scenes/glb/back-half.glb.mesh": "09241ec7501cafc67626b0ac3fd2f47fa2a9f3fbf40e07a667992415de09d27a",
-    "hardware/assembly/scenes/glb/back-top.glb.mesh": "7d32fc139f835f24240e2955a5de93b0cb49392a10eaa47e6d30912390dfafe0",
+    "hardware/assembly/scenes/glb/back-half.glb.mesh": "1476180c753ed912ca1c8a083ff5141a2dd04720e5cb83c001f1a0b0df8b5b43",
+    "hardware/assembly/scenes/glb/back-top.glb.mesh": "3c691da4c7bdd142fa4830f7c8649e96637e116d36e11c93f1105934bdbcc837",
     "hardware/assembly/scenes/glb/cap-lid-fill.glb.mesh": "34f82e43ac5d97daeddd0ca697bf0811d6581b8c93921ad2158eb99017e8226b",
-    "hardware/assembly/scenes/glb/cap-lid.glb.mesh": "3712ab72df60a2f73b4bbd9444d503ac7a7f29b0dd4ca4408712e86b0b94674c",
+    "hardware/assembly/scenes/glb/cap-lid.glb.mesh": "08d623f2696f52c30927990a577a5833f81c818f30c4a1afcf80af70e28f52e6",
     "hardware/assembly/scenes/glb/cold-core-open.glb.mesh": "61c76cd2410a23de0e49fa700421cdd998f3dda7dd504ac501058bf8772d18f6",
-    "hardware/assembly/scenes/glb/cold-core.glb.mesh": "00223d06342cecacf97a826c26f23c7314a608cd29cdd54169d028ba021dc5f2",
+    "hardware/assembly/scenes/glb/cold-core.glb.mesh": "0a84e25af6dd537920999693cb685a15d80a37967086e6d8870b945031c1ac2e",
     "hardware/assembly/scenes/glb/en04-compressor-bay.glb.mesh": "6ba39517e6964910f046a8d395405a7c731e81e40d30c511714ecb21c8aa3e7a",
     "hardware/assembly/scenes/glb/en07-electronics-bay.glb.mesh": "a1986834e53c7d521854b298752102295dff3a1559483b9c4febe0e7de5b371e",
-    "hardware/assembly/scenes/glb/front-top.glb.mesh": "64ad9a337ca51e36edbd859a4e3f9b62cf17204861e027e41b5f9cfb0e4f19f3",
+    "hardware/assembly/scenes/glb/front-top.glb.mesh": "d35650eeae30d411e029cab10045086d06546c9a103954a6c1fc3bd5945d6325",
     "hardware/assembly/scenes/glb/funnel-drain.glb.mesh": "bbc5df5391df337094646a3a99da8e78cacf8c5f546719649c4f38c0acc05957",
     "hardware/assembly/scenes/glb/pump-cartridge.glb": "8329920973ebf1302d8a0d0e3053f8fbd41766bd3e5fe57909db932a2c1ecb2e",
-    "hardware/assembly/scenes/glb/pump-mount.glb.mesh": "98f416d530a93b7017fccce51bb45b61c3324829e565e0fefff01107aadfc5a8",
+    "hardware/assembly/scenes/glb/pump-mount.glb.mesh": "839e625eaa37e56d33ccb71576b5306a05870677aafab8c973bfd7e1e2fcda89",
     "hardware/cold-core-layout/cold-core-assembly.step": "9fad0626b64049df1830bdbd3e5fa994b3a939061cc3f833acfc47f84b16ccae",
     "hardware/cold-core-layout/cold-core-assembly.step.mesh": "d3b7ebe725b824f266a4ba259c632af00aa3345657db0d065d7a8664da5d000f",
     "hardware/cut-parts/carbonation/carbonator-tube/carbonator-tube.step": "360d0b80c538b44809405087d75429f55f368fe283f2ea515392232985f271f5",
@@ -57,7 +57,7 @@
     "hardware/install-guide/plumbing/modern/art/modern-water-on.png": "28ae8937a70f7a55571a37a303b38477bef45d5c4c9d2aef2c22fe58da4c34f8",
     "hardware/manifold-layout/enclosure-assembly.facts.json": "7fe5548b9972ab514f70becfbc21d981cd438531293d2c03d9f8014b6c473152",
     "hardware/manifold-layout/enclosure-assembly.physical.step.mesh": "96be0d51a69a4bfce5f3984d9f08a82c5a97fa6c220bf7d72d389c15af217370",
-    "hardware/manifold-layout/enclosure-assembly.step.mesh": "c1dfa3591e251f738b4d71cc3843d3d2d91939d9229b73608c5042607aed482c",
+    "hardware/manifold-layout/enclosure-assembly.step.mesh": "9e102a9d1168e326b41205d2371ce4b1eb1ff90a5ff16533942950acbe1a773e",
     "hardware/manifold-layout/manifold-layout.step": "3fd31ca1b78af2be4868175bb325370c9cfdebf1bb465778901b55c1912ec7eb",
     "hardware/manifold-layout/manifold-layout.step.mesh": "5bc1a479000435de4940d2d5d84beda42ae48d99a164f7eb6fb134810d15ba73",
     "hardware/manifold-layout/studies/east-feed/parts/east-feed-ceiling.step": "e95046f067ee746da9528bfea02b503cede9a75098f6b1b513dab1bbaa2f058c",
@@ -857,6 +857,7 @@
     "hardware/reference/neofit-flow-control/neofit-flow-control.step.mesh": "5f948bf30c8f43937018e4fd2e3a98b9fce8a048f86046d55834e929b04a07cb",
     "hardware/reference/neofit-stem-elbow/neofit-stem-elbow.fine.step.mesh": "fe71c3de383c18b38e913f12c7f6e7a6aa9840f02f9c0a58208620347a6a9149",
     "hardware/reference/neofit-stem-elbow/neofit-stem-elbow.fine.step.npz": "d100859c84b31c112839dee6eb5b08334cdab061e293de01776e0091d1dfdab4",
+    "hardware/reference/neofit-stem-elbow/neofit-stem-elbow.import.step.mesh": "1444d3313796ba84f14296dadb3a91992640f73228b8d61ad151dfe3060fc6bf",
     "hardware/reference/neofit-stem-elbow/neofit-stem-elbow.step": "3019e6b26531b3e2d9b9454a689264ae45c352d0fc28ca9712928a90e7f42f53",
     "hardware/reference/neofit-stem-elbow/neofit-stem-elbow.step.mesh": "278617143eda0f4e62c997cc166d3aaede71b2799c8b860962a2e3f3de0cfef8",
     "hardware/reference/neofit-stem-run-tee/neofit-stem-run-tee.step": "25d95678f224be25fc5be06f52455f179445db245cfd810e8caa9f620cce6956",
@@ -891,7 +892,9 @@
     "hardware/reference/teyleten-relay/teyleten-relay.step.mesh": "4fd1bb7fde282b2d0e57252b420f8f72fcebbd562472bf762d66c9db4a980405",
     "hardware/reference/teyleten-relay/teyleten-relay.step.npz": "e1e41bb07d074110263d0ba3406e805e9d5127618932ca8f2b697bd5253c4880",
     "hardware/reference/touch-flo-faucet/display-reference/button-left.step": "d802e4c740ed808daa07d19f8eba0db25d59b76c3b61c03e90ad0945694c2fdc",
+    "hardware/reference/touch-flo-faucet/display-reference/button-left.step.mesh": "df61fa63e71c2dbcad4a39d93176237768d1bf8afc4357834cc51fcda17b694b",
     "hardware/reference/touch-flo-faucet/display-reference/button-right.step": "b515134b75baa15f5bd048f48835b65631c5b7a9c423f3cc3343cb7dcef9bdca",
+    "hardware/reference/touch-flo-faucet/display-reference/button-right.step.mesh": "8f0e8161868c57a2f746a785bc1b99290180f4c33187167101d0510b09320eb3",
     "hardware/reference/touch-flo-faucet/westbrass-reference/westbrass-reference.step": "6bb4f673332fc80c74ad94e62ad4c24f47b451824f2d64e155cc22a45c9251a2",
     "hardware/reference/touch-flo-faucet/westbrass-reference/westbrass-reference.step.mesh": "235b08ce268d7adc8e373705594fbcd6f07ddaf4cb4c31a25ca2aebd7d5fe492",
     "hardware/reference/wago-221/wago-221-413.fine.step.mesh": "c63d87c73e1dd8902d883c4cc09f653066d543d004813286b2e9dfd191eefe87",
@@ -925,18 +928,18 @@
   "sidecars": {},
   "website": {
     "solids": {
-      "hardware/assembly/scenes/glb/back-half.glb.mesh": "09241ec7501cafc67626b0ac3fd2f47fa2a9f3fbf40e07a667992415de09d27a",
-      "hardware/assembly/scenes/glb/back-top.glb.mesh": "7d32fc139f835f24240e2955a5de93b0cb49392a10eaa47e6d30912390dfafe0",
+      "hardware/assembly/scenes/glb/back-half.glb.mesh": "1476180c753ed912ca1c8a083ff5141a2dd04720e5cb83c001f1a0b0df8b5b43",
+      "hardware/assembly/scenes/glb/back-top.glb.mesh": "3c691da4c7bdd142fa4830f7c8649e96637e116d36e11c93f1105934bdbcc837",
       "hardware/assembly/scenes/glb/cap-lid-fill.glb.mesh": "34f82e43ac5d97daeddd0ca697bf0811d6581b8c93921ad2158eb99017e8226b",
-      "hardware/assembly/scenes/glb/cap-lid.glb.mesh": "3712ab72df60a2f73b4bbd9444d503ac7a7f29b0dd4ca4408712e86b0b94674c",
+      "hardware/assembly/scenes/glb/cap-lid.glb.mesh": "08d623f2696f52c30927990a577a5833f81c818f30c4a1afcf80af70e28f52e6",
       "hardware/assembly/scenes/glb/cold-core-open.glb.mesh": "61c76cd2410a23de0e49fa700421cdd998f3dda7dd504ac501058bf8772d18f6",
-      "hardware/assembly/scenes/glb/cold-core.glb.mesh": "00223d06342cecacf97a826c26f23c7314a608cd29cdd54169d028ba021dc5f2",
+      "hardware/assembly/scenes/glb/cold-core.glb.mesh": "0a84e25af6dd537920999693cb685a15d80a37967086e6d8870b945031c1ac2e",
       "hardware/assembly/scenes/glb/en04-compressor-bay.glb.mesh": "6ba39517e6964910f046a8d395405a7c731e81e40d30c511714ecb21c8aa3e7a",
       "hardware/assembly/scenes/glb/en07-electronics-bay.glb.mesh": "a1986834e53c7d521854b298752102295dff3a1559483b9c4febe0e7de5b371e",
-      "hardware/assembly/scenes/glb/front-top.glb.mesh": "64ad9a337ca51e36edbd859a4e3f9b62cf17204861e027e41b5f9cfb0e4f19f3",
+      "hardware/assembly/scenes/glb/front-top.glb.mesh": "d35650eeae30d411e029cab10045086d06546c9a103954a6c1fc3bd5945d6325",
       "hardware/assembly/scenes/glb/funnel-drain.glb.mesh": "bbc5df5391df337094646a3a99da8e78cacf8c5f546719649c4f38c0acc05957",
       "hardware/assembly/scenes/glb/pump-cartridge.glb": "8329920973ebf1302d8a0d0e3053f8fbd41766bd3e5fe57909db932a2c1ecb2e",
-      "hardware/assembly/scenes/glb/pump-mount.glb.mesh": "98f416d530a93b7017fccce51bb45b61c3324829e565e0fefff01107aadfc5a8",
+      "hardware/assembly/scenes/glb/pump-mount.glb.mesh": "839e625eaa37e56d33ccb71576b5306a05870677aafab8c973bfd7e1e2fcda89",
       "hardware/cold-core-layout/cold-core-assembly.step": "9fad0626b64049df1830bdbd3e5fa994b3a939061cc3f833acfc47f84b16ccae",
       "hardware/cold-core-layout/cold-core-assembly.step.mesh": "d3b7ebe725b824f266a4ba259c632af00aa3345657db0d065d7a8664da5d000f",
       "hardware/cut-parts/carbonation/carbonator-tube/carbonator-tube.step": "360d0b80c538b44809405087d75429f55f368fe283f2ea515392232985f271f5",
@@ -951,7 +954,7 @@
       "hardware/faucet-layout/faucet-industrial-assembly.step": "dab99ebc933e9d182955406892cdad3dc5c5276aea5fb1fe3c5905c36fe3ac10",
       "hardware/faucet-layout/faucet-industrial-assembly.step.mesh": "89f15b0d69e6107dba2cb5b6da10cf3cdd9bcafdc7a813b563976686d4d6f7bf",
       "hardware/manifold-layout/enclosure-assembly.facts.json": "7fe5548b9972ab514f70becfbc21d981cd438531293d2c03d9f8014b6c473152",
-      "hardware/manifold-layout/enclosure-assembly.step.mesh": "c1dfa3591e251f738b4d71cc3843d3d2d91939d9229b73608c5042607aed482c",
+      "hardware/manifold-layout/enclosure-assembly.step.mesh": "9e102a9d1168e326b41205d2371ce4b1eb1ff90a5ff16533942950acbe1a773e",
       "hardware/pcb/pcba/out/pcba.bom.csv": "8e50da9512f4775249bb0a81e7ef8dc1059fbd3ed31513aaae1511838bb65209",
       "hardware/pcb/pcba/out/pcba.bottom.png": "9daeef19d29ef35ba7c6d0f04a7090ca88bb2d3795f5a9470c4447f6f3207f5a",
       "hardware/pcb/pcba/out/pcba.bottom.svg": "1d1d42e49f2d7ad078065909da9f323ffbbcf98e9cdec497fae3760ba716c731",
@@ -1655,6 +1658,7 @@
     "463d8ef1f48c0cd25c3ddc1942d2e4622a79451b7fc5d85d48a95526ab9c72a2",
     "46764fd42ca28efdb0a4e6a7da0b28d59df27a6db3486074081f4f6fe519b7ab",
     "46babd2f931f91776967e7c2730e991cd405f38428ba24bbd32a9211c860d6fb",
+    "46ccf32ddb74e31b56ba9f008e854bb8423bcb2078f2a88992e2ede28fb67bdc",
     "471b0ded09862d7f9c151a3e779a99858d55851944b1c0c29956055438883a60",
     "47529267d1df561dbb69eb8b9ee02dece9f3f7951aef56295b2bd9f97eb77f04",
     "48404471b1d97e9deca66a86d6ff37e7e5870faf4134075673941dd37495be3e",
@@ -1679,6 +1683,7 @@
     "4f6e75cf91901ea5837d6e45cbce18be0f72ae16f642f161975e275184c4c733",
     "4fb535ba0234470a706ae5bdc58a454113ca6219daa7aec33932bf5921971de1",
     "4fd36192a1dc990bb12fc4a78822927f0b144dfe4d229f831b39ef22bcbbedbc",
+    "506485e78e8f58d88b5be0c307fb16fa99260ed6eecfd968dc10b4f2ae358cda",
     "507bcc269998489264bdbc2f9ba4e1e9bdba6f52b5ed3bb6a4eb71568bceb03c",
     "50efca4e8470ea7a284194098ca70e9abde2b2c84781952314444a58c46d444f",
     "519108903e04e9d298eff2c92964ba1e05adb9a726e5b131098c56970cfa51dc",
@@ -1765,11 +1770,15 @@
     "71b3272fe22929b247be24ca66407f1004bfd6b72f3737aa0970d1c1a5902194",
     "723002b4446f5c741f8f7e3c28ec66735e3ab782c2599b9844840c4b97bf9608",
     "72dd7d1c8b744dbc9ee34df0151dfbd323731264e5a1a8f6fc3200aa5dfb7e30",
+    "72de133971a03f2f13af6d92b8edc148ca7cae3ccfb6fa1ac0e9e31668f9ff16",
     "7329660350d8a0117f28b70c5b39867191c93fa7b58b8ef53dc7dd087404edca",
     "73b62ba3e1a78e0a502cdddf314fb761c625891f7c6134a95cc122b5c31b05b3",
+    "73f8a31898e2b14bcc374fc855cf9887bbc57ed8934424bebeb6acdee4dab0f0",
     "74fba3d8793f57dc1c3441d2749ce2461949296d55ff5dbdd39b1b3096bafc2c",
     "763b56d56cf218ea5763b659c6164f5f2945af5485ea447a938e6b1d22bbcf27",
+    "764eaeffd2f3a477817ca3575ec986fd67efccfc81058c46459015db58677270",
     "767e2a7b51826a163bf910a0e47de5e9e977a8a6aee5b47fd3df1bec1d4ef129",
+    "76a21de5dd9d1c437ef517abe36ea905ebc2f17327936a96078bb6c466b6fdf1",
     "76e830896753da395a449d6e333f28c30299948cb4307e35af3566a486451dad",
     "7745abd0cd453b71ebe46a46d84dd55d5c7f3cd4aba59b34f50eaa7e9962b3fb",
     "7763e7fbf849e3ff8486cd879921ac851b9310d9f22e2392ff537b2b96cd0e84",
@@ -1823,6 +1832,7 @@
     "8c5b4291c416984ac14cf59d108640fa576d6b65b10281f543522d75ad123894",
     "8c7e675d830414618a9cccd2958c46137ee0f12b448c34ea2717aee93a34df2d",
     "8cab0676ce8a637acad8f16760a45bbe8bbe37d200be787bf2ba1445cc159402",
+    "8cb77b1c447404ebdedb3c28f78848fcc9e0232ad73b6a8ac0bf4fa35e066758",
     "8d0c9d2fbddc6f611e8d8ad1c45aa08f9b3924d9041d61817dbf6b0a4a485f2b",
     "8dbfca4bfaa7bab499f9aa7627e88b2811bc307dc279e78fb5ab5d65e2e3e4fd",
     "8df8e398100d4ca2b6387d3aa3343ca9175c8c697ea14160da20af20f421a223",
@@ -1925,6 +1935,8 @@
     "b6fcf6c12a19870c33927d0ce81463d1513a1602ec34b80c38c8d0b9a288546d",
     "b728e8d5fb399d2854c79f9255d8b559328e9c815affd0aab01a994ce4552005",
     "b751750cba1fbe5ae573a6085c247c7018a502162b45c3769371757e2ee74fdf",
+    "b7813883388dc46b73bb6430db305b2561a2b43b78b7229f863bd284156672c2",
+    "b8908f5539d08312bb0aea6b3af8aec873008a66b96fc152580b7d58311a6fd2",
     "b8c517b77354e2218937877bc1b7f7ea51d93ba1f70b9896727d124fd9970820",
     "b9ba311e383cbe1bb661a3823263a151a94740c5e3109f4cf2e1d42f3d5a508f",
     "ba77324e5c4d90ed1df14c40f8a5e0eb3696b208ffea2eb9e153e7650c01aac2",
@@ -1969,6 +1981,7 @@
     "c3d3e49227a120b55f03d758af9f4787226a977bbd3b5fc8d921a2ac5aa13ee9",
     "c426263297c60792c7a842a6d522f80704e5617f17e803d31602fc27a84dbee9",
     "c45aefbd069cae03d6fe4f9808e16d31f8db8737a94b79cdbd82189b32323d8b",
+    "c4c8cdf03ed355a183f05276631e7c35409c795bbe72dcefc5731581d07203bd",
     "c66d5f1871d9cc2c4e44e64702e82a12b2fa60b2aa6172cb8735ed2bddf18bbd",
     "c6a4ce920ba93ccfc7977b90d55683ec71a985776eb93d61455f99b92de038f3",
     "c779ce451dd250d3ee10b132f055cd8e5758a19a27ba8817751a912a1384a5f1",
@@ -1976,6 +1989,7 @@
     "c79dffcc7099d6e2bb9e45017cfa17c4e56a26d4327858c884de329c9d59ee23",
     "c7da5342b2b8c26c30a9b7379e97ea384693bbea40060eed36af158b3966d746",
     "c836dc9507c26dc281a5cede54afe6bfcd733e4909e36b884411a316dd943e31",
+    "c89490c72f35fa1a0230a4b1207503aa13a4e4f15e9835cdbd0a630d5772958c",
     "c8d571120de250dcc78665fc5eb90250bd782b0ba8a5e775078561c7bba76af3",
     "c8d603a3f4c2932a25dad8810b8973464e2d64cbcd496adcb47542531be7344d",
     "c919df4b59b7f7bd80948c38e86667399131bcb0b3ab286edc5084bbf49f7746",
@@ -2007,6 +2021,7 @@
     "d331a1576fa7903738d4fc5fc923173b53954f300b36d8574f0d0d32419b5ea0",
     "d333e8bb295824802834cc52f3a31dcbd81631c31ccb31e9529be8043cef0006",
     "d3443ef70ae22770f4882ab567de6fe35d9391a54b2603eda470cb6247e1bb60",
+    "d3487c3b9fd51f5bc5a4b44d155f5515f67e2461f524e51d0469a6c4e7b8b2a5",
     "d379c53fa75928fc7eda9b477edacd2bbb6755a2fd42467cf4e71939c0ee4b02",
     "d3af2e8fbfa7983522172d3f48127a077cfded2103c6e2eb91d6c93daa3f186c",
     "d4d91d7e6fb12b35781a557f89b071509bd22856c0248fcc5fa158093d1a76ed",
@@ -2018,6 +2033,7 @@
     "d68ce6fcbe260889a41fa75b0f8131701464e6ab3112422a0db7b03b1189b83f",
     "d6d200dc11fe9c0dbfe65968bd785d50f27821c8eb43a45e57e8c5f8b64731a7",
     "d73323264ec6c61ac9b47cf446139df7bb6d41400b1c4709b63102798693034e",
+    "d73b6105b358f630d8c32284513acea8e6050a766e9e5282d4eb6658de96f049",
     "d745251fcf758d0c71599a2f448cf6ef6745c412c8aee10500a5d1c07ec4beb3",
     "d75c97929a22963d277ba74f10b55f6f8c6e6162306830267beb72515612a84a",
     "d8164ca20bae12cd8a336da75ed36bd87f1d36646c1cb592505c8e377d691bb5",
@@ -2109,18 +2125,18 @@
     "ffd313a3f9f8d08efec3c588cc762798f5b805c067e8fd48e8332a8230819f9d"
   ],
   "moved": {
-    "hardware/assembly/scenes/glb/back-half.glb.mesh": 1794333648.053815,
-    "hardware/assembly/scenes/glb/back-top.glb.mesh": 1794333648.053815,
+    "hardware/assembly/scenes/glb/back-half.glb.mesh": 1794335915.592869,
+    "hardware/assembly/scenes/glb/back-top.glb.mesh": 1794335915.592869,
     "hardware/assembly/scenes/glb/cap-lid-fill.glb.mesh": 1794332742.024622,
-    "hardware/assembly/scenes/glb/cap-lid.glb.mesh": 1794333341.436938,
+    "hardware/assembly/scenes/glb/cap-lid.glb.mesh": 1794335915.592869,
     "hardware/assembly/scenes/glb/cold-core-open.glb.mesh": 1794332742.024622,
-    "hardware/assembly/scenes/glb/cold-core.glb.mesh": 1794333341.436938,
+    "hardware/assembly/scenes/glb/cold-core.glb.mesh": 1794335915.592869,
     "hardware/assembly/scenes/glb/en04-compressor-bay.glb.mesh": 1794332742.024622,
     "hardware/assembly/scenes/glb/en07-electronics-bay.glb.mesh": 1794332742.024622,
-    "hardware/assembly/scenes/glb/front-top.glb.mesh": 1794333341.436938,
+    "hardware/assembly/scenes/glb/front-top.glb.mesh": 1794335915.592869,
     "hardware/assembly/scenes/glb/funnel-drain.glb.mesh": 1794332742.024622,
     "hardware/assembly/scenes/glb/pump-cartridge.glb": 1792921613,
-    "hardware/assembly/scenes/glb/pump-mount.glb.mesh": 1794333341.436938,
+    "hardware/assembly/scenes/glb/pump-mount.glb.mesh": 1794335915.592869,
     "hardware/cold-core-layout/cold-core-assembly.step": 1794279782.987089,
     "hardware/cold-core-layout/cold-core-assembly.step.mesh": 1794279773.1571321,
     "hardware/cut-parts/carbonation/carbonator-tube/carbonator-tube.step": 1793626644,
@@ -2149,7 +2165,7 @@
     "hardware/install-guide/plumbing/modern/art/modern-water-on.png": 1793830497,
     "hardware/manifold-layout/enclosure-assembly.facts.json": 1794288165.406084,
     "hardware/manifold-layout/enclosure-assembly.physical.step.mesh": 1793858653,
-    "hardware/manifold-layout/enclosure-assembly.step.mesh": 1794333648.053815,
+    "hardware/manifold-layout/enclosure-assembly.step.mesh": 1794335915.592869,
     "hardware/manifold-layout/manifold-layout.step": 1794269272.362814,
     "hardware/manifold-layout/manifold-layout.step.mesh": 1794332434.010947,
     "hardware/manifold-layout/studies/east-feed/parts/east-feed-ceiling.step": 1792828088,
@@ -2949,6 +2965,7 @@
     "hardware/reference/neofit-flow-control/neofit-flow-control.step.mesh": 1793568839,
     "hardware/reference/neofit-stem-elbow/neofit-stem-elbow.fine.step.mesh": 1793606533,
     "hardware/reference/neofit-stem-elbow/neofit-stem-elbow.fine.step.npz": 1793697604,
+    "hardware/reference/neofit-stem-elbow/neofit-stem-elbow.import.step.mesh": 1794335915.592869,
     "hardware/reference/neofit-stem-elbow/neofit-stem-elbow.step": 1793334135,
     "hardware/reference/neofit-stem-elbow/neofit-stem-elbow.step.mesh": 1793712586,
     "hardware/reference/neofit-stem-run-tee/neofit-stem-run-tee.step": 1792738887,
@@ -2983,7 +3000,9 @@
     "hardware/reference/teyleten-relay/teyleten-relay.step.mesh": 1794287915.553784,
     "hardware/reference/teyleten-relay/teyleten-relay.step.npz": 1794287946.229449,
     "hardware/reference/touch-flo-faucet/display-reference/button-left.step": 1792893021,
+    "hardware/reference/touch-flo-faucet/display-reference/button-left.step.mesh": 1794335915.592869,
     "hardware/reference/touch-flo-faucet/display-reference/button-right.step": 1792893021,
+    "hardware/reference/touch-flo-faucet/display-reference/button-right.step.mesh": 1794335915.592869,
     "hardware/reference/touch-flo-faucet/westbrass-reference/westbrass-reference.step": 1787578592,
     "hardware/reference/touch-flo-faucet/westbrass-reference/westbrass-reference.step.mesh": 1793617993,
     "hardware/reference/wago-221/wago-221-413.fine.step.mesh": 1793697604,
@@ -3016,11 +3035,11 @@
   },
   "made": {
     "hardware/assembly/scenes/glb/back-half.glb.mesh": {
-      "commit": "8a53c3ec1d6fb732cc7fc80ac51afd474cf4f498",
+      "commit": "acf82f7cc6d8d2286bfb8cd36563f2746b2bbd8b",
       "unproven": true
     },
     "hardware/assembly/scenes/glb/back-top.glb.mesh": {
-      "commit": "8a53c3ec1d6fb732cc7fc80ac51afd474cf4f498",
+      "commit": "acf82f7cc6d8d2286bfb8cd36563f2746b2bbd8b",
       "unproven": true
     },
     "hardware/assembly/scenes/glb/cap-lid-fill.glb.mesh": {
@@ -3029,7 +3048,7 @@
       "unproven": true
     },
     "hardware/assembly/scenes/glb/cap-lid.glb.mesh": {
-      "commit": "3808b900868f158514810f820df125412ff5c8f2",
+      "commit": "acf82f7cc6d8d2286bfb8cd36563f2746b2bbd8b",
       "inputs": "28c63a0577528f514fb04e534605997066cd7569f6d0c5f9e05c499efc425efb",
       "unproven": true
     },
@@ -3039,7 +3058,7 @@
       "unproven": true
     },
     "hardware/assembly/scenes/glb/cold-core.glb.mesh": {
-      "commit": "3808b900868f158514810f820df125412ff5c8f2",
+      "commit": "acf82f7cc6d8d2286bfb8cd36563f2746b2bbd8b",
       "inputs": "28c63a0577528f514fb04e534605997066cd7569f6d0c5f9e05c499efc425efb",
       "unproven": true
     },
@@ -3054,7 +3073,7 @@
       "unproven": true
     },
     "hardware/assembly/scenes/glb/front-top.glb.mesh": {
-      "commit": "3808b900868f158514810f820df125412ff5c8f2",
+      "commit": "acf82f7cc6d8d2286bfb8cd36563f2746b2bbd8b",
       "unproven": true
     },
     "hardware/assembly/scenes/glb/funnel-drain.glb.mesh": {
@@ -3063,7 +3082,7 @@
       "unproven": true
     },
     "hardware/assembly/scenes/glb/pump-mount.glb.mesh": {
-      "commit": "3808b900868f158514810f820df125412ff5c8f2",
+      "commit": "acf82f7cc6d8d2286bfb8cd36563f2746b2bbd8b",
       "unproven": true
     },
     "hardware/cold-core-layout/cold-core-assembly.step": {
@@ -3179,7 +3198,7 @@
       "unproven": true
     },
     "hardware/manifold-layout/enclosure-assembly.step.mesh": {
-      "commit": "8a53c3ec1d6fb732cc7fc80ac51afd474cf4f498",
+      "commit": "acf82f7cc6d8d2286bfb8cd36563f2746b2bbd8b",
       "unproven": true
     },
     "hardware/manifold-layout/manifold-layout.step": {
@@ -5486,6 +5505,10 @@
       "commit": "bf5c9ea2e1f838cf68f7e32f909ace7c1d41bc8b",
       "unproven": true
     },
+    "hardware/reference/neofit-stem-elbow/neofit-stem-elbow.import.step.mesh": {
+      "commit": "acf82f7cc6d8d2286bfb8cd36563f2746b2bbd8b",
+      "unproven": true
+    },
     "hardware/reference/neofit-stem-elbow/neofit-stem-elbow.step": {
       "commit": "d1daefc96977a79e85ab440cc65526a139958c19",
       "unproven": true
@@ -5600,6 +5623,14 @@
     },
     "hardware/reference/teyleten-relay/teyleten-relay.step.npz": {
       "commit": "ba67926abae0670deb4c84116d7c4c6b1b700ff9",
+      "unproven": true
+    },
+    "hardware/reference/touch-flo-faucet/display-reference/button-left.step.mesh": {
+      "commit": "acf82f7cc6d8d2286bfb8cd36563f2746b2bbd8b",
+      "unproven": true
+    },
+    "hardware/reference/touch-flo-faucet/display-reference/button-right.step.mesh": {
+      "commit": "acf82f7cc6d8d2286bfb8cd36563f2746b2bbd8b",
       "unproven": true
     },
     "hardware/reference/touch-flo-faucet/westbrass-reference/westbrass-reference.step": {
