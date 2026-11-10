@@ -1,0 +1,439 @@
+{
+  "purpose": "This on-demand record measures a source-authored pump-retainer cavity fill from request through live display and focused geometry review.",
+  "source_commit": "a17db6087c36c2c59f5a1bdc92c1e09d14387048",
+  "request": {
+    "received_at": "2026-11-10T00:52:43.130Z",
+    "words": "The work we need to do, the next change, is filling in a cavity here that does not appear to have a purpose."
+  },
+  "change": {
+    "producer": "//:enclosure-front-top",
+    "construction": "Flat retainer-room ceilings meet the insert entry plane. Continuous stock joins the pump wells; separate post blocks are omitted.",
+    "stations": 2,
+    "roof_at_measured_point_before_mm": 241.5240020751953,
+    "roof_at_measured_point_after_mm": 217.5,
+    "measured_point_xy_mm": [
+      14.442,
+      16.0
+    ]
+  },
+  "first_view_timing": {
+    "receipt": "2026-11-10T00:52:43.130Z",
+    "first_source_edit": "2026-11-10T00:56:52.087Z",
+    "local_producer_carried": "2026-11-10T01:04:13.683396+00:00",
+    "first_matching_reference_draw": "2026-11-10T01:06:02.913Z",
+    "preparation_seconds": 248.957,
+    "pre_build_admission_compiler_setup_and_probe_seconds": 293.772,
+    "selective_bazel_build_seconds": 147.573,
+    "build_end_to_reference_draw_seconds": 109.481,
+    "receipt_to_reference_draw_seconds": 799.783,
+    "limits": "Build-start timing is derived from the recorded Bazel duration and completion log. The setup interval includes shared admission and compiler waits, driver work and a stale placement-preview probe. The reference draw establishes mounted matching geometry eligible to draw, not occlusion or a composite on Derek\u2019s device.",
+    "selective_build_finished_at": "2026-11-10T01:04:13.432Z",
+    "selective_build_started_derived_at": "2026-11-10T01:01:45.859Z"
+  },
+  "checked_geometry_at": "2026-11-10T01:25:37.822000+00:00",
+  "receipt_to_checked_geometry_seconds": 1974.692,
+  "review_after_first_view_seconds": 1174.909,
+  "build": {
+    "geometry_producers_completed": 1,
+    "targets": [
+      "//:enclosure-front-top"
+    ],
+    "success": true,
+    "driver_wall_seconds": 511.41000012500444,
+    "carried": [
+      {
+        "seconds": 379.2565360419976,
+        "wall_time_ns": 1794272653683396000,
+        "files": [
+          "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step.mesh",
+          "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step.npz",
+          "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl"
+        ],
+        "publication": [
+          "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step.mesh",
+          "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl"
+        ]
+      }
+    ],
+    "publication_queue": {
+      "requests": 1,
+      "started": 1,
+      "coalesced": 0,
+      "exit_codes": [
+        0
+      ]
+    },
+    "preview_probe": "The existing installed-machine program was stale; its up-to-date probe did not run a placement preview."
+  },
+  "fit": {
+    "conservative_sweep": {
+      "bodies": [
+        {
+          "body": "pump-a-head",
+          "components": 1,
+          "continuous_sweep_cover_added_stock_overlap_mm3": 0.0,
+          "continuous_sweep_cover_overlap_after_mm3": 56.98173193446858,
+          "continuous_sweep_cover_overlap_before_mm3": 56.98173193446858,
+          "seated_overlap_after_mm3": 0.0,
+          "seated_overlap_before_mm3": 0.0
+        },
+        {
+          "body": "pump-a-boss",
+          "components": 1,
+          "continuous_sweep_cover_added_stock_overlap_mm3": 0.0,
+          "continuous_sweep_cover_overlap_after_mm3": 0.0,
+          "continuous_sweep_cover_overlap_before_mm3": 0.0,
+          "seated_overlap_after_mm3": 0.0,
+          "seated_overlap_before_mm3": 0.0
+        },
+        {
+          "body": "pump-a-motor",
+          "components": 1,
+          "continuous_sweep_cover_added_stock_overlap_mm3": 0.0,
+          "continuous_sweep_cover_overlap_after_mm3": 0.0,
+          "continuous_sweep_cover_overlap_before_mm3": 0.0,
+          "seated_overlap_after_mm3": 0.0,
+          "seated_overlap_before_mm3": 0.0
+        },
+        {
+          "body": "pump-a-mount",
+          "components": 1,
+          "continuous_sweep_cover_added_stock_overlap_mm3": 0.0,
+          "continuous_sweep_cover_overlap_after_mm3": 0.0,
+          "continuous_sweep_cover_overlap_before_mm3": 0.0,
+          "seated_overlap_after_mm3": 0.0,
+          "seated_overlap_before_mm3": 0.0
+        },
+        {
+          "body": "pump-a-fasteners",
+          "components": 8,
+          "continuous_sweep_cover_added_stock_overlap_mm3": 0.0,
+          "continuous_sweep_cover_overlap_after_mm3": 0.0,
+          "continuous_sweep_cover_overlap_before_mm3": 0.0,
+          "seated_overlap_after_mm3": 0.0,
+          "seated_overlap_before_mm3": 0.0
+        },
+        {
+          "body": "pump-a-primer",
+          "components": 1,
+          "continuous_sweep_cover_added_stock_overlap_mm3": 0.0,
+          "continuous_sweep_cover_overlap_after_mm3": 0.0,
+          "continuous_sweep_cover_overlap_before_mm3": 0.0,
+          "seated_overlap_after_mm3": 0.0,
+          "seated_overlap_before_mm3": 0.0
+        },
+        {
+          "body": "pump-a-sleeves",
+          "components": 2,
+          "continuous_sweep_cover_added_stock_overlap_mm3": 0.0,
+          "continuous_sweep_cover_overlap_after_mm3": 0.0,
+          "continuous_sweep_cover_overlap_before_mm3": 0.0,
+          "seated_overlap_after_mm3": 0.0,
+          "seated_overlap_before_mm3": 0.0
+        },
+        {
+          "body": "pump-b-head",
+          "components": 1,
+          "continuous_sweep_cover_added_stock_overlap_mm3": 0.0,
+          "continuous_sweep_cover_overlap_after_mm3": 56.98175397968216,
+          "continuous_sweep_cover_overlap_before_mm3": 56.98175397968216,
+          "seated_overlap_after_mm3": 0.0,
+          "seated_overlap_before_mm3": 0.0
+        },
+        {
+          "body": "pump-b-boss",
+          "components": 1,
+          "continuous_sweep_cover_added_stock_overlap_mm3": 0.0,
+          "continuous_sweep_cover_overlap_after_mm3": 0.0,
+          "continuous_sweep_cover_overlap_before_mm3": 0.0,
+          "seated_overlap_after_mm3": 0.0,
+          "seated_overlap_before_mm3": 0.0
+        },
+        {
+          "body": "pump-b-motor",
+          "components": 1,
+          "continuous_sweep_cover_added_stock_overlap_mm3": 0.0,
+          "continuous_sweep_cover_overlap_after_mm3": 0.0,
+          "continuous_sweep_cover_overlap_before_mm3": 0.0,
+          "seated_overlap_after_mm3": 0.0,
+          "seated_overlap_before_mm3": 0.0
+        },
+        {
+          "body": "pump-b-mount",
+          "components": 1,
+          "continuous_sweep_cover_added_stock_overlap_mm3": 0.0,
+          "continuous_sweep_cover_overlap_after_mm3": 0.0,
+          "continuous_sweep_cover_overlap_before_mm3": 0.0,
+          "seated_overlap_after_mm3": 0.0,
+          "seated_overlap_before_mm3": 0.0
+        },
+        {
+          "body": "pump-b-fasteners",
+          "components": 8,
+          "continuous_sweep_cover_added_stock_overlap_mm3": 0.0,
+          "continuous_sweep_cover_overlap_after_mm3": 0.0,
+          "continuous_sweep_cover_overlap_before_mm3": 0.0,
+          "seated_overlap_after_mm3": 0.0,
+          "seated_overlap_before_mm3": 0.0
+        },
+        {
+          "body": "pump-b-primer",
+          "components": 1,
+          "continuous_sweep_cover_added_stock_overlap_mm3": 0.0,
+          "continuous_sweep_cover_overlap_after_mm3": 0.0,
+          "continuous_sweep_cover_overlap_before_mm3": 0.0,
+          "seated_overlap_after_mm3": 0.0,
+          "seated_overlap_before_mm3": 0.0
+        },
+        {
+          "body": "pump-b-sleeves",
+          "components": 2,
+          "continuous_sweep_cover_added_stock_overlap_mm3": 0.0,
+          "continuous_sweep_cover_overlap_after_mm3": 0.0,
+          "continuous_sweep_cover_overlap_before_mm3": 0.0,
+          "seated_overlap_after_mm3": 0.0,
+          "seated_overlap_before_mm3": 0.0
+        }
+      ],
+      "coverage": "Each connected component's convex XY projection is extruded from its below-seam start to its final highest point. Intersecting coarse covers are refined into horizontal slices before projection. Every slice's prism covers all its straight Z translations. Retainers are installed after the pumps.",
+      "fine_stock_added_mm3": 6038.416211543366,
+      "fine_stock_removed_mm3": 4.396032005201921,
+      "purpose": "This audit checks seated pump fit and conservative continuous straight insertion envelopes against front-top.",
+      "translation_end_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "translation_start_mm": [
+        0.0,
+        0.0,
+        -133.92401123046875
+      ]
+    },
+    "sweep_limits": "The head covers include conservative projection across concavities and overlap existing stock equally before and after. They establish that added stock enters no insertion envelope; actual head poses are measured separately.",
+    "sampled_head_insertion": {
+      "purpose": "Measure pump-head insertion poses with the existing focused hsm move query.",
+      "step_mm": 0.1,
+      "translation_range_z_mm": [
+        -134,
+        0
+      ],
+      "minimum_reported_volume_mm3": 1e-06,
+      "results": [
+        {
+          "body": "pump-a-head",
+          "poses": 1341,
+          "issues": [],
+          "native_query_ms": 4700.6992420000015
+        },
+        {
+          "body": "pump-b-head",
+          "poses": 1341,
+          "issues": [],
+          "native_query_ms": 5506.2691170000035
+        }
+      ],
+      "wall_seconds": 43.29542391600262,
+      "target_signatures_before": {
+        "pump-a-head": {
+          "asset": "48dd010bde9582631edf4625be8decf5eef8595b840ecce019fee73bd57d5c6d",
+          "transform": [
+            [
+              -1.0,
+              -7.498798913309288e-33,
+              1.2246467991473532e-16,
+              0.0
+            ],
+            [
+              1.2246467991473532e-16,
+              -6.123233995736766e-17,
+              1.0,
+              14.48
+            ],
+            [
+              0.0,
+              1.0,
+              6.123233995736766e-17,
+              201.425
+            ]
+          ]
+        },
+        "pump-b-head": {
+          "asset": "767e2a7b51826a163bf910a0e47de5e9e977a8a6aee5b47fd3df1bec1d4ef129",
+          "transform": [
+            [
+              -1.0,
+              -7.498798913309288e-33,
+              1.2246467991473532e-16,
+              0.0
+            ],
+            [
+              1.2246467991473532e-16,
+              -6.123233995736766e-17,
+              1.0,
+              14.48
+            ],
+            [
+              0.0,
+              1.0,
+              6.123233995736766e-17,
+              201.425
+            ]
+          ]
+        },
+        "enclosure-front-top": {
+          "asset": "e3f5fa4c62b4098cfbf4e896e1586f73d158eb2821137a415e4194d993bc3e8f",
+          "transform": null
+        }
+      },
+      "target_signatures_after": {
+        "pump-a-head": {
+          "asset": "48dd010bde9582631edf4625be8decf5eef8595b840ecce019fee73bd57d5c6d",
+          "transform": [
+            [
+              -1.0,
+              -7.498798913309288e-33,
+              1.2246467991473532e-16,
+              0.0
+            ],
+            [
+              1.2246467991473532e-16,
+              -6.123233995736766e-17,
+              1.0,
+              14.48
+            ],
+            [
+              0.0,
+              1.0,
+              6.123233995736766e-17,
+              201.425
+            ]
+          ]
+        },
+        "pump-b-head": {
+          "asset": "767e2a7b51826a163bf910a0e47de5e9e977a8a6aee5b47fd3df1bec1d4ef129",
+          "transform": [
+            [
+              -1.0,
+              -7.498798913309288e-33,
+              1.2246467991473532e-16,
+              0.0
+            ],
+            [
+              1.2246467991473532e-16,
+              -6.123233995736766e-17,
+              1.0,
+              14.48
+            ],
+            [
+              0.0,
+              1.0,
+              6.123233995736766e-17,
+              201.425
+            ]
+          ]
+        },
+        "enclosure-front-top": {
+          "asset": "e3f5fa4c62b4098cfbf4e896e1586f73d158eb2821137a415e4194d993bc3e8f",
+          "transform": null
+        }
+      },
+      "targets_unchanged": true
+    },
+    "upper_stop_gap_mm": 0.4000091552734375,
+    "lower_retainer_gap_mm": 0.14999389648434658,
+    "retainer_to_stock_gap_mm": 0.24999999999999645,
+    "upper_retention_probe": {
+      "bounds_mm": [
+        [
+          15.90113639831543,
+          13.359000205993652,
+          176.32400512695312
+        ],
+        [
+          88.5687026977539,
+          75.95899963378906,
+          225.1739959716797
+        ]
+      ],
+      "complete": true,
+      "min_volume_mm3": 1e-06,
+      "overlaps": [
+        {
+          "part": {
+            "id": "#1",
+            "name": "enclosure-front-top"
+          },
+          "volume_mm3": 15.806152029486768
+        }
+      ],
+      "part": {
+        "id": "#0",
+        "name": "pump-a-head"
+      },
+      "translation_mm": [
+        0.0,
+        0.0,
+        0.5
+      ],
+      "unknown": []
+    },
+    "lower_retention_probe": {
+      "bounds_mm": [
+        [
+          15.90113639831543,
+          13.359000205993652,
+          175.57400512695312
+        ],
+        [
+          88.5687026977539,
+          75.95899963378906,
+          224.4239959716797
+        ]
+      ],
+      "complete": true,
+      "min_volume_mm3": 1e-06,
+      "overlaps": [
+        {
+          "part": {
+            "id": "#1",
+            "name": "enclosure-pump-retainer-a"
+          },
+          "volume_mm3": 30.599402557905584
+        }
+      ],
+      "part": {
+        "id": "#0",
+        "name": "pump-a-head"
+      },
+      "translation_mm": [
+        0.0,
+        0.0,
+        -0.25
+      ],
+      "unknown": []
+    },
+    "unchanged_pump_retainer_and_hardware_nodes": 24,
+    "changed_pump_retainer_or_hardware_nodes": []
+  },
+  "manufacturing": {
+    "print_regions_regenerated": true,
+    "scope": "Current STL and native model bindings; insert reinforcement regions retain their scope. Existing Tree Slim access through the retainer rooms and functional heat-set ceiling answers apply. This task makes no new physical print claim."
+  },
+  "review_tooling": {
+    "abandoned_operations": [
+      "A general kernel hull on detailed pump vertices was too slow.",
+      "An unbounded kernel gap query on the complete enclosure was too slow."
+    ],
+    "sampled_query_driver_wall_seconds": 43.29542391600262,
+    "sampled_native_query_seconds": 10.206968359000006,
+    "instruction_improvement": "The hsm README documents move --against for focused obstacle queries. The scratch checks add nothing to normal builds."
+  },
+  "changes_entry": "changes/2026-11-09-1922-pump-retainer-ceilings",
+  "output_sha256": {
+    "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step.npz": "803c3aaa252ec3e2a27deaa300ac7b349f6a2b9a8ec4894ebbebdd9c3aebda03",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl": "c5913bab7cdfb066d1ddec6eb6f765b04406a89af80c2027a1c764a35d0563aa",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step.mesh": "84d13121a6f31876df5faed4c677439c83830905e625f55cc982df595b0e1ce2"
+  },
+  "automatic_checks_added": false
+}
