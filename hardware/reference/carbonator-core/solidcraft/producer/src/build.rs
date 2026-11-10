@@ -186,8 +186,6 @@ impl Builder {
             .arg(self.native.join(format!("{key}.sc")))
             .args(["--out"])
             .arg(&output)
-            .arg("--out")
-            .arg(self.scratch.join(format!("{key}.obj")))
             .arg("--results")
             .arg("--json-out")
             .arg(self.scratch.join(format!("{key}-result.json")))

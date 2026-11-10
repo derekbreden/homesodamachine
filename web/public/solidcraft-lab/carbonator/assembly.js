@@ -26,6 +26,8 @@ function status(text,error=false){$('status').textContent=text;$('status').toggl
 function audit(){
   $('engine-state').textContent=api?'Loaded':frame?'Loading':'Not loaded';
   $('part-files').textContent=[...new Set(resources.filter(r=>r.type==='authoring').map(r=>r.label))].join(', ')||'None';
+  const kinds=new Set(preview?.stats().displays.map(d=>d.kind));
+  $('display-source').textContent=native?'Native editor':kinds.has('packed-preview')?'Packed comparison':kinds.has('native-export')?(kinds.has('saved-preview')?'Saved + exported':'SolidCraft export'):'SolidCraft saved cache';
   $('resource-list').replaceChildren(...resources.map(r=>{const li=document.createElement('li');li.textContent=`${r.label} · ${(r.bytes/1024).toFixed(1)} kB · ${r.type}`;return li;}));
 }
 async function load(url,type,label){
@@ -37,11 +39,13 @@ function setBusy(value,label){
   busy=value;navigation?.setDisabled(value);
   for(const el of document.querySelectorAll('button,select,#native-controls input'))el.disabled=value;
   $('copies').disabled=value||native;$('section').disabled=value||native;$('explode').disabled=value||native||!context?.assembly||context.node==='instrumented-parent';
+  $('display-mode').disabled=value||native;
   $('publish').disabled=value||!api||current==='instrumented-parent';
   $('dimensions').hidden=!native||!catalog.nodes[current]?.parameters?.length;
   $('undo').disabled=value||!api;
   $('state-label').textContent=label||(native?'Native '+(catalog.nodes[current]?.label||'workspace'):context?.node==='instrumented-parent'?'Saved instrumented exterior':context?.assembly?'Direct components · saved geometry':'Saved part geometry');
   $('state-dot').toggleAttribute('data-ready',!value);
+  audit();
 }
 function note(label,ms){const row=document.createElement('li'),text=document.createElement('span'),value=document.createElement('strong');text.textContent=label;value.textContent=ms<1000?`${Math.round(ms)} ms`:`${(ms/1000).toFixed(2)} s`;row.append(text,value);$('timing-list').prepend(row);while($('timing-list').children.length>7)$('timing-list').lastChild.remove();}
 async function action(label,run){if(busy)return;setBusy(true,label);const start=performance.now();try{clearTimeout(timer);if(pollWork)await pollWork;await run();note(label,performance.now()-start);}catch(e){status(e.message,true);$('cover').hidden=true;console.error(e);}finally{setBusy(false);if(pending){const next=pending;pending=null;await openRoute(next);}else if(pauseWanted){pauseWanted=false;if(api&&native)$('pause').click();}}}
@@ -82,6 +86,7 @@ async function showRoute(route,{fit=false}={}){
   if(api)await unload();native=false;context=await resolve(route);navigation.setContext(context);navigation.setNative(false);
   $('preview').hidden=false;$('native-stage').hidden=true;$('native-controls').hidden=true;$('reference').hidden=true;$('pause').hidden=true;$('cover').hidden=true;preview.visible(true);$('native-scope').textContent='Closed';$('native-bodies').textContent='Not loaded';
   exploded=false;$('explode').textContent='Explode';await preview.show(route,context,{fit,hidden:navigation.hidden});
+  audit();
   $('fit-note').hidden=!catalog.nodes[context.node].fit;$('fit-note').textContent=catalog.nodes[context.node].fit||'';
   status('Select a component, then Open. Each assembly loads its direct saved shapes. Native designs stay closed until Edit.');
 }
@@ -161,6 +166,10 @@ $('download').addEventListener('click',()=>action('Preparing native download',as
 $('fit').addEventListener('click',()=>native?api?.execute('view.fit'):preview.fit());
 $('section').addEventListener('change',()=>preview.section($('section').checked));
 $('explode').addEventListener('click',()=>{exploded=!exploded;preview.explode(exploded);$('explode').textContent=exploded?'Assemble':'Explode';});
+$('display-mode').addEventListener('change',()=>action('Opening '+($('display-mode').value==='native'?'SolidCraft meshes':'packed comparison'),async()=>{
+  const mode=$('display-mode').value,url=new URL(location.href);if(mode==='packed')url.searchParams.set('display','packed');else url.searchParams.delete('display');
+  history.replaceState(history.state,'',url);preview.mode(mode);await showRoute(navigation.route);
+}));
 $('reference').addEventListener('click',()=>action('Opening reference preview',()=>showRoute(navigation.route)));
 $('pause').addEventListener('click',()=>action('Pausing native workspace',async()=>{paused=current;await unload();native=false;navigation.setNative(true);$('native-stage').hidden=true;$('cover-title').textContent='Native workspace paused';$('cover-detail').textContent='Your local design is saved. Resume to reopen it.';$('cover').hidden=false;$('resume').hidden=false;$('native-controls').hidden=true;$('pause').hidden=true;}));
 $('resume').addEventListener('click',()=>edit(paused,navigation.route.path));
@@ -169,6 +178,7 @@ export function inspectLab(){return {route:navigation?.route,node:context?.node,
 async function start(){
   catalog=await json(assets+'levels.json','assembly catalog','Assembly interfaces');sourceKey='solidcraft-levels:'+catalog.sourceVersion+':';
   preview=await createPreview($('preview'),catalog,load,{onSelect:id=>navigation?.select(id)});
+  const mode=new URL(location.href).searchParams.get('display')==='packed'?'packed':'native';$('display-mode').value=mode;preview.mode(mode);
   navigation=createAssemblyNavigation({catalog,onRoute:openRoute,onSelect:id=>preview.select(id),onEdit:edit,onHide:id=>preview.hide(id),onShow:id=>preview.showHidden(id)});
   await action('Opening saved instrumented assembly',()=>showRoute(navigation.route,{fit:true}));
 }
