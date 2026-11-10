@@ -41,10 +41,11 @@ function label(file) {
 // Centre of a body or of the whole mounted model. Only the drawn body meshes
 // contribute; x-ray edges and picker overlays are scene furniture.
 function bodyCenter(name = null) {
+  const names = Array.isArray(name) ? name : name ? [name] : null;
   const box = new THREE.Box3();
   for (const mesh of (state.currentGroup ? state.currentGroup.children : [])) {
     if (!mesh.isMesh || mesh.userData?.side !== "front") continue;
-    if (name && (!mesh.name || !standsIn(mesh.name, name))) continue;
+    if (names && !names.some(body => standsIn(mesh.name, body))) continue;
     box.expandByObject(mesh);
   }
   return box.isEmpty() ? null : box.getCenter(new THREE.Vector3());

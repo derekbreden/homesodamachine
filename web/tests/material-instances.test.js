@@ -1,7 +1,7 @@
 // Location contract checks distinguish physical copies from compound CAD representations.
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { instancesInScene, instanceMaterialHash } from "../contracts/material-instances.js";
+import { instancesInScene, instanceMaterialHash, componentUnitsInScene, unitForBody } from "../contracts/material-instances.js";
 import { explodeBom, occurrenceBodies, materialForComponent } from "../contracts/materials.js";
 import { unitQuantities } from "../contracts/material-quantities.js";
 import { readMaterialCatalog } from "../lib/material-catalog.js";
@@ -9,8 +9,40 @@ import { readMeshHeader } from "../lib/feature-catalog.js";
 import { materialInstances } from "../lib/material-instances.js";
 import { fileURLToPath } from "node:url";
 
-const part = { id: "part", description: "Part" };
-const catalog = item => ({ materials: [part, { id: "root", description: "Machine", bom: { items: [{ material: "part", ...item }] } }] });
+const part = { id: "part", description: "Part", kind: "purchased" };
+const catalog = item => ({ materials: [part, { id: "root", description: "Machine", kind: "assembly", bom: { items: [{ material: "part", ...item }] } }] });
+
+test("component clicks take every body of one physical copy, and opening the part exposes its bodies", () => {
+  const actual = catalog({ quantity: 2, unit: "ea", placements: [
+    { label: "Left pump", bodies: ["left/head", "left/motor"] },
+    { label: "Right pump", bodies: ["right/head", "right/motor"] },
+  ] });
+  const names = ["left/head/1", "left/motor", "right/head", "right/motor/2"];
+  const units = componentUnitsInScene(actual, "root", names);
+  assert.equal(units.length, 2);
+  assert.equal(unitForBody(units, "left/motor").name, "left/head");
+  assert.equal(unitForBody(units, "right/motor/2").label, "Right pump");
+  assert.deepEqual(unitForBody(units, "left/head").bodies, ["left/head", "left/motor"]);
+  assert.equal(unitForBody(units, "elsewhere"), null);
+  assert.deepEqual(componentUnitsInScene(actual, "part", names), []);
+});
+
+test("component units do not combine stock quantities, unresolved copies or logical assemblies", () => {
+  assert.deepEqual(componentUnitsInScene(catalog({ quantity: 2, unit: "m", bodies: ["a", "b"] }), "root", ["a", "b"]), []);
+  assert.deepEqual(componentUnitsInScene(catalog({ quantity: 2, unit: "ea", bodies: ["a", "b", "c"] }), "root", ["a", "b", "c"]), []);
+  const actual = catalog({ quantity: 1, bodies: ["a", "b"] });
+  actual.materials[0] = { ...part, kind: "assembly" };
+  assert.deepEqual(componentUnitsInScene(actual, "root", ["a", "b"]), []);
+});
+
+test("explicit tube placements keep each routed length together without combining separate runs", () => {
+  const actual = catalog({ quantity: 2, unit: "m", placements: [
+    { label: "Run A", bodies: ["a/start", "a/end"] },
+    { label: "Run B", bodies: ["b/start", "b/end"] },
+  ] });
+  const units = componentUnitsInScene(actual, "root", ["a/start", "a/end", "b/start", "b/end"]);
+  assert.deepEqual(units.map(unit => unit.bodies), [["a/start", "a/end"], ["b/start", "b/end"]]);
+});
 
 test("a single installed unit retains every bound body and collapses numeric solids", () => {
   const instances = instancesInScene(catalog({ quantity: 1, bodies: ["regulator", "collet"] }), "root", "part",
@@ -66,6 +98,13 @@ test("the machine's compound purchased parts resolve complete individual placeme
   const actual = readMaterialCatalog(hardware), file = "manifold-layout/enclosure-assembly.step";
   const names = readMeshHeader(hardware + file + ".mesh").meshes.map(mesh => mesh.name);
   const quantities = unitQuantities(actual, "HSM-0001", { finish: "black" });
+  const units = componentUnitsInScene(actual, "HSM-0001", names, { finish: "black" });
+  for (const unit of units) {
+    const location = instancesInScene(actual, "HSM-0001", unit.material, names, { finish: "black" })
+      .find(instance => instance.name === unit.name);
+    assert.deepEqual(unit.bodies, location.bodies, unit.name);
+    for (const body of unit.bodies) assert.equal(unitForBody(units, body).name, unit.name, body);
+  }
   for (const id of ["HSM-0331", "HSM-0047", "HSM-0044", "HSM-0061", "HSM-0042", "HSM-0325"]) {
     const units = instancesInScene(actual, "HSM-0001", id, names);
     assert.equal(units.length, quantities.get(id), id);
