@@ -1,0 +1,86 @@
+{
+  "error_string": "Success.",
+  "export_time": 1282,
+  "layer_height": 0.23999999463558197,
+  "plate_index": 0,
+  "prepare_time": 26,
+  "return_code": 0,
+  "sliced_plates": [
+    {
+      "feature_type_times": {
+        "Bottom surface": 42.10858154296875,
+        "Bridge": 37.46095275878906,
+        "Custom": 304.5789794921875,
+        "Flush": 15.0,
+        "Gap infill": 5.489532470703125,
+        "Inner wall": 137.64247131347656,
+        "Internal solid infill": 172.8152618408203,
+        "Outer wall": 214.98655700683594,
+        "Overhang wall": 7.698877334594727,
+        "Sparse infill": 802.4002075195313,
+        "Support": 65.49776458740234,
+        "Support interface": 11.303153038024902,
+        "Top surface": 28.074201583862305,
+        "Travel": 170.0207061767578,
+        "Undefined": 161.22874450683594
+      },
+      "filament_change_times": 0,
+      "filaments": [
+        {
+          "filament_id": "GFT01",
+          "id": 1,
+          "main_used_g": 15.800369262695313,
+          "total_used_g": 15.800369262695313
+        }
+      ],
+      "generate_support_material_time": 35,
+      "id": 1,
+      "infill_time": 29,
+      "layer_filament_change": 0,
+      "main_predication": 1680.460205078125,
+      "make_perimeters_time": 27,
+      "obj_cached_cnt": 0,
+      "objects": [
+        {
+          "bbox": {
+            "depth": 30.0,
+            "height": 18.31999969482422,
+            "width": 19.74907684326172,
+            "x": 135.12545776367188,
+            "y": 145.0,
+            "z": 0.0
+          },
+          "id": 5,
+          "name": "RD Complete rail cavity",
+          "triangle_count": 1522
+        },
+        {
+          "bbox": {
+            "depth": 30.0,
+            "height": 23.59000015258789,
+            "width": 20.24907684326172,
+            "x": 169.87545776367188,
+            "y": 145.0,
+            "z": 0.0
+          },
+          "id": 9,
+          "name": "MD Matching front-top rail and wall",
+          "triangle_count": 4280
+        }
+      ],
+      "sliced_time": 452,
+      "sliced_time_with_cache": 340,
+      "total_predication": 2254.6598452455887,
+      "triangle_count": 5802,
+      "warning_message": ""
+    }
+  ],
+  "sparse_infill_density": 15.0,
+  "upward_compatible_machine": [
+    "Bambu Lab H2S 0.4 nozzle",
+    "Bambu Lab H2D 0.4 nozzle",
+    "Bambu Lab H2D Pro 0.4 nozzle",
+    "Bambu Lab A2L 0.4 nozzle"
+  ],
+  "wall_loops": 2
+}

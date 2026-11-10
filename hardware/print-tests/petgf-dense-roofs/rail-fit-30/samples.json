@@ -1,0 +1,95 @@
+{
+  "purpose": "Preserve the complete production rail and its matching enclosure wall section as a sliding fit pair.",
+  "profile": "hardware/print-tests/petgf-dense-roofs/close-contact/2026-11-09-close-contact-DEF-left04-z018-mark1.3mf",
+  "interface_spacing_mm": {
+    "D": 0.0
+  },
+  "column_x_mm": [
+    162.5
+  ],
+  "label_height_mm": 0.48,
+  "common_object_settings": {
+    "support_top_z_distance": "0.24",
+    "support_interface_top_layers": "3",
+    "support_interface_spacing": "0",
+    "support_style": "default",
+    "tree_support_branch_angle": "20",
+    "support_on_build_plate_only": "0",
+    "sparse_infill_density": "100%",
+    "sparse_infill_pattern": "zig-zag"
+  },
+  "families": [
+    {
+      "id": "R",
+      "name": "Complete rail cavity",
+      "source": "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.stl",
+      "feature": "enclosure-front-bottom::west-z-rail",
+      "crop_min_mm": [
+        -110.5,
+        70.0,
+        156.96
+      ],
+      "crop_max_mm": [
+        -90.75,
+        100.0,
+        174.8
+      ],
+      "row_y_mm": 160.0,
+      "label_center_world_mm": [
+        -98.625,
+        85.0,
+        174.8
+      ],
+      "settings": {},
+      "retains": "The complete floor, arm, catch overhang, roof stock and open sliding/removal mouth across the selected rail section.",
+      "source_cavity_floor_z_mm": 160.0,
+      "source_catch_z_mm": 169.2,
+      "source_catch_top_z_mm": 174.8,
+      "source_cavity_inner_x_mm": -98.25,
+      "source_arm_outer_x_mm": -93.75,
+      "source_lip_x_mm": -103.5,
+      "production_bed_world_z_mm": -6.0,
+      "target_support_root": "model",
+      "growth_setting_basis": "Production front-bottom rail tree style and branch angle keep the support rooted on the cavity floor. D contact spacing, interface count, requested gap, bridge flow, bridge speed, temperatures and cooling are retained. Production rail solid-stock settings are retained.",
+      "column_x_mm": [
+        145.0
+      ]
+    },
+    {
+      "id": "M",
+      "name": "Matching front-top rail and wall",
+      "source": "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl",
+      "feature": "enclosure-front-top::west-z-rail",
+      "crop_min_mm": [
+        -110.5,
+        70.0,
+        160.25
+      ],
+      "crop_max_mm": [
+        -90.25,
+        100.0,
+        183.36
+      ],
+      "column_x_mm": [
+        180.0
+      ],
+      "row_y_mm": 160.0,
+      "label_center_world_mm": [
+        -99.5,
+        85.0,
+        183.36
+      ],
+      "settings": {},
+      "retains": "The complete mating foot, channel, outside wall and stock beyond the channel roof and inboard wall.",
+      "source_foot_bottom_z_mm": 160.25,
+      "source_foot_top_z_mm": 168.7,
+      "source_foot_face_x_mm": -98.5,
+      "source_channel_open_x_mm": -103.75,
+      "source_channel_far_x_mm": -93.25,
+      "source_channel_shoulder_z_mm": 175.05,
+      "source_channel_peak_z_mm": 180.3,
+      "production_bed_world_z_mm": 160.25,
+      "minimum_added_crop_stock_mm": 3.0
+    }
+  ]
+}
