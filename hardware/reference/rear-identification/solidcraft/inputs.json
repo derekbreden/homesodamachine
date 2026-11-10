@@ -1,0 +1,149 @@
+{
+  "purpose": "The frozen historical interfaces define the complete identification-chip replay.",
+  "source_revision": "1a7839866fa71f207927dd5b8973c28a487a2d7a",
+  "change_revision": "117ada0b44e4ef2e930ac93ad6a9ce5ca95007ce",
+  "nominal_width": 42.0,
+  "thickness": 1.8,
+  "word_depth": 1.0,
+  "word_rise": 0.48,
+  "clearance_before": 0.0,
+  "clearance_after": 0.2,
+  "parts": [
+    {
+      "key": "water",
+      "word": "TAP",
+      "bottom": 14.199999999999989,
+      "top": 23.80000000000001,
+      "word_center": 16.415463594570326,
+      "bore": [
+        0.22586011105036263,
+        -0.3352851189733883
+      ],
+      "bore_diameter": 19.276,
+      "chip_color": [
+        235,
+        236,
+        234
+      ],
+      "word_color": [
+        51,
+        51,
+        54
+      ]
+    },
+    {
+      "key": "co2",
+      "word": "CO2",
+      "bottom": 14.199999999999989,
+      "top": 23.80000000000001,
+      "word_center": 16.415463594570326,
+      "bore": [
+        0.0,
+        0.0
+      ],
+      "bore_diameter": 13.857,
+      "chip_color": [
+        228,
+        83,
+        87
+      ],
+      "word_color": [
+        235,
+        236,
+        234
+      ]
+    },
+    {
+      "key": "drain",
+      "word": "DRAIN",
+      "bottom": 23.399999999999977,
+      "top": 14.600000000000023,
+      "word_center": -16.81476135253905,
+      "bore": [
+        0.0,
+        0.0
+      ],
+      "bore_diameter": 15.3,
+      "chip_color": [
+        235,
+        236,
+        234
+      ],
+      "word_color": [
+        51,
+        51,
+        54
+      ]
+    },
+    {
+      "key": "carb",
+      "word": "SODA",
+      "bottom": 15.399999999999977,
+      "top": 22.600000000000023,
+      "word_center": 17.13587646484376,
+      "bore": [
+        0.0,
+        0.0
+      ],
+      "bore_diameter": 17.44,
+      "chip_color": [
+        105,
+        180,
+        247
+      ],
+      "word_color": [
+        235,
+        236,
+        234
+      ]
+    },
+    {
+      "key": "flavor-a",
+      "word": "FLAVOR",
+      "bottom": 15.399999999999977,
+      "top": 22.600000000000023,
+      "word_center": 17.13587646484376,
+      "bore": [
+        0.0,
+        0.0
+      ],
+      "bore_diameter": 15.3,
+      "chip_color": [
+        51,
+        51,
+        54
+      ],
+      "word_color": [
+        235,
+        236,
+        234
+      ]
+    },
+    {
+      "key": "flavor-b",
+      "word": "FLAVOR",
+      "bottom": 23.399999999999977,
+      "top": 14.600000000000023,
+      "word_center": -16.81476135253905,
+      "bore": [
+        0.0,
+        0.0
+      ],
+      "bore_diameter": 15.3,
+      "chip_color": [
+        51,
+        51,
+        54
+      ],
+      "word_color": [
+        235,
+        236,
+        234
+      ]
+    }
+  ],
+  "source_hashes": {
+    "above-core.json": "ceb5fcceeec71904b64d7b7eb381273064eb09bb92fe098ecf8d43ac576bba7a",
+    "label-words.json": "92acad5810f8515727aa4462a15571fefc90e92bef6fa66e5d514cf579662d1b"
+  }
+}

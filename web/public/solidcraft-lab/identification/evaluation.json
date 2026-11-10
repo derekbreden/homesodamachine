@@ -1,0 +1,241 @@
+{
+  "purpose": "This isolated replay compares complete identification chips at their historical clearances.",
+  "stage": "Baseline geometry constructed; clearance replay pending.",
+  "initial_native_construction": {
+    "kernel_and_save_process_ms": 3081.140667,
+    "scope": "Native command execution and evaluated-container save; authoring and trial infrastructure time are recorded separately."
+  },
+  "baseline_shape_comparison": [
+    {
+      "part": "water",
+      "rust_bounds": [
+        [
+          -21.0,
+          0.0,
+          -14.199999809265137
+        ],
+        [
+          21.0,
+          2.2799999713897705,
+          23.799999237060547
+        ]
+      ],
+      "native_bounds": [
+        [
+          -21.0,
+          0.0,
+          -14.200000762939453
+        ],
+        [
+          21.0,
+          2.2799999713897705,
+          23.799999952316284
+        ]
+      ],
+      "rust_volume": 2355.194205540253,
+      "native_volume": 2355.0866435998037,
+      "rust_watertight": true,
+      "native_watertight": true,
+      "rust_to_native_sampled_max_mm": 0.0027982623228960057,
+      "native_to_rust_sampled_max_mm": 0.002269071982196379
+    },
+    {
+      "part": "co2",
+      "rust_bounds": [
+        [
+          -21.0,
+          0.0,
+          -14.199999809265137
+        ],
+        [
+          21.0,
+          2.2799999713897705,
+          23.799999237060547
+        ]
+      ],
+      "native_bounds": [
+        [
+          -21.0,
+          0.0,
+          -14.200000762939453
+        ],
+        [
+          21.0,
+          2.2799999713897705,
+          23.799999952316284
+        ]
+      ],
+      "rust_volume": 2609.7030777259665,
+      "native_volume": 2609.698526860028,
+      "rust_watertight": true,
+      "native_watertight": true,
+      "rust_to_native_sampled_max_mm": 0.0027614011671353773,
+      "native_to_rust_sampled_max_mm": 0.0021379895174482967
+    },
+    {
+      "part": "drain",
+      "rust_bounds": [
+        [
+          -21.0,
+          0.0,
+          -23.399999618530273
+        ],
+        [
+          21.0,
+          2.2799999713897705,
+          14.600000381469727
+        ]
+      ],
+      "native_bounds": [
+        [
+          -21.0,
+          0.0,
+          -23.400001525878906
+        ],
+        [
+          21.0,
+          2.2799999713897705,
+          14.600000381469727
+        ]
+      ],
+      "rust_volume": 2555.8508944064993,
+      "native_volume": 2555.8516683129656,
+      "rust_watertight": true,
+      "native_watertight": true,
+      "rust_to_native_sampled_max_mm": 0.0026709221991987556,
+      "native_to_rust_sampled_max_mm": 0.002314087639764779
+    },
+    {
+      "part": "carb",
+      "rust_bounds": [
+        [
+          -21.0,
+          0.0,
+          -15.399999618530273
+        ],
+        [
+          21.0,
+          2.2799999713897705,
+          22.600000381469727
+        ]
+      ],
+      "native_bounds": [
+        [
+          -21.0,
+          0.0,
+          -15.399999618530273
+        ],
+        [
+          21.0,
+          2.2799999713897705,
+          22.599998474121094
+        ]
+      ],
+      "rust_volume": 2455.193944488218,
+      "native_volume": 2455.144320485879,
+      "rust_watertight": true,
+      "native_watertight": true,
+      "rust_to_native_sampled_max_mm": 0.0027542088026637945,
+      "native_to_rust_sampled_max_mm": 0.002402989744444288
+    },
+    {
+      "part": "flavor-a",
+      "rust_bounds": [
+        [
+          -21.0,
+          0.0,
+          -15.399999618530273
+        ],
+        [
+          21.0,
+          2.2799999713897705,
+          22.600000381469727
+        ]
+      ],
+      "native_bounds": [
+        [
+          -21.0,
+          0.0,
+          -15.399999618530273
+        ],
+        [
+          21.0,
+          2.2799999713897705,
+          22.599998474121094
+        ]
+      ],
+      "rust_volume": 2557.773907864036,
+      "native_volume": 2557.7718336654016,
+      "rust_watertight": true,
+      "native_watertight": true,
+      "rust_to_native_sampled_max_mm": 0.002760703451306616,
+      "native_to_rust_sampled_max_mm": 0.0022108857591974277
+    },
+    {
+      "part": "flavor-b",
+      "rust_bounds": [
+        [
+          -21.0,
+          0.0,
+          -23.399999618530273
+        ],
+        [
+          21.0,
+          2.2799999713897705,
+          14.600000381469727
+        ]
+      ],
+      "native_bounds": [
+        [
+          -21.0,
+          0.0,
+          -23.399999976158142
+        ],
+        [
+          21.0,
+          2.2799999713897705,
+          14.599998474121094
+        ]
+      ],
+      "rust_volume": 2557.7739130592367,
+      "native_volume": 2557.7718549084047,
+      "rust_watertight": true,
+      "native_watertight": true,
+      "rust_to_native_sampled_max_mm": 0.0027620121870591233,
+      "native_to_rust_sampled_max_mm": 0.0022108962425254003
+    }
+  ],
+  "timing_scope": "Native initial construction is separate from the clearance edit. Rust uses the historical recipe and current kernel. No print is submitted.",
+  "historical_request": "let's go with somewhere in between, 0.20 mm per side, as our approved variant implemented on all 6 color chips.",
+  "source_revision": "1a7839866fa71f207927dd5b8973c28a487a2d7a",
+  "native_features": 30,
+  "native_components": 6,
+  "initial_rust_generation": {
+    "purpose": "This observation replays the historical recipe using frozen inputs and the current hsm kernel.",
+    "variant": "before",
+    "recipe_revision": "1a7839866fa71f207927dd5b8973c28a487a2d7a",
+    "recipe_sha256": "fcd757bfa5bd38131fcf55a064a470775ff1613a2ed92d3318fa4a8ab90e1432",
+    "kernel_checkout": "df3475b9ffc1ef5e8f8605c9692864003db00e75",
+    "source_edit_at": "2026-11-10T02:03:37.022Z",
+    "compile": {
+      "started_at": "2026-11-10T02:03:37.029Z",
+      "finished_at": "2026-11-10T02:03:39.654Z",
+      "wall_ms": 2625
+    },
+    "generation": {
+      "started_at": "2026-11-10T02:03:39.654Z",
+      "finished_at": "2026-11-10T02:03:40.187Z",
+      "wall_ms": 533
+    },
+    "edit_to_outputs_ms": 3185,
+    "scope": "Baseline setup; excluded from the edit comparison."
+  },
+  "native_before_json_sha256": "d1fcadf41ad7c8bfaf4188dc445e0a48bfefc43636a59804643307ccaeb7c5c5",
+  "initial_browser_edit": {
+    "scope": "First native browser check before history reordering; software WebGL on Chrome.",
+    "parameter": "side_clearance",
+    "value_mm": 0.15,
+    "displayed_edit_seconds": 3.02,
+    "recomputed_features": 28
+  }
+}
