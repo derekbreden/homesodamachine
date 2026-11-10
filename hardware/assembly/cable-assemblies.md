@@ -155,7 +155,7 @@ With back-top open, dress and seat the prepared runs through the accessible
 mouths. All three cable mouths face down in installed machine coordinates;
 back-top's ceiling-down print pose reverses that direction on the printer.
 Angle and pull the J5 ribbon into its mouth; straight sliding entry can be tight.
-The [physical result](../../future/snap-fit-tests/2026-10-26-mark2-combined/physical-result.json)
+The [physical result](https://github.com/derekbreden/homesodamachine/blob/2f2d9c94a1c3fbf007dfa1bd7e93095197079895/future/snap-fit-tests/2026-10-26-mark2-combined/physical-result.json)
 accepts the 16 mm-span clip's 4P fit and qualitative retention. The DC-1 pair and
 V-K single-wire seats remain provisional. The
 [review](../printed-parts/enclosure/enclosure/route-snap-review/README.md#evidence-and-fit-scope)

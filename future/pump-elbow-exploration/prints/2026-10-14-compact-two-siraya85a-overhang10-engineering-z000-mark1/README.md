@@ -50,7 +50,7 @@ passage remain a quality issue even if the exterior is clean.
 - [Editable project](2026-10-14-compact-two-elbows-siraya85a-overhang10-engineering-right06-z000-mark1.3mf)
 - [Native sliced archive](https://github.com/derekbreden/homesodamachine/blob/33d50d2ecd2a0fb6b518483a44c8031e3a0c1617/future/pump-elbow-exploration/prints/2026-10-14-compact-two-siraya85a-overhang10-engineering-z000-mark1/2026-10-14-compact-two-elbows-siraya85a-overhang10-engineering-right06-z000-mark1.gcode.3mf)
 - [Native readback and exact recipe differences](native-readback.json)
-- [Manual preparation script](prepare_mark1.py)
+- [Manual preparation script](https://github.com/derekbreden/homesodamachine/blob/2f2d9c94a1c3fbf007dfa1bd7e93095197079895/future/pump-elbow-exploration/prints/2026-10-14-compact-two-siraya85a-overhang10-engineering-z000-mark1/prepare_mark1.py)
 - [Startup spacing](startup-spacing.json)
 
 The preparation script slices offline. Submission uses the standard sender,

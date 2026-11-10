@@ -17,7 +17,7 @@ fins through the turns. Transfers between deposited paths are straight chords
 contained within material. No part retraction or Z hop interrupts these tours;
 each layer starts and ends on the vertical centre joining sheet.
 
-[`deposited_links.py`](../../deposited_links.py) builds a graph from the native
+[`deposited_links.py`](https://github.com/derekbreden/homesodamachine/blob/2f2d9c94a1c3fbf007dfa1bd7e93095197079895/future/pump-elbow-exploration/deposited_links.py) builds a graph from the native
 extrusion paths, joins nearby paths with contained straight links, pairs open
 endpoints and walks an Euler circuit. Existing closed paths act as the
 deposited connection between areas. The additional 36.376 mm of filament,
@@ -68,10 +68,7 @@ both printer states and shared-circuit spacing. Camera trips are absent from
 the G-code. Startup and shutdown remain native and are outside the in-part
 strand review.
 
-Run `prepare_mark1.py` with `tools/cad-venv/bin/python` to create the editable
-project, source slice and processed archive. Run `verify_mark1.py` separately
-for this manual emitted-path assessment. These scripts do not send a print or
-run on commits/builds. [deposition-review.json](deposition-review.json) records
+The [preparation source](https://github.com/derekbreden/homesodamachine/blob/2f2d9c94a1c3fbf007dfa1bd7e93095197079895/future/pump-elbow-exploration/prints/2026-10-16-deposited-links-siraya85a-mark1/prepare_mark1.py) and [emitted-path assessment source](https://github.com/derekbreden/homesodamachine/blob/2f2d9c94a1c3fbf007dfa1bd7e93095197079895/future/pump-elbow-exploration/prints/2026-10-16-deposited-links-siraya85a-mark1/verify_mark1.py) record the offline processing. [deposition-review.json](deposition-review.json) records
 the per-layer tour and added material; [native-readback.json](native-readback.json)
 records the source slice and recipe.
 

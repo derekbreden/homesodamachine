@@ -27,7 +27,7 @@ Zero trim is local to this elbow recipe.
 
 ## Inserted movement
 
-[`departure_lap.py`](../../departure_lap.py) inserts a block immediately after
+[`departure_lap.py`](https://github.com/derekbreden/homesodamachine/blob/2f2d9c94a1c3fbf007dfa1bd7e93095197079895/future/pump-elbow-exploration/departure_lap.py) inserts a block immediately after
 the final standing retraction in each object block:
 
 1. Lift to 0.4 mm above the printed layer and reach the selected wall loop.

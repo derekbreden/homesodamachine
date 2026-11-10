@@ -43,4 +43,4 @@ loaded deformation and clamp-housing access have no acceptance result.
 The [two-elbow print's failed result](../2026-10-13-continuous-body-tpu85a-mark1/physical-result.json)
 retains its identified-job scope.
 
-`prepare_mark1.py` regenerates the native files offline without sending a job.
+The [preparation source](https://github.com/derekbreden/homesodamachine/blob/2f2d9c94a1c3fbf007dfa1bd7e93095197079895/future/pump-elbow-exploration/prints/2026-10-13-full-base-single-tpu85a-mark1/prepare_mark1.py) records the saved native setup.

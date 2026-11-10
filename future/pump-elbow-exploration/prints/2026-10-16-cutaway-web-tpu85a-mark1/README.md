@@ -49,7 +49,7 @@ a 0.1 mm travel-distance threshold. The local timelapse template is empty,
 and submission selects **Timelapse Off**. There are no `M9711` photo-trip
 commands and no departure laps.
 
-[`wall_travel.py`](../../wall_travel.py) manually replaces 53 native travel
+[`wall_travel.py`](https://github.com/derekbreden/homesodamachine/blob/2f2d9c94a1c3fbf007dfa1bd7e93095197079895/future/pump-elbow-exploration/wall_travel.py) manually replaces 53 native travel
 shortcuts. Its [route review](wall-travel-review.json) assesses all 4,144
 part travels against emitted bead envelopes. Stock includes the departing,
 arriving and preceding layers. Routes prefer the current walls; six at

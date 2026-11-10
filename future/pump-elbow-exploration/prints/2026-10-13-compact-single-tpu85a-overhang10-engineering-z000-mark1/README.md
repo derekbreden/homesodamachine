@@ -37,8 +37,8 @@ identified 225°C fit baseline. It supplies no physical surface or fit result.
 
 - [Editable project](2026-10-13-compact-single-elbow-tpu85a-overhang10-engineering-right06-z000-mark1.3mf)
 - [Native sliced archive](https://github.com/derekbreden/homesodamachine/blob/33d50d2ecd2a0fb6b518483a44c8031e3a0c1617/future/pump-elbow-exploration/prints/2026-10-13-compact-single-tpu85a-overhang10-engineering-z000-mark1/2026-10-13-compact-single-elbow-tpu85a-overhang10-engineering-right06-z000-mark1.gcode.3mf)
-- [Manual preparation script](prepare_mark1.py)
-- [Manual toolpath review](../../review_curl_toolpath.py)
+- [Manual preparation script](https://github.com/derekbreden/homesodamachine/blob/2f2d9c94a1c3fbf007dfa1bd7e93095197079895/future/pump-elbow-exploration/prints/2026-10-13-compact-single-tpu85a-overhang10-engineering-z000-mark1/prepare_mark1.py)
+- [Manual toolpath review](https://github.com/derekbreden/homesodamachine/blob/2f2d9c94a1c3fbf007dfa1bd7e93095197079895/future/pump-elbow-exploration/review_curl_toolpath.py)
 
 The preparation script only slices the saved geometry offline. It does not
 connect to or submit a job to a printer.

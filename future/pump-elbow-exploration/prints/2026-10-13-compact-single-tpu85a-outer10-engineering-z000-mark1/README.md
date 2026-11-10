@@ -50,7 +50,7 @@ It is prepared offline and not submitted.
 
 - [Editable project](2026-10-13-compact-single-elbow-tpu85a-outer10-engineering-right06-z000-mark1.3mf)
 - [Native archive](https://github.com/derekbreden/homesodamachine/blob/33d50d2ecd2a0fb6b518483a44c8031e3a0c1617/future/pump-elbow-exploration/prints/2026-10-13-compact-single-tpu85a-outer10-engineering-z000-mark1/2026-10-13-compact-single-elbow-tpu85a-outer10-engineering-right06-z000-mark1.gcode.3mf)
-- [Manual preparation script](prepare_mark1.py)
+- [Manual preparation script](https://github.com/derekbreden/homesodamachine/blob/2f2d9c94a1c3fbf007dfa1bd7e93095197079895/future/pump-elbow-exploration/prints/2026-10-13-compact-single-tpu85a-outer10-engineering-z000-mark1/prepare_mark1.py)
 
 The script slices the saved baseline geometry offline. It does not submit a job
 or change a global printer preset.

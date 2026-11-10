@@ -13,4 +13,4 @@ Derek selected C2 with the **6.35 mm bore** for present use, with smaller bores 
 
 The closely spaced reservoir fore pair retains its cap. Independent C2 clips at its 7.5 mm pitch intrude into the neighboring tube. Body restraints retain their existing roles.
 
-See the [physical print result](/future/snap-fit-tests/2026-10-26-mark2-combined/physical-result.json) and the [routing review](/hardware/printed-parts/enclosure/enclosure/route-snap-review/README.md) for the geometry, installation order and fit scope.
+See the [physical print result](https://github.com/derekbreden/homesodamachine/blob/2f2d9c94a1c3fbf007dfa1bd7e93095197079895/future/snap-fit-tests/2026-10-26-mark2-combined/physical-result.json) and the [routing review](/hardware/printed-parts/enclosure/enclosure/route-snap-review/README.md) for the geometry, installation order and fit scope.
