@@ -136,7 +136,7 @@ that rises toward a free face levels off one wall short of it. Every face betwee
 keeps a running fit, measured square to the face.
 
 The screws pass through printed holes, the selected
-[M5 sample fit](https://github.com/derekbreden/homesodamachine/blob/archive-finished-trials/hardware/print-tests/m5-seam-bearing/physical-result.json).
+[M5 sample fit](https://github.com/derekbreden/homesodamachine/blob/b57b985c648c34346481a57fde897374b0e8f068/hardware/print-tests/m5-seam-bearing/physical-result.json).
 Long passages may require turning the screw before the insert engages. Each insert and
 the manufacturer's minimum stock round it, about the axis, fit
 inside the side band. The lower axes stand in from the exterior,
@@ -799,7 +799,7 @@ ordinary layer schedule. Mating planes keep their required dimensions.
 Use a 0.20 mm first bed layer, six walls locally through the expanding band,
 and the saved wall-first order, speeds and 15% overlap. Keep support contacts off
 those transitions. **Inward/top show rounds retain 0.08 mm**. The
-[carrier physical record](../tee-carrier/physical-acceptance.json) includes its
+[carrier physical record](https://github.com/derekbreden/homesodamachine/blob/d8d50f9a54222ccd40bc1e74111d2d87d893fa78/hardware/printed-parts/enclosure/tee-carrier/physical-acceptance.json) includes its
 complete top R6 and qualifies the chamfer/taper's surface on that article; sliding fit and the other parts' physical
 surfaces remain separate checks. Each fresh slice must verify first/second-layer
 bead overlap and absence of support contacts on the show transitions, including

@@ -66,11 +66,9 @@ TAG = "cad-artifacts"
 
 #: Trees of local intermediates, each already ignored by the rule named beside it.
 NOT_BUNDLED_DIRS = (
-    "hardware/printed-parts/enclosure/tee-carrier",  # retained physical articles
     "hardware/pcb/pcba/.cad-cache",          # manufacturer downloads, keyed by LCSC
     "hardware/assembly/scenes/out",          # local bench-service view intermediates
     "hardware/quickstart",                 # retired owner document and local studies
-    "hardware/printed-parts/enclosure/asse-drip-pan",  # retained retired geometry
     "hardware/quickstart-codex",           # retired owner document and local studies
     "hardware/quickstart-claude",          # retired owner document and local studies
     "hardware/install-guide/out",            # a leaf's own two renders; no route serves one

@@ -36,7 +36,7 @@ The frame prints on its full flat underside. Four supports reach only the extern
 
 The single raw perimeter diagnostic is native Face 96, the upward Z48.8 silicone-brim clearance seat. The actual Top surface road covers its witness; [the native reading](perimeter-diagnostic-readings.json) and [resolution](perimeter-diagnostic-resolution.json) retain that measurement.
 
-The [accepted v4 record](https://github.com/derekbreden/homesodamachine/blob/archive-finished-trials/hardware/printed-parts/zone-c/funnel/cradle-trial/physical-acceptance.json) remains
+The [accepted v4 record](https://github.com/derekbreden/homesodamachine/blob/b57b985c648c34346481a57fde897374b0e8f068/hardware/printed-parts/zone-c/funnel/cradle-trial/physical-acceptance.json) remains
 limited to its frozen printed pair. Current 3.15 mm hooks, corresponding slots
 and flat silicone bearing require separate physical acceptance. Native slicing
 does not establish insertion force, retention, operating life, support-removal

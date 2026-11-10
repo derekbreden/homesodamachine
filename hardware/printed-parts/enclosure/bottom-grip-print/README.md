@@ -14,7 +14,7 @@ physical acceptance for those properties.
 The stored [H2C](h2c/preflight.json) and [Mark2](mark2/preflight.json) reviews and their
 launch receipts bind the receiver-cut geometry identified in each record. Their grip-wing
 support exclusions and bridge checks apply only to those source meshes. The
-[receiver/cover coupon result](../grip-cover/physical-acceptance.json) retains its scope.
+[receiver/cover coupon result](https://github.com/derekbreden/homesodamachine/blob/d8d50f9a54222ccd40bc1e74111d2d87d893fa78/hardware/printed-parts/enclosure/grip-cover/physical-acceptance.json) retains its scope.
 
 The shared [`petgf.3mf`](../../petgf.3mf) supplies temperatures, speeds, wall order,
 15% infill overlap and automatic tree supports. The production layer bands and complete

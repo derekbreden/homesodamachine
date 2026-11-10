@@ -6,7 +6,7 @@ rigid round neck, then its two broad lips seat against the roots of side grooves
 The display and cover slide onto the tip together, then seat toward the neck.
 No display fasteners are fitted.
 
-The [physical trial](https://github.com/derekbreden/homesodamachine/blob/archive-finished-trials/hardware/printed-parts/fixtures/faucet-display-snap/print-log.md) establishes
+The [physical trial](https://github.com/derekbreden/homesodamachine/blob/b57b985c648c34346481a57fde897374b0e8f068/hardware/printed-parts/fixtures/faucet-display-snap/print-log.md) establishes
 solid construction, useful give and spring, firm snap seating and retention
 for its two identified PET-GF covers. The [acceptance record](physical-acceptance.json)
 preserves the successful STL and reported results. The current cover matches the
@@ -137,7 +137,7 @@ measures complete rim boundaries and material sections in both nominal seated
 and relaxed shapes. The [full faucet audit](../faucet-shell/centered-vent-check.json)
 retains the geometry hashes and electronics reading for its identified inputs.
 Those geometric readings do not measure the printed snap's force or durability.
-The [physical trial log](https://github.com/derekbreden/homesodamachine/blob/archive-finished-trials/hardware/printed-parts/fixtures/faucet-display-snap/print-log.md)
+The [physical trial log](https://github.com/derekbreden/homesodamachine/blob/b57b985c648c34346481a57fde897374b0e8f068/hardware/printed-parts/fixtures/faucet-display-snap/print-log.md)
 records the reported print and retention observations.
 
 ```

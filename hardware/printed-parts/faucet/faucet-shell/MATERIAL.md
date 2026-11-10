@@ -14,7 +14,7 @@ The display cover flexes around the rigid neck. Its inward-preformed wings
 carry broad retaining lips. The nominal skin is 1.30 mm, with a 1 mm minimum
 for its thin sections. The [cover geometry](../faucet-display-cover/README.md)
 defines the preload and mating grooves. Firm snap seating and retention are
-reported for the identified complete covers in the [physical trial](https://github.com/derekbreden/homesodamachine/blob/archive-finished-trials/hardware/printed-parts/fixtures/faucet-display-snap/print-log.md).
+reported for the identified complete covers in the [physical trial](https://github.com/derekbreden/homesodamachine/blob/b57b985c648c34346481a57fde897374b0e8f068/hardware/printed-parts/fixtures/faucet-display-snap/print-log.md).
 The current 27 mm neck and matching cover require their own fit reading;
 the [acceptance record](../faucet-display-cover/physical-acceptance.json) preserves
 the scope of the accepted article. Repeated cycling and resistance to permanent

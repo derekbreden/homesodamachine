@@ -19,7 +19,7 @@ to their source geometry and reviews.
 
 The scripts that prepare, read and finalize the identification plates, `prepare.py labels`,
 `review_native.py` and `finalize_prints.py`, are at the
-[`archive-finished-trials`](https://github.com/derekbreden/homesodamachine/tree/archive-finished-trials/hardware/printed-parts/drain-readiness) tag. They work in
+[`archive-finished-trials`](https://github.com/derekbreden/homesodamachine/tree/b57b985c648c34346481a57fde897374b0e8f068/hardware/printed-parts/drain-readiness) tag. They work in
 `.cache/prints/2026-10-07-drain/`, use the installed Bambu Studio and submit no printer jobs.
 Their checks read emitted roads and bind the native archives to their source meshes by hash.
 

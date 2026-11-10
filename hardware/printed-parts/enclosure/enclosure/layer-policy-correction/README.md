@@ -31,7 +31,7 @@ without unnecessary fine-layer deposition. Native paths establish layer
 heights, wall scope, bead overlap and support clearance. Surface quality,
 support removal, magnet grip and fastener strength require physical evidence;
 these slice reviews do not qualify them. The accepted
-[tee-carrier transition](../../tee-carrier/physical-acceptance.json) is the physical
+[tee-carrier transition](https://github.com/derekbreden/homesodamachine/blob/d8d50f9a54222ccd40bc1e74111d2d87d893fa78/hardware/printed-parts/enclosure/tee-carrier/physical-acceptance.json) is the physical
 profile reference. The
 [cartridge result](../magnet-retention/v4/physical-result.json) keeps the RC62
 grip issue open pending the separate fit samples.

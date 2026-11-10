@@ -674,19 +674,7 @@ def _selftest() -> int:
     hold("a filename with spaces survives the index reading",
          any(" " in f for f in files), True)
 
-    # A copy its package manifest pins by bytes is a quote; the live file it copies is not.
-    refresh = ("hardware/reference/g-ganen-pump/installation/feet-correction-validation/"
-               "documentation-refresh")
-    # Asked of the two manifests and the files beside them alone, so the holds read five files
-    # rather than every manifest in the tree.
-    if f"{refresh}/package-manifest.json" in files:
-        pinned = _pinned_copies({f"{refresh}/package-manifest.json",
-                                 f"{refresh}/before/hardware/ledger/bom.md",
-                                 "hardware/ledger/bom.md"})
-        hold("the refresh package's copy of bom.md is pinned",
-             f"{refresh}/before/hardware/ledger/bom.md" in pinned, True)
-        hold("and the live bom.md is not", "hardware/ledger/bom.md" in pinned, False)
-    # A print review's copy of a source it names by `source_path` and digest is one too.
+    # A print review pins its source copy by `source_path` and digest.
     review = ("hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/"
               "native-slice-reviews/2026-09-22-display-cover-mark2-v4")
     if f"{review}/manifest.json" in files:

@@ -1,4 +1,0 @@
-Finished trial. Its sources and records are at
-https://github.com/derekbreden/homesodamachine/tree/archive-finished-trials/hardware/printed-parts/fixtures/faucet-display-snap
-faucet_display_snap_trial.rs is the Rust port that tools/hsm/tooling/Cargo.toml still builds.
-This marker keeps its published models off the site.

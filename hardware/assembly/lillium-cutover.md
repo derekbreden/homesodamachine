@@ -117,7 +117,7 @@ Front-top is the fixture for the whole flavor side.
    [internal plumbing §3](internal-plumbing.md#3-flavor-manifold-v-a-through-v-j--y-a-y-b-y-c-y-d-y-f-y-g--pumps),
    whose steps 1–4 seat the machine's four pump tees in front-top's tee wall. This build's
    dock is the tee carrier with Y-C, Y-D, Y-F and Y-G
-   ([tee carrier](/hardware/printed-parts/enclosure/tee-carrier/README.md#assembly)); the aft
+   ([tee carrier](https://github.com/derekbreden/homesodamachine/blob/d8d50f9a54222ccd40bc1e74111d2d87d893fa78/hardware/printed-parts/enclosure/tee-carrier/README.md#assembly)); the aft
    valves V-C, V-D, V-G and V-J and their window covers; the fore valves V-E, V-F, V-H and V-I
    with the four bowed stubs; Y-A and Y-B butted to V-C and V-D, with the crossbar between them;
    the four hairpins.

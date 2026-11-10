@@ -1,3 +1,0 @@
-Scene renders that tools/install-guide writes. No page or PDF reads them; the install guide
-composes from ../assets/. The pointer file at the archive-finished-trials tag names the
-published renders. This marker keeps them off the site.
