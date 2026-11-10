@@ -125,10 +125,11 @@ about 122 m of road, 41 minutes and 16 g of the plate. They stand on 10 × 11.2 
 interfaces; the October 6 columns that stood were 43.4 mm tall on 12 × 15.2 mm.
 The apron tooling has no physical print or casting result.
 
-The generator's [design record](design.json) records closure with the intended
-fill, vent and rod-guide mouths capped for analysis, straight rod withdrawal,
-core lift and complete nominal casting equality with the funnel. The guide
-remains open in the native parts. The [overflow review](../funnel/overflow-review/README.md)
+The generator reuses the finished funnel model and writes the mold's
+[design record](design.json). Add `--review` when asking about backing or liquid
+containment; the record then includes those measurements, with the intended
+fill, vent and rod-guide mouths capped for analysis. The guide remains open in
+the native parts. The [overflow review](../funnel/overflow-review/README.md)
 binds the apron to its current source and assembly exports.
 
 The [physical print log](print-log.md), [October 6 slice and cavity retry](native-slice-reviews/2026-10-06-mark1-retry-z004-v2/README.md),
@@ -137,13 +138,18 @@ The [physical print log](print-log.md), [October 6 slice and cavity retry](nativ
 their identified artifact scope.
 
 ```sh
-tools/run -- cargo build --release --locked -j 2 --manifest-path tools/hsm/Cargo.toml -p hsm-funnel
-tools/run -- tools/hsm/target/release/funnel
-tools/run -- tools/hsm/target/release/funnel-mold
+tools/run -- hsm-print-build -- //:funnel-mold
 tools/run -- cargo build --release --locked -j 2 --manifest-path tools/hsm/Cargo.toml -p hsm-print-prep --bin funnel-mold-print-project
 tools/run -- tools/hsm/target/release/funnel-mold-print-project --models hardware/printed-parts/zone-c/funnel-mold \
   --output .cache/prints/funnel-mold/funnel-mold.3mf --label "Funnel mold" --slice
 hsm --scene printed-parts/zone-c/funnel-mold/assembly.step where rod
+```
+
+Run the backing and containment measurements when reviewing those questions:
+
+```sh
+tools/run -- cargo build --release --locked -j 2 --manifest-path tools/hsm/Cargo.toml -p hsm-funnel --bin funnel-mold
+tools/run -- tools/hsm/target/release/funnel-mold --review
 ```
 
 After publication, run the [native printed-mesh review](/tools/hsm/mesh-review/README.md)

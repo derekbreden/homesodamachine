@@ -2,7 +2,7 @@
 //! as they print, the steel rod and the assembly as the page draws them, and the design record of
 //! the casting's dimensions, volumes and closure.
 //!
-//!     funnel-mold [<output directory>]
+//!     funnel-mold [--review] [<output directory>]
 #[path = "../funnel/funnel_geometry.rs"]
 #[allow(dead_code)]
 mod funnel_geometry;
@@ -18,7 +18,7 @@ use hsm_zone_c_numbers::{Color, P2, catalog, funnel};
 use serde_json::{Value, json};
 use sha2::{Digest, Sha256};
 use std::collections::BTreeMap;
-use std::path::Path;
+use std::path::{Path, PathBuf};
 
 fn block(w: f64, d: f64, z0: f64, z1: f64, x: f64, y: f64) -> Solid {
     Solid::cuboid(v3(x - w / 2.0, y - d / 2.0, z0), v3(x + w / 2.0, y + d / 2.0, z1))
@@ -41,8 +41,9 @@ struct Parts {
 
 fn build(m: &Mold) -> Result<Parts> {
     let f = &m.funnel;
-    let (exterior, bore) = funnel_geometry::build_solids(f, 0.0, true, true)?;
-    let (forming, _) = funnel_geometry::build_solids(f, FINISH, true, true)?;
+    let cast = hsm_kernel::import::model("hardware/printed-parts/zone-c/funnel/funnel.step.npz")?
+        .into_iter().find(|body| body.name == "funnel").context("the finished funnel model contains its casting")?.solid;
+    let forming = funnel_geometry::exterior_solid(f, FINISH, true, true)?;
     let (x, y) = f.drain_xy;
     let (top, end, (_, neck)) = (f.top_z, f.end_z, f.ramp_z);
     let (floor, back, (w, d), (z0, z1), r) = (m.floor_z, m.back_z, m.flange_size, m.corbel_z, FLANGE_R);
@@ -121,7 +122,6 @@ fn build(m: &Mold) -> Result<Parts> {
         notches.push(block(PRY_DEPTH + 1.0, PRY_WIDTH, top - PRY_HEIGHT, top + 1.0, reach - PRY_DEPTH / 2.0 + 0.5, 0.0).rotate(V3::ZERO, V3::Z, angle));
     }
     let cavity = cavity.cut_all(&notches)?;
-    let cast = exterior.cut(&bore)?;
     let shift = v3(0.0, 0.0, -floor);
     Ok(Parts { cavity: cavity.translate(shift), core: core.translate(shift), funnel: cast.translate(shift), rod: rod.translate(shift) })
 }
@@ -228,7 +228,7 @@ fn digest(path: &Path) -> Result<String> {
 
 /// The design record: the casting's dimensions and volumes, the tooling's numbers, its closure,
 /// and the files it was cut to.
-fn design(m: &Mold, p: &Parts, out: &Path) -> Result<Value> {
+fn design(m: &Mold, p: &Parts, out: &Path, review: bool) -> Result<Value> {
     let f = &m.funnel;
     let (top, end, (ramp_top, neck)) = (f.top_z, f.end_z, f.ramp_z);
     let (floor, back) = (m.floor_z, m.back_z);
@@ -249,8 +249,7 @@ fn design(m: &Mold, p: &Parts, out: &Path) -> Result<Value> {
     let head = top + FLANGE_T - end;
     let mut info = json!({"dimensions_mm":sizes,"volume_ml":volumes,"shell_thickness_mm":SHELL,
         "flange_thickness_mm":FLANGE_T,"minimum_cavity_backing_mm":SHELL+JOIN_ALLOWANCE,
-        "backing_join_allowance_mm":JOIN_ALLOWANCE,"minimum_core_backing_mm":core_backing(m,p)?,
-        "liquid_containment":containment(m,p)?,"parting_z_mm":top-floor,"finish_allowance_mm":FINISH,
+        "backing_join_allowance_mm":JOIN_ALLOWANCE,"parting_z_mm":top-floor,"finish_allowance_mm":FINISH,
         "casting_scope":"whole finished funnel with flat-bottomed integral roof apron, rectangular block, flat bearing face and straight 6 mm outlet",
         "flange_plan_mm":pair(m.flange_size),"flange_corner_radius_mm":FLANGE_R,"flange_margin_mm":FLANGE_MARGIN,
         "plug_blank_mm":[funnel::PLUG_W,2.0*funnel::plug_half_length(funnel::PLUG_W/2.0)],
@@ -296,6 +295,10 @@ fn design(m: &Mold, p: &Parts, out: &Path) -> Result<Value> {
             "condition":"complete mold inside chamber; fill, vents, rod guide and drilled dry-side infill breathers open to chamber air",
             "process":"six walls, six top/bottom layers and 15% gyroid; slow evacuation and venting while silicone is fluid",
             "scope":"Applied liquid load only. No stiffness, lifetime or pressure rating is inferred from infill percentage."}});
+    if review {
+        info["minimum_core_backing_mm"] = json!(core_backing(m,p)?);
+        info["liquid_containment"] = containment(m,p)?;
+    }
     info["cavity_backing_scope"] = json!("Analytic continuous-envelope design minimum: shell thickness plus forming-join allowance");
     let mut radius = 0_f64;
     let mut hashes = BTreeMap::new();
@@ -322,17 +325,27 @@ fn design(m: &Mold, p: &Parts, out: &Path) -> Result<Value> {
     ensure!(CHAMBER_D / 2.0 - radius > 0.0, "the mold exceeds the chamber's diameter");
     info["volume_measurement_scope"] = json!("Numerical integration of the fine f64 models; printed facets have their own bound records.");
     info["shell_sha256"] = json!(hashes);
-    info["status"] = json!("Complete two-body tooling with flat print bases and straight stock steel rod; authored fine geometry verified");
+    info["status"] = json!("Complete two-body tooling with flat print bases and straight stock steel rod; source-authored fine geometry");
     Ok(info)
 }
 
 fn main() -> Result<()> {
-    let out = zone_files::out_dir("hardware/printed-parts/zone-c/funnel-mold")?;
+    let (mut output, mut review) = (None, false);
+    for argument in std::env::args_os().skip(1) {
+        if argument == "--review" { review = true; } else {
+            ensure!(output.is_none(), "usage: funnel-mold [--review] [<output directory>]");
+            output = Some(PathBuf::from(argument));
+        }
+    }
+    let out = output.unwrap_or_else(|| PathBuf::from("hardware/printed-parts/zone-c/funnel-mold"));
+    std::fs::create_dir_all(&out)?;
     let m = mold();
     let p = build(&m)?;
-    for s in [&p.cavity, &p.core, &p.funnel, &p.rod] {
-        s.check()?;
-        ensure!(s.components().len() == 1, "each tooling child is one closed body");
+    if review {
+        for s in [&p.cavity, &p.core, &p.funnel, &p.rod] {
+            s.check()?;
+            ensure!(s.components().len() == 1, "each tooling child is one closed body");
+        }
     }
     let cavity_print = funnel_geometry::fabrication_copy(&p.cavity, "FUNNEL cavity fabrication copy")?;
     println!("{}", printed(&out, "cavity", m.cavity_color, &p.cavity, &cavity_print)?);
@@ -342,5 +355,5 @@ fn main() -> Result<()> {
     println!("{}", shown(&out, "rod", &[body("rod", m.rod_color, &p.rod)])?);
     let bodies = [body("cavity", m.cavity_color, &p.cavity), body("core", m.core_color, &p.core), body("funnel", m.funnel_color, &p.funnel), body("rod", m.rod_color, &p.rod)];
     println!("{}", shown(&out, "assembly", &bodies)?);
-    zone_files::keep(&out.join("design.json"), (serde_json::to_string_pretty(&design(&m, &p, &out)?)? + "\n").as_bytes())
+    zone_files::keep(&out.join("design.json"), (serde_json::to_string_pretty(&design(&m, &p, &out, review)?)? + "\n").as_bytes())
 }

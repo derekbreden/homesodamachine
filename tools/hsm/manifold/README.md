@@ -13,3 +13,6 @@ dependencies. The geometry daemon's build identity includes this boundary too.
 
 The upstream implementation is
 [`manifold-rust`](https://github.com/larsbrubaker/manifold-rust).
+The [pinned source](../../../vendor/manifold-rust/README.hsm.md) inlines its hot
+intersection helpers into their callers. Its compiled source fingerprint binds
+the geometry daemon and retained enclosure stages to that implementation.

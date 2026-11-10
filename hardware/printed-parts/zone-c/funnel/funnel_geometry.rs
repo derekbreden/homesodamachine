@@ -163,7 +163,7 @@ pub fn wet(n:&Dimensions,top:f64,normal:f64)->Result<Solid> {
         tools.push(base);tools.push(column);tools.push(Solid::cylinder(v3(n.drain_xy.0,n.drain_xy.1,z1-normal),V3::Z,throat,normal+0.0025)?);
         Solid::union_all(&tools)
     } else {
-        let s=-normal;let plain=prism(w,d,r,r,z0,top,0.0,0.0)?;
+        let s=-normal;let plain=column;
         let inset=rounded(w-2.0*s,d-2.0*s,r-s,z0-1.0,top+1.0)?;
         tools.push(plain.cut(&inset)?);
         tools.push(Solid::cylinder(v3(n.drain_xy.0,n.drain_xy.1,z1),V3::Z,throat,s)?);
@@ -181,7 +181,8 @@ pub fn wet(n:&Dimensions,top:f64,normal:f64)->Result<Solid> {
     }
 }
 #[track_caller]
-pub fn build_solids(n:&Dimensions,air:f64,plug:bool,brim:bool)->Result<(Solid,Solid)> {
+/// The funnel's forming envelope at its requested offset.
+pub fn exterior_solid(n:&Dimensions,air:f64,plug:bool,brim:bool)->Result<Solid> {
     let(z0,neck)=n.ramp_z;let end=n.end_z;let top=n.top_z;
     let wall=wet(n,0.05,n.collar_wall+air)?
         .intersect(&Solid::cuboid(v3(-300.0,-300.0,end-air-1.0),v3(300.0,300.0,0.05+air)))?;
@@ -193,8 +194,16 @@ pub fn build_solids(n:&Dimensions,air:f64,plug:bool,brim:bool)->Result<(Solid,So
     }
     if plug {let(w,d)=n.plug_size;pieces.push(prism(w,d,0.0,0.0,end,end+n.plug_height,air,0.0)?.translate(v3(n.drain_xy.0,n.drain_xy.1,0.0)));}
     let outside=Solid::union_all(&pieces)?.intersect(&Solid::cuboid(v3(-300.0,-300.0,end-air),v3(300.0,300.0,top+1.0)))?;
-    let cavity=wet(n,top+1.0,0.0)?.union(&Solid::cylinder(v3(n.drain_xy.0,n.drain_xy.1,end-1.0),V3::Z,n.bore_radius,neck-end+1.01)?);
     ensure!(z0>neck,"the authored ramp descends to the throat");
+    Ok(outside)
+}
+
+/// The forming envelope and its wet passage share the authored funnel dimensions.
+#[track_caller]
+pub fn build_solids(n:&Dimensions,air:f64,plug:bool,brim:bool)->Result<(Solid,Solid)> {
+    let outside=exterior_solid(n,air,plug,brim)?;
+    let end=n.end_z;let top=n.top_z;let neck=n.ramp_z.1;
+    let cavity=wet(n,top+1.0,0.0)?.union(&Solid::cylinder(v3(n.drain_xy.0,n.drain_xy.1,end-1.0),V3::Z,n.bore_radius,neck-end+1.01)?);
     Ok((outside,cavity?))
 }
 
