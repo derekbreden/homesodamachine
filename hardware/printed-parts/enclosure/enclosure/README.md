@@ -1204,7 +1204,8 @@ run, with equal margins at both side edges and between the two. Its seat is the 
 form: a flush pocket with blind pilots for the same short inserts, its screws level with the
 cover's. Under the plate's light a bore sets the LED back behind the aperture. A channel from
 the bore's foot to the display's PCB pocket carries the LED's leads; its section stands on one
-corner in the print frame, so no face of it overhangs flat.
+corner in the print frame, so no face of it overhangs flat. The bore and channel share the
+sloping lower faces, with no separate flat floor or stopped channel cap at their junction.
 
 The 19 mm housing joins the enclosure sides and the continuous pump-mount stock. That
 stock runs to the existing outer roof around the actual display pocket; it has no separate
