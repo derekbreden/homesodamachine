@@ -26,11 +26,11 @@ shows and, for an order, the print files. So are the flavor manifold, the rear e
 the plumbing charts and the ledgers: the bill of materials with the attended labor, the print
 farm's time and the purchases. So are the cold core's: one program for each printed part, from its
 own numbers crate and the numbers it takes by name, and one for each of its two assemblies,
-built from the parts' files. Every other step still starts Python:
-its entry script imports thin modules that send each call to Rust over a JSON pipe, and runs the
-Rust part programs through the `hsm` engine's socket. The build planner
-(`tools/bazel/trace_inputs.py`) knows those steps by their Python entry scripts, and a Rust step
-by what cargo compiled into its program and the files the program reads.
+built from the parts' files. Geometry and generated-document producers run as Rust programs.
+Build supervision, publication and dependency tracing retain Python entrypoints, and Cargo
+configuration is a Python producer. Python compatibility modules serve the manual tools that
+still import their APIs. The build planner (`tools/bazel/trace_inputs.py`) records a Rust step
+from what Cargo compiled into its program and the files that program reads.
 
 ## What an output is made from
 
@@ -173,21 +173,19 @@ not state that every raw surface matches.
 
 ## Current coverage
 
-The normal build's dimensions, numeric recipes, readers, document generation, geometry,
-checks, exports, build planning, caches and publication transformations execute in Rust.
-Thin Python modules retain import names, public record and container types, command entrypoints,
-source/output registration and calls to library primitives. The normal build loads no
-CadQuery, OCP or meshcad.
+The normal geometry and generated-document producers execute in Rust and load no CadQuery,
+OCP or meshcad. Cargo configuration, build supervision, publication and dependency tracing
+retain Python entrypoints. Compatibility modules preserve Python imports and public types for
+the manual tools that call Rust providers.
 
-The source graph and shared runtime inputs cover 101 entrypoints, 341 Python source and adapter
-files, and 426 Rust sources, alongside Cargo manifests and raw files. The retained comparisons cover complete pieces on fixed inputs;
-the combined normal build exercises their integration.
-This is evidence for the maintained build, not dynamic coverage of every optional command.
+`tools/bazel/graph.json` records the maintained producers and their inputs and outputs. Cargo's
+dependency records describe each Rust program's compiled sources. Retained comparisons cover
+complete pieces on fixed inputs; the combined normal build exercises their integration.
 
-Historical print records, dated studies and optional native CAD probes retain their recorded
-sources. Dormant fine-model BREP readers, manual wiring review/search/drawing commands and
-native-only review callbacks are outside the normal build. Print preparation keeps its slicer,
-project and report options. No optional native CAD path supplies a normal-build result.
+The end-cap engineering drawing and laser file are separate Rust order commands, outside the
+normal build. Manual CAD probes, wiring review/search/drawing commands, scan tools and print
+studies also remain outside the normal build. No optional native CAD path supplies a
+normal-build result.
 
 ## Scalar, recipe and document programs
 
