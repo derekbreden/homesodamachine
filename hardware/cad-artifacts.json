@@ -669,7 +669,7 @@
     "hardware/printed-parts/fixtures/water-inlet-jet/water-inlet-jet-fixture-loose.step.mesh": "96f7458c618c6748ff6ad4fc7762f3e4606bce53a889a07fab6fbe903411a6a2",
     "hardware/printed-parts/fixtures/water-inlet-jet/water-inlet-jet-fixture-loose.stl": "cb72908a0c3588a4b27f30969928007aa7758bd8e0aa79cf43bb8b64b2f614ed",
     "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-assembly.step": "173b1ca5965e403394847821baa161b97f93fa0250cb4e6361a30970c85b90fd",
-    "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-assembly.step.mesh": "0a4457d3e528b7e3d920c4e3de9098c1c409d3cea1cdc46f3c1019144f84ab4a",
+    "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-assembly.step.mesh": "6ec13d345ffccc814ee8a8c350458296fb45955b259e25d0d96751cad49bb2cb",
     "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-ball-cage.step": "5ac3b058b8a4b99002702c3d5e3e25c8f00f9750a97e7de89470918d16c6c861",
     "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-ball-cage.step.mesh": "39ca0b56c5bacfeef88da474a05b201e67ede7ce3c32802dd6b9713268b362fa",
     "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-ball-cage.stl": "7eb0ddf0087b5c556ad5d9e9432b037bc967b08ca83e6ab092a0a44ef67836ac",
@@ -677,7 +677,7 @@
     "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-base-foot.step.mesh": "258e20b009c6a9d1c5b85499d14134116fc1e0cdf43114f3c0d80314a9b7a6cf",
     "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-base-foot.stl": "d0013ed7dfd8d3a359227521b36953f23b4c27e76806609217728e4da9f01117",
     "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-base.step": "97fb803f0172d45be3b39fd536c9ed668f010b1ba1acfef7ac24fc38a436e74c",
-    "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-base.step.mesh": "999f46c964a1505950f9a5fee5a10a0521966e99e2aaad841705fc77b1da3451",
+    "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-base.step.mesh": "263fd829ae7c54a3dc6b22397ca1d0fe6caf759c6b8c8e7141e1745e527644fc",
     "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-base.stl": "9af41dc6390bd81e9c95582c54d94d6044171791d94356f92a728b45997787f1",
     "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-ground-arm.step": "9a935ce582d6df13ce8230e1f90494571b7576266b8f04ccc537c4d1a56511a2",
     "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-ground-arm.step.mesh": "114f7eb62ea79da28905382455787fb022928a0f6d6d76f395d8f1a9128d11d7",
@@ -1338,7 +1338,7 @@
       "hardware/printed-parts/fixtures/water-inlet-jet/water-inlet-jet-fixture-loose.step.mesh": "96f7458c618c6748ff6ad4fc7762f3e4606bce53a889a07fab6fbe903411a6a2",
       "hardware/printed-parts/fixtures/water-inlet-jet/water-inlet-jet-fixture-loose.stl": "cb72908a0c3588a4b27f30969928007aa7758bd8e0aa79cf43bb8b64b2f614ed",
       "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-assembly.step": "173b1ca5965e403394847821baa161b97f93fa0250cb4e6361a30970c85b90fd",
-      "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-assembly.step.mesh": "0a4457d3e528b7e3d920c4e3de9098c1c409d3cea1cdc46f3c1019144f84ab4a",
+      "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-assembly.step.mesh": "6ec13d345ffccc814ee8a8c350458296fb45955b259e25d0d96751cad49bb2cb",
       "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-ball-cage.step": "5ac3b058b8a4b99002702c3d5e3e25c8f00f9750a97e7de89470918d16c6c861",
       "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-ball-cage.step.mesh": "39ca0b56c5bacfeef88da474a05b201e67ede7ce3c32802dd6b9713268b362fa",
       "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-ball-cage.stl": "7eb0ddf0087b5c556ad5d9e9432b037bc967b08ca83e6ab092a0a44ef67836ac",
@@ -1346,7 +1346,7 @@
       "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-base-foot.step.mesh": "258e20b009c6a9d1c5b85499d14134116fc1e0cdf43114f3c0d80314a9b7a6cf",
       "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-base-foot.stl": "d0013ed7dfd8d3a359227521b36953f23b4c27e76806609217728e4da9f01117",
       "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-base.step": "97fb803f0172d45be3b39fd536c9ed668f010b1ba1acfef7ac24fc38a436e74c",
-      "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-base.step.mesh": "999f46c964a1505950f9a5fee5a10a0521966e99e2aaad841705fc77b1da3451",
+      "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-base.step.mesh": "263fd829ae7c54a3dc6b22397ca1d0fe6caf759c6b8c8e7141e1745e527644fc",
       "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-base.stl": "9af41dc6390bd81e9c95582c54d94d6044171791d94356f92a728b45997787f1",
       "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-ground-arm.step": "9a935ce582d6df13ce8230e1f90494571b7576266b8f04ccc537c4d1a56511a2",
       "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-ground-arm.step.mesh": "114f7eb62ea79da28905382455787fb022928a0f6d6d76f395d8f1a9128d11d7",
@@ -2850,7 +2850,7 @@
     "hardware/printed-parts/fixtures/water-inlet-jet/water-inlet-jet-fixture-loose.step.mesh": 1794037810,
     "hardware/printed-parts/fixtures/water-inlet-jet/water-inlet-jet-fixture-loose.stl": 1793652093,
     "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-assembly.step": 1793934190,
-    "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-assembly.step.mesh": 1794292174.844256,
+    "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-assembly.step.mesh": 1794348106.603126,
     "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-ball-cage.step": 1793652093,
     "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-ball-cage.step.mesh": 1794292174.844256,
     "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-ball-cage.stl": 1793652093,
@@ -2858,7 +2858,7 @@
     "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-base-foot.step.mesh": 1794292174.844256,
     "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-base-foot.stl": 1793652093,
     "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-base.step": 1793652093,
-    "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-base.step.mesh": 1794292174.844256,
+    "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-base.step.mesh": 1794348106.603126,
     "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-base.stl": 1793652093,
     "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-ground-arm.step": 1793652093,
     "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-ground-arm.step.mesh": 1794292174.844256,
@@ -4837,7 +4837,7 @@
       "unproven": true
     },
     "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-assembly.step.mesh": {
-      "commit": "e59b7c1fd350f8c7940d3da6ff4addd8f0223dc5",
+      "commit": "578b4c15f57ba9583d990d846dc420a447405070",
       "inputs": "0d5ce2382e245dd5dd775f80e658c8c88754622ac89bc352dbd7d6d7d3db35b7",
       "unproven": true
     },
@@ -4877,7 +4877,7 @@
       "unproven": true
     },
     "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-base.step.mesh": {
-      "commit": "e59b7c1fd350f8c7940d3da6ff4addd8f0223dc5",
+      "commit": "578b4c15f57ba9583d990d846dc420a447405070",
       "inputs": "0d5ce2382e245dd5dd775f80e658c8c88754622ac89bc352dbd7d6d7d3db35b7",
       "unproven": true
     },
