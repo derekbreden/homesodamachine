@@ -36,8 +36,8 @@
   "minimum_c14_rounded_bead_gap_mm": 0.07511193024599955,
   "minimum_bed_margin_mm": 20.300999999999988,
   "support_free_interior_crossings": 0,
-  "status": "RUNNING after the peer conversations completed and the reviewed inputs were verified unchanged.",
-  "physical_scope": "Full-part support removal, underside finish and fit await the physical print.",
+  "status": "RUNNING with photographed unsupported-ledge defects.",
+  "physical_scope": "Exposed early ledges have hanging extrusion loops. Full-part removal and fit remain untested.",
   "estimated_seconds": 134812.39754771237,
   "estimated_filament_g": 897.9909057617188,
   "layers": 1112,
@@ -71,5 +71,7 @@
   "job_started": true,
   "part_layer_observed": false,
   "startup_status": "restart-startup-status.json",
-  "observed_startup_layer": 0
+  "observed_startup_layer": 0,
+  "physical_observation": "physical-observation/physical-observation.json",
+  "qualification": "Support coverage is incomplete; the launch checks do not establish acceptable underside finish."
 }

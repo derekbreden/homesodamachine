@@ -17,4 +17,9 @@ retained in [the stop record](stopped-printer.json).
 
 The editable native project and reviewed machine archive are retained here.
 The print-only archive preserves the same G-code and is the submitted package.
-Physical full-part finish, support removal and fit remain untested.
+The [physical observation](physical-observation/physical-observation.json) records
+hanging extrusion loops below exposed early ledges and a wall end. The manual
+support targets cover the rails and rear exterior, leaving these undersides
+without the required contact coverage. The launch review does not establish
+complete underside support. This package is unqualified for full-part finish;
+support removal and fit remain untested.
