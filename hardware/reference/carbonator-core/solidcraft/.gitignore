@@ -1,9 +1,0 @@
-# Native evaluated copies are regenerated from the editable JSON designs.
-*.sc
-*.obj
-*.mtl
-*.bak
-.~*.lock
-
-# Native reference stages are temporary publication inputs.
-native/*-stage.json
