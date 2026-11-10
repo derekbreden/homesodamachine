@@ -35,7 +35,9 @@ bead envelopes through the native renderer. Model stock, support stems and dense
 interface paths have separate display colors. The envelopes illustrate the slice;
 they do not simulate molten material, sagging or adhesion.
 
-These plates are prepared and unprinted. The faucet plate isolates contact
+The planar plates are prepared and unprinted. The faucet curve is
+[printing on Mark1](prints/2026-11-10-faucet-slim-mark1/print-job.json).
+The faucet plate isolates contact
 generation on the actual lower curve without adding anchoring walls or changing
 its geometry. Its native slice emits interface paths into the higher curved
 band; physical release remains unmeasured. Begin with this article. The planar
