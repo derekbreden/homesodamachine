@@ -7,9 +7,6 @@ interfaces used by the manifold and its printed supports.
 [Open the STEP](beduan-solenoid.step) · [Generator](beduan_solenoid.py) ·
 [Capture evidence](scan-evidence.json) · [Model checks](model-check.json)
 
-The [SolidCraft reference](solidcraft/README.md) supplies an editable native
-construction of the measured valve, with its own published model and evaluation.
-
 The MINI 2 capture covers four full turntable passes: feet down and feet up,
 each level and tilted 15°. The raw frames, calibration, four untouched fused
 clouds and processing scripts live in
