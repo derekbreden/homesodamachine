@@ -142,7 +142,10 @@
       "//:display-cover"
     ],
     "launch_recovery": "An initial invocation put --run-dir after targets; it was cancelled before Bazel ran and relaunched with driver options first.",
-    "publication_recovery": "A coalesced request returned before the geometry appeared; a subsequent invocation recovered a dead publisher process marker and advanced retained assembly references."
+    "publication_recovery": "A coalesced request returned before the geometry appeared; a subsequent invocation recovered a dead publisher process marker and advanced retained assembly references.",
+    "cancelled_launches_before_bazel": 1,
+    "presentation_render_passes": 4,
+    "presentation_recovery": "The first views passed a saved absolute camera position to --cam. The final view uses its direction and the original framing. The CLI header and change guide now state the direction and half-height convention."
   },
   "inspection": {
     "sliver_findings": 0,
@@ -159,5 +162,28 @@
     "hardware/printed-parts/enclosure/enclosure/heat-set-review/print-regions.json": "73a79a707462ce40a2b4b966eb58f5598f7f5cb5e932a0bf4ae88761eec501fe"
   },
   "limits": "The live milestone establishes matching mounted geometry eligible for a reference-browser draw, not the first unobstructed frame on Derek’s device. The supplied photos record the existing print; the deeper floor has not been physically printed here.",
-  "automatic_checks_added": false
+  "automatic_checks_added": false,
+  "live_delivery_verification": {
+    "at": "2026-11-10T05:19:55.643Z",
+    "results": [
+      {
+        "path": "/changes/2026-11-09-2255-led-pocket-floor",
+        "status": 200,
+        "bytes": 26356,
+        "sha256": "aa8b2d243b21f4f9e0a813b5a8f3b0f6de00399f57c0d6b2db4dc19083c8c90a"
+      },
+      {
+        "path": "/changes/2026-11-09-2255-led-pocket-floor/junction-before.webp?v=ac08ec90fda2",
+        "status": 200,
+        "bytes": 7224,
+        "sha256": "ac08ec90fda24c58fe1996259594bf04205504113d3ca347ae18a4e76a3432ef"
+      },
+      {
+        "path": "/changes/2026-11-09-2255-led-pocket-floor/junction-after.webp?v=044e6e5c036e",
+        "status": 200,
+        "bytes": 9370,
+        "sha256": "044e6e5c036edceba4314879c2b470b47e4d9110ed8e543a8ed4ecaf422d91d1"
+      }
+    ]
+  }
 }
