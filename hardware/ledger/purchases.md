@@ -583,8 +583,8 @@ General shop equipment supporting fabrication, assembly, and teardown. Not proje
 | <!--purchase:pur-c7cd43298809474ca0d28bec2d91da35--> SUNLU Official 3D Printer Filament Dryer S4 | [B0CQJMV71Z](https://www.amazon.com/dp/B0CQJMV71Z) | 1 | $125.47 | 114-9764609-4555460 | 2026-03-22 | 2026-03-25 | ACQUIRED |
 | <!--purchase:pur-c9f9d757d6df4329a48c1824ac237ded--> Polymaker 3D Printing Filament Storage Box, 4-Pack (PolyDryer Box x4) | [B0FHPS82YG](https://www.amazon.com/dp/B0FHPS82YG) | 1 pk (4) | $117.96 | 114-9764609-4555460 | 2026-03-22 | 2026-03-25 | ACQUIRED |
 | <!--purchase:pur-ca9d45d7a7324f948e048807d3467361--> Polymaker PolyDryer Filament Storage Box XL, 2-Pack (Polymaker PX01009) — sealed spool boxes sized for a 3 kg spool, hygrometer in the lid, filament fed out through the box wall. What a 3 kg spool prints from: it turns too stiffly in the SUNLU E2's chamber to feed a print from there. ($109.99 item + $1.99 shipping + $8.11 tax) | [B0FPQV18L5](https://www.amazon.com/dp/B0FPQV18L5) | 1 pk (2) | $120.09 | 114-8931415-0067401 | 2026-08-13 | 2026-08-15 | ACQUIRED |
-| <!--purchase:pur-f7d7511ce9394cae80352c28342d27fd--> Polymaker PolyDryer Filament Storage Box (1 kg spool), single — $27.99 + $2.03 NE tax | [B0CK17RTP4](https://www.amazon.com/dp/B0CK17RTP4) | 1 | $30.02 | 114-3202733-4767455 | 2026-10-01 | 2026-10-02 | ACQUIRED |
-| <!--purchase:pur-6fb9cbd2160040c983dc0055e58d4de1--> Polymaker PolyDryer Filament Storage Box (1 kg spool), single — a second order placed a minute later; it shipped and arrived with the box above. $27.99 + $2.03 NE tax | [B0CK17RTP4](https://www.amazon.com/dp/B0CK17RTP4) | 1 | $30.02 | 114-4680955-8473844 | 2026-10-01 | 2026-10-02 | ACQUIRED |
+| <!--purchase:pur-f7d7511ce9394cae80352c28342d27fd--> Polymaker PolyDryer Filament Storage Box (1 kg spool), single — $27.99 + $2.03 NE tax | [B0CK17RTP4](https://www.amazon.com/dp/B0CK17RTP4) | 1 | $30.02 | 114-3202733-4767455 | 2026-09-30 | 2026-10-02 | ACQUIRED |
+| <!--purchase:pur-6fb9cbd2160040c983dc0055e58d4de1--> Polymaker PolyDryer Filament Storage Box (1 kg spool), single — a second order placed a minute later; it shipped and arrived with the box above. $27.99 + $2.03 NE tax | [B0CK17RTP4](https://www.amazon.com/dp/B0CK17RTP4) | 1 | $30.02 | 114-4680955-8473844 | 2026-09-30 | 2026-10-02 | ACQUIRED |
 | <!--purchase:pur-242d69307ce84a69948b9e502ff3dd71--> Polymaker PolyDryer Filament Storage Box (1 kg spool), two — sold by Polymaker LLC; $27.99 ea + $4.06 allocated NE tax, free shipping | [B0CK17RTP4](https://www.amazon.com/dp/B0CK17RTP4) | 2 | $60.04 | 114-0006703-7518633 | 2026-10-24 | 2026-10-26 | ACQUIRED |
 | <!--purchase:pur-6589f83fde5f4aeeabb9b600cb513c8c--> SUNLU Official 3D Printer Filament Dryer E2 | [B0F5PMMXKD](https://www.amazon.com/dp/B0F5PMMXKD) | 1 | $321.74 | 114-9662555-0662608 | 2026-04-05 | 2026-04-07 | ACQUIRED |
 | <!--purchase:pur-bc68eb131e31422d8ad8a45a02ba8328--> DUROZZLE 0.6mm Diamond PCD Nozzle Hotend, L-side (H2D/H2S/P2S/A1 series) | [B0GWDBQW4G](https://www.amazon.com/dp/B0GWDBQW4G) | 1 | $64.24 | 112-9688188-4729035 | 2026-05-08 | 2026-05-09 | ACQUIRED |
@@ -862,17 +862,17 @@ Price evidence within the procurement valuation:
 
 | Amount basis | USD |
 |---|---|
-| Final vendor amounts | [$24,941.07](LEDGER_FINAL_VENDOR) |
+| Final vendor amounts | [$25,001.11](LEDGER_FINAL_VENDOR) |
 | Estimated amounts | [$2,329.63](LEDGER_ESTIMATES) |
-| Legacy / unverified amounts | [$22,942.12](LEDGER_LEGACY_UNVERIFIED) |
+| Legacy / unverified amounts | [$22,882.08](LEDGER_LEGACY_UNVERIFIED) |
 
 Merchant-evidenced payments (project shares; includes the undated bucket):
 
 | Event basis | USD |
 |---|---|
-| Completed charges | [$21,555.75](LEDGER_MERCHANT_CHARGES) |
+| Completed charges | [$21,615.79](LEDGER_MERCHANT_CHARGES) |
 | Issued monetary refunds | [$0.00](LEDGER_MERCHANT_REFUNDS) |
-| Charges less monetary refunds | [$21,555.75](LEDGER_MERCHANT_NET) |
+| Charges less monetary refunds | [$21,615.79](LEDGER_MERCHANT_NET) |
 
 The retrieved records have partial vendor coverage. An empty month or refund total is not evidence of account-wide zero activity. Authorizations, pending charges and noncash credit do not enter this view.
 
