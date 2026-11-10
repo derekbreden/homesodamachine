@@ -42,11 +42,25 @@ record his in-person assessment. He notes that the photographs do not do the res
 
 The light is the [CHANZON prewired clear-lens blue LED](https://www.amazon.com/dp/B08G4Z6KPV).
 Its clear lens directs light into the printed diffuser. The EDGELEC blue LED in the acquired
-assortment also fits the bore. The LED sits set back behind the window. Its leads run down a
-channel from the bore's foot into the display's PCB pocket and land on the display's terminal
-strip: the blue positive lead on VIN beside the J9 loom's V12, the black lead on DOUT0. The
+assortment also fits the lens end of the service pocket. The LED sits set back behind the
+window. The pocket opens under the removable status plate: a straight insulated tail fits
+down into it, or an already formed tail lies up the plate without reforming the leads.
+Flexible wires turn into a roofed cross passage behind the pump, joining the common wiring corridor
+to the display's terminal strip: the blue positive lead on VIN beside the J9 loom's V12, the
+black lead on DOUT0. The
 EDGELEC's positive lead is red. Both lamps have an inline resistor. The display firmware lights it as
 the board comes up ([`src_front/README.md`](/firmware/src_front/README.md)).
+
+Place the complete lamp, resistor and heat-shrink into the open pocket while the status plate
+and display are off. Turn an already bent tail up the slot; leave an unbent tail straight.
+Thread the free wires through the cross passage before fitting the
+pump. Set the lens back behind the diffuser and tack the flange to the socket with the
+existing hot-glue gun, keeping adhesive off the optical faces. The socket is a clearance fit;
+the tack holds the lamp's depth. Let the adhesive cool before handling the lamp or its leads.
+Keep force off the epoxy-to-lead joint, resistor and solder joints. Neither installation
+requires reforming the insulated assembly. The [physical observations](wired-led-fit/physical-observations.json)
+hold the acquired lamp's measurements and the separate clearance allowances. The revised
+housing has digital clearance checks; physical installation remains to be confirmed on a print.
 
 The program that cuts the cover also writes `status-plate` and `status-plate-fasteners` in the
 cover's own frame, so the machine places all of them with the cover's transform. The

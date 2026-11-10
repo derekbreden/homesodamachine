@@ -67,10 +67,11 @@ file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
 click: x=5.499 y=88.375 z=295.499
 click: x=-5.499 y=88.375 z=295.499
 
-[slope] Wrong supporting-wall selection for the diamond roof of the status light's lead channel. The channel's two roof faces rise from its own side corners along its whole run from the LED bore to the display's PCB pocket. Where it opens into the pocket, the classifier pairs the roof with the pocket's side wall and reports no level foot. Tree(auto)/Default keeps the actual support decisions; the channel has CAD validation and no physical print.
-alternatives: A flat roof makes a horizontal ceiling over the leads. Ending the channel short of the pocket leaves the leads no way into it. A level foot at the mouth adds a step where the channel meets the pocket wall.
+[slope] Wrong supporting-wall selection at the status LED wire exit. Both gable faces rise from the diamond's opposed side corners along the cross passage. The classifier pairs those roofs with the service pocket's entry wall, which is an opening rather than either roof's supporting foot. Native face normals confirm the authored gable slopes. Physical installation of the revised pocket remains unqualified.
+alternatives: A flat roof makes a ceiling over the wires. Ending the cross passage short of the pocket blocks the route. A level foot across the mouth adds a step where the passage opens into the pocket.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
-click: x=47.786 y=49.529 z=319.335
+click: x=46.725 y=80.611 z=297.138
+click: x=46.725 y=74.614 z=297.140
 
 [ceiling] Functional upper pump-flange bearings. Each flat underside establishes the pump's axial stop opposite its independent screw-fastened retainer. Local Tree Slim supports leave through the open loading well before the pump is installed. Physical support finish and removal remain unqualified.
 alternatives: A corbel below the bearing occupies the flange's insertion envelope. Sloping or removing the bearing changes the axial seating datum and the opposed flange capture. These are local bearing strips, with direct access through the loading well while the front enclosure is loose.
