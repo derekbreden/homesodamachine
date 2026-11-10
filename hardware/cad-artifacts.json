@@ -104,9 +104,9 @@
     "hardware/printed-parts/calibration/dual-nozzle-registration/dual-nozzle-registration.step": "70ea1bb64fffc023ca458f8a2089de35c63a596b0d298f8c3768a45000e249d9",
     "hardware/printed-parts/calibration/dual-nozzle-registration/dual-nozzle-registration.step.mesh": "4910d0f4767b28812b683a1631fcf5385335bdf8eed1176e79b76509ab0c1e6c",
     "hardware/printed-parts/calibration/dual-nozzle-registration/dual-nozzle-registration.stl": "67c1821a9941be34c9fe6d8fac7fe7ff0c79f2774c63d7eb75f10aeaf13e7da2",
-    "hardware/printed-parts/cold-core/coil-mandrel/coil-mandrel.step": "e256dd652f0b91612a556c2c54ac70cb349e9ad6857df19da989c96e9a6676ec",
+    "hardware/printed-parts/cold-core/coil-mandrel/coil-mandrel.step": "45e4f4cce8b2af9948c8aaf71f5f2ecbc952d7bc19164f4abaf7c4ed44464f23",
     "hardware/printed-parts/cold-core/coil-mandrel/coil-mandrel.step.mesh": "d0f24b5daa14fa9a9545d35c5e5e9a7b2837eadf68e1d63be7470b5a92b16a58",
-    "hardware/printed-parts/cold-core/coil-mandrel/coil-mandrel.stl": "88ce9688c63c6614811545febac096fbed1c2096a9c699d1818af29e6f0c007f",
+    "hardware/printed-parts/cold-core/coil-mandrel/coil-mandrel.stl": "c86a274e9d881c5c3b5ad7ea0d941301c010fd0fc535266193b359a12e9e8875",
     "hardware/printed-parts/cold-core/copper-plugs/copper-plug-port.step": "bd45e743447c9bcc0d5346fd19de77c0987f4fd2e9d778f8f471f9c6bc6af45e",
     "hardware/printed-parts/cold-core/copper-plugs/copper-plug-port.stl": "3add087b416cbbe6d110311bf9c6bb0e93703a4c92230acee5a3cee0e8450be1",
     "hardware/printed-parts/cold-core/copper-plugs/copper-plug-west.step": "ffaf6c36da12bd2a3232ef8274baebeadb86de629da63a68c57479a6c468c28b",
@@ -987,9 +987,9 @@
       "hardware/printed-parts/asse-straight-cuffs/asse-outlet-cuff.step.json": "da4317af62970098f06ba9653b97fde9523bbfc014cc12ad2a2e772d1fffad41",
       "hardware/printed-parts/asse-straight-cuffs/asse-outlet-cuff.step.mesh": "6856373c12a4622863347011524e7428a5da8d9f220461c960177e16d5e61f36",
       "hardware/printed-parts/asse-straight-cuffs/asse-outlet-cuff.stl": "8412a13f173f666288fc00a34d4272afa076e35dffc6bc95bf91d0d61e2a809b",
-      "hardware/printed-parts/cold-core/coil-mandrel/coil-mandrel.step": "e256dd652f0b91612a556c2c54ac70cb349e9ad6857df19da989c96e9a6676ec",
+      "hardware/printed-parts/cold-core/coil-mandrel/coil-mandrel.step": "45e4f4cce8b2af9948c8aaf71f5f2ecbc952d7bc19164f4abaf7c4ed44464f23",
       "hardware/printed-parts/cold-core/coil-mandrel/coil-mandrel.step.mesh": "d0f24b5daa14fa9a9545d35c5e5e9a7b2837eadf68e1d63be7470b5a92b16a58",
-      "hardware/printed-parts/cold-core/coil-mandrel/coil-mandrel.stl": "88ce9688c63c6614811545febac096fbed1c2096a9c699d1818af29e6f0c007f",
+      "hardware/printed-parts/cold-core/coil-mandrel/coil-mandrel.stl": "c86a274e9d881c5c3b5ad7ea0d941301c010fd0fc535266193b359a12e9e8875",
       "hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.step": "91ddfea3e9ca8cf046cb385a8d7e653b0b2deb3a343d6b1c9170ead4ed7c5929",
       "hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.step.mesh": "0a3305dfd2a6b75dc88e0b758ac4cf434b70d22496bdcee4230332e22fe053d8",
       "hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.stl": "acdcff8c0842d7158aa15ed797dc22ef6173eb27f662f7e19d505000f4c84e0a",
@@ -2285,9 +2285,9 @@
     "hardware/printed-parts/calibration/dual-nozzle-registration/dual-nozzle-registration.step": 1790719427,
     "hardware/printed-parts/calibration/dual-nozzle-registration/dual-nozzle-registration.step.mesh": 1790719427,
     "hardware/printed-parts/calibration/dual-nozzle-registration/dual-nozzle-registration.stl": 1790719427,
-    "hardware/printed-parts/cold-core/coil-mandrel/coil-mandrel.step": 1793934190,
+    "hardware/printed-parts/cold-core/coil-mandrel/coil-mandrel.step": 1794348028.401871,
     "hardware/printed-parts/cold-core/coil-mandrel/coil-mandrel.step.mesh": 1794348020.390939,
-    "hardware/printed-parts/cold-core/coil-mandrel/coil-mandrel.stl": 1793934190,
+    "hardware/printed-parts/cold-core/coil-mandrel/coil-mandrel.stl": 1794348028.401871,
     "hardware/printed-parts/cold-core/copper-plugs/copper-plug-port.step": 1789519123,
     "hardware/printed-parts/cold-core/copper-plugs/copper-plug-port.stl": 1792922058,
     "hardware/printed-parts/cold-core/copper-plugs/copper-plug-west.step": 1789519123,
@@ -3334,7 +3334,8 @@
       "unproven": true
     },
     "hardware/printed-parts/cold-core/coil-mandrel/coil-mandrel.step": {
-      "commit": "164c8f9e0cb07eab6075a14cde0adf29fda29596",
+      "commit": "8a1ec32c607386cf06e0dcd314d699e7e5115e9f",
+      "inputs": "dc34c1992317b9c830fc351a12bc5b33dfc7d3d6517e58dd26007c4d61e01e4e",
       "unproven": true
     },
     "hardware/printed-parts/cold-core/coil-mandrel/coil-mandrel.step.mesh": {
@@ -3343,7 +3344,8 @@
       "unproven": true
     },
     "hardware/printed-parts/cold-core/coil-mandrel/coil-mandrel.stl": {
-      "commit": "164c8f9e0cb07eab6075a14cde0adf29fda29596",
+      "commit": "8a1ec32c607386cf06e0dcd314d699e7e5115e9f",
+      "inputs": "dc34c1992317b9c830fc351a12bc5b33dfc7d3d6517e58dd26007c4d61e01e4e",
       "unproven": true
     },
     "hardware/printed-parts/cold-core/foam-assembly/foam-assembly.step": {
