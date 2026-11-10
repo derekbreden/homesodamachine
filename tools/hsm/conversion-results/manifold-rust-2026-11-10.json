@@ -1,0 +1,1534 @@
+{
+  "schema": 1,
+  "date": "2026-11-10",
+  "purpose": "This record preserves Rust Manifold cutover measurements, print surfaces, construction identities and published-view evidence.",
+  "status": "complete",
+  "source_commits": {
+    "cpp_baseline": "1fe50e4ff3209adc4afd6299082bfca21cd8511c",
+    "rust_engine": "58db39012b63665d02a5c1381cf93ed87459a416",
+    "cpp_bridge_retirement": "57908e151cd26c3876d0292c286f01cccb6dba44",
+    "print_bindings": "52d4443ae7b64a7f85f9e8d034dfe6dc05f209b5"
+  },
+  "engine": {
+    "crate": "manifold-rust",
+    "version": "0.19.2",
+    "checksum": "ddad329fd20646de626e339ea1146de838464060824cb3edd5593d8d061a3f95",
+    "upstream": "https://github.com/larsbrubaker/manifold-rust",
+    "implementation": "Pure Rust manifold boolean engine, with parallel feature; hsm-manifold shares immutable results and preserves mesh precision and construction/run IDs.",
+    "batch_path": "manifold_rust::csg_tree::CsgNode::op_n(...).evaluate()",
+    "cpp_cargo_packages": [],
+    "removed_vendor_files": 22,
+    "removed_vendor_lines": 4384
+  },
+  "independent_operations": {
+    "cases": [
+      {
+        "all_output_runs_identify_inputs": true,
+        "cpp_area": 1731.9506742308224,
+        "cpp_runs": 9,
+        "cpp_seconds": 0.002907458,
+        "cpp_triangles": 528,
+        "cpp_volume": 3717.3701958737593,
+        "mesh_arrays_equal": true,
+        "name": "bore",
+        "rust_area": 1731.9506742308224,
+        "rust_runs": 9,
+        "rust_seconds": 0.004009583,
+        "rust_triangles": 528,
+        "rust_volume": 3717.3701958737593,
+        "volume_difference_mm3": 0
+      },
+      {
+        "all_output_runs_identify_inputs": true,
+        "cpp_area": 1637.695327011214,
+        "cpp_runs": 9,
+        "cpp_seconds": 0.003089875,
+        "cpp_triangles": 1036,
+        "cpp_volume": 4056.5259608252477,
+        "mesh_arrays_equal": true,
+        "name": "union",
+        "rust_area": 1637.695327011214,
+        "rust_runs": 9,
+        "rust_seconds": 0.003747208,
+        "rust_triangles": 1036,
+        "rust_volume": 4056.5259608252477,
+        "volume_difference_mm3": 0
+      },
+      {
+        "all_output_runs_identify_inputs": true,
+        "cpp_area": 245.00259588131874,
+        "cpp_runs": 9,
+        "cpp_seconds": 0.002442542,
+        "cpp_triangles": 508,
+        "cpp_volume": 282.62980412624046,
+        "mesh_arrays_equal": true,
+        "name": "intersection",
+        "rust_area": 245.00259588131874,
+        "rust_runs": 9,
+        "rust_seconds": 0.003494584,
+        "rust_triangles": 508,
+        "rust_volume": 282.62980412624046,
+        "volume_difference_mm3": 0
+      },
+      {
+        "all_output_runs_identify_inputs": true,
+        "cpp_area": 22268.583384977585,
+        "cpp_runs": 186,
+        "cpp_seconds": 0.045784334,
+        "cpp_triangles": 30972,
+        "cpp_volume": 48223.758161942715,
+        "mesh_arrays_equal": false,
+        "name": "sixty-bores",
+        "rust_area": 22268.583384977585,
+        "rust_runs": 186,
+        "rust_seconds": 0.99617525,
+        "rust_triangles": 30972,
+        "rust_volume": 48223.758161942715,
+        "volume_difference_mm3": 0
+      },
+      {
+        "all_output_runs_identify_inputs": true,
+        "cpp_area": 22268.583384977585,
+        "cpp_runs": 186,
+        "cpp_seconds": 0.041203625,
+        "cpp_triangles": 30972,
+        "cpp_volume": 48223.758161942715,
+        "mesh_arrays_equal": true,
+        "name": "sixty-bores-tree",
+        "rust_area": 22268.583384977585,
+        "rust_runs": 186,
+        "rust_seconds": 0.110254167,
+        "rust_triangles": 30972,
+        "rust_volume": 48223.758161942715,
+        "volume_difference_mm3": 0
+      },
+      {
+        "all_output_runs_identify_inputs": true,
+        "cpp_area": 4234.377532396944,
+        "cpp_runs": 19,
+        "cpp_seconds": 0.000030125,
+        "cpp_triangles": 68,
+        "cpp_volume": 5556.69000007812,
+        "mesh_arrays_equal": true,
+        "name": "simplify:fuse-clamp.step.npz:fuse-clamp",
+        "rust_area": 4234.377532396944,
+        "rust_runs": 19,
+        "rust_seconds": 0.000028667,
+        "rust_triangles": 68,
+        "rust_volume": 5556.69000007812,
+        "volume_difference_mm3": 0
+      },
+      {
+        "all_output_runs_identify_inputs": true,
+        "both_import_seconds": 0.000104,
+        "cpp_area": 4253.232764654372,
+        "cpp_runs": 22,
+        "cpp_seconds": 0.001220667,
+        "cpp_triangles": 584,
+        "cpp_volume": 5512.725363880857,
+        "mesh_arrays_equal": true,
+        "name": "cut:fuse-clamp.step.npz:fuse-clamp",
+        "rust_area": 4253.232764654372,
+        "rust_runs": 22,
+        "rust_seconds": 0.001761041,
+        "rust_triangles": 584,
+        "rust_volume": 5512.725363880857,
+        "volume_difference_mm3": 0
+      },
+      {
+        "all_output_runs_identify_inputs": true,
+        "cpp_area": 6676.663315820377,
+        "cpp_runs": 15,
+        "cpp_seconds": 0.000827125,
+        "cpp_triangles": 2084,
+        "cpp_volume": 14629.420553308648,
+        "mesh_arrays_equal": true,
+        "name": "simplify:enclosure-pump-retainer.step.npz:enclosure-pump-retainer",
+        "rust_area": 6676.663315820377,
+        "rust_runs": 15,
+        "rust_seconds": 0.000771166,
+        "rust_triangles": 2084,
+        "rust_volume": 14629.420553308648,
+        "volume_difference_mm3": 0
+      },
+      {
+        "all_output_runs_identify_inputs": true,
+        "both_import_seconds": 0.001824417,
+        "cpp_area": 6676.663315820377,
+        "cpp_runs": 18,
+        "cpp_seconds": 0.000639667,
+        "cpp_triangles": 2084,
+        "cpp_volume": 14629.42055330865,
+        "mesh_arrays_equal": true,
+        "name": "cut:enclosure-pump-retainer.step.npz:enclosure-pump-retainer",
+        "rust_area": 6676.663315820377,
+        "rust_runs": 18,
+        "rust_seconds": 0.000726,
+        "rust_triangles": 2084,
+        "rust_volume": 14629.42055330865,
+        "volume_difference_mm3": 0
+      },
+      {
+        "all_output_runs_identify_inputs": true,
+        "cpp_area": 389367.0064614226,
+        "cpp_runs": 1674,
+        "cpp_seconds": 0.006982,
+        "cpp_triangles": 38672,
+        "cpp_volume": 1145048.8535292281,
+        "mesh_arrays_equal": true,
+        "name": "simplify:enclosure-front-bottom.step.npz:enclosure-front-bottom",
+        "rust_area": 389367.0064614226,
+        "rust_runs": 1674,
+        "rust_seconds": 0.009308167,
+        "rust_triangles": 38672,
+        "rust_volume": 1145048.8535292281,
+        "volume_difference_mm3": 0
+      },
+      {
+        "all_output_runs_identify_inputs": true,
+        "both_import_seconds": 0.019052333,
+        "cpp_area": 389412.8762317975,
+        "cpp_runs": 1677,
+        "cpp_seconds": 0.006970458,
+        "cpp_triangles": 39704,
+        "cpp_volume": 1144977.881766796,
+        "mesh_arrays_equal": true,
+        "name": "cut:enclosure-front-bottom.step.npz:enclosure-front-bottom",
+        "rust_area": 389412.8762317975,
+        "rust_runs": 1677,
+        "rust_seconds": 0.012047125,
+        "rust_triangles": 39704,
+        "rust_volume": 1144977.881766796,
+        "volume_difference_mm3": 0
+      }
+    ],
+    "purpose": "Compare both boolean engines on identical inputs before production integration.",
+    "sources": [
+      {
+        "path": "hardware/printed-parts/refrigeration/fuse-clamp/fuse-clamp.step.npz",
+        "sha256": "ca85939634fb118b8817359d52de20fa2cd18ccc47104bad6a3bbb262fba4ef5"
+      },
+      {
+        "path": "hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.step.npz",
+        "sha256": "40d4fca56957b2e4a7bf3ab960fd9bc70c134e61032eca0de47c3b425d5b887d"
+      },
+      {
+        "path": "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step.npz",
+        "sha256": "661557f47a4c3ca15181086034da4a4b440ecf6d2de792c3e6f3eb2f41b918c7"
+      }
+    ]
+  },
+  "part_generation": {
+    "scope": "Individual shared-host observations with retained import caches and construction-stage cache disabled; these are not isolated or statistical benchmarks.",
+    "kernel_only": {
+      "runs": [
+        {
+          "backend": "cpp",
+          "name": "fuse-clamp",
+          "status": 0,
+          "seconds": 0.24611554199999955,
+          "stls": {
+            "fuse-clamp.stl": "fb4db7bf16cab5a6206f4d055fc0f1f7f41469559c431096b1dc2a1a9cd55528"
+          }
+        },
+        {
+          "backend": "cpp",
+          "name": "enclosure-pump-retainer",
+          "status": 0,
+          "seconds": 0.2861505419999994,
+          "stls": {
+            "enclosure-pump-retainer.stl": "579faf7f25b348af118b404336d5823cce72c7a49b569b1f39a498f7a554f879"
+          }
+        },
+        {
+          "backend": "cpp",
+          "name": "enclosure-front-bottom",
+          "status": 0,
+          "seconds": 4.013751082999999,
+          "stls": {
+            "enclosure-front-bottom.stl": "7eb9455df0f38d96e9edd78384e98b5ac11a2dbfbb43dacf7eab3a378d1360a6"
+          }
+        },
+        {
+          "backend": "cpp",
+          "name": "funnel-mold",
+          "status": 0,
+          "seconds": 6.881368750000005,
+          "stls": {
+            "cavity.stl": "a5ae1b39b716e956d030fab9c10843968383bad95f15a89171f23c4574ba4ae5",
+            "core.stl": "078f9385bc7d0d28b789a19f510dba548ff79dc152e7869497137fb8f7cf0182"
+          }
+        },
+        {
+          "backend": "rust",
+          "name": "fuse-clamp",
+          "status": 0,
+          "seconds": 0.24981383300000015,
+          "stls": {
+            "fuse-clamp.stl": "fb4db7bf16cab5a6206f4d055fc0f1f7f41469559c431096b1dc2a1a9cd55528"
+          }
+        },
+        {
+          "backend": "rust",
+          "name": "enclosure-pump-retainer",
+          "status": 0,
+          "seconds": 0.2889345410000024,
+          "stls": {
+            "enclosure-pump-retainer.stl": "579faf7f25b348af118b404336d5823cce72c7a49b569b1f39a498f7a554f879"
+          }
+        },
+        {
+          "backend": "rust",
+          "name": "enclosure-front-bottom",
+          "status": 0,
+          "seconds": 4.197172999999995,
+          "stls": {
+            "enclosure-front-bottom.stl": "7eb9455df0f38d96e9edd78384e98b5ac11a2dbfbb43dacf7eab3a378d1360a6"
+          }
+        },
+        {
+          "backend": "rust",
+          "name": "funnel-mold",
+          "status": 0,
+          "seconds": 10.912329125000003,
+          "stls": {
+            "cavity.stl": "a5ae1b39b716e956d030fab9c10843968383bad95f15a89171f23c4574ba4ae5",
+            "core.stl": "078f9385bc7d0d28b789a19f510dba548ff79dc152e7869497137fb8f7cf0182"
+          }
+        }
+      ],
+      "compiler_observations": [
+        {
+          "label": "cpp-build",
+          "status": 0,
+          "seconds": 25.663361625
+        },
+        {
+          "label": "rust-build",
+          "status": 0,
+          "seconds": 15.478479915999996
+        },
+        {
+          "label": "cpp-restore",
+          "status": 0,
+          "seconds": 0.28766062500000406
+        }
+      ],
+      "changed_hardware_sources": []
+    },
+    "complete_rust_path": {
+      "purpose": "Compare complete Rust part generation with the prior C++ construction and fabrication path.",
+      "source_changes": "Boolean backend imports only; authored recipe sources match.",
+      "runs": [
+        {
+          "name": "fuse-clamp",
+          "status": 0,
+          "seconds": 0.3674361669999998,
+          "cpp_seconds": 0.24611554199999955,
+          "stls": {
+            "fuse-clamp.stl": "fb4db7bf16cab5a6206f4d055fc0f1f7f41469559c431096b1dc2a1a9cd55528"
+          },
+          "cpp_stls": {
+            "fuse-clamp.stl": "fb4db7bf16cab5a6206f4d055fc0f1f7f41469559c431096b1dc2a1a9cd55528"
+          },
+          "byte_identical": true
+        },
+        {
+          "name": "enclosure-pump-retainer",
+          "status": 0,
+          "seconds": 0.3397748329999995,
+          "cpp_seconds": 0.2861505419999994,
+          "stls": {
+            "enclosure-pump-retainer.stl": "579faf7f25b348af118b404336d5823cce72c7a49b569b1f39a498f7a554f879"
+          },
+          "cpp_stls": {
+            "enclosure-pump-retainer.stl": "579faf7f25b348af118b404336d5823cce72c7a49b569b1f39a498f7a554f879"
+          },
+          "byte_identical": true
+        },
+        {
+          "name": "enclosure-front-bottom",
+          "status": 0,
+          "seconds": 5.247023375,
+          "cpp_seconds": 4.013751082999999,
+          "stls": {
+            "enclosure-front-bottom.stl": "eab326ad930ab763de7f0ed97e95c8de07c29dd1f5801c780a6aee5cabaf042c"
+          },
+          "cpp_stls": {
+            "enclosure-front-bottom.stl": "7eb9455df0f38d96e9edd78384e98b5ac11a2dbfbb43dacf7eab3a378d1360a6"
+          },
+          "byte_identical": false
+        },
+        {
+          "name": "funnel-mold",
+          "status": 0,
+          "seconds": 11.617429582999998,
+          "cpp_seconds": 6.881368750000005,
+          "stls": {
+            "cavity.stl": "a5ae1b39b716e956d030fab9c10843968383bad95f15a89171f23c4574ba4ae5",
+            "core.stl": "078f9385bc7d0d28b789a19f510dba548ff79dc152e7869497137fb8f7cf0182"
+          },
+          "cpp_stls": {
+            "cavity.stl": "a5ae1b39b716e956d030fab9c10843968383bad95f15a89171f23c4574ba4ae5",
+            "core.stl": "078f9385bc7d0d28b789a19f510dba548ff79dc152e7869497137fb8f7cf0182"
+          },
+          "byte_identical": true
+        }
+      ]
+    }
+  },
+  "validation": {
+    "workspace_release_bins": {
+      "passed": true,
+      "cargo_jobs": 2,
+      "binaries": 144,
+      "seconds": 352,
+      "source_log": "workspace release --locked build"
+    },
+    "tests": {
+      "native_tests_passed": 139,
+      "wasm_default_engine_library_compile_passed": true,
+      "total_tests_passed": 140,
+      "wasm_test_scope": "Build the default-feature kernel library for wasm32-unknown-unknown; native route-preview is excluded by --lib."
+    },
+    "print_files": {
+      "count": 91,
+      "byte_identical": 85,
+      "changed_bytes": 6,
+      "kernel_linear_mm": 0.005,
+      "comparison_scope": "Both directions sample every vertex, triangle centroid and edge midpoint. This samples surfaces; it is not an analytic continuous-surface proof.",
+      "max_changed_surface_sample_mm": 0.00003051779101773216,
+      "all_changed_print_meshes_closed": true,
+      "all_changed_bounds_equal": true,
+      "all_changed_component_counts_equal": true,
+      "artifacts": [
+        {
+          "path": "hardware/printed-parts/asse-drain-adapter/asse-drain-adapter.stl",
+          "before_sha256": "ee0584ceb98ba367aaf8ea1508a060946f8e357a0f8e77cc33de567066437d2e",
+          "after_sha256": "ee0584ceb98ba367aaf8ea1508a060946f8e357a0f8e77cc33de567066437d2e",
+          "byte_identical": true
+        },
+        {
+          "path": "hardware/printed-parts/asse-straight-cuffs/asse-inlet-cuff.stl",
+          "before_sha256": "05476e57b5513d349b5e799a7a4576de2a689cb934c2b48d0903b63337a64173",
+          "after_sha256": "05476e57b5513d349b5e799a7a4576de2a689cb934c2b48d0903b63337a64173",
+          "byte_identical": true
+        },
+        {
+          "path": "hardware/printed-parts/asse-straight-cuffs/asse-outlet-cuff.stl",
+          "before_sha256": "8412a13f173f666288fc00a34d4272afa076e35dffc6bc95bf91d0d61e2a809b",
+          "after_sha256": "8412a13f173f666288fc00a34d4272afa076e35dffc6bc95bf91d0d61e2a809b",
+          "byte_identical": true
+        },
+        {
+          "path": "hardware/printed-parts/cold-core/coil-mandrel/coil-mandrel.stl",
+          "before_sha256": "88ce9688c63c6614811545febac096fbed1c2096a9c699d1818af29e6f0c007f",
+          "after_sha256": "c86a274e9d881c5c3b5ad7ea0d941301c010fd0fc535266193b359a12e9e8875",
+          "byte_identical": false,
+          "surface": {
+            "path": "hardware/printed-parts/cold-core/coil-mandrel/coil-mandrel.stl",
+            "feature_identity_compared": false,
+            "both_print_meshes_closed": true,
+            "cpp_area_mm2": 122422.06700223722,
+            "cpp_bounds": [
+              [
+                -61.5,
+                -61.5,
+                0
+              ],
+              [
+                61.5,
+                61.5,
+                157.5
+              ]
+            ],
+            "cpp_components": 1,
+            "cpp_triangles": 199596,
+            "cpp_volume_mm3": 280145.5380960461,
+            "kernel_linear_mm": 0.005,
+            "kernel_tolerance_mm": 0.00001,
+            "purpose": "Compare full print surfaces with all vertex, edge-midpoint and triangle-centroid samples in both directions.",
+            "rust_area_mm2": 122422.06700223833,
+            "rust_bounds": [
+              [
+                -61.5,
+                -61.5,
+                0
+              ],
+              [
+                61.5,
+                61.5,
+                157.5
+              ]
+            ],
+            "rust_components": 1,
+            "rust_triangles": 199596,
+            "rust_volume_mm3": 280145.53791739885,
+            "surface_sample_max_mm": 0.0000022792815213463367,
+            "volume_difference_mm3": 0.0001786472275853157
+          }
+        },
+        {
+          "path": "hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.stl",
+          "before_sha256": "acdcff8c0842d7158aa15ed797dc22ef6173eb27f662f7e19d505000f4c84e0a",
+          "after_sha256": "acdcff8c0842d7158aa15ed797dc22ef6173eb27f662f7e19d505000f4c84e0a",
+          "byte_identical": true
+        },
+        {
+          "path": "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.stl",
+          "before_sha256": "65bf9b7f660b18311346139886c80063635b158cf6b513aaf54382d75a9a4769",
+          "after_sha256": "65bf9b7f660b18311346139886c80063635b158cf6b513aaf54382d75a9a4769",
+          "byte_identical": true
+        },
+        {
+          "path": "hardware/printed-parts/cold-core/foam-cap/pump-snap-cap.stl",
+          "before_sha256": "3e789119c1475e08b7bd5a9eb7edbf265cb8c85bd486ef4740178c1c10d1050b",
+          "after_sha256": "3e789119c1475e08b7bd5a9eb7edbf265cb8c85bd486ef4740178c1c10d1050b",
+          "byte_identical": true
+        },
+        {
+          "path": "hardware/printed-parts/cold-core/foam-cap/reservoir-b-fill-guide.stl",
+          "before_sha256": "3f1fb479bf4599050149102ac96e540a2d1ca1892a99460c8f63ab4cb62c4987",
+          "after_sha256": "3f1fb479bf4599050149102ac96e540a2d1ca1892a99460c8f63ab4cb62c4987",
+          "byte_identical": true
+        },
+        {
+          "path": "hardware/printed-parts/cold-core/foam-shell/foam-shell.stl",
+          "before_sha256": "132c06ecc887624ae36c98c168f97efaa533deb278a4b93a3d2f725455d93164",
+          "after_sha256": "132c06ecc887624ae36c98c168f97efaa533deb278a4b93a3d2f725455d93164",
+          "byte_identical": true
+        },
+        {
+          "path": "hardware/printed-parts/cold-core/magnetic-float/all-aero/float-aero.stl",
+          "before_sha256": "2228d0933e0a2a7bdd9dd8d6fce4d003a48ac61db1c69f402e5fa5047ae1cef5",
+          "after_sha256": "2228d0933e0a2a7bdd9dd8d6fce4d003a48ac61db1c69f402e5fa5047ae1cef5",
+          "byte_identical": true
+        },
+        {
+          "path": "hardware/printed-parts/cold-core/magnetic-float/body-aero.stl",
+          "before_sha256": "404d68abd9ea96fd53b77ec03ff403544a0c59bb59cafe8dc7f6a23c9c1e368c",
+          "after_sha256": "404d68abd9ea96fd53b77ec03ff403544a0c59bb59cafe8dc7f6a23c9c1e368c",
+          "byte_identical": true
+        },
+        {
+          "path": "hardware/printed-parts/cold-core/magnetic-float/body-petg.stl",
+          "before_sha256": "c7a94f946d45024b98223e1606fc462d138d6341d5352d9518d14763f4910f46",
+          "after_sha256": "c7a94f946d45024b98223e1606fc462d138d6341d5352d9518d14763f4910f46",
+          "byte_identical": true
+        },
+        {
+          "path": "hardware/printed-parts/cold-core/magnetic-float/insert-aero.stl",
+          "before_sha256": "7d346e39e3b26ef5b294ec715c2e4f9b9f7535a13e1abc6ce01ee09405bffaf0",
+          "after_sha256": "7d346e39e3b26ef5b294ec715c2e4f9b9f7535a13e1abc6ce01ee09405bffaf0",
+          "byte_identical": true
+        },
+        {
+          "path": "hardware/printed-parts/cold-core/prv-shroud/prv-shroud.stl",
+          "before_sha256": "b2553b37c6e6f3299ee5d6cef88e36bd5948b154b652fdc184aec7761906f14f",
+          "after_sha256": "b2553b37c6e6f3299ee5d6cef88e36bd5948b154b652fdc184aec7761906f14f",
+          "byte_identical": true
+        },
+        {
+          "path": "hardware/printed-parts/cold-core/reed-bridge/reed-bridge-setting-gauge.stl",
+          "before_sha256": "54b2c72d9c34022e322332c7f98a882a62300c28098cf37cd416404bb77bb5f0",
+          "after_sha256": "54b2c72d9c34022e322332c7f98a882a62300c28098cf37cd416404bb77bb5f0",
+          "byte_identical": true
+        },
+        {
+          "path": "hardware/printed-parts/cold-core/reed-bridge/reed-bridge.stl",
+          "before_sha256": "8f943b4f02d81f009a3a6fd2d8c1511ae6e02d8f19030ae0c44bec8968e89654",
+          "after_sha256": "8f943b4f02d81f009a3a6fd2d8c1511ae6e02d8f19030ae0c44bec8968e89654",
+          "byte_identical": true
+        },
+        {
+          "path": "hardware/printed-parts/cold-core/reservoir/reservoir-air-grip.stl",
+          "before_sha256": "8672f89f6d3889ef55259418d5f47089e99a448e744cfae9fe94c538d409cad9",
+          "after_sha256": "8672f89f6d3889ef55259418d5f47089e99a448e744cfae9fe94c538d409cad9",
+          "byte_identical": true
+        },
+        {
+          "path": "hardware/printed-parts/cold-core/reservoir/reservoir-cap-left.stl",
+          "before_sha256": "f4d38c45e24efecccd0cd85f28e2a702a8d8d27197bb85d6dbe32ff49f202e13",
+          "after_sha256": "f4d38c45e24efecccd0cd85f28e2a702a8d8d27197bb85d6dbe32ff49f202e13",
+          "byte_identical": true
+        },
+        {
+          "path": "hardware/printed-parts/cold-core/reservoir/reservoir-cap-right.stl",
+          "before_sha256": "f88fb33c8e3af9b131bd02fd26636a14f5eb399d7e606c5950c8051f5e53d75b",
+          "after_sha256": "f88fb33c8e3af9b131bd02fd26636a14f5eb399d7e606c5950c8051f5e53d75b",
+          "byte_identical": true
+        },
+        {
+          "path": "hardware/printed-parts/cold-core/reservoir/reservoir-gasket.stl",
+          "before_sha256": "07cd9bf1c8a47dc4b907efa2f9ffe611a53a750e2d56f66c95d11451eb74222e",
+          "after_sha256": "07cd9bf1c8a47dc4b907efa2f9ffe611a53a750e2d56f66c95d11451eb74222e",
+          "byte_identical": true
+        },
+        {
+          "path": "hardware/printed-parts/cold-core/reservoir/reservoir-left.stl",
+          "before_sha256": "58489e732352dc57132485cc98a15cf033a40d52c929b83d81cfb634fd7ea101",
+          "after_sha256": "58489e732352dc57132485cc98a15cf033a40d52c929b83d81cfb634fd7ea101",
+          "byte_identical": true
+        },
+        {
+          "path": "hardware/printed-parts/cold-core/reservoir/reservoir-right.stl",
+          "before_sha256": "cffce729a02e9fcdd72a1ec1ff984eb69e57f3a05a0943e1b520a8ed98138be1",
+          "after_sha256": "cffce729a02e9fcdd72a1ec1ff984eb69e57f3a05a0943e1b520a8ed98138be1",
+          "byte_identical": true
+        },
+        {
+          "path": "hardware/printed-parts/cold-core/reservoir/reservoir-tube-grip.stl",
+          "before_sha256": "0b7af9247334655bb4129277ad30d1b92f6e9f029f69dcb98700615befcb0cfb",
+          "after_sha256": "0b7af9247334655bb4129277ad30d1b92f6e9f029f69dcb98700615befcb0cfb",
+          "byte_identical": true
+        },
+        {
+          "path": "hardware/printed-parts/collet-press/collet-press.stl",
+          "before_sha256": "c7844502e96123f02d6653b0a793f2dcd74964f7022f125d3b3929ebbd0c9141",
+          "after_sha256": "c7844502e96123f02d6653b0a793f2dcd74964f7022f125d3b3929ebbd0c9141",
+          "byte_identical": true
+        },
+        {
+          "path": "hardware/printed-parts/diaphragm-pump-sleeve/diaphragm-pump-sleeve.stl",
+          "before_sha256": "0ebe7cbc53bf9abdc17ca9391438432b33010b1537f22608a00358023efbe79a",
+          "after_sha256": "0ebe7cbc53bf9abdc17ca9391438432b33010b1537f22608a00358023efbe79a",
+          "byte_identical": true
+        },
+        {
+          "path": "hardware/printed-parts/enclosure/display-cover/display-cover-fasteners.stl",
+          "before_sha256": "44a17deeebd511cd607216cc71944618e5ce37179438c5e3a0d6dc677aaa3608",
+          "after_sha256": "44a17deeebd511cd607216cc71944618e5ce37179438c5e3a0d6dc677aaa3608",
+          "byte_identical": true
+        },
+        {
+          "path": "hardware/printed-parts/enclosure/display-cover/display-cover.stl",
+          "before_sha256": "3594ee4fb113b440326981b1e5cef4bba11f439d2fa586544a5fae44e4dc5f34",
+          "after_sha256": "3594ee4fb113b440326981b1e5cef4bba11f439d2fa586544a5fae44e4dc5f34",
+          "byte_identical": true
+        },
+        {
+          "path": "hardware/printed-parts/enclosure/display-cover/status-plate-fasteners.stl",
+          "before_sha256": "05e70be91b044b674453dfd8cc3623cd4b3ee6a97c112fb493e83c3fb1bf4ed3",
+          "after_sha256": "05e70be91b044b674453dfd8cc3623cd4b3ee6a97c112fb493e83c3fb1bf4ed3",
+          "byte_identical": true
+        },
+        {
+          "path": "hardware/printed-parts/enclosure/display-cover/status-plate.stl",
+          "before_sha256": "33ac2a5347fb7a49618d87461e89233e7ad79c878c9db106f82f7fa7be3ba901",
+          "after_sha256": "33ac2a5347fb7a49618d87461e89233e7ad79c878c9db106f82f7fa7be3ba901",
+          "byte_identical": true
+        },
+        {
+          "path": "hardware/printed-parts/enclosure/display-gasket/display-gasket.stl",
+          "before_sha256": "5bfe020725eb9f1cb4bb741c207454b1e64550e63fa443aadbc61398c7ea4c2a",
+          "after_sha256": "5bfe020725eb9f1cb4bb741c207454b1e64550e63fa443aadbc61398c7ea4c2a",
+          "byte_identical": true
+        },
+        {
+          "path": "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.stl",
+          "before_sha256": "a41f94b4d25fcaeb79ba06e64af1f86ee23709d0c2fc89dcd2b52a9d2bda9d51",
+          "after_sha256": "43f0defbb90b5760f2f4342c26747e7f3c349057a146330c08057f61a75b2f0c",
+          "byte_identical": false,
+          "surface": {
+            "path": "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.stl",
+            "part": "enclosure-back-bottom",
+            "both_print_meshes_closed": true,
+            "cpp_area_mm2": 404590.35561681044,
+            "cpp_bounds": [
+              [
+                -110.5,
+                200.14999389648438,
+                -6
+              ],
+              [
+                110.5,
+                474.29998779296875,
+                174.8000030517578
+              ]
+            ],
+            "cpp_components": 1,
+            "cpp_triangles": 512512,
+            "cpp_volume_mm3": 1295719.3368496923,
+            "kernel_linear_mm": 0.005,
+            "kernel_tolerance_mm": 0.00001,
+            "purpose": "Compare full print surfaces with all vertex, edge-midpoint and triangle-centroid samples in both directions.",
+            "retained_feature_ids": [
+              "east-handhold",
+              "east-z-rail",
+              "joint-fit-reliefs",
+              "seam-band",
+              "vent-chase",
+              "west-handhold",
+              "west-z-rail",
+              "y-joint-fasteners"
+            ],
+            "retained_feature_ids_equal": true,
+            "rust_area_mm2": 404590.35605926235,
+            "rust_bounds": [
+              [
+                -110.5,
+                200.14999389648438,
+                -6
+              ],
+              [
+                110.5,
+                474.29998779296875,
+                174.8000030517578
+              ]
+            ],
+            "rust_components": 1,
+            "rust_triangles": 517360,
+            "rust_volume_mm3": 1295719.3367551442,
+            "surface_sample_max_mm": 0.00003051779101773216,
+            "volume_difference_mm3": 0.00009454810060560703
+          }
+        },
+        {
+          "path": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl",
+          "before_sha256": "14ca155df697d912670f155000820f304a76937857d82535641505ec21a3c82b",
+          "after_sha256": "55443c602f726c67be9705ff7e0667716bbd51adf3f6a2532599673f56234b60",
+          "byte_identical": false,
+          "surface": {
+            "path": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl",
+            "part": "enclosure-back-top",
+            "both_print_meshes_closed": true,
+            "cpp_area_mm2": 442409.69610336574,
+            "cpp_bounds": [
+              [
+                -110.5,
+                200.14999389648438,
+                160.25
+              ],
+              [
+                110.5,
+                474.29998779296875,
+                355
+              ]
+            ],
+            "cpp_components": 1,
+            "cpp_triangles": 627462,
+            "cpp_volume_mm3": 1556106.0375537197,
+            "kernel_linear_mm": 0.005,
+            "kernel_tolerance_mm": 0.00001,
+            "purpose": "Compare full print surfaces with all vertex, edge-midpoint and triangle-centroid samples in both directions.",
+            "retained_feature_ids": [
+              "asse-receiver",
+              "core-holds",
+              "east-z-rail",
+              "flow-meter-receiver",
+              "funnel-seat",
+              "identification-mounts",
+              "joint-fit-reliefs",
+              "keystone-mount",
+              "pisco-receiver",
+              "power-inlet-mount",
+              "psu-mount",
+              "rear-bulkhead-openings",
+              "rear-interior-relief",
+              "rear-valve-seats",
+              "receiver-catch-pockets",
+              "relay-1-mount",
+              "relay-2-mount",
+              "relay-mount-bars",
+              "route-snaps",
+              "seam-band",
+              "vent-chase",
+              "wago-g-well",
+              "wago-h-well",
+              "wago-n-well",
+              "water-regulator-receiver",
+              "west-z-rail",
+              "y-joint-fasteners"
+            ],
+            "retained_feature_ids_equal": true,
+            "rust_area_mm2": 442409.6962313642,
+            "rust_bounds": [
+              [
+                -110.5,
+                200.14999389648438,
+                160.25
+              ],
+              [
+                110.5,
+                474.29998779296875,
+                355
+              ]
+            ],
+            "rust_components": 1,
+            "rust_triangles": 627540,
+            "rust_volume_mm3": 1556106.0373839037,
+            "surface_sample_max_mm": 0.000022628180842170944,
+            "volume_difference_mm3": 0.00016981596127152443
+          }
+        },
+        {
+          "path": "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.stl",
+          "before_sha256": "7eb9455df0f38d96e9edd78384e98b5ac11a2dbfbb43dacf7eab3a378d1360a6",
+          "after_sha256": "eab326ad930ab763de7f0ed97e95c8de07c29dd1f5801c780a6aee5cabaf042c",
+          "byte_identical": false,
+          "surface": {
+            "path": "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.stl",
+            "part": "enclosure-front-bottom",
+            "both_print_meshes_closed": true,
+            "cpp_area_mm2": 394838.5537461845,
+            "cpp_bounds": [
+              [
+                -110.5,
+                2,
+                -6
+              ],
+              [
+                110.5,
+                217.8000030517578,
+                174.8000030517578
+              ]
+            ],
+            "cpp_components": 1,
+            "cpp_triangles": 245234,
+            "cpp_volume_mm3": 1101015.0184756336,
+            "kernel_linear_mm": 0.005,
+            "kernel_tolerance_mm": 0.00001,
+            "purpose": "Compare full print surfaces with all vertex, edge-midpoint and triangle-centroid samples in both directions.",
+            "retained_feature_ids": [
+              "condenser-cradles",
+              "condenser-mount",
+              "condenser-vents",
+              "core-stops",
+              "east-handhold",
+              "east-z-rail",
+              "equipment-clearances",
+              "floor-bosses",
+              "gas-sensor-cradle",
+              "handholds",
+              "joint-fit-reliefs",
+              "route-snaps",
+              "seam-band",
+              "west-handhold",
+              "west-z-rail",
+              "y-joint-fasteners",
+              "y-telescope"
+            ],
+            "retained_feature_ids_equal": true,
+            "rust_area_mm2": 394838.540985809,
+            "rust_bounds": [
+              [
+                -110.5,
+                2,
+                -6
+              ],
+              [
+                110.5,
+                217.8000030517578,
+                174.8000030517578
+              ]
+            ],
+            "rust_components": 1,
+            "rust_triangles": 247808,
+            "rust_volume_mm3": 1101015.0163692958,
+            "surface_sample_max_mm": 0.000028607177815820755,
+            "volume_difference_mm3": 0.002106337808072567
+          }
+        },
+        {
+          "path": "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl",
+          "before_sha256": "8263cda99078487fa0c2a68e02f00907145d8a7e9facb98028dea7f2be874f2e",
+          "after_sha256": "711c78e5f966897bae7624325af823acde20d63dbf18462bfc14a45f53988e57",
+          "byte_identical": false,
+          "surface": {
+            "path": "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl",
+            "part": "enclosure-front-top",
+            "both_print_meshes_closed": true,
+            "cpp_area_mm2": 389598.74339571904,
+            "cpp_bounds": [
+              [
+                -110.5,
+                2,
+                160.25
+              ],
+              [
+                110.5,
+                217.8000030517578,
+                355
+              ]
+            ],
+            "cpp_components": 1,
+            "cpp_triangles": 384522,
+            "cpp_volume_mm3": 2575538.0191445234,
+            "kernel_linear_mm": 0.005,
+            "kernel_tolerance_mm": 0.00001,
+            "purpose": "Compare full print surfaces with all vertex, edge-midpoint and triangle-centroid samples in both directions.",
+            "retained_feature_ids": [
+              "east-z-rail",
+              "front-flank-pockets",
+              "funnel-seat",
+              "joint-fit-reliefs",
+              "pump-bulkhead",
+              "pump-dock",
+              "pump-loading-openings",
+              "pump-mount-cuts",
+              "pump-seat-ledges",
+              "route-snaps",
+              "seam-band",
+              "status-led-bore",
+              "status-led-wire-channel",
+              "valve-mounts",
+              "wago-mana-well",
+              "wago-manb-well",
+              "west-z-rail",
+              "y-joint-fasteners",
+              "y-telescope"
+            ],
+            "retained_feature_ids_equal": true,
+            "rust_area_mm2": 389598.74394539295,
+            "rust_bounds": [
+              [
+                -110.5,
+                2,
+                160.25
+              ],
+              [
+                110.5,
+                217.8000030517578,
+                355
+              ]
+            ],
+            "rust_components": 1,
+            "rust_triangles": 384504,
+            "rust_volume_mm3": 2575538.0196216023,
+            "surface_sample_max_mm": 0.000028388396722376657,
+            "volume_difference_mm3": 0.0004770788364112377
+          }
+        },
+        {
+          "path": "hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.stl",
+          "before_sha256": "579faf7f25b348af118b404336d5823cce72c7a49b569b1f39a498f7a554f879",
+          "after_sha256": "579faf7f25b348af118b404336d5823cce72c7a49b569b1f39a498f7a554f879",
+          "byte_identical": true
+        },
+        {
+          "path": "hardware/printed-parts/enclosure/enclosure/enclosure-pump-tube-setting-jig.stl",
+          "before_sha256": "8cca75083a601ffa081cf3ef05e672c1f17bbc4e5e7f32cb4bb9e70298d6dcf9",
+          "after_sha256": "8cca75083a601ffa081cf3ef05e672c1f17bbc4e5e7f32cb4bb9e70298d6dcf9",
+          "byte_identical": true
+        },
+        {
+          "path": "hardware/printed-parts/enclosure/nameplate/nameplate-001.stl",
+          "before_sha256": "16788d40137e93302d4a212de32d09625b8075bde34478b5a7689a1d3eda1973",
+          "after_sha256": "16788d40137e93302d4a212de32d09625b8075bde34478b5a7689a1d3eda1973",
+          "byte_identical": true
+        },
+        {
+          "path": "hardware/printed-parts/enclosure/nameplate/nameplate-receiver.stl",
+          "before_sha256": "c7c3defaa5f1f72f023fa273ed3547822c4c38e387295f00ec944459842c643d",
+          "after_sha256": "c7c3defaa5f1f72f023fa273ed3547822c4c38e387295f00ec944459842c643d",
+          "byte_identical": true
+        },
+        {
+          "path": "hardware/printed-parts/enclosure/rear-equipment-caps/asse-snap-cap.stl",
+          "before_sha256": "7dd9150c05aa10466bcbdddd74a192d5ab585efb083b64943484a2f995c0b4e5",
+          "after_sha256": "7dd9150c05aa10466bcbdddd74a192d5ab585efb083b64943484a2f995c0b4e5",
+          "byte_identical": true
+        },
+        {
+          "path": "hardware/printed-parts/enclosure/rear-equipment-caps/meter-snap-cap.stl",
+          "before_sha256": "00d14c563b813b71638f8249d87791489888b66cfc06cd7b7471096342acba5a",
+          "after_sha256": "00d14c563b813b71638f8249d87791489888b66cfc06cd7b7471096342acba5a",
+          "byte_identical": true
+        },
+        {
+          "path": "hardware/printed-parts/enclosure/rear-equipment-caps/pisco-snap-cap.stl",
+          "before_sha256": "0d8e673e1417aa8eaf205245c56e528ef67c96114e26c8ed91a264d6cf9eb4e2",
+          "after_sha256": "0d8e673e1417aa8eaf205245c56e528ef67c96114e26c8ed91a264d6cf9eb4e2",
+          "byte_identical": true
+        },
+        {
+          "path": "hardware/printed-parts/enclosure/rear-equipment-caps/regulator-snap-cap.stl",
+          "before_sha256": "926df4c063127b01220678a06d1fb9dca5b37111769684aaefc02d4d79c0541e",
+          "after_sha256": "926df4c063127b01220678a06d1fb9dca5b37111769684aaefc02d4d79c0541e",
+          "byte_identical": true
+        },
+        {
+          "path": "hardware/printed-parts/enclosure/rear-identification/rear-label-carb.stl",
+          "before_sha256": "ac4d3aa8946b200511aa8632a3e128d7c71829f353810952c4b793aeef67b686",
+          "after_sha256": "ac4d3aa8946b200511aa8632a3e128d7c71829f353810952c4b793aeef67b686",
+          "byte_identical": true
+        },
+        {
+          "path": "hardware/printed-parts/enclosure/rear-identification/rear-label-co2.stl",
+          "before_sha256": "87acbc152f5ae34fe61b82037e9c4b143b73f821cbfcd660d743a30560efa2be",
+          "after_sha256": "87acbc152f5ae34fe61b82037e9c4b143b73f821cbfcd660d743a30560efa2be",
+          "byte_identical": true
+        },
+        {
+          "path": "hardware/printed-parts/enclosure/rear-identification/rear-label-drain.stl",
+          "before_sha256": "4fc2d86b3c4e1c632fbbf2ca6f593666c0005d02cddbb25d96a181c9018a0a1b",
+          "after_sha256": "4fc2d86b3c4e1c632fbbf2ca6f593666c0005d02cddbb25d96a181c9018a0a1b",
+          "byte_identical": true
+        },
+        {
+          "path": "hardware/printed-parts/enclosure/rear-identification/rear-label-flavor-a.stl",
+          "before_sha256": "790da266dd208f6cf5b8c69d87d0f8f7d2b3420f7be294a23269723b3a6264cf",
+          "after_sha256": "790da266dd208f6cf5b8c69d87d0f8f7d2b3420f7be294a23269723b3a6264cf",
+          "byte_identical": true
+        },
+        {
+          "path": "hardware/printed-parts/enclosure/rear-identification/rear-label-flavor-b.stl",
+          "before_sha256": "44f2b34268dd4f63aa4f7783d07d1a1083c5b239f5045ddd0ab5e6544b387257",
+          "after_sha256": "44f2b34268dd4f63aa4f7783d07d1a1083c5b239f5045ddd0ab5e6544b387257",
+          "byte_identical": true
+        },
+        {
+          "path": "hardware/printed-parts/enclosure/rear-identification/rear-label-water.stl",
+          "before_sha256": "08533270ab406d839289220e9468dc4d2d7d2b87d426e0fdb5f922da3f25891d",
+          "after_sha256": "08533270ab406d839289220e9468dc4d2d7d2b87d426e0fdb5f922da3f25891d",
+          "byte_identical": true
+        },
+        {
+          "path": "hardware/printed-parts/faucet/above-counter-gasket/above-counter-gasket.stl",
+          "before_sha256": "f41031f281214c6c535e6c267ef1a6c33b0e5b21997c1d239cddb892c5d6b5ee",
+          "after_sha256": "f41031f281214c6c535e6c267ef1a6c33b0e5b21997c1d239cddb892c5d6b5ee",
+          "byte_identical": true
+        },
+        {
+          "path": "hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.stl",
+          "before_sha256": "cf69dac0a0ce01845ce261d050fbbb876be24baec78d3db77f8d97839bc32990",
+          "after_sha256": "cf69dac0a0ce01845ce261d050fbbb876be24baec78d3db77f8d97839bc32990",
+          "byte_identical": true
+        },
+        {
+          "path": "hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.stl",
+          "before_sha256": "3a1182b480110d50cb8943dfc4be8d5b5b2344bdcbf10b37052ef2e6423c9cfa",
+          "after_sha256": "3a1182b480110d50cb8943dfc4be8d5b5b2344bdcbf10b37052ef2e6423c9cfa",
+          "byte_identical": true
+        },
+        {
+          "path": "hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.stl",
+          "before_sha256": "f49e8818fa749ad57445aca26972ff107d840ed53102d33e6fff7837f46c1bfb",
+          "after_sha256": "f49e8818fa749ad57445aca26972ff107d840ed53102d33e6fff7837f46c1bfb",
+          "byte_identical": true
+        },
+        {
+          "path": "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.stl",
+          "before_sha256": "a3f80020d3756ea99dc7135a3173c89f9ed05bebebb63ce211d0492e92dc14ad",
+          "after_sha256": "a3f80020d3756ea99dc7135a3173c89f9ed05bebebb63ce211d0492e92dc14ad",
+          "byte_identical": true
+        },
+        {
+          "path": "hardware/printed-parts/faucet/industrial/industrial-above-counter-gasket.stl",
+          "before_sha256": "4dfefcced0e35110d8f7bdac1b07be5a374a66e03bf339beb426236b5d19a894",
+          "after_sha256": "4dfefcced0e35110d8f7bdac1b07be5a374a66e03bf339beb426236b5d19a894",
+          "byte_identical": true
+        },
+        {
+          "path": "hardware/printed-parts/faucet/industrial/industrial-above-counter-plate.stl",
+          "before_sha256": "09106291fc6feec82e351353239b9e9f3e27e7ebdc36364ef69950b4f07519d2",
+          "after_sha256": "09106291fc6feec82e351353239b9e9f3e27e7ebdc36364ef69950b4f07519d2",
+          "byte_identical": true
+        },
+        {
+          "path": "hardware/printed-parts/faucet/industrial/industrial-display-cover.stl",
+          "before_sha256": "abdcb313ca246ab797897859c700eb2b2b5578931893046ec8c76467b560d812",
+          "after_sha256": "abdcb313ca246ab797897859c700eb2b2b5578931893046ec8c76467b560d812",
+          "byte_identical": true
+        },
+        {
+          "path": "hardware/printed-parts/faucet/industrial/industrial-shell-base.stl",
+          "before_sha256": "d5af4190a44abf5f63d0a77147037414728616a97d4794343c82e354561c2b46",
+          "after_sha256": "d5af4190a44abf5f63d0a77147037414728616a97d4794343c82e354561c2b46",
+          "byte_identical": true
+        },
+        {
+          "path": "hardware/printed-parts/faucet/lever-replica/lever-replica-side-down.stl",
+          "before_sha256": "19d420b9193d0d691959aadb80095523164afe380189aae1af9eb0c13f8f2d21",
+          "after_sha256": "19d420b9193d0d691959aadb80095523164afe380189aae1af9eb0c13f8f2d21",
+          "byte_identical": true
+        },
+        {
+          "path": "hardware/printed-parts/faucet/lever-replica/lever-replica.stl",
+          "before_sha256": "ee18c91f4891228a6a76ae1381414d2fb31e17694e746bb298a5f2c524e512ee",
+          "after_sha256": "ee18c91f4891228a6a76ae1381414d2fb31e17694e746bb298a5f2c524e512ee",
+          "byte_identical": true
+        },
+        {
+          "path": "hardware/printed-parts/faucet/tpu-o-ring/tpu-o-ring.stl",
+          "before_sha256": "48d4c54b05741faaf3ede29bde6b7abe4280a61d4b2a253d2d4449969c012d19",
+          "after_sha256": "48d4c54b05741faaf3ede29bde6b7abe4280a61d4b2a253d2d4449969c012d19",
+          "byte_identical": true
+        },
+        {
+          "path": "hardware/printed-parts/faucet/tube-collar/tube-collar-carb.stl",
+          "before_sha256": "82c141b07191c15e78f138d30ba45b42aa55f3769b47f543c3a3d89ad2688d0a",
+          "after_sha256": "82c141b07191c15e78f138d30ba45b42aa55f3769b47f543c3a3d89ad2688d0a",
+          "byte_identical": true
+        },
+        {
+          "path": "hardware/printed-parts/faucet/tube-collar/tube-collar-co2.stl",
+          "before_sha256": "82c141b07191c15e78f138d30ba45b42aa55f3769b47f543c3a3d89ad2688d0a",
+          "after_sha256": "82c141b07191c15e78f138d30ba45b42aa55f3769b47f543c3a3d89ad2688d0a",
+          "byte_identical": true
+        },
+        {
+          "path": "hardware/printed-parts/faucet/tube-collar/tube-collar-drain.stl",
+          "before_sha256": "0d7140b8d1c8888b4e1fb7669cf53b37ee9b524b99ce6bb4020afb6856180aa7",
+          "after_sha256": "0d7140b8d1c8888b4e1fb7669cf53b37ee9b524b99ce6bb4020afb6856180aa7",
+          "byte_identical": true
+        },
+        {
+          "path": "hardware/printed-parts/faucet/tube-collar/tube-collar-flavor-a.stl",
+          "before_sha256": "0d7140b8d1c8888b4e1fb7669cf53b37ee9b524b99ce6bb4020afb6856180aa7",
+          "after_sha256": "0d7140b8d1c8888b4e1fb7669cf53b37ee9b524b99ce6bb4020afb6856180aa7",
+          "byte_identical": true
+        },
+        {
+          "path": "hardware/printed-parts/faucet/tube-collar/tube-collar-flavor-b.stl",
+          "before_sha256": "0d7140b8d1c8888b4e1fb7669cf53b37ee9b524b99ce6bb4020afb6856180aa7",
+          "after_sha256": "0d7140b8d1c8888b4e1fb7669cf53b37ee9b524b99ce6bb4020afb6856180aa7",
+          "byte_identical": true
+        },
+        {
+          "path": "hardware/printed-parts/faucet/tube-collar/tube-collar-water.stl",
+          "before_sha256": "82c141b07191c15e78f138d30ba45b42aa55f3769b47f543c3a3d89ad2688d0a",
+          "after_sha256": "82c141b07191c15e78f138d30ba45b42aa55f3769b47f543c3a3d89ad2688d0a",
+          "byte_identical": true
+        },
+        {
+          "path": "hardware/printed-parts/faucet/umbilical-organizer/umbilical-organizer.stl",
+          "before_sha256": "87641a741b3d2cb750984c325a9175adc10e82833c6fdffcc45ab55302001fc6",
+          "after_sha256": "87641a741b3d2cb750984c325a9175adc10e82833c6fdffcc45ab55302001fc6",
+          "byte_identical": true
+        },
+        {
+          "path": "hardware/printed-parts/fixtures/fake-countertop/fake-countertop.stl",
+          "before_sha256": "9e51861af0d4d93e33a418f8d6cc24f5e792f963abeb2ca57704c45665ce39d2",
+          "after_sha256": "9e51861af0d4d93e33a418f8d6cc24f5e792f963abeb2ca57704c45665ce39d2",
+          "byte_identical": true
+        },
+        {
+          "path": "hardware/printed-parts/fixtures/tube-miter-box/tube-miter-box.stl",
+          "before_sha256": "3fe5a1fdf2df47768bcc2d1395ccd3dddb5499e68e304452793c4a429de8515e",
+          "after_sha256": "3fe5a1fdf2df47768bcc2d1395ccd3dddb5499e68e304452793c4a429de8515e",
+          "byte_identical": true
+        },
+        {
+          "path": "hardware/printed-parts/fixtures/water-inlet-jet/water-inlet-jet-fixture-fixed.stl",
+          "before_sha256": "3da5f4d3fb203ce55222ea330acb72963ca692138ba56bd008acc95c48686105",
+          "after_sha256": "3da5f4d3fb203ce55222ea330acb72963ca692138ba56bd008acc95c48686105",
+          "byte_identical": true
+        },
+        {
+          "path": "hardware/printed-parts/fixtures/water-inlet-jet/water-inlet-jet-fixture-loose.stl",
+          "before_sha256": "cb72908a0c3588a4b27f30969928007aa7758bd8e0aa79cf43bb8b64b2f614ed",
+          "after_sha256": "cb72908a0c3588a4b27f30969928007aa7758bd8e0aa79cf43bb8b64b2f614ed",
+          "byte_identical": true
+        },
+        {
+          "path": "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-ball-cage.stl",
+          "before_sha256": "7eb0ddf0087b5c556ad5d9e9432b037bc967b08ca83e6ab092a0a44ef67836ac",
+          "after_sha256": "7eb0ddf0087b5c556ad5d9e9432b037bc967b08ca83e6ab092a0a44ef67836ac",
+          "byte_identical": true
+        },
+        {
+          "path": "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-base-foot.stl",
+          "before_sha256": "d0013ed7dfd8d3a359227521b36953f23b4c27e76806609217728e4da9f01117",
+          "after_sha256": "d0013ed7dfd8d3a359227521b36953f23b4c27e76806609217728e4da9f01117",
+          "byte_identical": true
+        },
+        {
+          "path": "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-base.stl",
+          "before_sha256": "9af41dc6390bd81e9c95582c54d94d6044171791d94356f92a728b45997787f1",
+          "after_sha256": "ed2f7827f995838da14a14a0befe274b7f51241a66fa2649fa0a79e70d2d42d6",
+          "byte_identical": false,
+          "surface": {
+            "path": "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-base.stl",
+            "feature_identity_compared": false,
+            "both_print_meshes_closed": true,
+            "cpp_area_mm2": 150822.35808533357,
+            "cpp_bounds": [
+              [
+                -120,
+                -125,
+                0
+              ],
+              [
+                180,
+                125,
+                12
+              ]
+            ],
+            "cpp_components": 1,
+            "cpp_triangles": 61602,
+            "cpp_volume_mm3": 748480.4696755337,
+            "kernel_linear_mm": 0.005,
+            "kernel_tolerance_mm": 0.00001,
+            "purpose": "Compare full print surfaces with all vertex, edge-midpoint and triangle-centroid samples in both directions.",
+            "rust_area_mm2": 150822.35808533363,
+            "rust_bounds": [
+              [
+                -120,
+                -125,
+                0
+              ],
+              [
+                180,
+                125,
+                12
+              ]
+            ],
+            "rust_components": 1,
+            "rust_triangles": 61602,
+            "rust_volume_mm3": 748480.4696756918,
+            "surface_sample_max_mm": 0.0000018348911705023004,
+            "volume_difference_mm3": 1.5809200704097748e-7
+          }
+        },
+        {
+          "path": "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-ground-arm.stl",
+          "before_sha256": "2830d1fa3fc6d95490c663de906b180b6373907b0fdd42355984c86e30bae00a",
+          "after_sha256": "2830d1fa3fc6d95490c663de906b180b6373907b0fdd42355984c86e30bae00a",
+          "byte_identical": true
+        },
+        {
+          "path": "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-ground-tower.stl",
+          "before_sha256": "a2a2a1bfd1aa81b4ef77d40999738522ce61b652ca2ef6bec0c80d3ef8b49aa5",
+          "after_sha256": "a2a2a1bfd1aa81b4ef77d40999738522ce61b652ca2ef6bec0c80d3ef8b49aa5",
+          "byte_identical": true
+        },
+        {
+          "path": "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-motor-carriage.stl",
+          "before_sha256": "bcd6d4d6043e569c2e24478708e8e81c9f1cf79917a64130df7d43c6f432cc63",
+          "after_sha256": "bcd6d4d6043e569c2e24478708e8e81c9f1cf79917a64130df7d43c6f432cc63",
+          "byte_identical": true
+        },
+        {
+          "path": "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-motor-clamp-pad.stl",
+          "before_sha256": "aea6517a3d8c0810e132af0748770f95ab39b0a9dcc76865db5974c0391bcb49",
+          "after_sha256": "aea6517a3d8c0810e132af0748770f95ab39b0a9dcc76865db5974c0391bcb49",
+          "byte_identical": true
+        },
+        {
+          "path": "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-motor-tower.stl",
+          "before_sha256": "e9bed81b9be26dbc260bb3239b703259a1cb58a0b07c60b083a6e27fc8cce40a",
+          "after_sha256": "e9bed81b9be26dbc260bb3239b703259a1cb58a0b07c60b083a6e27fc8cce40a",
+          "byte_identical": true
+        },
+        {
+          "path": "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-race-ring.stl",
+          "before_sha256": "d26434f89b0cb08162230b3b81130c2a680bace66e0dde8379063b2a6115a54b",
+          "after_sha256": "d26434f89b0cb08162230b3b81130c2a680bace66e0dde8379063b2a6115a54b",
+          "byte_identical": true
+        },
+        {
+          "path": "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-spool.stl",
+          "before_sha256": "27a7c297e3c66bfba7335db59596c716d49ed41e98c2fff5374cc8975ab232bd",
+          "after_sha256": "27a7c297e3c66bfba7335db59596c716d49ed41e98c2fff5374cc8975ab232bd",
+          "byte_identical": true
+        },
+        {
+          "path": "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-tube-nest.stl",
+          "before_sha256": "56fcc133a2d4a1a69c78274632d700b91a417684589a8be121e473a8f2d70367",
+          "after_sha256": "56fcc133a2d4a1a69c78274632d700b91a417684589a8be121e473a8f2d70367",
+          "byte_identical": true
+        },
+        {
+          "path": "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-turntable-90t.stl",
+          "before_sha256": "648c2de7cd6e7bbec76add2586aef9b93b6fd6c409a31296890e12879dab7fdd",
+          "after_sha256": "648c2de7cd6e7bbec76add2586aef9b93b6fd6c409a31296890e12879dab7fdd",
+          "byte_identical": true
+        },
+        {
+          "path": "hardware/printed-parts/refrigeration/fuse-clamp/fuse-clamp.stl",
+          "before_sha256": "fb4db7bf16cab5a6206f4d055fc0f1f7f41469559c431096b1dc2a1a9cd55528",
+          "after_sha256": "fb4db7bf16cab5a6206f4d055fc0f1f7f41469559c431096b1dc2a1a9cd55528",
+          "byte_identical": true
+        },
+        {
+          "path": "hardware/printed-parts/soda-bend-holder/soda-bend-holder.stl",
+          "before_sha256": "37c31f1c8b8efcc812134ac9765e9cfdbe898791565156b37ea2c358b3484766",
+          "after_sha256": "37c31f1c8b8efcc812134ac9765e9cfdbe898791565156b37ea2c358b3484766",
+          "byte_identical": true
+        },
+        {
+          "path": "hardware/printed-parts/zone-c/funnel-cover/funnel-cover-print.stl",
+          "before_sha256": "6dfd3b318040dae6ac3053d06e607f4b2a6d8f8793128de0774e978454d24a09",
+          "after_sha256": "6dfd3b318040dae6ac3053d06e607f4b2a6d8f8793128de0774e978454d24a09",
+          "byte_identical": true
+        },
+        {
+          "path": "hardware/printed-parts/zone-c/funnel-cover/funnel-cover.stl",
+          "before_sha256": "8d6011183082a8df09dce32dc1d2955c0fbe5ba07e27b61b072fff7e166971c2",
+          "after_sha256": "8d6011183082a8df09dce32dc1d2955c0fbe5ba07e27b61b072fff7e166971c2",
+          "byte_identical": true
+        },
+        {
+          "path": "hardware/printed-parts/zone-c/funnel-mold/cavity.stl",
+          "before_sha256": "a5ae1b39b716e956d030fab9c10843968383bad95f15a89171f23c4574ba4ae5",
+          "after_sha256": "a5ae1b39b716e956d030fab9c10843968383bad95f15a89171f23c4574ba4ae5",
+          "byte_identical": true
+        },
+        {
+          "path": "hardware/printed-parts/zone-c/funnel-mold/core.stl",
+          "before_sha256": "078f9385bc7d0d28b789a19f510dba548ff79dc152e7869497137fb8f7cf0182",
+          "after_sha256": "078f9385bc7d0d28b789a19f510dba548ff79dc152e7869497137fb8f7cf0182",
+          "byte_identical": true
+        },
+        {
+          "path": "hardware/printed-parts/zone-c/funnel/elbow-cradle.stl",
+          "before_sha256": "59ac96f327ffa74e41fbff08a954fcd51d29a8aa5684978047146be15a42f52b",
+          "after_sha256": "59ac96f327ffa74e41fbff08a954fcd51d29a8aa5684978047146be15a42f52b",
+          "byte_identical": true
+        },
+        {
+          "path": "hardware/printed-parts/zone-c/funnel/funnel-frame.stl",
+          "before_sha256": "9f9948f9488ab0c5c68971f06380582954213a5dc750624b1a34553a327b3768",
+          "after_sha256": "9f9948f9488ab0c5c68971f06380582954213a5dc750624b1a34553a327b3768",
+          "byte_identical": true
+        }
+      ]
+    },
+    "assembly": {
+      "before_count": 682,
+      "after_count": 682,
+      "before_payload": "de36cedd0e6633473c09f965e0fadaff57721d55f0bc0b8d3fea7d2f2e5e98cc",
+      "after_payload": "fea12c4488aa9e220d5b05fbec95283f8260670e7c4b256cd3071278637b8c43",
+      "added": [],
+      "changed": [
+        {
+          "name": "enclosure-front-bottom",
+          "changed": [
+            "triangles",
+            "faces"
+          ],
+          "before": {
+            "triangles": 245234,
+            "faces": 1391
+          },
+          "after": {
+            "triangles": 247808,
+            "faces": 1525
+          }
+        },
+        {
+          "name": "enclosure-front-top",
+          "changed": [
+            "triangles",
+            "faces"
+          ],
+          "before": {
+            "triangles": 384522,
+            "faces": 505
+          },
+          "after": {
+            "triangles": 384504,
+            "faces": 549
+          }
+        },
+        {
+          "name": "enclosure-back-bottom",
+          "changed": [
+            "triangles",
+            "faces"
+          ],
+          "before": {
+            "triangles": 512512,
+            "faces": 1433
+          },
+          "after": {
+            "triangles": 517360,
+            "faces": 1600
+          }
+        },
+        {
+          "name": "enclosure-back-top",
+          "changed": [
+            "color",
+            "triangles",
+            "faces",
+            "transform"
+          ],
+          "before": {
+            "color": [
+              0.03310476616024971,
+              0.03310476616024971,
+              0.036306485533714294
+            ],
+            "triangles": 627462,
+            "faces": 612,
+            "transform": [
+              [
+                1,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                1,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                1,
+                0
+              ]
+            ]
+          },
+          "after": {
+            "color": [
+              0.033104766,
+              0.033104766,
+              0.036306486
+            ],
+            "triangles": 627540,
+            "faces": 629,
+            "transform": null
+          }
+        }
+      ]
+    },
+    "print_preparation": {
+      "regions_regenerated": true,
+      "binding_status": [
+        "1 x hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl  711c78e5f966  regions bound",
+        "1 x hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.stl  eab326ad930a  regions bound",
+        "1 x hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl  55443c602f72  regions bound",
+        "1 x hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.stl  43f0defbb90b  regions bound",
+        "1 x hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.stl  579faf7f25b3  regions bound",
+        "1 x hardware/printed-parts/cold-core/foam-shell/foam-shell.stl  132c06ecc887  regions bound",
+        "1 x hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.stl  acdcff8c0842  regions bound",
+        "1 x hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.stl  65bf9b7f660b  regions bound"
+      ]
+    }
+  },
+  "delivery": {
+    "installed_engine": true,
+    "installed_existing_tools": 33,
+    "full_build": {
+      "source_commit": "57908e151cd26c3876d0292c286f01cccb6dba44",
+      "wall_seconds": 467.406303291,
+      "completed": true,
+      "success": false,
+      "counts": {
+        "built": 61
+      },
+      "checkpoint_errors": [],
+      "publication": {
+        "coalesced": 9,
+        "exit_codes": [
+          1,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "requests": 15,
+        "started": 11
+      }
+    },
+    "confirmation": {
+      "source_commit": "cb9fe0c1dd711ab1aeee790dc2eaf7c825a647a4",
+      "wall_seconds": 4.184707375,
+      "completed": true,
+      "success": true,
+      "counts": {
+        "cached": 61
+      },
+      "checkpoint_errors": [],
+      "publication": {
+        "coalesced": 0,
+        "exit_codes": [
+          0
+        ],
+        "requests": 1,
+        "started": 1
+      }
+    },
+    "initial_publication_errors": {
+      "count": 2,
+      "text": "No such file or directory (os error 2)",
+      "scope": "Early publication attempts failed without identifying the missing path. All producers completed; subsequent publications and the final confirmation succeeded. This run does not establish the cause of the transient failures."
+    },
+    "live": {
+      "mode": "current-local-snapshot",
+      "url": "https://homesodamachine.com/3d#step:manifold-layout%2Fenclosure-assembly.step?find=solid%3A%20enclosure-front-bottom%0Asolid%3A%20enclosure-back-top",
+      "first_matched_draw_at": "2026-11-10T21:59:11.350Z",
+      "all_selected_matched_draw_at": "2026-11-10T21:59:11.670Z",
+      "artifact": {
+        "path": "hardware/manifold-layout/enclosure-assembly.step.mesh",
+        "sha256": "fea12c4488aa9e220d5b05fbec95283f8260670e7c4b256cd3071278637b8c43",
+        "bytes": 186504
+      },
+      "parts": [
+        {
+          "name": "enclosure-front-bottom",
+          "key": "600c56f600a96128b32c9224ba257cc7afa312de21725ffe5fb56c0fe61f7674:0:null:[0.033104766,0.033104766,0.036306486]",
+          "asset": "600c56f600a96128b32c9224ba257cc7afa312de21725ffe5fb56c0fe61f7674",
+          "source": "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step.mesh",
+          "source_sha256": "bb59e697b96ad5f43edbe63e0a7b07a8ce694b6b7131d75b36d0ebc4c6b3e421"
+        },
+        {
+          "name": "enclosure-back-top",
+          "key": "f3dc7013269a272915ee55417c64403187e187efe43bbbb9605d91305aea4e13:0:null:[0.033104766,0.033104766,0.036306486]",
+          "asset": "f3dc7013269a272915ee55417c64403187e187efe43bbbb9605d91305aea4e13",
+          "source": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step.mesh",
+          "source_sha256": "43a4b5f93aa7698571c581431493a0712159fefea0d723a107f76c66baddb670"
+        }
+      ],
+      "failed_parts": [],
+      "page_errors": [],
+      "scope": "A reference browser mounted the selected local geometry and rendered eligible draws. The observer started after publication and does not establish unobstructed pixels or latency on the user device."
+    }
+  },
+  "ci": {
+    "status": "success",
+    "image": {
+      "id": 42909123076,
+      "url": "https://github.com/derekbreden/homesodamachine/actions/runs/42909123076",
+      "conclusion": "success"
+    },
+    "derive": {
+      "id": 42909491974,
+      "url": "https://github.com/derekbreden/homesodamachine/actions/runs/42909491974",
+      "source_commit": "57908e151cd26c3876d0292c286f01cccb6dba44",
+      "status": "completed",
+      "conclusion": "success",
+      "started_at": "2026-11-10T21:54:12Z",
+      "completed_by": "2026-11-10T22:11:01Z",
+      "jobs": [
+        {
+          "id": 130156083365,
+          "name": "image",
+          "conclusion": "success",
+          "started_at": "2026-11-10T21:54:17Z",
+          "completed_at": "2026-11-10T21:56:25Z"
+        },
+        {
+          "id": 130157242223,
+          "name": "derive",
+          "conclusion": "success",
+          "started_at": "2026-11-10T21:56:28Z",
+          "completed_at": "2026-11-10T22:11:00Z"
+        }
+      ],
+      "producer_lines": 117,
+      "failed_or_blocked_producer_lines": [],
+      "producers_built_or_cached": 61,
+      "final_report_conclusion": "skipped"
+    }
+  },
+  "performance_summary": {
+    "scope": "Shared-host individual observations; no speedup is claimed.",
+    "front_bottom_cpp_seconds": 4.013751083,
+    "front_bottom_complete_rust_seconds": 5.247023375,
+    "funnel_mold_cpp_seconds": 6.88136875,
+    "funnel_mold_complete_rust_seconds": 11.617429583,
+    "normal_cached_build_seconds": 4.184707375
+  }
+}
