@@ -17,14 +17,14 @@
     "behind": true
   },
   "solids": {
-    "hardware/assembly/scenes/glb/back-half.glb.mesh": "46929cc018634f595a78bf7dbf3c037c1c4dfd8e61cbabc702295c3cd019f085",
-    "hardware/assembly/scenes/glb/back-top.glb.mesh": "0e7c805a1ca633a2b25f861c886cff09eac38c86b2457ade746e2a5abd86f59c",
+    "hardware/assembly/scenes/glb/back-half.glb.mesh": "e220a4462a6f025f5cdfc8f0d2fbaa9db54374e94b0faa9bc7c254dba7e511f6",
+    "hardware/assembly/scenes/glb/back-top.glb.mesh": "45c4a2cd2f7b3545ee58888c52df76c8ca7cb4a7bb9068c126ae0319b26c0563",
     "hardware/assembly/scenes/glb/cap-lid-fill.glb.mesh": "93f85360b8e38505bbbb66c24b69d0e1e894747500a87082d3fd890ae7f342e4",
     "hardware/assembly/scenes/glb/cap-lid.glb.mesh": "393972bad8d75e3cbf73452a5ca0a39e7b52100a1113f24a594dbb3d1a56f24c",
     "hardware/assembly/scenes/glb/cold-core-open.glb.mesh": "dce8f237e5062c8e7536c5efdc334ddac5235a7496ea79f5779fccfb1cb850c8",
     "hardware/assembly/scenes/glb/cold-core.glb.mesh": "25caae794ad6f43c3c1fb63d70651b9c7f32d6a497ee5f6280d8093a8d98bb5c",
     "hardware/assembly/scenes/glb/en04-compressor-bay.glb.mesh": "31b9c9c8c83198fb744f61c253e28be042ce2961704862ac6a998c9e85bd1f00",
-    "hardware/assembly/scenes/glb/en07-electronics-bay.glb.mesh": "8ee3909e7ce2f1c08ca247213db784982f7e4fc3d0e71d48fe329819ec210f9c",
+    "hardware/assembly/scenes/glb/en07-electronics-bay.glb.mesh": "9390995de368de520c6fbebfdd94d39fc42bde7ee4f4fab20c0ef5b0bf636b7a",
     "hardware/assembly/scenes/glb/front-top.glb.mesh": "d9fdcedf2e4bab66d7cbd26193f9258435cad751801d38fae1373574d3991068",
     "hardware/assembly/scenes/glb/funnel-drain.glb.mesh": "eae8898c0eb1b7fd6abcab8c891a46061b63d4e9986e461af206f7b8e45a3701",
     "hardware/assembly/scenes/glb/pump-cartridge.glb": "8329920973ebf1302d8a0d0e3053f8fbd41766bd3e5fe57909db932a2c1ecb2e",
@@ -57,7 +57,7 @@
     "hardware/install-guide/plumbing/modern/art/modern-water-on.png": "28ae8937a70f7a55571a37a303b38477bef45d5c4c9d2aef2c22fe58da4c34f8",
     "hardware/manifold-layout/enclosure-assembly.facts.json": "4c87994853fedd4a424311e627182746d7c917f8f7ef3d2491ad64c964b66ecb",
     "hardware/manifold-layout/enclosure-assembly.physical.step.mesh": "96be0d51a69a4bfce5f3984d9f08a82c5a97fa6c220bf7d72d389c15af217370",
-    "hardware/manifold-layout/enclosure-assembly.step.mesh": "4aca2c5d24b33f5221fed36ea543243f25ea7e9a6e374284e6a9e08046e26259",
+    "hardware/manifold-layout/enclosure-assembly.step.mesh": "3163ec119ff8a7d8291a7ec80cdfff6e21628220b1621f8a39d07f271bf52167",
     "hardware/manifold-layout/manifold-layout.step": "3fd31ca1b78af2be4868175bb325370c9cfdebf1bb465778901b55c1912ec7eb",
     "hardware/manifold-layout/manifold-layout.step.mesh": "bab8b49406c2fc510d46d51e99acfcc8bd70c6e1608564d3e03e6dbd0f4dafbe",
     "hardware/manifold-layout/studies/east-feed/parts/east-feed-ceiling.step": "e95046f067ee746da9528bfea02b503cede9a75098f6b1b513dab1bbaa2f058c",
@@ -883,7 +883,7 @@
     "hardware/reference/kamoer-kphm400/kamoer-kphm400.step.npz": "96d6b67b9e66517c964b7ed3269cc0f469aa5695c229a4d6c09e3730a0af02df",
     "hardware/reference/meanwell-irm90/meanwell-irm90.fine.step.npz": "366ce6d9869a8a33efc07478d5350abe74597acf84756dd9deb8dbd188b2a42a",
     "hardware/reference/meanwell-irm90/meanwell-irm90.step": "27cc1e5c3f5bf010f6df8a15a4b9b96dfef7b3836eee4905347e8a0035d033d7",
-    "hardware/reference/meanwell-irm90/meanwell-irm90.step.mesh": "5daca63d8261f4dd722024eee72dee2359c0d9f65dd54ae7ef37012f891ce4a4",
+    "hardware/reference/meanwell-irm90/meanwell-irm90.step.mesh": "c5ab179f21d889cb99dc038d5f9f9cdcf3e25e092b7560645c565bcdc94dcb00",
     "hardware/reference/molex-micro-fit-4/molex-micro-fit-4-panel.step": "29d0cff41861a2a32b4f911e58c3eda5959cc32a15585c6b6f213fd6e3c54e6c",
     "hardware/reference/molex-micro-fit-4/molex-micro-fit-4-panel.step.mesh": "cccc70bff2b92a5d24758c034fe9d8fec977f8b3e2bd01b715d6f92edda77773",
     "hardware/reference/mq6-gas-sensor/mq6-gas-sensor.fine.step.npz": "ab023aa13553fe9c0d961c9e58a31885bdb5205e66f8b623cfe9a67812923965",
@@ -977,14 +977,14 @@
   "sidecars": {},
   "website": {
     "solids": {
-      "hardware/assembly/scenes/glb/back-half.glb.mesh": "46929cc018634f595a78bf7dbf3c037c1c4dfd8e61cbabc702295c3cd019f085",
-      "hardware/assembly/scenes/glb/back-top.glb.mesh": "0e7c805a1ca633a2b25f861c886cff09eac38c86b2457ade746e2a5abd86f59c",
+      "hardware/assembly/scenes/glb/back-half.glb.mesh": "e220a4462a6f025f5cdfc8f0d2fbaa9db54374e94b0faa9bc7c254dba7e511f6",
+      "hardware/assembly/scenes/glb/back-top.glb.mesh": "45c4a2cd2f7b3545ee58888c52df76c8ca7cb4a7bb9068c126ae0319b26c0563",
       "hardware/assembly/scenes/glb/cap-lid-fill.glb.mesh": "93f85360b8e38505bbbb66c24b69d0e1e894747500a87082d3fd890ae7f342e4",
       "hardware/assembly/scenes/glb/cap-lid.glb.mesh": "393972bad8d75e3cbf73452a5ca0a39e7b52100a1113f24a594dbb3d1a56f24c",
       "hardware/assembly/scenes/glb/cold-core-open.glb.mesh": "dce8f237e5062c8e7536c5efdc334ddac5235a7496ea79f5779fccfb1cb850c8",
       "hardware/assembly/scenes/glb/cold-core.glb.mesh": "25caae794ad6f43c3c1fb63d70651b9c7f32d6a497ee5f6280d8093a8d98bb5c",
       "hardware/assembly/scenes/glb/en04-compressor-bay.glb.mesh": "31b9c9c8c83198fb744f61c253e28be042ce2961704862ac6a998c9e85bd1f00",
-      "hardware/assembly/scenes/glb/en07-electronics-bay.glb.mesh": "8ee3909e7ce2f1c08ca247213db784982f7e4fc3d0e71d48fe329819ec210f9c",
+      "hardware/assembly/scenes/glb/en07-electronics-bay.glb.mesh": "9390995de368de520c6fbebfdd94d39fc42bde7ee4f4fab20c0ef5b0bf636b7a",
       "hardware/assembly/scenes/glb/front-top.glb.mesh": "d9fdcedf2e4bab66d7cbd26193f9258435cad751801d38fae1373574d3991068",
       "hardware/assembly/scenes/glb/funnel-drain.glb.mesh": "eae8898c0eb1b7fd6abcab8c891a46061b63d4e9986e461af206f7b8e45a3701",
       "hardware/assembly/scenes/glb/pump-cartridge.glb": "8329920973ebf1302d8a0d0e3053f8fbd41766bd3e5fe57909db932a2c1ecb2e",
@@ -1003,7 +1003,7 @@
       "hardware/faucet-layout/faucet-industrial-assembly.step": "dab99ebc933e9d182955406892cdad3dc5c5276aea5fb1fe3c5905c36fe3ac10",
       "hardware/faucet-layout/faucet-industrial-assembly.step.mesh": "fe28e3401330a3abd8e7ceba118ee10d1a9c6e17631737d47942864f3a7b2074",
       "hardware/manifold-layout/enclosure-assembly.facts.json": "4c87994853fedd4a424311e627182746d7c917f8f7ef3d2491ad64c964b66ecb",
-      "hardware/manifold-layout/enclosure-assembly.step.mesh": "4aca2c5d24b33f5221fed36ea543243f25ea7e9a6e374284e6a9e08046e26259",
+      "hardware/manifold-layout/enclosure-assembly.step.mesh": "3163ec119ff8a7d8291a7ec80cdfff6e21628220b1621f8a39d07f271bf52167",
       "hardware/printed-parts/asse-drain-adapter/asse-drain-adapter.step": "4730c636dd33e1431fa4fa3c6df0b4a3a41942efa40f451ce04e4f41e661a92d",
       "hardware/printed-parts/asse-drain-adapter/asse-drain-adapter.step.mesh": "192cb511c9bd723d16f931037c741fb143fa7000b522a574d13fc47f50854806",
       "hardware/printed-parts/asse-drain-adapter/asse-drain-adapter.stl": "ee0584ceb98ba367aaf8ea1508a060946f8e357a0f8e77cc33de567066437d2e",
@@ -1494,7 +1494,7 @@
       "hardware/reference/kamoer-kphm400/kamoer-kphm400.step": "16308de08af380e2eb6369c760ecb021dea0c72100d0b4da1b14387f783b9320",
       "hardware/reference/kamoer-kphm400/kamoer-kphm400.step.mesh": "40dfb491c466a80c445f0e6305d6b69fa5aacefc89d091592882872001a9207a",
       "hardware/reference/meanwell-irm90/meanwell-irm90.step": "27cc1e5c3f5bf010f6df8a15a4b9b96dfef7b3836eee4905347e8a0035d033d7",
-      "hardware/reference/meanwell-irm90/meanwell-irm90.step.mesh": "5daca63d8261f4dd722024eee72dee2359c0d9f65dd54ae7ef37012f891ce4a4",
+      "hardware/reference/meanwell-irm90/meanwell-irm90.step.mesh": "c5ab179f21d889cb99dc038d5f9f9cdcf3e25e092b7560645c565bcdc94dcb00",
       "hardware/reference/mq6-gas-sensor/mq6-gas-sensor.step": "fb24dfa14266da28fe06300508ae6584ca68da9ee851d136e4896d5970f09040",
       "hardware/reference/mq6-gas-sensor/mq6-gas-sensor.step.mesh": "2d05151890ceae500ca3691532615e63590b24a5394b57106e680f030c4d04d1",
       "hardware/reference/multiplex-asse1022/multiplex-asse1022.step": "8d357ab7bf93f99130ea024c00c35e0f4e93e0f4de4613e15215db0c0a02c069",
@@ -1938,6 +1938,7 @@
     "dcfb0e54720a4d4f62595c91df22f32ad930752a2fbedfe8ebeb6e2c9a9e5ef8",
     "dea6934ca819b12ba116936d3b25cd318cf7bae5f62f104671752927f6b96ff8",
     "dec9e63dadb1a855cd448a3f715f98fde82c928a590b29fd0393a7f0052b1c30",
+    "dfb08748098c724f8a96b7881a2aba03441b800abe0faac87566287b4962ad12",
     "dfec0353098a5fd8c0f8d0e938e456d035f3a8bd29178657523176089d96435b",
     "e14e2b01cafbbdf785a2152c4a7f97e34e3f8a55352757e58e6a30a4da9d87e5",
     "e1e018333c805f524596938ecf98747c724503f7218fd88833d02a87b8f96b5d",
@@ -1987,14 +1988,14 @@
     "ff71f4aee0b12689b722a8ed669d67a1edc5d5b048152012588d8108a0426770"
   ],
   "moved": {
-    "hardware/assembly/scenes/glb/back-half.glb.mesh": 1794271403.428597,
-    "hardware/assembly/scenes/glb/back-top.glb.mesh": 1794271403.428597,
+    "hardware/assembly/scenes/glb/back-half.glb.mesh": 1794271693.665262,
+    "hardware/assembly/scenes/glb/back-top.glb.mesh": 1794271693.665262,
     "hardware/assembly/scenes/glb/cap-lid-fill.glb.mesh": 1794270755.869326,
     "hardware/assembly/scenes/glb/cap-lid.glb.mesh": 1794271090.8505769,
     "hardware/assembly/scenes/glb/cold-core-open.glb.mesh": 1794270755.869326,
     "hardware/assembly/scenes/glb/cold-core.glb.mesh": 1794271090.8505769,
     "hardware/assembly/scenes/glb/en04-compressor-bay.glb.mesh": 1794270755.869326,
-    "hardware/assembly/scenes/glb/en07-electronics-bay.glb.mesh": 1794270755.869326,
+    "hardware/assembly/scenes/glb/en07-electronics-bay.glb.mesh": 1794271693.665262,
     "hardware/assembly/scenes/glb/front-top.glb.mesh": 1794271090.8505769,
     "hardware/assembly/scenes/glb/funnel-drain.glb.mesh": 1794270755.869326,
     "hardware/assembly/scenes/glb/pump-cartridge.glb": 1792921613,
@@ -2027,7 +2028,7 @@
     "hardware/install-guide/plumbing/modern/art/modern-water-on.png": 1793830497,
     "hardware/manifold-layout/enclosure-assembly.facts.json": 1794269272.362814,
     "hardware/manifold-layout/enclosure-assembly.physical.step.mesh": 1793858653,
-    "hardware/manifold-layout/enclosure-assembly.step.mesh": 1794271403.428597,
+    "hardware/manifold-layout/enclosure-assembly.step.mesh": 1794271693.665262,
     "hardware/manifold-layout/manifold-layout.step": 1794269272.362814,
     "hardware/manifold-layout/manifold-layout.step.mesh": 1794269243.109754,
     "hardware/manifold-layout/studies/east-feed/parts/east-feed-ceiling.step": 1792828088,
@@ -2853,7 +2854,7 @@
     "hardware/reference/kamoer-kphm400/kamoer-kphm400.step.npz": 1794269272.362814,
     "hardware/reference/meanwell-irm90/meanwell-irm90.fine.step.npz": 1793697604,
     "hardware/reference/meanwell-irm90/meanwell-irm90.step": 1787354099,
-    "hardware/reference/meanwell-irm90/meanwell-irm90.step.mesh": 1793503760,
+    "hardware/reference/meanwell-irm90/meanwell-irm90.step.mesh": 1794271693.665262,
     "hardware/reference/molex-micro-fit-4/molex-micro-fit-4-panel.step": 1791566298,
     "hardware/reference/molex-micro-fit-4/molex-micro-fit-4-panel.step.mesh": 1793568839,
     "hardware/reference/mq6-gas-sensor/mq6-gas-sensor.fine.step.npz": 1793697604,
@@ -2946,11 +2947,11 @@
   },
   "made": {
     "hardware/assembly/scenes/glb/back-half.glb.mesh": {
-      "commit": "eee28552d645f66a9804f2e59cec4b0e2f05987c",
+      "commit": "b9e6a8033df0a2330887e5117bc1c331d54f970b",
       "unproven": true
     },
     "hardware/assembly/scenes/glb/back-top.glb.mesh": {
-      "commit": "eee28552d645f66a9804f2e59cec4b0e2f05987c",
+      "commit": "b9e6a8033df0a2330887e5117bc1c331d54f970b",
       "unproven": true
     },
     "hardware/assembly/scenes/glb/cap-lid-fill.glb.mesh": {
@@ -2980,7 +2981,7 @@
     },
     "hardware/assembly/scenes/glb/en07-electronics-bay.glb.mesh": {
       "inputs": "28c63a0577528f514fb04e534605997066cd7569f6d0c5f9e05c499efc425efb",
-      "commit": "1c7202edde2519576a23e3a9aa8ceb5e7f89aae5",
+      "commit": "b9e6a8033df0a2330887e5117bc1c331d54f970b",
       "unproven": true
     },
     "hardware/assembly/scenes/glb/front-top.glb.mesh": {
@@ -3108,7 +3109,7 @@
       "unproven": true
     },
     "hardware/manifold-layout/enclosure-assembly.step.mesh": {
-      "commit": "eee28552d645f66a9804f2e59cec4b0e2f05987c",
+      "commit": "b9e6a8033df0a2330887e5117bc1c331d54f970b",
       "unproven": true
     },
     "hardware/manifold-layout/manifold-layout.step": {
@@ -5146,7 +5147,7 @@
       "unproven": true
     },
     "hardware/reference/meanwell-irm90/meanwell-irm90.step.mesh": {
-      "commit": "fef5614a76950a4c9c157f116c8e61e09b7c1c44",
+      "commit": "b9e6a8033df0a2330887e5117bc1c331d54f970b",
       "unproven": true
     },
     "hardware/reference/molex-micro-fit-4/molex-micro-fit-4-panel.step": {
