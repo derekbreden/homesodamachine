@@ -80,7 +80,6 @@ if [ "$CHECK" = 1 ]; then
   done
 else
   command -v cargo >/dev/null || { echo "Install the Rust toolchain before running this setup" >&2; exit 1; }
-  command -v cmake >/dev/null || { echo "Install CMake before running this setup" >&2; exit 1; }
   if [ ! -x tools/hsm/target/release/hsm-run ]; then
     cargo build --release --locked -j 2 --manifest-path tools/hsm/Cargo.toml -p hsm-run-slots --bin hsm-run
   fi

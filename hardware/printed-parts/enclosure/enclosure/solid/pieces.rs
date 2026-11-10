@@ -57,7 +57,7 @@ pub fn separated(
 }
 
 /// The plain band joins the printed body after the wall's flute tool has finished.
-pub fn join_band(core: &manifold_csg::Manifold, band: &Solid) -> Result<manifold_csg::Manifold> {
+pub fn join_band(core: &hsm_manifold::Manifold, band: &Solid) -> Result<hsm_manifold::Manifold> {
     let joined = if band.is_empty() {
         core.clone()
     } else {

@@ -26,9 +26,7 @@ fn main() {
     let mut sources = BTreeSet::new();
     for path in [
         workspace.join("kernel/src"),
-        workspace.join("vendor/manifold-csg-sys/src"),
-        workspace.join("vendor/manifold-csg-sys/build"),
-        workspace.join("vendor/manifold-csg-sys/patches"),
+        workspace.join("manifold/src"),
         root.join("hardware/printed-parts/enclosure/enclosure/numbers"),
         solid,
     ] {
@@ -36,9 +34,7 @@ fn main() {
     }
     for path in [
         workspace.join("kernel/Cargo.toml"),
-        workspace.join("vendor/manifold-csg-sys/Cargo.toml"),
-        workspace.join("vendor/manifold-csg-sys/build.rs"),
-        workspace.join("vendor/manifold-csg-sys/cache-version"),
+        workspace.join("manifold/Cargo.toml"),
         manifest.join("Cargo.toml"),
         manifest.join("build.rs"),
         root.join("hardware/printed-parts/enclosure/nameplate/snap_geometry.rs"),
@@ -136,8 +132,6 @@ fn main() {
         "TARGET",
         "CARGO_CFG_TARGET_FEATURE",
         "CARGO_ENCODED_RUSTFLAGS",
-        "MANIFOLD_CSG_LIB_DIR",
-        "MANIFOLD_CSG_LIB_KIND",
     ] {
         println!("cargo:rerun-if-env-changed={name}");
         hash.update(env::var(name).unwrap_or_default());

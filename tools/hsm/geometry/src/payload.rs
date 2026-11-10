@@ -1,5 +1,5 @@
 use anyhow::{Context, Result, bail, ensure};
-use manifold_csg::Manifold;
+use hsm_manifold::Manifold;
 use parry3d_f64::{math::Point, shape::TriMesh};
 use serde::Deserialize;
 use sha2::{Digest, Sha256};
