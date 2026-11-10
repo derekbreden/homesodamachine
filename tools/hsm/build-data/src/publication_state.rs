@@ -262,7 +262,7 @@ fn read_pointers(root: &Path) -> Value {
         .unwrap_or_else(|| json!({}))
 }
 fn graph_file(root: &Path) -> Option<Value> {
-    fs::read(root.join("tools/bazel/graph.json"))
+    fs::read(root.join("tools/hsm/build-plan/graph.json"))
         .ok()
         .and_then(|b| serde_json::from_slice(&b).ok())
 }
@@ -1116,19 +1116,6 @@ pub fn dispatch(v: &Value) -> Result<Option<Value>> {
                         && !omit.contains(p)
                         && !presentation.contains(p))
                     .collect::<Vec<_>>()
-            )
-        }
-        "publication-behind" => {
-            let owed = text("stderr")?
-                .lines()
-                .filter(|s| s.contains("not up-to-date"))
-                .collect::<Vec<_>>();
-            json!(
-                v["returncode"] != 0
-                    && (!owed
-                        .iter()
-                        .all(|s| s.contains("BazelWorkspaceStatusAction"))
-                        || owed.is_empty())
             )
         }
         "publication-unheld" => {

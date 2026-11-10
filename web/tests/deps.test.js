@@ -9,12 +9,12 @@ import { nativeBuildPlan, buildTargetsForSources, buildOrder, viewerOutput } fro
 function fixture(t, graph) {
   const root = fs.mkdtempSync(path.join(os.tmpdir(), "hsm-native-deps-"));
   t.after(() => fs.rmSync(root, { recursive: true, force: true }));
-  fs.mkdirSync(path.join(root, "tools/bazel"), { recursive: true });
+  fs.mkdirSync(path.join(root, "tools/hsm/build-plan"), { recursive: true });
   for (const source of Object.keys(graph)) {
     fs.mkdirSync(path.dirname(path.join(root, source)), { recursive: true });
     fs.writeFileSync(path.join(root, source), "fn main() {}\n");
   }
-  fs.writeFileSync(path.join(root, "tools/bazel/graph.json"), JSON.stringify(graph));
+  fs.writeFileSync(path.join(root, "tools/hsm/build-plan/graph.json"), JSON.stringify(graph));
   return root;
 }
 const row = (source, reads, writes, extra = {}) => ({ reads, writes, rewritten: [], program: { crate: "fixture", name: "fixture", sources: [source] }, ...extra });
@@ -71,11 +71,11 @@ test("metadata is reread for a new producer and rejects an undeclared runtime", 
   assert.equal(nativeBuildPlan(root).producers.size, 1);
   const source2 = "hardware/new.rs";
   fs.writeFileSync(path.join(root, source2), "fn main() {}\n");
-  fs.writeFileSync(path.join(root, "tools/bazel/graph.json"), JSON.stringify({
+  fs.writeFileSync(path.join(root, "tools/hsm/build-plan/graph.json"), JSON.stringify({
     [source]: row(source, [], ["hardware/part.step"]), [source2]: row(source2, [], ["hardware/new.step"]),
   }));
   assert.equal(nativeBuildPlan(root).producers.size, 2);
-  fs.writeFileSync(path.join(root, "tools/bazel/graph.json"), JSON.stringify({ [source]: { reads: [], writes: ["part.step"] } }));
+  fs.writeFileSync(path.join(root, "tools/hsm/build-plan/graph.json"), JSON.stringify({ [source]: { reads: [], writes: ["part.step"] } }));
   assert.throws(() => nativeBuildPlan(root), /no declared native program/);
 });
 

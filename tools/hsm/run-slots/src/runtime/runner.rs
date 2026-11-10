@@ -125,8 +125,6 @@ fn command_view<'a>(command: &'a [String], cwd: &Path) -> Option<CommandView<'a>
 }
 #[derive(Clone, Copy, Debug, Default, PartialEq, Eq)]
 struct CommandClass {
-    bazel: bool,
-    bazel_heavy: bool,
     cargo_heavy: bool,
 }
 fn classify_command(command: &[String], cwd: &Path) -> CommandClass {
@@ -139,13 +137,7 @@ fn classify_command(command: &[String], cwd: &Path) -> CommandClass {
         .iter()
         .skip(1)
         .take_while(|arg| arg.as_str() != "--");
-    let bazel = matches!(program, "bazel" | "bazelisk");
     CommandClass {
-        bazel,
-        bazel_heavy: bazel
-            && arguments
-                .clone()
-                .any(|arg| matches!(arg.as_str(), "build" | "test" | "run" | "coverage")),
         cargo_heavy: program == "cargo"
             && arguments.any(|arg| {
                 matches!(
@@ -176,41 +168,6 @@ pub fn script_key(command: &[String], cwd: &Path) -> String {
         .file_name()
         .unwrap_or_default()
         .to_string_lossy();
-    if matches!(program.as_ref(), "bazel" | "bazelisk") {
-        let verb = command
-            .iter()
-            .skip(1)
-            .find(|v| !v.starts_with('-'))
-            .map(String::as_str)
-            .unwrap_or("build");
-        let mut targets = command
-            .iter()
-            .skip(1)
-            .filter(|v| v.starts_with("//") || v.starts_with('@'))
-            .cloned()
-            .collect::<Vec<_>>();
-        targets.sort();
-        let key = format!("bazel:{verb}:{}", targets.join(","));
-        if key.chars().count() <= 512 {
-            return key;
-        }
-        let digest = format!("{:x}", Sha256::digest(key.as_bytes()));
-        let sample = targets
-            .iter()
-            .take(3)
-            .cloned()
-            .collect::<Vec<_>>()
-            .join(",")
-            .chars()
-            .take(384)
-            .collect::<String>();
-        return format!(
-            "bazel:{}:{} targets:{sample}...:{}",
-            verb.chars().take(32).collect::<String>(),
-            targets.len(),
-            &digest[..16]
-        );
-    }
     for arg in command {
         if [".py", ".js", ".mjs", ".sh", ".ts", ".tsx"]
             .iter()
@@ -288,15 +245,7 @@ pub fn limit_jobs(command: &[String], jobs: usize) -> Vec<String> {
 pub fn workspace_root() -> PathBuf {
     let here = resolved(&env::current_dir().unwrap_or_default());
     for root in here.ancestors() {
-        if [
-            ".bazelversion",
-            "MODULE.bazel",
-            "WORKSPACE",
-            "WORKSPACE.bazel",
-        ]
-        .iter()
-        .any(|name| root.join(name).exists())
-        {
+        if root.join("tools/hsm/Cargo.toml").is_file() {
             return root.into();
         }
     }
@@ -385,29 +334,12 @@ pub fn run(args: &[String]) -> Result<i32> {
     }
     let root = workspace_root();
     let key = key.unwrap_or_else(|| script_key(&command, &env::current_dir().unwrap_or_default()));
-    let CommandClass {
-        bazel,
-        bazel_heavy,
-        cargo_heavy,
-    } = classify_command(&command, &env::current_dir()?);
-    if bazel_heavy || cargo_heavy {
+    let CommandClass { cargo_heavy } = classify_command(&command, &env::current_dir()?);
+    if cargo_heavy {
         command = limit_jobs(&command, 2);
     }
-    let stable = if bazel {
-        Some(slots::broker_config(&root)?)
-    } else {
-        None
-    };
-    let guard = if let Some(config) = &stable {
-        let raw: Value = serde_json::from_str(config)?;
-        let file = open(&Path::new(text(&raw["path"])?).with_extension("guard"))?;
-        file.lock_exclusive()?;
-        Some(file)
-    } else {
-        None
-    };
     let cad_dir = env::temp_dir().join("hsm-cad-lock");
-    if cad_arg || bazel_heavy {
+    if cad_arg {
         cad::wait_legacy(&cad_dir)?;
     }
     if let Err(error) = slots::acquire_run(Some(&key), timing) {
@@ -421,32 +353,21 @@ pub fn run(args: &[String]) -> Result<i32> {
         }
         return Err(error);
     }
-    if cad_arg || bazel_heavy {
+    if cad_arg {
         if let Some(code) = cad::acquire(&key, &root)? {
             return Ok(code);
         }
     }
-    if bazel_heavy || cargo_heavy {
+    if cargo_heavy {
         slots::acquire_aux("compiler")?;
     }
-    let broker = slots::new_broker(stable.as_deref())?;
+    let broker = slots::new_broker()?;
     let mut environment = slots::child_env()?
         .as_object()
         .cloned()
         .context("child environment")?;
     environment.insert("CARGO_BUILD_JOBS".into(), json!("2"));
     environment.insert("CMAKE_BUILD_PARALLEL_LEVEL".into(), json!("2"));
-    if bazel {
-        for name in [
-            RUN_ENV,
-            CAD_ENV,
-            COMPILER_ENV,
-            PROFILE_ENV,
-            "HSM_NO_BUILD_LOCK",
-        ] {
-            environment.remove(name);
-        }
-    }
     let began = Instant::now();
     let mut child = Command::new(&command[0]);
     child.args(&command[1..]);
@@ -455,9 +376,7 @@ pub fn run(args: &[String]) -> Result<i32> {
             .iter()
             .filter_map(|(k, v)| v.as_str().map(|v| (k, v))),
     );
-    if !bazel {
-        slots::context()?.apply(&mut child)?;
-    }
+    slots::context()?.apply(&mut child)?;
     let child = match ipc::spawn(&mut child) {
         Ok(child) => child,
         Err(error) => {
@@ -493,7 +412,6 @@ pub fn run(args: &[String]) -> Result<i32> {
         );
     }
     slots::close_broker(broker["id"].as_u64().unwrap())?;
-    drop(guard);
     cad::record(&cad_dir, code);
     cad::release(&cad_dir);
     slots::release(false);
@@ -559,7 +477,6 @@ mod tests {
         ]);
         let class = classify_command(&command, Path::new("."));
         assert!(class.cargo_heavy);
-        assert!(!class.bazel);
         let expected = words(&[
             "env",
             "-iv",
@@ -611,41 +528,6 @@ mod tests {
             ])
         );
         assert!(classify_command(&command, Path::new(".")).cargo_heavy);
-    }
-    #[test]
-    fn bazel_in_env_keeps_the_same_key_guard_and_job_limit() {
-        let bare = words(&["bazelisk", "build", "//second", "//first", "--jobs=8"]);
-        let wrapped = [
-            words(&["env", "--debug", "PATH=/opt/tool bin"]),
-            bare.clone(),
-        ]
-        .concat();
-        let class = classify_command(&wrapped, Path::new("."));
-        assert!(class.bazel && class.bazel_heavy);
-        assert_eq!(
-            script_key(&wrapped, Path::new(".")),
-            script_key(&bare, Path::new("."))
-        );
-        assert_eq!(
-            limit_jobs(&wrapped, 2),
-            words(&[
-                "env",
-                "--debug",
-                "PATH=/opt/tool bin",
-                "bazelisk",
-                "build",
-                "//second",
-                "//first",
-                "--jobs=2"
-            ])
-        );
-        assert!(
-            !classify_command(
-                &words(&["env", "VAR=x", "bazel", "query", "//..."]),
-                Path::new(".")
-            )
-            .bazel_heavy
-        );
     }
     #[test]
     fn env_directory_options_resolve_manifests_where_the_utility_runs() {

@@ -92,7 +92,7 @@ tree needs no edit here.
 
 - **legacy redirects** `/dev`, `/dev/diagrams`, `/dev/mermaid`, `/dev/settings` → 301. `web/lib/viewer-pages.js`.
 - **explicit build selection** — `web/dev-server/deps.js` reads native program declarations,
-  inputs and outputs from `tools/bazel/graph.json` and `tools/hsm/build-plan/inventory.json`.
+  inputs and outputs from `tools/hsm/build-plan/graph.json` and `tools/hsm/build-plan/inventory.json`.
   It selects producer targets and their dependents for requested builds. The dev server
   watches completed outputs; saving source starts no build.
 - **importmap** — the three.js bare specifiers resolve through the importmap in the page.

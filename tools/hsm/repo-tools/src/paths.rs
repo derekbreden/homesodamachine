@@ -24,7 +24,6 @@ const SKIP: &[&str] = &[
     "tools/video-venv/",
     "tools/hsm/vendor/",
     ".pio/",
-    "bazel-",
 ];
 fn extension(s: &str) -> &str {
     s.rsplit_once('.').map_or("", |(_, ext)| ext)

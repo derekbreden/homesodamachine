@@ -11,4 +11,5 @@ serde.workspace = true
 serde_json.workspace = true
 sha2.workspace = true
 hsm-run-slots = { path = "../run-slots" }
+hsm-build-plan = { path = "../build-plan" }
 libc = "0.2"

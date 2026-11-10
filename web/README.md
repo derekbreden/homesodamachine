@@ -98,7 +98,7 @@ npm run subscribers # the signup list; DATABASE_URL comes from Render's dashboar
 watches completed hardware outputs and the viewer's replaceable render modules, then
 broadcasts changes over the WebSocket. Saving source starts no build. Explicit build
 requests resolve declared native producers and dependencies from
-[`tools/bazel/graph.json`](../tools/bazel/graph.json) and the native build-plan metadata.
+[`tools/hsm/build-plan/graph.json`](../tools/hsm/build-plan/graph.json) and the native build-plan metadata.
 `--source` selects an input, producer or output and its downstream producers.
 
 The build command runs [`hsm-print-build`](../tools/hsm/print-build/README.md) through

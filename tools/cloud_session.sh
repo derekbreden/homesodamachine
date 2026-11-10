@@ -8,8 +8,6 @@ cd "$ROOT"
 CHECK=0
 [ "${1:-}" = "--check" ] && CHECK=1
 
-BAZELISK=https://github.com/bazelbuild/bazelisk/releases/download/v1.25.0/bazelisk-linux-amd64
-
 say() { printf '  %s\n' "$*"; }
 missing=0
 need() { missing=1; say "missing: $*"; }
@@ -69,18 +67,6 @@ else
   say "gh: not installed (no root apt here); hsm-pack cannot upload without it"
 fi
 
-if command -v bazel >/dev/null; then
-  say "bazel: $(command -v bazel)"
-elif [ "$CHECK" = 1 ]; then
-  need "bazel"
-else
-  say "bazel: installing bazelisk"
-  dest=/usr/local/bin/bazel
-  [ -w /usr/local/bin ] || { mkdir -p "$HOME/.local/bin"; dest="$HOME/.local/bin/bazel"; }
-  curl -fsSL -o "$dest" "$BAZELISK" && chmod +x "$dest"
-  case ":$PATH:" in *":$(dirname "$dest"):"*) ;; *) export PATH="$(dirname "$dest"):$PATH" ;; esac
-  [ -n "${CLAUDE_ENV_FILE:-}" ] && echo "export PATH=\"$(dirname "$dest"):\$PATH\"" >> "$CLAUDE_ENV_FILE"
-fi
 if [ "$CHECK" = 0 ]; then
   mkdir -p .cache
   for d in /opt/homebrew/bin /usr/local/bin; do
@@ -160,9 +146,10 @@ else
 fi
 
 if [ "$CHECK" = 1 ]; then
-  [ -f .bazelrc.paths ] && say ".bazelrc.paths: written" || need ".bazelrc.paths"
+  [ -f tools/hsm/build-plan/graph.json ] && say "native producer graph: present" || need "native producer graph"
 else
-  tools/hsm/target/release/hsm-build-plan write
+  tools/hsm/target/release/hsm-build-plan plan >/dev/null
+  say "native producer plan: ready"
 fi
 
 if [ "$CHECK" = 1 ]; then

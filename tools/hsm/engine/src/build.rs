@@ -21,7 +21,7 @@ use serde::{Deserialize, Serialize};
 use serde_json::{Value, json};
 use sha2::{Digest, Sha256};
 use std::{
-    collections::{BTreeSet, HashMap, VecDeque},
+    collections::{BTreeMap, BTreeSet, HashMap, VecDeque},
     fs,
     io::Read,
     os::unix::fs::MetadataExt,
@@ -46,7 +46,7 @@ const CRITICAL: i32 = 4;
 const RETIRE: Duration = Duration::from_secs(10 * 60);
 
 /// What a run is asked for over the socket: `{"op":"run", ...}`.
-#[derive(Debug, Deserialize, Serialize)]
+#[derive(Clone, Debug, Deserialize, Serialize)]
 pub struct Ask {
     /// The checkout whose `tools/hsm` workspace holds the program.
     pub workspace: PathBuf,
@@ -57,7 +57,27 @@ pub struct Ask {
     pub name: String,
     #[serde(default)]
     pub args: Vec<String>,
+    /// Complete raw-file reads relative to `root`; an absent file is an input state.
+    #[serde(default)]
+    pub inputs: Option<Vec<String>>,
+    /// Files written relative to `root`; their presence activates declared-output execution.
+    #[serde(default)]
+    pub outputs: Option<Vec<String>>,
+    /// The planner's complete compiler inputs, relative to `workspace`, including its canonical
+    /// Cargo configuration. Their supplied split replaces dep-info/whole-workspace manifests.
+    #[serde(default)]
+    pub compiler_inputs: Option<Vec<String>>,
+    /// Explicit producer settings and subprocess environment.
+    #[serde(default)]
+    pub environment: BTreeMap<String, String>,
+    #[serde(default = "yes")]
+    pub allow_compile: bool,
+    /// Restore a matching result or report unavailable without compiling or executing.
+    #[serde(default)]
+    pub cache_only: bool,
 }
+
+fn yes() -> bool { true }
 
 /// A kept run.
 #[derive(Clone, Deserialize, Serialize)]
@@ -65,6 +85,8 @@ struct Kept {
     /// Each file the run read: from the root, from the workspace, or `/` for a whole path.
     reads: Vec<(String, String, String)>,
     files: Vec<(String, String)>,
+    #[serde(default)]
+    absent: Vec<String>,
     stdout: String,
     stderr: String,
     seconds: f64,
@@ -165,6 +187,12 @@ struct Built {
     keepable: bool,
 }
 
+#[derive(Deserialize, Serialize)]
+struct DeclaredCompiler {
+    declared: Vec<String>,
+    sources: Vec<String>,
+}
+
 /// A finished child: its status, its output, its seconds and the most memory it held.
 struct Finished {
     ok: bool,
@@ -181,6 +209,7 @@ impl Builder {
         for sub in ["blobs", "runs", "programs", "tmp"] {
             fs::create_dir_all(dir.join(sub))?;
         }
+        let dir = dir.canonicalize()?;
         // A run that died with its daemon leaves its scratch behind. A daemon this one replaces
         // may still be finishing one, in a directory named for its pid.
         for entry in fs::read_dir(dir.join("tmp"))?.flatten() {
@@ -245,52 +274,54 @@ impl Builder {
 
     fn run(&self, mut ask: Ask, mut lease: Option<Lease>) -> Result<Value> {
         let started = Instant::now();
-        ask.workspace = ask
-            .workspace
-            .canonicalize()
+        ask.workspace = ask.workspace.canonicalize()
             .with_context(|| format!("no workspace at {}", ask.workspace.display()))?;
-        ask.root = ask
-            .root
-            .canonicalize()
+        ask.root = ask.root.canonicalize()
             .with_context(|| format!("no root at {}", ask.root.display()))?;
-        ensure!(
-            plain(&ask.krate) && plain(&ask.name),
-            "a crate and a program are plain names"
-        );
+        ensure!(plain(&ask.krate) && plain(&ask.name), "a crate and a program are plain names");
+        normalize_files(&mut ask.inputs)?;
+        normalize_files(&mut ask.outputs)?;
+        normalize_files(&mut ask.compiler_inputs)?;
+        ensure!(!ask.compiler_inputs.as_ref().is_some_and(Vec::is_empty),
+                "declared compiler inputs contain the program's sources and canonical configuration");
         let args = self.classify(&ask)?;
-        let out = args.iter().find_map(|a| match a {
-            Arg::Out(p) => Some(p.clone()),
-            _ => None,
-        });
+        let out = if ask.outputs.is_some() { Some(ask.root.clone()) } else {
+            args.iter().find_map(|a| match a { Arg::Out(p) => Some(p.clone()), _ => None })
+        };
+        let declared = self.declared_reads(&ask)?;
+        let environment = run_environment(&ask)?;
         let toolchain = self.toolchain(&ask.workspace)?;
-        // A kept run needs its program's code, not the program: the sources it was last
-        // compiled from, as they stand.
-        let known = match self.sources(&ask.workspace, &ask.krate, &ask.name) {
-            Some(sources) => self
-                .code(&ask.workspace, &ask.krate, &ask.name, &sources, &toolchain)?
+        let known = match self.ask_sources(&ask) {
+            Some(sources) => self.code(&ask.workspace, &ask.krate, &ask.name, &sources, &toolchain)?
                 .map(|code| (code, sources)),
             None => None,
         };
         let mut hit = match &known {
-            Some((code, _)) => self.lookup(&primary(&code.native, &args), &ask)?,
+            Some((code, _)) => self.lookup(&run_key(&code.native, &args, &ask, &declared, &environment), &ask)?,
             None => None,
         };
-        // A stored answer does no heavy work. Every miss enters the host gate before taking
-        // Cargo, memory or flight ownership; an admitted parent's RPC can therefore proceed.
+        let available_program = known.as_ref().and_then(|(code, sources)| self.kept_program(&ask, code, sources));
+        if hit.is_none() && (ask.cache_only || (!ask.allow_compile && available_program.is_none())) {
+            return Ok(json!({"available":false,"hit":false,"compiled":false,"kept":false,
+                "files":[],"file_hashes":{},"artifacts":{},"missing_outputs":[],
+                "reason":if ask.cache_only { "no matching kept result" } else { "no current-code program is kept" },
+                "seconds":started.elapsed().as_secs_f64()}));
+        }
+        // Hits and explicit freshness probes do no heavy work and acquire no host lease.
         if hit.is_none() {
             lease = Some(hsm_run_slots::acquire(&format!("{}:{}", ask.krate, ask.name), lease, false)?);
         }
         let (code, sources, program, compiled, keepable) = match (&hit, known) {
             (Some(_), Some((code, sources))) => (code, sources, None, false, true),
+            (_, Some((code, sources))) if !ask.allow_compile =>
+                (code, sources, available_program, false, true),
             (_, known) => {
                 let built = self.program(&ask, &toolchain, known, lease.as_ref().unwrap())?;
                 (built.code, built.sources, Some(built.path), built.compiled, built.keepable)
             }
         };
-        let key = primary(&code.native, &args);
-        if hit.is_none() && compiled {
-            hit = self.lookup(&key, &ask)?;
-        }
+        let key = run_key(&code.native, &args, &ask, &declared, &environment);
+        if hit.is_none() && compiled { hit = self.lookup(&key, &ask)?; }
         let mut flight = None;
         if hit.is_none() {
             let (f, leader) = {
@@ -304,51 +335,47 @@ impl Builder {
                     }
                 }
             };
-            if leader {
-                flight = Some(f);
-            } else {
+            if leader { flight = Some(f); } else {
                 let mut done = f.done.lock().unwrap();
-                while !*done {
-                    done = f.landed.wait(done).unwrap();
-                }
+                while !*done { done = f.landed.wait(done).unwrap(); }
                 drop(done);
                 hit = self.lookup(&key, &ask)?;
             }
         }
-        let landing = Landing {
-            builder: self,
-            key: &key,
-            flight,
-        };
+        let landing = Landing { builder: self, key: &key, flight };
         let was_kept = hit.is_some();
         let (kept, kept_now) = match hit {
             Some(kept) => (kept, false),
             None => {
                 let program = program.context("no program to run")?;
-                let (kept, storable) = self.execute(&program, &ask, &args, &code, &sources, lease.as_ref().unwrap())?;
+                let (kept, storable) = self.execute(&program, &ask, &args, &code, &sources,
+                    &declared, &environment, lease.as_ref().unwrap())?;
                 let storable = storable && keepable;
-                if storable {
-                    self.keep(&key, &kept)?;
-                }
+                if storable { self.keep(&key, &kept)?; }
                 (kept, storable)
             }
         };
         drop(landing);
-        if let Some(out) = &out {
-            self.place(&kept.files, out)?;
-        }
+        if let Some(out) = &out { self.place(&kept.files, &kept.absent, out)?; }
+        let artifacts: BTreeMap<_, _> = kept.files.iter().map(|(name, digest)|
+            (name, self.dir.join("blobs").join(digest))).collect();
+        let hashes: BTreeMap<_, _> = kept.files.iter().map(|(name, digest)| (name, digest)).collect();
         Ok(json!({
-            "stdout": kept.stdout, "stderr": kept.stderr, "sources": kept.sources,
-            "reads": kept.reads, "files": kept.files.iter().map(|(n, _)| n).collect::<Vec<_>>(),
-            "hit": was_kept, "kept": was_kept || kept_now, "compiled": compiled,
-            "program_seconds": kept.seconds, "peak_bytes": kept.peak,
-            "code": code.native, "key": key, "seconds": started.elapsed().as_secs_f64(),
+            "available":true,"stdout":kept.stdout,"stderr":kept.stderr,"sources":kept.sources,
+            "reads":kept.reads,"files":kept.files.iter().map(|(n,_)|n).collect::<Vec<_>>(),
+            "file_hashes":hashes,"artifacts":artifacts,"missing_outputs":kept.absent,
+            "hit":was_kept,"kept":was_kept||kept_now,"compiled":compiled,
+            "program_seconds":kept.seconds,"peak_bytes":kept.peak,
+            "code":code.native,"key":key,"seconds":started.elapsed().as_secs_f64(),
         }))
     }
 
     /// Each argument: the one directory is where the files go, a file is read by its bytes, and
     /// anything else is passed as it is.
     fn classify(&self, ask: &Ask) -> Result<Vec<Arg>> {
+        if ask.outputs.is_some() {
+            return Ok(ask.args.iter().cloned().map(Arg::Text).collect());
+        }
         let mut args = vec![];
         for a in &ask.args {
             let path = ask.root.join(a);
@@ -377,12 +404,19 @@ impl Builder {
                 return Ok(Some(d.clone()));
             }
         }
-        let bytes = match fs::read(path) {
-            Ok(b) => b,
+        let mut file = match fs::File::open(path) {
+            Ok(file) => file,
             Err(e) if e.kind() == std::io::ErrorKind::NotFound => return Ok(None),
             Err(e) => return Err(e).with_context(|| format!("reading {}", path.display())),
         };
-        let digest = format!("{:x}", Sha256::digest(&bytes));
+        let mut h = Sha256::new();
+        let mut buffer = [0u8; 65536];
+        loop {
+            let size = file.read(&mut buffer).with_context(|| format!("reading {}", path.display()))?;
+            if size == 0 { break; }
+            h.update(&buffer[..size]);
+        }
+        let digest = format!("{:x}", h.finalize());
         if stamp(path) == Some(before) {
             self.hashes
                 .lock()
@@ -390,6 +424,40 @@ impl Builder {
                 .insert(path.to_path_buf(), (before, digest.clone()));
         }
         Ok(Some(digest))
+    }
+
+    /// Cargo's watched directories contribute membership and entry types, while rustc's
+    /// individual source dependencies contribute their bytes through `sha`.
+    fn compiler_sha(&self, path: &Path) -> Result<Option<String>> {
+        if !path.is_dir() { return self.sha(path); }
+        let mut h = Sha256::new();
+        h.update("hsm compiler directory 1\n");
+        let mut pending = vec![path.to_path_buf()];
+        let mut entries = BTreeMap::new();
+        while let Some(directory) = pending.pop() {
+            for entry in fs::read_dir(&directory)
+                .with_context(|| format!("reading compiler directory {}", directory.display()))? {
+                let entry = entry?;
+                let kind = entry.file_type()?;
+                if kind.is_dir() { pending.push(entry.path()); }
+                let target = if kind.is_symlink() { Some(fs::read_link(entry.path())?) } else { None };
+                entries.insert(entry.path().strip_prefix(path)?.to_path_buf(),
+                    (if kind.is_dir() { b'd' } else if kind.is_file() { b'f' }
+                     else if kind.is_symlink() { b'l' } else { b'o' }, target));
+            }
+        }
+        for (name, (kind, target)) in entries {
+            h.update([kind]);
+            let bytes = name.as_os_str().as_encoded_bytes();
+            h.update((bytes.len() as u64).to_le_bytes());
+            h.update(bytes);
+            if let Some(target) = target {
+                let bytes = target.as_os_str().as_encoded_bytes();
+                h.update((bytes.len() as u64).to_le_bytes());
+                h.update(bytes);
+            }
+        }
+        Ok(Some(format!("directory:{:x}", h.finalize())))
     }
 
     /// `rustc -vV` as the cargo this engine runs would run it from the workspace, kept while
@@ -461,13 +529,15 @@ impl Builder {
             .clone();
         let _held = lock.lock().unwrap();
         // Another ask may have built it while this one waited.
-        if let Some(sources) = self.sources(&ask.workspace, &ask.krate, &ask.name) {
+        if let Some(sources) = self.ask_sources(ask) {
             if let Some(code) = self.code(&ask.workspace, &ask.krate, &ask.name, &sources, toolchain)? {
                 if let Some(path) = self.kept_program(ask, &code, &sources) {
                     return Ok(Built { path, code, sources, compiled: false, keepable: true });
                 }
             }
         }
+        let previous = compiled(&release.join(format!("{}.d", ask.name)), &ask.workspace)
+            .unwrap_or_default();
         let began = SystemTime::now();
         let manifest = ask.workspace.join("tools/hsm").join(&ask.krate).join("Cargo.toml");
         let mut cmd = Command::new(cargo()?);
@@ -494,16 +564,25 @@ impl Builder {
                 String::from_utf8_lossy(&done.stderr)
             );
         }
-        let sources = self
-            .sources(&ask.workspace, &ask.krate, &ask.name)
-            .ok_or_else(|| anyhow!("cargo wrote no dep-info for {}", ask.name))?;
+        let sources = if let Some(declared) = &ask.compiler_inputs {
+            let fresh = compiled(&release.join(format!("{}.d", ask.name)), &ask.workspace)
+                .ok_or_else(|| anyhow!("cargo wrote no dep-info for {}", ask.name))?;
+            let sources = refreshed_sources(declared, &previous, fresh);
+            write_atomic(&self.compiler_record(ask), &serde_json::to_vec(&DeclaredCompiler {
+                declared: declared.clone(), sources: sources.clone(),
+            })?)?;
+            sources
+        } else {
+            self.sources(&ask.workspace, &ask.krate, &ask.name)
+                .ok_or_else(|| anyhow!("cargo wrote no dep-info for {}", ask.name))?
+        };
         let code = self
             .code(&ask.workspace, &ask.krate, &ask.name, &sources, toolchain)?
             .ok_or_else(|| anyhow!("a source of {} went away while it built", ask.name))?;
         let path = release.join(&ask.name);
         // A source written while cargo ran may or may not be what rustc read, so that program
         // runs, and neither it nor its run is kept under a code it may not be.
-        if sources.iter().any(|s| changed_since(&ask.workspace.join(s), began)) {
+        if sources.iter().any(|s| compiler_changed_since(&ask.workspace.join(s), began)) {
             return Ok(Built { path, code, sources, compiled: true, keepable: false });
         }
         let home = self.dir.join("programs").join(&code.native);
@@ -546,6 +625,23 @@ impl Builder {
         Some(all.into_iter().collect())
     }
 
+    fn compiler_record(&self, ask: &Ask) -> PathBuf {
+        self.dir.join("programs").join(format!("{}.{}.compiler.json", ask.krate, ask.name))
+    }
+
+    /// A declared compiler split keeps its canonical configuration and the closure discovered
+    /// by the last real compilation, without adding unrelated workspace membership or lock bytes.
+    fn ask_sources(&self, ask: &Ask) -> Option<Vec<String>> {
+        if let Some(declared) = &ask.compiler_inputs {
+            let saved = fs::read(self.compiler_record(ask)).ok()
+                .and_then(|bytes| serde_json::from_slice::<DeclaredCompiler>(&bytes).ok());
+            Some(saved.filter(|saved| saved.declared == *declared)
+                .map(|saved| saved.sources).unwrap_or_else(|| declared.clone()))
+        } else {
+            self.sources(&ask.workspace, &ask.krate, &ask.name)
+        }
+    }
+
     /// A program's code: its crate and name and each source with its digest, and with the
     /// toolchain; None while a source is missing.
     fn code(
@@ -559,7 +655,7 @@ impl Builder {
         let mut h = Sha256::new();
         h.update(format!("hsm program 1\n{krate}\n{name}\n"));
         for source in sources {
-            let Some(digest) = self.sha(&workspace.join(source))? else {
+            let Some(digest) = self.compiler_sha(&workspace.join(source))? else {
                 return Ok(None);
             };
             h.update(format!("{source}\0{digest}\n"));
@@ -577,11 +673,7 @@ impl Builder {
         };
         let kept: Vec<Kept> = serde_json::from_slice(&bytes).unwrap_or_default();
         'each: for k in kept {
-            for (base, file, digest) in &k.reads {
-                if self.sha(&resolve(base, file, ask))?.as_deref() != Some(digest.as_str()) {
-                    continue 'each;
-                }
-            }
+            if !self.reads_hold(&k.reads, ask)? { continue 'each; }
             if k.files.iter().all(|(_, d)| self.dir.join("blobs").join(d).is_file()) {
                 // The time a run was last used is what the prune goes by.
                 let _ = fs::File::options()
@@ -603,6 +695,8 @@ impl Builder {
         args: &[Arg],
         code: &Code,
         sources: &[String],
+        declared: &[(String, String, String)],
+        environment: &BTreeMap<String, String>,
         lease: &Lease,
     ) -> Result<(Kept, bool)> {
         let scratch = self.dir.join("tmp").join(format!("{}-{}", std::process::id(), self.serial()));
@@ -620,8 +714,7 @@ impl Builder {
             }
             cmd.current_dir(&ask.root)
                 .env_clear()
-                .env("HOME", home())
-                .env("PATH", "/usr/bin:/bin")
+                .envs(environment)
                 .env("HSM_READS", &reads)
                 .env("HSM_IMPORT_DIR", ask.workspace.join(".cache/hsm/import"));
             lease.apply(&mut cmd)?;
@@ -639,20 +732,28 @@ impl Builder {
                     String::from_utf8_lossy(&done.stderr)
                 );
             }
-            let (read, storable) = match fs::read_to_string(&reads) {
+            let (dynamic, named_reads) = match fs::read_to_string(&reads) {
                 Ok(text) => (self.read_list(&text, ask)?, true),
-                Err(_) => (vec![], false),
+                Err(error) if error.kind() == std::io::ErrorKind::NotFound => (vec![], false),
+                Err(error) => return Err(error).context("reading the program's input record"),
             };
+            let read: Vec<_> = declared.iter().cloned().chain(dynamic).collect::<BTreeSet<_>>()
+                .into_iter().collect();
+            let storable = (named_reads || ask.inputs.is_some()) && self.reads_hold(&read, ask)?;
+            let (files, absent) = if let Some(outputs) = &ask.outputs {
+                self.ingest_declared(&ask.root, outputs)?
+            } else { (self.ingest(&out)?, Vec::new()) };
             Ok((
                 Kept {
                     reads: read,
-                    files: self.ingest(&out)?,
+                    files,
+                    absent,
                     stdout: String::from_utf8(done.stdout)?,
                     stderr: String::from_utf8_lossy(&done.stderr).into_owned(),
                     seconds: done.seconds,
                     peak: done.peak,
                     code: code.native.clone(),
-                    portable: primary(&code.portable, args),
+                    portable: run_key(&code.portable, args, ask, declared, environment),
                     sources: sources.to_vec(),
                 },
                 storable,
@@ -660,6 +761,41 @@ impl Builder {
         })();
         let _ = fs::remove_dir_all(&scratch);
         result
+    }
+
+    fn declared_reads(&self, ask: &Ask) -> Result<Vec<(String, String, String)>> {
+        ask.inputs.iter().flatten().map(|name| {
+            let digest = self.sha(&ask.root.join(name))?.unwrap_or_else(|| "absent".to_owned());
+            Ok(("root".to_owned(), name.clone(), digest))
+        }).collect()
+    }
+
+    fn reads_hold(&self, reads: &[(String, String, String)], ask: &Ask) -> Result<bool> {
+        for (base, file, digest) in reads {
+            let current = self.sha(&resolve(base, file, ask))?;
+            if if digest == "absent" { current.is_some() }
+                else { current.as_deref() != Some(digest.as_str()) } { return Ok(false); }
+        }
+        Ok(true)
+    }
+
+    /// Declared graph outputs share the same immutable blobs as directory-argument part runs.
+    fn ingest_declared(&self, root: &Path, outputs: &[String]) -> Result<(Vec<(String, String)>, Vec<String>)> {
+        let (mut files, mut absent) = (Vec::new(), Vec::new());
+        for name in outputs {
+            let path = root.join(name);
+            let Some(digest) = self.sha(&path)? else { absent.push(name.clone()); continue; };
+            let blob = self.dir.join("blobs").join(&digest);
+            if !blob.is_file() {
+                let temporary = self.dir.join("blobs").join(format!(".{}-{}", std::process::id(), self.serial()));
+                clone_or_copy(&path, &temporary)?;
+                fs::rename(&temporary, &blob)?;
+            }
+            let _ = fs::File::options().write(true).open(&blob)
+                .and_then(|file| file.set_modified(SystemTime::now()));
+            files.push((name.clone(), digest));
+        }
+        Ok((files, absent))
     }
 
     /// The reads the kernel listed, `hsm-reads 1` and then `path\tsha256` a line, each named
@@ -732,7 +868,7 @@ impl Builder {
     }
 
     /// Each file into `out`, cloned from its blob, unless the file there holds it already.
-    fn place(&self, files: &[(String, String)], out: &Path) -> Result<()> {
+    fn place(&self, files: &[(String, String)], absent: &[String], out: &Path) -> Result<()> {
         for (name, digest) in files {
             let dest = out.join(name);
             ensure!(Path::new(name).components().all(|c| matches!(c, Component::Normal(_))),
@@ -750,6 +886,14 @@ impl Builder {
                 .open(&temp)?
                 .set_modified(SystemTime::now())?;
             fs::rename(&temp, &dest)?;
+        }
+        for name in absent {
+            ensure!(relative_file(name), "an absent output has a relative path");
+            match fs::remove_file(out.join(name)) {
+                Ok(()) => {},
+                Err(error) if error.kind() == std::io::ErrorKind::NotFound => {},
+                Err(error) => return Err(error).with_context(|| format!("removing absent output {name}")),
+            }
         }
         Ok(())
     }
@@ -900,6 +1044,74 @@ fn primary(code: &str, args: &[Arg]) -> String {
     format!("{:x}", h.finalize())
 }
 
+/// A graph run includes declared raw reads and semantic settings; physical staging and progress
+/// locations do not distinguish equal work in two fresh staged roots.
+fn run_key(code: &str, args: &[Arg], ask: &Ask, reads: &[(String, String, String)],
+           environment: &BTreeMap<String, String>) -> String {
+    let mut h = Sha256::new();
+    h.update(format!("hsm run 2\n{}\n", primary(code, args)));
+    h.update(if ask.inputs.is_some() { b"declared\n".as_slice() } else { b"dynamic\n".as_slice() });
+    for (base, path, digest) in reads { h.update(format!("input {base}\0{path}\0{digest}\n")); }
+    if let Some(outputs) = &ask.outputs {
+        h.update("declared outputs\n");
+        for name in outputs { h.update(format!("{name}\n")); }
+    }
+    for (key, value) in environment {
+        if matches!(key.as_str(), "HSM_BUILD_PROGRESS" | "HSM_KEEP_HOURS") { continue; }
+        h.update(format!("env {key}\0{}\n", semantic_path(value, ask)));
+    }
+    format!("{:x}", h.finalize())
+}
+
+fn semantic_path(value: &str, ask: &Ask) -> String {
+    value.replace(ask.root.to_string_lossy().as_ref(), "$HSM_ROOT")
+        .replace(ask.workspace.to_string_lossy().as_ref(), "$HSM_WORKSPACE")
+}
+
+fn relative_file(name: &str) -> bool {
+    !name.is_empty() && Path::new(name).components().all(|c| matches!(c, Component::Normal(_)))
+}
+
+fn normalize_files(files: &mut Option<Vec<String>>) -> Result<()> {
+    if let Some(files) = files {
+        let mut normalized = BTreeSet::new();
+        for name in files.iter() {
+            let path = Path::new(name);
+            ensure!(path.components().all(|c| matches!(c, Component::Normal(_) | Component::CurDir)),
+                    "declared files are relative to their root: {name}");
+            let name = normal(path).to_string_lossy().into_owned();
+            ensure!(relative_file(&name), "a declared file has a relative path");
+            normalized.insert(name);
+        }
+        *files = normalized.into_iter().collect();
+    }
+    Ok(())
+}
+
+fn run_environment(ask: &Ask) -> Result<BTreeMap<String, String>> {
+    let mut environment: BTreeMap<_, _> = cargo_env(&home()).into_iter().collect();
+    if let Ok(path) = std::env::var("PATH") {
+        let fallback = environment.get("PATH").cloned().unwrap_or_default();
+        environment.insert("PATH".to_owned(), format!("{path}:{fallback}"));
+    }
+    for (key, value) in &ask.environment {
+        ensure!(!key.is_empty() && !key.contains('=') && !key.contains('\0') && !value.contains('\0'),
+                "a producer environment has valid process keys and values");
+        environment.insert(key.clone(), value.clone());
+    }
+    environment.insert("HSM_WORKSPACE".to_owned(), ask.workspace.to_string_lossy().into_owned());
+    environment.insert("HSM_REPO_ROOT".to_owned(), ask.root.to_string_lossy().into_owned());
+    Ok(environment)
+}
+
+/// A real compiler run replaces its prior module/include closure and keeps the caller's
+/// canonical/configuration inputs that were not part of that closure.
+fn refreshed_sources(declared: &[String], previous: &[String], fresh: Vec<String>) -> Vec<String> {
+    let previous: BTreeSet<_> = previous.iter().cloned().collect();
+    fresh.into_iter().chain(declared.iter().filter(|path| !previous.contains(path.as_str())).cloned())
+        .collect::<BTreeSet<_>>().into_iter().collect()
+}
+
 fn resolve(base: &str, file: &str, ask: &Ask) -> PathBuf {
     match base {
         "root" => ask.root.join(file),
@@ -930,6 +1142,24 @@ fn changed_since(path: &Path, t: SystemTime) -> bool {
             SystemTime::UNIX_EPOCH + Duration::new(m.ctime() as u64, m.ctime_nsec() as u32) >= t
         })
         .unwrap_or(true)
+}
+
+fn compiler_changed_since(path: &Path, t: SystemTime) -> bool {
+    if !path.is_dir() { return changed_since(path, t); }
+    let mut pending = vec![path.to_path_buf()];
+    while let Some(directory) = pending.pop() {
+        if changed_since(&directory, t) { return true; }
+        let Ok(entries) = fs::read_dir(directory) else { return true; };
+        for entry in entries {
+            let Ok(entry) = entry else { return true; };
+            match entry.file_type() {
+                Ok(kind) if kind.is_dir() => pending.push(entry.path()),
+                Ok(_) => {},
+                Err(_) => return true,
+            }
+        }
+    }
+    false
 }
 
 fn plain(name: &str) -> bool {
@@ -1123,4 +1353,235 @@ fn write_atomic(path: &Path, bytes: &[u8]) -> Result<()> {
     fs::write(&temp, bytes)?;
     fs::rename(&temp, path)?;
     Ok(())
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use std::os::unix::fs::PermissionsExt;
+
+    struct Fixture(PathBuf);
+    impl Fixture {
+        fn new() -> Result<Self> {
+            static SERIAL: AtomicUsize = AtomicUsize::new(0);
+            let root = std::env::temp_dir().join(format!("hsm-run-fixture-{}-{}-{}",
+                std::process::id(), SERIAL.fetch_add(1, Ordering::Relaxed),
+                SystemTime::now().duration_since(SystemTime::UNIX_EPOCH)?.as_nanos()));
+            fs::create_dir_all(&root)?;
+            Ok(Self(root.canonicalize()?))
+        }
+        fn put(&self, path: &str, text: &str) -> Result<()> { put(&self.0.join(path), text) }
+        fn stage(&self, name: &str) -> Result<PathBuf> {
+            let root = self.0.join(name);
+            put(&root.join("runtime.txt"), "first input")?;
+            put(&root.join("tools/hsm/fixture/src/embedded.txt"), "embedded")?;
+            put(&root.join("bin/native-helper"), "#!/bin/sh\nprintf helper\n")?;
+            fs::set_permissions(root.join("bin/native-helper"), fs::Permissions::from_mode(0o755))?;
+            Ok(root)
+        }
+        fn ask(&self, root: PathBuf) -> Ask {
+            Ask {
+                workspace: self.0.join("workspace"),
+                environment: BTreeMap::from([
+                    ("PATH".into(), format!("{}/bin:/usr/bin:/bin", root.display())),
+                    ("HSM_BUILD_PROGRESS".into(), root.join("progress.log").display().to_string()),
+                    ("FLAVOR".into(), "plain".into()),
+                ]),
+                root, krate: "fixture".into(), name: "fixture".into(), args: vec![],
+                inputs: Some(vec!["runtime.txt".into(), "optional.txt".into(),
+                    "bin/native-helper".into(), "tools/hsm/fixture/src/embedded.txt".into()]),
+                outputs: Some(vec!["products/result.txt".into(), "products/optional.txt".into()]),
+                compiler_inputs: Some(vec!["tools/hsm/fixture/src/main.rs".into(), "tools/hsm/canonical.json".into()]),
+                allow_compile: true, cache_only: false,
+            }
+        }
+    }
+    impl Drop for Fixture { fn drop(&mut self) { let _ = fs::remove_dir_all(&self.0); } }
+
+    fn put(path: &Path, text: &str) -> Result<()> {
+        fs::create_dir_all(path.parent().context("fixture parent")?)?;
+        fs::write(path, text)?;
+        Ok(())
+    }
+    fn run(builder: &Builder, ask: &Ask) -> Result<Value> {
+        builder.run(ask.clone(), hsm_run_slots::inherited()?)
+    }
+
+    const PROGRAM: &str = r#"// EXTRA_DECL
+use std::{env, fs, path::Path, process::Command};
+const EMBEDDED: &str = include_str!("embedded.txt");
+fn main() -> std::io::Result<()> {
+    if let Ok(path) = env::var("HSM_BUILD_PROGRESS") { fs::write(path, "done")?; }
+    fs::create_dir_all("products")?;
+    let args: Vec<_> = env::args().collect();
+    if args.get(1).map(String::as_str) == Some("--legacy-out") {
+        fs::write(Path::new(&args[2]).join("legacy.txt"), "legacy output")?;
+        fs::write(env::var("HSM_READS").unwrap(), "hsm-reads 1\n")?;
+        return Ok(());
+    }
+    if env::args().any(|arg| arg == "--consumer") {
+        fs::write("products/final.txt", fs::read("products/result.txt")?)?;
+        return Ok(());
+    }
+    let _read = fs::read("runtime.txt")?;
+    let helper = Command::new("native-helper").output()?;
+    assert!(helper.status.success());
+    let text = format!("{}:{}:{}:{}:{}", EMBEDDED.trim(), "extra-default",
+        Path::new("optional.txt").is_file(), env::var("FLAVOR").unwrap(),
+        String::from_utf8_lossy(&helper.stdout));
+    fs::write("products/result.txt", text)?;
+    Ok(())
+}
+"#;
+
+    #[test]
+    fn declared_graph_runs_reuse_code_and_bytes_across_fresh_stages() -> Result<()> {
+        let f = Fixture::new()?;
+        f.put("workspace/tools/hsm/Cargo.toml", "[workspace]\nmembers=[\"fixture\",\"other\"]\nresolver=\"2\"\n")?;
+        f.put("workspace/tools/hsm/Cargo.lock", "version=4\n[[package]]\nname=\"fixture\"\nversion=\"0.1.0\"\n[[package]]\nname=\"other\"\nversion=\"0.1.0\"\n")?;
+        f.put("workspace/tools/hsm/fixture/Cargo.toml", "[package]\nname=\"fixture\"\nversion=\"0.1.0\"\nedition=\"2021\"\n")?;
+        f.put("workspace/tools/hsm/other/Cargo.toml", "[package]\nname=\"other\"\nversion=\"0.1.0\"\nedition=\"2021\"\n[lib]\npath=\"lib.rs\"\n")?;
+        f.put("workspace/tools/hsm/other/lib.rs", "pub const OTHER: bool = true;\n")?;
+        f.put("workspace/tools/hsm/fixture/src/main.rs", PROGRAM)?;
+        f.put("workspace/tools/hsm/fixture/src/embedded.txt", "embedded")?;
+        f.put("workspace/tools/hsm/canonical.json", "{\"selected_configuration\":true}\n")?;
+        let builder = Builder::new(&f.0.join("store"), 1024)?;
+        let first_root = f.stage("first")?;
+        let mut first = f.ask(first_root.clone());
+        first.cache_only = true;
+        assert_eq!(run(&builder, &first)?["available"], false);
+        assert!(!f.0.join("workspace/tools/hsm/target").exists());
+        first.cache_only = false;
+        let a = run(&builder, &first)?;
+        assert_eq!(a["compiled"], true);
+        assert_eq!(a["hit"], false);
+        let digest = a["file_hashes"]["products/result.txt"].clone();
+        let artifact = PathBuf::from(a["artifacts"]["products/result.txt"].as_str().unwrap());
+        assert!(artifact.is_absolute() && artifact.is_file());
+        assert_eq!(a["missing_outputs"], json!(["products/optional.txt"]));
+
+        let mut legacy = first.clone();
+        legacy.inputs = None;
+        legacy.outputs = None;
+        let legacy_out = first_root.join("legacy");
+        fs::create_dir_all(&legacy_out)?;
+        legacy.args = vec!["--legacy-out".into(), legacy_out.display().to_string()];
+        assert_eq!(run(&builder, &legacy)?["hit"], false);
+        fs::remove_file(legacy_out.join("legacy.txt"))?;
+        assert_eq!(run(&builder, &legacy)?["hit"], true);
+        assert_eq!(fs::read_to_string(legacy_out.join("legacy.txt"))?, "legacy output");
+
+        let mut consumer = first.clone();
+        consumer.args = vec!["--consumer".into()];
+        consumer.inputs = Some(vec!["products/result.txt".into()]);
+        consumer.outputs = Some(vec!["products/final.txt".into()]);
+        assert_eq!(run(&builder, &consumer)?["hit"], false);
+
+        let second_root = f.stage("second")?;
+        let mut second = f.ask(second_root.clone());
+        second.cache_only = true;
+        let restored = run(&builder, &second)?;
+        assert_eq!(restored["hit"], true);
+        assert_eq!(restored["artifacts"]["products/result.txt"], a["artifacts"]["products/result.txt"]);
+        assert_eq!(fs::read(second_root.join("products/result.txt"))?, fs::read(&artifact)?);
+        fs::remove_file(second_root.join("products/result.txt"))?;
+        put(&second_root.join("products/optional.txt"), "stale optional output")?;
+        assert_eq!(run(&builder, &second)?["hit"], true);
+        assert!(!second_root.join("products/optional.txt").exists());
+
+        // Workspace member order and unrelated source bytes are outside the selected split.
+        f.put("workspace/tools/hsm/Cargo.toml", "[workspace]\nmembers=[\"other\",\"fixture\"]\nresolver=\"2\"\n")?;
+        f.put("workspace/tools/hsm/other/lib.rs", "pub const OTHER: bool = false;\n")?;
+        assert_eq!(run(&builder, &second)?["hit"], true);
+        put(&second_root.join("runtime.txt"), "another input, same produced shape")?;
+        assert_eq!(run(&builder, &second)?["available"], false);
+        second.cache_only = false;
+        let rerun = run(&builder, &second)?;
+        assert_eq!(rerun["hit"], false);
+        assert_eq!(rerun["compiled"], false);
+        assert_eq!(rerun["file_hashes"]["products/result.txt"], digest);
+        let mut second_consumer = f.ask(second_root.clone());
+        second_consumer.args = consumer.args.clone();
+        second_consumer.inputs = consumer.inputs.clone();
+        second_consumer.outputs = consumer.outputs.clone();
+        assert_eq!(run(&builder, &second_consumer)?["hit"], true);
+
+        put(&second_root.join("optional.txt"), "now present")?;
+        let optional = run(&builder, &second)?;
+        assert_eq!(optional["hit"], false);
+        assert_ne!(optional["file_hashes"]["products/result.txt"], digest);
+        second.environment.insert("FLAVOR".into(), "blue".into());
+        let blue = run(&builder, &second)?;
+        assert_eq!(blue["hit"], false);
+        second.environment.insert("HSM_BUILD_PROGRESS".into(), second_root.join("another-progress.log").display().to_string());
+        second.environment.insert("HSM_KEEP_HOURS".into(), "48".into());
+        assert_eq!(run(&builder, &second)?["key"], blue["key"]);
+
+        f.put("workspace/tools/hsm/fixture/src/extra.rs", "pub fn value() -> &'static str { \"first module\" }\n")?;
+        f.put("workspace/tools/hsm/fixture/src/main.rs", &PROGRAM.replace("// EXTRA_DECL", "mod extra;")
+            .replace("\"extra-default\"", "extra::value()"))?;
+        second.allow_compile = false;
+        assert_eq!(run(&builder, &second)?["available"], false);
+        second.allow_compile = true;
+        let changed_code = run(&builder, &second)?;
+        assert_eq!(changed_code["compiled"], true);
+        assert!(changed_code["sources"].as_array().unwrap().contains(&json!("tools/hsm/fixture/src/extra.rs")));
+        f.put("workspace/tools/hsm/fixture/src/extra.rs", "pub fn value() -> &'static str { \"edited module\" }\n")?;
+        let changed_module = run(&builder, &second)?;
+        assert_eq!(changed_module["compiled"], true);
+        assert_ne!(changed_module["code"], changed_code["code"]);
+        f.put("workspace/tools/hsm/fixture/src/embedded.txt", "new embedded bytes")?;
+        put(&second_root.join("tools/hsm/fixture/src/embedded.txt"), "new embedded bytes")?;
+        let embedded = run(&builder, &second)?;
+        assert_eq!(embedded["compiled"], true);
+        assert!(embedded["sources"].as_array().unwrap().contains(&json!("tools/hsm/fixture/src/embedded.txt")));
+        assert!(embedded["reads"].as_array().unwrap().iter().any(|row|
+            row[1] == "tools/hsm/fixture/src/embedded.txt"));
+
+        let key = embedded["key"].as_str().unwrap();
+        let record = builder.dir.join("runs").join(format!("{key}.json"));
+        let aged = SystemTime::now() - Duration::from_secs(3 * 3600);
+        fs::File::options().write(true).open(&record)?.set_modified(aged)?;
+        builder.prune(Duration::from_secs(48 * 3600), false)?;
+        assert!(builder.lookup(key, &second)?.is_some());
+        fs::File::options().write(true).open(&record)?.set_modified(aged)?;
+        builder.prune(Duration::from_secs(2 * 3600), false)?;
+        assert!(builder.lookup(key, &second)?.is_none());
+        Ok(())
+    }
+
+    #[test]
+    fn a_new_dep_info_closure_keeps_only_the_supplied_configuration_split() {
+        let names = |rows: &[&str]| rows.iter().map(|s| (*s).to_owned()).collect::<Vec<_>>();
+        assert_eq!(refreshed_sources(&names(&["main.rs", "old.rs", "canonical.json"]),
+            &names(&["main.rs", "old.rs"]), names(&["main.rs", "new.rs", "embedded.json"])),
+            names(&["canonical.json", "embedded.json", "main.rs", "new.rs"]));
+    }
+
+    #[test]
+    fn watched_compiler_directories_hash_membership_and_selected_file_bytes() -> Result<()> {
+        let f = Fixture::new()?;
+        f.put("workspace/numbers/selected.rs", "selected")?;
+        f.put("workspace/numbers/nested/unselected.rs", "unused")?;
+        let builder = Builder::new(&f.0.join("store"), 1024)?;
+        let workspace = f.0.join("workspace");
+        let sources = vec!["numbers".to_owned(), "numbers/selected.rs".to_owned()];
+        let code = || builder.code(&workspace, "fixture", "fixture", &sources, "toolchain")
+            .map(|value| value.unwrap().native);
+        let first = code()?;
+        f.put("workspace/numbers/nested/unselected.rs", "edited unused member")?;
+        assert_eq!(code()?, first);
+        f.put("workspace/numbers/selected.rs", "edited selected source")?;
+        let selected = code()?;
+        assert_ne!(selected, first);
+        f.put("workspace/numbers/nested/new.rs", "new member")?;
+        let added = code()?;
+        assert_ne!(added, selected);
+        fs::rename(workspace.join("numbers/nested/new.rs"), workspace.join("numbers/nested/renamed.rs"))?;
+        assert_ne!(code()?, added);
+        fs::remove_file(workspace.join("numbers/nested/renamed.rs"))?;
+        assert_eq!(code()?, selected);
+        assert!(builder.sha(&workspace.join("numbers")).is_err());
+        Ok(())
+    }
 }

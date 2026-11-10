@@ -14,14 +14,13 @@ tools/run --count 4
 tools/run --count 1
 tools/run --timing -- <command>
 tools/run --cad -- <native-import-command>
-tools/run -- bazel build //:target
+tools/run -- hsm-print-build enclosure-back-top
 ```
 
-`tools/hsm/run-slots.defaults.json` supplies the host policy. Cargo uses two jobs;
-Bazel uses two heavy actions per inherited lease. Native CadQuery/OCP work also
-takes the shared CAD lease. Lock order is heavy admission, CAD when needed,
-compiler when needed, then local target and memory locks. Bazel reserves CAD
-before compiler so its actions can inherit both. A child cannot acquire CAD
+`tools/hsm/run-slots.defaults.json` supplies the host policy. Cargo uses two jobs.
+Native CadQuery/OCP work also takes the shared CAD lease. Lock order is heavy
+admission, CAD when needed, compiler when needed, then local target and memory
+locks. A child cannot acquire CAD
 while holding compiler alone. Rust part runs retain the engine's memory budget.
 Kept part answers and the six ordinary mesh queries book no new heavy slot.
 
@@ -36,7 +35,7 @@ The inherited environment is:
 
 - `HSM_RUN_LEASE`: `{v:1,fds:[{fd,slot,token},...]}`
 - `HSM_CAD_LEASE` and `HSM_COMPILER_LEASE`: `{v:1,fd,token}`
-- `HSM_RUN_BROKER`: `{path}` for a parent broker used by persistent Bazel actions
+- `HSM_RUN_BROKER`: `{path}` for a parent broker used by launchers that close inherited descriptors
 
 Each descriptor must name the expected lock inode, contend with an independently
 opened FD, successfully lock through its existing open-file description, and
@@ -58,8 +57,8 @@ One SCM_RIGHTS message carries descriptors in exactly that order: slots, then
 CAD, then compiler, at most six. `profile` is diagnostic. The receiver validates
 the complete count and every FD. Broker clients read the private adjacent `.json`
 owner token and request `{v:1,token}`; successful replies contain
-`{ok:true,_lease:...}` with the rights. Only the stable broker path enters Bazel's
-action environment. `hsm` ping/status and endpoint advertise `run_slots:1`.
+`{ok:true,_lease:...}` with the rights. Each command owns its broker for the
+lifetime of its inherited work. `hsm` ping/status and endpoint advertise `run_slots:1`.
 
 Engine workers wait for admission before taking Cargo or renderer locks, leaving
 query dispatch available to an admitted parent's RPC. Leases belong to each

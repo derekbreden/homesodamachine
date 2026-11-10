@@ -121,7 +121,7 @@ submission.
 ## Rebuild
 
 ```sh
-tools/run -- bazel build //:all-aero-float
+tools/run -- hsm-print-build -- //:all-aero-float
 tools/run -- cargo build --release --locked -j 2 --manifest-path tools/hsm/Cargo.toml -p hsm-print-prep --bin aero-float-print-project
 tools/run -- tools/hsm/target/release/aero-float-print-project
 ```

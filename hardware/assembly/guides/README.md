@@ -25,9 +25,8 @@ operation reaches it.
 ## Authoring
 
 The guides, illustrations, PDFs, cover thumbnails and document sidecars are
-committed files. Their builders live under `tools/` and run by hand. They have
-no CAD/Bazel target, scene-render dependency, sync gate or full-machine build
-step. A geometry edit does not regenerate a guide. Review the affected operation
+committed files. Their builders live under `tools/` and run by hand, outside the
+native print build. Review the affected operation
 when its tool, datum, fit, material or process changes; source manifests record
 what a manual build used.
 

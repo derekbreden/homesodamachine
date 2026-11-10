@@ -2280,6 +2280,7 @@ name = "hsm-print-build"
 version = "0.1.0"
 dependencies = [
  "anyhow",
+ "hsm-build-plan",
  "hsm-run-slots",
  "libc",
  "serde",

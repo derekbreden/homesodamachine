@@ -5,8 +5,8 @@ water-inlet jet, rotator contact shoe, metal and plastic tubing, coverings, and
 harness stock. The large setup pictures and the short action/check blocks follow
 the weld-rotator guide's bench-reading pattern.
 
-The guide is a hand-authored document. It has no Bazel target, no geometry-build
-dependency, no card sync and no CAD imports. The PDF, cover and shelf sidecar are
+The guide is a hand-authored document, generated on request outside the native
+print build. The PDF, cover and shelf sidecar are
 committed. Source hashes and the selected small numeric inputs are recorded in
 [`output/pdf/drill-and-cut-guide.sources.json`](/output/pdf/drill-and-cut-guide.sources.json).
 

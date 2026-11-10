@@ -236,7 +236,7 @@ export function mountViewerRoutes(app, { hardwareDir, store, pointersPath }) {
   // What the build remakes a model on and what it remakes, read off the build's own record
   // (lib/made-from.js) for the Related list (public/js/viewer/related-nav.js). A model the site
   // does not list is named and not linked.
-  const graphPath = path.join(hardwareDir, "..", "tools", "bazel", "graph.json");
+  const graphPath = path.join(hardwareDir, "..", "tools", "hsm", "build-plan", "graph.json");
   app.get("/api/made-from/*splat", (req, res) => {
     const rel = relOf(req);
     if (rel.includes("..") || !rel.endsWith(".step")) return res.status(400).send("Invalid path");

@@ -123,20 +123,11 @@ hardware/printed-parts/refrigeration/fuse-clamp/fuse-clamp.stl
 !hardware/reference/tee-connector/tee-connector.step
 !hardware/reference/y-divider/y-divider.step
 
-# Solids drawn once and kept (hardware/scripts/_realized.py). A miss costs what the build
-# always cost; deleting this is always safe.
+# The native kernel retains reusable geometry and per-run temporary files here.
 .cache/
 
 # Local bench-service scene exports are inspection intermediates.
 hardware/assembly/scenes/out/
-bazel-*
-
-# Where this checkout is, which is not where any other checkout is. `gen_build.py` writes it
-# and `.bazelrc` takes it with `try-import`, so BUILD.bazel carries no machine's path.
-.bazelrc.paths
-# The flags a CI lane adds, written by the workflow so every bazel invocation in the job
-# reads them rather than only the command line that names one.
-.bazelrc.ci
 
 # Local document study output.
 hardware/quickstart/out/
@@ -197,5 +188,5 @@ output/print-build/
 # Sessions' scratch space at the repository root.
 /tmp/
 
-# The build derives this from the workspace manifest and lock file (tools/bazel/cargo_config.py).
+# The native Cargo configuration producer fingerprints compilation settings and dependencies.
 tools/hsm/cargo-config.json

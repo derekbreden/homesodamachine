@@ -367,41 +367,9 @@ async function main() {
 
   await sweepAbandonedBrowsers("render-card");
   const browserOptions = {
-    // THIS IS THE BUDGET FOR A PAGE THAT NEVER COMES BACK, AND IT IS SIZED TO CAP WHAT
-    // ONE COSTS. `bs-band-saw` is such a page on a runner: `Page.captureScreenshot` does
-    // not return, and one card that did not come back is a red target, which is a carry
-    // that does not happen, which is every derived output describing the commit before.
-    //
-    // AND THE ENVIRONMENT CANNOT RAISE IT WHERE IT MATTERS. A genrule sees only what
-    // `.bazelrc` hands it with `--action_env` — PATH, PUPPETEER_CACHE_DIR,
-    // BLENDER_USER_RESOURCES and two flags — so `HSM_CARD_TIMEOUT` set in a workflow
-    // reaches nothing at all. It is here for a hand run. The default is what CI gets.
-    //
-    // AND `bs-band-saw` IS A PAGE THAT NEVER COMES BACK, WHICH IS WHY THIS NUMBER IS
-    // SMALL. It was raised to `PARSE_TIMEOUT + 60000` — 960 s, what the other two
-    // renderers carry — on the reading that contention was eating a budget sized for a
-    // hung page. Derive 32463988242 measured it: `//:tools-build` went 270 s -> 1926 s,
-    // the build's critical path 452 s -> 1949.8 s, and a SECOND card reached the same
-    // hang instead of the run ending at the first. 2 x 960 s is the 1926 s. A capture
-    // that never returns does not finish given longer; it costs longer.
-    //
-    // So the budget is back where it caps that failure at four minutes a card. WHAT
-    // HANGS IS OPEN, and two measurements narrow it by ruling their own answers out.
-    //
-    // CONTENTION IS NOT IT. In 32463988242 `//:cards-build` began 08:39:37 and ran
-    // 198 s, `//:tools-build` began 08:43:38 and ran 1926 s, and `//:render-scenes` was
-    // a disk-cache hit that never executed — so the target that hung had the runner to
-    // itself for half an hour.
-    //
-    // SIZE ALONE IS NOT IT. `//:tools-build` captures 3300x2550 at dpr 1.2 — 12.1
-    // megapixels a capture, seven times the main deck's, which passes. The same thirteen
-    // cards at that size render on the authoring Mac in 15.9 s all told, exit 0, taken
-    // with 80 MB free and 3.7 GB of swap in use.
-    //
-    // What is left is the container, and it is POSITIONAL: sorted first in each deck is
-    // `bs-band-saw` and `00-cover`, and those are the two that hang, in both decks, every
-    // run. They share nothing but position — one is 9 KB with three images, the other is
-    // a cover. `warmUp` below is what stops a card ever being the first capture.
+    // The protocol timeout bounds a stalled capture. An environment override applies
+    // when this process receives it; native producers otherwise use the default below.
+    // warmUp exercises the requested capture dimensions before authored pages load.
     timeout: 30000,
     protocolTimeout: Number(process.env.HSM_CARD_TIMEOUT || 240000),
   };

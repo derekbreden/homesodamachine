@@ -89,9 +89,9 @@ preparation for this sample was not recorded.
 [scan-evidence.json](scan-evidence.json) records captures, hashes, registration,
 measurements and modeling choices. [scan-model-check.json](scan-model-check.json)
 records feature residuals against the exact generator SHA.
-[model-check.json](model-check.json) is regenerated with the STEP and records
-valid native solids, bounds and interfaces. Its `executed_producer_sha256`
-hashes the source bytes actually executed, which Bazel normalizes. The scan
+[model-check.json](model-check.json) retains the generated STEP's solid, bounds
+and interface readings. Its `executed_producer_sha256` names the executed source
+bytes in the [frozen generation evidence](https://github.com/derekbreden/homesodamachine/blob/a518a57a878f02d9ac5b8b638c1c5883cadf6669/hardware/reference/digiten-flow-sensor/model-check.json). The scan
 comparison's `model_source_sha256` hashes the full repository source bytes;
 the two fields intentionally describe different inputs.
 

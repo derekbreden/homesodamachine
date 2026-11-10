@@ -192,7 +192,7 @@ and commit and push directly to `main` using the path-scoped commit rule above.
 
 ## Temporary Build Files
 
-Reuse the artifacts already held by Bazel and `hsm`. Do not copy whole build
+Reuse the artifacts already held by `hsm`. Do not copy whole build
 trees into `.cache` for comparisons, handoffs or publication. When a snapshot is
 needed, save only the required files in `.cache/runs/<purpose>-<run-id>`.
 Keep private benchmark caches inside the same run directory.
@@ -210,10 +210,10 @@ shared geometry memo caches (`realized`, `meshes`, `boxes`) and installed runtim
 ## Heavy Runs
 
 The normal print build is `tools/run -- hsm-print-build --`.
-Additional Bazel labels select smaller builds. Each completed producer reaches the
+Additional producer names select smaller builds. Each completed producer reaches the
 website while the remaining producers continue.
 
-Use `tools/run -- <command>` for Cargo, Bazel, slicing and rendering.
+Use `tools/run -- <command>` for Cargo, slicing and rendering.
 Add `--cad` for a native CadQuery/OCP command and `--timing` for a timing run
 that needs the machine to itself. Kernel part generators use the installed
 `hsm` engine. Ordinary runs need no coordinator grant.
@@ -225,8 +225,8 @@ with `tools/run --count 1` or `--count 4`.
 
 Children share their parent's verified lease. Native work also takes the CAD
 lock; `HSM_NO_BUILD_LOCK=1` alone bypasses neither admission nor that lock. Keep
-Cargo at two jobs and run Cargo and Bazel through the wrapper so their compiler
-lock is shared. Bazel runs two heavy actions per inherited lease.
+Cargo at two jobs and run it through the wrapper so its compiler lock is shared
+with the native engine. Producer runs inherit their parent's verified lease.
 
 The protocol and entry points are in
 [`tools/hsm/run-slots/README.md`](tools/hsm/run-slots/README.md).

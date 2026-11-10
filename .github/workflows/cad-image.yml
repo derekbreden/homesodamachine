@@ -12,7 +12,6 @@ on:
       - web/package.json
       - web/package-lock.json
       - .dockerignore
-      - .bazelversion
   workflow_dispatch:
 
 concurrency:

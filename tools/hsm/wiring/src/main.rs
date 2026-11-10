@@ -172,13 +172,11 @@ fn main() -> Result<()> {
     manifest["producer"] =
         json!({"command":"hsm-wiring","executable_sha256":digest(&std::env::current_exe()?)?});
     if !numbers_only {
-        let program = [
-            root.join("tools/hsm/target/release/installed-wires"),
-            root.join("bazel-bin/out/installed-wires-program/installed-wires"),
-        ]
-        .into_iter()
-        .find(|p| p.is_file())
-        .context("build hsm-machine's installed-wires before exporting bench geometry")?;
+        let program = root.join("tools/hsm/target/release/installed-wires");
+        ensure!(
+            program.is_file(),
+            "build hsm-machine's installed-wires before exporting bench geometry"
+        );
         let bench = root.join(".cache/realized/wiring-bench");
         fs::create_dir_all(&bench)?;
         let _bench = cache::lock(&bench)?;

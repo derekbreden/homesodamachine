@@ -63,13 +63,8 @@ pub enum Query {
     },
     /// A run of a part's program, answered from the kept runs where one still holds (`build`).
     Run {
-        workspace: PathBuf,
-        root: PathBuf,
-        #[serde(rename = "crate")]
-        krate: String,
-        name: String,
-        #[serde(default)]
-        args: Vec<String>,
+        #[serde(flatten)]
+        ask: crate::build::Ask,
     },
 }
 

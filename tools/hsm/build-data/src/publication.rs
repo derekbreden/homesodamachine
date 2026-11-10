@@ -390,7 +390,7 @@ pub fn solids(root: &Path, config: &Value) -> Result<BTreeSet<String>> {
     if has_catalog {
         let allowed = website_paths(root, &out.iter().cloned().collect::<Vec<_>>(), config)?;
         out.extend(allowed.iter().filter(|p| root.join(p).is_file()).cloned());
-        let graph: Value = serde_json::from_slice(&fs::read(root.join("tools/bazel/graph.json"))?)?;
+        let graph: Value = serde_json::from_slice(&fs::read(root.join("tools/hsm/build-plan/graph.json"))?)?;
         let mut required = frozen;
         if let Some(rows) = graph.as_object() {
             for row in rows.values() {

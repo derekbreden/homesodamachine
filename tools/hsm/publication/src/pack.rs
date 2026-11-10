@@ -474,14 +474,18 @@ fn cut_bundle(
     Ok(())
 }
 
-fn retirement_evidence(ctx: &ContextData, retired: &[String]) -> Result<Vec<String>> {
+pub(crate) fn retirement_evidence(ctx: &ContextData, retired: &[String]) -> Result<Vec<String>> {
     let groups = ctx.op(
         "retirement-groups",
         json!({"held":ctx.held()?,"retired":retired}),
     )?;
     let mut records = Vec::new();
     for commit in keys(&groups).into_iter().filter(|c| !c.is_empty()) {
-        let graph = ctx.git(&["show", &format!("{commit}:tools/bazel/graph.json")])?;
+        let mut graph = ctx.git(&["show", &format!("{commit}:tools/hsm/build-plan/graph.json")])?;
+        // Earlier pointer commits retain their producer evidence at this Git-only path.
+        if !graph.status.success() {
+            graph = ctx.git(&["show", &format!("{commit}:tools/bazel/graph.json")])?;
+        }
         let changed = ctx.git(&["diff", "--name-only", &commit, "HEAD"])?;
         records.push(json!({"rels":groups[&commit],"graph":String::from_utf8_lossy(&graph.stdout),"graph_ok":graph.status.success(),"diff_ok":changed.status.success(),"changed":String::from_utf8_lossy(&changed.stdout).lines().collect::<Vec<_>>()}));
     }
@@ -651,8 +655,8 @@ pub fn run(ctx: &ContextData, t: &impl Transport, args: &Options) -> Result<i32>
             let mut command = vec![
                 "--root".into(),
                 ctx.root.to_string_lossy().into_owned(),
-                "--publisher".into(),
-                "/usr/bin/true".into(),
+                "--no-publish".into(),
+                "--".into(),
             ];
             command.extend(targets);
             let result = ctx.command(&driver, &command)?;

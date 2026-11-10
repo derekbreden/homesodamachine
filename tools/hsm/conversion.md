@@ -5,7 +5,7 @@ much the agents get done. This is the build's plan for it.
 
 ## Destination
 
-The build runs no Python. Every build step is a Rust program that Bazel runs directly, and what
+The build runs no Python. Every build step is a Rust program that the native engine runs, and what
 the website shows and what prints come from it. Its recipes are typed Rust: structs, functions
 and constants the compiler checks, calling the kernel in-process. Each program is built from
 what its outputs are made from ([What an output is made from](#what-an-output-is-made-from)),
@@ -15,7 +15,7 @@ ahead of the steps that run it.
 every other file, report and intermediate format can change or go. Speed is measured on the
 full build ([Speed work](#speed-work)).
 
-The enclosure's steps are Rust programs Bazel runs directly: one for each printed piece, compiled
+The enclosure's steps are Rust programs the native engine runs: one for each printed piece, compiled
 from its own recipe and the numbers it takes, and one for the enclosure model, built from the
 pieces' files. So is the installed machine: one program places the pack, the equipment, its
 tubes and the installed parts from the written-down design and the parts' own files, and writes
@@ -67,8 +67,9 @@ A converted part meets this when these edits do what is predicted:
 
 The edits are tried once, when a part is converted, not on every commit.
 
-What each step read when its recipe was Python is its ceiling. `tools/bazel/graph.json` at
-`35b0c1756^` lists every step's reads, and the Python modules at that revision name each number
+What each step read when its recipe was Python is its ceiling. The
+[archived dependency graph](https://github.com/derekbreden/homesodamachine/blob/d6a0b281d2866a4435ffaf056850efe960a74f1f/tools/bazel/graph.json)
+lists every step's reads, and the Python modules at that revision name each number
 a part takes in their `from … import` lines. A converted part is made from no more than its step
 read there, with each Python file replaced by the Rust that took its place.
 
@@ -93,7 +94,7 @@ read there, with each Python file replaced by the Rust that took its place.
   bookkeeping reruns every step that uses them.
 - **One step at a time, biggest first:** the graph's entries by CPU. Steps whose files are
   separate run in parallel.
-- **A step is converted** when Bazel runs its Rust program and no Python. The Python only that
+- **A step is converted** when the native build runs its Rust program and no Python. The Python only that
   step used is deleted in the same change, which lands on main on its own with the step's share
   of the full build before and after.
 - **The machine's clash checks are off until the parts they read are in Rust.** A conversion
@@ -175,7 +176,7 @@ not state that every raw surface matches.
 The normal geometry, generated-document, configuration, supervision, publication and tracing
 programs execute in Rust. Their normal build loads no Python, CadQuery, OCP or meshcad.
 
-`tools/bazel/graph.json` records the maintained producers and their inputs and outputs. Cargo's
+`tools/hsm/build-plan/graph.json` records the maintained producers and their inputs and outputs. Cargo's
 dependency records describe each Rust program's compiled sources. Retained comparisons cover
 complete pieces on fixed inputs; the combined normal build exercises their integration.
 
@@ -263,7 +264,7 @@ Each quadrant generator writes its native model, print STL and viewer references
 Publication replaces that producer's references in the existing machine and named views while
 other producers continue. Print-region generation, preparation and slicing run separately.
 
-`hsm-print-build` carries each completed Bazel producer into the checkout and requests
+`hsm-print-build` carries each completed native producer into the checkout and requests
 publication immediately. Immutable body meshes are shared across the machine, enclosure,
 named views, the pretty viewer and geometry queries. Their manifests own names, colours,
 placements and source bindings. Placement changes reuse the geometry object. Enclosure and
@@ -283,12 +284,10 @@ The [live-publication record](conversion-results/progressive-publication-2026-11
 retains source-to-visible timings, per-producer delivery costs, print hashes and consumer
 checks. It records the startup and deployment outlier alongside the warmed measurements.
 
-Whole-machine throughput is measured with `//:everything` with every step rerun, as an
-edit that reaches the enclosure causes, on the compiled workspace and the caches a normal build
-keeps. Most edits reach the enclosure, which nearly every step reads, so most builds come close
-to it. Bazel's profile of each build records its wall time and every step's; the latest build
-that reran every step gives the number. The same records say how many steps each build reran,
-which true dependencies cut.
+Whole-machine throughput is measured with the normal print build on fixed inputs. Its run
+receipt records the selected producers, cache answers, compilation, execution and completion
+times. An unchanged build reuses retained answers. An edit runs the affected programs; a
+downstream program reuses its answer when its input files retain their contents.
 
 A converted step or speed piece is measured by its share of the full build, before and after,
 on the same fixed inputs: its programs' CPU seconds computing every result afresh, client and

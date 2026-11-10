@@ -1,133 +1,372 @@
-//! Explicit output carrying preserves authored text and the publisher's model cohort.
+//! Explicit native receipt carrying preserves authored text and the publisher's model cohort.
+use crate::{
+    planning::{self, Plan},
+    receipt::RunReceipt,
+};
 use anyhow::{Context, Result, bail, ensure};
-use hsm_build_data::{bookkeeping_common::labels, bookkeeping_sync::{self, CarryRequest}, inventory};
-use serde::Deserialize;
+use hsm_build_data::bookkeeping_sync::{self, CarryRequest, CarryResult};
 use serde_json::Value;
-use std::{collections::{BTreeMap, BTreeSet}, fs, io::Write, path::Path, process::{Command, Stdio}};
+use std::{
+    collections::BTreeSet,
+    fs,
+    io::Write,
+    path::{Component, Path, PathBuf},
+    process::{Command, Stdio},
+};
 
-#[derive(Default, Deserialize)]
-struct ProducerOutputs {
-    #[serde(default)] writes: BTreeSet<String>,
-    #[serde(default)] rewritten: BTreeSet<String>,
+#[derive(Debug, Default)]
+pub struct CarryOptions {
+    pub selectors: Vec<String>,
+    pub write: bool,
+    pub runtime_only: bool,
+    pub derived_only: bool,
 }
 
-#[derive(Default)]
-struct DeclaredOutputs { files: BTreeSet<String>, rewritten: BTreeSet<String> }
-
-fn config(root: &Path) -> Result<Value> {
-    serde_json::from_slice(&fs::read(root.join("tools/hsm/build-plan/inventory.json"))?).context("read authored inventory groups")
+/// Receipt status supplies producer identity before any output path enters the carrier.
+pub fn receipt_pairs(
+    plan: &Plan,
+    receipt: &RunReceipt,
+    selectors: &[String],
+) -> Result<Vec<(PathBuf, String)>> {
+    ensure!(
+        receipt.schema == 1,
+        "unsupported native receipt schema {}",
+        receipt.schema
+    );
+    let selected = plan.select(selectors)?.closure;
+    let mut destinations = BTreeSet::new();
+    let mut pairs = Vec::new();
+    for (name, result) in &receipt.targets {
+        if !selected.contains(name) || !result.status.usable() {
+            continue;
+        }
+        let action = &plan.actions[name];
+        let declared = action.outputs().collect::<BTreeSet<_>>();
+        for (destination, source) in &result.outputs {
+            ensure!(
+                declared.contains(destination.as_str()),
+                "native receipt target {name} does not declare {destination}"
+            );
+            ensure!(
+                !Path::new(destination).components().any(|part| matches!(
+                    part,
+                    Component::ParentDir | Component::RootDir | Component::Prefix(_)
+                )),
+                "native output leaves the checkout: {destination}"
+            );
+            ensure!(
+                source.is_absolute(),
+                "native receipt output source must be absolute: {}",
+                source.display()
+            );
+            ensure!(
+                destinations.insert(destination.clone()),
+                "native receipt repeats destination {destination}"
+            );
+            pairs.push((source.clone(), destination.clone()));
+        }
+    }
+    Ok(pairs)
 }
 
-fn declared(graph: BTreeMap<String, ProducerOutputs>, config: &Value) -> DeclaredOutputs {
-    let mut result = DeclaredOutputs::default();
-    for producer in graph.into_values() { result.files.extend(producer.writes); result.rewritten.extend(producer.rewritten); }
-    result.files.extend(config["implicit_solids"].as_object().into_iter().flatten().flat_map(|(_, paths)| paths.as_array().into_iter().flatten()).filter_map(Value::as_str).map(str::to_owned));
-    result
-}
-
-fn declared_outputs(root: &Path, config: &Value) -> Result<DeclaredOutputs> {
-    let graph = serde_json::from_slice(&fs::read(root.join("tools/bazel/graph.json"))?)?;
-    Ok(declared(graph, config))
-}
-
-// Only declared producer exports cross from Bazel into the checkout.
-fn retain_declared(pairs: &mut BTreeMap<std::path::PathBuf, String>, declared: &DeclaredOutputs) -> usize {
-    let count = pairs.len(); pairs.retain(|_, path| declared.files.contains(path)); count - pairs.len()
+pub fn carry(
+    root: &Path,
+    plan: &Plan,
+    receipt: &RunReceipt,
+    options: &CarryOptions,
+) -> Result<CarryResult> {
+    ensure!(
+        !(options.runtime_only && options.derived_only),
+        "choose runtime-only or derived-only"
+    );
+    let request = CarryRequest {
+        root: root.to_owned(),
+        pairs: receipt_pairs(plan, receipt, &options.selectors)?,
+        write: options.write,
+        runtime_only: options.runtime_only,
+        derived_only: options.derived_only,
+        config: planning::inventory_config(root)?,
+        rewritten: plan
+            .actions
+            .values()
+            .flat_map(|action| action.docs.iter().cloned())
+            .collect(),
+        ..CarryRequest::default()
+    };
+    bookkeeping_sync::carry_request(&request)
 }
 
 fn change(root: &Path, command: &[&str], paths: &[Vec<u8>]) -> Result<()> {
-    if paths.is_empty() { return Ok(()); }
-    let mut child = Command::new("git").arg("-C").arg(root).arg("--literal-pathspecs").args(command)
-        .args(["--pathspec-from-file=-", "--pathspec-file-nul"]).stdin(Stdio::piped()).spawn()?;
+    if paths.is_empty() {
+        return Ok(());
+    }
+    let mut child = Command::new("git")
+        .arg("-C")
+        .arg(root)
+        .arg("--literal-pathspecs")
+        .args(command)
+        .args(["--pathspec-from-file=-", "--pathspec-file-nul"])
+        .stdin(Stdio::piped())
+        .spawn()?;
     let mut input = child.stdin.take().context("git pathspec input")?;
-    for path in paths { input.write_all(path)?; input.write_all(&[0])?; }
-    drop(input); ensure!(child.wait()?.success(), "git {} failed", command.join(" ")); Ok(())
+    for path in paths {
+        input.write_all(path)?;
+        input.write_all(&[0])?;
+    }
+    drop(input);
+    ensure!(child.wait()?.success(), "git {} failed", command.join(" "));
+    Ok(())
 }
 
-fn stage(root: &Path, config: &Value) -> Result<i32> {
-    let status = Command::new("git").arg("-C").arg(root).args(["-c", "status.renames=false", "status", "--porcelain=v1", "-z", "--untracked-files=all"]).output()?;
-    ensure!(status.status.success(), "git status: {}", String::from_utf8_lossy(&status.stderr));
-    let selected = bookkeeping_sync::stage_selection(&status.stdout, config);
+fn stage_destinations(plan: &Plan, receipt: Option<&RunReceipt>) -> Result<BTreeSet<String>> {
+    if let Some(receipt) = receipt {
+        Ok(receipt_pairs(plan, receipt, &[])?
+            .into_iter()
+            .map(|(_, destination)| destination)
+            .collect())
+    } else {
+        Ok(plan
+            .actions
+            .values()
+            .flat_map(|action| action.outputs().map(str::to_owned))
+            .collect())
+    }
+}
+
+fn restrict_staging(
+    selected: &mut bookkeeping_sync::StageSelection,
+    allowed: &BTreeSet<String>,
+) -> usize {
+    let before = selected.paths.len();
+    selected
+        .paths
+        .retain(|path| std::str::from_utf8(path).is_ok_and(|path| allowed.contains(path)));
+    before - selected.paths.len()
+}
+
+fn stage(root: &Path, config: &Value, plan: &Plan, receipt: Option<&RunReceipt>) -> Result<i32> {
+    let status = Command::new("git")
+        .arg("-C")
+        .arg(root)
+        .args([
+            "-c",
+            "status.renames=false",
+            "status",
+            "--porcelain=v1",
+            "-z",
+            "--untracked-files=all",
+        ])
+        .output()?;
+    ensure!(
+        status.status.success(),
+        "git status: {}",
+        String::from_utf8_lossy(&status.stderr)
+    );
+    let mut selected = bookkeeping_sync::stage_selection(&status.stdout, config);
+    let outside = restrict_staging(&mut selected, &stage_destinations(plan, receipt)?);
     change(root, &["restore", "--staged"], &selected.staged)?;
     change(root, &["add", "-A"], &selected.paths)?;
-    change(root, &["restore", "--worktree", "--source=HEAD"], &selected.tracked)?;
-    println!("{} derived path(s) staged; {} publisher-owned path(s) left out", selected.paths.len(), selected.held.len());
+    change(
+        root,
+        &["restore", "--worktree", "--source=HEAD"],
+        &selected.tracked,
+    )?;
+    println!(
+        "{} derived path(s) staged; {} publisher-owned and {} authored or unselected path(s) left out",
+        selected.paths.len(),
+        selected.held.len(),
+        outside
+    );
     Ok(0)
 }
 
-/// Compare or carry only the requested built producers, after an explicit freshness question.
 pub fn cli(root: &Path, args: &[String]) -> Result<i32> {
-    let (mut write, mut runtime_only, mut derived_only, mut do_stage) = (false, false, false, false);
-    let (mut failed, mut targets) = (String::new(), String::new()); let mut at = 0;
+    let mut options = CarryOptions::default();
+    let mut receipt_path = None;
+    let mut do_stage = false;
+    let mut at = 0;
     while at < args.len() {
         match args[at].as_str() {
-            "--write" => write = true,
-            "--solids-only" | "--runtime-only" => runtime_only = true,
-            "--derived-only" => derived_only = true,
+            "--write" => options.write = true,
+            "--solids-only" | "--runtime-only" => options.runtime_only = true,
+            "--derived-only" => options.derived_only = true,
             "--stage" => do_stage = true,
-            option @ ("--failed" | "--targets") => {
-                at += 1; let value = args.get(at).with_context(|| format!("{option} requires target labels"))?;
-                if option == "--failed" { failed = value.clone(); } else { targets = value.clone(); }
+            flag @ ("--receipt" | "--targets") => {
+                at += 1;
+                let value = args
+                    .get(at)
+                    .with_context(|| format!("{flag} requires a value"))?;
+                if flag == "--receipt" {
+                    receipt_path = Some(root.join(value));
+                } else {
+                    options.selectors.extend(
+                        value
+                            .split(|character: char| character.is_whitespace() || character == ',')
+                            .filter(|value| !value.is_empty())
+                            .map(str::to_owned),
+                    );
+                }
             }
-            "--help" | "-h" => { println!("Carry completed Bazel outputs into the checkout.\n\nUsage: hsm-build-plan sync-tree [--write] [--targets LABELS] [--failed LABELS] [--solids-only | --derived-only]\nUse --derived-only --stage to stage derived changes while retaining the committed model cohort."); return Ok(0); }
+            "--help" | "-h" => {
+                println!(
+                    "Compare or carry declared exports from an explicit native run receipt.\n\nUsage: hsm-build-plan sync-tree --receipt FILE [--write] [--targets TARGETS] [--runtime-only | --derived-only]\n       hsm-build-plan sync-tree --derived-only --stage [--receipt FILE]\nThe print executor carries current results progressively; this command rereads the named receipt. Receipt-scoped staging admits only declared outputs of usable targets."
+                );
+                return Ok(0);
+            }
             option => bail!("unknown sync option {option}"),
         }
         at += 1;
     }
-    ensure!(!(runtime_only && derived_only), "choose solids-only or derived-only");
-    let config = config(root)?;
+    let receipt: Option<RunReceipt> = match &receipt_path {
+        Some(path) => Some(serde_json::from_slice(
+            &fs::read(path).with_context(|| format!("read native receipt {}", path.display()))?,
+        )?),
+        None => None,
+    };
     if do_stage {
-        ensure!(derived_only && !write && failed.is_empty() && targets.is_empty(), "--stage is used only with --derived-only");
-        return stage(root, &config);
+        ensure!(
+            options.derived_only
+                && !options.write
+                && !options.runtime_only
+                && options.selectors.is_empty(),
+            "--stage is used only with --derived-only"
+        );
+        return stage(
+            root,
+            &planning::inventory_config(root)?,
+            &planning::action_plan(root, None)?,
+            receipt.as_ref(),
+        );
     }
-    let failed = failed.split(',').map(str::trim).filter(|value| !value.is_empty()).map(|value| value.trim_start_matches('/').trim_start_matches(':').to_owned()).collect::<BTreeSet<_>>();
-    let labels = labels(&targets);
-    let lease = hsm_run_slots::acquire("build-plan:sync", hsm_run_slots::inherited()?, false)?;
-    if write {
-        let mut flags = vec!["build".to_owned(), "--check_up_to_date".into()];
-        flags.extend(if labels.is_empty() { vec!["//:everything".into()] } else { labels.clone() });
-        let current = crate::trace::wrapped(root, Path::new("bazel"), &flags, &lease)?.output()?;
-        let freshness = bookkeeping_sync::freshness(&failed, current.status.code().unwrap_or(1), &String::from_utf8_lossy(&current.stderr))?;
-        print!("{}", freshness.output); if freshness.refused { return Ok(1); }
-    }
-    let query = if labels.is_empty() { "deps(//:everything)".to_owned() } else { format!("set({})", labels.join(" ")) };
-    let built = crate::trace::wrapped(root, Path::new("bazel"), &["cquery".into(), query, "--output=files".into()], &lease)?.output()?;
-    ensure!(built.status.success(), "the build graph does not load: {}", String::from_utf8_lossy(&built.stderr));
-    let intermediate = config["action_intermediate"].as_array().into_iter().flatten().filter_map(Value::as_str).map(str::to_owned).collect();
-    let mut selected = bookkeeping_sync::targets(root, &String::from_utf8_lossy(&built.stdout), &intermediate)?;
-    print!("{}", selected.output);
-    let declared = declared_outputs(root, &config)?;
-    let held = retain_declared(&mut selected.pairs, &declared);
-    if held != 0 { println!("  {held} compiler or support output(s) remain in Bazel"); }
-    let mut request = CarryRequest { root: root.to_owned(), pairs: selected.pairs, write, runtime_only, derived_only,
-        config, ..CarryRequest::default() };
-    request.pairs.retain(|_, path| !inventory::inert(path, &request.config));
-    request.rewritten = declared.rewritten; request.failed = failed;
-    let result = bookkeeping_sync::carry_request(&request)?;
-    print!("{}", result.output); Ok(result.status.unwrap_or(0))
+    let receipt=receipt.context("sync-tree requires --receipt FILE; the native executor already carries its completed outputs")?;
+    let result = carry(
+        root,
+        &planning::action_plan(root, None)?,
+        &receipt,
+        &options,
+    )?;
+    print!("{}", result.output);
+    Ok(result.status.unwrap_or(0))
 }
 
 #[cfg(test)]
 mod tests {
     use super::*;
+    use crate::{
+        planning::{InventoryRow, actions_from_inventory},
+        receipt::{TargetReceipt, TargetStatus},
+    };
     use serde_json::json;
-
+    use std::collections::BTreeMap;
+    fn plan() -> Plan {
+        let rows:Vec<InventoryRow>=serde_json::from_value(json!([[ ["part.rs"],{"solids":["part.step","part.stl"],"docs":[],"reads":[],"program":{"crate":"part","name":"part","sources":["part.rs"]}} ],[ ["bad.rs"],{"solids":["bad.step"],"docs":[],"reads":[],"program":{"crate":"bad","name":"bad","sources":["bad.rs"]}} ]])).unwrap();
+        actions_from_inventory(Path::new("/fixture"), rows, BTreeSet::new(), None).unwrap()
+    }
     #[test]
-    fn compiler_outputs_stay_in_bazel_while_new_and_implicit_exports_carry() {
-        let graph = serde_json::from_value(json!({"hardware/new/part.rs": {
-            "writes":["hardware/new/part.step", "hardware/new/guide.md"],
-            "rewritten":["hardware/new/guide.md"]
-        }})).unwrap();
-        let declaration = declared(graph, &json!({"implicit_solids":{"hardware/new/part.rs":["hardware/new/part.stl"]}}));
-        let mut pairs = BTreeMap::from([
-            ("/bazel/bin/out/part-program/part".into(), "part".to_owned()),
-            ("/bazel/bin/out/part/hardware/new/part.step".into(), "hardware/new/part.step".to_owned()),
-            ("/bazel/bin/out/part/hardware/new/part.stl".into(), "hardware/new/part.stl".to_owned()),
-            ("/bazel/bin/out/part/hardware/new/guide.md".into(), "hardware/new/guide.md".to_owned()),
-            ("/bazel/bin/out/build-plan-support-program/hsm-build-plan".into(), "hsm-build-plan".to_owned()),
-        ]);
-        assert_eq!(retain_declared(&mut pairs, &declaration), 2);
-        assert_eq!(pairs.into_values().collect::<BTreeSet<_>>(), ["hardware/new/part.step", "hardware/new/part.stl", "hardware/new/guide.md"].map(str::to_owned).into());
-        assert_eq!(declaration.rewritten, ["hardware/new/guide.md".to_owned()].into());
+    fn shared_blob_keeps_each_destination_and_failed_producers_never_carry() {
+        let receipt = RunReceipt {
+            targets: BTreeMap::from([
+                (
+                    "part".into(),
+                    TargetReceipt {
+                        status: TargetStatus::Cached,
+                        outputs: BTreeMap::from([
+                            ("part.step".into(), "/cache/shared".into()),
+                            ("part.stl".into(), "/cache/shared".into()),
+                        ]),
+                        ..TargetReceipt::default()
+                    },
+                ),
+                (
+                    "bad".into(),
+                    TargetReceipt {
+                        status: TargetStatus::Failed,
+                        outputs: BTreeMap::from([("bad.step".into(), "/cache/bad".into())]),
+                        ..TargetReceipt::default()
+                    },
+                ),
+            ]),
+            ..RunReceipt::default()
+        };
+        assert_eq!(
+            receipt_pairs(&plan(), &receipt, &[]).unwrap(),
+            vec![
+                ("/cache/shared".into(), "part.step".into()),
+                ("/cache/shared".into(), "part.stl".into())
+            ]
+        );
+    }
+    #[test]
+    fn undeclared_receipt_output_is_refused() {
+        let receipt = RunReceipt {
+            targets: BTreeMap::from([(
+                "part".into(),
+                TargetReceipt {
+                    status: TargetStatus::Built,
+                    outputs: BTreeMap::from([("unknown.step".into(), "/cache/blob".into())]),
+                    ..TargetReceipt::default()
+                },
+            )]),
+            ..RunReceipt::default()
+        };
+        assert!(
+            receipt_pairs(&plan(), &receipt, &[])
+                .unwrap_err()
+                .to_string()
+                .contains("does not declare")
+        );
+    }
+    #[test]
+    fn receipt_staging_keeps_authored_sources_and_failed_checkpoints_out() {
+        let mut plan = plan();
+        plan.actions
+            .get_mut("part")
+            .unwrap()
+            .docs
+            .push("part.md".to_owned());
+        plan.actions
+            .get_mut("bad")
+            .unwrap()
+            .docs
+            .push("bad.md".to_owned());
+        let receipt = RunReceipt {
+            targets: BTreeMap::from([
+                (
+                    "part".into(),
+                    TargetReceipt {
+                        status: TargetStatus::Built,
+                        outputs: BTreeMap::from([("part.md".into(), "/cache/good".into())]),
+                        ..Default::default()
+                    },
+                ),
+                (
+                    "bad".into(),
+                    TargetReceipt {
+                        status: TargetStatus::Failed,
+                        outputs: BTreeMap::from([("bad.md".into(), "/cache/checkpoint".into())]),
+                        ..Default::default()
+                    },
+                ),
+            ]),
+            ..Default::default()
+        };
+        let mut selected = bookkeeping_sync::StageSelection {
+            paths: [
+                "part.md",
+                "bad.md",
+                "hardware/source.rs",
+                planning::GRAPH_PATH,
+            ]
+            .map(|path| path.as_bytes().to_vec())
+            .into(),
+            ..Default::default()
+        };
+        let allowed = stage_destinations(&plan, Some(&receipt)).unwrap();
+        assert_eq!(restrict_staging(&mut selected, &allowed), 3);
+        assert_eq!(selected.paths, vec![b"part.md".to_vec()]);
+        let declared = stage_destinations(&plan, None).unwrap();
+        assert!(declared.contains("bad.md"));
+        assert!(!declared.contains("hardware/source.rs"));
+        assert!(!declared.contains(planning::GRAPH_PATH));
     }
 }

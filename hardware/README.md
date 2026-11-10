@@ -138,13 +138,13 @@ The driver carries and publishes each completed producer while the other selecte
 continue. Source saves start no build. First view, checked geometry and print readiness are
 separate milestones.
 
-[The build graph](/tools/bazel/graph.json) records compiler sources, runtime reads and outputs.
+[The build graph](/tools/hsm/build-plan/graph.json) records compiler sources, runtime reads and outputs.
 `hsm-build-plan trace-inputs` observes a native producer's current dependencies;
-`hsm-build-plan write` renders its Bazel rules. Programs compile separately from their
-execution, and each consumer reads the declared outputs of its producers.
+`hsm-build-plan plan` describes the selected producers. Programs compile separately from
+their execution, and each consumer reads the declared outputs of its producers.
 
 The [native kernel](/tools/hsm/README.md#kernel) retains reusable construction and mesh data.
-Bazel keeps completed action results. The [print driver](/tools/hsm/print-build/README.md)
+The native engine keeps completed producer results. The [print driver](/tools/hsm/print-build/README.md)
 carries completed exports into the checkout, and the
 [publisher](/tools/hsm/publication/README.md) uploads immutable geometry before moving its
 viewer pointers. Manual guides, kitchen illustrations, cut drawings and PCB manufacturing

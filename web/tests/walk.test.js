@@ -76,8 +76,8 @@ function retiredTree(t, prefix) {
     graph[source] = { reads: [source], writes: [path.relative(root, path.join(dir, `${name}.step`))], rewritten: [],
       program: { crate: "fixture", name, sources: [source] } };
   }
-  fs.mkdirSync(path.join(root, "tools/bazel"), { recursive: true });
-  fs.writeFileSync(path.join(root, "tools/bazel/graph.json"), JSON.stringify(graph));
+  fs.mkdirSync(path.join(root, "tools/hsm/build-plan"), { recursive: true });
+  fs.writeFileSync(path.join(root, "tools/hsm/build-plan/graph.json"), JSON.stringify(graph));
   return { root, retired };
 }
 

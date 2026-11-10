@@ -1,4 +1,4 @@
-//! Shared path, label and pattern helpers keep native selection and carrying consistent.
+//! Shared paths, target identities and patterns keep native selection and carrying consistent.
 use anyhow::{Context, Result};
 use regex::Regex;
 use serde_json::Value;
@@ -23,27 +23,6 @@ pub fn suffix(path: &str) -> &str {
         Some(i) if i > 0 && i + 1 < name.len() => &name[i..],
         _ => "",
     }
-}
-pub fn names(v: &Value) -> BTreeSet<String> {
-    v.as_object()
-        .map(|v| v.keys().cloned().collect())
-        .unwrap_or_default()
-}
-pub fn labels(raw: &str) -> Vec<String> {
-    Regex::new(r"[\s,]+")
-        .unwrap()
-        .split(raw.trim())
-        .filter(|s| !s.is_empty())
-        .map(|s| {
-            if s.starts_with("//") {
-                s.into()
-            } else {
-                format!("//:{}", s.trim_start_matches(':'))
-            }
-        })
-        .collect::<BTreeSet<_>>()
-        .into_iter()
-        .collect()
 }
 pub fn target_name(path: &str, shared: &BTreeSet<String>) -> String {
     let path = Path::new(path);
