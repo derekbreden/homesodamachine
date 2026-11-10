@@ -84,13 +84,8 @@ ignored examples directory and run it through the shared build wrapper:
 
 ```sh
 ln -s ../../../../hardware/print-tests/petgf-dense-roofs/coupons.rs tools/hsm/sandbox/examples/dense-roofs.rs
-python3 tools/run.py -- cargo run --release --locked -j2 --manifest-path tools/hsm/Cargo.toml -p hsm-sandbox --example dense-roofs -- hardware/print-tests/petgf-dense-roofs/parts
-tools/cad-venv/bin/python hardware/print-tests/petgf-dense-roofs/prepare.py --cli-output .cache/runs/dense-roofs-reproduction/input/dense-roofs.3mf
+tools/run -- cargo run --release --locked -j2 --manifest-path tools/hsm/Cargo.toml -p hsm-sandbox --example dense-roofs -- hardware/print-tests/petgf-dense-roofs/parts
 ```
 
-Slice that CLI input with the installed Bambu Studio, preserving orientation
-and arrangement. Apply the existing `petgf-cooling --directory ... --project ...`
-stage using the editable project, then inspect the final archive's paths and
-checksum before submission. The accepted archive and launch receipt live in
-[`mark1/`](mark1/). The separate editable project preserves the per-object
-settings and normal cooling hook for Studio.
+The [plate preparation source](https://github.com/derekbreden/homesodamachine/blob/d24b111b5d10e1eed4574db786e5ae1d0b96d445/hardware/print-tests/petgf-dense-roofs/prepare.py) is archived in Git. The accepted archive and launch receipt live in
+[`mark1/`](mark1/). The editable project retains the article’s process and object settings.

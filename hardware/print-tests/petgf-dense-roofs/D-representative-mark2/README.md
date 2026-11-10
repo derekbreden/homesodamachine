@@ -34,15 +34,7 @@ Mark2's accepted job, selected send options and startup reading are in
 [`mark2/`](mark2/). The companion [rail pair](../rail-fit-30/) prints on Mark1,
 with each machine retaining its own trim and external-spool mapping.
 
-## Reproduce
+## Article sources
 
-`samples.rs` authors the crops in Rust on the installed geometry engine.
-`prepare.py` uses the existing native plate writer and retains Mark2's own
-filament mapping and trim. Temporary conversions and slice output stay in the
-run directory; finished meshes and machine files remain here.
-
-```sh
-tools/cad-venv/bin/python hardware/print-tests/petgf-dense-roofs/D-representative-mark2/prepare.py --geometry --slice
-```
-
-The generator submits no printer job and adds no ordinary build or commit check.
+The specimen geometry is defined in `samples.rs`. The [plate preparation source](https://github.com/derekbreden/homesodamachine/blob/d24b111b5d10e1eed4574db786e5ae1d0b96d445/hardware/print-tests/petgf-dense-roofs/D-representative-mark2/prepare.py) is archived in Git.
+The retained project, slice and launch records identify the prepared article.
