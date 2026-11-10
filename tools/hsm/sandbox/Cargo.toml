@@ -14,6 +14,22 @@ path = "../../../hardware/reference/kamoer-kphm400/scan_model.rs"
 name = "teyleten-scan"
 path = "../../../hardware/reference/teyleten-relay/scan_model.rs"
 
+[[example]]
+name = "wago-221"
+path = "../../../hardware/reference/wago-221/wago_221.rs"
+
+[[example]]
+name = "mq6-reference"
+path = "../../../hardware/reference/mq6-gas-sensor/model.rs"
+
+[[example]]
+name = "riteav-replica"
+path = "../../../hardware/reference/riteav-keystone/replica.rs"
+
+[[example]]
+name = "jg-pp0308e-elbow"
+path = "../../../hardware/reference/jg-pp0308e-elbow/elbow.rs"
+
 # A concept is a file in examples/. README.md says how to run one.
 [dependencies]
 anyhow.workspace = true

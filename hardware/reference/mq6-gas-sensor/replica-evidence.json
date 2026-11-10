@@ -1,0 +1,68 @@
+{
+  "purpose": "This record identifies the evidence and limits of the gas module's exterior reference.",
+  "units": "mm",
+  "purchase": {
+    "brand": "ACEIRMC",
+    "asin": "B0978JSCZ8",
+    "ledger": "hardware/ledger/purchases.md"
+  },
+  "retained_module_datums": {
+    "source_commit": "e993e2f1dc02e22f670f06dc5aecf0df14dcfe3d",
+    "source_path": "hardware/reference/mq6-gas-sensor/mq6_gas_sensor.py",
+    "source_sha256": "ce1602bf172ebe8eabea1e30059a5efb7b20c4d73af6839811c80d7dfac1f2a7",
+    "pcb_xyz_mm": [
+      32.0,
+      20.0,
+      1.6
+    ],
+    "pcb_bottom_z_mm": 6.0,
+    "can_center_xy_mm": [
+      0.0,
+      0.0
+    ],
+    "can_diameter_mm": 19.0,
+    "can_height_above_board_mm": 14.0,
+    "header": {
+      "pin_count": 4,
+      "pin_pitch_mm": 2.54,
+      "pin_square_mm": 0.64,
+      "pin_length_below_board_mm": 6.0,
+      "row_x_mm": -13.0,
+      "row_center_y_mm": 0.0
+    },
+    "basis": "Existing module envelope; no received-unit metrology record establishes these values."
+  },
+  "sensor_form": {
+    "url": "https://www.winsen-sensor.com/d/files/manual/mq-6.pdf",
+    "document": "Winsen MQ-6 Manual",
+    "version": "1.6",
+    "valid_from": "2021-07-01",
+    "figure": "Fig1.Sensor Structure",
+    "page": 3,
+    "scope": "Generic MQ-6 sensor encapsulation, not the ACEIRMC carrier PCB",
+    "form": [
+      "wide cylindrical base",
+      "annular shoulder",
+      "tapered mesh cap"
+    ],
+    "shoulder_basis": "Undimensioned drawing proportions idealized inside the retained module can envelope",
+    "fractions": {
+      "base_height_of_can_height": 0.32,
+      "shoulder_height_of_can_height": 0.1,
+      "shoulder_diameter_of_base_diameter": 0.89,
+      "cap_bottom_diameter_of_base_diameter": 0.84,
+      "cap_top_diameter_of_base_diameter": 0.66
+    },
+    "sha256": "eaf5d898366c5f704dd6d7f70c0cd4a69751abd8d8c024ffe2a6acf94d18b004"
+  },
+  "omitted_geometry": [
+    "mesh weave and sensing internals",
+    "carrier adjustment pot, comparator and LEDs without verified received-board placement",
+    "unverified header insulator outline"
+  ],
+  "limits": [
+    "Sensor shoulders are visual idealization, not contact metrology.",
+    "The official sensor drawing does not identify the carrier board's layout.",
+    "The preserved can height is the repository's existing envelope, not the manufacturer's total height with loose leads."
+  ]
+}

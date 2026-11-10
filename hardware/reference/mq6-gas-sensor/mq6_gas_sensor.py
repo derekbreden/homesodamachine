@@ -4,17 +4,17 @@ bay's −X strip where leaked isobutane pools on the cabinet floor.
 `enclosure._west_cradle` prints the two posts that hold it and
 `enclosure_assembly.build_mq6` places it.
 
-External envelope only — the carrier PCB, the cylindrical MQ-6 sensor can on
-top, and the 4-pin header (VCC / GND / DO / AO) below one edge. The comparator
-IC, trim pot and LEDs are flush SMD and not modeled. THE BOARD CARRIES NO
-MOUNTING HOLE, which is why what holds it is a slot its edges slide into rather
-than a pair of screws.
+The carrier PCB and header datums locate its printed edge cradle. The Rust
+producer models the sensor's stepped base and tapered cap. Comparator,
+adjustment-pot and LED placement remain unmodeled pending received-board
+evidence. The retained board has no mounting-hole geometry; the cradle grips
+its short edges.
 
 Frame: PCB in the XY plane, sensor can up (+Z), header pins down (-Z); the
 header-pin tips sit at Z = 0 (the bbox floor). Origin centered on the PCB.
 
-The can is centred on the board, so it leaves `PCB_Y / 2 - CAN_D / 2` — half a
-millimetre — at each LONG edge and `PCB_X / 2 - CAN_D / 2` at each SHORT one.
+The can is centred on the board, so it leaves `PCB_Y / 2 - CAN_D / 2`
+at each LONG edge and `PCB_X / 2 - CAN_D / 2` at each SHORT one.
 THE SHORT EDGES, AT THE TWO ENDS OF THE LONG RUN, ARE THE ONLY ONES WITH
 MATERIAL TO GRIP, and the cradle reads that off these constants.
 
