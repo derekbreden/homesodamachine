@@ -83,11 +83,14 @@ support style, rooting, removal access, authored fins and support-free regions.
 Check the actual emitted contact planes and underside recovery paths when
 preparing a part. Coupon acceptance does not establish full-part removal.
 
-The [inclined faucet result](../print-tests/petgf-dense-roofs/D-representative-mark2/physical-result.json)
+The [inclined faucet result](https://github.com/derekbreden/homesodamachine/blob/de202da37ef6b132a07fe1863b304381f4ccc394/hardware/print-tests/petgf-dense-roofs/D-representative-mark2/physical-result.json)
 records broken tree stems with contact material retained on the base. D's
 removal acceptance covers the tested flat rail ceilings and their access;
 inclined and curved faucet contacts remain unqualified. Prepare the incline
 comparisons before treating D as an accepted faucet support recipe.
+The [active incline comparisons](../print-tests/petgf-dense-roofs/inclines/matrix.json)
+retain D's dense interface and vary contact gap and tree generation. Interface
+density and the contact footprint selected by the tree algorithm are distinct.
 
 Use Tree (auto) with the saved Bambu default style for accessible exterior
 features. Enclosed cavities must not contain rectangular normal supports,
