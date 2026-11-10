@@ -276,7 +276,7 @@
     "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step.mesh": "8e77f5e7d8afd79bafbe951124b84820fd4077ee9a3fe4a4edee48571ab11cc7",
     "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.stl": "7eb9455df0f38d96e9edd78384e98b5ac11a2dbfbb43dacf7eab3a378d1360a6",
     "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step.mesh": "84d13121a6f31876df5faed4c677439c83830905e625f55cc982df595b0e1ce2",
-    "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl": "753741de94227f937365c16f5d0a04fb486b6b9ac015ff5fdb3e0fc31bc44663",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl": "c5913bab7cdfb066d1ddec6eb6f765b04406a89af80c2027a1c764a35d0563aa",
     "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.step": "002676b99d9abd0dcc5c9ef9b16abf7a3de1636a65f003e9077cc63c50ef329a",
     "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.step.mesh": "1106be80aa555dbec51057e85e02651d2995983aff55cd3d5c2f2d5e4d8b54b0",
     "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.stl": "fa10132c600a16b3ea0a1ff0ff3a32af7fb457747e6b21337176b298945bf7b1",
@@ -920,13 +920,13 @@
     "hardware/reference/wago-221/wago-221-413.fine.step.mesh": "c63d87c73e1dd8902d883c4cc09f653066d543d004813286b2e9dfd191eefe87",
     "hardware/reference/wago-221/wago-221-413.step": "347e13d997b67c361c15984de75698f9eac46d96cc596d3701cf651b6c2cc482",
     "hardware/reference/wago-221/wago-221-413.step.mesh": "476fb9cf57003d777c9462afc352f3fdb4fa522f36a3985a37379111d6203c2d",
-    "hardware/reference/wago-221/wago-221-413.step.npz": "97e205e49e5f7f2c3968579aa144de0f791971f4c67e026167da058ffd67aff5",
+    "hardware/reference/wago-221/wago-221-413.step.npz": "d2f669c0fbafc5ae5d50f34fd150d725bc44fc3dad851e5b8e37c9b6a43cec73",
     "hardware/reference/wago-221/wago-221-415.step": "88cede1bfe3becede25a5215906f44208edfec09e4d34054f632859d3e61e877",
     "hardware/reference/wago-221/wago-221-415.step.mesh": "253f763b5013753e3f964c9d99f36db614f1cb81e6d07a8e996a4fe77630286c",
-    "hardware/reference/wago-221/wago-221-415.step.npz": "19560fb7f777f4d55f6e05b19de613a5dda4364e1f67b1ac39494b4d35040891",
+    "hardware/reference/wago-221/wago-221-415.step.npz": "a0b44315a03722ad92caf236864068a435fa62c5c8ae24f0a6b623a8f3585a59",
     "hardware/reference/wago-221/wago-221-420.step": "2856c51b09c8b9590e382dab282b45f0361379d30c5e5727cd68f5ed20b28373",
     "hardware/reference/wago-221/wago-221-420.step.mesh": "cf155cece191dfe2e2986d4a1f8557d14b367e78078a729b96222b83f0d451f5",
-    "hardware/reference/wago-221/wago-221-420.step.npz": "3b88294f15351de957de516f75743068f1491a523065a32334d8cc1da2c110f9",
+    "hardware/reference/wago-221/wago-221-420.step.npz": "02297655d704f49bccedff5dc1174cef5efb1e4c86fbd79627805c3911596c6f",
     "hardware/reference/waveshare-43b-display/waveshare-43b-display.step": "5076425927ad9fa3421fe746f915bc0f271a584e595a30872a0fbc7e311b99cc",
     "hardware/reference/waveshare-43b-display/waveshare-43b-display.step.mesh": "da1ccb3882d2da36efcfdf70a96738eaf86ee2368097a5a820c2b919cd04e040",
     "hardware/reference/waveshare-43b-display/waveshare-43b-display.step.npz": "8c22cf100cf5f538bd23f3eb4ed3d0d0c64462c08bd0974b7ca90e7a669b7e24",
@@ -1070,7 +1070,7 @@
       "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step.mesh": "8e77f5e7d8afd79bafbe951124b84820fd4077ee9a3fe4a4edee48571ab11cc7",
       "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.stl": "7eb9455df0f38d96e9edd78384e98b5ac11a2dbfbb43dacf7eab3a378d1360a6",
       "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step.mesh": "84d13121a6f31876df5faed4c677439c83830905e625f55cc982df595b0e1ce2",
-      "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl": "753741de94227f937365c16f5d0a04fb486b6b9ac015ff5fdb3e0fc31bc44663",
+      "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl": "c5913bab7cdfb066d1ddec6eb6f765b04406a89af80c2027a1c764a35d0563aa",
       "hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.step.mesh": "304b3e9791847f1d8065fc2d72640d20f17d9d611ad80e049950a4c0a291a5d2",
       "hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.stl": "579faf7f25b348af118b404336d5823cce72c7a49b569b1f39a498f7a554f879",
       "hardware/printed-parts/enclosure/enclosure/enclosure-pump-tube-setting-jig.step.mesh": "280c1c9be9e45683aa15cf82387ef213a58c3ee4f68d59241500f07fd4cac1f6",
@@ -1547,7 +1547,6 @@
     "2a55232ebf0e4134adf7ef1745b4b08a19d0b9ad4f7c625843a7d8bc82d32d4f",
     "2ab17413138329b455062bcc0dcd8cafb52692167b12e7606098af2d0e42b813",
     "2b45dc20ba79da025167ff5aed245e92d7a826122a365f610066be864f3464e1",
-    "2c3c638662bf02d8f11b6a98c4c1e444a5f50753cf11d464a3ed8b17568475aa",
     "2c5df7b4f24dfefb6c77bea2b495f9733f408bb08f9a20d36a9c932db7be53f0",
     "2cb6c5dcf1c3ffc13fd28599749dd625ad1b1112bcc529684bc5d31399433277",
     "2cdb5f3d8072dcc4e7653cdbac146d42d6b7a1e8a89f9ee7cfeca2efeb13fd00",
@@ -1581,7 +1580,6 @@
     "37972808458378aedf4a8309debea7b92700861f02f9f352d57fc841a8374123",
     "379f855ec1aadd28e4914bc710f97525c97dde2cb4049cfb77d2fb1e4eb21269",
     "3803bcda64b1cd840ce9ed1fe20a50c150063e79c537cba2ddbfdb4523225751",
-    "389158d5eaa014869c251dd6e71c9dea86cca8a5fe9d3fa611042c03da3c46b7",
     "38ba6871351a3dbd3aaaefb4cd5242aad106b555dca8ea801de9c301530a014c",
     "38e8df848b636c82faa58bf061f278fe17f5e1aeece3a298bda28bccf23f52c4",
     "38f534c0e38d183d43c40face30a5709c8d05d36abce53ba3e00181e49aca97d",
@@ -1619,7 +1617,6 @@
     "48dd010bde9582631edf4625be8decf5eef8595b840ecce019fee73bd57d5c6d",
     "499aa41b7d6aaa68b269f5fc587302fdadf6f80e8fdc853e5f86cd8b80b18738",
     "49a9c4183926e2b1a9f0b27ee46241af61eb4e7c5c6fd337c66a81c17eef78db",
-    "49f36eb96df7abf3c98d5e3217e7a6dc618175b638881bf2cdc331b6c609e370",
     "4aae51dc04ec8f6cbc2a9aed5a355969563b6489f82a7b62a741f1b9b0f6929d",
     "4b2ff2e51992c6c4790db41765ee2083678928f357840b6b21ce91cbf3ae07af",
     "4bfc36c085dcfc74e388f336be6e435d1716d284925328d4f683a0ba84e62546",
@@ -1816,7 +1813,6 @@
     "be2c79b7d45779e1a96ebe73c198d7563fdde3c73199cd0e82ae5ece38c42ef4",
     "bedd0ca5171a3229d87bc8cf6b1a5673942c61316bef7912e23b7e64e8875881",
     "bf3ecf97d293bba888616bf86aef88c33efba3b4a976954e913025ae16a59297",
-    "bfe9ce8578cb558fdcb304ec46a50b18aac7c157f9757cc6bfe63e5a633afa27",
     "bffa43a945ad3cdbe660c6662a3ab46d992a2ed0b254bfcc2f53618eea960ce4",
     "c03e39c253f93f1ac0e432f61a644c7de31114262fef34475293ab787e7647ab",
     "c15d7e7efc07e91da5752c68c32a16ff9e1132f893f6b55d3ebf21a0a73db1e5",
@@ -2189,7 +2185,7 @@
     "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step.mesh": 1794211617.6748538,
     "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.stl": 1794211650.501837,
     "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step.mesh": 1794272689.2819252,
-    "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl": 1794200819.690183,
+    "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl": 1794272755.846206,
     "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.step": 1792920710,
     "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.step.mesh": 1793787394,
     "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.stl": 1792920710,
@@ -2833,13 +2829,13 @@
     "hardware/reference/wago-221/wago-221-413.fine.step.mesh": 1793697604,
     "hardware/reference/wago-221/wago-221-413.step": 1794271100.173635,
     "hardware/reference/wago-221/wago-221-413.step.mesh": 1794272689.2819252,
-    "hardware/reference/wago-221/wago-221-413.step.npz": 1794271411.5702882,
+    "hardware/reference/wago-221/wago-221-413.step.npz": 1794272755.846206,
     "hardware/reference/wago-221/wago-221-415.step": 1794271100.173635,
     "hardware/reference/wago-221/wago-221-415.step.mesh": 1794272689.2819252,
-    "hardware/reference/wago-221/wago-221-415.step.npz": 1794271411.5702882,
+    "hardware/reference/wago-221/wago-221-415.step.npz": 1794272755.846206,
     "hardware/reference/wago-221/wago-221-420.step": 1794271100.173635,
     "hardware/reference/wago-221/wago-221-420.step.mesh": 1794272689.2819252,
-    "hardware/reference/wago-221/wago-221-420.step.npz": 1794271411.5702882,
+    "hardware/reference/wago-221/wago-221-420.step.npz": 1794272755.846206,
     "hardware/reference/waveshare-43b-display/waveshare-43b-display.step": 1794271683.8106298,
     "hardware/reference/waveshare-43b-display/waveshare-43b-display.step.mesh": 1794271678.172905,
     "hardware/reference/waveshare-43b-display/waveshare-43b-display.step.npz": 1794271683.8106298,
@@ -3739,8 +3735,8 @@
       "unproven": true
     },
     "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl": {
-      "inputs": "c903e080e4037f592243e7ba93286dc8a363148fa5feed23fdbdced2208f7454",
-      "commit": "129e664f72d13050c708898fc09ae3ec0c20a2d8",
+      "inputs": "a2d284e84e497d8cbb5e390b2823d1b4d6ec121afd18b228cb80c7e4525449a2",
+      "commit": "20d70fe6345558595eae9d2c593d32bb6ce412ad",
       "unproven": true
     },
     "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.step.mesh": {
@@ -5285,7 +5281,7 @@
       "unproven": true
     },
     "hardware/reference/wago-221/wago-221-413.step.npz": {
-      "commit": "7a18c19513ddb6d3ee1fec0ab42a9bac24e4e247",
+      "commit": "20d70fe6345558595eae9d2c593d32bb6ce412ad",
       "unproven": true
     },
     "hardware/reference/wago-221/wago-221-415.step": {
@@ -5297,7 +5293,7 @@
       "unproven": true
     },
     "hardware/reference/wago-221/wago-221-415.step.npz": {
-      "commit": "7a18c19513ddb6d3ee1fec0ab42a9bac24e4e247",
+      "commit": "20d70fe6345558595eae9d2c593d32bb6ce412ad",
       "unproven": true
     },
     "hardware/reference/wago-221/wago-221-420.step": {
@@ -5309,7 +5305,7 @@
       "unproven": true
     },
     "hardware/reference/wago-221/wago-221-420.step.npz": {
-      "commit": "7a18c19513ddb6d3ee1fec0ab42a9bac24e4e247",
+      "commit": "20d70fe6345558595eae9d2c593d32bb6ce412ad",
       "unproven": true
     },
     "hardware/reference/waveshare-43b-display/waveshare-43b-display.step": {
