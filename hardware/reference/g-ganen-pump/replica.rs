@@ -7,6 +7,7 @@ use std::path::PathBuf;
 /// The guard keeps the circular mesh chords outside the source's radial vertices.
 const RADIAL_GUARD: f64 = 0.02;
 const HEIGHT_GUARD: f64 = 0.01;
+const SOURCE_FILE: &str = "g-ganen-pump.step.mesh";
 
 #[derive(Clone, Copy)]
 struct Cap {
@@ -114,7 +115,7 @@ fn main() -> Result<()> {
     let shell_bytes = std::fs::read(&shell_path)?;
     hsm_kernel::reads::read(&shell_path, &shell_bytes);
     let shell: Value = serde_json::from_slice(&shell_bytes)?;
-    let source = here.join("integration-envelope/g-ganen-integration-envelope.step.mesh");
+    let source = here.join(SOURCE_FILE);
     let mut pieces = import::payload(&source)?;
     // The source records this coarse convex hull as metadata rather than visible molded stock.
     pieces.retain(|body| body.name != "lower_cradle_occupied_external_envelope");
@@ -185,12 +186,12 @@ fn main() -> Result<()> {
     println!("{}", part::write_shown(&out, "g-ganen-replica", &bodies)?);
     std::fs::write(out.join("g-ganen-replica-fit.json"), serde_json::to_string_pretty(&json!({
         "purpose": "The profile fit records the clean shell land and crown shapes used by the purchased pump replica.",
-        "source_payload": "reference/g-ganen-pump/integration-envelope/g-ganen-integration-envelope.step.mesh",
+        "source_payload": format!("reference/g-ganen-pump/{SOURCE_FILE}"),
         "radial_guard_mm": RADIAL_GUARD,
         "height_guard_mm": HEIGHT_GUARD,
         "crown_fits": fits,
         "head_top_plane": shell["head_top_plane"],
-        "retained_geometry": "The exact motor, measured barbs and independently posed common feet are imported unchanged. The casing retains its observed lower cradle and rear cap; its generic barrel skin is removed above the documented lower-cradle boundary across the fitted motor span. The head casing stops at its observed cover land. The source's metadata-only convex lower hull is excluded from visible anatomy.",
+        "retained_geometry": "The current detailed reference supplies the later under-head air and underside relief. Its exact motor, measured barbs and independently posed common feet are imported unchanged. The casing retains its observed lower cradle and rear cap; its generic barrel skin is removed above the documented lower-cradle boundary across the fitted motor span. The head casing stops at its observed cover land. Metadata-only convex lower hulls are excluded from visible anatomy.",
         "scope": "The exterior replica removes the source's known convex top bridges. The original integration envelope remains available separately for conservative clearance. Filled vents and deeper recesses remain outside the replica detail scope."
     }))? + "\n")?;
     Ok(())
