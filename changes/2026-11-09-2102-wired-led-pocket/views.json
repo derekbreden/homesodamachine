@@ -1,0 +1,174 @@
+{
+  "views": [
+    {
+      "name": "section",
+      "caption": "The complete lamp loads through a service pocket beneath the removable status plate.",
+      "before": "section-before.webp",
+      "after": "section-after.webp",
+      "width": 1100,
+      "height": 900,
+      "marks": [
+        {
+          "x": 470.6,
+          "y": 489.7,
+          "r": 79.4,
+          "label": "Insulated tail space",
+          "at": [
+            70.75,
+            59,
+            306
+          ]
+        }
+      ],
+      "model": "manifold-layout/enclosure-assembly.step",
+      "camera": {
+        "projection": "perspective",
+        "position": [
+          152.83326112068522,
+          65,
+          309
+        ],
+        "target": [
+          70.75,
+          65,
+          309
+        ],
+        "up": [
+          0,
+          0,
+          1
+        ],
+        "fov": 45,
+        "near": 0.33474411998902975,
+        "far": 532.5271007883381,
+        "aspect": 1.2222222222222223,
+        "section": {
+          "at": [
+            70.75,
+            65,
+            309
+          ],
+          "normal": [
+            1,
+            0,
+            0
+          ],
+          "removes": "the side the normal points to"
+        }
+      },
+      "highlight": [],
+      "ghost": [],
+      "only": [
+        "enclosure-front-top",
+        "status-plate-fasteners"
+      ],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "snapshot",
+          "sha256": "33533c57fb7cd442be99fa05cbd95415150af1092d5807f15d9da521d0c25ccd",
+          "commit": "4f0f74caec5a79de82dd6e863c97dcab5a33fbd9",
+          "taken": "2026-11-10T02:18:51.144Z",
+          "published": true
+        },
+        "after": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "tree",
+          "sha256": "06019632e6cef1b4aa9b413d2cfe806be1eb8c72b8dc6731c330847c5302d90c",
+          "commit": "cda0198e0ef242566aae20e850c16bf4641403d5",
+          "published": true
+        }
+      },
+      "changed": [
+        "cold-core/g-ganen-pump",
+        "enclosure-front-top",
+        "wire-DC3-positive",
+        "wire-DC3-negative"
+      ],
+      "withinMeshing": [
+        "status-plate-fasteners"
+      ]
+    },
+    {
+      "name": "access",
+      "caption": "Removing the status plate exposes the whole pocket, so the wired lamp does not need to be threaded through a round hole.",
+      "before": "access-before.webp",
+      "after": "access-after.webp",
+      "width": 1100,
+      "height": 900,
+      "marks": [
+        {
+          "x": 550,
+          "y": 450,
+          "r": 143.2,
+          "label": "Full assembly access",
+          "at": [
+            70.75,
+            52.4238,
+            329.5404
+          ]
+        }
+      ],
+      "model": "manifold-layout/enclosure-assembly.step",
+      "camera": {
+        "projection": "perspective",
+        "position": [
+          70.75,
+          25.86745072685964,
+          375.53734600362213
+        ],
+        "target": [
+          70.75,
+          52.4238,
+          329.5404
+        ],
+        "up": [
+          0,
+          0.8660254,
+          0.5
+        ],
+        "fov": 45,
+        "near": 0.3223063972921894,
+        "far": 526.3082394399179,
+        "aspect": 1.2222222222222223
+      },
+      "highlight": [],
+      "ghost": [],
+      "only": [
+        "enclosure-front-top"
+      ],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "snapshot",
+          "sha256": "33533c57fb7cd442be99fa05cbd95415150af1092d5807f15d9da521d0c25ccd",
+          "commit": "4f0f74caec5a79de82dd6e863c97dcab5a33fbd9",
+          "taken": "2026-11-10T02:18:51.144Z",
+          "published": true
+        },
+        "after": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "tree",
+          "sha256": "9d1514a962468a45c23a10006d50b8eb3fbbe23f21870edbeac9c89adced5d1c",
+          "commit": "6eeec59ea159a9b07087b7f609eae8e8796327c7",
+          "published": true
+        }
+      },
+      "changed": [
+        "cold-core/g-ganen-pump",
+        "cold-core/float-a",
+        "cold-core/float-b",
+        "cold-core/float-carb",
+        "enclosure-front-top",
+        "cold-core/evap-coil",
+        "wire-DC3-positive",
+        "wire-DC3-negative"
+      ],
+      "withinMeshing": [
+        "status-plate-fasteners"
+      ]
+    }
+  ]
+}
