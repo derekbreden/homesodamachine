@@ -48,11 +48,12 @@ to On tap. Selecting either flavor in the left rail also returns to that flavor'
 ## Artwork and scope
 
 The four sample uploads combine actual Diet Mountain Dew and Pepsi marks with portrait
-backgrounds. The factory portraits are decoded from the compiled RGB565 arrays in
-[`flavor0_card.h`](../../firmware/src_front/images/flavor0_card.h),
-[`flavor1_card.h`](../../firmware/src_front/images/flavor1_card.h),
-[`flavor2_card.h`](../../firmware/src_front/images/flavor2_card.h) and
-[`flavor3_card.h`](../../firmware/src_front/images/flavor3_card.h).
+backgrounds. The factory portraits use
+[`flavor_1.png`](../../images/flavor_1.png),
+[`flavor_2.png`](../../images/flavor_2.png),
+[`flavor_3.png`](../../images/flavor_3.png) and
+[`flavor_4.png`](../../images/flavor_4.png), fitted to the card rendition by the
+[shared display conversion](../../tools/hsm/display-assets/src/lib.rs).
 
 Artwork sources: [PepsiCo Diet Dew package artwork](https://digitalassets.pepsico.com/m/642423311fca260c/original/00012000107351_L1.pdf)
 and [PepsiCo Partners Pepsi brand](https://www.pepsicopartners.com/PEPSICO-BRANDS/PEPSI%C2%AE/c/brand_pepsi).

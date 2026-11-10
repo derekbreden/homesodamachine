@@ -72,19 +72,21 @@ error counters to remain unchanged.
 
 ## Operation lock and animation
 
-The 16-frame On tap faucet animation is generated from the canonical
-[`brand/mark.svg`](../../brand/mark.svg) at 360×360 by:
+The On tap faucet animation uses the lossless
+[`brand/display-animation.png`](../../brand/display-animation.png) sprite master.
+Export its browser review with:
 
 ```
-hsm-marketing animation-frames
+tools/run -- hsm-marketing animation-frames
 ```
 
 The orange circle gently falls; the next bead grows beneath the outlet as the
-falling one diminishes. The faucet stays still through the 1.6-second
-loop. [Motion options](../../web/public/brand/motion.html) compares the exact
-display frames with Pulse and Float. The generator writes
-`images/anim_00.h`..`anim_15.h`; `hsm-marketing make-art enclosure` packages them in the
-mapped `art` partition during the build. Boot and the explicit `LOCK:SHOW` diagnostic
+falling one diminishes. The faucet stays still through the loop.
+[Motion options](../../web/public/brand/motion.html) compares the exact display
+frames with Pulse and Float. `hsm-marketing make-art enclosure` converts the
+master PNG directly into the mapped `art` partition image during firmware
+preparation. The [brand instructions](../../brand/README.md#regeneration) describe
+explicit SVG regeneration and review. Boot and the explicit `LOCK:SHOW` diagnostic
 use this full-screen animation. Normal pages and operational progress remain static
 except where their displayed state changes.
 

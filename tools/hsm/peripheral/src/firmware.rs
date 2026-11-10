@@ -79,8 +79,8 @@ pub fn pre_build(root: &Path, args: &[String]) -> Result<()> {
     let marketing = env::var_os("HSM_MARKETING_BIN").unwrap_or_else(|| "hsm-marketing".into());
     if matches!(environment.as_str(), "esp32s3_front" | "esp32s3_faucet") {
         let logos = build.join("logos.bin");
-        let newest = newest_image(&root.join("firmware/src_front/images"), |s| {
-            s.starts_with("flavor")
+        let newest = newest_image(&root.join("images"), |s| {
+            s.starts_with("flavor_") && s.ends_with(".png")
         })?;
         if outdated(&logos, newest) {
             if let Some(parent) = logos.parent() {
@@ -97,7 +97,7 @@ pub fn pre_build(root: &Path, args: &[String]) -> Result<()> {
     }
     if environment == "esp32s3_front" {
         let art = build.join("art.bin");
-        let newest = newest_image(&root.join(source).join("images"), |s| s.ends_with(".h"))?;
+        let newest = fs::metadata(root.join(hsm_display_assets::ANIMATION_SOURCE))?.modified()?;
         if outdated(&art, newest) {
             if let Some(parent) = art.parent() {
                 fs::create_dir_all(parent)?;

@@ -12,6 +12,7 @@ serde.workspace = true
 serde_json.workspace = true
 sha2.workspace = true
 hsm-run-slots = { path = "../run-slots" }
+hsm-display-assets = { path = "../display-assets" }
 libc = "0.2"
 flate2 = "1"
 png = "0.18.1"

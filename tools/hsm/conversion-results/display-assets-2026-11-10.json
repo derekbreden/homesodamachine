@@ -1,0 +1,399 @@
+{
+  "schema": 1,
+  "purpose": "Record lossless display artwork conversion and binary bundle equivalence.",
+  "recorded_at": "2026-11-10T17:28:39.762Z",
+  "archived_source_revision": "bd3f9933917d16a56da25a4b6a9a4acd0350a7fc",
+  "source_png_sha256": {
+    "brand/display-animation.png": "6854f6db5a087c3f6ae45552fd39dab49da826f443cf0ab0915913a06e360fbe",
+    "images/flavor_1.png": "64ad9b87b0d73bd566154da3c7aa8b2f288fa9f9db2220df84a299e77484aabf",
+    "images/flavor_2.png": "f6eb56311b927925bd294813a5d884a3764c7643d8431349d992430e247c5ea3",
+    "images/flavor_3.png": "de5d4d2d68170e61abfb63ed4599675f3e0ecb24ccdca3fc060efdc3ec06a9aa",
+    "images/flavor_4.png": "0154118f11b0ab06749939c8702f5500b72117e0a6741ab1d72fbfb95da95456"
+  },
+  "authoring_inputs_sha256": {
+    "brand/mark.svg": "c9c2dcacab2961f30d813832b820599acb1ebcd81c6429177be9c0e83e1efeb6",
+    "brand/palette.json": "ec8ef8055d59a3b6263f9460782910d72311a706577312aa3a9051cae2bbd312"
+  },
+  "native_source_sha256": {
+    "tools/hsm/display-assets/src/lib.rs": "0b100beb8d0730e180e2ba5d630cd125fd04859f38715d8d78e6b85a571cbd9d",
+    "tools/hsm/marketing/src/art.rs": "2f25d2d5a3535fb24ec0c2245baff428eca78c78eb072858cbb0a61700ec4db5",
+    "tools/hsm/marketing/src/brand.rs": "9d849f63eeaa721955aabdfba0d75dcd3b046aa0f41874bd0207d7e866d2fbc5",
+    "tools/hsm/marketing/src/kitchen.rs": "0227eb43a0954de6a3d9b16ea9d32a9bb88932b17a69246009b156da30474250",
+    "tools/hsm/peripheral/src/firmware.rs": "c866c0a19c3b96308ba124bcdc350633cda5bd8130f0068226f514e94656bd69",
+    "tools/hsm/peripheral/src/panel.rs": "f6b045e84c26ef3bf7fae9613dbd0039d113bce8319e581e3400bfc744c4c663"
+  },
+  "archived_headers": [
+    {
+      "archived_path": "firmware/src_faucet/images/flavor0_faucet.h",
+      "dimensions": [
+        172,
+        320
+      ],
+      "source_sha256": "4a48a1974b795c5df9519e921e1cb5123fb9b97a8780ccad308d5b381f52c042",
+      "rgb565_sha256": "d21bc3ae8f655cfce192240be14648aff20b5ee9d314cffbf5d6ea88fedbc64c",
+      "decoded_rgb_sha256": "42bb72c66e0450746afd22c73dc20b6f2a606aa4dc6343905abdf36524c8372f"
+    },
+    {
+      "archived_path": "firmware/src_faucet/images/flavor1_faucet.h",
+      "dimensions": [
+        172,
+        320
+      ],
+      "source_sha256": "172d5933dbe9e8333bd4ff7c11a31a30fde955550718ed0e177f72e3cb264192",
+      "rgb565_sha256": "f32bd0ebb59679e45f73697779a59888bd3905813aea1ba775ab2b0918fd858f",
+      "decoded_rgb_sha256": "ba11e7cbf8401f7d4677e62ea20725cc12174f343c32185fad50c1d8d06eeecb"
+    },
+    {
+      "archived_path": "firmware/src_faucet/images/flavor2_faucet.h",
+      "dimensions": [
+        172,
+        320
+      ],
+      "source_sha256": "eb68280f7c588b94270eac24b6447822234b5b9a50266d6edb53ce597a550267",
+      "rgb565_sha256": "39afda44920fb144b3e4a3d85f1ba2fdb8aae0b12645ceb56dcce33a8f56d727",
+      "decoded_rgb_sha256": "546d1a03ea9d2ad4d6cb4fad115c7fa3cea0375ddb689a45df0681a60b21ae51"
+    },
+    {
+      "archived_path": "firmware/src_faucet/images/flavor3_faucet.h",
+      "dimensions": [
+        172,
+        320
+      ],
+      "source_sha256": "de158b6f6f118b76c5b971ec9a2fb51eb2983279ea160d0d8b713197988bc1a4",
+      "rgb565_sha256": "0f7255d5f01af774bad9f07745da1a9ffb35192c066bb3ad5d09660325dd87f0",
+      "decoded_rgb_sha256": "f28dfa65dcf6d9e3164a34f7cbf43a629a05435d8d93008d6557ca51bffe5d27"
+    },
+    {
+      "archived_path": "firmware/src_front/images/anim_00.h",
+      "dimensions": [
+        360,
+        360
+      ],
+      "source_sha256": "7c26ffcc1d01e552f11a0a38217981068f2515d922443741ef09440ce69e0b64",
+      "rgb565_sha256": "a744f22b1f4b36642c38dfac874864e382334ec9a1812f3db5cc556fd4566752",
+      "decoded_rgb_sha256": "07813400679fa57300601fb031cd94a72d0cc7f6b408fd433b173d48b0591fd0"
+    },
+    {
+      "archived_path": "firmware/src_front/images/anim_01.h",
+      "dimensions": [
+        360,
+        360
+      ],
+      "source_sha256": "275216d1a0bbf93d3112330fb3f5b7f1b033e4fb556bd387451c707670c31e2c",
+      "rgb565_sha256": "4d482d810fce103a54e0e7f7d89adbdcb9a560974f2b0e962e8631de4ae277e8",
+      "decoded_rgb_sha256": "fc86e72d56dc4f5d18445c92a280d6a7cd45d060c68d50e2ce760394e1788f7b"
+    },
+    {
+      "archived_path": "firmware/src_front/images/anim_02.h",
+      "dimensions": [
+        360,
+        360
+      ],
+      "source_sha256": "1e4a198cd3f4550a79df20f58f5e13c1a2008a18eebff3a97556a6dd676d5529",
+      "rgb565_sha256": "331dd5485113ac4287111b371616d965f51f2f2a9c1ce0e9fe4875c94cd36f55",
+      "decoded_rgb_sha256": "c061e3aaf50438f64bfad6f532d4cb45a43a54d5f1c45074ed31f2ede667422a"
+    },
+    {
+      "archived_path": "firmware/src_front/images/anim_03.h",
+      "dimensions": [
+        360,
+        360
+      ],
+      "source_sha256": "f5c78522478aed9eff77181b1e0962d665a51c0e8edf8aa29f801e4024041c3c",
+      "rgb565_sha256": "0ecda0c5d62b554ae342449f4c4f995df7aad0ad80270150f18284ccceb983d1",
+      "decoded_rgb_sha256": "75fa82284a8cc126b180e9a5afbe1b4f590e23f3bbaa0124cf79489da82c7424"
+    },
+    {
+      "archived_path": "firmware/src_front/images/anim_04.h",
+      "dimensions": [
+        360,
+        360
+      ],
+      "source_sha256": "18590a55a7dae208699802a9c2c4ef42390eedf209bf14924c7622892b70ac6d",
+      "rgb565_sha256": "620a7f9697e7d71b6d76d2ff5c8f8cd7d7f6e629099c138cbb8109f1a2a80a5a",
+      "decoded_rgb_sha256": "1da1a21b3b5742266a9546d5cdc07192fdb4081543eb8f558460fa60ca392e46"
+    },
+    {
+      "archived_path": "firmware/src_front/images/anim_05.h",
+      "dimensions": [
+        360,
+        360
+      ],
+      "source_sha256": "d8a99c8b9b7e34d35bd92a8ed07b7017f14d51cf587c5f92c63881740635acce",
+      "rgb565_sha256": "f78d809f3fb030425dedc611eadca5cb9963506edc98ba168a557b38b85a9dd1",
+      "decoded_rgb_sha256": "9b44e349e609a6659bbe46f3a27f187c25f91eb8a37a18f5267d4810fa7f71eb"
+    },
+    {
+      "archived_path": "firmware/src_front/images/anim_06.h",
+      "dimensions": [
+        360,
+        360
+      ],
+      "source_sha256": "1b3dc037d7b87cbe09a26ab2b2bd858964faffa3ec4c6a0493c5d074157f2523",
+      "rgb565_sha256": "96a467c7be35c380c8de8916c504046a50d49c43120de8df72b573417103b5fb",
+      "decoded_rgb_sha256": "3a92261c4ce70fe0404dd2c2e531c97916233c1e79b47a94ef767fca0de2edd4"
+    },
+    {
+      "archived_path": "firmware/src_front/images/anim_07.h",
+      "dimensions": [
+        360,
+        360
+      ],
+      "source_sha256": "896b840fd5c1aa8c0d24e060f5dfa83b4e88a781f84750da2bad6589ad809f4d",
+      "rgb565_sha256": "d20d397d5cf0a49146a168ba2c3cc1c0017f1befe1be98ce5ceb42b9c3b57efe",
+      "decoded_rgb_sha256": "9f520ab3d88cf60469a39b20b7b9cd8e9eacfcec6b4fd2203ce3a6f266002bb1"
+    },
+    {
+      "archived_path": "firmware/src_front/images/anim_08.h",
+      "dimensions": [
+        360,
+        360
+      ],
+      "source_sha256": "46370810123657f5e87653e685a6886ff05bb3083a5e7c70110e1fb87fe9967b",
+      "rgb565_sha256": "3e5c2dedd5c3f3875d8639e66091077d06e4261aa8906e73c6c5f8f64cff0881",
+      "decoded_rgb_sha256": "515fe685d834f8b8b05aa127da8ec6d7185f72ebfb36585881d0313e5eac8d36"
+    },
+    {
+      "archived_path": "firmware/src_front/images/anim_09.h",
+      "dimensions": [
+        360,
+        360
+      ],
+      "source_sha256": "3517409b6bec056dad0431ab0fc4083d960fcf57f2aed746ef288e09d91e238a",
+      "rgb565_sha256": "59218bbb8ab22eabe8b905b4e403a94185eff8748503dc6c80680d86301cae47",
+      "decoded_rgb_sha256": "1c20338fcaddfd7305895afad769fa181ccec46cad9fdc5ff044dbe2bafbc2e9"
+    },
+    {
+      "archived_path": "firmware/src_front/images/anim_10.h",
+      "dimensions": [
+        360,
+        360
+      ],
+      "source_sha256": "b799ee428e26c87f04401480a0366e26133870cb73595fe92bfaa6f0811189a6",
+      "rgb565_sha256": "283d9b357acfedbd4e39f6667ed26d3f91aedcea4519e706acb11897f20f8b29",
+      "decoded_rgb_sha256": "ca8befeb4a002378395b439fe40dc22a4d392370711fc5f119cc818573944c31"
+    },
+    {
+      "archived_path": "firmware/src_front/images/anim_11.h",
+      "dimensions": [
+        360,
+        360
+      ],
+      "source_sha256": "db121318bac8b0726deab00265a240b90c0236e135ffc77a33a96711901d2f46",
+      "rgb565_sha256": "4d7a2a58723ad16a70fcf684ef757ebc70b3b5a337033842bb33dd01050a222c",
+      "decoded_rgb_sha256": "130caece717d2c14a40225eb99a55ca0c33d6587721161ecd623647e10969252"
+    },
+    {
+      "archived_path": "firmware/src_front/images/anim_12.h",
+      "dimensions": [
+        360,
+        360
+      ],
+      "source_sha256": "9d77d6fe738e66b93b35c5e809062c5d265ad4f5ff57941e0471297cde16e3a1",
+      "rgb565_sha256": "862ca072d304a74ce055a8369148a7f8e2d0755a59aa8d5edf749bd1e350c13b",
+      "decoded_rgb_sha256": "e677a834f8f566c19b198bc917791c8810ca82af75a4cfdc517bc800401b7288"
+    },
+    {
+      "archived_path": "firmware/src_front/images/anim_13.h",
+      "dimensions": [
+        360,
+        360
+      ],
+      "source_sha256": "b9e9c9f7d04a7de9cb1c17cff6ffb5c9a7a79b29985ed3f9ee2260634bb4164b",
+      "rgb565_sha256": "fec2dccd7ad1dc8b54f12e442df78242a34837bc2c51b3628d58993209fce9e3",
+      "decoded_rgb_sha256": "4772295a75661589a7c2985a640e4f6f3e841ff59498ef53ad71970e524215af"
+    },
+    {
+      "archived_path": "firmware/src_front/images/anim_14.h",
+      "dimensions": [
+        360,
+        360
+      ],
+      "source_sha256": "cc52fee4ea2e5babad302d6498b5a09334c685d1b017873d7c85ac139e4a65a7",
+      "rgb565_sha256": "3c4257b06604e1be64e1f7bf4f9f3c62f2e539fe12e98b0a322870f25a59fe17",
+      "decoded_rgb_sha256": "5d12699f5ea67f2e622279f95e12e24b0955c52cde93418ef07ef527af32afa9"
+    },
+    {
+      "archived_path": "firmware/src_front/images/anim_15.h",
+      "dimensions": [
+        360,
+        360
+      ],
+      "source_sha256": "d3169f3fe9b9b3dc2d7f8c81108226813d0571ca16ad6a717928d5f1ecc6716c",
+      "rgb565_sha256": "427453d2a8c386bb22d33753e6a28776c8770adbbd15701626810dad213687f2",
+      "decoded_rgb_sha256": "8ea3eebe90caa23137bf37de48e96d2675ca81b1886d19f5695f989b27d90f7e"
+    },
+    {
+      "archived_path": "firmware/src_front/images/flavor0_anchor.h",
+      "dimensions": [
+        172,
+        320
+      ],
+      "source_sha256": "03775cec980cabcc0dc6e9551e1b82815af3fbf114006a439284761cbbf0eb4f",
+      "rgb565_sha256": "d21bc3ae8f655cfce192240be14648aff20b5ee9d314cffbf5d6ea88fedbc64c",
+      "decoded_rgb_sha256": "42bb72c66e0450746afd22c73dc20b6f2a606aa4dc6343905abdf36524c8372f"
+    },
+    {
+      "archived_path": "firmware/src_front/images/flavor0_card.h",
+      "dimensions": [
+        129,
+        240
+      ],
+      "source_sha256": "25c604010b96316bd47ec70989a6f02eb24fbdadb2acf0e3dca37a86c732c62e",
+      "rgb565_sha256": "32badf482dbaa52f3ce321682612bd73e14d2b58cf208c25caad08f1d2243b64",
+      "decoded_rgb_sha256": "7ec746cdd773b4b8f2eeca5479e6622ae8507a00d94f3bc3979dbabc9e59a1a6"
+    },
+    {
+      "archived_path": "firmware/src_front/images/flavor0_tile.h",
+      "dimensions": [
+        86,
+        160
+      ],
+      "source_sha256": "929661bd5c699359e257b9ebacf9744953aa9ba4a5cdacf75a5b22422eee01ec",
+      "rgb565_sha256": "cc8df4880bdf2b6b4a426a73b4359532c03b1a90f9eba822294ce9a32b3cdff7",
+      "decoded_rgb_sha256": "cae8333d2fca59993914c95fb3a4abfd2d645f0bd407cae346777007e2ebac5b"
+    },
+    {
+      "archived_path": "firmware/src_front/images/flavor1_anchor.h",
+      "dimensions": [
+        172,
+        320
+      ],
+      "source_sha256": "8b84223d32826a6021d6d1639b5b4fb4f66579ba1edd1652000fbdef4d0e53d0",
+      "rgb565_sha256": "f32bd0ebb59679e45f73697779a59888bd3905813aea1ba775ab2b0918fd858f",
+      "decoded_rgb_sha256": "ba11e7cbf8401f7d4677e62ea20725cc12174f343c32185fad50c1d8d06eeecb"
+    },
+    {
+      "archived_path": "firmware/src_front/images/flavor1_card.h",
+      "dimensions": [
+        129,
+        240
+      ],
+      "source_sha256": "1c1c3fdbbc258f6688a5597f196ee7e6fa802d3d0428eaa3323555f12f45509f",
+      "rgb565_sha256": "e4d8e00ad5940ca6dd81b7d3a4514887a74407ba87614145ba559b7a3a9e429b",
+      "decoded_rgb_sha256": "f69eef41d454ba989b0f0d63bb41e69214dbf628a564beed396699cdd05a6ae8"
+    },
+    {
+      "archived_path": "firmware/src_front/images/flavor1_tile.h",
+      "dimensions": [
+        86,
+        160
+      ],
+      "source_sha256": "1635a365ba9bf1bf770e4097000a51425b1283dbc39908ba895d2f22b424c591",
+      "rgb565_sha256": "9509c3b07f7ba41016f6105b0627b212ce8f50b1cc1d9961b6057c855b92b461",
+      "decoded_rgb_sha256": "074f3b7e8afc64b04cb7f394af5dd76798a4b1b8a76609572de87614150870dc"
+    },
+    {
+      "archived_path": "firmware/src_front/images/flavor2_anchor.h",
+      "dimensions": [
+        172,
+        320
+      ],
+      "source_sha256": "038d85d95b0b8b7fdf328f173df40911538ccfefda72a8e381e36910bdbbcfd1",
+      "rgb565_sha256": "39afda44920fb144b3e4a3d85f1ba2fdb8aae0b12645ceb56dcce33a8f56d727",
+      "decoded_rgb_sha256": "546d1a03ea9d2ad4d6cb4fad115c7fa3cea0375ddb689a45df0681a60b21ae51"
+    },
+    {
+      "archived_path": "firmware/src_front/images/flavor2_card.h",
+      "dimensions": [
+        129,
+        240
+      ],
+      "source_sha256": "8b7b757c2252ac40f30b1a8dfdf5630a3b951857fcd1b3e49ee404c0c454b336",
+      "rgb565_sha256": "465b6b830bd1a4dc3ce965084e05aa211f3f906d80ddc87da3d059a1e89b7bcd",
+      "decoded_rgb_sha256": "152270ba51eeb81abe322d7361dd0f950a35d2d62b74966b1f77d80c96359ea6"
+    },
+    {
+      "archived_path": "firmware/src_front/images/flavor2_tile.h",
+      "dimensions": [
+        86,
+        160
+      ],
+      "source_sha256": "b2495a164c642678bfb6ef8879a3d08a8e150452ab88839ecbf23adbfe1e9efe",
+      "rgb565_sha256": "a3a3d4a5f430c3b06964cdffb6b814085693e574796fbbcb6d2df9c672c771ff",
+      "decoded_rgb_sha256": "ca7f43a9861a3b12b159bcb446bb541ef1709a220f3986a943bb58b344da19b3"
+    },
+    {
+      "archived_path": "firmware/src_front/images/flavor3_anchor.h",
+      "dimensions": [
+        172,
+        320
+      ],
+      "source_sha256": "0ae2ca07f2ee882fdec694e8e1fdd8b38abc6afc3a347951daa0b3d163c589c0",
+      "rgb565_sha256": "0f7255d5f01af774bad9f07745da1a9ffb35192c066bb3ad5d09660325dd87f0",
+      "decoded_rgb_sha256": "f28dfa65dcf6d9e3164a34f7cbf43a629a05435d8d93008d6557ca51bffe5d27"
+    },
+    {
+      "archived_path": "firmware/src_front/images/flavor3_card.h",
+      "dimensions": [
+        129,
+        240
+      ],
+      "source_sha256": "91f3d98e65243823a1b395d19f5047d714aa30e4a4ab19989cb25f551fdb71b7",
+      "rgb565_sha256": "a0484da4261bcf9c413a8218ea8300900c3ddf5b1a5d3d2798519aaed766c50f",
+      "decoded_rgb_sha256": "c8ba8d8b3dfb956a949a4a62aac63081c81a7a6c687fa315d59c478a995cb64d"
+    },
+    {
+      "archived_path": "firmware/src_front/images/flavor3_tile.h",
+      "dimensions": [
+        86,
+        160
+      ],
+      "source_sha256": "44e92e1e0789b93662036e80ed8d5468a2c7fb2a1ea600be9eafff722cbab48c",
+      "rgb565_sha256": "f42c8d3a061b2bd4d3bc86e28631d85ece36a6f29919dc04b49f404ad65389e8",
+      "decoded_rgb_sha256": "8356b5075ddb6dcd1e4e17f8ebb90cbced834caec48a3ae79492d99286731cb5"
+    }
+  ],
+  "pixel_verification": {
+    "archived_headers_compared": 32,
+    "rgb565_differing_pixels": 0,
+    "decoded_rgb_differing_samples": 0,
+    "kitchen_textures": "The shared decoder reproduces the archived anchor RGB samples exactly.",
+    "duplicate_faucet_anchor_pairs": 4,
+    "animation_master_rgb565_differing_pixels": 0
+  },
+  "binary_bundles": [
+    {
+      "file": "art.bin",
+      "bytes": 4147232,
+      "sha256": "cbcb71b394644d4c1d2170bc84aa10fab665f9fa98d493470af498879db08311",
+      "identical": true
+    },
+    {
+      "file": "logos.bin",
+      "bytes": 798144,
+      "sha256": "54f6198bf61647ad16497d015f86dc4738896f5f88242ba27385f3b11d514861",
+      "identical": true
+    },
+    {
+      "file": "logos-store.bin",
+      "bytes": 802816,
+      "sha256": "7de306b9d21caae3aa521b391d7f79a21e97b03066825d54cd5cd2182323ef98",
+      "identical": true
+    }
+  ],
+  "validation": {
+    "cargo_mode": "release --locked -j 2",
+    "packages": [
+      "hsm-display-assets",
+      "hsm-marketing",
+      "hsm-peripheral"
+    ],
+    "display_tests_passed": 3,
+    "peripheral_tests_passed": 5,
+    "migration_comparison": "saved_display_pixels_match passed for every archived RGB565 stream and decoded RGB stream.",
+    "reusable_display_tests": [
+      "every_display_word_roundtrips_through_lossless_rgb",
+      "crop_keeps_row_order_and_fitting_keeps_matching_pixels"
+    ],
+    "manual_commands": [
+      "tools/run -- cargo test --manifest-path tools/hsm/Cargo.toml --release --locked -j 2 -p hsm-display-assets -p hsm-marketing -p hsm-peripheral",
+      "tools/run -- cargo build --manifest-path tools/hsm/Cargo.toml --release --locked -j 2 -p hsm-marketing -p hsm-peripheral",
+      "hsm-marketing make-art enclosure -o OUT/art.bin -q",
+      "hsm-marketing make-logos -o OUT/logos.bin -q",
+      "hsm-marketing make-logos --store -o OUT/logos-store.bin -q"
+    ],
+    "bundle_comparison": "Each generated file matches its pre-conversion binary byte for byte; the recorded SHA256 values are identical.",
+    "archived_source_hashes_verified": true
+  }
+}

@@ -47,7 +47,3 @@ hardware/cad-artifacts.json  merge=cadpointers
 # the silk's own commit hash cost 8.4 MB to carry ten lines. Keyed to the out/ directory
 # every board renders into, so the carrier is covered by the same rule as the pcba.
 hardware/pcb/*/out/*.svg  -diff linguist-generated=true
-
-# gen_animation_frames.py, sixteen 360x360 frames as RGB565 hex, 28 MB of it. Keyed to the
-# images directory rather than to *.h, because every other header under firmware/ is typed.
-firmware/src_front/images/anim_*.h  -diff linguist-generated=true

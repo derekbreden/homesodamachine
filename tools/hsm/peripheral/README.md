@@ -8,7 +8,6 @@ Its commands run when requested, outside the print build.
 | `ios-checks` | Compile and run the app's existing Swift experience checks |
 | `ios-capture` | Build the adaptive study and collect its simulator renders |
 | `firmware-pre-build` | Stamp firmware identity, patch TinyProto and prepare display blobs |
-| `png-to-rgb565` | Generate the display logo headers from the source flavor images |
 | `positioner-geometry` | Bind the controller header to the mechanical motion record |
 | `uf2` | Pack a linked RP2040 flash image |
 | `pico-pad-checksum` | Pad and checksum the SDK's compiled RP2040 boot stage |
@@ -27,6 +26,10 @@ Its commands run when requested, outside the print build.
 `--root` selects the checkout. `HSM_PERIPHERAL_BIN` selects the installed executable
 for the PlatformIO bridge and camera shell. `HSM_MARKETING_BIN` selects the native
 display blob packager used by firmware preparation.
+
+The native [marketing commands](../marketing/README.md) pack source PNG artwork
+directly into display blobs. Their [shared conversion](../display-assets/src/lib.rs)
+also supplies PNG decoding and resampling to the panel camera tools.
 
 [`firmware/pre_build.py`](../../../firmware/pre_build.py) passes the SCons environment
 into the native preparer; it contains no asset or build-policy implementation.
