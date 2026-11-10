@@ -23,8 +23,9 @@ support roots, contact planes, archive hashes and native estimate. Physical
 sliding performance and support removal remain untested.
 
 The editable native project is beside this file. The sliced machine archive and
-estimate are in [`ready/`](ready/). The plate is prepared offline and has not
-been submitted to a printer.
+estimate are in [`ready/`](ready/). Mark1's accepted job, selected send options
+and startup reading are in [`mark1/`](mark1/). The physical rail removal and
+sliding fit result remain pending.
 
 ## Reproduce
 

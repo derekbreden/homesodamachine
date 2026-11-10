@@ -1,0 +1,31 @@
+{
+  "purpose": "Retain the selected D process and distribute the short rail result and longer representative geometry plate across the ready printers.",
+  "selected_process": "D",
+  "selection_result": "rail-cavity-30-E/physical-result.json",
+  "launch_spacing_seconds": 925.607284,
+  "jobs": [
+    {
+      "printer": "Mark1",
+      "directory": "rail-fit-30",
+      "printer_task_id": "1426744585",
+      "accepted_at": "2026-11-10T04:49:46.290900+00:00",
+      "estimated_seconds": 2254.6598452455887,
+      "specimens": [
+        "RD",
+        "MD"
+      ]
+    },
+    {
+      "printer": "Mark2",
+      "directory": "D-representative-mark2",
+      "printer_task_id": "1426768924",
+      "accepted_at": "2026-11-10T05:05:11.898184+00:00",
+      "estimated_seconds": 8371.540994785459,
+      "specimens": [
+        "FD",
+        "HD",
+        "PD"
+      ]
+    }
+  ]
+}

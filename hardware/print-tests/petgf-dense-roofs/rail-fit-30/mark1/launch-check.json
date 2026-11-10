@@ -1,0 +1,27 @@
+{
+  "purpose": "Bind the saved D pair archive and centered deposited envelope to its Mark1 launch.",
+  "archive": "ready/2026-11-09-rail-fit-pair-30-D-left04-z018-mark1.gcode.3mf",
+  "archive_sha256": "a0368e2ac9ec2ab49442a1814e065237d6008275da7fdfae709c5ce92d5b543b",
+  "gcode_sha256": "04b315d5209d2c5064199b6ade21f5e7f85299875fd65ecfabd98e51166042dc",
+  "gcode_md5_verified": true,
+  "deposited_bounds_xy_mm": [
+    [
+      134.76534800000002,
+      144.546348
+    ],
+    [
+      190.485652,
+      175.830652
+    ]
+  ],
+  "bed_margins_mm": [
+    134.76534800000002,
+    144.546348,
+    134.514348,
+    144.169348
+  ],
+  "envelope_scope": "Extrusion paths with native arc subdivision and conservative padding for bead radius and arc extrema.",
+  "maximum_annotated_bead_width_mm": 0.641304,
+  "padding_mm": 0.5706519999999999,
+  "trim_verified": "G29.1 Z0.16"
+}

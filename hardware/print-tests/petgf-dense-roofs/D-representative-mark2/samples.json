@@ -1,0 +1,141 @@
+{
+  "purpose": "Transfer D contact treatment to the production faucet lower curve, rounded handhold arch and holed pad on Mark2.",
+  "profile": "hardware/print-tests/petgf-dense-roofs/close-contact/2026-11-09-close-contact-DEF-left04-z018-mark1.3mf",
+  "interface_spacing_mm": {
+    "D": 0.0
+  },
+  "column_x_mm": [
+    162.5
+  ],
+  "label_height_mm": 0.48,
+  "common_object_settings": {
+    "support_top_z_distance": "0.24",
+    "support_interface_top_layers": "3",
+    "support_interface_spacing": "0"
+  },
+  "machine_overrides": {
+    "printer_settings_id": "Bambu Lab H2C 0.4 Standard +0.04 Z trim",
+    "filament_colour": [
+      "#161616"
+    ]
+  },
+  "requested_z_trim_mm": 0.04,
+  "families": [
+    {
+      "id": "F",
+      "name": "Faucet base through first lower curve",
+      "source": "hardware/printed-parts/faucet/industrial/production/2026-10-25/industrial-shell-base.stl",
+      "feature": "Industrial faucet approved production base",
+      "rotation_x_degrees": -15,
+      "normalize_pose_to_original_bed": true,
+      "crop_min_mm": [
+        -40,
+        -50,
+        0
+      ],
+      "crop_max_mm": [
+        40,
+        50,
+        32.12
+      ],
+      "row_y_mm": 130,
+      "column_x_mm": [
+        155
+      ],
+      "label_center_world_mm": null,
+      "settings": {
+        "support_style": "default",
+        "tree_support_branch_angle": "45",
+        "support_on_build_plate_only": "0",
+        "support_object_xy_distance": "0.4",
+        "sparse_infill_density": "15%",
+        "sparse_infill_pattern": "grid",
+        "wall_generator": "arachne"
+      },
+      "retains": "Complete production base width, tilted starting contact, low underside and first lower rounded transition.",
+      "source_production_selection": "hardware/printed-parts/faucet/industrial/production-selection.json",
+      "first_curve_print_band_reference_mm": [
+        17,
+        29
+      ],
+      "support_scope": "D dense interfaces on native automatic trees over the complete lower base section."
+    },
+    {
+      "id": "H",
+      "name": "Rounded handhold arch",
+      "source": "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.stl",
+      "feature": "enclosure-back-bottom::west-handhold",
+      "crop_min_mm": [
+        -110.5,
+        200.0,
+        17.76
+      ],
+      "crop_max_mm": [
+        -90.5,
+        263.0,
+        42.0
+      ],
+      "row_y_mm": 175,
+      "label_center_world_mm": [
+        -103.0,
+        244.0,
+        42.0
+      ],
+      "settings": {
+        "support_style": "tree_slim",
+        "support_object_xy_distance": "0.4",
+        "tree_support_branch_angle": "45",
+        "support_on_build_plate_only": "0",
+        "sparse_infill_density": "15%",
+        "sparse_infill_pattern": "grid"
+      },
+      "retains": "The production corbel, curved opening end, complete open seam end, underside and wall junction; lower empty height and unrelated enclosure stock are cropped.",
+      "production_bed_world_z_mm": -6.0,
+      "target_support_root": "bed",
+      "column_x_mm": [
+        210
+      ]
+    },
+    {
+      "id": "P",
+      "name": "Holed pump-retainer pad",
+      "source": "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl",
+      "feature": "enclosure-front-top::pump-mount-cuts",
+      "source_pick_world_mm": [
+        -16.916,
+        24.629,
+        217.5
+      ],
+      "crop_min_mm": [
+        -22.725,
+        14.0,
+        210.17
+      ],
+      "crop_max_mm": [
+        -3.725,
+        35.0,
+        232.0
+      ],
+      "row_y_mm": 185,
+      "label_center_world_mm": [
+        -13.225,
+        25.5,
+        232.0
+      ],
+      "settings": {
+        "support_style": "tree_slim",
+        "support_object_xy_distance": "0.5",
+        "support_on_build_plate_only": "0",
+        "sparse_infill_density": "100%",
+        "sparse_infill_pattern": "zig-zag"
+      },
+      "retains": "The complete square underside, hole mouth, blind pilot and closing tip with its surrounding wall root; tall empty space below and excess solid cap above are cropped.",
+      "source_contact_plane_z_mm": 217.5,
+      "production_bed_world_z_mm": 160.25,
+      "target_support_root": "bed",
+      "column_x_mm": [
+        110
+      ]
+    }
+  ]
+}

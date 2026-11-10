@@ -1,0 +1,100 @@
+{
+  "error_string": "Success.",
+  "export_time": 1618,
+  "layer_height": 0.23999999463558197,
+  "plate_index": 0,
+  "prepare_time": 52,
+  "return_code": 0,
+  "sliced_plates": [
+    {
+      "feature_type_times": {
+        "Bottom surface": 16.041357040405273,
+        "Bridge": 817.7369995117188,
+        "Custom": 304.10711669921875,
+        "Flush": 15.0,
+        "Gap infill": 16.069849014282227,
+        "Inner wall": 441.4850769042969,
+        "Internal solid infill": 373.0732421875,
+        "Outer wall": 609.5276489257813,
+        "Overhang wall": 401.66156005859375,
+        "Sparse infill": 1113.826904296875,
+        "Support": 1242.517333984375,
+        "Support interface": 27.521507263183594,
+        "Support transition": 55.07047653198242,
+        "Top surface": 107.28853607177734,
+        "Travel": 1117.4169921875,
+        "Undefined": 1109.0570068359375
+      },
+      "filament_change_times": 0,
+      "filaments": [
+        {
+          "filament_id": "GFT01",
+          "id": 1,
+          "main_used_g": 42.145721435546875,
+          "total_used_g": 42.145721435546875
+        }
+      ],
+      "generate_support_material_time": 1239,
+      "id": 1,
+      "infill_time": 317,
+      "layer_filament_change": 0,
+      "main_predication": 6324.013671875,
+      "make_perimeters_time": 426,
+      "obj_cached_cnt": 0,
+      "objects": [
+        {
+          "bbox": {
+            "depth": 65.90664672851563,
+            "height": 32.119998931884766,
+            "width": 59.0,
+            "x": 125.5,
+            "y": 97.04667663574219,
+            "z": 0.0
+          },
+          "id": 5,
+          "name": "FD Faucet base through first lower curve",
+          "triangle_count": 10752
+        },
+        {
+          "bbox": {
+            "depth": 62.850006103515625,
+            "height": 24.719999313354492,
+            "width": 16.75,
+            "x": 201.625,
+            "y": 143.5749969482422,
+            "z": 0.0
+          },
+          "id": 9,
+          "name": "HD Rounded handhold arch",
+          "triangle_count": 14634
+        },
+        {
+          "bbox": {
+            "depth": 21.0,
+            "height": 22.309999465942383,
+            "width": 19.0,
+            "x": 100.5,
+            "y": 174.5,
+            "z": 0.0
+          },
+          "id": 13,
+          "name": "PD Holed pump-retainer pad",
+          "triangle_count": 2264
+        }
+      ],
+      "sliced_time": 3926,
+      "sliced_time_with_cache": 1832,
+      "total_predication": 8371.540994785459,
+      "triangle_count": 27650,
+      "warning_message": ""
+    }
+  ],
+  "sparse_infill_density": 15.0,
+  "upward_compatible_machine": [
+    "Bambu Lab H2S 0.4 nozzle",
+    "Bambu Lab H2D 0.4 nozzle",
+    "Bambu Lab H2D Pro 0.4 nozzle",
+    "Bambu Lab A2L 0.4 nozzle"
+  ],
+  "wall_loops": 2
+}
