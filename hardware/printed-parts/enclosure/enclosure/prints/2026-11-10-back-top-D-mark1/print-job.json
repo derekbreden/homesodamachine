@@ -36,18 +36,17 @@
   "minimum_c14_rounded_bead_gap_mm": 0.07511193024599955,
   "minimum_bed_margin_mm": 20.300999999999988,
   "support_free_interior_crossings": 0,
-  "status": "Cancelled at layer zero at the user request; held while peer conversations resolve.",
+  "status": "RUNNING after the peer conversations completed and the reviewed inputs were verified unchanged.",
   "physical_scope": "Full-part support removal, underside finish and fit await the physical print.",
   "estimated_seconds": 134812.39754771237,
   "estimated_filament_g": 897.9909057617188,
   "layers": 1112,
   "estimate_scope": "Native estimate includes added commanded motion from the localized recovery cooling stage; acceleration and fan spin-up are not resimulated.",
-  "printer_task_id": "1426893800",
-  "accepted_at": "2026-11-10T06:23:44+00:00",
+  "printer_task_id": "1426940190",
+  "accepted_at": "2026-11-10T06:52:04+00:00",
   "submitted_archive": "2026-11-10-back-top-D-left04-z018-mark1-print-only.gcode.3mf",
   "submitted_archive_sha256": "c7592a9cf987029a3b88ad11db19b0cbbe61cd6c9fe997eea281f9c3fb098bf8",
-  "launch": "launch.json",
-  "stop": "stopped-printer.json",
+  "launch": "restart-launch.json",
   "send_options": {
     "timelapse": "On",
     "bed_leveling": "On",
@@ -55,6 +54,18 @@
     "nozzle_offset_calibration": "Auto",
     "verification": "The background accessibility sender verifies the selected options before Send."
   },
-  "physical_print_started": false,
-  "restart_state": "Held; recheck current exports and pending geometry decisions before a fresh submission."
+  "physical_print_started": true,
+  "restart_state": "Submitted after completed peer work; source mesh, shared profile and archive hashes match the reviewed package.",
+  "previous_attempt": {
+    "printer_task_id": "1426893800",
+    "accepted_at": "2026-11-10T06:23:44+00:00",
+    "launch": "launch.json",
+    "stop": "stopped-printer.json",
+    "status": "Cancelled at layer zero at the user request; held while peer conversations resolve."
+  },
+  "restart_preflight": "restart-preflight.json",
+  "resume_readiness": "resume-readiness.json",
+  "observed_state": "RUNNING",
+  "observed_print_error": 0,
+  "physical_layer_at_acceptance": 0
 }
