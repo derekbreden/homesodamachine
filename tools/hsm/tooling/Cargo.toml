@@ -7,17 +7,8 @@ rust-version.workspace = true
 publish = false
 
 [[bin]]
-name = "faucet-display-snap"
-path = "../../../hardware/printed-parts/fixtures/faucet-display-snap/faucet_display_snap_trial.rs"
-
-[[bin]]
 name = "rear-snap-retention"
 path = "../../../hardware/print-tests/rear-snap-retention/rear_snap_retention.rs"
-
-[[bin]]
-name = "valve-socket-fit"
-path = "../../../hardware/printed-parts/fixtures/valve-socket-fit/valve_socket_fit.rs"
-
 
 [[bin]]
 name = "jg-bulkhead-reference"

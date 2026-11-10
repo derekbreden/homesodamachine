@@ -18,7 +18,7 @@ These estimates are recorded separately from published dimensions in
 `dimensions.json`. Plain insertion sockets are modeled; the regulating
 mechanism is not.
 
-[`frizzlife-prv01.step`](https://github.com/derekbreden/homesodamachine/blob/archive-finished-trials/hardware/reference/frizzlife-prv01/geometry/frizzlife-prv01.step)
+[`frizzlife-prv01.step`](https://github.com/derekbreden/homesodamachine/blob/b57b985c648c34346481a57fde897374b0e8f068/hardware/reference/frizzlife-prv01/geometry/frizzlife-prv01.step)
 is a colored native assembly with named inlet and outlet tube-mouth faces. It
 and the individual valid solids are at the `archive-finished-trials` tag;
 `build.py`, a manual CAD-queue build, draws them again. Their frozen NPZ

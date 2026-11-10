@@ -21,7 +21,7 @@ four support bodies have an outward X removal route clear of the native frame
 stock at their supported layers. Release the interface contacts and cut
 sacrificial branch junctions before pushing a support outward.
 
-The [independent fit review](https://github.com/derekbreden/homesodamachine/blob/archive-finished-trials/hardware/printed-parts/fixtures/valve-socket-fit/tighter-trial-v2/combined-mark2-native-check.json)
+The [independent fit review](https://github.com/derekbreden/homesodamachine/blob/b57b985c648c34346481a57fde897374b0e8f068/hardware/printed-parts/fixtures/valve-socket-fit/tighter-trial-v2/combined-mark2-native-check.json)
 passes all seventeen RC62 mouths and curved seats, all twenty valve socket
 sections and blind floors, and the absence of fit-object support roads.
 

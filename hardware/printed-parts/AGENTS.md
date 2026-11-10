@@ -143,7 +143,7 @@ following `cadlib/overhang_round.py`: 0.5 mm outward per millimetre of build ris
 Use six walls locally through that transition band, saved speeds and wall-first order,
 15% infill/wall overlap, and no supports on that exterior transition. Derek's accepted
 tee-carrier surface is recorded in
-[`enclosure/tee-carrier/physical-acceptance.json`](enclosure/tee-carrier/physical-acceptance.json).
+[`enclosure/tee-carrier/physical-acceptance.json`](https://github.com/derekbreden/homesodamachine/blob/d8d50f9a54222ccd40bc1e74111d2d87d893fa78/hardware/printed-parts/enclosure/tee-carrier/physical-acceptance.json).
 
 Retain 0.08 mm for inward/top show rounds. Functional flat lifting ceilings, sliding
 seats and retention bearings keep their required shape and receive accessible supports

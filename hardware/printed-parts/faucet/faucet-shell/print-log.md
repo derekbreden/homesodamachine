@@ -934,7 +934,7 @@ Derek reported:
 - "we need the old clearance back there, where the previous model did not cover as much of the lever."
 - "I don't think you need to remove too much material, just over (Z+) the lever, in the same places where the old model had clearance."
 
-The [display trial log](https://github.com/derekbreden/homesodamachine/blob/archive-finished-trials/hardware/printed-parts/fixtures/faucet-display-snap/print-log.md)
+The [display trial log](https://github.com/derekbreden/homesodamachine/blob/b57b985c648c34346481a57fde897374b0e8f068/hardware/printed-parts/fixtures/faucet-display-snap/print-log.md)
 records the cover's fit, retention and wing-flex observations.
 
 ## PET-GF faucet with open forward lever clearance — 2026-09-18, Mark2
