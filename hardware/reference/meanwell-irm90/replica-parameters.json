@@ -112,6 +112,24 @@
       ]
     }
   },
+  "electrical_ports": {
+    "L": {
+      "row": "ac",
+      "pole": 1
+    },
+    "N": {
+      "row": "ac",
+      "pole": 0
+    },
+    "GND": {
+      "row": "dc",
+      "pole": 1
+    },
+    "V12": {
+      "row": "dc",
+      "pole": 2
+    }
+  },
   "evidence": {
     "manufacturer_pdf": "https://www.meanwell.com/Upload/PDF/IRM-90/IRM-90-spec.pdf",
     "manufacturer_3d_archive": "https://www.meanwell.com/upload/pdf/IRM-90/IRM-90-3D.zip",
@@ -174,6 +192,12 @@
       "Small terminal interlock tongues, screw drives and pin detail are omitted.",
       "Terminal screw wells and wire mouths preserve their manufacturer exterior stations.",
       "Only the board edge beneath the terminal rows is exposed; interior board components are omitted."
-    ]
+    ],
+    "electrical_ports": {
+      "view": "Screw terminal style TOP VIEW",
+      "pole_index_base": 0,
+      "frame": "AC is at positive Y. Positive Z points toward the case crown and screw access; positive X points right in the top view.",
+      "dc_selection": "The selected output ports use the inner commoned poles."
+    }
   }
 }

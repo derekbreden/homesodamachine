@@ -289,24 +289,36 @@ fn mate_regions(
             }
             let screw = format!("{component}-screw-{}", i + 1);
             let insert = format!("{component}-insert-{}", i + 1);
+            let host = string(&plan["parent"]);
+            if !pending.contains(&pair(&screw, &insert))
+                && !pending.contains(&pair(&insert, &host))
+            {
+                continue;
+            }
+            let dimension = |key: &str| {
+                plan[key].as_f64().with_context(|| format!("wall mount {component} needs {key}"))
+            };
             let start = vector(&s["insert_face_world_mm"])?;
             let axis = -vector(&s["axis_world"])?;
             for (a, b, inner, outer, basis) in [
                 (
                     screw,
                     insert.clone(),
-                    1.25,
-                    1.5,
-                    "M3 shaft in its own short insert thread annulus",
+                    dimension("insert_bore_radius_mm")?,
+                    dimension("screw_radius_mm")?,
+                    "Own shaft in the selected insert's nominal thread annulus",
                 ),
                 (
                     insert,
-                    string(&plan["parent"]),
-                    num(&plan["pilot_radius_mm"]),
-                    2.3,
-                    "RX-M3S×4 knurl in its own finite wall pilot annulus",
+                    host,
+                    dimension("pilot_radius_mm")?,
+                    dimension("insert_radius_mm")?,
+                    "Selected insert knurl in its own finite wall pilot annulus",
                 ),
             ] {
+                if outer <= inner {
+                    continue;
+                }
                 if pending.contains(&pair(&a, &b)) {
                     out.push((
                         a,
@@ -316,7 +328,7 @@ fn mate_regions(
                             outer,
                             start,
                             axis,
-                            num(&plan["insert_length_mm"]),
+                            dimension("insert_length_mm")?,
                             true,
                         )?,
                         basis.to_owned(),
