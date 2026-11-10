@@ -54,7 +54,7 @@
     "nozzle_offset_calibration": "Auto",
     "verification": "The background accessibility sender verifies the selected options before Send."
   },
-  "physical_print_started": true,
+  "physical_print_started": false,
   "restart_state": "Submitted after completed peer work; source mesh, shared profile and archive hashes match the reviewed package.",
   "previous_attempt": {
     "printer_task_id": "1426893800",
@@ -67,5 +67,9 @@
   "resume_readiness": "resume-readiness.json",
   "observed_state": "RUNNING",
   "observed_print_error": 0,
-  "physical_layer_at_acceptance": 0
+  "physical_layer_at_acceptance": 0,
+  "job_started": true,
+  "part_layer_observed": false,
+  "startup_status": "restart-startup-status.json",
+  "observed_startup_layer": 0
 }
