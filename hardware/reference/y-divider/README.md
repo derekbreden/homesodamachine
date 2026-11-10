@@ -28,3 +28,5 @@ has to fan — which is why Y-A and Y-B are dividers and the other six junctions
 are Tees ([`fluid-topology.md`](/hardware/topology/fluid-topology.md) §Junctions).
 
 Accepts 1/4" (6.35 mm) OD tube; the 1/4" bore radius is 3.175 mm.
+
+The source derivations are preserved at their recorded revision: [y_divider.py](https://github.com/derekbreden/homesodamachine/blob/a518a57a878f02d9ac5b8b638c1c5883cadf6669/hardware/reference/y-divider/y_divider.py).

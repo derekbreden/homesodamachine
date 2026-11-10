@@ -61,12 +61,11 @@ Tube and connector colors match the hardware: each bulkhead ring and tube collar
 its PET-GF spool color with its raised word. The power scene carries the white faucet mark on
 its black nameplate. The glass contains dark cola and rounded ice cubes packed from the base to
 just above the liquid, with a visible rim and no falling streams. The first-pour instructions
-call for a glass filled with ice. The illustration comes from
-`tools/install-guide/ice_scene.py`.
+call for a glass filled with ice. The first-pour illustration is saved with the booklet's artwork.
 
 The concentrate bottle is an illustration prop with tapered shoulders, an open ribbed neck
 and a wrapped COLA label. It tips from the front with its mouth over the funnel; the motion
-cue follows its base's swing. [`tools/install-guide/refresh_art.py`](../../tools/install-guide/refresh_art.py)
+cue follows its base's swing. [`hsm-install-art`](../../tools/hsm/install-art/README.md)
 renders the appliance views on request, using the current shared meshes and the Rust props in
 [`art.rs`](../../tools/install-guide/art.rs). The power connector approaches the recessed inlet.
 The pour shows the funnel without its lift-off cover; the closed view shows the cover on its brim.
@@ -98,13 +97,13 @@ PDF, the type, the outlined pictures and the pixels the covers are drawn to.
 From the repository root:
 
 ```sh
-python3 tools/run.py -- cargo build --release --locked -j 2 --manifest-path tools/hsm/Cargo.toml \
-  -p hsm-kit-art -p hsm-install-guide --bin install-illustrations --bin kit-art --bin install-guide
-python3 tools/run.py -- tools/cad-venv/bin/python tools/install-guide/refresh_art.py
-python3 tools/run.py -- tools/hsm/target/release/kit-art . machine
-python3 tools/run.py -- cargo run --release --manifest-path tools/hsm/opening-scene/Cargo.toml
-python3 tools/run.py -- tools/hsm/target/release/install-guide
-tools/cad-venv/bin/python tools/install-guide/preflight.py --json hardware/install-guide/out/landscape/preflight.json
+tools/run -- cargo build --release --locked -j 2 --manifest-path tools/hsm/Cargo.toml \
+  -p hsm-kit-art -p hsm-install-guide -p hsm-install-art \
+  --bin install-illustrations --bin kit-art --bin install-guide --bin hsm-install-art
+tools/run -- tools/hsm/target/release/hsm-install-art refresh
+tools/run -- tools/hsm/target/release/kit-art . machine
+tools/run -- cargo run --release --manifest-path tools/hsm/opening-scene/Cargo.toml
+tools/run -- tools/hsm/target/release/install-guide
 pdftoppm -scale-to 1000 -png hardware/install-guide/install-guide.pdf hardware/install-guide/out/landscape/page
 ```
 
@@ -112,17 +111,16 @@ The composer writes the reading PDF, thumbnail and document metadata. With `HSM_
 also writes the print PDFs and the order bundle in `output/pdf/`, which an order needs and the
 normal build does not. It refuses text that leaves the safe area or runs into the footer, and
 draws each picture with its outline at print resolution from the saved artwork. Native
-illustration resolution must be at least 300 PPI at the placed size. The preflight checks the
-finished PDFs' dimensions, page order, fonts, images and reading links. `out/` holds local
-renders and layout measurements. Review every rendered page at reading size before publishing.
+illustration resolution must be at least 300 PPI at the placed size. `out/` holds local renders
+and layout measurements. Review every rendered page at reading size before publishing.
 
 The appliance illustrations are manual snapshots. Refreshing them is separate from the print
-build. `refresh_art.py --views` selects individual views; its run directory holds temporary
-scene references and a concise source receipt. The screen graphic follows the display cover's
-frame, and the connection arrows use the native renderer's camera projection.
+build. `hsm-install-art refresh --views NAME ...` selects individual views; its run directory
+holds a scene manifest and concise source receipt after temporary payloads and renders are
+removed. The screen graphic follows the display cover's frame, and the connection arrows
+use the native renderer's camera projection.
 
-The preflight uses the CAD Python environment with pypdf and pdfplumber, and Poppler's
-`pdftoppm` and `pdfimages` commands.
+Poppler's `pdftoppm` renders the finished PDF for page review.
 
 ## Print
 
@@ -131,7 +129,7 @@ all trimmed to 9 × 7 inches without bleed. PDF page labels match the printed in
 bookmarks and the route page link to each installation step.
 
 `press/` holds the two Lulu upload files. An order writes them with
-`HSM_PRESS=1 python3 tools/run.py -- cargo run --release --manifest-path tools/hsm/install-guide/Cargo.toml`:
+`HSM_PRESS=1 tools/run -- cargo run --release --manifest-path tools/hsm/install-guide/Cargo.toml`:
 
 | File | Size including bleed | Holds |
 | --- | --- | --- |

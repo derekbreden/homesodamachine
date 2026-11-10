@@ -19,5 +19,9 @@ pub const BASE: [f64; 3] = [120., 90., 8.];
 pub const JAW: [f64; 3] = [64., 25., 30.];
 /// The shortest rod blank the jaws are drilled in.
 pub const MINIMUM_BLANK: f64 = 40.;
+/// The handling blank and clamp stations used by the manual drilling setup.
+pub const HANDLING_BLANK: f64 = 50.;
+pub const JAW_CLAMP_X: f64 = 20.;
+pub const BASE_CLAMP_X: f64 = 46.;
 /// The tolerance the stock's diameter is checked over, either side.
 pub const STOCK_TOLERANCE: f64 = 0.1;

@@ -2,7 +2,7 @@
 
 What the machine should do, worked from physics and written down before the test that checks
 it. A result inside its band confirms the model; a result outside names the assumption to
-change. [`tools/model/model.py`](/tools/model/model.py) computes every figure here from the
+change. [`repo-tools model`](/tools/hsm/repo-tools/src/model.rs) computes every figure here from the
 inputs below and from the constants the firmware, the faucet and enclosure CAD and the
 pressure-vessel and acceptance procedures use. It runs when someone asks, never on a commit or
 in the build.
@@ -37,7 +37,7 @@ channel's ratio setting.
 | The can's fridge | | Probe a glass of water that spent the night in it. |
 | Lillium to the TAP bulkhead | of 1/4" LLDPE, bore, the Lillium's own tube out of its bath included | Tape-measure. The bore is the [scanned sample](/hardware/reference/lldpe-tubes/README.md). |
 | TAP to the meter | | Cut on the parts ([cutover](/hardware/assembly/lillium-cutover.md) §3); measure it. |
-| Meter to SODA, umbilical, gooseneck | of `carb-2`, the blue tube, of 3/8" tube at | The [assembly facts](/hardware/manifold-layout/enclosure-assembly.facts.json) and the [faucet assembly](/hardware/faucet-layout/faucet_assembly.py). |
+| Meter to SODA, umbilical, gooseneck | of `carb-2`, the blue tube, of 3/8" tube at | The [assembly facts](/hardware/manifold-layout/enclosure-assembly.facts.json) and the [faucet assembly](/hardware/faucet-layout/faucet_assembly.rs). |
 | Water standing ahead of the tip | | Those runs, in the meter and in the Westbrass body. |
 | Drinking glass | | Weigh one of the matching glasses. |
 | Ratio setting | | The machine display, or `ratio` on the console. |
@@ -47,7 +47,7 @@ channel's ratio setting.
 | Glass of soda | | Twelve ounces, as [acceptance](/hardware/assembly/acceptance-and-burn-in.md) pours. |
 
 A range is this page's assumption until the sink says otherwise. Read the inputs before the
-tests and pin each one, `tools/cad-venv/bin/python tools/model/model.py --set regulator_psi=72`
+tests and pin each one, `repo-tools model --set regulator_psi=72`
 and so on; the page then carries the narrowed prediction, committed before the pour that tests
 it. Each figure is the median of the draws with the middle 80 % in brackets.
 
@@ -280,7 +280,7 @@ and what fill time the appliance's lower feed will give.
    30 s and read; pull the ring until the needle drops near zero; shake 30 s and read; pull it
    again; shake until the needle stops rising and read. Take the gauge off, open the cap, probe
    the liquid.
-7. `tools/cad-venv/bin/python tools/model/model.py volumes <final psi> <°C> --liquid-g <g>
+7. `repo-tools model volumes <final psi> <°C> --liquid-g <g>
    --bottle-ml <mL> --snift <first> --snift <second>` gives each sample's volumes.
 
 Fill time is the lever time scaled to by each weighed glass. Keep the

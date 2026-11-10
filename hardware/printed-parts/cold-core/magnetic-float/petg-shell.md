@@ -131,7 +131,7 @@ replaces Aero within the fixed exterior volume. The specified 3 mm wall
 preserves useful lift while providing material depth and ovalization resistance.
 The [research calculation](pressure-printing-sources.json) records this tradeoff.
 
-[pressure_analysis.py](pressure_analysis.py) produces the independent annulus
+[pressure_analysis.py](https://github.com/derekbreden/homesodamachine/blob/a518a57a878f02d9ac5b8b638c1c5883cadf6669/hardware/printed-parts/cold-core/magnetic-float/pressure_analysis.py) produces the independent annulus
 calculation and the pressure/stiffness sensitivity in
 [pressure-analysis.json](pressure-analysis.json). With full pressure differential
 and no structural credit for the foam, Lamé thick-cylinder equations give:

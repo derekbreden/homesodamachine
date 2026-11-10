@@ -14,6 +14,9 @@ parameters separate those photo-scaled estimates from the retained panel
 interface. The reference does not qualify a conforming rear cradle, latch
 deflection or terminal fit against the received part.
 
-`riteav_keystone.py` supplies the existing receptacle API used by the enclosure.
+The enclosure receptacle uses the interface dimensions retained in
+[replica-parameters.json](replica-parameters.json).
 The reference's origin is the wall's outer plane, with the customer plug along
 positive Y and the jack inboard along negative Y. Positive Z is up.
+
+The source derivations are preserved at their recorded revision: [riteav_keystone.py](https://github.com/derekbreden/homesodamachine/blob/a518a57a878f02d9ac5b8b638c1c5883cadf6669/hardware/reference/riteav-keystone/riteav_keystone.py).

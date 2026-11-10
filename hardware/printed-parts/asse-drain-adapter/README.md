@@ -54,5 +54,5 @@ unsealed outlet over the bowl.
 Regenerate from the repository root:
 
 ```sh
-python3 tools/run.py -- cargo run --release --manifest-path tools/hsm/asse-drain-adapter/Cargo.toml
+tools/run -- cargo run --release --manifest-path tools/hsm/asse-drain-adapter/Cargo.toml
 ```

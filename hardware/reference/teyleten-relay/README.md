@@ -14,7 +14,7 @@ interior bores use an idealized estimate from observed control-end wall bands;
 clean entry tapers preserve the individually fitted top rims. Observed solder
 tips use smooth closed envelopes at their measured positions and downward extent.
 [scan-datums.json](scan-datums.json) owns these dimensions and the wire-entry
-interfaces exposed by [teyleten_relay.py](teyleten_relay.py).
+interfaces.
 Each interface locates the central wire mouth and points outward from its
 terminal housing face.
 
@@ -35,3 +35,5 @@ residuals do not establish absolute accuracy or installation clearance. The
 review](../../printed-parts/enclosure/enclosure/relay-mount-fit.json) defines
 the screw stack and measured geometry scope; physical load retention remains
 unqualified.
+
+The source derivations are preserved at their recorded revision: [teyleten_relay.py](https://github.com/derekbreden/homesodamachine/blob/a518a57a878f02d9ac5b8b638c1c5883cadf6669/hardware/reference/teyleten-relay/teyleten_relay.py).

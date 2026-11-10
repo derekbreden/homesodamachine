@@ -1,10 +1,4 @@
-# The appliance's geometry, docs and pictures — one action per generator. Written by
-# tools/bazel/gen_build.py off tools/bazel/inventory.py; the sandbox corrects it.
-#
-# WHAT AN ACTION HOLDS IS WHAT IT NAMED. A generator reads the Python its imports
-# reach, the solids it loads and the docs it rewrites; all three are `srcs`, and
-# nothing else is in the directory the run happens in. A solid one generator cuts and
-# the next loads is an edge like any other: unnamed, the reader does not find the file.
+# Native producer actions and their declared data are rendered by hsm-build-plan.
 
 genrule(
     name = "cold-core-assembly-program",
@@ -215,14 +209,14 @@ hsm_run=
 for r in "$$(awk -F'"' '$$2 == "runner" {print $$4}' ~/.local/lib/hsm/runtime.json 2>/dev/null)" "$$HSM_WORKSPACE/tools/hsm/target/release/hsm-run"; do
   if [ -x "$$r" ] && "$$r" --runtime-info "$$HSM_WORKSPACE" 2>/dev/null | grep -q '"source_match":true'; then hsm_run=$$r; break; fi
 done
-if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run.py" >&2; exit 1; fi
+if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run" >&2; exit 1; fi
 cargo=$$(command -v cargo || true)
 for c in "$$cargo" /opt/homebrew/opt/rustup/bin/cargo ~/.cargo/bin/cargo; do if [ -x "$$c" ]; then cargo=$$c; break; fi; done
 if [ ! -x "$$cargo" ]; then echo "cargo is not installed (https://rustup.rs)" >&2; exit 1; fi
-export HOME=~ PATH="$$(dirname "$$cargo"):$$PATH"
+export PATH="$$(dirname "$$cargo"):$$PATH"
 O0=$$PWD/$(location out/cold-core-assembly-program/cold-core-assembly)
 cd "$$HSM_WORKSPACE/tools/hsm"
-CARGO_TARGET_DIR="$$PWD/target" "$$hsm_run" -- "$$cargo" build --release --locked --quiet --manifest-path cold-core-assembly/Cargo.toml --bin cold-core-assembly
+CARGO_TARGET_DIR="$$PWD/target" "$$hsm_run" -- "$$cargo" build --release --locked --quiet -j 2 --manifest-path cold-core-assembly/Cargo.toml --bin cold-core-assembly
 copy_file target/release/cold-core-assembly "$$O0"
 """,
 )
@@ -303,7 +297,7 @@ hsm_run=
 for r in "$$(awk -F'"' '$$2 == "runner" {print $$4}' ~/.local/lib/hsm/runtime.json 2>/dev/null)" "$$HSM_WORKSPACE/tools/hsm/target/release/hsm-run"; do
   if [ -x "$$r" ] && "$$r" --runtime-info "$$HSM_WORKSPACE" 2>/dev/null | grep -q '"source_match":true'; then hsm_run=$$r; break; fi
 done
-if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run.py" >&2; exit 1; fi
+if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run" >&2; exit 1; fi
 O0=$$PWD/$(location out/cold-core-assembly/hardware/cold-core-layout/cold-core-assembly.numbers.json)
 O1=$$PWD/$(location out/cold-core-assembly/hardware/cold-core-layout/cold-core-assembly.scene.npz)
 O2=$$PWD/$(location out/cold-core-assembly/hardware/cold-core-layout/cold-core-assembly.step)
@@ -311,13 +305,17 @@ O3=$$PWD/$(location out/cold-core-assembly/hardware/cold-core-layout/cold-core-a
 rm -rf work
 for f in $(SRCS); do
   case $$f in
+    */node_modules/*) continue;;
     */bin/out/*/*) t=$${f#*/bin/out/}; t=$${t#*/};;
     *) t=$$f;;
   esac
   mkdir -p "work/$$(dirname "$$t")"; copy_file -L "$$f" "work/$$t"
 done
+for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
+  if [ -d "$$d" ]; then mkdir -p "work/$$(dirname "$$d")"; ln -sfn "$$PWD/$$d" "work/$$d"; fi
+done
 cd work
-"$$hsm_run" -- ./cold-core-assembly > /dev/null
+HSM_REPO_ROOT=$$PWD "$$hsm_run" -- ./cold-core-assembly > /dev/null
 copy_file hardware/cold-core-layout/cold-core-assembly.numbers.json "$$O0"
 copy_file hardware/cold-core-layout/cold-core-assembly.scene.npz "$$O1"
 copy_file hardware/cold-core-layout/cold-core-assembly.step "$$O2"
@@ -428,14 +426,14 @@ hsm_run=
 for r in "$$(awk -F'"' '$$2 == "runner" {print $$4}' ~/.local/lib/hsm/runtime.json 2>/dev/null)" "$$HSM_WORKSPACE/tools/hsm/target/release/hsm-run"; do
   if [ -x "$$r" ] && "$$r" --runtime-info "$$HSM_WORKSPACE" 2>/dev/null | grep -q '"source_match":true'; then hsm_run=$$r; break; fi
 done
-if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run.py" >&2; exit 1; fi
+if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run" >&2; exit 1; fi
 cargo=$$(command -v cargo || true)
 for c in "$$cargo" /opt/homebrew/opt/rustup/bin/cargo ~/.cargo/bin/cargo; do if [ -x "$$c" ]; then cargo=$$c; break; fi; done
 if [ ! -x "$$cargo" ]; then echo "cargo is not installed (https://rustup.rs)" >&2; exit 1; fi
-export HOME=~ PATH="$$(dirname "$$cargo"):$$PATH"
+export PATH="$$(dirname "$$cargo"):$$PATH"
 O0=$$PWD/$(location out/carbonator-tube-step-program/carbonator-tube-step)
 cd "$$HSM_WORKSPACE/tools/hsm"
-CARGO_TARGET_DIR="$$PWD/target" "$$hsm_run" -- "$$cargo" build --release --locked --quiet --manifest-path carbonator-tube/Cargo.toml --bin carbonator-tube-step
+CARGO_TARGET_DIR="$$PWD/target" "$$hsm_run" -- "$$cargo" build --release --locked --quiet -j 2 --manifest-path carbonator-tube/Cargo.toml --bin carbonator-tube-step
 copy_file target/release/carbonator-tube-step "$$O0"
 """,
 )
@@ -492,20 +490,24 @@ hsm_run=
 for r in "$$(awk -F'"' '$$2 == "runner" {print $$4}' ~/.local/lib/hsm/runtime.json 2>/dev/null)" "$$HSM_WORKSPACE/tools/hsm/target/release/hsm-run"; do
   if [ -x "$$r" ] && "$$r" --runtime-info "$$HSM_WORKSPACE" 2>/dev/null | grep -q '"source_match":true'; then hsm_run=$$r; break; fi
 done
-if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run.py" >&2; exit 1; fi
+if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run" >&2; exit 1; fi
 O0=$$PWD/$(location out/carbonator-tube-step/hardware/cut-parts/carbonation/carbonator-tube/carbonator-tube.step)
 O1=$$PWD/$(location out/carbonator-tube-step/hardware/cut-parts/carbonation/carbonator-tube/carbonator-tube.step.mesh)
 O2=$$PWD/$(location out/carbonator-tube-step/hardware/cut-parts/carbonation/carbonator-tube/carbonator-tube.step.npz)
 rm -rf work
 for f in $(SRCS); do
   case $$f in
+    */node_modules/*) continue;;
     */bin/out/*/*) t=$${f#*/bin/out/}; t=$${t#*/};;
     *) t=$$f;;
   esac
   mkdir -p "work/$$(dirname "$$t")"; copy_file -L "$$f" "work/$$t"
 done
+for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
+  if [ -d "$$d" ]; then mkdir -p "work/$$(dirname "$$d")"; ln -sfn "$$PWD/$$d" "work/$$d"; fi
+done
 cd work
-"$$hsm_run" -- ./carbonator-tube-step > /dev/null
+HSM_REPO_ROOT=$$PWD "$$hsm_run" -- ./carbonator-tube-step > /dev/null
 copy_file hardware/cut-parts/carbonation/carbonator-tube/carbonator-tube.step "$$O0"
 copy_file hardware/cut-parts/carbonation/carbonator-tube/carbonator-tube.step.mesh "$$O1"
 copy_file hardware/cut-parts/carbonation/carbonator-tube/carbonator-tube.step.npz "$$O2"
@@ -619,14 +621,14 @@ hsm_run=
 for r in "$$(awk -F'"' '$$2 == "runner" {print $$4}' ~/.local/lib/hsm/runtime.json 2>/dev/null)" "$$HSM_WORKSPACE/tools/hsm/target/release/hsm-run"; do
   if [ -x "$$r" ] && "$$r" --runtime-info "$$HSM_WORKSPACE" 2>/dev/null | grep -q '"source_match":true'; then hsm_run=$$r; break; fi
 done
-if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run.py" >&2; exit 1; fi
+if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run" >&2; exit 1; fi
 cargo=$$(command -v cargo || true)
 for c in "$$cargo" /opt/homebrew/opt/rustup/bin/cargo ~/.cargo/bin/cargo; do if [ -x "$$c" ]; then cargo=$$c; break; fi; done
 if [ ! -x "$$cargo" ]; then echo "cargo is not installed (https://rustup.rs)" >&2; exit 1; fi
-export HOME=~ PATH="$$(dirname "$$cargo"):$$PATH"
+export PATH="$$(dirname "$$cargo"):$$PATH"
 O0=$$PWD/$(location out/endcap-circular-step-program/endcap-circular-step)
 cd "$$HSM_WORKSPACE/tools/hsm"
-CARGO_TARGET_DIR="$$PWD/target" "$$hsm_run" -- "$$cargo" build --release --locked --quiet --manifest-path endcap-circular/Cargo.toml --bin endcap-circular-step
+CARGO_TARGET_DIR="$$PWD/target" "$$hsm_run" -- "$$cargo" build --release --locked --quiet -j 2 --manifest-path endcap-circular/Cargo.toml --bin endcap-circular-step
 copy_file target/release/endcap-circular-step "$$O0"
 """,
 )
@@ -683,20 +685,24 @@ hsm_run=
 for r in "$$(awk -F'"' '$$2 == "runner" {print $$4}' ~/.local/lib/hsm/runtime.json 2>/dev/null)" "$$HSM_WORKSPACE/tools/hsm/target/release/hsm-run"; do
   if [ -x "$$r" ] && "$$r" --runtime-info "$$HSM_WORKSPACE" 2>/dev/null | grep -q '"source_match":true'; then hsm_run=$$r; break; fi
 done
-if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run.py" >&2; exit 1; fi
+if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run" >&2; exit 1; fi
 O0=$$PWD/$(location out/endcap-circular-step/hardware/cut-parts/carbonation/endcaps-circular/endcap-circular-2hole.step)
 O1=$$PWD/$(location out/endcap-circular-step/hardware/cut-parts/carbonation/endcaps-circular/endcap-circular-2hole.step.mesh)
 O2=$$PWD/$(location out/endcap-circular-step/hardware/cut-parts/carbonation/endcaps-circular/endcap-circular-2hole.step.npz)
 rm -rf work
 for f in $(SRCS); do
   case $$f in
+    */node_modules/*) continue;;
     */bin/out/*/*) t=$${f#*/bin/out/}; t=$${t#*/};;
     *) t=$$f;;
   esac
   mkdir -p "work/$$(dirname "$$t")"; copy_file -L "$$f" "work/$$t"
 done
+for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
+  if [ -d "$$d" ]; then mkdir -p "work/$$(dirname "$$d")"; ln -sfn "$$PWD/$$d" "work/$$d"; fi
+done
 cd work
-"$$hsm_run" -- ./endcap-circular-step > /dev/null
+HSM_REPO_ROOT=$$PWD "$$hsm_run" -- ./endcap-circular-step > /dev/null
 copy_file hardware/cut-parts/carbonation/endcaps-circular/endcap-circular-2hole.step "$$O0"
 copy_file hardware/cut-parts/carbonation/endcaps-circular/endcap-circular-2hole.step.mesh "$$O1"
 copy_file hardware/cut-parts/carbonation/endcaps-circular/endcap-circular-2hole.step.npz "$$O2"
@@ -731,6 +737,9 @@ genrule(
         "tools/hsm/build-data/src/artifact_cache.rs",
         "tools/hsm/build-data/src/artifacts.rs",
         "tools/hsm/build-data/src/assets.rs",
+        "tools/hsm/build-data/src/bookkeeping_affected.rs",
+        "tools/hsm/build-data/src/bookkeeping_common.rs",
+        "tools/hsm/build-data/src/bookkeeping_sync.rs",
         "tools/hsm/build-data/src/inventory.rs",
         "tools/hsm/build-data/src/lib.rs",
         "tools/hsm/build-data/src/payload.rs",
@@ -869,14 +878,14 @@ hsm_run=
 for r in "$$(awk -F'"' '$$2 == "runner" {print $$4}' ~/.local/lib/hsm/runtime.json 2>/dev/null)" "$$HSM_WORKSPACE/tools/hsm/target/release/hsm-run"; do
   if [ -x "$$r" ] && "$$r" --runtime-info "$$HSM_WORKSPACE" 2>/dev/null | grep -q '"source_match":true'; then hsm_run=$$r; break; fi
 done
-if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run.py" >&2; exit 1; fi
+if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run" >&2; exit 1; fi
 cargo=$$(command -v cargo || true)
 for c in "$$cargo" /opt/homebrew/opt/rustup/bin/cargo ~/.cargo/bin/cargo; do if [ -x "$$c" ]; then cargo=$$c; break; fi; done
 if [ ! -x "$$cargo" ]; then echo "cargo is not installed (https://rustup.rs)" >&2; exit 1; fi
-export HOME=~ PATH="$$(dirname "$$cargo"):$$PATH"
+export PATH="$$(dirname "$$cargo"):$$PATH"
 O0=$$PWD/$(location out/faucet-assembly-program/faucet-assembly)
 cd "$$HSM_WORKSPACE/tools/hsm"
-CARGO_TARGET_DIR="$$PWD/target" "$$hsm_run" -- "$$cargo" build --release --locked --quiet --manifest-path faucet-assembly/Cargo.toml --bin faucet-assembly
+CARGO_TARGET_DIR="$$PWD/target" "$$hsm_run" -- "$$cargo" build --release --locked --quiet -j 2 --manifest-path faucet-assembly/Cargo.toml --bin faucet-assembly
 copy_file target/release/faucet-assembly "$$O0"
 """,
 )
@@ -965,20 +974,24 @@ hsm_run=
 for r in "$$(awk -F'"' '$$2 == "runner" {print $$4}' ~/.local/lib/hsm/runtime.json 2>/dev/null)" "$$HSM_WORKSPACE/tools/hsm/target/release/hsm-run"; do
   if [ -x "$$r" ] && "$$r" --runtime-info "$$HSM_WORKSPACE" 2>/dev/null | grep -q '"source_match":true'; then hsm_run=$$r; break; fi
 done
-if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run.py" >&2; exit 1; fi
+if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run" >&2; exit 1; fi
 O0=$$PWD/$(location out/faucet-assembly/hardware/faucet-layout/faucet-assembly.step)
 O1=$$PWD/$(location out/faucet-assembly/hardware/faucet-layout/faucet-assembly.step.mesh)
 O2=$$PWD/$(location out/faucet-assembly/hardware/faucet-layout/faucet-assembly.step.npz)
 rm -rf work
 for f in $(SRCS); do
   case $$f in
+    */node_modules/*) continue;;
     */bin/out/*/*) t=$${f#*/bin/out/}; t=$${t#*/};;
     *) t=$$f;;
   esac
   mkdir -p "work/$$(dirname "$$t")"; copy_file -L "$$f" "work/$$t"
 done
+for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
+  if [ -d "$$d" ]; then mkdir -p "work/$$(dirname "$$d")"; ln -sfn "$$PWD/$$d" "work/$$d"; fi
+done
 cd work
-"$$hsm_run" -- ./faucet-assembly > /dev/null
+HSM_REPO_ROOT=$$PWD "$$hsm_run" -- ./faucet-assembly > /dev/null
 copy_file hardware/faucet-layout/faucet-assembly.step "$$O0"
 copy_file hardware/faucet-layout/faucet-assembly.step.mesh "$$O1"
 copy_file hardware/faucet-layout/faucet-assembly.step.npz "$$O2"
@@ -1013,6 +1026,9 @@ genrule(
         "tools/hsm/build-data/src/artifact_cache.rs",
         "tools/hsm/build-data/src/artifacts.rs",
         "tools/hsm/build-data/src/assets.rs",
+        "tools/hsm/build-data/src/bookkeeping_affected.rs",
+        "tools/hsm/build-data/src/bookkeeping_common.rs",
+        "tools/hsm/build-data/src/bookkeeping_sync.rs",
         "tools/hsm/build-data/src/inventory.rs",
         "tools/hsm/build-data/src/lib.rs",
         "tools/hsm/build-data/src/payload.rs",
@@ -1151,14 +1167,14 @@ hsm_run=
 for r in "$$(awk -F'"' '$$2 == "runner" {print $$4}' ~/.local/lib/hsm/runtime.json 2>/dev/null)" "$$HSM_WORKSPACE/tools/hsm/target/release/hsm-run"; do
   if [ -x "$$r" ] && "$$r" --runtime-info "$$HSM_WORKSPACE" 2>/dev/null | grep -q '"source_match":true'; then hsm_run=$$r; break; fi
 done
-if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run.py" >&2; exit 1; fi
+if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run" >&2; exit 1; fi
 cargo=$$(command -v cargo || true)
 for c in "$$cargo" /opt/homebrew/opt/rustup/bin/cargo ~/.cargo/bin/cargo; do if [ -x "$$c" ]; then cargo=$$c; break; fi; done
 if [ ! -x "$$cargo" ]; then echo "cargo is not installed (https://rustup.rs)" >&2; exit 1; fi
-export HOME=~ PATH="$$(dirname "$$cargo"):$$PATH"
+export PATH="$$(dirname "$$cargo"):$$PATH"
 O0=$$PWD/$(location out/faucet-industrial-assembly-program/faucet-industrial-assembly)
 cd "$$HSM_WORKSPACE/tools/hsm"
-CARGO_TARGET_DIR="$$PWD/target" "$$hsm_run" -- "$$cargo" build --release --locked --quiet --manifest-path faucet-assembly/Cargo.toml --bin faucet-industrial-assembly
+CARGO_TARGET_DIR="$$PWD/target" "$$hsm_run" -- "$$cargo" build --release --locked --quiet -j 2 --manifest-path faucet-assembly/Cargo.toml --bin faucet-industrial-assembly
 copy_file target/release/faucet-industrial-assembly "$$O0"
 """,
 )
@@ -1247,20 +1263,24 @@ hsm_run=
 for r in "$$(awk -F'"' '$$2 == "runner" {print $$4}' ~/.local/lib/hsm/runtime.json 2>/dev/null)" "$$HSM_WORKSPACE/tools/hsm/target/release/hsm-run"; do
   if [ -x "$$r" ] && "$$r" --runtime-info "$$HSM_WORKSPACE" 2>/dev/null | grep -q '"source_match":true'; then hsm_run=$$r; break; fi
 done
-if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run.py" >&2; exit 1; fi
+if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run" >&2; exit 1; fi
 O0=$$PWD/$(location out/faucet-industrial-assembly/hardware/faucet-layout/faucet-industrial-assembly.step)
 O1=$$PWD/$(location out/faucet-industrial-assembly/hardware/faucet-layout/faucet-industrial-assembly.step.mesh)
 O2=$$PWD/$(location out/faucet-industrial-assembly/hardware/faucet-layout/faucet-industrial-assembly.step.npz)
 rm -rf work
 for f in $(SRCS); do
   case $$f in
+    */node_modules/*) continue;;
     */bin/out/*/*) t=$${f#*/bin/out/}; t=$${t#*/};;
     *) t=$$f;;
   esac
   mkdir -p "work/$$(dirname "$$t")"; copy_file -L "$$f" "work/$$t"
 done
+for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
+  if [ -d "$$d" ]; then mkdir -p "work/$$(dirname "$$d")"; ln -sfn "$$PWD/$$d" "work/$$d"; fi
+done
 cd work
-"$$hsm_run" -- ./faucet-industrial-assembly > /dev/null
+HSM_REPO_ROOT=$$PWD "$$hsm_run" -- ./faucet-industrial-assembly > /dev/null
 copy_file hardware/faucet-layout/faucet-industrial-assembly.step "$$O0"
 copy_file hardware/faucet-layout/faucet-industrial-assembly.step.mesh "$$O1"
 copy_file hardware/faucet-layout/faucet-industrial-assembly.step.npz "$$O2"
@@ -1338,14 +1358,14 @@ hsm_run=
 for r in "$$(awk -F'"' '$$2 == "runner" {print $$4}' ~/.local/lib/hsm/runtime.json 2>/dev/null)" "$$HSM_WORKSPACE/tools/hsm/target/release/hsm-run"; do
   if [ -x "$$r" ] && "$$r" --runtime-info "$$HSM_WORKSPACE" 2>/dev/null | grep -q '"source_match":true'; then hsm_run=$$r; break; fi
 done
-if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run.py" >&2; exit 1; fi
+if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run" >&2; exit 1; fi
 cargo=$$(command -v cargo || true)
 for c in "$$cargo" /opt/homebrew/opt/rustup/bin/cargo ~/.cargo/bin/cargo; do if [ -x "$$c" ]; then cargo=$$c; break; fi; done
 if [ ! -x "$$cargo" ]; then echo "cargo is not installed (https://rustup.rs)" >&2; exit 1; fi
-export HOME=~ PATH="$$(dirname "$$cargo"):$$PATH"
+export PATH="$$(dirname "$$cargo"):$$PATH"
 O0=$$PWD/$(location out/install-guide-program/install-guide)
 cd "$$HSM_WORKSPACE/tools/hsm"
-CARGO_TARGET_DIR="$$PWD/target" "$$hsm_run" -- "$$cargo" build --release --locked --quiet --manifest-path install-guide/Cargo.toml --bin install-guide
+CARGO_TARGET_DIR="$$PWD/target" "$$hsm_run" -- "$$cargo" build --release --locked --quiet -j 2 --manifest-path install-guide/Cargo.toml --bin install-guide
 copy_file target/release/install-guide "$$O0"
 """,
 )
@@ -1432,20 +1452,24 @@ hsm_run=
 for r in "$$(awk -F'"' '$$2 == "runner" {print $$4}' ~/.local/lib/hsm/runtime.json 2>/dev/null)" "$$HSM_WORKSPACE/tools/hsm/target/release/hsm-run"; do
   if [ -x "$$r" ] && "$$r" --runtime-info "$$HSM_WORKSPACE" 2>/dev/null | grep -q '"source_match":true'; then hsm_run=$$r; break; fi
 done
-if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run.py" >&2; exit 1; fi
+if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run" >&2; exit 1; fi
 O0=$$PWD/$(location out/install-guide/hardware/install-guide/install-guide.cover.png)
 O1=$$PWD/$(location out/install-guide/hardware/install-guide/install-guide.pdf)
 O2=$$PWD/$(location out/install-guide/hardware/install-guide/install-guide.pdf.json)
 rm -rf work
 for f in $(SRCS); do
   case $$f in
+    */node_modules/*) continue;;
     */bin/out/*/*) t=$${f#*/bin/out/}; t=$${t#*/};;
     *) t=$$f;;
   esac
   mkdir -p "work/$$(dirname "$$t")"; copy_file -L "$$f" "work/$$t"
 done
+for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
+  if [ -d "$$d" ]; then mkdir -p "work/$$(dirname "$$d")"; ln -sfn "$$PWD/$$d" "work/$$d"; fi
+done
 cd work
-"$$hsm_run" -- ./install-guide > /dev/null
+HSM_REPO_ROOT=$$PWD "$$hsm_run" -- ./install-guide > /dev/null
 copy_file hardware/install-guide/install-guide.cover.png "$$O0"
 copy_file hardware/install-guide/install-guide.pdf "$$O1"
 copy_file hardware/install-guide/install-guide.pdf.json "$$O2"
@@ -1579,14 +1603,14 @@ hsm_run=
 for r in "$$(awk -F'"' '$$2 == "runner" {print $$4}' ~/.local/lib/hsm/runtime.json 2>/dev/null)" "$$HSM_WORKSPACE/tools/hsm/target/release/hsm-run"; do
   if [ -x "$$r" ] && "$$r" --runtime-info "$$HSM_WORKSPACE" 2>/dev/null | grep -q '"source_match":true'; then hsm_run=$$r; break; fi
 done
-if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run.py" >&2; exit 1; fi
+if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run" >&2; exit 1; fi
 cargo=$$(command -v cargo || true)
 for c in "$$cargo" /opt/homebrew/opt/rustup/bin/cargo ~/.cargo/bin/cargo; do if [ -x "$$c" ]; then cargo=$$c; break; fi; done
 if [ ! -x "$$cargo" ]; then echo "cargo is not installed (https://rustup.rs)" >&2; exit 1; fi
-export HOME=~ PATH="$$(dirname "$$cargo"):$$PATH"
+export PATH="$$(dirname "$$cargo"):$$PATH"
 O0=$$PWD/$(location out/kit-art-program/kit-art)
 cd "$$HSM_WORKSPACE/tools/hsm"
-CARGO_TARGET_DIR="$$PWD/target" "$$hsm_run" -- "$$cargo" build --release --locked --quiet --manifest-path kit-art/Cargo.toml --bin kit-art
+CARGO_TARGET_DIR="$$PWD/target" "$$hsm_run" -- "$$cargo" build --release --locked --quiet -j 2 --manifest-path kit-art/Cargo.toml --bin kit-art
 copy_file target/release/kit-art "$$O0"
 """,
 )
@@ -1656,7 +1680,7 @@ hsm_run=
 for r in "$$(awk -F'"' '$$2 == "runner" {print $$4}' ~/.local/lib/hsm/runtime.json 2>/dev/null)" "$$HSM_WORKSPACE/tools/hsm/target/release/hsm-run"; do
   if [ -x "$$r" ] && "$$r" --runtime-info "$$HSM_WORKSPACE" 2>/dev/null | grep -q '"source_match":true'; then hsm_run=$$r; break; fi
 done
-if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run.py" >&2; exit 1; fi
+if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run" >&2; exit 1; fi
 O0=$$PWD/$(location out/kit-art/hardware/install-guide/assets/kit/cold-kit.svg)
 O1=$$PWD/$(location out/kit-art/hardware/install-guide/assets/kit/collet-press.svg)
 O2=$$PWD/$(location out/kit-art/hardware/install-guide/assets/kit/faucet-and-plate.svg)
@@ -1669,13 +1693,17 @@ O8=$$PWD/$(location out/kit-art/hardware/install-guide/assets/kit/water-tees.svg
 rm -rf work
 for f in $(SRCS); do
   case $$f in
+    */node_modules/*) continue;;
     */bin/out/*/*) t=$${f#*/bin/out/}; t=$${t#*/};;
     *) t=$$f;;
   esac
   mkdir -p "work/$$(dirname "$$t")"; copy_file -L "$$f" "work/$$t"
 done
+for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
+  if [ -d "$$d" ]; then mkdir -p "work/$$(dirname "$$d")"; ln -sfn "$$PWD/$$d" "work/$$d"; fi
+done
 cd work
-"$$hsm_run" -- ./kit-art > /dev/null
+HSM_REPO_ROOT=$$PWD "$$hsm_run" -- ./kit-art > /dev/null
 copy_file hardware/install-guide/assets/kit/cold-kit.svg "$$O0"
 copy_file hardware/install-guide/assets/kit/collet-press.svg "$$O1"
 copy_file hardware/install-guide/assets/kit/faucet-and-plate.svg "$$O2"
@@ -1829,14 +1857,14 @@ hsm_run=
 for r in "$$(awk -F'"' '$$2 == "runner" {print $$4}' ~/.local/lib/hsm/runtime.json 2>/dev/null)" "$$HSM_WORKSPACE/tools/hsm/target/release/hsm-run"; do
   if [ -x "$$r" ] && "$$r" --runtime-info "$$HSM_WORKSPACE" 2>/dev/null | grep -q '"source_match":true'; then hsm_run=$$r; break; fi
 done
-if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run.py" >&2; exit 1; fi
+if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run" >&2; exit 1; fi
 cargo=$$(command -v cargo || true)
 for c in "$$cargo" /opt/homebrew/opt/rustup/bin/cargo ~/.cargo/bin/cargo; do if [ -x "$$c" ]; then cargo=$$c; break; fi; done
 if [ ! -x "$$cargo" ]; then echo "cargo is not installed (https://rustup.rs)" >&2; exit 1; fi
-export HOME=~ PATH="$$(dirname "$$cargo"):$$PATH"
+export PATH="$$(dirname "$$cargo"):$$PATH"
 O0=$$PWD/$(location out/opening-scene-program/opening-scene)
 cd "$$HSM_WORKSPACE/tools/hsm"
-CARGO_TARGET_DIR="$$PWD/target" "$$hsm_run" -- "$$cargo" build --release --locked --quiet --manifest-path opening-scene/Cargo.toml --bin opening-scene
+CARGO_TARGET_DIR="$$PWD/target" "$$hsm_run" -- "$$cargo" build --release --locked --quiet -j 2 --manifest-path opening-scene/Cargo.toml --bin opening-scene
 copy_file target/release/opening-scene "$$O0"
 """,
 )
@@ -1901,19 +1929,23 @@ hsm_run=
 for r in "$$(awk -F'"' '$$2 == "runner" {print $$4}' ~/.local/lib/hsm/runtime.json 2>/dev/null)" "$$HSM_WORKSPACE/tools/hsm/target/release/hsm-run"; do
   if [ -x "$$r" ] && "$$r" --runtime-info "$$HSM_WORKSPACE" 2>/dev/null | grep -q '"source_match":true'; then hsm_run=$$r; break; fi
 done
-if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run.py" >&2; exit 1; fi
+if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run" >&2; exit 1; fi
 O0=$$PWD/$(location out/opening-scene/hardware/install-guide/assets/opening-faucet-outline.svg)
 O1=$$PWD/$(location out/opening-scene/hardware/install-guide/assets/opening.png)
 rm -rf work
 for f in $(SRCS); do
   case $$f in
+    */node_modules/*) continue;;
     */bin/out/*/*) t=$${f#*/bin/out/}; t=$${t#*/};;
     *) t=$$f;;
   esac
   mkdir -p "work/$$(dirname "$$t")"; copy_file -L "$$f" "work/$$t"
 done
+for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
+  if [ -d "$$d" ]; then mkdir -p "work/$$(dirname "$$d")"; ln -sfn "$$PWD/$$d" "work/$$d"; fi
+done
 cd work
-"$$hsm_run" -- ./opening-scene > /dev/null
+HSM_REPO_ROOT=$$PWD "$$hsm_run" -- ./opening-scene > /dev/null
 copy_file hardware/install-guide/assets/opening-faucet-outline.svg "$$O0"
 copy_file hardware/install-guide/assets/opening.png "$$O1"
 """,
@@ -2004,6 +2036,9 @@ genrule(
         "tools/hsm/build-data/src/artifact_cache.rs",
         "tools/hsm/build-data/src/artifacts.rs",
         "tools/hsm/build-data/src/assets.rs",
+        "tools/hsm/build-data/src/bookkeeping_affected.rs",
+        "tools/hsm/build-data/src/bookkeeping_common.rs",
+        "tools/hsm/build-data/src/bookkeeping_sync.rs",
         "tools/hsm/build-data/src/inventory.rs",
         "tools/hsm/build-data/src/lib.rs",
         "tools/hsm/build-data/src/payload.rs",
@@ -2179,14 +2214,14 @@ hsm_run=
 for r in "$$(awk -F'"' '$$2 == "runner" {print $$4}' ~/.local/lib/hsm/runtime.json 2>/dev/null)" "$$HSM_WORKSPACE/tools/hsm/target/release/hsm-run"; do
   if [ -x "$$r" ] && "$$r" --runtime-info "$$HSM_WORKSPACE" 2>/dev/null | grep -q '"source_match":true'; then hsm_run=$$r; break; fi
 done
-if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run.py" >&2; exit 1; fi
+if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run" >&2; exit 1; fi
 cargo=$$(command -v cargo || true)
 for c in "$$cargo" /opt/homebrew/opt/rustup/bin/cargo ~/.cargo/bin/cargo; do if [ -x "$$c" ]; then cargo=$$c; break; fi; done
 if [ ! -x "$$cargo" ]; then echo "cargo is not installed (https://rustup.rs)" >&2; exit 1; fi
-export HOME=~ PATH="$$(dirname "$$cargo"):$$PATH"
+export PATH="$$(dirname "$$cargo"):$$PATH"
 O0=$$PWD/$(location out/bom-program/bom)
 cd "$$HSM_WORKSPACE/tools/hsm"
-CARGO_TARGET_DIR="$$PWD/target" "$$hsm_run" -- "$$cargo" build --release --locked --quiet --manifest-path bom/Cargo.toml --bin bom
+CARGO_TARGET_DIR="$$PWD/target" "$$hsm_run" -- "$$cargo" build --release --locked --quiet -j 2 --manifest-path bom/Cargo.toml --bin bom
 copy_file target/release/bom "$$O0"
 """,
 )
@@ -2313,7 +2348,7 @@ hsm_run=
 for r in "$$(awk -F'"' '$$2 == "runner" {print $$4}' ~/.local/lib/hsm/runtime.json 2>/dev/null)" "$$HSM_WORKSPACE/tools/hsm/target/release/hsm-run"; do
   if [ -x "$$r" ] && "$$r" --runtime-info "$$HSM_WORKSPACE" 2>/dev/null | grep -q '"source_match":true'; then hsm_run=$$r; break; fi
 done
-if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run.py" >&2; exit 1; fi
+if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run" >&2; exit 1; fi
 O0=$$PWD/$(location out/bom/hardware/ledger/bom.figures.json)
 O1=$$PWD/$(location out/bom/hardware/ledger/bom.md)
 O2=$$PWD/$(location out/bom/hardware/ledger/labor.figures.json)
@@ -2321,13 +2356,17 @@ O3=$$PWD/$(location out/bom/hardware/ledger/labor.md)
 rm -rf work
 for f in $(SRCS); do
   case $$f in
+    */node_modules/*) continue;;
     */bin/out/*/*) t=$${f#*/bin/out/}; t=$${t#*/};;
     *) t=$$f;;
   esac
   mkdir -p "work/$$(dirname "$$t")"; copy_file -L "$$f" "work/$$t"
 done
+for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
+  if [ -d "$$d" ]; then mkdir -p "work/$$(dirname "$$d")"; ln -sfn "$$PWD/$$d" "work/$$d"; fi
+done
 cd work
-"$$hsm_run" -- ./bom > /dev/null
+HSM_REPO_ROOT=$$PWD "$$hsm_run" -- ./bom > /dev/null
 copy_file hardware/ledger/bom.figures.json "$$O0"
 copy_file hardware/ledger/bom.md "$$O1"
 copy_file hardware/ledger/labor.figures.json "$$O2"
@@ -2453,14 +2492,14 @@ hsm_run=
 for r in "$$(awk -F'"' '$$2 == "runner" {print $$4}' ~/.local/lib/hsm/runtime.json 2>/dev/null)" "$$HSM_WORKSPACE/tools/hsm/target/release/hsm-run"; do
   if [ -x "$$r" ] && "$$r" --runtime-info "$$HSM_WORKSPACE" 2>/dev/null | grep -q '"source_match":true'; then hsm_run=$$r; break; fi
 done
-if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run.py" >&2; exit 1; fi
+if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run" >&2; exit 1; fi
 cargo=$$(command -v cargo || true)
 for c in "$$cargo" /opt/homebrew/opt/rustup/bin/cargo ~/.cargo/bin/cargo; do if [ -x "$$c" ]; then cargo=$$c; break; fi; done
 if [ ! -x "$$cargo" ]; then echo "cargo is not installed (https://rustup.rs)" >&2; exit 1; fi
-export HOME=~ PATH="$$(dirname "$$cargo"):$$PATH"
+export PATH="$$(dirname "$$cargo"):$$PATH"
 O0=$$PWD/$(location out/machine-time-program/machine-time)
 cd "$$HSM_WORKSPACE/tools/hsm"
-CARGO_TARGET_DIR="$$PWD/target" "$$hsm_run" -- "$$cargo" build --release --locked --quiet --manifest-path ledger/Cargo.toml --bin machine-time
+CARGO_TARGET_DIR="$$PWD/target" "$$hsm_run" -- "$$cargo" build --release --locked --quiet -j 2 --manifest-path ledger/Cargo.toml --bin machine-time
 copy_file target/release/machine-time "$$O0"
 """,
 )
@@ -2524,19 +2563,23 @@ hsm_run=
 for r in "$$(awk -F'"' '$$2 == "runner" {print $$4}' ~/.local/lib/hsm/runtime.json 2>/dev/null)" "$$HSM_WORKSPACE/tools/hsm/target/release/hsm-run"; do
   if [ -x "$$r" ] && "$$r" --runtime-info "$$HSM_WORKSPACE" 2>/dev/null | grep -q '"source_match":true'; then hsm_run=$$r; break; fi
 done
-if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run.py" >&2; exit 1; fi
+if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run" >&2; exit 1; fi
 O0=$$PWD/$(location out/machine-time/hardware/ledger/machine-time.figures.json)
 O1=$$PWD/$(location out/machine-time/hardware/ledger/machine-time.md)
 rm -rf work
 for f in $(SRCS); do
   case $$f in
+    */node_modules/*) continue;;
     */bin/out/*/*) t=$${f#*/bin/out/}; t=$${t#*/};;
     *) t=$$f;;
   esac
   mkdir -p "work/$$(dirname "$$t")"; copy_file -L "$$f" "work/$$t"
 done
+for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
+  if [ -d "$$d" ]; then mkdir -p "work/$$(dirname "$$d")"; ln -sfn "$$PWD/$$d" "work/$$d"; fi
+done
 cd work
-"$$hsm_run" -- ./machine-time > /dev/null
+HSM_REPO_ROOT=$$PWD "$$hsm_run" -- ./machine-time > /dev/null
 copy_file hardware/ledger/machine-time.figures.json "$$O0"
 copy_file hardware/ledger/machine-time.md "$$O1"
 """,
@@ -2661,14 +2704,14 @@ hsm_run=
 for r in "$$(awk -F'"' '$$2 == "runner" {print $$4}' ~/.local/lib/hsm/runtime.json 2>/dev/null)" "$$HSM_WORKSPACE/tools/hsm/target/release/hsm-run"; do
   if [ -x "$$r" ] && "$$r" --runtime-info "$$HSM_WORKSPACE" 2>/dev/null | grep -q '"source_match":true'; then hsm_run=$$r; break; fi
 done
-if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run.py" >&2; exit 1; fi
+if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run" >&2; exit 1; fi
 cargo=$$(command -v cargo || true)
 for c in "$$cargo" /opt/homebrew/opt/rustup/bin/cargo ~/.cargo/bin/cargo; do if [ -x "$$c" ]; then cargo=$$c; break; fi; done
 if [ ! -x "$$cargo" ]; then echo "cargo is not installed (https://rustup.rs)" >&2; exit 1; fi
-export HOME=~ PATH="$$(dirname "$$cargo"):$$PATH"
+export PATH="$$(dirname "$$cargo"):$$PATH"
 O0=$$PWD/$(location out/purchases-program/purchases)
 cd "$$HSM_WORKSPACE/tools/hsm"
-CARGO_TARGET_DIR="$$PWD/target" "$$hsm_run" -- "$$cargo" build --release --locked --quiet --manifest-path ledger/Cargo.toml --bin purchases
+CARGO_TARGET_DIR="$$PWD/target" "$$hsm_run" -- "$$cargo" build --release --locked --quiet -j 2 --manifest-path ledger/Cargo.toml --bin purchases
 copy_file target/release/purchases "$$O0"
 """,
 )
@@ -2730,7 +2773,7 @@ hsm_run=
 for r in "$$(awk -F'"' '$$2 == "runner" {print $$4}' ~/.local/lib/hsm/runtime.json 2>/dev/null)" "$$HSM_WORKSPACE/tools/hsm/target/release/hsm-run"; do
   if [ -x "$$r" ] && "$$r" --runtime-info "$$HSM_WORKSPACE" 2>/dev/null | grep -q '"source_match":true'; then hsm_run=$$r; break; fi
 done
-if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run.py" >&2; exit 1; fi
+if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run" >&2; exit 1; fi
 O0=$$PWD/$(location out/purchases/hardware/ledger/purchases.export.csv)
 O1=$$PWD/$(location out/purchases/hardware/ledger/purchases.export.json)
 O2=$$PWD/$(location out/purchases/hardware/ledger/purchases.figures.json)
@@ -2738,13 +2781,17 @@ O3=$$PWD/$(location out/purchases/hardware/ledger/purchases.md)
 rm -rf work
 for f in $(SRCS); do
   case $$f in
+    */node_modules/*) continue;;
     */bin/out/*/*) t=$${f#*/bin/out/}; t=$${t#*/};;
     *) t=$$f;;
   esac
   mkdir -p "work/$$(dirname "$$t")"; copy_file -L "$$f" "work/$$t"
 done
+for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
+  if [ -d "$$d" ]; then mkdir -p "work/$$(dirname "$$d")"; ln -sfn "$$PWD/$$d" "work/$$d"; fi
+done
 cd work
-"$$hsm_run" -- ./purchases > /dev/null
+HSM_REPO_ROOT=$$PWD "$$hsm_run" -- ./purchases > /dev/null
 copy_file hardware/ledger/purchases.export.csv "$$O0"
 copy_file hardware/ledger/purchases.export.json "$$O1"
 copy_file hardware/ledger/purchases.figures.json "$$O2"
@@ -2948,14 +2995,14 @@ hsm_run=
 for r in "$$(awk -F'"' '$$2 == "runner" {print $$4}' ~/.local/lib/hsm/runtime.json 2>/dev/null)" "$$HSM_WORKSPACE/tools/hsm/target/release/hsm-run"; do
   if [ -x "$$r" ] && "$$r" --runtime-info "$$HSM_WORKSPACE" 2>/dev/null | grep -q '"source_match":true'; then hsm_run=$$r; break; fi
 done
-if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run.py" >&2; exit 1; fi
+if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run" >&2; exit 1; fi
 cargo=$$(command -v cargo || true)
 for c in "$$cargo" /opt/homebrew/opt/rustup/bin/cargo ~/.cargo/bin/cargo; do if [ -x "$$c" ]; then cargo=$$c; break; fi; done
 if [ ! -x "$$cargo" ]; then echo "cargo is not installed (https://rustup.rs)" >&2; exit 1; fi
-export HOME=~ PATH="$$(dirname "$$cargo"):$$PATH"
+export PATH="$$(dirname "$$cargo"):$$PATH"
 O0=$$PWD/$(location out/installed-machine-program/installed-machine)
 cd "$$HSM_WORKSPACE/tools/hsm"
-CARGO_TARGET_DIR="$$PWD/target" "$$hsm_run" -- "$$cargo" build --release --locked --quiet --manifest-path installed-machine/Cargo.toml --bin installed-machine
+CARGO_TARGET_DIR="$$PWD/target" "$$hsm_run" -- "$$cargo" build --release --locked --quiet -j 2 --manifest-path installed-machine/Cargo.toml --bin installed-machine
 copy_file target/release/installed-machine "$$O0"
 """,
 )
@@ -3225,7 +3272,7 @@ hsm_run=
 for r in "$$(awk -F'"' '$$2 == "runner" {print $$4}' ~/.local/lib/hsm/runtime.json 2>/dev/null)" "$$HSM_WORKSPACE/tools/hsm/target/release/hsm-run"; do
   if [ -x "$$r" ] && "$$r" --runtime-info "$$HSM_WORKSPACE" 2>/dev/null | grep -q '"source_match":true'; then hsm_run=$$r; break; fi
 done
-if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run.py" >&2; exit 1; fi
+if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run" >&2; exit 1; fi
 O0=$$PWD/$(location out/installed-machine/hardware/assembly/scenes/glb/back-half.glb.mesh)
 O1=$$PWD/$(location out/installed-machine/hardware/assembly/scenes/glb/back-top.glb.mesh)
 O2=$$PWD/$(location out/installed-machine/hardware/assembly/scenes/glb/cap-lid-fill.glb.mesh)
@@ -3242,13 +3289,17 @@ O12=$$PWD/$(location out/installed-machine/hardware/manifold-layout/enclosure-as
 rm -rf work
 for f in $(SRCS); do
   case $$f in
+    */node_modules/*) continue;;
     */bin/out/*/*) t=$${f#*/bin/out/}; t=$${t#*/};;
     *) t=$$f;;
   esac
   mkdir -p "work/$$(dirname "$$t")"; copy_file -L "$$f" "work/$$t"
 done
+for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
+  if [ -d "$$d" ]; then mkdir -p "work/$$(dirname "$$d")"; ln -sfn "$$PWD/$$d" "work/$$d"; fi
+done
 cd work
-"$$hsm_run" -- ./installed-machine > /dev/null
+HSM_REPO_ROOT=$$PWD "$$hsm_run" -- ./installed-machine > /dev/null
 copy_file hardware/assembly/scenes/glb/back-half.glb.mesh "$$O0"
 copy_file hardware/assembly/scenes/glb/back-top.glb.mesh "$$O1"
 copy_file hardware/assembly/scenes/glb/cap-lid-fill.glb.mesh "$$O2"
@@ -3388,14 +3439,14 @@ hsm_run=
 for r in "$$(awk -F'"' '$$2 == "runner" {print $$4}' ~/.local/lib/hsm/runtime.json 2>/dev/null)" "$$HSM_WORKSPACE/tools/hsm/target/release/hsm-run"; do
   if [ -x "$$r" ] && "$$r" --runtime-info "$$HSM_WORKSPACE" 2>/dev/null | grep -q '"source_match":true'; then hsm_run=$$r; break; fi
 done
-if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run.py" >&2; exit 1; fi
+if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run" >&2; exit 1; fi
 cargo=$$(command -v cargo || true)
 for c in "$$cargo" /opt/homebrew/opt/rustup/bin/cargo ~/.cargo/bin/cargo; do if [ -x "$$c" ]; then cargo=$$c; break; fi; done
 if [ ! -x "$$cargo" ]; then echo "cargo is not installed (https://rustup.rs)" >&2; exit 1; fi
-export HOME=~ PATH="$$(dirname "$$cargo"):$$PATH"
+export PATH="$$(dirname "$$cargo"):$$PATH"
 O0=$$PWD/$(location out/manifold-layout-program/manifold-layout)
 cd "$$HSM_WORKSPACE/tools/hsm"
-CARGO_TARGET_DIR="$$PWD/target" "$$hsm_run" -- "$$cargo" build --release --locked --quiet --manifest-path manifold-layout/Cargo.toml --bin manifold-layout
+CARGO_TARGET_DIR="$$PWD/target" "$$hsm_run" -- "$$cargo" build --release --locked --quiet -j 2 --manifest-path manifold-layout/Cargo.toml --bin manifold-layout
 copy_file target/release/manifold-layout "$$O0"
 """,
 )
@@ -3459,7 +3510,7 @@ hsm_run=
 for r in "$$(awk -F'"' '$$2 == "runner" {print $$4}' ~/.local/lib/hsm/runtime.json 2>/dev/null)" "$$HSM_WORKSPACE/tools/hsm/target/release/hsm-run"; do
   if [ -x "$$r" ] && "$$r" --runtime-info "$$HSM_WORKSPACE" 2>/dev/null | grep -q '"source_match":true'; then hsm_run=$$r; break; fi
 done
-if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run.py" >&2; exit 1; fi
+if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run" >&2; exit 1; fi
 O0=$$PWD/$(location out/manifold-layout/hardware/manifold-layout/manifold-layout.numbers.json)
 O1=$$PWD/$(location out/manifold-layout/hardware/manifold-layout/manifold-layout.step)
 O2=$$PWD/$(location out/manifold-layout/hardware/manifold-layout/manifold-layout.step.mesh)
@@ -3467,13 +3518,17 @@ O3=$$PWD/$(location out/manifold-layout/hardware/manifold-layout/manifold-layout
 rm -rf work
 for f in $(SRCS); do
   case $$f in
+    */node_modules/*) continue;;
     */bin/out/*/*) t=$${f#*/bin/out/}; t=$${t#*/};;
     *) t=$$f;;
   esac
   mkdir -p "work/$$(dirname "$$t")"; copy_file -L "$$f" "work/$$t"
 done
+for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
+  if [ -d "$$d" ]; then mkdir -p "work/$$(dirname "$$d")"; ln -sfn "$$PWD/$$d" "work/$$d"; fi
+done
 cd work
-"$$hsm_run" -- ./manifold-layout > /dev/null
+HSM_REPO_ROOT=$$PWD "$$hsm_run" -- ./manifold-layout > /dev/null
 copy_file hardware/manifold-layout/manifold-layout.numbers.json "$$O0"
 copy_file hardware/manifold-layout/manifold-layout.step "$$O1"
 copy_file hardware/manifold-layout/manifold-layout.step.mesh "$$O2"
@@ -3587,14 +3642,14 @@ hsm_run=
 for r in "$$(awk -F'"' '$$2 == "runner" {print $$4}' ~/.local/lib/hsm/runtime.json 2>/dev/null)" "$$HSM_WORKSPACE/tools/hsm/target/release/hsm-run"; do
   if [ -x "$$r" ] && "$$r" --runtime-info "$$HSM_WORKSPACE" 2>/dev/null | grep -q '"source_match":true'; then hsm_run=$$r; break; fi
 done
-if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run.py" >&2; exit 1; fi
+if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run" >&2; exit 1; fi
 cargo=$$(command -v cargo || true)
 for c in "$$cargo" /opt/homebrew/opt/rustup/bin/cargo ~/.cargo/bin/cargo; do if [ -x "$$c" ]; then cargo=$$c; break; fi; done
 if [ ! -x "$$cargo" ]; then echo "cargo is not installed (https://rustup.rs)" >&2; exit 1; fi
-export HOME=~ PATH="$$(dirname "$$cargo"):$$PATH"
+export PATH="$$(dirname "$$cargo"):$$PATH"
 O0=$$PWD/$(location out/asse-drain-adapter-program/asse-drain-adapter)
 cd "$$HSM_WORKSPACE/tools/hsm"
-CARGO_TARGET_DIR="$$PWD/target" "$$hsm_run" -- "$$cargo" build --release --locked --quiet --manifest-path asse-drain-adapter/Cargo.toml --bin asse-drain-adapter
+CARGO_TARGET_DIR="$$PWD/target" "$$hsm_run" -- "$$cargo" build --release --locked --quiet -j 2 --manifest-path asse-drain-adapter/Cargo.toml --bin asse-drain-adapter
 copy_file target/release/asse-drain-adapter "$$O0"
 """,
 )
@@ -3653,7 +3708,7 @@ hsm_run=
 for r in "$$(awk -F'"' '$$2 == "runner" {print $$4}' ~/.local/lib/hsm/runtime.json 2>/dev/null)" "$$HSM_WORKSPACE/tools/hsm/target/release/hsm-run"; do
   if [ -x "$$r" ] && "$$r" --runtime-info "$$HSM_WORKSPACE" 2>/dev/null | grep -q '"source_match":true'; then hsm_run=$$r; break; fi
 done
-if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run.py" >&2; exit 1; fi
+if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run" >&2; exit 1; fi
 O0=$$PWD/$(location out/asse-drain-adapter/hardware/printed-parts/asse-drain-adapter/asse-drain-adapter.step)
 O1=$$PWD/$(location out/asse-drain-adapter/hardware/printed-parts/asse-drain-adapter/asse-drain-adapter.step.mesh)
 O2=$$PWD/$(location out/asse-drain-adapter/hardware/printed-parts/asse-drain-adapter/asse-drain-adapter.step.npz)
@@ -3661,13 +3716,17 @@ O3=$$PWD/$(location out/asse-drain-adapter/hardware/printed-parts/asse-drain-ada
 rm -rf work
 for f in $(SRCS); do
   case $$f in
+    */node_modules/*) continue;;
     */bin/out/*/*) t=$${f#*/bin/out/}; t=$${t#*/};;
     *) t=$$f;;
   esac
   mkdir -p "work/$$(dirname "$$t")"; copy_file -L "$$f" "work/$$t"
 done
+for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
+  if [ -d "$$d" ]; then mkdir -p "work/$$(dirname "$$d")"; ln -sfn "$$PWD/$$d" "work/$$d"; fi
+done
 cd work
-"$$hsm_run" -- ./asse-drain-adapter > /dev/null
+HSM_REPO_ROOT=$$PWD "$$hsm_run" -- ./asse-drain-adapter > /dev/null
 copy_file hardware/printed-parts/asse-drain-adapter/asse-drain-adapter.step "$$O0"
 copy_file hardware/printed-parts/asse-drain-adapter/asse-drain-adapter.step.mesh "$$O1"
 copy_file hardware/printed-parts/asse-drain-adapter/asse-drain-adapter.step.npz "$$O2"
@@ -3781,14 +3840,14 @@ hsm_run=
 for r in "$$(awk -F'"' '$$2 == "runner" {print $$4}' ~/.local/lib/hsm/runtime.json 2>/dev/null)" "$$HSM_WORKSPACE/tools/hsm/target/release/hsm-run"; do
   if [ -x "$$r" ] && "$$r" --runtime-info "$$HSM_WORKSPACE" 2>/dev/null | grep -q '"source_match":true'; then hsm_run=$$r; break; fi
 done
-if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run.py" >&2; exit 1; fi
+if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run" >&2; exit 1; fi
 cargo=$$(command -v cargo || true)
 for c in "$$cargo" /opt/homebrew/opt/rustup/bin/cargo ~/.cargo/bin/cargo; do if [ -x "$$c" ]; then cargo=$$c; break; fi; done
 if [ ! -x "$$cargo" ]; then echo "cargo is not installed (https://rustup.rs)" >&2; exit 1; fi
-export HOME=~ PATH="$$(dirname "$$cargo"):$$PATH"
+export PATH="$$(dirname "$$cargo"):$$PATH"
 O0=$$PWD/$(location out/asse-straight-cuffs-program/asse-straight-cuffs)
 cd "$$HSM_WORKSPACE/tools/hsm"
-CARGO_TARGET_DIR="$$PWD/target" "$$hsm_run" -- "$$cargo" build --release --locked --quiet --manifest-path asse-straight-cuffs/Cargo.toml --bin asse-straight-cuffs
+CARGO_TARGET_DIR="$$PWD/target" "$$hsm_run" -- "$$cargo" build --release --locked --quiet -j 2 --manifest-path asse-straight-cuffs/Cargo.toml --bin asse-straight-cuffs
 copy_file target/release/asse-straight-cuffs "$$O0"
 """,
 )
@@ -3851,7 +3910,7 @@ hsm_run=
 for r in "$$(awk -F'"' '$$2 == "runner" {print $$4}' ~/.local/lib/hsm/runtime.json 2>/dev/null)" "$$HSM_WORKSPACE/tools/hsm/target/release/hsm-run"; do
   if [ -x "$$r" ] && "$$r" --runtime-info "$$HSM_WORKSPACE" 2>/dev/null | grep -q '"source_match":true'; then hsm_run=$$r; break; fi
 done
-if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run.py" >&2; exit 1; fi
+if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run" >&2; exit 1; fi
 O0=$$PWD/$(location out/asse-straight-cuffs/hardware/printed-parts/asse-straight-cuffs/asse-inlet-cuff.step)
 O1=$$PWD/$(location out/asse-straight-cuffs/hardware/printed-parts/asse-straight-cuffs/asse-inlet-cuff.step.mesh)
 O2=$$PWD/$(location out/asse-straight-cuffs/hardware/printed-parts/asse-straight-cuffs/asse-inlet-cuff.step.npz)
@@ -3863,13 +3922,17 @@ O7=$$PWD/$(location out/asse-straight-cuffs/hardware/printed-parts/asse-straight
 rm -rf work
 for f in $(SRCS); do
   case $$f in
+    */node_modules/*) continue;;
     */bin/out/*/*) t=$${f#*/bin/out/}; t=$${t#*/};;
     *) t=$$f;;
   esac
   mkdir -p "work/$$(dirname "$$t")"; copy_file -L "$$f" "work/$$t"
 done
+for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
+  if [ -d "$$d" ]; then mkdir -p "work/$$(dirname "$$d")"; ln -sfn "$$PWD/$$d" "work/$$d"; fi
+done
 cd work
-"$$hsm_run" -- ./asse-straight-cuffs > /dev/null
+HSM_REPO_ROOT=$$PWD "$$hsm_run" -- ./asse-straight-cuffs > /dev/null
 copy_file hardware/printed-parts/asse-straight-cuffs/asse-inlet-cuff.step "$$O0"
 copy_file hardware/printed-parts/asse-straight-cuffs/asse-inlet-cuff.step.mesh "$$O1"
 copy_file hardware/printed-parts/asse-straight-cuffs/asse-inlet-cuff.step.npz "$$O2"
@@ -3999,14 +4062,14 @@ hsm_run=
 for r in "$$(awk -F'"' '$$2 == "runner" {print $$4}' ~/.local/lib/hsm/runtime.json 2>/dev/null)" "$$HSM_WORKSPACE/tools/hsm/target/release/hsm-run"; do
   if [ -x "$$r" ] && "$$r" --runtime-info "$$HSM_WORKSPACE" 2>/dev/null | grep -q '"source_match":true'; then hsm_run=$$r; break; fi
 done
-if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run.py" >&2; exit 1; fi
+if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run" >&2; exit 1; fi
 cargo=$$(command -v cargo || true)
 for c in "$$cargo" /opt/homebrew/opt/rustup/bin/cargo ~/.cargo/bin/cargo; do if [ -x "$$c" ]; then cargo=$$c; break; fi; done
 if [ ! -x "$$cargo" ]; then echo "cargo is not installed (https://rustup.rs)" >&2; exit 1; fi
-export HOME=~ PATH="$$(dirname "$$cargo"):$$PATH"
+export PATH="$$(dirname "$$cargo"):$$PATH"
 O0=$$PWD/$(location out/coil-mandrel-program/coil-mandrel)
 cd "$$HSM_WORKSPACE/tools/hsm"
-CARGO_TARGET_DIR="$$PWD/target" "$$hsm_run" -- "$$cargo" build --release --locked --quiet --manifest-path coil-mandrel/Cargo.toml --bin coil-mandrel
+CARGO_TARGET_DIR="$$PWD/target" "$$hsm_run" -- "$$cargo" build --release --locked --quiet -j 2 --manifest-path coil-mandrel/Cargo.toml --bin coil-mandrel
 copy_file target/release/coil-mandrel "$$O0"
 """,
 )
@@ -4066,7 +4129,7 @@ hsm_run=
 for r in "$$(awk -F'"' '$$2 == "runner" {print $$4}' ~/.local/lib/hsm/runtime.json 2>/dev/null)" "$$HSM_WORKSPACE/tools/hsm/target/release/hsm-run"; do
   if [ -x "$$r" ] && "$$r" --runtime-info "$$HSM_WORKSPACE" 2>/dev/null | grep -q '"source_match":true'; then hsm_run=$$r; break; fi
 done
-if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run.py" >&2; exit 1; fi
+if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run" >&2; exit 1; fi
 O0=$$PWD/$(location out/coil-mandrel/hardware/printed-parts/cold-core/coil-mandrel/coil-mandrel.step)
 O1=$$PWD/$(location out/coil-mandrel/hardware/printed-parts/cold-core/coil-mandrel/coil-mandrel.step.mesh)
 O2=$$PWD/$(location out/coil-mandrel/hardware/printed-parts/cold-core/coil-mandrel/coil-mandrel.step.npz)
@@ -4074,13 +4137,17 @@ O3=$$PWD/$(location out/coil-mandrel/hardware/printed-parts/cold-core/coil-mandr
 rm -rf work
 for f in $(SRCS); do
   case $$f in
+    */node_modules/*) continue;;
     */bin/out/*/*) t=$${f#*/bin/out/}; t=$${t#*/};;
     *) t=$$f;;
   esac
   mkdir -p "work/$$(dirname "$$t")"; copy_file -L "$$f" "work/$$t"
 done
+for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
+  if [ -d "$$d" ]; then mkdir -p "work/$$(dirname "$$d")"; ln -sfn "$$PWD/$$d" "work/$$d"; fi
+done
 cd work
-"$$hsm_run" -- ./coil-mandrel > /dev/null
+HSM_REPO_ROOT=$$PWD "$$hsm_run" -- ./coil-mandrel > /dev/null
 copy_file hardware/printed-parts/cold-core/coil-mandrel/coil-mandrel.step "$$O0"
 copy_file hardware/printed-parts/cold-core/coil-mandrel/coil-mandrel.step.mesh "$$O1"
 copy_file hardware/printed-parts/cold-core/coil-mandrel/coil-mandrel.step.npz "$$O2"
@@ -4255,14 +4322,14 @@ hsm_run=
 for r in "$$(awk -F'"' '$$2 == "runner" {print $$4}' ~/.local/lib/hsm/runtime.json 2>/dev/null)" "$$HSM_WORKSPACE/tools/hsm/target/release/hsm-run"; do
   if [ -x "$$r" ] && "$$r" --runtime-info "$$HSM_WORKSPACE" 2>/dev/null | grep -q '"source_match":true'; then hsm_run=$$r; break; fi
 done
-if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run.py" >&2; exit 1; fi
+if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run" >&2; exit 1; fi
 cargo=$$(command -v cargo || true)
 for c in "$$cargo" /opt/homebrew/opt/rustup/bin/cargo ~/.cargo/bin/cargo; do if [ -x "$$c" ]; then cargo=$$c; break; fi; done
 if [ ! -x "$$cargo" ]; then echo "cargo is not installed (https://rustup.rs)" >&2; exit 1; fi
-export HOME=~ PATH="$$(dirname "$$cargo"):$$PATH"
+export PATH="$$(dirname "$$cargo"):$$PATH"
 O0=$$PWD/$(location out/foam-assembly-program/foam-assembly)
 cd "$$HSM_WORKSPACE/tools/hsm"
-CARGO_TARGET_DIR="$$PWD/target" "$$hsm_run" -- "$$cargo" build --release --locked --quiet --manifest-path foam-assembly/Cargo.toml --bin foam-assembly
+CARGO_TARGET_DIR="$$PWD/target" "$$hsm_run" -- "$$cargo" build --release --locked --quiet -j 2 --manifest-path foam-assembly/Cargo.toml --bin foam-assembly
 copy_file target/release/foam-assembly "$$O0"
 """,
 )
@@ -4331,19 +4398,23 @@ hsm_run=
 for r in "$$(awk -F'"' '$$2 == "runner" {print $$4}' ~/.local/lib/hsm/runtime.json 2>/dev/null)" "$$HSM_WORKSPACE/tools/hsm/target/release/hsm-run"; do
   if [ -x "$$r" ] && "$$r" --runtime-info "$$HSM_WORKSPACE" 2>/dev/null | grep -q '"source_match":true'; then hsm_run=$$r; break; fi
 done
-if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run.py" >&2; exit 1; fi
+if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run" >&2; exit 1; fi
 O0=$$PWD/$(location out/foam-assembly/hardware/printed-parts/cold-core/foam-assembly/foam-assembly.numbers.json)
 O1=$$PWD/$(location out/foam-assembly/hardware/printed-parts/cold-core/foam-assembly/foam-assembly.step.npz)
 rm -rf work
 for f in $(SRCS); do
   case $$f in
+    */node_modules/*) continue;;
     */bin/out/*/*) t=$${f#*/bin/out/}; t=$${t#*/};;
     *) t=$$f;;
   esac
   mkdir -p "work/$$(dirname "$$t")"; copy_file -L "$$f" "work/$$t"
 done
+for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
+  if [ -d "$$d" ]; then mkdir -p "work/$$(dirname "$$d")"; ln -sfn "$$PWD/$$d" "work/$$d"; fi
+done
 cd work
-"$$hsm_run" -- ./foam-assembly > /dev/null
+HSM_REPO_ROOT=$$PWD "$$hsm_run" -- ./foam-assembly > /dev/null
 copy_file hardware/printed-parts/cold-core/foam-assembly/foam-assembly.numbers.json "$$O0"
 copy_file hardware/printed-parts/cold-core/foam-assembly/foam-assembly.step.npz "$$O1"
 """,
@@ -4520,14 +4591,14 @@ hsm_run=
 for r in "$$(awk -F'"' '$$2 == "runner" {print $$4}' ~/.local/lib/hsm/runtime.json 2>/dev/null)" "$$HSM_WORKSPACE/tools/hsm/target/release/hsm-run"; do
   if [ -x "$$r" ] && "$$r" --runtime-info "$$HSM_WORKSPACE" 2>/dev/null | grep -q '"source_match":true'; then hsm_run=$$r; break; fi
 done
-if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run.py" >&2; exit 1; fi
+if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run" >&2; exit 1; fi
 cargo=$$(command -v cargo || true)
 for c in "$$cargo" /opt/homebrew/opt/rustup/bin/cargo ~/.cargo/bin/cargo; do if [ -x "$$c" ]; then cargo=$$c; break; fi; done
 if [ ! -x "$$cargo" ]; then echo "cargo is not installed (https://rustup.rs)" >&2; exit 1; fi
-export HOME=~ PATH="$$(dirname "$$cargo"):$$PATH"
+export PATH="$$(dirname "$$cargo"):$$PATH"
 O0=$$PWD/$(location out/foam-cap-program/foam-cap)
 cd "$$HSM_WORKSPACE/tools/hsm"
-CARGO_TARGET_DIR="$$PWD/target" "$$hsm_run" -- "$$cargo" build --release --locked --quiet --manifest-path foam-cap/Cargo.toml --bin foam-cap
+CARGO_TARGET_DIR="$$PWD/target" "$$hsm_run" -- "$$cargo" build --release --locked --quiet -j 2 --manifest-path foam-cap/Cargo.toml --bin foam-cap
 copy_file target/release/foam-cap "$$O0"
 """,
 )
@@ -4608,7 +4679,7 @@ hsm_run=
 for r in "$$(awk -F'"' '$$2 == "runner" {print $$4}' ~/.local/lib/hsm/runtime.json 2>/dev/null)" "$$HSM_WORKSPACE/tools/hsm/target/release/hsm-run"; do
   if [ -x "$$r" ] && "$$r" --runtime-info "$$HSM_WORKSPACE" 2>/dev/null | grep -q '"source_match":true'; then hsm_run=$$r; break; fi
 done
-if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run.py" >&2; exit 1; fi
+if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run" >&2; exit 1; fi
 O0=$$PWD/$(location out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.step)
 O1=$$PWD/$(location out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.step.mesh)
 O2=$$PWD/$(location out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.step.npz)
@@ -4629,13 +4700,17 @@ O16=$$PWD/$(location out/foam-cap/hardware/printed-parts/cold-core/foam-cap/rese
 rm -rf work
 for f in $(SRCS); do
   case $$f in
+    */node_modules/*) continue;;
     */bin/out/*/*) t=$${f#*/bin/out/}; t=$${t#*/};;
     *) t=$$f;;
   esac
   mkdir -p "work/$$(dirname "$$t")"; copy_file -L "$$f" "work/$$t"
 done
+for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
+  if [ -d "$$d" ]; then mkdir -p "work/$$(dirname "$$d")"; ln -sfn "$$PWD/$$d" "work/$$d"; fi
+done
 cd work
-"$$hsm_run" -- ./foam-cap > /dev/null
+HSM_REPO_ROOT=$$PWD "$$hsm_run" -- ./foam-cap > /dev/null
 copy_file hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.step "$$O0"
 copy_file hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.step.mesh "$$O1"
 copy_file hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.step.npz "$$O2"
@@ -4782,14 +4857,14 @@ hsm_run=
 for r in "$$(awk -F'"' '$$2 == "runner" {print $$4}' ~/.local/lib/hsm/runtime.json 2>/dev/null)" "$$HSM_WORKSPACE/tools/hsm/target/release/hsm-run"; do
   if [ -x "$$r" ] && "$$r" --runtime-info "$$HSM_WORKSPACE" 2>/dev/null | grep -q '"source_match":true'; then hsm_run=$$r; break; fi
 done
-if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run.py" >&2; exit 1; fi
+if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run" >&2; exit 1; fi
 cargo=$$(command -v cargo || true)
 for c in "$$cargo" /opt/homebrew/opt/rustup/bin/cargo ~/.cargo/bin/cargo; do if [ -x "$$c" ]; then cargo=$$c; break; fi; done
 if [ ! -x "$$cargo" ]; then echo "cargo is not installed (https://rustup.rs)" >&2; exit 1; fi
-export HOME=~ PATH="$$(dirname "$$cargo"):$$PATH"
+export PATH="$$(dirname "$$cargo"):$$PATH"
 O0=$$PWD/$(location out/foam-shell-program/foam-shell)
 cd "$$HSM_WORKSPACE/tools/hsm"
-CARGO_TARGET_DIR="$$PWD/target" "$$hsm_run" -- "$$cargo" build --release --locked --quiet --manifest-path foam-shell/Cargo.toml --bin foam-shell
+CARGO_TARGET_DIR="$$PWD/target" "$$hsm_run" -- "$$cargo" build --release --locked --quiet -j 2 --manifest-path foam-shell/Cargo.toml --bin foam-shell
 copy_file target/release/foam-shell "$$O0"
 """,
 )
@@ -4851,7 +4926,7 @@ hsm_run=
 for r in "$$(awk -F'"' '$$2 == "runner" {print $$4}' ~/.local/lib/hsm/runtime.json 2>/dev/null)" "$$HSM_WORKSPACE/tools/hsm/target/release/hsm-run"; do
   if [ -x "$$r" ] && "$$r" --runtime-info "$$HSM_WORKSPACE" 2>/dev/null | grep -q '"source_match":true'; then hsm_run=$$r; break; fi
 done
-if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run.py" >&2; exit 1; fi
+if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run" >&2; exit 1; fi
 O0=$$PWD/$(location out/foam-shell/hardware/printed-parts/cold-core/foam-shell/foam-shell.numbers.json)
 O1=$$PWD/$(location out/foam-shell/hardware/printed-parts/cold-core/foam-shell/foam-shell.step)
 O2=$$PWD/$(location out/foam-shell/hardware/printed-parts/cold-core/foam-shell/foam-shell.step.mesh)
@@ -4860,13 +4935,17 @@ O4=$$PWD/$(location out/foam-shell/hardware/printed-parts/cold-core/foam-shell/f
 rm -rf work
 for f in $(SRCS); do
   case $$f in
+    */node_modules/*) continue;;
     */bin/out/*/*) t=$${f#*/bin/out/}; t=$${t#*/};;
     *) t=$$f;;
   esac
   mkdir -p "work/$$(dirname "$$t")"; copy_file -L "$$f" "work/$$t"
 done
+for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
+  if [ -d "$$d" ]; then mkdir -p "work/$$(dirname "$$d")"; ln -sfn "$$PWD/$$d" "work/$$d"; fi
+done
 cd work
-"$$hsm_run" -- ./foam-shell > /dev/null
+HSM_REPO_ROOT=$$PWD "$$hsm_run" -- ./foam-shell > /dev/null
 copy_file hardware/printed-parts/cold-core/foam-shell/foam-shell.numbers.json "$$O0"
 copy_file hardware/printed-parts/cold-core/foam-shell/foam-shell.step "$$O1"
 copy_file hardware/printed-parts/cold-core/foam-shell/foam-shell.step.mesh "$$O2"
@@ -4986,14 +5065,14 @@ hsm_run=
 for r in "$$(awk -F'"' '$$2 == "runner" {print $$4}' ~/.local/lib/hsm/runtime.json 2>/dev/null)" "$$HSM_WORKSPACE/tools/hsm/target/release/hsm-run"; do
   if [ -x "$$r" ] && "$$r" --runtime-info "$$HSM_WORKSPACE" 2>/dev/null | grep -q '"source_match":true'; then hsm_run=$$r; break; fi
 done
-if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run.py" >&2; exit 1; fi
+if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run" >&2; exit 1; fi
 cargo=$$(command -v cargo || true)
 for c in "$$cargo" /opt/homebrew/opt/rustup/bin/cargo ~/.cargo/bin/cargo; do if [ -x "$$c" ]; then cargo=$$c; break; fi; done
 if [ ! -x "$$cargo" ]; then echo "cargo is not installed (https://rustup.rs)" >&2; exit 1; fi
-export HOME=~ PATH="$$(dirname "$$cargo"):$$PATH"
+export PATH="$$(dirname "$$cargo"):$$PATH"
 O0=$$PWD/$(location out/all-aero-float-program/all-aero-float)
 cd "$$HSM_WORKSPACE/tools/hsm"
-CARGO_TARGET_DIR="$$PWD/target" "$$hsm_run" -- "$$cargo" build --release --locked --quiet --manifest-path all-aero-float/Cargo.toml --bin all-aero-float
+CARGO_TARGET_DIR="$$PWD/target" "$$hsm_run" -- "$$cargo" build --release --locked --quiet -j 2 --manifest-path all-aero-float/Cargo.toml --bin all-aero-float
 copy_file target/release/all-aero-float "$$O0"
 """,
 )
@@ -5056,7 +5135,7 @@ hsm_run=
 for r in "$$(awk -F'"' '$$2 == "runner" {print $$4}' ~/.local/lib/hsm/runtime.json 2>/dev/null)" "$$HSM_WORKSPACE/tools/hsm/target/release/hsm-run"; do
   if [ -x "$$r" ] && "$$r" --runtime-info "$$HSM_WORKSPACE" 2>/dev/null | grep -q '"source_match":true'; then hsm_run=$$r; break; fi
 done
-if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run.py" >&2; exit 1; fi
+if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run" >&2; exit 1; fi
 O0=$$PWD/$(location out/all-aero-float/hardware/printed-parts/cold-core/magnetic-float/all-aero/assembly.step)
 O1=$$PWD/$(location out/all-aero-float/hardware/printed-parts/cold-core/magnetic-float/all-aero/assembly.step.mesh)
 O2=$$PWD/$(location out/all-aero-float/hardware/printed-parts/cold-core/magnetic-float/all-aero/assembly.step.npz)
@@ -5067,13 +5146,17 @@ O6=$$PWD/$(location out/all-aero-float/hardware/printed-parts/cold-core/magnetic
 rm -rf work
 for f in $(SRCS); do
   case $$f in
+    */node_modules/*) continue;;
     */bin/out/*/*) t=$${f#*/bin/out/}; t=$${t#*/};;
     *) t=$$f;;
   esac
   mkdir -p "work/$$(dirname "$$t")"; copy_file -L "$$f" "work/$$t"
 done
+for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
+  if [ -d "$$d" ]; then mkdir -p "work/$$(dirname "$$d")"; ln -sfn "$$PWD/$$d" "work/$$d"; fi
+done
 cd work
-"$$hsm_run" -- ./all-aero-float > /dev/null
+HSM_REPO_ROOT=$$PWD "$$hsm_run" -- ./all-aero-float > /dev/null
 copy_file hardware/printed-parts/cold-core/magnetic-float/all-aero/assembly.step "$$O0"
 copy_file hardware/printed-parts/cold-core/magnetic-float/all-aero/assembly.step.mesh "$$O1"
 copy_file hardware/printed-parts/cold-core/magnetic-float/all-aero/assembly.step.npz "$$O2"
@@ -5197,14 +5280,14 @@ hsm_run=
 for r in "$$(awk -F'"' '$$2 == "runner" {print $$4}' ~/.local/lib/hsm/runtime.json 2>/dev/null)" "$$HSM_WORKSPACE/tools/hsm/target/release/hsm-run"; do
   if [ -x "$$r" ] && "$$r" --runtime-info "$$HSM_WORKSPACE" 2>/dev/null | grep -q '"source_match":true'; then hsm_run=$$r; break; fi
 done
-if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run.py" >&2; exit 1; fi
+if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run" >&2; exit 1; fi
 cargo=$$(command -v cargo || true)
 for c in "$$cargo" /opt/homebrew/opt/rustup/bin/cargo ~/.cargo/bin/cargo; do if [ -x "$$c" ]; then cargo=$$c; break; fi; done
 if [ ! -x "$$cargo" ]; then echo "cargo is not installed (https://rustup.rs)" >&2; exit 1; fi
-export HOME=~ PATH="$$(dirname "$$cargo"):$$PATH"
+export PATH="$$(dirname "$$cargo"):$$PATH"
 O0=$$PWD/$(location out/magnetic-float-program/magnetic-float)
 cd "$$HSM_WORKSPACE/tools/hsm"
-CARGO_TARGET_DIR="$$PWD/target" "$$hsm_run" -- "$$cargo" build --release --locked --quiet --manifest-path magnetic-float/Cargo.toml --bin magnetic-float
+CARGO_TARGET_DIR="$$PWD/target" "$$hsm_run" -- "$$cargo" build --release --locked --quiet -j 2 --manifest-path magnetic-float/Cargo.toml --bin magnetic-float
 copy_file target/release/magnetic-float "$$O0"
 """,
 )
@@ -5270,7 +5353,7 @@ hsm_run=
 for r in "$$(awk -F'"' '$$2 == "runner" {print $$4}' ~/.local/lib/hsm/runtime.json 2>/dev/null)" "$$HSM_WORKSPACE/tools/hsm/target/release/hsm-run"; do
   if [ -x "$$r" ] && "$$r" --runtime-info "$$HSM_WORKSPACE" 2>/dev/null | grep -q '"source_match":true'; then hsm_run=$$r; break; fi
 done
-if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run.py" >&2; exit 1; fi
+if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run" >&2; exit 1; fi
 O0=$$PWD/$(location out/magnetic-float/hardware/printed-parts/cold-core/magnetic-float/body-aero.step)
 O1=$$PWD/$(location out/magnetic-float/hardware/printed-parts/cold-core/magnetic-float/body-aero.step.mesh)
 O2=$$PWD/$(location out/magnetic-float/hardware/printed-parts/cold-core/magnetic-float/body-aero.step.npz)
@@ -5284,13 +5367,17 @@ O9=$$PWD/$(location out/magnetic-float/hardware/printed-parts/cold-core/magnetic
 rm -rf work
 for f in $(SRCS); do
   case $$f in
+    */node_modules/*) continue;;
     */bin/out/*/*) t=$${f#*/bin/out/}; t=$${t#*/};;
     *) t=$$f;;
   esac
   mkdir -p "work/$$(dirname "$$t")"; copy_file -L "$$f" "work/$$t"
 done
+for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
+  if [ -d "$$d" ]; then mkdir -p "work/$$(dirname "$$d")"; ln -sfn "$$PWD/$$d" "work/$$d"; fi
+done
 cd work
-"$$hsm_run" -- ./magnetic-float > /dev/null
+HSM_REPO_ROOT=$$PWD "$$hsm_run" -- ./magnetic-float > /dev/null
 copy_file hardware/printed-parts/cold-core/magnetic-float/body-aero.step "$$O0"
 copy_file hardware/printed-parts/cold-core/magnetic-float/body-aero.step.mesh "$$O1"
 copy_file hardware/printed-parts/cold-core/magnetic-float/body-aero.step.npz "$$O2"
@@ -5414,14 +5501,14 @@ hsm_run=
 for r in "$$(awk -F'"' '$$2 == "runner" {print $$4}' ~/.local/lib/hsm/runtime.json 2>/dev/null)" "$$HSM_WORKSPACE/tools/hsm/target/release/hsm-run"; do
   if [ -x "$$r" ] && "$$r" --runtime-info "$$HSM_WORKSPACE" 2>/dev/null | grep -q '"source_match":true'; then hsm_run=$$r; break; fi
 done
-if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run.py" >&2; exit 1; fi
+if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run" >&2; exit 1; fi
 cargo=$$(command -v cargo || true)
 for c in "$$cargo" /opt/homebrew/opt/rustup/bin/cargo ~/.cargo/bin/cargo; do if [ -x "$$c" ]; then cargo=$$c; break; fi; done
 if [ ! -x "$$cargo" ]; then echo "cargo is not installed (https://rustup.rs)" >&2; exit 1; fi
-export HOME=~ PATH="$$(dirname "$$cargo"):$$PATH"
+export PATH="$$(dirname "$$cargo"):$$PATH"
 O0=$$PWD/$(location out/prv-shroud-program/prv-shroud)
 cd "$$HSM_WORKSPACE/tools/hsm"
-CARGO_TARGET_DIR="$$PWD/target" "$$hsm_run" -- "$$cargo" build --release --locked --quiet --manifest-path prv-shroud/Cargo.toml --bin prv-shroud
+CARGO_TARGET_DIR="$$PWD/target" "$$hsm_run" -- "$$cargo" build --release --locked --quiet -j 2 --manifest-path prv-shroud/Cargo.toml --bin prv-shroud
 copy_file target/release/prv-shroud "$$O0"
 """,
 )
@@ -5480,7 +5567,7 @@ hsm_run=
 for r in "$$(awk -F'"' '$$2 == "runner" {print $$4}' ~/.local/lib/hsm/runtime.json 2>/dev/null)" "$$HSM_WORKSPACE/tools/hsm/target/release/hsm-run"; do
   if [ -x "$$r" ] && "$$r" --runtime-info "$$HSM_WORKSPACE" 2>/dev/null | grep -q '"source_match":true'; then hsm_run=$$r; break; fi
 done
-if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run.py" >&2; exit 1; fi
+if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run" >&2; exit 1; fi
 O0=$$PWD/$(location out/prv-shroud/hardware/printed-parts/cold-core/prv-shroud/prv-shroud.step)
 O1=$$PWD/$(location out/prv-shroud/hardware/printed-parts/cold-core/prv-shroud/prv-shroud.step.mesh)
 O2=$$PWD/$(location out/prv-shroud/hardware/printed-parts/cold-core/prv-shroud/prv-shroud.step.npz)
@@ -5488,13 +5575,17 @@ O3=$$PWD/$(location out/prv-shroud/hardware/printed-parts/cold-core/prv-shroud/p
 rm -rf work
 for f in $(SRCS); do
   case $$f in
+    */node_modules/*) continue;;
     */bin/out/*/*) t=$${f#*/bin/out/}; t=$${t#*/};;
     *) t=$$f;;
   esac
   mkdir -p "work/$$(dirname "$$t")"; copy_file -L "$$f" "work/$$t"
 done
+for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
+  if [ -d "$$d" ]; then mkdir -p "work/$$(dirname "$$d")"; ln -sfn "$$PWD/$$d" "work/$$d"; fi
+done
 cd work
-"$$hsm_run" -- ./prv-shroud > /dev/null
+HSM_REPO_ROOT=$$PWD "$$hsm_run" -- ./prv-shroud > /dev/null
 copy_file hardware/printed-parts/cold-core/prv-shroud/prv-shroud.step "$$O0"
 copy_file hardware/printed-parts/cold-core/prv-shroud/prv-shroud.step.mesh "$$O1"
 copy_file hardware/printed-parts/cold-core/prv-shroud/prv-shroud.step.npz "$$O2"
@@ -5616,14 +5707,14 @@ hsm_run=
 for r in "$$(awk -F'"' '$$2 == "runner" {print $$4}' ~/.local/lib/hsm/runtime.json 2>/dev/null)" "$$HSM_WORKSPACE/tools/hsm/target/release/hsm-run"; do
   if [ -x "$$r" ] && "$$r" --runtime-info "$$HSM_WORKSPACE" 2>/dev/null | grep -q '"source_match":true'; then hsm_run=$$r; break; fi
 done
-if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run.py" >&2; exit 1; fi
+if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run" >&2; exit 1; fi
 cargo=$$(command -v cargo || true)
 for c in "$$cargo" /opt/homebrew/opt/rustup/bin/cargo ~/.cargo/bin/cargo; do if [ -x "$$c" ]; then cargo=$$c; break; fi; done
 if [ ! -x "$$cargo" ]; then echo "cargo is not installed (https://rustup.rs)" >&2; exit 1; fi
-export HOME=~ PATH="$$(dirname "$$cargo"):$$PATH"
+export PATH="$$(dirname "$$cargo"):$$PATH"
 O0=$$PWD/$(location out/reed-bridge-program/reed-bridge)
 cd "$$HSM_WORKSPACE/tools/hsm"
-CARGO_TARGET_DIR="$$PWD/target" "$$hsm_run" -- "$$cargo" build --release --locked --quiet --manifest-path reed-bridge/Cargo.toml --bin reed-bridge
+CARGO_TARGET_DIR="$$PWD/target" "$$hsm_run" -- "$$cargo" build --release --locked --quiet -j 2 --manifest-path reed-bridge/Cargo.toml --bin reed-bridge
 copy_file target/release/reed-bridge "$$O0"
 """,
 )
@@ -5687,7 +5778,7 @@ hsm_run=
 for r in "$$(awk -F'"' '$$2 == "runner" {print $$4}' ~/.local/lib/hsm/runtime.json 2>/dev/null)" "$$HSM_WORKSPACE/tools/hsm/target/release/hsm-run"; do
   if [ -x "$$r" ] && "$$r" --runtime-info "$$HSM_WORKSPACE" 2>/dev/null | grep -q '"source_match":true'; then hsm_run=$$r; break; fi
 done
-if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run.py" >&2; exit 1; fi
+if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run" >&2; exit 1; fi
 O0=$$PWD/$(location out/reed-bridge/hardware/printed-parts/cold-core/reed-bridge/reed-bridge-setting-gauge.step)
 O1=$$PWD/$(location out/reed-bridge/hardware/printed-parts/cold-core/reed-bridge/reed-bridge-setting-gauge.step.mesh)
 O2=$$PWD/$(location out/reed-bridge/hardware/printed-parts/cold-core/reed-bridge/reed-bridge-setting-gauge.step.npz)
@@ -5699,13 +5790,17 @@ O7=$$PWD/$(location out/reed-bridge/hardware/printed-parts/cold-core/reed-bridge
 rm -rf work
 for f in $(SRCS); do
   case $$f in
+    */node_modules/*) continue;;
     */bin/out/*/*) t=$${f#*/bin/out/}; t=$${t#*/};;
     *) t=$$f;;
   esac
   mkdir -p "work/$$(dirname "$$t")"; copy_file -L "$$f" "work/$$t"
 done
+for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
+  if [ -d "$$d" ]; then mkdir -p "work/$$(dirname "$$d")"; ln -sfn "$$PWD/$$d" "work/$$d"; fi
+done
 cd work
-"$$hsm_run" -- ./reed-bridge > /dev/null
+HSM_REPO_ROOT=$$PWD "$$hsm_run" -- ./reed-bridge > /dev/null
 copy_file hardware/printed-parts/cold-core/reed-bridge/reed-bridge-setting-gauge.step "$$O0"
 copy_file hardware/printed-parts/cold-core/reed-bridge/reed-bridge-setting-gauge.step.mesh "$$O1"
 copy_file hardware/printed-parts/cold-core/reed-bridge/reed-bridge-setting-gauge.step.npz "$$O2"
@@ -5837,14 +5932,14 @@ hsm_run=
 for r in "$$(awk -F'"' '$$2 == "runner" {print $$4}' ~/.local/lib/hsm/runtime.json 2>/dev/null)" "$$HSM_WORKSPACE/tools/hsm/target/release/hsm-run"; do
   if [ -x "$$r" ] && "$$r" --runtime-info "$$HSM_WORKSPACE" 2>/dev/null | grep -q '"source_match":true'; then hsm_run=$$r; break; fi
 done
-if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run.py" >&2; exit 1; fi
+if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run" >&2; exit 1; fi
 cargo=$$(command -v cargo || true)
 for c in "$$cargo" /opt/homebrew/opt/rustup/bin/cargo ~/.cargo/bin/cargo; do if [ -x "$$c" ]; then cargo=$$c; break; fi; done
 if [ ! -x "$$cargo" ]; then echo "cargo is not installed (https://rustup.rs)" >&2; exit 1; fi
-export HOME=~ PATH="$$(dirname "$$cargo"):$$PATH"
+export PATH="$$(dirname "$$cargo"):$$PATH"
 O0=$$PWD/$(location out/reservoir-program/reservoir)
 cd "$$HSM_WORKSPACE/tools/hsm"
-CARGO_TARGET_DIR="$$PWD/target" "$$hsm_run" -- "$$cargo" build --release --locked --quiet --manifest-path reservoir/Cargo.toml --bin reservoir
+CARGO_TARGET_DIR="$$PWD/target" "$$hsm_run" -- "$$cargo" build --release --locked --quiet -j 2 --manifest-path reservoir/Cargo.toml --bin reservoir
 copy_file target/release/reservoir "$$O0"
 """,
 )
@@ -5928,7 +6023,7 @@ hsm_run=
 for r in "$$(awk -F'"' '$$2 == "runner" {print $$4}' ~/.local/lib/hsm/runtime.json 2>/dev/null)" "$$HSM_WORKSPACE/tools/hsm/target/release/hsm-run"; do
   if [ -x "$$r" ] && "$$r" --runtime-info "$$HSM_WORKSPACE" 2>/dev/null | grep -q '"source_match":true'; then hsm_run=$$r; break; fi
 done
-if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run.py" >&2; exit 1; fi
+if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run" >&2; exit 1; fi
 O0=$$PWD/$(location out/reservoir/hardware/printed-parts/cold-core/reservoir/reservoir-air-grip.step)
 O1=$$PWD/$(location out/reservoir/hardware/printed-parts/cold-core/reservoir/reservoir-air-grip.step.mesh)
 O2=$$PWD/$(location out/reservoir/hardware/printed-parts/cold-core/reservoir/reservoir-air-grip.step.npz)
@@ -5960,13 +6055,17 @@ O27=$$PWD/$(location out/reservoir/hardware/printed-parts/cold-core/reservoir/re
 rm -rf work
 for f in $(SRCS); do
   case $$f in
+    */node_modules/*) continue;;
     */bin/out/*/*) t=$${f#*/bin/out/}; t=$${t#*/};;
     *) t=$$f;;
   esac
   mkdir -p "work/$$(dirname "$$t")"; copy_file -L "$$f" "work/$$t"
 done
+for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
+  if [ -d "$$d" ]; then mkdir -p "work/$$(dirname "$$d")"; ln -sfn "$$PWD/$$d" "work/$$d"; fi
+done
 cd work
-"$$hsm_run" -- ./reservoir > /dev/null
+HSM_REPO_ROOT=$$PWD "$$hsm_run" -- ./reservoir > /dev/null
 copy_file hardware/printed-parts/cold-core/reservoir/reservoir-air-grip.step "$$O0"
 copy_file hardware/printed-parts/cold-core/reservoir/reservoir-air-grip.step.mesh "$$O1"
 copy_file hardware/printed-parts/cold-core/reservoir/reservoir-air-grip.step.npz "$$O2"
@@ -6104,14 +6203,14 @@ hsm_run=
 for r in "$$(awk -F'"' '$$2 == "runner" {print $$4}' ~/.local/lib/hsm/runtime.json 2>/dev/null)" "$$HSM_WORKSPACE/tools/hsm/target/release/hsm-run"; do
   if [ -x "$$r" ] && "$$r" --runtime-info "$$HSM_WORKSPACE" 2>/dev/null | grep -q '"source_match":true'; then hsm_run=$$r; break; fi
 done
-if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run.py" >&2; exit 1; fi
+if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run" >&2; exit 1; fi
 cargo=$$(command -v cargo || true)
 for c in "$$cargo" /opt/homebrew/opt/rustup/bin/cargo ~/.cargo/bin/cargo; do if [ -x "$$c" ]; then cargo=$$c; break; fi; done
 if [ ! -x "$$cargo" ]; then echo "cargo is not installed (https://rustup.rs)" >&2; exit 1; fi
-export HOME=~ PATH="$$(dirname "$$cargo"):$$PATH"
+export PATH="$$(dirname "$$cargo"):$$PATH"
 O0=$$PWD/$(location out/collet-press-program/collet-press)
 cd "$$HSM_WORKSPACE/tools/hsm"
-CARGO_TARGET_DIR="$$PWD/target" "$$hsm_run" -- "$$cargo" build --release --locked --quiet --manifest-path collet-press/Cargo.toml --bin collet-press
+CARGO_TARGET_DIR="$$PWD/target" "$$hsm_run" -- "$$cargo" build --release --locked --quiet -j 2 --manifest-path collet-press/Cargo.toml --bin collet-press
 copy_file target/release/collet-press "$$O0"
 """,
 )
@@ -6170,7 +6269,7 @@ hsm_run=
 for r in "$$(awk -F'"' '$$2 == "runner" {print $$4}' ~/.local/lib/hsm/runtime.json 2>/dev/null)" "$$HSM_WORKSPACE/tools/hsm/target/release/hsm-run"; do
   if [ -x "$$r" ] && "$$r" --runtime-info "$$HSM_WORKSPACE" 2>/dev/null | grep -q '"source_match":true'; then hsm_run=$$r; break; fi
 done
-if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run.py" >&2; exit 1; fi
+if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run" >&2; exit 1; fi
 O0=$$PWD/$(location out/collet-press/hardware/printed-parts/collet-press/collet-press.step)
 O1=$$PWD/$(location out/collet-press/hardware/printed-parts/collet-press/collet-press.step.mesh)
 O2=$$PWD/$(location out/collet-press/hardware/printed-parts/collet-press/collet-press.step.npz)
@@ -6178,13 +6277,17 @@ O3=$$PWD/$(location out/collet-press/hardware/printed-parts/collet-press/collet-
 rm -rf work
 for f in $(SRCS); do
   case $$f in
+    */node_modules/*) continue;;
     */bin/out/*/*) t=$${f#*/bin/out/}; t=$${t#*/};;
     *) t=$$f;;
   esac
   mkdir -p "work/$$(dirname "$$t")"; copy_file -L "$$f" "work/$$t"
 done
+for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
+  if [ -d "$$d" ]; then mkdir -p "work/$$(dirname "$$d")"; ln -sfn "$$PWD/$$d" "work/$$d"; fi
+done
 cd work
-"$$hsm_run" -- ./collet-press > /dev/null
+HSM_REPO_ROOT=$$PWD "$$hsm_run" -- ./collet-press > /dev/null
 copy_file hardware/printed-parts/collet-press/collet-press.step "$$O0"
 copy_file hardware/printed-parts/collet-press/collet-press.step.mesh "$$O1"
 copy_file hardware/printed-parts/collet-press/collet-press.step.npz "$$O2"
@@ -6298,14 +6401,14 @@ hsm_run=
 for r in "$$(awk -F'"' '$$2 == "runner" {print $$4}' ~/.local/lib/hsm/runtime.json 2>/dev/null)" "$$HSM_WORKSPACE/tools/hsm/target/release/hsm-run"; do
   if [ -x "$$r" ] && "$$r" --runtime-info "$$HSM_WORKSPACE" 2>/dev/null | grep -q '"source_match":true'; then hsm_run=$$r; break; fi
 done
-if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run.py" >&2; exit 1; fi
+if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run" >&2; exit 1; fi
 cargo=$$(command -v cargo || true)
 for c in "$$cargo" /opt/homebrew/opt/rustup/bin/cargo ~/.cargo/bin/cargo; do if [ -x "$$c" ]; then cargo=$$c; break; fi; done
 if [ ! -x "$$cargo" ]; then echo "cargo is not installed (https://rustup.rs)" >&2; exit 1; fi
-export HOME=~ PATH="$$(dirname "$$cargo"):$$PATH"
+export PATH="$$(dirname "$$cargo"):$$PATH"
 O0=$$PWD/$(location out/diaphragm-pump-sleeve-program/diaphragm-pump-sleeve)
 cd "$$HSM_WORKSPACE/tools/hsm"
-CARGO_TARGET_DIR="$$PWD/target" "$$hsm_run" -- "$$cargo" build --release --locked --quiet --manifest-path diaphragm-pump-sleeve/Cargo.toml --bin diaphragm-pump-sleeve
+CARGO_TARGET_DIR="$$PWD/target" "$$hsm_run" -- "$$cargo" build --release --locked --quiet -j 2 --manifest-path diaphragm-pump-sleeve/Cargo.toml --bin diaphragm-pump-sleeve
 copy_file target/release/diaphragm-pump-sleeve "$$O0"
 """,
 )
@@ -6364,7 +6467,7 @@ hsm_run=
 for r in "$$(awk -F'"' '$$2 == "runner" {print $$4}' ~/.local/lib/hsm/runtime.json 2>/dev/null)" "$$HSM_WORKSPACE/tools/hsm/target/release/hsm-run"; do
   if [ -x "$$r" ] && "$$r" --runtime-info "$$HSM_WORKSPACE" 2>/dev/null | grep -q '"source_match":true'; then hsm_run=$$r; break; fi
 done
-if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run.py" >&2; exit 1; fi
+if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run" >&2; exit 1; fi
 O0=$$PWD/$(location out/diaphragm-pump-sleeve/hardware/printed-parts/diaphragm-pump-sleeve/diaphragm-pump-sleeve.step)
 O1=$$PWD/$(location out/diaphragm-pump-sleeve/hardware/printed-parts/diaphragm-pump-sleeve/diaphragm-pump-sleeve.step.mesh)
 O2=$$PWD/$(location out/diaphragm-pump-sleeve/hardware/printed-parts/diaphragm-pump-sleeve/diaphragm-pump-sleeve.step.npz)
@@ -6372,13 +6475,17 @@ O3=$$PWD/$(location out/diaphragm-pump-sleeve/hardware/printed-parts/diaphragm-p
 rm -rf work
 for f in $(SRCS); do
   case $$f in
+    */node_modules/*) continue;;
     */bin/out/*/*) t=$${f#*/bin/out/}; t=$${t#*/};;
     *) t=$$f;;
   esac
   mkdir -p "work/$$(dirname "$$t")"; copy_file -L "$$f" "work/$$t"
 done
+for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
+  if [ -d "$$d" ]; then mkdir -p "work/$$(dirname "$$d")"; ln -sfn "$$PWD/$$d" "work/$$d"; fi
+done
 cd work
-"$$hsm_run" -- ./diaphragm-pump-sleeve > /dev/null
+HSM_REPO_ROOT=$$PWD "$$hsm_run" -- ./diaphragm-pump-sleeve > /dev/null
 copy_file hardware/printed-parts/diaphragm-pump-sleeve/diaphragm-pump-sleeve.step "$$O0"
 copy_file hardware/printed-parts/diaphragm-pump-sleeve/diaphragm-pump-sleeve.step.mesh "$$O1"
 copy_file hardware/printed-parts/diaphragm-pump-sleeve/diaphragm-pump-sleeve.step.npz "$$O2"
@@ -6492,14 +6599,14 @@ hsm_run=
 for r in "$$(awk -F'"' '$$2 == "runner" {print $$4}' ~/.local/lib/hsm/runtime.json 2>/dev/null)" "$$HSM_WORKSPACE/tools/hsm/target/release/hsm-run"; do
   if [ -x "$$r" ] && "$$r" --runtime-info "$$HSM_WORKSPACE" 2>/dev/null | grep -q '"source_match":true'; then hsm_run=$$r; break; fi
 done
-if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run.py" >&2; exit 1; fi
+if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run" >&2; exit 1; fi
 cargo=$$(command -v cargo || true)
 for c in "$$cargo" /opt/homebrew/opt/rustup/bin/cargo ~/.cargo/bin/cargo; do if [ -x "$$c" ]; then cargo=$$c; break; fi; done
 if [ ! -x "$$cargo" ]; then echo "cargo is not installed (https://rustup.rs)" >&2; exit 1; fi
-export HOME=~ PATH="$$(dirname "$$cargo"):$$PATH"
+export PATH="$$(dirname "$$cargo"):$$PATH"
 O0=$$PWD/$(location out/pcba-assembly-program/pcba-assembly)
 cd "$$HSM_WORKSPACE/tools/hsm"
-CARGO_TARGET_DIR="$$PWD/target" "$$hsm_run" -- "$$cargo" build --release --locked --quiet --manifest-path pcba-assembly/Cargo.toml --bin pcba-assembly
+CARGO_TARGET_DIR="$$PWD/target" "$$hsm_run" -- "$$cargo" build --release --locked --quiet -j 2 --manifest-path pcba-assembly/Cargo.toml --bin pcba-assembly
 copy_file target/release/pcba-assembly "$$O0"
 """,
 )
@@ -6559,7 +6666,7 @@ hsm_run=
 for r in "$$(awk -F'"' '$$2 == "runner" {print $$4}' ~/.local/lib/hsm/runtime.json 2>/dev/null)" "$$HSM_WORKSPACE/tools/hsm/target/release/hsm-run"; do
   if [ -x "$$r" ] && "$$r" --runtime-info "$$HSM_WORKSPACE" 2>/dev/null | grep -q '"source_match":true'; then hsm_run=$$r; break; fi
 done
-if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run.py" >&2; exit 1; fi
+if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run" >&2; exit 1; fi
 O0=$$PWD/$(location out/pcba-assembly/hardware/printed-parts/electronics/pcba-tray/pcba-assembly.numbers.json)
 O1=$$PWD/$(location out/pcba-assembly/hardware/printed-parts/electronics/pcba-tray/pcba-board.step)
 O2=$$PWD/$(location out/pcba-assembly/hardware/printed-parts/electronics/pcba-tray/pcba-board.step.mesh)
@@ -6567,13 +6674,17 @@ O3=$$PWD/$(location out/pcba-assembly/hardware/printed-parts/electronics/pcba-tr
 rm -rf work
 for f in $(SRCS); do
   case $$f in
+    */node_modules/*) continue;;
     */bin/out/*/*) t=$${f#*/bin/out/}; t=$${t#*/};;
     *) t=$$f;;
   esac
   mkdir -p "work/$$(dirname "$$t")"; copy_file -L "$$f" "work/$$t"
 done
+for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
+  if [ -d "$$d" ]; then mkdir -p "work/$$(dirname "$$d")"; ln -sfn "$$PWD/$$d" "work/$$d"; fi
+done
 cd work
-"$$hsm_run" -- ./pcba-assembly > /dev/null
+HSM_REPO_ROOT=$$PWD "$$hsm_run" -- ./pcba-assembly > /dev/null
 copy_file hardware/printed-parts/electronics/pcba-tray/pcba-assembly.numbers.json "$$O0"
 copy_file hardware/printed-parts/electronics/pcba-tray/pcba-board.step "$$O1"
 copy_file hardware/printed-parts/electronics/pcba-tray/pcba-board.step.mesh "$$O2"
@@ -6720,14 +6831,14 @@ hsm_run=
 for r in "$$(awk -F'"' '$$2 == "runner" {print $$4}' ~/.local/lib/hsm/runtime.json 2>/dev/null)" "$$HSM_WORKSPACE/tools/hsm/target/release/hsm-run"; do
   if [ -x "$$r" ] && "$$r" --runtime-info "$$HSM_WORKSPACE" 2>/dev/null | grep -q '"source_match":true'; then hsm_run=$$r; break; fi
 done
-if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run.py" >&2; exit 1; fi
+if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run" >&2; exit 1; fi
 cargo=$$(command -v cargo || true)
 for c in "$$cargo" /opt/homebrew/opt/rustup/bin/cargo ~/.cargo/bin/cargo; do if [ -x "$$c" ]; then cargo=$$c; break; fi; done
 if [ ! -x "$$cargo" ]; then echo "cargo is not installed (https://rustup.rs)" >&2; exit 1; fi
-export HOME=~ PATH="$$(dirname "$$cargo"):$$PATH"
+export PATH="$$(dirname "$$cargo"):$$PATH"
 O0=$$PWD/$(location out/display-cover-program/display-cover)
 cd "$$HSM_WORKSPACE/tools/hsm"
-CARGO_TARGET_DIR="$$PWD/target" "$$hsm_run" -- "$$cargo" build --release --locked --quiet --manifest-path enclosure-components/Cargo.toml --bin display-cover
+CARGO_TARGET_DIR="$$PWD/target" "$$hsm_run" -- "$$cargo" build --release --locked --quiet -j 2 --manifest-path enclosure-components/Cargo.toml --bin display-cover
 copy_file target/release/display-cover "$$O0"
 """,
 )
@@ -6804,7 +6915,7 @@ hsm_run=
 for r in "$$(awk -F'"' '$$2 == "runner" {print $$4}' ~/.local/lib/hsm/runtime.json 2>/dev/null)" "$$HSM_WORKSPACE/tools/hsm/target/release/hsm-run"; do
   if [ -x "$$r" ] && "$$r" --runtime-info "$$HSM_WORKSPACE" 2>/dev/null | grep -q '"source_match":true'; then hsm_run=$$r; break; fi
 done
-if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run.py" >&2; exit 1; fi
+if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run" >&2; exit 1; fi
 O0=$$PWD/$(location out/display-cover/hardware/printed-parts/enclosure/display-cover/display-cover-fasteners.step)
 O1=$$PWD/$(location out/display-cover/hardware/printed-parts/enclosure/display-cover/display-cover-fasteners.step.mesh)
 O2=$$PWD/$(location out/display-cover/hardware/printed-parts/enclosure/display-cover/display-cover-fasteners.step.npz)
@@ -6825,13 +6936,17 @@ O16=$$PWD/$(location out/display-cover/hardware/printed-parts/enclosure/display-
 rm -rf work
 for f in $(SRCS); do
   case $$f in
+    */node_modules/*) continue;;
     */bin/out/*/*) t=$${f#*/bin/out/}; t=$${t#*/};;
     *) t=$$f;;
   esac
   mkdir -p "work/$$(dirname "$$t")"; copy_file -L "$$f" "work/$$t"
 done
+for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
+  if [ -d "$$d" ]; then mkdir -p "work/$$(dirname "$$d")"; ln -sfn "$$PWD/$$d" "work/$$d"; fi
+done
 cd work
-"$$hsm_run" -- ./display-cover > /dev/null
+HSM_REPO_ROOT=$$PWD "$$hsm_run" -- ./display-cover > /dev/null
 copy_file hardware/printed-parts/enclosure/display-cover/display-cover-fasteners.step "$$O0"
 copy_file hardware/printed-parts/enclosure/display-cover/display-cover-fasteners.step.mesh "$$O1"
 copy_file hardware/printed-parts/enclosure/display-cover/display-cover-fasteners.step.npz "$$O2"
@@ -6989,14 +7104,14 @@ hsm_run=
 for r in "$$(awk -F'"' '$$2 == "runner" {print $$4}' ~/.local/lib/hsm/runtime.json 2>/dev/null)" "$$HSM_WORKSPACE/tools/hsm/target/release/hsm-run"; do
   if [ -x "$$r" ] && "$$r" --runtime-info "$$HSM_WORKSPACE" 2>/dev/null | grep -q '"source_match":true'; then hsm_run=$$r; break; fi
 done
-if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run.py" >&2; exit 1; fi
+if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run" >&2; exit 1; fi
 cargo=$$(command -v cargo || true)
 for c in "$$cargo" /opt/homebrew/opt/rustup/bin/cargo ~/.cargo/bin/cargo; do if [ -x "$$c" ]; then cargo=$$c; break; fi; done
 if [ ! -x "$$cargo" ]; then echo "cargo is not installed (https://rustup.rs)" >&2; exit 1; fi
-export HOME=~ PATH="$$(dirname "$$cargo"):$$PATH"
+export PATH="$$(dirname "$$cargo"):$$PATH"
 O0=$$PWD/$(location out/display-gasket-program/display-gasket)
 cd "$$HSM_WORKSPACE/tools/hsm"
-CARGO_TARGET_DIR="$$PWD/target" "$$hsm_run" -- "$$cargo" build --release --locked --quiet --manifest-path enclosure-components/Cargo.toml --bin display-gasket
+CARGO_TARGET_DIR="$$PWD/target" "$$hsm_run" -- "$$cargo" build --release --locked --quiet -j 2 --manifest-path enclosure-components/Cargo.toml --bin display-gasket
 copy_file target/release/display-gasket "$$O0"
 """,
 )
@@ -7058,7 +7173,7 @@ hsm_run=
 for r in "$$(awk -F'"' '$$2 == "runner" {print $$4}' ~/.local/lib/hsm/runtime.json 2>/dev/null)" "$$HSM_WORKSPACE/tools/hsm/target/release/hsm-run"; do
   if [ -x "$$r" ] && "$$r" --runtime-info "$$HSM_WORKSPACE" 2>/dev/null | grep -q '"source_match":true'; then hsm_run=$$r; break; fi
 done
-if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run.py" >&2; exit 1; fi
+if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run" >&2; exit 1; fi
 O0=$$PWD/$(location out/display-gasket/hardware/printed-parts/enclosure/display-gasket/display-gasket.step)
 O1=$$PWD/$(location out/display-gasket/hardware/printed-parts/enclosure/display-gasket/display-gasket.step.mesh)
 O2=$$PWD/$(location out/display-gasket/hardware/printed-parts/enclosure/display-gasket/display-gasket.step.npz)
@@ -7066,13 +7181,17 @@ O3=$$PWD/$(location out/display-gasket/hardware/printed-parts/enclosure/display-
 rm -rf work
 for f in $(SRCS); do
   case $$f in
+    */node_modules/*) continue;;
     */bin/out/*/*) t=$${f#*/bin/out/}; t=$${t#*/};;
     *) t=$$f;;
   esac
   mkdir -p "work/$$(dirname "$$t")"; copy_file -L "$$f" "work/$$t"
 done
+for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
+  if [ -d "$$d" ]; then mkdir -p "work/$$(dirname "$$d")"; ln -sfn "$$PWD/$$d" "work/$$d"; fi
+done
 cd work
-"$$hsm_run" -- ./display-gasket > /dev/null
+HSM_REPO_ROOT=$$PWD "$$hsm_run" -- ./display-gasket > /dev/null
 copy_file hardware/printed-parts/enclosure/display-gasket/display-gasket.step "$$O0"
 copy_file hardware/printed-parts/enclosure/display-gasket/display-gasket.step.mesh "$$O1"
 copy_file hardware/printed-parts/enclosure/display-gasket/display-gasket.step.npz "$$O2"
@@ -7217,14 +7336,14 @@ hsm_run=
 for r in "$$(awk -F'"' '$$2 == "runner" {print $$4}' ~/.local/lib/hsm/runtime.json 2>/dev/null)" "$$HSM_WORKSPACE/tools/hsm/target/release/hsm-run"; do
   if [ -x "$$r" ] && "$$r" --runtime-info "$$HSM_WORKSPACE" 2>/dev/null | grep -q '"source_match":true'; then hsm_run=$$r; break; fi
 done
-if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run.py" >&2; exit 1; fi
+if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run" >&2; exit 1; fi
 cargo=$$(command -v cargo || true)
 for c in "$$cargo" /opt/homebrew/opt/rustup/bin/cargo ~/.cargo/bin/cargo; do if [ -x "$$c" ]; then cargo=$$c; break; fi; done
 if [ ! -x "$$cargo" ]; then echo "cargo is not installed (https://rustup.rs)" >&2; exit 1; fi
-export HOME=~ PATH="$$(dirname "$$cargo"):$$PATH"
+export PATH="$$(dirname "$$cargo"):$$PATH"
 O0=$$PWD/$(location out/enclosure-program/enclosure)
 cd "$$HSM_WORKSPACE/tools/hsm"
-CARGO_TARGET_DIR="$$PWD/target" "$$hsm_run" -- "$$cargo" build --release --locked --quiet --manifest-path enclosure/Cargo.toml --bin enclosure
+CARGO_TARGET_DIR="$$PWD/target" "$$hsm_run" -- "$$cargo" build --release --locked --quiet -j 2 --manifest-path enclosure/Cargo.toml --bin enclosure
 copy_file target/release/enclosure "$$O0"
 """,
 )
@@ -7299,19 +7418,23 @@ hsm_run=
 for r in "$$(awk -F'"' '$$2 == "runner" {print $$4}' ~/.local/lib/hsm/runtime.json 2>/dev/null)" "$$HSM_WORKSPACE/tools/hsm/target/release/hsm-run"; do
   if [ -x "$$r" ] && "$$r" --runtime-info "$$HSM_WORKSPACE" 2>/dev/null | grep -q '"source_match":true'; then hsm_run=$$r; break; fi
 done
-if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run.py" >&2; exit 1; fi
+if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run" >&2; exit 1; fi
 O0=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure.step.mesh)
 O1=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure.step.npz)
 rm -rf work
 for f in $(SRCS); do
   case $$f in
+    */node_modules/*) continue;;
     */bin/out/*/*) t=$${f#*/bin/out/}; t=$${t#*/};;
     *) t=$$f;;
   esac
   mkdir -p "work/$$(dirname "$$t")"; copy_file -L "$$f" "work/$$t"
 done
+for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
+  if [ -d "$$d" ]; then mkdir -p "work/$$(dirname "$$d")"; ln -sfn "$$PWD/$$d" "work/$$d"; fi
+done
 cd work
-"$$hsm_run" -- ./enclosure > /dev/null
+HSM_REPO_ROOT=$$PWD "$$hsm_run" -- ./enclosure > /dev/null
 copy_file hardware/printed-parts/enclosure/enclosure/enclosure.step.mesh "$$O0"
 copy_file hardware/printed-parts/enclosure/enclosure/enclosure.step.npz "$$O1"
 """,
@@ -7491,14 +7614,14 @@ hsm_run=
 for r in "$$(awk -F'"' '$$2 == "runner" {print $$4}' ~/.local/lib/hsm/runtime.json 2>/dev/null)" "$$HSM_WORKSPACE/tools/hsm/target/release/hsm-run"; do
   if [ -x "$$r" ] && "$$r" --runtime-info "$$HSM_WORKSPACE" 2>/dev/null | grep -q '"source_match":true'; then hsm_run=$$r; break; fi
 done
-if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run.py" >&2; exit 1; fi
+if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run" >&2; exit 1; fi
 cargo=$$(command -v cargo || true)
 for c in "$$cargo" /opt/homebrew/opt/rustup/bin/cargo ~/.cargo/bin/cargo; do if [ -x "$$c" ]; then cargo=$$c; break; fi; done
 if [ ! -x "$$cargo" ]; then echo "cargo is not installed (https://rustup.rs)" >&2; exit 1; fi
-export HOME=~ PATH="$$(dirname "$$cargo"):$$PATH"
+export PATH="$$(dirname "$$cargo"):$$PATH"
 O0=$$PWD/$(location out/enclosure-back-bottom-program/enclosure-back-bottom)
 cd "$$HSM_WORKSPACE/tools/hsm"
-CARGO_TARGET_DIR="$$PWD/target" "$$hsm_run" -- "$$cargo" build --release --locked --quiet --manifest-path enclosure-back-bottom/Cargo.toml --bin enclosure-back-bottom
+CARGO_TARGET_DIR="$$PWD/target" "$$hsm_run" -- "$$cargo" build --release --locked --quiet -j 2 --manifest-path enclosure-back-bottom/Cargo.toml --bin enclosure-back-bottom
 copy_file target/release/enclosure-back-bottom "$$O0"
 """,
 )
@@ -7560,20 +7683,24 @@ hsm_run=
 for r in "$$(awk -F'"' '$$2 == "runner" {print $$4}' ~/.local/lib/hsm/runtime.json 2>/dev/null)" "$$HSM_WORKSPACE/tools/hsm/target/release/hsm-run"; do
   if [ -x "$$r" ] && "$$r" --runtime-info "$$HSM_WORKSPACE" 2>/dev/null | grep -q '"source_match":true'; then hsm_run=$$r; break; fi
 done
-if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run.py" >&2; exit 1; fi
+if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run" >&2; exit 1; fi
 O0=$$PWD/$(location out/enclosure-back-bottom/hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step.mesh)
 O1=$$PWD/$(location out/enclosure-back-bottom/hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step.npz)
 O2=$$PWD/$(location out/enclosure-back-bottom/hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.stl)
 rm -rf work
 for f in $(SRCS); do
   case $$f in
+    */node_modules/*) continue;;
     */bin/out/*/*) t=$${f#*/bin/out/}; t=$${t#*/};;
     *) t=$$f;;
   esac
   mkdir -p "work/$$(dirname "$$t")"; copy_file -L "$$f" "work/$$t"
 done
+for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
+  if [ -d "$$d" ]; then mkdir -p "work/$$(dirname "$$d")"; ln -sfn "$$PWD/$$d" "work/$$d"; fi
+done
 cd work
-"$$hsm_run" -- ./enclosure-back-bottom > /dev/null
+HSM_REPO_ROOT=$$PWD "$$hsm_run" -- ./enclosure-back-bottom > /dev/null
 copy_file hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step.mesh "$$O0"
 copy_file hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step.npz "$$O1"
 copy_file hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.stl "$$O2"
@@ -7755,14 +7882,14 @@ hsm_run=
 for r in "$$(awk -F'"' '$$2 == "runner" {print $$4}' ~/.local/lib/hsm/runtime.json 2>/dev/null)" "$$HSM_WORKSPACE/tools/hsm/target/release/hsm-run"; do
   if [ -x "$$r" ] && "$$r" --runtime-info "$$HSM_WORKSPACE" 2>/dev/null | grep -q '"source_match":true'; then hsm_run=$$r; break; fi
 done
-if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run.py" >&2; exit 1; fi
+if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run" >&2; exit 1; fi
 cargo=$$(command -v cargo || true)
 for c in "$$cargo" /opt/homebrew/opt/rustup/bin/cargo ~/.cargo/bin/cargo; do if [ -x "$$c" ]; then cargo=$$c; break; fi; done
 if [ ! -x "$$cargo" ]; then echo "cargo is not installed (https://rustup.rs)" >&2; exit 1; fi
-export HOME=~ PATH="$$(dirname "$$cargo"):$$PATH"
+export PATH="$$(dirname "$$cargo"):$$PATH"
 O0=$$PWD/$(location out/enclosure-back-top-program/enclosure-back-top)
 cd "$$HSM_WORKSPACE/tools/hsm"
-CARGO_TARGET_DIR="$$PWD/target" "$$hsm_run" -- "$$cargo" build --release --locked --quiet --manifest-path enclosure-back-top/Cargo.toml --bin enclosure-back-top
+CARGO_TARGET_DIR="$$PWD/target" "$$hsm_run" -- "$$cargo" build --release --locked --quiet -j 2 --manifest-path enclosure-back-top/Cargo.toml --bin enclosure-back-top
 copy_file target/release/enclosure-back-top "$$O0"
 """,
 )
@@ -7831,7 +7958,7 @@ hsm_run=
 for r in "$$(awk -F'"' '$$2 == "runner" {print $$4}' ~/.local/lib/hsm/runtime.json 2>/dev/null)" "$$HSM_WORKSPACE/tools/hsm/target/release/hsm-run"; do
   if [ -x "$$r" ] && "$$r" --runtime-info "$$HSM_WORKSPACE" 2>/dev/null | grep -q '"source_match":true'; then hsm_run=$$r; break; fi
 done
-if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run.py" >&2; exit 1; fi
+if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run" >&2; exit 1; fi
 O0=$$PWD/$(location out/enclosure-back-top/hardware/printed-parts/enclosure/enclosure/enclosure-back-top.print-features.json)
 O1=$$PWD/$(location out/enclosure-back-top/hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step.mesh)
 O2=$$PWD/$(location out/enclosure-back-top/hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step.npz)
@@ -7839,13 +7966,17 @@ O3=$$PWD/$(location out/enclosure-back-top/hardware/printed-parts/enclosure/encl
 rm -rf work
 for f in $(SRCS); do
   case $$f in
+    */node_modules/*) continue;;
     */bin/out/*/*) t=$${f#*/bin/out/}; t=$${t#*/};;
     *) t=$$f;;
   esac
   mkdir -p "work/$$(dirname "$$t")"; copy_file -L "$$f" "work/$$t"
 done
+for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
+  if [ -d "$$d" ]; then mkdir -p "work/$$(dirname "$$d")"; ln -sfn "$$PWD/$$d" "work/$$d"; fi
+done
 cd work
-"$$hsm_run" -- ./enclosure-back-top > /dev/null
+HSM_REPO_ROOT=$$PWD "$$hsm_run" -- ./enclosure-back-top > /dev/null
 copy_file hardware/printed-parts/enclosure/enclosure/enclosure-back-top.print-features.json "$$O0"
 copy_file hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step.mesh "$$O1"
 copy_file hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step.npz "$$O2"
@@ -8031,14 +8162,14 @@ hsm_run=
 for r in "$$(awk -F'"' '$$2 == "runner" {print $$4}' ~/.local/lib/hsm/runtime.json 2>/dev/null)" "$$HSM_WORKSPACE/tools/hsm/target/release/hsm-run"; do
   if [ -x "$$r" ] && "$$r" --runtime-info "$$HSM_WORKSPACE" 2>/dev/null | grep -q '"source_match":true'; then hsm_run=$$r; break; fi
 done
-if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run.py" >&2; exit 1; fi
+if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run" >&2; exit 1; fi
 cargo=$$(command -v cargo || true)
 for c in "$$cargo" /opt/homebrew/opt/rustup/bin/cargo ~/.cargo/bin/cargo; do if [ -x "$$c" ]; then cargo=$$c; break; fi; done
 if [ ! -x "$$cargo" ]; then echo "cargo is not installed (https://rustup.rs)" >&2; exit 1; fi
-export HOME=~ PATH="$$(dirname "$$cargo"):$$PATH"
+export PATH="$$(dirname "$$cargo"):$$PATH"
 O0=$$PWD/$(location out/enclosure-front-bottom-program/enclosure-front-bottom)
 cd "$$HSM_WORKSPACE/tools/hsm"
-CARGO_TARGET_DIR="$$PWD/target" "$$hsm_run" -- "$$cargo" build --release --locked --quiet --manifest-path enclosure-front-bottom/Cargo.toml --bin enclosure-front-bottom
+CARGO_TARGET_DIR="$$PWD/target" "$$hsm_run" -- "$$cargo" build --release --locked --quiet -j 2 --manifest-path enclosure-front-bottom/Cargo.toml --bin enclosure-front-bottom
 copy_file target/release/enclosure-front-bottom "$$O0"
 """,
 )
@@ -8101,20 +8232,24 @@ hsm_run=
 for r in "$$(awk -F'"' '$$2 == "runner" {print $$4}' ~/.local/lib/hsm/runtime.json 2>/dev/null)" "$$HSM_WORKSPACE/tools/hsm/target/release/hsm-run"; do
   if [ -x "$$r" ] && "$$r" --runtime-info "$$HSM_WORKSPACE" 2>/dev/null | grep -q '"source_match":true'; then hsm_run=$$r; break; fi
 done
-if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run.py" >&2; exit 1; fi
+if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run" >&2; exit 1; fi
 O0=$$PWD/$(location out/enclosure-front-bottom/hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step.mesh)
 O1=$$PWD/$(location out/enclosure-front-bottom/hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step.npz)
 O2=$$PWD/$(location out/enclosure-front-bottom/hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.stl)
 rm -rf work
 for f in $(SRCS); do
   case $$f in
+    */node_modules/*) continue;;
     */bin/out/*/*) t=$${f#*/bin/out/}; t=$${t#*/};;
     *) t=$$f;;
   esac
   mkdir -p "work/$$(dirname "$$t")"; copy_file -L "$$f" "work/$$t"
 done
+for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
+  if [ -d "$$d" ]; then mkdir -p "work/$$(dirname "$$d")"; ln -sfn "$$PWD/$$d" "work/$$d"; fi
+done
 cd work
-"$$hsm_run" -- ./enclosure-front-bottom > /dev/null
+HSM_REPO_ROOT=$$PWD "$$hsm_run" -- ./enclosure-front-bottom > /dev/null
 copy_file hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step.mesh "$$O0"
 copy_file hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step.npz "$$O1"
 copy_file hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.stl "$$O2"
@@ -8302,14 +8437,14 @@ hsm_run=
 for r in "$$(awk -F'"' '$$2 == "runner" {print $$4}' ~/.local/lib/hsm/runtime.json 2>/dev/null)" "$$HSM_WORKSPACE/tools/hsm/target/release/hsm-run"; do
   if [ -x "$$r" ] && "$$r" --runtime-info "$$HSM_WORKSPACE" 2>/dev/null | grep -q '"source_match":true'; then hsm_run=$$r; break; fi
 done
-if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run.py" >&2; exit 1; fi
+if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run" >&2; exit 1; fi
 cargo=$$(command -v cargo || true)
 for c in "$$cargo" /opt/homebrew/opt/rustup/bin/cargo ~/.cargo/bin/cargo; do if [ -x "$$c" ]; then cargo=$$c; break; fi; done
 if [ ! -x "$$cargo" ]; then echo "cargo is not installed (https://rustup.rs)" >&2; exit 1; fi
-export HOME=~ PATH="$$(dirname "$$cargo"):$$PATH"
+export PATH="$$(dirname "$$cargo"):$$PATH"
 O0=$$PWD/$(location out/enclosure-front-top-program/enclosure-front-top)
 cd "$$HSM_WORKSPACE/tools/hsm"
-CARGO_TARGET_DIR="$$PWD/target" "$$hsm_run" -- "$$cargo" build --release --locked --quiet --manifest-path enclosure-front-top/Cargo.toml --bin enclosure-front-top
+CARGO_TARGET_DIR="$$PWD/target" "$$hsm_run" -- "$$cargo" build --release --locked --quiet -j 2 --manifest-path enclosure-front-top/Cargo.toml --bin enclosure-front-top
 copy_file target/release/enclosure-front-top "$$O0"
 """,
 )
@@ -8375,7 +8510,7 @@ hsm_run=
 for r in "$$(awk -F'"' '$$2 == "runner" {print $$4}' ~/.local/lib/hsm/runtime.json 2>/dev/null)" "$$HSM_WORKSPACE/tools/hsm/target/release/hsm-run"; do
   if [ -x "$$r" ] && "$$r" --runtime-info "$$HSM_WORKSPACE" 2>/dev/null | grep -q '"source_match":true'; then hsm_run=$$r; break; fi
 done
-if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run.py" >&2; exit 1; fi
+if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run" >&2; exit 1; fi
 O0=$$PWD/$(location out/enclosure-front-top/hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step.mesh)
 O1=$$PWD/$(location out/enclosure-front-top/hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step.npz)
 O2=$$PWD/$(location out/enclosure-front-top/hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl)
@@ -8383,13 +8518,17 @@ O3=$$PWD/$(location out/enclosure-front-top/hardware/printed-parts/enclosure/enc
 rm -rf work
 for f in $(SRCS); do
   case $$f in
+    */node_modules/*) continue;;
     */bin/out/*/*) t=$${f#*/bin/out/}; t=$${t#*/};;
     *) t=$$f;;
   esac
   mkdir -p "work/$$(dirname "$$t")"; copy_file -L "$$f" "work/$$t"
 done
+for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
+  if [ -d "$$d" ]; then mkdir -p "work/$$(dirname "$$d")"; ln -sfn "$$PWD/$$d" "work/$$d"; fi
+done
 cd work
-"$$hsm_run" -- ./enclosure-front-top > /dev/null
+HSM_REPO_ROOT=$$PWD "$$hsm_run" -- ./enclosure-front-top > /dev/null
 copy_file hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step.mesh "$$O0"
 copy_file hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step.npz "$$O1"
 copy_file hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl "$$O2"
@@ -8551,14 +8690,14 @@ hsm_run=
 for r in "$$(awk -F'"' '$$2 == "runner" {print $$4}' ~/.local/lib/hsm/runtime.json 2>/dev/null)" "$$HSM_WORKSPACE/tools/hsm/target/release/hsm-run"; do
   if [ -x "$$r" ] && "$$r" --runtime-info "$$HSM_WORKSPACE" 2>/dev/null | grep -q '"source_match":true'; then hsm_run=$$r; break; fi
 done
-if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run.py" >&2; exit 1; fi
+if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run" >&2; exit 1; fi
 cargo=$$(command -v cargo || true)
 for c in "$$cargo" /opt/homebrew/opt/rustup/bin/cargo ~/.cargo/bin/cargo; do if [ -x "$$c" ]; then cargo=$$c; break; fi; done
 if [ ! -x "$$cargo" ]; then echo "cargo is not installed (https://rustup.rs)" >&2; exit 1; fi
-export HOME=~ PATH="$$(dirname "$$cargo"):$$PATH"
+export PATH="$$(dirname "$$cargo"):$$PATH"
 O0=$$PWD/$(location out/enclosure-pump-retainer-program/enclosure-pump-retainer)
 cd "$$HSM_WORKSPACE/tools/hsm"
-CARGO_TARGET_DIR="$$PWD/target" "$$hsm_run" -- "$$cargo" build --release --locked --quiet --manifest-path enclosure-pump-retainer/Cargo.toml --bin enclosure-pump-retainer
+CARGO_TARGET_DIR="$$PWD/target" "$$hsm_run" -- "$$cargo" build --release --locked --quiet -j 2 --manifest-path enclosure-pump-retainer/Cargo.toml --bin enclosure-pump-retainer
 copy_file target/release/enclosure-pump-retainer "$$O0"
 """,
 )
@@ -8622,7 +8761,7 @@ hsm_run=
 for r in "$$(awk -F'"' '$$2 == "runner" {print $$4}' ~/.local/lib/hsm/runtime.json 2>/dev/null)" "$$HSM_WORKSPACE/tools/hsm/target/release/hsm-run"; do
   if [ -x "$$r" ] && "$$r" --runtime-info "$$HSM_WORKSPACE" 2>/dev/null | grep -q '"source_match":true'; then hsm_run=$$r; break; fi
 done
-if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run.py" >&2; exit 1; fi
+if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run" >&2; exit 1; fi
 O0=$$PWD/$(location out/enclosure-pump-retainer/hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer-seated.step.mesh)
 O1=$$PWD/$(location out/enclosure-pump-retainer/hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer-seated.step.npz)
 O2=$$PWD/$(location out/enclosure-pump-retainer/hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.step.mesh)
@@ -8631,13 +8770,17 @@ O4=$$PWD/$(location out/enclosure-pump-retainer/hardware/printed-parts/enclosure
 rm -rf work
 for f in $(SRCS); do
   case $$f in
+    */node_modules/*) continue;;
     */bin/out/*/*) t=$${f#*/bin/out/}; t=$${t#*/};;
     *) t=$$f;;
   esac
   mkdir -p "work/$$(dirname "$$t")"; copy_file -L "$$f" "work/$$t"
 done
+for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
+  if [ -d "$$d" ]; then mkdir -p "work/$$(dirname "$$d")"; ln -sfn "$$PWD/$$d" "work/$$d"; fi
+done
 cd work
-"$$hsm_run" -- ./enclosure-pump-retainer > /dev/null
+HSM_REPO_ROOT=$$PWD "$$hsm_run" -- ./enclosure-pump-retainer > /dev/null
 copy_file hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer-seated.step.mesh "$$O0"
 copy_file hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer-seated.step.npz "$$O1"
 copy_file hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.step.mesh "$$O2"
@@ -8794,14 +8937,14 @@ hsm_run=
 for r in "$$(awk -F'"' '$$2 == "runner" {print $$4}' ~/.local/lib/hsm/runtime.json 2>/dev/null)" "$$HSM_WORKSPACE/tools/hsm/target/release/hsm-run"; do
   if [ -x "$$r" ] && "$$r" --runtime-info "$$HSM_WORKSPACE" 2>/dev/null | grep -q '"source_match":true'; then hsm_run=$$r; break; fi
 done
-if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run.py" >&2; exit 1; fi
+if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run" >&2; exit 1; fi
 cargo=$$(command -v cargo || true)
 for c in "$$cargo" /opt/homebrew/opt/rustup/bin/cargo ~/.cargo/bin/cargo; do if [ -x "$$c" ]; then cargo=$$c; break; fi; done
 if [ ! -x "$$cargo" ]; then echo "cargo is not installed (https://rustup.rs)" >&2; exit 1; fi
-export HOME=~ PATH="$$(dirname "$$cargo"):$$PATH"
+export PATH="$$(dirname "$$cargo"):$$PATH"
 O0=$$PWD/$(location out/enclosure-pump-tube-setting-jig-program/enclosure-pump-tube-setting-jig)
 cd "$$HSM_WORKSPACE/tools/hsm"
-CARGO_TARGET_DIR="$$PWD/target" "$$hsm_run" -- "$$cargo" build --release --locked --quiet --manifest-path enclosure-pump-tube-setting-jig/Cargo.toml --bin enclosure-pump-tube-setting-jig
+CARGO_TARGET_DIR="$$PWD/target" "$$hsm_run" -- "$$cargo" build --release --locked --quiet -j 2 --manifest-path enclosure-pump-tube-setting-jig/Cargo.toml --bin enclosure-pump-tube-setting-jig
 copy_file target/release/enclosure-pump-tube-setting-jig "$$O0"
 """,
 )
@@ -8865,20 +9008,24 @@ hsm_run=
 for r in "$$(awk -F'"' '$$2 == "runner" {print $$4}' ~/.local/lib/hsm/runtime.json 2>/dev/null)" "$$HSM_WORKSPACE/tools/hsm/target/release/hsm-run"; do
   if [ -x "$$r" ] && "$$r" --runtime-info "$$HSM_WORKSPACE" 2>/dev/null | grep -q '"source_match":true'; then hsm_run=$$r; break; fi
 done
-if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run.py" >&2; exit 1; fi
+if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run" >&2; exit 1; fi
 O0=$$PWD/$(location out/enclosure-pump-tube-setting-jig/hardware/printed-parts/enclosure/enclosure/enclosure-pump-tube-setting-jig.step.mesh)
 O1=$$PWD/$(location out/enclosure-pump-tube-setting-jig/hardware/printed-parts/enclosure/enclosure/enclosure-pump-tube-setting-jig.step.npz)
 O2=$$PWD/$(location out/enclosure-pump-tube-setting-jig/hardware/printed-parts/enclosure/enclosure/enclosure-pump-tube-setting-jig.stl)
 rm -rf work
 for f in $(SRCS); do
   case $$f in
+    */node_modules/*) continue;;
     */bin/out/*/*) t=$${f#*/bin/out/}; t=$${t#*/};;
     *) t=$$f;;
   esac
   mkdir -p "work/$$(dirname "$$t")"; copy_file -L "$$f" "work/$$t"
 done
+for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
+  if [ -d "$$d" ]; then mkdir -p "work/$$(dirname "$$d")"; ln -sfn "$$PWD/$$d" "work/$$d"; fi
+done
 cd work
-"$$hsm_run" -- ./enclosure-pump-tube-setting-jig > /dev/null
+HSM_REPO_ROOT=$$PWD "$$hsm_run" -- ./enclosure-pump-tube-setting-jig > /dev/null
 copy_file hardware/printed-parts/enclosure/enclosure/enclosure-pump-tube-setting-jig.step.mesh "$$O0"
 copy_file hardware/printed-parts/enclosure/enclosure/enclosure-pump-tube-setting-jig.step.npz "$$O1"
 copy_file hardware/printed-parts/enclosure/enclosure/enclosure-pump-tube-setting-jig.stl "$$O2"
@@ -9029,14 +9176,14 @@ hsm_run=
 for r in "$$(awk -F'"' '$$2 == "runner" {print $$4}' ~/.local/lib/hsm/runtime.json 2>/dev/null)" "$$HSM_WORKSPACE/tools/hsm/target/release/hsm-run"; do
   if [ -x "$$r" ] && "$$r" --runtime-info "$$HSM_WORKSPACE" 2>/dev/null | grep -q '"source_match":true'; then hsm_run=$$r; break; fi
 done
-if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run.py" >&2; exit 1; fi
+if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run" >&2; exit 1; fi
 cargo=$$(command -v cargo || true)
 for c in "$$cargo" /opt/homebrew/opt/rustup/bin/cargo ~/.cargo/bin/cargo; do if [ -x "$$c" ]; then cargo=$$c; break; fi; done
 if [ ! -x "$$cargo" ]; then echo "cargo is not installed (https://rustup.rs)" >&2; exit 1; fi
-export HOME=~ PATH="$$(dirname "$$cargo"):$$PATH"
+export PATH="$$(dirname "$$cargo"):$$PATH"
 O0=$$PWD/$(location out/nameplate-program/nameplate)
 cd "$$HSM_WORKSPACE/tools/hsm"
-CARGO_TARGET_DIR="$$PWD/target" "$$hsm_run" -- "$$cargo" build --release --locked --quiet --manifest-path enclosure-components/Cargo.toml --bin nameplate
+CARGO_TARGET_DIR="$$PWD/target" "$$hsm_run" -- "$$cargo" build --release --locked --quiet -j 2 --manifest-path enclosure-components/Cargo.toml --bin nameplate
 copy_file target/release/nameplate "$$O0"
 """,
 )
@@ -9109,7 +9256,7 @@ hsm_run=
 for r in "$$(awk -F'"' '$$2 == "runner" {print $$4}' ~/.local/lib/hsm/runtime.json 2>/dev/null)" "$$HSM_WORKSPACE/tools/hsm/target/release/hsm-run"; do
   if [ -x "$$r" ] && "$$r" --runtime-info "$$HSM_WORKSPACE" 2>/dev/null | grep -q '"source_match":true'; then hsm_run=$$r; break; fi
 done
-if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run.py" >&2; exit 1; fi
+if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run" >&2; exit 1; fi
 O0=$$PWD/$(location out/nameplate/hardware/printed-parts/enclosure/nameplate/nameplate-001.step)
 O1=$$PWD/$(location out/nameplate/hardware/printed-parts/enclosure/nameplate/nameplate-001.step.mesh)
 O2=$$PWD/$(location out/nameplate/hardware/printed-parts/enclosure/nameplate/nameplate-001.step.npz)
@@ -9125,13 +9272,17 @@ O11=$$PWD/$(location out/nameplate/hardware/printed-parts/enclosure/nameplate/na
 rm -rf work
 for f in $(SRCS); do
   case $$f in
+    */node_modules/*) continue;;
     */bin/out/*/*) t=$${f#*/bin/out/}; t=$${t#*/};;
     *) t=$$f;;
   esac
   mkdir -p "work/$$(dirname "$$t")"; copy_file -L "$$f" "work/$$t"
 done
+for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
+  if [ -d "$$d" ]; then mkdir -p "work/$$(dirname "$$d")"; ln -sfn "$$PWD/$$d" "work/$$d"; fi
+done
 cd work
-"$$hsm_run" -- ./nameplate > /dev/null
+HSM_REPO_ROOT=$$PWD "$$hsm_run" -- ./nameplate > /dev/null
 copy_file hardware/printed-parts/enclosure/nameplate/nameplate-001.step "$$O0"
 copy_file hardware/printed-parts/enclosure/nameplate/nameplate-001.step.mesh "$$O1"
 copy_file hardware/printed-parts/enclosure/nameplate/nameplate-001.step.npz "$$O2"
@@ -9278,14 +9429,14 @@ hsm_run=
 for r in "$$(awk -F'"' '$$2 == "runner" {print $$4}' ~/.local/lib/hsm/runtime.json 2>/dev/null)" "$$HSM_WORKSPACE/tools/hsm/target/release/hsm-run"; do
   if [ -x "$$r" ] && "$$r" --runtime-info "$$HSM_WORKSPACE" 2>/dev/null | grep -q '"source_match":true'; then hsm_run=$$r; break; fi
 done
-if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run.py" >&2; exit 1; fi
+if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run" >&2; exit 1; fi
 cargo=$$(command -v cargo || true)
 for c in "$$cargo" /opt/homebrew/opt/rustup/bin/cargo ~/.cargo/bin/cargo; do if [ -x "$$c" ]; then cargo=$$c; break; fi; done
 if [ ! -x "$$cargo" ]; then echo "cargo is not installed (https://rustup.rs)" >&2; exit 1; fi
-export HOME=~ PATH="$$(dirname "$$cargo"):$$PATH"
+export PATH="$$(dirname "$$cargo"):$$PATH"
 O0=$$PWD/$(location out/rear-equipment-caps-program/rear-equipment-caps)
 cd "$$HSM_WORKSPACE/tools/hsm"
-CARGO_TARGET_DIR="$$PWD/target" "$$hsm_run" -- "$$cargo" build --release --locked --quiet --manifest-path rear-equipment-caps/Cargo.toml --bin rear-equipment-caps
+CARGO_TARGET_DIR="$$PWD/target" "$$hsm_run" -- "$$cargo" build --release --locked --quiet -j 2 --manifest-path rear-equipment-caps/Cargo.toml --bin rear-equipment-caps
 copy_file target/release/rear-equipment-caps "$$O0"
 """,
 )
@@ -9367,7 +9518,7 @@ hsm_run=
 for r in "$$(awk -F'"' '$$2 == "runner" {print $$4}' ~/.local/lib/hsm/runtime.json 2>/dev/null)" "$$HSM_WORKSPACE/tools/hsm/target/release/hsm-run"; do
   if [ -x "$$r" ] && "$$r" --runtime-info "$$HSM_WORKSPACE" 2>/dev/null | grep -q '"source_match":true'; then hsm_run=$$r; break; fi
 done
-if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run.py" >&2; exit 1; fi
+if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run" >&2; exit 1; fi
 O0=$$PWD/$(location out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/asse-snap-cap.step)
 O1=$$PWD/$(location out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/asse-snap-cap.step.mesh)
 O2=$$PWD/$(location out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/asse-snap-cap.step.npz)
@@ -9390,13 +9541,17 @@ O18=$$PWD/$(location out/rear-equipment-caps/hardware/printed-parts/enclosure/re
 rm -rf work
 for f in $(SRCS); do
   case $$f in
+    */node_modules/*) continue;;
     */bin/out/*/*) t=$${f#*/bin/out/}; t=$${t#*/};;
     *) t=$$f;;
   esac
   mkdir -p "work/$$(dirname "$$t")"; copy_file -L "$$f" "work/$$t"
 done
+for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
+  if [ -d "$$d" ]; then mkdir -p "work/$$(dirname "$$d")"; ln -sfn "$$PWD/$$d" "work/$$d"; fi
+done
 cd work
-"$$hsm_run" -- ./rear-equipment-caps > /dev/null
+HSM_REPO_ROOT=$$PWD "$$hsm_run" -- ./rear-equipment-caps > /dev/null
 copy_file hardware/printed-parts/enclosure/rear-equipment-caps/asse-snap-cap.step "$$O0"
 copy_file hardware/printed-parts/enclosure/rear-equipment-caps/asse-snap-cap.step.mesh "$$O1"
 copy_file hardware/printed-parts/enclosure/rear-equipment-caps/asse-snap-cap.step.npz "$$O2"
@@ -9557,14 +9712,14 @@ hsm_run=
 for r in "$$(awk -F'"' '$$2 == "runner" {print $$4}' ~/.local/lib/hsm/runtime.json 2>/dev/null)" "$$HSM_WORKSPACE/tools/hsm/target/release/hsm-run"; do
   if [ -x "$$r" ] && "$$r" --runtime-info "$$HSM_WORKSPACE" 2>/dev/null | grep -q '"source_match":true'; then hsm_run=$$r; break; fi
 done
-if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run.py" >&2; exit 1; fi
+if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run" >&2; exit 1; fi
 cargo=$$(command -v cargo || true)
 for c in "$$cargo" /opt/homebrew/opt/rustup/bin/cargo ~/.cargo/bin/cargo; do if [ -x "$$c" ]; then cargo=$$c; break; fi; done
 if [ ! -x "$$cargo" ]; then echo "cargo is not installed (https://rustup.rs)" >&2; exit 1; fi
-export HOME=~ PATH="$$(dirname "$$cargo"):$$PATH"
+export PATH="$$(dirname "$$cargo"):$$PATH"
 O0=$$PWD/$(location out/rear-identification-program/rear-identification)
 cd "$$HSM_WORKSPACE/tools/hsm"
-CARGO_TARGET_DIR="$$PWD/target" "$$hsm_run" -- "$$cargo" build --release --locked --quiet --manifest-path enclosure-components/Cargo.toml --bin rear-identification
+CARGO_TARGET_DIR="$$PWD/target" "$$hsm_run" -- "$$cargo" build --release --locked --quiet -j 2 --manifest-path enclosure-components/Cargo.toml --bin rear-identification
 copy_file target/release/rear-identification "$$O0"
 """,
 )
@@ -9648,7 +9803,7 @@ hsm_run=
 for r in "$$(awk -F'"' '$$2 == "runner" {print $$4}' ~/.local/lib/hsm/runtime.json 2>/dev/null)" "$$HSM_WORKSPACE/tools/hsm/target/release/hsm-run"; do
   if [ -x "$$r" ] && "$$r" --runtime-info "$$HSM_WORKSPACE" 2>/dev/null | grep -q '"source_match":true'; then hsm_run=$$r; break; fi
 done
-if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run.py" >&2; exit 1; fi
+if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run" >&2; exit 1; fi
 O0=$$PWD/$(location out/rear-identification/hardware/printed-parts/enclosure/rear-identification/rear-identification.numbers.json)
 O1=$$PWD/$(location out/rear-identification/hardware/printed-parts/enclosure/rear-identification/rear-label-carb.step)
 O2=$$PWD/$(location out/rear-identification/hardware/printed-parts/enclosure/rear-identification/rear-label-carb.step.mesh)
@@ -9677,13 +9832,17 @@ O24=$$PWD/$(location out/rear-identification/hardware/printed-parts/enclosure/re
 rm -rf work
 for f in $(SRCS); do
   case $$f in
+    */node_modules/*) continue;;
     */bin/out/*/*) t=$${f#*/bin/out/}; t=$${t#*/};;
     *) t=$$f;;
   esac
   mkdir -p "work/$$(dirname "$$t")"; copy_file -L "$$f" "work/$$t"
 done
+for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
+  if [ -d "$$d" ]; then mkdir -p "work/$$(dirname "$$d")"; ln -sfn "$$PWD/$$d" "work/$$d"; fi
+done
 cd work
-"$$hsm_run" -- ./rear-identification > /dev/null
+HSM_REPO_ROOT=$$PWD "$$hsm_run" -- ./rear-identification > /dev/null
 copy_file hardware/printed-parts/enclosure/rear-identification/rear-identification.numbers.json "$$O0"
 copy_file hardware/printed-parts/enclosure/rear-identification/rear-label-carb.step "$$O1"
 copy_file hardware/printed-parts/enclosure/rear-identification/rear-label-carb.step.mesh "$$O2"
@@ -9836,14 +9995,14 @@ hsm_run=
 for r in "$$(awk -F'"' '$$2 == "runner" {print $$4}' ~/.local/lib/hsm/runtime.json 2>/dev/null)" "$$HSM_WORKSPACE/tools/hsm/target/release/hsm-run"; do
   if [ -x "$$r" ] && "$$r" --runtime-info "$$HSM_WORKSPACE" 2>/dev/null | grep -q '"source_match":true'; then hsm_run=$$r; break; fi
 done
-if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run.py" >&2; exit 1; fi
+if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run" >&2; exit 1; fi
 cargo=$$(command -v cargo || true)
 for c in "$$cargo" /opt/homebrew/opt/rustup/bin/cargo ~/.cargo/bin/cargo; do if [ -x "$$c" ]; then cargo=$$c; break; fi; done
 if [ ! -x "$$cargo" ]; then echo "cargo is not installed (https://rustup.rs)" >&2; exit 1; fi
-export HOME=~ PATH="$$(dirname "$$cargo"):$$PATH"
+export PATH="$$(dirname "$$cargo"):$$PATH"
 O0=$$PWD/$(location out/above-counter-gasket-program/above-counter-gasket)
 cd "$$HSM_WORKSPACE/tools/hsm"
-CARGO_TARGET_DIR="$$PWD/target" "$$hsm_run" -- "$$cargo" build --release --locked --quiet --manifest-path above-counter-gasket/Cargo.toml --bin above-counter-gasket
+CARGO_TARGET_DIR="$$PWD/target" "$$hsm_run" -- "$$cargo" build --release --locked --quiet -j 2 --manifest-path above-counter-gasket/Cargo.toml --bin above-counter-gasket
 copy_file target/release/above-counter-gasket "$$O0"
 """,
 )
@@ -9902,7 +10061,7 @@ hsm_run=
 for r in "$$(awk -F'"' '$$2 == "runner" {print $$4}' ~/.local/lib/hsm/runtime.json 2>/dev/null)" "$$HSM_WORKSPACE/tools/hsm/target/release/hsm-run"; do
   if [ -x "$$r" ] && "$$r" --runtime-info "$$HSM_WORKSPACE" 2>/dev/null | grep -q '"source_match":true'; then hsm_run=$$r; break; fi
 done
-if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run.py" >&2; exit 1; fi
+if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run" >&2; exit 1; fi
 O0=$$PWD/$(location out/above-counter-gasket/hardware/printed-parts/faucet/above-counter-gasket/above-counter-gasket.step)
 O1=$$PWD/$(location out/above-counter-gasket/hardware/printed-parts/faucet/above-counter-gasket/above-counter-gasket.step.mesh)
 O2=$$PWD/$(location out/above-counter-gasket/hardware/printed-parts/faucet/above-counter-gasket/above-counter-gasket.step.npz)
@@ -9910,13 +10069,17 @@ O3=$$PWD/$(location out/above-counter-gasket/hardware/printed-parts/faucet/above
 rm -rf work
 for f in $(SRCS); do
   case $$f in
+    */node_modules/*) continue;;
     */bin/out/*/*) t=$${f#*/bin/out/}; t=$${t#*/};;
     *) t=$$f;;
   esac
   mkdir -p "work/$$(dirname "$$t")"; copy_file -L "$$f" "work/$$t"
 done
+for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
+  if [ -d "$$d" ]; then mkdir -p "work/$$(dirname "$$d")"; ln -sfn "$$PWD/$$d" "work/$$d"; fi
+done
 cd work
-"$$hsm_run" -- ./above-counter-gasket > /dev/null
+HSM_REPO_ROOT=$$PWD "$$hsm_run" -- ./above-counter-gasket > /dev/null
 copy_file hardware/printed-parts/faucet/above-counter-gasket/above-counter-gasket.step "$$O0"
 copy_file hardware/printed-parts/faucet/above-counter-gasket/above-counter-gasket.step.mesh "$$O1"
 copy_file hardware/printed-parts/faucet/above-counter-gasket/above-counter-gasket.step.npz "$$O2"
@@ -10048,14 +10211,14 @@ hsm_run=
 for r in "$$(awk -F'"' '$$2 == "runner" {print $$4}' ~/.local/lib/hsm/runtime.json 2>/dev/null)" "$$HSM_WORKSPACE/tools/hsm/target/release/hsm-run"; do
   if [ -x "$$r" ] && "$$r" --runtime-info "$$HSM_WORKSPACE" 2>/dev/null | grep -q '"source_match":true'; then hsm_run=$$r; break; fi
 done
-if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run.py" >&2; exit 1; fi
+if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run" >&2; exit 1; fi
 cargo=$$(command -v cargo || true)
 for c in "$$cargo" /opt/homebrew/opt/rustup/bin/cargo ~/.cargo/bin/cargo; do if [ -x "$$c" ]; then cargo=$$c; break; fi; done
 if [ ! -x "$$cargo" ]; then echo "cargo is not installed (https://rustup.rs)" >&2; exit 1; fi
-export HOME=~ PATH="$$(dirname "$$cargo"):$$PATH"
+export PATH="$$(dirname "$$cargo"):$$PATH"
 O0=$$PWD/$(location out/above-counter-plate-program/above-counter-plate)
 cd "$$HSM_WORKSPACE/tools/hsm"
-CARGO_TARGET_DIR="$$PWD/target" "$$hsm_run" -- "$$cargo" build --release --locked --quiet --manifest-path above-counter-plate/Cargo.toml --bin above-counter-plate
+CARGO_TARGET_DIR="$$PWD/target" "$$hsm_run" -- "$$cargo" build --release --locked --quiet -j 2 --manifest-path above-counter-plate/Cargo.toml --bin above-counter-plate
 copy_file target/release/above-counter-plate "$$O0"
 """,
 )
@@ -10114,7 +10277,7 @@ hsm_run=
 for r in "$$(awk -F'"' '$$2 == "runner" {print $$4}' ~/.local/lib/hsm/runtime.json 2>/dev/null)" "$$HSM_WORKSPACE/tools/hsm/target/release/hsm-run"; do
   if [ -x "$$r" ] && "$$r" --runtime-info "$$HSM_WORKSPACE" 2>/dev/null | grep -q '"source_match":true'; then hsm_run=$$r; break; fi
 done
-if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run.py" >&2; exit 1; fi
+if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run" >&2; exit 1; fi
 O0=$$PWD/$(location out/above-counter-plate/hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.step)
 O1=$$PWD/$(location out/above-counter-plate/hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.step.mesh)
 O2=$$PWD/$(location out/above-counter-plate/hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.step.npz)
@@ -10122,13 +10285,17 @@ O3=$$PWD/$(location out/above-counter-plate/hardware/printed-parts/faucet/above-
 rm -rf work
 for f in $(SRCS); do
   case $$f in
+    */node_modules/*) continue;;
     */bin/out/*/*) t=$${f#*/bin/out/}; t=$${t#*/};;
     *) t=$$f;;
   esac
   mkdir -p "work/$$(dirname "$$t")"; copy_file -L "$$f" "work/$$t"
 done
+for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
+  if [ -d "$$d" ]; then mkdir -p "work/$$(dirname "$$d")"; ln -sfn "$$PWD/$$d" "work/$$d"; fi
+done
 cd work
-"$$hsm_run" -- ./above-counter-plate > /dev/null
+HSM_REPO_ROOT=$$PWD "$$hsm_run" -- ./above-counter-plate > /dev/null
 copy_file hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.step "$$O0"
 copy_file hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.step.mesh "$$O1"
 copy_file hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.step.npz "$$O2"
@@ -10262,14 +10429,14 @@ hsm_run=
 for r in "$$(awk -F'"' '$$2 == "runner" {print $$4}' ~/.local/lib/hsm/runtime.json 2>/dev/null)" "$$HSM_WORKSPACE/tools/hsm/target/release/hsm-run"; do
   if [ -x "$$r" ] && "$$r" --runtime-info "$$HSM_WORKSPACE" 2>/dev/null | grep -q '"source_match":true'; then hsm_run=$$r; break; fi
 done
-if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run.py" >&2; exit 1; fi
+if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run" >&2; exit 1; fi
 cargo=$$(command -v cargo || true)
 for c in "$$cargo" /opt/homebrew/opt/rustup/bin/cargo ~/.cargo/bin/cargo; do if [ -x "$$c" ]; then cargo=$$c; break; fi; done
 if [ ! -x "$$cargo" ]; then echo "cargo is not installed (https://rustup.rs)" >&2; exit 1; fi
-export HOME=~ PATH="$$(dirname "$$cargo"):$$PATH"
+export PATH="$$(dirname "$$cargo"):$$PATH"
 O0=$$PWD/$(location out/faucet-display-cover-program/faucet-display-cover)
 cd "$$HSM_WORKSPACE/tools/hsm"
-CARGO_TARGET_DIR="$$PWD/target" "$$hsm_run" -- "$$cargo" build --release --locked --quiet --manifest-path faucet-display-cover/Cargo.toml --bin faucet-display-cover
+CARGO_TARGET_DIR="$$PWD/target" "$$hsm_run" -- "$$cargo" build --release --locked --quiet -j 2 --manifest-path faucet-display-cover/Cargo.toml --bin faucet-display-cover
 copy_file target/release/faucet-display-cover "$$O0"
 """,
 )
@@ -10331,7 +10498,7 @@ hsm_run=
 for r in "$$(awk -F'"' '$$2 == "runner" {print $$4}' ~/.local/lib/hsm/runtime.json 2>/dev/null)" "$$HSM_WORKSPACE/tools/hsm/target/release/hsm-run"; do
   if [ -x "$$r" ] && "$$r" --runtime-info "$$HSM_WORKSPACE" 2>/dev/null | grep -q '"source_match":true'; then hsm_run=$$r; break; fi
 done
-if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run.py" >&2; exit 1; fi
+if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run" >&2; exit 1; fi
 O0=$$PWD/$(location out/faucet-display-cover/hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover-seated.step)
 O1=$$PWD/$(location out/faucet-display-cover/hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover-seated.step.mesh)
 O2=$$PWD/$(location out/faucet-display-cover/hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover-seated.step.npz)
@@ -10342,13 +10509,17 @@ O6=$$PWD/$(location out/faucet-display-cover/hardware/printed-parts/faucet/fauce
 rm -rf work
 for f in $(SRCS); do
   case $$f in
+    */node_modules/*) continue;;
     */bin/out/*/*) t=$${f#*/bin/out/}; t=$${t#*/};;
     *) t=$$f;;
   esac
   mkdir -p "work/$$(dirname "$$t")"; copy_file -L "$$f" "work/$$t"
 done
+for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
+  if [ -d "$$d" ]; then mkdir -p "work/$$(dirname "$$d")"; ln -sfn "$$PWD/$$d" "work/$$d"; fi
+done
 cd work
-"$$hsm_run" -- ./faucet-display-cover > /dev/null
+HSM_REPO_ROOT=$$PWD "$$hsm_run" -- ./faucet-display-cover > /dev/null
 copy_file hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover-seated.step "$$O0"
 copy_file hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover-seated.step.mesh "$$O1"
 copy_file hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover-seated.step.npz "$$O2"
@@ -10483,14 +10654,14 @@ hsm_run=
 for r in "$$(awk -F'"' '$$2 == "runner" {print $$4}' ~/.local/lib/hsm/runtime.json 2>/dev/null)" "$$HSM_WORKSPACE/tools/hsm/target/release/hsm-run"; do
   if [ -x "$$r" ] && "$$r" --runtime-info "$$HSM_WORKSPACE" 2>/dev/null | grep -q '"source_match":true'; then hsm_run=$$r; break; fi
 done
-if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run.py" >&2; exit 1; fi
+if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run" >&2; exit 1; fi
 cargo=$$(command -v cargo || true)
 for c in "$$cargo" /opt/homebrew/opt/rustup/bin/cargo ~/.cargo/bin/cargo; do if [ -x "$$c" ]; then cargo=$$c; break; fi; done
 if [ ! -x "$$cargo" ]; then echo "cargo is not installed (https://rustup.rs)" >&2; exit 1; fi
-export HOME=~ PATH="$$(dirname "$$cargo"):$$PATH"
+export PATH="$$(dirname "$$cargo"):$$PATH"
 O0=$$PWD/$(location out/faucet-shell-program/faucet-shell)
 cd "$$HSM_WORKSPACE/tools/hsm"
-CARGO_TARGET_DIR="$$PWD/target" "$$hsm_run" -- "$$cargo" build --release --locked --quiet --manifest-path faucet-shell/Cargo.toml --bin faucet-shell
+CARGO_TARGET_DIR="$$PWD/target" "$$hsm_run" -- "$$cargo" build --release --locked --quiet -j 2 --manifest-path faucet-shell/Cargo.toml --bin faucet-shell
 copy_file target/release/faucet-shell "$$O0"
 """,
 )
@@ -10553,7 +10724,7 @@ hsm_run=
 for r in "$$(awk -F'"' '$$2 == "runner" {print $$4}' ~/.local/lib/hsm/runtime.json 2>/dev/null)" "$$HSM_WORKSPACE/tools/hsm/target/release/hsm-run"; do
   if [ -x "$$r" ] && "$$r" --runtime-info "$$HSM_WORKSPACE" 2>/dev/null | grep -q '"source_match":true'; then hsm_run=$$r; break; fi
 done
-if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run.py" >&2; exit 1; fi
+if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run" >&2; exit 1; fi
 O0=$$PWD/$(location out/faucet-shell/hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.step)
 O1=$$PWD/$(location out/faucet-shell/hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.step.mesh)
 O2=$$PWD/$(location out/faucet-shell/hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.step.npz)
@@ -10565,13 +10736,17 @@ O7=$$PWD/$(location out/faucet-shell/hardware/printed-parts/faucet/faucet-shell/
 rm -rf work
 for f in $(SRCS); do
   case $$f in
+    */node_modules/*) continue;;
     */bin/out/*/*) t=$${f#*/bin/out/}; t=$${t#*/};;
     *) t=$$f;;
   esac
   mkdir -p "work/$$(dirname "$$t")"; copy_file -L "$$f" "work/$$t"
 done
+for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
+  if [ -d "$$d" ]; then mkdir -p "work/$$(dirname "$$d")"; ln -sfn "$$PWD/$$d" "work/$$d"; fi
+done
 cd work
-"$$hsm_run" -- ./faucet-shell > /dev/null
+HSM_REPO_ROOT=$$PWD "$$hsm_run" -- ./faucet-shell > /dev/null
 copy_file hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.step "$$O0"
 copy_file hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.step.mesh "$$O1"
 copy_file hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.step.npz "$$O2"
@@ -10709,14 +10884,14 @@ hsm_run=
 for r in "$$(awk -F'"' '$$2 == "runner" {print $$4}' ~/.local/lib/hsm/runtime.json 2>/dev/null)" "$$HSM_WORKSPACE/tools/hsm/target/release/hsm-run"; do
   if [ -x "$$r" ] && "$$r" --runtime-info "$$HSM_WORKSPACE" 2>/dev/null | grep -q '"source_match":true'; then hsm_run=$$r; break; fi
 done
-if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run.py" >&2; exit 1; fi
+if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run" >&2; exit 1; fi
 cargo=$$(command -v cargo || true)
 for c in "$$cargo" /opt/homebrew/opt/rustup/bin/cargo ~/.cargo/bin/cargo; do if [ -x "$$c" ]; then cargo=$$c; break; fi; done
 if [ ! -x "$$cargo" ]; then echo "cargo is not installed (https://rustup.rs)" >&2; exit 1; fi
-export HOME=~ PATH="$$(dirname "$$cargo"):$$PATH"
+export PATH="$$(dirname "$$cargo"):$$PATH"
 O0=$$PWD/$(location out/industrial-faucet-program/industrial-faucet)
 cd "$$HSM_WORKSPACE/tools/hsm"
-CARGO_TARGET_DIR="$$PWD/target" "$$hsm_run" -- "$$cargo" build --release --locked --quiet --manifest-path industrial-faucet/Cargo.toml --bin industrial-faucet
+CARGO_TARGET_DIR="$$PWD/target" "$$hsm_run" -- "$$cargo" build --release --locked --quiet -j 2 --manifest-path industrial-faucet/Cargo.toml --bin industrial-faucet
 copy_file target/release/industrial-faucet "$$O0"
 """,
 )
@@ -10790,7 +10965,7 @@ hsm_run=
 for r in "$$(awk -F'"' '$$2 == "runner" {print $$4}' ~/.local/lib/hsm/runtime.json 2>/dev/null)" "$$HSM_WORKSPACE/tools/hsm/target/release/hsm-run"; do
   if [ -x "$$r" ] && "$$r" --runtime-info "$$HSM_WORKSPACE" 2>/dev/null | grep -q '"source_match":true'; then hsm_run=$$r; break; fi
 done
-if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run.py" >&2; exit 1; fi
+if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run" >&2; exit 1; fi
 O0=$$PWD/$(location out/industrial-faucet/hardware/printed-parts/faucet/industrial/industrial-above-counter-gasket.step)
 O1=$$PWD/$(location out/industrial-faucet/hardware/printed-parts/faucet/industrial/industrial-above-counter-gasket.step.mesh)
 O2=$$PWD/$(location out/industrial-faucet/hardware/printed-parts/faucet/industrial/industrial-above-counter-gasket.step.npz)
@@ -10813,13 +10988,17 @@ O18=$$PWD/$(location out/industrial-faucet/hardware/printed-parts/faucet/industr
 rm -rf work
 for f in $(SRCS); do
   case $$f in
+    */node_modules/*) continue;;
     */bin/out/*/*) t=$${f#*/bin/out/}; t=$${t#*/};;
     *) t=$$f;;
   esac
   mkdir -p "work/$$(dirname "$$t")"; copy_file -L "$$f" "work/$$t"
 done
+for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
+  if [ -d "$$d" ]; then mkdir -p "work/$$(dirname "$$d")"; ln -sfn "$$PWD/$$d" "work/$$d"; fi
+done
 cd work
-"$$hsm_run" -- ./industrial-faucet > /dev/null
+HSM_REPO_ROOT=$$PWD "$$hsm_run" -- ./industrial-faucet > /dev/null
 copy_file hardware/printed-parts/faucet/industrial/industrial-above-counter-gasket.step "$$O0"
 copy_file hardware/printed-parts/faucet/industrial/industrial-above-counter-gasket.step.mesh "$$O1"
 copy_file hardware/printed-parts/faucet/industrial/industrial-above-counter-gasket.step.npz "$$O2"
@@ -10962,14 +11141,14 @@ hsm_run=
 for r in "$$(awk -F'"' '$$2 == "runner" {print $$4}' ~/.local/lib/hsm/runtime.json 2>/dev/null)" "$$HSM_WORKSPACE/tools/hsm/target/release/hsm-run"; do
   if [ -x "$$r" ] && "$$r" --runtime-info "$$HSM_WORKSPACE" 2>/dev/null | grep -q '"source_match":true'; then hsm_run=$$r; break; fi
 done
-if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run.py" >&2; exit 1; fi
+if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run" >&2; exit 1; fi
 cargo=$$(command -v cargo || true)
 for c in "$$cargo" /opt/homebrew/opt/rustup/bin/cargo ~/.cargo/bin/cargo; do if [ -x "$$c" ]; then cargo=$$c; break; fi; done
 if [ ! -x "$$cargo" ]; then echo "cargo is not installed (https://rustup.rs)" >&2; exit 1; fi
-export HOME=~ PATH="$$(dirname "$$cargo"):$$PATH"
+export PATH="$$(dirname "$$cargo"):$$PATH"
 O0=$$PWD/$(location out/lever-replica-program/lever-replica)
 cd "$$HSM_WORKSPACE/tools/hsm"
-CARGO_TARGET_DIR="$$PWD/target" "$$hsm_run" -- "$$cargo" build --release --locked --quiet --manifest-path lever-replica/Cargo.toml --bin lever-replica
+CARGO_TARGET_DIR="$$PWD/target" "$$hsm_run" -- "$$cargo" build --release --locked --quiet -j 2 --manifest-path lever-replica/Cargo.toml --bin lever-replica
 copy_file target/release/lever-replica "$$O0"
 """,
 )
@@ -11029,7 +11208,7 @@ hsm_run=
 for r in "$$(awk -F'"' '$$2 == "runner" {print $$4}' ~/.local/lib/hsm/runtime.json 2>/dev/null)" "$$HSM_WORKSPACE/tools/hsm/target/release/hsm-run"; do
   if [ -x "$$r" ] && "$$r" --runtime-info "$$HSM_WORKSPACE" 2>/dev/null | grep -q '"source_match":true'; then hsm_run=$$r; break; fi
 done
-if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run.py" >&2; exit 1; fi
+if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run" >&2; exit 1; fi
 O0=$$PWD/$(location out/lever-replica/hardware/printed-parts/faucet/lever-replica/lever-replica-side-down.stl)
 O1=$$PWD/$(location out/lever-replica/hardware/printed-parts/faucet/lever-replica/lever-replica.step)
 O2=$$PWD/$(location out/lever-replica/hardware/printed-parts/faucet/lever-replica/lever-replica.step.mesh)
@@ -11038,13 +11217,17 @@ O4=$$PWD/$(location out/lever-replica/hardware/printed-parts/faucet/lever-replic
 rm -rf work
 for f in $(SRCS); do
   case $$f in
+    */node_modules/*) continue;;
     */bin/out/*/*) t=$${f#*/bin/out/}; t=$${t#*/};;
     *) t=$$f;;
   esac
   mkdir -p "work/$$(dirname "$$t")"; copy_file -L "$$f" "work/$$t"
 done
+for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
+  if [ -d "$$d" ]; then mkdir -p "work/$$(dirname "$$d")"; ln -sfn "$$PWD/$$d" "work/$$d"; fi
+done
 cd work
-"$$hsm_run" -- ./lever-replica > /dev/null
+HSM_REPO_ROOT=$$PWD "$$hsm_run" -- ./lever-replica > /dev/null
 copy_file hardware/printed-parts/faucet/lever-replica/lever-replica-side-down.stl "$$O0"
 copy_file hardware/printed-parts/faucet/lever-replica/lever-replica.step "$$O1"
 copy_file hardware/printed-parts/faucet/lever-replica/lever-replica.step.mesh "$$O2"
@@ -11164,14 +11347,14 @@ hsm_run=
 for r in "$$(awk -F'"' '$$2 == "runner" {print $$4}' ~/.local/lib/hsm/runtime.json 2>/dev/null)" "$$HSM_WORKSPACE/tools/hsm/target/release/hsm-run"; do
   if [ -x "$$r" ] && "$$r" --runtime-info "$$HSM_WORKSPACE" 2>/dev/null | grep -q '"source_match":true'; then hsm_run=$$r; break; fi
 done
-if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run.py" >&2; exit 1; fi
+if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run" >&2; exit 1; fi
 cargo=$$(command -v cargo || true)
 for c in "$$cargo" /opt/homebrew/opt/rustup/bin/cargo ~/.cargo/bin/cargo; do if [ -x "$$c" ]; then cargo=$$c; break; fi; done
 if [ ! -x "$$cargo" ]; then echo "cargo is not installed (https://rustup.rs)" >&2; exit 1; fi
-export HOME=~ PATH="$$(dirname "$$cargo"):$$PATH"
+export PATH="$$(dirname "$$cargo"):$$PATH"
 O0=$$PWD/$(location out/tpu-o-ring-program/tpu-o-ring)
 cd "$$HSM_WORKSPACE/tools/hsm"
-CARGO_TARGET_DIR="$$PWD/target" "$$hsm_run" -- "$$cargo" build --release --locked --quiet --manifest-path tpu-o-ring/Cargo.toml --bin tpu-o-ring
+CARGO_TARGET_DIR="$$PWD/target" "$$hsm_run" -- "$$cargo" build --release --locked --quiet -j 2 --manifest-path tpu-o-ring/Cargo.toml --bin tpu-o-ring
 copy_file target/release/tpu-o-ring "$$O0"
 """,
 )
@@ -11230,7 +11413,7 @@ hsm_run=
 for r in "$$(awk -F'"' '$$2 == "runner" {print $$4}' ~/.local/lib/hsm/runtime.json 2>/dev/null)" "$$HSM_WORKSPACE/tools/hsm/target/release/hsm-run"; do
   if [ -x "$$r" ] && "$$r" --runtime-info "$$HSM_WORKSPACE" 2>/dev/null | grep -q '"source_match":true'; then hsm_run=$$r; break; fi
 done
-if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run.py" >&2; exit 1; fi
+if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run" >&2; exit 1; fi
 O0=$$PWD/$(location out/tpu-o-ring/hardware/printed-parts/faucet/tpu-o-ring/tpu-o-ring.step)
 O1=$$PWD/$(location out/tpu-o-ring/hardware/printed-parts/faucet/tpu-o-ring/tpu-o-ring.step.mesh)
 O2=$$PWD/$(location out/tpu-o-ring/hardware/printed-parts/faucet/tpu-o-ring/tpu-o-ring.step.npz)
@@ -11238,13 +11421,17 @@ O3=$$PWD/$(location out/tpu-o-ring/hardware/printed-parts/faucet/tpu-o-ring/tpu-
 rm -rf work
 for f in $(SRCS); do
   case $$f in
+    */node_modules/*) continue;;
     */bin/out/*/*) t=$${f#*/bin/out/}; t=$${t#*/};;
     *) t=$$f;;
   esac
   mkdir -p "work/$$(dirname "$$t")"; copy_file -L "$$f" "work/$$t"
 done
+for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
+  if [ -d "$$d" ]; then mkdir -p "work/$$(dirname "$$d")"; ln -sfn "$$PWD/$$d" "work/$$d"; fi
+done
 cd work
-"$$hsm_run" -- ./tpu-o-ring > /dev/null
+HSM_REPO_ROOT=$$PWD "$$hsm_run" -- ./tpu-o-ring > /dev/null
 copy_file hardware/printed-parts/faucet/tpu-o-ring/tpu-o-ring.step "$$O0"
 copy_file hardware/printed-parts/faucet/tpu-o-ring/tpu-o-ring.step.mesh "$$O1"
 copy_file hardware/printed-parts/faucet/tpu-o-ring/tpu-o-ring.step.npz "$$O2"
@@ -11374,14 +11561,14 @@ hsm_run=
 for r in "$$(awk -F'"' '$$2 == "runner" {print $$4}' ~/.local/lib/hsm/runtime.json 2>/dev/null)" "$$HSM_WORKSPACE/tools/hsm/target/release/hsm-run"; do
   if [ -x "$$r" ] && "$$r" --runtime-info "$$HSM_WORKSPACE" 2>/dev/null | grep -q '"source_match":true'; then hsm_run=$$r; break; fi
 done
-if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run.py" >&2; exit 1; fi
+if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run" >&2; exit 1; fi
 cargo=$$(command -v cargo || true)
 for c in "$$cargo" /opt/homebrew/opt/rustup/bin/cargo ~/.cargo/bin/cargo; do if [ -x "$$c" ]; then cargo=$$c; break; fi; done
 if [ ! -x "$$cargo" ]; then echo "cargo is not installed (https://rustup.rs)" >&2; exit 1; fi
-export HOME=~ PATH="$$(dirname "$$cargo"):$$PATH"
+export PATH="$$(dirname "$$cargo"):$$PATH"
 O0=$$PWD/$(location out/tube-collar-program/tube-collar)
 cd "$$HSM_WORKSPACE/tools/hsm"
-CARGO_TARGET_DIR="$$PWD/target" "$$hsm_run" -- "$$cargo" build --release --locked --quiet --manifest-path tube-collar/Cargo.toml --bin tube-collar
+CARGO_TARGET_DIR="$$PWD/target" "$$hsm_run" -- "$$cargo" build --release --locked --quiet -j 2 --manifest-path tube-collar/Cargo.toml --bin tube-collar
 copy_file target/release/tube-collar "$$O0"
 """,
 )
@@ -11460,7 +11647,7 @@ hsm_run=
 for r in "$$(awk -F'"' '$$2 == "runner" {print $$4}' ~/.local/lib/hsm/runtime.json 2>/dev/null)" "$$HSM_WORKSPACE/tools/hsm/target/release/hsm-run"; do
   if [ -x "$$r" ] && "$$r" --runtime-info "$$HSM_WORKSPACE" 2>/dev/null | grep -q '"source_match":true'; then hsm_run=$$r; break; fi
 done
-if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run.py" >&2; exit 1; fi
+if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run" >&2; exit 1; fi
 O0=$$PWD/$(location out/tube-collar/hardware/printed-parts/faucet/tube-collar/tube-collar-carb.step)
 O1=$$PWD/$(location out/tube-collar/hardware/printed-parts/faucet/tube-collar/tube-collar-carb.step.mesh)
 O2=$$PWD/$(location out/tube-collar/hardware/printed-parts/faucet/tube-collar/tube-collar-carb.step.npz)
@@ -11488,13 +11675,17 @@ O23=$$PWD/$(location out/tube-collar/hardware/printed-parts/faucet/tube-collar/t
 rm -rf work
 for f in $(SRCS); do
   case $$f in
+    */node_modules/*) continue;;
     */bin/out/*/*) t=$${f#*/bin/out/}; t=$${t#*/};;
     *) t=$$f;;
   esac
   mkdir -p "work/$$(dirname "$$t")"; copy_file -L "$$f" "work/$$t"
 done
+for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
+  if [ -d "$$d" ]; then mkdir -p "work/$$(dirname "$$d")"; ln -sfn "$$PWD/$$d" "work/$$d"; fi
+done
 cd work
-"$$hsm_run" -- ./tube-collar > /dev/null
+HSM_REPO_ROOT=$$PWD "$$hsm_run" -- ./tube-collar > /dev/null
 copy_file hardware/printed-parts/faucet/tube-collar/tube-collar-carb.step "$$O0"
 copy_file hardware/printed-parts/faucet/tube-collar/tube-collar-carb.step.mesh "$$O1"
 copy_file hardware/printed-parts/faucet/tube-collar/tube-collar-carb.step.npz "$$O2"
@@ -11641,14 +11832,14 @@ hsm_run=
 for r in "$$(awk -F'"' '$$2 == "runner" {print $$4}' ~/.local/lib/hsm/runtime.json 2>/dev/null)" "$$HSM_WORKSPACE/tools/hsm/target/release/hsm-run"; do
   if [ -x "$$r" ] && "$$r" --runtime-info "$$HSM_WORKSPACE" 2>/dev/null | grep -q '"source_match":true'; then hsm_run=$$r; break; fi
 done
-if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run.py" >&2; exit 1; fi
+if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run" >&2; exit 1; fi
 cargo=$$(command -v cargo || true)
 for c in "$$cargo" /opt/homebrew/opt/rustup/bin/cargo ~/.cargo/bin/cargo; do if [ -x "$$c" ]; then cargo=$$c; break; fi; done
 if [ ! -x "$$cargo" ]; then echo "cargo is not installed (https://rustup.rs)" >&2; exit 1; fi
-export HOME=~ PATH="$$(dirname "$$cargo"):$$PATH"
+export PATH="$$(dirname "$$cargo"):$$PATH"
 O0=$$PWD/$(location out/umbilical-organizer-program/umbilical-organizer)
 cd "$$HSM_WORKSPACE/tools/hsm"
-CARGO_TARGET_DIR="$$PWD/target" "$$hsm_run" -- "$$cargo" build --release --locked --quiet --manifest-path umbilical-organizer/Cargo.toml --bin umbilical-organizer
+CARGO_TARGET_DIR="$$PWD/target" "$$hsm_run" -- "$$cargo" build --release --locked --quiet -j 2 --manifest-path umbilical-organizer/Cargo.toml --bin umbilical-organizer
 copy_file target/release/umbilical-organizer "$$O0"
 """,
 )
@@ -11707,7 +11898,7 @@ hsm_run=
 for r in "$$(awk -F'"' '$$2 == "runner" {print $$4}' ~/.local/lib/hsm/runtime.json 2>/dev/null)" "$$HSM_WORKSPACE/tools/hsm/target/release/hsm-run"; do
   if [ -x "$$r" ] && "$$r" --runtime-info "$$HSM_WORKSPACE" 2>/dev/null | grep -q '"source_match":true'; then hsm_run=$$r; break; fi
 done
-if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run.py" >&2; exit 1; fi
+if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run" >&2; exit 1; fi
 O0=$$PWD/$(location out/umbilical-organizer/hardware/printed-parts/faucet/umbilical-organizer/umbilical-organizer.step)
 O1=$$PWD/$(location out/umbilical-organizer/hardware/printed-parts/faucet/umbilical-organizer/umbilical-organizer.step.mesh)
 O2=$$PWD/$(location out/umbilical-organizer/hardware/printed-parts/faucet/umbilical-organizer/umbilical-organizer.step.npz)
@@ -11715,13 +11906,17 @@ O3=$$PWD/$(location out/umbilical-organizer/hardware/printed-parts/faucet/umbili
 rm -rf work
 for f in $(SRCS); do
   case $$f in
+    */node_modules/*) continue;;
     */bin/out/*/*) t=$${f#*/bin/out/}; t=$${t#*/};;
     *) t=$$f;;
   esac
   mkdir -p "work/$$(dirname "$$t")"; copy_file -L "$$f" "work/$$t"
 done
+for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
+  if [ -d "$$d" ]; then mkdir -p "work/$$(dirname "$$d")"; ln -sfn "$$PWD/$$d" "work/$$d"; fi
+done
 cd work
-"$$hsm_run" -- ./umbilical-organizer > /dev/null
+HSM_REPO_ROOT=$$PWD "$$hsm_run" -- ./umbilical-organizer > /dev/null
 copy_file hardware/printed-parts/faucet/umbilical-organizer/umbilical-organizer.step "$$O0"
 copy_file hardware/printed-parts/faucet/umbilical-organizer/umbilical-organizer.step.mesh "$$O1"
 copy_file hardware/printed-parts/faucet/umbilical-organizer/umbilical-organizer.step.npz "$$O2"
@@ -11835,14 +12030,14 @@ hsm_run=
 for r in "$$(awk -F'"' '$$2 == "runner" {print $$4}' ~/.local/lib/hsm/runtime.json 2>/dev/null)" "$$HSM_WORKSPACE/tools/hsm/target/release/hsm-run"; do
   if [ -x "$$r" ] && "$$r" --runtime-info "$$HSM_WORKSPACE" 2>/dev/null | grep -q '"source_match":true'; then hsm_run=$$r; break; fi
 done
-if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run.py" >&2; exit 1; fi
+if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run" >&2; exit 1; fi
 cargo=$$(command -v cargo || true)
 for c in "$$cargo" /opt/homebrew/opt/rustup/bin/cargo ~/.cargo/bin/cargo; do if [ -x "$$c" ]; then cargo=$$c; break; fi; done
 if [ ! -x "$$cargo" ]; then echo "cargo is not installed (https://rustup.rs)" >&2; exit 1; fi
-export HOME=~ PATH="$$(dirname "$$cargo"):$$PATH"
+export PATH="$$(dirname "$$cargo"):$$PATH"
 O0=$$PWD/$(location out/fake-countertop-program/fake-countertop)
 cd "$$HSM_WORKSPACE/tools/hsm"
-CARGO_TARGET_DIR="$$PWD/target" "$$hsm_run" -- "$$cargo" build --release --locked --quiet --manifest-path fake-countertop/Cargo.toml --bin fake-countertop
+CARGO_TARGET_DIR="$$PWD/target" "$$hsm_run" -- "$$cargo" build --release --locked --quiet -j 2 --manifest-path fake-countertop/Cargo.toml --bin fake-countertop
 copy_file target/release/fake-countertop "$$O0"
 """,
 )
@@ -11901,7 +12096,7 @@ hsm_run=
 for r in "$$(awk -F'"' '$$2 == "runner" {print $$4}' ~/.local/lib/hsm/runtime.json 2>/dev/null)" "$$HSM_WORKSPACE/tools/hsm/target/release/hsm-run"; do
   if [ -x "$$r" ] && "$$r" --runtime-info "$$HSM_WORKSPACE" 2>/dev/null | grep -q '"source_match":true'; then hsm_run=$$r; break; fi
 done
-if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run.py" >&2; exit 1; fi
+if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run" >&2; exit 1; fi
 O0=$$PWD/$(location out/fake-countertop/hardware/printed-parts/fixtures/fake-countertop/fake-countertop.step)
 O1=$$PWD/$(location out/fake-countertop/hardware/printed-parts/fixtures/fake-countertop/fake-countertop.step.mesh)
 O2=$$PWD/$(location out/fake-countertop/hardware/printed-parts/fixtures/fake-countertop/fake-countertop.step.npz)
@@ -11909,13 +12104,17 @@ O3=$$PWD/$(location out/fake-countertop/hardware/printed-parts/fixtures/fake-cou
 rm -rf work
 for f in $(SRCS); do
   case $$f in
+    */node_modules/*) continue;;
     */bin/out/*/*) t=$${f#*/bin/out/}; t=$${t#*/};;
     *) t=$$f;;
   esac
   mkdir -p "work/$$(dirname "$$t")"; copy_file -L "$$f" "work/$$t"
 done
+for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
+  if [ -d "$$d" ]; then mkdir -p "work/$$(dirname "$$d")"; ln -sfn "$$PWD/$$d" "work/$$d"; fi
+done
 cd work
-"$$hsm_run" -- ./fake-countertop > /dev/null
+HSM_REPO_ROOT=$$PWD "$$hsm_run" -- ./fake-countertop > /dev/null
 copy_file hardware/printed-parts/fixtures/fake-countertop/fake-countertop.step "$$O0"
 copy_file hardware/printed-parts/fixtures/fake-countertop/fake-countertop.step.mesh "$$O1"
 copy_file hardware/printed-parts/fixtures/fake-countertop/fake-countertop.step.npz "$$O2"
@@ -12029,14 +12228,14 @@ hsm_run=
 for r in "$$(awk -F'"' '$$2 == "runner" {print $$4}' ~/.local/lib/hsm/runtime.json 2>/dev/null)" "$$HSM_WORKSPACE/tools/hsm/target/release/hsm-run"; do
   if [ -x "$$r" ] && "$$r" --runtime-info "$$HSM_WORKSPACE" 2>/dev/null | grep -q '"source_match":true'; then hsm_run=$$r; break; fi
 done
-if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run.py" >&2; exit 1; fi
+if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run" >&2; exit 1; fi
 cargo=$$(command -v cargo || true)
 for c in "$$cargo" /opt/homebrew/opt/rustup/bin/cargo ~/.cargo/bin/cargo; do if [ -x "$$c" ]; then cargo=$$c; break; fi; done
 if [ ! -x "$$cargo" ]; then echo "cargo is not installed (https://rustup.rs)" >&2; exit 1; fi
-export HOME=~ PATH="$$(dirname "$$cargo"):$$PATH"
+export PATH="$$(dirname "$$cargo"):$$PATH"
 O0=$$PWD/$(location out/tube-miter-box-program/tube-miter-box)
 cd "$$HSM_WORKSPACE/tools/hsm"
-CARGO_TARGET_DIR="$$PWD/target" "$$hsm_run" -- "$$cargo" build --release --locked --quiet --manifest-path tube-miter-box/Cargo.toml --bin tube-miter-box
+CARGO_TARGET_DIR="$$PWD/target" "$$hsm_run" -- "$$cargo" build --release --locked --quiet -j 2 --manifest-path tube-miter-box/Cargo.toml --bin tube-miter-box
 copy_file target/release/tube-miter-box "$$O0"
 """,
 )
@@ -12095,7 +12294,7 @@ hsm_run=
 for r in "$$(awk -F'"' '$$2 == "runner" {print $$4}' ~/.local/lib/hsm/runtime.json 2>/dev/null)" "$$HSM_WORKSPACE/tools/hsm/target/release/hsm-run"; do
   if [ -x "$$r" ] && "$$r" --runtime-info "$$HSM_WORKSPACE" 2>/dev/null | grep -q '"source_match":true'; then hsm_run=$$r; break; fi
 done
-if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run.py" >&2; exit 1; fi
+if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run" >&2; exit 1; fi
 O0=$$PWD/$(location out/tube-miter-box/hardware/printed-parts/fixtures/tube-miter-box/tube-miter-box.step)
 O1=$$PWD/$(location out/tube-miter-box/hardware/printed-parts/fixtures/tube-miter-box/tube-miter-box.step.mesh)
 O2=$$PWD/$(location out/tube-miter-box/hardware/printed-parts/fixtures/tube-miter-box/tube-miter-box.step.npz)
@@ -12103,13 +12302,17 @@ O3=$$PWD/$(location out/tube-miter-box/hardware/printed-parts/fixtures/tube-mite
 rm -rf work
 for f in $(SRCS); do
   case $$f in
+    */node_modules/*) continue;;
     */bin/out/*/*) t=$${f#*/bin/out/}; t=$${t#*/};;
     *) t=$$f;;
   esac
   mkdir -p "work/$$(dirname "$$t")"; copy_file -L "$$f" "work/$$t"
 done
+for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
+  if [ -d "$$d" ]; then mkdir -p "work/$$(dirname "$$d")"; ln -sfn "$$PWD/$$d" "work/$$d"; fi
+done
 cd work
-"$$hsm_run" -- ./tube-miter-box > /dev/null
+HSM_REPO_ROOT=$$PWD "$$hsm_run" -- ./tube-miter-box > /dev/null
 copy_file hardware/printed-parts/fixtures/tube-miter-box/tube-miter-box.step "$$O0"
 copy_file hardware/printed-parts/fixtures/tube-miter-box/tube-miter-box.step.mesh "$$O1"
 copy_file hardware/printed-parts/fixtures/tube-miter-box/tube-miter-box.step.npz "$$O2"
@@ -12246,14 +12449,14 @@ hsm_run=
 for r in "$$(awk -F'"' '$$2 == "runner" {print $$4}' ~/.local/lib/hsm/runtime.json 2>/dev/null)" "$$HSM_WORKSPACE/tools/hsm/target/release/hsm-run"; do
   if [ -x "$$r" ] && "$$r" --runtime-info "$$HSM_WORKSPACE" 2>/dev/null | grep -q '"source_match":true'; then hsm_run=$$r; break; fi
 done
-if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run.py" >&2; exit 1; fi
+if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run" >&2; exit 1; fi
 cargo=$$(command -v cargo || true)
 for c in "$$cargo" /opt/homebrew/opt/rustup/bin/cargo ~/.cargo/bin/cargo; do if [ -x "$$c" ]; then cargo=$$c; break; fi; done
 if [ ! -x "$$cargo" ]; then echo "cargo is not installed (https://rustup.rs)" >&2; exit 1; fi
-export HOME=~ PATH="$$(dirname "$$cargo"):$$PATH"
+export PATH="$$(dirname "$$cargo"):$$PATH"
 O0=$$PWD/$(location out/water-inlet-jet-fixture-program/water-inlet-jet-fixture)
 cd "$$HSM_WORKSPACE/tools/hsm"
-CARGO_TARGET_DIR="$$PWD/target" "$$hsm_run" -- "$$cargo" build --release --locked --quiet --manifest-path water-inlet-jet-fixture/Cargo.toml --bin water-inlet-jet-fixture
+CARGO_TARGET_DIR="$$PWD/target" "$$hsm_run" -- "$$cargo" build --release --locked --quiet -j 2 --manifest-path water-inlet-jet-fixture/Cargo.toml --bin water-inlet-jet-fixture
 copy_file target/release/water-inlet-jet-fixture "$$O0"
 """,
 )
@@ -12318,7 +12521,7 @@ hsm_run=
 for r in "$$(awk -F'"' '$$2 == "runner" {print $$4}' ~/.local/lib/hsm/runtime.json 2>/dev/null)" "$$HSM_WORKSPACE/tools/hsm/target/release/hsm-run"; do
   if [ -x "$$r" ] && "$$r" --runtime-info "$$HSM_WORKSPACE" 2>/dev/null | grep -q '"source_match":true'; then hsm_run=$$r; break; fi
 done
-if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run.py" >&2; exit 1; fi
+if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run" >&2; exit 1; fi
 O0=$$PWD/$(location out/water-inlet-jet-fixture/hardware/printed-parts/fixtures/water-inlet-jet/water-inlet-jet-fixture-fixed.step)
 O1=$$PWD/$(location out/water-inlet-jet-fixture/hardware/printed-parts/fixtures/water-inlet-jet/water-inlet-jet-fixture-fixed.step.mesh)
 O2=$$PWD/$(location out/water-inlet-jet-fixture/hardware/printed-parts/fixtures/water-inlet-jet/water-inlet-jet-fixture-fixed.step.npz)
@@ -12330,13 +12533,17 @@ O7=$$PWD/$(location out/water-inlet-jet-fixture/hardware/printed-parts/fixtures/
 rm -rf work
 for f in $(SRCS); do
   case $$f in
+    */node_modules/*) continue;;
     */bin/out/*/*) t=$${f#*/bin/out/}; t=$${t#*/};;
     *) t=$$f;;
   esac
   mkdir -p "work/$$(dirname "$$t")"; copy_file -L "$$f" "work/$$t"
 done
+for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
+  if [ -d "$$d" ]; then mkdir -p "work/$$(dirname "$$d")"; ln -sfn "$$PWD/$$d" "work/$$d"; fi
+done
 cd work
-"$$hsm_run" -- ./water-inlet-jet-fixture > /dev/null
+HSM_REPO_ROOT=$$PWD "$$hsm_run" -- ./water-inlet-jet-fixture > /dev/null
 copy_file hardware/printed-parts/fixtures/water-inlet-jet/water-inlet-jet-fixture-fixed.step "$$O0"
 copy_file hardware/printed-parts/fixtures/water-inlet-jet/water-inlet-jet-fixture-fixed.step.mesh "$$O1"
 copy_file hardware/printed-parts/fixtures/water-inlet-jet/water-inlet-jet-fixture-fixed.step.npz "$$O2"
@@ -12462,14 +12669,14 @@ hsm_run=
 for r in "$$(awk -F'"' '$$2 == "runner" {print $$4}' ~/.local/lib/hsm/runtime.json 2>/dev/null)" "$$HSM_WORKSPACE/tools/hsm/target/release/hsm-run"; do
   if [ -x "$$r" ] && "$$r" --runtime-info "$$HSM_WORKSPACE" 2>/dev/null | grep -q '"source_match":true'; then hsm_run=$$r; break; fi
 done
-if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run.py" >&2; exit 1; fi
+if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run" >&2; exit 1; fi
 cargo=$$(command -v cargo || true)
 for c in "$$cargo" /opt/homebrew/opt/rustup/bin/cargo ~/.cargo/bin/cargo; do if [ -x "$$c" ]; then cargo=$$c; break; fi; done
 if [ ! -x "$$cargo" ]; then echo "cargo is not installed (https://rustup.rs)" >&2; exit 1; fi
-export HOME=~ PATH="$$(dirname "$$cargo"):$$PATH"
+export PATH="$$(dirname "$$cargo"):$$PATH"
 O0=$$PWD/$(location out/weld-rotator-program/weld-rotator)
 cd "$$HSM_WORKSPACE/tools/hsm"
-CARGO_TARGET_DIR="$$PWD/target" "$$hsm_run" -- "$$cargo" build --release --locked --quiet --manifest-path weld-rotator/Cargo.toml --bin weld-rotator
+CARGO_TARGET_DIR="$$PWD/target" "$$hsm_run" -- "$$cargo" build --release --locked --quiet -j 2 --manifest-path weld-rotator/Cargo.toml --bin weld-rotator
 copy_file target/release/weld-rotator "$$O0"
 """,
 )
@@ -12578,7 +12785,7 @@ hsm_run=
 for r in "$$(awk -F'"' '$$2 == "runner" {print $$4}' ~/.local/lib/hsm/runtime.json 2>/dev/null)" "$$HSM_WORKSPACE/tools/hsm/target/release/hsm-run"; do
   if [ -x "$$r" ] && "$$r" --runtime-info "$$HSM_WORKSPACE" 2>/dev/null | grep -q '"source_match":true'; then hsm_run=$$r; break; fi
 done
-if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run.py" >&2; exit 1; fi
+if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run" >&2; exit 1; fi
 O0=$$PWD/$(location out/weld-rotator/hardware/printed-parts/fixtures/weld-rotator/weld-rotator-assembly.step)
 O1=$$PWD/$(location out/weld-rotator/hardware/printed-parts/fixtures/weld-rotator/weld-rotator-assembly.step.mesh)
 O2=$$PWD/$(location out/weld-rotator/hardware/printed-parts/fixtures/weld-rotator/weld-rotator-assembly.step.npz)
@@ -12636,13 +12843,17 @@ O53=$$PWD/$(location out/weld-rotator/hardware/printed-parts/fixtures/weld-rotat
 rm -rf work
 for f in $(SRCS); do
   case $$f in
+    */node_modules/*) continue;;
     */bin/out/*/*) t=$${f#*/bin/out/}; t=$${t#*/};;
     *) t=$$f;;
   esac
   mkdir -p "work/$$(dirname "$$t")"; copy_file -L "$$f" "work/$$t"
 done
+for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
+  if [ -d "$$d" ]; then mkdir -p "work/$$(dirname "$$d")"; ln -sfn "$$PWD/$$d" "work/$$d"; fi
+done
 cd work
-"$$hsm_run" -- ./weld-rotator > /dev/null
+HSM_REPO_ROOT=$$PWD "$$hsm_run" -- ./weld-rotator > /dev/null
 copy_file hardware/printed-parts/fixtures/weld-rotator/weld-rotator-assembly.step "$$O0"
 copy_file hardware/printed-parts/fixtures/weld-rotator/weld-rotator-assembly.step.mesh "$$O1"
 copy_file hardware/printed-parts/fixtures/weld-rotator/weld-rotator-assembly.step.npz "$$O2"
@@ -12806,14 +13017,14 @@ hsm_run=
 for r in "$$(awk -F'"' '$$2 == "runner" {print $$4}' ~/.local/lib/hsm/runtime.json 2>/dev/null)" "$$HSM_WORKSPACE/tools/hsm/target/release/hsm-run"; do
   if [ -x "$$r" ] && "$$r" --runtime-info "$$HSM_WORKSPACE" 2>/dev/null | grep -q '"source_match":true'; then hsm_run=$$r; break; fi
 done
-if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run.py" >&2; exit 1; fi
+if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run" >&2; exit 1; fi
 cargo=$$(command -v cargo || true)
 for c in "$$cargo" /opt/homebrew/opt/rustup/bin/cargo ~/.cargo/bin/cargo; do if [ -x "$$c" ]; then cargo=$$c; break; fi; done
 if [ ! -x "$$cargo" ]; then echo "cargo is not installed (https://rustup.rs)" >&2; exit 1; fi
-export HOME=~ PATH="$$(dirname "$$cargo"):$$PATH"
+export PATH="$$(dirname "$$cargo"):$$PATH"
 O0=$$PWD/$(location out/fuse-clamp-program/fuse-clamp)
 cd "$$HSM_WORKSPACE/tools/hsm"
-CARGO_TARGET_DIR="$$PWD/target" "$$hsm_run" -- "$$cargo" build --release --locked --quiet --manifest-path fuse-clamp/Cargo.toml --bin fuse-clamp
+CARGO_TARGET_DIR="$$PWD/target" "$$hsm_run" -- "$$cargo" build --release --locked --quiet -j 2 --manifest-path fuse-clamp/Cargo.toml --bin fuse-clamp
 copy_file target/release/fuse-clamp "$$O0"
 """,
 )
@@ -12873,7 +13084,7 @@ hsm_run=
 for r in "$$(awk -F'"' '$$2 == "runner" {print $$4}' ~/.local/lib/hsm/runtime.json 2>/dev/null)" "$$HSM_WORKSPACE/tools/hsm/target/release/hsm-run"; do
   if [ -x "$$r" ] && "$$r" --runtime-info "$$HSM_WORKSPACE" 2>/dev/null | grep -q '"source_match":true'; then hsm_run=$$r; break; fi
 done
-if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run.py" >&2; exit 1; fi
+if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run" >&2; exit 1; fi
 O0=$$PWD/$(location out/fuse-clamp/hardware/printed-parts/refrigeration/fuse-clamp/fuse-clamp.numbers.json)
 O1=$$PWD/$(location out/fuse-clamp/hardware/printed-parts/refrigeration/fuse-clamp/fuse-clamp.step)
 O2=$$PWD/$(location out/fuse-clamp/hardware/printed-parts/refrigeration/fuse-clamp/fuse-clamp.step.mesh)
@@ -12882,13 +13093,17 @@ O4=$$PWD/$(location out/fuse-clamp/hardware/printed-parts/refrigeration/fuse-cla
 rm -rf work
 for f in $(SRCS); do
   case $$f in
+    */node_modules/*) continue;;
     */bin/out/*/*) t=$${f#*/bin/out/}; t=$${t#*/};;
     *) t=$$f;;
   esac
   mkdir -p "work/$$(dirname "$$t")"; copy_file -L "$$f" "work/$$t"
 done
+for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
+  if [ -d "$$d" ]; then mkdir -p "work/$$(dirname "$$d")"; ln -sfn "$$PWD/$$d" "work/$$d"; fi
+done
 cd work
-"$$hsm_run" -- ./fuse-clamp > /dev/null
+HSM_REPO_ROOT=$$PWD "$$hsm_run" -- ./fuse-clamp > /dev/null
 copy_file hardware/printed-parts/refrigeration/fuse-clamp/fuse-clamp.numbers.json "$$O0"
 copy_file hardware/printed-parts/refrigeration/fuse-clamp/fuse-clamp.step "$$O1"
 copy_file hardware/printed-parts/refrigeration/fuse-clamp/fuse-clamp.step.mesh "$$O2"
@@ -13003,14 +13218,14 @@ hsm_run=
 for r in "$$(awk -F'"' '$$2 == "runner" {print $$4}' ~/.local/lib/hsm/runtime.json 2>/dev/null)" "$$HSM_WORKSPACE/tools/hsm/target/release/hsm-run"; do
   if [ -x "$$r" ] && "$$r" --runtime-info "$$HSM_WORKSPACE" 2>/dev/null | grep -q '"source_match":true'; then hsm_run=$$r; break; fi
 done
-if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run.py" >&2; exit 1; fi
+if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run" >&2; exit 1; fi
 cargo=$$(command -v cargo || true)
 for c in "$$cargo" /opt/homebrew/opt/rustup/bin/cargo ~/.cargo/bin/cargo; do if [ -x "$$c" ]; then cargo=$$c; break; fi; done
 if [ ! -x "$$cargo" ]; then echo "cargo is not installed (https://rustup.rs)" >&2; exit 1; fi
-export HOME=~ PATH="$$(dirname "$$cargo"):$$PATH"
+export PATH="$$(dirname "$$cargo"):$$PATH"
 O0=$$PWD/$(location out/soda-bend-holder-program/soda-bend-holder)
 cd "$$HSM_WORKSPACE/tools/hsm"
-CARGO_TARGET_DIR="$$PWD/target" "$$hsm_run" -- "$$cargo" build --release --locked --quiet --manifest-path soda-bend-holder/Cargo.toml --bin soda-bend-holder
+CARGO_TARGET_DIR="$$PWD/target" "$$hsm_run" -- "$$cargo" build --release --locked --quiet -j 2 --manifest-path soda-bend-holder/Cargo.toml --bin soda-bend-holder
 copy_file target/release/soda-bend-holder "$$O0"
 """,
 )
@@ -13070,7 +13285,7 @@ hsm_run=
 for r in "$$(awk -F'"' '$$2 == "runner" {print $$4}' ~/.local/lib/hsm/runtime.json 2>/dev/null)" "$$HSM_WORKSPACE/tools/hsm/target/release/hsm-run"; do
   if [ -x "$$r" ] && "$$r" --runtime-info "$$HSM_WORKSPACE" 2>/dev/null | grep -q '"source_match":true'; then hsm_run=$$r; break; fi
 done
-if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run.py" >&2; exit 1; fi
+if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run" >&2; exit 1; fi
 O0=$$PWD/$(location out/soda-bend-holder/hardware/printed-parts/soda-bend-holder/soda-bend-holder.step)
 O1=$$PWD/$(location out/soda-bend-holder/hardware/printed-parts/soda-bend-holder/soda-bend-holder.step.mesh)
 O2=$$PWD/$(location out/soda-bend-holder/hardware/printed-parts/soda-bend-holder/soda-bend-holder.step.npz)
@@ -13078,13 +13293,17 @@ O3=$$PWD/$(location out/soda-bend-holder/hardware/printed-parts/soda-bend-holder
 rm -rf work
 for f in $(SRCS); do
   case $$f in
+    */node_modules/*) continue;;
     */bin/out/*/*) t=$${f#*/bin/out/}; t=$${t#*/};;
     *) t=$$f;;
   esac
   mkdir -p "work/$$(dirname "$$t")"; copy_file -L "$$f" "work/$$t"
 done
+for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
+  if [ -d "$$d" ]; then mkdir -p "work/$$(dirname "$$d")"; ln -sfn "$$PWD/$$d" "work/$$d"; fi
+done
 cd work
-"$$hsm_run" -- ./soda-bend-holder > /dev/null
+HSM_REPO_ROOT=$$PWD "$$hsm_run" -- ./soda-bend-holder > /dev/null
 copy_file hardware/printed-parts/soda-bend-holder/soda-bend-holder.step "$$O0"
 copy_file hardware/printed-parts/soda-bend-holder/soda-bend-holder.step.mesh "$$O1"
 copy_file hardware/printed-parts/soda-bend-holder/soda-bend-holder.step.npz "$$O2"
@@ -13214,14 +13433,14 @@ hsm_run=
 for r in "$$(awk -F'"' '$$2 == "runner" {print $$4}' ~/.local/lib/hsm/runtime.json 2>/dev/null)" "$$HSM_WORKSPACE/tools/hsm/target/release/hsm-run"; do
   if [ -x "$$r" ] && "$$r" --runtime-info "$$HSM_WORKSPACE" 2>/dev/null | grep -q '"source_match":true'; then hsm_run=$$r; break; fi
 done
-if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run.py" >&2; exit 1; fi
+if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run" >&2; exit 1; fi
 cargo=$$(command -v cargo || true)
 for c in "$$cargo" /opt/homebrew/opt/rustup/bin/cargo ~/.cargo/bin/cargo; do if [ -x "$$c" ]; then cargo=$$c; break; fi; done
 if [ ! -x "$$cargo" ]; then echo "cargo is not installed (https://rustup.rs)" >&2; exit 1; fi
-export HOME=~ PATH="$$(dirname "$$cargo"):$$PATH"
+export PATH="$$(dirname "$$cargo"):$$PATH"
 O0=$$PWD/$(location out/funnel-cover-program/funnel-cover)
 cd "$$HSM_WORKSPACE/tools/hsm"
-CARGO_TARGET_DIR="$$PWD/target" "$$hsm_run" -- "$$cargo" build --release --locked --quiet --manifest-path funnel/Cargo.toml --bin funnel-cover
+CARGO_TARGET_DIR="$$PWD/target" "$$hsm_run" -- "$$cargo" build --release --locked --quiet -j 2 --manifest-path funnel/Cargo.toml --bin funnel-cover
 copy_file target/release/funnel-cover "$$O0"
 """,
 )
@@ -13286,7 +13505,7 @@ hsm_run=
 for r in "$$(awk -F'"' '$$2 == "runner" {print $$4}' ~/.local/lib/hsm/runtime.json 2>/dev/null)" "$$HSM_WORKSPACE/tools/hsm/target/release/hsm-run"; do
   if [ -x "$$r" ] && "$$r" --runtime-info "$$HSM_WORKSPACE" 2>/dev/null | grep -q '"source_match":true'; then hsm_run=$$r; break; fi
 done
-if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run.py" >&2; exit 1; fi
+if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run" >&2; exit 1; fi
 O0=$$PWD/$(location out/funnel-cover/hardware/printed-parts/zone-c/funnel-cover/funnel-cover-print.step)
 O1=$$PWD/$(location out/funnel-cover/hardware/printed-parts/zone-c/funnel-cover/funnel-cover-print.step.mesh)
 O2=$$PWD/$(location out/funnel-cover/hardware/printed-parts/zone-c/funnel-cover/funnel-cover-print.step.npz)
@@ -13298,13 +13517,17 @@ O7=$$PWD/$(location out/funnel-cover/hardware/printed-parts/zone-c/funnel-cover/
 rm -rf work
 for f in $(SRCS); do
   case $$f in
+    */node_modules/*) continue;;
     */bin/out/*/*) t=$${f#*/bin/out/}; t=$${t#*/};;
     *) t=$$f;;
   esac
   mkdir -p "work/$$(dirname "$$t")"; copy_file -L "$$f" "work/$$t"
 done
+for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
+  if [ -d "$$d" ]; then mkdir -p "work/$$(dirname "$$d")"; ln -sfn "$$PWD/$$d" "work/$$d"; fi
+done
 cd work
-"$$hsm_run" -- ./funnel-cover > /dev/null
+HSM_REPO_ROOT=$$PWD "$$hsm_run" -- ./funnel-cover > /dev/null
 copy_file hardware/printed-parts/zone-c/funnel-cover/funnel-cover-print.step "$$O0"
 copy_file hardware/printed-parts/zone-c/funnel-cover/funnel-cover-print.step.mesh "$$O1"
 copy_file hardware/printed-parts/zone-c/funnel-cover/funnel-cover-print.step.npz "$$O2"
@@ -13439,14 +13662,14 @@ hsm_run=
 for r in "$$(awk -F'"' '$$2 == "runner" {print $$4}' ~/.local/lib/hsm/runtime.json 2>/dev/null)" "$$HSM_WORKSPACE/tools/hsm/target/release/hsm-run"; do
   if [ -x "$$r" ] && "$$r" --runtime-info "$$HSM_WORKSPACE" 2>/dev/null | grep -q '"source_match":true'; then hsm_run=$$r; break; fi
 done
-if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run.py" >&2; exit 1; fi
+if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run" >&2; exit 1; fi
 cargo=$$(command -v cargo || true)
 for c in "$$cargo" /opt/homebrew/opt/rustup/bin/cargo ~/.cargo/bin/cargo; do if [ -x "$$c" ]; then cargo=$$c; break; fi; done
 if [ ! -x "$$cargo" ]; then echo "cargo is not installed (https://rustup.rs)" >&2; exit 1; fi
-export HOME=~ PATH="$$(dirname "$$cargo"):$$PATH"
+export PATH="$$(dirname "$$cargo"):$$PATH"
 O0=$$PWD/$(location out/funnel-mold-program/funnel-mold)
 cd "$$HSM_WORKSPACE/tools/hsm"
-CARGO_TARGET_DIR="$$PWD/target" "$$hsm_run" -- "$$cargo" build --release --locked --quiet --manifest-path funnel/Cargo.toml --bin funnel-mold
+CARGO_TARGET_DIR="$$PWD/target" "$$hsm_run" -- "$$cargo" build --release --locked --quiet -j 2 --manifest-path funnel/Cargo.toml --bin funnel-mold
 copy_file target/release/funnel-mold "$$O0"
 """,
 )
@@ -13519,7 +13742,7 @@ hsm_run=
 for r in "$$(awk -F'"' '$$2 == "runner" {print $$4}' ~/.local/lib/hsm/runtime.json 2>/dev/null)" "$$HSM_WORKSPACE/tools/hsm/target/release/hsm-run"; do
   if [ -x "$$r" ] && "$$r" --runtime-info "$$HSM_WORKSPACE" 2>/dev/null | grep -q '"source_match":true'; then hsm_run=$$r; break; fi
 done
-if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run.py" >&2; exit 1; fi
+if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run" >&2; exit 1; fi
 O0=$$PWD/$(location out/funnel-mold/hardware/printed-parts/zone-c/funnel-mold/assembly.step)
 O1=$$PWD/$(location out/funnel-mold/hardware/printed-parts/zone-c/funnel-mold/assembly.step.mesh)
 O2=$$PWD/$(location out/funnel-mold/hardware/printed-parts/zone-c/funnel-mold/assembly.step.npz)
@@ -13538,13 +13761,17 @@ O14=$$PWD/$(location out/funnel-mold/hardware/printed-parts/zone-c/funnel-mold/r
 rm -rf work
 for f in $(SRCS); do
   case $$f in
+    */node_modules/*) continue;;
     */bin/out/*/*) t=$${f#*/bin/out/}; t=$${t#*/};;
     *) t=$$f;;
   esac
   mkdir -p "work/$$(dirname "$$t")"; copy_file -L "$$f" "work/$$t"
 done
+for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
+  if [ -d "$$d" ]; then mkdir -p "work/$$(dirname "$$d")"; ln -sfn "$$PWD/$$d" "work/$$d"; fi
+done
 cd work
-"$$hsm_run" -- ./funnel-mold > /dev/null
+HSM_REPO_ROOT=$$PWD "$$hsm_run" -- ./funnel-mold > /dev/null
 copy_file hardware/printed-parts/zone-c/funnel-mold/assembly.step "$$O0"
 copy_file hardware/printed-parts/zone-c/funnel-mold/assembly.step.mesh "$$O1"
 copy_file hardware/printed-parts/zone-c/funnel-mold/assembly.step.npz "$$O2"
@@ -13686,14 +13913,14 @@ hsm_run=
 for r in "$$(awk -F'"' '$$2 == "runner" {print $$4}' ~/.local/lib/hsm/runtime.json 2>/dev/null)" "$$HSM_WORKSPACE/tools/hsm/target/release/hsm-run"; do
   if [ -x "$$r" ] && "$$r" --runtime-info "$$HSM_WORKSPACE" 2>/dev/null | grep -q '"source_match":true'; then hsm_run=$$r; break; fi
 done
-if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run.py" >&2; exit 1; fi
+if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run" >&2; exit 1; fi
 cargo=$$(command -v cargo || true)
 for c in "$$cargo" /opt/homebrew/opt/rustup/bin/cargo ~/.cargo/bin/cargo; do if [ -x "$$c" ]; then cargo=$$c; break; fi; done
 if [ ! -x "$$cargo" ]; then echo "cargo is not installed (https://rustup.rs)" >&2; exit 1; fi
-export HOME=~ PATH="$$(dirname "$$cargo"):$$PATH"
+export PATH="$$(dirname "$$cargo"):$$PATH"
 O0=$$PWD/$(location out/elbow-cradle-program/elbow-cradle)
 cd "$$HSM_WORKSPACE/tools/hsm"
-CARGO_TARGET_DIR="$$PWD/target" "$$hsm_run" -- "$$cargo" build --release --locked --quiet --manifest-path funnel/Cargo.toml --bin elbow-cradle
+CARGO_TARGET_DIR="$$PWD/target" "$$hsm_run" -- "$$cargo" build --release --locked --quiet -j 2 --manifest-path funnel/Cargo.toml --bin elbow-cradle
 copy_file target/release/elbow-cradle "$$O0"
 """,
 )
@@ -13755,7 +13982,7 @@ hsm_run=
 for r in "$$(awk -F'"' '$$2 == "runner" {print $$4}' ~/.local/lib/hsm/runtime.json 2>/dev/null)" "$$HSM_WORKSPACE/tools/hsm/target/release/hsm-run"; do
   if [ -x "$$r" ] && "$$r" --runtime-info "$$HSM_WORKSPACE" 2>/dev/null | grep -q '"source_match":true'; then hsm_run=$$r; break; fi
 done
-if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run.py" >&2; exit 1; fi
+if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run" >&2; exit 1; fi
 O0=$$PWD/$(location out/elbow-cradle/hardware/printed-parts/zone-c/funnel/elbow-cradle.numbers.json)
 O1=$$PWD/$(location out/elbow-cradle/hardware/printed-parts/zone-c/funnel/elbow-cradle.step)
 O2=$$PWD/$(location out/elbow-cradle/hardware/printed-parts/zone-c/funnel/elbow-cradle.step.mesh)
@@ -13764,13 +13991,17 @@ O4=$$PWD/$(location out/elbow-cradle/hardware/printed-parts/zone-c/funnel/elbow-
 rm -rf work
 for f in $(SRCS); do
   case $$f in
+    */node_modules/*) continue;;
     */bin/out/*/*) t=$${f#*/bin/out/}; t=$${t#*/};;
     *) t=$$f;;
   esac
   mkdir -p "work/$$(dirname "$$t")"; copy_file -L "$$f" "work/$$t"
 done
+for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
+  if [ -d "$$d" ]; then mkdir -p "work/$$(dirname "$$d")"; ln -sfn "$$PWD/$$d" "work/$$d"; fi
+done
 cd work
-"$$hsm_run" -- ./elbow-cradle > /dev/null
+HSM_REPO_ROOT=$$PWD "$$hsm_run" -- ./elbow-cradle > /dev/null
 copy_file hardware/printed-parts/zone-c/funnel/elbow-cradle.numbers.json "$$O0"
 copy_file hardware/printed-parts/zone-c/funnel/elbow-cradle.step "$$O1"
 copy_file hardware/printed-parts/zone-c/funnel/elbow-cradle.step.mesh "$$O2"
@@ -13902,14 +14133,14 @@ hsm_run=
 for r in "$$(awk -F'"' '$$2 == "runner" {print $$4}' ~/.local/lib/hsm/runtime.json 2>/dev/null)" "$$HSM_WORKSPACE/tools/hsm/target/release/hsm-run"; do
   if [ -x "$$r" ] && "$$r" --runtime-info "$$HSM_WORKSPACE" 2>/dev/null | grep -q '"source_match":true'; then hsm_run=$$r; break; fi
 done
-if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run.py" >&2; exit 1; fi
+if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run" >&2; exit 1; fi
 cargo=$$(command -v cargo || true)
 for c in "$$cargo" /opt/homebrew/opt/rustup/bin/cargo ~/.cargo/bin/cargo; do if [ -x "$$c" ]; then cargo=$$c; break; fi; done
 if [ ! -x "$$cargo" ]; then echo "cargo is not installed (https://rustup.rs)" >&2; exit 1; fi
-export HOME=~ PATH="$$(dirname "$$cargo"):$$PATH"
+export PATH="$$(dirname "$$cargo"):$$PATH"
 O0=$$PWD/$(location out/funnel-program/funnel)
 cd "$$HSM_WORKSPACE/tools/hsm"
-CARGO_TARGET_DIR="$$PWD/target" "$$hsm_run" -- "$$cargo" build --release --locked --quiet --manifest-path funnel/Cargo.toml --bin funnel
+CARGO_TARGET_DIR="$$PWD/target" "$$hsm_run" -- "$$cargo" build --release --locked --quiet -j 2 --manifest-path funnel/Cargo.toml --bin funnel
 copy_file target/release/funnel "$$O0"
 """,
 )
@@ -13970,7 +14201,7 @@ hsm_run=
 for r in "$$(awk -F'"' '$$2 == "runner" {print $$4}' ~/.local/lib/hsm/runtime.json 2>/dev/null)" "$$HSM_WORKSPACE/tools/hsm/target/release/hsm-run"; do
   if [ -x "$$r" ] && "$$r" --runtime-info "$$HSM_WORKSPACE" 2>/dev/null | grep -q '"source_match":true'; then hsm_run=$$r; break; fi
 done
-if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run.py" >&2; exit 1; fi
+if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run" >&2; exit 1; fi
 O0=$$PWD/$(location out/funnel/hardware/printed-parts/zone-c/funnel/funnel.numbers.json)
 O1=$$PWD/$(location out/funnel/hardware/printed-parts/zone-c/funnel/funnel.step)
 O2=$$PWD/$(location out/funnel/hardware/printed-parts/zone-c/funnel/funnel.step.mesh)
@@ -13978,13 +14209,17 @@ O3=$$PWD/$(location out/funnel/hardware/printed-parts/zone-c/funnel/funnel.step.
 rm -rf work
 for f in $(SRCS); do
   case $$f in
+    */node_modules/*) continue;;
     */bin/out/*/*) t=$${f#*/bin/out/}; t=$${t#*/};;
     *) t=$$f;;
   esac
   mkdir -p "work/$$(dirname "$$t")"; copy_file -L "$$f" "work/$$t"
 done
+for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
+  if [ -d "$$d" ]; then mkdir -p "work/$$(dirname "$$d")"; ln -sfn "$$PWD/$$d" "work/$$d"; fi
+done
 cd work
-"$$hsm_run" -- ./funnel > /dev/null
+HSM_REPO_ROOT=$$PWD "$$hsm_run" -- ./funnel > /dev/null
 copy_file hardware/printed-parts/zone-c/funnel/funnel.numbers.json "$$O0"
 copy_file hardware/printed-parts/zone-c/funnel/funnel.step "$$O1"
 copy_file hardware/printed-parts/zone-c/funnel/funnel.step.mesh "$$O2"
@@ -14115,14 +14350,14 @@ hsm_run=
 for r in "$$(awk -F'"' '$$2 == "runner" {print $$4}' ~/.local/lib/hsm/runtime.json 2>/dev/null)" "$$HSM_WORKSPACE/tools/hsm/target/release/hsm-run"; do
   if [ -x "$$r" ] && "$$r" --runtime-info "$$HSM_WORKSPACE" 2>/dev/null | grep -q '"source_match":true'; then hsm_run=$$r; break; fi
 done
-if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run.py" >&2; exit 1; fi
+if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run" >&2; exit 1; fi
 cargo=$$(command -v cargo || true)
 for c in "$$cargo" /opt/homebrew/opt/rustup/bin/cargo ~/.cargo/bin/cargo; do if [ -x "$$c" ]; then cargo=$$c; break; fi; done
 if [ ! -x "$$cargo" ]; then echo "cargo is not installed (https://rustup.rs)" >&2; exit 1; fi
-export HOME=~ PATH="$$(dirname "$$cargo"):$$PATH"
+export PATH="$$(dirname "$$cargo"):$$PATH"
 O0=$$PWD/$(location out/funnel-frame-program/funnel-frame)
 cd "$$HSM_WORKSPACE/tools/hsm"
-CARGO_TARGET_DIR="$$PWD/target" "$$hsm_run" -- "$$cargo" build --release --locked --quiet --manifest-path funnel/Cargo.toml --bin funnel-frame
+CARGO_TARGET_DIR="$$PWD/target" "$$hsm_run" -- "$$cargo" build --release --locked --quiet -j 2 --manifest-path funnel/Cargo.toml --bin funnel-frame
 copy_file target/release/funnel-frame "$$O0"
 """,
 )
@@ -14184,7 +14419,7 @@ hsm_run=
 for r in "$$(awk -F'"' '$$2 == "runner" {print $$4}' ~/.local/lib/hsm/runtime.json 2>/dev/null)" "$$HSM_WORKSPACE/tools/hsm/target/release/hsm-run"; do
   if [ -x "$$r" ] && "$$r" --runtime-info "$$HSM_WORKSPACE" 2>/dev/null | grep -q '"source_match":true'; then hsm_run=$$r; break; fi
 done
-if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run.py" >&2; exit 1; fi
+if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run" >&2; exit 1; fi
 O0=$$PWD/$(location out/funnel-frame/hardware/printed-parts/zone-c/funnel/funnel-frame.numbers.json)
 O1=$$PWD/$(location out/funnel-frame/hardware/printed-parts/zone-c/funnel/funnel-frame.step)
 O2=$$PWD/$(location out/funnel-frame/hardware/printed-parts/zone-c/funnel/funnel-frame.step.mesh)
@@ -14193,13 +14428,17 @@ O4=$$PWD/$(location out/funnel-frame/hardware/printed-parts/zone-c/funnel/funnel
 rm -rf work
 for f in $(SRCS); do
   case $$f in
+    */node_modules/*) continue;;
     */bin/out/*/*) t=$${f#*/bin/out/}; t=$${t#*/};;
     *) t=$$f;;
   esac
   mkdir -p "work/$$(dirname "$$t")"; copy_file -L "$$f" "work/$$t"
 done
+for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
+  if [ -d "$$d" ]; then mkdir -p "work/$$(dirname "$$d")"; ln -sfn "$$PWD/$$d" "work/$$d"; fi
+done
 cd work
-"$$hsm_run" -- ./funnel-frame > /dev/null
+HSM_REPO_ROOT=$$PWD "$$hsm_run" -- ./funnel-frame > /dev/null
 copy_file hardware/printed-parts/zone-c/funnel/funnel-frame.numbers.json "$$O0"
 copy_file hardware/printed-parts/zone-c/funnel/funnel-frame.step "$$O1"
 copy_file hardware/printed-parts/zone-c/funnel/funnel-frame.step.mesh "$$O2"
@@ -14318,14 +14557,14 @@ hsm_run=
 for r in "$$(awk -F'"' '$$2 == "runner" {print $$4}' ~/.local/lib/hsm/runtime.json 2>/dev/null)" "$$HSM_WORKSPACE/tools/hsm/target/release/hsm-run"; do
   if [ -x "$$r" ] && "$$r" --runtime-info "$$HSM_WORKSPACE" 2>/dev/null | grep -q '"source_match":true'; then hsm_run=$$r; break; fi
 done
-if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run.py" >&2; exit 1; fi
+if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run" >&2; exit 1; fi
 cargo=$$(command -v cargo || true)
 for c in "$$cargo" /opt/homebrew/opt/rustup/bin/cargo ~/.cargo/bin/cargo; do if [ -x "$$c" ]; then cargo=$$c; break; fi; done
 if [ ! -x "$$cargo" ]; then echo "cargo is not installed (https://rustup.rs)" >&2; exit 1; fi
-export HOME=~ PATH="$$(dirname "$$cargo"):$$PATH"
+export PATH="$$(dirname "$$cargo"):$$PATH"
 O0=$$PWD/$(location out/fluid-topology-program/fluid-topology)
 cd "$$HSM_WORKSPACE/tools/hsm"
-CARGO_TARGET_DIR="$$PWD/target" "$$hsm_run" -- "$$cargo" build --release --locked --quiet --manifest-path fluid-topology/Cargo.toml --bin fluid-topology
+CARGO_TARGET_DIR="$$PWD/target" "$$hsm_run" -- "$$cargo" build --release --locked --quiet -j 2 --manifest-path fluid-topology/Cargo.toml --bin fluid-topology
 copy_file target/release/fluid-topology "$$O0"
 """,
 )
@@ -14386,34 +14625,38 @@ hsm_run=
 for r in "$$(awk -F'"' '$$2 == "runner" {print $$4}' ~/.local/lib/hsm/runtime.json 2>/dev/null)" "$$HSM_WORKSPACE/tools/hsm/target/release/hsm-run"; do
   if [ -x "$$r" ] && "$$r" --runtime-info "$$HSM_WORKSPACE" 2>/dev/null | grep -q '"source_match":true'; then hsm_run=$$r; break; fi
 done
-if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run.py" >&2; exit 1; fi
+if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run" >&2; exit 1; fi
 O0=$$PWD/$(location out/fluid-topology/hardware/topology/fluid-topology-carbonator.mmd)
 O1=$$PWD/$(location out/fluid-topology/hardware/topology/fluid-topology-manifold.mmd)
 rm -rf work
 for f in $(SRCS); do
   case $$f in
+    */node_modules/*) continue;;
     */bin/out/*/*) t=$${f#*/bin/out/}; t=$${t#*/};;
     *) t=$$f;;
   esac
   mkdir -p "work/$$(dirname "$$t")"; copy_file -L "$$f" "work/$$t"
 done
+for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
+  if [ -d "$$d" ]; then mkdir -p "work/$$(dirname "$$d")"; ln -sfn "$$PWD/$$d" "work/$$d"; fi
+done
 cd work
-"$$hsm_run" -- ./fluid-topology > /dev/null
+HSM_REPO_ROOT=$$PWD "$$hsm_run" -- ./fluid-topology > /dev/null
 copy_file hardware/topology/fluid-topology-carbonator.mmd "$$O0"
 copy_file hardware/topology/fluid-topology-manifold.mmd "$$O1"
 """,
 )
 
 genrule(
-    name = "cargo-config",
+    name = "cargo-config-program",
     srcs = [
-        "tools/bazel/cargo_config.py",
         "tools/hsm/Cargo.lock",
         "tools/hsm/Cargo.toml",
+        "tools/hsm/cargo-config/Cargo.toml",
+        "tools/hsm/cargo-config/src/cargo_config.rs",
+        "tools/hsm/cargo-config/src/lib.rs",
     ],
-    outs = [
-        "out/cargo-config/tools/hsm/cargo-config.json",
-    ],
+    outs = ["out/cargo-config-program/hsm-cargo-config"],
     tags = ["no-sandbox"],
     cmd = """
 set -e
@@ -14437,113 +14680,76 @@ case "$$(uname -s)" in
     };;
   *) copy_file() { cp "$$@"; };;
 esac
+hsm_run=
+for r in "$$(awk -F'"' '$$2 == "runner" {print $$4}' ~/.local/lib/hsm/runtime.json 2>/dev/null)" "$$HSM_WORKSPACE/tools/hsm/target/release/hsm-run"; do
+  if [ -x "$$r" ] && "$$r" --runtime-info "$$HSM_WORKSPACE" 2>/dev/null | grep -q '"source_match":true'; then hsm_run=$$r; break; fi
+done
+if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run" >&2; exit 1; fi
+cargo=$$(command -v cargo || true)
+for c in "$$cargo" /opt/homebrew/opt/rustup/bin/cargo ~/.cargo/bin/cargo; do if [ -x "$$c" ]; then cargo=$$c; break; fi; done
+if [ ! -x "$$cargo" ]; then echo "cargo is not installed (https://rustup.rs)" >&2; exit 1; fi
+export PATH="$$(dirname "$$cargo"):$$PATH"
+O0=$$PWD/$(location out/cargo-config-program/hsm-cargo-config)
+cd "$$HSM_WORKSPACE/tools/hsm"
+CARGO_TARGET_DIR="$$PWD/target" "$$hsm_run" -- "$$cargo" build --release --locked --quiet -j 2 --manifest-path cargo-config/Cargo.toml --bin hsm-cargo-config
+copy_file target/release/hsm-cargo-config "$$O0"
+""",
+)
+
+genrule(
+    name = "cargo-config",
+    srcs = [
+        ":out/cargo-config-program/hsm-cargo-config",
+        "tools/hsm/Cargo.lock",
+        "tools/hsm/Cargo.toml",
+    ],
+    outs = [
+        "out/cargo-config/tools/hsm/cargo-config.json",
+    ],
+    cmd = """
+set -e
+case "$$(uname -s)" in
+  Darwin)
+    copy_mask=$$((8#$$(umask)))
+    copy_bits=("" x w wx r rx rw rwx)
+    copy_mode="u-$${copy_bits[$$((copy_mask >> 6 & 7))]},g-$${copy_bits[$$((copy_mask >> 3 & 7))]},o-$${copy_bits[$$((copy_mask & 7))]}"
+    copy_file() {
+      local copy_dest="$${!#}" copy_target copy_permissions="$$copy_mode"
+      if [ -e "$$copy_dest" ] || [ -L "$$copy_dest" ]; then
+        if [ ! -f "$$copy_dest" ] || [ -L "$$copy_dest" ]; then cp "$$@"; return; fi
+        copy_permissions=$$(stat -f %Lp "$$copy_dest")
+        copy_target=$$(mktemp "$$copy_dest.hsm-copy.XXXXXX")
+      else copy_target="$$copy_dest"; fi
+      if cp -c "$${@:1:$$(( $$# - 1 ))}" "$$copy_target" 2>/dev/null; then
+        chmod "$$copy_permissions" "$$copy_target"
+        touch "$$copy_target"
+        if [ "$$copy_target" != "$$copy_dest" ]; then mv -f "$$copy_target" "$$copy_dest"; fi
+      else rm -f "$$copy_target"; cp "$$@"; fi
+    };;
+  *) copy_file() { cp "$$@"; };;
+esac
+hsm_run=
+for r in "$$(awk -F'"' '$$2 == "runner" {print $$4}' ~/.local/lib/hsm/runtime.json 2>/dev/null)" "$$HSM_WORKSPACE/tools/hsm/target/release/hsm-run"; do
+  if [ -x "$$r" ] && "$$r" --runtime-info "$$HSM_WORKSPACE" 2>/dev/null | grep -q '"source_match":true'; then hsm_run=$$r; break; fi
+done
+if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run" >&2; exit 1; fi
 O0=$$PWD/$(location out/cargo-config/tools/hsm/cargo-config.json)
-rm -rf work-cargo-config
+rm -rf work
 for f in $(SRCS); do
   case $$f in
     */node_modules/*) continue;;
     */bin/out/*/*) t=$${f#*/bin/out/}; t=$${t#*/};;
     *) t=$$f;;
   esac
-  mkdir -p "work-cargo-config/$$(dirname "$$t")"; copy_file -L "$$f" "work-cargo-config/$$t"
+  mkdir -p "work/$$(dirname "$$t")"; copy_file -L "$$f" "work/$$t"
 done
 for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
-  if [ -d $$d ]; then mkdir -p work-cargo-config/$$(dirname $$d); ln -sfn $$PWD/$$d work-cargo-config/$$d; fi
+  if [ -d "$$d" ]; then mkdir -p "work/$$(dirname "$$d")"; ln -sfn "$$PWD/$$d" "work/$$d"; fi
 done
-for f in hardware/scripts/_run_lock.py hardware/scripts/_run_native.py hardware/scripts/_run_slots.py tools/hsm/run-slots.defaults.json tools/run-slots.mjs tools/run.py; do
-  mkdir -p work-cargo-config/$$(dirname $$f); cp $$HSM_WORKSPACE/$$f work-cargo-config/$$f
-done
-cd work-cargo-config
-ln -sfn $$HSM_WORKSPACE/.cache .cache
-D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/bazel/cargo_config.py > /dev/null
+cd work
+HSM_REPO_ROOT=$$PWD "$$hsm_run" -- ./hsm-cargo-config > /dev/null
 copy_file tools/hsm/cargo-config.json "$$O0"
-cd .. && rm -rf work-cargo-config
 """,
-)
-
-filegroup(
-    name = "build-data-runtime",
-    srcs = [
-        "hardware/scripts/_build_data.py",
-        "hardware/scripts/_run_lock.py",
-        "hardware/scripts/_run_native.py",
-        "hardware/scripts/_run_slots.py",
-        "hardware/scripts/_rust_data.py",
-        "hardware/scripts/_rust_part.py",
-        "tools/bazel/_support_data.py",
-        "tools/hsm/build-data/Cargo.toml",
-        "tools/hsm/build-data/src/artifact_cache.rs",
-        "tools/hsm/build-data/src/artifacts.rs",
-        "tools/hsm/build-data/src/assets.rs",
-        "tools/hsm/build-data/src/inventory.rs",
-        "tools/hsm/build-data/src/lib.rs",
-        "tools/hsm/build-data/src/main.rs",
-        "tools/hsm/build-data/src/payload.rs",
-        "tools/hsm/build-data/src/projection.rs",
-        "tools/hsm/build-data/src/publication.rs",
-        "tools/hsm/build-data/src/publication_archive.rs",
-        "tools/hsm/build-data/src/publication_state.rs",
-        "tools/hsm/build-data/src/publication_zlib.rs",
-        "tools/hsm/build-data/src/sources.rs",
-        "tools/hsm/build-data/src/support.rs",
-        "tools/hsm/build-data/src/surfaces.rs",
-        "tools/hsm/documents/Cargo.toml",
-        "tools/hsm/documents/src/interop.rs",
-        "tools/hsm/documents/src/interop/standard.rs",
-        "tools/hsm/documents/src/lib.rs",
-        "tools/hsm/documents/src/python_checked.rs",
-        "tools/hsm/geometry/Cargo.toml",
-        "tools/hsm/geometry/src/lib.rs",
-        "tools/hsm/geometry/src/payload.rs",
-        "tools/hsm/geometry/src/queries.rs",
-        "tools/hsm/geometry/src/scene.rs",
-        "tools/hsm/kernel/Cargo.toml",
-        "tools/hsm/kernel/src/boolean.rs",
-        "tools/hsm/kernel/src/build.rs",
-        "tools/hsm/kernel/src/dxf.rs",
-        "tools/hsm/kernel/src/edge.rs",
-        "tools/hsm/kernel/src/face.rs",
-        "tools/hsm/kernel/src/feature.rs",
-        "tools/hsm/kernel/src/import.rs",
-        "tools/hsm/kernel/src/lib.rs",
-        "tools/hsm/kernel/src/mapped.rs",
-        "tools/hsm/kernel/src/mass.rs",
-        "tools/hsm/kernel/src/math.rs",
-        "tools/hsm/kernel/src/part.rs",
-        "tools/hsm/kernel/src/plane.rs",
-        "tools/hsm/kernel/src/profile.rs",
-        "tools/hsm/kernel/src/reads.rs",
-        "tools/hsm/kernel/src/round.rs",
-        "tools/hsm/kernel/src/round/rolled.rs",
-        "tools/hsm/kernel/src/rule.rs",
-        "tools/hsm/kernel/src/screw.rs",
-        "tools/hsm/kernel/src/sketch_hull.rs",
-        "tools/hsm/kernel/src/solid.rs",
-        "tools/hsm/kernel/src/spline.rs",
-        "tools/hsm/kernel/src/step.rs",
-        "tools/hsm/kernel/src/step/analytic.rs",
-        "tools/hsm/kernel/src/sweep.rs",
-        "tools/hsm/kernel/src/text.rs",
-        "tools/hsm/kernel/src/thru.rs",
-        "tools/hsm/kernel/src/topo.rs",
-        "tools/hsm/kernel/src/triangulate.rs",
-        "tools/hsm/kernel/src/write.rs",
-        "tools/hsm/run-native/Cargo.toml",
-        "tools/hsm/run-native/src/lib.rs",
-        "tools/hsm/run-slots.defaults.json",
-        "tools/hsm/run-slots/Cargo.toml",
-        "tools/hsm/run-slots/src/ipc.rs",
-        "tools/hsm/run-slots/src/lib.rs",
-        "tools/hsm/run-slots/src/main.rs",
-        "tools/hsm/run-slots/src/runtime.rs",
-        "tools/hsm/run-slots/src/runtime/cad.rs",
-        "tools/hsm/run-slots/src/runtime/install.rs",
-        "tools/hsm/run-slots/src/runtime/runner.rs",
-        "tools/hsm/run-slots/src/runtime/slots.rs",
-        "tools/run-slots.mjs",
-        "tools/run.py",
-    ],
 )
 
 filegroup(
@@ -14557,10 +14763,7 @@ filegroup(
 filegroup(
     name = "node-packages",
     srcs = glob(
-        [
-            "tools/render/**",
-            "web/**",
-        ],
+        ["tools/render/**","web/**"],
         allow_empty = True,
     ),
 )

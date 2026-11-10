@@ -1,9 +1,5 @@
 use super::*;
-use std::{
-    net::{TcpStream, ToSocketAddrs},
-    os::unix::{fs::MetadataExt, process::ExitStatusExt},
-    time::Instant,
-};
+use std::{os::unix::process::ExitStatusExt, time::Instant};
 fn resolved(path: &Path) -> PathBuf {
     if let Ok(path) = path.canonicalize() {
         return path;
@@ -25,7 +21,156 @@ fn resolved(path: &Path) -> PathBuf {
     }
     out
 }
+
+fn program_name(argument: &str) -> &str {
+    Path::new(argument)
+        .file_name()
+        .and_then(|p| p.to_str())
+        .unwrap_or(argument)
+}
+struct CommandView<'a> {
+    start: usize,
+    args: &'a [String],
+    cwd: PathBuf,
+}
+fn command_view<'a>(command: &'a [String], cwd: &Path) -> Option<CommandView<'a>> {
+    let mut start = 0;
+    let mut cwd = resolved(cwd);
+    loop {
+        if program_name(command.get(start)?) != "env" {
+            return Some(CommandView {
+                start,
+                args: &command[start..],
+                cwd,
+            });
+        }
+        start += 1;
+        let mut options = true;
+        let mut directory: Option<String> = None;
+        loop {
+            let argument = command.get(start)?;
+            if options && (argument == "--" || argument == "-") {
+                options = false;
+                start += 1;
+                continue;
+            }
+            if options && argument.starts_with("--") {
+                let (flag, attached) = argument
+                    .split_once('=')
+                    .map_or((argument.as_str(), None), |(key, value)| (key, Some(value)));
+                match flag {
+                    "--ignore-environment" | "--debug" | "--null" | "--list-signal-handling"
+                        if attached.is_none() =>
+                    {
+                        start += 1
+                    }
+                    "--block-signal" | "--default-signal" | "--ignore-signal" => start += 1,
+                    "--unset" | "--chdir" | "--argv0" => {
+                        let value = if let Some(value) = attached {
+                            value
+                        } else {
+                            start += 1;
+                            command.get(start)?
+                        };
+                        if flag == "--chdir" {
+                            directory = Some(value.to_owned());
+                        }
+                        start += 1;
+                    }
+                    _ => return None,
+                }
+                continue;
+            }
+            if options && argument.starts_with('-') {
+                let mut consumed = 1;
+                let mut at = 1;
+                while at < argument.len() {
+                    match argument.as_bytes()[at] {
+                        b'i' | b'v' | b'0' => at += 1,
+                        b'u' | b'C' | b'P' | b'a' => {
+                            let value = if at + 1 < argument.len() {
+                                &argument[at + 1..]
+                            } else {
+                                consumed = 2;
+                                command.get(start + 1)?
+                            };
+                            if argument.as_bytes()[at] == b'C' {
+                                directory = Some(value.to_owned());
+                            }
+                            break;
+                        }
+                        _ => return None,
+                    }
+                }
+                start += consumed;
+                continue;
+            }
+            if argument.contains('=') {
+                options = false;
+                start += 1;
+                continue;
+            }
+            break;
+        }
+        if let Some(directory) = directory {
+            let directory = Path::new(&directory);
+            cwd = resolved(&if directory.is_absolute() {
+                directory.to_owned()
+            } else {
+                cwd.join(directory)
+            });
+        }
+    }
+}
+#[derive(Clone, Copy, Debug, Default, PartialEq, Eq)]
+struct CommandClass {
+    bazel: bool,
+    bazel_heavy: bool,
+    cargo_heavy: bool,
+}
+fn classify_command(command: &[String], cwd: &Path) -> CommandClass {
+    let Some(view) = command_view(command, cwd) else {
+        return CommandClass::default();
+    };
+    let program = program_name(&view.args[0]);
+    let mut arguments = view
+        .args
+        .iter()
+        .skip(1)
+        .take_while(|arg| arg.as_str() != "--");
+    let bazel = matches!(program, "bazel" | "bazelisk");
+    CommandClass {
+        bazel,
+        bazel_heavy: bazel
+            && arguments
+                .clone()
+                .any(|arg| matches!(arg.as_str(), "build" | "test" | "run" | "coverage")),
+        cargo_heavy: program == "cargo"
+            && arguments.any(|arg| {
+                matches!(
+                    arg.as_str(),
+                    "build" | "test" | "run" | "check" | "bench" | "install" | "rustc"
+                )
+            }),
+    }
+}
+fn resolved_argument(argument: &str, cwd: &Path) -> PathBuf {
+    let path = Path::new(argument);
+    resolved(&if path.is_absolute() {
+        path.to_owned()
+    } else {
+        cwd.join(path)
+    })
+}
+
 pub fn script_key(command: &[String], cwd: &Path) -> String {
+    let Some(view) = command_view(command, cwd) else {
+        return command
+            .first()
+            .map(|arg| program_name(arg).to_owned())
+            .unwrap_or_default();
+    };
+    let command = view.args;
     let program = Path::new(&command[0])
         .file_name()
         .unwrap_or_default()
@@ -70,7 +215,7 @@ pub fn script_key(command: &[String], cwd: &Path) -> String {
             .iter()
             .any(|ext| arg.ends_with(ext))
         {
-            let path = resolved(Path::new(arg));
+            let path = resolved_argument(arg, &view.cwd);
             return path
                 .strip_prefix(resolved(cwd))
                 .map(|v| v.to_string_lossy().into_owned())
@@ -89,7 +234,7 @@ pub fn script_key(command: &[String], cwd: &Path) -> String {
             if let Some(i) = command.iter().position(|v| v == flag) {
                 if let Some(value) = command.get(i + 1) {
                     let value = if flag == "--manifest-path" {
-                        let path = resolved(Path::new(value));
+                        let path = resolved_argument(value, &view.cwd);
                         path.strip_prefix(resolved(cwd))
                             .map(|p| p.to_string_lossy().into_owned())
                             .unwrap_or_else(|_| {
@@ -111,11 +256,16 @@ pub fn script_key(command: &[String], cwd: &Path) -> String {
     program.into_owned()
 }
 pub fn limit_jobs(command: &[String], jobs: usize) -> Vec<String> {
+    let Some(view) = command_view(command, Path::new(".")) else {
+        return command.to_vec();
+    };
+    let prefix = &command[..view.start];
+    let command = view.args;
     let split = command
         .iter()
         .position(|v| v == "--")
         .unwrap_or(command.len());
-    let mut kept = Vec::new();
+    let mut kept = prefix.to_vec();
     let mut skip = false;
     for arg in &command[..split] {
         if skip {
@@ -150,266 +300,6 @@ pub fn workspace_root() -> PathBuf {
         }
     }
     here
-}
-fn http(
-    host: &str,
-    port: u16,
-    method: &str,
-    route: &str,
-    body: Option<&Value>,
-    token: Option<&str>,
-    timeout: f64,
-) -> Result<(u16, Vec<u8>)> {
-    let address = (host, port)
-        .to_socket_addrs()?
-        .next()
-        .context("local viewer address")?;
-    let mut peer = TcpStream::connect_timeout(&address, Duration::from_secs_f64(timeout))?;
-    peer.set_read_timeout(Some(Duration::from_secs_f64(timeout)))?;
-    peer.set_write_timeout(Some(Duration::from_secs_f64(timeout)))?;
-    let bytes = body
-        .map(serde_json::to_vec)
-        .transpose()?
-        .unwrap_or_default();
-    write!(
-        peer,
-        "{method} {route} HTTP/1.1\r\nHost: {host}:{port}\r\nConnection: close\r\n"
-    )?;
-    if body.is_some() {
-        write!(
-            peer,
-            "Content-Type: application/json\r\nContent-Length: {}\r\n",
-            bytes.len()
-        )?;
-    }
-    if let Some(token) = token {
-        write!(peer, "X-HSM-Notify: {token}\r\n")?;
-    }
-    peer.write_all(b"\r\n")?;
-    peer.write_all(&bytes)?;
-    let mut reply = Vec::new();
-    peer.read_to_end(&mut reply)?;
-    let split = reply
-        .windows(4)
-        .position(|v| v == b"\r\n\r\n")
-        .context("viewer HTTP header")?;
-    let header = String::from_utf8_lossy(&reply[..split]);
-    let status = header
-        .lines()
-        .next()
-        .and_then(|v| v.split_whitespace().nth(1))
-        .context("viewer status")?
-        .parse()?;
-    let mut payload = reply[split + 4..].to_vec();
-    if header
-        .lines()
-        .any(|v| v.to_lowercase().starts_with("transfer-encoding: chunked"))
-    {
-        let mut decoded = Vec::new();
-        let mut at = 0;
-        loop {
-            let n = payload[at..]
-                .windows(2)
-                .position(|v| v == b"\r\n")
-                .context("viewer chunk length")?
-                + at;
-            let size = usize::from_str_radix(
-                std::str::from_utf8(&payload[at..n])?
-                    .split(';')
-                    .next()
-                    .unwrap_or(""),
-                16,
-            )?;
-            at = n + 2;
-            if size == 0 {
-                break;
-            }
-            ensure!(at + size + 2 <= payload.len(), "viewer chunk range");
-            decoded.extend_from_slice(&payload[at..at + size]);
-            at += size + 2;
-        }
-        payload = decoded;
-    }
-    Ok((status, payload))
-}
-pub fn viewer_producer(command: &[String], root: &Path) -> Option<Value> {
-    (move || -> Result<Value> {
-        ensure!(
-            !env::var("HSM_VIEWER_PRODUCER").is_ok_and(|v| !v.is_empty()),
-            "nested producer"
-        );
-        ensure!(
-            Path::new(&command[0])
-                .file_name()
-                .unwrap_or_default()
-                .to_string_lossy()
-                .starts_with("python"),
-            "Python producer"
-        );
-        let script = command
-            .iter()
-            .skip(1)
-            .find(|v| v.ends_with(".py"))
-            .context("producer script")?;
-        let script = resolved(Path::new(script));
-        ensure!(
-            script.starts_with(root.join("hardware")),
-            "hardware producer"
-        );
-        let mut candidates = vec![
-            ("127.0.0.1".to_owned(), 3000),
-            ("127.0.0.1".to_owned(), 3001),
-        ];
-        if let Some(url) = env::var("HSM_VIEWER_URL").ok().filter(|v| !v.is_empty()) {
-            let rest = url.strip_prefix("http://").context("local HTTP viewer")?;
-            let authority = rest.split('/').next().unwrap_or("");
-            let (host, port) = if let Some(rest) = authority.strip_prefix('[') {
-                let (end, port) = rest.split_once(']').context("IPv6 viewer")?;
-                (
-                    end.to_owned(),
-                    port.strip_prefix(':')
-                        .map(str::parse)
-                        .transpose()?
-                        .unwrap_or(80),
-                )
-            } else if let Some((host, port)) = authority.rsplit_once(':') {
-                (host.into(), port.parse()?)
-            } else {
-                (authority.into(), 80)
-            };
-            ensure!(
-                ["localhost", "127.0.0.1", "::1"].contains(&host.as_str()),
-                "local viewer"
-            );
-            candidates = vec![(host, port)];
-        }
-        for (host, port) in candidates {
-            let Ok((200, bytes)) = http(&host, port, "GET", "/api/hsm", None, None, 0.05) else {
-                continue;
-            };
-            let Ok(data) = serde_json::from_slice::<Value>(&bytes) else {
-                continue;
-            };
-            if data["root"] == root.to_string_lossy().as_ref() && data["notify"].is_string() {
-                let paths = fs::read(root.join("tools/bazel/graph.json"))
-                    .ok()
-                    .and_then(|v| serde_json::from_slice::<Value>(&v).ok())
-                    .and_then(|v| {
-                        v[script.strip_prefix(root).ok()?.to_string_lossy().as_ref()]["writes"]
-                            .as_array()
-                            .cloned()
-                    })
-                    .unwrap_or_default()
-                    .into_iter()
-                    .filter_map(|v| v.as_str().map(|p| root.join(p)))
-                    .collect::<Vec<_>>();
-                return Ok(json!([
-                    host,
-                    port,
-                    data["notify"],
-                    root,
-                    script.parent(),
-                    paths
-                ]));
-            }
-        }
-        bail!("no local viewer")
-    })()
-    .ok()
-}
-pub fn viewer_snapshot(producer: &Value) -> Result<Value> {
-    if producer.is_null() {
-        return Ok(json!({}));
-    }
-    let root = Path::new(text(&producer[3])?);
-    let directory = Path::new(text(&producer[4])?);
-    let mut paths = producer[5]
-        .as_array()
-        .context("producer outputs")?
-        .iter()
-        .map(|v| text(v).map(PathBuf::from))
-        .collect::<Result<std::collections::BTreeSet<_>>>()?;
-    for row in fs::read_dir(directory)? {
-        paths.insert(row?.path());
-    }
-    let mut out = json!({});
-    for path in paths {
-        let name = path.file_name().unwrap_or_default().to_string_lossy();
-        if name.starts_with('.')
-            || !path.starts_with(root.join("hardware"))
-            || ![".step", ".step.mesh", ".glb", ".dxf", ".pdf", ".mmd"]
-                .iter()
-                .any(|ext| name.ends_with(ext))
-        {
-            continue;
-        }
-        if let Ok(stat) = path.metadata() {
-            let modified = stat.modified()?.duration_since(UNIX_EPOCH)?.as_nanos() as u64;
-            out[path.to_string_lossy().as_ref()] =
-                json!([stat.dev(), stat.ino(), stat.len(), modified]);
-        }
-    }
-    Ok(out)
-}
-pub fn viewer_completed(producer: &Value, before: &Value) -> Result<()> {
-    if producer.is_null() {
-        return Ok(());
-    }
-    let root = Path::new(text(&producer[3])?);
-    let mut files = std::collections::BTreeSet::new();
-    let snapshot = viewer_snapshot(producer)?;
-    for (path, stamp) in snapshot.as_object().context("viewer snapshot")? {
-        if before.get(path) != Some(stamp) {
-            let name = Path::new(path)
-                .strip_prefix(root.join("hardware"))?
-                .to_string_lossy()
-                .into_owned();
-            files.insert(if name.ends_with(".step.mesh") {
-                name.strip_suffix(".mesh").unwrap().into()
-            } else {
-                name
-            });
-        }
-    }
-    if !files.is_empty() {
-        let _ = http(
-            text(&producer[0])?,
-            producer[1].as_u64().context("viewer port")? as u16,
-            "POST",
-            "/api/hsm/files-changed",
-            Some(&json!({"root":root,"files":files})),
-            Some(text(&producer[2])?),
-            0.1,
-        );
-    }
-    Ok(())
-}
-pub fn request(op: &str, d: &Value) -> Result<Value> {
-    let command = || -> Result<Vec<String>> {
-        serde_json::from_value(d["command"].clone()).map_err(Into::into)
-    };
-    Ok(match op {
-        "runner_script_key" => json!(script_key(&command()?, &env::current_dir()?)),
-        "runner_limit_jobs" => json!(limit_jobs(
-            &command()?,
-            d["jobs"].as_u64().unwrap_or(2) as usize
-        )),
-        "runner_workspace_root" => json!(workspace_root()),
-        "runner_viewer_producer" => {
-            json!(viewer_producer(&command()?, Path::new(text(&d["root"])?)))
-        }
-        "runner_viewer_snapshot" => viewer_snapshot(&d["producer"])?,
-        "runner_viewer_completed" => {
-            viewer_completed(&d["producer"], &d["before"])?;
-            Value::Null
-        }
-        "runner_launcher" => json!(install::launcher(
-            Path::new(text(&d["current"])?),
-            d["legacy"].as_str().map(Path::new),
-            &serde_json::from_value::<Vec<String>>(d["sockets"].clone())?
-        )),
-        _ => bail!("unknown runner operation {op}"),
-    })
 }
 pub fn run(args: &[String]) -> Result<i32> {
     let mut count_arg = None;
@@ -494,23 +384,11 @@ pub fn run(args: &[String]) -> Result<i32> {
     }
     let root = workspace_root();
     let key = key.unwrap_or_else(|| script_key(&command, &env::current_dir().unwrap_or_default()));
-    let producer = viewer_producer(&command, &root).unwrap_or(Value::Null);
-    let before = viewer_snapshot(&producer).unwrap_or(json!({}));
-    let program = Path::new(&command[0])
-        .file_name()
-        .unwrap_or_default()
-        .to_string_lossy()
-        .into_owned();
-    let bazel = ["bazel", "bazelisk"].contains(&program.as_str());
-    let bazel_heavy = bazel
-        && command
-            .iter()
-            .skip(1)
-            .any(|v| ["build", "test", "run", "coverage"].contains(&v.as_str()));
-    let cargo_heavy = program == "cargo"
-        && command.iter().skip(1).any(|v| {
-            ["build", "test", "run", "check", "bench", "install", "rustc"].contains(&v.as_str())
-        });
+    let CommandClass {
+        bazel,
+        bazel_heavy,
+        cargo_heavy,
+    } = classify_command(&command, &env::current_dir()?);
     if bazel_heavy || cargo_heavy {
         command = limit_jobs(&command, 2);
     }
@@ -561,9 +439,6 @@ pub fn run(args: &[String]) -> Result<i32> {
         .context("child environment")?;
     environment.insert("CARGO_BUILD_JOBS".into(), json!("2"));
     environment.insert("CMAKE_BUILD_PARALLEL_LEVEL".into(), json!("2"));
-    if program.starts_with("python") {
-        environment.insert("HSM_VIEWER_PRODUCER".into(), json!("1"));
-    }
     if bazel {
         for name in [
             RUN_ENV,
@@ -622,11 +497,201 @@ pub fn run(args: &[String]) -> Result<i32> {
     }
     slots::close_broker(broker["id"].as_u64().unwrap())?;
     drop(guard);
-    if code == 0 {
-        let _ = viewer_completed(&producer, &before);
-    }
     cad::request("cad_record", &json!({"code":code}), &root, None)?;
     cad::release(&cad_dir);
     slots::release(false);
     Ok(code)
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    fn words(values: &[&str]) -> Vec<String> {
+        values.iter().map(|value| (*value).to_owned()).collect()
+    }
+
+    #[test]
+    fn env_assignments_reveal_the_compiler_without_becoming_script_keys() {
+        let bare = words(&[
+            "cargo",
+            "build",
+            "--manifest-path",
+            "tools/hsm/Cargo.toml",
+            "-p",
+            "hsm-run-slots",
+        ]);
+        let wrapped = [
+            words(&[
+                "/usr/bin/env",
+                "RUSTC=/some/compiler.py",
+                "SETTING=spaces and --jobs=55",
+            ]),
+            bare.clone(),
+        ]
+        .concat();
+        assert_eq!(
+            classify_command(&wrapped, Path::new(".")),
+            classify_command(&bare, Path::new("."))
+        );
+        assert!(classify_command(&wrapped, Path::new(".")).cargo_heavy);
+        assert_eq!(
+            script_key(&wrapped, Path::new(".")),
+            script_key(&bare, Path::new("."))
+        );
+        assert_eq!(&limit_jobs(&wrapped, 2)[..3], &wrapped[..3]);
+    }
+    #[test]
+    fn env_flags_and_nested_env_keep_utility_arguments_in_place() {
+        let command = words(&[
+            "env",
+            "-iv",
+            "-u",
+            "-j99",
+            "-P/opt/tools",
+            "FIRST=one",
+            "env",
+            "--ignore-environment",
+            "--unset=RUSTFLAGS",
+            "RUSTC=rustc",
+            "cargo",
+            "+stable",
+            "test",
+            "-j12",
+            "--",
+            "--jobs=77",
+        ]);
+        let class = classify_command(&command, Path::new("."));
+        assert!(class.cargo_heavy);
+        assert!(!class.bazel);
+        let expected = words(&[
+            "env",
+            "-iv",
+            "-u",
+            "-j99",
+            "-P/opt/tools",
+            "FIRST=one",
+            "env",
+            "--ignore-environment",
+            "--unset=RUSTFLAGS",
+            "RUSTC=rustc",
+            "cargo",
+            "+stable",
+            "test",
+            "--jobs=2",
+            "--",
+            "--jobs=77",
+        ]);
+        assert_eq!(limit_jobs(&command, 2), expected);
+    }
+    #[test]
+    fn outer_env_terminators_do_not_hide_inner_job_flags_or_touch_child_options() {
+        let command = words(&[
+            "env",
+            "--",
+            "RUSTC=rustc",
+            "cargo",
+            "run",
+            "--jobs",
+            "48",
+            "-j32",
+            "--jobs=8",
+            "--",
+            "-j99",
+            "--jobs=77",
+        ]);
+        assert_eq!(
+            limit_jobs(&command, 2),
+            words(&[
+                "env",
+                "--",
+                "RUSTC=rustc",
+                "cargo",
+                "run",
+                "--jobs=2",
+                "--",
+                "-j99",
+                "--jobs=77"
+            ])
+        );
+        assert!(classify_command(&command, Path::new(".")).cargo_heavy);
+    }
+    #[test]
+    fn bazel_in_env_keeps_the_same_key_guard_and_job_limit() {
+        let bare = words(&["bazelisk", "build", "//second", "//first", "--jobs=8"]);
+        let wrapped = [
+            words(&["env", "--debug", "PATH=/opt/tool bin"]),
+            bare.clone(),
+        ]
+        .concat();
+        let class = classify_command(&wrapped, Path::new("."));
+        assert!(class.bazel && class.bazel_heavy);
+        assert_eq!(
+            script_key(&wrapped, Path::new(".")),
+            script_key(&bare, Path::new("."))
+        );
+        assert_eq!(
+            limit_jobs(&wrapped, 2),
+            words(&[
+                "env",
+                "--debug",
+                "PATH=/opt/tool bin",
+                "bazelisk",
+                "build",
+                "//second",
+                "//first",
+                "--jobs=2"
+            ])
+        );
+        assert!(
+            !classify_command(
+                &words(&["env", "VAR=x", "bazel", "query", "//..."]),
+                Path::new(".")
+            )
+            .bazel_heavy
+        );
+    }
+    #[test]
+    fn env_directory_options_resolve_manifests_where_the_utility_runs() {
+        let cwd = Path::new("/workspace");
+        let command = words(&[
+            "env",
+            "-Cignored",
+            "-C",
+            "project",
+            "env",
+            "--chdir=inner",
+            "cargo",
+            "build",
+            "--manifest-path",
+            "Cargo.toml",
+        ]);
+        assert_eq!(
+            script_key(&command, cwd),
+            "cargo:--manifest-path:project/inner/Cargo.toml"
+        );
+        assert!(classify_command(&command, cwd).cargo_heavy);
+    }
+    #[test]
+    fn split_strings_unknown_options_and_environment_only_calls_stay_opaque() {
+        for command in [
+            words(&["env", "-S", "cargo build -j12"]),
+            words(&["env", "--unknown", "cargo", "build"]),
+            words(&["env", "-u"]),
+            words(&["env", "VAR=value"]),
+        ] {
+            assert_eq!(
+                classify_command(&command, Path::new(".")),
+                CommandClass::default()
+            );
+            assert_eq!(limit_jobs(&command, 2), command);
+            assert_eq!(script_key(&command, Path::new(".")), "env");
+        }
+        assert!(
+            !classify_command(
+                &words(&["cargo", "metadata", "--", "build"]),
+                Path::new(".")
+            )
+            .cargo_heavy
+        );
+    }
 }

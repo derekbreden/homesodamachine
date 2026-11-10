@@ -1,0 +1,27 @@
+[package]
+name = "hsm-inspection"
+version = "0.1.0"
+edition.workspace = true
+license.workspace = true
+rust-version.workspace = true
+publish = false
+
+[[bin]]
+name = "hsm-pick"
+path = "src/bin/hsm_pick.rs"
+
+[[bin]]
+name = "hsm-gcode"
+path = "src/bin/hsm_gcode.rs"
+
+[dependencies]
+anyhow.workspace = true
+serde.workspace = true
+serde_json.workspace = true
+sha2.workspace = true
+clap = { version = "4", features = ["derive"] }
+regex = "1"
+zip = { version = "9.1.2", default-features = false, features = ["deflate-flate2-zlib-rs"] }
+hsm-geometry = { path = "../geometry" }
+hsm-kernel = { path = "../kernel", default-features = false }
+hsm-print-prep = { path = "../print-prep" }

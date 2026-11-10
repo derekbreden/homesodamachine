@@ -40,7 +40,7 @@ zero user trim, 833 layers, no ironing and no plate warnings. Native estimate:
 **10.042 mm**.
 
 [Preparation](preparation.json) binds the current project and native G-code.
-[prepare_launch.py](prepare_launch.py) selects plate 1 and makes the print-only
+[prepare_launch.py](https://github.com/derekbreden/homesodamachine/blob/7cf7b55608deefa5f3cae6bb20f83bce14ff706f/hardware/printed-parts/cold-core/reservoir/prints/2026-10-21-mark1-right08-z000/prepare_launch.py) selects plate 1 and makes the print-only
 archive without changing its native G-code; [packaging](packaging.json) binds
 its hashes. Launch file:
 `.cache/reservoir-mark1-right08-z000/slice/2026-10-21-reservoir-left-cap-clear-right08-z000-mark1.gcode.3mf`.

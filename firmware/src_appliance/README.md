@@ -211,7 +211,7 @@ display answered.
 `display usb` does not switch a load or the unswitched J9 V12 rail. A current enclosure display
 image acknowledges it and enters 500 ms of timer-wake deep sleep, which powers down the S3
 USB PHY long enough for the host to see a detach. If that application does not answer,
-the main board reports `UNREACHABLE` and does nothing further. `tools/display_usb.py`
+the main board reports `UNREACHABLE` and does nothing further. `hsm-peripheral display-usb`
 wraps the command and proves the result with a fresh USB attachment and the display's
 `GET_VERSION` response.
 

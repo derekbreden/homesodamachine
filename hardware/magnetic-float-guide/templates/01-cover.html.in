@@ -1,0 +1,6 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><title>ASA Aero magnetic float build guide</title><link rel="stylesheet" href="style.css"></head>
+<body><article class="card cover"><header>
+<span class="brand"><img src="../../ios/AppIcon.svg" alt="">Home Soda Machine</span>
+<h1>Magnetic<br>float</h1><p class="sub">One ASA Aero body. One ring magnet.<br>Pause, seat the ring, and print the pocket closed.</p>
+</header><main><figure><div class="plate"><img src="art/hero.png" alt="One-piece ASA Aero float beside a section showing its midplane RC62 ring"></div></figure></main>
+<footer><span>ASA Aero White &middot; RC62 &middot; {{diameter}} &times; {{height}} mm</span><span>Illustrated build guide &middot; 13 pages</span></footer></article></body></html>

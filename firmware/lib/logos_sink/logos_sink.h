@@ -8,7 +8,7 @@
 //  The factory logos arriving over the link
 // ════════════════════════════════════════════════════════════
 //
-// `OTA_KIND_LOGOS` streams the blob `tools/make_logos.py` writes: a 64-byte
+// `OTA_KIND_LOGOS` streams the blob `hsm-marketing make-logos` writes: a 64-byte
 // header, then one bundle per face in the rendition order `IMAGE_BUNDLE` names.
 // Each bundle goes into its own store slot through `imageStoreWriteBegin` /
 // `Chunk` / `Finish`, so one slot is erased at a time and the slots holding a

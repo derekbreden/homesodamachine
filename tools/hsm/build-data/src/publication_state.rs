@@ -9,9 +9,18 @@ use std::{
 };
 
 const KEYS: [&str; 10] = [
-    "_", "release", "store", "bundle", "solids", "sidecars", "website", "mesh_assets", "moved", "made",
+    "_",
+    "release",
+    "store",
+    "bundle",
+    "solids",
+    "sidecars",
+    "website",
+    "mesh_assets",
+    "moved",
+    "made",
 ];
-const NOTE: &str = "The pointer file: main points at these bytes on the release, by hash. Written by tools/cad-artifacts/pack.py; web/scripts/fetch-cad-artifacts.mjs reads it at deploy.";
+const NOTE: &str = "The pointer file: main points at these bytes on the release, by hash. Written by hsm-pack; web/scripts/fetch-cad-artifacts.mjs reads it at deploy.";
 type Pairs = Vec<(String, Value)>;
 fn pairs(v: &Value) -> Pairs {
     v["_publication_pairs"]
@@ -145,9 +154,6 @@ fn pretty(v: &Value, depth: usize) -> Result<String> {
             )
         });
     }
-    if v.as_number().is_some_and(serde_json::Number::is_f64) {
-        return hsm_documents::interop::Val::decode(v.clone())?.str();
-    }
     Ok(ascii_json(&serde_json::to_string(v)?))
 }
 fn ascii_json(text: &str) -> String {
@@ -195,12 +201,59 @@ fn website(root: &Path, data: &Value, config: &Value) -> Result<Value> {
     Ok(Value::Object(out))
 }
 fn read_ordered(bytes: Vec<u8>) -> Result<Value> {
-    use hsm_documents::interop::{self, Val};
-    interop::builtin_module("json")
-        .context("native JSON module")?
-        .attr("loads")?
-        .call(vec![Val::Bytes(bytes)], vec![])?
-        .encode()
+    parse_ordered(&bytes)
+}
+/// JSON objects retain their authored order without a runtime object interpreter.
+pub fn parse_ordered(bytes: &[u8]) -> Result<Value> {
+    use serde::{
+        Deserialize, Deserializer,
+        de::{MapAccess, Visitor},
+    };
+    use serde_json::value::RawValue;
+    struct Map(Vec<(String, Box<RawValue>)>);
+    impl<'de> Deserialize<'de> for Map {
+        fn deserialize<D: Deserializer<'de>>(d: D) -> std::result::Result<Self, D::Error> {
+            struct ReadMap;
+            impl<'de> Visitor<'de> for ReadMap {
+                type Value = Map;
+                fn expecting(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
+                    f.write_str("JSON object")
+                }
+                fn visit_map<A: MapAccess<'de>>(
+                    self,
+                    mut map: A,
+                ) -> std::result::Result<Map, A::Error> {
+                    let mut rows = Vec::new();
+                    while let Some(row) = map.next_entry()? {
+                        rows.push(row);
+                    }
+                    Ok(Map(rows))
+                }
+            }
+            d.deserialize_map(ReadMap)
+        }
+    }
+    let first = bytes.iter().copied().find(|b| !b.is_ascii_whitespace());
+    Ok(match first {
+        Some(b'{') => ordered(
+            serde_json::from_slice::<Map>(bytes)?
+                .0
+                .into_iter()
+                .map(|(key, value)| Ok((key, parse_ordered(value.get().as_bytes())?)))
+                .collect::<Result<Vec<_>>>()?,
+        ),
+        Some(b'[') => Value::Array(
+            serde_json::from_slice::<Vec<Box<RawValue>>>(bytes)?
+                .into_iter()
+                .map(|value| parse_ordered(value.get().as_bytes()))
+                .collect::<Result<Vec<_>>>()?,
+        ),
+        _ => serde_json::from_slice(bytes)?,
+    })
+}
+/// Pointer rendering keeps the canonical key and member ordering.
+pub fn render_pointer(value: &Value) -> Result<String> {
+    Ok(pretty(&pointer_file(value), 0)? + "\n")
 }
 fn read_pointers(root: &Path) -> Value {
     fs::read(root.join("hardware/cad-artifacts.json"))
@@ -990,8 +1043,10 @@ pub fn dispatch(v: &Value) -> Result<Option<Value>> {
                 let stat = crate::artifact_cache::identity(&root.join(&rel))?;
                 out.insert(
                     rel,
-                    json!(stat[3].div_euclid(1_000_000_000) as f64
-                        + stat[3].rem_euclid(1_000_000_000) as f64 * 1e-9),
+                    json!(
+                        stat[3].div_euclid(1_000_000_000) as f64
+                            + stat[3].rem_euclid(1_000_000_000) as f64 * 1e-9
+                    ),
                 );
             }
             Value::Object(out)
@@ -1161,37 +1216,62 @@ pub fn dispatch(v: &Value) -> Result<Option<Value>> {
             Value::Null
         }
         "publication-gzip-many" => {
-            let rows=v["files"].as_array().context("compression files")?;
-            let level=v["level"].as_u64().unwrap_or(1) as u32;
-            let next=std::sync::atomic::AtomicUsize::new(0);
+            let rows = v["files"].as_array().context("compression files")?;
+            let level = v["level"].as_u64().unwrap_or(1) as u32;
+            let next = std::sync::atomic::AtomicUsize::new(0);
             std::thread::scope(|scope| -> Result<()> {
-                let workers=(0..rows.len().min(2)).map(|_|scope.spawn(|| -> Result<()> {
-                    loop {
-                        let index=next.fetch_add(1,std::sync::atomic::Ordering::Relaxed);
-                        let Some(row)=rows.get(index) else {break;};
-                        let source=Path::new(row["source"].as_str().context("compression source")?);
-                        let output=Path::new(row["output"].as_str().context("compression output")?);
-                        if output.is_file(){continue;}
-                        fs::create_dir_all(output.parent().context("compression parent")?)?;
-                        let temp=output.with_extension(format!("{}.tmp",std::process::id()));
-                        archive::gzip(source,&temp,level)?;
-                        fs::rename(temp,output)?;
-                    }
-                    Ok(())
-                })).collect::<Vec<_>>();
-                for worker in workers {worker.join().map_err(|_|anyhow::anyhow!("compression worker failed"))??;}
+                let workers = (0..rows.len().min(2))
+                    .map(|_| {
+                        scope.spawn(|| -> Result<()> {
+                            loop {
+                                let index = next.fetch_add(1, std::sync::atomic::Ordering::Relaxed);
+                                let Some(row) = rows.get(index) else {
+                                    break;
+                                };
+                                let source = Path::new(
+                                    row["source"].as_str().context("compression source")?,
+                                );
+                                let output = Path::new(
+                                    row["output"].as_str().context("compression output")?,
+                                );
+                                if output.is_file() {
+                                    continue;
+                                }
+                                fs::create_dir_all(output.parent().context("compression parent")?)?;
+                                let temp =
+                                    output.with_extension(format!("{}.tmp", std::process::id()));
+                                archive::gzip(source, &temp, level)?;
+                                fs::rename(temp, output)?;
+                            }
+                            Ok(())
+                        })
+                    })
+                    .collect::<Vec<_>>();
+                for worker in workers {
+                    worker
+                        .join()
+                        .map_err(|_| anyhow::anyhow!("compression worker failed"))??;
+                }
                 Ok(())
             })?;
             Value::Null
         }
         "publication-freeze" => {
-            let directory=Path::new(text("directory")?);fs::create_dir_all(directory)?;
-            let mut out=Vec::new();
-            for (index,row) in v["files"].as_array().context("publication files")?.iter().enumerate() {
-                let source=Path::new(row["source"].as_str().context("publication source")?);
-                let target=directory.join(format!("{index}.data"));
-                fs::copy(source,&target)?;
-                out.push(json!({"relative":row["relative"],"source":target,"sha256":crate::payload::digest(&target)?}));
+            let directory = Path::new(text("directory")?);
+            fs::create_dir_all(directory)?;
+            let mut out = Vec::new();
+            for (index, row) in v["files"]
+                .as_array()
+                .context("publication files")?
+                .iter()
+                .enumerate()
+            {
+                let source = Path::new(row["source"].as_str().context("publication source")?);
+                let target = directory.join(format!("{index}.data"));
+                let before = crate::artifact_cache::identity(source)?;
+                fs::copy(source, &target)?;
+                let after = crate::artifact_cache::identity(source)?;
+                out.push(json!({"relative":row["relative"],"source":target,"sha256":crate::payload::digest(&target)?,"source_identity":after,"source_stable":before==after}));
             }
             json!(out)
         }
@@ -1331,7 +1411,15 @@ pub fn dispatch(v: &Value) -> Result<Option<Value>> {
                         .map(|(generator, _)| generator.clone())
                         .collect::<BTreeSet<_>>();
                     let explained = if producers.is_empty() {
-                        changed.contains("tools/bazel/inventory.py")
+                        [
+                            "tools/hsm/build-plan/inventory.json",
+                            "tools/hsm/build-plan/programs.json",
+                            "tools/hsm/build-data/src/inventory.rs",
+                            "tools/hsm/build-data/src/publication.rs",
+                            "tools/hsm/publication/config.json",
+                        ]
+                        .iter()
+                        .any(|path| changed.contains(*path))
                     } else {
                         !producers.is_disjoint(&changed)
                             || !producers.iter().any(|p| root.join(p).is_file())

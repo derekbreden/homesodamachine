@@ -11,6 +11,16 @@ use hsm_catalog::fits;
 
 const INCH: f64 = 25.4;
 
+/// The closure bench sheet's recipe settings; the operator controls the lap and overlap.
+pub mod recipe {
+    /// The endcap's outer face below the tube rim.
+    pub const ENDCAP_RECESS: f64 = 0.25 * super::INCH;
+    /// The starting bead travel, in millimetres per second.
+    pub const TRAVEL_NOMINAL: f64 = 8.;
+    /// The bead's travel beyond its starting tack, in degrees.
+    pub const OVERLAP_DEGREES: f64 = 20.;
+}
+
 /// The clear passage down through the nest, the turntable, the spool and the base, for the purge
 /// hose to the welded end's lower port.
 pub const SERVICE_BORE_D: f64 = 90.;

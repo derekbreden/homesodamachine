@@ -9,10 +9,11 @@ build at an immutable path under `~/.local/lib/hsm/<build_id>/hsm` and puts a la
 `~/.local/bin/hsm`, which this Mac's shells have on `PATH`:
 
 ```sh
-python3 tools/run.py -- cargo build --release --locked -j 2 --manifest-path tools/hsm/Cargo.toml -p hsm --bin hsm
-python3 tools/hsm/install.py tools/hsm/target/release/hsm
+tools/run -- cargo build --release --locked -j 2 --manifest-path tools/hsm/Cargo.toml -p hsm --bin hsm
+hsm-run --install-hsm "$PWD" tools/hsm/target/release/hsm
 hsm where tee-y-a
 hsm gap compressor/1 condenser+fan
+hsm around relay-2/1 --within 12
 hsm overlap '#6' '#7'
 hsm move tee-y-a --by 0 -17 0
 hsm section tee-y-a --normal 0 0 1 --offset 250
@@ -214,7 +215,7 @@ older reader or whole-scene cache refusal; reconnecting the MCP server adopts th
 
 The installer's launcher also retains the executable that earlier MCP clients restart on
 `/tmp/hsm-<uid>/engine.sock`. Only a `daemon` invocation for that endpoint takes the retained
-executable; ordinary commands use the installed build. `install.py --legacy-socket PATH`
+executable; ordinary commands use the installed build. `hsm-run --install-hsm WORKSPACE BINARY --legacy-socket PATH`
 retains additional endpoints for clients started with a custom socket. Its `--root` selects an
 installation other than `~/.local`. Every daemon loads geometry only when asked for a scene.
 
@@ -251,8 +252,7 @@ tool accepts an optional `root` and `scene`, so one server can query several wor
 
 Claude Code reads [`.mcp.json`](../../.mcp.json), which runs `hsm mcp`, and
 [`.claude/settings.json`](../../.claude/settings.json) enables that server and allows its tools.
-A session starts its server in the session's directory, so a session in a worktree made by
-`tools/worktree.py` measures that worktree. `claude mcp get hsm` shows the server.
+Sessions measure the shared checkout. `claude mcp get hsm` shows the server.
 
 Codex takes its servers from `~/.codex/config.toml`:
 
@@ -287,7 +287,7 @@ Off Render, the site's server (`npm start` in `web`) answers `/api/hsm` with the
 - Once a second while a model is open and the page is visible, the page asks again for the
   file it drew, under the ETag it came with. The server answers off a stat, and a new ETag that
   holds for another second redraws the model in place, camera kept. Nothing watches a file, so
-  a payload redraws however it was written: by its producer, `sync_tree.py` or
+  a payload redraws however it was written: by its producer, `hsm-build-plan sync-tree` or
   `fetch-cad-artifacts`.
 - With **Measure** on in the component panel, a picked body shows its payload index and world
   bounds, and its clearance to the body picked before it, with the closest points drawn.
@@ -335,10 +335,8 @@ with no daemon. The CI image has no GPU, and Mesa's lavapipe answers Vulkan ther
 - Metal draws the same picture in different bytes: mean |Δ| under 0.3 of 255 a channel.
 
 [`tools/look.sh`](../look.sh) and [`tools/changes/change.mjs`](../changes/change.mjs) draw with
-it. The guide art scripts, and the Bazel rules for the plumbing art, the opening scene, cad art
-and install art, draw with `hsm-render` by way of
-[`hardware/scripts/_hsm_render.py`](../../hardware/scripts/_hsm_render.py), which builds it from
-the checkout. The Fill, ice and insertion-action tools use the same renderer.
+it. Native guide and opening-scene artwork uses `hsm-render`. Optional install-art refreshes
+use [`hsm-install-art`](install-art/README.md).
 
 A JSON job can give solid bodies presentation `materials`. Each row's `names` are body globs or
 numbered mesh names; the last matching row wins. Rows can set `color`, `roughness`, `metalness`,
@@ -446,45 +444,31 @@ processes to the same bytes, a STEP and a model file to the triangles, names and
 were written from, and the crate to a wasm32 build. The text tests read the system's Arial and
 Helvetica.
 
-## Parts the kernel cuts
+## Build and publication
 
-A part the kernel cuts keeps its numbers in Python and its geometry in Rust, side by side in its
-folder. The fuse clamp (`hardware/printed-parts/refrigeration/fuse-clamp`) is one; the coil
-mandrel and the magnetic float (`hardware/printed-parts/cold-core/coil-mandrel` and
-`magnetic-float`, crate `tools/hsm/cold-core`) are others. The faucet's parts and its two
-assemblies keep their numbers in typed crates instead: each part's `numbers.rs` beside its
-program, what they share in `hardware/printed-parts/faucet/numbers` (crate `hsm-faucet-numbers`),
-and the assemblies' in `hardware/faucet-layout/numbers.rs`.
+The [print build](print-build/README.md) compiles and runs the selected native producers and
+publishes each completed part while other producers continue:
 
-A part moves onto the kernel as soon as its program makes the outputs its generator made, faster
-on the first try or not; [`conversion.md`](conversion.md) is the plan. The commit that moves it
-carries the program's warm time, from its process's start to its exit, and the most memory it
-held.
+```sh
+tools/run -- hsm-print-build
+tools/run -- hsm-print-build //:enclosure-back-top //:installed-machine
+```
 
-`fuse_clamp.py` is its generator. It derives every number the part takes from the parts it closes
-on, states its bounds and fills its README, as any generator does, and writes the numbers the
-geometry takes (`numbers()`) to `fuse-clamp.numbers.json`, which is committed beside it.
-`fuse_clamp.rs` is the program that cuts the part from them: a `[[bin]]` of its subsystem's crate,
-`tools/hsm/refrigeration`, named `fuse-clamp`. It reads the file with `part::args` and `Numbers`
-(`f`, `pair`, `list`, `color`, `text`), builds the solid, refuses one that the fuse's case, grown by
-the contact tolerance, does not touch, and hands its bodies to `part::write_part`. That writes
-`fuse-clamp.step`, the model file beside it, the payload, whose `src` is the STEP's SHA-256, and
-`fuse-clamp.stl`; leaves a file that holds the same bytes as it is; and prints what the files hold.
-The STEP and the STL take each solid simplified once, at the kernel's rule. `part::write_shown`
-writes a set without the STL, for bodies the page draws and nothing prints, and
-`part::write_printed` one without the payload, for a printed piece whose payload
-`hardware/scripts/flute_payload.py` cuts from its STL. A program that writes several sets prints
-each one's answer on a line of its own, and its standard output carries nothing else. The magnetic
-float's program writes seven: a set with an STL for each printed piece, and a set without one for
-the magnet and for the assembly, section and exploded views. The faucet's printed pieces cut
-their own payloads from their STLs, every triangle kept (`hsm_print_payload::printed`): the shell
-its two prints, the display cover its print and the industrial faucet its four, and each display
-cover writes itself as it sits on the tip with `write_shown`. Each faucet program is a crate of
-its own, and `tools/hsm/faucet` is the library they share: the gooseneck, the display's frame at
-its tip, `shell`, the shell's stock and the cutters the industrial faucet also cuts its own round
-stock with, `display`, the lips and the relaxed print both display covers are cut with, and
-`counter`, the plate and gasket under each base. The two assemblies are the programs of
-`tools/hsm/faucet-assembly`: the faucet and its umbilical as the bench bags them.
+The [build planner](build-plan/README.md) owns the declared source/runtime split, targeted
+Bazel rules, tracing and completed-output carry. [Cargo configuration](cargo-config/README.md)
+separates compilation-relevant workspace settings from unrelated member edits.
+[Publication](publication/README.md) uploads immutable geometry before its manifests,
+commits the exact referenced records and asks the website to adopt them.
+[Native Git landing](git-tools/README.md) preserves concurrent source and staged edits.
+Saving source starts no build or check.
+
+A part's typed numbers and construction live beside its source. Its native program reads the
+runtime data and retained models it consumes, then writes its construction archive, printable
+solids and viewer references together. A downstream assembly reads completed files rather than
+reconstructing its parts. [conversion.md](conversion.md) describes those boundaries.
+New studies use the [sandbox](sandbox/README.md).
+
+## Surface source records
 
 `part::write_part` and `part::write_shown` include optional `face_sources` in each
 payload mesh: one contributor array per displayed `fac` range, emitted by
@@ -513,7 +497,7 @@ attribution. The shared writer includes this binding when it emits an STL.
 The linter can read those recorded facet IDs on demand:
 
 ```sh
-python3 tools/run.py -- tools/cad-venv/bin/python hardware/scripts/geometry_lint.py \
+tools/run -- tools/hsm/target/release/geometry-lint \
     path/to/part.stl --sources path/to/part.step.npz
 ```
 
@@ -521,197 +505,43 @@ It adds contributor records to the findings without changing their geometry or r
 The explicit model must bind the exact STL bytes; missing, stale or unrecorded data stays
 unknown. This source lookup runs only when requested.
 
-A generator that cuts a part begins its own run before it imports anything else:
-
-```python
-if __name__ == "__main__":
-    import _rust_part
-    _rust_part.start()
-```
-
-`start` starts the run's clock at the process's own start and defers CadQuery: the modules a
-part's numbers come from import it to build other parts, and the run uses none of it. The CAD lock
-is taken when CadQuery or OCP loads, or before the program runs in the generator's own process
-("Part runs"), so a run the part engine answers that loads neither waits behind no OCCT build.
-The `cadquery` it puts in `sys.modules` loads the first time a name is read off it, except
-`Color` and `Plane`, which shared modules call as they import and which make stand-ins. A
-stand-in colour answers `toTuple`, `==`, `hash` and `_materials.linear` with OCCT's bits, as
-`linear` of a `#RRGGBB` string does (`hardware/scripts/_occt_color.py`). If CadQuery loads, each
-stand-in becomes the value it stands for, in place, and whenever OCP loads, its loops end in
-Python as `_cadq_export` ends them. So a part's run ends with neither `cadquery` nor `OCP.OCP`
-loaded.
-`hardware/scripts/test_rust_part.py` holds the template to all of it.
-
-The generator runs the program through
-[`hardware/scripts/_rust_part.py`](../../hardware/scripts/_rust_part.py).
-`_rust_part.cut(crate, name, numbers(), part_dir)` writes the numbers, has the
-part engine run the program from the checkout's workspace (`HSM_WORKSPACE` in a Bazel action;
-"Part runs" below), and returns the files and bodies it printed.
-`_rust_part.check(crate, name, numbers)` runs
-`<program> <numbers.json> --check`, which measures the part and writes nothing, and returns its
-JSON: the fuse clamp's selftest asks it for the case's touch, and the magnetic float's `verify.py`
-for the volumes by which the pieces miss the design. `_rust_part.run(crate, name, *args)`
-runs a program with arguments of its own and returns what it printed, and
-`_rust_part.program(crate, name)` builds one and returns its path. Each run prints the program's
-seconds and the most memory it held, or that the part engine kept it. Cargo builds into the
-checkout's own target directory, `tools/hsm/target`, whatever `CARGO_TARGET_DIR` says. A worktree made by `tools/worktree.py` starts
-with a clone of the main checkout's target directory less the workspace's own crates, so its first
-build compiles those and not Manifold. `_rust_part` runs the `cargo` on `PATH`, else Homebrew's
-rustup's, else the one in `~/.cargo/bin`.
-
-A program runs from the checkout's root, and its numbers name a STEP it reads by its path from
-there. `_rust_part.step(path)` returns that path once a payload cut from the STEP is on disk. For
-a STEP of B-rep faces with none in the import cache, OCCT meshes each solid of each body at the
-kernel's rule, one face range per B-rep face, into the cache, under the CAD lock. `_rust_part`
-hands the trace the STEP, and for a STEP of triangles the payload beside it.
-
-`tools/bazel/trace_inputs.py` takes what rustc compiled into the program, off its dep-info file,
-with the manifests and the lockfile, and every file the program wrote. The writer's entry in
-`graph.json` names the Rust sources among its reads, so a publish moves the part's members when
-its program or the kernel changes. `gen_build.py` runs a step that read a `Cargo.toml`
-unsandboxed, in a work directory of its own, because cargo writes the checkout's target directory.
-The page cannot read a STEP of triangles (occt-import-js 0.0.23), so the part's folder is in
-`BUNDLED_PAYLOAD_DIRS` in [`tools/cad-artifacts/pack.py`](../cad-artifacts/pack.py), and in
-`BUNDLED_MESH_DIRS` for its STL. The CI image ([`tools/ci-image/Dockerfile`](../ci-image/Dockerfile))
-carries the toolchain and CMake.
-
-A generator on meshcad seats the part off its STEP, whose solids an import takes from the model
-file. `import_step` refuses that STEP on OCCT, so an OCCT generator that seats the part calls a
-CadQuery `build()` in its module instead: the fuse clamp keeps one for `enclosure_assembly`, and
-the faucet's modules keep their builders for the hand-run checks and reviews that stand them. A
-program on the kernel reads the STEP with `import::step`, as the faucet assemblies read the
-shell's two pieces off `faucet-shell-base.step` and `faucet-shell-tip.step`.
-
-```sh
-tools/cad-venv/bin/python hardware/printed-parts/refrigeration/fuse-clamp/fuse_clamp.py
-hsm --scene hardware/printed-parts/refrigeration/fuse-clamp/fuse-clamp.step.mesh where fuse-clamp
-```
-
-Its face records read `PLANE extrude at hardware/printed-parts/refrigeration/fuse-clamp/fuse_clamp.rs:41`
-and `PLANE box at hardware/printed-parts/refrigeration/fuse-clamp/fuse_clamp.rs:42, cut at
-hardware/printed-parts/refrigeration/fuse-clamp/fuse_clamp.rs:43`.
-
 ## Part runs
 
-The daemon runs the programs that cut parts, for every checkout, and keeps what each run wrote
-([`engine/src/build.rs`](engine/src/build.rs)). `_rust_part.run` asks it over the socket.
-
-New part builds and renders use the host-wide
-[`run-slots`](run-slots/README.md) scheduler before taking compiler or memory
-locks. A kept answer and an ordinary geometry query need no new heavy slot.
-Use `python3 tools/run.py -- <command>` for standalone Cargo, Bazel, slicing
-and rendering commands; `--cad` adds the native CAD lock and `--timing` reserves
-the machine for a measurement. Verified child leases carry admission through
-Python, the engine and Bazel actions.
-
-`_rust_part` asks `hsm endpoint` once per generator process for the installed build's socket.
-An executable without that command uses the legacy endpoint. `HSM_SOCKET` selects an explicit
-endpoint. Without `hsm`, or with `HSM_NO_ENGINE=1`, the generator runs cargo and the program in
-its own process.
-
-```json
-{"op":"run","workspace":"/checkout","root":"/checkout","crate":"<crate>","name":"<name>","args":["/checkout/<part dir>/<name>.numbers.json","/checkout/<part dir>"]}
-```
-
-`workspace` is the checkout whose `tools/hsm` holds the program, and `root` is where it runs from,
-the action's directory in a Bazel action. The result carries what the program printed (`stdout`,
-`stderr`), the sources it was compiled from (`sources`, which `_rust_part` hands the trace), the
-files it read and wrote, whether a kept run answered (`hit`), whether cargo ran (`compiled`), the
-program's seconds and peak, and the ask's own seconds. Each ask is answered on a thread of its
-own, so a run holds up no geometry query.
-
-A run's key is its program's code and its arguments. The code is the toolchain, as `rustc -vV`
-names it from the workspace, and the SHA-256 of every workspace source rustc compiled into the
-program, off its dep-info, with the manifests and the lockfile. An argument naming a file counts by
-its bytes, the one naming a directory is where the files go, and any other counts as text. The
-kernel lists each file a program reads in the file `HSM_READS` names (`kernel/src/reads.rs`): a
-payload, a STEP and the payload it is read through, a DXF, a font. A kept run answers only while
-each of those holds the bytes it read. A program whose kernel has no `reads.rs` lists nothing, and
-none of its runs is kept.
-
-The store is `parts/` in the store directory:
-
-- `blobs/<sha256>`: each file a run wrote, once by its content;
-- `runs/<key>.json`: up to four runs of a key, which differ in what they read;
-- `programs/<code>/<name>`: each built program, by its code, with the checkout that built it in
-  `built-in`, and `programs/<crate>.<name>.json`, the sources it was last compiled from, so a
-  checkout whose target directory has no dep-info for it still knows its code;
-- `peaks.json`: the most memory each program, and each crate's cargo, last held.
-
-A kept run's files are cloned into the output directory, each under a name that ends as the file
-does and renamed onto it, and a file already holding the bytes is left as it is, as
-`part::write_part` leaves it. A program writes into a scratch directory, and its files are kept
-before they are placed. Two asks for one key run it once. Digests are kept by device, inode, size,
-mtime and ctime, so a hit reads no file again until it changes.
-
-cargo runs only for code no kept program has: in the asking checkout's `tools/hsm`, into that
-checkout's target directory, one cargo there at a time, with `CARGO_BUILD_JOBS=2`. A program and
-its run are not kept when one of its sources was written while cargo ran. A kept program runs for
-any checkout whose sources hash the same, and reads that checkout's import cache, which
-`HSM_IMPORT_DIR` names; one whose kernel has no `reads.rs` runs only for the checkout that built
-it. The program runs from `root` with `HOME`, `PATH=/usr/bin:/bin`, `HSM_READS`,
-`HSM_IMPORT_DIR` and the verified run-lease descriptors and environment.
-
-Runs and builds start in turn within `--build-mb` (default 1024 MiB), each counted at the peak it
-last reached, a program not yet measured at 512 MiB and a cargo at 700 MiB. While macOS reports
-critical memory pressure, one starts only when nothing else runs. Every ten minutes, a run unused
-for `--keep-hours` (default 2) retires out of lookup's reach; ten minutes later it is deleted, and
-with it the blobs no other run names. At an idle exit, so are the programs no run names.
-
-Where no `hsm` is installed, or `HSM_NO_ENGINE` is set, `_rust_part` takes shared admission, builds the
-program with cargo and runs it itself, and the files hold the same bytes. Native imports also take the CAD lock. A daemon too old to know `run` is replaced
-once by starting the installed `hsm`; when that one doesn't know it either, `_rust_part` runs the
-program itself.
-
-### Declared generator actions
-
-`hsm generate TARGET` runs an enrolled Python generator through the same part store.
-The enrolled targets are `elbow-cradle` and `funnel-mold`.
-`--root` selects its checkout; `--python /path/to/cad-venv/bin/python` supplies
-the interpreter when that worktree has no `tools/cad-venv`. `--output DIRECTORY` places
-the target's declared outputs under that directory's repository-relative paths; its default
-is the checkout. Other actions remain with the normal build.
-
-`tools/bazel/gen_build.py::action_plan` supplies both BUILD and this action's declarations:
-generator entrypoints, inputs, optional inputs, producer edges and outputs.
-`tools/hsm/generate.py` stages those files as the tree holds them and executes each
-existing script entrypoint in order, in a separate Python interpreter as BUILD does.
-Co-writers share the staged files. Their Rust calls use `_rust_part.run`. The action key
-binds the declarations, staged input bytes, worker code, Python executable and version, and
-installed CAD package versions. An optional input's absence is part of the key.
-Only declared files are staged; no appliance is composed or copied.
-
-The engine completes producer dependencies before their consumer. A producer-backed input
-binds the completed action's output hash and is staged from that individual content blob.
-The checkout's copy cannot supply it. The consumer key binds those output bytes, so an
-unchanged producer result can reuse a kept consumer. `funnel-mold` uses the ordered
-elbow-cradle/funnel/frame group this way. The answer's `actions` list describes every
-completed action; `hit` and `receipt` describe the requested action. Only the requested
-target's outputs are placed.
-
-Declared graph support uses the same `gen_build.support_argv` materializer as BUILD.
-It runs as a preceding action in the part store. Its completed output blob is staged
-at the consumer's original input path, and nested read bindings name that provider
-and output. A changed full graph can rerun the support action while identical
-projected bytes reuse the consumer. Node runtime groups remain with the normal build.
-
-The worker shares its verified host lease with the nested Rust request. It holds no outer
-engine memory or compiler reservation while waiting for that request. Nested runtime reads
-are bound to staged inputs, the action's own outputs, or validated external files. The answer's
-`receipt` describes the captured execution: a cache hit starts neither the generator nor its
-nested Rust program. The same blobs and kept-run budget serve both kinds of run.
-
-Placement uses `sync_tree.carried` for rewritten Markdown, Mermaid and Python, preserving
-current authored text while updating generated markers. Declared whole rewritten media are
-placed whole. Other outputs are cloned from their individual content-addressed blobs; equal
-files stay untouched. Neither this command nor its worker joins a build or commit hook.
-
-## Explicit validation
+The engine runs native producer programs and retains completed answers
+([engine/src/build.rs](engine/src/build.rs)). The planner invokes it directly. A query or a
+retained answer starts no compilation. New construction and rendering use the shared
+[run-slots](run-slots/README.md) scheduler; compiler work shares its compiler lease.
 
 ```sh
-cargo test --release --manifest-path tools/hsm/Cargo.toml
-python3 -m unittest discover -s tools -p test_publish_manifest.py
-tools/cad-venv/bin/python hardware/scripts/test_rust_part.py
+tools/run -- cargo build --release --locked -j 2 \
+  --manifest-path tools/hsm/Cargo.toml -p hsm --bin hsm
 ```
 
-These run only when requested. They do not join any build, edit or commit path.
+Each run is keyed by the executable's compiler inputs, arguments and recorded runtime reads.
+The key uses content hashes; unchanged files reuse their digest by file identity and timestamps.
+A completed answer restores only its recorded outputs, leaving identical bytes untouched.
+Concurrent requests for the same key share one execution. A source written during compilation
+prevents that program or run from entering the reusable cache.
+
+The store holds immutable file blobs, completed run records and compiled programs under
+`parts/`. `HSM_READS` records files read through native kernel readers. Runtime placements and
+dimensions can change while reusing the compiled executable. The engine's request returns its
+compiler sources, reads, writes, cache-hit status, compilation status, elapsed time and peak RSS.
+The compiler runs in the checkout's own Cargo target directory.
+
+The installed engine serves independent build requests and geometry queries. A producer runs
+from its explicit root; its workspace selects the source checkout. Scene queries retain their
+payload identity, so an unbuilt source edit cannot change a geometry answer.
+
+## Optional tools
+
+[Manual guides](manual-guides/README.md), [fabrication guides](fabrication-guides/README.md),
+[install artwork](install-art/README.md), [marketing](marketing/README.md),
+[wiring](wiring/README.md), [repository tools](repo-tools/README.md),
+[device utilities](peripheral/README.md), [PCB tools](pcb-tools/README.md) and
+[printer tools](printer-tools/README.md) run on request. They add no work to the normal print build.
+Their READMEs give the command and the files it consumes.
+
+Checks run when their question is asked. A focused crate fixture can be run through
+`tools/run -- cargo test --release --locked -j 2 --manifest-path tools/hsm/Cargo.toml -p PACKAGE`;
+it adds no automatic build, edit or commit step.

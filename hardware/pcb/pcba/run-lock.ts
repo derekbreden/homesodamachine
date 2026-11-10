@@ -9,9 +9,10 @@ export async function singleflight(key: string, source: string) {
   ensureRunLease()
   const here = path.dirname(fileURLToPath(import.meta.url))
   const root = path.resolve(here, "../../..")
-  const localPython = path.join(process.env.HSM_WORKSPACE || root, "tools/cad-venv/bin/python")
-  const python = existsSync(localPython) ? localPython : "python3"
-  const holder = spawn(python, [path.join(here, "run-lock.py"), key], {
+  const workspace = process.env.HSM_WORKSPACE || root
+  const local = path.join(workspace, "tools/hsm/target/release/hsm-pcb")
+  const native = process.env.HSM_PCB_BIN || (existsSync(local) ? local : "hsm-pcb")
+  const holder = spawn(native, ["--root", workspace, "run-lock", key], {
     stdio: ["pipe", "pipe", "inherit"],
   })
   await new Promise<void>((resolve, reject) => {

@@ -112,7 +112,7 @@ const _matCache = stepRuntime.materials;
 // THE OTHER HALF OF A MATERIAL. A colour says what a body is made of and roughness says how that
 // stock takes the light, and only the first of the two fits down the pipe: a STEP carries
 // `COLOUR_RGB` and nothing else, so a body arrives here as three numbers with no name on it.
-// `hardware/scripts/check_finishes.py` writes the missing half out beside the model — every
+// `hsm-finishes --write` writes the missing half out beside the model — every
 // colour this tree draws, with the roughness and metalness `_materials.FINISHES` and
 // `_routing.SPOOLS` state for it — and a body finds its own row by the colour it came in with.
 //

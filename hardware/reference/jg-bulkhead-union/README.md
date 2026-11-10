@@ -44,7 +44,7 @@ One native project, including its frame database, calibration files, raw preview
 fused cloud and SHA-256 manifest, is retained in
 `~/Documents/3D Scans/2026-11-03-jg-pp1208e-bulkhead/`.
 
-[`analyze_scan.py`](analyze_scan.py) fits the marker-table plane and common end
+[analyze_scan.py](https://github.com/derekbreden/homesodamachine/blob/a518a57a878f02d9ac5b8b638c1c5883cadf6669/hardware/reference/jg-bulkhead-union/analyze_scan.py) fits the marker-table plane and common end
 axis, then the panel, nut and mouth faces. Physical height, axial and radial
 bounds remove the table and putty before any CAD comparison, retaining **256,859
 observations**. Hex-flat normal clusters establish the wrench envelopes. Turned
@@ -70,9 +70,8 @@ for comparison. These are model discrepancies, not dimensional tolerances.
 Paint thickness and absolute optical scale are not independently calibrated.
 
 The STEP, fine model and viewer payload are frozen inputs declared in
-[`frozen-asset.json`](frozen-asset.json). Manual regeneration:
+[`frozen-asset.json`](frozen-asset.json). Source derivation:
 
-```sh
-python3 tools/run.py -- tools/cad-venv/bin/python hardware/reference/jg-bulkhead-union/analyze_scan.py
-python3 tools/run.py -- tools/cad-venv/bin/python hardware/reference/jg-bulkhead-union/jg_bulkhead_union.py
-```
+The source derivations are preserved at their recorded revision: [analyze_scan.py](https://github.com/derekbreden/homesodamachine/blob/a518a57a878f02d9ac5b8b638c1c5883cadf6669/hardware/reference/jg-bulkhead-union/analyze_scan.py), [jg_bulkhead_union.py](https://github.com/derekbreden/homesodamachine/blob/a518a57a878f02d9ac5b8b638c1c5883cadf6669/hardware/reference/jg-bulkhead-union/jg_bulkhead_union.py).
+
+The native `jg-bulkhead-reference` producer is defined in [jg_bulkhead_union.rs](jg_bulkhead_union.rs). It takes a JSON recipe containing the retained parameters and the material catalog colour, followed by an output directory.

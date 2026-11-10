@@ -1,130 +1,117 @@
 {
-  "geometry_sha256": "09f3665148688bdbd9795258021a0ef286fc9b484ecf4db4f7ca0f8d2c31727b",
-  "sources": {
-    "hardware/gun-positioner/assembly.md": "f4acddf1869872f438b06067bcc79708e8b541f3af2db88f3df97c66546ddc36",
-    "hardware/gun-positioner/purchases.md": "f90513d3c17f4c8992ed1f5b38126dc2b4a60293c9aa0ef5312a3e4f3696d41e",
-    "hardware/gun-positioner/control.md": "05909349bfb585a460824063d9b781e52eb515ef0134f582f09c7df8d52b8dbe",
-    "hardware/gun-positioner/commissioning.md": "943d859dbbc5396c23c9372bc0d27c666c36d027238a4b872ee3fe2ff1f3ee8a",
-    "hardware/gun-positioner/observation.md": "1fff428757c60cca1cc469a03e9743e339230c06fc8097411abed4ba4d11a078",
-    "hardware/gun-positioner/engineering.md": "b2dc633b3b245d5b5f8e95da7ff40ab41f4341a9bb8a4d100c1f60a39b9a0f3d",
-    "firmware/src_pgfun_positioner/README.md": "fcca1ae058dd60a570b6cc3380ed8e2f03a47e2a8667d4247a5b2969d4bf45e8",
-    "hardware/printed-parts/fixtures/pgfun-positioner/motion-geometry.json": "ebf5a7c0eb204d2dcf30eeb4225b991b15516466062fd50896fb8c475eff798e",
-    "hardware/printed-parts/fixtures/pgfun-positioner/print-manifest.json": "ea65d5a28c634c37dc53b1d0b44be557b97586247655eea55dd21b1c35cfecd5",
-    "hardware/printed-parts/fixtures/pgfun-positioner/assembly-meshes.npz": "af05e3b005ce304e3510eb0b014e1f37c135a1947db4ead8d714a5141001e158",
-    "hardware/printed-parts/fixtures/pgfun-positioner/reference-meshes.npz": "4b9e4651bc799bdb67ef6e4fbceb42a4f97c36fe26d12b26cfbbc66090ffe205",
-    "tools/gun-positioner-guide/build.py": "28ffe20d4e3db579372eba21965345f4373f6997a0212b0547dae03ef7539a11",
-    "tools/assembly-guides/common.py": "5cba4efb1ca41d6e7129ec950723d71207e7c9952173f9a4e550308bde984698",
-    "hardware/guide-assets/fonts/IBMPlexMono-400-normal-latin.woff2": "c36f509c0a8f9f85f29cb44bc8701d8a9e0b14c499e77a884f789ead7093a7ac",
-    "hardware/install-guide/fonts/Plex-Bold.ttf": "f0140013596c67e52c6f004b46bf8b46e183511dc1885996c4e7ab174345938d",
-    "hardware/install-guide/fonts/Plex-Semibold.ttf": "8bc60fb0075e3b56a099e6355379e38049ea5251bcfda5228494b0bab9c6d02c",
-    "hardware/install-guide/fonts/Plex-Regular.ttf": "c16b158b219c947baf8b4e7be073f14b7870238d9904eebf4b8ebd0b66d0a971"
-  },
-  "pdf_sha256": "6e0c0dbe8927235345a3786b47673b106d71f950b78aee4fd7c1c75e618752b5",
-  "pages": 35,
-  "theme": "Shared Letter shop-guide theme: IBM Plex, cobalt/coral bleed bands, ice panels",
+  "artwork": "vector schematic; dimensions govern; not a full-size template",
+  "geometry_sha256": "a2df443043284d9804a77a7942adb7e5720643fd6ed9bf4a08c14d620236a5c1",
+  "outline": [
+    [
+      "Build the positioner",
+      2
+    ],
+    [
+      "1. Mount the bridge",
+      4
+    ],
+    [
+      "2. Assemble the motor drives",
+      5
+    ],
+    [
+      "3. Install the swivel",
+      6
+    ],
+    [
+      "4. Install the horizontal pivot",
+      8
+    ],
+    [
+      "5. Secure the gun from below",
+      10
+    ],
+    [
+      "6. Set stops and switches",
+      11
+    ],
+    [
+      "7. Support cables and controller",
+      12
+    ],
+    [
+      "8. Set up the camera",
+      13
+    ],
+    [
+      "Parts and fasteners",
+      15
+    ],
+    [
+      "Wire the controller",
+      18
+    ],
+    [
+      "Commission the fixture",
+      21
+    ],
+    [
+      "Learn with one camera",
+      24
+    ],
+    [
+      "Engineering reference",
+      28
+    ],
+    [
+      "Firmware and host commands",
+      31
+    ],
+    [
+      "Print manifest",
+      33
+    ]
+  ],
+  "page_inches": [
+    8.5,
+    11.0
+  ],
+  "pages": 36,
+  "pdf": "gun-positioner-guide.pdf",
+  "pdf_sha256": "30312203b212860160e6abcc678521440e5652395b94f76c59354637cb6eb19b",
   "print_layout": {
-    "content_scale": 0.98,
+    "bleed_layer_scale": 1,
     "bleed_overhang_inches": 0.25,
     "colored_band_inset_inches": 0.3333333333333333,
+    "content_scale": 0.98,
+    "media_source": "rear",
     "print_scaling": "100% / none"
   },
-  "outline": [
-    {
-      "title": "Build the positioner",
-      "page": 3,
-      "level": 0,
-      "key": "chapter-0"
-    },
-    {
-      "title": "1. Mount the bridge",
-      "page": 5,
-      "level": 1,
-      "key": "assembly-step-1"
-    },
-    {
-      "title": "2. Assemble the motor drives",
-      "page": 6,
-      "level": 1,
-      "key": "assembly-step-2"
-    },
-    {
-      "title": "3. Install the swivel",
-      "page": 7,
-      "level": 1,
-      "key": "assembly-step-3"
-    },
-    {
-      "title": "4. Install the horizontal pivot",
-      "page": 9,
-      "level": 1,
-      "key": "assembly-step-4"
-    },
-    {
-      "title": "5. Secure the gun from below",
-      "page": 11,
-      "level": 1,
-      "key": "assembly-step-5"
-    },
-    {
-      "title": "6. Set stops and switches",
-      "page": 12,
-      "level": 1,
-      "key": "assembly-step-6"
-    },
-    {
-      "title": "7. Support cables and controller",
-      "page": 13,
-      "level": 1,
-      "key": "assembly-step-7"
-    },
-    {
-      "title": "8. Set up the camera",
-      "page": 14,
-      "level": 1,
-      "key": "assembly-step-8"
-    },
-    {
-      "title": "Parts and fasteners",
-      "page": 16,
-      "level": 0,
-      "key": "chapter-1"
-    },
-    {
-      "title": "Wire the controller",
-      "page": 19,
-      "level": 0,
-      "key": "chapter-2"
-    },
-    {
-      "title": "Commission the fixture",
-      "page": 22,
-      "level": 0,
-      "key": "chapter-3"
-    },
-    {
-      "title": "Learn with one camera",
-      "page": 25,
-      "level": 0,
-      "key": "chapter-4"
-    },
-    {
-      "title": "Engineering reference",
-      "page": 29,
-      "level": 0,
-      "key": "chapter-5"
-    },
-    {
-      "title": "Firmware and host commands",
-      "page": 31,
-      "level": 0,
-      "key": "chapter-6"
-    },
-    {
-      "title": "Print manifest",
-      "page": 33,
-      "level": 0,
-      "key": "print-manifest"
-    }
-  ],
-  "scope": "Source-complete illustrated instructions and current CAD; physical results recorded separately."
+  "scope": "Source-complete illustrated instructions and current CAD; physical results recorded separately.",
+  "source_sha256": {
+    "firmware/src_pgfun_positioner/README.md": "9c7cde7aec5607a168bc932a625e5b5c7d25190e6aa5ee194c7fc69237e8f4cc",
+    "hardware/guide-assets/fonts/PlexMono-Regular.ttf": "7639b1ca47f4a7dbd8191ba5e0f67ce57ba950a3d3e0c39c87c38bd1883935bb",
+    "hardware/gun-positioner-guide/art/assembly.png": "6fd4c189a19831d8918a02afa6711abf854bf22ae813c164b16a64489290e9a5",
+    "hardware/gun-positioner-guide/art/bridge.png": "425de611ad072eb62d6031878d21c5fa52bba38bbeb306d1c96eeacc3a3646ba",
+    "hardware/gun-positioner-guide/art/camera.png": "38402b74d8802c5a3acc29e125104e303f9ffd291958f28d48e8e0c7612fe9f0",
+    "hardware/gun-positioner-guide/art/controller.png": "a3b1299f0cd49e1f13af3bc352cf6fe72d1dcba35fa824918480088500860800",
+    "hardware/gun-positioner-guide/art/cradle.png": "5e14a2940031dbb47289a9c9898517c5714d36725a40c7722680f2160d7aa2ab",
+    "hardware/gun-positioner-guide/art/motors.png": "44cf9491287609b20f5327548ee82b4200da9bf97b92783c0151956e67b07dc7",
+    "hardware/gun-positioner-guide/art/pivot.png": "17e521016b9949556518624f88d57c8ad64ad6289c5a55cf339b86090d0cf254",
+    "hardware/gun-positioner-guide/art/stops.png": "bb802e6d3672622519956a559ae4c28f38334415174e508fc6afa3b5c1a78259",
+    "hardware/gun-positioner-guide/art/yaw.png": "7399cefd02a4d37c6f8cad511f4f33f9b22118f454e06a5f19d318b86ea559ae",
+    "hardware/gun-positioner/assembly.md": "f4acddf1869872f438b06067bcc79708e8b541f3af2db88f3df97c66546ddc36",
+    "hardware/gun-positioner/commissioning.md": "943d859dbbc5396c23c9372bc0d27c666c36d027238a4b872ee3fe2ff1f3ee8a",
+    "hardware/gun-positioner/control.md": "05909349bfb585a460824063d9b781e52eb515ef0134f582f09c7df8d52b8dbe",
+    "hardware/gun-positioner/engineering.md": "b2dc633b3b245d5b5f8e95da7ff40ab41f4341a9bb8a4d100c1f60a39b9a0f3d",
+    "hardware/gun-positioner/observation.md": "923d7f090f75d8d905af36149c46788d58fd0e4d22b426ecea6a7398c30d2b3e",
+    "hardware/gun-positioner/purchases.md": "f90513d3c17f4c8992ed1f5b38126dc2b4a60293c9aa0ef5312a3e4f3696d41e",
+    "hardware/install-guide/fonts/Plex-Bold.ttf": "f0140013596c67e52c6f004b46bf8b46e183511dc1885996c4e7ab174345938d",
+    "hardware/install-guide/fonts/Plex-Regular.ttf": "c16b158b219c947baf8b4e7be073f14b7870238d9904eebf4b8ebd0b66d0a971",
+    "hardware/install-guide/fonts/Plex-Semibold.ttf": "8bc60fb0075e3b56a099e6355379e38049ea5251bcfda5228494b0bab9c6d02c",
+    "hardware/printed-parts/fixtures/pgfun-positioner/assembly-meshes.npz": "c3570885ff562771ac0775f44e39c8b264308e9647b7c09269f8c1737a8e95b7",
+    "hardware/printed-parts/fixtures/pgfun-positioner/design.json": "240e932ceb9028dde6329810739310d5602c16fbe9a7f46e07f610218e37b2c3",
+    "hardware/printed-parts/fixtures/pgfun-positioner/display-meshes.json": "a7e0c0059172307def1133e1def80dfb5ee0effc9f54c8b0b850c5c1d1000c4f",
+    "hardware/printed-parts/fixtures/pgfun-positioner/motion-geometry.json": "c611d64ff37487bfc9fe0fa9ee066514c83d9820098e878f2df9c92a1cd6b911",
+    "hardware/printed-parts/fixtures/pgfun-positioner/print-manifest.json": "4a42f8feaa814adc7927ecdbbf3c20ea2ef7447c71d43857aa78dc9e025b8aa5",
+    "hardware/printed-parts/fixtures/pgfun-positioner/reference-meshes.npz": "7a04c8032cdc9cb4c28dc652904bce20e03f3fe48e77750a40fdea3a53c830cb",
+    "tools/gun-positioner-guide/art.rs": "a6f916f2b7d2c9decca4465df791fc87c617046363009a3a303bc5f32f737d05",
+    "tools/gun-positioner-guide/book.rs": "ce169b21805160ab52e0326da0d2b70533768629888631a41df358cea8cb268b",
+    "tools/hsm/fabrication-guides/src/letter.rs": "c882780383eb0ecdc7d1bbe2e596cff57eed40651f982b91031d0a94e4f2c5ea"
+  }
 }

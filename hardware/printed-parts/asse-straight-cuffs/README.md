@@ -51,5 +51,5 @@ the metal socket mouth at Z=0; the print turns it over.
 Regenerate from the repository root:
 
 ```sh
-python3 tools/run.py -- cargo run --release --manifest-path tools/hsm/asse-straight-cuffs/Cargo.toml
+tools/run -- cargo run --release --manifest-path tools/hsm/asse-straight-cuffs/Cargo.toml
 ```

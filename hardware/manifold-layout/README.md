@@ -79,7 +79,7 @@ junction values. These documents are runtime inputs to the compiled Rust program
 Build the affected printed pieces and installed machine through the normal print build:
 
 ```sh
-python3 tools/run.py -- python3 tools/print_build.py //:enclosure-back-top //:installed-machine
+tools/run -- hsm-print-build //:enclosure-back-top //:installed-machine
 ```
 
 The assembly retains unchanged stages and conductor geometry in the shared realized cache.
@@ -124,9 +124,9 @@ reliefs, the vent chase, the collet plate and the pump bay's wall. The enclosure
 pieces and the whole-machine assembly read it as it is committed; nothing in the build works
 it out.
 
-When a part inside the enclosure moves, `enclosure_box.py` packs the interior again from the
-current arrangement and rewrites the file, and the new file is committed with the move:
+The native installed-machine producer resolves the current arrangement and retains the
+placement-derived enclosure context. Use the progressive print build for a mechanical edit:
 
 ```sh
-python3 tools/run.py -- tools/cad-venv/bin/python hardware/manifold-layout/enclosure_box.py
+tools/run -- hsm-print-build //:installed-machine
 ```

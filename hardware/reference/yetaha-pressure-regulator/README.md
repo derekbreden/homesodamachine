@@ -2,7 +2,7 @@
 
 Estimated exterior of the [Yetaha 1/4-inch quick-connect regulator, B07GDGYHZV](https://www.amazon.com/dp/B07GDGYHZV), model SZ070030063979RK-1. This reference supports layout work; no received specimen has been measured, and this part is not installed in the enclosure assembly.
 
-[Open the STEP](yetaha-pressure-regulator.step) · [Generator](yetaha_pressure_regulator.py) · [Dimensions and photo datums](estimated-dimensions.json)
+[Open the STEP](yetaha-pressure-regulator.step) · [Source derivation](https://github.com/derekbreden/homesodamachine/blob/a518a57a878f02d9ac5b8b638c1c5883cadf6669/hardware/reference/yetaha-pressure-regulator/yetaha_pressure_regulator.py) · [Dimensions and photo datums](estimated-dimensions.json)
 
 Millimetres. Flow follows **+X**, the cap points **+Z**, and the origin is midway between the two tube mouths. `inlet()` and `outlet()` return `(position, outward_axis)` at X=−29.75 and +29.75, respectively. The photographed flow arrow establishes the end assignment.
 
@@ -33,8 +33,4 @@ The native reference separates the white body, adjuster and collets, blue retain
 
 [The one-off artifact review](model-check.json) records ten valid native and reloaded STEP solids, zero component overlap volume, the nominal bounds, open mouths and slots, and the matching STEP/payload digest. This validates the representation rather than a received part or installed fit.
 
-`build()` returns the exterior compound; `build_assembly()` returns its named material components. Regenerate manually with:
-
-```sh
-tools/cad-venv/bin/python hardware/reference/yetaha-pressure-regulator/yetaha_pressure_regulator.py
-```
+The model and measurements are retained with their [source derivations](https://github.com/derekbreden/homesodamachine/blob/a518a57a878f02d9ac5b8b638c1c5883cadf6669/hardware/reference/yetaha-pressure-regulator/yetaha_pressure_regulator.py).

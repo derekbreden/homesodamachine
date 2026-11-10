@@ -8,12 +8,13 @@ use std::{
     path::{Component, Path},
 };
 #[path = "publication_archive.rs"]
-mod archive;
+pub mod archive;
 #[path = "publication_state.rs"]
 mod state;
 #[path = "publication_zlib.rs"]
 mod zlib;
 pub use state::target_name;
+pub use state::{parse_ordered, render_pointer};
 
 fn strings(v: &Value) -> Vec<String> {
     v.as_array()
@@ -238,18 +239,13 @@ pub fn website_paths(
             }
         }
     }
-    let boards = strings(&config["BUNDLED_BOARD_DIRS"])
-        .into_iter()
-        .filter(|d| models.iter().any(|m| m.starts_with(&format!("{d}/"))))
-        .collect::<Vec<_>>();
     for relative in available {
         if starts(relative, &config["BUNDLED_ART_DIRS"])
             && ends(relative, &config["BUNDLED_ART_SUFFIXES"])
-            || starts(relative, &config["BUNDLED_GLB_DIRS"]) && (relative.ends_with(".glb") || relative.ends_with(".glb.mesh"))
-            || boards
-                .iter()
-                .any(|d| relative.starts_with(&format!("{d}/")))
-                && !ends(relative, &json!([".step", ".stl", ".mesh", ".glb", ".npz"]))
+            || starts(relative, &config["BUNDLED_GLB_DIRS"])
+                && (relative.ends_with(".glb") || relative.ends_with(".glb.mesh"))
+            || starts(relative, &config["BUNDLED_BOARD_DIRS"])
+                && !ends(relative, &config["BOARD_NOT_BUNDLED"])
             || names(&config["BUNDLED_ART_FILES"]).contains(relative)
         {
             allowed.insert(relative.clone());
@@ -297,6 +293,18 @@ pub fn frozen_assets(root: &Path) -> Result<BTreeMap<String, String>> {
     Ok(members)
 }
 
+/// Build records and Git-backed scorecards stay outside geometry object membership.
+fn non_member_metadata(path: &str) -> bool {
+    [
+        ".scorecard.json",
+        ".numbers.json",
+        ".source.json",
+        ".print-features.json",
+    ]
+    .iter()
+    .any(|suffix| path.ends_with(suffix))
+}
+
 fn member(
     relative: &str,
     root: &Path,
@@ -307,6 +315,7 @@ fn member(
     let name = relative.rsplit('/').next().unwrap_or("");
     if !relative.starts_with("hardware/")
         || relative.contains("/node_modules/")
+        || non_member_metadata(relative)
         || retired(root, relative)
     {
         return false;
@@ -329,7 +338,8 @@ fn member(
     name.ends_with(".step")
         || name.ends_with(".stl") && starts(relative, &config["BUNDLED_MESH_DIRS"])
         || name.ends_with(".step.mesh") && starts(relative, &config["BUNDLED_PAYLOAD_DIRS"])
-        || (name.ends_with(".glb") || name.ends_with(".glb.mesh")) && starts(relative, &config["BUNDLED_GLB_DIRS"])
+        || (name.ends_with(".glb") || name.ends_with(".glb.mesh"))
+            && starts(relative, &config["BUNDLED_GLB_DIRS"])
         || ends(name, &config["BUNDLED_ART_SUFFIXES"])
             && starts(relative, &config["BUNDLED_ART_DIRS"])
         || names(&config["BUNDLED_PAYLOAD_FILES"]).contains(relative)
@@ -395,6 +405,7 @@ pub fn solids(root: &Path, config: &Value) -> Result<BTreeSet<String>> {
         }
         out.retain(|p| allowed.contains(p) || required.contains(p));
     }
+    out.retain(|path| !non_member_metadata(path));
     Ok(out)
 }
 

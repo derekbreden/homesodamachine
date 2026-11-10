@@ -39,5 +39,5 @@ metal outlet and its receiving allowance remain part of the continuous tube.
 Regenerate from the repository root:
 
 ```sh
-python3 tools/run.py -- cargo run --release --manifest-path tools/hsm/soda-bend-holder/Cargo.toml
+tools/run -- cargo run --release --manifest-path tools/hsm/soda-bend-holder/Cargo.toml
 ```

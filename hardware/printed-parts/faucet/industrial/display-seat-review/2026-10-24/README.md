@@ -77,7 +77,7 @@ lowered Industrial head has reported tight but working fit. Quantified seating
 force, clearance, retention force and endurance are unmeasured. The requested
 lowered Sculpted cover has its own print record.
 
-`prepare.py` is a manual study generator. It writes `candidate-tip.step/.stl`,
+[prepare.py](https://github.com/derekbreden/homesodamachine/blob/e50eb3e4372a4d5b70248795469c02ed8d51d2d3/hardware/printed-parts/faucet/industrial/display-seat-review/2026-10-24/prepare.py) is a manual study generator. It writes `candidate-tip.step/.stl`,
 `candidate-cover.step/.stl`, `geometry-review.json` and the self-contained viewer
 data. `review-template.html` combines that data with synchronized before/after
 views, feature highlights and dimension labels. The viewer meshes are a

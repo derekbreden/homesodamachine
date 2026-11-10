@@ -85,37 +85,3 @@ The relevant physical failure is recorded in the
 The source geometry is a print candidate. Support
 removal, rim finish, full-shell assembly fit and bearing under load need
 their own physical observations; these checks do not qualify them.
-
-## Reproduce
-
-The aggregate refresh takes each replacement's material color from its
-individual payload and checks both the exported STEP style and viewer color.
-Its color and placement regression check runs with
-`HSM_NO_BUILD_LOCK=1 tools/cad-venv/bin/python hardware/printed-parts/zone-c/funnel/flush-roof-review/refresh_aggregate.py --selftest`.
-
-Run the scoped generator with the CAD environment, then refresh the
-integration checks and aggregate members:
-
-```sh
-tools/cad-venv/bin/python hardware/printed-parts/zone-c/funnel/flush-roof-review/prepare_geometry.py
-tools/cad-venv/bin/python hardware/printed-parts/zone-c/funnel/flush-roof-review/refresh_aggregate.py
-tools/cad-venv/bin/python hardware/printed-parts/zone-c/funnel/flush-roof-review/check_geometry.py
-tools/cad-venv/bin/python hardware/printed-parts/zone-c/funnel/integration-review/check_fit.py
-tools/hsm/target/release/enclosure-print-regions
-tools/cad-venv/bin/python tools/publish_now.py
-```
-
-Run geometry lint on the changed pieces after the publication is live,
-following the printed-parts publish loop. Physical print qualification
-remains separate from those lint results.
-
-Read the display strip's previous-layer and support-tip footprints from a
-frozen native review directory with:
-
-```sh
-tools/cad-venv/bin/python hardware/printed-parts/zone-c/funnel/flush-roof-review/check_display_strip.py <native-review-directory> --output <backing-record.json>
-```
-
-The retained-baseline comparisons use the immutable STEP/STL snapshots
-identified by the SHA256 values in the check records. The scoped generator and current mating-joint check
-do not depend on those comparison snapshots.

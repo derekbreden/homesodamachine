@@ -1,0 +1,256 @@
+{
+  "purpose": "Explicit ledger and pin-map readings keep their authored vocabulary beside the native reader.",
+  "asin_waived": {
+    "B0F42MT8JX": "refrigerant-loop.md donor table — the generic alternative to the costed Frigidaire EFIC117-SS, listed as 'both verified topology'",
+    "B003NUUKL8": "lillium-cutover.md buy list — the John Guest PI0808S stem plug for V-A's port on the Lillium-fed build; not yet ordered",
+    "B005S4MTXO": "lillium-cutover.md buy list — John Guest PP0408W unions on Amazon; bom.md §9 buys the same union from FWS; not yet ordered",
+    "B0FQBYXZS2": "lillium-cutover.md buy list — #6-stud insulated fork terminals for the IRM-90 terminals, whose bom.md §11 row is SKU TBD; not yet ordered"
+  },
+  "not_a_brand": [
+    "Acquired",
+    "Adapter",
+    "Adjusting",
+    "Android",
+    "Arriving",
+    "Assorted",
+    "Bag",
+    "Black",
+    "Blade",
+    "Blue",
+    "Board",
+    "Box",
+    "Braided",
+    "Brass",
+    "Cable",
+    "Clear",
+    "Cold",
+    "Color",
+    "Colors",
+    "Complete",
+    "Compliant",
+    "Conductor",
+    "Connector",
+    "Contact",
+    "Copper",
+    "Cord",
+    "Crimper",
+    "Cutter",
+    "Delivered",
+    "Double",
+    "Driver",
+    "Elbow",
+    "Expandable",
+    "FNPT",
+    "FedEx",
+    "Female",
+    "Filter",
+    "Fitting",
+    "Flat",
+    "Flexible",
+    "Foam",
+    "Food",
+    "GFCI",
+    "Gauge",
+    "General",
+    "Generic",
+    "Gray",
+    "Green",
+    "Grey",
+    "Hand",
+    "High",
+    "Hose",
+    "Hot",
+    "Inline",
+    "Insert",
+    "Inserts",
+    "Institute",
+    "Insulated",
+    "International",
+    "Kit",
+    "Kits",
+    "Large",
+    "Level",
+    "Long",
+    "Male",
+    "Maroon",
+    "Matte",
+    "Module",
+    "Nipple",
+    "Nylon",
+    "Orange",
+    "Order",
+    "Ordered",
+    "Pack",
+    "Pads",
+    "Pair",
+    "Panel",
+    "Parallel",
+    "Piece",
+    "Pieces",
+    "Placed",
+    "Plastic",
+    "Plate",
+    "Pliers",
+    "Portable",
+    "Pump",
+    "Purpose",
+    "Red",
+    "Reinforced",
+    "Relay",
+    "Replacement",
+    "Rod",
+    "Roll",
+    "Round",
+    "Rubber",
+    "SPDT",
+    "Screw",
+    "Screws",
+    "Self",
+    "Sensor",
+    "Sets",
+    "Shell",
+    "Short",
+    "Silicone",
+    "Single",
+    "Sleeve",
+    "Small",
+    "Smooth",
+    "Solid",
+    "Spare",
+    "Spool",
+    "Stainless",
+    "Status",
+    "Steel",
+    "Stripper",
+    "Swivel",
+    "Tape",
+    "Terminal",
+    "Terminals",
+    "Tinned",
+    "Transparent",
+    "Tube",
+    "Tubing",
+    "UL2464",
+    "Union",
+    "Unshielded",
+    "Valve",
+    "Washer",
+    "Water",
+    "White",
+    "Wipes",
+    "Wire",
+    "Wrench",
+    "Zero"
+  ],
+  "brand_waived": {
+    "Frigidaire": "donor-alternative table in refrigerant-loop.md; the costed donor is the same Frigidaire EFIC117-SS row in bom.md §5",
+    "SUD8358": "refrigerant-loop.md names the Supco drier as an explicit spare/contingency — the factory drier stays in service",
+    "Diet": "flavor concentrate is user-supplied, per bom.md 'External / user-supplied (not shipped)'",
+    "Mountain": "flavor concentrate is user-supplied, per bom.md 'External / user-supplied (not shipped)'",
+    "Lillium": "lillium-cutover.md retires the prototype's Lillium carbonator, on hand per inventory.md; the integrated cold core replaces it, so no bom/tools line carries it",
+    "PureSec": "lillium-cutover.md's build draws its October reservoirs through the PureSec bulkheads on hand per purchases.md; the integrated reservoirs draw through dip tubes, so no bom/tools line carries them"
+  },
+  "generic": [
+    [
+      "fork terminal|crimp fork|forks at the|ring or fork",
+      "fork"
+    ],
+    [
+      "heat-shrink",
+      "heat-shrink"
+    ],
+    [
+      "\\bRTV\\b",
+      "rtv"
+    ],
+    [
+      "VHB",
+      "vhb"
+    ],
+    [
+      "slip coupling",
+      "slip coupling"
+    ],
+    [
+      "braided sleeve|PET braid",
+      "braided sleeve"
+    ],
+    [
+      "bootlace ferrule|ferrules? (?:at|into|under)",
+      "ferrule"
+    ],
+    [
+      "zip[- ]tie",
+      "zip tie"
+    ]
+  ],
+  "cross": [
+    [
+      "piezo buzzer",
+      "U8\\._NEG",
+      "[Pp]iezo|[Bb]uzzer"
+    ],
+    [
+      "gas sensor",
+      "label=\"GAS\"",
+      "MQ-6|combustible gas"
+    ],
+    [
+      "flow sensor",
+      "\\.IO25",
+      "DIGITEN|flow sensor"
+    ],
+    [
+      "DS18B20 carbonator temp",
+      "\\.IO26",
+      "DS18B20"
+    ],
+    [
+      "DS18S20 coil temp",
+      "\\.IO26",
+      "DS18S20"
+    ],
+    [
+      "compressor relay",
+      "\\.IO19",
+      "[Tt]eyleten"
+    ],
+    [
+      "diaphragm pump relay",
+      "\\.IO2\\b",
+      "G Ganen|diaphragm"
+    ],
+    [
+      "pump driver",
+      "label=\"PUMPS\"",
+      "Kamoer|DRV8870"
+    ],
+    [
+      "solenoid valves",
+      "MANIFOLD",
+      "Beduan|solenoid"
+    ],
+    [
+      "enclosure display",
+      "label=\"DISPLAY\"",
+      "4\\.3B|RS485|RS-485"
+    ],
+    [
+      "faucet display",
+      "label=\"FAUCET\"",
+      "1\\.47"
+    ],
+    [
+      "reed switches",
+      "REEDS",
+      "[Rr]eed"
+    ],
+    [
+      "gas divider resistors",
+      "resistance=\"2.2k\"",
+      "gas-sensor output divider"
+    ]
+  ],
+  "no_pin": "ESP32-WROOM|MCP23017|DS3231|Mean Well|pump retainer|pump joints|[Dd]isplay cover plate",
+  "electrical": "sensor|buzzer|piezo|relay|\\breed\\b|MCP23017|ULN2803|L298|ESP32|RS485|RS-485|DS18B20|DS3231|\\bpump\\b|solenoid|\\bgas\\b|flow sensor|flow meter|display"
+}

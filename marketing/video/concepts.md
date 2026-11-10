@@ -200,7 +200,7 @@ One vector mark — a faucet path and a drop circle — works as: the machine di
 - **Audience:** designers, iOS and Android developers, anyone interested in brand consistency across platforms.
 - **Shareability:** Moderate-high. Multi-platform design consistency is satisfying to see.
 - **Trust signal:** Strong. "This person cares about polish across every surface" = "this is a real product."
-- **Where it lives:** `brand/mark.svg`, `tools/build_brand_assets.py`, `tools/gen_animation_frames.py`, `hardware/printed-parts/enclosure/nameplate/`
+- **Where it lives:** `brand/mark.svg`, `hsm-marketing brand-assets`, `hsm-marketing animation-frames`, `hardware/printed-parts/enclosure/nameplate/`
 
 ### 8. Two Microcontrollers, One System (2-3 minutes)
 

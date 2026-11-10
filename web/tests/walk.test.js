@@ -12,7 +12,7 @@ import os from "node:os";
 import path from "node:path";
 
 import { walkFiles, walkPcbBoards, walkDocuments } from "../lib/walk.js";
-import { findGenerateScripts } from "../dev-server/deps.js";
+import { nativeBuildPlan } from "../dev-server/deps.js";
 
 // Write a .tsx source plus a rendered overlay (the "is rendered" tell) for a
 // board of the given basename inside <root>/pcb/<dir>/.
@@ -64,14 +64,20 @@ function retiredTree(t, prefix) {
   const retired = path.join(root, "retired");
   const nested = path.join(retired, "attempt");
 
-  const gen = 'if __name__ == "__main__":\n    pass\n';
+  const graph = {};
+  const gen = "fn main() {}\n";
   for (const [dir, name] of [[live, "widget"], [retired, "old"], [nested, "older"]]) {
     fs.mkdirSync(path.join(dir, "drawings"), { recursive: true });
-    fs.writeFileSync(path.join(dir, `${name}.py`), gen);
+    fs.writeFileSync(path.join(dir, `${name}.rs`), gen);
     fs.writeFileSync(path.join(dir, `${name}.step`), "ISO-10303-21;\n");
     fs.writeFileSync(path.join(dir, `${name}.scorecard.json`), "{}\n");
     fs.writeFileSync(path.join(dir, "drawings", `${name}-iso.svg`), "<svg/>\n");
+    const source = path.relative(root, path.join(dir, `${name}.rs`));
+    graph[source] = { reads: [source], writes: [path.relative(root, path.join(dir, `${name}.step`))], rewritten: [],
+      program: { crate: "fixture", name, sources: [source] } };
   }
+  fs.mkdirSync(path.join(root, "tools/bazel"), { recursive: true });
+  fs.writeFileSync(path.join(root, "tools/bazel/graph.json"), JSON.stringify(graph));
   return { root, retired };
 }
 
@@ -164,8 +170,8 @@ test("the walkers and the build graph agree on what is retired", (t) => {
   // One marker, one answer: the .step the viewer offers is the .step a generator
   // still writes. Read off the same tree by both readers.
   assert.deepEqual(
-    findGenerateScripts([root]).map((p) => path.relative(root, p)),
-    [path.join("live", "widget.py")],
+    [...nativeBuildPlan(root).producers.values()].flatMap(producer => producer.sources),
+    [path.join("live", "widget.rs")],
   );
   assert.deepEqual(walkFiles(root, ".step"), ["live/widget.step"]);
 });

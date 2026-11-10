@@ -1,20 +1,14 @@
 # Assembly scenes
 
-Named subsets of the built machine, posed for the parts viewer and local bench
-service views. A scene's roots are the printed pieces that carry a unit; its
-members come from the fastening, rider, anchor and bearing tables in
-[_scenes.py](_scenes.py). The cold-core members use that model's own solids in
-the machine's frame.
+Named subsets of the built machine are posed for the parts viewer and bench
+assembly guides. The current native [installed machine](../../manifold-layout/installed_machine.rs)
+composes each view from its fastening, rider, anchor and bearing tables in
+[scenes.rs](../../manifold-layout/installed-machine/scenes.rs). Cold-core members use
+that model's own solids in the machine's frame.
 
-`enclosure_assembly` calls [write_glbs](render_scenes.py) on the machine it has
-already built and the exact current surface payloads. The resulting `glb/`
-files travel with the CAD artifacts. Scene publication does not start a browser
-or build the appliance again. [The local service view](_local_service.py) cuts
-the same subsets for its bench inspection.
+The native scene exporter draws the current shared meshes and writes `glb/` views
+with the machine. Run the focused print build when those source placements or
+parts change; completed producers reach the website while other parts continue.
 
 [Letter shop guides](../guides/README.md) own the human instructions. Their
-illustrations and PDFs are authored and built by hand outside the CAD graph.
-
-```sh
-tools/cad-venv/bin/python hardware/assembly/scenes/render_scenes.py selftest
-```
+illustrations and PDFs are authored and built by hand outside the print build.

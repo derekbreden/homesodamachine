@@ -118,24 +118,9 @@ test("gun, guide and wire undergo one rigid rotation without a reflection", () =
 });
 
 test("tube and cap dimensions agree with the fabrication sources", () => {
-  const repo = fileURLToPath(new URL("../../", import.meta.url));
-  const actual = JSON.parse(execFileSync("python3", ["-c", `
-import ast, json, runpy
-from pathlib import Path
-root = Path(${JSON.stringify(repo)})
-interface = runpy.run_path(str(root / 'hardware/printed-parts/fixtures/weld-rotator/_rotator_interface.py'))
-cap = ast.parse((root / 'hardware/cut-parts/carbonation/endcaps-circular/endcap_circular_dxf.py').read_text())
-values = {}
-for node in cap.body:
-    if isinstance(node, ast.Assign) and isinstance(node.value, ast.Constant):
-        for target in node.targets:
-            if isinstance(target, ast.Name): values[target.id] = node.value.value
-print(json.dumps(dict(
-    tubeOd=interface['TUBE_OD'], tubeWall=interface['TUBE_WALL'],
-    tubeHeight=interface['TUBE_LENGTH'], capRecess=interface['ENDCAP_RECESS'],
-    capDiameter=values['disc_diameter']*25.4, capThickness=values['disc_thickness']*25.4,
-    portDiameter=values['hole_diameter']*25.4, portOffset=values['hole_spacing']*25.4/2,
-)))
-`], { encoding: "utf8" }));
+  const program = process.env.HSM_FABRICATION_GUIDES
+    || fileURLToPath(new URL("../../tools/hsm/target/release/fabrication-guides", import.meta.url));
+  const actual = JSON.parse(execFileSync(program, ["data", "weld-position"], { encoding: "utf8" }));
+  assert.deepEqual(Object.keys(actual).sort(), ["capDiameter", "capRecess", "capThickness", "portDiameter", "portOffset", "tubeHeight", "tubeOd", "tubeWall"]);
   for (const [key, value] of Object.entries(actual)) near(DIM[key], value);
 });

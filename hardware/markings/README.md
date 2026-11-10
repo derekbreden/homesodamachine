@@ -213,14 +213,18 @@ controls the handling method in the assembly procedure.
 ## Build and verification
 
 ```sh
-tools/cad-venv/bin/python hardware/markings/build.py
+tools/run -- hsm-manual-guides markings refrigerant-warning
 ```
 
-The generator checks warning-letter outline heights, line widths, label bounds and
+The [native generator](build.rs) reads the system Helvetica collection and checks
+warning-letter outline heights, line widths, label bounds and
 element overlaps, and writes outlined SVGs, [measured bounds](artwork-dimensions.json)
 and the PDF. Both final PDF pages have been rendered and visually inspected. Physical
 production checks cover actual printed size, carrier fit, permanent retention and
 legibility under the expected heat, moisture and cleaning conditions.
+
+`--inputs FILE` selects an explicit Helvetica collection for the same outlined face.
+The proof runs on demand outside the normal build.
 
 [definitions]: https://www.epa.gov/snap/substitutes-refrigeration-and-air-conditioning
 [household]: https://www.epa.gov/snap/substitutes-household-refrigerators-and-freezers

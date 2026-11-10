@@ -1,12 +1,12 @@
 # Pump locating profile source
 
-[`pump_tray.py`](/hardware/printed-parts/enclosure/pump-tray/pump_tray.py) draws the
+[`pump_tray.rs`](/hardware/printed-parts/enclosure/pump-tray/pump_tray.rs) draws the
 case-derived locating profiles used at both pump stations by front-top's integral upper
 inverse and `enclosure-pump-retainer`. It is not a separate printed part.
-[`pump_case.py`](/hardware/printed-parts/enclosure/pump-tray/pump_case.py) supplies the fitted
+[`pump_case.py`](https://github.com/derekbreden/homesodamachine/blob/a518a57a878f02d9ac5b8b638c1c5883cadf6669/hardware/printed-parts/enclosure/pump-tray/pump_case.py) supplies the fitted
 head profiles, the boss's octagonal bore and the motor-can opening. The production
 construction is in
-[`_fixed_pump_mount.py`](/hardware/printed-parts/enclosure/enclosure/_fixed_pump_mount.py).
+[`_fixed_pump_mount.py`](https://github.com/derekbreden/homesodamachine/blob/a518a57a878f02d9ac5b8b638c1c5883cadf6669/hardware/printed-parts/enclosure/enclosure/_fixed_pump_mount.py).
 
 The flavour manifold carries KPHM600-SW3B17 pumps.
 
@@ -60,7 +60,4 @@ to those production pieces ([`bom.md`](/hardware/ledger/bom.md) §7).
 
 ## Files
 
-- `pump_tray.py` — the fitted profile source, source collar builder and dimensional selftest
-- `pump_case.py` — the case-derived geometry supplying the head, skirt and rear-stack profiles
-
-Run with `tools/cad-venv/bin/python` per the hardware context file.
+- [pump_tray.rs](pump_tray.rs) defines the fitted head, skirt and rear-stack profiles used by the native enclosure pieces.

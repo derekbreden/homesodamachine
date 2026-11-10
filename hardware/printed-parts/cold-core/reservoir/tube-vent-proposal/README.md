@@ -2,7 +2,7 @@
 
 Approved design for hand-adjustable tube retention, splash obstruction and an
 explicit air path out of each reservoir. Production sources are
-[../reservoir.py](../reservoir.py), [../../_reservoir_ports.py](../../_reservoir_ports.py)
+[../reservoir.py](/hardware/printed-parts/cold-core/reservoir/reservoir.rs), [../../_reservoir_ports.py](../../_reservoir_ports.py)
 and [../../foam-cap/foam_cap.py](../../foam-cap/foam_cap.py). This proposal includes unfiltered air
 tubes; filtering is deferred to a separate review with Derek.
 

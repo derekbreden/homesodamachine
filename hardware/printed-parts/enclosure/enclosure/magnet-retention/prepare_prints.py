@@ -20,7 +20,7 @@ import trimesh
 
 HERE = Path(__file__).resolve().parent
 ENC = HERE.parent
-ROOT = next(p for p in HERE.parents if (p / "tools/publish_now.py").is_file())
+ROOT = next(p for p in HERE.parents if (p / "tools/hsm/Cargo.toml").is_file())
 
 CORE = "http://schemas.microsoft.com/3dmanufacturing/core/2015/02"
 PROD = "http://schemas.microsoft.com/3dmanufacturing/production/2015/06"

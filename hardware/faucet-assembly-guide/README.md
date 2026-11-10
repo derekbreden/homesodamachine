@@ -142,14 +142,14 @@ mounting engagement. Physical records remain the authority for acceptance.
 ## Build by hand
 
 ```sh
-tools/cad-venv/bin/python tools/faucet-assembly-guide/faucet_art.py
-python3 tools/faucet-assembly-guide/build.py
+tools/run --cad -- hsm-manual-guides art faucet-assembly-guide
+tools/run hsm-manual-guides build faucet-assembly-guide
 ```
 
-The builder uses ReportLab, Pillow and Poppler (`pdftoppm`) with the shared
-Letter furniture in `tools/assembly-guides/common.py`. It reads selected
-procedure figures and committed artwork without importing or executing CAD.
-The separate manual artwork tool sections existing component STEPs and renders
+The native builder uses the editable [page records](pages.json) and shared
+[Letter furniture](../../tools/hsm/fabrication-guides/src/letter.rs). It reads
+current cuts from their owning assembly and committed artwork.
+The separate manual artwork tool sections existing component outputs and renders
 them with the same posed renderer as the weld-rotator pictures. It writes the
 five component pictures under `art/`; the PDF builder writes:
 

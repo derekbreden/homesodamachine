@@ -5,15 +5,15 @@ one file in `examples/`. It needs no crate and no manifest edit, and the build r
 it. Copy the worked example, then edit it and rerun it:
 
     cp tools/hsm/sandbox/examples/plate.rs tools/hsm/sandbox/examples/<concept>.rs
-    python3 tools/run.py -- cargo run --release --locked -j2 --manifest-path tools/hsm/Cargo.toml \
+    tools/run -- cargo run --release --locked -j2 --manifest-path tools/hsm/Cargo.toml \
         -p hsm-sandbox --example <concept> -- <output directory>
 
 Each rerun recompiles only the concept, against the kernel the workspace has already built, and
 writes the viewer's files: `<name>.step`, `<name>.step.npz` and `<name>.step.mesh`. The run
-prints the STEP's path. `tools/viz/build.py --step <that path> --title <name>` puts it on a page
-drawn the way /3d draws it, and a panel can put it beside parts from the tree (see the
-[visualize skill](../../../.claude/skills/visualize/SKILL.md)). The run can wait its turn in the
-shared queue, as any run through `tools/run.py` does.
+prints the STEP's path. The native `hsm render` command draws its payload with the viewer's
+materials and lighting; [the render interface](../README.md#render) lists the camera and
+selection options. Run rendering through `tools/run`. Show completed parts through their
+published model links, as the [visualize skill](../../../.claude/skills/visualize/SKILL.md) describes.
 
 ## What a concept has
 

@@ -43,8 +43,8 @@ The complete mark includes the foot and drop; the 1024 px canvas carries its spa
 ## Regeneration
 
 ```sh
-tools/cad-venv/bin/python tools/build_brand_assets.py
-tools/cad-venv/bin/python tools/gen_animation_frames.py
+tools/run -- hsm-marketing brand-assets
+tools/run -- hsm-marketing animation-frames
 ```
 
 The asset generator writes the iOS app icon's layers and launch icon, iOS launch background,
@@ -63,7 +63,7 @@ on cobalt. Its orange circle gently falls over 1.6 seconds; the next bead grows
 under the outlet as the falling one diminishes. The first frame is the static
 mark. [Motion options](../web/public/brand/motion.html) compares the prepared
 falling drop with Pulse and Float, using the display's exact frames and timing.
-[`make_art.py`](../tools/make_art.py) packages those
+[`hsm-marketing make-art`](../tools/hsm/marketing/src/art.rs) packages those
 frames into the machine display's art partition during firmware publishing.
 
 [`logo.ts`](../hardware/pcb/pcba/logo.ts) renders the source silhouette in one-color

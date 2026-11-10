@@ -5,34 +5,12 @@ lands on the surrounding face; the socket floors leave air beneath the post tips
 The sockets set the valve's position and hand fit. The enclosure trays' zip-tie
 paths provide their positive retention.
 
-    tools/cad-venv/bin/python hardware/printed-parts/valve-seat/valve_seat.py
-
-[`numbers.rs`](numbers.rs) holds the seat's numbers, the tray of seats and the Beduan figures
-they are cut to. `valve_seat.py` serves them through part-data, and the enclosure's valve trays and
-the back-top's flank plinths take them from there too.
-
-`build_sockets()` supplies the four cuts for a supporting face. The enclosure's
-[valve trays](/hardware/printed-parts/enclosure/valve-tray/README.md) use these holes
-in their continuous plate.
-
-`build_seat(seat)` supplies a raised plinth for the cold-core lid. Each plinth is
- × mm in valve X and Y, with
-R mm outer corners. Its broad bearing face carries the valve
-beside an open cylindrical channel for the port.
-The plinth's height places that face on the installed valve's bearing plane.
-
-| Feature | Dimension |
-|---|---|
-| valve corner post | ⌀ mm, on × mm centres in valve X and Y |
-| socket | ⌀ mm; nominal radial clearance |
-| socket depth | mm |
-| bearing face | valve-frame Z mm |
-| socket floor | valve-frame Z mm |
-| stock to the outer outline | at least |
-| valve port | ⌀ mm, with radial channel clearance |
-
-The port channel follows the valve's Y axis. A placed plinth turns with the valve.
-`port_clearance()` reads the actual gap.
+[numbers.rs](numbers.rs) defines the shared seat and Beduan dimensions. The
+[enclosure valve decks](../enclosure/enclosure/quadrants/valves.rs),
+[back-top seats](../enclosure/enclosure/back-top/rear.rs) and
+[cold-core lid](../cold-core/foam-cap/foam_cap.rs) construct them in their native
+production pieces. Each seat retains its bearing face, blind floors, post
+sockets and open channel along the valve's port axis.
 
 The [printed fit selection](../enclosure/enclosure/magnet-retention/fit-coupons/physical-fit-selection.json)
 sets **V69 / 6.90 mm** as the default socket. **V70 / 7.00 mm** is an explicitly
@@ -51,7 +29,7 @@ PET-GF panel. The cold-core lid's V-B wall and other print orientations require 
 own installed fit observation. No insertion force, retention load or lifetime
 is established by the selected bore.
 
-The [cold-core top lid](/hardware/printed-parts/cold-core/foam-cap/foam_cap.py)
+The [cold-core top lid](/hardware/printed-parts/cold-core/foam-cap/foam_cap.rs)
 carries V-B's integral upright socket wall (`_above_core_mounts.valve_support`), the
 lid's only valve seat; V-A and V-K seat in back-top's integral sidewall seats. The
 lid's pour opening and vents remain accessible.

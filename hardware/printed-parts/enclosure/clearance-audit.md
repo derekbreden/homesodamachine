@@ -1,7 +1,7 @@
 # Enclosure fit clearances
 
 The enclosure's PET-GF-to-PET-GF mating interfaces use the shared allowances in
-[fits.py](/hardware/printed-parts/cadlib/fits.py). This page describes the source geometry and
+[the native fit catalog](/tools/hsm/catalog/src/lib.rs). This page describes the source geometry and
 its artifact-scoped verification coverage. The [native fit review](enclosure/y-seam-fit-review.json)
 records the current measured interfaces and complete local stock. The rules determine
 the required geometry between printed faces, including faces loaded by screws or gravity.
@@ -210,7 +210,7 @@ Each closed-end block retains 3.75 mm of length. Input hashes, actual finite wit
 and acceptance criteria define each reading's scope. The review does not establish
 unmeasured curved contacts, a complete insertion sweep or physical surface finish.
 
-Run `tools/cad-venv/bin/python hardware/scripts/check_enclosure_mating_clearance.py`
+Run `tools/run -- repo-tools check enclosure-mating-clearance`
 after materializing the quadrants. The enclosure recipe places the probes, and the kernel
 program `enclosure-mating` measures the fine models: opposed parallel planar patches that
 overlap by more than an edge's sliver and stand no farther apart than the largest fit a pair

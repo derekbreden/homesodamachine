@@ -104,8 +104,9 @@ Polymaker's printed-specimen tensile data cannot supply a measured interlayer
 shear allowable for these joints. A filled assembled enclosure, its landing
 orientation and actual stopping distance determine the relevant drop result.
 
+The bound [insert audit source](https://github.com/derekbreden/homesodamachine/blob/a518a57a878f02d9ac5b8b638c1c5883cadf6669/hardware/printed-parts/enclosure/enclosure/heat-set-review/audit.py) is archived in Git.
+Current reinforcement regions come from the native print-preparation command:
+
 ```sh
-HSM_BUILD_SUPERSEDE=0 tools/cad-venv/bin/python hardware/printed-parts/enclosure/enclosure/heat-set-review/audit.py
-python3 tools/run.py -- cargo build --release --locked -j 2 --manifest-path tools/hsm/Cargo.toml -p hsm-print-prep --bin enclosure-print-regions
-tools/hsm/target/release/enclosure-print-regions
+tools/run -- enclosure-print-regions
 ```

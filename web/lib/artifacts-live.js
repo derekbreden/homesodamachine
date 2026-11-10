@@ -21,16 +21,13 @@ const WEB = path.resolve(HERE, "..");
 const ROOT = path.resolve(WEB, "..");
 const POINTERS = path.join(ROOT, "hardware", "cad-artifacts.json");
 
-// THE VERDICT IS NOT CODE EITHER. `checks.json` sits under `web/public/`, which `render.yaml`
-// deploys on, so every reading `checks_now.py` pinned rebuilt the container around it — 24 of
-// the 24 deploying commits in the six hours this was measured, each a `npm ci` and a restart,
-// none of them in parallel. A verdict twenty minutes behind describes a tree that has moved.
-// `render.yaml` holds it out of the filter and this carries it, on the same look as the pointer file.
+// Explicit check readings reach the gear as data. render.yaml excludes their pins from
+// deployment; this adopts checks.json on the same look as the artifact pointer file.
 const CHECKS = path.join(WEB, "public", "checks.json");
 const CHECKS_URL =
   "https://api.github.com/repos/derekbreden/homesodamachine/contents/web/public/checks.json?ref=main";
 
-// The build times, `tools/build_times.py`'s rows, ride the same look. They come off the raw
+// The build times, `hsm-build-times`' rows, ride the same look. They come off the raw
 // file, which the contents API's unauthenticated ceiling below does not count.
 const BUILD_TIMES = path.join(WEB, "public", "build-times.json");
 const BUILD_TIMES_URL =
@@ -68,7 +65,7 @@ async function lockOnDisk() {
 
 // WHAT SAYS THE GEOMETRY MOVED. A publish from the machine that changed it puts the members
 // that moved on the release under their own hashes and leaves the bundle the pointer file already
-// names where it is (`pack.py --write --publish-held`): the bundle's digest does not move with
+// names where it is (`hsm-pack --write --publish-held`): the bundle's digest does not move with
 // them, the member hashes do. Either moving is a look worth taking; a disk with no pointer file at all
 // is behind by definition.
 export function pointersMoved(have, pointers) {
@@ -172,7 +169,7 @@ function usable(pointers) {
 }
 
 // THE SCORECARD IS COMMITTED DATA UNDER A PATH NOTHING DEPLOYS ON, WHICH IS WHY IT IS CARRIED
-// HERE. `pack.py` keeps the scorecards outside the geometry tar and off the release entirely:
+// HERE. `hsm-pack` keeps the scorecards outside the geometry tar and off the release entirely:
 // the pointer file names each one's sha256 and the committed tree holds the bytes. So
 // `fetch-cad-artifacts.mjs` cannot bring one down — there is no object to ask for — and
 // `hardware/**` is not in `render.yaml`'s buildFilter, so the commit that moves a scorecard
@@ -212,7 +209,7 @@ function sidecarPath(rel) {
   return abs.startsWith(ROOT + path.sep) ? abs : null;
 }
 
-// ONE FETCH PER POINTER MOVE, BECAUSE THE POINTER FILE CAN NAME BYTES MAIN DOES NOT HOLD. `pack.py` cuts against
+// ONE FETCH PER POINTER MOVE, BECAUSE THE POINTER FILE CAN NAME BYTES MAIN DOES NOT HOLD. `hsm-pack` cuts against
 // the working tree and says so in `unproven`, so a scorecard's pointed-at hash can describe a file
 // that was never committed. Carrying what main holds is still right — it is the newest bytes
 // anyone can read — but its hash will not settle to the pointer file's, and a disk check alone would
@@ -356,8 +353,7 @@ export function refreshArtifacts(ctx, { force = false } = {}) {
 /** The poll, and the endpoint that makes the usual case immediate. */
 export function mountArtifactsLive(app, ctx) {
   app.post("/api/artifacts/refresh", (_req, res) => {
-    // Answered before the work, because the caller is `publish_now.py` running detached off a
-    // commit hook and nothing there should wait on a 65 MB fetch.
+    // The detached publisher receives its answer before the site fetches changed objects.
     res.json({ looking: true });
     refreshArtifacts(ctx);
   });

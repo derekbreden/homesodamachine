@@ -9,6 +9,8 @@ use std::{
     io::{self, BufRead, Write},
     path::{Path, PathBuf},
 };
+#[path = "../../../../hardware/assembly/calibration_inputs.rs"]
+mod calibration_inputs;
 mod marketing;
 mod procedures;
 
@@ -129,19 +131,11 @@ fn dispatch(request: &Request) -> Result<Output> {
         _ => procedures::run(request)?,
     };
     if request.write {
-        let caller = if request.driver == "ac-wiring-schedule" {
-            "/hardware/wiring/_ac_wiring_schedule_sync.py".to_owned()
-        } else if matches!(
-            request.driver.as_str(),
-            "install-envelope" | "target-market"
-        ) {
-            format!("/marketing/_{}_sync.py", request.driver.replace('-', "_"))
+        let caller = if matches!(request.driver.as_str(), "install-envelope" | "target-market") {
+            "/tools/hsm/assembly-docs/src/marketing.rs"
         } else {
-            format!(
-                "/hardware/assembly/_{}_sync.py",
-                request.driver.replace('-', "_")
-            )
-        };
+            "/tools/hsm/assembly-docs/src/procedures.rs"
+        }.to_owned();
         for job in &output.jobs {
             let kind = match job.kind.as_str() {
                 "markdown" => Kind::Markdown,
@@ -155,7 +149,7 @@ fn dispatch(request: &Request) -> Result<Output> {
                 &job.variables,
                 Some(&caller),
                 caller.starts_with("/hardware/")
-                    && request.root.join("hardware/scripts/_realized.py").is_file(),
+                    && request.root.join("tools/hsm/Cargo.toml").is_file(),
             )?;
             output
                 .maintained

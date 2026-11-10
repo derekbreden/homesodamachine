@@ -13,7 +13,7 @@ function decode(value, Type) {
 
 test("the moving website assembly is bound to current CAD and motion limits", () => {
   const binding = read("motion-geometry.json");
-  assert.equal(scene.geometrySha256, binding.sha256, "Regenerate with tools/positioner-view.py after rebuilding CAD");
+  assert.equal(scene.geometrySha256, binding.sha256, "Regenerate with positioner-view after rebuilding CAD");
   assert.equal(scene.revision, binding.motion.revision);
   assert.deepEqual(scene.pivot, [...binding.motion.yaw_xy, binding.motion.pivot_z]);
   assert.equal(scene.softLimitDeg, binding.motion.soft_limit_deg);

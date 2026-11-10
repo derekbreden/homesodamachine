@@ -68,13 +68,8 @@ repeated bridge specimens is [Prusa's bridge guidance](https://help.prusa3d.com/
 The selected 100–125% range comes from this PET-GF physical result. More cooling
 is a candidate to test, not an established improvement in line joining.
 
-The editable project and meshes come from [`prepare.py`](https://github.com/derekbreden/homesodamachine/blob/0a648015e0/hardware/print-tests/petgf-fins/normal-flow-cooling-v5/prepare.py) (in Git at `0a648015e0`), using the v4 geometry
-helper with an explicit destination. Slice with the installed Bambu Studio CLI:
-`--arrange 0 --orient 0 --slice 0 --outputdir <absolute mark1 directory>
---export-3mf native.gcode.3mf <absolute source project>`. Then run `finish.py`
-with `tools/cad-venv/bin/python`. The finish step applies local first-roof
-Bridge-feature E multipliers and labeled part-fan commands; the editable 3MF
-alone does not contain those G-code treatments.
+The [recorded finish source](https://github.com/derekbreden/homesodamachine/blob/7cf7b55608deefa5f3cae6bb20f83bce14ff706f/hardware/print-tests/petgf-fins/normal-flow-cooling-v5/finish.py) defines the local roof extrusion and part-fan
+treatments. The editable project alone does not contain those G-code treatments.
 
 The print-only archive preserves every reviewed G-code byte and embedded MD5;
 [packaging record](mark1/packaging.json). Timelapse and Bed Leveling are On;

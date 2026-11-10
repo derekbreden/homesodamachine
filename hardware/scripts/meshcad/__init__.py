@@ -1,9 +1,6 @@
 """The mesh kernel: CadQuery's API over Manifold meshes.
 
-A generator runs unchanged on meshes when `activate()` runs before anything imports
-cadquery:
-
-    tools/cad-venv/bin/python hardware/scripts/meshcad/run.py <generator.py> [args]
+`activate()` provides the mesh-backed CadQuery API to the retained reference adapters.
 
 `activate()` imports CadQuery's own shapes module ahead of its package, puts the mesh solids
 under its Solid/Compound builders (`solids.install`), then lets the package import the rest:

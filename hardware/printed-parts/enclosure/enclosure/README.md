@@ -538,14 +538,9 @@ The standing walls' flat show faces are **fluted** — half-round grooves
 90° turn, at the same outer envelope as the flute tips. The exterior field adds
 up to 1.2 mm of material where a corner groove would otherwise cut inward.
 
-**It is in the MESH and not in the solid**, and that is a decision rather than a shortcut. The
-fade is what makes the texture look made rather than applied, and the fade is a FIELD OVER THE
-SURFACE — how far a station stands from the nearest place the show face ends. A boundary
-representation can carry a fade that runs level, because a level fade is a loft; it cannot carry
-one that follows an opening's rim, a pocket's edge and the rounded display surround all at
-once. So the STEP is a smooth body and [flute_skin.py](/hardware/printed-parts/cadlib/flute_skin.py) cuts the flutes into the
-mesh on the way to the bed. Everywhere else on the machine the STEP is the whole of the part;
-here it is not, and the `.stl` beside it is.
+The [native skin construction](solid/skin.rs) cuts the fluted show surface into
+its completed solid. The STL and viewer payload derive from that same result.
+The fade follows the distance from each show face's openings, pockets and seams.
 
 At every station the field asks the piece whether it has
 material AT the nominal plan — by level cut, not by naming features — and takes a distance
@@ -683,7 +678,7 @@ its doors shut is in the [enclosure README](/hardware/printed-parts/enclosure/RE
 
 ## Mating clearances
 
-[`cadlib/fits.py`](/hardware/printed-parts/cadlib/fits.py) supplies the per-face allowances
+[The native fit catalog](/tools/hsm/catalog/src/lib.rs) supplies the per-face allowances
 for PET-GF parts mating with other PET-GF parts in the enclosure:
 
 | Mating surface | CAD clearance |
@@ -789,7 +784,7 @@ The audit records each support's actual root. Its position, contact and removal
 lane determine whether it is accessible in the ceiling-down part.
 
 **Expanding print-down show rounds use an additive chamfer/taper at 0.24 mm.**
-The shared construction in `../../cadlib/overhang_round.py` fills the lower corner
+The shared [native construction](interface/lib.rs) fills the lower corner
 inside its unrounded envelope, with a 0.5 outward/build-rise slope tangent to the
 retained circular taper. R6 has a 3.317 mm straight transition and a 2.292 mm initial
 inset; each 0.24 mm layer advances at most 0.12 mm on that section. The enclosure applies it to
@@ -1258,7 +1253,7 @@ leaving at least 1.7 mm beyond the longest tip.
 Back-top prints on its exterior roof face at Z355. The 9 mm slab's ordinary
 underside is Z346. Broad pockets over the ASSE and gas fittings retain 3 mm roof;
 the water-regulator pocket retains 6 mm. The source data names each pocket's
-plan and top plane, and `_above_core_shell.py` constructs the fixed supports
+plan and top plane, and the [back-top hosts](back-top/rear.rs) construct the fixed supports
 from the same part frames. The ASSE’s two east-sector seats stand at Y340 and
 Y364. Their broad lower plane is Z315.926, above the populated core’s meter
 during the back-column ride; the circular bearing retains at least 3.34 mm of
@@ -1275,8 +1270,8 @@ silhouette; the wall and component datums stay fixed.
 
 ## Regenerate
 
-    python3 tools/run.py -- cargo build --release --locked --manifest-path tools/hsm/Cargo.toml -p hsm-enclosure-back-top --bin enclosure-back-top
-    python3 tools/run.py -- tools/hsm/target/release/enclosure-back-top
+    tools/run -- cargo build --release --locked -j 2 --manifest-path tools/hsm/Cargo.toml -p hsm-enclosure-back-top --bin enclosure-back-top
+    tools/run -- tools/hsm/target/release/enclosure-back-top
 
 → back-top's `.step`, `.step.npz`, `.step.mesh` and `.stl`, from the declared Box. Each printed
 piece has its own program, named as its files are: `enclosure-front-bottom`,
@@ -1309,7 +1304,7 @@ Those operations apply to both it and the mechanical body. Back-top retains the
 body's completed print surface independently, so a band-only dimension edit
 reuses it. Editing [`exterior.json`](exterior.json) needs no recompilation.
 
-The piece payload shows the printed triangles directly. `publish_now.py` grafts
+The piece payload shows the printed triangles directly. `hsm-publish` grafts
 completed piece payloads into the existing enclosure and appliance viewers;
 print preparation and slicing consume the exports separately. Optional
 `HSM_STAGE_PROFILE` and `HSM_PHASE_PROFILE` paths record requested timing data.

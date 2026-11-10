@@ -65,7 +65,7 @@ pio run -e weld_rotator
 ```
 
 Building does not open a serial port. Uploading and monitoring do; name the port whenever
-more than one board is connected (`tools/boards.py` prints the exact commands).
+more than one board is connected (`hsm-peripheral boards` prints the exact commands).
 
 With the working main board and enclosure display connected, the default live check only observes
 the display, touch controller, J9 link, and synchronized/durable flavor state through the
@@ -76,10 +76,10 @@ actuates that pump for about one second through the same handlers the glass uses
 posts a stop request. Each check restores the page, idle rung and lock state it found.
 
 ```bash
-~/.platformio/penv/bin/python tools/firmware_live_check.py
-~/.platformio/penv/bin/python tools/firmware_live_check.py --animation
-~/.platformio/penv/bin/python tools/firmware_live_check.py --toggle
-~/.platformio/penv/bin/python tools/firmware_live_check.py --prime b
+hsm-peripheral firmware-live-check
+hsm-peripheral firmware-live-check --animation
+hsm-peripheral firmware-live-check --toggle
+hsm-peripheral firmware-live-check --prime b
 ```
 
 With the faucet display connected to J3 and its native USB connected, the faucet check never
@@ -89,6 +89,6 @@ flavor, waits for both stores, and restores the original selection; the main boa
 tick for each of those two user-path selections.
 
 ```bash
-~/.platformio/penv/bin/python tools/firmware_faucet_check.py
-~/.platformio/penv/bin/python tools/firmware_faucet_check.py --toggle
+hsm-peripheral firmware-faucet-check
+hsm-peripheral firmware-faucet-check --toggle
 ```

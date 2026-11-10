@@ -182,7 +182,7 @@ Physical J3 numbers include the wafer rotation in [`parts.tsx`](../pcb/pcba/part
 Jack labels follow the [RiteAV CAT3 USOC body legend](https://www.riteav.com/products/riteav-rj11-phone-black-punchdown-type-keystone-jack-10-pack)
 and [six-contact USOC terminal colors](https://leviton.com/content/dam/leviton/network-solutions/product_documents/instruction_sheet/Leviton-IST-41106-41108-Voice-Grade-Jacks.pdf).
 
-At the wall end of all four tubes: **leave them bare and square-cut.** The installer pushes the white 4 mm DRAIN and two black 4 mm FLAVOR tails into their own ABU44M-E sockets and the blue 1/4-inch SODA tail into PP1208E at field install; PP1208E's internal grab-ring + EPDM O-ring make the seal around the tube OD (same seal mechanism already in use on the reservoir-cap bulkhead per [`/hardware/printed-parts/cold-core/reservoir/reservoir.py`](/hardware/printed-parts/cold-core/reservoir/reservoir.py)).
+At the wall end of all four tubes: **leave them bare and square-cut.** The installer pushes the white 4 mm DRAIN and two black 4 mm FLAVOR tails into their own ABU44M-E sockets and the blue 1/4-inch SODA tail into PP1208E at field install; PP1208E's internal grab-ring + EPDM O-ring make the seal around the tube OD (same seal mechanism already in use on the reservoir-cap bulkhead per [`/hardware/printed-parts/cold-core/reservoir/reservoir.rs`](/hardware/printed-parts/cold-core/reservoir/reservoir.rs)).
 
 ### 3. Insulate and sleeve the run, a segment at a time
 

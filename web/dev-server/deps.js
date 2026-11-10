@@ -1,708 +1,167 @@
-// Dependency-graph analysis over the CAD generator scripts. NO side effects
-// (no server, no watcher, no spawning) so it is unit-testable (web/tests/
-// deps.test.js) and shared by both the live watcher (dev-server/server.js) and
-// the batch rebuilder (dev-server/build-all.js).
-//
-// Two kinds of edge connect the scripts:
-//
-//   1. Python import — a runnable generator imports a shared `_module.py`
-//      (which may import another, transitively). Editing the module must
-//      rebuild every runnable that reaches it.
-//
-//   2. STEP-load — a script reads another script's `.step` OUTPUT, via
-//      `cq.importers.importStep(...)` or the `_load(...)` helper. The file is
-//      often named in an imported module, NOT in the runnable that consumes it:
-//      `enclosure_assembly.py` (which `import foam_assembly`) consumes
-//      `foam-shell.step` without ever naming that file or calling importStep
-//      itself.
-//
-// Tracking only (1) is the bug this module fixes. A part's STEP could change
-// and every enclosure or assembly that merely *loads* it stayed stale until some
-// unrelated import-edge edit happened to re-run the generator — a real,
-// week-long staleness (a printed part widened 2026-06-08; the assemblies that
-// load its trays weren't rebuilt until an unrelated reservoir edit on 06-14
-// re-triggered them). See web/tests/deps.test.js for the regression.
+// Native producer metadata resolves explicit builds and served output identities without scanning source code.
+import fs from "node:fs";
+import path from "node:path";
 
-import fs from "fs";
-import path from "path";
-import { createHash } from "crypto";
-
-import { holdsRetiredMarker } from "../lib/retired.js";
-
-export const MAIN_RE = /^if\s+__name__\s*==\s*["']__main__["']\s*:/m;
-
-// The content root the viewer serves and the generators live under. Mirrors the
-// dir the server resolves, but derived from the repo root so callers that don't
-// boot the server (build-all, tests) get the same answer.
 export function contentRoots(projectRoot) {
-  return [path.join(projectRoot, "hardware")].filter((d) => fs.existsSync(d));
+  return [path.join(projectRoot, "hardware")].filter(root => fs.existsSync(root));
 }
 
-// --- Per-call memo --------------------------------------------------------
-//
-// These functions call each other in nested loops: dependencyGraph asks
-// findScriptsConsumingStep once per produced STEP, and every shared-module hit
-// inside that runs a full import walk, which re-walks the trees and re-reads
-// every source from disk. The repeats are pure waste — across one top-level
-// call the filesystem is fixed, which the code already assumes when it reads
-// the same file dozens of times and expects the same bytes.
-//
-// `memoized` hangs a scratch cache off the outermost call and drops it on the
-// way out, so the next call after an edit sees fresh bytes. Nested calls find
-// the cache already installed and reuse it; an unwrapped call still returns the
-// same answer, just uncached.
-let memo = null;
-
-function memoized(fn) {
-  return function (...args) {
-    if (memo) return fn.apply(this, args);
-    memo = {
-      walk: new Map(),
-      source: new Map(),
-      stripped: new Map(),
-      runnable: new Map(),
-      producers: new Map(),
-      importers: new Map(),
-      consumers: new Map(),
-      traced: undefined,
-      writers: undefined,
-    };
-    try {
-      return fn.apply(this, args);
-    } finally {
-      memo = null;
-    }
-  };
-}
-
-const rootsKey = (roots) => roots.join("\0");
-
-// --- what a run was watched reading --------------------------------------
-//
-// A SCAN CANNOT TELL A CONDITIONAL IMPORT FROM AN UNCONDITIONAL ONE, and the tree turns on
-// that difference. `_y_wall_dimensions` imports `enclosure_assembly` inside two function
-// bodies to break a cycle; `enclosure.py` imports it inside `machine_of()`, which runs on
-// every build. Read as source they are the same line. Read as source, the first one makes
-// every generator that reaches `_materials` — which is nearly all of them — an importer of
-// every bought part: `reservoir.py` scanned 74 importers where 24 run.
-//
-// `tools/bazel/graph.json` is the other reading. `trace_inputs.py` watches each generator's
-// `__main__` and writes down every tracked file it opened, so a branch not taken is a file
-// not there. That answers what the scan is guessing at, for the generators it has watched.
-//
-// AN EDGE IS DROPPED ONLY WHERE THE TRACE POSITIVELY SAW ITS ABSENCE. No graph.json, no entry
-// for that generator, a module outside the tracked set — each of those keeps the scanned edge, because none of them is an observation. The one thing
-// that removes an edge is a watched run of that generator that did not open that file.
-//
-// `tools/bazel/check_declared_imports.py` parses imports with `ast` and names every step whose
-// graph entry does not hold them — static, so it does not need the trace to have seen the
-// import, which is what lets it catch the trace being old. It names the generator that gained
-// the import among the steps to re-trace, and prints the command.
-const REPO_ROOT = path.resolve(path.dirname(new URL(import.meta.url).pathname), "..", "..");
-const GRAPH_JSON = path.join(REPO_ROOT, "tools", "bazel", "graph.json");
-
-function tracedReads() {
-  if (memo && memo.traced !== undefined) return memo.traced;
-  let traced = null;
-  try {
-    const raw = JSON.parse(fs.readFileSync(GRAPH_JSON, "utf-8"));
-    traced = new Map(Object.entries(raw).map(([gen, seen]) => [gen, new Set(seen.reads || [])]));
-  } catch {
-    traced = null;               // absent or unreadable: every scanned edge stands
+export function viewerOutput(absPath, hardwareRoot) {
+  const relative = path.relative(hardwareRoot, absPath).split(path.sep).join("/");
+  if (!relative || relative === ".." || relative.startsWith("../") || path.isAbsolute(relative)) return null;
+  if (relative.endsWith(".step.mesh")) return relative.slice(0, -5);
+  if (relative.startsWith("assembly/scenes/glb/") && relative.endsWith(".glb.mesh")) return relative.slice(0, -5);
+  if (relative.endsWith(".scene.npz")) return relative.slice(0, -10) + ".step";
+  if (relative.endsWith(".dxf.json") || relative.endsWith(".step.json") || relative.endsWith(".pdf.json")) return relative.slice(0, -5);
+  if (relative.endsWith(".cover.png")) return relative.slice(0, -10) + ".pdf";
+  if (/\.(?:step|glb|mmd|dxf|pdf)$/.test(relative)) return relative;
+  const copper = relative.match(/^(pcb\/.*)\/out\/([^/]+)\.(?:overlay|top|bottom|schematic)\.(?:svg|png)$/);
+  if (copper) {
+    const board = `${copper[1]}/${copper[2]}.tsx`;
+    if (fs.existsSync(path.join(hardwareRoot, board))) return board;
   }
-  if (memo) memo.traced = traced;
-  return traced;
+  return null;
 }
 
-// The runnables a watched run showed do NOT reach `modPath`, out of the ones the scan found.
-//
-// `traced` is the graph by default and an argument for the hold in deps.test.js: what may be
-// dropped is a rule over three values, and a rule is held against cases rather than against
-// the one graph the tree happens to carry today.
-export function prunedByTrace(dependents, modPath, traced = tracedReads()) {
-  if (traced === null) return dependents;
-  const mod = path.relative(REPO_ROOT, path.resolve(modPath));
-  if (!mod || mod.startsWith("..")) return dependents;
-  return dependents.filter((dep) => {
-    const reads = traced.get(path.relative(REPO_ROOT, path.resolve(dep)));
-    return reads === undefined || reads.has(mod);
-  });
+function repoPath(projectRoot, file) {
+  const relative = path.relative(projectRoot, path.resolve(projectRoot, file));
+  if (!relative || relative === ".." || relative.startsWith(`..${path.sep}`) || path.isAbsolute(relative))
+    throw new Error(`Build source is outside the checkout: ${file}`);
+  return relative.split(path.sep).join("/");
 }
 
-function readSource(file) {
-  if (memo && memo.source.has(file)) return memo.source.get(file);
-  let source;
-  try {
-    source = fs.readFileSync(file, "utf-8");
-  } catch {
-    source = null;
-  }
-  if (memo) memo.source.set(file, source);
-  return source;
-}
-
-// `_facts.STEP` identifies the solid its JSON was measured from.  Importing `_facts` does not
-// itself load that solid, but the source scanner cannot see whether an importer later calls
-// `agrees_with_step()`.  The enclosure generator does not; treating it as a consumer closes a
-// false enclosure -> assembly -> enclosure ring after assembly begins consuming materialized
-// enclosure pieces.
-//
-// This one negative edge is pinned to the exact shared-module bytes that were traced.  Any edit
-// to `_facts.py` — including adding or activating a STEP load — misses the digest and restores
-// the conservative edge immediately.  Nothing else is pruned on a negative trace.
-const INERT_FACTS_EDGE = Object.freeze({
-  shared: "hardware/scripts/_facts.py",
-  step: "enclosure-assembly.step",
-  consumer: "hardware/printed-parts/enclosure/enclosure/enclosure.py",
-  sha256: "885c56b98f46a8fa79f5b7958f6b4d42c8a72f69947280fe11e85d9d704d65d8",
-});
-
-// The pin is a parameter so the fail-open rule can be held against bytes chosen by the
-// caller. Held against the tree's own `_facts.py` it asserts today's maintenance state
-// instead: once the digest goes stale every branch below returns false, and a test reading
-// that as the answer passes for the one reason it exists to rule out.
-export function isPinnedInertStepEdge(
-  sharedFile, stepBasename, consumer, source = readSource(sharedFile), pin = INERT_FACTS_EDGE,
-) {
-  const rel = (p) => path.relative(REPO_ROOT, path.resolve(p)).split(path.sep).join("/");
-  if (rel(sharedFile) !== pin.shared
-      || stepBasename !== pin.step
-      || rel(consumer) !== pin.consumer
-      || source == null) return false;
-  return createHash("sha256").update(source).digest("hex") === pin.sha256;
-}
-
-// A FILENAME NAMED IN A COMMENT IS PROSE, NOT AN EDGE. Every match below — the STEP loads,
-// the imports, the `--python` hand-off — runs against source whose `#` runs are blanked, so
-// a sentence that names an artifact cannot invent a dependency. It is the guard the
-// `--python` edge already states in weaker form ("a bare doc-comment mention"), and the
-// STEP edge needs it more: a comment inside a shared `_module.py` resolves to every runnable
-// that imports it, so one sentence becomes dozens of phantom consumers, and a phantom
-// pointing back upstream closes a cycle — which costs `buildOrder` the topological order it
-// exists to produce, silently, because a cycle there degrades rather than throws.
-//
-// STRING LITERALS SURVIVE, and that is the whole reason this is a scanner and not a regex.
-// A generator names its own outputs in code and in the `-> x.step` lines it prints, and
-// `buildProducerMap` reads exactly those; blanking a string would lose the producer and with
-// it every edge downstream. So this blanks `#` runs — offsets and all, matching the COMMENT
-// spans Python's own `tokenize` reports — and one other span, below.
-//
-// A SELFTEST'S READS ARE THE SELFTEST'S. The repo already keeps the two apart:
-// `tools/bazel/trace_inputs.py` watches a generator's `__main__` into `graph.json` and its
-// `selftest` into `selftests.json`, two files because they answer two questions. This orders
-// a BUILD, so a `def selftest` body is blanked the way a comment is — the STEP a control
-// reads to hold a claim against is a fixture, and a fixture is not an input.
-//
-// `_mesh_payload.selftest` is what that costs when it is not done. It holds this repo's
-// tessellation against occt-import-js on one reference solid, and `_cadq_export` imports it
-// to write the `.step.mesh` beside every export — so one fixture named at module scope made
-// 79 of the graph's 122 edges, every generator in the tree waiting on the faucet shell.
-//
-// `def selftest(` down to the paren, which is the rule `trace_inputs._selftests` reads the
-// tree with, so a module is a selftest to both or to neither. The body ends at the first
-// line back at column 0; a literal is consumed whole on the way, so the JS blob
-// `_mesh_payload`'s control carries cannot end it early.
-function stripPySource(source) {
-  let out = "";
-  let i = 0;
-  let inSelftest = false;
-  const n = source.length;
-  const atLineStart = () => i === 0 || source[i - 1] === "\n";
-  const blank = (from, to) => " ".repeat(to - from);
-  while (i < n) {
-    const c = source[i];
-    if (atLineStart() && c !== " " && c !== "\t" && c !== "\n") {
-      inSelftest = source.startsWith("def selftest(", i);
-    }
-    if (c === "#") {
-      let j = i;
-      while (j < n && source[j] !== "\n") j++;
-      out += blank(i, j);
-      i = j;
-      continue;
-    }
-    // A quote opens a literal that runs to its matching close. A backslash escapes whatever
-    // follows it — including in an r-string, where the backslash stays in the value but
-    // still does not let the quote terminate. A single-quoted literal cannot cross a newline.
-    if (c === '"' || c === "'") {
-      const triple = source.startsWith(c.repeat(3), i);
-      const q = triple ? c.repeat(3) : c;
-      let j = i + q.length;
-      while (j < n) {
-        if (source[j] === "\\") { j += 2; continue; }
-        if (source.startsWith(q, j)) { j += q.length; break; }
-        if (!triple && source[j] === "\n") break;
-        j++;
-      }
-      j = Math.min(j, n);
-      const literal = source.slice(i, j);
-      // Newlines inside a blanked literal are kept, so the line the next column-0 statement
-      // starts on is the line it starts on.
-      out += inSelftest ? literal.replace(/[^\n]/g, " ") : literal;
-      i = j;
-      continue;
-    }
-    out += inSelftest && c !== "\n" ? " " : c;
-    i++;
-  }
-  return out;
-}
-
-// The stripped text of a file, cached beside its bytes. One graph asks a hundred STEP
-// questions of seven hundred files, and stripping per question rather than per file is the
-// difference between one pass over the tree and a hundred.
-function readStrippedSource(file) {
-  if (memo && memo.stripped.has(file)) return memo.stripped.get(file);
-  const source = readSource(file);
-  const stripped = source == null ? null : stripPySource(source);
-  if (memo) memo.stripped.set(file, stripped);
-  return stripped;
-}
-
-// hardware/scripts holds the shared modules and the command-line tools the repo is worked
-// WITH — the export helper, the build lock, the geometry probe, the pin-map check. None of
-// them produce content, and the ones that take arguments have nothing to do when spawned
-// bare. Their imports still build the graph below, so editing one rebuilds the generators
-// that read it. Matched as a path suffix.
-const TOOLING_DIR = path.join("hardware", "scripts");
-
-// A command-line tool that lives beside the content it reads rather than in TOOLING_DIR —
-// `topreach.py` and `trace-check.py` query the board they sit next to, and the docs link them
-// by relative path. The rule that excludes them is the one TOOLING_DIR states: a script whose
-// entry point REQUIRES an argument has nothing to do when spawned bare, so spawning it can
-// only fail. An argparse positional is required unless it says otherwise, so a call carrying
-// `nargs=` or `default=` does not count — that is how `board-3d.py` keeps its optional
-// `target` and stays a generator.
-const ADD_ARGUMENT_RE = /\badd_argument\(([^()]*)\)?/g;
-
-function requiresArguments(source) {
-  for (const [, args] of source.matchAll(ADD_ARGUMENT_RE)) {
-    const first = args.match(/^\s*(["'])(.*?)\1/);
-    if (!first || first[2].startsWith("-")) continue;
-    if (/\b(?:nargs|default)\s*=/.test(args)) continue;
-    return true;
+function retired(projectRoot, source) {
+  let directory = path.dirname(path.join(projectRoot, source));
+  while (directory !== projectRoot) {
+    try { if (fs.statSync(path.join(directory, ".retired")).isFile()) return true; } catch {}
+    const parent = path.dirname(directory);
+    if (parent === directory) break;
+    directory = parent;
   }
   return false;
 }
 
-// A "runnable" script is a non-`_`-prefixed .py with a `__main__` block that runs bare — a
-// generator/drawing meant to run directly, vs. an imported `_module.py` or a tool you hand
-// arguments to. Content detection (not name/dir) means a new script live-reloads with no
-// registration.
-export function isRunnableScript(pyFilePath) {
-  if (memo && memo.runnable.has(pyFilePath)) return memo.runnable.get(pyFilePath);
-  const runnable = computeRunnable(pyFilePath);
-  if (memo) memo.runnable.set(pyFilePath, runnable);
-  return runnable;
+const sourceStem = source => path.posix.parse(source).name.replace(/^_+|_+$/g, "").replaceAll("_", "-");
+
+// Target names match hsm-build-plan's co-writer grouping and shared-stem naming.
+function targetName(source, shared) {
+  const stem = sourceStem(source);
+  return stem === "build" || shared.has(stem) ? `${path.posix.basename(path.posix.dirname(source))}-${stem}` : stem;
 }
 
-function computeRunnable(pyFilePath) {
-  const base = path.basename(pyFilePath);
-  if (!base.endsWith(".py")) return false;
-  if (base.startsWith("_")) return false;
-  if (path.dirname(pyFilePath).endsWith(TOOLING_DIR)) return false;
-  const source = readSource(pyFilePath);
-  if (source == null) return false;
-  return MAIN_RE.test(source) && !requiresArguments(source);
+function strings(value, description) {
+  if (!Array.isArray(value) || value.some(item => typeof item !== "string"))
+    throw new Error(`${description} must be a list of paths`);
+  return value;
 }
 
-function walk(roots, suffix) {
-  const key = `${suffix}\0${rootsKey(roots)}`;
-  if (memo && memo.walk.has(key)) return memo.walk.get(key);
-  const out = [];
-  function rec(dir) {
-    let entries;
-    try {
-      entries = fs.readdirSync(dir, { withFileTypes: true });
-    } catch {
-      return;
-    }
-    // A retired tree is out of the graph, and an edit inside it rebuilds nothing downstream
-    // — a live consumer still importing a retired module goes stale without a word.
-    if (holdsRetiredMarker(entries)) return;
-    for (const entry of entries) {
-      if (entry.name === "__pycache__") continue;
-      const full = path.join(dir, entry.name);
-      if (entry.isDirectory()) rec(full);
-      else if (entry.name.endsWith(suffix)) out.push(full);
-    }
-  }
-  for (const root of roots) rec(root);
-  if (memo) memo.walk.set(key, out);
-  return out;
-}
-
-export function findAllPythonFiles(roots) {
-  return walk(roots, ".py");
-}
-
-export function findGenerateScripts(roots) {
-  return walk(roots, ".py").filter(isRunnableScript);
-}
-
-// Walk the import graph backward from a module to every runnable script that
-// transitively imports it — covers shared `_foo.py` chains and the Blender
-// `--python` subprocess edge (a script that hands another to Blender as a path,
-// never importing it). Without the transitive walk, edits to a leaf module
-// silently rebuild nothing.
-export const findRunnableScriptsTransitivelyImporting = memoized(importersOf);
-
-function importersOf(changedPath, roots) {
-  const key = `${path.resolve(changedPath)}\0${rootsKey(roots)}`;
-  if (memo && memo.importers.has(key)) return memo.importers.get(key);
-  const allPyFiles = walk(roots, ".py");
-  const visited = new Set();
-  const dependents = new Set();
-  const queue = [path.resolve(changedPath)];
-
-  while (queue.length > 0) {
-    const modPath = queue.shift();
-    if (visited.has(modPath)) continue;
-    visited.add(modPath);
-    const mod = path.basename(modPath, ".py");
-
-    const importRe = new RegExp(`(?:^|\\s)(?:from|import)\\s+${escapeRegExp(mod)}\\b`, "m");
-    // Require the `--python` flag so a bare doc-comment mention of the filename
-    // can't masquerade as a subprocess dependency.
-    const scriptRefRe = new RegExp(`["'/]${escapeRegExp(mod)}\\.py\\b`, "m");
-    for (const pyFile of allPyFiles) {
-      const abs = path.resolve(pyFile);
-      if (abs === modPath) continue;
-      const source = readStrippedSource(pyFile);
-      if (source == null) continue;
-      const importsIt = importRe.test(source);
-      const runsViaBlender = source.includes("--python") && scriptRefRe.test(source);
-      if (!importsIt && !runsViaBlender) continue;
-      // Resolve `mod` the way Python will from this file: a sibling module in the
-      // importer's own directory is sys.path[0] and wins. Follow the import edge
-      // only when that resolution IS the file that changed. With no sibling the
-      // module comes from a shared dir on sys.path
-      // (hardware/scripts/_cadq_export.py), and that edge stands.
-      let edge = runsViaBlender;
-      if (importsIt) {
-        // A sibling module in the importer's own directory is sys.path[0] and wins.
-        const sibling = path.join(path.dirname(abs), `${mod}.py`);
-        const siblingWins = fs.existsSync(sibling) && path.resolve(sibling) !== modPath;
-        if (!siblingWins) edge = true;
-      }
-      if (!edge) continue;
-      if (isRunnableScript(pyFile)) dependents.add(pyFile);
-      // Keep walking THROUGH this file whether or not it's runnable: a generator
-      // can double as a base module that other generators import as its python
-      // (`bag_circuit_tray` is both a tray and the geometry `nozzle_gate_tray`
-      // and `source_select_tray` build on). Stopping at the
-      // first runnable would leave those downstream trays stale when the root
-      // module changes — and they can't be caught by the STEP-load cascade
-      // either, since they import the tray's python, not its .step. Queue the
-      // file, not its basename, so the next hop resolves against the file that
-      // changed rather than anything that shares its name. `visited` dedupes.
-      queue.push(abs);
-    }
+export function nativeBuildPlan(projectRoot) {
+  projectRoot = path.resolve(projectRoot);
+  const graphPath = path.join(projectRoot, "tools/bazel/graph.json");
+  const graph = JSON.parse(fs.readFileSync(graphPath, "utf8"));
+  if (!graph || typeof graph !== "object" || Array.isArray(graph)) throw new Error("Native build graph must be an object");
+  let classification = {};
+  try { classification = JSON.parse(fs.readFileSync(path.join(projectRoot, "tools/hsm/build-plan/inventory.json"), "utf8")); }
+  catch (error) { if (error.code !== "ENOENT") throw error; }
+  const inert = file => (classification.inert_suffixes || []).some(suffix => file.toLowerCase().endsWith(suffix))
+    || (classification.inert_basenames || []).includes(path.posix.basename(file).toLowerCase());
+  const entries = [];
+  for (const [source, row] of Object.entries(graph).sort(([a], [b]) => a.localeCompare(b))) {
+    repoPath(projectRoot, source);
+    if (retired(projectRoot, source)) continue;
+    const writes = [...new Set([...strings(row.writes || [], `${source} writes`),
+      ...strings(classification.implicit_solids?.[source] || [], `${source} implicit outputs`)])].filter(file => !inert(file));
+    if (!writes.length) continue;
+    if (!row.program || typeof row.program.crate !== "string" || !row.program.crate
+        || typeof row.program.name !== "string" || !row.program.name)
+      throw new Error(`${source} has no declared native program; refresh its native build-graph entry`);
+    if (!fs.existsSync(path.join(projectRoot, source))) throw new Error(`Build-graph source is absent: ${source}`);
+    const reads = new Set([...strings(row.reads || [], `${source} reads`), ...strings(row.program.sources || [], `${source} compiler sources`),
+      ...strings(row.program.runtime_inputs || [], `${source} runtime sources`), source].filter(file => !inert(file)));
+    const rewritten = new Set(strings(row.rewritten || [], `${source} rewritten outputs`));
+    entries.push({ source, writes, reads, rewritten, program: row.program });
   }
 
-  const out = prunedByTrace(Array.from(dependents), changedPath);
-  if (memo) memo.importers.set(key, out);
-  return out;
-}
-
-// A board is a tscircuit source that declares a `<board>` — the renderable that
-// `render-board.ts` turns into Gerbers + copper views. Sibling `.tsx` files
-// without a `<board>` (e.g. `parts.tsx`) are includes: footprint
-// libraries and rosters the boards import, never rendered on their own.
-function isBoardTsx(source) {
-  return /<board\b/.test(source);
-}
-
-// Walk the board import graph backward from a changed `.tsx` to every board that
-// transitively imports it, scoped to the `pcb/` tree the file lives in. A change
-// to a shared include (`parts.tsx`) thus rebuilds the boards that pull it
-// in (`pcba.tsx`), mirroring the Python cascade — rendering the include itself
-// would only fail ("no renderable layers"), since an include has no `<board>`.
-// If the changed file is itself a board, it's returned as the sole dependent.
-export const findBoardsTransitivelyImporting = memoized(boardsImporting);
-
-function boardsImporting(changedTsxPath, pcbRoot) {
-  // Skip the toolchain's own sources and editor/temp artifacts (`._foo.tsx`,
-  // the dot-prefixed scratch boards `_clrsweep` & co. write): neither is a board
-  // the watcher should ever rebuild.
-  const allTsx = walk([pcbRoot], ".tsx").filter(
-    (f) => !f.split(path.sep).includes("node_modules") && !path.basename(f).startsWith("."),
-  );
-  const source = readSource(changedTsxPath);
-  if (source != null && isBoardTsx(source)) return [changedTsxPath];
-
-  const boards = new Set();
-  const visited = new Set();
-  const queue = [path.basename(changedTsxPath, ".tsx")];
-
-  while (queue.length > 0) {
-    const mod = queue.shift();
-    if (visited.has(mod)) continue;
-    visited.add(mod);
-
-    // A relative import names the module by basename: `from "./parts"`
-    // (or a deeper `../foo/parts`), with or without the `.tsx` suffix.
-    const importRe = new RegExp(`from\\s+["'][^"']*\\b${escapeRegExp(mod)}(?:\\.tsx)?["']`, "m");
-    for (const tsx of allTsx) {
-      if (path.basename(tsx, ".tsx") === mod) continue; // don't match a file to itself
-      const src = readSource(tsx);
-      if (src == null || !importRe.test(src)) continue;
-      if (isBoardTsx(src)) boards.add(tsx);
-      else queue.push(path.basename(tsx, ".tsx"));
+  const parents = new Map(entries.map(entry => [entry.source, entry.source]));
+  const home = new Map();
+  function find(source) {
+    while (parents.get(source) !== source) source = parents.get(source);
+    return source;
+  }
+  for (const entry of entries) for (const output of entry.writes) {
+    const first = home.get(output);
+    if (first) {
+      const a = find(first), b = find(entry.source);
+      if (a !== b) parents.set(a < b ? b : a, a < b ? a : b);
+    } else home.set(output, entry.source);
+  }
+  const cohorts = new Map();
+  for (const entry of entries) {
+    const key = find(entry.source);
+    if (!cohorts.has(key)) cohorts.set(key, []);
+    cohorts.get(key).push(entry);
+  }
+  const seen = new Set(), shared = new Set();
+  for (const { source } of entries) {
+    const stem = sourceStem(source);
+    if (seen.has(stem)) shared.add(stem);
+    seen.add(stem);
+  }
+  const producers = new Map(), bySource = new Map(), byOutput = new Map();
+  // This adapter selects target identities; the native planner validates each cohort's executable declaration.
+  for (const cohort of cohorts.values()) {
+    const sources = cohort.map(entry => entry.source).sort();
+    const target = targetName(sources[0], shared);
+    if (producers.has(target)) throw new Error(`Native target name is ambiguous: ${target}`);
+    const writes = new Set(cohort.flatMap(entry => entry.writes));
+    const docs = new Set(cohort.flatMap(entry => [...entry.rewritten]).filter(file => writes.has(file)));
+    const solids = new Set([...writes].filter(file => !docs.has(file)));
+    const optional = file => docs.has(file) && /\.(?:png|json)$/.test(file);
+    const reads = new Set([...cohort.flatMap(entry => [...entry.reads]), ...docs].filter(file => !solids.has(file) && !optional(file)
+      && !(file.endsWith(".step.mesh") && solids.has(file.slice(0, -5)))));
+    producers.set(target, { target, label: `//:${target}`, sources, reads, writes, dependencies: new Set(), dependents: new Set() });
+    for (const source of sources) bySource.set(source, target);
+    for (const output of writes) if (!docs.has(output) || optional(output)) byOutput.set(output, target);
+  }
+  for (const producer of producers.values()) for (const input of producer.reads) {
+    const dependency = byOutput.get(input);
+    if (dependency && dependency !== producer.target) {
+      producer.dependencies.add(dependency);
+      producers.get(dependency).dependents.add(producer.target);
     }
   }
-
-  return Array.from(boards);
+  return { projectRoot, producers, bySource, byOutput };
 }
 
-function escapeRegExp(s) {
-  return s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+export function buildTargetsForSources(requests, projectRoot, plan = nativeBuildPlan(projectRoot)) {
+  const selected = new Set();
+  for (const request of requests) {
+    const target = request.replace(/^\/\/:|^:/, "");
+    if (plan.producers.has(target)) { selected.add(target); continue; }
+    const source = repoPath(plan.projectRoot, request);
+    const direct = plan.bySource.get(source) || plan.byOutput.get(source);
+    if (direct) selected.add(direct);
+    let found = Boolean(direct);
+    for (const producer of plan.producers.values()) if (producer.reads.has(source)) { selected.add(producer.target); found = true; }
+    if (!found) throw new Error(`No declared native producer reads or writes ${source}`);
+  }
+  const pending = [...selected];
+  while (pending.length) for (const dependent of plan.producers.get(pending.shift()).dependents) {
+    if (!selected.has(dependent)) { selected.add(dependent); pending.push(dependent); }
+  }
+  return [...selected].sort().map(target => `//:${target}`);
 }
 
-// True if `source` names `stepBasename` as a whole filename token. Boundaries
-// on BOTH sides matter: the right guard `(?![\w.])` keeps `tray.step` from
-// matching inside `tray.step.png`; the left guard `(?<![\w.\-])` keeps the
-// hyphen-joined `assembly.step` from matching inside `source-select-assembly.step`
-// (a real collision that otherwise invents reverse edges and cycles). A path
-// separator or quote before the name is fine — that's how a real reference
-// reads, e.g. `_VM / "tray" / "tray.step"`.
-//
-// `source` is the file's STRIPPED text (readStrippedSource) — a comment naming a step is
-// prose, not a load. The matcher is a pure function of the basename and outlives any one
-// graph, so it is compiled once and kept: a full graph asks this of every file for every
-// produced step, and compiling the same pattern each time was the bulk of that.
-const STEP_RE = new Map();
-
-function referencesStep(source, stepBasename) {
-  let re = STEP_RE.get(stepBasename);
-  if (re === undefined) {
-    re = new RegExp("(?<![\\w.\\-])" + escapeRegExp(stepBasename) + "(?![\\w.])");
-    STEP_RE.set(stepBasename, re);
+export function buildOrder(plan) {
+  const visited = new Set(), active = [];
+  const result = [];
+  function visit(target) {
+    if (active.includes(target)) throw new Error(`Native producer cycle: ${[...active, target].join(" -> ")}`);
+    if (visited.has(target)) return;
+    active.push(target);
+    for (const dependency of [...plan.producers.get(target).dependencies].sort()) visit(dependency);
+    active.pop(); visited.add(target); result.push(plan.producers.get(target));
   }
-  return re.test(source);
-}
-
-// Map each produced `.step` (by basename) to the runnable script that writes
-// it. Convention (from _cadq_export usage): a generator writes its STEP into
-// its OWN directory via `export_step/_assembly(..., _here.parent / "X.step")`,
-// so the producer of `dir/X.step` is the runnable in `dir` whose source names
-// "X.step". A directory can hold several runnables (a tray + its assembly),
-// each producing a different step; matching on the filename disambiguates.
-// Reference STEPs with no generator (e.g. `kamoer-kphm400.step`) simply have no
-// entry.
-export const buildProducerMap = memoized(producerMap);
-
-// THE WRITER A WATCHED RUN SAW ANSWERS FIRST. The scan below names a STEP's producer as the
-// first runnable beside it that names the file, and a script that READS a STEP beside the one
-// that writes it names it too: `westbrass-reference/register_scan.py` registers a scan against
-// `westbrass-reference.step` and sorts ahead of `westbrass_reference.py`, which writes it. The
-// scan made the reader the producer and the writer a consumer, and closed a ring through
-// `faucet_assembly.py`. `graph.json`'s writes are an observation of which run wrote the file,
-// keyed by its path; the scan stands wherever no trace names a writer.
-function tracedWriters() {
-  if (memo && memo.writers !== undefined) return memo.writers;
-  let writers = null;
-  try {
-    const raw = JSON.parse(fs.readFileSync(GRAPH_JSON, "utf-8"));
-    writers = new Map();
-    for (const [gen, seen] of Object.entries(raw)) {
-      for (const f of seen.writes || []) if (f.endsWith(".step")) writers.set(f, gen);
-    }
-  } catch {
-    writers = null;              // absent or unreadable: the scan names every producer
-  }
-  if (memo) memo.writers = writers;
-  return writers;
-}
-
-function producerMap(roots) {
-  const key = rootsKey(roots);
-  if (memo && memo.producers.has(key)) return memo.producers.get(key);
-  const producerOf = new Map();
-  const writers = tracedWriters();
-  for (const step of walk(roots, ".step")) {
-    const base = path.basename(step);
-    const traced = writers
-      && writers.get(path.relative(REPO_ROOT, step).split(path.sep).join("/"));
-    if (traced && isRunnableScript(path.join(REPO_ROOT, traced))) {
-      producerOf.set(base, path.join(REPO_ROOT, traced));
-      continue;
-    }
-    const dir = path.dirname(step);
-    let entries;
-    try {
-      entries = fs.readdirSync(dir);
-    } catch {
-      continue;
-    }
-    for (const name of entries) {
-      if (!name.endsWith(".py")) continue;
-      const script = path.join(dir, name);
-      if (!isRunnableScript(script)) continue;
-      const source = readStrippedSource(script);
-      if (source != null && referencesStep(source, base)) {
-        producerOf.set(base, script);
-        break;
-      }
-    }
-  }
-  if (memo) memo.producers.set(key, producerOf);
-  return producerOf;
-}
-
-// Runnable scripts that CONSUME `stepBasename` (load it as input) — the
-// STEP-load dependents the import graph misses. A .py file consumes the step if
-// it names it and is not its producer. A runnable match is itself a consumer; a
-// shared-module match (e.g. `_lines.py`) resolves to the runnables that
-// transitively import that module. `producerOf` is computed if not supplied.
-export const findScriptsConsumingStep = memoized(consumersOfStep);
-
-function consumersOfStep(stepBasename, roots, producerOf) {
-  producerOf = producerOf || buildProducerMap(roots);
-  // Reuse a cached answer only when the producer map is the one this call tree
-  // derived from `roots` — a caller supplying its own map gets a fresh walk.
-  const key = `${stepBasename}\0${rootsKey(roots)}`;
-  const shared = memo != null && producerOf === memo.producers.get(rootsKey(roots));
-  if (shared && memo.consumers.has(key)) return memo.consumers.get(key);
-  const producer = producerOf.get(stepBasename);
-  const consumers = new Set();
-  for (const pyFile of walk(roots, ".py")) {
-    if (pyFile === producer) continue;
-    const source = readStrippedSource(pyFile);
-    if (source == null || !referencesStep(source, stepBasename)) continue;
-    if (isRunnableScript(pyFile)) {
-      consumers.add(pyFile);
-    } else {
-      // A shared module names the step; the real consumers are the runnable
-      // scripts that import it, resolved from this file.
-      for (const dep of findRunnableScriptsTransitivelyImporting(pyFile, roots)) {
-        if (dep !== producer && !isPinnedInertStepEdge(pyFile, stepBasename, dep)) {
-          consumers.add(dep);
-        }
-      }
-    }
-  }
-  const out = Array.from(consumers);
-  if (shared) memo.consumers.set(key, out);
-  return out;
-}
-
-// consumer script -> Set(producer scripts it depends on), over STEP-load edges.
-// (Import-only edges don't need ordering here: a shared module isn't built, and
-// runnables that import each other are rare; the watcher handles import edits
-// directly. This graph exists to order a full rebuild.)
-export const dependencyGraph = memoized(graphOf);
-
-function graphOf(roots) {
-  const scripts = findGenerateScripts(roots);
-  const producerOf = buildProducerMap(roots);
-  const deps = new Map(scripts.map((s) => [s, new Set()]));
-  for (const [stepBase, producer] of producerOf) {
-    for (const consumer of findScriptsConsumingStep(stepBase, roots, producerOf)) {
-      if (consumer === producer) continue;
-      if (!deps.has(consumer)) deps.set(consumer, new Set());
-      deps.get(consumer).add(producer);
-    }
-  }
-  return deps;
-}
-
-// Topological build order: producers before the scripts that load their STEPs
-// (DFS post-order).
-//
-// A CYCLE THROWS, because the order is the whole product. A ring of producer→consumer
-// edges has no order that puts every producer first, so what a DFS that walks over one
-// returns is an order with a constraint silently dropped — and which one it drops is the
-// order `deps.keys()` happened to be walked in, so a build is correct or stale by the shape
-// of a directory listing. What that cost, before it threw: `_mesh_payload`'s selftest fixture
-// made every generator in the tree a consumer of the faucet shell, one `#` comment closed the
-// ring back, and the test that reads this order passed or failed run to run.
-//
-// A cycle in a CAD build is a scanner reading a MENTION as a load. There is no ring of real
-// STEP loads — a part cannot be cut from the part cut from it — so the ring named below is
-// where to look for the mention.
-export const buildOrder = memoized(orderOf);
-
-function orderOf(roots) {
-  const deps = dependencyGraph(roots);
-  const order = [];
-  const done = new Set();
-  const onStack = new Set();
-  const stack = [];
-  function visit(node) {
-    if (done.has(node)) return;
-    if (onStack.has(node)) {
-      const ring = [...stack.slice(stack.indexOf(node)), node];
-      throw new Error(
-        "the STEP-load graph has a cycle, so no order puts every producer before the script "
-        + "that loads its STEP:\n  "
-        + ring.map((s) => path.basename(s)).join("\n    → loads the STEP of ")
-        + "\n\nOne of those edges is a mention the scanner read as a load — a selftest "
-        + "fixture, a probe target, a path named in prose. Ask deps.js which STEP each link "
-        + "stands on:\n    findScriptsConsumingStep(<step>, roots)",
-      );
-    }
-    onStack.add(node);
-    stack.push(node);
-    for (const dep of deps.get(node) || []) visit(dep);
-    stack.pop();
-    onStack.delete(node);
-    done.add(node);
-    order.push(node);
-  }
-  for (const node of deps.keys()) visit(node);
-  return order;
-}
-
-// The scoped, reactive slice of buildOrder the live watcher walks for one edit.
-// Given the SEED scripts that must rebuild (the transitive import closure of the
-// edited module), return { order, loadsOf }:
-//   - `order`: the seeds PLUS every script that transitively LOADS a seed's STEP
-//     output, sorted producers-before-consumers, each script exactly once.
-//   - `loadsOf`: script -> Set(STEP basenames it consumes), so the caller can
-//     skip a pure STEP-load consumer whose inputs didn't actually change.
-// This is what lets a base-part edit rebuild the whole downstream tree without
-// the old recursive cascade re-running a shared consumer once per producer — the
-// enclosure that loads all four tray assemblies rebuilds once, after them, not
-// four times interleaved. Import-only seeds carry no STEP-load edge, so their
-// order among themselves is arbitrary (correct: a Python import reads the
-// dependency's source at run time, independent of its STEP).
-export const affectedBuildOrder = memoized(affectedOrderOf);
-
-function affectedOrderOf(seeds, roots) {
-  const producerOf = buildProducerMap(roots);
-  const loadsOf = new Map();     // consumer script -> Set(step basename it loads)
-  const consumersOf = new Map(); // producer script -> Set(consumer scripts)
-  for (const [stepBase, producer] of producerOf) {
-    for (const consumer of findScriptsConsumingStep(stepBase, roots, producerOf)) {
-      if (consumer === producer) continue;
-      if (!loadsOf.has(consumer)) loadsOf.set(consumer, new Set());
-      loadsOf.get(consumer).add(stepBase);
-      if (!consumersOf.has(producer)) consumersOf.set(producer, new Set());
-      consumersOf.get(producer).add(consumer);
-    }
-  }
-  // Everything the seeds can reach forward over producer→consumer STEP-load edges.
-  // (Not closed backward over producers — a producer a consumer loads but that
-  // itself didn't change stays out; its committed STEP is the correct input.)
-  const affected = new Set(seeds);
-  const queue = [...seeds];
-  while (queue.length > 0) {
-    const s = queue.shift();
-    for (const c of consumersOf.get(s) || []) {
-      if (!affected.has(c)) {
-        affected.add(c);
-        queue.push(c);
-      }
-    }
-  }
-  // Seeds first, then their STEP-load consumers — each group in buildOrder's
-  // producers-first order. Seeds are the upstream parts the user is editing, so
-  // they rebuild first (fast feedback) and the heavy downstream (enclosures) is
-  // deferred. Safe because a seed never STEP-loads a consumer's output (that
-  // would be a cycle: consumers are strictly downstream of the seeds).
-  const topo = buildOrder(roots).filter((s) => affected.has(s));
-  const seedSet = new Set(seeds);
-  const order = [...topo.filter((s) => seedSet.has(s)), ...topo.filter((s) => !seedSet.has(s))];
-  return { order, loadsOf };
+  for (const target of [...plan.producers.keys()].sort()) visit(target);
+  return result;
 }

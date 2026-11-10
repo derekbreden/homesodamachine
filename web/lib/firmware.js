@@ -6,7 +6,7 @@
 // before its boot partition moves.
 //
 // `firmware/firmware-images.json` is the whole of what this serves, written by
-// `tools/publish_firmware.py --write`. `web/scripts/fetch-firmware.mjs` puts the bytes the pointer file
+// `hsm-publish-firmware --write`. `web/scripts/fetch-firmware.mjs` puts the bytes the pointer file
 // names under `public/firmware/` at deploy, and `/firmware/<file>` below serves them from there.
 //
 // AN IMAGE THE DISK DOES NOT HOLD IS STILL LISTED, carrying `available: false`. A phone that

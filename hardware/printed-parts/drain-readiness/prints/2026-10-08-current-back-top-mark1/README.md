@@ -30,11 +30,7 @@ removal of every normal support. Derek intends to discard it. Installed
 fit and finished surface qualification remain unassessed. The standing preparation preference is
 [tree supports with specific exceptions](../../../enclosure/enclosure/README.md#support-removal-strategy).
 
-Recheck current geometry against the prototype fixtures with:
-
-```sh
-tools/cad-venv/bin/python hardware/printed-parts/drain-readiness/check_prototype_back_top.py
-```
+The [prototype comparison source](https://github.com/derekbreden/homesodamachine/blob/d24b111b5d10e1eed4574db786e5ae1d0b96d445/hardware/printed-parts/drain-readiness/check_prototype_back_top.py) is archived in Git.
 
 Physical adhesion, support cleanup, finish and installed fit remain separate
 from these geometric and native slice checks.

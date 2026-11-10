@@ -12,10 +12,15 @@ wiring, firmware setup, loaded commissioning and one-camera learning/replay.
 The [build package](../gun-positioner/README.md) links editable CAD and
 governing source instructions. The [source receipt](source-receipt.json)
 binds this PDF to its inputs. Rebuild it with
-`tools/cad-venv/bin/python tools/gun-positioner-guide/build.py`.
+`tools/run hsm-manual-guides build gun-positioner-guide`.
 
 For text or manifest changes with unchanged assembly geometry, retain the current
-pictures with `python3 tools/run.py -- tools/cad-venv/bin/python tools/gun-positioner-guide/build.py --reuse-art`.
+pictures with `tools/run hsm-manual-guides build gun-positioner-guide --reuse-art`.
+
+`tools/run hsm-manual-guides art gun-positioner-guide` draws only the operation
+pictures. `--scenes` selects pictures, and `--inputs DIR` reads a retained set of
+fixture inputs for a requested comparison. The explicit release review is
+`tools/run hsm-manual-guides qa gun-positioner-guide`.
 
 Print at **100%**, single-sided, Letter portrait. Content is centered at 98%,
 with a separate full-scale cobalt/coral bleed layer. For Epson Letter

@@ -27,7 +27,7 @@ def digest(path):
 
 
 def heavy(args, **kwargs):
-    subprocess.run(['python3',str(ROOT/'tools/run.py'),'--',*map(str,args)],cwd=ROOT,check=True,**kwargs)
+    subprocess.run([str(ROOT/'tools/run'),'--',*map(str,args)],cwd=ROOT,check=True,**kwargs)
 
 
 def geometry():

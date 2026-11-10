@@ -36,7 +36,7 @@ placement, neighboring hardware and removal.
 The two-piece [mold](../../funnel-mold/README.md) forms the complete apron and
 rib with the same straight stock outlet rod. Its [design record](../../funnel-mold/design.json)
 records closure, core lift, rod withdrawal and nominal casting equality.
-The [chamber review](../../funnel-mold/chamber-check.json) includes M4 closure
+The [chamber review](https://github.com/derekbreden/homesodamachine/blob/fa658f2927cea008103ecb80685b65f879c2f2cb/hardware/printed-parts/zone-c/funnel-mold/chamber-check.json) includes M4 closure
 hardware and the dry-side breather drill paths. Current tooling needs its
 own production slice; dated print receipts apply to their identified artifacts.
 

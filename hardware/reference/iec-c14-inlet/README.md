@@ -5,8 +5,8 @@ the receptacle the customer's C13 cord plugs into on the +Y wall of back-top.
 The model supplies the flange the wall pockets, the screw stations, the rim
 the wall bores for, and the housing the electronics bay leaves room for.
 
-[Open the STEP](iec-c14-inlet.step) · [Generator](iec_c14_inlet.py) ·
-[Scan reproduction](analyze_scan.py) · [Capture evidence](scan-evidence.json) ·
+[Open the STEP](iec-c14-inlet.step) · [Source derivation](https://github.com/derekbreden/homesodamachine/blob/a518a57a878f02d9ac5b8b638c1c5883cadf6669/hardware/reference/iec-c14-inlet/iec_c14_inlet.py) ·
+[Scan reproduction](https://github.com/derekbreden/homesodamachine/blob/a518a57a878f02d9ac5b8b638c1c5883cadf6669/hardware/reference/iec-c14-inlet/analyze_scan.py) · [Capture evidence](scan-evidence.json) ·
 [Scan-to-model check](scan-model-check.json)
 
 The MINI 2 capture is three turntable passes: the part standing on one flange
@@ -68,18 +68,11 @@ internal structure and the nominal blades. [scan-model-check.json](scan-model-ch
 carries every feature's figures and [scan-model-check.png](scan-model-check.png)
 the residuals on the cloud.
 
-## Regeneration
+## Model inputs
 
-From the repository root:
+The source derivations are preserved at their recorded revision: [analyze_scan.py](https://github.com/derekbreden/homesodamachine/blob/a518a57a878f02d9ac5b8b638c1c5883cadf6669/hardware/reference/iec-c14-inlet/analyze_scan.py), [validate_scan.py](https://github.com/derekbreden/homesodamachine/blob/a518a57a878f02d9ac5b8b638c1c5883cadf6669/hardware/reference/iec-c14-inlet/validate_scan.py).
 
-```sh
-tools/cad-venv/bin/python hardware/reference/iec-c14-inlet/iec_c14_inlet.py
-tools/cad-venv/bin/python hardware/reference/iec-c14-inlet/iec_c14_inlet.py selftest
-tools/cad-venv/bin/python hardware/reference/iec-c14-inlet/analyze_scan.py
-tools/cad-venv/bin/python hardware/reference/iec-c14-inlet/validate_scan.py
-```
-
-The generator writes the STEP and viewer payload. `analyze_scan.py` rebuilds the
+The frozen manifest declares the STEP, fine model and viewer payload. [analyze_scan.py](https://github.com/derekbreden/homesodamachine/blob/a518a57a878f02d9ac5b8b638c1c5883cadf6669/hardware/reference/iec-c14-inlet/analyze_scan.py) rebuilds the
 part frames, registers the three archived clouds and writes
-`scan-measurements.json`; `validate_scan.py` compares the registered cloud with
+`scan-measurements.json`; [validate_scan.py](https://github.com/derekbreden/homesodamachine/blob/a518a57a878f02d9ac5b8b638c1c5883cadf6669/hardware/reference/iec-c14-inlet/validate_scan.py) compares the registered cloud with
 the model.

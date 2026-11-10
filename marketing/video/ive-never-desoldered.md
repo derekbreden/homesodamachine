@@ -88,7 +88,7 @@ Lay it under *"look at this, look at this thing, it just comes right out of
 there"* and land on *"that is amazing."* **Withhold** every honesty beat (no
 "I missed two," no setup) so the open reads as a promise, not a fumble. Hold the
 last frame on the cleared board and author it as a `type:"freeze"` cut
-([`cut.py`](cut.py) freeze format); the **"I've Never Desoldered Anything"**
+([cut-list contract](cuts.md) freeze format); the **"I've Never Desoldered Anything"**
 title card lands on that freeze, then hard-cut to the setup line. That
 freeze-into-title seam is the pre/post-title boundary.
 
@@ -107,7 +107,7 @@ seam — the format advance over the last video, per
 
 Ordered sections to fill with timestamps after the visual-analysis pass
 ([workflow](workflow.md) step 10). `section` / `tool` are
-[`cut.py`](cut.py) overlay fields. Skeleton JSON staged at
+[cut-list contract](cuts.md) overlay fields. Skeleton JSON staged at
 `~/Developer/soda-edit/2026-06-19-desolder/cutlist-skeleton.json`.
 
 1. **Cold open (payoff)** — clean solder-suck + freeze on cleared board → title

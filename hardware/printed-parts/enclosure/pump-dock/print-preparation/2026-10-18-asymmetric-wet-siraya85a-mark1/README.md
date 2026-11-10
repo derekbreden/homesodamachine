@@ -14,13 +14,7 @@ layers. Temperature, flow, retraction and wipe settings stay in that retained
 recipe. Exterior supports use Tree (auto), Default, including the normal
 sections that Bambu generates automatically.
 
-Archived reproduction command; use the source revision identified by these records:
 
-```sh
-HSM_NO_BUILD_LOCK=1 tools/cad-venv/bin/python \
-  hardware/printed-parts/enclosure/pump-dock/print-preparation/2026-10-18-asymmetric-wet-siraya85a-mark1/prepare.py \
-  --out .cache/pump-dock-engineering/compact-fixed-returns/prepared-wet-parts
-```
 
 Preparation does not contact a printer. Native slicing is opt-in for the exact
 part names passed with `--slice`; `--slice-all` slices every selected project.
@@ -71,3 +65,5 @@ retention or life. Single-object placement and native travel avoidance do not
 prove clean bores. The emitted-path review records opportunities for loose
 strands; a printed inspection remains necessary to establish actual internal
 finish.
+
+The [recorded source](https://github.com/derekbreden/homesodamachine/blob/e50eb3e4372a4d5b70248795469c02ed8d51d2d3/hardware/printed-parts/enclosure/pump-dock/print-preparation/2026-10-18-asymmetric-wet-siraya85a-mark1/prepare.py) defines this artifact's preparation and reading.

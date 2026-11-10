@@ -15,7 +15,7 @@
 // .rodata was — LVGL is handed a real pointer and renders straight out of
 // flash — so this costs no RAM, no load time and no boot delay.
 //
-// The layout is written by `tools/make_art.py`, which reads the same
+// The layout is written by `hsm-marketing make-art`, which reads the same
 // `images/*.h` headers that used to be compiled in. Those headers stay the
 // source; this is how they reach the board.
 //
@@ -41,7 +41,7 @@ struct __attribute__((packed)) BoardArtHeader {
 static_assert(sizeof(BoardArtHeader) == BOARD_ART_HEADER_SIZE, "art header is 32 bytes");
 
 // Map the art partition. Returns a pointer to the first image's pixels, with
-// images laid out back to back in the order `tools/make_art.py` wrote them, or
+// images laid out back to back in the order `hsm-marketing make-art` wrote them, or
 // nullptr if the partition is absent or holds something this build does not
 // recognise. Safe to call more than once.
 const uint16_t *boardArtMap(uint32_t wantCount, uint16_t wantW, uint16_t wantH);

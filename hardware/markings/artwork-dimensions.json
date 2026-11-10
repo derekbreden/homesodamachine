@@ -1,29 +1,9 @@
 {
-  "status": "household design specification; dimensioned fit proof; physical attachment not implemented",
-  "standard": "UL 60335-2-24, second edition, April 28, 2017; EPA SNAP Rule 22",
-  "warning_clauses": {
-    "household-exterior-disposal": [
-      "7.1DV.4.1(d)"
-    ],
-    "household-service": [
-      "7.1DV.4.1(b)",
-      "7.1DV.4.1(c)",
-      "7.1DV.4.1(e)"
-    ]
-  },
-  "service_wording": "Combined equivalent warning; DANGER heading and all substantive instructions retained",
   "body_cap_height_mm": 6.5,
-  "minimum_body_letter_ink_height_mm": 6.49118,
-  "minimum_target_mm": 6.4,
   "font": "Helvetica Bold, macOS Helvetica.ttc face 1; outlined",
   "font_em_mm": 9.031208,
-  "symbol": "ISO 7010 W021",
-  "symbol_triangle_height_mm": 18.0,
   "labels": [
     {
-      "file": "artwork/household-exterior-disposal.svg",
-      "width_mm": 190.0,
-      "height_mm": 71,
       "body_lines": [
         "RISK OF FIRE OR EXPLOSION.",
         "DISPOSE OF PROPERLY IN",
@@ -31,12 +11,13 @@
         "FEDERAL OR LOCAL REGULATIONS.",
         "FLAMMABLE REFRIGERANT USED."
       ],
+      "file": "artwork/household-exterior-disposal.svg",
       "glyph_bounds": [
         [
           "CAUTION",
           6.0,
           9.0,
-          55.59972862957938,
+          55.599728629579374,
           9.525101763907735
         ],
         [
@@ -74,12 +55,11 @@
           153.73337856173677,
           6.8616010854816825
         ]
-      ]
+      ],
+      "height_mm": 71.0,
+      "width_mm": 190.0
     },
     {
-      "file": "artwork/household-service.svg",
-      "width_mm": 190.0,
-      "height_mm": 163,
       "body_lines": [
         "RISK OF FIRE OR EXPLOSION DUE TO",
         "PUNCTURE OF REFRIGERANT TUBING.",
@@ -96,6 +76,7 @@
         "FOLLOW HANDLING INSTRUCTIONS",
         "CAREFULLY."
       ],
+      "file": "artwork/household-service.svg",
       "glyph_bounds": [
         [
           "DANGER",
@@ -211,12 +192,31 @@
         ],
         [
           "ISO 7010 W021",
-          108,
-          6,
+          108.0,
+          6.0,
           20.626432391138273,
           18.0
         ]
-      ]
+      ],
+      "height_mm": 163.0,
+      "width_mm": 190.0
     }
-  ]
+  ],
+  "minimum_body_letter_ink_height_mm": 6.49118,
+  "minimum_target_mm": 6.4,
+  "service_wording": "Combined equivalent warning; DANGER heading and all substantive instructions retained",
+  "standard": "UL 60335-2-24, second edition, April 28, 2017; EPA SNAP Rule 22",
+  "status": "household design specification; dimensioned fit proof; physical attachment not implemented",
+  "symbol": "ISO 7010 W021",
+  "symbol_triangle_height_mm": 18.0,
+  "warning_clauses": {
+    "household-exterior-disposal": [
+      "7.1DV.4.1(d)"
+    ],
+    "household-service": [
+      "7.1DV.4.1(b)",
+      "7.1DV.4.1(c)",
+      "7.1DV.4.1(e)"
+    ]
+  }
 }

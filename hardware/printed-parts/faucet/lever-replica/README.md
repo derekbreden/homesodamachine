@@ -21,7 +21,7 @@ the faucet's finish; [faucet shell assembly](../faucet-shell/ASSEMBLY.md) fits i
 |---|---|
 | [numbers.rs](numbers.rs) | The measured stations and the construction's numbers |
 | [lever_replica.rs](lever_replica.rs) | The construction; writes the STEP, both STLs and the payload |
-| [lever_replica.py](lever_replica.py) | The same construction in CadQuery, for the section-art readers |
+| [lever_replica.rs](/hardware/printed-parts/faucet/lever-replica/lever_replica.rs) | The same construction in CadQuery, for the section-art readers |
 | [lever-replica.step](lever-replica.step) | Accepted analytic solid in the local part frame |
 | [lever-replica.stl](lever-replica.stl) | Accepted mesh in that same frame; source of the viewer payload |
 | [lever-replica-side-down.stl](lever-replica-side-down.stl) | Accepted shape with its right side on the print bed |
@@ -177,8 +177,7 @@ fit changes belong to named contact parameters rather than global scan scaling.
 ## Rebuild
 
 ```sh
-python3 tools/run.py -- cargo run --release -j 2 --manifest-path tools/hsm/Cargo.toml -p hsm-lever-replica
-tools/cad-venv/bin/python hardware/printed-parts/faucet/lever-replica/check_replica.py
+tools/run -- cargo run --release -j 2 --manifest-path tools/hsm/Cargo.toml -p hsm-lever-replica
 tools/hsm/target/release/lever-print-project
 ```
 
@@ -189,3 +188,5 @@ the project. `--variant` picks the machine: `black-h2c` takes Derek's +0.18 mm Z
 shared `petgf.3mf`; the filament colour is physical, on the spool. Neither connects to
 a printer — submission goes through Bambu Connect, driven by `tools/bambu-ax`, and is
 recorded in `print-jobs.json`.
+
+The [nominal replica review source](https://github.com/derekbreden/homesodamachine/blob/d24b111b5d10e1eed4574db786e5ae1d0b96d445/hardware/printed-parts/faucet/lever-replica/check_replica.py) is archived in Git.

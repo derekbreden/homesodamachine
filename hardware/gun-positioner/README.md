@@ -72,9 +72,11 @@ documented as the trigger command.
 From the repository root:
 
 ```sh
-HSM_NO_BUILD_LOCK=1 tools/cad-venv/bin/python hardware/printed-parts/fixtures/pgfun-positioner/build.py
-HSM_NO_BUILD_LOCK=1 tools/cad-venv/bin/python hardware/printed-parts/fixtures/pgfun-positioner/check.py
-python3 firmware/src_pgfun_positioner/make_geometry.py
+tools/run -- cargo build --manifest-path tools/hsm/Cargo.toml --release --locked -j 2 -p hsm-pgfun-positioner
+tools/run -- tools/hsm/target/release/pgfun-positioner
+tools/run -- tools/hsm/target/release/pgfun-check
+tools/run -- tools/hsm/target/release/positioner-view
+hsm-peripheral positioner-geometry
 ```
 
 The firmware header, release image and learned response/trajectory files

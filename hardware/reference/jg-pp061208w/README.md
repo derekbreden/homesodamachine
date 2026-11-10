@@ -1,6 +1,6 @@
 # John Guest PP061208W reducer
 
-Standalone editable reference for the **3/8-inch male stem × 1/4-inch
+Frozen reference for the **3/8-inch male stem × 1/4-inch
 push-connect reducer** captured in the [threaded ASSE chain](../asse1022-threaded-chain/README.md).
 The STEP contains two named solids: `body_and_stem` and `release_collet`.
 The portable STL contains the same two watertight shells.
@@ -63,10 +63,4 @@ distance is **0.055 mm**, the 95th percentile **0.203 mm**, and the maximum
 none is rejected by CAD distance. These are scan/model differences, not
 manufacturing tolerances or measurements of the hidden stem and internals.
 
-Rebuild the standalone reference from the repository root:
-
-```sh
-tools/cad-venv/bin/python hardware/reference/jg-pp061208w/jg_pp061208w.py
-```
-
-Add `--stl /absolute/output/path.stl` to export a portable mesh.
+The model and measurements are retained with their [source derivations](https://github.com/derekbreden/homesodamachine/blob/a518a57a878f02d9ac5b8b638c1c5883cadf6669/hardware/reference/jg-pp061208w/jg_pp061208w.py).

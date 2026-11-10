@@ -106,11 +106,15 @@ binds the STL, project, archive, G-code and emitted process.
 The STEP files are `donor-hold-down.step` in manufacturing orientation
 and `donor-hold-down-fit.step` for the cropped contact view. The slicer
 mesh is [`donor-hold-down-print.stl`](donor-hold-down-print.stl).
+
+The issued payload's [producer source is in Git](https://github.com/derekbreden/homesodamachine/blob/12871f44bf19cebb9563d6b012475cde66e9e9c8/hardware/printed-parts/fixtures/tube-insertion/donor-hold-down/donor_hold_down.py).
+The [native builder](donor_hold_down.rs) regenerates the pad and contact view
+from the fixture and frozen donor datums.
 Generate and slice explicitly from the repository root:
 
 ```sh
-HSM_NO_BUILD_LOCK=1 tools/cad-venv/bin/python hardware/printed-parts/fixtures/tube-insertion/donor-hold-down/donor_hold_down.py
-tools/hsm/target/release/donor-hold-down-print-project --slice-output .cache/donor-hold-down-half-body-native-next
+tools/run --cad -- hsm-manual-guides fixture donor-hold-down
+tools/run -- tools/hsm/target/release/donor-hold-down-print-project --slice-output .cache/donor-hold-down-half-body-native-next
 ```
 
 The slice directory must be empty. These manual operations submit no

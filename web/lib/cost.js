@@ -2,8 +2,7 @@
 //
 // Two rollups, two ledgers:
 //   * PARTS — hardware/ledger/bom.md, keyed by the hidden <!--@TAG--> category
-//     marker and the line cost on each data row (the same tags hardware/scripts/
-//     _bom_categories.py owns and checks).
+//     marker and the line cost on each data row; cost-categories.js names the tags.
 //   * LABOR — hardware/ledger/labor.md, keyed by section, carrying an
 //     attended-minute estimate per operation and the hourly rate they're priced
 //     at. Section subtotals there are written by the BOM program
@@ -59,7 +58,7 @@ function parseCount(qtyCell) {
 // parts — the same SKU used in more than one subsystem, e.g. the PP010822E
 // adapter that appears in §3, §4 and §8 — are AGGREGATED into one line, so the
 // itemization shows the true per-unit quantity (×6) and total ($10.44) instead
-// of three look-alike $3.48 rows. Row selection mirrors _bom_categories.py; qty
+// of three look-alike $3.48 rows. Selection uses the priced, tagged BOM rows; qty
 // is the 3rd-last cell and the line cost the last, except §7's printed-parts
 // table (Part | Qty | Material | Mass | $) whose qty is the second cell. The
 // per-each the VIEW shows is derived as total ÷ quantity — never read from the

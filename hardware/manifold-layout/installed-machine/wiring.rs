@@ -99,6 +99,27 @@ pub fn wiring_request(
     Ok(numbers)
 }
 
+/// Resolves the optional bench manifest and its geometry recipe from the placed physical model.
+pub fn manual_request(root: &Path, spec: &Value, physical_model: &Path) -> Result<(Value, Value)> {
+    let _host = Host::enter(sources::Sources::read(root, spec)?);
+    let rows = measure::summaries(physical_model, None, &solids_read())?;
+    let grouped = readers::request(&Request {
+        op: "model_bodies".into(),
+        data: json!({"rows": rows, "grid": hsm_kernel::GRID}),
+        root: root.into(),
+    })?;
+    let mut scene = json!({});
+    for (name, row) in grouped.as_object().context("the physical model's bodies")? {
+        scene[name] = row[0].clone();
+    }
+    let state = terminals::request(&Request {
+        op: "terminal_resolve".into(),
+        data: json!({"state": terminals::init(&scene)?}),
+        root: root.into(),
+    })?;
+    build::numeric(root, &state)
+}
+
 /// The bodies whose separate solids the terminals read, under both names the model may give
 /// them: the valves' and coils' spade tabs and the compressor's power cover.
 fn solids_read() -> BTreeSet<String> {

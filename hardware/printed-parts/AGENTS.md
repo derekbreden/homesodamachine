@@ -17,7 +17,7 @@ Before the first rebuild of an enclosure geometry change, take its
 
 Build and publish through the normal print build, with the selected Bazel targets:
 
-    python3 tools/run.py -- python3 tools/print_build.py //:enclosure-back-top
+    tools/run -- hsm-print-build -- //:enclosure-back-top
 
 Multiple target labels select related parts together. With no labels this runs the normal
 print build. It resolves generator programs and dependencies, carries their completed outputs,
@@ -36,9 +36,12 @@ assembly producer when changing their installation; the publisher retains the in
 After the publish is live — never before, and never as a gate in the build path — lint the
 piece you changed and fix what it flags while Derek is already looking:
 
-    tools/cad-venv/bin/python hardware/scripts/geometry_lint.py <piece>.stl
+    tools/run -- tools/hsm/target/release/geometry-lint <piece>.stl
 
-Findings print as pick text: paste one into the /3d Find box, or feed it to `pick_read.py`.
+The [native review command](../../tools/hsm/mesh-review/README.md) reads the saved print mesh
+and optional exact-facet source binding; it starts no geometry build.
+
+Findings print as pick text: paste one into the /3d Find box, or feed it to `hsm-pick read`.
 Answers live in `lint-answers/`, at each piece's own path; its AGENTS.md says when a finding is
 answered instead of fixed. A defect fixed at one station usually has siblings; the lint's job is
 to find them before Derek does.
@@ -57,8 +60,8 @@ The physical print is the part. The files answer different questions about it:
   and their placements. Picks name the displayed payload and its digest.
 - `hsm where`, `gap`, `section` and `ray` answer questions about those exported meshes without
   rebuilding them. A source edit reaches a query after its producer writes the new payload.
-- `hardware/scripts/pick_text.py` composes pick text from geometry;
-  `hardware/scripts/pick_read.py` locates pasted pick text on the available representations.
+- [`hsm-pick compose`](../../tools/hsm/inspection/README.md) composes typed numeric picks;
+  `hsm-pick read` locates pasted pick text on the available representations.
 
 That last reading is a LOCATION AND NOT A VERDICT. The payload's tolerance is a distance
 bound, so a feature shorter than it is collapsed and bridged while the reading never leaves
@@ -68,6 +71,17 @@ cannot be printed at it either. A surface comparison says where a thing shows up
 settles whether what somebody saw in the viewer was there.
 
 ## Supports
+
+PET-GF uses Support D's contact and bridge settings from the shared
+[`petgf.3mf`](petgf.3mf). Current preparers inherit those settings even when
+their other settings come from an accepted older print. Keep embedded filament
+bridge speeds consistent with the project. The
+[rollout record](support-D-rollout.json) identifies the current projects and
+their slice status. Historical print archives retain their original settings.
+Support D selects contact and interface treatment; each part retains its
+support style, rooting, removal access, authored fins and support-free regions.
+Check the actual emitted contact planes and underside recovery paths when
+preparing a part. Coupon acceptance does not establish full-part removal.
 
 Use Tree (auto) with the saved Bambu default style for accessible exterior
 features. Enclosed cavities must not contain rectangular normal supports,

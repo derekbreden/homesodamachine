@@ -242,8 +242,7 @@ candidate. The audit reads the native archives; neither script sends a job or
 communicates with a printer.
 The current ordinary-transition candidate and both bottom pieces are prepared
 through [the normal-layer workflow](../layer-policy-correction/README.md).
-`prepare_cartridge_pair.py --slice` with an unused `--revision` number also
-applies the current layer policy to a fresh combined Mark2 candidate. `prepare_prints.py` prepares
+The [combined-cartridge preparation source](https://github.com/derekbreden/homesodamachine/blob/d24b111b5d10e1eed4574db786e5ae1d0b96d445/hardware/printed-parts/enclosure/enclosure/magnet-retention/prepare_cartridge_pair.py) is archived in Git. `prepare_prints.py` prepares
 independent single-part candidates. Projects and archives named in a preparation
 record are immutable. The queue retains the completed combined Mark2 v4 and unsubmitted independent
 front-top H2C v3 identities. The [v18 launch receipt](../support-bottom-gap/h2c-v18-launch.json)

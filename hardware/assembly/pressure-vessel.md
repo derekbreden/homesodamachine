@@ -121,7 +121,7 @@ tilt and free travel require physical qualification before closure. See
 
 The green 16 AWG carbonator earth lead clamps directly to the existing upper
 vessel rim. Its radial M3 × 0.5 attachment is defined by
-[`_carbonator_bond.py`](/hardware/cold-core-layout/_carbonator_bond.py).
+[`numbers.rs`](/hardware/cold-core-layout/carbonator/numbers.rs).
 
 Locate the nominal hole center **3.5 mm above the top plate's outside face**,
 **2.85 mm below the tube's upper end**. Its azimuth is **64.20° counterclockwise

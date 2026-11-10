@@ -28,3 +28,5 @@ corner (the back of the bend) sits at **Y = Z = −7.37**, and the body is
 Accepts 1/4" (6.35 mm) OD tube; the 1/4" bore radius is 3.175 mm, the collet
 outer radius 7.366 mm. A tube pushed into either leg runs **15.75 mm** before it
 bottoms on the socket's own stop.
+
+The source derivations are preserved at their recorded revision: [elbow_connector.py](https://github.com/derekbreden/homesodamachine/blob/a518a57a878f02d9ac5b8b638c1c5883cadf6669/hardware/reference/elbow-connector/elbow_connector.py).

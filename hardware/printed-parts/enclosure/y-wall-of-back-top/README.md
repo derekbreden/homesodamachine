@@ -3,7 +3,7 @@
 The rear connection face is part of `enclosure-back-top`, printed in PET-GF.
 [above-core.json](/hardware/manifold-layout/above-core.json) supplies the native
 fluid and dry-connector stations;
-[_above_core_shell.py](/hardware/printed-parts/enclosure/enclosure/_above_core_shell.py)
+[rear.rs](/hardware/printed-parts/enclosure/enclosure/back-top/rear.rs)
 cuts the wall and supports. The face manages connections. Each purchased
 bulkhead seals the fluid around its tube; the printed wall carries its flange
 and panel nut.

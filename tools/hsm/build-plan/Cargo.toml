@@ -7,10 +7,15 @@ rust-version.workspace = true
 publish = false
 
 [[bin]]
-name = "build-plan"
+name = "hsm-build-plan"
 path = "src/main.rs"
 
 [dependencies]
 anyhow.workspace = true
+serde.workspace = true
 serde_json.workspace = true
-hsm-documents = { path = "../documents" }
+sha2.workspace = true
+regex = "1"
+libc = "0.2"
+hsm-build-data = { path = "../build-data" }
+hsm-run-slots = { path = "../run-slots" }

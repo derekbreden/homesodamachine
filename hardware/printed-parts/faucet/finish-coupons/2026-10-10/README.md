@@ -35,7 +35,7 @@ faucet archive at the same print height. B halves that command; C raises it to
 at least 70%. The treatment is confined to model deposition at Z13.40–29.00 mm.
 Support deposition, brims and the other heights retain native cooling.
 Native motion, extrusion, feedrates, heater commands and other fans are unchanged.
-`finish.py` applies these explicit fan commands and updates the archive checksum.
+[finish.py](https://github.com/derekbreden/homesodamachine/blob/e50eb3e4372a4d5b70248795469c02ed8d51d2d3/hardware/printed-parts/faucet/finish-coupons/2026-10-10/finish.py) applies these explicit fan commands and updates the archive checksum.
 Re-slicing the editable project alone does not reproduce this comparison.
 
 The neck specimens are cut at parent print Z82–120 mm, with a print-horizontal
@@ -81,10 +81,8 @@ surface above the fine-layer transition, including any broader scarf depression.
 Timelapse can show when a visible change appears, but cannot establish contact
 forces or bond strength.
 
-Generate with `tools/cad-venv/bin/python prepare.py`; use the saved slice command,
-then `python3 finish.py`. Preparation, native review, exact archive hashes and
-the one foreground launch receipt are recorded beside this file. No automatic
-resume or scheduled monitoring is authorized.
+Preparation, native review, exact archive hashes and the single foreground
+launch receipt identify the submitted artifact beside this file.
 
 Mark2 accepted this exact plate as task **1327799013** at **6:45:52 pm CDT
 October 10, 2026**. The native duration projects completion at **2:13:55 am CDT
