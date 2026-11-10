@@ -1,0 +1,195 @@
+{
+  "mating_fit": {
+    "frame": "Untranslated production crops without labels",
+    "overlap_mm3": 0.0
+  },
+  "spec": {
+    "column_x_mm": [
+      162.5
+    ],
+    "common_object_settings": {
+      "sparse_infill_density": "100%",
+      "sparse_infill_pattern": "zig-zag",
+      "support_interface_spacing": "0",
+      "support_interface_top_layers": "3",
+      "support_on_build_plate_only": "0",
+      "support_style": "default",
+      "support_top_z_distance": "0.24",
+      "tree_support_branch_angle": "20"
+    },
+    "families": [
+      {
+        "actual_crop_min_z_mm": 156.95999999996275,
+        "column_x_mm": [
+          145.0
+        ],
+        "crop_max_mm": [
+          -90.75,
+          100.0,
+          174.8
+        ],
+        "crop_min_mm": [
+          -110.5,
+          70.0,
+          156.96
+        ],
+        "feature": "enclosure-front-bottom::west-z-rail",
+        "growth_setting_basis": "Production front-bottom rail tree style and branch angle keep the support rooted on the cavity floor. D contact spacing, interface count, requested gap, bridge flow, bridge speed, temperatures and cooling are retained. Production rail solid-stock settings are retained.",
+        "id": "R",
+        "label_center_world_mm": [
+          -98.625,
+          85.0,
+          174.8
+        ],
+        "name": "Complete rail cavity",
+        "production_bed_world_z_mm": -6.0,
+        "retains": "The complete floor, arm, catch overhang, roof stock and open sliding/removal mouth across the selected rail section.",
+        "row_y_mm": 160.0,
+        "settings": {},
+        "source": "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.stl",
+        "source_arm_outer_x_mm": -93.75,
+        "source_catch_top_z_mm": 174.8,
+        "source_catch_z_mm": 169.2,
+        "source_cavity_floor_z_mm": 160.0,
+        "source_cavity_inner_x_mm": -98.25,
+        "source_lip_x_mm": -103.5,
+        "source_sha256": "7eb9455df0f38d96e9edd78384e98b5ac11a2dbfbb43dacf7eab3a378d1360a6",
+        "target_support_root": "model"
+      },
+      {
+        "actual_crop_min_z_mm": 160.25,
+        "column_x_mm": [
+          180.0
+        ],
+        "crop_max_mm": [
+          -90.25,
+          100.0,
+          183.36
+        ],
+        "crop_min_mm": [
+          -110.5,
+          70.0,
+          160.25
+        ],
+        "feature": "enclosure-front-top::west-z-rail",
+        "id": "M",
+        "label_center_world_mm": [
+          -99.5,
+          85.0,
+          183.36
+        ],
+        "minimum_added_crop_stock_mm": 3.0,
+        "name": "Matching front-top rail and wall",
+        "production_bed_world_z_mm": 160.25,
+        "retains": "The complete mating foot, channel, outside wall and stock beyond the channel roof and inboard wall.",
+        "row_y_mm": 160.0,
+        "settings": {},
+        "source": "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl",
+        "source_channel_far_x_mm": -93.25,
+        "source_channel_open_x_mm": -103.75,
+        "source_channel_peak_z_mm": 180.3,
+        "source_channel_shoulder_z_mm": 175.05,
+        "source_foot_bottom_z_mm": 160.25,
+        "source_foot_face_x_mm": -98.5,
+        "source_foot_top_z_mm": 168.7,
+        "source_sha256": "0c68361aa05168a087ba9208a0d59d500f3dbf375cb6c1515eec01d601beb26a"
+      }
+    ],
+    "interface_spacing_mm": {
+      "D": 0.0
+    },
+    "label_height_mm": 0.48,
+    "profile": "hardware/print-tests/petgf-dense-roofs/close-contact/2026-11-09-close-contact-DEF-left04-z018-mark1.3mf",
+    "purpose": "Preserve the complete production rail and its matching enclosure wall section as a sliding fit pair."
+  },
+  "specimens": [
+    {
+      "bounds_mm": [
+        [
+          -110.49906921386719,
+          70.0,
+          0.0
+        ],
+        [
+          -90.75,
+          100.0,
+          18.320000000298023
+        ]
+      ],
+      "condition": "D",
+      "family": "R",
+      "id": "RD",
+      "solids": 1,
+      "volume_mm3": 4580.874107846502,
+      "watertight": true,
+      "world_z_to_print_z_mm": -156.95999999996275,
+      "stl_sha256": "094c501e43c487c806072ddbda032a6e5a67f6ff69aeee7a44bbe8b6ca3060c0",
+      "position_mm": [
+        145.0,
+        160.0,
+        9.15999984741211
+      ],
+      "identify_id": 1901,
+      "native_object_settings": {
+        "name": "RD Complete rail cavity",
+        "extruder": "1",
+        "support_type": "tree(auto)",
+        "support_interface_top_layers": "3",
+        "support_top_z_distance": "0.24",
+        "support_interface_spacing": "0",
+        "sparse_infill_density": "100%",
+        "sparse_infill_pattern": "zig-zag",
+        "support_on_build_plate_only": "0",
+        "support_style": "default",
+        "tree_support_branch_angle": "20"
+      }
+    },
+    {
+      "bounds_mm": [
+        [
+          -110.49906921386719,
+          70.0,
+          0.0
+        ],
+        [
+          -90.25,
+          100.0,
+          23.590000000260773
+        ]
+      ],
+      "condition": "D",
+      "family": "M",
+      "id": "MD",
+      "solids": 1,
+      "volume_mm3": 7821.579226440179,
+      "watertight": true,
+      "world_z_to_print_z_mm": -160.25,
+      "stl_sha256": "97a7042f500e81770d2f3653f5c84bad1d075c8b07fe0b8decd0faacb49bb383",
+      "position_mm": [
+        180.0,
+        160.0,
+        11.795000076293945
+      ],
+      "identify_id": 1902,
+      "native_object_settings": {
+        "name": "MD Matching front-top rail and wall",
+        "extruder": "1",
+        "support_type": "tree(auto)",
+        "support_interface_top_layers": "3",
+        "support_top_z_distance": "0.24",
+        "support_interface_spacing": "0",
+        "sparse_infill_density": "100%",
+        "sparse_infill_pattern": "zig-zag",
+        "support_on_build_plate_only": "0",
+        "support_style": "default",
+        "tree_support_branch_angle": "20"
+      }
+    }
+  ],
+  "project": "2026-11-09-rail-fit-pair-30-D-left04-z018-mark1.3mf",
+  "project_sha256": "09607613e8d1fd93776f9d10a798224d100c87d3e2a4dd4daaaecc166ea17ba6",
+  "profile_sha256": "54ae81a8f3714d4e284a6c14c2fba2b97b680f0a29c0b6a3fc732cc7c505a69b",
+  "source_definition_sha256": "c80ea320df5b9fc1be5a4ae7779a145331a2d5c28c810c25ef3bf2b6b30759e4",
+  "crop_source_sha256": "1aff43360b2a6df5ae4fe2ad6fb6f6ea52103df9367ebba5f0af4cfa9130b169",
+  "status": "Prepared offline; no printer submission"
+}
