@@ -1,0 +1,202 @@
+{
+  "ceiling_bottom_mm": 3.08,
+  "connection_key": "H2C",
+  "depth_mm": 24.0,
+  "first_layer_mm": 0.2,
+  "interface_layers": 3,
+  "interface_pattern": "auto",
+  "label_height_mm": 0.48,
+  "layer_height_mm": 0.24,
+  "material": "Polymaker Fiberon PET-GF15",
+  "nozzle": "left hardened Standard",
+  "nozzle_diameter_mm": 0.4,
+  "plate": "Textured PEI Plate",
+  "printer": "Mark1",
+  "process_overrides": {
+    "bridge_flow": "1.25",
+    "bridge_speed": [
+      "15",
+      "15",
+      "15",
+      "15",
+      "15"
+    ],
+    "filament_bridge_speed": [
+      "15"
+    ],
+    "support_interface_spacing": "0",
+    "support_interface_top_layers": "3",
+    "support_style": "tree_slim"
+  },
+  "profile": "hardware/print-tests/petgf-dense-roofs/2026-11-09-dense-roofs-left04-z018-mark1.3mf",
+  "purpose": "Compare tighter contact gaps on solid support interfaces with the selected bridge flow and speed.",
+  "requested_top_z_distance_mm": 0.24,
+  "roof_thickness_mm": 1.2,
+  "specimens": [
+    {
+      "geometry": {
+        "bodies": [
+          {
+            "area": 1707.6665260335826,
+            "max": [
+              12.0,
+              12.0,
+              4.760000000260771
+            ],
+            "min": [
+              -12.0,
+              -12.0,
+              0.0
+            ],
+            "name": "roof-D",
+            "triangles": 588,
+            "volume": 1048.5217489834467
+          }
+        ],
+        "files": [
+          "roof-D.step",
+          "roof-D.step.npz",
+          "roof-D.step.mesh",
+          "roof-D.stl"
+        ]
+      },
+      "id": "D",
+      "interface_spacing_mm": 0.0,
+      "position_mm": [
+        126.0,
+        165.0,
+        2.38
+      ],
+      "settings": {
+        "support_top_z_distance": "0.24"
+      },
+      "stl_sha256": "1f2682fa5918dbd251cb031310bcd62e7395e6992d196ad67a9bdbe94554786c",
+      "bounds_mm": [
+        [
+          -12.0,
+          -12.0,
+          0.0
+        ],
+        [
+          12.0,
+          12.0,
+          4.760000228881836
+        ]
+      ],
+      "watertight": true
+    },
+    {
+      "geometry": {
+        "bodies": [
+          {
+            "area": 1707.970560029494,
+            "max": [
+              12.0,
+              12.0,
+              4.760000000260771
+            ],
+            "min": [
+              -12.0,
+              -12.0,
+              0.0
+            ],
+            "name": "roof-E",
+            "triangles": 76,
+            "volume": 1048.3284019757264
+          }
+        ],
+        "files": [
+          "roof-E.step",
+          "roof-E.step.npz",
+          "roof-E.step.mesh",
+          "roof-E.stl"
+        ]
+      },
+      "id": "E",
+      "interface_spacing_mm": 0.0,
+      "position_mm": [
+        160.0,
+        165.0,
+        2.38
+      ],
+      "settings": {
+        "support_top_z_distance": "0.12"
+      },
+      "stl_sha256": "a2a3dca73f028a388422aff6935893d03d076ff07eefee642fc04808e0d32b1a",
+      "bounds_mm": [
+        [
+          -12.0,
+          -12.0,
+          0.0
+        ],
+        [
+          12.0,
+          12.0,
+          4.760000228881836
+        ]
+      ],
+      "watertight": true
+    },
+    {
+      "geometry": {
+        "bodies": [
+          {
+            "area": 1706.188800029802,
+            "max": [
+              12.0,
+              12.0,
+              4.760000000260771
+            ],
+            "min": [
+              -12.0,
+              -12.0,
+              0.0
+            ],
+            "name": "roof-F",
+            "triangles": 68,
+            "volume": 1047.8616269362944
+          }
+        ],
+        "files": [
+          "roof-F.step",
+          "roof-F.step.npz",
+          "roof-F.step.mesh",
+          "roof-F.stl"
+        ]
+      },
+      "id": "F",
+      "interface_spacing_mm": 0.0,
+      "position_mm": [
+        194.0,
+        165.0,
+        2.38
+      ],
+      "settings": {
+        "support_top_z_distance": "0.06"
+      },
+      "stl_sha256": "f49b5d506fe1af36b39e6d6a390056043482ef0cda65f45519a6f01c64dfe023",
+      "bounds_mm": [
+        [
+          -12.0,
+          -12.0,
+          0.0
+        ],
+        [
+          12.0,
+          12.0,
+          4.760000228881836
+        ]
+      ],
+      "watertight": true
+    }
+  ],
+  "total_height_mm": 4.76,
+  "wall_mm": 1.68,
+  "width_mm": 24.0,
+  "z_trim_mm": 0.18,
+  "project": "2026-11-09-close-contact-DEF-left04-z018-mark1.3mf",
+  "project_sha256": "54ae81a8f3714d4e284a6c14c2fba2b97b680f0a29c0b6a3fc732cc7c505a69b",
+  "source_profile_sha256": "01aee1611a098a6522390d8465e247faada0f349322b3f7d1734820d713323a6",
+  "mesh_template": "hardware/print-tests/petgf-interface-patterns/interface-patterns.3mf",
+  "source_code_sha256": "0d59b69f2b88ff196dd2f1396f8779419b187319c3ce2229c37afd05912cab1a"
+}

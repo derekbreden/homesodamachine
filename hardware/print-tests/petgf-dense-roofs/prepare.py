@@ -24,7 +24,7 @@ def main():
     args = parser.parse_args()
     recipe = json.loads((HERE/'parts/geometry.json').read_text())
     profile = ROOT/recipe['profile']
-    template = HERE.parent/'petgf-interface-patterns/interface-patterns.3mf'
+    template = ROOT/'hardware/print-tests/petgf-interface-patterns/interface-patterns.3mf'
     with zipfile.ZipFile(profile) as archive:
         settings = json.loads(archive.read('Metadata/project_settings.config'))
         members = {n: archive.read(n) for n in archive.namelist()
@@ -59,6 +59,7 @@ def main():
                     printer_settings_id=identity, print_compatible_printers=compatible,
                     enable_support='1', brim_type='no_brim', skirt_loops='0',
                     filament_colour=['#000000'], filament_map=['1'], filament_map_mode='Manual')
+    settings.update(recipe.get('process_overrides',{}))
     resources = model.find(f'{{{CORE}}}resources')
     build = model.find(f'{{{CORE}}}build')
     plate = config.find('plate')
@@ -108,6 +109,7 @@ def main():
                   'support_interface_top_layers':str(recipe['interface_layers']),
                   'support_interface_pattern':recipe['interface_pattern'],
                   'support_interface_spacing':str(specimen['interface_spacing_mm'])}
+        values.update(specimen.get('settings',{}))
         for key,value in values.items():
             ET.SubElement(obj,'metadata',{'key':key,'value':value})
         ET.SubElement(obj,'metadata',{'face_count':str(len(mesh.faces))})
