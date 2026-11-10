@@ -3,7 +3,7 @@
 use hsm_enclosure_numbers::field::{Field, Rail};
 use crate::plan::Bounds;
 use anyhow::{Context, Result, ensure};
-use manifold_csg::Manifold;
+use hsm_manifold::Manifold;
 use serde_json::json;
 use std::collections::HashMap;
 

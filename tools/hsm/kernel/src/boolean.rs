@@ -169,7 +169,7 @@ mod backend {
     use crate::rule::{LINEAR, TOLERANCE};
     use crate::solid::{Solid, canonical};
     use anyhow::{Result, anyhow, ensure};
-    use manifold_csg::{Manifold, MeshGL64, MeshGL64Options, OpType, reserve_ids};
+    use hsm_manifold::{Manifold, MeshGL64, MeshGL64Options, OpType, reserve_ids};
 
     /// A solid as Manifold holds it, and the face each run's original id stands for.
     #[derive(Clone)]

@@ -2,7 +2,7 @@
 use crate::plan::{Bounds, Flange, FlankVents, HandholdAir, P2, P3, Seg as PlanSeg, Step};
 use anyhow::{Result, ensure};
 use hsm_kernel::*;
-use manifold_csg::Manifold;
+use hsm_manifold::Manifold;
 use std::f64::consts::PI;
 use std::panic::Location;
 
@@ -657,7 +657,7 @@ pub fn print_stl_with_features(shape: &Manifold) -> (Vec<u8>, crate::presentatio
     (stl_mesh(&mesh), crate::presentation::Features { records: records.into_iter().map(|f| f.json()).collect(), triangles })
 }
 
-fn stl_mesh(mesh: &manifold_csg::MeshGL) -> Vec<u8> {
+fn stl_mesh(mesh: &hsm_manifold::MeshGL) -> Vec<u8> {
     let (v, props, t) = (mesh.vert_properties(), mesh.num_prop(), mesh.tri_verts());
     let mut out = Vec::with_capacity(84 + t.len() / 3 * 50);
     let mut header = [b' '; 80];

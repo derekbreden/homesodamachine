@@ -15,7 +15,7 @@ hsm-enclosure-numbers = { path = "../enclosure-numbers" }
 hsm-geometry = { path = "../geometry" }
 hsm-kernel = { path = "../kernel" }
 hsm-print-payload = { path = "../print-payload" }
-manifold-csg = { version = "0.4.1", default-features = false, features = ["parallel"] }
+hsm-manifold = { path = "../manifold" }
 serde = { workspace = true, features = ["derive"] }
 serde_json = { workspace = true, features = ["float_roundtrip"] }
 sha2.workspace = true

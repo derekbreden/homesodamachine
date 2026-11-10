@@ -212,8 +212,8 @@ pub fn fabrication_copy(s:&Solid,kind:&'static str)->Result<Solid> {
     // can simplify at the unchanged kernel rule before f32 serialization.
     let positions=s.verts().iter().flat_map(|p|p.to_array()).collect::<Vec<_>>();
     let indices=s.tris().iter().flatten().map(|&i|i as u64).collect::<Vec<_>>();
-    let mesh=manifold_csg::MeshGL64::new(&positions,3,&indices)?;
-    let normalized=manifold_csg::Manifold::from_meshgl64(&mesh)?.as_original().simplify(hsm_kernel::rule::TOLERANCE);
+    let mesh=hsm_manifold::MeshGL64::new(&positions,3,&indices)?;
+    let normalized=hsm_manifold::Manifold::from_meshgl64(&mesh)?.as_original().simplify(hsm_kernel::rule::TOLERANCE);
     normalized.status()?;
     let(v,stride,t)=normalized.to_mesh_f64();
     let v=v.chunks_exact(stride).map(|p|v3(p[0],p[1],p[2])).collect::<Vec<_>>();

@@ -31,6 +31,6 @@ anyhow.workspace = true
 hsm-geometry = { path = "../geometry" }
 hsm-kernel = { path = "../kernel" }
 hsm-zone-c-numbers = { path = "../zone-c-numbers" }
-manifold-csg = { version = "0.4.1", default-features = false, features = ["parallel"] }
+hsm-manifold = { path = "../manifold" }
 serde_json.workspace = true
 sha2.workspace = true

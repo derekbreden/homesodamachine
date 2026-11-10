@@ -1,7 +1,7 @@
 //! BVH distance, ray and section queries, and Manifold volume intersections.
 use crate::payload::Mesh;
 use anyhow::{Result, anyhow, ensure};
-use manifold_csg::{Manifold, MeshGL64};
+use hsm_manifold::{Manifold, MeshGL64};
 use parry3d_f64::{
     bounding_volume::BoundingVolume,
     math::{Isometry, Point, Vector},

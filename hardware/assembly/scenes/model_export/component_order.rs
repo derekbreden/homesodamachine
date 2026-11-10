@@ -51,8 +51,7 @@ pub fn in_frame(solid: &Solid, frame: &[[f64; 4]; 3]) -> Result<Vec<Solid>> {
     let mut remaining: Vec<Option<Solid>> = parts.into_iter().map(Some).collect();
     let mut result = Vec::new();
     for part in native_parts {
-        let b = part.bounding_box().context("component bounds")?;
-        let (lo, hi) = (b.min(), b.max());
+        let (lo, hi) = part.bounds().context("component bounds")?;
         let best = remaining
             .iter()
             .enumerate()

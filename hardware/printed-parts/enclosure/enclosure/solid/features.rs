@@ -1,7 +1,7 @@
 //! Print conversions preserve construction identities through Manifold's existing operand runs.
 use anyhow::Result;
 use hsm_kernel::{Face, Solid, Surface, feature::Feature};
-use manifold_csg::{Manifold, MeshGL, MeshGLOptions, reserve_ids};
+use hsm_manifold::{Manifold, MeshGL, MeshGLOptions, reserve_ids};
 use std::{collections::{BTreeMap, HashMap}, sync::{Mutex, OnceLock}};
 
 static RUNS: Mutex<BTreeMap<u32, &'static Feature>> = Mutex::new(BTreeMap::new());
