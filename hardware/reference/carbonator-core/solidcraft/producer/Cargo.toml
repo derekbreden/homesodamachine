@@ -8,6 +8,8 @@ publish = false
 
 [dependencies]
 serde_json = { version = "=1.0.154", features = ["float_roundtrip"] }
+sha2 = "=0.10.9"
+zip = { version = "=9.5.0", default-features = false, features = ["deflate"] }
 hsm-carbonator-numbers = { path = "../../../../../tools/hsm/carbonator-numbers" }
 hsm-carbonator-tube-numbers = { path = "../../../../../tools/hsm/carbonator-tube-numbers" }
 hsm-endcap-circular-numbers = { path = "../../../../../tools/hsm/endcap-circular-numbers" }

@@ -1,7 +1,7 @@
 // The reference viewer picks components and opens their saved displays without starting native authoring.
 import * as THREE from 'three';
-import {GLTFLoader} from 'three/addons/loaders/GLTFLoader.js';
 import {createNavigation} from '/js/viewer/navigation.js';
+import {readNativeDisplay} from './native-display.js';
 
 export async function createPreview(host,config,load,{onSelect=()=>{}}={}){
   const renderer=new THREE.WebGLRenderer({antialias:true,powerPreference:'low-power'});
@@ -18,7 +18,8 @@ export async function createPreview(host,config,load,{onSelect=()=>{}}={}){
   scene.add(root,selectionOverlay,hoverOverlay);
   const clipping=new THREE.Plane(new THREE.Vector3(1,0,0),0);
   const material=new THREE.MeshStandardMaterial({color:0xffffff,vertexColors:true,metalness:.35,roughness:.38,side:THREE.DoubleSide});
-  const loader=new GLTFLoader(),geometries=new Map(),edges=new Map();
+  const geometries=new Map(),edges=new Map(),embedded=new Map();
+  let displayMode='native',activeDisplays=[];
   let route={path:['parent'],count:1},manifest,exploded=false,section=false,selected=null,hovered=null;
   let hidden=new Set(),drawQueued=false,visible=true,draws=0,navigation;
   let firstDraw;const ready=new Promise(resolve=>firstDraw=resolve);
@@ -32,9 +33,14 @@ export async function createPreview(host,config,load,{onSelect=()=>{}}={}){
     if(root.children.length){firstDraw?.();firstDraw=null;}
     if(moving)invalidate();
   }
-  async function geometry(url,label){
+  async function geometry(node){
+    const display=displayMode==='native'?node.display:{url:node.preview,kind:'packed-preview'};
+    const {url,kind}=display,label=node.label+' · '+(kind==='saved-preview'||kind==='assembly-preview'?'SolidCraft saved display':kind==='native-export'?'SolidCraft mesh export':'packed comparison');
     if(!geometries.has(url))geometries.set(url,(async()=>{
-      const bytes=await load(url,'display',label),gltf=await loader.parseAsync(bytes,location.origin+'/');
+      const bytes=embedded.get(display.file)||await load(url,kind,label);
+      if(kind!=='packed-preview')return readNativeDisplay(bytes,kind,{onEmbedded:(file,bytes)=>embedded.set(file,bytes)});
+      const {GLTFLoader}=await import('three/addons/loaders/GLTFLoader.js');
+      const gltf=await new GLTFLoader().parseAsync(bytes,location.origin+'/');
       gltf.scene.updateMatrixWorld(true);let result;
       gltf.scene.traverse(node=>{if(node.isMesh){result=node.geometry.clone().applyMatrix4(node.matrixWorld);
         if(!result.getAttribute('color')){
@@ -102,9 +108,10 @@ export async function createPreview(host,config,load,{onSelect=()=>{}}={}){
     const parent=route.path.length===1;
     const base=new THREE.Matrix4().fromArray(children.world.flat());
     clipping.constant=-base.elements[12];
-    if(parent&&!moduleGeometry)moduleGeometry=await geometry(config.nodes.instrumented.preview,'Instrumented carbonator saved exterior');
+    if(parent&&!moduleGeometry)moduleGeometry=await geometry(config.nodes.instrumented);
     const parts=parent?[]:children.items;
-    const shapes=await Promise.all(parts.map(async item=>[item,await geometry(config.nodes[item.node].preview,config.nodes[item.node].label+' saved shape')]));
+    const shapes=await Promise.all(parts.map(async item=>[item,await geometry(config.nodes[item.node])]));
+    activeDisplays=[...new Set(parent?['instrumented']:parts.map(item=>item.node))].map(key=>({node:key,...(displayMode==='native'?config.nodes[key].display:{url:config.nodes[key].preview,kind:'packed-preview'})}));
     clearMeshes();
     if(parent){
       const instances=new THREE.InstancedMesh(moduleGeometry,material,route.count);
@@ -181,6 +188,7 @@ export async function createPreview(host,config,load,{onSelect=()=>{}}={}){
   const {width,height}=host.getBoundingClientRect();renderer.setSize(width,height,false);camera.aspect=width/height;camera.updateProjectionMatrix();navigation.resize();
   return {
     ready,show,fit,invalidate,
+    mode(value){displayMode=value;moduleGeometry=null;},
     select(id){selected=id;hovered=null;overlays();},
     hide(id){setHidden(id,true);},showHidden(id){setHidden(id,false);},
     section:setSection,
@@ -196,7 +204,7 @@ export async function createPreview(host,config,load,{onSelect=()=>{}}={}){
       overlays();fit();
     },
     visible(value){visible=value;navigation.controls.enabled=value;if(value){navigation.resetFrameClock();invalidate();}},
-    stats(){return {calls:renderer.info.render.calls,triangles:renderer.info.render.triangles,count:route.path.length===1?route.count:1,expanded:route.path.length>1,path:[...route.path],selected,hidden:[...hidden],geometries:renderer.info.memory.geometries,draws,camera:{position:camera.position.toArray(),up:camera.up.toArray(),target:controls.target.toArray()}};},
+    stats(){return {mode:displayMode,displays:activeDisplays.map(d=>({...d})),calls:renderer.info.render.calls,triangles:renderer.info.render.triangles,count:route.path.length===1?route.count:1,expanded:route.path.length>1,path:[...route.path],selected,hidden:[...hidden],geometries:renderer.info.memory.geometries,draws,camera:{position:camera.position.toArray(),up:camera.up.toArray(),target:controls.target.toArray()}};},
     dispose(){resize.disconnect();navigation.dispose();clearOverlay(selectionOverlay);clearOverlay(hoverOverlay);for(const value of geometries.values())value.then(shape=>shape.dispose());for(const shape of edges.values())shape.dispose();material.dispose();renderer.dispose();renderer.domElement.remove();},
   };
 }

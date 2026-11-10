@@ -8,6 +8,7 @@ root = Path(__file__).resolve().parent
 repo = root.parents[3]
 web = repo / 'web/public/solidcraft-lab/carbonator'
 native = root / 'native'
+displays = json.loads((web / 'assets/native/index.json').read_text())['models']
 labels = {
     'vessel-tube': 'Prepared carbonator tube', 'machined-cap': 'Machined endcap',
     'guide-rod': 'Float guide rod', 'upper-stop': 'Upper float stop',
@@ -65,6 +66,8 @@ for key, model in models.items():
             'description': model.get('metadata',{}).get('description',''),
             'native':f'/labs/solidcraft/carbonator/native/{key}',
             'preview':f'/solidcraft-lab/carbonator/assets/{name}.glb?v={version}'}
+    display = displays[name]
+    node['display'] = {**display, 'url':f'/solidcraft-lab/carbonator/assets/native/{display["file"]}?v={display["sha256"][:16]}'}
     if key in parameters: node['parameters'] = parameters[key]
     if key in fits: node['fit'] = fits[key]
     if key in refs: node.update(reference=True, omit=omit.get(key,[]))
