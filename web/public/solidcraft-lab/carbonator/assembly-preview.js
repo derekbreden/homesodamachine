@@ -3,7 +3,7 @@ import * as THREE from 'three';
 import {createNavigation} from '/js/viewer/navigation.js';
 import {readNativeDisplay} from './native-display.js';
 
-export async function createPreview(host,config,load,{onSelect=()=>{},readDisplay=readNativeDisplay}={}){
+export async function createPreview(host,config,load,{onSelect=()=>{},readDisplay=readNativeDisplay,fitDirection=()=>[1.1,-1.6,.85]}={}){
   const renderer=new THREE.WebGLRenderer({antialias:true,powerPreference:'low-power'});
   renderer.setPixelRatio(Math.min(devicePixelRatio,2));renderer.setClearColor('#292e37');
   renderer.localClippingEnabled=true;renderer.toneMapping=THREE.ACESFilmicToneMapping;renderer.toneMappingExposure=1.2;
@@ -136,7 +136,7 @@ export async function createPreview(host,config,load,{onSelect=()=>{},readDispla
     const center=bounds.getCenter(new THREE.Vector3()),radius=bounds.getSize(new THREE.Vector3()).length()/2;
     const distance=radius/Math.sin(THREE.MathUtils.degToRad(camera.fov/2))/Math.min(camera.aspect,1)*1.12;
     navigation.dropStalledGesture();camera.up.set(0,0,1);
-    camera.position.copy(center).add(new THREE.Vector3(1.1,-1.6,.85).normalize().multiplyScalar(distance));
+    camera.position.copy(center).add(new THREE.Vector3(...fitDirection()).normalize().multiplyScalar(distance));
     controls.target.copy(center);controls.update();navigation.fitDepth();invalidate();
   }
   function setSection(value){

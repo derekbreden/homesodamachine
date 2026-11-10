@@ -1,0 +1,36 @@
+<!doctype html>
+<!-- This isolated study shows native enclosure features, functional edits and observed limits. -->
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="robots" content="noindex,nofollow"><meta name="theme-color" content="#10319c">
+  <title>Enclosure features · SolidCraft lab</title><link rel="icon" href="/favicon.png">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap">
+  <link rel="stylesheet" href="/css/site.css"><link rel="stylesheet" href="/solidcraft-lab/beduan.css">
+  <link rel="stylesheet" href="/solidcraft-lab/carbonator/style.css"><link rel="stylesheet" href="/solidcraft-lab/identification/style.css">
+  <link rel="stylesheet" href="/solidcraft-lab/features/style.css">
+  <script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.min.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/"}}</script>
+  <script type="module" src="/solidcraft-lab/features/view.js"></script>
+</head>
+<body>
+  <header class="lab-header"><a href="/" aria-label="Home Soda Machine home"><img src="/brand/wordmark-reverse.svg" width="1680" height="640" alt="Home Soda Machine"></a><div><p class="eyebrow">SolidCraft lab · Enclosure features</p><h1>Native mechanical construction</h1></div><a class="published" href="/labs/solidcraft/identification?trial=blind">Blinded chip trial ↗</a></header>
+  <main class="lab-layout">
+    <aside class="controls">
+      <p class="intro">A handhold built with native constrained profiles and lofts, alongside focused enclosure-feature experiments.</p>
+      <label class="replay-select">Study <select id="study"></select></label>
+      <label class="replay-select">Model <select id="model"></select></label>
+      <p id="description" class="intro"></p><dl id="facts" class="study-facts"></dl>
+      <p><button id="edit" class="native-edit-action" type="button">Edit this model in SolidCraft</button></p>
+      <section id="native-controls" hidden><form id="dimensions"><div id="parameters"></div><button type="submit">Apply native dimensions</button></form><p class="local-note">Edits change this browser’s native draft. Download it to retain the changes.</p><button id="download-draft" class="native-edit-action" type="button">Download edited native design</button></section>
+      <p id="scope" class="local-note"></p><p id="machine-link"></p>
+      <details class="about"><summary>Source and print geometry</summary><p id="downloads"></p></details>
+      <details class="about"><summary>Evidence and limits</summary><p id="finding"></p><p><a href="/solidcraft-lab/features/results.json">Recorded results</a></p><p>The studies use functional dimensions and native feature behavior. The current Rust shape provides context. Surface variation is allowed when the result looks right and works right. No production geometry or physical print is changed.</p></details>
+    </aside>
+    <section class="workspace" aria-label="Native feature study">
+      <div class="workspace-toolbar"><div class="workspace-context"><span id="view-title"></span><span id="state-label" class="state">Loading exported geometry</span></div><div class="view-actions"><label class="section-label"><input id="section" type="checkbox"> Section</label><button id="fit" type="button">Fit</button><button id="reference" type="button" hidden>Published preview</button></div></div>
+      <div class="stage"><div id="preview"></div><div id="native-stage" hidden></div><div id="cover" class="cover"><div><h2 id="cover-title">Opening the study</h2><p id="cover-detail">The native CAD engine stays closed while browsing.</p></div></div></div>
+      <p id="status" class="status" role="status" aria-live="polite"></p>
+    </section>
+  </main>
+</body>
+</html>

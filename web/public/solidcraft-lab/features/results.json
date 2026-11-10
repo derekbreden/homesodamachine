@@ -1,0 +1,1353 @@
+{
+  "purpose": "This investigation evaluates native mechanical features by their functional geometry and editing behavior.",
+  "goal": "A result that looks right and works right, allowing intentional geometric variation.",
+  "handhold": {
+    "purpose": "These measurements describe the retained native handhold candidate and its bounded feature trials.",
+    "application": "SolidCraft v0.40.0-rc.3",
+    "source_revision": "fa658f2927cea008103ecb80685b65f879c2f2cb",
+    "packet_sha256": "2fbfe18cab5a0cf04e2c385cce41997a90ae99689c028139c7d7a6e08a2d23ac",
+    "candidate": {
+      "source": "native-ruled.json",
+      "authoring": "author_native.py",
+      "native_container": "native-ruled.sc",
+      "display_mesh": "native-ruled.3mf",
+      "fused_stl": "native-ruled.stl",
+      "oblique_snapshot": "native-ruled-oblique.png",
+      "front_snapshot": "native-ruled-mouth.png"
+    },
+    "native_features": {
+      "timeline_features": 7,
+      "profile_sketches": 3,
+      "fully_constrained_sketches": 3,
+      "profile_curves": [
+        "native lines",
+        "native tangent equal-radius circular arcs"
+      ],
+      "surface_types": {
+        "cone": 2,
+        "other": 4,
+        "plane": 10
+      },
+      "sampled_profiles": 0,
+      "custom_trigonometric_or_square_root_law": false
+    },
+    "geometry": {
+      "bbox": {
+        "max": [
+          16.75,
+          55.0,
+          47.25
+        ],
+        "min": [
+          0.0,
+          -55.0,
+          -7.549516567451064e-15
+        ]
+      },
+      "native_closed": true,
+      "native_shells": 1,
+      "volume_mm3": 48168.69147608382,
+      "inner_wall_mm": 3.0,
+      "minimum_outer_roof_stock_mm": 6.0,
+      "mouth_end_stock_mm": 9.0,
+      "inner_opening_width_mm": 80.0,
+      "mouth_opening_width_mm": 92.0,
+      "rear_center_height_mm": 27.5
+    },
+    "mesh": {
+      "triangles": 3828,
+      "unique_exact_vertices": 1916,
+      "connected_components": 1,
+      "undirected_edge_usage_counts": {
+        "2": 5742
+      },
+      "all_edges_have_two_faces": true,
+      "minimum_non_bed_downward_face_inclination_deg": 45.0
+    },
+    "recorded_cli_command_time_ms": 273.934,
+    "edit_probe": {
+      "source": "edit-probe.json",
+      "native_container": "native-ruled-edited.sc",
+      "changes": {
+        "opening_width": 84.0,
+        "roof": 36.25
+      },
+      "recomputed": 6,
+      "errors": [],
+      "recorded_cli_command_time_ms": 251.251,
+      "native_closed_after_edit": true,
+      "sketch_dof_after_edit": {
+        "MouthSection": 0,
+        "InnerSection": 0,
+        "RearSection": 0
+      },
+      "display_mesh": "native-ruled-edited.3mf",
+      "fused_stl": "native-ruled-edited.stl",
+      "oblique_snapshot": "native-ruled-edited-oblique.png",
+      "parameter_record": "native-edit-parameters.json",
+      "mesh": {
+        "triangles": 3828,
+        "connected_components": 1,
+        "all_edges_have_two_faces": true,
+        "minimum_non_bed_downward_face_inclination_deg": 45.0
+      }
+    },
+    "bounded_trials": [
+      {
+        "construction": "Box air envelope, roof draft, roof/end rolling fillets, stock cut, mouth edge fillets",
+        "retained_state": "direct-roof-only.sc",
+        "attempt_source": "direct-features.json",
+        "result": "The final mouth fillet is refused because its selected edges continue tangentially into excluded roof-round edges.",
+        "error_record": "direct-features-error.txt",
+        "timing_observation": "The final mouth fillet spent roughly a few minutes in the kernel; no precise operation timer is retained."
+      },
+      {
+        "construction": "Smooth loft through circular mouth sections",
+        "result": "SMLib refuses parallel surface corner tangents and near-cusp curves. A short ruled lead-in also refuses with invalid input. Equality-seeking work stops under the user instruction accepting functional geometric variation."
+      }
+    ],
+    "limitations": [
+      "The rectangular stock is a fixture; it excludes enclosure seams, fluting and assembly attachments.",
+      "The retained mouth uses planar chamfers and conical end transitions. It is not the legacy depth-varying circular side expansion.",
+      "CLI timings are recorded command times, not dedicated timing benchmarks.",
+      "The slope measurement describes geometry. No slicing, physical print, finger trial, load test or strength proof is performed."
+    ],
+    "hashes": {
+      "native-ruled.json": "b530b877ccb71db52e3bbfb884ae7c1eb00cb76dafc7ac7a0f7d7e1b9a612849",
+      "native-ruled.sc": "2fce1a5d87966515a2226c3c32ba0b4ee0f6729f58ecd6c3c8ed23aa75a9a397",
+      "native-ruled.3mf": "9388b78cb1b36ff81605d34ff7844d9f4040366ffd2d64f3eef3d1936644aa8a",
+      "native-ruled.stl": "65b703e0bf5e7d77d53da520b067291a0e16d83d8ae45b9617a4907fd53aecb6",
+      "author_native.py": "19173a534aa87e6b14f04798f576dfd44b405c12408fa873f5ff700f68b03c32",
+      "native-ruled-edited.sc": "97cde7fc3b64e6e5def3cc6640a683da9a6901981f73b00b268993671d60004f",
+      "native-ruled-edited.3mf": "aaab80c61b440d5f9ab90273825d80d5a309237dc6ad8d69174cafeeffef3ef3",
+      "native-ruled-edited.stl": "3d21cfdba9280685fef3f6c75246d0a27d8a112c75a2437e3d6457c201c84b6f",
+      "native-edit-parameters.json": "c3d0bb159029eac7929361ebd0b61685abcd234755a2600637b6d489398e6ccd"
+    }
+  },
+  "enclosure_feature_probes": {
+    "purpose": "Measure native enclosure-feature behavior on small fixtures derived from selected current enclosure scalars.",
+    "scope": "Fixtures only. No production part was replaced, no source/native equivalence is asserted, and no printer job, publication, commit or upstream issue was created.",
+    "engine": {
+      "cli_version": "0.40.0-rc.3",
+      "app": "0.40.0-rc.3",
+      "native_cache_build": "7001949c49e211a430fe4747221589b2b9384f2c/aarch64-macos",
+      "native_cache_kernel": "solidcore",
+      "native_cache_producer": "solidcraft-truck-adapter/4",
+      "inspect_measure_label": "smlib",
+      "cli_sha256": "d3e3ebcf2f318f2959b484e2cff5df7ba7d8d0b41a875b9042ac21e3c176214b"
+    },
+    "source_context": "source-context.json",
+    "sources": {
+      "plastic_guide": "https://github.com/tangency-labs/solidcraft/blob/v0.40.0-rc.3/docs/book/src/guide/plastic.md",
+      "face_attachment_contract": "https://github.com/tangency-labs/solidcraft/blob/v0.40.0-rc.3/docs/face-attachments.md#face-attached-sketches",
+      "generic_face_point_resolution": "https://github.com/tangency-labs/solidcraft/blob/7001949c49e211a430fe4747221589b2b9384f2c/crates/doc/src/eval.rs#L6754-L6800",
+      "interior_pick_behavior": "https://github.com/tangency-labs/solidcraft/blob/7001949c49e211a430fe4747221589b2b9384f2c/crates/doc/src/name_lookup.rs#L231-L245",
+      "triangle_interior_selection": "https://github.com/tangency-labs/solidcraft/blob/7001949c49e211a430fe4747221589b2b9384f2c/crates/doc/src/name_lookup.rs#L280-L298",
+      "snap_construction": "https://github.com/tangency-labs/solidcraft/blob/7001949c49e211a430fe4747221589b2b9384f2c/crates/doc/src/eval_more.rs#L2363-L2397",
+      "lip_and_groove_construction": "https://github.com/tangency-labs/solidcraft/blob/7001949c49e211a430fe4747221589b2b9384f2c/crates/doc/src/eval_more.rs#L2293-L2361"
+    },
+    "boss_axis_shift": {
+      "minimal_original": "boss-base.json",
+      "minimal_native_original": "boss-base.sc",
+      "change_commands": "boss-axis-shift.json",
+      "changed_native": "boss-axis-shift.sc",
+      "baseline_native_query": "boss-base-native-axis-results.json",
+      "after_cold_open_native_query": "boss-axis-shift-native-axis-results.json",
+      "parameters_before_mm": {
+        "Wall": 3,
+        "BossHeight": 8,
+        "diameter": 10,
+        "hole_diameter": 4,
+        "hole_depth": 5,
+        "position": [
+          20,
+          15,
+          3
+        ]
+      },
+      "changed_parameter_mm": {
+        "Wall": 4
+      },
+      "baseline_native_cylinders": [
+        {
+          "center": [
+            20.000000000000004,
+            15.000000000000002,
+            7.000000000000001
+          ],
+          "diameter": 10.0,
+          "items": [
+            {
+              "area_mm2": 251.32741228718345,
+              "axis": [
+                0.0,
+                0.0,
+                1.0
+              ],
+              "center": [
+                20.000000000000004,
+                15.000000000000002,
+                7.000000000000001
+              ],
+              "circumference": 31.41592653589793,
+              "diameter": 10.0,
+              "planar": false,
+              "radius": 5.0,
+              "round": "cylinder",
+              "type": "face"
+            }
+          ],
+          "radius": 5.0
+        },
+        {
+          "center": [
+            19.999999999999996,
+            15.0,
+            8.5
+          ],
+          "diameter": 4.0,
+          "items": [
+            {
+              "area_mm2": 62.83185307179586,
+              "axis": [
+                0.0,
+                -0.0,
+                1.0
+              ],
+              "center": [
+                19.999999999999996,
+                15.0,
+                8.5
+              ],
+              "circumference": 12.566370614359172,
+              "diameter": 4.0,
+              "planar": false,
+              "radius": 2.0,
+              "round": "cylinder",
+              "type": "face"
+            }
+          ],
+          "radius": 2.0
+        }
+      ],
+      "after_native_cylinders": [
+        {
+          "center": [
+            20.200638979263754,
+            15.000000000000002,
+            8.0
+          ],
+          "diameter": 10.0,
+          "items": [
+            {
+              "area_mm2": 251.32741228718345,
+              "axis": [
+                0.0,
+                0.0,
+                1.0
+              ],
+              "center": [
+                20.200638979263754,
+                15.000000000000002,
+                8.0
+              ],
+              "circumference": 31.41592653589793,
+              "diameter": 10.0,
+              "planar": false,
+              "radius": 5.0,
+              "round": "cylinder",
+              "type": "face"
+            }
+          ],
+          "radius": 5.0
+        },
+        {
+          "center": [
+            20.200638979263747,
+            15.0,
+            9.5
+          ],
+          "diameter": 4.0,
+          "items": [
+            {
+              "area_mm2": 62.83185307179586,
+              "axis": [
+                0.0,
+                -0.0,
+                1.0
+              ],
+              "center": [
+                20.200638979263747,
+                15.0,
+                9.5
+              ],
+              "circumference": 12.566370614359172,
+              "diameter": 4.0,
+              "planar": false,
+              "radius": 2.0,
+              "round": "cylinder",
+              "type": "face"
+            }
+          ],
+          "radius": 2.0
+        }
+      ],
+      "actual_axis_x_change_mm": 0.20063897926375063,
+      "saved_boss_position_after_mm": [
+        20,
+        15,
+        3
+      ],
+      "retained_host_face_name": [
+        "F1:+z"
+      ],
+      "parameter_change_errors": [],
+      "feature_warning": null,
+      "feature_error": null,
+      "observed": "Changing only the host wall thickness moves the boss onto the raised host face and changes both outer-post and pilot cylinder X coordinates; diameter, depth and stored pick remain unchanged. Direct native cylindrical measurements confirm the displacement, without the witness sketch present.",
+      "source_inference": "The saved host face is retained. with_named_face_points applies hit.pick_point to plastic positions; pick_point chooses inside_nearest when an old pick is off the moved face, and inside_nearest shrinks display triangles. This explains a side shift while keeping the pick within the same named face.",
+      "limitation": "A face pick is not a datum-preserving in-plane mounting coordinate when its host face moves. The tested displacement must be considered before using native plastic.boss directly for fixed mounting-hole datums."
+    },
+    "constrained_face_relationship": {
+      "native": "boss-attached.sc",
+      "commands": "boss-attached.json",
+      "history": "boss-attached-history.json",
+      "construction": "Create a certified sketch on the native boss cap; auto-project its boundary; draw a circle with a user-parameter diameter; add an explicit native Coincident constraint from the circle center to the auto-projected boss center p1; cut the shallow counterbore from this profile.",
+      "baseline_solved": {
+        "dof": 0,
+        "fully_constrained": true,
+        "failing": [],
+        "constraints": [
+          {
+            "c": 4,
+            "expression": "WitnessDiameter",
+            "id": "k1",
+            "name": "DiameterDimension",
+            "param": "d8",
+            "type": "diameter",
+            "value": 6.0
+          },
+          {
+            "id": "k2",
+            "name": "Coincident",
+            "p": 6,
+            "q": 1,
+            "type": "coincident"
+          }
+        ]
+      },
+      "saved_attachment": {
+        "anchor": {
+          "author_path": [],
+          "component": 0,
+          "coordinates": [
+            -2.2497488225876687e-32,
+            0.0
+          ],
+          "path": [],
+          "target": {
+            "body": "Boss wall fixture",
+            "certificate": {
+              "kind": "lineage"
+            },
+            "name": "F2:post:top",
+            "origin_feature": 2,
+            "point": [
+              27.77817459305202,
+              7.221825406947977,
+              11.000000000000004
+            ]
+          },
+          "x_axis": [
+            1.0,
+            0.0
+          ]
+        },
+        "at": [
+          23.0,
+          15.0,
+          11.0
+        ],
+        "name": "F2:post:top",
+        "plane": {
+          "origin": [
+            -5.024295867788076e-15,
+            0.0,
+            10.99999999999999
+          ],
+          "x_dir": [
+            1.0,
+            0.0,
+            4.567541697989164e-16
+          ],
+          "y_dir": [
+            0.0,
+            1.0,
+            -0.0
+          ]
+        },
+        "type": "face"
+      },
+      "height_edit": {
+        "artifact": "boss-height-edit.sc",
+        "BossHeight_mm": 10,
+        "sketch_plane": {
+          "origin": [
+            5.937804207385917e-15,
+            0.0,
+            13.000000000000009
+          ],
+          "x_dir": [
+            1.0,
+            0.0,
+            -4.567541697989164e-16
+          ],
+          "y_dir": [
+            0.0,
+            1.0,
+            0.0
+          ]
+        },
+        "circle": {
+          "center": "c1.center",
+          "center_at": [
+            20.000000000000004,
+            15.000000000000002
+          ],
+          "construction": false,
+          "fixed": false,
+          "fully_constrained": true,
+          "id": "c1",
+          "radius": 3.0,
+          "type": "circle"
+        },
+        "dof": 0
+      },
+      "position_edit": {
+        "artifact": "boss-position-edit.sc",
+        "position_mm": [
+          25,
+          15,
+          3
+        ],
+        "circle": {
+          "center": "c1.center",
+          "center_at": [
+            25.000000000000007,
+            15.0
+          ],
+          "construction": false,
+          "fixed": false,
+          "fully_constrained": true,
+          "id": "c1",
+          "radius": 3.0,
+          "type": "circle"
+        },
+        "dof": 0
+      },
+      "observed": "The certified cap, projected center, coincidence and dimensional radius remain live through the tested boss-height and explicit boss-X-position edits. This useful relationship is separate from the host-face-pick displacement."
+    },
+    "shell_lip_groove": {
+      "baseline": "rim-shell.sc",
+      "edited": "rim-shell-edit.sc",
+      "construction": "Shell each fixture blank inward by Wall, removing its top face. On separate shells, explicitly add the inner-edge lip and explicitly cut the inner-edge groove using shared RimWidth/RimHeight parameters and the enclosure running allowance.",
+      "baseline_dimensions_mm": {
+        "outer": [
+          60,
+          40,
+          20
+        ],
+        "Wall": 3,
+        "RimWidth": 1.3,
+        "RimHeight": 2,
+        "RunningGap": 0.25
+      },
+      "edited_dimensions_mm": {
+        "outer": [
+          60,
+          40,
+          25
+        ],
+        "Wall": 4,
+        "RimWidth": 1.5,
+        "RimHeight": 3,
+        "RunningGap": 0.25
+      },
+      "measured_baseline": {
+        "body_count": 2,
+        "bodies": [
+          {
+            "name": "Lip fixture",
+            "closed": true,
+            "volume_mm3": 17259.120000000014,
+            "bbox": {
+              "max": [
+                60.0,
+                40.0,
+                22.0
+              ],
+              "min": [
+                0.0,
+                0.0,
+                0.0
+              ]
+            },
+            "kernel": {
+              "edges": 44,
+              "faces": 20,
+              "shells": 1,
+              "vertices": 28
+            }
+          },
+          {
+            "name": "Groove fixture",
+            "closed": true,
+            "volume_mm3": 16152.5775,
+            "bbox": {
+              "max": [
+                140.0,
+                40.0,
+                20.0
+              ],
+              "min": [
+                80.0,
+                0.0,
+                0.0
+              ]
+            },
+            "kernel": {
+              "edges": 36,
+              "faces": 16,
+              "shells": 1,
+              "vertices": 24
+            }
+          }
+        ]
+      },
+      "measured_edit": {
+        "body_count": 2,
+        "bodies": [
+          {
+            "name": "Lip fixture",
+            "closed": true,
+            "volume_mm3": 25839.000000000004,
+            "bbox": {
+              "max": [
+                60.0,
+                40.0,
+                28.0
+              ],
+              "min": [
+                0.0,
+                0.0,
+                0.0
+              ]
+            },
+            "kernel": {
+              "edges": 44,
+              "faces": 20,
+              "shells": 1,
+              "vertices": 28
+            }
+          },
+          {
+            "name": "Groove fixture",
+            "closed": true,
+            "volume_mm3": 24060.687499999996,
+            "bbox": {
+              "max": [
+                140.0,
+                40.0,
+                25.0
+              ],
+              "min": [
+                80.0,
+                0.0,
+                0.0
+              ]
+            },
+            "kernel": {
+              "edges": 36,
+              "faces": 16,
+              "shells": 1,
+              "vertices": 24
+            }
+          }
+        ]
+      },
+      "analytic_expected_volume_mm3": {
+        "baseline_lip": 17259.12,
+        "baseline_groove": 16152.5775,
+        "edited_lip": 25839.0,
+        "edited_groove": 24060.6875
+      },
+      "observed": "Both shells and their rim features rebuild as closed single-shell native bodies after the tested dimensional change, and their volumes match the simple box-shell-plus-band construction. The rim follows the raised shell top. The groove command removes a band of width plus gap and depth of height plus gap along the selected rim edge.",
+      "relationship_limit": "The counterpart is authored separately. Sharing parameters links dimensions but the feature does not create or mate a second body."
+    },
+    "snap_fit": {
+      "baseline": "snap.sc",
+      "edited": "snap-edit.sc",
+      "baseline_dimensions_mm": {
+        "leaf_thickness": 2,
+        "free_length": 22.25,
+        "width": 10,
+        "catch_reach": 2.6,
+        "catch_length": 1.6,
+        "wall": 3
+      },
+      "edited_dimensions_mm": {
+        "leaf_thickness": 2.2,
+        "free_length": 25,
+        "width": 10,
+        "catch_reach": 3,
+        "catch_length": 2,
+        "wall": 3
+      },
+      "measured_baseline": {
+        "body_count": 1,
+        "bodies": [
+          {
+            "name": "Snap fixture",
+            "closed": true,
+            "volume_mm3": 4065.7999999999997,
+            "bbox": {
+              "max": [
+                40.0,
+                30.0,
+                25.25
+              ],
+              "min": [
+                0.0,
+                0.0,
+                0.0
+              ]
+            },
+            "kernel": {
+              "edges": 30,
+              "faces": 13,
+              "shells": 1,
+              "vertices": 20
+            }
+          }
+        ]
+      },
+      "measured_edit": {
+        "body_count": 1,
+        "bodies": [
+          {
+            "name": "Snap fixture",
+            "closed": true,
+            "volume_mm3": 4180.000000000004,
+            "bbox": {
+              "max": [
+                40.0,
+                30.0,
+                28.0
+              ],
+              "min": [
+                0.0,
+                0.0,
+                0.0
+              ]
+            },
+            "kernel": {
+              "edges": 30,
+              "faces": 13,
+              "shells": 1,
+              "vertices": 20
+            }
+          }
+        ]
+      },
+      "analytic_expected_volume_mm3": {
+        "baseline": 4065.8,
+        "edited": 4180.0
+      },
+      "construction": "One rectangular cantilever arm with a triangular catch is extruded across the width and joined onto the fixture wall. The default is one body; new_body changes the same tool to a separate body operation.",
+      "receiver_created": false,
+      "source_difference": "The current production cap has paired spring wings, root rounds, a distinct nose land and lead-in, and hardware-shaped room. The native SnapFit feature exposes no receiver, root-radius, material/deflection or paired-wing parameters. Additional features would be needed to author those shapes and their clearances.",
+      "observed": "The baseline and edited shape are closed single-shell native bodies; volume equals wall plus rectangular arm plus triangular catch. This is useful editable hook construction, not a complete source cap/receiver or a physical retention qualification."
+    },
+    "native_topology": {
+      "boss-base": {
+        "body_count": 1,
+        "bodies": [
+          {
+            "name": "Boss wall fixture",
+            "closed": true,
+            "volume_mm3": 4165.486677638648,
+            "bbox": {
+              "max": [
+                40.0,
+                30.0,
+                11.0
+              ],
+              "min": [
+                0.0,
+                0.0,
+                0.0
+              ]
+            },
+            "kernel": {
+              "edges": 18,
+              "faces": 10,
+              "shells": 1,
+              "vertices": 12
+            }
+          }
+        ]
+      },
+      "boss-axis-shift": {
+        "body_count": 1,
+        "bodies": [
+          {
+            "name": "Boss wall fixture",
+            "closed": true,
+            "volume_mm3": 5365.486677642462,
+            "bbox": {
+              "max": [
+                40.0,
+                30.0,
+                12.0
+              ],
+              "min": [
+                0.0,
+                0.0,
+                0.0
+              ]
+            },
+            "kernel": {
+              "edges": 18,
+              "faces": 10,
+              "shells": 1,
+              "vertices": 12
+            }
+          }
+        ]
+      },
+      "boss-attached": {
+        "body_count": 1,
+        "bodies": [
+          {
+            "name": "Boss wall fixture",
+            "closed": true,
+            "volume_mm3": 4149.778714367023,
+            "bbox": {
+              "max": [
+                40.0,
+                30.0,
+                11.000000000000002
+              ],
+              "min": [
+                0.0,
+                0.0,
+                0.0
+              ]
+            },
+            "kernel": {
+              "edges": 22,
+              "faces": 12,
+              "shells": 1,
+              "vertices": 15
+            }
+          }
+        ]
+      },
+      "boss-height-edit": {
+        "body_count": 1,
+        "bodies": [
+          {
+            "name": "Boss wall fixture",
+            "closed": true,
+            "volume_mm3": 4306.858347044558,
+            "bbox": {
+              "max": [
+                40.0,
+                30.0,
+                13.000000000000005
+              ],
+              "min": [
+                0.0,
+                0.0,
+                0.0
+              ]
+            },
+            "kernel": {
+              "edges": 22,
+              "faces": 12,
+              "shells": 1,
+              "vertices": 15
+            }
+          }
+        ]
+      },
+      "boss-position-edit": {
+        "body_count": 1,
+        "bodies": [
+          {
+            "name": "Boss wall fixture",
+            "closed": true,
+            "volume_mm3": 4149.778714375993,
+            "bbox": {
+              "max": [
+                40.0,
+                30.0,
+                11.000000000000002
+              ],
+              "min": [
+                0.0,
+                0.0,
+                0.0
+              ]
+            },
+            "kernel": {
+              "edges": 22,
+              "faces": 12,
+              "shells": 1,
+              "vertices": 15
+            }
+          }
+        ]
+      },
+      "rim-shell": {
+        "body_count": 2,
+        "bodies": [
+          {
+            "name": "Lip fixture",
+            "closed": true,
+            "volume_mm3": 17259.120000000014,
+            "bbox": {
+              "max": [
+                60.0,
+                40.0,
+                22.0
+              ],
+              "min": [
+                0.0,
+                0.0,
+                0.0
+              ]
+            },
+            "kernel": {
+              "edges": 44,
+              "faces": 20,
+              "shells": 1,
+              "vertices": 28
+            }
+          },
+          {
+            "name": "Groove fixture",
+            "closed": true,
+            "volume_mm3": 16152.5775,
+            "bbox": {
+              "max": [
+                140.0,
+                40.0,
+                20.0
+              ],
+              "min": [
+                80.0,
+                0.0,
+                0.0
+              ]
+            },
+            "kernel": {
+              "edges": 36,
+              "faces": 16,
+              "shells": 1,
+              "vertices": 24
+            }
+          }
+        ]
+      },
+      "rim-shell-edit": {
+        "body_count": 2,
+        "bodies": [
+          {
+            "name": "Lip fixture",
+            "closed": true,
+            "volume_mm3": 25839.000000000004,
+            "bbox": {
+              "max": [
+                60.0,
+                40.0,
+                28.0
+              ],
+              "min": [
+                0.0,
+                0.0,
+                0.0
+              ]
+            },
+            "kernel": {
+              "edges": 44,
+              "faces": 20,
+              "shells": 1,
+              "vertices": 28
+            }
+          },
+          {
+            "name": "Groove fixture",
+            "closed": true,
+            "volume_mm3": 24060.687499999996,
+            "bbox": {
+              "max": [
+                140.0,
+                40.0,
+                25.0
+              ],
+              "min": [
+                80.0,
+                0.0,
+                0.0
+              ]
+            },
+            "kernel": {
+              "edges": 36,
+              "faces": 16,
+              "shells": 1,
+              "vertices": 24
+            }
+          }
+        ]
+      },
+      "snap": {
+        "body_count": 1,
+        "bodies": [
+          {
+            "name": "Snap fixture",
+            "closed": true,
+            "volume_mm3": 4065.7999999999997,
+            "bbox": {
+              "max": [
+                40.0,
+                30.0,
+                25.25
+              ],
+              "min": [
+                0.0,
+                0.0,
+                0.0
+              ]
+            },
+            "kernel": {
+              "edges": 30,
+              "faces": 13,
+              "shells": 1,
+              "vertices": 20
+            }
+          }
+        ]
+      },
+      "snap-edit": {
+        "body_count": 1,
+        "bodies": [
+          {
+            "name": "Snap fixture",
+            "closed": true,
+            "volume_mm3": 4180.000000000004,
+            "bbox": {
+              "max": [
+                40.0,
+                30.0,
+                28.0
+              ],
+              "min": [
+                0.0,
+                0.0,
+                0.0
+              ]
+            },
+            "kernel": {
+              "edges": 30,
+              "faces": 13,
+              "shells": 1,
+              "vertices": 20
+            }
+          }
+        ]
+      },
+      "boss-wall-edit-authoring-stage": {
+        "scope": "Retained intermediate host-edit example; the minimal boss-only repro and explicit-coincidence witness are the assessment fixtures.",
+        "native": "boss-wall-edit.sc"
+      }
+    },
+    "authoring_effort": "authoring-effort.json",
+    "artifacts": [
+      {
+        "path": ".cache/runs/solidcraft-features-20261110/features/boss-base.sc",
+        "bytes": 15655,
+        "sha256": "f1f2c8fc3a8db77f900d47b890c94c11edd9b9ab72c39e4ad37211c58aa3268e"
+      },
+      {
+        "path": ".cache/runs/solidcraft-features-20261110/features/boss-base.json",
+        "bytes": 932,
+        "sha256": "3fbbcee65ca270ddbc33a1b25d6d7d69898a02c2bb774728db08ef7e796389e3"
+      },
+      {
+        "path": ".cache/runs/solidcraft-features-20261110/features/boss-base.3mf",
+        "bytes": 10918,
+        "sha256": "e3cd65fe4f3e7d5e7be412f3574067ad27ab9dbd02216f7f528288ac6c2dde13"
+      },
+      {
+        "path": ".cache/runs/solidcraft-features-20261110/features/boss-base.stl",
+        "bytes": 58184,
+        "sha256": "42a994498a7afaee54e0561afa6f28512188efcd2c5e88f104c113587e8fa333"
+      },
+      {
+        "path": ".cache/runs/solidcraft-features-20261110/features/boss-base-history.json",
+        "bytes": 1833,
+        "sha256": "0572f7b4aa03dadc3bcfee4a23ece6921b208691a6d519529a307e27ec741662"
+      },
+      {
+        "path": ".cache/runs/solidcraft-features-20261110/features/boss-axis-shift.sc",
+        "bytes": 15699,
+        "sha256": "10e95a3f1308d0a67cb4c26a64ef1dd633e870e65fb9c72d093da5c4a682a7f3"
+      },
+      {
+        "path": ".cache/runs/solidcraft-features-20261110/features/boss-axis-shift.json",
+        "bytes": 921,
+        "sha256": "de8286140fcb30e1932b9aded082e9201a2273805c997d54724392d1c4e9ead9"
+      },
+      {
+        "path": ".cache/runs/solidcraft-features-20261110/features/boss-axis-shift.3mf",
+        "bytes": 11140,
+        "sha256": "5b07d528466f193f3f3fc13de7345065336cadcd0098102e41f858cefd9fa576"
+      },
+      {
+        "path": ".cache/runs/solidcraft-features-20261110/features/boss-axis-shift.stl",
+        "bytes": 58284,
+        "sha256": "61504d7380741864314b9a296523cb50f47d6ca1887b29083928a03bd2310b0a"
+      },
+      {
+        "path": ".cache/runs/solidcraft-features-20261110/features/boss-axis-shift-history.json",
+        "bytes": 1839,
+        "sha256": "df9dcb6d360c985241424a262b70ee3353bce68af5db19ddf13e9e84065c4314"
+      },
+      {
+        "path": ".cache/runs/solidcraft-features-20261110/features/boss-attached.sc",
+        "bytes": 22695,
+        "sha256": "0ef3e357fddf313f5aa3e1fb28aa97345f34b93d2e3626802084cec374f150fb"
+      },
+      {
+        "path": ".cache/runs/solidcraft-features-20261110/features/boss-attached.json",
+        "bytes": 2154,
+        "sha256": "affd53a08a31c077ab1afc8c1cde1d4df6db5b87129bd4c4d54ee475bbff3683"
+      },
+      {
+        "path": ".cache/runs/solidcraft-features-20261110/features/boss-attached.3mf",
+        "bytes": 13255,
+        "sha256": "54611830e4b7f5e6f2ab374cb8a529c15931aa4eddb8c6dfa7a25edefa442b64"
+      },
+      {
+        "path": ".cache/runs/solidcraft-features-20261110/features/boss-attached.stl",
+        "bytes": 70084,
+        "sha256": "dfa636ca129103c6a8a951c58256d9d82de0e7d13851743d1494b47ac907f56a"
+      },
+      {
+        "path": ".cache/runs/solidcraft-features-20261110/features/boss-attached-history.json",
+        "bytes": 8185,
+        "sha256": "ec92070d7569c41f947c2c7ebd78826114442255c8f2eb798a8b34a2f5620be9"
+      },
+      {
+        "path": ".cache/runs/solidcraft-features-20261110/features/boss-height-edit.sc",
+        "bytes": 22735,
+        "sha256": "4f2ad98c5efbd4a32dd0aeabdf20705ce93e096faa8175c9326d607788d35bc9"
+      },
+      {
+        "path": ".cache/runs/solidcraft-features-20261110/features/boss-height-edit.json",
+        "bytes": 579,
+        "sha256": "3e9340a2b290c5a3da001574d9d96f90c31609ba0cc0f5e55b85f347e7008502"
+      },
+      {
+        "path": ".cache/runs/solidcraft-features-20261110/features/boss-height-edit.3mf",
+        "bytes": 13322,
+        "sha256": "7117b8aaefe834757604d9e320c6ffc1d11d9b55d286c92aa704019dff67ba11"
+      },
+      {
+        "path": ".cache/runs/solidcraft-features-20261110/features/boss-height-edit.stl",
+        "bytes": 70184,
+        "sha256": "591812cab61503478d369155932748ac256b24290bdc600d9fd95ae9e2c72241"
+      },
+      {
+        "path": ".cache/runs/solidcraft-features-20261110/features/boss-height-edit-history.json",
+        "bytes": 8189,
+        "sha256": "c872cabe73f4c284faf66520eea7b724b090680965723defb4a031182ac70936"
+      },
+      {
+        "path": ".cache/runs/solidcraft-features-20261110/features/boss-position-edit.sc",
+        "bytes": 22436,
+        "sha256": "af5dea6924aff7f56794cf966e5bb440ae6e91045ff795fb45b01fa2a5e70fb4"
+      },
+      {
+        "path": ".cache/runs/solidcraft-features-20261110/features/boss-position-edit.json",
+        "bytes": 640,
+        "sha256": "e0e36196523dab0065e66ae51b52e3ad5836296c0f5d5ab7faab0a9ca02f9761"
+      },
+      {
+        "path": ".cache/runs/solidcraft-features-20261110/features/boss-position-edit.3mf",
+        "bytes": 12227,
+        "sha256": "9fad45124c1276fb045f25fbe3916133948b110d5d8e517872f951b5819b301e"
+      },
+      {
+        "path": ".cache/runs/solidcraft-features-20261110/features/boss-position-edit.stl",
+        "bytes": 63684,
+        "sha256": "8dec90235986b4d710c3e07b91b605c8e1891ed43ae5f83af1f47e3dbbf6da77"
+      },
+      {
+        "path": ".cache/runs/solidcraft-features-20261110/features/boss-position-edit-history.json",
+        "bytes": 8190,
+        "sha256": "26391433b6702ee8d2dccf00811b7887506e3b86080b5816585ccbe4dca13e66"
+      },
+      {
+        "path": ".cache/runs/solidcraft-features-20261110/features/rim-shell.sc",
+        "bytes": 37158,
+        "sha256": "10ec9fde4228c7649eac402f14dc1bd1cf97bf79132177979c00f1a1db5729ec"
+      },
+      {
+        "path": ".cache/runs/solidcraft-features-20261110/features/rim-shell.json",
+        "bytes": 2596,
+        "sha256": "8cf0eff2890d023409b4bbc5f0079ac96338fba79b99c02f95eba9f05028152d"
+      },
+      {
+        "path": ".cache/runs/solidcraft-features-20261110/features/rim-shell.3mf",
+        "bytes": 4544,
+        "sha256": "22f49d39e682449fd6ea6d52df68f785b31a884d9f0473f97a48c45aacc242cf"
+      },
+      {
+        "path": ".cache/runs/solidcraft-features-20261110/features/rim-shell.stl",
+        "bytes": 24484,
+        "sha256": "f2a8f2cc753eab7a5ccdd057735cbed2f3f7be30b49849662a231449a9119b87"
+      },
+      {
+        "path": ".cache/runs/solidcraft-features-20261110/features/rim-shell-history.json",
+        "bytes": 4318,
+        "sha256": "1557e067d32c8cd3d45eb089ff14dbb9f3599050eb68fbe62bd92bdf57c42194"
+      },
+      {
+        "path": ".cache/runs/solidcraft-features-20261110/features/rim-shell-edit.sc",
+        "bytes": 37042,
+        "sha256": "cb061a202a3ef156bda3365c8117824da71216232c13801ee60b0f710251713d"
+      },
+      {
+        "path": ".cache/runs/solidcraft-features-20261110/features/rim-shell-edit.json",
+        "bytes": 633,
+        "sha256": "232b35bd06ade63870f5090256f6f4b0b8d207cb3a3ee03bc5a6a1b735819073"
+      },
+      {
+        "path": ".cache/runs/solidcraft-features-20261110/features/rim-shell-edit.3mf",
+        "bytes": 4613,
+        "sha256": "a0044e180f3426b00dcbcd39b0b775c6687ed089e60fc24d72fa03b2ed68cb06"
+      },
+      {
+        "path": ".cache/runs/solidcraft-features-20261110/features/rim-shell-edit.stl",
+        "bytes": 24784,
+        "sha256": "7ad4701eae8ee4ea8546b0876ce3a5daa3e80776f051e410038a85b65bba6a1d"
+      },
+      {
+        "path": ".cache/runs/solidcraft-features-20261110/features/rim-shell-edit-history.json",
+        "bytes": 4323,
+        "sha256": "1d71770f6b4ff2e0e2c3cd85378e049295eddd139b3ca18dbb608142f30d3300"
+      },
+      {
+        "path": ".cache/runs/solidcraft-features-20261110/features/snap.sc",
+        "bytes": 14393,
+        "sha256": "51fbdd9d7a8732ecdd9202aa743125b76df995f9ea85e2c1e33e52b74fa63efd"
+      },
+      {
+        "path": ".cache/runs/solidcraft-features-20261110/features/snap.json",
+        "bytes": 1467,
+        "sha256": "35e919fb498576ea259c6c031ce22d3a00a4a4e30ac7c771b10165cc444e6353"
+      },
+      {
+        "path": ".cache/runs/solidcraft-features-20261110/features/snap.3mf",
+        "bytes": 1891,
+        "sha256": "cef22ed6790b5260d1d40b10ed446f6b01f2167f676fa55efb0cb34c10acd4a5"
+      },
+      {
+        "path": ".cache/runs/solidcraft-features-20261110/features/snap.stl",
+        "bytes": 5784,
+        "sha256": "629505fdb32ad1310e91788a2a9ecab8a3b885bf71cd2a28e80799017ebdb8aa"
+      },
+      {
+        "path": ".cache/runs/solidcraft-features-20261110/features/snap-history.json",
+        "bytes": 2457,
+        "sha256": "59516967cd373e33abf2c83c730851c030661f965f74f6624bf009abd64f782a"
+      },
+      {
+        "path": ".cache/runs/solidcraft-features-20261110/features/snap-edit.sc",
+        "bytes": 14230,
+        "sha256": "3924972bcb52a58639ed6d334d7c03f3d290666f7b07af49fe4288f59f1c083f"
+      },
+      {
+        "path": ".cache/runs/solidcraft-features-20261110/features/snap-edit.json",
+        "bytes": 464,
+        "sha256": "b7fb8796121b6d01c5d6c2ce4ab34404819fd6dfe16474e3bd0ea27dff50d58f"
+      },
+      {
+        "path": ".cache/runs/solidcraft-features-20261110/features/snap-edit.3mf",
+        "bytes": 1931,
+        "sha256": "becf1fbce3c0ec9c6cdfb3845220d6584019cc83a15d31d9669541b95b1a2d2d"
+      },
+      {
+        "path": ".cache/runs/solidcraft-features-20261110/features/snap-edit.stl",
+        "bytes": 5984,
+        "sha256": "ae4340300ca2231fd4d884f7ba0466d7de5823a0aaf0c0506b5e29a4c5eb5528"
+      },
+      {
+        "path": ".cache/runs/solidcraft-features-20261110/features/snap-edit-history.json",
+        "bytes": 2457,
+        "sha256": "748f9d1e2409b66eb24fd476d8cc0a55e445578d31793213a7435396d00317bc"
+      },
+      {
+        "path": ".cache/runs/solidcraft-features-20261110/features/boss-wall-edit.sc",
+        "bytes": 22480,
+        "sha256": "1bd581720eca786e1ff8047d5c1f48eb1399e934d1e1c32277b1462b58da6988",
+        "role": "Retained authoring-stage evidence"
+      },
+      {
+        "path": ".cache/runs/solidcraft-features-20261110/features/boss-wall-edit.json",
+        "bytes": 572,
+        "sha256": "3e6f71f36bb7caf094119515eba3230def9c3dcd71c34430b166c7d85de3591f",
+        "role": "Retained authoring-stage evidence"
+      },
+      {
+        "path": ".cache/runs/solidcraft-features-20261110/features/boss-wall-edit.3mf",
+        "bytes": 13592,
+        "sha256": "0e50ee878c1d89e6d327c9921a5bdc4de492791f1c80b5825b40355d23d5ba36",
+        "role": "Retained authoring-stage evidence"
+      },
+      {
+        "path": ".cache/runs/solidcraft-features-20261110/features/boss-wall-edit.stl",
+        "bytes": 70384,
+        "sha256": "549323f4dd6290febebfafc2c63adfb184039dd92a72cea85bbbfa2e2d13a48b",
+        "role": "Retained authoring-stage evidence"
+      },
+      {
+        "path": ".cache/runs/solidcraft-features-20261110/features/boss-attached-origin-misplacement.sc",
+        "bytes": 21891,
+        "sha256": "a10fe0a28f948566db82c2ab03f23a6941adc3d30e40fe02ead690b6229bc3e8",
+        "role": "Retained authoring-stage evidence"
+      },
+      {
+        "path": ".cache/runs/solidcraft-features-20261110/features/boss-attached-origin-misplacement.json",
+        "bytes": 1869,
+        "sha256": "db893b6430792d0cd7c09a26b9d08bfcb0bf1f3e52fbfda47696ae3eb0830925",
+        "role": "Retained authoring-stage evidence"
+      },
+      {
+        "path": ".cache/runs/solidcraft-features-20261110/features/boss-attached-origin-misplacement.3mf",
+        "bytes": 11217,
+        "sha256": "56d6956bb146d9e555f21a7edd0fa2d58163bb6bd60a542fd46a52c71971b6c2",
+        "role": "Retained authoring-stage evidence"
+      },
+      {
+        "path": ".cache/runs/solidcraft-features-20261110/features/boss-attached-origin-misplacement.stl",
+        "bytes": 59484,
+        "sha256": "7945773c3d98817ec7d96efa0b94cf4a6e68405686601fe36bdaf02d5a438922",
+        "role": "Retained authoring-stage evidence"
+      }
+    ],
+    "not_tested": [
+      "Complete production enclosure conversion",
+      "Physical insertion, removal, fatigue or print fit",
+      "Outside/both shell directions or arbitrary shell topology",
+      "Optional boss fillets/ribs/draft",
+      "Automatic mating behavior or a generated receiver, which the feature does not implement"
+    ],
+    "functional_scope": "Interface locations and intended feature relationships matter. Analytic fixture-volume readback only confirms that the intended native primitives were produced; it is not a requirement to match an earlier surface or volume."
+  },
+  "source_interfaces": {
+    "purpose": "These active source interfaces define a bounded wall coupon around the actual handhold air feature.",
+    "source_revision": "fa658f2927cea008103ecb80685b65f879c2f2cb",
+    "historical_change_revision": "3dc5416a8ec6d0b16eb18d157ab49c4c53fe8550",
+    "units": "mm",
+    "frame": {
+      "x": "depth inward from the west outer wall face",
+      "y": "along the handhold, centered on its opening",
+      "z": "height above the handhold bed",
+      "local_to_machine_translation": [
+        -107.5,
+        214.0,
+        -6.0
+      ]
+    },
+    "stock": {
+      "min": [
+        0.0,
+        -55.0,
+        0.0
+      ],
+      "max": [
+        16.75,
+        55.0,
+        47.25
+      ]
+    },
+    "handhold": {
+      "bed": 0.0,
+      "roof": 35.25,
+      "crown": 47.25,
+      "y": [
+        -40.0,
+        40.0
+      ],
+      "depth": 16.75,
+      "corner": 6.0,
+      "radius": 6.0,
+      "end_stock": 15.0,
+      "cutter_depth": 13.75,
+      "slope": 1.0
+    },
+    "required_section": {
+      "domain": "0 <= d <= cutter_depth",
+      "side_expansion": "radius - sqrt(radius^2 - (radius-d)^2) for d < radius; zero otherwise",
+      "top_z": "roof + radius - d / slope",
+      "corner_radius": "corner + side_expansion",
+      "corner_center_y": [
+        "y_min + corner",
+        "y_max - corner"
+      ],
+      "corner_center_z": "top_z - corner_radius",
+      "sides_y": [
+        "y_min - side_expansion",
+        "y_max + side_expansion"
+      ],
+      "top_y": [
+        "y_min + corner",
+        "y_max - corner"
+      ],
+      "bottom": "Air extends below the stock; the opening is open at the bed. Upper end corners are quarter circles tangent to vertical ends and flat roof."
+    },
+    "scope": "The cutter/air geometry is taken from the active production operation. The surrounding rectangular stock is a deliberate fixture using the source clipping envelope; it excludes quadrant seams, exterior fluting and adjacent assembly features. This is not a full enclosure replacement.",
+    "reference": "reference/handhold.3mf and .stl are generated by calling the current production handhold_air operation and subtracting it from the common stock. Reference meshes are comparison evidence only.",
+    "native_goal": "Use the native construction that best serves fit, appearance, editing and performance. Different surface transitions are welcome when they serve the functional requirements. Report practical advantages and limitations.",
+    "source_hashes": {
+      "hardware/manifold-layout/enclosure-box.json": "1f6bb8fee7d04a10b5c1b39ce87ee6112cdd4ceae2b88e4f586f59e415a54cdc",
+      "tools/hsm/shared-data/catalog/scalars.json": "702035e0f3b70c142502a2758cdcd327217071f5d3568782917207ed31585465",
+      "hardware/printed-parts/enclosure/enclosure/quadrants/handholds.rs": "f11c9a9b2853204e3d327f0aac6ef95d12a1fdc080c56c66b83e15d4c3a3e09e",
+      "hardware/printed-parts/enclosure/enclosure/numbers/shell.rs": "57c41b9ddd8cad961abc89cde8f07b51fc7f4653da66d304cec1d0fc8432e5da",
+      "hardware/printed-parts/enclosure/enclosure/interface/swept.rs": "55c2d7d428f196c3d9be59969d651e28241e791e75a5a1d1cd79740d492fdad3",
+      "hardware/printed-parts/enclosure/enclosure/solid/ops.rs": "039dbd1d0ccb7bc7db052c8f03436f4410f472820021695c7e3ec9d8448523ae"
+    },
+    "evaluation": {
+      "purpose": "The native candidate is judged by mechanical intent, appearance and editing behavior rather than reproducing legacy surfaces.",
+      "required": [
+        "Usable rounded hand opening",
+        "An inward corbel suitable for normal-layer printing",
+        "Sound roof, end and inner-wall stock",
+        "Retained outer envelope and attachment interfaces",
+        "Editable native feature construction"
+      ],
+      "reference_role": "The current Rust shape supplies context and dimensions; deviations are measurements, not automatic failures.",
+      "user_instruction": "We need not have a a goal of \"identical bytes\" or even \"within 0.1 mm of original\" ... like, I'm okay with variation if the end result *looks right* and *works right*. I'm not convinced our current geometry is perfect, and so I'd rather not hold you to that here."
+    }
+  },
+  "assessment": {
+    "demonstrated_advantage": "The handhold is a small native feature history with fully constrained profiles and direct dimension edits; no nonlinear section station law is retained. Face-linked constraints and shell/rim edits also work on the tested fixtures.",
+    "functional_limit": "The handhold stock is a bounded fixture rather than a complete quadrant. Physical grip, printing and load capacity remain untested.",
+    "placement_limit": "The tested native Boss placement moves its axis sideways during a wall-thickness change without warning.",
+    "snap_scope": "Native Snap Fit makes a cantilever and catch; it does not author the matching receiver or our complete spring wings.",
+    "migration": "These examples establish useful native capabilities and concrete limits. They do not establish that a full enclosure rewrite is worthwhile."
+  }
+}
