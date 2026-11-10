@@ -3812,24 +3812,16 @@
           8.1,
           0.0656236439001736
         ]
-      },
-      {
-        "terminal": "relay-1.COM",
-        "offset": [
-          3.0,
-          4.0,
-          0.0
-        ]
       }
     ],
     "preserve_stations": true,
     "bend_radius_mm": 3.0,
     "end_lands_mm": [
       8.0,
-      0.0
+      8.0
     ],
     "route_status": "selected_layout",
-    "note": "The hot lead leaves the rear WAGO into the east aisle, descends before the inlet, passes below its housing and west of the jack, then angles inward through the relay wire mouth clear of the mounting screw head."
+    "note": "The hot lead follows the east aisle, descends before the inlet, passes below its housing and west of the jack, then approaches the actual relay contact mouth along its outward axis."
   },
   "AC4-pigtail": {
     "stations": [

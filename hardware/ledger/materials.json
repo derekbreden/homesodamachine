@@ -209,7 +209,7 @@
             "material": "HSM-0138",
             "quantity": 2,
             "unit": "ea",
-            "note": "Four relay and two condenser screws.",
+            "note": "Condenser mounting screws.",
             "bodies": []
           },
           {
@@ -259,6 +259,62 @@
               "wire-DC3-negative"
             ],
             "note": "DC-2 from the V12 block to relay 2 COM; DC-3's relay 2 NO pigtail and pump positive, joined under the funnel opening, and the pump negative from the DC GND block."
+          },
+          {
+            "material": "HSM-0578",
+            "quantity": 12,
+            "unit": "ea",
+            "bodies": [
+              "nameplate-screw-1",
+              "nameplate-screw-2",
+              "nameplate-screw-3",
+              "nameplate-screw-4",
+              "display-screw-1",
+              "display-screw-2",
+              "display-screw-3",
+              "display-screw-4",
+              "status-screw-1",
+              "status-screw-2",
+              "status-screw-3",
+              "status-screw-4"
+            ]
+          },
+          {
+            "material": "HSM-0136",
+            "quantity": 12,
+            "unit": "ea",
+            "bodies": [
+              "nameplate-insert-1",
+              "nameplate-insert-2",
+              "nameplate-insert-3",
+              "nameplate-insert-4",
+              "display-insert-1",
+              "display-insert-2",
+              "display-insert-3",
+              "display-insert-4",
+              "status-insert-1",
+              "status-insert-2",
+              "status-insert-3",
+              "status-insert-4"
+            ]
+          },
+          {
+            "material": "HSM-0579",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "status-plate",
+              "status-plate-ink",
+              "status-plate-diffuser"
+            ]
+          },
+          {
+            "material": "HSM-0580",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "status-led"
+            ]
           }
         ]
       },
@@ -9231,9 +9287,9 @@
           },
           {
             "material": "HSM-0136",
-            "quantity": 10,
+            "quantity": 6,
             "unit": "ea",
-            "note": "Two C14 bosses, four PSU hosts and four relay diagonals.",
+            "note": "PSU ceiling hosts and C14 mounting bosses.",
             "placements": [
               {
                 "bodies": [
@@ -9254,26 +9310,6 @@
                 "bodies": [
                   "psu-insert-4"
                 ]
-              },
-              {
-                "bodies": [
-                  "relay-1-insert-1"
-                ]
-              },
-              {
-                "bodies": [
-                  "relay-1-insert-2"
-                ]
-              },
-              {
-                "bodies": [
-                  "relay-2-insert-1"
-                ]
-              },
-              {
-                "bodies": [
-                  "relay-2-insert-2"
-                ]
               }
             ]
           },
@@ -9287,14 +9323,33 @@
             ]
           },
           {
-            "material": "HSM-0138",
-            "quantity": 4,
+            "material": "HSM-0576",
+            "quantity": 8,
             "unit": "ea",
             "bodies": [
               "relay-1-screw-1",
               "relay-1-screw-2",
+              "relay-1-screw-3",
+              "relay-1-screw-4",
               "relay-2-screw-1",
-              "relay-2-screw-2"
+              "relay-2-screw-2",
+              "relay-2-screw-3",
+              "relay-2-screw-4"
+            ]
+          },
+          {
+            "material": "HSM-0577",
+            "quantity": 8,
+            "unit": "ea",
+            "bodies": [
+              "relay-1-insert-1",
+              "relay-1-insert-2",
+              "relay-1-insert-3",
+              "relay-1-insert-4",
+              "relay-2-insert-1",
+              "relay-2-insert-2",
+              "relay-2-insert-3",
+              "relay-2-insert-4"
             ]
           }
         ]
@@ -11412,6 +11467,135 @@
         {
           "title": "Cut and insertion procedure",
           "path": "assembly/faucet-and-umbilical.md"
+        }
+      ]
+    },
+    {
+      "id": "HSM-0576",
+      "description": "Sutemribor M2 \u00d7 6 socket-head screw \u00b7 black oxide",
+      "kind": "purchased",
+      "aliases": [
+        "M2-0.4 \u00d7 6 mm",
+        "12.9 alloy steel",
+        "B0CXQ7Q7L3"
+      ],
+      "contexts": [
+        {
+          "material": "HSM-0547"
+        }
+      ],
+      "documents": [
+        {
+          "title": "Purchased screw pack",
+          "path": "ledger/purchases.md"
+        },
+        {
+          "title": "Fastener specification",
+          "path": "ledger/bom.md"
+        }
+      ]
+    },
+    {
+      "id": "HSM-0577",
+      "description": "ruthex M2 \u00d7 4 heat-set insert \u00b7 brass",
+      "kind": "purchased",
+      "manufacturer_number": "RX-M2x4",
+      "aliases": [
+        "M2 insert",
+        "B088QJG676"
+      ],
+      "contexts": [
+        {
+          "material": "HSM-0547"
+        }
+      ],
+      "documents": [
+        {
+          "title": "Purchased insert pack",
+          "path": "ledger/purchases.md"
+        },
+        {
+          "title": "Fastener specification",
+          "path": "ledger/bom.md"
+        }
+      ]
+    },
+    {
+      "id": "HSM-0578",
+      "description": "BNUOK M3 \u00d7 6 socket-head screw \u00b7 black oxide",
+      "kind": "purchased",
+      "aliases": [
+        "M3-0.5 \u00d7 6 mm",
+        "12.9 alloy steel",
+        "B0DJQH3WSX"
+      ],
+      "contexts": [
+        {
+          "material": "HSM-0001"
+        }
+      ],
+      "documents": [
+        {
+          "title": "Purchased screw pack",
+          "path": "ledger/purchases.md"
+        },
+        {
+          "title": "Fastener specification",
+          "path": "ledger/bom.md"
+        }
+      ]
+    },
+    {
+      "id": "HSM-0579",
+      "description": "Machine status plate \u00b7 black, white and translucent PETG",
+      "kind": "manufactured",
+      "aliases": [
+        "status plate",
+        "status-plate"
+      ],
+      "models": [
+        {
+          "file": "printed-parts/enclosure/display-cover/status-plate.step"
+        }
+      ],
+      "contexts": [
+        {
+          "material": "HSM-0001"
+        }
+      ],
+      "documents": [
+        {
+          "title": "Plate and light",
+          "path": "printed-parts/enclosure/display-cover/README.md"
+        }
+      ]
+    },
+    {
+      "id": "HSM-0580",
+      "description": "CHANZON prewired blue status LED \u00b7 clear lens",
+      "kind": "purchased",
+      "aliases": [
+        "B08G4Z6KPV",
+        "status-led",
+        "5 mm prewired blue LED"
+      ],
+      "contexts": [
+        {
+          "material": "HSM-0001"
+        }
+      ],
+      "documents": [
+        {
+          "title": "Purchased lamp pack",
+          "path": "ledger/purchases.md"
+        },
+        {
+          "title": "Received lamp dimensions",
+          "path": "printed-parts/enclosure/display-cover/wired-led-fit/physical-observations.json"
+        },
+        {
+          "title": "Lamp and diffuser",
+          "path": "printed-parts/enclosure/display-cover/README.md"
         }
       ]
     }

@@ -245,19 +245,26 @@ fn nut(v: &Value) -> Result<Solid> {
 fn mounting(v: &Value) -> Result<Solid> {
     let axis = point(&v["axis"])?;
     let p = point(&v["point"])?;
+    let dimensions = &v["dimensions"];
     if v["kind"] == "insert" {
         let face = p - axis * f(v, "setback")?;
-        return Solid::cylinder(face, -axis, 2.3, 4.)?
-            .cut(&Solid::cylinder(face + axis * 0.1, -axis, 1.25, 4.2)?);
+        let length = f(dimensions, "length")?;
+        return Solid::cylinder(face, -axis, f(dimensions, "radius")?, length)?
+            .cut(&Solid::cylinder(face + axis * 0.1, -axis,
+                                 f(dimensions, "bore_radius")?, length + 0.2)?);
     }
     let head = p + axis * f(v, "head_reach")?;
     let length = f(v, "length")?;
-    let stock = Solid::cylinder(head - axis * length, axis, 1.5, length)?
-        .union(&Solid::cylinder(head, axis, 2.75, 3.)?)?;
+    let head_height = f(dimensions, "head_height")?;
+    let socket_depth = f(dimensions, "socket_depth")?;
+    let stock = Solid::cylinder(head - axis * length, axis,
+                               f(dimensions, "shaft_radius")?, length)?
+        .union(&Solid::cylinder(head, axis, f(dimensions, "head_radius")?, head_height)?)?;
     let wide = if axis.x.abs() < 0.9 { V3::X } else { V3::Y };
     let socket = Profile::new(hsm_kernel::Loop::regular(V2::ZERO, 6,
-        2.5 / (std::f64::consts::PI / 6.).cos()));
-    stock.cut(&Plane::new(head + axis * 1.5, wide, axis)?.extrude(&socket, 1.6)?)
+        f(dimensions, "socket_af")? / (std::f64::consts::PI / 6.).cos()));
+    stock.cut(&Plane::new(head + axis * (head_height - socket_depth), wide, axis)?
+        .extrude(&socket, socket_depth + 0.1)?)
 }
 fn vent_adapter(v: &Value) -> Result<Solid> {
     let (rb, rt) = (((14. * 14. + 7.7 * 7.7 - 6.1 * 6.1) as f64).sqrt() / 2.,

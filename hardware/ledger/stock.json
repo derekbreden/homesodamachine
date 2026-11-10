@@ -47,7 +47,12 @@
     "HSM-0453": "John Guest PI4512F6S female flare adapter, 3/8\" tube × 3/8\" FFL",
     "HSM-0460": "John Guest PP061208W reducer, 3/8\" stem × 1/4\" PTC",
     "HSM-0461": "neoPure reinforced clear PVC tubing, 3/8\" ID × 0.594\" OD (10 ft)",
-    "HSM-0462": "neoPure reinforced clear PVC tubing, 3/8\" ID × 0.594\" OD (10 ft)"
+    "HSM-0462": "neoPure reinforced clear PVC tubing, 3/8\" ID × 0.594\" OD (10 ft)",
+    "HSM-0576": "B0CXQ7Q7L3",
+    "HSM-0577": "B088QJG676",
+    "HSM-0578": "B0DJQH3WSX",
+    "HSM-0580": "B08G4Z6KPV",
+    "HSM-0383": "neofit-ACVUS-44"
   },
   "kits": {
     "B07PCZKG94": [
@@ -658,12 +663,13 @@
       "sources": [
         {
           "path": "hardware/ledger/purchases.md",
-          "line": 151
+          "line": 152,
+          "purchase": "pur-47dc646d498d479f8d71df053b0ab9f6"
         }
       ],
       "planning": {
         "root": "HSM-0340",
-        "perUnit": 1.0,
+        "perUnit": 3,
         "materialAllowance": 0
       }
     },
@@ -719,7 +725,7 @@
       ],
       "planning": {
         "root": "HSM-0340",
-        "perUnit": 0.85,
+        "perUnit": 0.14675196850393699,
         "materialAllowance": 0
       }
     },
@@ -820,12 +826,7 @@
           "path": "hardware/ledger/purchases.md",
           "line": 170
         }
-      ],
-      "planning": {
-        "root": "HSM-0340",
-        "perUnit": 2.0,
-        "materialAllowance": 0
-      }
+      ]
     },
     {
       "id": "John Guest PP010822E 1/4\" OD × 1/4\" NPT male connector, black polypropylene (10-pk)",
@@ -3500,7 +3501,8 @@
       "sources": [
         {
           "path": "hardware/ledger/purchases.md",
-          "purchase": "pur-43767918757a4173a8b69a9b725d64fd"
+          "purchase": "pur-43767918757a4173a8b69a9b725d64fd",
+          "line": 186
         }
       ]
     },
@@ -3516,7 +3518,8 @@
       "sources": [
         {
           "path": "hardware/ledger/purchases.md",
-          "purchase": "pur-1ead43e8eead4989adf3de560d23febe"
+          "purchase": "pur-1ead43e8eead4989adf3de560d23febe",
+          "line": 122
         }
       ]
     },
@@ -3532,7 +3535,8 @@
       "sources": [
         {
           "path": "hardware/ledger/purchases.md",
-          "purchase": "pur-abd647629bfa41e1ae7de9bf129dbf44"
+          "purchase": "pur-abd647629bfa41e1ae7de9bf129dbf44",
+          "line": 160
         }
       ]
     },
@@ -3548,7 +3552,8 @@
       "sources": [
         {
           "path": "hardware/ledger/purchases.md",
-          "purchase": "pur-7a2c9d6f4b8e4d1a3f6c0b2d4e5f7a96"
+          "purchase": "pur-7a2c9d6f4b8e4d1a3f6c0b2d4e5f7a96",
+          "line": 522
         }
       ]
     },
@@ -3564,9 +3569,130 @@
       "sources": [
         {
           "path": "hardware/ledger/purchases.md",
-          "purchase": "pur-a306c668d8404ae7b814b49320456fb2"
+          "purchase": "pur-a306c668d8404ae7b814b49320456fb2",
+          "line": 527
         }
       ]
+    },
+    {
+      "id": "B0CXQ7Q7L3",
+      "name": "Sutemribor M2 × 6 mm socket-head cap screws, black oxide, 105 pc",
+      "unit": "pieces",
+      "href": "https://www.amazon.com/dp/B0CXQ7Q7L3",
+      "onHand": null,
+      "incoming": 0,
+      "reserved": 0,
+      "estimated": false,
+      "asOf": null,
+      "note": "The purchase ledger records the pack; its usable remainder has not been counted.",
+      "sources": [
+        {
+          "path": "hardware/ledger/purchases.md",
+          "line": 512,
+          "purchase": "pur-290815c457f54714a5735fb1e54360a9"
+        }
+      ],
+      "planning": {
+        "root": "HSM-0340",
+        "perUnit": 8,
+        "materialAllowance": 0
+      }
+    },
+    {
+      "id": "B088QJG676",
+      "name": "ruthex M2 × 4 mm RX-M2x4 brass heat-set inserts, 70 pc",
+      "unit": "pieces",
+      "href": "https://www.amazon.com/dp/B088QJG676",
+      "onHand": null,
+      "incoming": 0,
+      "reserved": 0,
+      "estimated": false,
+      "asOf": null,
+      "note": "The purchase ledger records the pack; its usable remainder has not been counted.",
+      "sources": [
+        {
+          "path": "hardware/ledger/purchases.md",
+          "line": 506,
+          "purchase": "pur-9f81aa36ad4e47ac8232415d46371a22"
+        }
+      ],
+      "planning": {
+        "root": "HSM-0340",
+        "perUnit": 8,
+        "materialAllowance": 0
+      }
+    },
+    {
+      "id": "B0DJQH3WSX",
+      "name": "BNUOK M3 × 6 mm socket-head cap screws, black oxide, 120 pc",
+      "unit": "pieces",
+      "href": "https://www.amazon.com/dp/B0DJQH3WSX",
+      "onHand": null,
+      "incoming": 0,
+      "reserved": 0,
+      "estimated": false,
+      "asOf": null,
+      "note": "The purchase ledger records the pack; its usable remainder has not been counted.",
+      "sources": [
+        {
+          "path": "hardware/ledger/purchases.md",
+          "line": 519,
+          "purchase": "pur-4d9f6a3c1e5b4a8d0c3f7e9a1b2c4d63"
+        }
+      ],
+      "planning": {
+        "root": "HSM-0340",
+        "perUnit": 12,
+        "materialAllowance": 0
+      }
+    },
+    {
+      "id": "B08G4Z6KPV",
+      "name": "CHANZON prewired clear-lens blue LED, 20 pc",
+      "unit": "pieces",
+      "href": "https://www.amazon.com/dp/B08G4Z6KPV",
+      "onHand": null,
+      "incoming": 0,
+      "reserved": 0,
+      "estimated": false,
+      "asOf": null,
+      "note": "The purchase ledger records the pack; its usable remainder has not been counted.",
+      "sources": [
+        {
+          "path": "hardware/ledger/purchases.md",
+          "line": 489,
+          "purchase": "pur-9a08e76abb825705aff0991b6c1bf389"
+        }
+      ],
+      "planning": {
+        "root": "HSM-0340",
+        "perUnit": 1,
+        "materialAllowance": 0
+      }
+    },
+    {
+      "id": "neofit-ACVUS-44",
+      "name": "neoFit ACVUS-44 stem check valve",
+      "unit": "pieces",
+      "href": "https://www.freshwatersystems.com/products/stem-reducer-check-valve-1-4-od-x-1-4-od-stem",
+      "onHand": null,
+      "incoming": 0,
+      "reserved": 0,
+      "estimated": false,
+      "asOf": null,
+      "note": "The purchase ledger records the received pack; its usable remainder has not been counted.",
+      "sources": [
+        {
+          "path": "hardware/ledger/purchases.md",
+          "line": 188,
+          "purchase": "pur-f6aead3aafe3428fa072646852793bab"
+        }
+      ],
+      "planning": {
+        "root": "HSM-0340",
+        "perUnit": 2,
+        "materialAllowance": 0
+      }
     }
   ],
   "observations": [

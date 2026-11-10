@@ -1,23 +1,23 @@
 {
   "source": {
     "path": "hardware/reference/teyleten-relay/scan_model.rs",
-    "sha256": "e6841d102cb701b38adf78fd50a5170433457716cad871d99afde6649eaa7b5e"
+    "sha256": "970c48ea692656fc81d964619bd65218036756d431aa8c6a80ec1e87523fbaa8"
   },
   "inputs": {
-    "hardware/reference/teyleten-relay/scan-datums.json": "515b98c943e3a6ea15dc67d5801d0de9776bfdac03b746450fb4545e3e97b682",
-    "hardware/reference/teyleten-relay/scan-model-evidence.json": "61d4551b8728cab3bae82afa5b65a2a6920e0e3809e71ac112f9f44c171dbe1d"
+    "hardware/reference/teyleten-relay/scan-datums.json": "330adf22d3a712923b08c433004a7c229acdfd2144355cc279d9e3bdb57f656e",
+    "hardware/reference/teyleten-relay/scan-model-evidence.json": "3643cd0592f2d72e77dfdac12d3c5cb5e214112675e4d8b23d060b7493548a96"
   },
   "evidence": "scan-model-evidence.json",
   "members": {
-    "teyleten-relay.step": "ab3a7aec46ac88253ce58d6f560468fc110dcac2bf0804a1e02ef58dfbdab891",
-    "teyleten-relay.step.npz": "0827d8fe3d4870be23ce74966878e1aed5664d809a2d7915219c2bbfd0d7d034",
-    "teyleten-relay.step.mesh": "04469404d8f39c39fd529f766458f99bde310476e56968ec10eb8adeeb7ff726"
+    "teyleten-relay.step": "88bf1735baa52f356d60abd38624013ac0b7cc238a2c9a5477425cb63fac78bf",
+    "teyleten-relay.step.npz": "e1e41bb07d074110263d0ba3406e805e9d5127618932ca8f2b697bd5253c4880",
+    "teyleten-relay.step.mesh": "4fd1bb7fde282b2d0e57252b420f8f72fcebbd562472bf762d66c9db4a980405"
   },
   "fine_models": {
     "teyleten-relay.step": {
       "path": "teyleten-relay.step.npz",
-      "sha256": "0827d8fe3d4870be23ce74966878e1aed5664d809a2d7915219c2bbfd0d7d034",
-      "source_step_sha256": "ab3a7aec46ac88253ce58d6f560468fc110dcac2bf0804a1e02ef58dfbdab891",
+      "sha256": "e1e41bb07d074110263d0ba3406e805e9d5127618932ca8f2b697bd5253c4880",
+      "source_step_sha256": "88bf1735baa52f356d60abd38624013ac0b7cc238a2c9a5477425cb63fac78bf",
       "producer": "hardware/reference/teyleten-relay/scan_model.rs",
       "presentation_indices": [
         0,
@@ -35,8 +35,8 @@
   },
   "fine_payload": {
     "path": "teyleten-relay.step.mesh",
-    "sha256": "04469404d8f39c39fd529f766458f99bde310476e56968ec10eb8adeeb7ff726",
-    "source_step_sha256": "ab3a7aec46ac88253ce58d6f560468fc110dcac2bf0804a1e02ef58dfbdab891",
+    "sha256": "4fd1bb7fde282b2d0e57252b420f8f72fcebbd562472bf762d66c9db4a980405",
+    "source_step_sha256": "88bf1735baa52f356d60abd38624013ac0b7cc238a2c9a5477425cb63fac78bf",
     "producer": "hardware/reference/teyleten-relay/scan_model.rs",
     "color_space": "linear-rgb",
     "meshes": [

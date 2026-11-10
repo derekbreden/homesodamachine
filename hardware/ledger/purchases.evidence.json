@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "as_of": "2026-11-07",
+  "as_of": "2026-11-09",
   "reporting_period": {
     "start": "2026-01-01",
     "end": "2026-12-31"
@@ -1474,14 +1474,15 @@
     "pur-47dc646d498d479f8d71df053b0ab9f6": {
       "vendor": "Fresh Water Systems",
       "purpose": "components",
-      "amount_evidence": "legacy_unverified",
+      "amount_evidence": "final_vendor_amount",
       "order_ids": [
         "fws:WEBFWS100682118"
       ],
       "allocation_status": "all_project",
       "source_ids": [
         "legacy-ledger-2026",
-        "saved-fws:WEBFWS100682118"
+        "saved-fws:WEBFWS100682118",
+        "src-f5612a35b03b44a29c64faf1858e54a1"
       ]
     },
     "pur-8fd56a4ca4bd498da835783da1099138": {
@@ -5727,14 +5728,15 @@
     "pur-3ce496aeefa54ba3ac576dd7b9d3ec91": {
       "vendor": "Amazon",
       "purpose": "consumables_materials",
-      "amount_evidence": "legacy_unverified",
+      "amount_evidence": "final_vendor_amount",
       "order_ids": [
         "amazon:114-4402537-9406656"
       ],
       "allocation_status": "all_project",
       "source_ids": [
         "legacy-ledger-2026",
-        "saved-amazon:114-4402537-9406656"
+        "saved-amazon:114-4402537-9406656",
+        "src-c1927a0bc4fb476096e2b0c98078c499"
       ]
     },
     "pur-c7cd43298809474ca0d28bec2d91da35": {
@@ -6843,7 +6845,8 @@
       "source_ids": [
         "legacy-ledger-2026",
         "saved-bambu:us722538751263612929",
-        "src-f175d220a1a04dbb8ae63733cb838a56"
+        "src-f175d220a1a04dbb8ae63733cb838a56",
+        "src-fa5b5b03400a42d7a9c5fdd1935ffde9"
       ]
     },
     "pur-aa9e46928fa84f3bb1ce075c3d298d72": {
@@ -8699,6 +8702,19 @@
       "source_ids": [
         "src-fc21b89f674c49d8b7beb35eb29aa7e1"
       ]
+    },
+    "pur-f6aead3aafe3428fa072646852793bab": {
+      "vendor": "Fresh Water Systems",
+      "purpose": "components",
+      "amount_evidence": "final_vendor_amount",
+      "order_ids": [
+        "fws:WEBFWS100716314"
+      ],
+      "allocation_status": "all_project",
+      "source_ids": [
+        "src-df13c4ce12f642b8878093764cce1699",
+        "src-33d9040298cb499e88555a7bbefdc397"
+      ]
     }
   },
   "orders": {
@@ -9520,7 +9536,8 @@
       "order_date": null,
       "allocation_status": "all_project",
       "source_ids": [
-        "saved-fws:WEBFWS100682118"
+        "saved-fws:WEBFWS100682118",
+        "src-f5612a35b03b44a29c64faf1858e54a1"
       ]
     },
     "fws:WEBFWS100707201": {
@@ -12255,7 +12272,8 @@
       },
       "allocation_status": "all_project",
       "source_ids": [
-        "saved-amazon:114-4402537-9406656"
+        "saved-amazon:114-4402537-9406656",
+        "src-c1927a0bc4fb476096e2b0c98078c499"
       ]
     },
     "amazon:114-8931415-0067401": {
@@ -12780,7 +12798,8 @@
       "allocation_status": "all_project",
       "source_ids": [
         "saved-bambu:us722538751263612929",
-        "src-f175d220a1a04dbb8ae63733cb838a56"
+        "src-f175d220a1a04dbb8ae63733cb838a56",
+        "src-fa5b5b03400a42d7a9c5fdd1935ffde9"
       ]
     },
     "bambu:us722988823976337409": {
@@ -14690,6 +14709,16 @@
       "allocation_status": "all_project",
       "source_ids": [
         "src-fc21b89f674c49d8b7beb35eb29aa7e1"
+      ]
+    },
+    "fws:WEBFWS100716314": {
+      "vendor": "Fresh Water Systems",
+      "reference": "WEBFWS100716314",
+      "order_date": null,
+      "allocation_status": "all_project",
+      "source_ids": [
+        "src-df13c4ce12f642b8878093764cce1699",
+        "src-33d9040298cb499e88555a7bbefdc397"
       ]
     }
   },
@@ -30290,6 +30319,101 @@
       ],
       "verified_at": "2026-11-07",
       "note": "Gmail order confirmation received on the order date: PETG Basic Red 30201, White 30106 and Navy Blue 30604, one filament-with-spool unit per color, 1 kg each. Each spool is USD 15.29 after a USD 1.70 Filament Bulk Sale discount from USD 16.99. USD 45.87 subtotal, USD 0.00 credit, USD 6.99 shipping, USD 3.83 tax (Nebraska USD 2.90 and Lincoln USD 0.93), USD 56.69 grand total and net payment. Preparing for shipment; delivery estimate is 3–6 business days after shipping, without a dispatch or delivery date. The confirmation does not independently establish a completed merchant charge."
+    },
+    "src-f5612a35b03b44a29c64faf1858e54a1": {
+      "vendor": "Fresh Water Systems",
+      "document_type": "email_order_confirmation",
+      "reference": "WEBFWS100682118",
+      "document_date": {
+        "precision": "day",
+        "value": "2026-06-10"
+      },
+      "proves": [
+        "price",
+        "notification_date"
+      ],
+      "verified_at": "2026-11-09",
+      "note": "Order confirmation itemizes one bag of ten PP061208W reducer stems at USD 16.44 and one bag of ten PP451223W adapters at USD 46.14; USD 62.58 subtotal, USD 13.25 shipping, USD 5.50 tax, USD 81.33 total. The notification timestamp supplies no independent placed date or completed merchant charge evidence.",
+      "notification_date": {
+        "precision": "day",
+        "value": "2026-06-10"
+      }
+    },
+    "src-fa5b5b03400a42d7a9c5fdd1935ffde9": {
+      "vendor": "Bambu Lab",
+      "document_type": "email_order_confirmation",
+      "reference": "us722538751263612929",
+      "document_date": {
+        "precision": "day",
+        "value": "2026-04-19"
+      },
+      "proves": [
+        "price",
+        "notification_date"
+      ],
+      "verified_at": "2026-11-09",
+      "note": "Confirmation identifies TPU 90A Black 51103, two one-kilogram spools at USD 83.98 together; TPU 85A Black 51107, two one-kilogram spools at USD 89.98 together; USD 173.96 subtotal, free shipping, USD 12.61 tax, USD 186.57 total. This source supplies grade and quantity allocation; the retained merchant order page separately supplies payment evidence.",
+      "notification_date": {
+        "precision": "day",
+        "value": "2026-04-19"
+      }
+    },
+    "src-c1927a0bc4fb476096e2b0c98078c499": {
+      "vendor": "Amazon",
+      "document_type": "email_order_confirmation",
+      "reference": "114-4402537-9406656",
+      "document_date": {
+        "precision": "day",
+        "value": "2026-04-20"
+      },
+      "proves": [
+        "price",
+        "notification_date"
+      ],
+      "verified_at": "2026-11-09",
+      "note": "Confirmation identifies Siraya Tech Flex TPU 85A Clear, one kilogram, quantity one, at USD 31.59 merchandise and USD 33.88 grand total. This source supplies grade, spool mass and order value; no completed charge or independent delivery evidence is inferred from this confirmation.",
+      "notification_date": {
+        "precision": "day",
+        "value": "2026-04-20"
+      }
+    },
+    "src-df13c4ce12f642b8878093764cce1699": {
+      "vendor": "Fresh Water Systems",
+      "document_type": "email_order_confirmation",
+      "reference": "WEBFWS100716314",
+      "document_date": {
+        "precision": "day",
+        "value": "2026-10-30"
+      },
+      "proves": [
+        "price",
+        "notification_date"
+      ],
+      "verified_at": "2026-11-09",
+      "note": "Confirmation identifies one bag of ten Stem Reducer Check Valve 1/4 OD x 1/4 OD Stem, USD 19.40 merchandise, USD 14.60 shipping, USD 2.47 tax, USD 36.47 total. Its notification timestamp is 2026-10-30T03:55:12Z; no explicit placed date or completed merchant charge is stated.",
+      "notification_date": {
+        "precision": "day",
+        "value": "2026-10-30"
+      }
+    },
+    "src-33d9040298cb499e88555a7bbefdc397": {
+      "vendor": "Fresh Water Systems",
+      "document_type": "email_delivery_notification",
+      "reference": "WEBFWS100716314",
+      "document_date": {
+        "precision": "day",
+        "value": "2026-11-03"
+      },
+      "proves": [
+        "delivery",
+        "notification_date"
+      ],
+      "verified_at": "2026-11-09",
+      "note": "Delivery notice reports the bag of ten Stem Reducer Check Valve 1/4 OD x 1/4 OD Stem delivered, with UPS tracking 1Z89YF110201345116. The notification date is retained; the message supplies no independent calendar delivery date.",
+      "notification_date": {
+        "precision": "day",
+        "value": "2026-11-03"
+      }
     }
   },
   "coverage": [
@@ -32143,6 +32267,24 @@
       "missing_fact": "A completed merchant charge and its event date are not established by the order confirmation; the USD 173.54 charge remains expected.",
       "sources_checked": [
         "Fresh Water Systems order confirmation WEBFWS100715131"
+      ]
+    },
+    {
+      "gap_id": "gap-40a04fd67b1f469ebec51aa79a1e2aa7",
+      "vendor": "Fresh Water Systems",
+      "purchase_ids": [
+        "pur-f6aead3aafe3428fa072646852793bab"
+      ],
+      "order_ids": [
+        "fws:WEBFWS100716314"
+      ],
+      "source_ids": [
+        "src-df13c4ce12f642b8878093764cce1699",
+        "src-33d9040298cb499e88555a7bbefdc397"
+      ],
+      "missing_fact": "Exact placed and delivery calendar dates; completed merchant charge evidence and event date. Confirmation supplies the final vendor amount and the delivery notice establishes acquired fulfillment.",
+      "sources_checked": [
+        "Order confirmation and delivery notification for WEBFWS100716314"
       ]
     }
   ],
