@@ -119,7 +119,7 @@ Cylinders, regulator, CO2 line, push-to-connect adapters for the CO2 side.
 | <!--purchase:pur-af0cc437c2894196aef6229762c9ad97--> Control Devices SV-100 safety valve, 1/4" NPT, 100 psi (spare PRV; superseded by SV-125) | [B0D361X97X](https://www.amazon.com/dp/B0D361X97X) | 2 | $8.03 ea | 112-7814251-3174665 | 2026-04-12 | — | ACQUIRED |
 | <!--purchase:pur-189a85fc0d3a44699a8cb6673f968b26--> Interstate Pneumatics WR1110 1/4" NPT in-Line 90 PSI fixed pre-set pressure regulator, 230 PSI max inlet, aluminum body | [B07J2L8LF3](https://www.amazon.com/dp/B07J2L8LF3) | 1 | $25.66 | 112-6323725-5423434 | 2026-05-13 | 2026-05-17 | ACQUIRED |
 | <!--purchase:pur-f98feadd5dec4c1cba460dd7c74baa09--> Interstate Pneumatics WR1105 1/4" NPT in-line fixed pre-set pressure regulator, listed 50 PSI, barrel etched 3 bar, 230 PSI max inlet, aluminum body — the appliance's secondary CO2 regulator, one per build. Sole item on its invoice, 3 @ $28.46 + $6.18 NE tax, shipping $0.00 | [B0CGFCJNMG](https://www.amazon.com/dp/B0CGFCJNMG) | 3 | $30.52 ea | 112-6207769-5063458 | 2026-10-03 | 2026-10-07 | ACQUIRED |
-| <!--purchase:pur-1ead43e8eead4989adf3de560d23febe--> PISCO RVFUP1/4-1/4-0.3 preset regulator, 1/4" push-connect, 0.3 MPa — 2 pcs, $81.32 + $30.21 UPS Ground + $0.00 tax; order on hold pending payment confirmation | [PISCO](https://shop.pisco.com/product/rvfup1-4-1-4-0-3/) | 2 | $111.53 | 8638 | 2026-10-23 | — | ON-ORDER |
+| <!--purchase:pur-1ead43e8eead4989adf3de560d23febe--> PISCO RVFUP1/4-1/4-0.3 preset regulator, 1/4" push-connect, 0.3 MPa — two pieces, $81.32 merchandise + $26.57 shipping, no tax | [PISCO](https://shop.pisco.com/product/rvfup1-4-1-4-0-3/) | 2 | $107.89 | 8638 | 2026-10-23 | 2026-10-28 | ACQUIRED |
 | <!--purchase:pur-2ea84071bce44b5fbac595a3c4e6cd90--> Control Devices SV-125 safety valve, 1/4" NPT, 125 psi set pressure, 49 SCFM relief, brass | [B01G2F6EMY](https://www.amazon.com/dp/B01G2F6EMY) | 1 | $8.03 | 112-6323725-5423434 | 2026-05-13 | 2026-05-17 | ACQUIRED |
 | <!--purchase:pur-ce1b4970208b4c6a9adec93c9a7f950e--> Fresh Water Systems order WEBFWS100675224 — JG 1/4" NPTF male connector (×10) + 1/4" union elbow PP0308E (×10) | [freshwatersystems.com](https://www.freshwatersystems.com/) | 1 order (2 × bag of 10) | $44.11 | — | — | 2026-05-19 | ACQUIRED |
 | <!--purchase:pur-99a0644333ed4c5a8e5d5514098319fa--> Fresh Water Systems order WEBFWS100708594 — JG **PI450822S** gray acetal female adapter, 1/4" tube × 1/4" NPTF (3 × bag of 10) | [FWS](https://www.freshwatersystems.com/products/john-guest-female-adapter-nptf-1-4-x-1-4-nptf), [Gmail confirmation](https://mail.google.com/mail/u/0/#search/WEBFWS100708594) | 3 bags (30) | $94.54 | WEBFWS100708594 | 2026-09-23 | 2026-10-05 | ACQUIRED |
@@ -157,7 +157,7 @@ Feed-water inlet, filter, ASSE 1022 backflow preventer and its vent-line hardwar
 | <!--purchase:pur-2adc38c7f40a47c0a7ce61c92ac8671d--> John Guest Speedfit **ASVPP1LF** angle stop adapter valve, 3/8" × 3/8" × 1/4", lead-free push-to-connect — one single of the same fitting the bag of ten on WEBFWS100707201 carries. $15.28 + $1.11 NE tax | [B003YKF2JC](https://www.amazon.com/dp/B003YKF2JC) | 1 | $16.39 | 112-4818896-3446652 | 2026-09-08 | 2026-09-09 | ACQUIRED |
 | <!--purchase:pur-65c979f1bb194148918426361d985f73--> Fresh Water Systems order WEBFWS100711469 — neoFit **ABU44M-E** acetal black bulkhead connector, 4 mm (5/32") tube (bag of 10) + neoFit **ARD4M4-E** stem reducer, 4 mm tube × 1/4" stem (bag of 10) + neoFlo **LLDPE4M-WHITE** white 4 mm OD LLDPE tubing (4 × 25 ft) | [FWS](https://www.freshwatersystems.com/), [Gmail confirmation](https://mail.google.com/mail/u/0/#search/WEBFWS100711469) | 3 line items | $109.98 | WEBFWS100711469 | 2026-10-07 | 2026-10-09 | ACQUIRED (ground, 4–5 business days. Merchandise by line: ABU44M-E $27.58; ARD4M4-E $11.89; white 4 mm tubing $18.00 for 100 ft — $57.47 merchandise + $45.07 shipping + $7.44 tax. Hardware for the ASSE 1022 vent's DRAIN line to the faucet) |
 | <!--purchase:pur-03fa2eeee1cd4eae8e6991441f9f90ed--> Fresh Water Systems order WEBFWS100711471 — neoFit **AEU44-E** acetal black union elbow, 1/4" tube × 1/4" tube (bag of 10) + neoFit **ATBC44-E** stem barb connector, 1/4" stem × 1/4" barb (bag of 10) | [FWS](https://www.freshwatersystems.com/), [Gmail confirmation](https://mail.google.com/mail/u/0/#search/WEBFWS100711471) | 2 line items | $41.18 | WEBFWS100711471 | 2026-10-07 | 2026-10-09 | ACQUIRED (2 business days. Merchandise by line: AEU44-E $16.14; ATBC44-E $9.00 — $25.14 merchandise + $13.25 shipping + $2.79 tax. The rest of the ASSE 1022 vent's DRAIN line, between the vent hose and the ARD4M4-E reducer on WEBFWS100711469) |
-| <!--purchase:pur-abd647629bfa41e1ae7de9bf129dbf44--> YZMSZ 1/4" OD fixed 0.3 MPa (3 kg) water pressure-reducing valve, native push-to-connect ports — the clean-water regulator ([reference](/hardware/reference/yzmsz-water-regulator/README.md)). $11.99 + $0.87 tax | [B0CGS34P93](https://www.amazon.com/dp/B0CGS34P93) | 1 | $12.86 | 112-6255534-2742635 | 2026-10-23 | — | ON-ORDER |
+| <!--purchase:pur-abd647629bfa41e1ae7de9bf129dbf44--> YZMSZ 1/4" OD fixed 0.3 MPa (3 kg) water pressure-reducing valve, native push-to-connect ports — the clean-water regulator ([reference](/hardware/reference/yzmsz-water-regulator/README.md)). $11.99 + $0.87 tax | [B0CGS34P93](https://www.amazon.com/dp/B0CGS34P93) | 1 | $12.86 | 112-6255534-2742635 | 2026-10-23 | 2026-10-26 | ACQUIRED |
 | <!--purchase:pur-2c46198fe81f4cf7bf5a65d4e4ec638a--> Frizzlife PRV01 water pressure regulator, 60 psi, 1/4" quick-connect push-fit ports ([reference](/hardware/reference/frizzlife-prv01/README.md)). $10.99 + $0.80 tax | [B08NDQCZN2](https://www.amazon.com/dp/B08NDQCZN2) | 1 | $11.79 | 112-7854933-1604224 | 2026-10-23 | — | ON-ORDER |
 
 ## 4. Carbonator plumbing (pressurized side)
@@ -184,7 +184,7 @@ Check valves, water-inlet jet fittings, diagnostic pumps and carbonation parts, 
 | <!--purchase:pur-51e99d8549c9421081ecf1e8151ed165--> G Ganen 12 V diaphragm pump, advertised 110 psi / 4.5 L/min — the selected diaphragm pump; this received sample is its [measured reference](/hardware/reference/g-ganen-pump/README.md) | [B07F35PTFR](https://www.amazon.com/dp/B07F35PTFR) | 1 | $19.29 | 112-0884852-3444230 | 2026-09-15 | 2026-09-17 | ACQUIRED |
 | <!--purchase:pur-b45edf5bf83a442a9c580969adbfa616--> IEIK 12 V 60 W diaphragm pump, advertised 116 psi / 5 L/min — measurement-only purchase | [B07YXTHNRQ](https://www.amazon.com/dp/B07YXTHNRQ) | 1 | $20.37 | 112-0884852-3444230 | 2026-09-15 | 2026-09-17 | ACQUIRED (diagnostic stock, no production allocation) |
 | <!--purchase:pur-43767918757a4173a8b69a9b725d64fd--> Fresh Water Systems order WEBFWS100715131 — neoFit **ACHV44-E** acetal black single check valve, 1/4" tube, 0.3 psi crack pressure (bag of 10) + neoFit **ATEU44W** acetal white stem elbow, 1/4" tube × 1/4" stem (3 × bag of 10) + neoFit **ATBU444-E** acetal black branch stem tee, 1/4" tube × 1/4" stem (bag of 10) + neoFlo **LLDPE4M-BLACK** black 4 mm OD LLDPE tubing (100 ft) | [FWS](https://www.freshwatersystems.com/) | 4 line items | $173.54 | WEBFWS100715131 | 2026-10-24 | 2026-10-28 | ACQUIRED (UPS 1Z89YF110338370723, all four lines in one shipment. Merchandise by line: ACHV44-E $80.40; ATEU44W $36.18 for 30; ATBU444-E $17.64; black 4 mm tubing $13.00 for 100 ft — $147.22 merchandise + $14.58 shipping + $11.74 tax = $173.54 paid. Check valves for the CO2 and water-side checks; stem elbows for the pump dock's lower returns and the above-core layout's trimmed-stem joints; the branch tee for that layout's water split; the tubing for the black 4 mm flavor dispense lines) |
-| <!--purchase:pur-9d9726d27ea04842b803208c17fd1b37--> Fresh Water Systems order WEBFWS100715944 — neoFit **AME4-N2-E** acetal black male elbow, fixed, 1/4" tube × 1/4" NPTF, EPDM O-ring (2 × bag of 10) | [AME4-N2-E](https://www.freshwatersystems.com/products/neofit-acetal-black-male-elbow-1-4-tube-x-1-4-nptf) | 2 bags (20) | $49.13 | WEBFWS100715944 | 2026-10-28 | — | ON-ORDER (2-business-day shipping. $31.20 merchandise ($15.60 a bag of 10) + $14.60 shipping + $3.33 tax = $49.13 paid. The bottom plate's two port elbows, Ports 1 and 3, two per build in bom.md §2) |
+| <!--purchase:pur-9d9726d27ea04842b803208c17fd1b37--> Fresh Water Systems order WEBFWS100715944 — neoFit **AME4-N2-E** acetal black male elbow, fixed, 1/4" tube × 1/4" NPTF, EPDM O-ring (2 × bag of 10) | [AME4-N2-E](https://www.freshwatersystems.com/products/neofit-acetal-black-male-elbow-1-4-tube-x-1-4-nptf) | 2 bags (20) | $49.13 | WEBFWS100715944 | 2026-10-28 | — | ACQUIRED |
 | <!--purchase:pur-f6aead3aafe3428fa072646852793bab--> Fresh Water Systems order WEBFWS100716314 — neoFit ACVUS-44 stem reducer check valve, 1/4" OD tube × 1/4" OD stem (bag of 10) | [Stem reducer check valve](https://www.freshwatersystems.com/products/stem-reducer-check-valve-1-4-od-x-1-4-od-stem) | 1 bag (10) | $36.47 | WEBFWS100716314 | — | — | ACQUIRED (Delivered notice dated 2026-11-03. Confirmation total: $19.40 merchandise + $14.60 shipping + $2.47 tax = $36.47, or $3.647 per valve. Two serve each machine, water-side and gas-side. Exact placed and delivery calendar dates are not independently established by the email notifications.) |
 
 ## 5. Flavor subsystem
@@ -486,7 +486,7 @@ DigiKey salesorder **101910359**, web order **377210254**: the 2026-09-29 confir
 | <!--purchase:pur-3b72c994b94b43c29f76326060b40799--> KRAUS garbage-disposal air-switch kit, matte black | [B096319GMV](https://www.amazon.com/dp/B096319GMV) | 3 | $42.85 ea | 112-0545074-9805025 | 2026-02-23 | — | ACQUIRED |
 | <!--purchase:pur-dde3fb13bc1848948e853aa0cf358c04--> 7 mm 12 V prewired momentary micro pushbutton, 12 pc | [B0F43GYWJ6](https://www.amazon.com/dp/B0F43GYWJ6) | 1 pk | $7.71 | 114-8283262-7030641 | 2026-02-06 | — | ACQUIRED |
 | <!--purchase:pur-0a7108124fd74a8293262293affbcc14--> EDGELEC 120 pc 12 V prewired LED assortment, 5 mm | [B07PVVL2S6](https://www.amazon.com/dp/B07PVVL2S6) | 1 pk | $13.93 | 114-8283262-7030641 | 2026-02-06 | — | ACQUIRED |
-| <!--purchase:pur-9a08e76abb825705aff0991b6c1bf389--> CHANZON prewired clear-lens blue LED, status-plate light; inline resistor and blue positive/black negative leads. Amazon Prime, sold by Chanzon; item plus estimated tax, free shipping | [B08G4Z6KPV](https://www.amazon.com/dp/B08G4Z6KPV) | 1 pk (20) | $7.50 | 114-4948607-3372207 | 2026-11-06 | — | ON-ORDER (arriving 2026-11-07) |
+| <!--purchase:pur-9a08e76abb825705aff0991b6c1bf389--> CHANZON prewired clear-lens blue LED, status-plate light; inline resistor and blue positive/black negative leads. Amazon Prime, sold by Chanzon; item plus estimated tax, free shipping | [B08G4Z6KPV](https://www.amazon.com/dp/B08G4Z6KPV) | 1 pk (20) | $7.50 | 114-4948607-3372207 | 2026-11-06 | 2026-11-07 | ACQUIRED |
 | <!--purchase:pur-d20e2be8ae4745c6a0cb6e908e3638fe--> DIYables Passive Piezo Buzzer Module, 5 V, 2-pack | [B0DYDN31PV](https://www.amazon.com/dp/B0DYDN31PV) | 1 pk (2) | $6.42 | 112-8061650-4642611 | 2026-05-11 | 2026-05-14 | ACQUIRED |
 
 ## 11. Enclosure hardware
@@ -519,7 +519,7 @@ DigiKey salesorder **101910359**, web order **377210254**: the 2026-09-29 confir
 | <!--purchase:pur-4d9f6a3c1e5b4a8d0c3f7e9a1b2c4d63--> BNUOK M3 × 6 mm Hex Socket Head Cap Screws, 120 pc, 12.9 alloy steel, black oxide. $7.12 item price + $0.52 allocated tax | [B0DJQH3WSX](https://www.amazon.com/dp/B0DJQH3WSX) | 1 pk (120) | $7.64 | 114-8768578-0217027 | 2026-10-17 | 2026-10-18 | ACQUIRED |
 | <!--purchase:pur-5e0a7b4d2f6c4b9e1d4a8f0b2c3d5e74--> SVLING M5 × 0.8 × 60 mm socket-head cap screws, 40 pc, 12.9 alloy steel, black. $7.50 item price + $0.54 allocated tax | [B0GHNHFYJN](https://www.amazon.com/dp/B0GHNHFYJN) | 1 pk (40) | $8.04 | 114-8768578-0217027 | 2026-10-17 | 2026-10-18 | ACQUIRED |
 | <!--purchase:pur-6f1b8c5e3a7d4c0f2e5b9a1c3d4e6f85--> Small Parts M5 flat washers, DIN 125, 5.3 mm ID × 10 mm OD × 1 mm, 18-8 stainless, black oxide, 100 pc. $7.16 item price + $0.52 allocated tax | [B009OK27FI](https://www.amazon.com/dp/B009OK27FI) | 1 pk (100) | $7.68 | 114-8768578-0217027 | 2026-10-17 | 2026-10-19 | ACQUIRED |
-| <!--purchase:pur-7a2c9d6f4b8e4d1a3f6c0b2d4e5f7a96--> SVLING M5 × 0.8 × 100 mm socket-head cap screws, 20 pc, 12.9 alloy steel, black — seam rods. $7.70 + $0.56 tax | [B0GHNNYVDH](https://www.amazon.com/dp/B0GHNNYVDH) | 1 pk (20) | $8.26 | 112-8643704-3927458 | 2026-10-25 | — | ON-ORDER (arriving 2026-10-26) |
+| <!--purchase:pur-7a2c9d6f4b8e4d1a3f6c0b2d4e5f7a96--> SVLING M5 × 0.8 × 100 mm socket-head cap screws, 20 pc, 12.9 alloy steel, black — seam rods. $7.70 + $0.56 tax | [B0GHNNYVDH](https://www.amazon.com/dp/B0GHNNYVDH) | 1 pk (20) | $8.26 | 112-8643704-3927458 | 2026-10-25 | 2026-10-26 | ACQUIRED |
 | <!--purchase:pur-6b2a8bfdb28140f9b07113a2d70f70e6--> BNUOK M3 × 60 mm Hex Socket Head Cap Screws, 60 pc, 12.9 alloy steel, black oxide, full thread — the pump clamp's two, and the whole of what fastens either pump: each drops through the clamp crown's counterbore, runs the filled field and the bracket-height gap under it, and takes the full-length ruthex in the lower cradle's centre lane. Head Ø5.5 × 3, 2.5 mm hex, the same BNUOK black-oxide family as the M3×8/10/25 | [B0DJQHNL3H](https://www.amazon.com/dp/B0DJQHNL3H) | 1 pk (60) | $10.18 | 112-5107616-8144245 | 2026-09-18 | 2026-09-19 | ACQUIRED |
 | <!--purchase:pur-eb29d9d132f94e3492692ca28f52e8bd--> BNUOK M3 × 20 mm Hex Socket Head Cap Screws, 60 pc, 12.9 alloy steel, black oxide, full thread — the water pump's four mounting screws, one through the slot in each G Ganen rubber foot, through the top cap lid, into a deck-mount column's ruthex. Same family and same 2.5 mm hex as the rest of the box's M3 | [B0DJR2Q5LP](https://www.amazon.com/dp/B0DJR2Q5LP) | 1 pk (60) | $8.14 | 112-0416491-0117835 | 2026-09-18 | 2026-09-20 | ACQUIRED |
 | <!--purchase:pur-52ab7650d37f439e9edf9276dbf8f96d--> binifiMux M3 flat washers, Ø12 mm OD × 1.0 mm, 100 pc, 304 stainless steel — general stock, with no role in the current build: the water pump's screws take the Ø9 × 0.8 below | [B0DDTRPSPH](https://www.amazon.com/dp/B0DDTRPSPH) | 1 pk (100) | $6.42 | 112-2270140-6656239 | 2026-09-18 | 2026-09-19 | ACQUIRED |
@@ -528,6 +528,8 @@ DigiKey salesorder **101910359**, web order **377210254**: the 2026-09-29 confir
 | <!--purchase:pur-6e0f14f448b24df9b79955fe92b6dde5--> Mudder PTFE / PVC / PU tubing cutter, ≤3/4" OD (3-pk, black) | [B08VW15TK8](https://www.amazon.com/dp/B08VW15TK8) | 1 pk (3) | $12.86 | 112-8598924-2300214 | 2026-05-17 | 2026-05-18 | ACQUIRED |
 | <!--purchase:pur-090da6f913a54ed8b8785082324e2c8d--> uxcell 304 stainless compression spring, 6 mm OD × 0.8 mm wire × 30 mm free length, 5 pc — spare stock, with no role in the current build. Two packs, $5.19 ea + $0.76 NE tax | [B0C33FQDB6](https://www.amazon.com/dp/B0C33FQDB6) | 2 pk (5) | $11.14 | 112-3782386-8113829 | 2026-09-16 | 2026-09-20 | ACQUIRED |
 | <!--purchase:pur-ed416e9ff39a42f9a0f8705a7d769d5a--> uxcell 304 stainless compression spring, 6 mm OD × 0.6 mm wire × 30 mm free length, 20 pc — spare stock, with no role in the current build; dimensional match to the Lee LCM060C12M ([inventory.md](/hardware/ledger/inventory.md), Diagnostic). $8.89 + $0.64 NE tax | [B076LRZHP5](https://www.amazon.com/dp/B076LRZHP5) | 1 pk (20) | $9.53 | 112-5383652-4465062 | 2026-09-16 | 2026-09-18 | ACQUIRED |
+| <!--purchase:pur-89b25fbe2a3e44adb4cbb188ab8a820f--> ruthex brass heat-set insert assortment: RX-M2x4, RX-M3x5.7, RX-M4x8.1 and RX-M5x9.5; 270 pieces (70 / 100 / 50 / 50). $29.99 merchandise + $2.17 estimated tax; shipping waived | [B08K1BVGN9](https://www.amazon.com/dp/B08K1BVGN9) | 1 box (270) | $32.16 | 112-8336005-3642625 | 2026-11-09 | — | ON-ORDER (expected 2026-11-10) |
+| <!--purchase:pur-14f8f47e82a74b129f4677cb0fc2a67d--> Sutemribor M2 × 6 mm socket-head cap screws, M2-0.4, 12.9 alloy steel, black oxide, fully threaded; replenishment pack | [B0CXQ7Q7L3](https://www.amazon.com/dp/B0CXQ7Q7L3) | 1 pk (105) | $8.57 | 112-0448533-3655424 | 2026-11-09 | — | ON-ORDER (expected 2026-11-11) |
 
 ## 12. Shop / bench infrastructure
 
@@ -826,9 +828,10 @@ Printed copies of the [install guide](/hardware/install-guide/README.md). Lulu o
 |---|---|
 | **Google Pixel 10a unlocked Android phone, 128 GB Obsidian (2026 model)** | Android development handset for the soda-machine app's Android side (`android/`). [B0GHRHXVN1](https://www.amazon.com/dp/B0GHRHXVN1). |
 | **Smooth-On XTC-3D 3D-print smoothing epoxy, 6.4 oz (~$19.99) — optional** | Self-leveling epoxy base coat under the §21 core's clear-acrylic seal, only if the 0.08 mm core texture still telegraphs through the acrylic alone. Fills/seals; not the release face. [B01BKSLI9M](https://www.amazon.com/dp/B01BKSLI9M). |
-| **DIN 6797A M3 external-tooth washer, A2 stainless, 0.4 mm** | One per carbonator upper-rim earth clamp; ID3.2–3.38 mm, OD5.7–6.0 mm. Required, not recorded as acquired. Supplier and price unselected. [Attachment procedure](/hardware/assembly/pressure-vessel.md#upper-rim-earth-bond). |
-| **M3 × 0.5 tap suitable for 316L stainless, with a compatible hand driver** | Upper-rim earth-clamp thread through the vessel's 1.651 mm rim. Required tooling, not recorded as acquired. Supplier and price unselected. |
-| **Ø2.5 mm drill suitable for 316L stainless** | Tap drill for the upper-rim M3 × 0.5 earth-clamp hole. Required tooling, not recorded as acquired. Supplier and price unselected. |
+| **DIN 6797A M3 external-tooth washer, A2 stainless, 0.4 mm** | One per carbonator upper-rim earth clamp. [BelMetric WSE3SS](https://belmetric.com/toothed-external-star-lock-washer-din-6797-a-stainless/?sku=WSE3SS): 3.2 mm ID × 6 mm OD, $0.06 each before shipping/tax, in stock November 10. Not recorded as acquired. [Attachment procedure](/hardware/assembly/pressure-vessel.md#upper-rim-earth-bond). |
+| **M3 × 0.5 tap and Ø2.5 mm drill suitable for 316L stainless** | [uxcell M35 cobalt tap/drill set](https://www.amazon.com/dp/B09TYSP9NV), exact M3 × 0.5 / 2.5 mm variant: $8.39, Prime, checked November 10. Upper-rim earth-clamp tooling; not recorded as acquired. |
+| **Small hand driver for the M3 tap** | [Piutouyar M1–M6 adjustable tap wrench](https://www.amazon.com/dp/B0F7K43T14): $5.99, Prime, checked November 10. Not recorded as acquired. |
+| **SVLING M5 × 100 socket screws and green 16 AWG solid UL1007 wire** | Current unit-one quantity gaps and selected Prime links are in [unit-1-shopping.md](/hardware/ledger/unit-1-shopping.md). Not recorded as newly ordered. |
 | **BenchPro Kennedy mobile workbench, 96 × 48 in, 1¾ in maple butcher-block top, gray (KW4896 LP 30-36 CL5-UB-Gray)** | Garage table for kit photos, moving large assemblies and general work. 30–36 in adjustable height, 1,200 lb capacity, four 5 in locking casters. $2,299 plus freight at [Global Industrial](https://www.globalindustrial.com/p/kennedy-mobile-workbench-96-x-48-maple-butcher-block-top-gray), ships in 15 business days. |
 | **hykolity 4 ft LED shop light, 5000K, 4-pack (×5, 20 lights)** | Garage ceiling: three rows of six, 2¼, 9.4 and 16½ ft from the back wall, two lights spare. 4,400 lm and 42 W each, six linked to one plug; 756 W for all eighteen. The three ceiling light boxes take receptacles in place of their lampholders: the middle row plugs into the middle box, and the back and front rows each take a new ceiling receptacle fed from a box. $40.84 a 4-pack, $204.20 for five, Amazon Prime, [B06XGBKDKZ](https://www.amazon.com/dp/B06XGBKDKZ). |
 
@@ -838,19 +841,19 @@ Printed copies of the [install guide](/hardware/install-guide/README.md). Lulu o
 
 | Status | $ |
 |---|---|
-| Acquired hardware valuation — includes replaced/returned originals | [$40,386.91](LEDGER_ACQUIRED_HW) |
+| Acquired hardware valuation — includes replaced/returned originals | [$40,572.55](LEDGER_ACQUIRED_HW) |
 | Engineering services (§18) | [$6,519.51](LEDGER_LABOR) |
-| Acquired procurement valuation (combined) | [$46,906.42](LEDGER_ACQUIRED_COMBINED) |
-| ON-ORDER | [$2,435.54](LEDGER_ON_ORDER) |
+| Acquired procurement valuation (combined) | [$47,092.06](LEDGER_ACQUIRED_COMBINED) |
+| ON-ORDER | [$2,286.99](LEDGER_ON_ORDER) |
 | MISSING — not in hand | [$53.07](LEDGER_MISSING) |
 | LIKELY-TO-BUY | $0.00 |
-| **Recorded procurement valuation — includes commitments** | [$49,395.03](LEDGER_GRAND_TOTAL) |
+| **Recorded procurement valuation — includes commitments** | [$49,432.12](LEDGER_GRAND_TOTAL) |
 
 Price evidence within the procurement valuation:
 
 | Amount basis | USD |
 |---|---|
-| Final vendor amounts | [$21,227.83](LEDGER_FINAL_VENDOR) |
+| Final vendor amounts | [$21,264.92](LEDGER_FINAL_VENDOR) |
 | Estimated amounts | [$4,292.73](LEDGER_ESTIMATES) |
 | Legacy / unverified amounts | [$23,874.47](LEDGER_LEGACY_UNVERIFIED) |
 
@@ -869,16 +872,16 @@ Acquired hardware valuation by section (includes replaced/returned originals):
 | § | Section | $ |
 |---|---|---|
 | 1 | Carbonator fabrication | [$4,664.67](LEDGER_SEC1) |
-| 2 | CO2 subsystem (incl. Lillium prototype carbonator $1,129) | [$2,180.19](LEDGER_SEC2) |
-| 3 | Water supply + backflow prevention | [$1,616.71](LEDGER_SEC3) |
-| 4 | Carbonator plumbing | [$554.94](LEDGER_SEC4) |
+| 2 | CO2 subsystem (incl. Lillium prototype carbonator $1,129) | [$2,288.08](LEDGER_SEC2) |
+| 3 | Water supply + backflow prevention | [$1,629.57](LEDGER_SEC3) |
+| 4 | Carbonator plumbing | [$604.07](LEDGER_SEC4) |
 | 5 | Flavor subsystem | [$2,034.82](LEDGER_SEC5) |
 | 6 | Refrigeration | [$1,984.90](LEDGER_SEC6) |
 | 7 | Dispensing end | [$237.65](LEDGER_SEC7) |
 | 8 | Electronics — controllers | [$1,970.50](LEDGER_SEC8) |
 | 9 | Electronics — I/O, drivers, sensors, power | [$2,571.20](LEDGER_SEC9) |
-| 10 | User interface | [$156.61](LEDGER_SEC10) |
-| 11 | Enclosure hardware | [$394.98](LEDGER_SEC11) |
+| 10 | User interface | [$164.11](LEDGER_SEC10) |
+| 11 | Enclosure hardware | [$403.24](LEDGER_SEC11) |
 | 12 | Shop / bench infrastructure | [$2,576.98](LEDGER_SEC12) |
 | 13 | Printing consumables | [$3,596.75](LEDGER_SEC13) |
 | 14 | Soldering + small-signal tools | [$859.66](LEDGER_SEC14) |

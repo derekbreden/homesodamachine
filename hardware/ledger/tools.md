@@ -28,13 +28,13 @@ For per-unit BOM parts, see [bom.md](/hardware/ledger/bom.md). For non-BOM/non-t
 | **MOTOKU 38 mm round die handle** | [B073ZX58PH](https://www.amazon.com/dp/B073ZX58PH), [purchases.md §1](/hardware/ledger/purchases.md) | Companion to Drill America die kit for chasing external threads on test fittings. | |
 
 The carbonator's upper-rim earth clamp requires the following additional
-metalworking tools. They are not recorded as acquired; supplier and price
-are unselected, as listed under [remaining purchases](/hardware/ledger/purchases.md#still-needed--likely-to-buy).
+metalworking tools. They are not recorded as acquired. The selected Prime
+offers are listed under [remaining purchases](/hardware/ledger/purchases.md#still-needed--likely-to-buy).
 
 | Tool | Source | Role | Cost |
 |---|---|---|---:|
-| **M3 × 0.5 tap with compatible hand driver** | Not recorded as acquired | Taps the carbonator's 1.651 mm upper rim for its dedicated earth-clamp screw; suitable for 316L stainless. | — |
-| **Ø2.5 mm drill** | Not recorded as acquired | Tap drill for the upper-rim M3 × 0.5 thread; suitable for 316L stainless. | — |
+| **M3 × 0.5 tap and Ø2.5 mm drill** | [uxcell B09TYSP9NV](https://www.amazon.com/dp/B09TYSP9NV), M3 × 0.5 / 2.5 mm variant; not acquired | M35 cobalt HSS set, listed for stainless. Drills and taps the carbonator's upper rim for its dedicated earth-clamp screw. Prime quote checked November 10. | $8.39 |
+| **M1–M6 adjustable tap wrench** | [Piutouyar B0F7K43T14](https://www.amazon.com/dp/B0F7K43T14); not acquired | Small hand driver for the M3 tap. Prime quote checked November 10. | $5.99 |
 
 ## Hydro / pressure testing
 
