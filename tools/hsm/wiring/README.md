@@ -8,6 +8,8 @@ Build the manual tools:
 
     tools/run -- cargo build --release --locked -j 2 --manifest-path tools/hsm/Cargo.toml -p hsm-wiring -p hsm-machine --bin hsm-wiring --bin installed-wires
 
+The geometry export uses that checkout's `installed-wires` release binary.
+
 Export the saved machine's wiring:
 
     tools/run -- tools/hsm/target/release/hsm-wiring

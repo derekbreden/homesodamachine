@@ -1,4 +1,0 @@
-tools/cad-venv
-hardware/pcb/pcba/node_modules
-.cache
-tools/hsm/target

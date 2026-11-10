@@ -1,115 +1,71 @@
-//! Declared Bazel output bytes are compared with the tree and published pointer members.
-use anyhow::{Context, Result, bail};
+//! An optional cut comparison reads native producer receipts beside tree and published bytes.
+use anyhow::{Context, Result, ensure};
 use clap::Parser;
 use hsm_build_data::payload;
+use serde::Deserialize;
 use serde_json::Value;
 use std::{
     collections::{BTreeMap, BTreeSet},
     fs,
-    io::Read,
     path::{Path, PathBuf},
-    process::{Command, Output, Stdio},
-    thread,
-    time::{Duration, Instant},
 };
 
-const CAD: [&str; 4] = [".step", ".stl", ".glb", ".step.mesh"];
+const CAD: [&str; 5] = [".step", ".stl", ".glb", ".step.mesh", ".glb.mesh"];
 #[derive(Parser)]
 #[command(
     name = "hsm-cut-vs-pointers",
-    about = "Compare this Bazel target slice's output bytes with the published members"
+    about = "Compare selected native producer output bytes with the tree and published members"
 )]
 struct Args {
     #[arg(long)]
     annotate: bool,
     #[arg(long, default_value = "")]
     failed: String,
-    #[arg(long)]
+    #[arg(
+        long,
+        help = "Trust the explicitly supplied completed receipt without probing current inputs"
+    )]
     assume_fresh: bool,
     #[arg(long, default_value = "")]
     targets: String,
+    #[arg(
+        long,
+        help = "Read a selected native build's receipt; requires --assume-fresh"
+    )]
+    receipt: Option<PathBuf>,
 }
-fn labels(raw: &str) -> Vec<String> {
+#[derive(Deserialize)]
+struct NativeReceipt {
+    schema: u64,
+    #[serde(default)]
+    selected: BTreeSet<String>,
+    targets: BTreeMap<String, TargetReceipt>,
+}
+#[derive(Deserialize)]
+struct TargetReceipt {
+    status: String,
+    #[serde(default)]
+    declared_outputs: Vec<String>,
+    #[serde(default)]
+    outputs: BTreeMap<String, PathBuf>,
+    #[serde(default)]
+    file_hashes: BTreeMap<String, String>,
+}
+fn selectors(raw: &str) -> Vec<String> {
     raw.split(|c: char| c.is_whitespace() || c == ',')
         .filter(|s| !s.is_empty())
-        .map(|s| {
-            if s.starts_with("//") {
-                s.into()
-            } else {
-                format!("//:{}", s.trim_start_matches(':'))
-            }
-        })
+        .map(str::to_owned)
         .collect::<BTreeSet<_>>()
         .into_iter()
         .collect()
 }
-fn declared_path(line: &str) -> Option<(&str, &str)> {
-    let (_, tail) = line
-        .rsplit_once("/bin/out/")
-        .or_else(|| line.rsplit_once("/bazel-bin/out/"))?;
-    tail.split_once('/')
+fn target_name(name: &str) -> &str {
+    name.strip_prefix("//:")
+        .or_else(|| name.strip_prefix(':'))
+        .unwrap_or(name)
 }
-fn expected(stdout: &str, failed: &BTreeSet<String>) -> BTreeSet<String> {
-    stdout
-        .split_whitespace()
-        .filter_map(|line| {
-            let (target, path) = declared_path(line)?;
-            (!failed.contains(target) && CAD.iter().any(|s| path.ends_with(s))).then(|| path.into())
-        })
-        .collect()
-}
-fn bazel(ctx: &crate::ContextData, args: &[String], timeout: Duration) -> Result<Output> {
-    let mut command = Command::new("bazel");
-    command
-        .args(args)
-        .current_dir(&ctx.root)
-        .stdout(Stdio::piped())
-        .stderr(Stdio::piped());
-    if let Some(lease) = &ctx.lease {
-        lease.apply(&mut command)?;
-    }
-    let mut child = hsm_run_slots::ipc::spawn(&mut command).context("starting Bazel")?;
-    let mut stdout = child.stdout.take().context("Bazel stdout")?;
-    let mut stderr = child.stderr.take().context("Bazel stderr")?;
-    let out = thread::spawn(move || {
-        let mut bytes = vec![];
-        stdout.read_to_end(&mut bytes).map(|_| bytes)
-    });
-    let err = thread::spawn(move || {
-        let mut bytes = vec![];
-        stderr.read_to_end(&mut bytes).map(|_| bytes)
-    });
-    let began = Instant::now();
-    let mut timed_out = false;
-    let status = loop {
-        if let Some(status) = child.try_wait()? {
-            break status;
-        }
-        if began.elapsed() >= timeout {
-            timed_out = true;
-            let _ = child.kill();
-            break child.wait()?;
-        }
-        thread::sleep(Duration::from_millis(25));
-    };
-    let stdout = out
-        .join()
-        .map_err(|_| anyhow::anyhow!("reading Bazel stdout panicked"))??;
-    let stderr = err
-        .join()
-        .map_err(|_| anyhow::anyhow!("reading Bazel stderr panicked"))??;
-    if timed_out {
-        bail!(
-            "Bazel {} timed out: {}",
-            args.first().map(String::as_str).unwrap_or("command"),
-            String::from_utf8_lossy(&stderr)
-        );
-    }
-    Ok(Output {
-        status,
-        stdout,
-        stderr,
-    })
+fn publishable(path: &str) -> bool {
+    CAD.iter().any(|suffix| path.ends_with(suffix))
 }
 fn note(output: &mut String, annotate: bool, kind: &str, message: &str) {
     if annotate {
@@ -135,7 +91,7 @@ fn tree(stale: &[String], compared: usize, annotate: bool) -> (String, i32) {
     if stale.len() > 20 {
         output += &format!("      …and {} more\n", stale.len() - 20);
     }
-    output += "  Geometry checks that read the tree describe those tree bytes. The hashes alone\n  do not establish which copy is current; inspect the producing sources and geometry.\n";
+    output += "  Geometry checks that read the tree describe those tree bytes. Inspect the\n  producing sources and geometry before choosing which copy to publish.\n";
     note(
         &mut output,
         annotate,
@@ -147,25 +103,17 @@ fn tree(stale: &[String], compared: usize, annotate: bool) -> (String, i32) {
     );
     (output, 1)
 }
-fn paths(directory: &Path, out: &mut Vec<PathBuf>) -> Result<()> {
-    for entry in fs::read_dir(directory)? {
-        let entry = entry?;
-        if entry.file_type()?.is_dir() {
-            paths(&entry.path(), out)?;
-        } else if entry.path().is_file() {
-            out.push(entry.path());
-        }
-    }
-    Ok(())
-}
 #[derive(Default, Debug)]
 struct Scan {
+    expected: BTreeSet<String>,
     same: Vec<String>,
     differ: Vec<String>,
     fresh: Vec<String>,
     twice: Vec<String>,
     stale: Vec<String>,
     absent: Vec<String>,
+    not_current: Vec<String>,
+    invalid: Vec<String>,
     skipped_failed: usize,
     hashes: BTreeMap<String, String>,
     steps: usize,
@@ -180,53 +128,87 @@ impl Scan {
 }
 fn scan(
     root: &Path,
-    out: &Path,
-    expected: &BTreeSet<String>,
+    receipt: &NativeReceipt,
     failed: &BTreeSet<String>,
     pointers: &Value,
 ) -> Result<Scan> {
-    let mut files = vec![];
-    paths(out, &mut files)?;
-    let mut cut: BTreeMap<String, Vec<PathBuf>> = BTreeMap::new();
+    ensure!(
+        receipt.schema == 1,
+        "unsupported native cut receipt schema {}",
+        receipt.schema
+    );
     let mut data = Scan::default();
-    for path in files {
-        let relative = path.strip_prefix(out)?.to_string_lossy();
-        let Some((target, relative)) = relative.split_once('/') else {
-            continue;
-        };
-        if !expected.contains(relative) {
+    let mut cut = BTreeMap::<String, Vec<(PathBuf, Option<String>)>>::new();
+    for (name, target) in &receipt.targets {
+        let declared = target
+            .declared_outputs
+            .iter()
+            .filter(|path| publishable(path))
+            .cloned()
+            .collect::<BTreeSet<_>>();
+        if failed.contains(target_name(name)) {
+            data.skipped_failed += declared.len();
             continue;
         }
-        if failed.contains(target) {
-            data.skipped_failed += 1;
+        data.expected.extend(declared.iter().cloned());
+        if declared.is_empty() {
             continue;
         }
-        cut.entry(relative.into()).or_default().push(path);
+        if !matches!(target.status.as_str(), "built" | "cached") {
+            data.not_current.push(format!("{name}: {}", target.status));
+            continue;
+        }
+        for relative in declared {
+            if let Some(path) = target.outputs.get(&relative) {
+                ensure!(
+                    path.is_absolute(),
+                    "native output receipt is not absolute: {}",
+                    path.display()
+                );
+                if path.is_file() {
+                    let expected = target.file_hashes.get(&relative).cloned();
+                    cut.entry(relative)
+                        .or_default()
+                        .push((path.clone(), expected));
+                }
+            }
+        }
     }
-    data.absent = expected
+    for target in receipt.selected.iter().filter(|target| {
+        !receipt.targets.contains_key(*target) && !failed.contains(target_name(target))
+    }) {
+        data.not_current
+            .push(format!("{target}: no completed target receipt"));
+    }
+    data.absent = data
+        .expected
         .difference(&cut.keys().cloned().collect())
         .cloned()
         .collect();
-    if !data.absent.is_empty() {
+    if !data.not_current.is_empty() || !data.absent.is_empty() {
         return Ok(data);
     }
     for (relative, files) in cut {
-        let hashes = files
-            .iter()
-            .map(payload::digest)
-            .collect::<Result<BTreeSet<_>>>()?;
+        let mut hashes = BTreeSet::new();
+        for (path, expected) in &files {
+            let hash = payload::digest(path)?;
+            if expected.as_ref().is_some_and(|expected| *expected != hash) {
+                data.invalid.push(relative.clone());
+            }
+            hashes.insert(hash);
+        }
         if hashes.len() > 1 {
             data.twice.push(relative);
             continue;
         }
         let here = hashes.into_iter().next().context("cut output digest")?;
         let in_tree = root.join(&relative);
-        if in_tree.exists() && payload::digest(in_tree)? != here {
+        if !in_tree.is_file() || payload::digest(in_tree)? != here {
             data.stale.push(relative.clone());
         }
         if pointers.get(&relative).is_none() {
             data.fresh.push(relative.clone());
-        } else if pointers[&relative].as_str() == Some(&here) {
+        } else if pointers[&relative].as_str() == Some(here.as_str()) {
             data.same.push(relative.clone());
         } else {
             data.differ.push(relative.clone());
@@ -238,169 +220,80 @@ fn scan(
     }
     Ok(data)
 }
-fn execute(ctx: &crate::ContextData, args: Args) -> Result<(String, i32)> {
-    let pointer = ctx.root.join(crate::POINTERS);
+fn compare(
+    root: &Path,
+    receipt: &NativeReceipt,
+    failed: &BTreeSet<String>,
+    pointers: &Value,
+    annotate: bool,
+    assumed: bool,
+) -> Result<(String, i32)> {
     let mut output = String::new();
+    let data = scan(root, receipt, failed, pointers)?;
     macro_rules! done {
         ($code:expr) => {
             return Ok((output, $code))
         };
     }
-    if !pointer.exists() {
-        output += &format!(
-            "  no pointer file at {}, so there is nothing to compare against\n",
-            crate::POINTERS
-        );
-        done!(2);
-    }
-    let record: Value = serde_json::from_slice(&fs::read(pointer)?)?;
-    let pointers = record
-        .get("solids")
-        .cloned()
-        .unwrap_or(serde_json::json!({}));
-    if pointers.as_object().is_none_or(|m| m.is_empty()) {
-        output += "  the pointer file names no solids, so there is nothing to compare against\n";
-        done!(2);
-    }
-    let labels = labels(&args.targets);
-    let failed = args
-        .failed
-        .split(',')
-        .map(str::trim)
-        .filter(|s| !s.is_empty())
-        .map(|s| s.trim_start_matches('/').trim_start_matches(':').into())
-        .collect::<BTreeSet<String>>();
-    let query = if labels.is_empty() {
-        "deps(//:everything)".into()
-    } else {
-        format!("set({})", labels.join(" "))
-    };
-    let q = bazel(
-        ctx,
-        &["cquery".into(), query, "--output=files".into()],
-        Duration::from_secs(300),
-    )?;
-    if !q.status.success() {
-        let stderr = String::from_utf8_lossy(&q.stderr);
-        let detail = stderr
-            .lines()
-            .find(|s| s.starts_with("ERROR"))
-            .map(str::to_owned)
-            .unwrap_or_else(|| format!("exit {}", q.status));
-        bail!("the build graph could not name the expected cut: {detail}");
-    }
-    let expected = expected(&String::from_utf8_lossy(&q.stdout), &failed);
-    if expected.is_empty() {
-        output += "  NOTHING DECLARED: the requested target slice has no publishable outputs\n";
+    if data.expected.is_empty() {
+        output +=
+            "  NOTHING DECLARED: the selected native actions name no comparable geometry outputs\n";
         note(
             &mut output,
-            args.annotate,
+            annotate,
             "warning",
-            "nothing compared: target slice has no CAD outputs",
+            "nothing compared: selected actions name no geometry outputs",
         );
         done!(3);
     }
-    let info = bazel(
-        ctx,
-        &["info".into(), "bazel-bin".into()],
-        Duration::from_secs(120),
-    );
-    let bin = match info {
-        Ok(info)
-            if info.status.success()
-                && !String::from_utf8_lossy(&info.stdout).trim().is_empty() =>
-        {
-            PathBuf::from(String::from_utf8_lossy(&info.stdout).trim())
+    if !data.not_current.is_empty() {
+        output += "  NOT CURRENT: native action receipts cannot establish this source's cut:\n";
+        for target in data.not_current.iter().take(20) {
+            output += &format!("      {target}\n");
         }
-        _ => ctx.root.join("bazel-bin"),
-    };
-    let out = bin.join("out");
-    if !out.is_dir() {
-        output += &format!(
-            "  NOTHING CUT: {} does not exist, so this build cut no solids to compare.\n",
-            out.display()
-        );
+        output +=
+            "  Run the selected print build to produce these outputs before comparing them.\n";
         note(
             &mut output,
-            args.annotate,
+            annotate,
             "warning",
-            "nothing compared: bazel-bin holds no outputs",
+            "selected native action outputs are not current — nothing compared",
         );
         done!(3);
     }
-    if !args.assume_fresh {
-        let mut command = vec!["build".into(), "--check_up_to_date".into()];
-        command.extend(if labels.is_empty() {
-            vec!["//:everything".into()]
-        } else {
-            labels
-        });
-        let q = bazel(ctx, &command, Duration::from_secs(900))?;
-        if !q.status.success() {
-            output += "  BAZEL-BIN IS NOT UP TO DATE with this tree, so its bytes do not establish\n  what the current source cuts. Build the requested slice first, or use\n  --assume-fresh immediately after the build that wrote these outputs.\n";
-            for line in String::from_utf8_lossy(&q.stderr)
-                .lines()
-                .filter(|s| s.to_lowercase().contains("not up to date"))
-            {
-                output += &format!("      {}\n", line.trim());
-            }
-            note(
-                &mut output,
-                args.annotate,
-                "warning",
-                "bazel-bin is not up to date — nothing compared",
-            );
-            done!(3);
-        }
-    }
-    let data = scan(&ctx.root, &out, &expected, &failed, &pointers)?;
     if !data.absent.is_empty() {
         output += &format!(
-            "  INCOMPLETE CUT: {} of {} expected solid(s) are absent\n",
+            "  INCOMPLETE CUT: {} of {} expected solid(s) are absent from the recorded native outputs\n",
             data.absent.len(),
-            expected.len()
+            data.expected.len()
         );
         for path in data.absent.iter().take(20) {
             output += &format!("      {path}\n");
         }
         note(
             &mut output,
-            args.annotate,
+            annotate,
             "error",
-            "the build did not materialize every expected solid",
+            "the native build did not retain every expected solid",
         );
         done!(3);
     }
-    let materialized = data.materialized();
-    let compared = data.compared();
-    if materialized == 0 {
-        output += &format!(
-            "  NOTHING COMPARED: none of the {} expected solids was hashed.\n",
-            expected.len()
-        );
+    if !data.invalid.is_empty() {
+        output += "  INVALID CUT: retained output bytes differ from their native receipt:\n";
+        for path in data.invalid.iter().take(20) {
+            output += &format!("      {path}\n");
+        }
         note(
             &mut output,
-            args.annotate,
-            "warning",
-            "nothing compared: no solid of the pointer file's was cut",
+            annotate,
+            "error",
+            "native output bytes differ from their recorded content identity",
         );
         done!(3);
-    }
-    output += &format!(
-        "  {materialized} of {} expected solids were cut here and hashed ({} of them .step)\n",
-        expected.len(),
-        data.steps
-    );
-    if data.skipped_failed > 0 {
-        output += &format!(
-            "  {} held back as outputs of failed targets: {}\n",
-            data.skipped_failed,
-            failed.iter().cloned().collect::<Vec<_>>().join(", ")
-        );
     }
     if !data.twice.is_empty() {
         output += &format!(
-            "  {} cut by two targets that disagree with each other:\n",
+            "  {} output(s) have disagreeing producer bytes:\n",
             data.twice.len()
         );
         for path in data.twice.iter().take(10) {
@@ -408,24 +301,34 @@ fn execute(ctx: &crate::ContextData, args: Args) -> Result<(String, i32)> {
         }
         note(
             &mut output,
-            args.annotate,
+            annotate,
             "error",
-            "two actions produced disagreeing bytes for one output",
+            "two native actions produced disagreeing bytes for one output",
         );
         done!(3);
     }
-    if materialized != expected.len() {
-        output += &format!(
-            "  INCOMPLETE COMPARISON: {} expected solid(s) were not hashed\n",
-            expected.len() - materialized
-        );
+    let materialized = data.materialized();
+    let compared = data.compared();
+    if materialized == 0 {
+        output += "  NOTHING COMPARED: no selected native geometry output was hashed.\n";
         note(
             &mut output,
-            args.annotate,
-            "error",
-            "not every expected solid was compared",
+            annotate,
+            "warning",
+            "nothing compared: no recorded output bytes",
         );
         done!(3);
+    }
+    output += &format!(
+        "  {materialized} of {} expected solids read from native producer outputs and hashed ({} .step)\n",
+        data.expected.len(),
+        data.steps
+    );
+    if data.skipped_failed > 0 {
+        output += &format!(
+            "  {} output(s) excluded with the explicitly failed targets\n",
+            data.skipped_failed
+        );
     }
     if !data.fresh.is_empty() {
         output += &format!(
@@ -450,23 +353,22 @@ fn execute(ctx: &crate::ContextData, args: Args) -> Result<(String, i32)> {
         if data.differ.len() > 20 {
             output += &format!("      …and {} more\n", data.differ.len() - 20);
         }
-        output += "\n  The bytes alone do not say whether the geometry changed, the pointer file\n  is behind, or another exporter wrote equivalent geometry differently.\n";
-        if args.assume_fresh {
-            output += "  --assume-fresh also leaves stale Bazel outputs unexcluded.\n";
+        output += "\n  The bytes alone do not say whether the geometry changed or its published\n  pointer is behind. Compare the geometry before choosing what to publish.\n";
+        if assumed {
+            output += "  This explicitly supplied receipt is read as recorded; its source currentness\n  was not queried.\n";
         } else {
-            output += "  Bazel's up-to-date check excludes stale outputs for this target slice.\n";
+            output += "  The native cache probe establishes currentness for the selected inputs.\n";
         }
-        output += "  Compare the geometry before drawing conclusions from differing hashes.\n";
         note(
             &mut output,
-            args.annotate,
+            annotate,
             "warning",
             &format!(
                 "{} of {compared} solids differ from the pointer file — compare their geometry",
                 data.differ.len()
             ),
         );
-        output += &tree(&data.stale, compared, args.annotate).0;
+        output += &tree(&data.stale, compared, annotate).0;
         done!(1);
     }
     if !data.fresh.is_empty() {
@@ -475,27 +377,110 @@ fn execute(ctx: &crate::ContextData, args: Args) -> Result<(String, i32)> {
                 "\n  EVERY OUTPUT IS NEW; there are no historical pointer file bytes to compare.\n";
         } else {
             output += &format!(
-                "\n  THE {} EXISTING SOLIDS MATCH THE POINTER FILE; the {} new output(s) are ready to be pointed at.\n",
+                "\n  THE {} EXISTING SOLIDS MATCH THE POINTER FILE; {} new output(s) are ready to be pointed at.\n",
                 data.same.len(),
                 data.fresh.len()
             );
         }
-        output += &tree(&data.stale, materialized, args.annotate).0;
+        output += &tree(&data.stale, materialized, annotate).0;
         done!(1);
     }
     output += "\n  EVERY SOLID CUT HERE MATCHES THE POINTER FILE, byte for byte.\n";
     note(
         &mut output,
-        args.annotate,
+        annotate,
         "notice",
         &format!(
             "{compared} solids cut here match the pointer file byte for byte ({} .step)",
             data.steps
         ),
     );
-    let (text, status) = tree(&data.stale, materialized, args.annotate);
+    let (text, status) = tree(&data.stale, materialized, annotate);
     output += &text;
     done!(status);
+}
+fn execute(ctx: &crate::ContextData, args: Args) -> Result<(String, i32)> {
+    let driver = std::env::var("HSM_PRINT_BUILD").unwrap_or_else(|_| "hsm-print-build".into());
+    execute_with(ctx, args, &driver)
+}
+fn execute_with(ctx: &crate::ContextData, args: Args, driver: &str) -> Result<(String, i32)> {
+    ensure!(
+        args.receipt.is_some() == args.assume_fresh,
+        "--receipt and --assume-fresh are used together for an explicitly recorded cut"
+    );
+    ensure!(
+        args.receipt.is_none() || args.targets.trim().is_empty(),
+        "a supplied receipt already identifies its selected build; select --targets when producing that receipt"
+    );
+    let pointer = ctx.root.join(crate::POINTERS);
+    if !pointer.exists() {
+        return Ok((
+            format!(
+                "  no pointer file at {}, so there is nothing to compare against\n",
+                crate::POINTERS
+            ),
+            2,
+        ));
+    }
+    let record: Value = serde_json::from_slice(&fs::read(pointer)?)?;
+    let pointers = record
+        .get("solids")
+        .cloned()
+        .unwrap_or(serde_json::json!({}));
+    if pointers.as_object().is_none_or(|m| m.is_empty()) {
+        return Ok((
+            "  the pointer file names no solids, so there is nothing to compare against\n".into(),
+            2,
+        ));
+    }
+    let failed = selectors(&args.failed)
+        .into_iter()
+        .map(|name| target_name(&name).to_owned())
+        .collect::<BTreeSet<_>>();
+    if let Some(path) = args.receipt {
+        let path = if path.is_absolute() {
+            path
+        } else {
+            ctx.root.join(path)
+        };
+        let receipt = serde_json::from_slice::<NativeReceipt>(
+            &fs::read(&path)
+                .with_context(|| format!("reading native cut receipt {}", path.display()))?,
+        )?;
+        return compare(&ctx.root, &receipt, &failed, &pointers, args.annotate, true);
+    }
+    let work = crate::Work::new(&ctx.root)?;
+    let mut command = vec![
+        "--root".into(),
+        ctx.root.to_string_lossy().into_owned(),
+        "--no-publish".into(),
+        "--check-current".into(),
+        "--run-dir".into(),
+        work.path.to_string_lossy().into_owned(),
+        "--".into(),
+    ];
+    command.extend(selectors(&args.targets));
+    let result = ctx
+        .command(driver, &command)
+        .context("read native action currentness")?;
+    let path = work.path.join("receipt.json");
+    let bytes = fs::read(&path).with_context(|| {
+        format!(
+            "native cache probe wrote no output receipt ({}): {}",
+            result.status,
+            String::from_utf8_lossy(&result.stderr)
+        )
+    })?;
+    let receipt = serde_json::from_slice::<NativeReceipt>(&bytes)
+        .context("native cache probe output receipt")?;
+    compare(
+        &ctx.root,
+        &receipt,
+        &failed,
+        &pointers,
+        args.annotate,
+        false,
+    )
 }
 pub fn run(ctx: &crate::ContextData, args: &[String]) -> Result<i32> {
     let args = match Args::try_parse_from(
@@ -517,82 +502,217 @@ pub fn run(ctx: &crate::ContextData, args: &[String]) -> Result<i32> {
 mod tests {
     use super::*;
     use serde_json::json;
+    fn fixture() -> crate::Work {
+        crate::Work::new(
+            Path::new(env!("CARGO_MANIFEST_DIR"))
+                .ancestors()
+                .nth(3)
+                .unwrap(),
+        )
+        .unwrap()
+    }
+    fn receipt(targets: Value) -> NativeReceipt {
+        serde_json::from_value(json!({"schema":1,"targets":targets})).unwrap()
+    }
     #[test]
-    fn declared_targets_and_failed_outputs() {
+    fn selectors_and_failed_aliases_keep_native_names() {
         assert_eq!(
-            labels("alpha, :beta //:alpha\n//pkg:gamma"),
-            vec!["//:alpha", "//:beta", "//pkg:gamma"]
+            selectors("alpha, //:beta\n:alpha"),
+            vec!["//:beta", ":alpha", "alpha"]
         );
-        let stdout = "bazel-out/darwin-fastbuild/bin/out/alpha/hardware/a.step\nbazel-out/darwin-fastbuild/bin/out/beta/hardware/b.stl\nbazel-out/darwin-fastbuild/bin/out/alpha/report.json\nbazel-out/darwin-fastbuild/bin/out/alpha/hardware/a.step.mesh";
+        assert_eq!(target_name("//:alpha"), "alpha");
+        assert_eq!(target_name("alpha"), "alpha");
+    }
+    #[test]
+    fn not_current_and_missing_outputs_cannot_read_as_agreement() {
+        let work = fixture();
+        let native = receipt(
+            json!({"part":{"status":"not-current","declared_outputs":["hardware/a.step"],"outputs":{}}}),
+        );
+        let (text, status) = compare(
+            &work.path,
+            &native,
+            &BTreeSet::new(),
+            &json!({"hardware/a.step":"hash"}),
+            true,
+            false,
+        )
+        .unwrap();
+        assert_eq!(status, 3);
+        assert!(text.contains("NOT CURRENT"));
+        let native = receipt(
+            json!({"part":{"status":"cached","declared_outputs":["hardware/a.step"],"outputs":{"hardware/a.step":work.path.join("absent")}}}),
+        );
+        let (text, status) = compare(
+            &work.path,
+            &native,
+            &BTreeSet::new(),
+            &json!({}),
+            false,
+            false,
+        )
+        .unwrap();
+        assert_eq!(status, 3);
+        assert!(text.contains("INCOMPLETE CUT"));
+    }
+    #[test]
+    fn immutable_producer_bytes_are_distinct_from_carried_tree_and_new_members() {
+        let work = fixture();
+        fs::create_dir_all(work.path.join("hardware")).unwrap();
+        let a = work.path.join("cached-a");
+        let b = work.path.join("cached-b");
+        fs::write(&a, b"current").unwrap();
+        fs::write(&b, b"new").unwrap();
+        fs::write(work.path.join("hardware/a.step"), b"old tree").unwrap();
+        fs::write(work.path.join("hardware/b.glb.mesh"), b"new").unwrap();
+        let native = receipt(
+            json!({"part":{"status":"cached","declared_outputs":["hardware/a.step","hardware/b.glb.mesh"],"outputs":{"hardware/a.step":a,"hardware/b.glb.mesh":b}}}),
+        );
+        let pointers = json!({"hardware/a.step":payload::digest(&a).unwrap()});
+        let data = scan(&work.path, &native, &BTreeSet::new(), &pointers).unwrap();
+        assert_eq!(data.same, vec!["hardware/a.step"]);
+        assert_eq!(data.stale, vec!["hardware/a.step"]);
+        assert_eq!(data.fresh, vec!["hardware/b.glb.mesh"]);
         assert_eq!(
-            expected(stdout, &BTreeSet::from(["beta".into()])),
-            BTreeSet::from(["hardware/a.step".into(), "hardware/a.step.mesh".into()])
+            compare(
+                &work.path,
+                &native,
+                &BTreeSet::new(),
+                &pointers,
+                false,
+                false
+            )
+            .unwrap()
+            .1,
+            1
         );
     }
     #[test]
-    fn absent_expected_and_disagreeing_producers_are_incomplete() {
-        let root = Path::new(env!("CARGO_MANIFEST_DIR")).join("../../../.cache/runs");
-        fs::create_dir_all(&root).unwrap();
-        let root = root.join(format!(
-            "cut-fixture-{}-{}",
-            std::process::id(),
-            crate::now().to_bits()
-        ));
-        fs::create_dir(&root).unwrap();
-        let out = root.join("bin/out");
-        fs::create_dir_all(out.join("first/hardware")).unwrap();
-        fs::create_dir_all(out.join("second/hardware")).unwrap();
-        fs::write(out.join("first/hardware/a.step"), b"one").unwrap();
-        fs::write(out.join("second/hardware/a.step"), b"two").unwrap();
+    fn failed_exclusion_and_disagreeing_producers_remain_explicit() {
+        let work = fixture();
+        let a = work.path.join("a");
+        let b = work.path.join("b");
+        fs::write(&a, b"one").unwrap();
+        fs::write(&b, b"two").unwrap();
+        let native = receipt(
+            json!({"first":{"status":"built","declared_outputs":["hardware/a.step"],"outputs":{"hardware/a.step":a}},"second":{"status":"built","declared_outputs":["hardware/a.step"],"outputs":{"hardware/a.step":b}}}),
+        );
+        assert_eq!(
+            compare(
+                &work.path,
+                &native,
+                &BTreeSet::new(),
+                &json!({}),
+                false,
+                true
+            )
+            .unwrap()
+            .1,
+            3
+        );
+        let pointers = json!({"hardware/a.step":payload::digest(&a).unwrap()});
         let data = scan(
-            &root,
-            &out,
-            &BTreeSet::from(["hardware/a.step".into(), "hardware/b.stl".into()]),
-            &BTreeSet::new(),
-            &json!({}),
-        )
-        .unwrap();
-        assert_eq!(data.absent, vec!["hardware/b.stl"]);
-        assert_eq!(data.materialized(), 0);
-        let data = scan(
-            &root,
-            &out,
-            &BTreeSet::from(["hardware/a.step".into()]),
-            &BTreeSet::new(),
-            &json!({}),
-        )
-        .unwrap();
-        assert_eq!(data.twice, vec!["hardware/a.step"]);
-        fs::remove_dir_all(root).unwrap();
-    }
-    #[test]
-    fn hash_comparison_separates_new_members_and_tree_staleness() {
-        let parent = Path::new(env!("CARGO_MANIFEST_DIR")).join("../../../.cache/runs");
-        fs::create_dir_all(&parent).unwrap();
-        let root = parent.join(format!(
-            "cut-fixture-{}-{}",
-            std::process::id(),
-            crate::now().to_bits()
-        ));
-        let out = root.join("bin/out");
-        fs::create_dir_all(out.join("alpha/hardware")).unwrap();
-        fs::create_dir_all(root.join("hardware")).unwrap();
-        fs::write(out.join("alpha/hardware/a.step"), b"current").unwrap();
-        fs::write(root.join("hardware/a.step"), b"old").unwrap();
-        fs::write(out.join("alpha/hardware/b.stl"), b"new").unwrap();
-        let hash = payload::digest(out.join("alpha/hardware/a.step")).unwrap();
-        let data = scan(
-            &root,
-            &out,
-            &BTreeSet::from(["hardware/a.step".into(), "hardware/b.stl".into()]),
-            &BTreeSet::new(),
-            &json!({"hardware/a.step":hash}),
+            &work.path,
+            &native,
+            &BTreeSet::from(["second".into()]),
+            &pointers,
         )
         .unwrap();
         assert_eq!(data.same, vec!["hardware/a.step"]);
-        assert_eq!(data.stale, vec!["hardware/a.step"]);
-        assert_eq!(data.fresh, vec!["hardware/b.stl"]);
-        assert_eq!(tree(&data.stale, data.materialized(), true).1, 1);
-        fs::remove_dir_all(root).unwrap();
+        assert_eq!(data.skipped_failed, 1);
+    }
+    #[test]
+    fn explicit_receipt_comparison_starts_no_driver() {
+        let work = fixture();
+        let source = work.path.join("cache-object");
+        fs::write(&source, b"native output").unwrap();
+        fs::create_dir_all(work.path.join("hardware")).unwrap();
+        fs::write(work.path.join("hardware/a.step"), b"native output").unwrap();
+        let hash = payload::digest(&source).unwrap();
+        fs::write(
+            work.path.join(crate::POINTERS),
+            serde_json::to_vec(&json!({"solids":{"hardware/a.step":hash}})).unwrap(),
+        )
+        .unwrap();
+        let path = work.path.join("receipt.json");
+        fs::write(&path,serde_json::to_vec(&json!({"schema":1,"targets":{"part":{"status":"cached","declared_outputs":["hardware/a.step"],"outputs":{"hardware/a.step":source}}}})).unwrap()).unwrap();
+        let ctx = crate::ContextData::with_config(&work.path, json!({}), json!({})).unwrap();
+        let args = Args {
+            annotate: false,
+            failed: String::new(),
+            assume_fresh: true,
+            targets: String::new(),
+            receipt: Some(path),
+        };
+        assert_eq!(execute(&ctx, args).unwrap().1, 0);
+    }
+    #[test]
+    fn incomplete_selected_receipts_and_changed_recorded_bytes_are_not_agreement() {
+        let work = fixture();
+        let source = work.path.join("blob");
+        fs::write(&source, b"later bytes").unwrap();
+        let mut native = receipt(
+            json!({"part":{"status":"cached","declared_outputs":["hardware/a.step"],"outputs":{"hardware/a.step":source},"file_hashes":{"hardware/a.step":"earlier hash"}}}),
+        );
+        let (output, status) = compare(
+            &work.path,
+            &native,
+            &BTreeSet::new(),
+            &json!({}),
+            false,
+            true,
+        )
+        .unwrap();
+        assert_eq!(status, 3);
+        assert!(output.contains("INVALID CUT"));
+        native.selected.insert("missing-part".into());
+        let (output, status) = compare(
+            &work.path,
+            &native,
+            &BTreeSet::new(),
+            &json!({}),
+            false,
+            true,
+        )
+        .unwrap();
+        assert_eq!(status, 3);
+        assert!(output.contains("no completed target receipt"));
+    }
+    #[test]
+    fn selected_comparison_requests_only_a_cache_probe_without_publication() {
+        use std::os::unix::fs::PermissionsExt;
+        let work = fixture();
+        fs::create_dir_all(work.path.join("hardware")).unwrap();
+        let output = work.path.join("producer-output");
+        fs::write(&output, b"native bytes").unwrap();
+        fs::write(work.path.join("hardware/a.step"), b"native bytes").unwrap();
+        let hash = payload::digest(&output).unwrap();
+        fs::write(
+            work.path.join(crate::POINTERS),
+            serde_json::to_vec(&json!({"solids":{"hardware/a.step":hash}})).unwrap(),
+        )
+        .unwrap();
+        fs::write(work.path.join("fake-receipt.json"),serde_json::to_vec(&json!({"schema":1,"selected":["part"],"targets":{"part":{"status":"cached","declared_outputs":["hardware/a.step"],"outputs":{"hardware/a.step":output}}}})).unwrap()).unwrap();
+        let driver = work.path.join("cache-probe");
+        fs::write(&driver,"#!/bin/sh\nset -eu\nno_publish=false\ncheck_current=false\nwhile [ \"$#\" -gt 0 ]; do\n case \"$1\" in\n --root) shift; root_arg=\"$1\";;\n --no-publish) no_publish=true;;\n --check-current) check_current=true;;\n --run-dir) shift; run_dir=\"$1\";;\n --) shift; break;;\n *) exit 9;;\n esac\n shift\ndone\n[ \"$no_publish\" = true ] && [ \"$check_current\" = true ]\ncp \"$root_arg/fake-receipt.json\" \"$run_dir/receipt.json\"\nprintf '%s\\n' \"$@\" > \"$root_arg/selectors.txt\"\n").unwrap();
+        fs::set_permissions(&driver, fs::Permissions::from_mode(0o755)).unwrap();
+        let ctx = crate::ContextData::with_config(&work.path, json!({}), json!({})).unwrap();
+        let args = Args {
+            annotate: false,
+            failed: String::new(),
+            assume_fresh: false,
+            targets: "//:part".into(),
+            receipt: None,
+        };
+        assert_eq!(
+            execute_with(&ctx, args, driver.to_str().unwrap())
+                .unwrap()
+                .1,
+            0
+        );
+        assert_eq!(
+            fs::read_to_string(work.path.join("selectors.txt")).unwrap(),
+            "//:part\n"
+        );
     }
 }

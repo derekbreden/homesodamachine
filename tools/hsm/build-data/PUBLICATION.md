@@ -26,7 +26,8 @@ inspection and maintenance actions. The authored membership and transport policy
 is in [`../publication/config.json`](../publication/config.json).
 
 `hsm-merge-pointers` is Git's member-wise pointer merge driver.
-`hsm-cut-vs-pointers` compares a requested Bazel slice with the pointer and working
-tree. `hsm-build-times` carries recorded full-build timings without starting a build.
+`hsm-cut-vs-pointers` compares current native cache outputs or an explicit build receipt
+with the pointer and working tree. It starts no producer. `hsm-build-times` carries
+completed native full-build timings while retaining the site's existing history.
 The on-demand `hsm-pack selftest` uses local fixtures and a fake transport; it
 uploads and deletes no remote objects.

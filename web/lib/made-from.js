@@ -1,7 +1,7 @@
 // WHAT A MODEL IS REBUILT WITH, AND WHAT IT IS USED IN — read off the build's own record for the
 // viewer's Related list (web/public/js/viewer/related-nav.js).
 //
-// `tools/bazel/graph.json` records native producers' inputs and outputs. Requested builds
+// `tools/hsm/build-plan/graph.json` records native producers' inputs and outputs. Requested builds
 // use those dependencies; saving a source starts no build. The Related list groups that
 // record, which can also include shared modules compiled into the producer's program.
 //
@@ -39,7 +39,6 @@ const TOOL_NAMES = {
   "tools/run": "Runner",
   "tools/docgen": "Document code",
   "tools/install-guide": "Guide code",
-  "tools/bazel": "Build plan",
   "web/public": "Website code",
   "brand/mark.svg": "Brand mark",
 };
@@ -159,7 +158,7 @@ function groupsOf(index, step) {
 /**
  * What the build reruns the model `file` on, grouped by part, and the models built from it.
  *
- * @param {string} graphPath  tools/bazel/graph.json
+ * @param {string} graphPath  tools/hsm/build-plan/graph.json
  * @param {string} file       root-relative to hardware/, as /api/steps names models
  * @returns {null | {parts: Item[], outputs: Item[], code: Item[], usedIn: Item[]}}
  *   An Item is `{label, file, files}`: `file` is the model to open, when the part has one, and

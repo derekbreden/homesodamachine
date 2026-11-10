@@ -1,5 +1,4 @@
 **
-!.bazelversion
 !.dockerignore
 !tools/
 !tools/ci-image/

@@ -454,8 +454,8 @@ tools/run -- hsm-print-build
 tools/run -- hsm-print-build //:enclosure-back-top //:installed-machine
 ```
 
-The [build planner](build-plan/README.md) owns the declared source/runtime split, targeted
-Bazel rules, tracing and completed-output carry. [Cargo configuration](cargo-config/README.md)
+The [build planner](build-plan/README.md) owns the declared source/runtime split, producer
+dependencies, tracing and completed-output carry. [Cargo configuration](cargo-config/README.md)
 separates compilation-relevant workspace settings from unrelated member edits.
 [Publication](publication/README.md) uploads immutable geometry before its manifests,
 commits the exact referenced records and asks the website to adopt them.

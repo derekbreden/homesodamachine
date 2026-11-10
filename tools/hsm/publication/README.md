@@ -73,12 +73,16 @@ retained scene references. Normal publication uses `hsm-publish` to share its qu
 `hsm-merge-pointers BASE OURS THEIRS` is Git's member-wise pointer merge driver. It
 writes the merged result to `OURS` and keeps provenance with the winning hashes.
 
-`hsm-cut-vs-pointers` compares a requested Bazel slice with published and local bytes.
-Its flags are `--annotate`, `--failed`, `--assume-fresh` and `--targets`. Run the
-comparison through `tools/run` when it starts Bazel outside an inherited run lease.
+`hsm-cut-vs-pointers` compares retained native producer output with published and local
+bytes. `--targets` selects native target or source aliases; the command asks the
+print driver only for current cache entries and starts no producer. An explicit
+`--receipt FILE --assume-fresh` reads the build that wrote that receipt without
+querying current inputs. `--failed` excludes failed target cohorts and `--annotate`
+prints CI annotations.
 
-`hsm-build-times` reads recorded full-build timings and commits changes to the site's
-timing list. `--check` prints those records without writing. It starts no build.
+`hsm-build-times` reads completed full native print-build results under `.cache/runs/`
+and commits changes to the site's timing list. Existing timing rows remain in that
+history. `--check` prints available native records without writing. It starts no build.
 
 ## Firmware
 

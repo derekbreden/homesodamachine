@@ -27,7 +27,7 @@ impl Fixture {
     fn new(parent: &Path) -> Result<Self> {
         let work = Work::new(parent)?;
         let root = &work.path;
-        for directory in ["hardware/ledger", "hardware/parts", "tools/bazel"] {
+        for directory in ["hardware/ledger", "hardware/parts", "tools/hsm/build-plan"] {
             fs::create_dir_all(root.join(directory))?;
         }
         fs::write(root.join("hardware/parts/build.rs"), "fn main() {}\n")?;
@@ -42,7 +42,7 @@ impl Fixture {
             )?,
         )?;
         fs::write(
-            root.join("tools/bazel/graph.json"),
+            root.join("tools/hsm/build-plan/graph.json"),
             serde_json::to_vec(
                 &json!({"hardware/parts/build.rs":{"reads":["hardware/parts/dimensions.rs"],"writes":[VIEWER,PRINT]}}),
             )?,
@@ -80,7 +80,7 @@ impl Fixture {
             "hardware/ledger/materials.json",
             "hardware/parts/build.rs",
             "hardware/parts/dimensions.rs",
-            "tools/bazel/graph.json",
+            "tools/hsm/build-plan/graph.json",
         ])?;
         git(&["commit", "--quiet", "-m", "fixture sources"])?;
         fs::write(
@@ -276,7 +276,7 @@ fn cold_and_sidecar_publication(parent: &Path) -> Result<()> {
         .as_array_mut()
         .unwrap()
         .push(json!(score));
-    fixture.write("tools/bazel/graph.json", serde_json::to_vec(&graph)?)?;
+    fixture.write("tools/hsm/build-plan/graph.json", serde_json::to_vec(&graph)?)?;
     let next = ctx.reload()?;
     ensure!(
         !next.solids()?.contains(&score.into()),
@@ -359,7 +359,7 @@ fn metadata_membership(parent: &Path) -> Result<()> {
                 .chain(included.iter())
                 .map(|name| json!(format!("hardware/parts/{name}"))),
         );
-    fixture.write("tools/bazel/graph.json", serde_json::to_vec(&graph)?)?;
+    fixture.write("tools/hsm/build-plan/graph.json", serde_json::to_vec(&graph)?)?;
     let mut policy = fixture.ctx.policy.clone();
     policy["BUNDLED_BOARD_DIRS"] = json!(["hardware/parts/board/out"]);
     policy["BUNDLED_ART_DIRS"] = json!(["hardware/parts"]);
@@ -587,7 +587,7 @@ fn progressive_and_new_members(parent: &Path) -> Result<()> {
     fixture.write(new, &newbytes)?;
     let mut graph = ctx.graph_source.clone();
     graph["hardware/parts/new.rs"] = json!({"reads":[],"writes":[new]});
-    fixture.write("tools/bazel/graph.json", serde_json::to_vec(&graph)?)?;
+    fixture.write("tools/hsm/build-plan/graph.json", serde_json::to_vec(&graph)?)?;
     fixture.write("hardware/ledger/materials.json",serde_json::to_vec(&json!({"materials":[{"id":"HSM-FIXTURE","models":[{"file":"parts/plate.step"}]},{"id":"HSM-NEW","models":[{"file":"parts/new.step"}]}]}))?)?;
     let next = ctx.reload()?;
     let debt = publish::owed(&next)?;
@@ -636,7 +636,7 @@ fn partial_reference_refresh(parent: &Path) -> Result<()> {
         .as_array_mut()
         .unwrap()
         .extend([json!(good), json!(bad)]);
-    fixture.write("tools/bazel/graph.json", serde_json::to_vec(&graph)?)?;
+    fixture.write("tools/hsm/build-plan/graph.json", serde_json::to_vec(&graph)?)?;
     let ctx = ctx.reload()?;
     let refreshed = pack::refresh_sources(&ctx, &[VIEWER.into()])?;
     ensure!(
@@ -689,6 +689,34 @@ fn obsolete_standalone_exports(parent: &Path) -> Result<()> {
         !publish::owed(ctx)?.moved.contains(&step.into()),
         "a retired standalone export continually owes another upload"
     );
+    Ok(())
+}
+
+fn archived_producer_graphs(parent: &Path) -> Result<()> {
+    for legacy in [false, true] {
+        let fixture = Fixture::new(parent)?;
+        let ctx = &fixture.ctx;
+        let current_graph = "tools/hsm/build-plan/graph.json";
+        let archived_graph = if legacy {
+            "tools/bazel/graph.json"
+        } else {
+            current_graph
+        };
+        if legacy {
+            fs::create_dir_all(fixture.root().join("tools/bazel"))?;
+            ensure!(ctx.git(&["mv", current_graph, archived_graph])?.status.success(), "archive fixture graph");
+            ensure!(ctx.git(&["commit", "--quiet", "-m", "fixture historical graph"])?.status.success(), "commit archived fixture graph");
+        }
+        let archived_commit = ctx.git_text(&["rev-parse", "HEAD"])?;
+        ensure!(ctx.git(&["rm", "--", "hardware/parts/build.rs", archived_graph])?.status.success(), "retire fixture producer");
+        fixture.write(current_graph, b"{}")?;
+        ensure!(ctx.git(&["add", current_graph])?.status.success(), "stage current fixture graph");
+        ensure!(ctx.git(&["commit", "--quiet", "-m", "fixture retired source"])?.status.success(), "commit fixture source retirement");
+        let mut held = ctx.held()?;
+        held["made"][VIEWER]["commit"] = json!(archived_commit);
+        ctx.write(&held)?;
+        ensure!(pack::retirement_evidence(ctx, &[VIEWER.into()])?.is_empty(), "archived producer graph loses source-retirement evidence: {archived_graph}");
+    }
     Ok(())
 }
 
@@ -787,7 +815,7 @@ fn frozen_sidecar_commits(parent: &Path) -> Result<()> {
         .as_array_mut()
         .unwrap()
         .push(json!(score));
-    fixture.write("tools/bazel/graph.json", serde_json::to_vec(&graph)?)?;
+    fixture.write("tools/hsm/build-plan/graph.json", serde_json::to_vec(&graph)?)?;
     fixture.write(score, b"{\"score\":1}")?;
     let ctx = ctx.reload()?;
     let mut held = ctx.held()?;
@@ -1037,6 +1065,7 @@ pub fn run(parent: &Path) -> Result<i32> {
         ("cold and sidecar publication", cold_and_sidecar_publication),
         ("partial reference refresh", partial_reference_refresh),
         ("obsolete standalone exports", obsolete_standalone_exports),
+        ("archived producer graphs", archived_producer_graphs),
         ("board GLB with stale mesh", board_glb_with_stale_mesh),
         ("frozen sidecar commits", frozen_sidecar_commits),
         ("metadata membership", metadata_membership),
@@ -1096,6 +1125,10 @@ mod tests {
     #[test]
     fn obsolete_exports() -> Result<()> {
         obsolete_standalone_exports(&parent())
+    }
+    #[test]
+    fn archived_graph_lineage() -> Result<()> {
+        archived_producer_graphs(&parent())
     }
     #[test]
     fn board_glb_source() -> Result<()> {

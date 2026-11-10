@@ -594,18 +594,8 @@ pub fn pressure() -> (Option<i32>, Option<u64>) {
         (None, None)
     }
 }
-pub fn broker_config(workspace: &Path) -> Result<String> {
-    let path = workspace.canonicalize().unwrap_or(workspace.into());
-    let name = format!("{:x}", Sha256::digest(path.to_string_lossy().as_bytes()));
-    Ok(json!({"path":directory()?.join(format!("w.{}.sock",&name[..16]))}).to_string())
-}
-pub fn new_broker(config: Option<&str>) -> Result<Value> {
-    let path = if let Some(config) = config {
-        let data: Value = serde_json::from_str(config)?;
-        PathBuf::from(text(&data["path"])?)
-    } else {
-        directory()?.join(format!("b.{}.sock", std::process::id()))
-    };
+pub fn new_broker() -> Result<Value> {
+    let path = directory()?.join(format!("b.{}.sock", std::process::id()));
     let token = token()?;
     let _ = fs::remove_file(&path);
     let listener = UnixListener::bind(&path)?;
@@ -695,7 +685,7 @@ pub fn child_env() -> Result<Value> {
         !s.wire()?.1.is_empty() && s.active.is_none()
     };
     if need {
-        new_broker(None)?;
+        new_broker()?;
     }
     let mut s = STATE.lock().unwrap();
     if let Some(b) = s.active.and_then(|id| s.brokers.get(&id)) {

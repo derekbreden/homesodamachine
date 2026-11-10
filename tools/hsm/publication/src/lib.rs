@@ -125,7 +125,7 @@ impl ContextData {
         policy["IMPLICIT_SOLIDS"] = inventory["implicit_solids"].clone();
         policy["ACTION_INTERMEDIATE"] = inventory["action_intermediate"].clone();
         let graph_source =
-            read_json(root.join("tools/bazel/graph.json")).unwrap_or_else(|_| empty());
+            read_json(root.join("tools/hsm/build-plan/graph.json")).unwrap_or_else(|_| empty());
         let mut graph_config = inventory.clone();
         graph_config["generator_order"] = json!(keys(&graph_source));
         let graph = serde_json::to_value(artifacts::Graph::new(&graph_source, &graph_config))?;

@@ -47,9 +47,9 @@ struct Args {
     /// Memory the part runs a daemon this call starts may hold at once, by their measured peaks.
     #[arg(long, global = true, default_value_t = 1024)]
     build_mb: u64,
-    /// Hours a kept part run stays unused before it and the files only it names go.
-    #[arg(long, global = true, default_value_t = 2.0)]
-    keep_hours: f64,
+    /// Hours a kept run stays unused; HSM_KEEP_HOURS supplies the default for restored CI caches.
+    #[arg(long, global = true)]
+    keep_hours: Option<f64>,
     /// Minutes without a query before a daemon this call starts exits; 0 keeps it running.
     #[arg(long, global = true, default_value_t = 15.0)]
     idle_minutes: f64,
@@ -200,6 +200,31 @@ fn store_path(path: &Path) -> Result<PathBuf> {
 
 fn configuration(store: &Path, cache_mb: u64, build_mb: u64, keep_hours: f64) -> Value {
     json!({"store": store, "cache_mb": cache_mb, "build_mb": build_mb, "keep_hours": keep_hours})
+}
+
+fn retention(explicit: Option<f64>, inherited: Option<&str>) -> Result<f64> {
+    let hours = match explicit {
+        Some(hours) => hours,
+        None => inherited.map(str::parse).transpose().context("HSM_KEEP_HOURS must be a positive number")?
+            .unwrap_or(2.0),
+    };
+    ensure!(hours.is_finite() && hours > 0.0, "--keep-hours/HSM_KEEP_HOURS must be a positive number");
+    Ok(hours)
+}
+
+#[cfg(test)]
+mod retention_tests {
+    use super::retention;
+
+    #[test]
+    fn restored_cache_retention_uses_env_and_an_explicit_flag_wins() {
+        assert_eq!(retention(None, None).unwrap(), 2.0);
+        assert_eq!(retention(None, Some("48")).unwrap(), 48.0);
+        assert_eq!(retention(Some(24.0), Some("invalid")).unwrap(), 24.0);
+        assert!(retention(None, Some("invalid")).is_err());
+        assert!(retention(None, Some("0")).is_err());
+        assert!(retention(Some(f64::NAN), None).is_err());
+    }
 }
 
 fn default_socket(configuration: &Value) -> PathBuf {
@@ -535,10 +560,10 @@ fn answer(
         Ok(serde_json::from_value::<Request>(value)?)
     });
     let request = match request {
-        Ok(Request { query: Query::Run { workspace, root, krate, name, args }, .. }) => {
+        Ok(Request { query: Query::Run { ask }, .. }) => {
             let entered = builds.enter();
             thread::spawn(move || {
-                reply(stream, entered.answer(build::Ask { workspace, root, krate, name, args }, incoming), started);
+                reply(stream, entered.answer(ask, incoming), started);
             });
             return Ok(false);
         }
@@ -591,6 +616,7 @@ fn triple(v: Vec<f64>) -> Result<[f64; 3]> {
 
 fn run() -> Result<bool> {
     let args = Args::parse();
+    let keep_hours = retention(args.keep_hours, std::env::var("HSM_KEEP_HOURS").ok().as_deref())?;
     if matches!(args.command, Action::Daemon | Action::Mcp) {
         hsm_run_slots::clear_inherited_for_service()?;
     }
@@ -616,7 +642,7 @@ fn run() -> Result<bool> {
     let store = store_path(&store)?;
     let socket = args.socket
         .or_else(|| std::env::var_os("HSM_SOCKET").map(PathBuf::from))
-        .unwrap_or_else(|| default_socket(&configuration(&store, args.cache_mb, args.build_mb, args.keep_hours)));
+        .unwrap_or_else(|| default_socket(&configuration(&store, args.cache_mb, args.build_mb, keep_hours)));
     if socket.parent() == Some(runtime_dir().as_path()) {
         private_directory(&runtime_dir())?;
     }
@@ -631,7 +657,7 @@ fn run() -> Result<bool> {
         scene: args.scene,
         cache_mb: args.cache_mb,
         build_mb: args.build_mb,
-        keep_hours: args.keep_hours,
+        keep_hours,
         idle_minutes: args.idle_minutes,
     };
     ensure!(
