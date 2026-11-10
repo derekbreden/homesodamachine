@@ -1696,8 +1696,15 @@
       },
       {
         "point_mm": [
-          -61.0,
+          -60.0,
           430.0,
+          309.0
+        ]
+      },
+      {
+        "point_mm": [
+          -60.0,
+          447.07,
           309.0
         ]
       },
@@ -1705,7 +1712,7 @@
         "terminal": "psu.N",
         "offset": [
           0.0,
-          8.0,
+          -6.0,
           -27.8
         ]
       },
@@ -1713,7 +1720,15 @@
         "terminal": "psu.N",
         "offset": [
           0.0,
-          8.0,
+          6.0,
+          -27.8
+        ]
+      },
+      {
+        "terminal": "psu.N",
+        "offset": [
+          0.0,
+          6.0,
           0.0
         ]
       }
@@ -1722,10 +1737,10 @@
     "bend_radius_mm": 3.0,
     "end_lands_mm": [
       8.0,
-      8.0
+      6.0
     ],
     "route_status": "selected_layout",
-    "note": "The primary lead follows the inboard aisle, passes below the inlet stock and rises at its PSU terminal."
+    "note": "The primary lead stays west of the pump cap, passes aft beneath the inlet and rises forward of the rear wall into its PSU terminal."
   },
   "J1-COM": {
     "stations": [
@@ -3594,10 +3609,17 @@
         ]
       },
       {
+        "point_mm": [
+          -65.0,
+          452.07,
+          309.0
+        ]
+      },
+      {
         "terminal": "psu.L",
         "offset": [
           0.0,
-          8.0,
+          -1.0,
           -27.8
         ]
       },
@@ -3605,7 +3627,15 @@
         "terminal": "psu.L",
         "offset": [
           0.0,
-          8.0,
+          6.0,
+          -27.8
+        ]
+      },
+      {
+        "terminal": "psu.L",
+        "offset": [
+          0.0,
+          6.0,
           0.0
         ]
       }
@@ -3614,10 +3644,10 @@
     "bend_radius_mm": 3.0,
     "end_lands_mm": [
       8,
-      8
+      6
     ],
     "route_status": "selected_layout",
-    "note": "The primary lead follows the inboard aisle, passes below the inlet stock and rises at its PSU terminal."
+    "note": "The primary lead stays west of the pump cap, passes aft beneath the inlet and rises forward of the rear wall into its PSU terminal."
   },
   "J11-AOUT": {
     "stations": [

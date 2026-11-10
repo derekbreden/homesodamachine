@@ -227,15 +227,37 @@ const WALL_HOST: &str = "enclosure-back-top";
 /// screws thread into, from the mount hardware the equipment places.
 fn wall_mounts(equipment_request: &Value) -> Result<Value> {
     let mut mounts = Map::new();
-    for item in equipment_request["items"].as_array().context("the equipment's items")? {
+    let items = equipment_request["items"].as_array().context("the equipment's items")?;
+    for item in items {
         if item["op"] != "mount-hardware" || item["kind"] != "screw" {
             continue;
         }
         let name = item["name"].as_str().context("a mount's screw name")?;
-        let part = name.rsplit_once("-screw-").map(|(part, _)| part).context("a mount's screw is named for its part")?;
-        let mount = mounts.entry(part.to_owned()).or_insert_with(|| json!({"parent": WALL_HOST, "stations": []}));
+        let (part, index) = name.rsplit_once("-screw-").context("a mount's screw is named for its part")?;
+        let insert_name = format!("{part}-insert-{index}");
+        let insert = items.iter().find(|candidate| candidate["name"] == insert_name)
+            .context("a mount's matching insert")?;
+        let pilot_radius = match part {
+            "relay-1" | "relay-2" => Some(hsm_enclosure_numbers::rear_wall::hosts::RELAY_PILOT_RADIUS),
+            "psu" => Some(hsm_enclosure_numbers::shell::HEATSET_DIA / 2.),
+            _ => None,
+        };
+        let mount = mounts.entry(part.to_owned()).or_insert_with(|| json!({
+            "parent": WALL_HOST, "stations": [], "pilot_radius_mm": pilot_radius,
+            "screw_radius_mm": item["dimensions"]["shaft_radius"],
+            "insert_radius_mm": insert["dimensions"]["radius"],
+            "insert_bore_radius_mm": insert["dimensions"]["bore_radius"],
+            "insert_length_mm": insert["dimensions"]["length"],
+        }));
+        let setback = item["setback"].as_f64().context("a mount's insert setback")?;
+        let mut face = [0.; 3];
+        for (axis, value) in face.iter_mut().enumerate() {
+            *value = item["point"][axis].as_f64().context("a mount's point coordinate")?
+                - setback * item["axis"][axis].as_f64().context("a mount's axis coordinate")?;
+        }
         mount["stations"].as_array_mut().context("a mount's stations")?.push(
-            json!({"threaded": true, "position_world_mm": item["point"], "axis_world": item["axis"]}),
+            json!({"threaded": true, "position_world_mm": item["point"], "axis_world": item["axis"],
+                   "insert_face_world_mm": face}),
         );
     }
     Ok(Value::Object(mounts))
