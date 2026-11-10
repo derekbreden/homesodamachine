@@ -106,8 +106,8 @@ flowchart LR
   %% while forward pressure permits; the carbonated draw leaves at the other bottom port. Both
   %% reservoirs are filled and drawn the same way.
   Tap --> BhW
-  BhW -->|"water-1"| BFP
-  BFP -->|"water-2<br/>mate"| Split
+  BhW -->|"water-1<br/>threaded"| BFP
+  BFP -->|"water-2"| Split
   BFP --> Vent
   Split -->|"fluid-1"| FlowReg
   FlowReg -->|"fluid-2"| VA
@@ -117,12 +117,12 @@ flowchart LR
   VK -->|"water-7"| JointS
   JointS --> PW
   PW --> JointD
-  JointD -->|"water-6"| DischChain
+  JointD -->|"water-6<br/>mate"| DischChain
   DischChain -->|"water-5"| CapWater
   CapWater --> P2
   CO2 --> CO2In
-  CO2In -->|"co2-0"| GasReg
-  GasReg -->|"co2-1"| GasCheck
+  CO2In -->|"co2-0<br/>mate"| GasReg
+  GasReg -->|"co2-1<br/>mate"| GasCheck
   GasCheck -->|"co2-2"| CapCO2
   CapCO2 --> P1
   P3 --> CapCarb
