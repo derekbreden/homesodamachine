@@ -31,8 +31,8 @@
   "requested_z_trim_mm": 0.18,
   "emitted_textured_trim_mm": 0.16,
   "submitted": true,
-  "physical_release": "pending",
-  "status": "RUNNING; printer reports deposited layers without an error.",
+  "physical_release": "Support mats removed more easily with branches joined together.",
+  "status": "FINISH; physical support removal improved, underside finish reported essentially unchanged.",
   "native_archive": "faucet-slim-gap048-left04-z018-mark1.gcode.3mf",
   "native_archive_sha256": "1df8ebdeabf84fa6700c9c0a7d3f801a1caf8206ecd554e75942aa242a6fc62d",
   "gcode_sha256": "d7bc6b0330aef6939b3b95c86c95f3103f77ef68f4de442f147108c7b080628a",
@@ -152,5 +152,7 @@
   "accepted_observed_at": "2026-11-10T21:11:19+00:00",
   "launch": "launch.json",
   "first_layer_status": "first-layer-status.json",
-  "model_bead_comparison_scope": "All model segment endpoints, actual nozzle Z, widths, heights and feature labels are identical; this is not a claim of identical extrusion or feed commands."
+  "model_bead_comparison_scope": "All model segment endpoints, actual nozzle Z, widths, heights and feature labels are identical; this is not a claim of identical extrusion or feed commands.",
+  "physical_result": "physical-result/physical-result.json",
+  "completion_status": "completion-status.json"
 }
