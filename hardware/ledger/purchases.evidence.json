@@ -9440,7 +9440,8 @@
       ],
       "allocation_status": "all_project",
       "source_ids": [
-        "src-562754f7ecd34ad9a37d14abe9d1a9ce"
+        "src-562754f7ecd34ad9a37d14abe9d1a9ce",
+        "src-73fadd67b373402ab590db8148bbb3c8"
       ]
     },
     "pur-14f8f47e82a74b129f4677cb0fc2a67d": {
@@ -9511,7 +9512,8 @@
       "allocation_status": "all_project",
       "source_ids": [
         "src-821de3ba9cfc4967ac712f6960983312",
-        "src-37ceea4a8ea54360a5ba11cafbcef9eb"
+        "src-37ceea4a8ea54360a5ba11cafbcef9eb",
+        "src-73fadd67b373402ab590db8148bbb3c8"
       ]
     },
     "pur-0b426a7ded014916bd32dde66a3d3030": {
@@ -15680,7 +15682,8 @@
       },
       "allocation_status": "all_project",
       "source_ids": [
-        "src-562754f7ecd34ad9a37d14abe9d1a9ce"
+        "src-562754f7ecd34ad9a37d14abe9d1a9ce",
+        "src-73fadd67b373402ab590db8148bbb3c8"
       ]
     },
     "amazon:112-0448533-3655424": {
@@ -15724,7 +15727,8 @@
       "allocation_status": "all_project",
       "source_ids": [
         "src-821de3ba9cfc4967ac712f6960983312",
-        "src-37ceea4a8ea54360a5ba11cafbcef9eb"
+        "src-37ceea4a8ea54360a5ba11cafbcef9eb",
+        "src-73fadd67b373402ab590db8148bbb3c8"
       ]
     },
     "amazon:114-1960396-3476246": {
@@ -19403,12 +19407,16 @@
       "vendor": "Amazon",
       "event_type": "charge",
       "confirmation": "expected",
-      "event_date": null,
+      "event_date": {
+        "precision": "day",
+        "value": "2026-11-10"
+      },
       "amount_minor": 3216,
       "currency": "USD",
       "allocation_status": "all_project",
       "source_ids": [
-        "src-562754f7ecd34ad9a37d14abe9d1a9ce"
+        "src-562754f7ecd34ad9a37d14abe9d1a9ce",
+        "src-73fadd67b373402ab590db8148bbb3c8"
       ],
       "verified_at": "2026-11-10",
       "order_ids": [
@@ -19803,7 +19811,8 @@
       "allocation_status": "all_project",
       "source_ids": [
         "src-821de3ba9cfc4967ac712f6960983312",
-        "src-37ceea4a8ea54360a5ba11cafbcef9eb"
+        "src-37ceea4a8ea54360a5ba11cafbcef9eb",
+        "src-73fadd67b373402ab590db8148bbb3c8"
       ],
       "verified_at": "2026-11-10",
       "order_ids": [
@@ -33311,6 +33320,22 @@
       "proves": [],
       "verified_at": "2026-11-10",
       "note": "Read-only signed-in Mac Chrome order-history review matched actual filament ASINs and order dates to the ledger. All returned pages reviewed for filament, Fiberon, Polymaker, PLA filament, TPU, ASA, PPA, Bambu filament, eSUN, Overture and PETG. No further missing filament purchase found beyond the separately recorded November 4 PET-GF15 order. Existing old orders were not individually re-audited for payments."
+    },
+    "src-73fadd67b373402ab590db8148bbb3c8": {
+      "vendor": "Amazon",
+      "document_type": "merchant_shared_shipment_and_pending_transactions",
+      "reference": "112-8336005-3642625 + 112-3519445-7276244",
+      "document_date": null,
+      "notification_date": {
+        "precision": "day",
+        "value": "2026-11-10"
+      },
+      "proves": [
+        "price",
+        "order_date"
+      ],
+      "verified_at": "2026-11-10",
+      "note": "Shipment notification and signed-in Mac Chrome tracking page identify two orders in one package. The companion order-details link explicitly opens the SVLING order from the ruthex shipment. The combined project shipment amount USD 41.33 consists of the existing USD 32.16 ruthex order and USD 9.17 SVLING order, not another purchase or charge. Both Order Details show placed 2026-11-09. Tracker status is Shipped with expected arrival 2026-11-10; no actual delivery is established. Order-scoped merchant transactions remain separately Pending on 2026-11-10 at USD 32.16 and USD 9.17."
     }
   },
   "coverage": [
@@ -35211,6 +35236,27 @@
         "amazon:114-3909134-4758645"
       ],
       "note": "All pages of eleven targeted, overlapping semantic searches reviewed: filament (23 matching orders), Fiberon (12), Polymaker (22), PLA filament (24), TPU (9), ASA (5), PPA (1), Bambu filament (30), eSUN (14), Overture (21), PETG (29). Counts overlap and include accessories or unrelated results, so are not summed. Broad PLA was narrowed after its first page due irrelevant plastic-item matches. Scoped history reaches March 2026 and some earlier results; this does not claim complete merchant-account or direct-vendor coverage."
+    },
+    {
+      "coverage_id": "coverage-14e884ad6ddc4f9a98fefe64c6d6948b",
+      "vendor": "Amazon",
+      "stream": "two named orders in one shipment",
+      "evidence_type": "shipment_and_pending_transactions",
+      "checked_at": "2026-11-10",
+      "examined_period": {
+        "start": "2026-11-09",
+        "end": "2026-11-10"
+      },
+      "complete_period": null,
+      "coverage": "partial",
+      "source_ids": [
+        "src-73fadd67b373402ab590db8148bbb3c8"
+      ],
+      "order_ids": [
+        "amazon:112-8336005-3642625",
+        "amazon:112-3519445-7276244"
+      ],
+      "note": "New shipment notification matched against both exact order-detail pages, their shared tracker links and order-scoped pending payments. No new purchase, completed charge or delivery is inferred from the combined shipment total or estimated arrival."
     }
   ],
   "gaps": [
