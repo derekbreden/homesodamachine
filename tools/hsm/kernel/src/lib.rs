@@ -37,6 +37,8 @@ pub mod feature;
 pub mod import;
 #[path = "../../geometry/src/scene.rs"]
 pub mod scene;
+#[cfg(test)]
+use hsm_geometry::payload;
 pub mod mapped;
 pub mod mass;
 pub mod math;

@@ -6,12 +6,13 @@
 //! without records gets a free `MESH import` record naming the file asked for. The solids of one body, which a
 //! payload holds as `name/1`, `name/2`, …, come back as one body under its name.
 //!
-//! A STEP of B-rep faces is read through `.cache/hsm/import/<SHA-256>.step.mesh` at the
-//! checkout's root, or in the directory `HSM_IMPORT_DIR` names: OCCT's mesh of it at the
-//! kernel's rule, which `_rust_part.step` cuts once under the CAD lock. A STEP of triangles, which a mesh kernel writes, is read through the
-//! payload its writer cut beside it (`<name>.step.mesh`, whose `src` is the STEP's SHA-256). A
-//! relative path is read from the working directory, which `_rust_part.cut` sets to the root.
-//! `model(path)` reads an explicitly named model; no sibling model is substituted for a STEP.
+//! A B-rep STEP uses the exact fine payload bound by its adjacent `frozen-asset.json`:
+//! the manifest binds the source, payload bytes and sampling rule. An explicit preserved
+//! STEP-import record retains a prior cache geometry with unknown sampling. Otherwise it uses
+//! `.cache/hsm/import/<SHA-256>.step.mesh`, or the directory `HSM_IMPORT_DIR` names.
+//! A triangle STEP uses its writer's adjacent payload, bound by the STEP's SHA-256.
+//! Relative paths use the working directory. `model(path)` explicitly reads an f64 model;
+//! an existing STEP never silently substitutes its sibling model archive.
 use crate::face::{Face, Surface, file_src, unknown_src};
 use crate::mass;
 use crate::math::{V3, v3};
@@ -113,11 +114,63 @@ pub fn step(path: impl AsRef<Path>) -> Result<Vec<Imported>> {
         );
         return bodies(&bytes, &name);
     }
+    if let Some(bytes) = frozen_step_payload(path, &digest)? {
+        return bodies(&bytes, &name);
+    }
     let cut = cache().join(format!("{digest}.step.mesh"));
     let bytes = std::fs::read(&cut)
-        .with_context(|| format!("{name} has no payload cut from it; `_rust_part.step` cuts one into {}", cut.display()))?;
+        .with_context(|| format!("{name} has no bound fine import; expected frozen-asset.json or {}", cut.display()))?;
     crate::reads::read(&cut, &bytes);
     bodies(&bytes, &name)
+}
+
+/// A frozen STEP import keeps the exact delivered geometry, with its source and quality policy.
+fn frozen_step_payload(path: &Path, digest: &str) -> Result<Option<Vec<u8>>> {
+    let parent = path.parent().context("a STEP import's directory")?;
+    let manifest = parent.join("frozen-asset.json");
+    let bytes = match std::fs::read(&manifest) {
+        Ok(bytes) => bytes,
+        Err(error) if error.kind() == std::io::ErrorKind::NotFound => return Ok(None),
+        Err(error) => return Err(error).with_context(|| format!("reading {}", manifest.display())),
+    };
+    crate::reads::read(&manifest, &bytes);
+    let asset: Value = serde_json::from_slice(&bytes)
+        .with_context(|| format!("reading {}", manifest.display()))?;
+    let filename = path.file_name().and_then(|n| n.to_str()).context("a STEP import's file name")?;
+    let matching = |plural: &str, single: &str| {
+        asset[plural].get(filename).into_iter().chain(asset.get(single))
+            .find(|record| record["source_step_sha256"].as_str() == Some(digest))
+    };
+    let (record, preserved) = if let Some(record) = matching("fine_payloads", "fine_payload") {
+        (record, false)
+    } else if let Some(record) = matching("preserved_step_imports", "preserved_step_import") {
+        (record, true)
+    } else { return Ok(None); };
+    ensure!(asset["members"][filename].as_str() == Some(digest),
+            "{} does not bind STEP {filename}", manifest.display());
+    if preserved {
+        ensure!(record["quality"].as_str() == Some("unknown"),
+                "a preserved STEP import explicitly records unknown sampling quality");
+    } else {
+        for (key, budget) in [("linear_mm", crate::rule::LINEAR), ("angular_rad", crate::rule::ANGULAR)] {
+            ensure!(record[key].as_f64().is_some_and(|value| value > 0. && value <= budget),
+                    "{} {key} is not within the kernel import rule", manifest.display());
+        }
+    }
+    let member = record["path"].as_str().context("a frozen STEP import's payload path")?;
+    ensure!(!member.is_empty() && Path::new(member).components().all(|c| matches!(c, Component::Normal(_))),
+            "a frozen STEP import payload stays within its reference directory");
+    let expected = record["sha256"].as_str().context("a frozen STEP import's payload hash")?;
+    ensure!(asset["members"][member].as_str() == Some(expected),
+            "{} does not bind payload {member}", manifest.display());
+    let payload = parent.join(member);
+    let bytes = std::fs::read(&payload).with_context(|| format!("reading bound STEP import {}", payload.display()))?;
+    let actual = format!("{:x}", Sha256::digest(&bytes));
+    ensure!(actual == expected, "{} does not hold its frozen payload hash", payload.display());
+    ensure!(header(&bytes)?["src"].as_str() == Some(digest),
+            "{} was not cut from STEP {filename}", payload.display());
+    crate::reads::digest(&payload, &actual);
+    Ok(Some(bytes))
 }
 
 /// The fine f64 geometry, body identities and face records of a model file.
@@ -445,7 +498,7 @@ mod tests {
         let digest = format!("{:x}", Sha256::digest(vendor.as_bytes()));
         std::fs::write(dir.join("vendor.step.mesh"), payload_bytes(&set, Some(&digest), None))?;
         let missing = format!("{:#}", step(&theirs).unwrap_err());
-        assert!(missing.contains("`_rust_part.step` cuts one"), "{missing}");
+        assert!(missing.contains("no bound fine import"), "{missing}");
         let cut = cache().join(format!("{digest}.step.mesh"));
         std::fs::create_dir_all(cache())?;
         std::fs::write(&cut, payload_bytes(&set, Some(&digest), None))?;
@@ -453,6 +506,81 @@ mod tests {
         std::fs::remove_file(&cut)?;
         std::fs::remove_dir_all(&dir)?;
         assert!((read?[0].solid.volume() - 6.0).abs() < 1e-9);
+        Ok(())
+    }
+
+    #[test]
+    fn a_cold_brep_import_uses_only_its_bound_quality_payload() -> Result<()> {
+        let nonce = std::time::SystemTime::now().duration_since(std::time::UNIX_EPOCH)?.as_nanos();
+        let dir = std::env::temp_dir().join(format!("hsm-frozen-import-{}-{nonce}", std::process::id()));
+        std::fs::create_dir_all(&dir)?;
+        let source = dir.join("vendor.step");
+        let step_data = format!("ISO-10303-21; /* frozen fixture {} */", dir.display());
+        std::fs::write(&source, &step_data)?;
+        let digest = format!("{:x}", Sha256::digest(step_data.as_bytes()));
+        assert!(!cache().join(format!("{digest}.step.mesh")).exists());
+        let fine = Plane::XY.cuboid(1., 2., 3.);
+        let coarse = Plane::XY.cuboid(8., 9., 10.);
+        let fine_set = [Body { name: "fine", color: Some([0.1, 0.2, 0.3]), solid: &fine }];
+        let fine_bytes = payload_bytes(&fine_set, Some(&digest), None);
+        let coarse_bytes = payload_bytes(&[Body { name: "display", color: None, solid: &coarse }], Some(&digest), None);
+        let expected = bodies(&fine_bytes, &name_of(&source))?;
+        let fine_hash = format!("{:x}", Sha256::digest(&fine_bytes));
+        std::fs::write(dir.join("vendor.step.mesh"), &coarse_bytes)?;
+        std::fs::write(dir.join("vendor.fine.step.mesh"), &fine_bytes)?;
+        assert!(step(&source).is_err());
+        let mut asset = serde_json::json!({
+            "members": {"vendor.step":digest,"vendor.fine.step.mesh":fine_hash},
+            "fine_payload": {"source_step_sha256":digest,"path":"vendor.fine.step.mesh",
+                "sha256":fine_hash,"linear_mm":crate::rule::LINEAR,"angular_rad":crate::rule::ANGULAR}
+        });
+        let store = |asset: &Value| -> Result<()> {
+            std::fs::write(dir.join("frozen-asset.json"), serde_json::to_vec(asset)?)?;
+            Ok(())
+        };
+        store(&asset)?;
+        let read = step(&source)?;
+        assert_eq!(read[0].name, "fine");
+        assert_eq!(read[0].color, expected[0].color);
+        assert_eq!(read[0].solid.verts(), expected[0].solid.verts());
+        assert_eq!(read[0].solid.tris(), expected[0].solid.tris());
+
+        asset["fine_payload"]["linear_mm"] = serde_json::json!(crate::rule::LINEAR * 2.);
+        store(&asset)?;
+        assert!(step(&source).is_err());
+        asset["fine_payload"]["linear_mm"] = serde_json::json!(crate::rule::LINEAR);
+        asset["fine_payload"]["angular_rad"] = serde_json::json!(crate::rule::ANGULAR * 2.);
+        store(&asset)?;
+        assert!(step(&source).is_err());
+        asset["fine_payload"]["angular_rad"] = serde_json::json!(crate::rule::ANGULAR);
+        store(&asset)?;
+        std::fs::write(dir.join("vendor.fine.step.mesh"), &coarse_bytes)?;
+        assert!(step(&source).is_err());
+        let wrong_source = payload_bytes(&fine_set, Some("another STEP"), None);
+        let wrong_hash = format!("{:x}", Sha256::digest(&wrong_source));
+        std::fs::write(dir.join("vendor.fine.step.mesh"), wrong_source)?;
+        asset["fine_payload"]["sha256"] = serde_json::json!(wrong_hash);
+        asset["members"]["vendor.fine.step.mesh"] = serde_json::json!(wrong_hash);
+        store(&asset)?;
+        assert!(step(&source).is_err());
+
+        std::fs::write(dir.join("vendor.fine.step.mesh"), &fine_bytes)?;
+        asset["members"]["vendor.fine.step.mesh"] = serde_json::json!(fine_hash);
+        asset.as_object_mut().unwrap().remove("fine_payload");
+        asset["preserved_step_import"] = serde_json::json!({"source_step_sha256":digest,
+            "path":"vendor.fine.step.mesh","sha256":fine_hash,"quality":"unknown"});
+        store(&asset)?;
+        let preserved = step(&source)?;
+        assert_eq!(preserved[0].solid.verts(), expected[0].solid.verts());
+        assert_eq!(preserved[0].solid.tris(), expected[0].solid.tris());
+        asset["preserved_step_import"]["quality"] = serde_json::json!("assumed fine");
+        store(&asset)?;
+        assert!(step(&source).is_err());
+        asset["preserved_step_import"]["quality"] = serde_json::json!("unknown");
+        asset["members"]["vendor.step"] = serde_json::json!("another STEP");
+        store(&asset)?;
+        assert!(step(&source).is_err());
+        std::fs::remove_dir_all(&dir)?;
         Ok(())
     }
 

@@ -6,7 +6,8 @@
   "members": {
     "neofit-stem-elbow.step": "3019e6b26531b3e2d9b9454a689264ae45c352d0fc28ca9712928a90e7f42f53",
     "neofit-stem-elbow.step.mesh": "278617143eda0f4e62c997cc166d3aaede71b2799c8b860962a2e3f3de0cfef8",
-    "neofit-stem-elbow.fine.step.npz": "d100859c84b31c112839dee6eb5b08334cdab061e293de01776e0091d1dfdab4"
+    "neofit-stem-elbow.fine.step.npz": "d100859c84b31c112839dee6eb5b08334cdab061e293de01776e0091d1dfdab4",
+    "neofit-stem-elbow.import.step.mesh": "1444d3313796ba84f14296dadb3a91992640f73228b8d61ad151dfe3060fc6bf"
   },
   "fine_models": {
     "neofit-stem-elbow.step": {
@@ -20,6 +21,14 @@
         0,
         1
       ]
+    }
+  },
+  "preserved_step_imports": {
+    "neofit-stem-elbow.step": {
+      "source_step_sha256": "3019e6b26531b3e2d9b9454a689264ae45c352d0fc28ca9712928a90e7f42f53",
+      "path": "neofit-stem-elbow.import.step.mesh",
+      "sha256": "1444d3313796ba84f14296dadb3a91992640f73228b8d61ad151dfe3060fc6bf",
+      "quality": "unknown"
     }
   }
 }

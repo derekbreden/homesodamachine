@@ -30,8 +30,8 @@ hardware/reference/g-ganen-pump/installation/feet-correction-validation/back-top
 
 # TWO PUBLISHES MEET ON THE POINTER FILE: each moves its members' lines, their times and their
 # `made` lines, and a rebase of one publish onto another has one right answer there — main's
-# pointers plus the members the incoming publish moved. tools/cad-artifacts/merge_pointers.py
-# is that answer, and tools/push.py writes its command into a clone's config the first time it
+# pointers plus the members the incoming publish moved. hsm-merge-pointers
+# is that answer, and hsm-land writes its command into a clone's config the first time it
 # runs there, since an attribute can name a driver but cannot carry one.
 hardware/cad-artifacts.json  merge=cadpointers
 
