@@ -32,6 +32,9 @@ The [physical result](physical-result.json) records failed release at the inclin
 faucet contact and sagging at the handhold crown and lip. The holed pad awaits
 a reported result. The [incline comparisons](../inclines/README.md) compare contact
 gap and explicit tree algorithms at the shared dense interface before another complete faucet print.
+The [native contact reading](../inclines/contact-reading.json) locates the faucet's
+interface paths in a low band, with bare support paths continuing along the higher
+curve. The photographs do not establish a fused interface mat in that region.
 
 Mark2's accepted job, selected send options and startup reading are in
 [`mark2/`](mark2/). The companion [rail pair](../rail-fit-30/) prints on Mark1,
