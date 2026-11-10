@@ -1,0 +1,78 @@
+{
+  "views": [
+    {
+      "name": "pump-cap",
+      "caption": "The AC leads pass aft of the pump cap before rising toward the supply.",
+      "before": "pump-cap-before.webp",
+      "after": "pump-cap-after.webp",
+      "width": 1000,
+      "height": 750,
+      "marks": [
+        {
+          "x": 449.7,
+          "y": 474.5,
+          "r": 24.3,
+          "label": "AC lead",
+          "at": [
+            -46.00091,
+            452.07,
+            309.1867
+          ]
+        }
+      ],
+      "model": "manifold-layout/enclosure-assembly.step",
+      "camera": {
+        "projection": "perspective",
+        "position": [
+          -65.21033633783475,
+          472.76292042229346,
+          333.9866283800641
+        ],
+        "target": [
+          -43,
+          445,
+          309
+        ],
+        "up": [
+          0,
+          0,
+          1
+        ],
+        "fov": 45,
+        "near": 0.14195969162759242,
+        "far": 223.47678915203684,
+        "aspect": 1.3333333333333333
+      },
+      "highlight": [
+        "wire-AC2-L",
+        "wire-AC2-N"
+      ],
+      "ghost": [],
+      "only": [
+        "cold-core/pump-snap-cap",
+        "wire-AC2-L",
+        "wire-AC2-N"
+      ],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "file",
+          "sha256": "325a0838f9042a16a71ac4ded06d09624e5ffd0bd521201a1abd2a416ef16adf",
+          "commit": null
+        },
+        "after": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "file",
+          "sha256": "6401d0cd85ab2af06b4114a1a7f12749a4e763cb3f50e5253c83fd2c080fa12c",
+          "commit": null
+        }
+      },
+      "changed": [
+        "wire-AC2-L",
+        "wire-AC2-N"
+      ],
+      "withinMeshing": []
+    }
+  ]
+}

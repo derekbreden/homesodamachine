@@ -1,0 +1,76 @@
+{
+  "views": [
+    {
+      "name": "relay-corner",
+      "caption": "The relay mounting corner uses the acquired small socket-head screw and its matching insert.",
+      "before": "relay-corner-before.webp",
+      "after": "relay-corner-after.webp",
+      "width": 1000,
+      "height": 750,
+      "marks": [
+        {
+          "x": 484.6,
+          "y": 411.2,
+          "r": 42.1,
+          "label": "Mounting screw",
+          "at": [
+            -92.93,
+            442.1,
+            298.94
+          ]
+        }
+      ],
+      "model": "manifold-layout/enclosure-assembly.step",
+      "camera": {
+        "projection": "perspective",
+        "position": [
+          -79.31360668745035,
+          450.6118359875298,
+          305.17455732501986
+        ],
+        "target": [
+          -94,
+          441.8,
+          299.3
+        ],
+        "up": [
+          0,
+          0,
+          1
+        ],
+        "fov": 45,
+        "near": 0.08495187146961453,
+        "far": 119.54647821504093,
+        "aspect": 1.3333333333333333
+      },
+      "highlight": [],
+      "ghost": [],
+      "only": [
+        "relay-2",
+        "relay-2-screw-3",
+        "relay-2-insert-3"
+      ],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "file",
+          "sha256": "10894966967a74377522a80fa8d23b11adf4a305b2cacebb42df6596e2a1b9c8",
+          "commit": null
+        },
+        "after": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "file",
+          "sha256": "3cdef4a1babc25460020cdffdb3e6bf0178db4cbf53f544bbaa1ab4a0a1c502f",
+          "commit": null
+        }
+      },
+      "changed": [
+        "relay-2-screw-3",
+        "relay-2-insert-3",
+        "relay-2"
+      ],
+      "withinMeshing": []
+    }
+  ]
+}
