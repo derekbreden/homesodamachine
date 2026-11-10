@@ -1,0 +1,113 @@
+{
+  "error_string": "Success.",
+  "export_time": 1172,
+  "layer_height": 0.23999999463558197,
+  "plate_index": 0,
+  "prepare_time": 22,
+  "return_code": 0,
+  "sliced_plates": [
+    {
+      "feature_type_times": {
+        "Bottom surface": 6.61152458190918,
+        "Bridge": 365.50030517578125,
+        "Custom": 305.4974365234375,
+        "Flush": 15.0,
+        "Gap infill": 3.6299357414245605,
+        "Inner wall": 25.11545181274414,
+        "Internal solid infill": 136.72027587890625,
+        "Outer wall": 48.00358963012695,
+        "Overhang wall": 68.40718841552734,
+        "Sparse infill": 9.503742218017578,
+        "Support": 411.7898864746094,
+        "Support interface": 163.2941436767578,
+        "Support transition": 542.737548828125,
+        "Top surface": 42.79106521606445,
+        "Travel": 189.68177795410156,
+        "Undefined": 179.95382690429688
+      },
+      "filament_change_times": 0,
+      "filaments": [
+        {
+          "filament_id": "GFT01",
+          "id": 1,
+          "main_used_g": 10.318175315856934,
+          "total_used_g": 10.318175315856934
+        }
+      ],
+      "generate_support_material_time": 49,
+      "id": 1,
+      "infill_time": 18,
+      "layer_filament_change": 0,
+      "main_predication": 1998.7838134765625,
+      "make_perimeters_time": 15,
+      "obj_cached_cnt": 0,
+      "objects": [
+        {
+          "bbox": {
+            "depth": 24.0,
+            "height": 4.760000228881836,
+            "width": 32.0,
+            "x": 124.0,
+            "y": 128.0,
+            "z": 0.0
+          },
+          "id": 5,
+          "name": "XD Cantilever with west wall",
+          "triangle_count": 642
+        },
+        {
+          "bbox": {
+            "depth": 34.0,
+            "height": 4.760000228881836,
+            "width": 32.0,
+            "x": 168.0,
+            "y": 123.0,
+            "z": 0.0
+          },
+          "id": 9,
+          "name": "ND Unanchored flat panel",
+          "triangle_count": 632
+        },
+        {
+          "bbox": {
+            "depth": 34.0,
+            "height": 4.760000228881836,
+            "width": 24.0,
+            "x": 128.0,
+            "y": 163.0,
+            "z": 0.0
+          },
+          "id": 13,
+          "name": "OD Unanchored holed panel",
+          "triangle_count": 2172
+        },
+        {
+          "bbox": {
+            "depth": 21.0,
+            "height": 4.760000228881836,
+            "width": 16.0,
+            "x": 176.0,
+            "y": 169.5,
+            "z": 0.0
+          },
+          "id": 17,
+          "name": "PD Production holed-pad underside",
+          "triangle_count": 1680
+        }
+      ],
+      "sliced_time": 402,
+      "sliced_time_with_cache": 264,
+      "total_predication": 3428.3605567853774,
+      "triangle_count": 5126,
+      "warning_message": ""
+    }
+  ],
+  "sparse_infill_density": 15.0,
+  "upward_compatible_machine": [
+    "Bambu Lab H2S 0.4 nozzle",
+    "Bambu Lab H2D 0.4 nozzle",
+    "Bambu Lab H2D Pro 0.4 nozzle",
+    "Bambu Lab A2L 0.4 nozzle"
+  ],
+  "wall_loops": 2
+}

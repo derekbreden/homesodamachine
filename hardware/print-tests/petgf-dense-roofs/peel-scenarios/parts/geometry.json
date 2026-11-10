@@ -1,0 +1,194 @@
+{
+  "spec": {
+    "ceiling_bottom_mm": 3.08,
+    "column_x_mm": [
+      160.0
+    ],
+    "common_object_settings": {
+      "support_interface_spacing": "0",
+      "support_interface_top_layers": "3",
+      "support_style": "tree_slim",
+      "support_top_z_distance": "0.24"
+    },
+    "families": [
+      {
+        "actual_crop_min_z_mm": -0.0,
+        "column_x_mm": [
+          140
+        ],
+        "hole_diameter_mm": 0.0,
+        "id": "X",
+        "kind": "panel",
+        "name": "Cantilever with west wall",
+        "row_y_mm": 140,
+        "settings": {},
+        "size_mm": [
+          32.0,
+          24.0
+        ],
+        "wall": "west"
+      },
+      {
+        "actual_crop_min_z_mm": -0.0,
+        "column_x_mm": [
+          184
+        ],
+        "hole_diameter_mm": 0.0,
+        "id": "N",
+        "kind": "panel",
+        "name": "Unanchored flat panel",
+        "row_y_mm": 140,
+        "settings": {},
+        "size_mm": [
+          32.0,
+          24.0
+        ],
+        "wall": "none"
+      },
+      {
+        "actual_crop_min_z_mm": -0.0,
+        "column_x_mm": [
+          140
+        ],
+        "hole_diameter_mm": 4.0,
+        "id": "O",
+        "kind": "panel",
+        "name": "Unanchored holed panel",
+        "row_y_mm": 180,
+        "settings": {},
+        "size_mm": [
+          24.0,
+          24.0
+        ],
+        "wall": "none"
+      },
+      {
+        "actual_crop_min_z_mm": 214.4199999999255,
+        "column_x_mm": [
+          184
+        ],
+        "crop_max_mm": [
+          -3.725,
+          35.0,
+          218.7
+        ],
+        "crop_min_mm": [
+          -22.725,
+          14.0,
+          214.42
+        ],
+        "id": "P",
+        "kind": "crop",
+        "label_center_world_mm": [
+          -13.225,
+          25.5,
+          218.7
+        ],
+        "name": "Production holed-pad underside",
+        "row_y_mm": 180,
+        "settings": {},
+        "source": "hardware/print-tests/enclosure-support-scenarios/parts/PA.stl",
+        "source_sha256": "bb165df0f5c434f8caf4e88f4313a5f387e6cf060e91b134dde082558f7498d3",
+        "source_z_shift_mm": 210.17
+      }
+    ],
+    "interface_spacing_mm": {
+      "D": 0.0
+    },
+    "label_height_mm": 0.48,
+    "profile": "hardware/print-tests/petgf-dense-roofs/close-contact/2026-11-09-close-contact-DEF-left04-z018-mark1.3mf",
+    "purpose": "Test D's contact process on roofs with less model anchoring and representative enclosure support surfaces.",
+    "roof_thickness_mm": 1.2,
+    "wall_thickness_mm": 1.68
+  },
+  "specimens": [
+    {
+      "bounds_mm": [
+        [
+          -16.0,
+          -12.0,
+          0.0
+        ],
+        [
+          16.0,
+          12.0,
+          4.760000000260771
+        ]
+      ],
+      "condition": "D",
+      "detached_witness_post": false,
+      "family": "X",
+      "id": "XD",
+      "solids": 1,
+      "volume_mm3": 1047.9816414128866,
+      "watertight": true,
+      "world_z_to_print_z_mm": 0.0
+    },
+    {
+      "bounds_mm": [
+        [
+          -16.0,
+          -22.0,
+          0.0
+        ],
+        [
+          16.0,
+          12.0,
+          4.760000000260771
+        ]
+      ],
+      "condition": "D",
+      "detached_witness_post": true,
+      "family": "N",
+      "id": "ND",
+      "solids": 2,
+      "volume_mm3": 973.3266035939043,
+      "watertight": true,
+      "world_z_to_print_z_mm": 0.0
+    },
+    {
+      "bounds_mm": [
+        [
+          -12.0,
+          -22.0,
+          0.0
+        ],
+        [
+          12.0,
+          12.0,
+          4.760000000260771
+        ]
+      ],
+      "condition": "D",
+      "detached_witness_post": true,
+      "family": "O",
+      "id": "OD",
+      "solids": 2,
+      "volume_mm3": 727.7760564208758,
+      "watertight": true,
+      "world_z_to_print_z_mm": 0.0
+    },
+    {
+      "bounds_mm": [
+        [
+          -19.725000381469727,
+          14.0,
+          0.0
+        ],
+        [
+          -3.724999999627471,
+          35.0,
+          4.760000000335265
+        ]
+      ],
+      "condition": "D",
+      "detached_witness_post": false,
+      "family": "P",
+      "id": "PD",
+      "solids": 1,
+      "volume_mm3": 791.8067296976411,
+      "watertight": true,
+      "world_z_to_print_z_mm": -214.4199999999255
+    }
+  ]
+}
