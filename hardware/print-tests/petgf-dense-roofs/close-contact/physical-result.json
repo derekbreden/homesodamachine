@@ -1,0 +1,60 @@
+{
+  "purpose": "Record D and E removal with their roof anchoring limitation.",
+  "date": "2026-11-09",
+  "printer": "Mark1",
+  "printer_task_id": "1426235771",
+  "status": "D and E removed with first model layer retained; realistic transfer remains under test.",
+  "conditions": {
+    "D": {
+      "requested_top_z_distance_mm": 0.24,
+      "planned_bead_gap_mm": 0.18,
+      "assessment": "Promising; support removal retains first roof layer."
+    },
+    "E": {
+      "requested_top_z_distance_mm": 0.12,
+      "planned_bead_gap_mm": 0.06,
+      "assessment": "Promising; support removal retains first roof layer."
+    },
+    "F": {
+      "assessment": "No result supplied."
+    }
+  },
+  "user_observations": [
+    {
+      "verbatim": "D and E both removed without pulling the first layer with them."
+    },
+    {
+      "verbatim": "Every wall protects against that because of the ceiling overlap above the wall. We might try 1 wall or 0 walls."
+    },
+    {
+      "verbatim": "That said. D and E do look promising, though it is hard to tell from this size and this many walls how it is going to do in more realistic scenarios."
+    }
+  ],
+  "fixture_scope": {
+    "actual_permanent_walls": 3,
+    "type": "Open-front ceiling",
+    "limitation": "Wall overlap anchors the first roof course and can prevent the peel damage seen in less anchored geometry.",
+    "measurements": "Removal force, sag and retained thickness are unmeasured.",
+    "identification": "User identifies D and E; individual left/right assignment is not legible in the retained photos."
+  },
+  "photos": [
+    {
+      "source_name": "1-Photo-1.jpg",
+      "path": "photos/01-D-E-undersides.jpg",
+      "source_sha256": "be53b09911f9e023c1fd834d9b5151fecab9435d2a5c4b4d64115e643fa54421",
+      "sha256": "e16f21ab82bce3f3c6e968fa4c0c8475f37aa9d1b5971f1d145df7f452fc7699",
+      "processing": "JPEG scan data and decoded pixels preserved; private metadata and comments omitted; orientation retained."
+    },
+    {
+      "source_name": "3-Photo-3.jpg",
+      "path": "photos/02-D-E-side-view.jpg",
+      "source_sha256": "d5d0f29d10b77938c05d6eef704b98ace7bb4ed7d739af75bc014493a88ff890",
+      "sha256": "f35382d806dbb3d45f9789a36fd954f52671f44236aac28ff2e1b4d1c36e2fa9",
+      "processing": "JPEG scan data and decoded pixels preserved; private metadata and comments omitted; orientation retained."
+    }
+  ],
+  "selected_followup": {
+    "process": "D only, as explicitly requested",
+    "experiment": "../peel-scenarios/README.md"
+  }
+}

@@ -1,0 +1,260 @@
+{
+  "purpose": "Confirm unchanged D process, unanchored panel undersides and emitted contact gaps before printing.",
+  "archive": "ready/2026-11-09-D-peel-scenarios-left04-z018-mark1.gcode.3mf",
+  "archive_sha256": "005fc4c8b57e53aba548fd6977d9320f0c1e884886e31486fb9935889a891409",
+  "gcode_sha256": "ba1d9273e2f58f537b6d346ddfafc8300be70bc2bea4b3dbc9d7c5aa1514cb96",
+  "gcode_md5_verified": true,
+  "source_D_profile": "hardware/print-tests/petgf-dense-roofs/close-contact/2026-11-09-close-contact-DEF-left04-z018-mark1.3mf",
+  "source_D_profile_sha256": "54ae81a8f3714d4e284a6c14c2fba2b97b680f0a29c0b6a3fc732cc7c505a69b",
+  "unchanged_D_process": {
+    "bridge_flow": "1.25",
+    "bridge_speed": [
+      "15",
+      "15",
+      "15",
+      "15",
+      "15"
+    ],
+    "filament_bridge_speed": [
+      "15"
+    ],
+    "support_type": "tree(auto)",
+    "support_style": "tree_slim",
+    "support_line_width": "0.62",
+    "support_object_xy_distance": "0.4",
+    "support_bottom_z_distance": "0.3",
+    "tree_support_branch_angle": "45",
+    "tree_support_branch_diameter": "2",
+    "tree_support_branch_distance": "5",
+    "wall_loops": "2",
+    "layer_height": "0.24",
+    "initial_layer_print_height": "0.2",
+    "fan_min_speed": [
+      "0"
+    ],
+    "fan_max_speed": [
+      "0"
+    ],
+    "overhang_fan_speed": [
+      "70"
+    ],
+    "nozzle_temperature": [
+      "280",
+      "265",
+      "270"
+    ],
+    "nozzle_temperature_initial_layer": [
+      "265",
+      "265",
+      "270"
+    ],
+    "textured_plate_temp": [
+      "80"
+    ],
+    "filament_map": [
+      "1"
+    ],
+    "nozzle_diameter": [
+      "0.4",
+      "0.4"
+    ]
+  },
+  "specimens": [
+    {
+      "id": "XD",
+      "permanent_wall_count": 1,
+      "body_count": 1,
+      "roof_bounds_plate_mm": [
+        [
+          124.0,
+          128.0,
+          0.0
+        ],
+        [
+          156.0,
+          152.0,
+          4.760000228881836
+        ]
+      ],
+      "detached_witness_gap_mm": null,
+      "model_roads_below_roof_within_panel": 104,
+      "interface_z_mm": [
+        2.312,
+        2.576,
+        2.84
+      ],
+      "first_roof_nozzle_z_mm": 3.32,
+      "nominal_bridge_bead_height_mm": 0.3,
+      "planned_bead_gap_mm": 0.18,
+      "bridge_directions_degrees": [
+        0.0
+      ]
+    },
+    {
+      "id": "ND",
+      "permanent_wall_count": 0,
+      "body_count": 2,
+      "roof_bounds_plate_mm": [
+        [
+          168.0,
+          133.0,
+          3.0799999237060547
+        ],
+        [
+          200.0,
+          157.0,
+          4.760000228881836
+        ]
+      ],
+      "detached_witness_gap_mm": 6.0,
+      "model_roads_below_roof_within_panel": 0,
+      "interface_z_mm": [
+        2.312,
+        2.576,
+        2.84
+      ],
+      "first_roof_nozzle_z_mm": 3.32,
+      "nominal_bridge_bead_height_mm": 0.3,
+      "planned_bead_gap_mm": 0.18,
+      "bridge_directions_degrees": [
+        0.0
+      ]
+    },
+    {
+      "id": "OD",
+      "permanent_wall_count": 0,
+      "body_count": 2,
+      "roof_bounds_plate_mm": [
+        [
+          128.0,
+          173.0,
+          3.0799999237060547
+        ],
+        [
+          152.0,
+          197.0,
+          4.760000228881836
+        ]
+      ],
+      "detached_witness_gap_mm": 6.0,
+      "model_roads_below_roof_within_panel": 0,
+      "interface_z_mm": [
+        2.312,
+        2.576,
+        2.84
+      ],
+      "first_roof_nozzle_z_mm": 3.32,
+      "nominal_bridge_bead_height_mm": 0.3,
+      "planned_bead_gap_mm": 0.18,
+      "bridge_directions_degrees": [
+        0.0
+      ]
+    },
+    {
+      "id": "PD",
+      "permanent_wall_count": null,
+      "body_count": 1,
+      "roof_bounds_plate_mm": [
+        [
+          175.99999976158142,
+          169.5,
+          0.0
+        ],
+        [
+          192.00000023841858,
+          190.5,
+          4.760000228881836
+        ]
+      ],
+      "detached_witness_gap_mm": null,
+      "model_roads_below_roof_within_panel": 873,
+      "interface_z_mm": [
+        2.312,
+        2.576,
+        2.84
+      ],
+      "first_roof_nozzle_z_mm": 3.32,
+      "nominal_bridge_bead_height_mm": 0.3,
+      "planned_bead_gap_mm": 0.18,
+      "bridge_directions_degrees": [
+        90.0,
+        176.4
+      ],
+      "anchoring": "Retained production wall-root geometry; not a wall-free control."
+    }
+  ],
+  "trim_commands": [
+    "G29.1 Z0 ; clear z-trim value first",
+    "G29.1 Z0.16"
+  ],
+  "bead_bounds_xy_mm": [
+    [
+      124.0,
+      123.0
+    ],
+    [
+      203.109,
+      200.107
+    ]
+  ],
+  "bed_margins_mm": [
+    124.0,
+    123.0,
+    121.89099999999999,
+    119.893
+  ],
+  "arc_extrema_included": true,
+  "cooling": {
+    "added_commanded_motion_seconds": 1103.8073341291274,
+    "changed": true,
+    "estimate_scope": "Native estimate plus the added constant-feed motion time; acceleration and fan spin-up are not simulated.",
+    "input_archive_sha256": "71603e865ee99abb8a2d0b31fde1d0f1cdd0c6d4e7107fa8cbcb2a2ffafc3f13",
+    "members": [
+      {
+        "added_commanded_motion_seconds": 1103.8073341291274,
+        "changed": true,
+        "input_gcode_sha256": "a1721e36033cbc3940a9886c3e1ab788a1536cc92f619305de6efaf344fb0b5f",
+        "member": "Metadata/plate_1.gcode",
+        "native_cooled_seed_moves": 696,
+        "ordinary_model_moves": 3525,
+        "output_gcode_sha256": "ba1d9273e2f58f537b6d346ddfafc8300be70bc2bea4b3dbc9d7c5aa1514cb96",
+        "petgf_slots": [
+          0
+        ],
+        "policy": {
+          "grid_mm": 0.2,
+          "height_mm": 0.8
+        },
+        "recovery_by_feature": {
+          "Inner wall": [
+            235.0,
+            828.5685872167155,
+            50.835494116584606
+          ],
+          "Internal solid infill": [
+            2218.0,
+            16225.007845423432,
+            1001.3630948109975
+          ],
+          "Outer wall": [
+            255.0,
+            837.1607972639677,
+            51.60874520154173
+          ]
+        },
+        "recovery_fan_percent": [
+          "70"
+        ],
+        "recovery_moves": 2708,
+        "recovery_speed_limit_mm_s": [
+          "15"
+        ],
+        "scope": "The complete centerline lies in a recent native-cooled model footprint. Motion coordinates and extrusion words are retained; only local part cooling and recovery feed rates change.",
+        "speed_limited_moves": 2708
+      }
+    ]
+  },
+  "estimated_seconds": 3428.3605567853774,
+  "estimated_filament_g": 10.318175315856934,
+  "status": "Prepared for Mark1; removal behavior and retained first-layer integrity await the physical print."
+}

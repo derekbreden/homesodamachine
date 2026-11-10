@@ -90,8 +90,8 @@ def package():
         name = part['id']
         source = HERE/'parts'/(name+'.stl')
         mesh = trimesh.load_mesh(source,process=True)
-        if not mesh.is_watertight or len(mesh.split())!=1:
-            raise ValueError(f'{name} must be one closed print')
+        if not mesh.is_watertight or len(mesh.split())!=part.get('solids',1):
+            raise ValueError(f'{name} must retain its declared closed print bodies')
         center = mesh.bounds.mean(axis=0)
         vertex = mesh.vertices-center
         part_id,object_id = index*2+1,index*2+2
@@ -113,12 +113,13 @@ def package():
         components = ET.SubElement(obj,f'{{{CORE}}}components')
         ET.SubElement(components,f'{{{CORE}}}component',{'objectid':str(part_id),'transform':'1 0 0 0 1 0 0 0 1 0 0 0',f'{{{PROD}}}path':'/'+member,f'{{{PROD}}}UUID':uid(name+'/component')})
         column = list(spec['interface_spacing_mm']).index(part['condition'])
-        translation = [spec['column_x_mm'][column],family['row_y_mm'],float(center[2])]
+        translation = [family.get('column_x_mm',spec['column_x_mm'])[column],family['row_y_mm'],float(center[2])]
         ET.SubElement(build,f'{{{CORE}}}item',{'objectid':str(object_id),'printable':'1','transform':'1 0 0 0 1 0 0 0 1 '+' '.join(map(str,translation))})
         obj = ET.SubElement(config,'object',{'id':str(object_id)})
         options = dict(family['settings'],name=name+' '+family['name'],extruder='1',
                        support_type='tree(auto)',support_interface_top_layers='2',support_top_z_distance='0.45',
                        support_interface_spacing=str(spec['interface_spacing_mm'][part['condition']]))
+        options.update(spec.get('common_object_settings',{}))
         for key,value in options.items():
             md(obj,key,value)
         ET.SubElement(obj,'metadata',{'face_count':str(len(mesh.faces))})

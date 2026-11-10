@@ -1,0 +1,29 @@
+{
+  "printer": "H2C",
+  "observed_at": "2026-11-10T02:15:05.501934+00:00",
+  "archive": {
+    "name": "2026-11-09-D-peel-scenarios-left04-z018-mark1.gcode.3mf",
+    "sha256": "005fc4c8b57e53aba548fd6977d9320f0c1e884886e31486fb9935889a891409",
+    "gcode_sha256": "ba1d9273e2f58f537b6d346ddfafc8300be70bc2bea4b3dbc9d7c5aa1514cb96",
+    "slots": {
+      "1": {
+        "type": "PET-CF",
+        "colour": "000000"
+      }
+    },
+    "objects": [
+      "XD Cantilever with west wall",
+      "ND Unanchored flat panel",
+      "OD Unanchored holed panel",
+      "PD Production holed-pad underside"
+    ]
+  },
+  "printer_task_id": "1426451329",
+  "gcode_state": "RUNNING",
+  "subtask_name": "2026-11-09-D-peel-scenarios-left04-z018-mark1.gcode.3mf",
+  "print_error": 0,
+  "hms": [],
+  "layer_num": 50,
+  "total_layer_num": 29,
+  "mc_remaining_time": 0
+}

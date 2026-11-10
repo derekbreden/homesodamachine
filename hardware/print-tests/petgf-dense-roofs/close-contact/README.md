@@ -5,6 +5,12 @@ a continuous, well-bonded first roof course with support that provides useful
 contact and can still be removed. The near-contact condition intentionally
 tests the strongly bonded end of that range.
 
+Derek reports that D and E release without taking the first model layer with
+the support. Their surrounding walls anchor that layer, limiting transfer to
+less enclosed geometry. The [physical result and photos](physical-result.json)
+record the outcome. The [D peel scenarios](../peel-scenarios/README.md) apply
+D alone to a cantilever, free panels and a production holed pad.
+
 The lettered ceilings run D, E and F from left to right facing Mark1. D has the
 largest gap and F the smallest. All use the same solid interface, extra contact
 mat thickness and selected bridge flow and speed. The span matches the
