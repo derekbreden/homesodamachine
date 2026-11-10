@@ -36,6 +36,10 @@ The accepted machine archive is in [`ready/`](ready/), with its launch receipt
 in [`mark1/`](mark1/). Neither the shared material profile nor the production
 enclosure geometry changes.
 
+The [physical result](physical-result.json) records the user's clean-removal
+report and retained underside photographs. Parallel road texture remains visible
+on the free panels, with coarser texture beside the production pad's main underside.
+
 ## Examine after cooling
 
 Keep each support beside its labeled panel. Start the peel at a free edge,

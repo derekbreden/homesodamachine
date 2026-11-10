@@ -1,0 +1,26 @@
+{
+  "printer": "H2C",
+  "observed_at": "2026-11-10T03:52:12.801914+00:00",
+  "archive": {
+    "name": "2026-11-09-complete-rail-cavity-30-E-left04-z018-mark1.gcode.3mf",
+    "sha256": "6afd5f3ac99227ce2f29185c84aab4400ed4693f8e3dd96bbf1da5cba9c18a99",
+    "gcode_sha256": "250a031d6ac0bd2b2967c0454602b8fa0f0cba3e63b89820414fcd7f3054023a",
+    "slots": {
+      "1": {
+        "type": "PET-CF",
+        "colour": "000000"
+      }
+    },
+    "objects": [
+      "RE Complete rail cavity"
+    ]
+  },
+  "printer_task_id": "1426648651",
+  "gcode_state": "RUNNING",
+  "subtask_name": "2026-11-09-complete-rail-cavity-30-E-left04-z018-mark1.gcode.3mf",
+  "print_error": 0,
+  "hms": [],
+  "layer_num": 0,
+  "total_layer_num": 76,
+  "mc_remaining_time": 16
+}
