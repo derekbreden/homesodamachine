@@ -17,18 +17,18 @@
     "behind": true
   },
   "solids": {
-    "hardware/assembly/scenes/glb/back-half.glb.mesh": "57730abd65c6e7a2f9728f017cd3b81839f1bd12de809eabf88f83d6b8f958fd",
-    "hardware/assembly/scenes/glb/back-top.glb.mesh": "005694de3f2dbd46cdbb80021626306f9f546746d22948f100c294f570918291",
+    "hardware/assembly/scenes/glb/back-half.glb.mesh": "b87ff64a5e23cd3b01412e6be6571ed9dbd55189d79c02a79c55548be01facbb",
+    "hardware/assembly/scenes/glb/back-top.glb.mesh": "a16173f478178e124a762706d8e4863a99ba63160e62d747ff9a73a3953a2c1c",
     "hardware/assembly/scenes/glb/cap-lid-fill.glb.mesh": "93f85360b8e38505bbbb66c24b69d0e1e894747500a87082d3fd890ae7f342e4",
-    "hardware/assembly/scenes/glb/cap-lid.glb.mesh": "4c6e009833cc64f7c15331ccc764e5f8aaaa93e969b882440214f21445f4f941",
+    "hardware/assembly/scenes/glb/cap-lid.glb.mesh": "393972bad8d75e3cbf73452a5ca0a39e7b52100a1113f24a594dbb3d1a56f24c",
     "hardware/assembly/scenes/glb/cold-core-open.glb.mesh": "dce8f237e5062c8e7536c5efdc334ddac5235a7496ea79f5779fccfb1cb850c8",
-    "hardware/assembly/scenes/glb/cold-core.glb.mesh": "b1a6d186e3b4e2bcd3663a889e7d6ad80c889d7edd38d46852336d658a3f1095",
+    "hardware/assembly/scenes/glb/cold-core.glb.mesh": "25caae794ad6f43c3c1fb63d70651b9c7f32d6a497ee5f6280d8093a8d98bb5c",
     "hardware/assembly/scenes/glb/en04-compressor-bay.glb.mesh": "31b9c9c8c83198fb744f61c253e28be042ce2961704862ac6a998c9e85bd1f00",
     "hardware/assembly/scenes/glb/en07-electronics-bay.glb.mesh": "8ee3909e7ce2f1c08ca247213db784982f7e4fc3d0e71d48fe329819ec210f9c",
-    "hardware/assembly/scenes/glb/front-top.glb.mesh": "cb11adbdbfa3cdd5c7432a6943b31d5cac498eac989f17c512826d0fea00bf46",
+    "hardware/assembly/scenes/glb/front-top.glb.mesh": "d9fdcedf2e4bab66d7cbd26193f9258435cad751801d38fae1373574d3991068",
     "hardware/assembly/scenes/glb/funnel-drain.glb.mesh": "eae8898c0eb1b7fd6abcab8c891a46061b63d4e9986e461af206f7b8e45a3701",
     "hardware/assembly/scenes/glb/pump-cartridge.glb": "8329920973ebf1302d8a0d0e3053f8fbd41766bd3e5fe57909db932a2c1ecb2e",
-    "hardware/assembly/scenes/glb/pump-mount.glb.mesh": "60bdd96be571c18ed20285319b0a04c0b1d1df1072147ef882a85267226c710c",
+    "hardware/assembly/scenes/glb/pump-mount.glb.mesh": "4a1742dfc0676580ab84672832aff6e330a8f5add6e76c8da21f866439dec64f",
     "hardware/cold-core-layout/cold-core-assembly.step": "d84a05296eac539152deee53f913e97a78d343115b49feee3db6e3ab7486706c",
     "hardware/cold-core-layout/cold-core-assembly.step.mesh": "e6f09e5cecdf9535691fb2a586dc5e7e1a84959eb7582f7d97eb39a8bd149f3b",
     "hardware/cut-parts/carbonation/carbonator-tube/carbonator-tube.step": "360d0b80c538b44809405087d75429f55f368fe283f2ea515392232985f271f5",
@@ -57,7 +57,7 @@
     "hardware/install-guide/plumbing/modern/art/modern-water-on.png": "28ae8937a70f7a55571a37a303b38477bef45d5c4c9d2aef2c22fe58da4c34f8",
     "hardware/manifold-layout/enclosure-assembly.facts.json": "4c87994853fedd4a424311e627182746d7c917f8f7ef3d2491ad64c964b66ecb",
     "hardware/manifold-layout/enclosure-assembly.physical.step.mesh": "96be0d51a69a4bfce5f3984d9f08a82c5a97fa6c220bf7d72d389c15af217370",
-    "hardware/manifold-layout/enclosure-assembly.step.mesh": "57c7811a399beaea78ac2dfec213ecd510080e87ba497a59fad6828586e9b536",
+    "hardware/manifold-layout/enclosure-assembly.step.mesh": "8a199cb9de93bcb54dd913d71bbd7c94ca0500222806a6b1fa3b4cb1f7deaa43",
     "hardware/manifold-layout/manifold-layout.step": "3fd31ca1b78af2be4868175bb325370c9cfdebf1bb465778901b55c1912ec7eb",
     "hardware/manifold-layout/manifold-layout.step.mesh": "bab8b49406c2fc510d46d51e99acfcc8bd70c6e1608564d3e03e6dbd0f4dafbe",
     "hardware/manifold-layout/studies/east-feed/parts/east-feed-ceiling.step": "e95046f067ee746da9528bfea02b503cede9a75098f6b1b513dab1bbaa2f058c",
@@ -945,11 +945,11 @@
     "hardware/reference/touch-flo-faucet/westbrass-reference/westbrass-reference.step.mesh": "235b08ce268d7adc8e373705594fbcd6f07ddaf4cb4c31a25ca2aebd7d5fe492",
     "hardware/reference/wago-221/wago-221-413.fine.step.mesh": "c63d87c73e1dd8902d883c4cc09f653066d543d004813286b2e9dfd191eefe87",
     "hardware/reference/wago-221/wago-221-413.step": "ca567c0670a91fa0b28b66e50744c99a4335da85497cba4f31bd0e04c85d266e",
-    "hardware/reference/wago-221/wago-221-413.step.mesh": "043fa36bd941e23ddfaf782eafcb20a3611eea0c05c053fdf5b1e8ed0bbd379a",
+    "hardware/reference/wago-221/wago-221-413.step.mesh": "be80135ba4957869f29d4a0b66accc4654d814d0d7c721b2d6b184bb358f20db",
     "hardware/reference/wago-221/wago-221-415.step": "83d75c210b172e3f19100b23194b2f453c8398f2f95a7887b0ce2471249da065",
-    "hardware/reference/wago-221/wago-221-415.step.mesh": "bb0e044c9e1e0b24baf338fa1669d0d7ffde86ea82a859866c344e73a51aec1b",
+    "hardware/reference/wago-221/wago-221-415.step.mesh": "97dcf520aeb07e884e0a7a04897fc86f899e20e2b78f30ab20e6d9d7aac10f6d",
     "hardware/reference/wago-221/wago-221-420.step": "03568637dc67a1ba7b5648ec1deb53e7238ebec2ead968eefdc8f4e7be2a575c",
-    "hardware/reference/wago-221/wago-221-420.step.mesh": "504d730ea52c2445d44b7aa6466efdd8780bd2872968db9606d0f07880e78c34",
+    "hardware/reference/wago-221/wago-221-420.step.mesh": "d81cec9c254c9e25d771a77c3d22ffda702fca0230138886ee470be6a2ecc27f",
     "hardware/reference/waveshare-43b-display/waveshare-43b-display.step": "6efb83f5a4b7c8b48d8e6fd9f862ae9461363068cf6eaf5b105bf35b6e5bb6c4",
     "hardware/reference/waveshare-43b-display/waveshare-43b-display.step.mesh": "0a590ccef77ed8e3d5e04683b761ff0a11bf826017c5fdf653f6aab72f7e809b",
     "hardware/reference/worm-clamp/worm-clamp.step": "87d7406a23653f1903267074844297dd9003fa066e2daf0d392cb3a46ac52dda",
@@ -970,18 +970,18 @@
   "sidecars": {},
   "website": {
     "solids": {
-      "hardware/assembly/scenes/glb/back-half.glb.mesh": "57730abd65c6e7a2f9728f017cd3b81839f1bd12de809eabf88f83d6b8f958fd",
-      "hardware/assembly/scenes/glb/back-top.glb.mesh": "005694de3f2dbd46cdbb80021626306f9f546746d22948f100c294f570918291",
+      "hardware/assembly/scenes/glb/back-half.glb.mesh": "b87ff64a5e23cd3b01412e6be6571ed9dbd55189d79c02a79c55548be01facbb",
+      "hardware/assembly/scenes/glb/back-top.glb.mesh": "a16173f478178e124a762706d8e4863a99ba63160e62d747ff9a73a3953a2c1c",
       "hardware/assembly/scenes/glb/cap-lid-fill.glb.mesh": "93f85360b8e38505bbbb66c24b69d0e1e894747500a87082d3fd890ae7f342e4",
-      "hardware/assembly/scenes/glb/cap-lid.glb.mesh": "4c6e009833cc64f7c15331ccc764e5f8aaaa93e969b882440214f21445f4f941",
+      "hardware/assembly/scenes/glb/cap-lid.glb.mesh": "393972bad8d75e3cbf73452a5ca0a39e7b52100a1113f24a594dbb3d1a56f24c",
       "hardware/assembly/scenes/glb/cold-core-open.glb.mesh": "dce8f237e5062c8e7536c5efdc334ddac5235a7496ea79f5779fccfb1cb850c8",
-      "hardware/assembly/scenes/glb/cold-core.glb.mesh": "b1a6d186e3b4e2bcd3663a889e7d6ad80c889d7edd38d46852336d658a3f1095",
+      "hardware/assembly/scenes/glb/cold-core.glb.mesh": "25caae794ad6f43c3c1fb63d70651b9c7f32d6a497ee5f6280d8093a8d98bb5c",
       "hardware/assembly/scenes/glb/en04-compressor-bay.glb.mesh": "31b9c9c8c83198fb744f61c253e28be042ce2961704862ac6a998c9e85bd1f00",
       "hardware/assembly/scenes/glb/en07-electronics-bay.glb.mesh": "8ee3909e7ce2f1c08ca247213db784982f7e4fc3d0e71d48fe329819ec210f9c",
-      "hardware/assembly/scenes/glb/front-top.glb.mesh": "cb11adbdbfa3cdd5c7432a6943b31d5cac498eac989f17c512826d0fea00bf46",
+      "hardware/assembly/scenes/glb/front-top.glb.mesh": "d9fdcedf2e4bab66d7cbd26193f9258435cad751801d38fae1373574d3991068",
       "hardware/assembly/scenes/glb/funnel-drain.glb.mesh": "eae8898c0eb1b7fd6abcab8c891a46061b63d4e9986e461af206f7b8e45a3701",
       "hardware/assembly/scenes/glb/pump-cartridge.glb": "8329920973ebf1302d8a0d0e3053f8fbd41766bd3e5fe57909db932a2c1ecb2e",
-      "hardware/assembly/scenes/glb/pump-mount.glb.mesh": "60bdd96be571c18ed20285319b0a04c0b1d1df1072147ef882a85267226c710c",
+      "hardware/assembly/scenes/glb/pump-mount.glb.mesh": "4a1742dfc0676580ab84672832aff6e330a8f5add6e76c8da21f866439dec64f",
       "hardware/cold-core-layout/cold-core-assembly.step": "d84a05296eac539152deee53f913e97a78d343115b49feee3db6e3ab7486706c",
       "hardware/cold-core-layout/cold-core-assembly.step.mesh": "e6f09e5cecdf9535691fb2a586dc5e7e1a84959eb7582f7d97eb39a8bd149f3b",
       "hardware/cut-parts/carbonation/carbonator-tube/carbonator-tube.step": "360d0b80c538b44809405087d75429f55f368fe283f2ea515392232985f271f5",
@@ -996,7 +996,7 @@
       "hardware/faucet-layout/faucet-industrial-assembly.step": "dab99ebc933e9d182955406892cdad3dc5c5276aea5fb1fe3c5905c36fe3ac10",
       "hardware/faucet-layout/faucet-industrial-assembly.step.mesh": "fe28e3401330a3abd8e7ceba118ee10d1a9c6e17631737d47942864f3a7b2074",
       "hardware/manifold-layout/enclosure-assembly.facts.json": "4c87994853fedd4a424311e627182746d7c917f8f7ef3d2491ad64c964b66ecb",
-      "hardware/manifold-layout/enclosure-assembly.step.mesh": "57c7811a399beaea78ac2dfec213ecd510080e87ba497a59fad6828586e9b536",
+      "hardware/manifold-layout/enclosure-assembly.step.mesh": "8a199cb9de93bcb54dd913d71bbd7c94ca0500222806a6b1fa3b4cb1f7deaa43",
       "hardware/printed-parts/asse-drain-adapter/asse-drain-adapter.step": "4730c636dd33e1431fa4fa3c6df0b4a3a41942efa40f451ce04e4f41e661a92d",
       "hardware/printed-parts/asse-drain-adapter/asse-drain-adapter.step.mesh": "192cb511c9bd723d16f931037c741fb143fa7000b522a574d13fc47f50854806",
       "hardware/printed-parts/asse-drain-adapter/asse-drain-adapter.stl": "ee0584ceb98ba367aaf8ea1508a060946f8e357a0f8e77cc33de567066437d2e",
@@ -1510,11 +1510,11 @@
       "hardware/reference/touch-flo-faucet/westbrass-reference/westbrass-reference.step": "6bb4f673332fc80c74ad94e62ad4c24f47b451824f2d64e155cc22a45c9251a2",
       "hardware/reference/touch-flo-faucet/westbrass-reference/westbrass-reference.step.mesh": "235b08ce268d7adc8e373705594fbcd6f07ddaf4cb4c31a25ca2aebd7d5fe492",
       "hardware/reference/wago-221/wago-221-413.step": "ca567c0670a91fa0b28b66e50744c99a4335da85497cba4f31bd0e04c85d266e",
-      "hardware/reference/wago-221/wago-221-413.step.mesh": "043fa36bd941e23ddfaf782eafcb20a3611eea0c05c053fdf5b1e8ed0bbd379a",
+      "hardware/reference/wago-221/wago-221-413.step.mesh": "be80135ba4957869f29d4a0b66accc4654d814d0d7c721b2d6b184bb358f20db",
       "hardware/reference/wago-221/wago-221-415.step": "83d75c210b172e3f19100b23194b2f453c8398f2f95a7887b0ce2471249da065",
-      "hardware/reference/wago-221/wago-221-415.step.mesh": "bb0e044c9e1e0b24baf338fa1669d0d7ffde86ea82a859866c344e73a51aec1b",
+      "hardware/reference/wago-221/wago-221-415.step.mesh": "97dcf520aeb07e884e0a7a04897fc86f899e20e2b78f30ab20e6d9d7aac10f6d",
       "hardware/reference/wago-221/wago-221-420.step": "03568637dc67a1ba7b5648ec1deb53e7238ebec2ead968eefdc8f4e7be2a575c",
-      "hardware/reference/wago-221/wago-221-420.step.mesh": "504d730ea52c2445d44b7aa6466efdd8780bd2872968db9606d0f07880e78c34",
+      "hardware/reference/wago-221/wago-221-420.step.mesh": "d81cec9c254c9e25d771a77c3d22ffda702fca0230138886ee470be6a2ecc27f",
       "hardware/reference/waveshare-43b-display/waveshare-43b-display.step": "6efb83f5a4b7c8b48d8e6fd9f862ae9461363068cf6eaf5b105bf35b6e5bb6c4",
       "hardware/reference/waveshare-43b-display/waveshare-43b-display.step.mesh": "0a590ccef77ed8e3d5e04683b761ff0a11bf826017c5fdf653f6aab72f7e809b",
       "hardware/reference/yzmsz-water-regulator/geometry/yzmsz-water-regulator.step": "80ad0ffbdd68a008240ac77d089afa0a9f658aa76ca04dd875df0200f5014e2c",
@@ -1605,6 +1605,7 @@
     "2ab17413138329b455062bcc0dcd8cafb52692167b12e7606098af2d0e42b813",
     "2b452f759003c66e0c604262d22c895f61d9a3420dbb0afb0da22d2b635dd1ea",
     "2b45dc20ba79da025167ff5aed245e92d7a826122a365f610066be864f3464e1",
+    "2c3c638662bf02d8f11b6a98c4c1e444a5f50753cf11d464a3ed8b17568475aa",
     "2c5df7b4f24dfefb6c77bea2b495f9733f408bb08f9a20d36a9c932db7be53f0",
     "2cb6c5dcf1c3ffc13fd28599749dd625ad1b1112bcc529684bc5d31399433277",
     "2cdb5f3d8072dcc4e7653cdbac146d42d6b7a1e8a89f9ee7cfeca2efeb13fd00",
@@ -1637,6 +1638,7 @@
     "37972808458378aedf4a8309debea7b92700861f02f9f352d57fc841a8374123",
     "379f855ec1aadd28e4914bc710f97525c97dde2cb4049cfb77d2fb1e4eb21269",
     "3803bcda64b1cd840ce9ed1fe20a50c150063e79c537cba2ddbfdb4523225751",
+    "389158d5eaa014869c251dd6e71c9dea86cca8a5fe9d3fa611042c03da3c46b7",
     "38ba6871351a3dbd3aaaefb4cd5242aad106b555dca8ea801de9c301530a014c",
     "38e0f5521226da3be309c8006e3e980a3c1e2d0d4bced51c2bbfd7f908b347ca",
     "38e8df848b636c82faa58bf061f278fe17f5e1aeece3a298bda28bccf23f52c4",
@@ -1871,6 +1873,7 @@
     "be2c79b7d45779e1a96ebe73c198d7563fdde3c73199cd0e82ae5ece38c42ef4",
     "bedd0ca5171a3229d87bc8cf6b1a5673942c61316bef7912e23b7e64e8875881",
     "bf3ecf97d293bba888616bf86aef88c33efba3b4a976954e913025ae16a59297",
+    "bfe9ce8578cb558fdcb304ec46a50b18aac7c157f9757cc6bfe63e5a633afa27",
     "bffa43a945ad3cdbe660c6662a3ab46d992a2ed0b254bfcc2f53618eea960ce4",
     "c03e39c253f93f1ac0e432f61a644c7de31114262fef34475293ab787e7647ab",
     "c15d7e7efc07e91da5752c68c32a16ff9e1132f893f6b55d3ebf21a0a73db1e5",
@@ -1984,18 +1987,18 @@
     "ff51ef89d27c89ae0ec0555f1adf8cc803b0cf4e90b57b582379347e005f4990"
   ],
   "moved": {
-    "hardware/assembly/scenes/glb/back-half.glb.mesh": 1794270755.869326,
-    "hardware/assembly/scenes/glb/back-top.glb.mesh": 1794270755.869326,
+    "hardware/assembly/scenes/glb/back-half.glb.mesh": 1794271090.8505769,
+    "hardware/assembly/scenes/glb/back-top.glb.mesh": 1794271090.8505769,
     "hardware/assembly/scenes/glb/cap-lid-fill.glb.mesh": 1794270755.869326,
-    "hardware/assembly/scenes/glb/cap-lid.glb.mesh": 1794270755.869326,
+    "hardware/assembly/scenes/glb/cap-lid.glb.mesh": 1794271090.8505769,
     "hardware/assembly/scenes/glb/cold-core-open.glb.mesh": 1794270755.869326,
-    "hardware/assembly/scenes/glb/cold-core.glb.mesh": 1794270755.869326,
+    "hardware/assembly/scenes/glb/cold-core.glb.mesh": 1794271090.8505769,
     "hardware/assembly/scenes/glb/en04-compressor-bay.glb.mesh": 1794270755.869326,
     "hardware/assembly/scenes/glb/en07-electronics-bay.glb.mesh": 1794270755.869326,
-    "hardware/assembly/scenes/glb/front-top.glb.mesh": 1794270755.869326,
+    "hardware/assembly/scenes/glb/front-top.glb.mesh": 1794271090.8505769,
     "hardware/assembly/scenes/glb/funnel-drain.glb.mesh": 1794270755.869326,
     "hardware/assembly/scenes/glb/pump-cartridge.glb": 1792921613,
-    "hardware/assembly/scenes/glb/pump-mount.glb.mesh": 1794270755.869326,
+    "hardware/assembly/scenes/glb/pump-mount.glb.mesh": 1794271090.8505769,
     "hardware/cold-core-layout/cold-core-assembly.step": 1794136040,
     "hardware/cold-core-layout/cold-core-assembly.step.mesh": 1794136888,
     "hardware/cut-parts/carbonation/carbonator-tube/carbonator-tube.step": 1793626644,
@@ -2024,7 +2027,7 @@
     "hardware/install-guide/plumbing/modern/art/modern-water-on.png": 1793830497,
     "hardware/manifold-layout/enclosure-assembly.facts.json": 1794269272.362814,
     "hardware/manifold-layout/enclosure-assembly.physical.step.mesh": 1793858653,
-    "hardware/manifold-layout/enclosure-assembly.step.mesh": 1794270750.313399,
+    "hardware/manifold-layout/enclosure-assembly.step.mesh": 1794271090.8505769,
     "hardware/manifold-layout/manifold-layout.step": 1794269272.362814,
     "hardware/manifold-layout/manifold-layout.step.mesh": 1794269243.109754,
     "hardware/manifold-layout/studies/east-feed/parts/east-feed-ceiling.step": 1792828088,
@@ -2912,11 +2915,11 @@
     "hardware/reference/touch-flo-faucet/westbrass-reference/westbrass-reference.step.mesh": 1793617993,
     "hardware/reference/wago-221/wago-221-413.fine.step.mesh": 1793697604,
     "hardware/reference/wago-221/wago-221-413.step": 1787356215,
-    "hardware/reference/wago-221/wago-221-413.step.mesh": 1793503760,
+    "hardware/reference/wago-221/wago-221-413.step.mesh": 1794271090.8505769,
     "hardware/reference/wago-221/wago-221-415.step": 1787356215,
-    "hardware/reference/wago-221/wago-221-415.step.mesh": 1793503760,
+    "hardware/reference/wago-221/wago-221-415.step.mesh": 1794271090.8505769,
     "hardware/reference/wago-221/wago-221-420.step": 1787356215,
-    "hardware/reference/wago-221/wago-221-420.step.mesh": 1793503760,
+    "hardware/reference/wago-221/wago-221-420.step.mesh": 1794271090.8505769,
     "hardware/reference/waveshare-43b-display/waveshare-43b-display.step": 1787356215,
     "hardware/reference/waveshare-43b-display/waveshare-43b-display.step.mesh": 1793617993,
     "hardware/reference/worm-clamp/worm-clamp.step": 1787578592,
@@ -2936,11 +2939,11 @@
   },
   "made": {
     "hardware/assembly/scenes/glb/back-half.glb.mesh": {
-      "commit": "1c7202edde2519576a23e3a9aa8ceb5e7f89aae5",
+      "commit": "8052f79db2f6e28ac8fe1ef8b56438ef74268222",
       "unproven": true
     },
     "hardware/assembly/scenes/glb/back-top.glb.mesh": {
-      "commit": "1c7202edde2519576a23e3a9aa8ceb5e7f89aae5",
+      "commit": "8052f79db2f6e28ac8fe1ef8b56438ef74268222",
       "unproven": true
     },
     "hardware/assembly/scenes/glb/cap-lid-fill.glb.mesh": {
@@ -2950,7 +2953,7 @@
     },
     "hardware/assembly/scenes/glb/cap-lid.glb.mesh": {
       "inputs": "28c63a0577528f514fb04e534605997066cd7569f6d0c5f9e05c499efc425efb",
-      "commit": "1c7202edde2519576a23e3a9aa8ceb5e7f89aae5",
+      "commit": "8052f79db2f6e28ac8fe1ef8b56438ef74268222",
       "unproven": true
     },
     "hardware/assembly/scenes/glb/cold-core-open.glb.mesh": {
@@ -2960,7 +2963,7 @@
     },
     "hardware/assembly/scenes/glb/cold-core.glb.mesh": {
       "inputs": "28c63a0577528f514fb04e534605997066cd7569f6d0c5f9e05c499efc425efb",
-      "commit": "1c7202edde2519576a23e3a9aa8ceb5e7f89aae5",
+      "commit": "8052f79db2f6e28ac8fe1ef8b56438ef74268222",
       "unproven": true
     },
     "hardware/assembly/scenes/glb/en04-compressor-bay.glb.mesh": {
@@ -2974,7 +2977,7 @@
       "unproven": true
     },
     "hardware/assembly/scenes/glb/front-top.glb.mesh": {
-      "commit": "1c7202edde2519576a23e3a9aa8ceb5e7f89aae5",
+      "commit": "8052f79db2f6e28ac8fe1ef8b56438ef74268222",
       "unproven": true
     },
     "hardware/assembly/scenes/glb/funnel-drain.glb.mesh": {
@@ -2983,7 +2986,7 @@
       "unproven": true
     },
     "hardware/assembly/scenes/glb/pump-mount.glb.mesh": {
-      "commit": "1c7202edde2519576a23e3a9aa8ceb5e7f89aae5",
+      "commit": "8052f79db2f6e28ac8fe1ef8b56438ef74268222",
       "unproven": true
     },
     "hardware/cold-core-layout/cold-core-assembly.step": {
@@ -3098,7 +3101,7 @@
       "unproven": true
     },
     "hardware/manifold-layout/enclosure-assembly.step.mesh": {
-      "commit": "fad9f144697edf1450a86d4c0e2027811464739a",
+      "commit": "8052f79db2f6e28ac8fe1ef8b56438ef74268222",
       "unproven": true
     },
     "hardware/manifold-layout/manifold-layout.step": {
@@ -5356,7 +5359,7 @@
       "unproven": true
     },
     "hardware/reference/wago-221/wago-221-413.step.mesh": {
-      "commit": "fef5614a76950a4c9c157f116c8e61e09b7c1c44",
+      "commit": "8052f79db2f6e28ac8fe1ef8b56438ef74268222",
       "unproven": true
     },
     "hardware/reference/wago-221/wago-221-415.step": {
@@ -5364,7 +5367,7 @@
       "unproven": true
     },
     "hardware/reference/wago-221/wago-221-415.step.mesh": {
-      "commit": "fef5614a76950a4c9c157f116c8e61e09b7c1c44",
+      "commit": "8052f79db2f6e28ac8fe1ef8b56438ef74268222",
       "unproven": true
     },
     "hardware/reference/wago-221/wago-221-420.step": {
@@ -5372,7 +5375,7 @@
       "unproven": true
     },
     "hardware/reference/wago-221/wago-221-420.step.mesh": {
-      "commit": "fef5614a76950a4c9c157f116c8e61e09b7c1c44",
+      "commit": "8052f79db2f6e28ac8fe1ef8b56438ef74268222",
       "unproven": true
     },
     "hardware/reference/waveshare-43b-display/waveshare-43b-display.step": {
