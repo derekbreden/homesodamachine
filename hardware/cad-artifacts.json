@@ -55,7 +55,7 @@
     "hardware/install-guide/plumbing/modern/art/modern-tee-tug-check.png": "8f062e9ef1cee06b9cb01395c324d0e82806504b257a2049057ac6a7098d120f",
     "hardware/install-guide/plumbing/modern/art/modern-water-off.png": "208d30cfa3bad79f7173b338a3fe1f6f9fd42f8c2d7aae402fa4720906752e9d",
     "hardware/install-guide/plumbing/modern/art/modern-water-on.png": "28ae8937a70f7a55571a37a303b38477bef45d5c4c9d2aef2c22fe58da4c34f8",
-    "hardware/manifold-layout/enclosure-assembly.facts.json": "4dae71257e008531b1724be2a88fde0c964773fd4b94eb85203ee2c7b0961227",
+    "hardware/manifold-layout/enclosure-assembly.facts.json": "30a5dcf58ad142167a799817288ea2d53aa2f63c237122e1bf6c80193aeaf383",
     "hardware/manifold-layout/enclosure-assembly.physical.step.mesh": "96be0d51a69a4bfce5f3984d9f08a82c5a97fa6c220bf7d72d389c15af217370",
     "hardware/manifold-layout/enclosure-assembly.step.mesh": "99ecf87119b8e81a4303e5830d053d1973de1f1f5a1b59c468cf68826f7886bd",
     "hardware/manifold-layout/manifold-layout.step": "3fd31ca1b78af2be4868175bb325370c9cfdebf1bb465778901b55c1912ec7eb",
@@ -276,7 +276,7 @@
     "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step.mesh": "8e77f5e7d8afd79bafbe951124b84820fd4077ee9a3fe4a4edee48571ab11cc7",
     "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.stl": "7eb9455df0f38d96e9edd78384e98b5ac11a2dbfbb43dacf7eab3a378d1360a6",
     "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step.mesh": "d0109870530b852d533ebf0b7547fe53a1c7f6074632b8b7196d047fab54ac12",
-    "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl": "2a24ef46a21a919d1aec420ff7d50063c2dae2e0e664ff53e8627c43f0f455d1",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl": "ad1c5e232f1279470e467f0359d2e8dfa42e2ae27ceab6f60e975cf1960b3a33",
     "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.step": "002676b99d9abd0dcc5c9ef9b16abf7a3de1636a65f003e9077cc63c50ef329a",
     "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.step.mesh": "1106be80aa555dbec51057e85e02651d2995983aff55cd3d5c2f2d5e4d8b54b0",
     "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.stl": "fa10132c600a16b3ea0a1ff0ff3a32af7fb457747e6b21337176b298945bf7b1",
@@ -816,9 +816,9 @@
     "hardware/reference/g-ganen-pump/g-ganen-pump.fine.step.npz": "d7c3c7a3a87f6b78d73efb1e7d02a83f5edd8469371b366886deed098e597fcd",
     "hardware/reference/g-ganen-pump/g-ganen-pump.step": "ffea366a5eba8773098bc15700056268a4f1b0f577571f4e791555b457e754a4",
     "hardware/reference/g-ganen-pump/g-ganen-pump.step.mesh": "6c7e82cec104661f3eec463f5351bf620caf9b88fe6ec0f409bf96fcdcf4c05e",
-    "hardware/reference/g-ganen-pump/g-ganen-replica.step": "6e0dd9c975ffaf8289687d7b6df42c684e499497ba7fa7a846d2f72383d504ca",
+    "hardware/reference/g-ganen-pump/g-ganen-replica.step": "e6b30e992f9dfe49d9fa4f268f91db40daf0d0223881d41afb98b2364aaa9b42",
     "hardware/reference/g-ganen-pump/g-ganen-replica.step.mesh": "00adb176df71aed13fec1fd593f683558bf0655461936d915a33346c55c7b1a5",
-    "hardware/reference/g-ganen-pump/g-ganen-replica.step.npz": "bbddf8efe862baec86c49d32e6ee45389d09b990199df24088c8d89de4937005",
+    "hardware/reference/g-ganen-pump/g-ganen-replica.step.npz": "ea7e209cbb8333bc91a4d151f231a1db9beb44c4c63f0f65a5eea501b53eddbc",
     "hardware/reference/g-ganen-pump/integration-envelope/g-ganen-integration-envelope.step": "cb11443dd6bec9e31266432a7ec7f251bc0a83e3367d0a820b1f93af5ab06d2d",
     "hardware/reference/g-ganen-pump/integration-envelope/g-ganen-integration-envelope.step.mesh": "bb2a70cbb7585ad42fa2266441f3482156622c751b8772cb609988e76bda9461",
     "hardware/reference/gagira-reducing-coupling/gagira-reducing-coupling.step": "a30ce13ed70c41e630b4a6cb5ce402fb846cc55c90b6bf765600fba67fe4a768",
@@ -976,7 +976,7 @@
       "hardware/faucet-layout/faucet-assembly.step.mesh": "5f2a133895726dd2a60787a7990f505fae730c9bb72c2de522633314fc5d243e",
       "hardware/faucet-layout/faucet-industrial-assembly.step": "dab99ebc933e9d182955406892cdad3dc5c5276aea5fb1fe3c5905c36fe3ac10",
       "hardware/faucet-layout/faucet-industrial-assembly.step.mesh": "fe28e3401330a3abd8e7ceba118ee10d1a9c6e17631737d47942864f3a7b2074",
-      "hardware/manifold-layout/enclosure-assembly.facts.json": "4dae71257e008531b1724be2a88fde0c964773fd4b94eb85203ee2c7b0961227",
+      "hardware/manifold-layout/enclosure-assembly.facts.json": "30a5dcf58ad142167a799817288ea2d53aa2f63c237122e1bf6c80193aeaf383",
       "hardware/manifold-layout/enclosure-assembly.step.mesh": "99ecf87119b8e81a4303e5830d053d1973de1f1f5a1b59c468cf68826f7886bd",
       "hardware/printed-parts/asse-drain-adapter/asse-drain-adapter.step": "4730c636dd33e1431fa4fa3c6df0b4a3a41942efa40f451ce04e4f41e661a92d",
       "hardware/printed-parts/asse-drain-adapter/asse-drain-adapter.step.mesh": "192cb511c9bd723d16f931037c741fb143fa7000b522a574d13fc47f50854806",
@@ -1073,7 +1073,7 @@
       "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step.mesh": "8e77f5e7d8afd79bafbe951124b84820fd4077ee9a3fe4a4edee48571ab11cc7",
       "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.stl": "7eb9455df0f38d96e9edd78384e98b5ac11a2dbfbb43dacf7eab3a378d1360a6",
       "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step.mesh": "d0109870530b852d533ebf0b7547fe53a1c7f6074632b8b7196d047fab54ac12",
-      "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl": "2a24ef46a21a919d1aec420ff7d50063c2dae2e0e664ff53e8627c43f0f455d1",
+      "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl": "ad1c5e232f1279470e467f0359d2e8dfa42e2ae27ceab6f60e975cf1960b3a33",
       "hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.step.mesh": "304b3e9791847f1d8065fc2d72640d20f17d9d611ad80e049950a4c0a291a5d2",
       "hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.stl": "579faf7f25b348af118b404336d5823cce72c7a49b569b1f39a498f7a554f879",
       "hardware/printed-parts/enclosure/enclosure/enclosure-pump-tube-setting-jig.step.mesh": "280c1c9be9e45683aa15cf82387ef213a58c3ee4f68d59241500f07fd4cac1f6",
@@ -1418,7 +1418,7 @@
       "hardware/reference/compressor/compressor.step.mesh": "e2453f221d7251a64d210d6e4e9a07b3de57cca34174b229a9f14ac33855a4c0",
       "hardware/reference/digiten-flow-sensor/digiten-flow-sensor.step": "181e81dc1e2e9757c671df7163998127dea32e24cbbeffcd885e84c2801a9975",
       "hardware/reference/digiten-flow-sensor/digiten-flow-sensor.step.mesh": "84d68c77955b19d2e1f776a33b8fcd2370658086ad00acf5eb7ed953c0e72aec",
-      "hardware/reference/g-ganen-pump/g-ganen-replica.step": "6e0dd9c975ffaf8289687d7b6df42c684e499497ba7fa7a846d2f72383d504ca",
+      "hardware/reference/g-ganen-pump/g-ganen-replica.step": "e6b30e992f9dfe49d9fa4f268f91db40daf0d0223881d41afb98b2364aaa9b42",
       "hardware/reference/g-ganen-pump/g-ganen-replica.step.mesh": "00adb176df71aed13fec1fd593f683558bf0655461936d915a33346c55c7b1a5",
       "hardware/reference/gagira-reducing-coupling/gagira-reducing-coupling.step": "a30ce13ed70c41e630b4a6cb5ce402fb846cc55c90b6bf765600fba67fe4a768",
       "hardware/reference/gagira-reducing-coupling/gagira-reducing-coupling.step.mesh": "bdd3cbb79ef3b476f6db550a229403c69f2c2586f0d2a0342e0d85452daff844",
@@ -1654,7 +1654,6 @@
     "567f62c80eaac3958bbf75e7a7e8e4ccd6a8009a1a5b9c846c0fe282230d4fe1",
     "57690aa2f7a2a71733503f01c1dcb6dc6d8a49a4d7efaf6a03904d787f1285e8",
     "57ed4e0acce9c48f82c2b6dfe8323371f4cf7726e3833e37c4bf9b256d9af52a",
-    "5a5d03ceb4bd7b46b679640547ebc8b99a5c6f1f86bae9354bb74c9be7942877",
     "5bbd8751dbcc73a06b2e2328bcd198f451bed4c29ea44bcf9d43db93f8b7da24",
     "5c5e2cefa3e74b2b064bbc9c0f1bfca03ab8f1da009a2d2c6781e3679a7ef968",
     "5c9d167d2a9f91c6bc7d6867ea38010323df35623422736188ce2428a47e8966",
@@ -1703,7 +1702,6 @@
     "74fba3d8793f57dc1c3441d2749ce2461949296d55ff5dbdd39b1b3096bafc2c",
     "763b56d56cf218ea5763b659c6164f5f2945af5485ea447a938e6b1d22bbcf27",
     "767e2a7b51826a163bf910a0e47de5e9e977a8a6aee5b47fd3df1bec1d4ef129",
-    "76fb20adce58f7eca7b1a58a147558dcb2b67f974f3bbeccc4a8a86e7d51015f",
     "7763e7fbf849e3ff8486cd879921ac851b9310d9f22e2392ff537b2b96cd0e84",
     "7800ff166ecf62724d8f48ac3894edea756a9ec50b523787fb33ec786881b0f8",
     "7904d639aae26e3f2ab8ec21bf368340335130fcd2e2c049a396420d45e81d09",
@@ -1831,7 +1829,6 @@
     "bffa43a945ad3cdbe660c6662a3ab46d992a2ed0b254bfcc2f53618eea960ce4",
     "c03e39c253f93f1ac0e432f61a644c7de31114262fef34475293ab787e7647ab",
     "c16c92651ba2a248299bf39c4daf4b50769af775c530154dbd1cf19db8042f7a",
-    "c225fa6aaef35bacbb38054b1137f35303b3c3fa1784629378d186d5af3c0758",
     "c2f871f5059812015d467ffb9db1d1062cd33986c24997854d31d510a8e99b4b",
     "c32ec87fbf3292a48980e8fda49989cd78edfab1485da0100932977f859ff46f",
     "c38d0fa5dfb0701f136c25864c7221078c44202c893a9cc54caed55a3b17f695",
@@ -1850,7 +1847,6 @@
     "c9c25199d93db5849ba75d27ca3212d77bd021956472a60c20739630b37a5608",
     "ca72ea609c6129f26f1929156e54daf04d6d0d1a3ff4e131599b4b8d4ec0c414",
     "cb47391fcd4012f19eeb3c72a5bd711428f6d71d306d7183dc626a8fb2dcb476",
-    "cbae43143876eb7c21d3c5e008629ff81d11b2fd4ad1185327dd74b3c277cb12",
     "cbc1a7a1cbf1a2861b94ef95d7a2443c8664296a96d132e85727ea0ed731fd8c",
     "ccd9b078413650dcc56859cf9ce7949594422c4352b35769c5118ca328ff6441",
     "ccf4a3030f9b64833c2b145590a433470bb9101e859c80d03738a806c036c7a1",
@@ -1979,7 +1975,7 @@
     "hardware/install-guide/plumbing/modern/art/modern-tee-tug-check.png": 1793690801,
     "hardware/install-guide/plumbing/modern/art/modern-water-off.png": 1793830497,
     "hardware/install-guide/plumbing/modern/art/modern-water-on.png": 1793830497,
-    "hardware/manifold-layout/enclosure-assembly.facts.json": 1794278221.4416,
+    "hardware/manifold-layout/enclosure-assembly.facts.json": 1794278839.260709,
     "hardware/manifold-layout/enclosure-assembly.physical.step.mesh": 1793858653,
     "hardware/manifold-layout/enclosure-assembly.step.mesh": 1794278824.095263,
     "hardware/manifold-layout/manifold-layout.step": 1794269272.362814,
@@ -2200,7 +2196,7 @@
     "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step.mesh": 1794211617.6748538,
     "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.stl": 1794211650.501837,
     "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step.mesh": 1794278824.095263,
-    "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl": 1794278510.089237,
+    "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl": 1794278839.260709,
     "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.step": 1792920710,
     "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.step.mesh": 1793787394,
     "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.stl": 1792920710,
@@ -2740,9 +2736,9 @@
     "hardware/reference/g-ganen-pump/g-ganen-pump.fine.step.npz": 1793697604,
     "hardware/reference/g-ganen-pump/g-ganen-pump.step": 1793555606,
     "hardware/reference/g-ganen-pump/g-ganen-pump.step.mesh": 1793555606,
-    "hardware/reference/g-ganen-pump/g-ganen-replica.step": 1794272867.6334138,
+    "hardware/reference/g-ganen-pump/g-ganen-replica.step": 1794278839.260709,
     "hardware/reference/g-ganen-pump/g-ganen-replica.step.mesh": 1794278824.095263,
-    "hardware/reference/g-ganen-pump/g-ganen-replica.step.npz": 1794272867.6334138,
+    "hardware/reference/g-ganen-pump/g-ganen-replica.step.npz": 1794278839.260709,
     "hardware/reference/g-ganen-pump/integration-envelope/g-ganen-integration-envelope.step": 1790010625,
     "hardware/reference/g-ganen-pump/integration-envelope/g-ganen-integration-envelope.step.mesh": 1793750338,
     "hardware/reference/gagira-reducing-coupling/gagira-reducing-coupling.step": 1787578592,
@@ -3027,8 +3023,8 @@
       "unproven": true
     },
     "hardware/manifold-layout/enclosure-assembly.facts.json": {
-      "inputs": "c5fa22ca6469e7986f32f3bcdd0b75a9f24575f1ab0bbc1d5c9c448f9bcfee69",
-      "commit": "ef5d6dbad2b1b71e549997dc58e84ec235b6676a",
+      "inputs": "cb124ca80de8774542c4fa3e0e53e99c1a047ee47bf057b243380aa364feb2bf",
+      "commit": "b6b24c3776c59afbf56730d1062ab5b21eba778f",
       "unproven": true
     },
     "hardware/manifold-layout/enclosure-assembly.physical.step.mesh": {
@@ -3755,8 +3751,8 @@
       "unproven": true
     },
     "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl": {
-      "inputs": "3c94a657312477fce1e115346fb63c4da55e26a6676ecf3179987cb30bc90334",
-      "commit": "87ec81d7d89ff39092c6100f1f451028e06ea8a7",
+      "inputs": "fe53fc3eaf408b67cbbbfb4bdcfcf09bf2f70ecf64f549db8d65093a0e75154a",
+      "commit": "b6b24c3776c59afbf56730d1062ab5b21eba778f",
       "unproven": true
     },
     "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.step.mesh": {
@@ -4924,8 +4920,12 @@
       "commit": "bf5c9ea2e1f838cf68f7e32f909ace7c1d41bc8b",
       "unproven": true
     },
+    "hardware/reference/g-ganen-pump/g-ganen-pump.step.mesh": {
+      "commit": "b6b24c3776c59afbf56730d1062ab5b21eba778f",
+      "unproven": true
+    },
     "hardware/reference/g-ganen-pump/g-ganen-replica.step": {
-      "commit": "0fb890b1a3bf1d8998bf99dc831e8d372c425fc0",
+      "commit": "b6b24c3776c59afbf56730d1062ab5b21eba778f",
       "unproven": true
     },
     "hardware/reference/g-ganen-pump/g-ganen-replica.step.mesh": {
@@ -4933,7 +4933,7 @@
       "unproven": true
     },
     "hardware/reference/g-ganen-pump/g-ganen-replica.step.npz": {
-      "commit": "0fb890b1a3bf1d8998bf99dc831e8d372c425fc0",
+      "commit": "b6b24c3776c59afbf56730d1062ab5b21eba778f",
       "unproven": true
     },
     "hardware/reference/gagira-reducing-coupling/gagira-reducing-coupling.step": {
