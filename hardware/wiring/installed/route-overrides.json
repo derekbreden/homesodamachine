@@ -2939,7 +2939,7 @@
         "offset": [
           -8.810000000000016,
           -21.320915833957883,
-          -13.412598420947518
+          -2.3375984209474723
         ]
       },
       {
@@ -2947,14 +2947,7 @@
         "offset": [
           16.58999999999999,
           -21.320915833957883,
-          -13.412598420947518
-        ]
-      },
-      {
-        "point_mm": [
-          -72.0,
-          366.3227434920812,
-          270.775
+          -2.3375984209474723
         ]
       },
       {
@@ -2980,7 +2973,7 @@
     "bend_radius_mm": 2.0,
     "preserve_stations": true,
     "route_status": "selected_layout",
-    "note": "The board lead follows the west cable aisle and retained low cross guides, then rises fore of the relay bank and enters its outward-facing logic wire mouth."
+    "note": "The board lead follows the west cable aisle, crosses above the discharge hardware below the valve body, then enters the relay logic mouth from the free fore aisle."
   },
   "J5-IO19": {
     "stations": [
@@ -3112,7 +3105,7 @@
         "offset": [
           -8.810000000000016,
           -21.408177866144285,
-          -10.263359945165519
+          0.81164005483447
         ]
       },
       {
@@ -3120,14 +3113,7 @@
         "offset": [
           16.58999999999999,
           -21.408177866144285,
-          -10.263359945165519
-        ]
-      },
-      {
-        "point_mm": [
-          -72.0,
-          366.4100055242676,
-          268.925
+          0.81164005483447
         ]
       },
       {
@@ -3153,7 +3139,7 @@
     "bend_radius_mm": 2.0,
     "preserve_stations": true,
     "route_status": "selected_layout",
-    "note": "The board lead follows the west cable aisle and retained low cross guides, then rises fore of the relay bank and enters its outward-facing logic wire mouth."
+    "note": "The board lead follows the west cable aisle, crosses above the discharge hardware below the valve body, then enters the relay logic mouth from the free fore aisle."
   },
   "J7-GND": {
     "stations": [
@@ -3826,16 +3812,24 @@
           8.1,
           0.0656236439001736
         ]
+      },
+      {
+        "terminal": "relay-1.COM",
+        "offset": [
+          3.0,
+          4.0,
+          0.0
+        ]
       }
     ],
     "preserve_stations": true,
     "bend_radius_mm": 3.0,
     "end_lands_mm": [
       8.0,
-      8.0
+      0.0
     ],
     "route_status": "selected_layout",
-    "note": "The hot lead leaves the rear WAGO into the east aisle, descends before the inlet, passes below its housing and west of the jack, then approaches the relay contact mouth from aft."
+    "note": "The hot lead leaves the rear WAGO into the east aisle, descends before the inlet, passes below its housing and west of the jack, then angles inward through the relay wire mouth clear of the mounting screw head."
   },
   "AC4-pigtail": {
     "stations": [
