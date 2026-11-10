@@ -18,6 +18,11 @@ mouth and tongue; and the principal card, radio, switch, FPC and power packages.
 The `body` name identifies the LCD chassis and `bezel` identifies the mounting
 glass. Rear components have their own body names and material colors.
 
+`terminal-interfaces.json` owns the plug's mouth profiles, rear-face stations and
+manufacturer-labeled pole order for both the replica and installed wiring.
+The retained supplier interface photograph establishes that order. The record
+distinguishes those labeled bindings from received-part electrical validation.
+
 The smaller connector housings and component packages retain supplier exterior
 bounds. Fine lead geometry, tiny passives, markings, hidden contacts and wire
 clamps are omitted. Rear component positions follow the supplier assembly and

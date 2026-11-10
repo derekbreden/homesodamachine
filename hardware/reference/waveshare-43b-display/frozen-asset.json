@@ -1,16 +1,16 @@
 {
   "source": {
     "path": "hardware/reference/waveshare-43b-display/replica.rs",
-    "sha256": "9785ab8f40f97e246f2373b0c5e41760c5fd49f39948e81417de2cda6f36aa2d"
+    "sha256": "ffffb5c4bc6087c2066be7bc819a9b31b5aa417eaf18fedc0b2c5593e1492a29"
   },
   "members": {
     "waveshare-43b-display.step": "5076425927ad9fa3421fe746f915bc0f271a584e595a30872a0fbc7e311b99cc",
-    "waveshare-43b-display.step.npz": "8c22cf100cf5f538bd23f3eb4ed3d0d0c64462c08bd0974b7ca90e7a669b7e24",
-    "waveshare-43b-display.step.mesh": "da1ccb3882d2da36efcfdf70a96738eaf86ee2368097a5a820c2b919cd04e040"
+    "waveshare-43b-display.step.npz": "77cb6e969c3a7b08f0798ee679295f3b91f09e1572da27f66f90ee6e235cb4e6",
+    "waveshare-43b-display.step.mesh": "0e27afe5089955a62b9b4087e2a675ed6bb1953e95c3a4889ab8a64de5f0ab27"
   },
   "fine_payload": {
     "path": "waveshare-43b-display.step.mesh",
-    "sha256": "da1ccb3882d2da36efcfdf70a96738eaf86ee2368097a5a820c2b919cd04e040",
+    "sha256": "0e27afe5089955a62b9b4087e2a675ed6bb1953e95c3a4889ab8a64de5f0ab27",
     "source_step_sha256": "5076425927ad9fa3421fe746f915bc0f271a584e595a30872a0fbc7e311b99cc",
     "producer": "hardware/reference/waveshare-43b-display/replica.rs",
     "color_space": "linear-rgb",
@@ -140,7 +140,7 @@
   "fine_models": {
     "waveshare-43b-display.step": {
       "path": "waveshare-43b-display.step.npz",
-      "sha256": "8c22cf100cf5f538bd23f3eb4ed3d0d0c64462c08bd0974b7ca90e7a669b7e24",
+      "sha256": "77cb6e969c3a7b08f0798ee679295f3b91f09e1572da27f66f90ee6e235cb4e6",
       "source_step_sha256": "5076425927ad9fa3421fe746f915bc0f271a584e595a30872a0fbc7e311b99cc",
       "producer": "hardware/reference/waveshare-43b-display/replica.rs",
       "presentation_indices": [
@@ -163,6 +163,9 @@
     }
   },
   "inputs": {
-    "hardware/reference/waveshare-43b-display/replica-evidence.json": "435ce9c5b52c5953b01a3a0d20a6333f7071546fffd38b1693688f80a97df2e5"
+    "hardware/reference/waveshare-43b-display/replica-evidence.json": "8d2890668e343fefa6cea44be81a840df3f96cc19e1a0d5e1f4536f48a8dbc49"
+  },
+  "source_parameters": {
+    "hardware/reference/waveshare-43b-display/terminal-interfaces.json": "aa930c687da7f737eb43385f465abb88062d7541a94715533f4dbb508ea2c7f4"
   }
 }

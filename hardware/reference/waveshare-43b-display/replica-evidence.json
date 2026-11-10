@@ -374,5 +374,6 @@
     "The SD socket, FPC housings, switches and isolation packages retain supplier outer package bounds; their fine local recesses and lead geometry are not replicas.",
     "The supplier glass and LCD dimensions are not substituted for the received-part mounting datums.",
     "Routed-board export noise is reduced to nominal straight edges; small corner blends are omitted."
-  ]
+  ],
+  "terminal_interfaces": "terminal-interfaces.json"
 }
