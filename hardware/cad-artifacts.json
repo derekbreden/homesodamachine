@@ -275,13 +275,13 @@
     "hardware/printed-parts/enclosure/nameplate/horizontal-wing-trial/nameplate-horizontal-wings-receiver.step": "0ae19c97cc7e526ed4d1405564dec24d280e8e2a2541f17875fb1809ab8581a8",
     "hardware/printed-parts/enclosure/nameplate/horizontal-wing-trial/nameplate-horizontal-wings-receiver.step.mesh": "3abff76b4dc43689210db6404c9d0d3011faffcfb4aad614434eef75ef07c9db",
     "hardware/printed-parts/enclosure/nameplate/horizontal-wing-trial/nameplate-horizontal-wings-receiver.stl": "1bf777f5941dc3031fb1ea476686454c5aef39d2f28e3f0edac39380c7e69cc6",
-    "hardware/printed-parts/enclosure/nameplate/nameplate-001.step": "1852df78363233bc5ae45c003e7dacbe223ee6dda020f452999bc2cb4f5b2235",
+    "hardware/printed-parts/enclosure/nameplate/nameplate-001.step": "596372eff01bb72b3bc70cdf1a24aa1bd25675668b29ca8e74d05825b6f425d9",
     "hardware/printed-parts/enclosure/nameplate/nameplate-001.step.mesh": "0c4a97387dee88aabca21138014fc69c61a9440684cdee385847ac11682184bd",
-    "hardware/printed-parts/enclosure/nameplate/nameplate-001.stl": "7bf9bf4cf4eb7a009db5118926b9a5f5e25e2e640eaa906c0c4d19c9f33b2c32",
-    "hardware/printed-parts/enclosure/nameplate/nameplate-fasteners.step": "b10956b7decd6d6280b4bdd36ba90fe3398731711b7961c32a78627550162fd3",
-    "hardware/printed-parts/enclosure/nameplate/nameplate-receiver.step": "9060c51c4cd854f4de51d2a105bfea3a389337e63f448df043207df030fa56c3",
+    "hardware/printed-parts/enclosure/nameplate/nameplate-001.stl": "16788d40137e93302d4a212de32d09625b8075bde34478b5a7689a1d3eda1973",
+    "hardware/printed-parts/enclosure/nameplate/nameplate-fasteners.step": "11485f68ba2c6f7870a913605e65cb0e30c848f6c2cb1c66ca3c21902e37bb35",
+    "hardware/printed-parts/enclosure/nameplate/nameplate-receiver.step": "b9e3743f8680bab84ee2676c01435b39b72d4609fb28329449478126a2619e7e",
     "hardware/printed-parts/enclosure/nameplate/nameplate-receiver.step.mesh": "a6568a777711272c633d05fdf1f4aae2ccf750b7bec71d6421e1dd449b8f2833",
-    "hardware/printed-parts/enclosure/nameplate/nameplate-receiver.stl": "fbeb03e58329494d79a5f40cde51a6d5fa8802af241d012ef7b29bb4233ab464",
+    "hardware/printed-parts/enclosure/nameplate/nameplate-receiver.stl": "c7c3defaa5f1f72f023fa273ed3547822c4c38e387295f00ec944459842c643d",
     "hardware/printed-parts/enclosure/pump-dock/print-preparation/2026-10-18-asymmetric-wet-siraya85a-mark1/plates/enclosure-pump-receiver-east-inner/body.stl": "b458c1aa0b93097bec91c7274ba3cd30d4b38196398c187a591cb0d7bc3310fd",
     "hardware/printed-parts/enclosure/pump-dock/print-preparation/2026-10-18-asymmetric-wet-siraya85a-mark1/plates/enclosure-pump-receiver-east-inner/wet-shadow-blocker.stl": "da0da480949fa56fe138e15061c3b97755a89c27f5528556cf35eeaa46f520d2",
     "hardware/printed-parts/enclosure/pump-dock/print-preparation/2026-10-18-asymmetric-wet-siraya85a-mark1/plates/enclosure-pump-receiver-east-inner/wet-void.stl": "2478736e4b35f301de1189e6e311d2713ac30343bd2130bb553412f52a80d712",
@@ -1076,9 +1076,9 @@
       "hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.stl": "579faf7f25b348af118b404336d5823cce72c7a49b569b1f39a498f7a554f879",
       "hardware/printed-parts/enclosure/enclosure/enclosure-pump-tube-setting-jig.step.mesh": "7a97b777748a6d31a5b83fac12ef9f624d99a6a697578a20628a2b172b069f09",
       "hardware/printed-parts/enclosure/enclosure/enclosure-pump-tube-setting-jig.stl": "8cca75083a601ffa081cf3ef05e672c1f17bbc4e5e7f32cb4bb9e70298d6dcf9",
-      "hardware/printed-parts/enclosure/nameplate/nameplate-001.step": "1852df78363233bc5ae45c003e7dacbe223ee6dda020f452999bc2cb4f5b2235",
+      "hardware/printed-parts/enclosure/nameplate/nameplate-001.step": "596372eff01bb72b3bc70cdf1a24aa1bd25675668b29ca8e74d05825b6f425d9",
       "hardware/printed-parts/enclosure/nameplate/nameplate-001.step.mesh": "0c4a97387dee88aabca21138014fc69c61a9440684cdee385847ac11682184bd",
-      "hardware/printed-parts/enclosure/nameplate/nameplate-001.stl": "7bf9bf4cf4eb7a009db5118926b9a5f5e25e2e640eaa906c0c4d19c9f33b2c32",
+      "hardware/printed-parts/enclosure/nameplate/nameplate-001.stl": "16788d40137e93302d4a212de32d09625b8075bde34478b5a7689a1d3eda1973",
       "hardware/printed-parts/enclosure/rear-equipment-caps/asse-snap-cap.step": "cf33be71c8495bcac54981668f58a039b78b34b3f01104819521356018fbf1ec",
       "hardware/printed-parts/enclosure/rear-equipment-caps/asse-snap-cap.step.mesh": "8259fad5992587966fa0335ada0a0e2590da3332abcf4b4abc860fa582c4508a",
       "hardware/printed-parts/enclosure/rear-equipment-caps/asse-snap-cap.stl": "7dd9150c05aa10466bcbdddd74a192d5ab585efb083b64943484a2f995c0b4e5",
@@ -2367,13 +2367,13 @@
     "hardware/printed-parts/enclosure/nameplate/horizontal-wing-trial/nameplate-horizontal-wings-receiver.step": 1791257167,
     "hardware/printed-parts/enclosure/nameplate/horizontal-wing-trial/nameplate-horizontal-wings-receiver.step.mesh": 1791257167,
     "hardware/printed-parts/enclosure/nameplate/horizontal-wing-trial/nameplate-horizontal-wings-receiver.stl": 1790801436,
-    "hardware/printed-parts/enclosure/nameplate/nameplate-001.step": 1794333634.230675,
+    "hardware/printed-parts/enclosure/nameplate/nameplate-001.step": 1794333655.520232,
     "hardware/printed-parts/enclosure/nameplate/nameplate-001.step.mesh": 1794333648.053815,
-    "hardware/printed-parts/enclosure/nameplate/nameplate-001.stl": 1794333634.230675,
-    "hardware/printed-parts/enclosure/nameplate/nameplate-fasteners.step": 1794333634.230675,
-    "hardware/printed-parts/enclosure/nameplate/nameplate-receiver.step": 1794333634.230675,
+    "hardware/printed-parts/enclosure/nameplate/nameplate-001.stl": 1794333655.520232,
+    "hardware/printed-parts/enclosure/nameplate/nameplate-fasteners.step": 1794333655.520232,
+    "hardware/printed-parts/enclosure/nameplate/nameplate-receiver.step": 1794333655.520232,
     "hardware/printed-parts/enclosure/nameplate/nameplate-receiver.step.mesh": 1794333648.053815,
-    "hardware/printed-parts/enclosure/nameplate/nameplate-receiver.stl": 1794333634.230675,
+    "hardware/printed-parts/enclosure/nameplate/nameplate-receiver.stl": 1794333655.520232,
     "hardware/printed-parts/enclosure/pump-dock/print-preparation/2026-10-18-asymmetric-wet-siraya85a-mark1/plates/enclosure-pump-receiver-east-inner/body.stl": 1792460868,
     "hardware/printed-parts/enclosure/pump-dock/print-preparation/2026-10-18-asymmetric-wet-siraya85a-mark1/plates/enclosure-pump-receiver-east-inner/wet-shadow-blocker.stl": 1792460868,
     "hardware/printed-parts/enclosure/pump-dock/print-preparation/2026-10-18-asymmetric-wet-siraya85a-mark1/plates/enclosure-pump-receiver-east-inner/wet-void.stl": 1792460868,
@@ -3943,8 +3943,8 @@
       "unproven": true
     },
     "hardware/printed-parts/enclosure/nameplate/nameplate-001.step": {
-      "commit": "8b66f05c41576862b7828303c537a44f4fd03698",
-      "inputs": "a697576e9fbf1ee7bd5bc7224223271e321aa83e28bffb81e5ef8f23cfea165a",
+      "commit": "3c10c46a0bff13606abae7e64c04a56c21a3fe08",
+      "inputs": "3f12a1fde81017140807ccdeea0b178781a2618d55f1f187a50acdfb0647cbc0",
       "unproven": true
     },
     "hardware/printed-parts/enclosure/nameplate/nameplate-001.step.mesh": {
@@ -3952,18 +3952,18 @@
       "unproven": true
     },
     "hardware/printed-parts/enclosure/nameplate/nameplate-001.stl": {
-      "commit": "8b66f05c41576862b7828303c537a44f4fd03698",
-      "inputs": "a697576e9fbf1ee7bd5bc7224223271e321aa83e28bffb81e5ef8f23cfea165a",
+      "commit": "3c10c46a0bff13606abae7e64c04a56c21a3fe08",
+      "inputs": "3f12a1fde81017140807ccdeea0b178781a2618d55f1f187a50acdfb0647cbc0",
       "unproven": true
     },
     "hardware/printed-parts/enclosure/nameplate/nameplate-fasteners.step": {
-      "commit": "8b66f05c41576862b7828303c537a44f4fd03698",
-      "inputs": "a697576e9fbf1ee7bd5bc7224223271e321aa83e28bffb81e5ef8f23cfea165a",
+      "commit": "3c10c46a0bff13606abae7e64c04a56c21a3fe08",
+      "inputs": "3f12a1fde81017140807ccdeea0b178781a2618d55f1f187a50acdfb0647cbc0",
       "unproven": true
     },
     "hardware/printed-parts/enclosure/nameplate/nameplate-receiver.step": {
-      "commit": "8b66f05c41576862b7828303c537a44f4fd03698",
-      "inputs": "a697576e9fbf1ee7bd5bc7224223271e321aa83e28bffb81e5ef8f23cfea165a",
+      "commit": "3c10c46a0bff13606abae7e64c04a56c21a3fe08",
+      "inputs": "3f12a1fde81017140807ccdeea0b178781a2618d55f1f187a50acdfb0647cbc0",
       "unproven": true
     },
     "hardware/printed-parts/enclosure/nameplate/nameplate-receiver.step.mesh": {
@@ -3971,8 +3971,8 @@
       "unproven": true
     },
     "hardware/printed-parts/enclosure/nameplate/nameplate-receiver.stl": {
-      "commit": "8b66f05c41576862b7828303c537a44f4fd03698",
-      "inputs": "a697576e9fbf1ee7bd5bc7224223271e321aa83e28bffb81e5ef8f23cfea165a",
+      "commit": "3c10c46a0bff13606abae7e64c04a56c21a3fe08",
+      "inputs": "3f12a1fde81017140807ccdeea0b178781a2618d55f1f187a50acdfb0647cbc0",
       "unproven": true
     },
     "hardware/printed-parts/enclosure/rear-equipment-caps/asse-snap-cap.step": {
