@@ -10,9 +10,9 @@ those relationships through every level.
 The catalog describes current parts, installation references and active tooling.
 Completed trial articles, superseded parts and unused hardware dedicated to removed
 designs leave the catalog together with their relationships and model publication.
-Their physical results remain with the print records; obsolete generators and exports
-are recoverable from Git. A `reference` kind preserves a current installation reference;
-it does not archive a removed part. Retired directories supply no current catalog entries.
+Their source, exports and physical records are archived in Git and removed from the
+working tree. Current instructions link historical evidence by SHA. A `reference`
+kind preserves a current installation reference; it does not archive a removed part.
 
 ## Identity
 

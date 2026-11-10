@@ -1,6 +1,0 @@
-Finished trial. Its sources and records are at
-https://github.com/derekbreden/homesodamachine/tree/archive-finished-trials/hardware/printed-parts/fixtures/valve-socket-fit
-valve_socket_fit.rs is the Rust port that tools/hsm/tooling/Cargo.toml still builds. The
-magnet-retention and support-bottom-gap trial preparers load the valve models in
-tighter-trial-v2/.
-This marker keeps its published models off the site.

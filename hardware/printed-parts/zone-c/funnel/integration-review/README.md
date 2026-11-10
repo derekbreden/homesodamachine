@@ -107,7 +107,7 @@ print receipts must name the current mesh hashes, bed placement, emitted paths
 and removal lanes. Physical support removal and fit remain unqualified for this
 geometry.
 
-The accepted [v4 cradle trial](https://github.com/derekbreden/homesodamachine/blob/archive-finished-trials/hardware/printed-parts/zone-c/funnel/cradle-trial/physical-acceptance.json) records
+The accepted [v4 cradle trial](https://github.com/derekbreden/homesodamachine/blob/b57b985c648c34346481a57fde897374b0e8f068/hardware/printed-parts/zone-c/funnel/cradle-trial/physical-acceptance.json) records
 insertion of its printed pair and the 0.65 mm released drop. That drop is retained.
 The current 3.15 mm hook thickness and flat silicone bearing are separately
 checked in native geometry, including 29 sampled insertion poses with the

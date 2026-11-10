@@ -6,7 +6,7 @@ Expanding print-down show rounds use the additive chamfer/taper at 0.24 mm with
 six local walls. Inward/top show rounds use 0.08 mm. Both exclude support contacts.
 Every pending archive needs that check on the actual support paths, including unlabelled
 slivers; a passed layer-band review does not establish support exclusion. The
-[tee-carrier physical record](../../../tee-carrier/physical-acceptance.json) qualifies
+[tee-carrier physical record](https://github.com/derekbreden/homesodamachine/blob/d8d50f9a54222ccd40bc1e74111d2d87d893fa78/hardware/printed-parts/enclosure/tee-carrier/physical-acceptance.json) qualifies
 the chamfer/taper surface on job 1292379739. Sliding fit and each other part require
 their own physical checks.
 

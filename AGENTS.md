@@ -73,7 +73,9 @@ Git keeps history. Code and docs in this repo describe current state. Don't writ
 When Derek identifies a class of obsolete work, trace why the example persisted and
 investigate the other instances of that class. Removing a design includes its unused
 catalog identities, relationships, publication entries and agent-facing commands.
-Physical print results stay with their identified articles, outside the current catalog.
+Archive completed and retired trials in Git, including their physical evidence, and
+remove their working-tree copies. Current instructions that use a past observation
+link to the archived file at its Git SHA.
 
 A commit takes the paths your session changed — `git commit -- <paths>`, with `git add <path>` first for a new file — and every other change stays in the tree as it is. The message ends in one trailer block:
 
@@ -210,8 +212,9 @@ Keep private benchmark caches inside the same run directory.
 
 Remove a run's temporary files when its comparison, publication or handoff is
 finished. Keep concise results, source revisions, artifact hashes and measured
-numbers. Keep finished deliverables and physical print records at their recorded
-destinations outside `.cache`; a scratch copy is not an archive.
+numbers. Keep current deliverables and active print records at their recorded
+destinations outside `.cache`. Completed experiments, including their print records,
+are archived in Git and referenced by SHA; a scratch copy is not an archive.
 
 The existing six-hour cleanup removes individual run directories after three
 days without a write. A new run does not extend an older run's lifetime. Keep the

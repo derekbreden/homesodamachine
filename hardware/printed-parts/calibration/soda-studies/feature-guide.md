@@ -59,7 +59,7 @@ front viewing reveal; rounding onto the 0.20/0.24 mm layer phase sets the
 20 × 15 mm flute field and viewing allowances are design choices, with
 [exact geometry recorded here](geometry.json).
 
-The [accepted tee-carrier print](../../enclosure/tee-carrier/physical-acceptance.json)
+The [accepted tee-carrier print](https://github.com/derekbreden/homesodamachine/blob/d8d50f9a54222ccd40bc1e74111d2d87d893fa78/hardware/printed-parts/enclosure/tee-carrier/physical-acceptance.json)
 supports the expanding R6 tangent profile on that source part. The
 [PET-GF interface experiment](../../../print-tests/petgf-interface-edges/README.md)
 selected a 0.48 mm planned gap for clean release with preserved roof strands;
