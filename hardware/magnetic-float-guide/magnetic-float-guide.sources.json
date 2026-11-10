@@ -1,0 +1,59 @@
+{
+  "page_inches": [
+    8.5,
+    11
+  ],
+  "pages": 13,
+  "pdf": "magnetic-float-guide.pdf",
+  "pdf_sha256": "f9f65320cc986027eb42d4ed2fb45413753b871206ff0513c1b6c24147c61601",
+  "print_layout": {
+    "canvas_px": [
+      2550,
+      3300
+    ],
+    "dpi": 300,
+    "print_scaling": "100% / none",
+    "sides": "single sided"
+  },
+  "purpose": "Record the authored inputs of this manual guide edition.",
+  "source_sha256": {
+    "hardware/magnetic-float-guide/01-cover.html": "93126e8432991081e97cea8c2d2661dfd5b59192c994b7721bbf4a00e76918bb",
+    "hardware/magnetic-float-guide/02-one-body-one-ring.html": "3dc1035710639025ddaf95f849b08655217864d88aca25d1426419d891f904cc",
+    "hardware/magnetic-float-guide/03-dry-the-filament.html": "fafec6446907db97561a75f952e885b9b3b6e72388bf700acb8756fb1ec45fb2",
+    "hardware/magnetic-float-guide/04-set-up-mark2.html": "f7ff4ee17b21395d00cf6844a3efffa7c1a50cb7b162208ebe52d448b0bbbdad",
+    "hardware/magnetic-float-guide/05-prepare-the-current-slice.html": "9878fba1dcafe3e23139e6dddfaa3a533e8ee8ba8270f8bb7132058487e7f290",
+    "hardware/magnetic-float-guide/06-review-the-insertion-pause.html": "4567ba33f951fe3e1c36ed7d9da915a899c4512c2cff8fe5c7f3f0778c5c9a08",
+    "hardware/magnetic-float-guide/07-seat-the-magnet.html": "38957eb733a97c0ccb09f64c2dc36ecb96d549e1148e26bd8b7e3b4d9212e3ee",
+    "hardware/magnetic-float-guide/08-resume-and-close.html": "753aad84efa231091a4334083b1c315b633bbb7c33c39ab9dce65a779e3ff146",
+    "hardware/magnetic-float-guide/09-release-and-inspect.html": "f8eabf935365005c7b52727aaf3528de7000ca64b10bde74d33a2065288bddea",
+    "hardware/magnetic-float-guide/10-install-on-the-guide.html": "7d3af2e14d4719eded344685a0fa097bb93e1ad9efb76bd50402cff4512ab943",
+    "hardware/magnetic-float-guide/11-calibrate-the-reeds.html": "71b0929ff68f63ffdf11827f2ab29aab9519a2f609501e81b54a2af2e6310144",
+    "hardware/magnetic-float-guide/12-identified-print-evidence.html": "4ede4e947c651ee2abdea1def9a33df6848af68ef92e8721f73cc0804a166aa4",
+    "hardware/magnetic-float-guide/13-files-and-sources.html": "8e9b802069fda1817e199cac40d63251d04be0f35db2707d1ff9c79e1446a013",
+    "hardware/magnetic-float-guide/README.md": "752240777e34e2cf287189fd2c7f66ac01e62068a272c58929ecb89823d9b424",
+    "hardware/magnetic-float-guide/art/exploded.png": "21acf7cc9cd8cb41dc59e5b47705ae5f0f1e984ecf05814a89c3304ff7c8e59e",
+    "hardware/magnetic-float-guide/art/finished.png": "a9193816c84a65044c02fb562e58b1a35cfef08d48b0898200fad05a16261581",
+    "hardware/magnetic-float-guide/art/guide-fit.png": "e2bf50c0cb57fc57fa9d8c999b1accc38dbd62186fe94d0c33742defd5eaf2c6",
+    "hardware/magnetic-float-guide/art/hero.png": "ba0caf68e0cd96499fe671ed535cd90d8223ffe78f358184ac1f1b67abdae034",
+    "hardware/magnetic-float-guide/art/magnet-seat.png": "e8a53e84599f07039f55177c6cd986eec3adce7b12a8d2d835544f54bf857990",
+    "hardware/magnetic-float-guide/art/magnet-seated.png": "4fc76bdfde792462a3f26818a90a3c1f48572dc7878003d73ef4fe804b5979bc",
+    "hardware/magnetic-float-guide/art/manifest.json": "073a87736ac424e43d8a3e66e0be9fd41daa8e45e97985ce480e75e0d74e975f",
+    "hardware/magnetic-float-guide/art/paused-body.png": "24a802dbdd65c6ce03fc0397cb3fecc0ae24bb97a716862dd0126244fb74d899",
+    "hardware/magnetic-float-guide/art/plate-aero.png": "39563d522ab98f63fe39a2bf9c505c438c68a537bf0796f89ecda0795136dace",
+    "hardware/magnetic-float-guide/art/roof.png": "717929b1ed8d0558633d26dccaae694d48d736522840d4d4affdaae902b766ad",
+    "hardware/magnetic-float-guide/art/section.png": "7e95638725a9324f12069777616607cc70659e06971154b9ad331d8c7ed90c13",
+    "hardware/magnetic-float-guide/guide-inputs.json": "c947f98030ed4b4e1620c08cc011bddfb6aa10c9878d27827f02833099f47242",
+    "hardware/magnetic-float-guide/style.css": "6bcbe009a6f2f83f67f499b2dc8f4d0ba7bf17662ae7987c433103599df2d976",
+    "hardware/printed-parts/cold-core/magnetic-float/all-aero/design.json": "7fabe0be0b7ddf708f9ccbefd36e2d3f20ecc9397ddb7e3249bc927d881a4e51",
+    "hardware/printed-parts/cold-core/magnetic-float/all-aero/installation.md": "b0b972475f94149245052fc56f8be734fc73d9c15dfb85532cfa800512c1a269",
+    "hardware/printed-parts/cold-core/magnetic-float/all-aero/integration-check.json": "b54a639215ffcf4aaeeab2c85c02b684b9645b9ae8ab692d03b9e5381d788cf9",
+    "hardware/printed-parts/cold-core/magnetic-float/all-aero/physical-observations.json": "98e0d6ff6279750202439dae0441767bab120295626a8fc0d4d3bd89f6e10e11",
+    "tools/hsm/manual-guides/Cargo.toml": "8e8b0322277af2692441b3765eee62b1acdb72ef2fb52a1c78a434328e5927f5",
+    "tools/hsm/manual-guides/src/float.rs": "1fe27fabcef5ca46816ab496c22387b4eaca8221b56d57bf981cbf2ea885f0f9",
+    "tools/hsm/manual-guides/src/html.rs": "37cb899273ace7e7aaf47a7e66001dc056adf42e3c6a66d2ee8596b68930b8a6",
+    "tools/hsm/manual-guides/src/lib.rs": "93e1d80da677d9b491df2646363b233acc16ab8070cc47a809993211e9493ed7",
+    "tools/hsm/manual-guides/src/main.rs": "7969a120d9d15e5f48672118a50528a1707bd666712f712bbbd8cdfd750a51c6",
+    "tools/hsm/manual-guides/src/pdf.rs": "99ff0221ed46a7e8855e94065d6a38ed6c65f9e0b4a3bf934d81eb125ec7f7d1",
+    "tools/magnetic-float-guide/build-recipe-sources.json": "567e365de4c983ca17a64d2f6591da553ffd478e841add5ec22d65f6a35b1651"
+  }
+}

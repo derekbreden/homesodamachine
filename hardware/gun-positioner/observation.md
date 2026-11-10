@@ -7,7 +7,9 @@ learning is dry; the stand withdraws before welding. The qualified path
 then replays continuously from the existing rotator pedal.
 
 Use the [mechanical and electrical checks](commissioning.md) first. The
-following commands run from the repository root with `tools/cad-venv/bin/python`.
+following commands run from the repository root with the native `pgfun-host`
+executable built by the
+[controller workflow](../../firmware/src_pgfun_positioner/README.md).
 Files filled with observations/configurations belong outside this public
 repository. Examples use `/tmp/pgfun`; use a durable personal folder for
 accepted sessions. Replace the camera ID and serial-device examples with
@@ -47,7 +49,7 @@ Enumerate the physical camera and copy the template:
 
 ```sh
 mkdir -p /tmp/pgfun
-tools/cad-venv/bin/python firmware/src_pgfun_positioner/host/observe.py --list
+tools/hsm/target/release/pgfun-host observe --list
 cp firmware/src_pgfun_positioner/host/optics.example.json /tmp/pgfun/optics-initial.json
 ```
 
@@ -78,10 +80,10 @@ and cable after warm-up. The observer can collect this initial sequence;
 the motor-response learner refuses it until noise is qualified.
 
 ```sh
-tools/cad-venv/bin/python firmware/src_pgfun_positioner/host/observe.py \
+tools/hsm/target/release/pgfun-host observe \
   --camera-id 'ACTUAL_CAMERA_ID' --config /tmp/pgfun/optics-initial.json \
   --latest /tmp/pgfun/latest.json --log /tmp/pgfun/stationary.jsonl --seconds 30
-tools/cad-venv/bin/python firmware/src_pgfun_positioner/host/noise.py \
+tools/hsm/target/release/pgfun-host noise \
   /tmp/pgfun/stationary.jsonl /tmp/pgfun/optics-initial.json \
   /tmp/pgfun/optics.json --receipt /tmp/pgfun/noise-receipt.json
 ```
@@ -105,10 +107,10 @@ Align and remove both parking pins before **each** motion session. The
 it. Use the same pin bias, tube setup, temperature and cable route.
 
 ```sh
-tools/cad-venv/bin/python firmware/src_pgfun_positioner/host/servo.py learn \
+tools/hsm/target/release/pgfun-host response learn \
   --port /dev/cu.YOUR_POSITIONER --latest /tmp/pgfun/latest.json \
   --output /tmp/pgfun/train.json --reference-central
-tools/cad-venv/bin/python firmware/src_pgfun_positioner/host/servo.py fit \
+tools/hsm/target/release/pgfun-host response fit \
   /tmp/pgfun/train.json /tmp/pgfun/model-candidate.json
 ```
 
@@ -116,7 +118,7 @@ Repeat `learn` into `/tmp/pgfun/response-holdout.json` after a fresh physical
 datum, then qualify:
 
 ```sh
-tools/cad-venv/bin/python firmware/src_pgfun_positioner/host/servo.py qualify \
+tools/hsm/target/release/pgfun-host response qualify \
   /tmp/pgfun/model-candidate.json /tmp/pgfun/response-holdout.json \
   /tmp/pgfun/model.json
 ```
@@ -144,12 +146,12 @@ The example uses **8 mm/s, clockwise, index label `tube-zero`**. This gives
 about 48.6 seconds per revolution. Keep camera observation running.
 
 ```sh
-tools/cad-venv/bin/python firmware/src_pgfun_positioner/host/trajectory.py capture \
+tools/hsm/target/release/pgfun-host trajectory capture \
   --port /dev/cu.YOUR_POSITIONER --reference-central \
   --latest /tmp/pgfun/latest.json --output /tmp/pgfun/baseline.json \
   --log /tmp/pgfun/baseline-control.jsonl --seconds 110 \
   --speed 8 --direction cw --index tube-zero
-tools/cad-venv/bin/python firmware/src_pgfun_positioner/host/trajectory.py fit \
+tools/hsm/target/release/pgfun-host trajectory fit \
   /tmp/pgfun/baseline.json /tmp/pgfun/model.json /tmp/pgfun/target.json \
   /tmp/pgfun/path-candidate.json
 ```
@@ -176,7 +178,7 @@ filenames, and a fresh physical index/datum before each. Keep identical
 speed, direction, index label and optical settings. Then:
 
 ```sh
-tools/cad-venv/bin/python firmware/src_pgfun_positioner/host/trajectory.py qualify \
+tools/hsm/target/release/pgfun-host trajectory qualify \
   /tmp/pgfun/path-candidate.json /tmp/pgfun/dry-a.json /tmp/pgfun/dry-b.json \
   --output /tmp/pgfun/path.json
 ```
@@ -192,7 +194,7 @@ stand. Match the accepted tube index, datum, cable route, speed and direction.
 Use the factory gun trigger with the working weld recipe while replaying:
 
 ```sh
-tools/cad-venv/bin/python firmware/src_pgfun_positioner/host/trajectory.py replay \
+tools/hsm/target/release/pgfun-host trajectory replay \
   --port /dev/cu.YOUR_POSITIONER --reference-central \
   --profile /tmp/pgfun/path.json --seconds 60 --log /tmp/pgfun/weld-control.jsonl
 ```

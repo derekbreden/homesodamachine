@@ -38,7 +38,7 @@ const CODE_NAMES = {
 
 // The same, for code outside tools/hsm, by its first two path segments.
 const TOOL_NAMES = {
-  "tools/run.py": "Runner",
+  "tools/run": "Runner",
   "tools/docgen": "Document code",
   "tools/install-guide": "Guide code",
   "tools/bazel": "Build plan",

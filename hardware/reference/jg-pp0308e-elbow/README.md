@@ -25,8 +25,8 @@ frame, fitted bands, observed axial medians and measured face location.
 [`scan-selection.json`](scan-selection.json) holds the inspected fixture
 exclusion. [`source-cloud.ply.gz`](source-cloud.ply.gz) contains the untouched
 scan, and [`observed-surface.ply.gz`](observed-surface.ply.gz) retains the open,
-unfilled measured surface. [`measure_scan.py`](measure_scan.py),
-[`derive_profiles.py`](derive_profiles.py) and [`scan_tools.py`](scan_tools.py)
+unfilled measured surface. [`measure_scan.py`](https://github.com/derekbreden/homesodamachine/blob/a518a57a878f02d9ac5b8b638c1c5883cadf6669/hardware/reference/jg-pp0308e-elbow/measure_scan.py),
+[`derive_profiles.py`](https://github.com/derekbreden/homesodamachine/blob/a518a57a878f02d9ac5b8b638c1c5883cadf6669/hardware/reference/jg-pp0308e-elbow/derive_profiles.py) and [`scan_tools.py`](https://github.com/derekbreden/homesodamachine/blob/a518a57a878f02d9ac5b8b638c1c5883cadf6669/hardware/reference/jg-pp0308e-elbow/scan_tools.py)
 read those observations. The sampled profiles are evidence for the nominal
 surface, rather than a separate geometry recipe.
 
@@ -38,8 +38,7 @@ the scan evidence.
 
 ## Interface scope
 
-[`elbow.py`](elbow.py) supplies the existing `port()`, `stations()` and optional
-native-CAD reader interfaces. The release-face datums and nominal tube diameter
+The release-face datums and nominal tube diameter retained in the reference
 remain the interface constraints. Socket insertion depth, internal stops, seals,
 gripping teeth and release travel are unmeasured. The tube corridors establish
 layout clearance without an insertion stop or internal mechanism.
@@ -49,7 +48,7 @@ layout clearance without an insertion stop or internal mechanism.
 Run the Rust reference author from the repository root:
 
 ```sh
-python3 tools/run.py -- cargo run --release --locked -j2 \
+tools/run -- cargo run --release --locked -j2 \
   --manifest-path tools/hsm/Cargo.toml -p hsm-sandbox --example jg-pp0308e-elbow \
   -- hardware/reference/jg-pp0308e-elbow
 ```
@@ -58,3 +57,5 @@ The [archived scan comparison](https://github.com/derekbreden/homesodamachine/bl
 and [archived preview](https://github.com/derekbreden/homesodamachine/blob/a78cf15ba5f85762e6ecaef94c03181b25ee272b/hardware/reference/jg-pp0308e-elbow/model-preview.png)
 retain the observation record for the geometry identified by their artifact
 hashes. They are historical evidence rather than current model validation.
+
+The source derivations are preserved at their recorded revision: [elbow.py](https://github.com/derekbreden/homesodamachine/blob/a518a57a878f02d9ac5b8b638c1c5883cadf6669/hardware/reference/jg-pp0308e-elbow/elbow.py).

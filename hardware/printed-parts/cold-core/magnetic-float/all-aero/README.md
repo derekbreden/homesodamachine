@@ -121,9 +121,9 @@ submission.
 ## Rebuild
 
 ```sh
-python3 tools/run.py -- bazel build //:all-aero-float
-python3 tools/run.py -- cargo build --release --locked -j 2 --manifest-path tools/hsm/Cargo.toml -p hsm-print-prep --bin aero-float-print-project
-python3 tools/run.py -- tools/hsm/target/release/aero-float-print-project
+tools/run -- bazel build //:all-aero-float
+tools/run -- cargo build --release --locked -j 2 --manifest-path tools/hsm/Cargo.toml -p hsm-print-prep --bin aero-float-print-project
+tools/run -- tools/hsm/target/release/aero-float-print-project
 ```
 
 A future print preparation uses `aero-float-print-project` and requires review of the

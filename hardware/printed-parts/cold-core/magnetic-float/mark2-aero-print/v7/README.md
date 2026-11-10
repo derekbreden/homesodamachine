@@ -83,6 +83,6 @@ The material recipe is held constant for this path-layout trial.
 ![Native wall paths and remaining moves](path-preview.png)
 
 - [Queue and launch conditions](queue.json)
-- [Native preparation and path verifier](prepare.py)
+- [Native preparation and path verifier](https://github.com/derekbreden/homesodamachine/blob/e50eb3e4372a4d5b70248795469c02ed8d51d2d3/hardware/printed-parts/cold-core/magnetic-float/mark2-aero-print/v7/prepare.py)
 - [Core native preview](core-preview.png)
 - [Insert native preview](insert-preview.png)

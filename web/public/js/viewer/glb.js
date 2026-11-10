@@ -1,5 +1,5 @@
 // GLB-format module. Loads a glTF-binary assembly (the board's 3D model,
-// board body + placed component meshes — see hardware/pcb/pcba/board-3d.py)
+// board body + placed component meshes — see tools/hsm/pcb-tools)
 // into the shared Three.js scene via GLTFLoader and lays the green-soldermask
 // face textures (board-texture.ts) over the board slab. Materials + colors are
 // baked in the GLB; no occt parse.
@@ -18,7 +18,7 @@ function parseGlb(buffer) {
   return new Promise((resolve, reject) => loader.parse(buffer, "", resolve, reject));
 }
 
-// RWGltf writes the board Z-up (board plane in X-Y, faces at ±z) — the scene's
+// The board model is Z-up (board plane in X-Y, faces at ±z) — the scene's
 // convention already, so no reorientation. The group is just a handle scene.add
 // and teardown operate on.
 function toZupGroup(gltf) {

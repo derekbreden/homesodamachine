@@ -7,49 +7,54 @@ sent, and answer questions about a whole part rather than a chosen window of it.
 
 | Question | Tool |
 |---|---|
-| Where does the main exterior seam sit, over the part's whole height? | `seams.py` |
-| What speed is commanded at this place on the outer wall, layer by layer? | `speeds.py` |
-| Show it, the way Bambu Studio's slice preview does | `view.py seams` or `view.py speed`, published as an Artifact |
+| Where does the main exterior seam sit, over the part's whole height? | `hsm-gcode seams` |
+| What speed is commanded at this place on the outer wall, layer by layer? | `hsm-gcode speeds` |
+| Show the commanded walls with seam markers or speed colours | `hsm-gcode view seams` or `hsm-gcode view speed` |
 
 ```bash
-tools/cad-venv/bin/python tools/gcode/seams.py SLICE.gcode.3mf PRINT.json --part industrial-shell-base --project PROJECT.3mf
+hsm-gcode seams SLICE.gcode.3mf PRINT.json --part industrial-shell-base --project PROJECT.3mf
 ```
 
 ```bash
-python3 tools/gcode/speeds.py SLICE.gcode.3mf --layers 26-33 --at leftmost
+hsm-gcode speeds SLICE.gcode.3mf --layers FIRST-LAST --at leftmost
 ```
 
 ```bash
-tools/cad-venv/bin/python tools/gcode/view.py speed "A=FIRST.gcode.3mf" "B=SECOND.gcode.3mf" --mark-layers 26-33 --at leftmost --view left --title "Elbow lip speeds" --out PAGE.html
+hsm-gcode view speed "A=FIRST.gcode.3mf" "B=SECOND.gcode.3mf" --mark-layers FIRST-LAST --at leftmost --view left --title "Elbow lip speeds" --out PAGE.html
 ```
 
 `PRINT.json` is the `*.print.json` a preparer writes beside its project. It supplies the part's
-identify ID and its pose on the plate, so seams are measured in the part's own CAD frame. Pages
-go in a scratchpad. Look at one with `node tools/viz/shot.mjs PAGE.html PAGE.png` before
-publishing it.
+identify ID and its pose on the plate, so seams are measured in the part's own CAD frame.
+`--csv` retains each seam reading and `--json` saves the summary. The speed command's
+`--json` retains its layer readings. A plain `.gcode` file is also accepted.
+
+`view seams` accepts `--compare "label=SLICE:PRINT.json"` to overlay another slice in the
+selected part's frame, `--project` to show its seam-enforcer paint and `--frame-z` to focus
+the view. Both view commands write an HTML page at `--out`. Keep pages in a scratch run
+and inspect them when the current question needs a picture.
 
 ## Reading rules
 
-[`toolpaths.py`](toolpaths.py) holds them, and every tool here reads through it.
+[`gcode.rs`](../hsm/inspection/src/gcode.rs) holds them, and every command reads through it.
+The rich run reader shares the native print preparation's word lexer and archive reader.
+Ordinary bead and support reviews use their existing deposited-road representation.
 
 - A run is one continuous extrusion path of a layer and object. A travel, a retraction, a layer
   change, an object change or a feature outside the set ends it.
-- Feed-only lines (`G1 F876`), `M204` and the switch between "Outer wall" and "Overhang wall"
+- Feed-only commands, acceleration changes and the switch between "Outer wall" and "Overhang wall"
   happen mid-perimeter, so they do not end a run.
-- A move with an E word extrudes, even when Bambu rounds that E to `E0`, and continues the run
-  whatever its length. Bambu writes `E0` where a scarf ramp reaches full height, which would
-  otherwise read as a second seam at the ramp's end. It also writes `E0` along tails that taper
-  to no flow, some 0.40 mm long. Travels carry no E word. An E-less move of 0.02 mm or less in
-  the plane, rising no more than 0.002 mm, is a numerical hop and continues the run too.
+- A nonnegative E-word move continues the commanded wall path even when Bambu rounds its
+  extrusion to `E0`. Scarf ramps and tails can carry that rounded value. Travels carry no
+  E word; numerical E-less hops within the decoder's tolerance continue the current run.
 - Feed is modal. A move carries the last F before it, so a wall setting does not fix every wall
   move's speed. Overhang speeds and the cooling slowdown replace it on the moves they cover, and
   those moves can still be labelled "Outer wall".
 - Bambu extrudes holes counter-clockwise too. A layer's exterior is its largest-area loop.
 - A loop's first point is its seam start, the bottom of a scarf ramp. Its last point is the end
   of the scarf overlap.
-- A place is found by geometry on each layer: a crossing of the part's CAD X = 0 plane, an
+- A place is found by geometry on each layer: a crossing of the part's CAD centre plane, an
   extreme point, or the point nearest a plate X,Y. It is never a guess at which run is which.
-- Layers are numbered from 1, as Bambu Studio's layer slider numbers them.
+- Layer numbering follows Bambu Studio's layer slider.
 - Enforcer paint is read from the selected part's mesh member, using that part's
   pose. Other painted parts in a project are not mixed into its paint geometry.
 
@@ -60,15 +65,10 @@ the exposed main-body seam. The faucet's
 retains every exterior run and distinguishes those features from its rear show
 surfaces.
 
-## Known readings
+## Recorded readings
 
-To check a change to the reader, run it against these slices and compare:
-
-| Slice | Reading |
-|---|---|
-| `hardware/printed-parts/faucet/industrial/prints/2026-10-13-rear-seam-base-only-mark2` | Base seam −1.955 mm at print Z 13.64 (layers 1–64 past 1 mm); +1.556 mm at print Z 61.64 (layers 425–473); 0.45 mm or less above print Z 70 |
-| `hardware/printed-parts/faucet/industrial/prints/2026-10-13-a2-back-mark2` | Base seam 12.278 mm at print Z 163.16 |
-| `hardware/printed-parts/faucet/industrial/prints/2026-10-13-complete-rear-seam-base-tip-mark2` | Base exterior loop at most 0.543 mm over the complete height; the zero-E connector at print Z64.64 remains inside its rear-starting scarf run |
-| `future/pump-elbow-exploration/prints/2026-10-13-compact-single-tpu85a-engineering-z000-mark1` | Leftmost lip, layers 26–33: 14.60–17.60 mm/s |
-| `future/pump-elbow-exploration/prints/2026-10-13-compact-single-tpu85a-outer10-engineering-z000-mark1` | Leftmost lip, layers 26–33: 15.83–21.80 mm/s; the rest of each loop 10.0 mm/s |
-| `future/pump-elbow-exploration/prints/2026-10-13-compact-single-tpu85a-overhang10-engineering-z000-mark1` | Leftmost lip, layers 26–33: 10.00 mm/s |
+The faucet's [shared-reader profiles and CSVs](https://github.com/derekbreden/homesodamachine/tree/f0d1e837bdaa383ecb435e62b88c9e1d6d1cf180/hardware/printed-parts/faucet/industrial/seam-placement/rear-center-v2/shared-reader)
+retain the complete-height loop readings, selected-part paint checks and numerical scarf
+connectors. The pump elbow's [emitted-command record](https://github.com/derekbreden/homesodamachine/blob/f0d1e837bdaa383ecb435e62b88c9e1d6d1cf180/future/pump-elbow-exploration/prints/2026-10-14-compact-single-siraya85a-overhang10-engineering-z000-mark1/emitted-command-review.json)
+binds its reviewed slice and speed reader. Use these records for a focused manual comparison
+when changing the decoder.

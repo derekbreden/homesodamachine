@@ -114,9 +114,7 @@ are excluded: its branch face covers 11 of 36 sectors, and its −Z run reads a 
 rather than a collet. The run collets sit 3–5° off square in most passes; the branch sits
 within 1°.
 
-```sh
-tools/cad-venv/bin/python hardware/reference/jg-pp0208e-tee/analyze_collet_passes.py
-```
+The source derivations are preserved at their recorded revision: [analyze_collet_passes.py](https://github.com/derekbreden/homesodamachine/blob/a518a57a878f02d9ac5b8b638c1c5883cadf6669/hardware/reference/jg-pp0208e-tee/analyze_collet_passes.py).
 
 ## Production consumers
 
@@ -134,18 +132,17 @@ insertion dimension 15.7 mm, widest collar Ø16.3 mm, flow bore Ø4.3 mm and tot
 envelope 27.7 mm. Derek's measured operating depths and run spans remain the mechanism's
 inputs.
 
-`jg_pp0208e_tee.py` is the current illustration builder. Its assumed Ø10.6 root, 8.2–16.3 mm
-collar interval, identical arm steps and Ø9.7 collet are not the measured exterior above.
-Its no-argument interface is consumed by the install-guide artwork. It does not qualify
-production enclosure fit or sleeve motion.
+The [frozen illustration](frozen-asset.json) retains an assumed Ø10.6 root, 8.2–16.3 mm
+collar interval, identical arm steps and Ø9.7 collet. These are not the measured exterior
+above and do not qualify production enclosure fit or sleeve motion.
 
 ## Reproduce the registration
 
-```sh
-tools/cad-venv/bin/python hardware/reference/jg-pp0208e-tee/fit_scan.py
-```
+The source derivations are preserved at their recorded revision: [fit_scan.py](https://github.com/derekbreden/homesodamachine/blob/a518a57a878f02d9ac5b8b638c1c5883cadf6669/hardware/reference/jg-pp0208e-tee/fit_scan.py).
 
 The script rejects a different input digest. It reads the retained PLY directly, selects the
 six stated outer-wall patches, fits an area-weighted robust rigid frame, and writes the
 registration and held-out residuals. It does not infer internal bores, repair the open mesh,
 move a collet or produce a manufacturing tolerance.
+
+The source derivations are preserved at their recorded revision: [jg_pp0208e_tee.py](https://github.com/derekbreden/homesodamachine/blob/a518a57a878f02d9ac5b8b638c1c5883cadf6669/hardware/reference/jg-pp0208e-tee/jg_pp0208e_tee.py).

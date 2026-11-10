@@ -27,7 +27,7 @@ cap sealing and installed float motion remain unassessed for this article.
 
 ## Launch file
 
-[prepare_launch.py](prepare_launch.py) selects plate 1 from the reviewed native
+[prepare_launch.py](https://github.com/derekbreden/homesodamachine/blob/7cf7b55608deefa5f3cae6bb20f83bce14ff706f/hardware/printed-parts/cold-core/reservoir/prints/2026-10-20-mark1-right08/prepare_launch.py) selects plate 1 from the reviewed native
 two-plate archive and makes a print-only copy. [Packaging](packaging.json) binds
 the hashes and confirms unchanged native G-code and project settings.
 The launch file is

@@ -1,82 +1,14 @@
-//! Declared generator inputs, co-writer groups and retained source copies.
-use anyhow::{Context,Result,bail};
+//! Native producer declarations classify shared outputs and retained authored inputs.
+use anyhow::{Result,bail};
 use serde_json::{Value,json};
 use std::{collections::{BTreeMap,BTreeSet},fs,path::Path,process::Command};
 use crate::{artifacts::names,publication,payload};
 
 fn strings(v:&Value)->Vec<String>{v.as_array().map(|a|a.iter().filter_map(Value::as_str).map(str::to_owned).collect()).unwrap_or_default()}
 
-/// A generated recipe crate's modules: each by name, its file, the Python stub that calls it, and
-/// the modules it loads by name. Its program holds every module, and a step runs only the ones
-/// it reaches, so a step is made from those and not from the rest.
-struct Generated { files:BTreeMap<String,String>, stubs:BTreeMap<String,String>, loads:BTreeMap<String,BTreeSet<String>> }
-
-fn generated_crates(root:&Path)->Vec<Generated> {
-    let path_attr=regex::Regex::new(r#"#\[path\s*=\s*"([^"]+)"\]\s*(?:pub\s+)?mod\s+([A-Za-z_0-9]+)\s*;"#).unwrap();
-    let init_arm=regex::Regex::new(r#""([A-Za-z_0-9.]+)"\s*=>\s*([A-Za-z_0-9]+)::initialize"#).unwrap();
-    let stub_arm=regex::Regex::new(r#""([A-Za-z_0-9.]+)"\s*=>\s*Some\("([^"]+\.py)"\)"#).unwrap();
-    let load=regex::Regex::new(r#"(?:import_module\(|member\()"([A-Za-z_0-9.]+)""#).unwrap();
-    let mut out=Vec::new();
-    let Ok(dirs)=fs::read_dir(root.join("tools/hsm")) else {return out};
-    let mut dirs:Vec<_>=dirs.flatten().map(|d|d.path()).collect();dirs.sort();
-    for dir in dirs {
-        let compiled=dir.join("src/compiled");
-        let Ok(table)=fs::read_to_string(compiled.join("modules.rs")) else {continue};
-        let idents:BTreeMap<String,String>=path_attr.captures_iter(&table).map(|c|(c[2].to_owned(),c[1].to_owned())).collect();
-        let mut files=BTreeMap::new();
-        for c in init_arm.captures_iter(&table) {
-            let(name,ident)=(c[1].to_owned(),c[2].to_owned());
-            let candidates=match idents.get(&ident){Some(file)=>vec![compiled.join(file)],None=>vec![compiled.join(format!("{ident}.rs")),compiled.join("modules").join(format!("{ident}.rs"))]};
-            if let Some(file)=candidates.into_iter().find(|f|f.is_file()) {
-                if let Ok(relative)=file.strip_prefix(root){files.insert(name,relative.to_string_lossy().into_owned());}
-            }
-        }
-        let stubs=stub_arm.captures_iter(&table).map(|c|(c[1].to_owned(),c[2].to_owned())).filter(|(n,_)|files.contains_key(n)).collect();
-        let loads=files.iter().map(|(n,f)|(n.clone(),fs::read_to_string(root.join(f)).map(|t|load.captures_iter(&t).map(|c|c[1].to_owned()).collect()).unwrap_or_default())).collect();
-        out.push(Generated{files,stubs,loads});
-    }
-    out
-}
-
-/// Drop from a Python step's reads the modules of a generated crate it cannot reach: from the
-/// stubs it read and the modules its Python names, along the modules each loads by name. A step
-/// that names none of a crate's modules keeps them all.
-fn prune_modules(reads:&mut BTreeSet<String>,crates:&[Generated],root:&Path) {
-    let called=regex::Regex::new(r#"(?:_compiled|_member|_RustModule)\(['"]([A-Za-z_0-9.]+)['"]"#).unwrap();
-    let python:Vec<String>=reads.iter().filter(|r|r.ends_with(".py")).filter_map(|r|fs::read_to_string(root.join(r)).ok()).collect();
-    for krate in crates {
-        let modules:BTreeSet<&String>=krate.files.values().collect();
-        if !reads.iter().any(|r|modules.contains(r)){continue;}
-        let mut todo:Vec<String>=krate.stubs.iter().filter(|(_,stub)|reads.contains(*stub)).map(|(n,_)|n.clone()).collect();
-        for text in &python {for c in called.captures_iter(text){if krate.files.contains_key(&c[1]){todo.push(c[1].to_owned());}}}
-        if todo.is_empty(){continue;}
-        let mut reached=BTreeSet::new();
-        while let Some(name)=todo.pop() {
-            if !reached.insert(name.clone()){continue;}
-            for next in krate.loads.get(&name).into_iter().flatten(){if krate.files.contains_key(next)&&!reached.contains(next){todo.push(next.clone());}}
-        }
-        let keep:BTreeSet<&String>=reached.iter().filter_map(|n|krate.files.get(n)).collect();
-        reads.retain(|r|!modules.contains(r)||keep.contains(r));
-    }
-}
 pub fn inert(path:&str,config:&Value)->bool {
     let path=path.to_lowercase();strings(&config["inert_suffixes"]).iter().any(|s|path.ends_with(s))
         ||names(&config["inert_basenames"]).contains(path.rsplit('/').next().unwrap_or(""))
-}
-pub fn one_tree(path:&str,roots:&[String],read:bool,config:&Value)->bool {
-    roots.iter().any(|r|path.starts_with(r))||read&&(names(&config["flute_shared"]).contains(path)||!strings(&config["flute_trees"]).iter().any(|r|path.starts_with(r)))
-}
-pub fn split(graph:&Value,config:&Value)->Value {
-    let mut graph=graph.as_object().cloned().unwrap_or_default();
-    if let Some(source)=graph.remove("hardware/scripts/flute_payload.py") {
-        if let Some(wrappers)=config["flute_roots"].as_object(){for(wrapper,roots)in wrappers {
-            let roots=strings(roots);let mut row=serde_json::Map::new();
-            for side in ["reads","writes","rewritten"] {
-                let paths=strings(&source[side]).into_iter().filter(|p|one_tree(p,&roots,side=="reads",config)).collect::<Vec<_>>();
-                row.insert(side.into(),json!(paths));
-            }graph.insert(wrapper.clone(),Value::Object(row));
-        }}
-    }Value::Object(graph)
 }
 
 pub fn pinned(root:&Path,files:&BTreeSet<String>)->Result<BTreeSet<String>> {
@@ -95,20 +27,20 @@ pub fn pinned(root:&Path,files:&BTreeSet<String>)->Result<BTreeSet<String>> {
     }Ok(out)
 }
 fn truthy(v:&Value)->bool {match v {Value::Null=>false,Value::Bool(v)=>*v,Value::String(s)=>!s.is_empty(),Value::Number(n)=>n.as_f64()!=Some(0.),Value::Array(v)=>!v.is_empty(),Value::Object(v)=>!v.is_empty()}}
-fn git(root:&Path,args:&[&str])->Result<Vec<String>> {
-    let output=Command::new("git").arg("-C").arg(root).args(args).output()?;
+fn git_paths(root:&Path,args:&[&str])->Result<Vec<String>> {
+    let output=Command::new("git").arg("-C").arg(root).args(["ls-files", "-z"]).args(args).output()?;
     anyhow::ensure!(output.status.success(),"git: {}",String::from_utf8_lossy(&output.stderr));
-    Ok(String::from_utf8(output.stdout)?.split_whitespace().map(str::to_owned).collect())
+    Ok(String::from_utf8(output.stdout)?.split('\0').filter(|path|!path.is_empty()).map(str::to_owned).collect())
 }
 pub fn tracked(root:&Path,config:&Value,publication_config:&Value)->Result<BTreeSet<String>> {
-    let mut files:BTreeSet<_>=git(root,&["ls-files"])?.into_iter().collect();
+    let mut files:BTreeSet<_>=git_paths(root,&[])?.into_iter().collect();
     files.extend(publication::solids(root,publication_config)?);
     if let Some(pointer)=fs::read(root.join("hardware/cad-artifacts.json")).ok().and_then(|b|serde_json::from_slice::<Value>(&b).ok()) {
         if let Some(members)=pointer["solids"].as_object(){files.extend(members.keys().cloned());}
     }
     if let Some(entries)=config["implicit_solids"].as_object(){for paths in entries.values(){files.extend(names(paths));}}
     files.extend(publication::frozen_assets(root)?.into_keys());
-    files.extend(git(root,&["ls-files","--others","--ignored","--exclude-standard","--","hardware/*.step.npz","hardware/*.scene.npz"])?);
+    files.extend(git_paths(root,&["--others","--ignored","--exclude-standard","--","hardware/*.step.npz","hardware/*.scene.npz"])?);
     files.retain(|p|!inert(p,config));Ok(files)
 }
 
@@ -127,9 +59,9 @@ pub fn together(writes:&BTreeMap<String,BTreeSet<String>>)->Vec<Vec<String>> {
     out.into_values().collect()
 }
 
-pub fn inventory(root:&Path,graph:&Value,mut files:BTreeSet<String>,config:&Value)->Result<Value> {
-    let generated=generated_crates(root);
+pub fn inventory(_root:&Path,graph:&Value,mut files:BTreeSet<String>,config:&Value)->Result<Value> {
     let Some(rows)=graph.as_object() else {return Ok(json!([]));};
+    for (generator,row) in rows { if row.get("program").is_none() { bail!("{generator} has no native program declaration; register its Rust producer with hsm-build-plan trace-inputs"); } }
     let stale=rows.iter().filter(|(_,v)|v.get("rewritten").is_none()).map(|(name,_)|name.clone()).collect::<Vec<_>>();
     let mut graph=serde_json::Map::new();
     for(generator,row)in rows {
@@ -139,36 +71,31 @@ pub fn inventory(root:&Path,graph:&Value,mut files:BTreeSet<String>,config:&Valu
     }
     let orphaned=graph.keys().filter(|g|!files.contains(*g)).cloned().collect::<Vec<_>>();
     if !orphaned.is_empty(){bail!("  {} build-graph generator(s) are absent from the tree — {} among them. Re-trace the renamed generator or remove its stale graph entry.",orphaned.len(),orphaned[0]);}
-    let graph=split(&Value::Object(graph),config);let graph=graph.as_object().unwrap();
-    if let Some(wrappers)=config["flute_roots"].as_object(){files.extend(wrappers.keys().cloned());}
     files.extend(graph.values().flat_map(|row|names(&row["writes"])));
     if let Some(entries)=config["implicit_solids"].as_object(){files.extend(entries.values().flat_map(names));}
     let ghosts=graph.iter().map(|(g,row)|(g.clone(),names(&row["reads"]).difference(&files).cloned().collect::<Vec<_>>())).filter(|(_,bad)|!bad.is_empty()).collect::<BTreeMap<_,_>>();
     if let Some((generator,bad))=ghosts.first_key_value() {
         bail!("  {} declared read(s) across {} generator(s) name a file\n  the tree does not hold and no rule writes — {}, read by {},\n  among them. Drop the read if what wrote it is gone, or declare the writer.",ghosts.values().map(Vec::len).sum::<usize>(),ghosts.len(),bad[0],Path::new(generator).file_name().unwrap_or_default().to_string_lossy());
     }
-    if !stale.is_empty(){bail!("  {} generator(s) were traced before a run said which of its writes it\n  read back — {} among them. Re-trace those:\n    tools/cad-venv/bin/python tools/bazel/trace_inputs.py \\\n{}",stale.len(),Path::new(&stale[0]).file_name().unwrap_or_default().to_string_lossy(),stale.iter().map(|g|format!("      {g}")).collect::<Vec<_>>().join(" \\\n"));}
+    if !stale.is_empty(){bail!("producer {} lacks rewritten-output classification; run hsm-build-plan trace-inputs {}",stale[0],stale.join(" "));}
     let mut writes=BTreeMap::new();
-    for(generator,row)in graph {
+    for(generator,row)in &graph {
         if !files.contains(generator){continue;}
         let mut targets=names(&row["writes"]);targets.extend(names(&config["implicit_solids"][generator]));
         if !targets.is_empty(){writes.insert(generator.clone(),targets);}
     }
     let mut output=Vec::new();
     for generators in together(&writes) {
-        // The job runner's files are not what any step is made from: a Python step copies the
-        // checkout's current ones into its folder when it runs, and a Rust step holds none.
         let program=generators.iter().find_map(|g|rows.get(g).and_then(|row|row.get("program")).cloned());
+        if generators.iter().any(|generator| rows[generator].get("program") != program.as_ref()) {
+            bail!("co-writers {} declare different native programs; each native producer must own its outputs", generators.join(", "));
+        }
         let mut reads=BTreeSet::new();
         let mut rewritten=BTreeSet::new();let mut targets=BTreeSet::new();
         for generator in &generators {
             reads.extend(names(&graph[generator]["reads"]).intersection(&files).cloned());
             rewritten.extend(names(&graph[generator]["rewritten"]).intersection(&files).cloned());
             targets.extend(writes[generator].iter().cloned());
-        }
-        if program.is_none(){
-            for runner in names(&config["runtime_reads"]).union(&names(&config["rust_runtime_reads"])){reads.remove(runner);}
-            prune_modules(&mut reads,&generated,root);
         }
         let(docs,solids):(Vec<_>,Vec<_>)=targets.into_iter().partition(|p|rewritten.contains(p));
         let mut made=json!({"solids":solids,"docs":docs,"reads":reads});
@@ -178,21 +105,73 @@ pub fn inventory(root:&Path,graph:&Value,mut files:BTreeSet<String>,config:&Valu
     Ok(json!(output))
 }
 
-pub fn dispatch(v:&Value)->Result<Option<Value>> {
-    let text=|key:&str|v[key].as_str().with_context(||format!("{key} is text"));
-    let result=match text("op")? {
-        "inventory-inert"=>json!(inert(text("path")?,&v["config"])),
-        "inventory-one-tree"=>json!(one_tree(text("path")?,&strings(&v["roots"]),v["read"]==true,&v["config"])),
-        "inventory-split"=>split(&v["graph"],&v["config"]),
-        "inventory-pinned"=>json!(pinned(Path::new(text("root")?),&names(&v["files"]))?),
-        "inventory-tracked"=>json!(tracked(Path::new(text("root")?),&v["config"],&v["publication_config"])?),
-        "inventory-together"=>json!(together(&serde_json::from_value(v["writes"].clone())?)),
-        "inventory"=>{
-            let root=Path::new(text("root")?);
-            let graph=fs::read(Path::new(text("graph_path")?)).ok().and_then(|b|serde_json::from_slice::<Value>(&b).ok());
-            let Some(graph)=graph else{return Ok(Some(json!([])));};
-            inventory(root,&graph,names(&v["files"]),&v["config"])?
-        },
-        _=>return Ok(None),
-    };Ok(Some(result))
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    fn native(reads: &[&str], writes: &[&str], rewritten: &[&str]) -> Value {
+        json!({"reads": reads, "writes": writes, "rewritten": rewritten,
+            "program": {"crate":"part", "name":"part", "sources":["part.rs"], "runtime_inputs":["Cargo.toml"]}})
+    }
+
+    #[test]
+    fn native_inventory_preserves_program_and_authored_rewrites() {
+        let graph = json!({"part.rs":native(&["part.rs", "Cargo.toml", "guide.md"], &["part.stl", "guide.md"], &["guide.md"])});
+        let files = ["part.rs", "Cargo.toml", "guide.md"].map(str::to_owned).into();
+        let result = inventory(Path::new("/absent"), &graph, files, &json!({})).unwrap();
+        assert_eq!(result[0][1]["solids"], json!(["part.stl"]));
+        assert_eq!(result[0][1]["docs"], json!(["guide.md"]));
+        assert_eq!(result[0][1]["program"], graph["part.rs"]["program"]);
+    }
+
+    #[test]
+    fn native_inventory_rejects_undeclared_programs() {
+        let graph = json!({"part.rs":{"reads":[], "writes":["part.stl"], "rewritten":[]}});
+        let error = inventory(Path::new("/absent"), &graph, ["part.rs".to_owned()].into(), &json!({})).unwrap_err();
+        assert!(error.to_string().contains("no native program declaration"));
+    }
+
+    #[test]
+    fn co_writers_share_their_inputs_and_outputs() {
+        let graph = json!({
+            "a.rs":native(&["a.rs"], &["shared.stl"], &[]),
+            "b.rs":native(&["b.rs"], &["shared.stl", "b.stl"], &[])
+        });
+        let result = inventory(Path::new("/absent"), &graph, ["a.rs", "b.rs"].map(str::to_owned).into(), &json!({})).unwrap();
+        assert_eq!(result.as_array().unwrap().len(), 1);
+        assert_eq!(result[0][0], json!(["a.rs", "b.rs"]));
+        assert_eq!(result[0][1]["solids"], json!(["b.stl", "shared.stl"]));
+        assert_eq!(result[0][1]["reads"], json!(["a.rs", "b.rs"]));
+    }
+
+    #[test]
+    fn differing_co_writer_programs_cannot_omit_a_producers_outputs() {
+        let mut graph = json!({
+            "a.rs":native(&["a.rs"], &["shared.stl"], &[]),
+            "b.rs":native(&["b.rs"], &["shared.stl", "b.stl"], &[])
+        });
+        graph["b.rs"]["program"]["name"] = json!("other-producer");
+        let error = inventory(Path::new("/absent"), &graph, ["a.rs", "b.rs"].map(str::to_owned).into(), &json!({})).unwrap_err();
+        assert!(error.to_string().contains("different native programs"));
+    }
+
+    #[test]
+    fn nul_listings_preserve_spaces_and_ignored_payload_paths() {
+        struct Temporary(std::path::PathBuf);
+        impl Drop for Temporary { fn drop(&mut self) { let _ = fs::remove_dir_all(&self.0); } }
+        let directory = Path::new(env!("CARGO_MANIFEST_DIR")).join("../../../.cache/runs");
+        let stamp = std::time::SystemTime::now().duration_since(std::time::UNIX_EPOCH).unwrap().as_nanos();
+        let fixture = Temporary(directory.join(format!("inventory-path-fixture-{}-{stamp}", std::process::id())));
+        fs::create_dir_all(fixture.0.join("hardware/nested")).unwrap();
+        fs::write(fixture.0.join(".gitignore"), "*.scene.npz\n*.step.npz\n").unwrap();
+        fs::write(fixture.0.join("part with spaces.rs"), "fn main() {}\n").unwrap();
+        fs::write(fixture.0.join("hardware/nested/first.scene.npz"), "scene").unwrap();
+        fs::write(fixture.0.join("hardware/second.step.npz"), "step").unwrap();
+        for args in [vec!["init", "-q"], vec!["add", "--", ".gitignore", "part with spaces.rs"]] {
+            assert!(Command::new("git").arg("-C").arg(&fixture.0).args(args).status().unwrap().success());
+        }
+        assert_eq!(git_paths(&fixture.0, &[]).unwrap(), [".gitignore", "part with spaces.rs"]);
+        assert_eq!(git_paths(&fixture.0, &["--others", "--ignored", "--exclude-standard", "--", "hardware/*.step.npz", "hardware/*.scene.npz"]).unwrap(),
+            ["hardware/nested/first.scene.npz", "hardware/second.step.npz"]);
+    }
 }

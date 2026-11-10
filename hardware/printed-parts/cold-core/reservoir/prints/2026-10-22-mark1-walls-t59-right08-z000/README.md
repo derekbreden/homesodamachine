@@ -77,9 +77,14 @@ despite saved conditional scarf controls.
 [Path reading and proposed next trial](physical-result/wall-junction-review.json) ·
 [Wall-path comparison](physical-result/wall-paths.png).
 
+The [recorded wall-path source](https://github.com/derekbreden/homesodamachine/blob/a518a57a878f02d9ac5b8b638c1c5883cadf6669/hardware/printed-parts/cold-core/reservoir/prints/2026-10-22-mark1-walls-t59-right08-z000/physical-result/review_wall_paths.py)
+defines the saved commanded-path comparison.
+
 The 59° setting has no demonstrated sealing benefit for this article. The
 smaller nominal XY pocket metric did not predict a successful water hold.
 The proposed next screen restores **10°**, retains walls-only, and tests
 **1.05 flow** on the actual floor/lower-wall geometry. This is a proposed
 physical extrusion trial; the saved project remains the identified failed
 59° / 1.02 recipe. No subsequent print has been started.
+
+The [recorded packaging source](https://github.com/derekbreden/homesodamachine/blob/7cf7b55608deefa5f3cae6bb20f83bce14ff706f/hardware/printed-parts/cold-core/reservoir/prints/2026-10-22-mark1-walls-t59-right08-z000/prepare_launch.py) selects the reviewed plate and preserves its native G-code.

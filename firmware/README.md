@@ -109,7 +109,7 @@ for the length of a run.
 ## A user's own pictures
 
 Eight faces a channel can wear. The low four are the factory faces: they sit in the
-image store's lower four slots, laid out by [`tools/make_logos.py`](/tools/make_logos.py)
+image store's factory slots, laid out by [`hsm-marketing make-logos`](/tools/hsm/marketing/src/art.rs)
 and written by a firmware update (`OTA_KIND_LOGOS`), never by the owner, so a machine
 whose owner deleted everything they added still has four. The high four are theirs,
 and only ever arrive from a phone.
@@ -289,7 +289,7 @@ partition holding the loading animation, erased and rewritten in place, verified
 | `self` | `appliance` | 768 KB | J3, or the console |
 | `faucet` | `esp32s3_faucet` | 3 MB | BLE, or J3 from the console |
 | `enclosure` | `esp32s3_front` | 2.5 MB | J9 |
-| `art` | `tools/make_art.py enclosure` | 4 MB | J9 |
+| `art` | `hsm-marketing make-art enclosure` | generated from the frame headers | J9 |
 
 **The machine display goes dark while it writes.** Its scan-out DMA refills a bounce buffer
 from PSRAM, a flash write suspends the cache PSRAM is reached through, and the refill then
@@ -303,19 +303,19 @@ percentage.
 
 ### Where the images come from
 
-[`tools/publish_firmware.py`](/tools/publish_firmware.py) builds every image, packs one
+[`hsm-publish-firmware`](/tools/hsm/publication/README.md) builds requested images, packs one
 content-addressed release asset and points main at it in
 [`firmware/firmware-images.json`](firmware-images.json) — each image by target, `FW_VERSION`, size,
 the crc32 `MSG_OTA_BEGIN` promises, and a sha256. `web/scripts/fetch-firmware.mjs` puts the bytes
 on the deploy's disk and `/api/firmware` serves the manifest; `render.yaml` names the pointer file in its
-build filter, so publishing firmware deploys the site the way a geometry publish does.
+build filter; committing the firmware pointer deploys the site.
 
-The version string is the board's own: `pre_build.py` writes `FW_VERSION` into each tree from
+The version string is the board's own: `hsm-peripheral firmware-pre-build` writes `FW_VERSION` into each tree from
 HEAD's date and short SHA, the board reports that string, and the manifest carries the same one.
 
 **What a person reads and what the phone compares are two fields.** A date is as fine as a
 string a screen has room for, and two builds made on one day are not ordered by one — so
-`pre_build.py` stamps `FW_BUILD_EPOCH` beside it, HEAD's commit time, and that is the only
+`hsm-peripheral firmware-pre-build` stamps `FW_BUILD_EPOCH` beside it, HEAD's commit time, and that is the only
 field an update is decided by. It travels in `VersionPayload` and in the manifest, leaving the
 string free to stay readable. Which of two builds is newer is the question that has to be right:
 the phone is the only place a machine can be refused its own past, because the receiver holds the
@@ -324,22 +324,22 @@ end predates the field it reads as "did not say", and the dates in the strings a
 which cannot separate two builds made on one day, so neither is offered over the other.
 
 ```bash
-~/.platformio/penv/bin/python tools/publish_firmware.py --write
+tools/run -- hsm-publish-firmware --write
 ```
 
 ## The bench path
 
-`tools/ota.py` pushes through the main board's USB console — the same relay, with the console as
+`hsm-peripheral ota` pushes through the main board's USB console — the same relay, with the console as
 the source instead of J3:
 
 ```bash
-~/.platformio/penv/bin/python tools/ota.py enclosure
+hsm-peripheral ota enclosure
 ```
 
 Targets are `self`, `faucet`, `enclosure` and `art`; `pio run -e <env>` first. The console runs
 at 500000 for the duration of a session and drops back when it ends.
 
-`tools/boards.py` names each S3 on sight — every one reports its MAC as its USB serial number.
+`hsm-peripheral boards` names each S3 on sight — every one reports its MAC as its USB serial number.
 
 ## The bench, from the shell
 
@@ -348,13 +348,13 @@ the glass.
 
 - **The main board's console** — `status`, `pump <a|b> [ms]`, `ui <page> [a|b] [go]`, `test`,
   `wake`, `selftest` and the rest — is in [`src_appliance/README.md`](src_appliance/README.md).
-  Opening its CH340 port restarts the board; [`tools/panelcam-console.py`](/tools/panelcam-console.py)
+  Opening its CH340 port restarts the board; [`hsm-peripheral panelcam-console`](/tools/hsm/peripheral/src/serials.rs)
   waits out the restart and sends one line.
 - **The machine display's own console**, on its native USB, runs the pads' handlers without a
   finger — `PRIME:START:<1|2>` / `PRIME:STOP`, `FILL:START:<1|2>`, `CLEAN:START:<1|2>` — and
-  starts the dry cycle with `AIR:DRY` ([`src_front/README.md`](src_front/README.md)). [`tools/firmware_live_check.py`](/tools/firmware_live_check.py)
+  starts the dry cycle with `AIR:DRY` ([`src_front/README.md`](src_front/README.md)). [`hsm-peripheral firmware-live-check`](/tools/hsm/peripheral/src/live.rs)
   runs the live checks through that port and never opens the main board's; `--prime a|b` holds
-  Prime for one second. [`tools/firmware_faucet_check.py`](/tools/firmware_faucet_check.py)
+  Prime for one second. [`hsm-peripheral firmware-faucet-check`](/tools/hsm/peripheral/src/live.rs)
   checks the faucet display through its own native USB and drives nothing
   ([`test/README.md`](test/README.md)).
 - **The camera** is [`tools/panelcam.sh`](/tools/panelcam.sh): `shot front` photographs the
@@ -365,22 +365,22 @@ the glass.
 ## Building and Flashing
 
 Every environment in [`/platformio.ini`](/platformio.ini) builds with `pio run -e <env>` and
-flashes with `-t upload`. `firmware/pre_build.py` runs first on the four that report a build
-ID, stamping `fw_version.h` from the git rev so a board says which commit it was built from.
+flashes with `-t upload`. `firmware/pre_build.py` passes the SCons environment to
+`hsm-peripheral firmware-pre-build`, which stamps `fw_version.h` from the Git revision.
 `weld_rotator` names no pre-build script and reports none.
 
 **With more than one board on USB, name the port.** PlatformIO picks one otherwise, and it picks the S3 — esptool opens that port, drops the display into download mode, and only then fails on the chip id, leaving the panel dark until it is reflashed ([`/hardware/pcb/pcba/bench-log.md`](/hardware/pcb/pcba/bench-log.md)).
 
-[`tools/boards.py`](/tools/boards.py) says which board is on which port and prints the commands with the ports already filled in. It only enumerates — it never opens a port, because opening one drives the main board's Q2/Q3 auto-reset lattice and reboots it.
+[`hsm-peripheral boards`](/tools/hsm/peripheral/src/serials.rs) says which board is on which port and prints the commands with the ports already filled in. It only enumerates — it never opens a port, because opening one drives the main board's Q2/Q3 auto-reset lattice and reboots it.
 
 ```bash
-~/.platformio/penv/bin/python tools/boards.py
+hsm-peripheral boards
 ```
 
 **An externally-powered machine display can explicitly reattach to USB without cycling the machine.** J9 is `[B, A, GND, V12]`, and `J9.V12` runs straight to the V12 island with no relay, so firmware cannot drop display power. Instead, the development command below asks a running display to put its USB Serial/JTAG PHY into deep sleep for 500 ms; timer wake then presents a real USB detach/attach.
 
 ```bash
-~/.platformio/penv/bin/python tools/display_usb.py
+hsm-peripheral display-usb
 ```
 
 The command is explicit development control and is never sent by a production boot path. It finishes by observing the old USB attachment disappear, opening the re-enumerated display and requiring a `VERSION:ENCLOSURE=...` reply. If it reports `UNREACHABLE`, the installed display image is too old or the display is not answering on J9; that one boot still needs the physical RESET button or a V12 power cycle before the current image can be flashed.
@@ -411,7 +411,7 @@ Both go over a plain USB-C cable into J14; the on-board CH340B bridges and Q2/Q3
 
 The loading animation is not in that board's firmware image — it is 3.96 MB in
 the `art` partition, built from the same `src_front/images/anim_NN.h` headers by
-[`tools/make_art.py`](/tools/make_art.py), which `pre_build.py` runs
+`hsm-marketing make-art`, which the native firmware preparer runs
 for this environment. `esp_partition_mmap` hands LVGL a pointer into it, so it
 renders straight out of flash at no RAM cost, exactly as compiled-in `.rodata`
 did — it just stops riding along in every update of code that never touches it.
@@ -426,7 +426,7 @@ logo; `ART` on its console says what is there and `ART:VERIFY` walks the CRC.
 Over the link instead, with only the main board on USB:
 
 ```bash
-~/.platformio/penv/bin/python tools/ota.py art
+hsm-peripheral ota art
 ```
 
 ### Flash the ESP32-S3 (4.3B machine display)
@@ -441,7 +441,7 @@ pio run -e esp32s3_front -t upload
 plug first, so what the glass shows is the display's alone. The display's VBUS pad
 is SIG-6 C1, which lands on J3's V5: with the plug in, the display's USB reaches the
 main board's 5 V rail through the ribbon, and powers the main board when its own
-supply is off. Name the port `tools/boards.py` gives it.
+supply is off. Name the port `hsm-peripheral boards` gives it.
 
 ```bash
 PLATFORMIO_UPLOAD_PORT=/dev/cu.usbmodem101 pio run -e esp32s3_faucet -t upload
@@ -449,12 +449,12 @@ PLATFORMIO_UPLOAD_PORT=/dev/cu.usbmodem101 pio run -e esp32s3_faucet -t upload
 
 **Then its factory logos, over the same USB.** They are not in the firmware. They
 live in the image store's slots 4–7, and a board those slots have never been written
-on draws a plain blue glass for every flavor. `make_logos.py --store` lays the four
+on draws a plain blue glass for every flavor. `hsm-marketing make-logos --store` lays the factory faces
 out as the store holds them and prints where they go; the slots a person fills are
 not in the file, and writing it leaves their pictures as they are.
 
 ```bash
-~/.platformio/penv/bin/python tools/make_logos.py --store -o .pio/build/esp32s3_faucet/logos-store.bin
+hsm-marketing make-logos --store -o .pio/build/esp32s3_faucet/logos-store.bin
 ~/.platformio/penv/bin/python -m esptool --chip esp32s3 --port /dev/cu.usbmodem101 write-flash 0x6d4000 .pio/build/esp32s3_faucet/logos-store.bin
 ```
 
@@ -467,7 +467,7 @@ are the first thing it prints.
 12 V at J10 and USB at J14. The glass lighting is V5 and GND. Once the main board's
 console has printed `[J3 faucet] CONNECTED`, its `link` reads J3 `connected, flavor
 synchronized` with frames arriving; `versions` names the display's build, and a tap
-on the glass changes the main board's `flavor`. Over the link, `tools/ota.py
+on the glass changes the main board's `flavor`. Over the link, `hsm-peripheral ota
 logos-faucet` writes the same four logos.
 
 The [pioarduino platform](https://github.com/pioarduino/platform-espressif32) for Arduino core 3.x, and [LVGL v8.4](https://github.com/lvgl/lvgl) for the UI. The JD9853 panel is driven through the GFX library's ST7789 driver plus a panel-specific init sequence; the AXS5106L touch driver lives in `src_faucet/axs5106l.cpp`. Rotation 0 puts the USB connector down on the faucet mount. Test commands over USB serial (115200 baud): `GET_STATE`, `TOGGLE`, `FLAVOR:n`, `GET_DIAG`, `BL:n` (raw backlight duty), `GET_VERSION`.

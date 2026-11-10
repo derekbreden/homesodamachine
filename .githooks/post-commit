@@ -1,78 +1,32 @@
 #!/bin/sh
-# A SYNC THAT STAGES DURING A PATHSPEC COMMIT LEAVES A GHOST IN THE REAL INDEX.
-#
-# `git commit -- <paths>` runs against a TEMPORARY index (`GIT_INDEX_FILE` points at
-# `.git/next-index-*.lock`). Everything the pre-commit re-derives and stages goes in through
-# that one and IS committed — but the real index is never updated, so it keeps the file's
-# PRE-COMMIT blob. HEAD moves on, the worktree moves with it, and the index alone stays
-# behind. `git status` shows `MM`, and the next bare `git commit` lands that older blob and
-# silently undoes what this commit derived.
-#
-# THE SIGNATURE: the worktree matches HEAD, and the index matches neither. Content somebody
-# staged on purpose and is holding for a later commit does NOT look like this — there the
-# worktree still differs from HEAD, so it is never touched.
-#
-# ONE OTHER THING WEARS IT, and that is why the blob is named before it goes: stage a change,
-# then edit the file back to what HEAD holds. The worktree matches HEAD, the index keeps the
-# staged edit, and this drops it — the index was that edit's only reference. So the hash is
-# printed first. The blob is still in the object store until it is collected, and
-# `git cat-file -p <hash>` reads it back.
+# Land this commit and publish completed outputs through the native commands.
 root=$(git rev-parse --show-toplevel) || exit 0
-
-# A COMMIT MADE INSIDE A REPLAY IS THE PUSH'S OWN. `tools/push.py` replays this tree's commits
-# in a linked worktree with `git cherry-pick`, which runs this hook for each one; the push that
-# started the replay lands the result and publishes from the main tree. Nothing below is for a
-# replay tree — least of all a publish, which would pack a checkout that holds no solids.
 [ -n "$HSM_PUSHING" ] && exit 0
 [ "$(git rev-parse --git-dir)" != "$(git rev-parse --git-common-dir)" ] && exit 0
 
-_ghosts=$(git -C "$root" diff --cached --name-only HEAD | while IFS= read -r f; do
-  [ -n "$f" ] || continue
-  git -C "$root" diff --quiet HEAD -- "$f" 2>/dev/null && printf '%s\n' "$f"
-done)
-if [ -n "$_ghosts" ]; then
-  echo "post-commit: dropped $(printf '%s\n' "$_ghosts" | wc -l | tr -d ' ') stale index entry(ies) this commit left behind." >&2
-  printf '%s\n' "$_ghosts" | while IFS= read -r f; do
-    _blob=$(git -C "$root" rev-parse ":$f" 2>/dev/null)
-    echo "      $f  was $_blob" >&2
-    git -C "$root" reset -q HEAD -- "$f" >/dev/null 2>&1
-  done
-  echo "post-commit:   no file changed. To read one back: git cat-file -p <hash>" >&2
-fi
+native_tool() {
+  if [ -x "$root/tools/hsm/target/release/$1" ]; then
+    printf '%s\n' "$root/tools/hsm/target/release/$1"
+  elif [ -x "$HOME/.local/bin/$1" ]; then
+    printf '%s\n' "$HOME/.local/bin/$1"
+  else
+    command -v "$1"
+  fi
+}
 
-# AND THEN IT GOES. The site deploys on a push that changes it — `render.yaml`'s buildFilter
-# names `web/**`, `updates/**` and the firmware pointer file — so this hook is the distance between a
-# commit and homesodamachine.com.
-#
-# `push.py` lands it: a commit whose patch is already on the remote under another hash is
-# dropped, anything else is replayed in a detached worktree that shares no index with the
-# sessions building here, and then this tree is brought up to what landed, file by file — a
-# collision with main is written into the file on this disk as conflict markers, named with
-# the commit it met, for whoever owns the file to resolve.
-#
-# IT REPORTS AND DOES NOT HOLD. The commit is already made and this hook's exit status cannot
-# unmake it, so a push that does not land says so and leaves the work committed.
-_py="$root/tools/cad-venv/bin/python"
-[ -x "$_py" ] || _py=python3
-"$_py" "$root/tools/push.py" 2>&1 | sed 's/^/post-commit: /' >&2
+land=$(native_tool hsm-land) || {
+  echo 'post-commit: install hsm-land to land this commit on main.' >&2
+  exit 0
+}
+"$land" --root "$root" 2>&1 | sed 's/^/post-commit: /' >&2
 
-# AND A CAD CHANGE IS CUT HERE. A solid reaches the site when someone writes it into the pointer
-# file, which the running container adopts without a deploy. `publish_now.py` does that from this
-# machine, where the build cache and the cut already are.
-#
-# DETACHED, BECAUSE IT IS NOT IN FRONT OF ANYTHING. The commit is made and the push is done by
-# the line above; this only moves the pointer file, so the agent's next tool call does not wait on a
-# minute of packing. It takes a single-flight lock and coalesces, so several sessions
-# committing at once produce one publish of the newest tree rather than a queue of stale ones,
-# and it reads what is owed before it builds — a commit that moved no member's bytes and none
-# of what a member was made from stops there.
-#
-# WITHOUT `site`. What is owed is read with the standard library alone, and the graft, the one
-# step that imports the venv's packages, loads `site` before it does.
 mkdir -p "$root/.cache"
-nohup "$_py" -S "$root/tools/publish_now.py" \
-  >>"$root/.cache/publish-now.log" 2>&1 &
-# Each full build's time onto /settings, out of Bazel's own records; it commits only a new build.
-nohup "$_py" -S "$root/tools/build_times.py" \
-  >>"$root/.cache/build-times.log" 2>&1 &
+if publisher=$(native_tool hsm-publish); then
+  nohup "$publisher" --root "$root" >>"$root/.cache/publish-now.log" 2>&1 &
+else
+  echo 'post-commit: install hsm-publish to publish completed outputs.' >&2
+fi
+if readings=$(native_tool hsm-build-times); then
+  nohup "$readings" --root "$root" >>"$root/.cache/build-times.log" 2>&1 &
+fi
 exit 0

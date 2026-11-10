@@ -10,7 +10,7 @@ Its predicted assembled mass is **55.08 g** at 0.55 g/cm³ Aero density, against
 **60.05 g** of water displacement: **4.96 g spare lift**.
 
 [PETG shell project](magnetic-float.3mf) · [ASA Aero parts project](magnetic-float-aero.3mf) ·
-[CadQuery source](magnetic_float.py) · [Material research](asa-aero-research.md) ·
+[CadQuery source](https://github.com/derekbreden/homesodamachine/blob/a518a57a878f02d9ac5b8b638c1c5883cadf6669/hardware/printed-parts/cold-core/magnetic-float/magnetic_float.py) · [Material research](asa-aero-research.md) ·
 [PETG shell recipe](petg-shell.md) · [Pressure-printing research](pressure-printing-research.md)
 
 [Assembly](/3d?file=printed-parts/cold-core/magnetic-float/magnetic-float.step) ·
@@ -169,23 +169,10 @@ dimensional change and loss of lift as float failures. The test result belongs
 to this article; sustained pressure, CO₂ exposure and wetted-surface acceptance
 remain separate service qualifications.
 
-## Rebuild
+## Article recipes
 
-From the repository root:
-
-The scripts these commands run are in Git at [`0a648015e0`](https://github.com/derekbreden/homesodamachine/tree/0a648015e0).
-
-```sh
-tools/cad-venv/bin/python hardware/printed-parts/cold-core/magnetic-float/magnetic_float.py
-tools/cad-venv/bin/python hardware/printed-parts/cold-core/magnetic-float/pressure_analysis.py
-tools/cad-venv/bin/python hardware/printed-parts/cold-core/magnetic-float/prepare_print.py --slice
-```
-
-The last command slices both projects, verifies them, and saves the projects
-and their evidence here. Verification of an existing slice:
-
-The scripts these commands run are in Git at [`0a648015e0`](https://github.com/derekbreden/homesodamachine/tree/0a648015e0).
-
-```sh
-tools/cad-venv/bin/python hardware/printed-parts/cold-core/magnetic-float/verify.py --directory .cache/magnetic-float-print
-```
+The bench article’s [geometry recipe](https://github.com/derekbreden/homesodamachine/blob/0a648015e07ed6ea7eb962ec559e0a836c3a4439/hardware/printed-parts/cold-core/magnetic-float/magnetic_float.py),
+[pressure analysis](https://github.com/derekbreden/homesodamachine/blob/0a648015e07ed6ea7eb962ec559e0a836c3a4439/hardware/printed-parts/cold-core/magnetic-float/pressure_analysis.py),
+[print preparer](https://github.com/derekbreden/homesodamachine/blob/0a648015e07ed6ea7eb962ec559e0a836c3a4439/hardware/printed-parts/cold-core/magnetic-float/prepare_print.py)
+and [slice review](https://github.com/derekbreden/homesodamachine/blob/0a648015e07ed6ea7eb962ec559e0a836c3a4439/hardware/printed-parts/cold-core/magnetic-float/verify.py)
+are archived in Git.

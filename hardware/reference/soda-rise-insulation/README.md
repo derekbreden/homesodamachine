@@ -7,9 +7,9 @@ with an identity placement. It is not part of the appliance. The continuous
 soda inlet carries one approximately 63 mm square-cut CARGEN piece over the
 tube and its R14 bend holder
 ([internal plumbing](../../assembly/internal-plumbing.md) §4;
-[production soda inlet](../../manifold-layout/soda_inlet.py)).
+[production soda inlet](/tools/hsm/layout-data/src/soda.rs)).
 
-[soda_rise_insulation.py](soda_rise_insulation.py) defines the nominal
+[soda_rise_insulation.py](https://github.com/derekbreden/homesodamachine/blob/a518a57a878f02d9ac5b8b638c1c5883cadf6669/hardware/reference/soda-rise-insulation/soda_rise_insulation.py) defines the nominal
 uncompressed annulus, matching the
 [study sleeve](https://github.com/derekbreden/homesodamachine/blob/2f2d9c94a1c3fbf007dfa1bd7e93095197079895/hardware/manifold-layout/studies/funnel-gate/parts/soda-rise-insulation.json).
 

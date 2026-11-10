@@ -14,18 +14,6 @@ is an explicit electrical interface.
   The conductor worksheet, `enclosure-wiring.csv`: one row per physical conductor.
   Both are written when the wiring is materialized by hand
   ([Editing and materializing](#editing-and-materializing)), not by the assembly build.
-- [Routing review](installed/routing-review.json): manually requested interference,
-  native-solid and integration readings, bound to their actual artifact hashes.
-- [Exact contact follow-up](installed/contact-review.json): native-solid readings
-  of the remaining mesh contact witnesses and their local electrical endpoints.
-- [Cap passage review](installed/cap-passage-review.json): saved native cup/lid
-  geometry and shared-bore scope through its three assembly hosts.
-- [Integral pump-mount wiring review](installed/integral-pump-mount-review.json):
-  the eight pump/display conductors, shared passage and current printed stock.
-- [Manifold junction wiring review](installed/manifold-wago-shift-review.json):
-  the 14 conductors at the aligned front-top WAGO holders and retained hardware.
-- [Inspection overview](installed/enclosure-wiring-overview.png): the complete
-  wiring and a closer front-assembly view, with unresolved routes dashed red.
 - [Compressor cable views](https://homesodamachine.com/changes/2026-10-20-2338-compressor-cable):
   shared cable corridor and fuse fanout.
 
@@ -165,80 +153,48 @@ the separate, manually invoked reading linked above.
 
 ## Editing and materializing
 
-The editable source is under [`installed/`](installed/):
+The current wiring source is typed Rust and authored route data:
 
 | Source | Responsibility |
 | --- | --- |
-| `connections.py` | Conductor IDs, nets, logical endpoints, common buses and owners |
-| `terminals.py` | Reference geometry, pin map, attachment location/direction and fidelity |
-| `connector-map.json` | Tracked snapshot of fabricated board pins, source hashes and the J10 component envelope |
-| `model.py` | Stock profiles, tangent circular bends, native wire construction and lengths |
-| `routes.py` | Hardware-relative route families and override interpretation |
-| `route-overrides.json` | Individually editable hardware-relative stations and unresolved routing records |
-| `bundle-routes.json` / `bundles.py` | Shared cable corridors, conductor sections, end fanouts and optional jackets |
-| `terminations.py` | Removable housings, dressed fuse leads and joint insulation |
-| `build.py` | Native wiring assembly, manifest, worksheet and enclosure integration |
+| `tools/hsm/assembly-docs/src/wiring/graph.rs` | Conductor identities, nets, endpoints, shared buses and owners |
+| `tools/hsm/assembly-docs/src/wiring/terminals.rs` | Pin maps, attachment positions, directions and fidelity |
+| `installed/connector-map.json` | Fabricated board pin snapshot and its source bindings |
+| `tools/hsm/assembly-docs/src/wiring/model.rs` | Stock profiles, rounded paths and modeled lengths |
+| `tools/hsm/assembly-docs/src/wiring/routes.rs` / `installed/route-overrides.json` | Hardware-relative route families and authored stations |
+| `installed/bundle-routes.json` / `tools/hsm/assembly-docs/src/wiring/bundles.rs` | Shared corridors, fanouts and jackets |
+| `tools/hsm/assembly-docs/src/wiring/terminations.rs` | Housings, fuse leads and joint insulation |
+| `../manifold-layout/installed-machine/wiring/sources.rs` | Current typed dimensions, placed hardware and fine-model measurements |
 
-The installed machine ([`installed-machine`](../manifold-layout/installed_machine.rs))
-resolves the wiring from its placed hardware, cuts the conductors and joins them into
-the machine's STEP and viewer payload. It publishes nothing else of the wiring's.
+The [installed machine](../manifold-layout/installed_machine.rs) resolves the wiring
+against its physical hardware and publishes the conductors, terminations and jackets
+with the current machine. The print build publishes completed producers progressively.
 
-The resolved model, the worksheet and `enclosure-wiring.numbers.json`, the bound
-conductor and component recipes, are written by materializing the wiring against
-the current populated native enclosure by hand:
+The optional [native bench export](../../tools/hsm/wiring/README.md) writes the resolved
+manifest, conductor worksheet, numeric recipe and standalone wiring geometry on request:
 
 ```sh
-python3 tools/run.py -- tools/cad-venv/bin/python hardware/wiring/installed/build.py
+python3 tools/run.py -- tools/hsm/target/release/hsm-wiring
 ```
 
-It reads `enclosure-assembly.step.npz`, resolves the attachments in a native child
-process, then builds after that child exits. It writes the fine wiring to
-`enclosure-wiring.step.npz` and appends its STEP and viewer bodies to the populated
-enclosure; the physical fine model stays unchanged. The manifest binds the physical
-fine input, route numbers and fine wiring by SHA-256. It retains source byte hashes
-and records Python source identities with `_realized.code_digest`, so Bazel's
-stripped sources and the checkout share the same code identity. Comments leave that
-identity unchanged; code and docstring changes invalidate it. The three files are
-not in Git; run it before reading them.
+It reads the normal build's retained placement and physical model and uses the same
+native route calculations. The manifest names the physical model, numeric recipe,
+producer binaries and written wiring by digest. `--output DIR` selects another bench
+destination; `--numbers-only` exports the recipe and worksheet for inspection.
 
-The wiring-only materializer replaces its own marked STEP subassembly and viewer
-meshes; existing physical component records and meshes are retained. Native and
-viewer outputs use the same `wire-<ID>` and `terminal-<ID>` names. For example,
-`wire-J13-AM2` is the AM2 conductor in both assemblies and in the worksheet.
+The tracked `connector-map.json` carries the fabricated board's pin positions and source
+hashes. Refresh that snapshot alongside its PCB export. The normal machine reads the
+tracked map and does not need an ignored circuit export.
 
-After a PCB export, refresh `connector-map.json` explicitly with
-`tools/cad-venv/bin/python hardware/wiring/installed/export_connector_map.py`.
-The snapshot records the circuit export, PCB GLB and board-source hashes. Normal
-enclosure CAD reads this tracked map and does not need the ignored circuit JSON.
-
-Checks run explicitly when their question is being reviewed:
+Use the current published geometry for a focused design question:
 
 ```sh
-tools/cad-venv/bin/python hardware/wiring/installed/review.py
-tools/cad-venv/bin/python hardware/wiring/installed/review.py --native
-tools/cad-venv/bin/python hardware/wiring/installed/review.py --fine
+node tools/find-part.mjs "wire"
+hsm where wire-
 ```
 
-For kernel materializations, `--fine` reads the authoritative wire model through
-Rust and checks its topology, source hashes and installed presentation arrays.
-`--native` selects the same fine inspection when the manifest names a kernel
-fine model. Its report occupies the separate `fine` field; native B-rep and
-contact receipts retain their own recorded artifact scopes.
-
-The manual `above-core-review/installed_wiring_binding.py` reader also regenerates
-the bound numeric recipes through Rust and compares their fine bodies, current
-electrical graph and conductor stock. Its kernel result is `fine_source`.
-`above-core-review/aggregate_review.py` records `fine_contacts` from every
-authoritative fine AABB overlap, using exact closed-entry commons and the named
-endpoint, fuse-stub and empty J4-cell spheres. Its contact geometry is independent
-of the displayed STEP and viewer payload.
-
-`build.py --verify-retained` additionally records the retained viewer arrays for a
-specific integration review. No route search or wiring check joins the build,
-commit or print path. The optional `route_search.py` authoring tool searches against
-the current larger-body meshes; `--retry` preserves saved routes
-and searches unresolved ones. Its output needs the same route and assembly review
-as hand-authored stations.
+The returned identities locate conductor bodies for `hsm gap`, `hsm overlap` or a saved
+`tools/inspect-part.mjs` inspection. These run when the current question needs them.
 
 The installed graph contains 100 conductor routes. Its twelve WAGOs comprise
 ten 221-413 connectors and the two manifold commons, one 221-415 and one
@@ -267,16 +223,3 @@ V-B-to-Y-B return and cradled drain before withdrawing J11. The
 [current housing sweeps](../mechanical-qualification/enclosure-above-core/connector-service-review.json)
 retain J1/J2's 17 mm lift and 8 mm fore movement; J11 lifts 6 mm, moves
 10 mm east and lifts another 20 mm, clearing the installed Reservoir B draw.
-
-The [current routing report](installed/routing-review.json) records all
-conductors, cable jackets and larger connector housings against the actual
-installed bodies. It excludes wire-to-wire and wire-to-tube contacts and
-keeps intended contact local to its named attachment. Its preparation budget
-covers individual pieces and continuous commons across local taps.
-
-The [installed wiring binding](installed/above-core-review/installed-wiring-binding.json)
-records the current producer sources, closed fine-model solids and exact
-standalone-to-installed viewer arrays. The production mesh-kernel wiring
-export is attached to the retained native physical assembly. All 100 conductors
-and 19 termination/jacket bodies are closed connected solids. Terminal fidelity,
-physical harness handling and closing motion retain their documented scopes.

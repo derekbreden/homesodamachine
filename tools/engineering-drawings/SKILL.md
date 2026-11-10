@@ -105,7 +105,7 @@ Do not ask the user to perform routine annotation cleanup as an approval step.
 
 ## Review rendering helper
 
-`scripts/render_review.py` renders an overview of each selected page and named
+`repo-tools drawing-review` renders an overview of each selected page and named
 detail crops with Poppler. It also records which PDF produced the images.
 It does not assess drawing quality; inspect the resulting images.
 
@@ -117,7 +117,7 @@ review, not from a general build or commit path.
 Example from the Home Soda Machine repository root:
 
 ```sh
-python3 tools/engineering-drawings/scripts/render_review.py \
+tools/run -- repo-tools drawing-review \
   hardware/cut-parts/carbonation/endcaps-circular/endcap-circular-2hole-drawing.pdf \
   --output-dir /tmp/endcap-review \
   --region 1,port-callout,325,465,660,625 \

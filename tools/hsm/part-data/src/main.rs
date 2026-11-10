@@ -1,5 +1,4 @@
-//! Scalar construction recipes for the water-inlet jet's drilling jaws, the valve seat and zone C,
-//! and the reference parts' providers.
+//! Scalar construction recipes for the water-inlet jet's drilling jaws, valve seat and reference parts.
 #![recursion_limit = "512"]
 use anyhow::{Context, Result, bail};
 use hsm_documents::format_number;
@@ -9,7 +8,6 @@ use std::{
     io::{self, BufRead, Write},
 };
 
-mod zone;
 mod reference;
 
 fn num(v: &Value, key: &str) -> Result<f64> {
@@ -136,9 +134,6 @@ fn request(v: &Value) -> Result<Value> {
         "reference" => reference::request(v),
         "water-inlet-jet-fixture" => jet_fixture(v),
         "valve-seat" => valve_seat(v),
-        "funnel" | "elbow-cradle" | "funnel-frame" | "funnel-cover" | "funnel-mold" => {
-            zone::request(v)
-        }
         other => bail!("Unknown part-data provider {other}"),
     }
 }

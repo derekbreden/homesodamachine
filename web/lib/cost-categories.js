@@ -1,4 +1,4 @@
-// Display names mirror hardware/scripts/_bom_categories.py.
+// Category names label the BOM tags used by the cost and production views.
 export const CATEGORY_NAMES = {
   sensors: "Sensors",
   wiring: "Wires & wire connectors",

@@ -2,9 +2,6 @@
 !.bazelversion
 !.dockerignore
 !tools/
-!tools/cad-requirements.txt
-!tools/cad-venv-site/
-!tools/cad-venv-site/**
 !tools/ci-image/
 !tools/ci-image/Dockerfile
 !tools/render/

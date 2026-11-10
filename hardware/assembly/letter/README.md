@@ -24,8 +24,8 @@ supplies the operating order, with the rig's two-turn continuity check.
 The [X1 Pro manual](https://www.xlaserlab.com/pages/xlaserlab-x1-pro-instruction-manual),
 pages 11–14, supplies the welder setup and trigger controls.
 
-The drill diagram reads the endcap's numeric constants and shared float datum.
-Weld travel and overlap read the rotator interface; practice settings read the
+The drill diagram reads the endcap's typed Rust parameters and shared float datum.
+Weld travel and overlap read the rotator's recipe parameters; practice settings read the
 fabrication procedure. Source hashes and the numeric inputs are recorded in
 [the manifest](../../../output/pdf/assembly-drill-and-weld-letter.sources.json).
 The illustrations are schematic. The page is not a drilling template, and
@@ -35,14 +35,14 @@ and internal-oxidation qualification remain open in the fabrication procedure.
 ## Build and print
 
 ```sh
-python3 tools/assembly-letter/build.py
+tools/run -- cargo run --manifest-path tools/hsm/Cargo.toml \
+  --release --locked -j2 -p hsm-fabrication-guides -- assembly-letter
 ```
 
-Requires ReportLab. The builder is run by hand and generates just these three
-sheets; it does not invoke the appliance build, scene rendering, card sync or
-publish lanes. A changed source expression outside its narrow arithmetic
-reader, changed named drill/spacer, or changed practice-recipe structure
-requires review before rendering.
+The Rust builder composes these sheets through `hsm-pages`, with embedded Plex
+type, vector illustrations and a cover thumbnail from the same page drawing.
+It runs by hand outside the normal build. The procedure owns the practice
+recipe and runout requirements; changed instructions require document review.
 
 Print one copy, single-sided, portrait, color, high quality, Letter borderless,
 using the Epson photo-paper media profile. Load Letter photo stock in the

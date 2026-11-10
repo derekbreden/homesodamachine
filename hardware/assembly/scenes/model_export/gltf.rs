@@ -380,7 +380,7 @@ fn write_shared_views(spec: &Value, output: &Path) -> Result<Value> {
             }
             nodes.push(node);
         }
-        let mut head=json!({"v":4,"meshes":nodes,"sources":outer["sources"],"source_kind":"scene"});
+        let mut head=json!({"v":super::payload::SCENE_PAYLOAD_VERSION,"meshes":nodes,"sources":outer["sources"],"source_kind":"scene"});
         head["src"]=json!(scene::digest(&serde_json::to_vec(&head["meshes"])?));
         let path=output.join(format!("{}.glb.mesh",view["id"].as_str().unwrap_or("scene")));
         scene::persist(&path,&head)?;

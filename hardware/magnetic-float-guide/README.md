@@ -34,18 +34,20 @@ cover and sidecar deploy through `render.yaml`; the sidecar lists the guide on
 the guides page.
 
 ```sh
-tools/cad-venv/bin/python tools/magnetic-float-guide/author.py
-tools/cad-venv/bin/python tools/magnetic-float-guide/build.py
+hsm-manual-guides author magnetic-float-guide
+tools/run hsm-manual-guides bind magnetic-float-guide
 ```
 
-[author.py](../../tools/magnetic-float-guide/author.py) reads the current design,
-integration, installation and physical records.
+[The native author](../../tools/hsm/manual-guides/src/float.rs) fills the editable
+[HTML templates](templates/) from the current design, integration, print recipe
+and physical records. The rod figures come from their owning native providers.
 The artwork is committed here.
-[float_art.py](https://github.com/derekbreden/homesodamachine/blob/7877f6193ead05647b529972ee9f50de305c8d44/tools/magnetic-float-guide/float_art.py),
-in Git history, rendered it from native CadQuery solids with coral motion cues.
-[build.py](../../tools/magnetic-float-guide/build.py) verifies input and image
-hashes, checks layout overflow, binds the pages with bookmarks and writes the
-cover and `.pdf.json` sidecar.
+The [archived illustration source](https://github.com/derekbreden/homesodamachine/blob/7877f6193ead05647b529972ee9f50de305c8d44/tools/magnetic-float-guide/float_art.py)
+records the source solids and coral motion cues of the committed artwork.
+[The native binder](../../tools/hsm/manual-guides/src/html.rs) checks the current
+design revision and illustration dimensions against the artwork record,
+verifies image hashes, renders the leaves, binds their bookmarks and writes
+the cover and `.pdf.json` sidecar.
 
 [guide-inputs.json](guide-inputs.json) binds the text to its sources.
 [art/manifest.json](art/manifest.json) binds every illustration to its generator,

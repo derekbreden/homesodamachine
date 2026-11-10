@@ -65,7 +65,7 @@ Bond the coil to the carbonator OD with 3M 425 aluminum foil tape applied as a c
 
 Before closing the foil skin over the coil's outlet (high) end — the suction side, refrigerant leaving as low-pressure gas, the coldest metal — tuck the **DS18S20 coil probe** (bare TO-92, family 0x10, leads heat-shrunk) flat against the copper and tape it down under the foil. This is the freeze-protect sensor; thermally bonding it to the suction-end copper is what lets the −8 °C cutoff see the coldest point. Distinct 1-wire family codes let firmware tell it and the carbonator probe apart deterministically, with no per-unit ID map.
 
-Rough-form with the printed [coil mandrel](/hardware/printed-parts/cold-core/coil-mandrel/coil_mandrel.py),
+Rough-form with the printed [coil mandrel](/hardware/printed-parts/cold-core/coil-mandrel/coil_mandrel.rs),
 a hollow PETG drum of OD. Set the finished winding on the
 foil-taped vessel: right-hand turns over
 , pitch. Feed material from the long
@@ -132,7 +132,7 @@ reservoir B**. Each carries its cap, gasket, captive float and guide, grips and
 closure hardware. Continuous tubes are fitted during body-side installation;
 the dry reed columns enter after the foam cure.
 
-Both flavor reservoirs are built closed here, off the shell, and go into their pockets as finished units at step 5. Nothing in this step touches the foam shell. The geometry — rod length, float travel, reed heights, cap register, vent stack — is owned by [`reservoir.py`](/hardware/printed-parts/cold-core/reservoir/reservoir.py), [`reservoir/level-sensing.md`](/hardware/printed-parts/cold-core/reservoir/level-sensing.md) and [`reservoir/vent.md`](/hardware/printed-parts/cold-core/reservoir/vent.md); this step is the order the bench builds in.
+Both flavor reservoirs are built closed here, off the shell, and go into their pockets as finished units at step 5. Nothing in this step touches the foam shell. The geometry — rod length, float travel, reed heights, cap register, vent stack — is owned by [`reservoir.rs`](/hardware/printed-parts/cold-core/reservoir/reservoir.rs), [`reservoir/level-sensing.md`](/hardware/printed-parts/cold-core/reservoir/level-sensing.md) and [`reservoir/vent.md`](/hardware/printed-parts/cold-core/reservoir/vent.md); this step is the order the bench builds in.
 
 **Reed columns — two, one per reservoir.** Each reservoir's level gauge is four MDSR-7-10-15 reeds standing outside the syrup, on the side the pocket's reed channel runs up. Calibrate their liquid crossings per the [float installation procedure](/hardware/printed-parts/cold-core/magnetic-float/all-aero/installation.md#reed-calibration), then solder all four onto a single 5-conductor 22 AWG spine — four signal lines plus one shared common — running the column's full length, reed 1 lowest. Lace it with heat-shrink between reeds so the column drops into its channel as one stiff piece. Prove every reed with the printed RC62 float **before** lacing — closed with the magnet alongside, open with it away; a reed that fails after lacing costs the whole column. The columns are not installed here: the channels stay open through the body pour and take their columns at step 7.
 

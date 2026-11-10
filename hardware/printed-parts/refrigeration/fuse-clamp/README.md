@@ -118,7 +118,7 @@ rather than bridging, and nothing needs support.
 ## Regenerate
 
 ```
-python3 tools/run.py -- cargo run --release --manifest-path tools/hsm/fuse-clamp/Cargo.toml
+tools/run -- cargo run --release --manifest-path tools/hsm/fuse-clamp/Cargo.toml
 ```
 
 [`numbers.rs`](numbers.rs) holds the clamp's numbers and the donor's figures it closes on, and

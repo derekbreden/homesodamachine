@@ -20,8 +20,6 @@ struct Context {
 #[path = "reference_catalog.rs"]
 mod catalog;
 use catalog::{call, globals};
-#[path = "storage.rs"]
-mod storage;
 fn g(e: &Env, k: &str) -> Value {
     e.get(k)
         .unwrap_or_else(|| panic!("Unknown reference datum {k}"))
@@ -84,9 +82,6 @@ fn truth(v: &Value) -> bool {
     }
 }
 fn string(v: &Value) -> String {
-    if v.get("$env").is_some() {
-        return storage::display(v);
-    }
     if let Some(s) = v.as_str() {
         return s.to_owned();
     }
@@ -328,9 +323,6 @@ fn builtin(name: &str, args: Vec<Value>) -> Value {
                         "list" => args[0].is_array(),
                         "str" => args[0].is_string(),
                         "bool" => args[0].is_boolean(),
-                        "Heap" => storage::kind(&args[0]) == Some("Heap"),
-                        "Env" => matches!(storage::kind(&args[0]), Some("Env" | "Heap")),
-                        "Holder" => storage::kind(&args[0]) == Some("Holder"),
                         _ => false,
                     })
             )
@@ -631,11 +623,6 @@ fn extend_env(e: &mut Env, value: Value) {
         e.insert(key.as_str().unwrap().into(), value);
     }
 }
-fn assign_attribute(e: &mut Env, name: &str, key: &str, item: Value) {
-    let mut value = g(e, name);
-    storage::assign(&mut value, key, item);
-    e.insert(name.into(), value);
-}
 fn register_path(cx: &mut Context, value: Value) {
     let text = value["$path"]
         .as_str()
@@ -649,8 +636,8 @@ fn path(cx: &Context, name: &str) -> Value {
     json!({"$path":cx.root.join(name).to_string_lossy()})
 }
 fn attr_value(v: Value, key: &str) -> Value {
-    if v.get("$env").is_some() || v.get("$holder").is_some() || v.get("$namespace").is_some() {
-        return storage::attribute(&v, key);
+    if let Some(record) = v.get("$namespace") {
+        return ix(record.clone(), json!(key));
     }
     if key == "parent" && v.get("$path").is_some() {
         return json!({"$path":Path::new(v["$path"].as_str().unwrap()).parent().unwrap().to_string_lossy()});
@@ -996,7 +983,7 @@ fn manual(
                 json!({"angle":angle.to_degrees(),"turn":angle>1e-10,"axis":[at(2,1)-at(1,2),at(0,2)-at(2,0),at(1,0)-at(0,1)],"translation":t}),
             )
         }
-        _ => storage::manual(cx, module, name, args, kwargs),
+        _ => bail!("Unknown reference function {module}.{name}"),
     }
 }
 

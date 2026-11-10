@@ -4,8 +4,8 @@ The selected warm-side fluid geometry is the
 [production above-core arrangement](/hardware/manifold-layout/above-core.md).
 Its native component frames, trimmed fittings and physical tube paths are in
 [above-core.json](/hardware/manifold-layout/above-core.json),
-[above_core_parts.py](/hardware/manifold-layout/above_core_parts.py) and
-[above_core_routes.py](/hardware/manifold-layout/above_core_routes.py).
+[machine_equipment.rs](/hardware/manifold-layout/machine_equipment.rs) and
+[machine_routes.rs](/hardware/manifold-layout/machine_routes.rs).
 The [fluid topology](/hardware/topology/fluid-topology.md) defines the valve
 functions and logical connections. A logical connection can contain several
 short tubes and directly inserted stem fittings.

@@ -33,14 +33,4 @@ coil shapes match the completed assembly exactly; the coil entry-box failures
 fill the open yoke region, and the outer well-box failures consist entirely of
 the declared fixed spring cups.
 
-Reproduce the local reading with the project CadQuery environment:
-
-```sh
-tools/cad-venv/bin/python hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/verify_front_top_repair.py --output /tmp/hsm-front-top-repair.json
-tools/cad-venv/bin/python hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/verify_pump_rear_boundary_equivalence.py --output /tmp/hsm-pump-rear-boundary.json
-```
-
-Both scripts read the archived native fixture and current source. They write
-reports only; they do not export production geometry. The complete current Box,
-shells and aggregate still need their coordinated checks. Physical spring feel,
-retention and rigidity are evaluated in the full printed enclosure.
+The [repair reading source](https://github.com/derekbreden/homesodamachine/blob/3b69a71e12ef7c39220cf0e19a260ffb09a8c9b3/hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/verify_front_top_repair.py) and [boundary equivalence source](https://github.com/derekbreden/homesodamachine/blob/a518a57a878f02d9ac5b8b638c1c5883cadf6669/hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/verify_pump_rear_boundary_equivalence.py) are archived in Git. They describe the bound regression fixture. Physical spring feel, retention and rigidity are evaluated in the full printed enclosure.

@@ -28,12 +28,12 @@ independent zip ties. The sleeve and return are placed by the appliance model.
 
 The machine lays it fore and aft in the −X lane west of the G Ganen, on the panel
 deck's own storey over the pump's casting
-([`enclosure_assembly.build_asse`](/hardware/manifold-layout/enclosure_assembly.py),
+([native layout](/hardware/manifold-layout/machine_layout.rs),
 `ASSE1022_YAW`) — a yaw about Z and a translation, since this frame is already the
 cabinet's axes. The yaw turns the chain's flow onto the cabinet's −Y, its inlet aft
 at the tap-water bulkhead and its 1/4" PTC collet forward onto the 1/4" LLDPE run to
 the water-split; there is no roll, so the vent hangs as it is built, dropping its
-TPU sleeve downward onto the 4 mm tube. The continuation is authored in [`_drain.py`](/hardware/manifold-layout/_drain.py).
+TPU sleeve downward onto the 4 mm tube. The continuation is authored in [`machine_routes.rs`](/hardware/manifold-layout/machine_routes.rs).
 
 ## Model
 
@@ -61,10 +61,8 @@ installed representation is an occupancy approximation.
 Frame: the Multiplex's own — **+X = flow**, its inlet at X = 0, vent along −Z.
 The upstream fittings therefore sit at negative X.
 
-## Regenerate
+## Model inputs
 
 Builds its parts from their modules in-process, so only this one command:
 
-```
-tools/cad-venv/bin/python hardware/reference/asse1022-assembly/asse1022_assembly.py
-```
+The model and measurements are retained with their [source derivations](https://github.com/derekbreden/homesodamachine/blob/a518a57a878f02d9ac5b8b638c1c5883cadf6669/hardware/reference/asse1022-assembly/asse1022_assembly.py).

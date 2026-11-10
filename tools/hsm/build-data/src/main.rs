@@ -1,5 +1,5 @@
 use anyhow::{Context, Result, bail, ensure};
-use hsm_build_data::{artifact_cache, artifacts, assets, inventory, payload, projection, publication, sources, surfaces, support};
+use hsm_build_data::{artifact_cache, artifacts, assets, payload, projection, publication, sources, surfaces, support};
 use regex::Regex;
 use serde_json::{Value, json};
 use std::{collections::BTreeSet, fs, io::{self,BufRead,Write}, path::{Path,PathBuf}};
@@ -72,7 +72,6 @@ fn callback(query:Value)->Result<Value> {
 }
 
 fn dispatch(v:&Value)->Result<Value> {
-    if let Some(value)=inventory::dispatch(v)? {return Ok(value);}
     if let Some(value)=publication::dispatch(v)? {return Ok(value);}
     if let Some(value)=artifact_cache::dispatch(v)? {return Ok(value);}
     if let Some(value)=artifacts::dispatch(v,&mut callback)? {return Ok(value);}

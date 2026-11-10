@@ -1,6 +1,6 @@
 //! The fit gaps where the four printed enclosure quadrants meet, read off their fine models.
 //!
-//! `hardware/scripts/check_enclosure_mating_clearance.py` writes the numbers: each quadrant's
+//! `repo-tools check enclosure-mating-clearance` writes the numbers: each quadrant's
 //! model and the way it prints, the fits, and the required gaps the enclosure recipe places.
 //!
 //! A triangle lies on a plane when its face record is that plane and its corners are on it

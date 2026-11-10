@@ -17,7 +17,7 @@ are unmeasured.
 
 The body has 0.15 mm of X clearance per side, each nonlocating wing tip has
 0.25 mm centered X clearance, and the wing thickness gap is 0.45 mm. The wing-tip and Y gaps
-are local fit trials; body X uses the shared static allowance. Z gaps use `../../../cadlib/fits.py`. This plate is inserted by
+are local fit trials; body X uses the shared static allowance. Z gaps use the [native fit catalog](/tools/hsm/catalog/src/lib.rs). This plate is inserted by
 hand and has no sliding-fit or low-force additions.
 
 | Surface | Nominal clearance |

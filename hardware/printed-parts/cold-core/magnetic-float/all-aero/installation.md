@@ -35,7 +35,7 @@ the tube bore, not the end-cap disc edge. On the 4.860 in disc the register is
 19.873 mm inward from that edge. Clock both registers onto the same rod axis.
 
 The reservoirs' lower and upper bosses are already modeled at their matching
-positions in [`reservoir.py`](../../reservoir/reservoir.py). Print the current
+positions in [`reservoir.rs`](/hardware/printed-parts/cold-core/reservoir/reservoir.rs). Print the current
 body/cap pair; a native project must bind the current STEP and archive hashes before
 submission. A saved project alone does not establish that its guide has moved.
 
@@ -161,9 +161,9 @@ post-closure function, have no acceptance record.
 
 ## Source
 
-Dimensions and geometry checks, run on request: [`integration.py`](integration.py),
+Dimensions and geometry checks, run on request: [`integration.py`](https://github.com/derekbreden/homesodamachine/blob/a518a57a878f02d9ac5b8b638c1c5883cadf6669/hardware/printed-parts/cold-core/magnetic-float/all-aero/integration.py),
 [`integration-check.json`](integration-check.json), and shared
-[`_float_interface.py`](../../_float_interface.py).
+[`numbers.rs`](/hardware/printed-parts/cold-core/magnetic-float/numbers.rs).
 [Littelfuse activation guidance](https://www.littelfuse.com/assetdocs/reed-switch-and-reed-sensor-activation-application-note?assetguid=fa9045a4-e577-4f55-9e9b-4232faacffd9)
 distinguishes closure, hold and release regions and the effects of magnet/reed
 orientation. The [selection guide](https://www.littelfuse.com/assetdocs/reed-switch-selection-guide?assetguid=91cf50d6-a742-4b6d-9795-b99177e45b72)

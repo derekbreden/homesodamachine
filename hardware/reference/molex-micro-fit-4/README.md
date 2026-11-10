@@ -73,8 +73,4 @@ ribbon is dressed.
 - [Molex 43020 customer drawing](https://www.molex.com/content/dam/molex/molex-dot-com/products/automated/en-us/salesdrawingpdf/430/43020/430200601_sd.pdf?inline=) — housing envelope, panel range and recommended keyed cut-out.
 - [Molex 43025 customer drawing](https://www.molex.com/content/dam/molex/molex-dot-com/products/automated/en-us/salesdrawingpdf/430/43025/430250600_sd.pdf?inline=) — removable-housing envelope and complete mated-pair length.
 
-Regenerate the reference STEP with:
-
-```sh
-tools/cad-venv/bin/python hardware/reference/molex-micro-fit-4/molex_micro_fit_4.py
-```
+The model and measurements are retained with their [source derivations](https://github.com/derekbreden/homesodamachine/blob/a518a57a878f02d9ac5b8b638c1c5883cadf6669/hardware/reference/molex-micro-fit-4/molex_micro_fit_4.py).

@@ -39,7 +39,7 @@ preview, fused cloud and SHA-256 manifest are in
 `~/Documents/3D Scans/2026-10-29-asse1022-threaded-chain/`. The same directory
 holds the registered cloud, portable STEP/STL and rendered preview.
 
-[`analyze_capture.py`](analyze_capture.py) identifies the marker-table plane
+[analyze_capture.py](https://github.com/derekbreden/homesodamachine/blob/a518a57a878f02d9ac5b8b638c1c5883cadf6669/hardware/reference/asse1022-threaded-chain/analyze_capture.py) identifies the marker-table plane
 away from the narrow chain, fits the exposed ASSE flats and vent, then performs
 rigid registration to the separate bare-ASSE observations. Only that body and
 vent participate in registration. The fitted adapters remain independent
@@ -48,7 +48,7 @@ observations. A fixed plane 15.5 mm above the table removes putty and markers;
 [`scan-evidence.json`](scan-evidence.json) retains the transforms, source hashes,
 selections, registration residuals and axial profiles.
 
-[`fit_components.py`](fit_components.py) locates circular axes from surface
+[fit_components.py](https://github.com/derekbreden/homesodamachine/blob/a518a57a878f02d9ac5b8b638c1c5883cadf6669/hardware/reference/asse1022-threaded-chain/fit_components.py) locates circular axes from surface
 normal rays, models the coupling's undrafted flats, and fits the tee run from
 both socket collars. Outward-facing surface samples in 0.2 mm axial bins supply
 97.5th-percentile radius profiles. A three-bin median and a 0.06 mm radial
@@ -72,11 +72,4 @@ unseen stem continuations use display closures or stated nominal dimensions;
 they are not material, mass, internal hydraulic, sealing or retention inputs.
 Paint thickness and absolute optical scale are not independently calibrated.
 
-```sh
-tools/cad-venv/bin/python hardware/reference/asse1022-threaded-chain/analyze_capture.py
-tools/cad-venv/bin/python hardware/reference/asse1022-threaded-chain/fit_components.py
-tools/cad-venv/bin/python hardware/reference/asse1022-threaded-chain/asse1022_threaded_chain.py
-tools/cad-venv/bin/python hardware/reference/asse1022-threaded-chain/validate_capture.py
-```
-
-The model generator also accepts `--stl /absolute/output/path.stl`.
+The source derivations are preserved at their recorded revision: [analyze_capture.py](https://github.com/derekbreden/homesodamachine/blob/a518a57a878f02d9ac5b8b638c1c5883cadf6669/hardware/reference/asse1022-threaded-chain/analyze_capture.py), [fit_components.py](https://github.com/derekbreden/homesodamachine/blob/a518a57a878f02d9ac5b8b638c1c5883cadf6669/hardware/reference/asse1022-threaded-chain/fit_components.py), [validate_capture.py](https://github.com/derekbreden/homesodamachine/blob/a518a57a878f02d9ac5b8b638c1c5883cadf6669/hardware/reference/asse1022-threaded-chain/validate_capture.py).

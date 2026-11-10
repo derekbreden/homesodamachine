@@ -715,7 +715,7 @@ def export_step(model, target_path):
 
 # --- On the mesh kernel --------------------------------------------------------
 #
-# A generator run on the mesh kernel (`meshcad/run.py`) holds triangles, not a B-rep, so a
+# A generator using the mesh adapter holds triangles, not a B-rep, so a
 # STEP target is written as what the kernel has: the STEP itself as triangles
 # (`write.write_step`), named and coloured as `export_assembly` names and colours it;
 # `<name>.step.npz`, the model every mesh-kernel `importStep` of `<name>.step` reads back with

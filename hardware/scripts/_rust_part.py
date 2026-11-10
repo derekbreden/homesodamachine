@@ -55,10 +55,9 @@ A program runs from the checkout's root, and reads a STEP its numbers name by th
 of each body at the kernel's rule, cut once into `.cache/hsm/import/<SHA-256>.step.mesh` under
 the CAD lock. A STEP of triangles is read through the payload its writer cut beside it.
 
-THE TRACE SEES PYTHON, NOT CARGO. What rustc compiled into the program is in the dep-info file
-cargo writes beside it. Those sources under this checkout, with the manifests and the lockfile
-that chose them, are kept in `_READ_TARGETS`, and the files the program wrote in
-`_WRITE_TARGETS`; `tools/bazel/trace_inputs.py` takes both at the end of a run.
+The compatibility runner keeps compiler inputs in `_READ_TARGETS` and written files in
+`_WRITE_TARGETS`. Native producer tracing reads rustc's dep-info and the program's `HSM_READS`
+receipt through `hsm-build-plan trace-inputs`.
 
 CARGO BUILDS FROM THE CHECKOUT, NOT FROM AN ACTION'S COPY OF IT, into the checkout's own target
 directory, `tools/hsm/target`. A Bazel action names its checkout in `HSM_WORKSPACE`, and the

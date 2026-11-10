@@ -1,14 +1,12 @@
 # YYFKGCP 4-pin magnetic pogo connector
 
-[`yyfkgcp_pogo_4p.py`](yyfkgcp_pogo_4p.py) models the YYFKGCP four-pin magnetic pogo
+[yyfkgcp_pogo_4p.py](https://github.com/derekbreden/homesodamachine/blob/a518a57a878f02d9ac5b8b638c1c5883cadf6669/hardware/reference/yyfkgcp-pogo-4p/yyfkgcp_pogo_4p.py) models the YYFKGCP four-pin magnetic pogo
 connector with ears ([B0GCBNTBT8](https://www.amazon.com/dp/B0GCBNTBT8)) and exports its two
 halves, [`pogo-4p-female.step`](pogo-4p-female.step) and
 [`pogo-4p-male.step`](pogo-4p-male.step). The female half carries four flush gold pads between
 two magnets; the male half carries four spring pins between two magnets.
 
-```sh
-tools/cad-venv/bin/python hardware/reference/yyfkgcp-pogo-4p/yyfkgcp_pogo_4p.py
-```
+The model and measurements are retained with their [source derivations](https://github.com/derekbreden/homesodamachine/blob/a518a57a878f02d9ac5b8b638c1c5883cadf6669/hardware/reference/yyfkgcp-pogo-4p/yyfkgcp_pogo_4p.py).
 
 ## Envelope
 

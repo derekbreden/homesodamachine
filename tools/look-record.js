@@ -128,17 +128,50 @@ function check(dir) {
   return bad ? 1 : 0;
 }
 
-const [verb, ...rest] = process.argv.slice(2);
-try {
-  if (verb === "write") write(rest);
-  else if (verb === "check") process.exit(check(rest[0]));
-  else {
-    console.error("usage: node tools/look-record.js write --step <rel> " +
-                  "[--also path]… --command <line> <png>…\n" +
-                  "       node tools/look-record.js check <dir>");
+// A native neighborhood supplies the frame and ranked legend without rebuilding a CAD recipe.
+export function neighborhoodPlan(reply) {
+  if (reply.ok === false) throw new Error(reply.error || "neighborhood query failed");
+  const result = reply.result ?? reply;
+  const data = result.data;
+  const subject = data?.subject;
+  const radius = data?.within_mm;
+  if (!subject?.name || ![subject.min_mm, subject.max_mm].every(row =>
+    Array.isArray(row) && row.length === 3 && row.every(Number.isFinite)) ||
+    !Number.isFinite(radius) || radius < 0 || !Array.isArray(data.neighbors) || !Array.isArray(data.unresolved))
+    throw new Error("near-plan needs a native hsm around response");
+  const neighbors = data.neighbors;
+  const unresolved = data.unresolved;
+  const ranked = [...new Set([...neighbors, ...unresolved].map(row => row.name))].join(",");
+  const dimensions = subject.min_mm.map((value, i) => subject.max_mm[i] - value);
+  const target = subject.min_mm.map((value, i) => (value + subject.max_mm[i]) / 2).join(",");
+  let legend = neighbors.slice(0, 6).map(row => `${row.name} ${row.distance_mm.toFixed(2)}`).join("  ");
+  if (neighbors.length > 6) legend += `  +${neighbors.length - 6} more`;
+  if (unresolved.length) legend += `${legend ? "  " : ""}${unresolved.length} unresolved`;
+  legend ||= "nothing";
+  const lines = neighbors.map(row => `${row.distance_mm.toFixed(3)}  ${row.name}  ${row.source ?? ""}`);
+  lines.push(...unresolved.map(row => `unknown  ${row.name}  ${row.error}`));
+  if (!lines.length) lines.push(`nothing within ${radius} mm`);
+  return [String(Math.max(...dimensions) / 2 * 1.15 + radius), target, subject.name, ranked,
+    `within ${radius} mm: ${legend}`, lines.join("\n")];
+}
+
+if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
+  const [verb, ...rest] = process.argv.slice(2);
+  try {
+    if (verb === "write") write(rest);
+    else if (verb === "check") process.exit(check(rest[0]));
+    else if (verb === "near-plan") {
+      for (const value of neighborhoodPlan(JSON.parse(fs.readFileSync(0, "utf8"))))
+        process.stdout.write(`${value}\0`);
+    } else {
+      console.error("usage: node tools/look-record.js write --step <rel> " +
+                    "[--also path]… --command <line> <png>…\n" +
+                    "       node tools/look-record.js check <dir>\n" +
+                    "       node tools/look-record.js near-plan < native-neighborhood.json");
+      process.exit(1);
+    }
+  } catch (err) {
+    console.error(err.stack || err.message || err);
     process.exit(1);
   }
-} catch (err) {
-  console.error(err.stack || err.message || err);
-  process.exit(1);
 }

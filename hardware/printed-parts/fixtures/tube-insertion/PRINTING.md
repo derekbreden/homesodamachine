@@ -76,10 +76,10 @@ forces and endurance are unmeasured.
 ## Manual preparation
 
 ```sh
-HSM_NO_BUILD_LOCK=1 tools/cad-venv/bin/python hardware/printed-parts/fixtures/tube-insertion/tube_insertion.py
-tools/hsm/target/release/tube-insertion-print-project --plate centered-grip-mark1 --slice-output .cache/centered-grip-next
-tools/hsm/target/release/tube-insertion-print-project --plate centered-grip-mark2 --slice-output .cache/centered-grip-next
-tools/hsm/target/release/tube-insertion-print-project --plate centered-liners-mark1 --slice-output .cache/centered-grip-next
+tools/run --cad -- hsm-manual-guides fixture tube-insertion
+tools/run -- tools/hsm/target/release/tube-insertion-print-project --plate centered-grip-mark1 --slice-output .cache/centered-grip-next
+tools/run -- tools/hsm/target/release/tube-insertion-print-project --plate centered-grip-mark2 --slice-output .cache/centered-grip-next
+tools/run -- tools/hsm/target/release/tube-insertion-print-project --plate centered-liners-mark1 --slice-output .cache/centered-grip-next
 ```
 
 Use empty slice directories. These manual operations submit no print and

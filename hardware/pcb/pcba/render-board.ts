@@ -339,7 +339,7 @@ if (antN) console.log(`[${board}] antenna keepout: cleared the WROOM antenna box
 const slivN = dropPourSlivers(circuit)
 if (slivN) console.log(`[${board}] pour slivers: dropped ${slivN} sub-min-feature floating fragment(s)`)
 
-// Persist the routed circuit-json for the 3D assembly step. board-3d.py's ensure_circuit_json
+// Persist the routed circuit-json for the native hsm-pcb model step. Its circuit loader
 // reuses out/<board>.circuit.json when it's newer than the board .tsx — so writing it here lets
 // the dev-server's background GLB rebuild skip a second full autoroute pass and just read our
 // already-routed board. It's a gitignored regenerable intermediate (never committed), and the
@@ -472,7 +472,7 @@ if (circuit) {
 
 // NB: the render intentionally does NOT rebuild the 3D assembly (out/<board>.glb + face
 // textures) — CadQuery adds ~14 s and iteration must stay fast. Rebuild it directly with
-// `tools/cad-venv/bin/python board-3d.py`; the dev-server also rebuilds it in the background.
+// `hsm-pcb model`; the dev-server also rebuilds it in the background.
 // See the README's Building section.
 
 lock.release()

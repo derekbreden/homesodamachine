@@ -186,10 +186,10 @@ retain their stated qualification limits.
 ## Regenerate
 
 ```sh
-python3 tools/run.py -- cargo build --release --locked -j 2 --manifest-path tools/hsm/Cargo.toml -p hsm-funnel
-python3 tools/run.py -- tools/hsm/target/release/funnel
-python3 tools/run.py -- tools/hsm/target/release/funnel-frame
-python3 tools/run.py -- tools/hsm/target/release/elbow-cradle
+tools/run -- cargo build --release --locked -j 2 --manifest-path tools/hsm/Cargo.toml -p hsm-funnel
+tools/run -- tools/hsm/target/release/funnel
+tools/run -- tools/hsm/target/release/funnel-frame
+tools/run -- tools/hsm/target/release/elbow-cradle
 ```
 
 Their numbers are in [`../numbers/`](../numbers/lib.rs). The

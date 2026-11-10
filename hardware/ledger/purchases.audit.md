@@ -15,7 +15,7 @@ A saved order total can corroborate a procurement allocation. It does not establ
 ## Read-only inspection
 
 ```sh
-python3 tools/run.py -- cargo build --release --locked -j 2 --manifest-path tools/hsm/Cargo.toml -p hsm-ledger --bin purchases
+tools/run -- cargo build --release --locked -j 2 --manifest-path tools/hsm/Cargo.toml -p hsm-ledger --bin purchases
 tools/hsm/target/release/purchases --report
 tools/hsm/target/release/purchases --audit
 tools/hsm/target/release/purchases --export-json
@@ -33,12 +33,11 @@ tools/hsm/target/release/purchases --write
 
 The bare invocation regenerates too; it is what the build runs. It updates managed Markdown figures, the figures sidecar and the JSON/CSV exports. Do not hand-edit generated figures or exports.
 
-Synthetic verification:
+Evidence readings:
 
 ```sh
-python3 hardware/scripts/test_ledger_analysis.py
-python3 hardware/scripts/check_purchase_evidence.py
-python3 hardware/scripts/check_ledger.py
+repo-tools check purchase-evidence
+repo-tools check ledger
 ```
 
 ## Source review

@@ -45,7 +45,7 @@ welding sheets, with the weld-rotator guide's one-picture-per-step approach.
 ## Responsible sources
 
 - [Cold-core assembly](../assembly/cold-core.md), [handwork](../assembly/handwork.md),
-  [coil mandrel](../printed-parts/cold-core/coil-mandrel/coil_mandrel.py) and
+  [coil mandrel](/hardware/printed-parts/cold-core/coil-mandrel/coil_mandrel.rs) and
   [copper feed-throughs](../printed-parts/cold-core/foam-shell/README.md#copper-feed-throughs) supply stock,
   winding datums, probe placement, tail routing and the foam-work handoff.
 - [Refrigerant loop](../assembly/refrigerant-loop.md) supplies the circuit order,
@@ -88,18 +88,16 @@ acceptance duration and duty-cycle band do not establish lifetime.
 This is a committed document, outside the appliance build graph. It imports no CAD
 or hardware generators. Rebuild deliberately after reviewing a changed operation:
 
-Use Python 3 with `reportlab` and `Pillow` (the CAD venv, `tools/cad-venv/bin/python`, has both), and Poppler's `pdftoppm` on `PATH`.
-
 ```bash
-python3 tools/refrigeration-guide/build.py
-pdftoppm -r 150 -png output/pdf/refrigeration-guide.pdf /tmp/refrigeration-page
+tools/run hsm-manual-guides build refrigeration-guide
 ```
 
 Review every rendered page before committing a rebuild. The builder writes the
 delivery PDF and source-hash receipt under `output/pdf/`, and an identical PDF,
 cover and catalog sidecar here. Footer links open the responsible GitHub document
 or manufacturer source. Shared typography and vector primitives live in
-`tools/assembly-guides/common.py`.
+`tools/hsm/fabrication-guides/src/letter.rs`; the editable operations and
+schematic drawings are in [pages.json](pages.json).
 
 Print one-up, single-sided, Letter borderless, no driver scaling. On the calibrated
 Epson ET-8550 photo setup use the **rear feeder**, photographic-glossy media and

@@ -95,14 +95,7 @@ hashes the source bytes actually executed, which Bazel normalizes. The scan
 comparison's `model_source_sha256` hashes the full repository source bytes;
 the two fields intentionally describe different inputs.
 
-Generate from the repository root:
+The model and measurements are retained with their [source derivations](https://github.com/derekbreden/homesodamachine/blob/a518a57a878f02d9ac5b8b638c1c5883cadf6669/hardware/reference/digiten-flow-sensor/digiten_flow_sensor.py).
 
-```sh
-tools/cad-venv/bin/python hardware/reference/digiten-flow-sensor/digiten_flow_sensor.py
-```
-
-Recheck the preserved observations:
-
-```sh
-tools/cad-venv/bin/python hardware/reference/digiten-flow-sensor/validate_scan.py
-```
+The retained comparison in `scan-model-check.json` names its source and capture
+digests.

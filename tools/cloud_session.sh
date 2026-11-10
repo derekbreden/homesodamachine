@@ -1,53 +1,5 @@
 #!/bin/bash
-# cloud_session.sh — the machine a cloud session starts on, stood up to run this tree.
-#
-#     tools/cloud_session.sh            # install what is missing, fetch what the pointer file names
-#     tools/cloud_session.sh --check    # say what is missing and install nothing
-#
-# A cloud session (Claude Code on the web, CLAUDE_CODE_REMOTE=true) starts from a fresh,
-# shallow clone on a Linux x86_64 box with python and node and nothing this tree builds with:
-# no CadQuery, no bazel, no gh, no solids, and fifty commits of history. The
-# Mac has all of it by hand and `tools/ci-image/Dockerfile` bakes it for the runner; this is
-# the third machine, assembled on session start. Every step is idempotent and skips what is
-# already there, so a second run costs a few seconds.
-#
-# THE KERNEL HERE IS THE RUNNER'S, NOT THE MAC'S. `cadquery-ocp` at the pin resolves to the
-# manylinux_2_31_x86_64 wheel, the same one `derive` runs in, so what this machine cuts is
-# byte-identical to what the runner cuts and NOT to what the Mac writes into the pointer file
-# (95 of 124 members differ across the two wheels). A session here can
-# build, check, derive and compare, and a commit it makes lands on main by itself.
-#
-# IT PUBLISHES TO THE SITE'S STORE. `pack.py` PUTs each member a machine cut to
-# homesodamachine.com/objects/ by hash. The service keeps it in Cloudflare R2 and redirects
-# reads to objects.homesodamachine.com (web/lib/objects.js), and the pointer lines name exactly
-# those members. A commit here lands on main by itself and its geometry reaches the site
-# from `publish_now.py` off the post-commit hook.
-#
-# RESTRICTED NETWORKS ALLOW BOTH ASSET HOSTS: homesodamachine.com and
-# objects.homesodamachine.com. The root domain's entry does not cover the object subdomain.
-# Public reads need no secret. Use curl or a descriptive application User-Agent for Python
-# preflights, as `pack.py` does: Cloudflare rejects the default urllib client with error 1010.
-#
-# WHAT EACH STEP BUYS:
-#   node 22                     `npm test` hands node a glob node 20 does not expand
-#   web/node_modules            `npm test`
-#   tools/cad-venv              every generator and every check that imports one
-#   the pointed-at solids       `check_paths`, `check_step_colours`, the parts-tree tests
-#   gh                          `pack.py` uploads with it; the release refuses this
-#                               session's uploads, so `pack.py --write` cannot finish here
-#   bazel                       `bazel build <target>`, `sync_tree.py`, `affected.py`
-#   .cache                      `.bazelrc.paths` mounts it and bazel refuses an absent mount
-#   the whole history           `check_paths` resolves the archive tags, and `git log`
-#                               reaches past fifty commits
-#   the checkout on main        the harness starts a session on a branch it names; nobody
-#                               here works on one, and that branch is never pushed
-#   the hooks and the driver    a commit lands on main and reads the checks by itself, and a
-#                               rebase by hand merges the pointer file by member
-#   .bazelrc.paths              `gen_build.py` writes this checkout's own paths
-#
-# NOT HERE: tools/render's puppeteer and its Chromium (the card deck and the posed renders),
-# blender, rsvg-convert. `derive` has them from the image; a session that needs them installs
-# them the way the Dockerfile does.
+# cloud_session.sh prepares native build and publication tools in a cloud checkout.
 
 set -euo pipefail
 
@@ -56,18 +8,12 @@ cd "$ROOT"
 CHECK=0
 [ "${1:-}" = "--check" ] && CHECK=1
 
-PY=tools/cad-venv/bin/python
 BAZELISK=https://github.com/bazelbuild/bazelisk/releases/download/v1.25.0/bazelisk-linux-amd64
 
 say() { printf '  %s\n' "$*"; }
 missing=0
 need() { missing=1; say "missing: $*"; }
 
-# --- node 22, which web/package.json asks for and `npm test` needs ----------------------------
-# The box links /usr/local/bin/node to its node 20 and carries a node 22 beside it under /opt;
-# `web/package.json` says >=22 and `npm test` hands node a glob that 20 does not expand, which is
-# a red suite for the machine rather than the tree. The links are moved to
-# the 22 the box holds, or 22 is installed the way `tools/ci-image/Dockerfile` does it.
 node_major() { node --version 2>/dev/null | sed 's/^v//; s/\..*//'; }
 if [ "$(node_major)" -ge 22 ] 2>/dev/null; then
   say "node: $(node --version)"
@@ -75,7 +21,6 @@ elif [ "$CHECK" = 1 ]; then
   need "node 22 ($(node --version 2>/dev/null || echo none) on PATH)"
 elif [ -x /opt/node22/bin/node ] && [ -w /usr/local/bin ]; then
   for tool in node npm npx; do
-    # only a link or an absence is moved; a real file or directory there is somebody's, and stays
     if [ -x "/opt/node22/bin/$tool" ] && { [ -L "/usr/local/bin/$tool" ] || [ ! -e "/usr/local/bin/$tool" ]; }; then
       ln -sfn "/opt/node22/bin/$tool" "/usr/local/bin/$tool"
     fi
@@ -92,7 +37,6 @@ else
   say "node: $(node --version 2>/dev/null || echo none), and no way to put 22 on PATH here"
 fi
 
-# --- web's node modules -----------------------------------------------------------------
 if [ -d web/node_modules ]; then
   say "web/node_modules: present"
 elif [ "$CHECK" = 1 ]; then
@@ -102,34 +46,6 @@ else
   npm --prefix web install --no-audit --no-fund
 fi
 
-# --- the CAD venv at the tree's pin ---------------------------------------------------------
-# `uv` when it is there (seconds), else the venv module and pip (minutes). Python 3.13 either
-# way: `cad-requirements.txt` pins wheels that exist for cp313.
-if "$PY" -c "import cadquery" 2>/dev/null; then
-  say "tools/cad-venv: cadquery $("$PY" -c 'import cadquery; print(cadquery.__version__)')"
-elif [ "$CHECK" = 1 ]; then
-  need "tools/cad-venv"
-else
-  say "tools/cad-venv: installing"
-  PY313=$(command -v python3.13 || true)
-  [ -n "$PY313" ] || { echo "python3.13 is not on PATH and the CAD pin needs it" >&2; exit 1; }
-  UV=$(command -v uv || { [ -x "$HOME/.local/bin/uv" ] && echo "$HOME/.local/bin/uv"; } || true)
-  if [ -n "$UV" ]; then
-    "$UV" venv --quiet --python "$PY313" --seed tools/cad-venv
-    "$UV" pip install --quiet --python "$PY" -r tools/cad-requirements.txt
-  else
-    "$PY313" -m venv tools/cad-venv
-    "$PY" -m pip install --quiet --upgrade pip
-    "$PY" -m pip install --quiet -r tools/cad-requirements.txt
-  fi
-fi
-if [ "$CHECK" = 0 ]; then
-  "$PY" tools/cad-venv-site/install.py >/dev/null
-  "$PY" tools/cad-venv-site/install.py --check
-fi
-
-# --- the solids the pointer file names ---------------------------------------------------------------
-# Node's own fetch does not read HTTPS_PROXY unless told to; the variable is harmless elsewhere.
 if [ "$CHECK" = 1 ]; then
   NODE_USE_ENV_PROXY=1 node web/scripts/fetch-cad-artifacts.mjs --for-build --check >/dev/null 2>&1 \
     && say "pointed-at solids: in place" || need "pointed-at solids"
@@ -137,8 +53,6 @@ else
   NODE_USE_ENV_PROXY=1 node web/scripts/fetch-cad-artifacts.mjs --for-build
 fi
 
-# --- gh, which pack.py uploads with ------------------------------------------------------------
-# The token the session runs under is on the proxy, so a bare `gh` reaches the release.
 if command -v gh >/dev/null; then
   say "gh: $(gh --version | head -1)"
 elif [ "$CHECK" = 1 ]; then
@@ -152,10 +66,9 @@ elif [ "$(id -u)" = 0 ] && command -v apt-get >/dev/null; then
     > /etc/apt/sources.list.d/github-cli.list
   apt-get update -qq >/dev/null && DEBIAN_FRONTEND=noninteractive apt-get install -y -qq gh >/dev/null
 else
-  say "gh: not installed (no root apt here); pack.py cannot upload without it"
+  say "gh: not installed (no root apt here); hsm-pack cannot upload without it"
 fi
 
-# --- bazel at .bazelversion --------------------------------------------------------------------
 if command -v bazel >/dev/null; then
   say "bazel: $(command -v bazel)"
 elif [ "$CHECK" = 1 ]; then
@@ -168,7 +81,6 @@ else
   case ":$PATH:" in *":$(dirname "$dest"):"*) ;; *) export PATH="$(dirname "$dest"):$PATH" ;; esac
   [ -n "${CLAUDE_ENV_FILE:-}" ] && echo "export PATH=\"$(dirname "$dest"):\$PATH\"" >> "$CLAUDE_ENV_FILE"
 fi
-# `.bazelrc` names two mount pairs and `.bazelrc.paths` a third; bazel refuses an absent one.
 if [ "$CHECK" = 0 ]; then
   mkdir -p .cache
   for d in /opt/homebrew/bin /usr/local/bin; do
@@ -176,12 +88,29 @@ if [ "$CHECK" = 0 ]; then
   done
 fi
 
-# --- the history the checks read -----------------------------------------------------------------
-# The whole of it: 8078 commits and 2.3 GB of .git, fetched in 1m48s here. `check_paths` holds
-# every archive tag a doc names, and `git log` answers past the clone's fifty commits, which is
-# where this tree keeps its history. When the full fetch does not answer, the tags and the
-# cited commits are fetched on their own, which is what `check_paths` needs and `git log`
-# does without.
+if [ "$CHECK" = 1 ]; then
+  for tool in hsm-run hsm hsm-build-plan hsm-print-build hsm-publish hsm-pack hsm-land hsm-merge-pointers; do
+    [ -x "tools/hsm/target/release/$tool" ] && say "$tool: built" || need "$tool"
+  done
+else
+  command -v cargo >/dev/null || { echo "Install the Rust toolchain before running this setup" >&2; exit 1; }
+  command -v cmake >/dev/null || { echo "Install CMake before running this setup" >&2; exit 1; }
+  if [ ! -x tools/hsm/target/release/hsm-run ]; then
+    cargo build --release --locked -j 2 --manifest-path tools/hsm/Cargo.toml -p hsm-run-slots --bin hsm-run
+  fi
+  tools/run -- cargo build --release --locked -j 2 --manifest-path tools/hsm/Cargo.toml \
+    -p hsm -p hsm-run-native -p hsm-build-plan -p hsm-print-build \
+    -p hsm-publication -p hsm-git-tools -p hsm-cargo-config
+  tools/hsm/target/release/hsm-run --install-hsm "$ROOT" tools/hsm/target/release/hsm
+  tools/hsm/target/release/hsm-run --install-tools "$ROOT" \
+    tools/hsm/target/release/hsm-build-plan tools/hsm/target/release/hsm-print-build \
+    tools/hsm/target/release/hsm-cargo-config tools/hsm/target/release/hsm-publish \
+    tools/hsm/target/release/hsm-pack tools/hsm/target/release/hsm-land \
+    tools/hsm/target/release/hsm-merge-pointers tools/hsm/target/release/hsm-build-times \
+    tools/hsm/target/release/hsm-cut-vs-pointers
+  export PATH="$HOME/.local/bin:$PATH"
+fi
+
 if [ "$(git rev-parse --is-shallow-repository)" = "true" ]; then
   if [ "$CHECK" = 1 ]; then
     need "full history (shallow clone, $(git rev-list --count HEAD) commits)"
@@ -200,12 +129,6 @@ elif [ "$CHECK" = 1 ]; then
   say "history: whole, $(git rev-list --count HEAD) commits"
 fi
 
-# --- the checkout stands on main ------------------------------------------------------------------
-# The harness that starts a cloud session checks out a branch it names for the session
-# (claude/<words>-<id>) and asks for pushes there. Nobody here works on a branch: every commit
-# lands on main through push.py, so that branch could only ever be main's history under another
-# name. The checkout is put on main, keeping whatever HEAD holds, and the named branch is left
-# unpushed; the harness's own stop hook then reads main against origin/main and has nothing to say.
 branch=$(git rev-parse --abbrev-ref HEAD 2>/dev/null || echo HEAD)
 if [ "$branch" = "main" ]; then
   say "branch: main"
@@ -217,12 +140,6 @@ else
   say "branch: main (was $branch)"
 fi
 
-# --- the hooks and the pointer file's merge driver ------------------------------------------------
-# `.githooks/post-commit` is what lands a commit on main (`push.py`), and a clone runs it only
-# once its config names the directory. The driver
-# `.gitattributes` names for hardware/cad-artifacts.json lives in config as well: `push.py`
-# writes it the first time it runs, and this writes it first, so a rebase by hand in a clone
-# that has never pushed merges the pointer file by member.
 if [ "$(git config --get core.hooksPath || true)" = ".githooks" ]; then
   say "hooks: .githooks"
 elif [ "$CHECK" = 1 ]; then
@@ -231,20 +148,21 @@ else
   git config core.hooksPath .githooks
   say "hooks: .githooks"
 fi
-if [ -n "$(git config --get merge.cadpointers.driver || true)" ]; then
+if [[ "$(git config --get merge.cadpointers.driver || true)" == *hsm-merge-pointers* ]]; then
   say "merge driver: cadpointers"
 elif [ "$CHECK" = 1 ]; then
   need "merge driver (merge.cadpointers.driver)"
 else
-  "$PY" -c 'import sys; sys.path.insert(0, "tools"); import push; push.ensure_merge_driver()'
+  printf -v driver '%q %%O %%A %%B' "$ROOT/tools/hsm/target/release/hsm-merge-pointers"
+  git config merge.cadpointers.driver "$driver"
+  git config merge.cadpointers.name "the CAD pointer file, merged by member"
   say "merge driver: cadpointers"
 fi
 
-# --- this checkout's own paths --------------------------------------------------------------------
 if [ "$CHECK" = 1 ]; then
   [ -f .bazelrc.paths ] && say ".bazelrc.paths: written" || need ".bazelrc.paths"
 else
-  "$PY" tools/bazel/gen_build.py
+  tools/hsm/target/release/hsm-build-plan write
 fi
 
 if [ "$CHECK" = 1 ]; then

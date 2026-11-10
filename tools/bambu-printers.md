@@ -5,16 +5,14 @@ Mark1 retains `H2C` as its local connection key.
 
 ## Status and chamber lights
 
-`bambu_printer.py` reads the printer names, hosts and access codes from
+`hsm-printer` reads the printer names, hosts and access codes from
 `~/.config/h2c-gc/run.sh`. It matches each code to its serial in Bambu Studio's saved
 configuration. Credentials stay outside the repository and command output.
 
 ```sh
-python3 -m venv .cache/printer-control/venv
-.cache/printer-control/venv/bin/pip install -r tools/printer-requirements.txt
-.cache/printer-control/venv/bin/python tools/bambu_printer.py status
-.cache/printer-control/venv/bin/python tools/bambu_printer.py status H2C
-.cache/printer-control/venv/bin/python tools/bambu_printer.py light Mark2 on
+hsm-printer status
+hsm-printer status H2C
+hsm-printer light Mark2 on
 ```
 
 The light command takes `on` or `off`, and `--node chamber_light2` selects the second
@@ -254,14 +252,14 @@ Bambu Connect is installed at `/Applications/Bambu Connect.app`, signed in to th
 holding both printers. Its application identifier is `com.bambulab.bambu-connect`.
 
 ```sh
-tools/cad-venv/bin/python tools/bambu_print.py <file.gcode.3mf> Mark2
-tools/cad-venv/bin/python tools/bambu_print.py <file.gcode.3mf> Mark2 --dry-run
+hsm-printer print <file.gcode.3mf> Mark2
+hsm-printer print <file.gcode.3mf> Mark2 --dry-run
 ```
 
-`bambu_print.py` imports a separate copy of the reviewed archive, brings Bambu Connect
+`hsm-printer print` imports a separate copy of the reviewed archive, brings Bambu Connect
 forward, reads its controls and clicks them with mouse input. Its own Swift input process
 is `bambu-ui/main.swift`; the command compiles it into `.cache/printer-control/` as needed.
-It does not call `bambu-ax` or `bambu_send.py`. The filament picker captures only
+The filament picker captures only
 Bambu Connect’s window using ScreenCaptureKit; macOS Screen Recording access is
 required for unresolved mappings. The previous application and pointer are
 restored when the transaction ends. Input stops if another application takes focus.
@@ -297,7 +295,7 @@ the application can rewrite the file it imports.
 
 ### Bambu Studio send from an existing slice
 
-`bambu_print_archive.py source.gcode.3mf output.gcode.3mf` creates a separate
+`hsm-printer archive source.gcode.3mf output.gcode.3mf` creates a separate
 print-only archive. It removes editable geometry and its model references while
 preserving every G-code byte, checksum, preview, slice metadata and print setting.
 The source stays intact. Open the output with Bambu Studio's **Open Project**;
@@ -314,11 +312,11 @@ records an accepted Studio send with LAN acceleration using this packaging.
 ### Background accessibility sender
 
 ```sh
-.cache/printer-control/venv/bin/python tools/bambu_send.py <file.gcode.3mf> H2C
-.cache/printer-control/venv/bin/python tools/bambu_send.py <file.gcode.3mf> Mark2 --dry-run
+hsm-printer send <file.gcode.3mf> H2C
+hsm-printer send <file.gcode.3mf> Mark2 --dry-run
 ```
 
-`bambu_send.py` performs the procedure below and reads each step back before the next.
+`hsm-printer send` performs the procedure below and reads each step back before the next.
 It takes the connection key, `H2C` or `Mark2`, and finds the printer in Bambu Connect by
 the name the application shows for it, Mark1 or Mark2. When Bambu Connect is not running
 it starts it with `open -g` and waits for its window.
@@ -368,7 +366,7 @@ that costs the screen says so. Accessibility trust comes from the calling proces
    opened in step 1 does not decide it:
    on 2026-09-20 the dialog offered Mark1 three times after Mark2's page was opened and
    settled.
-4. **Map the filament.** Both senders use `bambu_print.map_external_spools`.
+4. **Map the filament.** Both senders use [the native external-spool mapper](hsm/printer-tools/src/ui.rs).
    It selects the card in the required nozzle column, reads the opened popover’s
    **External → Ext <type>** labels and clicks the visible matching choice.
    Its position is measured from the captured window, with no filament-popover
@@ -387,14 +385,14 @@ that costs the screen says so. Accessibility trust comes from the calling proces
    `(disabled)`, and an `AXPress` on one does nothing. The dialog closes when the
    application has taken the job, so a dialog still open after the press is a press
    that did not land.
-7. **Verify with the printer.** `bambu_printer.py status <name>` reports `PREPARE` within
+7. **Verify with the printer.** `hsm-printer status <name>` reports `PREPARE` within
    seconds and then `RUNNING` with the archive's name as `subtask_name`. A 47 MB archive
    took under ten seconds to land. Record the reading with the job.
 
    The dialog can close and no job arrive: the job id does not move, the printer's
    `upload` block stays idle, and nothing lands late. This happened to three Mark2 sends
    (twice on 2026-09-22, once on 2026-09-23) with the file, printer and procedure the same
-   as sends that landed. `bambu_send.py` presses Send once per dialog and holds the
+   as sends that landed. `hsm-printer send` presses Send once per dialog and holds the
    printer's report topic open across it, printing any command reply (`project_file` with
    its result and reason), upload, error or HMS it hears, and the application's page text at
    the close, a second later and five seconds later. A send that has not landed is watched a
@@ -416,12 +414,12 @@ The selected tile’s accessibility text is the final mapping readback.
 Run its tests manually:
 
 ```sh
-tools/cad-venv/bin/python tools/bambu-ui/test_filament_picker.py
+tools/run -- hsm-printer picker-check
 ```
 
 The tests use generated popover images in different positions and scales,
 including wrong-type and duplicate choices, plus two-nozzle accessibility
-fixtures. [Validation scope](bambu-ui/filament-picker-review.json) distinguishes
+fixtures. [Archived validation scope](https://github.com/derekbreden/homesodamachine/blob/4f454e7b0142229b93df64c3c5d53d5c5e383de1/tools/bambu-ui/filament-picker-review.json) distinguishes
 those results from the live dry run on a busy printer.
 
 Changing the printer in the selector clears the filament mapping.
@@ -463,7 +461,7 @@ enclosure jobs' profiles, offsets and file hashes are recorded in
 
 A print sent while the printer is loading filament or purging, which is a nozzle or bed
 target above zero with no job, starts nothing and says nothing: the dialog closes, the
-printer stays on its last state, and its `job_id` does not move. `bambu_send.py` reads the
+printer stays on its last state, and its `job_id` does not move. `hsm-printer send` reads the
 targets before it sends and waits for them to fall, and when a send is dropped anyway it
 reads them again and makes the whole pass again, up to three times. The job id moving is
 what says a job reached the printer; the file name alone cannot, because the last job can
@@ -491,5 +489,5 @@ refuses is unknown, and Mark1 is untested.
 
 ## Printer storage
 
-The existing `h2c_timelapse_gc.py` connects to the LAN FTPS service. Its listing, archive
+The existing `hsm-printer gc` connects to the LAN FTPS service. Its listing, archive
 and retention commands are described in [h2c-timelapse-gc.md](h2c-timelapse-gc.md).

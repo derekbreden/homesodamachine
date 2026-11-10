@@ -1,250 +1,56 @@
 {
-  "schema": 2,
-  "scope": "Manual dimensional and B-rep fit review of twin screw-clamp fixture; schematic factory envelopes are not measured manufacturer CAD",
-  "source_sha256": "cd12a7c2b8081ac2ee228b6790c07973c69b4995995a9a8c1e36dab51b77a5e9",
-  "reference_source_sha256": {
-    "hardware/reference/touch-flo-faucet/westbrass-reference/westbrass_reference.py": "6ca8f3d332acaef05c4c92041509e66ea68235ddc4f593c0c5e3a9d8543670d0",
-    "hardware/printed-parts/faucet/tpu-o-ring/tpu_o_ring.py": "81a348b7b08866c60026226f592cfd250669edfa0b2aa18dcb44c7687c8db575"
-  },
-  "parts": [
-    {
-      "part": "base",
-      "valid_brep": true,
-      "solid_count": 1,
-      "bbox": {
-        "min_mm": [
-          -28.0,
-          -100.0,
-          0.0
-        ],
-        "max_mm": [
-          244.5,
-          134.0,
-          54.0
-        ],
-        "size_mm": [
-          272.5,
-          234.0,
-          54.0
-        ]
-      },
-      "volume_mm3": 665500.6105807713
-    },
-    {
-      "part": "carrier",
-      "valid_brep": true,
-      "solid_count": 1,
-      "bbox": {
-        "min_mm": [
-          -38.5,
-          -50.0,
-          0.0
-        ],
-        "max_mm": [
-          124.0,
-          50.0,
-          10.0
-        ],
-        "size_mm": [
-          162.5,
-          100.0,
-          10.0
-        ]
-      },
-      "volume_mm3": 87191.85022915751
-    },
-    {
-      "part": "lower-jaw",
-      "valid_brep": true,
-      "solid_count": 1,
-      "bbox": {
-        "min_mm": [
-          0.0,
-          -50.0,
-          0.0
-        ],
-        "max_mm": [
-          44.0,
-          50.0,
-          15.0
-        ],
-        "size_mm": [
-          44.0,
-          100.0,
-          15.0
-        ]
-      },
-      "volume_mm3": 49951.996598790276
-    },
-    {
-      "part": "upper-jaw",
-      "valid_brep": true,
-      "solid_count": 1,
-      "bbox": {
-        "min_mm": [
-          0.0,
-          -50.0,
-          -6.917397473272781e-15
-        ],
-        "max_mm": [
-          44.0,
-          50.0,
-          15.000000000000007
-        ],
-        "size_mm": [
-          44.0,
-          100.0,
-          15.000000000000014
-        ]
-      },
-      "volume_mm3": 51766.92175875419
-    },
-    {
-      "part": "liner",
-      "valid_brep": true,
-      "solid_count": 1,
-      "bbox": {
-        "min_mm": [
-          0.0,
-          -10.0,
-          0.0
-        ],
-        "max_mm": [
-          9.000000000000004,
-          10.0,
-          28.0
-        ],
-        "size_mm": [
-          9.000000000000004,
-          20.0,
-          28.0
-        ]
-      },
-      "volume_mm3": 4379.578319353171
-    },
-    {
-      "part": "cap-support-puck",
-      "valid_brep": true,
-      "solid_count": 1,
-      "bbox": {
-        "min_mm": [
-          -27.0,
-          -27.0,
-          0.0
-        ],
-        "max_mm": [
-          27.0,
-          27.0,
-          8.0
-        ],
-        "size_mm": [
-          54.0,
-          54.0,
-          8.0
-        ]
-      },
-      "volume_mm3": 22925.499149222076
-    }
-  ],
-  "travel_review": {
-    "stroke_range_mm": [
-      0,
-      20.0
-    ],
-    "increment_mm": 0.5,
-    "states": 41,
-    "pairwise_bounds_reviews": 21648,
-    "brep_intersection_queries": 2706,
-    "unintended_intersections": [],
-    "tube_length_mm": 330.0,
-    "included": "All printed rigid parts, reference donor, full tube, liners, thimble, four screws, four nuts, two washers, and schematic factory clamps",
-    "intentional_interference": [
-      {
-        "parts": [
-          "lldpe-tube",
-          "lower-liner"
-        ],
-        "reason": "Uncompressed TPU grip reference: \u00d87.75 groove and 1 mm proud backing; elastic compression unmodelled"
-      },
-      {
-        "parts": [
-          "lldpe-tube",
-          "upper-liner"
-        ],
-        "reason": "Uncompressed TPU grip reference: \u00d87.75 groove and 1 mm proud backing; elastic compression unmodelled"
-      },
-      {
-        "parts": [
-          "lower-liner",
-          "upper-liner"
-        ],
-        "reason": "Two liners project 1 mm each beyond their pockets at the rigid closure limit; uncompressed reference overlap is intentional"
-      },
-      {
-        "parts": [
-          "touch-flo-donor",
-          "tpu-sealing-thimble"
-        ],
-        "reason": "Expanded TPU overlaps nominal port before elastic compression; no deformation solution"
-      }
-    ]
-  },
+  "evidence_scope": "Force, as-printed strength, grip, quantitative sliding clearance and lifetime require physical evidence. Geometric overtravel stops provide no load or leak-tightness qualification. Factory envelopes require actual-tool setup.",
+  "evidence_source": "load-basis.md",
   "factory_bearing_review": [
     {
-      "station": "C1",
-      "role": "fixed",
       "contact_center_mm": [
         -26.0,
         -23.25,
         30.0
       ],
+      "missing_backing_mm3_in_0p1mm_slab": 0.0,
       "pad_envelope_diameter_mm": 30.0,
-      "missing_backing_mm3_in_0p1mm_slab": 0.0
+      "role": "fixed",
+      "station": "C1"
     },
     {
-      "station": "C1",
-      "role": "moving",
       "contact_center_mm": [
         98.0,
         -23.25,
         30.0
       ],
+      "missing_backing_mm3_in_0p1mm_slab": 0.0,
       "pad_envelope_diameter_mm": 30.0,
-      "missing_backing_mm3_in_0p1mm_slab": 0.0
+      "role": "moving",
+      "station": "C1"
     },
     {
-      "station": "C2",
-      "role": "fixed",
       "contact_center_mm": [
         -26.0,
         40.75,
         30.0
       ],
+      "missing_backing_mm3_in_0p1mm_slab": 0.0,
       "pad_envelope_diameter_mm": 30.0,
-      "missing_backing_mm3_in_0p1mm_slab": 0.0
+      "role": "fixed",
+      "station": "C2"
     },
     {
-      "station": "C2",
-      "role": "moving",
       "contact_center_mm": [
         98.0,
         40.75,
         30.0
       ],
+      "missing_backing_mm3_in_0p1mm_slab": 0.0,
       "pad_envelope_diameter_mm": 30.0,
-      "missing_backing_mm3_in_0p1mm_slab": 0.0
+      "role": "moving",
+      "station": "C2"
     }
   ],
   "location_and_grip": {
-    "tube_axis_yz_mm": [
-      8.75,
-      30.0
-    ],
-    "donor_round_base_tangent_floor_z_mm": 14.25,
-    "donor_flat_clocking_pad_z_mm": 21.5,
-    "lower_jaw_shelf_z_mm": 15.0,
-    "guide_bearing_span_mm": 124.0,
-    "guide_lateral_gap_each_mm": 0.1,
+    "arch_axial_clearance_mm": 12.0,
+    "carrier_countersink_radial_stock_mm": 4.9,
+    "carrier_countersink_retained_shelf_mm": 4.5,
     "carrier_foot_final_x_range_mm": [
       96.5,
       220.5
@@ -253,53 +59,236 @@
       116.5,
       240.5
     ],
-    "nominal_guide_only_lip_play_final_mm": 0.19274193548387097,
-    "nominal_guide_only_lip_play_initial_mm": 0.225,
-    "guide_play_scope": "Geometric free play with lower jaw metal-coupled without slip; not an interfering sleeve's measured working alignment allowance",
-    "grip_bore_mm": 7.75,
-    "tube_od_mm": 9.525,
-    "liner_grip_length_mm": 28.0,
-    "liner_center_x_mm": 22.0,
-    "closure_screw_x_mm": 22.0,
-    "closure_screw_axial_offset_mm": 0.0,
-    "crossbar_center_x_mm": 22.0,
-    "liner_proud_height_each_mm": 1.0,
-    "paired_rigid_face_closure_reserve_mm": 2.0,
-    "jaw_pocket_front_end_wall_mm": 7.85,
-    "jaw_pocket_rear_end_wall_mm": 7.85,
-    "jaw_pocket_backing_mm": 7.0,
-    "liner_minimum_backing_mm": 5.125,
-    "liner_end_contact_area_mm2": 156.4135114054704,
-    "carrier_countersink_retained_shelf_mm": 4.65,
     "carrier_nut_floor_mm": 7.6,
-    "carrier_screw_tip_z_mm": 28.2,
-    "carrier_screw_tip_relief_mm": 1.8000000000000007,
-    "carrier_countersink_radial_stock_mm": 4.9,
     "carrier_nut_z_range_mm": [
       22.6,
       26.6
     ],
-    "liner_print_pose": "Tube axis vertical; thick preformed half-round block; no bending or wrapping",
+    "carrier_screw_tip_relief_mm": 1.8000000000000007,
+    "carrier_screw_tip_z_mm": 28.2,
     "clamp_front_final_x_mm": 58.0,
-    "arch_axial_clearance_mm": 12.0,
-    "factory_pad_to_shank_slot_near_clearance_mm": 2.3500000000000014
+    "closure_screw_axial_offset_mm": 0.0,
+    "closure_screw_x_mm": 22.0,
+    "crossbar_center_x_mm": 22.0,
+    "donor_flat_clocking_pad_z_mm": 21.5,
+    "donor_round_base_tangent_floor_z_mm": 14.25,
+    "factory_pad_to_shank_slot_near_clearance_mm": 2.3500000000000014,
+    "grip_bore_mm": 7.75,
+    "guide_bearing_span_mm": 124.0,
+    "guide_lateral_gap_each_mm": 0.1,
+    "guide_play_scope": "Geometric free play with the lower jaw metal-coupled without slip; no measured working alignment allowance is inferred.",
+    "jaw_pocket_backing_mm": 7.0,
+    "jaw_pocket_front_end_wall_mm": 7.85,
+    "jaw_pocket_rear_end_wall_mm": 7.85,
+    "liner_center_x_mm": 22.0,
+    "liner_end_contact_area_mm2": 156.4135114054704,
+    "liner_grip_length_mm": 28.0,
+    "liner_minimum_backing_mm": 5.125,
+    "liner_print_pose": "Tube axis vertical; preformed half-round block.",
+    "liner_proud_height_each_mm": 1.0,
+    "lower_jaw_shelf_z_mm": 15.0,
+    "nominal_guide_only_lip_play_final_mm": 0.19274193548387097,
+    "nominal_guide_only_lip_play_initial_mm": 0.225,
+    "paired_rigid_face_closure_reserve_mm": 2.0,
+    "tube_axis_yz_mm": [
+      8.75,
+      30.0
+    ],
+    "tube_od_mm": 9.525
   },
-  "setup": {
-    "bore_depth": "Measure actual bare donor annular floor depth D with existing caliper; source records at least 20 mm",
-    "lip_witness_from_tube_end_mm": "D - 2.1",
-    "jaw_front_witness_from_tube_end_mm": "D + 16.9",
-    "initial_manual_engagement_for_depth_over_20_mm": "D - 20 with T handle before carrier reaches rear stop",
-    "stop_scope": "Geometric overtravel limit; no force holding, seating or leak-tightness rating",
-    "factory_clamp_check": "On ordinary unloaded setup, both actual pads remain fully backed at stations and each spindle covers the full20mm stroke without manual sliding-jaw repositioning",
-    "lever_check": "Attached faucet lever stays down at unpressed rest, untouched through the full ordinary unloaded movement; no measured rigid pose is inferred"
-  },
-  "evidence_limits": [
-    "Insertion force, as-printed strength, grip force, quantitative sliding clearance and lifetime are unmeasured; functional operation evidence is recorded separately in physical-acceptance.json.",
-    "PET-GF15 manufacturer mechanical coupons were annealed120C16h; no published number is an as-printed allowable",
-    "Manufacturer600lb clamp force does not rate the printed fixture, donor, tube or grip",
-    "No assembled faucet lever pose is invented; a low narrow forward shelf and rearward full-width guides preserve front access",
-    "Factory pads, rail, spindle and handles use schematic envelopes, requiring ordinary actual-tool setup",
-    "The sleeve is fitted to tube first, with tube end on cap; the sleeved tube enters the bare donor"
+  "numbers_sha256": "fe142d9b68f15f4e9058830cdeec68b075c3c10692258649b98a396114467b5c",
+  "parts": [
+    {
+      "bbox": {
+        "max_mm": [
+          244.5,
+          134.0,
+          54.0
+        ],
+        "min_mm": [
+          -28.0,
+          -100.0,
+          0.0
+        ],
+        "size_mm": [
+          272.5,
+          234.0,
+          54.0
+        ]
+      },
+      "part": "base",
+      "solid_count": 1,
+      "valid_mesh": true,
+      "volume_mm3": 665503.070574538
+    },
+    {
+      "bbox": {
+        "max_mm": [
+          27.0,
+          27.0,
+          8.0
+        ],
+        "min_mm": [
+          -27.0,
+          -27.0,
+          0.0
+        ],
+        "size_mm": [
+          54.0,
+          54.0,
+          8.0
+        ]
+      },
+      "part": "cap-support-puck",
+      "solid_count": 1,
+      "valid_mesh": true,
+      "volume_mm3": 22925.660772194347
+    },
+    {
+      "bbox": {
+        "max_mm": [
+          124.0,
+          50.0,
+          10.0
+        ],
+        "min_mm": [
+          -38.5,
+          -50.0,
+          0.0
+        ],
+        "size_mm": [
+          162.5,
+          100.0,
+          10.0
+        ]
+      },
+      "part": "carrier",
+      "solid_count": 1,
+      "valid_mesh": true,
+      "volume_mm3": 87214.2820261663
+    },
+    {
+      "bbox": {
+        "max_mm": [
+          9.000000000000002,
+          10.0,
+          28.0
+        ],
+        "min_mm": [
+          0.0,
+          -10.0,
+          0.0
+        ],
+        "size_mm": [
+          9.000000000000002,
+          20.0,
+          28.0
+        ]
+      },
+      "part": "liner",
+      "solid_count": 1,
+      "valid_mesh": true,
+      "volume_mm3": 4379.843509565966
+    },
+    {
+      "bbox": {
+        "max_mm": [
+          44.0,
+          50.0,
+          15.0
+        ],
+        "min_mm": [
+          0.0,
+          -50.0,
+          0.0
+        ],
+        "size_mm": [
+          44.0,
+          100.0,
+          15.0
+        ]
+      },
+      "part": "lower-jaw",
+      "solid_count": 1,
+      "valid_mesh": true,
+      "volume_mm3": 50082.81560332319
+    },
+    {
+      "bbox": {
+        "max_mm": [
+          44.0,
+          50.0,
+          15.000000000000005
+        ],
+        "min_mm": [
+          0.0,
+          -50.0,
+          -5.329070518200751e-15
+        ],
+        "size_mm": [
+          44.0,
+          100.0,
+          15.00000000000001
+        ]
+      },
+      "part": "upper-jaw",
+      "solid_count": 1,
+      "valid_mesh": true,
+      "volume_mm3": 51843.10019753795
+    }
   ],
-  "physical_acceptance_record": "physical-acceptance.json"
+  "physical_acceptance_record": "physical-acceptance.json",
+  "purpose": "Answer the manual fixture geometry question from current native solids.",
+  "reference_source_sha256": {
+    "hardware/printed-parts/faucet/tpu-o-ring/numbers.rs": "31249e9004fedd8e29e25764f7bfb08d3557f1e2ad159e8422dab3b209dce94e",
+    "hardware/reference/touch-flo-faucet/westbrass-reference/westbrass-reference.step.mesh": "235b08ce268d7adc8e373705594fbcd6f07ddaf4cb4c31a25ca2aebd7d5fe492"
+  },
+  "review_source_sha256": "f3950ddaf71695251bb5f8b52ddf3b76fc5049bb3a22971746a54e59a035d789",
+  "schema": 3,
+  "scope": "Dimensional and mesh fit review of the twin screw-clamp fixture; factory clamp envelopes are schematic, not measured manufacturer CAD.",
+  "setup_source": "README.md",
+  "source_sha256": "4e7805bc5c08757a0d2e3b108858dda400ec90a292f5b8d7b690c3948eb4e93f",
+  "travel_review": {
+    "included": "Printed rigid parts, reference donor, tube, liners, thimble, fasteners and schematic factory clamps.",
+    "increment_mm": 0.5,
+    "intentional_interference": [
+      {
+        "parts": [
+          "lldpe-tube",
+          "lower-liner"
+        ],
+        "reason": "Uncompressed TPU grip reference; elastic compression is unmodelled."
+      },
+      {
+        "parts": [
+          "lldpe-tube",
+          "upper-liner"
+        ],
+        "reason": "Uncompressed TPU grip reference; elastic compression is unmodelled."
+      },
+      {
+        "parts": [
+          "lower-liner",
+          "upper-liner"
+        ],
+        "reason": "Liners project beyond their pockets at rigid closure; the uncompressed overlap is intentional."
+      },
+      {
+        "parts": [
+          "touch-flo-donor",
+          "tpu-sealing-thimble"
+        ],
+        "reason": "Expanded TPU overlaps the nominal port before elastic compression."
+      }
+    ],
+    "mesh_intersection_queries": 2706,
+    "pairwise_bounds_reviews": 21648,
+    "states": 41,
+    "stroke_range_mm": [
+      0.0,
+      20.0
+    ],
+    "tube_length_mm": 330.0,
+    "unintended_intersections": []
+  }
 }

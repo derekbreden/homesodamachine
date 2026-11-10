@@ -1,196 +1,51 @@
 {
-  "pdf": "refrigeration-guide.pdf",
-  "pages": 27,
-  "page_inches": [
-    8.5,
-    11
-  ],
-  "print_layout": {
-    "content_scale": 0.98,
-    "bleed_overhang_inches": 0.25,
-    "colored_band_inset_inches": 0.3333333333333333,
-    "bleed_layer_scale": 1,
-    "media_source": "rear",
-    "print_scaling": "100% / none"
-  },
   "artwork": "vector schematic; dimensions govern; not a full-size template",
-  "source_sha256": {
-    "hardware/assembly/cold-core.md": "2d42ec39c92d3e9113612c4615abff15df75a956b2168be2711f533f73a08666",
-    "hardware/assembly/cold-core.figures.json": "c1bf1964b0e999987d12433f2ccd0a985e0e9ef8a96e497fae20fccb474c888e",
-    "hardware/assembly/handwork.md": "f2976444c52211292684208a6256c1a098ff7e29de49ed4b229b5a6926248661",
-    "hardware/refrigeration-guide/README.md": "0209146e1cbf60d799ce0c2c65adbf356101112b3873891aab4eb5fc783ca47e",
-    "hardware/assembly/refrigerant-loop.md": "a00416dc73fc305e9814b0b2e74d9b94e734e4a3f04d9520d361a5016504daab",
-    "hardware/assembly/refrigerant-loop.figures.json": "e0e006c0b449b32d603b7bd0bdb1593b4ae30f9437cdb15af26044b9b208d497",
-    "hardware/reference/ice-maker/README.md": "192ae529ba49bdf114b61b9d6e5b64213df3dc8d9cf3e313b61e43466a2fd155",
-    "hardware/reference/compressor/README.md": "af45bd2df14fb6c8893451b70738833fa4ab7dfb30570675b71cd50b52ee1440",
-    "hardware/reference/condenser-block/README.md": "cccb491af5fafe7e4b937652f1a293959d6fe5707bf04470877b8fb1855f538b",
-    "hardware/assembly/enclosure-mechanical.md": "67e4eec4983a50d641fd609861e5d4c710c13670c2d05b85b7175f20430e8900",
-    "hardware/ledger/bom.md": "cfc3387ffccb97df2be4332906d61878b007750b133609bf3627759b9feb494e",
-    "hardware/printed-parts/cold-core/coil-mandrel/coil_mandrel.py": "1d785b2116802dd5f4d0c93a2b93399c8c5d302f6f7628e38450c8625d5265fe",
-    "hardware/printed-parts/cold-core/foam-shell/README.md": "b1e70bdd18e8df02353ffc2320d8dcbefb251c7c55a73ad30bfde5aa6af8ab6d",
-    "hardware/printed-parts/refrigeration/fuse-clamp/README.md": "5f9980eace087fd3d4f94921fb15224678a83029fce90b39f6f43457b9e65980",
-    "hardware/assembly/firmware-and-commissioning.md": "633f69a45893e4ed5d99317eddec711426cad2e8e82712c389070dc854063ea6",
-    "firmware/src_appliance/README.md": "823b8c25c902a04c7b3f554bfc7f54fa37d084a37c24ebfc6a85434827458405",
-    "firmware/lib/machine_policy/cold_policy.h": "ef86c64742b9d5d2cb340bfcf718f155b0077fe07a797ba38fb448c86625cdc4",
-    "hardware/assembly/acceptance-and-burn-in.md": "672b3d232c37daf8c12c031a554ca8b5882ec2d48047ef04650a99b758c229b9",
-    "hardware/mechanical-qualification/README.md": "b8bac7d644e90ade3011c16d67f3fc76f917f2cf1c30e67f6df353a3e335502a",
-    "business/regulatory.md": "808c2100feab375f8260186892b4f7415cd573668f066901edc89061090ed7d3",
-    "tools/refrigeration-guide/build.py": "107b07261710e47948cc0bf406c41cbaab83adf4f0263f582ea3f5447fb7a989",
-    "tools/assembly-guides/common.py": "1ec932ef9dc4cae73205f3e9a3722a2c23710d08287aa03e9908a555ec0db885"
-  },
-  "pdf_sha256": "fcfc9a8a13b4845f0d8ae06bc7c79bfe1f8025d4783d12826c422ace2b92a331",
   "manufacturer_sources": {
     "epa_handling": "https://www.epa.gov/section608/stationary-refrigeration-prohibition-venting-refrigerants",
     "harris_filler": "https://ch-delivery.lincolnelectric.com/api/public/content/7cdc09a3e3364eca8d9ecb0145977257?v=7aae3e72"
   },
   "manufacturer_sources_checked": "2026-10-04",
-  "manual_number_review": {
-    "selected_document_figures": {
-      "cold-core.figures.json": {
-        "CUT_FT": "15.92 ft",
-        "SPRUNG_LEN": "4.06 m",
-        "STUB_INLET": "335.5 mm",
-        "STUB_OUTLET": "429.6 mm",
-        "MANDREL_OD": "123 mm",
-        "TANK_OD": "127 mm",
-        "TOTAL_WRAPS": "9.687",
-        "PITCH": "12.33 mm",
-        "WIND_LENGTH": "119.4 mm",
-        "PROT_INLET": "200 mm",
-        "PROT_OUTLET": "175 mm"
-      },
-      "refrigerant-loop.figures.json": {
-        "UNIT_A_CHARGE": "15 g",
-        "UNIT_B_CHARGE": "23 g",
-        "VACUUM_TARGET": "500 microns",
-        "VACUUM_HOLD": "15 min",
-        "RECHARGE_TOL": "\u00b11 g",
-        "VOL_CORRECTION": "+5-15 g",
-        "VENT_CLEARANCE": "3 m",
-        "RUN_CURRENT": "~1 A",
-        "OFF_TIME": "3-minute",
-        "JOINT_STANDOFF": "~92 mm"
-      }
-    },
-    "firmware_literals": {
-      "kTankTargetC": 2,
-      "kHysteresisC": 2,
-      "kFreezeCutoffC": -8,
-      "kFreezeRecoverC": -5,
-      "kMinOffMs": 180000,
-      "kMinOnMs": 60000,
-      "kReadingStaleMs": 30000
-    }
+  "page_inches": [
+    8.5,
+    11.0
+  ],
+  "pages": 27,
+  "pdf": "refrigeration-guide.pdf",
+  "pdf_sha256": "d4a2ac5c65ba236db86d52336d5de89fe9a571e7818988f78b5aa9565db6815b",
+  "print_layout": {
+    "bleed_layer_scale": 1,
+    "bleed_overhang_inches": 0.25,
+    "colored_band_inset_inches": 0.3333333333333333,
+    "content_scale": 0.98,
+    "media_source": "rear",
+    "print_scaling": "100% / none"
   },
   "qualification_scope": "Manual sequence and source review; records no completed circuit build, charge or load test",
-  "page_inventory": [
-    {
-      "page": 1,
-      "operation": "Build the cold loop"
-    },
-    {
-      "page": 2,
-      "operation": "Read the donor's label"
-    },
-    {
-      "page": 3,
-      "operation": "Trace what stays"
-    },
-    {
-      "page": 4,
-      "operation": "Reserve both coil tails"
-    },
-    {
-      "page": 5,
-      "operation": "Wind the copper coil"
-    },
-    {
-      "page": 6,
-      "operation": "Dress the bare wall"
-    },
-    {
-      "page": 7,
-      "operation": "Transfer and bond the coil"
-    },
-    {
-      "page": 8,
-      "operation": "Route the two exits"
-    },
-    {
-      "page": 9,
-      "operation": "Support before teardown"
-    },
-    {
-      "page": 10,
-      "operation": "Vent the factory charge"
-    },
-    {
-      "page": 11,
-      "operation": "Start the argon purge"
-    },
-    {
-      "page": 12,
-      "operation": "Cut at the evaporator"
-    },
-    {
-      "page": 13,
-      "operation": "Wet rag on each stub"
-    },
-    {
-      "page": 14,
-      "operation": "Braze the suction coupling"
-    },
-    {
-      "page": 15,
-      "operation": "Pinch-swage the capillary"
-    },
-    {
-      "page": 16,
-      "operation": "Pull vacuum"
-    },
-    {
-      "page": 17,
-      "operation": "Meter the recharge"
-    },
-    {
-      "page": 18,
-      "operation": "Cap the BPV31 for life"
-    },
-    {
-      "page": 19,
-      "operation": "Run up and sweep for leaks"
-    },
-    {
-      "page": 20,
-      "operation": "Place the gas sensor first"
-    },
-    {
-      "page": 21,
-      "operation": "Lower the compressor"
-    },
-    {
-      "page": 22,
-      "operation": "Seat the condenser and fan"
-    },
-    {
-      "page": 23,
-      "operation": "Seat the thermal cutoff"
-    },
-    {
-      "page": 24,
-      "operation": "Prove the first start"
-    },
-    {
-      "page": 25,
-      "operation": "Prove the loaded cold loop"
-    },
-    {
-      "page": 26,
-      "operation": "Repair through the full sequence"
-    },
-    {
-      "page": 27,
-      "operation": "Keep the unit's evidence"
-    }
-  ]
+  "source_sha256": {
+    "business/regulatory.md": "808c2100feab375f8260186892b4f7415cd573668f066901edc89061090ed7d3",
+    "firmware/lib/machine_policy/cold_policy.h": "ef86c64742b9d5d2cb340bfcf718f155b0077fe07a797ba38fb448c86625cdc4",
+    "firmware/src_appliance/README.md": "989fea8c21f89c4be8caeb41f3a0caa84989ec530d16f35f0a77cda17c19df47",
+    "hardware/assembly/acceptance-and-burn-in.md": "0db5876b4b85ccc2fe08bb1231648d263cfa730132e12f7fac83ad1777d0bf8a",
+    "hardware/assembly/cold-core.md": "bf588130d69b8a4caf287f19cf83f3bb36f98d6fdae90892f1ab2637921f7005",
+    "hardware/assembly/enclosure-mechanical.md": "e2b25cf9567350e2c3a4cdb3dd292f4422af41f33deb90b0856b074a44ced4e3",
+    "hardware/assembly/firmware-and-commissioning.md": "4f8965d9b35a4c5e9adadd916322b6cf00944151be2ea0991a8e509aa1c1d0ad",
+    "hardware/assembly/handwork.md": "d21c0b93fe91e2651f5912e0a82eb3dccc2f6096597b0dd3ef01c8c3cde4b6cc",
+    "hardware/assembly/refrigerant-loop.md": "b0d4e0a64dba3cafd50db531c4bccbb0ff84558a5d511c017295608fbd7f1d03",
+    "hardware/guide-assets/fonts/PlexMono-Regular.ttf": "7639b1ca47f4a7dbd8191ba5e0f67ce57ba950a3d3e0c39c87c38bd1883935bb",
+    "hardware/install-guide/fonts/Plex-Bold.ttf": "f0140013596c67e52c6f004b46bf8b46e183511dc1885996c4e7ab174345938d",
+    "hardware/install-guide/fonts/Plex-Regular.ttf": "c16b158b219c947baf8b4e7be073f14b7870238d9904eebf4b8ebd0b66d0a971",
+    "hardware/install-guide/fonts/Plex-Semibold.ttf": "8bc60fb0075e3b56a099e6355379e38049ea5251bcfda5228494b0bab9c6d02c",
+    "hardware/ledger/bom.md": "0b7bf8af40275fe1245abdd1cad598d72492d762f83924f3e239c6cff8558d6f",
+    "hardware/mechanical-qualification/README.md": "97670d3dbe7a80c49a6adb3861e6aba8e278e760c8eb4c4a2118b6227e5452de",
+    "hardware/printed-parts/cold-core/coil-mandrel/coil_mandrel.rs": "fbd2946b64923f905975622a9e56b252430dfdca36a1bbb4724bd44effb7ef17",
+    "hardware/printed-parts/cold-core/foam-shell/README.md": "66035c53dcb181d1a552868c7988cd1315f90e6719c018998e2a5a20a9d3791a",
+    "hardware/printed-parts/refrigeration/fuse-clamp/README.md": "d6b3d2567075da1c17f203af76a4f0b3f23c8a8b77edc2c441da1bf6665a36a8",
+    "hardware/reference/compressor/README.md": "caec7b4e148e76706d2d6781fabe94f27455945b556e587787070329c698aadb",
+    "hardware/reference/condenser-block/README.md": "2ff6aa08df91a85f17930520b35f81370af2a64ff2d9ae353cbed120223c55b9",
+    "hardware/reference/ice-maker/README.md": "192ae529ba49bdf114b61b9d6e5b64213df3dc8d9cf3e313b61e43466a2fd155",
+    "hardware/refrigeration-guide/README.md": "028ff549ae4fae532f9361afa03fb92f8f501dd6652c5d869d0281c6821426c1",
+    "hardware/refrigeration-guide/pages.json": "a1fdebcd443fb208f81f901375c860fc053c30771652041b0f8fa515bbb4db0d",
+    "tools/assembly-guides/guide.rs": "12aebe168f6c98842d1e98ab022a1b1852b42ad94fec0e3c18d2458e116d15d7",
+    "tools/hsm/fabrication-guides/src/letter.rs": "c882780383eb0ecdc7d1bbe2e596cff57eed40651f982b91031d0a94e4f2c5ea"
+  }
 }

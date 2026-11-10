@@ -1,0 +1,36 @@
+{
+  "_": "These authored groups classify generator inputs and outputs for native build planning and publication.",
+  "action_intermediate": [],
+  "implicit_solids": {},
+  "inert_basenames": [
+    "containment-review.json",
+    "corner-trial-profile.json",
+    "fake-countertop-petgf-mark2-stock.print.json",
+    "fake-countertop-petgf-mark2-stock.readiness.json",
+    "fake-countertop-petgf-mark2.print.json",
+    "fake-countertop-petgf-mark2.readiness.json",
+    "fake-countertop-petgf.print.json",
+    "fake-countertop-petgf.readiness.json",
+    "faucet-petgf.print.json",
+    "layer-review.json",
+    "lever-replica-petgf-white.print.json",
+    "lever-replica-petgf-white.readiness.json",
+    "lever-replica-petgf-white.support-audit.json",
+    "lever-replica-petgf.print.json",
+    "lever-replica-petgf.readiness.json",
+    "lever-replica-petgf.support-audit.json",
+    "print-profile.json",
+    "repaired-wall-review.json",
+    "slice-review.json",
+    "toolpath-review.json",
+    "tube-miter-box-petgf-mark2.print.json",
+    "tube-miter-box-petgf-mark2.readiness.json",
+    "tube-miter-box-petgf.print.json",
+    "tube-miter-box-petgf.readiness.json",
+    "wall-review.json"
+  ],
+  "inert_suffixes": [
+    ".3mf",
+    ".bbscfg"
+  ]
+}

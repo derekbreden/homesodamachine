@@ -142,17 +142,9 @@ load capacity. The [earlier physical record](../short-spans-v2/physical-result-f
 contains the rejected solid-bridge finish and failed fin starts; those failed
 starts do not qualify a correctly deposited fin roof.
 
-## Manual reproduction
+## Preparation source
 
-`prepare.py Mark1` or `prepare.py Mark2` creates the editable project, STLs and
-manifest. Slice with the installed Bambu Studio native CLI into the respective
-`native.gcode.3mf`; `finish.py mark1` / `finish.py mark2` applies the named local
-fan and first-roof E treatments and writes the path review. Use the repository's
-`tools/cad-venv/bin/python` runtime for these scripts. `plot_paths.py` draws the
-saved paths and plate maps. These are manual experiment tools.
-
-The editable 3MF alone does not contain the E multipliers. The submitted final
-G-code archives do. Each print-only package preserves all reviewed G-code bytes
-and MD5 checksums; [packaging records](mark2/packaging.json) identify the removed
-editable geometry entries. Reproduction must retain the finish step and read
-the emitted fin landing paths before sending a newly sliced archive.
+The [recorded finish source](https://github.com/derekbreden/homesodamachine/blob/7cf7b55608deefa5f3cae6bb20f83bce14ff706f/hardware/print-tests/petgf-fins/bonding-and-fins-v4/finish.py) defines the local fan and roof extrusion treatments and
+path review for the submitted artifacts. The editable project alone does not
+contain those treatments. The print-only [packaging record](mark2/packaging.json)
+binds the reviewed G-code and its embedded checksums.

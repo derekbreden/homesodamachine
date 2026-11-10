@@ -1,19 +1,24 @@
 {
-  "pdf": "carbonator-filming-guide.pdf",
-  "pages": 33,
   "page_inches": [
     8.5,
     11
   ],
-  "artwork": "Authored vector framing sketches; not actual weld results or measured camera positions.",
-  "pdf_sha256": "317dfebc45463716d4a06d964244925b2c1b35ad2ae7b4bc0f2c3d2dac9b797d",
+  "pages": 33,
+  "pdf": "carbonator-filming-guide.pdf",
+  "pdf_sha256": "2736c5bff75bbb02c5f316c0fecc21923465f8618fd265e81161cff288cff2aa",
+  "print_layout": {
+    "canvas_px": [
+      2550,
+      3300
+    ],
+    "dpi": 300,
+    "print_scaling": "100% / none",
+    "sides": "single sided"
+  },
+  "purpose": "Record the authored inputs of this manual guide edition.",
   "source_sha256": {
-    "tools/carbonator-filming-guide/build.py": "4792a95a71cea4bcf9580455d72741ff678ec426ef7246da4535063a816f5900",
-    "hardware/carbonator-filming-guide/style.css": "a638c8cd6d10b61a43dfb512e096bfcdb63e6099c0ab576f57f8169d11153b37",
-    "hardware/carbonator-filming-guide/README.md": "a630e055f7781affac0e44430373a840264cd78d2bd2419b9c73dff19078de4b",
-    "marketing/video/carbonator-weld-shooting-plan.md": "ebe327c1aaa45f2f35930b7b5225ab1dce4c0f518e01b0ce9df0381606d36e76",
-    "hardware/assembly/weld-rotation-rig.md": "f3dc794f84eb54383437c391057c4246430cbd2e24d906dafcd74f68b615dad2",
-    "hardware/assembly/pressure-vessel.md": "d666f2d31d1a1e1717907b910cd64e64d0c659520b794764a6762a2042527d86",
+    "hardware/assembly/pressure-vessel.md": "aaa162238e8333728567d021420bc2bea56e216d28364230fadf6a1dc692a1f0",
+    "hardware/assembly/weld-rotation-rig.md": "e0eaf1ba888c241b88492439f7562795507d227f0fa90897d54e4c48a0ca04e8",
     "hardware/carbonator-filming-guide/01-cover.html": "2fd0eae820ba5a2c23cfcec691dba0cc590e64b14f98bc3809fe148d773671de",
     "hardware/carbonator-filming-guide/02-contents.html": "bec521c16ead57ac348fbd15629bf73832e8a9140a511586843175b7441c8ddd",
     "hardware/carbonator-filming-guide/03-equipment.html": "d703ba099dc0882818072677b592699500cb48e016fcce1e6d30d19dd488874a",
@@ -46,6 +51,14 @@
     "hardware/carbonator-filming-guide/30-shot-23.html": "bd7d9568e64114c7b493f0a47b320dd76e37f4461e4e839e29d59d3a0c2937f3",
     "hardware/carbonator-filming-guide/31-shot-24.html": "3f028a0cdad453b7a21734c478b9732e99738e8ed32b34e595c95f96f9738af0",
     "hardware/carbonator-filming-guide/32-shot-25.html": "f082292293be02f483c930d81876ebad81ffc0beb116f3761dcb22ae5ed74807",
-    "hardware/carbonator-filming-guide/33-save-and-reference.html": "903a7f43e8f4abe4374e74101f83b7609a7ba392206d2b24e6ae137070a70cdf"
+    "hardware/carbonator-filming-guide/33-save-and-reference.html": "903a7f43e8f4abe4374e74101f83b7609a7ba392206d2b24e6ae137070a70cdf",
+    "hardware/carbonator-filming-guide/README.md": "de567be573cae2a258d2728b264d4cd8dddb33b16d637bbc0e2f77db80b01d79",
+    "hardware/carbonator-filming-guide/style.css": "a638c8cd6d10b61a43dfb512e096bfcdb63e6099c0ab576f57f8169d11153b37",
+    "marketing/video/carbonator-weld-shooting-plan.md": "ebe327c1aaa45f2f35930b7b5225ab1dce4c0f518e01b0ce9df0381606d36e76",
+    "tools/hsm/manual-guides/Cargo.toml": "8e8b0322277af2692441b3765eee62b1acdb72ef2fb52a1c78a434328e5927f5",
+    "tools/hsm/manual-guides/src/html.rs": "37cb899273ace7e7aaf47a7e66001dc056adf42e3c6a66d2ee8596b68930b8a6",
+    "tools/hsm/manual-guides/src/lib.rs": "93e1d80da677d9b491df2646363b233acc16ab8070cc47a809993211e9493ed7",
+    "tools/hsm/manual-guides/src/main.rs": "7969a120d9d15e5f48672118a50528a1707bd666712f712bbbd8cdfd750a51c6",
+    "tools/hsm/manual-guides/src/pdf.rs": "99ff0221ed46a7e8855e94065d6a38ed6c65f9e0b4a3bf934d81eb125ec7f7d1"
   }
 }

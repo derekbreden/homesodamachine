@@ -37,6 +37,9 @@ It is a nominal XY reading, not measured deposited material or proof of a
 through-floor leak. Scarf Z/flow ramps and molten spreading are outside its scope.
 The printed article supplies the sealing result.
 
+The [recorded footprint source](https://github.com/derekbreden/homesodamachine/blob/a518a57a878f02d9ac5b8b638c1c5883cadf6669/hardware/printed-parts/cold-core/reservoir/prints/2026-10-21-mark1-walls-only-right08-z000-a4/review_floor.py)
+defines the saved floor-path picture and XY reading.
+
 Use the **most depleted matching spool first**, then work toward fuller spools.
 A4 is selected first per Derek. A1 reports **57%**, A3 **100%**, A4 **unknown** and
 A2 is empty; the preferred order is **A4 → A1 → A3**. Automatic refill is retained.
@@ -69,3 +72,7 @@ proof that a layer-change/scarf seam is the exit mechanism. The native compariso
 examines closing those junctions while retaining walls-only construction.
 [Photograph and result](physical-result/physical-result.json) ·
 [Native seam/junction comparison](physical-result/seam-comparison.json).
+
+The [recorded packaging source](https://github.com/derekbreden/homesodamachine/blob/7cf7b55608deefa5f3cae6bb20f83bce14ff706f/hardware/printed-parts/cold-core/reservoir/prints/2026-10-21-mark1-walls-only-right08-z000-a4/prepare_launch.py) selects the reviewed plate and preserves its native G-code.
+
+The [recorded source](https://github.com/derekbreden/homesodamachine/blob/e50eb3e4372a4d5b70248795469c02ed8d51d2d3/hardware/printed-parts/cold-core/reservoir/prints/2026-10-21-mark1-walls-only-right08-z000-a4/prepare_recipe.py) defines this artifact's preparation and reading.

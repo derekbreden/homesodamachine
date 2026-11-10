@@ -66,7 +66,7 @@ absent, and a solid states material at any width.
 ## Where the two go
 
 Read off the placed valves at every build, never stated — `manifold_layout` folds the pack and
-[`enclosure_assembly.py`](/hardware/manifold-layout/enclosure_assembly.py) stands it on the
+[`machine_layout.rs`](/hardware/manifold-layout/machine_layout.rs) stands it on the
 refrigeration base's crown, so where a deck lands is that stack's arithmetic. `valve_tray_decks`
 groups the valves no cap cradle holds by the plane each stands on and hands back one tray per
 plane.

@@ -21,3 +21,5 @@ the received board.
 [`replica-evidence.json`](replica-evidence.json) records the source and dimensional
 basis. [`reference-parameters.json`](reference-parameters.json) retains the board
 station consumed by its mount.
+
+The source derivations are preserved at their recorded revision: [mq6_gas_sensor.py](https://github.com/derekbreden/homesodamachine/blob/a518a57a878f02d9ac5b8b638c1c5883cadf6669/hardware/reference/mq6-gas-sensor/mq6_gas_sensor.py).

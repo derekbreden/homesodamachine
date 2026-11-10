@@ -15,7 +15,7 @@
  * splices the returned fragment in before `M02*`.
  *
  * Geometry is board-mm; the front silk gerber is 1:1 with board coords (no y-flip), same as every
- * other F_SilkScreen feature — verified against the fab strokes in silk-audit.py.
+ * other F_SilkScreen feature — measured against the fab strokes by hsm-pcb silk-audit.
  */
 import { readFileSync, readdirSync } from "node:fs"
 import path from "node:path"

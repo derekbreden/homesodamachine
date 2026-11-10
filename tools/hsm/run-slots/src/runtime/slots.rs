@@ -897,10 +897,7 @@ pub fn request(op: &str, d: &Value, callback: Host) -> Result<Value> {
             d["broker"].as_bool().unwrap_or(true),
         )?,
         "command" => {
-            let mut out = vec![
-                d["python"].clone(),
-                json!(Path::new(text(&d["root"])?).join("tools/run.py")),
-            ];
+            let mut out = vec![json!(Path::new(text(&d["root"])?).join("tools/run"))];
             if let Some(key) = d["key"].as_str().filter(|v| !v.is_empty()) {
                 out.extend([json!("--key"), json!(key)]);
             }
@@ -911,4 +908,46 @@ pub fn request(op: &str, d: &Value, callback: Host) -> Result<Value> {
         _ => bail!("unknown run-slot operation {op}"),
     };
     answer(value)
+}
+
+#[cfg(test)]
+mod command_tests {
+    use super::*;
+    #[test]
+    fn adapter_commands_enter_the_native_runner_and_preserve_argv() {
+        let argv = json!([
+            "env",
+            "RUSTC=/tool chain/rustc",
+            "cargo",
+            "build",
+            "--",
+            "arg with spaces"
+        ]);
+        let reply=request("command",&json!({"root":"/work tree/repository","python":"/retired/python","argv":argv,"key":"chosen key"}),None).unwrap();
+        assert_eq!(
+            reply["result"],
+            json!([
+                "/work tree/repository/tools/run",
+                "--key",
+                "chosen key",
+                "--",
+                "env",
+                "RUSTC=/tool chain/rustc",
+                "cargo",
+                "build",
+                "--",
+                "arg with spaces"
+            ])
+        );
+        let reply = request(
+            "command",
+            &json!({"root":"/repository","argv":["echo","value"],"key":null}),
+            None,
+        )
+        .unwrap();
+        assert_eq!(
+            reply["result"],
+            json!(["/repository/tools/run", "--", "echo", "value"])
+        );
+    }
 }

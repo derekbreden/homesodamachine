@@ -24,13 +24,10 @@
 # THE FRAME IS ALSO THE CHECK: a name is the name of the thing you meant only when the thing that
 # lit up is the thing you meant. Look at the frame before you quote the name.
 #
-# --near ANSWERS ADJACENCY INSTEAD OF TOURING IT. `probe.around` ranks every body within the
-# radius by exact solid-to-solid distance — boxes prefilter, the distance decides — and every one
-# of them comes back SOLID, tinted and NAMED on the frame, the walls x-ray as in any look, with
-# the subject lit in the picker's own amber over all of it. The frame is the ball asked about:
-# the subject's box plus the radius, so the grid measures the neighbourhood itself. The ranked
-# list is on stdout and its head is burned into the legend, so the picture carries its own answer.
-# A body absent from it stands further off than the radius, which is not the same as far.
+# --near ranks exported bodies through `hsm around`: catalog bounds prefilter the candidates,
+# and selected mesh pairs supply their solid clearances. Unresolved candidates remain visible
+# and named as unresolved. The subject is amber; the walls stay x-ray. Its box plus the requested
+# radius frames the neighbourhood. The ranked list and legend carry the same payload reading.
 #
 # --vs FRAMES EACH OF TWO BODIES ON ITSELF and joins the two frames at one span, so a millimetre
 # is the same length in both halves and the two shapes are read against each other rather than
@@ -51,12 +48,11 @@ STEP="manifold-layout/enclosure-assembly.step"
 VIEWS="top,front,right"
 SIZE="1600x1200"
 OUT="${TMPDIR:-/tmp}/look"
-PY="$REPO/tools/cad-venv/bin/python"
 HSM="${HSM_BIN:-$(command -v hsm || echo "$HOME/.local/bin/hsm")}"
 
 usage() { awk 'NR>1 && /^#/ { sub(/^# ?/, ""); print; next } NR>1 { exit }' "${BASH_SOURCE[0]}"; }
 die() { echo "look: $*" >&2; exit 2; }
-render() { "$PY" "$REPO/tools/run.py" -- "$HSM" --root "$REPO" render "$@"; }
+render() { "$REPO/tools/run" -- "$HSM" --root "$REPO" render "$@"; }
 
 only=""
 near=""
@@ -150,33 +146,26 @@ also=()
 if [[ -n "$near" ]]; then
   stem="$(stem_for "$near-near")"
   command_line="tools/look.sh --near $near --within $within --views $VIEWS --size $SIZE --step $STEP"
-  also=(--also hardware/scripts/probe.py)
+  also=(--also tools/hsm/engine/src --also tools/hsm/geometry/src)
 
-  # THE FRAME IS THE BALL THE QUERY ASKED ABOUT — the subject's own box grown by the radius, so a
-  # neighbour at the edge of the answer is at the edge of the picture and the grid measures the
-  # neighbourhood rather than the subject. Read before the probe, so a name the pack does not
-  # answer to costs four seconds rather than a whole build.
-  box_table
-  fit="$(fit_to "$near" "$within")" || die "no body $near in the pack; tools/look.sh --list has them all"
-  read -r span target <<<"$fit"
-
-  echo "probing $near — every body within $within mm, exact distances…" >&2
-  found="$("$PY" "$REPO/hardware/scripts/probe.py" around "$near" --within "$within")"
-  printf '%s\n\n' "$found"
-  # A row is `gap name source`; "nothing within N mm" is not a row.
-  ranked="$(awk 'NF>=2 && $1+0==$1 {print $2}' <<<"$found" | paste -sd, -)"
-  legend="$(awk 'NF>=2 && $1+0==$1 {
-      n++; if (n<=6) printf "%s%s %.2f", (n>1 ? "  " : ""), $2, $1
-    } END {
-      if (n>6) printf "  +%d more", n-6
-      if (!n) printf "nothing"
-    }' <<<"$found")"
+  echo "reading $near — exported solid clearances within $within mm…" >&2
+  found="$("$HSM" --root "$REPO" --scene "$STEP" around "$near" --within "$within")"
+  neighborhood=()
+  while IFS= read -r -d '' value; do neighborhood+=("$value"); done < <(
+    printf '%s' "$found" | node "$REPO/tools/look-record.js" near-plan
+  )
+  [[ ${#neighborhood[@]} -eq 6 ]] || die "native neighborhood returned no frame"
+  span="${neighborhood[0]}"
+  target="${neighborhood[1]}"
+  subject="${neighborhood[2]}"
+  ranked="${neighborhood[3]}"
+  printf '%s\n\n' "${neighborhood[5]}"
 
   plan_frames "$stem"
   render "$STEP" "$stem" --look --views "$VIEWS" \
     --span "$span" --target "$target" --size "$SIZE" \
-    --only "${ranked:+$ranked,}$near" --xray "enclosure-*" --select "$near" \
-    --caption "within $within mm: $legend" "${extra[@]+"${extra[@]}"}"
+    --only "${ranked:+$ranked,}$subject" --xray "enclosure-*" --select "$subject" \
+    --caption "${neighborhood[4]}" "${extra[@]+"${extra[@]}"}"
 
 elif [[ -n "$vs" ]]; then
   IFS=, read -r a b rest <<<"$vs"

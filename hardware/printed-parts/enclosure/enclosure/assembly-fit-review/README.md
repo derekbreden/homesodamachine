@@ -42,9 +42,7 @@ Run `measure_native.py` manually with the CAD Python to reproduce them.
 October 10 Mark1 project's main mesh and the current print STL at the
 flange-pocket and cord-bore sections. The fixed exterior planes register
 the print object into the machine frame; the measured pocket is not a
-registration datum. This is a manual review, invoked by
-`tools/cad-venv/bin/python hardware/printed-parts/enclosure/enclosure/assembly-fit-review/measure_print.py`.
-It is not part of any build or commit check.
+registration datum. The [measurement source](https://github.com/derekbreden/homesodamachine/blob/d24b111b5d10e1eed4574db786e5ae1d0b96d445/hardware/printed-parts/enclosure/enclosure/assembly-fit-review/measure_print.py) is archived in Git.
 
 [Assembly feedback](assembly-feedback.json) binds the observations to the
 identified articles. The latest logged foam-shell success is the May 31

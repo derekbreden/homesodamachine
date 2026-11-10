@@ -36,8 +36,8 @@ flow, trim, absence of brim/ironing, and bed-rooted supports. Plate 1 estimates
 Its nearest full-bead bed-edge inset is **70.519 mm** and cap/body gap is **10.042 mm**.
 All seven detected supports start at the bed; six have no explicit interface label.
 
-[prepare_recipe.py](prepare_recipe.py) declares the physical adaptation.
-[prepare_launch.py](prepare_launch.py) selects the reviewed plate 1 and packages it
+[prepare_recipe.py](https://github.com/derekbreden/homesodamachine/blob/e50eb3e4372a4d5b70248795469c02ed8d51d2d3/hardware/printed-parts/cold-core/reservoir/prints/2026-10-21-mark1-may-water-right08-z000/prepare_recipe.py) declares the physical adaptation.
+[prepare_launch.py](https://github.com/derekbreden/homesodamachine/blob/7cf7b55608deefa5f3cae6bb20f83bce14ff706f/hardware/printed-parts/cold-core/reservoir/prints/2026-10-21-mark1-may-water-right08-z000/prepare_launch.py) selects the reviewed plate 1 and packages it
 without changing a G-code byte. [Packaging hashes](packaging.json) bind the submitted
 archive, named `2026-10-21-reservoir-left-cap-maywater-right08-z000-mark1.gcode.3mf`. The separate imported copy's embedded
 G-code was verified before the single foreground Send through Bambu Connect.

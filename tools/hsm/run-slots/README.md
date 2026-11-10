@@ -25,14 +25,6 @@ before compiler so its actions can inherit both. A child cannot acquire CAD
 while holding compiler alone. Rust part runs retain the engine's memory budget.
 Kept part answers and the six ordinary mesh queries book no new heavy slot.
 
-A wrapped hardware Python producer reports changed viewer outputs after its full
-command succeeds, including payload postprocessing. A matching local viewer on
-port 3000 or 3001 receives the existing `files-changed` frame and redraws immediately.
-`HSM_VIEWER_URL=http://127.0.0.1:<port>` selects an explicit local server. The
-wrapper compares declared outputs and files beside the producer only when that
-server identifies the same checkout. Other local writes use the viewer's payload
-polling. Notification failures leave the command's result unchanged.
-
 Descriptors carry ownership. `slot.N.lock`, `cad.lock` and `compiler.lock` hold
 JSON with `v:1`, `kind`, `token` and diagnostic `pid`. Slot records also name
 `slot`, `key` and `started_unix_ms`. `admission.lock` protects scans and

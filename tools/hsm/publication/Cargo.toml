@@ -1,0 +1,42 @@
+[package]
+name = "hsm-publication"
+version = "0.1.0"
+edition.workspace = true
+license.workspace = true
+rust-version.workspace = true
+publish = false
+
+[[bin]]
+name = "hsm-publish"
+path = "src/main.rs"
+
+[[bin]]
+name = "hsm-pack"
+path = "src/pack_main.rs"
+
+[[bin]]
+name = "hsm-merge-pointers"
+path = "src/merge_main.rs"
+
+[[bin]]
+name = "hsm-cut-vs-pointers"
+path = "src/cut_main.rs"
+
+[[bin]]
+name = "hsm-build-times"
+path = "src/build_times_main.rs"
+
+[[bin]]
+name = "hsm-publish-firmware"
+path = "src/firmware_main.rs"
+
+[dependencies]
+anyhow.workspace = true
+serde.workspace = true
+serde_json.workspace = true
+clap = { version = "4", features = ["derive"] }
+fs2 = "0.4"
+libc = "0.2"
+hsm-build-data = { path = "../build-data" }
+hsm-geometry = { path = "../geometry" }
+hsm-run-slots = { path = "../run-slots" }

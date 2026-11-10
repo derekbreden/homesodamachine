@@ -1,0 +1,21 @@
+[package]
+name = "hsm-cargo-config"
+version = "0.1.0"
+edition.workspace = true
+license.workspace = true
+rust-version.workspace = true
+
+[[bin]]
+name = "hsm-cargo-config"
+path = "src/cargo_config.rs"
+
+[[bin]]
+name = "hsm-ci-image-digest"
+path = "src/ci_image_digest.rs"
+
+[dependencies]
+anyhow.workspace = true
+serde.workspace = true
+serde_json.workspace = true
+sha2.workspace = true
+toml = { version = "0.8.23", default-features = false, features = ["parse"] }

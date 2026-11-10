@@ -3,6 +3,9 @@ use anyhow::{Context, Result, ensure};
 use serde_json::{Value, json};
 use std::path::{Path, PathBuf};
 
+/// The scene payload format whose bodies reference retained native part meshes.
+pub const SCENE_PAYLOAD_VERSION: u32 = 4;
+
 fn publication_source(path:&Path)->Option<String> {
     let text=path.to_string_lossy();
     if text.starts_with("hardware/"){Some(text.into_owned())}
@@ -48,7 +51,7 @@ impl Entry {
     }
     pub fn carried(mut self, frame: &Frame) -> Self {
         if self.meta.get("_scene").is_none() {
-            let one=Payload {header:json!({"v":3}),meshes:vec![self.clone()]};
+            let one=Payload {header:json!({"v":hsm_kernel::write::MESH_PAYLOAD_VERSION}),meshes:vec![self.clone()]};
             if let Ok(bytes)=one.encode() {
                 if let Ok(head)=hsm_geometry::scene::pack(&bytes) {self.meta["_scene"]=head["meshes"][0].clone();}
             }
@@ -195,7 +198,7 @@ impl Payload {
             entries.push(row);
         }
         let mut header = self.header.clone();
-        header["v"] = json!(3);
+        header["v"] = json!(hsm_kernel::write::MESH_PAYLOAD_VERSION);
         header["meshes"] = json!(entries);
         let mut head = serde_json::to_vec(&header)?;
         while head.len() % 4 != 0 {
@@ -227,14 +230,14 @@ impl Payload {
         }
         let mut nodes=Vec::new();let mut sources=serde_json::Map::new();
         for (_,entries) in groups {
-            let part=Payload{header:json!({"v":3}),meshes:entries};
+            let part=Payload{header:json!({"v":hsm_kernel::write::MESH_PAYLOAD_VERSION}),meshes:entries};
             let head=hsm_geometry::scene::pack(&part.encode()?)?;
             for node in head["meshes"].as_array().unwrap() {
                 if let (Some(source),Some(hash))=(node["source"].as_str(),node["source_sha256"].as_str()) {sources.insert(source.into(),json!(hash));}
                 nodes.push(node.clone());
             }
         }
-        let mut head=self.header.clone();head["v"]=json!(4);head["meshes"]=json!(nodes);head["sources"]=json!(sources);
+        let mut head=self.header.clone();head["v"]=json!(SCENE_PAYLOAD_VERSION);head["meshes"]=json!(nodes);head["sources"]=json!(sources);
         hsm_geometry::scene::persist(path,&head)
     }
 
@@ -454,7 +457,7 @@ pub fn placed_surfaces(
         meshes.push(surface);
     }
     Ok(Payload {
-        header: json!({"v":3,"meshes":[]}),
+        header: json!({"v":hsm_kernel::write::MESH_PAYLOAD_VERSION,"meshes":[]}),
         meshes,
     })
 }

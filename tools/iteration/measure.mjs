@@ -13,7 +13,7 @@ const HELP = `On-demand request-to-view measurement; nothing installs a watcher 
 
   node tools/iteration/measure.mjs start --received-at ISO --request TEXT [--run NAME]
   node tools/iteration/measure.mjs mark RECORD PHASE [--at ISO] [--note TEXT] [--artifact PATH ...]
-  python3 tools/run.py -- node tools/iteration/measure.mjs watch RECORD --mesh PATH --part NAME [--part NAME ...]
+  tools/run -- node tools/iteration/measure.mjs watch RECORD --mesh PATH --part NAME [--part NAME ...]
   node tools/iteration/measure.mjs report RECORD [--json]
 
 PHASE: source-edit, review, local-view, live-view, published, complete

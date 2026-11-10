@@ -81,7 +81,7 @@ The [installed wiring model](../wiring/README.md) gives each conductor a stable
 ID in the populated enclosure, including its attachment direction, proposed
 route and modeled length. Its worksheet, `hardware/wiring/enclosure-wiring.csv`, is a
 routing record, not a finished cut list; it is written when the wiring is materialized
-([`python3 tools/run.py -- tools/cad-venv/bin/python hardware/wiring/installed/build.py`](../wiring/README.md#editing-and-materializing)). Each reservoir column uses one continuous
+([`hsm-wiring`](/tools/hsm/wiring/README.md)). Each reservoir column uses one continuous
 common with four insulated reed taps; the carbonator pair shares a separate
 common. Their Wagos join the column/pair commons to the board return.
 The carbonator's CLO, CHI and continuous common join the temperature-bus
@@ -139,8 +139,9 @@ For each cable assembly in the schedule below:
 
 Back-top's [integral routing clips](../printed-parts/enclosure/enclosure/route-snap-review/README.md)
 hold the DC-1 insulated 16 AWG pair, J5's insulated 22 AWG 4P ribbon and one
-V-K positive lead (`J2-positive-K`). Their [site provider](../wiring/installed/retainers.py)
-defines the retained conductors, local straight spans and dressing positions.
+V-K positive lead (`J2-positive-K`). Their [site datums](/tools/hsm/assembly-docs/src/wiring/cable-sites.json) and
+[route dressing](/tools/hsm/assembly-docs/src/wiring/routes.rs) define the
+retained conductors, local straight spans and dressing positions.
 The existing connector, relay and WAGO junctions retain their electrical
 assignments; clip placement does not change the termination schedule.
 

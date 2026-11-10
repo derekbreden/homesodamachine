@@ -85,23 +85,9 @@ the mounted right nozzle and HT-A PETG, exact hashes, and more than 180 seconds
 after the peer's last accepted start. The Send attempt was durably recorded
 before the single transaction. Further Send is disabled for this job.
 
-## Reproduce preparation
+## Preparation source
 
-`prepare.py` binds its v1 input hash and changes only the requested trim and
-preset name. [`review.py`](https://github.com/derekbreden/homesodamachine/blob/306268f870/hardware/printed-parts/zone-c/funnel-mold/native-slice-reviews/2026-10-06-mark1-retry-z004-v2/review.py) (in Git at `306268f870`) reads native meshes, deposited paths, supports,
-first-layer speeds, trim and probing state. `package.py` extracts one cavity
-plate without changing native G-code. Preparation and packaging require absent
-outputs and do not submit a print.
-
-The scripts these commands run are in Git at [`306268f870`](https://github.com/derekbreden/homesodamachine/tree/306268f870).
-
-```sh
-tools/cad-venv/bin/python hardware/printed-parts/zone-c/funnel-mold/native-slice-reviews/2026-10-06-mark1-retry-z004-v2/prepare.py
-/Applications/BambuStudio.app/Contents/MacOS/BambuStudio \
-  --slice 0 --arrange 0 --orient 0 \
-  --outputdir "$PWD/.cache/funnel-retry-mark1-z004-20261006/slice" \
-  --export-3mf 2026-10-06-funnel-cavity-mark1-right-z004-retry-v2.gcode.3mf \
-  "$PWD/hardware/printed-parts/zone-c/funnel-mold/native-slice-reviews/2026-10-06-mark1-retry-z004-v2/funnel-mold-mark1-retry-z004.3mf"
-tools/cad-venv/bin/python hardware/printed-parts/zone-c/funnel-mold/native-slice-reviews/2026-10-06-mark1-retry-z004-v2/review.py
-tools/cad-venv/bin/python hardware/printed-parts/zone-c/funnel-mold/native-slice-reviews/2026-10-06-mark1-retry-z004-v2/package.py
-```
+The [recorded packaging source](https://github.com/derekbreden/homesodamachine/blob/7cf7b55608deefa5f3cae6bb20f83bce14ff706f/hardware/printed-parts/zone-c/funnel-mold/native-slice-reviews/2026-10-06-mark1-retry-z004-v2/package.py) extracts the reviewed
+cavity plate without changing native G-code. The [review source](https://github.com/derekbreden/homesodamachine/blob/306268f870/hardware/printed-parts/zone-c/funnel-mold/native-slice-reviews/2026-10-06-mark1-retry-z004-v2/review.py)
+reads the saved meshes, deposited paths, supports, trim and probing state.
+The launch and packaging records identify the submitted artifact.

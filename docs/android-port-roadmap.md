@@ -105,7 +105,7 @@ android/
             └── mipmap-anydpi-v26/{ic_launcher,ic_launcher_round}.xml
 ```
 
-[`tools/build_brand_assets.py`](/tools/build_brand_assets.py) writes `colors.xml`, both drawables and both adaptive-icon files from [`brand/mark.svg`](/brand/mark.svg) and `brand/palette.json`.
+[`hsm-marketing brand-assets`](/tools/hsm/marketing/src/brand.rs) writes `colors.xml`, both drawables and both adaptive-icon files from [`brand/mark.svg`](/brand/mark.svg) and `brand/palette.json`.
 
 ### Versions
 
@@ -119,7 +119,7 @@ iOS `LaunchScreen.storyboard` → first Compose frame analog. The OS holds the s
 
 `res/values/colors.xml`:
 ```xml
-<!-- Generated from brand/palette.json by tools/build_brand_assets.py. -->
+<!-- Generated from brand/palette.json by hsm-marketing brand-assets. -->
 <color name="splash_bg">#1749D1</color>
 ```
 
@@ -240,7 +240,7 @@ fun App() {
 The phase is done when:
 
 1. **Cold launch on a real device feels right.** Tested on at least one Android 14+ device (Pixel) and one older Android 9–11 device to verify the splash transition. Side-by-side with iPhone, nothing on screen moves when the splash hands over to the first frame.
-2. **The mark matches iOS.** Both apps draw it from `brand/mark.svg` through `tools/build_brand_assets.py` — `launch_icon.xml` here, `LaunchIcon.png` on iOS — over the same cobalt.
+2. **The mark matches iOS.** Both apps draw it from `brand/mark.svg` through `hsm-marketing brand-assets` — `launch_icon.xml` here, `LaunchIcon.png` on iOS — over the same cobalt.
 3. **No work done off-spec.** No BLE code, no settings UI, no permissions — those are phase 3+. Phase 1 ships when launch feels right and nothing else.
 
 ## Full milestone list
