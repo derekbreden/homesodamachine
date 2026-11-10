@@ -816,6 +816,7 @@
     "hardware/reference/g-ganen-pump/g-ganen-pump.fine.step.npz": "d7c3c7a3a87f6b78d73efb1e7d02a83f5edd8469371b366886deed098e597fcd",
     "hardware/reference/g-ganen-pump/g-ganen-pump.step": "ffea366a5eba8773098bc15700056268a4f1b0f577571f4e791555b457e754a4",
     "hardware/reference/g-ganen-pump/g-ganen-pump.step.mesh": "6c7e82cec104661f3eec463f5351bf620caf9b88fe6ec0f409bf96fcdcf4c05e",
+    "hardware/reference/g-ganen-pump/g-ganen-replica.step.mesh": "ecb9438225beaf1e014ccd20492d70c46656b064aa9a1d92ebdaaf5d87ffed71",
     "hardware/reference/g-ganen-pump/integration-envelope/g-ganen-integration-envelope.step": "cb11443dd6bec9e31266432a7ec7f251bc0a83e3367d0a820b1f93af5ab06d2d",
     "hardware/reference/g-ganen-pump/integration-envelope/g-ganen-integration-envelope.step.mesh": "bb2a70cbb7585ad42fa2266441f3482156622c751b8772cb609988e76bda9461",
     "hardware/reference/gagira-reducing-coupling/gagira-reducing-coupling.step": "a30ce13ed70c41e630b4a6cb5ce402fb846cc55c90b6bf765600fba67fe4a768",
@@ -1415,6 +1416,7 @@
       "hardware/reference/compressor/compressor.step.mesh": "e2453f221d7251a64d210d6e4e9a07b3de57cca34174b229a9f14ac33855a4c0",
       "hardware/reference/digiten-flow-sensor/digiten-flow-sensor.step": "181e81dc1e2e9757c671df7163998127dea32e24cbbeffcd885e84c2801a9975",
       "hardware/reference/digiten-flow-sensor/digiten-flow-sensor.step.mesh": "84d68c77955b19d2e1f776a33b8fcd2370658086ad00acf5eb7ed953c0e72aec",
+      "hardware/reference/g-ganen-pump/g-ganen-replica.step.mesh": "ecb9438225beaf1e014ccd20492d70c46656b064aa9a1d92ebdaaf5d87ffed71",
       "hardware/reference/gagira-reducing-coupling/gagira-reducing-coupling.step": "a30ce13ed70c41e630b4a6cb5ce402fb846cc55c90b6bf765600fba67fe4a768",
       "hardware/reference/gagira-reducing-coupling/gagira-reducing-coupling.step.mesh": "bdd3cbb79ef3b476f6db550a229403c69f2c2586f0d2a0342e0d85452daff844",
       "hardware/reference/iec-c14-inlet/iec-c14-inlet.step": "778d68ef2a4231bbaaa80abdebcddb25c190d83af11bbf920e6a4fede2a2f6c8",
@@ -2725,6 +2727,7 @@
     "hardware/reference/g-ganen-pump/g-ganen-pump.fine.step.npz": 1793697604,
     "hardware/reference/g-ganen-pump/g-ganen-pump.step": 1793555606,
     "hardware/reference/g-ganen-pump/g-ganen-pump.step.mesh": 1793555606,
+    "hardware/reference/g-ganen-pump/g-ganen-replica.step.mesh": 1794272860.725214,
     "hardware/reference/g-ganen-pump/integration-envelope/g-ganen-integration-envelope.step": 1790010625,
     "hardware/reference/g-ganen-pump/integration-envelope/g-ganen-integration-envelope.step.mesh": 1793750338,
     "hardware/reference/gagira-reducing-coupling/gagira-reducing-coupling.step": 1787578592,
@@ -5372,6 +5375,10 @@
     "hardware/wiring/enclosure-wiring.step.mesh": {
       "inputs": "361a16c31db5ebcbb565fa4da5ef02f249d03577ff2e685a3b8bc6112ec1707d",
       "commit": "47f3f1d0ecbe6b54c7e81a6121bf9dea5fe81a0c",
+      "unproven": true
+    },
+    "hardware/reference/g-ganen-pump/g-ganen-replica.step.mesh": {
+      "commit": "d32e0c53ee46790b6edf866a28f5d068f172098c",
       "unproven": true
     }
   }
