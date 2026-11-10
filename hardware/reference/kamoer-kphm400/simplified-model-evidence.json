@@ -4,7 +4,7 @@
   "unit": "User-owned Kamoer pump; machine BOM KPHM600-SW3B17, repository compatibility directory kamoer-kphm400",
   "source": {
     "path": "hardware/reference/kamoer-kphm400/scan_model.rs",
-    "sha256": "90e51e6fc4da21f84b0a362dc86bd238bd748101bc349275f884844aeb23ba03"
+    "sha256": "4e23f01e4d6864669e377d49f546bd6ec7ebb2ca8375330f74203df654c8c77d"
   },
   "inputs": {
     "hardware/reference/kamoer-kphm400/scan-measurements.json": "4389eeb0fd000242ee69efa903d60269a6e8e9497c7235d8d48187d5cf9075a9",
@@ -12,9 +12,9 @@
     "hardware/reference/kamoer-kphm400/scan-evidence.json": "c3a50570b7b477309261352acebc9be39e3126fe1a83ec172f04db9f92486310"
   },
   "members": {
-    "kamoer-kphm400.step": "a95e0caacd023a046d678ce0a3dc2b4dfaa69236cc265c9ce7a41755910006ec",
-    "kamoer-kphm400.step.npz": "8251bf575cd56d06ac7de70280b01682d80429ace4f0dfb2f73979692f78318f",
-    "kamoer-kphm400.step.mesh": "892a84e81935e5f30a26fad033e41b2eb336ad4bbeae464db33b6831a14abc13"
+    "kamoer-kphm400.step": "16308de08af380e2eb6369c760ecb021dea0c72100d0b4da1b14387f783b9320",
+    "kamoer-kphm400.step.npz": "96d6b67b9e66517c964b7ed3269cc0f469aa5695c229a4d6c09e3730a0af02df",
+    "kamoer-kphm400.step.mesh": "40dfb491c466a80c445f0e6305d6b69fa5aacefc89d091592882872001a9207a"
   },
   "construction": "Authored planar, circular, cylindrical and ruled surfaces; no imported scan triangles.",
   "omitted_details": [
@@ -49,7 +49,7 @@
     "head": "Registered transverse sections supply the plan arch; the top photographs identify the molded facets and the registered top observations supply their slopes, levels and circular features.",
     "motor": "Independent barrel fit; nominal coaxial construction omits fitted scanner tilt.",
     "outlets": "Retained routed stations and nominal tube passages; flexible scan pose is simplified.",
-    "adapter": "Paired column centers follow the observed cardinal screw stations; their circular exterior retains the observed adapter envelope."
+    "adapter": "The black outer walls supply the shared recessed profile; photos and Derek identify the matching white base and the filled interior. The measured upper plane fixes the stack height."
   },
   "verification": {
     "watertight_bodies": [
@@ -79,8 +79,8 @@
       "primer",
       "silicone_outlets"
     ],
-    "triangles": 31618,
-    "visual_review": "The top cover is inspected obliquely against the supplied photographs. Its broad ramp, perimeter bevels, label deck, screw collars and recessed primer remain distinct smooth surfaces.",
+    "triangles": 32354,
+    "visual_review": "The adapter has matching solid white and black profiles, recessed straight flanks and paired columns. The black plate has its photo-constrained thickness and the motor can begins at its top face. The head retains its authored contact facets.",
     "bodies": [
       {
         "name": "head",
@@ -93,28 +93,28 @@
         "name": "rotor_housing",
         "watertight": true,
         "winding_consistent": true,
-        "volume_mm3": 20242.176002886932,
-        "triangles": 1164
+        "volume_mm3": 15010.634051339091,
+        "triangles": 1804
       },
       {
         "name": "motor_mount",
         "watertight": true,
         "winding_consistent": true,
-        "volume_mm3": 10148.536300527456,
-        "triangles": 1708
+        "volume_mm3": 5372.226924225771,
+        "triangles": 1804
       },
       {
         "name": "motor_body",
         "watertight": true,
         "winding_consistent": true,
-        "volume_mm3": 41722.22062459074,
+        "volume_mm3": 49548.94607330024,
         "triangles": 1596
       },
       {
         "name": "fasteners",
         "watertight": true,
         "winding_consistent": true,
-        "volume_mm3": 299.8513802276877,
+        "volume_mm3": 336.4802027902221,
         "triangles": 4064
       },
       {
@@ -193,10 +193,15 @@
     }
   },
   "adapter_columns": {
+    "ADAPTER_TOP_Z": 9.5,
     "ADAPTER_COLUMN_REACH": 23.5,
     "ADAPTER_COLUMN_OFFSET": 2.3,
     "ADAPTER_COLUMN_RADIUS": 2.8,
-    "construction": "Paired circular columns at each cardinal point, joined by tangent flat walls; screw positions follow their recorded column centers."
+    "ADAPTER_FACE_OFFSET": 19.775,
+    "ADAPTER_CENTER_X": 0.11,
+    "ADAPTER_CENTER_Y": -0.225,
+    "ADAPTER_CLOCK_DEGREES": 0.33,
+    "construction": "One filled outline with paired circular columns and recessed straight walls supplies both material layers. No cylindrical recess is modeled."
   },
   "flange_holes": {
     "form": "Plain untapped bores",
@@ -545,5 +550,117 @@
       }
     ],
     "scope": "The plane fits and geometric selections describe exterior contact regions. The comparisons use the observations that supply the fits and do not establish manufacturing tolerances."
+  },
+  "adapter_interface": {
+    "authority": "Derek: We're not including that deeper cylindrical recess at all. You're going to make both layers the same block of material, the same shape.",
+    "white_z_range_mm": [
+      0.0,
+      9.5
+    ],
+    "black_z_range_mm": [
+      9.5,
+      12.9
+    ],
+    "motor_start_z_mm": 12.9,
+    "rear_screw_top_z_mm": 14.8,
+    "layer_boundary_basis": "The photos identify the white/black split and relative layer thicknesses; the observed shoulder transition constrains their split. The registered upper plane fixes the total stack height.",
+    "profile_basis": "A symmetric circular-column outline and straight inset flanks use the measured outer black-layer walls. A common rigid pose places both layers and their screw stations.",
+    "measurements": {
+      "1,1": {
+        "points": 1280,
+        "median_normal_offset_mm": 19.718873599848216,
+        "normal_offset_from_t_z_constant": [
+          0.004141851564107611,
+          0.015506622683832912,
+          19.545842356842055
+        ],
+        "residual_median_p95_mm": [
+          0.00887232493361978,
+          0.025742292292360247
+        ]
+      },
+      "-1,1": {
+        "points": 863,
+        "median_normal_offset_mm": 19.509912617539577,
+        "normal_offset_from_t_z_constant": [
+          -0.009850154148824257,
+          0.01954427249715648,
+          19.30084497965209
+        ],
+        "residual_median_p95_mm": [
+          0.013560009450010568,
+          0.05372470787396714
+        ]
+      },
+      "-1,-1": {
+        "points": 921,
+        "median_normal_offset_mm": 19.88411263541527,
+        "normal_offset_from_t_z_constant": [
+          0.0037674088970962687,
+          0.018247856979885384,
+          19.680806463612956
+        ],
+        "residual_median_p95_mm": [
+          0.006852224606880952,
+          0.01959993563919582
+        ]
+      },
+      "1,-1": {
+        "points": 1303,
+        "median_normal_offset_mm": 19.980954826767995,
+        "normal_offset_from_t_z_constant": [
+          -0.0052944428353729886,
+          0.024384517961942298,
+          19.70390002170835
+        ],
+        "residual_median_p95_mm": [
+          0.00810626404834025,
+          0.02466377688045995
+        ]
+      },
+      "black_top": {
+        "points": 6390,
+        "height_quantiles_10_50_90_mm": [
+          12.757640311082572,
+          12.911944587767346,
+          12.990522413096043
+        ]
+      }
+    },
+    "outer_surface_comparison": {
+      "black_straight_walls": {
+        "samples": 1456,
+        "median_mm": 0.026247711790045914,
+        "p95_mm": 0.07528070871697713,
+        "max_mm": 0.13962144468624132
+      },
+      "white_base_walls": {
+        "samples": 1,
+        "status": "Insufficient exposed straight-wall observations for a surface comparison. The shared outline follows Derek's instruction and the supplied photographs."
+      }
+    },
+    "selection": "Exposed straight outer wall observations, selected by position and normals; no rejection by model distance. The white central recess is intentionally filled and is outside this surface target.",
+    "layers_have_identical_exported_xy_outline": true,
+    "both_layers_solid_at_axis": true,
+    "shared_section_area_mm2": 1580.0667422462202,
+    "photos": [
+      {
+        "path": "/Users/derekbredensteiner/Documents/3D Scans/2026-09-20-kamoer-pump/head-motor-interface-photos-2026-11-09/Photo 1.jpg",
+        "sha256": "232c1df28d8cb70c094b31af7b7ca59b80ba8d9fac31e13fc4571b1ee8043bd5"
+      },
+      {
+        "path": "/Users/derekbredensteiner/Documents/3D Scans/2026-09-20-kamoer-pump/head-motor-interface-photos-2026-11-09/Photo 2.jpg",
+        "sha256": "f80c7b8025c38fbab4384c5a3a7db88523581d0a8e9571c2f6c3f34b7ba77e4e"
+      },
+      {
+        "path": "/Users/derekbredensteiner/Documents/3D Scans/2026-09-20-kamoer-pump/head-motor-interface-photos-2026-11-09/Photo 3.jpg",
+        "sha256": "4b887331b2ede61e562798a0849148fd6cc4a00608addad6e392315688427231"
+      },
+      {
+        "path": "/Users/derekbredensteiner/Documents/3D Scans/2026-09-20-kamoer-pump/head-motor-interface-photos-2026-11-09/Photo 4.jpg",
+        "sha256": "98294193d30b8e2a86e22a8fa9c2d57c838d691e446afe74aa54e5ae8063555a"
+      }
+    ],
+    "scope": "The shared outline follows the black outer walls and Derek's identification of the matching white base. The recessed white inner wall is intentionally filled and supplies no surface target."
   }
 }

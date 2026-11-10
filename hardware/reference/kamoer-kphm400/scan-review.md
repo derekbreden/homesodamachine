@@ -14,8 +14,11 @@ deck with a shallow flat recess. Its circular screw collars hold recessed heads;
 the primer sits below its beveled opening. The cover wall has a slight molded draft.
 The named plane fits and surface comparisons in the model evidence describe these
 contact surfaces. Label lettering and surface texture are omitted.
-The motor adapter has paired circular columns at each cardinal point, with tangent
-flat walls between pairs and a screw on the alternating column of each pair.
+The motor adapter has paired circular columns at each cardinal point, with straight
+walls recessed between pairs and a screw on the alternating column of each pair.
+The white body and black plate are solid extrusions of one shared outline. Their
+thicknesses and colors distinguish them. The motor can starts at the black plate's
+top face. The layers have no internal cylindrical recess.
 Principal dimensions and connection stations come from the registered observations
 and retained part measurements. Flat faces stay planar and the motor stays cylindrical.
 The reference omits flange ribs and pockets, adapter side pockets, lettering,
@@ -38,6 +41,19 @@ not surface targets. Spray thickness and absolute scanner accuracy are unmeasure
 for the associated printed fixture. The [fitted-well audit](fitted-well-audit/README.md)
 contains its retained native surface comparison. Those physical articles are separate
 from this reference model.
+
+## Replica detail example
+
+The adapter is a canonical example of replica detail. Its straight wall positions,
+paired columns, layer thicknesses and fastener stations describe the exterior a
+mating printed part follows. Both layers use the same filled profile. The deeper
+cylindrical recess is filled.
+
+The photographs identify the manufactured boundaries and the registered scan
+observations supply their dimensions. Planes stay planar, columns stay cylindrical
+and the straight flanks retain their setback from the columns. The source owns the
+dimensions; the model evidence binds their measurements, photographs and exported
+geometry.
 
 ## Manual generation
 
