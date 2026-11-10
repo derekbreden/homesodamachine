@@ -1,0 +1,2 @@
+# Published Rust payloads belong to this isolated comparison.
+!assets/rust-*/*.step.mesh
