@@ -295,6 +295,118 @@
             "url": "/solidcraft-lab/identification/blind/assets/native-before/p06.stl"
           }
         ]
+      },
+      "after": {
+        "parts": {
+          "p01": {
+            "label": "TAP",
+            "kind": "native-export",
+            "url": "/solidcraft-lab/identification/blind/assets/native-after/p01.3mf?v=7efad3cfd9d6170e",
+            "sha256": "7efad3cfd9d6170e8415f1ec2413397b231ee923b6d86949ee9f9dadb3f4af81",
+            "bytes": 39836
+          },
+          "p02": {
+            "label": "CO2",
+            "kind": "native-export",
+            "url": "/solidcraft-lab/identification/blind/assets/native-after/p02.3mf?v=5b3051755ec10bec",
+            "sha256": "5b3051755ec10bec4f86fbc99219961e80b4da92df39d7f9107e5fad980feee4",
+            "bytes": 175534
+          },
+          "p03": {
+            "label": "DRAIN",
+            "kind": "native-export",
+            "url": "/solidcraft-lab/identification/blind/assets/native-after/p03.3mf?v=b60e5797c9a1156f",
+            "sha256": "b60e5797c9a1156f04f9ac71a9afaeb782495686bf3e5f524e30f5903e1009e1",
+            "bytes": 80183
+          },
+          "p04": {
+            "label": "SODA",
+            "kind": "native-export",
+            "url": "/solidcraft-lab/identification/blind/assets/native-after/p04.3mf?v=6a6387821b51cea6",
+            "sha256": "6a6387821b51cea67a7c99ab6797d71ee6ce193c7cb9e652cdcd00178be8d499",
+            "bytes": 170790
+          },
+          "p05": {
+            "label": "FLAVOR A",
+            "kind": "native-export",
+            "url": "/solidcraft-lab/identification/blind/assets/native-after/p05.3mf?v=3bf497b5bd8befe9",
+            "sha256": "3bf497b5bd8befe9dcaf73beb89627fa9d0659f500f0f72b296503be1d60a785",
+            "bytes": 115379
+          },
+          "p06": {
+            "label": "FLAVOR B",
+            "kind": "native-export",
+            "url": "/solidcraft-lab/identification/blind/assets/native-after/p06.3mf?v=b4396c3153cf0d26",
+            "sha256": "b4396c3153cf0d26c8f94cab4b01912575d24914eb8d306b4bd3ed58a8f7c2bb",
+            "bytes": 115624
+          }
+        },
+        "downloads": [
+          {
+            "label": "Editable SolidCraft source",
+            "url": "/solidcraft-lab/identification/blind/native-after-source.zip"
+          },
+          {
+            "part": "p01",
+            "label": "TAP \u00b7 multicolor 3MF",
+            "url": "/solidcraft-lab/identification/blind/assets/native-after/p01.3mf"
+          },
+          {
+            "part": "p01",
+            "label": "TAP \u00b7 fused STL",
+            "url": "/solidcraft-lab/identification/blind/assets/native-after/p01.stl"
+          },
+          {
+            "part": "p02",
+            "label": "CO2 \u00b7 multicolor 3MF",
+            "url": "/solidcraft-lab/identification/blind/assets/native-after/p02.3mf"
+          },
+          {
+            "part": "p02",
+            "label": "CO2 \u00b7 fused STL",
+            "url": "/solidcraft-lab/identification/blind/assets/native-after/p02.stl"
+          },
+          {
+            "part": "p03",
+            "label": "DRAIN \u00b7 multicolor 3MF",
+            "url": "/solidcraft-lab/identification/blind/assets/native-after/p03.3mf"
+          },
+          {
+            "part": "p03",
+            "label": "DRAIN \u00b7 fused STL",
+            "url": "/solidcraft-lab/identification/blind/assets/native-after/p03.stl"
+          },
+          {
+            "part": "p04",
+            "label": "SODA \u00b7 multicolor 3MF",
+            "url": "/solidcraft-lab/identification/blind/assets/native-after/p04.3mf"
+          },
+          {
+            "part": "p04",
+            "label": "SODA \u00b7 fused STL",
+            "url": "/solidcraft-lab/identification/blind/assets/native-after/p04.stl"
+          },
+          {
+            "part": "p05",
+            "label": "FLAVOR A \u00b7 multicolor 3MF",
+            "url": "/solidcraft-lab/identification/blind/assets/native-after/p05.3mf"
+          },
+          {
+            "part": "p05",
+            "label": "FLAVOR A \u00b7 fused STL",
+            "url": "/solidcraft-lab/identification/blind/assets/native-after/p05.stl"
+          },
+          {
+            "part": "p06",
+            "label": "FLAVOR B \u00b7 multicolor 3MF",
+            "url": "/solidcraft-lab/identification/blind/assets/native-after/p06.3mf"
+          },
+          {
+            "part": "p06",
+            "label": "FLAVOR B \u00b7 fused STL",
+            "url": "/solidcraft-lab/identification/blind/assets/native-after/p06.stl"
+          }
+        ]
       }
     },
     "rust": {
@@ -407,6 +519,118 @@
             "part": "p06",
             "label": "FLAVOR B \u00b7 fused STL",
             "url": "/solidcraft-lab/identification/blind/assets/rust-before/p06.stl"
+          }
+        ]
+      },
+      "after": {
+        "parts": {
+          "p01": {
+            "label": "TAP",
+            "kind": "rust-payload",
+            "url": "/solidcraft-lab/identification/blind/assets/rust-after/p01.step.mesh?v=086d5d16702205ee",
+            "sha256": "086d5d16702205eeb01094506d61cf956c1e431310e3aff464980fc3a80ab462",
+            "bytes": 77028
+          },
+          "p02": {
+            "label": "CO2",
+            "kind": "rust-payload",
+            "url": "/solidcraft-lab/identification/blind/assets/rust-after/p02.step.mesh?v=36c0a5c17a06199e",
+            "sha256": "36c0a5c17a06199e2832d266ec3e82d851c0fec59dc4e8a4c8602382e5a1d1cd",
+            "bytes": 244464
+          },
+          "p03": {
+            "label": "DRAIN",
+            "kind": "rust-payload",
+            "url": "/solidcraft-lab/identification/blind/assets/rust-after/p03.step.mesh?v=7b643bd3d1c3518e",
+            "sha256": "7b643bd3d1c3518e145ab2040f146b38faa63ca658a7a85bf7177bd835e5eadc",
+            "bytes": 153616
+          },
+          "p04": {
+            "label": "SODA",
+            "kind": "rust-payload",
+            "url": "/solidcraft-lab/identification/blind/assets/rust-after/p04.step.mesh?v=738218200dcabdcf",
+            "sha256": "738218200dcabdcf4a79489b2659a91922af8e5b3535bba8c92164918e6a3eb9",
+            "bytes": 267500
+          },
+          "p05": {
+            "label": "FLAVOR A",
+            "kind": "rust-payload",
+            "url": "/solidcraft-lab/identification/blind/assets/rust-after/p05.step.mesh?v=67a22a44a3cc76f1",
+            "sha256": "67a22a44a3cc76f1c4c283e2d3718356c95db6dabcfa373ebf89128290a9cb33",
+            "bytes": 197140
+          },
+          "p06": {
+            "label": "FLAVOR B",
+            "kind": "rust-payload",
+            "url": "/solidcraft-lab/identification/blind/assets/rust-after/p06.step.mesh?v=42d748e710905482",
+            "sha256": "42d748e7109054822843101f2d9f3fa9af7f1f5a13db8b0d6e9340a78ce4fc1d",
+            "bytes": 197140
+          }
+        },
+        "downloads": [
+          {
+            "label": "Editable Rust source",
+            "url": "/solidcraft-lab/identification/blind/rust-after-source.zip"
+          },
+          {
+            "part": "p01",
+            "label": "TAP \u00b7 multicolor 3MF",
+            "url": "/solidcraft-lab/identification/blind/assets/rust-after/p01.3mf"
+          },
+          {
+            "part": "p01",
+            "label": "TAP \u00b7 fused STL",
+            "url": "/solidcraft-lab/identification/blind/assets/rust-after/p01.stl"
+          },
+          {
+            "part": "p02",
+            "label": "CO2 \u00b7 multicolor 3MF",
+            "url": "/solidcraft-lab/identification/blind/assets/rust-after/p02.3mf"
+          },
+          {
+            "part": "p02",
+            "label": "CO2 \u00b7 fused STL",
+            "url": "/solidcraft-lab/identification/blind/assets/rust-after/p02.stl"
+          },
+          {
+            "part": "p03",
+            "label": "DRAIN \u00b7 multicolor 3MF",
+            "url": "/solidcraft-lab/identification/blind/assets/rust-after/p03.3mf"
+          },
+          {
+            "part": "p03",
+            "label": "DRAIN \u00b7 fused STL",
+            "url": "/solidcraft-lab/identification/blind/assets/rust-after/p03.stl"
+          },
+          {
+            "part": "p04",
+            "label": "SODA \u00b7 multicolor 3MF",
+            "url": "/solidcraft-lab/identification/blind/assets/rust-after/p04.3mf"
+          },
+          {
+            "part": "p04",
+            "label": "SODA \u00b7 fused STL",
+            "url": "/solidcraft-lab/identification/blind/assets/rust-after/p04.stl"
+          },
+          {
+            "part": "p05",
+            "label": "FLAVOR A \u00b7 multicolor 3MF",
+            "url": "/solidcraft-lab/identification/blind/assets/rust-after/p05.3mf"
+          },
+          {
+            "part": "p05",
+            "label": "FLAVOR A \u00b7 fused STL",
+            "url": "/solidcraft-lab/identification/blind/assets/rust-after/p05.stl"
+          },
+          {
+            "part": "p06",
+            "label": "FLAVOR B \u00b7 multicolor 3MF",
+            "url": "/solidcraft-lab/identification/blind/assets/rust-after/p06.3mf"
+          },
+          {
+            "part": "p06",
+            "label": "FLAVOR B \u00b7 fused STL",
+            "url": "/solidcraft-lab/identification/blind/assets/rust-after/p06.stl"
           }
         ]
       }

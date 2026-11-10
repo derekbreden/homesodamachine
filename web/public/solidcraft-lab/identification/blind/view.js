@@ -39,7 +39,7 @@ async function start(){
   catalog=await (await fetch(base+'catalog.json',{cache:'no-cache'})).json();const nodes={};
   for(const [impl,variants] of Object.entries(catalog.models))for(const [v,model] of Object.entries(variants))for(const part of catalog.parts)if(model.parts[part.key])nodes[`${impl}-${v}-${part.key}`]={label:model.parts[part.key].label||part.label,display:model.parts[part.key]};
   preview=await createPreview($('preview'),{nodes},load,{onSelect:key=>{if(key)action(async()=>{selected=key;await show(true);});},readDisplay});await action(()=>show(true));
-  const report=await (await fetch(base+'results.json',{cache:'no-cache'})).json();$('request').textContent=report.request?.text||'';$('conclusion').textContent=report.conclusion||'';
+  const report=await (await fetch(base+'results.json',{cache:'no-cache'})).json();$('request').textContent=report.request?.historical_request_exact||report.request?.text||'';$('conclusion').textContent=report.conclusion||'';
   for(const timing of report.summary||[]){const p=document.createElement('span');p.style.display='block';p.textContent=timing;$('times').append(p);}
 }
 start().catch(error=>{$('cover-title').textContent='Could not open the comparison';$('cover-detail').textContent=error.message;console.error(error);});
