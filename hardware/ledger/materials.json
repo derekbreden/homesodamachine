@@ -422,18 +422,6 @@
             "unit": "ea"
           },
           {
-            "material": "HSM-0091",
-            "quantity": 2,
-            "unit": "ea",
-            "bodies": [
-              "flavor_union_pos_x",
-              "flavor_union_neg_x"
-            ],
-            "when": {
-              "finish": "white"
-            }
-          },
-          {
             "material": "HSM-0092",
             "quantity": 1,
             "unit": "ea",
@@ -1334,18 +1322,6 @@
             "material": "HSM-0571",
             "quantity": 1,
             "unit": "ea"
-          },
-          {
-            "material": "HSM-0091",
-            "quantity": 2,
-            "unit": "ea",
-            "bodies": [
-              "flavor_union_pos_x",
-              "flavor_union_neg_x"
-            ],
-            "when": {
-              "finish": "white"
-            }
           },
           {
             "material": "HSM-0111",

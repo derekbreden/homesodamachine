@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "as_of": "2026-11-09",
+  "as_of": "2026-11-10",
   "reporting_period": {
     "start": "2026-01-01",
     "end": "2026-12-31"
@@ -8070,7 +8070,14 @@
       "allocation_status": "all_project",
       "source_ids": [
         "src-73f93ccef6d4495f9740151c9a066f44",
-        "src-fed4085cf6854b39945f1783a4dc635c"
+        "src-fed4085cf6854b39945f1783a4dc635c",
+        "src-6d7e9d71948e4fe19d67aea39d2f90a4"
+      ],
+      "delivery_dates": [
+        {
+          "precision": "day",
+          "value": "2026-10-13"
+        }
       ]
     },
     "pur-9835cb05727440fa98029e6134ffd627": {
@@ -8328,7 +8335,27 @@
       ],
       "allocation_status": "all_project",
       "source_ids": [
-        "src-e90526d88b0b4e5c9b441af32b25ac68"
+        "src-e90526d88b0b4e5c9b441af32b25ac68",
+        "src-705110796ce345c7ab0263a199c8968a",
+        "src-6b59d4539d614609b87397329eee9092"
+      ],
+      "delivery_dates": [
+        {
+          "precision": "day",
+          "value": "2026-10-28"
+        }
+      ],
+      "price_history": [
+        {
+          "amount_minor": 11153,
+          "currency": "USD",
+          "amount_evidence": "final_vendor_amount",
+          "verified_at": "2026-11-10",
+          "source_ids": [
+            "src-e90526d88b0b4e5c9b441af32b25ac68"
+          ],
+          "note": "Original order quote; the final vendor completion total is recorded as the current purchase value."
+        }
       ]
     },
     "pur-43767918757a4173a8b69a9b725d64fd": {
@@ -8359,7 +8386,14 @@
       ],
       "allocation_status": "all_project",
       "source_ids": [
-        "src-b822cdd28ba249e6afcbe01ecef2028a"
+        "src-b822cdd28ba249e6afcbe01ecef2028a",
+        "src-bd82c3ca38584cf699ad625b08736af1"
+      ],
+      "delivery_dates": [
+        {
+          "precision": "day",
+          "value": "2026-10-26"
+        }
       ]
     },
     "pur-2c46198fe81f4cf7bf5a65d4e4ec638a": {
@@ -8495,7 +8529,14 @@
       ],
       "allocation_status": "all_project",
       "source_ids": [
-        "src-7101af811922496e9b6b06ff68e18484"
+        "src-7101af811922496e9b6b06ff68e18484",
+        "src-566fc2c15b3b4437bc6a8196c59b8526"
+      ],
+      "delivery_dates": [
+        {
+          "precision": "day",
+          "value": "2026-10-26"
+        }
       ]
     },
     "pur-8b3d0e7a5c9f4e2b4a7d1c3e5f6a8b07": {
@@ -8592,7 +8633,8 @@
       "allocation_status": "all_project",
       "source_ids": [
         "src-31821bcc03544179b8acbd0ee716eea6",
-        "src-25efb07a466642cda375aa9fe665d977"
+        "src-25efb07a466642cda375aa9fe665d977",
+        "src-5e995e1fad334b1b8784483d9f721b2f"
       ]
     },
     "pur-a9aeeb7107e24ef68654ee86aa1fbe14": {
@@ -8688,7 +8730,14 @@
       ],
       "allocation_status": "all_project",
       "source_ids": [
-        "src-57d7a55650e950b4bd37fd8b57f1ae54"
+        "src-57d7a55650e950b4bd37fd8b57f1ae54",
+        "src-9e1eb5002d1a439b9f3866b5fdedbcf7"
+      ],
+      "delivery_dates": [
+        {
+          "precision": "day",
+          "value": "2026-11-07"
+        }
       ]
     },
     "pur-6655f4a0c1c747bc8ce06a69596eb432": {
@@ -8714,6 +8763,30 @@
       "source_ids": [
         "src-df13c4ce12f642b8878093764cce1699",
         "src-33d9040298cb499e88555a7bbefdc397"
+      ]
+    },
+    "pur-89b25fbe2a3e44adb4cbb188ab8a820f": {
+      "vendor": "Amazon",
+      "purpose": "components",
+      "amount_evidence": "final_vendor_amount",
+      "order_ids": [
+        "amazon:112-8336005-3642625"
+      ],
+      "allocation_status": "all_project",
+      "source_ids": [
+        "src-562754f7ecd34ad9a37d14abe9d1a9ce"
+      ]
+    },
+    "pur-14f8f47e82a74b129f4677cb0fc2a67d": {
+      "vendor": "Amazon",
+      "purpose": "components",
+      "amount_evidence": "final_vendor_amount",
+      "order_ids": [
+        "amazon:112-0448533-3655424"
+      ],
+      "allocation_status": "all_project",
+      "source_ids": [
+        "src-89ae5a1bc34849d4b07e15ca3a075465"
       ]
     }
   },
@@ -14352,7 +14425,8 @@
       },
       "allocation_status": "all_project",
       "source_ids": [
-        "src-73f93ccef6d4495f9740151c9a066f44"
+        "src-73f93ccef6d4495f9740151c9a066f44",
+        "src-6d7e9d71948e4fe19d67aea39d2f90a4"
       ]
     },
     "cnckitchen:CNC3278": {
@@ -14502,7 +14576,9 @@
       },
       "allocation_status": "all_project",
       "source_ids": [
-        "src-e90526d88b0b4e5c9b441af32b25ac68"
+        "src-e90526d88b0b4e5c9b441af32b25ac68",
+        "src-705110796ce345c7ab0263a199c8968a",
+        "src-6b59d4539d614609b87397329eee9092"
       ]
     },
     "fws:WEBFWS100715131": {
@@ -14527,7 +14603,8 @@
       },
       "allocation_status": "all_project",
       "source_ids": [
-        "src-b822cdd28ba249e6afcbe01ecef2028a"
+        "src-b822cdd28ba249e6afcbe01ecef2028a",
+        "src-bd82c3ca38584cf699ad625b08736af1"
       ]
     },
     "amazon:112-7854933-1604224": {
@@ -14563,7 +14640,8 @@
       },
       "allocation_status": "all_project",
       "source_ids": [
-        "src-7101af811922496e9b6b06ff68e18484"
+        "src-7101af811922496e9b6b06ff68e18484",
+        "src-566fc2c15b3b4437bc6a8196c59b8526"
       ]
     },
     "bambu:us791135084148191233": {
@@ -14600,7 +14678,8 @@
       "allocation_status": "all_project",
       "source_ids": [
         "src-31821bcc03544179b8acbd0ee716eea6",
-        "src-25efb07a466642cda375aa9fe665d977"
+        "src-25efb07a466642cda375aa9fe665d977",
+        "src-5e995e1fad334b1b8784483d9f721b2f"
       ]
     },
     "amazon:112-5769102-6239435": {
@@ -14696,7 +14775,8 @@
       },
       "allocation_status": "all_project",
       "source_ids": [
-        "src-57d7a55650e950b4bd37fd8b57f1ae54"
+        "src-57d7a55650e950b4bd37fd8b57f1ae54",
+        "src-9e1eb5002d1a439b9f3866b5fdedbcf7"
       ]
     },
     "bambu:us795729195777990656": {
@@ -14719,6 +14799,30 @@
       "source_ids": [
         "src-df13c4ce12f642b8878093764cce1699",
         "src-33d9040298cb499e88555a7bbefdc397"
+      ]
+    },
+    "amazon:112-8336005-3642625": {
+      "vendor": "Amazon",
+      "reference": "112-8336005-3642625",
+      "order_date": {
+        "precision": "day",
+        "value": "2026-11-09"
+      },
+      "allocation_status": "all_project",
+      "source_ids": [
+        "src-562754f7ecd34ad9a37d14abe9d1a9ce"
+      ]
+    },
+    "amazon:112-0448533-3655424": {
+      "vendor": "Amazon",
+      "reference": "112-0448533-3655424",
+      "order_date": {
+        "precision": "day",
+        "value": "2026-11-09"
+      },
+      "allocation_status": "all_project",
+      "source_ids": [
+        "src-89ae5a1bc34849d4b07e15ca3a075465"
       ]
     }
   },
@@ -18214,13 +18318,14 @@
       "event_type": "charge",
       "confirmation": "expected",
       "event_date": null,
-      "amount_minor": 11153,
+      "amount_minor": 10789,
       "currency": "USD",
       "allocation_status": "all_project",
       "source_ids": [
-        "src-e90526d88b0b4e5c9b441af32b25ac68"
+        "src-e90526d88b0b4e5c9b441af32b25ac68",
+        "src-6b59d4539d614609b87397329eee9092"
       ],
-      "verified_at": "2026-10-23",
+      "verified_at": "2026-11-10",
       "order_ids": [
         "pisco:8638"
       ]
@@ -18286,6 +18391,40 @@
       "verified_at": "2026-10-28",
       "order_ids": [
         "fws:WEBFWS100715944"
+      ]
+    },
+    {
+      "event_id": "evt-0daeac8a24434db6abdfdeb3d8dc4a57",
+      "vendor": "Amazon",
+      "event_type": "charge",
+      "confirmation": "expected",
+      "event_date": null,
+      "amount_minor": 3216,
+      "currency": "USD",
+      "allocation_status": "all_project",
+      "source_ids": [
+        "src-562754f7ecd34ad9a37d14abe9d1a9ce"
+      ],
+      "verified_at": "2026-11-10",
+      "order_ids": [
+        "amazon:112-8336005-3642625"
+      ]
+    },
+    {
+      "event_id": "evt-44d3b6c0a264492589465271e6914753",
+      "vendor": "Amazon",
+      "event_type": "charge",
+      "confirmation": "expected",
+      "event_date": null,
+      "amount_minor": 857,
+      "currency": "USD",
+      "allocation_status": "all_project",
+      "source_ids": [
+        "src-89ae5a1bc34849d4b07e15ca3a075465"
+      ],
+      "verified_at": "2026-11-10",
+      "order_ids": [
+        "amazon:112-0448533-3655424"
       ]
     }
   ],
@@ -19647,7 +19786,7 @@
       "event_id": "evt-a3c8a2e1a259405e85d14c27817deb58",
       "purchase_id": "pur-1ead43e8eead4989adf3de560d23febe",
       "order_id": "pisco:8638",
-      "amount_minor": 11153,
+      "amount_minor": 10789,
       "currency": "USD"
     },
     {
@@ -19696,6 +19835,22 @@
       "purchase_id": "pur-9d9726d27ea04842b803208c17fd1b37",
       "order_id": "fws:WEBFWS100715944",
       "amount_minor": 4913,
+      "currency": "USD"
+    },
+    {
+      "allocation_id": "alloc-d2c6f710bcc446a1b0fdd69ba718c913",
+      "event_id": "evt-0daeac8a24434db6abdfdeb3d8dc4a57",
+      "purchase_id": "pur-89b25fbe2a3e44adb4cbb188ab8a820f",
+      "order_id": "amazon:112-8336005-3642625",
+      "amount_minor": 3216,
+      "currency": "USD"
+    },
+    {
+      "allocation_id": "alloc-daa16ebb3fc44a81823832afcd4adcf0",
+      "event_id": "evt-44d3b6c0a264492589465271e6914753",
+      "purchase_id": "pur-14f8f47e82a74b129f4677cb0fc2a67d",
+      "order_id": "amazon:112-0448533-3655424",
+      "amount_minor": 857,
       "currency": "USD"
     }
   ],
@@ -30409,6 +30564,120 @@
         "precision": "day",
         "value": "2026-11-03"
       }
+    },
+    "src-562754f7ecd34ad9a37d14abe9d1a9ce": {
+      "vendor": "Amazon",
+      "document_type": "merchant_order_details",
+      "reference": "112-8336005-3642625",
+      "document_date": {
+        "precision": "day",
+        "value": "2026-11-09"
+      },
+      "proves": [
+        "order_date",
+        "price"
+      ],
+      "verified_at": "2026-11-10",
+      "note": "Signed-in order details identifies the selected item and order total USD 32.16. Merchant placed date is November 9. Order confirmation gives expected arrival 2026-11-10; receipt and completed charge are not established."
+    },
+    "src-89ae5a1bc34849d4b07e15ca3a075465": {
+      "vendor": "Amazon",
+      "document_type": "merchant_order_details",
+      "reference": "112-0448533-3655424",
+      "document_date": {
+        "precision": "day",
+        "value": "2026-11-09"
+      },
+      "proves": [
+        "order_date",
+        "price"
+      ],
+      "verified_at": "2026-11-10",
+      "note": "Signed-in order details identifies the selected item and order total USD 8.57. Merchant placed date is November 9. Order confirmation gives expected arrival 2026-11-11; receipt and completed charge are not established."
+    },
+    "src-705110796ce345c7ab0263a199c8968a": {
+      "vendor": "PISCO",
+      "document_type": "carrier_delivery_notice",
+      "reference": "8638",
+      "document_date": null,
+      "proves": [
+        "delivery"
+      ],
+      "verified_at": "2026-11-10",
+      "note": "Latest vendor completion clears the earlier payment hold. Carrier notice explicitly states calendar delivery date. No bank charge event is established."
+    },
+    "src-6b59d4539d614609b87397329eee9092": {
+      "vendor": "PISCO",
+      "document_type": "vendor_order_completion",
+      "reference": "8638",
+      "document_date": {
+        "precision": "day",
+        "value": "2026-10-26"
+      },
+      "proves": [
+        "price"
+      ],
+      "verified_at": "2026-11-10",
+      "note": "Vendor completion identifies two regulators: USD 81.32 merchandise plus USD 26.57 shipping, no tax, total USD 107.89. Completed merchant charge is not evidenced."
+    },
+    "src-bd82c3ca38584cf699ad625b08736af1": {
+      "vendor": "Amazon",
+      "document_type": "merchant_order_details",
+      "reference": "112-6255534-2742635",
+      "document_date": null,
+      "proves": [
+        "delivery"
+      ],
+      "verified_at": "2026-11-10",
+      "note": "Signed-in Mac Chrome order page states Delivered October 26 and shows selected YZMSZ product."
+    },
+    "src-5e995e1fad334b1b8784483d9f721b2f": {
+      "vendor": "Fresh Water Systems",
+      "document_type": "email_delivery_notification",
+      "reference": "WEBFWS100715944",
+      "document_date": null,
+      "proves": [
+        "delivery"
+      ],
+      "verified_at": "2026-11-10",
+      "note": "Delivery notification names two bags of ten; independent calendar delivery day not supplied.",
+      "notification_date": {
+        "precision": "day",
+        "value": "2026-11-02"
+      }
+    },
+    "src-566fc2c15b3b4437bc6a8196c59b8526": {
+      "vendor": "Amazon",
+      "document_type": "merchant_order_details",
+      "reference": "112-8643704-3927458",
+      "document_date": null,
+      "proves": [
+        "delivery"
+      ],
+      "verified_at": "2026-11-10",
+      "note": "Signed-in Mac Chrome order page states Delivered October 26 and shows selected 20-piece screw pack."
+    },
+    "src-9e1eb5002d1a439b9f3866b5fdedbcf7": {
+      "vendor": "Amazon",
+      "document_type": "merchant_order_details",
+      "reference": "114-4948607-3372207",
+      "document_date": null,
+      "proves": [
+        "delivery"
+      ],
+      "verified_at": "2026-11-10",
+      "note": "Signed-in Mac Chrome order page states Delivered November 7 and shows the 20-piece DC12V blue LED item."
+    },
+    "src-6d7e9d71948e4fe19d67aea39d2f90a4": {
+      "vendor": "Amazon",
+      "document_type": "merchant_order_details",
+      "reference": "114-5870152-3334654",
+      "document_date": null,
+      "proves": [
+        "delivery"
+      ],
+      "verified_at": "2026-11-10",
+      "note": "Signed-in Mac Chrome page confirms this ten-valve order. Earlier acquired valve stock is additional; usable remaining count is not a stocktake."
     }
   },
   "coverage": [
