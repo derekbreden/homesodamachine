@@ -1,0 +1,74 @@
+{
+  "purpose": "This record binds the status LED fit to Derek\u2019s photographed prewired lamp and distinguishes physical measurements from allocated clearance.",
+  "reported_on": "2026-11-09",
+  "part": "CHANZON prewired clear-lens blue LED, with inline resistor and blue positive/black negative leads",
+  "source": "https://www.amazon.com/dp/B08G4Z6KPV",
+  "measurements": {
+    "flange_diameter_mm": {
+      "value": 5.49,
+      "basis": "Derek identifies the flange in photo-6.jpg."
+    },
+    "body_diameter_mm": {
+      "value": 4.9,
+      "basis": "Derek identifies the body above the flange; photo-7.jpg shows the caliper reading."
+    },
+    "photographed_bent_height_mm": {
+      "value": 12.92,
+      "basis": "Caliper reading in photo-5.jpg, interpreted as dome-to-outside-bend height. This is not the straight insulated-tail length."
+    }
+  },
+  "nominal_lens_length_mm": {
+    "value": 8.7,
+    "basis": "Existing product-drawing dimension; not newly measured in these photographs."
+  },
+  "clearance_allocation": {
+    "straight_tail_from_flange_mm": 30.0,
+    "tail_envelope_diameter_mm": 6.0,
+    "well_width_mm": 6.4,
+    "socket_diameter_mm": 6.4,
+    "additional_wire_runout_mm": 10.0,
+    "basis": "A conservative design envelope around the photographed resistor, solder joints and heat-shrink. Tail length and width are allowances, not caliper measurements of the acquired part.",
+    "formed_tail_run_mm": 20.0
+  },
+  "assembly": {
+    "entry": "Place the complete lamp, resistor and heat-shrink through the open service pocket with the status plate removed.",
+    "route": "A straight tail extends into the well. An already formed tail lies up the slot without reforming the leads. Flexible wires turn through the rear cross passage into the common pump/display corridor.",
+    "handling": "Keep force off the epoxy-to-lead joint and the resistor and solder joints. Do not straighten the already bent example to force it through the socket.",
+    "handling_reference": {
+      "url": "https://www.kingbrightusa.com/applicationnotes/ApplicationNotesFor_Through-Hole_LEDs.pdf",
+      "scope": "General through-hole LED handling guidance; not a CHANZON-specific bend qualification."
+    },
+    "retention": "Set the lens back behind the diffuser and tack the flange to the socket with the existing hot-glue gun, keeping adhesive off optical faces. Let the adhesive cool before handling."
+  },
+  "qualification": "Digital fit and insertion checks; physical fit in the printed revised housing is not yet reported.",
+  "photos": [
+    {
+      "file": "photo-1.jpg",
+      "sha256": "a79e84efcfc608e6eddfa7f6d0ac7693457745abb0077aa24fe993c53e59409e"
+    },
+    {
+      "file": "photo-2.jpg",
+      "sha256": "ed71260a0fcd6d02e46c8a309880e7c2a6ad3e5d8978e223bfa1a4a9907ec5f6"
+    },
+    {
+      "file": "photo-3.jpg",
+      "sha256": "2ae021aa499e4019639b4305b35b5d55bd9b061df72f598f11d0d9072b46441c"
+    },
+    {
+      "file": "photo-4.jpg",
+      "sha256": "e734fa8558d9b8bb72821c1e5c6e4e70d9f78b0236741725fd4fdcd1ae928574"
+    },
+    {
+      "file": "photo-5.jpg",
+      "sha256": "b942997b841a631144cf397688b546a98f74f0c76001392df2ac635b0a776ad5"
+    },
+    {
+      "file": "photo-6.jpg",
+      "sha256": "1ac5c7e852892f0bf049e7ab1260855eded8166b212ea4f12997ff546b67cc03"
+    },
+    {
+      "file": "photo-7.jpg",
+      "sha256": "80a3f26d93a84ca7feffc0b35795e6e74811fe39cfef6569a402ccf7bf45612b"
+    }
+  ]
+}

@@ -73,12 +73,18 @@ pub const LABEL: &str = "ON";
 pub const LABEL_Y: f64 = -14.9;
 
 /// The CHANZON clear-lens blue LED stands behind the printed diffuser.
-pub const LED_DIA: f64 = 5.0;
-pub const LED_FLANGE_DIA: f64 = 5.8;
+pub const LED_DIA: f64 = 4.9;
+pub const LED_FLANGE_DIA: f64 = 5.49;
 pub const LED_FLANGE: f64 = 1.0;
 pub const LED_LENGTH: f64 = 8.7;
 pub const LED_SET_BACK: f64 = 1.0;
 /// Its bore below the plate's seat: the flange and a slip.
 pub const LED_BORE_DIA: f64 = 6.4;
-/// The channel from the bore's foot to the display's PCB pocket that carries its leads.
-pub const LEAD_HALF_SPAN: f64 = 3.5;
+/// A conservative envelope for the prewired resistor, joints and heat-shrink, kept straight.
+pub const LED_TAIL_DIA: f64 = 6.0;
+pub const LED_TAIL_LENGTH: f64 = 30.0;
+/// The covered service slot also accepts an already formed tail laid up the plate.
+pub const LED_SLOT_RUN: f64 = 20.0;
+/// Free wire beyond the insulated assembly turns into the shared electrical corridor.
+pub const LED_WIRE_RUNOUT: f64 = 10.0;
+pub const LEAD_HALF_SPAN: f64 = 6.0;

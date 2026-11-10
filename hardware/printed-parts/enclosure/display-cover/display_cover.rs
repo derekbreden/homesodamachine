@@ -304,6 +304,11 @@ fn main() -> Result<()> {
         "led_bore_diameter_mm": m::LED_BORE_DIA,
         "led": { "asin": "B08G4Z6KPV", "body_diameter_mm": m::LED_DIA,
                  "flange_diameter_mm": m::LED_FLANGE_DIA, "length_mm": m::LED_LENGTH },
+        "wired_led_clearance": { "tail_diameter_mm": m::LED_TAIL_DIA,
+            "straight_tail_length_mm": m::LED_TAIL_LENGTH, "formed_tail_run_mm": m::LED_SLOT_RUN,
+            "additional_wire_runout_mm": m::LED_WIRE_RUNOUT,
+            "slot_width_mm": m::LED_BORE_DIA,
+            "basis": "Conservative clearance allowances, not measurements of the insulated tail" },
     }))?)?;
     Ok(())
 }
