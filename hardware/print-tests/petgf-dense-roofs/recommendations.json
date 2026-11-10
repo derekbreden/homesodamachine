@@ -1,5 +1,5 @@
 {
-  "purpose": "Record the research and staged support experiment after the initial density screen.",
+  "purpose": "Record the staged support experiments, physical results and the next representative geometries.",
   "sources": [
     {
       "url": "https://raw.githubusercontent.com/bambulab/BambuStudio/v02.08.02.61/src/libslic3r/PrintConfig.cpp",
@@ -40,25 +40,26 @@
     "physical_result": "All coupons self-release from supports during cooling; retained roof strands remain separate and locally projecting. No acceptable candidate."
   },
   "next_comparison": {
-    "priority": "D transfer to reduced anchoring and representative pad contact",
-    "active_experiment": "peel-scenarios/README.md",
+    "priority": "E contact treatment on the complete rail cavity",
+    "active_experiment": "rail-cavity-30-E/README.md",
     "process_source": "close-contact/2026-11-09-close-contact-DEF-left04-z018-mark1.3mf",
-    "selection_basis": "D and E retain the first roof layer during removal in the enclosed fixture; Derek explicitly selects D alone for the next plate.",
     "scenarios": [
-      "Larger cantilever with a model wall on one edge",
-      "Larger wall-free panel",
-      "Wall-free holed panel",
-      "Production holed-pad underside and wall root"
+      "Complete production rail cavity with locally rooted supports"
     ],
+    "coupon_length_y_mm": 30,
     "interface_layers": 3,
     "interface_spacing_mm": 0.0,
-    "requested_top_z_distance_mm": 0.24,
-    "measured_planned_bead_gap_mm": 0.18,
+    "requested_top_z_distance_mm": 0.12,
+    "nominal_bead_gap_mm": -0.0600000000000005,
+    "gap_scope": "Calculated from commanded nozzle planes and annotated bridge bead height, not a physical measurement. This rail slice quantizes E one model layer closer than D; its nominal bridge bead overlaps the interface plane.",
     "bridge_flow_ratio": 1.25,
     "effective_bridge_speed_mm_s": 15,
-    "estimated_seconds": 3428.3605567853774,
+    "estimated_seconds": 1039.7789548488463,
     "intended_printer": "Mark1 left fixed hardened Standard 0.4 mm, PET-GF",
-    "shared_profile_changed": false
+    "printer_task_id": "1426648651",
+    "status": "Accepted and RUNNING; physical E removal result pending.",
+    "shared_profile_changed": false,
+    "D_peel_result": "peel-scenarios/physical-result.json"
   },
   "later_factors": [
     {
@@ -107,5 +108,43 @@
     "hardware/print-tests/petgf-interface-patterns/results.json",
     "hardware/print-tests/petgf-fins/under-roof-walls-v8/mark1/physical-result.json",
     "hardware/print-tests/petgf-fins/profile-transfer-review.json"
+  ],
+  "near_future_geometries": [
+    {
+      "scenario": "Faucet base at the plate through its first radius",
+      "priority": "User identifies this as the most difficult current support removal, especially near the plate.",
+      "coupon_scope": "Retain the actual base print orientation, plate contact, support access and complete first curved transition; omit the taller faucet body.",
+      "user_request": "Please include that in our near future considerations as well, along with those other specific support geometries I mentioned earlier.",
+      "source_identity_scope": "Resolve the printed faucet base from its print record before authoring the crop.",
+      "source_candidates": [
+        {
+          "id": "HSM-0094",
+          "name": "Sculpted faucet shell base",
+          "producer": "hardware/printed-parts/faucet/faucet-shell/faucet_shell.rs"
+        },
+        {
+          "id": "HSM-0113",
+          "name": "Industrial faucet shell base",
+          "producer": "hardware/printed-parts/faucet/industrial/industrial_faucet.rs"
+        }
+      ]
+    },
+    {
+      "scenario": "Complete enclosure rail cavity and mating wall",
+      "coupon_scope": "Retain the complete normal cavity height, locally rooted trees, thin surrounding stock and practical prying access.",
+      "active_cavity": "rail-cavity-30-E/README.md",
+      "prepared_mating_pair": "rail-fit-30/README.md"
+    },
+    {
+      "scenario": "Enclosure archway underside",
+      "coupon_scope": "Retain the curved unsupported underside and local wall anchoring. The user permits shortening the distant tree stalks for rapid trials.",
+      "prepared_geometry": "../enclosure-support-scenarios/samples.json#H"
+    },
+    {
+      "scenario": "Square holed enclosure pad",
+      "coupon_scope": "Retain the pad underside, hole mouth and wall root. The user permits shortening the distant tree stalks for rapid trials.",
+      "prepared_geometry": "../enclosure-support-scenarios/samples.json#P",
+      "D_contact_result": "peel-scenarios/physical-result.json"
+    }
   ]
 }

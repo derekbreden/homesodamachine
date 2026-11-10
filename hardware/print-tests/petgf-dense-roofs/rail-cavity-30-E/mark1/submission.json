@@ -1,0 +1,28 @@
+{
+  "purpose": "Retain the selected Mark1 send options and shared-circuit spacing evidence.",
+  "printer": "Mark1",
+  "connection_key": "H2C",
+  "printer_task_id": "1426648651",
+  "options": {
+    "Timelapse": "On",
+    "Auto bed leveling": "On",
+    "Flow dynamic calibration": "Auto",
+    "Nozzle Offset Calibration": "Auto"
+  },
+  "nozzle": "Left hardened Standard 0.4 mm",
+  "material_reported_by_user": "PET-GF",
+  "mapped_external_spool": {
+    "slot": 254,
+    "type": "PET-CF",
+    "colour": "000000"
+  },
+  "other_printer_state": {
+    "printer": "Mark2",
+    "observed_at": "2026-11-10T03:43:41.869299+00:00",
+    "gcode_state": "RUNNING",
+    "layer_num": 1284,
+    "total_layer_num": 1315
+  },
+  "seconds_from_observed_running_other_printer_to_this_acceptance": 510.932615,
+  "result": "New matching task accepted and RUNNING; no reported print error."
+}

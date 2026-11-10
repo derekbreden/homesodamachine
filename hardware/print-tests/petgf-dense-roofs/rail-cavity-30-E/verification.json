@@ -1,0 +1,97 @@
+{
+  "purpose": "Verify E settings, the full rail support height and centered deposited footprint for Mark1.",
+  "archive": "ready/2026-11-09-complete-rail-cavity-30-E-left04-z018-mark1.gcode.3mf",
+  "archive_sha256": "6afd5f3ac99227ce2f29185c84aab4400ed4693f8e3dd96bbf1da5cba9c18a99",
+  "gcode_sha256": "250a031d6ac0bd2b2967c0454602b8fa0f0cba3e63b89820414fcd7f3054023a",
+  "gcode_md5_verified": true,
+  "changed_from_D": {
+    "support_top_z_distance": {
+      "D_mm": 0.24,
+      "E_mm": 0.12
+    }
+  },
+  "other_process_settings_match_D": true,
+  "source_geometry_matches_D": true,
+  "native_object_settings": {
+    "name": "RE Complete rail cavity",
+    "extruder": "1",
+    "sparse_infill_density": "100%",
+    "sparse_infill_pattern": "zig-zag",
+    "support_interface_spacing": "0",
+    "support_interface_top_layers": "3",
+    "support_on_build_plate_only": "0",
+    "support_style": "default",
+    "support_top_z_distance": "0.12",
+    "support_type": "tree(auto)",
+    "tree_support_branch_angle": "20"
+  },
+  "dimensions_mm": [
+    19.749069213867188,
+    30.0,
+    18.31999969482422
+  ],
+  "support_summary": {
+    "bed_rooted_bodies": 0,
+    "bodies_without_interface_labels": 0,
+    "explicit_interface_islands": 1,
+    "interface_islands": 1,
+    "model_rooted_bodies": 1,
+    "shortest_build_up_mm": 8.16,
+    "shortest_labelled_build_up_mm": 8.16,
+    "support_bodies": 1
+  },
+  "support_body": {
+    "base_z_mm": 3.56,
+    "bbox_xy_mm": [
+      159.6,
+      144.8,
+      164.4,
+      174.8
+    ],
+    "first_interface_z_mm": 11.72,
+    "id": "tree-1",
+    "interface_reading": "explicit_feature",
+    "interfaces": [
+      "interface-1"
+    ],
+    "root": "model",
+    "shortest_build_up_mm": 8.16,
+    "top_z_mm": 12.2
+  },
+  "interface_z_mm": [
+    11.72,
+    11.96,
+    12.2
+  ],
+  "first_roof_nozzle_z_mm": 12.44,
+  "nominal_bridge_bead_height_mm": 0.3,
+  "nominal_bead_gap_mm": -0.0600000000000005,
+  "gap_scope": "Calculated from commanded nozzle planes and annotated bridge bead height, not a physical measurement. This rail slice quantizes E one model layer closer than D; its nominal bridge bead overlaps the interface plane.",
+  "bridge_speed_mm_s": 15,
+  "trim_commands": [
+    "G29.1 Z0 ; clear z-trim value first",
+    "G29.1 Z0.16"
+  ],
+  "deposited_bounds_xy_mm": [
+    [
+      152.276,
+      144.058
+    ],
+    [
+      172.725,
+      175.532
+    ]
+  ],
+  "bed_margins_mm": [
+    152.276,
+    144.058,
+    152.275,
+    144.468
+  ],
+  "envelope_scope": "Continuous extrusion paths, with native arc subdivision and conservative padding for bead radius and arc extrema.",
+  "maximum_annotated_bead_width_mm": 0.62,
+  "conservative_padding_mm": 0.56,
+  "estimated_seconds": 1039.7789548488463,
+  "slicer_estimated_filament_g": 6.225866317749023,
+  "status": "Verified for Mark1; print acceptance is recorded separately."
+}
