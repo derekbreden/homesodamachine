@@ -34,7 +34,7 @@
     }
   },
   "support_geometry_and_object_settings_unchanged": true,
-  "status": "RUNNING; first print layer observed without reported error.",
+  "status": "PRINT FINISHED; support release failed under screwdriver prying.",
   "native_archive": "faucet-slim-left04-z018-mark1.gcode.3mf",
   "native_archive_sha256": "4e75fc31b01517ef2d7eb7ce86e0dec181f13643a9c7b71119e48080337b1a5e",
   "gcode_sha256": "92ce9ad99b8150165257ea1b75a1e1a203352ba6b46a083a763ce700475c366f",
@@ -175,5 +175,8 @@
   },
   "shared_circuit_reading": "Mark2 is already running the back-bottom job launched earlier; no opposite-printer startup occurs during this submission.",
   "first_part_layer_observed": true,
-  "first_layer_status": "first-layer-status.json"
+  "first_layer_status": "first-layer-status.json",
+  "completion_observed_at": "2026-11-10T20:49:50+00:00",
+  "completion_status": "completion-status.json",
+  "physical_result": "physical-result/physical-result.json"
 }
