@@ -9,6 +9,10 @@ use manifold_rust::{
 };
 use std::sync::Arc;
 
+include!(concat!(env!("OUT_DIR"), "/engine_inputs.rs"));
+
+pub const IMPLEMENTATION: &str = env!("HSM_MANIFOLD_IMPLEMENTATION");
+
 /// Immutable engine results share their retained topology between construction stages.
 #[derive(Clone)]
 pub struct Manifold(Arc<Engine>);
