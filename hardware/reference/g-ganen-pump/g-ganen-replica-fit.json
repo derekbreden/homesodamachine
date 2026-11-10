@@ -6,17 +6,17 @@
         18.16620016117976
       ],
       "half_straight_y_mm": 0.0,
-      "high_z_mm": 58.763173828125,
-      "low_radius_mm": 3.7207236533038506,
-      "low_z_mm": 56.75311383032451,
+      "high_z_mm": 58.7631623840332,
+      "low_radius_mm": 3.6612581055829017,
+      "low_z_mm": 56.75367702403898,
       "minimum_source_vertex_radial_clearance_mm": 0.020000000000000018,
       "name": "crown_round_head_01_external_envelope",
-      "radius_mm": 3.7207236533038506,
+      "radius_mm": 3.6612581055829017,
       "scope": "Clean convex outer crown profile contains its corresponding source vertices and continues into the measured shell land; scanner accuracy and fastener specifications are not inferred.",
-      "shoulder_z_mm": 56.858690875105694,
-      "source_vertices": 117,
-      "taper_slope": 0.5682816379118573,
-      "top_radius_mm": 2.638440961386831
+      "shoulder_z_mm": 56.82948489325502,
+      "source_vertices": 532,
+      "taper_slope": 0.5914794361237856,
+      "top_radius_mm": 2.5175276336921675
     },
     {
       "center_xy_mm": [
@@ -24,17 +24,17 @@
         -18.615451309374997
       ],
       "half_straight_y_mm": 0.0,
-      "high_z_mm": 58.68721939086914,
-      "low_radius_mm": 3.5300932752286727,
-      "low_z_mm": 56.71969757628809,
+      "high_z_mm": 58.68721176147461,
+      "low_radius_mm": 3.5259166611028974,
+      "low_z_mm": 56.71973713268525,
       "minimum_source_vertex_radial_clearance_mm": 0.020000000000000018,
       "name": "crown_round_head_02_external_envelope",
-      "radius_mm": 3.5300932752286727,
+      "radius_mm": 3.5259166611028974,
       "scope": "Clean convex outer crown profile contains its corresponding source vertices and continues into the measured shell land; scanner accuracy and fastener specifications are not inferred.",
-      "shoulder_z_mm": 56.80363922197947,
-      "source_vertices": 124,
-      "taper_slope": 0.4891066003897866,
-      "top_radius_mm": 2.608821782261429
+      "shoulder_z_mm": 57.03812389028411,
+      "source_vertices": 813,
+      "taper_slope": 0.6803865870448185,
+      "top_radius_mm": 2.4038993926865895
     },
     {
       "center_xy_mm": [
@@ -42,17 +42,17 @@
         18.575110774286003
       ],
       "half_straight_y_mm": 0.0,
-      "high_z_mm": 59.17906356811523,
-      "low_radius_mm": 3.796184645751539,
-      "low_z_mm": 56.79096435546875,
+      "high_z_mm": 59.179052124023436,
+      "low_radius_mm": 3.6683932953804113,
+      "low_z_mm": 56.79099487304688,
       "minimum_source_vertex_radial_clearance_mm": 0.020000000000000018,
       "name": "crown_round_head_03_external_envelope",
-      "radius_mm": 3.796184645751539,
+      "radius_mm": 3.6683932953804113,
       "scope": "Clean convex outer crown profile contains its corresponding source vertices and continues into the measured shell land; scanner accuracy and fastener specifications are not inferred.",
-      "shoulder_z_mm": 57.71323159321406,
-      "source_vertices": 114,
-      "taper_slope": 0.9559869635853494,
-      "top_radius_mm": 2.3948683869394527
+      "shoulder_z_mm": 57.92407150706406,
+      "source_vertices": 414,
+      "taper_slope": 1.1677022130227586,
+      "top_radius_mm": 2.202949651656285
     },
     {
       "center_xy_mm": [
@@ -60,17 +60,17 @@
         -19.132024566944796
       ],
       "half_straight_y_mm": 0.0,
-      "high_z_mm": 59.04487777709961,
-      "low_radius_mm": 3.6991071420318757,
-      "low_z_mm": 56.790098419189455,
+      "high_z_mm": 59.044870147705076,
+      "low_radius_mm": 3.666456287322545,
+      "low_z_mm": 56.790125122070314,
       "minimum_source_vertex_radial_clearance_mm": 0.020000000000000018,
       "name": "crown_round_head_04_external_envelope",
-      "radius_mm": 3.6991071420318757,
+      "radius_mm": 3.666456287322545,
       "scope": "Clean convex outer crown profile contains its corresponding source vertices and continues into the measured shell land; scanner accuracy and fastener specifications are not inferred.",
-      "shoulder_z_mm": 57.03268322926602,
-      "source_vertices": 102,
-      "taper_slope": 0.4251942964653361,
-      "top_radius_mm": 2.843533496914389
+      "shoulder_z_mm": 57.08462147222729,
+      "source_vertices": 508,
+      "taper_slope": 0.41677284727969766,
+      "top_radius_mm": 2.8494778654674127
     },
     {
       "center_xy_mm": [
@@ -78,17 +78,17 @@
         16.08901192355039
       ],
       "half_straight_y_mm": 0.0,
-      "high_z_mm": 58.95552612304687,
-      "low_radius_mm": 3.7000699043871985,
-      "low_z_mm": 56.79030059814453,
-      "minimum_source_vertex_radial_clearance_mm": 0.020000000000000018,
+      "high_z_mm": 58.95551849365234,
+      "low_radius_mm": 3.667618116376025,
+      "low_z_mm": 56.79032348632813,
+      "minimum_source_vertex_radial_clearance_mm": 0.019999999999999574,
       "name": "crown_round_head_05_external_envelope",
-      "radius_mm": 3.7000699043871985,
+      "radius_mm": 3.667618116376025,
       "scope": "Clean convex outer crown profile contains its corresponding source vertices and continues into the measured shell land; scanner accuracy and fastener specifications are not inferred.",
-      "shoulder_z_mm": 57.002519219358426,
-      "source_vertices": 113,
-      "taper_slope": 0.5682816379118573,
-      "top_radius_mm": 2.590211942305965
+      "shoulder_z_mm": 56.841419197760715,
+      "source_vertices": 533,
+      "taper_slope": 0.5193588823482955,
+      "top_radius_mm": 2.5696418688884304
     },
     {
       "center_xy_mm": [
@@ -96,17 +96,17 @@
         -16.613953459758907
       ],
       "half_straight_y_mm": 0.0,
-      "high_z_mm": 58.868043670654295,
-      "low_radius_mm": 3.739516902489137,
-      "low_z_mm": 56.79058288574219,
+      "high_z_mm": 58.8680322265625,
+      "low_radius_mm": 3.6684413306933186,
+      "low_z_mm": 56.79060958862305,
       "minimum_source_vertex_radial_clearance_mm": 0.020000000000000018,
       "name": "crown_round_head_06_external_envelope",
-      "radius_mm": 3.739516902489137,
+      "radius_mm": 3.6684413306933186,
       "scope": "Clean convex outer crown profile contains its corresponding source vertices and continues into the measured shell land; scanner accuracy and fastener specifications are not inferred.",
-      "shoulder_z_mm": 56.86328157128026,
-      "source_vertices": 118,
-      "taper_slope": 0.5739943667306846,
-      "top_radius_mm": 2.5887947508132587
+      "shoulder_z_mm": 56.937024557831116,
+      "source_vertices": 538,
+      "taper_slope": 0.5914794361237856,
+      "top_radius_mm": 2.526290003641373
     },
     {
       "center_xy_mm": [
@@ -114,17 +114,17 @@
         -0.12994073904318965
       ],
       "half_straight_y_mm": 0.0,
-      "high_z_mm": 58.83016372680664,
-      "low_radius_mm": 3.698695672744421,
-      "low_z_mm": 56.75196041671007,
+      "high_z_mm": 58.83015228271484,
+      "low_radius_mm": 3.664502712456579,
+      "low_z_mm": 56.75228425565635,
       "minimum_source_vertex_radial_clearance_mm": 0.020000000000000018,
       "name": "crown_round_head_07_external_envelope",
-      "radius_mm": 3.698695672744421,
+      "radius_mm": 3.664502712456579,
       "scope": "Clean convex outer crown profile contains its corresponding source vertices and continues into the measured shell land; scanner accuracy and fastener specifications are not inferred.",
-      "shoulder_z_mm": 57.79585889001144,
-      "source_vertices": 113,
-      "taper_slope": 1.3166191975978405,
-      "top_radius_mm": 2.3369100684515547
+      "shoulder_z_mm": 57.790184599459735,
+      "source_vertices": 583,
+      "taper_slope": 1.3703648483988307,
+      "top_radius_mm": 2.239367555853013
     },
     {
       "center_xy_mm": [
@@ -132,17 +132,17 @@
         -9.8
       ],
       "half_straight_y_mm": 0.0,
-      "high_z_mm": 59.580880889892576,
-      "low_radius_mm": 6.710067571953636,
-      "low_z_mm": 56.69024108886719,
+      "high_z_mm": 59.58086944580078,
+      "low_radius_mm": 6.616078120659793,
+      "low_z_mm": 56.69026397705078,
       "minimum_source_vertex_radial_clearance_mm": 0.019999999999999574,
       "name": "crown_round_molded_boss_external_envelope",
-      "radius_mm": 6.710067571953636,
+      "radius_mm": 6.616078120659793,
       "scope": "Clean convex outer crown profile contains its corresponding source vertices and continues into the measured shell land; scanner accuracy and fastener specifications are not inferred.",
-      "shoulder_z_mm": 58.88709708597281,
-      "source_vertices": 201,
-      "taper_slope": 1.964357140064173,
-      "top_radius_mm": 5.34722840306297
+      "shoulder_z_mm": 58.732661211810296,
+      "source_vertices": 2253,
+      "taper_slope": 1.4121090289290241,
+      "top_radius_mm": 5.418315615029886
     },
     {
       "center_xy_mm": [
@@ -150,17 +150,17 @@
         -0.15
       ],
       "half_straight_y_mm": 5.6,
-      "high_z_mm": 59.946378479003904,
-      "low_radius_mm": 6.801180217866013,
-      "low_z_mm": 56.95916279195568,
+      "high_z_mm": 59.94636703491211,
+      "low_radius_mm": 6.718726654052734,
+      "low_z_mm": 56.95994370343562,
       "minimum_source_vertex_radial_clearance_mm": 0.019999999999999574,
       "name": "crown_long_molded_boss_external_envelope",
-      "radius_mm": 6.801180217866013,
+      "radius_mm": 6.718726654052734,
       "scope": "Clean convex outer crown profile contains its corresponding source vertices and continues into the measured shell land; scanner accuracy and fastener specifications are not inferred.",
-      "shoulder_z_mm": 57.45515022672892,
-      "source_vertices": 172,
+      "shoulder_z_mm": 57.461947498290584,
+      "source_vertices": 1111,
       "taper_slope": 0.3446381023888774,
-      "top_radius_mm": 5.942608040384403
+      "top_radius_mm": 5.862501019413637
     }
   ],
   "head_top_plane": {
@@ -213,7 +213,7 @@
   "height_guard_mm": 0.01,
   "purpose": "The profile fit records the clean shell land and crown shapes used by the purchased pump replica.",
   "radial_guard_mm": 0.02,
-  "retained_geometry": "The exact motor, measured barbs and independently posed common feet are imported unchanged. The casing retains its observed lower cradle and rear cap; its generic barrel skin is removed above the documented lower-cradle boundary across the fitted motor span. The head casing stops at its observed cover land. The source's metadata-only convex lower hull is excluded from visible anatomy.",
+  "retained_geometry": "The current detailed reference supplies the later under-head air and underside relief. Its exact motor, measured barbs and independently posed common feet are imported unchanged. The casing retains its observed lower cradle and rear cap; its generic barrel skin is removed above the documented lower-cradle boundary across the fitted motor span. The head casing stops at its observed cover land. Metadata-only convex lower hulls are excluded from visible anatomy.",
   "scope": "The exterior replica removes the source's known convex top bridges. The original integration envelope remains available separately for conservative clearance. Filled vents and deeper recesses remain outside the replica detail scope.",
-  "source_payload": "reference/g-ganen-pump/integration-envelope/g-ganen-integration-envelope.step.mesh"
+  "source_payload": "reference/g-ganen-pump/g-ganen-pump.step.mesh"
 }

@@ -5,6 +5,8 @@ capsule-shaped crown features. The observed centers and feature identities come 
 [reference-parameters.json](reference-parameters.json), with shape interpretation
 supported by the received-part photographs in
 [under-head-tube](under-head-tube/physical-observations.json).
+The current detailed reference supplies the underlying casing, including its
+observed under-head open air, lower rails and finite wire-cover relief.
 
 The flat perimeter lands of the archived feet-down scan, outside the crown
 features, establish the head's top plane. The plane and disjoint fit
@@ -22,6 +24,8 @@ The motor, measured barbs, rubber feet and their independent poses are imported
 unchanged. The fitted motor cylinder supplies the barrel exterior. The generic
 casing loft stops at the documented lower-cradle boundary over that cylinder's
 axial span, retaining the measured lower rails, finite wire cover and rear cap.
+The installed machine omits the removable foot-and-leg assemblies and retains
+the fixed casing rails.
 The source's metadata-only lower convex hull is excluded from visible anatomy.
 The head casing stops at its observed top land. The source
 [integration model](integration-envelope/README.md)

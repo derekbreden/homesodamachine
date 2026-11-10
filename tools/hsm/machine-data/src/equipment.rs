@@ -240,7 +240,7 @@ pub fn numbers(request: &Value) -> Result<Value> {
         "reference",
         pose(spec, "g-ganen-pump")?,
         "M_DONOR_BLACK",
-        json!({"source":SOURCES[8],"color":null}),
+        json!({"source":SOURCES[8],"color":null,"exclude":["rubber_slider"]}),
     )?;
     let pump = &request["pump_cap"];
     let center = xyz(&pump["centre_world_mm"])?;
