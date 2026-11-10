@@ -70,7 +70,6 @@ fn status_cuts(g: &mut Graph) -> Shape {
     let seat = rounded_prism(g, mount::STATUS_WIDTH + 2.0 * BODY_X_AIR, mount::STATUS_HEIGHT + 2.0 * BODY_Y_AIR,
                              mount::CORNER + BODY_Y_AIR, BACK, 1.0, mount::STATUS_CX, 0.0);
     let foot = BACK - mount::LED_SET_BACK - mount::LED_LENGTH;
-    let bore = g.zcyl(mount::LED_BORE_DIA / 2.0, mount::STATUS_CX, mount::LIGHT_Y, foot - 0.5, BACK + 0.01);
     // The channel's section is a square standing on one corner in the printer's frame, so no face
     // of it overhangs flat. Up the slope and out of the face carry the box's up as the sine and
     // cosine of the facet's tilt.
@@ -87,6 +86,10 @@ fn status_cuts(g: &mut Graph) -> Shape {
     ];
     let pcb_edge = BODY_OFFSET_X + pcb_x() / 2.0;
     let channel = g.prism(0, pcb_edge - 1.0, mount::STATUS_CX, section);
+    // The channel's closed end lies inside the bore, including its lowest corner.
+    let channel_floor = c[1] - r * up[1];
+    let bore_floor = (foot - 0.5).min(channel_floor - 0.01);
+    let bore = g.zcyl(mount::LED_BORE_DIA / 2.0, mount::STATUS_CX, mount::LIGHT_Y, bore_floor, BACK + 0.01);
     g.union(seat, &[bore, channel])
 }
 
