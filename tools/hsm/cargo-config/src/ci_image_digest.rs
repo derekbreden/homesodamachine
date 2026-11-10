@@ -7,7 +7,6 @@ use std::fs;
 use std::path::{Path, PathBuf};
 
 const FILES: &[&str] = &[
-    ".bazelversion",
     ".dockerignore",
     "tools/ci-image/Dockerfile",
     "tools/hsm/cargo-config/Cargo.toml",

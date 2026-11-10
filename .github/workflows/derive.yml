@@ -71,6 +71,9 @@ jobs:
     defaults:
       run:
         shell: bash
+    env:
+      # Native cache records remain reusable between scheduled derivations.
+      HSM_KEEP_HOURS: "168"
     container:
       image: ${{ needs.image.outputs.ref }}
       options: --shm-size=2g
@@ -94,22 +97,20 @@ jobs:
           want="${{ needs.image.outputs.sha }}"
           echo "image cad-$HSM_REQ_SHA / tree cad-$want"
           [ "$HSM_REQ_SHA" = "$want" ]
+          echo "HSM_STORE=$GITHUB_WORKSPACE/.cache/hsm" >> "$GITHUB_ENV"
 
-      - name: Restore the drawn solids
+      - name: Restore native programs and completed geometry
         continue-on-error: true
         uses: actions/cache/restore@v4
         with:
-          path: .cache/realized
-          key: realized-${{ needs.image.outputs.identity }}-${{ github.run_id }}-${{ github.run_attempt }}
-          restore-keys: realized-${{ needs.image.outputs.identity }}-
-
-      - name: Restore the bazel disk cache
-        continue-on-error: true
-        uses: actions/cache/restore@v4
-        with:
-          path: ~/.cache/bazel-disk
-          key: bazel-${{ needs.image.outputs.identity }}-${{ github.run_id }}-${{ github.run_attempt }}
-          restore-keys: bazel-${{ needs.image.outputs.identity }}-
+          path: |
+            .cache/hsm/parts
+            .cache/hsm/import
+            .cache/realized
+            .cache/meshes
+            .cache/boxes
+          key: native-geometry-${{ needs.image.outputs.identity }}-${{ github.run_id }}-${{ github.run_attempt }}
+          restore-keys: native-geometry-${{ needs.image.outputs.identity }}-
 
       - name: Restore the Rust programs and dependencies
         continue-on-error: true
@@ -122,10 +123,12 @@ jobs:
       - name: Native build commands
         run: |
           cargo build --release --locked -j 2 --manifest-path tools/hsm/Cargo.toml -p hsm-run-slots --bin hsm-run
-          tools/run -- cargo build --release --locked -j 2 --manifest-path tools/hsm/Cargo.toml -p hsm-build-plan -p hsm-cargo-config -p hsm-publication --bins
+          tools/run -- cargo build --release --locked -j 2 --manifest-path tools/hsm/Cargo.toml -p hsm -p hsm-build-plan -p hsm-print-build -p hsm-cargo-config -p hsm-publication -p hsm-git-tools --bins
+          tools/hsm/target/release/hsm-run --install-hsm "$GITHUB_WORKSPACE" tools/hsm/target/release/hsm
+          echo "$HOME/.local/bin" >> "$GITHUB_PATH"
           echo "$GITHUB_WORKSPACE/tools/hsm/target/release" >> "$GITHUB_PATH"
 
-      - name: A mount point for the sandbox
+      - name: Native cache storage
         run: mkdir -p .cache
 
       - name: The solids the pointer file already names
@@ -133,61 +136,49 @@ jobs:
           R2_PUBLIC_URL: https://objects.homesodamachine.com
         run: node web/scripts/fetch-cad-artifacts.mjs --for-build
 
-      - name: Re-trace every generator
+      - name: Re-trace every native producer
         if: inputs.trace == 'all'
         timeout-minutes: 260
         run: |
-          hsm-build-plan trace-inputs --all
+          tools/run -- hsm-build-plan trace-inputs --all
 
-      - name: This checkout's own paths
-        run: |
-          hsm-build-plan write
-          if ! git diff --quiet -- BUILD.bazel; then
-            echo "::warning title=build-graph::BUILD.bazel is behind hsm-build-plan — this run builds the regenerated graph"
-            git --no-pager diff --stat -- BUILD.bazel
-          fi
-
-      - name: Build everything this tree makes
+      - name: Build wanted outputs through the native cache
         timeout-minutes: 70
         id: cut
         run: |
           set +e
-          tools/run -- bazel build --keep_going --disk_cache="$HOME/.cache/bazel-disk" \
-            --build_event_json_file="$RUNNER_TEMP/bep.json" //:everything
+          tools/run -- hsm-print-build --no-publish \
+            --run-dir "$RUNNER_TEMP/native-build" -- //:everything
           built=$?
           set -e
-          named=$(hsm-build-plan failed-targets "$RUNNER_TEMP/bep.json")
-          failed="$named"
-          if [ -n "$named" ]; then
-            union=$(tr ',' '\n' <<< "$named" | paste -sd'+' -)
-            standing=$(bazel query "kind(rule, rdeps(deps(//:everything), $union))" \
-              2>/dev/null | paste -sd',' - || true)
-            if [ -n "$standing" ]; then
-              failed="$standing"
-            fi
+          receipt="$RUNNER_TEMP/native-build/receipt.json"
+          failed=""
+          if [ -f "$receipt" ]; then
+            failed=$(hsm-build-plan failed-targets "$receipt")
+            echo "receipt=$receipt" >> "$GITHUB_OUTPUT"
+          else
+            echo "::warning title=build::The native build produced no completed output receipt"
+            built=1
           fi
           echo "failed=$failed" >> "$GITHUB_OUTPUT"
-          if [ -n "$failed" ]; then
-            echo "::warning title=build::$(tr ',' '\n' <<< "$named" | wc -l | tr -d ' ') target(s) did not complete, $(tr ',' '\n' <<< "$failed" | wc -l | tr -d ' ') held back with what stood on them; the rest carry"
-            tr ',' '\n' <<< "$named" | sed 's/^/  /'
+          echo "exit_code=$built" >> "$GITHUB_OUTPUT"
+          if [ "$built" -ne 0 ] || [ -n "$failed" ]; then
+            echo "::warning title=build::The native build did not complete; successful independent outputs remain available"
+            tr ',' '\n' <<< "$failed" | sed '/^$/d; s/^/  /'
           fi
-          [ -n "$failed" ] || [ "$built" -eq 0 ]
 
-      - name: Save the drawn solids
+      - name: Save native programs and completed geometry
         if: always()
         continue-on-error: true
         uses: actions/cache/save@v4
         with:
-          path: .cache/realized
-          key: realized-${{ needs.image.outputs.identity }}-${{ github.run_id }}-${{ github.run_attempt }}
-
-      - name: Save the Bazel disk cache
-        if: always()
-        continue-on-error: true
-        uses: actions/cache/save@v4
-        with:
-          path: ~/.cache/bazel-disk
-          key: bazel-${{ needs.image.outputs.identity }}-${{ github.run_id }}-${{ github.run_attempt }}
+          path: |
+            .cache/hsm/parts
+            .cache/hsm/import
+            .cache/realized
+            .cache/meshes
+            .cache/boxes
+          key: native-geometry-${{ needs.image.outputs.identity }}-${{ github.run_id }}-${{ github.run_attempt }}
 
       - name: Save the Rust programs and dependencies
         if: always()
@@ -198,23 +189,21 @@ jobs:
           key: hsm-target-${{ needs.image.outputs.identity }}-${{ github.run_id }}-${{ github.run_attempt }}
 
       - name: The complete cut against the pointer file
+        if: steps.cut.outputs.receipt != ''
         run: |
           set +e
           hsm-cut-vs-pointers \
-            --annotate --assume-fresh --failed "${{ steps.cut.outputs.failed }}"
+            --annotate --receipt "${{ steps.cut.outputs.receipt }}" \
+            --assume-fresh --failed "${{ steps.cut.outputs.failed }}"
           rc=$?
           set -e
           [ "$rc" -le 1 ]
 
       - name: Carry what the build cut into the tree
+        if: steps.cut.outputs.receipt != ''
         run: |
-          hsm-build-plan sync-tree --write --derived-only \
-            --failed "${{ steps.cut.outputs.failed }}"
-
-      - name: The ledger
-        run: |
-          tools/hsm/target/release/bom --totals
-          tools/hsm/target/release/machine-time
+          hsm-build-plan sync-tree --receipt "${{ steps.cut.outputs.receipt }}" \
+            --write --derived-only
 
       - name: Artifact publication status
         run: |
@@ -225,10 +214,12 @@ jobs:
           [ "$rc" -le 1 ]
 
       - name: Commit what moved
+        if: steps.cut.outputs.receipt != ''
         run: |
           git config user.name  "Derek Bredensteiner"
           git config user.email "derekbreden@gmail.com"
-          hsm-build-plan sync-tree --derived-only --stage
+          hsm-build-plan sync-tree --derived-only --stage \
+            --receipt "${{ steps.cut.outputs.receipt }}"
           if git diff --cached --quiet; then
             echo "nothing derived moved — the tree already names what it makes"
             exit 0
@@ -276,10 +267,10 @@ jobs:
           exit 1
 
       - name: Report incomplete build
-        if: ${{ always() && steps.cut.outputs.failed != '' }}
+        if: ${{ always() && (steps.cut.outputs.failed != '' || steps.cut.outputs.exit_code != '0') }}
         env:
           FAILED_TARGETS: ${{ steps.cut.outputs.failed }}
         run: |
-          echo "::error title=Incomplete build::Some targets failed; their outputs were held back. Successful derived outputs were processed above."
+          echo "::error title=Incomplete build::The native build did not finish. Failed or blocked outputs were held back; completed independent outputs were processed above."
           tr ',' '\n' <<< "$FAILED_TARGETS"
           exit 1

@@ -10,7 +10,7 @@ const silent = { log() {}, error() {} };
 function fixture(t) {
   const root = fs.mkdtempSync(path.join(os.tmpdir(), "hsm-explicit-build-"));
   t.after(() => fs.rmSync(root, { recursive: true, force: true }));
-  fs.mkdirSync(path.join(root, "tools/bazel"), { recursive: true });
+  fs.mkdirSync(path.join(root, "tools/hsm/build-plan"), { recursive: true });
   fs.mkdirSync(path.join(root, "hardware"));
   const graph = {};
   for (const [name, reads] of [["part", []], ["assembly", ["hardware/part.step"]]]) {
@@ -18,7 +18,7 @@ function fixture(t) {
     fs.writeFileSync(path.join(root, source), "fn main() {}\n");
     graph[source] = { reads, writes: [`hardware/${name}.step`], rewritten: [], program: { crate: name, name, sources: [source] } };
   }
-  fs.writeFileSync(path.join(root, "tools/bazel/graph.json"), JSON.stringify(graph));
+  fs.writeFileSync(path.join(root, "tools/hsm/build-plan/graph.json"), JSON.stringify(graph));
   return root;
 }
 

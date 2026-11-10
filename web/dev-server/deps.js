@@ -57,7 +57,7 @@ function strings(value, description) {
 
 export function nativeBuildPlan(projectRoot) {
   projectRoot = path.resolve(projectRoot);
-  const graphPath = path.join(projectRoot, "tools/bazel/graph.json");
+  const graphPath = path.join(projectRoot, "tools/hsm/build-plan/graph.json");
   const graph = JSON.parse(fs.readFileSync(graphPath, "utf8"));
   if (!graph || typeof graph !== "object" || Array.isArray(graph)) throw new Error("Native build graph must be an object");
   let classification = {};

@@ -39,14 +39,6 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 
 RUN mkdir -p /opt/homebrew/bin /usr/local/bin
 
-ENV BAZELISK_HOME=/opt/hsm/bazelisk
-COPY .bazelversion /tmp/.bazelversion
-RUN curl -fsSL -o /usr/local/bin/bazel \
-      https://github.com/bazelbuild/bazelisk/releases/download/v1.25.0/bazelisk-linux-amd64 \
-    && chmod +x /usr/local/bin/bazel \
-    && cd /tmp && USE_BAZEL_VERSION="$(cat /tmp/.bazelversion)" bazel version \
-    && test -d "$BAZELISK_HOME"
-
 ENV PUPPETEER_CACHE_DIR=/opt/hsm/puppeteer
 COPY tools/render/package.json tools/render/package-lock.json /opt/hsm/render/
 RUN cd /opt/hsm/render && npm ci --no-audit --no-fund

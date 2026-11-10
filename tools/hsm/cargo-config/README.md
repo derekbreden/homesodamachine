@@ -19,5 +19,5 @@ destination instead.
 
 `hsm-ci-image-digest` hashes the repository inputs used by the CI image. It is a
 standalone command in this crate, using the digest source and crate manifest,
-Docker and Bazel configuration, and the render and web package manifests and
+Docker configuration, and the render and web package manifests and
 locks. `--inputs` lists these paths; `--root ROOT` selects their checkout.

@@ -123,7 +123,7 @@ export function scorecardPathFor(stepPath) {
  *
  * EVERY FIELD IS A READING, and there is no build stamp — one tree writes one file however
  * often it is built, so a card that comes back changed is a card whose numbers moved. What the
- * build could reach is what `BUILD.bazel` declares as the action's inputs instead.
+ * build could reach is what the native producer graph declares as the action's inputs instead.
  */
 
 // ── Size ─────────────────────────────────────────────────────────────────────────────────────

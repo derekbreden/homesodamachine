@@ -12,6 +12,7 @@ import { stepLocation } from "../web/contracts/step-locations.js";
 import { localFeatureCatalog } from "../web/lib/feature-catalog.js";
 import { matchFeatures } from "../web/contracts/features.js";
 import { instancesInScene, instanceMaterialHash } from "../web/contracts/material-instances.js";
+import { nativeBuildPlan } from "../web/dev-server/deps.js";
 
 export const checkoutRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const website = "https://homesodamachine.com/3d";
@@ -37,25 +38,11 @@ function sceneNames(root, file) {
   } finally { if (handle !== undefined) fs.closeSync(handle); }
 }
 
-// Existing generated output declarations supply target names without starting Bazel or guessing crate names.
+// Native producer metadata supplies output selectors without building or parsing generated rules.
 function outputTargets(root) {
-  const targets = new Map();
-  let text;
-  try { text = fs.readFileSync(path.join(root, "BUILD.bazel"), "utf8"); }
-  catch (error) { if (error.code === "ENOENT") return targets; throw error; }
-  for (const block of text.matchAll(/^genrule\(\s*\n([\s\S]*?)^\)/gm)) {
-    const name = block[1].match(/^\s*name\s*=\s*"([^"]+)"/m)?.[1];
-    const outputs = block[1].match(/^\s*outs\s*=\s*\[([\s\S]*?)\]/m)?.[1];
-    if (!name || !outputs) continue;
-    for (const [, output] of outputs.matchAll(/"([^"]+)"/g)) {
-      const at = output.indexOf("hardware/");
-      if (at < 0) continue;
-      const file = output.slice(at);
-      if (!targets.has(file)) targets.set(file, new Set());
-      targets.get(file).add("//:" + name);
-    }
-  }
-  return targets;
+  if (!fs.existsSync(path.join(root, "tools/hsm/build-plan/graph.json"))) return new Map();
+  const plan = nativeBuildPlan(root);
+  return new Map([...plan.byOutput].map(([output, target]) => [output, new Set([`//:${target}`])]));
 }
 
 const modelLink = (file, bodies = []) => `${website}#step:${encodeURIComponent(file)}`
@@ -115,7 +102,7 @@ export function findParts(query, { root = checkoutRoot, limit = 20, context = fa
   if (!Number.isInteger(limit) || limit < 1 || limit > 100) throw new Error("limit must be an integer from 1 to 100");
   const hardware = path.join(root, "hardware"), catalog = readMaterialCatalog(hardware);
   try { catalog.costs = readPartCosts(hardware, catalog); } catch { catalog.costs = null; }
-  const index = materialIndex(catalog), graph = jsonFile(path.join(root, "tools/bazel/graph.json"), {});
+  const index = materialIndex(catalog), graph = jsonFile(path.join(root, "tools/hsm/build-plan/graph.json"), {});
   const targets = outputTargets(root), headers = new Map(), assemblyRows = new Map();
   const roots = (catalog.roots || []).map((id) => index.get(id)).filter(Boolean);
   const featureCatalog = roots.flatMap(assembly => {

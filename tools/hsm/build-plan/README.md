@@ -1,42 +1,53 @@
-# Build plan
+# Native build plan
 
-`hsm-build-plan` owns native producer grouping, action inputs, dependency rules,
-graph projections and BUILD rendering. `src/planning.rs` shares typed declarations
-with affected-target discovery. `inventory.json` classifies inputs and outputs;
-`programs.json` names the native producer entrypoints used by tracing.
+`hsm-build-plan` resolves the machine's native producers, their prerequisites and
+the files each program reads while running. `graph.json` records observed producer
+inputs and outputs; `programs.json` names traceable native entrypoints;
+`inventory.json` classifies generated exports and rewritten authored media.
 
-Rust program rules take their compiler inputs from Cargo's dependency records.
-The producer rule stages the files the program reads at runtime, including
-editable placements and dimensions. Changing runtime data reruns its producer
-while reusing the compiled program. Data embedded with `include_str!` or
-`include_bytes!` belongs to the compiler rule as well; its filename does not
-decide whether it is code or runtime data.
-
-`program.runtime_inputs` retains explicitly logged runtime reads that are also
-compiler sources, including a producer that reads Cargo manifests while running.
-The producer reads its staged repository through `HSM_REPO_ROOT`; compilation and
-retained geometry use the host checkout through `HSM_WORKSPACE`.
-
-The commands run on request:
+`planning::Plan` is the shared graph used by the print executor, affected-source
+selection and receipt carrying. Target selectors request a target and its
+prerequisites. A source or input path requests its declared readers, downstream
+consumers and their prerequisites. Empty selection and `everything` select the
+normal print graph. `//:target` and `:target` are aliases for the native name.
 
 ```sh
-tools/run -- tools/hsm/target/release/hsm-build-plan render --only installed-machine
-tools/run -- tools/hsm/target/release/hsm-build-plan write
-tools/run -- tools/hsm/target/release/hsm-build-plan affected --artifacts --manifest
-tools/run -- tools/hsm/target/release/hsm-build-plan trace-inputs hardware/manifold-layout/installed_machine.rs
-tools/run -- tools/hsm/target/release/hsm-build-plan sync-tree --help
+tools/run -- hsm-build-plan plan installed-machine
+tools/run -- hsm-build-plan actions hardware/manifold-layout/installed_machine.rs
+tools/run -- hsm-build-plan affected --artifacts --why
+tools/run -- hsm-build-plan trace-inputs hardware/manifold-layout/installed_machine.rs
 ```
 
-`render` prints without writing. `write` updates BUILD.bazel and this checkout's
-`.bazelrc.paths`; `--root` selects an explicit repository. `project-graph-file
-GENERATOR INPUT OUTPUT` writes a reader projection using only its named graph
-input. `inventory`, `actions` and `dependency-rules` expose the same native
-metadata as JSON. `check` and `cycles` are explicit questions, never build hooks.
+`Program.sources` is the compiler closure. `Plan::runtime_inputs` retains runtime
+data and explicitly recorded `Program.runtime_inputs`, including source files or
+Cargo manifests a program reads while running. Optional authored media is staged
+when present. Declared JavaScript entrypoints retain relative module imports and
+their package metadata. Installed package directories are reused by the executor.
 
-The compiler/runtime split, producer edges and maintenance commands are checked
-on demand:
+`HSM_REPO_ROOT` names the staged repository. `HSM_WORKSPACE` names the host checkout
+used for compilation and retained geometry. Graph readers receive their own stable
+classification projection at the declared graph path. `GraphProjection::render`
+supplies the same bytes for staging and input identity.
+
+`receipt.rs` defines native run results. Each target records its status, declared
+outputs and completed export paths. Receipts retain execution metrics without
+requiring the planner to interpret them. Failed, blocked and non-current targets
+contribute no carried outputs. Shared artifact blobs retain every destination.
+
+The print executor carries completed producers as they finish. `sync-tree
+--receipt FILE` explicitly rereads that recorded run; `sync-tree --derived-only
+--stage` stages declared generated Git changes while preserving the publisher's
+model cohort. Adding `--receipt FILE` admits only usable targets' recorded output
+destinations. `failed-targets FILE` reads unavailable target names from a receipt.
 
 ```sh
+tools/run -- hsm-build-plan sync-tree --receipt .cache/runs/example/result/receipt.json
+tools/run -- hsm-build-plan sync-tree --derived-only --stage
 tools/run -- cargo test --release --locked -j 2 \
   --manifest-path tools/hsm/Cargo.toml -p hsm-build-plan
 ```
+
+`inventory`, `plan` and `actions` print metadata without building geometry.
+`trace-inputs --all`, `cycles`, receipt carrying and derived restoration run only
+when requested. `project-graph-file GENERATOR INPUT OUTPUT` writes a projection
+from its explicit graph input.
