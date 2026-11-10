@@ -1,0 +1,78 @@
+{
+  "purpose": "Retain the production-height D handhold sagging and inclined faucet support-removal failure.",
+  "date": "2026-11-10",
+  "printer": "Mark2",
+  "printer_task_id": "1426768924",
+  "archive": "ready/2026-11-09-D-faucet-arch-pad-left04-z004-mark2.gcode.3mf",
+  "archive_sha256": "2194ee0d24026c790b33aad8402e7b3f27451198b5bf87ba5fc78f7fb971937d",
+  "specimens": {
+    "HD": {
+      "status": "Sagging reported at the arch crown and pointed lip; wider local support requested.",
+      "user_quote": "We might consider a bit more support around this archway here. Maybe you can see what I mean when I say it's sagging a bit at the peak of that arch and even at that pointed tip where we already have a support. It's just a pretty thin support. Might need to support a couple more layers there.",
+      "visual_observations": "Parallel surface roads dip and become irregular at the arch crown and free pointed lip. The photographs do not measure the deflection."
+    },
+    "FD": {
+      "status": "Failed removal: tree stems break away while the contact material remains attached to the inclined base.",
+      "user_quote": "It kind of looks like maybe there's interface layers that just fused entirely with the main base there, because I can break the stems of the trees off, but it doesn't appear like I get an interface layer to break off at all there, just the stems of the trees, which isn't something I saw happening in the other places, not even on the inner rail support.",
+      "visual_observations": "Broken tree stems remain around the inclined base. A continuous rough contact band is retained against the part.",
+      "interpretation": "Fusion is consistent with the user report and appearance. These photographs do not distinguish roof welding from interlocking around staircase layers or side contact.",
+      "support_scope": "This article tested automatic native trees without the separate accepted production fin meshes."
+    },
+    "PD": {
+      "status": "No physical result reported for the holed pad in this message."
+    }
+  },
+  "photos": [
+    {
+      "specimen": "HD",
+      "path": "photos/HD-01-arch.jpg",
+      "source_sha256": "559bd2e4d1e5fb01be43a05715d79aa1d46071332d47f4489fcf006909ffbd78",
+      "sha256": "d1cc7d0ff29b53a4b07a970098ef76af2644d26b20b160a7b39426ac433546a7",
+      "processing": "JPEG scan data and decoded pixels preserved; private metadata and comments omitted; orientation retained."
+    },
+    {
+      "specimen": "HD",
+      "path": "photos/HD-02-arch.jpg",
+      "source_sha256": "9c202f44237caed33e59c006c80521643cac27538fe2df4084bfa3a5443d9378",
+      "sha256": "232987b12f498032a716592b2e179634e072bc3b72ed9a23e42d1e61e79c917f",
+      "processing": "JPEG scan data and decoded pixels preserved; private metadata and comments omitted; orientation retained."
+    },
+    {
+      "specimen": "HD",
+      "path": "photos/HD-03-arch.jpg",
+      "source_sha256": "be17ae4f48a84bab03536df4334467856a7ed1688b36b61a9d1bcbc1e6435680",
+      "sha256": "29dcd704539b68f7f8372cfcec8d001d4760497fda3d793b727dd19967b40613",
+      "processing": "JPEG scan data and decoded pixels preserved; private metadata and comments omitted; orientation retained."
+    },
+    {
+      "specimen": "HD",
+      "path": "photos/HD-04-arch.jpg",
+      "source_sha256": "7b0e84ebf09122ea52ab11caa8050ea6ce05a05b7659b0ac2690cf58f5a98386",
+      "sha256": "a0ab2bea51245855d26960dd7169b882cc966332fbbef96a1fbf88f30e87dc57",
+      "processing": "JPEG scan data and decoded pixels preserved; private metadata and comments omitted; orientation retained."
+    },
+    {
+      "specimen": "HD",
+      "path": "photos/HD-05-arch.jpg",
+      "source_sha256": "adc6d4b3af3cad0b6f1bf9a0e9bfe4923a58f84b4880e7510f6b957bb199bb0d",
+      "sha256": "5d8ca939c30b688448cf99ffb3c880b587b667c7b9fa1241adb9b26af53bd80f",
+      "processing": "JPEG scan data and decoded pixels preserved; private metadata and comments omitted; orientation retained."
+    },
+    {
+      "specimen": "FD",
+      "path": "photos/FD-01-retained-interface.jpg",
+      "source_sha256": "5d9fa68c6aa1e689243faaca8e82d3891af9add4e324689a9b6662d335678eea",
+      "sha256": "9ad0f2e66dc62a901f8dea0459d72b344bd7f2be1b6ab5ca2e97da585ee9150b",
+      "processing": "JPEG scan data and decoded pixels preserved; private metadata and comments omitted; orientation retained."
+    },
+    {
+      "specimen": "FD",
+      "path": "photos/FD-02-retained-interface.jpg",
+      "source_sha256": "cdadb059bb6297bb571ab49d85093b6f462d9a08fe373b372aa72dc5e890ff30",
+      "sha256": "bfb47b4b17e5afd48b56acf504db924d9795b8f6742d5948605323b404af6505",
+      "processing": "JPEG scan data and decoded pixels preserved; private metadata and comments omitted; orientation retained."
+    }
+  ],
+  "process_scope": "D is accepted for the tested flat rail ceiling and removal access. The inclined faucet article fails; angle-dependent transfer remains unqualified.",
+  "next_work": "Print the authorized full back-bottom with localized handhold rim support and prepare separate incline-contact comparison plates."
+}

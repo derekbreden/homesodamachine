@@ -273,21 +273,103 @@
       "material": "Polymaker Fiberon PET-GF15, black",
       "plate_offset_mm": {
         "value": [
-          0.0,
-          18.8
+          -1.6,
+          17.5
         ],
         "reason": "Place the asymmetric part and accessible support envelope within the usable plate border, with the open entry end along the long plate axis."
       },
       "parts": [
         {
           "stl": "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.stl",
-          "regions": "back-bottom"
+          "regions": "back-bottom",
+          "features": [
+            {
+              "name": "west handhold rounded crown",
+              "kind": "support_region",
+              "bounds_source_mm": [
+                [
+                  -107.6,
+                  238.0,
+                  19.5
+                ],
+                [
+                  -105.0,
+                  259.0,
+                  35.8
+                ]
+              ],
+              "reason": "Support the outer rounded mouth across its rising courses after the HD sagging result; retain D contact distance and leave the integral inclined gripping face unforced."
+            },
+            {
+              "name": "west handhold seam lip",
+              "kind": "support_region",
+              "bounds_source_mm": [
+                [
+                  -107.6,
+                  200.0,
+                  20.75
+                ],
+                [
+                  -90.6,
+                  203.0,
+                  35.8
+                ]
+              ],
+              "reason": "Spread support under the exposed seam lip and its immediately adjacent courses after the HD sagging result; retain D contact distance and keep the inclined grip interior unforced."
+            },
+            {
+              "name": "east handhold rounded crown",
+              "kind": "support_region",
+              "bounds_source_mm": [
+                [
+                  105.0,
+                  238.0,
+                  19.5
+                ],
+                [
+                  107.6,
+                  259.0,
+                  35.8
+                ]
+              ],
+              "reason": "Support the outer rounded mouth across its rising courses after the HD sagging result; retain D contact distance and leave the integral inclined gripping face unforced."
+            },
+            {
+              "name": "east handhold seam lip",
+              "kind": "support_region",
+              "bounds_source_mm": [
+                [
+                  90.6,
+                  200.0,
+                  20.75
+                ],
+                [
+                  107.6,
+                  203.0,
+                  35.8
+                ]
+              ],
+              "reason": "Spread support under the exposed seam lip and its immediately adjacent courses after the HD sagging result; retain D contact distance and keep the inclined grip interior unforced."
+            }
+          ]
         }
       ],
       "settings": {
         "tree_support_branch_angle": {
-          "value": "20",
-          "reason": "Keep the accessible support branches close to their contacts and their complete bed-rooted toes inside the usable plate border."
+          "value": "10",
+          "reason": "Keep the rail branches close above their cavity floors and the handhold roots near their accessible contacts."
+        },
+        "support_style": {
+          "value": "default",
+          "reason": "Retain the accepted tree treatment rooted on the rail cavity floors while local enforcers cover the accessible handhold mouths and seam lips."
+        },
+        "tree_support_branch_diameter_angle": {
+          "value": "0",
+          "reason": "Rail trunks retain their small section through the cavity height."
+        },
+        "support_on_build_plate_only": {
+          "value": "0",
+          "reason": "The rail trees root on their own cavity floors."
         }
       }
     },

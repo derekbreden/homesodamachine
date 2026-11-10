@@ -174,7 +174,8 @@
   "Mark1_task_id": "1426744585",
   "Mark1_accepted_at": "2026-11-10T04:49:46.290900+00:00",
   "seconds_since_Mark1_acceptance_at_verification": 824.072906,
-  "status": "Native slice verified and accepted by the printer; physical finish and removal remain pending.",
+  "status": "Completed on Mark2; FD removal failed and HD crown/lip sagging reported. PD physical result is pending.",
   "printer_task_id": "1426768924",
-  "estimate_scope": "Native estimate plus the added constant-feed recovery motion time; acceleration and fan spin-up are not simulated."
+  "estimate_scope": "Native estimate plus the added constant-feed recovery motion time; acceleration and fan spin-up are not simulated.",
+  "physical_result": "physical-result.json"
 }

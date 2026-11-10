@@ -1,0 +1,298 @@
+{
+  "archive_sha256": "383d568a6a20dde20200d71c8e43e13a6c6c7074f5385a9ac8efbe027241d48b",
+  "common_object_settings": {
+    "sparse_infill_density": "15%",
+    "sparse_infill_pattern": "gyroid",
+    "support_interface_top_layers": "3",
+    "support_object_xy_distance": "0.4",
+    "support_on_build_plate_only": "0",
+    "support_style": "default",
+    "support_type": "tree(auto)",
+    "tree_support_branch_angle": "45"
+  },
+  "estimated_seconds": 4099.877986375539,
+  "filament": "black PET-GF external spool",
+  "gcode_sha256": "24bd3de3fc05d2a1cdaef02b7206fb5ada6d13b15f2ae38c803e06035a3e4c7c",
+  "native_result": {
+    "error_string": "Success.",
+    "export_time": 652,
+    "layer_height": 0.23999999463558197,
+    "plate_index": 0,
+    "prepare_time": 23,
+    "return_code": 0,
+    "sliced_plates": [
+      {
+        "feature_type_times": {
+          "Bottom surface": 34.50092315673828,
+          "Bridge": 159.72792053222656,
+          "Custom": 304.4276123046875,
+          "Flush": 15.0,
+          "Gap infill": 3.722714424133301,
+          "Inner wall": 112.24410247802734,
+          "Internal solid infill": 246.0175323486328,
+          "Outer wall": 240.36605834960938,
+          "Overhang wall": 188.56829833984375,
+          "Sparse infill": 24.984455108642578,
+          "Support": 910.6382446289062,
+          "Support interface": 318.0520935058594,
+          "Top surface": 43.68109893798828,
+          "Travel": 681.794677734375,
+          "Undefined": 673.1347045898438
+        },
+        "filament_change_times": 0,
+        "filaments": [
+          {
+            "filament_id": "GFT01",
+            "id": 1,
+            "main_used_g": 15.22192668914795,
+            "total_used_g": 15.22192668914795
+          }
+        ],
+        "generate_support_material_time": 516,
+        "id": 1,
+        "infill_time": 41,
+        "layer_filament_change": 0,
+        "main_predication": 2949.54833984375,
+        "make_perimeters_time": 34,
+        "obj_cached_cnt": 0,
+        "objects": [
+          {
+            "bbox": {
+              "depth": 12.0,
+              "height": 13.2230863571167,
+              "width": 28.0,
+              "x": 104.5,
+              "y": 136.0,
+              "z": -4.7655834123361274e-7
+            },
+            "id": 5,
+            "name": "G1",
+            "triangle_count": 1184
+          },
+          {
+            "bbox": {
+              "depth": 12.0,
+              "height": 18.79230308532715,
+              "width": 28.0,
+              "x": 148.5,
+              "y": 136.0,
+              "z": 9.533364391245414e-7
+            },
+            "id": 9,
+            "name": "G2",
+            "triangle_count": 1872
+          },
+          {
+            "bbox": {
+              "depth": 12.0,
+              "height": 26.399999618530273,
+              "width": 28.0,
+              "x": 192.5,
+              "y": 136.0,
+              "z": -2.65137245492042e-10
+            },
+            "id": 13,
+            "name": "G3",
+            "triangle_count": 2600
+          },
+          {
+            "bbox": {
+              "depth": 12.0,
+              "height": 13.2230863571167,
+              "width": 28.0,
+              "x": 104.5,
+              "y": 172.0,
+              "z": -4.7655834123361274e-7
+            },
+            "id": 17,
+            "name": "G4",
+            "triangle_count": 1092
+          },
+          {
+            "bbox": {
+              "depth": 12.0,
+              "height": 18.79230308532715,
+              "width": 28.0,
+              "x": 148.5,
+              "y": 172.0,
+              "z": 9.533364391245414e-7
+            },
+            "id": 21,
+            "name": "G5",
+            "triangle_count": 2002
+          },
+          {
+            "bbox": {
+              "depth": 12.0,
+              "height": 26.399999618530273,
+              "width": 28.0,
+              "x": 192.5,
+              "y": 172.0,
+              "z": -2.65137245492042e-10
+            },
+            "id": 25,
+            "name": "G6",
+            "triangle_count": 2568
+          }
+        ],
+        "sliced_time": 1223,
+        "sliced_time_with_cache": 592,
+        "total_predication": 4099.877986375539,
+        "triangle_count": 11318,
+        "warning_message": ""
+      }
+    ],
+    "sparse_infill_density": 15.0,
+    "upward_compatible_machine": [
+      "Bambu Lab H2S 0.4 nozzle",
+      "Bambu Lab H2D 0.4 nozzle",
+      "Bambu Lab H2D Pro 0.4 nozzle",
+      "Bambu Lab A2L 0.4 nozzle"
+    ],
+    "wall_loops": 2
+  },
+  "native_toolpaths": {
+    "bounds_padding_mm": 0.41279200000000005,
+    "extrusion_bounds_xy_mm": [
+      [
+        104.297208,
+        127.028208
+      ],
+      [
+        222.092792,
+        192.747792
+      ]
+    ],
+    "maximum_line_width_mm": 0.625584
+  },
+  "nozzle": "left hardened Standard 0.4 mm",
+  "physical_result": "pending",
+  "printer": "Mark2",
+  "profile": "hardware/printed-parts/petgf.3mf",
+  "profile_sha256": "1be18bdfd75b33efc898b3e5c28a0c1975fc694ef4d94dd88a909472cb96b97f",
+  "project": "inclines-gap.3mf",
+  "project_sha256": "c9cc22be51d09cc792cbcd92bf74aa37054c156a86f05690cfdcef8692c0cc49",
+  "purpose": "Retain the prepared incline comparison, material, printer calibration and native estimate.",
+  "requested_z_trim_mm": 0.04,
+  "samples": [
+    {
+      "angle_from_bed_deg": 15,
+      "dimensions_mm": [
+        28.0,
+        12.0,
+        13.223085403442383
+      ],
+      "id": "G1",
+      "plate_center_xy_mm": [
+        118.5,
+        142.0
+      ],
+      "settings": {
+        "support_interface_spacing": "0",
+        "support_top_z_distance": "0.48"
+      },
+      "source": "hardware/print-tests/petgf-dense-roofs/inclines/geometry/G1.stl",
+      "source_sha256": "e22e45112640dd12ebbdb9bb6bf4e795d31da3afa26cc60a41485f85e5c5eb0e"
+    },
+    {
+      "angle_from_bed_deg": 30,
+      "dimensions_mm": [
+        28.0,
+        12.0,
+        18.79230499267578
+      ],
+      "id": "G2",
+      "plate_center_xy_mm": [
+        162.5,
+        142.0
+      ],
+      "settings": {
+        "support_interface_spacing": "0",
+        "support_top_z_distance": "0.48"
+      },
+      "source": "hardware/print-tests/petgf-dense-roofs/inclines/geometry/G2.stl",
+      "source_sha256": "35c04aa4f03c8b22c27c154b373ccc03f4df5155e3a35d8be3ce62f54945f69f"
+    },
+    {
+      "angle_from_bed_deg": 45,
+      "dimensions_mm": [
+        28.0,
+        12.0,
+        26.399999618530273
+      ],
+      "id": "G3",
+      "plate_center_xy_mm": [
+        206.5,
+        142.0
+      ],
+      "settings": {
+        "support_interface_spacing": "0",
+        "support_top_z_distance": "0.48"
+      },
+      "source": "hardware/print-tests/petgf-dense-roofs/inclines/geometry/G3.stl",
+      "source_sha256": "0ad701771dfea193b043682f1e2edcc478960cb29da4e5ab15986f9eda503d08"
+    },
+    {
+      "angle_from_bed_deg": 15,
+      "dimensions_mm": [
+        28.0,
+        12.0,
+        13.223085403442383
+      ],
+      "id": "G4",
+      "plate_center_xy_mm": [
+        118.5,
+        178.0
+      ],
+      "settings": {
+        "support_interface_spacing": "0",
+        "support_top_z_distance": "0.72"
+      },
+      "source": "hardware/print-tests/petgf-dense-roofs/inclines/geometry/G4.stl",
+      "source_sha256": "5217a0346868d3cc6e881d6240248dae538fd45c4c6cf331d96a3ea90d57512c"
+    },
+    {
+      "angle_from_bed_deg": 30,
+      "dimensions_mm": [
+        28.0,
+        12.0,
+        18.79230499267578
+      ],
+      "id": "G5",
+      "plate_center_xy_mm": [
+        162.5,
+        178.0
+      ],
+      "settings": {
+        "support_interface_spacing": "0",
+        "support_top_z_distance": "0.72"
+      },
+      "source": "hardware/print-tests/petgf-dense-roofs/inclines/geometry/G5.stl",
+      "source_sha256": "46f7f5cd4b346cf4e08d87e5806f94db3de7111a9fbab999b74451da69ac49a6"
+    },
+    {
+      "angle_from_bed_deg": 45,
+      "dimensions_mm": [
+        28.0,
+        12.0,
+        26.399999618530273
+      ],
+      "id": "G6",
+      "plate_center_xy_mm": [
+        206.5,
+        178.0
+      ],
+      "settings": {
+        "support_interface_spacing": "0",
+        "support_top_z_distance": "0.72"
+      },
+      "source": "hardware/print-tests/petgf-dense-roofs/inclines/geometry/G6.stl",
+      "source_sha256": "e993c114957d0fa703ae21c26e55c9a1a08857aa91066c2c1446a9a8926a7131"
+    }
+  ],
+  "submitted": false,
+  "trim_commands_mm": [
+    0.0,
+    0.02
+  ]
+}
