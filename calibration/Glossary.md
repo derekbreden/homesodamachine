@@ -38,6 +38,21 @@ Derek, **Fit** (Codex):
 > piece with fewer edges. Can you see how putting a thin block in spot does
 > not achieve our goal of fewest edges?
 
+## Replica detail
+
+The [Kamoer adapter](../hardware/reference/kamoer-kphm400/scan-review.md#replica-detail-example)
+is a canonical example. Its paired columns, recessed straight walls and layer
+thicknesses preserve the exterior a mating printed part follows. The black plate
+and white body are solid extrusions of the same outline. The deeper cylindrical
+recess is filled. Photographs identify the manufactured features; the scan measures
+their positions, planes and radii. The authored surfaces remain clean planes and
+cylinders.
+
+Derek, **Simplify scanned model surfaces** (Codex):
+
+> We're not including that deeper cylindrical recess at all. You're going to make
+> both layers the same block of material, the same shape.
+
 ## Simple, in part selection and arrangement
 
 Parts chosen and placed so their connections, mounting, and assembly work
