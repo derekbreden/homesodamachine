@@ -75,7 +75,7 @@ neighboring hardware are considered together.
 - [Deposited-path Siraya trial](prints/2026-10-16-deposited-links-siraya85a-mark1/README.md)
   contains the editable pair, native and processed archives, per-layer path
   record, independent emitted-command review and launch receipt. The manual
-  [`deposited_links.py`](deposited_links.py) processor splices native paths into
+  [`deposited_links.py`](https://github.com/derekbreden/homesodamachine/blob/2f2d9c94a1c3fbf007dfa1bd7e93095197079895/future/pump-elbow-exploration/deposited_links.py) processor splices native paths into
   layer tours with straight free chords between deposited paths.
 - [Vertical center-web pair and standalone elbow](prints/2026-10-16-vertical-center-web-tpu85a-mark1/README.md)
   contain the editable models, native and processed pair archives, geometry
@@ -96,7 +96,7 @@ neighboring hardware are considered together.
   contains the Bambu 85A pair's native and processed archives, reproducible
   preparation and the per-departure route review. The
   [stringing candidates](stringing-candidates.md) specify the lap and related
-  routing options. [`travel_survey.py`](travel_survey.py) measures the commanded
+  routing options. [`travel_survey.py`](https://github.com/derekbreden/homesodamachine/blob/2f2d9c94a1c3fbf007dfa1bd7e93095197079895/future/pump-elbow-exploration/travel_survey.py) measures the commanded
   travel over bores, open air and timelapse trips in the printed single and the
   launched pair.
 - [Outer-wall-setting-10 trial's physical observations](prints/2026-10-13-compact-single-tpu85a-outer10-engineering-z000-mark1/physical-result.json)
@@ -368,16 +368,6 @@ Wetting on the body directs work to the printing process. Wetting at a cuff
 directs work to interference and compression. Movement without wetting directs
 work to retention and tube support. Endurance and water-contact qualification
 belong to the selected material, clamp and actual operating envelope.
-
-## Reproduce the elbow study
-
-Run the current elbow tools from the repository root:
-
-```sh
-HSM_NO_BUILD_LOCK=1 tools/cad-venv/bin/python future/pump-elbow-exploration/snapshot.py
-HSM_NO_BUILD_LOCK=1 tools/cad-venv/bin/python future/pump-elbow-exploration/layout.py
-HSM_NO_BUILD_LOCK=1 tools/cad-venv/bin/python future/pump-elbow-exploration/prepare_print.py
-```
 
 ## Source archive
 

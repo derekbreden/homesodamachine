@@ -85,7 +85,7 @@ routing clips.
 
 ## Evidence and fit scope
 
-The [combined plate's physical result](../../../../../future/snap-fit-tests/2026-10-26-mark2-combined/physical-result.json)
+The [combined plate's physical result](https://github.com/derekbreden/homesodamachine/blob/2f2d9c94a1c3fbf007dfa1bd7e93095197079895/future/snap-fit-tests/2026-10-26-mark2-combined/physical-result.json)
 selects **C2 with the 6.35 mm CAD bore** for present use, retaining its 2.40 mm
 wings and 125.421° wrap. A smaller bore is optional future tuning. The selected
 **16 mm-span 4P ribbon clip** has accepted fit and qualitative retention: the
@@ -94,7 +94,7 @@ ribbon fits perfectly and stays put, with angling and pulling used for entry.
 That acceptance belongs to the identified quarter-inch tube and 4P ribbon
 coupons. The proportionally scaled 4 mm tube clips, DC-1 pair seat and V-K
 single-wire seat remain provisional. The
-[stopped cable coupon](../../../../../future/cable-clip-exploration/prints/2026-10-26-mark2-relay-ribbon/physical-result.json)
+[stopped cable coupon](https://github.com/derekbreden/homesodamachine/blob/2f2d9c94a1c3fbf007dfa1bd7e93095197079895/future/cable-clip-exploration/prints/2026-10-26-mark2-relay-ribbon/physical-result.json)
 records deformation and cancellation, with no accepted cable fit or retention.
 The complete production back-top's print finish, cleanup and installed service
 remain unassessed. Numerical retention force, fatigue and lifetime are unmeasured;

@@ -69,8 +69,8 @@
     "hardware/assembly/scenes/_scenes.py": "29279639591cf41a8e6a7810e1fbe0480e55d1305977abfedf6f2e29d7836954",
     "hardware/mechanical-qualification/enclosure-above-core/connector_service.py": "0ca76a102e2d78dcf40ed6874cd3d56b953b635fa267b21e9ddd228a4111d2b6",
     "hardware/mechanical-qualification/enclosure-above-core/flavor-and-connector-review.json": "fcc015e13b30b9d7f78bd0015b37405a0cef0aa217e0fbc3c5f2bc5e6b198a12",
-    "hardware/manifold-layout/studies/funnel-gate/assembly-ownership.json": "5c605d411e05efba7d729ba4fc4814da160748937883da78725d8620854f8489",
-    "hardware/manifold-layout/studies/funnel-gate/approved-arrangement.json": "323824e8dc72825551f6f6f7f5b76878a9a926e260de97c7d3b2a5d4de2c006c"
+    "https://github.com/derekbreden/homesodamachine/blob/2f2d9c94a1c3fbf007dfa1bd7e93095197079895/hardware/manifold-layout/studies/funnel-gate/assembly-ownership.json": "5c605d411e05efba7d729ba4fc4814da160748937883da78725d8620854f8489",
+    "https://github.com/derekbreden/homesodamachine/blob/2f2d9c94a1c3fbf007dfa1bd7e93095197079895/hardware/manifold-layout/studies/funnel-gate/approved-arrangement.json": "323824e8dc72825551f6f6f7f5b76878a9a926e260de97c7d3b2a5d4de2c006c"
   },
   "reference_sha256": {
     "hardware/reference/multiplex-asse1022/multiplex-asse1022.step": "1dcb9c16d5a954336fe89c9072c62b854077be74b3fda15e9e0b338eae10d083",

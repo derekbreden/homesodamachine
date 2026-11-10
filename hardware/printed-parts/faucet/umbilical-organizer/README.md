@@ -6,7 +6,7 @@ be deliberately adjusted while holding the puck in the other hand. The signal
 ribbon passes flat through a separate loose slot. The puck threads over free
 tube and cable ends during factory assembly and sits inside the upper braid.
 
-The [three-increment Mark2 fit comparison](../../../../future/umbilical-organizer-exploration/diameter-increments-mark2/physical-result.json)
+The [three-increment Mark2 fit comparison](https://github.com/derekbreden/homesodamachine/blob/2f2d9c94a1c3fbf007dfa1bd7e93095197079895/future/umbilical-organizer-exploration/diameter-increments-mark2/physical-result.json)
 selects A's Ø6.65 mm bore for quarter-inch stock and B's Ø4.40 mm
 bore for the received white 4 mm drain tube. The two flavor bores use 4.40 mm
 on the specified black 4 mm stock; that stock's physical sliding fit is unmeasured. The [physical acceptance record](physical-acceptance.json) binds
@@ -84,7 +84,7 @@ is included in its native textured-plate `G29.1 Z0.02` after `G29.1 Z0`.
 That trim is specific to Mark2. The physical material is PET-GF; its saved
 printer metadata reports PET-CF/GFT01.
 
-The [A/B/C native job and bead review](../../../../future/umbilical-organizer-exploration/diameter-increments-mark2/README.md)
+The [A/B/C native job and bead review](https://github.com/derekbreden/homesodamachine/blob/2f2d9c94a1c3fbf007dfa1bd7e93095197079895/future/umbilical-organizer-exploration/diameter-increments-mark2/README.md)
 retain the three printed samples: A has Ø6.65/4.30/5.00 mm quarter-inch/drain/signal
 bores, B Ø6.75/4.40/5.10 mm and C Ø6.85/4.50/5.20 mm. Production combines
 A's beverage bore dimensions with B's drain bore dimensions. Its stock diameter,
@@ -92,7 +92,7 @@ tube contact length, tube chamfers and upright orientation match the trials.
 The production axes follow the mounting row and its ribbon passage is a flat
 slot. The fit evidence applies to the selected round-bore profiles; complete
 organizer layout and signal-slot fit remain unassessed.
-The separate frozen [Ø4.30 mm drain-fit archive](../../../../future/umbilical-organizer-exploration/drain-fit-mark2/README.md)
+The separate frozen [Ø4.30 mm drain-fit archive](https://github.com/derekbreden/homesodamachine/blob/2f2d9c94a1c3fbf007dfa1bd7e93095197079895/future/umbilical-organizer-exploration/drain-fit-mark2/README.md)
 is an unsubmitted trial, outside the current production selection.
 Regenerate the production geometry with
 `python3 tools/run.py -- cargo run --release -j 2 --manifest-path tools/hsm/Cargo.toml -p hsm-umbilical-organizer`,

@@ -86,7 +86,7 @@ starts and across the bores, compared with the baseline job.
 ### Inserting it
 
 A post-processor runs between the offline slice and `tools/bambu_print.py`.
-[`departure_lap.py`](departure_lap.py) prepares the wall-lap files by hand;
+[`departure_lap.py`](https://github.com/derekbreden/homesodamachine/blob/2f2d9c94a1c3fbf007dfa1bd7e93095197079895/future/pump-elbow-exploration/departure_lap.py) prepares the wall-lap files by hand;
 its [print record](prints/2026-10-16-departure-lap040-normal-lift-tpu85a-mark1/README.md)
 specifies the emitted path, thin-rim fallbacks, full-height wall connectors
 and return to the native departure point.
@@ -124,7 +124,7 @@ G-code ([BackgroundSlicingProcess.cpp](https://github.com/bambulab/BambuStudio/b
 
 ## Related options measured on the same jobs
 
-[`travel_survey.py`](travel_survey.py) measures the commanded travel in the
+[`travel_survey.py`](https://github.com/derekbreden/homesodamachine/blob/2f2d9c94a1c3fbf007dfa1bd7e93095197079895/future/pump-elbow-exploration/travel_survey.py) measures the commanded travel in the
 printed single and the launched pair:
 
 | | Printed single (Avoid crossing wall off) | Launched pair (on) |

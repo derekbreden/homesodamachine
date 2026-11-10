@@ -20,7 +20,7 @@
     "hardware/wiring/installed/retainers.py": "57b34f59389754f437ba2482dab49e66790b316b43c9275e18f66263bd65c180",
     "hardware/printed-parts/enclosure/enclosure/_above_core_shell.py": "4977bcee4b7d3fef51a13b601473a66b0a010bf509fe883ab8ce5998fd225741",
     "hardware/reference/iec-c14-inlet/iec_c14_inlet.py": "833422c7c9cad6e0cd1cb63efa559bb50f12f649314d572ed78752bb5036cba9",
-    "future/snap-fit-tests/2026-10-26-mark2-combined/physical-result.json": "530df05ff7593b0a95a5443576d41dc724411e99ba1c08a6ec10649e80c06166",
+    "https://github.com/derekbreden/homesodamachine/blob/2f2d9c94a1c3fbf007dfa1bd7e93095197079895/future/snap-fit-tests/2026-10-26-mark2-combined/physical-result.json": "530df05ff7593b0a95a5443576d41dc724411e99ba1c08a6ec10649e80c06166",
     "hardware/printed-parts/lint-answers/enclosure/enclosure/enclosure-back-top.lint-answers": "ac88eb6b52b7813563f058d143cee68760279e5edb9f1f4d0ba7efe3c36890ac"
   },
   "all_displayed_instance_count": 76,
