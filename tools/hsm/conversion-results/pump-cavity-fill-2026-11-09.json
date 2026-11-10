@@ -435,5 +435,24 @@
     "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl": "c5913bab7cdfb066d1ddec6eb6f765b04406a89af80c2027a1c764a35d0563aa",
     "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step.mesh": "84d13121a6f31876df5faed4c677439c83830905e625f55cc982df595b0e1ce2"
   },
-  "automatic_checks_added": false
+  "automatic_checks_added": false,
+  "delivery_completed_at": "2026-11-10T01:33:47.873Z",
+  "receipt_to_delivery_complete_seconds": 2464.743,
+  "gallery_live_verification": {
+    "verified_at": "2026-11-10T01:32:44.592Z",
+    "entry_url": "https://homesodamachine.com/changes/2026-11-09-1922-pump-retainer-ceilings",
+    "results": [
+      {
+        "path": "/changes/2026-11-09-1922-pump-retainer-ceilings/pocket-before.webp?v=6f7b0c3939fd",
+        "status": 200,
+        "bytes": 23354
+      },
+      {
+        "path": "/changes/2026-11-09-1922-pump-retainer-ceilings/pocket-after.webp?v=d4acbc9b9e1f",
+        "status": 200,
+        "bytes": 22794
+      }
+    ]
+  },
+  "completion_measurement_note": "The first completion mark preceded gallery discovery. Final delivery uses the subsequent mark after the gallery page and both versioned images were verified."
 }
