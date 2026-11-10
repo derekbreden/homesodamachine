@@ -1,6 +1,6 @@
 {
   "purpose": "Record native slice time and preserve the rail contact geometry for the longer coupon and its optional mating section.",
-  "status": "Prepared offline; not submitted to a printer.",
+  "status": "Native slice verified and accepted by the printer; physical finish and removal remain pending.",
   "archive": "ready/2026-11-09-rail-fit-pair-30-D-left04-z018-mark1.gcode.3mf",
   "archive_sha256": "a0368e2ac9ec2ab49442a1814e065237d6008275da7fdfae709c5ce92d5b543b",
   "gcode_sha256": "04b315d5209d2c5064199b6ade21f5e7f85299875fd65ecfabd98e51166042dc",
@@ -115,5 +115,6 @@
     "head_to_channel_shoulder": 0.25,
     "arm_end_to_channel_far_wall": 0.5
   },
-  "mating_scope": "Full sliding cross-sections at the source assembly coordinates, with open cropped ends; physical sliding and removal remain untested."
+  "mating_scope": "Full sliding cross-sections at the source assembly coordinates, with open cropped ends; physical sliding and removal remain untested.",
+  "printer_task_id": "1426744585"
 }
