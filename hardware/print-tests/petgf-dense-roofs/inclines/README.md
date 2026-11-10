@@ -19,6 +19,7 @@ angles, gap settings and shared process. Angles are measured from the bed plane.
 
 | Plate | Comparison | Files |
 | --- | --- | --- |
+| Faucet curve | The frozen failed faucet article in its original build pose, with explicit Tree Slim as the only retained-object setting change. | [Editable project](plates/faucet-slim/faucet-slim.3mf), [native archive](plates/faucet-slim/faucet-slim.gcode.3mf), [estimate and preparation](plates/faucet-slim/preparation.json), [native previews](plates/faucet-slim/preview/preview.json) |
 | Gap | Matching inclines at different gaps with Default trees, which resolve to Organic for these coupons. | [Editable project](plates/inclines-gap/inclines-gap.3mf), [native archive](plates/inclines-gap/inclines-gap.gcode.3mf), [estimate and preparation](plates/inclines-gap/preparation.json) |
 | Tree Slim | The same inclines and gaps with explicit Tree Slim. Compare each specimen with its counterpart on the gap plate. | [Editable project](plates/inclines-slim/inclines-slim.3mf), [native archive](plates/inclines-slim/inclines-slim.gcode.3mf), [estimate and preparation](plates/inclines-slim/preparation.json) |
 
@@ -34,8 +35,11 @@ bead envelopes through the native renderer. Model stock, support stems and dense
 interface paths have separate display colors. The envelopes illustrate the slice;
 they do not simulate molten material, sagging or adhesion.
 
-Both plates are prepared and unprinted. Start with the gap comparison, then
-compare a promising condition with its Tree Slim counterpart. Record whether
+These plates are prepared and unprinted. The faucet plate isolates contact
+generation on the actual lower curve without adding anchoring walls or changing
+its geometry. Its native slice emits interface paths into the higher curved
+band; physical release remains unmeasured. Begin with this article. The planar
+plates remain available for a subsequent gap comparison. Record whether
 the mat releases, stems break, contact material remains, or a model course peels
 away. Photograph the underside and removed mat together. A useful planar condition
 next needs the actual faucet lower curve in its production pose before it
