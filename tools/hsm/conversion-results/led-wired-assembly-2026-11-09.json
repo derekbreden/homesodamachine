@@ -202,5 +202,50 @@
   "notes": [
     "The first reference draw predates the final design and is the first completed source-authored attempt. The final verification records matching mounted geometry, not unobstructed pixels on Derek\u2019s device.",
     "Bazel elapsed durations cover selected builds. They are not a complete partition of total machine waits or agent time."
-  ]
+  ],
+  "completion": {
+    "at": "2026-11-10T03:08:54.895Z",
+    "seconds_from_request": 3024.594,
+    "note": "Final geometry and before/after images are pushed and verified on the live site; physical installation remains untested."
+  },
+  "live_gallery_verification": {
+    "verified_at": "2026-11-10T03:07:57.121088+00:00",
+    "resources": [
+      {
+        "url": "https://homesodamachine.com/changes/2026-11-09-2102-wired-led-pocket",
+        "status": 200,
+        "bytes": 28558,
+        "sha256": "8bcd75e23760fc1b0662e3add3d32e047a6de355e340f9fb7cdd752398376f93"
+      },
+      {
+        "url": "https://homesodamachine.com/changes/2026-11-09-2102-wired-led-pocket/section-before.webp?v=68a190e415d2",
+        "status": 200,
+        "bytes": 8568,
+        "sha256": "68a190e415d269f522adb959c3f11d93b2bd93db5b66044641a59890c670ff6d",
+        "matches_checkout": true
+      },
+      {
+        "url": "https://homesodamachine.com/changes/2026-11-09-2102-wired-led-pocket/section-after.webp?v=8cb7d271fb8c",
+        "status": 200,
+        "bytes": 11798,
+        "sha256": "8cb7d271fb8ccd7c8e89f7ab0797a477498f19c72c190d617faa13a777ea9b63",
+        "matches_checkout": true
+      },
+      {
+        "url": "https://homesodamachine.com/changes/2026-11-09-2102-wired-led-pocket/access-before.webp?v=4b9fa46165d5",
+        "status": 200,
+        "bytes": 2872,
+        "sha256": "4b9fa46165d59ecd42046632c12ec93f3ae718a1d7b7d7bb9462fc0964d7cd9d",
+        "matches_checkout": true
+      },
+      {
+        "url": "https://homesodamachine.com/changes/2026-11-09-2102-wired-led-pocket/access-after.webp?v=3ef4ae534d52",
+        "status": 200,
+        "bytes": 3290,
+        "sha256": "3ef4ae534d52f2ff3763e2b4417d35cece0996bb426edbb24f24e9c08e2567d1",
+        "matches_checkout": true
+      }
+    ]
+  },
+  "gallery_commit": "d2155de8e"
 }
