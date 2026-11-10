@@ -4,7 +4,7 @@
 //! facets inherit records only through exact f32 triangle matches. Everything else is
 //! explicitly unknown; no spatial proximity assigns a source.
 use hsm_kernel::{Solid, write::face_json};
-use manifold_csg::Manifold;
+use hsm_manifold::Manifold;
 use serde_json::{Value, json};
 use std::collections::{BTreeMap, HashMap, HashSet};
 

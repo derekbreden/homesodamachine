@@ -4,7 +4,7 @@
 mod common;
 use common::hausdorff;
 use hsm_kernel::*;
-use manifold_csg::{Manifold, OpType};
+use hsm_manifold::{Manifold, OpType};
 use std::time::Instant;
 
 const Z: V3 = V3::Z;

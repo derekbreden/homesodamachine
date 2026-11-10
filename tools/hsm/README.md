@@ -4,7 +4,7 @@
 and draws pictures of them. One local Rust daemon serves the CLI, an MCP server and a Unix socket. Queries load a scene on
 demand. A saved edit starts no build, query, watcher or check.
 
-Build and install with Rust 1.89 or later, CMake and a C++17 compiler. The installer keeps each
+Build and install with the Rust toolchain. The installer keeps each
 build at an immutable path under `~/.local/lib/hsm/<build_id>/hsm` and puts a launcher at
 `~/.local/bin/hsm`, which this Mac's shells have on `PATH`:
 
@@ -184,7 +184,7 @@ prints incident triangles with their recorded source contributors. The diagnosti
 only on failure. Print-surface attribution identifies the calling print stage; unrecorded
 upstream ownership remains unknown.
 
-Intersection volumes use the Manifold C++ backend through `manifold-csg`. Coincident seam
+Intersection volumes use `manifold-rust` through `hsm-manifold`. Coincident seam
 vertices are joined before solid validation. Invalid solids return an error. These are
 floating-point booleans; very small reported volumes can be numerical residue at a contact.
 The service does not implement an exact boolean kernel.
@@ -378,8 +378,8 @@ has no area once its corners are f32), 3MF, GLB (face records in
 its extras), the `.step.mesh` payload `hsm` reads, and native STEP: AP242
 triangulated surface sets under each body's name and colour, with the model file a mesh-kernel
 import reads beside it (`<name>.step.npz`). The same solid writes the same bytes on every run.
-Without the `manifold` feature the kernel is pure Rust and builds for wasm32; its booleans
-then return an error.
+The Rust boolean engine also builds for wasm32. Without the `manifold` feature,
+boolean operations return an error.
 
 `Solid::gap(&other)` reports solid clearance in mm, zero for contact, penetration or
 containment. `Solid::shared_volume(&other)` reports intersection volume in mm³, including
