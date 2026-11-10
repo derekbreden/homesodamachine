@@ -17,8 +17,8 @@
     "behind": true
   },
   "solids": {
-    "hardware/assembly/scenes/glb/back-half.glb.mesh": "b87ff64a5e23cd3b01412e6be6571ed9dbd55189d79c02a79c55548be01facbb",
-    "hardware/assembly/scenes/glb/back-top.glb.mesh": "a16173f478178e124a762706d8e4863a99ba63160e62d747ff9a73a3953a2c1c",
+    "hardware/assembly/scenes/glb/back-half.glb.mesh": "46929cc018634f595a78bf7dbf3c037c1c4dfd8e61cbabc702295c3cd019f085",
+    "hardware/assembly/scenes/glb/back-top.glb.mesh": "0e7c805a1ca633a2b25f861c886cff09eac38c86b2457ade746e2a5abd86f59c",
     "hardware/assembly/scenes/glb/cap-lid-fill.glb.mesh": "93f85360b8e38505bbbb66c24b69d0e1e894747500a87082d3fd890ae7f342e4",
     "hardware/assembly/scenes/glb/cap-lid.glb.mesh": "393972bad8d75e3cbf73452a5ca0a39e7b52100a1113f24a594dbb3d1a56f24c",
     "hardware/assembly/scenes/glb/cold-core-open.glb.mesh": "dce8f237e5062c8e7536c5efdc334ddac5235a7496ea79f5779fccfb1cb850c8",
@@ -57,7 +57,7 @@
     "hardware/install-guide/plumbing/modern/art/modern-water-on.png": "28ae8937a70f7a55571a37a303b38477bef45d5c4c9d2aef2c22fe58da4c34f8",
     "hardware/manifold-layout/enclosure-assembly.facts.json": "4c87994853fedd4a424311e627182746d7c917f8f7ef3d2491ad64c964b66ecb",
     "hardware/manifold-layout/enclosure-assembly.physical.step.mesh": "96be0d51a69a4bfce5f3984d9f08a82c5a97fa6c220bf7d72d389c15af217370",
-    "hardware/manifold-layout/enclosure-assembly.step.mesh": "8a199cb9de93bcb54dd913d71bbd7c94ca0500222806a6b1fa3b4cb1f7deaa43",
+    "hardware/manifold-layout/enclosure-assembly.step.mesh": "4aca2c5d24b33f5221fed36ea543243f25ea7e9a6e374284e6a9e08046e26259",
     "hardware/manifold-layout/manifold-layout.step": "3fd31ca1b78af2be4868175bb325370c9cfdebf1bb465778901b55c1912ec7eb",
     "hardware/manifold-layout/manifold-layout.step.mesh": "bab8b49406c2fc510d46d51e99acfcc8bd70c6e1608564d3e03e6dbd0f4dafbe",
     "hardware/manifold-layout/studies/east-feed/parts/east-feed-ceiling.step": "e95046f067ee746da9528bfea02b503cede9a75098f6b1b513dab1bbaa2f058c",
@@ -865,7 +865,7 @@
     "hardware/reference/jg-pp0208e-tee/jg-pp0208e-tee.step": "231311fedf8cfe57d46ff9c2cc6969efeb878e65d30b14eefd5dce97b8bab17f",
     "hardware/reference/jg-pp0208e-tee/jg-pp0208e-tee.step.mesh": "cd75b8c89c2071ad917347c119cd43d1631f12af63256cf922587779a2c7b019",
     "hardware/reference/jg-pp0308e-elbow/jg-pp0308e-elbow.step": "805f210ef6a669f08f9bebacdbf3dcec2a0d22691484dc72308425fdaf3d5daa",
-    "hardware/reference/jg-pp0308e-elbow/jg-pp0308e-elbow.step.mesh": "5b2242d5aa9eda682cb2e2f480a73dc41c9fcad6c653b20de22afd7c35af1553",
+    "hardware/reference/jg-pp0308e-elbow/jg-pp0308e-elbow.step.mesh": "39ccc30f08f5d1f8808fe16d18463f99cb8a58b7aaf86dd0da2285e8e0c73993",
     "hardware/reference/jg-pp0308e-elbow/jg-pp0308e-elbow.stl": "35e38299310e8e100d629c99ef9b91c549dbf724c96f405151b3f49f9bab5f6e",
     "hardware/reference/jg-pp0408w/jg-pp0408w.step": "987eccd988d461a87babb024bc4cd7e538777467449bfceea7ead8ed5d4dfded",
     "hardware/reference/jg-pp0408w/jg-pp0408w.step.mesh": "c9e764f9809d9305385f97d83e3f4894f83ec97a4f7765eeb073e224508c105a",
@@ -887,7 +887,7 @@
     "hardware/reference/molex-micro-fit-4/molex-micro-fit-4-panel.step.mesh": "cccc70bff2b92a5d24758c034fe9d8fec977f8b3e2bd01b715d6f92edda77773",
     "hardware/reference/mq6-gas-sensor/mq6-gas-sensor.fine.step.npz": "ab023aa13553fe9c0d961c9e58a31885bdb5205e66f8b623cfe9a67812923965",
     "hardware/reference/mq6-gas-sensor/mq6-gas-sensor.step": "b3707fb5112ceee44ed47d0b1c1adeed17979ec6e06f187009d2eaee0c740ee1",
-    "hardware/reference/mq6-gas-sensor/mq6-gas-sensor.step.mesh": "290c2de59cd21200bc7c0e83a6b7f56ae21c7447a4eed2b24d3396fc512a30e5",
+    "hardware/reference/mq6-gas-sensor/mq6-gas-sensor.step.mesh": "2d05151890ceae500ca3691532615e63590b24a5394b57106e680f030c4d04d1",
     "hardware/reference/multiplex-asse1022/multiplex-asse1022.step": "8d357ab7bf93f99130ea024c00c35e0f4e93e0f4de4613e15215db0c0a02c069",
     "hardware/reference/multiplex-asse1022/multiplex-asse1022.step.mesh": "4c56e8cc49633d784f0488d69ccbd099be427ab48ec0bae29f91c5d277230b48",
     "hardware/reference/neofit-achv44-check/neofit-achv44-check.step": "6cba8b0db77eb05d3488c114d184e9bb8a691db49b681dcacbcfe833f7da2c82",
@@ -914,7 +914,7 @@
     "hardware/reference/pump-barb-joint/pump-barb-joint.step": "21abefaeb40e64a1c7cabad78481a6c8fc4299e836a19c7cee336dd499e87d0c",
     "hardware/reference/pump-barb-joint/pump-barb-joint.step.mesh": "4baa415db54a93780388525c62e0e3f7c9aa668c1310411ae3c8b18cd8ca2f4e",
     "hardware/reference/riteav-keystone/riteav-keystone.step": "cd7c975fbda11ed0a7e7ced14c6eb435ab39c882626fab8f234fd59043bf5971",
-    "hardware/reference/riteav-keystone/riteav-keystone.step.mesh": "6ed05070bd47d83d13f53ad960f77947311c564c23ec077c5dc2867577aad8f2",
+    "hardware/reference/riteav-keystone/riteav-keystone.step.mesh": "a8a6a67fd8f85773198854a4c3fa3469b2348a4e6c48ebf3de5375c02928a2bc",
     "hardware/reference/seaflo-22-pump/seaflo-22-pump.step": "4f973a4b973e8f1d37fd7324f6546fe677788d2bb13f043f5833673a6573e4af",
     "hardware/reference/seaflo-22-pump/seaflo-22-pump.step.mesh": "71594137cc7ae40fd5c52c310f2c78f03a1f24a63dfe732a28d9e6b6c3bcc135",
     "hardware/reference/seaflo-discharge-chain/seaflo-discharge-chain.fine.step.mesh": "829877a84b84aced680cce6182502de2b17c71d77b35d71c69dcde3b3e934dc4",
@@ -937,7 +937,7 @@
     "hardware/reference/tee-connector/tee-connector.step.mesh": "7a1d9fccd08701a5304e1246e24c72f59a2ed13e4e1a2c4b2579e4d3092e4405",
     "hardware/reference/teyleten-relay/teyleten-relay.fine.step.npz": "a06845ecfcebdf278727b816385f1f15503cfabf0de31e0d9b81ff3a7b09a605",
     "hardware/reference/teyleten-relay/teyleten-relay.step": "a949a37e0ff30d4fb37af46049172dc3e6b6d7a39ef2fc89b6a3a9e7526ddba9",
-    "hardware/reference/teyleten-relay/teyleten-relay.step.mesh": "680c9c5370b14e9e1134dc91aa8c1e410daa55598b122b4daee9318c367e5f76",
+    "hardware/reference/teyleten-relay/teyleten-relay.step.mesh": "04469404d8f39c39fd529f766458f99bde310476e56968ec10eb8adeeb7ff726",
     "hardware/reference/teyleten-relay/teyleten-relay.step.npz": "44475755a2edb474160a34fb43a6c3d810a7cf7559ae5de305b45b6756096b2c",
     "hardware/reference/touch-flo-faucet/display-reference/button-left.step": "d802e4c740ed808daa07d19f8eba0db25d59b76c3b61c03e90ad0945694c2fdc",
     "hardware/reference/touch-flo-faucet/display-reference/button-right.step": "b515134b75baa15f5bd048f48835b65631c5b7a9c423f3cc3343cb7dcef9bdca",
@@ -970,8 +970,8 @@
   "sidecars": {},
   "website": {
     "solids": {
-      "hardware/assembly/scenes/glb/back-half.glb.mesh": "b87ff64a5e23cd3b01412e6be6571ed9dbd55189d79c02a79c55548be01facbb",
-      "hardware/assembly/scenes/glb/back-top.glb.mesh": "a16173f478178e124a762706d8e4863a99ba63160e62d747ff9a73a3953a2c1c",
+      "hardware/assembly/scenes/glb/back-half.glb.mesh": "46929cc018634f595a78bf7dbf3c037c1c4dfd8e61cbabc702295c3cd019f085",
+      "hardware/assembly/scenes/glb/back-top.glb.mesh": "0e7c805a1ca633a2b25f861c886cff09eac38c86b2457ade746e2a5abd86f59c",
       "hardware/assembly/scenes/glb/cap-lid-fill.glb.mesh": "93f85360b8e38505bbbb66c24b69d0e1e894747500a87082d3fd890ae7f342e4",
       "hardware/assembly/scenes/glb/cap-lid.glb.mesh": "393972bad8d75e3cbf73452a5ca0a39e7b52100a1113f24a594dbb3d1a56f24c",
       "hardware/assembly/scenes/glb/cold-core-open.glb.mesh": "dce8f237e5062c8e7536c5efdc334ddac5235a7496ea79f5779fccfb1cb850c8",
@@ -996,7 +996,7 @@
       "hardware/faucet-layout/faucet-industrial-assembly.step": "dab99ebc933e9d182955406892cdad3dc5c5276aea5fb1fe3c5905c36fe3ac10",
       "hardware/faucet-layout/faucet-industrial-assembly.step.mesh": "fe28e3401330a3abd8e7ceba118ee10d1a9c6e17631737d47942864f3a7b2074",
       "hardware/manifold-layout/enclosure-assembly.facts.json": "4c87994853fedd4a424311e627182746d7c917f8f7ef3d2491ad64c964b66ecb",
-      "hardware/manifold-layout/enclosure-assembly.step.mesh": "8a199cb9de93bcb54dd913d71bbd7c94ca0500222806a6b1fa3b4cb1f7deaa43",
+      "hardware/manifold-layout/enclosure-assembly.step.mesh": "4aca2c5d24b33f5221fed36ea543243f25ea7e9a6e374284e6a9e08046e26259",
       "hardware/printed-parts/asse-drain-adapter/asse-drain-adapter.step": "4730c636dd33e1431fa4fa3c6df0b4a3a41942efa40f451ce04e4f41e661a92d",
       "hardware/printed-parts/asse-drain-adapter/asse-drain-adapter.step.mesh": "192cb511c9bd723d16f931037c741fb143fa7000b522a574d13fc47f50854806",
       "hardware/printed-parts/asse-drain-adapter/asse-drain-adapter.stl": "ee0584ceb98ba367aaf8ea1508a060946f8e357a0f8e77cc33de567066437d2e",
@@ -1478,7 +1478,7 @@
       "hardware/reference/jg-pp010822e/jg-pp010822e.step": "98438485a8a3a5cde89adb572091d09d09a3097f5f09791642b0e0db874e12cf",
       "hardware/reference/jg-pp010822e/jg-pp010822e.step.mesh": "37f306f04a33dd00dcab04864397c8c661148d622f6bb42821ee75758cfb3e43",
       "hardware/reference/jg-pp0308e-elbow/jg-pp0308e-elbow.step": "805f210ef6a669f08f9bebacdbf3dcec2a0d22691484dc72308425fdaf3d5daa",
-      "hardware/reference/jg-pp0308e-elbow/jg-pp0308e-elbow.step.mesh": "5b2242d5aa9eda682cb2e2f480a73dc41c9fcad6c653b20de22afd7c35af1553",
+      "hardware/reference/jg-pp0308e-elbow/jg-pp0308e-elbow.step.mesh": "39ccc30f08f5d1f8808fe16d18463f99cb8a58b7aaf86dd0da2285e8e0c73993",
       "hardware/reference/jg-pp0308e-elbow/jg-pp0308e-elbow.stl": "35e38299310e8e100d629c99ef9b91c549dbf724c96f405151b3f49f9bab5f6e",
       "hardware/reference/jg-pp0408w/jg-pp0408w.step": "987eccd988d461a87babb024bc4cd7e538777467449bfceea7ead8ed5d4dfded",
       "hardware/reference/jg-pp0408w/jg-pp0408w.step.mesh": "c9e764f9809d9305385f97d83e3f4894f83ec97a4f7765eeb073e224508c105a",
@@ -1489,7 +1489,7 @@
       "hardware/reference/meanwell-irm90/meanwell-irm90.step": "27cc1e5c3f5bf010f6df8a15a4b9b96dfef7b3836eee4905347e8a0035d033d7",
       "hardware/reference/meanwell-irm90/meanwell-irm90.step.mesh": "5daca63d8261f4dd722024eee72dee2359c0d9f65dd54ae7ef37012f891ce4a4",
       "hardware/reference/mq6-gas-sensor/mq6-gas-sensor.step": "b3707fb5112ceee44ed47d0b1c1adeed17979ec6e06f187009d2eaee0c740ee1",
-      "hardware/reference/mq6-gas-sensor/mq6-gas-sensor.step.mesh": "290c2de59cd21200bc7c0e83a6b7f56ae21c7447a4eed2b24d3396fc512a30e5",
+      "hardware/reference/mq6-gas-sensor/mq6-gas-sensor.step.mesh": "2d05151890ceae500ca3691532615e63590b24a5394b57106e680f030c4d04d1",
       "hardware/reference/multiplex-asse1022/multiplex-asse1022.step": "8d357ab7bf93f99130ea024c00c35e0f4e93e0f4de4613e15215db0c0a02c069",
       "hardware/reference/multiplex-asse1022/multiplex-asse1022.step.mesh": "4c56e8cc49633d784f0488d69ccbd099be427ab48ec0bae29f91c5d277230b48",
       "hardware/reference/neofit-drain-bulkhead/neofit-drain-bulkhead.step": "854cbc8e5329f9c72b75c92d02192b826aaf377a0f371562e03d9227079ad948",
@@ -1497,7 +1497,7 @@
       "hardware/reference/neofit-stem-elbow/neofit-stem-elbow.step": "3019e6b26531b3e2d9b9454a689264ae45c352d0fc28ca9712928a90e7f42f53",
       "hardware/reference/neofit-stem-elbow/neofit-stem-elbow.step.mesh": "278617143eda0f4e62c997cc166d3aaede71b2799c8b860962a2e3f3de0cfef8",
       "hardware/reference/riteav-keystone/riteav-keystone.step": "cd7c975fbda11ed0a7e7ced14c6eb435ab39c882626fab8f234fd59043bf5971",
-      "hardware/reference/riteav-keystone/riteav-keystone.step.mesh": "6ed05070bd47d83d13f53ad960f77947311c564c23ec077c5dc2867577aad8f2",
+      "hardware/reference/riteav-keystone/riteav-keystone.step.mesh": "a8a6a67fd8f85773198854a4c3fa3469b2348a4e6c48ebf3de5375c02928a2bc",
       "hardware/reference/sf76e-thermal-fuse/sf76e-thermal-fuse.step": "ee95f27a52c445bd9be8b24a6b1822a50ef1d60e0deb8d337acbc695733b47e8",
       "hardware/reference/sf76e-thermal-fuse/sf76e-thermal-fuse.step.mesh": "c4882921c1250afe714a660f812b691260cd25492186fd489bb9280f08995e2a",
       "hardware/reference/soda-rise-insulation/soda-rise-insulation.step": "5371c375caf99716726530fd96725ae4300e16323176a08e95ba842f06f0433b",
@@ -1506,7 +1506,7 @@
       "hardware/reference/tee-connector/tee-connector.step": "bba36626afe1765fefd3affc790120cad6de786a3a23992f745037bf549bac36",
       "hardware/reference/tee-connector/tee-connector.step.mesh": "7a1d9fccd08701a5304e1246e24c72f59a2ed13e4e1a2c4b2579e4d3092e4405",
       "hardware/reference/teyleten-relay/teyleten-relay.step": "a949a37e0ff30d4fb37af46049172dc3e6b6d7a39ef2fc89b6a3a9e7526ddba9",
-      "hardware/reference/teyleten-relay/teyleten-relay.step.mesh": "680c9c5370b14e9e1134dc91aa8c1e410daa55598b122b4daee9318c367e5f76",
+      "hardware/reference/teyleten-relay/teyleten-relay.step.mesh": "04469404d8f39c39fd529f766458f99bde310476e56968ec10eb8adeeb7ff726",
       "hardware/reference/touch-flo-faucet/westbrass-reference/westbrass-reference.step": "6bb4f673332fc80c74ad94e62ad4c24f47b451824f2d64e155cc22a45c9251a2",
       "hardware/reference/touch-flo-faucet/westbrass-reference/westbrass-reference.step.mesh": "235b08ce268d7adc8e373705594fbcd6f07ddaf4cb4c31a25ca2aebd7d5fe492",
       "hardware/reference/wago-221/wago-221-413.step": "347e13d997b67c361c15984de75698f9eac46d96cc596d3701cf651b6c2cc482",
@@ -1607,6 +1607,7 @@
     "2cb6c5dcf1c3ffc13fd28599749dd625ad1b1112bcc529684bc5d31399433277",
     "2cdb5f3d8072dcc4e7653cdbac146d42d6b7a1e8a89f9ee7cfeca2efeb13fd00",
     "2cdcdf42d66094ebe976813f1765c856780e038350b01314973998843fed1e86",
+    "2d7df41526aed6332161b3cfef04732ee440f3e8fcbc4200e6fa63c5e89b4a56",
     "2d845e0eb8b9429ec3ee49d69af1baa012e572c3f2c5b1c5f276455a3d953891",
     "2da11a9df4a3a44df9137243d3b7a526598d328dd49e4fe5422e2f0ed60807d1",
     "2dac7c04898f879b73d204fabc0ac29b7503352e9b1d8d6ebbfc7c2a331b62b7",
@@ -1977,11 +1978,12 @@
     "fe212f473bc6e16ac5f361cb730341dfa32afbfd026915d2d2a486387e10605e",
     "fe70ed0aa4abaaef4716be7977853762560cd045101492a721e3bb327db594ca",
     "ff03f703761ecc4039f509e1df18aeed244680395bccf72b980fa49c13774349",
-    "ff51ef89d27c89ae0ec0555f1adf8cc803b0cf4e90b57b582379347e005f4990"
+    "ff51ef89d27c89ae0ec0555f1adf8cc803b0cf4e90b57b582379347e005f4990",
+    "ff71f4aee0b12689b722a8ed669d67a1edc5d5b048152012588d8108a0426770"
   ],
   "moved": {
-    "hardware/assembly/scenes/glb/back-half.glb.mesh": 1794271090.8505769,
-    "hardware/assembly/scenes/glb/back-top.glb.mesh": 1794271090.8505769,
+    "hardware/assembly/scenes/glb/back-half.glb.mesh": 1794271403.428597,
+    "hardware/assembly/scenes/glb/back-top.glb.mesh": 1794271403.428597,
     "hardware/assembly/scenes/glb/cap-lid-fill.glb.mesh": 1794270755.869326,
     "hardware/assembly/scenes/glb/cap-lid.glb.mesh": 1794271090.8505769,
     "hardware/assembly/scenes/glb/cold-core-open.glb.mesh": 1794270755.869326,
@@ -2020,7 +2022,7 @@
     "hardware/install-guide/plumbing/modern/art/modern-water-on.png": 1793830497,
     "hardware/manifold-layout/enclosure-assembly.facts.json": 1794269272.362814,
     "hardware/manifold-layout/enclosure-assembly.physical.step.mesh": 1793858653,
-    "hardware/manifold-layout/enclosure-assembly.step.mesh": 1794271090.8505769,
+    "hardware/manifold-layout/enclosure-assembly.step.mesh": 1794271403.428597,
     "hardware/manifold-layout/manifold-layout.step": 1794269272.362814,
     "hardware/manifold-layout/manifold-layout.step.mesh": 1794269243.109754,
     "hardware/manifold-layout/studies/east-feed/parts/east-feed-ceiling.step": 1792828088,
@@ -2828,7 +2830,7 @@
     "hardware/reference/jg-pp0208e-tee/jg-pp0208e-tee.step": 1788994414,
     "hardware/reference/jg-pp0208e-tee/jg-pp0208e-tee.step.mesh": 1793617993,
     "hardware/reference/jg-pp0308e-elbow/jg-pp0308e-elbow.step": 1790835302,
-    "hardware/reference/jg-pp0308e-elbow/jg-pp0308e-elbow.step.mesh": 1793697604,
+    "hardware/reference/jg-pp0308e-elbow/jg-pp0308e-elbow.step.mesh": 1794271403.428597,
     "hardware/reference/jg-pp0308e-elbow/jg-pp0308e-elbow.stl": 1793750338,
     "hardware/reference/jg-pp0408w/jg-pp0408w.step": 1787356215,
     "hardware/reference/jg-pp0408w/jg-pp0408w.step.mesh": 1793568839,
@@ -2850,7 +2852,7 @@
     "hardware/reference/molex-micro-fit-4/molex-micro-fit-4-panel.step.mesh": 1793568839,
     "hardware/reference/mq6-gas-sensor/mq6-gas-sensor.fine.step.npz": 1793697604,
     "hardware/reference/mq6-gas-sensor/mq6-gas-sensor.step": 1787354099,
-    "hardware/reference/mq6-gas-sensor/mq6-gas-sensor.step.mesh": 1793503760,
+    "hardware/reference/mq6-gas-sensor/mq6-gas-sensor.step.mesh": 1794271403.428597,
     "hardware/reference/multiplex-asse1022/multiplex-asse1022.step": 1793316034,
     "hardware/reference/multiplex-asse1022/multiplex-asse1022.step.mesh": 1793617993,
     "hardware/reference/neofit-achv44-check/neofit-achv44-check.step": 1792893021,
@@ -2877,7 +2879,7 @@
     "hardware/reference/pump-barb-joint/pump-barb-joint.step": 1793537886,
     "hardware/reference/pump-barb-joint/pump-barb-joint.step.mesh": 1793555606,
     "hardware/reference/riteav-keystone/riteav-keystone.step": 1787897853,
-    "hardware/reference/riteav-keystone/riteav-keystone.step.mesh": 1793617993,
+    "hardware/reference/riteav-keystone/riteav-keystone.step.mesh": 1794271403.428597,
     "hardware/reference/seaflo-22-pump/seaflo-22-pump.step": 1787354099,
     "hardware/reference/seaflo-22-pump/seaflo-22-pump.step.mesh": 1793568839,
     "hardware/reference/seaflo-discharge-chain/seaflo-discharge-chain.fine.step.mesh": 1793617993,
@@ -2900,7 +2902,7 @@
     "hardware/reference/tee-connector/tee-connector.step.mesh": 1793617993,
     "hardware/reference/teyleten-relay/teyleten-relay.fine.step.npz": 1793697604,
     "hardware/reference/teyleten-relay/teyleten-relay.step": 1794165719,
-    "hardware/reference/teyleten-relay/teyleten-relay.step.mesh": 1794165703,
+    "hardware/reference/teyleten-relay/teyleten-relay.step.mesh": 1794271403.428597,
     "hardware/reference/teyleten-relay/teyleten-relay.step.npz": 1794165719,
     "hardware/reference/touch-flo-faucet/display-reference/button-left.step": 1792893021,
     "hardware/reference/touch-flo-faucet/display-reference/button-right.step": 1792893021,
@@ -2932,11 +2934,11 @@
   },
   "made": {
     "hardware/assembly/scenes/glb/back-half.glb.mesh": {
-      "commit": "8052f79db2f6e28ac8fe1ef8b56438ef74268222",
+      "commit": "eee28552d645f66a9804f2e59cec4b0e2f05987c",
       "unproven": true
     },
     "hardware/assembly/scenes/glb/back-top.glb.mesh": {
-      "commit": "8052f79db2f6e28ac8fe1ef8b56438ef74268222",
+      "commit": "eee28552d645f66a9804f2e59cec4b0e2f05987c",
       "unproven": true
     },
     "hardware/assembly/scenes/glb/cap-lid-fill.glb.mesh": {
@@ -3094,7 +3096,7 @@
       "unproven": true
     },
     "hardware/manifold-layout/enclosure-assembly.step.mesh": {
-      "commit": "8052f79db2f6e28ac8fe1ef8b56438ef74268222",
+      "commit": "eee28552d645f66a9804f2e59cec4b0e2f05987c",
       "unproven": true
     },
     "hardware/manifold-layout/manifold-layout.step": {
@@ -5064,7 +5066,7 @@
       "unproven": true
     },
     "hardware/reference/jg-pp0308e-elbow/jg-pp0308e-elbow.step.mesh": {
-      "commit": "bf5c9ea2e1f838cf68f7e32f909ace7c1d41bc8b",
+      "commit": "eee28552d645f66a9804f2e59cec4b0e2f05987c",
       "unproven": true
     },
     "hardware/reference/jg-pp0408w/jg-pp0408w.step": {
@@ -5148,7 +5150,7 @@
       "unproven": true
     },
     "hardware/reference/mq6-gas-sensor/mq6-gas-sensor.step.mesh": {
-      "commit": "fef5614a76950a4c9c157f116c8e61e09b7c1c44",
+      "commit": "eee28552d645f66a9804f2e59cec4b0e2f05987c",
       "unproven": true
     },
     "hardware/reference/multiplex-asse1022/multiplex-asse1022.step": {
@@ -5244,7 +5246,7 @@
       "unproven": true
     },
     "hardware/reference/riteav-keystone/riteav-keystone.step.mesh": {
-      "commit": "bd32447e2f0360d2c94a5e3c2a07890a9f36ea04",
+      "commit": "eee28552d645f66a9804f2e59cec4b0e2f05987c",
       "unproven": true
     },
     "hardware/reference/seaflo-22-pump/seaflo-22-pump.step": {
@@ -5328,7 +5330,7 @@
       "unproven": true
     },
     "hardware/reference/teyleten-relay/teyleten-relay.step.mesh": {
-      "commit": "b336be405b5dc7ca193b835530ae3f26c5ea50c0",
+      "commit": "eee28552d645f66a9804f2e59cec4b0e2f05987c",
       "unproven": true
     },
     "hardware/reference/teyleten-relay/teyleten-relay.step.npz": {
