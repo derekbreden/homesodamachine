@@ -1,0 +1,310 @@
+{
+  "views": [
+    {
+      "name": "relay-routes",
+      "caption": "The conductor routes pass around the relay housings and approach their actual terminal mouths.",
+      "before": "relay-routes-before.webp",
+      "after": "relay-routes-after.webp",
+      "width": 1000,
+      "height": 750,
+      "marks": [
+        {
+          "x": 509.3,
+          "y": 329.1,
+          "r": 31.1,
+          "label": "Relay clearance",
+          "at": [
+            -85,
+            419,
+            304
+          ]
+        }
+      ],
+      "model": "manifold-layout/enclosure-assembly.step",
+      "camera": {
+        "projection": "perspective",
+        "position": [
+          52.265793381252365,
+          485.6328966906262,
+          389.0860553668767
+        ],
+        "target": [
+          -85,
+          417,
+          293
+        ],
+        "up": [
+          0,
+          0,
+          1
+        ],
+        "fov": 45,
+        "near": 28.91884586270831,
+        "far": 657.3037309926627,
+        "aspect": 1.3333333333333333
+      },
+      "highlight": [],
+      "ghost": [],
+      "only": [],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "file",
+          "sha256": "b2bf43f2aff04b458262e6f5ebca0f40ed264eba441c97cb20b058e6d4e6782a",
+          "commit": null
+        },
+        "after": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "file",
+          "sha256": "306e8b049c257d65c81fcc9a0f0e2fba616b34319a6e8fe7192a3bd3fd5feeb1",
+          "commit": null
+        }
+      },
+      "changed": [
+        "wire-AC3-L",
+        "wire-J5-GND",
+        "wire-J5-V5",
+        "wire-J6-RA3",
+        "wire-J6-GND",
+        "wire-J6-RA1",
+        "wire-J6-RA4",
+        "wire-J5-IO2",
+        "wire-J6-RA2"
+      ],
+      "withinMeshing": []
+    },
+    {
+      "name": "pump-cradle",
+      "caption": "The installed pump retains its bare casing and underside relief at the equipment-lid cradle.",
+      "before": "pump-cradle-before.webp",
+      "after": "pump-cradle-after.webp",
+      "width": 1000,
+      "height": 750,
+      "marks": [
+        {
+          "x": 515.1,
+          "y": 382.6,
+          "r": 26.7,
+          "label": "Pump cradle",
+          "at": [
+            -15,
+            402,
+            250
+          ]
+        }
+      ],
+      "model": "manifold-layout/enclosure-assembly.step",
+      "camera": {
+        "projection": "perspective",
+        "position": [
+          165.1073809799711,
+          522.5751666859798,
+          412.59664288197405
+        ],
+        "target": [
+          -10,
+          400,
+          255
+        ],
+        "up": [
+          0,
+          0,
+          1
+        ],
+        "fov": 45,
+        "near": 76.99755215571736,
+        "far": 632.3934050107342,
+        "aspect": 1.3333333333333333,
+        "section": {
+          "at": [
+            0,
+            0,
+            270
+          ],
+          "normal": [
+            0,
+            0,
+            1
+          ],
+          "removes": "the side the normal points to"
+        }
+      },
+      "highlight": [
+        "cold-core/g-ganen-pump"
+      ],
+      "ghost": [],
+      "only": [],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "file",
+          "sha256": "5c300dbc045fb602a2a26d2007b9c84000d93bead12cf4613aadb07eb85df9d7",
+          "commit": null
+        },
+        "after": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "file",
+          "sha256": "462536f45b7f3c05759ff07fa9ac3ce6d5ea99413b454c049dcfe224de6f6340",
+          "commit": null
+        }
+      },
+      "changed": [
+        "cold-core/g-ganen-pump"
+      ],
+      "withinMeshing": []
+    },
+    {
+      "name": "coil-bridge",
+      "caption": "The evaporator follows its authored relief over the reed bridge and keeps clear of the sensor glass.",
+      "before": "coil-bridge-before.webp",
+      "after": "coil-bridge-after.webp",
+      "width": 1000,
+      "height": 750,
+      "marks": [
+        {
+          "x": 496.3,
+          "y": 388.2,
+          "r": 32.6,
+          "label": "Reed bridge",
+          "at": [
+            68,
+            323.8,
+            124
+          ]
+        }
+      ],
+      "model": "manifold-layout/enclosure-assembly.step",
+      "camera": {
+        "projection": "perspective",
+        "position": [
+          229.82802286801908,
+          350.3724836588831,
+          152.37248365888306
+        ],
+        "target": [
+          65,
+          324,
+          126
+        ],
+        "up": [
+          0,
+          0,
+          1
+        ],
+        "fov": 45,
+        "near": 73.93975752741963,
+        "far": 482.34046935352114,
+        "aspect": 1.3333333333333333
+      },
+      "highlight": [],
+      "ghost": [],
+      "only": [],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "file",
+          "sha256": "652154c370293f82cbefac71b6211dfca50f6e23bef7e8063edb04a51e45de8c",
+          "commit": null
+        },
+        "after": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "file",
+          "sha256": "cf3e18a93d089e5d49b4148aedca69f54936a471131a943ae7b498f7d9b4c86c",
+          "commit": null
+        }
+      },
+      "changed": [
+        "cold-core/evap-coil"
+      ],
+      "withinMeshing": []
+    },
+    {
+      "name": "display-chimney",
+      "caption": "The display leads use the shared passage and chimney before fanning out to the connector.",
+      "before": "display-chimney-before.webp",
+      "after": "display-chimney-after.webp",
+      "width": 1000,
+      "height": 750,
+      "marks": [
+        {
+          "x": 500,
+          "y": 343.5,
+          "r": 59.8,
+          "label": "Shared passage",
+          "at": [
+            0,
+            90,
+            294.5
+          ]
+        }
+      ],
+      "model": "manifold-layout/enclosure-assembly.step",
+      "camera": {
+        "projection": "perspective",
+        "position": [
+          0,
+          179.00103659607112,
+          352.3007256172498
+        ],
+        "target": [
+          0,
+          90,
+          290
+        ],
+        "up": [
+          0,
+          0,
+          1
+        ],
+        "fov": 45,
+        "near": 0.21846257252163956,
+        "far": 492.3957228440597,
+        "aspect": 1.3333333333333333,
+        "section": {
+          "at": [
+            0,
+            90,
+            0
+          ],
+          "normal": [
+            0,
+            1,
+            0
+          ],
+          "removes": "the side the normal points to"
+        }
+      },
+      "highlight": [
+        "wire-J9-*"
+      ],
+      "ghost": [],
+      "only": [],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "file",
+          "sha256": "10b740cc435a39327f80d99f989b3ddccabe9cf5ba67ef30780fee92648cdb17",
+          "commit": null
+        },
+        "after": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "file",
+          "sha256": "487843d691f2a8e27ce60d66ed5558b7b0926075d5f9c281c70aab4b3ee08ecb",
+          "commit": null
+        }
+      },
+      "changed": [
+        "wire-J9-GND",
+        "wire-J9-V12",
+        "wire-J9-B",
+        "wire-J9-A",
+        "enclosure-front-top"
+      ],
+      "withinMeshing": []
+    }
+  ]
+}
