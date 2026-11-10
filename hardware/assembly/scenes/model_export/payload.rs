@@ -18,6 +18,16 @@ pub struct Entry {
 }
 
 impl Entry {
+    /// A source binding retains its body identity before an installed instance is renamed.
+    fn bind_source(&mut self, source: &str, sha: &str) {
+        *self = self.clone().carried(&Frame::read(None).unwrap());
+        if self.meta["_scene"]["source"].is_null() {
+            self.meta["_scene"]["source_name"] = self.meta["_scene"]["name"].clone();
+            self.meta["_scene"]["source"] = json!(source);
+            self.meta["_scene"]["source_sha256"] = json!(sha);
+        }
+    }
+
     pub fn name(&self) -> &str {
         self.meta["name"].as_str().unwrap()
     }
@@ -264,8 +274,7 @@ impl Payload {
             if let Some(source)=publication_source(&path) {
                 let sha=super::digest(&bytes);
                 for entry in &mut shown.meshes {
-                    *entry=entry.clone().carried(&Frame::read(None)?);
-                    if entry.meta["_scene"]["source"].is_null() {entry.meta["_scene"]["source"]=json!(source);entry.meta["_scene"]["source_sha256"]=json!(sha);}
+                    entry.bind_source(&source, &sha);
                 }
             }
             if let Some(expected) = skin.get("source_sha256").and_then(Value::as_str) {
@@ -385,8 +394,7 @@ pub fn placed_surfaces(
                 if let Some(relative)=publication_source(&payload_path) {
                     let sha=super::digest(&bytes);
                     for entry in &mut shown {
-                        *entry=entry.clone().carried(&Frame::read(None)?);
-                        if entry.meta["_scene"]["source"].is_null() {entry.meta["_scene"]["source"]=json!(relative);entry.meta["_scene"]["source_sha256"]=json!(sha);}
+                        entry.bind_source(&relative, &sha);
                     }
                 }
                 Some(shown)
@@ -463,5 +471,69 @@ impl SelfPayload {
             .meshes
             .remove(0),
         )
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use hsm_kernel::{plane::Plane, write::Body};
+
+    #[test]
+    fn installed_aliases_refresh_their_source_bodies_in_their_authored_frames() -> Result<()> {
+        let root = std::env::temp_dir().join(format!("hsm-alias-refresh-{}", std::process::id()));
+        let source = root.join("hardware/reference/union");
+        std::fs::create_dir_all(&source)?;
+        let fitting = Plane::XY.cuboid(8., 6., 4.);
+        let nut = Plane::XY.cuboid(10., 8., 2.);
+        let bodies = [Body {name:"fitting", color:None, solid:&fitting}, Body {name:"nut", color:None, solid:&nut}];
+        let model = source.join("union.step.npz");
+        let payload = source.join("union.step.mesh");
+        std::fs::write(&model, hsm_kernel::step::model_bytes(&bodies))?;
+        let raw = hsm_kernel::write::payload_bytes_with_sources(&bodies, None, None);
+        hsm_geometry::scene::store(&raw)?;
+        std::fs::write(&payload, &raw)?;
+        let frame = json!([[0.,-1.,0.,31.],[1.,0.,0.,52.],[0.,0.,1.,73.]]);
+        let nut_frame = json!([[1.,0.,0.,31.],[0.,1.,0.,51.],[0.,0.,1.,73.]]);
+        let relative = "hardware/reference/union/union.step.mesh";
+        for graft in [false, true] {
+            let output = root.join(if graft {"graft"} else {"reference"});
+            let mut spec = json!({"instances":[
+                {"model":model,"indices":[0],"name":"bulkhead-carb","transform":frame},
+                {"model":model,"indices":[1],"name":"bulkhead-carb-nut","transform":nut_frame}
+            ]});
+            if graft {
+                spec["presentation"] = json!([
+                    {"model":model,"indices":[0],"targets":["bulkhead-carb"],"transform":frame},
+                    {"model":model,"indices":[1],"targets":["bulkhead-carb-nut"],"transform":nut_frame}
+                ]);
+            }
+            super::super::model::physical(&spec, &output)?;
+            let bytes = std::fs::read(output.join("enclosure-assembly.step.mesh"))?;
+            let mut head = hsm_geometry::scene::header(&bytes)?.0;
+            let before = head["meshes"].as_array().unwrap().clone();
+            for (node, original) in before.iter().zip(["fitting", "nut"]) {
+                assert_eq!(node["source"], relative);
+                assert_eq!(node["source_name"], original);
+            }
+            let bigger = Plane::XY.cuboid(12., 6., 4.);
+            let changed = [Body {name:"fitting", color:None, solid:&bigger}, bodies[1], Body {name:"spare", color:None, solid:&nut}];
+            let next = hsm_kernel::write::payload_bytes_with_sources(&changed, None, None);
+            assert!(hsm_geometry::scene::replace_selected(&mut head, relative, &next)? > 0);
+            let after = head["meshes"].as_array().unwrap();
+            assert_eq!(after.len(), before.len());
+            assert_ne!(after[0]["asset"], before[0]["asset"]);
+            for (a, b) in after.iter().zip(&before) {
+                assert_eq!(a["name"], b["name"]);
+                assert_eq!(a["transform"], b["transform"]);
+                assert_eq!(a["source_sha256"], super::super::digest(&next));
+            }
+            let removed = hsm_kernel::write::payload_bytes_with_sources(&changed[..1], None, None);
+            hsm_geometry::scene::replace_selected(&mut head, relative, &removed)?;
+            assert_eq!(head["meshes"].as_array().unwrap().len(), 1);
+            assert_eq!(head["meshes"][0]["name"], "bulkhead-carb");
+        }
+        std::fs::remove_dir_all(root)?;
+        Ok(())
     }
 }
