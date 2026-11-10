@@ -49,7 +49,7 @@ pub fn frame(outer: &Bounds) -> ([P3; 3], P3) {
 }
 
 /// The cover's inset, retained glass seat, PCB pocket and blind insert pilots.
-fn cuts(g: &mut Graph, pcb_depth: f64, wire_exit_x: f64) -> Shape {
+fn cuts(g: &mut Graph, pcb_depth: f64) -> Shape {
     let inset = rounded_prism(g, mount::WIDTH + 2.0 * BODY_X_AIR, mount::HEIGHT + 2.0 * BODY_Y_AIR, mount::CORNER + BODY_Y_AIR,
                               BACK, 1.0, 0.0, 0.0);
     let glass = rounded_prism(g, 113.8, 77.3, 2.65, GLASS_SEAT, 1.0, 0.0, 0.0);
@@ -60,56 +60,46 @@ fn cuts(g: &mut Graph, pcb_depth: f64, wire_exit_x: f64) -> Shape {
         let pilot = g.zcyl(mount::PILOT_DIA / 2.0, x, y, BACK - mount::PILOT_DEPTH, BACK + 0.01);
         result = g.union(result, &[pilot]);
     }
-    let status = status_cuts(g, wire_exit_x);
+    let status = status_cuts(g);
     g.union(result, &[status])
 }
 
-/// The status plate covers an open service pocket for the whole lamp. Its wire exit joins
-/// the shared corridor behind the pump with a roof that follows the printer's frame.
-fn status_cuts(g: &mut Graph, wire_exit_x: f64) -> Shape {
+/// The round lamp pocket and its diamond lead channel share their lower faces.
+fn status_cuts(g: &mut Graph) -> Shape {
     let seat = rounded_prism(g, mount::STATUS_WIDTH + 2.0 * BODY_X_AIR, mount::STATUS_HEIGHT + 2.0 * BODY_Y_AIR,
                              mount::CORNER + BODY_Y_AIR, BACK, 1.0, mount::STATUS_CX, 0.0);
-    let foot = BACK - mount::LED_SET_BACK - mount::LED_LENGTH;
     let tilt = crate::structure::ANGLE.to_radians();
     let (up, across) = ([tilt.sin(), tilt.cos()], [tilt.cos(), -tilt.sin()]);
-    // Coordinates relative to the flange in the printer's rearward/up directions.
-    let at = |rear: f64, rise: f64| [
-        mount::LIGHT_Y + across[0] * rear + up[0] * rise,
-        foot + across[1] * rear + up[1] * rise,
+    // Expanding down from the retained roof planes deepens the bottom without a roof step.
+    let expansion = mount::LED_POCKET_DEPTH / (2.0 * up[1]);
+    let r = mount::LEAD_HALF_SPAN + expansion;
+    let c = [
+        mount::LIGHT_Y - expansion * up[0],
+        GLASS_SEAT - mount::BACKING - mount::LEAD_HALF_SPAN * up[1] - expansion * up[1],
     ];
-    let drop = mount::LED_TAIL_LENGTH + mount::LED_WIRE_RUNOUT;
-    let well = rounded_prism(g, mount::LED_BORE_DIA,
-        mount::LED_SLOT_RUN + mount::LED_BORE_DIA, mount::LED_BORE_DIA / 2.0,
-        foot - drop, BACK + 0.01, mount::STATUS_CX, mount::LIGHT_Y + mount::LED_SLOT_RUN / 2.0);
-    let well = g.feature(well, "status-led-tail-well", "Status LED resistor and heat-shrink well", &["status-plate"]);
-    // The cross run stays behind the motor guide and opens into the existing centre corridor.
-    let r = mount::LEAD_HALF_SPAN;
-    let c = at(29.0, -22.0);
     let section = vec![
         [c[0] + r * up[0], c[1] + r * up[1]],
         [c[0] + r * across[0], c[1] + r * across[1]],
         [c[0] - r * up[0], c[1] - r * up[1]],
         [c[0] - r * across[0], c[1] - r * across[1]],
     ];
-    let channel = g.prism(0, wire_exit_x - 1.0, mount::STATUS_CX, section);
-    let channel = g.feature(channel, "status-led-wire-channel", "Status LED wire exit", &["status-plate"]);
-    g.union(seat, &[well, channel])
-}
-
-/// Continuous stock separates the LED service pocket from the pump's terminal clearance.
-pub fn status_led_backing(g: &mut Graph, outer: &Bounds) -> Shape {
-    let foot = BACK - mount::LED_SET_BACK - mount::LED_LENGTH;
-    let width = mount::LED_BORE_DIA + 2.0 * mount::BACKING;
-    let guard = rounded_prism(g, width, mount::LED_SLOT_RUN + width, width / 2.0,
-        foot - mount::LED_TAIL_LENGTH - mount::LED_WIRE_RUNOUT - mount::BACKING, BACK,
-        mount::STATUS_CX, mount::LIGHT_Y + mount::LED_SLOT_RUN / 2.0);
-    let (rotation, translation) = frame(outer);
-    place(g, guard, rotation, translation)
+    let radius = mount::LED_BORE_DIA / 2.0;
+    let cylinder = g.zcyl(radius, mount::STATUS_CX, mount::LIGHT_Y, section[2][1] - 0.01, BACK + 0.01);
+    let above_floor = g.prism(0, mount::STATUS_CX - radius - 0.01, mount::STATUS_CX + radius + 0.01, vec![
+        section[3], section[2], section[1],
+        [section[1][0], BACK + 0.01], [section[3][0], BACK + 0.01],
+    ]);
+    let bore = g.intersect(cylinder, &[above_floor]);
+    let bore = g.feature(bore, "status-led-bore", "Status LED bulb pocket", &["status-plate"]);
+    let pcb_edge = BODY_OFFSET_X + pcb_x() / 2.0;
+    let channel = g.prism(0, pcb_edge - 1.0, mount::STATUS_CX, section);
+    let channel = g.feature(channel, "status-led-wire-channel", "Status LED lead channel", &["status-plate"]);
+    g.union(seat, &[bore, channel])
 }
 
 /// The display and its side-screw pilots, placed on the display plane.
 pub fn display_cut(g: &mut Graph, outer: &Bounds) -> Shape {
     let (rotation, translation) = frame(outer);
-    let local = cuts(g, FACET_THICKNESS + pcb_cut_through(), -centre_x(outer));
+    let local = cuts(g, FACET_THICKNESS + pcb_cut_through());
     place(g, local, rotation, translation)
 }

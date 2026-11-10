@@ -350,8 +350,7 @@ pub fn fixed_cuts(g: &mut Graph, b: &Box) -> Vec<Shape> {
     let wires = wire_cuts(g, b);
     out.extend(wires.iter().map(|(shape, _)| *shape));
     out.push(upper_wire_room(g, b, &wires));
-    let led_backing = display::status_led_backing(g, &b.outer);
-    out.into_iter().map(|opening| g.cut(opening, &[led_backing])).collect()
+    out
 }
 
 /// Broad upper flange stops and insert bores in the continuous ceiling retain each pump independently.

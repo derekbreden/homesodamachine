@@ -80,11 +80,7 @@ pub const LED_LENGTH: f64 = 8.7;
 pub const LED_SET_BACK: f64 = 1.0;
 /// Its bore below the plate's seat: the flange and a slip.
 pub const LED_BORE_DIA: f64 = 6.4;
-/// A conservative envelope for the prewired resistor, joints and heat-shrink, kept straight.
-pub const LED_TAIL_DIA: f64 = 6.0;
-pub const LED_TAIL_LENGTH: f64 = 30.0;
-/// The covered service slot also accepts an already formed tail laid up the plate.
-pub const LED_SLOT_RUN: f64 = 20.0;
-/// Free wire beyond the insulated assembly turns into the shared electrical corridor.
-pub const LED_WIRE_RUNOUT: f64 = 10.0;
-pub const LEAD_HALF_SPAN: f64 = 6.0;
+/// The pocket's additional depth below the channel's reference section.
+pub const LED_POCKET_DEPTH: f64 = 2.0;
+/// The reference diamond from the bulb pocket to the display's PCB pocket.
+pub const LEAD_HALF_SPAN: f64 = 3.5;
