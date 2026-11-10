@@ -37,20 +37,6 @@ damage. A fused mat with a clean-looking underside does not establish useful
 support removal. The first screen's spontaneous release is recorded in
 [`physical-result.json`](../physical-result.json).
 
-`coupons.rs` makes the labeled meshes in Rust. `prepare.py` uses the existing
-ceiling-plate writer with the local recipe's process and object settings. The
-editable project is here; the accepted machine archive and launch receipt
+`coupons.rs` defines the labeled meshes in Rust. The [plate preparation source](https://github.com/derekbreden/homesodamachine/blob/d24b111b5d10e1eed4574db786e5ae1d0b96d445/hardware/print-tests/petgf-dense-roofs/close-contact/prepare.py) is archived in Git.
+The editable project is here; the accepted machine archive and launch receipt
 are in [`mark1/`](mark1/).
-
-To regenerate the authored specimens and editable project:
-
-```sh
-ln -s ../../../../hardware/print-tests/petgf-dense-roofs/close-contact/coupons.rs tools/hsm/sandbox/examples/close-contact.rs
-python3 tools/run.py -- cargo run --release --locked -j2 --manifest-path tools/hsm/Cargo.toml -p hsm-sandbox --example close-contact -- hardware/print-tests/petgf-dense-roofs/close-contact/parts
-tools/cad-venv/bin/python hardware/print-tests/petgf-dense-roofs/close-contact/prepare.py --cli-output .cache/runs/close-contact-reproduction/input/close-contact.3mf
-```
-
-Slice the CLI input with arrangement and orientation preserved, then apply the
-existing cooling stage using the editable project. Inspect the native contact
-planes, bridge bead height, speeds, checksum, nozzle and bed footprint before
-another submission. This is a manual print experiment, outside the normal build.

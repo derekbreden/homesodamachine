@@ -27,14 +27,7 @@ estimate are in [`ready/`](ready/). Mark1's accepted job, selected send options
 and startup reading are in [`mark1/`](mark1/). The physical rail removal and
 sliding fit result remain pending.
 
-## Reproduce
+## Article sources
 
-`samples.rs` crops the production meshes with the installed Rust geometry engine.
-`prepare.py` reuses the native plate writer. Temporary conversions and slicer
-output stay in the run directory; finished meshes and machine files remain here.
-
-```sh
-tools/cad-venv/bin/python hardware/print-tests/petgf-dense-roofs/rail-fit-30/prepare.py --geometry --slice
-```
-
-The generator submits no printer job and adds no ordinary build or commit check.
+The specimen geometry is defined in `samples.rs`. The [plate preparation source](https://github.com/derekbreden/homesodamachine/blob/d24b111b5d10e1eed4574db786e5ae1d0b96d445/hardware/print-tests/petgf-dense-roofs/rail-fit-30/prepare.py) is archived in Git.
+The retained project, slice and launch records identify the prepared article.

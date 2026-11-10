@@ -55,18 +55,7 @@ appearance. The earlier D/E outcome is in the
 [physical result](../close-contact/physical-result.json); its wall anchoring
 does not establish this plate's result.
 
-## Reproduce
+## Article sources
 
-`samples.rs` authors the cantilever and free panels in Rust and crops the pad
-from the retained production surface. `prepare.py` uses the existing native
-plate writer and explicitly loads the reviewed D recipe. Temporary source
-conversions and slice output stay in the run directory; the finished meshes
-and machine file remain here.
-
-```sh
-tools/cad-venv/bin/python hardware/print-tests/petgf-dense-roofs/peel-scenarios/prepare.py --geometry --slice
-```
-
-The generator submits no printer job. Review the emitted contacts, model
-anchoring and bed footprint before another submission. This manual comparison
-adds no ordinary build or commit check.
+The specimen geometry is defined in `samples.rs`. The [plate preparation source](https://github.com/derekbreden/homesodamachine/blob/d24b111b5d10e1eed4574db786e5ae1d0b96d445/hardware/print-tests/petgf-dense-roofs/peel-scenarios/prepare.py) is archived in Git.
+The retained project, slice and launch records identify the prepared article.
