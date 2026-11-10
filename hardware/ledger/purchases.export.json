@@ -9,6 +9,14 @@
       "purchase_id": "pur-f87e1857e1274f4399e5b2dbd2ea0680"
     },
     {
+      "allocation_id": "alloc-02f17132dd744034842ef67d2ece7eae",
+      "amount_minor": 750,
+      "currency": "USD",
+      "event_id": "evt-fd3cb92b17f746cfb1c5166c3d22e9c3",
+      "order_id": "amazon:112-6378482-5879429",
+      "purchase_id": "pur-3fca793e96a64c20b79ac0831efc3b50"
+    },
+    {
       "allocation_id": "alloc-07fac5c512f74098948e6f61424ffcdc",
       "amount_minor": 27872,
       "currency": "USD",
@@ -73,6 +81,14 @@
       "purchase_id": "pur-80901a22d6594b1699dfc9566ee593f9"
     },
     {
+      "allocation_id": "alloc-0df869ee6e89452f980f54eeea0253e9",
+      "amount_minor": 1136,
+      "currency": "USD",
+      "event_id": "evt-03528b8bbe2f47c39bee9b7de9b837c3",
+      "order_id": "amazon:112-6057627-7806613",
+      "purchase_id": "pur-7ebe706384b34c718af7af886e0988d7"
+    },
+    {
       "allocation_id": "alloc-0e87647985314a76a3e1ff6e8ec779d3",
       "amount_minor": 5017,
       "currency": "USD",
@@ -119,6 +135,14 @@
       "event_id": "evt-84504f8952be468f8a8badbf27c98ed1",
       "order_id": "anthropic:HYODLCRX-0053",
       "purchase_id": "pur-73a032e27eb4484f9c506ce0d510dec7"
+    },
+    {
+      "allocation_id": "alloc-163982dcc6a54cca92ee77583785149c",
+      "amount_minor": 20000,
+      "currency": "USD",
+      "event_id": "evt-b7604b4f3b3441a09eeb753dbeb2c279",
+      "order_id": "anthropic:HYODLCRX-0084",
+      "purchase_id": "pur-ff6404193aa640179f2209f33f2997f8"
     },
     {
       "allocation_id": "alloc-16415837baa74674b844e8926bd1fc72",
@@ -193,6 +217,14 @@
       "purchase_id": "pur-6cd30f5bb2824177a87475fe86b765d1"
     },
     {
+      "allocation_id": "alloc-1d75063bc073464ba16e4d70cf966d46",
+      "amount_minor": 1929,
+      "currency": "USD",
+      "event_id": "evt-66ddeac3226743dda427fea8db281746",
+      "order_id": "amazon:112-8772290-0884241",
+      "purchase_id": "pur-5f404f5035cb425a9a8d90c69010a404"
+    },
+    {
       "allocation_id": "alloc-1dd4ee149dfe42e58f2204fbbb9e678f",
       "amount_minor": 6969,
       "currency": "USD",
@@ -257,12 +289,28 @@
       "purchase_id": "pur-29e2aaa320c54e198790b704da9356f5"
     },
     {
+      "allocation_id": "alloc-25ba262889384230a142a3e45e1d1633",
+      "amount_minor": 2679,
+      "currency": "USD",
+      "event_id": "evt-212f0cc5453646209e86acf44a509e60",
+      "order_id": "amazon:112-1658930-0707414",
+      "purchase_id": "pur-3161c146b8ef40e5817e13af4dc07846"
+    },
+    {
       "allocation_id": "alloc-25dfa00770bd463ab19b4c8d4a75a9c6",
       "amount_minor": 2358,
       "currency": "USD",
       "event_id": "evt-9fd2d4a65f7d45a594a7ac3a6837d416",
       "order_id": "amazon:114-5530613-2918640",
       "purchase_id": "pur-9c025ba9576044b38a4745d084361ea5"
+    },
+    {
+      "allocation_id": "alloc-261088a6a22e4e7eaca2670db3d54fb3",
+      "amount_minor": 1071,
+      "currency": "USD",
+      "event_id": "evt-92e67e1783c94f10ac80f6a9895996db",
+      "order_id": "amazon:112-8431385-7749045",
+      "purchase_id": "pur-5f9b203a9810468f8bab74284d78f44d"
     },
     {
       "allocation_id": "alloc-269d773e4af6435c89657286d859d0b2",
@@ -303,6 +351,14 @@
       "event_id": "evt-884a61d8959b413687ba9d073138964d",
       "order_id": "anthropic:HYODLCRX-0024",
       "purchase_id": "pur-0708ec7d202349c19132c5966c553675"
+    },
+    {
+      "allocation_id": "alloc-2b18b9a000d94048a027e783a3b9e31f",
+      "amount_minor": 764,
+      "currency": "USD",
+      "event_id": "evt-7f73633b6a97457eaa442c0429f18359",
+      "order_id": "amazon:114-8768578-0217027",
+      "purchase_id": "pur-4d9f6a3c1e5b4a8d0c3f7e9a1b2c4d63"
     },
     {
       "allocation_id": "alloc-2feb83c94d5b47cdade5b771ba0de564",
@@ -409,12 +465,28 @@
       "purchase_id": "pur-870e9ad9da324c92bdac254c7fb54fa7"
     },
     {
+      "allocation_id": "alloc-42b8617e92d04039babac8507a99d26d",
+      "amount_minor": 768,
+      "currency": "USD",
+      "event_id": "evt-7f73633b6a97457eaa442c0429f18359",
+      "order_id": "amazon:114-8768578-0217027",
+      "purchase_id": "pur-6f1b8c5e3a7d4c0f2e5b9a1c3d4e6f85"
+    },
+    {
       "allocation_id": "alloc-42c00c64777940d9ae77694127f43343",
       "amount_minor": 852,
       "currency": "USD",
       "event_id": "evt-4f7b7d18ceab43979159e02bdb2a306d",
       "order_id": "amazon:112-1633049-9300204",
       "purchase_id": "pur-3ce173932d6c45f184bcd60237a2c790"
+    },
+    {
+      "allocation_id": "alloc-46d597a68ada4e9cb985e3178b0678b5",
+      "amount_minor": 950,
+      "currency": "USD",
+      "event_id": "evt-7f73633b6a97457eaa442c0429f18359",
+      "order_id": "amazon:114-8768578-0217027",
+      "purchase_id": "pur-3c8e5f2b0d4a4f7c9b2e6d8f0a1b3c52"
     },
     {
       "allocation_id": "alloc-476ac9466741403eafba9207206b01e5",
@@ -569,12 +641,36 @@
       "purchase_id": "pur-7cb5c1d8028249feb0e80687059fc82e"
     },
     {
+      "allocation_id": "alloc-6475fc36da9b474bb407bfb977313ec4",
+      "amount_minor": 21878,
+      "currency": "USD",
+      "event_id": "evt-173ae81452be441989c194ea73607128",
+      "order_id": "amazon:112-5769102-6239435",
+      "purchase_id": "pur-a9aeeb7107e24ef68654ee86aa1fbe14"
+    },
+    {
+      "allocation_id": "alloc-65f6b7d21bcb4232bb66eaaaa3260e76",
+      "amount_minor": 9556,
+      "currency": "USD",
+      "event_id": "evt-66ddeac3226743dda427fea8db281746",
+      "order_id": "amazon:112-8772290-0884241",
+      "purchase_id": "pur-d95243a541864bd887feefcc369098d4"
+    },
+    {
       "allocation_id": "alloc-6cc4d0f82b1842dba2cd0594e7b1a231",
       "amount_minor": 5000,
       "currency": "USD",
       "event_id": "evt-51a53be1bbf342b0a78f981b92ba9735",
       "order_id": "anthropic:HYODLCRX-0031",
       "purchase_id": "pur-88d876b026634c7f9c10629458923a5e"
+    },
+    {
+      "allocation_id": "alloc-6f0b58e4832e4122a23cc0c6347817e7",
+      "amount_minor": 1393,
+      "currency": "USD",
+      "event_id": "evt-a778aae0f86a47a6b10d733d848c637f",
+      "order_id": "amazon:112-5039065-3785859",
+      "purchase_id": "pur-24623d00c3e94898adf2465f7537b1bd"
     },
     {
       "allocation_id": "alloc-6f85e0f26b7847ff881620bae137d7f5",
@@ -679,6 +775,22 @@
       "event_id": "evt-1caefc917adb4bb5a88fd66bdcbfce8b",
       "order_id": "anthropic:HYODLCRX-0070",
       "purchase_id": "pur-0de724fb2be44bf9b3730bcdec8c7d10"
+    },
+    {
+      "allocation_id": "alloc-812058bbcdd64066ba75750e06606379",
+      "amount_minor": 1071,
+      "currency": "USD",
+      "event_id": "evt-a518d84ef1464651bd19812f7d6129d0",
+      "order_id": "amazon:112-0673623-4429031",
+      "purchase_id": "pur-9fe3b15945c3487da36214f92b80f9ee"
+    },
+    {
+      "allocation_id": "alloc-823cfea6ea8241719515d3d8574d3f12",
+      "amount_minor": 4825,
+      "currency": "USD",
+      "event_id": "evt-66ddeac3226743dda427fea8db281746",
+      "order_id": "amazon:112-8772290-0884241",
+      "purchase_id": "pur-f2a6d291d92649da94f37b960613d32e"
     },
     {
       "allocation_id": "alloc-836e72fcf01b4021ad6a308c786ef035",
@@ -985,6 +1097,14 @@
       "purchase_id": "pur-f24cd0a88f4b4a8ca76f3abc490f81b3"
     },
     {
+      "allocation_id": "alloc-af7569eb76c0433f941cf85559c84fde",
+      "amount_minor": 804,
+      "currency": "USD",
+      "event_id": "evt-7f73633b6a97457eaa442c0429f18359",
+      "order_id": "amazon:114-8768578-0217027",
+      "purchase_id": "pur-5e0a7b4d2f6c4b9e1d4a8f0b2c3d5e74"
+    },
+    {
       "allocation_id": "alloc-b1cf13fb336640e886232cf564cae84c",
       "amount_minor": 3645,
       "currency": "USD",
@@ -999,6 +1119,14 @@
       "event_id": "evt-ed4b655c12a24295898f2074f883b6a9",
       "order_id": "draftwarehouse:244592",
       "purchase_id": "pur-8c01bda97e5f42a49e5b956f6f1a46c9"
+    },
+    {
+      "allocation_id": "alloc-b3751d4175cb402f959875d04712cd4f",
+      "amount_minor": 6320,
+      "currency": "USD",
+      "event_id": "evt-46ab695dde87410681a27f2d7fd8a499",
+      "order_id": "render:EV3NKLCU-0007",
+      "purchase_id": "pur-40f42f9578f642918443b1cc962c3c82"
     },
     {
       "allocation_id": "alloc-b3ba84bcc7b547698a6543ef00d8257c",
@@ -1079,6 +1207,14 @@
       "event_id": "evt-905d96bb8f3a47939404aa3069609fa6",
       "order_id": "anthropic:HYODLCRX-0064",
       "purchase_id": "pur-9eda1c91538d48cf8a434393e6e3efa9"
+    },
+    {
+      "allocation_id": "alloc-bab482f8873c483f9e5988edfdbe6d06",
+      "amount_minor": 16086,
+      "currency": "USD",
+      "event_id": "evt-66ddeac3226743dda427fea8db281746",
+      "order_id": "amazon:112-8772290-0884241",
+      "purchase_id": "pur-a326599d5b464456b43259262c4808ba"
     },
     {
       "allocation_id": "alloc-bb48de78d1ae4d6c85e46241a14f7cb7",
@@ -1175,6 +1311,14 @@
       "event_id": "evt-91639e072e2a4bb7b787e7f0dd925bf5",
       "order_id": "anthropic:HYODLCRX-0013",
       "purchase_id": "pur-43d05d54be2a46458d8442f68c10ac4b"
+    },
+    {
+      "allocation_id": "alloc-ce33c9488fe3497a8aa6036eec1e4ebb",
+      "amount_minor": 85693,
+      "currency": "USD",
+      "event_id": "evt-66ddeac3226743dda427fea8db281746",
+      "order_id": "amazon:112-8772290-0884241",
+      "purchase_id": "pur-3d8a298bd6054af6a120b520e7a8da65"
     },
     {
       "allocation_id": "alloc-cf9cca6aaa1c46bb8b613b5508bb5257",
@@ -1306,11 +1450,11 @@
     },
     {
       "allocation_id": "alloc-e74ce6747dfd4ef3a05d346f304285ff",
-      "amount_minor": 6517,
+      "amount_minor": 3231,
       "currency": "USD",
       "event_id": "evt-7f73633b6a97457eaa442c0429f18359",
       "order_id": "amazon:114-8768578-0217027",
-      "purchase_id": null
+      "purchase_id": "pur-2b7d4e1a9c3f4e6b8a1d5c7e9f0a2b41"
     },
     {
       "allocation_id": "alloc-e78df5ef750e434096c1a49d205880a4",
@@ -1367,6 +1511,14 @@
       "event_id": "evt-386ad2f294484e34be366468ee01c432",
       "order_id": "render:EV3NKLCU-0006",
       "purchase_id": "pur-574ba531d0214390bd039bbfebca9bc5"
+    },
+    {
+      "allocation_id": "alloc-f3d35120ca4148c0b321ce8b42fbddd0",
+      "amount_minor": 6756,
+      "currency": "USD",
+      "event_id": "evt-66ddeac3226743dda427fea8db281746",
+      "order_id": "amazon:112-8772290-0884241",
+      "purchase_id": "pur-4fe40749fe864533992cc92b1e791c63"
     },
     {
       "allocation_id": "alloc-f4e8aa94bff446bcbed3d483afffa003",
@@ -1665,6 +1817,26 @@
       "source_ids": [],
       "stream": "project merchant charges and refunds",
       "vendor": "McMaster-Carr"
+    },
+    {
+      "checked_at": "2026-11-10",
+      "complete_period": null,
+      "coverage": "partial",
+      "coverage_id": "coverage-30f6d1d81006498f86e43d091cc241ec",
+      "evidence_type": "merchant_payments",
+      "examined_period": {
+        "end": "2026-11-10",
+        "start": "2026-10-01"
+      },
+      "note": "Scoped mailbox search and review of the named project receipt. Receipt date, merchant payment date and service period remain separate; no claim of complete account coverage.",
+      "order_ids": [
+        "anthropic:HYODLCRX-0084"
+      ],
+      "source_ids": [
+        "src-fe2394a49f284bfdbef95b4cff22b80d"
+      ],
+      "stream": "subscription and prepaid usage receipts",
+      "vendor": "Anthropic"
     },
     {
       "checked_at": "2026-10-04",
@@ -2194,6 +2366,26 @@
       "vendor": "Namecheap"
     },
     {
+      "checked_at": "2026-11-10",
+      "complete_period": null,
+      "coverage": "partial",
+      "coverage_id": "coverage-80e99c778a64491ea0cd0c2669edbab4",
+      "evidence_type": "fulfillment",
+      "examined_period": {
+        "end": "2026-11-10",
+        "start": "2026-10-26"
+      },
+      "note": "Exact-reference mailbox search and review of the matching delivery notice. No claim of complete merchant account or payment coverage.",
+      "order_ids": [
+        "amazon:112-7854933-1604224"
+      ],
+      "source_ids": [
+        "src-2c8cd56bb25742849d74e8f5313ef689"
+      ],
+      "stream": "named outstanding project order",
+      "vendor": "Amazon"
+    },
+    {
       "checked_at": "2026-10-04",
       "complete_period": null,
       "coverage": "unknown",
@@ -2484,6 +2676,26 @@
       "vendor": "Bambu Lab"
     },
     {
+      "checked_at": "2026-11-10",
+      "complete_period": null,
+      "coverage": "partial",
+      "coverage_id": "coverage-acea061ce3204d5f89dca212d3c84ba8",
+      "evidence_type": "fulfillment",
+      "examined_period": {
+        "end": "2026-11-10",
+        "start": "2026-10-13"
+      },
+      "note": "Exact-reference mailbox search and review of the matching delivery notice. No claim of complete merchant account or payment coverage.",
+      "order_ids": [
+        "lulu:USD-C4516450"
+      ],
+      "source_ids": [
+        "src-d904dd0c136247cba05afa878c899c1a"
+      ],
+      "stream": "named outstanding project order",
+      "vendor": "Lulu"
+    },
+    {
       "checked_at": "2026-10-07",
       "complete_period": null,
       "coverage": "partial",
@@ -2598,6 +2810,28 @@
       "vendor": "Amazon"
     },
     {
+      "checked_at": "2026-11-10",
+      "complete_period": null,
+      "coverage": "partial",
+      "coverage_id": "coverage-c2b991ed7f77417889868ab62b87b299",
+      "evidence_type": "fulfillment",
+      "examined_period": {
+        "end": "2026-11-10",
+        "start": "2026-10-26"
+      },
+      "note": "Named delivery and shipment notices only; payment and exact delivery dates are not inferred from notification timestamps.",
+      "order_ids": [
+        "bambu:us791135084148191233",
+        "bambu:us795729195777990656"
+      ],
+      "source_ids": [
+        "src-1a7e236f18734150aa122917f332f47f",
+        "src-573612223a5d4cc198ffc89874fade44"
+      ],
+      "stream": "selected hotend and filament orders",
+      "vendor": "Bambu Lab"
+    },
+    {
       "checked_at": "2026-10-04",
       "complete_period": null,
       "coverage": "partial",
@@ -2654,6 +2888,51 @@
       ],
       "stream": "project procurement records",
       "vendor": "Lulu"
+    },
+    {
+      "checked_at": "2026-11-10",
+      "complete_period": null,
+      "coverage": "partial",
+      "coverage_id": "coverage-cb3b2897e4284f688f9d1a76d4f04536",
+      "evidence_type": "fulfillment_and_merchant_transactions",
+      "examined_period": {
+        "end": "2026-11-10",
+        "start": "2026-10-17"
+      },
+      "note": "Read-only signed-in Mac Chrome review of the nine named orders and order-scoped Completed payment records, plus invoices for the October hardware and camera orders. Preserves line identities and exact recorded project allocations. No claim of complete Amazon account coverage.",
+      "order_ids": [
+        "amazon:112-0673623-4429031",
+        "amazon:112-1658930-0707414",
+        "amazon:112-5039065-3785859",
+        "amazon:112-5769102-6239435",
+        "amazon:112-6057627-7806613",
+        "amazon:112-6378482-5879429",
+        "amazon:112-8431385-7749045",
+        "amazon:112-8772290-0884241",
+        "amazon:114-8768578-0217027"
+      ],
+      "source_ids": [
+        "src-136493a179f6468a815cc21b1dbff943",
+        "src-19f375aed8424c63aedbdd797c64144d",
+        "src-36c35e0e35ce434887135ad1473caa53",
+        "src-3c6ddb5e464e476cb1138d57a514df83",
+        "src-43bb98f56d5e4c38b72b2c1ff780c8d2",
+        "src-565070b5659d47b9a8f5875df8b6d727",
+        "src-5a266e1b62f24aaaa5e74d4f48c1f5b1",
+        "src-648b5c2395b445bdac28f83dbebf0056",
+        "src-77c9e9a6bebf4c60a9b2cd1345224415",
+        "src-87da27cdf1a646c9971668c463005473",
+        "src-9814b29cf9a040d6b03b19b788c0887d",
+        "src-984eeee2a18a4402acdbce90520cba98",
+        "src-b3dcc6cf70e344f087737b80cb7b144e",
+        "src-cdd9f10875964144a6513c9750edf066",
+        "src-d4525740215f48a5b1edf9580fa780fd",
+        "src-ed808d9aaedb44d18aed74a4410a0d53",
+        "src-f34bc88da6fc49708c2010cf76f6fa8d",
+        "src-fbcdb7d29c2542c3ab90439d37cf50ef"
+      ],
+      "stream": "selected project orders and order-scoped completed transactions",
+      "vendor": "Amazon"
     },
     {
       "checked_at": "2026-10-04",
@@ -2735,6 +3014,27 @@
       ],
       "stream": "project procurement records",
       "vendor": "Namecheap"
+    },
+    {
+      "checked_at": "2026-11-10",
+      "complete_period": null,
+      "coverage": "partial",
+      "coverage_id": "coverage-ebeb2d7c77e9420197c6d8286df30fbb",
+      "evidence_type": "merchant_payments",
+      "examined_period": {
+        "end": "2026-11-10",
+        "start": "2026-10-01"
+      },
+      "note": "Scoped mailbox search and review of the named project receipt. Receipt date, merchant payment date and service period remain separate; no claim of complete account coverage.",
+      "order_ids": [
+        "render:EV3NKLCU-0007"
+      ],
+      "source_ids": [
+        "src-a2ead921e4dd4244831173be18494f21",
+        "src-f10b6422369c43b5b74ab1c046018291"
+      ],
+      "stream": "hosting invoices and receipts",
+      "vendor": "Render"
     },
     {
       "checked_at": "2026-10-11",
@@ -2988,6 +3288,34 @@
     },
     {
       "allocation_ids": [
+        "alloc-0df869ee6e89452f980f54eeea0253e9"
+      ],
+      "allocation_status": "all_project",
+      "amount_minor": 1136,
+      "confirmation": "confirmed",
+      "currency": "USD",
+      "event_date": {
+        "precision": "day",
+        "value": "2026-11-06"
+      },
+      "event_id": "evt-03528b8bbe2f47c39bee9b7de9b837c3",
+      "event_type": "charge",
+      "order_ids": [
+        "amazon:112-6057627-7806613"
+      ],
+      "purchase_ids": [
+        "pur-7ebe706384b34c718af7af886e0988d7"
+      ],
+      "source_ids": [
+        "src-984eeee2a18a4402acdbce90520cba98",
+        "src-ed808d9aaedb44d18aed74a4410a0d53"
+      ],
+      "unallocated_to_purchase_minor": 0,
+      "vendor": "Amazon",
+      "verified_at": "2026-11-10"
+    },
+    {
+      "allocation_ids": [
         "alloc-9f63f79688a7456198f2f0c27364eec8"
       ],
       "allocation_status": "mixed_partial",
@@ -3213,6 +3541,34 @@
     },
     {
       "allocation_ids": [
+        "alloc-6475fc36da9b474bb407bfb977313ec4"
+      ],
+      "allocation_status": "all_project",
+      "amount_minor": 21878,
+      "confirmation": "confirmed",
+      "currency": "USD",
+      "event_date": {
+        "precision": "day",
+        "value": "2026-11-06"
+      },
+      "event_id": "evt-173ae81452be441989c194ea73607128",
+      "event_type": "charge",
+      "order_ids": [
+        "amazon:112-5769102-6239435"
+      ],
+      "purchase_ids": [
+        "pur-a9aeeb7107e24ef68654ee86aa1fbe14"
+      ],
+      "source_ids": [
+        "src-43bb98f56d5e4c38b72b2c1ff780c8d2",
+        "src-b3dcc6cf70e344f087737b80cb7b144e"
+      ],
+      "unallocated_to_purchase_minor": 0,
+      "vendor": "Amazon",
+      "verified_at": "2026-11-10"
+    },
+    {
+      "allocation_ids": [
         "alloc-1c6bc4daf17a4cea8b402250b4755f74",
         "alloc-c8cb7014351a45549fd738ba53edfe50",
         "alloc-ea3bf887f0c04dcd83893a361facb3c1"
@@ -3365,6 +3721,34 @@
       "unallocated_to_purchase_minor": 0,
       "vendor": "Amazon",
       "verified_at": "2026-10-04"
+    },
+    {
+      "allocation_ids": [
+        "alloc-25ba262889384230a142a3e45e1d1633"
+      ],
+      "allocation_status": "all_project",
+      "amount_minor": 2679,
+      "confirmation": "confirmed",
+      "currency": "USD",
+      "event_date": {
+        "precision": "day",
+        "value": "2026-11-07"
+      },
+      "event_id": "evt-212f0cc5453646209e86acf44a509e60",
+      "event_type": "charge",
+      "order_ids": [
+        "amazon:112-1658930-0707414"
+      ],
+      "purchase_ids": [
+        "pur-3161c146b8ef40e5817e13af4dc07846"
+      ],
+      "source_ids": [
+        "src-19f375aed8424c63aedbdd797c64144d",
+        "src-fbcdb7d29c2542c3ab90439d37cf50ef"
+      ],
+      "unallocated_to_purchase_minor": 0,
+      "vendor": "Amazon",
+      "verified_at": "2026-11-10"
     },
     {
       "allocation_ids": [
@@ -4008,6 +4392,47 @@
     },
     {
       "allocation_ids": [
+        "alloc-b3751d4175cb402f959875d04712cd4f"
+      ],
+      "allocation_status": "all_project",
+      "amount_minor": 6320,
+      "confirmation": "confirmed",
+      "currency": "USD",
+      "event_date": {
+        "precision": "day",
+        "value": "2026-11-02"
+      },
+      "event_id": "evt-46ab695dde87410681a27f2d7fd8a499",
+      "event_type": "charge",
+      "invoice_date": {
+        "precision": "day",
+        "value": "2026-11-02"
+      },
+      "order_ids": [
+        "render:EV3NKLCU-0007"
+      ],
+      "purchase_ids": [
+        "pur-40f42f9578f642918443b1cc962c3c82"
+      ],
+      "receipt_date": {
+        "precision": "day",
+        "value": "2026-11-02"
+      },
+      "service_period": {
+        "end": "2026-10-31",
+        "precision": "range",
+        "start": "2026-10-01"
+      },
+      "source_ids": [
+        "src-a2ead921e4dd4244831173be18494f21",
+        "src-f10b6422369c43b5b74ab1c046018291"
+      ],
+      "unallocated_to_purchase_minor": 0,
+      "vendor": "Render",
+      "verified_at": "2026-11-10"
+    },
+    {
+      "allocation_ids": [
         "alloc-988ef9f02ed6408a86e228b1b2bf2fb3"
       ],
       "allocation_status": "all_project",
@@ -4583,6 +5008,44 @@
     },
     {
       "allocation_ids": [
+        "alloc-1d75063bc073464ba16e4d70cf966d46",
+        "alloc-65f6b7d21bcb4232bb66eaaaa3260e76",
+        "alloc-823cfea6ea8241719515d3d8574d3f12",
+        "alloc-bab482f8873c483f9e5988edfdbe6d06",
+        "alloc-ce33c9488fe3497a8aa6036eec1e4ebb",
+        "alloc-f3d35120ca4148c0b321ce8b42fbddd0"
+      ],
+      "allocation_status": "all_project",
+      "amount_minor": 124845,
+      "confirmation": "confirmed",
+      "currency": "USD",
+      "event_date": {
+        "precision": "day",
+        "value": "2026-10-26"
+      },
+      "event_id": "evt-66ddeac3226743dda427fea8db281746",
+      "event_type": "charge",
+      "order_ids": [
+        "amazon:112-8772290-0884241"
+      ],
+      "purchase_ids": [
+        "pur-3d8a298bd6054af6a120b520e7a8da65",
+        "pur-4fe40749fe864533992cc92b1e791c63",
+        "pur-5f404f5035cb425a9a8d90c69010a404",
+        "pur-a326599d5b464456b43259262c4808ba",
+        "pur-d95243a541864bd887feefcc369098d4",
+        "pur-f2a6d291d92649da94f37b960613d32e"
+      ],
+      "source_ids": [
+        "src-565070b5659d47b9a8f5875df8b6d727",
+        "src-cdd9f10875964144a6513c9750edf066"
+      ],
+      "unallocated_to_purchase_minor": 0,
+      "vendor": "Amazon",
+      "verified_at": "2026-11-10"
+    },
+    {
+      "allocation_ids": [
         "alloc-c823299698f0412f9cb3b0407472081c"
       ],
       "allocation_status": "mixed_partial",
@@ -4965,16 +5428,20 @@
     {
       "allocation_ids": [
         "alloc-0bce06418d7d4f88afc445f3f981acff",
+        "alloc-2b18b9a000d94048a027e783a3b9e31f",
+        "alloc-42b8617e92d04039babac8507a99d26d",
+        "alloc-46d597a68ada4e9cb985e3178b0678b5",
+        "alloc-af7569eb76c0433f941cf85559c84fde",
         "alloc-e74ce6747dfd4ef3a05d346f304285ff",
         "alloc-ecfd3794f056471bb0402e41a11ec9e8"
       ],
       "allocation_status": "all_project",
       "amount_minor": 9089,
-      "confirmation": "expected",
+      "confirmation": "confirmed",
       "currency": "USD",
       "event_date": {
         "precision": "day",
-        "value": "2026-10-17"
+        "value": "2026-10-18"
       },
       "event_id": "evt-7f73633b6a97457eaa442c0429f18359",
       "event_type": "charge",
@@ -4982,16 +5449,23 @@
         "amazon:114-8768578-0217027"
       ],
       "purchase_ids": [
+        "pur-2b7d4e1a9c3f4e6b8a1d5c7e9f0a2b41",
+        "pur-3c8e5f2b0d4a4f7c9b2e6d8f0a1b3c52",
+        "pur-4d9f6a3c1e5b4a8d0c3f7e9a1b2c4d63",
+        "pur-5e0a7b4d2f6c4b9e1d4a8f0b2c3d5e74",
+        "pur-6f1b8c5e3a7d4c0f2e5b9a1c3d4e6f85",
         "pur-91bd3b099e80493ab591655550b439ca",
         "pur-a02ce33a2d984d9fbea615cbad793ab3"
       ],
       "source_ids": [
         "src-0649cb496f6e45c3a07e83026856a9f2",
+        "src-136493a179f6468a815cc21b1dbff943",
+        "src-77c9e9a6bebf4c60a9b2cd1345224415",
         "src-d814ffbbc33146fb887f9e1bdc6944a4"
       ],
-      "unallocated_to_purchase_minor": 6517,
+      "unallocated_to_purchase_minor": 0,
       "vendor": "Amazon",
-      "verified_at": "2026-10-17"
+      "verified_at": "2026-11-10"
     },
     {
       "allocation_ids": [
@@ -5481,6 +5955,34 @@
     },
     {
       "allocation_ids": [
+        "alloc-261088a6a22e4e7eaca2670db3d54fb3"
+      ],
+      "allocation_status": "all_project",
+      "amount_minor": 1071,
+      "confirmation": "confirmed",
+      "currency": "USD",
+      "event_date": {
+        "precision": "day",
+        "value": "2026-11-06"
+      },
+      "event_id": "evt-92e67e1783c94f10ac80f6a9895996db",
+      "event_type": "charge",
+      "order_ids": [
+        "amazon:112-8431385-7749045"
+      ],
+      "purchase_ids": [
+        "pur-5f9b203a9810468f8bab74284d78f44d"
+      ],
+      "source_ids": [
+        "src-36c35e0e35ce434887135ad1473caa53",
+        "src-3c6ddb5e464e476cb1138d57a514df83"
+      ],
+      "unallocated_to_purchase_minor": 0,
+      "vendor": "Amazon",
+      "verified_at": "2026-11-10"
+    },
+    {
+      "allocation_ids": [
         "alloc-743706cd214344b8bd0282571e089597"
       ],
       "allocation_status": "all_project",
@@ -5849,6 +6351,34 @@
     },
     {
       "allocation_ids": [
+        "alloc-812058bbcdd64066ba75750e06606379"
+      ],
+      "allocation_status": "all_project",
+      "amount_minor": 1071,
+      "confirmation": "confirmed",
+      "currency": "USD",
+      "event_date": {
+        "precision": "day",
+        "value": "2026-11-07"
+      },
+      "event_id": "evt-a518d84ef1464651bd19812f7d6129d0",
+      "event_type": "charge",
+      "order_ids": [
+        "amazon:112-0673623-4429031"
+      ],
+      "purchase_ids": [
+        "pur-9fe3b15945c3487da36214f92b80f9ee"
+      ],
+      "source_ids": [
+        "src-648b5c2395b445bdac28f83dbebf0056",
+        "src-87da27cdf1a646c9971668c463005473"
+      ],
+      "unallocated_to_purchase_minor": 0,
+      "vendor": "Amazon",
+      "verified_at": "2026-11-10"
+    },
+    {
+      "allocation_ids": [
         "alloc-8bb78428ad344b5b9c3eabd28822fbfc"
       ],
       "allocation_status": "all_project",
@@ -5937,6 +6467,34 @@
       "unallocated_to_purchase_minor": 0,
       "vendor": "Anthropic",
       "verified_at": "2026-10-04"
+    },
+    {
+      "allocation_ids": [
+        "alloc-6f0b58e4832e4122a23cc0c6347817e7"
+      ],
+      "allocation_status": "all_project",
+      "amount_minor": 1393,
+      "confirmation": "confirmed",
+      "currency": "USD",
+      "event_date": {
+        "precision": "day",
+        "value": "2026-11-07"
+      },
+      "event_id": "evt-a778aae0f86a47a6b10d733d848c637f",
+      "event_type": "charge",
+      "order_ids": [
+        "amazon:112-5039065-3785859"
+      ],
+      "purchase_ids": [
+        "pur-24623d00c3e94898adf2465f7537b1bd"
+      ],
+      "source_ids": [
+        "src-5a266e1b62f24aaaa5e74d4f48c1f5b1",
+        "src-f34bc88da6fc49708c2010cf76f6fa8d"
+      ],
+      "unallocated_to_purchase_minor": 0,
+      "vendor": "Amazon",
+      "verified_at": "2026-11-10"
     },
     {
       "allocation_ids": [
@@ -6142,6 +6700,42 @@
       "unallocated_to_purchase_minor": 0,
       "vendor": "Anthropic",
       "verified_at": "2026-10-04"
+    },
+    {
+      "allocation_ids": [
+        "alloc-163982dcc6a54cca92ee77583785149c"
+      ],
+      "allocation_status": "all_project",
+      "amount_minor": 20000,
+      "confirmation": "confirmed",
+      "currency": "USD",
+      "event_date": {
+        "precision": "day",
+        "value": "2026-10-28"
+      },
+      "event_id": "evt-b7604b4f3b3441a09eeb753dbeb2c279",
+      "event_type": "charge",
+      "order_ids": [
+        "anthropic:HYODLCRX-0084"
+      ],
+      "purchase_ids": [
+        "pur-ff6404193aa640179f2209f33f2997f8"
+      ],
+      "receipt_date": {
+        "precision": "day",
+        "value": "2026-10-28"
+      },
+      "service_period": {
+        "end": "2026-11-28",
+        "precision": "range",
+        "start": "2026-10-28"
+      },
+      "source_ids": [
+        "src-fe2394a49f284bfdbef95b4cff22b80d"
+      ],
+      "unallocated_to_purchase_minor": 0,
+      "vendor": "Anthropic",
+      "verified_at": "2026-11-10"
     },
     {
       "allocation_ids": [
@@ -7572,6 +8166,34 @@
     },
     {
       "allocation_ids": [
+        "alloc-02f17132dd744034842ef67d2ece7eae"
+      ],
+      "allocation_status": "all_project",
+      "amount_minor": 750,
+      "confirmation": "confirmed",
+      "currency": "USD",
+      "event_date": {
+        "precision": "day",
+        "value": "2026-11-07"
+      },
+      "event_id": "evt-fd3cb92b17f746cfb1c5166c3d22e9c3",
+      "event_type": "charge",
+      "order_ids": [
+        "amazon:112-6378482-5879429"
+      ],
+      "purchase_ids": [
+        "pur-3fca793e96a64c20b79ac0831efc3b50"
+      ],
+      "source_ids": [
+        "src-9814b29cf9a040d6b03b19b788c0887d",
+        "src-d4525740215f48a5b1edf9580fa780fd"
+      ],
+      "unallocated_to_purchase_minor": 0,
+      "vendor": "Amazon",
+      "verified_at": "2026-11-10"
+    },
+    {
+      "allocation_ids": [
         "alloc-16415837baa74674b844e8926bd1fc72"
       ],
       "allocation_status": "all_project",
@@ -7755,7 +8377,7 @@
         "evt-a3c8a2e1a259405e85d14c27817deb58"
       ],
       "gap_id": "gap-7dc719f6e334459abab4ecaec07873e1",
-      "missing_fact": "The order confirmation states on hold pending payment confirmation; completed merchant charge, dispatch and delivery are not established.",
+      "missing_fact": "Completed merchant charge and event date remain unverified; the final vendor value is USD 107.89. Vendor completion and carrier delivery establish fulfilled status, with delivery recorded on 2026-10-28.",
       "order_ids": [
         "pisco:8638"
       ],
@@ -7763,10 +8385,14 @@
         "pur-1ead43e8eead4989adf3de560d23febe"
       ],
       "source_ids": [
+        "src-6b59d4539d614609b87397329eee9092",
+        "src-705110796ce345c7ab0263a199c8968a",
         "src-e90526d88b0b4e5c9b441af32b25ac68"
       ],
       "sources_checked": [
-        "PISCO order received confirmation 8638"
+        "PISCO order received confirmation 8638",
+        "PISCO vendor order completion 8638",
+        "Carrier delivery notice for order 8638"
       ]
     },
     {
@@ -7795,25 +8421,6 @@
     },
     {
       "event_ids": [
-        "evt-e479c6487dd243a088862f30dcf951f6"
-      ],
-      "gap_id": "gap-8aacdacb6ac44b68a95178ea80fbe89a",
-      "missing_fact": "A completed merchant charge and its event date are not established by the order confirmation; the USD 173.54 charge remains expected.",
-      "order_ids": [
-        "fws:WEBFWS100715131"
-      ],
-      "purchase_ids": [
-        "pur-43767918757a4173a8b69a9b725d64fd"
-      ],
-      "source_ids": [
-        "src-1de8a5e4ff1344b081aa6d8332b15203"
-      ],
-      "sources_checked": [
-        "Fresh Water Systems order confirmation WEBFWS100715131"
-      ]
-    },
-    {
-      "event_ids": [
         "evt-5fddb80e882c4533bf9042d5a74088cc"
       ],
       "gap_id": "gap-9738d616dea64eaabb2b35df6ba49073",
@@ -7831,28 +8438,6 @@
       "sources_checked": [
         "Fresh Water Systems order confirmation WEBFWS100708929",
         "Fresh Water Systems account order page WEBFWS100708929 (link expired)"
-      ]
-    },
-    {
-      "event_ids": [
-        "evt-7f73633b6a97457eaa442c0429f18359"
-      ],
-      "gap_id": "gap-b377c38272c84c2d9d0b972f58b6c35c",
-      "missing_fact": "USD 65.17 of the order's expected USD 90.89 charge is allocated to the order only: its five other project lines (M3 × 6, M5 × 150 and M5 × 60 screws, M5 washers and a Mean Well IRM-90-12ST) are not yet itemized purchases, and the charge is not yet completed.",
-      "order_ids": [
-        "amazon:114-8768578-0217027"
-      ],
-      "purchase_ids": [
-        "pur-91bd3b099e80493ab591655550b439ca",
-        "pur-a02ce33a2d984d9fbea615cbad793ab3"
-      ],
-      "source_ids": [
-        "src-0649cb496f6e45c3a07e83026856a9f2",
-        "src-d814ffbbc33146fb887f9e1bdc6944a4"
-      ],
-      "sources_checked": [
-        "Amazon order details 114-8768578-0217027",
-        "Amazon order-scoped Transactions 114-8768578-0217027"
       ]
     },
     {
@@ -7973,7 +8558,7 @@
       ]
     }
   ],
-  "input_fingerprint": "sha256:46e8e496f89ca98ced1eec425f8971b907afaae9682b0c71d7193392dd2e43b3",
+  "input_fingerprint": "sha256:941720ef2539fc9880e9c8cd5782cbe896dd5965129b0e6402a48c53cc752b43",
   "orders": [
     {
       "allocation_status": "all_project",
@@ -8311,7 +8896,9 @@
     },
     {
       "allocation_status": "all_project",
-      "event_ids": [],
+      "event_ids": [
+        "evt-a518d84ef1464651bd19812f7d6129d0"
+      ],
       "order_date": {
         "precision": "day",
         "value": "2026-11-05"
@@ -8322,7 +8909,9 @@
       ],
       "reference": "112-0673623-4429031",
       "source_ids": [
-        "src-0e5230e241814fb2a9d81a1b0ade8fa4"
+        "src-0e5230e241814fb2a9d81a1b0ade8fa4",
+        "src-648b5c2395b445bdac28f83dbebf0056",
+        "src-87da27cdf1a646c9971668c463005473"
       ],
       "vendor": "Amazon"
     },
@@ -8857,7 +9446,9 @@
     },
     {
       "allocation_status": "all_project",
-      "event_ids": [],
+      "event_ids": [
+        "evt-212f0cc5453646209e86acf44a509e60"
+      ],
       "order_date": {
         "precision": "day",
         "value": "2026-11-05"
@@ -8868,7 +9459,9 @@
       ],
       "reference": "112-1658930-0707414",
       "source_ids": [
-        "src-35f369bc6e3446ec949a14ece09fd73d"
+        "src-19f375aed8424c63aedbdd797c64144d",
+        "src-35f369bc6e3446ec949a14ece09fd73d",
+        "src-fbcdb7d29c2542c3ab90439d37cf50ef"
       ],
       "vendor": "Amazon"
     },
@@ -10338,7 +10931,9 @@
     },
     {
       "allocation_status": "all_project",
-      "event_ids": [],
+      "event_ids": [
+        "evt-a778aae0f86a47a6b10d733d848c637f"
+      ],
       "order_date": {
         "precision": "day",
         "value": "2026-11-05"
@@ -10349,7 +10944,9 @@
       ],
       "reference": "112-5039065-3785859",
       "source_ids": [
-        "src-eed2cf5000974d36baf0375355543249"
+        "src-5a266e1b62f24aaaa5e74d4f48c1f5b1",
+        "src-eed2cf5000974d36baf0375355543249",
+        "src-f34bc88da6fc49708c2010cf76f6fa8d"
       ],
       "vendor": "Amazon"
     },
@@ -10700,7 +11297,9 @@
     },
     {
       "allocation_status": "all_project",
-      "event_ids": [],
+      "event_ids": [
+        "evt-173ae81452be441989c194ea73607128"
+      ],
       "order_date": {
         "precision": "day",
         "value": "2026-11-05"
@@ -10711,7 +11310,9 @@
       ],
       "reference": "112-5769102-6239435",
       "source_ids": [
-        "src-25e766501eac432382839f9946322324"
+        "src-25e766501eac432382839f9946322324",
+        "src-43bb98f56d5e4c38b72b2c1ff780c8d2",
+        "src-b3dcc6cf70e344f087737b80cb7b144e"
       ],
       "vendor": "Amazon"
     },
@@ -10787,7 +11388,9 @@
     },
     {
       "allocation_status": "all_project",
-      "event_ids": [],
+      "event_ids": [
+        "evt-03528b8bbe2f47c39bee9b7de9b837c3"
+      ],
       "order_date": {
         "precision": "day",
         "value": "2026-11-05"
@@ -10798,7 +11401,9 @@
       ],
       "reference": "112-6057627-7806613",
       "source_ids": [
-        "src-31109b54fe584e64ba1562e2ae77d7af"
+        "src-31109b54fe584e64ba1562e2ae77d7af",
+        "src-984eeee2a18a4402acdbce90520cba98",
+        "src-ed808d9aaedb44d18aed74a4410a0d53"
       ],
       "vendor": "Amazon"
     },
@@ -10999,7 +11604,9 @@
     },
     {
       "allocation_status": "all_project",
-      "event_ids": [],
+      "event_ids": [
+        "evt-fd3cb92b17f746cfb1c5166c3d22e9c3"
+      ],
       "order_date": {
         "precision": "day",
         "value": "2026-11-05"
@@ -11010,7 +11617,9 @@
       ],
       "reference": "112-6378482-5879429",
       "source_ids": [
-        "src-90bc01d9bacd48c7afd5ebe7ecbb72bd"
+        "src-90bc01d9bacd48c7afd5ebe7ecbb72bd",
+        "src-9814b29cf9a040d6b03b19b788c0887d",
+        "src-d4525740215f48a5b1edf9580fa780fd"
       ],
       "vendor": "Amazon"
     },
@@ -11609,6 +12218,7 @@
       ],
       "reference": "112-7854933-1604224",
       "source_ids": [
+        "src-2c8cd56bb25742849d74e8f5313ef689",
         "src-4bc981aabe95468aa245b2cf12174dfe"
       ],
       "vendor": "Amazon"
@@ -11908,7 +12518,9 @@
     },
     {
       "allocation_status": "all_project",
-      "event_ids": [],
+      "event_ids": [
+        "evt-92e67e1783c94f10ac80f6a9895996db"
+      ],
       "order_date": {
         "precision": "day",
         "value": "2026-11-05"
@@ -11919,6 +12531,8 @@
       ],
       "reference": "112-8431385-7749045",
       "source_ids": [
+        "src-36c35e0e35ce434887135ad1473caa53",
+        "src-3c6ddb5e464e476cb1138d57a514df83",
         "src-7df9aab746b345d58fe00d83a461fdaf"
       ],
       "vendor": "Amazon"
@@ -12097,7 +12711,9 @@
     },
     {
       "allocation_status": "all_project",
-      "event_ids": [],
+      "event_ids": [
+        "evt-66ddeac3226743dda427fea8db281746"
+      ],
       "order_date": {
         "precision": "day",
         "value": "2026-10-26"
@@ -12113,6 +12729,8 @@
       ],
       "reference": "112-8772290-0884241",
       "source_ids": [
+        "src-565070b5659d47b9a8f5875df8b6d727",
+        "src-cdd9f10875964144a6513c9750edf066",
         "src-f1858fd8ad6e4488986599b5ba971c31"
       ],
       "vendor": "Amazon"
@@ -13994,6 +14612,8 @@
       ],
       "reference": "114-8768578-0217027",
       "source_ids": [
+        "src-136493a179f6468a815cc21b1dbff943",
+        "src-77c9e9a6bebf4c60a9b2cd1345224415",
         "src-a35c93fcae5f41b1bdf124d53f16e8e4",
         "src-d814ffbbc33146fb887f9e1bdc6944a4"
       ],
@@ -15505,6 +16125,22 @@
       "vendor": "Anthropic"
     },
     {
+      "allocation_status": "all_project",
+      "event_ids": [
+        "evt-b7604b4f3b3441a09eeb753dbeb2c279"
+      ],
+      "order_date": null,
+      "order_id": "anthropic:HYODLCRX-0084",
+      "purchase_ids": [
+        "pur-ff6404193aa640179f2209f33f2997f8"
+      ],
+      "reference": "HYODLCRX-0084",
+      "source_ids": [
+        "src-fe2394a49f284bfdbef95b4cff22b80d"
+      ],
+      "vendor": "Anthropic"
+    },
+    {
       "allocation_status": "mixed_partial",
       "event_ids": [
         "evt-0447af18f1f34778b9cd0f9facee2d40"
@@ -16092,6 +16728,7 @@
       ],
       "reference": "us791135084148191233",
       "source_ids": [
+        "src-573612223a5d4cc198ffc89874fade44",
         "src-8732dad07bf84f9492eca983fb4accb6"
       ],
       "vendor": "Bambu Lab"
@@ -16109,6 +16746,7 @@
       ],
       "reference": "us795729195777990656",
       "source_ids": [
+        "src-1a7e236f18734150aa122917f332f47f",
         "src-fc21b89f674c49d8b7beb35eb29aa7e1"
       ],
       "vendor": "Bambu Lab"
@@ -16721,7 +17359,8 @@
       "reference": "USD-C4516450",
       "source_ids": [
         "src-ca0f600b2a7a45648473f456e27749f9",
-        "src-ccd1ebed5d7d44ebb2226e8312d0e8a8"
+        "src-ccd1ebed5d7d44ebb2226e8312d0e8a8",
+        "src-d904dd0c136247cba05afa878c899c1a"
       ],
       "vendor": "Lulu"
     },
@@ -16962,6 +17601,23 @@
       "source_ids": [
         "src-4eb26169656e4ec893b37c2290080e5e",
         "src-8c5a85a56e2b4c4d874d76964b39e575"
+      ],
+      "vendor": "Render"
+    },
+    {
+      "allocation_status": "all_project",
+      "event_ids": [
+        "evt-46ab695dde87410681a27f2d7fd8a499"
+      ],
+      "order_date": null,
+      "order_id": "render:EV3NKLCU-0007",
+      "purchase_ids": [
+        "pur-40f42f9578f642918443b1cc962c3c82"
+      ],
+      "reference": "EV3NKLCU-0007",
+      "source_ids": [
+        "src-a2ead921e4dd4244831173be18494f21",
+        "src-f10b6422369c43b5b74ab1c046018291"
       ],
       "vendor": "Render"
     },
@@ -21313,17 +21969,28 @@
     },
     {
       "allocation_status": "all_project",
-      "amount_evidence": "estimate",
+      "amount_evidence": "final_vendor_amount",
       "amount_minor": 1393,
       "contributes": true,
       "currency": "USD",
-      "delivery_date": null,
-      "description": "LISTENJIALE nylon cable glands with gaskets, PG7–PG19, 50 pcs — one seals the 14 AWG thermostat lead into the heater's second knockout. Sold by ListenJiaLe; $12.99 + $0.94 estimated NE tax, free shipping; Amazon order details verified 2026-11-05, arriving 2026-11-07",
-      "event_ids": [],
-      "fulfillment": "ON-ORDER",
+      "delivery_date": {
+        "precision": "day",
+        "value": "2026-11-07"
+      },
+      "delivery_dates": [
+        {
+          "precision": "day",
+          "value": "2026-11-07"
+        }
+      ],
+      "description": "LISTENJIALE nylon cable glands with gaskets, PG7–PG19, 50 pcs — one seals the 14 AWG thermostat lead into the heater's second knockout. Sold by ListenJiaLe; $12.99 + $0.94 NE tax, free shipping",
+      "event_ids": [
+        "evt-a778aae0f86a47a6b10d733d848c637f"
+      ],
+      "fulfillment": "ACQUIRED",
       "invoice_date": null,
       "ledger_purchase_id": "pur-24623d00c3e94898adf2465f7537b1bd",
-      "merchant_charge_allocated_minor": 0,
+      "merchant_charge_allocated_minor": 1393,
       "merchant_refund_allocated_minor": 0,
       "order_date": {
         "precision": "day",
@@ -21332,8 +21999,20 @@
       "order_ids": [
         "amazon:112-5039065-3785859"
       ],
-      "payment_evidence": "unknown",
+      "payment_evidence": "merchant_charge",
       "price_basis": "row_total",
+      "price_history": [
+        {
+          "amount_evidence": "estimate",
+          "amount_minor": 1393,
+          "currency": "USD",
+          "note": "Prior quoted amount, retained as noncontributing history; the final merchant order and completed charge corroborate the same purchase value.",
+          "source_ids": [
+            "src-eed2cf5000974d36baf0375355543249"
+          ],
+          "verified_at": "2026-11-10"
+        }
+      ],
       "purchase_id": "pur-24623d00c3e94898adf2465f7537b1bd",
       "purpose": "equipment_tooling",
       "quantity": 1,
@@ -21348,7 +22027,9 @@
       "section": "12. Shop / bench infrastructure",
       "service_period": null,
       "source_ids": [
-        "src-eed2cf5000974d36baf0375355543249"
+        "src-5a266e1b62f24aaaa5e74d4f48c1f5b1",
+        "src-eed2cf5000974d36baf0375355543249",
+        "src-f34bc88da6fc49708c2010cf76f6fa8d"
       ],
       "split_charge": false,
       "stream": "purchase",
@@ -22464,7 +23145,7 @@
     },
     {
       "allocation_status": "all_project",
-      "amount_evidence": "estimate",
+      "amount_evidence": "final_vendor_amount",
       "amount_minor": 3231,
       "contributes": true,
       "currency": "USD",
@@ -22472,12 +23153,20 @@
         "precision": "day",
         "value": "2026-10-19"
       },
+      "delivery_dates": [
+        {
+          "precision": "day",
+          "value": "2026-10-19"
+        }
+      ],
       "description": "MEAN WELL IRM-90-12ST encapsulated 80 W / 12 V / 6.7 A PSU. $30.13 item price + $2.18 allocated tax",
-      "event_ids": [],
+      "event_ids": [
+        "evt-7f73633b6a97457eaa442c0429f18359"
+      ],
       "fulfillment": "ACQUIRED",
       "invoice_date": null,
       "ledger_purchase_id": "pur-2b7d4e1a9c3f4e6b8a1d5c7e9f0a2b41",
-      "merchant_charge_allocated_minor": 0,
+      "merchant_charge_allocated_minor": 3231,
       "merchant_refund_allocated_minor": 0,
       "order_date": {
         "precision": "day",
@@ -22486,8 +23175,20 @@
       "order_ids": [
         "amazon:114-8768578-0217027"
       ],
-      "payment_evidence": "unknown",
+      "payment_evidence": "merchant_charge",
       "price_basis": "row_total",
+      "price_history": [
+        {
+          "amount_evidence": "estimate",
+          "amount_minor": 3231,
+          "currency": "USD",
+          "note": "Prior quoted amount, retained as noncontributing history; the final merchant order and completed charge corroborate the same purchase value.",
+          "source_ids": [
+            "src-a35c93fcae5f41b1bdf124d53f16e8e4"
+          ],
+          "verified_at": "2026-11-10"
+        }
+      ],
       "purchase_id": "pur-2b7d4e1a9c3f4e6b8a1d5c7e9f0a2b41",
       "purpose": "components",
       "quantity": 1,
@@ -22502,6 +23203,8 @@
       "section": "11. Enclosure hardware",
       "service_period": null,
       "source_ids": [
+        "src-136493a179f6468a815cc21b1dbff943",
+        "src-77c9e9a6bebf4c60a9b2cd1345224415",
         "src-a35c93fcae5f41b1bdf124d53f16e8e4"
       ],
       "split_charge": false,
@@ -22611,7 +23314,7 @@
       "delivery_date": null,
       "description": "Frizzlife PRV01 water pressure regulator, 60 psi, 1/4\" quick-connect push-fit ports (reference). $10.99 + $0.80 tax",
       "event_ids": [],
-      "fulfillment": "ON-ORDER",
+      "fulfillment": "ACQUIRED",
       "invoice_date": null,
       "ledger_purchase_id": "pur-2c46198fe81f4cf7bf5a65d4e4ec638a",
       "merchant_charge_allocated_minor": 0,
@@ -22639,6 +23342,7 @@
       "section": "3. Water supply + backflow prevention",
       "service_period": null,
       "source_ids": [
+        "src-2c8cd56bb25742849d74e8f5313ef689",
         "src-4bc981aabe95468aa245b2cf12174dfe"
       ],
       "split_charge": false,
@@ -23080,17 +23784,28 @@
     },
     {
       "allocation_status": "all_project",
-      "amount_evidence": "estimate",
+      "amount_evidence": "final_vendor_amount",
       "amount_minor": 2679,
       "contributes": true,
       "currency": "USD",
-      "delivery_date": null,
-      "description": "Shelly 1 Mini Gen4 smart relay, Wi-Fi, Matter and Zigbee, one channel, 8 A dry contacts — the garage heater's thermostat contact on its terminals 1 and 2 with the rear switch on II, switched by the Garage Temperature sensor. Sold by Shelly USA; $24.98 + $1.81 estimated NE tax, free shipping; Amazon order details verified 2026-11-05, arriving 2026-11-07",
-      "event_ids": [],
-      "fulfillment": "ON-ORDER",
+      "delivery_date": {
+        "precision": "day",
+        "value": "2026-11-07"
+      },
+      "delivery_dates": [
+        {
+          "precision": "day",
+          "value": "2026-11-07"
+        }
+      ],
+      "description": "Shelly 1 Mini Gen4 smart relay, Wi-Fi, Matter and Zigbee, one channel, 8 A dry contacts — the garage heater's thermostat contact on its terminals 1 and 2 with the rear switch on II, switched by the Garage Temperature sensor. Sold by Shelly USA; $24.98 + $1.81 NE tax, free shipping",
+      "event_ids": [
+        "evt-212f0cc5453646209e86acf44a509e60"
+      ],
+      "fulfillment": "ACQUIRED",
       "invoice_date": null,
       "ledger_purchase_id": "pur-3161c146b8ef40e5817e13af4dc07846",
-      "merchant_charge_allocated_minor": 0,
+      "merchant_charge_allocated_minor": 2679,
       "merchant_refund_allocated_minor": 0,
       "order_date": {
         "precision": "day",
@@ -23099,8 +23814,20 @@
       "order_ids": [
         "amazon:112-1658930-0707414"
       ],
-      "payment_evidence": "unknown",
+      "payment_evidence": "merchant_charge",
       "price_basis": "row_total",
+      "price_history": [
+        {
+          "amount_evidence": "estimate",
+          "amount_minor": 2679,
+          "currency": "USD",
+          "note": "Prior quoted amount, retained as noncontributing history; the final merchant order and completed charge corroborate the same purchase value.",
+          "source_ids": [
+            "src-35f369bc6e3446ec949a14ece09fd73d"
+          ],
+          "verified_at": "2026-11-10"
+        }
+      ],
       "purchase_id": "pur-3161c146b8ef40e5817e13af4dc07846",
       "purpose": "equipment_tooling",
       "quantity": 1,
@@ -23115,7 +23842,9 @@
       "section": "12. Shop / bench infrastructure",
       "service_period": null,
       "source_ids": [
-        "src-35f369bc6e3446ec949a14ece09fd73d"
+        "src-19f375aed8424c63aedbdd797c64144d",
+        "src-35f369bc6e3446ec949a14ece09fd73d",
+        "src-fbcdb7d29c2542c3ab90439d37cf50ef"
       ],
       "split_charge": false,
       "stream": "purchase",
@@ -23992,7 +24721,7 @@
     },
     {
       "allocation_status": "all_project",
-      "amount_evidence": "estimate",
+      "amount_evidence": "final_vendor_amount",
       "amount_minor": 950,
       "contributes": true,
       "currency": "USD",
@@ -24000,12 +24729,20 @@
         "precision": "day",
         "value": "2026-10-18"
       },
+      "delivery_dates": [
+        {
+          "precision": "day",
+          "value": "2026-10-18"
+        }
+      ],
       "description": "iexcell M5 × 0.8 × 150 mm socket-head cap screws, 10 pc, 304 stainless. $8.86 item price + $0.64 allocated tax",
-      "event_ids": [],
+      "event_ids": [
+        "evt-7f73633b6a97457eaa442c0429f18359"
+      ],
       "fulfillment": "ACQUIRED",
       "invoice_date": null,
       "ledger_purchase_id": "pur-3c8e5f2b0d4a4f7c9b2e6d8f0a1b3c52",
-      "merchant_charge_allocated_minor": 0,
+      "merchant_charge_allocated_minor": 950,
       "merchant_refund_allocated_minor": 0,
       "order_date": {
         "precision": "day",
@@ -24014,8 +24751,20 @@
       "order_ids": [
         "amazon:114-8768578-0217027"
       ],
-      "payment_evidence": "unknown",
+      "payment_evidence": "merchant_charge",
       "price_basis": "row_total",
+      "price_history": [
+        {
+          "amount_evidence": "estimate",
+          "amount_minor": 950,
+          "currency": "USD",
+          "note": "Prior quoted amount, retained as noncontributing history; the final merchant order and completed charge corroborate the same purchase value.",
+          "source_ids": [
+            "src-a35c93fcae5f41b1bdf124d53f16e8e4"
+          ],
+          "verified_at": "2026-11-10"
+        }
+      ],
       "purchase_id": "pur-3c8e5f2b0d4a4f7c9b2e6d8f0a1b3c52",
       "purpose": "components",
       "quantity": 1,
@@ -24030,6 +24779,8 @@
       "section": "11. Enclosure hardware",
       "service_period": null,
       "source_ids": [
+        "src-136493a179f6468a815cc21b1dbff943",
+        "src-77c9e9a6bebf4c60a9b2cd1345224415",
         "src-a35c93fcae5f41b1bdf124d53f16e8e4"
       ],
       "split_charge": false,
@@ -24278,17 +25029,28 @@
     },
     {
       "allocation_status": "all_project",
-      "amount_evidence": "estimate",
+      "amount_evidence": "final_vendor_amount",
       "amount_minor": 85693,
       "contributes": true,
       "currency": "USD",
-      "delivery_date": null,
-      "description": "Canon EOS R50 V mirrorless camera with RF-S 14-30mm F4-6.3 IS STM PZ lens kit — main camera of the carbonator weld filming plan: the kit lens focuses to 0.15 m at 0.38× for the joint details, and its 14 mm end frames the overall view. Sold by Amazon.com; $799.00 + $57.93 allocated estimated NE tax, free shipping; Amazon order details verified 2026-10-26, arriving 2026-10-27",
-      "event_ids": [],
-      "fulfillment": "ON-ORDER",
+      "delivery_date": {
+        "precision": "day",
+        "value": "2026-10-27"
+      },
+      "delivery_dates": [
+        {
+          "precision": "day",
+          "value": "2026-10-27"
+        }
+      ],
+      "description": "Canon EOS R50 V mirrorless camera with RF-S 14-30mm F4-6.3 IS STM PZ lens kit — main camera of the carbonator weld filming plan: the kit lens focuses to 0.15 m at 0.38× for the joint details, and its 14 mm end frames the overall view. Sold by Amazon.com; $799.00 + $57.93 allocated NE tax, free shipping",
+      "event_ids": [
+        "evt-66ddeac3226743dda427fea8db281746"
+      ],
+      "fulfillment": "ACQUIRED",
       "invoice_date": null,
       "ledger_purchase_id": "pur-3d8a298bd6054af6a120b520e7a8da65",
-      "merchant_charge_allocated_minor": 0,
+      "merchant_charge_allocated_minor": 85693,
       "merchant_refund_allocated_minor": 0,
       "order_date": {
         "precision": "day",
@@ -24297,8 +25059,20 @@
       "order_ids": [
         "amazon:112-8772290-0884241"
       ],
-      "payment_evidence": "unknown",
+      "payment_evidence": "merchant_charge",
       "price_basis": "row_total",
+      "price_history": [
+        {
+          "amount_evidence": "estimate",
+          "amount_minor": 85693,
+          "currency": "USD",
+          "note": "Prior quoted amount, retained as noncontributing history; the final merchant order and completed charge corroborate the same purchase value.",
+          "source_ids": [
+            "src-f1858fd8ad6e4488986599b5ba971c31"
+          ],
+          "verified_at": "2026-11-10"
+        }
+      ],
       "purchase_id": "pur-3d8a298bd6054af6a120b520e7a8da65",
       "purpose": "equipment_tooling",
       "quantity": 1,
@@ -24313,6 +25087,8 @@
       "section": "19. Video / marketing capture equipment",
       "service_period": null,
       "source_ids": [
+        "src-565070b5659d47b9a8f5875df8b6d727",
+        "src-cdd9f10875964144a6513c9750edf066",
         "src-f1858fd8ad6e4488986599b5ba971c31"
       ],
       "split_charge": false,
@@ -24609,17 +25385,28 @@
     },
     {
       "allocation_status": "all_project",
-      "amount_evidence": "estimate",
+      "amount_evidence": "final_vendor_amount",
       "amount_minor": 750,
       "contributes": true,
       "currency": "USD",
-      "delivery_date": null,
-      "description": "Etoolia vinyl-coated screw-in utility hooks, 5.7\", 6-pack — on the garage studs, one carries the heater cord's slack and one holds whichever 14-50 plug is unplugged. Sold by E-Tools Store; $6.99 + $0.51 estimated NE tax, free shipping; Amazon order details verified 2026-11-05, arriving 2026-11-07",
-      "event_ids": [],
-      "fulfillment": "ON-ORDER",
+      "delivery_date": {
+        "precision": "day",
+        "value": "2026-11-07"
+      },
+      "delivery_dates": [
+        {
+          "precision": "day",
+          "value": "2026-11-07"
+        }
+      ],
+      "description": "Etoolia vinyl-coated screw-in utility hooks, 5.7\", 6-pack — on the garage studs, one carries the heater cord's slack and one holds whichever 14-50 plug is unplugged. Sold by E-Tools Store; $6.99 + $0.51 NE tax, free shipping",
+      "event_ids": [
+        "evt-fd3cb92b17f746cfb1c5166c3d22e9c3"
+      ],
+      "fulfillment": "ACQUIRED",
       "invoice_date": null,
       "ledger_purchase_id": "pur-3fca793e96a64c20b79ac0831efc3b50",
-      "merchant_charge_allocated_minor": 0,
+      "merchant_charge_allocated_minor": 750,
       "merchant_refund_allocated_minor": 0,
       "order_date": {
         "precision": "day",
@@ -24628,8 +25415,20 @@
       "order_ids": [
         "amazon:112-6378482-5879429"
       ],
-      "payment_evidence": "unknown",
+      "payment_evidence": "merchant_charge",
       "price_basis": "row_total",
+      "price_history": [
+        {
+          "amount_evidence": "estimate",
+          "amount_minor": 750,
+          "currency": "USD",
+          "note": "Prior quoted amount, retained as noncontributing history; the final merchant order and completed charge corroborate the same purchase value.",
+          "source_ids": [
+            "src-90bc01d9bacd48c7afd5ebe7ecbb72bd"
+          ],
+          "verified_at": "2026-11-10"
+        }
+      ],
       "purchase_id": "pur-3fca793e96a64c20b79ac0831efc3b50",
       "purpose": "equipment_tooling",
       "quantity": 1,
@@ -24644,7 +25443,9 @@
       "section": "12. Shop / bench infrastructure",
       "service_period": null,
       "source_ids": [
-        "src-90bc01d9bacd48c7afd5ebe7ecbb72bd"
+        "src-90bc01d9bacd48c7afd5ebe7ecbb72bd",
+        "src-9814b29cf9a040d6b03b19b788c0887d",
+        "src-d4525740215f48a5b1edf9580fa780fd"
       ],
       "split_charge": false,
       "stream": "purchase",
@@ -24742,6 +25543,57 @@
       "stream": "purchase",
       "unit_amount_minor": null,
       "vendor": "Amazon"
+    },
+    {
+      "allocation_status": "all_project",
+      "amount_evidence": "final_vendor_amount",
+      "amount_minor": 6320,
+      "contributes": true,
+      "currency": "USD",
+      "delivery_date": null,
+      "description": "Home Soda Machine hosting, database and related usage; service 2026-10-01 → 2026-10-31",
+      "event_ids": [
+        "evt-46ab695dde87410681a27f2d7fd8a499"
+      ],
+      "fulfillment": "ACQUIRED",
+      "invoice_date": {
+        "precision": "day",
+        "value": "2026-11-02"
+      },
+      "ledger_purchase_id": "pur-40f42f9578f642918443b1cc962c3c82",
+      "merchant_charge_allocated_minor": 6320,
+      "merchant_refund_allocated_minor": 0,
+      "order_date": null,
+      "order_ids": [
+        "render:EV3NKLCU-0007"
+      ],
+      "payment_evidence": "merchant_charge",
+      "price_basis": "row_total",
+      "purchase_id": "pur-40f42f9578f642918443b1cc962c3c82",
+      "purpose": "hosting_domains",
+      "quantity": null,
+      "quantity_text": "",
+      "receipt_date": null,
+      "record_role": "purchase",
+      "row_date": {
+        "precision": "day",
+        "value": "2026-11-02"
+      },
+      "row_date_basis": "invoice_date",
+      "section": "17. Domain / infrastructure",
+      "service_period": {
+        "end": "2026-10-31",
+        "precision": "range",
+        "start": "2026-10-01"
+      },
+      "source_ids": [
+        "src-a2ead921e4dd4244831173be18494f21",
+        "src-f10b6422369c43b5b74ab1c046018291"
+      ],
+      "split_charge": false,
+      "stream": "purchase",
+      "unit_amount_minor": null,
+      "vendor": "Render"
     },
     {
       "allocation_status": "all_project",
@@ -26298,7 +27150,7 @@
     },
     {
       "allocation_status": "all_project",
-      "amount_evidence": "estimate",
+      "amount_evidence": "final_vendor_amount",
       "amount_minor": 764,
       "contributes": true,
       "currency": "USD",
@@ -26306,12 +27158,20 @@
         "precision": "day",
         "value": "2026-10-18"
       },
+      "delivery_dates": [
+        {
+          "precision": "day",
+          "value": "2026-10-18"
+        }
+      ],
       "description": "BNUOK M3 × 6 mm Hex Socket Head Cap Screws, 120 pc, 12.9 alloy steel, black oxide. $7.12 item price + $0.52 allocated tax",
-      "event_ids": [],
+      "event_ids": [
+        "evt-7f73633b6a97457eaa442c0429f18359"
+      ],
       "fulfillment": "ACQUIRED",
       "invoice_date": null,
       "ledger_purchase_id": "pur-4d9f6a3c1e5b4a8d0c3f7e9a1b2c4d63",
-      "merchant_charge_allocated_minor": 0,
+      "merchant_charge_allocated_minor": 764,
       "merchant_refund_allocated_minor": 0,
       "order_date": {
         "precision": "day",
@@ -26320,8 +27180,20 @@
       "order_ids": [
         "amazon:114-8768578-0217027"
       ],
-      "payment_evidence": "unknown",
+      "payment_evidence": "merchant_charge",
       "price_basis": "row_total",
+      "price_history": [
+        {
+          "amount_evidence": "estimate",
+          "amount_minor": 764,
+          "currency": "USD",
+          "note": "Prior quoted amount, retained as noncontributing history; the final merchant order and completed charge corroborate the same purchase value.",
+          "source_ids": [
+            "src-a35c93fcae5f41b1bdf124d53f16e8e4"
+          ],
+          "verified_at": "2026-11-10"
+        }
+      ],
       "purchase_id": "pur-4d9f6a3c1e5b4a8d0c3f7e9a1b2c4d63",
       "purpose": "components",
       "quantity": 1,
@@ -26336,6 +27208,8 @@
       "section": "11. Enclosure hardware",
       "service_period": null,
       "source_ids": [
+        "src-136493a179f6468a815cc21b1dbff943",
+        "src-77c9e9a6bebf4c60a9b2cd1345224415",
         "src-a35c93fcae5f41b1bdf124d53f16e8e4"
       ],
       "split_charge": false,
@@ -26533,17 +27407,28 @@
     },
     {
       "allocation_status": "all_project",
-      "amount_evidence": "estimate",
+      "amount_evidence": "final_vendor_amount",
       "amount_minor": 6756,
       "contributes": true,
       "currency": "USD",
-      "delivery_date": null,
-      "description": "SmallRig CT-10 aluminum tripod and monopod, 180 cm, 360° ball head — the fixed overall camera position. Sold by SmallRig; $69.99 − $7.00 SmallRig 10% promotion + $4.57 allocated estimated NE tax, free shipping; Amazon order details verified 2026-10-26, arriving 2026-10-27",
-      "event_ids": [],
-      "fulfillment": "ON-ORDER",
+      "delivery_date": {
+        "precision": "day",
+        "value": "2026-10-27"
+      },
+      "delivery_dates": [
+        {
+          "precision": "day",
+          "value": "2026-10-27"
+        }
+      ],
+      "description": "SmallRig CT-10 aluminum tripod and monopod, 180 cm, 360° ball head — the fixed overall camera position. Sold by SmallRig; $69.99 − $7.00 SmallRig 10% promotion + $4.57 allocated NE tax, free shipping",
+      "event_ids": [
+        "evt-66ddeac3226743dda427fea8db281746"
+      ],
+      "fulfillment": "ACQUIRED",
       "invoice_date": null,
       "ledger_purchase_id": "pur-4fe40749fe864533992cc92b1e791c63",
-      "merchant_charge_allocated_minor": 0,
+      "merchant_charge_allocated_minor": 6756,
       "merchant_refund_allocated_minor": 0,
       "order_date": {
         "precision": "day",
@@ -26552,8 +27437,20 @@
       "order_ids": [
         "amazon:112-8772290-0884241"
       ],
-      "payment_evidence": "unknown",
+      "payment_evidence": "merchant_charge",
       "price_basis": "row_total",
+      "price_history": [
+        {
+          "amount_evidence": "estimate",
+          "amount_minor": 6756,
+          "currency": "USD",
+          "note": "Prior quoted amount, retained as noncontributing history; the final merchant order and completed charge corroborate the same purchase value.",
+          "source_ids": [
+            "src-f1858fd8ad6e4488986599b5ba971c31"
+          ],
+          "verified_at": "2026-11-10"
+        }
+      ],
       "purchase_id": "pur-4fe40749fe864533992cc92b1e791c63",
       "purpose": "equipment_tooling",
       "quantity": 1,
@@ -26568,6 +27465,8 @@
       "section": "19. Video / marketing capture equipment",
       "service_period": null,
       "source_ids": [
+        "src-565070b5659d47b9a8f5875df8b6d727",
+        "src-cdd9f10875964144a6513c9750edf066",
         "src-f1858fd8ad6e4488986599b5ba971c31"
       ],
       "split_charge": false,
@@ -28796,7 +29695,7 @@
     },
     {
       "allocation_status": "all_project",
-      "amount_evidence": "estimate",
+      "amount_evidence": "final_vendor_amount",
       "amount_minor": 804,
       "contributes": true,
       "currency": "USD",
@@ -28804,12 +29703,20 @@
         "precision": "day",
         "value": "2026-10-18"
       },
+      "delivery_dates": [
+        {
+          "precision": "day",
+          "value": "2026-10-18"
+        }
+      ],
       "description": "SVLING M5 × 0.8 × 60 mm socket-head cap screws, 40 pc, 12.9 alloy steel, black. $7.50 item price + $0.54 allocated tax",
-      "event_ids": [],
+      "event_ids": [
+        "evt-7f73633b6a97457eaa442c0429f18359"
+      ],
       "fulfillment": "ACQUIRED",
       "invoice_date": null,
       "ledger_purchase_id": "pur-5e0a7b4d2f6c4b9e1d4a8f0b2c3d5e74",
-      "merchant_charge_allocated_minor": 0,
+      "merchant_charge_allocated_minor": 804,
       "merchant_refund_allocated_minor": 0,
       "order_date": {
         "precision": "day",
@@ -28818,8 +29725,20 @@
       "order_ids": [
         "amazon:114-8768578-0217027"
       ],
-      "payment_evidence": "unknown",
+      "payment_evidence": "merchant_charge",
       "price_basis": "row_total",
+      "price_history": [
+        {
+          "amount_evidence": "estimate",
+          "amount_minor": 804,
+          "currency": "USD",
+          "note": "Prior quoted amount, retained as noncontributing history; the final merchant order and completed charge corroborate the same purchase value.",
+          "source_ids": [
+            "src-a35c93fcae5f41b1bdf124d53f16e8e4"
+          ],
+          "verified_at": "2026-11-10"
+        }
+      ],
       "purchase_id": "pur-5e0a7b4d2f6c4b9e1d4a8f0b2c3d5e74",
       "purpose": "components",
       "quantity": 1,
@@ -28834,6 +29753,8 @@
       "section": "11. Enclosure hardware",
       "service_period": null,
       "source_ids": [
+        "src-136493a179f6468a815cc21b1dbff943",
+        "src-77c9e9a6bebf4c60a9b2cd1345224415",
         "src-a35c93fcae5f41b1bdf124d53f16e8e4"
       ],
       "split_charge": false,
@@ -29129,17 +30050,28 @@
     },
     {
       "allocation_status": "all_project",
-      "amount_evidence": "estimate",
+      "amount_evidence": "final_vendor_amount",
       "amount_minor": 1929,
       "contributes": true,
       "currency": "USD",
-      "delivery_date": null,
-      "description": "Anker USB-C dual-slot SD and microSD card reader — offloads camera cards to the M3 Air, which has no card slot. Sold by AnkerDirect; $17.99 + $1.30 allocated estimated NE tax, free shipping; Amazon order details verified 2026-10-26, arriving 2026-10-27",
-      "event_ids": [],
-      "fulfillment": "ON-ORDER",
+      "delivery_date": {
+        "precision": "day",
+        "value": "2026-10-27"
+      },
+      "delivery_dates": [
+        {
+          "precision": "day",
+          "value": "2026-10-27"
+        }
+      ],
+      "description": "Anker USB-C dual-slot SD and microSD card reader — offloads camera cards to the M3 Air, which has no card slot. Sold by AnkerDirect; $17.99 + $1.30 allocated NE tax, free shipping",
+      "event_ids": [
+        "evt-66ddeac3226743dda427fea8db281746"
+      ],
+      "fulfillment": "ACQUIRED",
       "invoice_date": null,
       "ledger_purchase_id": "pur-5f404f5035cb425a9a8d90c69010a404",
-      "merchant_charge_allocated_minor": 0,
+      "merchant_charge_allocated_minor": 1929,
       "merchant_refund_allocated_minor": 0,
       "order_date": {
         "precision": "day",
@@ -29148,8 +30080,20 @@
       "order_ids": [
         "amazon:112-8772290-0884241"
       ],
-      "payment_evidence": "unknown",
+      "payment_evidence": "merchant_charge",
       "price_basis": "row_total",
+      "price_history": [
+        {
+          "amount_evidence": "estimate",
+          "amount_minor": 1929,
+          "currency": "USD",
+          "note": "Prior quoted amount, retained as noncontributing history; the final merchant order and completed charge corroborate the same purchase value.",
+          "source_ids": [
+            "src-f1858fd8ad6e4488986599b5ba971c31"
+          ],
+          "verified_at": "2026-11-10"
+        }
+      ],
       "purchase_id": "pur-5f404f5035cb425a9a8d90c69010a404",
       "purpose": "equipment_tooling",
       "quantity": 1,
@@ -29164,6 +30108,8 @@
       "section": "19. Video / marketing capture equipment",
       "service_period": null,
       "source_ids": [
+        "src-565070b5659d47b9a8f5875df8b6d727",
+        "src-cdd9f10875964144a6513c9750edf066",
         "src-f1858fd8ad6e4488986599b5ba971c31"
       ],
       "split_charge": false,
@@ -29173,17 +30119,28 @@
     },
     {
       "allocation_status": "all_project",
-      "amount_evidence": "estimate",
+      "amount_evidence": "final_vendor_amount",
       "amount_minor": 1071,
       "contributes": true,
       "currency": "USD",
-      "delivery_date": null,
-      "description": "Xpokcai 1/4\" × 3\" hex-head lag screws, 304 stainless, 15 with flat washers, pilot bit and socket — the heater bracket's single lag through the garage ceiling's 5/8\" drywall into a truss bottom chord. Sold by Xpokcai; $9.99 + $0.72 estimated NE tax, free shipping; Amazon order details verified 2026-11-05, arriving 2026-11-07",
-      "event_ids": [],
-      "fulfillment": "ON-ORDER",
+      "delivery_date": {
+        "precision": "day",
+        "value": "2026-11-06"
+      },
+      "delivery_dates": [
+        {
+          "precision": "day",
+          "value": "2026-11-06"
+        }
+      ],
+      "description": "Xpokcai 1/4\" × 3\" hex-head lag screws, 304 stainless, 15 with flat washers, pilot bit and socket — the heater bracket's single lag through the garage ceiling's 5/8\" drywall into a truss bottom chord. Sold by Xpokcai; $9.99 + $0.72 NE tax, free shipping",
+      "event_ids": [
+        "evt-92e67e1783c94f10ac80f6a9895996db"
+      ],
+      "fulfillment": "ACQUIRED",
       "invoice_date": null,
       "ledger_purchase_id": "pur-5f9b203a9810468f8bab74284d78f44d",
-      "merchant_charge_allocated_minor": 0,
+      "merchant_charge_allocated_minor": 1071,
       "merchant_refund_allocated_minor": 0,
       "order_date": {
         "precision": "day",
@@ -29192,8 +30149,20 @@
       "order_ids": [
         "amazon:112-8431385-7749045"
       ],
-      "payment_evidence": "unknown",
+      "payment_evidence": "merchant_charge",
       "price_basis": "row_total",
+      "price_history": [
+        {
+          "amount_evidence": "estimate",
+          "amount_minor": 1071,
+          "currency": "USD",
+          "note": "Prior quoted amount, retained as noncontributing history; the final merchant order and completed charge corroborate the same purchase value.",
+          "source_ids": [
+            "src-7df9aab746b345d58fe00d83a461fdaf"
+          ],
+          "verified_at": "2026-11-10"
+        }
+      ],
       "purchase_id": "pur-5f9b203a9810468f8bab74284d78f44d",
       "purpose": "equipment_tooling",
       "quantity": 1,
@@ -29208,6 +30177,8 @@
       "section": "12. Shop / bench infrastructure",
       "service_period": null,
       "source_ids": [
+        "src-36c35e0e35ce434887135ad1473caa53",
+        "src-3c6ddb5e464e476cb1138d57a514df83",
         "src-7df9aab746b345d58fe00d83a461fdaf"
       ],
       "split_charge": false,
@@ -30396,6 +31367,7 @@
       "section": "15. 3D printing equipment and filaments (Bambu Lab direct)",
       "service_period": null,
       "source_ids": [
+        "src-1a7e236f18734150aa122917f332f47f",
         "src-fc21b89f674c49d8b7beb35eb29aa7e1"
       ],
       "split_charge": false,
@@ -31166,11 +32138,17 @@
       "contributes": true,
       "currency": "USD",
       "delivery_date": null,
+      "delivery_dates": [
+        {
+          "precision": "day",
+          "value": "2026-10-13"
+        }
+      ],
       "description": "Install Guide — Small Landscape 9 × 7 in, 32 interior pages, Perfect Bound, Premium Color, 80# white coated paper, matte cover",
       "event_ids": [
         "evt-1399a1a835ce4be3a489628c06225b33"
       ],
-      "fulfillment": "ON-ORDER",
+      "fulfillment": "ACQUIRED",
       "invoice_date": null,
       "ledger_purchase_id": "pur-6bc71f4f15b34503ac9bf8beea6ef815",
       "merchant_charge_allocated_minor": 0,
@@ -31199,7 +32177,8 @@
       "service_period": null,
       "source_ids": [
         "src-ca0f600b2a7a45648473f456e27749f9",
-        "src-ccd1ebed5d7d44ebb2226e8312d0e8a8"
+        "src-ccd1ebed5d7d44ebb2226e8312d0e8a8",
+        "src-d904dd0c136247cba05afa878c899c1a"
       ],
       "split_charge": false,
       "stream": "purchase",
@@ -31828,7 +32807,7 @@
     },
     {
       "allocation_status": "all_project",
-      "amount_evidence": "estimate",
+      "amount_evidence": "final_vendor_amount",
       "amount_minor": 768,
       "contributes": true,
       "currency": "USD",
@@ -31836,12 +32815,20 @@
         "precision": "day",
         "value": "2026-10-19"
       },
+      "delivery_dates": [
+        {
+          "precision": "day",
+          "value": "2026-10-19"
+        }
+      ],
       "description": "Small Parts M5 flat washers, DIN 125, 5.3 mm ID × 10 mm OD × 1 mm, 18-8 stainless, black oxide, 100 pc. $7.16 item price + $0.52 allocated tax",
-      "event_ids": [],
+      "event_ids": [
+        "evt-7f73633b6a97457eaa442c0429f18359"
+      ],
       "fulfillment": "ACQUIRED",
       "invoice_date": null,
       "ledger_purchase_id": "pur-6f1b8c5e3a7d4c0f2e5b9a1c3d4e6f85",
-      "merchant_charge_allocated_minor": 0,
+      "merchant_charge_allocated_minor": 768,
       "merchant_refund_allocated_minor": 0,
       "order_date": {
         "precision": "day",
@@ -31850,8 +32837,20 @@
       "order_ids": [
         "amazon:114-8768578-0217027"
       ],
-      "payment_evidence": "unknown",
+      "payment_evidence": "merchant_charge",
       "price_basis": "row_total",
+      "price_history": [
+        {
+          "amount_evidence": "estimate",
+          "amount_minor": 768,
+          "currency": "USD",
+          "note": "Prior quoted amount, retained as noncontributing history; the final merchant order and completed charge corroborate the same purchase value.",
+          "source_ids": [
+            "src-a35c93fcae5f41b1bdf124d53f16e8e4"
+          ],
+          "verified_at": "2026-11-10"
+        }
+      ],
       "purchase_id": "pur-6f1b8c5e3a7d4c0f2e5b9a1c3d4e6f85",
       "purpose": "components",
       "quantity": 1,
@@ -31866,6 +32865,8 @@
       "section": "11. Enclosure hardware",
       "service_period": null,
       "source_ids": [
+        "src-136493a179f6468a815cc21b1dbff943",
+        "src-77c9e9a6bebf4c60a9b2cd1345224415",
         "src-a35c93fcae5f41b1bdf124d53f16e8e4"
       ],
       "split_charge": false,
@@ -33669,17 +34670,28 @@
     },
     {
       "allocation_status": "all_project",
-      "amount_evidence": "estimate",
+      "amount_evidence": "final_vendor_amount",
       "amount_minor": 1136,
       "contributes": true,
       "currency": "USD",
-      "delivery_date": null,
-      "description": "nVent Gardner Bender PS915143 appliance cord, 9 ft, 14/3 SJTW, 15 A/125 V — cut in two: the plug end powers the Shelly 1 Mini above from a garage outlet, and the cut-off end is the 14 AWG lead from the Shelly's I and O terminals to the heater's terminals 1 and 2. Sold by Amazon.com; $10.59 + $0.77 estimated NE tax, free shipping; Amazon order details verified 2026-11-05, arriving 2026-11-07",
-      "event_ids": [],
-      "fulfillment": "ON-ORDER",
+      "delivery_date": {
+        "precision": "day",
+        "value": "2026-11-07"
+      },
+      "delivery_dates": [
+        {
+          "precision": "day",
+          "value": "2026-11-07"
+        }
+      ],
+      "description": "nVent Gardner Bender PS915143 appliance cord, 9 ft, 14/3 SJTW, 15 A/125 V — cut in two: the plug end powers the Shelly 1 Mini above from a garage outlet, and the cut-off end is the 14 AWG lead from the Shelly's I and O terminals to the heater's terminals 1 and 2. Sold by Amazon.com; $10.59 + $0.77 NE tax, free shipping",
+      "event_ids": [
+        "evt-03528b8bbe2f47c39bee9b7de9b837c3"
+      ],
+      "fulfillment": "ACQUIRED",
       "invoice_date": null,
       "ledger_purchase_id": "pur-7ebe706384b34c718af7af886e0988d7",
-      "merchant_charge_allocated_minor": 0,
+      "merchant_charge_allocated_minor": 1136,
       "merchant_refund_allocated_minor": 0,
       "order_date": {
         "precision": "day",
@@ -33688,8 +34700,20 @@
       "order_ids": [
         "amazon:112-6057627-7806613"
       ],
-      "payment_evidence": "unknown",
+      "payment_evidence": "merchant_charge",
       "price_basis": "row_total",
+      "price_history": [
+        {
+          "amount_evidence": "estimate",
+          "amount_minor": 1136,
+          "currency": "USD",
+          "note": "Prior quoted amount, retained as noncontributing history; the final merchant order and completed charge corroborate the same purchase value.",
+          "source_ids": [
+            "src-31109b54fe584e64ba1562e2ae77d7af"
+          ],
+          "verified_at": "2026-11-10"
+        }
+      ],
       "purchase_id": "pur-7ebe706384b34c718af7af886e0988d7",
       "purpose": "equipment_tooling",
       "quantity": 1,
@@ -33704,7 +34728,9 @@
       "section": "12. Shop / bench infrastructure",
       "service_period": null,
       "source_ids": [
-        "src-31109b54fe584e64ba1562e2ae77d7af"
+        "src-31109b54fe584e64ba1562e2ae77d7af",
+        "src-984eeee2a18a4402acdbce90520cba98",
+        "src-ed808d9aaedb44d18aed74a4410a0d53"
       ],
       "split_charge": false,
       "stream": "purchase",
@@ -35364,7 +36390,7 @@
       "delivery_date": null,
       "description": "H2C Induction Hotend (Right), standard flow, hardened steel: 0.8 mm ×2 ($79.98) + 0.6 mm ×2 ($79.98) + NE tax $11.60; shipping waived",
       "event_ids": [],
-      "fulfillment": "ON-ORDER",
+      "fulfillment": "ACQUIRED",
       "invoice_date": null,
       "ledger_purchase_id": "pur-8b3d0e7a5c9f4e2b4a7d1c3e5f6a8b07",
       "merchant_charge_allocated_minor": 0,
@@ -35392,6 +36418,7 @@
       "section": "15. 3D printing equipment and filaments (Bambu Lab direct)",
       "service_period": null,
       "source_ids": [
+        "src-573612223a5d4cc198ffc89874fade44",
         "src-8732dad07bf84f9492eca983fb4accb6"
       ],
       "split_charge": false,
@@ -36596,7 +37623,7 @@
     },
     {
       "allocation_status": "all_project",
-      "amount_evidence": "estimate",
+      "amount_evidence": "final_vendor_amount",
       "amount_minor": 1286,
       "contributes": true,
       "currency": "USD",
@@ -36604,6 +37631,12 @@
         "precision": "day",
         "value": "2026-10-18"
       },
+      "delivery_dates": [
+        {
+          "precision": "day",
+          "value": "2026-10-18"
+        }
+      ],
       "description": "MECCANIXITY UL1007 16 AWG solid tinned-copper hookup wire, white, 25 ft — fixed AC-1/2/3 and DC-1/2/4 runs, neutral conductors. $11.99 item price + $0.87 allocated tax",
       "event_ids": [
         "evt-7f73633b6a97457eaa442c0429f18359"
@@ -36611,7 +37644,7 @@
       "fulfillment": "ACQUIRED",
       "invoice_date": null,
       "ledger_purchase_id": "pur-91bd3b099e80493ab591655550b439ca",
-      "merchant_charge_allocated_minor": 0,
+      "merchant_charge_allocated_minor": 1286,
       "merchant_refund_allocated_minor": 0,
       "order_date": {
         "precision": "day",
@@ -36620,8 +37653,21 @@
       "order_ids": [
         "amazon:114-8768578-0217027"
       ],
-      "payment_evidence": "unknown",
+      "payment_evidence": "merchant_charge",
       "price_basis": "row_total",
+      "price_history": [
+        {
+          "amount_evidence": "estimate",
+          "amount_minor": 1286,
+          "currency": "USD",
+          "note": "Prior quoted amount, retained as noncontributing history; the final merchant order and completed charge corroborate the same purchase value.",
+          "source_ids": [
+            "src-0649cb496f6e45c3a07e83026856a9f2",
+            "src-d814ffbbc33146fb887f9e1bdc6944a4"
+          ],
+          "verified_at": "2026-11-10"
+        }
+      ],
       "purchase_id": "pur-91bd3b099e80493ab591655550b439ca",
       "purpose": "consumables_materials",
       "quantity": 1,
@@ -36637,6 +37683,8 @@
       "service_period": null,
       "source_ids": [
         "src-0649cb496f6e45c3a07e83026856a9f2",
+        "src-136493a179f6468a815cc21b1dbff943",
+        "src-77c9e9a6bebf4c60a9b2cd1345224415",
         "src-d814ffbbc33146fb887f9e1bdc6944a4"
       ],
       "split_charge": false,
@@ -38803,17 +39851,28 @@
     },
     {
       "allocation_status": "all_project",
-      "amount_evidence": "estimate",
+      "amount_evidence": "final_vendor_amount",
       "amount_minor": 1071,
       "contributes": true,
       "currency": "USD",
-      "delivery_date": null,
-      "description": "Zulkit IP65 ABS electrical box, hinged shell, 2 cable glands, 5.9 × 3.9 × 2.8 in — holds the Shelly 1 Mini on the ceiling beside the garage heater; plastic so its Wi-Fi gets out. Sold by VeSumly; $9.99 + $0.72 estimated NE tax, free shipping; Amazon order details verified 2026-11-05, arriving 2026-11-07",
-      "event_ids": [],
-      "fulfillment": "ON-ORDER",
+      "delivery_date": {
+        "precision": "day",
+        "value": "2026-11-07"
+      },
+      "delivery_dates": [
+        {
+          "precision": "day",
+          "value": "2026-11-07"
+        }
+      ],
+      "description": "Zulkit IP65 ABS electrical box, hinged shell, 2 cable glands, 5.9 × 3.9 × 2.8 in — holds the Shelly 1 Mini on the ceiling beside the garage heater; plastic so its Wi-Fi gets out. Sold by VeSumly; $9.99 + $0.72 NE tax, free shipping",
+      "event_ids": [
+        "evt-a518d84ef1464651bd19812f7d6129d0"
+      ],
+      "fulfillment": "ACQUIRED",
       "invoice_date": null,
       "ledger_purchase_id": "pur-9fe3b15945c3487da36214f92b80f9ee",
-      "merchant_charge_allocated_minor": 0,
+      "merchant_charge_allocated_minor": 1071,
       "merchant_refund_allocated_minor": 0,
       "order_date": {
         "precision": "day",
@@ -38822,8 +39881,20 @@
       "order_ids": [
         "amazon:112-0673623-4429031"
       ],
-      "payment_evidence": "unknown",
+      "payment_evidence": "merchant_charge",
       "price_basis": "row_total",
+      "price_history": [
+        {
+          "amount_evidence": "estimate",
+          "amount_minor": 1071,
+          "currency": "USD",
+          "note": "Prior quoted amount, retained as noncontributing history; the final merchant order and completed charge corroborate the same purchase value.",
+          "source_ids": [
+            "src-0e5230e241814fb2a9d81a1b0ade8fa4"
+          ],
+          "verified_at": "2026-11-10"
+        }
+      ],
       "purchase_id": "pur-9fe3b15945c3487da36214f92b80f9ee",
       "purpose": "equipment_tooling",
       "quantity": 1,
@@ -38838,7 +39909,9 @@
       "section": "12. Shop / bench infrastructure",
       "service_period": null,
       "source_ids": [
-        "src-0e5230e241814fb2a9d81a1b0ade8fa4"
+        "src-0e5230e241814fb2a9d81a1b0ade8fa4",
+        "src-648b5c2395b445bdac28f83dbebf0056",
+        "src-87da27cdf1a646c9971668c463005473"
       ],
       "split_charge": false,
       "stream": "purchase",
@@ -38847,7 +39920,7 @@
     },
     {
       "allocation_status": "all_project",
-      "amount_evidence": "estimate",
+      "amount_evidence": "final_vendor_amount",
       "amount_minor": 1286,
       "contributes": true,
       "currency": "USD",
@@ -38855,6 +39928,12 @@
         "precision": "day",
         "value": "2026-10-19"
       },
+      "delivery_dates": [
+        {
+          "precision": "day",
+          "value": "2026-10-19"
+        }
+      ],
       "description": "MECCANIXITY UL1007 16 AWG solid tinned-copper hookup wire, black, 25 ft — fixed AC-1/2/3 and DC-1/2/4 runs, hot and DC conductors. $11.99 item price + $0.87 allocated tax",
       "event_ids": [
         "evt-7f73633b6a97457eaa442c0429f18359"
@@ -38862,7 +39941,7 @@
       "fulfillment": "ACQUIRED",
       "invoice_date": null,
       "ledger_purchase_id": "pur-a02ce33a2d984d9fbea615cbad793ab3",
-      "merchant_charge_allocated_minor": 0,
+      "merchant_charge_allocated_minor": 1286,
       "merchant_refund_allocated_minor": 0,
       "order_date": {
         "precision": "day",
@@ -38871,8 +39950,21 @@
       "order_ids": [
         "amazon:114-8768578-0217027"
       ],
-      "payment_evidence": "unknown",
+      "payment_evidence": "merchant_charge",
       "price_basis": "row_total",
+      "price_history": [
+        {
+          "amount_evidence": "estimate",
+          "amount_minor": 1286,
+          "currency": "USD",
+          "note": "Prior quoted amount, retained as noncontributing history; the final merchant order and completed charge corroborate the same purchase value.",
+          "source_ids": [
+            "src-0649cb496f6e45c3a07e83026856a9f2",
+            "src-d814ffbbc33146fb887f9e1bdc6944a4"
+          ],
+          "verified_at": "2026-11-10"
+        }
+      ],
       "purchase_id": "pur-a02ce33a2d984d9fbea615cbad793ab3",
       "purpose": "consumables_materials",
       "quantity": 1,
@@ -38888,6 +39980,8 @@
       "service_period": null,
       "source_ids": [
         "src-0649cb496f6e45c3a07e83026856a9f2",
+        "src-136493a179f6468a815cc21b1dbff943",
+        "src-77c9e9a6bebf4c60a9b2cd1345224415",
         "src-d814ffbbc33146fb887f9e1bdc6944a4"
       ],
       "split_charge": false,
@@ -39228,17 +40322,28 @@
     },
     {
       "allocation_status": "all_project",
-      "amount_evidence": "estimate",
+      "amount_evidence": "final_vendor_amount",
       "amount_minor": 16086,
       "contributes": true,
       "currency": "USD",
-      "delivery_date": null,
-      "description": "NEEWER NL-192AI 13\" bi-color LED panel kit, 3200–5600 K, two panels with stands, power adapters and built-in batteries — key and fill light for the weld video closeups. Sold by iphotoxx; $149.99 + $10.87 allocated estimated NE tax, free shipping; Amazon order details verified 2026-10-26, arriving 2026-10-27",
-      "event_ids": [],
-      "fulfillment": "ON-ORDER",
+      "delivery_date": {
+        "precision": "day",
+        "value": "2026-10-27"
+      },
+      "delivery_dates": [
+        {
+          "precision": "day",
+          "value": "2026-10-27"
+        }
+      ],
+      "description": "NEEWER NL-192AI 13\" bi-color LED panel kit, 3200–5600 K, two panels with stands, power adapters and built-in batteries — key and fill light for the weld video closeups. Sold by iphotoxx; $149.99 + $10.87 allocated NE tax, free shipping",
+      "event_ids": [
+        "evt-66ddeac3226743dda427fea8db281746"
+      ],
+      "fulfillment": "ACQUIRED",
       "invoice_date": null,
       "ledger_purchase_id": "pur-a326599d5b464456b43259262c4808ba",
-      "merchant_charge_allocated_minor": 0,
+      "merchant_charge_allocated_minor": 16086,
       "merchant_refund_allocated_minor": 0,
       "order_date": {
         "precision": "day",
@@ -39247,8 +40352,20 @@
       "order_ids": [
         "amazon:112-8772290-0884241"
       ],
-      "payment_evidence": "unknown",
+      "payment_evidence": "merchant_charge",
       "price_basis": "row_total",
+      "price_history": [
+        {
+          "amount_evidence": "estimate",
+          "amount_minor": 16086,
+          "currency": "USD",
+          "note": "Prior quoted amount, retained as noncontributing history; the final merchant order and completed charge corroborate the same purchase value.",
+          "source_ids": [
+            "src-f1858fd8ad6e4488986599b5ba971c31"
+          ],
+          "verified_at": "2026-11-10"
+        }
+      ],
       "purchase_id": "pur-a326599d5b464456b43259262c4808ba",
       "purpose": "equipment_tooling",
       "quantity": 1,
@@ -39263,6 +40380,8 @@
       "section": "19. Video / marketing capture equipment",
       "service_period": null,
       "source_ids": [
+        "src-565070b5659d47b9a8f5875df8b6d727",
+        "src-cdd9f10875964144a6513c9750edf066",
         "src-f1858fd8ad6e4488986599b5ba971c31"
       ],
       "split_charge": false,
@@ -39753,17 +40872,28 @@
     },
     {
       "allocation_status": "all_project",
-      "amount_evidence": "estimate",
+      "amount_evidence": "final_vendor_amount",
       "amount_minor": 21878,
       "contributes": true,
       "currency": "USD",
-      "delivery_date": null,
-      "description": "InoKraft MaxHeat MH-E7500 7,500 W garage heater, 240 V, NEMA 14-50P on an 8.2 ft STW 8 AWG cord — heats the shop and holds the X1 Pro above its 50 °F storage minimum. It plugs into the car charger's 50 A outlet, which the car and the heater take turns on. Sold by InoKraft, shipped by Amazon; $203.99 + $14.79 estimated NE tax, free shipping; Amazon order details verified 2026-11-05, arriving 2026-11-07",
-      "event_ids": [],
-      "fulfillment": "ON-ORDER",
+      "delivery_date": {
+        "precision": "day",
+        "value": "2026-11-07"
+      },
+      "delivery_dates": [
+        {
+          "precision": "day",
+          "value": "2026-11-07"
+        }
+      ],
+      "description": "InoKraft MaxHeat MH-E7500 7,500 W garage heater, 240 V, NEMA 14-50P on an 8.2 ft STW 8 AWG cord — heats the shop and holds the X1 Pro above its 50 °F storage minimum. It plugs into the car charger's 50 A outlet, which the car and the heater take turns on. Sold by InoKraft, shipped by Amazon; $203.99 + $14.79 NE tax, free shipping",
+      "event_ids": [
+        "evt-173ae81452be441989c194ea73607128"
+      ],
+      "fulfillment": "ACQUIRED",
       "invoice_date": null,
       "ledger_purchase_id": "pur-a9aeeb7107e24ef68654ee86aa1fbe14",
-      "merchant_charge_allocated_minor": 0,
+      "merchant_charge_allocated_minor": 21878,
       "merchant_refund_allocated_minor": 0,
       "order_date": {
         "precision": "day",
@@ -39772,8 +40902,20 @@
       "order_ids": [
         "amazon:112-5769102-6239435"
       ],
-      "payment_evidence": "unknown",
+      "payment_evidence": "merchant_charge",
       "price_basis": "row_total",
+      "price_history": [
+        {
+          "amount_evidence": "estimate",
+          "amount_minor": 21878,
+          "currency": "USD",
+          "note": "Prior quoted amount, retained as noncontributing history; the final merchant order and completed charge corroborate the same purchase value.",
+          "source_ids": [
+            "src-25e766501eac432382839f9946322324"
+          ],
+          "verified_at": "2026-11-10"
+        }
+      ],
       "purchase_id": "pur-a9aeeb7107e24ef68654ee86aa1fbe14",
       "purpose": "equipment_tooling",
       "quantity": 1,
@@ -39788,7 +40930,9 @@
       "section": "12. Shop / bench infrastructure",
       "service_period": null,
       "source_ids": [
-        "src-25e766501eac432382839f9946322324"
+        "src-25e766501eac432382839f9946322324",
+        "src-43bb98f56d5e4c38b72b2c1ff780c8d2",
+        "src-b3dcc6cf70e344f087737b80cb7b144e"
       ],
       "split_charge": false,
       "stream": "purchase",
@@ -45940,17 +47084,28 @@
     },
     {
       "allocation_status": "all_project",
-      "amount_evidence": "estimate",
+      "amount_evidence": "final_vendor_amount",
       "amount_minor": 9556,
       "contributes": true,
       "currency": "USD",
-      "delivery_date": null,
-      "description": "SmallRig CT25 horizontal overhead tripod, 164 cm, 5 kg ball-head payload — holds the R50 V above or obliquely over the bench for the joint closeups. Sold by SmallRig; $99.00 − $9.90 SmallRig 10% promotion + $6.46 allocated estimated NE tax, free shipping; Amazon order details verified 2026-10-26, arriving 2026-10-27",
-      "event_ids": [],
-      "fulfillment": "ON-ORDER",
+      "delivery_date": {
+        "precision": "day",
+        "value": "2026-10-27"
+      },
+      "delivery_dates": [
+        {
+          "precision": "day",
+          "value": "2026-10-27"
+        }
+      ],
+      "description": "SmallRig CT25 horizontal overhead tripod, 164 cm, 5 kg ball-head payload — holds the R50 V above or obliquely over the bench for the joint closeups. Sold by SmallRig; $99.00 − $9.90 SmallRig 10% promotion + $6.46 allocated NE tax, free shipping",
+      "event_ids": [
+        "evt-66ddeac3226743dda427fea8db281746"
+      ],
+      "fulfillment": "ACQUIRED",
       "invoice_date": null,
       "ledger_purchase_id": "pur-d95243a541864bd887feefcc369098d4",
-      "merchant_charge_allocated_minor": 0,
+      "merchant_charge_allocated_minor": 9556,
       "merchant_refund_allocated_minor": 0,
       "order_date": {
         "precision": "day",
@@ -45959,8 +47114,20 @@
       "order_ids": [
         "amazon:112-8772290-0884241"
       ],
-      "payment_evidence": "unknown",
+      "payment_evidence": "merchant_charge",
       "price_basis": "row_total",
+      "price_history": [
+        {
+          "amount_evidence": "estimate",
+          "amount_minor": 9556,
+          "currency": "USD",
+          "note": "Prior quoted amount, retained as noncontributing history; the final merchant order and completed charge corroborate the same purchase value.",
+          "source_ids": [
+            "src-f1858fd8ad6e4488986599b5ba971c31"
+          ],
+          "verified_at": "2026-11-10"
+        }
+      ],
       "purchase_id": "pur-d95243a541864bd887feefcc369098d4",
       "purpose": "equipment_tooling",
       "quantity": 1,
@@ -45975,6 +47142,8 @@
       "section": "19. Video / marketing capture equipment",
       "service_period": null,
       "source_ids": [
+        "src-565070b5659d47b9a8f5875df8b6d727",
+        "src-cdd9f10875964144a6513c9750edf066",
         "src-f1858fd8ad6e4488986599b5ba971c31"
       ],
       "split_charge": false,
@@ -49284,17 +50453,28 @@
     },
     {
       "allocation_status": "all_project",
-      "amount_evidence": "estimate",
+      "amount_evidence": "final_vendor_amount",
       "amount_minor": 4825,
       "contributes": true,
       "currency": "USD",
-      "delivery_date": null,
-      "description": "SanDisk Extreme 128 GB SD card, UHS-I V30 (SDSDXV9-128G-GUCIN) — the R50 V's recording card. Sold by Amazon.com; $44.99 + $3.26 allocated estimated NE tax, free shipping; Amazon order details verified 2026-10-26, arriving 2026-10-27",
-      "event_ids": [],
-      "fulfillment": "ON-ORDER",
+      "delivery_date": {
+        "precision": "day",
+        "value": "2026-10-27"
+      },
+      "delivery_dates": [
+        {
+          "precision": "day",
+          "value": "2026-10-27"
+        }
+      ],
+      "description": "SanDisk Extreme 128 GB SD card, UHS-I V30 (SDSDXV9-128G-GUCIN) — the R50 V's recording card. Sold by Amazon.com; $44.99 + $3.26 allocated NE tax, free shipping",
+      "event_ids": [
+        "evt-66ddeac3226743dda427fea8db281746"
+      ],
+      "fulfillment": "ACQUIRED",
       "invoice_date": null,
       "ledger_purchase_id": "pur-f2a6d291d92649da94f37b960613d32e",
-      "merchant_charge_allocated_minor": 0,
+      "merchant_charge_allocated_minor": 4825,
       "merchant_refund_allocated_minor": 0,
       "order_date": {
         "precision": "day",
@@ -49303,8 +50483,20 @@
       "order_ids": [
         "amazon:112-8772290-0884241"
       ],
-      "payment_evidence": "unknown",
+      "payment_evidence": "merchant_charge",
       "price_basis": "row_total",
+      "price_history": [
+        {
+          "amount_evidence": "estimate",
+          "amount_minor": 4825,
+          "currency": "USD",
+          "note": "Prior quoted amount, retained as noncontributing history; the final merchant order and completed charge corroborate the same purchase value.",
+          "source_ids": [
+            "src-f1858fd8ad6e4488986599b5ba971c31"
+          ],
+          "verified_at": "2026-11-10"
+        }
+      ],
       "purchase_id": "pur-f2a6d291d92649da94f37b960613d32e",
       "purpose": "equipment_tooling",
       "quantity": 1,
@@ -49319,6 +50511,8 @@
       "section": "19. Video / marketing capture equipment",
       "service_period": null,
       "source_ids": [
+        "src-565070b5659d47b9a8f5875df8b6d727",
+        "src-cdd9f10875964144a6513c9750edf066",
         "src-f1858fd8ad6e4488986599b5ba971c31"
       ],
       "split_charge": false,
@@ -51075,6 +52269,56 @@
       "stream": "purchase",
       "unit_amount_minor": null,
       "vendor": "Amazon"
+    },
+    {
+      "allocation_status": "all_project",
+      "amount_evidence": "final_vendor_amount",
+      "amount_minor": 20000,
+      "contributes": true,
+      "currency": "USD",
+      "delivery_date": null,
+      "description": "Claude Max 20x subscription; invoice HYODLCRX-0084",
+      "event_ids": [
+        "evt-b7604b4f3b3441a09eeb753dbeb2c279"
+      ],
+      "fulfillment": "ACQUIRED",
+      "invoice_date": null,
+      "ledger_purchase_id": "pur-ff6404193aa640179f2209f33f2997f8",
+      "merchant_charge_allocated_minor": 20000,
+      "merchant_refund_allocated_minor": 0,
+      "order_date": null,
+      "order_ids": [
+        "anthropic:HYODLCRX-0084"
+      ],
+      "payment_evidence": "merchant_charge",
+      "price_basis": "row_total",
+      "purchase_id": "pur-ff6404193aa640179f2209f33f2997f8",
+      "purpose": "engineering_software_services",
+      "quantity": 1,
+      "quantity_text": "1",
+      "receipt_date": {
+        "precision": "day",
+        "value": "2026-10-28"
+      },
+      "record_role": "purchase",
+      "row_date": {
+        "precision": "day",
+        "value": "2026-10-28"
+      },
+      "row_date_basis": "receipt_date",
+      "section": "18. AI-assisted engineering services",
+      "service_period": {
+        "end": "2026-11-28",
+        "precision": "range",
+        "start": "2026-10-28"
+      },
+      "source_ids": [
+        "src-fe2394a49f284bfdbef95b4cff22b80d"
+      ],
+      "split_charge": false,
+      "stream": "subscription",
+      "unit_amount_minor": null,
+      "vendor": "Anthropic"
     },
     {
       "allocation_status": "all_project",
@@ -57614,6 +58858,23 @@
       "verified_at": "2026-10-04"
     },
     {
+      "document_date": null,
+      "document_type": "completed_merchant_transaction",
+      "merchant_event_date": {
+        "precision": "day",
+        "value": "2026-10-18"
+      },
+      "note": "Order-scoped Your Payments > Completed shows a USD 90.89 charge dated 2026-10-18. The order is all-project; no bank posting or funding ownership is established.",
+      "proves": [
+        "charge",
+        "merchant_event_date"
+      ],
+      "reference": "114-8768578-0217027",
+      "source_id": "src-136493a179f6468a815cc21b1dbff943",
+      "vendor": "Amazon",
+      "verified_at": "2026-11-10"
+    },
+    {
       "document_date": {
         "precision": "day",
         "value": "2026-10-11"
@@ -57682,6 +58943,37 @@
       "source_id": "src-197ef203091a452fa0f9aec4fa3dd76b",
       "vendor": "Anthropic",
       "verified_at": "2026-10-04"
+    },
+    {
+      "document_date": null,
+      "document_type": "completed_merchant_transaction",
+      "merchant_event_date": {
+        "precision": "day",
+        "value": "2026-11-07"
+      },
+      "note": "Order-scoped Your Payments > Completed shows a USD 26.79 charge dated 2026-11-07. The order is all-project; no bank posting or funding ownership is established.",
+      "proves": [
+        "charge",
+        "merchant_event_date"
+      ],
+      "reference": "112-1658930-0707414",
+      "source_id": "src-19f375aed8424c63aedbdd797c64144d",
+      "vendor": "Amazon",
+      "verified_at": "2026-11-10"
+    },
+    {
+      "document_date": null,
+      "document_type": "email_shipment_notification",
+      "note": "Vendor shipment notification lists all three PETG Basic spools: red, white and navy blue, one 1 kg spool of each. In transit; receipt and an exact dispatch calendar day are not established.",
+      "notification_date": {
+        "precision": "day",
+        "value": "2026-11-08"
+      },
+      "proves": [],
+      "reference": "us795729195777990656",
+      "source_id": "src-1a7e236f18734150aa122917f332f47f",
+      "vendor": "Bambu Lab",
+      "verified_at": "2026-11-10"
     },
     {
       "document_date": {
@@ -58071,6 +59363,22 @@
       "verified_at": "2026-10-04"
     },
     {
+      "document_date": null,
+      "document_type": "email_delivery_notification",
+      "note": "The order-specific vendor notice confirms delivery. Exact delivery day is not independently established from its notification timestamp; no payment is inferred.",
+      "notification_date": {
+        "precision": "day",
+        "value": "2026-10-26"
+      },
+      "proves": [
+        "delivery"
+      ],
+      "reference": "112-7854933-1604224",
+      "source_id": "src-2c8cd56bb25742849d74e8f5313ef689",
+      "vendor": "Amazon",
+      "verified_at": "2026-11-10"
+    },
+    {
       "document_date": {
         "precision": "day",
         "value": "2026-04-06"
@@ -58433,6 +59741,23 @@
       "verified_at": "2026-10-04"
     },
     {
+      "document_date": null,
+      "document_type": "completed_merchant_transaction",
+      "merchant_event_date": {
+        "precision": "day",
+        "value": "2026-11-06"
+      },
+      "note": "Order-scoped Your Payments > Completed shows a USD 10.71 charge dated 2026-11-06. The order is all-project; no bank posting or funding ownership is established.",
+      "proves": [
+        "charge",
+        "merchant_event_date"
+      ],
+      "reference": "112-8431385-7749045",
+      "source_id": "src-36c35e0e35ce434887135ad1473caa53",
+      "vendor": "Amazon",
+      "verified_at": "2026-11-10"
+    },
+    {
       "document_date": {
         "precision": "day",
         "value": "2026-10-15"
@@ -58512,6 +59837,20 @@
       "source_id": "src-3bee25f04ac04511b9b79200683fab02",
       "vendor": "Bambu Lab",
       "verified_at": "2026-10-13"
+    },
+    {
+      "document_date": null,
+      "document_type": "merchant_order_details",
+      "note": "Signed-in Mac Chrome Order Details identify the project lines, order total and actual delivery dates. Shipping is free. The sole project item was delivered 2026-11-06; the completed merchant charge corroborates the final USD 10.71 order total.",
+      "proves": [
+        "price",
+        "order_date",
+        "delivery"
+      ],
+      "reference": "112-8431385-7749045",
+      "source_id": "src-3c6ddb5e464e476cb1138d57a514df83",
+      "vendor": "Amazon",
+      "verified_at": "2026-11-10"
     },
     {
       "document_date": {
@@ -58621,6 +59960,23 @@
       "source_id": "src-42c5da93267e4840adbf76a4e31a03a6",
       "vendor": "Bambu Lab",
       "verified_at": "2026-10-13"
+    },
+    {
+      "document_date": null,
+      "document_type": "completed_merchant_transaction",
+      "merchant_event_date": {
+        "precision": "day",
+        "value": "2026-11-06"
+      },
+      "note": "Order-scoped Your Payments > Completed shows a USD 218.78 charge dated 2026-11-06. The order is all-project; no bank posting or funding ownership is established.",
+      "proves": [
+        "charge",
+        "merchant_event_date"
+      ],
+      "reference": "112-5769102-6239435",
+      "source_id": "src-43bb98f56d5e4c38b72b2c1ff780c8d2",
+      "vendor": "Amazon",
+      "verified_at": "2026-11-10"
     },
     {
       "document_date": null,
@@ -59033,6 +60389,23 @@
     },
     {
       "document_date": null,
+      "document_type": "completed_merchant_transaction",
+      "merchant_event_date": {
+        "precision": "day",
+        "value": "2026-10-26"
+      },
+      "note": "Order-scoped Your Payments > Completed shows a USD 1248.45 charge dated 2026-10-26. The order is all-project; no bank posting or funding ownership is established.",
+      "proves": [
+        "charge",
+        "merchant_event_date"
+      ],
+      "reference": "112-8772290-0884241",
+      "source_id": "src-565070b5659d47b9a8f5875df8b6d727",
+      "vendor": "Amazon",
+      "verified_at": "2026-11-10"
+    },
+    {
+      "document_date": null,
       "document_type": "merchant_order_details",
       "note": "Signed-in Mac Chrome order page states Delivered October 26 and shows selected 20-piece screw pack.",
       "proves": [
@@ -59055,6 +60428,22 @@
       "source_id": "src-56ff2acbdcd64c3cb13874ee14cfc549",
       "vendor": "Amazon",
       "verified_at": "2026-10-04"
+    },
+    {
+      "document_date": null,
+      "document_type": "email_delivery_notification",
+      "note": "Vendor notification confirms the order has been delivered according to the carrier. It does not state an independent delivery calendar day.",
+      "notification_date": {
+        "precision": "day",
+        "value": "2026-10-28"
+      },
+      "proves": [
+        "delivery"
+      ],
+      "reference": "us791135084148191233",
+      "source_id": "src-573612223a5d4cc198ffc89874fade44",
+      "vendor": "Bambu Lab",
+      "verified_at": "2026-11-10"
     },
     {
       "document_date": {
@@ -59120,6 +60509,20 @@
       "source_id": "src-591ba5fb8bca4e50a2e94c7abe83de45",
       "vendor": "Bambu Lab",
       "verified_at": "2026-10-13"
+    },
+    {
+      "document_date": null,
+      "document_type": "merchant_order_details",
+      "note": "Signed-in Mac Chrome Order Details identify the project lines, order total and actual delivery dates. Shipping is free. The sole project item was delivered 2026-11-07; the completed merchant charge corroborates the final USD 13.93 order total.",
+      "proves": [
+        "price",
+        "order_date",
+        "delivery"
+      ],
+      "reference": "112-5039065-3785859",
+      "source_id": "src-5a266e1b62f24aaaa5e74d4f48c1f5b1",
+      "vendor": "Amazon",
+      "verified_at": "2026-11-10"
     },
     {
       "document_date": {
@@ -59369,6 +60772,23 @@
       "source_id": "src-640a25541b3841f299fdffd9f4159b0b",
       "vendor": "Apple",
       "verified_at": "2026-10-04"
+    },
+    {
+      "document_date": null,
+      "document_type": "completed_merchant_transaction",
+      "merchant_event_date": {
+        "precision": "day",
+        "value": "2026-11-07"
+      },
+      "note": "Order-scoped Your Payments > Completed shows a USD 10.71 charge dated 2026-11-07. The order is all-project; no bank posting or funding ownership is established.",
+      "proves": [
+        "charge",
+        "merchant_event_date"
+      ],
+      "reference": "112-0673623-4429031",
+      "source_id": "src-648b5c2395b445bdac28f83dbebf0056",
+      "vendor": "Amazon",
+      "verified_at": "2026-11-10"
     },
     {
       "document_date": {
@@ -59801,6 +61221,20 @@
       "verified_at": "2026-10-04"
     },
     {
+      "document_date": null,
+      "document_type": "merchant_order_details_and_invoice",
+      "note": "Signed-in Mac Chrome Order Details identify the project lines, order total and actual delivery dates. Shipping is free. The separately opened invoice matches the order summary and completed charge. White wire, M5 x 150, M3 x 6 and M5 x 60 screws were delivered 2026-10-18; black wire, Mean Well supply and M5 washers were delivered 2026-10-19. USD 84.75 merchandise plus USD 6.14 tax totals USD 90.89; recorded item-tax allocations sum exactly to that total.",
+      "proves": [
+        "price",
+        "order_date",
+        "delivery"
+      ],
+      "reference": "114-8768578-0217027",
+      "source_id": "src-77c9e9a6bebf4c60a9b2cd1345224415",
+      "vendor": "Amazon",
+      "verified_at": "2026-11-10"
+    },
+    {
       "document_date": {
         "precision": "day",
         "value": "2026-10-07"
@@ -60005,6 +61439,20 @@
       "source_id": "src-877a2a22d59047e3b8644d6654cccac9",
       "vendor": "Anthropic",
       "verified_at": "2026-10-04"
+    },
+    {
+      "document_date": null,
+      "document_type": "merchant_order_details",
+      "note": "Signed-in Mac Chrome Order Details identify the project lines, order total and actual delivery dates. Shipping is free. The sole project item was delivered 2026-11-07; the completed merchant charge corroborates the final USD 10.71 order total.",
+      "proves": [
+        "price",
+        "order_date",
+        "delivery"
+      ],
+      "reference": "112-0673623-4429031",
+      "source_id": "src-87da27cdf1a646c9971668c463005473",
+      "vendor": "Amazon",
+      "verified_at": "2026-11-10"
     },
     {
       "document_date": {
@@ -60410,6 +61858,37 @@
       "verified_at": "2026-10-04"
     },
     {
+      "document_date": null,
+      "document_type": "merchant_order_details",
+      "note": "Signed-in Mac Chrome Order Details identify the project lines, order total and actual delivery dates. Shipping is free. The sole project item was delivered 2026-11-07; the completed merchant charge corroborates the final USD 7.50 order total.",
+      "proves": [
+        "price",
+        "order_date",
+        "delivery"
+      ],
+      "reference": "112-6378482-5879429",
+      "source_id": "src-9814b29cf9a040d6b03b19b788c0887d",
+      "vendor": "Amazon",
+      "verified_at": "2026-11-10"
+    },
+    {
+      "document_date": null,
+      "document_type": "completed_merchant_transaction",
+      "merchant_event_date": {
+        "precision": "day",
+        "value": "2026-11-06"
+      },
+      "note": "Order-scoped Your Payments > Completed shows a USD 11.36 charge dated 2026-11-06. The order is all-project; no bank posting or funding ownership is established.",
+      "proves": [
+        "charge",
+        "merchant_event_date"
+      ],
+      "reference": "112-6057627-7806613",
+      "source_id": "src-984eeee2a18a4402acdbce90520cba98",
+      "vendor": "Amazon",
+      "verified_at": "2026-11-10"
+    },
+    {
       "document_date": {
         "precision": "day",
         "value": "2026-05-29"
@@ -60596,6 +62075,33 @@
       "source_id": "src-a2bd31096c4043d284cad779b84c282d",
       "vendor": "Amazon",
       "verified_at": "2026-10-04"
+    },
+    {
+      "document_date": {
+        "precision": "day",
+        "value": "2026-11-02"
+      },
+      "document_type": "merchant_monetary_receipt",
+      "invoice_reference": "EV3NKLCU-0007",
+      "merchant_event_date": {
+        "precision": "day",
+        "value": "2026-11-02"
+      },
+      "note": "The merchant receipt explicitly states the amount paid and payment date. No bank posting or funding ownership is inferred.",
+      "proves": [
+        "price",
+        "charge",
+        "receipt_date",
+        "merchant_event_date"
+      ],
+      "receipt_date": {
+        "precision": "day",
+        "value": "2026-11-02"
+      },
+      "reference": "2266-7780",
+      "source_id": "src-a2ead921e4dd4244831173be18494f21",
+      "vendor": "Render",
+      "verified_at": "2026-11-10"
     },
     {
       "document_date": {
@@ -60843,6 +62349,20 @@
       "source_id": "src-b1cd71ee8ed1408aaca18d00e0900c44",
       "vendor": "Anthropic",
       "verified_at": "2026-10-04"
+    },
+    {
+      "document_date": null,
+      "document_type": "merchant_order_details",
+      "note": "Signed-in Mac Chrome Order Details identify the project lines, order total and actual delivery dates. Shipping is free. The sole project item was delivered 2026-11-07; the completed merchant charge corroborates the final USD 218.78 order total.",
+      "proves": [
+        "price",
+        "order_date",
+        "delivery"
+      ],
+      "reference": "112-5769102-6239435",
+      "source_id": "src-b3dcc6cf70e344f087737b80cb7b144e",
+      "vendor": "Amazon",
+      "verified_at": "2026-11-10"
     },
     {
       "document_date": {
@@ -61368,6 +62888,20 @@
       "verified_at": "2026-10-04"
     },
     {
+      "document_date": null,
+      "document_type": "merchant_order_details_and_invoice",
+      "note": "Signed-in Mac Chrome Order Details identify the project lines, order total and actual delivery dates. Shipping is free. The separately opened invoice matches the order summary and completed charge. All six project items were delivered 2026-10-27. USD 1,180.96 merchandise less USD 16.90 promotion plus USD 84.39 tax totals USD 1,248.45; the recorded item-discount and tax allocations sum exactly to that total.",
+      "proves": [
+        "price",
+        "order_date",
+        "delivery"
+      ],
+      "reference": "112-8772290-0884241",
+      "source_id": "src-cdd9f10875964144a6513c9750edf066",
+      "vendor": "Amazon",
+      "verified_at": "2026-11-10"
+    },
+    {
       "document_date": {
         "precision": "day",
         "value": "2026-04-28"
@@ -61475,6 +63009,23 @@
       "verified_at": "2026-10-04"
     },
     {
+      "document_date": null,
+      "document_type": "completed_merchant_transaction",
+      "merchant_event_date": {
+        "precision": "day",
+        "value": "2026-11-07"
+      },
+      "note": "Order-scoped Your Payments > Completed shows a USD 7.50 charge dated 2026-11-07. The order is all-project; no bank posting or funding ownership is established.",
+      "proves": [
+        "charge",
+        "merchant_event_date"
+      ],
+      "reference": "112-6378482-5879429",
+      "source_id": "src-d4525740215f48a5b1edf9580fa780fd",
+      "vendor": "Amazon",
+      "verified_at": "2026-11-10"
+    },
+    {
       "document_date": {
         "precision": "day",
         "value": "2026-05-06"
@@ -61554,6 +63105,22 @@
       "source_id": "src-d8d4e9ee419545059ca2064ea7079601",
       "vendor": "Amazon",
       "verified_at": "2026-10-13"
+    },
+    {
+      "document_date": null,
+      "document_type": "carrier_delivery_notice",
+      "note": "Carrier notice linked through the vendor shipment confirmation explicitly states Delivered Date 2026-10-13. It matches the install-guide shipment and does not establish payment.",
+      "notification_date": {
+        "precision": "day",
+        "value": "2026-10-13"
+      },
+      "proves": [
+        "delivery"
+      ],
+      "reference": "USD-C4516450",
+      "source_id": "src-d904dd0c136247cba05afa878c899c1a",
+      "vendor": "Lulu",
+      "verified_at": "2026-11-10"
     },
     {
       "document_date": {
@@ -62137,6 +63704,20 @@
       "verified_at": "2026-10-24"
     },
     {
+      "document_date": null,
+      "document_type": "merchant_order_details",
+      "note": "Signed-in Mac Chrome Order Details identify the project lines, order total and actual delivery dates. Shipping is free. The sole project item was delivered 2026-11-07; the completed merchant charge corroborates the final USD 11.36 order total.",
+      "proves": [
+        "price",
+        "order_date",
+        "delivery"
+      ],
+      "reference": "112-6057627-7806613",
+      "source_id": "src-ed808d9aaedb44d18aed74a4410a0d53",
+      "vendor": "Amazon",
+      "verified_at": "2026-11-10"
+    },
+    {
       "document_date": {
         "precision": "day",
         "value": "2026-10-28"
@@ -62203,6 +63784,27 @@
     {
       "document_date": {
         "precision": "day",
+        "value": "2026-11-02"
+      },
+      "document_type": "final_vendor_invoice",
+      "proves": [
+        "price",
+        "invoice_date",
+        "service_period"
+      ],
+      "reference": "EV3NKLCU-0007",
+      "service_period": {
+        "end": "2026-10-31",
+        "precision": "range",
+        "start": "2026-10-01"
+      },
+      "source_id": "src-f10b6422369c43b5b74ab1c046018291",
+      "vendor": "Render",
+      "verified_at": "2026-11-10"
+    },
+    {
+      "document_date": {
+        "precision": "day",
         "value": "2026-10-13"
       },
       "document_type": "merchant_order_page",
@@ -62258,6 +63860,23 @@
       "source_id": "src-f1858fd8ad6e4488986599b5ba971c31",
       "vendor": "Amazon",
       "verified_at": "2026-10-26"
+    },
+    {
+      "document_date": null,
+      "document_type": "completed_merchant_transaction",
+      "merchant_event_date": {
+        "precision": "day",
+        "value": "2026-11-07"
+      },
+      "note": "Order-scoped Your Payments > Completed shows a USD 13.93 charge dated 2026-11-07. The order is all-project; no bank posting or funding ownership is established.",
+      "proves": [
+        "charge",
+        "merchant_event_date"
+      ],
+      "reference": "112-5039065-3785859",
+      "source_id": "src-f34bc88da6fc49708c2010cf76f6fa8d",
+      "vendor": "Amazon",
+      "verified_at": "2026-11-10"
     },
     {
       "document_date": {
@@ -62500,6 +64119,20 @@
       "verified_at": "2026-10-13"
     },
     {
+      "document_date": null,
+      "document_type": "merchant_order_details",
+      "note": "Signed-in Mac Chrome Order Details identify the project lines, order total and actual delivery dates. Shipping is free. The sole project item was delivered 2026-11-07; the completed merchant charge corroborates the final USD 26.79 order total.",
+      "proves": [
+        "price",
+        "order_date",
+        "delivery"
+      ],
+      "reference": "112-1658930-0707414",
+      "source_id": "src-fbcdb7d29c2542c3ab90439d37cf50ef",
+      "vendor": "Amazon",
+      "verified_at": "2026-11-10"
+    },
+    {
       "document_date": {
         "precision": "day",
         "value": "2026-11-07"
@@ -62556,6 +64189,39 @@
       "source_id": "src-fca85e683e25457dbfe48a380ee6d856",
       "vendor": "Amazon",
       "verified_at": "2026-10-13"
+    },
+    {
+      "document_date": {
+        "precision": "day",
+        "value": "2026-10-28"
+      },
+      "document_type": "merchant_monetary_receipt",
+      "invoice_reference": "HYODLCRX-0084",
+      "merchant_event_date": {
+        "precision": "day",
+        "value": "2026-10-28"
+      },
+      "note": "The merchant receipt explicitly states the amount paid and payment date. No bank posting or funding ownership is inferred.",
+      "proves": [
+        "price",
+        "charge",
+        "receipt_date",
+        "merchant_event_date",
+        "service_period"
+      ],
+      "receipt_date": {
+        "precision": "day",
+        "value": "2026-10-28"
+      },
+      "reference": "2863-0654-2814",
+      "service_period": {
+        "end": "2026-11-28",
+        "precision": "range",
+        "start": "2026-10-28"
+      },
+      "source_id": "src-fe2394a49f284bfdbef95b4cff22b80d",
+      "vendor": "Anthropic",
+      "verified_at": "2026-11-10"
     },
     {
       "document_date": {
@@ -62651,7 +64317,7 @@
       "basis": "Current procurement status, independently of payment evidence.",
       "by_status": [
         {
-          "amount_minor": 4701486,
+          "amount_minor": 4908506,
           "currency": "USD",
           "fulfillment": "ACQUIRED",
           "purchase_ids": [
@@ -62740,6 +64406,7 @@
             "pur-221ddf9f8004473dbd36b14440a9a4d5",
             "pur-231e62f4d5184efe8dea6ec5f44a1a7a",
             "pur-2457df51398f4e368395d5ee52488c9b",
+            "pur-24623d00c3e94898adf2465f7537b1bd",
             "pur-24c3ed43ee7f4fa7b4ac854f8ff90935",
             "pur-250afee3f9d341c9a9d18d4e33c0fd0e",
             "pur-253b15267a754671a90f8c5d31b997fb",
@@ -62766,6 +64433,7 @@
             "pur-2b7d4e1a9c3f4e6b8a1d5c7e9f0a2b41",
             "pur-2b9c812ca2194e2d9ae2537dd7079c90",
             "pur-2be9e821f4bd485c95fd41765171b1ba",
+            "pur-2c46198fe81f4cf7bf5a65d4e4ec638a",
             "pur-2cab9c5a03c04046937351ade4988f85",
             "pur-2d770e60452041f4b4ab24b5ac7e7271",
             "pur-2dcd0fd2d5a54c14b3a06b2fafc1f1ea",
@@ -62775,6 +64443,7 @@
             "pur-2f14d60432b24b319fc62deac47e5bc0",
             "pur-303d99720ca54c51b534f259b0556573",
             "pur-309471632e7349928ff68b62bc97314f",
+            "pur-3161c146b8ef40e5817e13af4dc07846",
             "pur-3185ba3b336046a39ecb13f213d48f8a",
             "pur-32156ab6ed504d49912a70643ac7648f",
             "pur-336e07bc67a84844b311d58e52364d25",
@@ -62799,14 +64468,17 @@
             "pur-3d23a62e17584a1fb6247b9bbf1c9575",
             "pur-3d76f4776f4b4092b93462762f916385",
             "pur-3d863e853dee4a5f9314645dd3032207",
+            "pur-3d8a298bd6054af6a120b520e7a8da65",
             "pur-3e2e38c4658c47eba0f7b8efe6bb4734",
             "pur-3e422dd818e94af4b336e62fbe83e26f",
             "pur-3f24d066bf684d46943a5469ba0b74fc",
             "pur-3f610c61869547abb6f636978fb3c63c",
             "pur-3f6de21c0d6f4fe4a39aed9b05b32fc9",
             "pur-3f7c2f57bc594cc8abbc5e9896c1503a",
+            "pur-3fca793e96a64c20b79ac0831efc3b50",
             "pur-3fd35fa4c22c45f1b2d62e92652a2757",
             "pur-406788001c4d41f39213bbd4ec7a35ad",
+            "pur-40f42f9578f642918443b1cc962c3c82",
             "pur-415e4865fe8f4ce2b2eca1a2e49db87b",
             "pur-418cda134a6d4c6786b36931d0c34d7f",
             "pur-41f67e61e80f4bbda2004fa71d913663",
@@ -62844,6 +64516,7 @@
             "pur-4dab8c029f604a8e8c1c585de5567bab",
             "pur-4e67b837e2924692ab29eaaba49ae039",
             "pur-4ece7766dd31470b9b37994248982069",
+            "pur-4fe40749fe864533992cc92b1e791c63",
             "pur-503ab7c363e14bc6a3b241f8f86b3afd",
             "pur-5090fe33ed404b20b5f3401171bf8565",
             "pur-50fafd3f6e804a70b45819e1944fd8d5",
@@ -62897,6 +64570,8 @@
             "pur-5f0821e0f4ca451890e35f52acbcef24",
             "pur-5f32a9e9bb164a428dc6bb489ccd1b8b",
             "pur-5f39080fdb1b4961aae31ac2a7050338",
+            "pur-5f404f5035cb425a9a8d90c69010a404",
+            "pur-5f9b203a9810468f8bab74284d78f44d",
             "pur-5fae169d013f41d197ba6f7e6a43c212",
             "pur-5fd0030147254e7ea4b08f7f09ff66f7",
             "pur-60b1975ac8e740ba9b68c87b90dd9143",
@@ -62937,6 +64612,7 @@
             "pur-6a849c894f134e6083a0e7f4946b948c",
             "pur-6b2a8bfdb28140f9b07113a2d70f70e6",
             "pur-6b52fe7813d94d5c8363ae1f8d1c2f74",
+            "pur-6bc71f4f15b34503ac9bf8beea6ef815",
             "pur-6ca49f0166df4dd881f118acf01886aa",
             "pur-6cd30f5bb2824177a87475fe86b765d1",
             "pur-6d136060e78f4ab9877bbeaf77913f5e",
@@ -62989,6 +64665,7 @@
             "pur-7d828979728342ebb0edb827756b63ce",
             "pur-7dbe18c3a31842fdb95ee876aba52106",
             "pur-7e10c7635d424871a6d1ec291cb0451f",
+            "pur-7ebe706384b34c718af7af886e0988d7",
             "pur-7ec9003837a84240a84dce82a00c39f3",
             "pur-7f274b6a86f5498d86be3c929534fef7",
             "pur-7fdf05c1bdde4ed8bb23130334e10db1",
@@ -63020,6 +64697,7 @@
             "pur-8b077cfa48914cb4aa77a40fc39a5fb4",
             "pur-8b2fe298e82c459cbced828202a060a2",
             "pur-8b3ac6c3e47c4429b8904abbe9d0740e",
+            "pur-8b3d0e7a5c9f4e2b4a7d1c3e5f6a8b07",
             "pur-8b3f786e6b894e7483513083fb01deda",
             "pur-8b726a47a23d43c7960ba13eab2167c1",
             "pur-8b8ba8e2137c4191a05b5752259df5bc",
@@ -63090,6 +64768,7 @@
             "pur-9f4f2f41bd0e473e99f1ba6d885d8c3c",
             "pur-9f81aa36ad4e47ac8232415d46371a22",
             "pur-9fdd5aadd3a5416cb941df9d49ef528b",
+            "pur-9fe3b15945c3487da36214f92b80f9ee",
             "pur-a02ce33a2d984d9fbea615cbad793ab3",
             "pur-a065b01d45c946409f7342ac3e821a22",
             "pur-a0715d56214f4690b90294677aee5b42",
@@ -63098,6 +64777,7 @@
             "pur-a2b0cf087f7f47a08b322850fdd38d9a",
             "pur-a306c668d8404ae7b814b49320456fb2",
             "pur-a315ebcc82034331b7c9b9a3f9714aa4",
+            "pur-a326599d5b464456b43259262c4808ba",
             "pur-a42cf53d49fa43ca9f11e1024291cc25",
             "pur-a52a7f9d818044e8a32955ecd3a28d01",
             "pur-a53ccd97d110495190a9b5e728f00720",
@@ -63108,6 +64788,7 @@
             "pur-a748e002d30f4feaa479ad9601062796",
             "pur-a802e5661d834484bde4de2d5459c9fc",
             "pur-a905c347f2ff42f5a0870c953cb18946",
+            "pur-a9aeeb7107e24ef68654ee86aa1fbe14",
             "pur-aa976356e62445be80822f3ba9966bd3",
             "pur-aa9e46928fa84f3bb1ce075c3d298d72",
             "pur-ab0a53e3b8ab4340aaa9a4612b4ddb00",
@@ -63233,6 +64914,7 @@
             "pur-d8a8a1e239ff48b6a6b19c43e22b4858",
             "pur-d92c92ee98974e94a6c1c0e8aff69fcf",
             "pur-d93ee965bacf499aa09cd8ddb8f80f01",
+            "pur-d95243a541864bd887feefcc369098d4",
             "pur-d9a7fc46c6a94ed792dea9b448ecdf05",
             "pur-dc2db914953b4bfc837b9ddc3c762e61",
             "pur-dc62fe3f57474f15be2c4afae3e10359",
@@ -63299,6 +64981,7 @@
             "pur-f1d4b8acb6c84ea08eea6c8722eea66a",
             "pur-f24cd0a88f4b4a8ca76f3abc490f81b3",
             "pur-f2837bd0bd16455988b931fefbefdc61",
+            "pur-f2a6d291d92649da94f37b960613d32e",
             "pur-f327ab43abf34b7089fb74f6bfa7a5bf",
             "pur-f343ca60f649486eba45fe1cf7c796f8",
             "pur-f34a0cbf6ba74d11887b5ec0c8206984",
@@ -63336,6 +65019,7 @@
             "pur-fed6d00353fc4faab696ce743483e8b4",
             "pur-ff500602845047da9fb571b2a8ac03a4",
             "pur-ff50f9b443a4480792283cac374939eb",
+            "pur-ff6404193aa640179f2209f33f2997f8",
             "pur-ffc9c9bb4e8945eb9d25d1e8058e72aa",
             "pur-ffd04b55190541d9945746abbb0d5ec0"
           ],
@@ -63363,33 +65047,17 @@
           "unknown_amount_ids": []
         },
         {
-          "amount_minor": 228699,
+          "amount_minor": 47999,
           "currency": "USD",
           "fulfillment": "ON-ORDER",
           "purchase_ids": [
             "pur-14f8f47e82a74b129f4677cb0fc2a67d",
             "pur-242d69307ce84a69948b9e502ff3dd71",
-            "pur-24623d00c3e94898adf2465f7537b1bd",
-            "pur-2c46198fe81f4cf7bf5a65d4e4ec638a",
-            "pur-3161c146b8ef40e5817e13af4dc07846",
-            "pur-3d8a298bd6054af6a120b520e7a8da65",
-            "pur-3fca793e96a64c20b79ac0831efc3b50",
             "pur-4eaf76e6557740d7b0e85e0be8664f71",
-            "pur-4fe40749fe864533992cc92b1e791c63",
-            "pur-5f404f5035cb425a9a8d90c69010a404",
-            "pur-5f9b203a9810468f8bab74284d78f44d",
             "pur-6655f4a0c1c747bc8ce06a69596eb432",
-            "pur-6bc71f4f15b34503ac9bf8beea6ef815",
-            "pur-7ebe706384b34c718af7af886e0988d7",
             "pur-7f5e5ae2f85e4d74bca9edb78b7332f0",
             "pur-89b25fbe2a3e44adb4cbb188ab8a820f",
-            "pur-8b3d0e7a5c9f4e2b4a7d1c3e5f6a8b07",
-            "pur-9fe3b15945c3487da36214f92b80f9ee",
-            "pur-a326599d5b464456b43259262c4808ba",
-            "pur-a9aeeb7107e24ef68654ee86aa1fbe14",
-            "pur-ae7d87fe77614d0098db388d7f0fa11d",
-            "pur-d95243a541864bd887feefcc369098d4",
-            "pur-f2a6d291d92649da94f37b960613d32e"
+            "pur-ae7d87fe77614d0098db388d7f0fa11d"
           ],
           "unknown_amount_ids": []
         },
@@ -63408,29 +65076,13 @@
       "outstanding_purchase_ids": [
         "pur-14f8f47e82a74b129f4677cb0fc2a67d",
         "pur-242d69307ce84a69948b9e502ff3dd71",
-        "pur-24623d00c3e94898adf2465f7537b1bd",
-        "pur-2c46198fe81f4cf7bf5a65d4e4ec638a",
-        "pur-3161c146b8ef40e5817e13af4dc07846",
-        "pur-3d8a298bd6054af6a120b520e7a8da65",
-        "pur-3fca793e96a64c20b79ac0831efc3b50",
         "pur-4eaf76e6557740d7b0e85e0be8664f71",
-        "pur-4fe40749fe864533992cc92b1e791c63",
-        "pur-5f404f5035cb425a9a8d90c69010a404",
-        "pur-5f9b203a9810468f8bab74284d78f44d",
         "pur-6655f4a0c1c747bc8ce06a69596eb432",
-        "pur-6bc71f4f15b34503ac9bf8beea6ef815",
-        "pur-7ebe706384b34c718af7af886e0988d7",
         "pur-7f5e5ae2f85e4d74bca9edb78b7332f0",
         "pur-89b25fbe2a3e44adb4cbb188ab8a820f",
-        "pur-8b3d0e7a5c9f4e2b4a7d1c3e5f6a8b07",
-        "pur-9fe3b15945c3487da36214f92b80f9ee",
-        "pur-a326599d5b464456b43259262c4808ba",
-        "pur-a9aeeb7107e24ef68654ee86aa1fbe14",
         "pur-ae7d87fe77614d0098db388d7f0fa11d",
         "pur-b6c01a5b012340fc888139c1070dc054",
-        "pur-c887374045604177851c4a81cc779f0e",
-        "pur-d95243a541864bd887feefcc369098d4",
-        "pur-f2a6d291d92649da94f37b960613d32e"
+        "pur-c887374045604177851c4a81cc779f0e"
       ],
       "returned_without_evidenced_refund_purchase_ids": []
     },
@@ -63442,7 +65094,6 @@
         "evt-44d3b6c0a264492589465271e6914753",
         "evt-5a6637d18fab4dbaa2c3a7428c33273f",
         "evt-5fddb80e882c4533bf9042d5a74088cc",
-        "evt-7f73633b6a97457eaa442c0429f18359",
         "evt-9fd2d4a65f7d45a594a7ac3a6837d416",
         "evt-a3c8a2e1a259405e85d14c27817deb58",
         "evt-c0203246ff88423a9af71d1977ede6c4",
@@ -63691,7 +65342,7 @@
         },
         {
           "authorizations_minor": 0,
-          "charges_minor": 165587,
+          "charges_minor": 319521,
           "currency": "USD",
           "event_ids": [
             "evt-07fc9a2979134192b3cc752f32f2b460",
@@ -63702,12 +65353,14 @@
             "evt-422e912275ec4062a0eed9ac2913a016",
             "evt-4991502f7a0d484788efb14e364fc889",
             "evt-4f7b7d18ceab43979159e02bdb2a306d",
+            "evt-66ddeac3226743dda427fea8db281746",
             "evt-7f73633b6a97457eaa442c0429f18359",
             "evt-822df10968c94d009e356f29f845abc5",
             "evt-859aaf61508e423492ba56484ab9f2df",
             "evt-8b786496a51248269419124e3f7b6073",
             "evt-a581db47af7146ef95a329e497e4fbe6",
             "evt-acd3c197767942d68ef92b3d422122b7",
+            "evt-b7604b4f3b3441a09eeb753dbeb2c279",
             "evt-bad47324ad83426992a3db494d58e295",
             "evt-c0203246ff88423a9af71d1977ede6c4",
             "evt-d1da698db2c940a09ec686643f142b0d",
@@ -63723,7 +65376,7 @@
           ],
           "evidence_scope": "retrieved_records_only",
           "month": "2026-10",
-          "net_minor": 165587,
+          "net_minor": 319521,
           "noncash_credits_minor": 0,
           "refunds_minor": 0,
           "unknown_amount_ids": [],
@@ -63731,12 +65384,21 @@
         },
         {
           "authorizations_minor": 0,
-          "charges_minor": 0,
+          "charges_minor": 36298,
           "currency": "USD",
-          "event_ids": [],
+          "event_ids": [
+            "evt-03528b8bbe2f47c39bee9b7de9b837c3",
+            "evt-173ae81452be441989c194ea73607128",
+            "evt-212f0cc5453646209e86acf44a509e60",
+            "evt-46ab695dde87410681a27f2d7fd8a499",
+            "evt-92e67e1783c94f10ac80f6a9895996db",
+            "evt-a518d84ef1464651bd19812f7d6129d0",
+            "evt-a778aae0f86a47a6b10d733d848c637f",
+            "evt-fd3cb92b17f746cfb1c5166c3d22e9c3"
+          ],
           "evidence_scope": "retrieved_records_only",
           "month": "2026-11",
-          "net_minor": 0,
+          "net_minor": 36298,
           "noncash_credits_minor": 0,
           "refunds_minor": 0,
           "unknown_amount_ids": [],
@@ -63759,9 +65421,9 @@
       "totals": [
         {
           "authorizations_minor": 0,
-          "charges_minor": 1787960,
+          "charges_minor": 1978192,
           "currency": "USD",
-          "net_minor": 1787960,
+          "net_minor": 1978192,
           "noncash_credits_minor": 0,
           "refunds_minor": 0,
           "unresolved_project_share_minor": 0
@@ -64445,9 +66107,9 @@
         },
         {
           "currency": "USD",
-          "estimate_minor": 234492,
+          "estimate_minor": 100558,
           "evidence_scope": "retrieved_records_only",
-          "final_vendor_amount_minor": 146361,
+          "final_vendor_amount_minor": 280295,
           "legacy_unverified_minor": 30634,
           "month": "2026-10",
           "purchase_ids": [
@@ -64514,9 +66176,9 @@
         },
         {
           "currency": "USD",
-          "estimate_minor": 30728,
+          "estimate_minor": 750,
           "evidence_scope": "retrieved_records_only",
-          "final_vendor_amount_minor": 9742,
+          "final_vendor_amount_minor": 39720,
           "legacy_unverified_minor": 0,
           "month": "2026-11",
           "purchase_ids": [
@@ -64564,7 +66226,7 @@
           "purpose": "documentation_marketing"
         },
         {
-          "amount_minor": 651951,
+          "amount_minor": 671951,
           "currency": "USD",
           "purpose": "engineering_software_services"
         },
@@ -64574,7 +66236,7 @@
           "purpose": "equipment_tooling"
         },
         {
-          "amount_minor": 85782,
+          "amount_minor": 92102,
           "currency": "USD",
           "purpose": "hosting_domains"
         },
@@ -64587,17 +66249,17 @@
       "totals": [
         {
           "currency": "USD",
-          "estimate_minor": 429273,
-          "final_vendor_amount_minor": 2126492,
+          "estimate_minor": 265361,
+          "final_vendor_amount_minor": 2316724,
           "legacy_unverified_minor": 2387447,
-          "total_minor": 4943212
+          "total_minor": 4969532
         }
       ],
       "undated_unallocated": [
         {
           "currency": "USD",
           "estimate_minor": 21478,
-          "final_vendor_amount_minor": 689015,
+          "final_vendor_amount_minor": 715335,
           "legacy_unverified_minor": 215500,
           "purchase_ids": [
             "pur-039f49fc6eef49008dd6a93defa86b27",
@@ -64626,6 +66288,7 @@
             "pur-3d863e853dee4a5f9314645dd3032207",
             "pur-3f610c61869547abb6f636978fb3c63c",
             "pur-3fd35fa4c22c45f1b2d62e92652a2757",
+            "pur-40f42f9578f642918443b1cc962c3c82",
             "pur-41f67e61e80f4bbda2004fa71d913663",
             "pur-438e546fcfdc40feb6642cdbf2b74d04",
             "pur-43d05d54be2a46458d8442f68c10ac4b",
@@ -64715,9 +66378,10 @@
             "pur-fae26b5fdf05431a9cf22b914afcb168",
             "pur-fbeb6d70584a4d0fba20a4e555a33932",
             "pur-fcca5d9c2ff44cdba4f21d5a544fbcef",
-            "pur-fed6d00353fc4faab696ce743483e8b4"
+            "pur-fed6d00353fc4faab696ce743483e8b4",
+            "pur-ff6404193aa640179f2209f33f2997f8"
           ],
-          "total_minor": 925993,
+          "total_minor": 952313,
           "unknown_amount_ids": []
         }
       ]
@@ -64733,9 +66397,7 @@
         "gap-40a04fd67b1f469ebec51aa79a1e2aa7",
         "gap-7dc719f6e334459abab4ecaec07873e1",
         "gap-8703c8fb55124412b9d51de641020ca7",
-        "gap-8aacdacb6ac44b68a95178ea80fbe89a",
         "gap-9738d616dea64eaabb2b35df6ba49073",
-        "gap-b377c38272c84c2d9d0b972f58b6c35c",
         "gap-b513fdee8791439ca43d36cdba1179f2",
         "gap-c87a74d7ef6a438d84bd3470c16b1c88",
         "gap-ea9234a1f7fe467ba032c78c31fe270e",
@@ -64746,14 +66408,14 @@
       "by_currency": [
         {
           "currency": "USD",
-          "estimated_purchase_minor": 429273,
+          "estimated_purchase_minor": 265361,
           "legacy_unverified_purchase_minor": 2387447,
           "order_only_charge_allocation_minor": 6561,
           "partial_charge_purchase_minor": 0,
-          "purchases_without_merchant_charge_minor": 3161813,
+          "purchases_without_merchant_charge_minor": 2997901,
           "undated_charge_minor": 57998,
           "undated_refund_minor": 0,
-          "undated_unallocated_purchase_minor": 925993,
+          "undated_unallocated_purchase_minor": 952313,
           "unknown_amount_event_count": 0,
           "unknown_amount_purchase_count": 0,
           "unresolved_allocation_purchase_minor": 0,
@@ -64765,53 +66427,33 @@
         "pur-0d4eaf3ef27646a8b8f77ea46d4f2d44",
         "pur-1394610e499a45c08ba665ed1200053c",
         "pur-242d69307ce84a69948b9e502ff3dd71",
-        "pur-24623d00c3e94898adf2465f7537b1bd",
         "pur-250afee3f9d341c9a9d18d4e33c0fd0e",
-        "pur-2b7d4e1a9c3f4e6b8a1d5c7e9f0a2b41",
-        "pur-3161c146b8ef40e5817e13af4dc07846",
-        "pur-3c8e5f2b0d4a4f7c9b2e6d8f0a1b3c52",
         "pur-3ce173932d6c45f184bcd60237a2c790",
-        "pur-3d8a298bd6054af6a120b520e7a8da65",
         "pur-3e2e38c4658c47eba0f7b8efe6bb4734",
-        "pur-3fca793e96a64c20b79ac0831efc3b50",
         "pur-406788001c4d41f39213bbd4ec7a35ad",
-        "pur-4d9f6a3c1e5b4a8d0c3f7e9a1b2c4d63",
         "pur-4eaf76e6557740d7b0e85e0be8664f71",
-        "pur-4fe40749fe864533992cc92b1e791c63",
         "pur-5090fe33ed404b20b5f3401171bf8565",
         "pur-5da1ea9540d44a8897b0c2774fe1ff35",
-        "pur-5e0a7b4d2f6c4b9e1d4a8f0b2c3d5e74",
-        "pur-5f404f5035cb425a9a8d90c69010a404",
-        "pur-5f9b203a9810468f8bab74284d78f44d",
-        "pur-6f1b8c5e3a7d4c0f2e5b9a1c3d4e6f85",
         "pur-7a2c9d6f4b8e4d1a3f6c0b2d4e5f7a96",
         "pur-7cb5c1d8028249feb0e80687059fc82e",
-        "pur-7ebe706384b34c718af7af886e0988d7",
         "pur-7f5e5ae2f85e4d74bca9edb78b7332f0",
         "pur-87565d390bcc451a9fbfb44dc871d585",
         "pur-88c94356779a413f95d4e1b878b4bb18",
         "pur-8d0598d87bd8438496d8a9fbf38dcf9a",
         "pur-8fb96099b6b34dbfa04c2e6d93c55a42",
-        "pur-91bd3b099e80493ab591655550b439ca",
         "pur-9a08e76abb825705aff0991b6c1bf389",
         "pur-9c025ba9576044b38a4745d084361ea5",
-        "pur-9fe3b15945c3487da36214f92b80f9ee",
-        "pur-a02ce33a2d984d9fbea615cbad793ab3",
-        "pur-a326599d5b464456b43259262c4808ba",
         "pur-a61e59a7635c4aa0887475454ad04b04",
         "pur-a667e3ee975c42218852bc7b225d75a8",
-        "pur-a9aeeb7107e24ef68654ee86aa1fbe14",
         "pur-ae7d87fe77614d0098db388d7f0fa11d",
         "pur-b03a2dd1d7054c408d12d07ac3eaa1ec",
         "pur-c08cee116c73400bae488deb2d2015f4",
         "pur-cfc338b991f7400a851a0ea5a018e44e",
         "pur-d0a38d1d52934be7866d5286a6a8271e",
         "pur-d8a8a1e239ff48b6a6b19c43e22b4858",
-        "pur-d95243a541864bd887feefcc369098d4",
         "pur-e17001f6d6074a8884e9e1b2af82fa1f",
         "pur-e7fa6e37def64cf3baaf64a1a2458232",
         "pur-f24cd0a88f4b4a8ca76f3abc490f81b3",
-        "pur-f2a6d291d92649da94f37b960613d32e",
         "pur-f4ddddb90dbd4ae2bba5008f74f8d4b6"
       ],
       "incomplete_coverage_ids": [
@@ -64827,6 +66469,7 @@
         "coverage-27569856b3b641519414ed37185cfa22",
         "coverage-289b30c85ed54017820f5c3461d2a7b8",
         "coverage-2d51b79d574e41f6b0434890709865bc",
+        "coverage-30f6d1d81006498f86e43d091cc241ec",
         "coverage-31e4eb8840d84e2d869ea23e58c2cfcd",
         "coverage-341631217afb449cb36127936d24742b",
         "coverage-39229818c301479f8e41d18b5ce3b0a6",
@@ -64848,6 +66491,7 @@
         "coverage-6ef6cf03f4f84bfbb645acce4d20418b",
         "coverage-78a9ed2f481043abade203167e2c5d18",
         "coverage-7f9a057786a54dddb3e660fd3d934198",
+        "coverage-80e99c778a64491ea0cd0c2669edbab4",
         "coverage-81ab195b3a1745e79ed28e5764633055",
         "coverage-81ef2f676a514df7997a2840a4a7986d",
         "coverage-88c04aa68db042feb287051cb5e01375",
@@ -64864,20 +66508,24 @@
         "coverage-a998dc52b4624eb9affda84a3920c174",
         "coverage-a9a30503bf134e929097ac22eefffcbf",
         "coverage-ac29a3ee87b742d2b8bd7ee14edcae46",
+        "coverage-acea061ce3204d5f89dca212d3c84ba8",
         "coverage-b136418b081343e5b6fa252ee1b86a7c",
         "coverage-b8b45e49d70542c79e84138ae30ce7a7",
         "coverage-b9b06230952f4f6795765fbb8e7c1222",
         "coverage-ba4bf9754c174c37ad1d77933b5a2574",
         "coverage-bd073659d99f4c38b20c1d9fac3c8155",
         "coverage-bd8d0957451549b2bd2006065f3ef7cb",
+        "coverage-c2b991ed7f77417889868ab62b87b299",
         "coverage-c57ca481544248138b803bc112966160",
         "coverage-c6521989f3144cb39f81df95603c72c3",
         "coverage-c7f0244fd78749e6a3eda6f37122dba0",
+        "coverage-cb3b2897e4284f688f9d1a76d4f04536",
         "coverage-d4baf4542f40450189a7fdcacc197039",
         "coverage-dad019e8b30b485e9203a063ea3654ba",
         "coverage-dc497fe458424d6e96f59f91a9cd428e",
         "coverage-de8e0cfc0b9c4cc3921494a23e27e4f3",
         "coverage-e361f03c5b404f3f92334c4f92bab5f8",
+        "coverage-ebeb2d7c77e9420197c6d8286df30fbb",
         "coverage-eee3337cad824a7788c806a39d1436fe",
         "coverage-f000ac62945a4ef1b60842f89aa45a31",
         "coverage-f18d82d4491b433d80956e513f0c3242",
@@ -65383,7 +67031,6 @@
       ],
       "order_only_allocation_event_ids": [
         "evt-0a248482126b481c9dc3c58fd1f7b687",
-        "evt-7f73633b6a97457eaa442c0429f18359",
         "evt-db226e9820d147058384c3bfe695bab8"
       ],
       "partial_merchant_charge_purchase_ids": [],
@@ -65450,7 +67097,6 @@
         "pur-221ddf9f8004473dbd36b14440a9a4d5",
         "pur-231e62f4d5184efe8dea6ec5f44a1a7a",
         "pur-242d69307ce84a69948b9e502ff3dd71",
-        "pur-24623d00c3e94898adf2465f7537b1bd",
         "pur-24c3ed43ee7f4fa7b4ac854f8ff90935",
         "pur-250afee3f9d341c9a9d18d4e33c0fd0e",
         "pur-256b2c67900b47178deeae21da804833",
@@ -65466,7 +67112,6 @@
         "pur-2adc38c7f40a47c0a7ce61c92ac8671d",
         "pur-2b02951001084d3da886fff6f90ab5ed",
         "pur-2b1b4051619a4c01885f6d2ca0f72b84",
-        "pur-2b7d4e1a9c3f4e6b8a1d5c7e9f0a2b41",
         "pur-2b9c812ca2194e2d9ae2537dd7079c90",
         "pur-2be9e821f4bd485c95fd41765171b1ba",
         "pur-2c46198fe81f4cf7bf5a65d4e4ec638a",
@@ -65478,7 +67123,6 @@
         "pur-2efa25e348044fe08067b69459e4ec19",
         "pur-2f14d60432b24b319fc62deac47e5bc0",
         "pur-309471632e7349928ff68b62bc97314f",
-        "pur-3161c146b8ef40e5817e13af4dc07846",
         "pur-3185ba3b336046a39ecb13f213d48f8a",
         "pur-32156ab6ed504d49912a70643ac7648f",
         "pur-336e07bc67a84844b311d58e52364d25",
@@ -65497,17 +67141,14 @@
         "pur-3b72c994b94b43c29f76326060b40799",
         "pur-3bd5d44c62d84422b3dbe3310c70a21a",
         "pur-3be1b856906740fcbb8abccf195fcf8c",
-        "pur-3c8e5f2b0d4a4f7c9b2e6d8f0a1b3c52",
         "pur-3ce496aeefa54ba3ac576dd7b9d3ec91",
         "pur-3d23a62e17584a1fb6247b9bbf1c9575",
         "pur-3d76f4776f4b4092b93462762f916385",
-        "pur-3d8a298bd6054af6a120b520e7a8da65",
         "pur-3e422dd818e94af4b336e62fbe83e26f",
         "pur-3f24d066bf684d46943a5469ba0b74fc",
         "pur-3f610c61869547abb6f636978fb3c63c",
         "pur-3f6de21c0d6f4fe4a39aed9b05b32fc9",
         "pur-3f7c2f57bc594cc8abbc5e9896c1503a",
-        "pur-3fca793e96a64c20b79ac0831efc3b50",
         "pur-3fd35fa4c22c45f1b2d62e92652a2757",
         "pur-406788001c4d41f39213bbd4ec7a35ad",
         "pur-415e4865fe8f4ce2b2eca1a2e49db87b",
@@ -65537,12 +67178,10 @@
         "pur-4bcc03a034a74bb394f4afa9254bcb19",
         "pur-4c22e1848a354f34a9faf63033e7121d",
         "pur-4ce8b4ab83a54bdfa2dc9e264ccd1b0e",
-        "pur-4d9f6a3c1e5b4a8d0c3f7e9a1b2c4d63",
         "pur-4dab8c029f604a8e8c1c585de5567bab",
         "pur-4e67b837e2924692ab29eaaba49ae039",
         "pur-4eaf76e6557740d7b0e85e0be8664f71",
         "pur-4ece7766dd31470b9b37994248982069",
-        "pur-4fe40749fe864533992cc92b1e791c63",
         "pur-503ab7c363e14bc6a3b241f8f86b3afd",
         "pur-5090fe33ed404b20b5f3401171bf8565",
         "pur-5133bb7161d64ebc8dd128da8a97b6f0",
@@ -65577,13 +67216,10 @@
         "pur-5cc9903a311f466796a8f5afbb32c1de",
         "pur-5ceb76c50ae54fffba3b019d5d0f792a",
         "pur-5da1ea9540d44a8897b0c2774fe1ff35",
-        "pur-5e0a7b4d2f6c4b9e1d4a8f0b2c3d5e74",
         "pur-5e4a44bbfad643e7944e14afd41c3448",
         "pur-5f0821e0f4ca451890e35f52acbcef24",
         "pur-5f32a9e9bb164a428dc6bb489ccd1b8b",
         "pur-5f39080fdb1b4961aae31ac2a7050338",
-        "pur-5f404f5035cb425a9a8d90c69010a404",
-        "pur-5f9b203a9810468f8bab74284d78f44d",
         "pur-5fae169d013f41d197ba6f7e6a43c212",
         "pur-5fd0030147254e7ea4b08f7f09ff66f7",
         "pur-60b1975ac8e740ba9b68c87b90dd9143",
@@ -65628,7 +67264,6 @@
         "pur-6e9a8d44f2e24b729ca4888aba4b57aa",
         "pur-6efcbbd5fcb44c888f18a2ef86a18960",
         "pur-6f026c64ba934cfa86597b5748ded272",
-        "pur-6f1b8c5e3a7d4c0f2e5b9a1c3d4e6f85",
         "pur-6fb9cbd2160040c983dc0055e58d4de1",
         "pur-6fdb34ee8f244808a9fc68ef8751a970",
         "pur-6fefb1717dc14ed4bfb05d815886f6ba",
@@ -65662,7 +67297,6 @@
         "pur-7d828979728342ebb0edb827756b63ce",
         "pur-7dbe18c3a31842fdb95ee876aba52106",
         "pur-7e10c7635d424871a6d1ec291cb0451f",
-        "pur-7ebe706384b34c718af7af886e0988d7",
         "pur-7f274b6a86f5498d86be3c929534fef7",
         "pur-7f5e5ae2f85e4d74bca9edb78b7332f0",
         "pur-7fdf05c1bdde4ed8bb23130334e10db1",
@@ -65709,7 +67343,6 @@
         "pur-918d697bf0bb4f3d9d2a64c0880fc463",
         "pur-918df672831a4c4e95c0e052eb0bb356",
         "pur-919b9c3e559c445c81030adb1835e192",
-        "pur-91bd3b099e80493ab591655550b439ca",
         "pur-91bf8d5d3cfe41f096b1ae148d3fd635",
         "pur-92e9a8843e42401389b973926a963edc",
         "pur-933ff98159c34bab9ccbd21853dad300",
@@ -65739,15 +67372,12 @@
         "pur-9f1d0a0093fa41998cc583b3dec261be",
         "pur-9f4f2f41bd0e473e99f1ba6d885d8c3c",
         "pur-9f81aa36ad4e47ac8232415d46371a22",
-        "pur-9fe3b15945c3487da36214f92b80f9ee",
-        "pur-a02ce33a2d984d9fbea615cbad793ab3",
         "pur-a065b01d45c946409f7342ac3e821a22",
         "pur-a0715d56214f4690b90294677aee5b42",
         "pur-a1316f2f48b34bd58a54999b032db5ac",
         "pur-a2b0cf087f7f47a08b322850fdd38d9a",
         "pur-a306c668d8404ae7b814b49320456fb2",
         "pur-a315ebcc82034331b7c9b9a3f9714aa4",
-        "pur-a326599d5b464456b43259262c4808ba",
         "pur-a42cf53d49fa43ca9f11e1024291cc25",
         "pur-a52a7f9d818044e8a32955ecd3a28d01",
         "pur-a53ccd97d110495190a9b5e728f00720",
@@ -65755,7 +67385,6 @@
         "pur-a61e59a7635c4aa0887475454ad04b04",
         "pur-a748e002d30f4feaa479ad9601062796",
         "pur-a905c347f2ff42f5a0870c953cb18946",
-        "pur-a9aeeb7107e24ef68654ee86aa1fbe14",
         "pur-aa976356e62445be80822f3ba9966bd3",
         "pur-ab0a53e3b8ab4340aaa9a4612b4ddb00",
         "pur-ab6c1aedc885487f9041593fc16cc55f",
@@ -65854,7 +67483,6 @@
         "pur-d83d321239db48ee949f436e89843a22",
         "pur-d84786a4222e445d8af1bf8d2725bd01",
         "pur-d93ee965bacf499aa09cd8ddb8f80f01",
-        "pur-d95243a541864bd887feefcc369098d4",
         "pur-d9a7fc46c6a94ed792dea9b448ecdf05",
         "pur-dc2db914953b4bfc837b9ddc3c762e61",
         "pur-dc62fe3f57474f15be2c4afae3e10359",
@@ -65907,7 +67535,6 @@
         "pur-f1d4b8acb6c84ea08eea6c8722eea66a",
         "pur-f24cd0a88f4b4a8ca76f3abc490f81b3",
         "pur-f2837bd0bd16455988b931fefbefdc61",
-        "pur-f2a6d291d92649da94f37b960613d32e",
         "pur-f327ab43abf34b7089fb74f6bfa7a5bf",
         "pur-f34a0cbf6ba74d11887b5ec0c8206984",
         "pur-f35fe0e3500e48a39375f599a22c10b7",
@@ -65982,6 +67609,7 @@
         "pur-3d863e853dee4a5f9314645dd3032207",
         "pur-3f610c61869547abb6f636978fb3c63c",
         "pur-3fd35fa4c22c45f1b2d62e92652a2757",
+        "pur-40f42f9578f642918443b1cc962c3c82",
         "pur-41f67e61e80f4bbda2004fa71d913663",
         "pur-438e546fcfdc40feb6642cdbf2b74d04",
         "pur-43d05d54be2a46458d8442f68c10ac4b",
@@ -66071,7 +67699,8 @@
         "pur-fae26b5fdf05431a9cf22b914afcb168",
         "pur-fbeb6d70584a4d0fba20a4e555a33932",
         "pur-fcca5d9c2ff44cdba4f21d5a544fbcef",
-        "pur-fed6d00353fc4faab696ce743483e8b4"
+        "pur-fed6d00353fc4faab696ce743483e8b4",
+        "pur-ff6404193aa640179f2209f33f2997f8"
       ],
       "unknown_amount_event_ids": [],
       "unknown_amount_purchase_ids": [],
@@ -66082,7 +67711,7 @@
   "validation": {
     "errors": [],
     "warnings": [
-      "17 authored evidence gap(s) remain",
+      "15 authored evidence gap(s) remain",
       "coverage-008d521abab24498bf9db4a8c5993e38: evidence coverage is unknown",
       "coverage-013f6586dbf840c8836ae7289d9827b3: evidence coverage is partial",
       "coverage-17d84ca75543489fb09003261546862a: evidence coverage is unknown",
@@ -66095,6 +67724,7 @@
       "coverage-27569856b3b641519414ed37185cfa22: evidence coverage is partial",
       "coverage-289b30c85ed54017820f5c3461d2a7b8: evidence coverage is partial",
       "coverage-2d51b79d574e41f6b0434890709865bc: evidence coverage is unknown",
+      "coverage-30f6d1d81006498f86e43d091cc241ec: evidence coverage is partial",
       "coverage-31e4eb8840d84e2d869ea23e58c2cfcd: evidence coverage is partial",
       "coverage-341631217afb449cb36127936d24742b: evidence coverage is partial",
       "coverage-39229818c301479f8e41d18b5ce3b0a6: evidence coverage is partial",
@@ -66116,6 +67746,7 @@
       "coverage-6ef6cf03f4f84bfbb645acce4d20418b: evidence coverage is partial",
       "coverage-78a9ed2f481043abade203167e2c5d18: evidence coverage is unknown",
       "coverage-7f9a057786a54dddb3e660fd3d934198: evidence coverage is unknown",
+      "coverage-80e99c778a64491ea0cd0c2669edbab4: evidence coverage is partial",
       "coverage-81ab195b3a1745e79ed28e5764633055: evidence coverage is unknown",
       "coverage-81ef2f676a514df7997a2840a4a7986d: evidence coverage is unknown",
       "coverage-88c04aa68db042feb287051cb5e01375: evidence coverage is partial",
@@ -66132,20 +67763,24 @@
       "coverage-a998dc52b4624eb9affda84a3920c174: evidence coverage is partial",
       "coverage-a9a30503bf134e929097ac22eefffcbf: evidence coverage is partial",
       "coverage-ac29a3ee87b742d2b8bd7ee14edcae46: evidence coverage is partial",
+      "coverage-acea061ce3204d5f89dca212d3c84ba8: evidence coverage is partial",
       "coverage-b136418b081343e5b6fa252ee1b86a7c: evidence coverage is partial",
       "coverage-b8b45e49d70542c79e84138ae30ce7a7: evidence coverage is partial",
       "coverage-b9b06230952f4f6795765fbb8e7c1222: evidence coverage is unknown",
       "coverage-ba4bf9754c174c37ad1d77933b5a2574: evidence coverage is partial",
       "coverage-bd073659d99f4c38b20c1d9fac3c8155: evidence coverage is unknown",
       "coverage-bd8d0957451549b2bd2006065f3ef7cb: evidence coverage is partial",
+      "coverage-c2b991ed7f77417889868ab62b87b299: evidence coverage is partial",
       "coverage-c57ca481544248138b803bc112966160: evidence coverage is partial",
       "coverage-c6521989f3144cb39f81df95603c72c3: evidence coverage is partial",
       "coverage-c7f0244fd78749e6a3eda6f37122dba0: evidence coverage is unknown",
+      "coverage-cb3b2897e4284f688f9d1a76d4f04536: evidence coverage is partial",
       "coverage-d4baf4542f40450189a7fdcacc197039: evidence coverage is partial",
       "coverage-dad019e8b30b485e9203a063ea3654ba: evidence coverage is partial",
       "coverage-dc497fe458424d6e96f59f91a9cd428e: evidence coverage is unknown",
       "coverage-de8e0cfc0b9c4cc3921494a23e27e4f3: evidence coverage is partial",
       "coverage-e361f03c5b404f3f92334c4f92bab5f8: evidence coverage is unknown",
+      "coverage-ebeb2d7c77e9420197c6d8286df30fbb: evidence coverage is partial",
       "coverage-eee3337cad824a7788c806a39d1436fe: evidence coverage is partial",
       "coverage-f000ac62945a4ef1b60842f89aa45a31: evidence coverage is unknown",
       "coverage-f18d82d4491b433d80956e513f0c3242: evidence coverage is unknown",
