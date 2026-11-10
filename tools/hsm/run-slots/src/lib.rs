@@ -1,4 +1,4 @@
-//! Host-wide heavy-run leases. Python's `_run_slots` uses the same files and wire format.
+//! Host-wide heavy-run leases coordinate native commands and inherited engine work.
 //! Descriptors carry BSD flock ownership; environment text alone is not admission.
 pub mod ipc;
 #[cfg(feature = "native-runtime")]
@@ -50,11 +50,6 @@ pub fn capacity() -> usize {
 }
 
 pub fn directory() -> Result<PathBuf> {
-    #[cfg(feature = "native-runtime")]
-    if let Some(path) = runtime::directory_override() {
-        fs::create_dir_all(&path)?;
-        return Ok(path);
-    }
     // geteuid takes no arguments and reads no process memory.
     let uid = unsafe { libc::geteuid() };
     let root = PathBuf::from(format!("/tmp/hsm-{uid}/heavy"));

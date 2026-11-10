@@ -32,10 +32,11 @@ the source for the conforming enclosure mount.
 Regenerate through the shared run wrapper:
 
 ```sh
-python3 tools/run.py -- cargo run --release --locked -j2 \
+tools/run -- cargo run --release --locked -j 2 \
   --manifest-path tools/hsm/Cargo.toml -p hsm-sandbox \
   --example waveshare-replica -- hardware/reference/waveshare-43b-display
 ```
 
-`frozen-asset.json` binds the published files to their source. The Python module
-retains the existing dimension accessor names for layout consumers.
+`frozen-asset.json` binds the published files to their native source. Layout and
+wiring read the saved model and terminal-interface data directly. The native
+`part-data` reference provider also exposes the measured display dimensions.

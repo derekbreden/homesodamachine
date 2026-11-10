@@ -1,5 +1,5 @@
 // GLB-format module. Loads a glTF-binary assembly (the board's 3D model,
-// board body + placed component meshes — see tools/hsm/pcb-tools)
+// board body + placed component meshes — hsm-pcb model in tools/hsm/pcb-tools)
 // into the shared Three.js scene via GLTFLoader and lays the green-soldermask
 // face textures (board-texture.ts) over the board slab. Materials + colors are
 // baked in the GLB; no occt parse.

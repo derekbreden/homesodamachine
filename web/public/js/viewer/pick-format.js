@@ -70,11 +70,10 @@ function numAfter(text, re) {
   return m ? parseFloat(m[1]) : null;
 }
 
-// WHICH SURFACE A PICTURE CAME OFF, on hover over the thing that names the picture. The page
-// draws the `.step.mesh` beside a STEP whenever there is one and reads the STEP only when
-// there is not (`step.js`), and for `pack.BUNDLED_PAYLOAD_DIRS` those are deliberately
-// different surfaces — the enclosure's and the cold core's flutes are cut into the payload
-// (`hardware/scripts/flute_payload.py`) and are in no solid.
+// Name the representation the loader drew. Native kernel and print-payload surfaces
+// can have source bindings and reduction metadata; shared manifests retain part
+// surfaces and placements. The STEP route is also used for models published only
+// as payloads. step.js parses a standalone STEP only as a browser fallback.
 //
 // A tooltip is where a SENTENCE costs nothing: it is read when someone wants it and is gone
 // when they don't. A pick is not — it is pasted into a conversation, and a sentence there
@@ -104,11 +103,9 @@ export function pickFileToViewerPath(file, root = CONTENT_ROOT) {
   return s.startsWith(root + "/") ? s.slice(root.length + 1) : s;
 }
 
-// THE `file:` LINE NAMES THE BYTES THAT WERE DRAWN, not the part that was open. Under
-// `pack.BUNDLED_PAYLOAD_DIRS` the page draws `<file>.step.mesh` and the solid beside it is a
-// different surface — so a pick labelled with the STEP sends every reader of it to a file that
-// does not contain what was clicked. Naming the payload costs no line: it is the same line,
-// carrying the name of the thing it came off.
+// The file: line names the payload when it supplied the drawn surface. A model's
+// route identifies what was opened; the line also carries the available source
+// binding and reduction metadata for the measured surface.
 //
 // AND WHAT THAT SURFACE COST. `cut` is the payload's own reading — how far the reduction
 // stood from the print, against the budget it had to stay inside. A deflection budget is a

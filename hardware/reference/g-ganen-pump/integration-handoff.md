@@ -1,8 +1,8 @@
 # G Ganen integration boundary
 
 The measured reference supplies the fixed casing, motor, rails and independent
-port profiles. Production uses the bare pump from
-[g_ganen_installation.py](installation/g_ganen_installation.py), placed by
+port profiles. Production selects the bare replica in the
+[native equipment constructor](/tools/hsm/machine-data/src/equipment.rs), placed by
 [above-core.json](../../manifold-layout/above-core.json).
 
 The four rubber feet and their raised legs are complete removable sliders. They
@@ -33,5 +33,5 @@ physical observations.
 
 The integration envelope fills reentrant casing and rail cavities for external
 clearance. It describes occupied exterior space, not casing mass or hidden wall
-thickness. `native_queries.intersect_components` reads components individually;
-`occupied_bounds` returns `None` for an empty section.
+thickness. [Native geometry queries](/tools/hsm/README.md) measure the retained
+model's exported payload without rebuilding the reference.

@@ -4,7 +4,7 @@
 use serde::Deserialize;
 use std::sync::OnceLock;
 
-/// The allowances a printed face is cut to (`hardware/printed-parts/cadlib/fits.py` says what
+/// The allowances a printed face is cut to (`shared-data/catalog/scalars.json` says what
 /// each one is for).
 #[derive(Clone, Copy, Debug, Deserialize)]
 pub struct Fits {

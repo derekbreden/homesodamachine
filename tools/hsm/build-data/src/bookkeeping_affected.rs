@@ -291,9 +291,7 @@ fn unknown(path: &str, artifacts_only: bool, context: &Classification) -> bool {
     global(path)
         || [
             "tools/bazel/",
-            "tools/cad-venv-site/",
             "tools/ci-image/",
-            "tools/docgen/",
             "tools/render/",
             "web/",
         ]

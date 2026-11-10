@@ -99,7 +99,7 @@ The Lillium-fed build, the flavor side in the enclosure with none of the cold co
 | [`mechanical-qualification/`](/hardware/mechanical-qualification/README.md) | Current mechanical evidence and qualification needs: fasteners, joint locations, deposited print structure, retained clamp force, handling and endurance. Links accepted physical records and controlled profile comparisons. |
 | [`ledger/`](/hardware/ledger/) | Bookkeeping. [`purchases.md`](/hardware/ledger/purchases.md) is the source-of-truth capex ledger; [`bom.md`](/hardware/ledger/bom.md) (per-unit parts), [`tools.md`](/hardware/ledger/tools.md) (active tooling), and [`inventory.md`](/hardware/ledger/inventory.md) (spares / abandoned / donor / diagnostic stock) are views over it. Two more price time rather than parts: [`labor.md`](/hardware/ledger/labor.md) (attended minutes per unit) and [`machine-time.md`](/hardware/ledger/machine-time.md) (hours a machine is occupied per unit). |
 | [`assembly/`](/hardware/assembly/) | Build procedures, one doc per subsystem, plus [`handwork.md`](/hardware/assembly/handwork.md) (the skilled-hand task summary). |
-| [`printed-parts/`](/hardware/printed-parts/) | FDM parts: CadQuery generators (`*.py`) + exported `*.step` + sidecars. Includes `cadlib/` (shared geometry helpers), `cold-core/`, `electronics/`, `enclosure/`, `faucet/`, `refrigeration/`, `valve-seat/`, `zone-c/`. |
+| [`printed-parts/`](/hardware/printed-parts/) | FDM parts: native Rust recipes, print meshes, viewer payloads and sidecars. Includes `cadlib/` (shared print utilities), `cold-core/`, `electronics/`, `enclosure/`, `faucet/`, `refrigeration/`, `valve-seat/`, `zone-c/`. |
 | [`cut-parts/`](/hardware/cut-parts/) | Laser-cut sheet parts: `*.dxf` outlines + sidecars (carbonation end-caps, under-counter plate). |
 | [`manifold-layout/`](/hardware/manifold-layout/), [`cold-core-layout/`](/hardware/cold-core-layout/), [`faucet-layout/`](/hardware/faucet-layout/) | The assemblies the parts above stand in, each written as one multi-solid STEP: the packed machine, the core one frame further in, and the above-counter column. `/3d` browses the tree these head — the machine and the faucet as its two cards, and the machine stands the core's own bodies, so opening it is already being inside the core. |
 | [`off-the-shelf-parts/`](/hardware/off-the-shelf-parts/) | Reference geometry for purchased parts modelled into assemblies. |
@@ -109,7 +109,6 @@ The Lillium-fed build, the flavor side in the enclosure with none of the cold co
 | [`battery-backup/`](/hardware/battery-backup/) | Mains-outage dispense ride-through: an architecture the BOM, wiring and firmware do not yet carry. |
 | [`install-guide/`](/hardware/install-guide/) | The bound install guide that ships in the install kit beside it. |
 | [`snapshots/`](/hardware/snapshots/) | Dated, point-in-time records (build-readiness audit, tapping plan, fill-from-funnel plan). **Frozen, not living docs** — re-run produces a fresh dated file rather than editing these. |
-| [`scripts/`](/hardware/scripts/) | Compatibility entry points for exports, native generators and ledger documents. [`hsm`](/tools/hsm/README.md) reads the current viewer payloads for positions, clearances, intersections, trial translations, sections and rays without starting a CAD build. [`find-part.mjs`](/tools/find-part.mjs) resolves remembered names to materials and their source producers; [`inspect-part.mjs`](/tools/inspect-part.mjs) retains a focused camera and targeted measurements between exports. |
 
 ## Where the solids are
 
@@ -127,105 +126,40 @@ A focused print-build target writes and publishes the changed producer. `hsm` re
 
 ## What a build costs
 
-    bazelisk build //:everything                          # every generator whose inputs moved
-    tools/cad-venv/bin/python tools/bazel/sync_tree.py    # what the tree does not carry yet
+The normal print build runs the native producers whose declared inputs changed:
 
-For a focused dirty-tree build:
+    tools/run -- hsm-print-build --
 
-    targets=$(tools/cad-venv/bin/python tools/bazel/affected.py --artifacts)
-    bazel build $targets
-    tools/cad-venv/bin/python tools/bazel/sync_tree.py --write --solids-only --targets "$targets"
+A focused edit selects the affected parts and their assembly:
 
-ONE ACTION PER STEP, EACH HOLDING WHAT IT DECLARED AND NOTHING ELSE. What it declared is what
-a run of it was watched reading — `tools/bazel/trace_inputs.py` installs an audit hook, runs
-the generator once, and keeps every path under this repo it opened, including the ones handed
-to a tool it starts. The graph is `tools/bazel/graph.json`; `tools/bazel/gen_build.py` writes
-`BUILD.bazel` from it.
+    tools/run -- hsm-print-build -- //:enclosure-back-top
 
-A step that makes only the files a part is ordered from, such as a DXF for SendCutSend, keeps
-its target and stays out of `//:everything`: `ON_DEMAND` in
-[`gen_build.rs`](/tools/hsm/build-plan/src/compiled/modules/gen_build.rs) names it, and its build
-command is where that part's ordering is described.
+The driver carries and publishes each completed producer while the other selected producers
+continue. Source saves start no build. First view, checked geometry and print readiness are
+separate milestones.
 
-A step is usually one generator. Scripts that write the same file are one action, because
-`bazel` needs one action per file: the ledger's scripts all write `bom.md`. `inventory._together`
-is what groups them.
+[The build graph](/tools/bazel/graph.json) records compiler sources, runtime reads and outputs.
+`hsm-build-plan trace-inputs` observes a native producer's current dependencies;
+`hsm-build-plan write` renders its Bazel rules. Programs compile separately from their
+execution, and each consumer reads the declared outputs of its producers.
 
-`bazel-bin/` is where a build lands. The tree commits its docs and holds ignored solids long
-enough for the content-addressed bundle to publish them, because a reader at `/3d` and a shop
-printing a part both need the same bytes. `sync_tree.py` carries every declared output over;
-a tree it has nothing to say about is a tree holding the artifacts its sources make.
+The [native kernel](/tools/hsm/README.md#kernel) retains reusable construction and mesh data.
+Bazel keeps completed action results. The [print driver](/tools/hsm/print-build/README.md)
+carries completed exports into the checkout, and the
+[publisher](/tools/hsm/publication/README.md) uploads immutable geometry before moving its
+viewer pointers. Manual guides, kitchen illustrations, cut drawings and PCB manufacturing
+outputs run only when requested; they remain outside the normal print build.
 
-WHAT AN EDIT COSTS IS THE STEPS THAT DECLARED THE FILE, and that is a count, not a guess. A
-step declares each source as the tree holds it, so a comment reruns the same steps a line of
-code does.
+`hsm render` and `tools/look.sh` draw the exported payloads in the website's viewer.
+The [conversion records](/tools/hsm/conversion.md#fixed-input-evidence) retain measured build
+and publication results with their source revisions and measurement scope.
 
-| | wall |
-|---|---|
-| the whole tree, nothing moved | **0.4 s**, no action run |
-| whether anything is owed — `--check_up_to_date` | **0.3 s**, no action run |
-| every step rerun, the kept work standing | 88 s, 41 s of critical path |
-| every step rerun, the kept work regenerating | 386 s, 219 s of critical path |
-
-The last two are the same actions and differ only in whether `.cache/` already holds the
-shapes they cut. A geometry edit pays the second on the bodies it moved and the first on the
-rest. All of these were taken on a quiet machine; a reading taken while another build is
-running is roughly half speed for want of cores, and is a ceiling rather than a figure.
-
-A step that actually starts Node is also handed `:node-packages`, which globs `tools/render/` and
-`web/` in whole.
-
-AND AN ACTION HOLDS THE KEPT WORK. `.cache/` is the shapes `_realized` keeps, the meshes
-`_meshes` tessellates and the optimal boxes `_boxes` measures; `.bazelrc` mounts it into every
-action and `_realized.key` mixes in `HSM_INPUT_DIGEST`, a hash over the solids the action was
-given. The import walk covers the Python and that digest covers the other half: a solid loaded
-off disk is not an import.
-
-A SOLID ONE GENERATOR CUTS AND THE NEXT LOADS IS AN EDGE LIKE ANY OTHER HERE. `foam_assembly`
-reads `foam-cap-lid-top.step` from `//:foam-cap` and `enclosure_assembly` reads
-`foam-assembly.step` from `//:foam-assembly`; neither can fall back to the older copy fetched
-from the artifact pointer file. OCCT opens these below Python, so `_cadq_export.import_step` records the
-paths and `gen_build.py` resolves each one to its producer output.
-
-A picture is the same picture every run. Every renderer in `tools/render/` reads the frame
-back off the canvas in the task that drew it (`browser.js` `frameBuffer` carries why), so
-nothing here is a race and a redraw of unmoved geometry lands byte-identical — eight runs of
-one scene and eight of one part, one hash each.
-
-A view of any STEP, from any angle, is `hsm render` or `tools/look.sh` — drawn when someone
-asks for one, so there is none of it in the tree to go stale.
-
-WHAT THE ACTIONS RUN WITH IS THE MACHINE'S, not the tree's. `tools/cad-venv` holds the
-interpreter and its packages, `node_modules` the renderer's, and `rsvg-convert` comes off the
-brew prefix. These runtime tools and packages are outside the repository. `.bazelrc` names
-both roots as mounts and puts them on every action's PATH. A checkout on another machine
-builds when those are installed there and not before.
-
-The manual [kitchen illustrations](../tools/render/render-kitchen-scene.py) and
-[studio film](../marketing/video/one-less-errand/studio/README.md) use Blender.
-The [welding-head reference views](reference/xlaserlab-sup29f-xh/README.md) use
-`hsm-render`. Their rendering runs on demand. The enclosure's Freestyle line-art studies
-are at the [`archive-finished-trials`](https://github.com/derekbreden/homesodamachine/tree/b57b985c648c34346481a57fde897374b0e8f068/hardware/printed-parts/enclosure/drawings/line-art) tag.
-
-Rust part generators declare the payloads they produce as build outputs. Native CadQuery
-exports make their optional payloads best-effort; Bazel sets `HSM_SKIP_MESH_PAYLOAD` for those
-exports. A scene that draws a payload within its action writes one explicitly with `mesh=True`.
-The guide-art rules draw these scenes with `hsm-render`, built from the renderer sources declared
-by each rule. These Cargo consumers run without a sandbox, in their own work directories.
-
-Inside one run:
-
-| phase | wall |
-|---|---|
-| derive + audit — `build_enclosure_assembly`, then the card | 8.7 s |
-| — of which `_boxes.boxed`, 1372 calls against the disk-kept six | 0.55 s |
-| OCCT STEP write, 21 MB | 1.3 s |
-| canonicalise — renumber 382,700 entities | 3.7 s |
-| tessellate the `.mesh` payload | 1.6 s |
-| one thumbnail, drawn off the payload | 3 s |
-| one thumbnail, drawn off the STEP with no payload beside it | 16 s |
-
-The export and render rows are timed at `189e46a0`; the two derive rows at `7101d08c`.
+The native programs use the installed Rust toolchain and `hsm` engine. Rendering uses
+Node, browser and font installations; the
+[manual kitchen illustrations](/tools/hsm/marketing/README.md) and
+[studio film](/marketing/video/one-less-errand/studio/README.md) use Blender.
+Optional independent kernel reference generators use the isolated CAD interpreter described
+in [cad-requirements.txt](/tools/cad-requirements.txt).
 
 ## Part metadata sidecars
 

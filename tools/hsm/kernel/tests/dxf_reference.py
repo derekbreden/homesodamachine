@@ -3,9 +3,9 @@ from it, written to `dxf_reference.json` beside this file: the face's area, its 
 length, its bounds and the volume of the plate extruded from it. The outline is a plate's — a
 large arc closed by small corner arcs and straight runs, its entities out of order and some of
 them drawn backwards — with a circle and a bulged polyline for holes. Plain CadQuery and ezdxf:
-it imports no generator and takes no CAD lock.
+it imports no generator.
 
-    tools/cad-venv/bin/python tools/hsm/kernel/tests/dxf_reference.py
+    tools/run --cad -- tools/cad-venv/bin/python tools/hsm/kernel/tests/dxf_reference.py
 """
 
 import json

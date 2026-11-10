@@ -62,9 +62,9 @@ test("a look refused by the floor is held for the rest of it, not dropped", asyn
   }
 });
 
-// A HELD PUBLISH MOVES MEMBERS UNDER A BUNDLE THAT STAYS. `pack.py --write --publish-held`
-// sends the objects that moved and names the bundle it already had, so a detector reading the
-// bundle's digest alone sees nothing and the geometry waits for the reconciler's whole cut.
+// hsm-publish advances completed member objects while retaining the download bundle.
+// A detector must compare member pointers as well as the bundle's digest to notice
+// a progressive geometry update.
 test("a pointer file whose members moved under the same bundle is a look worth taking", () => {
   const have = { bundle: { sha256: "b" }, solids: { "a.step": "1", "b.step": "2" } };
   assert.equal(pointersMoved(have, structuredClone(have)), false, "the same pointer file moves nothing");

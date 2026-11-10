@@ -16,7 +16,8 @@ reference supplies the measured motor axis, rails and wire-cover clearance.
 - The seat cavity opens along +Z for placement and removal. Its relief includes
   the fixed rail protrusions and the wire cover throughout that motion.
 - The snap bears on the unobstructed upper motor can. The shared seat/cap
-  construction and hooks are in `hardware/manifold-layout/rear_snaps.py`.
+  construction and hooks are in
+  [the native foam-cap source](/hardware/printed-parts/cold-core/foam-cap/foam_cap.rs).
 
 The installed pose, cap stock, snap extent and neighbouring-part checks belong
 to the layout. The purchased reference retains its port tips, independent barb

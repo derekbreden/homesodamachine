@@ -13,8 +13,7 @@
 //! Every vertex a builder makes lands on one grid, `GRID` apart (`snap`): two computations of
 //! one point that differ in their last bits come out as the same point.
 //!
-//! These are meshcad's numbers (`hardware/scripts/meshcad/rule.py`), so a surface cut here
-//! and the same surface cut there land on the same points.
+//! Builders and imported geometry use this shared rule to keep coincident surfaces aligned.
 use crate::math::{PI, TAU, V3, acos, atan2, cos, sin, v3};
 
 /// mm, the chord's largest distance from the curve.

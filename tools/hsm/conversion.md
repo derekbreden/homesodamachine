@@ -184,14 +184,14 @@ printer operations and firmware releases run only when requested. They remain se
 the normal print build. Their package READMEs name their native entrypoints.
 
 Python application adapters remain where an external host requires that language: Blender's
-`bpy` bridge and PlatformIO's SCons pre-build hook delegate to native tools. Compatibility
-providers used by active reference-model work are isolated from the normal build. Git retains
-retired recipes and closed studies; current directories retain their actual physical records.
+`bpy` bridge and PlatformIO's SCons pre-build hook delegate to native tools. Independent Python kernel reference generators produce the saved OCCT fixtures used by
+explicit comparison tests. Git retains retired recipes and closed studies. Current purchased
+reference models and the source data their native replicas consume remain in their owning locations.
 
 ## Scalar, recipe and document programs
 
-Typed commands own maintained build, inspection and optional authoring work. Compatibility
-providers remain only while a current Python caller needs them; they are not build entrypoints.
+Typed commands own maintained build, inspection and optional authoring work. Native provider
+commands also expose explicitly requested dimension, source and model readings.
 
 | Program | Converted work |
 | --- | --- |
@@ -199,7 +199,7 @@ providers remain only while a current Python caller needs them; they are not bui
 | `ledger-analysis` | Purchase evidence, exact decimal reconciliation, validation, CSV/JSON and reports, for the synthetic ledger tests |
 | `assembly-docs` | Assembly constants, electrical budgets, schedules, fluid-topology diagrams and the installed wiring model, routing and readers |
 | `cold-core-data` | Typed carbonator rod requirements and jet interfaces for native fabrication tools |
-| `machine-data` | Retained model, equipment, archive and geometry-query interfaces for active compatibility callers |
+| `machine-data` | Retained model, equipment, archive and geometry-query interfaces for native inspection tools |
 | `part-data` | Purchased reference providers, storage catalogues, refrigeration/printing fixtures, drain adapters, cuffs, press, sleeve, trays, and the funnel's, frame's and cradle's datums for the hand-run tools that read them |
 | `shared-data` | Materials, finishes, colour arithmetic, stock routing and shared fit/snap/reeding/cooling helpers |
 | `layout-data` | Appliance frames, fitting names, native tube construction and sampling, reservoir routes and soda inlet/holder recipes |
@@ -209,16 +209,13 @@ providers remain only while a current Python caller needs them; they are not bui
 | `hsm-wiring`, `hsm-mesh-review`, `hsm-repo-tools` | Explicit wiring exports, geometry lint and repository readings |
 | `hsm-marketing`, `hsm-peripheral`, `hsm-pcb-tools`, `hsm-printer-tools` | Optional artwork/media, device utilities, detailed board models and printer operations |
 | `hsm-pgfun-positioner`, `hsm-pgfun-host`, `hsm-pgfun-observation` | Fixture geometry, offline review, controller host and saved-image measurements |
-| `hsm-run`, `hsm-run-slots`, `hsm-run-native` | Host admission, inherited run/CAD/compiler leases, process execution and runtime installation |
+| `hsm-run`, `hsm-run-slots` | Host admission, inherited run/CAD/compiler leases, process execution and runtime installation |
 | `hsm-print-prep` | Print preparation: each printed part's Bambu project from its meshes and a saved or system printer recipe, the localized PET-GF cooling stage, enclosure print regions, offline slices, and the print review and support audit that read them |
 
-Some compatibility reader and document modules use generated Rust. Each
-generated module is one `initialize` function over `hsm_documents::interop::Val`: Python
-names resolve at run time through `Env` scopes, and a module outside the compiled set is
-imported through the Python adapter's callback. No generator is retained, so edits go into
-the generated files. These compatibility crates compile at opt-level 0, while `hsm-documents`' value
-runtime and their other dependencies keep the release optimization. Typed Rust replaces each
-module as the steps that use it convert, and a module goes when no step uses it.
+Some native reader and document modules retain generated Rust implementations. Their values
+and scopes are evaluated by `hsm_documents::interop`, and edits go into those Rust source files.
+The provider crates compile at opt-level 0, while the shared value runtime and other dependencies
+keep release optimization. Geometry producers use their typed recipe and numbers crates.
 
 ## Fixed-input evidence
 

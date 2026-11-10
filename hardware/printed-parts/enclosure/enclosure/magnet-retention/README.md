@@ -230,20 +230,14 @@ the printed magnets against an untouched RC62 in the same gap/orientation fixtur
 No automatic seating, retention force, thermal exposure or lifetime is accepted
 from CAD or printer completion alone.
 
-## Reproduce
+## Preparation and slice records
 
-```sh
-tools/cad-venv/bin/python hardware/printed-parts/enclosure/enclosure/magnet-retention/audit.py
-```
-
-The preparation reads saved local production projects identified in its record.
-It checks the current STEP/STL against the geometry record before preparing a
-candidate. The audit reads the native archives; neither script sends a job or
-communicates with a printer.
-The current ordinary-transition candidate and both bottom pieces are prepared
-through [the normal-layer workflow](../layer-policy-correction/README.md).
-The [combined-cartridge preparation source](https://github.com/derekbreden/homesodamachine/blob/d24b111b5d10e1eed4574db786e5ae1d0b96d445/hardware/printed-parts/enclosure/enclosure/magnet-retention/prepare_cartridge_pair.py) is archived in Git. `prepare_prints.py` prepares
-independent single-part candidates. Projects and archives named in a preparation
+The [single-part preparation source](https://github.com/derekbreden/homesodamachine/blob/0785c32f89a6e08609e5348aa2beb0096d560326/hardware/printed-parts/enclosure/enclosure/magnet-retention/prepare_prints.py)
+and [combined-cartridge preparation source](https://github.com/derekbreden/homesodamachine/blob/d24b111b5d10e1eed4574db786e5ae1d0b96d445/hardware/printed-parts/enclosure/enclosure/magnet-retention/prepare_cartridge_pair.py)
+are archived in Git. Their retained preparation and review records bind the source
+geometry and native archives. Current enclosure projects and reviews come from
+the [native print workflow](../../trial-preparation/README.md).
+Projects and archives named in a preparation
 record are immutable. The queue retains the completed combined Mark2 v4 and unsubmitted independent
 front-top H2C v3 identities. The [v18 launch receipt](../support-bottom-gap/h2c-v18-launch.json)
 identifies its acceptance and verified cancellation separately.

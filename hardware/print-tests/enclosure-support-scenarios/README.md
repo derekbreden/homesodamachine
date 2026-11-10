@@ -59,22 +59,17 @@ the pilot entrance.
 ## Source locations and files
 
 [`source-links.json`](source-links.json) opens each exact sample region in the
-published enclosure model. The material comes from the current production
-STLs; neither an enclosure source edit nor an enclosure rebuild is involved.
+published enclosure model. The preparation record binds the production STLs
+used by the retained specimens.
 
-`samples.rs` crops and labels the exact imported printed triangles in Rust.
-`prepare.py` converts the input format, runs that generator and packages native
-per-object settings with Mark1's established textured-plate PET-GF recipe.
+`samples.rs` defines the specimen crops and labels in Rust. The
+[plate preparation source](https://github.com/derekbreden/homesodamachine/blob/0785c32f89a6e08609e5348aa2beb0096d560326/hardware/print-tests/enclosure-support-scenarios/prepare.py)
+is archived in Git.
 The prepared native archive is in [`ready/`](ready/); no printer submission is
 performed by the generator. Its source profile is the initial ceiling plate's
 reviewed Mark1 recipe, including the normal cooling hook.
 
-To regenerate geometry, the editable project and the offline slice:
-
-```sh
-tools/cad-venv/bin/python hardware/print-tests/enclosure-support-scenarios/prepare.py --geometry --slice
-```
-
-The shared wrapper admits Cargo and slicing. Only finished specimen meshes,
-project, native machine archive and concise physical-preparation records are
-retained here. The manual comparison adds no ordinary build or commit check.
+The [accepted rail-fit article](../petgf-dense-roofs/rail-fit-30/physical-result.json)
+records the selected support's removal and mating fit. Current production recipes
+follow the [shared support policy](../../printed-parts/AGENTS.md#supports) and
+[native enclosure preparation](../../printed-parts/enclosure/trial-preparation/README.md).

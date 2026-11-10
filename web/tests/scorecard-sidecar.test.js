@@ -1,7 +1,7 @@
 // Conformance test for the scorecard sidecar contract (web/contracts/scorecard-sidecar.js).
 //
-// The verdict crosses from the CadQuery build (hardware/manifold-layout/_scorecard.py, Python)
-// to the browser viewer (public/js/viewer/scorecard-3d.js, untyped JS). This pins the consumer
+// Native assembly producers write the verdict read by the browser viewer
+// (public/js/viewer/scorecard-3d.js). This pins the consumer
 // end: load the committed enclosure-assembly.scorecard.json and assert it still matches the shape
 // the viewer reads (via the contract's own isScorecard guard), so a producer change that drops
 // or renames a field fails here instead of silently drawing no badge. Skips when unbuilt.
@@ -17,12 +17,12 @@ import { isScorecard, scorecardPathFor, SCORECARD_SUFFIX, sizeText,
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const REPO_ROOT = path.resolve(__dirname, "..", "..");
-// The live pack's sidecar, written by hardware/manifold-layout/enclosure_assembly.py. The tests
+// The appliance's sidecar, written by its native enclosure-assembly producer. The tests
 // skip themselves until that build has written one.
 const sidecarIn = (...root) => path.join(REPO_ROOT, ...root, "manifold-layout",
   "enclosure-assembly.scorecard.json");
 const SIDECAR = sidecarIn("hardware");
-// The cold core's own sidecar, written by hardware/cold-core-layout/cold_core_assembly.py.
+// The cold core's own sidecar, written by its native cold-core-assembly producer.
 const COLD_SIDECAR = path.join(REPO_ROOT, "hardware", "cold-core-layout",
   "cold-core-assembly.scorecard.json");
 
@@ -40,13 +40,12 @@ test("the artifact pointer file points at every committed viewer scorecard", (t)
       `${rel} stays under hardware/`);
     assert.ok(fs.existsSync(full), `${rel} is committed beside its pointer file`);
     const actual = createHash("sha256").update(fs.readFileSync(full)).digest("hex");
-    // A MISS HERE IS NOT WORK FOR THE READER. `.githooks/post-commit` runs hsm-publish
-    // detached after every commit, and that re-points this hash — so a miss means the commit
-    // that moved the scorecard has not been made yet, or its publish is still in flight.
-    // Commit, or read .cache/publish-now.log. Running pack.py --write by hand races it.
+    // The post-commit hook requests coalesced hsm-publish. A viewer pass can retain
+    // the pointed scorecard while newer work waits for its publication pass.
+    // hsm-publish --check and .cache/publish-now.log describe that pending work.
     assert.equal(actual, expected,
-      `${rel} does not match the pointer file — commit (the post-commit hook re-points it) or check `
-      + `.cache/publish-now.log; do not run pack.py --write against a publish already running`);
+      `${rel} does not match the pointed revision — commit completed work, then inspect `
+      + `hsm-publish --check or .cache/publish-now.log for pending publication`);
   }
 });
 
@@ -160,7 +159,7 @@ test("isScorecard rejects malformed input", () => {
 });
 
 // ── The unread verdict ───────────────────────────────────────────────────────────────────────
-// A check the build did not compute. `_scorecard.py` leaves the row and marks it `unread` when a
+// A check the build did not compute. The native scorecard leaves the row `unread` when a
 // detached checker owns the answer, so the card can say a verdict is outstanding instead of
 // drawing a confident green over a gate nobody read.
 test("a check the build did not compute reads as unread, and not as a pass or a fail", () => {

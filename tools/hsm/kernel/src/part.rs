@@ -1,9 +1,7 @@
-//! A part the kernel cuts for the build, from the numbers its Python module writes.
+//! Part exports from a native recipe and its numeric inputs.
 //!
-//! The module derives every number the part's geometry takes — from the parts it closes on, the
-//! fits, the interfaces it meets — and writes them to `<name>.numbers.json` beside the part, so
-//! each number keeps one home and every Python reader of it reads the same module. The part's
-//! program reads that file, and the files its numbers name (`import`):
+//! A Rust provider supplies the recipe directly. An explicitly saved numeric recipe can also
+//! be read alongside the source models it names (`import`):
 //!
 //! ```text
 //! <program> <numbers.json> <out dir>
@@ -13,8 +11,8 @@
 //! a mesh-kernel import reads beside it (`<name>.step.npz`), and the payload the page draws
 //! (`<name>.step.mesh`), which names the STEP it was written with by that file's SHA-256.
 //! `write_shown` writes the same set without the STL, for bodies the page draws and nothing
-//! prints, and `write_printed` without the payload, for a printed piece whose payload
-//! `hardware/scripts/flute_payload.py` cuts from its STL. A file already holding the same bytes is left as it is; any other lands whole, by a
+//! prints. `write_printed` leaves the viewer payload to `hsm-print-payload`, which applies
+//! the part's show surface. Identical files remain untouched; changed files land by atomic
 //! rename. Each call answers with what its files hold, and the program prints each answer on a
 //! line of its own, which is all its standard output carries.
 use crate::solid::Solid;
@@ -25,7 +23,7 @@ use serde_json::{Value, json};
 use sha2::{Digest, Sha256};
 use std::path::{Path, PathBuf};
 
-/// One part's numbers, as its Python module wrote them.
+/// A part's numeric recipe and explicitly named source models.
 pub struct Numbers {
     v: Value,
     path: String,

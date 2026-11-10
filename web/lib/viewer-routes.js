@@ -220,7 +220,7 @@ export function mountViewerRoutes(app, { hardwareDir, store, pointersPath }) {
   });
 
   // The 3D-model scorecard sidecar — the requirements verdict beside a STEP
-  // (e.g. enclosure-assembly.scorecard.json, written by enclosure_assembly.py). Read by
+  // (e.g. enclosure-assembly.scorecard.json, written by its native assembly producer). Read by
   // the 3D viewer's scorecard bar + modal (public/js/viewer/scorecard-3d.js). Confined to
   // *.scorecard.json under hardware/; a 404 is normal — a model with no scorecard
   // just gets no bar. no-cache so a live regen isn't shown stale.
@@ -250,13 +250,9 @@ export function mountViewerRoutes(app, { hardwareDir, store, pointersPath }) {
     res.json(made);
   });
 
-  // sendFile races against the atomic-rename window in
-  // hardware/scripts/_cadq_export.py: existsSync above can pass and then the
-  // file vanish for a few ms while a regen writes a new temp + rename.
-  // sendFile's NotFoundError bubbles up to Express's default handler
-  // which prints a stack trace to stderr — noisy and looks alarming.
-  // Pass a callback so we own the error path and just send a 404 / 503
-  // instead.
+  // A completed output can be retired or replaced after the route's existence check.
+  // Own sendFile's error path so a missing member gets a normal response and a
+  // failed stream does not try to write another set of headers.
   function streamFile(res, abs) {
     res.type("application/octet-stream").sendFile(abs, SEND_OPTS, (err) => {
       if (!err) return;
@@ -284,10 +280,11 @@ export function mountViewerRoutes(app, { hardwareDir, store, pointersPath }) {
     streamFile(res, abs);
   });
 
-  // The tessellation the generator already had, written beside its STEP as
-  // `<file>.step.mesh` by hardware/scripts/_cadq_export.py. The page reads these
-  // instead of parsing the STEP through occt-import-js in wasm. Not committed —
-  // a 404 here is normal, and step.js parses the STEP instead.
+  // Native kernel/print-payload surfaces and shared scene manifests serve the
+  // completed geometry the page draws. Publication names their immutable objects;
+  // these routes serve local members or redirect to shared objects by content hash.
+  // Reading a payload starts no producer. Browser STEP parsing is a fallback
+  // only when no readable payload is available and a standalone STEP exists.
   app.get("/scene-meshes/:hash", (req, res) => {
     const hash = req.params.hash;
     if (!/^[a-f0-9]{64}$/.test(hash)) return res.status(404).end();

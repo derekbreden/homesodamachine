@@ -15,6 +15,13 @@ same file the server does — Node by path, the browser by URL, one source eithe
   `web/public/js/viewer/{pcb,pcb-pick,pcb-edit}.js`; pinned by `web/tests/picks-schema.test.js`.
 - **pcb-out.js** — the board `out/` render layout: view filenames + the `/api/pcb-*` path
   confinement. Produced by `hardware/pcb/pcba/render-board.ts`; read by `web/lib/{walk,viewer-routes}.js`.
+- **mesh payloads** — native part arrays and face contributors come from
+  `tools/hsm/kernel/src/write.rs`; `tools/hsm/print-payload/` derives viewer surfaces from
+  print meshes. `hardware/assembly/scenes/model_export/` writes shared part references and
+  placements, and `tools/hsm/build-data/src/payload.rs` reads the flat container for build
+  and publication bookkeeping. The browser's `mesh-payload.js` and `shared-scene.js` retain
+  those arrays, identities and source records. A `.step` route can name a model whose
+  published representation is its `.step.mesh`, with no standalone STEP export.
 - **sidecar.js** — `<part>.{step,dxf}.json`: `{thickness_mm, material, process, notes}` authored
   beside a part. Read by `web/lib/viewer-routes.js` (`/api/dxf`) and `web/public/js/viewer/dxf.js`;
   pinned by `web/tests/sidecar.test.js`.
@@ -84,10 +91,14 @@ tree needs no edit here.
 ## Conventions (enforced in code, no shared module)
 
 - **legacy redirects** `/dev`, `/dev/diagrams`, `/dev/mermaid`, `/dev/settings` → 301. `web/lib/viewer-pages.js`.
-- **generator detection** — a `.py` is a live-rebuild generator when it calls
-  `export_step` / `export_assembly` / `export_dxf` (from `_cadq_export`); STEP-load edges follow
-  `importStep` / `_load`. `web/dev-server/deps.js`.
+- **explicit build selection** — `web/dev-server/deps.js` reads native program declarations,
+  inputs and outputs from `tools/bazel/graph.json` and `tools/hsm/build-plan/inventory.json`.
+  It selects producer targets and their dependents for requested builds. The dev server
+  watches completed outputs; saving source starts no build.
 - **importmap** — the three.js bare specifiers resolve through the importmap in the page.
   `web/lib/templates/viewer-body.html`.
-- **deterministic export** — generators write `.step` / `.dxf` atomically and byte-stable, so a no-op
-  edit produces no write and the watcher stays quiet. `hardware/scripts/_cadq_export.py`.
+- **progressive publication** — `hsm-print-build` carries completed producer outputs and requests
+  `hsm-publish` while other producers continue. Shared mesh objects precede the manifests
+  that reference them. `tools/hsm/geometry/src/scene.rs` retains identical scene bytes and
+  replaces changed manifests atomically. Neither a viewer request nor the output watcher
+  starts a producer.

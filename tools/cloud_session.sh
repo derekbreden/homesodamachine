@@ -99,7 +99,7 @@ else
     cargo build --release --locked -j 2 --manifest-path tools/hsm/Cargo.toml -p hsm-run-slots --bin hsm-run
   fi
   tools/run -- cargo build --release --locked -j 2 --manifest-path tools/hsm/Cargo.toml \
-    -p hsm -p hsm-run-native -p hsm-build-plan -p hsm-print-build \
+    -p hsm -p hsm-build-plan -p hsm-print-build \
     -p hsm-publication -p hsm-git-tools -p hsm-cargo-config
   tools/hsm/target/release/hsm-run --install-hsm "$ROOT" tools/hsm/target/release/hsm
   tools/hsm/target/release/hsm-run --install-tools "$ROOT" \

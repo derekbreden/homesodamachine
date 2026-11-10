@@ -138,8 +138,7 @@ pub fn stamp(path: &Path) -> Result<(u64, SystemTime)> {
     Ok((meta.len(), meta.modified()?))
 }
 
-/// `<body>/<n>` names one solid of a body of several (`_per_solid_color` in
-/// hardware/scripts/_cadq_export.py); the body is the name without the index.
+/// `<body>/<n>` names one solid of a body with several solids; the body name excludes the index.
 pub fn body_name(name: &str) -> &str {
     match name.rfind('/') {
         Some(i) if i + 1 < name.len() && name[i + 1..].bytes().all(|b| b.is_ascii_digit()) => {

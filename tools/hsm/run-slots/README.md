@@ -1,8 +1,8 @@
 # Heavy runs
 
 `hsm-run-slots` owns the four host-wide flock slots. `tools/run` executes the native
-`hsm-run` command wrapper. External Python adapters call its native library in the
-same process, retaining the descriptor identities. New logical runs use the live count in `/tmp/hsm-<uid>/heavy/count`
+`hsm-run` command wrapper. Native commands and optional oracle commands inherit
+the same verified descriptors. New logical runs use the live count in `/tmp/hsm-<uid>/heavy/count`
 (default 4, range 1–4). A concurrent start waits until the newest start among
 still-active runs is 30 seconds old. A completed run adds no delay; a start
 with no active run is immediate. Timing reserves all four slots. New roots wait
@@ -66,19 +66,18 @@ query dispatch available to an admitted parent's RPC. Leases belong to each
 request and its children, not the resident renderer or daemon. Detached service
 startup strips lease environment and closes inherited lease descriptors.
 
-The installer keeps the runner, native library and source receipt in versioned
-`~/.local/lib/hsm/runtime/` directories. `runtime.json` names the current pair.
+The installer keeps the runner and source receipt in versioned
+`~/.local/lib/hsm/runtime/` directories. `runtime.json` names the current runner.
 `tools/run` uses the checkout runner or the installed launcher. A runner whose
 embedded host-policy sources differ from the checkout rebuilds the runner and
-adapter library under shared admission and the compiler lease, installs their
-immutable artifacts, and continues with the requested command. External Python
-adapters use a matching installed pair or the installed engine's native bootstrap.
+installs its immutable artifact under shared admission and the compiler lease,
+then continues with the requested command. Existing jobs keep their original
+executable and verified leases.
 
 `hsm-run --install-tools WORKSPACE BINARY...` installs built command artifacts under
 `~/.local/lib/hsm/tools/` and exposes their names in `~/.local/bin`. Each launcher
 names an immutable executable, so installation leaves running jobs on their
 original artifacts. `--prefix DIRECTORY` selects another installation directory.
 
-The shared `hsm-run-slots` crate supplies a Rust library and the command runner.
-The `hsm-run-native` crate exports ABI1 through its separate `hsm_run_native`
-dynamic library. Ordinary producer builds retain Cargo's hashed Rust-library outputs.
+The shared `hsm-run-slots` crate supplies the Rust lease library and native command
+runner. Ordinary producer builds retain Cargo's hashed Rust-library outputs.

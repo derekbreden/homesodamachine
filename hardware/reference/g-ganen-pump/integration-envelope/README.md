@@ -39,12 +39,10 @@ of a concave source.
 
 ## Interface and scope
 
-`g_ganen_integration.py` exposes `build_parts()`, `build()`, `build_scene()` and
-`build_assembly()`. The native import is cached per unchanged STEP and proof.
-The measured `port`, `port_profile`, `suction`, `discharge`, `mount_slots`,
-`sliding_rails`, `mount_seat_z` and `parameters` APIs come directly from the
-detailed reference. There is no common invented barb diameter, fixed mounting
-rectangle or loaded rubber thickness.
+The saved STEP and payload carry the conservative component envelopes. The measured
+ports, separate barb profiles, mounting slots, rails and datum remain in the
+detailed reference's parameter records. Native reference accessors read those data
+directly; the model requires no Python construction at query time.
 
 The four flexible rubber feet remain separate bodies at their observed poses.
 Each foot can move along local X independently. Their shared nominal 7 mm
@@ -80,12 +78,9 @@ not a full-assembly performance guarantee.
 | Distance to the same box | 2.523605 mm | 2.499829 mm |
 | Standard room-section query | exceeded 90 s total process limit | 37.348 s |
 
-`native_queries.intersect_components(shape, cutter)` clips every native solid
-independently and returns their occupied compound. Intersection distributes over
-the components' union, so this preserves occupied space without partitioning
-overlaps between the envelopes. `occupied_bounds(result)` returns XYZ min/max,
-or `None` for an empty result. Both arguments use the same coordinate frame;
-placed solids and a world-frame cutter can be supplied directly.
+The [component-query source](https://github.com/derekbreden/homesodamachine/blob/0785c32f89a6e08609e5348aa2beb0096d560326/hardware/reference/g-ganen-pump/integration-envelope/native_queries.py)
+is archived with the bound benchmark. Current [native geometry queries](/tools/hsm/README.md)
+measure the saved detailed or conservative payload directly.
 
 [component-section-cost.json](component-section-cost.json) records **5.572 s**
 for that same room section, after a 6.065 s fresh import. Its 22 native fragments
@@ -93,23 +88,8 @@ are valid; the occupied bounds agree with the standard native query within
 0.000000011 mm. The empty case passes. The helper retains component overlaps:
 its summed volume is not union volume or material volume.
 
-## Reproduce
+## Bound sources
 
-From the repository root:
-
-```sh
-tools/cad-venv/bin/python hardware/reference/g-ganen-pump/freeze_reference.py --check
-tools/cad-venv/bin/python hardware/reference/g-ganen-pump/integration-envelope/selftest_envelope.py
-tools/cad-venv/bin/python hardware/reference/g-ganen-pump/integration-envelope/derive_envelope.py
-tools/cad-venv/bin/python hardware/reference/g-ganen-pump/integration-envelope/export_envelope.py
-tools/cad-venv/bin/python hardware/reference/g-ganen-pump/integration-envelope/benchmark_integration.py
-tools/cad-venv/bin/python hardware/reference/g-ganen-pump/integration-envelope/benchmark_component_sections.py
-tools/cad-venv/bin/python hardware/reference/g-ganen-pump/integration-envelope/freeze_envelope.py
-tools/cad-venv/bin/python hardware/reference/g-ganen-pump/integration-envelope/freeze_envelope.py --check
-```
-
-Derivation caches native solids under `.cache/g-ganen-integration-envelope`, with
-source and cache digests. The exporter keeps its candidate there until the
-native round trip passes, then copies the proven STEP and bound viewer payload
-into this folder. The scripts do not write production sources or the shared
-dependency trace.
+The [envelope derivation, export and benchmark programs](https://github.com/derekbreden/homesodamachine/tree/0785c32f89a6e08609e5348aa2beb0096d560326/hardware/reference/g-ganen-pump/integration-envelope)
+are archived in Git. The saved model, containment proof and component identities
+retain the bindings recorded in this directory's manifests.

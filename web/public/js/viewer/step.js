@@ -1,4 +1,4 @@
-// STEP-format loader, mesh builder and thumbnail rendering. step-runtime.js
+// Native surface loading, browser STEP fallback and thumbnail rendering. step-runtime.js
 // holds the page's parser, materials and thumbnail renderer across hot imports.
 
 import * as THREE from "three";
@@ -36,26 +36,16 @@ async function parseStep(buffer) {
   return result;
 }
 
-// The same `{ meshes: [...] }` occt hands back, decoded from the tessellation the
-// export wrote beside the STEP. The viewer answers off a model's payload when it
-// has one; a model without one is read from its STEP.
-//
-// Layout: u32 header length, that many bytes of JSON, then one blob every
-// array indexes into by [byteOffset, length] — positions and normals f32,
-// indices and face ranges u32. See hardware/scripts/_mesh_payload.py, which
-// writes it.
-//
-// `fac` is `brep_faces` packed flat: [first, last, ...] inclusive TRIANGLE
-// indices, one pair per BREP face, restored to the shape occt reports it in.
-// edge-picker.js reconstructs every pickable edge from that grouping.
-//
-// A payload whose version isn't one of MESH_PAYLOAD_VERSIONS decodes to null,
-// and the caller reads the STEP. The set is every version whose arrays this
-// decoder can take, and it is WIDER than the one the writer stamps: 2 and 3 lay
-// their triangles out identically, 3 only adding `src` for the writer's own
-// staleness check. Turning 2 away would cost the surface — three payloads are in
-// no build step's outs, so a deploy carries whatever the tree had, and falling
-// back to the STEP for those serves the flute-less solid.
+// Native kernel payloads carry part arrays and face contributors; print-payload
+// derives viewer surfaces from print meshes. Shared scene manifests retain part
+// references and placements. mesh-payload.js decodes readable flat containers and
+// shared-scene.js resolves references into the same meshes contract as the browser
+// STEP parser. build-data/src/payload.rs reads the flat container for bookkeeping.
+// Flat positions/normals are f32 and indices/face ranges are u32. Inclusive face
+// triangle ranges reach the edge picker as `brep_faces`, regardless of producer.
+// Unreadable or absent payloads fall back to a standalone STEP when one exists.
+// Neither path starts a geometry build.
+
 // occt-import-js copies a product's name onto its mesh only when the product is a
 // single solid. A multi-solid component (our reference sub-assemblies, the pump
 // assemblies, the display) comes back with unnamed leaf meshes — the name lives
@@ -78,9 +68,8 @@ function backfillMeshNames(result) {
   visit(result.root);
 }
 
-// Default gray for parts that carry no color (single-solid STEPs from
-// export_step). Assemblies from export_assembly carry a per-solid color that
-// occt-import-js surfaces as mesh.color ([r, g, b], 0..1).
+// Parts with no recorded colour take the default. Native payloads and the browser
+// STEP parser carry a recorded linear RGB colour as mesh.color.
 const DEFAULT_FRONT = 0x8899aa;
 const BACK_DARKEN = 0.75; // back faces a shade darker so thin parts read from behind
 
@@ -95,41 +84,17 @@ export function darkenBackFaces(shader) {
   );
 }
 
-// Materials are shared across meshes (and across loads) by color, so an
-// assembly with N same-colored solids makes one material, not N.
-//
-// THE KEY IS THE COLOUR ITSELF, not a rounding of it. occt hands each solid a
-// float triple and the material is built from those floats, so a key that
-// quantised them to a byte let two colours a byte apart share one material —
-// and the one they shared carried whichever arrived first. Within a model that
-// is a solid drawn in its neighbour's shade; across loads, which is what this
-// cache is for, it is one model's colour turning up in the next model's
-// picture. Near black the sRGB curve is steep enough that a byte of linear
-// carries a couple of display steps: `1a1a1c` and `1c1c1f` are two such colours,
-// and the faucet took the manifold's when they were drawn in that order.
+// Materials share the exact linear colour triple across meshes and loads. Keeping
+// its precision prevents nearby catalog swatches from sharing a material by rounding.
 const _matCache = stepRuntime.materials;
 
-// THE OTHER HALF OF A MATERIAL. A colour says what a body is made of and roughness says how that
-// stock takes the light, and only the first of the two fits down the pipe: a STEP carries
-// `COLOUR_RGB` and nothing else, so a body arrives here as three numbers with no name on it.
-// `hsm-finishes --write` writes the missing half out beside the model — every
-// colour this tree draws, with the roughness and metalness `_materials.FINISHES` and
-// `_routing.SPOOLS` state for it — and a body finds its own row by the colour it came in with.
-//
-// The table is worth having because the difference it carries is not small. Glass-filled PET-GF
-// and unfilled PETG are within a couple of display steps of each other and look nothing alike:
-// in `hardware/printed-parts/cadlib/flute-evidence/02`, one exposure holding both, the PETG
-// blooms warm where the light grazes and the PET-GF beside it stays matte. Drawn at one
-// roughness they are the same object twice.
+// hsm-finishes reads the shared-data material and routing catalogs into finishes.json.
+// A body's colour selects its catalog roughness and metalness so distinct stocks
+// retain their own response to light.
 export const DEFAULT_FINISH = { roughness: 0.6, metalness: 0.1 };
 
-// MATCHED ON DISTANCE, NOT ON A KEY. Both routes into buildMesh carry a float triple — the
-// payload states the exact doubles `_materials.linear` wrote, the wasm parse converts the STEP's
-// sRGB with its own arithmetic — so the two agree to a hair and not to a bit. There is no
-// rounding either could share: near black the linear palette is crowded enough that a byte holds
-// two of its colours, which is the same trap `_matCache` above is keyed to avoid. The closest
-// two materials in this tree stand 0.00162 apart in linear space, so a body inside this radius
-// of a row is that row and a body outside it is nothing the tree names.
+// Native catalog colours and browser STEP conversion can differ in floating-point
+// arithmetic. Match only within FINISH_TOL2; a colour outside it has no catalog finish.
 const FINISH_TOL2 = 4e-4 * 4e-4;
 
 export function loadFinishes() {
@@ -195,14 +160,10 @@ export function forgetMaterials() {
   _matCache.clear();
 }
 
-// A body of several disjoint solids — the cold core, a reference sub-assembly, a
-// valve's coil — is written to STEP as one component per solid, named
-// `<body>/<n>` (_per_solid_color in hardware/scripts/_cadq_export.py). The body
-// is what everything downstream names: a scorecard row, a highlight, the
-// `solid:` line a pick copies out. Both routes into buildMesh carry the index —
-// the wasm parse reads it off the component's label, the handed-over payload
-// states the same name — so it comes off here, once, for both. A body naming no
-// solid of its own passes through.
+// A displayed body can have indexed mesh leaves named `<body>/<n>`. Native scene
+// readers and imports retain the body's identity by removing only a trailing
+// numeric index. Do that once for payloads and parsed STEPs before scorecards,
+// highlights and clipboard picks name the body; assembly branches stay intact.
 const bodyName = (name) => (name || "").replace(/\/\d+$/, "");
 
 function buildMesh(result, file = null, finishId = state.faucetFinish) {
@@ -273,15 +234,11 @@ export function setFaucetFinish(finishId) {
   window.dispatchEvent(new CustomEvent(HSM_EVENTS.FAUCET_OPTIONS));
 }
 
-// The triangles the model was exported from, written beside the STEP as `<file>.mesh` by
-// hardware/scripts/_cadq_export.py. The same meshes[] the wasm parse returns — everything
-// downstream is untouched, edges included: the picker reconstructs those off the triangles
-// rather than off the BREP.
-//
-// A MODEL WITH ONE ANSWERS OFF IT AND NEVER FETCHES THE STEP. The text is only ever read to
-// be parsed into these, and the parse is the whole cost of opening an assembly — several
-// seconds against a fraction of one, over twenty megabytes the page then throws away. A model
-// without one reads the STEP and shows the same thing.
+// Prefer completed native payloads and shared manifests. Their meshes feed the
+// same material and picker code as parsed STEPs; face ranges reconstruct edges
+// from the drawn triangles. A payload route can exist without a standalone STEP.
+// Immutable member URLs identify published revisions, while the local route
+// revalidates completed output bytes. Fetching either starts no producer.
 // `mounted` says this file is the one already in the scene. It carries the caller's
 // If-None-Match and gates the store's own unchanged answer.
 async function fetchMeshes(file, headers, { mounted = false, signal, onPart } = {}) {
@@ -315,11 +272,8 @@ async function fetchMeshes(file, headers, { mounted = false, signal, onPart } = 
   }
 }
 
-// WHAT THE PICTURE CAME OFF, SAID WHERE IT IS KNOWN. The route says `step:` and the breadcrumb
-// says the piece's name, and for the fluted pieces the payload beside the solid is what was drawn.
-// Only this function knows which of the two it read, and it knows it here — the breadcrumb is
-// built before the fetch lands, so a title set there would state a surface nobody had chosen
-// yet. `surfaceText` is the sentence, said on hover where there is room for it.
+// Name the representation after the loader knows what reached the canvas. A step:
+// route can draw a shared scene, a flat viewer payload or a parsed standalone STEP.
 function nameSurface(file, surface) {
   const wrapper = state.currentCadWrapper;
   if (!wrapper) return;                      // headless: no chrome to name
@@ -416,8 +370,7 @@ export async function loadStepFile(file, { preserveCamera = false } = {}) {
     // If we're refetching the same file that's already in the scene, send
     // If-None-Match so the server can answer 304 when bytes are unchanged
     // (avoids the visible re-render flash on a deploy that didn't touch
-    // this file). The tessellation is rewritten whenever the STEP is, so it
-    // carries that revalidation as faithfully as the STEP does.
+    // this file). Revalidation follows the payload or STEP actually requested.
     const headers = {};
     const prevEtag = state.stepEtags.get(file);
     // THE FILE THE CANVAS ALREADY HOLDS, which is what a return with nothing mounted leaves on
@@ -430,9 +383,8 @@ export async function loadStepFile(file, { preserveCamera = false } = {}) {
     }
 
     let result = null;
-    // WHICH OF THE TWO SURFACES THIS MODEL IS. They are not always the same one: under
-    // `pack.BUNDLED_PAYLOAD_DIRS` the payload carries flutes the solid does not, so a reader
-    // told only the STEP's name is told the wrong file. The edge picker states this.
+    // The picker names the representation actually drawn, including its source
+    // binding and reduction metadata when the payload records them.
     let surface = "step";
     let componentBodies = null;
     const meshed = await fetchMeshes(file, headers, { mounted, signal, onPart: (node, meshes, head) => {
@@ -502,7 +454,7 @@ export async function loadStepFile(file, { preserveCamera = false } = {}) {
 
     state.currentGroup = buildMesh(result, file);
     applyXray(state.currentGroup); // ghost + edges if x-ray mode is on
-    setActiveEdges(result); // BREP edges for the edge picker (lazy-reconstructed)
+    setActiveEdges(result); // face-range edges for the picker, lazily reconstructed from triangles
     clearPickFind(); // stale find highlights reference the old geometry
     dropHighlight(); // and the selection's overlay and fade; its owner draws it again on STEP_MOUNTED
     clearComponentPicker();      // drop a stale component selection/hover overlay
@@ -583,7 +535,7 @@ function snapThumbnail(group, px = THUMB_SIZE, presentation = "viewer") {
   return dataURL;
 }
 
-// Build + shade + snap an occt-shaped result. Both thumbnail sources end here,
+// Build, shade and capture the shared meshes contract. Both thumbnail sources end here,
 // so where the meshes came from can't change how the part looks.
 export function renderMeshes(result, px, file = null, finishId = state.faucetFinish, presentation = "viewer") {
   const group = buildMesh(result, file, finishId);
@@ -596,12 +548,8 @@ export function renderMeshes(result, px, file = null, finishId = state.faucetFin
   }
 }
 
-// THE THUMBNAIL DRAWS WHAT THE DETAIL VIEW DRAWS. `loadStepFile` answers off the payload beside
-// a STEP and only parses the solid when there is none, so a thumbnail that went straight to the
-// solid would be a picture of a different model wherever the two carry different surfaces — the
-// enclosure's pieces, whose flutes are in the payload and not in the B-rep
-// (hardware/scripts/flute_payload.py). Where no payload stands, both read the STEP and this is
-// the same fetch it always was.
+// Thumbnails use the detail view's native surface/scene loader and the same STEP
+// fallback. They therefore draw the representation that the detail view can open.
 // Every picture of one model, whatever size it was asked at — what a live reload
 // drops so the next card redraws from the model that just changed.
 export function forgetThumbnail(file) {

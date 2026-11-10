@@ -1,8 +1,7 @@
 """OCCT's volume, area and bounds for the helix sweeps `screw.rs` builds, written to
-`screw_reference.json` beside this file. Plain CadQuery: it imports no generator and takes no
-CAD lock.
+`screw_reference.json` beside this file. Plain CadQuery: it imports no generator.
 
-    tools/cad-venv/bin/python tools/hsm/kernel/tests/screw_reference.py
+    tools/run --cad -- tools/cad-venv/bin/python tools/hsm/kernel/tests/screw_reference.py
 """
 
 import json

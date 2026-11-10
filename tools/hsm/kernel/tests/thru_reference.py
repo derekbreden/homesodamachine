@@ -1,9 +1,9 @@
 """OCCT's lofts for the cases `thru.rs` builds, written to `thru_reference.json` beside this
 file: each case's sections as OCCT walks them (every edge's curve, in wire order), and the loft's
 volume, area, bounds and points sampled on each of its side faces. Plain CadQuery: it imports no
-generator and takes no CAD lock.
+generator and uses the shared command wrapper for CAD admission.
 
-    tools/cad-venv/bin/python tools/hsm/kernel/tests/thru_reference.py
+    tools/run --cad -- tools/cad-venv/bin/python tools/hsm/kernel/tests/thru_reference.py
 """
 
 import json

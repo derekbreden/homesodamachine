@@ -1,11 +1,9 @@
 // WHAT A MODEL IS REBUILT WITH, AND WHAT IT IS USED IN — read off the build's own record for the
 // viewer's Related list (web/public/js/viewer/related-nav.js).
 //
-// `tools/bazel/graph.json` names every file each step of the build read and every file it wrote,
-// and a step reruns when any file it read changes. So the list is exactly what the build reruns a
-// model on. For a step built to the plan's standard (tools/hsm/conversion.md, "What an output is
-// made from") that is what the model is made from; for one not yet built to it, the record also
-// holds code that only shares a program with the model's own.
+// `tools/bazel/graph.json` records native producers' inputs and outputs. Requested builds
+// use those dependencies; saving a source starts no build. The Related list groups that
+// record, which can also include shared modules compiled into the producer's program.
 //
 // A file the record names is shown as the part it belongs to: another step's output is the model
 // that step makes, a source in another part's folder is that part, a recipe module compiled into
@@ -60,7 +58,7 @@ function load(graphPath) {
     const folder = path.posix.dirname(step);
     if (!stepsIn.has(folder)) stepsIn.set(folder, []);
     stepsIn.get(folder).push(step);
-    byStem.set(path.posix.basename(step).replace(/\.(py|rs)$/, ""), step);
+    byStem.set(path.posix.basename(step).replace(/\.rs$/, ""), step);
   }
   const index = { graphPath, mtimeMs, graph, writer, stepsIn, byStem, groups: new Map(), users: new Map() };
   // Who takes from each part's folder, the reverse of every step's list.
@@ -88,7 +86,7 @@ function modelAmong(index, steps, folder) {
   const models = steps.flatMap((s) => (index.graph[s]?.writes || []).filter((f) => f.endsWith(".step")))
     .map((f) => f.slice("hardware/".length))
     .sort((a, b) => label(a).length - label(b).length || a.localeCompare(b));
-  const names = [folder, ...steps.map((s) => path.posix.basename(s).replace(/\.(py|rs)$/, ""))]
+  const names = [folder, ...steps.map((s) => path.posix.basename(s).replace(/\.rs$/, ""))]
     .map((n) => n.replace(/_/g, "-"));
   return models.find((m) => names.includes(label(m)))
     || models.find((m) => label(m).startsWith(names[0] + "-"))
@@ -123,8 +121,6 @@ function standsFor(index, step, file) {
   if (file.startsWith("hardware/")) {
     const folder = path.posix.dirname(file);
     if (folder === own || folder.startsWith(own + "/")) return { kind: "own" };
-    if (folder === "hardware/scripts") return { kind: "code", key: "Shared Python", label: "Shared Python" };
-    if (folder === "hardware/printed-parts/cadlib") return { kind: "code", key: "CAD library", label: "CAD library" };
     return partOf(index, folder);
   }
   const recipe = file.match(/^tools\/hsm\/([^/]+)\/src\/compiled\/(?:modules\/)?(_?)([^/]+)\.rs$/);

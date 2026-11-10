@@ -2,7 +2,9 @@
 
 The Node web server for **homesodamachine.com** + the browser-rendered viewer at `/3d` and `/charts`. No bundler. Runs on Render as a single web service, plus a Postgres add-on for the notification inbox and FCM hash tables. The dev story is the same code with a chokidar wrapper.
 
-The hardware/firmware/CAD content the site presents lives in [`hardware/`](/hardware/) at the repo root — that side is its own world (CadQuery, KiCad, ESP-IDF). This document covers the web layer only.
+The hardware, firmware and CAD content the site presents lives in [`hardware/`](/hardware/).
+Native `hsm` programs produce the geometry and print files; the PCB and firmware have their
+own tools. This document covers the web layer.
 
 ## Website style reference
 
@@ -81,16 +83,33 @@ Updating them requires no CAD rebuild.
 cd web
 npm ci             # installs package-lock.json exactly — what Render runs
 npm start          # production server (port 3001 by default; PORT env overrides)
-npm run dev        # dev wrapper: output watching + native explicit builds + WebSocket hot reload (port 3000)
-npm run dev -- --no-watch  # same server, no watchers: nothing rebuilds on save
+npm run dev        # completed-output and viewer-code watching + WebSocket hot reload (port 3000)
+npm run dev -- --no-watch  # same server without file watchers
 npm test           # route mount, walkers, contracts — no browser, no DB
 npm run test:browser # the browser pass (tests/browser/), on demand
-npm run build      # rebuild every CAD generator + PCB board, producers first (minutes)
-npm run build:check # same, then exit 1 if a rebuild moved anything — the fix is left in the tree
+npm run build      # explicitly run the native progressive print build
+npm run build -- --source hardware/printed-parts/enclosure/enclosure/back-top/rear.rs
+npm run build -- --pcb # explicitly run the separate PCB render and native board model
+npm run build:check # requested build, reporting newly dirtied outputs as a failure
 npm run subscribers # the signup list; DATABASE_URL comes from Render's dashboard
 ```
 
-`npm start` boots `server.js` directly — what Render runs in production. `npm run dev` adds the file watcher that re-runs CadQuery generator scripts when a CAD source changes and pushes file-change events over the WebSocket so an open `/3d` page hot-reloads its thumbnails. A "generator" is any part-named `.py` under `hardware/` that calls `export_step` / `export_assembly` / `export_dxf` from `_cadq_export`; the watcher detects them by content, not filename. `--no-watch` serves the same site with no chokidar at all — no generator runs, no board renders, no thumbnails, no hot-reload broadcast — so an edit anywhere in the tree costs nothing and the viewer shows what is on disk until you reload it. Set `DATABASE_URL` to enable the notification inbox + FCM push paths; both no-op without a DB so dev works fine without one.
+`npm start` boots `server.js` directly, as Render does in production. `npm run dev`
+watches completed hardware outputs and the viewer's replaceable render modules, then
+broadcasts changes over the WebSocket. Saving source starts no build. Explicit build
+requests resolve declared native producers and dependencies from
+[`tools/bazel/graph.json`](../tools/bazel/graph.json) and the native build-plan metadata.
+`--source` selects an input, producer or output and its downstream producers.
+
+The build command runs [`hsm-print-build`](../tools/hsm/print-build/README.md) through
+`tools/run`. Each completed producer reaches the local viewer and is requested for
+publication while the remaining producers continue. The published viewer adopts changed
+members without waiting for the full build or a website deployment. A browser fetch or
+thumbnail request starts no geometry build.
+
+`--no-watch` omits the file watchers; the server and explicit build commands remain
+available. Set `DATABASE_URL` to enable the notification inbox and FCM push paths;
+both no-op without a database.
 
 ## Dependencies
 
@@ -331,9 +350,11 @@ Where `/api/hsm` answers, `viewer/hsm.js` adds a fourth for the open model: it a
 
 There is **one server core** ([`server.js`](/web/server.js)). The dev wrapper ([`dev-server/server.js`](/web/dev-server/server.js)) imports `start({ dev: true })` and *adds*:
 
-- chokidar watcher on the repo's `hardware/` to re-run CadQuery generator scripts and broadcast `files-changed` over the `/ws` WebSocket.
-- `findScriptsImportingStep` heuristic to also rebuild dependent scripts when a STEP they import changes.
-- A Python runner that picks up any new part-named generator script (detected by `export_step` / `export_assembly` / `export_dxf` calls) automatically.
+- A chokidar watcher on completed files under `hardware/`, broadcasting `files-changed`
+  over `/ws` as outputs become available.
+- A viewer-code watcher for render modules the open page can replace through `code-changed`.
+- Explicit editor rebuild callbacks using the native producer graph and progressive print
+  driver. Source changes alone start no generator, board render or thumbnail render.
 
 `dev: true` only changes two things in `server.js` itself: the `commit` signal — sent in the WebSocket hello and served at `/api/version` — becomes `"dev"` instead of the deploy SHA, and the boot-time push diff is skipped. Routes are identical. Off Render, either one also mounts `/api/hsm` ([`lib/hsm.js`](/web/lib/hsm.js)), and the deployed site answers it with a 404.
 
