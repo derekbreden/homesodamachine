@@ -44,6 +44,7 @@
     "shared_D_inclined_tree_contact": "failed in FD lower-curve article",
     "result": "hardware/print-tests/petgf-dense-roofs/D-representative-mark2/physical-result.json",
     "comparison": "hardware/print-tests/petgf-dense-roofs/inclines/matrix.json",
-    "accepted_production_geometry_and_fin_records_retain_their_scope": true
+    "accepted_production_geometry_and_fin_records_retain_their_scope": true,
+    "native_contact_reading": "hardware/print-tests/petgf-dense-roofs/inclines/contact-reading.json"
   }
 }
