@@ -113,8 +113,7 @@ in the carriage arms and the rear pair of the motor's flange holes into M5
 square nuts in its open corner channels; the front pair stays open because the
 belt's swept path crosses it at full tension.
 Small-pulley wrap is, or
- engaged teeth. Print and check the 12-tooth belt coupon
-against the delivered belt before printing the complete turntable.
+ engaged teeth.
 
 The direct belt train is backdrivable. Releasing the pedal removes step motion,
 and a wire catch can yield through the motor rather than pulling against a
@@ -261,8 +260,7 @@ orientation is set only after this direction convention is true.
 
 ## Build and commissioning gates
 
-1. Generate the fixture and print the pulley coupon. The delivered belt must
-   fully seat across all 12 grooves without riding the flanges.
+1. Generate the fixture's printable parts.
 2. Print the base, four riser feet, and rotating parts; install heat-set
    inserts, the race ring, sorted balls, the spool, motor tower, carriage,
    motor pads, pulley and belt per the fixture README. Prove a 25.4 mm service

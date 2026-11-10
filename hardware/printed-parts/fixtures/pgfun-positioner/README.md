@@ -2,9 +2,8 @@
 
 The [build instructions](../../../gun-positioner/README.md) govern this
 two-axis gun fixture on the existing rotator. `design.json` controls the
-nominal print pose and received fits. `build.py` emits all 60 STL/STEP pairs,
+nominal print pose and received fits. `build.py` emits the STL/STEP pairs,
 viewer payloads, a complete assembly and the downloadable `print-pack.zip`.
-The six bearing coupons and one optional lens shim are included in that count.
 
 Run with the repository CAD environment:
 

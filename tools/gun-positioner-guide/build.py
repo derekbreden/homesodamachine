@@ -383,7 +383,7 @@ def make_story():
     for index,(path,label)in enumerate(DOCS):
         story.append(PageBreak());story.extend(markdown((DOC/path).resolve(),label,f'chapter-{index}'))
     story.extend([PageBreak(),heading('Print manifest','chapter','print-manifest'),Rule(),
-      Paragraph('All 60 STLs have their bed orientation. The six bearing coupons and optional lens shim are included. Solid-equivalent mass excludes supports, brim and purge.',ST['body'])])
+      Paragraph('The STLs carry their bed orientation, including the optional lens shim. Solid-equivalent mass excludes supports, brim and purge.',ST['body'])])
     parts=json.loads((CAD/'print-manifest.json').read_text())['parts']
     rows=[['Part / material','Size X x Y x Z (mm)','Solid g','Supports']]
     for p in parts:rows.append([p['name']+' / '+p['material'],' x '.join(f'{v:g}'for v in p['print_bounds_mm']),f"{p['solid_mass_g']:.1f}",'Yes'if p['support_required']else'No'])
@@ -391,7 +391,10 @@ def make_story():
     return story
 
 def main():
-    DEST.mkdir(exist_ok=True);figures();pdf=DEST/'gun-positioner-guide.pdf'
+    DEST.mkdir(exist_ok=True)
+    if '--reuse-art' not in sys.argv[1:]:
+        figures()
+    pdf=DEST/'gun-positioner-guide.pdf'
     doc=GuideDoc(pdf);doc.multiBuild(make_story())
     pages=len(PdfReader(pdf).pages)
     subprocess.run(['pdftoppm','-f','1','-singlefile','-scale-to-x','800','-scale-to-y','-1','-png',str(pdf),str(DEST/'gun-positioner-guide.cover')],check=True)
