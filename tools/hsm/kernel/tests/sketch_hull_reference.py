@@ -1,9 +1,9 @@
 """CadQuery's hulls for the sets `sketch_hull.rs` wraps, written to `sketch_hull_reference.json`
 beside this file: each set's circles and points and the hull's edges as OCCT walks the outer wire
 of `Sketch.hull()`, lines by their ends and arcs by centre, radius and parameters. Plain
-CadQuery: it imports no generator and takes no CAD lock.
+CadQuery: it imports no generator.
 
-    tools/cad-venv/bin/python tools/hsm/kernel/tests/sketch_hull_reference.py
+    tools/run --cad -- tools/cad-venv/bin/python tools/hsm/kernel/tests/sketch_hull_reference.py
 """
 
 import json

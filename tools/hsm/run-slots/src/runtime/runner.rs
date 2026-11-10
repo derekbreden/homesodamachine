@@ -1,3 +1,4 @@
+//! The command runner admits heavy processes and preserves their native lease and exit status.
 use super::*;
 use std::{os::unix::process::ExitStatusExt, time::Instant};
 fn resolved(path: &Path) -> PathBuf {
@@ -355,7 +356,7 @@ pub fn run(args: &[String]) -> Result<i32> {
         i += 1;
     }
     if let Some(value) = count_arg {
-        slots::request("set_count", &json!({"value":value}), None)?;
+        slots::set_count(value)?;
         println!("{}: {value}", directory()?.join("count").display());
         return Ok(0);
     }
@@ -407,9 +408,9 @@ pub fn run(args: &[String]) -> Result<i32> {
     };
     let cad_dir = env::temp_dir().join("hsm-cad-lock");
     if cad_arg || bazel_heavy {
-        cad::wait_legacy(&cad_dir, None)?;
+        cad::wait_legacy(&cad_dir)?;
     }
-    if let Err(error) = slots::acquire_run(Some(&key), timing, None) {
+    if let Err(error) = slots::acquire_run(Some(&key), timing) {
         let message = error.to_string();
         if let Some(message) = message
             .strip_prefix("timing: ")
@@ -421,19 +422,15 @@ pub fn run(args: &[String]) -> Result<i32> {
         return Err(error);
     }
     if cad_arg || bazel_heavy {
-        let result = cad::acquire(&json!({"script":key,"workspace":root}), &root, None)?;
-        if let Some(code) = result["exit"].as_i64() {
-            return Ok(code as i32);
-        }
-        if let Some(path) = result["tee"].as_str() {
-            let _ = File::create(path);
+        if let Some(code) = cad::acquire(&key, &root)? {
+            return Ok(code);
         }
     }
     if bazel_heavy || cargo_heavy {
         slots::acquire_aux("compiler")?;
     }
     let broker = slots::new_broker(stable.as_deref())?;
-    let mut environment = slots::child_env(None, true)?
+    let mut environment = slots::child_env()?
         .as_object()
         .cloned()
         .context("child environment")?;
@@ -465,7 +462,7 @@ pub fn run(args: &[String]) -> Result<i32> {
         Ok(child) => child,
         Err(error) => {
             slots::close_broker(broker["id"].as_u64().unwrap())?;
-            cad::request("cad_record", &json!({"code":1}), &root, None)?;
+            cad::record(&cad_dir, 1);
             cad::release(&cad_dir);
             slots::release(false);
             eprintln!("[run] {error}");
@@ -497,7 +494,7 @@ pub fn run(args: &[String]) -> Result<i32> {
     }
     slots::close_broker(broker["id"].as_u64().unwrap())?;
     drop(guard);
-    cad::request("cad_record", &json!({"code":code}), &root, None)?;
+    cad::record(&cad_dir, code);
     cad::release(&cad_dir);
     slots::release(false);
     Ok(code)

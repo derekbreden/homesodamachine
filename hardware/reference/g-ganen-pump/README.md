@@ -92,7 +92,7 @@ mouth and the narrowest through-depth section are unqualified. A partial-wall
 fit is never used as a smaller established throat.
 
 The local opening axes, depths, widths, lengths, coverage tests and individual
-bearing planes remain accessible in `mount_slots()` and in
+bearing planes remain in the native reference parameters and in
 [registered-measurements.json](registered-measurements.json). Per-view unloaded
 pad-top planes are in [interface-measurements.json](interface-measurements.json).
 The third-view median top heights range from about 6.44 to 7.15 mm above the
@@ -107,11 +107,11 @@ washer coverage, screw length and rubber compression are integration checks.
 
 ## Native model and checks
 
-[g_ganen_pump.py](g_ganen_pump.py) builds the native reference from
-[reference-parameters.json](reference-parameters.json). It exposes `suction()`,
-`discharge()`, `port_profile(name)`, `mount_slots()`, `sliding_rails()` and
-`mount_seat_z()`. There is no invented common `HOLE_D`, fixed rectangle or single
-port diameter/length.
+[reference-parameters.json](reference-parameters.json) retains the independently
+measured ports, rail observations, mounting slots and datum frame. The native
+`part-data` provider exposes these records without a Python accessor. The saved
+detailed reference is an input to [replica.rs](replica.rs), which constructs the
+exterior model used by the native equipment assembly.
 
 The detailed STEP and matching viewer payload have native solid validity and
 bounds recorded in [native-validation.json](native-validation.json). The family
@@ -142,8 +142,8 @@ demonstrates a union elbow resting flat beneath that head on the received pump.
 The [rigid underside measurements](under-head-clearance.json) retain that open
 space below the switch casing. The native model excludes the flexible lead
 loops from rigid occupancy there; the switch's lower front block and the head
-shoulder remain. The [scoped native update](under-head-clearance/update_reference.py)
-exports the detailed reference and the isolated study's matching rigid mesh.
+shoulder remain. The [scoped update source](https://github.com/derekbreden/homesodamachine/blob/0785c32f89a6e08609e5348aa2beb0096d560326/hardware/reference/g-ganen-pump/under-head-clearance/update_reference.py)
+is archived in Git with its bound detailed reference and study inputs.
 
 The two observed lead/casing transition regions are retained separately. These
 surface scans do not cleanly separate a protruding rigid strain relief from the
@@ -152,8 +152,8 @@ wire path belongs in enclosure integration. Loose leads and scanning putty are
 excluded from rigid fitting. Absolute scanner accuracy, spray thickness, loaded
 rubber behavior, pump internals and hydraulic performance remain unmeasured.
 
-Production placement, cap mounts and tube routes consume the separate installed
-G Ganen module; they retain their own current assembly checks.
+Production placement uses the [native equipment constructor](/tools/hsm/machine-data/src/equipment.rs).
+Cap mounts and tube routes belong to the native layout and retain their own assembly checks.
 For under-head routing, use this detailed reference or the
 [selected study mesh](../../manifold-layout/studies/east-feed/parts/pump-under-head-source.json).
 The frozen production integration envelope includes additional occupied space
@@ -162,30 +162,17 @@ The bounded integration sequence and placement traps are in
 [integration-handoff.md](integration-handoff.md). Native query cost is recorded
 separately in [native-query-cost.json](native-query-cost.json).
 
-## Reproduce
+## Native replica
 
-Run from the repository root with the archived sources available at the recorded
-paths. Every native cloud is checked against its SHA-256 before measurement.
+The replica reads the saved detailed payload and its parameter records. Regenerate
+it through the existing native sandbox example:
 
 ```sh
-tools/cad-venv/bin/python hardware/reference/g-ganen-pump/scan_tools.py
-tools/cad-venv/bin/python hardware/reference/g-ganen-pump/register_scan.py --selftest
-tools/cad-venv/bin/python hardware/reference/g-ganen-pump/selftest_analysis.py
-tools/cad-venv/bin/python hardware/reference/g-ganen-pump/analyze_scan.py
-tools/cad-venv/bin/python hardware/reference/g-ganen-pump/register_scan.py hardware/reference/g-ganen-pump/pass-02-registration-config.json --out hardware/reference/g-ganen-pump/pass-02-registration.json
-tools/cad-venv/bin/python hardware/reference/g-ganen-pump/register_scan.py hardware/reference/g-ganen-pump/pass-03-registration-config.json --out hardware/reference/g-ganen-pump/pass-03-registration.json
-tools/cad-venv/bin/python hardware/reference/g-ganen-pump/analyze_registered.py
-tools/cad-venv/bin/python hardware/reference/g-ganen-pump/derive_casing.py
-tools/cad-venv/bin/python hardware/reference/g-ganen-pump/measure_interfaces.py
-tools/cad-venv/bin/python hardware/reference/g-ganen-pump/build_reference.py
-tools/cad-venv/bin/python hardware/reference/g-ganen-pump/validate_reference.py
-tools/cad-venv/bin/python hardware/reference/g-ganen-pump/g_ganen_pump.py
-tools/cad-venv/bin/python hardware/reference/g-ganen-pump/benchmark_native.py
-tools/cad-venv/bin/python hardware/reference/g-ganen-pump/freeze_reference.py
-tools/cad-venv/bin/python hardware/reference/g-ganen-pump/freeze_reference.py --check
+tools/run -- cargo run --release --locked -j 2 \
+  --manifest-path tools/hsm/Cargo.toml -p hsm-sandbox \
+  --example g-ganen-replica -- hardware/reference/g-ganen-pump
 ```
 
-The native exporter produces the STEP assembly and its viewer payload. Native
-preview artifacts belong outside `hardware`, for example under
-`.cache/g-ganen-reference-preview/`; publication scans STEP files even in ignored
-directories. The independent source clouds are never written by these tools.
+The [scan, registration and envelope source programs](https://github.com/derekbreden/homesodamachine/tree/0785c32f89a6e08609e5348aa2beb0096d560326/hardware/reference/g-ganen-pump)
+are archived in Git. Their saved measurements and hash-bound model inputs remain
+with the reference; they are not an ongoing scan pipeline.

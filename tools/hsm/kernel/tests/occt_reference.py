@@ -2,7 +2,7 @@
 `occt_reference.json` beside this file, in plain CadQuery. `fuse_clamp_module` is the B-rep of
 the fixture fuse clamp the kernel's tests cut, drawn from the fixture's figures.
 
-    tools/cad-venv/bin/python tools/hsm/kernel/tests/occt_reference.py
+    tools/run --cad -- tools/cad-venv/bin/python tools/hsm/kernel/tests/occt_reference.py
 """
 
 import json

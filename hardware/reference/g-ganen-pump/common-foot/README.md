@@ -8,9 +8,9 @@ it is not a design for manufacturing a replacement.
 
 ![Registered scan and common foot](common-foot-comparison.png)
 
-`g_ganen_foot.py` supplies `build_foot()`, `placed_foot(station_x, side, slot_y)`,
-`observed_placement(row)`, `observed_foot(row)`, `parameters()` and
-`rail_engagement_interval()`. The local origin is the nominal slot centre on the
+The saved detailed reference supplies the common foot and its observed poses;
+[reference-parameters.json](../reference-parameters.json) retains the measured
+mounting records. The local origin is the nominal slot centre on the
 bearing plane; X follows the rail, +Y points outward, and Z points upward. The
 negative side uses a proper 180° rotation. The installed copies use Z=0; the
 reference's observed copies retain independent rigid bearing-plane poses.
@@ -63,3 +63,5 @@ The prior rigid scan readings and outer-envelope containment proofs remain
 attributed to those exact unchanged components. `prior-evidence/` retains their
 reports and hashes. Whole-pump timing measurements retain their original STEP
 identity and are historical; they are not current performance claims.
+
+The [common-foot measurement and construction programs](https://github.com/derekbreden/homesodamachine/tree/0785c32f89a6e08609e5348aa2beb0096d560326/hardware/reference/g-ganen-pump/common-foot) are archived in Git.

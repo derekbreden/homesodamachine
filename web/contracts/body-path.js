@@ -1,19 +1,14 @@
 // What a body's name says about where it stands.
 //
-// A BODY IS NAMED FOR THE BRANCH IT HANGS ON. The appliance holds the cold core as a real
-// sub-assembly — `manifold-layout/enclosure-assembly.step` carries a `cold-core` node with the
-// core's bodies inside it — and each of those bodies is called `cold-core/evap-coil`. The STEP
-// carries the nesting and the name carries it too, because the two are the same fact and only
-// one of them survives every reader: occt-import-js 0.0.23 reports a component node as
-// CHILDLESS, so the tree does not reach the page through the STEP route whatever the file
-// holds. It carries names faithfully, so the name is how the structure arrives.
+// A body path retains the branches that hold it: `cold-core/evap-coil` names the coil
+// inside the cold core. Native scene payloads preserve that identity with the part's
+// placement; the browser's STEP fallback also carries it in the mesh name.
 //
 // A SLASH IS AN INDEX ONLY WHEN DIGITS FOLLOW IT. `display/1` is the first solid of one body;
 // `cold-core/evap-coil` is one body of the core; `cold-core/evap-coil/2` is both at once.
-// Three places state that rule and this is the one they all read:
-//   - viewer/step.js `bodyName` takes the index off a mesh name
-//   - scripts/_cadq_export.py `_SOLID_INDEX_RE` groups a body's solids back together
-//   - assembly/scenes/render_scenes.py `_LEAF_NAME` splits a payload leaf
+// viewer/step.js `bodyName` removes a numeric solid suffix before these helpers read
+// the body path. Native readers follow the same rule in tools/hsm/geometry/src/scene.rs
+// and hardware/assembly/scenes/model_export/payload.rs.
 //
 // Held by web/tests/body-path.test.js.
 

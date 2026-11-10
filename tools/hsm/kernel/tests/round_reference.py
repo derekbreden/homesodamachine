@@ -1,9 +1,8 @@
 """OCCT's rounds and chamfers for the cases `rounds.rs` builds, written to `round_reference.json`
 beside this file: each result's volume, area and bounds, and points on its faces, the nodes of
-OCCT's own mesh of each face at the kernel's rule. Plain CadQuery: it imports no generator and
-takes no CAD lock.
+OCCT's own mesh of each face at the kernel's rule. Plain CadQuery: it imports no generator.
 
-    tools/cad-venv/bin/python tools/hsm/kernel/tests/round_reference.py
+    tools/run --cad -- tools/cad-venv/bin/python tools/hsm/kernel/tests/round_reference.py
 """
 
 import json

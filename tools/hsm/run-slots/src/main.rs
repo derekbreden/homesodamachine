@@ -1,6 +1,5 @@
 use anyhow::{Context, Result, bail};
 use hsm_run_slots::runtime::{install, runner};
-use serde_json::Value;
 use std::path::{Path, PathBuf};
 fn main() {
     match main_result() {
@@ -30,14 +29,6 @@ fn main_result() -> Result<i32> {
         Some("--runtime-info") => {
             let root = Path::new(args.get(1).context("workspace path")?);
             println!("{}", install::info(root)?);
-            Ok(0)
-        }
-        Some("--bootstrap") => {
-            let root = match args.get(1) {
-                Some(path) => PathBuf::from(path),
-                None => std::env::current_dir()?,
-            };
-            println!("{}", install::bootstrap(&root)?);
             Ok(0)
         }
         Some("--install-runtime") => {
@@ -115,11 +106,6 @@ fn main_result() -> Result<i32> {
                 "{}",
                 install::install_tools(workspace, &destination, &binaries)?
             );
-            Ok(0)
-        }
-        Some("--request") => {
-            let input: Value = serde_json::from_str(args.get(1).context("JSON request")?)?;
-            println!("{}", hsm_run_slots::runtime::dispatch(input, None)?);
             Ok(0)
         }
         _ => runner::run(&args),

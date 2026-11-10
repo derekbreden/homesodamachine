@@ -59,14 +59,13 @@ printed back gap; the required 50° swing ease has its own functional profile.
 The [receiver trial](nameplate/horizontal-wing-trial/README.md) records its own source and
 physical support-removal scope; it does not validate the current receiver's added back gap.
 
-The [face-up display receiver](display-cover/face-up-trial/README.md) uses
-0.30 mm per side around the body's full-depth X seating pocket. The wing tips
-have 0.55 mm centered clearance and retain 0.25 mm at maximum sideways travel.
-Their pocket geometry is held to isolate the main-body X fit.
-Its wing-thickness gap is 0.60 mm: 0.15 static, 0.25 for one supported roof,
-and 0.20 local pinching-test relief. That thickness direction is display-local
-Z, corresponding to nameplate Y. Body Y and wing end gaps remain 0.15 mm each.
-These are local fit trials with the cover's seating datum fixed.
+The [machine display cover](display-cover/README.md) uses screws and a flat glass
+gasket. Its [mount record](display-cover/mount-dimensions.json) and
+[native geometry](display-cover/display_cover.rs) define the screw stations,
+bearing floors and glass space. The
+[archived flat-wing receiver](https://github.com/derekbreden/homesodamachine/blob/0785c32f89a6e08609e5348aa2beb0096d560326/hardware/printed-parts/enclosure/display-cover/face-up-trial/README.md)
+and its [physical acceptance](https://github.com/derekbreden/homesodamachine/blob/0785c32f89a6e08609e5348aa2beb0096d560326/hardware/printed-parts/enclosure/display-cover/face-up-trial/physical-acceptance.json)
+retain their article-specific fit scope.
 
 **Low-force clearance for rough overhang surfaces involved** uses a working addition
 of **0.50 mm on the identified moving gap**, after its ordinary sliding and rough-face
@@ -76,15 +75,8 @@ fit. Each interface requires its own physical motion and retention check.
 
 | Low-force interface | Gap accounting | Nominal result |
 |---|---|---:|
-| Display hook, two rough mating faces | 0.25 sliding + 0.25 + 0.25 rough faces + 0.50 low-force | 1.25 mm working target |
 | Tee-carrier roof, one rough mating face | 0.25 sliding + 0.25 rough roof + 0.50 low-force | 1.00 mm |
 | Tee-carrier floor | 0.25 sliding | 0.25 mm |
-
-The selected display cover has a measured-in-CAD 1.23 mm hook-to-catch gap and a
-passing physical fit. Its 0.75 mm designation is an arm-length increment, not an
-extra clearance rule. The 1.25 mm working target approximates that accepted gap;
-the accepted cover remains at 1.23 mm. See its
-[physical record](display-cover/physical-acceptance.json).
 
 Opposite-side clearances do not collapse into one allowance: the identified tee-carrier trial's
 1.00 mm roof gap plus 0.25 mm floor gap gives 1.25 mm total vertical travel.
