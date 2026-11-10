@@ -1,10 +1,9 @@
 """A block with a hole down through it and a boss across its top, sheared as the Industrial display
 cover's wings are leaned (x moves with z), by CadQuery's `transformGeometry`, and written to
 `mapped_reference.json` beside this file: the shear, the sheared solid's volume, area and bounds,
-and points sampled across every one of its faces. Plain CadQuery: it imports no generator and
-takes no CAD lock.
+and points sampled across every one of its faces. Plain CadQuery: it imports no generator.
 
-    tools/cad-venv/bin/python tools/hsm/kernel/tests/mapped_reference.py
+    tools/run --cad -- tools/cad-venv/bin/python tools/hsm/kernel/tests/mapped_reference.py
 """
 
 import json

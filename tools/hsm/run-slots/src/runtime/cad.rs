@@ -1,11 +1,6 @@
+//! CAD coordination retains shared lease ownership and follows matching active commands.
 use super::*;
 static ME: Mutex<Value> = Mutex::new(Value::Null);
-fn lock_dir(d: &Value) -> PathBuf {
-    d["lock_dir"]
-        .as_str()
-        .map(PathBuf::from)
-        .unwrap_or_else(|| env::temp_dir().join("hsm-cad-lock"))
-}
 fn read(path: &Path) -> Option<Value> {
     fs::read(path)
         .ok()
@@ -108,7 +103,7 @@ fn holder_active(holder: &Value) -> bool {
     }
     alive(holder["pid"].as_i64().unwrap_or(-1))
 }
-fn record(dir: &Path, code: &Value) {
+pub fn record(dir: &Path, code: i32) {
     let me = ME.lock().unwrap();
     let Some(pid) = me["pid"].as_i64() else {
         return;
@@ -139,48 +134,25 @@ fn sweep(dir: &Path) {
         }
     }
 }
-fn live(dir: &Path, exclude: Option<i64>) -> Vec<Value> {
-    let mut out = BTreeMap::new();
-    if let Some(row) = read(&dir.join("build.json")) {
-        if let Some(pid) = row["pid"].as_i64().filter(|&pid| alive(pid)) {
-            out.insert(pid, row);
+fn emit(stream: &str, message: String) -> Result<()> {
+    match stream {
+        "stdout" => {
+            print!("{message}");
+            std::io::stdout().flush()?;
         }
-    }
-    if let Ok(rows) = fs::read_dir(dir) {
-        for row in rows.flatten() {
-            let name = row.file_name();
-            let name = name.to_string_lossy();
-            if name.starts_with("unlocked.") && name.ends_with(".json") {
-                if let Some(value) = read(&row.path()) {
-                    if let Some(pid) = value["pid"].as_i64().filter(|&pid| alive(pid)) {
-                        out.insert(pid, value);
-                    }
-                }
-            }
+        "stderr" => {
+            eprint!("{message}");
+            std::io::stderr().flush()?;
         }
+        _ => unreachable!("CAD log stream"),
     }
-    if let Some(exclude) = exclude {
-        out.remove(&exclude);
-    }
-    let mut rows = out.into_values().collect::<Vec<_>>();
-    rows.sort_by(|a, b| {
-        a["started"]
-            .as_f64()
-            .unwrap_or(0.)
-            .total_cmp(&b["started"].as_f64().unwrap_or(0.))
-    });
-    rows
-}
-fn emit(callback: Host, stream: &str, message: String) -> Result<()> {
-    host(callback, json!({"call":stream,"text":message}))?;
     Ok(())
 }
-fn attach(dir: &Path, holder: &Value, callback: Host) -> Result<Option<Value>> {
+fn attach(dir: &Path, holder: &Value) -> Result<Option<i32>> {
     let pid = holder["pid"].as_i64().context("build pid")?;
     let log = dir.join(format!("build.{pid}.log"));
     let result = dir.join(format!("build.{pid}.result"));
     emit(
-        callback,
         "stderr",
         format!(
             "[build] a {} build of this script is already running (pid {pid}) — following it instead of starting a second one\n",
@@ -192,7 +164,6 @@ fn attach(dir: &Path, holder: &Value, callback: Host) -> Result<Option<Value>> {
         if let Ok(bytes) = fs::read(&log) {
             if bytes.len() > pos {
                 emit(
-                    callback,
                     "stdout",
                     String::from_utf8_lossy(&bytes[pos..]).replace("\r\n", "\n"),
                 )?;
@@ -200,18 +171,18 @@ fn attach(dir: &Path, holder: &Value, callback: Host) -> Result<Option<Value>> {
             }
         }
         if let Some(code) = read(&result) {
-            return Ok(code.get("code").cloned().filter(|v| !v.is_null()));
+            return Ok(code["code"].as_i64().map(|value| value as i32));
         }
         if !holder_active(holder) {
             thread::sleep(Duration::from_millis(50));
             return Ok(read(&result)
-                .and_then(|v| v.get("code").cloned())
-                .filter(|v| !v.is_null()));
+                .and_then(|value| value["code"].as_i64())
+                .map(|value| value as i32));
         }
         thread::sleep(Duration::from_millis(50));
     }
 }
-pub fn wait_legacy(dir: &Path, callback: Host) -> Result<()> {
+pub fn wait_legacy(dir: &Path) -> Result<()> {
     if slots::current("cad") {
         return Ok(());
     }
@@ -230,7 +201,6 @@ pub fn wait_legacy(dir: &Path, callback: Host) -> Result<()> {
         }
         if announced != Some(pid) {
             emit(
-                callback,
                 "stderr",
                 format!("[build] waiting for legacy native CAD pid {pid} before admission\n"),
             )?;
@@ -239,30 +209,24 @@ pub fn wait_legacy(dir: &Path, callback: Host) -> Result<()> {
         thread::sleep(Duration::from_millis(50));
     }
 }
-pub fn acquire(d: &Value, root: &Path, callback: Host) -> Result<Value> {
+pub fn acquire(script: &str, root: &Path) -> Result<Option<i32>> {
     if !ME.lock().unwrap().is_null() {
-        return Ok(json!({"identity":ME.lock().unwrap().clone()}));
+        return Ok(None);
     }
-    let dir = lock_dir(d);
+    let dir = env::temp_dir().join("hsm-cad-lock");
     if !slots::current("run") {
-        wait_legacy(&dir, callback)?;
+        wait_legacy(&dir)?;
     }
-    let script = text(&d["script"])?;
-    slots::acquire_run(Some(script), false, callback)?;
+    slots::acquire_run(Some(script), false)?;
     if slots::current("cad") {
-        return Ok(json!({"identity":null}));
+        return Ok(None);
     }
-    let source = d["source"]
-        .as_str()
-        .filter(|v| !v.is_empty())
-        .map(str::to_owned)
-        .or_else(|| env::var("HSM_BUILD_SOURCE").ok().filter(|v| !v.is_empty()))
+    let source = env::var("HSM_BUILD_SOURCE")
+        .ok()
+        .filter(|value| !value.is_empty())
         .unwrap_or("manual".into());
     fs::create_dir_all(&dir)?;
-    let chosen = d["workspace"]
-        .as_str()
-        .map(PathBuf::from)
-        .unwrap_or(root.into());
+    let chosen = root.to_path_buf();
     let chosen = chosen.canonicalize().unwrap_or(chosen);
     let identity = json!({"pid":std::process::id(),"source":source,"script":script,"root":chosen,"started":now(),"run_slots":1,"protected":asked("HSM_BUILD_LOCK_PROTECT")});
     let mut announced = None;
@@ -275,8 +239,8 @@ pub fn acquire(d: &Value, root: &Path, callback: Host) -> Result<Value> {
                     && env::var("HSM_NO_BUILD_ATTACH").map_or(true, |v| v.is_empty())
                     && fresh(&previous, root)
                 {
-                    if let Some(code) = attach(&dir, &previous, callback)? {
-                        return Ok(json!({"exit":code}));
+                    if let Some(code) = attach(&dir, &previous)? {
+                        return Ok(Some(code));
                     }
                     continue;
                 }
@@ -284,7 +248,6 @@ pub fn acquire(d: &Value, root: &Path, callback: Host) -> Result<Value> {
                 {
                     if announced != Some(pid) {
                         emit(
-                            callback,
                             "stderr",
                             format!(
                                 "[build] waiting for native CAD pid {pid} ({}, {})\n",
@@ -318,10 +281,11 @@ pub fn acquire(d: &Value, root: &Path, callback: Host) -> Result<Value> {
     fs::write(&temporary, identity.to_string())?;
     fs::rename(temporary, dir.join("build.json"))?;
     sweep(&dir);
-    Ok(json!({"identity":identity,"tee":dir.join(format!("build.{}.log",std::process::id()))}))
+    let _ = File::create(dir.join(format!("build.{}.log", std::process::id())));
+    Ok(None)
 }
 pub fn release(dir: &Path) {
-    record(dir, &json!(0));
+    record(dir, 0);
     let me = ME.lock().unwrap().clone();
     if let Some(current) = read(&dir.join("build.json")) {
         if !me.is_null() && current["pid"] == me["pid"] {
@@ -330,121 +294,4 @@ pub fn release(dir: &Path) {
         }
     }
     *ME.lock().unwrap() = Value::Null;
-}
-pub fn request(op: &str, d: &Value, root: &Path, callback: Host) -> Result<Value> {
-    let dir = lock_dir(d);
-    let value = match op {
-        "cad_constants" => json!({"lock_dir":dir,"grace":5.,"poll":0.05,"wait":900.}),
-        "cad_path" => {
-            let pid = d["pid"].as_i64().context("build pid")?;
-            let name = match text(&d["kind"])? {
-                "unlocked" => format!("unlocked.{pid}.json"),
-                "log" => format!("build.{pid}.log"),
-                "result" => format!("build.{pid}.result"),
-                _ => bail!("unknown CAD record path"),
-            };
-            json!(dir.join(name))
-        }
-        "cad_asked" => json!(asked(text(&d["name"])?)),
-        "cad_read" => json!(read(Path::new(text(&d["path"])?))),
-        "cad_alive" => json!(alive(d["pid"].as_i64().unwrap_or(-1))),
-        "cad_newest" => json!(newest(
-            d["workspace"].as_str().map(Path::new).unwrap_or(root)
-        )),
-        "cad_fresh" => json!(fresh(&d["holder"], root)),
-        "cad_deliberate" => json!(
-            !d["holder"]["source"]
-                .as_str()
-                .unwrap_or("")
-                .starts_with("dev-server")
-        ),
-        "cad_who" => json!(who(&d["holder"])),
-        "cad_age" => json!(age(&d["holder"])),
-        "cad_attach" => json!(attach(&dir, &d["holder"], callback)?),
-        "cad_record" => {
-            record(&dir, &d["code"]);
-            Value::Null
-        }
-        "cad_sweep" => {
-            sweep(&dir);
-            Value::Null
-        }
-        "cad_live" => json!(live(&dir, d["exclude"].as_i64())),
-        "cad_drop_unlocked" => {
-            let _ = fs::remove_file(dir.join(format!("unlocked.{}.json", d["pid"])));
-            Value::Null
-        }
-        "cad_running_unlocked" => {
-            let pid = std::process::id();
-            let row = json!({"pid":pid,"source":d["source"],"script":d["script"],"started":now()});
-            let written = fs::create_dir_all(&dir)
-                .and_then(|_| {
-                    sweep(&dir);
-                    fs::write(dir.join(format!("unlocked.{pid}.json")), row.to_string())
-                })
-                .is_ok();
-            let others = live(&dir, Some(pid as i64));
-            if !others.is_empty() {
-                let who = others
-                    .iter()
-                    .map(|o| format!("{} pid {}", who(o), o["pid"]))
-                    .collect::<Vec<_>>()
-                    .join(", ");
-                emit(
-                    callback,
-                    "stderr",
-                    format!(
-                        "[build] running unlocked (HSM_NO_BUILD_LOCK) beside {} live build{}: {who} — this build supersedes none of them, none of them can follow it, and all of them are on the same cores\n",
-                        others.len(),
-                        if others.len() > 1 { "s" } else { "" }
-                    ),
-                )?;
-            }
-            json!(written)
-        }
-        "cad_exit_record" => {
-            let value = if d["code"].is_string() {
-                json!(1)
-            } else if d["code"].is_null() || d["code"] == false || d["code"] == 0 {
-                json!(0)
-            } else {
-                d["code"].clone()
-            };
-            record(&dir, &value);
-            Value::Null
-        }
-        "cad_signal" => {
-            let me = ME.lock().unwrap().clone();
-            let by = read(&dir.join("build.by.json")).unwrap_or(Value::Null);
-            let why = if !by.is_null() && !me.is_null() && by["victim"] == me["pid"] {
-                format!("was superseded by {}", who(&by))
-            } else {
-                "was terminated (not by a newer build)".into()
-            };
-            emit(
-                callback,
-                "stderr",
-                format!("[build] this build ({}) {why} — stopping\n", who(&me)),
-            )?;
-            record(&dir, &json!(143));
-            json!(143)
-        }
-        "cad_release_legacy" => {
-            release(&dir);
-            Value::Null
-        }
-        "cad_release" => {
-            slots::release(true);
-            release(&dir);
-            Value::Null
-        }
-        "cad_holder_active" => json!(holder_active(&d["holder"])),
-        "cad_wait_legacy" => {
-            wait_legacy(&dir, callback)?;
-            Value::Null
-        }
-        "cad_acquire" => acquire(d, root, callback)?,
-        _ => bail!("unknown CAD runtime operation {op}"),
-    };
-    slots::answer(value)
 }

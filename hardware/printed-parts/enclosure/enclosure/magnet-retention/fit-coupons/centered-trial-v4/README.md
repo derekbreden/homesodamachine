@@ -25,6 +25,11 @@ geometry, labels, native paths, ordinary layers and repeated controls. The
 first layers are connected in the emitted paths; this does not establish
 visual bed adhesion.
 
+The [archive review source](https://github.com/derekbreden/homesodamachine/blob/0785c32f89a6e08609e5348aa2beb0096d560326/hardware/printed-parts/enclosure/enclosure/magnet-retention/fit-coupons/centered-trial-v4/review.py)
+and [streamed-road reader](https://github.com/derekbreden/homesodamachine/blob/0785c32f89a6e08609e5348aa2beb0096d560326/hardware/printed-parts/enclosure/enclosure/support-bottom-gap/read_roads.py)
+define the checks recorded for these frozen jobs. Current full-part preparation
+and review use the [native enclosure workflow](../../../../trial-preparation/README.md).
+
 The full front-top and funnel-frame prints are deferred. The independent
 H2C retention job remains unsubmitted and unauthorized. No automatic resume
 or additional job is authorized by either coupon completion.

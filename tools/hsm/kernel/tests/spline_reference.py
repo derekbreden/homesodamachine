@@ -2,9 +2,9 @@
 file: each case's points and end tangents, the curve `Edge.makeSpline` fits through them, sampled
 at parameters across its range (the point and the unit tangent at each), and a circle swept along
 a path holding one of them, by its volume, area and points sampled on its side faces. Plain
-CadQuery: it imports no generator and takes no CAD lock.
+CadQuery: it imports no generator.
 
-    tools/cad-venv/bin/python tools/hsm/kernel/tests/spline_reference.py
+    tools/run --cad -- tools/cad-venv/bin/python tools/hsm/kernel/tests/spline_reference.py
 """
 
 import json

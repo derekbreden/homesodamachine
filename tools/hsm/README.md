@@ -351,8 +351,8 @@ mipmaps filter in linear light. Ordinary CAD payloads allocate no vertex attribu
 every face came from. Each triangle names a face record: the exact surface it lies on (plane,
 cylinder, cone, sphere, torus, or a free surface), the builder that made it, the generator line
 that called the builder (`#[track_caller]`) or the file it was read from, and the boolean that
-brought it into the solid. A file names that line `path:line` from the checkout's root, as
-meshcad does, so a part writes the same records from every worktree.
+brought it into the solid. A file names that line `path:line` from the checkout's root, so source records remain independent
+of the checkout location.
 
 Profiles are drawn exactly with lines, arcs, circles, Béziers, corner fillets, offsets and the
 hull round circles and points (`Loop`, `Pen`, `Profile`; `hull_loop` is CadQuery's
@@ -375,7 +375,7 @@ own, so the result keeps every face record. Coordinates of different operands wi
 are one coordinate, and a component thinner than the rule is dropped. Volume, area, centroid,
 inertia and bounds come from the mesh. The writers make binary STL (leaving out a triangle that
 has no area once its corners are f32), 3MF, GLB (face records in
-its extras), the `.step.mesh` payload `hsm` reads, and the STEP meshcad writes: AP242
+its extras), the `.step.mesh` payload `hsm` reads, and native STEP: AP242
 triangulated surface sets under each body's name and colour, with the model file a mesh-kernel
 import reads beside it (`<name>.step.npz`). The same solid writes the same bytes on every run.
 Without the `manifold` feature the kernel is pure Rust and builds for wasm32; its booleans

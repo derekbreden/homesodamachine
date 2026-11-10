@@ -101,22 +101,8 @@ pub fn names(value:&Value)->BTreeSet<String>{value.as_array().map(|a|a.iter().fi
 
 impl Graph {
     pub fn new(graph:&Value,config:&Value)->Self {
-        let mut graph=graph.as_object().cloned().unwrap_or_default();
-        let mut order=config["generator_order"].as_array().map(|a|a.iter().filter_map(Value::as_str).map(str::to_owned).collect::<Vec<_>>()).unwrap_or_else(||graph.keys().cloned().collect());
-        if let Some(source)=graph.remove("hardware/scripts/flute_payload.py") {
-            order.retain(|name|name!="hardware/scripts/flute_payload.py");
-            if let Some(wrappers)=config["flute_roots"].as_object() {for(wrapper,roots)in wrappers {
-                let roots=names(roots);let trees=names(&config["flute_trees"]);let shared=names(&config["flute_shared"]);
-                let mut row=serde_json::Map::new();
-                for side in ["reads","writes","rewritten"] {
-                    let values=source[side].as_array().map(|rows|rows.iter().filter(|p|p.as_str().is_some_and(|p| {
-                        roots.iter().any(|root|p.starts_with(root))||(side=="reads"&&(shared.contains(p)||!trees.iter().any(|root|p.starts_with(root))))
-                    })).cloned().collect::<Vec<_>>()).unwrap_or_default();row.insert(side.into(),json!(values));
-                }
-                graph.insert(wrapper.clone(),Value::Object(row));
-                order.push(wrapper.clone());
-            }}
-        }
+        let graph=graph.as_object().cloned().unwrap_or_default();
+        let order=config["generator_order"].as_array().map(|a|a.iter().filter_map(Value::as_str).map(str::to_owned).collect::<Vec<_>>()).unwrap_or_else(||graph.keys().cloned().collect());
         let inert=|path:&str| {
             let path=path.to_lowercase();config["inert_suffixes"].as_array().is_some_and(|a|a.iter().filter_map(Value::as_str).any(|s|path.ends_with(s)))
                 ||names(&config["inert_basenames"]).contains(path.rsplit('/').next().unwrap_or(""))

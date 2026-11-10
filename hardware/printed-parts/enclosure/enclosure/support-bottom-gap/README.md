@@ -70,3 +70,7 @@ C0 and V70 repeat on both printers. Physical preferred fit is pending.
 [combined native reader](https://github.com/derekbreden/homesodamachine/blob/306268f870/hardware/printed-parts/enclosure/enclosure/support-bottom-gap/review_combined.py) (in Git at `306268f870`) read archives without printer
 communication. Emitted overlap, supports, removal lanes and density settings
 do not qualify physical adhesion, cleanup, fit, magnetic retention or strength.
+
+The [streamed-road source](https://github.com/derekbreden/homesodamachine/blob/0785c32f89a6e08609e5348aa2beb0096d560326/hardware/printed-parts/enclosure/enclosure/support-bottom-gap/read_roads.py)
+is archived in Git with the frozen trial readers. Current project and emitted-road
+reviews use the [native print workflow](../../trial-preparation/README.md).

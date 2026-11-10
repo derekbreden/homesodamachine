@@ -89,7 +89,7 @@ pub fn catalog(pieces:&[std::path::PathBuf])->Result<Value> {
         if payload.meshes.len()!=1 {continue;}
         let current=payload::digest(step)?;
         ensure!(payload.src.as_deref()==Some(current.as_str()),
-            "{} was cut from a {} that is not the one beside it ({} against {}) — it draws that solid's surface wherever it is grafted. Recut it:\n    tools/cad-venv/bin/python hardware/scripts/flute_payload.py",
+            "{} does not match its source {} ({} against {}). Rebuild the source part with its target through tools/run -- hsm-print-build --.",
             path.file_name().unwrap().to_string_lossy(),step.file_name().unwrap().to_string_lossy(),
             payload.src.as_deref().unwrap_or("None").chars().take(12).collect::<String>(),&current[..12]);
         reads.push(step.clone());reads.push(path);

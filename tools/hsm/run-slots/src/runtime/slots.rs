@@ -1,3 +1,4 @@
+//! Native admission and brokers hold and share the command runner's verified lease descriptors.
 use super::*;
 use std::{
     collections::BTreeMap,
@@ -23,7 +24,6 @@ struct Part {
 }
 struct Broker {
     path: PathBuf,
-    token: String,
     stop: Arc<AtomicBool>,
 }
 static ENVIRONMENT: OnceLock<Mutex<BTreeMap<String, String>>> = OnceLock::new();
@@ -37,18 +37,6 @@ fn environment() -> &'static Mutex<BTreeMap<String, String>> {
                 .collect(),
         )
     })
-}
-pub fn refresh_environment(value: &Value) {
-    if let Some(values) = value.as_object() {
-        let mut current = environment().lock().unwrap();
-        for name in [RUN_ENV, CAD_ENV, COMPILER_ENV, BROKER_ENV, PROFILE_ENV] {
-            if let Some(value) = values.get(name).and_then(Value::as_str) {
-                current.insert(name.into(), value.into());
-            } else {
-                current.remove(name);
-            }
-        }
-    }
 }
 fn env_value(name: &str) -> Option<String> {
     environment().lock().unwrap().get(name).cloned()
@@ -383,22 +371,12 @@ fn setenv(name: &str, value: Option<&str>) {
         values.remove(name);
     }
 }
-pub fn answer(value: Value) -> Result<Value> {
-    let state = STATE.lock().unwrap();
-    let mut environment = json!({});
-    for name in [RUN_ENV, CAD_ENV, COMPILER_ENV, BROKER_ENV, PROFILE_ENV] {
-        environment[name] = json!(env_value(name));
-    }
-    Ok(
-        json!({"result":value,"leases":{"run":entries(state.run.as_ref()),"cad":entries(state.cad.as_ref()),"compiler":entries(state.compiler.as_ref())},"environment":environment,"checked":state.checked,"broker":state.active.and_then(|id|state.brokers.get(&id).map(|b|json!({"id":id,"path":b.path,"token":b.token})))}),
-    )
-}
 pub fn current(kind: &str) -> bool {
     let mut s = STATE.lock().unwrap();
     s.current(kind);
     s.part(kind).is_some()
 }
-pub fn acquire_run(key: Option<&str>, timing: bool, callback: Host) -> Result<()> {
+pub fn acquire_run(key: Option<&str>, timing: bool) -> Result<()> {
     {
         let mut s = STATE.lock().unwrap();
         s.current("run");
@@ -474,10 +452,8 @@ pub fn acquire_run(key: Option<&str>, timing: bool, callback: Host) -> Result<()
             drop(free);
             drop(gate);
             if waiting.as_ref() != Some(&reason) {
-                host(
-                    callback,
-                    json!({"call":"stderr","text":format!("[run] waiting: {reason}\n")}),
-                )?;
+                eprintln!("[run] waiting: {reason}");
+                std::io::stderr().flush()?;
                 waiting = Some(reason);
             }
             thread::sleep(Duration::from_millis(100));
@@ -647,7 +623,6 @@ pub fn new_broker(config: Option<&str>) -> Result<Value> {
         id,
         Broker {
             path: path.clone(),
-            token: token.clone(),
             stop,
         },
     );
@@ -714,24 +689,19 @@ pub fn close_broker(id: u64) -> Result<()> {
     }
     Ok(())
 }
-pub fn child_env(base: Option<&Value>, broker: bool) -> Result<Value> {
+pub fn child_env() -> Result<Value> {
     let need = {
         let mut s = STATE.lock().unwrap();
-        broker && !s.wire()?.1.is_empty() && s.active.is_none()
+        !s.wire()?.1.is_empty() && s.active.is_none()
     };
     if need {
         new_broker(None)?;
     }
     let mut s = STATE.lock().unwrap();
-    if broker {
-        if let Some(b) = s.active.and_then(|id| s.brokers.get(&id)) {
-            setenv(BROKER_ENV, Some(&json!({"path":b.path}).to_string()));
-        }
+    if let Some(b) = s.active.and_then(|id| s.brokers.get(&id)) {
+        setenv(BROKER_ENV, Some(&json!({"path":b.path}).to_string()));
     }
-    let mut out = base
-        .and_then(Value::as_object)
-        .cloned()
-        .unwrap_or_else(|| env::vars().map(|(k, v)| (k, json!(v))).collect());
+    let mut out: serde_json::Map<String, Value> = env::vars().map(|(k, v)| (k, json!(v))).collect();
     for name in [RUN_ENV, CAD_ENV, COMPILER_ENV, BROKER_ENV, PROFILE_ENV] {
         if let Some(v) = env_value(name) {
             out.insert(name.into(), json!(v));
@@ -745,209 +715,17 @@ pub fn child_env(base: Option<&Value>, broker: bool) -> Result<Value> {
     }
     Ok(json!(out))
 }
-pub fn request(op: &str, d: &Value, callback: Host) -> Result<Value> {
-    let value = match op {
-        "directory" => json!(directory()?),
-        "defaults" => serde_json::from_str(include_str!("../../../run-slots.defaults.json"))?,
-        "capacity" => json!(capacity()),
-        "count" => json!(count()?),
-        "set_count" => {
-            let n = d["value"].as_u64().unwrap_or(0) as usize;
-            ensure!(
-                (1..=capacity()).contains(&n),
-                "count must be an integer from 1 to {}",
-                capacity()
-            );
-            let gate = open(&directory()?.join("admission.lock"))?;
-            gate.lock_exclusive()?;
-            let temporary = directory()?.join(format!(".count.{}", std::process::id()));
-            fs::write(&temporary, format!("{n}\n"))?;
-            fs::rename(temporary, directory()?.join("count"))?;
-            Value::Null
-        }
-        "path" => {
-            let kind = text(&d["kind"])?;
-            json!(if ["cad", "compiler"].contains(&kind) {
-                auxiliary_path(kind)?
-            } else {
-                directory()?.join(format!("slot.{}.lock", d["slot"]))
-            })
-        }
-        "read_fd" => {
-            let fd = d["fd"].as_i64().context("fd")? as i32;
-            json!(
-                duplicate_raw(fd)
-                    .and_then(|f| read_token(&f))
-                    .unwrap_or(json!({}))
-            )
-        }
-        "write_fd" => {
-            let fd = d["fd"].as_i64().context("fd")? as i32;
-            let bytes = serde_json::to_vec(&d["value"])?;
-            let mut text = bytes;
-            text.push(b'\n');
-            ensure!(
-                unsafe { libc::ftruncate(fd, 0) } == 0,
-                "truncate lease record"
-            );
-            ensure!(
-                unsafe { libc::pwrite(fd, text.as_ptr().cast(), text.len(), 0) }
-                    == text.len() as isize,
-                "write lease record"
-            );
-            Value::Null
-        }
-        "open" => json!(open(Path::new(text(&d["path"])?))?.into_raw_fd()),
-        "valid" => json!(valid_entry(&d["entry"], text(&d["kind"])?)),
-        "env_lease" => {
-            let kind = text(&d["kind"])?;
-            let mut s = STATE.lock().unwrap();
-            s.current(kind);
-            entries(s.part(kind))
-        }
-        "current" => json!(current(text(&d["kind"])?)),
-        "expects_parent" => json!(STATE.lock().unwrap().expects_parent()),
-        "from_broker" => json!(STATE.lock().unwrap().from_broker()?),
-        "wire" => {
-            let mut s = STATE.lock().unwrap();
-            let (a, b) = s.wire()?;
-            json!([a, b])
-        }
-        "adopt" => {
-            let fds = serde_json::from_value(d["fds"].clone())?;
-            json!(STATE.lock().unwrap().adopt(&d["metadata"], fds)?)
-        }
-        "acquire" => {
-            acquire_run(
-                d["key"].as_str(),
-                d["timing"].as_bool().unwrap_or(false),
-                callback,
-            )?;
-            Value::Null
-        }
-        "acquire_cad" => {
-            acquire_aux("cad")?;
-            Value::Null
-        }
-        "acquire_compiler" => {
-            acquire_aux("compiler")?;
-            Value::Null
-        }
-        "release" => {
-            release(false);
-            Value::Null
-        }
-        "release_cad" => {
-            release(true);
-            Value::Null
-        }
-        "export" => {
-            let kind = text(&d["kind"])?;
-            let value = if kind == "run" {
-                json!({"v":1,"fds":d["entries"]})
-            } else {
-                let mut value = d["entries"][0].clone();
-                value["v"] = json!(1);
-                value
-            };
-            setenv(
-                match kind {
-                    "run" => RUN_ENV,
-                    "cad" => CAD_ENV,
-                    _ => COMPILER_ENV,
-                },
-                Some(&value.to_string()),
-            );
-            Value::Null
-        }
-        "lease_close" => {
-            let kind = text(&d["kind"])?;
-            let mut s = STATE.lock().unwrap();
-            let values = d["entries"].as_array().context("lease entries")?;
-            let matches = s.part(kind).is_some_and(|p| {
-                p.held
-                    .iter()
-                    .map(|h| h.file.as_raw_fd())
-                    .eq(values.iter().map(|e| e["fd"].as_i64().unwrap_or(-1) as i32))
-            });
-            if matches {
-                s.put(kind, None);
-            } else {
-                for e in values {
-                    unsafe { libc::close(e["fd"].as_i64().context("lease fd")? as i32) };
-                }
-            }
-            Value::Null
-        }
-        "close_fds" => {
-            for fd in d["fds"].as_array().context("fds")? {
-                unsafe { libc::close(fd.as_i64().context("fd")? as i32) };
-            }
-            Value::Null
-        }
-        "pressure" => json!(pressure()),
-        "broker_config" => json!(broker_config(Path::new(text(&d["workspace"])?))?),
-        "broker_new" => new_broker(d["config"].as_str())?,
-        "broker_close" => {
-            close_broker(d["id"].as_u64().context("broker id")?)?;
-            Value::Null
-        }
-        "child_env" => child_env(
-            d.get("environment").filter(|v| !v.is_null()),
-            d["broker"].as_bool().unwrap_or(true),
-        )?,
-        "command" => {
-            let mut out = vec![json!(Path::new(text(&d["root"])?).join("tools/run"))];
-            if let Some(key) = d["key"].as_str().filter(|v| !v.is_empty()) {
-                out.extend([json!("--key"), json!(key)]);
-            }
-            out.push(json!("--"));
-            out.extend(d["argv"].as_array().context("argv")?.clone());
-            json!(out)
-        }
-        _ => bail!("unknown run-slot operation {op}"),
-    };
-    answer(value)
-}
-
-#[cfg(test)]
-mod command_tests {
-    use super::*;
-    #[test]
-    fn adapter_commands_enter_the_native_runner_and_preserve_argv() {
-        let argv = json!([
-            "env",
-            "RUSTC=/tool chain/rustc",
-            "cargo",
-            "build",
-            "--",
-            "arg with spaces"
-        ]);
-        let reply=request("command",&json!({"root":"/work tree/repository","python":"/retired/python","argv":argv,"key":"chosen key"}),None).unwrap();
-        assert_eq!(
-            reply["result"],
-            json!([
-                "/work tree/repository/tools/run",
-                "--key",
-                "chosen key",
-                "--",
-                "env",
-                "RUSTC=/tool chain/rustc",
-                "cargo",
-                "build",
-                "--",
-                "arg with spaces"
-            ])
-        );
-        let reply = request(
-            "command",
-            &json!({"root":"/repository","argv":["echo","value"],"key":null}),
-            None,
-        )
-        .unwrap();
-        assert_eq!(
-            reply["result"],
-            json!(["/repository/tools/run", "--", "echo", "value"])
-        );
-    }
+/// Set the capacity for subsequent logical runs without interrupting admitted work.
+pub fn set_count(value: i64) -> Result<()> {
+    ensure!(
+        value >= 1 && value <= capacity() as i64,
+        "count must be an integer from 1 to {}",
+        capacity()
+    );
+    let gate = open(&directory()?.join("admission.lock"))?;
+    gate.lock_exclusive()?;
+    let temporary = directory()?.join(format!(".count.{}", std::process::id()));
+    fs::write(&temporary, format!("{value}\n"))?;
+    fs::rename(temporary, directory()?.join("count"))?;
+    Ok(())
 }

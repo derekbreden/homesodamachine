@@ -64,9 +64,9 @@ Each square-cut PVC end starts 0.9 mm outward of the first scanned barb
 profile station to clear the molded head/root. The complete 9 mm clamp bands
 retain at least 1.62 mm to each usable barb end.
 
-`g_ganen_installation.build_parts()` and `rigid_shape()` expose the bare installed
-reference. `mount_holes()` and `feet_shapes()` are empty. The stock slider
-observations remain independently available in the purchased reference.
+The [native equipment constructor](/tools/hsm/machine-data/src/equipment.rs)
+selects the pump replica and excludes the removable rubber sliders. The stock
+slider observations remain independently available in the purchased reference.
 Occupied casing solids describe exterior clearance, not mass or wall thickness.
 Actual snap retention, vibration and assembled fit remain physical qualification.
 

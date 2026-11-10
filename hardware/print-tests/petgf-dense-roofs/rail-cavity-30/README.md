@@ -1,6 +1,6 @@
 # Longer complete rail cavity coupon
 
-This plate extends the [complete rail cavity coupon](../rail-cavity-20/) along
+This plate extends the [archived complete rail cavity coupon](https://github.com/derekbreden/homesodamachine/tree/0785c32f89a6e08609e5348aa2beb0096d560326/hardware/print-tests/petgf-dense-roofs/rail-cavity-20) along
 the slide direction. Its production cross-section, surrounding stock, D contact
 treatment and locally rooted tree recipe remain the same.
 

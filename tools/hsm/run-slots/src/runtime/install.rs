@@ -1,3 +1,4 @@
+//! Runtime installation retains immutable native commands and their matching source receipts.
 use super::*;
 const MARKER: &str = "#!/bin/sh\n# hsm build launcher\n";
 pub fn source_files() -> Vec<(&'static str, &'static str)> {
@@ -33,14 +34,6 @@ pub fn source_files() -> Vec<(&'static str, &'static str)> {
             include_str!("../../Cargo.toml"),
         ),
         (
-            "tools/hsm/run-native/Cargo.toml",
-            include_str!("../../../run-native/Cargo.toml"),
-        ),
-        (
-            "tools/hsm/run-native/src/lib.rs",
-            include_str!("../../../run-native/src/lib.rs"),
-        ),
-        (
             "tools/hsm/run-slots.defaults.json",
             include_str!("../../../run-slots.defaults.json"),
         ),
@@ -58,27 +51,14 @@ pub fn source_id() -> String {
     }
     format!("{:x}", digest.finalize())
 }
-fn library(dir: &Path) -> PathBuf {
-    dir.join(format!(
-        "{}hsm_run_native{}",
-        env::consts::DLL_PREFIX,
-        env::consts::DLL_SUFFIX
-    ))
-}
 pub fn info(root: &Path) -> Result<Value> {
     let files = source_files();
     let matches = files
         .iter()
         .all(|(path, text)| fs::read(root.join(path)).is_ok_and(|bytes| bytes == text.as_bytes()));
     let exe = env::current_exe()?.canonicalize()?;
-    let beside = library(exe.parent().context("runtime directory")?);
-    let lib = if beside.is_file() {
-        beside
-    } else {
-        library(&root.join("tools/hsm/target/release"))
-    };
     Ok(
-        json!({"abi":1,"source_id":source_id(),"source_match":matches,"executable":exe,"library":lib,"sources":files.into_iter().map(|(path,text)|(path,hash(text.as_bytes()))).collect::<BTreeMap<_,_>>()}),
+        json!({"schema":2,"source_id":source_id(),"source_match":matches,"executable":exe,"sources":files.into_iter().map(|(path,text)|(path,hash(text.as_bytes()))).collect::<BTreeMap<_,_>>()}),
     )
 }
 fn put(path: &Path, data: &[u8], mode: u32) -> Result<()> {
@@ -106,37 +86,38 @@ pub fn install_runtime(root: &Path, destination: &Path) -> Result<Value> {
         "runtime source changed; compile its current source before installation"
     );
     let runner = Path::new(text(&current["executable"])?);
-    let lib = Path::new(text(&current["library"])?);
     let runner_bytes = fs::read(runner)?;
-    let lib_bytes = fs::read(lib)?;
-    let code = source_id();
-    let artifact =
-        hash(format!("{code}\n{}\n{}", hash(&runner_bytes), hash(&lib_bytes)).as_bytes());
+    install_runner(
+        root,
+        destination,
+        &source_id(),
+        &current["sources"],
+        &runner_bytes,
+    )
+}
+
+/// Install one immutable runner and atomically point its command and receipt at that artifact.
+fn install_runner(
+    root: &Path,
+    destination: &Path,
+    code: &str,
+    sources: &Value,
+    runner_bytes: &[u8],
+) -> Result<Value> {
+    let runner_sha256 = hash(runner_bytes);
+    let artifact = hash(format!("{code}\n{runner_sha256}").as_bytes());
     let dir = destination.join("lib/hsm/runtime").join(&artifact);
     let runner_out = dir.join("hsm-run");
-    let lib_out = library(&dir);
-    for (path, bytes) in [(&runner_out, &runner_bytes), (&lib_out, &lib_bytes)] {
-        if !path.exists() {
-            put(path, bytes, 0o555)?;
-        } else {
-            ensure!(
-                fs::read(path)? == *bytes,
-                "{} already holds a different artifact for this source",
-                path.display()
-            );
-        }
+    if !runner_out.exists() {
+        put(&runner_out, runner_bytes, 0o555)?;
+    } else {
+        ensure!(
+            fs::read(&runner_out)? == runner_bytes,
+            "{} already holds a different artifact for this source",
+            runner_out.display()
+        );
     }
-    let mut sources = current["sources"].clone();
-    for path in [
-        "hardware/scripts/_run_native.py",
-        "hardware/scripts/_run_slots.py",
-        "hardware/scripts/_run_lock.py",
-    ] {
-        if let Ok(bytes) = fs::read(root.join(path)) {
-            sources[path] = json!(hash(&bytes));
-        }
-    }
-    let receipt = json!({"schema":1,"abi":1,"source_id":code,"artifact_id":artifact,"source_sha256":sources,"root":root,"runner":runner_out,"library":lib_out,"runner_sha256":hash(&runner_bytes),"library_sha256":hash(&lib_bytes)});
+    let receipt = json!({"schema":2,"source_id":code,"artifact_id":artifact,"source_sha256":sources,"root":root,"runner":runner_out,"runner_sha256":runner_sha256});
     put(
         &dir.join("receipt.json"),
         (serde_json::to_string_pretty(&receipt)? + "\n").as_bytes(),
@@ -155,9 +136,9 @@ pub fn install_runtime(root: &Path, destination: &Path) -> Result<Value> {
     Ok(receipt)
 }
 
-/// Rebuild the host runner and its adapter library under the existing compiler lease.
+/// Rebuild and install the host runner under the existing admission and compiler leases.
 pub fn rebuild_runtime(root: &Path) -> Result<()> {
-    slots::acquire_run(Some("hsm:runtime-bootstrap"), false, None)?;
+    slots::acquire_run(Some("hsm:runtime-bootstrap"), false)?;
     slots::acquire_aux("compiler")?;
     let cargo = env::var_os("CARGO")
         .map(PathBuf::from)
@@ -183,7 +164,7 @@ pub fn rebuild_runtime(root: &Path) -> Result<()> {
         "--manifest-path",
     ])
     .arg(root.join("tools/hsm/Cargo.toml"))
-    .args(["-p", "hsm-run-slots", "-p", "hsm-run-native"])
+    .args(["-p", "hsm-run-slots", "--bin", "hsm-run"])
     .current_dir(root)
     .env("CARGO_TARGET_DIR", root.join("tools/hsm/target"));
     if let Some(directory) = cargo.parent().filter(|p| !p.as_os_str().is_empty()) {
@@ -263,43 +244,6 @@ pub fn install_tools(root: &Path, destination: &Path, binaries: &[PathBuf]) -> R
             .push(json!({"name":name,"sha256":digest,"executable":artifact,"command":command}));
     }
     Ok(json!({"tools":installed}))
-}
-pub fn bootstrap(root: &Path) -> Result<Value> {
-    slots::acquire_run(Some("hsm:runtime-bootstrap"), false, None)?;
-    slots::acquire_aux("compiler")?;
-    let cargo = env::var_os("CARGO")
-        .map(PathBuf::from)
-        .or_else(|| {
-            let p = PathBuf::from(env::var_os("HOME").unwrap_or_default()).join(".cargo/bin/cargo");
-            p.is_file().then_some(p)
-        })
-        .unwrap_or_else(|| PathBuf::from("/opt/homebrew/opt/rustup/bin/cargo"));
-    let mut command = Command::new(&cargo);
-    command
-        .args([
-            "build",
-            "--release",
-            "--locked",
-            "--lib",
-            "--jobs=2",
-            "--manifest-path",
-        ])
-        .arg(root.join("tools/hsm/run-native/Cargo.toml"))
-        .current_dir(root)
-        .env("CARGO_TARGET_DIR", root.join("tools/hsm/target"))
-        .env("CARGO_BUILD_JOBS", "2");
-    if let Some(parent) = cargo.parent() {
-        let path = env::var_os("PATH").unwrap_or_default();
-        let mut paths = vec![parent.to_path_buf()];
-        paths.extend(env::split_paths(&path));
-        command.env("PATH", env::join_paths(paths)?);
-    }
-    slots::context()?.apply(&mut command)?;
-    ensure!(
-        ipc::spawn(&mut command)?.wait()?.success(),
-        "native runtime library build failed"
-    );
-    install_runtime(root, &prefix())
 }
 fn endpoint(binary: &Path) -> Result<Value> {
     let out = Command::new(binary).arg("endpoint").output()?;
@@ -411,4 +355,69 @@ pub fn install_hsm(
     Ok(
         json!({"command":command,"build_id":build,"executable":current,"legacy":state["legacy"],"runtime":runtime}),
     )
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn native_runtime_install_retains_open_previous_runner() {
+        struct Scratch(PathBuf);
+        impl Drop for Scratch {
+            fn drop(&mut self) {
+                let _ = fs::remove_dir_all(&self.0);
+            }
+        }
+        let scratch =
+            Scratch(env::temp_dir().join(format!("hsm-run-install-{}", token().unwrap())));
+        let sources = json!({"tools/hsm/run-slots/src/main.rs":"source digest"});
+        let first = install_runner(
+            Path::new("/checkout"),
+            &scratch.0,
+            "source-a",
+            &sources,
+            b"runner-a",
+        )
+        .unwrap();
+        let first_path = Path::new(first["runner"].as_str().unwrap());
+        let mut open_previous = File::open(first_path).unwrap();
+
+        let next = install_runner(
+            Path::new("/checkout"),
+            &scratch.0,
+            "source-b",
+            &sources,
+            b"runner-b",
+        )
+        .unwrap();
+        let next_path = Path::new(next["runner"].as_str().unwrap());
+        let mut previous_bytes = Vec::new();
+        open_previous.read_to_end(&mut previous_bytes).unwrap();
+        assert_eq!(previous_bytes, b"runner-a");
+        assert_eq!(fs::read(first_path).unwrap(), b"runner-a");
+        assert_eq!(fs::read(next_path).unwrap(), b"runner-b");
+        assert_ne!(first_path, next_path);
+        assert_eq!(
+            fs::metadata(first_path).unwrap().permissions().mode() & 0o777,
+            0o555
+        );
+        assert!(next.get("library").is_none());
+        assert!(next.get("abi").is_none());
+        let current: Value =
+            serde_json::from_slice(&fs::read(scratch.0.join("lib/hsm/runtime.json")).unwrap())
+                .unwrap();
+        assert_eq!(current, next);
+        let command = fs::read_to_string(scratch.0.join("bin/hsm-run")).unwrap();
+        assert!(command.contains(next_path.to_str().unwrap()));
+        let again = install_runner(
+            Path::new("/checkout"),
+            &scratch.0,
+            "source-b",
+            &sources,
+            b"runner-b",
+        )
+        .unwrap();
+        assert_eq!(again, next);
+    }
 }
