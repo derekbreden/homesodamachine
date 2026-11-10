@@ -1,5 +1,0 @@
-# Packed models, previews and editor state stay outside the native design source.
-*.sc
-*.step.png
-*.bak
-.~*.lock

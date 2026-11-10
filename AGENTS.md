@@ -158,19 +158,6 @@ is the plan.
 A concept, a throwaway part or a study starts in Rust too: [`tools/hsm/sandbox`](tools/hsm/sandbox/README.md)
 is a file to copy and a command to rerun, with nothing to set up.
 
-## SolidCraft Updates
-
-While SolidCraft is in use here, keep its application and matching CLI on the newest
-upstream version, including prereleases. Check for a newer release before starting
-SolidCraft work and install it when available. These updates are authorized without
-separate confirmation. Preserve project files and let running operations finish on
-the executable they started with, retaining the previous application until they exit.
-
-After a kernel upgrade, review active SolidCraft work against the current engine's
-primitives and modeling behavior. Choose the construction that best serves fit,
-editing and performance, including rewriting earlier work when that gives the
-better model.
-
 ## What Runs Every Time
 
 "Correctness" is far too broad a goal to enforce on every commit. Everyone can defend a check once it is in; no one defends keeping one out. I will. Whatever runs on every commit, every build or every edit costs time on each run, and you don't predict well how often it will run when it doesn't need to.

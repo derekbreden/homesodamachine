@@ -1,4 +1,4 @@
-// Viewer pages render the machine catalogs and mount the isolated native valve lab.
+// Viewer pages render the machine catalogs.
 // /3d (parts — prints + cuts), /charts
 // (mermaid diagrams), /guides (guide PDFs), and /pcb (board views). These catalogs
 // share the same body fragment (lib/templates/viewer-body.html), which decides
@@ -21,7 +21,6 @@ import path from "path";
 import fs from "fs";
 import { fileURLToPath } from "url";
 import { renderHead, renderNav, renderPageHeader, renderFooter } from "./shell.js";
-import { mountSolidcraftLab } from "./solidcraft-lab.js";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const TEMPLATES_DIR = path.join(__dirname, "templates");
@@ -45,7 +44,6 @@ const INTRO = {
 };
 
 export function mountViewerPages(app) {
-  mountSolidcraftLab(app);
   function renderPage(active) {
     return (_req, res) => {
       res.set("Content-Type", "text/html; charset=utf-8");
