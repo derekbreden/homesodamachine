@@ -1,0 +1,55 @@
+{
+  "purpose": "Preserve the enclosure's local supported surfaces and removal access in compact print samples.",
+  "profile": "hardware/print-tests/petgf-dense-roofs/2026-11-09-dense-roofs-left04-z018-mark1.3mf",
+  "interface_spacing_mm": {"A": 0.5, "B": 0.15, "C": 0.0},
+  "column_x_mm": [112.0, 160.0, 208.0],
+  "label_height_mm": 0.48,
+  "families": [
+    {
+      "id": "R",
+      "name": "Rail channel",
+      "source": "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.stl",
+      "feature": "enclosure-front-bottom::west-z-rail",
+      "crop_min_mm": [-108.0, 60.0, 154.32],
+      "crop_max_mm": [-90.0, 100.0, 174.8],
+      "row_y_mm": 105.0,
+      "label_center_world_mm": [-98.625, 80.0, 174.8],
+      "settings": {"support_style": "default", "support_object_xy_distance": "0.4", "tree_support_branch_angle": "20", "support_on_build_plate_only": "0", "sparse_infill_density": "100%", "sparse_infill_pattern": "zig-zag"},
+      "retains": "The complete rail cross-section, local floor, catch underside, flare and side access for screwdriver removal; only longitudinal length and unrelated lower enclosure wall are cropped.",
+      "source_contact_plane_z_mm": 169.2,
+      "source_support_floor_z_mm": 160.0,
+      "production_bed_world_z_mm": -6.0,
+      "target_support_root": "model"
+    },
+    {
+      "id": "H",
+      "name": "Rounded handhold arch",
+      "source": "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.stl",
+      "feature": "enclosure-back-bottom::west-handhold",
+      "crop_min_mm": [-108.0, 200.0, 17.76],
+      "crop_max_mm": [-90.5, 263.0, 42.0],
+      "row_y_mm": 170.0,
+      "label_center_world_mm": [-103.0, 244.0, 42.0],
+      "settings": {"support_style": "default", "support_object_xy_distance": "0.4", "tree_support_branch_angle": "20", "support_on_build_plate_only": "0"},
+      "retains": "The production corbel, curved opening end, complete open seam end, underside and wall junction; lower empty height and unrelated enclosure stock are cropped.",
+      "production_bed_world_z_mm": -6.0,
+      "target_support_root": "bed"
+    },
+    {
+      "id": "P",
+      "name": "Holed pump-retainer pad",
+      "source": "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl",
+      "feature": "enclosure-front-top::pump-mount-cuts",
+      "source_pick_world_mm": [-16.916, 24.629, 217.5],
+      "crop_min_mm": [-22.725, 14.0, 210.17],
+      "crop_max_mm": [-3.725, 35.0, 232.0],
+      "row_y_mm": 225.0,
+      "label_center_world_mm": [-13.225, 25.5, 232.0],
+      "settings": {"support_style": "tree_slim", "support_object_xy_distance": "0.5", "support_on_build_plate_only": "0", "sparse_infill_density": "100%", "sparse_infill_pattern": "zig-zag"},
+      "retains": "The complete square underside, hole mouth, blind pilot and closing tip with its surrounding wall root; tall empty space below and excess solid cap above are cropped.",
+      "source_contact_plane_z_mm": 217.5,
+      "production_bed_world_z_mm": 160.25,
+      "target_support_root": "bed"
+    }
+  ]
+}

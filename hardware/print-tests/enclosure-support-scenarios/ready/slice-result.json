@@ -1,0 +1,178 @@
+{
+  "error_string": "Success.",
+  "export_time": 1384,
+  "layer_height": 0.23999999463558197,
+  "plate_index": 0,
+  "prepare_time": 47,
+  "return_code": 0,
+  "sliced_plates": [
+    {
+      "feature_type_times": {
+        "Bottom surface": 120.08856201171875,
+        "Bridge": 373.5111083984375,
+        "Custom": 304.59564208984375,
+        "Flush": 15.0,
+        "Gap infill": 14.925004005432129,
+        "Inner wall": 750.3424682617188,
+        "Internal solid infill": 726.955322265625,
+        "Outer wall": 1192.8709716796875,
+        "Overhang wall": 75.09271240234375,
+        "Sparse infill": 3458.480712890625,
+        "Support": 630.8933715820313,
+        "Support interface": 49.19824981689453,
+        "Support transition": 51.58916091918945,
+        "Top surface": 130.93038940429688,
+        "Travel": 964.8827514648438,
+        "Undefined": 956.1508178710938
+      },
+      "filament_change_times": 0,
+      "filaments": [
+        {
+          "filament_id": "GFT01",
+          "id": 1,
+          "main_used_g": 74.47564697265625,
+          "total_used_g": 74.47564697265625
+        }
+      ],
+      "generate_support_material_time": 251,
+      "id": 1,
+      "infill_time": 238,
+      "layer_filament_change": 0,
+      "main_predication": 8523.2958984375,
+      "make_perimeters_time": 142,
+      "obj_cached_cnt": 0,
+      "objects": [
+        {
+          "bbox": {
+            "depth": 40.0,
+            "height": 20.959999084472656,
+            "width": 18.0,
+            "x": 103.0,
+            "y": 85.0,
+            "z": 0.0
+          },
+          "id": 5,
+          "name": "RA Rail channel",
+          "triangle_count": 952
+        },
+        {
+          "bbox": {
+            "depth": 40.0,
+            "height": 20.959999084472656,
+            "width": 18.0,
+            "x": 151.0,
+            "y": 85.0,
+            "z": 0.0
+          },
+          "id": 9,
+          "name": "RB Rail channel",
+          "triangle_count": 1940
+        },
+        {
+          "bbox": {
+            "depth": 40.0,
+            "height": 20.959999084472656,
+            "width": 18.0,
+            "x": 199.0,
+            "y": 85.0,
+            "z": 0.0
+          },
+          "id": 13,
+          "name": "RC Rail channel",
+          "triangle_count": 1932
+        },
+        {
+          "bbox": {
+            "depth": 62.850006103515625,
+            "height": 24.719999313354492,
+            "width": 16.75,
+            "x": 103.625,
+            "y": 138.5749969482422,
+            "z": 0.0
+          },
+          "id": 17,
+          "name": "HA Rounded handhold arch",
+          "triangle_count": 14120
+        },
+        {
+          "bbox": {
+            "depth": 62.850006103515625,
+            "height": 24.719999313354492,
+            "width": 16.75,
+            "x": 151.625,
+            "y": 138.5749969482422,
+            "z": 0.0
+          },
+          "id": 21,
+          "name": "HB Rounded handhold arch",
+          "triangle_count": 15108
+        },
+        {
+          "bbox": {
+            "depth": 62.850006103515625,
+            "height": 24.719999313354492,
+            "width": 16.75,
+            "x": 199.625,
+            "y": 138.5749969482422,
+            "z": 0.0
+          },
+          "id": 25,
+          "name": "HC Rounded handhold arch",
+          "triangle_count": 15100
+        },
+        {
+          "bbox": {
+            "depth": 21.0,
+            "height": 22.309999465942383,
+            "width": 19.0,
+            "x": 102.5,
+            "y": 214.5,
+            "z": 0.0
+          },
+          "id": 29,
+          "name": "PA Holed pump-retainer pad",
+          "triangle_count": 1690
+        },
+        {
+          "bbox": {
+            "depth": 21.0,
+            "height": 22.309999465942383,
+            "width": 19.0,
+            "x": 150.5,
+            "y": 214.5,
+            "z": 0.0
+          },
+          "id": 33,
+          "name": "PB Holed pump-retainer pad",
+          "triangle_count": 2678
+        },
+        {
+          "bbox": {
+            "depth": 21.0,
+            "height": 22.309999465942383,
+            "width": 19.0,
+            "x": 198.5,
+            "y": 214.5,
+            "z": 0.0
+          },
+          "id": 37,
+          "name": "PC Holed pump-retainer pad",
+          "triangle_count": 2670
+        }
+      ],
+      "sliced_time": 2555,
+      "sliced_time_with_cache": 1817,
+      "total_predication": 10372.773817713212,
+      "triangle_count": 56190,
+      "warning_message": ""
+    }
+  ],
+  "sparse_infill_density": 15.0,
+  "upward_compatible_machine": [
+    "Bambu Lab H2S 0.4 nozzle",
+    "Bambu Lab H2D 0.4 nozzle",
+    "Bambu Lab H2D Pro 0.4 nozzle",
+    "Bambu Lab A2L 0.4 nozzle"
+  ],
+  "wall_loops": 2
+}

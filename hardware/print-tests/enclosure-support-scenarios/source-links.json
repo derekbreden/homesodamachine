@@ -1,0 +1,5 @@
+{
+  "R": "https://homesodamachine.com/3d#step:printed-parts%2Fenclosure%2Fenclosure%2Fenclosure-front-bottom.step?find=view%3A%20az%3D-110%20el%3D-25%0Abox%3A%20x%3D-108.000%20y%3D60.000%20z%3D154.320%20to%20x%3D-90.000%20y%3D100.000%20z%3D174.800%20%22Rail%20channel%20sample%20region%22",
+  "H": "https://homesodamachine.com/3d#step:printed-parts%2Fenclosure%2Fenclosure%2Fenclosure-back-bottom.step?find=view%3A%20az%3D-110%20el%3D-25%0Abox%3A%20x%3D-108.000%20y%3D200.000%20z%3D17.760%20to%20x%3D-90.500%20y%3D263.000%20z%3D42.000%20%22Rounded%20handhold%20arch%20sample%20region%22",
+  "P": "https://homesodamachine.com/3d#step:printed-parts%2Fenclosure%2Fenclosure%2Fenclosure-front-top.step?find=view%3A%20az%3D-110%20el%3D-25%0Abox%3A%20x%3D-22.725%20y%3D14.000%20z%3D210.170%20to%20x%3D-3.725%20y%3D35.000%20z%3D232.000%20%22Holed%20pump-retainer%20pad%20sample%20region%22"
+}
