@@ -1,5 +1,5 @@
 {
-  "purpose": "This record binds the status LED fit to Derek\u2019s photographed prewired lamp and distinguishes physical measurements from allocated clearance.",
+  "purpose": "This record binds the status LED fit to Derek’s photographed prewired lamp and distinguishes physical measurements from allocated clearance.",
   "reported_on": "2026-11-09",
   "part": "CHANZON prewired clear-lens blue LED, with inline resistor and blue positive/black negative leads",
   "source": "https://www.amazon.com/dp/B08G4Z6KPV",
@@ -21,26 +21,13 @@
     "value": 8.7,
     "basis": "Existing product-drawing dimension; not newly measured in these photographs."
   },
-  "clearance_allocation": {
-    "straight_tail_from_flange_mm": 30.0,
-    "tail_envelope_diameter_mm": 6.0,
-    "well_width_mm": 6.4,
-    "socket_diameter_mm": 6.4,
-    "additional_wire_runout_mm": 10.0,
-    "basis": "A conservative design envelope around the photographed resistor, solder joints and heat-shrink. Tail length and width are allowances, not caliper measurements of the acquired part.",
-    "formed_tail_run_mm": 20.0
-  },
   "assembly": {
-    "entry": "Place the complete lamp, resistor and heat-shrink through the open service pocket with the status plate removed.",
-    "route": "A straight tail extends into the well. An already formed tail lies up the slot without reforming the leads. Flexible wires turn through the rear cross passage into the common pump/display corridor.",
-    "handling": "Keep force off the epoxy-to-lead joint and the resistor and solder joints. Do not straighten the already bent example to force it through the socket.",
-    "handling_reference": {
-      "url": "https://www.kingbrightusa.com/applicationnotes/ApplicationNotesFor_Through-Hole_LEDs.pdf",
-      "scope": "General through-hole LED handling guidance; not a CHANZON-specific bend qualification."
-    },
-    "retention": "Set the lens back behind the diffuser and tack the flange to the socket with the existing hot-glue gun, keeping adhesive off optical faces. Let the adhesive cool before handling."
+    "entry": "Fit the wired lamp through the round pocket with the status plate and display removed.",
+    "route": "The diamond lead channel joins the bulb pocket to the display PCB cavity.",
+    "handling": "Keep force off the epoxy-to-lead joint, resistor and solder joints.",
+    "closure": "The flat status plate covers the LED pocket; its diffuser is flush with both plate faces."
   },
-  "qualification": "Digital fit and insertion checks; physical fit in the printed revised housing is not yet reported.",
+  "qualification": "Derek reports the wired LED fits the existing printed housing. The deeper shared floor requires a new physical confirmation.",
   "photos": [
     {
       "file": "photo-1.jpg",
@@ -70,5 +57,28 @@
       "file": "photo-7.jpg",
       "sha256": "80a3f26d93a84ca7feffc0b35795e6e74811fe39cfef6569a402ccf7bf45612b"
     }
-  ]
+  ],
+  "installed_fit": {
+    "reported_on": "2026-11-09",
+    "words": "It fits fine in the existing print that just finished btw, so we can maybe consider just going back to that if you can't follow what I'm asking for. I'll send photos.",
+    "source_revision": "Not identified for the photographed print.",
+    "photos": [
+      {
+        "file": "installed-fit/photo-1.jpg",
+        "sha256": "635f1d614e217dcf4912c22b9a1c80728e9a8b3f71531f41d48a02ffa9743d8f"
+      },
+      {
+        "file": "installed-fit/photo-2.jpg",
+        "sha256": "35f4185d32e4f761b3f37447f3e0b9ce74e1d863be7a56977105a6cba64e276f"
+      },
+      {
+        "file": "installed-fit/photo-3.jpg",
+        "sha256": "2f783befbf9ac7433b554d1202ab090cc4b873f22c16c2713c1f0f5a16f5ab0f"
+      },
+      {
+        "file": "installed-fit/photo-4.jpg",
+        "sha256": "04c28050afd7f77ed12fdb766256f0897a2c1b3c15687a08fb8b5565661a6a88"
+      }
+    ]
+  }
 }
