@@ -1,0 +1,221 @@
+{
+  "purpose": "Bind the single-wall incline coupons to their authored geometry.",
+  "specimens": [
+    {
+      "angle_from_bed_deg": 15.0,
+      "bounds_mm": [
+        [
+          -7.0,
+          -6.0,
+          0.0
+        ],
+        [
+          21.0,
+          6.0,
+          13.22308546397835
+        ]
+      ],
+      "id": "G1",
+      "single_body": true,
+      "volume_mm3": 976.032911872163
+    },
+    {
+      "angle_from_bed_deg": 30.0,
+      "bounds_mm": [
+        [
+          -7.0,
+          -6.0,
+          0.0
+        ],
+        [
+          21.0,
+          6.0,
+          18.792304845526814
+        ]
+      ],
+      "id": "G2",
+      "single_body": true,
+      "volume_mm3": 959.6924642304882
+    },
+    {
+      "angle_from_bed_deg": 45.0,
+      "bounds_mm": [
+        [
+          -7.0,
+          -6.0,
+          0.0
+        ],
+        [
+          21.0,
+          6.0,
+          26.40000000037253
+        ]
+      ],
+      "id": "G3",
+      "single_body": true,
+      "volume_mm3": 936.8393172320307
+    },
+    {
+      "angle_from_bed_deg": 15.0,
+      "bounds_mm": [
+        [
+          -7.0,
+          -6.0,
+          0.0
+        ],
+        [
+          21.0,
+          6.0,
+          13.22308546397835
+        ]
+      ],
+      "id": "G4",
+      "single_body": true,
+      "volume_mm3": 976.2922045678013
+    },
+    {
+      "angle_from_bed_deg": 30.0,
+      "bounds_mm": [
+        [
+          -7.0,
+          -6.0,
+          0.0
+        ],
+        [
+          21.0,
+          6.0,
+          18.792304845526814
+        ]
+      ],
+      "id": "G5",
+      "single_body": true,
+      "volume_mm3": 959.6925601142775
+    },
+    {
+      "angle_from_bed_deg": 45.0,
+      "bounds_mm": [
+        [
+          -7.0,
+          -6.0,
+          0.0
+        ],
+        [
+          21.0,
+          6.0,
+          26.40000000037253
+        ]
+      ],
+      "id": "G6",
+      "single_body": true,
+      "volume_mm3": 936.9468740218919
+    },
+    {
+      "angle_from_bed_deg": 15.0,
+      "bounds_mm": [
+        [
+          -7.0,
+          -6.0,
+          0.0
+        ],
+        [
+          21.0,
+          6.0,
+          13.22308546397835
+        ]
+      ],
+      "id": "S1",
+      "single_body": true,
+      "volume_mm3": 975.9348750931533
+    },
+    {
+      "angle_from_bed_deg": 30.0,
+      "bounds_mm": [
+        [
+          -7.0,
+          -6.0,
+          0.0
+        ],
+        [
+          21.0,
+          6.0,
+          18.792304845526814
+        ]
+      ],
+      "id": "S2",
+      "single_body": true,
+      "volume_mm3": 959.5944274514693
+    },
+    {
+      "angle_from_bed_deg": 45.0,
+      "bounds_mm": [
+        [
+          -7.0,
+          -6.0,
+          0.0
+        ],
+        [
+          21.0,
+          6.0,
+          26.40000000037253
+        ]
+      ],
+      "id": "S3",
+      "single_body": true,
+      "volume_mm3": 936.741280453007
+    },
+    {
+      "angle_from_bed_deg": 15.0,
+      "bounds_mm": [
+        [
+          -7.0,
+          -6.0,
+          0.0
+        ],
+        [
+          21.0,
+          6.0,
+          13.22308546397835
+        ]
+      ],
+      "id": "S4",
+      "single_body": true,
+      "volume_mm3": 976.1941677888208
+    },
+    {
+      "angle_from_bed_deg": 30.0,
+      "bounds_mm": [
+        [
+          -7.0,
+          -6.0,
+          0.0
+        ],
+        [
+          21.0,
+          6.0,
+          18.792304845526814
+        ]
+      ],
+      "id": "S5",
+      "single_body": true,
+      "volume_mm3": 959.5945233352738
+    },
+    {
+      "angle_from_bed_deg": 45.0,
+      "bounds_mm": [
+        [
+          -7.0,
+          -6.0,
+          0.0
+        ],
+        [
+          21.0,
+          6.0,
+          26.40000000037253
+        ]
+      ],
+      "id": "S6",
+      "single_body": true,
+      "volume_mm3": 936.8488372429892
+    }
+  ]
+}

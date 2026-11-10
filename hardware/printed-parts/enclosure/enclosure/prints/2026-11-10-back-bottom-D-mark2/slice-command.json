@@ -1,0 +1,14 @@
+[
+  "/Applications/BambuStudio.app/Contents/MacOS/BambuStudio",
+  "--slice",
+  "0",
+  "--arrange",
+  "0",
+  "--orient",
+  "0",
+  "--outputdir",
+  "/Users/derekbredensteiner/Developer/homesodamachine/.cache/runs/back-bottom-D-floor-roots-2026-11-10/2026-11-10-back-bottom-mark2-d08d2e44/native",
+  "--export-3mf",
+  "2026-11-10-back-bottom-mark2-d08d2e44.gcode.3mf",
+  "/Users/derekbredensteiner/Developer/homesodamachine/.cache/runs/back-bottom-D-floor-roots-2026-11-10/2026-11-10-back-bottom-mark2-d08d2e44/native/2026-11-10-back-bottom-mark2-d08d2e44.cli.3mf"
+]

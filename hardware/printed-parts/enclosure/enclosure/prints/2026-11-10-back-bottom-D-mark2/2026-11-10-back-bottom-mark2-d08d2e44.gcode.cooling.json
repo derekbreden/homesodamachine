@@ -1,0 +1,68 @@
+{
+  "added_commanded_motion_seconds": 26846.730893331638,
+  "archive_sha256": "4003c7152e6a106cddfc76a99306dd3e363f87f14b333bc050208c59e3157768",
+  "changed": true,
+  "estimate_scope": "Native estimate plus the added constant-feed motion time; acceleration and fan spin-up are not simulated.",
+  "input_archive_sha256": "2360dcd3534e0a78123db6de79ce1685ba2410e6a5c9f4841ca86747c4a5c984",
+  "members": [
+    {
+      "added_commanded_motion_seconds": 26846.730893331638,
+      "changed": true,
+      "input_gcode_sha256": "6d7b194b956ce71026ac0047f70a959cd6964bddf0481c198b4af8bf0eabf3e3",
+      "member": "Metadata/plate_1.gcode",
+      "native_cooled_seed_moves": 5389,
+      "ordinary_model_moves": 4927695,
+      "output_gcode_sha256": "241e2c4c4f7b6ef38dce36088c23c2855e7161d94929452edaa149dedaa4ee51",
+      "petgf_slots": [
+        0
+      ],
+      "policy": {
+        "grid_mm": 0.2,
+        "height_mm": 0.8
+      },
+      "recovery_by_feature": {
+        "Floating vertical shell": [
+          1208.0,
+          10276.320126521416,
+          626.3872857541334
+        ],
+        "Gap infill": [
+          205.0,
+          121.52003767637268,
+          7.504946617959486
+        ],
+        "Inner wall": [
+          2397.0,
+          8011.232647711775,
+          491.5163046397559
+        ],
+        "Internal solid infill": [
+          9619.0,
+          401617.5655290289,
+          24794.42921100742
+        ],
+        "Outer wall": [
+          7537.0,
+          19332.648538461617,
+          767.880987769927
+        ],
+        "Sparse infill": [
+          4374.0,
+          2591.7418727766494,
+          159.01215754247207
+        ]
+      },
+      "recovery_fan_percent": [
+        "70"
+      ],
+      "recovery_moves": 25340,
+      "recovery_speed_limit_mm_s": [
+        "15",
+        "15",
+        "15"
+      ],
+      "scope": "The complete centerline lies in a recent native-cooled model footprint. Motion coordinates and extrusion words are retained; only local part cooling and recovery feed rates change.",
+      "speed_limited_moves": 25311
+    }
+  ]
+}

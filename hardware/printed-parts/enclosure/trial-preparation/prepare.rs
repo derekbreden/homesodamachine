@@ -182,6 +182,22 @@ fn derive_features(root: &Path, mesh: &Mesh, declared: &[Value]) -> Result<Vec<F
                 found.push(derive::ceiling_inset(&geo, feature, z)?);
             }
             "tie_windows" => found.push(derive::tie_windows(&geo, feature)?),
+            "support_region" => {
+                let (low, high) = pair(&feature["bounds_source_mm"])?;
+                let selected: Vec<usize> = mesh.faces.iter().enumerate().filter_map(|(i, face)| {
+                    let center = [0, 1, 2].map(|axis| face.iter().map(|&v| mesh.vertices[v][axis]).sum::<f64>() / 3.0);
+                    (geo.n[i][2] < -0.05 && (0..3).all(|axis| center[axis] >= low[axis] && center[axis] <= high[axis])).then_some(i)
+                }).collect();
+                if selected.is_empty() {
+                    bail!("{} contains no downward model faces", feature["name"]);
+                }
+                let mut record = feature.as_object().cloned().context("support region")?;
+                record.insert("kind".into(), json!("support_required"));
+                record.insert("blocker_source_mm".into(), json!([low, high]));
+                record.insert("selected_downward_faces".into(), json!(selected.len()));
+                record.insert("selected_downward_area_mm2".into(), json!(selected.iter().map(|&i| geo.a[i]).sum::<f64>()));
+                found.push(Feature { record, paint_faces: vec![], paint_codes: Default::default(), boundary_points: vec![] });
+            }
             "edge_fins" => {
                 let ceiling = found.iter().find(|f| f.kind() == "ceiling_inset").with_context(|| format!("{}: declare its ceiling first", feature["name"]))?;
                 let f = derive::edge_fins(&geo, feature, ceiling)?;

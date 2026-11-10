@@ -43,6 +43,10 @@ name = "g-ganen-replica"
 path = "../../../hardware/reference/g-ganen-pump/replica.rs"
 
 # A concept is a file in examples/. README.md says how to run one.
+[[example]]
+name = "support-inclines"
+path = "../../../hardware/print-tests/petgf-dense-roofs/inclines/samples.rs"
+
 [dependencies]
 anyhow.workspace = true
 serde_json.workspace = true

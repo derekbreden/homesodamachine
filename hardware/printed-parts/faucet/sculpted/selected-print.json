@@ -22,5 +22,11 @@
   "current_project_sha256": "8cdbfb3e80d801413f9fd69b52f1588761be17c443396083e4dfa8ef14425512",
   "shared_support_profile": "hardware/printed-parts/petgf.3mf",
   "native_archive_current": false,
-  "reslice_required": true
+  "reslice_required": true,
+  "support_removal_qualification": {
+    "shared_D_inclined_tree_contact": "failed in FD lower-curve article",
+    "result": "hardware/print-tests/petgf-dense-roofs/D-representative-mark2/physical-result.json",
+    "comparison": "hardware/print-tests/petgf-dense-roofs/inclines/matrix.json",
+    "accepted_production_geometry_and_fin_records_retain_their_scope": true
+  }
 }

@@ -1261,5 +1261,14 @@
   "current_full_part": "hardware/printed-parts/enclosure/enclosure/prints/2026-11-10-back-top-D-mark1/print-job.json",
   "current_full_part_status": "RUNNING on Mark1 after completed peer conversations and unchanged print-input verification.",
   "historical_archives": "Preserved with their recorded process. Current editable projects require a fresh slice before their next print.",
-  "scope": "Support D is selected for current PET-GF preparations; each full part retains its native slice and physical-removal qualification."
+  "scope": "D remains the shared contact recipe. Physical acceptance covers the tested flat rail ceiling and removal access; inclined faucet release failed and remains under comparison.",
+  "inclined_contact_qualification": {
+    "status": "failed on the native-tree faucet lower-curve article",
+    "result": "hardware/print-tests/petgf-dense-roofs/D-representative-mark2/physical-result.json",
+    "next_tests": "hardware/print-tests/petgf-dense-roofs/inclines/matrix.json"
+  },
+  "current_full_parts": {
+    "Mark1": "hardware/printed-parts/enclosure/enclosure/prints/2026-11-10-back-top-D-mark1/print-job.json",
+    "Mark2": "hardware/printed-parts/enclosure/enclosure/prints/2026-11-10-back-bottom-D-mark2/print-job.json"
+  }
 }

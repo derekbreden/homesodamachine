@@ -3039,6 +3039,42 @@
       "record": "hardware/printed-parts/enclosure/enclosure/prints/2026-11-10-back-top-D-mark1/print-job.json",
       "launch": "hardware/printed-parts/enclosure/enclosure/prints/2026-11-10-back-top-D-mark1/restart-launch.json",
       "resume_readiness": "hardware/printed-parts/enclosure/enclosure/prints/2026-11-10-back-top-D-mark1/resume-readiness.json"
+    },
+    {
+      "date": "2026-11-10",
+      "printer": "Mark2",
+      "printer_task_id": "1427064817",
+      "parts": [
+        "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.stl"
+      ],
+      "profile": "hardware/printed-parts/petgf.3mf",
+      "profile_sha256": "1be18bdfd75b33efc898b3e5c28a0c1975fc694ef4d94dd88a909472cb96b97f",
+      "project": "hardware/printed-parts/enclosure/enclosure/prints/2026-11-10-back-bottom-D-mark2/2026-11-10-back-bottom-mark2-d08d2e44.3mf",
+      "project_sha256": "c8f7648b3b2493d3a7b3c140432e98153847486dc516e50962af021b2d5aa77a",
+      "sliced_file": "hardware/printed-parts/enclosure/enclosure/prints/2026-11-10-back-bottom-D-mark2/2026-11-10-back-bottom-D-arch-left04-z004-mark2-print-only.gcode.3mf",
+      "sliced_file_sha256": "c24df6db1ae615f2c6ecb3263e7a0fde6d380497c16ddcc380d9332e603ebaf1",
+      "gcode_sha256": "241e2c4c4f7b6ef38dce36088c23c2855e7161d94929452edaa149dedaa4ee51",
+      "nozzle": "left 0.4 mm Standard hardened",
+      "filament": "Polymaker Fiberon PET-GF15 black; PET-CF mapping on left external spool",
+      "z_offset_mm": 0.04,
+      "effective_textured_plate_trim_mm": 0.02,
+      "support_process": "D with local handhold mouth and lip targets; floor-rooted rail trees",
+      "estimated_seconds": 111892.23089333164,
+      "filament_grams": 699.76611328125,
+      "accepted_at": "2026-11-10T08:04:41+00:00",
+      "status": "started",
+      "observed_state": "RUNNING",
+      "observed_layer": 1,
+      "observed_print_error": 0,
+      "record": "hardware/printed-parts/enclosure/enclosure/prints/2026-11-10-back-bottom-D-mark2/print-job.json",
+      "launch": "hardware/printed-parts/enclosure/enclosure/prints/2026-11-10-back-bottom-D-mark2/launch.json",
+      "print_options": {
+        "Timelapse": "On",
+        "Auto bed leveling": "On",
+        "Flow dynamic calibration": "Auto",
+        "Nozzle Offset Calibration": "Auto"
+      },
+      "observed_at_utc": "2026-11-10T08:18:30+00:00"
     }
   ]
 }

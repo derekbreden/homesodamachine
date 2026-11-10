@@ -1,0 +1,73 @@
+{
+  "added_commanded_motion_seconds": 824.5620684067886,
+  "archive_sha256": "2247ab6c8bcb68fa21a464ccf2aa95c90208acffb34d6f098e575f9200d6b9d4",
+  "changed": true,
+  "estimate_scope": "Native estimate plus the added constant-feed motion time; acceleration and fan spin-up are not simulated.",
+  "input_archive_sha256": "3dd1f5a79ba1bbe8453a8836d5df4b22f7ccd97d54da58525fbc1adc2c4970f5",
+  "members": [
+    {
+      "added_commanded_motion_seconds": 824.5620684067886,
+      "changed": true,
+      "input_gcode_sha256": "b531b82d15c2a22f10190d24e484987ce2b148dc2ba901283b3e8a2205d0aa6e",
+      "member": "Metadata/plate_1.gcode",
+      "native_cooled_seed_moves": 1346,
+      "ordinary_model_moves": 13725,
+      "output_gcode_sha256": "34cd038589e6314a5edb31a2bc0963ae66d9297ef2a08672a1bbabede0f8068f",
+      "petgf_slots": [
+        0
+      ],
+      "policy": {
+        "grid_mm": 0.2,
+        "height_mm": 0.8
+      },
+      "recovery_by_feature": {
+        "Bridge": [
+          258.0,
+          1558.6679999999994,
+          0.0
+        ],
+        "Floating vertical shell": [
+          10.0,
+          71.43999999999994,
+          4.405466666666664
+        ],
+        "Inner wall": [
+          976.0,
+          2892.7719999999845,
+          172.10952012981906
+        ],
+        "Internal solid infill": [
+          1850.0,
+          9004.930552740681,
+          554.8305146722299
+        ],
+        "Outer wall": [
+          1620.0,
+          2408.3660000000164,
+          93.17803700730016
+        ],
+        "Overhang wall": [
+          38.0,
+          208.55202512953173,
+          0.0
+        ],
+        "Sparse infill": [
+          2.0,
+          0.6279999999999859,
+          0.03852993077187996
+        ]
+      },
+      "recovery_fan_percent": [
+        "70"
+      ],
+      "recovery_moves": 4754,
+      "recovery_speed_limit_mm_s": [
+        "15",
+        "15",
+        "15"
+      ],
+      "scope": "The complete centerline lies in a recent native-cooled model footprint. Motion coordinates and extrusion words are retained; only local part cooling and recovery feed rates change.",
+      "speed_limited_moves": 4456
+    }
+  ]
+}

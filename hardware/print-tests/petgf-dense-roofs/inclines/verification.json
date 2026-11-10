@@ -1,0 +1,208 @@
+{
+  "purpose": "Bind the prepared incline comparisons to actual native support paths without claiming physical release.",
+  "submitted": false,
+  "physical_result": "pending",
+  "geometry": {
+    "wall_mm": 3.0,
+    "reach_mm": 18.0,
+    "width_mm": 12.0,
+    "underside_start_z_mm": 6.0,
+    "roof_thickness_z_mm": 2.4
+  },
+  "angle_convention": "Degrees of the underside from the horizontal bed plane; zero is a flat ceiling.",
+  "matrix_sha256": "34f2d6709e960aa253f581f04dcbafa52c6887c2513e677b6b939e78efa2c7a4",
+  "sources_sha256": {
+    "hardware/print-tests/petgf-dense-roofs/inclines/samples.rs": "fe4e1ae32c6a239fdb69c8e2b4956981ac44e0302c3b257c8acff20eeb685967",
+    "hardware/print-tests/petgf-dense-roofs/inclines/prepare.rs": "65ce130fb57266ed12f5ebb057269dc249e5a06f99109806729ae9eca5fe85e4"
+  },
+  "slicer_version": "02.08.02.61",
+  "printer": "Mark2",
+  "plates": [
+    {
+      "id": "inclines-gap",
+      "project": "plates/inclines-gap/inclines-gap.3mf",
+      "project_sha256": "c9cc22be51d09cc792cbcd92bf74aa37054c156a86f05690cfdcef8692c0cc49",
+      "archive": "plates/inclines-gap/inclines-gap.gcode.3mf",
+      "archive_sha256": "383d568a6a20dde20200d71c8e43e13a6c6c7074f5385a9ac8efbe027241d48b",
+      "gcode_sha256": "24bd3de3fc05d2a1cdaef02b7206fb5ada6d13b15f2ae38c803e06035a3e4c7c",
+      "native_gcode_md5_verified": true,
+      "estimated_seconds": 4099.877986375539,
+      "estimated_filament_g": 15.22192668914795,
+      "deposited_bounds_xy_mm": [
+        [
+          104.297208,
+          127.028208
+        ],
+        [
+          222.092792,
+          192.747792
+        ]
+      ],
+      "bed_margins_mm": [
+        104.297208,
+        127.028208,
+        102.907208,
+        127.252208
+      ],
+      "requested_z_trim_mm": 0.04,
+      "emitted_trim_commands_mm": [
+        0.0,
+        0.02
+      ],
+      "object_settings_verified": true,
+      "native_warnings": "",
+      "support_pairs": [
+        {
+          "ids": [
+            "G1",
+            "G4"
+          ],
+          "distinct_normalized_support_paths": true,
+          "interface_path_length_mm": [
+            1767.999825314247,
+            1757.3926490358126
+          ],
+          "first_interface_plane_mm": [
+            5.0,
+            4.76
+          ],
+          "last_interface_plane_mm": [
+            10.28,
+            10.04
+          ]
+        },
+        {
+          "ids": [
+            "G2",
+            "G5"
+          ],
+          "distinct_normalized_support_paths": true,
+          "interface_path_length_mm": [
+            2294.67777199304,
+            2308.109014584187
+          ],
+          "first_interface_plane_mm": [
+            5.0,
+            4.76
+          ],
+          "last_interface_plane_mm": [
+            15.8,
+            15.56
+          ]
+        },
+        {
+          "ids": [
+            "G3",
+            "G6"
+          ],
+          "distinct_normalized_support_paths": true,
+          "interface_path_length_mm": [
+            3457.0549782770345,
+            3488.6000645860277
+          ],
+          "first_interface_plane_mm": [
+            5.24,
+            5.0
+          ],
+          "last_interface_plane_mm": [
+            23.24,
+            23.0
+          ]
+        }
+      ]
+    },
+    {
+      "id": "inclines-density",
+      "project": "plates/inclines-density/inclines-density.3mf",
+      "project_sha256": "5c9bec9e4f534a37ee78ab5d68f5abc1cdf45bf25da26c36136971f7ace05c56",
+      "archive": "plates/inclines-density/inclines-density.gcode.3mf",
+      "archive_sha256": "2247ab6c8bcb68fa21a464ccf2aa95c90208acffb34d6f098e575f9200d6b9d4",
+      "gcode_sha256": "34cd038589e6314a5edb31a2bc0963ae66d9297ef2a08672a1bbabede0f8068f",
+      "native_gcode_md5_verified": true,
+      "estimated_seconds": 4006.3777422349135,
+      "estimated_filament_g": 14.700428009033203,
+      "deposited_bounds_xy_mm": [
+        [
+          104.297208,
+          127.028208
+        ],
+        [
+          222.050792,
+          192.943792
+        ]
+      ],
+      "bed_margins_mm": [
+        104.297208,
+        127.028208,
+        102.949208,
+        127.056208
+      ],
+      "requested_z_trim_mm": 0.04,
+      "emitted_trim_commands_mm": [
+        0.0,
+        0.02
+      ],
+      "object_settings_verified": true,
+      "native_warnings": "",
+      "support_pairs": [
+        {
+          "ids": [
+            "S1",
+            "S4"
+          ],
+          "distinct_normalized_support_paths": true,
+          "interface_path_length_mm": [
+            1415.1072241230197,
+            1245.7336498482437
+          ],
+          "first_interface_plane_mm": [
+            5.0,
+            5.0
+          ],
+          "last_interface_plane_mm": [
+            10.28,
+            10.28
+          ]
+        },
+        {
+          "ids": [
+            "S2",
+            "S5"
+          ],
+          "distinct_normalized_support_paths": true,
+          "interface_path_length_mm": [
+            2013.8691509224375,
+            1827.692948889504
+          ],
+          "first_interface_plane_mm": [
+            5.0,
+            5.0
+          ],
+          "last_interface_plane_mm": [
+            15.8,
+            15.8
+          ]
+        },
+        {
+          "ids": [
+            "S3",
+            "S6"
+          ],
+          "distinct_normalized_support_paths": true,
+          "interface_path_length_mm": [
+            3156.010403737589,
+            2935.2349674381985
+          ],
+          "first_interface_plane_mm": [
+            5.24,
+            5.24
+          ],
+          "last_interface_plane_mm": [
+            23.24,
+            23.24
+          ]
+        }
+      ]
+    }
+  ]
+}

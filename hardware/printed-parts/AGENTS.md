@@ -83,6 +83,12 @@ support style, rooting, removal access, authored fins and support-free regions.
 Check the actual emitted contact planes and underside recovery paths when
 preparing a part. Coupon acceptance does not establish full-part removal.
 
+The [inclined faucet result](../print-tests/petgf-dense-roofs/D-representative-mark2/physical-result.json)
+records broken tree stems with contact material retained on the base. D's
+removal acceptance covers the tested flat rail ceilings and their access;
+inclined and curved faucet contacts remain unqualified. Prepare the incline
+comparisons before treating D as an accepted faucet support recipe.
+
 Use Tree (auto) with the saved Bambu default style for accessible exterior
 features. Enclosed cavities must not contain rectangular normal supports,
 whether explicitly added or chosen automatically. Select Tree Slim for the
@@ -90,6 +96,9 @@ front pump cavities, lower pump retainer and rear enclosure, and inspect the
 emitted branches and their removal openings. Geometric access alone does not
 establish easy removal. A bed-footprint constraint does not justify trapped
 normal supports.
+
+Back-bottom retains Default for its floor-rooted rail trees; local native
+targets cover the accessible handhold mouths and seam lips.
 
 Derek confirms easy removal of short Bambu tree supports rooted on the floor inside
 the rail cavities. Preserve that local rooting and the open sliding lane. Normal
