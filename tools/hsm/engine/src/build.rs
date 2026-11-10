@@ -297,7 +297,7 @@ impl Builder {
             None => None,
         };
         let mut hit = match &known {
-            Some((code, _)) => self.lookup(&run_key(&code.native, &args, &ask, &declared, &environment), &ask)?,
+            Some((code, _)) => self.lookup(&run_key(&code.native, &args, &ask, &declared, &environment), &ask, &declared)?,
             None => None,
         };
         let available_program = known.as_ref().and_then(|(code, sources)| self.kept_program(&ask, code, sources));
@@ -321,7 +321,7 @@ impl Builder {
             }
         };
         let key = run_key(&code.native, &args, &ask, &declared, &environment);
-        if hit.is_none() && compiled { hit = self.lookup(&key, &ask)?; }
+        if hit.is_none() && compiled { hit = self.lookup(&key, &ask, &declared)?; }
         let mut flight = None;
         if hit.is_none() {
             let (f, leader) = {
@@ -339,7 +339,7 @@ impl Builder {
                 let mut done = f.done.lock().unwrap();
                 while !*done { done = f.landed.wait(done).unwrap(); }
                 drop(done);
-                hit = self.lookup(&key, &ask)?;
+                hit = self.lookup(&key, &ask, &declared)?;
             }
         }
         let landing = Landing { builder: self, key: &key, flight };
@@ -666,13 +666,16 @@ impl Builder {
     }
 
     /// The kept run for `key` whose reads still hold, if there is one.
-    fn lookup(&self, key: &str, ask: &Ask) -> Result<Option<Kept>> {
+    fn lookup(&self, key: &str, ask: &Ask, declared: &[(String, String, String)]) -> Result<Option<Kept>> {
         let path = self.dir.join("runs").join(format!("{key}.json"));
         let Ok(bytes) = fs::read(&path) else {
             return Ok(None);
         };
         let kept: Vec<Kept> = serde_json::from_slice(&bytes).unwrap_or_default();
-        'each: for k in kept {
+        'each: for mut k in kept {
+            // The key already binds this staged request's original input snapshot. Older
+            // records may also name a generated root file reread after the producer wrote it.
+            k.reads = dependency_reads(ask, declared, k.reads);
             if !self.reads_hold(&k.reads, ask)? { continue 'each; }
             if k.files.iter().all(|(_, d)| self.dir.join("blobs").join(d).is_file()) {
                 // The time a run was last used is what the prune goes by.
@@ -737,9 +740,11 @@ impl Builder {
                 Err(error) if error.kind() == std::io::ErrorKind::NotFound => (vec![], false),
                 Err(error) => return Err(error).context("reading the program's input record"),
             };
-            let read: Vec<_> = declared.iter().cloned().chain(dynamic).collect::<BTreeSet<_>>()
-                .into_iter().collect();
-            let storable = (named_reads || ask.inputs.is_some()) && self.reads_hold(&read, ask)?;
+            let read = dependency_reads(ask, declared, dynamic);
+            let stable_reads: Vec<_> = read.iter().filter(|(base, file, _)|
+                !(staged(ask) && base == "root" && ask.outputs.as_ref().unwrap().contains(file)))
+                .cloned().collect();
+            let storable = (named_reads || ask.inputs.is_some()) && self.reads_hold(&stable_reads, ask)?;
             let (files, absent) = if let Some(outputs) = &ask.outputs {
                 self.ingest_declared(&ask.root, outputs)?
             } else { (self.ingest(&out)?, Vec::new()) };
@@ -1061,6 +1066,18 @@ fn run_key(code: &str, args: &[Arg], ask: &Ask, reads: &[(String, String, String
         h.update(format!("env {key}\0{}\n", semantic_path(value, ask)));
     }
     format!("{:x}", h.finalize())
+}
+
+fn staged(ask: &Ask) -> bool { ask.inputs.is_some() && ask.outputs.is_some() }
+
+/// A staged producer's declared pre-run reads define its root inputs. Dynamic reads of files
+/// it creates inside that root are output/intermediate implementation details. Reads outside
+/// the stage remain dependencies, and legacy dynamic-only runs retain their full read record.
+fn dependency_reads(ask: &Ask, declared: &[(String, String, String)],
+                    dynamic: Vec<(String, String, String)>) -> Vec<(String, String, String)> {
+    declared.iter().cloned().chain(dynamic.into_iter()
+        .filter(|(base, _, _)| !staged(ask) || base != "root"))
+        .collect::<BTreeSet<_>>().into_iter().collect()
 }
 
 fn semantic_path(value: &str, ask: &Ask) -> String {
@@ -1419,6 +1436,20 @@ fn main() -> std::io::Result<()> {
         fs::write(env::var("HSM_READS").unwrap(), "hsm-reads 1\n")?;
         return Ok(());
     }
+    if args.get(1).map(String::as_str) == Some("--self-reads") {
+        let _original = fs::read("metadata.txt")?;
+        fs::write("metadata.txt", "generated metadata")?;
+        fs::write("products/self.txt", "self output")?;
+        fs::write("products/intermediate.txt", "generated intermediate")?;
+        let mut reads = String::from("hsm-reads 1\n");
+        for (path, key) in [("metadata.txt", "METADATA_DIGEST"),
+            ("products/self.txt", "SELF_DIGEST"), ("products/intermediate.txt", "INTERMEDIATE_DIGEST")] {
+            let _reread = fs::read(path)?;
+            reads.push_str(&format!("{path}\t{}\n", env::var(key).unwrap()));
+        }
+        fs::write(env::var("HSM_READS").unwrap(), reads)?;
+        return Ok(());
+    }
     if env::args().any(|arg| arg == "--consumer") {
         fs::write("products/final.txt", fs::read("products/result.txt")?)?;
         return Ok(());
@@ -1459,6 +1490,43 @@ fn main() -> std::io::Result<()> {
         let artifact = PathBuf::from(a["artifacts"]["products/result.txt"].as_str().unwrap());
         assert!(artifact.is_absolute() && artifact.is_file());
         assert_eq!(a["missing_outputs"], json!(["products/optional.txt"]));
+
+        // Staged metadata may be both an original input and a rewritten output. Generated
+        // root files reread by the producer do not become prerequisites for the next stage.
+        let mut self_reads = first.clone();
+        self_reads.args = vec!["--self-reads".into()];
+        self_reads.inputs = Some(vec!["metadata.txt".into()]);
+        self_reads.outputs = Some(vec!["metadata.txt".into(), "products/self.txt".into()]);
+        for (name, value) in [("METADATA_DIGEST", "generated metadata"),
+            ("SELF_DIGEST", "self output"), ("INTERMEDIATE_DIGEST", "generated intermediate")] {
+            self_reads.environment.insert(name.into(), format!("{:x}", Sha256::digest(value.as_bytes())));
+        }
+        put(&first_root.join("metadata.txt"), "original metadata")?;
+        let made = run(&builder, &self_reads)?;
+        assert_eq!(made["kept"], true);
+        assert_eq!(made["hit"], false);
+        let original_hash = format!("{:x}", Sha256::digest(b"original metadata"));
+        assert_eq!(made["reads"], json!([["root", "metadata.txt", original_hash]]));
+        let record = builder.dir.join("runs").join(format!("{}.json", made["key"].as_str().unwrap()));
+        let mut older: Vec<Kept> = serde_json::from_slice(&fs::read(&record)?)?;
+        older[0].reads.extend([
+            ("root".into(), "metadata.txt".into(), self_reads.environment["METADATA_DIGEST"].clone()),
+            ("root".into(), "products/self.txt".into(), self_reads.environment["SELF_DIGEST"].clone()),
+            ("root".into(), "products/intermediate.txt".into(), self_reads.environment["INTERMEDIATE_DIGEST"].clone()),
+        ]);
+        write_atomic(&record, &serde_json::to_vec(&older)?)?;
+        let fresh_root = f.stage("self-read-stage")?;
+        put(&fresh_root.join("metadata.txt"), "original metadata")?;
+        let fresh = f.ask(fresh_root.clone());
+        self_reads.root = fresh.root;
+        self_reads.environment.insert("PATH".into(), fresh.environment["PATH"].clone());
+        self_reads.environment.insert("HSM_BUILD_PROGRESS".into(), fresh.environment["HSM_BUILD_PROGRESS"].clone());
+        let restored_self = run(&builder, &self_reads)?;
+        assert_eq!(restored_self["hit"], true);
+        assert_eq!(restored_self["reads"], made["reads"]);
+        assert_eq!(fs::read_to_string(fresh_root.join("metadata.txt"))?, "generated metadata");
+        assert!(fresh_root.join("products/self.txt").is_file());
+        assert!(!fresh_root.join("products/intermediate.txt").exists());
 
         let mut legacy = first.clone();
         legacy.inputs = None;
@@ -1543,10 +1611,11 @@ fn main() -> std::io::Result<()> {
         let aged = SystemTime::now() - Duration::from_secs(3 * 3600);
         fs::File::options().write(true).open(&record)?.set_modified(aged)?;
         builder.prune(Duration::from_secs(48 * 3600), false)?;
-        assert!(builder.lookup(key, &second)?.is_some());
+        let declared = builder.declared_reads(&second)?;
+        assert!(builder.lookup(key, &second, &declared)?.is_some());
         fs::File::options().write(true).open(&record)?.set_modified(aged)?;
         builder.prune(Duration::from_secs(2 * 3600), false)?;
-        assert!(builder.lookup(key, &second)?.is_none());
+        assert!(builder.lookup(key, &second, &declared)?.is_none());
         Ok(())
     }
 
