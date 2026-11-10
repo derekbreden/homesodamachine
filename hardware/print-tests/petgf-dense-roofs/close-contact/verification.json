@@ -1,0 +1,154 @@
+{
+  "purpose": "Bind the tighter support contacts and bridge treatments to the machine file sent to Mark1.",
+  "archive": "2026-11-09-close-contact-DEF-left04-z018-mark1.gcode.3mf",
+  "archive_sha256": "22cb805001498a4caf70fabf36b4448caae32a8ecc22754b13a335f9ae68f253",
+  "gcode_sha256": "958e7163875078c5fa453f3a5cc083af0c9cb6ab38a13b3a16f1685d87ecc593",
+  "gcode_md5_verified": true,
+  "specimens": [
+    {
+      "id": "D",
+      "requested_gap_mm": 0.24,
+      "interface_layers_z_mm": [
+        2.312,
+        2.576,
+        2.84
+      ],
+      "first_roof_nozzle_z_mm": 3.32,
+      "nominal_bridge_bead_height_mm": 0.3,
+      "planned_bead_gap_mm": 0.18,
+      "cad_underside_clearance_mm": 0.24,
+      "bridge_speed_mm_s": 15,
+      "bridge_flow_ratio": 1.25
+    },
+    {
+      "id": "E",
+      "requested_gap_mm": 0.12,
+      "interface_layers_z_mm": [
+        2.408,
+        2.684,
+        2.96
+      ],
+      "first_roof_nozzle_z_mm": 3.32,
+      "nominal_bridge_bead_height_mm": 0.3,
+      "planned_bead_gap_mm": 0.06,
+      "cad_underside_clearance_mm": 0.12,
+      "bridge_speed_mm_s": 15,
+      "bridge_flow_ratio": 1.25
+    },
+    {
+      "id": "F",
+      "requested_gap_mm": 0.06,
+      "interface_layers_z_mm": [
+        2.49091,
+        2.74545,
+        3.0
+      ],
+      "first_roof_nozzle_z_mm": 3.32,
+      "nominal_bridge_bead_height_mm": 0.3,
+      "planned_bead_gap_mm": 0.02,
+      "cad_underside_clearance_mm": 0.08,
+      "bridge_speed_mm_s": 15,
+      "bridge_flow_ratio": 1.25
+    }
+  ],
+  "trim_commands": [
+    "G29.1 Z0 ; clear z-trim value first",
+    "G29.1 Z0.16"
+  ],
+  "active_tools": [
+    0
+  ],
+  "bead_bounds_xy_mm": [
+    [
+      114.0,
+      149.892
+    ],
+    [
+      206.0,
+      177.0
+    ]
+  ],
+  "bed_margins_mm": [
+    114.0,
+    149.892,
+    119.0,
+    143.0
+  ],
+  "arc_extrema_included": true,
+  "process": {
+    "bridge_flow": "1.25",
+    "bridge_speed": [
+      "15",
+      "15",
+      "15",
+      "15",
+      "15"
+    ],
+    "filament_bridge_speed": [
+      "15"
+    ],
+    "support_style": "tree_slim",
+    "nozzle_diameter": [
+      "0.4",
+      "0.4"
+    ],
+    "filament_map": [
+      "1"
+    ],
+    "nozzle_temperature": [
+      "280",
+      "265",
+      "270"
+    ],
+    "nozzle_temperature_initial_layer": [
+      "265",
+      "265",
+      "270"
+    ],
+    "textured_plate_temp": [
+      "80"
+    ]
+  },
+  "estimated_seconds": 2322,
+  "cooling": {
+    "added_commanded_motion_seconds": 760.8511757632645,
+    "changed": true,
+    "estimate_scope": "Native estimate plus the added constant-feed motion time; acceleration and fan spin-up are not simulated.",
+    "input_archive_sha256": "887252099f2b311810376a4add3a7e903c941fae9f241ce18172077ced67799f",
+    "members": [
+      {
+        "added_commanded_motion_seconds": 760.8511757632645,
+        "changed": true,
+        "input_gcode_sha256": "a0cac85d7a5d7a94e54add414743d9ba022277b9f03e20659d0f376ea2deb4d1",
+        "member": "Metadata/plate_1.gcode",
+        "native_cooled_seed_moves": 381,
+        "ordinary_model_moves": 1826,
+        "output_gcode_sha256": "958e7163875078c5fa453f3a5cc083af0c9cb6ab38a13b3a16f1685d87ecc593",
+        "petgf_slots": [
+          0
+        ],
+        "policy": {
+          "grid_mm": 0.2,
+          "height_mm": 0.8
+        },
+        "recovery_by_feature": {
+          "Internal solid infill": [
+            1512.0,
+            12326.080901692714,
+            760.8511757632645
+          ]
+        },
+        "recovery_fan_percent": [
+          "70"
+        ],
+        "recovery_moves": 1512,
+        "recovery_speed_limit_mm_s": [
+          "15"
+        ],
+        "scope": "The complete centerline lies in a recent native-cooled model footprint. Motion coordinates and extrusion words are retained; only local part cooling and recovery feed rates change.",
+        "speed_limited_moves": 1512
+      }
+    ]
+  },
+  "gap_definition": "First roof nozzle Z minus the slicer-reported bridge bead height minus the highest interface nozzle Z. Actual strand shape and bonding require physical observation."
+}
