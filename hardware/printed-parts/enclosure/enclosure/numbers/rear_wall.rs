@@ -31,8 +31,17 @@ pub mod hosts {
     use std::sync::OnceLock;
 
     pub const RELAY_SETBACK: f64 = 0.0;
-    pub const RELAY_SCREW_LENGTH: f64 = 8.0;
+    /// The acquired Sutemribor socket-cap screw and ruthex insert define the relay hardware.
+    pub const RELAY_SCREW_LENGTH: f64 = 6.0;
+    pub const RELAY_SCREW_RADIUS: f64 = 1.0;
+    pub const RELAY_HEAD_RADIUS: f64 = 1.9;
+    pub const RELAY_HEAD_HEIGHT: f64 = 2.0;
+    pub const RELAY_SOCKET_AF: f64 = 1.5;
+    pub const RELAY_SOCKET_DEPTH: f64 = 1.0;
+    pub const RELAY_INSERT_RADIUS: f64 = 1.8;
     pub const RELAY_INSERT_LENGTH: f64 = 4.0;
+    pub const RELAY_INSERT_BORE_RADIUS: f64 = RELAY_SCREW_RADIUS;
+    pub const RELAY_PILOT_RADIUS: f64 = 1.6;
     pub const RELAY_TIP_AIR: f64 = 1.0;
     pub const PILOT_DEPTH: f64 = 5.0;
 

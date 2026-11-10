@@ -396,6 +396,7 @@ pub struct Mount {
     pub root: P3,
     pub axis: P3,
     pub threaded: bool,
+    pub pilot_radius: f64,
     pub pilot_depth: f64,
 }
 
@@ -404,6 +405,7 @@ fn mounts(
     pose: &Pose,
     holes: &[P2],
     setback: f64,
+    pilot_radius: f64,
     pilot_depth: f64,
     root: impl Fn(P3) -> P3,
 ) -> Vec<Mount> {
@@ -418,6 +420,7 @@ fn mounts(
                 root: root(point),
                 axis,
                 threaded: true,
+                pilot_radius,
                 pilot_depth,
             }
         })
@@ -440,7 +443,7 @@ fn axial_cylinder(g: &mut Graph, radius: f64, root: P3, axis: P3, length: f64) -
 /// The parts the wall hosts, each with its mounting holes: the PSU on ceiling bosses, then each
 /// relay on west-flank bosses.
 pub fn wall_mounts() -> Vec<(&'static str, Vec<Mount>)> {
-    use crate::rear_wall::hosts::{PILOT_DEPTH, RELAY_SETBACK, relay_holes, relay_pilot_depth};
+    use crate::rear_wall::hosts::{PILOT_DEPTH, RELAY_PILOT_RADIUS, RELAY_SETBACK, relay_holes, relay_pilot_depth};
     let parts = &layout().parts;
     let holes = relay_holes();
     let relay = |pose| {
@@ -448,6 +451,7 @@ pub fn wall_mounts() -> Vec<(&'static str, Vec<Mount>)> {
             pose,
             &holes,
             RELAY_SETBACK,
+            RELAY_PILOT_RADIUS,
             relay_pilot_depth(),
             |p| [RELAY_ROOT_X, p[1], p[2]],
         )
@@ -460,6 +464,7 @@ pub fn wall_mounts() -> Vec<(&'static str, Vec<Mount>)> {
                 &[[-PSU_HOLES[0], -PSU_HOLES[1]], [-PSU_HOLES[0], PSU_HOLES[1]],
                   [PSU_HOLES[0], -PSU_HOLES[1]], [PSU_HOLES[0], PSU_HOLES[1]]],
                 0.0,
+                PILOT_RADIUS,
                 PILOT_DEPTH,
                 |p| [p[0], p[1], PSU_ROOT_Z],
             ),
@@ -499,7 +504,7 @@ fn hosts(g: &mut Graph, mut piece: Shape) -> Shape {
             let start = std::array::from_fn(|k| m.face[k] + 0.01 * m.axis[k]);
             let pilot = axial_cylinder(
                 g,
-                PILOT_RADIUS,
+                m.pilot_radius,
                 start,
                 m.axis.map(|u| -u),
                 m.pilot_depth + 0.01,

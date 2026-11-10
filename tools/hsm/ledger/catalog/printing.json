@@ -163,6 +163,9 @@
     ],
     "Funnel drain-elbow cradle": [
       "zone-c/funnel/elbow-cradle.step"
+    ],
+    "Status plate": [
+      "enclosure/display-cover/status-plate.step"
     ]
   },
   "group_of": [
@@ -189,6 +192,10 @@
     [
       "Display cover plate",
       "ext"
+    ],
+    [
+      "Status plate",
+      "small"
     ],
     [
       "Soda inlet bend holder",

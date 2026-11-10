@@ -9,7 +9,9 @@ windows face inward. Z rises from the PCB underside toward the components.
 The frozen model uses clean molded housing cross-sections, flat relay-can faces,
 rounded wire mouths, rear inspection windows and recessed terminal screws.
 The substantial control packages and jumper use idealized exterior silhouettes.
-Its PCB outline and mounting openings use fitted scan datums. Observed solder
+Its PCB outline and mounting-opening centers use fitted scan datums. The smaller
+interior bores use an idealized estimate from observed control-end wall bands;
+clean entry tapers preserve the individually fitted top rims. Observed solder
 tips use smooth closed envelopes at their measured positions and downward extent.
 [scan-datums.json](scan-datums.json) owns these dimensions and the wire-entry
 interfaces exposed by [teyleten_relay.py](teyleten_relay.py).
@@ -22,8 +24,10 @@ this purchased part has no normal build.
 display payload. [scan-model-evidence.json](scan-model-evidence.json) identifies
 the native capture, its rigid frame and exterior face and screw-well fits.
 
-Putty-covered underside features are absent. The mounting openings fit their
-visible front rims; bore walls and deep terminal cavities are not fully
+Putty-covered underside features are absent. The contact-end mounting openings'
+deeper walls are only partly visible and use the repeated-hole interior estimate.
+The bore estimate and entry tapers are optical approximations, not factory hole
+callouts or screw-fit qualification. Deep terminal cavities are not fully
 observed. Recesses close behind their visible mouths; concealed terminal
 internals are absent. Scanning spray remains in the measurements, and fitting
 residuals do not establish absolute accuracy or installation clearance. The

@@ -820,25 +820,6 @@
       "stock": "B0DMP77B6S"
     },
     {
-      "id": "B0FV2D2FFX",
-      "name": "GASHER 1/4\" NPT one-way check valve, male \u00d7 female (2-pk, $15.00)",
-      "unit": "pieces",
-      "supplier": "amazon",
-      "priceBasis": "merchandise",
-      "status": "listed",
-      "note": "Prime offer listed on October 4; full-batch stock not reserved.",
-      "options": [
-        {
-          "quantity": 2,
-          "priceCents": 1449,
-          "label": "2-piece pack",
-          "available": true
-        }
-      ],
-      "sourceUrl": "https://www.amazon.com/dp/B0FV2D2FFX",
-      "stock": "B0FV2D2FFX"
-    },
-    {
       "id": "John Guest PP010822E 1/4\" OD \u00d7 1/4\" NPT male connector, black polypropylene (10-pk)",
       "name": "John Guest PP010822E 1/4\" OD \u00d7 1/4\" NPT male connector, black polypropylene (10-pk)",
       "unit": "pieces",
@@ -3314,6 +3295,97 @@
       ],
       "sourceUrl": "https://www.freshwatersystems.com/products/black-4mm-od-lldpe-polyethylene-tubing?variant=50723039248568",
       "stock": "LLDPE4M-BLACK"
+    },
+    {
+      "id": "B0CXQ7Q7L3",
+      "name": "Sutemribor M2 \u00d7 6 mm socket-head cap screws, black oxide, 105 pc",
+      "unit": "pieces",
+      "supplier": "amazon",
+      "priceBasis": "delivered",
+      "status": "unconfirmed",
+      "note": "Recorded purchase-pack price; current replenishment price and Prime availability are unconfirmed.",
+      "options": [
+        {
+          "quantity": 105,
+          "priceCents": 1822,
+          "label": "105-piece pack"
+        }
+      ],
+      "sourceUrl": "https://www.amazon.com/dp/B0CXQ7Q7L3",
+      "stock": "B0CXQ7Q7L3"
+    },
+    {
+      "id": "B088QJG676",
+      "name": "ruthex M2 \u00d7 4 mm RX-M2x4 brass heat-set inserts, 70 pc",
+      "unit": "pieces",
+      "supplier": "amazon",
+      "priceBasis": "delivered",
+      "status": "unconfirmed",
+      "note": "Recorded purchase-pack price; current replenishment price and Prime availability are unconfirmed.",
+      "options": [
+        {
+          "quantity": 70,
+          "priceCents": 1071,
+          "label": "70-piece pack"
+        }
+      ],
+      "sourceUrl": "https://www.amazon.com/dp/B088QJG676",
+      "stock": "B088QJG676"
+    },
+    {
+      "id": "B0DJQH3WSX",
+      "name": "BNUOK M3 \u00d7 6 mm socket-head cap screws, black oxide, 120 pc",
+      "unit": "pieces",
+      "supplier": "amazon",
+      "priceBasis": "delivered",
+      "status": "unconfirmed",
+      "note": "Recorded purchase-pack price; current replenishment price and Prime availability are unconfirmed.",
+      "options": [
+        {
+          "quantity": 120,
+          "priceCents": 764,
+          "label": "120-piece pack"
+        }
+      ],
+      "sourceUrl": "https://www.amazon.com/dp/B0DJQH3WSX",
+      "stock": "B0DJQH3WSX"
+    },
+    {
+      "id": "B08G4Z6KPV",
+      "name": "CHANZON prewired clear-lens blue LED, 20 pc",
+      "unit": "pieces",
+      "supplier": "amazon",
+      "priceBasis": "delivered",
+      "status": "unconfirmed",
+      "note": "Recorded purchase-pack price; current replenishment price and Prime availability are unconfirmed.",
+      "options": [
+        {
+          "quantity": 20,
+          "priceCents": 750,
+          "label": "20-piece pack"
+        }
+      ],
+      "sourceUrl": "https://www.amazon.com/dp/B08G4Z6KPV",
+      "stock": "B08G4Z6KPV"
+    },
+    {
+      "id": "neofit-ACVUS-44",
+      "name": "neoFit ACVUS44 stem check",
+      "unit": "pieces",
+      "supplier": "fws",
+      "priceBasis": "merchandise",
+      "status": "estimate",
+      "note": "Recorded order merchandise price; current replenishment price and availability are unconfirmed. Shipping and tax follow the forecast allowances.",
+      "options": [
+        {
+          "quantity": 10,
+          "priceCents": 1940,
+          "label": "Bag of 10",
+          "sku": "ACVUS-44:10PK"
+        }
+      ],
+      "sourceUrl": "https://www.freshwatersystems.com/products/stem-reducer-check-valve-1-4-od-x-1-4-od-stem",
+      "stock": "neofit-ACVUS-44"
     }
   ],
   "allowances": [

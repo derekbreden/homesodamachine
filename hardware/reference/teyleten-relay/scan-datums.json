@@ -13,7 +13,8 @@
       -0.03,
       0
     ],
-    "corner_radius_mm": 0.5
+    "corner_radius_mm": 0.5,
+    "opening_taper_start_z_mm": 1.0
   },
   "holes": [
     {
@@ -22,7 +23,9 @@
         -6.466,
         0
       ],
-      "radius_mm": 1.459
+      "radius_mm": 1.15,
+      "opening_rim_radius_mm": 1.459,
+      "interior_basis": "Observed control-end wall estimate"
     },
     {
       "center_mm": [
@@ -30,7 +33,9 @@
         6.464,
         0
       ],
-      "radius_mm": 1.461
+      "radius_mm": 1.15,
+      "opening_rim_radius_mm": 1.461,
+      "interior_basis": "Observed control-end wall estimate"
     },
     {
       "center_mm": [
@@ -38,7 +43,9 @@
         -6.468,
         0
       ],
-      "radius_mm": 1.485
+      "radius_mm": 1.15,
+      "opening_rim_radius_mm": 1.485,
+      "interior_basis": "Repeated-hole estimate; deeper contact-end wall incompletely observed"
     },
     {
       "center_mm": [
@@ -46,7 +53,9 @@
         6.548,
         0
       ],
-      "radius_mm": 1.416
+      "radius_mm": 1.15,
+      "opening_rim_radius_mm": 1.416,
+      "interior_basis": "Repeated-hole estimate; deeper contact-end wall incompletely observed"
     }
   ],
   "components": [
@@ -125,7 +134,7 @@
       ]
     }
   ],
-  "qualification": "PCB openings fit visible rims. Exterior housing surfaces use nominal planes and rounds fitted to the native cloud. Recess mouths are observed; hidden cavity closures, covered underside features and mounting-bore walls remain unqualified. Wire-entry groups locate the central mouth on each terminal bank with its housing face outward normal.",
+  "qualification": "PCB openings preserve fitted top rims above idealized smaller interiors. The interior estimate uses usable control-end wall bands; contact-end deeper bores use the repeated-hole estimate. Exterior housing surfaces use nominal planes and rounds fitted to the native cloud. Recess mouths are observed; hidden cavity closures, covered underside features and calibrated mounting-bore dimensions remain unqualified. Wire-entry groups locate the central mouth on each terminal bank with its housing face outward normal.",
   "ports": {
     "contacts": {
       "point_mm": [
