@@ -2,7 +2,7 @@
   "project": "faucet-industrial-petgf.3mf",
   "settings_source": "hardware/printed-parts/faucet/faucet-display-cover/prints/2026-10-25-front-overlap-black-mark2/2026-10-25-sculpted-cover-front-overlap-black-left04-z004-mark2.3mf",
   "settings_source_sha256": "fb08838af3bf6cff212acec6ccc2dabc6701fe8745840bbbf459c78597cb765d",
-  "settings_sha256": "6ad46f6f99b05b01b6a10cbe8a4604925d569c5849720099fc56fe0195780756",
+  "settings_sha256": "d77a691c6fe5079623784291943440062a927cc6300e5013f68e26bacb382ec8",
   "source_settings_sha256": "987a5e177a7ff369594322a0107c23f4dddfdb094bbbfe9fd22f7628e0961d99",
   "settings_changes": {
     "machine_start_gcode": {
@@ -17,6 +17,42 @@
     "initial_layer_print_height": {
       "from": "0.24",
       "to": "0.2"
+    },
+    "petgf_support_recipe": {
+      "profile": "hardware/printed-parts/petgf.3mf",
+      "sha256": "1be18bdfd75b33efc898b3e5c28a0c1975fc694ef4d94dd88a909472cb96b97f",
+      "members": {
+        "Metadata/filament_settings_1.config": {
+          "filament_bridge_speed": {
+            "from": null,
+            "to": [
+              "15",
+              "15",
+              "15"
+            ]
+          }
+        },
+        "Metadata/project_settings.config": {
+          "support_top_z_distance": {
+            "from": "0.45",
+            "to": "0.24"
+          },
+          "support_interface_top_layers": {
+            "from": "2",
+            "to": "3"
+          },
+          "support_interface_spacing": {
+            "from": "0.5",
+            "to": "0"
+          },
+          "post_process": {
+            "from": [],
+            "to": [
+              "/Users/derekbredensteiner/Developer/homesodamachine/tools/hsm/target/release/petgf-cooling"
+            ]
+          }
+        }
+      }
     }
   },
   "printer": "Mark2",
@@ -341,7 +377,7 @@
       "embedded_vertex_error_mm": 4.997851021926181e-10
     }
   ],
-  "project_sha256": "73c95d29517201c65af103677be0423a7b093eb801140636029f3fb062bab8c3",
+  "project_sha256": "33b248cc401b7f604b61b2cf19b8b978f98283bf870343f6a57b270917e708ec",
   "settings_preserved_byte_for_byte": false,
   "local_solid_regions": [
     {
@@ -634,11 +670,11 @@
   },
   "project_title": "Industrial faucet PET-GF",
   "profile_source": "hardware/printed-parts/faucet/faucet-display-cover/prints/2026-10-25-front-overlap-black-mark2/2026-10-25-sculpted-cover-front-overlap-black-left04-z004-mark2.3mf",
-  "native_settings_sha256": "6ad46f6f99b05b01b6a10cbe8a4604925d569c5849720099fc56fe0195780756",
+  "native_settings_sha256": "d77a691c6fe5079623784291943440062a927cc6300e5013f68e26bacb382ec8",
   "all_profile_members_preserved_byte_for_byte": false,
   "profile_member_sha256": {
-    "Metadata/filament_settings_1.config": "091f10287f1cb62de98ece1c2a38ad31fcdcd29aff3e3a7605ab194d6089cd0c",
-    "Metadata/project_settings.config": "6ad46f6f99b05b01b6a10cbe8a4604925d569c5849720099fc56fe0195780756"
+    "Metadata/filament_settings_1.config": "3c259bd858d6a6ce3e5c1ef3487d7d77bd4ce67675d6df0cb4aa98883ee16415",
+    "Metadata/project_settings.config": "d77a691c6fe5079623784291943440062a927cc6300e5013f68e26bacb382ec8"
   },
   "sculpted_artifacts_unchanged": {
     "hardware/printed-parts/faucet/faucet-petgf.3mf": "523aca51a52146930133187ae873afeb1677849ffc4d15bf4cf56a7d2f15e055",
@@ -1078,5 +1114,6 @@
     "hardware/printed-parts/faucet/finish-coupons/2026-10-15-edge-supports/base-mark2/2026-10-15-faucet-base-segmented-rim-arcs-tree-current15-bridge125-fan70-z004-mark2.3mf": "3fd336e3e44a32896bd0b76c13f11b91c74911308e81454ae670680c6b579cf7",
     "hardware/printed-parts/faucet/industrial/tip_supports.py": "42d474e5034d8e490a7fb78b438742c8f8c603533a8dab55a30299047fc211c7",
     "hardware/printed-parts/faucet/finish-coupons/2026-10-15-tip-root-anchor/mark1/2026-10-15-faucet-tip-root-anchor-eight-fins-lip-trees-current105-bridge125-fan70-z018-mark1.3mf": "f6e5c53d4a23b25f568b083d8a3eaa779b7959c666fa41a227a953e21904f3ff"
-  }
+  },
+  "reslice_required": true
 }

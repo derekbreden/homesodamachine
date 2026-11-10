@@ -10,6 +10,11 @@ use std::path::{Path, PathBuf};
 
 pub const SETTINGS_MEMBER: &str = "Metadata/project_settings.config";
 pub const PRESETS: &str = "/Applications/BambuStudio.app/Contents/Resources/profiles/BBL";
+pub const PETGF_SUPPORT_KEYS: [&str; 6] = [
+    "support_top_z_distance", "support_interface_top_layers", "support_interface_spacing",
+    "bridge_flow", "bridge_speed", "filament_bridge_speed",
+];
+const PETGF_PROFILE: &str = "hardware/printed-parts/petgf.3mf";
 const PRESET_METADATA: [&str; 16] = [
     "type", "name", "inherits", "include", "from", "setting_id", "instantiation", "description",
     "alias", "filament_id", "version", "rename", "compatible_printers",
@@ -51,6 +56,63 @@ fn read_members(path: &Path) -> Result<BTreeMap<String, Vec<u8>>> {
 
 fn filament_member(name: &str) -> bool {
     name.starts_with("Metadata/filament_settings_") && name.ends_with(".config")
+}
+
+/// Current PET-GF contact and bridge defaults, including when a preparer takes its other
+/// settings from an accepted print. Part-specific support geometry and later trial overrides
+/// remain the preparer's responsibility.
+pub fn apply_petgf_support(members: &mut BTreeMap<String, Vec<u8>>, root: &Path) -> Result<Value> {
+    let is_petgf = |settings: &Json| {
+        let identity = settings.get("filament_settings_id").or_else(|| settings.get("name"));
+        let matches = |name: &str| {
+            let name = name.to_lowercase();
+            name.contains("pet-gf") || name.contains("petgf")
+        };
+        match identity {
+            Some(Json::Text(name)) => matches(name),
+            Some(Json::List(names)) => names.iter().filter_map(Json::text).any(matches),
+            _ => false,
+        }
+    };
+    let settings = Json::parse(std::str::from_utf8(members.get(SETTINGS_MEMBER).context("no project settings")?)?)?;
+    if !is_petgf(&settings) {
+        return Ok(Value::Null);
+    }
+    let source = root.join(PETGF_PROFILE);
+    let shared = read_members(&source)?;
+    let recipe = Json::parse(std::str::from_utf8(shared.get(SETTINGS_MEMBER).context("no shared PET-GF settings")?)?)?;
+    let mut changed_members = serde_json::Map::new();
+    for (name, bytes) in members.iter_mut() {
+        if name != SETTINGS_MEMBER && !filament_member(name) {
+            continue;
+        }
+        let mut settings = Json::parse(std::str::from_utf8(bytes)?)?;
+        if !is_petgf(&settings) {
+            continue;
+        }
+        let mut changes = serde_json::Map::new();
+        for key in PETGF_SUPPORT_KEYS {
+            if name != SETTINGS_MEMBER && key != "filament_bridge_speed" {
+                continue;
+            }
+            let value = recipe.get(key).with_context(|| format!("shared PET-GF profile has no {key}"))?;
+            let value = match (settings.get(key), value) {
+                (Some(Json::List(current)), Json::List(values)) if !values.is_empty() =>
+                    Json::List(vec![values[0].clone(); current.len()]),
+                _ => value.clone(),
+            };
+            let old = settings.get(key).cloned().unwrap_or(Json::Null);
+            if old != value {
+                changes.insert(key.to_string(), json!({"from": old.to_value(), "to": value.to_value()}));
+                settings.set(key, value);
+            }
+        }
+        if !changes.is_empty() {
+            *bytes = (settings.dumps() + "\n").into_bytes();
+            changed_members.insert(name.clone(), Value::Object(changes));
+        }
+    }
+    Ok(json!({"profile": PETGF_PROFILE, "sha256": crate::sha256_hex(&std::fs::read(source)?), "members": changed_members}))
 }
 
 /// Every setting Bambu's filament presets define, through the named preset's parents.
@@ -257,6 +319,10 @@ pub fn load(settings_from: &Path, z_trim: Option<f64>, filament_from: Option<&Pa
     match filament_members {
         Some(f) => members.extend(f),
         None => members.extend(source_members.iter().filter(|(n, _)| filament_member(n)).map(|(n, d)| (n.clone(), d.clone()))),
+    }
+    let support = apply_petgf_support(&mut members, root)?;
+    if !support.is_null() {
+        changes.insert("petgf_support_recipe".into(), support);
     }
     let hook = cooling_hook(root);
     let cooling = crate::cooling::apply_members(&mut members, &hook)?;

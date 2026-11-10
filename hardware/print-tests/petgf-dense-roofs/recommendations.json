@@ -84,10 +84,12 @@
       }
     ],
     "launch_spacing_seconds": 925.607284,
-    "status": "Both D jobs accepted and RUNNING; physical finish and removal results pending.",
-    "shared_profile_changed": false,
+    "status": "D rail pair accepted for support removal and coupon fit; Mark2 representative scenarios remain in progress.",
+    "shared_profile_changed": true,
     "D_peel_result": "peel-scenarios/physical-result.json",
-    "E_rail_result": "rail-cavity-30-E/physical-result.json"
+    "E_rail_result": "rail-cavity-30-E/physical-result.json",
+    "shared_profile": "hardware/printed-parts/petgf.3mf",
+    "D_rail_result": "rail-fit-30/physical-result.json"
   },
   "later_factors": [
     {
@@ -158,7 +160,7 @@
       "coupon_scope": "Retain the complete normal cavity height, locally rooted trees, thin surrounding stock and practical prying access.",
       "active_cavity": "rail-fit-30/README.md",
       "prepared_mating_pair": "rail-fit-30/README.md",
-      "status": "Printing D cavity with its matching sliding wall on Mark1."
+      "status": "D accepted for easy whole-unit support removal and coupon fit; geometry and clearance held for full enclosure evaluation."
     },
     {
       "scenario": "Enclosure archway underside",
@@ -179,5 +181,7 @@
     }
   ],
   "selected_process": "D",
-  "selection_result": "rail-cavity-30-E/physical-result.json"
+  "selection_result": "rail-cavity-30-E/physical-result.json",
+  "D_rail_result": "rail-fit-30/physical-result.json",
+  "shared_profile": "hardware/printed-parts/petgf.3mf"
 }

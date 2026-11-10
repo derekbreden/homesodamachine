@@ -2,9 +2,72 @@
   "project": "lever-replica-petgf.3mf",
   "settings_source": "hardware/printed-parts/faucet/lever-replica/lever-replica-petgf.3mf",
   "settings_source_sha256": "b21f15bd6ddeacc2ffdbf8ae4ef3c6fff224e0ba95c7483c3b5f99de1ba52c3e",
-  "settings_sha256": "863f83d0048ebb9446e565f1cd3a4ef64ed37932393bba34f31f26c498b1b5e6",
+  "settings_sha256": "355b2af8174532e8787ea0a04e218a6344e61e90d3d782a34bdd175efa6d4902",
   "source_settings_sha256": "863f83d0048ebb9446e565f1cd3a4ef64ed37932393bba34f31f26c498b1b5e6",
-  "settings_changes": {},
+  "settings_changes": {
+    "petgf_support_recipe": {
+      "profile": "hardware/printed-parts/petgf.3mf",
+      "sha256": "1be18bdfd75b33efc898b3e5c28a0c1975fc694ef4d94dd88a909472cb96b97f",
+      "members": {
+        "Metadata/filament_settings_1.config": {
+          "filament_bridge_speed": {
+            "from": null,
+            "to": [
+              "15",
+              "15",
+              "15"
+            ]
+          }
+        },
+        "Metadata/project_settings.config": {
+          "support_top_z_distance": {
+            "from": "0.45",
+            "to": "0.24"
+          },
+          "support_interface_top_layers": {
+            "from": "2",
+            "to": "3"
+          },
+          "support_interface_spacing": {
+            "from": "0.5",
+            "to": "0"
+          },
+          "bridge_flow": {
+            "from": "1",
+            "to": "1.25"
+          },
+          "bridge_speed": {
+            "from": [
+              "50",
+              "50",
+              "50",
+              "50",
+              "50"
+            ],
+            "to": [
+              "15",
+              "15",
+              "15",
+              "15",
+              "15"
+            ]
+          },
+          "filament_bridge_speed": {
+            "from": [
+              "25",
+              "25",
+              "25"
+            ],
+            "to": [
+              "15",
+              "15",
+              "15"
+            ]
+          }
+        }
+      }
+    }
+  },
   "printer": "Bambu Lab H2C 0.4 Standard +0.18 Z trim",
   "process": "0.24mm PET-GF faucet",
   "filament": [
@@ -103,8 +166,8 @@
       "embedded_vertex_error_mm": 4.999929359428279e-10
     }
   ],
-  "project_sha256": "5e672edc6a405c10c1e1b6cfb5a25a272dbc4308ecdf8e874fc31ea800e421df",
-  "settings_preserved_byte_for_byte": true,
+  "project_sha256": "76cbc7ee5dcef1c2a02bfff22e796b901c7664bef3db6210dfad0e349d1ac571",
+  "settings_preserved_byte_for_byte": false,
   "variant": "black-h2c",
   "status": "Editable project for the current source mesh; dated printed archives and their acceptance records are retained separately.",
   "physical_acceptance": {
@@ -121,5 +184,6 @@
     "quantified_strength": null,
     "quantified_endurance": null
   },
-  "pose": "local CAD +X side on bed; broad show face vertical"
+  "pose": "local CAD +X side on bed; broad show face vertical",
+  "reslice_required": true
 }

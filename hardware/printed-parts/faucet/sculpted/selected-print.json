@@ -17,5 +17,10 @@
   "printer_task_id": "1349558196",
   "physical_result": null,
   "display_additional_clearance_mm": 1.5,
-  "cooling_policy": "hardware/printed-parts/cooling/README.md"
+  "cooling_policy": "hardware/printed-parts/cooling/README.md",
+  "current_project": "hardware/printed-parts/faucet/faucet-petgf.3mf",
+  "current_project_sha256": "8cdbfb3e80d801413f9fd69b52f1588761be17c443396083e4dfa8ef14425512",
+  "shared_support_profile": "hardware/printed-parts/petgf.3mf",
+  "native_archive_current": false,
+  "reslice_required": true
 }

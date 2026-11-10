@@ -1,0 +1,18 @@
+{
+  "purpose": "Resolve the current full back-top print readiness from native and deposited-bead readings.",
+  "checks": {
+    "archive": true,
+    "bed_border": true,
+    "declared_interiors_support_free": true,
+    "fine_and_transition_bands": true,
+    "show_faces_support_free": true,
+    "solid_hosts_sampled": true,
+    "tie_windows_support_free": true,
+    "z_trim": true
+  },
+  "pass": true,
+  "native_review": "review.json",
+  "supplemental_contact_review": "c14-contact-review.json",
+  "archive_sha256": "01ec8f24282b8c2e182cb834069b2f00aa85ed125a098d7e2832626d82568b86",
+  "gcode_sha256": "85ab1c4fc7fd5b40964cebd03ef4a27e22d0f2f4e73a79a817996d322c09144f"
+}

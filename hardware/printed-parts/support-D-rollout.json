@@ -1,0 +1,1265 @@
+{
+  "purpose": "Bind the shared Support D recipe, active PET-GF projects and current regeneration paths to their preparation and slice status.",
+  "date": "2026-11-10",
+  "profile": "hardware/printed-parts/petgf.3mf",
+  "profile_sha256": "1be18bdfd75b33efc898b3e5c28a0c1975fc694ef4d94dd88a909472cb96b97f",
+  "settings": {
+    "support_top_z_distance": "0.24",
+    "support_interface_top_layers": "3",
+    "support_interface_spacing": "0",
+    "bridge_flow": "1.25",
+    "bridge_speed": [
+      "15",
+      "15",
+      "15",
+      "15",
+      "15"
+    ],
+    "filament_bridge_speed": [
+      "15",
+      "15",
+      "15"
+    ]
+  },
+  "physical_evidence": "hardware/print-tests/petgf-dense-roofs/rail-fit-30/physical-result.json",
+  "inheritance": "The native profile loader takes contact and bridge defaults from the shared PET-GF project after selecting the filament. Accepted historical profiles supply the other process settings. Explicit later experimental overrides remain possible.",
+  "part_specific_scope": [
+    "support enablement and style",
+    "tree roots and branch access",
+    "authored removable fins",
+    "support blockers and enforcers",
+    "inaccessible interiors",
+    "bulk walls and infill",
+    "printer Z trim and nozzle mapping"
+  ],
+  "projects": [
+    {
+      "project": "hardware/printed-parts/enclosure/nameplate/nameplate-001-petgf.3mf",
+      "previous_project_sha256": "77d6e06c0c0368b22f8050e759ac6390d16807e1b51ba14a05f3a3f641aabf92",
+      "project_sha256": "928de8d5aeaa08236f725c3e458395a2dc5b3c9b519180abee851e3ebf48889e",
+      "settings_sha256": "c5c173ae881d2b67a5dbe9c99f71b8b640b288f58fa2d2da6680bedb41a87e49",
+      "changed_members": {
+        "Metadata/filament_settings_1.config": {
+          "filament_bridge_speed": {
+            "from": null,
+            "to": [
+              "15",
+              "15",
+              "15"
+            ]
+          }
+        },
+        "Metadata/filament_settings_2.config": {
+          "filament_bridge_speed": {
+            "from": null,
+            "to": [
+              "15",
+              "15",
+              "15"
+            ]
+          }
+        },
+        "Metadata/project_settings.config": {
+          "support_interface_top_layers": {
+            "from": "2",
+            "to": "3"
+          },
+          "support_interface_spacing": {
+            "from": "0.5",
+            "to": "0"
+          },
+          "bridge_flow": {
+            "from": "1",
+            "to": "1.25"
+          },
+          "bridge_speed": {
+            "from": [
+              "50",
+              "50",
+              "50",
+              "50",
+              "50"
+            ],
+            "to": [
+              "15",
+              "15",
+              "15",
+              "15",
+              "15"
+            ]
+          },
+          "filament_bridge_speed": {
+            "from": [
+              "25",
+              "25",
+              "25",
+              "25",
+              "25",
+              "25"
+            ],
+            "to": [
+              "15",
+              "15",
+              "15",
+              "15",
+              "15",
+              "15"
+            ]
+          }
+        }
+      },
+      "geometry_and_placement_members_unchanged": true,
+      "native_slice_status": "requires_reslice",
+      "preparation_record": "hardware/printed-parts/enclosure/nameplate/nameplate-001-petgf.print.json",
+      "preparation_record_sha256": "b2a2de2626843b748001000c94118c17adbf719dbb3450788091eade2015b0e1",
+      "checks": {
+        "contact_recipe": true,
+        "embedded_filament_bridge_speed": true,
+        "no_conflicting_object_overrides": true,
+        "geometry_and_placement_preserved": true
+      }
+    },
+    {
+      "project": "hardware/printed-parts/faucet/asse-vent-seals/vent-seal-tool-petgf.3mf",
+      "previous_project_sha256": "109208865048d5870fc39e5912a3477c5f075ee75f1d208f76759739247937f7",
+      "project_sha256": "ecf631821e82a82e1323d9e361919d08c65ece91f8e8ff9d687222c71577e52c",
+      "settings_sha256": "355b2af8174532e8787ea0a04e218a6344e61e90d3d782a34bdd175efa6d4902",
+      "changed_members": {
+        "Metadata/filament_settings_1.config": {
+          "filament_bridge_speed": {
+            "from": null,
+            "to": [
+              "15",
+              "15",
+              "15"
+            ]
+          }
+        },
+        "Metadata/project_settings.config": {
+          "support_top_z_distance": {
+            "from": "0.45",
+            "to": "0.24"
+          },
+          "support_interface_top_layers": {
+            "from": "2",
+            "to": "3"
+          },
+          "support_interface_spacing": {
+            "from": "0.5",
+            "to": "0"
+          },
+          "bridge_flow": {
+            "from": "1",
+            "to": "1.25"
+          },
+          "bridge_speed": {
+            "from": [
+              "50",
+              "50",
+              "50",
+              "50",
+              "50"
+            ],
+            "to": [
+              "15",
+              "15",
+              "15",
+              "15",
+              "15"
+            ]
+          },
+          "filament_bridge_speed": {
+            "from": [
+              "25",
+              "25",
+              "25"
+            ],
+            "to": [
+              "15",
+              "15",
+              "15"
+            ]
+          }
+        }
+      },
+      "geometry_and_placement_members_unchanged": true,
+      "native_slice_status": "requires_reslice",
+      "preparation_record": "hardware/printed-parts/faucet/asse-vent-seals/vent-seal-tool-petgf.print.json",
+      "preparation_record_sha256": "a3c0d953ad2f1ff7c85987cee008f2a55f23221b19bd0cf5f1e01c6f0a39a5d7",
+      "checks": {
+        "contact_recipe": true,
+        "embedded_filament_bridge_speed": true,
+        "no_conflicting_object_overrides": true,
+        "geometry_and_placement_preserved": true
+      }
+    },
+    {
+      "project": "hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover-petgf.3mf",
+      "previous_project_sha256": "62e068bc67eae169da4da0ad00af35ff7cc3dfb33b700403c14f519f4844c1b1",
+      "project_sha256": "676ddce83c5a0205d5e1c359305b02990e772c96dbbfd0a9d75f52efe847530b",
+      "settings_sha256": "d77a691c6fe5079623784291943440062a927cc6300e5013f68e26bacb382ec8",
+      "changed_members": {
+        "Metadata/filament_settings_1.config": {
+          "filament_bridge_speed": {
+            "from": null,
+            "to": [
+              "15",
+              "15",
+              "15"
+            ]
+          }
+        },
+        "Metadata/project_settings.config": {
+          "support_top_z_distance": {
+            "from": "0.45",
+            "to": "0.24"
+          },
+          "support_interface_top_layers": {
+            "from": "2",
+            "to": "3"
+          },
+          "support_interface_spacing": {
+            "from": "0.5",
+            "to": "0"
+          },
+          "post_process": {
+            "from": [],
+            "to": [
+              "/Users/derekbredensteiner/Developer/homesodamachine/tools/hsm/target/release/petgf-cooling"
+            ]
+          }
+        }
+      },
+      "geometry_and_placement_members_unchanged": true,
+      "native_slice_status": "requires_reslice",
+      "preparation_record": "hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover-petgf.print.json",
+      "preparation_record_sha256": "2099ef42a8fa88fa06a0acce5dc1cbb92515ce3ca397ff75d4ef65dd47c3da61",
+      "checks": {
+        "contact_recipe": true,
+        "embedded_filament_bridge_speed": true,
+        "no_conflicting_object_overrides": true,
+        "geometry_and_placement_preserved": true
+      }
+    },
+    {
+      "project": "hardware/printed-parts/faucet/faucet-display-petgf.3mf",
+      "previous_project_sha256": "a17aaa9acc56e25a54204fb7e8b5d8c2abba7dbd64effc1bef91275c510f6b99",
+      "project_sha256": "2a3c778d415b5edb87870e132bfbe484485ce66e1a2351d549ac2622c395eebd",
+      "settings_sha256": "6177f4cf7078060bd6f01c1c7b54723c29dca02556a0836c264784b525464c13",
+      "changed_members": {
+        "Metadata/filament_settings_1.config": {
+          "filament_bridge_speed": {
+            "from": null,
+            "to": [
+              "15",
+              "15",
+              "15"
+            ]
+          }
+        },
+        "Metadata/project_settings.config": {
+          "support_top_z_distance": {
+            "from": "0.45",
+            "to": "0.24"
+          },
+          "support_interface_top_layers": {
+            "from": "2",
+            "to": "3"
+          },
+          "support_interface_spacing": {
+            "from": "0.5",
+            "to": "0"
+          },
+          "bridge_flow": {
+            "from": "1",
+            "to": "1.25"
+          },
+          "bridge_speed": {
+            "from": [
+              "50",
+              "50",
+              "50",
+              "50",
+              "50"
+            ],
+            "to": [
+              "15",
+              "15",
+              "15",
+              "15",
+              "15"
+            ]
+          },
+          "filament_bridge_speed": {
+            "from": [
+              "25",
+              "25",
+              "25"
+            ],
+            "to": [
+              "15",
+              "15",
+              "15"
+            ]
+          },
+          "post_process": {
+            "from": [],
+            "to": [
+              "/Users/derekbredensteiner/Developer/homesodamachine/tools/hsm/target/release/petgf-cooling"
+            ]
+          }
+        }
+      },
+      "geometry_and_placement_members_unchanged": true,
+      "native_slice_status": "requires_reslice",
+      "preparation_record": "hardware/printed-parts/faucet/faucet-display-petgf.print.json",
+      "preparation_record_sha256": "4bd8df66c7ae7df5d63d7ac4f3a50c3bd3a59fe5c3f34a1edfc27426aa27400d",
+      "checks": {
+        "contact_recipe": true,
+        "embedded_filament_bridge_speed": true,
+        "no_conflicting_object_overrides": true,
+        "geometry_and_placement_preserved": true
+      }
+    },
+    {
+      "project": "hardware/printed-parts/faucet/faucet-petgf.3mf",
+      "previous_project_sha256": "523aca51a52146930133187ae873afeb1677849ffc4d15bf4cf56a7d2f15e055",
+      "project_sha256": "8cdbfb3e80d801413f9fd69b52f1588761be17c443396083e4dfa8ef14425512",
+      "settings_sha256": "a4ba519ff22ac45231f088464f4b99b6235e0240f9d8e434fcfdf71dde93882e",
+      "changed_members": {
+        "Metadata/filament_settings_1.config": {
+          "filament_bridge_speed": {
+            "from": null,
+            "to": [
+              "15",
+              "15",
+              "15"
+            ]
+          }
+        },
+        "Metadata/project_settings.config": {
+          "support_top_z_distance": {
+            "from": "0.45",
+            "to": "0.24"
+          },
+          "support_interface_top_layers": {
+            "from": "2",
+            "to": "3"
+          },
+          "support_interface_spacing": {
+            "from": "0.5",
+            "to": "0"
+          },
+          "post_process": {
+            "from": [],
+            "to": [
+              "/Users/derekbredensteiner/Developer/homesodamachine/tools/hsm/target/release/petgf-cooling"
+            ]
+          }
+        }
+      },
+      "geometry_and_placement_members_unchanged": true,
+      "native_slice_status": "requires_reslice",
+      "preparation_record": "hardware/printed-parts/faucet/faucet-petgf.print.json",
+      "preparation_record_sha256": "f5aac496b07d365e71a027fd516c1e69762dd3c6a4a5eae910416a571e3febca",
+      "checks": {
+        "contact_recipe": true,
+        "embedded_filament_bridge_speed": true,
+        "no_conflicting_object_overrides": true,
+        "geometry_and_placement_preserved": true
+      }
+    },
+    {
+      "project": "hardware/printed-parts/faucet/industrial/faucet-industrial-petgf.3mf",
+      "previous_project_sha256": "73c95d29517201c65af103677be0423a7b093eb801140636029f3fb062bab8c3",
+      "project_sha256": "33b248cc401b7f604b61b2cf19b8b978f98283bf870343f6a57b270917e708ec",
+      "settings_sha256": "d77a691c6fe5079623784291943440062a927cc6300e5013f68e26bacb382ec8",
+      "changed_members": {
+        "Metadata/filament_settings_1.config": {
+          "filament_bridge_speed": {
+            "from": null,
+            "to": [
+              "15",
+              "15",
+              "15"
+            ]
+          }
+        },
+        "Metadata/project_settings.config": {
+          "support_top_z_distance": {
+            "from": "0.45",
+            "to": "0.24"
+          },
+          "support_interface_top_layers": {
+            "from": "2",
+            "to": "3"
+          },
+          "support_interface_spacing": {
+            "from": "0.5",
+            "to": "0"
+          },
+          "post_process": {
+            "from": [],
+            "to": [
+              "/Users/derekbredensteiner/Developer/homesodamachine/tools/hsm/target/release/petgf-cooling"
+            ]
+          }
+        }
+      },
+      "geometry_and_placement_members_unchanged": true,
+      "native_slice_status": "requires_reslice",
+      "preparation_record": "hardware/printed-parts/faucet/industrial/faucet-industrial-petgf.print.json",
+      "preparation_record_sha256": "9215b8d53ac56ed0eecee6f64f60f8f6ec745e626a7639ff2c6a4e36bbcf950d",
+      "checks": {
+        "contact_recipe": true,
+        "embedded_filament_bridge_speed": true,
+        "no_conflicting_object_overrides": true,
+        "geometry_and_placement_preserved": true
+      }
+    },
+    {
+      "project": "hardware/printed-parts/faucet/lever-replica/lever-replica-petgf-white.3mf",
+      "previous_project_sha256": "dcf46eebd27e5c46afa09f755407f6cd8a8e722e7f4e9d166056a819f6cd4a30",
+      "project_sha256": "29e6cc20997738144db0d9e4e9c830e73627b7033d4449c0513305369281e6f1",
+      "settings_sha256": "2c7ad42152210a0db0948e8dae8c8b761b45768c2b4dc1acdbb4f5a6dd30f838",
+      "changed_members": {
+        "Metadata/filament_settings_1.config": {
+          "filament_bridge_speed": {
+            "from": null,
+            "to": [
+              "15",
+              "15",
+              "15"
+            ]
+          }
+        },
+        "Metadata/project_settings.config": {
+          "support_top_z_distance": {
+            "from": "0.45",
+            "to": "0.24"
+          },
+          "support_interface_top_layers": {
+            "from": "2",
+            "to": "3"
+          },
+          "support_interface_spacing": {
+            "from": "0.5",
+            "to": "0"
+          },
+          "bridge_flow": {
+            "from": "1",
+            "to": "1.25"
+          },
+          "bridge_speed": {
+            "from": [
+              "50",
+              "50",
+              "50",
+              "50",
+              "50"
+            ],
+            "to": [
+              "15",
+              "15",
+              "15",
+              "15",
+              "15"
+            ]
+          },
+          "filament_bridge_speed": {
+            "from": [
+              "25",
+              "25",
+              "25"
+            ],
+            "to": [
+              "15",
+              "15",
+              "15"
+            ]
+          }
+        }
+      },
+      "geometry_and_placement_members_unchanged": true,
+      "native_slice_status": "requires_reslice",
+      "preparation_record": "hardware/printed-parts/faucet/lever-replica/lever-replica-petgf-white.print.json",
+      "preparation_record_sha256": "d0a41799c17945efe1bc1286dd1daf6c5ea7303200f0e4eabb1e1da78ec5b543",
+      "checks": {
+        "contact_recipe": true,
+        "embedded_filament_bridge_speed": true,
+        "no_conflicting_object_overrides": true,
+        "geometry_and_placement_preserved": true
+      }
+    },
+    {
+      "project": "hardware/printed-parts/faucet/lever-replica/lever-replica-petgf.3mf",
+      "previous_project_sha256": "43d2d92f76c7b46ea7be340deaab79a4456f4ff5c37c952f0f6fa10b02e73014",
+      "project_sha256": "76cbc7ee5dcef1c2a02bfff22e796b901c7664bef3db6210dfad0e349d1ac571",
+      "settings_sha256": "355b2af8174532e8787ea0a04e218a6344e61e90d3d782a34bdd175efa6d4902",
+      "changed_members": {
+        "Metadata/filament_settings_1.config": {
+          "filament_bridge_speed": {
+            "from": null,
+            "to": [
+              "15",
+              "15",
+              "15"
+            ]
+          }
+        },
+        "Metadata/project_settings.config": {
+          "support_top_z_distance": {
+            "from": "0.45",
+            "to": "0.24"
+          },
+          "support_interface_top_layers": {
+            "from": "2",
+            "to": "3"
+          },
+          "support_interface_spacing": {
+            "from": "0.5",
+            "to": "0"
+          },
+          "bridge_flow": {
+            "from": "1",
+            "to": "1.25"
+          },
+          "bridge_speed": {
+            "from": [
+              "50",
+              "50",
+              "50",
+              "50",
+              "50"
+            ],
+            "to": [
+              "15",
+              "15",
+              "15",
+              "15",
+              "15"
+            ]
+          },
+          "filament_bridge_speed": {
+            "from": [
+              "25",
+              "25",
+              "25"
+            ],
+            "to": [
+              "15",
+              "15",
+              "15"
+            ]
+          }
+        }
+      },
+      "geometry_and_placement_members_unchanged": true,
+      "native_slice_status": "requires_reslice",
+      "preparation_record": "hardware/printed-parts/faucet/lever-replica/lever-replica-petgf.print.json",
+      "preparation_record_sha256": "a75788b76326aa6e10ab58bb2e75566baa05388891e659d67be29108d97085b2",
+      "checks": {
+        "contact_recipe": true,
+        "embedded_filament_bridge_speed": true,
+        "no_conflicting_object_overrides": true,
+        "geometry_and_placement_preserved": true
+      }
+    },
+    {
+      "project": "hardware/printed-parts/faucet/umbilical-organizer/umbilical-organizer-petgf.3mf",
+      "previous_project_sha256": "dbc970ee557a5848ddce6b2fed6ddb7180c53385f6cb5f19bcd7c3b1a5707448",
+      "project_sha256": "a3085906f8122fc1ee158f8c85d8dfa3ddae0118a32db8a9efde3cb2dc6dcecf",
+      "settings_sha256": "e39a057b2336005a98e31bfc99b3a3f3dc14c79eedc3e3ab6de7323d9003d161",
+      "changed_members": {
+        "Metadata/filament_settings_1.config": {
+          "filament_bridge_speed": {
+            "from": null,
+            "to": [
+              "15",
+              "15",
+              "15"
+            ]
+          }
+        },
+        "Metadata/project_settings.config": {
+          "support_top_z_distance": {
+            "from": "0.45",
+            "to": "0.24"
+          },
+          "support_interface_top_layers": {
+            "from": "2",
+            "to": "3"
+          },
+          "support_interface_spacing": {
+            "from": "0.5",
+            "to": "0"
+          },
+          "bridge_flow": {
+            "from": "1",
+            "to": "1.25"
+          },
+          "bridge_speed": {
+            "from": [
+              "50",
+              "50",
+              "50",
+              "50",
+              "50"
+            ],
+            "to": [
+              "15",
+              "15",
+              "15",
+              "15",
+              "15"
+            ]
+          },
+          "filament_bridge_speed": {
+            "from": [
+              "25",
+              "25",
+              "25"
+            ],
+            "to": [
+              "15",
+              "15",
+              "15"
+            ]
+          }
+        }
+      },
+      "geometry_and_placement_members_unchanged": true,
+      "native_slice_status": "requires_reslice",
+      "preparation_record": "hardware/printed-parts/faucet/umbilical-organizer/umbilical-organizer-petgf.print.json",
+      "preparation_record_sha256": "34d1b7a7ff654ef6a916cdd676bef7249f5acb3bbc70ef36f13e71d9480166b6",
+      "checks": {
+        "contact_recipe": true,
+        "embedded_filament_bridge_speed": true,
+        "no_conflicting_object_overrides": true,
+        "geometry_and_placement_preserved": true
+      }
+    },
+    {
+      "project": "hardware/printed-parts/fixtures/fake-countertop/fake-countertop-petgf-mark2-stock.3mf",
+      "previous_project_sha256": "f14a3ededca833172807ed12a276537d9071bce7c4b28afac25198b063fd4956",
+      "project_sha256": "6c21ee4c3f99d22b2a7fa6d8c61d69004d018f04a48896dfd98fc71626b6d099",
+      "settings_sha256": "4269ae6bb02c888dc53e1ffa6ecca32f2756dbc7c6d7df1c4b51989c60379abb",
+      "changed_members": {
+        "Metadata/filament_settings_1.config": {
+          "filament_bridge_speed": {
+            "from": null,
+            "to": [
+              "15",
+              "15",
+              "15"
+            ]
+          }
+        },
+        "Metadata/project_settings.config": {
+          "support_top_z_distance": {
+            "from": "0.45",
+            "to": "0.24"
+          },
+          "support_interface_top_layers": {
+            "from": "2",
+            "to": "3"
+          },
+          "support_interface_spacing": {
+            "from": "0.5",
+            "to": "0"
+          },
+          "bridge_flow": {
+            "from": "1",
+            "to": "1.25"
+          },
+          "bridge_speed": {
+            "from": [
+              "50",
+              "50",
+              "50",
+              "50",
+              "50"
+            ],
+            "to": [
+              "15",
+              "15",
+              "15",
+              "15",
+              "15"
+            ]
+          },
+          "filament_bridge_speed": {
+            "from": [
+              "25",
+              "25",
+              "25"
+            ],
+            "to": [
+              "15",
+              "15",
+              "15"
+            ]
+          }
+        }
+      },
+      "geometry_and_placement_members_unchanged": true,
+      "native_slice_status": "requires_reslice",
+      "preparation_record": "hardware/printed-parts/fixtures/fake-countertop/fake-countertop-petgf-mark2-stock.print.json",
+      "preparation_record_sha256": "bb47f9af9402ea15935c826b42676630bf2eb7d0d9f7e789a46feeafbb516c27",
+      "checks": {
+        "contact_recipe": true,
+        "embedded_filament_bridge_speed": true,
+        "no_conflicting_object_overrides": true,
+        "geometry_and_placement_preserved": true
+      }
+    },
+    {
+      "project": "hardware/printed-parts/fixtures/fake-countertop/fake-countertop-petgf-mark2.3mf",
+      "previous_project_sha256": "2146fca3645d0b732e8f6d2976f9f7510b45ede7453aaca05faf91aa7f9a0df8",
+      "project_sha256": "2f59fc01e901ee0e96b2b87e9f11f51da06abc58251b1a6a0a7ae6d65708ea25",
+      "settings_sha256": "2c7ad42152210a0db0948e8dae8c8b761b45768c2b4dc1acdbb4f5a6dd30f838",
+      "changed_members": {
+        "Metadata/filament_settings_1.config": {
+          "filament_bridge_speed": {
+            "from": null,
+            "to": [
+              "15",
+              "15",
+              "15"
+            ]
+          }
+        },
+        "Metadata/project_settings.config": {
+          "support_top_z_distance": {
+            "from": "0.45",
+            "to": "0.24"
+          },
+          "support_interface_top_layers": {
+            "from": "2",
+            "to": "3"
+          },
+          "support_interface_spacing": {
+            "from": "0.5",
+            "to": "0"
+          },
+          "bridge_flow": {
+            "from": "1",
+            "to": "1.25"
+          },
+          "bridge_speed": {
+            "from": [
+              "50",
+              "50",
+              "50",
+              "50",
+              "50"
+            ],
+            "to": [
+              "15",
+              "15",
+              "15",
+              "15",
+              "15"
+            ]
+          },
+          "filament_bridge_speed": {
+            "from": [
+              "25",
+              "25",
+              "25"
+            ],
+            "to": [
+              "15",
+              "15",
+              "15"
+            ]
+          }
+        }
+      },
+      "geometry_and_placement_members_unchanged": true,
+      "native_slice_status": "requires_reslice",
+      "preparation_record": "hardware/printed-parts/fixtures/fake-countertop/fake-countertop-petgf-mark2.print.json",
+      "preparation_record_sha256": "5a0a792edc95cd6c9665dd408d2cbedb03d6bc8055fd85b9aee8e089a905dc7f",
+      "checks": {
+        "contact_recipe": true,
+        "embedded_filament_bridge_speed": true,
+        "no_conflicting_object_overrides": true,
+        "geometry_and_placement_preserved": true
+      }
+    },
+    {
+      "project": "hardware/printed-parts/fixtures/fake-countertop/fake-countertop-petgf.3mf",
+      "previous_project_sha256": "c9552211c119f735a9b793d09a421d10e9fb24d0fc0e1740ae7cc38e693a3286",
+      "project_sha256": "d018bb697acd4bb37d6b36537075a2a9c34ad0fa30db7f9547632eae56f2175a",
+      "settings_sha256": "355b2af8174532e8787ea0a04e218a6344e61e90d3d782a34bdd175efa6d4902",
+      "changed_members": {
+        "Metadata/filament_settings_1.config": {
+          "filament_bridge_speed": {
+            "from": null,
+            "to": [
+              "15",
+              "15",
+              "15"
+            ]
+          }
+        },
+        "Metadata/project_settings.config": {
+          "support_top_z_distance": {
+            "from": "0.45",
+            "to": "0.24"
+          },
+          "support_interface_top_layers": {
+            "from": "2",
+            "to": "3"
+          },
+          "support_interface_spacing": {
+            "from": "0.5",
+            "to": "0"
+          },
+          "bridge_flow": {
+            "from": "1",
+            "to": "1.25"
+          },
+          "bridge_speed": {
+            "from": [
+              "50",
+              "50",
+              "50",
+              "50",
+              "50"
+            ],
+            "to": [
+              "15",
+              "15",
+              "15",
+              "15",
+              "15"
+            ]
+          },
+          "filament_bridge_speed": {
+            "from": [
+              "25",
+              "25",
+              "25"
+            ],
+            "to": [
+              "15",
+              "15",
+              "15"
+            ]
+          }
+        }
+      },
+      "geometry_and_placement_members_unchanged": true,
+      "native_slice_status": "requires_reslice",
+      "preparation_record": "hardware/printed-parts/fixtures/fake-countertop/fake-countertop-petgf.print.json",
+      "preparation_record_sha256": "1e5d20c52357b8c2dad926fa47f996030939e6a458e18039aabf8ab13a760cf8",
+      "checks": {
+        "contact_recipe": true,
+        "embedded_filament_bridge_speed": true,
+        "no_conflicting_object_overrides": true,
+        "geometry_and_placement_preserved": true
+      }
+    },
+    {
+      "project": "hardware/printed-parts/fixtures/tube-miter-box/tube-miter-box-petgf-mark2.3mf",
+      "previous_project_sha256": "d7de90e0c0f32b43033fe35c304d08a7e1e8d58bb44f5be8ba0178ab09abc4d9",
+      "project_sha256": "f6b07493478079ea8af00d8596706286643620c6dfa0bf0f31e466c809ce538f",
+      "settings_sha256": "2c7ad42152210a0db0948e8dae8c8b761b45768c2b4dc1acdbb4f5a6dd30f838",
+      "changed_members": {
+        "Metadata/filament_settings_1.config": {
+          "filament_bridge_speed": {
+            "from": null,
+            "to": [
+              "15",
+              "15",
+              "15"
+            ]
+          }
+        },
+        "Metadata/project_settings.config": {
+          "support_top_z_distance": {
+            "from": "0.45",
+            "to": "0.24"
+          },
+          "support_interface_top_layers": {
+            "from": "2",
+            "to": "3"
+          },
+          "support_interface_spacing": {
+            "from": "0.5",
+            "to": "0"
+          },
+          "bridge_flow": {
+            "from": "1",
+            "to": "1.25"
+          },
+          "bridge_speed": {
+            "from": [
+              "50",
+              "50",
+              "50",
+              "50",
+              "50"
+            ],
+            "to": [
+              "15",
+              "15",
+              "15",
+              "15",
+              "15"
+            ]
+          },
+          "filament_bridge_speed": {
+            "from": [
+              "25",
+              "25",
+              "25"
+            ],
+            "to": [
+              "15",
+              "15",
+              "15"
+            ]
+          }
+        }
+      },
+      "geometry_and_placement_members_unchanged": true,
+      "native_slice_status": "requires_reslice",
+      "preparation_record": "hardware/printed-parts/fixtures/tube-miter-box/tube-miter-box-petgf-mark2.print.json",
+      "preparation_record_sha256": "6aa8e2c16b9ac647de3bf084a0ecf384ba7dabe21fdeada728728b1c08d08eb2",
+      "checks": {
+        "contact_recipe": true,
+        "embedded_filament_bridge_speed": true,
+        "no_conflicting_object_overrides": true,
+        "geometry_and_placement_preserved": true
+      }
+    },
+    {
+      "project": "hardware/printed-parts/fixtures/tube-miter-box/tube-miter-box-petgf.3mf",
+      "previous_project_sha256": "185352b0708980b293a77082b376c84b03f2f2a183c5f5620e6642076401a6f0",
+      "project_sha256": "247c10b86ba03026d0c1ad1dbfc2a8488494d804ab68345302737beeeb19ee87",
+      "settings_sha256": "355b2af8174532e8787ea0a04e218a6344e61e90d3d782a34bdd175efa6d4902",
+      "changed_members": {
+        "Metadata/filament_settings_1.config": {
+          "filament_bridge_speed": {
+            "from": null,
+            "to": [
+              "15",
+              "15",
+              "15"
+            ]
+          }
+        },
+        "Metadata/project_settings.config": {
+          "support_top_z_distance": {
+            "from": "0.45",
+            "to": "0.24"
+          },
+          "support_interface_top_layers": {
+            "from": "2",
+            "to": "3"
+          },
+          "support_interface_spacing": {
+            "from": "0.5",
+            "to": "0"
+          },
+          "bridge_flow": {
+            "from": "1",
+            "to": "1.25"
+          },
+          "bridge_speed": {
+            "from": [
+              "50",
+              "50",
+              "50",
+              "50",
+              "50"
+            ],
+            "to": [
+              "15",
+              "15",
+              "15",
+              "15",
+              "15"
+            ]
+          },
+          "filament_bridge_speed": {
+            "from": [
+              "25",
+              "25",
+              "25"
+            ],
+            "to": [
+              "15",
+              "15",
+              "15"
+            ]
+          }
+        }
+      },
+      "geometry_and_placement_members_unchanged": true,
+      "native_slice_status": "requires_reslice",
+      "preparation_record": "hardware/printed-parts/fixtures/tube-miter-box/tube-miter-box-petgf.print.json",
+      "preparation_record_sha256": "7b68de7e38a71985c24f45dad0bee42892c0882bc671a250b36663bbf73365d3",
+      "checks": {
+        "contact_recipe": true,
+        "embedded_filament_bridge_speed": true,
+        "no_conflicting_object_overrides": true,
+        "geometry_and_placement_preserved": true
+      }
+    },
+    {
+      "project": "hardware/printed-parts/fixtures/tube-insertion/ready/tube-insertion-rigid-base-h2c.3mf",
+      "previous_project_sha256": "7bcd6e1150c2b36e9edda8a1369b61f974f4664a076f6be0ce680429d923d928",
+      "project_sha256": "dd8b987e4efbd67e9853f0a8644a601f4509394f5140c85fe57df52bfaf4826b",
+      "settings_sha256": "e20dfa3e59754e212ec3b8b427d70c63592dcb7b64b3a06657938ce7259f7908",
+      "changed_members": {
+        "Metadata/filament_settings_1.config": {
+          "filament_bridge_speed": {
+            "from": null,
+            "to": [
+              "15",
+              "15",
+              "15"
+            ]
+          }
+        },
+        "Metadata/project_settings.config": {
+          "support_top_z_distance": {
+            "from": "0.45",
+            "to": "0.24"
+          },
+          "support_interface_top_layers": {
+            "from": "2",
+            "to": "3"
+          },
+          "support_interface_spacing": {
+            "from": "0.5",
+            "to": "0"
+          },
+          "bridge_flow": {
+            "from": "1",
+            "to": "1.25"
+          },
+          "bridge_speed": {
+            "from": [
+              "50",
+              "50",
+              "50",
+              "50",
+              "50"
+            ],
+            "to": [
+              "15",
+              "15",
+              "15",
+              "15",
+              "15"
+            ]
+          },
+          "filament_bridge_speed": {
+            "from": [
+              "25",
+              "25",
+              "25"
+            ],
+            "to": [
+              "15",
+              "15",
+              "15"
+            ]
+          }
+        }
+      },
+      "geometry_and_placement_members_unchanged": true,
+      "native_slice_status": "requires_reslice",
+      "preparation_record": "hardware/printed-parts/fixtures/tube-insertion/ready/tube-insertion-rigid-base-h2c.print.json",
+      "preparation_record_sha256": "ed29413464003ad327904497d687151a1a1aad98586b5fa4b13c5af1e412f4a1",
+      "checks": {
+        "contact_recipe": true,
+        "embedded_filament_bridge_speed": true,
+        "no_conflicting_object_overrides": true,
+        "geometry_and_placement_preserved": true
+      }
+    },
+    {
+      "project": "hardware/printed-parts/fixtures/tube-insertion/ready/tube-insertion-centered-grip-petgf-left04-z004-mark2.3mf",
+      "previous_project_sha256": "ec8d538a61dc7c0020a19ede1ba9f190d3563f87c9faa076a56bef930fd14164",
+      "project_sha256": "90e301f4d25ba277e20c497600a9276a9b2ae93d0fba8ae2fa48a9b5d9006f2f",
+      "settings_sha256": "5cee8c6f9c52310ed1a845ef03790622e28fe7c65561e8b5b0018bb358165fc8",
+      "changed_members": {
+        "Metadata/filament_settings_1.config": {
+          "filament_bridge_speed": {
+            "from": null,
+            "to": [
+              "15",
+              "15",
+              "15"
+            ]
+          }
+        },
+        "Metadata/project_settings.config": {
+          "support_top_z_distance": {
+            "from": "0.45",
+            "to": "0.24"
+          },
+          "support_interface_top_layers": {
+            "from": "2",
+            "to": "3"
+          },
+          "support_interface_spacing": {
+            "from": "0.5",
+            "to": "0"
+          },
+          "bridge_flow": {
+            "from": "1",
+            "to": "1.25"
+          },
+          "bridge_speed": {
+            "from": [
+              "50",
+              "50",
+              "50",
+              "50",
+              "50"
+            ],
+            "to": [
+              "15",
+              "15",
+              "15",
+              "15",
+              "15"
+            ]
+          },
+          "filament_bridge_speed": {
+            "from": [
+              "25",
+              "25",
+              "25"
+            ],
+            "to": [
+              "15",
+              "15",
+              "15"
+            ]
+          }
+        }
+      },
+      "geometry_and_placement_members_unchanged": true,
+      "native_slice_status": "requires_reslice",
+      "preparation_record": "hardware/printed-parts/fixtures/tube-insertion/ready/tube-insertion-centered-grip-petgf-left04-z004-mark2.print.json",
+      "preparation_record_sha256": "d87cb38dfc0e957b1b6db97967cd3340564a145953e3eeb37eaac66b8538117b",
+      "checks": {
+        "contact_recipe": true,
+        "embedded_filament_bridge_speed": true,
+        "no_conflicting_object_overrides": true,
+        "geometry_and_placement_preserved": true
+      }
+    },
+    {
+      "project": "hardware/printed-parts/fixtures/tube-insertion/ready/tube-insertion-centered-grip-petgf-left04-z018-mark1.3mf",
+      "previous_project_sha256": "a31ba7b6cdd433e8b3e57dff3d34c8e2bfb518ace450647cca2d03e77b27b62b",
+      "project_sha256": "e1fc3fe4bc99698a3a8a4f2dd5563c4275aafacc10d54bd327515de7b10c4af3",
+      "settings_sha256": "ce01aed5213b8e7594ad5ed222af64732704ef882730437c111759bf11f77e4f",
+      "changed_members": {
+        "Metadata/filament_settings_1.config": {
+          "filament_bridge_speed": {
+            "from": null,
+            "to": [
+              "15",
+              "15",
+              "15"
+            ]
+          }
+        },
+        "Metadata/project_settings.config": {
+          "support_top_z_distance": {
+            "from": "0.45",
+            "to": "0.24"
+          },
+          "support_interface_top_layers": {
+            "from": "2",
+            "to": "3"
+          },
+          "support_interface_spacing": {
+            "from": "0.5",
+            "to": "0"
+          },
+          "bridge_flow": {
+            "from": "1",
+            "to": "1.25"
+          },
+          "bridge_speed": {
+            "from": [
+              "50",
+              "50",
+              "50",
+              "50",
+              "50"
+            ],
+            "to": [
+              "15",
+              "15",
+              "15",
+              "15",
+              "15"
+            ]
+          },
+          "filament_bridge_speed": {
+            "from": [
+              "25",
+              "25",
+              "25"
+            ],
+            "to": [
+              "15",
+              "15",
+              "15"
+            ]
+          }
+        }
+      },
+      "geometry_and_placement_members_unchanged": true,
+      "native_slice_status": "requires_reslice",
+      "preparation_record": "hardware/printed-parts/fixtures/tube-insertion/ready/tube-insertion-centered-grip-petgf-left04-z018-mark1.print.json",
+      "preparation_record_sha256": "c68709bc9b0f92e9628aad63aced7e85b5520083e22496edcaacbc5a85088c13",
+      "checks": {
+        "contact_recipe": true,
+        "embedded_filament_bridge_speed": true,
+        "no_conflicting_object_overrides": true,
+        "geometry_and_placement_preserved": true
+      }
+    }
+  ],
+  "regeneration_paths": [
+    "tools/hsm/print-prep/src/profile.rs",
+    "tools/hsm/print-prep/src/refresh.rs",
+    "hardware/printed-parts/enclosure/trial-preparation/prepare.rs",
+    "hardware/printed-parts/enclosure/trial-preparation/labels.rs",
+    "hardware/printed-parts/faucet/industrial/prepare_print_project.rs",
+    "hardware/printed-parts/faucet/sculpted/prepare_print_project.rs",
+    "hardware/printed-parts/faucet/faucet-display-cover/prepare_print_project.rs",
+    "hardware/printed-parts/faucet/lever-replica/prepare_print.rs",
+    "hardware/printed-parts/fixtures/fake-countertop/prepare_print.rs",
+    "hardware/printed-parts/fixtures/tube-miter-box/prepare_print.rs",
+    "hardware/printed-parts/fixtures/tube-insertion/prepare_print.rs"
+  ],
+  "validation": {
+    "native_preparers_build": "passed",
+    "historical_faucet_profile_inheritance": "passed on Industrial, Sculpted and individual cover preparations",
+    "shared_profile_inheritance": "passed on lever, fake countertop, miter box and rigid tube-insertion preparations",
+    "non_petgf": {
+      "material": "TPU",
+      "source_profile": "future/pump-elbow-exploration/prints/2026-10-14-compact-single-siraya85a-overhang10-engineering-z000-mark1/2026-10-14-compact-single-elbow-siraya85a-overhang10-engineering-right06-z000-mark1.3mf",
+      "source_profile_sha256": "a0b48b9ce31fc7c032e766d1a2aaf5ae15bf4fc4d4a7b02d5441d9801317cd7e",
+      "contact_and_bridge_values_unchanged": true
+    },
+    "current_project_metadata": "passed",
+    "full_back_top_native_and_supplemental_review": "hardware/printed-parts/enclosure/enclosure/prints/2026-11-10-back-top-D-mark1/print-review.json"
+  },
+  "current_full_part": "hardware/printed-parts/enclosure/enclosure/prints/2026-11-10-back-top-D-mark1/print-job.json",
+  "current_full_part_status": "Cancelled at layer zero at the user request; held while peer conversations resolve.",
+  "historical_archives": "Preserved with their recorded process. Current editable projects require a fresh slice before their next print.",
+  "scope": "Support D is selected for current PET-GF preparations; each full part retains its native slice and physical-removal qualification."
+}

@@ -1,0 +1,14 @@
+[
+  "/Applications/BambuStudio.app/Contents/MacOS/BambuStudio",
+  "--slice",
+  "0",
+  "--arrange",
+  "0",
+  "--orient",
+  "0",
+  "--outputdir",
+  "/Users/derekbredensteiner/Developer/homesodamachine/.cache/runs/back-top-D-final-2026-11-10/2026-11-10-back-top-mark1-38b1bc8b/native",
+  "--export-3mf",
+  "2026-11-10-back-top-mark1-38b1bc8b.gcode.3mf",
+  "/Users/derekbredensteiner/Developer/homesodamachine/.cache/runs/back-top-D-final-2026-11-10/2026-11-10-back-top-mark1-38b1bc8b/native/2026-11-10-back-top-mark1-38b1bc8b.cli.3mf"
+]

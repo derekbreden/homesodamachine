@@ -62,7 +62,7 @@ fn main() -> Result<()> {
     let reference = config.child("object").context("the approved print has no object")?;
     for m in reference.children_named("metadata") {
         if let (Some(k), Some(v)) = (m.attribute("key"), m.attribute("value")) {
-            if k != "name" && k != "extruder" {
+            if k != "name" && k != "extruder" && !hsm_print_prep::profile::PETGF_SUPPORT_KEYS.contains(&k) {
                 r.plate.objects[0].settings.push((k.to_string(), v.to_string()));
             }
         }

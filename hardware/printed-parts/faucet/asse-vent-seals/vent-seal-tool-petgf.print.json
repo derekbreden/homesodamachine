@@ -2,7 +2,7 @@
   "project": "vent-seal-tool-petgf.3mf",
   "settings_source": "hardware/printed-parts/petgf.3mf",
   "settings_source_sha256": "3864deceaa295d0fffded05e445b77ee926e2706d8765fdc8bbf81a23fe98697",
-  "settings_sha256": "07f46991b6e7f746ddf9ab80ed91b3ea5967d8fa0402015cd939c20d41c73d1f",
+  "settings_sha256": "355b2af8174532e8787ea0a04e218a6344e61e90d3d782a34bdd175efa6d4902",
   "source_settings_sha256": "0ee48f241c338dc7cddd637c2d74f80ee2706d0f974451bec8cb49ba4d206c1e",
   "settings_changes": {
     "machine_start_gcode": {
@@ -13,6 +13,68 @@
     "printer_settings_id": {
       "from": "Bambu Lab H2C 0.4 nozzle 04 first layer by agent",
       "to": "Bambu Lab H2C 0.4 Standard +0.18 Z trim"
+    },
+    "petgf_support_recipe": {
+      "profile": "hardware/printed-parts/petgf.3mf",
+      "sha256": "1be18bdfd75b33efc898b3e5c28a0c1975fc694ef4d94dd88a909472cb96b97f",
+      "members": {
+        "Metadata/filament_settings_1.config": {
+          "filament_bridge_speed": {
+            "from": null,
+            "to": [
+              "15",
+              "15",
+              "15"
+            ]
+          }
+        },
+        "Metadata/project_settings.config": {
+          "support_top_z_distance": {
+            "from": "0.45",
+            "to": "0.24"
+          },
+          "support_interface_top_layers": {
+            "from": "2",
+            "to": "3"
+          },
+          "support_interface_spacing": {
+            "from": "0.5",
+            "to": "0"
+          },
+          "bridge_flow": {
+            "from": "1",
+            "to": "1.25"
+          },
+          "bridge_speed": {
+            "from": [
+              "50",
+              "50",
+              "50",
+              "50",
+              "50"
+            ],
+            "to": [
+              "15",
+              "15",
+              "15",
+              "15",
+              "15"
+            ]
+          },
+          "filament_bridge_speed": {
+            "from": [
+              "25",
+              "25",
+              "25"
+            ],
+            "to": [
+              "15",
+              "15",
+              "15"
+            ]
+          }
+        }
+      }
     }
   },
   "printer": "H2C",
@@ -113,7 +175,7 @@
       "embedded_vertex_error_mm": 5.000018177270249e-10
     }
   ],
-  "project_sha256": "ca41d92f513b8da9840efac9c9361d34797e011a25f92ee2e0c3a8c406214aec",
+  "project_sha256": "ecf631821e82a82e1323d9e361919d08c65ece91f8e8ff9d687222c71577e52c",
   "settings_preserved_byte_for_byte": false,
   "source_sha256": {
     "hardware/printed-parts/faucet/prepare_vent_prints.py": "d09bcb57e103ee6113172dfacb425e21ea9b93bd5f13b6b8026dbb7cb0cf6514",
@@ -124,5 +186,6 @@
   },
   "active_nozzle": 0,
   "requested_z_trim_mm": 0.18,
-  "submitted": false
+  "submitted": false,
+  "reslice_required": true
 }

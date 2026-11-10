@@ -70,7 +70,7 @@ fn main() -> Result<()> {
             .with_context(|| format!("the Industrial project has no {industrial}"))?;
         for m in source.children_named("metadata") {
             if let (Some(k), Some(v)) = (m.attribute("key"), m.attribute("value")) {
-                if k != "name" && k != "extruder" {
+                if k != "name" && k != "extruder" && !hsm_print_prep::profile::PETGF_SUPPORT_KEYS.contains(&k) {
                     obj.settings.push((k.to_string(), v.to_string()));
                 }
             }
@@ -136,7 +136,7 @@ fn main() -> Result<()> {
     let tip = add_selected_tip_supports(&root, &mut r, &selection["tip_supports"])?;
     r.extra.insert("tip_supports".into(), tip);
 
-    let mut changes = Map::new();
+    let mut changes = r.profile.changes.clone();
     if let Json::Map(entries) = &r.plate.settings {
         for (key, value) in entries {
             if original.get(key) != Some(value) {

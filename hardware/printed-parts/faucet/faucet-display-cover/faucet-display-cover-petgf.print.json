@@ -2,7 +2,7 @@
   "project": "faucet-display-cover-petgf.3mf",
   "settings_source": "hardware/printed-parts/faucet/faucet-display-cover/prints/2026-10-25-front-overlap-black-mark2/2026-10-25-sculpted-cover-front-overlap-black-left04-z004-mark2.3mf",
   "settings_source_sha256": "fb08838af3bf6cff212acec6ccc2dabc6701fe8745840bbbf459c78597cb765d",
-  "settings_sha256": "6ad46f6f99b05b01b6a10cbe8a4604925d569c5849720099fc56fe0195780756",
+  "settings_sha256": "d77a691c6fe5079623784291943440062a927cc6300e5013f68e26bacb382ec8",
   "source_settings_sha256": "987a5e177a7ff369594322a0107c23f4dddfdb094bbbfe9fd22f7628e0961d99",
   "settings_changes": {
     "machine_start_gcode": {
@@ -17,6 +17,42 @@
     "initial_layer_print_height": {
       "from": "0.24",
       "to": "0.2"
+    },
+    "petgf_support_recipe": {
+      "profile": "hardware/printed-parts/petgf.3mf",
+      "sha256": "1be18bdfd75b33efc898b3e5c28a0c1975fc694ef4d94dd88a909472cb96b97f",
+      "members": {
+        "Metadata/filament_settings_1.config": {
+          "filament_bridge_speed": {
+            "from": null,
+            "to": [
+              "15",
+              "15",
+              "15"
+            ]
+          }
+        },
+        "Metadata/project_settings.config": {
+          "support_top_z_distance": {
+            "from": "0.45",
+            "to": "0.24"
+          },
+          "support_interface_top_layers": {
+            "from": "2",
+            "to": "3"
+          },
+          "support_interface_spacing": {
+            "from": "0.5",
+            "to": "0"
+          },
+          "post_process": {
+            "from": [],
+            "to": [
+              "/Users/derekbredensteiner/Developer/homesodamachine/tools/hsm/target/release/petgf-cooling"
+            ]
+          }
+        }
+      }
     }
   },
   "printer": "Mark2",
@@ -117,7 +153,7 @@
       "embedded_vertex_error_mm": 4.990234891977252e-10
     }
   ],
-  "project_sha256": "62e068bc67eae169da4da0ad00af35ff7cc3dfb33b700403c14f519f4844c1b1",
+  "project_sha256": "676ddce83c5a0205d5e1c359305b02990e772c96dbbfd0a9d75f52efe847530b",
   "settings_preserved_byte_for_byte": false,
   "requested_z_trim_mm": 0.04,
   "active_nozzle": 0,
@@ -127,5 +163,6 @@
   "physical_approval": "hardware/printed-parts/faucet/faucet-display-cover/prints/2026-10-25-front-overlap-black-mark2/physical-result/physical-result.json",
   "accepted_remaining_corner_gap": true,
   "launch_authorized": false,
-  "submitted": false
+  "submitted": false,
+  "reslice_required": true
 }

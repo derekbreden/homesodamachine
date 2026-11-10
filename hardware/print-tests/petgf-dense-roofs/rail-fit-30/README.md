@@ -19,13 +19,12 @@ coordinates before labels and print placement are applied.
 [`samples.json`](samples.json) owns the crop bounds and process settings.
 [`preparation.json`](preparation.json) binds both source meshes to the plate.
 [`verification.json`](verification.json) records the fit scope, surrounding stock,
-support roots, contact planes, archive hashes and native estimate. Physical
-sliding performance and support removal remain untested.
+support roots, contact planes, archive hashes and native estimate. The [physical result](physical-result.json) records easy whole-unit support removal
+and an accepted coupon fit. Current clearances remain held for the full enclosure.
 
 The editable native project is beside this file. The sliced machine archive and
 estimate are in [`ready/`](ready/). Mark1's accepted job, selected send options
-and startup reading are in [`mark1/`](mark1/). The physical rail removal and
-sliding fit result remain pending.
+and startup reading are in [`mark1/`](mark1/). The result applies to this cropped mechanism; full-enclosure fit remains to be tested.
 
 ## Article sources
 

@@ -1,0 +1,47 @@
+{
+  "purpose": "Retain the accepted D rail-cavity support removal and mating coupon fit, with production clearances held for full-enclosure evaluation.",
+  "date": "2026-11-10",
+  "printer": "Mark1",
+  "printer_task_id": "1426744585",
+  "archive": "ready/2026-11-09-rail-fit-pair-30-D-left04-z018-mark1.gcode.3mf",
+  "archive_sha256": "a0368e2ac9ec2ab49442a1814e065237d6008275da7fdfae709c5ce92d5b543b",
+  "process": "D",
+  "status": "User accepts easy whole-unit support removal and the mating coupon fit.",
+  "user_observations": [
+    {
+      "verbatim": "This support, this D support on this rail cavity removed perfectly. It was great. It came off as a single piece and it pried out just as easily as the others."
+    },
+    {
+      "verbatim": "And as far as fit goes, it looks like we're in really good shape here. Like we've got plenty of clearance, and in fact, it might be a little bit loose at this point."
+    },
+    {
+      "verbatim": "But I don't want to change anything yet. I'd rather see how it feels on the larger full enclosure first before making adjustments, because this still seems pretty good."
+    }
+  ],
+  "visual_observations": "The detached support remains a single mat with connected tree trunks. The cavity underside appears intact. The matching coupon is engaged in the channel.",
+  "scope": "Coupon-scale support removal and sliding fit only. Full-length enclosure stiffness, accumulated dimensional error and full enclosure fit remain untested.",
+  "geometry_action": "Preserve current rail geometry and clearance until the full enclosure is evaluated.",
+  "photos": [
+    {
+      "source_name": "1-Photo-1.jpg",
+      "path": "photos/01-whole-support-release.jpg",
+      "source_sha256": "01f899707fe2550b0652a15c656f1cc5f8e2d9ca671676e9de1fe094e19b911c",
+      "sha256": "40526fdb5cc1b726a84f4eabf30462b60062f560cf2c9b153a473e754f685285",
+      "processing": "JPEG scan data and decoded pixels preserved; private metadata and comments omitted; orientation retained."
+    },
+    {
+      "source_name": "2-Photo-2.jpg",
+      "path": "photos/02-intact-cavity-underside.jpg",
+      "source_sha256": "133334d0cc422c539bf95b1a8b4803d951188fe0dc66f43cd6caa8a3b9d4c862",
+      "sha256": "8139c3f3ee294f01ff0b91373586eb94e9bc2d17c3cf60113f6b977636b5fc38",
+      "processing": "JPEG scan data and decoded pixels preserved; private metadata and comments omitted; orientation retained."
+    },
+    {
+      "source_name": "3-Photo-3.jpg",
+      "path": "photos/03-mating-rail-fit.jpg",
+      "source_sha256": "74d1889543250be57056876569b30b770e13c3664f0fa10fb21567fae1b7a52a",
+      "sha256": "1ac72ee430006d98f50242bb94f55df008034f8d0c15dd2b4ad9eebd1ae7ffb2",
+      "processing": "JPEG scan data and decoded pixels preserved; private metadata and comments omitted; orientation retained."
+    }
+  ]
+}

@@ -1,12 +1,12 @@
 {
   "schema": 3,
-  "status": "Approved Industrial production faucet with Sculpted cover, Bambu default 0.20 mm first layer and 0.24 mm later layers",
+  "status": "Approved Industrial production geometry with the shared Support D process; native reslice required.",
   "production_selection": "hardware/printed-parts/faucet/industrial/production-selection.json",
   "production_selection_sha256": "72a99d7374623220ff97edb3a38a853378a5efb989de51851e46bfbd709aa2d1",
   "finish_selection": "hardware/printed-parts/faucet/industrial/finish-selection.json",
-  "finish_selection_sha256": "b9078cbec847126ccb723e16886b0b19ce0fac982a9f1d5db6917f2d54a01854",
+  "finish_selection_sha256": "4e40067c5d7efce006fd5860ec6596b94558af308894416bfc0b74c365fc8b8c",
   "canonical_project": "hardware/printed-parts/faucet/industrial/faucet-industrial-petgf.3mf",
-  "canonical_project_sha256": "73c95d29517201c65af103677be0423a7b093eb801140636029f3fb062bab8c3",
+  "canonical_project_sha256": "33b248cc401b7f604b61b2cf19b8b978f98283bf870343f6a57b270917e708ec",
   "canonical_default_printer": "Mark2",
   "native_archive": "hardware/printed-parts/faucet/industrial/faucet-industrial-petgf.gcode.3mf",
   "native_archive_sha256": "a332b67b21fb7cfe12c80eb9d628e791c192567321d17f7f05765a26ecb94762",
@@ -35,5 +35,9 @@
   "gap_iteration_requested": false,
   "production_tag": "faucet-industrial-production-2026-10-25-first020",
   "current_native_archive_submitted": false,
-  "scope": "The exact approved component geometry and selected production recipe are prepared and reviewed offline: Bambu default 0.20 mm first bed layer, 0.24 mm later layers and no fine bands. This complete native archive has not been submitted. Historical acceptance records retain their original scope."
+  "scope": "The canonical editable project carries the shared Support D contact and bridge recipe. Referenced native archives and physical approvals retain their recorded process and geometry scope.",
+  "shared_support_profile": "hardware/printed-parts/petgf.3mf",
+  "shared_support_profile_sha256": "1be18bdfd75b33efc898b3e5c28a0c1975fc694ef4d94dd88a909472cb96b97f",
+  "native_archive_current": false,
+  "reslice_required": true
 }

@@ -2,9 +2,72 @@
   "project": "umbilical-organizer-petgf.3mf",
   "settings_source": "hardware/printed-parts/faucet/umbilical-organizer/umbilical-organizer-petgf.3mf",
   "settings_source_sha256": "86e1e493751401434e5305b44c048b941b130b67f2dfc261432dfadb5d3e4792",
-  "settings_sha256": "c0f49e3a2aa401d2c9a91ad25d7e70aa28822da5a8f6c2e73eebb449d52edb74",
+  "settings_sha256": "e39a057b2336005a98e31bfc99b3a3f3dc14c79eedc3e3ab6de7323d9003d161",
   "source_settings_sha256": "c0f49e3a2aa401d2c9a91ad25d7e70aa28822da5a8f6c2e73eebb449d52edb74",
-  "settings_changes": {},
+  "settings_changes": {
+    "petgf_support_recipe": {
+      "profile": "hardware/printed-parts/petgf.3mf",
+      "sha256": "1be18bdfd75b33efc898b3e5c28a0c1975fc694ef4d94dd88a909472cb96b97f",
+      "members": {
+        "Metadata/filament_settings_1.config": {
+          "filament_bridge_speed": {
+            "from": null,
+            "to": [
+              "15",
+              "15",
+              "15"
+            ]
+          }
+        },
+        "Metadata/project_settings.config": {
+          "support_top_z_distance": {
+            "from": "0.45",
+            "to": "0.24"
+          },
+          "support_interface_top_layers": {
+            "from": "2",
+            "to": "3"
+          },
+          "support_interface_spacing": {
+            "from": "0.5",
+            "to": "0"
+          },
+          "bridge_flow": {
+            "from": "1",
+            "to": "1.25"
+          },
+          "bridge_speed": {
+            "from": [
+              "50",
+              "50",
+              "50",
+              "50",
+              "50"
+            ],
+            "to": [
+              "15",
+              "15",
+              "15",
+              "15",
+              "15"
+            ]
+          },
+          "filament_bridge_speed": {
+            "from": [
+              "25",
+              "25",
+              "25"
+            ],
+            "to": [
+              "15",
+              "15",
+              "15"
+            ]
+          }
+        }
+      }
+    }
+  },
   "printer": "Bambu Lab H2C 0.4 Standard +0.04 Z trim",
   "process": "0.24mm PET-GF faucet",
   "filament": [
@@ -103,8 +166,9 @@
       "embedded_vertex_error_mm": 5.000000413701855e-10
     }
   ],
-  "project_sha256": "32ab20b87103dc1248939cf9598a7fa67bc3e019a7de37dcb9b1c7230dadaf83",
-  "settings_preserved_byte_for_byte": true,
+  "project_sha256": "a3085906f8122fc1ee158f8c85d8dfa3ddae0118a32db8a9efde3cb2dc6dcecf",
+  "settings_preserved_byte_for_byte": false,
   "status": "Editable project for current source mesh; dated printed archives and their acceptance records are retained separately.",
-  "pose": "Round stock upright, passages vertical, flat bottom face on the bed."
+  "pose": "Round stock upright, passages vertical, flat bottom face on the bed.",
+  "reslice_required": true
 }

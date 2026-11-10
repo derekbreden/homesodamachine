@@ -2,7 +2,7 @@
   "project": "faucet-display-petgf.3mf",
   "settings_source": ".cache/prints/2026-09-18-faucet-display-mark2/baseline-faucet-petgf.3mf",
   "settings_source_sha256": "8abcdcc0cbd54f5bd9bc1717c0a64d52e1915aafe030af1d31a72f1a8bb2c090",
-  "settings_sha256": "0ee48f241c338dc7cddd637c2d74f80ee2706d0f974451bec8cb49ba4d206c1e",
+  "settings_sha256": "6177f4cf7078060bd6f01c1c7b54723c29dca02556a0836c264784b525464c13",
   "printer": "Bambu Lab H2C 0.4 nozzle 04 first layer by agent",
   "process": "0.24mm PET-GF faucet",
   "filament": [
@@ -209,8 +209,8 @@
       "embedded_vertex_error_mm": 5.000000413701855e-10
     }
   ],
-  "project_sha256": "a17aaa9acc56e25a54204fb7e8b5d8c2abba7dbd64effc1bef91275c510f6b99",
-  "settings_preserved_byte_for_byte": true,
+  "project_sha256": "2a3c778d415b5edb87870e132bfbe484485ce66e1a2351d549ac2622c395eebd",
+  "settings_preserved_byte_for_byte": false,
   "project_title": "Faucet tip and complete display covers",
   "successful_profile": {
     "record": ".cache/prints/2026-09-18-faucet-display-mark2/baseline-faucet-petgf.readiness.json",
@@ -231,7 +231,7 @@
     "hardware/printed-parts/faucet/_display_snap.py": "344e9919836622bd68d7d5b1b1a0c0c3c79d5d28ccebedec864718a0fac90683",
     "hardware/printed-parts/faucet/faucet-display-cover/faucet_display_cover.py": "ff60a0cb26e96c72d6830eedc5cd9cdb47f603b0d1a7526573bf7fb2d79feead"
   },
-  "all_profile_members_preserved_byte_for_byte": true,
+  "all_profile_members_preserved_byte_for_byte": false,
   "production_artifacts_unchanged": {
     "hardware/printed-parts/faucet/faucet-petgf.3mf": "775ebd194b780e16df6e507c903a33fee8357e3a7bd104e193b7405ce6089bb7",
     "hardware/printed-parts/faucet/faucet-petgf.print.json": "11fb89c67f45834216a7aa55162836a6349cc182e6c006a171663439fef4782f",
@@ -241,5 +241,76 @@
     "hardware/printed-parts/faucet/industrial/faucet-industrial-petgf.print.json": "18957bc30c25bdfe12728cb838b663e3a33da4bacc19ab01597332369f17aa79",
     "hardware/printed-parts/faucet/industrial/faucet-industrial-petgf.support-audit.json": "f293db79898db6c702a17ce21eaedc97bfd0093ed041f5a438f6ba6c0a7b3062",
     "hardware/printed-parts/faucet/industrial/faucet-industrial-petgf.readiness.json": "01b4812435e273b68eca9eb067ffa8021958c852ec7565ab53c3b50702953963"
-  }
+  },
+  "settings_changes": {
+    "petgf_support_recipe": {
+      "profile": "hardware/printed-parts/petgf.3mf",
+      "sha256": "1be18bdfd75b33efc898b3e5c28a0c1975fc694ef4d94dd88a909472cb96b97f",
+      "members": {
+        "Metadata/filament_settings_1.config": {
+          "filament_bridge_speed": {
+            "from": null,
+            "to": [
+              "15",
+              "15",
+              "15"
+            ]
+          }
+        },
+        "Metadata/project_settings.config": {
+          "support_top_z_distance": {
+            "from": "0.45",
+            "to": "0.24"
+          },
+          "support_interface_top_layers": {
+            "from": "2",
+            "to": "3"
+          },
+          "support_interface_spacing": {
+            "from": "0.5",
+            "to": "0"
+          },
+          "bridge_flow": {
+            "from": "1",
+            "to": "1.25"
+          },
+          "bridge_speed": {
+            "from": [
+              "50",
+              "50",
+              "50",
+              "50",
+              "50"
+            ],
+            "to": [
+              "15",
+              "15",
+              "15",
+              "15",
+              "15"
+            ]
+          },
+          "filament_bridge_speed": {
+            "from": [
+              "25",
+              "25",
+              "25"
+            ],
+            "to": [
+              "15",
+              "15",
+              "15"
+            ]
+          },
+          "post_process": {
+            "from": [],
+            "to": [
+              "/Users/derekbredensteiner/Developer/homesodamachine/tools/hsm/target/release/petgf-cooling"
+            ]
+          }
+        }
+      }
+    }
+  },
+  "reslice_required": true
 }

@@ -2,7 +2,7 @@
   "project": "fake-countertop-petgf-mark2-stock.3mf",
   "settings_source": "hardware/printed-parts/petgf.3mf",
   "settings_source_sha256": "3864deceaa295d0fffded05e445b77ee926e2706d8765fdc8bbf81a23fe98697",
-  "settings_sha256": "4626f9bf7ce9e0993d56dcf8f59bc5a7568f2b22f867b9ff4b7fd03768513cce",
+  "settings_sha256": "4269ae6bb02c888dc53e1ffa6ecca32f2756dbc7c6d7df1c4b51989c60379abb",
   "source_settings_sha256": "0ee48f241c338dc7cddd637c2d74f80ee2706d0f974451bec8cb49ba4d206c1e",
   "settings_changes": {
     "machine_start_gcode": {
@@ -13,6 +13,68 @@
     "printer_settings_id": {
       "from": "Bambu Lab H2C 0.4 nozzle 04 first layer by agent",
       "to": "Bambu Lab H2C 0.4 Standard +0.00 Z trim"
+    },
+    "petgf_support_recipe": {
+      "profile": "hardware/printed-parts/petgf.3mf",
+      "sha256": "1be18bdfd75b33efc898b3e5c28a0c1975fc694ef4d94dd88a909472cb96b97f",
+      "members": {
+        "Metadata/filament_settings_1.config": {
+          "filament_bridge_speed": {
+            "from": null,
+            "to": [
+              "15",
+              "15",
+              "15"
+            ]
+          }
+        },
+        "Metadata/project_settings.config": {
+          "support_top_z_distance": {
+            "from": "0.45",
+            "to": "0.24"
+          },
+          "support_interface_top_layers": {
+            "from": "2",
+            "to": "3"
+          },
+          "support_interface_spacing": {
+            "from": "0.5",
+            "to": "0"
+          },
+          "bridge_flow": {
+            "from": "1",
+            "to": "1.25"
+          },
+          "bridge_speed": {
+            "from": [
+              "50",
+              "50",
+              "50",
+              "50",
+              "50"
+            ],
+            "to": [
+              "15",
+              "15",
+              "15",
+              "15",
+              "15"
+            ]
+          },
+          "filament_bridge_speed": {
+            "from": [
+              "25",
+              "25",
+              "25"
+            ],
+            "to": [
+              "15",
+              "15",
+              "15"
+            ]
+          }
+        }
+      }
     }
   },
   "printer": "Bambu Lab H2C 0.4 Standard +0.00 Z trim",
@@ -113,9 +175,10 @@
       "embedded_vertex_error_mm": 5.000018177270249e-10
     }
   ],
-  "project_sha256": "893465afd2d283c47574e05fe0e67b93813bbecaba38a26f5c6db74a1efb8bce",
+  "project_sha256": "6c21ee4c3f99d22b2a7fa6d8c61d69004d018f04a48896dfd98fc71626b6d099",
   "settings_preserved_byte_for_byte": false,
   "status": "offline project preparation; a submission is recorded in print-jobs.json",
   "pose": "show face on the bed, legs up; no support",
-  "variant": "black-mark2-stock"
+  "variant": "black-mark2-stock",
+  "reslice_required": true
 }
