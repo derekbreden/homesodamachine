@@ -348,6 +348,11 @@ fn valves(at: &mut Value, root: &Path) -> Result<()> {
     Ok(())
 }
 fn wagos(at: &mut Value, root: &Path) -> Result<()> {
+    let interfaces = hsm_kernel::reads::json(
+        root.join("hardware/reference/wago-221/terminal-interfaces.json"),
+    )?;
+    let pitch = number(&interfaces["pole_pitch_mm"])?;
+    let entry_z = number(&interfaces["entry_center_z_mm"])?;
     let placements = module("above_core_wiring", "placements", json!([]))?;
     for (name, row) in placements.as_object().context("junction placements")? {
         if !name.starts_with("wago-") {
@@ -361,18 +366,18 @@ fn wagos(at: &mut Value, root: &Path) -> Result<()> {
             "WAGO_TURN"
         })?;
         let pose = frame(at, root, name, string(&reference)?, &turns)?;
-        let (w, d, h, n, rows) = match size {
-            "413" => (18.8, 18.6, 8.4, 3, 1),
-            "415" => (30., 18.6, 8.4, 5, 1),
-            "420" => (29.8, 18.3, 15.8, 10, 2),
+        let (d, h, n, rows) = match size {
+            "413" => (18.6, 8.4, 3, 1),
+            "415" => (18.6, 8.4, 5, 1),
+            "420" => (18.3, 15.8, 10, 2),
             _ => bail!("WAGO size {size}"),
         };
         let cols = n / rows;
         for i in 0..n {
             let p = [
-                -w / 2. + w / cols as f64 * (i % cols) as f64 + w / cols as f64 * 0.5,
+                ((i % cols) as f64 - (cols - 1) as f64 / 2.) * pitch,
                 d / 2.,
-                h * ((i / cols) as f64 + 0.5) / rows as f64,
+                if i / cols == 0 { entry_z } else { h - entry_z },
             ];
             apply(
                 at,
@@ -382,7 +387,7 @@ fn wagos(at: &mut Value, root: &Path) -> Result<()> {
                 p,
                 [0., 1., 0.],
                 "WAGO-port",
-                "Distinct nominal port centres within native WAGO envelope; bores unmodelled",
+                "Modeled wire mouths through the native connector pose with nominal electrical pole order",
                 "nominal",
                 json!(i + 1),
             )?;
@@ -398,13 +403,13 @@ fn wagos(at: &mut Value, root: &Path) -> Result<()> {
                 &format!("wiring-junction-{name}"),
                 &pose,
                 [
-                    -18.8 / 2. + 18.8 / 3. * (i as f64 + 0.5),
+                    (i as f64 - 1.) * pitch,
                     18.6 / 2.,
-                    8.4 / 2.,
+                    entry_z,
                 ],
                 [0., 1., 0.],
                 "WAGO-port",
-                "Nominal port centre in the placed native 221-413 envelope",
+                "Modeled wire mouth through the final connector pose",
                 "nominal",
                 json!(i + 1),
             )?;
@@ -416,56 +421,78 @@ pub fn final_joins() -> Value {
     json!({"compressor-h":[-65.,247.,290.5],"compressor-n":[-85.,247.,290.5],"pump-positive":[-45.,255.,278.]})
 }
 fn power(at: &mut Value, root: &Path) -> Result<()> {
+    let supply = hsm_kernel::reads::json(
+        root.join("hardware/reference/meanwell-irm90/replica-parameters.json"),
+    )?;
     let pose = frame_ea(at, root, "psu", "PSU_STEP", "PSU_TURN")?;
-    for (label, x, side) in [
-        ("L", -4., 1.),
-        ("N", 4., 1.),
-        ("V12", -4., -1.),
-        ("GND", 4., -1.),
+    for (row_name, side, labels) in [
+        ("ac", 1., ["L", "N"]),
+        ("dc", -1., ["V12", "GND"]),
     ] {
-        apply(
-            at,
-            &format!("psu.{label}"),
-            "psu",
-            &pose,
-            [x, side * 52.5, 10.2],
-            [0., side, 0.],
-            "screw",
-            "Representative terminal block; pole pitch and wire entry nominal",
-            "nominal",
-            Value::Null,
-        )?;
-    }
-    for (index, turn) in [(1, "RELAY_TURN"), (2, "RELAY2_TURN")] {
-        let name = format!("relay-{index}");
-        let pose = frame_ea(at, root, &name, "RELAY_STEP", turn)?;
-        for (label, y) in [("COM", -5.), ("NO", 0.), ("NC", 5.)] {
+        let row = rows(&supply["terminals"])?
+            .iter()
+            .find(|row| row["side"].as_f64() == Some(side))
+            .with_context(|| format!("supply {row_name} terminal row"))?;
+        let count = row["poles"].as_u64().context("supply terminal count")? as usize;
+        let pitch = number(&row["pitch"])?;
+        let interface = &supply["terminal_interfaces"][row_name];
+        let center = v(&interface["wire_center"])?;
+        let outward = v(&interface["wire_axis"])?;
+        for (ordinal, label) in labels.into_iter().enumerate() {
+            let pole = (count - labels.len()) / 2 + ordinal;
+            let mut point = center;
+            point[0] += (pole as f64 - (count - 1) as f64 / 2.) * pitch;
             apply(
                 at,
-                &format!("{name}.{label}"),
-                &name,
+                &format!("psu.{label}"),
+                "psu",
                 &pose,
-                [25., y, 11.5],
-                [0., 0., 1.],
+                point,
+                outward,
                 "screw",
-                "Representative relay contact block; pole order nominal",
+                "Manufacturer wire mouths and pitch with nominal circuit pole assignment",
                 "nominal",
                 Value::Null,
             )?;
         }
-        for (label, y) in [("V5", -2.54), ("GND", 0.), ("IN", 2.54)] {
-            apply(
-                at,
-                &format!("{name}.{label}"),
-                &name,
-                &pose,
-                [-26., y, 11.5],
-                [0., 0., 1.],
-                "logic-header",
-                "Representative VCC/GND/IN header; lead termination unlocated",
-                "nominal",
-                Value::Null,
-            )?;
+    }
+    let relay = hsm_kernel::reads::json(
+        root.join("hardware/reference/teyleten-relay/scan-datums.json"),
+    )?;
+    let offsets = rows(&relay["replica_geometry"]["terminal_shape"]["terminal_y_mm"])?
+        .iter()
+        .map(number)
+        .collect::<Result<Vec<_>>>()?;
+    for (index, turn) in [(1, "RELAY_TURN"), (2, "RELAY2_TURN")] {
+        let name = format!("relay-{index}");
+        let pose = frame_ea(at, root, &name, "RELAY_STEP", turn)?;
+        for (group, labels) in [
+            ("contacts", ["COM", "NO", "NC"]),
+            ("logic", ["V5", "GND", "IN"]),
+        ] {
+            let interface = &relay["ports"][group];
+            let center = v(&interface["point_mm"])?;
+            let outward = v(&interface["outward_axis"])?;
+            let across = [-outward[1], outward[0], 0.];
+            let mut mouths = offsets
+                .iter()
+                .map(|&offset| add(center, mul(across, offset)))
+                .collect::<Vec<_>>();
+            mouths.sort_by(|a, b| a[1].total_cmp(&b[1]));
+            for (ordinal, label) in labels.into_iter().enumerate() {
+                apply(
+                    at,
+                    &format!("{name}.{label}"),
+                    &name,
+                    &pose,
+                    *mouths.get(ordinal).context("relay terminal mouth")?,
+                    outward,
+                    "screw",
+                    "Fitted terminal wire mouths with nominal electrical pole order",
+                    "nominal",
+                    Value::Null,
+                )?;
+            }
         }
     }
     let reference = ea("C14_STEP")?;

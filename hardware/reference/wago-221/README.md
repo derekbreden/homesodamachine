@@ -21,6 +21,9 @@ are approximate; a conforming feature that engages a lever pocket or entry mouth
 requires a measurement of the received connector. The seated envelope remains the
 mounting reference.
 
+`terminal-interfaces.json` owns the shared pole pitch and wire-mouth heights. The
+reference generator and installed wiring read these same source-frame datums.
+
 The housing is shown in an opaque neutral color so its surfaces remain readable
 in the website viewer. Orange is reserved for the actuators.
 

@@ -71,6 +71,9 @@ fn source_paths(root: &Path, numbers: &Value) -> Result<Vec<String>> {
         "hardware/reference/g-ganen-pump/reference-parameters.json",
         "hardware/reference/g-ganen-pump/under-head-clearance.json",
         "hardware/reference/g-ganen-pump/underside-observation/rigid-underside.json",
+        "hardware/reference/meanwell-irm90/replica-parameters.json",
+        "hardware/reference/teyleten-relay/scan-datums.json",
+        "hardware/reference/wago-221/terminal-interfaces.json",
     ] {
         paths.insert(root.join(path));
     }
