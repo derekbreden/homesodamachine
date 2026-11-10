@@ -1,7 +1,10 @@
 //! The display reference preserves the measured glass and the supplier's major rear interfaces.
 use anyhow::{Context, Result};
 use hsm_kernel::{Body, Loop, Plane, Profile, Solid, V2, V3, part, v2, v3};
-use std::path::PathBuf;
+use std::{path::PathBuf, sync::LazyLock};
+
+static TERMINAL_INTERFACES: LazyLock<serde_json::Value> = LazyLock::new(||
+    serde_json::from_str(include_str!("terminal-interfaces.json")).expect("display terminal interfaces"));
 
 const GLASS_WIDTH: f64 = 113.5;
 const GLASS_HEIGHT: f64 = 77.;
@@ -15,9 +18,6 @@ const OEM_FRONT_Z: f64 = 4.8;
 const OEM_TO_REPO_Z: f64 = 2.405;
 const PCB_FRONT: f64 = 7.5;
 const PCB_BACK: f64 = 9.1;
-const TERMINAL_POLES: usize = 16;
-const TERMINAL_PITCH: f64 = 3.5;
-const TERMINAL_FIRST_X: f64 = -26.824;
 
 fn block(x0: f64, x1: f64, y0: f64, y1: f64, z0: f64, z1: f64) -> Solid {
     Solid::cuboid(v3(x0, y0, z0), v3(x1, y1, z1))
@@ -76,20 +76,26 @@ fn terminal_socket() -> Result<Solid> {
 }
 
 fn terminal_plug() -> Result<Solid> {
+    let row = &TERMINAL_INTERFACES["row"];
+    let number = |name: &str| row[name].as_f64().expect(name);
+    let section_number = |section: &str, name: &str| row[section][name].as_f64().expect(name);
+    let mouth_supplier_z = OEM_FRONT_Z - number("mouth_y_mm");
     // The plug's cross section retains its broad molded bevel and stepped lip.
     let cross = [
         (-37.3, -2.27), (-24.6, -2.27), (-24.6, -12.57),
-        (-26.8, -12.57), (-27.132, -12.47), (-32.65, -12.47),
+        (-26.8, -12.57), (-27.132, mouth_supplier_z), (-32.65, mouth_supplier_z),
         (-32.65, -11.544), (-36.58, -10.242), (-37.3, -10.42),
     ].map(|(y, z)| v2(y + OEM_TO_REPO_Z, z - OEM_FRONT_Z));
     let plane = Plane::new(v3(-28.575, 0., 0.), V3::Z, V3::X)?;
     let mut plug = plane.extrude(&Profile::polygon(&cross), 56.155)?;
-    for pole in 0..TERMINAL_POLES {
-        let x = TERMINAL_FIRST_X + pole as f64 * TERMINAL_PITCH;
-        let entry_inner = Profile::rect(V2::ZERO, 1.6, 2.525);
-        let entry_outer = Profile::rect(V2::ZERO, 2.529, 4.613);
-        let inner = xz_plane(x, 14.42, -28.913 + OEM_TO_REPO_Z)?;
-        let outer = xz_plane(x, 17.50, -29.691 + OEM_TO_REPO_Z)?;
+    for pole in 0..row["pole_count"].as_u64().context("display pole count")? {
+        let x = number("first_x_mm") + pole as f64 * number("pitch_mm");
+        let entry_inner = Profile::rect(V2::ZERO, section_number("entry_inner", "width_mm"),
+                                         section_number("entry_inner", "height_mm"));
+        let entry_outer = Profile::rect(V2::ZERO, section_number("entry_outer", "width_mm"),
+                                         section_number("entry_outer", "height_mm"));
+        let inner = xz_plane(x, section_number("entry_inner", "y_mm"), section_number("entry_inner", "z_mm"))?;
+        let outer = xz_plane(x, section_number("entry_outer", "y_mm"), section_number("entry_outer", "z_mm"))?;
         let entry = Solid::loft(&[entry_inner.place(&inner), entry_outer.place(&outer)])?;
         let passage = block(x - 0.8, x + 0.8, 8.07, 14.43,
                             -30.175 + OEM_TO_REPO_Z, -27.65 + OEM_TO_REPO_Z);
