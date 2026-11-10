@@ -3009,6 +3009,36 @@
       "record": "hardware/printed-parts/enclosure/enclosure/prints/2026-11-10-back-top-D-mark1/print-job.json",
       "launch": "hardware/printed-parts/enclosure/enclosure/prints/2026-11-10-back-top-D-mark1/launch.json",
       "stop": "hardware/printed-parts/enclosure/enclosure/prints/2026-11-10-back-top-D-mark1/stopped-printer.json"
+    },
+    {
+      "printer": "H2C",
+      "printer_task_id": "1426940190",
+      "date": "2026-11-10",
+      "parts": [
+        "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl"
+      ],
+      "profile": "hardware/printed-parts/petgf.3mf",
+      "profile_sha256": "1be18bdfd75b33efc898b3e5c28a0c1975fc694ef4d94dd88a909472cb96b97f",
+      "project": "hardware/printed-parts/enclosure/enclosure/prints/2026-11-10-back-top-D-mark1/2026-11-10-back-top-mark1-38b1bc8b.3mf",
+      "project_sha256": "5b09af52e71f37274e57c3e99ae37727406f141139d8060abd736d3d9e6320f8",
+      "sliced_file": "hardware/printed-parts/enclosure/enclosure/prints/2026-11-10-back-top-D-mark1/2026-11-10-back-top-D-left04-z018-mark1-print-only.gcode.3mf",
+      "sliced_file_sha256": "c7592a9cf987029a3b88ad11db19b0cbbe61cd6c9fe997eea281f9c3fb098bf8",
+      "gcode_sha256": "85ab1c4fc7fd5b40964cebd03ef4a27e22d0f2f4e73a79a817996d322c09144f",
+      "nozzle": "left 0.4 mm Standard hardened",
+      "filament": "Polymaker PET-GF15 black; PET-CF mapping on left external spool",
+      "z_offset_mm": 0.18,
+      "effective_textured_plate_trim_mm": 0.16,
+      "support_process": "D",
+      "estimated_seconds": 134812.39754771237,
+      "filament_grams": 897.9909057617188,
+      "accepted_at": "2026-11-10T06:52:04+00:00",
+      "status": "started after peer conversations completed; reviewed inputs unchanged",
+      "observed_state": "RUNNING",
+      "observed_layer": 0,
+      "observed_print_error": 0,
+      "record": "hardware/printed-parts/enclosure/enclosure/prints/2026-11-10-back-top-D-mark1/print-job.json",
+      "launch": "hardware/printed-parts/enclosure/enclosure/prints/2026-11-10-back-top-D-mark1/restart-launch.json",
+      "resume_readiness": "hardware/printed-parts/enclosure/enclosure/prints/2026-11-10-back-top-D-mark1/resume-readiness.json"
     }
   ]
 }
