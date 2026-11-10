@@ -1,0 +1,48 @@
+{
+  "purpose": "Record the first density screen's physical support-release and underside result.",
+  "date": "2026-11-09",
+  "printer": "Mark1",
+  "printer_task_id": "1426094680",
+  "specimens": [
+    "A",
+    "B",
+    "C"
+  ],
+  "status": "Completed and inspected by Derek; all specimens self-release and retain unacceptable first-roof strand texture.",
+  "user_observations": [
+    {
+      "verbatim": "on all three samples you just sent, the pieces, the print themselves just fell off."
+    },
+    {
+      "verbatim": "Like as soon as the plate cooled a little bit, the prints just detached. They just slid off. There was no removal of the supports."
+    },
+    {
+      "verbatim": "Less stringy, more fused."
+    }
+  ],
+  "assessment": {
+    "support_removal": "All ceilings separate from their supports without a manual removal step.",
+    "underside": "Visible distinct parallel roof strands and local projecting strands remain.",
+    "ranking": "No acceptable candidate and no per-label ranking supplied.",
+    "physical_measurements": "No numerical sag, remaining roof thickness or bonding-force measurement supplied."
+  },
+  "photo_scope": "Derek supplied the full photo set in this chat. Representative support mats and all roof undersides are retained here; photos do not reliably identify each letter.",
+  "photos": [
+    {
+      "source_name": "1-Photo-1.jpg",
+      "path": "photos/01-separated-supports.jpg",
+      "source_sha256": "13cc33f9efa57d5e16b295aa9aa72a568eb03fe9eefdc9b249971945c8238641",
+      "sha256": "de8ac07e4f7ba21a8c68d03c0c2cae5f674fc5403b97453b8724e998d7849201",
+      "processing": "JPEG scan data and decoded pixels preserved; private application metadata and comments omitted; orientation retained if needed."
+    },
+    {
+      "source_name": "8-Photo-8.jpg",
+      "path": "photos/02-roof-undersides.jpg",
+      "source_sha256": "3f3c700d8bdcce125e421c742ff90d8283f6eb194f59cf291f33abd94b06cda9",
+      "sha256": "9635e5153908af990ca30a4e5136ad69b166c7b81fe382b11e27d98708bc8b1f",
+      "processing": "JPEG scan data and decoded pixels preserved; private application metadata and comments omitted; orientation retained if needed."
+    }
+  ],
+  "next_experiment": "close-contact/README.md",
+  "representative_enclosure_plate": "Prepared offline; further variant printing deferred in favor of the close-contact ceiling experiment."
+}

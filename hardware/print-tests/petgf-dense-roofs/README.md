@@ -5,6 +5,13 @@ a solid interface. The open-front ceilings expose a broad underside, wall
 junctions and an accessible peel edge. Raised letters stay on each roof; the
 front of the roof stays flat for a caliper measurement.
 
+Derek reports that all ceilings separate from the supports on cooling without
+manual support removal. The retained roof strands remain visibly separate and
+locally projecting. None is an acceptable supported underside. The
+[physical result and photos](physical-result.json) record the observations;
+the [close-contact plate](close-contact/README.md) tests tighter gaps and the
+selected bridge flow and speed.
+
 Facing Mark1, the coupons run left to right:
 
 | Label | Interface |
@@ -67,7 +74,8 @@ thermal comparison.
 source links and scope of each recommendation. The
 [representative enclosure scenarios](../enclosure-support-scenarios/README.md)
 provide rail, handhold and holed-pad samples for carrying selected densities
-forward after the initial physical results.
+forward after a useful ceiling contact is established. Printing those variants
+is deferred while the close-contact ceiling experiment runs.
 
 ## Reproduce
 

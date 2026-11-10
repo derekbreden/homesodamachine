@@ -1,0 +1,28 @@
+{
+  "printer": "H2C",
+  "observed_at": "2026-11-10T00:45:15.793215+00:00",
+  "archive": {
+    "name": "2026-11-09-close-contact-DEF-left04-z018-mark1.gcode.3mf",
+    "sha256": "22cb805001498a4caf70fabf36b4448caae32a8ecc22754b13a335f9ae68f253",
+    "gcode_sha256": "958e7163875078c5fa453f3a5cc083af0c9cb6ab38a13b3a16f1685d87ecc593",
+    "slots": {
+      "1": {
+        "type": "PET-CF",
+        "colour": "000000"
+      }
+    },
+    "objects": [
+      "D interface spacing 0.0",
+      "E interface spacing 0.0",
+      "F interface spacing 0.0"
+    ]
+  },
+  "printer_task_id": "1426235771",
+  "gcode_state": "RUNNING",
+  "subtask_name": "2026-11-09-close-contact-DEF-left04-z018-mark1.gcode.3mf",
+  "print_error": 0,
+  "hms": [],
+  "layer_num": 0,
+  "total_layer_num": 50,
+  "mc_remaining_time": 26
+}

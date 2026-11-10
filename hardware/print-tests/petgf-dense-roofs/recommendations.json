@@ -14,47 +14,91 @@
     {
       "url": "https://fiberon.polymaker.com/wp-content/uploads/TDS_FIBERON-PET-GF15_V1.0_EN.pdf",
       "kind": "Material manufacturer's technical data sheet",
-      "nozzle_temperature_range_c": [280, 310],
-      "bed_temperature_range_c": [70, 80],
+      "nozzle_temperature_range_c": [
+        280,
+        310
+      ],
+      "bed_temperature_range_c": [
+        70,
+        80
+      ],
       "general_fan_recommendation": "Off",
       "scope": "General material guidance; the current profile's first-layer and local bridge cooling are established local treatments, held common in this screen."
     }
   ],
   "initial_screen": {
-    "interface_spacing_mm": [0.5, 0.15, 0.0],
+    "interface_spacing_mm": [
+      0.5,
+      0.15,
+      0.0
+    ],
     "requested_top_z_distance_mm": 0.45,
     "measured_planned_gap_mm": 0.48,
     "interface_layers": 2,
     "reason": "Isolate interface density with a current-spacing control while retaining the existing tree-support release gap.",
-    "inference": "The denser mat may support the first roof course better; successful peel and retained surface quality remain unmeasured."
+    "inference": "The denser mat may support the first roof course better; successful peel and retained surface quality remain unmeasured.",
+    "physical_result": "All coupons self-release from supports during cooling; retained roof strands remain separate and locally projecting. No acceptable candidate."
   },
   "next_comparison": {
-    "priority": "Density and Z-gap interaction",
-    "requested_top_z_distances_mm": [0.3, 0.45],
-    "expected_planned_gaps_mm_under_current_layer_schedule": [0.24, 0.48],
-    "interface_spacing": ["Current-spacing control", "Best dense candidate from this plate"],
-    "interface_layers": 2,
-    "repeat_controls": true,
-    "reason": "A smaller gap can reduce sag while increasing fusion; density may change that tradeoff. Existing large tree-support coupons favor the larger release gap, whereas narrow removable-wall coupons favor the smaller gap. Those results apply to their own contact geometry.",
-    "requires": "Physical results from the initial plate and discussion with Derek; no larger plate is scheduled."
+    "priority": "Tighter contacts and improved first-roof bonding on tiny ceilings",
+    "active_experiment": "close-contact/README.md",
+    "ids": [
+      "D",
+      "E",
+      "F"
+    ],
+    "interface_spacing_mm": 0.0,
+    "interface_layers": 3,
+    "support_style": "tree_slim",
+    "requested_top_z_distances_mm": [
+      0.24,
+      0.12,
+      0.06
+    ],
+    "measured_planned_bead_gaps_mm": [
+      0.18,
+      0.06,
+      0.02
+    ],
+    "bridge_flow_ratio": 1.25,
+    "effective_bridge_speed_mm_s": 15,
+    "reason": "The first screen self-releases and retains loose model roof strands. The current comparison strengthens the landing surface and first model course while varying only the contact gap within the plate.",
+    "repeat_initial_conditions": false,
+    "larger_plate_status": "Prepared representative enclosure geometry is deferred pending a useful ceiling-contact result."
   },
   "later_factors": [
     {
       "factor": "Interface layer count",
-      "candidate_layers": [2, 4],
+      "candidate_layers": [
+        2,
+        4
+      ],
       "trigger": "The support mat itself remains uneven or fragile.",
       "reason": "A thicker mat may distribute support and peel as a sheet; it also costs time and material and does not directly change contact gap."
     },
     {
       "factor": "Representative geometry and direction",
-      "candidate_bridge_directions_degrees": [0, 90],
-      "geometry": ["Repeated open-front ceiling", "Longer ceiling", "Current mating-cavity crop"],
+      "candidate_bridge_directions_degrees": [
+        0,
+        90
+      ],
+      "geometry": [
+        "Repeated open-front ceiling",
+        "Longer ceiling",
+        "Current mating-cavity crop"
+      ],
       "reason": "Assess direction sensitivity, sag, wall-edge adhesion and practical removal access before transferring a flat short coupon result."
     },
     {
       "factor": "First model bridge course",
-      "candidate_native_bridge_flow": [1.0, 1.25],
-      "candidate_effective_bridge_speed_mm_s": [15, 25],
+      "candidate_native_bridge_flow": [
+        1.0,
+        1.25
+      ],
+      "candidate_effective_bridge_speed_mm_s": [
+        15,
+        25
+      ],
       "trigger": "An intact support mat releases, but the retained first model course remains loose.",
       "reason": "Existing PET-GF bridge experiments support these candidates; they do not establish a universal winner for supported ceilings. Hold cooling and contact geometry common."
     }
