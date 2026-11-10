@@ -77,16 +77,6 @@
   ],
   "flange_thickness_mm": 5.0,
   "funnel_to_mould_z_translation_mm": 50.150000000000006,
-  "liquid_containment": {
-    "assembled": {
-      "casting_outside_retained_mm3": 0.0,
-      "retained_volume_ml": 367.35928419877774
-    },
-    "cavity": {
-      "casting_outside_retained_mm3": 0.0,
-      "retained_volume_ml": 1046.996787967769
-    }
-  },
   "load_screen": {
     "condition": "complete mold inside chamber; fill, vents, rod guide and drilled dry-side infill breathers open to chamber air",
     "head_pressure_kpa": 0.6313078350000001,
@@ -116,7 +106,6 @@
     "slot_travel_each_way_mm": 1.5
   },
   "minimum_cavity_backing_mm": 5.01,
-  "minimum_core_backing_mm": 7.501516889518539,
   "nominal_chamber_diameter_mm": 299.72,
   "parting_z_mm": 59.150000000000006,
   "plug_blank_mm": [
@@ -274,16 +263,16 @@
   },
   "shell_sha256": {
     "cavity.step": "722aebc15bd9f92422a64caf6ef017ce0bc95263f31de8c233cab57e92403d17",
-    "cavity.step.mesh": "3d2d6ccd933af11a842e6a034a972fa1943dcd94522f3953bbf9a74f1486fd72",
-    "cavity.step.npz": "af775bebb0c24c1c2e301d669c14ea6b3891ad4a5c55cb87fe04b3a80ade75f8",
+    "cavity.step.mesh": "da68e293758a3f1b12213a215b213a87674204b2e987c068d520c08369dc1aa0",
+    "cavity.step.npz": "6d2a20d1efc5703ad54af80bf3d88e5f67ef5f0d1fb46b5cdcfc5af25f2e40d0",
     "cavity.stl": "a5ae1b39b716e956d030fab9c10843968383bad95f15a89171f23c4574ba4ae5",
     "core.step": "da393b351e70b7f4c9937610b3badcf865c90bf524d7f7afecb5452ba507dea0",
-    "core.step.mesh": "fa58585345d490b88b20712f87a4cd4c2a04d9769bf8f08e83284f81ff30ef23",
-    "core.step.npz": "8634f0a9c3a9e4ae724816a3e98815a31502186f84035912bd2532701f577fed",
+    "core.step.mesh": "bfa053c9f0211fea31ef80601278d0cfa237b06a836cd8a87c5c1f8e81200484",
+    "core.step.npz": "10bb4a810f700ff9612bf0c1d062c8300da15765745279999bc83bce73de22b3",
     "core.stl": "078f9385bc7d0d28b789a19f510dba548ff79dc152e7869497137fb8f7cf0182"
   },
   "shell_thickness_mm": 5.0,
-  "status": "Complete two-body tooling with flat print bases and straight stock steel rod; authored fine geometry verified",
+  "status": "Complete two-body tooling with flat print bases and straight stock steel rod; source-authored fine geometry",
   "volume_measurement_scope": "Numerical integration of the fine f64 models; printed facets have their own bound records.",
   "volume_ml": {
     "cavity": 1573.3935344437746,
