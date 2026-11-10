@@ -956,8 +956,9 @@
     "hardware/reference/wago-221/wago-221-420.step": "2856c51b09c8b9590e382dab282b45f0361379d30c5e5727cd68f5ed20b28373",
     "hardware/reference/wago-221/wago-221-420.step.mesh": "d81cec9c254c9e25d771a77c3d22ffda702fca0230138886ee470be6a2ecc27f",
     "hardware/reference/wago-221/wago-221-420.step.npz": "3b88294f15351de957de516f75743068f1491a523065a32334d8cc1da2c110f9",
-    "hardware/reference/waveshare-43b-display/waveshare-43b-display.step": "6efb83f5a4b7c8b48d8e6fd9f862ae9461363068cf6eaf5b105bf35b6e5bb6c4",
+    "hardware/reference/waveshare-43b-display/waveshare-43b-display.step": "5076425927ad9fa3421fe746f915bc0f271a584e595a30872a0fbc7e311b99cc",
     "hardware/reference/waveshare-43b-display/waveshare-43b-display.step.mesh": "da1ccb3882d2da36efcfdf70a96738eaf86ee2368097a5a820c2b919cd04e040",
+    "hardware/reference/waveshare-43b-display/waveshare-43b-display.step.npz": "8c22cf100cf5f538bd23f3eb4ed3d0d0c64462c08bd0974b7ca90e7a669b7e24",
     "hardware/reference/worm-clamp/worm-clamp.step": "87d7406a23653f1903267074844297dd9003fa066e2daf0d392cb3a46ac52dda",
     "hardware/reference/worm-clamp/worm-clamp.step.mesh": "2b9fc9020991b824c510d39c3f1a6b076a2c329922e4c3651facfa65fdac9cb8",
     "hardware/reference/wr1110-regulator/wr1110-regulator.step": "4b526a6bb16a662d9fe88ad2f4fba3f2208791f600a79cc88e59c7d7b5c8299b",
@@ -1521,7 +1522,7 @@
       "hardware/reference/wago-221/wago-221-415.step.mesh": "97dcf520aeb07e884e0a7a04897fc86f899e20e2b78f30ab20e6d9d7aac10f6d",
       "hardware/reference/wago-221/wago-221-420.step": "2856c51b09c8b9590e382dab282b45f0361379d30c5e5727cd68f5ed20b28373",
       "hardware/reference/wago-221/wago-221-420.step.mesh": "d81cec9c254c9e25d771a77c3d22ffda702fca0230138886ee470be6a2ecc27f",
-      "hardware/reference/waveshare-43b-display/waveshare-43b-display.step": "6efb83f5a4b7c8b48d8e6fd9f862ae9461363068cf6eaf5b105bf35b6e5bb6c4",
+      "hardware/reference/waveshare-43b-display/waveshare-43b-display.step": "5076425927ad9fa3421fe746f915bc0f271a584e595a30872a0fbc7e311b99cc",
       "hardware/reference/waveshare-43b-display/waveshare-43b-display.step.mesh": "da1ccb3882d2da36efcfdf70a96738eaf86ee2368097a5a820c2b919cd04e040",
       "hardware/reference/yzmsz-water-regulator/geometry/yzmsz-water-regulator.step": "80ad0ffbdd68a008240ac77d089afa0a9f658aa76ca04dd875df0200f5014e2c",
       "hardware/reference/yzmsz-water-regulator/geometry/yzmsz-water-regulator.step.mesh": "4baeedc052b285056e6f4e57189aebc5187a82fc320ad96e5526a1535e065513"
@@ -2925,8 +2926,9 @@
     "hardware/reference/wago-221/wago-221-420.step": 1794271100.173635,
     "hardware/reference/wago-221/wago-221-420.step.mesh": 1794271090.8505769,
     "hardware/reference/wago-221/wago-221-420.step.npz": 1794271411.5702882,
-    "hardware/reference/waveshare-43b-display/waveshare-43b-display.step": 1787356215,
+    "hardware/reference/waveshare-43b-display/waveshare-43b-display.step": 1794271683.8106298,
     "hardware/reference/waveshare-43b-display/waveshare-43b-display.step.mesh": 1794271678.172905,
+    "hardware/reference/waveshare-43b-display/waveshare-43b-display.step.npz": 1794271683.8106298,
     "hardware/reference/worm-clamp/worm-clamp.step": 1787578592,
     "hardware/reference/worm-clamp/worm-clamp.step.mesh": 1793568839,
     "hardware/reference/wr1110-regulator/wr1110-regulator.step": 1790196723,
@@ -5408,11 +5410,15 @@
       "unproven": true
     },
     "hardware/reference/waveshare-43b-display/waveshare-43b-display.step": {
-      "commit": "d2c7e36f5c616919c8be5d1ccb8205b0fbac8540",
+      "commit": "32f1ed2c3c0e1d69bd5e36e5e2c9758f4bed5396",
       "unproven": true
     },
     "hardware/reference/waveshare-43b-display/waveshare-43b-display.step.mesh": {
       "commit": "908851a7aa1d24c14ed25aae7b039f56b9a63eff",
+      "unproven": true
+    },
+    "hardware/reference/waveshare-43b-display/waveshare-43b-display.step.npz": {
+      "commit": "32f1ed2c3c0e1d69bd5e36e5e2c9758f4bed5396",
       "unproven": true
     },
     "hardware/reference/worm-clamp/worm-clamp.step": {
