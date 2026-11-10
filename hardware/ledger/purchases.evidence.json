@@ -628,7 +628,7 @@
     "pur-dcfef64f3f264f2f95eb43659806718f": {
       "vendor": "SendCutSend",
       "purpose": "components",
-      "amount_evidence": "legacy_unverified",
+      "amount_evidence": "final_vendor_amount",
       "order_ids": [
         "sendcutsend:SG019619"
       ],
@@ -636,13 +636,39 @@
       "source_ids": [
         "legacy-ledger-2026",
         "saved-sendcutsend:SG019619",
-        "src-9fb872416f524359aa3e5911438fbf0b"
+        "src-9fb872416f524359aa3e5911438fbf0b",
+        "src-cb28d3a701d344de847194f5133ddf5b",
+        "src-8b6f426cc217447985d7885823195bea"
+      ],
+      "price_history": [
+        {
+          "amount_minor": 62119,
+          "currency": "USD",
+          "amount_evidence": "legacy_unverified",
+          "source_ids": [
+            "legacy-ledger-2026",
+            "saved-sendcutsend:SG019619",
+            "src-9fb872416f524359aa3e5911438fbf0b"
+          ],
+          "verified_at": "2026-11-10",
+          "note": "Prior recorded amount, preserved as noncontributing history; the paid vendor invoice confirms the same value."
+        }
+      ],
+      "invoice_date": {
+        "precision": "day",
+        "value": "2026-04-25"
+      },
+      "delivery_dates": [
+        {
+          "precision": "day",
+          "value": "2026-04-30"
+        }
       ]
     },
     "pur-0b97fae73c024c86b30887d80ae3e384": {
       "vendor": "SendCutSend",
       "purpose": "components",
-      "amount_evidence": "legacy_unverified",
+      "amount_evidence": "final_vendor_amount",
       "order_ids": [
         "sendcutsend:SQ65E969"
       ],
@@ -650,13 +676,32 @@
       "source_ids": [
         "legacy-ledger-2026",
         "saved-sendcutsend:SQ65E969",
-        "src-390e0a721cd44f41a94273c362c3646a"
-      ]
+        "src-390e0a721cd44f41a94273c362c3646a",
+        "src-71c61335674a46a6931c3ef109019d52"
+      ],
+      "price_history": [
+        {
+          "amount_minor": 6019,
+          "currency": "USD",
+          "amount_evidence": "legacy_unverified",
+          "source_ids": [
+            "legacy-ledger-2026",
+            "saved-sendcutsend:SQ65E969",
+            "src-390e0a721cd44f41a94273c362c3646a"
+          ],
+          "verified_at": "2026-11-10",
+          "note": "Prior recorded amount, preserved as noncontributing history; the paid vendor invoice confirms the same value."
+        }
+      ],
+      "invoice_date": {
+        "precision": "day",
+        "value": "2026-04-16"
+      }
     },
     "pur-fcca5d9c2ff44cdba4f21d5a544fbcef": {
       "vendor": "SendCutSend",
       "purpose": "components",
-      "amount_evidence": "legacy_unverified",
+      "amount_evidence": "final_vendor_amount",
       "order_ids": [
         "sendcutsend:SV07U813"
       ],
@@ -664,13 +709,32 @@
       "source_ids": [
         "legacy-ledger-2026",
         "saved-sendcutsend:SV07U813",
-        "src-4e71dd03375b496f99a8c11b2c7503b3"
-      ]
+        "src-4e71dd03375b496f99a8c11b2c7503b3",
+        "src-98052708bc3a4d4697484c672d65e01b"
+      ],
+      "price_history": [
+        {
+          "amount_minor": 4552,
+          "currency": "USD",
+          "amount_evidence": "legacy_unverified",
+          "source_ids": [
+            "legacy-ledger-2026",
+            "saved-sendcutsend:SV07U813",
+            "src-4e71dd03375b496f99a8c11b2c7503b3"
+          ],
+          "verified_at": "2026-11-10",
+          "note": "Prior recorded amount, preserved as noncontributing history; the paid vendor invoice confirms the same value."
+        }
+      ],
+      "invoice_date": {
+        "precision": "day",
+        "value": "2026-04-16"
+      }
     },
     "pur-5133bb7161d64ebc8dd128da8a97b6f0": {
       "vendor": "SendCutSend",
       "purpose": "components",
-      "amount_evidence": "legacy_unverified",
+      "amount_evidence": "final_vendor_amount",
       "order_ids": [
         "sendcutsend:SP54G453"
       ],
@@ -678,34 +742,89 @@
       "source_ids": [
         "legacy-ledger-2026",
         "saved-sendcutsend:SP54G453",
-        "src-86fcdbb0f3a2433cb6c7239fa01e77b9"
-      ]
+        "src-86fcdbb0f3a2433cb6c7239fa01e77b9",
+        "src-aac8b35192d44b9698333c2cc3c44f12"
+      ],
+      "price_history": [
+        {
+          "amount_minor": 13438,
+          "currency": "USD",
+          "amount_evidence": "legacy_unverified",
+          "source_ids": [
+            "legacy-ledger-2026",
+            "saved-sendcutsend:SP54G453",
+            "src-86fcdbb0f3a2433cb6c7239fa01e77b9"
+          ],
+          "verified_at": "2026-11-10",
+          "note": "Prior recorded amount, preserved as noncontributing history; the paid vendor invoice confirms the same value."
+        }
+      ],
+      "invoice_date": {
+        "precision": "day",
+        "value": "2026-04-24"
+      }
     },
     "pur-5fae169d013f41d197ba6f7e6a43c212": {
       "vendor": "SendCutSend",
       "purpose": "components",
-      "amount_evidence": "legacy_unverified",
+      "amount_evidence": "final_vendor_amount",
       "order_ids": [
         "sendcutsend:S064D925"
       ],
       "allocation_status": "all_project",
       "source_ids": [
         "legacy-ledger-2026",
-        "saved-sendcutsend:S064D925"
-      ]
+        "saved-sendcutsend:S064D925",
+        "src-79f751be9ef74036b227a491ec4de084"
+      ],
+      "price_history": [
+        {
+          "amount_minor": 3629,
+          "currency": "USD",
+          "amount_evidence": "legacy_unverified",
+          "source_ids": [
+            "legacy-ledger-2026",
+            "saved-sendcutsend:S064D925"
+          ],
+          "verified_at": "2026-11-10",
+          "note": "Prior recorded amount, preserved as noncontributing history; the paid vendor invoice confirms the same value."
+        }
+      ],
+      "invoice_date": {
+        "precision": "day",
+        "value": "2026-05-10"
+      }
     },
     "pur-bf8d135df8f84025b5e36f07d38b311c": {
       "vendor": "SendCutSend",
       "purpose": "components",
-      "amount_evidence": "legacy_unverified",
+      "amount_evidence": "final_vendor_amount",
       "order_ids": [
         "sendcutsend:S4177511"
       ],
       "allocation_status": "all_project",
       "source_ids": [
         "legacy-ledger-2026",
-        "saved-sendcutsend:S4177511"
-      ]
+        "saved-sendcutsend:S4177511",
+        "src-dfbb470b44ae4cb2b6382443d8a67370"
+      ],
+      "price_history": [
+        {
+          "amount_minor": 3478,
+          "currency": "USD",
+          "amount_evidence": "legacy_unverified",
+          "source_ids": [
+            "legacy-ledger-2026",
+            "saved-sendcutsend:S4177511"
+          ],
+          "verified_at": "2026-11-10",
+          "note": "Prior recorded amount, preserved as noncontributing history; the paid vendor invoice confirms the same value."
+        }
+      ],
+      "invoice_date": {
+        "precision": "day",
+        "value": "2026-06-19"
+      }
     },
     "pur-ceca42852b574a18a19ff73157582131": {
       "vendor": "Amazon",
@@ -8461,53 +8580,137 @@
     "pur-7f5e5ae2f85e4d74bca9edb78b7332f0": {
       "vendor": "Amazon",
       "purpose": "equipment_tooling",
-      "amount_evidence": "estimate",
+      "amount_evidence": "final_vendor_amount",
       "order_ids": [
         "amazon:114-0006703-7518633"
       ],
       "allocation_status": "all_project",
       "source_ids": [
         "src-ed76085250f14e07816a73e4ce658525",
-        "src-ae55c5c9340f446d9252acbc07d9463c"
+        "src-ae55c5c9340f446d9252acbc07d9463c",
+        "src-f9315403f2e74af2990946b0fef36371",
+        "src-690236c050294702939c2c0167c134e0"
+      ],
+      "price_history": [
+        {
+          "amount_minor": 6969,
+          "currency": "USD",
+          "amount_evidence": "estimate",
+          "source_ids": [
+            "src-ed76085250f14e07816a73e4ce658525",
+            "src-ae55c5c9340f446d9252acbc07d9463c"
+          ],
+          "verified_at": "2026-11-10",
+          "note": "Prior quoted amount retained as noncontributing history; final order details and completed charge corroborate the same value."
+        }
+      ],
+      "delivery_dates": [
+        {
+          "precision": "day",
+          "value": "2026-10-27"
+        }
       ]
     },
     "pur-ae7d87fe77614d0098db388d7f0fa11d": {
       "vendor": "Amazon",
       "purpose": "equipment_tooling",
-      "amount_evidence": "estimate",
+      "amount_evidence": "final_vendor_amount",
       "order_ids": [
         "amazon:114-0006703-7518633"
       ],
       "allocation_status": "all_project",
       "source_ids": [
         "src-ed76085250f14e07816a73e4ce658525",
-        "src-ae55c5c9340f446d9252acbc07d9463c"
+        "src-ae55c5c9340f446d9252acbc07d9463c",
+        "src-f9315403f2e74af2990946b0fef36371",
+        "src-690236c050294702939c2c0167c134e0"
+      ],
+      "price_history": [
+        {
+          "amount_minor": 18230,
+          "currency": "USD",
+          "amount_evidence": "estimate",
+          "source_ids": [
+            "src-ed76085250f14e07816a73e4ce658525",
+            "src-ae55c5c9340f446d9252acbc07d9463c"
+          ],
+          "verified_at": "2026-11-10",
+          "note": "Prior quoted amount retained as noncontributing history; final order details and completed charge corroborate the same value."
+        }
+      ],
+      "delivery_dates": [
+        {
+          "precision": "day",
+          "value": "2026-10-26"
+        }
       ]
     },
     "pur-e17001f6d6074a8884e9e1b2af82fa1f": {
       "vendor": "Amazon",
       "purpose": "equipment_tooling",
-      "amount_evidence": "estimate",
+      "amount_evidence": "final_vendor_amount",
       "order_ids": [
         "amazon:114-0006703-7518633"
       ],
       "allocation_status": "all_project",
       "source_ids": [
         "src-ed76085250f14e07816a73e4ce658525",
-        "src-ae55c5c9340f446d9252acbc07d9463c"
+        "src-ae55c5c9340f446d9252acbc07d9463c",
+        "src-f9315403f2e74af2990946b0fef36371",
+        "src-690236c050294702939c2c0167c134e0"
+      ],
+      "price_history": [
+        {
+          "amount_minor": 4286,
+          "currency": "USD",
+          "amount_evidence": "estimate",
+          "source_ids": [
+            "src-ed76085250f14e07816a73e4ce658525",
+            "src-ae55c5c9340f446d9252acbc07d9463c"
+          ],
+          "verified_at": "2026-11-10",
+          "note": "Prior quoted amount retained as noncontributing history; final order details and completed charge corroborate the same value."
+        }
+      ],
+      "delivery_dates": [
+        {
+          "precision": "day",
+          "value": "2026-10-25"
+        }
       ]
     },
     "pur-242d69307ce84a69948b9e502ff3dd71": {
       "vendor": "Amazon",
       "purpose": "equipment_tooling",
-      "amount_evidence": "estimate",
+      "amount_evidence": "final_vendor_amount",
       "order_ids": [
         "amazon:114-0006703-7518633"
       ],
       "allocation_status": "all_project",
       "source_ids": [
         "src-ed76085250f14e07816a73e4ce658525",
-        "src-ae55c5c9340f446d9252acbc07d9463c"
+        "src-ae55c5c9340f446d9252acbc07d9463c",
+        "src-f9315403f2e74af2990946b0fef36371",
+        "src-690236c050294702939c2c0167c134e0"
+      ],
+      "price_history": [
+        {
+          "amount_minor": 6004,
+          "currency": "USD",
+          "amount_evidence": "estimate",
+          "source_ids": [
+            "src-ed76085250f14e07816a73e4ce658525",
+            "src-ae55c5c9340f446d9252acbc07d9463c"
+          ],
+          "verified_at": "2026-11-10",
+          "note": "Prior quoted amount retained as noncontributing history; final order details and completed charge corroborate the same value."
+        }
+      ],
+      "delivery_dates": [
+        {
+          "precision": "day",
+          "value": "2026-10-26"
+        }
       ]
     },
     "pur-2b7d4e1a9c3f4e6b8a1d5c7e9f0a2b41": {
@@ -9246,6 +9449,128 @@
         "precision": "day",
         "value": "2026-10-28"
       }
+    },
+    "pur-f72407db7ffa450695c514cf2f38539b": {
+      "vendor": "Amazon",
+      "purpose": "components",
+      "amount_evidence": "estimate",
+      "order_ids": [
+        "amazon:112-3519445-7276244"
+      ],
+      "allocation_status": "all_project",
+      "source_ids": [
+        "src-821de3ba9cfc4967ac712f6960983312",
+        "src-37ceea4a8ea54360a5ba11cafbcef9eb"
+      ]
+    },
+    "pur-0b426a7ded014916bd32dde66a3d3030": {
+      "vendor": "Amazon",
+      "purpose": "equipment_tooling",
+      "amount_evidence": "final_vendor_amount",
+      "order_ids": [
+        "amazon:114-1960396-3476246"
+      ],
+      "allocation_status": "all_project",
+      "source_ids": [
+        "src-1606a3fcb22b442bab96cdb088ff9fd1",
+        "src-656b58356e3e466c9419d7e05fb86de6"
+      ],
+      "delivery_dates": [
+        {
+          "precision": "day",
+          "value": "2026-11-06"
+        }
+      ]
+    },
+    "pur-97a6d900980c4b878f717f19b72badae": {
+      "vendor": "Amazon",
+      "purpose": "consumables_materials",
+      "amount_evidence": "final_vendor_amount",
+      "order_ids": [
+        "amazon:114-3909134-4758645"
+      ],
+      "allocation_status": "all_project",
+      "source_ids": [
+        "src-bc7d37593c2d4dea985f629478a14f28",
+        "src-53517e32a232483e80a770d5ab4d0a41"
+      ],
+      "delivery_dates": [
+        {
+          "precision": "day",
+          "value": "2026-11-07"
+        }
+      ]
+    },
+    "pur-129fa4df379f4d1f84fecfdeb5861ef3": {
+      "vendor": "Amazon",
+      "purpose": "consumables_materials",
+      "amount_evidence": "final_vendor_amount",
+      "order_ids": [
+        "amazon:112-3330732-0617859"
+      ],
+      "allocation_status": "all_project",
+      "source_ids": [
+        "src-e788b12beee84f2a99870ebb3c27ae8b",
+        "src-2e74e31006df42e2a04196d48a7d0a47"
+      ],
+      "delivery_dates": [
+        {
+          "precision": "day",
+          "value": "2026-10-29"
+        }
+      ]
+    },
+    "pur-d6686b26577043b2acf9c6793d085302": {
+      "vendor": "Amazon",
+      "purpose": "consumables_materials",
+      "amount_evidence": "estimate",
+      "order_ids": [
+        "amazon:114-1335582-7182630"
+      ],
+      "allocation_status": "unresolved",
+      "source_ids": [
+        "src-767b54b3914746cb845d87ca8cae6a35"
+      ],
+      "delivery_dates": [
+        {
+          "precision": "day",
+          "value": "2026-11-04"
+        }
+      ]
+    },
+    "pur-27c75fd6a5cd4d11845a52bda3c21fda": {
+      "vendor": "SendCutSend",
+      "purpose": "components",
+      "amount_evidence": "final_vendor_amount",
+      "order_ids": [
+        "sendcutsend:ST05Y776"
+      ],
+      "allocation_status": "all_project",
+      "source_ids": [
+        "src-5fa10fc1dfba4ae988a9e92f49eff095",
+        "src-925c10af62924153903791dbcc07e353"
+      ],
+      "invoice_date": {
+        "precision": "day",
+        "value": "2026-04-15"
+      }
+    },
+    "pur-7abe2dc0fbe64c65a86dab96c07db02d": {
+      "vendor": "SendCutSend",
+      "purpose": "components",
+      "amount_evidence": "final_vendor_amount",
+      "order_ids": [
+        "sendcutsend:SW26G213"
+      ],
+      "allocation_status": "all_project",
+      "source_ids": [
+        "src-bd019517edad4db09a1e8baf3373bb3e",
+        "src-100f59882ad24dd2b1af6ef32b5846bb"
+      ],
+      "invoice_date": {
+        "precision": "day",
+        "value": "2026-04-13"
+      }
     }
   },
   "orders": {
@@ -9580,7 +9905,9 @@
       "allocation_status": "all_project",
       "source_ids": [
         "saved-sendcutsend:SG019619",
-        "src-9fb872416f524359aa3e5911438fbf0b"
+        "src-9fb872416f524359aa3e5911438fbf0b",
+        "src-cb28d3a701d344de847194f5133ddf5b",
+        "src-8b6f426cc217447985d7885823195bea"
       ]
     },
     "sendcutsend:SQ65E969": {
@@ -9590,7 +9917,8 @@
       "allocation_status": "all_project",
       "source_ids": [
         "saved-sendcutsend:SQ65E969",
-        "src-390e0a721cd44f41a94273c362c3646a"
+        "src-390e0a721cd44f41a94273c362c3646a",
+        "src-71c61335674a46a6931c3ef109019d52"
       ]
     },
     "sendcutsend:SV07U813": {
@@ -9600,7 +9928,8 @@
       "allocation_status": "all_project",
       "source_ids": [
         "saved-sendcutsend:SV07U813",
-        "src-4e71dd03375b496f99a8c11b2c7503b3"
+        "src-4e71dd03375b496f99a8c11b2c7503b3",
+        "src-98052708bc3a4d4697484c672d65e01b"
       ]
     },
     "sendcutsend:SP54G453": {
@@ -9610,7 +9939,8 @@
       "allocation_status": "all_project",
       "source_ids": [
         "saved-sendcutsend:SP54G453",
-        "src-86fcdbb0f3a2433cb6c7239fa01e77b9"
+        "src-86fcdbb0f3a2433cb6c7239fa01e77b9",
+        "src-aac8b35192d44b9698333c2cc3c44f12"
       ]
     },
     "sendcutsend:S064D925": {
@@ -9619,7 +9949,8 @@
       "order_date": null,
       "allocation_status": "all_project",
       "source_ids": [
-        "saved-sendcutsend:S064D925"
+        "saved-sendcutsend:S064D925",
+        "src-79f751be9ef74036b227a491ec4de084"
       ]
     },
     "sendcutsend:S4177511": {
@@ -9631,7 +9962,8 @@
       },
       "allocation_status": "all_project",
       "source_ids": [
-        "saved-sendcutsend:S4177511"
+        "saved-sendcutsend:S4177511",
+        "src-dfbb470b44ae4cb2b6382443d8a67370"
       ]
     },
     "amazon:112-1089976-3089830": {
@@ -15090,7 +15422,9 @@
       },
       "allocation_status": "all_project",
       "source_ids": [
-        "src-ed76085250f14e07816a73e4ce658525"
+        "src-ed76085250f14e07816a73e4ce658525",
+        "src-f9315403f2e74af2990946b0fef36371",
+        "src-690236c050294702939c2c0167c134e0"
       ]
     },
     "amazon:112-8643704-3927458": {
@@ -15322,6 +15656,90 @@
       "allocation_status": "all_project",
       "source_ids": [
         "src-fe2394a49f284bfdbef95b4cff22b80d"
+      ]
+    },
+    "amazon:112-3519445-7276244": {
+      "vendor": "Amazon",
+      "reference": "112-3519445-7276244",
+      "order_date": {
+        "precision": "day",
+        "value": "2026-11-09"
+      },
+      "allocation_status": "all_project",
+      "source_ids": [
+        "src-821de3ba9cfc4967ac712f6960983312",
+        "src-37ceea4a8ea54360a5ba11cafbcef9eb"
+      ]
+    },
+    "amazon:114-1960396-3476246": {
+      "vendor": "Amazon",
+      "reference": "114-1960396-3476246",
+      "order_date": {
+        "precision": "day",
+        "value": "2026-11-06"
+      },
+      "allocation_status": "all_project",
+      "source_ids": [
+        "src-1606a3fcb22b442bab96cdb088ff9fd1",
+        "src-656b58356e3e466c9419d7e05fb86de6"
+      ]
+    },
+    "amazon:114-3909134-4758645": {
+      "vendor": "Amazon",
+      "reference": "114-3909134-4758645",
+      "order_date": {
+        "precision": "day",
+        "value": "2026-11-04"
+      },
+      "allocation_status": "all_project",
+      "source_ids": [
+        "src-bc7d37593c2d4dea985f629478a14f28",
+        "src-53517e32a232483e80a770d5ab4d0a41"
+      ]
+    },
+    "amazon:112-3330732-0617859": {
+      "vendor": "Amazon",
+      "reference": "112-3330732-0617859",
+      "order_date": {
+        "precision": "day",
+        "value": "2026-10-26"
+      },
+      "allocation_status": "all_project",
+      "source_ids": [
+        "src-e788b12beee84f2a99870ebb3c27ae8b",
+        "src-2e74e31006df42e2a04196d48a7d0a47"
+      ]
+    },
+    "amazon:114-1335582-7182630": {
+      "vendor": "Amazon",
+      "reference": "114-1335582-7182630",
+      "order_date": {
+        "precision": "day",
+        "value": "2026-11-03"
+      },
+      "allocation_status": "unresolved",
+      "source_ids": [
+        "src-767b54b3914746cb845d87ca8cae6a35"
+      ]
+    },
+    "sendcutsend:ST05Y776": {
+      "vendor": "SendCutSend",
+      "reference": "ST05Y776",
+      "order_date": null,
+      "allocation_status": "all_project",
+      "source_ids": [
+        "src-5fa10fc1dfba4ae988a9e92f49eff095",
+        "src-925c10af62924153903791dbcc07e353"
+      ]
+    },
+    "sendcutsend:SW26G213": {
+      "vendor": "SendCutSend",
+      "reference": "SW26G213",
+      "order_date": null,
+      "allocation_status": "all_project",
+      "source_ids": [
+        "src-bd019517edad4db09a1e8baf3373bb3e",
+        "src-100f59882ad24dd2b1af6ef32b5846bb"
       ]
     }
   },
@@ -18856,19 +19274,21 @@
       "event_id": "evt-f309b3ca14d1489d87b39daf5c7b7841",
       "vendor": "Amazon",
       "event_type": "charge",
-      "confirmation": "expected",
+      "confirmation": "confirmed",
       "event_date": {
         "precision": "day",
-        "value": "2026-10-24"
+        "value": "2026-10-26"
       },
       "amount_minor": 35489,
       "currency": "USD",
       "allocation_status": "all_project",
       "source_ids": [
         "src-ed76085250f14e07816a73e4ce658525",
-        "src-ae55c5c9340f446d9252acbc07d9463c"
+        "src-ae55c5c9340f446d9252acbc07d9463c",
+        "src-f9315403f2e74af2990946b0fef36371",
+        "src-690236c050294702939c2c0167c134e0"
       ],
-      "verified_at": "2026-10-24",
+      "verified_at": "2026-11-10",
       "order_ids": [
         "amazon:114-0006703-7518633"
       ]
@@ -19158,6 +19578,258 @@
       "order_ids": [
         "amazon:112-8772290-0884241"
       ]
+    },
+    {
+      "event_id": "evt-99939add7e964cfb9fb65ee05dc98a55",
+      "vendor": "SendCutSend",
+      "event_type": "charge",
+      "confirmation": "confirmed",
+      "event_date": null,
+      "invoice_date": {
+        "precision": "day",
+        "value": "2026-04-25"
+      },
+      "amount_minor": 62119,
+      "currency": "USD",
+      "allocation_status": "all_project",
+      "source_ids": [
+        "src-cb28d3a701d344de847194f5133ddf5b"
+      ],
+      "verified_at": "2026-11-10",
+      "order_ids": [
+        "sendcutsend:SG019619"
+      ]
+    },
+    {
+      "event_id": "evt-4f3044872f6347a3b95f8efefe1bae8d",
+      "vendor": "SendCutSend",
+      "event_type": "charge",
+      "confirmation": "confirmed",
+      "event_date": null,
+      "invoice_date": {
+        "precision": "day",
+        "value": "2026-04-16"
+      },
+      "amount_minor": 6019,
+      "currency": "USD",
+      "allocation_status": "all_project",
+      "source_ids": [
+        "src-71c61335674a46a6931c3ef109019d52"
+      ],
+      "verified_at": "2026-11-10",
+      "order_ids": [
+        "sendcutsend:SQ65E969"
+      ]
+    },
+    {
+      "event_id": "evt-998ca791689f49919e825d9ad1e0def0",
+      "vendor": "SendCutSend",
+      "event_type": "charge",
+      "confirmation": "confirmed",
+      "event_date": null,
+      "invoice_date": {
+        "precision": "day",
+        "value": "2026-04-16"
+      },
+      "amount_minor": 4552,
+      "currency": "USD",
+      "allocation_status": "all_project",
+      "source_ids": [
+        "src-98052708bc3a4d4697484c672d65e01b"
+      ],
+      "verified_at": "2026-11-10",
+      "order_ids": [
+        "sendcutsend:SV07U813"
+      ]
+    },
+    {
+      "event_id": "evt-6540e6fba6f049698b43911f57012c6b",
+      "vendor": "SendCutSend",
+      "event_type": "charge",
+      "confirmation": "confirmed",
+      "event_date": null,
+      "invoice_date": {
+        "precision": "day",
+        "value": "2026-04-24"
+      },
+      "amount_minor": 13438,
+      "currency": "USD",
+      "allocation_status": "all_project",
+      "source_ids": [
+        "src-aac8b35192d44b9698333c2cc3c44f12"
+      ],
+      "verified_at": "2026-11-10",
+      "order_ids": [
+        "sendcutsend:SP54G453"
+      ]
+    },
+    {
+      "event_id": "evt-c73bf4b9bbe14a74b8b42e94dabd00aa",
+      "vendor": "SendCutSend",
+      "event_type": "charge",
+      "confirmation": "confirmed",
+      "event_date": null,
+      "invoice_date": {
+        "precision": "day",
+        "value": "2026-05-10"
+      },
+      "amount_minor": 3629,
+      "currency": "USD",
+      "allocation_status": "all_project",
+      "source_ids": [
+        "src-79f751be9ef74036b227a491ec4de084"
+      ],
+      "verified_at": "2026-11-10",
+      "order_ids": [
+        "sendcutsend:S064D925"
+      ]
+    },
+    {
+      "event_id": "evt-efe204a6e93f4a538e1f0a7d9274f382",
+      "vendor": "SendCutSend",
+      "event_type": "charge",
+      "confirmation": "confirmed",
+      "event_date": null,
+      "invoice_date": {
+        "precision": "day",
+        "value": "2026-06-19"
+      },
+      "amount_minor": 3478,
+      "currency": "USD",
+      "allocation_status": "all_project",
+      "source_ids": [
+        "src-dfbb470b44ae4cb2b6382443d8a67370"
+      ],
+      "verified_at": "2026-11-10",
+      "order_ids": [
+        "sendcutsend:S4177511"
+      ]
+    },
+    {
+      "event_id": "evt-a65135dfda964b4faa92d367bd777b81",
+      "vendor": "Amazon",
+      "event_type": "charge",
+      "confirmation": "expected",
+      "event_date": {
+        "precision": "day",
+        "value": "2026-11-10"
+      },
+      "amount_minor": 917,
+      "currency": "USD",
+      "allocation_status": "all_project",
+      "source_ids": [
+        "src-821de3ba9cfc4967ac712f6960983312",
+        "src-37ceea4a8ea54360a5ba11cafbcef9eb"
+      ],
+      "verified_at": "2026-11-10",
+      "order_ids": [
+        "amazon:112-3519445-7276244"
+      ]
+    },
+    {
+      "event_id": "evt-f1dccbdd6cf24021b7a3a29afa32363c",
+      "vendor": "Amazon",
+      "event_type": "charge",
+      "confirmation": "confirmed",
+      "event_date": {
+        "precision": "day",
+        "value": "2026-11-06"
+      },
+      "amount_minor": 3538,
+      "currency": "USD",
+      "allocation_status": "all_project",
+      "source_ids": [
+        "src-1606a3fcb22b442bab96cdb088ff9fd1",
+        "src-656b58356e3e466c9419d7e05fb86de6"
+      ],
+      "verified_at": "2026-11-10",
+      "order_ids": [
+        "amazon:114-1960396-3476246"
+      ]
+    },
+    {
+      "event_id": "evt-e752e5db9fd74384b74f38430d4b86f5",
+      "vendor": "Amazon",
+      "event_type": "charge",
+      "confirmation": "confirmed",
+      "event_date": {
+        "precision": "day",
+        "value": "2026-11-06"
+      },
+      "amount_minor": 21231,
+      "currency": "USD",
+      "allocation_status": "all_project",
+      "source_ids": [
+        "src-bc7d37593c2d4dea985f629478a14f28",
+        "src-53517e32a232483e80a770d5ab4d0a41"
+      ],
+      "verified_at": "2026-11-10",
+      "order_ids": [
+        "amazon:114-3909134-4758645"
+      ]
+    },
+    {
+      "event_id": "evt-9d31d5b6df954ac5b8beee0fa6ce1147",
+      "vendor": "Amazon",
+      "event_type": "charge",
+      "confirmation": "confirmed",
+      "event_date": {
+        "precision": "day",
+        "value": "2026-10-27"
+      },
+      "amount_minor": 1071,
+      "currency": "USD",
+      "allocation_status": "all_project",
+      "source_ids": [
+        "src-e788b12beee84f2a99870ebb3c27ae8b",
+        "src-2e74e31006df42e2a04196d48a7d0a47"
+      ],
+      "verified_at": "2026-11-10",
+      "order_ids": [
+        "amazon:112-3330732-0617859"
+      ]
+    },
+    {
+      "event_id": "evt-88d09a48acef421f95613ba1f60d2f08",
+      "vendor": "SendCutSend",
+      "event_type": "charge",
+      "confirmation": "confirmed",
+      "event_date": null,
+      "amount_minor": 11223,
+      "currency": "USD",
+      "allocation_status": "all_project",
+      "source_ids": [
+        "src-5fa10fc1dfba4ae988a9e92f49eff095"
+      ],
+      "verified_at": "2026-11-10",
+      "order_ids": [
+        "sendcutsend:ST05Y776"
+      ],
+      "invoice_date": {
+        "precision": "day",
+        "value": "2026-04-15"
+      }
+    },
+    {
+      "event_id": "evt-6717a43cd68d4f1d80ba7a21e90df127",
+      "vendor": "SendCutSend",
+      "event_type": "charge",
+      "confirmation": "confirmed",
+      "event_date": null,
+      "amount_minor": 11596,
+      "currency": "USD",
+      "allocation_status": "all_project",
+      "source_ids": [
+        "src-bd019517edad4db09a1e8baf3373bb3e"
+      ],
+      "verified_at": "2026-11-10",
+      "order_ids": [
+        "sendcutsend:SW26G213"
+      ],
+      "invoice_date": {
+        "precision": "day",
+        "value": "2026-04-13"
+      }
     }
   ],
   "allocations": [
@@ -20735,6 +21407,102 @@
       "purchase_id": "pur-5f404f5035cb425a9a8d90c69010a404",
       "order_id": "amazon:112-8772290-0884241",
       "amount_minor": 1929,
+      "currency": "USD"
+    },
+    {
+      "allocation_id": "alloc-2890f48a88114bf18a85adb5b6be272b",
+      "event_id": "evt-99939add7e964cfb9fb65ee05dc98a55",
+      "purchase_id": "pur-dcfef64f3f264f2f95eb43659806718f",
+      "order_id": "sendcutsend:SG019619",
+      "amount_minor": 62119,
+      "currency": "USD"
+    },
+    {
+      "allocation_id": "alloc-48dbccc2977244fd8bad0e85a39136ee",
+      "event_id": "evt-4f3044872f6347a3b95f8efefe1bae8d",
+      "purchase_id": "pur-0b97fae73c024c86b30887d80ae3e384",
+      "order_id": "sendcutsend:SQ65E969",
+      "amount_minor": 6019,
+      "currency": "USD"
+    },
+    {
+      "allocation_id": "alloc-f252918095ad480795316ded21dfd292",
+      "event_id": "evt-998ca791689f49919e825d9ad1e0def0",
+      "purchase_id": "pur-fcca5d9c2ff44cdba4f21d5a544fbcef",
+      "order_id": "sendcutsend:SV07U813",
+      "amount_minor": 4552,
+      "currency": "USD"
+    },
+    {
+      "allocation_id": "alloc-fa9dbbafc4804b76bf3a85a29d9e8bdd",
+      "event_id": "evt-6540e6fba6f049698b43911f57012c6b",
+      "purchase_id": "pur-5133bb7161d64ebc8dd128da8a97b6f0",
+      "order_id": "sendcutsend:SP54G453",
+      "amount_minor": 13438,
+      "currency": "USD"
+    },
+    {
+      "allocation_id": "alloc-603432981bde4d5e9e9c6790538b2b7b",
+      "event_id": "evt-c73bf4b9bbe14a74b8b42e94dabd00aa",
+      "purchase_id": "pur-5fae169d013f41d197ba6f7e6a43c212",
+      "order_id": "sendcutsend:S064D925",
+      "amount_minor": 3629,
+      "currency": "USD"
+    },
+    {
+      "allocation_id": "alloc-ea2ae98cf9c04662b7cd85f0aa96be4f",
+      "event_id": "evt-efe204a6e93f4a538e1f0a7d9274f382",
+      "purchase_id": "pur-bf8d135df8f84025b5e36f07d38b311c",
+      "order_id": "sendcutsend:S4177511",
+      "amount_minor": 3478,
+      "currency": "USD"
+    },
+    {
+      "allocation_id": "alloc-0666e29e3ff146d487d0b682859db9a1",
+      "event_id": "evt-a65135dfda964b4faa92d367bd777b81",
+      "purchase_id": "pur-f72407db7ffa450695c514cf2f38539b",
+      "order_id": "amazon:112-3519445-7276244",
+      "amount_minor": 917,
+      "currency": "USD"
+    },
+    {
+      "allocation_id": "alloc-59e9d73507d5463db4e0be407183dedc",
+      "event_id": "evt-f1dccbdd6cf24021b7a3a29afa32363c",
+      "purchase_id": "pur-0b426a7ded014916bd32dde66a3d3030",
+      "order_id": "amazon:114-1960396-3476246",
+      "amount_minor": 3538,
+      "currency": "USD"
+    },
+    {
+      "allocation_id": "alloc-c68088a271e34b708260230756dafd79",
+      "event_id": "evt-e752e5db9fd74384b74f38430d4b86f5",
+      "purchase_id": "pur-97a6d900980c4b878f717f19b72badae",
+      "order_id": "amazon:114-3909134-4758645",
+      "amount_minor": 21231,
+      "currency": "USD"
+    },
+    {
+      "allocation_id": "alloc-ac0cdec415664ece9e172954306f315b",
+      "event_id": "evt-9d31d5b6df954ac5b8beee0fa6ce1147",
+      "purchase_id": "pur-129fa4df379f4d1f84fecfdeb5861ef3",
+      "order_id": "amazon:112-3330732-0617859",
+      "amount_minor": 1071,
+      "currency": "USD"
+    },
+    {
+      "allocation_id": "alloc-145edbc375ac48a99658f3e4ad51cd8e",
+      "event_id": "evt-88d09a48acef421f95613ba1f60d2f08",
+      "purchase_id": "pur-27c75fd6a5cd4d11845a52bda3c21fda",
+      "order_id": "sendcutsend:ST05Y776",
+      "amount_minor": 11223,
+      "currency": "USD"
+    },
+    {
+      "allocation_id": "alloc-76171b5f741e4879aa3e0068a0d0a329",
+      "event_id": "evt-6717a43cd68d4f1d80ba7a21e90df127",
+      "purchase_id": "pur-7abe2dc0fbe64c65a86dab96c07db02d",
+      "order_id": "sendcutsend:SW26G213",
+      "amount_minor": 11596,
       "currency": "USD"
     }
   ],
@@ -31959,6 +32727,337 @@
         "value": "2026-10-26"
       },
       "note": "Order-scoped Your Payments > Completed shows a USD 1248.45 charge dated 2026-10-26. The order is all-project; no bank posting or funding ownership is established."
+    },
+    "src-cb28d3a701d344de847194f5133ddf5b": {
+      "vendor": "SendCutSend",
+      "document_type": "paid_vendor_invoice",
+      "reference": "SG019619",
+      "document_date": {
+        "precision": "day",
+        "value": "2026-04-25"
+      },
+      "invoice_reference": "SG019619",
+      "proves": [
+        "price",
+        "invoice_date",
+        "charge"
+      ],
+      "verified_at": "2026-11-10",
+      "note": "Full invoice attachment for the named project order explicitly states Total USD 621.19 PAID. The printed date is the invoice date; no separate placed date or merchant payment date is supplied."
+    },
+    "src-71c61335674a46a6931c3ef109019d52": {
+      "vendor": "SendCutSend",
+      "document_type": "paid_vendor_invoice",
+      "reference": "SQ65E969",
+      "document_date": {
+        "precision": "day",
+        "value": "2026-04-16"
+      },
+      "invoice_reference": "SQ65E969",
+      "proves": [
+        "price",
+        "invoice_date",
+        "charge"
+      ],
+      "verified_at": "2026-11-10",
+      "note": "Full invoice attachment for the named project order explicitly states Total USD 60.19 PAID. The printed date is the invoice date; no separate placed date or merchant payment date is supplied."
+    },
+    "src-98052708bc3a4d4697484c672d65e01b": {
+      "vendor": "SendCutSend",
+      "document_type": "paid_vendor_invoice",
+      "reference": "SV07U813",
+      "document_date": {
+        "precision": "day",
+        "value": "2026-04-16"
+      },
+      "invoice_reference": "SV07U813",
+      "proves": [
+        "price",
+        "invoice_date",
+        "charge"
+      ],
+      "verified_at": "2026-11-10",
+      "note": "Full invoice attachment for the named project order explicitly states Total USD 45.52 PAID. The printed date is the invoice date; no separate placed date or merchant payment date is supplied."
+    },
+    "src-aac8b35192d44b9698333c2cc3c44f12": {
+      "vendor": "SendCutSend",
+      "document_type": "paid_vendor_invoice",
+      "reference": "SP54G453",
+      "document_date": {
+        "precision": "day",
+        "value": "2026-04-24"
+      },
+      "invoice_reference": "SP54G453",
+      "proves": [
+        "price",
+        "invoice_date",
+        "charge"
+      ],
+      "verified_at": "2026-11-10",
+      "note": "Full invoice attachment for the named project order explicitly states Total USD 134.38 PAID. The printed date is the invoice date; no separate placed date or merchant payment date is supplied."
+    },
+    "src-79f751be9ef74036b227a491ec4de084": {
+      "vendor": "SendCutSend",
+      "document_type": "paid_vendor_invoice",
+      "reference": "S064D925",
+      "document_date": {
+        "precision": "day",
+        "value": "2026-05-10"
+      },
+      "invoice_reference": "S064D925",
+      "proves": [
+        "price",
+        "invoice_date",
+        "charge"
+      ],
+      "verified_at": "2026-11-10",
+      "note": "Full invoice attachment for the named project order explicitly states Total USD 36.29 PAID. The printed date is the invoice date; no separate placed date or merchant payment date is supplied."
+    },
+    "src-dfbb470b44ae4cb2b6382443d8a67370": {
+      "vendor": "SendCutSend",
+      "document_type": "paid_vendor_invoice",
+      "reference": "S4177511",
+      "document_date": {
+        "precision": "day",
+        "value": "2026-06-19"
+      },
+      "invoice_reference": "S4177511",
+      "proves": [
+        "price",
+        "invoice_date",
+        "charge"
+      ],
+      "verified_at": "2026-11-10",
+      "note": "Full invoice attachment for the named project order explicitly states Total USD 34.78 PAID. The printed date is the invoice date; no separate placed date or merchant payment date is supplied."
+    },
+    "src-8b6f426cc217447985d7885823195bea": {
+      "vendor": "SendCutSend",
+      "document_type": "carrier_delivery_notice",
+      "reference": "SG019619",
+      "document_date": null,
+      "notification_date": {
+        "precision": "day",
+        "value": "2026-04-30"
+      },
+      "proves": [
+        "delivery"
+      ],
+      "verified_at": "2026-11-10",
+      "note": "Carrier notice explicitly gives Delivered Date 2026-04-30 and Reference Order SG019619, linking actual delivery to the carbonator end-cap plates."
+    },
+    "src-821de3ba9cfc4967ac712f6960983312": {
+      "vendor": "Amazon",
+      "document_type": "merchant_order_details",
+      "reference": "112-3519445-7276244",
+      "document_date": null,
+      "proves": [
+        "price",
+        "order_date"
+      ],
+      "verified_at": "2026-11-10",
+      "note": "Signed-in Mac Chrome Order Details identify ASIN B0GHNNYVDH, quantity, placed date, project amount and pending fulfillment. Expected arrival is not recorded as delivery."
+    },
+    "src-37ceea4a8ea54360a5ba11cafbcef9eb": {
+      "vendor": "Amazon",
+      "document_type": "pending_merchant_transaction",
+      "reference": "112-3519445-7276244",
+      "document_date": null,
+      "proves": [],
+      "verified_at": "2026-11-10",
+      "note": "Order-scoped Your Payments shows USD 9.17 Pending dated 2026-11-10. No bank posting or funding ownership is inferred."
+    },
+    "src-1606a3fcb22b442bab96cdb088ff9fd1": {
+      "vendor": "Amazon",
+      "document_type": "merchant_order_details",
+      "reference": "114-1960396-3476246",
+      "document_date": null,
+      "proves": [
+        "price",
+        "order_date",
+        "delivery"
+      ],
+      "verified_at": "2026-11-10",
+      "note": "Signed-in Mac Chrome Order Details identify ASIN B0H1D85QSD, quantity, placed date, project amount and explicit delivery date 2026-11-06."
+    },
+    "src-656b58356e3e466c9419d7e05fb86de6": {
+      "vendor": "Amazon",
+      "document_type": "completed_merchant_transaction",
+      "reference": "114-1960396-3476246",
+      "document_date": null,
+      "proves": [
+        "charge",
+        "merchant_event_date"
+      ],
+      "verified_at": "2026-11-10",
+      "note": "Order-scoped Your Payments shows USD 35.38 Completed dated 2026-11-06. No bank posting or funding ownership is inferred.",
+      "merchant_event_date": {
+        "precision": "day",
+        "value": "2026-11-06"
+      }
+    },
+    "src-bc7d37593c2d4dea985f629478a14f28": {
+      "vendor": "Amazon",
+      "document_type": "merchant_order_details",
+      "reference": "114-3909134-4758645",
+      "document_date": null,
+      "proves": [
+        "price",
+        "order_date",
+        "delivery"
+      ],
+      "verified_at": "2026-11-10",
+      "note": "Signed-in Mac Chrome Order Details identify ASIN B0FBWGTW9W, quantity, placed date, project amount and explicit delivery date 2026-11-07."
+    },
+    "src-53517e32a232483e80a770d5ab4d0a41": {
+      "vendor": "Amazon",
+      "document_type": "completed_merchant_transaction",
+      "reference": "114-3909134-4758645",
+      "document_date": null,
+      "proves": [
+        "charge",
+        "merchant_event_date"
+      ],
+      "verified_at": "2026-11-10",
+      "note": "Order-scoped Your Payments shows USD 212.31 Completed dated 2026-11-06. No bank posting or funding ownership is inferred.",
+      "merchant_event_date": {
+        "precision": "day",
+        "value": "2026-11-06"
+      }
+    },
+    "src-e788b12beee84f2a99870ebb3c27ae8b": {
+      "vendor": "Amazon",
+      "document_type": "merchant_order_details",
+      "reference": "112-3330732-0617859",
+      "document_date": null,
+      "proves": [
+        "price",
+        "order_date",
+        "delivery"
+      ],
+      "verified_at": "2026-11-10",
+      "note": "Signed-in Mac Chrome Order Details identify ASIN B0FYCJJXCS, quantity, placed date, project amount and explicit delivery date 2026-10-29."
+    },
+    "src-2e74e31006df42e2a04196d48a7d0a47": {
+      "vendor": "Amazon",
+      "document_type": "completed_merchant_transaction",
+      "reference": "112-3330732-0617859",
+      "document_date": null,
+      "proves": [
+        "charge",
+        "merchant_event_date"
+      ],
+      "verified_at": "2026-11-10",
+      "note": "Order-scoped Your Payments shows USD 10.71 Completed dated 2026-10-27. No bank posting or funding ownership is inferred.",
+      "merchant_event_date": {
+        "precision": "day",
+        "value": "2026-10-27"
+      }
+    },
+    "src-f9315403f2e74af2990946b0fef36371": {
+      "vendor": "Amazon",
+      "document_type": "merchant_order_details",
+      "reference": "114-0006703-7518633",
+      "document_date": null,
+      "proves": [
+        "price",
+        "order_date",
+        "delivery"
+      ],
+      "verified_at": "2026-11-10",
+      "note": "Signed-in Mac Chrome Order Details show USD 330.90 merchandise plus USD 23.99 tax, free shipping. MODbox tall compartment box delivered 2026-10-27; MODbox three-drawer tool box and two PolyDryer boxes delivered 2026-10-26; two MODbox roll dispensers delivered 2026-10-25. Existing exact line allocations total USD 354.89."
+    },
+    "src-690236c050294702939c2c0167c134e0": {
+      "vendor": "Amazon",
+      "document_type": "completed_merchant_transaction",
+      "reference": "114-0006703-7518633",
+      "document_date": null,
+      "proves": [
+        "charge",
+        "merchant_event_date"
+      ],
+      "verified_at": "2026-11-10",
+      "note": "Order-scoped Your Payments > Completed shows the all-project USD 354.89 charge dated 2026-10-26. No bank posting or funding ownership is inferred.",
+      "merchant_event_date": {
+        "precision": "day",
+        "value": "2026-10-26"
+      }
+    },
+    "src-767b54b3914746cb845d87ca8cae6a35": {
+      "vendor": "Amazon",
+      "document_type": "merchant_order_details",
+      "reference": "114-1335582-7182630",
+      "document_date": null,
+      "proves": [
+        "price",
+        "order_date",
+        "delivery"
+      ],
+      "verified_at": "2026-11-10",
+      "note": "Signed-in Mac Chrome Order Details identify one SodaStream Diet Mountain Dew four-pack, ASIN B0G26HQWBY, item price USD 21.74, placed 2026-11-03 and delivered 2026-11-04. This is a mixed order. The tax-inclusive project amount and project share of the completed payment are unresolved; unrelated items and full order amount are omitted."
+    },
+    "src-5fa10fc1dfba4ae988a9e92f49eff095": {
+      "vendor": "SendCutSend",
+      "document_type": "paid_vendor_invoice",
+      "reference": "ST05Y776",
+      "document_date": {
+        "precision": "day",
+        "value": "2026-04-15"
+      },
+      "proves": [
+        "price",
+        "invoice_date",
+        "charge"
+      ],
+      "verified_at": "2026-11-10",
+      "note": "Full invoice attachment identifies four deburred 1/4-inch 304 stainless carbonator racetrack endcap blanks, two top and two bottom, and explicitly states Total USD 112.23 PAID. The printed date is the invoice date; no separate placed or merchant payment date is supplied.",
+      "invoice_reference": "ST05Y776"
+    },
+    "src-925c10af62924153903791dbcc07e353": {
+      "vendor": "SendCutSend",
+      "document_type": "email_delivery_notification",
+      "reference": "ST05Y776",
+      "document_date": null,
+      "proves": [
+        "delivery"
+      ],
+      "verified_at": "2026-11-10",
+      "note": "Vendor notification confirms delivery of this project fabrication order. It does not independently state an actual delivery calendar day.",
+      "notification_date": {
+        "precision": "day",
+        "value": "2026-04-21"
+      }
+    },
+    "src-bd019517edad4db09a1e8baf3373bb3e": {
+      "vendor": "SendCutSend",
+      "document_type": "paid_vendor_invoice",
+      "reference": "SW26G213",
+      "document_date": {
+        "precision": "day",
+        "value": "2026-04-13"
+      },
+      "proves": [
+        "price",
+        "invoice_date",
+        "charge"
+      ],
+      "verified_at": "2026-11-10",
+      "note": "Full invoice attachment identifies four deburred 1/4-inch 304 stainless carbonator circular endcap blanks, two top and two bottom, and explicitly states Total USD 115.96 PAID. The printed date is the invoice date; no separate placed or merchant payment date is supplied.",
+      "invoice_reference": "SW26G213"
+    },
+    "src-100f59882ad24dd2b1af6ef32b5846bb": {
+      "vendor": "SendCutSend",
+      "document_type": "email_delivery_notification",
+      "reference": "SW26G213",
+      "document_date": null,
+      "proves": [
+        "delivery"
+      ],
+      "verified_at": "2026-11-10",
+      "note": "Vendor notification confirms delivery of this project fabrication order. It does not independently state an actual delivery calendar day.",
+      "notification_date": {
+        "precision": "day",
+        "value": "2026-04-18"
+      }
     }
   },
   "coverage": [
@@ -33625,6 +34724,96 @@
         "amazon:112-8772290-0884241"
       ],
       "note": "Read-only signed-in Mac Chrome review of the nine named orders and order-scoped Completed payment records, plus invoices for the October hardware and camera orders. Preserves line identities and exact recorded project allocations. No claim of complete Amazon account coverage."
+    },
+    {
+      "coverage_id": "coverage-8b75471a46464b6fa867b20a678f5f8e",
+      "vendor": "SendCutSend",
+      "stream": "six named project fabrication invoices",
+      "evidence_type": "merchant_payments_and_fulfillment",
+      "checked_at": "2026-11-10",
+      "examined_period": {
+        "start": "2026-01-01",
+        "end": "2026-11-10"
+      },
+      "complete_period": null,
+      "coverage": "partial",
+      "source_ids": [
+        "src-cb28d3a701d344de847194f5133ddf5b",
+        "src-71c61335674a46a6931c3ef109019d52",
+        "src-98052708bc3a4d4697484c672d65e01b",
+        "src-aac8b35192d44b9698333c2cc3c44f12",
+        "src-79f751be9ef74036b227a491ec4de084",
+        "src-dfbb470b44ae4cb2b6382443d8a67370",
+        "src-8b6f426cc217447985d7885823195bea"
+      ],
+      "order_ids": [
+        "sendcutsend:SG019619",
+        "sendcutsend:SQ65E969",
+        "sendcutsend:SV07U813",
+        "sendcutsend:SP54G453",
+        "sendcutsend:S064D925",
+        "sendcutsend:S4177511"
+      ],
+      "note": "Full paid invoice attachments for the six existing fabrication orders, plus the exact SG019619 carrier delivery record. Invoice dates are not substituted for payment or placed dates; no claim of complete merchant account coverage."
+    },
+    {
+      "coverage_id": "coverage-73c6e929ef054d8e8dd93989f037bd69",
+      "vendor": "Amazon",
+      "stream": "six named project orders",
+      "evidence_type": "procurement_fulfillment_and_merchant_transactions",
+      "checked_at": "2026-11-10",
+      "examined_period": {
+        "start": "2026-10-24",
+        "end": "2026-11-10"
+      },
+      "complete_period": null,
+      "coverage": "partial",
+      "source_ids": [
+        "src-821de3ba9cfc4967ac712f6960983312",
+        "src-37ceea4a8ea54360a5ba11cafbcef9eb",
+        "src-1606a3fcb22b442bab96cdb088ff9fd1",
+        "src-656b58356e3e466c9419d7e05fb86de6",
+        "src-bc7d37593c2d4dea985f629478a14f28",
+        "src-53517e32a232483e80a770d5ab4d0a41",
+        "src-e788b12beee84f2a99870ebb3c27ae8b",
+        "src-2e74e31006df42e2a04196d48a7d0a47",
+        "src-f9315403f2e74af2990946b0fef36371",
+        "src-690236c050294702939c2c0167c134e0",
+        "src-767b54b3914746cb845d87ca8cae6a35"
+      ],
+      "order_ids": [
+        "amazon:112-3519445-7276244",
+        "amazon:114-1960396-3476246",
+        "amazon:114-3909134-4758645",
+        "amazon:112-3330732-0617859",
+        "amazon:114-0006703-7518633",
+        "amazon:114-1335582-7182630"
+      ],
+      "note": "Read-only signed-in Mac Chrome order and order-scoped payment review. Four missing all-project orders, one existing storage order, and one project syrup line in a mixed order. Pending charge and unresolved project tax/payment allocation remain distinct from confirmed charges. No account-completeness claim."
+    },
+    {
+      "coverage_id": "coverage-b315012d5a28447bb3ce18fede75ae7f",
+      "vendor": "SendCutSend",
+      "stream": "two additional project fabrication invoices",
+      "evidence_type": "merchant_payments_and_fulfillment",
+      "checked_at": "2026-11-10",
+      "examined_period": {
+        "start": "2026-01-01",
+        "end": "2026-11-10"
+      },
+      "complete_period": null,
+      "coverage": "partial",
+      "source_ids": [
+        "src-5fa10fc1dfba4ae988a9e92f49eff095",
+        "src-925c10af62924153903791dbcc07e353",
+        "src-bd019517edad4db09a1e8baf3373bb3e",
+        "src-100f59882ad24dd2b1af6ef32b5846bb"
+      ],
+      "order_ids": [
+        "sendcutsend:ST05Y776",
+        "sendcutsend:SW26G213"
+      ],
+      "note": "Full paid invoice attachments and vendor delivery notices for the two named carbonator endcap orders. Invoice dates do not establish order or payment dates; notification dates do not establish delivery days. No claim of complete merchant account coverage."
     }
   ],
   "gaps": [
@@ -33664,7 +34853,8 @@
       ],
       "missing_fact": "Order confirmation for the matching part says 38.99 item + 9.99 shipping + 3.54 tax = 52.52; current ledger says 61.49. No final invoice retrieved. Preserve conflict rather than choosing an amount silently.",
       "sources_checked": [
-        "Project order confirmation; final invoice unavailable"
+        "Project order confirmation; final invoice unavailable",
+        "All-mail vendor and exact-reference searches through 2026-11-10, with no lower date bound; no additional final payment evidence retrieved"
       ]
     },
     {
@@ -33682,7 +34872,8 @@
       "source_ids": [],
       "missing_fact": "order dates; merchant payment events. No matching vendor receipts retrieved.",
       "sources_checked": [
-        "Gmail searches by Airgas sender/vendor and exact references for 2026-01-01 through 2026-10-04"
+        "Gmail searches by Airgas sender/vendor and exact references for 2026-01-01 through 2026-10-04",
+        "All-mail vendor and exact-reference searches through 2026-11-10, with no lower date bound; no additional final payment evidence retrieved"
       ]
     },
     {
@@ -33694,7 +34885,9 @@
         "pur-fcca5d9c2ff44cdba4f21d5a544fbcef",
         "pur-5133bb7161d64ebc8dd128da8a97b6f0",
         "pur-5fae169d013f41d197ba6f7e6a43c212",
-        "pur-bf8d135df8f84025b5e36f07d38b311c"
+        "pur-bf8d135df8f84025b5e36f07d38b311c",
+        "pur-27c75fd6a5cd4d11845a52bda3c21fda",
+        "pur-7abe2dc0fbe64c65a86dab96c07db02d"
       ],
       "order_ids": [
         "sendcutsend:SG019619",
@@ -33702,12 +34895,28 @@
         "sendcutsend:SV07U813",
         "sendcutsend:SP54G453",
         "sendcutsend:S064D925",
-        "sendcutsend:S4177511"
+        "sendcutsend:S4177511",
+        "sendcutsend:ST05Y776",
+        "sendcutsend:SW26G213"
       ],
-      "source_ids": [],
-      "missing_fact": "exact placed dates; final invoice/payment evidence. Only notification timestamps supplied; account page not signed in and Chrome unavailable. Recorded accepted facts preserved.",
+      "source_ids": [
+        "src-cb28d3a701d344de847194f5133ddf5b",
+        "src-71c61335674a46a6931c3ef109019d52",
+        "src-98052708bc3a4d4697484c672d65e01b",
+        "src-aac8b35192d44b9698333c2cc3c44f12",
+        "src-79f751be9ef74036b227a491ec4de084",
+        "src-dfbb470b44ae4cb2b6382443d8a67370",
+        "src-8b6f426cc217447985d7885823195bea",
+        "src-5fa10fc1dfba4ae988a9e92f49eff095",
+        "src-925c10af62924153903791dbcc07e353",
+        "src-bd019517edad4db09a1e8baf3373bb3e",
+        "src-100f59882ad24dd2b1af6ef32b5846bb"
+      ],
+      "missing_fact": "Exact placed dates remain unknown for SG019619, SQ65E969, SV07U813, SP54G453, S064D925, ST05Y776 and SW26G213. All eight named invoices are explicitly PAID, but separate merchant payment dates are not supplied; confirmed charges remain undated. ST05Y776 and SW26G213 delivery is confirmed without exact calendar dates. Invoice dates remain separate.",
       "sources_checked": [
-        "2026-01-01 through 2026-10-04 confirmation, shipment, delivery notifications; vendor account page checked"
+        "Full paid invoice attachments for all eight named SendCutSend project orders",
+        "Carrier delivery notice explicitly referencing SG019619",
+        "Vendor delivery notices for ST05Y776 and SW26G213"
       ]
     },
     {
@@ -33756,7 +34965,8 @@
       "source_ids": [],
       "missing_fact": "exact placed date; merchant payment evidence. 68.98 order confirmation and May26 delivery verified; printed placed date not present.",
       "sources_checked": [
-        "2026-01-01 through 2026-10-04 confirmation, shipment and delivery notices"
+        "2026-01-01 through 2026-10-04 confirmation, shipment and delivery notices",
+        "All-mail vendor and exact-reference searches through 2026-11-10, with no lower date bound; no additional final payment evidence retrieved"
       ]
     },
     {
@@ -33769,9 +34979,10 @@
         "midwestbev:MB11053"
       ],
       "source_ids": [],
-      "missing_fact": "exact placed date; merchant payment evidence. 145.80 confirmation and Apr30 delivery verified; printed placed date not present.",
+      "missing_fact": "Exact placed and delivery calendar dates; merchant payment evidence. USD 145.80 confirmation and delivery notification verified; printed placed and actual delivery dates are not present.",
       "sources_checked": [
-        "2026-01-01 through 2026-10-04 order confirmation, shipment and delivery notices"
+        "2026-01-01 through 2026-10-04 order confirmation, shipment and delivery notices",
+        "All-mail vendor and exact-reference searches through 2026-11-10, with no lower date bound; no additional final payment evidence retrieved"
       ]
     },
     {
@@ -33939,6 +35150,23 @@
       "missing_fact": "Exact placed and delivery calendar dates; completed merchant charge evidence and event date. Confirmation supplies the final vendor amount and the delivery notice establishes acquired fulfillment.",
       "sources_checked": [
         "Order confirmation and delivery notification for WEBFWS100716314"
+      ]
+    },
+    {
+      "gap_id": "gap-7b003c39b4994fdd80743a158f753784",
+      "vendor": "Amazon",
+      "purchase_ids": [
+        "pur-d6686b26577043b2acf9c6793d085302"
+      ],
+      "order_ids": [
+        "amazon:114-1335582-7182630"
+      ],
+      "source_ids": [
+        "src-767b54b3914746cb845d87ca8cae6a35"
+      ],
+      "missing_fact": "The item price is known, but project tax and the exact project share of the mixed completed charge remain unresolved. No project payment event is recorded.",
+      "sources_checked": [
+        "Named Amazon Order Details and order-scoped completed transaction"
       ]
     }
   ],
