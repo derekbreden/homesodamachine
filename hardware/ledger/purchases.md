@@ -158,7 +158,7 @@ Feed-water inlet, filter, ASSE 1022 backflow preventer and its vent-line hardwar
 | <!--purchase:pur-65c979f1bb194148918426361d985f73--> Fresh Water Systems order WEBFWS100711469 — neoFit **ABU44M-E** acetal black bulkhead connector, 4 mm (5/32") tube (bag of 10) + neoFit **ARD4M4-E** stem reducer, 4 mm tube × 1/4" stem (bag of 10) + neoFlo **LLDPE4M-WHITE** white 4 mm OD LLDPE tubing (4 × 25 ft) | [FWS](https://www.freshwatersystems.com/), [Gmail confirmation](https://mail.google.com/mail/u/0/#search/WEBFWS100711469) | 3 line items | $109.98 | WEBFWS100711469 | 2026-10-07 | 2026-10-09 | ACQUIRED (ground, 4–5 business days. Merchandise by line: ABU44M-E $27.58; ARD4M4-E $11.89; white 4 mm tubing $18.00 for 100 ft — $57.47 merchandise + $45.07 shipping + $7.44 tax. Hardware for the ASSE 1022 vent's DRAIN line to the faucet) |
 | <!--purchase:pur-03fa2eeee1cd4eae8e6991441f9f90ed--> Fresh Water Systems order WEBFWS100711471 — neoFit **AEU44-E** acetal black union elbow, 1/4" tube × 1/4" tube (bag of 10) + neoFit **ATBC44-E** stem barb connector, 1/4" stem × 1/4" barb (bag of 10) | [FWS](https://www.freshwatersystems.com/), [Gmail confirmation](https://mail.google.com/mail/u/0/#search/WEBFWS100711471) | 2 line items | $41.18 | WEBFWS100711471 | 2026-10-07 | 2026-10-09 | ACQUIRED (2 business days. Merchandise by line: AEU44-E $16.14; ATBC44-E $9.00 — $25.14 merchandise + $13.25 shipping + $2.79 tax. The rest of the ASSE 1022 vent's DRAIN line, between the vent hose and the ARD4M4-E reducer on WEBFWS100711469) |
 | <!--purchase:pur-abd647629bfa41e1ae7de9bf129dbf44--> YZMSZ 1/4" OD fixed 0.3 MPa (3 kg) water pressure-reducing valve, native push-to-connect ports — the clean-water regulator ([reference](/hardware/reference/yzmsz-water-regulator/README.md)). $11.99 + $0.87 tax | [B0CGS34P93](https://www.amazon.com/dp/B0CGS34P93) | 1 | $12.86 | 112-6255534-2742635 | 2026-10-23 | 2026-10-26 | ACQUIRED |
-| <!--purchase:pur-2c46198fe81f4cf7bf5a65d4e4ec638a--> Frizzlife PRV01 water pressure regulator, 60 psi, 1/4" quick-connect push-fit ports ([reference](/hardware/reference/frizzlife-prv01/README.md)). $10.99 + $0.80 tax | [B08NDQCZN2](https://www.amazon.com/dp/B08NDQCZN2) | 1 | $11.79 | 112-7854933-1604224 | 2026-10-23 | — | ON-ORDER |
+| <!--purchase:pur-2c46198fe81f4cf7bf5a65d4e4ec638a--> Frizzlife PRV01 water pressure regulator, 60 psi, 1/4" quick-connect push-fit ports ([reference](/hardware/reference/frizzlife-prv01/README.md)). $10.99 + $0.80 tax | [B08NDQCZN2](https://www.amazon.com/dp/B08NDQCZN2) | 1 | $11.79 | 112-7854933-1604224 | 2026-10-23 | — | ACQUIRED (delivery confirmed; exact day unknown) |
 
 ## 4. Carbonator plumbing (pressurized side)
 
@@ -559,13 +559,13 @@ General shop equipment supporting fabrication, assembly, and teardown. Not proje
 | <!--purchase:pur-d93ee965bacf499aa09cd8ddb8f80f01--> AESUB Orange sublimating 3D-scanning spray, 13.5 fl oz — matting coat for the MINI 2 above. Sublimates off the part on its own, so a donor component is never wiped or solvent-cleaned after a scan. The two surfaces this build has to capture are the worst cases for optical scanning — the donor lever is black plastic, the Westbrass is chrome — and because the lever comes off the faucet it can be sprayed on the bench with nothing installed at risk. Sole item on its invoice, $40.99 + $2.97 NE tax | [B08ZYVRHLF](https://www.amazon.com/dp/B08ZYVRHLF) | 1 | $43.96 | 112-7976233-8525838 | 2026-09-16 | 2026-09-18 | ACQUIRED |
 | <!--purchase:pur-7f71ebbec5d24e919cf06ba8171082b5--> Revopoint AB6 sublimating 3D-scanning spray, 500 ml — second matting coat for the MINI 2 above, alongside the AESUB Orange. Sublimates off the part on its own, so a donor component is never wiped or solvent-cleaned after a scan. A 6.5 µm layer against AESUB Orange's 2–6 µm, holding an optimal scan surface for about 6 h and sublimating in 6–24 h. Two cans at $35.99 each, sole item on its invoice, $71.98 + $5.22 NE tax, shipping $0.00. Amazon replaced the shipment at no charge on 113-0268248-7908209, the row below | [B0F542GY3M](https://www.amazon.com/dp/B0F542GY3M) | 2 | $77.20 | 114-1317201-9708267 | 2026-09-19 | 2026-09-22 | REPLACED (replacement complete; no return required) |
 | <!--purchase:pur-ca80817b142c456fa4251cfe5d736544--> Revopoint AB6 sublimating 3D-scanning spray, 500 ml — Amazon's no-charge replacement for the two cans on 114-1317201-9708267, above; $0.00 invoice. Amazon estimates 2026-09-24 | [B0F542GY3M](https://www.amazon.com/dp/B0F542GY3M) | 2 | $0.00 | 113-0268248-7908209 | 2026-09-22 | 2026-09-24 | ACQUIRED (no-charge replacement) |
-| <!--purchase:pur-a9aeeb7107e24ef68654ee86aa1fbe14--> InoKraft MaxHeat MH-E7500 7,500 W garage heater, 240 V, NEMA 14-50P on an 8.2 ft STW 8 AWG cord — heats the shop and holds the X1 Pro above its 50 °F storage minimum. It plugs into the car charger's 50 A outlet, which the car and the heater take turns on. Sold by InoKraft, shipped by Amazon; $203.99 + $14.79 estimated NE tax, free shipping; Amazon order details verified 2026-11-05, arriving 2026-11-07 | [B0FLJTSTDC](https://www.amazon.com/dp/B0FLJTSTDC) | 1 | $218.78 | 112-5769102-6239435 | 2026-11-05 | — | ON-ORDER |
-| <!--purchase:pur-5f9b203a9810468f8bab74284d78f44d--> Xpokcai 1/4" × 3" hex-head lag screws, 304 stainless, 15 with flat washers, pilot bit and socket — the heater bracket's single lag through the garage ceiling's 5/8" drywall into a truss bottom chord. Sold by Xpokcai; $9.99 + $0.72 estimated NE tax, free shipping; Amazon order details verified 2026-11-05, arriving 2026-11-07 | [B0FYWYHS7X](https://www.amazon.com/dp/B0FYWYHS7X) | 1 pk (15) | $10.71 | 112-8431385-7749045 | 2026-11-05 | — | ON-ORDER |
-| <!--purchase:pur-3fca793e96a64c20b79ac0831efc3b50--> Etoolia vinyl-coated screw-in utility hooks, 5.7", 6-pack — on the garage studs, one carries the heater cord's slack and one holds whichever 14-50 plug is unplugged. Sold by E-Tools Store; $6.99 + $0.51 estimated NE tax, free shipping; Amazon order details verified 2026-11-05, arriving 2026-11-07 | [B08GYMXKPY](https://www.amazon.com/dp/B08GYMXKPY) | 1 pk (6) | $7.50 | 112-6378482-5879429 | 2026-11-05 | — | ON-ORDER |
-| <!--purchase:pur-3161c146b8ef40e5817e13af4dc07846--> Shelly 1 Mini Gen4 smart relay, Wi-Fi, Matter and Zigbee, one channel, 8 A dry contacts — the garage heater's thermostat contact on its terminals 1 and 2 with the rear switch on II, switched by the Garage Temperature sensor. Sold by Shelly USA; $24.98 + $1.81 estimated NE tax, free shipping; Amazon order details verified 2026-11-05, arriving 2026-11-07 | [B0DZHZDJXT](https://www.amazon.com/dp/B0DZHZDJXT) | 1 | $26.79 | 112-1658930-0707414 | 2026-11-05 | — | ON-ORDER |
-| <!--purchase:pur-7ebe706384b34c718af7af886e0988d7--> nVent Gardner Bender PS915143 appliance cord, 9 ft, 14/3 SJTW, 15 A/125 V — cut in two: the plug end powers the Shelly 1 Mini above from a garage outlet, and the cut-off end is the 14 AWG lead from the Shelly's I and O terminals to the heater's terminals 1 and 2. Sold by Amazon.com; $10.59 + $0.77 estimated NE tax, free shipping; Amazon order details verified 2026-11-05, arriving 2026-11-07 | [B07BQ8PY21](https://www.amazon.com/dp/B07BQ8PY21) | 1 | $11.36 | 112-6057627-7806613 | 2026-11-05 | — | ON-ORDER |
-| <!--purchase:pur-24623d00c3e94898adf2465f7537b1bd--> LISTENJIALE nylon cable glands with gaskets, PG7–PG19, 50 pcs — one seals the 14 AWG thermostat lead into the heater's second knockout. Sold by ListenJiaLe; $12.99 + $0.94 estimated NE tax, free shipping; Amazon order details verified 2026-11-05, arriving 2026-11-07 | [B09Z24H77M](https://www.amazon.com/dp/B09Z24H77M) | 1 pk (50) | $13.93 | 112-5039065-3785859 | 2026-11-05 | — | ON-ORDER |
-| <!--purchase:pur-9fe3b15945c3487da36214f92b80f9ee--> Zulkit IP65 ABS electrical box, hinged shell, 2 cable glands, 5.9 × 3.9 × 2.8 in — holds the Shelly 1 Mini on the ceiling beside the garage heater; plastic so its Wi-Fi gets out. Sold by VeSumly; $9.99 + $0.72 estimated NE tax, free shipping; Amazon order details verified 2026-11-05, arriving 2026-11-07 | [B08KY7VK8W](https://www.amazon.com/dp/B08KY7VK8W) | 1 | $10.71 | 112-0673623-4429031 | 2026-11-05 | — | ON-ORDER |
+| <!--purchase:pur-a9aeeb7107e24ef68654ee86aa1fbe14--> InoKraft MaxHeat MH-E7500 7,500 W garage heater, 240 V, NEMA 14-50P on an 8.2 ft STW 8 AWG cord — heats the shop and holds the X1 Pro above its 50 °F storage minimum. It plugs into the car charger's 50 A outlet, which the car and the heater take turns on. Sold by InoKraft, shipped by Amazon; $203.99 + $14.79 NE tax, free shipping | [B0FLJTSTDC](https://www.amazon.com/dp/B0FLJTSTDC) | 1 | $218.78 | 112-5769102-6239435 | 2026-11-05 | 2026-11-07 | ACQUIRED |
+| <!--purchase:pur-5f9b203a9810468f8bab74284d78f44d--> Xpokcai 1/4" × 3" hex-head lag screws, 304 stainless, 15 with flat washers, pilot bit and socket — the heater bracket's single lag through the garage ceiling's 5/8" drywall into a truss bottom chord. Sold by Xpokcai; $9.99 + $0.72 NE tax, free shipping | [B0FYWYHS7X](https://www.amazon.com/dp/B0FYWYHS7X) | 1 pk (15) | $10.71 | 112-8431385-7749045 | 2026-11-05 | 2026-11-06 | ACQUIRED |
+| <!--purchase:pur-3fca793e96a64c20b79ac0831efc3b50--> Etoolia vinyl-coated screw-in utility hooks, 5.7", 6-pack — on the garage studs, one carries the heater cord's slack and one holds whichever 14-50 plug is unplugged. Sold by E-Tools Store; $6.99 + $0.51 NE tax, free shipping | [B08GYMXKPY](https://www.amazon.com/dp/B08GYMXKPY) | 1 pk (6) | $7.50 | 112-6378482-5879429 | 2026-11-05 | 2026-11-07 | ACQUIRED |
+| <!--purchase:pur-3161c146b8ef40e5817e13af4dc07846--> Shelly 1 Mini Gen4 smart relay, Wi-Fi, Matter and Zigbee, one channel, 8 A dry contacts — the garage heater's thermostat contact on its terminals 1 and 2 with the rear switch on II, switched by the Garage Temperature sensor. Sold by Shelly USA; $24.98 + $1.81 NE tax, free shipping | [B0DZHZDJXT](https://www.amazon.com/dp/B0DZHZDJXT) | 1 | $26.79 | 112-1658930-0707414 | 2026-11-05 | 2026-11-07 | ACQUIRED |
+| <!--purchase:pur-7ebe706384b34c718af7af886e0988d7--> nVent Gardner Bender PS915143 appliance cord, 9 ft, 14/3 SJTW, 15 A/125 V — cut in two: the plug end powers the Shelly 1 Mini above from a garage outlet, and the cut-off end is the 14 AWG lead from the Shelly's I and O terminals to the heater's terminals 1 and 2. Sold by Amazon.com; $10.59 + $0.77 NE tax, free shipping | [B07BQ8PY21](https://www.amazon.com/dp/B07BQ8PY21) | 1 | $11.36 | 112-6057627-7806613 | 2026-11-05 | 2026-11-07 | ACQUIRED |
+| <!--purchase:pur-24623d00c3e94898adf2465f7537b1bd--> LISTENJIALE nylon cable glands with gaskets, PG7–PG19, 50 pcs — one seals the 14 AWG thermostat lead into the heater's second knockout. Sold by ListenJiaLe; $12.99 + $0.94 NE tax, free shipping | [B09Z24H77M](https://www.amazon.com/dp/B09Z24H77M) | 1 pk (50) | $13.93 | 112-5039065-3785859 | 2026-11-05 | 2026-11-07 | ACQUIRED |
+| <!--purchase:pur-9fe3b15945c3487da36214f92b80f9ee--> Zulkit IP65 ABS electrical box, hinged shell, 2 cable glands, 5.9 × 3.9 × 2.8 in — holds the Shelly 1 Mini on the ceiling beside the garage heater; plastic so its Wi-Fi gets out. Sold by VeSumly; $9.99 + $0.72 NE tax, free shipping | [B08KY7VK8W](https://www.amazon.com/dp/B08KY7VK8W) | 1 | $10.71 | 112-0673623-4429031 | 2026-11-05 | 2026-11-07 | ACQUIRED |
 
 ## 13. Printing consumables
 
@@ -699,9 +699,9 @@ A confirmation carries no order date. The number after `us` is a snowflake ID: `
 | <!--purchase:pur-870e9ad9da324c92bdac254c7fb54fa7--> 2026-09-16 | us776951289157341185 | NE sales tax; shipping waived | $6.66 | ACQUIRED (delivery confirmed; exact day unknown) |
 | <!--purchase:pur-27bb6c07598243e390e2ca407e908695--> 2026-10-05 | us783865986561351681 | PETG Translucent Clear 32101 refill ×10 (1 kg each, bulk; $159.90, Filament Bulk Sale −$47.97) + NE tax $8.12; shipping waived | $120.05 | ACQUIRED (delivered Oct 8) |
 | <!--purchase:pur-25f35741f88e40729bec555987f79640--> 2026-10-08 | us784775952755326977 | ASA Aero filament with spool, White 46100, 1 kg ×2 ($99.98) + NE tax $7.25; shipping waived — the magnetic-float material | $107.23 | ACQUIRED (delivered Oct 13; Bambu delivery confirmation in Gmail) |
-| <!--purchase:pur-8b3d0e7a5c9f4e2b4a7d1c3e5f6a8b07--> 2026-10-26 | us791135084148191233 | H2C Induction Hotend (Right), standard flow, hardened steel: 0.8 mm ×2 ($79.98) + 0.6 mm ×2 ($79.98) + NE tax $11.60; shipping waived | $171.56 | ON-ORDER (Gmail order confirmation verified 2026-10-26) |
-| <!--purchase:pur-6655f4a0c1c747bc8ce06a69596eb432--> 2026-11-07 | us795729195777990656 | PETG Basic filament with spool ×3 — Red 30201, White 30106, Navy Blue 30604 (1 kg each, one of each color; $15.29 each after bulk discount, $45.87 subtotal) + shipping $6.99 + NE tax $3.83 | $56.69 | ON-ORDER (preparing shipment; Gmail order confirmation verified) |
-| **§15 acquired valuation — 22 orders** | | | **[$9,456.59](LEDGER_SEC15)** | |
+| <!--purchase:pur-8b3d0e7a5c9f4e2b4a7d1c3e5f6a8b07--> 2026-10-26 | us791135084148191233 | H2C Induction Hotend (Right), standard flow, hardened steel: 0.8 mm ×2 ($79.98) + 0.6 mm ×2 ($79.98) + NE tax $11.60; shipping waived | $171.56 | ACQUIRED (delivery confirmed; exact day unknown) |
+| <!--purchase:pur-6655f4a0c1c747bc8ce06a69596eb432--> 2026-11-07 | us795729195777990656 | PETG Basic filament with spool ×3 — Red 30201, White 30106, Navy Blue 30604 (1 kg each, one of each color; $15.29 each after bulk discount, $45.87 subtotal) + shipping $6.99 + NE tax $3.83 | $56.69 | ON-ORDER (in transit; all three spools named in shipment notification) |
+| **§15 acquired valuation — 22 orders** | | | **[$9,628.15](LEDGER_SEC15)** | |
 
 ## 16. Laser welding / cleaning / cutting
 
@@ -735,6 +735,7 @@ Product domains and hosting for the Home Soda Machine site. Domain records use o
 | <!--purchase:pur-4d96e721370148edbb8654697b9d1d4e--> 2026-08-05 | Render — invoice EV3NKLCU-0004, receipt 2366-0573 | Home Soda Machine hosting, database and related usage; service 2026-07-01 → 2026-07-31 | $59.20 | ACQUIRED |
 | <!--purchase:pur-c5e7cb089ee747938a1a66530141d979--> 2026-09-01 | Render — invoice EV3NKLCU-0005, receipt 2005-6920 | Home Soda Machine hosting, database and related usage; service 2026-08-01 → 2026-08-31 | $63.70 | ACQUIRED |
 | <!--purchase:pur-574ba531d0214390bd039bbfebca9bc5--> 2026-10-01 | Render — invoice EV3NKLCU-0006, receipt 2459-8653 | Home Soda Machine hosting, database and related usage; service 2026-09-01 → 2026-09-30 | $55.96 | ACQUIRED |
+| <!--purchase:pur-40f42f9578f642918443b1cc962c3c82--> 2026-11-02 | Render — invoice EV3NKLCU-0007, receipt 2266-7780 | Home Soda Machine hosting, database and related usage; service 2026-10-01 → 2026-10-31 | $63.20 | ACQUIRED |
 
 ## 18. AI-assisted engineering services
 
@@ -763,6 +764,7 @@ Additional project receipts:
 | <!--purchase:pur-d05a1e51269b44ca84237259fc3abaf7--> 2026-09-28 | Claude Max 20x subscription; invoice HYODLCRX-0081 | 1 | $200.00 | ACQUIRED |
 | <!--purchase:pur-a236fde656864008adebce6e1d38cb4e--> 2026-09-29 | Claude prepaid usage credit — top-up; invoice HYODLCRX-0083 | 1 | $200.00 | ACQUIRED |
 | <!--purchase:pur-ad8073cabdb043f5988b69d7acae93c1--> 2026-10-07 | Claude prepaid usage credit — automatic recharge; invoice 8C2842D3-0012 | 1 | $40.12 | ACQUIRED |
+| <!--purchase:pur-ff6404193aa640179f2209f33f2997f8--> 2026-10-28 | Claude Max 20x subscription; invoice HYODLCRX-0084 | 1 | $200.00 | ACQUIRED |
 
 ---
 
@@ -775,12 +777,12 @@ Storage and capture gear used to record print runs, fab work, and assembled-prod
 | <!--purchase:pur-dda6299d62b24ab2b5825ac5012dc7af--> SanDisk Ultra Fit USB 3.1 256 GB low-profile flash drive (SDCZ430-256G-G46) | [B07857Y17V](https://www.amazon.com/dp/B07857Y17V) | 1 | $45.41 | 112-0147397-3280206 | 2026-05-02 | 2026-05-04 | ACQUIRED |
 | <!--purchase:pur-b663096015424e18b2e6b0a486a29aad--> SanDisk Ultra Fit USB 3.2 Gen 1 256 GB low-profile flash drive, 400 MB/s (SDCZ430-256G-GAM46) — second timelapse-capture drive | [B0BY2TT9TD](https://www.amazon.com/dp/B0BY2TT9TD) | 1 | $46.02 | 112-1916518-0515440 | 2026-06-13 | 2026-06-14 | ACQUIRED |
 | <!--purchase:pur-60b1975ac8e740ba9b68c87b90dd9143--> DJI Mic Mini wireless lavalier system (1 TX + 1 RX) — on-camera audio for the fab and assembled-product footage | [B0DDLCLFFX](https://www.amazon.com/dp/B0DDLCLFFX) | 1 | $48.26 | 112-7291284-7101059 | 2026-04-13 | — | ACQUIRED |
-| <!--purchase:pur-3d8a298bd6054af6a120b520e7a8da65--> Canon EOS R50 V mirrorless camera with RF-S 14-30mm F4-6.3 IS STM PZ lens kit — main camera of the carbonator weld [filming plan](/marketing/video/carbonator-weld-shooting-plan.md): the kit lens focuses to 0.15 m at 0.38× for the joint details, and its 14 mm end frames the overall view. Sold by Amazon.com; $799.00 + $57.93 allocated estimated NE tax, free shipping; Amazon order details verified 2026-10-26, arriving 2026-10-27 | [B0F258T13X](https://www.amazon.com/dp/B0F258T13X) | 1 | $856.93 | 112-8772290-0884241 | 2026-10-26 | — | ON-ORDER |
-| <!--purchase:pur-d95243a541864bd887feefcc369098d4--> SmallRig CT25 horizontal overhead tripod, 164 cm, 5 kg ball-head payload — holds the R50 V above or obliquely over the bench for the joint closeups. Sold by SmallRig; $99.00 − $9.90 SmallRig 10% promotion + $6.46 allocated estimated NE tax, free shipping; Amazon order details verified 2026-10-26, arriving 2026-10-27 | [B0F8TDJH4J](https://www.amazon.com/dp/B0F8TDJH4J) | 1 | $95.56 | 112-8772290-0884241 | 2026-10-26 | — | ON-ORDER |
-| <!--purchase:pur-4fe40749fe864533992cc92b1e791c63--> SmallRig CT-10 aluminum tripod and monopod, 180 cm, 360° ball head — the fixed overall camera position. Sold by SmallRig; $69.99 − $7.00 SmallRig 10% promotion + $4.57 allocated estimated NE tax, free shipping; Amazon order details verified 2026-10-26, arriving 2026-10-27 | [B0B63VTW46](https://www.amazon.com/dp/B0B63VTW46) | 1 | $67.56 | 112-8772290-0884241 | 2026-10-26 | — | ON-ORDER |
-| <!--purchase:pur-a326599d5b464456b43259262c4808ba--> NEEWER NL-192AI 13" bi-color LED panel kit, 3200–5600 K, two panels with stands, power adapters and built-in batteries — key and fill light for the weld video closeups. Sold by iphotoxx; $149.99 + $10.87 allocated estimated NE tax, free shipping; Amazon order details verified 2026-10-26, arriving 2026-10-27 | [B08TMBXLGD](https://www.amazon.com/dp/B08TMBXLGD) | 1 kit (2) | $160.86 | 112-8772290-0884241 | 2026-10-26 | — | ON-ORDER |
-| <!--purchase:pur-f2a6d291d92649da94f37b960613d32e--> SanDisk Extreme 128 GB SD card, UHS-I V30 (SDSDXV9-128G-GUCIN) — the R50 V's recording card. Sold by Amazon.com; $44.99 + $3.26 allocated estimated NE tax, free shipping; Amazon order details verified 2026-10-26, arriving 2026-10-27 | [B0G8LT6J46](https://www.amazon.com/dp/B0G8LT6J46) | 1 | $48.25 | 112-8772290-0884241 | 2026-10-26 | — | ON-ORDER |
-| <!--purchase:pur-5f404f5035cb425a9a8d90c69010a404--> Anker USB-C dual-slot SD and microSD card reader — offloads camera cards to the M3 Air, which has no card slot. Sold by AnkerDirect; $17.99 + $1.30 allocated estimated NE tax, free shipping; Amazon order details verified 2026-10-26, arriving 2026-10-27 | [B07NW8RPYN](https://www.amazon.com/dp/B07NW8RPYN) | 1 | $19.29 | 112-8772290-0884241 | 2026-10-26 | — | ON-ORDER |
+| <!--purchase:pur-3d8a298bd6054af6a120b520e7a8da65--> Canon EOS R50 V mirrorless camera with RF-S 14-30mm F4-6.3 IS STM PZ lens kit — main camera of the carbonator weld [filming plan](/marketing/video/carbonator-weld-shooting-plan.md): the kit lens focuses to 0.15 m at 0.38× for the joint details, and its 14 mm end frames the overall view. Sold by Amazon.com; $799.00 + $57.93 allocated NE tax, free shipping | [B0F258T13X](https://www.amazon.com/dp/B0F258T13X) | 1 | $856.93 | 112-8772290-0884241 | 2026-10-26 | 2026-10-27 | ACQUIRED |
+| <!--purchase:pur-d95243a541864bd887feefcc369098d4--> SmallRig CT25 horizontal overhead tripod, 164 cm, 5 kg ball-head payload — holds the R50 V above or obliquely over the bench for the joint closeups. Sold by SmallRig; $99.00 − $9.90 SmallRig 10% promotion + $6.46 allocated NE tax, free shipping | [B0F8TDJH4J](https://www.amazon.com/dp/B0F8TDJH4J) | 1 | $95.56 | 112-8772290-0884241 | 2026-10-26 | 2026-10-27 | ACQUIRED |
+| <!--purchase:pur-4fe40749fe864533992cc92b1e791c63--> SmallRig CT-10 aluminum tripod and monopod, 180 cm, 360° ball head — the fixed overall camera position. Sold by SmallRig; $69.99 − $7.00 SmallRig 10% promotion + $4.57 allocated NE tax, free shipping | [B0B63VTW46](https://www.amazon.com/dp/B0B63VTW46) | 1 | $67.56 | 112-8772290-0884241 | 2026-10-26 | 2026-10-27 | ACQUIRED |
+| <!--purchase:pur-a326599d5b464456b43259262c4808ba--> NEEWER NL-192AI 13" bi-color LED panel kit, 3200–5600 K, two panels with stands, power adapters and built-in batteries — key and fill light for the weld video closeups. Sold by iphotoxx; $149.99 + $10.87 allocated NE tax, free shipping | [B08TMBXLGD](https://www.amazon.com/dp/B08TMBXLGD) | 1 kit (2) | $160.86 | 112-8772290-0884241 | 2026-10-26 | 2026-10-27 | ACQUIRED |
+| <!--purchase:pur-f2a6d291d92649da94f37b960613d32e--> SanDisk Extreme 128 GB SD card, UHS-I V30 (SDSDXV9-128G-GUCIN) — the R50 V's recording card. Sold by Amazon.com; $44.99 + $3.26 allocated NE tax, free shipping | [B0G8LT6J46](https://www.amazon.com/dp/B0G8LT6J46) | 1 | $48.25 | 112-8772290-0884241 | 2026-10-26 | 2026-10-27 | ACQUIRED |
+| <!--purchase:pur-5f404f5035cb425a9a8d90c69010a404--> Anker USB-C dual-slot SD and microSD card reader — offloads camera cards to the M3 Air, which has no card slot. Sold by AnkerDirect; $17.99 + $1.30 allocated NE tax, free shipping | [B07NW8RPYN](https://www.amazon.com/dp/B07NW8RPYN) | 1 | $19.29 | 112-8772290-0884241 | 2026-10-26 | 2026-10-27 | ACQUIRED |
 
 ## 20. McMaster-Carr direct
 
@@ -818,7 +820,7 @@ Printed copies of the [install guide](/hardware/install-guide/README.md). Lulu o
 | Order date | Vendor / order # | Item | Qty | $ | Status |
 |---|---|---|---|---|---|
 | <!--purchase:pur-632f8bde24194213bf964e7383e422b0--> 2026-09-16 | [Lulu USD-C4432578](https://www.lulu.com/account/orders/22409450) | Install Guide — Comic Book, project 84q5zeq-1 | 3 | $75.26 | ACQUIRED (FedEx 877667456069, delivered 2026-09-25) |
-| <!--purchase:pur-6bc71f4f15b34503ac9bf8beea6ef815--> 2026-10-06 | [Lulu USD-C4516450](https://www.lulu.com/account/orders/22503919) | Install Guide — Small Landscape 9 × 7 in, 32 interior pages, Perfect Bound, Premium Color, 80# white coated paper, matte cover | 3 | $75.42 | ON-ORDER (shipped 2026-10-12, FedEx Standard Overnight; 3 × $9.03 printing = $27.09, $43.24 shipping and handling, $5.09 tax. Gmail order confirmation verified 2026-10-05; order date follows Lulu’s stated 2026-10-06 date) |
+| <!--purchase:pur-6bc71f4f15b34503ac9bf8beea6ef815--> 2026-10-06 | [Lulu USD-C4516450](https://www.lulu.com/account/orders/22503919) | Install Guide — Small Landscape 9 × 7 in, 32 interior pages, Perfect Bound, Premium Color, 80# white coated paper, matte cover | 3 | $75.42 | ACQUIRED (delivered 2026-10-13; three Install Guide copies, FedEx Standard Overnight) |
 
 ---
 
@@ -841,29 +843,29 @@ Printed copies of the [install guide](/hardware/install-guide/README.md). Lulu o
 
 | Status | $ |
 |---|---|
-| Acquired hardware valuation — includes replaced/returned originals | [$40,572.55](LEDGER_ACQUIRED_HW) |
-| Engineering services (§18) | [$6,519.51](LEDGER_LABOR) |
-| Acquired procurement valuation (combined) | [$47,092.06](LEDGER_ACQUIRED_COMBINED) |
-| ON-ORDER | [$2,286.99](LEDGER_ON_ORDER) |
+| Acquired hardware valuation — includes replaced/returned originals | [$42,442.75](LEDGER_ACQUIRED_HW) |
+| Engineering services (§18) | [$6,719.51](LEDGER_LABOR) |
+| Acquired procurement valuation (combined) | [$49,162.26](LEDGER_ACQUIRED_COMBINED) |
+| ON-ORDER | [$479.99](LEDGER_ON_ORDER) |
 | MISSING — not in hand | [$53.07](LEDGER_MISSING) |
 | LIKELY-TO-BUY | $0.00 |
-| **Recorded procurement valuation — includes commitments** | [$49,432.12](LEDGER_GRAND_TOTAL) |
+| **Recorded procurement valuation — includes commitments** | [$49,695.32](LEDGER_GRAND_TOTAL) |
 
 Price evidence within the procurement valuation:
 
 | Amount basis | USD |
 |---|---|
-| Final vendor amounts | [$21,264.92](LEDGER_FINAL_VENDOR) |
-| Estimated amounts | [$4,292.73](LEDGER_ESTIMATES) |
+| Final vendor amounts | [$23,167.24](LEDGER_FINAL_VENDOR) |
+| Estimated amounts | [$2,653.61](LEDGER_ESTIMATES) |
 | Legacy / unverified amounts | [$23,874.47](LEDGER_LEGACY_UNVERIFIED) |
 
 Merchant-evidenced payments (project shares; includes the undated bucket):
 
 | Event basis | USD |
 |---|---|
-| Completed charges | [$17,879.60](LEDGER_MERCHANT_CHARGES) |
+| Completed charges | [$19,781.92](LEDGER_MERCHANT_CHARGES) |
 | Issued monetary refunds | [$0.00](LEDGER_MERCHANT_REFUNDS) |
-| Charges less monetary refunds | [$17,879.60](LEDGER_MERCHANT_NET) |
+| Charges less monetary refunds | [$19,781.92](LEDGER_MERCHANT_NET) |
 
 The retrieved records have partial vendor coverage. An empty month or refund total is not evidence of account-wide zero activity. Authorizations, pending charges and noncash credit do not enter this view.
 
@@ -873,7 +875,7 @@ Acquired hardware valuation by section (includes replaced/returned originals):
 |---|---|---|
 | 1 | Carbonator fabrication | [$4,664.67](LEDGER_SEC1) |
 | 2 | CO2 subsystem (incl. Lillium prototype carbonator $1,129) | [$2,288.08](LEDGER_SEC2) |
-| 3 | Water supply + backflow prevention | [$1,629.57](LEDGER_SEC3) |
+| 3 | Water supply + backflow prevention | [$1,641.36](LEDGER_SEC3) |
 | 4 | Carbonator plumbing | [$604.07](LEDGER_SEC4) |
 | 5 | Flavor subsystem | [$2,034.82](LEDGER_SEC5) |
 | 6 | Refrigeration | [$1,984.90](LEDGER_SEC6) |
@@ -882,13 +884,13 @@ Acquired hardware valuation by section (includes replaced/returned originals):
 | 9 | Electronics — I/O, drivers, sensors, power | [$2,571.20](LEDGER_SEC9) |
 | 10 | User interface | [$164.11](LEDGER_SEC10) |
 | 11 | Enclosure hardware | [$403.24](LEDGER_SEC11) |
-| 12 | Shop / bench infrastructure | [$2,576.98](LEDGER_SEC12) |
+| 12 | Shop / bench infrastructure | [$2,876.76](LEDGER_SEC12) |
 | 13 | Printing consumables | [$3,596.75](LEDGER_SEC13) |
 | 14 | Soldering + small-signal tools | [$859.66](LEDGER_SEC14) |
-| 15 | 3D printing equipment + filaments (Bambu direct) | [$9,456.59](LEDGER_SEC15) |
+| 15 | 3D printing equipment + filaments (Bambu direct) | [$9,628.15](LEDGER_SEC15) |
 | 16 | Laser welding / cleaning / cutting | [$3,944.02](LEDGER_SEC16) |
-| 17 | Domain / infrastructure | [$857.82](LEDGER_SEC17) |
-| 19 | Video / marketing capture | [$139.69](LEDGER_SEC19) |
+| 17 | Domain / infrastructure | [$921.02](LEDGER_SEC17) |
+| 19 | Video / marketing capture | [$1,388.14](LEDGER_SEC19) |
 | 20 | McMaster-Carr direct | [$111.36](LEDGER_SEC20) |
 | 21 | Silicone molding — Zone C funnel | [$401.61](LEDGER_SEC21) |
 
