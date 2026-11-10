@@ -84,7 +84,7 @@
       }
     ],
     "launch_spacing_seconds": 925.607284,
-    "status": "D rail pair accepted for support removal and coupon fit; Mark2 representative scenarios remain in progress.",
+    "status": "D rail coupon removal and fit accepted. Representative HD has crown/lip sagging; FD tree stems break while the contact material remains.",
     "shared_profile_changed": true,
     "D_peel_result": "peel-scenarios/physical-result.json",
     "E_rail_result": "rail-cavity-30-E/physical-result.json",
@@ -153,7 +153,7 @@
       },
       "active_experiment": "D-representative-mark2/README.md",
       "specimen": "FD",
-      "status": "Printing D through the first lower curve at the production tilt and original bed contact."
+      "status": "Failed support removal; inclined interface remains attached after stems break."
     },
     {
       "scenario": "Complete enclosure rail cavity and mating wall",
@@ -168,7 +168,7 @@
       "prepared_geometry": "../enclosure-support-scenarios/samples.json#H",
       "active_experiment": "D-representative-mark2/README.md",
       "specimen": "HD",
-      "status": "Printing D on Mark2."
+      "status": "Crown and pointed lip sagging reported; full back-bottom receives local rim support targets."
     },
     {
       "scenario": "Square holed enclosure pad",
@@ -177,11 +177,14 @@
       "D_contact_result": "peel-scenarios/physical-result.json",
       "active_experiment": "D-representative-mark2/README.md",
       "specimen": "PD",
-      "status": "Printing D on Mark2."
+      "status": "Print completed; physical result has not been reported."
     }
   ],
   "selected_process": "D",
   "selection_result": "rail-cavity-30-E/physical-result.json",
   "D_rail_result": "rail-fit-30/physical-result.json",
-  "shared_profile": "hardware/printed-parts/petgf.3mf"
+  "shared_profile": "hardware/printed-parts/petgf.3mf",
+  "D_representative_result": "D-representative-mark2/physical-result.json",
+  "incline_comparison": "inclines/matrix.json",
+  "selected_process_scope": "D is accepted for the tested flat rail contact and removal access. The inclined faucet tree interface failed to release; angled contacts remain unqualified."
 }

@@ -222,8 +222,11 @@ One complete handhold profile spans both Y halves and is mirrored onto the two
 flanks. It cuts the finished shell and seam blocks together, with a common gripping
 surface across the seam.
 
-The printed corbel is the exposed gripping surface. It prints support-free with the
-shared ordinary layer schedule. The grip is integral with the quadrant. Surface finish and gripping comfort remain
+The printed corbel is the exposed gripping surface and retains the shared ordinary
+layer schedule. Local native tree targets support the back-bottom's rounded mouth
+and seam lip after the [handhold coupon result](../../../print-tests/petgf-dense-roofs/D-representative-mark2/physical-result.json).
+The inclined gripping interior remains outside those forced regions.
+The grip is integral with the quadrant. Surface finish and gripping comfort remain
 unqualified on the complete production handholds.
 
 The inner wall stands between |X|90.75 and |X|93.75,

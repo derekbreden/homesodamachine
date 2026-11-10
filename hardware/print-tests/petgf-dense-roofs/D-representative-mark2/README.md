@@ -28,7 +28,10 @@ bridge flow, bridge speed and local cooling treatment are shared.
 [`preparation.json`](preparation.json) binds the source meshes and positions.
 The native slice and estimate are in [`ready/`](ready/). The verification record
 retains the actual support bodies, contact planes, bead envelope and Mark2 trim.
-Physical finish and support removal require their own results.
+The [physical result](physical-result.json) records failed release at the inclined
+faucet contact and sagging at the handhold crown and lip. The holed pad awaits
+a reported result. The [incline comparisons](../inclines/README.md) isolate contact
+gap and roof spacing before another complete faucet print.
 
 Mark2's accepted job, selected send options and startup reading are in
 [`mark2/`](mark2/). The companion [rail pair](../rail-fit-30/) prints on Mark1,

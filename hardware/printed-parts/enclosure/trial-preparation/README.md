@@ -155,6 +155,11 @@ gripping surface, with no local layer band or added support fins.
   Direction-specific exclusions apply when their source-frame direction matches the
   build direction. Its separate bridge regions add local solid modifiers with the
   corresponding plate-space bridge angle. These do not block supports.
+- **`support_region`** — an authored source-frame box targets native tree support
+  beneath its downward faces. The preparation records the selected area and
+  emits a support enforcer in the part's print pose. Back-bottom uses local
+  targets at the handhold mouths and seam lips; the inclined gripping interior
+  remains outside those forced regions.
 
 - **`groove_ribbons`** — each long, narrow flat face printing down at the top of the part is
   a caught face over a sliding groove. A two-wall, hollow ribbon stands in the groove one empty

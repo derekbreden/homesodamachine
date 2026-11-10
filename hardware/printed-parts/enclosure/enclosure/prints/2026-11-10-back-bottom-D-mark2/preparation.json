@@ -1,0 +1,738 @@
+{
+  "archive": "hardware/printed-parts/enclosure/enclosure/prints/2026-11-10-back-bottom-D-mark2/2026-11-10-back-bottom-mark2-d08d2e44.gcode.3mf",
+  "archive_sha256": "4003c7152e6a106cddfc76a99306dd3e363f87f14b333bc050208c59e3157768",
+  "bed_type": "Textured PEI Plate",
+  "brim_allowance_mm": 0.0,
+  "connection_key": "Mark2",
+  "cooling_recovery": {
+    "added_commanded_motion_seconds": 26846.730893331638,
+    "archive_sha256": "4003c7152e6a106cddfc76a99306dd3e363f87f14b333bc050208c59e3157768",
+    "changed": true,
+    "estimate_scope": "Native estimate plus the added constant-feed motion time; acceleration and fan spin-up are not simulated.",
+    "input_archive_sha256": "2360dcd3534e0a78123db6de79ce1685ba2410e6a5c9f4841ca86747c4a5c984",
+    "members": [
+      {
+        "added_commanded_motion_seconds": 26846.730893331638,
+        "changed": true,
+        "input_gcode_sha256": "6d7b194b956ce71026ac0047f70a959cd6964bddf0481c198b4af8bf0eabf3e3",
+        "member": "Metadata/plate_1.gcode",
+        "native_cooled_seed_moves": 5389,
+        "ordinary_model_moves": 4927695,
+        "output_gcode_sha256": "241e2c4c4f7b6ef38dce36088c23c2855e7161d94929452edaa149dedaa4ee51",
+        "petgf_slots": [
+          0
+        ],
+        "policy": {
+          "grid_mm": 0.2,
+          "height_mm": 0.8
+        },
+        "recovery_by_feature": {
+          "Floating vertical shell": [
+            1208.0,
+            10276.320126521416,
+            626.3872857541334
+          ],
+          "Gap infill": [
+            205.0,
+            121.52003767637268,
+            7.504946617959486
+          ],
+          "Inner wall": [
+            2397.0,
+            8011.232647711775,
+            491.5163046397559
+          ],
+          "Internal solid infill": [
+            9619.0,
+            401617.5655290289,
+            24794.42921100742
+          ],
+          "Outer wall": [
+            7537.0,
+            19332.648538461617,
+            767.880987769927
+          ],
+          "Sparse infill": [
+            4374.0,
+            2591.7418727766494,
+            159.01215754247207
+          ]
+        },
+        "recovery_fan_percent": [
+          "70"
+        ],
+        "recovery_moves": 25340,
+        "recovery_speed_limit_mm_s": [
+          "15",
+          "15",
+          "15"
+        ],
+        "scope": "The complete centerline lies in a recent native-cooled model footprint. Motion coordinates and extrusion words are retained; only local part cooling and recovery feed rates change.",
+        "speed_limited_moves": 25311
+      }
+    ]
+  },
+  "emitted_textured_trim_mm": 0.02,
+  "estimated_seconds": 111892.23089333164,
+  "gcode_sha256": "241e2c4c4f7b6ef38dce36088c23c2855e7161d94929452edaa149dedaa4ee51",
+  "material": "Polymaker Fiberon PET-GF15, black",
+  "nozzle": {
+    "diameter_mm": 0.4,
+    "flow": "Standard",
+    "hardened": true,
+    "reason": "Every abrasive stock runs on the left hotend (hardware/ledger/tools.md, Which hotends fit an H2C). Mark2's 2026-10-24 jobs ran black PET-GF on its fixed left hardened 0.4 mm Standard-flow hotend (faucet/industrial/prints/2026-10-24-buttons-sculpted-bands020-mark2/README.md, task 1372253517).",
+    "side": "left",
+    "sliced_diameter_mm": 0.4,
+    "sliced_volume_type": "Standard"
+  },
+  "objects": [
+    {
+      "build_rotation": [
+        [
+          0.0,
+          -1.0,
+          0.0
+        ],
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "closed": {
+        "bodies": 1,
+        "boundary_edges": 0,
+        "closed_oriented_single_body": true,
+        "edges": 768768,
+        "inconsistent_edges": 0,
+        "nonmanifold_edges": 0
+      },
+      "facets": 512512,
+      "features": [
+        {
+          "blocker_source_mm": [
+            [
+              -107.6,
+              238.0,
+              19.5
+            ],
+            [
+              -105.0,
+              259.0,
+              35.8
+            ]
+          ],
+          "bounds_source_mm": [
+            [
+              -107.6,
+              238.0,
+              19.5
+            ],
+            [
+              -105.0,
+              259.0,
+              35.8
+            ]
+          ],
+          "kind": "support_required",
+          "name": "west handhold rounded crown",
+          "reason": "Support the outer rounded mouth across its rising courses after the HD sagging result; retain D contact distance and leave the integral inclined gripping face unforced.",
+          "selected_downward_area_mm2": 67.02133768593444,
+          "selected_downward_faces": 4066
+        },
+        {
+          "blocker_source_mm": [
+            [
+              -107.6,
+              200.0,
+              20.75
+            ],
+            [
+              -90.6,
+              203.0,
+              35.8
+            ]
+          ],
+          "bounds_source_mm": [
+            [
+              -107.6,
+              200.0,
+              20.75
+            ],
+            [
+              -90.6,
+              203.0,
+              35.8
+            ]
+          ],
+          "kind": "support_required",
+          "name": "west handhold seam lip",
+          "reason": "Spread support under the exposed seam lip and its immediately adjacent courses after the HD sagging result; retain D contact distance and keep the inclined grip interior unforced.",
+          "selected_downward_area_mm2": 56.381509869075046,
+          "selected_downward_faces": 65
+        },
+        {
+          "blocker_source_mm": [
+            [
+              105.0,
+              238.0,
+              19.5
+            ],
+            [
+              107.6,
+              259.0,
+              35.8
+            ]
+          ],
+          "bounds_source_mm": [
+            [
+              105.0,
+              238.0,
+              19.5
+            ],
+            [
+              107.6,
+              259.0,
+              35.8
+            ]
+          ],
+          "kind": "support_required",
+          "name": "east handhold rounded crown",
+          "reason": "Support the outer rounded mouth across its rising courses after the HD sagging result; retain D contact distance and leave the integral inclined gripping face unforced.",
+          "selected_downward_area_mm2": 67.25552134949537,
+          "selected_downward_faces": 4135
+        },
+        {
+          "blocker_source_mm": [
+            [
+              90.6,
+              200.0,
+              20.75
+            ],
+            [
+              107.6,
+              203.0,
+              35.8
+            ]
+          ],
+          "bounds_source_mm": [
+            [
+              90.6,
+              200.0,
+              20.75
+            ],
+            [
+              107.6,
+              203.0,
+              35.8
+            ]
+          ],
+          "kind": "support_required",
+          "name": "east handhold seam lip",
+          "reason": "Spread support under the exposed seam lip and its immediately adjacent courses after the HD sagging result; retain D contact distance and keep the inclined grip interior unforced.",
+          "selected_downward_area_mm2": 56.20285642924852,
+          "selected_downward_faces": 65
+        }
+      ],
+      "fins": [],
+      "identify_id": 1901,
+      "model_bed_margin_mm": 23.825003051757818,
+      "modifiers": [
+        {
+          "name": "Y seam knuckle and its wall root +1/29.25",
+          "plate_bounds_mm": [
+            [
+              278.3149908447266,
+              70.0,
+              34.25
+            ],
+            [
+              297.9739969482422,
+              86.75,
+              81.9
+            ]
+          ],
+          "source_bounds_mm": [
+            [
+              -107.5,
+              200.15099389648438,
+              28.25
+            ],
+            [
+              -90.75,
+              219.81,
+              75.9
+            ]
+          ],
+          "sparse_infill_density": "100%"
+        },
+        {
+          "name": "Y seam knuckle and its wall root +1/126.304",
+          "plate_bounds_mm": [
+            [
+              274.5749908447266,
+              70.0,
+              130.30355339059327
+            ],
+            [
+              297.9739969482422,
+              86.75,
+              166.0
+            ]
+          ],
+          "source_bounds_mm": [
+            [
+              -107.5,
+              200.15099389648438,
+              124.30355339059328
+            ],
+            [
+              -90.75,
+              223.55,
+              160.0
+            ]
+          ],
+          "sparse_infill_density": "100%"
+        },
+        {
+          "name": "Y seam knuckle and its wall root -1/29.25",
+          "plate_bounds_mm": [
+            [
+              278.3149908447266,
+              268.25,
+              34.25
+            ],
+            [
+              297.9739969482422,
+              285.0,
+              81.9
+            ]
+          ],
+          "source_bounds_mm": [
+            [
+              90.75,
+              200.15099389648438,
+              28.25
+            ],
+            [
+              107.5,
+              219.81,
+              75.9
+            ]
+          ],
+          "sparse_infill_density": "100%"
+        },
+        {
+          "name": "Y seam knuckle and its wall root -1/126.304",
+          "plate_bounds_mm": [
+            [
+              274.5749908447266,
+              268.25,
+              130.30355339059327
+            ],
+            [
+              297.9739969482422,
+              285.0,
+              166.0
+            ]
+          ],
+          "source_bounds_mm": [
+            [
+              90.75,
+              200.15099389648438,
+              124.30355339059328
+            ],
+            [
+              107.5,
+              223.55,
+              160.0
+            ]
+          ],
+          "sparse_infill_density": "100%"
+        },
+        {
+          "name": "Z rail, end stop and wall root -1",
+          "plate_bounds_mm": [
+            [
+              26.824990844726557,
+              70.0,
+              163.0
+            ],
+            [
+              297.9739969482422,
+              87.5,
+              180.7990030517578
+            ]
+          ],
+          "source_bounds_mm": [
+            [
+              -107.5,
+              200.15099389648438,
+              157.0
+            ],
+            [
+              -90.0,
+              471.3,
+              174.7990030517578
+            ]
+          ],
+          "sparse_infill_density": "100%"
+        },
+        {
+          "name": "Z rail, end stop and wall root +1",
+          "plate_bounds_mm": [
+            [
+              26.824990844726557,
+              267.5,
+              163.0
+            ],
+            [
+              297.9739969482422,
+              285.0,
+              180.7990030517578
+            ]
+          ],
+          "source_bounds_mm": [
+            [
+              90.0,
+              200.15099389648438,
+              157.0
+            ],
+            [
+              107.5,
+              471.3,
+              174.7990030517578
+            ]
+          ],
+          "sparse_infill_density": "100%"
+        }
+      ],
+      "name": "enclosure-back-bottom",
+      "object_id": 2,
+      "object_settings": {},
+      "plate_bounds_mm": [
+        [
+          23.825003051757818,
+          67.0,
+          0.0
+        ],
+        [
+          297.97499694824216,
+          288.0,
+          180.8000030517578
+        ]
+      ],
+      "pose": null,
+      "pose_rotation": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "ranges": [],
+      "regions": {
+        "part_process_overrides": null,
+        "record": "hardware/printed-parts/enclosure/enclosure/heat-set-review/print-regions.json",
+        "record_sha256": "36f1db1dc09208a3b90566734e9011d31588ffb57df94523ab1c609dbf38fa1d"
+      },
+      "ribbons": [],
+      "seam_enforcer": null,
+      "source_center_mm": [
+        0.0,
+        337.22499084472656,
+        84.4000015258789
+      ],
+      "step_sha256": null,
+      "stl": "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.stl",
+      "stl_sha256": "a41f94b4d25fcaeb79ba06e64af1f86ee23709d0c2fc89dcd2b52a9d2bda9d51",
+      "support_free_regions": [],
+      "support_targets": [
+        {
+          "blocker_source_mm": [
+            [
+              -107.6,
+              238.0,
+              19.5
+            ],
+            [
+              -105.0,
+              259.0,
+              35.8
+            ]
+          ],
+          "bounds_source_mm": [
+            [
+              -107.6,
+              238.0,
+              19.5
+            ],
+            [
+              -105.0,
+              259.0,
+              35.8
+            ]
+          ],
+          "kind": "support_required",
+          "name": "west handhold rounded crown",
+          "reason": "Support the outer rounded mouth across its rising courses after the HD sagging result; retain D contact distance and leave the integral inclined gripping face unforced.",
+          "selected_downward_area_mm2": 67.02133768593444,
+          "selected_downward_faces": 4066
+        },
+        {
+          "blocker_source_mm": [
+            [
+              -107.6,
+              200.0,
+              20.75
+            ],
+            [
+              -90.6,
+              203.0,
+              35.8
+            ]
+          ],
+          "bounds_source_mm": [
+            [
+              -107.6,
+              200.0,
+              20.75
+            ],
+            [
+              -90.6,
+              203.0,
+              35.8
+            ]
+          ],
+          "kind": "support_required",
+          "name": "west handhold seam lip",
+          "reason": "Spread support under the exposed seam lip and its immediately adjacent courses after the HD sagging result; retain D contact distance and keep the inclined grip interior unforced.",
+          "selected_downward_area_mm2": 56.381509869075046,
+          "selected_downward_faces": 65
+        },
+        {
+          "blocker_source_mm": [
+            [
+              105.0,
+              238.0,
+              19.5
+            ],
+            [
+              107.6,
+              259.0,
+              35.8
+            ]
+          ],
+          "bounds_source_mm": [
+            [
+              105.0,
+              238.0,
+              19.5
+            ],
+            [
+              107.6,
+              259.0,
+              35.8
+            ]
+          ],
+          "kind": "support_required",
+          "name": "east handhold rounded crown",
+          "reason": "Support the outer rounded mouth across its rising courses after the HD sagging result; retain D contact distance and leave the integral inclined gripping face unforced.",
+          "selected_downward_area_mm2": 67.25552134949537,
+          "selected_downward_faces": 4135
+        },
+        {
+          "blocker_source_mm": [
+            [
+              90.6,
+              200.0,
+              20.75
+            ],
+            [
+              107.6,
+              203.0,
+              35.8
+            ]
+          ],
+          "bounds_source_mm": [
+            [
+              90.6,
+              200.0,
+              20.75
+            ],
+            [
+              107.6,
+              203.0,
+              35.8
+            ]
+          ],
+          "kind": "support_required",
+          "name": "east handhold seam lip",
+          "reason": "Spread support under the exposed seam lip and its immediately adjacent courses after the HD sagging result; retain D contact distance and keep the inclined grip interior unforced.",
+          "selected_downward_area_mm2": 56.20285642924852,
+          "selected_downward_faces": 65
+        }
+      ],
+      "tie_windows": [],
+      "translation_mm": [
+        160.9,
+        177.5,
+        90.4000015258789
+      ],
+      "verify_spans": [],
+      "yaw_degrees": 90.0
+    }
+  ],
+  "pause": null,
+  "piece": "back-bottom",
+  "plate_border_mm": 20.0,
+  "plate_offset_mm": {
+    "reason": "Place the asymmetric part and accessible support envelope within the usable plate border, with the open entry end along the long plate axis.",
+    "value": [
+      -1.6,
+      17.5
+    ]
+  },
+  "prepared_utc": "2026-11-10T08:00:14+00:00",
+  "printer": "Mark2",
+  "profile": "hardware/printed-parts/petgf.3mf",
+  "profile_changes": {
+    "machine_start_gcode": {
+      "from_sha256": "3cc9e41520dbf5622d6f9a96bce734db9d11b0b48b49f2abec047a6e01dc6a92",
+      "requested_z_trim_mm": 0.04,
+      "to_sha256": "b09bc598f2ed7c29dceb227188593905dfc663f0391b98ff708ef00e7ce01bee"
+    },
+    "petgf_support_recipe": {
+      "members": {},
+      "profile": "hardware/printed-parts/petgf.3mf",
+      "sha256": "1be18bdfd75b33efc898b3e5c28a0c1975fc694ef4d94dd88a909472cb96b97f"
+    },
+    "print_compatible_printers": {
+      "from": [
+        "Bambu Lab H2C 0.4 nozzle"
+      ],
+      "to": [
+        "Bambu Lab H2C 0.4 nozzle",
+        "Bambu Lab H2C 0.4 Standard +0.04 Z trim"
+      ]
+    },
+    "printer_settings_id": {
+      "from": "Bambu Lab H2C 0.4 nozzle 04 first layer by agent",
+      "to": "Bambu Lab H2C 0.4 Standard +0.04 Z trim"
+    }
+  },
+  "profile_sha256": "1be18bdfd75b33efc898b3e5c28a0c1975fc694ef4d94dd88a909472cb96b97f",
+  "project": "hardware/printed-parts/enclosure/enclosure/prints/2026-11-10-back-bottom-D-mark2/2026-11-10-back-bottom-mark2-d08d2e44.3mf",
+  "project_sha256": "c8f7648b3b2493d3a7b3c140432e98153847486dc516e50962af021b2d5aa77a",
+  "requested_z_trim_mm": 0.04,
+  "settings_changes": {
+    "extruder_ams_count": {
+      "from": [
+        "1#0|4#1",
+        "1#0|4#0"
+      ],
+      "reason": "Single external black PET-GF spool on the fixed left nozzle for model, support and interface.",
+      "to": [
+        "1#0|4#0",
+        "1#0|4#0"
+      ]
+    },
+    "filament_colour": {
+      "from": [
+        "#000000"
+      ],
+      "reason": "Mark2's loaded black PET-GF colour reading.",
+      "to": [
+        "#161616"
+      ]
+    },
+    "flush_into_support": {
+      "from": "1",
+      "reason": "Single external black PET-GF spool on the fixed left nozzle for model, support and interface.",
+      "to": "0"
+    },
+    "support_filament": {
+      "from": "0",
+      "reason": "Single external black PET-GF spool on the fixed left nozzle for model, support and interface.",
+      "to": "1"
+    },
+    "support_interface_filament": {
+      "from": "0",
+      "reason": "Single external black PET-GF spool on the fixed left nozzle for model, support and interface.",
+      "to": "1"
+    },
+    "support_on_build_plate_only": {
+      "from": "0",
+      "reason": "The rail trees root on their own cavity floors.",
+      "to": "0"
+    },
+    "support_style": {
+      "from": "default",
+      "reason": "Retain the accepted tree treatment rooted on the rail cavity floors while local enforcers cover the accessible handhold mouths and seam lips.",
+      "to": "default"
+    },
+    "tree_support_branch_angle": {
+      "from": "45",
+      "reason": "Keep the rail branches close above their cavity floors and the handhold roots near their accessible contacts.",
+      "to": "10"
+    },
+    "tree_support_branch_diameter_angle": {
+      "from": "5",
+      "reason": "Rail trunks retain their small section through the cavity height.",
+      "to": "0"
+    }
+  },
+  "settings_sha256": "b8cd5f8e60651813722681384d29726945ed937cad0f6ee4ca1447a3b771dda5",
+  "show_faces": "hardware/printed-parts/enclosure/enclosure/prints/2026-11-10-back-bottom-D-mark2/show-faces.npz",
+  "sliced": true,
+  "slicer_warnings": [],
+  "spec": "hardware/printed-parts/enclosure/trial-preparation/pieces.json",
+  "spec_sha256": "ce6959f87e2d3bc858dba4e5e2f9a0c3c41f35ca115d930f50451f4c45b2fd53",
+  "submitted": false,
+  "tool_sha256": {
+    "hardware/printed-parts/enclosure/trial-preparation/prepare.rs": "1e4a3b39b7446a202531b9737064ed4a782b21ab91642bc2d397d02d58e20560",
+    "tools/hsm/print-prep/src/audit.rs": "a00e46498cb0a567a17a67c8ea9e5ede8676ea115f85ef3bbc78de3d4503b43b",
+    "tools/hsm/print-prep/src/cooling.rs": "763d49393491d70d11de18aae5b29fd833c0b13a5e32e3b4cd86ee62d710bb5f",
+    "tools/hsm/print-prep/src/derive.rs": "df646a43abac1b017552df9295d0c53ca4c6a530532e1a6f9ca46792d81e5a41",
+    "tools/hsm/print-prep/src/faucet.rs": "750ac106963504a4dbce5afcdd42622e0b16c51db6373ab248063da083d5b5b6",
+    "tools/hsm/print-prep/src/gcode.rs": "39d215d23fb465201e5ea332d3a2520a88b5b4833fa4cb09504b61ec0b5a9cac",
+    "tools/hsm/print-prep/src/ids.rs": "27b60717fedb1caa2871f7cd3e7df29e786ab8ec07222c125a490c673dd5884f",
+    "tools/hsm/print-prep/src/json.rs": "f773b793c4cfdae36317dd124507f04d884520df2faf6e2e2128a4a07a0aa5a0",
+    "tools/hsm/print-prep/src/lib.rs": "48dd651377a3b31cd4b8d309729dd6f8829768ef76c0bbdd78c2d45702aa8ee7",
+    "tools/hsm/print-prep/src/mesh.rs": "c5fb303c768245243d9104f7a768b2551d5367efc9aeb1022c6113147245cf5f",
+    "tools/hsm/print-prep/src/npz.rs": "d2718b6a4e5b7f022331002746d44c097d8e037afdd061129738695dd45cf3da",
+    "tools/hsm/print-prep/src/preset.rs": "b85af0763911935c777e3f4c77c28e6eea54e8602f974df454de4fbd1837e3d6",
+    "tools/hsm/print-prep/src/profile.rs": "aa6eb07feb22195fbc1fa623052afae71ec1d92f92e6c8bad4b3ee22685431db",
+    "tools/hsm/print-prep/src/project.rs": "845bdea24b3b14185c3eb5e5713019ec271466e4d78a5e8a25aa449bd0d1d304",
+    "tools/hsm/print-prep/src/refresh.rs": "6c669c978ac4b254ee9c0d34f96e496e4a4e83855f626ca4bf6198b11eee1fd8",
+    "tools/hsm/print-prep/src/review.rs": "ad1f3f5e20ee7dcf65567f12c2cc61e06a67284611aa805a1324f1705be56c1a",
+    "tools/hsm/print-prep/src/seam.rs": "f0e8913e8959d7f7937406c5fcc738460e60f40c3fb4c8478c67c90502b5a5c1",
+    "tools/hsm/print-prep/src/slice.rs": "4b71e917900250a6b3f5b9ce440b5295b1d93d1b603b2bce291851c3859696bf",
+    "tools/hsm/print-prep/src/xml.rs": "2638094e7fd409b449964faeca7b91380a152135280f57b48efe22577d0f8301"
+  },
+  "usable_plate_mm": [
+    [
+      0.0,
+      0.0
+    ],
+    [
+      325.0,
+      320.0
+    ]
+  ]
+}

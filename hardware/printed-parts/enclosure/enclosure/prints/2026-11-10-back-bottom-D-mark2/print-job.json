@@ -1,0 +1,272 @@
+{
+  "purpose": "Bind the full current back-bottom and localized handhold support targets to the reviewed Mark2 print.",
+  "date": "2026-11-10",
+  "printer": "Mark2",
+  "nozzle": {
+    "side": "left",
+    "diameter_mm": 0.4,
+    "flow": "Standard",
+    "hardened": true
+  },
+  "material": "Polymaker Fiberon PET-GF15 black",
+  "profile": "hardware/printed-parts/petgf.3mf",
+  "profile_sha256": "1be18bdfd75b33efc898b3e5c28a0c1975fc694ef4d94dd88a909472cb96b97f",
+  "project": "2026-11-10-back-bottom-mark2-d08d2e44.3mf",
+  "project_sha256": "c8f7648b3b2493d3a7b3c140432e98153847486dc516e50962af021b2d5aa77a",
+  "native_archive": "2026-11-10-back-bottom-mark2-d08d2e44.gcode.3mf",
+  "native_archive_sha256": "4003c7152e6a106cddfc76a99306dd3e363f87f14b333bc050208c59e3157768",
+  "requested_z_trim_mm": 0.04,
+  "emitted_textured_z_trim_mm": 0.02,
+  "estimated_seconds": 111892.23089333164,
+  "estimated_filament_g": 699.76611328125,
+  "layers": 754,
+  "review": "review.json",
+  "checks": {
+    "archive": true,
+    "bed_border": true,
+    "fine_and_transition_bands": true,
+    "show_faces_support_free": true,
+    "solid_hosts_sampled": true,
+    "tie_windows_support_free": true,
+    "z_trim": true
+  },
+  "minimum_bed_margin_mm": 21.273995000000014,
+  "support_targets": [
+    {
+      "blocker_source_mm": [
+        [
+          -107.6,
+          238.0,
+          19.5
+        ],
+        [
+          -105.0,
+          259.0,
+          35.8
+        ]
+      ],
+      "bounds_source_mm": [
+        [
+          -107.6,
+          238.0,
+          19.5
+        ],
+        [
+          -105.0,
+          259.0,
+          35.8
+        ]
+      ],
+      "kind": "support_required",
+      "name": "west handhold rounded crown",
+      "reason": "Support the outer rounded mouth across its rising courses after the HD sagging result; retain D contact distance and leave the integral inclined gripping face unforced.",
+      "selected_downward_area_mm2": 67.02133768593444,
+      "selected_downward_faces": 4066
+    },
+    {
+      "blocker_source_mm": [
+        [
+          -107.6,
+          200.0,
+          20.75
+        ],
+        [
+          -90.6,
+          203.0,
+          35.8
+        ]
+      ],
+      "bounds_source_mm": [
+        [
+          -107.6,
+          200.0,
+          20.75
+        ],
+        [
+          -90.6,
+          203.0,
+          35.8
+        ]
+      ],
+      "kind": "support_required",
+      "name": "west handhold seam lip",
+      "reason": "Spread support under the exposed seam lip and its immediately adjacent courses after the HD sagging result; retain D contact distance and keep the inclined grip interior unforced.",
+      "selected_downward_area_mm2": 56.381509869075046,
+      "selected_downward_faces": 65
+    },
+    {
+      "blocker_source_mm": [
+        [
+          105.0,
+          238.0,
+          19.5
+        ],
+        [
+          107.6,
+          259.0,
+          35.8
+        ]
+      ],
+      "bounds_source_mm": [
+        [
+          105.0,
+          238.0,
+          19.5
+        ],
+        [
+          107.6,
+          259.0,
+          35.8
+        ]
+      ],
+      "kind": "support_required",
+      "name": "east handhold rounded crown",
+      "reason": "Support the outer rounded mouth across its rising courses after the HD sagging result; retain D contact distance and leave the integral inclined gripping face unforced.",
+      "selected_downward_area_mm2": 67.25552134949537,
+      "selected_downward_faces": 4135
+    },
+    {
+      "blocker_source_mm": [
+        [
+          90.6,
+          200.0,
+          20.75
+        ],
+        [
+          107.6,
+          203.0,
+          35.8
+        ]
+      ],
+      "bounds_source_mm": [
+        [
+          90.6,
+          200.0,
+          20.75
+        ],
+        [
+          107.6,
+          203.0,
+          35.8
+        ]
+      ],
+      "kind": "support_required",
+      "name": "east handhold seam lip",
+      "reason": "Spread support under the exposed seam lip and its immediately adjacent courses after the HD sagging result; retain D contact distance and keep the inclined grip interior unforced.",
+      "selected_downward_area_mm2": 56.20285642924852,
+      "selected_downward_faces": 65
+    }
+  ],
+  "contact_recipe": "D",
+  "scope": "Local extra targets cover the outer rounded mouth and exposed seam lip. The inclined gripping interior is not forced. Inclined faucet transfer failed and remains a separate test; no general inclined-removal acceptance is claimed.",
+  "physical_result": "pending",
+  "status": "started",
+  "rail_roots": [
+    {
+      "base_z_mm": 166.52,
+      "bbox_cad_xyz_mm": [
+        -103.9,
+        329.725,
+        160.52,
+        -98.7,
+        455.725,
+        169.16
+      ],
+      "bbox_xy_mm": [
+        42.4,
+        73.6,
+        168.4,
+        78.8
+      ],
+      "first_interface_z_mm": 174.68,
+      "id": "tree-1",
+      "interface_reading": "explicit_feature",
+      "interfaces": [
+        "interface-7"
+      ],
+      "root": "model",
+      "shortest_build_up_mm": 8.16,
+      "top_z_mm": 175.16
+    },
+    {
+      "base_z_mm": 166.52,
+      "bbox_cad_xyz_mm": [
+        98.9,
+        224.125,
+        160.52,
+        103.7,
+        455.725,
+        169.16
+      ],
+      "bbox_xy_mm": [
+        42.4,
+        276.4,
+        274.0,
+        281.2
+      ],
+      "first_interface_z_mm": 174.68,
+      "id": "tree-2",
+      "interface_reading": "explicit_feature",
+      "interfaces": [
+        "interface-8"
+      ],
+      "root": "model",
+      "shortest_build_up_mm": 8.16,
+      "top_z_mm": 175.16
+    },
+    {
+      "base_z_mm": 166.52,
+      "bbox_cad_xyz_mm": [
+        -103.9,
+        224.125,
+        160.52,
+        -98.7,
+        317.725,
+        169.16
+      ],
+      "bbox_xy_mm": [
+        180.4,
+        73.6,
+        274.0,
+        78.8
+      ],
+      "first_interface_z_mm": 174.68,
+      "id": "tree-3",
+      "interface_reading": "explicit_feature",
+      "interfaces": [
+        "interface-9"
+      ],
+      "root": "model",
+      "shortest_build_up_mm": 8.16,
+      "top_z_mm": 175.16
+    }
+  ],
+  "support_body_settings": {
+    "support_style": "default",
+    "tree_support_branch_angle": "10",
+    "tree_support_branch_diameter_angle": "0",
+    "support_on_build_plate_only": "0"
+  },
+  "submitted": true,
+  "printer_task_id": "1427064817",
+  "accepted_at": "2026-11-10T08:04:41+00:00",
+  "observed_at": "2026-11-10T08:18:30+00:00",
+  "observed_state": "RUNNING",
+  "observed_layer": 1,
+  "observed_print_error": 0,
+  "part_layer_observed": true,
+  "print_only_archive": "2026-11-10-back-bottom-D-arch-left04-z004-mark2-print-only.gcode.3mf",
+  "print_only_archive_sha256": "c24df6db1ae615f2c6ecb3263e7a0fde6d380497c16ddcc380d9332e603ebaf1",
+  "gcode_sha256": "241e2c4c4f7b6ef38dce36088c23c2855e7161d94929452edaa149dedaa4ee51",
+  "launch": "launch.json",
+  "startup_status": "startup-status.json",
+  "print_options": {
+    "Timelapse": "On",
+    "Auto bed leveling": "On",
+    "Flow dynamic calibration": "Auto",
+    "Nozzle Offset Calibration": "Auto"
+  },
+  "source_stl_sha256": "a41f94b4d25fcaeb79ba06e64af1f86ee23709d0c2fc89dcd2b52a9d2bda9d51",
+  "startup_layer_reading": "The acceptance packet retained the previous task layer counters. Startup telemetry belongs to the new archive; part-layer observation remains separate.",
+  "current_status": "current-status.json"
+}
