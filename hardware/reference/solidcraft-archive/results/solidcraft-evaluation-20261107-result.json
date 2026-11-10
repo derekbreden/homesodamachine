@@ -1,0 +1,9 @@
+{
+  "purpose": "This run evaluates native SolidCraft editing and export workflows.",
+  "revision": "f9d0eef45a21248184e060c5460700dc0ec5ac0c",
+  "study": "/Users/derekbredensteiner/Developer/homesodamachine/hardware/manifold-layout/studies/solidcraft-workflow",
+  "exports": "/Users/derekbredensteiner/Developer/homesodamachine/output/solidcraft-demo",
+  "version": "solidcraft-cli 0.29.0",
+  "geometry_checks_passed": true,
+  "gui_json_rebuild_passed": true
+}

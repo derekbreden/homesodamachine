@@ -1,0 +1,1354 @@
+{
+  "purpose": "Record the isolated valve Boolean investigation without altering the active modeling task.",
+  "versions": {
+    "installed": {
+      "version": "0.29.0",
+      "source_tag": "v0.29.0",
+      "source_commit": "3a5195b0a0aa359f6ebf10d890c1f887c70144b1",
+      "binary_sha256": "47936b05318e940143a974e56fca2fb9001618348aa49634ca714620e16cb3e7"
+    },
+    "comparison": {
+      "version": "0.40.0-rc.2",
+      "source_tag": "v0.40.0-rc.2",
+      "binary_sha256": "d1ca34476808cc2b279540efcab9358cd729f7e18e9681c48dab168f9a0c66cf",
+      "release_zip_sha256": "bcabfb714740b904ad589c9a9c7529d95d616cad16d28c7c7fe9ec0a72ecd3de",
+      "release_checksum_verified": true,
+      "source_commit": "777f960999cbd256ae8f53b3a042cccd19703ba6"
+    },
+    "latest_tested": {
+      "version": "0.40.0-rc.3",
+      "source_tag": "v0.40.0-rc.3",
+      "binary_sha256": "06f8ece7e6b5ec00fb6cc744662c2e880e9cadf2fe7a205cafdb87db0f4b208a",
+      "release_zip_sha256": "5cbfcc8ca7e8abafc70729c407d143aa0c2d824aa5820ea60158a44d310e225b",
+      "release_checksum_verified": true,
+      "source_commit": "7001949c49e211a430fe4747221589b2b9384f2c"
+    }
+  },
+  "scope": "A reduced analytic housing and opposed stepped port; the saved housing with posts and cap is a separate case. Timings are headless geometry steps on the shared Mac, excluding compilation, process startup and input loading.",
+  "installed_tests": [
+    {
+      "case": "moulded_mirror",
+      "error": "step exceeded 45 seconds",
+      "steps": [
+        {
+          "index": 3,
+          "command": "solid.revolve",
+          "wall_seconds": 45.01108933299838,
+          "error": "step exceeded 45 seconds"
+        }
+      ],
+      "measurement": null
+    },
+    {
+      "case": "moulded_pattern",
+      "error": "step exceeded 45 seconds",
+      "steps": [
+        {
+          "index": 3,
+          "command": "solid.revolve",
+          "wall_seconds": 45.0117189169996,
+          "error": "step exceeded 45 seconds"
+        }
+      ],
+      "measurement": null
+    },
+    {
+      "case": "moulded_direct",
+      "error": "step exceeded 45 seconds",
+      "steps": [
+        {
+          "index": 3,
+          "command": "solid.revolve",
+          "wall_seconds": 45.011205625,
+          "error": "step exceeded 45 seconds"
+        }
+      ],
+      "measurement": null
+    }
+  ],
+  "replacement_tests": [
+    {
+      "case": "moulded_mirror",
+      "error": null,
+      "steps": [
+        {
+          "index": 3,
+          "command": "solid.revolve",
+          "wall_seconds": 0.5513069579992589,
+          "native_timings": [
+            {
+              "command": "solid.revolve",
+              "index": 0,
+              "ms": 550.556,
+              "profile": {
+                "boolean_ms": 57.618,
+                "other_ms": 321.256,
+                "tessellate_ms": 171.683
+              }
+            }
+          ],
+          "warnings": []
+        },
+        {
+          "index": 4,
+          "command": "solid.mirror",
+          "wall_seconds": 0.7396435419996124,
+          "native_timings": [
+            {
+              "command": "solid.mirror",
+              "index": 0,
+              "ms": 738.926,
+              "profile": {
+                "boolean_ms": 48.263,
+                "other_ms": 404.623,
+                "tessellate_ms": 286.041
+              }
+            }
+          ],
+          "warnings": []
+        }
+      ],
+      "measurement": {
+        "bodies": [
+          {
+            "bbox": {
+              "max": [
+                15.5,
+                26.5,
+                24.5
+              ],
+              "min": [
+                -15.5,
+                -26.5,
+                3.450000000000003
+              ]
+            },
+            "closed": true,
+            "faces": 35,
+            "name": "Valve body",
+            "volume_mm3": 16523.611003004462
+          }
+        ],
+        "body_count": 1,
+        "total": {
+          "volume_mm3": 16523.611003004462
+        }
+      }
+    },
+    {
+      "case": "moulded_pattern",
+      "error": null,
+      "steps": [
+        {
+          "index": 3,
+          "command": "solid.revolve",
+          "wall_seconds": 0.2920196670002042,
+          "native_timings": [
+            {
+              "command": "solid.revolve",
+              "index": 0,
+              "ms": 291.31,
+              "profile": {
+                "boolean_ms": 37.961,
+                "other_ms": 189.349,
+                "tessellate_ms": 64.0
+              }
+            }
+          ],
+          "warnings": []
+        },
+        {
+          "index": 4,
+          "command": "solid.pattern.circular",
+          "wall_seconds": 0.5568826669987175,
+          "native_timings": [
+            {
+              "command": "solid.pattern.circular",
+              "index": 0,
+              "ms": 556.244,
+              "profile": {
+                "boolean_ms": 43.099,
+                "other_ms": 281.909,
+                "tessellate_ms": 231.236
+              }
+            }
+          ],
+          "warnings": []
+        }
+      ],
+      "measurement": {
+        "bodies": [
+          {
+            "bbox": {
+              "max": [
+                15.5,
+                26.5,
+                24.5
+              ],
+              "min": [
+                -15.5,
+                -26.5,
+                3.450000000000003
+              ]
+            },
+            "closed": true,
+            "faces": 35,
+            "name": "Valve body",
+            "volume_mm3": 16523.61100300447
+          }
+        ],
+        "body_count": 1,
+        "total": {
+          "volume_mm3": 16523.61100300447
+        }
+      }
+    },
+    {
+      "case": "moulded_direct",
+      "error": null,
+      "steps": [
+        {
+          "index": 3,
+          "command": "solid.revolve",
+          "wall_seconds": 0.5223170000008395,
+          "native_timings": [
+            {
+              "command": "solid.revolve",
+              "index": 0,
+              "ms": 521.74,
+              "profile": {
+                "boolean_ms": 48.08,
+                "other_ms": 327.359,
+                "tessellate_ms": 146.301
+              }
+            }
+          ],
+          "warnings": []
+        },
+        {
+          "index": 7,
+          "command": "solid.revolve",
+          "wall_seconds": 0.7969035420010186,
+          "native_timings": [
+            {
+              "command": "solid.revolve",
+              "index": 0,
+              "ms": 796.202,
+              "profile": {
+                "boolean_ms": 51.842,
+                "other_ms": 395.546,
+                "tessellate_ms": 348.814
+              }
+            }
+          ],
+          "warnings": []
+        }
+      ],
+      "measurement": {
+        "bodies": [
+          {
+            "bbox": {
+              "max": [
+                15.5,
+                26.5,
+                24.5
+              ],
+              "min": [
+                -15.5,
+                -26.5,
+                3.450000000000003
+              ]
+            },
+            "closed": true,
+            "faces": 35,
+            "name": "Valve body",
+            "volume_mm3": 16523.61100299173
+          }
+        ],
+        "body_count": 1,
+        "total": {
+          "volume_mm3": 16523.61100299173
+        }
+      }
+    },
+    {
+      "case": "cap_mirror",
+      "error": null,
+      "steps": [
+        {
+          "index": 3,
+          "command": "solid.revolve",
+          "wall_seconds": 0.7042442910005775,
+          "native_timings": [
+            {
+              "command": "solid.revolve",
+              "index": 0,
+              "ms": 703.74,
+              "profile": {
+                "boolean_ms": 58.637,
+                "other_ms": 593.975,
+                "tessellate_ms": 51.128
+              }
+            }
+          ],
+          "warnings": []
+        },
+        {
+          "index": 4,
+          "command": "solid.mirror",
+          "wall_seconds": 1.0389231249992008,
+          "native_timings": [
+            {
+              "command": "solid.mirror",
+              "index": 0,
+              "ms": 1038.573,
+              "profile": {
+                "boolean_ms": 57.625,
+                "other_ms": 693.541,
+                "tessellate_ms": 287.406
+              }
+            }
+          ],
+          "warnings": []
+        }
+      ],
+      "measurement": {
+        "bodies": [
+          {
+            "bbox": {
+              "max": [
+                16.75,
+                26.5,
+                26.0
+              ],
+              "min": [
+                -16.75,
+                -26.5,
+                0.0
+              ]
+            },
+            "closed": true,
+            "faces": 101,
+            "name": "Valve body",
+            "volume_mm3": 21698.462823113096
+          }
+        ],
+        "body_count": 1,
+        "total": {
+          "volume_mm3": 21698.462823113096
+        }
+      }
+    }
+  ],
+  "ablation_tests": [
+    {
+      "case": "sharp_bearing",
+      "error": null,
+      "steps": [
+        {
+          "index": 5,
+          "command": "solid.revolve",
+          "wall_seconds": 0.017435207999369595,
+          "native_timings": [
+            {
+              "command": "solid.revolve",
+              "index": 0,
+              "ms": 17.241,
+              "profile": {
+                "boolean_ms": 0.0,
+                "other_ms": 17.241,
+                "tessellate_ms": 0.0
+              }
+            }
+          ],
+          "warnings": []
+        },
+        {
+          "index": 9,
+          "command": "solid.revolve",
+          "wall_seconds": 2.4931841249999707,
+          "native_timings": [
+            {
+              "command": "solid.revolve",
+              "index": 0,
+              "ms": 2492.904,
+              "profile": {
+                "boolean_ms": 2471.135,
+                "other_ms": 11.105,
+                "tessellate_ms": 10.664
+              }
+            }
+          ],
+          "warnings": []
+        }
+      ],
+      "measurement": {
+        "bodies": [
+          {
+            "bbox": {
+              "max": [
+                15.500000000000002,
+                26.5,
+                24.500000000000004
+              ],
+              "min": [
+                -15.500000000000002,
+                -15.500000000000005,
+                3.450000000000003
+              ]
+            },
+            "closed": true,
+            "faces": 18,
+            "name": "Housing",
+            "volume_mm3": 14558.652947866658
+          }
+        ],
+        "body_count": 1,
+        "total": {
+          "volume_mm3": 14558.652947866658
+        }
+      }
+    },
+    {
+      "case": "round_no_annulus",
+      "error": "step exceeded 45 seconds",
+      "steps": [
+        {
+          "index": 5,
+          "command": "solid.revolve",
+          "wall_seconds": 0.019398791999265086,
+          "native_timings": [
+            {
+              "command": "solid.revolve",
+              "index": 0,
+              "ms": 19.11,
+              "profile": {
+                "boolean_ms": 0.0,
+                "other_ms": 19.11,
+                "tessellate_ms": 0.0
+              }
+            }
+          ],
+          "warnings": []
+        },
+        {
+          "index": 9,
+          "command": "solid.revolve",
+          "wall_seconds": 45.00290170799963,
+          "error": "step exceeded 45 seconds"
+        }
+      ],
+      "measurement": null
+    }
+  ],
+  "verification": {
+    "precise_expected_volume_mm3": 16523.61102862031,
+    "expected_volume_mm3": 16523.602309828795,
+    "expected_valid": true,
+    "expected_solids": 1,
+    "cases": [
+      {
+        "case": "moulded_mirror",
+        "actual_valid": true,
+        "actual_solids": 1,
+        "actual_volume_mm3": 16523.957280133975,
+        "missing_volume_mm3": 0.0,
+        "extra_volume_mm3": 0.0,
+        "step_sha256": "75c0795c5dde990eb1f78ae7e69ebee21b73d15890f65cfc09fb492cd4e3d824",
+        "precise_actual_volume_mm3": 16523.611316909515,
+        "actual_to_expected": {
+          "samples": 210,
+          "p50_p95_max_mm": [
+            1.9860273225978185e-15,
+            2.7158771711869943e-08,
+            2.2825411509612335e-06
+          ]
+        },
+        "expected_to_actual": {
+          "samples": 210,
+          "p50_p95_max_mm": [
+            2.135174271077269e-15,
+            3.0849689183463634e-14,
+            8.881558519529858e-08
+          ]
+        }
+      },
+      {
+        "case": "moulded_pattern",
+        "actual_valid": true,
+        "actual_solids": 1,
+        "actual_volume_mm3": 16523.622047641074,
+        "missing_volume_mm3": 0.0,
+        "extra_volume_mm3": 0.0,
+        "step_sha256": "b691ab62ef7ec955bb0b24308d289be6f3e2e68cd251d45cac8fc548a20fc645",
+        "precise_actual_volume_mm3": 16523.611316945593,
+        "actual_to_expected": {
+          "samples": 210,
+          "p50_p95_max_mm": [
+            1.9860273225978185e-15,
+            2.2515245922920815e-07,
+            3.2428456996471543e-06
+          ]
+        },
+        "expected_to_actual": {
+          "samples": 210,
+          "p50_p95_max_mm": [
+            2.175583928816829e-15,
+            3.0849689183463634e-14,
+            8.8815591821318e-08
+          ]
+        }
+      },
+      {
+        "case": "moulded_direct",
+        "actual_valid": true,
+        "actual_solids": 1,
+        "actual_volume_mm3": 16523.622048818765,
+        "missing_volume_mm3": 0.0,
+        "extra_volume_mm3": 0.0,
+        "step_sha256": "b4d76735d743e5ab2e468d56c0b706ce4a7f8fca4948d18f0636590d070e5041",
+        "precise_actual_volume_mm3": 16523.611318123294,
+        "actual_to_expected": {
+          "samples": 210,
+          "p50_p95_max_mm": [
+            1.7763568394002505e-15,
+            1.3961357631185127e-10,
+            1.993373657679906e-06
+          ]
+        },
+        "expected_to_actual": {
+          "samples": 210,
+          "p50_p95_max_mm": [
+            9.930136612989092e-16,
+            3.0849689183463634e-14,
+            8.88155858699697e-08
+          ]
+        }
+      }
+    ],
+    "seconds": 15.788948125000388
+  },
+  "hsm": {
+    "preparation_ms": 1.388166,
+    "first_union_ms": 12.314167,
+    "mirror_ms": 0.026583,
+    "second_union_ms": 8.219416,
+    "joined_volume_mm3": 16517.459238072915,
+    "triangles": 13232,
+    "linear_mm": 0.005,
+    "angular_rad": 0.05,
+    "closed": true,
+    "geometry_contract": "Mesh-native construction with bounded curve tessellation, distinct from an exact B-rep model.",
+    "source_sha256": "85271b5535ffc08ca6aa93473bc30afb50829ec3b4e9827405fc0f50c67d48da",
+    "repository_revision": "24a34ca37167b6e93a6461140771afef44bbbfb0"
+  },
+  "frozen_inputs": {
+    "cap.sc": "3407c56c38ed04cac2c9d4742817e40375330dccd54a4879a37767fb3e6028b7",
+    "housing.sc": "7bcb93774505facff4432ad16998bf4b3b8e4cc1d3b5e0293724318e8328ad3c",
+    "barrel-sample.txt": "0fa68f49d0d900fc4e8aea56bc6ec81d5b73d127cf163a1a66e04a7e114b387e",
+    "pattern-sample.txt": "7d141e5b15bccdb569a091585560536df7679c1b2045abd07737083ca0117ba2"
+  },
+  "limits": [
+    "Single shared-host observations, not a whole-machine or release-wide benchmark.",
+    "The original multi-minute operation was sampled, not completed. Isolated installed-version trials were stopped after their per-step limit.",
+    "Surface distances are sampled observations, not a certified Hausdorff bound.",
+    "Zero Boolean differences reported by the independent B-rep checker are subject to that checker's numerical tolerances.",
+    "This does not qualify the completed valve or a printed receiver."
+  ],
+  "input_sha256": {
+    "moulded_mirror.json": "5cdde6b5487b78f3fa35612e41d622053188d5805e8223f125b602b2979f223e",
+    "moulded_pattern.json": "22e0db0cb6bf1de16ca400396475f6d0a2d54cf8b8af23d35bf38b818f04f258",
+    "moulded_direct.json": "29538ddd642b6e5f5ef3937311028298727bca3f743b98f9a223c7b289adcf52",
+    "sharp_bearing.json": "901e98cbe64d7923ca7c0b93e37f768376c81917c0591298c05c3832b74b334d",
+    "round_no_annulus.json": "3afe2a8352dba6284215e9cba6c504fe1dc7f2695e1d4007d2ec3f7aa1681b84",
+    "cap_mirror.json": "d22d333b25a2a47b2808623535b8edca41a80c906d0d7df66a6d7f98bf23f0c2"
+  },
+  "solidcore_documentation_revision": "c440e5f892452a9654aee8f3030de6095fdb1415",
+  "root_cause_evidence": {
+    "observed_stack": "mirror -> feature replay -> Boolean Union -> heal_build -> edges_evaluate -> double_projection / search_nearest_parameter",
+    "sampled_seconds_after_process_launch": 177.507,
+    "sample_main_thread_count": 613,
+    "sample_main_thread_count_under_edge_evaluation": 613,
+    "ablation": "Removing the bearing round avoids the slow path; removing the annular recess while retaining the round does not.",
+    "qualification": "These observations isolate a rounded-bearing/port interaction; they do not identify every low-level Newton iteration or prove a universal failure mode."
+  },
+  "latest_replacement_tests": [
+    {
+      "case": "rc3_moulded_mirror",
+      "steps": [
+        {
+          "index": 0,
+          "command": "sketch.create",
+          "wall_seconds": 0.0013806249990011565,
+          "result": {
+            "completed": 1,
+            "ok": true,
+            "results": [
+              {
+                "attachment": "fixed",
+                "created": {
+                  "constraints": [],
+                  "curves": [],
+                  "dimensions": [],
+                  "points": []
+                },
+                "name": "Outlet section",
+                "projected": null,
+                "sketch": 19
+              }
+            ],
+            "timings": [
+              {
+                "command": "sketch.create",
+                "index": 0,
+                "ms": 0.517,
+                "profile": {
+                  "boolean_ms": 0.0,
+                  "other_ms": 0.517,
+                  "tessellate_ms": 0.0
+                }
+              }
+            ],
+            "total_ms": 0.607
+          }
+        },
+        {
+          "index": 1,
+          "command": "sketch.line",
+          "wall_seconds": 0.0007017499992798548,
+          "result": {
+            "completed": 1,
+            "ok": true,
+            "results": [
+              {
+                "created": {
+                  "constraints": [],
+                  "curves": [
+                    "l1",
+                    "l2",
+                    "l3",
+                    "l4",
+                    "l5",
+                    "l6",
+                    "l7",
+                    "l8",
+                    "l9",
+                    "l10"
+                  ],
+                  "dimensions": [],
+                  "points": [
+                    "l1.start",
+                    "l1.end",
+                    "l2.end",
+                    "l3.end",
+                    "l4.end",
+                    "l5.end",
+                    "l6.end",
+                    "l7.end",
+                    "l8.end",
+                    "l9.end"
+                  ]
+                },
+                "sketch": {
+                  "dof": 20,
+                  "solved": true
+                }
+              }
+            ],
+            "timings": [
+              {
+                "command": "sketch.line",
+                "index": 0,
+                "ms": 0.458,
+                "profile": {
+                  "boolean_ms": 0.0,
+                  "other_ms": 0.458,
+                  "tessellate_ms": 0.0
+                }
+              }
+            ],
+            "total_ms": 0.467
+          }
+        },
+        {
+          "index": 2,
+          "command": "sketch.finish",
+          "wall_seconds": 0.0002508329998818226,
+          "result": {
+            "completed": 1,
+            "ok": true,
+            "results": [
+              {
+                "profiles": 1,
+                "sketch": 19
+              }
+            ],
+            "timings": [
+              {
+                "command": "sketch.finish",
+                "index": 0,
+                "ms": 0.002,
+                "profile": {
+                  "boolean_ms": 0.0,
+                  "other_ms": 0.002,
+                  "tessellate_ms": 0.0
+                }
+              }
+            ],
+            "total_ms": 0.006
+          }
+        },
+        {
+          "index": 3,
+          "command": "solid.revolve",
+          "wall_seconds": 0.20028929200088896,
+          "result": {
+            "completed": 1,
+            "ok": true,
+            "results": [
+              {
+                "changed_bodies": [
+                  "Valve body"
+                ],
+                "created_bodies": [],
+                "feature": 20,
+                "ms": 199.41204100000002,
+                "name": "Outlet",
+                "removed_bodies": [],
+                "warning": null
+              }
+            ],
+            "timings": [
+              {
+                "command": "solid.revolve",
+                "index": 0,
+                "ms": 199.926,
+                "profile": {
+                  "boolean_ms": 28.516,
+                  "other_ms": 133.579,
+                  "tessellate_ms": 37.831
+                }
+              }
+            ],
+            "total_ms": 199.943
+          }
+        },
+        {
+          "index": 4,
+          "command": "solid.mirror",
+          "wall_seconds": 0.42037833299946215,
+          "result": {
+            "completed": 1,
+            "ok": true,
+            "results": [
+              {
+                "changed_bodies": [
+                  "Valve body"
+                ],
+                "created_bodies": [],
+                "feature": 21,
+                "ms": 419.812,
+                "name": "Inlet",
+                "removed_bodies": [],
+                "warning": null
+              }
+            ],
+            "timings": [
+              {
+                "command": "solid.mirror",
+                "index": 0,
+                "ms": 420.008,
+                "profile": {
+                  "boolean_ms": 32.951,
+                  "other_ms": 235.696,
+                  "tessellate_ms": 151.361
+                }
+              }
+            ],
+            "total_ms": 420.025
+          }
+        }
+      ],
+      "measurement": {
+        "bodies": [
+          {
+            "bbox": {
+              "max": [
+                15.5,
+                26.5,
+                24.5
+              ],
+              "min": [
+                -15.5,
+                -26.5,
+                3.450000000000003
+              ]
+            },
+            "closed": true,
+            "faces": 35,
+            "name": "Valve body",
+            "volume_mm3": 16523.611003004462
+          }
+        ],
+        "body_count": 1,
+        "total": {
+          "volume_mm3": 16523.611003004462
+        }
+      },
+      "export": {
+        "bytes": 154120,
+        "format": "Step",
+        "path": "/Users/derekbredensteiner/Developer/homesodamachine/.cache/runs/solidcraft-kernel-research-20261108-1656/rc3_moulded_mirror.step"
+      }
+    },
+    {
+      "case": "rc3_cap_mirror",
+      "steps": [
+        {
+          "index": 0,
+          "command": "sketch.create",
+          "wall_seconds": 0.0008326669994858094,
+          "result": {
+            "completed": 1,
+            "ok": true,
+            "results": [
+              {
+                "attachment": "fixed",
+                "created": {
+                  "constraints": [],
+                  "curves": [],
+                  "dimensions": [],
+                  "points": []
+                },
+                "name": "Outlet section",
+                "projected": null,
+                "sketch": 19
+              }
+            ],
+            "timings": [
+              {
+                "command": "sketch.create",
+                "index": 0,
+                "ms": 0.395,
+                "profile": {
+                  "boolean_ms": 0.0,
+                  "other_ms": 0.395,
+                  "tessellate_ms": 0.0
+                }
+              }
+            ],
+            "total_ms": 0.416
+          }
+        },
+        {
+          "index": 1,
+          "command": "sketch.line",
+          "wall_seconds": 0.0006132090002211044,
+          "result": {
+            "completed": 1,
+            "ok": true,
+            "results": [
+              {
+                "created": {
+                  "constraints": [],
+                  "curves": [
+                    "l1",
+                    "l2",
+                    "l3",
+                    "l4",
+                    "l5",
+                    "l6",
+                    "l7",
+                    "l8",
+                    "l9",
+                    "l10"
+                  ],
+                  "dimensions": [],
+                  "points": [
+                    "l1.start",
+                    "l1.end",
+                    "l2.end",
+                    "l3.end",
+                    "l4.end",
+                    "l5.end",
+                    "l6.end",
+                    "l7.end",
+                    "l8.end",
+                    "l9.end"
+                  ]
+                },
+                "sketch": {
+                  "dof": 20,
+                  "solved": true
+                }
+              }
+            ],
+            "timings": [
+              {
+                "command": "sketch.line",
+                "index": 0,
+                "ms": 0.347,
+                "profile": {
+                  "boolean_ms": 0.0,
+                  "other_ms": 0.347,
+                  "tessellate_ms": 0.0
+                }
+              }
+            ],
+            "total_ms": 0.357
+          }
+        },
+        {
+          "index": 2,
+          "command": "sketch.finish",
+          "wall_seconds": 0.00021391700101958122,
+          "result": {
+            "completed": 1,
+            "ok": true,
+            "results": [
+              {
+                "profiles": 1,
+                "sketch": 19
+              }
+            ],
+            "timings": [
+              {
+                "command": "sketch.finish",
+                "index": 0,
+                "ms": 0.003,
+                "profile": {
+                  "boolean_ms": 0.0,
+                  "other_ms": 0.003,
+                  "tessellate_ms": 0.0
+                }
+              }
+            ],
+            "total_ms": 0.007
+          }
+        },
+        {
+          "index": 3,
+          "command": "solid.revolve",
+          "wall_seconds": 0.3493807499999093,
+          "result": {
+            "completed": 1,
+            "ok": true,
+            "results": [
+              {
+                "changed_bodies": [
+                  "Valve body"
+                ],
+                "created_bodies": [],
+                "feature": 20,
+                "ms": 348.49150000000003,
+                "name": "Outlet",
+                "removed_bodies": [],
+                "warning": null
+              }
+            ],
+            "timings": [
+              {
+                "command": "solid.revolve",
+                "index": 0,
+                "ms": 349.079,
+                "profile": {
+                  "boolean_ms": 55.898,
+                  "other_ms": 241.726,
+                  "tessellate_ms": 51.456
+                }
+              }
+            ],
+            "total_ms": 349.097
+          }
+        },
+        {
+          "index": 4,
+          "command": "solid.mirror",
+          "wall_seconds": 0.6948639590009407,
+          "result": {
+            "completed": 1,
+            "ok": true,
+            "results": [
+              {
+                "changed_bodies": [
+                  "Valve body"
+                ],
+                "created_bodies": [],
+                "feature": 21,
+                "ms": 694.083792,
+                "name": "Inlet",
+                "removed_bodies": [],
+                "warning": null
+              }
+            ],
+            "timings": [
+              {
+                "command": "solid.mirror",
+                "index": 0,
+                "ms": 694.475,
+                "profile": {
+                  "boolean_ms": 54.803,
+                  "other_ms": 385.62,
+                  "tessellate_ms": 254.053
+                }
+              }
+            ],
+            "total_ms": 694.494
+          }
+        }
+      ],
+      "measurement": {
+        "bodies": [
+          {
+            "bbox": {
+              "max": [
+                16.75,
+                26.5,
+                26.0
+              ],
+              "min": [
+                -16.75,
+                -26.5,
+                0.0
+              ]
+            },
+            "closed": true,
+            "faces": 101,
+            "name": "Valve body",
+            "volume_mm3": 21698.462823088874
+          }
+        ],
+        "body_count": 1,
+        "total": {
+          "volume_mm3": 21698.462823088874
+        }
+      },
+      "export": {
+        "bytes": 347352,
+        "format": "Step",
+        "path": "/Users/derekbredensteiner/Developer/homesodamachine/.cache/runs/solidcraft-kernel-research-20261108-1656/rc3_cap_mirror.step"
+      }
+    }
+  ],
+  "latest_verification": {
+    "precise_expected_volume_mm3": 16523.61102862031,
+    "expected_volume_mm3": 16523.602309828795,
+    "expected_valid": true,
+    "expected_solids": 1,
+    "cases": [
+      {
+        "case": "rc3_moulded_mirror",
+        "actual_valid": true,
+        "actual_solids": 1,
+        "actual_volume_mm3": 16523.957280133975,
+        "missing_volume_mm3": 0.0,
+        "extra_volume_mm3": 0.0,
+        "step_sha256": "5419a354d3d66bb804f8232b2febd16dbedc298bf8e8de800e8336dce9d22eb0",
+        "precise_actual_volume_mm3": 16523.611316909515,
+        "actual_to_expected": {
+          "samples": 210,
+          "p50_p95_max_mm": [
+            1.9860273225978185e-15,
+            2.7158771711869943e-08,
+            2.2825411509612335e-06
+          ]
+        },
+        "expected_to_actual": {
+          "samples": 210,
+          "p50_p95_max_mm": [
+            2.135174271077269e-15,
+            3.0849689183463634e-14,
+            8.881558519529858e-08
+          ]
+        }
+      }
+    ],
+    "seconds": 5.853453499999887
+  },
+  "reproduction_geometry": {
+    "units": "mm",
+    "housing_revolve_axis": "Z",
+    "housing_section_yz": {
+      "first_line": [
+        [
+          0,
+          5.2
+        ],
+        [
+          9.65,
+          5.2
+        ]
+      ],
+      "arc": {
+        "start": [
+          9.65,
+          5.2
+        ],
+        "through": [
+          11.41776695296637,
+          5.932233047033631
+        ],
+        "end": [
+          12.15,
+          7.7
+        ]
+      },
+      "remaining_lines": [
+        [
+          12.15,
+          7.7
+        ],
+        [
+          12.15,
+          10.5
+        ],
+        [
+          12.05,
+          10.5
+        ],
+        [
+          12.05,
+          14.4
+        ],
+        [
+          14.6,
+          11.1
+        ],
+        [
+          14.6,
+          11
+        ],
+        [
+          15.5,
+          11
+        ],
+        [
+          15.5,
+          24.5
+        ],
+        [
+          0,
+          24.5
+        ],
+        [
+          0,
+          5.2
+        ]
+      ]
+    },
+    "port_section_yz": [
+      [
+        9.5,
+        11.05
+      ],
+      [
+        9.5,
+        17.15
+      ],
+      [
+        16,
+        17.15
+      ],
+      [
+        17.6,
+        18.4
+      ],
+      [
+        18.4,
+        18.65
+      ],
+      [
+        25.8,
+        18.65
+      ],
+      [
+        26.5,
+        18.3
+      ],
+      [
+        26.5,
+        14.25
+      ],
+      [
+        22.25,
+        14.25
+      ],
+      [
+        22.25,
+        11.05
+      ]
+    ],
+    "port_revolve_axis": {
+      "origin": [
+        0,
+        0,
+        11.05
+      ],
+      "dir": [
+        0,
+        1,
+        0
+      ]
+    },
+    "steps": [
+      "Revolve the housing as a new body.",
+      "Revolve the port and join it to the housing.",
+      "Mirror the port feature through XZ, retaining its join operation."
+    ]
+  },
+  "simple_control_tests": [
+    {
+      "case": "simple_mirror",
+      "seconds": 3.823109666000164,
+      "cpu_seconds": 6.956157,
+      "exit": 0,
+      "timeout": false,
+      "stderr": "",
+      "timings": [
+        {
+          "command": "solid.cylinder",
+          "index": 0,
+          "ms": 38.824,
+          "profile": {
+            "boolean_ms": 0.0,
+            "other_ms": 38.824,
+            "tessellate_ms": 0.0
+          }
+        },
+        {
+          "command": "solid.cylinder",
+          "index": 1,
+          "ms": 873.975,
+          "profile": {
+            "boolean_ms": 789.397,
+            "other_ms": 23.904,
+            "tessellate_ms": 60.674
+          }
+        },
+        {
+          "command": "solid.mirror",
+          "index": 2,
+          "ms": 1852.31,
+          "profile": {
+            "boolean_ms": 1313.335,
+            "other_ms": 35.506,
+            "tessellate_ms": 503.469
+          }
+        },
+        {
+          "command": "document.inspect",
+          "index": 3,
+          "ms": 1020.934,
+          "profile": {
+            "boolean_ms": 0.0,
+            "other_ms": 6.169,
+            "tessellate_ms": 1014.765
+          }
+        }
+      ],
+      "warnings": []
+    },
+    {
+      "case": "simple_pattern",
+      "seconds": 3.440246207999735,
+      "cpu_seconds": 6.033627,
+      "exit": 0,
+      "timeout": false,
+      "stderr": "",
+      "timings": [
+        {
+          "command": "solid.cylinder",
+          "index": 0,
+          "ms": 1.993,
+          "profile": {
+            "boolean_ms": 0.0,
+            "other_ms": 1.993,
+            "tessellate_ms": 0.0
+          }
+        },
+        {
+          "command": "solid.cylinder",
+          "index": 1,
+          "ms": 553.54,
+          "profile": {
+            "boolean_ms": 541.194,
+            "other_ms": 1.465,
+            "tessellate_ms": 10.881
+          }
+        },
+        {
+          "command": "solid.pattern.circular",
+          "index": 2,
+          "ms": 1983.9,
+          "profile": {
+            "boolean_ms": 1440.634,
+            "other_ms": 2.669,
+            "tessellate_ms": 540.597
+          }
+        },
+        {
+          "command": "document.inspect",
+          "index": 3,
+          "ms": 890.633,
+          "profile": {
+            "boolean_ms": 0.0,
+            "other_ms": 1.27,
+            "tessellate_ms": 889.363
+          }
+        }
+      ],
+      "warnings": []
+    },
+    {
+      "case": "simple_direct",
+      "seconds": 2.2630256249995,
+      "cpu_seconds": 5.482838000000001,
+      "exit": 0,
+      "timeout": false,
+      "stderr": "",
+      "timings": [
+        {
+          "command": "solid.cylinder",
+          "index": 0,
+          "ms": 1.716,
+          "profile": {
+            "boolean_ms": 0.0,
+            "other_ms": 1.716,
+            "tessellate_ms": 0.0
+          }
+        },
+        {
+          "command": "solid.cylinder",
+          "index": 1,
+          "ms": 393.613,
+          "profile": {
+            "boolean_ms": 384.085,
+            "other_ms": 1.391,
+            "tessellate_ms": 8.137
+          }
+        },
+        {
+          "command": "solid.cylinder",
+          "index": 2,
+          "ms": 1026.731,
+          "profile": {
+            "boolean_ms": 742.857,
+            "other_ms": 1.422,
+            "tessellate_ms": 282.452
+          }
+        },
+        {
+          "command": "document.inspect",
+          "index": 3,
+          "ms": 832.026,
+          "profile": {
+            "boolean_ms": 0.0,
+            "other_ms": 1.367,
+            "tessellate_ms": 830.66
+          }
+        }
+      ],
+      "warnings": []
+    }
+  ]
+}
