@@ -41,8 +41,12 @@ option.
 4. Draw the view that shows it, once for each region worth showing:
 
        node tools/changes/change.mjs render changes/<id> --view <name> --before <stash> \
-         --caption "..." --only <solids> --cam x,y,z --target x,y,z --up 0,0,1 --span mm \
+         --caption "..." --only <solids> --cam dx,dy,dz --target x,y,z --up 0,0,1 --span mm \
          --mark "x,y,z,r:label"
+
+   `--cam` is the direction from the target toward the camera. `--span` sets the
+   image’s half-height at the target. The saved view records the resulting camera
+   position; use its position minus its target to recover the direction.
 
    It writes `<name>-before.webp`, `<name>-after.webp` and the view's line in `views.json`.
    The first view is the one the feed shows.
