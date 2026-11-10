@@ -114,6 +114,12 @@ and written by a firmware update (`OTA_KIND_LOGOS`), never by the owner, so a ma
 whose owner deleted everything they added still has four. The high four are theirs,
 and only ever arrive from a phone.
 
+Factory portraits are authored in [`images/`](../images/).
+`hsm-marketing make-logos` reads those PNGs, fits the required renditions through
+the [shared native conversion](../tools/hsm/display-assets/src/lib.rs), and writes
+the display bundle or factory store image. `tools/build_flavor_assets.sh` packages
+the portraits and copies their source PNGs into the iOS demo assets.
+
 **The phone sends pixels, not photographs.** A picture crossing BLE is already
 cropped, resampled and dithered to RGB565 at exactly the sizes each panel draws
 — three renditions, `IMAGE_BUNDLE` in [`proto_msg.h`](lib/proto_link/proto_msg.h):
@@ -289,7 +295,7 @@ partition holding the loading animation, erased and rewritten in place, verified
 | `self` | `appliance` | 768 KB | J3, or the console |
 | `faucet` | `esp32s3_faucet` | 3 MB | BLE, or J3 from the console |
 | `enclosure` | `esp32s3_front` | 2.5 MB | J9 |
-| `art` | `hsm-marketing make-art enclosure` | generated from the frame headers | J9 |
+| `art` | `hsm-marketing make-art enclosure` | generated from the animation PNG | J9 |
 
 **The machine display goes dark while it writes.** Its scan-out DMA refills a bounce buffer
 from PSRAM, a flash write suspends the cache PSRAM is reached through, and the refill then
@@ -409,12 +415,11 @@ Both go over a plain USB-C cable into J14; the on-board CH340B bridges and Q2/Q3
 
 ### Flash the machine display's art partition
 
-The loading animation is not in that board's firmware image — it is 3.96 MB in
-the `art` partition, built from the same `src_front/images/anim_NN.h` headers by
-`hsm-marketing make-art`, which the native firmware preparer runs
-for this environment. `esp_partition_mmap` hands LVGL a pointer into it, so it
-renders straight out of flash at no RAM cost, exactly as compiled-in `.rodata`
-did — it just stops riding along in every update of code that never touches it.
+The loading animation lives in the `art` partition. `hsm-marketing make-art enclosure`
+reads [`brand/display-animation.png`](../brand/display-animation.png), converts
+the sprite to RGB565 and writes the binary partition image. The native firmware
+preparer runs that packager for this environment. `esp_partition_mmap` hands LVGL
+a pointer into the partition, so it renders straight out of flash at no RAM cost.
 
 A board whose `art` partition is empty runs and shows its pointer file screen without a
 logo; `ART` on its console says what is there and `ART:VERIFY` walks the CRC.

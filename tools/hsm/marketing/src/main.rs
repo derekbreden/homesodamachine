@@ -96,7 +96,7 @@ fn main() -> Result<()> {
             "make-art" => "enclosure [-o PATH] [-q]",
             "make-logos" => "-o PATH [--store] [--partitions CSV] [-q]",
             "brand-assets" | "flavor-placeholders" => "[--preview] [--out-root DIR]",
-            "animation-frames" => "[--out-root DIR]",
+            "animation-frames" => "[--from-svg] [--out-root DIR]",
             "sync" => "VIDEO AUDIO [-o VIDEO] [--search-seconds SECONDS]",
             "segment" => {
                 "TRANSCRIPT [-o JSON] [--gap SECONDS] [--pad-before SECONDS] [--pad-after SECONDS] [--no-filter]"

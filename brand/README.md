@@ -58,13 +58,24 @@ those layers and supplies the corner mask. The launch image has transparency. An
 place the complete mark inside their circular safe areas. The PWA maskable icon
 preserves the mark inside the central 80-percent-diameter safe circle.
 
-The machine display's 16-frame, 360 × 360 RGB565 animation uses this geometry
-on cobalt. Its orange circle gently falls over 1.6 seconds; the next bead grows
-under the outlet as the falling one diminishes. The first frame is the static
-mark. [Motion options](../web/public/brand/motion.html) compares the prepared
-falling drop with Pulse and Float, using the display's exact frames and timing.
-[`hsm-marketing make-art`](../tools/hsm/marketing/src/art.rs) packages those
-frames into the machine display's art partition during firmware publishing.
+[`display-animation.png`](display-animation.png) is the lossless sprite master
+for the machine display. Its orange circle gently falls on cobalt; the next bead
+grows under the outlet as the falling one diminishes. The first frame is the
+static mark. `animation-frames` exports that master to the browser review.
+[Motion options](../web/public/brand/motion.html) compares the falling drop with
+Pulse and Float, using the display's exact frames and timing.
+[`hsm-marketing make-art enclosure`](../tools/hsm/marketing/src/art.rs) reads the
+master PNG and packs RGB565 frames directly into the display's art partition.
+
+To redraw the display animation from the source SVG, render an isolated review:
+
+```sh
+tools/run -- hsm-marketing animation-frames --from-svg --out-root .cache/runs/display-art-review
+```
+
+Review that directory's `web/public/brand/motion.html` and
+`brand/display-animation.png`. Copy the accepted PNG to this directory and run
+`animation-frames` to export the accepted master.
 
 [`logo.ts`](../hardware/pcb/pcba/logo.ts) renders the source silhouette in one-color
 silkscreen strokes. Firmware and customer-assigned flavor portraits have their own
