@@ -2979,6 +2979,36 @@
       "review": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-10-04-bulkhead-soda-raised-mark2-v1",
       "startup_spacing_seconds": 50058.653801,
       "startup_spacing_basis": "H2C accepted front-top v17, task 1305315362, at 2026-10-03T15:22:21.776285Z; no other start since."
+    },
+    {
+      "printer": "H2C",
+      "printer_task_id": "1426893800",
+      "date": "2026-11-10",
+      "parts": [
+        "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl"
+      ],
+      "profile": "hardware/printed-parts/petgf.3mf",
+      "profile_sha256": "1be18bdfd75b33efc898b3e5c28a0c1975fc694ef4d94dd88a909472cb96b97f",
+      "project": "hardware/printed-parts/enclosure/enclosure/prints/2026-11-10-back-top-D-mark1/2026-11-10-back-top-mark1-38b1bc8b.3mf",
+      "project_sha256": "5b09af52e71f37274e57c3e99ae37727406f141139d8060abd736d3d9e6320f8",
+      "sliced_file": "hardware/printed-parts/enclosure/enclosure/prints/2026-11-10-back-top-D-mark1/2026-11-10-back-top-D-left04-z018-mark1-print-only.gcode.3mf",
+      "sliced_file_sha256": "c7592a9cf987029a3b88ad11db19b0cbbe61cd6c9fe997eea281f9c3fb098bf8",
+      "gcode_sha256": "85ab1c4fc7fd5b40964cebd03ef4a27e22d0f2f4e73a79a817996d322c09144f",
+      "nozzle": "left 0.4 mm Standard hardened",
+      "filament": "Polymaker PET-GF15 black; PET-CF mapping on left external spool",
+      "z_offset_mm": 0.18,
+      "effective_textured_plate_trim_mm": 0.16,
+      "support_process": "D",
+      "estimated_seconds": 134812.39754771237,
+      "filament_grams": 897.9909057617188,
+      "accepted_at": "2026-11-10T06:23:44+00:00",
+      "status": "cancelled at layer zero at user request; held for peer conversations",
+      "observed_state": "FAILED",
+      "observed_layer": 0,
+      "observed_print_error": 0,
+      "record": "hardware/printed-parts/enclosure/enclosure/prints/2026-11-10-back-top-D-mark1/print-job.json",
+      "launch": "hardware/printed-parts/enclosure/enclosure/prints/2026-11-10-back-top-D-mark1/launch.json",
+      "stop": "hardware/printed-parts/enclosure/enclosure/prints/2026-11-10-back-top-D-mark1/stopped-printer.json"
     }
   ]
 }
