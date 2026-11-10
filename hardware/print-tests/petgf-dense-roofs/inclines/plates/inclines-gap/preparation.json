@@ -1,8 +1,9 @@
 {
-  "archive_sha256": "383d568a6a20dde20200d71c8e43e13a6c6c7074f5385a9ac8efbe027241d48b",
+  "archive_sha256": "829f6d49ca6c0904cde291356f494f90f2750b792aec2a4972b5d0db01f59f10",
   "common_object_settings": {
     "sparse_infill_density": "15%",
     "sparse_infill_pattern": "gyroid",
+    "support_interface_spacing": "0",
     "support_interface_top_layers": "3",
     "support_object_xy_distance": "0.4",
     "support_on_build_plate_only": "0",
@@ -15,10 +16,10 @@
   "gcode_sha256": "24bd3de3fc05d2a1cdaef02b7206fb5ada6d13b15f2ae38c803e06035a3e4c7c",
   "native_result": {
     "error_string": "Success.",
-    "export_time": 652,
+    "export_time": 1095,
     "layer_height": 0.23999999463558197,
     "plate_index": 0,
-    "prepare_time": 23,
+    "prepare_time": 17,
     "return_code": 0,
     "sliced_plates": [
       {
@@ -48,12 +49,12 @@
             "total_used_g": 15.22192668914795
           }
         ],
-        "generate_support_material_time": 516,
+        "generate_support_material_time": 464,
         "id": 1,
-        "infill_time": 41,
+        "infill_time": 40,
         "layer_filament_change": 0,
         "main_predication": 2949.54833984375,
-        "make_perimeters_time": 34,
+        "make_perimeters_time": 30,
         "obj_cached_cnt": 0,
         "objects": [
           {
@@ -135,8 +136,8 @@
             "triangle_count": 2568
           }
         ],
-        "sliced_time": 1223,
-        "sliced_time_with_cache": 592,
+        "sliced_time": 1143,
+        "sliced_time_with_cache": 569,
         "total_predication": 4099.877986375539,
         "triangle_count": 11318,
         "warning_message": ""
@@ -171,7 +172,7 @@
   "profile": "hardware/printed-parts/petgf.3mf",
   "profile_sha256": "1be18bdfd75b33efc898b3e5c28a0c1975fc694ef4d94dd88a909472cb96b97f",
   "project": "inclines-gap.3mf",
-  "project_sha256": "c9cc22be51d09cc792cbcd92bf74aa37054c156a86f05690cfdcef8692c0cc49",
+  "project_sha256": "9ded8edb0b589277eb42cd1b93e05f4dc3e31c240bc245f60e639634f932e3bc",
   "purpose": "Retain the prepared incline comparison, material, printer calibration and native estimate.",
   "requested_z_trim_mm": 0.04,
   "samples": [
@@ -188,7 +189,6 @@
         142.0
       ],
       "settings": {
-        "support_interface_spacing": "0",
         "support_top_z_distance": "0.48"
       },
       "source": "hardware/print-tests/petgf-dense-roofs/inclines/geometry/G1.stl",
@@ -207,7 +207,6 @@
         142.0
       ],
       "settings": {
-        "support_interface_spacing": "0",
         "support_top_z_distance": "0.48"
       },
       "source": "hardware/print-tests/petgf-dense-roofs/inclines/geometry/G2.stl",
@@ -226,7 +225,6 @@
         142.0
       ],
       "settings": {
-        "support_interface_spacing": "0",
         "support_top_z_distance": "0.48"
       },
       "source": "hardware/print-tests/petgf-dense-roofs/inclines/geometry/G3.stl",
@@ -245,7 +243,6 @@
         178.0
       ],
       "settings": {
-        "support_interface_spacing": "0",
         "support_top_z_distance": "0.72"
       },
       "source": "hardware/print-tests/petgf-dense-roofs/inclines/geometry/G4.stl",
@@ -264,7 +261,6 @@
         178.0
       ],
       "settings": {
-        "support_interface_spacing": "0",
         "support_top_z_distance": "0.72"
       },
       "source": "hardware/print-tests/petgf-dense-roofs/inclines/geometry/G5.stl",
@@ -283,7 +279,6 @@
         178.0
       ],
       "settings": {
-        "support_interface_spacing": "0",
         "support_top_z_distance": "0.72"
       },
       "source": "hardware/print-tests/petgf-dense-roofs/inclines/geometry/G6.stl",

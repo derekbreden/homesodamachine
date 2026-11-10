@@ -32,11 +32,11 @@ fn main() -> Result<()> {
             let center = mesh.center();
             let local = mesh.vertices.iter().map(|v| [v[0]-center[0],v[1]-center[1],v[2]-center[2]]).collect();
             let translation = [118.5 + (i % 3) as f64 * 44., 142. + (i / 3) as f64 * 36., center[2]-lo[2]];
-            let mut settings = Vec::new();
+            let mut settings = std::collections::BTreeMap::new();
             for (key, value) in spec["common_object_settings"].as_object().context("common settings")?.iter().chain(row["settings"].as_object().context("sample settings")?.iter()) {
-                settings.push((key.clone(), value.as_str().context("string setting")?.to_string()));
+                settings.insert(key.clone(), value.as_str().context("string setting")?.to_string());
             }
-            let index = plate.add_object(id, local, mesh.faces.clone(), &format!("{id}.stl"), center, [[1.,0.,0.],[0.,1.,0.],[0.,0.,1.]], translation, None, settings);
+            let index = plate.add_object(id, local, mesh.faces.clone(), &format!("{id}.stl"), center, [[1.,0.,0.],[0.,1.,0.],[0.,0.,1.]], translation, None, settings.into_iter().collect());
             let shape = &spec["geometry"];
             let wall = shape["wall_mm"].as_f64().context("wall")?;
             let width = shape["width_mm"].as_f64().context("width")?;
