@@ -25,11 +25,16 @@ constraints. Independent specimen fits observe male radii of 3.196 and
 variation are not independently calibrated. Decimal places identify the
 reproducible reference, not part tolerances.
 
-`socket()`, `stem_tip()`, `stem_shoulder()` and `seated_host_mouth(insertion)`
-return positions and axes in this frame. `build()` returns the two named
-CadQuery workplanes, `body_and_stem` and `release_collet`. `build_assembly()`
-returns their named assembly. Existing NPZ files retain `v` and `f` arrays in
-the same frame as the STEP.
+[`reference-parameters.json`](reference-parameters.json) supplies the fitted
+profiles and connection datums in this frame. The model retains the named bodies
+`body_and_stem` and `release_collet`; the NPZ files use the same frame as the STEP.
+
+[`frozen-asset.json`](frozen-asset.json) binds the STEP, its viewer payload and its
+fine model. Native layout reads the fine model. Native STEP imports read the
+separate `neofit-stem-elbow.import.step.mesh` preserved from the digest cache,
+with its source and payload hashes bound by `preserved_step_imports`. That record
+retains the exact imported geometry and explicitly records unknown sampling
+quality. The viewer payload and fine model keep their own roles.
 
 ## Capture and fitted form
 

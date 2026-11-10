@@ -1,0 +1,26 @@
+{
+  "source": {
+    "path": "hardware/reference/touch-flo-faucet/display-reference/buttons.json",
+    "sha256": "5813343c9981ce28fa63ba0f1465b520526439c2e49539d28b9baf463930c366"
+  },
+  "members": {
+    "button-left.step": "d802e4c740ed808daa07d19f8eba0db25d59b76c3b61c03e90ad0945694c2fdc",
+    "button-left.step.mesh": "df61fa63e71c2dbcad4a39d93176237768d1bf8afc4357834cc51fcda17b694b",
+    "button-right.step": "b515134b75baa15f5bd048f48835b65631c5b7a9c423f3cc3343cb7dcef9bdca",
+    "button-right.step.mesh": "8f0e8161868c57a2f746a785bc1b99290180f4c33187167101d0510b09320eb3"
+  },
+  "preserved_step_imports": {
+    "button-left.step": {
+      "source_step_sha256": "d802e4c740ed808daa07d19f8eba0db25d59b76c3b61c03e90ad0945694c2fdc",
+      "path": "button-left.step.mesh",
+      "sha256": "df61fa63e71c2dbcad4a39d93176237768d1bf8afc4357834cc51fcda17b694b",
+      "quality": "unknown"
+    },
+    "button-right.step": {
+      "source_step_sha256": "b515134b75baa15f5bd048f48835b65631c5b7a9c423f3cc3343cb7dcef9bdca",
+      "path": "button-right.step.mesh",
+      "sha256": "8f0e8161868c57a2f746a785bc1b99290180f4c33187167101d0510b09320eb3",
+      "quality": "unknown"
+    }
+  }
+}
