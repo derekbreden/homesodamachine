@@ -57,7 +57,7 @@
     "hardware/install-guide/plumbing/modern/art/modern-water-on.png": "28ae8937a70f7a55571a37a303b38477bef45d5c4c9d2aef2c22fe58da4c34f8",
     "hardware/manifold-layout/enclosure-assembly.facts.json": "7fe5548b9972ab514f70becfbc21d981cd438531293d2c03d9f8014b6c473152",
     "hardware/manifold-layout/enclosure-assembly.physical.step.mesh": "96be0d51a69a4bfce5f3984d9f08a82c5a97fa6c220bf7d72d389c15af217370",
-    "hardware/manifold-layout/enclosure-assembly.step.mesh": "685e0d1c0a227fa80751146ab6debd10f1915f73d6e59fb54fca9704b7113942",
+    "hardware/manifold-layout/enclosure-assembly.step.mesh": "83032860ff1e6e3a82ae2efbede816f65b33905815d473c160f4b9fd585f0059",
     "hardware/manifold-layout/manifold-layout.step": "3fd31ca1b78af2be4868175bb325370c9cfdebf1bb465778901b55c1912ec7eb",
     "hardware/manifold-layout/manifold-layout.step.mesh": "bab8b49406c2fc510d46d51e99acfcc8bd70c6e1608564d3e03e6dbd0f4dafbe",
     "hardware/manifold-layout/studies/east-feed/parts/east-feed-ceiling.step": "e95046f067ee746da9528bfea02b503cede9a75098f6b1b513dab1bbaa2f058c",
@@ -960,7 +960,7 @@
       "hardware/faucet-layout/faucet-industrial-assembly.step": "dab99ebc933e9d182955406892cdad3dc5c5276aea5fb1fe3c5905c36fe3ac10",
       "hardware/faucet-layout/faucet-industrial-assembly.step.mesh": "fe28e3401330a3abd8e7ceba118ee10d1a9c6e17631737d47942864f3a7b2074",
       "hardware/manifold-layout/enclosure-assembly.facts.json": "7fe5548b9972ab514f70becfbc21d981cd438531293d2c03d9f8014b6c473152",
-      "hardware/manifold-layout/enclosure-assembly.step.mesh": "685e0d1c0a227fa80751146ab6debd10f1915f73d6e59fb54fca9704b7113942",
+      "hardware/manifold-layout/enclosure-assembly.step.mesh": "83032860ff1e6e3a82ae2efbede816f65b33905815d473c160f4b9fd585f0059",
       "hardware/printed-parts/asse-drain-adapter/asse-drain-adapter.step": "4730c636dd33e1431fa4fa3c6df0b4a3a41942efa40f451ce04e4f41e661a92d",
       "hardware/printed-parts/asse-drain-adapter/asse-drain-adapter.step.mesh": "192cb511c9bd723d16f931037c741fb143fa7000b522a574d13fc47f50854806",
       "hardware/printed-parts/asse-drain-adapter/asse-drain-adapter.stl": "ee0584ceb98ba367aaf8ea1508a060946f8e357a0f8e77cc33de567066437d2e",
@@ -1966,6 +1966,7 @@
     "d9beee731b0b2a2516a8b3cce0e6f792ddf0606cee06265f29e8ef379544745f",
     "da46e10b207079600e063293e34a58d7d249d385c0b0d6f95ad0f83b9999dfcb",
     "da9d4de61fb9fa299f0eafe205e223212ebf72ab1c0b05fef1f99daf0e4ea7a9",
+    "dac1e5c642d7aae89930e7ed7fa2b679be68de3062b7928e0ec43a39ff825b67",
     "db2ad79a3f4087168e5560715723526e89fbaddc55335fca9d87d214b3dc088e",
     "db320a9ae71757d9f33cac790c23f6aa3a0f081c109bde4fa84999b47e31d2ce",
     "dc0963d441a0cd44a3449978fbd58a4881f6f31564c7cd95cfdb7c7fc068bfac",
@@ -2080,7 +2081,7 @@
     "hardware/install-guide/plumbing/modern/art/modern-water-on.png": 1793830497,
     "hardware/manifold-layout/enclosure-assembly.facts.json": 1794288165.406084,
     "hardware/manifold-layout/enclosure-assembly.physical.step.mesh": 1793858653,
-    "hardware/manifold-layout/enclosure-assembly.step.mesh": 1794289933.164414,
+    "hardware/manifold-layout/enclosure-assembly.step.mesh": 1794289992.421736,
     "hardware/manifold-layout/manifold-layout.step": 1794269272.362814,
     "hardware/manifold-layout/manifold-layout.step.mesh": 1794269243.109754,
     "hardware/manifold-layout/studies/east-feed/parts/east-feed-ceiling.step": 1792828088,
@@ -3119,7 +3120,7 @@
       "unproven": true
     },
     "hardware/manifold-layout/enclosure-assembly.step.mesh": {
-      "commit": "6ffd1edc40408b358cc00bee825948a0c3134737",
+      "commit": "a363adacde6013f9e36cc69760101aa63e41fa42",
       "unproven": true
     },
     "hardware/manifold-layout/manifold-layout.step": {
