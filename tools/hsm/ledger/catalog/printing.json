@@ -7,6 +7,18 @@
     "PET-GF": [
       1.43,
       25.02
+    ],
+    "Bambu TPU 90A": [
+      1.22,
+      45.033768107610946
+    ],
+    "Bambu TPU 85A": [
+      1.22,
+      48.25123189238906
+    ],
+    "Siraya TPU 85A": [
+      1.16,
+      33.88
     ]
   },
   "profiles": {
@@ -54,6 +66,11 @@
       0.87,
       0.45,
       0.15
+    ],
+    "solid": [
+      0.0,
+      1.0,
+      1.0
     ]
   },
   "gap": 0.5,
@@ -166,6 +183,21 @@
     ],
     "Status plate": [
       "enclosure/display-cover/status-plate.step"
+    ],
+    "Reservoir liquid-tube grips": [
+      "cold-core/reservoir/reservoir-tube-grip.step"
+    ],
+    "Reservoir air-tube grips": [
+      "cold-core/reservoir/reservoir-air-grip.step"
+    ],
+    "Reservoir cap gaskets": [
+      "cold-core/reservoir/reservoir-gasket.step"
+    ],
+    "Display gasket": [
+      "enclosure/display-gasket/display-gasket.step"
+    ],
+    "ASSE drain adapter": [
+      "asse-drain-adapter/asse-drain-adapter.step"
     ]
   },
   "group_of": [
@@ -276,6 +308,53 @@
     [
       "Funnel drain-elbow cradle",
       "ext"
+    ],
+    [
+      "Reservoir liquid-tube grips",
+      "solid"
+    ],
+    [
+      "Reservoir air-tube grips",
+      "solid"
+    ],
+    [
+      "Reservoir cap gaskets",
+      "solid"
+    ],
+    [
+      "Display gasket",
+      "solid"
+    ],
+    [
+      "ASSE drain adapter",
+      "solid"
     ]
-  ]
+  ],
+  "instances": {
+    "Reservoir liquid-tube grips": 4,
+    "Reservoir air-tube grips": 2,
+    "Reservoir cap gaskets": 2,
+    "Display gasket": 1,
+    "ASSE drain adapter": 1
+  },
+  "material_sources": {
+    "Bambu TPU 90A": {
+      "purchase_order": "us722538751263612929",
+      "delivered_usd_kg_expression": "83.98 / 2 * 186.57 / 173.96",
+      "density_source": "hardware/printed-parts/prototype-gaskets-2026-10-08/white90-faucet/2026-10-08-faucet-counter-gasket-white-tpu90a-right06-engineering-mark2.3mf: Metadata/project_settings.config",
+      "material_basis": "Current solid-model volume; feed waste, physical yield and print duration are unmeasured."
+    },
+    "Bambu TPU 85A": {
+      "purchase_order": "us722538751263612929",
+      "delivered_usd_kg_expression": "89.98 / 2 * 186.57 / 173.96",
+      "density_source": "hardware/printed-parts/gaskets.3mf: Metadata/project_settings.config",
+      "material_basis": "Current solid-model volume; feed waste, physical yield and print duration are unmeasured."
+    },
+    "Siraya TPU 85A": {
+      "purchase_order": "114-4402537-9406656",
+      "delivered_usd_kg_expression": "33.88 / 1",
+      "density_source": "future/pump-elbow-exploration/prints/2026-10-14-compact-single-siraya85a-overhang10-engineering-z000-mark1/material-profile.json",
+      "material_basis": "Current solid-model volume; feed waste, physical yield and print duration are unmeasured."
+    }
+  }
 }
