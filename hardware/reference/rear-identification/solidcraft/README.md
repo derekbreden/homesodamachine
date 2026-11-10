@@ -6,6 +6,8 @@ The [isolated comparison](https://homesodamachine.com/labs/solidcraft/identifica
 
 The native JSON documents are editable SolidCraft designs. The producer constructs the historical baseline; its replay opens the evaluated native container, changes the clearance parameter and saves the edited design. Exports retain separate colored bodies in the multicolor project. A temporary native combine creates each fused single-material STL without changing the saved editable design.
 
+Independent lettering features precede width-dependent stock in the native timeline. The lettering plane follows the thickness and inlay-depth parameters.
+
 The Rust replay uses the historical source with a frozen layout-file path and current checkout dependencies. Initial dependency compilation belongs to setup. The edit run installs the historical changed source, compiles its program and generates its ordinary fine models, display payloads and fused print solids. Compiler queues and host waits are included in process-wall observations.
 
 Both implementations use the website's shared renderer, camera controls and part framing. The native display reads native mesh exports; the Rust display uses the production payload decoder. Display loading, CAD computation, source compilation, output export and publication have separate observations in the comparison's `evaluation.json`. Surface comparisons identify their sampled scope; they do not assert an exhaustive surface-distance bound or a new physical print qualification.
