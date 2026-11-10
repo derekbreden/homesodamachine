@@ -9,6 +9,6 @@ plate](../../plates/faucet-slim/preparation.json). D's gap and dense interface
 remain selected, with explicit automatic Tree Slim. Native reslicing retains
 the motion count; the print record identifies its local output differences.
 
-The [first-layer reading](first-layer-status.json) confirms the job is printing
-without a reported printer error. Surface finish and support release await
-physical inspection.
+The [completion reading](completion-status.json) records the finished job
+without a reported printer error. The [physical result](physical-result/physical-result.json)
+records failed support release under screwdriver prying.
