@@ -227,5 +227,260 @@
         "draw_calls": 1
       }
     ]
+  },
+  "native_display": {
+    "purpose": "This manual evaluation measures native saved-mesh publication and isolated browser loading.",
+    "solidcraft": "0.40.0-rc.3",
+    "prepare_existing_native_designs": {
+      "models": 26,
+      "purpose": "This run prepares the assembly lab's native display payloads.",
+      "reused": 0,
+      "solidcraft": "0.40.0-rc.3",
+      "wallMs": 1985.527916
+    },
+    "reuse_unchanged_designs": {
+      "models": 26,
+      "purpose": "This run prepares the assembly lab's native display payloads.",
+      "reused": 26,
+      "solidcraft": "0.40.0-rc.3",
+      "wallMs": 61.370416999999996
+    },
+    "feature_recomputation": {
+      "models_opened": 26,
+      "all_adopted_saved_model": true,
+      "recomputed_features": 0
+    },
+    "integrity": {
+      "saved_previews_byte_identical": [
+        "coil",
+        "earth-lead",
+        "earth-screw",
+        "earth-washer",
+        "float-reference",
+        "float-shell",
+        "guide-rod",
+        "inlet-reference",
+        "jet-cap",
+        "lower-cap-reference",
+        "machined-cap",
+        "probe",
+        "prv-shroud",
+        "pushfit-elbow",
+        "reed",
+        "reed-bridge",
+        "relief-reference",
+        "relief-valve",
+        "ring-magnet",
+        "street-elbow",
+        "upper-cap-reference",
+        "upper-stop",
+        "vessel-reference",
+        "vessel-tube",
+        "weldment-reference"
+      ],
+      "assembly_children_byte_identical": true,
+      "documents_match_original_native_container": [
+        "coil",
+        "earth-lead",
+        "earth-screw",
+        "earth-washer",
+        "float-reference",
+        "float-shell",
+        "guide-rod",
+        "inlet-reference",
+        "jet-cap",
+        "lower-cap-reference",
+        "machined-cap",
+        "probe",
+        "prv-shroud",
+        "pushfit-elbow",
+        "reed",
+        "reed-bridge",
+        "relief-reference",
+        "relief-valve",
+        "ring-magnet",
+        "street-elbow",
+        "upper-cap-reference",
+        "upper-stop",
+        "vessel-reference",
+        "vessel-tube",
+        "weldment-reference"
+      ]
+    },
+    "parent": {
+      "kind": "assembly-preview",
+      "native_bytes": 1869699,
+      "native_triangles": 134838,
+      "packed_comparison_bytes": 9814736,
+      "packed_comparison_triangles": 195176
+    },
+    "limits": [
+      "Measurements cover this example and existing evaluated native files, not a complete enclosure CAD build.",
+      "The native display publisher and assembly package are lab code; standalone SolidCraft does not run this publication workflow automatically.",
+      "Saved meshes are display data. Native designs remain the source for manufacturing and precise geometry."
+    ],
+    "browser": {
+      "checks": [
+        {
+          "label": "fresh parent",
+          "node": "instrumented-parent",
+          "native_engine_loaded": false,
+          "mode": "native",
+          "draw_calls": 1,
+          "triangles": 134838,
+          "count": 1,
+          "model_requests": 1,
+          "authoring_files": []
+        },
+        {
+          "label": "instrumented reuses parent meshes",
+          "node": "instrumented",
+          "native_engine_loaded": false,
+          "mode": "native",
+          "draw_calls": 10,
+          "triangles": 134838,
+          "count": 1,
+          "model_requests": 1,
+          "authoring_files": []
+        },
+        {
+          "label": "vessel",
+          "node": "vessel",
+          "native_engine_loaded": false,
+          "mode": "native",
+          "draw_calls": 5,
+          "triangles": 30548,
+          "count": 1,
+          "model_requests": 5,
+          "authoring_files": []
+        },
+        {
+          "label": "weldment",
+          "node": "weldment",
+          "native_engine_loaded": false,
+          "mode": "native",
+          "draw_calls": 4,
+          "triangles": 73220,
+          "count": 1,
+          "model_requests": 9,
+          "authoring_files": []
+        },
+        {
+          "label": "hide float",
+          "node": "weldment",
+          "native_engine_loaded": false,
+          "mode": "native",
+          "draw_calls": 3,
+          "triangles": 70746,
+          "count": 1,
+          "model_requests": 9,
+          "authoring_files": []
+        },
+        {
+          "label": "packed comparison",
+          "node": "weldment",
+          "native_engine_loaded": false,
+          "mode": "packed",
+          "draw_calls": 4,
+          "triangles": 99154,
+          "count": 1,
+          "model_requests": 13,
+          "authoring_files": []
+        },
+        {
+          "label": "return to native",
+          "node": "weldment",
+          "native_engine_loaded": false,
+          "mode": "native",
+          "draw_calls": 4,
+          "triangles": 73220,
+          "count": 1,
+          "model_requests": 13,
+          "authoring_files": []
+        },
+        {
+          "label": "repeated 64",
+          "node": "instrumented-parent",
+          "native_engine_loaded": false,
+          "mode": "native",
+          "draw_calls": 1,
+          "triangles": 8629632,
+          "count": 64,
+          "model_requests": 1,
+          "authoring_files": []
+        },
+        {
+          "label": "phone vessel",
+          "node": "vessel",
+          "native_engine_loaded": false,
+          "mode": "native",
+          "draw_calls": 5,
+          "triangles": 30548,
+          "count": 1,
+          "model_requests": 4,
+          "authoring_files": []
+        },
+        {
+          "label": "direct leaf",
+          "node": "machined-cap",
+          "native_engine_loaded": false,
+          "mode": "native",
+          "draw_calls": 1,
+          "triangles": 828,
+          "count": 1,
+          "model_requests": 1,
+          "authoring_files": []
+        },
+        {
+          "label": "native editor then reference",
+          "node": "machined-cap",
+          "native_engine_loaded": false,
+          "mode": "native",
+          "draw_calls": 1,
+          "triangles": 828,
+          "count": 1,
+          "model_requests": 1,
+          "authoring_files": [
+            "Machined endcap"
+          ]
+        },
+        {
+          "label": "final native parent",
+          "node": "instrumented-parent",
+          "native_engine_loaded": false,
+          "mode": "native",
+          "draw_calls": 1,
+          "triangles": 134838,
+          "count": 1,
+          "model_requests": 1,
+          "authoring_files": []
+        },
+        {
+          "label": "final open reuses embedded meshes",
+          "node": "instrumented",
+          "native_engine_loaded": false,
+          "mode": "native",
+          "draw_calls": 10,
+          "triangles": 134838,
+          "count": 1,
+          "model_requests": 1,
+          "authoring_files": []
+        }
+      ],
+      "errors": [],
+      "camera_retained_on_open": true,
+      "phone_layout": {
+        "viewport": 390,
+        "documentWidth": 390,
+        "editHeight": 44
+      },
+      "appearance_override": [
+        1,
+        0,
+        0
+      ],
+      "parent_open_observation": "Opening saved instrumented assembly\n443 ms",
+      "native_editor": "The machined cap opens in the native runtime. Returning to the reference unloads the engine and authoring documents."
+    }
   }
 }

@@ -36,12 +36,16 @@
       </section>
       <section class="load-audit">
         <h2>What is loaded</h2>
-        <dl><div><dt>Authoring files requested</dt><dd id="part-files">None</dd></div><div><dt>Native engine</dt><dd id="engine-state">Not loaded</dd></div><div><dt>Native workspace</dt><dd id="native-scope">Closed</dd></div><div><dt>Native body definitions</dt><dd id="native-bodies">Not loaded</dd></div></dl>
+        <dl><div><dt>Display source</dt><dd id="display-source">SolidCraft meshes</dd></div><div><dt>Authoring files requested</dt><dd id="part-files">None</dd></div><div><dt>Native engine</dt><dd id="engine-state">Not loaded</dd></div><div><dt>Native workspace</dt><dd id="native-scope">Closed</dd></div><div><dt>Native body definitions</dt><dd id="native-bodies">Not loaded</dd></div></dl>
+        <details class="display-comparison"><summary>Compare display paths</summary>
+          <label for="display-mode">Display <select id="display-mode"><option value="native">SolidCraft meshes</option><option value="packed">Packed comparison</option></select></label>
+          <p class="local-note">SolidCraft meshes use its saved display cache. A larger assembly packages its direct children's saved meshes together. A part without a cache uses SolidCraft's mesh export. Packed comparison uses the separately processed preview. Neither starts the editor.</p>
+        </details>
         <details><summary>Requested model resources</summary><ol id="resource-list"></ol></details>
       </section>
       <section class="timings"><h2>Iteration</h2><ol id="timing-list"></ol></section>
       <details class="about"><summary>What this evaluates</summary>
-        <p>The parent opens one saved exterior of the instrumented carbonator. Open it to see its direct components, then the fitted vessel, weldment, cap groups and float. Each level keeps the child histories closed.</p>
+        <p>The parent opens one saved exterior of the instrumented carbonator. Open it to see its direct components, then the fitted vessel, weldment, cap groups and float. Each level keeps the child histories closed. The default display reads SolidCraft's own saved triangles or native mesh export, with no separate geometry simplification.</p>
         <p>The weldment reference retains the tube rim, cap recesses, clearance and ports. Its captive float and guides load when you open the weldment. The instrumented exterior also retains the copper coil, fittings, reed bridge and probe envelopes.</p>
         <p>The coil lifts over the reed bridge. The controlled guide rod sits in conical blind registers, and the float has a limited native slider joint. Rigid joints retain the assembled positions of fixed components.</p>
         <p>Printed shapes follow their source interfaces. Bought parts retain their fit envelopes; thread helices, weld beads and electronic internals are omitted. The earth lead shows its attached terminal and conductor exit. Free conductor dressing and the insulation casing belong outside this assembly.</p>

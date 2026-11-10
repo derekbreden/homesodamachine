@@ -24,7 +24,11 @@ The native JSON designs under native/ are editable in SolidCraft. Packed copies 
 
 Selecting geometry or a component row highlights it and opens the component panel. Open enters that component. Breadcrumbs and browser Back and Forward retain the viewer and camera. Hide, Section and Explode affect the local display. A direct leaf link requests its display and ancestor placement metadata; it does not request ancestor or sibling meshes.
 
-The initial page loads a combined saved exterior. Repeated occurrences share its display geometry and draw call. Opening an assembly requests only its direct saved shapes. Native authoring starts only through Edit. The selected native file retains finished geometry, so linked source files remain closed.
+The initial page loads a combined saved exterior. Repeated occurrences share its display geometry and draw call. Opening an assembly uses only its direct saved shapes. A child mesh already included in the parent's package is reused without another download. Native authoring starts only through Edit. The selected native file retains finished geometry, so linked source files remain closed.
+
+The default display reads SolidCraft's saved preview manifest and binary mesh entries. The native document and payload digests bind the mesh to its saved design. Surface coordinates and triangles are retained; the browser supplies shading normals and component picking. When a combined preview exceeds the native cache budget, an assembly package holds its direct children's native saved meshes and native occurrence placements. A leaf without a saved preview uses SolidCraft's native mesh export. This packaging and browser navigation belong to the lab; they are not standalone SolidCraft representation management.
+
+Compare display paths switches to the retained packed preview for visual and loading comparisons. Both paths defer the native editor. The browser's timing list measures opening a display after the viewer starts, rather than the whole page and its scripts. The evaluation record identifies the measured model, payload sizes and publication timings.
 
 Browser workspaces persist separately in IndexedDB. Pausing or leaving native editing saves the current document and unloads the runtime. Update parents writes the changed design to the native filesystem, updates selected links and republishes affected references. Published source geometry, solved placements and appearance identify unchanged exteriors, so an internal float move can stop at the weldment boundary. Shared cap edits reach both cap groups. Other leaf sources remain closed.
 
@@ -32,15 +36,15 @@ Local native edits appear in the native workspace. Reference preview shows the p
 
 ## Manual production
 
-The producer, display packer and publisher run only for this lab, outside ordinary builds and commits. The display packer retains native exported surfaces, simplifies their tessellation and bakes component finishes into a combined display mesh. The publisher writes shallow manifests and the downloadable native project. Evaluation records live in the lab's levels-evidence.json.
+The producer, native display publisher and manifest publisher run only for this lab, outside ordinary builds and commits. The display command extracts native saved meshes, packages shallow assembly displays and reuses payloads whose native sources and dependencies match. It uses the CLI's cached-open path to prepare absent previews; the CLI reports whether it adopted the saved CAD model or recomputed features. The manifest publisher writes shallow manifests and the downloadable native project. Evaluation records live in the lab's levels-evidence.json.
 
 From the repository root:
 
 ```sh
 solidcraft_run=$(mktemp -d .cache/runs/solidcraft-levels-XXXXXX)
 CARGO_BUILD_JOBS=2 python3 tools/run.py -- cargo run --release --manifest-path hardware/reference/carbonator-core/solidcraft/producer/Cargo.toml --target-dir tools/hsm/target -- build --out "$solidcraft_run"
-python3 tools/run.py -- blender --background --python hardware/reference/carbonator-core/solidcraft/levels_display.py -- "$solidcraft_run" web/public/solidcraft-lab/carbonator/assets "$solidcraft_run/display.json"
+CARGO_BUILD_JOBS=2 python3 tools/run.py -- cargo run --release --manifest-path hardware/reference/carbonator-core/solidcraft/producer/Cargo.toml --target-dir tools/hsm/target -- display --out "$solidcraft_run"
 python3 hardware/reference/carbonator-core/solidcraft/publish_levels.py
 ```
 
-Keep concise reviewed results in the evaluation record and remove the temporary run after publication. The native JSON histories and project download retain the deliverables.
+Run display on its own to refresh website meshes from existing packed native designs. The packed comparison is a fixed comparison artifact. Keep concise reviewed results in the evaluation record and remove the temporary run after publication. The native JSON histories and project download retain the deliverables.

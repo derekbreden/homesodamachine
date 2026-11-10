@@ -9,6 +9,7 @@ use hsm_reed_bridge_numbers as bridge;
 use serde_json::{Value, json};
 use std::{error::Error, fs, path::Path};
 mod build;
+mod display;
 
 fn local(mut point: [f64; 3]) -> [f64; 3] {
     point[2] -= c::BOTTOM_Z;
@@ -32,6 +33,9 @@ fn tail(t: Tail) -> Value {
  }).collect::<Vec<_>>()})
 }
 fn main() -> Result<(), Box<dyn Error>> {
+    if std::env::args().nth(1).as_deref() == Some("display") {
+        return display::run();
+    }
     let rod = hsm_cold_core_data::rod();
     let length = rod["finished_length"].as_f64().ok_or("rod length")? * cap::INCH;
     let point_angle = rod["register_point_degrees"]
