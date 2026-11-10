@@ -1,0 +1,60 @@
+{
+  "purpose": "Retain the user-reported clean support removal and visible undersides of the D peel scenarios.",
+  "date": "2026-11-09",
+  "printer": "Mark1",
+  "printer_task_id": "1426451329",
+  "status": "User reports all D samples removed cleanly; photographs retained.",
+  "user_observations": [
+    {
+      "verbatim": "Those all came off clean."
+    },
+    {
+      "verbatim": "D that we just did that worked surprisingly well"
+    }
+  ],
+  "visual_observations": {
+    "surface": "The free panel undersides show largely continuous parallel roads. Road texture and some separation between roads remain visible.",
+    "production_pad": "The holed production pad retains a coarse diagonal road texture beside the main underside.",
+    "scope": "The photographs support a surface comparison; removal effort, sag and retained thickness are unmeasured. Individual label faces are not visible."
+  },
+  "specimens": [
+    "XD",
+    "ND",
+    "OD",
+    "PD"
+  ],
+  "photos": [
+    {
+      "source_name": "1-Photo-1.jpg",
+      "path": "photos/01-overview.jpg",
+      "source_sha256": "4360fe70cc902ecf7e94a83a7c3c78ae015ca4e3e83d128c56ba609a7f4b33d0",
+      "sha256": "223eb9e19c25ef645f74b9d9b75ef3a7e395b299e4500f71919335140ef62abe",
+      "processing": "JPEG scan data and decoded pixels preserved; private metadata and comments omitted; orientation retained."
+    },
+    {
+      "source_name": "3-Photo-3.jpg",
+      "path": "photos/03-free-holed-panel.jpg",
+      "source_sha256": "2acc65efbd1ba19f643acf463673e4dff67c7c125f755f02e5fceca46406b711",
+      "sha256": "bfc1c6a0ee74404fa466dd8b27a0a8ed4004567efec61f77ecf0e651ed8d3e8f",
+      "processing": "JPEG scan data and decoded pixels preserved; private metadata and comments omitted; orientation retained."
+    },
+    {
+      "source_name": "4-Photo-4.jpg",
+      "path": "photos/04-free-panel.jpg",
+      "source_sha256": "18c4cdb37ee5fa85f1230429aee734861a2c8cb53b37500fa67c6496477ae6d2",
+      "sha256": "5a23bf199e33724e49aa59f8b9d53f412b0a2be7aa09ed44b1d86dbb15b80049",
+      "processing": "JPEG scan data and decoded pixels preserved; private metadata and comments omitted; orientation retained."
+    },
+    {
+      "source_name": "7-Photo-7.jpg",
+      "path": "photos/07-cantilever-and-production-pad.jpg",
+      "source_sha256": "141dfbef72c1160503ce8bbb353f6975750ddfce08681717abf1238e8a16b38f",
+      "sha256": "d9b83ebd682f75de12a89c3206847b9cba3bb0c6fe3b1cd51e2600702e1f7e12",
+      "processing": "JPEG scan data and decoded pixels preserved; private metadata and comments omitted; orientation retained."
+    }
+  ],
+  "followup": {
+    "process": "E contact treatment",
+    "plate": "../rail-cavity-30-E/README.md"
+  }
+}
