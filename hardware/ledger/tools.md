@@ -133,6 +133,12 @@ Bambu receipts cover four separately purchased right-side 0.2 mm hotends:
 two March 22 and two August 19. These are purchase quantities; printer-bundle
 contents and the current usable count are not established by the receipts.
 
+A two-pack of 0.2 mm anti-clogging MPVD hotends, Amazon ASIN
+[B0H1D85QSD](https://www.amazon.com/dp/B0H1D85QSD), was delivered
+2026-11-06 ([purchases.md §13](/hardware/ledger/purchases.md)). The merchant
+title lists H2C compatibility but does not establish the hotend side; installed
+fit and the current usable count are unverified.
+
 ### What dries where
 
 Every filament the shop runs, the cycle its maker publishes, and the unit whose

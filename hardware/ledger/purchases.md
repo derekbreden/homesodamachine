@@ -69,7 +69,9 @@ Stainless carbonator fabrication: 316 SS round-tube body + 1/4" laser-cut 316 SS
 | <!--purchase:pur-39eaa2bc1e864273b83e0f52945fef6e--> BEAMNOVA hydrostatic test pump, 0–726 PSI / 0–50 bar / 0–5 MPa, 3.17 gal water reservoir, 4.43 ft × 1/4" hydraulic hose with 1/2" female gasket-swivel testpiece end, copper pump body + check valve, built-in 3-unit dial gauge | [B07T45XTD1](https://www.amazon.com/dp/B07T45XTD1) | 1 | $93.30 | 112-6990924-2823418 | 2026-05-04 | 2026-05-05 | ACQUIRED |
 | <!--purchase:pur-3f7c2f57bc594cc8abbc5e9896c1503a--> KOOTANS 1/2" NPT male × 1/4" NPT male solid brass reducing hex nipple, 4-pack | [B07P7ZRZMD](https://www.amazon.com/dp/B07P7ZRZMD) | 1 pk (4) | $12.86 | 112-1128563-6922646 | 2026-05-04 | 2026-05-05 | ACQUIRED |
 | <!--purchase:pur-8fb96099b6b34dbfa04c2e6d93c55a42--> OnlineMetals #12498 — 5" OD × 0.065" wall 316 welded SS round tube, cut to 6.0" length, MTRs required | onlinemetals.com | 10 | $736.73 | 1020857414 | 2026-04-24 | — | ACQUIRED |
-| <!--purchase:pur-dcfef64f3f264f2f95eb43659806718f--> SendCutSend order SG019619 — 1/4" 316 SS circular endcap plates | sendcutsend.com | 20 | $621.19 | — | — | — | ACQUIRED |
+| <!--purchase:pur-dcfef64f3f264f2f95eb43659806718f--> SendCutSend order SG019619 — 1/4" 316 SS circular endcap plates | sendcutsend.com | 20 | $621.19 | — | — | 2026-04-30 | ACQUIRED |
+| <!--purchase:pur-7abe2dc0fbe64c65a86dab96c07db02d--> SendCutSend order SW26G213 — 304 SS 0.250" deburred circular end-cap blanks, top ×2 + bottom ×2 | sendcutsend.com | 4 | $115.96 | SW26G213 | — | — | ACQUIRED (delivery confirmed; exact day unknown) |
+| <!--purchase:pur-27c75fd6a5cd4d11845a52bda3c21fda--> SendCutSend order ST05Y776 — 304 SS 0.250" deburred racetrack end-cap blanks, top ×2 + bottom ×2 | sendcutsend.com | 4 | $112.23 | ST05Y776 | — | — | ACQUIRED (delivery confirmed; exact day unknown) |
 | <!--purchase:pur-0b97fae73c024c86b30887d80ae3e384--> SendCutSend order SQ65E969 — 304 SS 0.048" body blanks ×2 (plan-B spare/practice) | sendcutsend.com | 2 | $60.19 | — | — | — | ACQUIRED |
 | <!--purchase:pur-fcca5d9c2ff44cdba4f21d5a544fbcef--> SendCutSend order SV07U813 — 304 SS 0.060" racetrack end-cap blanks ×4 (plan-B spare) | sendcutsend.com | 4 | $45.52 | — | — | — | ACQUIRED |
 | <!--purchase:pur-5133bb7161d64ebc8dd128da8a97b6f0--> SendCutSend order SP54G453 — 304 SS 0.048" body half-sheets ×10 (plan-B spare) | sendcutsend.com | 10 | $134.38 | — | — | — | ACQUIRED |
@@ -94,6 +96,7 @@ Stainless carbonator fabrication: 316 SS round-tube body + 1/4" laser-cut 316 SS
 | <!--purchase:pur-a52a7f9d818044e8a32955ecd3a28d01--> Juvielich M5 × 0.8 hex nuts, 100 pc, 304 stainless, DIN 934, 8 mm across flats × 4 mm high — the motor-carriage nut if the corner channel takes its 9.2 mm corners | [B0D1X2YBLJ](https://www.amazon.com/dp/B0D1X2YBLJ) | 1 pk (100) | $6.10 | 112-8159134-3631449 | 2026-09-03 | 2026-09-05 | ACQUIRED |
 | <!--purchase:pur-a2b0cf087f7f47a08b322850fdd38d9a--> Drill America D/ASTCO1/16P12 1/16" cobalt split-point stub drill, 12-pack — water-inlet jet drilling | [B00FX9PNYQ](https://www.amazon.com/dp/B00FX9PNYQ) | 1 pk (12) | $14.79 | 112-0884852-3444230 | 2026-09-15 | 2026-09-17 | ACQUIRED |
 | <!--purchase:pur-1af507c69de4482da0d7b9c1ecc99b52--> Hosifiy 316 SS round rod, nominal 3/8" / 9.5 mm × 400 mm — water-inlet jet-cap stock; fitting compatibility requires measurement | [B0FYCJJXCS](https://www.amazon.com/dp/B0FYCJJXCS) | 1 | $10.71 | 112-0884852-3444230 | 2026-09-15 | 2026-09-17 | ACQUIRED |
+| <!--purchase:pur-129fa4df379f4d1f84fecfdeb5861ef3--> 316 SS round rod, nominal 3/8" × 15.7" — water-inlet jet-cap stock; fitting compatibility requires measurement. $9.99 item + $0.72 tax | [B0FYCJJXCS](https://www.amazon.com/dp/B0FYCJJXCS) | 1 | $10.71 | 112-3330732-0617859 | 2026-10-26 | 2026-10-29 | ACQUIRED |
 | <!--purchase:pur-2194a215bd63436688709f9d34dbab32--> HARFINGTON PT4-U pneumatic branch tee, 6 mm tube OD × 1/4" male NPT, 5-pack — regulated argon purge branch | [B0F1FDG9SC](https://www.amazon.com/dp/B0F1FDG9SC) | 1 pk (5) | $8.68 | 112-0884852-3444230 | 2026-09-15 | 2026-09-17 | ACQUIRED |
 | <!--purchase:pur-93977d9bde974e1fb4e1314af17b3625--> LTWFITTING 316 SS 1/4" female NPT full coupling, 5-pack — one for the argon purge fixture; four spare | [B01ABDD8FY](https://www.amazon.com/dp/B01ABDD8FY) | 1 pk (5) | $10.70 | 112-0884852-3444230 | 2026-09-15 | 2026-09-17 | ACQUIRED |
 | <!--purchase:pur-5416183adaae4c7888924bf7bf589cd8--> ASelected 1" × 1" mounted flap wheels, 1/4" shank, 80 grit aluminum oxide, 10-pack, rated to 35,000 rpm — stuck-wire stub dressing on the 316L welds, stainless-only. Sole item on its invoice, $8.99 + $0.65 NE tax, shipping $0.00. Amazon estimates 2026-09-25 | [B07M97KFZW](https://www.amazon.com/dp/B07M97KFZW) | 1 pk (10) | $9.64 | 112-1566032-1238659 | 2026-09-23 | 2026-09-25 | ACQUIRED |
@@ -258,6 +261,7 @@ Peristaltic pumps, solenoids, silicone delivery tubing, barb fittings, bladders,
 | <!--purchase:pur-1327a2747f4747ab9fdf49a2a275bc3c--> SodaStream Diet Mountain Dew 4-pack | [B0G26HQWBY](https://www.amazon.com/dp/B0G26HQWBY) | 1 | $21.74 | 112-6764112-7787443 | 2026-09-02 | 2026-09-03 | ACQUIRED |
 | <!--purchase:pur-7cb5c1d8028249feb0e80687059fc82e--> SodaStream Diet Mountain Dew 4-pack — $21.74 item price + $1.06 allocated tax on a mixed order | [B0G26HQWBY](https://www.amazon.com/dp/B0G26HQWBY) | 1 | $22.80 | 114-3307778-2637053 | 2026-09-28 | 2026-09-29 | ACQUIRED |
 | <!--purchase:pur-8d0598d87bd8438496d8a9fbf38dcf9a--> SodaStream Diet Mountain Dew 4-pack — $21.74 item price + $1.16 allocated tax on a mixed order | [B0G26HQWBY](https://www.amazon.com/dp/B0G26HQWBY) | 1 | $22.90 | 114-4649388-6034615 | 2026-10-11 | 2026-10-12 | ACQUIRED |
+| <!--purchase:pur-d6686b26577043b2acf9c6793d085302--> SodaStream Diet Mountain Dew 4-pack — $21.74 item price only; project tax and payment allocation unresolved | [B0G26HQWBY](https://www.amazon.com/dp/B0G26HQWBY) | 1 | $21.74 | 114-1335582-7182630 | 2026-11-03 | 2026-11-04 | ACQUIRED |
 | <!--purchase:pur-91038a2ffce84eab866e01eb691af1d0--> SodaStream Pepsi Wild Cherry Zero 4-pack | [B0G4NRDQB8](https://www.amazon.com/dp/B0G4NRDQB8) | 1 | $28.99 | 114-0069643-1757059 | 2026-02-25 | — | ACQUIRED |
 | <!--purchase:pur-a42cf53d49fa43ca9f11e1024291cc25--> SodaStream Pepsi Wild Cherry Zero 4-pack | [B0G4NRDQB8](https://www.amazon.com/dp/B0G4NRDQB8) | 1 | $29.74 | 114-3163590-0127432 | 2026-03-08 | — | ACQUIRED |
 | <!--purchase:pur-7ff00d6c81e044de8b1322aa40adad89--> SodaStream Starry Zero 4-pack | [B0G4SGCGLN](https://www.amazon.com/dp/B0G4SGCGLN) | 1 | $28.99 | 112-3552935-4239455 | 2026-07-26 | 2026-07-27 | ACQUIRED |
@@ -520,6 +524,7 @@ DigiKey salesorder **101910359**, web order **377210254**: the 2026-09-29 confir
 | <!--purchase:pur-5e0a7b4d2f6c4b9e1d4a8f0b2c3d5e74--> SVLING M5 × 0.8 × 60 mm socket-head cap screws, 40 pc, 12.9 alloy steel, black. $7.50 item price + $0.54 allocated tax | [B0GHNHFYJN](https://www.amazon.com/dp/B0GHNHFYJN) | 1 pk (40) | $8.04 | 114-8768578-0217027 | 2026-10-17 | 2026-10-18 | ACQUIRED |
 | <!--purchase:pur-6f1b8c5e3a7d4c0f2e5b9a1c3d4e6f85--> Small Parts M5 flat washers, DIN 125, 5.3 mm ID × 10 mm OD × 1 mm, 18-8 stainless, black oxide, 100 pc. $7.16 item price + $0.52 allocated tax | [B009OK27FI](https://www.amazon.com/dp/B009OK27FI) | 1 pk (100) | $7.68 | 114-8768578-0217027 | 2026-10-17 | 2026-10-19 | ACQUIRED |
 | <!--purchase:pur-7a2c9d6f4b8e4d1a3f6c0b2d4e5f7a96--> SVLING M5 × 0.8 × 100 mm socket-head cap screws, 20 pc, 12.9 alloy steel, black — seam rods. $7.70 + $0.56 tax | [B0GHNNYVDH](https://www.amazon.com/dp/B0GHNNYVDH) | 1 pk (20) | $8.26 | 112-8643704-3927458 | 2026-10-25 | 2026-10-26 | ACQUIRED |
+| <!--purchase:pur-f72407db7ffa450695c514cf2f38539b--> SVLING M5 × 0.8 × 100 mm socket-head cap screws, 20 pc, 12.9 alloy steel, black — seam rods; $8.55 item + $0.62 tax, shipping offset by credit | [B0GHNNYVDH](https://www.amazon.com/dp/B0GHNNYVDH) | 1 pk (20) | $9.17 | 112-3519445-7276244 | 2026-11-09 | — | ON-ORDER |
 | <!--purchase:pur-6b2a8bfdb28140f9b07113a2d70f70e6--> BNUOK M3 × 60 mm Hex Socket Head Cap Screws, 60 pc, 12.9 alloy steel, black oxide, full thread — the pump clamp's two, and the whole of what fastens either pump: each drops through the clamp crown's counterbore, runs the filled field and the bracket-height gap under it, and takes the full-length ruthex in the lower cradle's centre lane. Head Ø5.5 × 3, 2.5 mm hex, the same BNUOK black-oxide family as the M3×8/10/25 | [B0DJQHNL3H](https://www.amazon.com/dp/B0DJQHNL3H) | 1 pk (60) | $10.18 | 112-5107616-8144245 | 2026-09-18 | 2026-09-19 | ACQUIRED |
 | <!--purchase:pur-eb29d9d132f94e3492692ca28f52e8bd--> BNUOK M3 × 20 mm Hex Socket Head Cap Screws, 60 pc, 12.9 alloy steel, black oxide, full thread — the water pump's four mounting screws, one through the slot in each G Ganen rubber foot, through the top cap lid, into a deck-mount column's ruthex. Same family and same 2.5 mm hex as the rest of the box's M3 | [B0DJR2Q5LP](https://www.amazon.com/dp/B0DJR2Q5LP) | 1 pk (60) | $8.14 | 112-0416491-0117835 | 2026-09-18 | 2026-09-20 | ACQUIRED |
 | <!--purchase:pur-52ab7650d37f439e9edf9276dbf8f96d--> binifiMux M3 flat washers, Ø12 mm OD × 1.0 mm, 100 pc, 304 stainless steel — general stock, with no role in the current build: the water pump's screws take the Ø9 × 0.8 below | [B0DDTRPSPH](https://www.amazon.com/dp/B0DDTRPSPH) | 1 pk (100) | $6.42 | 112-2270140-6656239 | 2026-09-18 | 2026-09-19 | ACQUIRED |
@@ -537,9 +542,9 @@ General shop equipment supporting fabrication, assembly, and teardown. Not proje
 
 | Part | ASIN link | Qty | $ | Order # | Ordered | Delivered | Status |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| <!--purchase:pur-7f5e5ae2f85e4d74bca9edb78b7332f0--> Klein Tools 54400MBX MODbox tall compartment box, full width — clear-lid IP65 small-parts organizer, 9 removable bins and 20 compartments, for the JST housing and spade terminal stock. Sold by Amazon.com; $64.98 + $4.71 allocated estimated NE tax, free shipping; Amazon order details verified 2026-10-24, arriving 2026-10-27 | [B0GLKTG7C6](https://www.amazon.com/dp/B0GLKTG7C6) | 1 | $69.69 | 114-0006703-7518633 | 2026-10-24 | — | ON-ORDER |
-| <!--purchase:pur-ae7d87fe77614d0098db388d7f0fa11d--> Klein Tools 54823MB MODbox 3-drawer tool box — the base the 54400MBX above stacks on; ball-bearing full-extension slides, 50 lb rating, 24 removable dividers. Sold by Amazon.com; $169.98 + $12.32 allocated estimated NE tax, free shipping; Amazon order details verified 2026-10-24, arriving 2026-10-26 | [B0CZ7FQGMG](https://www.amazon.com/dp/B0CZ7FQGMG) | 1 | $182.30 | 114-0006703-7518633 | 2026-10-24 | — | ON-ORDER |
-| <!--purchase:pur-e17001f6d6074a8884e9e1b2af82fa1f--> Klein Tools 54866MB MODbox roll dispenser (spool holder rail attachment) — spool rods on MODbox rails for the stranded wire reels a build cuts from ([bom.md](/hardware/ledger/bom.md) §9 ribbons, §11 hookup wire); adjustable width, 20 lb rating. Two at $19.98 ea + $2.90 allocated estimated NE tax, sold by Amazon.com, free shipping; Amazon order details verified 2026-10-24, arriving 2026-10-25 | [B0H9B8LC8V](https://www.amazon.com/dp/B0H9B8LC8V) | 2 | $42.86 | 114-0006703-7518633 | 2026-10-24 | 2026-10-25 | ACQUIRED |
+| <!--purchase:pur-7f5e5ae2f85e4d74bca9edb78b7332f0--> Klein Tools 54400MBX MODbox tall compartment box, full width — clear-lid IP65 small-parts organizer, 9 removable bins and 20 compartments, for the JST housing and spade terminal stock. Sold by Amazon.com; $64.98 + $4.71 allocated NE tax, free shipping | [B0GLKTG7C6](https://www.amazon.com/dp/B0GLKTG7C6) | 1 | $69.69 | 114-0006703-7518633 | 2026-10-24 | 2026-10-27 | ACQUIRED |
+| <!--purchase:pur-ae7d87fe77614d0098db388d7f0fa11d--> Klein Tools 54823MB MODbox 3-drawer tool box — the base the 54400MBX above stacks on; ball-bearing full-extension slides, 50 lb rating, 24 removable dividers. Sold by Amazon.com; $169.98 + $12.32 allocated NE tax, free shipping | [B0CZ7FQGMG](https://www.amazon.com/dp/B0CZ7FQGMG) | 1 | $182.30 | 114-0006703-7518633 | 2026-10-24 | 2026-10-26 | ACQUIRED |
+| <!--purchase:pur-e17001f6d6074a8884e9e1b2af82fa1f--> Klein Tools 54866MB MODbox roll dispenser (spool holder rail attachment) — spool rods on MODbox rails for the stranded wire reels a build cuts from ([bom.md](/hardware/ledger/bom.md) §9 ribbons, §11 hookup wire); adjustable width, 20 lb rating. Two at $19.98 ea + $2.90 allocated NE tax, sold by Amazon.com, free shipping | [B0H9B8LC8V](https://www.amazon.com/dp/B0H9B8LC8V) | 2 | $42.86 | 114-0006703-7518633 | 2026-10-24 | 2026-10-25 | ACQUIRED |
 | <!--purchase:pur-250afee3f9d341c9a9d18d4e33c0fd0e--> BESSEY GSCC2.506 clutch-style bar clamps, 6" opening × 2.5" throat, 600 lb — C1/C2, the two outboard metal screw clamps of the [tube insertion guide](/hardware/tube-insertion-guide/README.md). Two clamps, $10.99 ea + $1.60 estimated tax, free shipping | [B000FA0BL8](https://www.amazon.com/dp/B000FA0BL8) | 2 | $23.58 | 112-8160692-2465006 | 2026-10-10 | 2026-10-13 | ACQUIRED |
 | <!--purchase:pur-6efcbbd5fcb44c888f18a2ef86a18960--> VEVOR adjustable 48" workbench w/ power outlet, wheels, pegboard, 2000 lb load | [B0FCD13KKQ](https://www.amazon.com/dp/B0FCD13KKQ) | 2 | $172.64 ea | 114-1978684-7068269 | 2026-04-20 | 2026-04-27 | ACQUIRED |
 | <!--purchase:pur-9d460728372b4fa4ac76a549453697e0--> VEVOR 72" adjustable garage workbench, heavy-duty | [B0C9SYN89J](https://www.amazon.com/dp/B0C9SYN89J) | 1 | $383.85 | 112-2273377-9628208 | 2026-04-06 | — | ACQUIRED |
@@ -580,11 +585,12 @@ General shop equipment supporting fabrication, assembly, and teardown. Not proje
 | <!--purchase:pur-ca9d45d7a7324f948e048807d3467361--> Polymaker PolyDryer Filament Storage Box XL, 2-Pack (Polymaker PX01009) — sealed spool boxes sized for a 3 kg spool, hygrometer in the lid, filament fed out through the box wall. What a 3 kg spool prints from: it turns too stiffly in the SUNLU E2's chamber to feed a print from there. ($109.99 item + $1.99 shipping + $8.11 tax) | [B0FPQV18L5](https://www.amazon.com/dp/B0FPQV18L5) | 1 pk (2) | $120.09 | 114-8931415-0067401 | 2026-08-13 | 2026-08-15 | ACQUIRED |
 | <!--purchase:pur-f7d7511ce9394cae80352c28342d27fd--> Polymaker PolyDryer Filament Storage Box (1 kg spool), single — $27.99 + $2.03 NE tax | [B0CK17RTP4](https://www.amazon.com/dp/B0CK17RTP4) | 1 | $30.02 | 114-3202733-4767455 | 2026-10-01 | 2026-10-02 | ACQUIRED |
 | <!--purchase:pur-6fb9cbd2160040c983dc0055e58d4de1--> Polymaker PolyDryer Filament Storage Box (1 kg spool), single — a second order placed a minute later; it shipped and arrived with the box above. $27.99 + $2.03 NE tax | [B0CK17RTP4](https://www.amazon.com/dp/B0CK17RTP4) | 1 | $30.02 | 114-4680955-8473844 | 2026-10-01 | 2026-10-02 | ACQUIRED |
-| <!--purchase:pur-242d69307ce84a69948b9e502ff3dd71--> Polymaker PolyDryer Filament Storage Box (1 kg spool), two — sold by Polymaker LLC; $27.99 ea + $4.06 allocated estimated NE tax, free shipping; Amazon order details verified 2026-10-24, arriving 2026-10-26 | [B0CK17RTP4](https://www.amazon.com/dp/B0CK17RTP4) | 2 | $60.04 | 114-0006703-7518633 | 2026-10-24 | — | ON-ORDER |
+| <!--purchase:pur-242d69307ce84a69948b9e502ff3dd71--> Polymaker PolyDryer Filament Storage Box (1 kg spool), two — sold by Polymaker LLC; $27.99 ea + $4.06 allocated NE tax, free shipping | [B0CK17RTP4](https://www.amazon.com/dp/B0CK17RTP4) | 2 | $60.04 | 114-0006703-7518633 | 2026-10-24 | 2026-10-26 | ACQUIRED |
 | <!--purchase:pur-6589f83fde5f4aeeabb9b600cb513c8c--> SUNLU Official 3D Printer Filament Dryer E2 | [B0F5PMMXKD](https://www.amazon.com/dp/B0F5PMMXKD) | 1 | $321.74 | 114-9662555-0662608 | 2026-04-05 | 2026-04-07 | ACQUIRED |
 | <!--purchase:pur-bc68eb131e31422d8ad8a45a02ba8328--> DUROZZLE 0.6mm Diamond PCD Nozzle Hotend, L-side (H2D/H2S/P2S/A1 series) | [B0GWDBQW4G](https://www.amazon.com/dp/B0GWDBQW4G) | 1 | $64.24 | 112-9688188-4729035 | 2026-05-08 | 2026-05-09 | ACQUIRED |
 | <!--purchase:pur-309471632e7349928ff68b62bc97314f--> DUROZZLE 0.6mm Tungsten Carbide Nozzle Hotend, L-side (H2D/H2S/P2S/A1 series) | [B0GWDDKG47](https://www.amazon.com/dp/B0GWDDKG47) | 1 | $37.43 | 112-7749428-2806629 | 2026-05-08 | 2026-05-09 | ACQUIRED (used on faucet-shell PET-CF attempt 7) |
 | <!--purchase:pur-5ceb76c50ae54fffba3b019d5d0f792a--> ENOMAKER high-flow hotends for Bambu Lab H2D / X2D / P2S, hardened-steel nozzle — 0.8 mm + 0.4 mm (one each; $111.98 item subtotal, −$5.60 promotion, $7.72 NE tax) | [0.8 mm B0FQPGLRQJ](https://www.amazon.com/dp/B0FQPGLRQJ) + [0.4 mm B0FQPGDD49](https://www.amazon.com/dp/B0FQPGDD49) | 1 bundle (2) | $114.10 | 112-7312343-0359412 | 2026-08-19 | 2026-08-20 | ACQUIRED |
+| <!--purchase:pur-0b426a7ded014916bd32dde66a3d3030--> Anti-clogging MPVD hotend, 0.2 mm, 2-pack — merchant title lists Bambu H2C/H2D/H2S/P2S/X2D/A1/A1 mini; side and installed compatibility unverified. $32.99 item + $2.39 tax | [B0H1D85QSD](https://www.amazon.com/dp/B0H1D85QSD) | 1 pk (2) | $35.38 | 114-1960396-3476246 | 2026-11-06 | 2026-11-06 | ACQUIRED |
 | <!--purchase:pur-518fc4b73a3948fa93dcdc27f709c625--> DUROZZLE 0.8mm Diamond PCD Nozzle Hotend, L-side (H2D/H2S/A1/A1 mini series). Ships with 2 silicone socks | [B0GWDL57FK](https://www.amazon.com/dp/B0GWDL57FK) | 1 | $42.79 | 112-1974343-4486643 | 2026-08-09 | 2026-08-11 | ACQUIRED |
 | <!--purchase:pur-6ddbe8dd308345b0bff911df778240e3--> DUROZZLE 0.8mm Diamond PCD Nozzle Hotend, L-side (H2D/H2S/A1/A1 mini series). Ships with 2 silicone socks. The first of the two 0.8 PCD tips | [B0GWDL57FK](https://www.amazon.com/dp/B0GWDL57FK) | 1 | $48.16 | 114-8935189-9054653 | 2026-07-03 | 2026-07-06 | ACQUIRED |
 | <!--purchase:pur-8bac7a7d575b4eb7b4611f2b0216cada--> DUROZZLE 0.4mm Diamond PCD Nozzle Hotend, L-side (H2D/H2S/X2D/P2S/A1 series; H2C Left). Ships with 2 silicone socks. The first of three 0.4 PCD tips, bought for the left extruder ; $59.90 + $4.34 NE tax | [B0H3KBD2DG](https://www.amazon.com/dp/B0H3KBD2DG) | 1 | $64.24 | 112-7339165-9617019 | 2026-09-11 | 2026-09-12 | ACQUIRED |
@@ -605,6 +611,7 @@ General shop equipment supporting fabrication, assembly, and teardown. Not proje
 | <!--purchase:pur-6b52fe7813d94d5c8363ae1f8d1c2f74--> Polymaker Fiberon PET-GF15, 1.75 mm × 1 kg, Dark Grey — $29.99 + $2.17 NE tax | [B0FBWM5J8X](https://www.amazon.com/dp/B0FBWM5J8X) | 1 | $32.16 | 112-7997113-5902601 | 2026-09-21 | 2026-09-22 | ACQUIRED |
 | <!--purchase:pur-633abd30f0524d80a397fcee998a7658--> Polymaker Fiberon PET-GF15, 1.75 mm × 3 kg, Black — $74.99 ea × 3 before promotion and tax; $217.14 charged, $24.13/kg | [B0FBWGTW9W](https://www.amazon.com/dp/B0FBWGTW9W) | 3 | $217.14 | 114-2631637-5080268 | 2026-10-01 | 2026-10-03 | ACQUIRED |
 | <!--purchase:pur-ad87bb1e2d7548aa9fdf66293915a4f4--> Polymaker Fiberon PET-GF15, 1.75 mm × 3 kg, Black — $59.99 ea × 3 + $13.05 NE tax, free shipping; $193.02 charged, $21.45/kg | [B0FBWGTW9W](https://www.amazon.com/dp/B0FBWGTW9W) | 3 | $193.02 | 114-9279946-8137001 | 2026-10-07 | 2026-10-10 | ACQUIRED |
+| <!--purchase:pur-97a6d900980c4b878f717f19b72badae--> Polymaker Fiberon PET-GF15, 1.75 mm × 3 kg, Black — three spools, 9 kg purchased; $224.97 merchandise − $27.00 promotion + $14.34 tax, free shipping | [B0FBWGTW9W](https://www.amazon.com/dp/B0FBWGTW9W) | 3 | $212.31 | 114-3909134-4758645 | 2026-11-04 | 2026-11-07 | ACQUIRED |
 | <!--purchase:pur-cabc20925e1746ac9027c8970efad533--> Polymaker order #188663 — Fiberon PET-GF15, 1.75 mm × 3 kg, Black. Bought direct from polymaker.com rather than Amazon: $74.99 ea × 2 + $7.99 USPS Ground Advantage, no tax, = **$26.33/kg** | polymaker.com | 2 | $157.97 | — | 2026-08-29 | 2026-09-03 | ACQUIRED |
 | <!--purchase:pur-3be1b856906740fcbb8abccf195fcf8c--> Polymaker order #190118 — Fiberon PET-GF15, 1.75 mm × 3 kg, Black, direct from polymaker.com: $74.99 ea × 2, free Economy shipping, no tax, = **$25.00/kg** | polymaker.com | 2 | $149.98 | — | 2026-09-04 | 2026-09-09 | ACQUIRED |
 | <!--purchase:pur-2b1b4051619a4c01885f6d2ca0f72b84--> Polymaker order #192064 — Fiberon PET-GF15, 1.75 mm × 3 kg, Black, direct from polymaker.com: $74.99 ea × 4, free Economy shipping, no tax, = **$25.00/kg** | polymaker.com | 4 | $299.96 | — | 2026-09-12 | 2026-09-18 | ACQUIRED |
@@ -701,7 +708,7 @@ A confirmation carries no order date. The number after `us` is a snowflake ID: `
 | <!--purchase:pur-25f35741f88e40729bec555987f79640--> 2026-10-08 | us784775952755326977 | ASA Aero filament with spool, White 46100, 1 kg ×2 ($99.98) + NE tax $7.25; shipping waived — the magnetic-float material | $107.23 | ACQUIRED (delivered Oct 13; Bambu delivery confirmation in Gmail) |
 | <!--purchase:pur-8b3d0e7a5c9f4e2b4a7d1c3e5f6a8b07--> 2026-10-26 | us791135084148191233 | H2C Induction Hotend (Right), standard flow, hardened steel: 0.8 mm ×2 ($79.98) + 0.6 mm ×2 ($79.98) + NE tax $11.60; shipping waived | $171.56 | ACQUIRED (delivery confirmed; exact day unknown) |
 | <!--purchase:pur-6655f4a0c1c747bc8ce06a69596eb432--> 2026-11-07 | us795729195777990656 | PETG Basic filament with spool ×3 — Red 30201, White 30106, Navy Blue 30604 (1 kg each, one of each color; $15.29 each after bulk discount, $45.87 subtotal) + shipping $6.99 + NE tax $3.83 | $56.69 | ON-ORDER (in transit; all three spools named in shipment notification) |
-| **§15 acquired valuation — 22 orders** | | | **[$9,628.15](LEDGER_SEC15)** | |
+| **§15 acquired valuation** | | | **[$9,628.15](LEDGER_SEC15)** | |
 
 ## 16. Laser welding / cleaning / cutting
 
@@ -843,29 +850,29 @@ Printed copies of the [install guide](/hardware/install-guide/README.md). Lulu o
 
 | Status | $ |
 |---|---|
-| Acquired hardware valuation — includes replaced/returned originals | [$42,442.75](LEDGER_ACQUIRED_HW) |
+| Acquired hardware valuation — includes replaced/returned originals | [$43,263.11](LEDGER_ACQUIRED_HW) |
 | Engineering services (§18) | [$6,719.51](LEDGER_LABOR) |
-| Acquired procurement valuation (combined) | [$49,162.26](LEDGER_ACQUIRED_COMBINED) |
-| ON-ORDER | [$479.99](LEDGER_ON_ORDER) |
+| Acquired procurement valuation (combined) | [$49,982.62](LEDGER_ACQUIRED_COMBINED) |
+| ON-ORDER | [$177.13](LEDGER_ON_ORDER) |
 | MISSING — not in hand | [$53.07](LEDGER_MISSING) |
 | LIKELY-TO-BUY | $0.00 |
-| **Recorded procurement valuation — includes commitments** | [$49,695.32](LEDGER_GRAND_TOTAL) |
+| **Recorded procurement valuation — includes commitments** | [$50,212.82](LEDGER_GRAND_TOTAL) |
 
 Price evidence within the procurement valuation:
 
 | Amount basis | USD |
 |---|---|
-| Final vendor amounts | [$23,167.24](LEDGER_FINAL_VENDOR) |
-| Estimated amounts | [$2,653.61](LEDGER_ESTIMATES) |
-| Legacy / unverified amounts | [$23,874.47](LEDGER_LEGACY_UNVERIFIED) |
+| Final vendor amounts | [$24,941.07](LEDGER_FINAL_VENDOR) |
+| Estimated amounts | [$2,329.63](LEDGER_ESTIMATES) |
+| Legacy / unverified amounts | [$22,942.12](LEDGER_LEGACY_UNVERIFIED) |
 
 Merchant-evidenced payments (project shares; includes the undated bucket):
 
 | Event basis | USD |
 |---|---|
-| Completed charges | [$19,781.92](LEDGER_MERCHANT_CHARGES) |
+| Completed charges | [$21,555.75](LEDGER_MERCHANT_CHARGES) |
 | Issued monetary refunds | [$0.00](LEDGER_MERCHANT_REFUNDS) |
-| Charges less monetary refunds | [$19,781.92](LEDGER_MERCHANT_NET) |
+| Charges less monetary refunds | [$21,555.75](LEDGER_MERCHANT_NET) |
 
 The retrieved records have partial vendor coverage. An empty month or refund total is not evidence of account-wide zero activity. Authorizations, pending charges and noncash credit do not enter this view.
 
@@ -873,19 +880,19 @@ Acquired hardware valuation by section (includes replaced/returned originals):
 
 | § | Section | $ |
 |---|---|---|
-| 1 | Carbonator fabrication | [$4,664.67](LEDGER_SEC1) |
+| 1 | Carbonator fabrication | [$4,903.57](LEDGER_SEC1) |
 | 2 | CO2 subsystem (incl. Lillium prototype carbonator $1,129) | [$2,288.08](LEDGER_SEC2) |
 | 3 | Water supply + backflow prevention | [$1,641.36](LEDGER_SEC3) |
 | 4 | Carbonator plumbing | [$604.07](LEDGER_SEC4) |
-| 5 | Flavor subsystem | [$2,034.82](LEDGER_SEC5) |
+| 5 | Flavor subsystem | [$2,056.56](LEDGER_SEC5) |
 | 6 | Refrigeration | [$1,984.90](LEDGER_SEC6) |
 | 7 | Dispensing end | [$237.65](LEDGER_SEC7) |
 | 8 | Electronics — controllers | [$1,970.50](LEDGER_SEC8) |
 | 9 | Electronics — I/O, drivers, sensors, power | [$2,571.20](LEDGER_SEC9) |
 | 10 | User interface | [$164.11](LEDGER_SEC10) |
 | 11 | Enclosure hardware | [$403.24](LEDGER_SEC11) |
-| 12 | Shop / bench infrastructure | [$2,876.76](LEDGER_SEC12) |
-| 13 | Printing consumables | [$3,596.75](LEDGER_SEC13) |
+| 12 | Shop / bench infrastructure | [$3,128.75](LEDGER_SEC12) |
+| 13 | Printing consumables | [$3,904.48](LEDGER_SEC13) |
 | 14 | Soldering + small-signal tools | [$859.66](LEDGER_SEC14) |
 | 15 | 3D printing equipment + filaments (Bambu direct) | [$9,628.15](LEDGER_SEC15) |
 | 16 | Laser welding / cleaning / cutting | [$3,944.02](LEDGER_SEC16) |
