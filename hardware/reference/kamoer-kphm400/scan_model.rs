@@ -44,12 +44,17 @@ const HEAD_BACK_RADIUS: f64 = 11.;
 const HEAD_FRONT_CROWN_Y: f64 = 28.3;
 const HEAD_FRONT_RADIUS: f64 = 52.;
 const HEAD_FRONT_CORNER_RADIUS: f64 = 13.;
-const ADAPTER_TOP_Z: f64 = 11.8;
+const ADAPTER_TOP_Z: f64 = 9.5;
 const ADAPTER_COLUMN_REACH: f64 = 23.5;
 const ADAPTER_COLUMN_OFFSET: f64 = 2.3;
 const ADAPTER_COLUMN_RADIUS: f64 = 2.8;
-const MOUNT_TOP_Z: f64 = 13.5;
-const MOTOR_START_Z: f64 = 20.8;
+const ADAPTER_FACE_OFFSET: f64 = 19.775;
+const ADAPTER_CENTER_X: f64 = 0.11;
+const ADAPTER_CENTER_Y: f64 = -0.225;
+const ADAPTER_CLOCK_DEGREES: f64 = 0.33;
+const MOUNT_TOP_Z: f64 = 12.9;
+const MOUNT_SCREW_TOP_Z: f64 = 14.8;
+const MOTOR_START_Z: f64 = MOUNT_TOP_Z;
 const MOTOR_END_Z: f64 = 62.55;
 const MOTOR_RADIUS: f64 = 17.76146649471765;
 const OUTLET_X: f64 = 29.875;
@@ -147,18 +152,22 @@ fn head_cover(casing: &Profile) -> Result<Solid> {
                          PRIMER_RING_Z - 1., HEAD_COVER_EDGE_Z)?)
 }
 
-fn adapter(lo: f64, hi: f64) -> Result<Solid> {
+/// The shared solid outline keeps the straight flanks recessed between the paired columns.
+fn adapter_profile() -> Result<Profile> {
     let c = ADAPTER_COLUMN_REACH;
     let d = ADAPTER_COLUMN_OFFSET;
     let r = ADAPTER_COLUMN_RADIUS;
-    let diagonal = r / 2_f64.sqrt();
-    let lower = v2(c + diagonal, -d - diagonal);
+    let diagonal = 1. / 2_f64.sqrt();
+    let distance = ADAPTER_FACE_OFFSET - (c + d) * diagonal;
+    let along = (r * r - distance * distance).sqrt();
+    let upper = v2(c, d) + v2(diagonal, diagonal) * distance
+        + v2(-diagonal, diagonal) * along;
+    let lower = v2(upper.x, -upper.y);
     let notch = v2(c + (r * r - d * d).sqrt(), 0.);
-    let upper = v2(c + diagonal, d + diagonal);
     let quarter = |p: V2, k: usize| match k % 4 {
         0 => p, 1 => v2(-p.y, p.x), 2 => -p, _ => v2(p.y, -p.x),
     };
-    // Each circular pair meets in a shallow valley; tangent flats connect adjacent pairs.
+    // The straight wall intersects each column inside its outermost tangent.
     let mut edges = Vec::new();
     for k in 0..4 {
         edges.push(Seg::Arc { a: quarter(lower, k), b: quarter(notch, k),
@@ -167,8 +176,17 @@ fn adapter(lo: f64, hi: f64) -> Result<Solid> {
                              c: quarter(v2(c, d), k), ccw: true });
         edges.push(Seg::Line { a: quarter(upper, k), b: quarter(lower, k + 1) });
     }
-    let outline = Loop::new(edges)?;
-    Plane::XY.at(v3(0., 0., lo)).extrude(&Profile::new(outline), hi - lo)
+    Ok(Profile::new(Loop::new(edges)?))
+}
+
+fn adapter_placed(solid: Solid) -> Solid {
+    solid.rotate(V3::ZERO, V3::Z, ADAPTER_CLOCK_DEGREES)
+        .translate(v3(ADAPTER_CENTER_X, ADAPTER_CENTER_Y, 0.))
+}
+
+/// Both material layers extrude the same filled profile; their heights and colors distinguish them.
+fn adapter(profile: &Profile, lo: f64, hi: f64) -> Result<Solid> {
+    Ok(adapter_placed(Plane::XY.at(v3(0., 0., lo)).extrude(profile, hi - lo)?))
 }
 
 /// The outlet casings turn out of the head before the flexible sleeves begin.
@@ -214,9 +232,9 @@ fn main() -> Result<()> {
                                       V3::Y, TUBE_RADIUS, OUTLET_END_Y - OUTLET_ROOT_Y + 0.2)?;
         sleeves.push(sleeve.cut(&passage)?);
     }
-    let housing = adapter(FLANGE_TOP_Z, ADAPTER_TOP_Z)?;
-    let mount = adapter(ADAPTER_TOP_Z, MOUNT_TOP_Z)?
-        .union(&cylinder(0., 0., MOTOR_RADIUS, MOUNT_TOP_Z, MOTOR_START_Z)?)?;
+    let adapter_outline = adapter_profile()?;
+    let housing = adapter(&adapter_outline, FLANGE_TOP_Z, ADAPTER_TOP_Z)?;
+    let mount = adapter(&adapter_outline, ADAPTER_TOP_Z, MOUNT_TOP_Z)?;
     let mut motor = cylinder(0., 0., MOTOR_RADIUS, MOTOR_START_Z, MOTOR_END_Z)?
         .union(&cylinder(0., 0., 6.2, MOTOR_END_Z, 65.)?)?
         .union(&cylinder(0., 0., 2.5, 65., 66.5)?)?;
@@ -234,7 +252,7 @@ fn main() -> Result<()> {
         }
     }
     for (x, y) in [(-23.5, 2.3), (2.3, 23.5), (23.5, -2.3), (-2.3, -23.5)] {
-        fasteners.push(cylinder(x, y, 2.7, MOUNT_TOP_Z, 15.)?);
+        fasteners.push(adapter_placed(cylinder(x, y, 2.7, MOUNT_TOP_Z, MOUNT_SCREW_TOP_Z)?));
     }
     let primer = cylinder(0., PRIMER_CENTER_Y, 3.7, PRIMER_FACE_Z, HEAD_COVER_EDGE_Z)?;
     let pieces = [

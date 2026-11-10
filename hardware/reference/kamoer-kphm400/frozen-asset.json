@@ -1,7 +1,7 @@
 {
   "source": {
     "path": "hardware/reference/kamoer-kphm400/scan_model.rs",
-    "sha256": "90e51e6fc4da21f84b0a362dc86bd238bd748101bc349275f884844aeb23ba03"
+    "sha256": "4e23f01e4d6864669e377d49f546bd6ec7ebb2ca8375330f74203df654c8c77d"
   },
   "inputs": {
     "hardware/reference/kamoer-kphm400/scan-measurements.json": "4389eeb0fd000242ee69efa903d60269a6e8e9497c7235d8d48187d5cf9075a9",
@@ -10,22 +10,22 @@
   },
   "evidence": "simplified-model-evidence.json",
   "members": {
-    "kamoer-kphm400.step": "a95e0caacd023a046d678ce0a3dc2b4dfaa69236cc265c9ce7a41755910006ec",
-    "kamoer-kphm400.step.npz": "8251bf575cd56d06ac7de70280b01682d80429ace4f0dfb2f73979692f78318f",
-    "kamoer-kphm400.step.mesh": "892a84e81935e5f30a26fad033e41b2eb336ad4bbeae464db33b6831a14abc13"
+    "kamoer-kphm400.step": "16308de08af380e2eb6369c760ecb021dea0c72100d0b4da1b14387f783b9320",
+    "kamoer-kphm400.step.npz": "96d6b67b9e66517c964b7ed3269cc0f469aa5695c229a4d6c09e3730a0af02df",
+    "kamoer-kphm400.step.mesh": "40dfb491c466a80c445f0e6305d6b69fa5aacefc89d091592882872001a9207a"
   },
   "fine_models": {
     "kamoer-kphm400.step": {
       "path": "kamoer-kphm400.step.npz",
-      "sha256": "8251bf575cd56d06ac7de70280b01682d80429ace4f0dfb2f73979692f78318f",
-      "source_step_sha256": "a95e0caacd023a046d678ce0a3dc2b4dfaa69236cc265c9ce7a41755910006ec",
+      "sha256": "96d6b67b9e66517c964b7ed3269cc0f469aa5695c229a4d6c09e3730a0af02df",
+      "source_step_sha256": "16308de08af380e2eb6369c760ecb021dea0c72100d0b4da1b14387f783b9320",
       "producer": "hardware/reference/kamoer-kphm400/scan_model.rs"
     }
   },
   "fine_payload": {
     "path": "kamoer-kphm400.step.mesh",
-    "sha256": "892a84e81935e5f30a26fad033e41b2eb336ad4bbeae464db33b6831a14abc13",
-    "source_step_sha256": "a95e0caacd023a046d678ce0a3dc2b4dfaa69236cc265c9ce7a41755910006ec",
+    "sha256": "40dfb491c466a80c445f0e6305d6b69fa5aacefc89d091592882872001a9207a",
+    "source_step_sha256": "16308de08af380e2eb6369c760ecb021dea0c72100d0b4da1b14387f783b9320",
     "producer": "hardware/reference/kamoer-kphm400/scan_model.rs",
     "color_space": "linear-rgb",
     "meshes": [

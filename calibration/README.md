@@ -12,8 +12,8 @@ is for, from the moment an agent wrote a correction into it.
 where the solids stand, beside the ten-minute search an agent ran for it.
 
 [`Glossary.md`](Glossary.md) holds Derek's approved meanings for "obvious",
-"reasonable" and "simple", with supporting passages and examples from his
-conversations.
+"reasonable", "simple" and replica detail, with supporting passages and examples
+from his conversations.
 
 `block-residue.sh` in `~/Developer/claude-code-setup/hooks/` reads `Principle.md` and the two
 rooms it distills at these paths. `block-memory-write.sh`, beside it, bounces each session's
