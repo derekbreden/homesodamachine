@@ -29,7 +29,7 @@
     "hardware/assembly/scenes/glb/funnel-drain.glb.mesh": "87af27a9938615934dc9a249c7676b35c9e2ecb7b4a5a1101b0fa8784871896c",
     "hardware/assembly/scenes/glb/pump-cartridge.glb": "8329920973ebf1302d8a0d0e3053f8fbd41766bd3e5fe57909db932a2c1ecb2e",
     "hardware/assembly/scenes/glb/pump-mount.glb.mesh": "397b711deb36c868d2887c78a5363692dcb583dd584369139be07b4e6284996e",
-    "hardware/cold-core-layout/cold-core-assembly.step": "d84a05296eac539152deee53f913e97a78d343115b49feee3db6e3ab7486706c",
+    "hardware/cold-core-layout/cold-core-assembly.step": "9fad0626b64049df1830bdbd3e5fa994b3a939061cc3f833acfc47f84b16ccae",
     "hardware/cold-core-layout/cold-core-assembly.step.mesh": "d3b7ebe725b824f266a4ba259c632af00aa3345657db0d065d7a8664da5d000f",
     "hardware/cut-parts/carbonation/carbonator-tube/carbonator-tube.step": "360d0b80c538b44809405087d75429f55f368fe283f2ea515392232985f271f5",
     "hardware/cut-parts/carbonation/carbonator-tube/carbonator-tube.step.mesh": "62fbd6097b520a520cb0c84140d90f104b9d9ce4d927e5e054f8c39c8d8d1495",
@@ -932,7 +932,7 @@
     "hardware/reference/wago-221/wago-221-420.step.npz": "02297655d704f49bccedff5dc1174cef5efb1e4c86fbd79627805c3911596c6f",
     "hardware/reference/waveshare-43b-display/waveshare-43b-display.step": "5076425927ad9fa3421fe746f915bc0f271a584e595a30872a0fbc7e311b99cc",
     "hardware/reference/waveshare-43b-display/waveshare-43b-display.step.mesh": "0e27afe5089955a62b9b4087e2a675ed6bb1953e95c3a4889ab8a64de5f0ab27",
-    "hardware/reference/waveshare-43b-display/waveshare-43b-display.step.npz": "8c22cf100cf5f538bd23f3eb4ed3d0d0c64462c08bd0974b7ca90e7a669b7e24",
+    "hardware/reference/waveshare-43b-display/waveshare-43b-display.step.npz": "77cb6e969c3a7b08f0798ee679295f3b91f09e1572da27f66f90ee6e235cb4e6",
     "hardware/reference/worm-clamp/worm-clamp.step": "87d7406a23653f1903267074844297dd9003fa066e2daf0d392cb3a46ac52dda",
     "hardware/reference/worm-clamp/worm-clamp.step.mesh": "2b9fc9020991b824c510d39c3f1a6b076a2c329922e4c3651facfa65fdac9cb8",
     "hardware/reference/wr1110-regulator/wr1110-regulator.step": "4b526a6bb16a662d9fe88ad2f4fba3f2208791f600a79cc88e59c7d7b5c8299b",
@@ -963,7 +963,7 @@
       "hardware/assembly/scenes/glb/funnel-drain.glb.mesh": "87af27a9938615934dc9a249c7676b35c9e2ecb7b4a5a1101b0fa8784871896c",
       "hardware/assembly/scenes/glb/pump-cartridge.glb": "8329920973ebf1302d8a0d0e3053f8fbd41766bd3e5fe57909db932a2c1ecb2e",
       "hardware/assembly/scenes/glb/pump-mount.glb.mesh": "397b711deb36c868d2887c78a5363692dcb583dd584369139be07b4e6284996e",
-      "hardware/cold-core-layout/cold-core-assembly.step": "d84a05296eac539152deee53f913e97a78d343115b49feee3db6e3ab7486706c",
+      "hardware/cold-core-layout/cold-core-assembly.step": "9fad0626b64049df1830bdbd3e5fa994b3a939061cc3f833acfc47f84b16ccae",
       "hardware/cold-core-layout/cold-core-assembly.step.mesh": "d3b7ebe725b824f266a4ba259c632af00aa3345657db0d065d7a8664da5d000f",
       "hardware/cut-parts/carbonation/carbonator-tube/carbonator-tube.step": "360d0b80c538b44809405087d75429f55f368fe283f2ea515392232985f271f5",
       "hardware/cut-parts/carbonation/carbonator-tube/carbonator-tube.step.mesh": "62fbd6097b520a520cb0c84140d90f104b9d9ce4d927e5e054f8c39c8d8d1495",
@@ -1572,7 +1572,6 @@
     "2fb5d7dd25f17ac25c42b3d137dfd7c8ff052e0a804dad5f9dbccfe584d7dc08",
     "2fc4f46fed0513500d3541bcc05655e421359f0d4d0087f8774cd1974a3d711a",
     "30097cc75c755c2126efa607faa4607eb6fa89d12c90c9bc78d66186877060c3",
-    "3012e5b340a74e6cce24f1e53d1a7d26895e39f5fdb468d3158f4b8211979163",
     "30a81d464d5c29c81f9fda2b858d4b1e5d61fa921dc40ca73242eeff0c16b83e",
     "30c938e4d4f2952eafbc09965a8aadffa88120c55d1f5677b1365fce081cd536",
     "319bb3e20e1aa2c6ef16e163a45c8cbf8bffde7774dfb1a71d857379a91550f1",
@@ -1854,7 +1853,6 @@
     "ccf4a3030f9b64833c2b145590a433470bb9101e859c80d03738a806c036c7a1",
     "cd3326d5b634c2c62ee11fdb3398efa17f7141e340cc05727196d4e9a2615152",
     "cde3bf9454b0bd1633a2493d253f27cb43aa35b06c327c15a636c2ef6216f35f",
-    "ce26a0d222d53f7f68b4c17f9b237f59c260caf1605c19af66d693afdb1e3d15",
     "cf2a414e9da1521632e9ff26123ca5a021f15dd33cdfb66212351e75f14c722b",
     "cfcf25285840c1f02f409d6328c03de79b9fc3d99af54bc3a8deae96f00b3413",
     "d0f38431be900149c7a128a291af70308f6cbeeb3cb876d343fe3af94864e8e0",
@@ -1921,7 +1919,6 @@
     "f0781538b816bc184058d3f82f98fd457e62f94c5c7a62e96d73d0b7f1d87ffa",
     "f13c89c04f60b66ae85a1b02776b702ad50ddceae7079adb07aded4f645a5450",
     "f1f9253e806ebf3c6ec1f25e67d5212fbf5b98525358188fbe490e0455c55837",
-    "f4843f4931c46e34c78676c77af3bfca54d40107c09d2f8dc347fabd2b0f4a17",
     "f53d4dd1cd3b393e142753d44b46c2540c549678cfe1ac7342af09a8f21e1bcd",
     "f65b117d1796d7a77ec26db6bac0696c336dca4efb32dc8c79fef3bb4128b9b9",
     "f8aa8d3bc6dac789f9f9ceddd7dfa8faa05ec885ab815b2a1652008587085f2e",
@@ -1952,7 +1949,7 @@
     "hardware/assembly/scenes/glb/funnel-drain.glb.mesh": 1794278824.095263,
     "hardware/assembly/scenes/glb/pump-cartridge.glb": 1792921613,
     "hardware/assembly/scenes/glb/pump-mount.glb.mesh": 1794279514.5251331,
-    "hardware/cold-core-layout/cold-core-assembly.step": 1794136040,
+    "hardware/cold-core-layout/cold-core-assembly.step": 1794279782.987089,
     "hardware/cold-core-layout/cold-core-assembly.step.mesh": 1794279773.1571321,
     "hardware/cut-parts/carbonation/carbonator-tube/carbonator-tube.step": 1793626644,
     "hardware/cut-parts/carbonation/carbonator-tube/carbonator-tube.step.mesh": 1794030167,
@@ -2855,7 +2852,7 @@
     "hardware/reference/wago-221/wago-221-420.step.npz": 1794272755.846206,
     "hardware/reference/waveshare-43b-display/waveshare-43b-display.step": 1794271683.8106298,
     "hardware/reference/waveshare-43b-display/waveshare-43b-display.step.mesh": 1794279773.1571321,
-    "hardware/reference/waveshare-43b-display/waveshare-43b-display.step.npz": 1794271683.8106298,
+    "hardware/reference/waveshare-43b-display/waveshare-43b-display.step.npz": 1794279782.987089,
     "hardware/reference/worm-clamp/worm-clamp.step": 1787578592,
     "hardware/reference/worm-clamp/worm-clamp.step.mesh": 1793568839,
     "hardware/reference/wr1110-regulator/wr1110-regulator.step": 1790196723,
@@ -2924,7 +2921,8 @@
       "unproven": true
     },
     "hardware/cold-core-layout/cold-core-assembly.step": {
-      "commit": "9b4c7c5cecf8dfc50a90060e6a761f5c526abb49",
+      "inputs": "b2721f77061578f57547059c3a7fe2753a183173d5c4b4ce3aaaad7e38dd55a5",
+      "commit": "829411f333e50a5c12c7a379a0effa253338a442",
       "unproven": true
     },
     "hardware/cold-core-layout/cold-core-assembly.step.mesh": {
@@ -5352,7 +5350,7 @@
       "unproven": true
     },
     "hardware/reference/waveshare-43b-display/waveshare-43b-display.step.npz": {
-      "commit": "32f1ed2c3c0e1d69bd5e36e5e2c9758f4bed5396",
+      "commit": "829411f333e50a5c12c7a379a0effa253338a442",
       "unproven": true
     },
     "hardware/reference/worm-clamp/worm-clamp.step": {
