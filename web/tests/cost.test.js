@@ -3,7 +3,7 @@ import assert from "node:assert/strict";
 import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
-import { mountCostRoutes, readInvestmentRollup } from "../lib/cost.js";
+import { mountCostRoutes, readCostRollup, readInvestmentRollup } from "../lib/cost.js";
 import { recoveryPlan, renderRecoveryChart } from "../public/cost-recovery.js";
 
 const example = { unitCost: 2403.35, investment: 42383.86 };
@@ -107,4 +107,49 @@ test("the sale price survives missing ledgers without claiming a free build or r
   assert.match(html, /\$4,495/);
   assert.match(html, /Recovery estimates are unavailable/);
   assert.doesNotMatch(html, /data-recovery="range"/);
+});
+
+test("unrecorded category prices stay unknown and known subtotals do not imply a complete build cost", (t) => {
+  const dir = fixture(t);
+  const bom = path.join(dir, "ledger", "bom.md");
+  fs.writeFileSync(bom, `## 1. Parts
+| Part | Qty | Unit $ | Line $ |
+| Earth washer | 2 | — | — <!--@fasteners--> |
+| Supplied spacer | 1 | $0.00 | $0.00 <!--@fasteners--> |
+| Purchased screw | 3 | $4.00 | $12.00 <!--@fasteners--> |
+| Shared fitting | 1 | $3.00 | $3.00 <!--@pipes--> |
+## 2. More parts
+| Shared fitting | 1 | — | — <!--@pipes--> |
+`);
+  fs.writeFileSync(path.join(dir, "ledger", "labor.md"), `[$60](LABOR_RATE)
+## 1. Assembly
+| Operation | Minutes |
+| Fit hardware | 4 |
+`);
+  fs.writeFileSync(path.join(dir, "ledger", "purchases.md"), investmentText());
+  const rollup = readCostRollup(dir);
+  const parts = rollup.cats.flatMap((category) => category.parts);
+  assert.equal(rollup.total, 15);
+  assert.equal(parts.find((part) => part.name === "Earth washer").cost, null);
+  assert.equal(parts.find((part) => part.name === "Supplied spacer").cost, 0);
+  assert.equal(parts.find((part) => part.name === "Shared fitting").cost, null);
+
+  let handler, html;
+  mountCostRoutes({ get: (_route, fn) => { handler = fn; } }, { hardwareDir: dir });
+  const render = () => handler({}, { set() {}, send(value) { html = value; } });
+  render();
+  assert.match(html, /Earth washer<\/td><td class="cost-qty">&times;2<\/td><td class="cost-num">—<\/td>/);
+  assert.match(html, /Supplied spacer<\/td><td class="cost-qty">&times;1<\/td><td class="cost-num">\$0\.00<\/td>/);
+  assert.match(html, /Known parts subtotal/);
+  assert.match(html, /build cost estimate is currently incomplete/);
+  assert.match(html, /Recovery estimates are unavailable/);
+  assert.doesNotMatch(html, /data-recovery="range"|NaN|Infinity/);
+
+  fs.writeFileSync(bom, `## 1. Parts
+| Earth washer | 2 | — | — <!--@fasteners--> |
+`);
+  render();
+  assert.equal(readCostRollup(dir).total, 0);
+  assert.match(html, /Earth washer<\/td><td class="cost-qty">&times;2<\/td><td class="cost-num">—<\/td>/);
+  assert.doesNotMatch(html, /NaN|Infinity/);
 });

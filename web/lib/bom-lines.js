@@ -45,7 +45,7 @@ export const isSeparator = (cells) =>
   cells.every((cell) => /^[-:\s]*$/.test(cell));
 const parseMoney = (cell) => {
   const match = String(cell).replace(COMMENT_RE, "").match(MONEY_RE);
-  return match ? parseFloat(match[1].replace(/,/g, "")) : 0;
+  return match ? parseFloat(match[1].replace(/,/g, "")) : null;
 };
 
 export function parseTargets(text) {
