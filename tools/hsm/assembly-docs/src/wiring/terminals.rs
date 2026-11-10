@@ -425,10 +425,7 @@ fn power(at: &mut Value, root: &Path) -> Result<()> {
         root.join("hardware/reference/meanwell-irm90/replica-parameters.json"),
     )?;
     let pose = frame_ea(at, root, "psu", "PSU_STEP", "PSU_TURN")?;
-    for (row_name, side, labels) in [
-        ("ac", 1., ["L", "N"]),
-        ("dc", -1., ["V12", "GND"]),
-    ] {
+    for (row_name, side) in [("ac", 1.), ("dc", -1.)] {
         let row = rows(&supply["terminals"])?
             .iter()
             .find(|row| row["side"].as_f64() == Some(side))
@@ -438,8 +435,12 @@ fn power(at: &mut Value, root: &Path) -> Result<()> {
         let interface = &supply["terminal_interfaces"][row_name];
         let center = v(&interface["wire_center"])?;
         let outward = v(&interface["wire_axis"])?;
-        for (ordinal, label) in labels.into_iter().enumerate() {
-            let pole = (count - labels.len()) / 2 + ordinal;
+        for label in ["L", "N", "V12", "GND"] {
+            let port = &supply["electrical_ports"][label];
+            if port["row"] != row_name {
+                continue;
+            }
+            let pole = port["pole"].as_u64().context("supply electrical pole")? as usize;
             let mut point = center;
             point[0] += (pole as f64 - (count - 1) as f64 / 2.) * pitch;
             apply(
@@ -450,7 +451,7 @@ fn power(at: &mut Value, root: &Path) -> Result<()> {
                 point,
                 outward,
                 "screw",
-                "Manufacturer wire mouths and pitch with nominal circuit pole assignment",
+                "Manufacturer wire mouths, pitch and ST top-view terminal labels",
                 "nominal",
                 Value::Null,
             )?;
