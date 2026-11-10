@@ -12,7 +12,7 @@ A successful check establishes only its stated scope.
 ## Incoming and power-off checks
 
 1. Check both reducers against the received-interface dimensions in
-   [assembly.md](assembly.md). Check bearing fit coupons and matched spacers.
+   [assembly.md](assembly.md). Check the assembled bearing fits and matched spacers.
    Free rotation must have no binding or axial rattle before case alignment
    is locked. Record the chosen journal/bore dimensions.
 2. Attach the bridge and toes. Check every foot bears on the bench and the
