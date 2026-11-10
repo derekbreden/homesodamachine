@@ -1,0 +1,150 @@
+{
+  "purpose": "This on-demand record measures removal of the exposed LED-channel end cap and preserves the observed build, live-view and fit evidence.",
+  "source_commit": "e9866c5fd990729783b0bc7884f84bff4e2daa7c",
+  "request": {
+    "received_at": "2026-11-10T01:42:08.818Z",
+    "words": "But the merger/joint between the cylinder and  the horizontal channel I hope you can see is not very well done, for example that unusual edge I clicked and showed in the screenshot."
+  },
+  "cause": "The diamond channel extended below the cylinder floor while its closed end stopped at the cylinder centre. A triangular end-cap face remained exposed.",
+  "construction": "The bore floor follows the complete channel section and retains the declared LED body clearance. The channel end lies inside the bore. The opposite channel end already opens inside the PCB pocket.",
+  "milestones": {
+    "source-edit": "2026-11-10T01:45:16.124Z",
+    "live-view": "2026-11-10T01:46:21.082Z",
+    "all-live-view": "2026-11-10T01:46:21.082Z"
+  },
+  "preparation_seconds": 187.306,
+  "receipt_to_first_reference_draw_seconds": 252.264,
+  "geometry_checked_at": "2026-11-10T01:54:30.166Z",
+  "build": {
+    "targets": [
+      "//:enclosure-front-top"
+    ],
+    "completed_geometry_producers": 1,
+    "geometry_attempts": 1,
+    "bazel_elapsed_seconds": 40.776,
+    "driver_wall_seconds": 211.01180649999878,
+    "producer_carried_at": "2026-11-10T01:45:57.380971+00:00",
+    "carried_to_reference_draw_seconds": 23.701029,
+    "publication_queue": {
+      "requests": 1,
+      "started": 1,
+      "coalesced": 0,
+      "exit_codes": [
+        0
+      ]
+    },
+    "success": true
+  },
+  "junction": {
+    "purpose": "This measurement checks the stopped channel-cap face on the native enclosure geometry and the unchanged LED fit dimensions.",
+    "cap_before": {
+      "triangles": 1,
+      "area_mm2": 1.4867012084193931
+    },
+    "cap_after": {
+      "triangles": 0,
+      "area_mm2": 0.0
+    },
+    "bore_floor_local_before_mm": -13.2,
+    "bore_floor_local_after_mm": -14.072177826491071,
+    "led_flange_base_local_mm": -12.7,
+    "led_flange_radial_clearance_mm": 0.30000000000000027,
+    "nominal_facet_stock_behind_bore_mm": 4.927822173508929,
+    "axis_probe_origin_mm": [
+      71.0,
+      48.61351707661824,
+      316.13993464005756
+    ],
+    "axis_probe_direction": [
+      0.0,
+      0.49999999999999994,
+      -0.8660254037844387
+    ]
+  },
+  "roof_measurements": [
+    {
+      "point_mm": [
+        55.0,
+        46.2792,
+        319.585402634748
+      ],
+      "normal": [
+        -1.4100276891707093e-06,
+        0.7070938367638969,
+        -0.7071197253708338
+      ],
+      "angle_degrees": 44.99895114297165
+    },
+    {
+      "point_mm": [
+        55.0,
+        49.2792,
+        319.5851264770508
+      ],
+      "normal": [
+        0.0,
+        -0.7071067811865476,
+        -0.7071067811865476
+      ],
+      "angle_degrees": 45.0
+    }
+  ],
+  "passage_probe": {
+    "origin_mm": [
+      71.5,
+      48,
+      315
+    ],
+    "direction": [
+      -1,
+      0,
+      0
+    ],
+    "before_hit_mm": [
+      70.75,
+      48.0,
+      315.0
+    ],
+    "after_hit_mm": [
+      -80.4000015258789,
+      48.0,
+      315.0
+    ],
+    "meaning": "The first hit moves from the stopped cap to the far PCB-pocket wall."
+  },
+  "led_floor_probe": {
+    "origin_mm": [
+      71.0,
+      48.61351707661824,
+      316.13993464005756
+    ],
+    "direction": [
+      0.0,
+      0.49999999999999994,
+      -0.8660254037844387
+    ],
+    "hit_mm": [
+      71.0,
+      49.29960376210101,
+      314.95159764240486
+    ],
+    "clearance_under_led_base_mm": 1.3721733709655386
+  },
+  "preserved": [
+    "LED body position and set-back",
+    "LED bore diameter",
+    "Channel section and PCB overlap",
+    "Glass backing requirement",
+    "Print roof angles"
+  ],
+  "print_regions_rebound": true,
+  "lint": "The changed piece is inspected after publication. Its existing findings lie outside the cylinder junction; no new junction finding appears.",
+  "gallery": "https://homesodamachine.com/changes/2026-11-09-1954-led-channel-junction",
+  "output_sha256": {
+    "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step.mesh": "a79f8228a460fe4d21c56baae41ec8a0fba65c94e99248b8f8eb0cb069e7bbc8",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl": "b450c99e6b25ba075517acdb389502f3ba0b2090a38b432e29aa4021c9546739",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step.npz": "736715fa88f8c60b27044a64f7ee10345fca202c2e3549403ea96b3b101c6a5b"
+  },
+  "measurement_limits": "The reference-browser milestone establishes matching mounted geometry eligible to draw, not an unobstructed composite on Derek\u2019s device. Fit evidence concerns the declared CAD geometry; no new physical print is claimed.",
+  "automatic_checks_added": false
+}
