@@ -1,25 +1,69 @@
 {
   "source": {
-    "commit": "e993e2f1dc02e22f670f06dc5aecf0df14dcfe3d",
-    "path": "hardware/reference/mq6-gas-sensor/mq6_gas_sensor.py",
-    "sha256": "ce1602bf172ebe8eabea1e30059a5efb7b20c4d73af6839811c80d7dfac1f2a7"
+    "path": "hardware/reference/mq6-gas-sensor/model.rs",
+    "sha256": "cbc0ef3dee58d82fa74bec69e4df68ed935bf0882ba1d0effa774f3b364f17a2"
   },
   "members": {
-    "mq6-gas-sensor.step": "b3707fb5112ceee44ed47d0b1c1adeed17979ec6e06f187009d2eaee0c740ee1",
-    "mq6-gas-sensor.step.mesh": "290c2de59cd21200bc7c0e83a6b7f56ae21c7447a4eed2b24d3396fc512a30e5",
-    "mq6-gas-sensor.fine.step.npz": "ab023aa13553fe9c0d961c9e58a31885bdb5205e66f8b623cfe9a67812923965"
+    "mq6-gas-sensor.step": "fb24dfa14266da28fe06300508ae6584ca68da9ee851d136e4896d5970f09040",
+    "mq6-gas-sensor.step.npz": "523da86d9c0b50b83777716e9c8987faa7cb318ddc21e27d9a380939aca80476",
+    "mq6-gas-sensor.step.mesh": "2d05151890ceae500ca3691532615e63590b24a5394b57106e680f030c4d04d1"
   },
   "fine_models": {
     "mq6-gas-sensor.step": {
-      "path": "mq6-gas-sensor.fine.step.npz",
-      "sha256": "ab023aa13553fe9c0d961c9e58a31885bdb5205e66f8b623cfe9a67812923965",
-      "source_step_sha256": "b3707fb5112ceee44ed47d0b1c1adeed17979ec6e06f187009d2eaee0c740ee1",
-      "linear_mm": 0.005,
-      "angular_rad": 0.05,
-      "producer": "meshcad/imports.py:step_solids import version2",
+      "path": "mq6-gas-sensor.step.npz",
+      "sha256": "523da86d9c0b50b83777716e9c8987faa7cb318ddc21e27d9a380939aca80476",
+      "source_step_sha256": "fb24dfa14266da28fe06300508ae6584ca68da9ee851d136e4896d5970f09040",
+      "producer": "hardware/reference/mq6-gas-sensor/model.rs",
       "presentation_indices": [
-        0
+        0,
+        1,
+        2,
+        3
       ]
     }
+  },
+  "fine_payload": {
+    "path": "mq6-gas-sensor.step.mesh",
+    "sha256": "2d05151890ceae500ca3691532615e63590b24a5394b57106e680f030c4d04d1",
+    "source_step_sha256": "fb24dfa14266da28fe06300508ae6584ca68da9ee851d136e4896d5970f09040",
+    "producer": "hardware/reference/mq6-gas-sensor/model.rs",
+    "color_space": "linear-rgb",
+    "meshes": [
+      {
+        "name": "mq6-gas-sensor",
+        "color": [
+          0.05087608844041824,
+          0.13286831974983215,
+          0.4479884207248688
+        ]
+      },
+      {
+        "name": "sensor-base",
+        "color": [
+          0.47699978947639465,
+          0.4919050335884094,
+          0.5382355451583862
+        ]
+      },
+      {
+        "name": "sensor-cap",
+        "color": [
+          0.2623498842120171,
+          0.2705477684736252,
+          0.29602954983711244
+        ]
+      },
+      {
+        "name": "header-pins",
+        "color": [
+          0.4919050335884094,
+          0.5225215554237366,
+          0.5382355451583862
+        ]
+      }
+    ]
+  },
+  "inputs": {
+    "hardware/reference/mq6-gas-sensor/replica-evidence.json": "3b52f823a8174d2ecb3fbae1c2b792533269a69474ffc2660ba7dfcbcdcb8867"
   }
 }

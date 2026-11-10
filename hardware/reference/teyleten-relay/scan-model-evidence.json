@@ -1,5 +1,4 @@
 {
-  "purpose": "Records the Teyleten relay reference capture, measured frame, reconstruction and observed-surface comparison.",
   "source": {
     "path": "/Users/derekbredensteiner/Documents/3D Scans/2026-11-08-teyleten-relay/pass-01/native-project/pointclouds/Fused 1108_1 (0.10mm).ply",
     "sha256": "d054b41f880ed749150002dd81881d2dbaee4c0edd335a9659fcd13168755068",
@@ -43,27 +42,6 @@
     ],
     "putty_exclusion": "X inside (-1.5,15.8), with Y below -7.5 or Z below -0.3; also outside the part box."
   },
-  "fit_native_stride": 3,
-  "held_out_native_offsets": [
-    1,
-    2
-  ],
-  "voxel_spacing_mm": 0.13,
-  "screened_poisson": {
-    "depth": 10,
-    "pointweight": 8,
-    "samplespernode": 2,
-    "threads": 1
-  },
-  "samples": 93589,
-  "triangles": 85000,
-  "closed": true,
-  "limits": [
-    "The part carries scanning spray; no coating-thickness correction or scale adjustment is applied.",
-    "Putty-covered underside, internal circuitry, deep terminal cavities and mounting-bore walls are not fully observed.",
-    "Poisson closes unobserved seams. The final model replaces the PCB slab and cuts the fitted front-rim openings through it.",
-    "Scan residuals describe this capture; they do not establish scanner absolute accuracy or screw installation clearance."
-  ],
   "scan_date": "2026-11-08",
   "capture_archive": "/Users/derekbredensteiner/Documents/3D Scans/2026-11-08-teyleten-relay",
   "capture_manifest": "capture-manifest.json",
@@ -76,7 +54,6 @@
     "fusion_spacing_mm": 0.1,
     "native_cleanup": "Fusion only; no isolation, smoothing or hole filling."
   },
-  "datums": "scan-datums.json",
   "datum_observations": {
     "pcb_top_plane_mm": {
       "n": 11904,
@@ -142,121 +119,174 @@
       }
     ]
   },
-  "underside_representation": "Convex envelopes of disjoint fitting samples on observed solder tips, closed at the fitted PCB underside. Covered features are absent.",
   "user_scope": {
     "statement": "I saw plenty of the underside in the scan. It\u2019s tiny jagged little bits. I think you got the idea already.",
     "instruction": "Finish from the current capture."
   },
-  "held_out_validation": {
-    "purpose": "Compare disjoint native scan points with the finished relay reference surfaces.",
-    "source": {
-      "path": "/Users/derekbredensteiner/Documents/3D Scans/2026-11-08-teyleten-relay/pass-01/native-project/pointclouds/Fused 1108_1 (0.10mm).ply",
-      "sha256": "d054b41f880ed749150002dd81881d2dbaee4c0edd335a9659fcd13168755068",
-      "points": 452673
-    },
-    "model_sha256": "44475755a2edb474160a34fb43a6c3d810a7cf7559ae5de305b45b6756096b2c",
-    "native_point_stride": 18,
-    "native_point_offset": 1,
-    "selection": "Physical part box and putty exclusion; no rejection by model distance. PCB-frame fitting uses the cloud before this disjoint reconstruction validation.",
-    "rows": [
+  "purpose": "Records the native capture and fitted exterior surfaces used by the analytical relay replica.",
+  "datums": "scan-datums.json",
+  "construction": {
+    "source": "scan_model.rs",
+    "parameters": "scan-datums.json",
+    "method": "Analytical PCB, relay housing, terminal cross-sections, recess mouths, screw wells, package bodies and smooth solder envelopes. Exterior planes and repeated feature spacing fit the native point cloud in its measured PCB frame. No scan triangles form the finished reference.",
+    "small_components": "Observed package and jumper silhouettes use clean rounded prisms and exposed lead envelopes. Fine lettering, solder texture and small PCB surface details are omitted.",
+    "cavities": "The visible wire mouths, rear inspection windows and screw wells are represented; concealed terminal internals use shallow closed surfaces."
+  },
+  "limits": [
+    "The part carries scanning spray; no coating-thickness correction or scale adjustment is applied.",
+    "The PCB opening rims are observed; bore-wall diameters and physical screw installation clearance remain unqualified.",
+    "Putty-covered underside features and concealed terminal internals are not reconstructed.",
+    "Package silhouettes and solder protrusions are idealized exterior envelopes; internal circuitry is absent.",
+    "Screw slot orientation is schematic.",
+    "Installation wire-entry group datums retain their existing frame; exterior housing mouths face outward at opposite PCB ends."
+  ],
+  "underside_representation": "Smooth closed envelopes at the observed solder-tip locations retain their measured downward extent. Covered features are absent.",
+  "exterior_observations": {
+    "method": "Robust face regressions use native points with aligned surface normals; housing cross-sections use exterior silhouettes across height; screw wells use inward radial normals. Nominal parallel planes, repeated spacing and rounded rims idealize capture variation.",
+    "relay_face_regressions": [
       {
-        "region": "pcb",
-        "points": 3282,
-        "distance_mm": {
-          "n": 3282,
-          "mean": 0.049926457497778604,
-          "median": 0.02081054496212425,
-          "rms": 0.08916218910054419,
-          "p05": 0.001047962249966832,
-          "p95": 0.2128040523836637,
-          "abs_p95": 0.2128040523836637,
-          "min": 4.109044675650144e-06,
-          "max": 0.5012952535202251
-        },
-        "fraction_over_0_5mm": 0.0003046922608165753
+        "axis": "X",
+        "side": -1,
+        "samples": 15060,
+        "independent_axes": [
+          "Y",
+          "Z"
+        ],
+        "coefficients": [
+          0.011054693203684296,
+          -0.006244346208781683,
+          -0.3890754661760211
+        ],
+        "absolute_residual_p50_mm": 0.010582469024862817,
+        "absolute_residual_p95_mm": 0.03443253970985068
       },
       {
-        "region": "logic-terminals",
-        "points": 4708,
-        "distance_mm": {
-          "n": 4708,
-          "mean": 0.006291390480413038,
-          "median": 0.0028669047911419675,
-          "rms": 0.013938506121238446,
-          "p05": 0.0002279733833885396,
-          "p95": 0.021664193261023878,
-          "abs_p95": 0.021664193261023878,
-          "min": 1.8308124550257883e-07,
-          "max": 0.274576405293607
-        },
-        "fraction_over_0_5mm": 0.0
+        "axis": "X",
+        "side": 1,
+        "samples": 4631,
+        "independent_axes": [
+          "Y",
+          "Z"
+        ],
+        "coefficients": [
+          0.016122395270025406,
+          0.01655041118386389,
+          18.178338668568554
+        ],
+        "absolute_residual_p50_mm": 0.01335016772588915,
+        "absolute_residual_p95_mm": 0.03741760951628592
       },
       {
-        "region": "contact-terminals",
-        "points": 3463,
-        "distance_mm": {
-          "n": 3463,
-          "mean": 0.007946565176243212,
-          "median": 0.0031473969776907376,
-          "rms": 0.02244564318084173,
-          "p05": 0.00021023370324776129,
-          "p95": 0.02593798711682551,
-          "abs_p95": 0.02593798711682551,
-          "min": 4.887503654519119e-07,
-          "max": 0.47955424131892554
-        },
-        "fraction_over_0_5mm": 0.0
+        "axis": "Y",
+        "side": -1,
+        "samples": 3021,
+        "independent_axes": [
+          "X",
+          "Z"
+        ],
+        "coefficients": [
+          -0.009081708854528817,
+          0.0007012590621397708,
+          -7.4390288507012325
+        ],
+        "absolute_residual_p50_mm": 0.018230192960452918,
+        "absolute_residual_p95_mm": 0.06535680844614955
       },
       {
-        "region": "relay-can",
-        "points": 5586,
-        "distance_mm": {
-          "n": 5586,
-          "mean": 0.004905196078712408,
-          "median": 0.001882591019311865,
-          "rms": 0.021731716092834603,
-          "p05": 0.0001649095895882217,
-          "p95": 0.011662311660899143,
-          "abs_p95": 0.011662311660899143,
-          "min": 4.0725315934951334e-07,
-          "max": 0.40266523016538613
-        },
-        "fraction_over_0_5mm": 0.0
+        "axis": "Y",
+        "side": 1,
+        "samples": 12851,
+        "independent_axes": [
+          "X",
+          "Z"
+        ],
+        "coefficients": [
+          -0.012097431022441592,
+          0.0015308202257838417,
+          7.769226788004534
+        ],
+        "absolute_residual_p50_mm": 0.006852617805883199,
+        "absolute_residual_p95_mm": 0.01731410350565854
       },
       {
-        "region": "control-components",
-        "points": 642,
-        "distance_mm": {
-          "n": 642,
-          "mean": 0.011075414021251754,
-          "median": 0.005696453134981465,
-          "rms": 0.020708809197252865,
-          "p05": 0.00048288423819996333,
-          "p95": 0.039468317294871595,
-          "abs_p95": 0.039468317294871595,
-          "min": 1.0181427801523708e-05,
-          "max": 0.19703407409369597
-        },
-        "fraction_over_0_5mm": 0.0
-      },
-      {
-        "region": "observed-underside",
-        "points": 54,
-        "distance_mm": {
-          "n": 54,
-          "mean": 0.13181733352021008,
-          "median": 0.09466962187759613,
-          "rms": 0.17212179228293598,
-          "p05": 0.016017913145771057,
-          "p95": 0.3464767046740658,
-          "abs_p95": 0.3464767046740658,
-          "min": 0.003067584698686244,
-          "max": 0.43955198863923783
-        },
-        "fraction_over_0_5mm": 0.0
+        "axis": "Z",
+        "side": 1,
+        "samples": 31172,
+        "independent_axes": [
+          "X",
+          "Y"
+        ],
+        "coefficients": [
+          -0.0011555190286867258,
+          -0.0025116608086863637,
+          17.293324007063717
+        ],
+        "absolute_residual_p50_mm": 0.02547723597201923,
+        "absolute_residual_p95_mm": 0.07270438071770328
       }
     ],
-    "limitation": "Distances measure reconstruction fidelity on observed surfaces, not scanner absolute accuracy or hidden-feature coverage."
+    "screw_well_fits": [
+      {
+        "group": "logic",
+        "samples": 1231,
+        "center_xy_mm": [
+          -25.360460583205292,
+          -5.628273165459604
+        ],
+        "radius_mm": 1.8135642527595552,
+        "absolute_residual_p95_mm": 0.15670972112946702
+      },
+      {
+        "group": "logic",
+        "samples": 1054,
+        "center_xy_mm": [
+          -25.42681501266215,
+          -0.6506239530359493
+        ],
+        "radius_mm": 1.7956007378726302,
+        "absolute_residual_p95_mm": 0.18218858621512404
+      },
+      {
+        "group": "logic",
+        "samples": 1242,
+        "center_xy_mm": [
+          -25.539847132385805,
+          4.369613761369055
+        ],
+        "radius_mm": 1.8010760100217442,
+        "absolute_residual_p95_mm": 0.1805097006926606
+      },
+      {
+        "group": "contact",
+        "samples": 1157,
+        "center_xy_mm": [
+          25.04907746159195,
+          -5.003935121662082
+        ],
+        "radius_mm": 1.8559681336082083,
+        "absolute_residual_p95_mm": 0.16377058162644847
+      },
+      {
+        "group": "contact",
+        "samples": 1163,
+        "center_xy_mm": [
+          25.010740004420878,
+          0.03004685020576788
+        ],
+        "radius_mm": 1.8307262326313707,
+        "absolute_residual_p95_mm": 0.1684731579188674
+      },
+      {
+        "group": "contact",
+        "samples": 1267,
+        "center_xy_mm": [
+          24.966593730554578,
+          5.026787416833456
+        ],
+        "radius_mm": 1.83666701783553,
+        "absolute_residual_p95_mm": 0.1826338726288226
+      }
+    ]
   },
   "preparation_archive": {
     "directory": "preparation",
@@ -272,54 +302,5 @@
     },
     "observed_surface": "reconstruction/observed-exterior.npz",
     "observed_surface_sha256": "01dcf54ff2f4e0fc62c0b9ad2ad7e1bf1624eb3e472f83edf58230bd465992bd"
-  },
-  "model": {
-    "bounds_mm": [
-      [
-        -35.16000000014901,
-        -8.599999999627471,
-        -2.3447936000302434
-      ],
-      [
-        35.16000000014901,
-        8.46999999973923,
-        17.529388216410915
-      ]
-    ],
-    "bodies": [
-      {
-        "name": "pcb",
-        "triangles": 2588
-      },
-      {
-        "name": "logic-terminals",
-        "triangles": 20906
-      },
-      {
-        "name": "contact-terminals",
-        "triangles": 18452
-      },
-      {
-        "name": "relay-can",
-        "triangles": 14644
-      },
-      {
-        "name": "control-components",
-        "triangles": 14502
-      },
-      {
-        "name": "logic-solder",
-        "triangles": 70
-      },
-      {
-        "name": "contact-solder",
-        "triangles": 88
-      }
-    ],
-    "sha256": {
-      "teyleten-relay.step": "a949a37e0ff30d4fb37af46049172dc3e6b6d7a39ef2fc89b6a3a9e7526ddba9",
-      "teyleten-relay.step.mesh": "680c9c5370b14e9e1134dc91aa8c1e410daa55598b122b4daee9318c367e5f76",
-      "teyleten-relay.step.npz": "44475755a2edb474160a34fb43a6c3d810a7cf7559ae5de305b45b6756096b2c"
-    }
   }
 }

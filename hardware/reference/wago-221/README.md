@@ -1,40 +1,32 @@
-# WAGO 221 COMPACT lever nuts — reference solids
+# WAGO splice reference family
 
-Every splice in the machine where one conductor becomes many, mains and DC alike
-(`hardware/ledger/bom.md` §11). Rated 32 A, 450 V; all three accept 24–12 AWG at an
-11 mm strip.
+The references show the molded housing, individual closed levers and wire-entry
+mouths of the purchased connectors. The seated frame, envelope dimensions and
+open-lever clearance stay with the dimensions exposed by `wago_221.py`.
 
-| SKU | poles | where | count |
-|---|---|---|---|
-| 221-413 | 3 | mains L / N / PE, 12 V + / GND, J7 REEDS B `GND`, J4 SENSORS `GND` | 7 |
-| 221-415 | 5 | J2 MANIFOLD B `COM` | 1 |
-| 221-420 | 10 | J1 MANIFOLD A `COM` | 1 |
+The housing retains the existing model body name. `closed-levers` contains the
+orange actuator solids, including the opposed faces of the stacked connector.
+Both bodies belong to the fit model. The origin is at the footprint center, the
+seating plane is Z = 0 and conductors enter toward +Y.
 
-None has a mounting hole — each is a free splice, so a **printed press-fit well**
-grown into an enclosure wall's own inner face is the whole mount
-(`enclosure._side_wells`), butt-first, ports facing the room. There is no carrier
-part and no screw.
+`wago_221.rs` builds the geometry on the installed `hsm` kernel. Its clean planes,
+rounded outlines and shallow sockets represent exterior anatomy. Internal cage
+clamps, conductor stops, labeling and microscopic molding texture are omitted.
 
-## Geometry
+`replica-evidence.json` identifies the manufacturer sources and distinguishes the
+published envelope dimensions from visual estimates of the smaller features.
+The official orthographic product images establish the lever windows, thumb-pad
+outline, clear housing corners and entry-face arrangement. Their local dimensions
+are approximate; a conforming feature that engages a lever pocket or entry mouth
+requires a measurement of the received connector. The seated envelope remains the
+mounting reference.
 
-| | 221-413 | 221-415 | 221-420 |
-|---|---|---|---|
-| Width — lever-hinge axis (mm) | 18.8 | 30.0 | **29.8** |
-| Height — closed body (mm) | 8.4 | 8.4 | **15.8** |
-| Depth — wire-entry axis (mm) | 18.6 | 18.6 | **18.3** |
-| Lever rows | 1, on +Z | 1, on +Z | **2, on +Z and −Z** |
-| Ports per row | 3 | 5 | 5 |
+The housing is shown in an opaque neutral color so its surfaces remain readable
+in the website viewer. Orange is reserved for the actuators.
 
-The 221-420 is one busbar in a two-storey body: all ten ports on the same wire-entry
-face, five levers hinging off each of the two large faces — so it wants
-`lever_swing` clear on **both** sides, where the single-row parts want it on one.
+## Regeneration
 
-Levers stay inside the closed envelope; fully up, one reaches **15.25 mm** off the
-seating plane (measured on a 413) — `lever_swing` 6.85 mm past the face it hinges on.
-Both live in the front half of the depth, which leaves the rear half blank on every
-face and is what a well grips.
+    python3 tools/run.py -- cargo run --release --locked -j2 --manifest-path tools/hsm/Cargo.toml \
+        -p hsm-sandbox --example wago-221 -- hardware/reference/wago-221
 
-In the file's frame: X = width, Y = depth, Z up; origin at the footprint center,
-Z = 0 the seating plane. Datasheet figures run slightly generous vs. calipered
-(413 H ≈ 8.25 measured) — treat the envelope as loose by ~0.15 mm. Regenerate all
-three with `tools/cad-venv/bin/python wago_221.py`.
+`frozen-asset.json` and `native-queries.json` accompany the exported reference.

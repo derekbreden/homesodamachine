@@ -1,29 +1,42 @@
 {
   "source": {
     "path": "hardware/reference/teyleten-relay/scan_model.rs",
-    "sha256": "9f4bd184d6efe3b0bb6e77bd45556960689a39a3c7dccb8d0174d4e257b9b551"
+    "sha256": "e6841d102cb701b38adf78fd50a5170433457716cad871d99afde6649eaa7b5e"
   },
   "inputs": {
-    "hardware/reference/teyleten-relay/scan-datums.json": "4424a2e3dfb69eca1ed3cb323a5b3e4c4ad9004931b5074c44897623785780ad"
+    "hardware/reference/teyleten-relay/scan-datums.json": "41bdbb16e6e19c4f5f8787a6a40e012c7130b876faa4d115c580c5b6d43d9321",
+    "hardware/reference/teyleten-relay/scan-model-evidence.json": "6af65967800dfced997c4914dc2e751efee85a983e4be8b0b0f905ceff8733b3"
   },
   "evidence": "scan-model-evidence.json",
   "members": {
-    "teyleten-relay.step": "a949a37e0ff30d4fb37af46049172dc3e6b6d7a39ef2fc89b6a3a9e7526ddba9",
-    "teyleten-relay.step.npz": "44475755a2edb474160a34fb43a6c3d810a7cf7559ae5de305b45b6756096b2c",
-    "teyleten-relay.step.mesh": "680c9c5370b14e9e1134dc91aa8c1e410daa55598b122b4daee9318c367e5f76"
+    "teyleten-relay.step": "ab3a7aec46ac88253ce58d6f560468fc110dcac2bf0804a1e02ef58dfbdab891",
+    "teyleten-relay.step.npz": "0827d8fe3d4870be23ce74966878e1aed5664d809a2d7915219c2bbfd0d7d034",
+    "teyleten-relay.step.mesh": "04469404d8f39c39fd529f766458f99bde310476e56968ec10eb8adeeb7ff726"
   },
   "fine_models": {
     "teyleten-relay.step": {
       "path": "teyleten-relay.step.npz",
-      "sha256": "44475755a2edb474160a34fb43a6c3d810a7cf7559ae5de305b45b6756096b2c",
-      "source_step_sha256": "a949a37e0ff30d4fb37af46049172dc3e6b6d7a39ef2fc89b6a3a9e7526ddba9",
-      "producer": "hardware/reference/teyleten-relay/scan_model.rs"
+      "sha256": "0827d8fe3d4870be23ce74966878e1aed5664d809a2d7915219c2bbfd0d7d034",
+      "source_step_sha256": "ab3a7aec46ac88253ce58d6f560468fc110dcac2bf0804a1e02ef58dfbdab891",
+      "producer": "hardware/reference/teyleten-relay/scan_model.rs",
+      "presentation_indices": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9
+      ]
     }
   },
   "fine_payload": {
     "path": "teyleten-relay.step.mesh",
-    "sha256": "680c9c5370b14e9e1134dc91aa8c1e410daa55598b122b4daee9318c367e5f76",
-    "source_step_sha256": "a949a37e0ff30d4fb37af46049172dc3e6b6d7a39ef2fc89b6a3a9e7526ddba9",
+    "sha256": "04469404d8f39c39fd529f766458f99bde310476e56968ec10eb8adeeb7ff726",
+    "source_step_sha256": "ab3a7aec46ac88253ce58d6f560468fc110dcac2bf0804a1e02ef58dfbdab891",
     "producer": "hardware/reference/teyleten-relay/scan_model.rs",
     "color_space": "linear-rgb",
     "meshes": [
@@ -44,11 +57,27 @@
         ]
       },
       {
+        "name": "logic-screws",
+        "color": [
+          0.4200332886842154,
+          0.44798841244188325,
+          0.47699978456654196
+        ]
+      },
+      {
         "name": "contact-terminals",
         "color": [
           0.021980947079887205,
           0.26327340845612224,
           0.5704815954749093
+        ]
+      },
+      {
+        "name": "contact-screws",
+        "color": [
+          0.4200332886842154,
+          0.44798841244188325,
+          0.47699978456654196
         ]
       },
       {
@@ -65,6 +94,14 @@
           0.024515013703524748,
           0.024515013703524748,
           0.027211780951381357
+        ]
+      },
+      {
+        "name": "control-leads",
+        "color": [
+          0.38005633644979925,
+          0.40644830114675407,
+          0.43387952044860834
         ]
       },
       {

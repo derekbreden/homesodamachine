@@ -1,6 +1,6 @@
-"""Expose the scanned Teyleten relay's mounting datums and wire-entry interfaces.
+"""Expose the Teyleten relay replica's mounting datums and installation wire interfaces.
 
-The frozen reference shows the observed component exterior around a fitted PCB.
+The frozen reference shows an idealized component exterior around a fitted PCB.
 Both ends carry screw terminals. X runs toward the relay-contact end; Z rises
 from the PCB underside toward the components. Covered surfaces and deep cavities
 remain unqualified, as recorded in scan-model-evidence.json.

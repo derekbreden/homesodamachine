@@ -1,24 +1,10 @@
-"""Reference solids for the WAGO 221 COMPACT lever nuts this machine splices in —
-221-413, 221-415 and 221-420.
+"""Reference dimensions and artifact paths for the WAGO splice family.
 
-Each is a free connector with no mounting hole, so a printed press-fit well is the
-whole mount (`enclosure._side_wells`) and the solid here is the body envelope plus
-the closed levers.
-
-Coordinate frame
-----------------
-- X = width (the lever-hinge axis), Y = depth (wire-entry axis), Z = height up from
-  the base. Origin at the body-footprint center; Z = 0 the seating plane.
-- Wires enter the +Y face. The 413 and 415 carry one row of levers, flipping up on
-  the +Z face. The 420 carries two rows on one busbar: five levers on +Z and five on
-  −Z, with all ten ports on the same +Y face.
-- The levers sit within the closed envelope; `lever_open` is what one reaches
-  swung fully back off the face it hinges on.
-- The rear half of the depth is blank on every face — the levers and ports live in
-  the front half, which is what a well grips.
-
-Geometry is in the frozen STEPs and display payloads beside this module.
-`frozen-asset.json` records their bytes and source snapshot.
+The source frame has width along X, wire entry toward +Y and the seating plane
+at Z = 0. The Rust producer owns the exterior housing and closed-lever geometry.
+The data bridge retains the envelope and open-lever clearance used by mounts.
+Geometry and display payloads sit beside this module; the frozen manifest records
+their source and bytes.
 """
 
 from pathlib import Path
