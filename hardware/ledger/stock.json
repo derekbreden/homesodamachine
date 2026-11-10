@@ -52,7 +52,8 @@
     "HSM-0577": "B088QJG676",
     "HSM-0578": "B0DJQH3WSX",
     "HSM-0580": "B08G4Z6KPV",
-    "HSM-0383": "neofit-ACVUS-44"
+    "HSM-0383": "neofit-ACVUS-44",
+    "HSM-0375": "neofit-AME4-N2-E"
   },
   "kits": {
     "B07PCZKG94": [
@@ -3693,6 +3694,36 @@
         "perUnit": 2,
         "materialAllowance": 0
       }
+    },
+    {
+      "id": "ruthex-RX-M4x8.1",
+      "name": "ruthex RX-M4x8.1 brass heat-set inserts",
+      "unit": "pieces",
+      "href": "https://www.amazon.com/dp/B08K1BVGN9",
+      "onHand": null,
+      "incoming": 50,
+      "reserved": 0,
+      "estimated": false,
+      "asOf": "2026-11-10",
+      "note": "M4 share of the confirmed assortment order; no current machine demand is assigned.",
+      "sources": [
+        {
+          "path": "hardware/ledger/purchases.md",
+          "purchase": "pur-89b25fbe2a3e44adb4cbb188ab8a820f"
+        }
+      ]
+    },
+    {
+      "id": "neofit-AME4-N2-E",
+      "name": "neoFit AME4-N2-E fixed male elbow",
+      "unit": "pieces",
+      "href": "https://www.freshwatersystems.com/products/neofit-acetal-black-male-elbow-1-4-tube-x-1-4-nptf",
+      "onHand": null,
+      "incoming": 0,
+      "reserved": 0,
+      "estimated": true,
+      "asOf": "2026-11-10",
+      "sources": []
     }
   ],
   "observations": [
@@ -3725,6 +3756,206 @@
         },
         {
           "path": "hardware/ledger/batch-forecast.md"
+        }
+      ]
+    },
+    {
+      "resource": "B088QJG676",
+      "incoming": 70,
+      "asOf": "2026-11-10",
+      "note": "Confirmed replenishment order awaiting receipt. Prior on-hand balance retains its recorded uncertainty.",
+      "sources": [
+        {
+          "path": "hardware/ledger/purchases.md",
+          "line": 506,
+          "purchase": "pur-9f81aa36ad4e47ac8232415d46371a22"
+        },
+        {
+          "path": "hardware/ledger/purchases.md",
+          "purchase": "pur-89b25fbe2a3e44adb4cbb188ab8a820f"
+        }
+      ]
+    },
+    {
+      "resource": "B08BCRZZS3",
+      "incoming": 100,
+      "asOf": "2026-11-10",
+      "note": "Confirmed replenishment order awaiting receipt. Prior on-hand balance retains its recorded uncertainty.",
+      "sources": [
+        {
+          "path": "hardware/ledger/purchases.md",
+          "line": 495
+        },
+        {
+          "path": "hardware/ledger/purchases.md",
+          "purchase": "pur-89b25fbe2a3e44adb4cbb188ab8a820f"
+        }
+      ]
+    },
+    {
+      "resource": "B07YSVXWS8",
+      "incoming": 50,
+      "asOf": "2026-11-10",
+      "note": "Confirmed replenishment order awaiting receipt. Prior on-hand balance retains its recorded uncertainty.",
+      "sources": [
+        {
+          "path": "hardware/ledger/purchases.md",
+          "line": 504
+        },
+        {
+          "path": "hardware/ledger/purchases.md",
+          "purchase": "pur-89b25fbe2a3e44adb4cbb188ab8a820f"
+        }
+      ]
+    },
+    {
+      "resource": "B0CXQ7Q7L3",
+      "incoming": 105,
+      "asOf": "2026-11-10",
+      "note": "Confirmed replenishment order awaiting receipt. Prior on-hand balance retains its recorded uncertainty.",
+      "sources": [
+        {
+          "path": "hardware/ledger/purchases.md",
+          "line": 512,
+          "purchase": "pur-290815c457f54714a5735fb1e54360a9"
+        },
+        {
+          "path": "hardware/ledger/purchases.md",
+          "purchase": "pur-14f8f47e82a74b129f4677cb0fc2a67d"
+        }
+      ]
+    },
+    {
+      "resource": "pisco-RVFUP1/4-1/4-0.3",
+      "onHand": 2,
+      "incoming": 0,
+      "estimated": true,
+      "asOf": "2026-10-28",
+      "basis": "received_quantity_estimate",
+      "note": "Receipt is confirmed. The usable remainder after development is an estimate; no current physical stocktake is recorded.",
+      "sources": [
+        {
+          "path": "hardware/ledger/purchases.md",
+          "purchase": "pur-1ead43e8eead4989adf3de560d23febe",
+          "line": 122
+        },
+        {
+          "path": "hardware/ledger/purchases.md",
+          "purchase": "pur-1ead43e8eead4989adf3de560d23febe"
+        }
+      ]
+    },
+    {
+      "resource": "yzmsz-B0CGS34P93",
+      "onHand": 1,
+      "incoming": 0,
+      "estimated": true,
+      "asOf": "2026-10-26",
+      "basis": "received_quantity_estimate",
+      "note": "Receipt is confirmed. The usable remainder after development is an estimate; no current physical stocktake is recorded.",
+      "sources": [
+        {
+          "path": "hardware/ledger/purchases.md",
+          "purchase": "pur-abd647629bfa41e1ae7de9bf129dbf44",
+          "line": 160
+        },
+        {
+          "path": "hardware/ledger/purchases.md",
+          "purchase": "pur-abd647629bfa41e1ae7de9bf129dbf44"
+        }
+      ]
+    },
+    {
+      "resource": "neofit-AME4-N2-E",
+      "onHand": 20,
+      "incoming": 0,
+      "estimated": true,
+      "asOf": "2026-11-10",
+      "basis": "received_quantity_estimate",
+      "note": "Receipt is confirmed. The usable remainder after development is an estimate; no current physical stocktake is recorded.",
+      "sources": [
+        {
+          "path": "hardware/ledger/purchases.md",
+          "purchase": "pur-9d9726d27ea04842b803208c17fd1b37"
+        }
+      ]
+    },
+    {
+      "resource": "svling-B0GHNNYVDH",
+      "onHand": 20,
+      "incoming": 0,
+      "estimated": true,
+      "asOf": "2026-10-26",
+      "basis": "received_quantity_estimate",
+      "note": "Receipt is confirmed. The usable remainder after development is an estimate; no current physical stocktake is recorded.",
+      "sources": [
+        {
+          "path": "hardware/ledger/purchases.md",
+          "purchase": "pur-7a2c9d6f4b8e4d1a3f6c0b2d4e5f7a96",
+          "line": 522
+        },
+        {
+          "path": "hardware/ledger/purchases.md",
+          "purchase": "pur-7a2c9d6f4b8e4d1a3f6c0b2d4e5f7a96"
+        }
+      ]
+    },
+    {
+      "resource": "B08G4Z6KPV",
+      "onHand": 20,
+      "incoming": 0,
+      "estimated": true,
+      "asOf": "2026-11-07",
+      "basis": "received_quantity_estimate",
+      "note": "Receipt is confirmed. The usable remainder after development is an estimate; no current physical stocktake is recorded.",
+      "sources": [
+        {
+          "path": "hardware/ledger/purchases.md",
+          "line": 489,
+          "purchase": "pur-9a08e76abb825705aff0991b6c1bf389"
+        },
+        {
+          "path": "hardware/ledger/purchases.md",
+          "purchase": "pur-9a08e76abb825705aff0991b6c1bf389"
+        }
+      ]
+    },
+    {
+      "resource": "B07NWCQJK9",
+      "onHand": 24,
+      "incoming": 0,
+      "estimated": true,
+      "asOf": "2026-10-13",
+      "basis": "received_quantity_estimate",
+      "note": "Receipt is confirmed. The usable remainder after development is an estimate; no current physical stocktake is recorded.",
+      "sources": [
+        {
+          "path": "hardware/ledger/purchases.md",
+          "line": 196
+        },
+        {
+          "path": "hardware/ledger/purchases.md",
+          "line": 197
+        },
+        {
+          "path": "hardware/ledger/purchases.md",
+          "line": 198
+        },
+        {
+          "path": "hardware/ledger/purchases.md",
+          "line": 199
+        },
+        {
+          "path": "hardware/ledger/purchases.md",
+          "line": 200
+        },
+        {
+          "path": "hardware/ledger/purchases.md",
+          "line": 201
+        },
+        {
+          "path": "hardware/ledger/purchases.md",
+          "purchase": "pur-d8a8a1e239ff48b6a6b19c43e22b4858"
         }
       ]
     }

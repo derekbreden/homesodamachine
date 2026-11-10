@@ -3301,14 +3301,15 @@
       "name": "Sutemribor M2 \u00d7 6 mm socket-head cap screws, black oxide, 105 pc",
       "unit": "pieces",
       "supplier": "amazon",
-      "priceBasis": "delivered",
-      "status": "unconfirmed",
-      "note": "Recorded purchase-pack price; current replenishment price and Prime availability are unconfirmed.",
+      "priceBasis": "merchandise",
+      "status": "listed",
+      "note": "Signed-in Prime offer verified November 10; the ordered replenishment pack is recorded as incoming stock.",
       "options": [
         {
           "quantity": 105,
-          "priceCents": 1822,
-          "label": "105-piece pack"
+          "priceCents": 799,
+          "label": "105-piece pack",
+          "available": true
         }
       ],
       "sourceUrl": "https://www.amazon.com/dp/B0CXQ7Q7L3",

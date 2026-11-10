@@ -234,7 +234,7 @@
     },
     {
       "allocation_id": "alloc-2226cb82f09d49439dcbc98e5e689ba0",
-      "amount_minor": 11153,
+      "amount_minor": 10789,
       "currency": "USD",
       "event_id": "evt-a3c8a2e1a259405e85d14c27817deb58",
       "order_id": "pisco:8638",
@@ -1209,6 +1209,14 @@
       "purchase_id": "pur-7ec9003837a84240a84dce82a00c39f3"
     },
     {
+      "allocation_id": "alloc-d2c6f710bcc446a1b0fdd69ba718c913",
+      "amount_minor": 3216,
+      "currency": "USD",
+      "event_id": "evt-0daeac8a24434db6abdfdeb3d8dc4a57",
+      "order_id": "amazon:112-8336005-3642625",
+      "purchase_id": "pur-89b25fbe2a3e44adb4cbb188ab8a820f"
+    },
+    {
       "allocation_id": "alloc-d356935e0225460c9dbba2f2bc89d4e2",
       "amount_minor": 6004,
       "currency": "USD",
@@ -1263,6 +1271,14 @@
       "event_id": "evt-1caec2b48e8f4cb7b8a19db50a234c00",
       "order_id": "anthropic:HYODLCRX-0062",
       "purchase_id": "pur-8fc8fb797f3c4b6183b6de122ac35e3b"
+    },
+    {
+      "allocation_id": "alloc-daa16ebb3fc44a81823832afcd4adcf0",
+      "amount_minor": 857,
+      "currency": "USD",
+      "event_id": "evt-44d3b6c0a264492589465271e6914753",
+      "order_id": "amazon:112-0448533-3655424",
+      "purchase_id": "pur-14f8f47e82a74b129f4677cb0fc2a67d"
     },
     {
       "allocation_id": "alloc-de8332824b4643d387358f483a0a0676",
@@ -1409,7 +1425,7 @@
       "purchase_id": "pur-e09e5d28db894792aef087da03caea51"
     }
   ],
-  "as_of": "2026-11-09",
+  "as_of": "2026-11-10",
   "coverage": [
     {
       "checked_at": "2026-10-04",
@@ -3090,6 +3106,30 @@
     },
     {
       "allocation_ids": [
+        "alloc-d2c6f710bcc446a1b0fdd69ba718c913"
+      ],
+      "allocation_status": "all_project",
+      "amount_minor": 3216,
+      "confirmation": "expected",
+      "currency": "USD",
+      "event_date": null,
+      "event_id": "evt-0daeac8a24434db6abdfdeb3d8dc4a57",
+      "event_type": "charge",
+      "order_ids": [
+        "amazon:112-8336005-3642625"
+      ],
+      "purchase_ids": [
+        "pur-89b25fbe2a3e44adb4cbb188ab8a820f"
+      ],
+      "source_ids": [
+        "src-562754f7ecd34ad9a37d14abe9d1a9ce"
+      ],
+      "unallocated_to_purchase_minor": 0,
+      "vendor": "Amazon",
+      "verified_at": "2026-11-10"
+    },
+    {
+      "allocation_ids": [
         "alloc-cf9cca6aaa1c46bb8b613b5508bb5257"
       ],
       "allocation_status": "all_project",
@@ -3909,6 +3949,30 @@
       "unallocated_to_purchase_minor": 0,
       "vendor": "Anthropic",
       "verified_at": "2026-10-04"
+    },
+    {
+      "allocation_ids": [
+        "alloc-daa16ebb3fc44a81823832afcd4adcf0"
+      ],
+      "allocation_status": "all_project",
+      "amount_minor": 857,
+      "confirmation": "expected",
+      "currency": "USD",
+      "event_date": null,
+      "event_id": "evt-44d3b6c0a264492589465271e6914753",
+      "event_type": "charge",
+      "order_ids": [
+        "amazon:112-0448533-3655424"
+      ],
+      "purchase_ids": [
+        "pur-14f8f47e82a74b129f4677cb0fc2a67d"
+      ],
+      "source_ids": [
+        "src-89ae5a1bc34849d4b07e15ca3a075465"
+      ],
+      "unallocated_to_purchase_minor": 0,
+      "vendor": "Amazon",
+      "verified_at": "2026-11-10"
     },
     {
       "allocation_ids": [
@@ -5734,7 +5798,7 @@
         "alloc-2226cb82f09d49439dcbc98e5e689ba0"
       ],
       "allocation_status": "all_project",
-      "amount_minor": 11153,
+      "amount_minor": 10789,
       "confirmation": "expected",
       "currency": "USD",
       "event_date": null,
@@ -5747,11 +5811,12 @@
         "pur-1ead43e8eead4989adf3de560d23febe"
       ],
       "source_ids": [
+        "src-6b59d4539d614609b87397329eee9092",
         "src-e90526d88b0b4e5c9b441af32b25ac68"
       ],
       "unallocated_to_purchase_minor": 0,
       "vendor": "PISCO",
-      "verified_at": "2026-10-23"
+      "verified_at": "2026-11-10"
     },
     {
       "allocation_ids": [
@@ -7908,7 +7973,7 @@
       ]
     }
   ],
-  "input_fingerprint": "sha256:09142fb6a2590ed8879ab177dc84b184adbc1046835fc71b780e610f7a05d8e2",
+  "input_fingerprint": "sha256:46e8e496f89ca98ced1eec425f8971b907afaae9682b0c71d7193392dd2e43b3",
   "orders": [
     {
       "allocation_status": "all_project",
@@ -8186,6 +8251,25 @@
       "reference": "112-0442030-7315464",
       "source_ids": [
         "saved-amazon:112-0442030-7315464"
+      ],
+      "vendor": "Amazon"
+    },
+    {
+      "allocation_status": "all_project",
+      "event_ids": [
+        "evt-44d3b6c0a264492589465271e6914753"
+      ],
+      "order_date": {
+        "precision": "day",
+        "value": "2026-11-09"
+      },
+      "order_id": "amazon:112-0448533-3655424",
+      "purchase_ids": [
+        "pur-14f8f47e82a74b129f4677cb0fc2a67d"
+      ],
+      "reference": "112-0448533-3655424",
+      "source_ids": [
+        "src-89ae5a1bc34849d4b07e15ca3a075465"
       ],
       "vendor": "Amazon"
     },
@@ -10837,7 +10921,8 @@
       ],
       "reference": "112-6255534-2742635",
       "source_ids": [
-        "src-b822cdd28ba249e6afcbe01ecef2028a"
+        "src-b822cdd28ba249e6afcbe01ecef2028a",
+        "src-bd82c3ca38584cf699ad625b08736af1"
       ],
       "vendor": "Amazon"
     },
@@ -11804,6 +11889,25 @@
     },
     {
       "allocation_status": "all_project",
+      "event_ids": [
+        "evt-0daeac8a24434db6abdfdeb3d8dc4a57"
+      ],
+      "order_date": {
+        "precision": "day",
+        "value": "2026-11-09"
+      },
+      "order_id": "amazon:112-8336005-3642625",
+      "purchase_ids": [
+        "pur-89b25fbe2a3e44adb4cbb188ab8a820f"
+      ],
+      "reference": "112-8336005-3642625",
+      "source_ids": [
+        "src-562754f7ecd34ad9a37d14abe9d1a9ce"
+      ],
+      "vendor": "Amazon"
+    },
+    {
+      "allocation_status": "all_project",
       "event_ids": [],
       "order_date": {
         "precision": "day",
@@ -11935,6 +12039,7 @@
       ],
       "reference": "112-8643704-3927458",
       "source_ids": [
+        "src-566fc2c15b3b4437bc6a8196c59b8526",
         "src-7101af811922496e9b6b06ff68e18484"
       ],
       "vendor": "Amazon"
@@ -13301,7 +13406,8 @@
       ],
       "reference": "114-4948607-3372207",
       "source_ids": [
-        "src-57d7a55650e950b4bd37fd8b57f1ae54"
+        "src-57d7a55650e950b4bd37fd8b57f1ae54",
+        "src-9e1eb5002d1a439b9f3866b5fdedbcf7"
       ],
       "vendor": "Amazon"
     },
@@ -13577,6 +13683,7 @@
       ],
       "reference": "114-5870152-3334654",
       "source_ids": [
+        "src-6d7e9d71948e4fe19d67aea39d2f90a4",
         "src-73f93ccef6d4495f9740151c9a066f44"
       ],
       "vendor": "Amazon"
@@ -16410,7 +16517,8 @@
       "reference": "WEBFWS100715944",
       "source_ids": [
         "src-25efb07a466642cda375aa9fe665d977",
-        "src-31821bcc03544179b8acbd0ee716eea6"
+        "src-31821bcc03544179b8acbd0ee716eea6",
+        "src-5e995e1fad334b1b8784483d9f721b2f"
       ],
       "vendor": "Fresh Water Systems"
     },
@@ -16749,6 +16857,8 @@
       ],
       "reference": "8638",
       "source_ids": [
+        "src-6b59d4539d614609b87397329eee9092",
+        "src-705110796ce345c7ab0263a199c8968a",
         "src-e90526d88b0b4e5c9b441af32b25ac68"
       ],
       "vendor": "PISCO"
@@ -19629,6 +19739,52 @@
     },
     {
       "allocation_status": "all_project",
+      "amount_evidence": "final_vendor_amount",
+      "amount_minor": 857,
+      "contributes": true,
+      "currency": "USD",
+      "delivery_date": null,
+      "description": "Sutemribor M2 × 6 mm socket-head cap screws, M2-0.4, 12.9 alloy steel, black oxide, fully threaded; replenishment pack",
+      "event_ids": [
+        "evt-44d3b6c0a264492589465271e6914753"
+      ],
+      "fulfillment": "ON-ORDER",
+      "invoice_date": null,
+      "ledger_purchase_id": "pur-14f8f47e82a74b129f4677cb0fc2a67d",
+      "merchant_charge_allocated_minor": 0,
+      "merchant_refund_allocated_minor": 0,
+      "order_date": {
+        "precision": "day",
+        "value": "2026-11-09"
+      },
+      "order_ids": [
+        "amazon:112-0448533-3655424"
+      ],
+      "payment_evidence": "unknown",
+      "price_basis": "row_total",
+      "purchase_id": "pur-14f8f47e82a74b129f4677cb0fc2a67d",
+      "purpose": "components",
+      "quantity": 1,
+      "quantity_text": "1 pk (105)",
+      "receipt_date": null,
+      "record_role": "purchase",
+      "row_date": {
+        "precision": "day",
+        "value": "2026-11-09"
+      },
+      "row_date_basis": "order_date",
+      "section": "11. Enclosure hardware",
+      "service_period": null,
+      "source_ids": [
+        "src-89ae5a1bc34849d4b07e15ca3a075465"
+      ],
+      "split_charge": false,
+      "stream": "purchase",
+      "unit_amount_minor": null,
+      "vendor": "Amazon"
+    },
+    {
+      "allocation_status": "all_project",
       "amount_evidence": "legacy_unverified",
       "amount_minor": 39931,
       "contributes": true,
@@ -20657,15 +20813,24 @@
     {
       "allocation_status": "all_project",
       "amount_evidence": "final_vendor_amount",
-      "amount_minor": 11153,
+      "amount_minor": 10789,
       "contributes": true,
       "currency": "USD",
-      "delivery_date": null,
-      "description": "PISCO RVFUP1/4-1/4-0.3 preset regulator, 1/4\" push-connect, 0.3 MPa — 2 pcs, $81.32 + $30.21 UPS Ground + $0.00 tax; order on hold pending payment confirmation",
+      "delivery_date": {
+        "precision": "day",
+        "value": "2026-10-28"
+      },
+      "delivery_dates": [
+        {
+          "precision": "day",
+          "value": "2026-10-28"
+        }
+      ],
+      "description": "PISCO RVFUP1/4-1/4-0.3 preset regulator, 1/4\" push-connect, 0.3 MPa — two pieces, $81.32 merchandise + $26.57 shipping, no tax",
       "event_ids": [
         "evt-a3c8a2e1a259405e85d14c27817deb58"
       ],
-      "fulfillment": "ON-ORDER",
+      "fulfillment": "ACQUIRED",
       "invoice_date": null,
       "ledger_purchase_id": "pur-1ead43e8eead4989adf3de560d23febe",
       "merchant_charge_allocated_minor": 0,
@@ -20679,6 +20844,18 @@
       ],
       "payment_evidence": "unknown",
       "price_basis": "row_total",
+      "price_history": [
+        {
+          "amount_evidence": "final_vendor_amount",
+          "amount_minor": 11153,
+          "currency": "USD",
+          "note": "Original order quote; the final vendor completion total is recorded as the current purchase value.",
+          "source_ids": [
+            "src-e90526d88b0b4e5c9b441af32b25ac68"
+          ],
+          "verified_at": "2026-11-10"
+        }
+      ],
       "purchase_id": "pur-1ead43e8eead4989adf3de560d23febe",
       "purpose": "components",
       "quantity": 2,
@@ -20693,6 +20870,8 @@
       "section": "2. CO2 subsystem",
       "service_period": null,
       "source_ids": [
+        "src-6b59d4539d614609b87397329eee9092",
+        "src-705110796ce345c7ab0263a199c8968a",
         "src-e90526d88b0b4e5c9b441af32b25ac68"
       ],
       "split_charge": false,
@@ -33009,10 +33188,19 @@
       "amount_minor": 826,
       "contributes": true,
       "currency": "USD",
-      "delivery_date": null,
+      "delivery_date": {
+        "precision": "day",
+        "value": "2026-10-26"
+      },
+      "delivery_dates": [
+        {
+          "precision": "day",
+          "value": "2026-10-26"
+        }
+      ],
       "description": "SVLING M5 × 0.8 × 100 mm socket-head cap screws, 20 pc, 12.9 alloy steel, black — seam rods. $7.70 + $0.56 tax",
       "event_ids": [],
-      "fulfillment": "ON-ORDER",
+      "fulfillment": "ACQUIRED",
       "invoice_date": null,
       "ledger_purchase_id": "pur-7a2c9d6f4b8e4d1a3f6c0b2d4e5f7a96",
       "merchant_charge_allocated_minor": 0,
@@ -33040,6 +33228,7 @@
       "section": "11. Enclosure hardware",
       "service_period": null,
       "source_ids": [
+        "src-566fc2c15b3b4437bc6a8196c59b8526",
         "src-7101af811922496e9b6b06ff68e18484"
       ],
       "split_charge": false,
@@ -34838,6 +35027,52 @@
       "stream": "purchase",
       "unit_amount_minor": null,
       "vendor": "Fresh Water Systems"
+    },
+    {
+      "allocation_status": "all_project",
+      "amount_evidence": "final_vendor_amount",
+      "amount_minor": 3216,
+      "contributes": true,
+      "currency": "USD",
+      "delivery_date": null,
+      "description": "ruthex brass heat-set insert assortment: RX-M2x4, RX-M3x5.7, RX-M4x8.1 and RX-M5x9.5; 270 pieces (70 / 100 / 50 / 50). $29.99 merchandise + $2.17 estimated tax; shipping waived",
+      "event_ids": [
+        "evt-0daeac8a24434db6abdfdeb3d8dc4a57"
+      ],
+      "fulfillment": "ON-ORDER",
+      "invoice_date": null,
+      "ledger_purchase_id": "pur-89b25fbe2a3e44adb4cbb188ab8a820f",
+      "merchant_charge_allocated_minor": 0,
+      "merchant_refund_allocated_minor": 0,
+      "order_date": {
+        "precision": "day",
+        "value": "2026-11-09"
+      },
+      "order_ids": [
+        "amazon:112-8336005-3642625"
+      ],
+      "payment_evidence": "unknown",
+      "price_basis": "row_total",
+      "purchase_id": "pur-89b25fbe2a3e44adb4cbb188ab8a820f",
+      "purpose": "components",
+      "quantity": 1,
+      "quantity_text": "1 box (270)",
+      "receipt_date": null,
+      "record_role": "purchase",
+      "row_date": {
+        "precision": "day",
+        "value": "2026-11-09"
+      },
+      "row_date_basis": "order_date",
+      "section": "11. Enclosure hardware",
+      "service_period": null,
+      "source_ids": [
+        "src-562754f7ecd34ad9a37d14abe9d1a9ce"
+      ],
+      "split_charge": false,
+      "stream": "purchase",
+      "unit_amount_minor": null,
+      "vendor": "Amazon"
     },
     {
       "allocation_status": "all_project",
@@ -37706,10 +37941,19 @@
       "amount_minor": 750,
       "contributes": true,
       "currency": "USD",
-      "delivery_date": null,
+      "delivery_date": {
+        "precision": "day",
+        "value": "2026-11-07"
+      },
+      "delivery_dates": [
+        {
+          "precision": "day",
+          "value": "2026-11-07"
+        }
+      ],
       "description": "CHANZON prewired clear-lens blue LED, status-plate light; inline resistor and blue positive/black negative leads. Amazon Prime, sold by Chanzon; item plus estimated tax, free shipping",
       "event_ids": [],
-      "fulfillment": "ON-ORDER",
+      "fulfillment": "ACQUIRED",
       "invoice_date": null,
       "ledger_purchase_id": "pur-9a08e76abb825705aff0991b6c1bf389",
       "merchant_charge_allocated_minor": 0,
@@ -37737,7 +37981,8 @@
       "section": "10. User interface — buttons, LEDs, air switch",
       "service_period": null,
       "source_ids": [
-        "src-57d7a55650e950b4bd37fd8b57f1ae54"
+        "src-57d7a55650e950b4bd37fd8b57f1ae54",
+        "src-9e1eb5002d1a439b9f3866b5fdedbcf7"
       ],
       "split_charge": false,
       "stream": "purchase",
@@ -38098,7 +38343,7 @@
       "event_ids": [
         "evt-acd3c197767942d68ef92b3d422122b7"
       ],
-      "fulfillment": "ON-ORDER",
+      "fulfillment": "ACQUIRED",
       "invoice_date": null,
       "ledger_purchase_id": "pur-9d9726d27ea04842b803208c17fd1b37",
       "merchant_charge_allocated_minor": 4913,
@@ -38127,7 +38372,8 @@
       "service_period": null,
       "source_ids": [
         "src-25efb07a466642cda375aa9fe665d977",
-        "src-31821bcc03544179b8acbd0ee716eea6"
+        "src-31821bcc03544179b8acbd0ee716eea6",
+        "src-5e995e1fad334b1b8784483d9f721b2f"
       ],
       "split_charge": false,
       "stream": "purchase",
@@ -39841,10 +40087,19 @@
       "amount_minor": 1286,
       "contributes": true,
       "currency": "USD",
-      "delivery_date": null,
+      "delivery_date": {
+        "precision": "day",
+        "value": "2026-10-26"
+      },
+      "delivery_dates": [
+        {
+          "precision": "day",
+          "value": "2026-10-26"
+        }
+      ],
       "description": "YZMSZ 1/4\" OD fixed 0.3 MPa (3 kg) water pressure-reducing valve, native push-to-connect ports — the clean-water regulator (reference). $11.99 + $0.87 tax",
       "event_ids": [],
-      "fulfillment": "ON-ORDER",
+      "fulfillment": "ACQUIRED",
       "invoice_date": null,
       "ledger_purchase_id": "pur-abd647629bfa41e1ae7de9bf129dbf44",
       "merchant_charge_allocated_minor": 0,
@@ -39872,7 +40127,8 @@
       "section": "3. Water supply + backflow prevention",
       "service_period": null,
       "source_ids": [
-        "src-b822cdd28ba249e6afcbe01ecef2028a"
+        "src-b822cdd28ba249e6afcbe01ecef2028a",
+        "src-bd82c3ca38584cf699ad625b08736af1"
       ],
       "split_charge": false,
       "stream": "purchase",
@@ -45540,6 +45796,12 @@
         "precision": "day",
         "value": "2026-10-13"
       },
+      "delivery_dates": [
+        {
+          "precision": "day",
+          "value": "2026-10-13"
+        }
+      ],
       "description": "Beduan 12 V 1/4\" inlet water solenoid (NC) — ten valves, $8.99 ea + $6.50 estimated tax, free shipping",
       "event_ids": [
         "evt-ef96ebf561264b5dafd229959a5acabe"
@@ -45572,6 +45834,7 @@
       "section": "5. Flavor subsystem",
       "service_period": null,
       "source_ids": [
+        "src-6d7e9d71948e4fe19d67aea39d2f90a4",
         "src-73f93ccef6d4495f9740151c9a066f44",
         "src-fed4085cf6854b39945f1783a4dc635c"
       ],
@@ -45866,7 +46129,7 @@
         "precision": "day",
         "value": "2026-09-18"
       },
-      "description": "Revopoint MINI 2 3D scanner, Advanced kit — blue-light structured-light scanner for small objects, 0.02 mm stated accuracy, 24-bit colour. Bought to build a manufacturing model of the donor TouchFlo lever: the repo carries that lever only as a swing-clearance envelope (faucet_assembly.py), which cannot become the printed replacement. The lever lifts off the valve, so it scans free-standing on a turntable with its working attachment exposed. Revo Scan 6 is ARM64-native on macOS and also runs on iOS/Android over Wi-Fi, so the capture is not bound to the 8 GB M3 Air. Sole item on its invoice, $929.00 + $67.35 NE tax",
+      "description": "Revopoint MINI 2 3D scanner, Advanced kit — blue-light structured-light scanner for small objects, 0.02 mm stated accuracy, 24-bit colour. Bought to build a manufacturing model of the donor TouchFlo lever: the repo carries that lever only as a swing-clearance envelope (faucet_assembly.rs), which cannot become the printed replacement. The lever lifts off the valve, so it scans free-standing on a turntable with its working attachment exposed. Revo Scan 6 is ARM64-native on macOS and also runs on iOS/Android over Wi-Fi, so the capture is not bound to the 8 GB M3 Air. Sole item on its invoice, $929.00 + $67.35 NE tax",
       "event_ids": [],
       "fulfillment": "ACQUIRED",
       "invoice_date": null,
@@ -58755,6 +59018,34 @@
     {
       "document_date": {
         "precision": "day",
+        "value": "2026-11-09"
+      },
+      "document_type": "merchant_order_details",
+      "note": "Signed-in order details identifies the selected item and order total USD 32.16. Merchant placed date is November 9. Order confirmation gives expected arrival 2026-11-10; receipt and completed charge are not established.",
+      "proves": [
+        "order_date",
+        "price"
+      ],
+      "reference": "112-8336005-3642625",
+      "source_id": "src-562754f7ecd34ad9a37d14abe9d1a9ce",
+      "vendor": "Amazon",
+      "verified_at": "2026-11-10"
+    },
+    {
+      "document_date": null,
+      "document_type": "merchant_order_details",
+      "note": "Signed-in Mac Chrome order page states Delivered October 26 and shows selected 20-piece screw pack.",
+      "proves": [
+        "delivery"
+      ],
+      "reference": "112-8643704-3927458",
+      "source_id": "src-566fc2c15b3b4437bc6a8196c59b8526",
+      "vendor": "Amazon",
+      "verified_at": "2026-11-10"
+    },
+    {
+      "document_date": {
+        "precision": "day",
         "value": "2026-10-04"
       },
       "document_type": "order_scoped_payment_lookup",
@@ -58933,6 +59224,22 @@
       "source_id": "src-5e1e8e880ae94f87916e01f935c46f35",
       "vendor": "Amazon",
       "verified_at": "2026-10-04"
+    },
+    {
+      "document_date": null,
+      "document_type": "email_delivery_notification",
+      "note": "Delivery notification names two bags of ten; independent calendar delivery day not supplied.",
+      "notification_date": {
+        "precision": "day",
+        "value": "2026-11-02"
+      },
+      "proves": [
+        "delivery"
+      ],
+      "reference": "WEBFWS100715944",
+      "source_id": "src-5e995e1fad334b1b8784483d9f721b2f",
+      "vendor": "Fresh Water Systems",
+      "verified_at": "2026-11-10"
     },
     {
       "document_date": {
@@ -59275,6 +59582,33 @@
     {
       "document_date": {
         "precision": "day",
+        "value": "2026-10-26"
+      },
+      "document_type": "vendor_order_completion",
+      "note": "Vendor completion identifies two regulators: USD 81.32 merchandise plus USD 26.57 shipping, no tax, total USD 107.89. Completed merchant charge is not evidenced.",
+      "proves": [
+        "price"
+      ],
+      "reference": "8638",
+      "source_id": "src-6b59d4539d614609b87397329eee9092",
+      "vendor": "PISCO",
+      "verified_at": "2026-11-10"
+    },
+    {
+      "document_date": null,
+      "document_type": "merchant_order_details",
+      "note": "Signed-in Mac Chrome page confirms this ten-valve order. Earlier acquired valve stock is additional; usable remaining count is not a stocktake.",
+      "proves": [
+        "delivery"
+      ],
+      "reference": "114-5870152-3334654",
+      "source_id": "src-6d7e9d71948e4fe19d67aea39d2f90a4",
+      "vendor": "Amazon",
+      "verified_at": "2026-11-10"
+    },
+    {
+      "document_date": {
+        "precision": "day",
         "value": "2026-09-29"
       },
       "document_type": "final_vendor_invoice_and_shipment",
@@ -59287,6 +59621,18 @@
       "source_id": "src-6dabd673b2df4a069b57b61513850f8f",
       "vendor": "DigiKey",
       "verified_at": "2026-10-04"
+    },
+    {
+      "document_date": null,
+      "document_type": "carrier_delivery_notice",
+      "note": "Latest vendor completion clears the earlier payment hold. Carrier notice explicitly states calendar delivery date. No bank charge event is established.",
+      "proves": [
+        "delivery"
+      ],
+      "reference": "8638",
+      "source_id": "src-705110796ce345c7ab0263a199c8968a",
+      "vendor": "PISCO",
+      "verified_at": "2026-11-10"
     },
     {
       "document_date": {
@@ -59659,6 +60005,22 @@
       "source_id": "src-877a2a22d59047e3b8644d6654cccac9",
       "vendor": "Anthropic",
       "verified_at": "2026-10-04"
+    },
+    {
+      "document_date": {
+        "precision": "day",
+        "value": "2026-11-09"
+      },
+      "document_type": "merchant_order_details",
+      "note": "Signed-in order details identifies the selected item and order total USD 8.57. Merchant placed date is November 9. Order confirmation gives expected arrival 2026-11-11; receipt and completed charge are not established.",
+      "proves": [
+        "order_date",
+        "price"
+      ],
+      "reference": "112-0448533-3655424",
+      "source_id": "src-89ae5a1bc34849d4b07e15ca3a075465",
+      "vendor": "Amazon",
+      "verified_at": "2026-11-10"
     },
     {
       "document_date": {
@@ -60081,6 +60443,18 @@
       "source_id": "src-9cef8a7480a642d4b3d06cf8a90586d5",
       "vendor": "InnoAddi",
       "verified_at": "2026-10-13"
+    },
+    {
+      "document_date": null,
+      "document_type": "merchant_order_details",
+      "note": "Signed-in Mac Chrome order page states Delivered November 7 and shows the 20-piece DC12V blue LED item.",
+      "proves": [
+        "delivery"
+      ],
+      "reference": "114-4948607-3372207",
+      "source_id": "src-9e1eb5002d1a439b9f3866b5fdedbcf7",
+      "vendor": "Amazon",
+      "verified_at": "2026-11-10"
     },
     {
       "document_date": {
@@ -60604,6 +60978,18 @@
       "source_id": "src-bd0e89cf1e6440e4922035582819d99d",
       "vendor": "Bambu Lab",
       "verified_at": "2026-10-13"
+    },
+    {
+      "document_date": null,
+      "document_type": "merchant_order_details",
+      "note": "Signed-in Mac Chrome order page states Delivered October 26 and shows selected YZMSZ product.",
+      "proves": [
+        "delivery"
+      ],
+      "reference": "112-6255534-2742635",
+      "source_id": "src-bd82c3ca38584cf699ad625b08736af1",
+      "vendor": "Amazon",
+      "verified_at": "2026-11-10"
     },
     {
       "document_date": {
@@ -62265,7 +62651,7 @@
       "basis": "Current procurement status, independently of payment evidence.",
       "by_status": [
         {
-          "amount_minor": 4682922,
+          "amount_minor": 4701486,
           "currency": "USD",
           "fulfillment": "ACQUIRED",
           "purchase_ids": [
@@ -62345,6 +62731,7 @@
             "pur-1d21f7af3118468480fd8e4e4b97786c",
             "pur-1d3e871716714b8db189738917aad1b9",
             "pur-1e2a76e430f94e3c805f084742bcc2c3",
+            "pur-1ead43e8eead4989adf3de560d23febe",
             "pur-1ebc0172f7da4727b29b2c896ecec89d",
             "pur-21504543cd394d8983d88483344af1ac",
             "pur-2176a761c804406896b965fbba7d418d",
@@ -62592,6 +62979,7 @@
             "pur-78ea1f58114044aaa33af53b0930e8d0",
             "pur-791463522f344caf818637b6bed6a2ac",
             "pur-7a0bf59561314549bacf12589f4fd2f4",
+            "pur-7a2c9d6f4b8e4d1a3f6c0b2d4e5f7a96",
             "pur-7ab9e4672d6f45dcb02e637077481082",
             "pur-7abb69db05994f68b62e82e9a534ee1c",
             "pur-7c081a15a0504c4eac18cc184b6ee918",
@@ -62684,6 +63072,7 @@
             "pur-99a0644333ed4c5a8e5d5514098319fa",
             "pur-99b84bc072db41edb0e37a59ce8488a1",
             "pur-99ef85cbd1d5444ca7cc4989a9f2a593",
+            "pur-9a08e76abb825705aff0991b6c1bf389",
             "pur-9b0861ed2dcb409799dda9bb58e6a7e1",
             "pur-9b24ddfcac444a6398f62c24c98b000d",
             "pur-9b5e0854dbed4bdeac2c81202699d965",
@@ -62691,6 +63080,7 @@
             "pur-9c16202031204275b3442cf21ec316be",
             "pur-9ce37e8a3bec40d39abe1e623bbc4bf2",
             "pur-9d460728372b4fa4ac76a549453697e0",
+            "pur-9d9726d27ea04842b803208c17fd1b37",
             "pur-9db5d67300cf453ea82a26954acbc06e",
             "pur-9db6fd963400489ebcfd863a219a34f0",
             "pur-9e4cb7cabe0d49589e61a4b9445bfb81",
@@ -62724,6 +63114,7 @@
             "pur-ab4666fecc0947408ccb9177de425c95",
             "pur-ab6c1aedc885487f9041593fc16cc55f",
             "pur-abc14bfb204440ea95552fa9d52b468c",
+            "pur-abd647629bfa41e1ae7de9bf129dbf44",
             "pur-ad8073cabdb043f5988b69d7acae93c1",
             "pur-ad87bb1e2d7548aa9fdf66293915a4f4",
             "pur-adb86d9b3bbd4c5cacd3e74beda4c9d2",
@@ -62972,11 +63363,11 @@
           "unknown_amount_ids": []
         },
         {
-          "amount_minor": 243554,
+          "amount_minor": 228699,
           "currency": "USD",
           "fulfillment": "ON-ORDER",
           "purchase_ids": [
-            "pur-1ead43e8eead4989adf3de560d23febe",
+            "pur-14f8f47e82a74b129f4677cb0fc2a67d",
             "pur-242d69307ce84a69948b9e502ff3dd71",
             "pur-24623d00c3e94898adf2465f7537b1bd",
             "pur-2c46198fe81f4cf7bf5a65d4e4ec638a",
@@ -62989,16 +63380,13 @@
             "pur-5f9b203a9810468f8bab74284d78f44d",
             "pur-6655f4a0c1c747bc8ce06a69596eb432",
             "pur-6bc71f4f15b34503ac9bf8beea6ef815",
-            "pur-7a2c9d6f4b8e4d1a3f6c0b2d4e5f7a96",
             "pur-7ebe706384b34c718af7af886e0988d7",
             "pur-7f5e5ae2f85e4d74bca9edb78b7332f0",
+            "pur-89b25fbe2a3e44adb4cbb188ab8a820f",
             "pur-8b3d0e7a5c9f4e2b4a7d1c3e5f6a8b07",
-            "pur-9a08e76abb825705aff0991b6c1bf389",
-            "pur-9d9726d27ea04842b803208c17fd1b37",
             "pur-9fe3b15945c3487da36214f92b80f9ee",
             "pur-a326599d5b464456b43259262c4808ba",
             "pur-a9aeeb7107e24ef68654ee86aa1fbe14",
-            "pur-abd647629bfa41e1ae7de9bf129dbf44",
             "pur-ae7d87fe77614d0098db388d7f0fa11d",
             "pur-d95243a541864bd887feefcc369098d4",
             "pur-f2a6d291d92649da94f37b960613d32e"
@@ -63018,7 +63406,7 @@
       "cancelled_with_evidenced_charge_purchase_ids": [],
       "expected_refund_event_ids": [],
       "outstanding_purchase_ids": [
-        "pur-1ead43e8eead4989adf3de560d23febe",
+        "pur-14f8f47e82a74b129f4677cb0fc2a67d",
         "pur-242d69307ce84a69948b9e502ff3dd71",
         "pur-24623d00c3e94898adf2465f7537b1bd",
         "pur-2c46198fe81f4cf7bf5a65d4e4ec638a",
@@ -63031,16 +63419,13 @@
         "pur-5f9b203a9810468f8bab74284d78f44d",
         "pur-6655f4a0c1c747bc8ce06a69596eb432",
         "pur-6bc71f4f15b34503ac9bf8beea6ef815",
-        "pur-7a2c9d6f4b8e4d1a3f6c0b2d4e5f7a96",
         "pur-7ebe706384b34c718af7af886e0988d7",
         "pur-7f5e5ae2f85e4d74bca9edb78b7332f0",
+        "pur-89b25fbe2a3e44adb4cbb188ab8a820f",
         "pur-8b3d0e7a5c9f4e2b4a7d1c3e5f6a8b07",
-        "pur-9a08e76abb825705aff0991b6c1bf389",
-        "pur-9d9726d27ea04842b803208c17fd1b37",
         "pur-9fe3b15945c3487da36214f92b80f9ee",
         "pur-a326599d5b464456b43259262c4808ba",
         "pur-a9aeeb7107e24ef68654ee86aa1fbe14",
-        "pur-abd647629bfa41e1ae7de9bf129dbf44",
         "pur-ae7d87fe77614d0098db388d7f0fa11d",
         "pur-b6c01a5b012340fc888139c1070dc054",
         "pur-c887374045604177851c4a81cc779f0e",
@@ -63052,7 +63437,9 @@
     "merchant_payments": {
       "basis": "Confirmed merchant-evidenced project charges and issued monetary refunds by merchant event calendar month; bank posting is outside this ledger. Expected events, authorizations, noncash credits and unresolved project shares are excluded from charges/refunds/net.",
       "expected_event_ids": [
+        "evt-0daeac8a24434db6abdfdeb3d8dc4a57",
         "evt-1399a1a835ce4be3a489628c06225b33",
+        "evt-44d3b6c0a264492589465271e6914753",
         "evt-5a6637d18fab4dbaa2c3a7428c33273f",
         "evt-5fddb80e882c4533bf9042d5a74088cc",
         "evt-7f73633b6a97457eaa442c0429f18359",
@@ -63387,8 +63774,10 @@
           "currency": "USD",
           "event_ids": [
             "evt-0447af18f1f34778b9cd0f9facee2d40",
+            "evt-0daeac8a24434db6abdfdeb3d8dc4a57",
             "evt-1399a1a835ce4be3a489628c06225b33",
             "evt-1bead24454464c688dab3d4b9f2bc2bc",
+            "evt-44d3b6c0a264492589465271e6914753",
             "evt-5a6637d18fab4dbaa2c3a7428c33273f",
             "evt-5fddb80e882c4533bf9042d5a74088cc",
             "evt-66df2a83d9084e9d984fb5305fa95c49",
@@ -64058,7 +64447,7 @@
           "currency": "USD",
           "estimate_minor": 234492,
           "evidence_scope": "retrieved_records_only",
-          "final_vendor_amount_minor": 146725,
+          "final_vendor_amount_minor": 146361,
           "legacy_unverified_minor": 30634,
           "month": "2026-10",
           "purchase_ids": [
@@ -64120,28 +64509,30 @@
             "pur-f7d7511ce9394cae80352c28342d27fd",
             "pur-f98feadd5dec4c1cba460dd7c74baa09"
           ],
-          "total_minor": 411851,
+          "total_minor": 411487,
           "unknown_amount_ids": []
         },
         {
           "currency": "USD",
           "estimate_minor": 30728,
           "evidence_scope": "retrieved_records_only",
-          "final_vendor_amount_minor": 5669,
+          "final_vendor_amount_minor": 9742,
           "legacy_unverified_minor": 0,
           "month": "2026-11",
           "purchase_ids": [
+            "pur-14f8f47e82a74b129f4677cb0fc2a67d",
             "pur-24623d00c3e94898adf2465f7537b1bd",
             "pur-3161c146b8ef40e5817e13af4dc07846",
             "pur-3fca793e96a64c20b79ac0831efc3b50",
             "pur-5f9b203a9810468f8bab74284d78f44d",
             "pur-6655f4a0c1c747bc8ce06a69596eb432",
             "pur-7ebe706384b34c718af7af886e0988d7",
+            "pur-89b25fbe2a3e44adb4cbb188ab8a820f",
             "pur-9a08e76abb825705aff0991b6c1bf389",
             "pur-9fe3b15945c3487da36214f92b80f9ee",
             "pur-a9aeeb7107e24ef68654ee86aa1fbe14"
           ],
-          "total_minor": 36397,
+          "total_minor": 40470,
           "unknown_amount_ids": []
         },
         {
@@ -64158,7 +64549,7 @@
       ],
       "purpose_totals": [
         {
-          "amount_minor": 1147160,
+          "amount_minor": 1150869,
           "currency": "USD",
           "purpose": "components"
         },
@@ -64197,9 +64588,9 @@
         {
           "currency": "USD",
           "estimate_minor": 429273,
-          "final_vendor_amount_minor": 2122783,
+          "final_vendor_amount_minor": 2126492,
           "legacy_unverified_minor": 2387447,
-          "total_minor": 4939503
+          "total_minor": 4943212
         }
       ],
       "undated_unallocated": [
@@ -64359,7 +64750,7 @@
           "legacy_unverified_purchase_minor": 2387447,
           "order_only_charge_allocation_minor": 6561,
           "partial_charge_purchase_minor": 0,
-          "purchases_without_merchant_charge_minor": 3158104,
+          "purchases_without_merchant_charge_minor": 3161813,
           "undated_charge_minor": 57998,
           "undated_refund_minor": 0,
           "undated_unallocated_purchase_minor": 925993,
@@ -65034,6 +65425,7 @@
         "pur-1394610e499a45c08ba665ed1200053c",
         "pur-13edb378f91f4c0096a5acc8e7b4f47f",
         "pur-1418475befc24e8d84276f0630a162d0",
+        "pur-14f8f47e82a74b129f4677cb0fc2a67d",
         "pur-15aa744ac25044dfbfa60c8ba73be920",
         "pur-15b53ba788894023ba6af4c0e99a5924",
         "pur-15dbf40e55224aad9c7ea18d7c68b11b",
@@ -65291,6 +65683,7 @@
         "pur-88ca0527b3ab43cbb73c23e13a806b9c",
         "pur-891c7eeab5084844ae5e5bd9910213e7",
         "pur-899e1d6d76f847ab91e145eed0147cb6",
+        "pur-89b25fbe2a3e44adb4cbb188ab8a820f",
         "pur-89e490b0d2914be3aa97ec95d97adef7",
         "pur-8a85e9d576814316aeb8ba10a5f0992b",
         "pur-8b077cfa48914cb4aa77a40fc39a5fb4",
@@ -65548,8 +65941,10 @@
       ],
       "undated_unallocated_event_ids": [
         "evt-0447af18f1f34778b9cd0f9facee2d40",
+        "evt-0daeac8a24434db6abdfdeb3d8dc4a57",
         "evt-1399a1a835ce4be3a489628c06225b33",
         "evt-1bead24454464c688dab3d4b9f2bc2bc",
+        "evt-44d3b6c0a264492589465271e6914753",
         "evt-5a6637d18fab4dbaa2c3a7428c33273f",
         "evt-5fddb80e882c4533bf9042d5a74088cc",
         "evt-66df2a83d9084e9d984fb5305fa95c49",
@@ -65763,7 +66158,7 @@
       "coverage-fee7edc5545c4ce58fba854587790eb4: evidence coverage is partial",
       "Legacy order 112-0019658-3684217: row valuation USD 139.80, preserved project invoice USD 139.81; historical allocation residual USD +0.01. Original prices retained; no balancing payment invented.",
       "Legacy order 112-0066205-0960237: row valuation USD 423.94, preserved project invoice USD 423.95; historical allocation residual USD +0.01. Original prices retained; no balancing payment invented.",
-      "12 legacy named order(s) lack an exact invoice allocation check",
+      "14 legacy named order(s) lack an exact invoice allocation check",
       "1 preserved potentially project order(s) have no named Markdown row"
     ]
   }
