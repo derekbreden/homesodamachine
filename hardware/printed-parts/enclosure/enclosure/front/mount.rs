@@ -46,7 +46,7 @@ pub fn stock(g: &mut Graph, b: &Box, silhouette: Shape) -> Shape {
     g.intersect(fill, &[silhouette])
 }
 
-/// The pump wells and local screw pockets open to the seam; stock remains between retainers.
+/// The pump wells and retainer rooms open to the seam under a flat insert-bearing ceiling.
 pub fn loading_opening(g: &mut Graph, b: &Box) -> Shape {
     let d = datums(b);
     let mut rooms = Vec::new();
@@ -65,9 +65,9 @@ pub fn loading_opening(g: &mut Graph, b: &Box) -> Shape {
                      [port-r,d.bearing_z-r]]));
         }
         let (y0,y1) = (d.y0-running(), d.y1+running());
-        let roof = d.retainer_top_z + clearance(false,true,false);
-        rooms.push(g.yz_prism(x-retain::HALF_X-running(), x+retain::HALF_X+running(),
-            vec![[y0,Z_SEAM-20.],[y1,Z_SEAM-20.],[y1,roof],[y0,roof+2.*(y1-y0)]]));
+        let roof = retain::insert_start(b).max(d.retainer_top_z + clearance(false,true,false));
+        rooms.push(g.box_([x-retain::HALF_X-running(), x+retain::HALF_X+running(),
+            y0,y1,Z_SEAM-20.,roof]));
     }
     let empty = g.empty();
     g.union(empty,&rooms)
@@ -353,7 +353,7 @@ pub fn fixed_cuts(g: &mut Graph, b: &Box) -> Vec<Shape> {
     out
 }
 
-/// Broad upper flange stops and local insert posts retain each pump independently.
+/// Broad upper flange stops and insert bores in the continuous ceiling retain each pump independently.
 pub fn retainer_anchors(g: &mut Graph, b: &Box, piece: Shape) -> Shape {
     let d=datums(b);
     let (mut core, exterior)=g.additive_parts(piece).map(|(a,c)|(a,Some(c))).unwrap_or((piece,None));
@@ -363,9 +363,6 @@ pub fn retainer_anchors(g: &mut Graph, b: &Box, piece: Shape) -> Shape {
             retain::UPPER_STOP_FORE_Y,retain::UPPER_STOP_AFT_Y,d.bearing_z,d.bearing_z+4.*WALL]);
         core=g.union(core,&[stop]);
         for x in retain::screw_xs(p[0]) {
-            let post=g.box_([x-retain::POST_HALF_X,x+retain::POST_HALF_X,
-                retain::POST_FORE_Y,retain::POST_AFT_Y,d.flange_z+retain::POST_BOTTOM,d.flange_z+retain::POST_TOP]);
-            core=g.union(core,&[post]);
             let z=retain::insert_start(b);
             let (r0,r1)=(retain::PILOT_DIAMETER/2.,retain::CLEARANCE_DIAMETER/2.);
             let shoulder=z+retain::INSERT_LENGTH;

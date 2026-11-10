@@ -41,6 +41,12 @@ the original scene intact. Conversion failures appear in its `unknown` list.
 `move --min-volume` selects the smallest reported penetration in mm³ (default `1e-6`);
 the response states that threshold.
 
+Use `--against` for a move relative to a named obstacle. It reads only the selected pair:
+
+```sh
+hsm move pump-a-head --by 0 0 -10 --against enclosure-front-top
+```
+
 All coordinates are the payload's world frame, lengths are mm and volumes are mm³. Replies
 carry the payload SHA-256, the recorded STEP digest, any recorded mesh reduction budget, load
 time and total service time. Geometry queries describe the mesh on disk. A source edit reaches
