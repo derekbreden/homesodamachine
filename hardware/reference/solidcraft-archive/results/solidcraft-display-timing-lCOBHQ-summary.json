@@ -1,0 +1,147 @@
+{
+  "purpose": "This record measures the manual display export and packing work for the SolidCraft assembly study.",
+  "measured_at_utc": "2026-11-09T07:43:23.579910+00:00",
+  "source_revision": "96b61e28d35e599c5620c705ff14f275b9b4aa03",
+  "solidcraft_version": "0.40.0-rc.3",
+  "packer_sha256": "f593f48fb52c0ab758b0711c792c1e86031ea6d1ea9cf8f591ff1c1a3a227d36",
+  "sample": {
+    "files": 7,
+    "input_triangles": 685912,
+    "native_export_commands_s": 5.825927,
+    "standalone_reopen_and_export_s": 62.026278001008905,
+    "packing_wall_s": 31.339214250001532,
+    "models": [
+      {
+        "name": "guide-rod",
+        "source_sc_sha256": "e875a8f7c424077baa1d9929ef5aa826b25bf992a763c13f54e4230e05905f04",
+        "reopen_and_export_s": 0.4982979999986128,
+        "export_command_s": 0.056195,
+        "input_triangles": 1632
+      },
+      {
+        "name": "machined-cap",
+        "source_sc_sha256": "7b3e15966773c82955c7699de39df80419ecc0bc4b75e6f6ac31c1e0876a9940",
+        "reopen_and_export_s": 2.5393177500009187,
+        "export_command_s": 0.018449999999999998,
+        "input_triangles": 1180
+      },
+      {
+        "name": "reed-bridge",
+        "source_sc_sha256": "53af0bb6cb2289bda9aa5f8436632c0d1b25b2160437ac3b3e1c139cec662c36",
+        "reopen_and_export_s": 5.990747417003149,
+        "export_command_s": 0.030104,
+        "input_triangles": 4490
+      },
+      {
+        "name": "vessel-tube",
+        "source_sc_sha256": "ae42432c97d2a198ce2a382ab53f236e4a0b7b5caa6b9e8568197ab1a2f3a4d7",
+        "reopen_and_export_s": 1.8123310000009951,
+        "export_command_s": 0.943701,
+        "input_triangles": 170788
+      },
+      {
+        "name": "weldment-reference",
+        "source_sc_sha256": "684d5563a264a62841b3ed14200ee13e6b91c672d64e5200d4a10c8534c3ebef",
+        "reopen_and_export_s": 0.085348000000522,
+        "export_command_s": 0.048453,
+        "input_triangles": 11576
+      },
+      {
+        "name": "coil",
+        "source_sc_sha256": "37bafdcd09eb05419b222ad79422fe911197acd016e1f1b0414963e162dc266a",
+        "reopen_and_export_s": 39.80369929200242,
+        "export_command_s": 2.4758739999999997,
+        "input_triangles": 183472
+      },
+      {
+        "name": "instrumented-reference",
+        "source_sc_sha256": "a597d35e2176d772c4b52c9f73bfa84a2d5e8737c762fa842039194ebca1e6e1",
+        "reopen_and_export_s": 11.296536542002286,
+        "export_command_s": 2.25315,
+        "input_triangles": 312774
+      }
+    ]
+  },
+  "current_machine_mesh_proxy": {
+    "bodies": 449,
+    "assets": 441,
+    "placed_triangles": 9614604,
+    "unique_triangles": 9596844,
+    "missing": [],
+    "largest": [
+      {
+        "name": "valve-v-a",
+        "triangles": 748192,
+        "vertices": 410488
+      },
+      {
+        "name": "vk-solenoid",
+        "triangles": 748192,
+        "vertices": 410488
+      },
+      {
+        "name": "cold-core/valve-v-b",
+        "triangles": 748192,
+        "vertices": 410488
+      },
+      {
+        "name": "enclosure-back-top",
+        "triangles": 627462,
+        "vertices": 336047
+      },
+      {
+        "name": "cold-core/g-ganen-pump",
+        "triangles": 599044,
+        "vertices": 524474
+      },
+      {
+        "name": "enclosure-back-bottom",
+        "triangles": 512762,
+        "vertices": 301201
+      },
+      {
+        "name": "enclosure-front-top",
+        "triangles": 385134,
+        "vertices": 216372
+      },
+      {
+        "name": "tube-fluid-14",
+        "triangles": 256000,
+        "vertices": 136448
+      },
+      {
+        "name": "enclosure-front-bottom",
+        "triangles": 253842,
+        "vertices": 145605
+      },
+      {
+        "name": "tube-fluid-16",
+        "triangles": 204288,
+        "vertices": 109056
+      }
+    ]
+  },
+  "scope": [
+    "Native CAD opening and reconstruction are separate from the measured export commands.",
+    "No entire SolidCraft enclosure or all-levels display build is measured."
+  ],
+  "planning_estimate": {
+    "full_display_layer_s": [
+      600,
+      1800
+    ],
+    "basis": "Planning range extrapolated from the native sample and the existing enclosure-quadrant packing measurement, at the current machine triangle budget with work repeated across browsable levels. No complete SolidCraft enclosure is timed.",
+    "excludes": [
+      "Native CAD model construction",
+      "Network publication and deployment"
+    ],
+    "incremental_requirement": "Cache unchanged assets and rebuild only changed display representations and affected parents; the whole-machine pipeline is not implemented."
+  },
+  "enclosure_quadrant_proxy": {
+    "source_payload_sha256": "0cf3effba3509d9dcc960acfadb6f4e8840a1271476e074b42fc34148120a961",
+    "source_triangles": 627462,
+    "obj_conversion_s": 0.7605223749997094,
+    "packing_s": 11.29794770800072,
+    "measured_scope": "Packing existing enclosure geometry only; no SolidCraft enclosure rebuild."
+  }
+}
