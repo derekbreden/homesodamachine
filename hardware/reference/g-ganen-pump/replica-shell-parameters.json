@@ -134,5 +134,10 @@
     "loss": "soft_l1",
     "loss_scale_mm": 0.03,
     "training_source_index_mod_5_excludes": 0
+  },
+  "reference_geometry": {
+    "path": "reference/g-ganen-pump/g-ganen-pump.step.mesh",
+    "sha256": "6c7e82cec104661f3eec463f5351bf620caf9b88fe6ec0f409bf96fcdcf4c05e",
+    "scope": "Current detailed purchased reference, including later under-head open air and underside relief. The standalone replica retains supplied feet; normal installation removes the complete rubber-slider bodies."
   }
 }

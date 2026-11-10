@@ -9,9 +9,10 @@
   },
   "members": {
     "g-ganen-pump.fine.step.npz": "d7c3c7a3a87f6b78d73efb1e7d02a83f5edd8469371b366886deed098e597fcd",
-    "g-ganen-replica.step": "6e0dd9c975ffaf8289687d7b6df42c684e499497ba7fa7a846d2f72383d504ca",
-    "g-ganen-replica.step.npz": "bbddf8efe862baec86c49d32e6ee45389d09b990199df24088c8d89de4937005",
-    "g-ganen-replica.step.mesh": "ecb9438225beaf1e014ccd20492d70c46656b064aa9a1d92ebdaaf5d87ffed71"
+    "g-ganen-replica.step": "e6b30e992f9dfe49d9fa4f268f91db40daf0d0223881d41afb98b2364aaa9b42",
+    "g-ganen-replica.step.npz": "ea7e209cbb8333bc91a4d151f231a1db9beb44c4c63f0f65a5eea501b53eddbc",
+    "g-ganen-replica.step.mesh": "00adb176df71aed13fec1fd593f683558bf0655461936d915a33346c55c7b1a5",
+    "g-ganen-pump.step.mesh": "6c7e82cec104661f3eec463f5351bf620caf9b88fe6ec0f409bf96fcdcf4c05e"
   },
   "fine_models": {
     "g-ganen-pump.step": {
@@ -53,8 +54,8 @@
     },
     "g-ganen-replica.step": {
       "path": "g-ganen-replica.step.npz",
-      "sha256": "bbddf8efe862baec86c49d32e6ee45389d09b990199df24088c8d89de4937005",
-      "source_step_sha256": "6e0dd9c975ffaf8289687d7b6df42c684e499497ba7fa7a846d2f72383d504ca",
+      "sha256": "ea7e209cbb8333bc91a4d151f231a1db9beb44c4c63f0f65a5eea501b53eddbc",
+      "source_step_sha256": "e6b30e992f9dfe49d9fa4f268f91db40daf0d0223881d41afb98b2364aaa9b42",
       "producer": "hardware/reference/g-ganen-pump/replica.rs",
       "presentation_indices": [
         0,
@@ -88,24 +89,24 @@
   "qualification_scope": "Exact current purchased-reference construction. No physical pump/mount/retention qualification is advanced.",
   "replica_source": {
     "path": "hardware/reference/g-ganen-pump/replica.rs",
-    "sha256": "ca4b0cdb80474e592a519157d09ec57e4936cebd107cc9f9a2547423c8f79022"
+    "sha256": "cd73487508e87da8c860d074051cfd2cf02ec83de375e414c632816a3b105dbf"
   },
   "replica_inputs": {
     "hardware/reference/g-ganen-pump/reference-parameters.json": "3b91bd7ff1216bc5dc8b9806d53f4f2f7bd038323b201c6d6cc6e029e42fc591",
-    "hardware/reference/g-ganen-pump/replica-shell-parameters.json": "efdd4710a9b64ea2a0d26d215a85de927cf335d0cd513e2d599f4ce26f110480",
-    "hardware/reference/g-ganen-pump/integration-envelope/g-ganen-integration-envelope.step.mesh": "bb2a70cbb7585ad42fa2266441f3482156622c751b8772cb609988e76bda9461"
+    "hardware/reference/g-ganen-pump/replica-shell-parameters.json": "82dbe619ffecb940cd37e028dbed8d45347253e715907847304b7555d78f1f65",
+    "hardware/reference/g-ganen-pump/g-ganen-pump.step.mesh": "6c7e82cec104661f3eec463f5351bf620caf9b88fe6ec0f409bf96fcdcf4c05e"
   },
   "fine_payloads": {
     "g-ganen-replica.step": {
       "path": "g-ganen-replica.step.mesh",
-      "sha256": "ecb9438225beaf1e014ccd20492d70c46656b064aa9a1d92ebdaaf5d87ffed71",
-      "source_step_sha256": "6e0dd9c975ffaf8289687d7b6df42c684e499497ba7fa7a846d2f72383d504ca",
+      "sha256": "00adb176df71aed13fec1fd593f683558bf0655461936d915a33346c55c7b1a5",
+      "source_step_sha256": "e6b30e992f9dfe49d9fa4f268f91db40daf0d0223881d41afb98b2364aaa9b42",
       "producer": "hardware/reference/g-ganen-pump/replica.rs",
       "color_space": "linear-rgb"
     }
   },
   "replica_evidence": {
     "path": "g-ganen-replica-fit.json",
-    "sha256": "7129ad883530d3d83081c26f5592a1ca3773019b86a0de58172ddfa3d1087b51"
+    "sha256": "c2d07a099e4a7172fdeb305934b7f6c8dca4b1e0e0183204fa5c1ec958771152"
   }
 }
