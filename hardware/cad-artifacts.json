@@ -91,7 +91,7 @@
     "hardware/pcb/pcba/out/pcba.topmask.png": "f5c812145f11231bae7ad753360ea6843ebdd98a22650fdb0d113027ab3bd614",
     "hardware/pcb/pcba/out/pcba.topmask.svg": "74d4ebe12f7195beb565f9a0a7198016484c624ccfc3908caf15c9826a22dbaa",
     "hardware/printed-parts/asse-drain-adapter/asse-drain-adapter.step": "bb59facc1f5378e4f4c1b09d7742498d7a7b11d64ebc6251a3f67311d25f94ef",
-    "hardware/printed-parts/asse-drain-adapter/asse-drain-adapter.step.mesh": "cb355384a40e5ac39381765aa170cbb9ca113479da28ae309f039461b09aa70d",
+    "hardware/printed-parts/asse-drain-adapter/asse-drain-adapter.step.mesh": "192cb511c9bd723d16f931037c741fb143fa7000b522a574d13fc47f50854806",
     "hardware/printed-parts/asse-drain-adapter/asse-drain-adapter.stl": "f18c51c93ffd29b794cab4ce04756f8fe3d6d28282884b0608f7e8d43f56b8a2",
     "hardware/printed-parts/asse-straight-cuffs/asse-inlet-cuff.step": "497993beffe16a8a44dc16b30c90a398421f1feda23259d071cad705e8a68c10",
     "hardware/printed-parts/asse-straight-cuffs/asse-inlet-cuff.step.json": "da4317af62970098f06ba9653b97fde9523bbfc014cc12ad2a2e772d1fffad41",
@@ -974,7 +974,7 @@
       "hardware/pcb/pcba/out/pcba.topmask.png": "f5c812145f11231bae7ad753360ea6843ebdd98a22650fdb0d113027ab3bd614",
       "hardware/pcb/pcba/out/pcba.topmask.svg": "74d4ebe12f7195beb565f9a0a7198016484c624ccfc3908caf15c9826a22dbaa",
       "hardware/printed-parts/asse-drain-adapter/asse-drain-adapter.step": "bb59facc1f5378e4f4c1b09d7742498d7a7b11d64ebc6251a3f67311d25f94ef",
-      "hardware/printed-parts/asse-drain-adapter/asse-drain-adapter.step.mesh": "cb355384a40e5ac39381765aa170cbb9ca113479da28ae309f039461b09aa70d",
+      "hardware/printed-parts/asse-drain-adapter/asse-drain-adapter.step.mesh": "192cb511c9bd723d16f931037c741fb143fa7000b522a574d13fc47f50854806",
       "hardware/printed-parts/asse-drain-adapter/asse-drain-adapter.stl": "f18c51c93ffd29b794cab4ce04756f8fe3d6d28282884b0608f7e8d43f56b8a2",
       "hardware/printed-parts/asse-straight-cuffs/asse-inlet-cuff.step": "497993beffe16a8a44dc16b30c90a398421f1feda23259d071cad705e8a68c10",
       "hardware/printed-parts/asse-straight-cuffs/asse-inlet-cuff.step.json": "da4317af62970098f06ba9653b97fde9523bbfc014cc12ad2a2e772d1fffad41",
@@ -2182,7 +2182,7 @@
     "hardware/pcb/pcba/out/pcba.topmask.png": 1792442215,
     "hardware/pcb/pcba/out/pcba.topmask.svg": 1792442215,
     "hardware/printed-parts/asse-drain-adapter/asse-drain-adapter.step": 1794333360.035555,
-    "hardware/printed-parts/asse-drain-adapter/asse-drain-adapter.step.mesh": 1794333341.436938,
+    "hardware/printed-parts/asse-drain-adapter/asse-drain-adapter.step.mesh": 1794333521.231233,
     "hardware/printed-parts/asse-drain-adapter/asse-drain-adapter.stl": 1794333360.035555,
     "hardware/printed-parts/asse-straight-cuffs/asse-inlet-cuff.step": 1793652093,
     "hardware/printed-parts/asse-straight-cuffs/asse-inlet-cuff.step.json": 1793750338,
@@ -3201,7 +3201,7 @@
       "unproven": true
     },
     "hardware/printed-parts/asse-drain-adapter/asse-drain-adapter.step.mesh": {
-      "commit": "3808b900868f158514810f820df125412ff5c8f2",
+      "commit": "6cf2d4f59ff5eef7944566c977c2ba6cd6927a94",
       "inputs": "ad35a68060342bad5493e71d429e38dff51600a5073c359b7e4f6e7f8d55f991",
       "unproven": true
     },
