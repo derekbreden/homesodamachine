@@ -10,7 +10,9 @@ generation from physical release. Default emits interface paths in a low band
 while bare tree paths continue along the higher curve. Explicit Tree Slim emits
 interface paths into that curved band at the same requested contact gap and
 density. Increasing the general XY distance alone leaves the upper interface
-absent. These native comparisons have no physical removal result.
+absent. The [Mark1 Slim removal result](https://github.com/derekbreden/homesodamachine/blob/1fe50e4ff3209adc4afd6299082bfca21cd8511c/hardware/print-tests/petgf-dense-roofs/inclines/prints/2026-11-10-faucet-slim-mark1/physical-result/physical-result.json)
+records retained contact material despite screwdriver prying. Roof generation
+alone does not qualify release.
 
 Each coupon has a single anchoring wall and open remaining edges. Its bed tab
 carries an identifier without anchoring the free roof edges. Native targets cover
@@ -35,13 +37,13 @@ bead envelopes through the native renderer. Model stock, support stems and dense
 interface paths have separate display colors. The envelopes illustrate the slice;
 they do not simulate molten material, sagging or adhesion.
 
-The planar plates are prepared and unprinted. The faucet curve is
-[printing on Mark1](prints/2026-11-10-faucet-slim-mark1/print-job.json).
-The faucet plate isolates contact
-generation on the actual lower curve without adding anchoring walls or changing
-its geometry. Its native slice emits interface paths into the higher curved
-band; physical release remains unmeasured. Begin with this article. The planar
-plates remain available for a subsequent gap comparison. Record whether
+The planar plates are prepared and unprinted. The [active Mark1 faucet trial](prints/2026-11-10-faucet-slim-gap048-mark1/print-job.json)
+increases the top contact gap on the same article after the
+[completed Slim trial](https://github.com/derekbreden/homesodamachine/blob/1fe50e4ff3209adc4afd6299082bfca21cd8511c/hardware/print-tests/petgf-dense-roofs/inclines/prints/2026-11-10-faucet-slim-mark1/print-job.json)
+failed release. It retains the dense interface, model, pose, side clearance,
+cooling and printer calibration. The [contact comparison](prints/2026-11-10-faucet-slim-gap048-mark1/separation.json)
+reads the emitted interface and model bead envelopes; it does not measure
+molten material or removal force. Record whether
 the mat releases, stems break, contact material remains, or a model course peels
 away. Photograph the underside and removed mat together. A useful planar condition
 next needs the actual faucet lower curve in its production pose before it

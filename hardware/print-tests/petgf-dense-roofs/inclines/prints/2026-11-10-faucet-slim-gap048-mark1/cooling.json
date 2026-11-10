@@ -1,0 +1,83 @@
+{
+  "faucet-slim-gap048-left04-z018-mark1.gcode.3mf": {
+    "added_commanded_motion_seconds": 881.3562591571948,
+    "archive_sha256": "1df8ebdeabf84fa6700c9c0a7d3f801a1caf8206ecd554e75942aa242a6fc62d",
+    "changed": true,
+    "estimate_scope": "Native estimate plus the added constant-feed motion time; acceleration and fan spin-up are not simulated.",
+    "input_archive_sha256": "2f8d2abfbe471c7cffdc8e0a60e449e23b72d59623338ef30eabb2504266e751",
+    "members": [
+      {
+        "added_commanded_motion_seconds": 881.3562591571948,
+        "changed": true,
+        "input_gcode_sha256": "161441c4fad7c86d3a20b9921ff6ddd0be5d5bf84aa6fe1c1a11134e85368bd4",
+        "member": "Metadata/plate_1.gcode",
+        "native_cooled_seed_moves": 4702,
+        "ordinary_model_moves": 90975,
+        "output_gcode_sha256": "d7bc6b0330aef6939b3b95c86c95f3103f77ef68f4de442f147108c7b080628a",
+        "petgf_slots": [
+          0
+        ],
+        "policy": {
+          "grid_mm": 0.2,
+          "height_mm": 0.8
+        },
+        "recovery_by_feature": {
+          "Bridge": [
+            1686.0,
+            6145.62761702718,
+            0.0
+          ],
+          "Floating vertical shell": [
+            1693.0,
+            846.8209718633595,
+            51.89154545270519
+          ],
+          "Gap infill": [
+            54.0,
+            13.355859842915356,
+            0.8359539184473411
+          ],
+          "Inner wall": [
+            8638.0,
+            1915.7036175623343,
+            95.89143532987224
+          ],
+          "Internal solid infill": [
+            3526.0,
+            9955.000719639378,
+            611.7855889409972
+          ],
+          "Outer wall": [
+            6554.0,
+            1299.3676721884758,
+            56.75462501032113
+          ],
+          "Overhang wall": [
+            3.0,
+            1.231785560350072,
+            0.0
+          ],
+          "Sparse infill": [
+            1090.0,
+            962.5293624890041,
+            59.0544422015987
+          ],
+          "Top surface": [
+            35.0,
+            83.8204385459479,
+            5.1426683032548794
+          ]
+        },
+        "recovery_fan_percent": [
+          "70"
+        ],
+        "recovery_moves": 23279,
+        "recovery_speed_limit_mm_s": [
+          "15"
+        ],
+        "scope": "The complete centerline lies in a recent native-cooled model footprint. Motion coordinates and extrusion words are retained; only local part cooling and recovery feed rates change.",
+        "speed_limited_moves": 18098
+      }
+    ]
+  }
+}

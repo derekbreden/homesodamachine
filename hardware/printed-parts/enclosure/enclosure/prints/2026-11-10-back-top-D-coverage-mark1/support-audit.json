@@ -1,0 +1,662 @@
+{
+  "purpose": "Keep the full back-top support audit and the unresolved print-readiness findings beside the next enclosure preparation.",
+  "status": "NOT_READY",
+  "submitted": false,
+  "printer": "Mark1",
+  "geometry_unchanged": true,
+  "stl_sha256": "14ca155df697d912670f155000820f304a76937857d82535641505ec21a3c82b",
+  "source_files_sha256": {
+    "hardware/printed-parts/enclosure/enclosure/enclosure_back_top.rs": "908e8c23ff38365756dc0d2515b0fc2e626244bfa27accd33aa57b2555418fb1",
+    "hardware/printed-parts/enclosure/enclosure/back-top/rear.rs": "155cc010d8b4ff1000a243ea5ad2e7d03e0aa6a92df0e0422f5c2a1690f2f08e",
+    "hardware/printed-parts/enclosure/enclosure/quadrants/above.rs": "fb4aa10cd70b6ca316e2e3b7f2029d6c08b8f774c379f10fc8a5157ce226781e",
+    "hardware/printed-parts/enclosure/enclosure/quadrants/routes.rs": "6b6d6f951d90284f5d800ab795470f7133acc32760f4ab5d27b59c2a9ae896fc",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.print-features.json": "73c0d9bef179b2a64e96e3df5f5b57b523b0e1d9262b7278fe5e6ff9af3df7af",
+    "hardware/printed-parts/enclosure/trial-preparation/pieces.json": "5a9eac5f989f93f646faceaa96066bb6f74d9ce42ef052d44b95362b3cb8d48b"
+  },
+  "scope": "Native commanded paths and sampled bead geometry. Coverage does not establish release, molten-material behavior or finish. Protected-region road counts may include the same segment in overlapping regions. Earlier candidates used the support-plan hashes recorded with them; their narrower exclusions do not establish clearance of the completed cord-passage definition.",
+  "requested_bed_border_mm": 20.0,
+  "surface_inventory": "surface-inventory.json",
+  "current_candidate_coverage": "surface-coverage.json",
+  "contact_targets": 20,
+  "current_candidate": "bed-rooted-control",
+  "current_findings": {
+    "minimum_bed_margin_mm": 16.74,
+    "bed_margins_mm": {
+      "back": 48.60000000000002,
+      "front": 48.704,
+      "left": 16.74,
+      "right": 21.641999999999996
+    },
+    "protected_region_road_counts": {
+      "C14 cord opening through rear wall": 2192,
+      "Internal C14 mount and cord passage": 62
+    },
+    "pilot_clearance": {
+      "scope": "Point samples along each commanded support segment, across its width and actual extrusion height; radius inset excludes the passage skin. It does not simulate removal force or thermal fusion.",
+      "bores_sampled": 19,
+      "sampling_pitch_mm": 0.15,
+      "crossing_road_count": 28,
+      "crossing_bores": [
+        {
+          "name": "Funnel blind pilot component 76",
+          "start_source_mm": [
+            -87.7,
+            259.4915,
+            338.8
+          ],
+          "end_source_mm": [
+            -87.7,
+            259.4915,
+            346.0
+          ],
+          "radius_mm": 2.0,
+          "crossing_road_count": 14
+        },
+        {
+          "name": "Funnel blind pilot component 77",
+          "start_source_mm": [
+            87.7,
+            259.4915,
+            338.8
+          ],
+          "end_source_mm": [
+            87.7,
+            259.4915,
+            346.0
+          ],
+          "radius_mm": 2.0,
+          "crossing_road_count": 14
+        }
+      ]
+    },
+    "sphere_warning_resolution": {
+      "purpose": "Resolve the native review sphere warnings using actual nozzle heights, widths and heights of the emitted support and model roads.",
+      "scope": "Each road is swept by a stadium cross-section: a flat width core plus rounded half-height corners. This reads commanded geometry, not molten material or adhesion.",
+      "warning_count": 29,
+      "rounded_bead_contact_count": 0,
+      "minimum_rounded_bead_gap_mm": 0.07775946484179402
+    },
+    "support_topology": {
+      "1901": {
+        "bed_rooted_bodies": 6,
+        "bodies_without_interface_labels": 0,
+        "explicit_interface_islands": 97,
+        "interface_islands": 97,
+        "model_rooted_bodies": 0,
+        "shortest_build_up_mm": 8.083,
+        "shortest_labelled_build_up_mm": 8.083,
+        "support_bodies": 6
+      }
+    },
+    "critical_coverage": [
+      {
+        "component": 0,
+        "dense_interface_footprint_fraction": 0.011875511875511875,
+        "first_model_top_z_mm": 186.44000244140625,
+        "first_model_features": {
+          "1": 2,
+          "2": 4,
+          "0": 2,
+          "7": 942
+        }
+      },
+      {
+        "component": 1,
+        "dense_interface_footprint_fraction": 0.0,
+        "first_model_top_z_mm": 186.44000244140625,
+        "first_model_features": {
+          "1": 2,
+          "2": 4,
+          "0": 2,
+          "7": 510
+        }
+      },
+      {
+        "component": 2,
+        "dense_interface_footprint_fraction": 0.025835866261398176,
+        "first_model_top_z_mm": 186.44000244140625,
+        "first_model_features": {
+          "1": 2,
+          "2": 6,
+          "0": 2,
+          "7": 376
+        }
+      },
+      {
+        "component": 4,
+        "dense_interface_footprint_fraction": 0.0,
+        "first_model_top_z_mm": 37.63999938964844,
+        "first_model_features": {
+          "1": 2,
+          "2": 24,
+          "0": 2,
+          "7": 37
+        }
+      },
+      {
+        "component": 6,
+        "dense_interface_footprint_fraction": 0.6264382414101758,
+        "first_model_top_z_mm": 16.280000686645508,
+        "first_model_features": {
+          "0": 3
+        }
+      },
+      {
+        "component": 7,
+        "dense_interface_footprint_fraction": 0.8391451977927616,
+        "first_model_top_z_mm": 16.280000686645508,
+        "first_model_features": {
+          "0": 3
+        }
+      },
+      {
+        "component": 9,
+        "dense_interface_footprint_fraction": 0.2798079100577589
+      },
+      {
+        "component": 11,
+        "dense_interface_footprint_fraction": 0.8428675881529196,
+        "first_model_top_z_mm": 83.95999908447266,
+        "first_model_features": {
+          "0": 1
+        }
+      },
+      {
+        "component": 25,
+        "dense_interface_footprint_fraction": 0.23378225630693963,
+        "first_model_top_z_mm": 9.319999694824219,
+        "first_model_features": {
+          "2": 38,
+          "1": 2,
+          "0": 2,
+          "7": 68
+        }
+      },
+      {
+        "component": 26,
+        "dense_interface_footprint_fraction": 0.22693452355915558,
+        "first_model_top_z_mm": 9.319999694824219,
+        "first_model_features": {
+          "2": 38,
+          "1": 2,
+          "0": 2,
+          "7": 68
+        }
+      },
+      {
+        "component": 33,
+        "dense_interface_footprint_fraction": 0.5734314891434025,
+        "first_model_top_z_mm": 87.08000183105469,
+        "first_model_features": {
+          "0": 1
+        }
+      },
+      {
+        "component": 50,
+        "dense_interface_footprint_fraction": 0.0,
+        "first_model_top_z_mm": 38.36000061035156,
+        "first_model_features": {
+          "2": 5,
+          "8": 1
+        }
+      },
+      {
+        "component": 51,
+        "dense_interface_footprint_fraction": 0.0,
+        "first_model_top_z_mm": 38.36000061035156,
+        "first_model_features": {
+          "2": 5,
+          "7": 4
+        }
+      },
+      {
+        "component": 52,
+        "dense_interface_footprint_fraction": 0.26745876275057656,
+        "first_model_top_z_mm": 34.040000915527344,
+        "first_model_features": {
+          "2": 11,
+          "1": 2,
+          "0": 2,
+          "7": 17
+        }
+      },
+      {
+        "component": 53,
+        "dense_interface_footprint_fraction": 0.46615707881365526,
+        "first_model_top_z_mm": 34.040000915527344,
+        "first_model_features": {
+          "2": 11,
+          "1": 2,
+          "0": 2,
+          "7": 17
+        }
+      },
+      {
+        "component": 79,
+        "dense_interface_footprint_fraction": 0.0,
+        "first_model_top_z_mm": 101.0,
+        "first_model_features": {
+          "1": 3,
+          "2": 2,
+          "0": 1
+        }
+      },
+      {
+        "component": 80,
+        "dense_interface_footprint_fraction": 0.041666666666666664,
+        "first_model_top_z_mm": 81.08000183105469,
+        "first_model_features": {
+          "1": 3,
+          "2": 2,
+          "0": 1
+        }
+      },
+      {
+        "component": 83,
+        "dense_interface_footprint_fraction": 0.0,
+        "first_model_top_z_mm": 36.439998626708984,
+        "first_model_features": {
+          "1": 1,
+          "0": 1,
+          "2": 2
+        }
+      }
+    ]
+  },
+  "readiness_requirements": [
+    "Restore actual rail-floor and seat contact coverage with branch routes outside protected passages and pilots. Bed-only rooting does not supply those contacts.",
+    "Place every emitted support, brim and model bead inside the retained bed border.",
+    "Read the initial deposited courses and removal opening of each requested contact in the exact proposed archive.",
+    "Keep curved-contact release unqualified until an applicable physical result supports the selected recipe. The failed faucet trial does not establish that every enclosure incline fails, or that flat rail acceptance transfers to those inclines."
+  ],
+  "native_candidates": [
+    {
+      "candidate": "auto-preparation",
+      "archive_sha256": "89583a6477890967fc43a72d95ae08fb66adcb031deb4f68ea185e7eea82d8c8",
+      "gcode_sha256": "677e5303a731ee9639b25ac91ecd44849f097af3619546d0a0681f558a5cf2cd",
+      "spec_sha256": "52bee8a882eff578bd9692d43c6ec8e65a77e56d8b59dc8fd28a57b27d25a3be",
+      "support_plan_sha256": null,
+      "object_settings": {},
+      "plate_offset_mm": {
+        "reason": "Center the asymmetric external tree envelope of the ceiling-down enclosure inside the usable bed border.",
+        "value": [
+          -4.9,
+          0.0
+        ]
+      },
+      "yaw_degrees": 90.0,
+      "minimum_bed_margin_mm": 16.971,
+      "native_checks": {
+        "archive": true,
+        "bed_border": false,
+        "declared_interiors_support_free": false,
+        "fine_and_transition_bands": true,
+        "show_faces_support_free": false,
+        "solid_hosts_sampled": true,
+        "tie_windows_support_free": true,
+        "z_trim": true
+      },
+      "protected_region_road_counts": {
+        "Internal C14 mount and cord passage": 528,
+        "Pisco receiver": 21
+      },
+      "circumscribed_sphere_warning_roads": 26,
+      "accepted": false
+    },
+    {
+      "candidate": "compact-draft-preparation",
+      "archive_sha256": "1ccf4c02523b6619bb3dac81abdc8a953491787b717f731eff12fc43d2f5b630",
+      "gcode_sha256": "9bdf4021991d2736f6162bb71575da7ec87723014e08aa5a9e83ec8483f02f3f",
+      "spec_sha256": "fee9e62a0c8dd61d5f4679c58812125b0ac09e6423fd6d5d7cb6d45e4122ef3a",
+      "support_plan_sha256": null,
+      "object_settings": {},
+      "plate_offset_mm": {
+        "reason": "Center the asymmetric external tree envelope of the ceiling-down enclosure inside the usable bed border.",
+        "value": [
+          -3.2,
+          0.0
+        ]
+      },
+      "yaw_degrees": 90.0,
+      "minimum_bed_margin_mm": 19.88,
+      "native_checks": {
+        "archive": true,
+        "bed_border": false,
+        "declared_interiors_support_free": false,
+        "fine_and_transition_bands": true,
+        "show_faces_support_free": false,
+        "solid_hosts_sampled": true,
+        "tie_windows_support_free": true,
+        "z_trim": true
+      },
+      "protected_region_road_counts": {
+        "Internal C14 mount and cord passage": 418
+      },
+      "circumscribed_sphere_warning_roads": 33,
+      "accepted": false
+    },
+    {
+      "candidate": "frame-draft-preparation",
+      "archive_sha256": "8c9df6297f145f7964c1b3741e27597dd92c36bf98ec27de3be6659bab28b832",
+      "gcode_sha256": "084e77976fe79b22cb0868a5b704c6a12bc05e3088a193ca99ebb06b963f961f",
+      "spec_sha256": "33e13e5d199be301e4bf35e0cbf6fa65a42068bbfc2fe9eb0165210a6a292c8e",
+      "support_plan_sha256": null,
+      "object_settings": {},
+      "plate_offset_mm": {
+        "reason": "Center the complete tree envelope of the ceiling-down enclosure inside the usable bed border.",
+        "value": [
+          -2.3,
+          0.0
+        ]
+      },
+      "yaw_degrees": 90.0,
+      "minimum_bed_margin_mm": 18.243201,
+      "native_checks": {
+        "archive": true,
+        "bed_border": false,
+        "declared_interiors_support_free": false,
+        "fine_and_transition_bands": true,
+        "show_faces_support_free": false,
+        "solid_hosts_sampled": true,
+        "tie_windows_support_free": true,
+        "z_trim": true
+      },
+      "protected_region_road_counts": {
+        "Internal C14 mount and cord passage": 24
+      },
+      "circumscribed_sphere_warning_roads": 42,
+      "accepted": false
+    },
+    {
+      "candidate": "full-coverage-draft-preparation",
+      "archive_sha256": "754ff788faa33263607c9dd33f902019bd70e9c913627abfa0555ff406f89f9a",
+      "gcode_sha256": "6a01e33eeb7714aaf24e8b4795c1c0b45380777d123a27698820152ae71602c7",
+      "spec_sha256": "a64f2648b99f662e77804de551079285dad040bd708b540bd2de9cbf28237e5a",
+      "support_plan_sha256": null,
+      "object_settings": {},
+      "plate_offset_mm": {
+        "reason": "Center the asymmetric external tree envelope of the ceiling-down enclosure inside the usable bed border.",
+        "value": [
+          -3.175,
+          0.0
+        ]
+      },
+      "yaw_degrees": 90.0,
+      "minimum_bed_margin_mm": 19.41,
+      "native_checks": {
+        "archive": true,
+        "bed_border": false,
+        "declared_interiors_support_free": true,
+        "fine_and_transition_bands": true,
+        "show_faces_support_free": false,
+        "solid_hosts_sampled": true,
+        "tie_windows_support_free": true,
+        "z_trim": true
+      },
+      "protected_region_road_counts": {},
+      "circumscribed_sphere_warning_roads": 37,
+      "accepted": false
+    },
+    {
+      "candidate": "joint-band-draft-preparation",
+      "archive_sha256": "cac318515c6168eedc27e45b663ba3363f930ae1846e8a3bb11b622a5a5652d1",
+      "gcode_sha256": "a1880b7c1cf6b3455c8ef34c669e8f0f6c213e0989782c1f172a33aae004e527",
+      "spec_sha256": "5ba55f6016584a9ddc28d12cbc399cd89235fa46914379d088dfd87061c9f4c9",
+      "support_plan_sha256": null,
+      "object_settings": {},
+      "plate_offset_mm": {
+        "reason": "Center the asymmetric external tree envelope of the ceiling-down enclosure inside the usable bed border.",
+        "value": [
+          -4.9,
+          0.0
+        ]
+      },
+      "yaw_degrees": 90.0,
+      "minimum_bed_margin_mm": 16.749,
+      "native_checks": {
+        "archive": true,
+        "bed_border": false,
+        "declared_interiors_support_free": false,
+        "fine_and_transition_bands": true,
+        "show_faces_support_free": false,
+        "solid_hosts_sampled": true,
+        "tie_windows_support_free": true,
+        "z_trim": true
+      },
+      "protected_region_road_counts": {
+        "Identification channel 1": 5,
+        "Internal C14 mount and cord passage": 43
+      },
+      "circumscribed_sphere_warning_roads": 50,
+      "accepted": false
+    },
+    {
+      "candidate": "manual-preparation",
+      "archive_sha256": "f2f1afec0e00155f7c95554e821f48acc3f821aebe7e5a4e511c278b04f3e52f",
+      "gcode_sha256": "48b0347d290587f49c818f5e3856dc51e5753af97c960f781a480dfcd60a3f6b",
+      "spec_sha256": "40e04f032927727a433388677eb021d51bb67f924b8772f9433b1d4fabf216ef",
+      "support_plan_sha256": null,
+      "object_settings": {},
+      "plate_offset_mm": {
+        "reason": "Center the asymmetric external tree envelope of the ceiling-down enclosure inside the usable bed border.",
+        "value": [
+          -4.9,
+          0.0
+        ]
+      },
+      "yaw_degrees": 90.0,
+      "minimum_bed_margin_mm": 17.014,
+      "native_checks": {
+        "archive": true,
+        "bed_border": false,
+        "declared_interiors_support_free": true,
+        "fine_and_transition_bands": true,
+        "show_faces_support_free": false,
+        "solid_hosts_sampled": true,
+        "tie_windows_support_free": true,
+        "z_trim": true
+      },
+      "protected_region_road_counts": {},
+      "circumscribed_sphere_warning_roads": 28,
+      "accepted": false
+    },
+    {
+      "candidate": "rotated-draft-preparation",
+      "archive_sha256": "083c121f51f94396a6de5307fff53b999a482534cb23cfeb5e59ec18ce8dc26c",
+      "gcode_sha256": "1954a929d053ba783953effb0af5b980539dd06b6b5441a2b35ae3fdab13ce44",
+      "spec_sha256": "5ba8b3b1db8c2b7fca36ad1e542ee38523defc78939fb0ff8faa4b9319ecee2d",
+      "support_plan_sha256": null,
+      "object_settings": {},
+      "plate_offset_mm": {
+        "reason": "Center the complete tree envelope inside the usable bed border at the saved in-plane rotation.",
+        "value": [
+          -3.175,
+          0.0
+        ]
+      },
+      "yaw_degrees": 89.0,
+      "minimum_bed_margin_mm": 16.560111499999998,
+      "native_checks": {
+        "archive": true,
+        "bed_border": false,
+        "declared_interiors_support_free": false,
+        "fine_and_transition_bands": true,
+        "show_faces_support_free": false,
+        "solid_hosts_sampled": true,
+        "tie_windows_support_free": true,
+        "z_trim": true
+      },
+      "protected_region_road_counts": {
+        "Inlet valve post socket 1/-1": 250,
+        "Internal C14 mount and cord passage": 856
+      },
+      "circumscribed_sphere_warning_roads": 46,
+      "accepted": false
+    },
+    {
+      "candidate": "single-wall-trunks-draft-preparation",
+      "archive_sha256": "655ade1621853aab14f272952d1a6cc3539a74b1a0e432c8e750dd1523c7d0ca",
+      "gcode_sha256": "2e0be4bcdb00787a97e48acea8483fe493e58570924c3d8b51d921d0e74ce925",
+      "spec_sha256": "971e90ba6d5f3d299b43a9d4807ca88118d6e0e34ce4ff0a63ff88b6da020b59",
+      "support_plan_sha256": null,
+      "object_settings": {},
+      "plate_offset_mm": {
+        "reason": "Center the asymmetric external tree envelope of the ceiling-down enclosure inside the usable bed border.",
+        "value": [
+          -3.2,
+          0.0
+        ]
+      },
+      "yaw_degrees": 90.0,
+      "minimum_bed_margin_mm": 17.786999999999978,
+      "native_checks": {
+        "archive": true,
+        "bed_border": false,
+        "declared_interiors_support_free": false,
+        "fine_and_transition_bands": true,
+        "show_faces_support_free": false,
+        "solid_hosts_sampled": true,
+        "tie_windows_support_free": true,
+        "z_trim": true
+      },
+      "protected_region_road_counts": {
+        "C14 cord opening through rear wall": 2032,
+        "Internal C14 mount and cord passage": 43
+      },
+      "circumscribed_sphere_warning_roads": 29,
+      "accepted": false
+    },
+    {
+      "candidate": "standard-trunk-draft-preparation",
+      "archive_sha256": "f8f8fac61991511d1f75370f65411806010ed1a3b8ce09302bb700d1cf30807e",
+      "gcode_sha256": "a541424ba9d2272bb7a20f39789a9632915b85b20d0a57b92f7c77e0b84529c4",
+      "spec_sha256": "1b0c3b06440acec34e8bd6aa404c5ceeb5b76f40f2e10550199a25e64207403f",
+      "support_plan_sha256": null,
+      "object_settings": {},
+      "plate_offset_mm": {
+        "reason": "Center the complete tree envelope of the ceiling-down enclosure inside the usable bed border.",
+        "value": [
+          -3.175,
+          0.0
+        ]
+      },
+      "yaw_degrees": 90.0,
+      "minimum_bed_margin_mm": 19.325201,
+      "native_checks": {
+        "archive": true,
+        "bed_border": false,
+        "declared_interiors_support_free": false,
+        "fine_and_transition_bands": true,
+        "show_faces_support_free": false,
+        "solid_hosts_sampled": true,
+        "tie_windows_support_free": true,
+        "z_trim": true
+      },
+      "protected_region_road_counts": {
+        "Internal C14 mount and cord passage": 371
+      },
+      "circumscribed_sphere_warning_roads": 8,
+      "accepted": false
+    },
+    {
+      "candidate": "upright-draft-preparation",
+      "archive_sha256": "9472f4d8544bd3e23216bc944006102e6608bc4f2fcd189998b38b4928020d2b",
+      "gcode_sha256": "fc909c07b60ee2d10171990fa8195dde81afe71f5d2b39742d99cff7cff55f88",
+      "spec_sha256": "e1d64c22f7c583f8b242b8201f731843af8a1bf100fdf7365acbfc6d871be6ec",
+      "support_plan_sha256": null,
+      "object_settings": {},
+      "plate_offset_mm": {
+        "reason": "Center the complete tree envelope of the ceiling-down enclosure inside the usable bed border.",
+        "value": [
+          -3.175,
+          0.0
+        ]
+      },
+      "yaw_degrees": 90.0,
+      "minimum_bed_margin_mm": 17.490201000000013,
+      "native_checks": {
+        "archive": true,
+        "bed_border": false,
+        "declared_interiors_support_free": true,
+        "fine_and_transition_bands": true,
+        "show_faces_support_free": false,
+        "solid_hosts_sampled": true,
+        "tie_windows_support_free": true,
+        "z_trim": true
+      },
+      "protected_region_road_counts": {},
+      "circumscribed_sphere_warning_roads": 34,
+      "accepted": false
+    },
+    {
+      "candidate": "vertical-trunks-draft-preparation",
+      "archive_sha256": "7bc7c01093ccabac0496d2485b5a3d6b5d3722b4074ca849cc8c2f366fff9ac1",
+      "gcode_sha256": "84d24ec4dad480aeff30c656223ac6a617da321cb1812fcc5da51375124d5791",
+      "spec_sha256": "0a04618380f78f803ad99c07b956032a1a042c96fc0c57ea8974275f615f1ae6",
+      "support_plan_sha256": null,
+      "object_settings": {},
+      "plate_offset_mm": {
+        "reason": "Center the asymmetric external tree envelope of the ceiling-down enclosure inside the usable bed border.",
+        "value": [
+          -2.0,
+          0.0
+        ]
+      },
+      "yaw_degrees": 90.0,
+      "minimum_bed_margin_mm": 16.464999999999975,
+      "native_checks": {
+        "archive": true,
+        "bed_border": false,
+        "declared_interiors_support_free": false,
+        "fine_and_transition_bands": true,
+        "show_faces_support_free": false,
+        "solid_hosts_sampled": true,
+        "tie_windows_support_free": true,
+        "z_trim": true
+      },
+      "protected_region_road_counts": {
+        "C14 cord opening through rear wall": 3515,
+        "Identification channel 1": 1778,
+        "Inlet valve post socket 1/-1": 230,
+        "Internal C14 mount and cord passage": 4118
+      },
+      "circumscribed_sphere_warning_roads": 49,
+      "accepted": false
+    },
+    {
+      "candidate": "bed-rooted-control",
+      "archive_sha256": "58e4657d33c9a1bdd43e2a70e2c30459cd7135cb092092598cbc752f9d820c5c",
+      "gcode_sha256": "f8bcc1327644e6660013845b7e95cda7c2da7c5e70366f2c0744ca8d061a0ff6",
+      "spec_sha256": "ef3e0e186cf59197196dfb0334766119f43cfcdb69729fdb9c34d77986b8276b",
+      "support_plan_sha256": "73c0d9bef179b2a64e96e3df5f5b57b523b0e1d9262b7278fe5e6ff9af3df7af",
+      "object_settings": {},
+      "plate_offset_mm": {
+        "reason": "Center the asymmetric external tree envelope of the ceiling-down enclosure inside the usable bed border.",
+        "value": [
+          -4.9,
+          0.0
+        ]
+      },
+      "yaw_degrees": 90.0,
+      "minimum_bed_margin_mm": 16.74,
+      "native_checks": {
+        "archive": true,
+        "bed_border": false,
+        "declared_interiors_support_free": false,
+        "fine_and_transition_bands": true,
+        "show_faces_support_free": false,
+        "solid_hosts_sampled": true,
+        "tie_windows_support_free": true,
+        "z_trim": true
+      },
+      "protected_region_road_counts": {
+        "C14 cord opening through rear wall": 2192,
+        "Internal C14 mount and cord passage": 62
+      },
+      "circumscribed_sphere_warning_roads": 29,
+      "accepted": false
+    }
+  ],
+  "rejected_archive_disposition": "Rejected temporary archives are removed after retaining their hashes, settings and findings. This directory contains no launchable enclosure archive.",
+  "active_release_trial": "hardware/print-tests/petgf-dense-roofs/inclines/prints/2026-11-10-faucet-slim-gap048-mark1/print-job.json"
+}
