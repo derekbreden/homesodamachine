@@ -1,5 +1,9 @@
 # G Ganen diaphragm pump
 
+The [exterior replica](replica-detail.md) separates the observed flat head-cover
+land from its clean round and capsule crown features. The detailed source and
+the separate conservative integration envelope retain their own scope below.
+
 Derek identifies the received sample as **G Ganen, ASIN B07F35PTFR**, and selects
 it for the enclosure. The reference uses three complementary native scans at
 **unit millimetre scale**. Derek measures the rubber pads at approximately 7 mm thick; no independent scan

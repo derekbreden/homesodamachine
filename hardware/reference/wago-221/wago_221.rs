@@ -1,5 +1,5 @@
 //! The WAGO references preserve the seated envelopes and show the molded housing, entry mouths and closed levers.
-use anyhow::Result;
+use anyhow::{Context, Result};
 use hsm_kernel::{Body, Loop, Plane, Profile, Solid, V2, V3, part, v2, v3};
 use std::path::PathBuf;
 
@@ -18,7 +18,6 @@ const SIZES: [Size; 3] = [
     Size { sku: "415", width: 30., depth: 18.6, height: 8.4, per_row: 5, rows: 1 },
     Size { sku: "420", width: 29.8, depth: 18.3, height: 15.8, per_row: 5, rows: 2 },
 ];
-const PITCH: f64 = 5.6;
 const HOUSING_RADIUS: f64 = 0.55;
 const LEVER_WIDTH: f64 = 5.15;
 const LEVER_THICK: f64 = 1.05;
@@ -31,12 +30,26 @@ const LEVER_POCKET_GAP: f64 = 0.12;
 const ENTRY_WIDTH: f64 = 4.6;
 const ENTRY_HEIGHT: f64 = 4.6;
 const ENTRY_RADIUS: f64 = 0.55;
-const ENTRY_FLOOR: f64 = 0.75;
 const ENTRY_THROAT_WIDTH: f64 = 3.3;
 const ENTRY_THROAT_HEIGHT: f64 = 3.25;
 const ENTRY_LEAD: f64 = 1.15;
 const ENTRY_DEPTH: f64 = 6.8;
 const SEAM_DEPTH: f64 = 0.12;
+
+struct TerminalInterfaces {
+    pole_pitch: f64,
+    entry_center_z: f64,
+}
+
+impl TerminalInterfaces {
+    fn load() -> Result<Self> {
+        let data: serde_json::Value = serde_json::from_str(include_str!("terminal-interfaces.json"))?;
+        Ok(Self {
+            pole_pitch: data["pole_pitch_mm"].as_f64().context("WAGO pole pitch")?,
+            entry_center_z: data["entry_center_z_mm"].as_f64().context("WAGO entry height")?,
+        })
+    }
+}
 
 fn rounded(center: V2, width: f64, depth: f64, radius: f64) -> Result<Profile> {
     Ok(Profile::new(Loop::rounded_rect(center, width, depth, radius)?))
@@ -66,8 +79,8 @@ fn lever(size: Size, x: f64) -> Result<(Solid, Solid)> {
     Ok((lever, pocket))
 }
 
-fn entry(size: Size, x: f64) -> Result<Solid> {
-    let center = v2(x, ENTRY_FLOOR + ENTRY_HEIGHT / 2.);
+fn entry(size: Size, x: f64, interfaces: &TerminalInterfaces) -> Result<Solid> {
+    let center = v2(x, interfaces.entry_center_z);
     let mouth = rounded(center, ENTRY_WIDTH, ENTRY_HEIGHT, ENTRY_RADIUS)?;
     let throat = rounded(center, ENTRY_THROAT_WIDTH, ENTRY_THROAT_HEIGHT, ENTRY_RADIUS)?;
     let face = Plane::XZ.at(v3(0., size.depth / 2. + 0.05, 0.));
@@ -77,7 +90,7 @@ fn entry(size: Size, x: f64) -> Result<Solid> {
     lead.union(&passage)
 }
 
-fn build(size: Size) -> Result<(Solid, Solid)> {
+fn build(size: Size, interfaces: &TerminalInterfaces) -> Result<(Solid, Solid)> {
     let row_clear = if size.rows == 2 { 0.25 } else { 0. };
     let mut housing = Plane::XY.at(v3(0., 0., row_clear))
         .extrude(&rounded(V2::ZERO, size.width, size.depth, HOUSING_RADIUS)?,
@@ -98,9 +111,9 @@ fn build(size: Size) -> Result<(Solid, Solid)> {
     let mut tools = Vec::new();
     let mut levers = Vec::new();
     for pole in 0..size.per_row {
-        let x = (pole as f64 - (size.per_row - 1) as f64 / 2.) * PITCH;
+        let x = (pole as f64 - (size.per_row - 1) as f64 / 2.) * interfaces.pole_pitch;
         let (upper, pocket) = lever(size, x)?;
-        let lower_entry = entry(size, x)?;
+        let lower_entry = entry(size, x, interfaces)?;
         tools.push(pocket.clone());
         tools.push(lower_entry.clone());
         levers.push(upper.clone());
@@ -128,9 +141,10 @@ fn srgb(rgb: [f64; 3]) -> [f64; 3] {
 fn main() -> Result<()> {
     let out = PathBuf::from(std::env::args_os().nth(1).unwrap_or_else(|| ".".into()));
     std::fs::create_dir_all(&out)?;
+    let interfaces = TerminalInterfaces::load()?;
     for size in SIZES {
         let name = format!("wago-221-{}", size.sku);
-        let (housing, levers) = build(size)?;
+        let (housing, levers) = build(size, &interfaces)?;
         let bodies = [
             Body { name: &name, color: Some(srgb([0.80, 0.82, 0.82])), solid: &housing },
             Body { name: "closed-levers", color: Some(srgb([0.98, 0.39, 0.035])), solid: &levers },

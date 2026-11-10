@@ -1,23 +1,23 @@
 {
   "source": {
     "path": "hardware/reference/wago-221/wago_221.rs",
-    "sha256": "817d2bd046e6dcb1c8a8ab452459a70083f92d1ba0335500757d81c0d1608f24"
+    "sha256": "6fd4bbad245eca449541b1fc686557ff9a597782c599f0396abf05a76d071bdb"
   },
   "members": {
     "wago-221-413.step": "347e13d997b67c361c15984de75698f9eac46d96cc596d3701cf651b6c2cc482",
-    "wago-221-413.step.npz": "97e205e49e5f7f2c3968579aa144de0f791971f4c67e026167da058ffd67aff5",
-    "wago-221-413.step.mesh": "be80135ba4957869f29d4a0b66accc4654d814d0d7c721b2d6b184bb358f20db",
+    "wago-221-413.step.npz": "d2f669c0fbafc5ae5d50f34fd150d725bc44fc3dad851e5b8e37c9b6a43cec73",
+    "wago-221-413.step.mesh": "476fb9cf57003d777c9462afc352f3fdb4fa522f36a3985a37379111d6203c2d",
     "wago-221-415.step": "88cede1bfe3becede25a5215906f44208edfec09e4d34054f632859d3e61e877",
-    "wago-221-415.step.npz": "19560fb7f777f4d55f6e05b19de613a5dda4364e1f67b1ac39494b4d35040891",
-    "wago-221-415.step.mesh": "97dcf520aeb07e884e0a7a04897fc86f899e20e2b78f30ab20e6d9d7aac10f6d",
+    "wago-221-415.step.npz": "a0b44315a03722ad92caf236864068a435fa62c5c8ae24f0a6b623a8f3585a59",
+    "wago-221-415.step.mesh": "253f763b5013753e3f964c9d99f36db614f1cb81e6d07a8e996a4fe77630286c",
     "wago-221-420.step": "2856c51b09c8b9590e382dab282b45f0361379d30c5e5727cd68f5ed20b28373",
-    "wago-221-420.step.npz": "3b88294f15351de957de516f75743068f1491a523065a32334d8cc1da2c110f9",
-    "wago-221-420.step.mesh": "d81cec9c254c9e25d771a77c3d22ffda702fca0230138886ee470be6a2ecc27f"
+    "wago-221-420.step.npz": "02297655d704f49bccedff5dc1174cef5efb1e4c86fbd79627805c3911596c6f",
+    "wago-221-420.step.mesh": "cf155cece191dfe2e2986d4a1f8557d14b367e78078a729b96222b83f0d451f5"
   },
   "fine_models": {
     "wago-221-413.step": {
       "path": "wago-221-413.step.npz",
-      "sha256": "97e205e49e5f7f2c3968579aa144de0f791971f4c67e026167da058ffd67aff5",
+      "sha256": "d2f669c0fbafc5ae5d50f34fd150d725bc44fc3dad851e5b8e37c9b6a43cec73",
       "source_step_sha256": "347e13d997b67c361c15984de75698f9eac46d96cc596d3701cf651b6c2cc482",
       "producer": "hardware/reference/wago-221/wago_221.rs",
       "presentation_indices": [
@@ -27,7 +27,7 @@
     },
     "wago-221-415.step": {
       "path": "wago-221-415.step.npz",
-      "sha256": "19560fb7f777f4d55f6e05b19de613a5dda4364e1f67b1ac39494b4d35040891",
+      "sha256": "a0b44315a03722ad92caf236864068a435fa62c5c8ae24f0a6b623a8f3585a59",
       "source_step_sha256": "88cede1bfe3becede25a5215906f44208edfec09e4d34054f632859d3e61e877",
       "producer": "hardware/reference/wago-221/wago_221.rs",
       "presentation_indices": [
@@ -37,7 +37,7 @@
     },
     "wago-221-420.step": {
       "path": "wago-221-420.step.npz",
-      "sha256": "3b88294f15351de957de516f75743068f1491a523065a32334d8cc1da2c110f9",
+      "sha256": "02297655d704f49bccedff5dc1174cef5efb1e4c86fbd79627805c3911596c6f",
       "source_step_sha256": "2856c51b09c8b9590e382dab282b45f0361379d30c5e5727cd68f5ed20b28373",
       "producer": "hardware/reference/wago-221/wago_221.rs",
       "presentation_indices": [
@@ -49,7 +49,7 @@
   "fine_payloads": {
     "wago-221-413.step": {
       "path": "wago-221-413.step.mesh",
-      "sha256": "be80135ba4957869f29d4a0b66accc4654d814d0d7c721b2d6b184bb358f20db",
+      "sha256": "476fb9cf57003d777c9462afc352f3fdb4fa522f36a3985a37379111d6203c2d",
       "source_step_sha256": "347e13d997b67c361c15984de75698f9eac46d96cc596d3701cf651b6c2cc482",
       "producer": "hardware/reference/wago-221/wago_221.rs",
       "color_space": "linear-rgb",
@@ -74,7 +74,7 @@
     },
     "wago-221-415.step": {
       "path": "wago-221-415.step.mesh",
-      "sha256": "97dcf520aeb07e884e0a7a04897fc86f899e20e2b78f30ab20e6d9d7aac10f6d",
+      "sha256": "253f763b5013753e3f964c9d99f36db614f1cb81e6d07a8e996a4fe77630286c",
       "source_step_sha256": "88cede1bfe3becede25a5215906f44208edfec09e4d34054f632859d3e61e877",
       "producer": "hardware/reference/wago-221/wago_221.rs",
       "color_space": "linear-rgb",
@@ -99,7 +99,7 @@
     },
     "wago-221-420.step": {
       "path": "wago-221-420.step.mesh",
-      "sha256": "d81cec9c254c9e25d771a77c3d22ffda702fca0230138886ee470be6a2ecc27f",
+      "sha256": "cf155cece191dfe2e2986d4a1f8557d14b367e78078a729b96222b83f0d451f5",
       "source_step_sha256": "2856c51b09c8b9590e382dab282b45f0361379d30c5e5727cd68f5ed20b28373",
       "producer": "hardware/reference/wago-221/wago_221.rs",
       "color_space": "linear-rgb",
@@ -124,6 +124,7 @@
     }
   },
   "inputs": {
-    "hardware/reference/wago-221/replica-evidence.json": "fd6b10fcf57c83c988b6cf01aa22ff092217bfe57dd77e2af4138c4eb10c67b0"
+    "hardware/reference/wago-221/replica-evidence.json": "7c7b226bfc5855043ed337a6fc245c59f032b765a986d7a59f53b20af4e07ea5",
+    "hardware/reference/wago-221/terminal-interfaces.json": "6bdd28523d9edb2f06a0a09ac32b6968d5b1c3a00abcc7623c609a37e583af88"
   }
 }

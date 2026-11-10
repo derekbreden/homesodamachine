@@ -1,0 +1,138 @@
+{
+  "purpose": "The measured head-cover land separates the shell from its distinct crown features.",
+  "source": {
+    "path": "/Users/derekbredensteiner/Documents/3D Scans/2026-09-20-g-ganen-pump/pass-03-feet-down/Fused 0920_1 (0.10mm).ply",
+    "sha256": "2b58def4150ca4146fb1bf1e288d532d5d0e8aa65bcb69615710cd6e0c9fb4c5",
+    "points": 2989594,
+    "coordinate_scale_factor": 1.0
+  },
+  "measurement_pass": "pass-03-feet-down",
+  "native_to_reference": [
+    [
+      -0.36515807688884755,
+      0.4051122232579994,
+      -0.8381787789307236,
+      245.0243685665154
+    ],
+    [
+      0.9300573783260869,
+      0.19807059958193046,
+      -0.309453244614529,
+      21.72304904055836
+    ],
+    [
+      0.040655281379465426,
+      -0.8925537093913255,
+      -0.4491046915227463,
+      139.87009782445264
+    ],
+    [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+    ]
+  ],
+  "registered_measurements_sha256": "616062682f316b5a0567bc067b6341b8674f0b361ed5f2bc9983868e700786bc",
+  "selection": {
+    "xy_regions_mm": [
+      [
+        -43.5,
+        -40.5,
+        -12.0,
+        12.0
+      ],
+      [
+        -37.0,
+        -28.0,
+        16.8,
+        19.0
+      ],
+      [
+        -37.0,
+        -28.0,
+        -19.6,
+        -17.4
+      ],
+      [
+        -19.0,
+        -8.0,
+        17.4,
+        19.8
+      ],
+      [
+        -19.0,
+        -8.0,
+        -19.8,
+        -17.6
+      ]
+    ],
+    "z_interval_mm": [
+      56.45,
+      57.3
+    ],
+    "normal_z_min": 0.985,
+    "stride": 3,
+    "identity": "Visible flat perimeter lands outside the separately observed crown bosses and screwheads."
+  },
+  "head_top_plane": {
+    "z_ax_plus_by_plus_c": [
+      0.008564704758283897,
+      0.0009062197697349868,
+      57.141563477275916
+    ],
+    "outward_normal": [
+      -0.008564387130745239,
+      -0.0009061861619968257,
+      0.9999629143621851
+    ],
+    "selected_points": 2866,
+    "selected_bounds_mm": [
+      [
+        -43.30024124943739,
+        -19.26008672717597,
+        56.622425261854545
+      ],
+      [
+        -8.004670462768104,
+        19.352740321740715,
+        57.13376347805513
+      ]
+    ],
+    "training_residual_mm": {
+      "mean": -0.006840449614266806,
+      "median": 0.004301891768498933,
+      "rms": 0.04494490565717343,
+      "p05": -0.10459676017970203,
+      "p95": 0.049618587777103686,
+      "abs_p95": 0.10502377906473262,
+      "min": -0.20026191745800048,
+      "max": 0.10569684147850467,
+      "n": 2292
+    },
+    "held_out_residual_mm": {
+      "mean": -0.0075089204254879145,
+      "median": 0.004255534375744219,
+      "rms": 0.045795514774305934,
+      "p05": -0.10856011444286758,
+      "p95": 0.04933221220281077,
+      "abs_p95": 0.10856011444286759,
+      "min": -0.1709479908862832,
+      "max": 0.0923550866967986,
+      "n": 574
+    }
+  },
+  "head_x_interval_mm": [
+    -45.9,
+    0.0
+  ],
+  "contour_scope": "The existing shell's observed lower/side contour is retained. Its convex top bridges are removed above the measured land plane, with separate round and capsule crown solids restored. The deeper depressed regions remain filled to that plane; their complete pocket walls are not inferred.",
+  "clearance_scope": "The separate original integration envelope remains the conservative clearance source. The replica intentionally removes known convex overfill and does not claim containment of that entire envelope.",
+  "measurement_program_sha256": "26a072a2e5fc64ebb4057d19d1f857954b3e9c2d3ee33f4e2ebb0cd680238700",
+  "fit_method": {
+    "regression": "z = a*x + b*y + c",
+    "loss": "soft_l1",
+    "loss_scale_mm": 0.03,
+    "training_source_index_mod_5_excludes": 0
+  }
+}

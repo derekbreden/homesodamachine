@@ -56,7 +56,6 @@
   ],
   "anatomy_accuracy": "Visible topology and proportions follow the manufacturer images. Local anatomy dimensions are visual estimates rather than caliper measurements and are not certified contact surfaces.",
   "anatomy_dimensions_source": "wago_221.rs",
-  "pitch_mm": 5.6,
   "image_evidence": [
     {
       "sku": "413",
@@ -98,5 +97,6 @@
   "export_bodies": {
     "housing": "wago-221-<sku>",
     "actuators": "closed-levers"
-  }
+  },
+  "terminal_interfaces": "terminal-interfaces.json"
 }

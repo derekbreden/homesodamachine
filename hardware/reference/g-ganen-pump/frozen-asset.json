@@ -8,7 +8,10 @@
     "hardware/reference/g-ganen-pump/under-head-clearance.json": "f8d572d1176e6056de716842b058861d121fdf636c6e608f2e7492f1ce3d05e5"
   },
   "members": {
-    "g-ganen-pump.fine.step.npz": "d7c3c7a3a87f6b78d73efb1e7d02a83f5edd8469371b366886deed098e597fcd"
+    "g-ganen-pump.fine.step.npz": "d7c3c7a3a87f6b78d73efb1e7d02a83f5edd8469371b366886deed098e597fcd",
+    "g-ganen-replica.step": "6e0dd9c975ffaf8289687d7b6df42c684e499497ba7fa7a846d2f72383d504ca",
+    "g-ganen-replica.step.npz": "bbddf8efe862baec86c49d32e6ee45389d09b990199df24088c8d89de4937005",
+    "g-ganen-replica.step.mesh": "ecb9438225beaf1e014ccd20492d70c46656b064aa9a1d92ebdaaf5d87ffed71"
   },
   "fine_models": {
     "g-ganen-pump.step": {
@@ -47,7 +50,62 @@
         ]
       },
       "producer": "current normal meshcad source construction; ordered fine arrays"
+    },
+    "g-ganen-replica.step": {
+      "path": "g-ganen-replica.step.npz",
+      "sha256": "bbddf8efe862baec86c49d32e6ee45389d09b990199df24088c8d89de4937005",
+      "source_step_sha256": "6e0dd9c975ffaf8289687d7b6df42c684e499497ba7fa7a846d2f72383d504ca",
+      "producer": "hardware/reference/g-ganen-pump/replica.rs",
+      "presentation_indices": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        24
+      ]
     }
   },
-  "qualification_scope": "Exact current purchased-reference construction. No physical pump/mount/retention qualification is advanced."
+  "qualification_scope": "Exact current purchased-reference construction. No physical pump/mount/retention qualification is advanced.",
+  "replica_source": {
+    "path": "hardware/reference/g-ganen-pump/replica.rs",
+    "sha256": "ca4b0cdb80474e592a519157d09ec57e4936cebd107cc9f9a2547423c8f79022"
+  },
+  "replica_inputs": {
+    "hardware/reference/g-ganen-pump/reference-parameters.json": "3b91bd7ff1216bc5dc8b9806d53f4f2f7bd038323b201c6d6cc6e029e42fc591",
+    "hardware/reference/g-ganen-pump/replica-shell-parameters.json": "efdd4710a9b64ea2a0d26d215a85de927cf335d0cd513e2d599f4ce26f110480",
+    "hardware/reference/g-ganen-pump/integration-envelope/g-ganen-integration-envelope.step.mesh": "bb2a70cbb7585ad42fa2266441f3482156622c751b8772cb609988e76bda9461"
+  },
+  "fine_payloads": {
+    "g-ganen-replica.step": {
+      "path": "g-ganen-replica.step.mesh",
+      "sha256": "ecb9438225beaf1e014ccd20492d70c46656b064aa9a1d92ebdaaf5d87ffed71",
+      "source_step_sha256": "6e0dd9c975ffaf8289687d7b6df42c684e499497ba7fa7a846d2f72383d504ca",
+      "producer": "hardware/reference/g-ganen-pump/replica.rs",
+      "color_space": "linear-rgb"
+    }
+  },
+  "replica_evidence": {
+    "path": "g-ganen-replica-fit.json",
+    "sha256": "7129ad883530d3d83081c26f5592a1ca3773019b86a0de58172ddfa3d1087b51"
+  }
 }

@@ -5,7 +5,7 @@
   "references": {
     "wago-221-413.step": {
       "step_sha256": "347e13d997b67c361c15984de75698f9eac46d96cc596d3701cf651b6c2cc482",
-      "fine_model_sha256": "97e205e49e5f7f2c3968579aa144de0f791971f4c67e026167da058ffd67aff5",
+      "fine_model_sha256": "d2f669c0fbafc5ae5d50f34fd150d725bc44fc3dad851e5b8e37c9b6a43cec73",
       "bounds_mm": [
         [
           -9.400000000372529,
@@ -21,7 +21,7 @@
     },
     "wago-221-415.step": {
       "step_sha256": "88cede1bfe3becede25a5215906f44208edfec09e4d34054f632859d3e61e877",
-      "fine_model_sha256": "19560fb7f777f4d55f6e05b19de613a5dda4364e1f67b1ac39494b4d35040891",
+      "fine_model_sha256": "a0b44315a03722ad92caf236864068a435fa62c5c8ae24f0a6b623a8f3585a59",
       "bounds_mm": [
         [
           -15.0,
@@ -37,7 +37,7 @@
     },
     "wago-221-420.step": {
       "step_sha256": "2856c51b09c8b9590e382dab282b45f0361379d30c5e5727cd68f5ed20b28373",
-      "fine_model_sha256": "3b88294f15351de957de516f75743068f1491a523065a32334d8cc1da2c110f9",
+      "fine_model_sha256": "02297655d704f49bccedff5dc1174cef5efb1e4c86fbd79627805c3911596c6f",
       "bounds_mm": [
         [
           -14.900000000372529,
