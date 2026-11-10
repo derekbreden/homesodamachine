@@ -13,7 +13,7 @@ pub const SOURCES: &[&str] = &[
     "reference/digiten-flow-sensor/digiten-flow-sensor.step",
     "reference/neofit-flavor-reducer/neofit-flavor-reducer.step",
     "reference/beduan-solenoid/beduan-solenoid.step",
-    "reference/g-ganen-pump/g-ganen-pump.step",
+    "reference/g-ganen-pump/g-ganen-replica.step",
     "printed-parts/cold-core/foam-cap/pump-snap-cap.step",
     "reference/asse1022-threaded-chain/asse1022-threaded-chain.step",
     "reference/jg-pp0208e-tee/jg-pp0208e-tee.step",
@@ -196,7 +196,11 @@ pub fn numbers(request: &Value) -> Result<Value> {
             "reference",
             pose(spec, name)?,
             color,
-            json!({"source":source}),
+            if matches!(name, "psu" | "relay-1" | "relay-2") {
+                json!({"source":source,"color":null})
+            } else {
+                json!({"source":source})
+            },
         )?;
     }
     for valve in ["valve-v-g", "valve-v-j"] {
@@ -236,7 +240,7 @@ pub fn numbers(request: &Value) -> Result<Value> {
         "reference",
         pose(spec, "g-ganen-pump")?,
         "M_DONOR_BLACK",
-        json!({"source":SOURCES[8]}),
+        json!({"source":SOURCES[8],"color":null}),
     )?;
     let pump = &request["pump_cap"];
     let center = xyz(&pump["centre_world_mm"])?;

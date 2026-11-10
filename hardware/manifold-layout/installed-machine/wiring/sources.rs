@@ -175,8 +175,11 @@ impl Sources {
     /// The plan's instance `name`, when it places its frozen reference's own fine model, with
     /// the STEP that model was cut from.
     fn native_instance(&self, name: &str) -> Result<Option<(&Value, PathBuf)>> {
+        let children = format!("{name}/");
         for instance in self.plan["instances"].as_array().into_iter().flatten() {
-            if instance["name"].as_str() != Some(name) {
+            let Some(alias) = instance["name"].as_str() else { continue };
+            if alias != name && !alias.strip_prefix(children.as_str())
+                .is_some_and(|suffix| suffix.parse::<usize>().is_ok()) {
                 continue;
             }
             let Some(model) = instance["model"].as_str().map(Path::new) else { continue };
