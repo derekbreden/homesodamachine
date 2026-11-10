@@ -8,7 +8,7 @@ fills continuously to the two tube equators.
 
 The section uses the accepted quarter-inch C2 coupon: Ø6.35 mm seat, 2.4 mm
 spring thickness, 125.421° per wing and 8 mm axial span. See the
-[physical fit result](../../../../../future/snap-fit-tests/2026-10-26-mark2-combined/physical-result.json).
+[physical fit result](https://github.com/derekbreden/homesodamachine/blob/2f2d9c94a1c3fbf007dfa1bd7e93095197079895/future/snap-fit-tests/2026-10-26-mark2-combined/physical-result.json).
 The 2.4 mm section is the functional spring exception to ordinary 3 mm stock.
 The complete lid station still needs its own printed access and retention trial.
 

@@ -27,7 +27,7 @@ the compact elbow pair's geometry and placement, at (177.5, 148.5) and
 The [editable pair](2026-10-16-elbow-pair-vertical-center-web-tpu85a-right06-z000-mark1.3mf),
 [standalone STL](single-elbow-with-fin.stl) and [pair STL](connected-pair.stl)
 contain the fins. `prepare_mark1.py` builds the models, slices the pair and
-invokes the manual [`wall_travel.py`](../../wall_travel.py) router.
+invokes the manual [`wall_travel.py`](https://github.com/derekbreden/homesodamachine/blob/2f2d9c94a1c3fbf007dfa1bd7e93095197079895/future/pump-elbow-exploration/wall_travel.py) router.
 The [processed archive](https://github.com/derekbreden/homesodamachine/blob/33d50d2ecd2a0fb6b518483a44c8031e3a0c1617/future/pump-elbow-exploration/prints/2026-10-16-vertical-center-web-tpu85a-mark1/2026-10-16-elbow-pair-vertical-center-web-tpu85a-right06-z000-mark1.gcode.3mf)
 is the print file. Reslicing the editable project omits that routing step.
 

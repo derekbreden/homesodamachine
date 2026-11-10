@@ -16,7 +16,7 @@ Release the exposed jaws and lift the tube before separating back-top from
 the core. The clip is part of the lid and adds no loose part or fastener;
 existing ties retain their assigned quantities.
 
-The [accepted C2 coupon](../../../../../future/snap-fit-tests/2026-10-26-mark2-combined/physical-result.json)
+The [accepted C2 coupon](https://github.com/derekbreden/homesodamachine/blob/2f2d9c94a1c3fbf007dfa1bd7e93095197079895/future/snap-fit-tests/2026-10-26-mark2-combined/physical-result.json)
 supplies this quarter-inch section's fit basis. The integrated lid's print
 and installed service remain untested. Native receipts in this directory
 apply to the geometry and artifacts named by their hashes.

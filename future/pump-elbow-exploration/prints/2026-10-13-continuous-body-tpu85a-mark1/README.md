@@ -36,6 +36,5 @@ than its 0.536 mm emitted bead width. Inspect that closure and the open passage
 with the printed article; geometry and slicing do not establish extrusion
 continuity or a pressure rating.
 
-Regenerate offline with `prepare_mark1.py` from the repository root. It writes
-the native project and evidence here, without sending a print. The immutable
+The [preparation source](https://github.com/derekbreden/homesodamachine/blob/2f2d9c94a1c3fbf007dfa1bd7e93095197079895/future/pump-elbow-exploration/prints/2026-10-13-continuous-body-tpu85a-mark1/prepare_mark1.py) records the native project setup. The immutable
 submitted archive and receipt identify the article under observation.

@@ -11,6 +11,6 @@ tube and its R14 bend holder
 
 [soda_rise_insulation.py](soda_rise_insulation.py) defines the nominal
 uncompressed annulus, matching the
-[study sleeve](../../manifold-layout/studies/funnel-gate/parts/soda-rise-insulation.json).
+[study sleeve](https://github.com/derekbreden/homesodamachine/blob/2f2d9c94a1c3fbf007dfa1bd7e93095197079895/hardware/manifold-layout/studies/funnel-gate/parts/soda-rise-insulation.json).
 
 Stock: [purchases §9](../../ledger/purchases.md), CARGEN B0D2XFK337.

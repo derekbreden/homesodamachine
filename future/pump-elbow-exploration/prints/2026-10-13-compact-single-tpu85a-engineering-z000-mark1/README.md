@@ -37,5 +37,4 @@ radius decreases; equal leg-axis angles do not give equal underside slopes.
 - [Preparation reading](preparation-printer-status.json)
 - [Stock start template snapshot](stock-machine-start-template.json) and [elbow source](elbow-source.txt)
 
-`prepare_mark1.py --colour 161616` prepares these files offline. It does not
-send a printer job or change a global printer preset.
+The [preparation source](https://github.com/derekbreden/homesodamachine/blob/2f2d9c94a1c3fbf007dfa1bd7e93095197079895/future/pump-elbow-exploration/prints/2026-10-13-compact-single-tpu85a-engineering-z000-mark1/prepare_mark1.py) records the saved offline setup.

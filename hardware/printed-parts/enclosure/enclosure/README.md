@@ -1101,7 +1101,7 @@ features add no separate printed part or fastener. Reservoir A's fore pair seats
 in two integral C2 clips on the cold-core lid at 13.5 mm centre spacing;
 body-retaining ties keep their existing jobs.
 
-The [combined coupon result](../../../../future/snap-fit-tests/2026-10-26-mark2-combined/physical-result.json)
+The [combined coupon result](https://github.com/derekbreden/homesodamachine/blob/2f2d9c94a1c3fbf007dfa1bd7e93095197079895/future/snap-fit-tests/2026-10-26-mark2-combined/physical-result.json)
 accepts the C2 6.35 mm bore for present use and the 16 mm-span 4P ribbon clip's
 fit and qualitative retention. The 4 mm tube sections, DC-1 pair seat and V-K
 single-wire seat remain provisional. The coupon result does not establish the
