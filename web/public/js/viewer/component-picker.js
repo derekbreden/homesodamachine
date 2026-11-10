@@ -4,11 +4,9 @@
 //
 // This is the whole-solid sibling of edge-picker.js (which picks edges + faces).
 // The two are mutually exclusive — arming one disarms the other over the shared
-// STEP_TOOL event so a single click doesn't feed both. A component here is the set
-// of meshes sharing one occt assembly name (export_assembly names each solid;
-// step.js's buildMesh stamps that name onto every THREE.Mesh, front + back). So a
-// raycast hit's mesh.name IS the component identity, and hiding a component is
-// setting mesh.visible = false on every mesh carrying that name.
+// STEP_TOOL event so a single click doesn't feed both. An installed component takes
+// every body belonging to its physical placement in the catalog. Opening that part
+// makes its internal bodies available to the same picker.
 //
 // Hiding is LOCAL and view-only: it never touches the STEP or the source. The
 // hidden set lives in state.hiddenComponents and is persisted per file in
@@ -25,6 +23,7 @@ import { setEdgePickEnabled, syncEdgeToggle, invalidateAllEdgesLayer } from "./e
 import { sourceFileFor } from "/contracts/component-sources.js";
 import { componentLocation, stepLocation } from "/contracts/step-locations.js";
 import { materialForComponent, materialForView } from "/contracts/materials.js";
+import { componentUnitsInScene, unitForBody } from "/contracts/material-instances.js";
 import { relatedStepsForComponent } from "/contracts/related-steps.js";
 import { showsInFaucetFinish } from "/contracts/faucet-options.js";
 import { drillTo, drillToComponent } from "./step-nav.js";
@@ -57,14 +56,36 @@ const materialOf = (name) => materialForComponent(state.materialCatalog, mounted
 const componentName = (name) => sceneFeature(name)?.label || materialOf(name)?.description || leafOf(name);
 const modelName = (file) => materialForView(state.materialCatalog, file, namingOptions())?.description || stemOf(file);
 
+// Index authored placements once per scene/catalog/finish, including parts still arriving.
+let unitsCache = null;
+function componentUnit(name) {
+  if (!name || splitFeatureKey(name)) return null;
+  const group = state.currentGroup, catalog = state.materialCatalog, file = mountedFile();
+  if (!group || !file) return null;
+  const head = group.userData.sharedHead, finish = state.faucetFinish;
+  if (!unitsCache || unitsCache.group !== group || unitsCache.catalog !== catalog
+      || unitsCache.file !== file || unitsCache.head !== head || unitsCache.finish !== finish
+      || (!head && unitsCache.count !== group.children.length)) {
+    const material = materialForView(catalog, file, namingOptions());
+    const names = head ? head.meshes.flatMap(node => node.entries?.map(entry => entry.name) || [node.name])
+      : group.children.filter(mesh => mesh.userData?.side === "front").map(mesh => mesh.name);
+    const units = componentUnitsInScene(catalog, material?.id, names, namingOptions());
+    unitsCache = { group, catalog, file, head, finish, count: group.children.length, units, bodies: new Map() };
+    for (const unit of units) for (const body of unit.bodies) unitsCache.bodies.set(body, unit);
+  }
+  if (!unitsCache.bodies.has(name)) unitsCache.bodies.set(name, unitForBody(unitsCache.units, name));
+  return unitsCache.bodies.get(name);
+}
+const selectionName = name => componentUnit(name)?.name || name;
+
 // The opened view defines the selection depth; hiding surrounding parts changes no hierarchy.
 function insideOpenedPart(body) {
   const file = mountedFile();
   if (!file) return false;
-  const { component } = stepLocation(file);
-  if (component) return body === component;
   const material = materialForView(state.materialCatalog, file, namingOptions());
   if (material) return material.kind !== "assembly";
+  const { component } = stepLocation(file);
+  if (component) return body === component;
   const head = state.currentGroup?.userData.sharedHead;
   const names = head ? head.meshes.map(node => node.name)
     : (state.currentGroup?.children || []).filter(mesh => mesh.userData?.side === "front").map(mesh => mesh.name);
@@ -104,6 +125,8 @@ const inFinish = (name) => showsInFaucetFinish(mountedFile(), name, state.faucet
 // Set mesh.visible from state.hiddenComponents and the faucet's finish. Called after each STEP
 // load (step.js), after every hide/show and after a finish change. Unnamed meshes stay visible.
 export function applyHiddenComponents() {
+  state.hiddenComponents = new Set([...state.hiddenComponents].map(selectionName));
+  state.autoHiddenComponents = new Set([...state.autoHiddenComponents].map(selectionName));
   let repaintSelection = false;
   const selectedNames = selectionBodies || (selection ? [componentBody(selection)] : []);
   if (state.currentGroup) {
@@ -200,7 +223,8 @@ export function isolateComponent(name, { persist = true } = {}) {
 
 /** Whether `name` is hidden outright or stands inside something that is. */
 export function standsHidden(name) {
-  return [name, ...heldBy(name)].some(held =>
+  if (!state.hiddenComponents.size && !state.autoHiddenComponents.size) return false;
+  return [selectionName(name), name, ...heldBy(name)].some(held =>
     state.hiddenComponents.has(held) || state.autoHiddenComponents.has(held));
 }
 
@@ -224,7 +248,8 @@ function drawOverlay(g, name, color, edgeMat, shellOpacity) {
   if (!name || !state.currentGroup) return;
   const seen = new Set();
   const feature = sceneFeature(name);
-  const members = g === selGroup && selectionBodies ? selectionBodies : [componentBody(name)];
+  const members = g === selGroup && selectionBodies ? selectionBodies
+    : componentUnit(name)?.bodies || [componentBody(name)];
   // A sub-assembly lights up as the whole of what it holds.
   for (const mesh of state.currentGroup.children) {
     if (!mesh.isMesh || !members.some(body => standsIn(mesh.name, body)) || mesh.visible === false
@@ -273,14 +298,16 @@ function pickComponent(clientX, clientY) {
     const feature = hit.object.userData.features?.find(f => containsTriangle(f, hit.faceIndex));
     if (feature) return `${hit.object.name}::${feature.id}`;
   }
-  return hit.object.name || null;
+  return selectionName(hit.object.name) || null;
 }
 
 // --- selection + hover ---
 export function selectComponent(name, { members = null } = {}) {
+  const unit = componentUnit(name);
+  name = unit?.name || name;
   const feature = sceneFeature(name);
   selection = name;
-  selectionBodies = members?.length ? [...members] : null;
+  selectionBodies = members?.length ? [...members] : unit?.bodies || null;
   drawOverlay(selGroup, name, SEL, selEdgeMat, 0.18);
   setHover(null);
   showPanel();
@@ -384,7 +411,7 @@ function buildPanel() {
     if (!selection) return;
     const body = componentBody(selection);
     const file = sourceFileFor(body, state.allFiles, mountedFile(), state.materialCatalog, { finish: state.faucetFinish });
-    drillToComponent(file && file !== mountedFile() ? file : componentLocation(mountedFile(), body), body);
+    drillToComponent(file && file !== mountedFile() ? file : componentLocation(mountedFile(), body), selectionBodies || body);
   });
   actions.appendChild(openBtn);
   panel._openBtn = openBtn;
@@ -395,7 +422,7 @@ function buildPanel() {
   hideBtn.textContent = "Hide component";
   hideBtn.addEventListener("click", () => {
     if (!selection) return;
-    for (const name of selectionBodies || [selection]) state.hiddenComponents.add(name);
+    for (const name of selectionBodies || [selection]) state.hiddenComponents.add(selectionName(name));
     persistHidden();
     clearSelectionOverlay();
     applyHiddenComponents();
@@ -488,12 +515,14 @@ function showPanel() {
     }
     const body = document.createElement("span");
     body.className = "component-body-name";
-    body.textContent = feature ? `Feature of ${componentName(bodyName)}` : `CAD body: ${selection}`;
+    const unit = componentUnit(selection);
+    body.textContent = feature ? `Feature of ${componentName(bodyName)}`
+      : unit ? `Instance: ${unit.label}` : `CAD body: ${selection}`;
     panel._identity.appendChild(body);
   }
   renderMeasure(panel._measure, feature ? null : selection, {
     file: state.mountedDetail?.sourceFile,
-    solids: selection ? frontMeshes().filter((m) => m.name === selection).length : 0,
+    solids: selection ? frontMeshes().filter(m => (selectionBodies || [selection]).some(body => standsIn(m.name, body))).length : 0,
     label: componentName,
   });
   panel._close.style.display = selection ? "" : "none";
@@ -553,7 +582,7 @@ function showPanel() {
       n.textContent = componentName(name);
       const body = document.createElement("span");
       body.className = "component-body-name";
-      body.textContent = name;
+      body.textContent = componentUnit(name)?.label || name;
       n.appendChild(body);
       n.title = name;
       const show = document.createElement("button");
@@ -561,8 +590,10 @@ function showPanel() {
       show.className = "component-show";
       show.textContent = "Show";
       show.addEventListener("click", () => {
-        state.hiddenComponents.delete(name);
-        state.autoHiddenComponents.delete(name);
+        for (const body of componentUnit(name)?.bodies || [name]) {
+          state.hiddenComponents.delete(body);
+          state.autoHiddenComponents.delete(body);
+        }
         persistHidden();
         applyHiddenComponents();
       });

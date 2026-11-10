@@ -21,7 +21,8 @@ import { fetchMember, memberLoaded, memberUrl, rememberMember } from "./member.j
 import { FAUCET_FINISHES, faucetStyleFor, hasFaucetFinish, isFaucetFinishBody, showsInFaucetFinish } from "/contracts/faucet-options.js";
 import { HSM_EVENTS } from "/contracts/client-events.js";
 import { stepLocation } from "/contracts/step-locations.js";
-import { matchesBody } from "/contracts/materials.js";
+import { matchesBody, materialForFile } from "/contracts/materials.js";
+import { componentUnitsInScene, unitForBody } from "/contracts/material-instances.js";
 
 const { applyXray, syncEdgeResolution, setMeshMaterial } = xray;
 // Hot loaders can share a scene module retained by an open page.
@@ -326,10 +327,17 @@ function nameSurface(file, surface) {
   if (here) here.title = surfaceText(file, state.mountedDetail?.scene ? 'scene' : surface);
 }
 
+// An opened component includes every body of its authored physical placement.
+function componentViewBodies(location, names) {
+  const material = materialForFile(state.materialCatalog, location.file);
+  const units = componentUnitsInScene(state.materialCatalog, material?.id, names, { finish: state.faucetFinish });
+  return unitForBody(units, location.component)?.bodies || [location.component];
+}
+
 // Completed parts replace their own GPU meshes while unfinished parts keep their last drawing.
-function mountScenePart(node, meshes, head, file, location, { current, preserveCamera }) {
+function mountScenePart(node, meshes, head, file, location, { current, preserveCamera, componentBodies }) {
   if (!current()) return;
-  if (location.component) meshes = meshes.filter(mesh => matchesBody(mesh.name, location.component));
+  if (location.component) meshes = meshes.filter(mesh => componentBodies.some(body => matchesBody(mesh.name, body)));
   if (!meshes.length) return;
   let group = state.currentGroup;
   if (group?.userData.sharedFile !== file) {
@@ -426,9 +434,12 @@ export async function loadStepFile(file, { preserveCamera = false } = {}) {
     // `pack.BUNDLED_PAYLOAD_DIRS` the payload carries flutes the solid does not, so a reader
     // told only the STEP's name is told the wrong file. The edge picker states this.
     let surface = "step";
+    let componentBodies = null;
     const meshed = await fetchMeshes(file, headers, { mounted, signal, onPart: (node, meshes, head) => {
       if (!current()) return;
-      mountScenePart(node, meshes, head, file, location, {current,preserveCamera});
+      if (location.component && !componentBodies) componentBodies = componentViewBodies(location,
+        head.meshes.flatMap(part => part.entries?.map(entry => entry.name) || [part.name]));
+      mountScenePart(node, meshes, head, file, location, {current,preserveCamera,componentBodies});
       if (loadingEl && state.currentGroup?.userData.sharedFile === file) loadingEl.style.display = 'none';
     }});
     if (!current()) return;
@@ -479,7 +490,8 @@ export async function loadStepFile(file, { preserveCamera = false } = {}) {
     }
 
     if (location.component) {
-      result = { ...result, meshes: result.meshes.filter(mesh => matchesBody(mesh.name, location.component)) };
+      const bodies = componentViewBodies(location, result.meshes.map(mesh => mesh.name));
+      result = { ...result, meshes: result.meshes.filter(mesh => bodies.some(body => matchesBody(mesh.name, body))) };
       if (!result.meshes.length) { failed(`Component ${location.component} is not in this model`); return; }
     }
 

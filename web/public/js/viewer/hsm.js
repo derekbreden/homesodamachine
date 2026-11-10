@@ -145,7 +145,7 @@ export function renderMeasure(el, name, { file, solids, label }) {
 
   if (solids !== 1) {
     clearWitness();
-    line(el, solids ? `${solids} solids carry this name; hsm measures one solid at a time`
+    line(el, solids ? `Selected component has ${solids} solids; hsm measures one solid at a time`
       : "Pick a single body to measure it");
     return;
   }

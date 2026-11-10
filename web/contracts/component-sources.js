@@ -90,9 +90,6 @@ export const ALIASES = {
   "bulkhead-ring-water": "printed-parts/enclosure/rear-identification/rear-label-water.step",
   "bulkhead-ring-water-word": "printed-parts/enclosure/rear-identification/rear-label-water.step",
   "psu": "reference/meanwell-irm90/meanwell-irm90.step",
-  // Both elbows on the G Ganen's barbs are the one printed part.
-  "pump-inlet-tpu": "printed-parts/diaphragm-pump-sleeve/diaphragm-pump-sleeve.step",
-  "pump-outlet-tpu": "printed-parts/diaphragm-pump-sleeve/diaphragm-pump-sleeve.step",
   "pump-a-boss": "reference/kamoer-kphm400/kamoer-kphm400.step",
   "pump-a-head": "reference/kamoer-kphm400/kamoer-kphm400.step",
   "pump-a-motor": "reference/kamoer-kphm400/kamoer-kphm400.step",
