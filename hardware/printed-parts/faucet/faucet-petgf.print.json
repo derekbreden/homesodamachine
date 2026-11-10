@@ -2,7 +2,7 @@
   "project": "hardware/printed-parts/faucet/faucet-petgf.3mf",
   "settings_source": "hardware/printed-parts/faucet/industrial/prints/2026-10-15-all-learnings/mark2/2026-10-15-complete-faucet-all-learnings-mark2-base-arcs-z004.3mf",
   "settings_source_sha256": "25ae62b12d2dee09e59b835cce1c63f549bd6f49623956929d631c208f98fc0f",
-  "settings_sha256": "5c4063181ee40066e3e426f2aa020c486067c6bb9069995b21e7e8fbc59276ed",
+  "settings_sha256": "a4ba519ff22ac45231f088464f4b99b6235e0240f9d8e434fcfdf71dde93882e",
   "source_settings_sha256": "3be9e83c72f407020e2b6da766d1e758d879a02062aa0966a2f5b51f156df81e",
   "settings_changes": {
     "extruder_offset": {
@@ -142,6 +142,42 @@
         "15.0",
         "15.0"
       ]
+    },
+    "petgf_support_recipe": {
+      "profile": "hardware/printed-parts/petgf.3mf",
+      "sha256": "1be18bdfd75b33efc898b3e5c28a0c1975fc694ef4d94dd88a909472cb96b97f",
+      "members": {
+        "Metadata/filament_settings_1.config": {
+          "filament_bridge_speed": {
+            "from": null,
+            "to": [
+              "15",
+              "15",
+              "15"
+            ]
+          }
+        },
+        "Metadata/project_settings.config": {
+          "support_top_z_distance": {
+            "from": "0.45",
+            "to": "0.24"
+          },
+          "support_interface_top_layers": {
+            "from": "2",
+            "to": "3"
+          },
+          "support_interface_spacing": {
+            "from": "0.5",
+            "to": "0"
+          },
+          "post_process": {
+            "from": [],
+            "to": [
+              "/Users/derekbredensteiner/Developer/homesodamachine/tools/hsm/target/release/petgf-cooling"
+            ]
+          }
+        }
+      }
     }
   },
   "printer": "Mark2",
@@ -466,7 +502,7 @@
       "embedded_vertex_error_mm": 4.997851021926181e-10
     }
   ],
-  "project_sha256": "523aca51a52146930133187ae873afeb1677849ffc4d15bf4cf56a7d2f15e055",
+  "project_sha256": "8cdbfb3e80d801413f9fd69b52f1588761be17c443396083e4dfa8ef14425512",
   "settings_preserved_byte_for_byte": false,
   "local_solid_regions": [
     {
@@ -770,7 +806,7 @@
     "root_contact_scope": "Hidden male insertion terminal end only. The directly bonded disc leaves a scuff; do not transfer this bonded contact to visible surfaces.",
     "scope": "Exact accepted fin and hidden-root-disc meshes; accepted lip support-selection geometry on the full tip tessellation. Tree(auto)/Default elsewhere. Bonded disc contact stays on the hidden male insertion end."
   },
-  "native_settings_sha256": "5c4063181ee40066e3e426f2aa020c486067c6bb9069995b21e7e8fbc59276ed",
+  "native_settings_sha256": "a4ba519ff22ac45231f088464f4b99b6235e0240f9d8e434fcfdf71dde93882e",
   "active_nozzle": 1,
   "external_spool": 255,
   "requested_z_trim_mm": 0.04,
@@ -947,5 +983,6 @@
     "hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.stl": "09df3102a6ffd4280a134788535686b2d9406e6878a548d4e2c334594fdc7109",
     "hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.stl": "b7164af07e5c84b8c1c6af85c119867bf88a3e3ce8e41697d124f97e444249fe",
     "hardware/printed-parts/faucet/lever-replica/lever-replica-side-down.stl": "7a3f5c7d9034c4cce0e0f39bfac6e868f6bd8d01a05add3d21951981eca296eb"
-  }
+  },
+  "reslice_required": true
 }

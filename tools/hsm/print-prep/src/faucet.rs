@@ -78,10 +78,6 @@ pub fn apply_overhang_recipe(settings: &mut Json, selected: &Value, hook: &str) 
     for key in ["first_x_layer_fan_speed", "first_x_layer_part_fan_speed"] {
         put(settings, key, &json!(0))?;
     }
-    for key in ["bridge_speed", "filament_bridge_speed"] {
-        put(settings, key, &selected["bridge_speed_mm_s"])?;
-    }
-    put(settings, "bridge_flow", &selected["bridge_flow"])?;
     let maximum = &selected["maximum_overhang_speed_mm_s"];
     let limit = maximum.as_f64().context("maximum overhang speed")?;
     for prefix in ["", "filament_"] {

@@ -2,7 +2,7 @@
   "project": "tube-insertion-rigid-base-h2c.3mf",
   "settings_source": ".cache/tube-insertion-print/rigid-base-h2c-settings.3mf",
   "settings_source_sha256": "22f39a664a06e33a7b146a608c8ca4232f498ed8a64e12be72bd34603cde54cd",
-  "settings_sha256": "510351cd16da905f798087f5cb47c59ccf1cf2dbf3e5551ad7c7013479f3757b",
+  "settings_sha256": "e20dfa3e59754e212ec3b8b427d70c63592dcb7b64b3a06657938ce7259f7908",
   "source_settings_sha256": "24dee4fcd630d9aed43c4b1406ed050a77245097ff6672d6119a24311bc307b6",
   "settings_changes": {
     "machine_start_gcode": {
@@ -13,6 +13,68 @@
     "printer_settings_id": {
       "from": "Bambu Lab H2C 0.4 nozzle 04 first layer by agent",
       "to": "Bambu Lab H2C 0.4 Standard +0.18 Z trim"
+    },
+    "petgf_support_recipe": {
+      "profile": "hardware/printed-parts/petgf.3mf",
+      "sha256": "1be18bdfd75b33efc898b3e5c28a0c1975fc694ef4d94dd88a909472cb96b97f",
+      "members": {
+        "Metadata/filament_settings_1.config": {
+          "filament_bridge_speed": {
+            "from": null,
+            "to": [
+              "15",
+              "15",
+              "15"
+            ]
+          }
+        },
+        "Metadata/project_settings.config": {
+          "support_top_z_distance": {
+            "from": "0.45",
+            "to": "0.24"
+          },
+          "support_interface_top_layers": {
+            "from": "2",
+            "to": "3"
+          },
+          "support_interface_spacing": {
+            "from": "0.5",
+            "to": "0"
+          },
+          "bridge_flow": {
+            "from": "1",
+            "to": "1.25"
+          },
+          "bridge_speed": {
+            "from": [
+              "50",
+              "50",
+              "50",
+              "50",
+              "50"
+            ],
+            "to": [
+              "15",
+              "15",
+              "15",
+              "15",
+              "15"
+            ]
+          },
+          "filament_bridge_speed": {
+            "from": [
+              "25",
+              "25",
+              "25"
+            ],
+            "to": [
+              "15",
+              "15",
+              "15"
+            ]
+          }
+        }
+      }
     }
   },
   "printer": "Bambu Lab H2C 0.4 Standard +0.18 Z trim",
@@ -113,7 +175,7 @@
       "embedded_vertex_error_mm": 4.973159661858517e-10
     }
   ],
-  "project_sha256": "259d5d99428a71fb85ca0c04838ca71f492b699d1196eb901dfe67041e020589",
+  "project_sha256": "dd8b987e4efbd67e9853f0a8644a601f4509394f5140c85fe57df52bfaf4826b",
   "settings_preserved_byte_for_byte": false,
   "status": "offline project preparation; no printer submission",
   "printer_submission": false,
@@ -144,5 +206,6 @@
       "to": "0.24mm PET-GF tube insertion solid"
     }
   },
-  "print_pose": "flat manufacturing STL; open jaw pockets upward"
+  "print_pose": "flat manufacturing STL; open jaw pockets upward",
+  "reslice_required": true
 }

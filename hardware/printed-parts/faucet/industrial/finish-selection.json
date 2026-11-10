@@ -34,10 +34,8 @@
   },
   "overhang_recipe": {
     "selected_date": "2026-10-15",
-    "bridge_flow": "1.25",
     "fan_percent": 70,
     "fan_off_bed_layers": 3,
-    "bridge_speed_mm_s": 15,
     "maximum_overhang_speed_mm_s": 15,
     "preserve_slower_overhang_limits": true,
     "scope": "Part cooling is off on ordinary paths. Force 70% only on bridges and wall paths with at least 50% of their bead width unsupported, after the first three bed layers. No layer-time cooling, auxiliary part cooling or fan pre-start.",
@@ -55,7 +53,8 @@
     "fan_prestart_seconds": 0,
     "cooling_selection_date": "2026-10-17",
     "cooling_physical_evidence": "hardware/printed-parts/faucet/faucet-display-cover/prints/2026-10-17-cooling-off-prepared-mark2/physical-result.json",
-    "cooling_policy": "hardware/printed-parts/cooling/README.md"
+    "cooling_policy": "hardware/printed-parts/cooling/README.md",
+    "support_profile": "hardware/printed-parts/petgf.3mf"
   },
   "wall_generators": "Retain base Arachne for the continuous reinforced foot; other rigid parts retain Classic.",
   "base_fine_bands_print_z_mm": [],
