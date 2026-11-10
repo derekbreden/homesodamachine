@@ -19,6 +19,7 @@ CORE = 'http://schemas.microsoft.com/3dmanufacturing/core/2015/02'
 PROD = 'http://schemas.microsoft.com/3dmanufacturing/production/2015/06'
 REL = 'http://schemas.openxmlformats.org/package/2006/relationships'
 TITLE = '2026-11-09-enclosure-support-scenarios-left04-z018-mark1'
+EXAMPLE = 'enclosure-support-scenarios'
 
 
 def digest(path):
@@ -45,12 +46,12 @@ def geometry():
                  F0=np.zeros(len(mesh.faces),dtype=np.uint32))
         family['source_sha256'] = digest(source)
     (inputs/'spec.json').write_text(json.dumps(spec,indent=2)+'\n')
-    link = ROOT/'tools/hsm/sandbox/examples/enclosure-support-scenarios.rs'
+    link = ROOT/'tools/hsm/sandbox/examples'/(EXAMPLE+'.rs')
     if not link.exists():
         link.symlink_to(HERE/'samples.rs')
     try:
         heavy(['cargo','run','--release','--locked','-j2','--manifest-path','tools/hsm/Cargo.toml',
-               '-p','hsm-sandbox','--example','enclosure-support-scenarios','--',out])
+               '-p','hsm-sandbox','--example',EXAMPLE,'--',out])
     finally:
         if link.is_symlink() and link.resolve()==HERE/'samples.rs':
             link.unlink()
