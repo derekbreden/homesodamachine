@@ -1,0 +1,56 @@
+{
+  "purpose": "The manual profile review quantifies the idealized exterior against stored scan-derived axial medians.",
+  "method": "Nearest planar distance to densely sampled authored line and cubic segments, including measured radial shoulders. Axis-closing lines are included but do not supply the nearest point for exterior medians.",
+  "scope": "This compares sampled axial contour evidence, not the full scan, solid-to-scan fit, coating thickness or physical tolerances.",
+  "recipe_sha256": "3b96ede7b573f233470269d0b7d081b59cf66460c914092db6a4ceb7a7de24a8",
+  "observation_sha256": "d977e38f2966b4d3839e7161f5d6fb9b0b276faf7ec2e4ed2b942b5f4b22dd1a",
+  "profiles": {
+    "y": {
+      "sample_count": 69,
+      "nearest_profile_distance_mm": {
+        "median": 0.0027067559111420897,
+        "p95": 0.021049949571445334,
+        "max": 0.050288194828238146
+      },
+      "worst_sample_mm": [
+        3.0,
+        4.24
+      ]
+    },
+    "z": {
+      "sample_count": 69,
+      "nearest_profile_distance_mm": {
+        "median": 0.0033485292714068074,
+        "p95": 0.02118910025644927,
+        "max": 0.05043582291428977
+      },
+      "worst_sample_mm": [
+        3.0,
+        4.237
+      ]
+    },
+    "collet": {
+      "sample_count": 10,
+      "nearest_profile_distance_mm": {
+        "median": 0.00532870069896575,
+        "p95": 0.028255765378183487,
+        "max": 0.03251671010419119
+      },
+      "worst_sample_mm": [
+        19.0,
+        5.32
+      ]
+    }
+  },
+  "preserved_landmarks": {
+    "tube_radius_mm": 3.175,
+    "collet_face_mm": 20.56239,
+    "fixed_face_mm": 18.837,
+    "axes": [
+      "+Y",
+      "+Z"
+    ],
+    "z_root_radius_offset_mm": -0.05124,
+    "z_collar_radius_offset_mm": -0.07293
+  }
+}

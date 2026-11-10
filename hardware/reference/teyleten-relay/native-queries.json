@@ -4,18 +4,18 @@
   "frame": "Reference source XYZ",
   "references": {
     "teyleten-relay.step": {
-      "step_sha256": "a949a37e0ff30d4fb37af46049172dc3e6b6d7a39ef2fc89b6a3a9e7526ddba9",
-      "fine_model_sha256": "44475755a2edb474160a34fb43a6c3d810a7cf7559ae5de305b45b6756096b2c",
+      "step_sha256": "ab3a7aec46ac88253ce58d6f560468fc110dcac2bf0804a1e02ef58dfbdab891",
+      "fine_model_sha256": "0827d8fe3d4870be23ce74966878e1aed5664d809a2d7915219c2bbfd0d7d034",
       "bounds_mm": [
         [
           -35.16000000014901,
-          -8.599999999627471,
+          -8.53000000026077,
           -2.3447936000302434
         ],
         [
           35.16000000014901,
           8.46999999973923,
-          17.529388216410915
+          17.290000000037253
         ]
       ]
     }

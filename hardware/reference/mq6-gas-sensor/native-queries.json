@@ -4,8 +4,8 @@
   "frame": "Reference source XYZ",
   "references": {
     "mq6-gas-sensor.step": {
-      "step_sha256": "b3707fb5112ceee44ed47d0b1c1adeed17979ec6e06f187009d2eaee0c740ee1",
-      "fine_model_sha256": "d97c14b88722a7f471e2ce695ae4c107ef1dd8343974d30fe700e876b3ea0758",
+      "step_sha256": "fb24dfa14266da28fe06300508ae6584ca68da9ee851d136e4896d5970f09040",
+      "fine_model_sha256": "523da86d9c0b50b83777716e9c8987faa7cb318ddc21e27d9a380939aca80476",
       "bounds_mm": [
         [
           -16.0,

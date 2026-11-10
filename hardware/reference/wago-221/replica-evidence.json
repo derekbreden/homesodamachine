@@ -1,0 +1,102 @@
+{
+  "purpose": "This record distinguishes WAGO envelope dimensions from the approximate exterior anatomy derived from official product images.",
+  "units": "mm",
+  "frame": {
+    "x": "width",
+    "y": "depth; conductors enter +Y",
+    "z": "height; seating plane at zero"
+  },
+  "sources": [
+    {
+      "url": "https://www.wago.com/global/installation-terminal-blocks-and-connectors/splicing-connector-with-levers/p/221-413",
+      "kind": "manufacturer product data and orthographic gallery",
+      "observed": "2026-11-09",
+      "geometry": "envelope; top lever U openings and rounded thumb pads; front entry mouths; side lip slope"
+    },
+    {
+      "url": "https://www.wago.com/global/installation-terminal-blocks-and-connectors/splicing-connector-with-levers/p/221-415",
+      "kind": "manufacturer product data",
+      "observed": "2026-11-09",
+      "geometry": "envelope and conductor count"
+    },
+    {
+      "url": "https://www.wago.com/global/installation-terminal-blocks-and-connectors/splicing-connector-with-levers/p/221-420",
+      "kind": "manufacturer product data",
+      "observed": "2026-11-09",
+      "geometry": "stacked envelope and opposed lever rows"
+    },
+    {
+      "url": "https://wago-embedded.customer-domain.wago.com/FileService/CatalogImage/?previewPath=wago%2Fpg07%2Fserie221%2F0221-0420_0999-0962.png&width=1000&height=1000&color=white&depth=32",
+      "kind": "manufacturer CAD portal preview",
+      "observed": "2026-11-09",
+      "geometry": "opposed lever rows and entry-face ribs"
+    }
+  ],
+  "preserved_envelopes": {
+    "413": [
+      18.8,
+      18.6,
+      8.4
+    ],
+    "415": [
+      30.0,
+      18.6,
+      8.4
+    ],
+    "420": [
+      29.8,
+      18.3,
+      15.8
+    ]
+  },
+  "envelope_order": [
+    "width",
+    "depth",
+    "height"
+  ],
+  "anatomy_accuracy": "Visible topology and proportions follow the manufacturer images. Local anatomy dimensions are visual estimates rather than caliper measurements and are not certified contact surfaces.",
+  "anatomy_dimensions_source": "wago_221.rs",
+  "pitch_mm": 5.6,
+  "image_evidence": [
+    {
+      "sku": "413",
+      "image": "200-9334688-DE.jpg",
+      "view": "orthographic top",
+      "features": [
+        "separate orange thumb pads",
+        "open-backed lever arms surrounding clear windows",
+        "clear rear bridge"
+      ]
+    },
+    {
+      "sku": "413",
+      "image": "200-9334685-DE.jpg",
+      "view": "wire-entry face",
+      "features": [
+        "rounded rectangular wire-entry mouths",
+        "separating ribs",
+        "upper lip beneath thumb pads"
+      ]
+    },
+    {
+      "sku": "413",
+      "image": "200-9334686-DE.jpg",
+      "view": "side",
+      "features": [
+        "closed lever height",
+        "front lip slope",
+        "flat seated base"
+      ]
+    }
+  ],
+  "omitted": [
+    "internal cage-clamp detail",
+    "conductor stops",
+    "printed markings",
+    "molding texture"
+  ],
+  "export_bodies": {
+    "housing": "wago-221-<sku>",
+    "actuators": "closed-levers"
+  }
+}

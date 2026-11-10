@@ -1,21 +1,19 @@
 {
   "source": {
-    "commit": "30bb5cb2d5b95f18f43637bd9be26daced05f1f5",
-    "path": "hardware/reference/riteav-keystone/riteav_keystone.py",
-    "sha256": "74b6c8af93182fab6a2792fe78c2ff2f92fd8a1242b0d1d01bc9f8dab7c36cba"
+    "path": "hardware/reference/riteav-keystone/replica.rs",
+    "sha256": "4c3c0b5bd2a7b01661da6769a4ae0c5f539c6b7cb4e8fc9a272bf06c00aa83cf"
   },
   "members": {
-    "riteav-keystone.step": "cd7c975fbda11ed0a7e7ced14c6eb435ab39c882626fab8f234fd59043bf5971",
-    "riteav-keystone.step.mesh": "6ed05070bd47d83d13f53ad960f77947311c564c23ec077c5dc2867577aad8f2"
+    "riteav-keystone.step": "33069b232c0dde7f58c2239203dc2984aff7db8d40873e7f48a80fb364d6f916",
+    "riteav-keystone.step.npz": "783dc3448c4d3f24ffc709ced14055d05417da424a686c03811679ecb95b65bf",
+    "riteav-keystone.step.mesh": "a8a6a67fd8f85773198854a4c3fa3469b2348a4e6c48ebf3de5375c02928a2bc"
   },
   "fine_payload": {
-    "source_step_sha256": "cd7c975fbda11ed0a7e7ced14c6eb435ab39c882626fab8f234fd59043bf5971",
     "path": "riteav-keystone.step.mesh",
-    "sha256": "6ed05070bd47d83d13f53ad960f77947311c564c23ec077c5dc2867577aad8f2",
-    "linear_mm": 0.005,
-    "angular_rad": 0.05,
-    "producer": "hardware/scripts/_rust_part.py:_tessellate",
-    "origin": "new one-time immutable published STEP conversion",
+    "sha256": "a8a6a67fd8f85773198854a4c3fa3469b2348a4e6c48ebf3de5375c02928a2bc",
+    "source_step_sha256": "33069b232c0dde7f58c2239203dc2984aff7db8d40873e7f48a80fb364d6f916",
+    "producer": "hardware/reference/riteav-keystone/replica.rs",
+    "color_space": "linear-rgb",
     "meshes": [
       {
         "name": "riteav-keystone",
@@ -23,12 +21,22 @@
           0.015325203537940979,
           0.015325203537940979,
           0.017389101907610893
-        ],
-        "vertices": 160,
-        "triangles": 100,
-        "face_ranges": 32
+        ]
       }
-    ],
-    "color_space": "linear-rgb"
+    ]
+  },
+  "fine_models": {
+    "riteav-keystone.step": {
+      "path": "riteav-keystone.step.npz",
+      "sha256": "783dc3448c4d3f24ffc709ced14055d05417da424a686c03811679ecb95b65bf",
+      "source_step_sha256": "33069b232c0dde7f58c2239203dc2984aff7db8d40873e7f48a80fb364d6f916",
+      "producer": "hardware/reference/riteav-keystone/replica.rs",
+      "presentation_indices": [
+        0
+      ]
+    }
+  },
+  "inputs": {
+    "hardware/reference/riteav-keystone/replica-parameters.json": "174e391241f717d50df6b1e989c37ed88396b96313198645d10be0de97d0a461"
   }
 }

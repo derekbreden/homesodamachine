@@ -1,53 +1,61 @@
 {
   "source": {
-    "commit": "d117331fb286799d25e79f4938952cf7a85b729c",
-    "path": "hardware/reference/jg-pp0308e-elbow/jg-pp0308e-elbow.step",
-    "sha256": "805f210ef6a669f08f9bebacdbf3dcec2a0d22691484dc72308425fdaf3d5daa"
+    "path": "hardware/reference/jg-pp0308e-elbow/elbow.rs",
+    "sha256": "3b96ede7b573f233470269d0b7d081b59cf66460c914092db6a4ceb7a7de24a8"
   },
   "members": {
-    "jg-pp0308e-elbow.step": "805f210ef6a669f08f9bebacdbf3dcec2a0d22691484dc72308425fdaf3d5daa",
-    "jg-pp0308e-elbow.step.mesh": "5b2242d5aa9eda682cb2e2f480a73dc41c9fcad6c653b20de22afd7c35af1553"
+    "jg-pp0308e-elbow.step": "b16050612c9f88003186efd4d62e054ede70c68bd3f35f06512735bd8b77bc3d",
+    "jg-pp0308e-elbow.step.npz": "664a0f04fccb58dfe0c12e4eb0c04ea57e6539faa6f5ae79b2de46b8594aa60e",
+    "jg-pp0308e-elbow.step.mesh": "39ccc30f08f5d1f8808fe16d18463f99cb8a58b7aaf86dd0da2285e8e0c73993"
   },
   "fine_payload": {
-    "source_step_sha256": "805f210ef6a669f08f9bebacdbf3dcec2a0d22691484dc72308425fdaf3d5daa",
     "path": "jg-pp0308e-elbow.step.mesh",
-    "sha256": "5b2242d5aa9eda682cb2e2f480a73dc41c9fcad6c653b20de22afd7c35af1553",
-    "linear_mm": 0.005,
-    "angular_rad": 0.05,
-    "producer": "hardware/scripts/_rust_part.py:_tessellate",
+    "sha256": "39ccc30f08f5d1f8808fe16d18463f99cb8a58b7aaf86dd0da2285e8e0c73993",
+    "source_step_sha256": "b16050612c9f88003186efd4d62e054ede70c68bd3f35f06512735bd8b77bc3d",
+    "producer": "hardware/reference/jg-pp0308e-elbow/elbow.rs",
     "color_space": "linear-rgb",
     "meshes": [
       {
         "name": "fixed_body",
         "color": [
-          0.03310476616024971,
-          0.04696420207619667,
-          0.06372379511594772
-        ],
-        "vertices": 102549,
-        "triangles": 130210
+          0.033104766570885055,
+          0.04696420068912289,
+          0.06372379528489175
+        ]
       },
       {
         "name": "y_collet",
         "color": [
-          0.21404114365577698,
-          0.27383843064308167,
-          0.3069993257522583
-        ],
-        "vertices": 6068,
-        "triangles": 6048
+          0.21404114048223255,
+          0.27383841647314605,
+          0.30699931892751636
+        ]
       },
       {
         "name": "z_collet",
         "color": [
-          0.21404114365577698,
-          0.27383843064308167,
-          0.3069993257522583
-        ],
-        "vertices": 6068,
-        "triangles": 6048
+          0.21404114048223255,
+          0.27383841647314605,
+          0.30699931892751636
+        ]
       }
-    ],
-    "origin": "one-time immutable STEP import for installed equipment references"
+    ]
+  },
+  "fine_models": {
+    "jg-pp0308e-elbow.step": {
+      "path": "jg-pp0308e-elbow.step.npz",
+      "sha256": "664a0f04fccb58dfe0c12e4eb0c04ea57e6539faa6f5ae79b2de46b8594aa60e",
+      "source_step_sha256": "b16050612c9f88003186efd4d62e054ede70c68bd3f35f06512735bd8b77bc3d",
+      "producer": "hardware/reference/jg-pp0308e-elbow/elbow.rs",
+      "presentation_indices": [
+        0,
+        1,
+        2
+      ]
+    }
+  },
+  "inputs": {
+    "hardware/reference/jg-pp0308e-elbow/scan-measurements.json": "d977e38f2966b4d3839e7161f5d6fb9b0b276faf7ec2e4ed2b942b5f4b22dd1a",
+    "hardware/reference/jg-pp0308e-elbow/idealization-review.json": "f2d5e92943dd1b3fab333fd89313461d6bad1dba131c8071af55526d0f8f3232"
   }
 }
