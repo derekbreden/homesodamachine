@@ -110,7 +110,7 @@ mod imports {
         let hosts=head["meshes"].as_array().context("scene meshes")?.clone();
         let bound=hosts.iter().any(|node|node["source"]==source);
         let saved=head["source_groups"][source].as_array().cloned().unwrap_or_default();
-        if !bound && saved.is_empty() && !hosts.iter().any(|node|node["source"].is_null() && own(node,parts).is_some()) {return Ok(0);}
+        if !bound && saved.is_empty() {return Ok(0);}
         let current=inventory(&part)?;
         let previous=hosts.iter().filter(|node|node["source"]==source)
             .filter_map(|node|node["source_sha256"].as_str()).find(|hash|*hash!=sha)
@@ -166,7 +166,8 @@ mod imports {
                     continue;
                 }
             }
-            let found=if host["source"].is_null() || host["source"]==source {own(host,parts).or_else(||(host["source"]==source && parts.len()==1).then(||&parts[0]))} else {None};
+            // A separately constructed body can share a source body's name and use another frame.
+            let found=if host["source"]==source {own(host,parts).or_else(||(parts.len()==1).then(||&parts[0]))} else {None};
             output.push(if let Some(part)=found {placed(part,Some(host),host["name"].as_str().context("instance name")?,source,&sha,None)?} else {host.clone()});
         }
         for (i,group) in groups.iter().enumerate() {if !emitted[i] {emit(group,&mut output)?;}}
@@ -555,6 +556,7 @@ mod tests {
             for key in ["name","color","face_sources"] {assert_eq!(a[key],b[key]);}
         }
         let unchanged=scene["meshes"][1].clone();
+        scene["meshes"][0]["source"]=json!("part.mesh");
         assert_eq!(replace(&mut scene,"part.mesh",&triangle(&["left"],2.))?,1);
         assert_eq!(scene["meshes"][1],unchanged);
         assert_eq!(replace(&mut scene,"part.mesh",&triangle(&["left"],2.))?,0);
@@ -698,6 +700,23 @@ mod tests {
         let mut scene=imported(&["cap"])?;let old=scene.clone();
         assert_eq!(replace(&mut scene,"unrelated.mesh",&triangle(&["cap","screw"],1.))?,0);
         assert_eq!(scene,old);
+        Ok(())
+    }
+
+    #[test]
+    fn source_refresh_leaves_separately_constructed_names_in_their_installed_frame()->Result<()> {
+        let mut scene=imported(&["valve","tee"])?;
+        scene["meshes"].as_array_mut().unwrap().pop();
+        let dock=pack(&triangle(&["tee"],100.))?["meshes"][0].clone();
+        scene["meshes"].as_array_mut().unwrap().push(dock.clone());
+        replace(&mut scene,"part.mesh",&triangle(&["valve","tee"],2.))?;
+        assert_eq!(scene["meshes"][1],dock);
+        assert!(scene["meshes"][1]["source"].is_null());
+
+        let mut separate=pack(&triangle(&["tee"],100.))?;
+        let original=separate.clone();
+        assert_eq!(replace(&mut separate,"part.mesh",&triangle(&["tee"],2.))?,0);
+        assert_eq!(separate,original);
         Ok(())
     }
 }
