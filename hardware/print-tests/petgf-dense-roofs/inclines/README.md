@@ -5,6 +5,13 @@ D dense interface. The [faucet lower-curve result](https://github.com/derekbrede
 records stems breaking with contact material retained on the part. The flat rail
 acceptance does not qualify this inclined contact.
 
+The [frozen-article contact reading](contact-reading.json) separates missing roof
+generation from physical release. Default emits interface paths in a low band
+while bare tree paths continue along the higher curve. Explicit Tree Slim emits
+interface paths into that curved band at the same requested contact gap and
+density. Increasing the general XY distance alone leaves the upper interface
+absent. These native comparisons have no physical removal result.
+
 Each coupon has a single anchoring wall and open remaining edges. Its bed tab
 carries an identifier without anchoring the free roof edges. Native targets cover
 the inclined underside. The [matrix](matrix.json) owns the geometry, incline

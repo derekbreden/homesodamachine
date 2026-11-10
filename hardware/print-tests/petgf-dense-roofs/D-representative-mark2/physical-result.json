@@ -12,11 +12,12 @@
       "visual_observations": "Parallel surface roads dip and become irregular at the arch crown and free pointed lip. The photographs do not measure the deflection."
     },
     "FD": {
-      "status": "Failed removal: tree stems break away while the contact material remains attached to the inclined base.",
+      "status": "The curved contact lacks the requested peelable interface mat; tree stems break away.",
       "user_quote": "It kind of looks like maybe there's interface layers that just fused entirely with the main base there, because I can break the stems of the trees off, but it doesn't appear like I get an interface layer to break off at all there, just the stems of the trees, which isn't something I saw happening in the other places, not even on the inner rail support.",
-      "visual_observations": "Broken tree stems remain around the inclined base. A continuous rough contact band is retained against the part.",
-      "interpretation": "Fusion is consistent with the user report and appearance. These photographs do not distinguish roof welding from interlocking around staircase layers or side contact.",
-      "support_scope": "This article tested automatic native trees without the separate accepted production fin meshes."
+      "visual_observations": "Broken tree stems and a rough scalloped band are visible along the inclined base. Appearance alone does not identify that band as model or support material.",
+      "interpretation": "The native slice has interface-labelled paths only in a low band; the higher curved support region has no such paths. Stem breakage there does not demonstrate a fused interface mat. Individual fracture locations and possible bare-tip welding are not resolved from the photographs.",
+      "support_scope": "This article tested automatic native trees without the separate accepted production fin meshes.",
+      "native_contact_reading": "../inclines/contact-reading.json"
     },
     "PD": {
       "status": "No physical result reported for the holed pad in this message."
@@ -73,6 +74,6 @@
       "processing": "JPEG scan data and decoded pixels preserved; private metadata and comments omitted; orientation retained."
     }
   ],
-  "process_scope": "D is accepted for the tested flat rail ceiling and removal access. The inclined faucet article fails; angle-dependent transfer remains unqualified.",
-  "next_work": "Print the authorized full back-bottom with localized handhold rim support and prepare separate incline-contact comparison plates."
+  "process_scope": "D is accepted for the tested flat rail ceiling and removal access. The higher inclined faucet region lacks interface-labelled paths in the tested Default slice; physical release with a generated roof remains unqualified.",
+  "next_work": "Compare the actual faucet curve with a generated dense roof and retain the full back-bottom print for physical support and finish feedback."
 }
