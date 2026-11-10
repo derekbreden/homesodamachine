@@ -1,0 +1,506 @@
+{
+  "spec": {
+    "column_x_mm": [
+      112.0,
+      160.0,
+      208.0
+    ],
+    "families": [
+      {
+        "actual_crop_min_z_mm": 154.32000000029802,
+        "crop_max_mm": [
+          -90.0,
+          100.0,
+          174.8
+        ],
+        "crop_min_mm": [
+          -108.0,
+          60.0,
+          154.32
+        ],
+        "feature": "enclosure-front-bottom::west-z-rail",
+        "id": "R",
+        "label_center_world_mm": [
+          -98.625,
+          80.0,
+          174.8
+        ],
+        "name": "Rail channel",
+        "production_bed_world_z_mm": -6.0,
+        "retains": "The complete rail cross-section, local floor, catch underside, flare and side access for screwdriver removal; only longitudinal length and unrelated lower enclosure wall are cropped.",
+        "row_y_mm": 105.0,
+        "settings": {
+          "sparse_infill_density": "100%",
+          "sparse_infill_pattern": "zig-zag",
+          "support_object_xy_distance": "0.4",
+          "support_on_build_plate_only": "0",
+          "support_style": "default",
+          "tree_support_branch_angle": "20"
+        },
+        "source": "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.stl",
+        "source_contact_plane_z_mm": 169.2,
+        "source_sha256": "7eb9455df0f38d96e9edd78384e98b5ac11a2dbfbb43dacf7eab3a378d1360a6",
+        "source_support_floor_z_mm": 160.0,
+        "target_support_root": "model"
+      },
+      {
+        "actual_crop_min_z_mm": 17.759999999776483,
+        "crop_max_mm": [
+          -90.5,
+          263.0,
+          42.0
+        ],
+        "crop_min_mm": [
+          -108.0,
+          200.0,
+          17.76
+        ],
+        "feature": "enclosure-back-bottom::west-handhold",
+        "id": "H",
+        "label_center_world_mm": [
+          -103.0,
+          244.0,
+          42.0
+        ],
+        "name": "Rounded handhold arch",
+        "production_bed_world_z_mm": -6.0,
+        "retains": "The production corbel, curved opening end, complete open seam end, underside and wall junction; lower empty height and unrelated enclosure stock are cropped.",
+        "row_y_mm": 170.0,
+        "settings": {
+          "support_object_xy_distance": "0.4",
+          "support_on_build_plate_only": "0",
+          "support_style": "default",
+          "tree_support_branch_angle": "20"
+        },
+        "source": "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.stl",
+        "source_sha256": "a41f94b4d25fcaeb79ba06e64af1f86ee23709d0c2fc89dcd2b52a9d2bda9d51",
+        "target_support_root": "bed"
+      },
+      {
+        "actual_crop_min_z_mm": 210.1699999999255,
+        "crop_max_mm": [
+          -3.725,
+          35.0,
+          232.0
+        ],
+        "crop_min_mm": [
+          -22.725,
+          14.0,
+          210.17
+        ],
+        "feature": "enclosure-front-top::pump-mount-cuts",
+        "id": "P",
+        "label_center_world_mm": [
+          -13.225,
+          25.5,
+          232.0
+        ],
+        "name": "Holed pump-retainer pad",
+        "production_bed_world_z_mm": 160.25,
+        "retains": "The complete square underside, hole mouth, blind pilot and closing tip with its surrounding wall root; tall empty space below and excess solid cap above are cropped.",
+        "row_y_mm": 225.0,
+        "settings": {
+          "sparse_infill_density": "100%",
+          "sparse_infill_pattern": "zig-zag",
+          "support_object_xy_distance": "0.5",
+          "support_on_build_plate_only": "0",
+          "support_style": "tree_slim"
+        },
+        "source": "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl",
+        "source_contact_plane_z_mm": 217.5,
+        "source_pick_world_mm": [
+          -16.916,
+          24.629,
+          217.5
+        ],
+        "source_sha256": "753741de94227f937365c16f5d0a04fb486b6b9ac015ff5fdb3e0fc31bc44663",
+        "target_support_root": "bed"
+      }
+    ],
+    "interface_spacing_mm": {
+      "A": 0.5,
+      "B": 0.15,
+      "C": 0.0
+    },
+    "label_height_mm": 0.48,
+    "profile": "hardware/print-tests/petgf-dense-roofs/2026-11-09-dense-roofs-left04-z018-mark1.3mf",
+    "purpose": "Preserve the enclosure's local supported surfaces and removal access in compact print samples."
+  },
+  "specimens": [
+    {
+      "bounds_mm": [
+        [
+          -108.0,
+          60.0,
+          0.0
+        ],
+        [
+          -90.0,
+          100.0,
+          20.959999999962747
+        ]
+      ],
+      "condition": "A",
+      "family": "R",
+      "id": "RA",
+      "solids": 1,
+      "volume_mm3": 7304.349732693812,
+      "watertight": true,
+      "world_z_to_print_z_mm": -154.32000000029802,
+      "stl_sha256": "38ce25516392469d928587d4c05b5cdf3662acd1297e58e0c8e1e5aed19f6b90",
+      "position_mm": [
+        112.0,
+        105.0,
+        10.479999542236328
+      ],
+      "identify_id": 1901,
+      "native_object_settings": {
+        "sparse_infill_density": "100%",
+        "sparse_infill_pattern": "zig-zag",
+        "support_object_xy_distance": "0.4",
+        "support_on_build_plate_only": "0",
+        "support_style": "default",
+        "tree_support_branch_angle": "20",
+        "name": "RA Rail channel",
+        "extruder": "1",
+        "support_type": "tree(auto)",
+        "support_interface_top_layers": "2",
+        "support_top_z_distance": "0.45",
+        "support_interface_spacing": "0.5"
+      }
+    },
+    {
+      "bounds_mm": [
+        [
+          -108.0,
+          60.0,
+          0.0
+        ],
+        [
+          -90.0,
+          100.0,
+          20.959999999962747
+        ]
+      ],
+      "condition": "B",
+      "family": "R",
+      "id": "RB",
+      "solids": 1,
+      "volume_mm3": 7304.640291418586,
+      "watertight": true,
+      "world_z_to_print_z_mm": -154.32000000029802,
+      "stl_sha256": "ac695e871635261c2ac92a4da0b39b8328280cbce0e419c0324a185cc9de72dd",
+      "position_mm": [
+        160.0,
+        105.0,
+        10.479999542236328
+      ],
+      "identify_id": 1902,
+      "native_object_settings": {
+        "sparse_infill_density": "100%",
+        "sparse_infill_pattern": "zig-zag",
+        "support_object_xy_distance": "0.4",
+        "support_on_build_plate_only": "0",
+        "support_style": "default",
+        "tree_support_branch_angle": "20",
+        "name": "RB Rail channel",
+        "extruder": "1",
+        "support_type": "tree(auto)",
+        "support_interface_top_layers": "2",
+        "support_top_z_distance": "0.45",
+        "support_interface_spacing": "0.15"
+      }
+    },
+    {
+      "bounds_mm": [
+        [
+          -108.0,
+          60.0,
+          0.0
+        ],
+        [
+          -90.0,
+          100.0,
+          20.959999999962747
+        ]
+      ],
+      "condition": "C",
+      "family": "R",
+      "id": "RC",
+      "solids": 1,
+      "volume_mm3": 7304.356666962451,
+      "watertight": true,
+      "world_z_to_print_z_mm": -154.32000000029802,
+      "stl_sha256": "9ff0b2528a29fa891f4ccd33e9a62a44947273027ee444b144c6b3d368156ea1",
+      "position_mm": [
+        208.0,
+        105.0,
+        10.479999542236328
+      ],
+      "identify_id": 1903,
+      "native_object_settings": {
+        "sparse_infill_density": "100%",
+        "sparse_infill_pattern": "zig-zag",
+        "support_object_xy_distance": "0.4",
+        "support_on_build_plate_only": "0",
+        "support_style": "default",
+        "tree_support_branch_angle": "20",
+        "name": "RC Rail channel",
+        "extruder": "1",
+        "support_type": "tree(auto)",
+        "support_interface_top_layers": "2",
+        "support_top_z_distance": "0.45",
+        "support_interface_spacing": "0.0"
+      }
+    },
+    {
+      "bounds_mm": [
+        [
+          -107.5,
+          200.14999389648438,
+          0.0
+        ],
+        [
+          -90.75,
+          263.0,
+          24.72000000048429
+        ]
+      ],
+      "condition": "A",
+      "family": "H",
+      "id": "HA",
+      "solids": 1,
+      "volume_mm3": 14335.854472995854,
+      "watertight": true,
+      "world_z_to_print_z_mm": -17.759999999776483,
+      "stl_sha256": "779197287e0fbe1512b050ddd8ff7f1f6466561a8b8fec060b9309d028654869",
+      "position_mm": [
+        112.0,
+        170.0,
+        12.359999656677246
+      ],
+      "identify_id": 1904,
+      "native_object_settings": {
+        "support_object_xy_distance": "0.4",
+        "support_on_build_plate_only": "0",
+        "support_style": "default",
+        "tree_support_branch_angle": "20",
+        "name": "HA Rounded handhold arch",
+        "extruder": "1",
+        "support_type": "tree(auto)",
+        "support_interface_top_layers": "2",
+        "support_top_z_distance": "0.45",
+        "support_interface_spacing": "0.5"
+      }
+    },
+    {
+      "bounds_mm": [
+        [
+          -107.5,
+          200.14999389648438,
+          0.0
+        ],
+        [
+          -90.75,
+          263.0,
+          24.72000000048429
+        ]
+      ],
+      "condition": "B",
+      "family": "H",
+      "id": "HB",
+      "solids": 1,
+      "volume_mm3": 14336.145031720482,
+      "watertight": true,
+      "world_z_to_print_z_mm": -17.759999999776483,
+      "stl_sha256": "0737d6b66dc2813aac4bd1ef3d3fde84e31a0549c8a43724f025a183999c4c6f",
+      "position_mm": [
+        160.0,
+        170.0,
+        12.359999656677246
+      ],
+      "identify_id": 1905,
+      "native_object_settings": {
+        "support_object_xy_distance": "0.4",
+        "support_on_build_plate_only": "0",
+        "support_style": "default",
+        "tree_support_branch_angle": "20",
+        "name": "HB Rounded handhold arch",
+        "extruder": "1",
+        "support_type": "tree(auto)",
+        "support_interface_top_layers": "2",
+        "support_top_z_distance": "0.45",
+        "support_interface_spacing": "0.15"
+      }
+    },
+    {
+      "bounds_mm": [
+        [
+          -107.5,
+          200.14999389648438,
+          0.0
+        ],
+        [
+          -90.75,
+          263.0,
+          24.72000000048429
+        ]
+      ],
+      "condition": "C",
+      "family": "H",
+      "id": "HC",
+      "solids": 1,
+      "volume_mm3": 14335.861407264205,
+      "watertight": true,
+      "world_z_to_print_z_mm": -17.759999999776483,
+      "stl_sha256": "c7742d219158f54f4705f062f521184a50e80d1ece38cc49eb366c59283e07d2",
+      "position_mm": [
+        208.0,
+        170.0,
+        12.359999656677246
+      ],
+      "identify_id": 1906,
+      "native_object_settings": {
+        "support_object_xy_distance": "0.4",
+        "support_on_build_plate_only": "0",
+        "support_style": "default",
+        "tree_support_branch_angle": "20",
+        "name": "HC Rounded handhold arch",
+        "extruder": "1",
+        "support_type": "tree(auto)",
+        "support_interface_top_layers": "2",
+        "support_top_z_distance": "0.45",
+        "support_interface_spacing": "0.0"
+      }
+    },
+    {
+      "bounds_mm": [
+        [
+          -22.72499999962747,
+          14.0,
+          0.0
+        ],
+        [
+          -3.724999999627471,
+          35.0,
+          22.310000000335265
+        ]
+      ],
+      "condition": "A",
+      "family": "P",
+      "id": "PA",
+      "solids": 1,
+      "volume_mm3": 5217.4589964312045,
+      "watertight": true,
+      "world_z_to_print_z_mm": -210.1699999999255,
+      "stl_sha256": "bb165df0f5c434f8caf4e88f4313a5f387e6cf060e91b134dde082558f7498d3",
+      "position_mm": [
+        112.0,
+        225.0,
+        11.154999732971191
+      ],
+      "identify_id": 1907,
+      "native_object_settings": {
+        "sparse_infill_density": "100%",
+        "sparse_infill_pattern": "zig-zag",
+        "support_object_xy_distance": "0.5",
+        "support_on_build_plate_only": "0",
+        "support_style": "tree_slim",
+        "name": "PA Holed pump-retainer pad",
+        "extruder": "1",
+        "support_type": "tree(auto)",
+        "support_interface_top_layers": "2",
+        "support_top_z_distance": "0.45",
+        "support_interface_spacing": "0.5"
+      }
+    },
+    {
+      "bounds_mm": [
+        [
+          -22.72499999962747,
+          14.0,
+          0.0
+        ],
+        [
+          -3.724999999627471,
+          35.0,
+          22.310000000335265
+        ]
+      ],
+      "condition": "B",
+      "family": "P",
+      "id": "PB",
+      "solids": 1,
+      "volume_mm3": 5217.749555155975,
+      "watertight": true,
+      "world_z_to_print_z_mm": -210.1699999999255,
+      "stl_sha256": "c2bee319457bdaeb18fdbff40905086f16c2f281f671a25a3613dc129f4f67c4",
+      "position_mm": [
+        160.0,
+        225.0,
+        11.154999732971191
+      ],
+      "identify_id": 1908,
+      "native_object_settings": {
+        "sparse_infill_density": "100%",
+        "sparse_infill_pattern": "zig-zag",
+        "support_object_xy_distance": "0.5",
+        "support_on_build_plate_only": "0",
+        "support_style": "tree_slim",
+        "name": "PB Holed pump-retainer pad",
+        "extruder": "1",
+        "support_type": "tree(auto)",
+        "support_interface_top_layers": "2",
+        "support_top_z_distance": "0.45",
+        "support_interface_spacing": "0.15"
+      }
+    },
+    {
+      "bounds_mm": [
+        [
+          -22.72499999962747,
+          14.0,
+          0.0
+        ],
+        [
+          -3.724999999627471,
+          35.0,
+          22.310000000335265
+        ]
+      ],
+      "condition": "C",
+      "family": "P",
+      "id": "PC",
+      "solids": 1,
+      "volume_mm3": 5217.465930699767,
+      "watertight": true,
+      "world_z_to_print_z_mm": -210.1699999999255,
+      "stl_sha256": "34d7fd467dd0c6cccf4bde2ad41369755744a325af9f286e75961361c6813dfc",
+      "position_mm": [
+        208.0,
+        225.0,
+        11.154999732971191
+      ],
+      "identify_id": 1909,
+      "native_object_settings": {
+        "sparse_infill_density": "100%",
+        "sparse_infill_pattern": "zig-zag",
+        "support_object_xy_distance": "0.5",
+        "support_on_build_plate_only": "0",
+        "support_style": "tree_slim",
+        "name": "PC Holed pump-retainer pad",
+        "extruder": "1",
+        "support_type": "tree(auto)",
+        "support_interface_top_layers": "2",
+        "support_top_z_distance": "0.45",
+        "support_interface_spacing": "0.0"
+      }
+    }
+  ],
+  "project": "2026-11-09-enclosure-support-scenarios-left04-z018-mark1.3mf",
+  "project_sha256": "5c00d14aad90aeb63a7b29b6789cad85b069f8aed5e54469ea707d2d7d675b43",
+  "profile_sha256": "01aee1611a098a6522390d8465e247faada0f349322b3f7d1734820d713323a6",
+  "source_definition_sha256": "18c2d17529f7d063dec5f73caec567cf6590ef9bf0024a6598635cc39f82e949",
+  "crop_source_sha256": "65089ea250dcd11d85270b959036d805825b88f78e5aaa1a94d33719765039a6",
+  "status": "Prepared offline; no printer submission"
+}
