@@ -1,0 +1,26 @@
+{
+  "archive": {
+    "gcode_sha256": "92ce9ad99b8150165257ea1b75a1e1a203352ba6b46a083a763ce700475c366f",
+    "name": "faucet-slim-left04-z018-mark1-print-only.gcode.3mf",
+    "objects": [
+      "FD Faucet base through first lower curve"
+    ],
+    "sha256": "f053b525fc15ce915020f3fed188ebfbd396d9fd8b9a2e87fd619136596349de",
+    "slots": {
+      "1": {
+        "colour": "000000",
+        "type": "PET-CF"
+      }
+    }
+  },
+  "gcode_state": "RUNNING",
+  "hms": [],
+  "layer_num": 0,
+  "mc_remaining_time": 85,
+  "observed_at": "2026-11-10T19:05:48+00:00",
+  "print_error": 0,
+  "printer": "H2C",
+  "printer_task_id": "1428860705",
+  "subtask_name": "faucet-slim-left04-z018-mark1-print-only.gcode.3mf",
+  "total_layer_num": 134
+}
