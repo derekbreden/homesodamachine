@@ -383,8 +383,13 @@ pub fn run(n: &part::Numbers, output: &std::path::Path) -> Result<Value> {
                 }
             }
         }
-        placed.extend(raw.iter().map(|solid|
-            (name.to_owned(), rgb, solid.transformed(&installed))));
+        let source_colors: Vec<_> = if op == "reference" && rgb.is_none() {
+            sources[text(item, "source")?].iter()
+                .filter(|body| selected(item, &body.name)).map(|body| body.color).collect()
+        } else { Vec::new() };
+        placed.extend(raw.iter().enumerate().map(|(index, solid)|
+            (name.to_owned(), rgb.or_else(|| source_colors.get(index).copied().flatten()),
+             solid.transformed(&installed))));
         groups.insert(name.to_owned(),json!((start..placed.len()).collect::<Vec<_>>()));
         if let Some(key) = key.filter(|key| last_construction.get(*key).copied() == Some(index)) {
             constructions.remove(key);
