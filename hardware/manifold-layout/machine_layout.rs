@@ -551,7 +551,7 @@ fn base(layout: &mut Layout, v: &Value) -> Result<()> {
         "",
         None,
         sensor_frame,
-        Some(v["colors"]["mq6"].clone()),
+        None,
     )?;
     layout.plane_seat(
         "mq6-sensor",
@@ -1267,7 +1267,7 @@ fn installed(layout: &mut Layout, v: &Value) -> Result<()> {
         "",
         Some(display_indices),
         display,
-        Some(v["colors"]["display"].clone()),
+        None,
     )?;
     layout.station_seat("display", at);
     let cover = translated(

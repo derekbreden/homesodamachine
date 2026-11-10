@@ -4,8 +4,8 @@
   "frame": "Reference source XYZ",
   "references": {
     "meanwell-irm90.step": {
-      "step_sha256": "27cc1e5c3f5bf010f6df8a15a4b9b96dfef7b3836eee4905347e8a0035d033d7",
-      "fine_model_sha256": "0696a56767469174e7dda8ed34ad7521cd6859eef150f60727b00d45ea2e772d",
+      "step_sha256": "8fd515d22ce2ad70c53da588dc3d34d73ebe505b649cc82816c9a98273ad97a6",
+      "fine_model_sha256": "32feaa8371fe3db27ac1e8514a512a1f3478ad8cb52f7f0e3bdf66b61f1f27af",
       "bounds_mm": [
         [
           -26.0,

@@ -1,27 +1,18 @@
-"""Reference solid for the Mean Well IRM-90-12ST — 12 V / 6.7 A encapsulated
-AC-DC power module (the screw-terminal "ST" variant), used once on back-top's
-ceiling.
+"""The supply reference exposes its manufacturer-derived mounting and terminal datums.
 
-Geometry from the official Mean Well IRM-90-SPEC mechanical drawing: a potted
-brick whose two short ends step down to 6.7 mm ledges carrying the screw-terminal
-blocks (AC in on one end, DC out on the other).
-
-Coordinate frame
-----------------
-- X = width (52 mm), Y = length (109 mm), Z = height up from the base.
-- Origin at the footprint center; Z = 0 the mounting (base) plane.
-- AC 2-pole screw block at +Y end, DC 4-pole screw block at -Y end.
-
-Geometry is in the frozen STEP and display payload beside this module.
-`frozen-asset.json` records their bytes and source snapshot.
+X spans the case width, Y its length, and Z rises from the mounting plane.
+The footprint center is the origin, with the AC terminal row toward positive Y.
+The Rust source cuts the exterior from the parameters beside this module.
 """
 
+import json
 from pathlib import Path
 
 _HERE = Path(__file__).resolve().parent
 STEP_PATH = _HERE / "meanwell-irm90.step"
 PAYLOAD_PATH = _HERE / "meanwell-irm90.step.mesh"
 ASSET_MANIFEST_PATH = _HERE / "frozen-asset.json"
+_REPLICA = json.loads((_HERE / "replica-parameters.json").read_text())
 
 # --- Measured / datasheet geometry ----------------------------------------
 
@@ -33,31 +24,29 @@ _reference_values = _reference_data('meanwell_irm90')
 globals().update({name: _reference_values[name] for name in ('width', 'length', 'height', 'ledge_h', 'ledge_len', 'hole_dia', 'hole_dx', 'hole_dy', 'mass_g', 'holes', 'block_inset', 'block_h', 'block_w', 'block_len')})
 
 
-# The mount pattern in the module's own frame, on the base plane the bores are entered
-# from — the four M3 clearance holes, which run the potting's whole height, so an M3 goes
-# in from the top face and lands in whatever stands under the base.
-
-# Screw heads face +Z. Wire entries face out along the module's long axis,
-# +Y for AC and -Y for DC. Block dimensions are representative, not measured.
+def _terminal(side):
+    return _REPLICA["terminal_interfaces"]["ac" if side > 0 else "dc"]
 
 
 def _block(sy):
-    return _reference_data('meanwell_irm90', '_block', (sy,), {})
+    row = _terminal(sy)
+    return tuple(row["screw_center"]), tuple(row["screw_axis"])
 
 
 def ac_in():
     "AC screw-head plane and screwdriver axis in the module's frame."
-    return _reference_data('meanwell_irm90', 'ac_in', (), {})
+    return _block(1.)
 
 
 def dc_out():
     "DC screw-head plane and screwdriver axis in the module's frame."
-    return _reference_data('meanwell_irm90', 'dc_out', (), {})
+    return _block(-1.)
 
 
 def wire_entry(side):
-    'Representative wire-mouth centre and outward axis, AC +1 / DC -1.\n\n    Separate from the screw-head axis. The side-entry mouths and screw heads\n    require room in different directions.\n    '
-    return _reference_data('meanwell_irm90', 'wire_entry', (side,), {})
+    "Wire-mouth row center and outward axis in the supply's frame."
+    row = _terminal(side)
+    return tuple(row["wire_center"]), tuple(row["wire_axis"])
 
 
 def main():

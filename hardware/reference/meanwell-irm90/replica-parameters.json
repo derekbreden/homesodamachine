@@ -1,0 +1,179 @@
+{
+  "schema": 1,
+  "purpose": "These parameters define the supply's clean manufacturer-derived exterior and installed terminal interfaces.",
+  "dimensions_mm": {
+    "width": 52.0,
+    "length": 109.0,
+    "height": 33.5,
+    "ledge_height": 6.7,
+    "base_height": 1.5,
+    "hole_half_width": 16.5,
+    "hole_half_length": 49.0,
+    "hole_radius": 1.75,
+    "side_half_length": 41.5516867278614,
+    "corner_x": 23.36893877195939,
+    "corner_y": 44.23511979904035,
+    "taper_x": 18.84187686031496,
+    "taper_y": 52.89041466439758,
+    "end_half_width": 16.1835414674369,
+    "ear_radius": 3.0,
+    "case_lower_half_width": 26.0654845,
+    "case_lower_half_length": 44.124668,
+    "case_side_draft": 1.5,
+    "case_end_draft": 2.5,
+    "case_corner": 2.7,
+    "case_side_round": 2.0,
+    "case_end_round": 3.0,
+    "case_side_crown": 23.28,
+    "case_end_crown": 39.8556417,
+    "terminal_base_z": 5.5,
+    "terminal_shoulder_z": 13.3,
+    "terminal_top_z": 19.67,
+    "terminal_front": 5.27,
+    "terminal_front_shoulder": 4.6914,
+    "terminal_top_half_depth": 2.92,
+    "screw_well_radius": 1.125,
+    "screw_well_floor_z": 14.01,
+    "wire_width": 3.5,
+    "wire_bottom_z": 7.46,
+    "wire_top_z": 12.25,
+    "wire_depth": 1.8,
+    "terminal_back": -4.82,
+    "terminal_board_bottom_z": 3.9,
+    "terminal_board_top_z": 5.5,
+    "terminal_board_width": 49.25,
+    "terminal_board_length": 108.5
+  },
+  "terminals": [
+    {
+      "side": 1.0,
+      "center_x": -0.25,
+      "center_y": 49.0,
+      "poles": 2,
+      "pitch": 7.5,
+      "width": 15.0,
+      "guard_x": 8.5,
+      "guard_top": 13.9802
+    },
+    {
+      "side": -1.0,
+      "center_x": -0.125,
+      "center_y": -48.93,
+      "poles": 4,
+      "pitch": 5.0,
+      "width": 20.0,
+      "guard_x": 11.0,
+      "guard_top": 13.9462
+    }
+  ],
+  "terminal_interfaces": {
+    "ac": {
+      "screw_center": [
+        -0.25,
+        49.0,
+        19.67
+      ],
+      "screw_axis": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "wire_center": [
+        -0.25,
+        54.27,
+        9.855
+      ],
+      "wire_axis": [
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    "dc": {
+      "screw_center": [
+        -0.125,
+        -48.93,
+        19.67
+      ],
+      "screw_axis": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "wire_center": [
+        -0.125,
+        -54.2,
+        9.855
+      ],
+      "wire_axis": [
+        0.0,
+        -1.0,
+        0.0
+      ]
+    }
+  },
+  "evidence": {
+    "manufacturer_pdf": "https://www.meanwell.com/Upload/PDF/IRM-90/IRM-90-spec.pdf",
+    "manufacturer_3d_archive": "https://www.meanwell.com/upload/pdf/IRM-90/IRM-90-3D.zip",
+    "archive_sha256": "f249c0c7ebff5b258bd6d6f12634997fe63e82d4cf2c0edb2cc344fbc1f88f73",
+    "archive_member": "IRM,MPM-90ST.stp",
+    "member_sha256": "59cdbb2cc85ffc112f790a85dd067b88e57047e89b52450b8a7923e9e44d12b5",
+    "selected_parts": [
+      "IRM-60ST-D.PRT",
+      "IRM-60ST-T.PRT",
+      "3P-CONECT_1_2_1_1_1_1_1.PRT",
+      "3P-CONECT_1_2_1_1_1.PRT.4",
+      "3P-CONECT_1_2_1_1_1.PRT",
+      "IRM-90STPCB.PRT"
+    ],
+    "source_to_reference": {
+      "x": "vendor_y - 29.5532431835377",
+      "y": "45.4880184104153 - vendor_x",
+      "z": "vendor_z + 22.0"
+    },
+    "nominal_envelope_mm": [
+      52.0,
+      109.0,
+      33.5
+    ],
+    "vendor_exterior_bounds_mm": [
+      [
+        -9.01198671271586,
+        3.4877594072968403,
+        -22.000000100000108
+      ],
+      [
+        99.98801851041529,
+        55.61872960525635,
+        11.5000001
+      ]
+    ],
+    "nominal_mount_holes_xy_mm": [
+      [
+        -16.5,
+        -49.0
+      ],
+      [
+        -16.5,
+        49.0
+      ],
+      [
+        16.5,
+        -49.0
+      ],
+      [
+        16.5,
+        49.0
+      ]
+    ],
+    "mount_bore_diameter_mm": 3.5,
+    "contact_outline": "The bottom contact loop supplies the straight, diagonal and circular ear edges. Side width is clipped to the nominal drawing envelope.",
+    "simplifications": [
+      "The main case is filled; hidden electronics and internal case ribs are omitted.",
+      "Broad top shoulders use ideal cylindrical rounds, and the shallow label seat is omitted.",
+      "Small terminal interlock tongues, screw drives and pin detail are omitted.",
+      "Terminal screw wells and wire mouths preserve their manufacturer exterior stations.",
+      "Only the board edge beneath the terminal rows is exposed; interior board components are omitted."
+    ]
+  }
+}

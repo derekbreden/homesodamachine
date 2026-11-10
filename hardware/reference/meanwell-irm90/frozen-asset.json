@@ -1,25 +1,42 @@
 {
   "source": {
-    "commit": "e993e2f1dc02e22f670f06dc5aecf0df14dcfe3d",
-    "path": "hardware/reference/meanwell-irm90/meanwell_irm90.py",
-    "sha256": "ca42ff08bbab38f67a2842ae03149a697d9e2b3a5b4adf6fc05adc951fc2e54a"
+    "path": "hardware/reference/meanwell-irm90/meanwell_irm90.rs",
+    "sha256": "ebe04f10a2dfdd20de070fc748f5fae02e7655a7dc5e8ecce4d26cb9c5f6e7e0"
   },
   "members": {
-    "meanwell-irm90.step": "27cc1e5c3f5bf010f6df8a15a4b9b96dfef7b3836eee4905347e8a0035d033d7",
-    "meanwell-irm90.step.mesh": "5daca63d8261f4dd722024eee72dee2359c0d9f65dd54ae7ef37012f891ce4a4",
-    "meanwell-irm90.fine.step.npz": "366ce6d9869a8a33efc07478d5350abe74597acf84756dd9deb8dbd188b2a42a"
+    "meanwell-irm90.step": "8fd515d22ce2ad70c53da588dc3d34d73ebe505b649cc82816c9a98273ad97a6",
+    "meanwell-irm90.step.npz": "32feaa8371fe3db27ac1e8514a512a1f3478ad8cb52f7f0e3bdf66b61f1f27af",
+    "meanwell-irm90.step.mesh": "c5ab179f21d889cb99dc038d5f9f9cdcf3e25e092b7560645c565bcdc94dcb00"
   },
   "fine_models": {
     "meanwell-irm90.step": {
-      "path": "meanwell-irm90.fine.step.npz",
-      "sha256": "366ce6d9869a8a33efc07478d5350abe74597acf84756dd9deb8dbd188b2a42a",
-      "source_step_sha256": "27cc1e5c3f5bf010f6df8a15a4b9b96dfef7b3836eee4905347e8a0035d033d7",
-      "linear_mm": 0.005,
-      "angular_rad": 0.05,
-      "producer": "meshcad/imports.py:step_solids import version2",
+      "path": "meanwell-irm90.step.npz",
+      "sha256": "32feaa8371fe3db27ac1e8514a512a1f3478ad8cb52f7f0e3bdf66b61f1f27af",
+      "source_step_sha256": "8fd515d22ce2ad70c53da588dc3d34d73ebe505b649cc82816c9a98273ad97a6",
+      "producer": "hardware/reference/meanwell-irm90/meanwell_irm90.rs",
       "presentation_indices": [
         0
       ]
     }
+  },
+  "fine_payload": {
+    "path": "meanwell-irm90.step.mesh",
+    "sha256": "c5ab179f21d889cb99dc038d5f9f9cdcf3e25e092b7560645c565bcdc94dcb00",
+    "source_step_sha256": "8fd515d22ce2ad70c53da588dc3d34d73ebe505b649cc82816c9a98273ad97a6",
+    "producer": "hardware/reference/meanwell-irm90/meanwell_irm90.rs",
+    "color_space": "linear-rgb",
+    "meshes": [
+      {
+        "name": "meanwell-irm90",
+        "color": [
+          0.033104766570885055,
+          0.033104766570885055,
+          0.04696420068912289
+        ]
+      }
+    ]
+  },
+  "inputs": {
+    "hardware/reference/meanwell-irm90/replica-parameters.json": "ed0af7d3ed37de9f0be78c259cf4a96060b5bdedc13eec9fa023a39b9079b9d1"
   }
 }

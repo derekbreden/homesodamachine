@@ -1,0 +1,378 @@
+{
+  "purpose": "The display replica takes its rear geometry from the supplier mechanical assembly and preserves the measured front mounting datums.",
+  "sources": [
+    {
+      "kind": "existing caliper model",
+      "revision": "30bb5cb2d5b95f18f43637bd9be26daced05f1f5",
+      "path": "hardware/reference/waveshare-43b-display/waveshare_43b_display.py"
+    },
+    {
+      "kind": "manufacturer project drawing archive",
+      "url": "https://files.waveshare.com/wiki/ESP32-S3-Touch-LCD-4.3B/ESP32-S3-Touch-LCD-4in3B_Drawing.zip",
+      "sha256": "f0e6db0fc08f7f97c05b8887c820c50ffa0b22b7d1bd0635e9c0e140cb893a72",
+      "cad_member": "ESP32-S3-Touch-LCD-4_3-B.stp",
+      "cad_sha256": "4c29ef134789825ed20e9fdb866e48f953e3470d8f33adfbe1ddd80aadd044b0"
+    },
+    {
+      "kind": "manufacturer resource index",
+      "url": "https://docs.waveshare.com/ESP32-S3-Touch-LCD-4.3B/Resources-And-Documents"
+    },
+    {
+      "kind": "manufacturer dimension diagram",
+      "url": "https://docs.waveshare.com/assets/images/ESP32-S3-Touch-LCD-4.3B-details-size-919df17b74466fd29f8a0c51caac09ce.webp",
+      "sha256": "11967a8c8437c621b63dce63acda904f66a0be55a3066c691f07ce0c1f6249ed"
+    }
+  ],
+  "frame": {
+    "repo_axes": [
+      "width",
+      "back from front glass",
+      "height"
+    ],
+    "supplier_to_repo": {
+      "X": "x",
+      "Y": "4.8-z",
+      "Z": "y+2.405"
+    }
+  },
+  "preserved_measured_datums_mm": {
+    "glass_width": 113.5,
+    "glass_height": 77,
+    "glass_thickness": 1,
+    "glass_radius": 2.5,
+    "glass_center_xz": [
+      -0.5,
+      1
+    ],
+    "glass_front_y": 0,
+    "lcd_width": 106,
+    "lcd_height": 69
+  },
+  "supplier_mounting_holes_mm": {
+    "axis": "supplier Z",
+    "radius": 1,
+    "xy": [
+      [
+        -46,
+        28
+      ],
+      [
+        46,
+        28
+      ],
+      [
+        -46,
+        -22
+      ],
+      [
+        45,
+        -22
+      ]
+    ]
+  },
+  "supplier_principal_depth_planes_mm": {
+    "glass_front_z": 4.8,
+    "lcd_front_z": 2.9,
+    "lcd_back_z": 0,
+    "pcb_front_z": -2.7,
+    "pcb_back_z": -4.3
+  },
+  "supplier_component_bounds": [
+    {
+      "path": "ESP32-S3-TOUCH-LCD-4_3-B-BOX_ASM/43H-800480-IPS-TP_B\u5927\u76d6\u677f/43H-800480-IPS",
+      "name": "43H-800480-IPS",
+      "bounds": [
+        -52.71,
+        -35.94,
+        -4.75,
+        52.71,
+        31.13,
+        2.9
+      ],
+      "volume": 20769.432627982875
+    },
+    {
+      "path": "ESP32-S3-TOUCH-LCD-4_3-B-BOX_ASM/43H-800480-IPS-TP_B\u5927\u76d6\u677f/43H-800480-IPS-TP_B",
+      "name": "43H-800480-IPS-TP_B",
+      "bounds": [
+        -56.2,
+        -39.49,
+        -5.074985619474,
+        56.2,
+        35.61,
+        4.8
+      ],
+      "volume": 12111.611606896773
+    },
+    {
+      "path": "ESP32-S3-TOUCH-LCD-4_3-B-BOX_ASM/ESP32-S3-TOUCH-LCD-4_3-B/PCB/L3/USER_LIBRARY-06030",
+      "name": "USER_LIBRARY-06030",
+      "bounds": [
+        19.975456056401722,
+        -13.099936397307996,
+        -7.11000010000135,
+        27.275456580938272,
+        -6.2999350608119995,
+        -4.199999999999999
+      ],
+      "volume": 132.75080538979796
+    },
+    {
+      "path": "ESP32-S3-TOUCH-LCD-4_3-B-BOX_ASM/ESP32-S3-TOUCH-LCD-4_3-B/PCB/U9/ESP32-S3-WROOM-1/PCB_ESP32-S3-WROOM-1_V1_2__PCB_/DESIGNROOTMODEL_PCB_ESP32-S3-WR/UID__2428_DESIGNROOTMODEL_PCB_E",
+      "name": "UID__2428_DESIGNROOTMODEL_PCB_E",
+      "bounds": [
+        14.823088154610272,
+        5.473434632270003,
+        -5.0649999999999995,
+        32.8230926131716,
+        30.973437779489572,
+        -4.334999999999999
+      ],
+      "volume": 331.07840233009233
+    },
+    {
+      "path": "ESP32-S3-TOUCH-LCD-4_3-B-BOX_ASM/ESP32-S3-TOUCH-LCD-4_3-B/PCB/U9/ESP32-S3-WROOM-1/ESP32-WROOM-32E_SHIELDING_CASE_",
+      "name": "ESP32-WROOM-32E_SHIELDING_CASE_",
+      "bounds": [
+        15.923088381909476,
+        6.523434868311483,
+        -7.3999999999999995,
+        31.7230913717682,
+        24.123437543448183,
+        -5.1
+      ],
+      "volume": 81.43016678346005
+    },
+    {
+      "path": "ESP32-S3-TOUCH-LCD-4_3-B-BOX_ASM/ESP32-S3-TOUCH-LCD-4_3-B/PCB/H1/FFC_FPC_AFFC20-06-050-SHB-T/SOLID-834761",
+      "name": "SOLID-834761",
+      "bounds": [
+        29.637083428517272,
+        -15.509262731456412,
+        -6.300000163917782,
+        38.137083620847264,
+        -10.173506824705726,
+        -4.245212318005582
+      ],
+      "volume": 53.2797375434821
+    },
+    {
+      "path": "ESP32-S3-TOUCH-LCD-4_3-B-BOX_ASM/ESP32-S3-TOUCH-LCD-4_3-B/PCB/H1/FFC_FPC_AFFC20-06-050-SHB-T/SOLID-885248",
+      "name": "SOLID-885248",
+      "bounds": [
+        35.959985705929455,
+        -13.470248405865293,
+        -6.350000180965232,
+        37.66129585633142,
+        -10.869262324383577,
+        -4.300000067272481
+      ],
+      "volume": 1.9243611379621954
+    },
+    {
+      "path": "ESP32-S3-TOUCH-LCD-4_3-B-BOX_ASM/ESP32-S3-TOUCH-LCD-4_3-B/PCB/H1/FFC_FPC_AFFC20-06-050-SHB-T/SOLID-897453",
+      "name": "SOLID-897453",
+      "bounds": [
+        30.112871897753582,
+        -13.47024732033223,
+        -6.300000180965232,
+        31.81418260023358,
+        -10.869261369937307,
+        -4.25000006727248
+      ],
+      "volume": 1.9243611379621934
+    },
+    {
+      "path": "ESP32-S3-TOUCH-LCD-4_3-B-BOX_ASM/ESP32-S3-TOUCH-LCD-4_3-B/PCB/T1/USER_LIBRARY-DIP4_OPTO_ISO",
+      "name": "USER_LIBRARY-DIP4_OPTO_ISO",
+      "bounds": [
+        6.084208325698976,
+        -12.815277895650858,
+        -8.200001512025061,
+        10.915605678840985,
+        -2.7852772150647,
+        -4.298001139773282
+      ],
+      "volume": 127.68607071470555
+    },
+    {
+      "path": "ESP32-S3-TOUCH-LCD-4_3-B-BOX_ASM/ESP32-S3-TOUCH-LCD-4_3-B/PCB/T3/USER_LIBRARY-DIP4_OPTO_ISO",
+      "name": "USER_LIBRARY-DIP4_OPTO_ISO",
+      "bounds": [
+        0.5021160405389735,
+        -12.815277895650858,
+        -8.200001512025061,
+        5.333513393680983,
+        -2.7852772150647,
+        -4.298001139773282
+      ],
+      "volume": 127.68607071470554
+    },
+    {
+      "path": "ESP32-S3-TOUCH-LCD-4_3-B-BOX_ASM/ESP32-S3-TOUCH-LCD-4_3-B/PCB/T5/USER_LIBRARY-DIP4_OPTO_ISO",
+      "name": "USER_LIBRARY-DIP4_OPTO_ISO",
+      "bounds": [
+        -5.097890062981028,
+        -12.865296206190859,
+        -8.200001512025061,
+        -0.2664927098390186,
+        -2.8352955256047006,
+        -4.298001139773282
+      ],
+      "volume": 127.6860707147055
+    },
+    {
+      "path": "ESP32-S3-TOUCH-LCD-4_3-B-BOX_ASM/ESP32-S3-TOUCH-LCD-4_3-B/PCB/T6/USER_LIBRARY-DIP4_OPTO_ISO",
+      "name": "USER_LIBRARY-DIP4_OPTO_ISO",
+      "bounds": [
+        -10.697896166491025,
+        -12.865296206190859,
+        -8.200001512025061,
+        -5.866498813349017,
+        -2.8352955256047006,
+        -4.298001139773282
+      ],
+      "volume": 127.6860707147055
+    },
+    {
+      "path": "ESP32-S3-TOUCH-LCD-4_3-B-BOX_ASM/ESP32-S3-TOUCH-LCD-4_3-B/PCB/PORT1/FFC_FPC_AFFC25-40-050-SHB-R/SOLID-928189",
+      "name": "SOLID-928189",
+      "bounds": [
+        -36.70164368410245,
+        -12.149456287769354,
+        -6.50000019670134,
+        -12.601643290700038,
+        -6.948500253280441,
+        -4.247587457922675
+      ],
+      "volume": 132.70490780675942
+    },
+    {
+      "path": "ESP32-S3-TOUCH-LCD-4_3-B-BOX_ASM/ESP32-S3-TOUCH-LCD-4_3-B/ESP32-S3-TOUCH-LCD-PCB-20240425",
+      "name": "ESP32-S3-TOUCH-LCD-PCB-20240425",
+      "bounds": [
+        -52.008627960000055,
+        -25.008629060000047,
+        -4.3,
+        52.00862908,
+        31.00979332000003,
+        -2.6999999999999997
+      ],
+      "volume": 8394.210444444347
+    },
+    {
+      "path": "ESP32-S3-TOUCH-LCD-4_3-B-BOX_ASM/ESP32-S3-TOUCH-LCD-4_3-B/MICRO_SD_SOCKET_PU/=>[0:1:1:478]",
+      "name": "SOLID",
+      "bounds": [
+        36.913784199034396,
+        5.49586393999979,
+        -6.150000100000113,
+        51.91640216001767,
+        21.595863940000562,
+        -3.6999999999800997
+      ],
+      "volume": 187.89412786387174
+    },
+    {
+      "path": "ESP32-S3-TOUCH-LCD-4_3-B-BOX_ASM/ESP32-S3-TOUCH-LCD-4_3-B/XK15EDGR_3_5MM-16PIN",
+      "name": "XK15EDGR_3_5MM-16PIN",
+      "bounds": [
+        -29.00030582513885,
+        -24.60060069076739,
+        -11.3,
+        28.00214031358836,
+        -15.385433088186783,
+        -0.7999998999999997
+      ],
+      "volume": 1731.6760586787714
+    },
+    {
+      "path": "ESP32-S3-TOUCH-LCD-4_3-B-BOX_ASM/ESP32-S3-TOUCH-LCD-4_3-B/XK15EDGKA-3_5MM-16PIN",
+      "name": "XK15EDGKA-3_5MM-16PIN",
+      "bounds": [
+        -28.57535768324913,
+        -37.300487812172626,
+        -12.569999999999,
+        27.58301984941508,
+        -18.185693770971866,
+        -2.2699999999999996
+      ],
+      "volume": 6503.889898250459
+    },
+    {
+      "path": "ESP32-S3-TOUCH-LCD-4_3-B-BOX_ASM/ESP32-S3-TOUCH-LCD-4_3-B/SWITCH-90D-9X3_5X3_5",
+      "name": "SWITCH-90D-9X3_5X3_5",
+      "bounds": [
+        -51.89999958000001,
+        -16.7,
+        -7.800000000000192,
+        -46.299999580000005,
+        -7.69999999999986,
+        -1.399999999999999
+      ],
+      "volume": 78.37734593849093
+    },
+    {
+      "path": "ESP32-S3-TOUCH-LCD-4_3-B-BOX_ASM/ESP32-S3-TOUCH-LCD-4_3-B/TYPE-C_16PIN-9X3X7_3",
+      "name": "TYPE-C_16PIN-9X3X7_3",
+      "bounds": [
+        45.400023960001,
+        -6.970005140010998,
+        -7.550374168413475,
+        53.00002396000018,
+        1.969995060009002,
+        -3.488849616208
+      ],
+      "volume": 104.8614425167266
+    },
+    {
+      "path": "ESP32-S3-TOUCH-LCD-4_3-B-BOX_ASM/ESP32-S3-TOUCH-LCD-4_3-B/SWITCH-6X3_5X3_2",
+      "name": "SWITCH-6X3_5X3_2",
+      "bounds": [
+        47.77500214,
+        -16.65000514,
+        -7.900000100000001,
+        52.075002240000494,
+        -10.550004939999999,
+        -0.8499999999999996
+      ],
+      "volume": 74.35811745862725
+    },
+    {
+      "path": "ESP32-S3-TOUCH-LCD-4_3-B-BOX_ASM/ESP32-S3-TOUCH-LCD-4_3-B/SWITCH-6X3_5X3_2",
+      "name": "SWITCH-6X3_5X3_2",
+      "bounds": [
+        47.77500214,
+        -24.15000514,
+        -7.900000100000001,
+        52.075002240000494,
+        -18.050004939999997,
+        -0.8499999999999996
+      ],
+      "volume": 74.35811745862726
+    }
+  ],
+  "represented_features": [
+    "measured front glass",
+    "LCD chassis and touch bond stack",
+    "PCB outer edge reliefs and antenna notch",
+    "LCD cable slot",
+    "mounting holes",
+    "terminal socket and plug broad profile",
+    "rear wire-entry tapers and passages",
+    "screen-bottom screw access bores",
+    "USB-C rounded mouth and contact tongue",
+    "SD socket package",
+    "ESP module and shield",
+    "major FPC connectors",
+    "buttons and battery switch",
+    "major isolation packages and power inductor"
+  ],
+  "limitations": [
+    "Rear component placements follow the supplier assembly and have no received-part caliper verification.",
+    "Small passives, traces, lettering, hidden contacts, terminal hardware and wire clamps are omitted.",
+    "The SD socket, FPC housings, switches and isolation packages retain supplier outer package bounds; their fine local recesses and lead geometry are not replicas.",
+    "The supplier glass and LCD dimensions are not substituted for the received-part mounting datums.",
+    "Routed-board export noise is reduced to nominal straight edges; small corner blends are omitted."
+  ]
+}

@@ -30,6 +30,14 @@ path = "../../../hardware/reference/riteav-keystone/replica.rs"
 name = "jg-pp0308e-elbow"
 path = "../../../hardware/reference/jg-pp0308e-elbow/elbow.rs"
 
+[[example]]
+name = "waveshare-replica"
+path = "../../../hardware/reference/waveshare-43b-display/replica.rs"
+
+[[example]]
+name = "meanwell-irm90-replica"
+path = "../../../hardware/reference/meanwell-irm90/meanwell_irm90.rs"
+
 # A concept is a file in examples/. README.md says how to run one.
 [dependencies]
 anyhow.workspace = true

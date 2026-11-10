@@ -4,8 +4,8 @@
     "sha256": "e6841d102cb701b38adf78fd50a5170433457716cad871d99afde6649eaa7b5e"
   },
   "inputs": {
-    "hardware/reference/teyleten-relay/scan-datums.json": "41bdbb16e6e19c4f5f8787a6a40e012c7130b876faa4d115c580c5b6d43d9321",
-    "hardware/reference/teyleten-relay/scan-model-evidence.json": "6af65967800dfced997c4914dc2e751efee85a983e4be8b0b0f905ceff8733b3"
+    "hardware/reference/teyleten-relay/scan-datums.json": "515b98c943e3a6ea15dc67d5801d0de9776bfdac03b746450fb4545e3e97b682",
+    "hardware/reference/teyleten-relay/scan-model-evidence.json": "61d4551b8728cab3bae82afa5b65a2a6920e0e3809e71ac112f9f44c171dbe1d"
   },
   "evidence": "scan-model-evidence.json",
   "members": {
