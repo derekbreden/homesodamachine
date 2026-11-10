@@ -216,7 +216,7 @@ fn exports(input: &Value, root: &Path, out: &Path, variant: &str, edit: bool) ->
         cmd(
             &mut commands,
             "file.export",
-            json!({"path":files.join(format!("{key}.3mf")),"format":"3mf-tagged","bodies":names,"quality":"fine"}),
+            json!({"path":files.join(format!("{key}.3mf")),"format":"3mf","objects":"component","bodies":names,"quality":"fine"}),
         );
         parts.push((key.to_owned(), names));
     }
