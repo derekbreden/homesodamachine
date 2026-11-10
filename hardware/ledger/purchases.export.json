@@ -169,6 +169,14 @@
       "purchase_id": "pur-539bfaea7cec48b7b401d902590a4088"
     },
     {
+      "allocation_id": "alloc-17ff16b1c9414127a51e9e16347789fd",
+      "amount_minor": 3002,
+      "currency": "USD",
+      "event_id": "evt-ca663a01f21e4390acabbf3e6c31d239",
+      "order_id": "amazon:114-3202733-4767455",
+      "purchase_id": "pur-f7d7511ce9394cae80352c28342d27fd"
+    },
+    {
       "allocation_id": "alloc-182f03c9c551477c9ca2cea66b082904",
       "amount_minor": 799,
       "currency": "USD",
@@ -1353,6 +1361,14 @@
       "purchase_id": "pur-97a6d900980c4b878f717f19b72badae"
     },
     {
+      "allocation_id": "alloc-c6c5a624b0fe477c9c1b13cc5c9d7a59",
+      "amount_minor": 3002,
+      "currency": "USD",
+      "event_id": "evt-9696d77085af490d901165f6c8e0d7e4",
+      "order_id": "amazon:114-4680955-8473844",
+      "purchase_id": "pur-6fb9cbd2160040c983dc0055e58d4de1"
+    },
+    {
       "allocation_id": "alloc-c6e737dfc65145e183184ac2fd896fa5",
       "amount_minor": 20000,
       "currency": "USD",
@@ -2315,6 +2331,40 @@
       "vendor": "Lulu"
     },
     {
+      "checked_at": "2026-11-10",
+      "complete_period": null,
+      "coverage": "partial",
+      "coverage_id": "coverage-6c7e8c703b9449708f17b28895f08bf8",
+      "evidence_type": "project_procurement_comparison",
+      "examined_period": {
+        "end": "2026-11-10",
+        "start": "2026-01-01"
+      },
+      "note": "Fifteen older filament confirmation bodies match section 13 quantities and amounts. The separate November 4 order uses generic 3D Printing Supplies wording in email; signed-in order details establish its three 3 kg PET-GF15 spools. Keyword-only material searches do not capture all purchase messages. Searches included archived/read mail, vendor and material aliases, generic printing categories, and purchase evidence in promotions; all scoped Gmail query pages were retrieved. This is scoped evidence, not complete merchant-account coverage.",
+      "order_ids": [
+        "amazon:112-1471049-5385066",
+        "amazon:112-1974343-4486643",
+        "amazon:112-3739807-8848229",
+        "amazon:112-3920877-6075462",
+        "amazon:112-4443137-8148205",
+        "amazon:112-5158473-3421830",
+        "amazon:112-7997113-5902601",
+        "amazon:112-9028685-5492269",
+        "amazon:114-0500457-4192257",
+        "amazon:114-1933808-1548244",
+        "amazon:114-2631637-5080268",
+        "amazon:114-4402537-9406656",
+        "amazon:114-5148466-4469057",
+        "amazon:114-7618665-2979463",
+        "amazon:114-9279946-8137001"
+      ],
+      "source_ids": [
+        "src-1a7532c558364590adb85aabb3a23de6"
+      ],
+      "stream": "filament purchase confirmations",
+      "vendor": "Amazon"
+    },
+    {
       "checked_at": "2026-10-13",
       "complete_period": null,
       "coverage": "partial",
@@ -2541,6 +2591,26 @@
       "vendor": "Lillium"
     },
     {
+      "checked_at": "2026-11-10",
+      "complete_period": null,
+      "coverage": "partial",
+      "coverage_id": "coverage-87ad107c35a243ef858220a4121cf385",
+      "evidence_type": "project_purchase_identity_comparison",
+      "examined_period": {
+        "end": "2026-11-10",
+        "start": "2026-01-01"
+      },
+      "note": "All pages of eleven targeted, overlapping semantic searches reviewed: filament (23 matching orders), Fiberon (12), Polymaker (22), PLA filament (24), TPU (9), ASA (5), PPA (1), Bambu filament (30), eSUN (14), Overture (21), PETG (29). Counts overlap and include accessories or unrelated results, so are not summed. Broad PLA was narrowed after its first page due irrelevant plastic-item matches. Scoped history reaches March 2026 and some earlier results; this does not claim complete merchant-account or direct-vendor coverage.",
+      "order_ids": [
+        "amazon:114-3909134-4758645"
+      ],
+      "source_ids": [
+        "src-63eff55413c0429cb5dc47c0874eff72"
+      ],
+      "stream": "filament order-history searches",
+      "vendor": "Amazon"
+    },
+    {
       "checked_at": "2026-10-04",
       "complete_period": null,
       "coverage": "partial",
@@ -2645,6 +2715,28 @@
       ],
       "stream": "merchant account order pages",
       "vendor": "Fresh Water Systems"
+    },
+    {
+      "checked_at": "2026-11-10",
+      "complete_period": null,
+      "coverage": "partial",
+      "coverage_id": "coverage-947837cefc32427c95c20afaf9445371",
+      "evidence_type": "project_procurement_comparison",
+      "examined_period": {
+        "end": "2026-11-10",
+        "start": "2026-01-01"
+      },
+      "note": "All three retrieved direct-order confirmations, 188663, 190118 and 192064, match the recorded black 3 kg PET-GF15 quantities of two, two and four spools, respectively, and their recorded amounts. Invoice links were not opened in this mailbox pass. Searches included archived/read mail, vendor and material aliases, generic printing categories, and purchase evidence in promotions; all scoped Gmail query pages were retrieved. This is scoped evidence, not complete merchant-account coverage.",
+      "order_ids": [
+        "polymaker:188663",
+        "polymaker:190118",
+        "polymaker:192064"
+      ],
+      "source_ids": [
+        "src-94242d2479d545fcb0e218b38fd1585a"
+      ],
+      "stream": "filament purchase confirmations",
+      "vendor": "Polymaker"
     },
     {
       "checked_at": "2026-10-04",
@@ -2798,6 +2890,30 @@
       ],
       "stream": "install-guide print order",
       "vendor": "Lulu"
+    },
+    {
+      "checked_at": "2026-11-10",
+      "complete_period": null,
+      "coverage": "partial",
+      "coverage_id": "coverage-ac00b0893b3d4b808e645d57f024fe3b",
+      "evidence_type": "order_dates_and_merchant_payments",
+      "examined_period": {
+        "end": "2026-10-02",
+        "start": "2026-09-30"
+      },
+      "note": "Explicit placed and delivered dates plus separate completed charges for each named order; vendor calendar dates retained. Preserved archive remains unchanged.",
+      "order_ids": [
+        "amazon:114-3202733-4767455",
+        "amazon:114-4680955-8473844"
+      ],
+      "source_ids": [
+        "src-3ac7ce9bc1094b12b65f236dacfb0707",
+        "src-b0e6fc40a56749629c8eb21d20e6f7b4",
+        "src-c4e4f5c20c134a9f9a04670bb7746134",
+        "src-fddc9ac2f31a4383989f4f65e6b72648"
+      ],
+      "stream": "two named PolyDryer orders",
+      "vendor": "Amazon"
     },
     {
       "checked_at": "2026-10-04",
@@ -3119,6 +3235,50 @@
       ],
       "stream": "selected project orders and order-scoped completed transactions",
       "vendor": "Amazon"
+    },
+    {
+      "checked_at": "2026-11-10",
+      "complete_period": null,
+      "coverage": "partial",
+      "coverage_id": "coverage-cc292b42ae1940038cd7f9aba1893147",
+      "evidence_type": "project_procurement_comparison",
+      "examined_period": {
+        "end": "2026-11-10",
+        "start": "2026-01-01"
+      },
+      "note": "All 25 retrieved order confirmations were read and compared line by line; 16 contain filament. Filament quantities, grades, colors and amounts match section 15, including the three PETG Basic spools in the November 7 order. No additional delivery notice was found for that order. Searches included archived/read mail, vendor and material aliases, generic printing categories, and purchase evidence in promotions; all scoped Gmail query pages were retrieved. This is scoped evidence, not complete merchant-account coverage.",
+      "order_ids": [
+        "bambu:us712460111015776257",
+        "bambu:us712597240994926592",
+        "bambu:us715792490246602753",
+        "bambu:us716485517830578177",
+        "bambu:us717877837343809537",
+        "bambu:us718417332286169089",
+        "bambu:us720254914668109825",
+        "bambu:us722538751263612929",
+        "bambu:us722988823976337409",
+        "bambu:us725322381210451969",
+        "bambu:us725539918437957633",
+        "bambu:us726560430730719233",
+        "bambu:us728013517860630529",
+        "bambu:us728027710789775361",
+        "bambu:us735568811268960257",
+        "bambu:us741350370718978049",
+        "bambu:us743915395468910593",
+        "bambu:us763714278409691137",
+        "bambu:us766639627317551105",
+        "bambu:us770658156626939905",
+        "bambu:us776951289157341185",
+        "bambu:us783865986561351681",
+        "bambu:us784775952755326977",
+        "bambu:us791135084148191233",
+        "bambu:us795729195777990656"
+      ],
+      "source_ids": [
+        "src-a7dbd0c188494669ab1ccabec9aaa521"
+      ],
+      "stream": "filament purchase confirmations",
+      "vendor": "Bambu Lab"
     },
     {
       "checked_at": "2026-10-04",
@@ -6404,6 +6564,34 @@
     },
     {
       "allocation_ids": [
+        "alloc-c6c5a624b0fe477c9c1b13cc5c9d7a59"
+      ],
+      "allocation_status": "all_project",
+      "amount_minor": 3002,
+      "confirmation": "confirmed",
+      "currency": "USD",
+      "event_date": {
+        "precision": "day",
+        "value": "2026-10-01"
+      },
+      "event_id": "evt-9696d77085af490d901165f6c8e0d7e4",
+      "event_type": "charge",
+      "order_ids": [
+        "amazon:114-4680955-8473844"
+      ],
+      "purchase_ids": [
+        "pur-6fb9cbd2160040c983dc0055e58d4de1"
+      ],
+      "source_ids": [
+        "src-b0e6fc40a56749629c8eb21d20e6f7b4",
+        "src-fddc9ac2f31a4383989f4f65e6b72648"
+      ],
+      "unallocated_to_purchase_minor": 0,
+      "vendor": "Amazon",
+      "verified_at": "2026-11-10"
+    },
+    {
+      "allocation_ids": [
         "alloc-b3ba84bcc7b547698a6543ef00d8257c"
       ],
       "allocation_status": "all_project",
@@ -7437,6 +7625,34 @@
       "unallocated_to_purchase_minor": 0,
       "vendor": "Amazon",
       "verified_at": "2026-10-13"
+    },
+    {
+      "allocation_ids": [
+        "alloc-17ff16b1c9414127a51e9e16347789fd"
+      ],
+      "allocation_status": "all_project",
+      "amount_minor": 3002,
+      "confirmation": "confirmed",
+      "currency": "USD",
+      "event_date": {
+        "precision": "day",
+        "value": "2026-10-01"
+      },
+      "event_id": "evt-ca663a01f21e4390acabbf3e6c31d239",
+      "event_type": "charge",
+      "order_ids": [
+        "amazon:114-3202733-4767455"
+      ],
+      "purchase_ids": [
+        "pur-f7d7511ce9394cae80352c28342d27fd"
+      ],
+      "source_ids": [
+        "src-3ac7ce9bc1094b12b65f236dacfb0707",
+        "src-c4e4f5c20c134a9f9a04670bb7746134"
+      ],
+      "unallocated_to_purchase_minor": 0,
+      "vendor": "Amazon",
+      "verified_at": "2026-11-10"
     },
     {
       "allocation_ids": [
@@ -8909,10 +9125,12 @@
         "pur-d6686b26577043b2acf9c6793d085302"
       ],
       "source_ids": [
-        "src-767b54b3914746cb845d87ca8cae6a35"
+        "src-767b54b3914746cb845d87ca8cae6a35",
+        "src-7cb8641d3b7742ef8ff264acd3a23320"
       ],
       "sources_checked": [
-        "Named Amazon Order Details and order-scoped completed transaction"
+        "Named Amazon Order Details and order-scoped completed transaction",
+        "Named printable invoice; no line-specific tax supplied"
       ]
     },
     {
@@ -9120,7 +9338,7 @@
       ]
     }
   ],
-  "input_fingerprint": "sha256:f526e88f95e5d5244651ff45d1900234b39b36b2a72c88efca0204ca64b98bf0",
+  "input_fingerprint": "sha256:09ab0628d177411945d7ce56bab1aad5ae967644b3f718a52aba2808cbd63564",
   "orders": [
     {
       "allocation_status": "all_project",
@@ -14148,7 +14366,8 @@
       ],
       "reference": "114-1335582-7182630",
       "source_ids": [
-        "src-767b54b3914746cb845d87ca8cae6a35"
+        "src-767b54b3914746cb845d87ca8cae6a35",
+        "src-7cb8641d3b7742ef8ff264acd3a23320"
       ],
       "vendor": "Amazon"
     },
@@ -14419,10 +14638,12 @@
     },
     {
       "allocation_status": "all_project",
-      "event_ids": [],
+      "event_ids": [
+        "evt-ca663a01f21e4390acabbf3e6c31d239"
+      ],
       "order_date": {
         "precision": "day",
-        "value": "2026-10-01"
+        "value": "2026-09-30"
       },
       "order_id": "amazon:114-3202733-4767455",
       "purchase_ids": [
@@ -14430,7 +14651,9 @@
       ],
       "reference": "114-3202733-4767455",
       "source_ids": [
-        "saved-amazon:114-3202733-4767455"
+        "saved-amazon:114-3202733-4767455",
+        "src-3ac7ce9bc1094b12b65f236dacfb0707",
+        "src-c4e4f5c20c134a9f9a04670bb7746134"
       ],
       "vendor": "Amazon"
     },
@@ -14640,10 +14863,12 @@
     },
     {
       "allocation_status": "all_project",
-      "event_ids": [],
+      "event_ids": [
+        "evt-9696d77085af490d901165f6c8e0d7e4"
+      ],
       "order_date": {
         "precision": "day",
-        "value": "2026-10-01"
+        "value": "2026-09-30"
       },
       "order_id": "amazon:114-4680955-8473844",
       "purchase_ids": [
@@ -14651,7 +14876,9 @@
       ],
       "reference": "114-4680955-8473844",
       "source_ids": [
-        "saved-amazon:114-4680955-8473844"
+        "saved-amazon:114-4680955-8473844",
+        "src-b0e6fc40a56749629c8eb21d20e6f7b4",
+        "src-fddc9ac2f31a4383989f4f65e6b72648"
       ],
       "vendor": "Amazon"
     },
@@ -18162,6 +18389,48 @@
         "src-e90526d88b0b4e5c9b441af32b25ac68"
       ],
       "vendor": "PISCO"
+    },
+    {
+      "allocation_status": "all_project",
+      "event_ids": [],
+      "order_date": null,
+      "order_id": "polymaker:188663",
+      "purchase_ids": [
+        "pur-cabc20925e1746ac9027c8970efad533"
+      ],
+      "reference": "188663",
+      "source_ids": [
+        "src-94242d2479d545fcb0e218b38fd1585a"
+      ],
+      "vendor": "Polymaker"
+    },
+    {
+      "allocation_status": "all_project",
+      "event_ids": [],
+      "order_date": null,
+      "order_id": "polymaker:190118",
+      "purchase_ids": [
+        "pur-3be1b856906740fcbb8abccf195fcf8c"
+      ],
+      "reference": "190118",
+      "source_ids": [
+        "src-94242d2479d545fcb0e218b38fd1585a"
+      ],
+      "vendor": "Polymaker"
+    },
+    {
+      "allocation_status": "all_project",
+      "event_ids": [],
+      "order_date": null,
+      "order_id": "polymaker:192064",
+      "purchase_ids": [
+        "pur-2b1b4051619a4c01885f6d2ca0f72b84"
+      ],
+      "reference": "192064",
+      "source_ids": [
+        "src-94242d2479d545fcb0e218b38fd1585a"
+      ],
+      "vendor": "Polymaker"
     },
     {
       "allocation_status": "all_project",
@@ -24033,7 +24302,9 @@
         "precision": "day",
         "value": "2026-09-12"
       },
-      "order_ids": [],
+      "order_ids": [
+        "polymaker:192064"
+      ],
       "payment_evidence": "unknown",
       "price_basis": "row_total",
       "purchase_id": "pur-2b1b4051619a4c01885f6d2ca0f72b84",
@@ -24050,7 +24321,8 @@
       "section": "13. Printing consumables",
       "service_period": null,
       "source_ids": [
-        "legacy-ledger-2026"
+        "legacy-ledger-2026",
+        "src-94242d2479d545fcb0e218b38fd1585a"
       ],
       "split_charge": false,
       "stream": "purchase",
@@ -25609,7 +25881,9 @@
         "precision": "day",
         "value": "2026-09-04"
       },
-      "order_ids": [],
+      "order_ids": [
+        "polymaker:190118"
+      ],
       "payment_evidence": "unknown",
       "price_basis": "row_total",
       "purchase_id": "pur-3be1b856906740fcbb8abccf195fcf8c",
@@ -25626,7 +25900,8 @@
       "section": "13. Printing consumables",
       "service_period": null,
       "source_ids": [
-        "legacy-ledger-2026"
+        "legacy-ledger-2026",
+        "src-94242d2479d545fcb0e218b38fd1585a"
       ],
       "split_charge": false,
       "stream": "purchase",
@@ -33876,7 +34151,7 @@
     },
     {
       "allocation_status": "all_project",
-      "amount_evidence": "legacy_unverified",
+      "amount_evidence": "final_vendor_amount",
       "amount_minor": 3002,
       "contributes": true,
       "currency": "USD",
@@ -33884,22 +34159,43 @@
         "precision": "day",
         "value": "2026-10-02"
       },
+      "delivery_dates": [
+        {
+          "precision": "day",
+          "value": "2026-10-02"
+        }
+      ],
       "description": "Polymaker PolyDryer Filament Storage Box (1 kg spool), single — a second order placed a minute later; it shipped and arrived with the box above. $27.99 + $2.03 NE tax",
-      "event_ids": [],
+      "event_ids": [
+        "evt-9696d77085af490d901165f6c8e0d7e4"
+      ],
       "fulfillment": "ACQUIRED",
       "invoice_date": null,
       "ledger_purchase_id": "pur-6fb9cbd2160040c983dc0055e58d4de1",
-      "merchant_charge_allocated_minor": 0,
+      "merchant_charge_allocated_minor": 3002,
       "merchant_refund_allocated_minor": 0,
       "order_date": {
         "precision": "day",
-        "value": "2026-10-01"
+        "value": "2026-09-30"
       },
       "order_ids": [
         "amazon:114-4680955-8473844"
       ],
-      "payment_evidence": "unknown",
+      "payment_evidence": "merchant_charge",
       "price_basis": "row_total",
+      "price_history": [
+        {
+          "amount_evidence": "legacy_unverified",
+          "amount_minor": 3002,
+          "currency": "USD",
+          "note": "Prior recorded amount retained as noncontributing history; order details and completed charge corroborate the same value.",
+          "source_ids": [
+            "legacy-ledger-2026",
+            "saved-amazon:114-4680955-8473844"
+          ],
+          "verified_at": "2026-11-10"
+        }
+      ],
       "purchase_id": "pur-6fb9cbd2160040c983dc0055e58d4de1",
       "purpose": "equipment_tooling",
       "quantity": 1,
@@ -33908,14 +34204,16 @@
       "record_role": "purchase",
       "row_date": {
         "precision": "day",
-        "value": "2026-10-01"
+        "value": "2026-09-30"
       },
       "row_date_basis": "order_date",
       "section": "13. Printing consumables",
       "service_period": null,
       "source_ids": [
         "legacy-ledger-2026",
-        "saved-amazon:114-4680955-8473844"
+        "saved-amazon:114-4680955-8473844",
+        "src-b0e6fc40a56749629c8eb21d20e6f7b4",
+        "src-fddc9ac2f31a4383989f4f65e6b72648"
       ],
       "split_charge": false,
       "stream": "purchase",
@@ -46395,7 +46693,9 @@
         "precision": "day",
         "value": "2026-08-29"
       },
-      "order_ids": [],
+      "order_ids": [
+        "polymaker:188663"
+      ],
       "payment_evidence": "unknown",
       "price_basis": "row_total",
       "purchase_id": "pur-cabc20925e1746ac9027c8970efad533",
@@ -46412,7 +46712,8 @@
       "section": "13. Printing consumables",
       "service_period": null,
       "source_ids": [
-        "legacy-ledger-2026"
+        "legacy-ledger-2026",
+        "src-94242d2479d545fcb0e218b38fd1585a"
       ],
       "split_charge": false,
       "stream": "purchase",
@@ -47813,7 +48114,8 @@
       "section": "5. Flavor subsystem",
       "service_period": null,
       "source_ids": [
-        "src-767b54b3914746cb845d87ca8cae6a35"
+        "src-767b54b3914746cb845d87ca8cae6a35",
+        "src-7cb8641d3b7742ef8ff264acd3a23320"
       ],
       "split_charge": false,
       "stream": "purchase",
@@ -52353,7 +52655,7 @@
     },
     {
       "allocation_status": "all_project",
-      "amount_evidence": "legacy_unverified",
+      "amount_evidence": "final_vendor_amount",
       "amount_minor": 3002,
       "contributes": true,
       "currency": "USD",
@@ -52361,22 +52663,43 @@
         "precision": "day",
         "value": "2026-10-02"
       },
+      "delivery_dates": [
+        {
+          "precision": "day",
+          "value": "2026-10-02"
+        }
+      ],
       "description": "Polymaker PolyDryer Filament Storage Box (1 kg spool), single — $27.99 + $2.03 NE tax",
-      "event_ids": [],
+      "event_ids": [
+        "evt-ca663a01f21e4390acabbf3e6c31d239"
+      ],
       "fulfillment": "ACQUIRED",
       "invoice_date": null,
       "ledger_purchase_id": "pur-f7d7511ce9394cae80352c28342d27fd",
-      "merchant_charge_allocated_minor": 0,
+      "merchant_charge_allocated_minor": 3002,
       "merchant_refund_allocated_minor": 0,
       "order_date": {
         "precision": "day",
-        "value": "2026-10-01"
+        "value": "2026-09-30"
       },
       "order_ids": [
         "amazon:114-3202733-4767455"
       ],
-      "payment_evidence": "unknown",
+      "payment_evidence": "merchant_charge",
       "price_basis": "row_total",
+      "price_history": [
+        {
+          "amount_evidence": "legacy_unverified",
+          "amount_minor": 3002,
+          "currency": "USD",
+          "note": "Prior recorded amount retained as noncontributing history; order details and completed charge corroborate the same value.",
+          "source_ids": [
+            "legacy-ledger-2026",
+            "saved-amazon:114-3202733-4767455"
+          ],
+          "verified_at": "2026-11-10"
+        }
+      ],
       "purchase_id": "pur-f7d7511ce9394cae80352c28342d27fd",
       "purpose": "equipment_tooling",
       "quantity": 1,
@@ -52385,14 +52708,16 @@
       "record_role": "purchase",
       "row_date": {
         "precision": "day",
-        "value": "2026-10-01"
+        "value": "2026-09-30"
       },
       "row_date_basis": "order_date",
       "section": "13. Printing consumables",
       "service_period": null,
       "source_ids": [
         "legacy-ledger-2026",
-        "saved-amazon:114-3202733-4767455"
+        "saved-amazon:114-3202733-4767455",
+        "src-3ac7ce9bc1094b12b65f236dacfb0707",
+        "src-c4e4f5c20c134a9f9a04670bb7746134"
       ],
       "split_charge": false,
       "stream": "purchase",
@@ -60284,6 +60609,18 @@
     },
     {
       "document_date": null,
+      "document_type": "project_order_confirmation_comparison",
+      "note": "Fifteen older filament confirmation bodies match section 13 quantities and amounts. The separate November 4 order uses generic 3D Printing Supplies wording in email; signed-in order details establish its three 3 kg PET-GF15 spools. Keyword-only material searches do not capture all purchase messages. No completed payment or independently printed placed date is inferred from these messages.",
+      "proves": [
+        "price"
+      ],
+      "reference": "filament-confirmations-reviewed-2026-11-10",
+      "source_id": "src-1a7532c558364590adb85aabb3a23de6",
+      "vendor": "Amazon",
+      "verified_at": "2026-11-10"
+    },
+    {
+      "document_date": null,
       "document_type": "email_shipment_notification",
       "note": "Vendor shipment notification lists all three PETG Basic spools: red, white and navy blue, one 1 kg spool of each. In transit; receipt and an exact dispatch calendar day are not established.",
       "notification_date": {
@@ -61165,6 +61502,20 @@
       "source_id": "src-390e0a721cd44f41a94273c362c3646a",
       "vendor": "SendCutSend",
       "verified_at": "2026-10-04"
+    },
+    {
+      "document_date": null,
+      "document_type": "merchant_order_details",
+      "note": "Signed-in Mac Chrome Order Details explicitly state Order placed September 30, 2026, delivery October 2, 2026, and one PolyDryer box at USD 27.99 plus USD 2.03 tax, free shipping. The preserved source retains its October 1 date; the current order uses the explicit vendor placed date without timezone conversion.",
+      "proves": [
+        "price",
+        "order_date",
+        "delivery"
+      ],
+      "reference": "114-3202733-4767455",
+      "source_id": "src-3ac7ce9bc1094b12b65f236dacfb0707",
+      "vendor": "Amazon",
+      "verified_at": "2026-11-10"
     },
     {
       "document_date": {
@@ -62136,6 +62487,16 @@
       "verified_at": "2026-10-04"
     },
     {
+      "document_date": null,
+      "document_type": "merchant_order_history_comparison",
+      "note": "Read-only signed-in Mac Chrome order-history review matched actual filament ASINs and order dates to the ledger. All returned pages reviewed for filament, Fiberon, Polymaker, PLA filament, TPU, ASA, PPA, Bambu filament, eSUN, Overture and PETG. No further missing filament purchase found beyond the separately recorded November 4 PET-GF15 order. Existing old orders were not individually re-audited for payments.",
+      "proves": [],
+      "reference": "filament-history-reviewed-2026-11-10",
+      "source_id": "src-63eff55413c0429cb5dc47c0874eff72",
+      "vendor": "Amazon",
+      "verified_at": "2026-11-10"
+    },
+    {
       "document_date": {
         "precision": "day",
         "value": "2026-02-17"
@@ -62738,6 +63099,18 @@
       "verified_at": "2026-10-04"
     },
     {
+      "document_date": null,
+      "document_type": "merchant_printable_invoice",
+      "note": "The printable invoice corroborates USD 21.74 for the project syrup line, but supplies only aggregate mixed-order estimated tax, not line tax. The exact tax-inclusive project amount and payment share remain unresolved. Unrelated lines and the full mixed amount are omitted.",
+      "proves": [
+        "price"
+      ],
+      "reference": "114-1335582-7182630",
+      "source_id": "src-7cb8641d3b7742ef8ff264acd3a23320",
+      "vendor": "Amazon",
+      "verified_at": "2026-11-10"
+    },
+    {
       "document_date": {
         "precision": "day",
         "value": "2026-11-05"
@@ -63303,6 +63676,18 @@
       "verified_at": "2026-10-04"
     },
     {
+      "document_date": null,
+      "document_type": "project_order_confirmation_comparison",
+      "note": "All three retrieved direct-order confirmations, 188663, 190118 and 192064, match the recorded black 3 kg PET-GF15 quantities of two, two and four spools, respectively, and their recorded amounts. Invoice links were not opened in this mailbox pass. No completed payment or independently printed placed date is inferred from these messages.",
+      "proves": [
+        "price"
+      ],
+      "reference": "filament-confirmations-reviewed-2026-11-10",
+      "source_id": "src-94242d2479d545fcb0e218b38fd1585a",
+      "vendor": "Polymaker",
+      "verified_at": "2026-11-10"
+    },
+    {
       "document_date": {
         "precision": "day",
         "value": "2026-10-10"
@@ -63724,6 +64109,18 @@
     },
     {
       "document_date": null,
+      "document_type": "project_order_confirmation_comparison",
+      "note": "All 25 retrieved order confirmations were read and compared line by line; 16 contain filament. Filament quantities, grades, colors and amounts match section 15, including the three PETG Basic spools in the November 7 order. No additional delivery notice was found for that order. No completed payment or independently printed placed date is inferred from these messages.",
+      "proves": [
+        "price"
+      ],
+      "reference": "filament-confirmations-reviewed-2026-11-10",
+      "source_id": "src-a7dbd0c188494669ab1ccabec9aaa521",
+      "vendor": "Bambu Lab",
+      "verified_at": "2026-11-10"
+    },
+    {
+      "document_date": null,
       "document_type": "order_confirmation_and_delivery_notice",
       "note": "Vendor notification confirms actual delivery. The notification calendar date does not independently establish the exact delivery day; no completed payment is inferred.",
       "notification_date": null,
@@ -63870,6 +64267,23 @@
       "source_id": "src-aedb47fecda3404d9c3dd5d00a05af35",
       "vendor": "Bambu Lab",
       "verified_at": "2026-10-13"
+    },
+    {
+      "document_date": null,
+      "document_type": "completed_merchant_transaction",
+      "merchant_event_date": {
+        "precision": "day",
+        "value": "2026-10-01"
+      },
+      "note": "Order-scoped Your Payments > Completed shows a separate USD 30.02 charge dated 2026-10-01 for this all-project order. The payment date remains distinct from the September 30 placed date; no bank posting or funding ownership is inferred.",
+      "proves": [
+        "charge",
+        "merchant_event_date"
+      ],
+      "reference": "114-4680955-8473844",
+      "source_id": "src-b0e6fc40a56749629c8eb21d20e6f7b4",
+      "vendor": "Amazon",
+      "verified_at": "2026-11-10"
     },
     {
       "document_date": {
@@ -64187,6 +64601,23 @@
       "source_id": "src-c4a5c5ecdb19418394085a2132028136",
       "vendor": "Bambu Lab",
       "verified_at": "2026-10-13"
+    },
+    {
+      "document_date": null,
+      "document_type": "completed_merchant_transaction",
+      "merchant_event_date": {
+        "precision": "day",
+        "value": "2026-10-01"
+      },
+      "note": "Order-scoped Your Payments > Completed shows a separate USD 30.02 charge dated 2026-10-01 for this all-project order. The payment date remains distinct from the September 30 placed date; no bank posting or funding ownership is inferred.",
+      "proves": [
+        "charge",
+        "merchant_event_date"
+      ],
+      "reference": "114-3202733-4767455",
+      "source_id": "src-c4e4f5c20c134a9f9a04670bb7746134",
+      "vendor": "Amazon",
+      "verified_at": "2026-11-10"
     },
     {
       "document_date": null,
@@ -65835,6 +66266,20 @@
       "verified_at": "2026-10-13"
     },
     {
+      "document_date": null,
+      "document_type": "merchant_order_details",
+      "note": "Signed-in Mac Chrome Order Details explicitly state Order placed September 30, 2026, delivery October 2, 2026, and one PolyDryer box at USD 27.99 plus USD 2.03 tax, free shipping. The preserved source retains its October 1 date; the current order uses the explicit vendor placed date without timezone conversion.",
+      "proves": [
+        "price",
+        "order_date",
+        "delivery"
+      ],
+      "reference": "114-4680955-8473844",
+      "source_id": "src-fddc9ac2f31a4383989f4f65e6b72648",
+      "vendor": "Amazon",
+      "verified_at": "2026-11-10"
+    },
+    {
       "document_date": {
         "precision": "day",
         "value": "2026-10-28"
@@ -66991,7 +67436,7 @@
         },
         {
           "authorizations_minor": 0,
-          "charges_minor": 356081,
+          "charges_minor": 362085,
           "currency": "USD",
           "event_ids": [
             "evt-07fc9a2979134192b3cc752f32f2b460",
@@ -67007,12 +67452,14 @@
             "evt-822df10968c94d009e356f29f845abc5",
             "evt-859aaf61508e423492ba56484ab9f2df",
             "evt-8b786496a51248269419124e3f7b6073",
+            "evt-9696d77085af490d901165f6c8e0d7e4",
             "evt-9d31d5b6df954ac5b8beee0fa6ce1147",
             "evt-a581db47af7146ef95a329e497e4fbe6",
             "evt-acd3c197767942d68ef92b3d422122b7",
             "evt-b7604b4f3b3441a09eeb753dbeb2c279",
             "evt-bad47324ad83426992a3db494d58e295",
             "evt-c0203246ff88423a9af71d1977ede6c4",
+            "evt-ca663a01f21e4390acabbf3e6c31d239",
             "evt-d1da698db2c940a09ec686643f142b0d",
             "evt-d3b134e34785419c80b032d8ae15d6d1",
             "evt-db226e9820d147058384c3bfe695bab8",
@@ -67026,7 +67473,7 @@
           ],
           "evidence_scope": "retrieved_records_only",
           "month": "2026-10",
-          "net_minor": 356081,
+          "net_minor": 362085,
           "noncash_credits_minor": 0,
           "refunds_minor": 0,
           "unknown_amount_ids": [],
@@ -67074,9 +67521,9 @@
       "totals": [
         {
           "authorizations_minor": 0,
-          "charges_minor": 2155575,
+          "charges_minor": 2161579,
           "currency": "USD",
-          "net_minor": 2155575,
+          "net_minor": 2161579,
           "noncash_credits_minor": 0,
           "refunds_minor": 0,
           "unresolved_project_share_minor": 0
@@ -67693,7 +68140,7 @@
           "currency": "USD",
           "estimate_minor": 6960,
           "evidence_scope": "retrieved_records_only",
-          "final_vendor_amount_minor": 221673,
+          "final_vendor_amount_minor": 227677,
           "legacy_unverified_minor": 204471,
           "month": "2026-09",
           "purchase_ids": [
@@ -67728,6 +68175,7 @@
             "pur-6b2a8bfdb28140f9b07113a2d70f70e6",
             "pur-6b52fe7813d94d5c8363ae1f8d1c2f74",
             "pur-6d61fa395ba8421f929f02abeafee73e",
+            "pur-6fb9cbd2160040c983dc0055e58d4de1",
             "pur-73c25aff331c47dea333d8656feb82bb",
             "pur-7496f2cea96f4978ac9b336a88ceff3b",
             "pur-75e2868ec892406fa186ca13d17e7497",
@@ -67761,9 +68209,10 @@
             "pur-eb29d9d132f94e3492692ca28f52e8bd",
             "pur-ed416e9ff39a42f9a0f8705a7d769d5a",
             "pur-ee67d7cb1d0c4305baf4d7c28e5caf15",
-            "pur-f0788bb2ff724b8f8cfec5aa85337da4"
+            "pur-f0788bb2ff724b8f8cfec5aa85337da4",
+            "pur-f7d7511ce9394cae80352c28342d27fd"
           ],
-          "total_minor": 433104,
+          "total_minor": 439108,
           "unknown_amount_ids": []
         },
         {
@@ -67771,7 +68220,7 @@
           "estimate_minor": 65069,
           "evidence_scope": "retrieved_records_only",
           "final_vendor_amount_minor": 316855,
-          "legacy_unverified_minor": 30634,
+          "legacy_unverified_minor": 24630,
           "month": "2026-10",
           "purchase_ids": [
             "pur-03fa2eeee1cd4eae8e6991441f9f90ed",
@@ -67801,7 +68250,6 @@
             "pur-65c979f1bb194148918426361d985f73",
             "pur-6bc71f4f15b34503ac9bf8beea6ef815",
             "pur-6f1b8c5e3a7d4c0f2e5b9a1c3d4e6f85",
-            "pur-6fb9cbd2160040c983dc0055e58d4de1",
             "pur-7a2c9d6f4b8e4d1a3f6c0b2d4e5f7a96",
             "pur-7f5e5ae2f85e4d74bca9edb78b7332f0",
             "pur-87565d390bcc451a9fbfb44dc871d585",
@@ -67830,10 +68278,9 @@
             "pur-f24cd0a88f4b4a8ca76f3abc490f81b3",
             "pur-f2a6d291d92649da94f37b960613d32e",
             "pur-f4ddddb90dbd4ae2bba5008f74f8d4b6",
-            "pur-f7d7511ce9394cae80352c28342d27fd",
             "pur-f98feadd5dec4c1cba460dd7c74baa09"
           ],
-          "total_minor": 412558,
+          "total_minor": 406554,
           "unknown_amount_ids": []
         },
         {
@@ -67916,8 +68363,8 @@
         {
           "currency": "USD",
           "estimate_minor": 232963,
-          "final_vendor_amount_minor": 2494107,
-          "legacy_unverified_minor": 2294212,
+          "final_vendor_amount_minor": 2500111,
+          "legacy_unverified_minor": 2288208,
           "total_minor": 5021282
         }
       ],
@@ -68078,10 +68525,10 @@
         {
           "currency": "USD",
           "estimated_purchase_minor": 232963,
-          "legacy_unverified_purchase_minor": 2294212,
+          "legacy_unverified_purchase_minor": 2288208,
           "order_only_charge_allocation_minor": 6561,
           "partial_charge_purchase_minor": 0,
-          "purchases_without_merchant_charge_minor": 2872268,
+          "purchases_without_merchant_charge_minor": 2866264,
           "undated_charge_minor": 174052,
           "undated_refund_minor": 0,
           "undated_unallocated_purchase_minor": 975132,
@@ -68154,6 +68601,7 @@
         "coverage-6194d8a6259e4ec4864ddd8bad6f5a79",
         "coverage-683c80d033e445e5a06780abc6fd7762",
         "coverage-6ae0fe39a22446b5af11066bec38e300",
+        "coverage-6c7e8c703b9449708f17b28895f08bf8",
         "coverage-6e94055bf3074d6eb35fed6a91a4a83a",
         "coverage-6ef6cf03f4f84bfbb645acce4d20418b",
         "coverage-73c6e929ef054d8e8dd93989f037bd69",
@@ -68162,11 +68610,13 @@
         "coverage-80e99c778a64491ea0cd0c2669edbab4",
         "coverage-81ab195b3a1745e79ed28e5764633055",
         "coverage-81ef2f676a514df7997a2840a4a7986d",
+        "coverage-87ad107c35a243ef858220a4121cf385",
         "coverage-88c04aa68db042feb287051cb5e01375",
         "coverage-89028646dee6480680bf381570c72830",
         "coverage-8b75471a46464b6fa867b20a678f5f8e",
         "coverage-8baffc08a77545f1b1273b8f3fac5b68",
         "coverage-94400028abbd45a08205cae95a67450e",
+        "coverage-947837cefc32427c95c20afaf9445371",
         "coverage-96556d699c7b46f4978a3888d3d375db",
         "coverage-9addde8548284bd9b7e2677f30b1c80a",
         "coverage-9d1de87f70a241d1ace3c918c49d2c65",
@@ -68176,6 +68626,7 @@
         "coverage-a914738fc688438f8d509e94711f1e9c",
         "coverage-a998dc52b4624eb9affda84a3920c174",
         "coverage-a9a30503bf134e929097ac22eefffcbf",
+        "coverage-ac00b0893b3d4b808e645d57f024fe3b",
         "coverage-ac29a3ee87b742d2b8bd7ee14edcae46",
         "coverage-acea061ce3204d5f89dca212d3c84ba8",
         "coverage-b136418b081343e5b6fa252ee1b86a7c",
@@ -68190,6 +68641,7 @@
         "coverage-c6521989f3144cb39f81df95603c72c3",
         "coverage-c7f0244fd78749e6a3eda6f37122dba0",
         "coverage-cb3b2897e4284f688f9d1a76d4f04536",
+        "coverage-cc292b42ae1940038cd7f9aba1893147",
         "coverage-d4baf4542f40450189a7fdcacc197039",
         "coverage-dad019e8b30b485e9203a063ea3654ba",
         "coverage-dc497fe458424d6e96f59f91a9cd428e",
@@ -68418,7 +68870,6 @@
         "pur-6e9a8d44f2e24b729ca4888aba4b57aa",
         "pur-6efcbbd5fcb44c888f18a2ef86a18960",
         "pur-6f026c64ba934cfa86597b5748ded272",
-        "pur-6fb9cbd2160040c983dc0055e58d4de1",
         "pur-6fdb34ee8f244808a9fc68ef8751a970",
         "pur-6fefb1717dc14ed4bfb05d815886f6ba",
         "pur-6ff288deba9941ab8dfef9db361e0cae",
@@ -68673,7 +69124,6 @@
         "pur-f72654878f064c6181771847d3914c8d",
         "pur-f72970704bb14ff7b68602d671974ed2",
         "pur-f74c9bed15074f37af9c1d3f616ef230",
-        "pur-f7d7511ce9394cae80352c28342d27fd",
         "pur-f830f50fc89d49778112589710bb5d29",
         "pur-f9d818a50bf7434b995c07528d15c581",
         "pur-fa5dea51eec141a19585fe0a9d6ac29d",
@@ -68924,7 +69374,6 @@
         "pur-6e9a8d44f2e24b729ca4888aba4b57aa",
         "pur-6efcbbd5fcb44c888f18a2ef86a18960",
         "pur-6f026c64ba934cfa86597b5748ded272",
-        "pur-6fb9cbd2160040c983dc0055e58d4de1",
         "pur-6fdb34ee8f244808a9fc68ef8751a970",
         "pur-6fefb1717dc14ed4bfb05d815886f6ba",
         "pur-6ff288deba9941ab8dfef9db361e0cae",
@@ -69202,7 +69651,6 @@
         "pur-f72654878f064c6181771847d3914c8d",
         "pur-f72970704bb14ff7b68602d671974ed2",
         "pur-f74c9bed15074f37af9c1d3f616ef230",
-        "pur-f7d7511ce9394cae80352c28342d27fd",
         "pur-f830f50fc89d49778112589710bb5d29",
         "pur-f9d818a50bf7434b995c07528d15c581",
         "pur-fa5dea51eec141a19585fe0a9d6ac29d",
@@ -69410,6 +69858,7 @@
       "coverage-6194d8a6259e4ec4864ddd8bad6f5a79: evidence coverage is partial",
       "coverage-683c80d033e445e5a06780abc6fd7762: evidence coverage is unknown",
       "coverage-6ae0fe39a22446b5af11066bec38e300: evidence coverage is unknown",
+      "coverage-6c7e8c703b9449708f17b28895f08bf8: evidence coverage is partial",
       "coverage-6e94055bf3074d6eb35fed6a91a4a83a: evidence coverage is partial",
       "coverage-6ef6cf03f4f84bfbb645acce4d20418b: evidence coverage is partial",
       "coverage-73c6e929ef054d8e8dd93989f037bd69: evidence coverage is partial",
@@ -69418,11 +69867,13 @@
       "coverage-80e99c778a64491ea0cd0c2669edbab4: evidence coverage is partial",
       "coverage-81ab195b3a1745e79ed28e5764633055: evidence coverage is unknown",
       "coverage-81ef2f676a514df7997a2840a4a7986d: evidence coverage is unknown",
+      "coverage-87ad107c35a243ef858220a4121cf385: evidence coverage is partial",
       "coverage-88c04aa68db042feb287051cb5e01375: evidence coverage is partial",
       "coverage-89028646dee6480680bf381570c72830: evidence coverage is unknown",
       "coverage-8b75471a46464b6fa867b20a678f5f8e: evidence coverage is partial",
       "coverage-8baffc08a77545f1b1273b8f3fac5b68: evidence coverage is partial",
       "coverage-94400028abbd45a08205cae95a67450e: evidence coverage is partial",
+      "coverage-947837cefc32427c95c20afaf9445371: evidence coverage is partial",
       "coverage-96556d699c7b46f4978a3888d3d375db: evidence coverage is partial",
       "coverage-9addde8548284bd9b7e2677f30b1c80a: evidence coverage is partial",
       "coverage-9d1de87f70a241d1ace3c918c49d2c65: evidence coverage is partial",
@@ -69432,6 +69883,7 @@
       "coverage-a914738fc688438f8d509e94711f1e9c: evidence coverage is unknown",
       "coverage-a998dc52b4624eb9affda84a3920c174: evidence coverage is partial",
       "coverage-a9a30503bf134e929097ac22eefffcbf: evidence coverage is partial",
+      "coverage-ac00b0893b3d4b808e645d57f024fe3b: evidence coverage is partial",
       "coverage-ac29a3ee87b742d2b8bd7ee14edcae46: evidence coverage is partial",
       "coverage-acea061ce3204d5f89dca212d3c84ba8: evidence coverage is partial",
       "coverage-b136418b081343e5b6fa252ee1b86a7c: evidence coverage is partial",
@@ -69446,6 +69898,7 @@
       "coverage-c6521989f3144cb39f81df95603c72c3: evidence coverage is partial",
       "coverage-c7f0244fd78749e6a3eda6f37122dba0: evidence coverage is unknown",
       "coverage-cb3b2897e4284f688f9d1a76d4f04536: evidence coverage is partial",
+      "coverage-cc292b42ae1940038cd7f9aba1893147: evidence coverage is partial",
       "coverage-d4baf4542f40450189a7fdcacc197039: evidence coverage is partial",
       "coverage-dad019e8b30b485e9203a063ea3654ba: evidence coverage is partial",
       "coverage-dc497fe458424d6e96f59f91a9cd428e: evidence coverage is unknown",
