@@ -35,6 +35,11 @@ thickness, flush with both faces. A black margin separates it from the white rin
 weight matches the frame and rule. Black, white and translucent PETG occupy disjoint volumes.
 The plate prints face up on its flat back, like the cover.
 
+Derek accepts the full-thickness window's illumination with the blue LED. The
+[archived physical result](https://github.com/derekbreden/homesodamachine/blob/1fb531af577d22cb70a034cdff4710a7583601c0/hardware/printed-parts/enclosure/display-cover/prints/2026-11-09-status-light/physical-result.json)
+and [unlit and lit photographs](https://github.com/derekbreden/homesodamachine/tree/1fb531af577d22cb70a034cdff4710a7583601c0/hardware/printed-parts/enclosure/display-cover/prints/2026-11-09-status-light)
+record his in-person assessment. He notes that the photographs do not do the result justice.
+
 The light is the [CHANZON prewired clear-lens blue LED](https://www.amazon.com/dp/B08G4Z6KPV).
 Its clear lens directs light into the printed diffuser. The EDGELEC blue LED in the acquired
 assortment also fits the bore. The LED sits set back behind the window. Its leads run down a
