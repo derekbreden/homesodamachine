@@ -125,30 +125,30 @@
       ]
     }
   ],
-  "qualification": "PCB openings fit visible rims. Exterior housing surfaces use nominal planes and rounds fitted to the native cloud. Recess mouths are observed; hidden cavity closures, covered underside features and mounting-bore walls remain unqualified. Wire-entry group datums retain their existing installation frame.",
+  "qualification": "PCB openings fit visible rims. Exterior housing surfaces use nominal planes and rounds fitted to the native cloud. Recess mouths are observed; hidden cavity closures, covered underside features and mounting-bore walls remain unqualified. Wire-entry groups locate the central mouth on each terminal bank with its housing face outward normal.",
   "ports": {
     "contacts": {
       "point_mm": [
-        29.9,
-        -0.2,
-        7.5
+        30.109828411492707,
+        0.07183507298636066,
+        5.9
       ],
       "outward_axis": [
-        1,
-        0,
-        0
+        0.9999663551946484,
+        0.0082029554875217,
+        0.0
       ]
     },
     "logic": {
       "point_mm": [
-        -20.3,
-        -0.4,
-        7.5
+        -30.529223245297594,
+        -0.7190072728301465,
+        5.9
       ],
       "outward_axis": [
-        1,
-        0,
-        0
+        -0.9998476951563913,
+        -0.017452406437283637,
+        0.0
       ]
     }
   },

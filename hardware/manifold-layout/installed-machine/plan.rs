@@ -148,7 +148,6 @@ fn junction_poses(root: &Path) -> Result<Vec<Junction>> {
 
 /// The wiring's connectors as placed bodies: each connector's reference model at its pose.
 pub fn junctions(root: &Path) -> Result<Vec<Value>> {
-    let colour = design::material("C_AC_HUB")?;
     junction_poses(root)?
         .into_iter()
         .map(|j| {
@@ -156,7 +155,7 @@ pub fn junctions(root: &Path) -> Result<Vec<Value>> {
             let transform: Vec<Value> = (0..3)
                 .map(|i| json!([j.rotation[i][0], j.rotation[i][1], j.rotation[i][2], j.translation[i]]))
                 .collect();
-            Ok(json!({"color": colour, "model": design::source(root, &relative, design::Use::Layout)?,
+            Ok(json!({"model": design::source(root, &relative, design::Use::Layout)?,
                       "name": j.name, "owner": j.host, "transform": transform}))
         })
         .collect()

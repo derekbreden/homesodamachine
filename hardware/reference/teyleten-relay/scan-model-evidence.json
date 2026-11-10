@@ -130,15 +130,15 @@
     "parameters": "scan-datums.json",
     "method": "Analytical PCB, relay housing, terminal cross-sections, recess mouths, screw wells, package bodies and smooth solder envelopes. Exterior planes and repeated feature spacing fit the native point cloud in its measured PCB frame. No scan triangles form the finished reference.",
     "small_components": "Observed package and jumper silhouettes use clean rounded prisms and exposed lead envelopes. Fine lettering, solder texture and small PCB surface details are omitted.",
-    "cavities": "The visible wire mouths, rear inspection windows and screw wells are represented; concealed terminal internals use shallow closed surfaces."
+    "cavities": "The visible wire mouths, rear inspection windows and screw wells are represented; concealed terminal internals use shallow closed surfaces.",
+    "wire_interfaces": "Each port is the central wire-mouth face station transformed by its terminal housing pose; the outward axis follows the wire face. The inward inspection windows are not wire-entry interfaces."
   },
   "limits": [
     "The part carries scanning spray; no coating-thickness correction or scale adjustment is applied.",
     "The PCB opening rims are observed; bore-wall diameters and physical screw installation clearance remain unqualified.",
     "Putty-covered underside features and concealed terminal internals are not reconstructed.",
     "Package silhouettes and solder protrusions are idealized exterior envelopes; internal circuitry is absent.",
-    "Screw slot orientation is schematic.",
-    "Installation wire-entry group datums retain their existing frame; exterior housing mouths face outward at opposite PCB ends."
+    "Screw slot orientation is schematic."
   ],
   "underside_representation": "Smooth closed envelopes at the observed solder-tip locations retain their measured downward extent. Covered features are absent.",
   "exterior_observations": {
