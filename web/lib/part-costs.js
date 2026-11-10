@@ -128,6 +128,11 @@ export function allocatePartCosts(catalog, { lines, operations, rate, batch = nu
     const targets = line.targets || [];
     if (!line.targets) findings.push({ kind: "untagged", where, amount, source: entry.source });
     for (const target of targets) if (!index.has(target.id)) findings.push({ kind: "unknown", where, material: target.id });
+    // An unpriced ledger row does not establish a free part.
+    if (entry.source === "bom" && amount == null) {
+      findings.push({ kind: "unpriced", where, material: targets.map((target) => target.id).join(" ") || rootId, description: line.name });
+      continue;
+    }
     let placed = false;
     configs.forEach((config, c) => {
       const present = targets.filter((target) => index.has(target.id) && config.quantities.get(target.id) > 0);
@@ -172,7 +177,7 @@ export function allocatePartCosts(catalog, { lines, operations, rate, batch = nu
     findings.push({ kind: "uncosted", material: id, description: material?.description });
   }
 
-  const usd = lines.reduce((total, line) => total + line.usd, 0);
+  const usd = lines.reduce((total, line) => total + (line.usd ?? 0), 0);
   const minutes = operations.reduce((total, op) => total + op.minutes, 0);
   return {
     root: rootId,

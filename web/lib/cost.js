@@ -35,12 +35,13 @@ function escape(s) {
 }
 
 function money(n) {
+  if (n == null) return "—";
   return "$" + n.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 }
 
 function parseMoney(cell) {
   const m = cell.match(MONEY_RE);
-  return m ? parseFloat(m[1].replace(/,/g, "")) : 0;
+  return m ? parseFloat(m[1].replace(/,/g, "")) : null;
 }
 
 // A BOM qty cell → a discrete piece count, or null when it's a measure sold by
@@ -94,11 +95,11 @@ export function readCostRollup(hardwareDir) {
       byTag.set(tag, { tag, name: categoryName(tag), sum: 0, parts: new Map() });
     }
     const b = byTag.get(tag);
-    b.sum += cost;
+    b.sum += cost ?? 0;
 
     let p = b.parts.get(name);
     if (!p) { p = { name, qty: 0, countable: true, cost: 0, rawQty: qtyRaw, sections: new Set() }; b.parts.set(name, p); }
-    p.cost += cost;
+    p.cost = p.cost == null || cost == null ? null : p.cost + cost;
     p.sections.add(section);
     if (count === null) p.countable = false;
     else p.qty += count;
@@ -567,7 +568,7 @@ ${details}
 function renderTopline(total, labor) {
   const labour = (labor.minutes / 60) * labor.rate;
   const all = total + labour;
-  const pp = (total / all) * 100;
+  const pp = all > 0 ? (total / all) * 100 : 0;
   return `<section class="cost-top" aria-label="Estimated build cost">
     <div class="cost-top-cap">Estimated cost per unit</div>
     <div class="cost-top-big">${money(all)}</div>
@@ -663,13 +664,14 @@ function renderCostPanel(panel) {
 
 function renderCostBody(rollup, labor, mach, investment, forecast, harness, partCatalog) {
   const { total, rowCount, cats } = rollup;
+  const partial = cats.some((category) => category.parts.some((part) => part.cost == null));
   const mx = Math.max(...cats.map((c) => c.sum), 1);
-  const unitCost = labor && labor.rate > 0 && labor.opCount > 0
+  const unitCost = !partial && labor && labor.rate > 0 && labor.opCount > 0
     ? Math.round((total + (labor.minutes / 60) * labor.rate) * 100) / 100 : null;
 
   const bars = cats.map((c) => {
     const w = ((c.sum / mx) * 100).toFixed(1);
-    const pct = ((c.sum / total) * 100).toFixed(1);
+    const pct = (total > 0 ? (c.sum / total) * 100 : 0).toFixed(1);
     return `<div class="cost-bar">
       <div class="cost-bl">${escape(c.name)}</div>
       <div class="cost-bt"><div class="cost-bf" style="width:${w}%"></div></div>
@@ -682,7 +684,7 @@ function renderCostBody(rollup, labor, mach, investment, forecast, harness, part
       let qty;
       if (p.countable) {
         qty = "&times;" + p.qty;
-        if (p.qty > 1) {
+        if (p.qty > 1 && p.cost != null) {
           const each = Math.round((p.cost / p.qty) * 100) / 100;
           // Per-each is total ÷ qty — never the ledger's Unit $ column, which
           // can be mis-entered. Amortized pack-fraction costs don't always
@@ -703,7 +705,7 @@ function renderCostBody(rollup, labor, mach, investment, forecast, harness, part
       return `<tr><td>${escape(stripPack(p.name))}${secs}</td><td class="cost-qty">${qty}</td><td class="cost-num">${money(p.cost)}</td></tr>`;
     }).join("");
     const n = c.parts.length;
-    return `<details class="cost-cat"><summary>${escape(c.name)} <span class="cost-dt">${money(c.sum)} &middot; ${n} part${n === 1 ? "" : "s"}</span></summary>
+    return `<details class="cost-cat"><summary>${escape(c.name)} <span class="cost-dt">${money(c.sum)}${c.parts.some((part) => part.cost == null) ? " known" : ""} &middot; ${n} part${n === 1 ? "" : "s"}</span></summary>
       <table class="cost-items"><tbody>${rows}</tbody></table></details>`;
   }).join("\n");
 
@@ -712,23 +714,23 @@ ${unitCost !== null ? renderTopline(total, labor) : ""}${partCatalog ? renderPar
   <h2 class="cost-title" id="parts">Parts by category</h2>
   <div class="cost-hero">
     <div class="cost-big">${money(total)}</div>
-    <div class="cost-lbl">delivered cost per finished unit &mdash; ${rowCount} ledger lines across ${cats.length} part-type categories, amortized per unit</div>
+    <div class="cost-lbl">${partial ? "known delivered parts subtotal" : "delivered cost per finished unit"} &mdash; ${rowCount} ledger lines across ${cats.length} part-type categories, amortized per unit</div>
   </div>
-  <p class="cost-note">Parts are priced from our purchase records, including shipping and tax; parts not yet purchased use estimated prices. Packs are divided across the machines they supply. Repeated parts are combined into one line, with ~ marking a rounded per-piece price. Expand any category below to see every part.</p>
+  <p class="cost-note">Parts are priced from our purchase records, including shipping and tax; parts not yet purchased use estimated prices. Packs are divided across the machines they supply. Repeated parts are combined into one line, with ~ marking a rounded per-piece price. Expand any category below to see every part.${partial ? " A dash marks an unrecorded price; those amounts are excluded from the known subtotal." : ""}</p>
   <h3 class="cost-h2">All categories, ranked</h3>
   <div class="cost-chart">
 ${bars}
   </div>
   <h3 class="cost-h2">Full itemization</h3>
 ${details}
-  <div class="cost-total"><span>Per-unit total</span><span class="v">${money(total)}</span></div>
+  <div class="cost-total"><span>${partial ? "Known parts subtotal" : "Per-unit total"}</span><span class="v">${money(total)}</span></div>
 ${labor ? renderLaborSection(labor, harness) : ""}${mach ? renderMachineSection(mach) : ""}`;
   const metric = (value, label) => `<span class="cost-panel-value"><strong>${value}</strong><small>${label}</small></span>`;
   const plan = unitCost !== null && investment ? recoveryPlan({ unitCost, investment: investment.total }) : null;
   const panels = [{
     id: "unit-cost-panel", anchor: "parts", title: "Cost per unit",
-    caption: unitCost !== null ? `${money(total)} parts + ${money(unitCost - total)} planned labor` : "Parts only; build labor estimate unavailable",
-    metrics: metric(money(unitCost ?? total), unitCost !== null ? "Per finished machine" : "Parts per machine"),
+    caption: partial ? "Known parts subtotal; some prices are unrecorded" : unitCost !== null ? `${money(total)} parts + ${money(unitCost - total)} planned labor` : "Parts only; build labor estimate unavailable",
+    metrics: metric(money(unitCost ?? total), partial ? "Known parts per machine" : unitCost !== null ? "Per finished machine" : "Parts per machine"),
     body: unitBody,
   }, {
     id: "investment-panel", anchor: "recovery", title: "Investment recovery",
