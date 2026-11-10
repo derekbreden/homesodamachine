@@ -1,9 +1,9 @@
 {
   "added_commanded_motion_seconds": 824.5620684067886,
-  "archive_sha256": "383d568a6a20dde20200d71c8e43e13a6c6c7074f5385a9ac8efbe027241d48b",
+  "archive_sha256": "829f6d49ca6c0904cde291356f494f90f2750b792aec2a4972b5d0db01f59f10",
   "changed": true,
   "estimate_scope": "Native estimate plus the added constant-feed motion time; acceleration and fan spin-up are not simulated.",
-  "input_archive_sha256": "cdb5b556ddf6536590b976d07e3bc64e6248f12e8c219a664d72eaa3f91aeee8",
+  "input_archive_sha256": "569486c581a753d8e883f521fc1cb1b99fdf8b890c9764e913abd9d9be15920a",
   "members": [
     {
       "added_commanded_motion_seconds": 824.5620684067886,

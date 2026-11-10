@@ -1,23 +1,10 @@
 {
-  "plate": "inclines-gap",
-  "estimated_minutes": 68.33129977292565,
-  "samples": [
-    {
-      "id": "G1",
-      "angle_from_bed_deg": 15,
-      "requested_settings": {
-        "support_interface_spacing": "0",
-        "support_top_z_distance": "0.48"
-      },
-      "support_segments": {
-        "Support": 13548,
-        "Support interface": 1364
-      },
-      "support_path_length_mm": {
-        "Support": 5544.338615719561,
-        "Support interface": 1767.999825314247
-      },
-      "interface_z_planes_mm": [
+  "purpose": "Compare actual emitted support roles and planes per spatially separated coupon.",
+  "samples": {
+    "G1": {
+      "Support": 13548,
+      "Support interface": 1364,
+      "planes": [
         5.0,
         5.24,
         5.48,
@@ -42,24 +29,12 @@
         10.04,
         10.28
       ],
-      "normalized_support_sha256": "5c4b539c303d5d44a3368816150c60bb59e007ad1f28848f19358baa071db316"
+      "normalized_support_sha256": "3daf17bf54be6d0ce29986130e8a2c4a037526bf71bec2024b7c314ce0637d1b"
     },
-    {
-      "id": "G2",
-      "angle_from_bed_deg": 30,
-      "requested_settings": {
-        "support_interface_spacing": "0",
-        "support_top_z_distance": "0.48"
-      },
-      "support_segments": {
-        "Support": 15103,
-        "Support interface": 2337
-      },
-      "support_path_length_mm": {
-        "Support": 6089.385032855963,
-        "Support interface": 2294.67777199304
-      },
-      "interface_z_planes_mm": [
+    "G2": {
+      "Support": 15103,
+      "Support interface": 2337,
+      "planes": [
         5.0,
         5.24,
         5.48,
@@ -107,24 +82,12 @@
         15.56,
         15.8
       ],
-      "normalized_support_sha256": "554c54a1ab079b02ff75f45d4ab2c0a07de14fe5e9357e295e693d73d7df0046"
+      "normalized_support_sha256": "12d2a21bece163b34daa435c41cd0d6f4ad79e31df850d6cce4a35f9ace56da9"
     },
-    {
-      "id": "G3",
-      "angle_from_bed_deg": 45,
-      "requested_settings": {
-        "support_interface_spacing": "0",
-        "support_top_z_distance": "0.48"
-      },
-      "support_segments": {
-        "Support": 15404,
-        "Support interface": 4340
-      },
-      "support_path_length_mm": {
-        "Support": 6842.868302646351,
-        "Support interface": 3457.0549782770345
-      },
-      "interface_z_planes_mm": [
+    "G3": {
+      "Support": 15404,
+      "Support interface": 4340,
+      "planes": [
         5.24,
         5.48,
         5.72,
@@ -202,24 +165,12 @@
         23.0,
         23.24
       ],
-      "normalized_support_sha256": "7af0a4147b9d53bd169c3df047a6a4517fceaad7052f73e9594ff290cd40c9a3"
+      "normalized_support_sha256": "de5aa12154d6f110a2fb1bc67c67d24af255060da4e6b174f40feb1c056ccbe2"
     },
-    {
-      "id": "G4",
-      "angle_from_bed_deg": 15,
-      "requested_settings": {
-        "support_interface_spacing": "0",
-        "support_top_z_distance": "0.72"
-      },
-      "support_segments": {
-        "Support": 13052,
-        "Support interface": 1362
-      },
-      "support_path_length_mm": {
-        "Support": 5360.835654419747,
-        "Support interface": 1757.3926490358126
-      },
-      "interface_z_planes_mm": [
+    "G4": {
+      "Support": 13052,
+      "Support interface": 1362,
+      "planes": [
         4.76,
         5.0,
         5.24,
@@ -244,24 +195,12 @@
         9.8,
         10.04
       ],
-      "normalized_support_sha256": "3a00f79912d872b61c45377ffd49bc10a6ad2d8b38de2a89ae06455af2c43c31"
+      "normalized_support_sha256": "2b0c3dc7e6b4c6e02476460d1c552de05d8a64d11515d2ab6ee325b1eb649d8a"
     },
-    {
-      "id": "G5",
-      "angle_from_bed_deg": 30,
-      "requested_settings": {
-        "support_interface_spacing": "0",
-        "support_top_z_distance": "0.72"
-      },
-      "support_segments": {
-        "Support": 14397,
-        "Support interface": 2374
-      },
-      "support_path_length_mm": {
-        "Support": 5930.80985322148,
-        "Support interface": 2308.109014584187
-      },
-      "interface_z_planes_mm": [
+    "G5": {
+      "Support": 14397,
+      "Support interface": 2374,
+      "planes": [
         4.76,
         5.0,
         5.24,
@@ -309,24 +248,12 @@
         15.32,
         15.56
       ],
-      "normalized_support_sha256": "99550f017006ba66628635436b23711bb124b588138d1eb4da497c2137948a5d"
+      "normalized_support_sha256": "6f45c971329fe5227def6a67afb8b6f7859faed5ac7680967a583f9f70929bdc"
     },
-    {
-      "id": "G6",
-      "angle_from_bed_deg": 45,
-      "requested_settings": {
-        "support_interface_spacing": "0",
-        "support_top_z_distance": "0.72"
-      },
-      "support_segments": {
-        "Support": 14522,
-        "Support interface": 4304
-      },
-      "support_path_length_mm": {
-        "Support": 6568.7023030585015,
-        "Support interface": 3488.6000645860277
-      },
-      "interface_z_planes_mm": [
+    "G6": {
+      "Support": 14522,
+      "Support interface": 4304,
+      "planes": [
         5.0,
         5.24,
         5.48,
@@ -404,7 +331,8 @@
         22.76,
         23.0
       ],
-      "normalized_support_sha256": "fb292fe30f1883e8e6f99f3cb22a42cf8703a3c50e3d88a3937bdb3df8b8b6ce"
+      "normalized_support_sha256": "05eb5c8f2f5d34f47192e0b24ad34192807a9f95f9b169fcd1c4ce908f92f703"
     }
-  ]
+  },
+  "visualization_scope": "Model triangles are the authored STL; supports are rectangular envelopes at the commanded paths, widths and layer heights."
 }

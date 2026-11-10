@@ -30,8 +30,8 @@ The native slice and estimate are in [`ready/`](ready/). The verification record
 retains the actual support bodies, contact planes, bead envelope and Mark2 trim.
 The [physical result](physical-result.json) records failed release at the inclined
 faucet contact and sagging at the handhold crown and lip. The holed pad awaits
-a reported result. The [incline comparisons](../inclines/README.md) isolate contact
-gap and roof spacing before another complete faucet print.
+a reported result. The [incline comparisons](../inclines/README.md) compare contact
+gap and explicit tree algorithms at the shared dense interface before another complete faucet print.
 
 Mark2's accepted job, selected send options and startup reading are in
 [`mark2/`](mark2/). The companion [rail pair](../rail-fit-30/) prints on Mark1,

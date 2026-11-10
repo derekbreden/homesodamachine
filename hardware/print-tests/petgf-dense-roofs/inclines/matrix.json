@@ -1,5 +1,5 @@
 {
-  "purpose": "Compare requested contact distance and interface spacing on single-wall inclined roofs after the fused FD faucet result.",
+  "purpose": "Compare contact gap and explicit tree algorithms at the shared dense interface on singly anchored inclines.",
   "angle_convention": "Degrees of the underside from the horizontal bed plane; zero is a flat ceiling.",
   "geometry": {
     "wall_mm": 3.0,
@@ -16,7 +16,8 @@
     "tree_support_branch_angle": "45",
     "support_object_xy_distance": "0.4",
     "sparse_infill_density": "15%",
-    "sparse_infill_pattern": "gyroid"
+    "sparse_infill_pattern": "gyroid",
+    "support_interface_spacing": "0"
   },
   "plates": [
     {
@@ -26,130 +27,124 @@
           "id": "G1",
           "angle_from_bed_deg": 15,
           "settings": {
-            "support_top_z_distance": "0.48",
-            "support_interface_spacing": "0"
+            "support_top_z_distance": "0.48"
           }
         },
         {
           "id": "G2",
           "angle_from_bed_deg": 30,
           "settings": {
-            "support_top_z_distance": "0.48",
-            "support_interface_spacing": "0"
+            "support_top_z_distance": "0.48"
           }
         },
         {
           "id": "G3",
           "angle_from_bed_deg": 45,
           "settings": {
-            "support_top_z_distance": "0.48",
-            "support_interface_spacing": "0"
+            "support_top_z_distance": "0.48"
           }
         },
         {
           "id": "G4",
           "angle_from_bed_deg": 15,
           "settings": {
-            "support_top_z_distance": "0.72",
-            "support_interface_spacing": "0"
+            "support_top_z_distance": "0.72"
           }
         },
         {
           "id": "G5",
           "angle_from_bed_deg": 30,
           "settings": {
-            "support_top_z_distance": "0.72",
-            "support_interface_spacing": "0"
+            "support_top_z_distance": "0.72"
           }
         },
         {
           "id": "G6",
           "angle_from_bed_deg": 45,
           "settings": {
-            "support_top_z_distance": "0.72",
-            "support_interface_spacing": "0"
+            "support_top_z_distance": "0.72"
           }
         }
       ]
     },
     {
-      "id": "inclines-density",
+      "id": "inclines-slim",
       "samples": [
         {
-          "id": "S1",
+          "id": "T1",
           "angle_from_bed_deg": 15,
           "settings": {
             "support_top_z_distance": "0.48",
-            "support_interface_spacing": "0.2"
+            "support_style": "tree_slim"
           }
         },
         {
-          "id": "S2",
+          "id": "T2",
           "angle_from_bed_deg": 30,
           "settings": {
             "support_top_z_distance": "0.48",
-            "support_interface_spacing": "0.2"
+            "support_style": "tree_slim"
           }
         },
         {
-          "id": "S3",
+          "id": "T3",
           "angle_from_bed_deg": 45,
           "settings": {
             "support_top_z_distance": "0.48",
-            "support_interface_spacing": "0.2"
+            "support_style": "tree_slim"
           }
         },
         {
-          "id": "S4",
+          "id": "T4",
           "angle_from_bed_deg": 15,
           "settings": {
-            "support_top_z_distance": "0.48",
-            "support_interface_spacing": "0.4"
+            "support_top_z_distance": "0.72",
+            "support_style": "tree_slim"
           }
         },
         {
-          "id": "S5",
+          "id": "T5",
           "angle_from_bed_deg": 30,
           "settings": {
-            "support_top_z_distance": "0.48",
-            "support_interface_spacing": "0.4"
+            "support_top_z_distance": "0.72",
+            "support_style": "tree_slim"
           }
         },
         {
-          "id": "S6",
+          "id": "T6",
           "angle_from_bed_deg": 45,
           "settings": {
-            "support_top_z_distance": "0.48",
-            "support_interface_spacing": "0.4"
+            "support_top_z_distance": "0.72",
+            "support_style": "tree_slim"
           }
         }
       ]
     }
   ],
-  "controlled_process": "Shared D bridge flow, bridge speed, localized cooling, material and ordinary layer schedule. Object-specific gap and spacing are experimental overrides.",
+  "controlled_process": "Shared dense D interface spacing and layer count, bridge flow, bridge speed, localized cooling, material, side clearance and ordinary model layer schedule. Gap and explicit tree algorithm are experimental factors.",
   "follow_up": "Validate a removable, acceptably supported condition on the actual tilted faucet lower curve before a complete faucet print.",
   "sources": [
     {
-      "url": "https://help.prusa3d.com/article/support-material_1698",
-      "supports": "Contact distance and interface spacing control separation and support uniformity; more spacing can ease removal at the expense of support."
-    },
-    {
-      "url": "https://raw.githubusercontent.com/bambulab/BambuStudio/v02.08.02.61/src/libslic3r/Support/TreeSupport.cpp",
-      "supports": "The installed slicer schedules discrete contact and roof layers; verify emitted gaps rather than relying on the requested value."
+      "url": "https://raw.githubusercontent.com/bambulab/BambuStudio/v02.08.02.61/src/libslic3r/Support/SupportParameters.hpp",
+      "supports": "Default resolves to Organic for fixed-height non-soluble tree supports; variable model layers select Hybrid."
     },
     {
       "url": "https://raw.githubusercontent.com/bambulab/BambuStudio/v02.08.02.61/src/libslic3r/Support/TreeSupportCommon.hpp",
-      "supports": "Top and XY support distances are separate controls; interface spacing adds to interface line width."
+      "supports": "Organic uses a separate overhang XY distance bounded by half the external perimeter width, and rounds top clearance to layer steps."
+    },
+    {
+      "url": "https://raw.githubusercontent.com/bambulab/BambuStudio/v02.08.02.61/src/libslic3r/Support/TreeSupport.cpp",
+      "supports": "Tree Slim follows the non-Organic support generation path, with its own contact nodes, roof clipping and layer planning."
     }
   ],
   "hypotheses": [
     {
-      "statement": "A vertical contact gap may provide less clearance normal to an inclined surface.",
-      "status": "Geometric hypothesis; the actual emitted bead geometry and physical tests must decide the result."
+      "statement": "Larger requested gaps may release better while retaining the dense roof.",
+      "status": "Test the emitted clearances and physical finish; no inclined release has been accepted."
     },
     {
-      "statement": "Reducing solid interface contact area may allow the mat to release instead of breaking the stems.",
-      "status": "Experimental hypothesis; preserve the same tree style while varying spacing."
+      "statement": "Explicit Tree Slim may avoid the Organic-specific contact and layer quantization behavior seen with Default.",
+      "status": "Algorithm comparison; retained density does not imply identical contact coverage or shape."
     }
   ],
   "submitted": false
