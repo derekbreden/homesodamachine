@@ -157,7 +157,7 @@ fn main() -> Result<()> {
             .with_context(|| format!("the accepted recipe has no object {recipe_name}"))?;
         for m in source.children_named("metadata") {
             if let (Some(k), Some(v)) = (m.attribute("key"), m.attribute("value")) {
-                if k != "name" && k != "extruder" {
+                if k != "name" && k != "extruder" && !hsm_print_prep::profile::PETGF_SUPPORT_KEYS.contains(&k) {
                     obj.settings.push((k.to_string(), v.to_string()));
                 }
             }
@@ -221,7 +221,7 @@ fn main() -> Result<()> {
 
     // What the profile may change: the trim, its printer identity and that identity's
     // compatibility, the colour, the filament overrides, the layers, the overhang recipe and the
-    // cooling stage with its hook.
+    // shared support recipe and cooling stage with its hook.
     let before_settings: Value = serde_json::from_slice(&preserved[SETTINGS_MEMBER])?;
     let after_settings = r.plate.settings.to_value();
     let mut allowed: Vec<String> = ["machine_start_gcode", "printer_settings_id", "print_compatible_printers", "filament_colour", "post_process"]
@@ -230,16 +230,18 @@ fn main() -> Result<()> {
     allowed.extend(overhang_changes.keys().cloned());
     allowed.extend(layer_changes.keys().cloned());
     allowed.extend(cooling::value_names()?);
+    allowed.extend(hsm_print_prep::profile::PETGF_SUPPORT_KEYS.iter().map(|key| key.to_string()));
     let keys: std::collections::BTreeSet<&String> = before_settings.as_object().unwrap().keys().chain(after_settings.as_object().unwrap().keys()).collect();
     let unexpected: Vec<&String> = keys.into_iter().filter(|k| before_settings.get(k.as_str()) != after_settings.get(k.as_str()) && !allowed.contains(k)).collect();
     if !unexpected.is_empty() {
         bail!("unexpected change to the complete PET-GF profile: {unexpected:?}");
     }
     let mut normalized = preserved.clone();
+    hsm_print_prep::profile::apply_petgf_support(&mut normalized, &root)?;
     cooling::apply_members(&mut normalized, &hook)?;
     for (name, data) in &normalized {
         if name != SETTINGS_MEMBER && r.plate.members.get(name) != Some(data) {
-            bail!("a non-cooling PET-GF filament setting changed in {name}");
+            bail!("an unrelated PET-GF filament setting changed in {name}");
         }
     }
     let layer_height: f64 = text(&after_settings["layer_height"]).parse()?;

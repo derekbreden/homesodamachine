@@ -1,6 +1,6 @@
 {
   "project": "hardware/printed-parts/enclosure/nameplate/nameplate-001-petgf.3mf",
-  "project_sha256": "84c5011c0be15dd9aab41a516abe85bf99b08e2c80d91375b5f2608a96bc0e72",
+  "project_sha256": "928de8d5aeaa08236f725c3e458395a2dc5b3c9b519180abee851e3ebf48889e",
   "source_step_sha256": "74964b0ab4a4e4ec0d8f27dc10eeaf110bead3e81812f4cf714d9045f6b4469b",
   "receiver_step_sha256": "8c2df89a86b98d1c2cbe99abdc96d59b7416672cd14b028c42259eb71b0f36aa",
   "profile_source": "hardware/printed-parts/petgf.3mf",
@@ -1769,6 +1769,80 @@
         "1",
         "2"
       ]
+    },
+    "petgf_support_recipe": {
+      "profile": "hardware/printed-parts/petgf.3mf",
+      "sha256": "1be18bdfd75b33efc898b3e5c28a0c1975fc694ef4d94dd88a909472cb96b97f",
+      "members": {
+        "Metadata/filament_settings_1.config": {
+          "filament_bridge_speed": {
+            "from": null,
+            "to": [
+              "15",
+              "15",
+              "15"
+            ]
+          }
+        },
+        "Metadata/filament_settings_2.config": {
+          "filament_bridge_speed": {
+            "from": null,
+            "to": [
+              "15",
+              "15",
+              "15"
+            ]
+          }
+        },
+        "Metadata/project_settings.config": {
+          "support_interface_top_layers": {
+            "from": "2",
+            "to": "3"
+          },
+          "support_interface_spacing": {
+            "from": "0.5",
+            "to": "0"
+          },
+          "bridge_flow": {
+            "from": "1",
+            "to": "1.25"
+          },
+          "bridge_speed": {
+            "from": [
+              "50",
+              "50",
+              "50",
+              "50",
+              "50"
+            ],
+            "to": [
+              "15",
+              "15",
+              "15",
+              "15",
+              "15"
+            ]
+          },
+          "filament_bridge_speed": {
+            "from": [
+              "25",
+              "25",
+              "25",
+              "25",
+              "25",
+              "25"
+            ],
+            "to": [
+              "15",
+              "15",
+              "15",
+              "15",
+              "15",
+              "15"
+            ]
+          }
+        }
+      }
     }
   },
   "meshes": [
@@ -1837,5 +1911,8 @@
     "right": "White PET-GF, external 255, PET-CF metadata"
   },
   "native_print_record": "mark2-print-readiness.json",
-  "physical_acceptance_record": "hardware/printed-parts/enclosure/nameplate/physical-acceptance.json"
+  "physical_acceptance_record": "hardware/printed-parts/enclosure/nameplate/physical-acceptance.json",
+  "settings_sha256": "c5c173ae881d2b67a5dbe9c99f71b8b640b288f58fa2d2da6680bedb41a87e49",
+  "settings_preserved_byte_for_byte": false,
+  "reslice_required": true
 }
