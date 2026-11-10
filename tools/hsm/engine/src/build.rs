@@ -1248,8 +1248,7 @@ fn cargo() -> Result<PathBuf> {
         .ok_or_else(|| anyhow!("cargo is not installed (https://rustup.rs)"))
 }
 
-/// What cargo and rustc run with: the user's home and rustup's, the cargo's own directory first
-/// on the PATH, then the compilers and CMake the C++ of Manifold builds with.
+/// Cargo and rustc use the user's Rust installation and the host's linker tools.
 fn cargo_env(home: &Path) -> Vec<(String, String)> {
     let dir = cargo()
         .ok()
