@@ -3,9 +3,8 @@
 //
 // Two ways it goes wrong on its own, and one alarm each: an alias naming a file
 // that has since moved, and an alias naming a component no assembly carries any
-// more. The names come out of the assembly STEPs themselves — occt writes each
-// named solid as a PRODUCT entry, and those strings are the `mesh.name` the
-// component picker matches a click against.
+// more. The names come from the mesh payload the page draws, or from STEP when
+// no payload is present.
 
 import { test } from "node:test";
 import assert from "node:assert/strict";
@@ -15,6 +14,8 @@ import { fileURLToPath } from "node:url";
 import { ALIASES, sourceFileFor } from "../contracts/component-sources.js";
 import { leafOf } from "../contracts/body-path.js";
 import { walkAssemblies } from "../contracts/parts-tree.js";
+import { readMeshHeader } from "../lib/feature-catalog.js";
+import { instanceBody } from "../contracts/features.js";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const REPO_ROOT = path.resolve(__dirname, "..", "..");
@@ -26,7 +27,11 @@ const HW = path.join(REPO_ROOT, "hardware");
 // covered here without a second edit.
 const ASSEMBLIES = walkAssemblies().map((a) => a.model);
 
-function productNames(stepPath) {
+function bodyNames(stepPath) {
+  if (fs.existsSync(stepPath + ".mesh")) {
+    const head = readMeshHeader(stepPath + ".mesh");
+    return new Set(head.meshes.flatMap(node => node.entries?.map(entry => instanceBody(entry.name)) || [instanceBody(node.name)]));
+  }
   const names = new Set();
   const text = fs.readFileSync(stepPath, "latin1");
   for (const m of text.matchAll(/PRODUCT\s*\(\s*'([^']*)'/g)) names.add(m[1]);
@@ -42,12 +47,12 @@ test("every alias names a file that is there", () => {
 test("every alias names a component an assembly carries", (t) => {
   const present = ASSEMBLIES
     .map((rel) => path.join(HW, rel))
-    .filter((p) => fs.existsSync(p));
+    .filter((p) => fs.existsSync(p) || fs.existsSync(p + ".mesh"));
   if (!present.length) return t.skip("assemblies not built");
   // sourceFileFor asks for a name whole and then by its leaf, so a body the appliance
   // stands under `cold-core/<name>` is carried under its leaf too.
   const carried = new Set();
-  for (const p of present) for (const n of productNames(p)) { carried.add(n); carried.add(leafOf(n)); }
+  for (const p of present) for (const n of bodyNames(p)) { carried.add(n); carried.add(leafOf(n)); }
   const orphans = Object.keys(ALIASES).filter((n) => !carried.has(n));
   assert.deepEqual(orphans, [], "aliases for components no assembly carries");
 });
