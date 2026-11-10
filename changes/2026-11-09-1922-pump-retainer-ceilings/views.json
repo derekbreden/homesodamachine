@@ -1,0 +1,92 @@
+{
+  "views": [
+    {
+      "name": "pocket",
+      "caption": "Section through the retainer screw station: continuous stock replaces the sloping recess, above the independent removable retainer.",
+      "before": "pocket-before.webp",
+      "after": "pocket-after.webp",
+      "width": 1200,
+      "height": 900,
+      "marks": [
+        {
+          "x": 523,
+          "y": 384.6,
+          "r": 43.1,
+          "label": "Filled relief",
+          "at": [
+            14,
+            16,
+            229
+          ]
+        }
+      ],
+      "model": "manifold-layout/enclosure-assembly.step",
+      "camera": {
+        "projection": "perspective",
+        "position": [
+          80.73801181262118,
+          -11.36900590631059,
+          204.97859645621364
+        ],
+        "target": [
+          14,
+          22,
+          225
+        ],
+        "up": [
+          0,
+          0,
+          1
+        ],
+        "fov": 45,
+        "near": 0.3098157034182651,
+        "far": 520.0628925029557,
+        "aspect": 1.3333333333333333,
+        "section": {
+          "at": [
+            14,
+            22,
+            225
+          ],
+          "normal": [
+            1,
+            0,
+            0
+          ],
+          "removes": "the side the normal points to"
+        }
+      },
+      "highlight": [
+        "enclosure-front-top"
+      ],
+      "ghost": [],
+      "only": [
+        "enclosure-front-top",
+        "enclosure-pump-retainer-a",
+        "pump-retainer-a-west-*"
+      ],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "snapshot",
+          "sha256": "3163ec119ff8a7d8291a7ec80cdfff6e21628220b1621f8a39d07f271bf52167",
+          "commit": "c7cc928ed669cbb024cc2ca4a18f0390cd5f1531",
+          "taken": "2026-11-10T00:53:40.949Z",
+          "published": true
+        },
+        "after": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "tree",
+          "sha256": "963f910b317f59c09fc398f2cbdd13894e54463aa61a88e336bc8d62e9990c57",
+          "commit": "eb80e731687fb1121299bd3512cbfde3fc4f7583",
+          "published": true
+        }
+      },
+      "changed": [
+        "enclosure-front-top"
+      ],
+      "withinMeshing": []
+    }
+  ]
+}
