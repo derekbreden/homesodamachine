@@ -14,9 +14,9 @@ export function mountSolidcraftLab(app, {
   hardwareDir = fileURLToPath(new URL('../../hardware/', import.meta.url)), runtimeDirectory,
 } = {}) {
   const carbonator = '/labs/solidcraft/carbonator';
-  app.get(['/labs/solidcraft/identification', '/labs/solidcraft/identification/'], (_req, res) => {
+  app.get(['/labs/solidcraft/identification', '/labs/solidcraft/identification/'], (req, res) => {
     res.set('Cache-Control', 'no-cache');
-    res.sendFile(path.join(publicDir, 'identification/index.html'));
+    res.sendFile(path.join(publicDir, req.query.trial === 'blind' ? 'identification/blind/index.html' : 'identification/index.html'));
   });
   app.get([carbonator, `${carbonator}/`], (_req, res) => {
     res.set('Cache-Control', 'no-cache');
