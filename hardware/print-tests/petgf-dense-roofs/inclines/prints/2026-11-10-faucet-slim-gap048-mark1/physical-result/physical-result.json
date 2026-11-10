@@ -1,0 +1,16 @@
+{
+  "purpose": "Retain the larger-gap faucet article and its support-release observation.",
+  "printer_task_id": "1429244933",
+  "result": "Support removal improved; the reported underside finish is essentially unchanged.",
+  "user_observation": "The 0.48 mm gap comparison turned out fine. Basically identical to what we've been getting, though the supports did remove easier because they were all joined together.",
+  "photo_observations": [
+    "Removed roof mats retain connected branches.",
+    "The exposed inclined face retains distinct uneven strands and gaps between roads."
+  ],
+  "inference_limit": "The photos and removal report do not measure interface force or establish a single thermal or geometric cause.",
+  "photos": [
+    "photo-1.jpg",
+    "photo-2.jpg",
+    "photo-3.jpg"
+  ]
+}
