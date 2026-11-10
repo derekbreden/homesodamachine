@@ -1,0 +1,77 @@
+{
+  "purpose": "Record photographed unsupported overhangs on the running full enclosure back-top and trace the missing native contact coverage.",
+  "printer": "Mark1",
+  "printer_task_id": "1426940190",
+  "user_report": "I see at least three spots on this print of enclosure back. On the Mark 1, at least three spots here that are not supported and pretty obviously should be, and it's printing an error and loops are falling down. Do you see what I'm talking about? What the hell happened here?",
+  "photos": [
+    {
+      "path": "photo-1.jpg",
+      "sha256": "15693d8df201394b7dcdd559d1ac9785acbcd16a0e1aae357a00a4a28eb65f66"
+    },
+    {
+      "path": "photo-2.jpg",
+      "sha256": "1f4eac58ad4ea214db4ebe01ec3bf54836747c1950254acbbfc5b247e127ff29"
+    },
+    {
+      "path": "photo-3.jpg",
+      "sha256": "7e45aae1897a738d09c54dfa7808c68df2f2f8ef2551930db21bc64659512c5e"
+    },
+    {
+      "path": "photo-4.jpg",
+      "sha256": "4bb3dcec41807ba0d656f7fd1d6b06b2f8ab846259561cd46a5baedfde3e240e"
+    }
+  ],
+  "observations": [
+    "Extrusion loops hang below exposed small ledges between hollow tree trunks.",
+    "A fluted-wall end also has hanging perimeter loops.",
+    "The nearby hollow tree trunks are not capped with interface at these early ledges."
+  ],
+  "verified_preparation": {
+    "support_type": "tree(manual)",
+    "support_style": "tree_slim",
+    "native_target_count": 4,
+    "target_scope": [
+      "Accessible sliding rails",
+      "Accessible dry rear exterior"
+    ],
+    "interface_top_layers": 3,
+    "interface_spacing_mm": 0,
+    "top_z_distance_mm": 0.24,
+    "coverage_omission": "The funnel frame receiver ledges and front joint end are outside the native target regions.",
+    "review_scope_gap": "The launch review checked protected regions, bed clearance, selected material bands and filled stock. It did not establish support or a viable bridge beneath every exposed underside."
+  },
+  "slice_reading": {
+    "purpose": "Read the missing early support interfaces from the exact submitted Mark1 archive.",
+    "submitted_archive": "2026-11-10-back-top-D-left04-z018-mark1-print-only.gcode.3mf",
+    "submitted_archive_sha256": "c7592a9cf987029a3b88ad11db19b0cbbe61cd6c9fe997eea281f9c3fb098bf8",
+    "gcode_sha256": "85ab1c4fc7fd5b40964cebd03ef4a27e22d0f2f4e73a79a817996d322c09144f",
+    "positive_extrusion_commands_by_support_feature": {
+      "Support": 457482,
+      "Support transition": 9703,
+      "Support interface": 51479
+    },
+    "up_to_40_mm": {
+      "Support": 74147
+    },
+    "first_model_layer_marker_mm_by_support_feature": {
+      "Support": 0.2,
+      "Support transition": 84.2826,
+      "Support interface": 84.8413
+    },
+    "height_scope": "Model-layer Z markers are distinct from independent support-layer nozzle heights; the native topology review also places the first labelled support build-up in this high band."
+  },
+  "geometry_identification": {
+    "two_flank_funnel_frame_receiver_ledges": "Probable match from the frozen print-pose mesh and the photographs.",
+    "front_joint_end": "Probable match for the fluted-wall end; exact damaged facet remains unmeasured."
+  },
+  "qualification": "Missing support coverage is a preparation defect. This package does not establish acceptable full-part underside finish.",
+  "correction_required": "Cover the accessible ledges and joint undersides with removable support or a verified bridge, then inspect the native first deposition at every affected underside while preserving inaccessible-interior exclusions.",
+  "printer_observation": {
+    "observed_at": "2026-11-10T18:49:40+00:00",
+    "state": "RUNNING",
+    "layer": 154,
+    "reported_remaining_minutes": 1422,
+    "print_error": 0
+  },
+  "printer_control": "This investigation sends no pause, stop, resume or replacement job."
+}
