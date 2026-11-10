@@ -11,10 +11,10 @@ tools/run -- hsm-marketing COMMAND --help
 
 | Command | Output or purpose |
 | --- | --- |
-| `make-art enclosure` | Packages the display animation headers into the firmware art blob; `-o` selects its destination. |
-| `make-logos` | Packages flavor portrait headers; `--store` selects the store format and `-o` names the blob. |
+| `make-art enclosure` | Packs the lossless display animation PNG into the firmware art blob; `-o` selects its destination. |
+| `make-logos` | Fits source flavor PNGs and packs their display renditions; `--store` selects the store format and `-o` names the blob. |
 | `brand-assets` | Writes web, PWA, mobile and PCB brand exports from the source mark and palette; `--preview` adds the reference sheet. |
-| `animation-frames` | Writes the display animation headers and browser motion review artwork. |
+| `animation-frames` | Exports the display animation PNG and browser motion review artwork; `--from-svg` redraws the animation master. |
 | `flavor-placeholders` | Draws the flavor portraits; `--preview` adds their reference sheet. |
 | `sync`, `segment`, `make-subtitles` | Align external sound, propose speech scenes and generate output-timed captions. |
 | `cut`, `overlays` | Assemble ranges and freezes, then apply captions, graphics and sound cues. |
@@ -30,6 +30,13 @@ The [cut and caption contract](../../../marketing/video/cuts.md) and
 [overlay schema](../../../marketing/video/overlays.md) describe authored footage
 inputs. Command help and the [native source](src/main.rs) own flags and defaults.
 Brand, animation and flavor generators accept `--out-root DIR` for isolated exports.
+
+[`brand/display-animation.png`](../../../brand/display-animation.png) is the
+lossless display animation master. Factory portraits come from
+[`images/`](../../../images/). The shared [display conversion](../display-assets/src/lib.rs)
+fits those PNGs, quantizes RGB565 and supplies both the binary packagers and
+kitchen textures. `animation-frames --from-svg --out-root DIR` explicitly
+regenerates the animation master from the source mark for review.
 
 ```sh
 tools/run -- hsm-marketing brand-assets --preview

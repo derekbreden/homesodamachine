@@ -5,11 +5,10 @@ mod live;
 mod ota;
 mod panel;
 mod positioner;
-mod rgb565;
 mod serials;
 mod x1;
 
-use anyhow::{bail, ensure, Context, Result};
+use anyhow::{Context, Result, bail, ensure};
 use serde_json::Value;
 use sha2::{Digest, Sha256};
 use std::{
@@ -53,7 +52,6 @@ fn run() -> Result<()> {
         "uf2" => positioner::uf2(&args),
         "pico-pad-checksum" => positioner::pico_pad_checksum(&args),
         "firmware-pre-build" => firmware::pre_build(&root, &args),
-        "png-to-rgb565" => rgb565::run(&root, &args),
         "boards" => serials::boards(&args),
         "display-usb" => serials::display_usb(&args),
         "panelcam-console" => serials::panelcam(&args, false),
@@ -73,7 +71,7 @@ fn run() -> Result<()> {
 }
 
 fn usage() -> &'static str {
-    "hsm-peripheral [--root CHECKOUT] COMMAND [OPTIONS]\nCommands: ios-checks, ios-capture, positioner-geometry, positioner-verify, uf2, pico-pad-checksum, firmware-pre-build, png-to-rgb565, boards, display-usb, panelcam-console, panelcam-wake, ota, x1-console, x1-capture, firmware-live-check, firmware-faucet-check, panelcam-rectify"
+    "hsm-peripheral [--root CHECKOUT] COMMAND [OPTIONS]\nCommands: ios-checks, ios-capture, positioner-geometry, positioner-verify, uf2, pico-pad-checksum, firmware-pre-build, boards, display-usb, panelcam-console, panelcam-wake, ota, x1-console, x1-capture, firmware-live-check, firmware-faucet-check, panelcam-rectify"
 }
 
 fn root() -> Result<PathBuf> {

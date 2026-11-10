@@ -1351,6 +1351,14 @@ name = "hsm-diaphragm-pump-sleeve-numbers"
 version = "0.1.0"
 
 [[package]]
+name = "hsm-display-assets"
+version = "0.1.0"
+dependencies = [
+ "anyhow",
+ "png",
+]
+
+[[package]]
 name = "hsm-documents"
 version = "0.1.0"
 dependencies = [
@@ -2098,6 +2106,7 @@ dependencies = [
  "hsm-aero-float-numbers",
  "hsm-carbonator-numbers",
  "hsm-coil-numbers",
+ "hsm-display-assets",
  "hsm-kernel",
  "hsm-pages",
  "hsm-render",
@@ -2212,6 +2221,7 @@ version = "0.1.0"
 dependencies = [
  "anyhow",
  "flate2",
+ "hsm-display-assets",
  "hsm-run-slots",
  "libc",
  "png",

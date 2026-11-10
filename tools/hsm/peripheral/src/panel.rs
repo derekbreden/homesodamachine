@@ -1,10 +1,7 @@
 //! Panel camera analysis maps the captured display onto its pixel grid and reads its test patterns.
-use crate::{
-    option,
-    rgb565::{self, Image},
-    validate_args,
-};
+use crate::{option, validate_args};
 use anyhow::{Context, Result, bail, ensure};
+use hsm_display_assets::{self as display_assets, Image};
 use std::{
     collections::{BTreeMap, VecDeque},
     f64::consts::PI,
@@ -771,7 +768,7 @@ pub fn run(root: &Path, args: &[String]) -> Result<()> {
         .unwrap_or_else(|| "3".into())
         .parse::<usize>()?;
     ensure!(scale > 0, "scale must be positive");
-    let image = rgb565::read(Path::new(&positional[1]))?;
+    let image = display_assets::read_png(Path::new(&positional[1]))?;
     match positional[0].as_str() {
         "find" => find(&image),
         "reduce" => {

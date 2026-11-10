@@ -1,43 +1,25 @@
-//! Display partition packagers lay the source RGB565 words out in the firmware's binary formats.
+//! PNG artwork is packed directly into the display firmware's existing binary formats.
 use crate::{Args, root, write};
 use anyhow::{Context, Result, bail, ensure};
+use hsm_display_assets::{
+    self as assets, ANIMATION_FRAMES, ANIMATION_HEIGHT, ANIMATION_WIDTH, FACTORY_FLAVORS, Rendition,
+};
 use std::{
     fs,
     path::{Path, PathBuf},
 };
 
-const RENDITIONS: [(&str, usize, usize); 3] =
-    [("anchor", 172, 320), ("card", 129, 240), ("tile", 86, 160)];
-const FACES: usize = 4;
 const LOGO_HEADER: usize = 64;
+const IMAGE_SLOT_MAGIC: usize = 0x494d4753;
+const IMAGE_SLOT_FORMAT: usize = 2;
+const IMAGE_MAX_SIZES: usize = 8;
+const IMAGE_SLOT_PIXELS_AT: usize = 128;
+const FIRST_FACTORY_SLOT: usize = 4;
 fn u32le(out: &mut Vec<u8>, n: usize) {
     out.extend_from_slice(&(n as u32).to_le_bytes());
 }
 fn u16le(out: &mut Vec<u8>, n: usize) {
     out.extend_from_slice(&(n as u16).to_le_bytes());
-}
-
-pub fn pixels(path: &Path) -> Result<Vec<u8>> {
-    let text = fs::read_to_string(path).with_context(|| format!("read {}", path.display()))?;
-    let start = text.find('{').context("image initializer")?;
-    let end = text.rfind('}').context("image initializer end")?;
-    let raw = text[start + 1..end].as_bytes();
-    let mut out = Vec::new();
-    let mut i = 0;
-    while i + 2 < raw.len() {
-        if raw[i] == b'0' && matches!(raw[i + 1], b'x' | b'X') {
-            let first = i + 2;
-            i = first;
-            while i < raw.len() && raw[i].is_ascii_hexdigit() {
-                i += 1;
-            }
-            let value = u16::from_str_radix(std::str::from_utf8(&raw[first..i])?, 16)?;
-            out.extend_from_slice(&value.to_le_bytes());
-        } else {
-            i += 1;
-        }
-    }
-    Ok(out)
 }
 
 pub fn make_art(mut args: Args) -> Result<()> {
@@ -47,26 +29,14 @@ pub fn make_art(mut args: Args) -> Result<()> {
         args.positional(0)? == "enclosure",
         "board must be enclosure"
     );
-    let mut image = Vec::new();
-    for i in 0..16 {
-        let name = format!("anim_{i:02}");
-        let data = pixels(&root().join(format!("firmware/src_front/images/{name}.h")))?;
-        ensure!(
-            data.len() == 360 * 360 * 2,
-            "{name}: unexpected pixel count"
-        );
-        if !quiet {
-            println!("{name}: {} bytes", data.len());
-        }
-        image.extend_from_slice(&data);
-    }
+    let image = assets::animation_frames(&root())?.concat();
     let crc = crc32fast::hash(&image);
     let mut blob = Vec::new();
-    for n in [0x4d534148, 1, 16] {
+    for n in [0x4d534148, 1, ANIMATION_FRAMES] {
         u32le(&mut blob, n);
     }
-    u16le(&mut blob, 360);
-    u16le(&mut blob, 360);
+    u16le(&mut blob, ANIMATION_WIDTH);
+    u16le(&mut blob, ANIMATION_HEIGHT);
     blob.extend_from_slice(&crc.to_le_bytes());
     blob.resize(32, 0);
     blob.extend_from_slice(&image);
@@ -84,17 +54,6 @@ pub fn make_art(mut args: Args) -> Result<()> {
     Ok(())
 }
 
-fn constant(path: &Path, name: &str) -> Result<usize> {
-    let text = fs::read_to_string(path)?;
-    for line in text.lines() {
-        if let Some((left, right)) = line.split_once('=') {
-            if left.split_whitespace().last() == Some(name) {
-                return number(right.split(';').next().unwrap_or(right).trim());
-            }
-        }
-    }
-    bail!("no {name} in {}", path.display())
-}
 fn number(value: &str) -> Result<usize> {
     if let Some(hex) = value
         .strip_prefix("0x")
@@ -128,68 +87,53 @@ pub fn make_logos(mut args: Args) -> Result<()> {
     let table = args
         .take(&["--partitions"])
         .unwrap_or_else(|| "firmware/partitions_s3_faucet.csv".into());
-    let mut bundles = Vec::new();
-    for face in 0..FACES {
-        let mut bundle = Vec::new();
-        for (name, w, h) in RENDITIONS {
-            let path = root().join(format!("firmware/src_front/images/flavor{face}_{name}.h"));
-            let data = pixels(&path)?;
-            ensure!(
-                data.len() == w * h * 2,
-                "{}: unexpected pixel count",
-                path.display()
-            );
-            bundle.extend_from_slice(&data);
-        }
-        bundles.push(bundle);
-    }
+    let bundles = (0..FACTORY_FLAVORS)
+        .map(|face| assets::factory_bundle(&root(), face))
+        .collect::<Result<Vec<_>>>()?;
     let per = bundles[0].len();
     let mut blob = Vec::new();
     let mut offset = None;
     if store {
-        let header = root().join("firmware/lib/image_store/image_store.h");
-        let magic = constant(&header, "IMAGE_SLOT_MAGIC")?;
-        let format = constant(&header, "IMAGE_SLOT_FORMAT")?;
-        let pixels_at = constant(&header, "IMAGE_SLOT_PIXELS_AT")?;
-        let sizes = constant(&header, "IMAGE_MAX_SIZES")?;
-        let first = constant(
-            &root().join("firmware/lib/proto_link/proto_msg.h"),
-            "FLAVOR_ART_CUSTOM",
-        )?;
-        let slot_bytes = (pixels_at + per).div_ceil(4096) * 4096;
+        let slot_bytes = (IMAGE_SLOT_PIXELS_AT + per).div_ceil(4096) * 4096;
         let (base, size) = partition(&root().join(table))?;
         ensure!(
-            (first + FACES) * slot_bytes <= size,
+            (FIRST_FACTORY_SLOT + FACTORY_FLAVORS) * slot_bytes <= size,
             "factory slots exceed spiffs partition"
         );
-        offset = Some(base + first * slot_bytes);
-        ensure!(
-            sizes >= RENDITIONS.len(),
-            "renditions exceed the firmware table"
-        );
+        offset = Some(base + FIRST_FACTORY_SLOT * slot_bytes);
         for (face, bundle) in bundles.iter().enumerate() {
             let mut slot = Vec::new();
-            for n in [magic, format, per, crc32fast::hash(bundle) as usize, face] {
+            for n in [
+                IMAGE_SLOT_MAGIC,
+                IMAGE_SLOT_FORMAT,
+                per,
+                crc32fast::hash(bundle) as usize,
+                face,
+            ] {
                 u32le(&mut slot, n);
             }
-            slot.push(RENDITIONS.len() as u8);
+            slot.push(Rendition::ALL.len() as u8);
             slot.resize(28, 0);
             let mut at = 0;
-            for (_, w, h) in RENDITIONS {
+            for rendition in Rendition::ALL {
+                let (w, h) = rendition.dimensions();
                 u16le(&mut slot, w);
                 u16le(&mut slot, h);
                 u32le(&mut slot, at);
                 at += w * h * 2;
             }
-            slot.resize(28 + 8 * sizes, 0);
-            ensure!(slot.len() <= pixels_at, "slot header extends into pixels");
-            slot.resize(pixels_at, 255);
+            slot.resize(28 + 8 * IMAGE_MAX_SIZES, 0);
+            ensure!(
+                slot.len() <= IMAGE_SLOT_PIXELS_AT,
+                "slot header extends into pixels"
+            );
+            slot.resize(IMAGE_SLOT_PIXELS_AT, 255);
             slot.extend_from_slice(bundle);
             slot.resize(slot_bytes, 255);
             blob.extend_from_slice(&slot);
         }
     } else {
-        for n in [0x53474f4c, 1, FACES, per, RENDITIONS.len()] {
+        for n in [0x53474f4c, 1, FACTORY_FLAVORS, per, Rendition::ALL.len()] {
             u32le(&mut blob, n);
         }
         for bundle in &bundles {

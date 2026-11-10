@@ -1,7 +1,8 @@
 //! The manual homepage factory stages the current faucet, enclosure and regulator in a kitchen.
 use crate::scene::*;
-use crate::{Args, art, root, write};
+use crate::{Args, root, write};
 use anyhow::{Context, Result, ensure};
+use hsm_display_assets::{self as assets, Rendition};
 use serde_json::{Value, json};
 use std::{
     collections::BTreeMap,
@@ -11,25 +12,11 @@ use std::{
 };
 
 pub fn texture(index: usize, out: &Path) -> Result<String> {
-    let data =
-        art::pixels(&root().join(format!("firmware/src_faucet/images/flavor{index}_faucet.h")))?;
-    ensure!(data.len() == 172 * 320 * 2, "factory flavor pixel count");
-    let mut image = tiny_skia::Pixmap::new(172, 320).unwrap();
-    for (pixel, word) in image.pixels_mut().iter_mut().zip(data.chunks_exact(2)) {
-        let word = u16::from_le_bytes([word[0], word[1]]);
-        let r = (word >> 11) & 31;
-        let g = (word >> 5) & 63;
-        let b = word & 31;
-        *pixel = tiny_skia::PremultipliedColorU8::from_rgba(
-            (r * 255 / 31) as u8,
-            (g * 255 / 63) as u8,
-            (b * 255 / 31) as u8,
-            255,
-        )
-        .unwrap();
-    }
+    let data = assets::factory_rendition(&root(), index, Rendition::Anchor)?;
+    let (width, height) = Rendition::Anchor.dimensions();
+    let image = assets::decode_rgb565(width, height, &data)?;
     let path = out.join(format!("flavor-{index}.png"));
-    write(&path, image.encode_png()?)?;
+    write(&path, image.png()?)?;
     Ok(path.to_string_lossy().into())
 }
 pub fn prepare(out: &Path, preview: bool) -> Result<(Scene, BTreeMap<String, V3>)> {
