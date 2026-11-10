@@ -259,7 +259,7 @@
     "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step.mesh": "2cfc2d05ae1aadffa9c04246bc69fba83c2249cbbd08118b5f5061e28dbbc734",
     "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.stl": "a41f94b4d25fcaeb79ba06e64af1f86ee23709d0c2fc89dcd2b52a9d2bda9d51",
     "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step.mesh": "be4a7298d5d17edb093b1aef07a3f52212a0340386d6c42e8847735a99a91f6d",
-    "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl": "d1ea02ff72880b5966ebf4e7e66689ecc04f88e1457be108418a62cdb5bc4369",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl": "14ca155df697d912670f155000820f304a76937857d82535641505ec21a3c82b",
     "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step.mesh": "8e77f5e7d8afd79bafbe951124b84820fd4077ee9a3fe4a4edee48571ab11cc7",
     "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.stl": "7eb9455df0f38d96e9edd78384e98b5ac11a2dbfbb43dacf7eab3a378d1360a6",
     "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step.mesh": "3fda29bca48dab632b3cd05fc57b74be1f3a1059028bee9a25ae519cd094b6d2",
@@ -896,9 +896,9 @@
     "hardware/reference/tee-connector/tee-connector.step": "bba36626afe1765fefd3affc790120cad6de786a3a23992f745037bf549bac36",
     "hardware/reference/tee-connector/tee-connector.step.mesh": "7a1d9fccd08701a5304e1246e24c72f59a2ed13e4e1a2c4b2579e4d3092e4405",
     "hardware/reference/teyleten-relay/teyleten-relay.fine.step.npz": "a06845ecfcebdf278727b816385f1f15503cfabf0de31e0d9b81ff3a7b09a605",
-    "hardware/reference/teyleten-relay/teyleten-relay.step": "ab3a7aec46ac88253ce58d6f560468fc110dcac2bf0804a1e02ef58dfbdab891",
+    "hardware/reference/teyleten-relay/teyleten-relay.step": "88bf1735baa52f356d60abd38624013ac0b7cc238a2c9a5477425cb63fac78bf",
     "hardware/reference/teyleten-relay/teyleten-relay.step.mesh": "4fd1bb7fde282b2d0e57252b420f8f72fcebbd562472bf762d66c9db4a980405",
-    "hardware/reference/teyleten-relay/teyleten-relay.step.npz": "0827d8fe3d4870be23ce74966878e1aed5664d809a2d7915219c2bbfd0d7d034",
+    "hardware/reference/teyleten-relay/teyleten-relay.step.npz": "e1e41bb07d074110263d0ba3406e805e9d5127618932ca8f2b697bd5253c4880",
     "hardware/reference/touch-flo-faucet/display-reference/button-left.step": "d802e4c740ed808daa07d19f8eba0db25d59b76c3b61c03e90ad0945694c2fdc",
     "hardware/reference/touch-flo-faucet/display-reference/button-right.step": "b515134b75baa15f5bd048f48835b65631c5b7a9c423f3cc3343cb7dcef9bdca",
     "hardware/reference/touch-flo-faucet/westbrass-reference/westbrass-reference.step": "6bb4f673332fc80c74ad94e62ad4c24f47b451824f2d64e155cc22a45c9251a2",
@@ -1055,7 +1055,7 @@
       "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step.mesh": "2cfc2d05ae1aadffa9c04246bc69fba83c2249cbbd08118b5f5061e28dbbc734",
       "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.stl": "a41f94b4d25fcaeb79ba06e64af1f86ee23709d0c2fc89dcd2b52a9d2bda9d51",
       "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step.mesh": "be4a7298d5d17edb093b1aef07a3f52212a0340386d6c42e8847735a99a91f6d",
-      "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl": "d1ea02ff72880b5966ebf4e7e66689ecc04f88e1457be108418a62cdb5bc4369",
+      "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl": "14ca155df697d912670f155000820f304a76937857d82535641505ec21a3c82b",
       "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step.mesh": "8e77f5e7d8afd79bafbe951124b84820fd4077ee9a3fe4a4edee48571ab11cc7",
       "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.stl": "7eb9455df0f38d96e9edd78384e98b5ac11a2dbfbb43dacf7eab3a378d1360a6",
       "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step.mesh": "3fda29bca48dab632b3cd05fc57b74be1f3a1059028bee9a25ae519cd094b6d2",
@@ -1439,7 +1439,7 @@
       "hardware/reference/soda-rise-insulation/soda-rise-insulation.step.mesh": "dca1e2ca76f2940117919f4f89393eff483ec5a55d6ac2955c1fa76ca411fa16",
       "hardware/reference/tee-connector/tee-connector.step": "bba36626afe1765fefd3affc790120cad6de786a3a23992f745037bf549bac36",
       "hardware/reference/tee-connector/tee-connector.step.mesh": "7a1d9fccd08701a5304e1246e24c72f59a2ed13e4e1a2c4b2579e4d3092e4405",
-      "hardware/reference/teyleten-relay/teyleten-relay.step": "ab3a7aec46ac88253ce58d6f560468fc110dcac2bf0804a1e02ef58dfbdab891",
+      "hardware/reference/teyleten-relay/teyleten-relay.step": "88bf1735baa52f356d60abd38624013ac0b7cc238a2c9a5477425cb63fac78bf",
       "hardware/reference/teyleten-relay/teyleten-relay.step.mesh": "4fd1bb7fde282b2d0e57252b420f8f72fcebbd562472bf762d66c9db4a980405",
       "hardware/reference/touch-flo-faucet/westbrass-reference/westbrass-reference.step": "6bb4f673332fc80c74ad94e62ad4c24f47b451824f2d64e155cc22a45c9251a2",
       "hardware/reference/touch-flo-faucet/westbrass-reference/westbrass-reference.step.mesh": "235b08ce268d7adc8e373705594fbcd6f07ddaf4cb4c31a25ca2aebd7d5fe492",
@@ -2189,7 +2189,7 @@
     "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step.mesh": 1794211630.057794,
     "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.stl": 1794211301.227118,
     "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step.mesh": 1794287915.553784,
-    "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl": 1794200819.690183,
+    "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl": 1794287946.229449,
     "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step.mesh": 1794211617.6748538,
     "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.stl": 1794211650.501837,
     "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step.mesh": 1794287497.876846,
@@ -2826,9 +2826,9 @@
     "hardware/reference/tee-connector/tee-connector.step": 1793617993,
     "hardware/reference/tee-connector/tee-connector.step.mesh": 1793617993,
     "hardware/reference/teyleten-relay/teyleten-relay.fine.step.npz": 1793697604,
-    "hardware/reference/teyleten-relay/teyleten-relay.step": 1794271411.5702882,
+    "hardware/reference/teyleten-relay/teyleten-relay.step": 1794287946.229449,
     "hardware/reference/teyleten-relay/teyleten-relay.step.mesh": 1794287915.553784,
-    "hardware/reference/teyleten-relay/teyleten-relay.step.npz": 1794271411.5702882,
+    "hardware/reference/teyleten-relay/teyleten-relay.step.npz": 1794287946.229449,
     "hardware/reference/touch-flo-faucet/display-reference/button-left.step": 1792893021,
     "hardware/reference/touch-flo-faucet/display-reference/button-right.step": 1792893021,
     "hardware/reference/touch-flo-faucet/westbrass-reference/westbrass-reference.step": 1787578592,
@@ -3725,8 +3725,8 @@
       "unproven": true
     },
     "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl": {
-      "commit": "129e664f72d13050c708898fc09ae3ec0c20a2d8",
-      "inputs": "567751dbb69c4a0959c5bc42970cce67f77aa14c7622c2fa2a9a33a727bfa680",
+      "commit": "ba67926abae0670deb4c84116d7c4c6b1b700ff9",
+      "inputs": "bcde619f4db226dc89e73320d1f3c65f74c0d77e5f684d78c8c054b62e1b4657",
       "unproven": true
     },
     "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step.mesh": {
@@ -5434,7 +5434,7 @@
       "unproven": true
     },
     "hardware/reference/teyleten-relay/teyleten-relay.step": {
-      "commit": "7a18c19513ddb6d3ee1fec0ab42a9bac24e4e247",
+      "commit": "ba67926abae0670deb4c84116d7c4c6b1b700ff9",
       "unproven": true
     },
     "hardware/reference/teyleten-relay/teyleten-relay.step.mesh": {
@@ -5442,7 +5442,7 @@
       "unproven": true
     },
     "hardware/reference/teyleten-relay/teyleten-relay.step.npz": {
-      "commit": "7a18c19513ddb6d3ee1fec0ab42a9bac24e4e247",
+      "commit": "ba67926abae0670deb4c84116d7c4c6b1b700ff9",
       "unproven": true
     },
     "hardware/reference/touch-flo-faucet/westbrass-reference/westbrass-reference.step": {
