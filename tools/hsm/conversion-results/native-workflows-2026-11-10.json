@@ -1,0 +1,1114 @@
+{
+  "schema": 1,
+  "purpose": "Record the approved native workflow conversion, source retirement and actual website integration.",
+  "recorded_at": "2026-11-10T06:45:54.906Z",
+  "source_revision": "0c7f2e9050d92287ae2d510a80d754c3984d2539",
+  "commits": {
+    "retired_leaves": "162933b808aabeb95538cf951df2bcc51c81b28a",
+    "retired_funnel_publication": "fff2165ff477fd62e998d8538a9e17933fa08c9b",
+    "native_launcher": "f23b27421aab5bd3cf732888489fdd0631931797",
+    "native_workflows": "929d91103f6859807de15834b20e853d3e1973e7",
+    "closed_preparation_docs": "ab150a73412c9c1d4ed03a6df011393e7303754f",
+    "bom_inputs": "0c7f2e9050d92287ae2d510a80d754c3984d2539"
+  },
+  "normal_build": {
+    "command": "tools/run -- hsm-print-build -- //:everything",
+    "producers": 61,
+    "python_input_paths": [],
+    "build_file_sha256": "6984f4ab1be5b0adcf0be8e9cd866fe4baaf033e96b4aea6ebdfd35a72eb3d69",
+    "graph_sha256": "e0453e1c420eac0ed5dc86d99a22d96cbb3e48ece113e6c2867bb7efd755d320",
+    "native_boundaries": [
+      "run admission and installation",
+      "Cargo configuration and graph generation",
+      "producer compilation and execution",
+      "completed-output carry",
+      "publication, packing and Git landing",
+      "existing explicit website development build path"
+    ],
+    "optional_workflows_added_to_normal": []
+  },
+  "integration_runs": {
+    "scope": "Integration commands on this shared Mac with existing caches; these are not matched full rebuild benchmarks or user request-to-view times.",
+    "initial": {
+      "success": false,
+      "driver_seconds": 186.866761708,
+      "carried": [
+        {
+          "seconds": 10.897444625,
+          "files_count": 2,
+          "publication_count": 1,
+          "files": [
+            "hardware/printed-parts/enclosure/enclosure/enclosure.step.mesh",
+            "hardware/printed-parts/enclosure/enclosure/enclosure.step.npz"
+          ],
+          "publication": [
+            "hardware/printed-parts/enclosure/enclosure/enclosure.step.mesh"
+          ]
+        },
+        {
+          "seconds": 13.618840042,
+          "files_count": 28,
+          "publication_count": 14
+        },
+        {
+          "seconds": 38.651132292,
+          "files_count": 2,
+          "publication_count": 1,
+          "files": [
+            "hardware/printed-parts/enclosure/enclosure/enclosure-pump-tube-setting-jig.step.mesh",
+            "hardware/printed-parts/enclosure/enclosure/enclosure-pump-tube-setting-jig.step.npz"
+          ],
+          "publication": [
+            "hardware/printed-parts/enclosure/enclosure/enclosure-pump-tube-setting-jig.step.mesh"
+          ]
+        },
+        {
+          "seconds": 61.775983,
+          "files_count": 0,
+          "publication_count": 1,
+          "files": [],
+          "publication": [
+            "hardware/printed-parts/enclosure/nameplate/nameplate-fasteners.step.mesh"
+          ]
+        },
+        {
+          "seconds": 94.44782675,
+          "stage": "mechanics",
+          "files_count": 1,
+          "publication_count": 1,
+          "files": [
+            "hardware/manifold-layout/enclosure-assembly.step.mesh"
+          ],
+          "publication": [
+            "hardware/manifold-layout/enclosure-assembly.step.mesh"
+          ]
+        },
+        {
+          "seconds": 111.043975292,
+          "stage": "installed",
+          "files_count": 1,
+          "publication_count": 1,
+          "files": [
+            "hardware/manifold-layout/enclosure-assembly.step.mesh"
+          ],
+          "publication": [
+            "hardware/manifold-layout/enclosure-assembly.step.mesh"
+          ]
+        },
+        {
+          "seconds": 113.758459,
+          "files_count": 2,
+          "publication_count": 2,
+          "files": [
+            "hardware/assembly/scenes/glb/front-top.glb.mesh",
+            "hardware/assembly/scenes/glb/pump-mount.glb.mesh"
+          ],
+          "publication": [
+            "hardware/assembly/scenes/glb/front-top.glb.mesh",
+            "hardware/assembly/scenes/glb/pump-mount.glb.mesh"
+          ]
+        }
+      ],
+      "publication_queue": {
+        "requests": 7,
+        "started": 6,
+        "coalesced": 3,
+        "exit_codes": [
+          0,
+          0,
+          0,
+          0,
+          1,
+          0
+        ]
+      },
+      "completed_publication_seconds": [
+        {
+          "seconds": 7.86937225,
+          "ended_at": "2026-11-10T06:29:30.766Z"
+        },
+        {
+          "seconds": 14.091655667,
+          "ended_at": "2026-11-10T06:29:44.871Z"
+        },
+        {
+          "seconds": 5.570545125,
+          "ended_at": "2026-11-10T06:29:56.195Z"
+        },
+        {
+          "seconds": 7.35810225,
+          "ended_at": "2026-11-10T06:31:13.617Z"
+        }
+      ],
+      "failure": "BOM sandbox lacked active fine-model input declarations. One shared-object upload failed; the following queued publication succeeded without moving failed pointers."
+    },
+    "bom_repair": {
+      "source": "hardware/ledger/bom.rs",
+      "cause": "The active printed-parts BOM catalog gained fine-model inputs without a refreshed BOM runtime read declaration. All six producers already declare and export those inputs; the declared-input sandbox omits only their missing consumer reads.",
+      "added_runtime_reads": [
+        "hardware/printed-parts/asse-drain-adapter/asse-drain-adapter.step.npz",
+        "hardware/printed-parts/cold-core/reservoir/reservoir-air-grip.step.npz",
+        "hardware/printed-parts/cold-core/reservoir/reservoir-gasket.step.npz",
+        "hardware/printed-parts/cold-core/reservoir/reservoir-tube-grip.step.npz",
+        "hardware/printed-parts/enclosure/display-cover/status-plate.step.npz",
+        "hardware/printed-parts/enclosure/display-gasket/display-gasket.step.npz"
+      ],
+      "new_producer_edges": [
+        "hardware/printed-parts/asse-drain-adapter/asse_drain_adapter.rs",
+        "hardware/printed-parts/enclosure/display-gasket/display_gasket.rs"
+      ],
+      "trace_success": true,
+      "ledger_outputs_unchanged": true,
+      "ledger_output_sha256": {
+        "hardware/ledger/bom.figures.json": "0d8bc6adfb96cad8c6f4864d439280383fa567b9ec510a2d779846bcc8269992",
+        "hardware/ledger/bom.md": "a9b89b29d200780525b0c6e02536e58038796116c57b40bea7a3a630a75f94af",
+        "hardware/ledger/labor.figures.json": "0d1a4ac72b6cbafb4a1970d90ac0c7a68afd336c17d34b96e59b071ef8c45196",
+        "hardware/ledger/labor.md": "fef0e5235640bb0696c6753209a846874d9efdb219c9f208e1ac32dde5c78478"
+      }
+    },
+    "cached_retry": {
+      "success": true,
+      "driver_seconds": 5.941740167,
+      "bazel_seconds": 2.868,
+      "action_cache_hits": 120,
+      "total_actions": 3,
+      "checkpoint_errors": [],
+      "publication_queue": {
+        "requests": 1,
+        "started": 1,
+        "coalesced": 0,
+        "exit_codes": [
+          0
+        ]
+      }
+    }
+  },
+  "website": {
+    "machine": {
+      "purpose": "Verify the completed native normal-build assembly in the live website.",
+      "url": "https://homesodamachine.com/3d#step:manifold-layout%2Fenclosure-assembly.step",
+      "opened_at": "2026-11-10T06:43:19.513Z",
+      "observation_seconds": 8.899696125,
+      "local_artifact": {
+        "path": "hardware/manifold-layout/enclosure-assembly.step.mesh",
+        "sha256": "acbc71bc4002163ba085b35778789b01a36c86f917fd817be6912deafab2ed1c",
+        "bytes": 186504,
+        "source": "537303dba55310c4d9cb3f778acc6daa5a8d4d5902224f59abcbdeccef66bc2b"
+      },
+      "at": "2026-11-10T06:43:28.367Z",
+      "header_matches": true,
+      "mounted_parts": 466,
+      "matched_parts": 466,
+      "failed_parts": [],
+      "meshes": 682,
+      "triangles": 9027648,
+      "canvas": {
+        "width": 1248,
+        "height": 899
+      },
+      "draw": {
+        "frames": [
+          {
+            "at": "2026-11-10T06:43:28.352Z",
+            "matched": [
+              "enclosure-front-bottom",
+              "enclosure-front-top",
+              "enclosure-back-bottom",
+              "enclosure-back-top"
+            ],
+            "revision": "537303dba55310c4d9cb3f778acc6daa5a8d4d5902224f59abcbdeccef66bc2b",
+            "seconds_from_observer": 0.009,
+            "scene_loading": false,
+            "eligibility": "Matching mounted geometry has visible ancestors and materials, intersects the camera frustum and lies within its depth bounds; occlusion is not established."
+          }
+        ],
+        "failed_parts": []
+      },
+      "page_errors": [],
+      "scope": "Observation starts after publication. Draw eligibility does not establish unobstructed pixels or the user device paint; this is not user request-to-view latency."
+    },
+    "board": {
+      "publication_seconds": 9.692008209,
+      "purpose": "Verify current native PCB publication in the live website reference browser.",
+      "url": "https://homesodamachine.com/3d#glb:pcb%2Fpcba%2Fout%2Fpcba.glb",
+      "opened_at": "2026-11-10T06:04:47.203Z",
+      "observation_seconds": 5.699976125,
+      "at": "2026-11-10T06:04:52.883Z",
+      "payload": {
+        "hash": "7a7f51508d9ab69754032bfdeb7e6b05c8a949c4c492d44cf49a9917390b7155",
+        "bytes": 14248132,
+        "at": "2026-11-10T06:04:52.878Z",
+        "url": "https://objects.homesodamachine.com/s-7a7f51508d9ab69754032bfdeb7e6b05c8a949c4c492d44cf49a9917390b7155.gz"
+      },
+      "meshes": 358,
+      "triangles": 284123,
+      "canvas": {
+        "width": 1248,
+        "height": 899
+      },
+      "page_errors": [],
+      "scope": "Observation begins after publication; this is not user request-to-view latency."
+    },
+    "qualification": "Website observations begin after publication; they establish matching mounted geometry and completed reference-browser drawing, not the user device paint or unobstructed pixels."
+  },
+  "explicit_checks": {
+    "native": {
+      "core_build_data": 12,
+      "core_plan": 28,
+      "native_git": 10,
+      "progressive_driver": 15,
+      "publisher_existing": 25,
+      "publisher_board_boundary": 1,
+      "firmware": 5,
+      "geometry": 19,
+      "inspection": 18,
+      "engine": 4,
+      "runtime": 7
+    },
+    "javascript": {
+      "dev_build": 25,
+      "iteration": 3
+    },
+    "picker_browser_tests": {
+      "passed": 44,
+      "skipped": 0
+    },
+    "development_build_tests": 25,
+    "iteration_tests": 3,
+    "additional_automatic_hooks_or_gates": []
+  },
+  "optional_workflows": {
+    "pgfun": {
+      "native_geometry": {
+        "fixed_input_native_check": {
+          "poses": 25,
+          "pair_evaluations": 64948,
+          "unintended_intersections": 0,
+          "service_torque_upper_bound_nm": 4.3112964866224806,
+          "max_numeric_load_screen_difference": 9.298117831235686e-16
+        },
+        "print_and_placement_verification": {
+          "print_parts": 54,
+          "closed_positive": true,
+          "max_surface_difference_mm": 0.004745003208499293,
+          "installed_name_group_color": "equal",
+          "max_installed_bounds_delta_mm": 4.1818992713160696e-10,
+          "motion_sha256": "a2df443043284d9804a77a7942adb7e5720643fd6ed9bf4a08c14d620236a5c1"
+        },
+        "fixed_input_viewer": {
+          "parts": 102,
+          "triangles": 1332700,
+          "geometry_and_winding": "equal at comparison precision",
+          "published_payload_sha256": "cce09ce64db4ac32e473caa64dbe589cfc6bbe767fd0ec03764c5ba343b9beb2",
+          "native_payload_sha256": "d96dd916f5eb03e3350f7e130c5d94c21cf0b1968ecb604d2fa72435655ed4af"
+        }
+      },
+      "host_and_saved_observations": {
+        "host": 13,
+        "observation": 13,
+        "all_passed_across_focused_runs": true,
+        "saved_feature_cases": 16,
+        "jpeg_comparison_record": "pgfun-images.json"
+      },
+      "firmware": {
+        "receipt": "firmware/src_pgfun_positioner/assets/build-receipt.json",
+        "receipt_sha256": "5508cf29219238541864247dbb08d6fca77886dcba16bc6520cc77ccefa2e033",
+        "source_commit": "929d91103f6859807de15834b20e853d3e1973e7",
+        "receipt_sources_match_commit": true,
+        "sdk_version": "2.2.0",
+        "sdk_commit": "a1438dff1d38bd9c65dbd693f0e5db4b9ae91779",
+        "tinyusb_commit": "86ad6e56c1700e85f1c5678607a762cfe3aa2f47",
+        "compiler": "arm-none-eabi-gcc (Arm GNU Toolchain 14.2.Rel1 (Build arm-14.52)) 14.2.1 20241119",
+        "geometry_sha256": "a2df443043284d9804a77a7942adb7e5720643fd6ed9bf4a08c14d620236a5c1",
+        "binary_sha256": "168d95e24383ad1b034cfccdee97fddb015fbbfbae4f514f670cd4136e6c6601",
+        "uf2_sha256": "795695f0ccd6604cae136cdb65582188a2d5a93ac811195478c320ea1f4573d0",
+        "native_boot_generator": {
+          "assembly_sha256": "5eebeae4fa5adf46306bdd6fe3741e918aa98122d6c09afbddeb55e91e286cca",
+          "matches_sdk_assembly": true,
+          "matches_sdk_linked_binary": true
+        },
+        "flashed": false
+      },
+      "guide_qa": {
+        "status": "pass",
+        "command": "tools/run -- tools/hsm/target/release/hsm-manual-guides qa gun-positioner-guide",
+        "print_identities": 54,
+        "result": "Current guide, release artifacts, genuine rebuilt UF2, source receipts and motion binding agree. Native peripheral verifier passes.",
+        "guide_sha256": "30312203b212860160e6abcc678521440e5652395b94f76c59354637cb6eb19b",
+        "source_receipt_sha256": "05b1e58ded7d6d5d9b547fac7ea8cc9e98770b6984a25b33092a793f3380c7da"
+      },
+      "print_comparison": {
+        "parts": 42,
+        "all_closed_positive": true,
+        "max_native_to_baseline_tess_mm": 0.0044983715216024255,
+        "max_baseline_tess_to_native_mm": 0.004745003208499293,
+        "max_bounds_delta_mm": 0.0004990355063370089,
+        "scope": "Bidirectional sampled comparisons against the archived reference B-reps; not an analytic Hausdorff bound.",
+        "current_print_manifest": {
+          "path": "hardware/printed-parts/fixtures/pgfun-positioner/print-manifest.json",
+          "sha256": "4a42f8feaa814adc7927ecdbbf3c20ea2ef7447c71d43857aa78dc9e025b8aa5"
+        }
+      }
+    },
+    "manuals": {
+      "books": [
+        {
+          "guide": "tube-insertion-guide",
+          "pages": 26,
+          "pdf_sha256": "f9d2c8deec35a806e60334246f7be6ec24ae15bcce902160a20c988754072ec3",
+          "cover_sha256": "9ef7cace41685332ffcbbfbd837aa98ff570e1ebe92de78f1efb867d46d3dd69"
+        },
+        {
+          "guide": "weld-rotator-guide",
+          "pages": 48,
+          "pdf_sha256": "d58f71ecab3da4410949bb65ea5f7c2e2c8352e01fc8201f86922701ca6b38c5",
+          "cover_sha256": "ffedcb97d44d62c3881ed5fc4fd68817802bb97c2a05cce093ece9a30ece8033"
+        },
+        {
+          "guide": "magnetic-float-guide",
+          "pages": 13,
+          "pdf_sha256": "f9f65320cc986027eb42d4ed2fb45413753b871206ff0513c1b6c24147c61601",
+          "cover_sha256": "54e4e61997898a39309c5d61f9d05f823619f7047a8825d214bb772bf5d94c80"
+        },
+        {
+          "guide": "carbonator-filming-guide",
+          "pages": 33,
+          "pdf_sha256": "2736c5bff75bbb02c5f316c0fecc21923465f8618fd265e81161cff288cff2aa",
+          "cover_sha256": "ca633ecefb32984017c1d5adb39a83e0f99587563e04fad1600359bce8b56f21"
+        },
+        {
+          "guide": "mold-guide",
+          "pages": 22,
+          "pdf_sha256": "2d9b1af6bcfe910d1f3253b392950645ecf02ba34d7f66416037a9d63a1af7f4",
+          "cover_sha256": "163cf86cd127535c017ae1398be6492058fcd020774c8e6ff2b21ea3673c1696"
+        },
+        {
+          "guide": "refrigeration-guide",
+          "pages": 27,
+          "pdf_sha256": "d4a2ac5c65ba236db86d52336d5de89fe9a571e7818988f78b5aa9565db6815b",
+          "cover_sha256": "a71dbd5cae7a35f8b9613b08891b6cfd4a12e532982e800879594a06acecd008"
+        },
+        {
+          "guide": "faucet-assembly-guide",
+          "pages": 18,
+          "pdf_sha256": "e40c9f4757a04f447769f0e5baf4dc2f9c219786bcb906ce8c9a58c171cc7fcb",
+          "cover_sha256": "155be04c75ac50a56996221d3e853c523f23ceafafdc5fb4223e8b9476be9be1"
+        },
+        {
+          "guide": "water-inlet-jet-guide",
+          "pages": 14,
+          "pdf_sha256": "62ad760f880f62e892482e4d04f66354441f305e9246d9a4ca3102f815e8a4aa",
+          "cover_sha256": "7019593174767ed6701f6895c5f6ed58d7c9a6a6decc0cbc786ee8b366e54b11"
+        },
+        {
+          "guide": "gun-positioner-guide",
+          "pages": 36,
+          "pdf_sha256": "30312203b212860160e6abcc678521440e5652395b94f76c59354637cb6eb19b",
+          "cover_sha256": "69ee56b1ee64242c48db81aa0f70abd60899b6b24e46d554c8a94703694fc683"
+        }
+      ],
+      "review": {
+        "maintained_manual_python": [],
+        "pgfun_release_qa": "pass",
+        "all_books_and_proofs_reviewed": true,
+        "markings_fixed_inputs": "pass",
+        "html_receipts": "Refreshed after final optional CLI registration, using retained leaf PDFs; counts unchanged."
+      },
+      "tube_fixture": {
+        "purpose": "Record the requested tube fixture conversion surface comparison.",
+        "scope": "Bidirectional vertex and face-centre samples, not an analytic Hausdorff bound.",
+        "parts": [
+          {
+            "part": "base",
+            "reference_step_sha256": "682c6d0cf1cce05b2bcf1bb565d992753781e1de3e87f3c3aa7adf05b5007866",
+            "native_stl_sha256": "f88b3c0df071439437bcf6756802f4b456942fa93e48f5693afe011af78d0397",
+            "reference_tessellation_linear_mm": 0.001,
+            "native_rule_linear_mm": 0.005,
+            "reference_to_native_max_mm": 0.004848649477253924,
+            "native_to_reference_max_mm": 0.004462423064272739,
+            "samples": [
+              4168,
+              2593
+            ],
+            "native_closed": true,
+            "native_volume_mm3": 665503.070404251,
+            "reference_tessellation_volume_mm3": 665501.042761892,
+            "bounds_max_delta_mm": 0,
+            "within_rule": true
+          },
+          {
+            "part": "carrier",
+            "reference_step_sha256": "cc2ef476e682d4e50450dde72bdead57dac43cd581e6371a011a98ad099fdb1e",
+            "native_stl_sha256": "223640dbcf16bfefc4c01f688d09bf5698e58dd406c6930750c69912a17f43c3",
+            "reference_tessellation_linear_mm": 0.001,
+            "native_rule_linear_mm": 0.005,
+            "reference_to_native_max_mm": 0.003012874662690072,
+            "native_to_reference_max_mm": 0.00267067057766997,
+            "samples": [
+              8320,
+              3706
+            ],
+            "native_closed": true,
+            "native_volume_mm3": 87214.2821540986,
+            "reference_tessellation_volume_mm3": 87214.90063667616,
+            "bounds_max_delta_mm": 0,
+            "within_rule": true
+          },
+          {
+            "part": "lower-jaw",
+            "reference_step_sha256": "9a321bdf1751e525591cdfa17cd35dcbbd4b59dddbbda029b17cf9e743133238",
+            "native_stl_sha256": "99fa6e10b3b43ebbd601bdeae5e3742d6ca70e48482899d956561c8826bcb445",
+            "reference_tessellation_linear_mm": 0.001,
+            "native_rule_linear_mm": 0.005,
+            "reference_to_native_max_mm": 0.0011863055064559288,
+            "native_to_reference_max_mm": 0.0014051295869067708,
+            "samples": [
+              6464,
+              5618
+            ],
+            "native_closed": true,
+            "native_volume_mm3": 50082.81527387944,
+            "reference_tessellation_volume_mm3": 50082.45286017046,
+            "bounds_max_delta_mm": 0,
+            "within_rule": true
+          },
+          {
+            "part": "upper-jaw",
+            "reference_step_sha256": "a5a56c8e7a5b6e0236ae8fae9bd97d867593159c28ad66994fedb9d652702afe",
+            "native_stl_sha256": "c32dbeaee5aea4cd1727b4adc03b93cf051b85bd846f994d4cdc73f98405144a",
+            "reference_tessellation_linear_mm": 0.001,
+            "native_rule_linear_mm": 0.005,
+            "reference_to_native_max_mm": 0.0011863055064558368,
+            "native_to_reference_max_mm": 0.0014051295869072463,
+            "samples": [
+              3436,
+              2431
+            ],
+            "native_closed": true,
+            "native_volume_mm3": 51843.09996320435,
+            "reference_tessellation_volume_mm3": 51842.80522064158,
+            "bounds_max_delta_mm": 2.484911851446187e-28,
+            "within_rule": true
+          },
+          {
+            "part": "liner",
+            "reference_step_sha256": "ba3110cd1b2f42ab2827c34aff8f1572aa523c48bdc692982e1a678ff6471f96",
+            "native_stl_sha256": "b114de4f42fe2cec4952e38adb388ae7b95b9113268f7eaa0fe0812c05da789f",
+            "reference_tessellation_linear_mm": 0.001,
+            "native_rule_linear_mm": 0.005,
+            "reference_to_native_max_mm": 0.0007246331049403664,
+            "native_to_reference_max_mm": 0.0010167686539537112,
+            "samples": [
+              614,
+              410
+            ],
+            "native_closed": true,
+            "native_volume_mm3": 4379.843504456545,
+            "reference_tessellation_volume_mm3": 4379.691427881144,
+            "bounds_max_delta_mm": 0,
+            "within_rule": true
+          },
+          {
+            "part": "cap-support-puck",
+            "reference_step_sha256": "2ad7c2e94bf72f6b1b964413f0fdc6144ca88d4a68b7a46c9e3ab7da68ce00a8",
+            "native_stl_sha256": "b44a2b6b93d3bed45f7afd35dfa4c9d57d887815daa8ea52e758850c22504f65",
+            "reference_tessellation_linear_mm": 0.001,
+            "native_rule_linear_mm": 0.005,
+            "reference_to_native_max_mm": 0.001686133493973587,
+            "native_to_reference_max_mm": 0.0014783062814152845,
+            "samples": [
+              2544,
+              1560
+            ],
+            "native_closed": true,
+            "native_volume_mm3": 22925.6607554108,
+            "reference_tessellation_volume_mm3": 22925.563855363016,
+            "bounds_max_delta_mm": 0,
+            "within_rule": true
+          }
+        ],
+        "pass": true
+      },
+      "donor_pad": {
+        "purpose": "Record the requested tube fixture conversion surface comparison.",
+        "scope": "Bidirectional vertex and face-centre samples, not an analytic Hausdorff bound.",
+        "parts": [
+          {
+            "part": "donor-hold-down",
+            "reference_step_sha256": "d0e569759ee87e0704c219349f866735769395c3d83df7133d691dfce2f2d451",
+            "native_stl_sha256": "eaf8dc98e0303b51a7b5d98245c4439e5ce185d824b7accadd4589bfef4489a2",
+            "reference_tessellation_linear_mm": 0.001,
+            "native_rule_linear_mm": 0.005,
+            "reference_to_native_max_mm": 0.0011595798456038974,
+            "native_to_reference_max_mm": 0.0012197112197882836,
+            "samples": [
+              1493,
+              1220
+            ],
+            "native_closed": true,
+            "native_volume_mm3": 30002.78612742032,
+            "reference_tessellation_volume_mm3": 30002.44902560474,
+            "bounds_max_delta_mm": 0,
+            "within_rule": true
+          }
+        ],
+        "pass": true
+      }
+    },
+    "fabrication": {
+      "artifacts": [
+        {
+          "path": "hardware/assembly-letter-guide/assembly-drill-and-weld-letter.pdf",
+          "bytes": 97634,
+          "sha256": "afe9cb32db3df9d7f88c42fda2261f21ae8bdbba267810a90d9d302faf347ad7"
+        },
+        {
+          "path": "output/pdf/assembly-drill-and-weld-letter.pdf",
+          "bytes": 97634,
+          "sha256": "afe9cb32db3df9d7f88c42fda2261f21ae8bdbba267810a90d9d302faf347ad7"
+        },
+        {
+          "path": "hardware/assembly-letter-guide/assembly-drill-and-weld-letter.cover.png",
+          "bytes": 99963,
+          "sha256": "f33033ae6524c6377b4f8709285593b6910255071da51cf66286e296a444da54"
+        },
+        {
+          "path": "hardware/assembly-letter-guide/assembly-drill-and-weld-letter.pdf.json",
+          "bytes": 240,
+          "sha256": "95b474b3bf902313283809a35883fc11c0f6fe80322ce80ba98e46c41a740d17"
+        },
+        {
+          "path": "output/pdf/assembly-drill-and-weld-letter.sources.json",
+          "bytes": 3885,
+          "sha256": "1ef233f894410d37907a402d496be605512f89c84589a60cc816b004aec34ded"
+        },
+        {
+          "path": "hardware/drill-and-cut-guide/drill-and-cut-guide.pdf",
+          "bytes": 170935,
+          "sha256": "faa1326546429c0a12a30937e12096b94f26a8832a3a73094604dcb0699540fd"
+        },
+        {
+          "path": "output/pdf/drill-and-cut-guide.pdf",
+          "bytes": 170935,
+          "sha256": "faa1326546429c0a12a30937e12096b94f26a8832a3a73094604dcb0699540fd"
+        },
+        {
+          "path": "hardware/drill-and-cut-guide/drill-and-cut-guide.cover.png",
+          "bytes": 64279,
+          "sha256": "b37da0edc321a0d28afe7ecbfeb4edf1a18e26acb1967bf421576708f22137e1"
+        },
+        {
+          "path": "hardware/drill-and-cut-guide/drill-and-cut-guide.pdf.json",
+          "bytes": 266,
+          "sha256": "d13a9e953fa921778800f39e2333dfea8a750c3fe52fa84ce9986184a0f3bc3a"
+        },
+        {
+          "path": "output/pdf/drill-and-cut-guide.sources.json",
+          "bytes": 5848,
+          "sha256": "5d2a4738f437d45009c9974c129224cfb48475e4e6c5a15a91f5d1c6274e7d18"
+        }
+      ],
+      "source_files_sha256": {
+        "tools/hsm/fabrication-guides/src/lib.rs": "5cc49af1da1fe2925fd05101c80dbe80c95f48ca6b670af5f00c50e9ab32dc6e",
+        "tools/hsm/fabrication-guides/src/cuts.rs": "28fae0df655f27af6eb08565b11e5457a49e9a54eb35be29c92492e0bf7479da",
+        "tools/hsm/fabrication-guides/src/main.rs": "e85ded11b370fe50e647a4141ac7f6f06c799b176fdcb72bbf66b215e0cf319e",
+        "tools/hsm/fabrication-guides/src/drill.rs": "a6d9381ad6bf877832b9b6e8b153df1224c11d8cca1e550e65f1b00c1d328b41",
+        "tools/hsm/fabrication-guides/src/letter.rs": "c882780383eb0ecdc7d1bbe2e596cff57eed40651f982b91031d0a94e4f2c5ea",
+        "tools/hsm/fabrication-guides/src/assembly.rs": "ff1f482286134a57168afc6222d41dc3372b10a1dc0b3c18f3b8abb57654baa0",
+        "tools/hsm/fabrication-guides/Cargo.toml": "85882bb6ed24792c058f1bd938420c3b83b63c90626d3f65778a30231a0080ea"
+      },
+      "validation": [
+        {
+          "check": "final wrapped release locked build",
+          "command": "tools/run -- cargo build --manifest-path tools/hsm/Cargo.toml --release --locked -j 2 -p hsm-fabrication-guides --message-format=short",
+          "result": "passed; no own-crate diagnostics; existing cold-core-data by_path dead-code warning"
+        },
+        {
+          "check": "final document generation",
+          "result": "both native commands passed; source receipts match current PDFs; canonical and delivery bytes match"
+        },
+        {
+          "check": "final changed-page PNG review",
+          "pages": [
+            2,
+            9,
+            10,
+            21
+          ],
+          "result": "all latest changed pages visually clean; final governing-inch, REF, material, quantity and contents wording checked"
+        },
+        {
+          "check": "full instructional layout review",
+          "assembly_full_pages": [
+            1,
+            2,
+            3
+          ],
+          "drill_overview_pages": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12,
+            13,
+            14,
+            15,
+            16,
+            17,
+            18,
+            19,
+            20,
+            21,
+            22,
+            23,
+            24,
+            25,
+            26,
+            27,
+            28
+          ],
+          "drill_full_changed_pages": [
+            5,
+            9,
+            10,
+            21,
+            23,
+            24,
+            25
+          ],
+          "result": "no clipping, overlap, unreadable glyphs or unfinished layout; no engineering drawing task or physical print invoked"
+        }
+      ]
+    },
+    "repository": {
+      "validation": [
+        "Parent combined Cargo tests: repo-tools 14/14 passed; ordinary repo-tools and assembly-docs binaries linked.",
+        "Default and pinned predictions: all 100 figures match retired pure calculations byte-for-byte in each case.",
+        "Carbonation-tester volumes output matches; source inputs unchanged during comparison.",
+        "Native CLI list/path-rules/help checks passed; no full machine checks or private transcript scan.",
+        "New drawing-review fixture passed (1 focused test; prior 14 filtered out).",
+        "Grouped repo-tools + fabrication-guides ordinary release/locked/two-job link passed.",
+        "Drawing-review baseline comparison: 12 PNG pairs byte-identical and manifests match in rotation, page-selection and default-resolution cases; source PDF unchanged.",
+        "Inspected all 12 native fixture images once; temporary render trees removed."
+      ]
+    },
+    "peripheral": {
+      "validation": {
+        "release_build": "pass",
+        "release_tests": {
+          "passed": 5
+        },
+        "swift_experience_checks": {
+          "passed": 146,
+          "total": 146
+        },
+        "rgb565": "all rendition pixel hashes equal Python baseline",
+        "uf2": "repacked release bytes identical",
+        "prebuild": "version macros, library patches and no-op mtime preserved",
+        "ios_capture": "mock application command arguments and retained/captured bytes identical",
+        "current_motion_binding": "current native motion a2df443043284d9804a77a7942adb7e5720643fd6ed9bf4a08c14d620236a5c1; native header generated and checked",
+        "live_device_commands": "none",
+        "evidence": [
+          "rgb565-comparison.json",
+          "positioner-comparison.json",
+          "prebuild-comparison.json",
+          "ios-capture-comparison.json",
+          "panel-comparison.json",
+          "pcb-model-comparison.json",
+          "pcb-step-verification.json",
+          "pcb-orientation-comparison.json",
+          "pcb-runtime-fixtures.json",
+          "pgfun-boot-comparison.json",
+          "harness-comparison.json"
+        ],
+        "panelcam_rectify": "all analysis text and warp/reduce/classification pixels exactly equal saved-frame Python baseline",
+        "pgfun_current_firmware": {
+          "sdk_build": "pass",
+          "native_boot_assembly_exact": true,
+          "native_boot_linked_binary_exact": true,
+          "geometry_sha256": "a2df443043284d9804a77a7942adb7e5720643fd6ed9bf4a08c14d620236a5c1",
+          "binary_sha256": "168d95e24383ad1b034cfccdee97fddb015fbbfbae4f514f670cd4136e6c6601",
+          "uf2_sha256": "795695f0ccd6604cae136cdb65582188a2d5a93ac811195478c320ea1f4573d0",
+          "flashed": false,
+          "cpp_policy": "pass"
+        },
+        "printer": {
+          "release_unit_fixtures": 15,
+          "standalone_cli_fixtures": 7,
+          "native_ocr_cases": 6,
+          "archive_gcode_exact": true,
+          "retained_members_exact": true,
+          "private_launcher": "root migrated; no execution",
+          "devices_or_ui_input": "none"
+        },
+        "pgfun_final_guide_qa": {
+          "status": "pass",
+          "evidence": "guides.json::pgfun_release_qa",
+          "guide_sha256": "30312203b212860160e6abcc678521440e5652395b94f76c59354637cb6eb19b",
+          "source_receipt_sha256": "05b1e58ded7d6d5d9b547fac7ea8cc9e98770b6984a25b33092a793f3380c7da"
+        }
+      },
+      "boot": {
+        "exact": true,
+        "upstream_sha256": "5eebeae4fa5adf46306bdd6fe3741e918aa98122d6c09afbddeb55e91e286cca",
+        "native_sha256": "5eebeae4fa5adf46306bdd6fe3741e918aa98122d6c09afbddeb55e91e286cca"
+      },
+      "rgb565": [
+        {
+          "flavor": 1,
+          "kind": "anchor",
+          "sha256": "d21bc3ae8f655cfce192240be14648aff20b5ee9d314cffbf5d6ea88fedbc64c",
+          "matches": true
+        },
+        {
+          "flavor": 1,
+          "kind": "card",
+          "sha256": "32badf482dbaa52f3ce321682612bd73e14d2b58cf208c25caad08f1d2243b64",
+          "matches": true
+        },
+        {
+          "flavor": 1,
+          "kind": "tile",
+          "sha256": "cc8df4880bdf2b6b4a426a73b4359532c03b1a90f9eba822294ce9a32b3cdff7",
+          "matches": true
+        },
+        {
+          "flavor": 2,
+          "kind": "anchor",
+          "sha256": "f32bd0ebb59679e45f73697779a59888bd3905813aea1ba775ab2b0918fd858f",
+          "matches": true
+        },
+        {
+          "flavor": 2,
+          "kind": "card",
+          "sha256": "e4d8e00ad5940ca6dd81b7d3a4514887a74407ba87614145ba559b7a3a9e429b",
+          "matches": true
+        },
+        {
+          "flavor": 2,
+          "kind": "tile",
+          "sha256": "9509c3b07f7ba41016f6105b0627b212ce8f50b1cc1d9961b6057c855b92b461",
+          "matches": true
+        },
+        {
+          "flavor": 3,
+          "kind": "anchor",
+          "sha256": "39afda44920fb144b3e4a3d85f1ba2fdb8aae0b12645ceb56dcce33a8f56d727",
+          "matches": true
+        },
+        {
+          "flavor": 3,
+          "kind": "card",
+          "sha256": "465b6b830bd1a4dc3ce965084e05aa211f3f906d80ddc87da3d059a1e89b7bcd",
+          "matches": true
+        },
+        {
+          "flavor": 3,
+          "kind": "tile",
+          "sha256": "a3a3d4a5f430c3b06964cdffb6b814085693e574796fbbcb6d2df9c672c771ff",
+          "matches": true
+        },
+        {
+          "flavor": 4,
+          "kind": "anchor",
+          "sha256": "0f7255d5f01af774bad9f07745da1a9ffb35192c066bb3ad5d09660325dd87f0",
+          "matches": true
+        },
+        {
+          "flavor": 4,
+          "kind": "card",
+          "sha256": "a0484da4261bcf9c413a8218ea8300900c3ddf5b1a5d3d2798519aaed766c50f",
+          "matches": true
+        },
+        {
+          "flavor": 4,
+          "kind": "tile",
+          "sha256": "f42c8d3a061b2bd4d3bc86e28631d85ece36a6f29919dc04b49f404ad65389e8",
+          "matches": true
+        }
+      ]
+    },
+    "pcb": {
+      "comparison": {
+        "component_count": 96,
+        "max_component_bounds_difference_mm": 7.065396303573834e-7,
+        "max_material_error": 4.119646818123712e-9
+      },
+      "step": {
+        "transfer_roots": 1,
+        "solids": 539,
+        "invalid_solids": 0,
+        "nonpositive_solids": 0,
+        "bounds_mm": [
+          -73.81678190382705,
+          -36.30071815364079,
+          -3.4007109538270432,
+          17.000718153827055,
+          36.50071815382705,
+          18.200725353827046
+        ],
+        "volume_mm3": 19941.426286837395,
+        "source_geometry": "Original vendor B-reps rigidly placed in board coordinates; drilled board is a closed native B-rep."
+      },
+      "harness": {
+        "same_input": "identical oriented triangles/normals at 1e-10m, decoded PNG pixels, UVs, pin tips and bench poses",
+        "legacy_published_source_delta": "J2 pixels unchanged; J13 old publication differs by 1606 top/225 bottom channels, matching the current source revision",
+        "evidence": "harness-comparison.json",
+        "publication": "Final default installed command succeeded against current native publication pointer; output bytes equal validated native staging.",
+        "artifacts": {
+          "web/public/harness/j2-board.glb": "fa59ba4887054a5204f8413aab7dec734142691b93544423d7a44225e746115d",
+          "web/public/harness/j2-board.json": "b3270f77666bc8a97888eedbaa7038c07a73ea1e90b23118827e5343f386ca0d",
+          "web/public/harness/j13-board.glb": "1e93c1d18cde83ff064ef8e1b4b38eb3b2afea3a7cf10913971f1772840d7577",
+          "web/public/harness/j13-board.json": "8cd630651268d047113bff71c6bd260d2d1172ac02623ec93f6504228d4c4f3b"
+        }
+      }
+    },
+    "marketing": {
+      "source_revision": "cda0198e0ef242566aae20e850c16bf4641403d5",
+      "validation": {
+        "firmware_blobs": {
+          "byte_identical": true,
+          "hashes": {
+            "art.bin": "cbcb71b394644d4c1d2170bc84aa10fab665f9fa98d493470af498879db08311",
+            "logos-store.bin": "7de306b9d21caae3aa521b391d7f79a21e97b03066825d54cd5cd2182323ef98",
+            "logos.bin": "54f6198bf61647ad16497d015f86dc4738896f5f88242ba27385f3b11d514861"
+          }
+        },
+        "brand": {
+          "all_factories_completed": true,
+          "previews_visually_reviewed": true,
+          "pcb_contour": {
+            "old_points": 76,
+            "native_points": 75,
+            "normalized_points": 75,
+            "max_coordinate_delta": 0.00004926372650970734,
+            "note": "Native omits adjacent duplicate closing point; coordinates match old rounding"
+          }
+        },
+        "flavor_artwork": {
+          "previews_visually_reviewed": true,
+          "rgb_mean_absolute_difference": [
+            3.5823555,
+            1.2215576,
+            1.0357933,
+            1.001845
+          ],
+          "rgb_median_absolute_difference": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "note": "Fonts, colors, layout and motifs retained; native raster edges/shadows differ"
+        },
+        "segmentation": {
+          "reference_fields_equal": true
+        },
+        "ass_captions": {
+          "byte_identical": true,
+          "includes": [
+            "word clipping",
+            "source sync offset",
+            "filler silence",
+            "freeze",
+            "fade and title output clock"
+          ]
+        },
+        "sync": {
+          "offset_seconds": 0.173,
+          "offset_delta": 0,
+          "confidence": 18.281100480557104,
+          "confidence_delta": 1.1272538458229064e-7
+        },
+        "blender": {
+          "external_application": "Blender 5.1.2",
+          "sample_count": 2,
+          "width": 480,
+          "reviewed": [
+            "case fixed frame",
+            "hero fixed frame",
+            "moving pour fixed frame",
+            "kitchen faucet fixed frame"
+          ],
+          "authored_scene_logic": "Rust",
+          "adapter": "generic descriptor application only"
+        },
+        "studio_clock": {
+          "existing_reference_fields_match": true,
+          "tolerance": 1e-9
+        }
+      }
+    },
+    "finishes": {
+      "validation": {
+        "native_bin_tests_passed": 2,
+        "native_test_compile_seconds": 4.45,
+        "ordinary_link_seconds": 4.66,
+        "actual_saved_table_check_exit": 0
+      },
+      "candidate_write_review": {
+        "write_exit": 0,
+        "candidate_check_exit": 0,
+        "finish_rows": 63,
+        "maximum_numeric_delta": 0,
+        "production_table_unchanged": true,
+        "scratch_removed": true
+      }
+    },
+    "inspection": {
+      "node_tests": {
+        "command": "node --test web/tests/pick-format.test.js",
+        "passed": 44,
+        "skipped": 0,
+        "elapsed_ms": 118.529459,
+        "native_cli_invoked": true
+      }
+    }
+  },
+  "remaining_python": {
+    "scope": "Tracked files in this source revision, isolated from the native normal graph. Active concurrent reference/print work and its compatibility providers remain; independent kernel oracle generators and external host adapters remain.",
+    "count": 91,
+    "classes": {
+      "mandatory_external_scons_adapter": {
+        "count": 1,
+        "paths": [
+          "firmware/pre_build.py"
+        ]
+      },
+      "protected_active_foreign_source": {
+        "count": 41,
+        "paths": [
+          "hardware/print-tests/enclosure-support-scenarios/prepare.py",
+          "hardware/print-tests/petgf-dense-roofs/rail-cavity-20/prepare.py",
+          "hardware/printed-parts/enclosure/display-cover/face-up-trial/face_up_trial.py",
+          "hardware/printed-parts/enclosure/enclosure/magnet-retention/fit-coupons/centered-trial-v4/review.py",
+          "hardware/printed-parts/enclosure/enclosure/magnet-retention/prepare_prints.py",
+          "hardware/reference/g-ganen-pump/analyze_registered.py",
+          "hardware/reference/g-ganen-pump/analyze_scan.py",
+          "hardware/reference/g-ganen-pump/benchmark_native.py",
+          "hardware/reference/g-ganen-pump/build_reference.py",
+          "hardware/reference/g-ganen-pump/common-foot/g_ganen_foot.py",
+          "hardware/reference/g-ganen-pump/common-foot/inspect_axial_faces.py",
+          "hardware/reference/g-ganen-pump/common-foot/inspect_common_foot.py",
+          "hardware/reference/g-ganen-pump/common-foot/measure_common_foot.py",
+          "hardware/reference/g-ganen-pump/common-foot/plot_sections.py",
+          "hardware/reference/g-ganen-pump/common-foot/preview_common_foot.py",
+          "hardware/reference/g-ganen-pump/common-foot/prior-evidence/freeze_reference.py",
+          "hardware/reference/g-ganen-pump/common-foot/prior-evidence/g_ganen_pump.py",
+          "hardware/reference/g-ganen-pump/common-foot/prior-evidence/integration-envelope/derive_envelope.py",
+          "hardware/reference/g-ganen-pump/common-foot/prior-evidence/integration-envelope/freeze_envelope.py",
+          "hardware/reference/g-ganen-pump/common-foot/update_native_reference.py",
+          "hardware/reference/g-ganen-pump/derive_casing.py",
+          "hardware/reference/g-ganen-pump/freeze_reference.py",
+          "hardware/reference/g-ganen-pump/g_ganen_pump.py",
+          "hardware/reference/g-ganen-pump/inspect_scan.py",
+          "hardware/reference/g-ganen-pump/installation/g_ganen_installation.py",
+          "hardware/reference/g-ganen-pump/integration-envelope/benchmark_component_sections.py",
+          "hardware/reference/g-ganen-pump/integration-envelope/benchmark_integration.py",
+          "hardware/reference/g-ganen-pump/integration-envelope/derive_envelope.py",
+          "hardware/reference/g-ganen-pump/integration-envelope/export_envelope.py",
+          "hardware/reference/g-ganen-pump/integration-envelope/freeze_envelope.py",
+          "hardware/reference/g-ganen-pump/integration-envelope/g_ganen_integration.py",
+          "hardware/reference/g-ganen-pump/integration-envelope/native_queries.py",
+          "hardware/reference/g-ganen-pump/integration-envelope/selftest_envelope.py",
+          "hardware/reference/g-ganen-pump/measure_interfaces.py",
+          "hardware/reference/g-ganen-pump/register_scan.py",
+          "hardware/reference/g-ganen-pump/scan_tools.py",
+          "hardware/reference/g-ganen-pump/selftest_analysis.py",
+          "hardware/reference/g-ganen-pump/under-head-clearance/measure.py",
+          "hardware/reference/g-ganen-pump/under-head-clearance/update_reference.py",
+          "hardware/reference/g-ganen-pump/validate_reference.py",
+          "hardware/reference/waveshare-43b-display/waveshare_43b_display.py"
+        ]
+      },
+      "retained_protected_adapter_dependency": {
+        "count": 39,
+        "paths": [
+          "hardware/printed-parts/cadlib/_scalar_provider.py",
+          "hardware/printed-parts/cadlib/world_workplane.py",
+          "hardware/printed-parts/enclosure/enclosure/support-bottom-gap/read_roads.py",
+          "hardware/reference/_reference_data.py",
+          "hardware/scripts/_assembly_model.py",
+          "hardware/scripts/_build_data.py",
+          "hardware/scripts/_cadq_export.py",
+          "hardware/scripts/_document_export.py",
+          "hardware/scripts/_machine_data.py",
+          "hardware/scripts/_machine_export.py",
+          "hardware/scripts/_material_base.py",
+          "hardware/scripts/_materials.py",
+          "hardware/scripts/_mesh_payload.py",
+          "hardware/scripts/_occt_color.py",
+          "hardware/scripts/_payload_rules.py",
+          "hardware/scripts/_run_lock.py",
+          "hardware/scripts/_run_native.py",
+          "hardware/scripts/_run_slots.py",
+          "hardware/scripts/_rust_data.py",
+          "hardware/scripts/_rust_objects.py",
+          "hardware/scripts/_rust_part.py",
+          "hardware/scripts/_rust_print_payload.py",
+          "hardware/scripts/_shared_data.py",
+          "hardware/scripts/flute_payload.py",
+          "hardware/scripts/meshcad/__init__.py",
+          "hardware/scripts/meshcad/build.py",
+          "hardware/scripts/meshcad/fillet.py",
+          "hardware/scripts/meshcad/grow.py",
+          "hardware/scripts/meshcad/imports.py",
+          "hardware/scripts/meshcad/presentation.py",
+          "hardware/scripts/meshcad/rule.py",
+          "hardware/scripts/meshcad/scene.py",
+          "hardware/scripts/meshcad/solids.py",
+          "hardware/scripts/meshcad/sweep.py",
+          "hardware/scripts/meshcad/topo.py",
+          "hardware/scripts/meshcad/write.py",
+          "tools/cad-venv-site/_hsm_novtk.py",
+          "tools/cad-venv-site/install.py",
+          "tools/docgen/__init__.py"
+        ]
+      },
+      "retained_native_ledger_cli_adapter": {
+        "count": 1,
+        "paths": [
+          "hardware/scripts/_ledger_rust.py"
+        ]
+      },
+      "retained_independent_kernel_oracle_generator": {
+        "count": 8,
+        "paths": [
+          "tools/hsm/kernel/tests/dxf_reference.py",
+          "tools/hsm/kernel/tests/mapped_reference.py",
+          "tools/hsm/kernel/tests/occt_reference.py",
+          "tools/hsm/kernel/tests/round_reference.py",
+          "tools/hsm/kernel/tests/screw_reference.py",
+          "tools/hsm/kernel/tests/sketch_hull_reference.py",
+          "tools/hsm/kernel/tests/spline_reference.py",
+          "tools/hsm/kernel/tests/thru_reference.py"
+        ]
+      },
+      "external_blender_adapter": {
+        "count": 1,
+        "paths": [
+          "tools/render/blender_adapter.py"
+        ]
+      }
+    }
+  },
+  "archives": {
+    "closed_reference_sources": "a518a57a878f02d9ac5b8b638c1c5883cadf6669",
+    "closed_geometry_and_preparations": "d24b111b5d10e1eed4574db786e5ae1d0b96d445",
+    "policy": "Git revisions retain retired source. Current physical records and required application adapters remain in their owning locations."
+  },
+  "limits": [
+    "No matched whole-machine CPU or memory improvement is inferred from this conversion.",
+    "Device and printer operations were exercised with saved inputs and isolated fixtures; no flash, print launch or UI input occurred.",
+    "Native optional workflows retain their documented external applications and SDK/toolchain requirements.",
+    "Inherited pump and cuff comparison limitations remain recorded in the earlier conversion results."
+  ],
+  "temporary_files": "Private comparison trees and observation images are removed after recording their hashes and measurements; installed runtimes, shared memo caches and final deliverables remain."
+}

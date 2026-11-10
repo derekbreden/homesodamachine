@@ -242,6 +242,7 @@ artifact hashes, comparison counts, numerical differences and public type bounda
 - [Host runtime](conversion-results/runtime-final-2026-11-04.json)
 - [Build support and combined build](conversion-results/build-final-2026-11-04.json)
 - [Generated modules: run and compile cost](conversion-results/generated-runtime-2026-11-04.json)
+- [Native workflows and live integration](conversion-results/native-workflows-2026-11-10.json)
 
 The CPU and memory goal still needs performance work in Rust. Component reductions and
 incremental build measurements do not establish a matched whole-machine speed or memory gain;
