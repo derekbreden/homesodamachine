@@ -1,0 +1,90 @@
+{
+  "views": [
+    {
+      "name": "junction",
+      "caption": "Section at the LED bore: the channel opens fully into the cylinder, without a stopped end cap.",
+      "before": "junction-before.webp",
+      "after": "junction-after.webp",
+      "width": 1100,
+      "height": 900,
+      "marks": [
+        {
+          "x": 556.8,
+          "y": 511.9,
+          "r": 50.6,
+          "label": "Lead opening",
+          "at": [
+            70.75,
+            47.9,
+            314.9
+          ]
+        }
+      ],
+      "model": "manifold-layout/enclosure-assembly.step",
+      "camera": {
+        "projection": "perspective",
+        "position": [
+          90.06370849898477,
+          47.779,
+          316
+        ],
+        "target": [
+          70.75,
+          47.779,
+          316
+        ],
+        "up": [
+          0,
+          0,
+          1
+        ],
+        "fov": 45,
+        "near": 0.24801718524463864,
+        "far": 489.16363341614255,
+        "aspect": 1.2222222222222223,
+        "section": {
+          "at": [
+            71.5,
+            47.779,
+            316
+          ],
+          "normal": [
+            1,
+            0,
+            0
+          ],
+          "removes": "the side the normal points to"
+        }
+      },
+      "highlight": [
+        "enclosure-front-top"
+      ],
+      "ghost": [],
+      "only": [
+        "enclosure-front-top"
+      ],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "snapshot",
+          "sha256": "a56c043029dca90814db050ced3fc0d7c80a3db70bb6e886b9fb501e79ad220c",
+          "commit": "83cc363e2f65069d49d7a587554fad465a1cd607",
+          "taken": "2026-11-10T01:42:22.341Z",
+          "published": true
+        },
+        "after": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "tree",
+          "sha256": "33533c57fb7cd442be99fa05cbd95415150af1092d5807f15d9da521d0c25ccd",
+          "commit": "e9866c5fd990729783b0bc7884f84bff4e2daa7c",
+          "published": true
+        }
+      },
+      "changed": [
+        "enclosure-front-top"
+      ],
+      "withinMeshing": []
+    }
+  ]
+}
