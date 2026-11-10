@@ -12809,10 +12809,6 @@ genrule(
         "out/weld-rotator/hardware/printed-parts/fixtures/weld-rotator/weld-rotator-motor-tower.step.mesh",
         "out/weld-rotator/hardware/printed-parts/fixtures/weld-rotator/weld-rotator-motor-tower.step.npz",
         "out/weld-rotator/hardware/printed-parts/fixtures/weld-rotator/weld-rotator-motor-tower.stl",
-        "out/weld-rotator/hardware/printed-parts/fixtures/weld-rotator/weld-rotator-pulley-coupon.step",
-        "out/weld-rotator/hardware/printed-parts/fixtures/weld-rotator/weld-rotator-pulley-coupon.step.mesh",
-        "out/weld-rotator/hardware/printed-parts/fixtures/weld-rotator/weld-rotator-pulley-coupon.step.npz",
-        "out/weld-rotator/hardware/printed-parts/fixtures/weld-rotator/weld-rotator-pulley-coupon.stl",
         "out/weld-rotator/hardware/printed-parts/fixtures/weld-rotator/weld-rotator-race-ring.step",
         "out/weld-rotator/hardware/printed-parts/fixtures/weld-rotator/weld-rotator-race-ring.step.mesh",
         "out/weld-rotator/hardware/printed-parts/fixtures/weld-rotator/weld-rotator-race-ring.step.npz",
@@ -12895,26 +12891,22 @@ O34=$$PWD/$(location out/weld-rotator/hardware/printed-parts/fixtures/weld-rotat
 O35=$$PWD/$(location out/weld-rotator/hardware/printed-parts/fixtures/weld-rotator/weld-rotator-motor-tower.step.mesh)
 O36=$$PWD/$(location out/weld-rotator/hardware/printed-parts/fixtures/weld-rotator/weld-rotator-motor-tower.step.npz)
 O37=$$PWD/$(location out/weld-rotator/hardware/printed-parts/fixtures/weld-rotator/weld-rotator-motor-tower.stl)
-O38=$$PWD/$(location out/weld-rotator/hardware/printed-parts/fixtures/weld-rotator/weld-rotator-pulley-coupon.step)
-O39=$$PWD/$(location out/weld-rotator/hardware/printed-parts/fixtures/weld-rotator/weld-rotator-pulley-coupon.step.mesh)
-O40=$$PWD/$(location out/weld-rotator/hardware/printed-parts/fixtures/weld-rotator/weld-rotator-pulley-coupon.step.npz)
-O41=$$PWD/$(location out/weld-rotator/hardware/printed-parts/fixtures/weld-rotator/weld-rotator-pulley-coupon.stl)
-O42=$$PWD/$(location out/weld-rotator/hardware/printed-parts/fixtures/weld-rotator/weld-rotator-race-ring.step)
-O43=$$PWD/$(location out/weld-rotator/hardware/printed-parts/fixtures/weld-rotator/weld-rotator-race-ring.step.mesh)
-O44=$$PWD/$(location out/weld-rotator/hardware/printed-parts/fixtures/weld-rotator/weld-rotator-race-ring.step.npz)
-O45=$$PWD/$(location out/weld-rotator/hardware/printed-parts/fixtures/weld-rotator/weld-rotator-race-ring.stl)
-O46=$$PWD/$(location out/weld-rotator/hardware/printed-parts/fixtures/weld-rotator/weld-rotator-spool.step)
-O47=$$PWD/$(location out/weld-rotator/hardware/printed-parts/fixtures/weld-rotator/weld-rotator-spool.step.mesh)
-O48=$$PWD/$(location out/weld-rotator/hardware/printed-parts/fixtures/weld-rotator/weld-rotator-spool.step.npz)
-O49=$$PWD/$(location out/weld-rotator/hardware/printed-parts/fixtures/weld-rotator/weld-rotator-spool.stl)
-O50=$$PWD/$(location out/weld-rotator/hardware/printed-parts/fixtures/weld-rotator/weld-rotator-tube-nest.step)
-O51=$$PWD/$(location out/weld-rotator/hardware/printed-parts/fixtures/weld-rotator/weld-rotator-tube-nest.step.mesh)
-O52=$$PWD/$(location out/weld-rotator/hardware/printed-parts/fixtures/weld-rotator/weld-rotator-tube-nest.step.npz)
-O53=$$PWD/$(location out/weld-rotator/hardware/printed-parts/fixtures/weld-rotator/weld-rotator-tube-nest.stl)
-O54=$$PWD/$(location out/weld-rotator/hardware/printed-parts/fixtures/weld-rotator/weld-rotator-turntable-90t.step)
-O55=$$PWD/$(location out/weld-rotator/hardware/printed-parts/fixtures/weld-rotator/weld-rotator-turntable-90t.step.mesh)
-O56=$$PWD/$(location out/weld-rotator/hardware/printed-parts/fixtures/weld-rotator/weld-rotator-turntable-90t.step.npz)
-O57=$$PWD/$(location out/weld-rotator/hardware/printed-parts/fixtures/weld-rotator/weld-rotator-turntable-90t.stl)
+O38=$$PWD/$(location out/weld-rotator/hardware/printed-parts/fixtures/weld-rotator/weld-rotator-race-ring.step)
+O39=$$PWD/$(location out/weld-rotator/hardware/printed-parts/fixtures/weld-rotator/weld-rotator-race-ring.step.mesh)
+O40=$$PWD/$(location out/weld-rotator/hardware/printed-parts/fixtures/weld-rotator/weld-rotator-race-ring.step.npz)
+O41=$$PWD/$(location out/weld-rotator/hardware/printed-parts/fixtures/weld-rotator/weld-rotator-race-ring.stl)
+O42=$$PWD/$(location out/weld-rotator/hardware/printed-parts/fixtures/weld-rotator/weld-rotator-spool.step)
+O43=$$PWD/$(location out/weld-rotator/hardware/printed-parts/fixtures/weld-rotator/weld-rotator-spool.step.mesh)
+O44=$$PWD/$(location out/weld-rotator/hardware/printed-parts/fixtures/weld-rotator/weld-rotator-spool.step.npz)
+O45=$$PWD/$(location out/weld-rotator/hardware/printed-parts/fixtures/weld-rotator/weld-rotator-spool.stl)
+O46=$$PWD/$(location out/weld-rotator/hardware/printed-parts/fixtures/weld-rotator/weld-rotator-tube-nest.step)
+O47=$$PWD/$(location out/weld-rotator/hardware/printed-parts/fixtures/weld-rotator/weld-rotator-tube-nest.step.mesh)
+O48=$$PWD/$(location out/weld-rotator/hardware/printed-parts/fixtures/weld-rotator/weld-rotator-tube-nest.step.npz)
+O49=$$PWD/$(location out/weld-rotator/hardware/printed-parts/fixtures/weld-rotator/weld-rotator-tube-nest.stl)
+O50=$$PWD/$(location out/weld-rotator/hardware/printed-parts/fixtures/weld-rotator/weld-rotator-turntable-90t.step)
+O51=$$PWD/$(location out/weld-rotator/hardware/printed-parts/fixtures/weld-rotator/weld-rotator-turntable-90t.step.mesh)
+O52=$$PWD/$(location out/weld-rotator/hardware/printed-parts/fixtures/weld-rotator/weld-rotator-turntable-90t.step.npz)
+O53=$$PWD/$(location out/weld-rotator/hardware/printed-parts/fixtures/weld-rotator/weld-rotator-turntable-90t.stl)
 rm -rf work
 for f in $(SRCS); do
   case $$f in
@@ -12963,26 +12955,22 @@ copy_file hardware/printed-parts/fixtures/weld-rotator/weld-rotator-motor-tower.
 copy_file hardware/printed-parts/fixtures/weld-rotator/weld-rotator-motor-tower.step.mesh "$$O35"
 copy_file hardware/printed-parts/fixtures/weld-rotator/weld-rotator-motor-tower.step.npz "$$O36"
 copy_file hardware/printed-parts/fixtures/weld-rotator/weld-rotator-motor-tower.stl "$$O37"
-copy_file hardware/printed-parts/fixtures/weld-rotator/weld-rotator-pulley-coupon.step "$$O38"
-copy_file hardware/printed-parts/fixtures/weld-rotator/weld-rotator-pulley-coupon.step.mesh "$$O39"
-copy_file hardware/printed-parts/fixtures/weld-rotator/weld-rotator-pulley-coupon.step.npz "$$O40"
-copy_file hardware/printed-parts/fixtures/weld-rotator/weld-rotator-pulley-coupon.stl "$$O41"
-copy_file hardware/printed-parts/fixtures/weld-rotator/weld-rotator-race-ring.step "$$O42"
-copy_file hardware/printed-parts/fixtures/weld-rotator/weld-rotator-race-ring.step.mesh "$$O43"
-copy_file hardware/printed-parts/fixtures/weld-rotator/weld-rotator-race-ring.step.npz "$$O44"
-copy_file hardware/printed-parts/fixtures/weld-rotator/weld-rotator-race-ring.stl "$$O45"
-copy_file hardware/printed-parts/fixtures/weld-rotator/weld-rotator-spool.step "$$O46"
-copy_file hardware/printed-parts/fixtures/weld-rotator/weld-rotator-spool.step.mesh "$$O47"
-copy_file hardware/printed-parts/fixtures/weld-rotator/weld-rotator-spool.step.npz "$$O48"
-copy_file hardware/printed-parts/fixtures/weld-rotator/weld-rotator-spool.stl "$$O49"
-copy_file hardware/printed-parts/fixtures/weld-rotator/weld-rotator-tube-nest.step "$$O50"
-copy_file hardware/printed-parts/fixtures/weld-rotator/weld-rotator-tube-nest.step.mesh "$$O51"
-copy_file hardware/printed-parts/fixtures/weld-rotator/weld-rotator-tube-nest.step.npz "$$O52"
-copy_file hardware/printed-parts/fixtures/weld-rotator/weld-rotator-tube-nest.stl "$$O53"
-copy_file hardware/printed-parts/fixtures/weld-rotator/weld-rotator-turntable-90t.step "$$O54"
-copy_file hardware/printed-parts/fixtures/weld-rotator/weld-rotator-turntable-90t.step.mesh "$$O55"
-copy_file hardware/printed-parts/fixtures/weld-rotator/weld-rotator-turntable-90t.step.npz "$$O56"
-copy_file hardware/printed-parts/fixtures/weld-rotator/weld-rotator-turntable-90t.stl "$$O57"
+copy_file hardware/printed-parts/fixtures/weld-rotator/weld-rotator-race-ring.step "$$O38"
+copy_file hardware/printed-parts/fixtures/weld-rotator/weld-rotator-race-ring.step.mesh "$$O39"
+copy_file hardware/printed-parts/fixtures/weld-rotator/weld-rotator-race-ring.step.npz "$$O40"
+copy_file hardware/printed-parts/fixtures/weld-rotator/weld-rotator-race-ring.stl "$$O41"
+copy_file hardware/printed-parts/fixtures/weld-rotator/weld-rotator-spool.step "$$O42"
+copy_file hardware/printed-parts/fixtures/weld-rotator/weld-rotator-spool.step.mesh "$$O43"
+copy_file hardware/printed-parts/fixtures/weld-rotator/weld-rotator-spool.step.npz "$$O44"
+copy_file hardware/printed-parts/fixtures/weld-rotator/weld-rotator-spool.stl "$$O45"
+copy_file hardware/printed-parts/fixtures/weld-rotator/weld-rotator-tube-nest.step "$$O46"
+copy_file hardware/printed-parts/fixtures/weld-rotator/weld-rotator-tube-nest.step.mesh "$$O47"
+copy_file hardware/printed-parts/fixtures/weld-rotator/weld-rotator-tube-nest.step.npz "$$O48"
+copy_file hardware/printed-parts/fixtures/weld-rotator/weld-rotator-tube-nest.stl "$$O49"
+copy_file hardware/printed-parts/fixtures/weld-rotator/weld-rotator-turntable-90t.step "$$O50"
+copy_file hardware/printed-parts/fixtures/weld-rotator/weld-rotator-turntable-90t.step.mesh "$$O51"
+copy_file hardware/printed-parts/fixtures/weld-rotator/weld-rotator-turntable-90t.step.npz "$$O52"
+copy_file hardware/printed-parts/fixtures/weld-rotator/weld-rotator-turntable-90t.stl "$$O53"
 """,
 )
 

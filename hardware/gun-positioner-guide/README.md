@@ -14,6 +14,9 @@ governing source instructions. The [source receipt](source-receipt.json)
 binds this PDF to its inputs. Rebuild it with
 `tools/cad-venv/bin/python tools/gun-positioner-guide/build.py`.
 
+For text or manifest changes with unchanged assembly geometry, retain the current
+pictures with `python3 tools/run.py -- tools/cad-venv/bin/python tools/gun-positioner-guide/build.py --reuse-art`.
+
 Print at **100%**, single-sided, Letter portrait. Content is centered at 98%,
 with a separate full-scale cobalt/coral bleed layer. For Epson Letter
 borderless printing, select the matching paper profile and rear feeder

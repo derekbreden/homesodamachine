@@ -130,7 +130,6 @@ def barren(root: Path, solid_hashes: dict) -> list:
 # same field (`cold-core/_show_skin.py`) and leave the same way, and so does the faucet's base
 # (`faucet_shell.write_bed_file`) — the one piece of this machine that stands on a counter.
 BUNDLED_MESH_DIRS = (
-    "hardware/printed-parts/calibration/soda-studies",
     "hardware/printed-parts/fixtures/tube-insertion",
     "hardware/printed-parts/fixtures/pgfun-positioner",
     "hardware/printed-parts/calibration/dual-nozzle-registration",
@@ -207,7 +206,6 @@ BUNDLED_GLB_DIRS = ("hardware/assembly/scenes/glb",)
 # /3d opens when anybody asks to look at the faucet.
 BUNDLED_PAYLOAD_DIRS = (
     "hardware/wiring",
-    "hardware/printed-parts/calibration/soda-studies",
     "hardware/printed-parts/fixtures/tube-insertion",
     "hardware/printed-parts/fixtures/pgfun-positioner",
     "hardware/printed-parts/enclosure/display-cover",

@@ -10,9 +10,9 @@
     1.5,
     1.5
   ],
-  "printed_parts": 60,
+  "printed_parts": 54,
   "material_solid_equivalent_g": {
-    "PET-CF17": 3543.24,
+    "PET-CF17": 3473.39,
     "TPU": 4.32,
     "PETG": 1361.34
   },
@@ -24,17 +24,15 @@
     "before_tax": true
   },
   "artifacts": {
-    "hardware/printed-parts/fixtures/pgfun-positioner/print-pack.zip": "608c197e74083711c601c8a928bbf93e98bb5dcbccd5016a3897a5918d9b56dd",
-    "hardware/printed-parts/fixtures/pgfun-positioner/print-manifest.json": "ae44023d7d483d3ecc9bc1afb43b212827037a23f9cd7980d152e32bbda24357",
+    "hardware/printed-parts/fixtures/pgfun-positioner/print-pack.zip": "ac2de3f58cbd27791f33fc0deb241fb44481448c85396201dd55fee5617a9e61",
+    "hardware/printed-parts/fixtures/pgfun-positioner/print-manifest.json": "ea65d5a28c634c37dc53b1d0b44be557b97586247655eea55dd21b1c35cfecd5",
     "hardware/printed-parts/fixtures/pgfun-positioner/motion-geometry.json": "ebf5a7c0eb204d2dcf30eeb4225b991b15516466062fd50896fb8c475eff798e",
     "hardware/printed-parts/fixtures/pgfun-positioner/clearance-check.json": "5f7baeb1c58097dab1d4fa4ea156ca727710d32e3a096ed750bd71b44dd73015",
     "hardware/printed-parts/fixtures/pgfun-positioner/load-screen.json": "cca80c89e2f2d4476a27a41b05d40eb05262f3933f90bd8858826a97a87e7c14",
     "firmware/src_pgfun_positioner/assets/pgfun-positioner-r1.uf2": "2fd8bdaa22d43ec7d1f8393ef8996c20ab462d15adc7b8913d1c59f45a044054",
     "firmware/src_pgfun_positioner/assets/build-receipt.json": "daafbd262eb2b37072e2656bdb0b2db086b586749dd736a79825f8ce14ef8bd3",
-    "hardware/gun-positioner-guide/gun-positioner-guide.pdf": "14e1b8f7c5a41ffbfa2875d15a57321d35ce19356849ff80ba55eddf215bd06e",
-    "hardware/gun-positioner-guide/qa-receipt.json": "333b7f2b0a9b8e878b3eea6e43cf96df5dcdd622341cad31475e02fc6e1f12c3",
-    "hardware/gun-positioner-guide/source-receipt.json": "db7414f269dfa3ce5ad1a7b5c006ef9abb62a648b4876e8202e58940880530cd",
-    "hardware/printed-parts/fixtures/pgfun-positioner/geometry-lint-review.json": "b9da52d6b7da73031ab0f314070a82a35edf63a719c8b7cbdfafec6e360b4c4d"
+    "hardware/gun-positioner-guide/gun-positioner-guide.pdf": "6e0c0dbe8927235345a3786b47673b106d71f950b78aee4fd7c1c75e618752b5",
+    "hardware/gun-positioner-guide/source-receipt.json": "5ff5fe141f2ed9fcd2441230938439e8d86bce93aaa2bf9681a0ba924d606aaa"
   },
   "physical_qualification": "Required according to commissioning.md; no unperformed results asserted",
   "laser_control": "Factory trigger during accepted periodic replay; automatic emission protocol not established"

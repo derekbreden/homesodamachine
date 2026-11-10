@@ -13,8 +13,7 @@ controller and one camera stand.
 
 ## Print and prepare
 
-Print the fit coupons first in the same PET-CF17 profile and orientation as
-the journals and housings. Use a hardened 0.6 mm nozzle, 0.20 mm first layer,
+Print the journals and housings in their specified orientation. Use a hardened 0.6 mm nozzle, 0.20 mm first layer,
 0.24 mm normal layers, six walls and 100% infill for the structural PET-CF17
 pieces. Start from the printer's established Fiberon PET-CF17 profile within
 Polymaker's 270-300 C nozzle and 70-80 C bed ranges; fan off. Dry wet stock at
@@ -41,13 +40,11 @@ PETG camera/control pieces use the established PETG profile, four walls and
 25% infill; the thin walls remain solid. TPU liners use three walls and 100%
 infill. The 0.2 mm lens pad is one first layer.
 
-Check the 40 mm bearing inner-ring fit on coupons 39.98, 40.04 and 40.06;
-the nominal journal is 40.04. Check outer-ring fits on 52.00, 52.03 and 52.08;
-the nominal housing is 52.03. Select a journal that enters with firm hand
-pressure and cannot turn in the inner ring under hand torque. Select a
-housing that accepts the outer ring squarely by hand and does not rock.
-Change those two dimensions in `design.json` and regenerate before printing
-full-size bearing parts if the nominal coupons fail. Do not force a bearing
+Fit the bearings to the actual printed journals and housings. A journal enters
+with firm hand pressure and cannot turn in the inner ring under hand torque.
+The housing accepts the outer ring squarely by hand without rocking.
+Adjust the corresponding dimension in `design.json` and regenerate the affected
+part if its fit fails. Do not force a bearing
 through its balls, sand a loose seat larger, or glue over a rocking fit.
 
 The nominal spacers are 7 mm for the paired 6808 bearings. Print inner and

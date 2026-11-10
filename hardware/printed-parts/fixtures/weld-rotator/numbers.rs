@@ -6,7 +6,7 @@
 //!
 //! World frame: Z is the rotary axis, up through the tube; X points from the tube's axis toward
 //! the motor; Z = 0 is the base's bottom face. The feet, the nest and the clamp pads are cut in
-//! frames of their own and placed in this one; the pulley coupon stands on its own foot.
+//! frames of their own and placed in this one.
 use hsm_catalog::fits;
 
 const INCH: f64 = 25.4;
@@ -298,10 +298,6 @@ pub mod pulley {
     pub const GROOVE_OVERCUT: f64 = 1.;
     /// How far each groove's cutter runs in past the root circle.
     pub const GROOVE_UNDERCUT: f64 = 0.15;
-    /// The grooves the belt-fit coupon keeps: the slice of the pulley printed first, to check the
-    /// actual belt before the turntable is printed.
-    pub const COUPON_TEETH: u32 = 12;
-
     /// A groove's half-width at `radius`: its flank line, carried straight past the tip and the
     /// root so the overcut does not pinch the opening.
     pub fn groove_half_width(radius: f64) -> f64 {

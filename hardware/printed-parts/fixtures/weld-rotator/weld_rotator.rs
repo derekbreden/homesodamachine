@@ -67,7 +67,6 @@ struct Pieces {
     turntable: Solid,
     race_ring: Solid,
     spool: Solid,
-    coupon: Solid,
     cage: Solid,
     nest: Solid,
     motor_tower: Solid,
@@ -87,7 +86,6 @@ impl Pieces {
             turntable: closed("turntable", turntable_piece(&ring)?)?,
             race_ring: closed("race ring", race_ring_piece()?)?,
             spool: closed("spool", spool_piece()?)?,
-            coupon: closed("pulley coupon", coupon_piece(&ring)?)?,
             cage: closed("ball cage", cage_piece()?)?,
             nest: closed("tube nest", nest_piece()?)?,
             motor_tower: closed("motor tower", motor_tower_piece()?)?,
@@ -100,7 +98,7 @@ impl Pieces {
     }
 
     /// The printed pieces: the file each is written to, the body its files name, and its solid.
-    fn printed(&mut self) -> [(&'static str, &'static str, &mut Solid); 13] {
+    fn printed(&mut self) -> [(&'static str, &'static str, &mut Solid); 12] {
         [
             ("weld-rotator-ball-cage", "ball-cage", &mut self.cage),
             ("weld-rotator-base", "base", &mut self.base),
@@ -110,7 +108,6 @@ impl Pieces {
             ("weld-rotator-motor-carriage", "motor-carriage", &mut self.carriage),
             ("weld-rotator-motor-clamp-pad", "motor-clamp-pad", &mut self.clamp_pad),
             ("weld-rotator-motor-tower", "motor-tower", &mut self.motor_tower),
-            ("weld-rotator-pulley-coupon", "pulley-coupon", &mut self.coupon),
             ("weld-rotator-race-ring", "race-ring", &mut self.race_ring),
             ("weld-rotator-spool", "spool", &mut self.spool),
             ("weld-rotator-tube-nest", "tube-nest", &mut self.nest),
@@ -200,13 +197,6 @@ fn teardrop(radius: f64, x: f64, z: f64, y0: f64, y1: f64) -> Result<Solid> {
     let roof = Profile::polygon(&[v2(x - half, tangent), v2(x + half, tangent), v2(x, z + radius / a.cos())]);
     let roof = Plane::XZ.at(v3(0., y0, 0.)).extrude(&roof, -(y1 - y0))?;
     Solid::cylinder(v3(x, y0, z), V3::Y, radius, y1 - y0)?.union(&roof)
-}
-
-/// The part of a ring within `half` degrees either side of +X.
-#[track_caller]
-fn sector(outer: f64, inner: f64, half: f64, z: f64, h: f64) -> Result<Solid> {
-    let [x, y] = polar(outer + 5., half);
-    annulus(outer, inner, h, z)?.intersect(&prism(&[[0., 0.], [x, -y], [x, y]], z, h)?)
 }
 
 /// The belt round both pulleys for a motor shaft `center` from the turntable's axis: its two wraps
@@ -370,14 +360,6 @@ fn spool_piece() -> Result<Solid> {
         cuts.push(counterbore(x, y, seat, through)?);
     }
     solid.cut_all(&cuts)
-}
-
-/// The belt-fit coupon: the pulley's slice that keeps the coupon's grooves, stood on its foot.
-fn coupon_piece(ring: &Solid) -> Result<Solid> {
-    let half = pulley::COUPON_TEETH as f64 * 360. / belt::TABLE_TEETH as f64 / 2.;
-    let (z0, z1) = (pulley::Z0, pulley::Z1);
-    let slice = sector(pulley::FLANGE_R + 1., pulley::INNER_R - 1., half, z0, z1 - z0)?;
-    Ok(ring.intersect(&slice)?.translate(v3(0., 0., -z0)))
 }
 
 /// The ball cage: a flat ring with a pocket at every ball.

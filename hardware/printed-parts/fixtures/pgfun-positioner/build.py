@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Build the two coaxial joints, scan-envelope cradle and fit coupons.
+"""Build the two coaxial joints, scan-envelope cradle and installation parts.
 
 All printable solids are exported in their specified print orientation.
 Assembly STEP and display meshes retain rotator coordinates. No source files
@@ -505,7 +505,7 @@ def camera_stage():
     add('camera-lens-front-pad',ring(53.2,49.5,.2),'camera',at=tuple(origin),orientation=lambda s:to_lens(s.translate((0,0,17.5))),material='TPU')
     for h in(.4,):
         shim=ring(53.2,49.5,h).cut(box(15,18,2,(0,27,-1)))
-        add(f'camera-lens-shim-{h:.1f}',shim,'coupon',material='TPU')
+        add(f'camera-lens-shim-{h:.1f}',shim,'optional',material='TPU')
     # Camera is an external envelope. Tray ties grip the base; no PTZ housing
     # fit or unmeasured mounting thread is required by this mechanism.
     body=box(253.5,144,40,(0,0,6)).union(box(80,120,100,(0,0,45)))
@@ -590,15 +590,6 @@ def build():
     fan=holes(fan,[(x,y)for x in(-16,16)for y in(-16,16)],3.4,-1,5)
     add('fan-guard',fan,at=(-157,YY-100,33),material='PETG')
     camera_stage()
-    # Vertical bearing fit coupons, with readable engraved dimension labels.
-    for size in (39.98,40.04,40.06):
-        s=cyl(size,7).union(box(48,8,2,(0,-19,0)))
-        s=s.cut(cq.Workplane('XY').text(f'{size:.2f}',4,1).translate((0,-19,1.2)))
-        add(f'journal-fit-{size:.2f}',s,'coupon')
-    for size in (52.00,52.03,52.08):
-        s=ring(64,size,7).union(box(50,8,2,(0,-27,0)))
-        s=s.cut(cq.Workplane('XY').text(f'{size:.2f}',4,1).translate((0,-27,1.2)))
-        add(f'housing-fit-{size:.2f}',s,'coupon')
 
 def mesh(s):
     v,f=s.tessellate(.12,.15)
@@ -646,7 +637,7 @@ def exports():
                 'lower-cradle','controller-case')or name.startswith(('gun-retainer-','bench-toe-',
                     'yaw-limit-holder-','pitch-limit-holder-')),
             watertight=True,sha256=hashlib.sha256((OUT/f'{name}.stl').read_bytes()).hexdigest()))
-        if p['group']!='coupon':
+        if p['group']!='optional':
             assy.add(world,name=name,color=cq.Color(.18,.28,.31))
             dm=mesh(world)
             qa[name+'__v']=dm.vertices;qa[name+'__f']=dm.faces
@@ -659,7 +650,7 @@ def exports():
     assy.export(str(HERE/'assembly.step'))
     payload=[]
     for p in PARTS+HARDWARE:
-        if p.get('group')=='coupon':continue
+        if p.get('group')=='optional':continue
         pm=mesh(p['world']);pos,nrm,idx,fac=flute_payload.creased(pm)
         payload.append(dict(name=p['name'],color=[.18,.28,.31] if 'material' in p else [.48,.5,.52],
                             pos=pos.ravel().tolist(),nrm=nrm.ravel().tolist(),idx=idx.ravel().tolist(),fac=fac.tolist()))

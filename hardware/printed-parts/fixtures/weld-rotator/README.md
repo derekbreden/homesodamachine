@@ -1,5 +1,7 @@
 # Cap-weld tube rotator
 
+The rotator is in use and working.
+
 Printed M5 threaded passages use the shared Ø5.2 mm fit selected in the
 [M5 sample comparison](https://github.com/derekbreden/homesodamachine/blob/b57b985c648c34346481a57fde897374b0e8f068/hardware/print-tests/m5-seam-bearing/physical-result.json).
 The [native host reading](m5-pass-fit-reading.json) identifies the three affected parts.
@@ -33,7 +35,6 @@ adjustment and never a reprint.
 | `weld-rotator-turntable-90t.stl` | 1 | Moving disk, 90T pulley, nest register, purge bore; flat underside carries the race ring and spool |
 | `weld-rotator-race-ring.stl` | 1 | Upper bearing race, printed groove-up and screwed groove-down to the turntable |
 | `weld-rotator-spool.stl` | 1 | Hub and lift-catch flange, inserted through the base and screwed up into the turntable |
-| `weld-rotator-pulley-coupon.stl` | 1 first | Twelve grooves and both flanges; verifies the actual belt before the turntable print |
 | `weld-rotator-ball-cage.stl` | 1 | Spaces the stock Ø mm PP balls |
 | `weld-rotator-tube-nest.stl` | 1 | Replaceable dual-surface register for the 5-inch tube end |
 | `weld-rotator-ground-shoe.step` | 1 C110 | × × mm stationary contact: one crosscut from the acquired nominal 1/4 × 2 inch bar, with the stock width stood vertically |
@@ -144,8 +145,7 @@ groove depth match the HTD-5M belt; the printed groove is a clearance
 trapezoid, mm wide at the tip circle, that accepts the
 belt tooth's 3.05 mm root and absorbs the pitch error a printed 142 mm pulley
 accumulates over its 45 engaged teeth. It is not a metrology transfer
-standard. Check the first 12-tooth coupon against the actual belt before
-committing the turntable print. The installed 20T pulley has
+standard. The installed 20T pulley has
  of wrap, just over seven engaged teeth. That is ample for
 bearing drag and the vessel's inertia; it is intentionally not a wire-stick
 lock. If filler wire catches, release the deadman pedal and let the belt/motor
@@ -241,7 +241,7 @@ plates are worth watching through their first two layers rather than left alone.
 - Nest: 0.20 mm layer, 6 walls, 100% infill, on its register face. Keep the
   three radial stepped adjuster passages clear. The annular register socket's
   opposed 45-degree roofs print without support.
-- Cage and coupon: flat.
+- Cage: flat.
 
 Deburr the base race with a plastic scraper only, for the same reason as the
 ring.

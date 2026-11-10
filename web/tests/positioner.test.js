@@ -25,7 +25,7 @@ test("the scene carries every installed print and places gun and rotator on thei
   const names = new Set(scene.parts.map((part) => part.name));
   assert.equal(names.size, scene.parts.length, "duplicate mesh names");
   for (const part of manifest.parts) {
-    if (/^(?:housing-fit-|journal-fit-|camera-lens-shim)/.test(part.name)) continue;
+    if (part.name.startsWith("camera-lens-shim")) continue;
     assert.ok(names.has(part.name), `missing installed print ${part.name}`);
   }
   const gun = scene.parts.filter((part) => part.name.startsWith("gun:"));

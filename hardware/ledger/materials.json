@@ -5,7 +5,6 @@
     "HSM-0002",
     "HSM-0005",
     "HSM-0006",
-    "HSM-0180",
     "HSM-0389",
     "HSM-0396",
     "HSM-0397",
@@ -1087,10 +1086,6 @@
         {
           "kind": "used-with",
           "material": "HSM-0149"
-        },
-        {
-          "kind": "used-with",
-          "material": "HSM-0150"
         },
         {
           "kind": "used-with",
@@ -3465,16 +3460,6 @@
       "kind": "equipment"
     },
     {
-      "id": "HSM-0150",
-      "description": "Weld rotator pulley fit coupon",
-      "kind": "manufactured",
-      "models": [
-        {
-          "file": "printed-parts/fixtures/weld-rotator/weld-rotator-pulley-coupon.step"
-        }
-      ]
-    },
-    {
       "id": "HSM-0151",
       "description": "Tube insertion base",
       "kind": "manufactured",
@@ -3790,7 +3775,7 @@
       ],
       "models": [
         {
-          "file": "reference/g-ganen-pump/integration-envelope/g-ganen-integration-envelope.step"
+          "file": "reference/g-ganen-pump/g-ganen-replica.step"
         }
       ],
       "documents": [
@@ -3831,106 +3816,6 @@
         {
           "title": "Refrigerant-loop assembly",
           "path": "assembly/refrigerant-loop.md"
-        }
-      ]
-    },
-    {
-      "id": "HSM-0180",
-      "description": "The Pour \u00b7 compact print reference",
-      "kind": "tooling",
-      "aliases": [
-        "The Pour",
-        "soda studies",
-        "print reference",
-        "calibration sculpture",
-        "print finish",
-        "clearance samples"
-      ],
-      "models": [
-        {
-          "file": "printed-parts/calibration/soda-studies/the-pour.step"
-        }
-      ],
-      "documents": [
-        {
-          "title": "Print The Pour",
-          "path": "printed-parts/calibration/soda-studies/README.md"
-        },
-        {
-          "title": "Read the features and comparisons",
-          "path": "printed-parts/calibration/soda-studies/feature-guide.md"
-        }
-      ],
-      "bom": {
-        "scope": "One 42.5 \u00d7 34.4 \u00d7 32.4 mm print-in-place corner whose shared surfaces carry nine selected print readings and one captive slide. One recipe per whole print; compare complete prints. Physical release, finish and support removal remain unmeasured.",
-        "source": "printed-parts/calibration/soda-studies/manifest.json",
-        "items": [
-          {
-            "material": "HSM-0266",
-            "quantity": 1,
-            "unit": "ea",
-            "bodies": [
-              "body"
-            ]
-          },
-          {
-            "material": "HSM-0267",
-            "quantity": 1,
-            "unit": "ea",
-            "bodies": [
-              "moving"
-            ]
-          }
-        ]
-      },
-      "relations": [
-        {
-          "kind": "tool-for",
-          "material": "HSM-0001"
-        },
-        {
-          "kind": "tool-for",
-          "material": "HSM-0007"
-        }
-      ]
-    },
-    {
-      "id": "HSM-0266",
-      "kind": "manufactured",
-      "description": "The Pour corner body",
-      "aliases": [
-        "body",
-        "The Pour \u00b7 Corner body"
-      ],
-      "models": [
-        {
-          "file": "printed-parts/calibration/soda-studies/arch-body.step"
-        }
-      ],
-      "documents": [
-        {
-          "title": "Read and assemble this reference",
-          "path": "printed-parts/calibration/soda-studies/feature-guide.md"
-        }
-      ]
-    },
-    {
-      "id": "HSM-0267",
-      "kind": "manufactured",
-      "description": "The Pour captive slide",
-      "aliases": [
-        "moving",
-        "The Pour \u00b7 Captive slide"
-      ],
-      "models": [
-        {
-          "file": "printed-parts/calibration/soda-studies/arch-moving.step"
-        }
-      ],
-      "documents": [
-        {
-          "title": "Read and assemble this reference",
-          "path": "printed-parts/calibration/soda-studies/feature-guide.md"
         }
       ]
     },
@@ -7409,7 +7294,7 @@
         }
       ],
       "bom": {
-        "scope": "Printed parts, mechanism, controller, camera and fasteners. Bench power, C-clamps, the rotator pedal, welder, rotator and fit coupons are listed separately.",
+        "scope": "Printed parts, mechanism, controller, camera and fasteners. Bench power, C-clamps, the rotator pedal, welder and rotator are listed separately.",
         "source": "gun-positioner/purchases.md",
         "items": [
           {
@@ -8008,30 +7893,6 @@
         {
           "kind": "used-with",
           "material": "HSM-0160"
-        },
-        {
-          "kind": "used-with",
-          "material": "HSM-0531"
-        },
-        {
-          "kind": "used-with",
-          "material": "HSM-0532"
-        },
-        {
-          "kind": "used-with",
-          "material": "HSM-0533"
-        },
-        {
-          "kind": "used-with",
-          "material": "HSM-0534"
-        },
-        {
-          "kind": "used-with",
-          "material": "HSM-0535"
-        },
-        {
-          "kind": "used-with",
-          "material": "HSM-0536"
         }
       ]
     },
@@ -8804,84 +8665,6 @@
       ],
       "aliases": [
         "camera-lens-shim-0.4"
-      ]
-    },
-    {
-      "id": "HSM-0531",
-      "description": "PGFUN journal fit coupon \u00b7 39.98 mm",
-      "kind": "manufactured",
-      "models": [
-        {
-          "file": "printed-parts/fixtures/pgfun-positioner/parts/journal-fit-39.98.step"
-        }
-      ],
-      "aliases": [
-        "journal-fit-39.98"
-      ]
-    },
-    {
-      "id": "HSM-0532",
-      "description": "PGFUN journal fit coupon \u00b7 40.04 mm",
-      "kind": "manufactured",
-      "models": [
-        {
-          "file": "printed-parts/fixtures/pgfun-positioner/parts/journal-fit-40.04.step"
-        }
-      ],
-      "aliases": [
-        "journal-fit-40.04"
-      ]
-    },
-    {
-      "id": "HSM-0533",
-      "description": "PGFUN journal fit coupon \u00b7 40.06 mm",
-      "kind": "manufactured",
-      "models": [
-        {
-          "file": "printed-parts/fixtures/pgfun-positioner/parts/journal-fit-40.06.step"
-        }
-      ],
-      "aliases": [
-        "journal-fit-40.06"
-      ]
-    },
-    {
-      "id": "HSM-0534",
-      "description": "PGFUN bearing housing fit coupon \u00b7 52.00 mm",
-      "kind": "manufactured",
-      "models": [
-        {
-          "file": "printed-parts/fixtures/pgfun-positioner/parts/housing-fit-52.00.step"
-        }
-      ],
-      "aliases": [
-        "housing-fit-52.00"
-      ]
-    },
-    {
-      "id": "HSM-0535",
-      "description": "PGFUN bearing housing fit coupon \u00b7 52.03 mm",
-      "kind": "manufactured",
-      "models": [
-        {
-          "file": "printed-parts/fixtures/pgfun-positioner/parts/housing-fit-52.03.step"
-        }
-      ],
-      "aliases": [
-        "housing-fit-52.03"
-      ]
-    },
-    {
-      "id": "HSM-0536",
-      "description": "PGFUN bearing housing fit coupon \u00b7 52.08 mm",
-      "kind": "manufactured",
-      "models": [
-        {
-          "file": "printed-parts/fixtures/pgfun-positioner/parts/housing-fit-52.08.step"
-        }
-      ],
-      "aliases": [
-        "housing-fit-52.08"
       ]
     },
     {

@@ -50,13 +50,13 @@ async function assertPane(page, open) {
 
 test("3D thumbnails and model navigation start closed after an open materials pane", async () => {
   const page = await browser.newPage();
-  const card = '.card[data-material="HSM-0180"] .assembly-model-link';
-  const file = "printed-parts/calibration/soda-studies/the-pour.step";
+  const card = '.card[data-material="HSM-0397"] .assembly-model-link';
+  const file = "printed-parts/cold-core/reed-bridge/reed-bridge-setting-gauge.step";
   try {
     await page.setViewport({ width: 1440, height: 1000 });
     await page.goto(baseUrl + "/3d", { waitUntil: "domcontentloaded" });
     await page.waitForSelector(card);
-    assert.equal(await page.$eval(card, link => link.getAttribute("href")), "/3d#material:HSM-0180");
+    assert.equal(await page.$eval(card, link => link.getAttribute("href")), "/3d#material:HSM-0397");
     await page.click(card);
     await materialReady(page, file);
     await assertPane(page, false);
@@ -75,6 +75,7 @@ test("3D thumbnails and model navigation start closed after an open materials pa
     await assertPane(page, false);
     await page.click(".materials-toggle");
     await page.type(".material-panel .material-search input", "HSM-0009");
+    await page.waitForSelector(".material-panel .material-search-results a", { visible: true });
     await page.click(".material-panel .material-search-results a");
     await page.waitForFunction(() => location.hash.endsWith("?panel=materials"));
     await assertPane(page, true); // The same model can be entered as a search result.
@@ -88,13 +89,16 @@ test("3D thumbnails and model navigation start closed after an open materials pa
 
 test("one workspace toolbar contains navigation, view mode and document controls on desktop and phone", async () => {
   const page = await browser.newPage();
-  const parentFile = "printed-parts/calibration/soda-studies/the-pour.step";
+  const parentFile = "printed-parts/cold-core/reed-bridge/reed-bridge-setting-gauge.step";
   try {
     await page.setViewport({ width: 1440, height: 1000 });
-    await page.goto(baseUrl + "/3d#material:HSM-0180", { waitUntil: "domcontentloaded" });
+    await page.goto(baseUrl + "/3d", { waitUntil: "domcontentloaded" });
+    await page.waitForSelector('.card[data-material="HSM-0397"] .assembly-model-link');
+    await page.click('.card[data-material="HSM-0397"] .assembly-model-link');
     await materialReady(page, parentFile);
     await page.click(".materials-toggle");
     await page.type(".material-panel .material-search input", "HSM-0009");
+    await page.waitForSelector(".material-panel .material-search-results a", { visible: true });
     await page.click(".material-panel .material-search-results a");
     await materialReady(page);
     const layout = await page.evaluate(() => {
