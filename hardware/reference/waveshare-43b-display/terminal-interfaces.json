@@ -1,0 +1,99 @@
+{
+  "schema": 1,
+  "purpose": "The display connector record supplies the authored wire-mouth geometry and supplier-labeled pole order to the replica and installed wiring.",
+  "units": "mm",
+  "frame": {
+    "x": "display source width; positive points toward the USB and power-input end",
+    "y": "back from the front glass",
+    "z": "up the display"
+  },
+  "row": {
+    "pole_count": 16,
+    "pitch_mm": 3.5,
+    "first_x_mm": -26.824,
+    "pole_order": "Increasing source X",
+    "mouth_y_mm": 17.27,
+    "outward_axis": [
+      0.0,
+      1.0,
+      0.0
+    ],
+    "entry_inner": {
+      "y_mm": 14.42,
+      "z_mm": -26.508,
+      "width_mm": 1.6,
+      "height_mm": 2.525
+    },
+    "entry_outer": {
+      "y_mm": 17.5,
+      "z_mm": -27.286,
+      "width_mm": 2.529,
+      "height_mm": 4.613
+    },
+    "mouth_center_rule": "Interpolate the entry-section center Z at mouth_y_mm; add the indexed pitch to first_x_mm.",
+    "mouth_plane_basis": "The mouth lies on the flat rear plug face. The outer cutter section stands beyond this face; the broad shoulder bevel is outside the wire-entry land.",
+    "supplier_labels_in_increasing_x": [
+      "DI1",
+      "DI0",
+      "GND",
+      "DI COM",
+      "DO1",
+      "DO0",
+      "RS485-A",
+      "RS485-B",
+      "CAN-H",
+      "CAN-L",
+      "SCL",
+      "SDA",
+      "GND",
+      "VOUT",
+      "GND",
+      "VIN"
+    ]
+  },
+  "ports": {
+    "B": {
+      "pole_index": 7,
+      "board_label": "RS485-B"
+    },
+    "A": {
+      "pole_index": 6,
+      "board_label": "RS485-A"
+    },
+    "GND": {
+      "pole_index": 14,
+      "board_label": "GND",
+      "selection": "Power-input return adjacent to VIN"
+    },
+    "V12": {
+      "pole_index": 15,
+      "board_label": "VIN",
+      "selection": "Machine supply lands on the display input"
+    },
+    "DOUT0": {
+      "pole_index": 5,
+      "board_label": "DO0"
+    },
+    "VIN": {
+      "pole_index": 15,
+      "board_label": "VIN"
+    }
+  },
+  "evidence": {
+    "mechanical": "replica-evidence.json",
+    "mechanical_part": "XK15EDGKA-3_5MM-16PIN in the manufacturer project drawing assembly",
+    "supplier_interface_url": "https://docs.waveshare.com/assets/images/ESP32-S3-Touch-4.3B-details-0edde12d537b5974670d2bb83e8ff254.webp",
+    "local_image": "evidence/vendor-interfaces.webp",
+    "image_sha256": "6b6d207e8ddd4c384ee1eb180559c5ac3202eeee1db81436eae71188b151c402",
+    "image_view": "The terminal row is vertical beside the PCB with USB at the top. VIN is the top terminal and DI1 is the bottom terminal. In the modeled source frame that order runs from positive toward negative X.",
+    "orientation_cross_check": "The supplier mechanical drawing places USB and SD at positive source X. The interface photograph shows VIN beside that end.",
+    "schematic_url": "https://files.waveshare.com/wiki/ESP32-S3-Touch-LCD-4.3B/ESP32-S3-Touch-LCD-4.3B-Sch.pdf",
+    "repository_functional_record": "hardware/pcb/pcba/bench-log.md",
+    "repository_record_scope": "The J9 bench record establishes operation of a display link and power loom; it does not locate the CAD terminal row or establish the received unit pole coordinates."
+  },
+  "accuracy": {
+    "mechanical": "Mouth centers follow the idealized supplier-derived replica, with no received-part caliper verification.",
+    "pole_assignment": "Port labels and order follow the manufacturer interface photograph and documentation; the received board revision and conductor continuity have not been checked here.",
+    "electrical_validation": "This geometric binding does not validate the electrical wiring or signal polarity."
+  }
+}

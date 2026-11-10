@@ -694,18 +694,32 @@ fn sensors(at: &mut Value, root: &Path) -> Result<()> {
             .to_string_lossy(),
         &json!([ea("DISPLAY_TILT")?]),
     )?;
-    for (i, label) in ["B", "A", "GND", "V12"].into_iter().enumerate() {
+    let interfaces = hsm_kernel::reads::json(
+        root.join("hardware/reference/waveshare-43b-display/terminal-interfaces.json"),
+    )?;
+    let row = &interfaces["row"];
+    let mouth_y = number(&row["mouth_y_mm"])?;
+    let inner_y = number(&row["entry_inner"]["y_mm"])?;
+    let inner_z = number(&row["entry_inner"]["z_mm"])?;
+    let outer_y = number(&row["entry_outer"]["y_mm"])?;
+    let outer_z = number(&row["entry_outer"]["z_mm"])?;
+    let mouth_z = inner_z + (mouth_y - inner_y) / (outer_y - inner_y) * (outer_z - inner_z);
+    let first_x = number(&row["first_x_mm"])?;
+    let pitch = number(&row["pitch_mm"])?;
+    for label in ["B", "A", "GND", "V12"] {
+        let port = &interfaces["ports"][label];
+        let pole = number(&port["pole_index"])?;
         apply(
             at,
             &format!("display.{label}"),
             "display",
             &pose,
-            [(i as f64 - 1.5) * 3.5, 18., 0.],
-            [0., 1., 0.],
+            [first_x + pole * pitch, mouth_y, mouth_z],
+            v(&row["outward_axis"])?,
             "display-terminal",
-            "Accessible rear display region; exact RS485 and power terminal positions unlocated",
-            "unlocated",
-            Value::Null,
+            "Supplier-derived connector mouth and printed pole label; received-part net assignment and conductor continuity unqualified",
+            "nominal",
+            port["board_label"].clone(),
         )?;
     }
     let (lo, _) = bounds(part(at, "keystone-jack")?)?;

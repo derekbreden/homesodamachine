@@ -2937,33 +2937,39 @@
       {
         "terminal": "relay-1.GND",
         "offset": [
-          -14.41000000000001,
-          -25.850139079255484,
-          -14.131605693777658
+          -8.810000000000016,
+          -21.320915833957883,
+          -13.412598420947518
         ]
       },
       {
         "terminal": "relay-1.GND",
         "offset": [
-          10.989999999999995,
-          -25.850139079255484,
-          -14.131605693777658
+          16.58999999999999,
+          -21.320915833957883,
+          -13.412598420947518
+        ]
+      },
+      {
+        "point_mm": [
+          -72.0,
+          366.3227434920812,
+          270.775
+        ]
+      },
+      {
+        "point_mm": [
+          -72.0,
+          366.3227434920812,
+          283.9781695437001
         ]
       },
       {
         "terminal": "relay-1.GND",
         "offset": [
-          10.989999999999995,
           0.0,
-          -14.131605693777658
-        ]
-      },
-      {
-        "terminal": "relay-1.GND",
-        "offset": [
-          10.989999999999995,
-          0.0,
-          0.0
+          -11.998172341876696,
+          -0.20942887724740364
         ]
       }
     ],
@@ -2974,7 +2980,7 @@
     "bend_radius_mm": 2.0,
     "preserve_stations": true,
     "route_status": "selected_layout",
-    "note": "Installed route to the back-top dry-wall PSU/relay arrangement, preserving the named terminal frames and graph. Physical lead dressing and termination fit remain unqualified."
+    "note": "The board lead follows the west cable aisle and retained low cross guides, then rises fore of the relay bank and enters its outward-facing logic wire mouth."
   },
   "J5-IO19": {
     "stations": [
@@ -3039,23 +3045,38 @@
       },
       {
         "point_mm": [
-          -86,
-          390,
-          280
+          -86.0,
+          370.0,
+          280.0
         ]
       },
       {
         "point_mm": [
-          -80.99,
-          390,
-          280
+          -73.9,
+          370.0,
+          280.0
         ]
       },
       {
         "point_mm": [
-          -80.99,
-          390,
+          -73.9,
+          390.0,
+          280.0
+        ]
+      },
+      {
+        "point_mm": [
+          -73.9,
+          390.0,
           317.94660569377766
+        ]
+      },
+      {
+        "terminal": "relay-2.IN",
+        "offset": [
+          0.0,
+          -11.998172341876696,
+          -0.20942887724740364
         ]
       }
     ],
@@ -3066,7 +3087,7 @@
       2.0
     ],
     "route_status": "selected_layout",
-    "note": "Dressed through retained supports and clear of the larger installed bodies; wires and tubes are excluded from wire obstacles."
+    "note": "The signal lead leaves its retained west trunk through the fore aisle, passes east of the lower relay bank, rises aft of the valve elbows and approaches the upper relay logic mouth from fore."
   },
   "J5-V5": {
     "stations": [
@@ -3089,33 +3110,39 @@
       {
         "terminal": "relay-1.V5",
         "offset": [
-          -14.41000000000001,
-          -25.850139079255484,
-          -13.441605693777603
+          -8.810000000000016,
+          -21.408177866144285,
+          -10.263359945165519
         ]
       },
       {
         "terminal": "relay-1.V5",
         "offset": [
-          10.989999999999995,
-          -25.850139079255484,
-          -13.441605693777603
+          16.58999999999999,
+          -21.408177866144285,
+          -10.263359945165519
+        ]
+      },
+      {
+        "point_mm": [
+          -72.0,
+          366.4100055242676,
+          268.925
+        ]
+      },
+      {
+        "point_mm": [
+          -72.0,
+          366.4100055242676,
+          278.97893106791815
         ]
       },
       {
         "terminal": "relay-1.V5",
         "offset": [
-          10.989999999999995,
           0.0,
-          -13.441605693777603
-        ]
-      },
-      {
-        "terminal": "relay-1.V5",
-        "offset": [
-          10.989999999999995,
-          0.0,
-          0.0
+          -11.998172341876696,
+          -0.20942887724740364
         ]
       }
     ],
@@ -3126,7 +3153,7 @@
     "bend_radius_mm": 2.0,
     "preserve_stations": true,
     "route_status": "selected_layout",
-    "note": "Installed route to the back-top dry-wall PSU/relay arrangement, preserving the named terminal frames and graph. Physical lead dressing and termination fit remain unqualified."
+    "note": "The board lead follows the west cable aisle and retained low cross guides, then rises fore of the relay bank and enters its outward-facing logic wire mouth."
   },
   "J7-GND": {
     "stations": [
@@ -3200,35 +3227,47 @@
         ]
       },
       {
-        "terminal": "display.A",
+        "passage": "front-top-electrical",
+        "end": 0,
         "offset": [
-          0.32499999999999996,
-          49.979130975654684,
-          -26.058436945683297
+          -0.925,
+          14.5,
+          4.5
+        ]
+      },
+      {
+        "passage": "front-top-electrical",
+        "end": 0,
+        "offset": [
+          -0.925,
+          0.0,
+          4.5
+        ]
+      },
+      {
+        "passage": "front-top-display-chimney",
+        "end": 0,
+        "offset": [
+          -0.925,
+          0.0,
+          0.5
+        ]
+      },
+      {
+        "passage": "front-top-display-chimney",
+        "end": 1,
+        "offset": [
+          -0.925,
+          0.0,
+          0.0
         ]
       },
       {
         "terminal": "display.A",
         "offset": [
-          0.32499999999999996,
-          39.77392033916135,
-          -26.058436945683297
-        ]
-      },
-      {
-        "terminal": "display.A",
-        "offset": [
-          0.32499999999999996,
-          19.77392033916135,
-          -26.058436945683297
-        ]
-      },
-      {
-        "terminal": "display.A",
-        "offset": [
-          0.32499999999999996,
-          18.77392033916135,
-          10.441563054316703
+          0.0,
+          5.500000000000001,
+          -9.526279441628825
         ]
       }
     ],
@@ -3239,7 +3278,7 @@
     "bend_radius_mm": 2.0,
     "preserve_stations": true,
     "route_status": "selected_layout",
-    "note": "The display ribbon crosses above the drain stem and V-B inlet fitting below the funnel frame, then descends into the fixed common rear electrical mouth and display chimney."
+    "note": "The display ribbon enters the common rear passage in ordered lanes, rises through the display chimney and fans out within the rear display room to the supplier-labeled wire mouths."
   },
   "J9-B": {
     "stations": [
@@ -3284,35 +3323,47 @@
         ]
       },
       {
-        "terminal": "display.B",
+        "passage": "front-top-electrical",
+        "end": 0,
         "offset": [
-          1.9749999999999996,
-          50.38955224864135,
-          -26.058436945683297
+          -2.775,
+          14.5,
+          4.5
+        ]
+      },
+      {
+        "passage": "front-top-electrical",
+        "end": 0,
+        "offset": [
+          -2.775,
+          0.0,
+          4.5
+        ]
+      },
+      {
+        "passage": "front-top-display-chimney",
+        "end": 0,
+        "offset": [
+          -2.775,
+          0.0,
+          0.5
+        ]
+      },
+      {
+        "passage": "front-top-display-chimney",
+        "end": 1,
+        "offset": [
+          -2.775,
+          0.0,
+          0.0
         ]
       },
       {
         "terminal": "display.B",
         "offset": [
-          1.9749999999999996,
-          39.77392033916135,
-          -26.058436945683297
-        ]
-      },
-      {
-        "terminal": "display.B",
-        "offset": [
-          1.9749999999999996,
-          19.77392033916135,
-          -26.058436945683297
-        ]
-      },
-      {
-        "terminal": "display.B",
-        "offset": [
-          1.9749999999999996,
-          18.77392033916135,
-          10.441563054316703
+          0.0,
+          5.500000000000001,
+          -9.526279441628825
         ]
       }
     ],
@@ -3323,7 +3374,7 @@
     "bend_radius_mm": 2.0,
     "preserve_stations": true,
     "route_status": "selected_layout",
-    "note": "The display ribbon crosses above the drain stem and V-B inlet fitting below the funnel frame, then descends into the fixed common rear electrical mouth and display chimney."
+    "note": "The display ribbon enters the common rear passage in ordered lanes, rises through the display chimney and fans out within the rear display room to the supplier-labeled wire mouths."
   },
   "J9-GND": {
     "stations": [
@@ -3368,35 +3419,47 @@
         ]
       },
       {
-        "terminal": "display.GND",
+        "passage": "front-top-electrical",
+        "end": 0,
         "offset": [
-          -1.325,
-          49.568709702668016,
-          -26.058436945683297
+          0.925,
+          14.5,
+          4.5
+        ]
+      },
+      {
+        "passage": "front-top-electrical",
+        "end": 0,
+        "offset": [
+          0.925,
+          0.0,
+          4.5
+        ]
+      },
+      {
+        "passage": "front-top-display-chimney",
+        "end": 0,
+        "offset": [
+          0.925,
+          0.0,
+          0.5
+        ]
+      },
+      {
+        "passage": "front-top-display-chimney",
+        "end": 1,
+        "offset": [
+          0.925,
+          0.0,
+          0.0
         ]
       },
       {
         "terminal": "display.GND",
         "offset": [
-          -1.325,
-          39.77392033916135,
-          -26.058436945683297
-        ]
-      },
-      {
-        "terminal": "display.GND",
-        "offset": [
-          -1.325,
-          19.77392033916135,
-          -26.058436945683297
-        ]
-      },
-      {
-        "terminal": "display.GND",
-        "offset": [
-          -1.325,
-          18.77392033916135,
-          10.441563054316703
+          0.0,
+          5.500000000000001,
+          -9.526279441628825
         ]
       }
     ],
@@ -3407,7 +3470,7 @@
     "bend_radius_mm": 2.0,
     "preserve_stations": true,
     "route_status": "selected_layout",
-    "note": "The display ribbon crosses above the drain stem and V-B inlet fitting below the funnel frame, then descends into the fixed common rear electrical mouth and display chimney."
+    "note": "The display ribbon enters the common rear passage in ordered lanes, rises through the display chimney and fans out within the rear display room to the supplier-labeled wire mouths."
   },
   "J9-V12": {
     "stations": [
@@ -3446,41 +3509,53 @@
       {
         "terminal": "display.V12",
         "offset": [
-          17.76465821348686,
-          93.60041317286749,
-          -29.058436945683297
+          -2.6613417865131375,
+          117.54546851398644,
+          -16.076684191744636
+        ]
+      },
+      {
+        "passage": "front-top-electrical",
+        "end": 0,
+        "offset": [
+          2.775,
+          14.5,
+          4.5
+        ]
+      },
+      {
+        "passage": "front-top-electrical",
+        "end": 0,
+        "offset": [
+          2.775,
+          0.0,
+          4.5
+        ]
+      },
+      {
+        "passage": "front-top-display-chimney",
+        "end": 0,
+        "offset": [
+          2.775,
+          0.0,
+          0.5
+        ]
+      },
+      {
+        "passage": "front-top-display-chimney",
+        "end": 1,
+        "offset": [
+          2.775,
+          0.0,
+          0.0
         ]
       },
       {
         "terminal": "display.V12",
         "offset": [
-          -2.9749999999999996,
-          49.15828842968135,
-          -26.058436945683297
-        ]
-      },
-      {
-        "terminal": "display.V12",
-        "offset": [
-          -2.9749999999999996,
-          39.77392033916135,
-          -26.058436945683297
-        ]
-      },
-      {
-        "terminal": "display.V12",
-        "offset": [
-          -2.9749999999999996,
-          19.77392033916135,
-          -26.058436945683297
-        ]
-      },
-      {
-        "terminal": "display.V12",
-        "offset": [
-          -2.9749999999999996,
-          18.77392033916135,
-          10.441563054316703
+          0.0,
+          5.500000000000001,
+          -9.526279441628825
         ]
       }
     ],
@@ -3491,7 +3566,7 @@
     "bend_radius_mm": 2.0,
     "preserve_stations": true,
     "route_status": "selected_layout",
-    "note": "The display ribbon crosses above the drain stem and V-B inlet fitting below the funnel frame, then descends into the fixed common rear electrical mouth and display chimney."
+    "note": "The display ribbon enters the common rear passage in ordered lanes, rises through the display chimney and fans out within the rear display room to the supplier-labeled wire mouths."
   },
   "AC1-L": {
     "stations": [],
@@ -3713,7 +3788,46 @@
     "note": "Dressed through the named retained guides and clear of larger installed bodies. Wires and tubing do not obstruct conductors."
   },
   "AC3-L": {
-    "stations": [],
+    "stations": [
+      {
+        "terminal": "wago-h.3",
+        "offset": [
+          5.75,
+          8.0,
+          0.0
+        ]
+      },
+      {
+        "terminal": "wago-h.3",
+        "offset": [
+          5.75,
+          38.95,
+          0.0
+        ]
+      },
+      {
+        "point_mm": [
+          -74.0,
+          430.0,
+          316.0
+        ]
+      },
+      {
+        "point_mm": [
+          -74.0,
+          447.1,
+          316.0
+        ]
+      },
+      {
+        "terminal": "relay-1.COM",
+        "offset": [
+          14.59,
+          8.1,
+          0.0656236439001736
+        ]
+      }
+    ],
     "preserve_stations": true,
     "bend_radius_mm": 3.0,
     "end_lands_mm": [
@@ -3721,7 +3835,7 @@
       8.0
     ],
     "route_status": "selected_layout",
-    "note": "Dressed through retained supports and clear of the larger installed bodies; wires and tubes are excluded from wire obstacles."
+    "note": "The hot lead leaves the rear WAGO into the east aisle, descends before the inlet, passes below its housing and west of the jack, then approaches the relay contact mouth from aft."
   },
   "AC4-pigtail": {
     "stations": [
