@@ -258,9 +258,9 @@
     "hardware/printed-parts/enclosure/display-cover/face-up-trial/display-receiver-flat-wings.step": "7141a82043aebf5dd361d7709ec6c33b1f8dfc00acdc0347a811c8db25c69bf5",
     "hardware/printed-parts/enclosure/display-cover/face-up-trial/display-receiver-flat-wings.step.mesh": "65643c732ef66e409e36dfab70bbcbd7222bced4481070c06dec782f687730e6",
     "hardware/printed-parts/enclosure/display-cover/face-up-trial/display-receiver-flat-wings.stl": "6bb5588a932e1e92bb488d8acd36ca900377277e35ad2af78131e67f80edbbdd",
-    "hardware/printed-parts/enclosure/display-cover/status-plate-fasteners.step": "613db0d1f5ef92be85d93273369c02348b861ef2d30c4f163185fe153bd94138",
+    "hardware/printed-parts/enclosure/display-cover/status-plate-fasteners.step": "35b835eaedf91459d31c0df921938a8798a490bfa1fcff7799a999e5435aec44",
     "hardware/printed-parts/enclosure/display-cover/status-plate-fasteners.step.mesh": "1783a0252c2ce86f9d6ba4718397470f087ea3879df42598e571049f80ff626e",
-    "hardware/printed-parts/enclosure/display-cover/status-plate-fasteners.stl": "cd511b9a7a7fd8fb48f316821209b0ebf3bc5c6685a5d88f83c87a3b0a9cf753",
+    "hardware/printed-parts/enclosure/display-cover/status-plate-fasteners.stl": "05e70be91b044b674453dfd8cc3623cd4b3ee6a97c112fb493e83c3fb1bf4ed3",
     "hardware/printed-parts/enclosure/display-cover/status-plate.step": "23b4d22595ca873c895dd45590bd3edb6901c9914a52e889cfe4de1a7e3fc394",
     "hardware/printed-parts/enclosure/display-cover/status-plate.step.mesh": "b46ea662bdde98c44d4099e84d2d99d97b3e43011e16463c8a0e68e969b9251c",
     "hardware/printed-parts/enclosure/display-cover/status-plate.stl": "33ac2a5347fb7a49618d87461e89233e7ad79c878c9db106f82f7fa7be3ba901",
@@ -2178,9 +2178,9 @@
     "hardware/printed-parts/enclosure/display-cover/face-up-trial/display-receiver-flat-wings.step": 1791257167,
     "hardware/printed-parts/enclosure/display-cover/face-up-trial/display-receiver-flat-wings.step.mesh": 1791257167,
     "hardware/printed-parts/enclosure/display-cover/face-up-trial/display-receiver-flat-wings.stl": 1790801436,
-    "hardware/printed-parts/enclosure/display-cover/status-plate-fasteners.step": 1794074754,
+    "hardware/printed-parts/enclosure/display-cover/status-plate-fasteners.step": 1794277781.3449259,
     "hardware/printed-parts/enclosure/display-cover/status-plate-fasteners.step.mesh": 1794277772.8796952,
-    "hardware/printed-parts/enclosure/display-cover/status-plate-fasteners.stl": 1794074754,
+    "hardware/printed-parts/enclosure/display-cover/status-plate-fasteners.stl": 1794277781.3449259,
     "hardware/printed-parts/enclosure/display-cover/status-plate.step": 1794074754,
     "hardware/printed-parts/enclosure/display-cover/status-plate.step.mesh": 1794074754,
     "hardware/printed-parts/enclosure/display-cover/status-plate.stl": 1794074754,
@@ -3677,7 +3677,8 @@
       "unproven": true
     },
     "hardware/printed-parts/enclosure/display-cover/status-plate-fasteners.step": {
-      "commit": "f33c1023b5fef8c4a1915d12ca2a43a1c8e6e561",
+      "inputs": "5c8aedca0485547a428c867eef222bdb17e770e45c82cad53c6187545fa80407",
+      "commit": "003f31ba41473e4535aac149ae3ca5c111937099",
       "unproven": true
     },
     "hardware/printed-parts/enclosure/display-cover/status-plate-fasteners.step.mesh": {
@@ -3685,7 +3686,8 @@
       "unproven": true
     },
     "hardware/printed-parts/enclosure/display-cover/status-plate-fasteners.stl": {
-      "commit": "f33c1023b5fef8c4a1915d12ca2a43a1c8e6e561",
+      "inputs": "5c8aedca0485547a428c867eef222bdb17e770e45c82cad53c6187545fa80407",
+      "commit": "003f31ba41473e4535aac149ae3ca5c111937099",
       "unproven": true
     },
     "hardware/printed-parts/enclosure/display-cover/status-plate.step": {
