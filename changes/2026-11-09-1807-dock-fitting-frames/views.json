@@ -1,0 +1,99 @@
+{
+  "views": [
+    {
+      "name": "front",
+      "caption": "The dock fittings sit inside the front wall in their installed frame.",
+      "before": "front-before.webp",
+      "after": "front-after.webp",
+      "width": 1200,
+      "height": 1000,
+      "marks": [
+        {
+          "x": 197,
+          "y": 796.7,
+          "r": 70,
+          "label": "Dock fittings",
+          "at": [
+            -22.35,
+            -32.614547528963,
+            93.56
+          ]
+        }
+      ],
+      "model": "manifold-layout/enclosure-assembly.step",
+      "camera": {
+        "projection": "orthographic",
+        "position": [
+          645.8854403282864,
+          -415.88544032828645,
+          627.1198082298005
+        ],
+        "target": [
+          0,
+          230,
+          175
+        ],
+        "up": [
+          0,
+          0,
+          1
+        ],
+        "half": 250,
+        "near": 586.7510165385365,
+        "far": 1690.8735531831774,
+        "aspect": 1.2
+      },
+      "highlight": [],
+      "ghost": [],
+      "only": [],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "snapshot",
+          "sha256": "ae67ecc0881011d83f8092ad6d639eeef79c7cb65acaedeb3d20b3ea5d1e320c",
+          "commit": "79c55a27a5a551d74e9c4b45a20ed283d26ec4c6",
+          "taken": "2026-11-09T23:58:01.679Z",
+          "published": true
+        },
+        "after": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "tree",
+          "sha256": "233f93578d21cd41f42b2576ba65f8869f4135965eee1e9b14dade5303df4edd",
+          "commit": "82edaa80984bb9ac1d7b2eef3a3d6e94ea4919fb",
+          "published": true
+        }
+      },
+      "changed": [
+        "cold-core/valve-v-b",
+        "valve-v-a",
+        "stem-elbow-v-g",
+        "stem-elbow-y-d",
+        "stem-elbow-y-g",
+        "stem-elbow-v-j",
+        "stem-elbow-y-c",
+        "stem-elbow-y-f",
+        "stem-elbow-v-c",
+        "stem-elbow-v-d",
+        "tee-y-d",
+        "tee-y-g",
+        "tee-y-c",
+        "tee-y-f",
+        "pump-a-mount",
+        "pump-b-mount",
+        "pump-a-motor",
+        "pump-b-motor",
+        "pump-b-boss",
+        "pump-a-boss"
+      ],
+      "withinMeshing": [
+        "pump-a-fasteners",
+        "pump-b-fasteners",
+        "wire-J13-AM2",
+        "wire-J13-AM1",
+        "wire-J13-BM1",
+        "wire-J13-BM2"
+      ]
+    }
+  ]
+}
