@@ -78,10 +78,10 @@ file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
 click: x=-52.225 y=15.055 z=225.074
 click: x=52.225 y=15.055 z=225.074
 
-[ceiling] Functional heat-set insertion faces for the independent pump retainers. Each flat entry supports perpendicular insertion into a full-thickness pilot surround. Local Tree Slim supports leave through the same straight underside pocket before inserts and pumps are installed. Physical support finish and removal remain unqualified.
-alternatives: Sloping the entry removes the perpendicular heat-set seating face and reduces the pilot's surrounding wall. Shortening the post changes the insert seat and screw engagement. Each entry has its own open underside pocket rather than a connecting cavity between pumps.
+[ceiling] Functional heat-set insertion ceilings for the independent pump retainers. Each flat ceiling establishes perpendicular insertion into the continuous pilot surround. Local Tree Slim supports leave through the straight underside loading room before inserts and pumps are installed. Physical support finish and removal remain unqualified.
+alternatives: Sloping the entry removes the perpendicular heat-set installation face. Local flat pads in a sloping ceiling add separate faces around the screw stations. Raising the ceiling changes the insert seat and screw engagement. The straight retainer rooms preserve one flat ceiling around the required pump loading wells.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
 click: x=-91.225 y=22.506 z=217.500
-click: x=-13.225 y=22.506 z=217.500
-click: x=13.225 y=22.506 z=217.500
-click: x=91.225 y=22.506 z=217.500
+click: x=-13.100 y=21.150 z=217.500
+click: x=13.100 y=21.150 z=217.500
+click: x=91.350 y=21.150 z=217.500

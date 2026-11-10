@@ -14,8 +14,8 @@
       ".stl": "7eb9455df0f38d96e9edd78384e98b5ac11a2dbfbb43dacf7eab3a378d1360a6"
     },
     "front-top": {
-      ".step.npz": "1e9bc9f014ade47f9bc677dee4f0873bdc6943cba10cbb6eae316baf9abd2223",
-      ".stl": "753741de94227f937365c16f5d0a04fb486b6b9ac015ff5fdb3e0fc31bc44663"
+      ".step.npz": "803c3aaa252ec3e2a27deaa300ac7b349f6a2b9a8ec4894ebbebdd9c3aebda03",
+      ".stl": "c5913bab7cdfb066d1ddec6eb6f765b04406a89af80c2027a1c764a35d0563aa"
     },
     "pump-retainer": {
       ".step.npz": "40d4fca56957b2e4a7bf3ab960fd9bc70c134e61032eca0de47c3b425d5b887d",
@@ -1214,7 +1214,7 @@
   "producer": "enclosure-print-regions",
   "scope": "Local 100% infill modifiers in existing native material; complete insert hosts, blind caps, pump clamps and their anchors, roots and seam load paths. No load capacity or lifetime qualification.",
   "source_sha256": {
-    "hardware/manifold-layout/above-core.json": "ceb5fcceeec71904b64d7b7eb381273064eb09bb92fe098ecf8d43ac576bba7a",
+    "hardware/manifold-layout/above-core.json": "cbe61799c93ad54f0ec81dbd94b6e2ea7bf9b8a6cc5cf3e201256137883696a4",
     "hardware/manifold-layout/enclosure-box.json": "1f6bb8fee7d04a10b5c1b39ce87ee6112cdd4ceae2b88e4f586f59e415a54cdc",
     "hardware/manifold-layout/machine-export-physical.numbers.json": "90f9a464b95d19a4de7a9a51a3fd7d6d6bd7b01abe99d64dc01eb0f24b39c0dd",
     "hardware/printed-parts/enclosure/display-cover/mount-dimensions.json": "d6f21b14bb98bfe7eb6a1280109400bdb1e1ca9f483d3451d40d8902de208543",

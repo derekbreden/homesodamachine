@@ -3,7 +3,9 @@
 Front-top contains tapered pump loading wells, fitted cylindrical motor guides and local
 flange stops in continuous stock up to the display housing and enclosure roof. Each pump
 has an identical solid flange retainer secured from below with socket-head screws and
-short heat-set inserts. The independent retainer pockets leave solid stock between pumps.
+short heat-set inserts. Each retainer's straight-sided loading room has a flat ceiling
+carrying its insert pilots. Continuous stock surrounds the pump wells and joins the
+retainer rooms; solid stock remains between pumps.
 The [mount source](../enclosure/front/mount.rs) and
 [retainer dimensions](../enclosure/retainer-numbers/lib.rs) own their geometry.
 
