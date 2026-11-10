@@ -42,7 +42,7 @@ function publish(){
     const model={parts,downloads};
     if(implementation==='native'){
       const design=variant+'.json';fs.copyFileSync(path.join(root,'native',design),path.join(web,'designs',design));model.design='/solidcraft-lab/identification/designs/'+design;
-      fs.copyFileSync(path.join(source,'complete-set.3mf'),path.join(target,'complete-set.3mf'));downloads.unshift({label:'Complete two-material set · 3MF',url:'/solidcraft-lab/identification/assets/'+implementation+'-'+variant+'/complete-set.3mf'});
+      fs.copyFileSync(path.join(source,'complete-set.3mf'),path.join(target,'complete-set.3mf'));downloads.unshift({label:'Complete multicolor set · 3MF',url:'/solidcraft-lab/identification/assets/'+implementation+'-'+variant+'/complete-set.3mf'});
     }
     catalog.models[implementation][variant]=model;
   }

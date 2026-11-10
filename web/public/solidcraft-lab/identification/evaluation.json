@@ -1,241 +1,989 @@
 {
-  "purpose": "This isolated replay compares complete identification chips at their historical clearances.",
-  "stage": "Baseline geometry constructed; clearance replay pending.",
-  "initial_native_construction": {
-    "kernel_and_save_process_ms": 3081.140667,
-    "scope": "Native command execution and evaluated-container save; authoring and trial infrastructure time are recorded separately."
-  },
-  "baseline_shape_comparison": [
-    {
-      "part": "water",
-      "rust_bounds": [
-        [
-          -21.0,
-          0.0,
-          -14.199999809265137
-        ],
-        [
-          21.0,
-          2.2799999713897705,
-          23.799999237060547
-        ]
-      ],
-      "native_bounds": [
-        [
-          -21.0,
-          0.0,
-          -14.200000762939453
-        ],
-        [
-          21.0,
-          2.2799999713897705,
-          23.799999952316284
-        ]
-      ],
-      "rust_volume": 2355.194205540253,
-      "native_volume": 2355.0866435998037,
-      "rust_watertight": true,
-      "native_watertight": true,
-      "rust_to_native_sampled_max_mm": 0.0027982623228960057,
-      "native_to_rust_sampled_max_mm": 0.002269071982196379
-    },
-    {
-      "part": "co2",
-      "rust_bounds": [
-        [
-          -21.0,
-          0.0,
-          -14.199999809265137
-        ],
-        [
-          21.0,
-          2.2799999713897705,
-          23.799999237060547
-        ]
-      ],
-      "native_bounds": [
-        [
-          -21.0,
-          0.0,
-          -14.200000762939453
-        ],
-        [
-          21.0,
-          2.2799999713897705,
-          23.799999952316284
-        ]
-      ],
-      "rust_volume": 2609.7030777259665,
-      "native_volume": 2609.698526860028,
-      "rust_watertight": true,
-      "native_watertight": true,
-      "rust_to_native_sampled_max_mm": 0.0027614011671353773,
-      "native_to_rust_sampled_max_mm": 0.0021379895174482967
-    },
-    {
-      "part": "drain",
-      "rust_bounds": [
-        [
-          -21.0,
-          0.0,
-          -23.399999618530273
-        ],
-        [
-          21.0,
-          2.2799999713897705,
-          14.600000381469727
-        ]
-      ],
-      "native_bounds": [
-        [
-          -21.0,
-          0.0,
-          -23.400001525878906
-        ],
-        [
-          21.0,
-          2.2799999713897705,
-          14.600000381469727
-        ]
-      ],
-      "rust_volume": 2555.8508944064993,
-      "native_volume": 2555.8516683129656,
-      "rust_watertight": true,
-      "native_watertight": true,
-      "rust_to_native_sampled_max_mm": 0.0026709221991987556,
-      "native_to_rust_sampled_max_mm": 0.002314087639764779
-    },
-    {
-      "part": "carb",
-      "rust_bounds": [
-        [
-          -21.0,
-          0.0,
-          -15.399999618530273
-        ],
-        [
-          21.0,
-          2.2799999713897705,
-          22.600000381469727
-        ]
-      ],
-      "native_bounds": [
-        [
-          -21.0,
-          0.0,
-          -15.399999618530273
-        ],
-        [
-          21.0,
-          2.2799999713897705,
-          22.599998474121094
-        ]
-      ],
-      "rust_volume": 2455.193944488218,
-      "native_volume": 2455.144320485879,
-      "rust_watertight": true,
-      "native_watertight": true,
-      "rust_to_native_sampled_max_mm": 0.0027542088026637945,
-      "native_to_rust_sampled_max_mm": 0.002402989744444288
-    },
-    {
-      "part": "flavor-a",
-      "rust_bounds": [
-        [
-          -21.0,
-          0.0,
-          -15.399999618530273
-        ],
-        [
-          21.0,
-          2.2799999713897705,
-          22.600000381469727
-        ]
-      ],
-      "native_bounds": [
-        [
-          -21.0,
-          0.0,
-          -15.399999618530273
-        ],
-        [
-          21.0,
-          2.2799999713897705,
-          22.599998474121094
-        ]
-      ],
-      "rust_volume": 2557.773907864036,
-      "native_volume": 2557.7718336654016,
-      "rust_watertight": true,
-      "native_watertight": true,
-      "rust_to_native_sampled_max_mm": 0.002760703451306616,
-      "native_to_rust_sampled_max_mm": 0.0022108857591974277
-    },
-    {
-      "part": "flavor-b",
-      "rust_bounds": [
-        [
-          -21.0,
-          0.0,
-          -23.399999618530273
-        ],
-        [
-          21.0,
-          2.2799999713897705,
-          14.600000381469727
-        ]
-      ],
-      "native_bounds": [
-        [
-          -21.0,
-          0.0,
-          -23.399999976158142
-        ],
-        [
-          21.0,
-          2.2799999713897705,
-          14.599998474121094
-        ]
-      ],
-      "rust_volume": 2557.7739130592367,
-      "native_volume": 2557.7718549084047,
-      "rust_watertight": true,
-      "native_watertight": true,
-      "rust_to_native_sampled_max_mm": 0.0027620121870591233,
-      "native_to_rust_sampled_max_mm": 0.0022108962425254003
-    }
-  ],
-  "timing_scope": "Native initial construction is separate from the clearance edit. Rust uses the historical recipe and current kernel. No print is submitted.",
-  "historical_request": "let's go with somewhere in between, 0.20 mm per side, as our approved variant implemented on all 6 color chips.",
+  "purpose": "This manual trial replays an actual approved identification-chip clearance change using complete native SolidCraft and historical Rust models.",
+  "stage": "Complete before/after geometry and native editing available.",
   "source_revision": "1a7839866fa71f207927dd5b8973c28a487a2d7a",
-  "native_features": 30,
-  "native_components": 6,
-  "initial_rust_generation": {
-    "purpose": "This observation replays the historical recipe using frozen inputs and the current hsm kernel.",
-    "variant": "before",
-    "recipe_revision": "1a7839866fa71f207927dd5b8973c28a487a2d7a",
-    "recipe_sha256": "fcd757bfa5bd38131fcf55a064a470775ff1613a2ed92d3318fa4a8ab90e1432",
-    "kernel_checkout": "df3475b9ffc1ef5e8f8605c9692864003db00e75",
-    "source_edit_at": "2026-11-10T02:03:37.022Z",
-    "compile": {
-      "started_at": "2026-11-10T02:03:37.029Z",
-      "finished_at": "2026-11-10T02:03:39.654Z",
-      "wall_ms": 2625
-    },
-    "generation": {
-      "started_at": "2026-11-10T02:03:39.654Z",
-      "finished_at": "2026-11-10T02:03:40.187Z",
-      "wall_ms": 533
-    },
-    "edit_to_outputs_ms": 3185,
-    "scope": "Baseline setup; excluded from the edit comparison."
+  "change_revision": "117ada0b44e4ef2e930ac93ad6a9ce5ca95007ce",
+  "historical_request": "let's go with somewhere in between, 0.20 mm per side, as our approved variant implemented on all 6 color chips.",
+  "runtime": {
+    "solidcraft": "0.40.0-rc.3",
+    "hsm_kernel_tree": "e26cf5909d919629a90e757950b7d911a0dc50d8",
+    "before_hsm_kernel_tree": "e26cf5909d919629a90e757950b7d911a0dc50d8",
+    "same_kernel_tree": true
   },
-  "native_before_json_sha256": "d1fcadf41ad7c8bfaf4188dc445e0a48bfefc43636a59804643307ccaeb7c5c5",
-  "initial_browser_edit": {
-    "scope": "First native browser check before history reordering; software WebGL on Chrome.",
-    "parameter": "side_clearance",
-    "value_mm": 0.15,
-    "displayed_edit_seconds": 3.02,
-    "recomputed_features": 28
+  "initial_setup": {
+    "request_at": "2026-11-10T01:36:56.695Z",
+    "baseline_both_implementations_observed_at": "2026-11-10T02:22:06.974Z",
+    "observed_elapsed_ms": 2710279.0,
+    "scope": "Includes historical investigation, original model authoring, native history reordering, comparison infrastructure, verification and deployment. Observation may postdate earliest public availability. Model-authoring time is not isolated.",
+    "native_construction_process_ms": 3081.140667,
+    "native_before_exports_process_ms": 2297.038417,
+    "rust_baseline": {
+      "purpose": "This observation replays the historical recipe using frozen inputs and the current hsm kernel.",
+      "variant": "before",
+      "recipe_revision": "1a7839866fa71f207927dd5b8973c28a487a2d7a",
+      "recipe_sha256": "fcd757bfa5bd38131fcf55a064a470775ff1613a2ed92d3318fa4a8ab90e1432",
+      "kernel_checkout": "df3475b9ffc1ef5e8f8605c9692864003db00e75",
+      "source_edit_at": "2026-11-10T02:03:37.022Z",
+      "compile": {
+        "started_at": "2026-11-10T02:03:37.029Z",
+        "finished_at": "2026-11-10T02:03:39.654Z",
+        "wall_ms": 2625
+      },
+      "generation": {
+        "started_at": "2026-11-10T02:03:39.654Z",
+        "finished_at": "2026-11-10T02:03:40.187Z",
+        "wall_ms": 533
+      },
+      "edit_to_outputs_ms": 3185,
+      "scope": "Baseline setup; excluded from the edit comparison."
+    },
+    "rust_first_dependency_compile_observed_seconds": 70,
+    "history_ordering": {
+      "initial_browser": {
+        "clearance_mm": 0.15,
+        "recomputed_features": 28,
+        "displayed_edit_seconds": 3.02
+      },
+      "reordered_browser": {
+        "clearance_mm": 0.15,
+        "recomputed_features": 18,
+        "displayed_edit_seconds": 2.14
+      },
+      "scope": "Exploratory checks on the same browser; the final approved edit has its own measurement."
+    }
+  },
+  "edit_comparison": {
+    "scope": "Single observations on the shared Mac after setup; CLI native cache is warm and Cargo dependencies are built. No statistical speed claim. All chip display and fused print outputs included.",
+    "native": {
+      "process_wall_ms": 4127.344708,
+      "scope": "Open cached native project, change the favorite parameter, save evaluated project and editable JSON, export complete/component multicolor 3MFs, temporarily fuse lettering and export each STL. Driver compilation and initial construction are setup. The original independent lettering prefix is reused.",
+      "commands": [
+        {
+          "command": "doc.open",
+          "index": 0,
+          "ms": 91.767
+        },
+        {
+          "command": "parameters.change",
+          "index": 1,
+          "ms": 1716.762
+        },
+        {
+          "command": "file.save_as",
+          "index": 2,
+          "ms": 59.761
+        },
+        {
+          "command": "file.export",
+          "index": 3,
+          "ms": 1.775
+        },
+        {
+          "command": "file.export",
+          "index": 4,
+          "ms": 94.887
+        },
+        {
+          "command": "file.export",
+          "index": 5,
+          "ms": 8.16
+        },
+        {
+          "command": "file.export",
+          "index": 6,
+          "ms": 21.347
+        },
+        {
+          "command": "file.export",
+          "index": 7,
+          "ms": 11.781
+        },
+        {
+          "command": "file.export",
+          "index": 8,
+          "ms": 24.561
+        },
+        {
+          "command": "file.export",
+          "index": 9,
+          "ms": 16.986
+        },
+        {
+          "command": "file.export",
+          "index": 10,
+          "ms": 18.891
+        },
+        {
+          "command": "solid.combine",
+          "index": 11,
+          "ms": 103.005
+        },
+        {
+          "command": "file.export",
+          "index": 12,
+          "ms": 5.053
+        },
+        {
+          "command": "solid.combine",
+          "index": 13,
+          "ms": 388.051
+        },
+        {
+          "command": "file.export",
+          "index": 14,
+          "ms": 7.1
+        },
+        {
+          "command": "solid.combine",
+          "index": 15,
+          "ms": 305.556
+        },
+        {
+          "command": "file.export",
+          "index": 16,
+          "ms": 7.257
+        },
+        {
+          "command": "solid.combine",
+          "index": 17,
+          "ms": 500.24
+        },
+        {
+          "command": "file.export",
+          "index": 18,
+          "ms": 9.771
+        },
+        {
+          "command": "solid.combine",
+          "index": 19,
+          "ms": 320.162
+        },
+        {
+          "command": "file.export",
+          "index": 20,
+          "ms": 8.079
+        },
+        {
+          "command": "solid.combine",
+          "index": 21,
+          "ms": 342.73
+        },
+        {
+          "command": "file.export",
+          "index": 22,
+          "ms": 5.637
+        }
+      ],
+      "recomputed_features": 18,
+      "feature_errors": []
+    },
+    "rust": {
+      "purpose": "This observation replays the historical recipe using frozen inputs and the current hsm kernel.",
+      "variant": "after",
+      "recipe_revision": "117ada0b44e4ef2e930ac93ad6a9ce5ca95007ce",
+      "recipe_sha256": "022987bafd6d3d7c2138da2bac96664efb11cd85ad10db2064de4c07b34c700c",
+      "kernel_checkout": "1fb531af577d22cb70a034cdff4710a7583601c0",
+      "source_edit_at": "2026-11-10T02:22:05.423Z",
+      "compile": {
+        "started_at": "2026-11-10T02:22:05.426Z",
+        "finished_at": "2026-11-10T02:22:08.068Z",
+        "wall_ms": 2642
+      },
+      "generation": {
+        "started_at": "2026-11-10T02:22:08.068Z",
+        "finished_at": "2026-11-10T02:22:08.724Z",
+        "wall_ms": 656
+      },
+      "edit_to_outputs_ms": 3317,
+      "scope": "Exact historical source change, compilation and complete printable/display outputs. Shared-host process times include waits."
+    },
+    "native_browser": {
+      "open": {
+        "at": "2026-11-10T02:24:03.169Z",
+        "wall_ms": 5944.699999988079,
+        "scope": "Editor startup, complete design import and view commands, followed by browser animation frames."
+      },
+      "edit": {
+        "at": "2026-11-10T02:24:07.169Z",
+        "clearance_mm": 0.2,
+        "recomputed": 18,
+        "wall_ms": 2697.4000000059605,
+        "scope": "Native parameter command and editable-document export, followed by browser animation frames."
+      },
+      "status": "Native clearance changed. 18 features recomputed.",
+      "iframes": 1,
+      "editDisabled": true
+    },
+    "local_display": {
+      "scope": "Chrome software WebGL, local development server, sequential modes in one browser context. Display observations include fetch, parsing and shared-viewer rendering; they are not measurements of a phone or a cold public network.",
+      "observations": [
+        {
+          "implementation": "native",
+          "variant": "before",
+          "triangles": 60062,
+          "bytes": 572507,
+          "last_display_observation": "SolidCraft \u00b7 42.0 mm\n158 ms",
+          "camera": {
+            "position": [
+              165.67583908239473,
+              -241.3830401911803,
+              129.16223927663623
+            ],
+            "up": [
+              0,
+              0,
+              1
+            ],
+            "target": [
+              0,
+              -0.40000152587890625,
+              1.1399999856948853
+            ]
+          },
+          "hashes": [
+            "5e4c8c70335756c4431fa059a6593688c339ade1f8428786a6dd5d0a4e1d31d2",
+            "ded5ceaa9a9d43d7bbaa7697bbe929edf1bc22c6b6bf12356f661b671f2fc11e",
+            "8eefc7478d6a634e4007cad21629086fcdb8b659541e929839bab8b68c8d914c",
+            "236db204bdf7e1b1155ab2d2e1386265b1c70cbf35da9192d6685bbe588965d7",
+            "7342c011a56baa0a097ca60751a7371925e960f789f137f91cefc86cb0c4b0f0",
+            "1ad077d2d4605f6995b4fd3615ae4b2f58a6bd66c58754ac9af3c515cc56974b"
+          ]
+        },
+        {
+          "implementation": "native",
+          "variant": "after",
+          "triangles": 60078,
+          "bytes": 572715,
+          "last_display_observation": "SolidCraft \u00b7 41.6 mm\n312 ms",
+          "camera": {
+            "position": [
+              165.67583908239473,
+              -241.3830401911803,
+              129.16223927663623
+            ],
+            "up": [
+              0,
+              0,
+              1
+            ],
+            "target": [
+              0,
+              -0.40000152587890625,
+              1.1399999856948853
+            ]
+          },
+          "hashes": [
+            "8368d8e10257d526e16b5fe3b3116134069e2993b728cb998c003b2fb7c5f273",
+            "8221fe75edd2d0ac9e2412c81bf087a4ecbb3a19084eee7fca271084c26f027f",
+            "5263c89ace0f0160777acc352bf25d1d5faa3c75cb48eca100c0e1e375cf8d4d",
+            "993120f73fb06cae8614336312c6195b3b9195f5ffc47977e622494fa6bae0af",
+            "128d6c2bcfc5ce385ec73a03cde2bf001f7f1a8dd8182e1e0e1da9b788241526",
+            "4186de83b8beaa81bf4f89552ca6c5d9192d0d3a8fa968d4304b099f99d43c53"
+          ]
+        },
+        {
+          "implementation": "rust",
+          "variant": "after",
+          "triangles": 27682,
+          "bytes": 1117976,
+          "last_display_observation": "Rust \u00b7 41.6 mm\n48 ms",
+          "camera": {
+            "position": [
+              165.67583908239473,
+              -241.3830401911803,
+              129.16223927663623
+            ],
+            "up": [
+              0,
+              0,
+              1
+            ],
+            "target": [
+              0,
+              -0.40000152587890625,
+              1.1399999856948853
+            ]
+          },
+          "hashes": [
+            "b253737d1ce485454c53096fb8ccc903887fed08c3f5fe1af6fd4318e0b0f581",
+            "edc23f50168a6ffbb7f1e3d84c854fdc2ea6bb586a722a84cef1a0dd493e79d3",
+            "c2951816ac3d4df9eaa0606e800431f74f861e916ce2ef278a96d2edf1514583",
+            "99bc3dd2a37c0f8de0ab5a73097edf14b050a2190815e3dcb61ecd5185e37d7f",
+            "30c7d0c95ff8eb5809825ee2e7a3547514c08ea544074235ebf1fa034b29438d",
+            "7fc61fe712a201ea66ad7208ccb1177452ad1a4cddf507443af3eb765978f1a9"
+          ]
+        },
+        {
+          "implementation": "rust",
+          "variant": "before",
+          "triangles": 27682,
+          "bytes": 1117976,
+          "last_display_observation": "Rust \u00b7 42.0 mm\n48 ms",
+          "camera": {
+            "position": [
+              165.67583908239473,
+              -241.3830401911803,
+              129.16223927663623
+            ],
+            "up": [
+              0,
+              0,
+              1
+            ],
+            "target": [
+              0,
+              -0.40000152587890625,
+              1.1399999856948853
+            ]
+          },
+          "hashes": [
+            "9424da437fc9fa8be3487a705ed3824a40bd9acde7d684b02ede6f7821724f05",
+            "afa3157d3c7952af759f324d58ee8e00d09380d2b2a9d5fbba850798c90f9c96",
+            "a9f2ab60f8666f52e647e0f66d79eaf03c0e8af634fb13c3b38accb718359c89",
+            "fa0c3ab8a8832e908d663ce4d1fb39bac31259b52e0502246b2ea7ec1a4e85a2",
+            "dbd85c7170a2e27699d6f9700eec6f3fd96e83c87221d0f34e4be328dbfa3e29",
+            "521e562e51d9b83348cba04cbc00f7a427f6063216aa6948f195eae96190e05f"
+          ]
+        }
+      ],
+      "errors": []
+    }
+  },
+  "geometry": {
+    "purpose": "This observation compares the printable native and historical Rust outputs of the clearance replay.",
+    "scope": "Vertices and triangle centroids sampled deterministically in both directions, in the canonical part frame; this is not an exhaustive Hausdorff bound. STL width, watertightness, material groups and exact exported lettering mesh hashes are also inspected.",
+    "linear_budget_mm": 0.005,
+    "native_document_changed_fields": [
+      "name",
+      "params"
+    ],
+    "native_features_and_poses_unchanged": true,
+    "parts": [
+      {
+        "part": "water",
+        "variants": {
+          "before": {
+            "native_bounds": [
+              [
+                -21.0,
+                0.0,
+                -14.200000762939453
+              ],
+              [
+                21.0,
+                2.2799999713897705,
+                23.799999952316284
+              ]
+            ],
+            "rust_bounds": [
+              [
+                -21.0,
+                0.0,
+                -14.199999809265137
+              ],
+              [
+                21.0,
+                2.2799999713897705,
+                23.799999237060547
+              ]
+            ],
+            "native_volume_mm3": 2355.0866435998037,
+            "rust_volume_mm3": 2355.194205540253,
+            "native_watertight": true,
+            "rust_watertight": true,
+            "native_to_rust_sample_count": 2055,
+            "rust_to_native_sample_count": 1728,
+            "native_to_rust_sampled_max_mm": 0.002269071982196379,
+            "rust_to_native_sampled_max_mm": 0.0027982623228960057,
+            "native_stl_sha256": "526b1c76eb70ce94892f6faf228871c0485bd99f5df25c9f99afce1a8b246f44",
+            "rust_stl_sha256": "801253026fe4c4399c75f8442cca4c29389272d47095e583398886b7c62d6820",
+            "native_lettering": {
+              "bulkhead-ring-water-word": "772805305da343c94f928414ae2fe44260c0b8fcdc63919c21ad94610282cf35",
+              "bulkhead-ring-water-word (2)": "34e5fa78854e3113299ee61eed49481584f18bedc416f96ea373c80926387f6e",
+              "bulkhead-ring-water-word (3)": "cba041c34f208fdc98b6589c09707e1cff7ea86a72cfd3dcc8ab439bd3820ee2"
+            },
+            "rust_lettering": {
+              "bulkhead-ring-water-word": "6bbd7e0ea8318b6041619ecdc8f9f9feb2a16f936842aa0d72c6a7a23ac3508d"
+            },
+            "native_3mf_build_groups": 1
+          },
+          "after": {
+            "native_bounds": [
+              [
+                -20.799999237060547,
+                0.0,
+                -14.200000762939453
+              ],
+              [
+                20.800003051757812,
+                2.2799999713897705,
+                23.799999952316284
+              ]
+            ],
+            "rust_bounds": [
+              [
+                -20.799999237060547,
+                0.0,
+                -14.199999809265137
+              ],
+              [
+                20.799999237060547,
+                2.2799999713897705,
+                23.799999237060547
+              ]
+            ],
+            "native_volume_mm3": 2327.7268003647873,
+            "rust_volume_mm3": 2327.834102581579,
+            "native_watertight": true,
+            "rust_watertight": true,
+            "native_to_rust_sample_count": 2055,
+            "rust_to_native_sample_count": 1728,
+            "native_to_rust_sampled_max_mm": 0.002269071982196379,
+            "rust_to_native_sampled_max_mm": 0.0027982623228960057,
+            "native_stl_sha256": "1a7d44b0cc69f498230f0e7954a85fe7510c759306e3c0c4d44619a24f52b747",
+            "rust_stl_sha256": "08533270ab406d839289220e9468dc4d2d7d2b87d426e0fdb5f922da3f25891d",
+            "native_lettering": {
+              "bulkhead-ring-water-word": "772805305da343c94f928414ae2fe44260c0b8fcdc63919c21ad94610282cf35",
+              "bulkhead-ring-water-word (2)": "34e5fa78854e3113299ee61eed49481584f18bedc416f96ea373c80926387f6e",
+              "bulkhead-ring-water-word (3)": "cba041c34f208fdc98b6589c09707e1cff7ea86a72cfd3dcc8ab439bd3820ee2"
+            },
+            "rust_lettering": {
+              "bulkhead-ring-water-word": "6bbd7e0ea8318b6041619ecdc8f9f9feb2a16f936842aa0d72c6a7a23ac3508d"
+            },
+            "native_3mf_build_groups": 1
+          }
+        },
+        "native_lettering_mesh_unchanged": true,
+        "rust_lettering_mesh_unchanged": true
+      },
+      {
+        "part": "co2",
+        "variants": {
+          "before": {
+            "native_bounds": [
+              [
+                -21.0,
+                0.0,
+                -14.200000762939453
+              ],
+              [
+                21.0,
+                2.2799999713897705,
+                23.799999952316284
+              ]
+            ],
+            "rust_bounds": [
+              [
+                -21.0,
+                0.0,
+                -14.199999809265137
+              ],
+              [
+                21.0,
+                2.2799999713897705,
+                23.799999237060547
+              ]
+            ],
+            "native_volume_mm3": 2609.698526860028,
+            "rust_volume_mm3": 2609.7030777259665,
+            "native_watertight": true,
+            "rust_watertight": true,
+            "native_to_rust_sample_count": 3500,
+            "rust_to_native_sample_count": 3500,
+            "native_to_rust_sampled_max_mm": 0.0021379895174482967,
+            "rust_to_native_sampled_max_mm": 0.0027614011671353773,
+            "native_stl_sha256": "0ad18a91289af5ccacc426bd7e80dd0ee182a5c1ac09e3feb5bc0d4582706fc0",
+            "rust_stl_sha256": "24462415ddefe082df68701a50e45eee43f6adeb3f8b3a38f9b5538586f7f1fc",
+            "native_lettering": {
+              "bulkhead-ring-co2-word": "2e3e95abb9e7a307071e3a1b985e7a9665788335db586b9f4cfc59c2c1d14849",
+              "bulkhead-ring-co2-word (2)": "18ec2df7a0813b6677b563fc24de061f02f400d32f86d3768d7ff1f16229f2d7",
+              "bulkhead-ring-co2-word (3)": "30c9c2338843e78ea5f2594434ee115074f407d9a604ac3246f3b3cbcb073996"
+            },
+            "rust_lettering": {
+              "bulkhead-ring-co2-word": "6e67a93978e37c038da258e5786acd280c7dafd78119edc66ef7a682f48ab17a"
+            },
+            "native_3mf_build_groups": 1
+          },
+          "after": {
+            "native_bounds": [
+              [
+                -20.799999237060547,
+                0.0,
+                -14.200000762939453
+              ],
+              [
+                20.799999237060547,
+                2.2799999713897705,
+                23.799999952316284
+              ]
+            ],
+            "rust_bounds": [
+              [
+                -20.799999237060547,
+                0.0,
+                -14.199999809265137
+              ],
+              [
+                20.799999237060547,
+                2.2799999713897705,
+                23.799999237060547
+              ]
+            ],
+            "native_volume_mm3": 2582.338466653717,
+            "rust_volume_mm3": 2582.342974767292,
+            "native_watertight": true,
+            "rust_watertight": true,
+            "native_to_rust_sample_count": 3500,
+            "rust_to_native_sample_count": 3500,
+            "native_to_rust_sampled_max_mm": 0.0021379895174482967,
+            "rust_to_native_sampled_max_mm": 0.0027614011671353773,
+            "native_stl_sha256": "4139e5cc0cabe8585a50d1cdbad99fe39e1d621cc909c4e585c26ac00c2faf18",
+            "rust_stl_sha256": "87acbc152f5ae34fe61b82037e9c4b143b73f821cbfcd660d743a30560efa2be",
+            "native_lettering": {
+              "bulkhead-ring-co2-word": "2e3e95abb9e7a307071e3a1b985e7a9665788335db586b9f4cfc59c2c1d14849",
+              "bulkhead-ring-co2-word (2)": "18ec2df7a0813b6677b563fc24de061f02f400d32f86d3768d7ff1f16229f2d7",
+              "bulkhead-ring-co2-word (3)": "30c9c2338843e78ea5f2594434ee115074f407d9a604ac3246f3b3cbcb073996"
+            },
+            "rust_lettering": {
+              "bulkhead-ring-co2-word": "6e67a93978e37c038da258e5786acd280c7dafd78119edc66ef7a682f48ab17a"
+            },
+            "native_3mf_build_groups": 1
+          }
+        },
+        "native_lettering_mesh_unchanged": true,
+        "rust_lettering_mesh_unchanged": true
+      },
+      {
+        "part": "drain",
+        "variants": {
+          "before": {
+            "native_bounds": [
+              [
+                -21.0,
+                0.0,
+                -23.400001525878906
+              ],
+              [
+                21.0,
+                2.2799999713897705,
+                14.600000381469727
+              ]
+            ],
+            "rust_bounds": [
+              [
+                -21.0,
+                0.0,
+                -23.399999618530273
+              ],
+              [
+                21.0,
+                2.2799999713897705,
+                14.600000381469727
+              ]
+            ],
+            "native_volume_mm3": 2555.8516683129656,
+            "rust_volume_mm3": 2555.8508944064993,
+            "native_watertight": true,
+            "rust_watertight": true,
+            "native_to_rust_sample_count": 2565,
+            "rust_to_native_sample_count": 3075,
+            "native_to_rust_sampled_max_mm": 0.002314087639764779,
+            "rust_to_native_sampled_max_mm": 0.0026709221991987556,
+            "native_stl_sha256": "310a927b5d8fd6126c7b24691c2f8d35ed85962d268bf7ffbc003e50cb9e3c3e",
+            "rust_stl_sha256": "49bf5876af3707de8eebee7df2273e3c4385d83c3e796aa5e609b7224d693534",
+            "native_lettering": {
+              "bulkhead-ring-drain-word": "4acc82d3aa9187ce15f53f25ed54c8d61191ed9a21f639b983c293dda117d38d",
+              "bulkhead-ring-drain-word (2)": "a2e656f33f7cfd6137aaf80bcd5b5067fec0eec58cfdc5bc14d369c277d2eded",
+              "bulkhead-ring-drain-word (3)": "37ee070c275e9b3699b15f4c03da63117ab65e64dd8b20c317bd9ef2ae92a263",
+              "bulkhead-ring-drain-word (4)": "9dc6a780270ed9a9a88768495e67585e26a9287e3c92b16d287def28c7b23c24",
+              "bulkhead-ring-drain-word (5)": "244136b0ad7d3d70b48ecc9f106549ea38323d6744bca79f7c564bd875d655ef"
+            },
+            "rust_lettering": {
+              "bulkhead-ring-drain-word": "ba70657e40e6218062bf9dff30ad0f7c20988a3f1eeb6611c1b0c970145f3ee9"
+            },
+            "native_3mf_build_groups": 1
+          },
+          "after": {
+            "native_bounds": [
+              [
+                -20.800003051757812,
+                0.0,
+                -23.400001525878906
+              ],
+              [
+                20.799999237060547,
+                2.2799999713897705,
+                14.600000381469727
+              ]
+            ],
+            "rust_bounds": [
+              [
+                -20.799999237060547,
+                0.0,
+                -23.399999618530273
+              ],
+              [
+                20.799999237060547,
+                2.2799999713897705,
+                14.600000381469727
+              ]
+            ],
+            "native_volume_mm3": 2528.491787375467,
+            "rust_volume_mm3": 2528.4907907611773,
+            "native_watertight": true,
+            "rust_watertight": true,
+            "native_to_rust_sample_count": 2571,
+            "rust_to_native_sample_count": 3075,
+            "native_to_rust_sampled_max_mm": 0.0022108962425245134,
+            "rust_to_native_sampled_max_mm": 0.0026686120537521073,
+            "native_stl_sha256": "0f798de9c2d535d4466933887754bfee7edcd3ad78baaaf0f22c40b7e10a9559",
+            "rust_stl_sha256": "4fc2d86b3c4e1c632fbbf2ca6f593666c0005d02cddbb25d96a181c9018a0a1b",
+            "native_lettering": {
+              "bulkhead-ring-drain-word": "4acc82d3aa9187ce15f53f25ed54c8d61191ed9a21f639b983c293dda117d38d",
+              "bulkhead-ring-drain-word (2)": "a2e656f33f7cfd6137aaf80bcd5b5067fec0eec58cfdc5bc14d369c277d2eded",
+              "bulkhead-ring-drain-word (3)": "37ee070c275e9b3699b15f4c03da63117ab65e64dd8b20c317bd9ef2ae92a263",
+              "bulkhead-ring-drain-word (4)": "9dc6a780270ed9a9a88768495e67585e26a9287e3c92b16d287def28c7b23c24",
+              "bulkhead-ring-drain-word (5)": "244136b0ad7d3d70b48ecc9f106549ea38323d6744bca79f7c564bd875d655ef"
+            },
+            "rust_lettering": {
+              "bulkhead-ring-drain-word": "ba70657e40e6218062bf9dff30ad0f7c20988a3f1eeb6611c1b0c970145f3ee9"
+            },
+            "native_3mf_build_groups": 1
+          }
+        },
+        "native_lettering_mesh_unchanged": true,
+        "rust_lettering_mesh_unchanged": true
+      },
+      {
+        "part": "carb",
+        "variants": {
+          "before": {
+            "native_bounds": [
+              [
+                -21.0,
+                0.0,
+                -15.399999618530273
+              ],
+              [
+                21.0,
+                2.2799999713897705,
+                22.599998474121094
+              ]
+            ],
+            "rust_bounds": [
+              [
+                -21.0,
+                0.0,
+                -15.399999618530273
+              ],
+              [
+                21.0,
+                2.2799999713897705,
+                22.600000381469727
+              ]
+            ],
+            "native_volume_mm3": 2455.144320485879,
+            "rust_volume_mm3": 2455.193944488218,
+            "native_watertight": true,
+            "rust_watertight": true,
+            "native_to_rust_sample_count": 3500,
+            "rust_to_native_sample_count": 3500,
+            "native_to_rust_sampled_max_mm": 0.002402989744444288,
+            "rust_to_native_sampled_max_mm": 0.0027542088026637945,
+            "native_stl_sha256": "d277f5e30dcc677e24879a2db10706c74daff203759ce6374b030417b60e7772",
+            "rust_stl_sha256": "97ea6112ff81d10ad4d96b5a832a423b187ae1f2011bf920eb845d9823ec2c02",
+            "native_lettering": {
+              "bulkhead-ring-carb-word": "522d78e57e2ccd239cf3d783c578265760f428e757ecdf7779fdb3bd50c13692",
+              "bulkhead-ring-carb-word (2)": "2938d5e33dea6844c61af046f3c2990ab0c0f1316218b23c7c7a2191ebcfa742",
+              "bulkhead-ring-carb-word (3)": "dd0cf15507a52b3fbf85a8195c11937e86a20a99dc54fccf40b4729f8620010c",
+              "bulkhead-ring-carb-word (4)": "50461c07f91fd11c167ad123a41b93e2dac55b3c3efd98407121f08d25fc8fb4"
+            },
+            "rust_lettering": {
+              "bulkhead-ring-carb-word": "41abbb77f02071bb8bfcbfd7530c16ff2b3b265f71651b2242d98831c186fb0a"
+            },
+            "native_3mf_build_groups": 1
+          },
+          "after": {
+            "native_bounds": [
+              [
+                -20.799999237060547,
+                0.0,
+                -15.399999618530273
+              ],
+              [
+                20.800003051757812,
+                2.2799999713897705,
+                22.599998474121094
+              ]
+            ],
+            "rust_bounds": [
+              [
+                -20.799999237060547,
+                0.0,
+                -15.399999618530273
+              ],
+              [
+                20.799999237060547,
+                2.2799999713897705,
+                22.600000381469727
+              ]
+            ],
+            "native_volume_mm3": 2427.784444349911,
+            "rust_volume_mm3": 2427.833840842896,
+            "native_watertight": true,
+            "rust_watertight": true,
+            "native_to_rust_sample_count": 3500,
+            "rust_to_native_sample_count": 3500,
+            "native_to_rust_sampled_max_mm": 0.002322943382644966,
+            "rust_to_native_sampled_max_mm": 0.0027542088026637945,
+            "native_stl_sha256": "3fef55aac5282c426e05caad7f122fe896aa36bc73412cd4c1302494bbe83236",
+            "rust_stl_sha256": "ac4d3aa8946b200511aa8632a3e128d7c71829f353810952c4b793aeef67b686",
+            "native_lettering": {
+              "bulkhead-ring-carb-word": "522d78e57e2ccd239cf3d783c578265760f428e757ecdf7779fdb3bd50c13692",
+              "bulkhead-ring-carb-word (2)": "2938d5e33dea6844c61af046f3c2990ab0c0f1316218b23c7c7a2191ebcfa742",
+              "bulkhead-ring-carb-word (3)": "dd0cf15507a52b3fbf85a8195c11937e86a20a99dc54fccf40b4729f8620010c",
+              "bulkhead-ring-carb-word (4)": "50461c07f91fd11c167ad123a41b93e2dac55b3c3efd98407121f08d25fc8fb4"
+            },
+            "rust_lettering": {
+              "bulkhead-ring-carb-word": "41abbb77f02071bb8bfcbfd7530c16ff2b3b265f71651b2242d98831c186fb0a"
+            },
+            "native_3mf_build_groups": 1
+          }
+        },
+        "native_lettering_mesh_unchanged": true,
+        "rust_lettering_mesh_unchanged": true
+      },
+      {
+        "part": "flavor-a",
+        "variants": {
+          "before": {
+            "native_bounds": [
+              [
+                -21.0,
+                0.0,
+                -15.399999618530273
+              ],
+              [
+                21.0,
+                2.2799999713897705,
+                22.599998474121094
+              ]
+            ],
+            "rust_bounds": [
+              [
+                -21.0,
+                0.0,
+                -15.399999618530273
+              ],
+              [
+                21.0,
+                2.2799999713897705,
+                22.600000381469727
+              ]
+            ],
+            "native_volume_mm3": 2557.7718336654016,
+            "rust_volume_mm3": 2557.773907864036,
+            "native_watertight": true,
+            "rust_watertight": true,
+            "native_to_rust_sample_count": 3309,
+            "rust_to_native_sample_count": 3500,
+            "native_to_rust_sampled_max_mm": 0.0022108857591974277,
+            "rust_to_native_sampled_max_mm": 0.002760703451306616,
+            "native_stl_sha256": "8975d83642faafb1fbe436079dfe1648baba85032afbece273adf382bb548237",
+            "rust_stl_sha256": "103a04c0d7d57c5b3fd2739005d1d122dcc0eefb5b6bd8479b4cd4d2bf49a4a1",
+            "native_lettering": {
+              "bulkhead-ring-flavor-a-word": "fbbc66b6e1992487657a09a2b3d74dff38dd13d38becad6443e4e24c45f5f1d5",
+              "bulkhead-ring-flavor-a-word (2)": "ffa02bce658307ff0df4d3718318f5f235ddcf45f29ee8dd8016ab1b75e0012c",
+              "bulkhead-ring-flavor-a-word (3)": "e824351e40800e4cc97c83606d093145aa238418e67ecf0d2ad383939e96be46",
+              "bulkhead-ring-flavor-a-word (4)": "e0b4a5597364db1d3015262bec7501dea308792c0e0db48abaf38af3286d7a3d",
+              "bulkhead-ring-flavor-a-word (5)": "f6e93e8b9095c751010545d6a25d0c98b15ec43f06c6050d93aaa47fe24a0bd2",
+              "bulkhead-ring-flavor-a-word (6)": "50c704a23f7f38160e3e5a5f8edfc157e23720ce6c93212c67580cf9014ee40f"
+            },
+            "rust_lettering": {
+              "bulkhead-ring-flavor-a-word": "f643b316dc5f76cec1023a4423d980de416669cc7d9e618588ce56f891cfcf7a"
+            },
+            "native_3mf_build_groups": 1
+          },
+          "after": {
+            "native_bounds": [
+              [
+                -20.799999237060547,
+                0.0,
+                -15.399999618530273
+              ],
+              [
+                20.799999237060547,
+                2.2799999713897705,
+                22.599998474121094
+              ]
+            ],
+            "rust_bounds": [
+              [
+                -20.799999237060547,
+                0.0,
+                -15.399999618530273
+              ],
+              [
+                20.799999237060547,
+                2.2799999713897705,
+                22.600000381469727
+              ]
+            ],
+            "native_volume_mm3": 2530.4117753153705,
+            "rust_volume_mm3": 2530.413804218714,
+            "native_watertight": true,
+            "rust_watertight": true,
+            "native_to_rust_sample_count": 3312,
+            "rust_to_native_sample_count": 3500,
+            "native_to_rust_sampled_max_mm": 0.0022108857591974277,
+            "rust_to_native_sampled_max_mm": 0.002760703451306616,
+            "native_stl_sha256": "609bbf139feed8d3a7103ec2cd35b108f658d200255ddaa461a2279ffd688249",
+            "rust_stl_sha256": "790da266dd208f6cf5b8c69d87d0f8f7d2b3420f7be294a23269723b3a6264cf",
+            "native_lettering": {
+              "bulkhead-ring-flavor-a-word": "fbbc66b6e1992487657a09a2b3d74dff38dd13d38becad6443e4e24c45f5f1d5",
+              "bulkhead-ring-flavor-a-word (2)": "ffa02bce658307ff0df4d3718318f5f235ddcf45f29ee8dd8016ab1b75e0012c",
+              "bulkhead-ring-flavor-a-word (3)": "e824351e40800e4cc97c83606d093145aa238418e67ecf0d2ad383939e96be46",
+              "bulkhead-ring-flavor-a-word (4)": "e0b4a5597364db1d3015262bec7501dea308792c0e0db48abaf38af3286d7a3d",
+              "bulkhead-ring-flavor-a-word (5)": "f6e93e8b9095c751010545d6a25d0c98b15ec43f06c6050d93aaa47fe24a0bd2",
+              "bulkhead-ring-flavor-a-word (6)": "50c704a23f7f38160e3e5a5f8edfc157e23720ce6c93212c67580cf9014ee40f"
+            },
+            "rust_lettering": {
+              "bulkhead-ring-flavor-a-word": "f643b316dc5f76cec1023a4423d980de416669cc7d9e618588ce56f891cfcf7a"
+            },
+            "native_3mf_build_groups": 1
+          }
+        },
+        "native_lettering_mesh_unchanged": true,
+        "rust_lettering_mesh_unchanged": true
+      },
+      {
+        "part": "flavor-b",
+        "variants": {
+          "before": {
+            "native_bounds": [
+              [
+                -21.0,
+                0.0,
+                -23.399999976158142
+              ],
+              [
+                21.0,
+                2.2799999713897705,
+                14.599998474121094
+              ]
+            ],
+            "rust_bounds": [
+              [
+                -21.0,
+                0.0,
+                -23.399999618530273
+              ],
+              [
+                21.0,
+                2.2799999713897705,
+                14.600000381469727
+              ]
+            ],
+            "native_volume_mm3": 2557.7718549084047,
+            "rust_volume_mm3": 2557.7739130592367,
+            "native_watertight": true,
+            "rust_watertight": true,
+            "native_to_rust_sample_count": 3309,
+            "rust_to_native_sample_count": 3500,
+            "native_to_rust_sampled_max_mm": 0.0022108962425254003,
+            "rust_to_native_sampled_max_mm": 0.0027620121870591233,
+            "native_stl_sha256": "398bcd3e2ea6e4b2792896bab686e9356f5c408b488d32b3859f825af317f938",
+            "rust_stl_sha256": "14c79ec5799d2b503cc56d9b01e24ccbab23a2230e4e8470e7863f25b05d45ce",
+            "native_lettering": {
+              "bulkhead-ring-flavor-b-word": "ede342dc166ce7344220976d97a9bbcb1c950e8fe4750bdaada72dd8958077ac",
+              "bulkhead-ring-flavor-b-word (2)": "a72331d2d605a2df4a2205bd29b14e15fb45051a84488080885c98f9bc9de1bf",
+              "bulkhead-ring-flavor-b-word (3)": "90c0f0d9e1ead419f455ee0e588cd034db3fcbd78fcd13f05d87936f4b404a25",
+              "bulkhead-ring-flavor-b-word (4)": "506a635b0cb01045cd7a02d40ab532f55b7bdc18dea26bcf9a01badcc1169f1a",
+              "bulkhead-ring-flavor-b-word (5)": "f1270b33726d2a4faf7418fccb2875ce70daf7a1cc6d388ef0f4cb327b274231",
+              "bulkhead-ring-flavor-b-word (6)": "b1dac863735c93dc26a5e3e4719ec69ecd1d30cea7dca3f4c239327ff50515c4"
+            },
+            "rust_lettering": {
+              "bulkhead-ring-flavor-b-word": "8636badbff6bbbf4ba96fc8862124b438ca17d4b0a995828494f7bce012a362e"
+            },
+            "native_3mf_build_groups": 1
+          },
+          "after": {
+            "native_bounds": [
+              [
+                -20.800003051757812,
+                0.0,
+                -23.399999976158142
+              ],
+              [
+                20.799999237060547,
+                2.2799999713897705,
+                14.599998474121094
+              ]
+            ],
+            "rust_bounds": [
+              [
+                -20.799999237060547,
+                0.0,
+                -23.399999618530273
+              ],
+              [
+                20.799999237060547,
+                2.2799999713897705,
+                14.600000381469727
+              ]
+            ],
+            "native_volume_mm3": 2530.4120572103016,
+            "rust_volume_mm3": 2530.413809413915,
+            "native_watertight": true,
+            "rust_watertight": true,
+            "native_to_rust_sample_count": 3312,
+            "rust_to_native_sample_count": 3500,
+            "native_to_rust_sampled_max_mm": 0.0022108962425254003,
+            "rust_to_native_sampled_max_mm": 0.0027620121870591233,
+            "native_stl_sha256": "367badbe28919f10ef7567d99323c2da3d4db88cb59e1e10ebd20477d0b3a329",
+            "rust_stl_sha256": "44f2b34268dd4f63aa4f7783d07d1a1083c5b239f5045ddd0ab5e6544b387257",
+            "native_lettering": {
+              "bulkhead-ring-flavor-b-word": "ede342dc166ce7344220976d97a9bbcb1c950e8fe4750bdaada72dd8958077ac",
+              "bulkhead-ring-flavor-b-word (2)": "a72331d2d605a2df4a2205bd29b14e15fb45051a84488080885c98f9bc9de1bf",
+              "bulkhead-ring-flavor-b-word (3)": "90c0f0d9e1ead419f455ee0e588cd034db3fcbd78fcd13f05d87936f4b404a25",
+              "bulkhead-ring-flavor-b-word (4)": "506a635b0cb01045cd7a02d40ab532f55b7bdc18dea26bcf9a01badcc1169f1a",
+              "bulkhead-ring-flavor-b-word (5)": "f1270b33726d2a4faf7418fccb2875ce70daf7a1cc6d388ef0f4cb327b274231",
+              "bulkhead-ring-flavor-b-word (6)": "b1dac863735c93dc26a5e3e4719ec69ecd1d30cea7dca3f4c239327ff50515c4"
+            },
+            "rust_lettering": {
+              "bulkhead-ring-flavor-b-word": "8636badbff6bbbf4ba96fc8862124b438ca17d4b0a995828494f7bce012a362e"
+            },
+            "native_3mf_build_groups": 1
+          }
+        },
+        "native_lettering_mesh_unchanged": true,
+        "rust_lettering_mesh_unchanged": true
+      }
+    ]
+  },
+  "publication": {
+    "scope": "Both implementations publish static trial outputs through the same website deployment. This does not benchmark the production generator-to-website delivery path. The native and Rust edit process times exclude staging, review, commit and website deployment.",
+    "baseline_commit": "4f0f74caec5a79de82dd6e863c97dcab5a33fbd9",
+    "baseline_observation": {
+      "at": "2026-11-10T02:22:06.974Z",
+      "implementation": "rust",
+      "variant": "before",
+      "triangles": 27682,
+      "hashes": [
+        "9424da437fc9fa8be3487a705ed3824a40bd9acde7d684b02ede6f7821724f05",
+        "afa3157d3c7952af759f324d58ee8e00d09380d2b2a9d5fbba850798c90f9c96",
+        "a9f2ab60f8666f52e647e0f66d79eaf03c0e8af634fb13c3b38accb718359c89",
+        "fa0c3ab8a8832e908d663ce4d1fb39bac31259b52e0502246b2ea7ec1a4e85a2",
+        "dbd85c7170a2e27699d6f9700eec6f3fd96e83c87221d0f34e4be328dbfa3e29",
+        "521e562e51d9b83348cba04cbc00f7a427f6063216aa6948f195eae96190e05f"
+      ],
+      "errors": []
+    }
+  },
+  "conclusion": "The complete native models support a direct favorite-parameter edit and preserve the required geometry. In this observation the historical Rust recipe produces complete outputs sooner. Native authoring convenience is demonstrated; a general iteration-speed advantage or justification for a wider migration is not established.",
+  "physical_print": "No new physical print qualification or printer submission.",
+  "native_design_hashes": {
+    "before": "d1fcadf41ad7c8bfaf4188dc445e0a48bfefc43636a59804643307ccaeb7c5c5",
+    "after": "f010b220bddffdd8abd2822d35553b2b8333a24ea14adb897927a5c8c0ac697b"
   }
 }

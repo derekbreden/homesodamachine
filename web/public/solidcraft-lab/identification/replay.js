@@ -6,7 +6,7 @@ import {createPreview} from '/solidcraft-lab/carbonator/assembly-preview.js';
 import {readNativeDisplay} from '/solidcraft-lab/carbonator/native-display.js';
 const $=id=>document.getElementById(id),base='/solidcraft-lab/identification/';
 const identity=()=>[[1,0,0,0],[0,1,0,0],[0,0,1,0],[0,0,0,1]],resources=[];
-let catalog,preview,implementation='native',variant='before',selected=null,busy=false,api,frame,localText,native=false,firstDisplay;
+let catalog,preview,implementation='native',variant='before',selected=null,busy=false,api,frame,localText,native=false,firstDisplay,lastNativeOpen,lastNativeEdit;
 const urls=new URL(location.href);implementation=urls.searchParams.get('implementation')==='rust'?'rust':'native';variant=urls.searchParams.get('variant')==='after'?'after':'before';
 async function load(url,type,label){const response=await fetch(url);if(!response.ok)throw new Error(`${label} could not be loaded.`);const bytes=await response.arrayBuffer();resources.push({url,type,label,bytes:bytes.byteLength});return bytes;}
 async function readDisplay(bytes,kind,options){
@@ -19,9 +19,9 @@ async function readDisplay(bytes,kind,options){
   });
   const geometry=mergeGeometries(parts,false);parts.forEach(p=>p.dispose());geometry.computeBoundingBox();return geometry;
 }
-function setBusy(value){busy=value;for(const control of document.querySelectorAll('button,select,input'))control.disabled=value;}
+function setBusy(value){busy=value;for(const control of document.querySelectorAll('button,select,input'))control.disabled=value;for(const id of ['section','edit','implementation','variant','all-parts'])$(id).disabled=value||native;for(const button of $('parts').querySelectorAll('button'))button.disabled=value||native;}
 function note(label,ms){const row=document.createElement('li'),text=document.createElement('span'),time=document.createElement('strong');text.textContent=label;time.textContent=ms<1000?`${Math.round(ms)} ms`:`${(ms/1000).toFixed(2)} s`;row.append(text,time);$('timing-list').prepend(row);while($('timing-list').children.length>6)$('timing-list').lastChild.remove();}
-async function action(run){if(busy)return;setBusy(true);try{await run();}catch(error){$('cover').hidden=true;$('status').textContent=error.message;console.error(error);}finally{setBusy(false);if(document.hidden&&api){await closeNative();await show();}}}
+async function action(run){if(busy)return;setBusy(true);try{await run();}catch(error){if(frame&&!native){frame.remove();frame=null;api=null;}$('cover').hidden=true;$('status').textContent=error.message;console.error(error);}finally{setBusy(false);if(document.hidden&&api){await closeNative();await show();}}}
 function controls(){
   $('implementation').value=implementation;$('variant').value=variant;$('source-label').textContent=implementation==='native'?'SolidCraft native meshes':'Production Rust payloads';$('width-label').textContent=catalog.variants[variant].width.toFixed(1)+' mm';
   $('view-title').textContent=selected?catalog.parts.find(p=>p.key===selected).label:'All identification chips';
@@ -45,6 +45,7 @@ async function show(fit=false){
 }
 async function closeNative(){if(api){const doc=await api.request('document.export');localText=doc.text;}frame?.remove();frame=null;api=null;native=false;$('engine-label').textContent='Not loaded';}
 async function edit(){
+  const start=performance.now();
   $('cover-title').textContent='Starting SolidCraft';$('cover-detail').textContent='Opening the complete editable set.';$('cover').hidden=false;
   frame=document.createElement('iframe');frame.title='Native identification-chip design';
   const ready=new Promise((resolve,reject)=>{const timer=setTimeout(()=>done(new Error('SolidCraft did not start.')),180000);function done(error){clearTimeout(timer);removeEventListener('message',listener);error?reject(error):resolve();}function listener(e){if(e.source!==frame?.contentWindow||e.origin!==location.origin)return;if(e.data?.type==='solidcraft-lab-ready')done();if(e.data?.type==='solidcraft-lab-error')done(new Error(e.data.error));}addEventListener('message',listener);});
@@ -53,14 +54,16 @@ async function edit(){
   const result=await api.request('document.import',{text,name:'Identification chips'});if(result.errors)throw new Error('The native design has feature errors.');
   await api.execute('view.top');await api.execute('view.fit');await api.execute('view.ribbon_tabs_only',{on:true});
   native=true;preview.visible(false);$('preview').hidden=true;$('native-stage').hidden=false;$('cover').hidden=true;$('reference').hidden=false;$('native-controls').hidden=false;$('engine-label').textContent='Native editor';$('state-label').textContent='Native authoring · complete set';
-  const inspection=await api.inspect();const parameter=inspection.params.find(p=>p.name==='side_clearance');$('clearance').value=parameter?.value??(variant==='before'?0:.2);$('status').textContent='The native parameter changes the six chip edges. Geometry and lettering remain editable in SolidCraft.';
+  const inspection=await api.inspect();const parameter=inspection.params.find(p=>p.name==='side_clearance');$('clearance').value=parameter?.value??(variant==='before'?0:.2);$('width-label').textContent=(catalog.variants.before.width-2*Number($('clearance').value)).toFixed(1)+' mm';$('status').textContent='The native parameter changes the six chip edges. Geometry and lettering remain editable in SolidCraft.';
+  await new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve)));lastNativeOpen={at:new Date().toISOString(),wall_ms:performance.now()-start,scope:'Editor startup, complete design import and view commands, followed by browser animation frames.'};note('Native editor open',lastNativeOpen.wall_ms);
 }
 $('implementation').onchange=()=>action(async()=>{implementation=$('implementation').value;await show();});$('variant').onchange=()=>action(async()=>{variant=$('variant').value;localText=null;await show();});
 $('all-parts').onclick=()=>action(async()=>{selected=null;await show(true);});$('fit').onclick=()=>api?api.execute('view.fit'):preview.fit();$('section').onchange=()=>preview.section($('section').checked);
 $('edit').onclick=()=>action(edit);$('reference').onclick=()=>action(()=>show());
-$('dimensions').onsubmit=e=>{e.preventDefault();action(async()=>{const start=performance.now();const result=await api.execute('parameters.change',{name:'side_clearance',expression:$('clearance').value+' mm'});const doc=await api.request('document.export');localText=doc.text;note('Native parameter edit',performance.now()-start);$('status').textContent=`Native clearance changed. ${result.recomputed} features recomputed.`;});};
+$('dimensions').onsubmit=e=>{e.preventDefault();action(async()=>{const start=performance.now(),clearance=Number($('clearance').value);const result=await api.execute('parameters.change',{name:'side_clearance',expression:clearance+' mm'});if(result.errors?.length)throw new Error('The native parameter produced feature errors.');const doc=await api.request('document.export');localText=doc.text;$('width-label').textContent=(catalog.variants.before.width-2*clearance).toFixed(1)+' mm';await new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve)));lastNativeEdit={at:new Date().toISOString(),clearance_mm:clearance,recomputed:result.recomputed,wall_ms:performance.now()-start,scope:'Native parameter command and editable-document export, followed by browser animation frames.'};note('Native parameter edit',lastNativeEdit.wall_ms);$('status').textContent=`Native clearance changed. ${result.recomputed} features recomputed.`;});};
 document.addEventListener('visibilitychange',()=>{if(document.hidden&&api&&!busy)action(async()=>{await closeNative();await show();});else if(!document.hidden)preview?.invalidate();});
-export function inspectReplay(){return {implementation,variant,selected,busy,native,resources:resources.map(r=>({...r})),firstDisplay,preview:preview?.stats()};}
+export function inspectReplay(){return {implementation,variant,selected,busy,native,resources:resources.map(r=>({...r})),firstDisplay,lastNativeOpen,lastNativeEdit,preview:preview?.stats()};}
 async function start(){catalog=await (await fetch(base+'catalog.json',{cache:'no-cache'})).json();const nodes={};for(const [impl,variants] of Object.entries(catalog.models))for(const [v,model] of Object.entries(variants))for(const part of catalog.parts)if(model.parts[part.key])nodes[`${impl}-${v}-${part.key}`]={label:part.label,display:model.parts[part.key]};
-  preview=await createPreview($('preview'),{nodes},load,{onSelect:key=>{if(key)action(async()=>{selected=key;await show(true);});},readDisplay});await action(()=>show(true));}
+  preview=await createPreview($('preview'),{nodes},load,{onSelect:key=>{if(key)action(async()=>{selected=key;await show(true);});},readDisplay});await action(()=>show(true));
+  fetch(base+'evaluation.json',{cache:'no-cache'}).then(r=>r.json()).then(report=>{if(!report.edit_comparison)return;const native=report.edit_comparison.native.process_wall_ms/1000,rust=report.edit_comparison.rust.edit_to_outputs_ms/1000;$('benchmark-summary').textContent=`On this Mac, the clearance change through complete colored and fused printable outputs took ${native.toFixed(2)} s in SolidCraft and ${rust.toFixed(2)} s with the historical Rust recipe. These are single process observations after setup. SolidCraft makes this a native parameter edit; this case shows no output-speed advantage. Construction and publication are recorded separately. No production part or physical print is changed.`;}).catch(()=>{});}
 start().catch(error=>{$('cover-title').textContent='Could not open the comparison';$('cover-detail').textContent=error.message;console.error(error);});

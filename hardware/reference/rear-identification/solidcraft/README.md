@@ -12,6 +12,8 @@ The Rust replay uses the historical source with a frozen layout-file path and cu
 
 Both implementations use the website's shared renderer, camera controls and part framing. The native display reads native mesh exports; the Rust display uses the production payload decoder. Display loading, CAD computation, source compilation, output export and publication have separate observations in the comparison's `evaluation.json`. Surface comparisons identify their sampled scope; they do not assert an exhaustive surface-distance bound or a new physical print qualification.
 
+The recorded replay demonstrates a favorite-parameter edit with intact lettering, bores and printable solids. The historical Rust recipe reaches complete outputs sooner in this observation. Native authoring convenience is demonstrated; an iteration-speed advantage or justification for a wider migration is not established. Both versions reach the site through the same isolated static-asset deployment, which is separate from the production geometry publication path.
+
 The trial runs manually, outside normal builds and commits:
 
 ```sh
