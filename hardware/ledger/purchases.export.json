@@ -1409,7 +1409,7 @@
       "purchase_id": "pur-e09e5d28db894792aef087da03caea51"
     }
   ],
-  "as_of": "2026-11-07",
+  "as_of": "2026-11-09",
   "coverage": [
     {
       "checked_at": "2026-10-04",
@@ -7669,6 +7669,23 @@
       ]
     },
     {
+      "gap_id": "gap-40a04fd67b1f469ebec51aa79a1e2aa7",
+      "missing_fact": "Exact placed and delivery calendar dates; completed merchant charge evidence and event date. Confirmation supplies the final vendor amount and the delivery notice establishes acquired fulfillment.",
+      "order_ids": [
+        "fws:WEBFWS100716314"
+      ],
+      "purchase_ids": [
+        "pur-f6aead3aafe3428fa072646852793bab"
+      ],
+      "source_ids": [
+        "src-33d9040298cb499e88555a7bbefdc397",
+        "src-df13c4ce12f642b8878093764cce1699"
+      ],
+      "sources_checked": [
+        "Order confirmation and delivery notification for WEBFWS100716314"
+      ]
+    },
+    {
       "event_ids": [
         "evt-a3c8a2e1a259405e85d14c27817deb58"
       ],
@@ -7891,7 +7908,7 @@
       ]
     }
   ],
-  "input_fingerprint": "sha256:0c9e3bfa05a1b738fea8cc326844f89a3e5f9fde1c44d6cd05a791ebae2365b1",
+  "input_fingerprint": "sha256:09142fb6a2590ed8879ab177dc84b184adbc1046835fc71b780e610f7a05d8e2",
   "orders": [
     {
       "allocation_status": "all_project",
@@ -13158,7 +13175,8 @@
       ],
       "reference": "114-4402537-9406656",
       "source_ids": [
-        "saved-amazon:114-4402537-9406656"
+        "saved-amazon:114-4402537-9406656",
+        "src-c1927a0bc4fb476096e2b0c98078c499"
       ],
       "vendor": "Amazon"
     },
@@ -15644,7 +15662,8 @@
       "reference": "us722538751263612929",
       "source_ids": [
         "saved-bambu:us722538751263612929",
-        "src-f175d220a1a04dbb8ae63733cb838a56"
+        "src-f175d220a1a04dbb8ae63733cb838a56",
+        "src-fa5b5b03400a42d7a9c5fdd1935ffde9"
       ],
       "vendor": "Bambu Lab"
     },
@@ -16181,7 +16200,8 @@
       ],
       "reference": "WEBFWS100682118",
       "source_ids": [
-        "saved-fws:WEBFWS100682118"
+        "saved-fws:WEBFWS100682118",
+        "src-f5612a35b03b44a29c64faf1858e54a1"
       ],
       "vendor": "Fresh Water Systems"
     },
@@ -16391,6 +16411,21 @@
       "source_ids": [
         "src-25efb07a466642cda375aa9fe665d977",
         "src-31821bcc03544179b8acbd0ee716eea6"
+      ],
+      "vendor": "Fresh Water Systems"
+    },
+    {
+      "allocation_status": "all_project",
+      "event_ids": [],
+      "order_date": null,
+      "order_id": "fws:WEBFWS100716314",
+      "purchase_ids": [
+        "pur-f6aead3aafe3428fa072646852793bab"
+      ],
+      "reference": "WEBFWS100716314",
+      "source_ids": [
+        "src-33d9040298cb499e88555a7bbefdc397",
+        "src-df13c4ce12f642b8878093764cce1699"
       ],
       "vendor": "Fresh Water Systems"
     },
@@ -23875,7 +23910,7 @@
     },
     {
       "allocation_status": "all_project",
-      "amount_evidence": "legacy_unverified",
+      "amount_evidence": "final_vendor_amount",
       "amount_minor": 3388,
       "contributes": true,
       "currency": "USD",
@@ -23883,7 +23918,7 @@
         "precision": "day",
         "value": "2026-04-20"
       },
-      "description": "Siraya Tech Flex 1.75 mm TPU",
+      "description": "Siraya Tech Flex TPU 85A Clear, 1.75 mm, 1 kg — ASSE vent elbow stock",
       "event_ids": [],
       "fulfillment": "ACQUIRED",
       "invoice_date": null,
@@ -23902,7 +23937,7 @@
       "purchase_id": "pur-3ce496aeefa54ba3ac576dd7b9d3ec91",
       "purpose": "consumables_materials",
       "quantity": 1,
-      "quantity_text": "1",
+      "quantity_text": "1 spool (1 kg)",
       "receipt_date": null,
       "record_role": "purchase",
       "row_date": {
@@ -23914,7 +23949,8 @@
       "service_period": null,
       "source_ids": [
         "legacy-ledger-2026",
-        "saved-amazon:114-4402537-9406656"
+        "saved-amazon:114-4402537-9406656",
+        "src-c1927a0bc4fb476096e2b0c98078c499"
       ],
       "split_charge": false,
       "stream": "purchase",
@@ -25522,7 +25558,7 @@
     },
     {
       "allocation_status": "all_project",
-      "amount_evidence": "legacy_unverified",
+      "amount_evidence": "final_vendor_amount",
       "amount_minor": 8133,
       "contributes": true,
       "currency": "USD",
@@ -25555,7 +25591,8 @@
       "service_period": null,
       "source_ids": [
         "legacy-ledger-2026",
-        "saved-fws:WEBFWS100682118"
+        "saved-fws:WEBFWS100682118",
+        "src-f5612a35b03b44a29c64faf1858e54a1"
       ],
       "split_charge": false,
       "stream": "purchase",
@@ -39648,7 +39685,7 @@
       "contributes": true,
       "currency": "USD",
       "delivery_date": null,
-      "description": "TPU 90A Black ×2, TPU 85A Black ×2",
+      "description": "TPU 90A Black 51103, 2 × 1 kg ($83.98); TPU 85A Black 51107, 2 × 1 kg ($89.98)",
       "event_ids": [
         "evt-ad6cd10a10944ea7998d0164f4c7181d"
       ],
@@ -39682,7 +39719,8 @@
       "source_ids": [
         "legacy-ledger-2026",
         "saved-bambu:us722538751263612929",
-        "src-f175d220a1a04dbb8ae63733cb838a56"
+        "src-f175d220a1a04dbb8ae63733cb838a56",
+        "src-fa5b5b03400a42d7a9c5fdd1935ffde9"
       ],
       "split_charge": false,
       "stream": "purchase",
@@ -49311,6 +49349,45 @@
     },
     {
       "allocation_status": "all_project",
+      "amount_evidence": "final_vendor_amount",
+      "amount_minor": 3647,
+      "contributes": true,
+      "currency": "USD",
+      "delivery_date": null,
+      "description": "Fresh Water Systems order WEBFWS100716314 — neoFit ACVUS-44 stem reducer check valve, 1/4\" OD tube × 1/4\" OD stem (bag of 10)",
+      "event_ids": [],
+      "fulfillment": "ACQUIRED",
+      "invoice_date": null,
+      "ledger_purchase_id": "pur-f6aead3aafe3428fa072646852793bab",
+      "merchant_charge_allocated_minor": 0,
+      "merchant_refund_allocated_minor": 0,
+      "order_date": null,
+      "order_ids": [
+        "fws:WEBFWS100716314"
+      ],
+      "payment_evidence": "unknown",
+      "price_basis": "row_total",
+      "purchase_id": "pur-f6aead3aafe3428fa072646852793bab",
+      "purpose": "components",
+      "quantity": 1,
+      "quantity_text": "1 bag (10)",
+      "receipt_date": null,
+      "record_role": "purchase",
+      "row_date": null,
+      "row_date_basis": "order_date",
+      "section": "4. Carbonator plumbing (pressurized side)",
+      "service_period": null,
+      "source_ids": [
+        "src-33d9040298cb499e88555a7bbefdc397",
+        "src-df13c4ce12f642b8878093764cce1699"
+      ],
+      "split_charge": false,
+      "stream": "purchase",
+      "unit_amount_minor": null,
+      "vendor": "Fresh Water Systems"
+    },
+    {
+      "allocation_status": "all_project",
       "amount_evidence": "legacy_unverified",
       "amount_minor": 10724,
       "contributes": true,
@@ -57950,6 +58027,25 @@
     {
       "document_date": {
         "precision": "day",
+        "value": "2026-11-03"
+      },
+      "document_type": "email_delivery_notification",
+      "note": "Delivery notice reports the bag of ten Stem Reducer Check Valve 1/4 OD x 1/4 OD Stem delivered, with UPS tracking 1Z89YF110201345116. The notification date is retained; the message supplies no independent calendar delivery date.",
+      "notification_date": {
+        "precision": "day",
+        "value": "2026-11-03"
+      },
+      "proves": [
+        "delivery"
+      ],
+      "reference": "WEBFWS100716314",
+      "source_id": "src-33d9040298cb499e88555a7bbefdc397",
+      "vendor": "Fresh Water Systems",
+      "verified_at": "2026-11-09"
+    },
+    {
+      "document_date": {
+        "precision": "day",
         "value": "2026-10-13"
       },
       "document_type": "merchant_order_page",
@@ -60568,6 +60664,25 @@
     {
       "document_date": {
         "precision": "day",
+        "value": "2026-04-20"
+      },
+      "document_type": "email_order_confirmation",
+      "note": "Confirmation identifies Siraya Tech Flex TPU 85A Clear, one kilogram, quantity one, at USD 31.59 merchandise and USD 33.88 grand total. This source supplies grade, spool mass and order value; no completed charge or independent delivery evidence is inferred from this confirmation.",
+      "notification_date": {
+        "precision": "day",
+        "value": "2026-04-20"
+      },
+      "proves": [
+        "price"
+      ],
+      "reference": "114-4402537-9406656",
+      "source_id": "src-c1927a0bc4fb476096e2b0c98078c499",
+      "vendor": "Amazon",
+      "verified_at": "2026-11-09"
+    },
+    {
+      "document_date": {
+        "precision": "day",
         "value": "2026-10-13"
       },
       "document_type": "merchant_order_page",
@@ -61263,6 +61378,25 @@
     {
       "document_date": {
         "precision": "day",
+        "value": "2026-10-30"
+      },
+      "document_type": "email_order_confirmation",
+      "note": "Confirmation identifies one bag of ten Stem Reducer Check Valve 1/4 OD x 1/4 OD Stem, USD 19.40 merchandise, USD 14.60 shipping, USD 2.47 tax, USD 36.47 total. Its notification timestamp is 2026-10-30T03:55:12Z; no explicit placed date or completed merchant charge is stated.",
+      "notification_date": {
+        "precision": "day",
+        "value": "2026-10-30"
+      },
+      "proves": [
+        "price"
+      ],
+      "reference": "WEBFWS100716314",
+      "source_id": "src-df13c4ce12f642b8878093764cce1699",
+      "vendor": "Fresh Water Systems",
+      "verified_at": "2026-11-09"
+    },
+    {
+      "document_date": {
+        "precision": "day",
         "value": "2026-04-26"
       },
       "document_type": "merchant_monetary_receipt",
@@ -61758,6 +61892,25 @@
     {
       "document_date": {
         "precision": "day",
+        "value": "2026-06-10"
+      },
+      "document_type": "email_order_confirmation",
+      "note": "Order confirmation itemizes one bag of ten PP061208W reducer stems at USD 16.44 and one bag of ten PP451223W adapters at USD 46.14; USD 62.58 subtotal, USD 13.25 shipping, USD 5.50 tax, USD 81.33 total. The notification timestamp supplies no independent placed date or completed merchant charge evidence.",
+      "notification_date": {
+        "precision": "day",
+        "value": "2026-06-10"
+      },
+      "proves": [
+        "price"
+      ],
+      "reference": "WEBFWS100682118",
+      "source_id": "src-f5612a35b03b44a29c64faf1858e54a1",
+      "vendor": "Fresh Water Systems",
+      "verified_at": "2026-11-09"
+    },
+    {
+      "document_date": {
+        "precision": "day",
         "value": "2026-10-11"
       },
       "document_type": "order_details",
@@ -61896,6 +62049,25 @@
       "source_id": "src-f885f7a1f4b74db69af29c700c226485",
       "vendor": "Anthropic",
       "verified_at": "2026-10-04"
+    },
+    {
+      "document_date": {
+        "precision": "day",
+        "value": "2026-04-19"
+      },
+      "document_type": "email_order_confirmation",
+      "note": "Confirmation identifies TPU 90A Black 51103, two one-kilogram spools at USD 83.98 together; TPU 85A Black 51107, two one-kilogram spools at USD 89.98 together; USD 173.96 subtotal, free shipping, USD 12.61 tax, USD 186.57 total. This source supplies grade and quantity allocation; the retained merchant order page separately supplies payment evidence.",
+      "notification_date": {
+        "precision": "day",
+        "value": "2026-04-19"
+      },
+      "proves": [
+        "price"
+      ],
+      "reference": "us722538751263612929",
+      "source_id": "src-fa5b5b03400a42d7a9c5fdd1935ffde9",
+      "vendor": "Bambu Lab",
+      "verified_at": "2026-11-09"
     },
     {
       "document_date": {
@@ -62093,7 +62265,7 @@
       "basis": "Current procurement status, independently of payment evidence.",
       "by_status": [
         {
-          "amount_minor": 4679275,
+          "amount_minor": 4682922,
           "currency": "USD",
           "fulfillment": "ACQUIRED",
           "purchase_ids": [
@@ -62742,6 +62914,7 @@
             "pur-f35fe0e3500e48a39375f599a22c10b7",
             "pur-f388c05169ab4897ac280a4f223c0c5f",
             "pur-f4ddddb90dbd4ae2bba5008f74f8d4b6",
+            "pur-f6aead3aafe3428fa072646852793bab",
             "pur-f6b7d75f40e1438eb4f40369415eae9b",
             "pur-f70555b4b44a48bfb6a721df7ce9c67a",
             "pur-f72654878f064c6181771847d3914c8d",
@@ -63394,8 +63567,8 @@
           "currency": "USD",
           "estimate_minor": 131673,
           "evidence_scope": "retrieved_records_only",
-          "final_vendor_amount_minor": 200715,
-          "legacy_unverified_minor": 910745,
+          "final_vendor_amount_minor": 204103,
+          "legacy_unverified_minor": 907357,
           "month": "2026-04",
           "purchase_ids": [
             "pur-00029069de0d454d9ad2c2c2eb5f845d",
@@ -63985,7 +64158,7 @@
       ],
       "purpose_totals": [
         {
-          "amount_minor": 1143513,
+          "amount_minor": 1147160,
           "currency": "USD",
           "purpose": "components"
         },
@@ -64024,17 +64197,17 @@
         {
           "currency": "USD",
           "estimate_minor": 429273,
-          "final_vendor_amount_minor": 2107615,
-          "legacy_unverified_minor": 2398968,
-          "total_minor": 4935856
+          "final_vendor_amount_minor": 2122783,
+          "legacy_unverified_minor": 2387447,
+          "total_minor": 4939503
         }
       ],
       "undated_unallocated": [
         {
           "currency": "USD",
           "estimate_minor": 21478,
-          "final_vendor_amount_minor": 677235,
-          "legacy_unverified_minor": 223633,
+          "final_vendor_amount_minor": 689015,
+          "legacy_unverified_minor": 215500,
           "purchase_ids": [
             "pur-039f49fc6eef49008dd6a93defa86b27",
             "pur-05b04eb1d4464d3289d9252dd6240e81",
@@ -64146,13 +64319,14 @@
             "pur-ebad0d868fbc408e936f0fe9925474b2",
             "pur-ee24b4d0aad04c8c9d937c573a2edee3",
             "pur-f10cde8ae10f42f2bd7058cbee72b609",
+            "pur-f6aead3aafe3428fa072646852793bab",
             "pur-f87e1857e1274f4399e5b2dbd2ea0680",
             "pur-fae26b5fdf05431a9cf22b914afcb168",
             "pur-fbeb6d70584a4d0fba20a4e555a33932",
             "pur-fcca5d9c2ff44cdba4f21d5a544fbcef",
             "pur-fed6d00353fc4faab696ce743483e8b4"
           ],
-          "total_minor": 922346,
+          "total_minor": 925993,
           "unknown_amount_ids": []
         }
       ]
@@ -64165,6 +64339,7 @@
         "gap-2e0c753bea0943db858dcaadb275439f",
         "gap-38ca1f93f2114c089bad2a7e9cfa41f4",
         "gap-404bcade77c84fc880a7330c6f6ebfc9",
+        "gap-40a04fd67b1f469ebec51aa79a1e2aa7",
         "gap-7dc719f6e334459abab4ecaec07873e1",
         "gap-8703c8fb55124412b9d51de641020ca7",
         "gap-8aacdacb6ac44b68a95178ea80fbe89a",
@@ -64181,13 +64356,13 @@
         {
           "currency": "USD",
           "estimated_purchase_minor": 429273,
-          "legacy_unverified_purchase_minor": 2398968,
+          "legacy_unverified_purchase_minor": 2387447,
           "order_only_charge_allocation_minor": 6561,
           "partial_charge_purchase_minor": 0,
-          "purchases_without_merchant_charge_minor": 3154457,
+          "purchases_without_merchant_charge_minor": 3158104,
           "undated_charge_minor": 57998,
           "undated_refund_minor": 0,
-          "undated_unallocated_purchase_minor": 922346,
+          "undated_unallocated_purchase_minor": 925993,
           "unknown_amount_event_count": 0,
           "unknown_amount_purchase_count": 0,
           "unresolved_allocation_purchase_minor": 0,
@@ -64422,7 +64597,6 @@
         "pur-3b72c994b94b43c29f76326060b40799",
         "pur-3bd5d44c62d84422b3dbe3310c70a21a",
         "pur-3be1b856906740fcbb8abccf195fcf8c",
-        "pur-3ce496aeefa54ba3ac576dd7b9d3ec91",
         "pur-3d23a62e17584a1fb6247b9bbf1c9575",
         "pur-3d76f4776f4b4092b93462762f916385",
         "pur-3e422dd818e94af4b336e62fbe83e26f",
@@ -64448,7 +64622,6 @@
         "pur-465dd62ae4bd41eb8cd0fda67790ddc6",
         "pur-46d4655cd2b947dea4824e0b6b040f79",
         "pur-47088113765f4d70b0a4abb4035e7ad9",
-        "pur-47dc646d498d479f8d71df053b0ab9f6",
         "pur-47eca5f06d344a0d80556ef2d2acd56f",
         "pur-480c3a519bbc4ae1bab870af1ea3ee7e",
         "pur-49610deb5c9f47ab8fa0e5bce8af4f56",
@@ -65346,6 +65519,7 @@
         "pur-f34a0cbf6ba74d11887b5ec0c8206984",
         "pur-f35fe0e3500e48a39375f599a22c10b7",
         "pur-f388c05169ab4897ac280a4f223c0c5f",
+        "pur-f6aead3aafe3428fa072646852793bab",
         "pur-f6b7d75f40e1438eb4f40369415eae9b",
         "pur-f70555b4b44a48bfb6a721df7ce9c67a",
         "pur-f72654878f064c6181771847d3914c8d",
@@ -65497,6 +65671,7 @@
         "pur-ebad0d868fbc408e936f0fe9925474b2",
         "pur-ee24b4d0aad04c8c9d937c573a2edee3",
         "pur-f10cde8ae10f42f2bd7058cbee72b609",
+        "pur-f6aead3aafe3428fa072646852793bab",
         "pur-f87e1857e1274f4399e5b2dbd2ea0680",
         "pur-fae26b5fdf05431a9cf22b914afcb168",
         "pur-fbeb6d70584a4d0fba20a4e555a33932",
@@ -65512,7 +65687,7 @@
   "validation": {
     "errors": [],
     "warnings": [
-      "16 authored evidence gap(s) remain",
+      "17 authored evidence gap(s) remain",
       "coverage-008d521abab24498bf9db4a8c5993e38: evidence coverage is unknown",
       "coverage-013f6586dbf840c8836ae7289d9827b3: evidence coverage is partial",
       "coverage-17d84ca75543489fb09003261546862a: evidence coverage is unknown",

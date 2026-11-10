@@ -142,7 +142,8 @@ fn mass_kg(
         let (v, a) = measure(path.as_str().unwrap(), dir, cache, ctx)?;
         sum += laid(v, a, &group)?;
     }
-    Ok(sum * num(&defs["materials"][material][0])? / 1000.)
+    let instances = defs["instances"][label].as_f64().unwrap_or(1.);
+    Ok(sum * instances * num(&defs["materials"][material][0])? / 1000.)
 }
 pub fn number(cell: &str) -> f64 {
     re(r"^\**\s*\[?(-?[0-9][0-9,]*(?:\.[0-9]+)?)\]?")
@@ -193,6 +194,10 @@ fn group_masses(text: &str) -> Result<(BTreeMap<String, f64>, Vec<String>)> {
                 text_prefix(&name, 60),
                 if hits.is_empty() { "no" } else { "ambiguous" }
             ));
+            continue;
+        }
+        // Solid-volume material allocations carry no measured production-time model.
+        if hits[0] == "solid" {
             continue;
         }
         *kg.get_mut(&hits[0]).unwrap() += mass;
@@ -518,7 +523,7 @@ fn mass_main(request: &Value, ctx: &mut Context) -> Result<Value> {
             translucent += kg
         }
         let cost = kg * num(&defs["materials"][&mat][1])?;
-        let want = fmt(kg, ".3f");
+        let want = fmt(kg, if group_of(&label)? == "solid" { ".6f" } else { ".3f" });
         if c[3] != want {
             drift.push(format!("  {label}: {} -> {want} kg", c[3]));
         }
@@ -543,12 +548,17 @@ fn mass_main(request: &Value, ctx: &mut Context) -> Result<Value> {
     let grand: f64 = totals.values().sum();
     let petg = totals.get("PETG").copied().unwrap_or(0.);
     let petgf = totals.get("PET-GF").copied().unwrap_or(0.);
-    let summary = format!(
+    let mut summary = format!(
         "By material: PETG ≈ {petg:.2} kg / {} — of which the four translucent reservoir parts are ≈ {translucent:.2} kg / {} — and PET-GF ≈ {petgf:.2} kg / {}.",
         money(petg * 11.20),
         money(translucent * 11.20),
         money(petgf * 25.02)
     );
+    for (material, mass) in &totals {
+        if material == "PETG" || material == "PET-GF" { continue; }
+        summary += &format!(" {material} ≈ {mass:.6} kg / {}.",
+            money(mass * num(&defs["materials"][material][1])?));
+    }
     for line in &mut out {
         if line.starts_with("| **Printed parts total**") {
             let stated = cells(line)[3].clone();

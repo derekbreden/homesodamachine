@@ -54,15 +54,14 @@ The appliance ships with the water filter included, mounted **external to the en
 | [Waterdrop 15UC-UF 0.01 µm inline water filter, 1/4" QC both ends](https://www.amazon.com/dp/B085G9TZ4L) | Upstream water filter; 1/4" QC fittings on both ends drop straight into the customer-side 1/4" LLDPE run, external to the enclosure per the section header above. Same SKU already in `purchases.md §3` (ACQUIRED). | 1 | $62.99 | $62.99 <!--@water-filter--><!--parts HSM-0368--> |
 | [Multiplex 19-0897 ASSE 1022 backflow preventer](https://www.midwestbev.com/products/asse-1022-backflow-preventer) | midwestbev MB11053 Apr 24: 4 @ $29.33 = $117.32 + $28.48 ship = $145.80 ÷ 4 = $36.45/ea | 1 | $36.45 | $36.45 <!--@plumbing--><!--parts HSM-0173--> |
 | [GAGIRA 316L reducing coupling, 3/8-inch FNPT × 1/4-inch FNPT](/hardware/ledger/purchases.md) | ASSE inlet connection to the rear TAP male connector. Five acquired; $18.22/5. | 1 | $3.64 | $3.64 <!--@plumbing--><!--parts HSM-0452--> |
-| [John Guest PI4512F6S flare adapter](/hardware/ledger/purchases.md) | ASSE 3/8-inch MFL outlet to 3/8-inch push-fit. Owned stock. | 1 | — | — <!--@plumbing--><!--parts HSM-0453--> |
-| [John Guest PP061208W reducer stem](/hardware/ledger/purchases.md) | One in the ASSE flare adapter and one trimmed stem at each pump joint. | 3 | — | — <!--@plumbing--><!--parts HSM-0460--> |
+| [John Guest PI4512F6S flare adapter](/hardware/ledger/purchases.md) | ASSE 3/8-inch MFL outlet to 3/8-inch push-fit. FWS WEBFWS100693702 delivered allocation: $27.44/10 × $73.27/$54.90 merchandise. | 1 | $3.66 | $3.66 <!--@plumbing--><!--parts HSM-0453--> |
+| [John Guest PP061208W reducer stem](/hardware/ledger/purchases.md) | One in the ASSE flare adapter and one trimmed stem at each pump joint. FWS WEBFWS100682118: $16.44/10 × $81.33/$62.58 merchandise gives delivered unit cost before line rounding. | 3 | $2.14 | $6.41 <!--@plumbing--><!--parts HSM-0460--> |
 | [neoFit ABU44M-E black 4 mm bulkhead](https://www.freshwatersystems.com/products/neofit-acetal-black-bulkhead-connector-4mm-5-32-tube) | Dedicated rear-wall **DRAIN** port, M15 × 1.5 barrel; white chip and 4 mm socket identify the separate atmospheric vent circuit. [Drain assembly](/hardware/assembly/asse-drain.md). FWS single-unit list $2.78; shipping and tax unallocated. | 1 | $2.78 | $2.78 <!--@plumbing--><!--parts HSM-0061--> |
-| [Printed ASSE drain adapter](/hardware/printed-parts/asse-drain-adapter/README.md) | Direct TPU 85A sleeve from the vent barb to 4 mm LLDPE; 6.10 / 3.80 mm trial sockets, 14 mm tube insertion, two independent four-inch ties (§11). Unprinted fit candidate. Soft stock is allocated with the TPU seals (§8). | 1 | — | — <!--@plumbing--><!--parts HSM-0088--> |
 | [neoFlo LLDPE4M-WHITE, white 4 mm OD LLDPE tube](https://www.freshwatersystems.com/products/white-4mm-od-lldpe-polyethylene-tubing) | Internal ASSE return, continuous umbilical/faucet drain and two 31.25 mm reservoir air tubes. Allow 8.25 ft/build including the 1,871 mm factory faucet cut and internal return/trim. FWS 25 ft @ $4.50 = $0.18/ft. The [neoFlo manufacturer sheet](https://assets.freshwatersystems.com/image/upload/s--N9disqrx--/gjtidjfc0tlprqbhb4ka.pdf) specifies 2.5 mm ID and R25 minimum bend radius. Shipping and tax unallocated. | ~8.25 ft (of 25 ft) | $0.18 | $1.49 <!--@plumbing--><!--parts HSM-0108:1871 HSM-0310:199.8 HSM-0365:62.5--> |
-| [Reinforced PVC pump joints](/hardware/reference/pump-barb-joint/README.md) | 3/8-inch ID × 5/8-inch OD reinforced PVC, full barb engagements and trimmed PP061208W reducer stems. Suction uses a shallow bend; discharge uses the 15° joint. Owned PVC stock. | 2 joints | — | — <!--@plumbing--><!--parts HSM-0461:22.49 HSM-0462:22.24--> |
+| [Reinforced PVC pump joints](/hardware/reference/pump-barb-joint/README.md) | Selected suction and discharge cuts from 3/8-inch ID × 5/8-inch OD reinforced PVC. The authored cuts total 44.73 mm, with full barb engagements and trimmed PP061208W stems; no additional trim allowance is assigned. FWS WEBFWS100707201 delivered stock: $6.12/10 ft × $364.06/$312.00 merchandise. | 0.146752 ft (of 10 ft) | $0.7141/ft | $0.10 <!--@plumbing--><!--parts HSM-0461:22.49 HSM-0462:22.24--> |
 | [YDS butterfly hose clamp, 10–16 mm, 9 mm band (10-pk)](https://www.amazon.com/dp/B07C33VLQ6) | **Two on each PVC pump joint**, one flush with each mouth — 4/build. Both installed joint diameters fall inside the range. 430 stainless band and housing, plated carbon-steel screw, POM key; the seller lists them for low-pressure service, so they carry the fit and pressure trial and the shipped clamp follows its result. Amazon 112-0019658-3684217 Apr 4: $16.30 ÷ 10 = $1.63/ea | 4 (of 10 pk) | $1.63 | $6.52 <!--@plumbing--><!--parts HSM-0325--> |
 | [G Ganen 12 V diaphragm pump](https://www.amazon.com/dp/B07F35PTFR) | Derek's selected received pump. The [measured reference](/hardware/reference/g-ganen-pump/README.md) supplies its rigid housing, independent barb profiles and fixed casing rails. The complete rubber feet and their raised legs slide off for installation in the lid-integrated half pipe; a removable upper cap snaps over the bare motor. Installed discharge points toward enclosure −X. Advertised 110 psi / 4.5 L/min are separate listing limits; actual electrical and hydraulic performance are established at commissioning. Amazon 112-0884852-3444230 Sep 15: $19.29 delivered ([purchases.md §4](/hardware/ledger/purchases.md)). | 1 | $19.29 | $19.29 <!--@pumps--><!--parts HSM-0178--> |
-| [neoFit ACVUS44 stem check](/hardware/reference/neofit-acvus44-check/README.md) | Water-side check; male stem inserts directly into the upstream fitting. The selected geometry uses this reference. Delivered unit cost is not allocated. | 1 | — | — <!--@plumbing--><!--parts HSM-0383--> |
+| [neoFit ACVUS44 stem check](/hardware/reference/neofit-acvus44-check/README.md) | Water-side check; male stem inserts directly into the upstream fitting. FWS WEBFWS100716314 acquired bag: $19.40 merchandise + $14.60 shipping + $2.47 tax = $36.47/10. | 1 | $3.65 | $3.65 <!--@plumbing--><!--parts HSM-0383--> |
 | [John Guest PP010822E 1/4-inch tube × 1/4-inch NPT male connector, black polypropylene](https://www.freshwatersystems.com/products/john-guest-male-connector-nptf-black-polypropylene-1-4-x-1-4-nptf) | Rear TAP connector in the GAGIRA coupling and carbonator water-inlet adapter in the TAISHER elbow. FWS WEBFWS100675224: $17.41 delivered / 10. | 2 (of 10 pk) | $1.74 | $3.48 <!--@plumbing--><!--parts HSM-0013--> |
 | [YZMSZ fixed 0.3 MPa water regulator](/hardware/reference/yzmsz-water-regulator/README.md) | Transverse flavor-water feed between the water split and V-A, native 1/4-inch push-connect ports. An integral ceiling seat and snap cap retain the body. The reference states dimensional and performance evidence limits. Amazon 112-6255534-2742635 Oct 23: $11.99 + $0.87 tax = $12.86 delivered, ON-ORDER ([purchases.md §3](/hardware/ledger/purchases.md)). | 1 | $12.86 | $12.86 <!--@plumbing--><!--parts HSM-0332--> |
 | [neoFlo White 1/4" OD LLDPE tubing, 100 ft (LLDPE4-WHITE)](https://www.freshwatersystems.com/products/white-1-4-od-lldpe-polyethylene-tubing) | **Every tap-water line inside the cabinet.** White is what a colour means for tap water on the rear face ([`tools/hsm/shared-data/src/color.rs`](/tools/hsm/shared-data/src/color.rs) `chips`), so the line inboard of the white-ringed bulkhead is the colour of the ring it comes through — the same pairing the blue riser makes in §3 and the red tether in §4. Covers the **water-inlet run** (rear threaded TAP connector → ASSE), `water-2`…`water-7` through the compact above-core arrangement to the G Ganen's PVC joints and on to the `water-in` cap conduit, and the flavour circuit's own tap-water leg `fluid-1`/`fluid-2`/`fluid-3` — the split's branch, the flow regulator, and V-A's outlet into Y-A, which is the last of the tap water before the funnel's syrup meets it at Y-A. Push-connect ends are made by the filter's own 1/4" QC and the JG PTC fittings — no separate quick-connects. Same neoFlo LLDPE family, NSF 51 + FDA, as the §3 blue riser and the §4 red tether. FWS WEBFWS100707201 Sep 16: $12.00/100 ft × ($364.06 paid / $312.00 merchandise) = $14.0023 per 100 ft = $0.14002/ft, including allocated shipping and tax. 100 ft delivered 2026-09-19, **ACQUIRED** ([purchases.md §3](/hardware/ledger/purchases.md)). | ~7 ft (of 100 ft) | $0.14 | $0.98 <!--@plumbing--><!--parts HSM-0364:67.1 HSM-0294:41.13 HSM-0296:33.8 HSM-0326:31.9 HSM-0293:254.3 HSM-0295:39.4 HSM-0300:31.9 HSM-0285:257.2 HSM-0311:1386--> |
@@ -79,7 +78,7 @@ The appliance ships with the water filter included, mounted **external to the en
 | [PISCO RVFUP1/4-1/4-0.3 preset regulator](https://shop.pisco.com/product/rvfup1-4-1-4-0-3/) | In-appliance secondary, 0.3 MPa, native 1/4-inch push-connect ends. Its inlet neck crosses the rear panel; an ACVUS44 stem check inserts directly into its outlet. An integral slide seat and snap cap retain the group. Order 8638: $111.53/2 = $55.77 delivered each. ON-ORDER, on hold pending payment confirmation per the purchase ledger. | 1 | $55.77 | $55.77 <!--@plumbing--><!--parts HSM-0331--> |
 | [Red 1/4" OD LLDPE polyethylene tubing](https://www.freshwatersystems.com/search?q=red+1%2F4+OD+LLDPE+polyethylene+tubing) | **The whole CO2 path, outboard and inboard.** Outboard: the ~12 in tether from the cylinder-mounted Taprite 3741, pushed before shipping into the PI010822S in its outlet, to the inlet on the +Y wall of back-top, push-fit at both ends and carrying no clamp. Inboard: `co2-0` external tether → PISCO, `co2-1` PISCO → downstream check, and `co2-2` check → the `co2-in` cap conduit; cut lengths follow the modeled route; verify the made-up adapter stack before final cutting. Red is what a colour means on the rear face for CO2 ([`tools/hsm/shared-data/src/color.rs`](/tools/hsm/shared-data/src/color.rs) `chips`), so the tube the customer holds and the tube behind the wall are the colour of the ring between them — the same pairing the blue carbonated-water riser makes in §3 and the white tap-water lines in §3. Same LLDPE family and same FWS shelf as that blue roll. WEBFWS100697928 Aug 11: $12.00 × ($122.68 delivered / $100.65 merchandise) ÷ 100 ft = $0.146/ft × ~2 ft | ~2 ft (of 100 ft) | $0.15 | $0.29 <!--@plumbing--><!--parts HSM-0312:304.8 HSM-0299:365.6--> |
 | [John Guest PI010822S 1/4-inch tube × 1/4-inch NPTF male connector, gray acetal](https://www.freshwatersystems.com/products/john-guest-male-connector-nptf-1-4-x-1-4-nptf) | One threaded endpoint: the Taprite outlet. The compact in-appliance regulator and check, and the carbonator's bottom-plate push-fit elbow, take the line in their own push-connect ends. FWS WEBFWS100697928: $11.64 × ($122.68 / $100.65) / 10 = $1.42 delivered each. | 1 (of 10 pk) | $1.42 | $1.42 <!--@plumbing--><!--parts HSM-0014--> |
-| [neoFit ACVUS44 stem check](/hardware/reference/neofit-acvus44-check/README.md) | Gas-side check; male stem inserts directly into the upstream fitting. The selected geometry uses this reference. Delivered unit cost is not allocated. | 1 | — | — <!--@plumbing--><!--parts HSM-0383--> |
+| [neoFit ACVUS44 stem check](/hardware/reference/neofit-acvus44-check/README.md) | Gas-side check; male stem inserts directly into the upstream fitting. FWS WEBFWS100716314 acquired bag: $19.40 merchandise + $14.60 shipping + $2.47 tax = $36.47/10. | 1 | $3.65 | $3.65 <!--@plumbing--><!--parts HSM-0383--> |
 
 ## 5. Refrigeration (harvested compressor path)
 
@@ -134,13 +133,13 @@ The soda inlet bend holder is PET-GF with the accepted 2 mm wall, 3 mm legs and 
 | Flavor reservoir body — right | 1 | PETG (translucent) | 0.378 | $4.24 <!--@printed--><!--parts HSM-0026--> |
 | Flavor reservoir cap — left | 1 | PETG (translucent) | 0.058 | $0.65 <!--@printed--><!--parts HSM-0027--> |
 | Flavor reservoir cap — right | 1 | PETG (translucent) | 0.058 | $0.65 <!--@printed--><!--parts HSM-0028--> |
-| Enclosure — front bottom + front top (two quadrants) | 1 set | PET-GF | 1.613 | $40.35 <!--@printed--><!--parts HSM-0078:630 HSM-0079:956--> |
+| Enclosure — front bottom + front top (two quadrants) | 1 set | PET-GF | 1.620 | $40.52 <!--@printed--><!--parts HSM-0078:630 HSM-0079:956--> |
 | Enclosure — pump retainer | 2 | PET-GF | 0.010 | $0.26 <!--@printed--><!--parts HSM-0082--> |
 | Carbonator reed bridge | 1 | PETG | 0.008 | $0.09 <!--@printed--><!--parts HSM-0029--> |
-| Enclosure — back bottom + back top (two quadrants) | 1 set | PET-GF | 1.502 | $37.57 <!--@printed--><!--parts HSM-0080:688.8 HSM-0081:766.1--> |
+| Enclosure — back bottom + back top (two quadrants) | 1 set | PET-GF | 1.503 | $37.60 <!--@printed--><!--parts HSM-0080:688.8 HSM-0081:766.1--> |
 | Display cover plate | 1 | PET-GF | 0.012 | $0.31 <!--@printed--><!--parts HSM-0076--> |
-| Status plate | 1 | PETG (black, white, clear) | — | — <!--@printed--><!--parts HSM-0579--> |
-| Bulkhead ring — one per +Y-wall crossing | 6 | PET-GF (blue, white ×2, red, black ×2) | 0.021 | $0.52 <!--@printed--><!--parts HSM-0062:1.27 HSM-0063:1.29 HSM-0064:1.38 HSM-0065:1.38 HSM-0066:1.25 HSM-0067:1.36--> |
+| Status plate | 1 | PETG (black, white, clear) | 0.012 | $0.14 <!--@printed--><!--parts HSM-0579--> |
+| Bulkhead ring — one per +Y-wall crossing | 6 | PET-GF (blue, white ×2, red, black ×2) | 0.020 | $0.51 <!--@printed--><!--parts HSM-0062:1.27 HSM-0063:1.29 HSM-0064:1.38 HSM-0065:1.38 HSM-0066:1.25 HSM-0067:1.36--> |
 | Tube collar — one per +Y-wall crossing | 6 | PET-GF (blue, white ×2, red, black ×2) | 0.023 | $0.58 <!--@printed--><!--parts HSM-0272:2.48 HSM-0099:2.72 HSM-0100:2.87 HSM-0101:2.87 HSM-0273:2.53 HSM-0102:2.67--> |
 | Collet press — install-kit customer tool | 1 | PET-GF | 0.017 | $0.44 <!--@printed--><!--parts HSM-0372--> |
 | Nameplate — one per unit, serialized | 1 | PET-GF (black + white) | 0.027 | $0.69 <!--@printed--><!--parts HSM-0069--> |
@@ -156,9 +155,14 @@ The soda inlet bend holder is PET-GF with the accepted 2 mm wall, 3 mm legs and 
 | Funnel frame | 1 | PET-GF | 0.259 | $6.49 <!--@printed--><!--parts HSM-0072--> |
 | Funnel cover | 1 | PETG | 0.134 | $1.50 <!--@printed--><!--parts HSM-0071--> |
 | Funnel drain-elbow cradle | 1 | PET-GF | 0.008 | $0.20 <!--@printed--><!--parts HSM-0073--> |
-| **Printed parts total** | | | **~7.12** | **[$163.94](BOM_SEC7)** |
+| Reservoir liquid-tube grips | 4 | Bambu TPU 90A | 0.000785 | $0.04 <!--@printed--><!--parts HSM-0457--> |
+| Reservoir air-tube grips | 2 | Bambu TPU 90A | 0.000208 | $0.01 <!--@printed--><!--parts HSM-0458--> |
+| Reservoir cap gaskets | 2 | Bambu TPU 85A | 0.011102 | $0.54 <!--@printed--><!--parts HSM-0456--> |
+| Display gasket | 1 | Bambu TPU 90A | 0.001351 | $0.06 <!--@printed--><!--parts HSM-0077--> |
+| ASSE drain adapter | 1 | Siraya TPU 85A (clear) | 0.005709 | $0.19 <!--@printed--><!--parts HSM-0088--> |
+| **Printed parts total** | | | **~7.16** | **[$165.11](BOM_SEC7)** |
 
-By material: PETG ≈ 1.03 kg / $11.50 — of which the four translucent reservoir parts are ≈ 0.87 kg / $9.76 — and PET-GF ≈ 6.09 kg / $152.43.
+By material: PETG ≈ 1.04 kg / $11.64 — of which the four translucent reservoir parts are ≈ 0.87 kg / $9.76 — and PET-GF ≈ 6.10 kg / $152.62. Bambu TPU 85A ≈ 0.011102 kg / $0.54. Bambu TPU 90A ≈ 0.002343 kg / $0.11. Siraya TPU 85A ≈ 0.005709 kg / $0.19.
 
 These geometry-based estimates use the shared wall and sparse-infill recipes.
 They exclude the additional material in the enclosure's
@@ -170,7 +174,20 @@ The cold-core casing comprises the taller shell, a uniform top equipment lid and
 
 The PCB bolts directly to the cold-core lid columns. The separate PCBA tray is bench geometry and is not shipped.
 
-Soft seals, the [TPU 85A ASSE drain sleeve](/hardware/printed-parts/asse-drain-adapter/README.md) consume per-unit-trivial stock and are not costed here. Bambu TPU 90A supplies: 4× reservoir tube grip, 2× reservoir air grip, 1× display gasket — the ring the cover plate above draws down onto the display's glass ([`display-gasket/`](/hardware/printed-parts/enclosure/display-gasket/README.md)) — and 1× faucet TPU o-ring. Bambu TPU 85A supplies 2× reservoir gasket and 1× above-counter gasket, printed on the H2C right 0.6 mm hotend. The funnel is cast platinum-cure silicone and billed in the flavor subsystem. The tee wall is printed into front-top. The collet press is a shipped install-kit part, not factory tooling. Printed tooling does not ship: the coil-winding mandrel, the two-piece funnel silicone mold, the pump tube setting jig. Each valve has four retaining bosses ([`valve-seat/`](/hardware/printed-parts/valve-seat/)) printed into a part already billed above: V-B on the cold-core lid, V-A and V-K on back-top's integral socket seats, and the other eight on the two valve trays — a plate wall to wall on each deck, and `enclosure-front-top`'s own material ([`valve-tray/`](/hardware/printed-parts/enclosure/valve-tray/README.md)). No plate ships under a valve and none is billed. The two fitted upper pump collars belong to front-top’s continuous stock ([`pump-tray/`](/hardware/printed-parts/enclosure/pump-tray/README.md)); their material is included in its quadrant row. Each pump sits in its fitted motor guide with its flange captured between fixed upper stops and an independent screw-fastened retainer. The four pump tees are purchased PP0208E (§8); each stands in its bore through the tee wall, which holds it in X and Z, with its branch collet standing extended in a recess ahead of the bore face ([pump dock](/hardware/printed-parts/enclosure/pump-dock/README.md)).
+The TPU rows allocate the solid volume of the current fine models using the
+recorded material density and delivered filament price in
+[`printing.json`](/tools/hsm/ledger/catalog/printing.json). Repeated grips and
+gaskets include their installed quantities. Feed waste, physical print yield and
+production duration are unmeasured; no production duration is allocated to these
+material-only estimates. Bambu TPU 90A supplies the reservoir tube grips and
+display gasket; Bambu TPU 85A supplies the reservoir-cap gaskets. The
+[ASSE drain adapter](/hardware/printed-parts/asse-drain-adapter/README.md) uses
+Siraya Tech Flex TPU 85A Clear, following its own accepted material recipe.
+The [purchase ledger](/hardware/ledger/purchases.md) records the Bambu and Siraya
+filament orders. The faucet's soft parts retain their own material and print
+records.
+
+The funnel is cast platinum-cure silicone and billed in the flavor subsystem. The tee wall is printed into front-top. The collet press is a shipped install-kit part, not factory tooling. Printed tooling does not ship: the coil-winding mandrel, the two-piece funnel silicone mold, the pump tube setting jig. Each valve has four retaining bosses ([`valve-seat/`](/hardware/printed-parts/valve-seat/)) printed into a part already billed above: V-B on the cold-core lid, V-A and V-K on back-top's integral socket seats, and the other eight on the two valve trays — a plate wall to wall on each deck, and `enclosure-front-top`'s own material ([`valve-tray/`](/hardware/printed-parts/enclosure/valve-tray/README.md)). No plate ships under a valve and none is billed. The two fitted upper pump collars belong to front-top’s continuous stock ([`pump-tray/`](/hardware/printed-parts/enclosure/pump-tray/README.md)); their material is included in its quadrant row. Each pump sits in its fitted motor guide with its flange captured between fixed upper stops and an independent screw-fastened retainer. The four pump tees are purchased PP0208E (§8); each stands in its bore through the tee wall, which holds it in X and Z, with its branch collet standing extended in a recess ahead of the bore face ([pump dock](/hardware/printed-parts/enclosure/pump-dock/README.md)).
 
 ## 8. Flavor subsystem
 
@@ -296,7 +313,7 @@ TPU grip. The two independent white 4 mm air tubes pass through the foam cap
 and open above the insulation; [tube and baffle details](/hardware/printed-parts/cold-core/reservoir/vent.md).
 
 
-The T18 heat-set tip kit ([B0CS662NVK](https://www.amazon.com/dp/B0CS662NVK)) and the FX-888D iron are tooling — not per-unit. TPU 85A gasket filament is consumed from per-unit-trivial stock; not separately listed.
+The T18 heat-set tip kit ([B0CS662NVK](https://www.amazon.com/dp/B0CS662NVK)) and the FX-888D iron are tooling — not per-unit.
 
 | Part | Notes | Qty | Unit $ | Line $ |
 |---|---|---:|---:|---:|
@@ -336,22 +353,22 @@ The papers packed with each machine ([`assembly/finish-pack-ship.md`](/hardware/
 
 | Section | $ |
 |---|---:|
-| 1. Controllers + electronics | [$175.03](BOM_SEC1) |
+| 1. Controllers + electronics | [$175.41](BOM_SEC1) |
 | 2. Carbonator (plan A, 316L) | [$180.13](BOM_SEC2) |
-| 3. Water inlet | [$169.43](BOM_SEC3) |
-| 4. CO2 subsystem | [$133.11](BOM_SEC4) |
+| 3. Water inlet | [$183.25](BOM_SEC3) |
+| 4. CO2 subsystem | [$136.76](BOM_SEC4) |
 | 5. Refrigeration | [$143.06](BOM_SEC5) |
 | 6. Cold core insulation | [$20.76](BOM_SEC6) |
-| 7. Printed parts (PETG + PET-GF) | [$163.94](BOM_SEC7) |
+| 7. Printed parts (PETG + PET-GF) | [$165.11](BOM_SEC7) |
 | 8. Flavor subsystem | [$259.45](BOM_SEC8) |
 | 9. Dispensing | [$78.57](BOM_SEC9) |
 | 10. UI | [$0.00](BOM_SEC10) |
 | 11. Wiring | [$34.53](BOM_SEC11) |
 | 12. Level sensing | [$29.78](BOM_SEC12) |
-| 13. Mechanical attach hardware | [$26.20](BOM_SEC13) |
+| 13. Mechanical attach hardware | [$27.45](BOM_SEC13) |
 | 14. Cold kit | [$4.29](BOM_SEC14) |
 | 15. Customer documentation | [$25.14](BOM_SEC15) |
-| **Total** | **[$1,443.42](BOM_GRAND)** |
+| **Total** | **[$1,463.69](BOM_GRAND)** |
 
 ## External / user-supplied (not shipped)
 

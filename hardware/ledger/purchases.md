@@ -838,21 +838,21 @@ Printed copies of the [install guide](/hardware/install-guide/README.md). Lulu o
 
 | Status | $ |
 |---|---|
-| Acquired hardware valuation — includes replaced/returned originals | [$40,350.44](LEDGER_ACQUIRED_HW) |
+| Acquired hardware valuation — includes replaced/returned originals | [$40,386.91](LEDGER_ACQUIRED_HW) |
 | Engineering services (§18) | [$6,519.51](LEDGER_LABOR) |
-| Acquired procurement valuation (combined) | [$46,869.95](LEDGER_ACQUIRED_COMBINED) |
+| Acquired procurement valuation (combined) | [$46,906.42](LEDGER_ACQUIRED_COMBINED) |
 | ON-ORDER | [$2,435.54](LEDGER_ON_ORDER) |
 | MISSING — not in hand | [$53.07](LEDGER_MISSING) |
 | LIKELY-TO-BUY | $0.00 |
-| **Recorded procurement valuation — includes commitments** | [$49,358.56](LEDGER_GRAND_TOTAL) |
+| **Recorded procurement valuation — includes commitments** | [$49,395.03](LEDGER_GRAND_TOTAL) |
 
 Price evidence within the procurement valuation:
 
 | Amount basis | USD |
 |---|---|
-| Final vendor amounts | [$21,076.15](LEDGER_FINAL_VENDOR) |
+| Final vendor amounts | [$21,227.83](LEDGER_FINAL_VENDOR) |
 | Estimated amounts | [$4,292.73](LEDGER_ESTIMATES) |
-| Legacy / unverified amounts | [$23,989.68](LEDGER_LEGACY_UNVERIFIED) |
+| Legacy / unverified amounts | [$23,874.47](LEDGER_LEGACY_UNVERIFIED) |
 
 Merchant-evidenced payments (project shares; includes the undated bucket):
 
@@ -871,7 +871,7 @@ Acquired hardware valuation by section (includes replaced/returned originals):
 | 1 | Carbonator fabrication | [$4,664.67](LEDGER_SEC1) |
 | 2 | CO2 subsystem (incl. Lillium prototype carbonator $1,129) | [$2,180.19](LEDGER_SEC2) |
 | 3 | Water supply + backflow prevention | [$1,616.71](LEDGER_SEC3) |
-| 4 | Carbonator plumbing | [$518.47](LEDGER_SEC4) |
+| 4 | Carbonator plumbing | [$554.94](LEDGER_SEC4) |
 | 5 | Flavor subsystem | [$2,034.82](LEDGER_SEC5) |
 | 6 | Refrigeration | [$1,984.90](LEDGER_SEC6) |
 | 7 | Dispensing end | [$237.65](LEDGER_SEC7) |

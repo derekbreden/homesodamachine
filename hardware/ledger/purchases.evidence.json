@@ -30329,8 +30329,7 @@
         "value": "2026-06-10"
       },
       "proves": [
-        "price",
-        "notification_date"
+        "price"
       ],
       "verified_at": "2026-11-09",
       "note": "Order confirmation itemizes one bag of ten PP061208W reducer stems at USD 16.44 and one bag of ten PP451223W adapters at USD 46.14; USD 62.58 subtotal, USD 13.25 shipping, USD 5.50 tax, USD 81.33 total. The notification timestamp supplies no independent placed date or completed merchant charge evidence.",
@@ -30348,8 +30347,7 @@
         "value": "2026-04-19"
       },
       "proves": [
-        "price",
-        "notification_date"
+        "price"
       ],
       "verified_at": "2026-11-09",
       "note": "Confirmation identifies TPU 90A Black 51103, two one-kilogram spools at USD 83.98 together; TPU 85A Black 51107, two one-kilogram spools at USD 89.98 together; USD 173.96 subtotal, free shipping, USD 12.61 tax, USD 186.57 total. This source supplies grade and quantity allocation; the retained merchant order page separately supplies payment evidence.",
@@ -30367,8 +30365,7 @@
         "value": "2026-04-20"
       },
       "proves": [
-        "price",
-        "notification_date"
+        "price"
       ],
       "verified_at": "2026-11-09",
       "note": "Confirmation identifies Siraya Tech Flex TPU 85A Clear, one kilogram, quantity one, at USD 31.59 merchandise and USD 33.88 grand total. This source supplies grade, spool mass and order value; no completed charge or independent delivery evidence is inferred from this confirmation.",
@@ -30386,8 +30383,7 @@
         "value": "2026-10-30"
       },
       "proves": [
-        "price",
-        "notification_date"
+        "price"
       ],
       "verified_at": "2026-11-09",
       "note": "Confirmation identifies one bag of ten Stem Reducer Check Valve 1/4 OD x 1/4 OD Stem, USD 19.40 merchandise, USD 14.60 shipping, USD 2.47 tax, USD 36.47 total. Its notification timestamp is 2026-10-30T03:55:12Z; no explicit placed date or completed merchant charge is stated.",
@@ -30405,8 +30401,7 @@
         "value": "2026-11-03"
       },
       "proves": [
-        "delivery",
-        "notification_date"
+        "delivery"
       ],
       "verified_at": "2026-11-09",
       "note": "Delivery notice reports the bag of ten Stem Reducer Check Valve 1/4 OD x 1/4 OD Stem delivered, with UPS tracking 1Z89YF110201345116. The notification date is retained; the message supplies no independent calendar delivery date.",
