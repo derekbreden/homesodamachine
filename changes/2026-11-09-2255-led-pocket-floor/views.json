@@ -1,0 +1,90 @@
+{
+  "views": [
+    {
+      "name": "junction",
+      "caption": "A deeper round LED pocket shares the diamond channel’s sloping floor.",
+      "before": "junction-before.webp",
+      "after": "junction-after.webp",
+      "width": 1100,
+      "height": 900,
+      "marks": [
+        {
+          "x": 671.2,
+          "y": 569.5,
+          "r": 31.3,
+          "label": "Shared floor",
+          "at": [
+            71,
+            49.905450795873136,
+            313.90223979829665
+          ]
+        }
+      ],
+      "model": "printed-parts/enclosure/enclosure/enclosure-front-top.step",
+      "camera": {
+        "projection": "perspective",
+        "position": [
+          90.06370849898477,
+          47.779,
+          316
+        ],
+        "target": [
+          70.75,
+          47.779,
+          316
+        ],
+        "up": [
+          0,
+          0,
+          1
+        ],
+        "fov": 45,
+        "near": 0.24801718524463864,
+        "far": 489.16363341614255,
+        "aspect": 1.2222222222222223,
+        "section": {
+          "at": [
+            71.5,
+            47.779,
+            316
+          ],
+          "normal": [
+            1,
+            0,
+            0
+          ],
+          "removes": "the side the normal points to"
+        }
+      },
+      "highlight": [
+        "enclosure-front-top"
+      ],
+      "ghost": [],
+      "only": [
+        "enclosure-front-top"
+      ],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "printed-parts/enclosure/enclosure/enclosure-front-top.step.mesh",
+          "from": "snapshot",
+          "sha256": "0a8b6fc3e07cb29eb8715df6a3be33cb36c982799687b136bd96bdf0b755a8e8",
+          "commit": "7cf7b55608deefa5f3cae6bb20f83bce14ff706f",
+          "taken": "2026-11-10T04:51:19.168Z",
+          "published": true
+        },
+        "after": {
+          "payload": "printed-parts/enclosure/enclosure/enclosure-front-top.step.mesh",
+          "from": "tree",
+          "sha256": "3fda29bca48dab632b3cd05fc57b74be1f3a1059028bee9a25ae519cd094b6d2",
+          "commit": "4d4140fa7fdd33e9d93ef0e1ce3ff246c3183bb4",
+          "published": true
+        }
+      },
+      "changed": [
+        "enclosure-front-top"
+      ],
+      "withinMeshing": []
+    }
+  ]
+}

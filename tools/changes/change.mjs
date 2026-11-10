@@ -7,7 +7,7 @@
 //        [--model <rel>] [--tol mm] [--cell mm] [--top n] [--json]
 //   node tools/changes/change.mjs render <entry-dir> --view <name> --before <stash|payload>
 //        [--after <stash|payload>] [--model <rel>] [--caption "..."]
-//        [--cam x,y,z] [--target x,y,z] [--up x,y,z] [--span mm | --zoom f] [--ortho]
+//        [--cam dx,dy,dz] [--target x,y,z] [--up x,y,z] [--span half-height-mm | --zoom f] [--ortho]
 //        [--size WxH] [--only names] [--section "x,y,z:nx,ny,nz"] [--highlight names|changed]
 //        [--ghost names] [--xray] [--mark "x,y,z[,r][:label]"]... [--no-fog] [--no-ground]
 //        [--bg #hex] [--quality q]

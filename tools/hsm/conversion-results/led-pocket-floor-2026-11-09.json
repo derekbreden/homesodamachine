@@ -1,0 +1,163 @@
+{
+  "purpose": "This on-demand result records the deeper round LED pocket, its shared diamond-channel floor and request-to-view timing.",
+  "source_commit": "e50eb3e4372a4d5b70248795469c02ed8d51d2d3",
+  "request": {
+    "received_at": "2026-11-10T04:50:04.820Z",
+    "words": "Yeah, so all that said, I'd like to go back to what we had here in this after photo, and just deepen the LED bulb cavity by like 2 mm and otherwise keep that basic channel shape as we remove some extra edges we don't need there. like removing from the cylinder bulb cavity so it actually mates correctly with the bottom of the diamond horizontal cavity. Follow me?"
+  },
+  "geometry": {
+    "extra_floor_depth_input_mm": 2.0,
+    "channel_reference_half_span_mm": 3.5,
+    "roof_planes": "Retained while the diamond section expands downward.",
+    "floor": "The round bore ends on the same lower planes as the diamond channel.",
+    "bore_diameter_mm": 6.4,
+    "lens_body_diameter_mm": 4.9,
+    "lens_flange_diameter_mm": 5.49,
+    "roof_angles_degrees": [
+      44.99895114297164,
+      45.000003897418324
+    ],
+    "ray_measurements": {
+      "floor-centre": {
+        "distance_mm": 2.583867438509803,
+        "point": [
+          71.0,
+          49.905450795873136,
+          313.90223979829665
+        ],
+        "normal": [
+          -5.511353950416101e-05,
+          -0.7070685483092858,
+          0.707145009848968
+        ]
+      },
+      "floor-low-y": {
+        "distance_mm": 3.3180489900240135,
+        "point": [
+          71.0,
+          47.89963196526088,
+          311.8964199236955
+        ],
+        "normal": [
+          3.8832764260676106e-06,
+          -0.7071106121706007,
+          0.7071029501710756
+        ]
+      },
+      "floor-high-y": {
+        "distance_mm": 1.8496798932438,
+        "point": [
+          71.0,
+          51.9112666296095,
+          315.90806486363914
+        ],
+        "normal": [
+          -8.432129846651699e-07,
+          -0.7071083907853294,
+          0.7071051715835989
+        ]
+      },
+      "roof-a": {
+        "distance_mm": 1.585402634747989,
+        "point": [
+          55.0,
+          46.2792,
+          319.585402634748
+        ],
+        "normal": [
+          -1.4100276891707093e-06,
+          0.7070938367638969,
+          -0.7071197253708338
+        ]
+      },
+      "roof-b": {
+        "distance_mm": 1.5851193754695119,
+        "point": [
+          55.0,
+          49.2792,
+          319.5851193754695
+        ],
+        "normal": [
+          3.731734746799439e-07,
+          -0.7071068292858178,
+          -0.7071067330871754
+        ]
+      },
+      "channel": {
+        "distance_mm": 151.9000015258789,
+        "point": [
+          -80.4000015258789,
+          48.0,
+          315.0
+        ],
+        "normal": [
+          1.0,
+          0.0,
+          -0.0
+        ]
+      }
+    }
+  },
+  "timing": {
+    "request_to_source_edit_seconds": 296.916,
+    "request_to_first_reference_draw_seconds": 1321.23,
+    "first_reference_draw_at": "2026-11-10T05:12:06.050Z",
+    "source_edit_at": "2026-11-10T04:55:01.736Z",
+    "bazel_seconds": 196.111,
+    "driver_seconds": 328.201832959,
+    "driver_record": {
+      "purpose": "This record identifies each completed producer carried during the print build.",
+      "success": true,
+      "wall_seconds": 328.201832959,
+      "preview": [],
+      "checkpoint_errors": [],
+      "carried": [
+        {
+          "seconds": 290.638874,
+          "wall_time_ns": 1794287197526580000,
+          "files": [
+            "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step.mesh",
+            "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step.npz",
+            "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl"
+          ],
+          "publication": [
+            "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step.mesh",
+            "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl"
+          ]
+        }
+      ],
+      "suppressed_checkpoints": [],
+      "publication_queue": {
+        "requests": 1,
+        "started": 1,
+        "coalesced": 0,
+        "exit_codes": [
+          0
+        ]
+      }
+    },
+    "geometry_attempts": 1,
+    "selected_targets": [
+      "//:enclosure-front-top",
+      "//:display-cover"
+    ],
+    "launch_recovery": "An initial invocation put --run-dir after targets; it was cancelled before Bazel ran and relaunched with driver options first.",
+    "publication_recovery": "A coalesced request returned before the geometry appeared; a subsequent invocation recovered a dead publisher process marker and advanced retained assembly references."
+  },
+  "inspection": {
+    "sliver_findings": 0,
+    "junction_flat_ledge_findings": 0,
+    "other_ledge_finding": "An already answered fan-pair cable hook lies outside the LED pocket.",
+    "slope_rankings": "The retained roof planes are ranked at their open junction with the PCB pocket. Their measured angles and plane positions are unchanged.",
+    "before_after_camera_verified": true,
+    "print_regions_rebound": true
+  },
+  "gallery": "https://homesodamachine.com/changes/2026-11-09-2255-led-pocket-floor",
+  "artifacts": {
+    "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step.mesh": "3fda29bca48dab632b3cd05fc57b74be1f3a1059028bee9a25ae519cd094b6d2",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl": "8263cda99078487fa0c2a68e02f00907145d8a7e9facb98028dea7f2be874f2e",
+    "hardware/printed-parts/enclosure/enclosure/heat-set-review/print-regions.json": "73a79a707462ce40a2b4b966eb58f5598f7f5cb5e932a0bf4ae88761eec501fe"
+  },
+  "limits": "The live milestone establishes matching mounted geometry eligible for a reference-browser draw, not the first unobstructed frame on Derek’s device. The supplied photos record the existing print; the deeper floor has not been physically printed here.",
+  "automatic_checks_added": false
+}

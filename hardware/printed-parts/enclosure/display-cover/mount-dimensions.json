@@ -19,11 +19,12 @@
   "insert_length_mm": 4.0,
   "led": {
     "asin": "B08G4Z6KPV",
-    "body_diameter_mm": 5.0,
-    "flange_diameter_mm": 5.8,
+    "body_diameter_mm": 4.9,
+    "flange_diameter_mm": 5.49,
     "length_mm": 8.7
   },
   "led_bore_diameter_mm": 6.4,
+  "led_pocket_extra_depth_mm": 2.0,
   "led_set_back_mm": 1.0,
   "light_centre_local_y_mm": -7.4,
   "light_diffuser_diameter_mm": 6.4,
