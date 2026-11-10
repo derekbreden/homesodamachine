@@ -1,0 +1,206 @@
+{
+  "purpose": "This record measures delivery and digital clearance of the complete prewired status LED pocket.",
+  "source_commit": "ef03981884e58d3a902772f9a28ed5b0eed7332e",
+  "request_received_at": "2026-11-10T02:18:30.301Z",
+  "first_source_edit_at": "2026-11-10T02:28:56.266Z",
+  "first_matching_reference_draw_at": "2026-11-10T02:30:04.527Z",
+  "first_matching_reference_draw_seconds": 694.226,
+  "checked_geometry_at": "2026-11-10T03:01:35.329Z",
+  "checked_geometry_seconds": 2585.028,
+  "final_reference_draw": {
+    "record": "/Users/derekbredensteiner/Developer/homesodamachine/.cache/runs/led-wired-assembly/iteration.json",
+    "frames": [
+      {
+        "at": "2026-11-10T03:01:46.298Z",
+        "matched": [
+          "enclosure-front-top"
+        ],
+        "revision": "0e743fa898b9c9418ef75e0c097cbbd6b21358b3b33f24846a62bf0ccae701c7",
+        "seconds_from_observer": 6.263,
+        "scene_loading": false,
+        "eligibility": "Matching mounted geometry has visible ancestors and materials, intersects the camera frustum and lies within its depth bounds; occlusion is not established."
+      }
+    ],
+    "selection": {
+      "mode": "current-local-snapshot",
+      "requested_names": [
+        "enclosure-front-top"
+      ],
+      "observed_names": [
+        "enclosure-front-top"
+      ],
+      "scope": "Only the selected bodies in this local artifact snapshot are observed."
+    },
+    "expected_artifact": {
+      "path": "hardware/manifold-layout/enclosure-assembly.step.mesh",
+      "sha256": "06019632e6cef1b4aa9b413d2cfe806be1eb8c72b8dc6731c330847c5302d90c",
+      "bytes": 177140
+    }
+  },
+  "geometry_attempts": 6,
+  "builds": [
+    {
+      "targets": [
+        "enclosure-front-top",
+        "display-cover"
+      ],
+      "bazel_elapsed_seconds": 44.816,
+      "purpose": "Initial straight well and measured lens dimensions"
+    },
+    {
+      "targets": [
+        "installed-machine"
+      ],
+      "bazel_elapsed_seconds": 145.882,
+      "purpose": "Revise wire exit and refresh installed lens geometry with its producer dependencies"
+    },
+    {
+      "targets": [
+        "enclosure-front-top"
+      ],
+      "bazel_elapsed_seconds": 13.304,
+      "purpose": "Reconcile well and existing terminal clearance"
+    },
+    {
+      "targets": [
+        "enclosure-front-top"
+      ],
+      "bazel_elapsed_seconds": 17.495,
+      "purpose": "Protect backing around the tail shaft"
+    },
+    {
+      "targets": [
+        "enclosure-front-top",
+        "display-cover"
+      ],
+      "bazel_elapsed_seconds": 30.647,
+      "purpose": "Open one service pocket under the removable plate"
+    },
+    {
+      "targets": [
+        "enclosure-front-top",
+        "display-cover"
+      ],
+      "bazel_elapsed_seconds": 28.87,
+      "purpose": "Retain rear-wall stock while preserving formed-tail capacity"
+    }
+  ],
+  "checks": {
+    "tail_overlap_mm3": 0,
+    "insertion_sweep_overlap_mm3": 0,
+    "bent_tail_overlap_mm3": 0,
+    "bent_insertion_sweep_overlap_mm3": 0,
+    "pump_overlap_mm3": 0,
+    "pump_housing_overlap_mm3": 0
+  },
+  "gaps": {
+    "straight_housing": {
+      "clearance_mm": 0.19992815575200737,
+      "intersection_volume_mm3": 0.0,
+      "point_a": [
+        68.52714538574219,
+        61.86875534057617,
+        289.1518249511719
+      ],
+      "point_b": [
+        68.38234302336411,
+        61.74937086266337,
+        289.08289825282054
+      ],
+      "surface_distance_mm": 0.19992815575200737,
+      "surface_only": false,
+      "volume_error": null
+    },
+    "straight_motor": {
+      "clearance_mm": 6.071456575894587,
+      "intersection_volume_mm3": 0.0,
+      "point_a": [
+        68.75001635934336,
+        61.39964801013017,
+        289.5226590898262
+      ],
+      "point_b": [
+        64.78425598144531,
+        57.41825485229492,
+        287.2239990234375
+      ],
+      "surface_distance_mm": 6.071456575894587,
+      "surface_only": false,
+      "volume_error": null
+    },
+    "formed_housing": {
+      "clearance_mm": 0.19993075393925736,
+      "intersection_volume_mm3": 0.0,
+      "point_a": [
+        70.02105712890624,
+        46.09330368041992,
+        314.6848754882812
+      ],
+      "point_b": [
+        69.97724989766421,
+        45.9243660318335,
+        314.5873393219032
+      ],
+      "surface_distance_mm": 0.19993075393925736,
+      "surface_only": false,
+      "volume_error": null
+    }
+  },
+  "wire_exit_roofs": [
+    {
+      "point_mm": [
+        50.0,
+        74.6135,
+        297.13990533447264
+      ],
+      "normal": [
+        0.0,
+        0.7071067811865475,
+        -0.7071067811865475
+      ],
+      "angle_from_horizontal_degrees": 45.00000000000001
+    },
+    {
+      "point_mm": [
+        50.0,
+        80.6135,
+        297.1399528696922
+      ],
+      "normal": [
+        0.0,
+        -0.7071053654567385,
+        -0.707108196913522
+      ],
+      "angle_from_horizontal_degrees": 44.99988528569667
+    }
+  ],
+  "envelopes": {
+    "straight_tail_mm": {
+      "diameter": 6.0,
+      "length_from_flange": 30.0
+    },
+    "formed_tail_mm": {
+      "diameter": 6.0,
+      "run_up_slot": 20.0,
+      "under_flange_depth": 6.0
+    },
+    "scope": "Conservative clearance envelopes, not measured production tail dimensions. The removed status plate exposes the entire loading sweep."
+  },
+  "physical_evidence": "hardware/printed-parts/enclosure/display-cover/wired-led-fit/physical-observations.json",
+  "print_mesh": {
+    "triangles": 384842,
+    "new_thin_findings": 0,
+    "remaining_led_slope_flags": "The classifier pairs the two gable roofs to the service-pocket entry wall instead of their supporting side corners; recorded in the piece\u2019s lint answers.",
+    "physical_fit": "Not yet printed or physically qualified."
+  },
+  "artifacts": {
+    "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step.mesh": "0a8b6fc3e07cb29eb8715df6a3be33cb36c982799687b136bd96bdf0b755a8e8",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step.npz": "8613ae6359323f016c307cd6c13bdf71805bbdd40a26c00cf47c47c92dd98b95",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl": "0c68361aa05168a087ba9208a0d59d500f3dbf375cb6c1515eec01d601beb26a"
+  },
+  "gallery": "changes/2026-11-09-2102-wired-led-pocket",
+  "notes": [
+    "The first reference draw predates the final design and is the first completed source-authored attempt. The final verification records matching mounted geometry, not unobstructed pixels on Derek\u2019s device.",
+    "Bazel elapsed durations cover selected builds. They are not a complete partition of total machine waits or agent time."
+  ]
+}
