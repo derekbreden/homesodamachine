@@ -1,0 +1,12 @@
+#!/bin/sh
+# tools/run sends heavy commands to the native host scheduler.
+root=$(CDPATH= cd -- "$(dirname -- "$0")/.." && pwd) || exit 1
+runner=${HSM_RUNNER:-"$root/tools/hsm/target/release/hsm-run"}
+if [ ! -x "$runner" ]; then
+  runner="$HOME/.local/bin/hsm-run"
+fi
+if [ ! -x "$runner" ]; then
+  echo 'tools/run: install hsm-run or build the hsm-run-slots package first.' >&2
+  exit 1
+fi
+exec "$runner" --workspace "$root" "$@"

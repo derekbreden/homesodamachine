@@ -18,6 +18,15 @@ fn main() {
 fn main_result() -> Result<i32> {
     let args = std::env::args().skip(1).collect::<Vec<_>>();
     match args.first().map(String::as_str) {
+        Some("--workspace") => {
+            let root = Path::new(args.get(1).context("workspace path")?);
+            install::run_current(root, &args[2..])
+        }
+        Some("--rebuild-runtime") => {
+            let root = Path::new(args.get(1).context("workspace path")?);
+            install::rebuild_runtime(root)?;
+            Ok(0)
+        }
         Some("--runtime-info") => {
             let root = Path::new(args.get(1).context("workspace path")?);
             println!("{}", install::info(root)?);
@@ -51,7 +60,7 @@ fn main_result() -> Result<i32> {
                 match flag.as_str() {
                     "--help" | "-h" => {
                         println!(
-                            "Install the built hsm and its native host runtime.\n\nUsage: python3 tools/hsm/install.py BINARY [--root DIRECTORY] [--legacy-socket PATH]"
+                            "Install the built hsm and its native host runtime.\n\nUsage: hsm-run --install-hsm WORKSPACE BINARY [--root DIRECTORY] [--legacy-socket PATH]"
                         );
                         return Ok(0);
                     }
@@ -77,6 +86,35 @@ fn main_result() -> Result<i32> {
             let binary = binary.context("usage: hsm binary path")?;
             let receipt = install::install_hsm(&binary, &destination, &sockets, workspace)?;
             println!("{}", serde_json::to_string_pretty(&receipt)?);
+            Ok(0)
+        }
+        Some("--install-tools") => {
+            let workspace = Path::new(args.get(1).context("workspace path")?);
+            let mut destination = install::prefix();
+            let mut binaries = Vec::new();
+            let mut i = 2;
+            while i < args.len() {
+                match args[i].as_str() {
+                    "--prefix" => {
+                        i += 1;
+                        destination = PathBuf::from(args.get(i).context("--prefix directory")?);
+                    }
+                    "-h" | "--help" => {
+                        println!(
+                            "Install built native tools at immutable paths.\nUsage: hsm-run --install-tools WORKSPACE [--prefix DIRECTORY] BINARY..."
+                        );
+                        return Ok(0);
+                    }
+                    name if name.starts_with('-') => bail!("unknown tool installer option {name}"),
+                    name => binaries.push(PathBuf::from(name)),
+                }
+                i += 1;
+            }
+            anyhow::ensure!(!binaries.is_empty(), "name the built tools to install");
+            println!(
+                "{}",
+                install::install_tools(workspace, &destination, &binaries)?
+            );
             Ok(0)
         }
         Some("--request") => {
