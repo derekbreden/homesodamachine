@@ -27,13 +27,12 @@ For per-unit BOM parts, see [bom.md](/hardware/ledger/bom.md). For non-BOM/non-t
 | **Bosch DSB1013 Daredevil spade bit** | [B001NGPAA0](https://www.amazon.com/dp/B001NGPAA0), [purchases.md §1](/hardware/ledger/purchases.md) | 1" × 6", for 1" through-holes in fixture stock. | |
 | **MOTOKU 38 mm round die handle** | [B073ZX58PH](https://www.amazon.com/dp/B073ZX58PH), [purchases.md §1](/hardware/ledger/purchases.md) | Companion to Drill America die kit for chasing external threads on test fittings. | |
 
-The carbonator's upper-rim earth clamp uses the following tooling. Both tools
-are on order; neither is recorded as delivered.
+The carbonator's upper-rim earth clamp uses the following acquired tooling.
 
 | Tool | Source | Role | Cost |
 |---|---|---|---:|
-| **M3 × 0.5 tap and Ø2.5 mm drill** | [uxcell B09TYSP9NV](https://www.amazon.com/dp/B09TYSP9NV), [purchases.md §1](/hardware/ledger/purchases.md); ON-ORDER | M35 cobalt HSS spiral-flute tap/drill set for the carbonator upper-rim earth-clamp screw. One set ordered November 10; shipped, not delivered. | $9.00 including estimated tax |
-| **M1–M6 adjustable tap wrench** | [Piutouyar B0F7K43T14](https://www.amazon.com/dp/B0F7K43T14), [purchases.md §1](/hardware/ledger/purchases.md); ON-ORDER | Small hand driver for the M3 tap, 1/16"–1/4" tap capacity. One wrench ordered November 10; shipped, not delivered. | $6.42 including estimated tax |
+| **M3 × 0.5 tap and Ø2.5 mm drill** | [uxcell B09TYSP9NV](https://www.amazon.com/dp/B09TYSP9NV), [purchases.md §1](/hardware/ledger/purchases.md); acquired November 11 | M35 cobalt HSS spiral-flute tap/drill set for the carbonator upper-rim earth-clamp screw. One set acquired. | $9.00 charged total |
+| **M1–M6 adjustable tap wrench** | [Piutouyar B0F7K43T14](https://www.amazon.com/dp/B0F7K43T14), [purchases.md §1](/hardware/ledger/purchases.md); acquired November 11 | Small hand driver for the M3 tap, 1/16"–1/4" tap capacity. One wrench acquired. | $6.42 charged total |
 
 ## Hydro / pressure testing
 
