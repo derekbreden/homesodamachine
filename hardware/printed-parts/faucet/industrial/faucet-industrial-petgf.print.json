@@ -2912,8 +2912,9 @@
   "wall_loops": 2,
   "executable": {
     "archive": "hardware/printed-parts/faucet/industrial/faucet-industrial-petgf.gcode.3mf",
-    "archive_sha256": "2982ae017cf5b8c8ce7827477e7ab10ef8344c43c8a7fccad0d8c78834acf677",
+    "archive_sha256": "e13af5d68e55fe4439ee729d948cff9dd6960de094baf6cfa48319672f7b203b",
     "member": "Metadata/plate_1.gcode",
-    "gcode_sha256": "ac8d5a77362beaa2b0964218c0f2382c3b672209a3de1d88ab475470966f590d"
+    "gcode_sha256": "ac8d5a77362beaa2b0964218c0f2382c3b672209a3de1d88ab475470966f590d",
+    "plate_metadata_repair_commit": "dc5c8629282f7cdca8e02f3d7fec945ca78742a8"
   }
 }
