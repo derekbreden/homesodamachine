@@ -185,6 +185,7 @@ body.cv-locked { overflow: hidden !important; }
       if (c.onClose) {
         try { c.onClose(); } catch (e) { console.warn("ContentViewer onClose:", e); }
       }
+      window.dispatchEvent(new Event("hsm:content-viewer-changed"));
     };
     setTimeout(finish, 160);
   }
@@ -306,6 +307,7 @@ body.cv-locked { overflow: hidden !important; }
     drag.addEventListener("pointercancel", endSwipe);
 
     dialog.showModal();
+    window.dispatchEvent(new Event("hsm:content-viewer-changed"));
 
     // Trigger transitions on next frame.
     requestAnimationFrame(function () {

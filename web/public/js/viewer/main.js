@@ -4,12 +4,12 @@
 //   1. Read #grid into state, set the active nav class and document.title.
 //   2. Expose window.__hsm for the headless render tools (Puppeteer
 //      drives loadStepFile / loadDxfFile and reads scene/camera).
-//   3. fetchFiles() → buildGrid() → applyInitialRoute().
+//   3. Fetch the catalog, open the initial route, then allow shelf thumbnails.
 //   4. Register the publication update listeners through ./live.js.
 
 import * as THREE from "three";
 import { state } from "./state.js";
-import { buildGrid, currentSection } from "./grid.js";
+import { buildGrid, currentSection, startStepThumbnails } from "./grid.js";
 import { applyInitialRoute } from "./route.js";
 import { loadStepFile } from "./step.js";
 import { loadDxfFile } from "./dxf.js";
@@ -88,4 +88,4 @@ export async function fetchFiles() {
 }
 
 setupNav();
-fetchFiles().then(() => applyInitialRoute());
+fetchFiles().then(applyInitialRoute).finally(startStepThumbnails);

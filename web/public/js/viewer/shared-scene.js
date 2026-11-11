@@ -34,7 +34,7 @@ function objectUrl(hash, sourceUrl) {
   return sourceUrl ? new URL(`s-${hash}.gz`, sourceUrl).href : `/scene-meshes/${hash}`;
 }
 
-async function object(hash, sourceUrl) {
+async function object(hash, sourceUrl, priority) {
   if (objects.has(hash)) {
     const held = objects.get(hash); objects.delete(hash); objects.set(hash, held);
     return held.promise;
@@ -42,8 +42,9 @@ async function object(hash, sourceUrl) {
   const held = { bytes: 0, promise: null };
   held.promise = (async () => {
     let bytes;
-    try { bytes = await fetchMember(objectUrl(hash, sourceUrl)); }
-    catch { bytes = await fetchMember(`/scene-meshes/${hash}`); }
+    // A detail load can join this same download after a thumbnail is canceled.
+    try { bytes = await fetchMember(objectUrl(hash, sourceUrl), { priority }); }
+    catch { bytes = await fetchMember(`/scene-meshes/${hash}`, { priority }); }
     const result = decodeMeshPayload(bytes);
     if (!result) throw new Error(`Unsupported mesh object ${hash}`);
     held.bytes = bytes.length; retainedBytes += held.bytes;
@@ -93,7 +94,8 @@ function placed(mesh, node, index) {
   return out;
 }
 
-export async function resolveScene(bytes, { sourceUrl, signal, onPart } = {}) {
+export async function resolveScene(bytes, { sourceUrl, signal, onPart, priority } = {}) {
+  signal?.throwIfAborted();
   const head = sceneHeader(bytes);
   if (!head) return decodeMeshPayload(bytes);
   let next = 0;
@@ -108,7 +110,7 @@ export async function resolveScene(bytes, { sourceUrl, signal, onPart } = {}) {
         if(held){
           instances.delete(key);instances.set(key,held);results[index]=held.meshes;
         }else{
-          const meshes = await object(node.asset, sourceUrl);
+          const meshes = await object(node.asset, sourceUrl, priority);
           if (signal?.aborted) throw new DOMException('Aborted', 'AbortError');
           results[index]=meshes.map((mesh,i)=>placed(mesh,node,i));retainInstance(key,results[index]);
         }
@@ -119,7 +121,8 @@ export async function resolveScene(bytes, { sourceUrl, signal, onPart } = {}) {
       }
     }
   };
-  await Promise.all(Array.from({length:Math.min(16,head.meshes.length)},worker));
+  const concurrency = priority === "low" ? 4 : 16;
+  await Promise.all(Array.from({length:Math.min(concurrency,head.meshes.length)},worker));
   return { meshes: results.flatMap(value=>value || []), src: head.src, cut: head.cut,
     scene: head, errors };
 }

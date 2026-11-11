@@ -7,8 +7,7 @@
 //
 //   - applyInitialRoute(): on first load, deep-link via
 //     ?file=<path> (notification), where the extension names the surface,
-//     or location.hash (bookmark), where the prefix does. STEP waits on the
-//     occt-import-js loader; nothing else does.
+//     or location.hash (bookmark), where the prefix does.
 //
 // Both read the hash through `wantFromHash` and open through `OPENERS`, so the
 // prefixes are stated once and the two surfaces cannot come to disagree about
@@ -128,27 +127,24 @@ window.addEventListener("popstate", () => {
 const FILE_KINDS = { ".mmd": "mmd", ".dxf": "dxf", ".glb": "glb", ".tsx": "pcb" };
 
 export function applyInitialRoute() {
-  // The loader fetches its parser when needed. The timeout lets the grid finish
-  // laying out under the modal about to cover it.
   const open = (type, file, push, path = null, pane = {}) => {
-    const go = () => setTimeout(
-      () => {
-        if (type === "step") { openDetail(file, push, path); state.materialPanel?.applyRoute(pane); }
-        else OPENERS[type](file, push);
-      }, 100);
-    go();
+    if (type === "step") {
+      openDetail(file, push, path);
+      state.materialPanel?.applyRoute(pane);
+    } else {
+      return OPENERS[type](file, push);
+    }
   };
 
   const linked = new URLSearchParams(location.search).get("file");
   if (linked) {
-    open(FILE_KINDS[linked.slice(linked.lastIndexOf("."))] || "step", linked, true);
-    return;
+    return open(FILE_KINDS[linked.slice(linked.lastIndexOf("."))] || "step", linked, true);
   }
   if (!location.hash) return;
   const raw = location.hash.slice(1);
   const want = wantFromHash(raw);
   if (want.find) findWhenMounted(want.file, want.find);
-  if (want.material) { openMaterial(want.material, false, want); }
-  else if (want.type) open(want.type, want.file, false, want.path, want);
-  else open("step", decodeHash(raw), false);
+  if (want.material) return openMaterial(want.material, false, want);
+  if (want.type) return open(want.type, want.file, false, want.path, want);
+  return open("step", decodeHash(raw), false);
 }

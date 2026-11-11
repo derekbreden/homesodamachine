@@ -28,8 +28,9 @@ const { applyXray, syncEdgeResolution, setMeshMaterial } = xray;
 const invalidateModelBounds = () => sceneState.invalidateModelBounds?.();
 
 // --- STEP parsing ---
-async function parseStep(buffer) {
+async function parseStep(buffer, signal) {
   const occt = await getOcct();
+  signal?.throwIfAborted();
   const result = occt.ReadStepFile(buffer, null);
   backfillMeshNames(result);
   return result;
@@ -240,7 +241,7 @@ export function setFaucetFinish(finishId) {
 // revalidates completed output bytes. Fetching either starts no producer.
 // `mounted` says this file is the one already in the scene. It carries the caller's
 // If-None-Match and gates the store's own unchanged answer.
-async function fetchMeshes(file, headers, { mounted = false, signal, onPart } = {}) {
+async function fetchMeshes(file, headers, { mounted = false, signal, onPart, priority } = {}) {
   file = stepLocation(file).file;
   try {
     // THE STORE ANSWERS FIRST WHERE IT HAS THESE BYTES. Its URL carries their hash, so a URL
@@ -251,17 +252,17 @@ async function fetchMeshes(file, headers, { mounted = false, signal, onPart } = 
     if (url) {
       if (mounted && memberLoaded(`${file}.mesh`, url)) return { unchanged: true };
       try {
-        bytes = await fetchMember(url, { signal });
+        bytes = await fetchMember(url, { signal, priority });
       } catch { /* the site's route has the same member */ }
     }
     let resp = null;
     if (!bytes) {
-      resp = await fetch(`/meshes/${file}.mesh`, { headers, signal });
+      resp = await fetch(`/meshes/${file}.mesh`, { headers, signal, priority });
       if (resp.status === 304) return { unchanged: true };
       if (!resp.ok) return null;
       bytes = new Uint8Array(await resp.arrayBuffer());
     }
-    const result = await resolveScene(bytes, { sourceUrl: resp ? null : url, signal, onPart });
+    const result = await resolveScene(bytes, { sourceUrl: resp ? null : url, signal, onPart, priority });
     if (!result) return null; // a payload this code doesn't read is no payload
     // `url` only when the store is where these bytes came from. Whoever mounts them records it
     // as what is on screen; a thumbnail asks through here too and mounts nothing.
@@ -419,7 +420,7 @@ export async function loadStepFile(file, { preserveCamera = false } = {}) {
         if (etag) state.stepEtags.set(file, etag);
         text = new Uint8Array(await resp.arrayBuffer());
       }
-      result = await parseStep(text);
+      result = await parseStep(text, signal);
     }
 
     if (!current()) return;
@@ -556,25 +557,29 @@ export function forgetThumbnail(file) {
   }
 }
 
-export async function renderThumbnail(file, px = THUMB_SIZE, finishId = state.faucetFinish, presentation = "viewer") {
+export async function renderThumbnail(file, px = THUMB_SIZE, finishId = state.faucetFinish, presentation = "viewer", { signal } = {}) {
   // THE SIZE IS PART OF WHAT IS CACHED. A card asks at its own width, and the
   // same model shown at two widths is two pictures; keying on the file alone
   // would hand the second one the first one's pixels.
   const key = `${file}@${px}@${presentation}${hasFaucetFinish(file) ? `@${finishId}` : ""}`;
   if (state.thumbnailCache.has(key)) return state.thumbnailCache.get(key);
-  await loadFinishes();
-
+  const priority = presentation === "shelf" ? "low" : undefined;
   try {
-    const meshed = await fetchMeshes(file, {});
+    await loadFinishes();
+    signal?.throwIfAborted();
+    const meshed = await fetchMeshes(file, {}, { signal, priority });
+    signal?.throwIfAborted();
     if (meshed && meshed.result) {
       const fromPayload = renderMeshes(meshed.result, px, file, finishId, presentation);
       state.thumbnailCache.set(key, fromPayload);
       return fromPayload;
     }
-    const resp = await fetch(`/steps/${file}`);
+    const resp = await fetch(`/steps/${file}`, { signal, priority });
     if (!resp.ok) return null;
     const buf = new Uint8Array(await resp.arrayBuffer());
-    const dataURL = renderMeshes(await parseStep(buf), px, file, finishId, presentation);
+    const parsed = await parseStep(buf, signal);
+    signal?.throwIfAborted();
+    const dataURL = renderMeshes(parsed, px, file, finishId, presentation);
     state.thumbnailCache.set(key, dataURL);
     return dataURL;
   } catch {
