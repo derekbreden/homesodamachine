@@ -85,7 +85,7 @@
   "potential_retained_interference_examples": [],
   "motion": {
     "arc_count": 123,
-    "emitted_contact_segments": 924,
+    "emitted_contact_segments": 801,
     "modified_native_paths": 2119,
     "extrusion_added_mm": 5.82201,
     "extrusion_removed_mm": 7.00888,
