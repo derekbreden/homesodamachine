@@ -225,7 +225,8 @@ if (bounds.isEmpty()) {
 }
 const printCenter=bounds.getCenter(new THREE.Vector3());
 const printSize=bounds.getSize(new THREE.Vector3());
-let now=0,playing=false,speed=data.speed,mode="print",lastFrame=0,frameRequest=0;
+let now = data.start_at_end ? duration : 0;
+let playing=false,speed=data.speed,mode="print",lastFrame=0,frameRequest=0;
 let currentLayer = data.selected_layers[0];
 let followOffset=new THREE.Vector3(-42,-65,48),followTarget=new THREE.Vector3();
 const speedSelect = $("motion-speed");
@@ -340,8 +341,14 @@ function tick(time){
   if(now>=duration){playing=false;$("motion-play").textContent="Replay";saveState();}
   else frameRequest=requestAnimationFrame(tick);
 }
-function setPlaying(value){playing=value;lastFrame=0;$("motion-play").textContent=playing?"Pause":now>=duration?"Replay":"Play";if(playing&&!frameRequest)frameRequest=requestAnimationFrame(tick);}
-$("motion-play").addEventListener("click",()=>{if(!playing&&now>=duration)now=0;setPlaying(!playing);saveState();});
+function setPlaying(value) {
+  if (value && now >= duration) now = 0;
+  playing = value;
+  lastFrame = 0;
+  $("motion-play").textContent = playing ? "Pause" : now >= duration ? "Replay" : "Play";
+  if (playing && !frameRequest) frameRequest = requestAnimationFrame(tick);
+}
+$("motion-play").addEventListener("click",()=>{setPlaying(!playing);saveState();});
 $("motion-speed").addEventListener("change",()=>{speed=Number($("motion-speed").value);saveState();});
 $("motion-camera").addEventListener("change",()=>{setView($("motion-camera").value);saveState();});
 $("motion-scrub").addEventListener("input",()=>{now=Number($("motion-scrub").value)/1000*duration;draw();});
