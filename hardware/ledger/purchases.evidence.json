@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "as_of": "2026-11-10",
+  "as_of": "2026-11-11",
   "reporting_period": {
     "start": "2026-01-01",
     "end": "2026-12-31"
@@ -9441,7 +9441,8 @@
       "allocation_status": "all_project",
       "source_ids": [
         "src-562754f7ecd34ad9a37d14abe9d1a9ce",
-        "src-73fadd67b373402ab590db8148bbb3c8"
+        "src-73fadd67b373402ab590db8148bbb3c8",
+        "src-de3a10832f034b28849155c54a27d3b0"
       ]
     },
     "pur-14f8f47e82a74b129f4677cb0fc2a67d": {
@@ -9513,7 +9514,8 @@
       "source_ids": [
         "src-821de3ba9cfc4967ac712f6960983312",
         "src-37ceea4a8ea54360a5ba11cafbcef9eb",
-        "src-73fadd67b373402ab590db8148bbb3c8"
+        "src-73fadd67b373402ab590db8148bbb3c8",
+        "src-de3a10832f034b28849155c54a27d3b0"
       ]
     },
     "pur-0b426a7ded014916bd32dde66a3d3030": {
@@ -15683,7 +15685,8 @@
       "allocation_status": "all_project",
       "source_ids": [
         "src-562754f7ecd34ad9a37d14abe9d1a9ce",
-        "src-73fadd67b373402ab590db8148bbb3c8"
+        "src-73fadd67b373402ab590db8148bbb3c8",
+        "src-de3a10832f034b28849155c54a27d3b0"
       ]
     },
     "amazon:112-0448533-3655424": {
@@ -15728,7 +15731,8 @@
       "source_ids": [
         "src-821de3ba9cfc4967ac712f6960983312",
         "src-37ceea4a8ea54360a5ba11cafbcef9eb",
-        "src-73fadd67b373402ab590db8148bbb3c8"
+        "src-73fadd67b373402ab590db8148bbb3c8",
+        "src-de3a10832f034b28849155c54a27d3b0"
       ]
     },
     "amazon:114-1960396-3476246": {
@@ -33336,6 +33340,19 @@
       ],
       "verified_at": "2026-11-10",
       "note": "Shipment notification and signed-in Mac Chrome tracking page identify two orders in one package. The companion order-details link explicitly opens the SVLING order from the ruthex shipment. The combined project shipment amount USD 41.33 consists of the existing USD 32.16 ruthex order and USD 9.17 SVLING order, not another purchase or charge. Both Order Details show placed 2026-11-09. Tracker status is Shipped with expected arrival 2026-11-10; no actual delivery is established. Order-scoped merchant transactions remain separately Pending on 2026-11-10 at USD 32.16 and USD 9.17."
+    },
+    "src-de3a10832f034b28849155c54a27d3b0": {
+      "vendor": "Amazon",
+      "document_type": "email_out_for_delivery_notification",
+      "reference": "112-3519445-7276244",
+      "document_date": null,
+      "notification_date": {
+        "precision": "day",
+        "value": "2026-11-11"
+      },
+      "proves": [],
+      "verified_at": "2026-11-11",
+      "note": "Vendor notification states the two-item package is out for delivery and references the SVLING order. The prior directly verified tracker links identify this shared package as the SVLING and ruthex orders. This is fulfillment progress only: no actual delivery day or completed payment is established. Notification date follows the message UTC date; the relative arrival estimate is not converted into a delivery date."
     }
   },
   "coverage": [
