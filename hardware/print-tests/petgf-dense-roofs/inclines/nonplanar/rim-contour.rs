@@ -490,14 +490,27 @@ impl<W: Write> Emitter<'_, W> {
         }
         self.move_safely(target)
     }
+    fn retained_flow(&self, p: Point, width: f64, layer: usize, height: f64) -> f64 {
+        let (offset, angle, depth) = self.rim.local(p);
+        if (depth < 0.015 || angle > self.rim.end)
+            && (-0.18..COURSE_HEIGHT + MIN_JOIN_HEIGHT).contains(&depth)
+            && (-0.55..0.35).contains(&offset)
+            && self.top_near(p) > p[2] + 0.04
+        {
+            // A native skin road can run below the seat or across a tangent
+            // join. Clear the section that would pass below a completed arc.
+            return 0.;
+        }
+        remnant_flow(self.rim, p, width, layer, height)
+    }
+
     fn replace(&mut self, m: &Move, width: f64, layer: usize, height: f64) -> io::Result<()> {
         let mut intervals: Vec<(f64, f64, f64)> = Vec::new();
         let n = (lateral(m.source, m.target) / 0.045).ceil().max(5.) as usize;
         for i in 0..n {
             let a = i as f64 / n as f64;
             let b = (i + 1) as f64 / n as f64;
-            let flow = remnant_flow(
-                self.rim,
+            let flow = self.retained_flow(
                 lerp(m.source, m.target, (a + b) * 0.5),
                 width,
                 layer,
@@ -707,7 +720,7 @@ fn build(input: &Path, output: &Path, rim: &Rim) -> io::Result<ContourReport> {
             && is_rim_feature(feature)
             && [0., 0.25, 0.5, 0.75, 1.]
                 .iter()
-                .any(|t| remnant_flow(rim, lerp(p, target, *t), width, layer, height) < 0.9999);
+                .any(|t| e.retained_flow(lerp(p, target, *t), width, layer, height) < 0.9999);
         if may_clip {
             e.replace(&m, width, layer, height)?;
         } else {
