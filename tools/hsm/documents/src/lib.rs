@@ -875,5 +875,3 @@ pub fn format_number(value: f64, spec: &str) -> Result<String> {
     }
     Ok(text)
 }
-
-pub mod interop;

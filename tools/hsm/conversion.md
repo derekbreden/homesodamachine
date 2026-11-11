@@ -196,7 +196,7 @@ commands also expose explicitly requested dimension, source and model readings.
 
 | Program | Converted work |
 | --- | --- |
-| `hsm-documents` | The ledger's managed markers, Sources blocks and figure sidecars, tables, formatting, placement, PDF/DXF normalization and native value/library interoperation |
+| `hsm-documents` | The ledger's managed markers, Sources blocks and figure sidecars, tables, formatting, placement and PDF/DXF normalization |
 | `ledger-analysis` | Purchase evidence, exact decimal reconciliation, validation, CSV/JSON and reports, for the synthetic ledger tests |
 | `assembly-docs` | Assembly constants, electrical budgets, schedules, fluid-topology diagrams and the installed wiring model, routing and readers |
 | `cold-core-data` | Typed carbonator rod requirements and jet interfaces for native fabrication tools |
@@ -213,10 +213,7 @@ commands also expose explicitly requested dimension, source and model readings.
 | `hsm-run`, `hsm-run-slots` | Host admission, inherited run/CAD/compiler leases, process execution and runtime installation |
 | `hsm-print-prep` | Print preparation: each printed part's Bambu project from its meshes and a saved or system printer recipe, the localized PET-GF cooling stage, enclosure print regions, offline slices, and the print review and support audit that read them |
 
-Some native reader and document modules retain generated Rust implementations. Their values
-and scopes are evaluated by `hsm_documents::interop`, and edits go into those Rust source files.
-The provider crates compile at opt-level 0, while the shared value runtime and other dependencies
-keep release optimization. Geometry producers use their typed recipe and numbers crates.
+Geometry producers use their typed recipe and numbers crates.
 
 ## Fixed-input evidence
 
