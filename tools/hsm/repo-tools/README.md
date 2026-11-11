@@ -26,6 +26,8 @@ repo-tools paths selftest
 
 `cache-gc` lists expired scratch by default. `--apply` removes it. Each child of `runs`, `prints` and `printer-control` ages independently; a fresh run keeps no older run alive. Shared geometry memo caches, the printer-control environment and installed runtimes remain. `--cache PATH` and `--days DURATION` select the location and age.
 
+`cache-gc` also lists the cargo units in `tools/hsm/target` whose fingerprints no build has read within `UNIT_DAYS` in [cache.rs](src/cache.rs), and `--apply` removes them with their outputs and build-script directories. It holds each profile's cargo locks while it works and passes over a profile a build holds. Top-level binaries and dep-info remain. `--target PATH` selects another target.
+
 `time-to-site` reads the served commit and the current deployment filter. `missing-tools` reads the repository's Claude and Codex transcripts, including iCloud files, and counts scratch code and blocking waits. It uses installed `sqlite3` read-only for the Codex index. `--show` reuses a recent reading in `.cache/missing_tools.json`.
 
 `model` predicts the Lillium-fed prototype from the measured bores, current authored tube lengths, firmware pour policy and the shared acceptance and pressure-vessel inputs in [calibration_inputs.rs](/hardware/assembly/calibration_inputs.rs). `--set` pins an input measured at the sink. `volumes` converts a carbonation-tester reading and its snifts.

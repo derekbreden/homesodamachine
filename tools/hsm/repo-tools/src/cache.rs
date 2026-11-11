@@ -1,11 +1,19 @@
-//! Cache cleanup ages each scratch unit by its own newest file write and retains shared memo and runtime caches.
+//! Cache cleanup ages each scratch unit by its own newest file write and each cargo unit by its last fingerprint read, and retains shared memo and runtime caches.
 use anyhow::{Context, Result, ensure};
 use std::{
+    collections::HashMap,
     ffi::CString,
+    os::unix::fs::MetadataExt,
     path::{Path, PathBuf},
     time::UNIX_EPOCH,
 };
 
+/// Days a cargo unit stays without a build reading its fingerprint.
+const UNIT_DAYS: f64 = 1.;
+/// A profile's directories whose entries carry their unit's hash.
+const UNIT_DIRS: &[&str] = &["deps", "build", "examples", ".fingerprint"];
+/// The lock files cargo holds in a profile directory through a build.
+const LOCKS: &[&str] = &[".cargo-lock", ".cargo-build-lock"];
 const CONTAINERS: &[&str] = &["runs", "prints", "printer-control"];
 const KEEP: &[&str] = &[
     "meshes",
@@ -57,6 +65,172 @@ fn modified(metadata: &std::fs::Metadata) -> f64 {
         .ok()
         .and_then(|t| t.duration_since(UNIX_EPOCH).ok())
         .map_or(0., |d| d.as_secs_f64())
+}
+fn touched(metadata: &std::fs::Metadata) -> f64 {
+    metadata
+        .accessed()
+        .ok()
+        .and_then(|t| t.duration_since(UNIX_EPOCH).ok())
+        .map_or(0., |d| d.as_secs_f64())
+        .max(modified(metadata))
+}
+
+/// The unit hash in a fingerprint, output or build-script name: `name-<hash>[.ext]`.
+fn unit_hash(name: &str) -> Option<&str> {
+    let bytes = name.as_bytes();
+    name.match_indices('-')
+        .map(|(i, _)| i + 1)
+        .filter(|&start| {
+            bytes.get(start..start + 16).is_some_and(|hash| {
+                hash.iter()
+                    .all(|b| b.is_ascii_digit() || (b'a'..=b'f').contains(b))
+            }) && bytes.get(start + 16).is_none_or(|&b| b == b'.')
+        })
+        .last()
+        .map(|start| &name[start..start + 16])
+}
+
+/// Every cargo profile directory under `target`: each one holding `.fingerprint`.
+fn profiles(target: &Path) -> Vec<PathBuf> {
+    let mut out = Vec::new();
+    let mut stack = vec![(target.to_path_buf(), 0)];
+    while let Some((dir, depth)) = stack.pop() {
+        if dir.join(".fingerprint").is_dir() {
+            out.push(dir);
+            continue;
+        }
+        let Ok(entries) = std::fs::read_dir(&dir) else {
+            continue;
+        };
+        for entry in entries.flatten() {
+            if depth < 3 && entry.file_type().is_ok_and(|t| t.is_dir()) {
+                stack.push((entry.path(), depth + 1));
+            }
+        }
+    }
+    out.sort();
+    out
+}
+
+/// When a build last read a unit's fingerprint.
+fn last_read(unit: &Path) -> f64 {
+    let newest = std::fs::read_dir(unit)
+        .into_iter()
+        .flatten()
+        .flatten()
+        .filter_map(|entry| entry.metadata().ok())
+        .map(|meta| touched(&meta))
+        .fold(0., f64::max);
+    if newest > 0. {
+        newest
+    } else {
+        std::fs::symlink_metadata(unit).map_or(0., |meta| modified(&meta))
+    }
+}
+
+/// The bytes removing `path` frees; a file another hard link still names frees none.
+fn freed(path: &Path) -> u64 {
+    let mut total = 0;
+    let mut stack = vec![path.to_path_buf()];
+    while let Some(path) = stack.pop() {
+        let Ok(meta) = std::fs::symlink_metadata(&path) else {
+            continue;
+        };
+        if meta.is_dir() {
+            stack.extend(
+                std::fs::read_dir(&path)
+                    .into_iter()
+                    .flatten()
+                    .flatten()
+                    .map(|e| e.path()),
+            );
+        } else if meta.nlink() == 1 {
+            total += meta.blocks() * 512;
+        }
+    }
+    total
+}
+
+#[derive(Default, Debug)]
+pub struct Sweep {
+    pub removed: usize,
+    pub kept: usize,
+    pub busy: usize,
+    pub failed: usize,
+    pub bytes: u64,
+}
+
+/// Removes the cargo units under `target` that no build has read since `cutoff`, holding each
+/// profile's cargo locks and passing over a profile a build holds. Top-level binaries and dep-info stay.
+pub fn sweep(target: &Path, cutoff: f64, apply: bool) -> Result<Sweep> {
+    let mut sweep = Sweep::default();
+    for profile in profiles(target) {
+        let locks = LOCKS
+            .iter()
+            .map(|name| {
+                std::fs::OpenOptions::new()
+                    .create(true)
+                    .append(true)
+                    .open(profile.join(name))
+            })
+            .collect::<std::io::Result<Vec<_>>>()?;
+        if locks.iter().any(|lock| lock.try_lock().is_err()) {
+            println!("  in use        {}", profile.display());
+            sweep.busy += 1;
+            continue;
+        }
+        let mut read = HashMap::new();
+        for entry in std::fs::read_dir(profile.join(".fingerprint"))?.flatten() {
+            let name = entry.file_name().to_string_lossy().into_owned();
+            if let Some(hash) = unit_hash(&name) {
+                read.insert(hash.to_owned(), last_read(&entry.path()));
+            }
+        }
+        let (removed, mut bytes) = (sweep.removed, 0);
+        sweep.kept += read.values().filter(|&&t| t >= cutoff).count();
+        sweep.removed += read.values().filter(|&&t| t < cutoff).count();
+        for dir in UNIT_DIRS {
+            let Ok(entries) = std::fs::read_dir(profile.join(dir)) else {
+                continue;
+            };
+            for entry in entries.flatten() {
+                let name = entry.file_name().to_string_lossy().into_owned();
+                let Some(hash) = unit_hash(&name) else {
+                    continue;
+                };
+                let path = entry.path();
+                let when = read.get(hash).copied().unwrap_or_else(|| {
+                    std::fs::symlink_metadata(&path).map_or(f64::MAX, |meta| touched(&meta))
+                });
+                if when >= cutoff {
+                    continue;
+                }
+                let size = freed(&path);
+                if apply {
+                    let result = if entry.file_type().is_ok_and(|t| t.is_dir()) {
+                        std::fs::remove_dir_all(&path)
+                    } else {
+                        std::fs::remove_file(&path)
+                    };
+                    if let Err(error) = result {
+                        println!("  failed        {}: {error}", path.display());
+                        sweep.failed += 1;
+                        continue;
+                    }
+                }
+                bytes += size;
+            }
+        }
+        println!(
+            "  {}  {:9.1} MB  {} unit(s) in {}",
+            if apply { "deleted" } else { "would delete" },
+            bytes as f64 / 1e6,
+            sweep.removed - removed,
+            profile.display()
+        );
+        sweep.bytes += bytes;
+    }
+    Ok(sweep)
 }
 
 pub fn units(cache: &Path) -> Result<Vec<(String, PathBuf)>> {
@@ -162,17 +336,19 @@ pub fn collect(cache: &Path, days: f64, apply: bool, now: f64) -> Result<Summary
 }
 pub fn cli(root: &Path, args: &[String]) -> Result<i32> {
     let mut cache = root.join(".cache");
+    let mut target = root.join("tools/hsm/target");
     let mut days = 3.;
     let mut apply = false;
     let mut args = args.iter();
     while let Some(arg) = args.next() {
         match arg.as_str() {
             "--cache" => cache = PathBuf::from(args.next().context("--cache needs a path")?),
+            "--target" => target = PathBuf::from(args.next().context("--target needs a path")?),
             "--days" => days = args.next().context("--days needs a duration")?.parse()?,
             "--apply" => apply = true,
             "--help" | "-h" => {
                 println!(
-                    "repo-tools cache-gc [--cache path] [--days duration] [--apply]\nThe default lists expired scratch; --apply deletes it. Shared geometry memo and installed runtime caches remain."
+                    "repo-tools cache-gc [--cache path] [--target path] [--days duration] [--apply]\nThe default lists expired scratch and the cargo units no build has read lately; --apply deletes them. Shared geometry memo and installed runtime caches remain."
                 );
                 return Ok(0);
             }
@@ -180,24 +356,47 @@ pub fn cli(root: &Path, args: &[String]) -> Result<i32> {
         }
     }
     let stamp = date(crate::now(), "%Y-%m-%d %H:%M:%S");
-    if !cache.is_dir() {
+    let verb = if apply { "freed" } else { "would free" };
+    let mut failed = 0;
+    if cache.is_dir() {
+        let summary = collect(&cache, days, apply, crate::now())?;
+        println!(
+            "{stamp} :: .cache {verb} {:.2} GB in {} unit(s); {} kept{}",
+            summary.bytes as f64 / 1e9,
+            summary.removed,
+            summary.kept,
+            if summary.failed > 0 {
+                format!("; {} failed", summary.failed)
+            } else {
+                String::new()
+            }
+        );
+        failed += summary.failed;
+    } else {
         println!("{stamp} :: {} does not exist", cache.display());
-        return Ok(0);
     }
-    let summary = collect(&cache, days, apply, crate::now())?;
-    println!(
-        "{stamp} :: .cache {} {:.2} GB in {} unit(s); {} kept{}",
-        if apply { "freed" } else { "would free" },
-        summary.bytes as f64 / 1e9,
-        summary.removed,
-        summary.kept,
-        if summary.failed > 0 {
-            format!("; {} failed", summary.failed)
-        } else {
-            String::new()
-        }
-    );
-    Ok(i32::from(summary.failed > 0))
+    if target.is_dir() {
+        let swept = sweep(&target, crate::now() - UNIT_DAYS * 86400., apply)?;
+        println!(
+            "{stamp} :: {} {verb} {:.2} GB in {} unit(s); {} kept{}{}",
+            target.strip_prefix(root).unwrap_or(&target).display(),
+            swept.bytes as f64 / 1e9,
+            swept.removed,
+            swept.kept,
+            if swept.busy > 0 {
+                format!("; {} profile(s) in use", swept.busy)
+            } else {
+                String::new()
+            },
+            if swept.failed > 0 {
+                format!("; {} failed", swept.failed)
+            } else {
+                String::new()
+            }
+        );
+        failed += swept.failed;
+    }
+    Ok(i32::from(failed > 0))
 }
 
 #[cfg(test)]
@@ -274,5 +473,58 @@ mod tests {
         assert!(!link.exists());
         assert_eq!(std::fs::read(target).unwrap(), b"ready print");
         std::fs::remove_dir_all(root).unwrap();
+    }
+    fn read_at(path: &Path, at: f64) {
+        std::fs::create_dir_all(path.parent().unwrap()).unwrap();
+        std::fs::write(path, b"unit").unwrap();
+        let at = UNIX_EPOCH + std::time::Duration::from_secs_f64(at);
+        std::fs::File::open(path)
+            .unwrap()
+            .set_times(std::fs::FileTimes::new().set_accessed(at).set_modified(at))
+            .unwrap();
+    }
+    #[test]
+    fn sweep_drops_units_no_build_read() {
+        let root = temp();
+        let (now, old) = (crate::now(), crate::now() - 5. * 86400.);
+        let profile = root.join("release");
+        read_at(&profile.join(".fingerprint/gone-0123456789abcdef/lib-gone"), old);
+        read_at(&profile.join("deps/libgone-0123456789abcdef.rlib"), old);
+        read_at(&profile.join("build/gone-0123456789abcdef/out/generated.rs"), old);
+        read_at(&profile.join(".fingerprint/live-fedcba9876543210/lib-live"), now);
+        read_at(&profile.join("deps/liblive-fedcba9876543210.rlib"), old);
+        read_at(&profile.join("live"), old);
+        read_at(&profile.join("live.d"), old);
+        let swept = sweep(&root, now - 86400., true).unwrap();
+        assert_eq!((swept.removed, swept.kept, swept.busy), (1, 1, 0));
+        assert!(!profile.join(".fingerprint/gone-0123456789abcdef").exists());
+        assert!(!profile.join("deps/libgone-0123456789abcdef.rlib").exists());
+        assert!(!profile.join("build/gone-0123456789abcdef").exists());
+        assert!(profile.join("deps/liblive-fedcba9876543210.rlib").is_file());
+        assert!(profile.join("live").is_file() && profile.join("live.d").is_file());
+        std::fs::remove_dir_all(root).unwrap();
+    }
+    #[test]
+    fn sweep_passes_over_a_profile_a_build_holds() {
+        let root = temp();
+        let old = crate::now() - 5. * 86400.;
+        let profile = root.join("release");
+        read_at(&profile.join(".fingerprint/gone-0123456789abcdef/lib-gone"), old);
+        read_at(&profile.join("deps/libgone-0123456789abcdef.rlib"), old);
+        let build = std::fs::File::create(profile.join(".cargo-build-lock")).unwrap();
+        build.lock().unwrap();
+        let swept = sweep(&root, crate::now() - 86400., true).unwrap();
+        assert_eq!((swept.removed, swept.busy), (0, 1));
+        assert!(profile.join("deps/libgone-0123456789abcdef.rlib").is_file());
+        drop(build);
+        std::fs::remove_dir_all(root).unwrap();
+    }
+    #[test]
+    fn unit_hash_reads_the_name_suffix() {
+        assert_eq!(unit_hash("libhsm_kernel-00844a35c28df087.rlib"), Some("00844a35c28df087"));
+        assert_eq!(unit_hash("hsm-kernel-00844a35c28df087"), Some("00844a35c28df087"));
+        assert_eq!(unit_hash("cafe-deadbeefdeadbeef-00844a35c28df087.d"), Some("00844a35c28df087"));
+        assert_eq!(unit_hash("hsm_kernel-1x2y3z"), None);
+        assert_eq!(unit_hash("hsm"), None);
     }
 }
