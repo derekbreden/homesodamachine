@@ -1041,6 +1041,14 @@
       "purchase_id": "pur-9c16202031204275b3442cf21ec316be"
     },
     {
+      "allocation_id": "alloc-9ba3a70a3c0b41649fbf4e8c2d6e2125",
+      "amount_minor": 389900,
+      "currency": "USD",
+      "event_id": "evt-0dd1678555e5406590e6b25b16d55d75",
+      "order_id": "xlaserlab:XLaserlab3271",
+      "purchase_id": "pur-c3762dd3108646668a81c4ce2e3943cc"
+    },
+    {
       "allocation_id": "alloc-9bbbba5d2a17448193cce0e13b1aa618",
       "amount_minor": 20000,
       "currency": "USD",
@@ -1743,6 +1751,26 @@
       ],
       "stream": "project procurement records",
       "vendor": "Howdy Brewer"
+    },
+    {
+      "checked_at": "2026-11-11",
+      "complete_period": null,
+      "coverage": "partial",
+      "coverage_id": "coverage-07575d26f1b2453ba683076fe7b7fa9c",
+      "evidence_type": "paid_receipt_invoice",
+      "examined_period": {
+        "end": "2026-04-06",
+        "start": "2026-04-05"
+      },
+      "note": "The named confirmation email and both linked receipt/invoice documents were examined; both links resolve to the same paid document, recorded once. It confirms purchase value and payment, with a distinct April 5 receipt/invoice date. The separately recorded April 6 order date is preserved rather than replaced by a document date. A separate merchant charge day and broader account coverage remain unestablished.",
+      "order_ids": [
+        "xlaserlab:XLaserlab3271"
+      ],
+      "source_ids": [
+        "src-160558b7bebd452282f9f257cfb1cbca"
+      ],
+      "stream": "one named X1 Pro purchase",
+      "vendor": "XLaserlab"
     },
     {
       "checked_at": "2026-11-10",
@@ -3966,6 +3994,38 @@
       ],
       "unallocated_to_purchase_minor": 0,
       "vendor": "Amazon",
+      "verified_at": "2026-11-11"
+    },
+    {
+      "allocation_ids": [
+        "alloc-9ba3a70a3c0b41649fbf4e8c2d6e2125"
+      ],
+      "allocation_status": "all_project",
+      "amount_minor": 389900,
+      "confirmation": "confirmed",
+      "currency": "USD",
+      "event_date": null,
+      "event_id": "evt-0dd1678555e5406590e6b25b16d55d75",
+      "event_type": "charge",
+      "invoice_date": {
+        "precision": "day",
+        "value": "2026-04-05"
+      },
+      "order_ids": [
+        "xlaserlab:XLaserlab3271"
+      ],
+      "purchase_ids": [
+        "pur-c3762dd3108646668a81c4ce2e3943cc"
+      ],
+      "receipt_date": {
+        "precision": "day",
+        "value": "2026-04-05"
+      },
+      "source_ids": [
+        "src-160558b7bebd452282f9f257cfb1cbca"
+      ],
+      "unallocated_to_purchase_minor": 0,
+      "vendor": "XLaserlab",
       "verified_at": "2026-11-11"
     },
     {
@@ -9592,7 +9652,7 @@
       ]
     }
   ],
-  "input_fingerprint": "sha256:001154bb39a6fcbc78deaa33d766213500e947d015d02d12c107ad77473447d5",
+  "input_fingerprint": "sha256:16b8affe6fe56b4431dcab7d1e2d25e7433a3f9111c31b67b4c5cf084c335222",
   "orders": [
     {
       "allocation_status": "all_project",
@@ -19062,7 +19122,9 @@
     },
     {
       "allocation_status": "all_project",
-      "event_ids": [],
+      "event_ids": [
+        "evt-0dd1678555e5406590e6b25b16d55d75"
+      ],
       "order_date": {
         "precision": "day",
         "value": "2026-04-06"
@@ -19073,7 +19135,8 @@
       ],
       "reference": "XLaserlab3271",
       "source_ids": [
-        "saved-xlaserlab:XLaserlab3271"
+        "saved-xlaserlab:XLaserlab3271",
+        "src-160558b7bebd452282f9f257cfb1cbca"
       ],
       "vendor": "XLaserlab"
     }
@@ -46122,17 +46185,22 @@
     },
     {
       "allocation_status": "all_project",
-      "amount_evidence": "legacy_unverified",
+      "amount_evidence": "final_vendor_amount",
       "amount_minor": 389900,
       "contributes": true,
       "currency": "USD",
       "delivery_date": null,
       "description": "XLaserlab X1 Pro 3-in-1 Laser Welder / Cleaner / Cutter — X1 Pro Ultimate Pack (incl. single wire feeder)",
-      "event_ids": [],
+      "event_ids": [
+        "evt-0dd1678555e5406590e6b25b16d55d75"
+      ],
       "fulfillment": "ACQUIRED",
-      "invoice_date": null,
+      "invoice_date": {
+        "precision": "day",
+        "value": "2026-04-05"
+      },
       "ledger_purchase_id": "pur-c3762dd3108646668a81c4ce2e3943cc",
-      "merchant_charge_allocated_minor": 0,
+      "merchant_charge_allocated_minor": 389900,
       "merchant_refund_allocated_minor": 0,
       "order_date": {
         "precision": "day",
@@ -46141,13 +46209,29 @@
       "order_ids": [
         "xlaserlab:XLaserlab3271"
       ],
-      "payment_evidence": "unknown",
+      "payment_evidence": "merchant_charge",
       "price_basis": "row_total",
+      "price_history": [
+        {
+          "amount_evidence": "legacy_unverified",
+          "amount_minor": 389900,
+          "currency": "USD",
+          "note": "Prior ledger value preserved as noncontributing history; the paid vendor receipt confirms the same amount.",
+          "source_ids": [
+            "legacy-ledger-2026",
+            "saved-xlaserlab:XLaserlab3271"
+          ],
+          "verified_at": "2026-11-11"
+        }
+      ],
       "purchase_id": "pur-c3762dd3108646668a81c4ce2e3943cc",
       "purpose": "equipment_tooling",
       "quantity": null,
       "quantity_text": "",
-      "receipt_date": null,
+      "receipt_date": {
+        "precision": "day",
+        "value": "2026-04-05"
+      },
       "record_role": "purchase",
       "row_date": {
         "precision": "day",
@@ -46158,7 +46242,8 @@
       "service_period": null,
       "source_ids": [
         "legacy-ledger-2026",
-        "saved-xlaserlab:XLaserlab3271"
+        "saved-xlaserlab:XLaserlab3271",
+        "src-160558b7bebd452282f9f257cfb1cbca"
       ],
       "split_charge": false,
       "stream": "purchase",
@@ -61094,6 +61179,28 @@
       "verified_at": "2026-10-11"
     },
     {
+      "document_date": {
+        "precision": "day",
+        "value": "2026-04-05"
+      },
+      "document_type": "paid_merchant_receipt_invoice",
+      "note": "Both merchant document links open the same Receipt / Tax Invoice XLaserlab3271 dated April 5, 2026. It identifies one X1 Pro Ultimate Pack / US Plug, SKU D02AA273, with USD 3,899.00 subtotal, USD 0.00 shipping and USD 3,899.00 total. Explicit Total paid USD 3,899.00 confirms payment. No separate transaction/payment date or placed-order date is labeled; receipt/invoice date is not used as the charge date. No separate tax line is displayed.",
+      "proves": [
+        "price",
+        "charge",
+        "receipt_date",
+        "invoice_date"
+      ],
+      "receipt_date": {
+        "precision": "day",
+        "value": "2026-04-05"
+      },
+      "reference": "XLaserlab3271 Receipt / Tax Invoice",
+      "source_id": "src-160558b7bebd452282f9f257cfb1cbca",
+      "vendor": "XLaserlab",
+      "verified_at": "2026-11-11"
+    },
+    {
       "document_date": null,
       "document_type": "merchant_order_details",
       "note": "Signed-in Mac Chrome Order Details identify ASIN B0H1D85QSD, quantity, placed date, project amount and explicit delivery date 2026-11-06.",
@@ -68399,9 +68506,9 @@
       "totals": [
         {
           "authorizations_minor": 0,
-          "charges_minor": 2168111,
+          "charges_minor": 2558011,
           "currency": "USD",
-          "net_minor": 2168111,
+          "net_minor": 2558011,
           "noncash_credits_minor": 0,
           "refunds_minor": 0,
           "unresolved_project_share_minor": 0
@@ -68410,10 +68517,11 @@
       "undated_unallocated": [
         {
           "authorizations_minor": 0,
-          "charges_minor": 174052,
+          "charges_minor": 563952,
           "currency": "USD",
           "event_ids": [
             "evt-0447af18f1f34778b9cd0f9facee2d40",
+            "evt-0dd1678555e5406590e6b25b16d55d75",
             "evt-1399a1a835ce4be3a489628c06225b33",
             "evt-1bead24454464c688dab3d4b9f2bc2bc",
             "evt-4f3044872f6347a3b95f8efefe1bae8d",
@@ -68435,7 +68543,7 @@
             "evt-c8a1b3ae1a6d4021a36b2fe4e55971e9",
             "evt-efe204a6e93f4a538e1f0a7d9274f382"
           ],
-          "net_minor": 174052,
+          "net_minor": 563952,
           "noncash_credits_minor": 0,
           "refunds_minor": 0,
           "unknown_amount_ids": [],
@@ -68603,8 +68711,8 @@
           "currency": "USD",
           "estimate_minor": 131673,
           "evidence_scope": "retrieved_records_only",
-          "final_vendor_amount_minor": 204103,
-          "legacy_unverified_minor": 907357,
+          "final_vendor_amount_minor": 594003,
+          "legacy_unverified_minor": 517457,
           "month": "2026-04",
           "purchase_ids": [
             "pur-00029069de0d454d9ad2c2c2eb5f845d",
@@ -69243,8 +69351,8 @@
         {
           "currency": "USD",
           "estimate_minor": 233010,
-          "final_vendor_amount_minor": 2502570,
-          "legacy_unverified_minor": 2288208,
+          "final_vendor_amount_minor": 2892470,
+          "legacy_unverified_minor": 1898308,
           "total_minor": 5023788
         }
       ],
@@ -69405,11 +69513,11 @@
         {
           "currency": "USD",
           "estimated_purchase_minor": 233010,
-          "legacy_unverified_purchase_minor": 2288208,
+          "legacy_unverified_purchase_minor": 1898308,
           "order_only_charge_allocation_minor": 6561,
           "partial_charge_purchase_minor": 0,
-          "purchases_without_merchant_charge_minor": 2862238,
-          "undated_charge_minor": 174052,
+          "purchases_without_merchant_charge_minor": 2472338,
+          "undated_charge_minor": 563952,
           "undated_refund_minor": 0,
           "undated_unallocated_purchase_minor": 975132,
           "unknown_amount_event_count": 0,
@@ -69453,6 +69561,7 @@
       "incomplete_coverage_ids": [
         "coverage-008d521abab24498bf9db4a8c5993e38",
         "coverage-013f6586dbf840c8836ae7289d9827b3",
+        "coverage-07575d26f1b2453ba683076fe7b7fa9c",
         "coverage-14e884ad6ddc4f9a98fefe64c6d6948b",
         "coverage-17d84ca75543489fb09003261546862a",
         "coverage-1878a530d362418e8ecdb144070b9ac9",
@@ -69912,7 +70021,6 @@
         "pur-c236a1fde9dc4036911e3ac588e4571a",
         "pur-c2989eb14f024256babfd3912e142609",
         "pur-c31eddcc31554604ae1cf85fb16d9536",
-        "pur-c3762dd3108646668a81c4ce2e3943cc",
         "pur-c42545bec1f74aa8b33c3976c8988412",
         "pur-c444ea7f58834964b05cf2a767596f98",
         "pur-c630840aeb274ece80243d4499e26364",
@@ -70426,7 +70534,6 @@
         "pur-c236a1fde9dc4036911e3ac588e4571a",
         "pur-c2989eb14f024256babfd3912e142609",
         "pur-c31eddcc31554604ae1cf85fb16d9536",
-        "pur-c3762dd3108646668a81c4ce2e3943cc",
         "pur-c42545bec1f74aa8b33c3976c8988412",
         "pur-c444ea7f58834964b05cf2a767596f98",
         "pur-c630840aeb274ece80243d4499e26364",
@@ -70556,6 +70663,7 @@
       ],
       "undated_unallocated_event_ids": [
         "evt-0447af18f1f34778b9cd0f9facee2d40",
+        "evt-0dd1678555e5406590e6b25b16d55d75",
         "evt-1399a1a835ce4be3a489628c06225b33",
         "evt-1bead24454464c688dab3d4b9f2bc2bc",
         "evt-4f3044872f6347a3b95f8efefe1bae8d",
@@ -70713,6 +70821,7 @@
       "16 authored evidence gap(s) remain",
       "coverage-008d521abab24498bf9db4a8c5993e38: evidence coverage is unknown",
       "coverage-013f6586dbf840c8836ae7289d9827b3: evidence coverage is partial",
+      "coverage-07575d26f1b2453ba683076fe7b7fa9c: evidence coverage is partial",
       "coverage-14e884ad6ddc4f9a98fefe64c6d6948b: evidence coverage is partial",
       "coverage-17d84ca75543489fb09003261546862a: evidence coverage is unknown",
       "coverage-1878a530d362418e8ecdb144070b9ac9: evidence coverage is partial",
