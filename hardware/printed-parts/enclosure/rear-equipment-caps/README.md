@@ -115,8 +115,15 @@ binds the shared profile and receiver clearances to the production solids.
 
 The standalone STEP and STL files use the print frame, with one axial end
 on Z0 and spring bending within the layer plane. The appliance uses their installed frames.
-Use the shared PET-GF Tree(auto)/Default support policy. These fits describe
-the modeled assembly; snap force and fatigue remain physical properties.
+The [cap plate recipe](../trial-preparation/pieces.json) uses the shared dense PET-GF
+interface at accessible contacts. The regulator's [local contact selection](contact.json)
+follows the fitted body-to-neck transition from the complete cap mesh.
+Its clearance below the roof keeps the curved bead edges separated at the dense interface.
+The ASSE cap uses the native dense interface and the surrounding model stock
+to back its fitted shoulder. The meter's narrow port shoulder bridges with its
+opening clear, and the Pisco cap prints without support. The
+[print-plan review](print-plan-review.json) binds the full plate and timed single
+regulator paths to the fitted solids and records the emitted gaps and bridge anchors.
 
 For an individual water-regulator cover, use the `single-regulator-cap`
 [preparation recipe](../trial-preparation/pieces.json). Its native smooth-timelapse

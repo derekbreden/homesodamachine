@@ -128,11 +128,11 @@ coupons retain this production layer direction. Ordinary layers apply except
 where a specific show round requires a fine band.
 Covered rear bulkhead bores and horizontal valve sockets retain teardrop
 clearances pointing in the build direction. The vent cap has a rooted chamfer;
-its passage stays clear of supports. Accessible rail and exterior features use
-manual Tree Slim selected by the native accessible-contact regions, with their
-actual removal openings inspected in the native slice.
-Those regions include exposed joint ends, funnel receivers,
-the valve seat, initial boss curves and routing lands. Keep blind pilot roofs
+its passage stays clear of supports. Back-top's rail caps have narrow removable
+roots on their own cavity floors. The exterior nameplate panel follows both
+receiver ledges and pulls aft. Manual Tree Slim supports exposed joint ends,
+funnel receivers, the valve seat, initial boss curves and routing lands. Read the
+actual removal openings and first model courses in the native slice. Keep blind pilot roofs
 outside support enforcers. Connector insertion pockets bridge between their well
 walls and remain support-free. Read each exposed underside's first deposited courses
 and its actual support contacts; the support topology alone does not establish

@@ -51,6 +51,8 @@ Print the exported orientation without supports. The bounding envelope is
 0.24 mm layers is the primary print: use at least six walls and a dense core.
 A 0.2 mm nozzle at 0.12 mm layers uses the same solid. The handle's complete
 underside is the bed face; add a brim only if the printer needs one.
+The [collet-press production recipe](../enclosure/trial-preparation/README.md)
+prepares the shipped press on its flat handle.
 
 ## Use
 

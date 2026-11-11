@@ -36,7 +36,7 @@
       "settings": {
         "support_object_xy_distance": {
           "value": "0.5",
-          "reason": "Tree-trunk arches on front-top's top-facing seam land (v17 article). Front-top only; bottom Z 0.30 mm, top Z 0.45 mm and branch dimensions keep their profile values. enclosure/enclosure/support-bottom-gap/README.md."
+          "reason": "Leave lateral clearance where the tree trunks rise past the front-top's seam land. The shared Support D profile sets the vertical interface gaps."
         },
         "support_style": {
           "value": "tree_slim",
@@ -153,10 +153,10 @@
       "material": "Polymaker Fiberon PET-GF15, black",
       "plate_offset_mm": {
         "value": [
-          -4.9,
+          -2.5,
           0.0
         ],
-        "reason": "Center the asymmetric external tree envelope of the ceiling-down enclosure inside the usable bed border."
+        "reason": "Center the ceiling-down enclosure and exterior nameplate panel inside the usable bed border."
       },
       "settings": {
         "max_bridge_length": {
@@ -168,8 +168,8 @@
           "reason": "Lower tree trunks retain their base diameter."
         },
         "tree_support_branch_diameter": {
-          "value": "3",
-          "reason": "Keep the exterior tree trunks beside the rear wall and outside the protected cord passage."
+          "value": "1.4",
+          "reason": "Keep the exposed native branches compact and clear of the fitted passages."
         },
         "elefant_foot_compensation": {
           "value": "0",
@@ -180,23 +180,23 @@
           "reason": "Cavity supports must be branching trees that can be removed through their access openings."
         },
         "support_on_build_plate_only": {
-          "value": "1",
-          "reason": "Retain the back-top bed-rooted native trees; the meter uses authored removable branches beside the plumbing."
+          "value": "0",
+          "reason": "Allow roots at accessible model landings. Separate breakaway rail supports start on their own cavity floors."
         },
         "tree_support_branch_angle": {
-          "value": "10",
-          "reason": "Keep exterior trunks beside the rear wall and clear of the protected cord passage."
+          "value": "0",
+          "reason": "Keep the compact native support columns vertical in their open removal lanes."
         },
         "support_object_xy_distance": {
           "value": "0.5",
           "reason": "Separate removable exterior trees from the C14 passage and its adjacent surfaces."
         },
         "raft_first_layer_expansion": {
-          "value": "1.25",
-          "reason": "Retain the saved tree-root brims; the emitted bead envelope requires native placement review."
+          "value": "0.5",
+          "reason": "Fit the native tree feet and exterior nameplate panel within the usable bed border."
         },
         "tree_support_branch_distance": {
-          "value": "8",
+          "value": "3",
           "reason": "Space the tree tips beneath accessible surfaces while the interface layers spread their contact."
         },
         "resolution": {
@@ -215,7 +215,11 @@
         },
         "support_type": {
           "value": "tree(manual)",
-          "reason": "Request the accessible source-authored contacts while keeping contact targets away from inaccessible receiver pockets and the cord passage; read branch routing from the native archive."
+          "reason": "Apply dense native interfaces beneath accessible joint, funnel, valve and routing contacts."
+        },
+        "tree_support_wall_count": {
+          "value": "1",
+          "reason": "Keep the vertical branches narrow enough to remain beside their removal lanes."
         }
       },
       "parts": [
@@ -248,10 +252,10 @@
               "reason": "Back-top's roof side edges print on the bed as the additive 0.24 mm treatment. print-readiness.md; printed-parts/AGENTS.md."
             },
             {
-              "name": "Rear inaccessible features",
+              "name": "Rear support and bridge regions",
               "kind": "native_support_free",
               "record": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.print-features.json",
-              "reason": "Receiver bridges, covered bulkhead roofs, valve sockets and vent lip must not grow trapped supports."
+              "reason": "Support the exposed ledges and sliding bearings. Receiver pockets, covered bulkhead roofs, valve sockets and the vent lip bridge clear."
             }
           ]
         }
@@ -393,7 +397,7 @@
                 90
               ]
             ],
-            "reason": "Y-end down keeps the X/Z spring bending plane within each layer."
+            "reason": "Y-end down leaves the screw openings sideways, with their short roofs bridged and the head seats clear."
           },
           "regions": "pump-retainer"
         }
@@ -401,15 +405,15 @@
       "settings": {
         "wall_loops": {
           "value": "3",
-          "reason": "Shared snap trial: three Classic walls through the 2.0 mm spring leaves."
+          "reason": "Keep the saved perimeter stock around the pump flange bearing and screw seats."
         },
         "wall_generator": {
           "value": "classic",
-          "reason": "Shared snap fixed-width wall recipe."
+          "reason": "Use the saved fixed-width perimeter recipe through the bearing and screw openings."
         },
         "support_style": {
           "value": "tree_slim",
-          "reason": "Branching supports in the pump-mount cavities. Derek reports that the rectangular cavity supports are very difficult to remove."
+          "reason": "The current sideways openings bridge clear in this pose. Keep the saved Tree Slim setting for removable supports at accessible surfaces."
         }
       }
     },
@@ -543,6 +547,45 @@
       ],
       "pose_reason": "As exported: the flat back of the D on the plate, the channel's teardrop point up (the accepted article's print_pose)."
     },
+    "collet-press": {
+      "printer": "Mark2",
+      "nozzle": {
+        "side": "left",
+        "diameter_mm": 0.4,
+        "flow": "Standard",
+        "hardened": true,
+        "reason": "Use Mark2's fixed left hardened Standard nozzle for abrasive PET-GF."
+      },
+      "material": "Polymaker Fiberon PET-GF15, black",
+      "settings": {
+        "wall_loops": {
+          "value": "6",
+          "reason": "The fork and handle use the structural perimeter count in collet-press/README.md."
+        },
+        "sparse_infill_density": {
+          "value": "100%",
+          "reason": "Retain the solid core of the shipped press specified in the printed-parts BOM."
+        },
+        "sparse_infill_pattern": {
+          "value": "zig-zag",
+          "reason": "Use the continuous solid-fill pattern."
+        },
+        "enable_support": {
+          "value": "0",
+          "reason": "The rising fork is self-supporting in its exported pose."
+        },
+        "brim_type": {
+          "value": "no_brim",
+          "reason": "The full underside of the handle bears on the plate."
+        }
+      },
+      "parts": [
+        {
+          "stl": "hardware/printed-parts/collet-press/collet-press.stl"
+        }
+      ],
+      "pose_reason": "Use the exported pose with the handle flat on the bed and the fork rising from it."
+    },
     "foam-shell": {
       "printer": "Mark2",
       "nozzle": {
@@ -568,7 +611,7 @@
         },
         "enable_support": {
           "value": "1",
-          "reason": "Tree(auto)/Default decides support at the round copper passages and blind insert roofs; native support placement is reviewed for this production geometry."
+          "reason": "Allow removable support at accessible surfaces. The blind insert recesses, screw-tail recesses and short copper passages use their own roof geometry or bridge across their walls."
         },
         "outer_wall_speed": {
           "value": [
@@ -632,11 +675,11 @@
         },
         "support_type": {
           "value": "tree(auto)",
-          "reason": "Tree(auto)/Default decides support at the round copper passages and blind insert roofs; native support placement is reviewed for this production geometry."
+          "reason": "Generate branches only where the native overhang reading requests accessible support."
         },
         "support_style": {
           "value": "default",
-          "reason": "Tree(auto)/Default decides support at the round copper passages and blind insert roofs; native support placement is reviewed for this production geometry."
+          "reason": "Use the saved automatic tree style for accessible supports."
         },
         "filament_density": {
           "value": [
@@ -742,8 +785,8 @@
           "reason": "Tree(auto)/Default supports the WAGO well end walls, pump spring pockets and other receiving ceilings where needed. The B-fill guide uses a plain clearance window. Retain native automatic support choices outside the one scoped aft tie-passage blocker."
         },
         "raft_first_layer_expansion": {
-          "value": "0.5",
-          "reason": "Limit the initial support-foot flange for this wide lid while retaining Tree(auto)/Default, support contacts and branch diameters."
+          "value": "0",
+          "reason": "Omit the extra support-foot flange so the complete bead envelope stays inside the required bed border. Retain accessible support contacts and branch geometry."
         },
         "tree_support_branch_angle": {
           "value": "10",
@@ -792,6 +835,25 @@
       }
     },
     "labels": {
+      "printer": "Mark1",
+      "nozzle": {
+        "side": "both",
+        "diameter_mm": 0.2,
+        "flow": "Standard",
+        "hardened": false,
+        "reason": "The accepted identification project uses black PETG Basic on the left and the white, blue, red and translucent PETG hotends on the right."
+      },
+      "material": "Bambu PETG Basic and clear Bambu PETG Translucent",
+      "external": {
+        "command": [
+          "tools/hsm/target/release/enclosure-labels",
+          "--mark1-identification",
+          "--slice"
+        ],
+        "reason": "The production rear chips, nameplate and status plate use the accepted Mark1 bed, fine nozzles and side-specific trim."
+      }
+    },
+    "tube-collars": {
       "printer": "Mark2",
       "nozzle": {
         "side": "both",
@@ -800,13 +862,14 @@
         "hardened": true,
         "reason": "Two-colour PET-GF: white on the left 0.4 mm, the plate's colour on the right 0.4 mm, with Mark2's measured right-nozzle registration (calibration/dual-nozzle-registration/mark2-registration.json)."
       },
-      "material": "Polymaker Fiberon PET-GF15, white with black, blue, red or black",
+      "material": "Polymaker Fiberon PET-GF15 in black, white, blue and red",
       "external": {
         "command": [
           "tools/hsm/target/release/enclosure-labels",
+          "--collars-only",
           "--slice"
         ],
-        "reason": "Six rear chips, six tube collars and nameplate 0001 on four two-colour plates; each part's body and lettering are the two solids its generator writes beside its STEP."
+        "reason": "Each collar colour gets its own PET-GF plate, with the bores clear of support."
       }
     },
     "funnel-cover": {
@@ -862,6 +925,7 @@
       "material": "Siraya Tech Flex TPU 85A, clear",
       "archive": {
         "path": "future/pump-elbow-exploration/prints/2026-10-16-deposited-links-siraya85a-mark1/2026-10-16-elbows-deposited-links-siraya85a-right06-z000-mark1.gcode.3mf",
+        "source_commit": "33d50d2ecd2a0fb6b518483a44c8031e3a0c1617",
         "sha256": "e48038ec34adf03cdd635e53f4359348f1e0a787a8056a7b523d055d82b898e7",
         "reason": "Use the processed archive directly; reslicing loses the deposited links (diaphragm-pump-sleeve/README.md). Accepted as the 2026-10-22 Mark2 pair (D-56)."
       }
@@ -964,7 +1028,7 @@
         "hardened": false,
         "reason": "The 2026-10-08 flat gasket plate: Mark2's right 0.6 mm, external slot 255 (prototype-gaskets-2026-10-08/README.md)."
       },
-      "material": "Bambu TPU 85A, black (the 2026-10-08 plate's stock; display-gasket/README.md and bom.md name TPU 90A)",
+      "material": "Bambu TPU 85A, black",
       "profile": "hardware/printed-parts/prototype-gaskets-2026-10-08/projects/2026-10-08-prototype-flat-gaskets-tpu85a-right06-mark2.3mf",
       "spacing_mm": 3,
       "filament_mapping": {
@@ -983,19 +1047,93 @@
         {
           "stl": "hardware/printed-parts/cold-core/reservoir/reservoir-gasket.stl",
           "quantity": 2
+        }
+      ],
+      "pose_reason": "The reservoir gaskets lie flat as exported. Flip one to fit the opposite reservoir (prototype-gaskets-2026-10-08/README.md).",
+      "spacing_reason": "TPU objects stay close to shorten travel between extrusion stops and starts; the compact retry used a 2 mm model gap (tools/bambu-printers.md, Placement on unseasoned plates)."
+    },
+    "display-gasket": {
+      "printer": "Mark2",
+      "nozzle": {
+        "side": "right",
+        "diameter_mm": 0.6,
+        "flow": "Standard",
+        "hardened": false,
+        "reason": "Use the proven Bambu TPU 90A flat seal profile on the fixed right nozzle."
+      },
+      "material": "Bambu TPU 90A, black",
+      "profile": "hardware/printed-parts/prototype-gaskets-2026-10-08/white90-faucet/2026-10-08-faucet-counter-gasket-white-tpu90a-right06-engineering-mark2.3mf",
+      "z_trim_mm": {
+        "value": 0,
+        "reason": "The TPU 90A profile uses the glued Engineering Plate with no added user Z trim."
+      },
+      "filament_mapping": {
+        "value": {
+          "support_filament": "2",
+          "support_interface_filament": "2",
+          "flush_into_support": "0"
         },
-        {
-          "stl": "hardware/printed-parts/cold-core/reservoir/reservoir-retaining-ring.stl",
-          "quantity": 2
-        },
+        "reason": "Use the single black TPU spool on the fixed right nozzle. The solid seal uses no support."
+      },
+      "filament_colour": {
+        "value": "#161616",
+        "reason": "The black gasket disappears behind the machine display cover."
+      },
+      "parts": [
         {
           "stl": "hardware/printed-parts/enclosure/display-gasket/display-gasket.stl"
         }
       ],
-      "pose_reason": "As exported: each seal is a flat 1 or 2 mm sheet in its own frame. The reservoir gasket is symmetric in Y; flip one to fit the opposite reservoir (prototype-gaskets-2026-10-08/README.md).",
-      "spacing_reason": "TPU objects stay close to shorten travel between extrusion stops and starts; the compact retry used a 2 mm model gap (tools/bambu-printers.md, Placement on unseasoned plates)."
+      "pose_reason": "The flat seal lies on its full face as exported."
     },
-    "small-petg": {
+    "reservoir-grips": {
+      "printer": "Mark2",
+      "nozzle": {
+        "side": "right",
+        "diameter_mm": 0.6,
+        "flow": "Standard",
+        "hardened": false,
+        "reason": "Use the proven white Bambu TPU profile on the fixed right nozzle."
+      },
+      "material": "Bambu TPU 90A, white",
+      "profile": "hardware/printed-parts/prototype-gaskets-2026-10-08/white90-faucet/2026-10-08-faucet-counter-gasket-white-tpu90a-right06-engineering-mark2.3mf",
+      "spacing_mm": 2,
+      "z_trim_mm": {
+        "value": 0,
+        "reason": "The white TPU profile uses the glued Engineering Plate with no added user Z trim."
+      },
+      "filament_mapping": {
+        "value": {
+          "support_filament": "2",
+          "support_interface_filament": "2",
+          "flush_into_support": "0"
+        },
+        "reason": "Use the single white TPU spool on the fixed right nozzle."
+      },
+      "filament_colour": {
+        "value": "#FFFFFF",
+        "reason": "Use the white TPU filament in the glued Engineering Plate profile."
+      },
+      "settings": {
+        "brim_type": {
+          "value": "no_brim",
+          "reason": "Keep the tube-grip bores clear and the grip edges free of attached brim."
+        }
+      },
+      "parts": [
+        {
+          "stl": "hardware/printed-parts/cold-core/reservoir/reservoir-tube-grip.stl",
+          "quantity": 4
+        },
+        {
+          "stl": "hardware/printed-parts/cold-core/reservoir/reservoir-air-grip.stl",
+          "quantity": 2
+        }
+      ],
+      "pose_reason": "As exported with the tube bores upright and the broad flange on the bed. Leave the bores clear for tube insertion.",
+      "spacing_reason": "Keep the TPU objects close to reduce travel between stops and starts."
+    },
+    "cold-core-petg": {
       "printer": "Mark1",
       "nozzle": {
         "side": "left",
@@ -1033,7 +1171,45 @@
               ]
             ]
           }
+        }
+      ],
+      "pose_reason": "Shroud stands on the closed cap with the axial cavity open upward. Reed bridge stands on the outer convex face to bridge the lead groove.",
+      "settings": {
+        "bridge_flow": {
+          "value": "1",
+          "reason": "Retain the selected PETG Basic bridge process from the native black PETG cover profile."
         },
+        "bridge_speed": {
+          "value": ["50", "50", "50", "50", "50"],
+          "reason": "Retain the selected PETG Basic bridge process from the native black PETG cover profile."
+        },
+        "filament_bridge_speed": {
+          "value": ["25", "25", "25"],
+          "reason": "Retain the selected PETG Basic bridge process from the native black PETG cover profile."
+        },
+        "enable_support": {
+          "value": "0",
+          "reason": "The shroud's axial cavity opens upward and its radial vent crown has clearance for bridging. The reed bridge's lead groove is sized to bridge with clearance for the retained strands; leave the reed seats and groove clear."
+        }
+      }
+    },
+    "small-petg": {
+      "printer": "Mark1",
+      "nozzle": {
+        "side": "left",
+        "diameter_mm": 0.4,
+        "flow": "Standard",
+        "hardened": false,
+        "reason": "PETG on the left 0.4 mm, as the black PETG funnel cover (hardware/ledger/machine-time.md)."
+      },
+      "material": "Bambu PETG Basic, black",
+      "filament_from": "hardware/printed-parts/zone-c/funnel-cover/funnel-cover-petg.3mf",
+      "filament_colour": {
+        "value": "#000000",
+        "reason": "Black PETG, the funnel cover's spool."
+      },
+      "spacing_mm": 10,
+      "parts": [
         {
           "stl": "hardware/printed-parts/refrigeration/fuse-clamp/fuse-clamp.stl",
           "pose": {
@@ -1046,7 +1222,21 @@
           }
         }
       ],
-      "pose_reason": "PRV shroud: the closed cap on the bed, the cavity opening upward (prv-shroud/README.md). Reed bridge: the outer convex face down (reed-bridge/README.md). Fuse clamp: on its side, the swept profile face (refrigeration/fuse-clamp/README.md)."
+      "pose_reason": "Fuse clamp stands on its swept profile face.",
+      "settings": {
+        "enable_support": {
+          "value": "0",
+          "reason": "The swept profile stands on its side and the two short closures bridge."
+        },
+        "bridge_flow": {
+          "value": "1",
+          "reason": "Use the established PETG bridge flow with the black PETG filament preset."
+        },
+        "bridge_speed": {
+          "value": ["50", "50", "50", "50", "50"],
+          "reason": "Retain the process bridge speed for PETG with its stock filament bridge override."
+        }
+      }
     },
     "factory-petg": {
       "printer": "Mark1",
@@ -1075,6 +1265,7 @@
       "pose_reason": "As exported: the mandrel stands on its end face; the setting gauge on its 362 mm2 Z-4 face."
     },
     "single-regulator-cap": {
+      "nonplanar_contacts": "hardware/printed-parts/enclosure/rear-equipment-caps/contact.json",
       "printer": "Mark2",
       "nozzle": {
         "side": "left",
@@ -1150,6 +1341,7 @@
       }
     },
     "rear-equipment-caps": {
+      "nonplanar_contacts": "hardware/printed-parts/enclosure/rear-equipment-caps/contact.json",
       "printer": "Mark2",
       "nozzle": {
         "side": "left",
@@ -1174,7 +1366,13 @@
         },
         {
           "name": "meter-snap-cap",
-          "stl": "hardware/printed-parts/enclosure/rear-equipment-caps/meter-snap-cap.stl"
+          "stl": "hardware/printed-parts/enclosure/rear-equipment-caps/meter-snap-cap.stl",
+          "object_settings": {
+            "enable_support": {
+              "value": "0",
+              "reason": "Bridge the narrow port shoulder and leave its fitted opening clear."
+            }
+          }
         }
       ],
       "pose_reason": "Each cap stands on an axial end as exported. The 2.0 mm spring leaves bend within the printed layers; retain PET-GF Tree(auto)/Default for actual cavity ceilings.",

@@ -1256,19 +1256,70 @@
       "contact_and_bridge_values_unchanged": true
     },
     "current_project_metadata": "passed",
-    "full_back_top_native_and_supplemental_review": "hardware/printed-parts/enclosure/enclosure/prints/2026-11-10-back-top-D-coverage-mark1/support-audit.json"
+    "back_top": {
+      "source_stl_sha256": "55443c602f726c67be9705ff7e0667716bbd51adf3f6a2532599673f56234b60",
+      "project_sha256": "e8fff0d2d2aa8bbf7e2924504e76b7ae4f89c62f6c629b5f968004017d001b99",
+      "settings_sha256": "026696ca1b172ce7b0354610b5f8aa18a6545c0bb0097018bc5a66f3ac93fe18",
+      "archive_sha256": "abaacd32216989dafd31f978d5ccd94146090672c5ca9e92c39d136f1a5194e4",
+      "gcode_sha256": "5c83575f3593bc511da9b10f43a6224d8169ea1b214a5276d209488aa2dda098",
+      "prepared_archive_local": "hardware/printed-parts/enclosure/enclosure/prints/2026-11-11-back-top-support-D-mark2/2026-11-11-back-top-mark2-862659ea.gcode.3mf",
+      "canonical_project_matches_reviewed_slice_project": true,
+      "native_slice_review_passed": true,
+      "minimum_bed_margin_mm": 20.852,
+      "minimum_show_face_bead_clearance_mm": 0.221,
+      "protected_support_crossings": 0,
+      "rail_caps": {
+        "strips": 28,
+        "minimum_sampled_vertical_air_gap_mm": 0.18,
+        "removal": "Separate short caps attach by narrow necks on each rail cavity floor. The inward removal sweep is clear after severing the necks."
+      },
+      "nameplate_panel": {
+        "lower_contact_samples_with_cap": [1769, 1771],
+        "upper_contact_samples_with_cap": [1125, 1127],
+        "minimum_sampled_vertical_air_gap_mm": [0.18, 0.234],
+        "removal": "The panel follows the ledge profiles and has a clear aft removal sweep."
+      },
+      "native_inclined_contacts": {
+        "tube_seat_sampled_interface_mm2": [29.2, 29.2],
+        "relay_boss_2_sampled_interface_mm2": [29.0, 31.5],
+        "relay_boss_4_sampled_interface_mm2": [28.3, 31.5],
+        "maximum_sampled_lateral_backing_distance_mm": 0.5,
+        "disposition": "Retain the native dense contacts for these localized arcs. Each sampled first model course had useful nearby interface or deposited stock."
+      },
+      "physical_cleanup_and_fit": "Await the first full print of this plate."
+    },
+    "back_bottom": {
+      "source_stl_sha256": "43f0defbb90b5760f2f4342c26747e7f3c349057a146330c08057f61a75b2f0c",
+      "selected_archive_sha256": "a51ae0782fdfae73e859e5ab585671fa4a37cc15262c54a215a8668104587381",
+      "selected_gcode_sha256": "6fc2c7209b0a93328e4f708f128b36cf71e51a6b01f185cd615d377f2c6dd150",
+      "selected_minimum_bed_margin_mm": 21.558,
+      "selected_rail_tree_build_up_mm": 8.16,
+      "selected_rail_tree_root": "Each rail tree starts on its cavity floor.",
+      "handhold_contacts": "The exterior seam lips have dense interface roads. The rounded mouths receive ordinary tree tips.",
+      "manual_contact_comparison": {
+        "archive_sha256": "23f9b3dcf2efd0b2c10f70f63a750de9d47829f40ecec19278c6f8c53ebeec23",
+        "gcode_sha256": "d59ff21f3bee67e755efd47eae7816f2d4ce95b4ff6156dc518974d21723d905",
+        "minimum_bed_margin_mm": 21.179,
+        "west_aft_rail_bed_rooted_height_mm": 174.96,
+        "disposition": "The west aft rail tree extends to the bed. The automatic recipe preserves the proven cavity-floor removal path."
+      }
+    }
   },
-  "current_full_part": "hardware/printed-parts/enclosure/enclosure/prints/2026-11-10-back-top-D-mark1/print-job.json",
-  "current_full_part_status": "The back-top job was stopped after unsupported-ledge defects. Its replacement is not ready: native drafts fail the bed envelope or protected-passage clearance. No replacement enclosure has been sent.",
+  "current_full_part": "hardware/printed-parts/enclosure/trial-preparation/pieces.json",
+  "current_full_part_status": "The current full back-top recipe passes native bed placement and passage-clearance review. Physical cleanup and fit await its first print.",
   "historical_archives": "Preserved with their recorded process. Current editable projects require a fresh slice before their next print.",
-  "scope": "D remains the shared contact recipe. Physical acceptance covers the tested flat rail ceiling and removal access; inclined faucet release failed and remains under comparison.",
+  "scope": "D supplies the shared contact and bridge settings. Each full product selects its support roots, clearance, interface treatment and bridges from its actual contact surfaces and removal access.",
   "inclined_contact_qualification": {
-    "status": "Flat D rail acceptance remains scoped to the tested contacts. The active faucet trial bridges the insert recesses and shares a dense rim interface between fins and trees. Its physical finish and release are pending.",
+    "status": "The complete faucet bases use a connected dense tree interface and continuous nonplanar rim perimeter, with bridges over the insert shoulders and blind roofs. The complete plates passed offline path review. Physical finish and removal await full prints.",
     "default_result": "https://github.com/derekbreden/homesodamachine/blob/de202da37ef6b132a07fe1863b304381f4ccc394/hardware/print-tests/petgf-dense-roofs/D-representative-mark2/physical-result.json",
     "slim_result": "https://github.com/derekbreden/homesodamachine/blob/1fe50e4ff3209adc4afd6299082bfca21cd8511c/hardware/print-tests/petgf-dense-roofs/inclines/prints/2026-11-10-faucet-slim-mark1/physical-result/physical-result.json",
     "prepared_comparisons": "hardware/print-tests/petgf-dense-roofs/inclines/matrix.json",
     "larger_gap_result": "https://github.com/derekbreden/homesodamachine/blob/416bf47e9ded600fa3a0c7d19855d87d20b8b893/hardware/print-tests/petgf-dense-roofs/inclines/prints/2026-11-10-faucet-slim-gap048-mark1/physical-result/physical-result.json",
-    "active_nonplanar_trial": "hardware/print-tests/petgf-dense-roofs/inclines/prints/2026-11-10-faucet-nonplanar-rim-fins-mark1/print-job.json",
+    "active_nonplanar_trial": "hardware/print-tests/petgf-dense-roofs/inclines/prints/2026-11-11-faucet-trees-only-mark1/print-job.json",
+    "fin_tree_release": "https://github.com/derekbreden/homesodamachine/blob/b388123d2ac2fdc31fd091f980334b9c99443ab8/hardware/print-tests/petgf-dense-roofs/inclines/prints/2026-11-10-faucet-nonplanar-rim-fins-mark1/physical-result/physical-result.json",
+    "industrial_plate_review": "hardware/printed-parts/faucet/industrial/faucet-industrial-petgf.support-audit.json",
+    "sculpted_plate_review": "hardware/printed-parts/faucet/sculpted/production/contact-review.json",
+    "rear_cap_plate_review": "hardware/printed-parts/enclosure/rear-equipment-caps/print-plan-review.json",
     "nonplanar_smaller_gap_result": "https://github.com/derekbreden/homesodamachine/blob/b06ab316f6c796a314a30f0dc8ffda66113b2e4e/hardware/print-tests/petgf-dense-roofs/inclines/prints/2026-11-10-faucet-nonplanar-gap024-widebands-mark1/physical-result/physical-result.json"
   },
   "current_full_parts": {

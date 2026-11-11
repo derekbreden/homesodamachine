@@ -15,6 +15,7 @@ path = "../../../hardware/print-tests/petgf-dense-roofs/inclines/prepare.rs"
 
 [dependencies]
 anyhow.workspace = true
+serde = { workspace = true, features = ["derive"] }
 serde_json.workspace = true
 sha2.workspace = true
 hsm-shared-data = { path = "../shared-data" }
@@ -26,6 +27,7 @@ hsm-enclosure-numbers = { path = "../enclosure-numbers" }
 hsm-enclosure-quadrants = { path = "../enclosure-quadrants" }
 hsm-enclosure-retainer-numbers = { path = "../enclosure-retainer-numbers" }
 hsm-aero-float-numbers = { path = "../aero-float-numbers" }
+hsm-kernel = { path = "../kernel" }
 
 [[bin]]
 name = "petgf-cooling"

@@ -115,16 +115,37 @@ fn print_features(dir: &Path, b: &spec::Box) -> Result<()> {
                 "reason":"Support the exposed sloping joint end and counterbore roof through the open front removal path; the bed-edge chamfer lies outside this contact band."}));
         }
     }
-    if let Some(receivers) = funnel::receivers(
-        &mut contact_plan, &b.inner, &b.outer, b.pack.funnel,
-        funnel::seat_z(&b.outer), quadrant::Y::Back, None,
-    ) {
-        let mut underside = receivers.bounds();
-        underside[4] = underside[5] - catalog::running();
-        underside[5] += catalog::running();
-        targets.push(json!({"name":"Accessible funnel frame receiver undersides",
-            "bounds_source_mm":underside,
-            "reason":"Support the exposed receiver undersides through each flank's open removal path, keeping their blind pilot roofs outside the target."}));
+    for row in funnel::fasteners(b.pack.funnel, funnel::seat_z(&b.outer))
+        .into_iter()
+        .filter(|row| row.col == quadrant::Y::Back)
+    {
+        let side = if row.side < 0.0 { "West" } else { "East" };
+        let r = shell::HEATSET_DIA / 2.0;
+        let (x0, x1) = if row.side < 0.0 {
+            (b.outer[0], row.x + row.host_radius)
+        } else {
+            (row.x - row.host_radius, b.outer[1])
+        };
+        let (y0, y1) = (row.y - funnel::PAD_HALF_Y, row.y + funnel::PAD_HALF_Y);
+        let (z0, z1) = (row.ledge_z - catalog::running(), row.ledge_z + catalog::running());
+        // Leave room for the slicer's expansion of a manual contact around the pilot.
+        let reserve = r + shell::WALL / 2.0 + catalog::running();
+        let (xa, xb, ya, yb) = (row.x - reserve, row.x + reserve, row.y - reserve, row.y + reserve);
+        for (edge, bounds) in [
+            ("west", [x0, xa, y0, y1, z0, z1]),
+            ("east", [xb, x1, y0, y1, z0, z1]),
+            ("front", [xa, xb, y0, ya, z0, z1]),
+            ("back", [xa, xb, yb, y1, z0, z1]),
+        ] {
+            targets.push(json!({"name":format!("{side} funnel frame receiver {edge} shoulder"),
+                "bounds_source_mm":bounds,
+                "reason":"Support the exposed shoulder through the open flank removal path while the adjacent insert pilot bridges."}));
+        }
+        regions.push(json!({"name":format!("{side} funnel frame insert pilot"),
+            "bounds_source_mm":[row.x-r,row.x+r,row.y-r,row.y+r,row.bore_bottom_z,row.insert_top_z],
+            "void_source":{"kind":"cylinder","start_mm":[row.x,row.y,row.bore_bottom_z],
+                "end_mm":[row.x,row.y,row.insert_top_z],"radius_mm":r},
+            "reason":"Bridge the blind insert pilot across its own walls while the exposed surrounding ledge receives removable support."}));
     }
     for (name, bounds) in above::pocket_regions(quadrant::Y::Back) {
         regions.push(json!({"name":name,"bounds_source_mm":bounds,
@@ -140,9 +161,15 @@ fn print_features(dir: &Path, b: &spec::Box) -> Result<()> {
     valve_underside[5] += catalog::running();
     targets.push(json!({"name":"Accessible soda valve seat underside","bounds_source_mm":valve_underside,
         "reason":"Support the cantilevered seat from its first underside course, below the protected valve sockets."}));
-    for (name,bounds) in routes::underside_support_regions(quadrant::Quadrant::BACK_TOP) {
+    for (name, mut bounds) in routes::underside_support_regions(quadrant::Quadrant::BACK_TOP) {
+        let reason = if name == "Accessible cable hook 1 land 5" {
+            bounds[3] = bounds[3].min(325.0);
+            "Support the open side of the cable hook and keep the vertical path fore of the inlet-valve socket."
+        } else {
+            "Support the accessible outer contact land while leaving the fitted bore roof outside the target."
+        };
         targets.push(json!({"name":name,"bounds_source_mm":bounds,
-            "reason":"Support the accessible outer contact land while leaving the fitted bore roof outside the target."}));
+            "reason":reason}));
     }
     for run in hsm_enclosure_quadrants::rails::z_rail_runs(
         &b.inner,
@@ -157,21 +184,21 @@ fn print_features(dir: &Path, b: &spec::Box) -> Result<()> {
                                 b.splits[1]-1.0,roof+shell::WALL],
             "bridge_span_mm":(far-open).abs(),"bridge_axis_source":[1,0,0],"bridge_print_axis_source":[1,0,0],
             "reason":"The fitted sliding bearings retain local solid deposition."}));
-        let mut spans = vec![[run.y0.min(run.lane_aft),run.y0.max(run.lane_aft)]];
-        if run.sx > 0.0 {
-            for station in &b.pack.vent_chase {
-                let v = hsm_enclosure_quadrants::vent::mouth_blocking_bounds(&b.inner,*station);
-                spans = spans.into_iter().flat_map(|[a,z]| {
-                    [[a,z.min(v[2]-shell::WALL)],[a.max(v[3]+shell::WALL),z]]
-                        .into_iter().filter(|[a,z]| z>a)
-                }).collect();
-            }
-        }
-        for [a,z] in spans {
-            targets.push(json!({"name":format!("Accessible sliding rail {}",run.sx),
-                "bounds_source_mm":[open.min(far),open.max(far),a,z,b.splits[1]-1.0,roof+shell::WALL],
-                "reason":"The rail bearing contacts are reachable through the open sliding lane and exclude the vent mouth."}));
-        }
+    }
+    let rail_contact = b.splits[1] + shell::HOOK_FOOT;
+    let rail_floor = b.splits[1] + shell::Z_RISE + shell::slide_slip();
+    let mut support_stock = vec![rear::nameplate_print_support(b.outer[5])];
+    // The caps stay inside the open rail lanes, with a break in the west lane at the vent chase.
+    for (name, side, span) in [
+        ("Removable west fore rail support", 1.0, [224.2, 310.0]),
+        ("Removable west aft rail support", 1.0, [344.2, 454.0]),
+        ("Removable east rail support", -1.0, [224.2, 455.95]),
+    ] {
+        let [open, _, far] = hsm_enclosure_quadrants::rails::rail_channel_span(side, quadrant::Y::Back);
+        let outside = if side > 0.0 { open.min(far) } else { open.max(far) };
+        support_stock.push(json!({"name":name,"shape":"rail_strips","center_x_mm":outside + side * 2.625,
+            "span_y_mm":span,"contact_source_z_mm":rail_contact,"root_source_z_mm":rail_floor,
+            "reason":"Split removable caps root on their own cavity floor and pull inward through the open sliding lane after the necks are severed."}));
     }
     let wall = &layout::layout().rear_wall;
     let panel = &wall.interior_panel_relief;
@@ -267,10 +294,6 @@ fn print_features(dir: &Path, b: &spec::Box) -> Result<()> {
             "void_source": hsm_enclosure_quadrants::vent::mouth_void(&b.inner, *station),
             "reason": "The cap root and end-wall backing keep supports out of the clear passage."}));
     }
-    targets.push(json!({"name":"Accessible dry rear exterior",
-        "bounds_source_mm":[b.outer[0],rear_wall::label_channels()[0][0]-shell::WALL,wall.rear_wall.ymax,b.exterior_bounds()[3]+shell::WALL,
-                            b.outer[4],rear::nameplate_receiver_bounds()[5]],
-        "reason":"The external nameplate and connector field has an open removal path outside the rear wall."}));
     // The hosted parts' bosses, for the print regions that fill them solid.
     let mounted = rear::wall_mounts();
     for (part, mounts) in mounted.iter().filter(|(part,_)| *part != "psu") {
@@ -290,6 +313,7 @@ fn print_features(dir: &Path, b: &spec::Box) -> Result<()> {
     let record = json!({"source_stl_sha256": digest(&std::fs::read(dir.join("enclosure-back-top.stl"))?),
         "producer": "enclosure-back-top", "boundary_overlap_mm": catalog::running(), "support_free_regions": regions,
         "bridge_regions":bridges,"support_regions":targets,"removable_support_trees":supports::meter_support_trees()?,
+        "removable_support_stock":support_stock,
         "wall_hosts": {"boss_radius_mm": rear::BOSS_RADIUS, "row_bar_half_width_mm": rear::RELAY_BAR_HALF,
                        "bar_bounds_mm": bars, "parts": hosts}});
     keep(

@@ -243,6 +243,60 @@
     }
   ],
   "producer": "enclosure-back-top",
+  "removable_support_stock": [
+    {
+      "bed_source_z_mm": 355.0,
+      "center_x_mm": -41.4,
+      "center_z_mm": 220.75,
+      "face_y_mm": 473.3,
+      "field_proud_mm": 2.0,
+      "frame_corner_mm": 7.0,
+      "frame_half_width_mm": 43.15,
+      "frame_top_mm": 271.3545454545455,
+      "mouth_corner_mm": 5.15,
+      "mouth_floor_mm": 174.89545454545456,
+      "mouth_half_width_mm": 40.15,
+      "name": "Removable exterior nameplate support",
+      "reason": "Both rounded contact bands carry on a separate bed-rooted panel with an open aft removal path.",
+      "shape": "nameplate_panel"
+    },
+    {
+      "center_x_mm": -101.125,
+      "contact_source_z_mm": 168.7,
+      "name": "Removable west fore rail support",
+      "reason": "Split removable caps root on their own cavity floor and pull inward through the open sliding lane after the necks are severed.",
+      "root_source_z_mm": 175.05,
+      "shape": "rail_strips",
+      "span_y_mm": [
+        224.2,
+        310.0
+      ]
+    },
+    {
+      "center_x_mm": -101.125,
+      "contact_source_z_mm": 168.7,
+      "name": "Removable west aft rail support",
+      "reason": "Split removable caps root on their own cavity floor and pull inward through the open sliding lane after the necks are severed.",
+      "root_source_z_mm": 175.05,
+      "shape": "rail_strips",
+      "span_y_mm": [
+        344.2,
+        454.0
+      ]
+    },
+    {
+      "center_x_mm": 101.125,
+      "contact_source_z_mm": 168.7,
+      "name": "Removable east rail support",
+      "reason": "Split removable caps root on their own cavity floor and pull inward through the open sliding lane after the necks are severed.",
+      "root_source_z_mm": 175.05,
+      "shape": "rail_strips",
+      "span_y_mm": [
+        224.2,
+        455.95
+      ]
+    }
+  ],
   "removable_support_trees": [
     {
       "bounds_source_mm": [
@@ -458,6 +512,58 @@
         0,
         -1
       ]
+    },
+    {
+      "bounds_source_mm": [
+        -89.7,
+        -85.7,
+        257.4915079232813,
+        261.4915079232813,
+        338.8,
+        346.0
+      ],
+      "name": "West funnel frame insert pilot",
+      "reason": "Bridge the blind insert pilot across its own walls while the exposed surrounding ledge receives removable support.",
+      "void_source": {
+        "end_mm": [
+          -87.7,
+          259.4915079232813,
+          346.0
+        ],
+        "kind": "cylinder",
+        "radius_mm": 2.0,
+        "start_mm": [
+          -87.7,
+          259.4915079232813,
+          338.8
+        ]
+      }
+    },
+    {
+      "bounds_source_mm": [
+        85.7,
+        89.7,
+        257.4915079232813,
+        261.4915079232813,
+        338.8,
+        346.0
+      ],
+      "name": "East funnel frame insert pilot",
+      "reason": "Bridge the blind insert pilot across its own walls while the exposed surrounding ledge receives removable support.",
+      "void_source": {
+        "end_mm": [
+          87.7,
+          259.4915079232813,
+          346.0
+        ],
+        "kind": "cylinder",
+        "radius_mm": 2.0,
+        "start_mm": [
+          87.7,
+          259.4915079232813,
+          338.8
+        ]
+      }
     },
     {
       "bounds_source_mm": [
@@ -1236,14 +1342,98 @@
     {
       "bounds_source_mm": [
         -107.5,
+        -91.45,
+        253.4915079232813,
+        265.4915079232813,
+        345.75,
+        346.25
+      ],
+      "name": "West funnel frame receiver west shoulder",
+      "reason": "Support the exposed shoulder through the open flank removal path while the adjacent insert pilot bridges."
+    },
+    {
+      "bounds_source_mm": [
+        -83.95,
+        -82.7,
+        253.4915079232813,
+        265.4915079232813,
+        345.75,
+        346.25
+      ],
+      "name": "West funnel frame receiver east shoulder",
+      "reason": "Support the exposed shoulder through the open flank removal path while the adjacent insert pilot bridges."
+    },
+    {
+      "bounds_source_mm": [
+        -91.45,
+        -83.95,
+        253.4915079232813,
+        255.7415079232813,
+        345.75,
+        346.25
+      ],
+      "name": "West funnel frame receiver front shoulder",
+      "reason": "Support the exposed shoulder through the open flank removal path while the adjacent insert pilot bridges."
+    },
+    {
+      "bounds_source_mm": [
+        -91.45,
+        -83.95,
+        263.2415079232813,
+        265.4915079232813,
+        345.75,
+        346.25
+      ],
+      "name": "West funnel frame receiver back shoulder",
+      "reason": "Support the exposed shoulder through the open flank removal path while the adjacent insert pilot bridges."
+    },
+    {
+      "bounds_source_mm": [
+        82.7,
+        83.95,
+        253.4915079232813,
+        265.4915079232813,
+        345.75,
+        346.25
+      ],
+      "name": "East funnel frame receiver west shoulder",
+      "reason": "Support the exposed shoulder through the open flank removal path while the adjacent insert pilot bridges."
+    },
+    {
+      "bounds_source_mm": [
+        91.45,
         107.5,
         253.4915079232813,
         265.4915079232813,
         345.75,
         346.25
       ],
-      "name": "Accessible funnel frame receiver undersides",
-      "reason": "Support the exposed receiver undersides through each flank's open removal path, keeping their blind pilot roofs outside the target."
+      "name": "East funnel frame receiver east shoulder",
+      "reason": "Support the exposed shoulder through the open flank removal path while the adjacent insert pilot bridges."
+    },
+    {
+      "bounds_source_mm": [
+        83.95,
+        91.45,
+        253.4915079232813,
+        255.7415079232813,
+        345.75,
+        346.25
+      ],
+      "name": "East funnel frame receiver front shoulder",
+      "reason": "Support the exposed shoulder through the open flank removal path while the adjacent insert pilot bridges."
+    },
+    {
+      "bounds_source_mm": [
+        83.95,
+        91.45,
+        263.2415079232813,
+        265.4915079232813,
+        345.75,
+        346.25
+      ],
+      "name": "East funnel frame receiver back shoulder",
+      "reason": "Support the exposed shoulder through the open flank removal path while the adjacent insert pilot bridges."
     },
     {
       "bounds_source_mm": [
@@ -1262,12 +1452,12 @@
         -95.75,
         -95.0,
         312.5,
-        328.5,
+        325.0,
         254.10000000000002,
         254.60000000000002
       ],
       "name": "Accessible cable hook 1 land 5",
-      "reason": "Support the accessible outer contact land while leaving the fitted bore roof outside the target."
+      "reason": "Support the open side of the cable hook and keep the vertical path fore of the inlet-valve socket."
     },
     {
       "bounds_source_mm": [
@@ -1304,54 +1494,6 @@
       ],
       "name": "Accessible tube seat outer underside",
       "reason": "Support the accessible outer contact land while leaving the fitted bore roof outside the target."
-    },
-    {
-      "bounds_source_mm": [
-        -103.75,
-        -93.5,
-        199.0,
-        311.79999999962746,
-        159.0,
-        178.05
-      ],
-      "name": "Accessible sliding rail 1",
-      "reason": "The rail bearing contacts are reachable through the open sliding lane and exclude the vent mouth."
-    },
-    {
-      "bounds_source_mm": [
-        -103.75,
-        -93.5,
-        343.5499999994412,
-        456.3,
-        159.0,
-        178.05
-      ],
-      "name": "Accessible sliding rail 1",
-      "reason": "The rail bearing contacts are reachable through the open sliding lane and exclude the vent mouth."
-    },
-    {
-      "bounds_source_mm": [
-        93.5,
-        103.75,
-        199.0,
-        456.3,
-        159.0,
-        178.05
-      ],
-      "name": "Accessible sliding rail -1",
-      "reason": "The rail bearing contacts are reachable through the open sliding lane and exclude the vent mouth."
-    },
-    {
-      "bounds_source_mm": [
-        -107.5,
-        4.6499988712316025,
-        471.3,
-        477.3,
-        -6.0,
-        271.3545454545455
-      ],
-      "name": "Accessible dry rear exterior",
-      "reason": "The external nameplate and connector field has an open removal path outside the rear wall."
     },
     {
       "bounds_source_mm": [

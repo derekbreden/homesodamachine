@@ -17,7 +17,8 @@ tools/run -- cargo build --release --locked --manifest-path tools/hsm/Cargo.toml
 tools/hsm/target/release/enclosure-print-prep list
 tools/hsm/target/release/enclosure-print-prep back-top --slice --review
 tools/hsm/target/release/enclosure-print-prep all --slice --review
-tools/hsm/target/release/enclosure-labels --slice
+tools/run -- tools/hsm/target/release/enclosure-labels --mark1-identification --slice
+tools/run -- tools/hsm/target/release/enclosure-labels --collars-only --slice
 ```
 
 `list` prints each piece's printer, hotend and material, its meshes and their digests, and
@@ -35,19 +36,22 @@ contacted. Preparing and slicing take one of the Mac's run slots.
 
 Some pieces are not prepared here. A piece with `external` names its own preparer, which
 `--slice` runs. A piece with `archive` prints from a retained archive, and `list` checks its
-bytes against the recorded digest. Every other piece prints the STL its part's generator
+bytes against the recorded digest. The archive's `source_commit`, when present, identifies
+its file in Git. Every other piece prints the STL its part's generator
 writes beside the STEP.
 
-The `enclosure-labels` program ([`labels.rs`](labels.rs)) prepares the identification plates,
-one plate per chip colour: the six rear chips, the six tube collars and nameplate 0001. Each
-part's body and lettering are the two solids its generator writes into `<part>.step.npz`,
-posed face up. The chips and the
-nameplate lie on their flat backs; the collars lie on their flat faces. Each
-plate uses `petgf.3mf` on both 0.4 mm nozzles, with white on the left and the plate's colour on
-the right, at Mark2's +0.04 mm trim. The right nozzle takes its measured registration offset.
-There are no supports or brim. One closing layer schedule puts a layer top on every face-up
-face and lettering top. The plate's `review.json` reads integrity, the emitted trim, the bead
-envelope against the border, the absence of support, every part printed and every closing top.
+The `enclosure-labels` program ([`labels.rs`](labels.rs)) prepares the identification plates.
+`--mark1-identification` puts the current rear chips, unit nameplate and status plate into the
+[accepted Mark1 project](../display-cover/prints/2026-11-08-identification-set-mark1-right-z005/README.md).
+It reads the solids from their current STEP payloads and retains the fine-nozzle PETG recipe,
+side-specific trim, bed positions and material assignments, including the clear status window.
+The flat backs sit on the glued Engineering Plate.
+
+`--collars-only` makes a Mark2 PET-GF plate for each collar colour. The right nozzle takes its
+measured registration offset. The collars lie with the lettered faces on the bed and their bore
+crowns clear of support. Both production modes keep the flat identification surfaces free of
+supports and brim. The plate's `review.json` records archive integrity, emitted trim, bead
+margins, support count, printed objects and layer heights at the face-up lettering tops.
 
 ## Recipe
 
@@ -74,7 +78,14 @@ available vertical travel, allowing for the requested trim. Back-top retains its
 Native support regions distinguish functional interiors from exterior request blockers.
 An exterior blocker marked `review_interior: false` still masks support requests; its
 box does not define an inaccessible void. The native record also names accessible
-support targets, which become enforcers in the manual-tree preparation.
+support targets, which become enforcers in the manual-tree preparation. Back-top's
+same record carries its removable exterior panel and local rail caps as separate
+printable stock.
+
+The regulator cap's [contact recipe](../rear-equipment-caps/contact.json) samples its fitted
+roof from the posed mesh. The preparer writes the physical project and the contact-band slicing
+project. After native slicing and cooling, it restores the model and support moves to the
+physical frame and binds their archive to the original cap meshes.
 
 The native review intersects each reinforcement modifier's posed section with
 the model section. Solid-host coverage measures the interior beyond the local
@@ -100,18 +111,18 @@ for fixed-width brim types.
 | --- | --- | --- | --- | --- |
 | `front-top` | Mark1, left 0.4 | PET-GF black | 0.08 mm band over the R6 roof side edges' level run and the R18 display-to-roof roll | Support XY 0.50 mm |
 | `front-bottom` | Mark1, left 0.4 | PET-GF black | Integral handhold corbels with the shared ordinary layer schedule | Tree(auto)/Default; short rail trees rooted on their cavity floors |
-| `back-top` | Mark2, left 0.4 | PET-GF black | Ceiling-down, rear flutes clear of the bed; additive roof-edge transition; local solid catch and rail bands | Manual Tree Slim at native accessible contacts; support-free receiver bridges, passages and sockets |
+| `back-top` | Mark2, left 0.4 | PET-GF black | Ceiling-down, rear flutes clear of the bed; additive roof-edge transition; local solid catch and rail bands | Manual Tree Slim at accessible contacts, removable nameplate panel and cavity-floor rail caps; clear receiver bridges, passages and sockets |
 | `back-bottom` | Mark2, left 0.4 | PET-GF black | Integral handhold corbels with the shared ordinary layer schedule | Saved plate offset and automatic-tree branch angle |
-| `pump-retainer` | Mark1, left 0.4 | PET-GF black | Broad lower retainer, Y-minus end on the bed; build axis +Y | Three Classic walls; local solid snap hosts |
-| `rear-equipment-caps` | Mark2, left 0.4 | PET-GF black | ASSE, Pisco, regulator and meter caps as exported, mouths up; 15 mm spacing | — |
-| `single-regulator-cap` | Mark2, production cap hotend | PET-GF black | Approved regulator cap pose; combined cap and tower envelope centered | Native smooth timelapse and constant-width prime tower; [layer-time record](../rear-equipment-caps/prints/2026-11-07-single-regulator-mark2/job.json) |
+| `pump-retainer` | Mark1, left 0.4 | PET-GF black | Lower retainer on the Y-minus end | Classic perimeters, solid screw seats and bridged screw openings |
+| `rear-equipment-caps` | Mark2, left 0.4 | PET-GF black | ASSE, Pisco, regulator and meter caps as exported, mouths up; 15 mm spacing | Nonplanar regulator contact, bridged meter shoulder |
+| `single-regulator-cap` | Mark2, production cap hotend | PET-GF black | Approved regulator cap pose; combined cap and tower envelope centered | Nonplanar fitted contact, native smooth timelapse and constant-width prime tower; [layer-time record](../rear-equipment-caps/prints/2026-11-07-single-regulator-mark2/job.json) |
 | `regulator-entry-comparison` | Mark2, production cap hotend | PET-GF black | Standard and taller lead-in covers on axial ends; complete matching receivers in back-top's print pose | Production layer schedules, ceiling-down support-free receivers and cooling time from the other articles; [comparison](../rear-equipment-caps/entry-study/README.md) |
 | `funnel-frame` | Mark2, left 0.4 | PET-GF black | On its lower feet, as exported | No brim or elephant-foot compensation; support XY 0.50 mm |
 | `factory-tools` | Mark2, left 0.4 | PET-GF black | Tube tip setting jig as exported | — |
 | `display-cover` | Mark1, left 0.4 | PET-GF black | Flat back on the bed, counterbores facing upward | Solid deposition; support-free |
 | `elbow-cradle` | Mark1, left 0.4 | PET-GF black | On its bottom, as exported | — |
 | `soda-bend-holder` | Mark1, left 0.4 | PET-GF black | The flat back of the D on the bed, as exported | Six walls, 100% zig-zag (the accepted 2026-10-23 article) |
-| `foam-shell`, `foam-cap-top`, `foam-cap-lid-bottom` | Mark2, left 0.4 Standard | PET-GF black | As exported, each on its flat face | Classic, three loops, 15% gyroid; 0.24 mm layers and 0.20 mm first layer; support-free |
+| `foam-shell` | Mark2, left 0.4 Standard | PET-GF black | As exported, on its flat face | Classic, three loops, 15% gyroid; 0.24 mm layers and 0.20 mm first layer; support-free |
 | `foam-cap-lid-top` | Mark1, left 0.4 Standard | PET-GF black | As exported, on its flat face | Classic, three loops, 15% gyroid; 0.24 mm layers and 0.20 mm first layer; Tree(auto)/Default |
 | `foam-cap-bottom` | Mark2, left 0.4 Standard | PET-GF black | Half a turn about X, onto its flat face | As the other cold-core pieces |
 | `labels` | Mark2, both 0.4 | PET-GF, two colours | [`labels.rs`](labels.rs) | — |
@@ -120,8 +131,11 @@ for fixed-width brim types.
 | `pump-elbows` | Mark2, right 0.6 | Siraya TPU 85A | Retained processed archive with its deposited links | — |
 | `asse-vent-sleeve` | Mark1, right 0.6 | Siraya TPU 85A | Upright, the large socket on the bed | The accepted Siraya single's project: zero user Z trim, glued Engineering Plate |
 | `asse-cuffs` | Mark1, right 0.6 | Siraya TPU 85A | Half a turn about X, onto each tube end | As the vent sleeve; 2 mm part gap |
-| `seals` | Mark2, right 0.6 | Bambu TPU 85A | Flat, as exported | The 2026-10-08 flat gasket project; 3 mm part gap |
-| `small-petg` | Mark1, left 0.4 | PETG Basic black | Copper covers on their interior flange; PRV shroud cap down; reed bridge on its convex face; fuse clamp on its side | petgf.3mf's process with the funnel cover's PETG filament |
+| `seals` | Mark2, right | Bambu TPU 85A | Flat, as exported | Reservoir cap gaskets |
+| `display-gasket` | Mark2, right | Bambu TPU 90A, black | Flat, as exported | Glued Engineering Plate, solid, support-free |
+| `reservoir-grips` | Mark2, right | Bambu TPU 90A, white | Broad flanges on the bed, bores upright | Glued Engineering Plate; support-free |
+| `cold-core-petg` | Mark1, left 0.4 | PETG Basic black | PRV shroud cap down; reed bridge on its convex face | Open shroud cavity and bridged lead groove |
+| `small-petg` | Mark1, left 0.4 | PETG Basic black | Fuse clamp on its swept profile face | Support-free, with stock PETG bridges |
 | `factory-petg` | Mark1, left 0.4 | PETG Basic black | Coil mandrel and setting gauge as exported | As `small-petg` |
 
 ## Declared features

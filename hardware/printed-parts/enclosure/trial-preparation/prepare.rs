@@ -11,8 +11,14 @@
 //! `preparation.json` record and the show faces; `--slice` slices it with the installed Bambu
 //! Studio command line and runs the cooling stage; `--review` reads the emitted archive.
 
+#[path = "../rear-equipment-caps/contact.rs"]
+mod cap_contact;
+#[path = "../enclosure/back-top/print_supports.rs"]
+mod back_top_print_supports;
+
 use anyhow::{bail, Context, Result};
 use hsm_print_prep::derive::{self, Feature, Geometry};
+use hsm_print_prep::faucet_contact::ContactBand;
 use hsm_print_prep::json::{python_number, Json};
 use hsm_print_prep::mesh::{closed_check, Mesh as RawMesh};
 use hsm_print_prep::profile::{self, relative};
@@ -246,6 +252,13 @@ fn derive_features(root: &Path, mesh: &Mesh, declared: &[Value]) -> Result<Vec<F
                     m.insert("blocker_source_mm".into(), json!([low, high]));
                     found.push(Feature { record: m, paint_faces: faces, paint_codes: Default::default(), boundary_points: vec![] });
                 }
+                for stock in native["removable_support_stock"].as_array().into_iter().flatten() {
+                    let mut m = stock.as_object().cloned().context("removable support stock")?;
+                    m.insert("kind".into(), json!("removable_support_stock"));
+                    m.insert("record".into(), json!(relative(&path, root)));
+                    m.insert("record_sha256".into(), json!(record_sha));
+                    found.push(Feature { record: m, paint_faces: vec![], paint_codes: Default::default(), boundary_points: vec![] });
+                }
             }
             other => bail!("unknown feature kind {other}"),
         }
@@ -425,6 +438,7 @@ enum Cell {
 }
 
 fn prepare(root: &Path, name: &str, printer: Option<&str>, parts: Option<Vec<(Value, Vec<String>)>>, output: Option<&Path>, border: Option<f64>) -> Result<PathBuf> {
+    let production_layout = parts.is_none();
     let here = root.join(HERE);
     let spec_path = here.join("pieces.json");
     let spec = read_json(&spec_path)?;
@@ -761,6 +775,23 @@ fn prepare(root: &Path, name: &str, printer: Option<&str>, parts: Option<Vec<(Va
             record["modifiers"].as_array_mut().unwrap().push(json!({"name": name, "source_bounds_mm": [lo, hi],
                 "plate_bounds_mm": [a, b], "sparse_infill_density": "100%", "bridge_angle_deg": angle}));
         }
+        for f in inst.features.iter().filter(|f| f.kind() == "removable_support_stock") {
+            let name = f.record["name"].as_str().context("removable support name")?;
+            let gap: f64 = plate.settings.first_text("support_top_z_distance").context("support contact gap")?.parse()?;
+            let (solid, settings) = back_top_print_supports::removable_stock(&json!(f.record), gap)?;
+            let vertices = solid.verts().iter().map(|v| sub3(v.to_array(), mesh.center)).collect();
+            let faces = solid.tris().iter().map(|p| p.map(|i| i as usize)).collect();
+            let bounds = solid.bounds();
+            let source = [bounds.min.to_array(), bounds.max.to_array()];
+            let placed: Vec<_> = corners(source[0], source[1]).into_iter().map(source_to_plate).collect();
+            let (a, b) = bbox(&placed);
+            plate.add_part(index, name, vertices, faces, "normal_part", settings, Some("8"));
+            record.as_object_mut().unwrap().entry("removable_support_stock").or_insert(json!([])).as_array_mut().unwrap().push(json!({
+                "name": name, "bounds_source_mm": source, "plate_bounds_mm": [a, b],
+                "source": f.record["record"], "source_sha256": f.record["record_sha256"], "contact_gap_mm": gap,
+                "reason": f.record["reason"],
+            }));
+        }
         let ranges = derive::layer_ranges(&inst.features);
         plate.objects[index].ranges = ranges.iter().map(|r| Range {
             min_z: r["min_z"].as_f64().unwrap(), max_z: r["max_z"].as_f64().unwrap(),
@@ -781,6 +812,7 @@ fn prepare(root: &Path, name: &str, printer: Option<&str>, parts: Option<Vec<(Va
     std::fs::create_dir_all(&directory)?;
     let project = directory.join(format!("{stem}.3mf"));
     plate.write(&project)?;
+    let contact = if production_layout { prepare_contact(root, &directory, piece, &mut plate)? } else { None };
     let mut painted = Vec::new();
     for (inst, record) in instances.iter().zip(&records) {
         let index: BTreeSet<usize> = inst.features.iter().flat_map(|f| f.paint_faces.iter().cloned()).collect();
@@ -801,7 +833,11 @@ fn prepare(root: &Path, name: &str, printer: Option<&str>, parts: Option<Vec<(Va
     for path in [root.join(HERE).join("prepare.rs")].into_iter().chain(std::fs::read_dir(root.join("tools/hsm/print-prep/src"))?.filter_map(|e| e.ok().map(|e| e.path()))) {
         tools.insert(relative(&path, root), json!(file_sha(&path)?));
     }
-    let preparation = json!({
+    if records.iter().any(|record| record.get("removable_support_stock").is_some()) {
+        let path = root.join(HERE).join("../enclosure/back-top/print_supports.rs").canonicalize()?;
+        tools.insert(relative(&path, root), json!(file_sha(&path)?));
+    }
+    let mut preparation = json!({
         "piece": name, "printer": printer, "connection_key": machine.get("connection_key").cloned().unwrap_or(json!(printer)),
         "nozzle": nozzle, "material": piece["material"], "bed_type": bed, "requested_z_trim_mm": z_trim,
         // Bambu's Textured PEI compensation emits less than the request, by the amount here;
@@ -817,6 +853,9 @@ fn prepare(root: &Path, name: &str, printer: Option<&str>, parts: Option<Vec<(Va
         "prepared_utc": String::from_utf8(std::process::Command::new("date").args(["-u", "+%Y-%m-%dT%H:%M:%S+00:00"]).output()?.stdout)?.trim(),
         "sliced": false, "submitted": false,
     });
+    if let Some(contact) = contact {
+        preparation["nonplanar_contact"] = contact;
+    }
     std::fs::write(directory.join("preparation.json"), serde_json::to_string_pretty(&preparation)? + "\n")?;
     println!("{}", relative(&project, root));
     for record in &records {
@@ -829,6 +868,33 @@ fn prepare(root: &Path, name: &str, printer: Option<&str>, parts: Option<Vec<(Va
 
 fn sub3(a: [f64; 3], b: [f64; 3]) -> [f64; 3] { [a[0] - b[0], a[1] - b[1], a[2] - b[2]] }
 
+fn prepare_contact(root: &Path, directory: &Path, piece: &Value, plate: &mut Plate) -> Result<Option<Value>> {
+    let Some(recipe_name) = piece["nonplanar_contacts"].as_str() else { return Ok(None) };
+    let recipe_path = root.join(recipe_name);
+    let recipe = read_json(&recipe_path)?;
+    let name = recipe["object"].as_str().context("contact object")?;
+    let object = plate.objects.iter_mut().find(|object| object.name == name).context("contact object on plate")?;
+    let band = cap_contact::specification(object, &recipe["roof"], &recipe["parameters"])?;
+    let meshes = ContactBand::new(&band)?.warp_object(object)?;
+    let spec = directory.join("contact-band.json");
+    std::fs::write(&spec, serde_json::to_vec(&band)?)?;
+    let slicing_project = directory.join("contact-band.3mf");
+    plate.write(&slicing_project)?;
+    let tool = root.join(HERE).join("../rear-equipment-caps/contact.rs");
+    Ok(Some(json!({"object": name, "recipe": recipe_name, "recipe_sha256": file_sha(&recipe_path)?,
+        "tool_sha256": file_sha(&tool)?, "band": relative(&spec, root), "band_sha256": file_sha(&spec)?,
+        "slicing_project": relative(&slicing_project, root), "slicing_project_sha256": file_sha(&slicing_project)?,
+        "meshes": meshes})))
+}
+
+fn restore_contact(root: &Path, contact: &Value, physical: &Path, native: &Path, archive: &Path) -> Result<Value> {
+    let spec = root.join(contact["band"].as_str().context("contact band path")?);
+    if Some(file_sha(&spec)?.as_str()) != contact["band_sha256"].as_str() {
+        bail!("the contact band changed after preparation");
+    }
+    ContactBand::new(&read_json(&spec)?)?.restore_archive(physical, native, archive)
+}
+
 /// Slice a preparation with the installed Bambu Studio command line, then run the cooling stage.
 fn slice_project(root: &Path, directory: &Path, slicer: &Path) -> Result<PathBuf> {
     let path = directory.join("preparation.json");
@@ -837,10 +903,20 @@ fn slice_project(root: &Path, directory: &Path, slicer: &Path) -> Result<PathBuf
     if Some(file_sha(&project)?.as_str()) != preparation["project_sha256"].as_str() {
         bail!("the project changed after preparation");
     }
+    let contact = &preparation["nonplanar_contact"];
+    let slicing_project = if let Some(path) = contact["slicing_project"].as_str() {
+        let path = root.join(path);
+        if Some(file_sha(&path)?.as_str()) != contact["slicing_project_sha256"].as_str() {
+            bail!("the contact slicing project changed after preparation");
+        }
+        path
+    } else {
+        project.clone()
+    };
     let archive_name = project.file_name().unwrap().to_string_lossy().replace(".3mf", ".gcode.3mf");
     let native = directory.join("native");
     std::fs::create_dir(&native)?;
-    let cli = slice::cli_project(&project, &native)?;
+    let cli = slice::cli_project(&slicing_project, &native)?;
     let command = vec![slicer.display().to_string(), "--slice".into(), "0".into(), "--arrange".into(), "0".into(), "--orient".into(), "0".into(),
                        "--outputdir".into(), native.display().to_string(), "--export-3mf".into(), archive_name.clone(), cli.display().to_string()];
     let log = std::fs::File::create(native.join("slice.log"))?;
@@ -854,11 +930,20 @@ fn slice_project(root: &Path, directory: &Path, slicer: &Path) -> Result<PathBuf
     if sliced["return_code"].as_i64() != Some(0) {
         bail!("Bambu Studio reported {}", sliced["error_string"]);
     }
-    slice::apply_directory(&native, &project)?;
+    slice::apply_directory(&native, &slicing_project)?;
     let sliced = read_json(&native.join("result.json"))?;
     std::fs::write(directory.join("slice-command.json"), serde_json::to_string_pretty(&command)? + "\n")?;
     let archive = directory.join(&archive_name);
-    std::fs::copy(native.join(&archive_name), &archive)?;
+    let native_archive = native.join(&archive_name);
+    let mut added_motion = 0.;
+    if contact.is_null() {
+        std::fs::copy(&native_archive, &archive)?;
+    } else {
+        let restoration = restore_contact(root, contact, &project, &native_archive, &archive)?;
+        added_motion = restoration["added_commanded_motion_seconds"].as_f64().unwrap_or(0.);
+        let object = contact["object"].as_str().context("contact object")?;
+        preparation["nonplanar_contact"]["restoration"] = json!({object: restoration});
+    }
     let mut zip = zip::ZipArchive::new(std::fs::File::open(&archive)?)?;
     let mut gcode = Vec::new();
     std::io::Read::read_to_end(&mut zip.by_name("Metadata/plate_1.gcode")?, &mut gcode)?;
@@ -877,7 +962,7 @@ fn slice_project(root: &Path, directory: &Path, slicer: &Path) -> Result<PathBuf
     preparation["archive"] = json!(relative(&archive, root));
     preparation["archive_sha256"] = json!(file_sha(&archive)?);
     preparation["gcode_sha256"] = json!(sha256_hex(&gcode));
-    preparation["estimated_seconds"] = json!(plates.iter().map(|p| p["total_predication"].as_f64().unwrap_or(0.0)).sum::<f64>());
+    preparation["estimated_seconds"] = json!(plates.iter().map(|p| p["total_predication"].as_f64().unwrap_or(0.0)).sum::<f64>() + added_motion);
     preparation["slicer_warnings"] = json!(plates.iter().filter_map(|p| p["warning_message"].as_str()).filter(|s| !s.is_empty()).collect::<Vec<_>>());
     std::fs::write(&path, serde_json::to_string_pretty(&preparation)? + "\n")?;
     println!("{}", relative(&archive, root));
@@ -898,7 +983,8 @@ fn listing(root: &Path) -> Result<()> {
             continue;
         }
         if let Some(archive) = piece.get("archive") {
-            println!("{head}\n    archive: {}  {}", archive["path"].as_str().unwrap_or(""), check_archive(root, piece)?);
+            let (source, state) = check_archive(root, archive)?;
+            println!("{head}\n    archive: {source}  {state}");
             continue;
         }
         println!("{head}");
@@ -921,12 +1007,28 @@ fn listing(root: &Path) -> Result<()> {
     Ok(())
 }
 
-fn check_archive(root: &Path, piece: &Value) -> Result<&'static str> {
-    let path = root.join(piece["archive"]["path"].as_str().unwrap_or(""));
-    if !path.is_file() {
-        return Ok("missing");
-    }
-    Ok(if Some(file_sha(&path)?.as_str()) == piece["archive"]["sha256"].as_str() { "bound" } else { "CHANGED" })
+fn check_archive(root: &Path, archive: &Value) -> Result<(String, &'static str)> {
+    let name = archive["path"].as_str().context("archive path")?;
+    let expected = archive["sha256"].as_str().context("archive digest")?;
+    let (source, digest) = if let Some(commit) = archive["source_commit"].as_str() {
+        let object = format!("{commit}:{name}");
+        let result = std::process::Command::new("git")
+            .args(["cat-file", "blob", &object])
+            .current_dir(root)
+            .output()
+            .context("reading archived print from Git")?;
+        (object, result.status.success().then(|| sha256_hex(&result.stdout)))
+    } else {
+        let path = root.join(name);
+        let digest = path.is_file().then(|| file_sha(&path)).transpose()?;
+        (name.to_owned(), digest)
+    };
+    let state = match digest.as_deref() {
+        Some(actual) if actual == expected => "bound",
+        Some(_) => "CHANGED",
+        None => "missing",
+    };
+    Ok((source, state))
 }
 
 /// A piece prepared by its own program: a Python script, run with the checkout's Python, or a
@@ -983,9 +1085,9 @@ fn main() -> Result<()> {
     for name in &names {
         let piece = &spec["pieces"][name];
         let result: Result<()> = (|| {
-            if piece.get("archive").is_some() {
-                let state = check_archive(&root, piece)?;
-                println!("{name}: prints from {} ({state}); nothing to prepare", piece["archive"]["path"].as_str().unwrap_or(""));
+            if let Some(archive) = piece.get("archive") {
+                let (source, state) = check_archive(&root, archive)?;
+                println!("{name}: prints from {source} ({state}); nothing to prepare");
                 if state != "bound" { bail!("the archive is {state}"); }
                 return Ok(());
             }
