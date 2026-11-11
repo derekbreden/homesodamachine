@@ -55,10 +55,20 @@ async function readReplay(hash) {
 
 const escapeText = value => value.replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;");
 
+function printSettings(processSettings) {
+  if (!processSettings || typeof processSettings !== "object" || Array.isArray(processSettings)) return "";
+  const settings = Object.entries(processSettings).filter(([name, value]) => name.trim() &&
+    typeof value === "string" && value.trim());
+  if (!settings.length) return "";
+  const rows = settings.map(([name, value]) => `<dt>${escapeText(name)}</dt><dd>${escapeText(value)}</dd>`).join("");
+  return `<details class="print-settings"><summary>Print settings</summary><dl>${rows}</dl></details>`;
+}
+
 const styles = `
 :root { color-scheme: dark; font: 16px system-ui, sans-serif; background: #10319c; color: white;
   --foreground: white; --muted-foreground: #dce6ff; --secondary: #1941a9;
-  --viz-series-1: #ff9152; --viz-series-2: #94b8ff; --input: #6b8fe9;
+  --viz-series-1: #ff9152; --viz-series-2: #94b8ff; --viz-series-3: #95e8be; --viz-series-4: #ffc1eb;
+  --input: #6b8fe9;
   --primary: #ff9152; --primary-foreground: #10319c; }
 * { box-sizing: border-box; }
 body { --playback-padding: clamp(.75rem, 2vw, 1.5rem); margin: 0; padding: var(--playback-padding); }
@@ -67,9 +77,19 @@ body #hsm-motion-playback { max-width: 80rem; margin: auto; height: calc(100dvh 
 body #hsm-motion-playback h2 { max-width: 100%; margin: 0; font-size: clamp(1rem, 2.5vw, 1.35rem); }
 body #hsm-motion-playback .motion-stage { height: 100%; min-height: 0; max-height: none;
   aspect-ratio: auto; background: #0d2982; border-radius: .5rem; }
-.motion-controls button, .motion-controls select { min-height: 44px; padding: .375rem .625rem; border: 1px solid var(--input);
+.motion-controls { position: relative; }
+.motion-controls button, .motion-controls select, .print-settings summary { min-height: 44px; padding: .375rem .625rem; border: 1px solid var(--input);
   border-radius: .375rem; background: var(--secondary); color: var(--secondary-foreground); font: inherit; }
 .motion-controls .btn-primary { border-color: var(--primary); background: var(--primary); color: var(--primary-foreground); }
+.print-settings { margin-inline-start: auto; }
+.print-settings summary { cursor: pointer; padding-block: .625rem; }
+.print-settings dl { position: absolute; inset-inline-end: 0; inset-block-end: calc(100% + .5rem); z-index: 1;
+  display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .5rem 1rem; margin: 0; padding: .875rem;
+  width: min(25rem, 100%); max-height: min(18rem, 45dvh); overflow: auto; overflow-wrap: anywhere;
+  border: 1px solid var(--input); border-radius: .375rem; background: var(--secondary); color: var(--secondary-foreground);
+  font-size: .875rem; }
+.print-settings dt { color: var(--muted-foreground); }
+.print-settings dd { margin: 0; }
 .motion-scrubber input { min-height: 36px; margin: 0; accent-color: var(--primary); }
 .text-small { font-size: .875rem; }
 .text-muted { color: var(--muted-foreground); }
@@ -88,8 +108,12 @@ export function mountPrintPlayback(app) {
       ]);
       const title = escapeText(entry.title);
       const data = JSON.stringify({ ...replay, start_at_end: true }).replaceAll("<", "\\u003c");
-      const substitutions = { "{{TITLE}}": title, "/*THEME*/": themeSource, "/*DATA*/": data };
-      const body = template.replace(/\{\{TITLE\}\}|\/\*(THEME|DATA)\*\//g, token => substitutions[token]);
+      const substitutions = {
+        "{{TITLE}}": title, "/*THEME*/": themeSource, "/*DATA*/": data,
+        "<!--PRINT_SETTINGS-->": printSettings(entry.process),
+      };
+      const body = template.replace(/\{\{TITLE\}\}|\/\*(THEME|DATA)\*\/|<!--PRINT_SETTINGS-->/g,
+        token => substitutions[token]);
       res.set("Cache-Control", "no-cache");
       res.set("Content-Security-Policy", "default-src 'none'; script-src 'unsafe-inline' https://cdn.jsdelivr.net; style-src 'unsafe-inline'; frame-ancestors 'self'; base-uri 'none'");
       res.type("html").send(`<!doctype html>

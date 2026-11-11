@@ -57,12 +57,12 @@ immersion and directional switching offsets.
 ## Current CAD and print preparation
 
 The current CAD has a 3.60 mm pocket and preserves the magnet's Z14.0 center.
-The expected insertion pause is before the first covering plane at Z16.2,
-layer 81 at 0.20 mm. A separate native slice review must verify the seat,
-last open pocket, pause and covering roads before another submission.
+The [native slice review](mark2-print/v2/float-preflight.json) records the seat,
+last open pocket, insertion pause, covering roads and open guide bore for the
+current body.
 [`prepare_print.rs`](prepare_print.rs), the `aero-float-print-project` program, takes the
-recipe from the identified v1 project, [`all-aero-float.3mf`](all-aero-float.3mf), and writes
-into `mark2-print/v2` and a separate v2 archive; no v2 archive has been prepared or submitted.
+recipe from [`all-aero-float.3mf`](all-aero-float.3mf) and prepares the
+[current project](mark2-print/v2/all-aero-float.3mf) and its native archive offline.
 
 Mark2's recipe is the glued Engineering plate, +0.04 mm user trim, fixed right
 hardened standard-flow 0.4 mm nozzle and ASA Aero White GFB02 from the Polymaker
