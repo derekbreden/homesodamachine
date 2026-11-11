@@ -1348,7 +1348,7 @@
             ]
           },
           {
-            "material": "HSM-0095",
+            "material": "HSM-0581",
             "quantity": 1,
             "unit": "ea",
             "bodies": [
@@ -2825,7 +2825,7 @@
     },
     {
       "id": "HSM-0095",
-      "description": "Faucet shell tip",
+      "description": "Sculpted faucet shell tip",
       "kind": "manufactured",
       "models": [
         {
@@ -3133,15 +3133,21 @@
     },
     {
       "id": "HSM-0114",
-      "description": "Industrial faucet display cover",
+      "description": "Industrial faucet display cover \u00b7 extended Sculpted skirt",
       "kind": "manufactured",
       "models": [
         {
-          "file": "printed-parts/faucet/industrial/industrial-display-cover.step"
+          "file": "printed-parts/faucet/industrial/industrial-production-display-cover.step"
         }
       ],
       "aliases": [
         "Industrial display cover"
+      ],
+      "documents": [
+        {
+          "title": "Production geometry and print recipe",
+          "path": "printed-parts/faucet/industrial/production/2026-10-25/README.md"
+        }
       ]
     },
     {
@@ -11556,6 +11562,26 @@
         {
           "title": "Lamp and diffuser",
           "path": "printed-parts/enclosure/display-cover/README.md"
+        }
+      ]
+    },
+    {
+      "id": "HSM-0581",
+      "description": "Industrial faucet shell tip \u00b7 lowered display seat",
+      "kind": "manufactured",
+      "models": [
+        {
+          "file": "printed-parts/faucet/industrial/industrial-production-shell-tip.step"
+        }
+      ],
+      "aliases": [
+        "Industrial shell tip",
+        "Lowered faucet tip"
+      ],
+      "documents": [
+        {
+          "title": "Production geometry and print recipe",
+          "path": "printed-parts/faucet/industrial/production/2026-10-25/README.md"
         }
       ]
     }

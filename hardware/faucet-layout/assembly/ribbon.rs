@@ -1,9 +1,10 @@
 //! The display's cable, one solid from below the organizer to the PCB: ruled through the mounting
 //! stack down to the plate's underside, its free return swept down through the organizer, its
 //! spans up the neck, and its rise beside the display.
+use crate::Variant;
 use crate::legs::{path, ribbon_return};
-use anyhow::{Result, bail, ensure};
-use hsm_faucet_assembly_numbers::{CABLE_LANE, CABLE_WIDTH, UNDER_COUNTER_PLATE_BOTTOM_Z};
+use anyhow::{Result, ensure};
+use hsm_faucet_assembly_numbers::{CABLE_LANE, CABLE_WIDTH, INDUSTRIAL_RIBBON_BLEND_HEIGHT, INDUSTRIAL_RIBBON_SIDE_RUN_N, UNDER_COUNTER_PLATE_BOTTOM_Z};
 use hsm_faucet_numbers::paths::{self, Kind, RIBBON_DEPTH, RIBBON_WIDTH};
 use hsm_faucet_numbers::{P3, shell};
 use hsm_kernel::*;
@@ -87,14 +88,33 @@ fn dist(a: P3, b: P3) -> f64 {
 
 /// The cable's rise from where it leaves the neck to the PCB's terminal, in the tip frame: along
 /// the bend's natural line, round the side of the display, down its side and up into the PCB.
-fn display_sections() -> Result<Vec<LoftSection>> {
+fn display_sections(variant: Variant) -> Result<Vec<LoftSection>> {
     use shell::*;
+    let seat_offset = variant.display_feet_n() - DISPLAY_FEET_N;
+    let side_run_n = match variant {
+        Variant::Sculpted => DISPLAY_RIBBON_SIDE_RUN_N,
+        Variant::Industrial => INDUSTRIAL_RIBBON_SIDE_RUN_N,
+    };
+    let terminal_n = DISPLAY_RIBBON_TOP_N + seat_offset;
+    ensure!(terminal_n > side_run_n, "the display terminal must stand above the ribbon's side run");
+    let bend_rise = (terminal_n - side_run_n).min(DISPLAY_WIRE_BEND_RADIUS);
+    let bend_sweep = (1.0 - bend_rise / DISPLAY_WIRE_BEND_RADIUS).acos();
     let [origin, along, outward] = tip_frame();
     let mut frames: Vec<(P3, P3)> = vec![];
     let natural = |s: f64| {
         let r = gn_bend1_r() + SIGNAL_LANE_CENTER_N;
         let square = (r * r - (s - GN_TIP_STRAIGHT_LEN).powi(2)).sqrt();
         (square - gn_bend1_r(), -(s - GN_TIP_STRAIGHT_LEN) / square)
+    };
+    let below_board = |n: f64, dn: f64| {
+        let blend = INDUSTRIAL_RIBBON_BLEND_HEIGHT;
+        let floor = side_run_n - blend;
+        if variant == Variant::Industrial && n > floor {
+            let u = ((n - floor) / (2.0 * blend)).min(1.0);
+            (floor + blend * (2.0 * u - u * u), dn * (1.0 - u))
+        } else {
+            (n, dn)
+        }
     };
     let add = |frames: &mut Vec<(P3, P3)>, p: P3, t: P3| {
         if frames.last().is_none_or(|(q, _)| dist(*q, p) >= 1e-8) {
@@ -103,7 +123,8 @@ fn display_sections() -> Result<Vec<LoftSection>> {
     };
     for s in [DISPLAY_RIBBON_REFERENCE_START_S, (DISPLAY_RIBBON_REFERENCE_START_S + DISPLAY_RIBBON_JOIN_S) / 2.0, DISPLAY_RIBBON_JOIN_S] {
         let (n, slope) = natural(s);
-        add(&mut frames, [0.0, s, n], [0.0, -1.0, -slope]);
+        let (n, dn) = below_board(n, -slope);
+        add(&mut frames, [0.0, s, n], [0.0, -1.0, dn]);
     }
     let side = DISPLAY_RIBBON_SIDE_X.signum();
     let side_x = DISPLAY_RIBBON_SIDE_X.abs();
@@ -124,6 +145,7 @@ fn display_sections() -> Result<Vec<LoftSection>> {
             n += -DISPLAY_RIBBON_SIDE_DROP * fraction.powi(4) + DISPLAY_RIBBON_SIDE_LIFT * 4.0 * fraction * (1.0 - fraction);
             let dn = slope * ds - 4.0 * DISPLAY_RIBBON_SIDE_DROP * fraction.powi(3) * dx / side_x
                 + 4.0 * DISPLAY_RIBBON_SIDE_LIFT * (1.0 - 2.0 * fraction) * dx / side_x;
+            let (n, dn) = below_board(n, dn);
             add(&mut frames, [side * x, s, n], [side * dx, ds, dn]);
         }
     }
@@ -132,26 +154,23 @@ fn display_sections() -> Result<Vec<LoftSection>> {
     let m0 = run_in * dn / -ds;
     for step in 1..13 {
         let t = step as f64 / 12.0;
-        let n = (2.0 * t.powi(3) - 3.0 * t * t + 1.0) * n0 + (t.powi(3) - 2.0 * t * t + t) * m0 + (-2.0 * t.powi(3) + 3.0 * t * t) * DISPLAY_RIBBON_SIDE_RUN_N;
-        let dn = (6.0 * t * t - 6.0 * t) * n0 + (3.0 * t * t - 4.0 * t + 1.0) * m0 + (-6.0 * t * t + 6.0 * t) * DISPLAY_RIBBON_SIDE_RUN_N;
+        let n = (2.0 * t.powi(3) - 3.0 * t * t + 1.0) * n0 + (t.powi(3) - 2.0 * t * t + t) * m0 + (-2.0 * t.powi(3) + 3.0 * t * t) * side_run_n;
+        let dn = (6.0 * t * t - 6.0 * t) * n0 + (3.0 * t * t - 4.0 * t + 1.0) * m0 + (-6.0 * t * t + 6.0 * t) * side_run_n;
         add(&mut frames, [x, s0 - run_in * t, n], [0.0, -run_in, dn]);
     }
     let side_start = s0 - run_in;
-    let pre = display_housing_center_s() + DISPLAY_RIBBON_TERMINAL_Y + DISPLAY_WIRE_BEND_RADIUS;
+    let pre = display_housing_center_s() + DISPLAY_RIBBON_TERMINAL_Y + DISPLAY_WIRE_BEND_RADIUS * bend_sweep.sin();
     for step in 1..9 {
-        add(&mut frames, [x, side_start + (pre - side_start) * step as f64 / 8.0, DISPLAY_RIBBON_SIDE_RUN_N], [0.0, -1.0, 0.0]);
+        add(&mut frames, [x, side_start + (pre - side_start) * step as f64 / 8.0, side_run_n], [0.0, -1.0, 0.0]);
     }
-    let (mut s, mut n) = (0.0, 0.0);
+    let mut s = pre;
     for step in 1..17 {
-        let t = std::f64::consts::PI / 2.0 * step as f64 / 16.0;
+        let t = bend_sweep * step as f64 / 16.0;
         s = pre - DISPLAY_WIRE_BEND_RADIUS * t.sin();
-        n = DISPLAY_RIBBON_SIDE_RUN_N + DISPLAY_WIRE_BEND_RADIUS * (1.0 - t.cos());
+        let n = side_run_n + DISPLAY_WIRE_BEND_RADIUS * (1.0 - t.cos());
         add(&mut frames, [x, s, n], [0.0, -t.cos(), t.sin()]);
     }
-    if DISPLAY_RIBBON_TOP_N <= n {
-        bail!("the cable's termination must reach above its smooth bend at the PCB's side");
-    }
-    add(&mut frames, [x, s, DISPLAY_RIBBON_TOP_N], [0.0, 0.0, 1.0]);
+    add(&mut frames, [x, s, terminal_n], [0.0, 0.0, 1.0]);
     frames
         .into_iter()
         .map(|([x, s, n], [dx, ds, dn])| {
@@ -181,7 +200,7 @@ fn normal(region: &Region) -> V3 {
 }
 
 /// The whole cable.
-pub fn ribbon() -> Result<Solid> {
+pub fn ribbon(variant: Variant) -> Result<Solid> {
     let plate = Plane::new(v3(0.0, 0.0, UNDER_COUNTER_PLATE_BOTTOM_Z), V3::X, V3::Z)?;
     let mounted = Solid::thru_sections(&lower_sections()?, true)?.trim(&plate)?;
     let down = path(&ribbon_return())?;
@@ -197,7 +216,7 @@ pub fn ribbon() -> Result<Solid> {
             Span::Sweep(section, [a, mid, b]) => Solid::sweep(&section.region(), &Path::new(v(a)).arc_through(v(mid), v(b))?)?,
         });
     }
-    parts.push(Solid::thru_sections(&display_sections()?, true)?);
+    parts.push(Solid::thru_sections(&display_sections(variant)?, true)?);
     let cable = Solid::union_all(&parts)?;
     ensure!(cable.components().len() == 1, "the cable is not one solid");
     Ok(cable)

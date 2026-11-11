@@ -96,6 +96,12 @@ pub const BASE_SCREW_SOCKET_AF: f64 = 2.5;
 pub const BASE_SCREW_SOCKET_DEPTH: f64 = 1.6;
 pub const BASE_SCREW_SOCKET_BELOW: f64 = 0.1;
 pub const BASE_INSERT_INNER_R: f64 = 1.5;
+/// The Industrial display's bearing plane in its approved lowered tip.
+pub const INDUSTRIAL_DISPLAY_FEET_N: f64 = 7.1;
+/// The signal ribbon's side run over the lowered Industrial tip ledge.
+pub const INDUSTRIAL_RIBBON_SIDE_RUN_N: f64 = 9.2;
+/// The height over which the ribbon eases under the lowered PCB.
+pub const INDUSTRIAL_RIBBON_BLEND_HEIGHT: f64 = 0.35;
 /// The display's glass, under its recess in the housing.
 pub const DISPLAY_SCREEN_WIDTH: f64 = 17.75;
 pub const DISPLAY_SCREEN_LENGTH: f64 = 32.93;

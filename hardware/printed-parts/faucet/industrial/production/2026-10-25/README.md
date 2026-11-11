@@ -10,6 +10,14 @@ and two switch pockets, extended-front-skirt Sculpted cover, rigid Industrial
 above-counter plate and side-down lever. The cover is task 1374330388; the
 remaining four parts are from task 1372253517. The TPU gasket is a separate print.
 
+The [corrected tip STEP](faucet-shell-tip.step) and the
+[relaxed cover STEP](sculpted-display-cover-print.step) are the sources for
+the production tip and cover meshes. The
+[nominal seated cover STEP](sculpted-display-cover-seated.step) supplies the
+installed shape. Its frozen surface is tessellated from that same STEP using
+the kernel's import tolerances. The Industrial assembly seats the display and
+cover at the accepted lowered datum.
+
 The [physical acceptance and five photographs](../../../faucet-display-cover/prints/2026-10-25-front-overlap-black-mark2/physical-result/physical-result.json)
 record working fit and approval. A visible front-corner gap remains and is accepted
 as good enough, with no further iteration requested. The selected production

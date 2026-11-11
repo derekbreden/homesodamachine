@@ -6,10 +6,10 @@ import { sourceFileFor } from "../contracts/component-sources.js";
 const [sculpted, industrial] = FAUCET_STYLES;
 const files = [...new Set(FAUCET_STYLES.flatMap((s) => [s.assembly, ...Object.values(s.parts)]))];
 
-test("faucet styles name distinct assemblies and share the printable neck tip", () => {
+test("faucet styles name their assemblies and printable neck tips", () => {
   assert.deepEqual(FAUCET_STYLES.map((s) => s.label), ["Sculpted", "Industrial"]);
   assert.notEqual(sculpted.assembly, industrial.assembly);
-  assert.equal(sculpted.parts.shell_tip, industrial.parts.shell_tip);
+  assert.notEqual(sculpted.parts.shell_tip, industrial.parts.shell_tip);
   assert.equal(faucetStyleFor(industrial.assembly), industrial);
   assert.equal(faucetStyleFor("manifold-layout/enclosure-assembly.step"), null);
   assert.deepEqual(FAUCET_FINISHES.map((f) => f.label), ["Black", "White"]);

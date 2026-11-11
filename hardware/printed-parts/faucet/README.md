@@ -41,24 +41,24 @@ drip behavior and complete fault-vent capacity are unmeasured.
 ## Parts
 
 Both styles enclose the same harvested Westbrass, printed lever, Waveshare
-faucet display, four LLDPE tubes and continuous insulated signal conductors. They share the
-[shell tip](faucet-shell/faucet-shell-tip.step), the curved gooseneck joint,
-the three hidden mounting screws and the stainless under-counter
-plate. The cover's preformed side walls seat their broad lips in the tip's
-retaining grooves. The printed cover is its relaxed shape; assembly models
-show its nominal seated surface.
+faucet display, four LLDPE tubes and continuous insulated signal conductors. They share
+the curved gooseneck joint, the three hidden mounting screws and the stainless
+under-counter plate. The Industrial tip carries the lowered display and matching
+cover. The cover's preformed side walls seat their broad lips in the tip's retaining
+grooves. The printed cover is its relaxed shape. Assembly models show its nominal
+seated surface.
 
 | Piece | Sculpted | Industrial |
 |---|---|---|
 | Shell base | [STEP](faucet-shell/faucet-shell-base.step) · [STL](faucet-shell/faucet-shell-base.stl) | [STEP](industrial/industrial-shell-base.step) · [STL](industrial/industrial-shell-base.stl) |
-| Shell tip, shared | [STEP](faucet-shell/faucet-shell-tip.step) · [STL](faucet-shell/faucet-shell-tip.stl) | Same part |
-| Display cover | [STEP](faucet-display-cover/faucet-display-cover.step) · [STL](faucet-display-cover/faucet-display-cover.stl) | [STEP](industrial/industrial-display-cover.step) · [STL](industrial/industrial-display-cover.stl) |
+| Shell tip | [STEP](faucet-shell/faucet-shell-tip.step) · [STL](faucet-shell/faucet-shell-tip.stl) | [STEP](industrial/industrial-production-shell-tip.step) · [STL](industrial/industrial-production-shell-tip.stl) |
+| Display cover | [STEP](faucet-display-cover/faucet-display-cover.step) · [STL](faucet-display-cover/faucet-display-cover.stl) | [STEP](industrial/industrial-production-display-cover.step) · [STL](industrial/industrial-production-display-cover.stl) |
 | Above-counter plate | [STEP](above-counter-plate/above-counter-plate.step) · [STL](above-counter-plate/above-counter-plate.stl) | [STEP](industrial/industrial-above-counter-plate.step) · [STL](industrial/industrial-above-counter-plate.stl) |
 | Above-counter gasket, TPU | [STL](above-counter-gasket/above-counter-gasket.stl) | [STL](industrial/industrial-above-counter-gasket.stl) |
 | Umbilical organizer, shared | [STEP](umbilical-organizer/umbilical-organizer.step) · [STL](umbilical-organizer/umbilical-organizer.stl) · [accepted fit and settings](umbilical-organizer/README.md) | Same part |
 
 Use the matching base, cover, plate and gasket for the selected style.
-Both current PET-GF projects contain the base, shared tip, cover, plate and
+Both current PET-GF projects contain the base, tip, cover, plate and
 side-down lever replica.
 The gasket is a separate TPU print.
 The organizer is a separate PET-GF print, fitted during
