@@ -929,15 +929,15 @@
   "HSM-0092": {
     "title": "Complete Sculpted faucet · Mark2 print plan",
     "recipe": "hardware/printed-parts/faucet/sculpted/finish-selection.json",
-    "recipe_sha256": "340097eec7f8218a538eb247f93a3b9f8bafdc686a40819c6c9ed4ea86070d96",
-    "project_sha256": "c93d069effd937cebcac660ff806cf50f84359f63db65e151741484890b72c26",
-    "archive_sha256": "61141c713e322fba18c6f623b26f558ff7636450753d5cd3cb80101f4d96b004",
-    "gcode_sha256": "334faafeaef2a04e3982f56956741bf4c7281aa8fabbad5b8410bb3e64d3100d",
+    "recipe_sha256": "513bc772259add0cbceb48af21deac904b4cbe2baf0d7fd7fdc11a34eef7ed24",
+    "project_sha256": "f79973dc31d5ca3a9d6832187f3410afc798802c9fb6a147fc76970ec40e8302",
+    "archive_sha256": "3e2c6cf57c670317b2b935ad6fd27d5e094b64de6e5d0d5aef1d9cb17325e590",
+    "gcode_sha256": "2a42fb2cd5f753e90410fba5fc34c0b229a914dd08de9a4fea1d49f754a49053",
     "kind": "plan",
-    "sha256": "2b7cd0fd3fcd717c12ca43fa542725dc6a1db2fd98baeaa237bc9d526fd80151",
+    "sha256": "28b7876846a59a6103b9102452af0cd042d649d4e32bbf0e8a1e21472c18aaf1",
     "slice": "hardware/printed-parts/faucet/sculpted/production/faucet-petgf.gcode.3mf",
     "plate": 1,
-    "layers": 1570,
+    "layers": 1526,
     "process": {
       "Printer": "Mark2",
       "Material": "White Polymaker PET-GF",
@@ -955,7 +955,7 @@
       "Filament bridge speed": "15 mm/s"
     },
     "model_sha256": "cf69dac0a0ce01845ce261d050fbbb876be24baec78d3db77f8d97839bc32990",
-    "recipe_commit": "3f6a63dd1a4f0bd52bf3d5a6a14253d20e964b16"
+    "recipe_commit": "53fe5f62a036810e277ba6c4d1eb2e3e1dfaddc6"
   },
   "HSM-0093": {
     "title": "Sculpted faucet mounting gasket · Mark1 print plan",
@@ -985,15 +985,15 @@
   "HSM-0094": {
     "title": "Complete Sculpted faucet · Mark2 print plan",
     "recipe": "hardware/printed-parts/faucet/sculpted/finish-selection.json",
-    "recipe_sha256": "340097eec7f8218a538eb247f93a3b9f8bafdc686a40819c6c9ed4ea86070d96",
-    "project_sha256": "c93d069effd937cebcac660ff806cf50f84359f63db65e151741484890b72c26",
-    "archive_sha256": "61141c713e322fba18c6f623b26f558ff7636450753d5cd3cb80101f4d96b004",
-    "gcode_sha256": "334faafeaef2a04e3982f56956741bf4c7281aa8fabbad5b8410bb3e64d3100d",
+    "recipe_sha256": "513bc772259add0cbceb48af21deac904b4cbe2baf0d7fd7fdc11a34eef7ed24",
+    "project_sha256": "f79973dc31d5ca3a9d6832187f3410afc798802c9fb6a147fc76970ec40e8302",
+    "archive_sha256": "3e2c6cf57c670317b2b935ad6fd27d5e094b64de6e5d0d5aef1d9cb17325e590",
+    "gcode_sha256": "2a42fb2cd5f753e90410fba5fc34c0b229a914dd08de9a4fea1d49f754a49053",
     "kind": "plan",
-    "sha256": "2b7cd0fd3fcd717c12ca43fa542725dc6a1db2fd98baeaa237bc9d526fd80151",
+    "sha256": "28b7876846a59a6103b9102452af0cd042d649d4e32bbf0e8a1e21472c18aaf1",
     "slice": "hardware/printed-parts/faucet/sculpted/production/faucet-petgf.gcode.3mf",
     "plate": 1,
-    "layers": 1570,
+    "layers": 1526,
     "process": {
       "Printer": "Mark2",
       "Material": "White Polymaker PET-GF",
@@ -1017,56 +1017,58 @@
       "Brim": "Off"
     },
     "model_sha256": "f49e8818fa749ad57445aca26972ff107d840ed53102d33e6fff7837f46c1bfb",
-    "recipe_commit": "3f6a63dd1a4f0bd52bf3d5a6a14253d20e964b16"
+    "recipe_commit": "53fe5f62a036810e277ba6c4d1eb2e3e1dfaddc6"
   },
   "HSM-0095": {
     "title": "Complete Sculpted faucet · Mark2 print plan",
     "recipe": "hardware/printed-parts/faucet/sculpted/finish-selection.json",
-    "recipe_sha256": "340097eec7f8218a538eb247f93a3b9f8bafdc686a40819c6c9ed4ea86070d96",
-    "project_sha256": "c93d069effd937cebcac660ff806cf50f84359f63db65e151741484890b72c26",
-    "archive_sha256": "61141c713e322fba18c6f623b26f558ff7636450753d5cd3cb80101f4d96b004",
-    "gcode_sha256": "334faafeaef2a04e3982f56956741bf4c7281aa8fabbad5b8410bb3e64d3100d",
+    "recipe_sha256": "513bc772259add0cbceb48af21deac904b4cbe2baf0d7fd7fdc11a34eef7ed24",
+    "project_sha256": "f79973dc31d5ca3a9d6832187f3410afc798802c9fb6a147fc76970ec40e8302",
+    "archive_sha256": "3e2c6cf57c670317b2b935ad6fd27d5e094b64de6e5d0d5aef1d9cb17325e590",
+    "gcode_sha256": "2a42fb2cd5f753e90410fba5fc34c0b229a914dd08de9a4fea1d49f754a49053",
     "kind": "plan",
-    "sha256": "2b7cd0fd3fcd717c12ca43fa542725dc6a1db2fd98baeaa237bc9d526fd80151",
+    "sha256": "28b7876846a59a6103b9102452af0cd042d649d4e32bbf0e8a1e21472c18aaf1",
     "slice": "hardware/printed-parts/faucet/sculpted/production/faucet-petgf.gcode.3mf",
     "plate": 1,
-    "layers": 1570,
+    "layers": 1526,
     "process": {
       "Printer": "Mark2",
       "Material": "White Polymaker PET-GF",
       "Nozzle": "Left 0.4 mm Standard",
       "Z trim": "+0.04 mm requested, +0.02 mm emitted",
       "Cooling": "70% on bridges and qualifying unsupported walls after the bed layers",
-      "Supports": "Slim automatic trees, local lip supports, removable fins and hidden-root anchor",
+      "Supports": "Slim automatic trees with a dense interface at the mating lip",
       "Requested top gap": "0.24 mm",
       "Requested bottom gap": "0.30 mm",
       "Top interface": "3 layers, 0 mm spacing",
       "Bottom interface": "2 layers",
-      "Supported overhangs": "Local nonplanar interface on the inclined inner dispense face",
-      "Beverage outlet": "No support in the passage",
+      "Beverage outlet": "Clear of supports",
       "Layer heights": "0.2 mm first, 0.24 mm nominal",
       "Build plate": "Textured PEI Plate",
       "Walls": "2",
       "Infill": "15% grid",
       "Bridge flow": "1.25",
       "Process bridge speed": "15 mm/s",
-      "Filament bridge speed": "15 mm/s"
+      "Filament bridge speed": "15 mm/s",
+      "Mating lip": "Continuous first outer perimeter follows the tilted rim",
+      "Dispense face": "Separate nonplanar interface",
+      "Bed anchor": "Removable disc on the hidden plug end"
     },
     "model_sha256": "a3f80020d3756ea99dc7135a3173c89f9ed05bebebb63ce211d0492e92dc14ad",
-    "recipe_commit": "3f6a63dd1a4f0bd52bf3d5a6a14253d20e964b16"
+    "recipe_commit": "53fe5f62a036810e277ba6c4d1eb2e3e1dfaddc6"
   },
   "HSM-0096": {
     "title": "Complete Sculpted faucet · Mark2 print plan",
     "recipe": "hardware/printed-parts/faucet/sculpted/finish-selection.json",
-    "recipe_sha256": "340097eec7f8218a538eb247f93a3b9f8bafdc686a40819c6c9ed4ea86070d96",
-    "project_sha256": "c93d069effd937cebcac660ff806cf50f84359f63db65e151741484890b72c26",
-    "archive_sha256": "61141c713e322fba18c6f623b26f558ff7636450753d5cd3cb80101f4d96b004",
-    "gcode_sha256": "334faafeaef2a04e3982f56956741bf4c7281aa8fabbad5b8410bb3e64d3100d",
+    "recipe_sha256": "513bc772259add0cbceb48af21deac904b4cbe2baf0d7fd7fdc11a34eef7ed24",
+    "project_sha256": "f79973dc31d5ca3a9d6832187f3410afc798802c9fb6a147fc76970ec40e8302",
+    "archive_sha256": "3e2c6cf57c670317b2b935ad6fd27d5e094b64de6e5d0d5aef1d9cb17325e590",
+    "gcode_sha256": "2a42fb2cd5f753e90410fba5fc34c0b229a914dd08de9a4fea1d49f754a49053",
     "kind": "plan",
-    "sha256": "2b7cd0fd3fcd717c12ca43fa542725dc6a1db2fd98baeaa237bc9d526fd80151",
+    "sha256": "28b7876846a59a6103b9102452af0cd042d649d4e32bbf0e8a1e21472c18aaf1",
     "slice": "hardware/printed-parts/faucet/sculpted/production/faucet-petgf.gcode.3mf",
     "plate": 1,
-    "layers": 1570,
+    "layers": 1526,
     "process": {
       "Printer": "Mark2",
       "Material": "White Polymaker PET-GF",
@@ -1088,7 +1090,7 @@
       "Filament bridge speed": "15 mm/s"
     },
     "model_sha256": "3a1182b480110d50cb8943dfc4be8d5b5b2344bdcbf10b37052ef2e6423c9cfa",
-    "recipe_commit": "3f6a63dd1a4f0bd52bf3d5a6a14253d20e964b16"
+    "recipe_commit": "53fe5f62a036810e277ba6c4d1eb2e3e1dfaddc6"
   },
   "HSM-0098": {
     "title": "Faucet umbilical organizer · Mark2 print plan",
@@ -1251,12 +1253,12 @@
     "title": "Industrial faucet · Mark2 print plan",
     "recipe": "hardware/printed-parts/faucet/industrial/faucet-industrial-petgf.print.json",
     "recipe_target": "industrial-faucet-print-project",
-    "recipe_sha256": "4670fe9a2f50d8a435ae2bebe35dadcf1c25ffefc55a964c4ce5cab70880ca88",
-    "project_sha256": "2125747b747c09ead2603525ab875cabba37a642421c6aea5452d3f42eddde57",
-    "archive_sha256": "21c0e647f5b80d38e5a18e20c2ab91748d2545838a7d38b8ad29206de4ce0f80",
-    "gcode_sha256": "018a0a1168974d9f63eae8f3f673ede734b497860134e89d82feaa64b949d1a8",
+    "recipe_sha256": "d792180639ea941e959bf271a3fb1442b4d7c745b7ea1580ed1694cb03a5874b",
+    "project_sha256": "90a1261e65dab79c4b94ee14e4111eefed69d63f196d7c4d172a8e1a79123bc5",
+    "archive_sha256": "bf7462bd297cda5b20449f708eede29e35a93769db8065a75084f995a2339382",
+    "gcode_sha256": "7763080597d4b3910483dae44b8e367b970d11197fdbc44c9764953d7d409075",
     "kind": "plan",
-    "sha256": "c7accfbeaaf103926688c8c6c045e0ff9a2d1bc4bd9a57d665abc268a8c3de52",
+    "sha256": "ee786912687a18bc0972d56f4690dd0876c502a6c031c39a467e6f1f90901e14",
     "slice": "hardware/printed-parts/faucet/industrial/faucet-industrial-petgf.gcode.3mf",
     "plate": 1,
     "layers": 1022,
@@ -1277,7 +1279,7 @@
       "Filament bridge speed": "15 mm/s"
     },
     "model_sha256": "5dcf7c25eddfd45f5a9db12b687b751ba24c3c3f9bb87d042b6d97ca4d134bee",
-    "recipe_commit": "86a16c49fb17a4a3e7e0687b06f878085d823007"
+    "recipe_commit": "0acdc418e1358b75c66c6095ef848e5adbfaf39f"
   },
   "HSM-0112": {
     "title": "Industrial faucet mounting gasket · Mark2",
@@ -1311,12 +1313,12 @@
     "title": "Industrial faucet · Mark2 print plan",
     "recipe": "hardware/printed-parts/faucet/industrial/faucet-industrial-petgf.print.json",
     "recipe_target": "industrial-faucet-print-project",
-    "recipe_sha256": "4670fe9a2f50d8a435ae2bebe35dadcf1c25ffefc55a964c4ce5cab70880ca88",
-    "project_sha256": "2125747b747c09ead2603525ab875cabba37a642421c6aea5452d3f42eddde57",
-    "archive_sha256": "21c0e647f5b80d38e5a18e20c2ab91748d2545838a7d38b8ad29206de4ce0f80",
-    "gcode_sha256": "018a0a1168974d9f63eae8f3f673ede734b497860134e89d82feaa64b949d1a8",
+    "recipe_sha256": "d792180639ea941e959bf271a3fb1442b4d7c745b7ea1580ed1694cb03a5874b",
+    "project_sha256": "90a1261e65dab79c4b94ee14e4111eefed69d63f196d7c4d172a8e1a79123bc5",
+    "archive_sha256": "bf7462bd297cda5b20449f708eede29e35a93769db8065a75084f995a2339382",
+    "gcode_sha256": "7763080597d4b3910483dae44b8e367b970d11197fdbc44c9764953d7d409075",
     "kind": "plan",
-    "sha256": "c7accfbeaaf103926688c8c6c045e0ff9a2d1bc4bd9a57d665abc268a8c3de52",
+    "sha256": "ee786912687a18bc0972d56f4690dd0876c502a6c031c39a467e6f1f90901e14",
     "slice": "hardware/printed-parts/faucet/industrial/faucet-industrial-petgf.gcode.3mf",
     "plate": 1,
     "layers": 1022,
@@ -1341,18 +1343,18 @@
       "Brim": "Off"
     },
     "model_sha256": "dc855eb7d8eae75886222d8b4aee8b9e02fe1d55ae4740c1ae5b4b64cf6ba742",
-    "recipe_commit": "86a16c49fb17a4a3e7e0687b06f878085d823007"
+    "recipe_commit": "0acdc418e1358b75c66c6095ef848e5adbfaf39f"
   },
   "HSM-0114": {
     "title": "Industrial faucet · Mark2 print plan",
     "recipe": "hardware/printed-parts/faucet/industrial/faucet-industrial-petgf.print.json",
     "recipe_target": "industrial-faucet-print-project",
-    "recipe_sha256": "4670fe9a2f50d8a435ae2bebe35dadcf1c25ffefc55a964c4ce5cab70880ca88",
-    "project_sha256": "2125747b747c09ead2603525ab875cabba37a642421c6aea5452d3f42eddde57",
-    "archive_sha256": "21c0e647f5b80d38e5a18e20c2ab91748d2545838a7d38b8ad29206de4ce0f80",
-    "gcode_sha256": "018a0a1168974d9f63eae8f3f673ede734b497860134e89d82feaa64b949d1a8",
+    "recipe_sha256": "d792180639ea941e959bf271a3fb1442b4d7c745b7ea1580ed1694cb03a5874b",
+    "project_sha256": "90a1261e65dab79c4b94ee14e4111eefed69d63f196d7c4d172a8e1a79123bc5",
+    "archive_sha256": "bf7462bd297cda5b20449f708eede29e35a93769db8065a75084f995a2339382",
+    "gcode_sha256": "7763080597d4b3910483dae44b8e367b970d11197fdbc44c9764953d7d409075",
     "kind": "plan",
-    "sha256": "c7accfbeaaf103926688c8c6c045e0ff9a2d1bc4bd9a57d665abc268a8c3de52",
+    "sha256": "ee786912687a18bc0972d56f4690dd0876c502a6c031c39a467e6f1f90901e14",
     "slice": "hardware/printed-parts/faucet/industrial/faucet-industrial-petgf.gcode.3mf",
     "plate": 1,
     "layers": 1022,
@@ -1375,7 +1377,7 @@
       "Filament bridge speed": "15 mm/s"
     },
     "model_sha256": "3d4d2e05edde5a0e45aad36e9de072a57103c3b0f8da2bbd875cbfbedbe68133",
-    "recipe_commit": "86a16c49fb17a4a3e7e0687b06f878085d823007"
+    "recipe_commit": "0acdc418e1358b75c66c6095ef848e5adbfaf39f"
   },
   "HSM-0151": {
     "title": "Tube insertion base · Mark1",
@@ -1422,12 +1424,12 @@
     "title": "Industrial faucet · Mark2 print plan",
     "recipe": "hardware/printed-parts/faucet/industrial/faucet-industrial-petgf.print.json",
     "recipe_target": "industrial-faucet-print-project",
-    "recipe_sha256": "4670fe9a2f50d8a435ae2bebe35dadcf1c25ffefc55a964c4ce5cab70880ca88",
-    "project_sha256": "2125747b747c09ead2603525ab875cabba37a642421c6aea5452d3f42eddde57",
-    "archive_sha256": "21c0e647f5b80d38e5a18e20c2ab91748d2545838a7d38b8ad29206de4ce0f80",
-    "gcode_sha256": "018a0a1168974d9f63eae8f3f673ede734b497860134e89d82feaa64b949d1a8",
+    "recipe_sha256": "d792180639ea941e959bf271a3fb1442b4d7c745b7ea1580ed1694cb03a5874b",
+    "project_sha256": "90a1261e65dab79c4b94ee14e4111eefed69d63f196d7c4d172a8e1a79123bc5",
+    "archive_sha256": "bf7462bd297cda5b20449f708eede29e35a93769db8065a75084f995a2339382",
+    "gcode_sha256": "7763080597d4b3910483dae44b8e367b970d11197fdbc44c9764953d7d409075",
     "kind": "plan",
-    "sha256": "c7accfbeaaf103926688c8c6c045e0ff9a2d1bc4bd9a57d665abc268a8c3de52",
+    "sha256": "ee786912687a18bc0972d56f4690dd0876c502a6c031c39a467e6f1f90901e14",
     "slice": "hardware/printed-parts/faucet/industrial/faucet-industrial-petgf.gcode.3mf",
     "plate": 1,
     "layers": 1022,
@@ -1450,7 +1452,7 @@
       "Filament bridge speed": "15 mm/s"
     },
     "model_sha256": "7a3f5c7d9034c4cce0e0f39bfac6e868f6bd8d01a05add3d21951981eca296eb",
-    "recipe_commit": "86a16c49fb17a4a3e7e0687b06f878085d823007"
+    "recipe_commit": "0acdc418e1358b75c66c6095ef848e5adbfaf39f"
   },
   "HSM-0272": {
     "title": "White tube collars · Mark2 print plan",
@@ -1968,12 +1970,12 @@
     "title": "Industrial faucet · Mark2 print plan",
     "recipe": "hardware/printed-parts/faucet/industrial/faucet-industrial-petgf.print.json",
     "recipe_target": "industrial-faucet-print-project",
-    "recipe_sha256": "4670fe9a2f50d8a435ae2bebe35dadcf1c25ffefc55a964c4ce5cab70880ca88",
-    "project_sha256": "2125747b747c09ead2603525ab875cabba37a642421c6aea5452d3f42eddde57",
-    "archive_sha256": "21c0e647f5b80d38e5a18e20c2ab91748d2545838a7d38b8ad29206de4ce0f80",
-    "gcode_sha256": "018a0a1168974d9f63eae8f3f673ede734b497860134e89d82feaa64b949d1a8",
+    "recipe_sha256": "d792180639ea941e959bf271a3fb1442b4d7c745b7ea1580ed1694cb03a5874b",
+    "project_sha256": "90a1261e65dab79c4b94ee14e4111eefed69d63f196d7c4d172a8e1a79123bc5",
+    "archive_sha256": "bf7462bd297cda5b20449f708eede29e35a93769db8065a75084f995a2339382",
+    "gcode_sha256": "7763080597d4b3910483dae44b8e367b970d11197fdbc44c9764953d7d409075",
     "kind": "plan",
-    "sha256": "c7accfbeaaf103926688c8c6c045e0ff9a2d1bc4bd9a57d665abc268a8c3de52",
+    "sha256": "ee786912687a18bc0972d56f4690dd0876c502a6c031c39a467e6f1f90901e14",
     "slice": "hardware/printed-parts/faucet/industrial/faucet-industrial-petgf.gcode.3mf",
     "plate": 1,
     "layers": 1022,
@@ -1982,21 +1984,23 @@
       "Printer": "Mark2",
       "Nozzle": "Left hardened 0.4 mm Standard",
       "Z trim": "+0.04 mm requested, +0.02 mm emitted",
-      "Dispense face": "Nonplanar inboard contact with dense interface and clear beverage outlet",
-      "Retained aids": "Tip fins, lip trees and removable hidden-root disc",
+      "Dispense face": "Separate nonplanar interface",
       "Orientation": "105° rotation, rear seam",
       "Layer heights": "0.2 mm first, 0.24 mm nominal",
       "Build plate": "Textured PEI Plate",
       "Walls": "2",
       "Infill": "15% grid",
-      "Supports": "tree(auto) · tree_slim",
+      "Supports": "Slim automatic trees with a dense interface at the mating lip",
       "Requested top gap": "0.24 mm",
       "Top interface": "3 layers, 0 mm spacing",
       "Bridge flow": "1.25",
       "Process bridge speed": "15 mm/s",
-      "Filament bridge speed": "15 mm/s"
+      "Filament bridge speed": "15 mm/s",
+      "Mating lip": "Continuous first outer perimeter follows the tilted rim",
+      "Beverage outlet": "Clear of supports",
+      "Bed anchor": "Removable disc on the hidden plug end"
     },
     "model_sha256": "35ec9f0b99c5e90f038836549e6f5e8f112b2af03e1849b08b2d759050d260e6",
-    "recipe_commit": "86a16c49fb17a4a3e7e0687b06f878085d823007"
+    "recipe_commit": "0acdc418e1358b75c66c6095ef848e5adbfaf39f"
   }
 }
