@@ -17,6 +17,7 @@ import { RETIRED_MARKER } from "./retired.js";
 import { madeFrom } from "./made-from.js";
 import { featureCatalog } from "./feature-catalog.js";
 import { materialInstances } from "./material-instances.js";
+import { mountPrintPlayback, readPrintPlaybacks } from "./print-playback.js";
 
 const relOf = (req) => req.params.splat.join("/");
 
@@ -53,6 +54,7 @@ function readSidecar(rootDir, rel) {
 // Endpoints + response shapes: web/contracts/api-shapes.js.
 export function mountViewerRoutes(app, { hardwareDir, store, pointersPath }) {
   mountPdfjsAssets(app);
+  mountPrintPlayback(app);
 
   // Public deployments expose catalog models. Local render servers also read
   // temporary, unnumbered scene inputs without publishing them.
@@ -80,6 +82,7 @@ export function mountViewerRoutes(app, { hardwareDir, store, pointersPath }) {
     // Costs ride with the catalog; a checkout without the ledgers serves parts uncosted.
     try { catalog.costs = readPartCosts(hardwareDir, catalog); } catch { catalog.costs = null; }
     try { catalog.stock = readMaterialStock(hardwareDir, catalog); } catch { catalog.stock = null; }
+    catalog.printPlaybacks = readPrintPlaybacks();
     res.json(catalog);
   });
 

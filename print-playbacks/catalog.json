@@ -1,0 +1,8 @@
+{
+  "HSM-0155": {
+    "title": "Tube insertion liners · H2C",
+    "sha256": "33cb79941cb1c64a33879aa9e9eede7d4894cf44201759a27a2f943dabbea142",
+    "slice": "hardware/printed-parts/fixtures/tube-insertion/ready/tube-insertion-centered-liners-tpu85a-right06-z018-mark1.gcode.3mf",
+    "plate": 1
+  }
+}
