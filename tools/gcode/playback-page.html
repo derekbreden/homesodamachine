@@ -1,0 +1,262 @@
+<style>
+#hsm-motion-playback { display: grid; gap: calc(var(--font-size-base, 14px) * .75); min-width: 0; }
+#hsm-motion-playback h2 { max-width: calc(100% - 90px); }
+#hsm-motion-playback .motion-stage { position: relative; width: 100%; aspect-ratio: 1.6; min-height: 280px; max-height: 520px; touch-action: none; }
+#hsm-motion-playback .motion-stage canvas { display: block; width: 100%; height: 100%; }
+#hsm-motion-playback .motion-status { display: flex; flex-wrap: wrap; justify-content: space-between; gap: .5em 1em; }
+#hsm-motion-playback .motion-controls { display: flex; flex-wrap: wrap; align-items: center; gap: .5em; }
+#hsm-motion-playback .motion-controls label { display: flex; flex-wrap: wrap; align-items: center; gap: .5em; }
+#hsm-motion-playback .motion-scrubber { display: grid; gap: .25em; }
+#hsm-motion-playback .motion-legend { display: flex; flex-wrap: wrap; gap: .5em 1.25em; }
+#hsm-motion-playback .motion-legend span { display: inline-flex; align-items: center; gap: .4em; }
+#hsm-motion-playback .motion-swatch { width: 1em; height: .3em; background: var(--viz-series-1); }
+#hsm-motion-playback .motion-swatch.support { background: var(--viz-series-2); }
+#hsm-motion-playback .motion-loading { position: absolute; inset: 0; display: grid; place-items: center; color: var(--muted-foreground); }
+#hsm-motion-playback input[type="range"] { width: 100%; }
+@media(max-width: 420px) { #hsm-motion-playback .motion-stage { aspect-ratio: 1.1; } }
+</style>
+
+<div id="hsm-motion-playback">
+  <h2>{{TITLE}}</h2>
+  <div class="motion-status text-small tabular-nums">
+    <span id="motion-layer"></span>
+    <span id="motion-readout"></span>
+  </div>
+  <div class="motion-stage" id="motion-stage" role="img" aria-label="Continuous H2C print simulation. The nozzle moves in the gantry plane, deposited beads grow on the bed, and the bed moves vertically with the G-code.">
+    <div class="motion-loading" id="motion-loading">Preparing print motion…</div>
+  </div>
+  <div class="motion-controls">
+    <button type="button" class="btn btn-primary" id="motion-play">Play</button>
+    <label class="form-label">Speed
+      <select class="form-select" id="motion-speed" aria-label="Playback speed">
+        <option value="1">1×</option><option value="5">5×</option><option value="10">10×</option><option value="30">30×</option><option value="60">60×</option>
+      </select>
+    </label>
+    <label class="form-label">Camera
+      <select class="form-select" id="motion-camera" aria-label="Camera view">
+        <option value="print">Print</option><option value="follow">Follow nozzle</option><option value="machine">Whole printer</option>
+      </select>
+    </label>
+  </div>
+  <label class="form-label motion-scrubber">
+    <span class="motion-status tabular-nums"><span>Estimated motion time</span><span id="motion-time"></span></span>
+    <input type="range" class="form-range" id="motion-scrub" min="0" max="1000" value="0" step="1" aria-label="Print motion timeline">
+  </label>
+  <div class="motion-legend text-small text-muted">
+    <span><i class="motion-swatch" aria-hidden="true"></i>Deposited model</span>
+    <span><i class="motion-swatch support" aria-hidden="true"></i>Deposited support</span>
+    <span>Acceleration + braking estimate · simplified H2C hardware</span>
+    <span>Firmware actions and waits excluded</span>
+  </div>
+  <div class="sr-only" id="motion-announcement" aria-live="polite"></div>
+</div>
+
+<script type="application/json" id="motion-data">/*DATA*/</script>
+<script type="importmap">
+{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.min.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/"}}
+</script>
+<script type="module">
+import * as THREE from "three";
+import { OrbitControls } from "three/addons/controls/OrbitControls.js";
+/*THEME*/
+
+// Playback draws emitted beads and inverse bed motion under a fixed-height gantry.
+const root = document.getElementById("hsm-motion-playback");
+const theme = createInlineMobileTheme(root);
+const data = JSON.parse(document.getElementById("motion-data").textContent);
+const $ = (id) => root.querySelector(`#${id}`);
+const bytes = (text) => { const raw = atob(text), out = new Uint8Array(raw.length); for (let i=0;i<raw.length;i++) out[i]=raw.charCodeAt(i); return out.buffer; };
+const coordinates = new Int16Array(bytes(data.positions));
+const profiles = new Float32Array(bytes(data.kinematics));
+const layers = new Uint16Array(bytes(data.layers));
+const flags = new Uint8Array(bytes(data.flags));
+const dimensions = new Uint8Array(bytes(data.dimensions));
+const featureIds = new Uint8Array(bytes(data.feature_ids));
+const count = flags.length;
+const point = (i, target = new THREE.Vector3()) => target.set(coordinates[3*i]/100,coordinates[3*i+1]/100,coordinates[3*i+2]/100);
+const endTime = (i) => profiles[6*i];
+const duration = endTime(count-1);
+const palette = (token) => { const p=theme.rgba(token); return new THREE.Color(p[0]/255,p[1]/255,p[2]/255).convertSRGBToLinear(); };
+
+const stage = $("motion-stage");
+const renderer = new THREE.WebGLRenderer({antialias:true,alpha:true});
+renderer.setPixelRatio(Math.min(devicePixelRatio,2));
+renderer.setClearColor(0,0);
+stage.prepend(renderer.domElement);
+const scene = new THREE.Scene();
+scene.add(new THREE.HemisphereLight(0xffffff,0x808080,2));
+const key = new THREE.DirectionalLight(0xffffff,2.5);
+key.position.set(-100,-200,400); scene.add(key);
+const camera = new THREE.PerspectiveCamera(35,1,.05,2500);
+camera.up.set(0,0,1);
+const controls = new OrbitControls(camera,renderer.domElement);
+controls.enableDamping=false;
+controls.minDistance=8; controls.maxDistance=1400;
+
+const hardware = new THREE.MeshStandardMaterial({color:palette("muted-foreground"),metalness:.3,roughness:.7});
+const frameMaterial = new THREE.MeshStandardMaterial({color:palette("foreground"),transparent:true,opacity:.2,roughness:.7});
+const tipMaterial = new THREE.MeshStandardMaterial({color:palette("viz-series-1"),metalness:.55,roughness:.3});
+const plateMaterial = new THREE.MeshStandardMaterial({color:palette("secondary"),roughness:.9,metalness:.2,side:THREE.DoubleSide});
+const modelMaterial = new THREE.MeshStandardMaterial({vertexColors:true,roughness:.7,metalness:.06});
+const bed = new THREE.Group(); scene.add(bed);
+function box(parent,size,position,material) {
+  const mesh=new THREE.Mesh(new THREE.BoxGeometry(...size),material);
+  mesh.position.set(...position);parent.add(mesh);return mesh;
+}
+if (data.bed_mesh) {
+  const source=new Int16Array(bytes(data.bed_mesh)), positions=new Float32Array(source.length);
+  for(let i=0;i<source.length;i++) positions[i]=source[i]/100;
+  const geometry=new THREE.BufferGeometry();geometry.setAttribute("position",new THREE.BufferAttribute(positions,3));geometry.computeVertexNormals();
+  bed.add(new THREE.Mesh(geometry,plateMaterial));
+} else box(bed,[...data.bed,1],[0,0,-.5],plateMaterial);
+box(bed,[data.bed[0]-6,data.bed[1]-6,8],[0,0,-5],hardware);
+
+const machine = new THREE.Group(); scene.add(machine);
+for(const x of [-data.bed[0]/2-14,data.bed[0]/2+14]) {
+  for(const y of [-data.bed[1]/2-14,data.bed[1]/2+14]) box(machine,[10,10,390],[x,y,-135],frameMaterial);
+  box(machine,[8,data.bed[1]+32,8],[x,0,48],hardware);
+}
+const gantry = new THREE.Group();scene.add(gantry);
+box(gantry,[data.bed[0]+26,8,12],[0,0,42],hardware);
+const head = new THREE.Group();scene.add(head);
+box(head,[40,24,32],[7,4,29],hardware);
+box(head,[26,8,20],[7,-12,28],frameMaterial);
+box(head,[9,9,7],[0,0,8],hardware);
+const coneGeometry = new THREE.CylinderGeometry(1.7,.25,4,18);coneGeometry.rotateX(Math.PI/2);
+const cone=new THREE.Mesh(coneGeometry,tipMaterial);cone.position.z=2;head.add(cone);
+
+const extrusionMoves=[];
+for(let i=0;i<count;i++) if(flags[i]) extrusionMoves.push(i);
+const beadPositions=new Float32Array(extrusionMoves.length*24);
+const beadColors=new Float32Array(beadPositions.length);
+const beadIndices=new Uint32Array(extrusionMoves.length*36);
+const topology=[0,2,1,1,2,3,4,5,6,5,7,6,0,1,4,1,5,4,2,6,3,3,6,7,0,4,2,2,4,6,1,3,5,3,7,5];
+function beadVertices(a,b,width,height,out,offset=0) {
+  const dx=b.x-a.x,dy=b.y-a.y,n=Math.hypot(dx,dy)||1,nx=-dy/n*width/2,ny=dx/n*width/2;
+  out.set([a.x+nx,a.y+ny,a.z,a.x-nx,a.y-ny,a.z,b.x+nx,b.y+ny,b.z,b.x-nx,b.y-ny,b.z,
+    a.x+nx,a.y+ny,a.z-height,a.x-nx,a.y-ny,a.z-height,b.x+nx,b.y+ny,b.z-height,b.x-nx,b.y-ny,b.z-height],offset);
+}
+const a=new THREE.Vector3(),b=new THREE.Vector3();
+extrusionMoves.forEach((i,j)=>{
+  beadVertices(point(i,a),point(i+1,b),dimensions[2*i]/100,dimensions[2*i+1]/100,beadPositions,j*24);
+  for(let k=0;k<36;k++) beadIndices[j*36+k]=j*8+topology[k];
+});
+const beadGeometry=new THREE.BufferGeometry();
+beadGeometry.setAttribute("position",new THREE.BufferAttribute(beadPositions,3));
+beadGeometry.setAttribute("color",new THREE.BufferAttribute(beadColors,3));
+beadGeometry.setIndex(new THREE.BufferAttribute(beadIndices,1));
+beadGeometry.computeVertexNormals();beadGeometry.setDrawRange(0,0);
+bed.add(new THREE.Mesh(beadGeometry,modelMaterial));
+const liveGeometry=new THREE.BufferGeometry();
+liveGeometry.setAttribute("position",new THREE.BufferAttribute(new Float32Array(24),3));
+liveGeometry.setAttribute("color",new THREE.BufferAttribute(new Float32Array(24),3));
+liveGeometry.setIndex(topology);
+const liveBead=new THREE.Mesh(liveGeometry,modelMaterial);bed.add(liveBead);
+liveBead.frustumCulled=false;
+const support = (i) => data.features[featureIds[i]].startsWith("Support");
+
+function recolor() {
+  hardware.color.copy(palette("muted-foreground"));
+  frameMaterial.color.copy(palette("foreground"));
+  plateMaterial.color.copy(palette("secondary"));
+  tipMaterial.color.copy(palette("viz-series-1"));
+  extrusionMoves.forEach((i,j)=>{ const c=palette(support(i)?"viz-series-2":"viz-series-1");for(let k=0;k<8;k++) beadColors.set([c.r,c.g,c.b],j*24+k*3); });
+  beadGeometry.attributes.color.needsUpdate=true;
+  draw();
+}
+
+const bounds=new THREE.Box3();for(const i of extrusionMoves){bounds.expandByPoint(point(i,a));bounds.expandByPoint(point(i+1,b));}
+if(bounds.isEmpty())for(let i=0;i<=count;i++)bounds.expandByPoint(point(i,a));
+const printCenter=bounds.getCenter(new THREE.Vector3());
+const printSize=bounds.getSize(new THREE.Vector3());
+let now=0,playing=false,speed=data.speed,mode="print",lastFrame=0,frameRequest=0,currentIndex=0;
+let followOffset=new THREE.Vector3(-42,-65,48),followTarget=new THREE.Vector3();
+const remembered=window.openai?.widgetState;
+if(remembered?.modelContent?.source===data.source){
+  now=Math.max(0,Math.min(duration,Number(remembered.privateContent?.time)||0));
+  if([1,5,10,30,60].includes(remembered.modelContent.speed))speed=remembered.modelContent.speed;
+  if(["print","follow","machine"].includes(remembered.modelContent.camera))mode=remembered.modelContent.camera;
+}
+$("motion-speed").value=String(speed);$("motion-camera").value=mode;
+function saveState(){window.openai?.setWidgetState({modelContent:{source:data.source,layers:data.selected_layers,speed,camera:mode},privateContent:{time:now}}).catch(()=>{});}
+const clock = (seconds) => `${Math.floor(seconds/60)}:${String(Math.floor(seconds%60)).padStart(2,"0")}`;
+function findMove(time){let low=0,high=count-1;while(low<high){const mid=(low+high)>>>1;if(endTime(mid)<time)low=mid+1;else high=mid;}return low;}
+function fraction(i,time){
+  const p=i*6,L=profiles[p+1],v0=profiles[p+2],peak=profiles[p+3],v1=profiles[p+4],accel=profiles[p+5];
+  const elapsed=Math.max(0,time-(i?endTime(i-1):0));
+  const up=(peak-v0)/accel,down=(peak-v1)/accel;
+  const dUp=(peak*peak-v0*v0)/(2*accel),dDown=(peak*peak-v1*v1)/(2*accel),flat=Math.max(0,(L-dUp-dDown)/peak);
+  let distance,velocity;
+  if(elapsed<up){distance=v0*elapsed+accel*elapsed*elapsed/2;velocity=v0+accel*elapsed;}
+  else if(elapsed<up+flat){distance=dUp+peak*(elapsed-up);velocity=peak;}
+  else{const t=Math.min(down,Math.max(0,elapsed-up-flat));distance=L-dDown+peak*t-accel*t*t/2;velocity=Math.max(v1,peak-accel*t);}
+  return [Math.max(0,Math.min(1,distance/L)),velocity];
+}
+function setView(value){
+  mode=value;
+  const z=bed.position.z;
+  if(mode==="machine"){
+    controls.target.set(0,0,-70);camera.position.set(-450,-610,310);
+  }else if(mode==="follow"){
+    followTarget.copy(head.position);followOffset.set(-42,-65,48);controls.target.copy(followTarget);camera.position.copy(followTarget).add(followOffset);
+  }else{
+    const distance=Math.max(printSize.x,printSize.y,printSize.z,25)*2.2;
+    controls.target.copy(printCenter).add(new THREE.Vector3(0,0,z));
+    camera.position.copy(controls.target).add(new THREE.Vector3(-distance*.75,-distance, distance*.75));
+  }
+  controls.update();draw();
+}
+function draw(){
+  currentIndex=findMove(now);
+  const [part,velocity]=fraction(currentIndex,now);
+  const current=point(currentIndex,new THREE.Vector3()).lerp(point(currentIndex+1,b),part);
+  bed.position.z=-current.z;
+  head.position.set(current.x,current.y,0);gantry.position.y=current.y;
+  let low=0,high=extrusionMoves.length;
+  while(low<high){const mid=(low+high)>>>1;if(extrusionMoves[mid]<currentIndex)low=mid+1;else high=mid;}
+  beadGeometry.setDrawRange(0,low*36);
+  liveBead.visible=Boolean(flags[currentIndex])&&part>0;
+  if(liveBead.visible){
+    beadVertices(point(currentIndex,a),current,dimensions[2*currentIndex]/100,dimensions[2*currentIndex+1]/100,liveGeometry.attributes.position.array);
+    liveGeometry.attributes.position.needsUpdate=true;liveGeometry.computeVertexNormals();
+    const c=palette(support(currentIndex)?"viz-series-2":"viz-series-1");
+    for(let k=0;k<8;k++)liveGeometry.attributes.color.array.set([c.r,c.g,c.b],k*3);
+    liveGeometry.attributes.color.needsUpdate=true;
+  }
+  if(mode==="follow"){
+    const delta=head.position.clone().sub(followTarget);camera.position.add(delta);controls.target.add(delta);followTarget.copy(head.position);
+  }
+  $("motion-layer").textContent=`Layer ${layers[currentIndex]} · ${data.selected_layers[0]}–${data.selected_layers[1]}`;
+  const headSpeed=velocity*point(currentIndex,a).distanceTo(point(currentIndex+1,b))/profiles[currentIndex*6+1];
+  $("motion-readout").textContent=`${flags[currentIndex]?data.features[featureIds[currentIndex]]:"Travel"} · ${headSpeed.toFixed(0)} mm/s · Z ${current.z.toFixed(2)} mm`;
+  $("motion-time").textContent=`${clock(now)} / ${clock(duration)}`;
+  $("motion-scrub").value=String(now/duration*1000);
+  renderer.render(scene,camera);
+}
+function tick(time){
+  frameRequest=0;
+  if(!playing||document.hidden)return;
+  if(lastFrame)now=Math.min(duration,now+Math.min((time-lastFrame)/1000,.1)*speed);
+  lastFrame=time;draw();
+  if(now>=duration){playing=false;$("motion-play").textContent="Replay";saveState();}
+  else frameRequest=requestAnimationFrame(tick);
+}
+function setPlaying(value){playing=value;lastFrame=0;$("motion-play").textContent=playing?"Pause":now>=duration?"Replay":"Play";if(playing&&!frameRequest)frameRequest=requestAnimationFrame(tick);}
+$("motion-play").addEventListener("click",()=>{if(!playing&&now>=duration)now=0;setPlaying(!playing);saveState();});
+$("motion-speed").addEventListener("change",()=>{speed=Number($("motion-speed").value);saveState();});
+$("motion-camera").addEventListener("change",()=>{setView($("motion-camera").value);saveState();});
+$("motion-scrub").addEventListener("input",()=>{now=Number($("motion-scrub").value)/1000*duration;draw();});
+$("motion-scrub").addEventListener("change",()=>{saveState();$("motion-announcement").textContent=`Layer ${layers[currentIndex]}, ${clock(now)} of estimated motion.`;});
+controls.addEventListener("change",()=>{if(mode==="follow")followOffset.copy(camera.position).sub(controls.target);renderer.render(scene,camera);});
+new ResizeObserver(()=>{renderer.setSize(stage.clientWidth,stage.clientHeight,false);camera.aspect=stage.clientWidth/stage.clientHeight;camera.updateProjectionMatrix();draw();}).observe(stage);
+document.addEventListener("visibilitychange",()=>{lastFrame=0;if(!document.hidden&&playing&&!frameRequest)frameRequest=requestAnimationFrame(tick);});
+window.addEventListener("openai:set_globals",(event)=>{
+  const state=event.detail?.globals?.widgetState;if(state?.modelContent?.source!==data.source)return;
+  now=Math.max(0,Math.min(duration,Number(state.privateContent?.time)||0));draw();
+});
+theme.observe(recolor);
+$("motion-loading").remove();
+recolor();draw();setView(mode);
+window.__vizReady=true;
+window.__hsmPlayback={get time(){return now},get duration(){return duration},get playing(){return playing},get layer(){return layers[currentIndex]},get bedZ(){return bed.position.z},get head(){return head.position.toArray()},seek:(time)=>{now=Math.max(0,Math.min(duration,time));draw();},play:()=>setPlaying(true),pause:()=>setPlaying(false)};
+</script>

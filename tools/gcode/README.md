@@ -10,6 +10,7 @@ sent, and answer questions about a whole part rather than a chosen window of it.
 | Where does the main exterior seam sit, over the part's whole height? | `hsm-gcode seams` |
 | What speed is commanded at this place on the outer wall, layer by layer? | `hsm-gcode speeds` |
 | Show the commanded walls with seam markers or speed colours | `hsm-gcode view seams` or `hsm-gcode view speed` |
+| Watch consecutive layers deposit under the moving head and bed | `hsm-gcode view playback` |
 
 ```bash
 hsm-gcode seams SLICE.gcode.3mf PRINT.json --part industrial-shell-base --project PROJECT.3mf
@@ -22,6 +23,23 @@ hsm-gcode speeds SLICE.gcode.3mf --layers FIRST-LAST --at leftmost
 ```bash
 hsm-gcode view speed "A=FIRST.gcode.3mf" "B=SECOND.gcode.3mf" --mark-layers FIRST-LAST --at leftmost --view left --title "Elbow lip speeds" --out PAGE.html
 ```
+
+```bash
+hsm-gcode view playback SLICE.gcode.3mf --layers FIRST-LAST --title "Print motion" --out PAGE.html
+```
+
+Playback runs continuously across the selected layers, with a timeline, playback speed and
+print, nozzle-following and whole-printer cameras. It draws the emitted deposition paths,
+moves the bed and its deposited material opposite commanded Z, and keeps the head in the
+gantry plane. `--bed-model` accepts the binary build-plate STL from the printer's profile;
+the remaining H2C hardware is a simplified reference model. Start at the first layer when
+the view needs all previously deposited material.
+
+Its motion planner reads commanded axis speed limits, acceleration, instantaneous junction
+speed limits and feed overrides. Forward and reverse lookahead passes join consecutive moves;
+each move accelerates, cruises and brakes. Timing is estimated: firmware actions, thermal
+waits, compensation, input shaping and interventions during the print are outside the study.
+This is an on-demand view of a slice and starts no printer operation.
 
 `PRINT.json` is the `*.print.json` a preparer writes beside its project. It supplies the part's
 identify ID and its pose on the plate, so seams are measured in the part's own CAD frame.

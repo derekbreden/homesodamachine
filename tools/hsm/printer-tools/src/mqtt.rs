@@ -267,6 +267,39 @@ impl Connection {
         }
         bail!("{}: light state was not verified", self.printer.name)
     }
+    pub fn recording(&mut self, enabled: bool) -> Result<Value> {
+        self.status()?;
+        while self.next(Duration::ZERO)?.is_some() {}
+        let control = if enabled { "enable" } else { "disable" };
+        let sequence = self.send("camera", "ipcam_record_set", json!({"control":control}))?;
+        self.send("pushing", "pushall", json!({"version":1,"push_target":1}))?;
+        let deadline = Instant::now() + self.timeout;
+        while Instant::now() < deadline {
+            if let Some(message) = self.next(deadline.saturating_duration_since(Instant::now()))? {
+                if message["camera"]["sequence_id"] == sequence
+                    && message["camera"].get("result").is_some()
+                    && !message["camera"]["result"]
+                        .as_str()
+                        .is_some_and(|s| s.eq_ignore_ascii_case("success"))
+                {
+                    bail!(
+                        "{}: camera command rejected: result={}, reason={}, err_code={}",
+                        self.printer.name,
+                        message["camera"]["result"],
+                        message["camera"]["reason"],
+                        message["camera"]["err_code"]
+                    )
+                }
+                if message["print"]["ipcam"]["ipcam_record"] == control {
+                    return Ok(self.state["print"].clone());
+                }
+            }
+        }
+        bail!(
+            "{}: camera recording setting was not verified",
+            self.printer.name
+        )
+    }
 }
 impl Drop for Connection {
     fn drop(&mut self) {

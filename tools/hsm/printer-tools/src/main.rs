@@ -1,12 +1,14 @@
 //! Optional native printer commands preserve reviewed toolpaths and verify explicit LAN/application actions.
 mod archive;
 mod ax;
+mod camera;
 mod config;
 mod ftp;
 mod gc;
 mod mqtt;
 mod picker;
 mod purge;
+mod recordings;
 mod send;
 mod state;
 mod ui;
@@ -38,7 +40,7 @@ fn run() -> Result<()> {
         errors: Vec::new(),
     };
     if args.flag("--help") || args.flag("-h") {
-        println!("hsm-printer [--root CHECKOUT] COMMAND [OPTIONS]\nCommands: status [all|PRINTER], light PRINTER on|off [--node NODE], print ARCHIVE PRINTER, send ARCHIVE PRINTER, archive SOURCE DESTINATION, purge-archive [--output PATH], gc, picker-check\nprint holds Bambu Connect in front; send uses background accessibility with the visible external-spool picker. Both accept --dry-run, --attempts, --accept-timeout and --timelapse. gc preserves the timelapse retention flags. No command runs on the normal build path.");
+        println!("hsm-printer [--root CHECKOUT] COMMAND [OPTIONS]\nCommands: status [all|PRINTER], camera [all|PRINTER] [on|off], recordings [all|PRINTER] [--archive-dir DIR] [--limit COUNT], light PRINTER on|off [--node NODE], print ARCHIVE PRINTER, send ARCHIVE PRINTER, archive SOURCE DESTINATION, purge-archive [--output PATH], gc, picker-check\nprint holds Bambu Connect in front; send uses background accessibility with the visible external-spool picker. Both accept --dry-run, --attempts, --accept-timeout and --timelapse. camera reads or sets automatic print-process recording; recordings archives compact elapsed-time camera playback. gc preserves the timelapse retention flags. No command runs on the normal build path.");
         return Ok(());
     }
     let requested_root = args.option("--root").map(PathBuf::from);
@@ -51,6 +53,8 @@ fn run() -> Result<()> {
         "print" => send::run(&checkout(requested_root.as_deref())?, &mut args, false),
         "send" => send::run(&checkout(requested_root.as_deref())?, &mut args, true),
         "gc" => gc::run(&mut args),
+        "camera" => camera::run(&mut args),
+        "recordings" => recordings::run(&checkout(requested_root.as_deref())?, &mut args),
         "purge-archive" => purge::run(&checkout(requested_root.as_deref())?, &mut args),
         "picker-check" => {
             args.finish()?;

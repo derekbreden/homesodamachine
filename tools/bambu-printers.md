@@ -19,6 +19,9 @@ The light command takes `on` or `off`, and `--node chamber_light2` selects the s
 chamber light. It verifies both the command acknowledgment and the reported light state.
 Chamber illumination supports the printer's camera-based detection during a print.
 
+[Print-process recordings](bambu-recordings.md) covers automatic chamber video
+and compact playback archived in iCloud Drive.
+
 ## What ready looks like from software
 
 Derek's request to start a print on a printer confirms that its bed is clear.
