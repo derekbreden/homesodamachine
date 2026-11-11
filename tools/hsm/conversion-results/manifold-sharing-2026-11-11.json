@@ -1,0 +1,1605 @@
+{
+  "purpose": "This record measures shared mesh storage and one-pass intersection searches in the pinned Rust boolean engine.",
+  "recorded_at": "2026-11-11T01:51:15.876Z",
+  "baseline_source_commit": "a0e7c8f9b5102e955cf11042124801ce9b50f185",
+  "method": {
+    "variants": {
+      "base": "Pinned Rust engine with the existing inlining patch.",
+      "sharing": "Shared immutable topology through batch evaluation and disjoint composition.",
+      "combined": "Shared mesh storage and one intersection search for both halves of an overlapping exact split."
+    },
+    "probes": "On a fixed back-top mesh, batch subtraction uses three nonoverlapping box cutters. Split uses one of the same box cutters. Each process warms once, measures four operations, and checks the final mesh's triangle count and bit-exact volume. The CPU and RSS samples also cover import, warmup and verification.",
+    "split_trace": "Existing MANIFOLD_TIMING trace counts complete intersection searches for three split calls per process: warmup, one operation and output verification. Trace runs are outside the timing samples.",
+    "workload": "All normal native producers run in the standard dependency order with two active producer slots. Three pairs alternate order. Precompiled binaries are timed using the same frozen external files; each backend's generated exports feed its own dependent producers.",
+    "caches": "No whole-producer cache hits or enclosure stage reuse. Each variant has its own import cache across rounds. Immutable content-addressed scene assets are shared.",
+    "scope": "Workload elapsed time includes producer execution, export, dependency staging and output hashing. It excludes compilation, publication, and the admission wait. CPU sums producer user and system time. RSS is the largest single producer process peak; it is not the aggregate memory of all running jobs.",
+    "host": "The timing lease excludes other scheduled heavy runs within a pair. Ordinary desktop services keep running.",
+    "host_model": "Mac15,12",
+    "host_memory_bytes": 8589934592,
+    "toolchain": "rustc 1.99.1 (58cf8f9c3), aarch64-apple-darwin"
+  },
+  "inputs": {
+    "frozen_at": "2026-11-11T01:27:46.038Z",
+    "external_and_produced_input_files": 386,
+    "input_set_sha256": "b945e2efd90a7529535011b9cd2db1bf147e1f83ad8e535419b75c07e8e2957d",
+    "graph_sha256": "893c448d275cdceab12d354fbc72fd18a745fbe1b29ace7472f963b1ee9ea4f4",
+    "compiler_input_files": 687,
+    "compiler_input_set_sha256": "6a2b3219955c404761f0903b90f77241ef7a5c681cb7959e0e3030b34d753f74",
+    "changed_compiler_inputs": [
+      {
+        "file": "tools/hsm/manifold/src/lib.rs",
+        "base": "7d4c73a65e49938f098fcb2d7de36226d83f1ef484189245b6d5242c715150c8",
+        "combined": "252ac51e649ceb6748cda7e176161bcf493e45667886af1c6d7247569a6050fc"
+      },
+      {
+        "file": "vendor/manifold-rust/src/boolean3.rs",
+        "base": "f78a3db7f2075ce0a6e01368273c9dec3530a139f85d0d1db098045f694215c9",
+        "combined": "faa4106181cf9da0cc36d8db45a28146ddb4c469e9ae295909e35205b573476e"
+      },
+      {
+        "file": "vendor/manifold-rust/src/csg_tree.rs",
+        "base": "49214b036f76635c864482f15855afd3c04390e14882d5f5a61f406129195052",
+        "combined": "ec368e806f82d7006b09e9d6320e69a3d5b75072ab1ce6742d17a96c88397158"
+      },
+      {
+        "file": "vendor/manifold-rust/src/manifold.rs",
+        "base": "d73c957ca052c8adec1049e52e1137c9b4ca0403f195427ce9949b1fa907e97b",
+        "combined": "9521c4f949e2e78408991f3d0f1026b600a8bf0359eb2117d46cc93bc48bf9ea"
+      },
+      {
+        "file": "vendor/manifold-rust/src/manifold_boolean.rs",
+        "base": "6d23f7f33d41ffc5d5862d72520230f7caf4f1fc755f2aa3cdc908bf38a470d7",
+        "combined": "b56714c0620e2d1a1ce6ec46d4a1f2267edcb95d98537981717d3272d6e0f3f3"
+      },
+      {
+        "file": "vendor/manifold-rust/src/manifold_meshgl.rs",
+        "base": "3d3b63cbf1eda7daba54f522f9bda23591f6910a22076716dd5e4977e3e76440",
+        "combined": "23cf73e5dd6be9882903178518211d34a3d3aa64e628b97e77dcdbb227acefa8"
+      },
+      {
+        "file": "vendor/manifold-rust/src/manifold_robust.rs",
+        "base": "ad21fa2f35ce85fb8b31220524cb5c0c3097069123ba609182d444a6d269816d",
+        "combined": "741f22c97eb2707d6429bb3eea63553e769aef975089665d1780fa3398343295"
+      },
+      {
+        "file": "vendor/manifold-rust/src/manifold_smooth.rs",
+        "base": "6a422e628228b71694f9b0403017b71e567dbc4679226aadffc8f5877149f509",
+        "combined": "362e6935ce533f0d36cd86b91a434e8ca1abd73c135972bfffa7b05e272ff424"
+      },
+      {
+        "file": "vendor/manifold-rust/src/robust/mod.rs",
+        "base": "3e084569e07941bfc78cca17de059578ed80efa711f79340cf06c32e250bc3c9",
+        "combined": "59e0b20982b774549df193c04870af3f30122447b1e0b3b41fb6fbf3524c9392"
+      },
+      {
+        "file": "vendor/manifold-rust/src/robust/provenance.rs",
+        "base": "b31d34b733b6b5dfd3077b05559e09606c0a79f91c6cc76ae324ebbf7552a67d",
+        "combined": "30979aae79eeadc46ac0b98b4c897004931cafa3632a615594370117ae6bfc6b"
+      }
+    ],
+    "binaries": {
+      "base": {
+        "producer_count": 61,
+        "producer_set_sha256": "f9e98a74c3c74138a9d408c9e1031af55e58d4be0083e08ae04203aebc41c9a4",
+        "probe_sha256": "73ad78942c89b7268098dacd296fb1cfdd6117555eef3ca83efe42809f81edf1"
+      },
+      "sharing": {
+        "producer_count": 0,
+        "producer_set_sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+        "probe_sha256": "9c565587e79a1b6e3e85cac7ccb9e246f0e02f41742abe68aa3c7a3733edde40"
+      },
+      "combined": {
+        "producer_count": 61,
+        "producer_set_sha256": "4a394d1241ef263ab4bfc1b0d9d090d31c63e7a0093731f9a5a4d58b32b8bbd4",
+        "probe_sha256": "14fd3cc3b7232a2fac163a3799af7a3ca0f118f186e28d687433ad408bc5463f"
+      }
+    }
+  },
+  "probes": {
+    "input": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step.npz",
+    "input_sha256": "6d201b2d937430174de569c1e2e2e11f3b222d5562ed8ccef417ce1bfad65b30",
+    "medians": {
+      "batch": {
+        "base": {
+          "seconds": 0.047940084,
+          "cpu_seconds": 0.22,
+          "rss_bytes": 67977216
+        },
+        "sharing": {
+          "seconds": 0.045338333,
+          "cpu_seconds": 0.21,
+          "rss_bytes": 48594944
+        },
+        "change_percent": {
+          "seconds": -5.427088947111569,
+          "cpu_seconds": -4.545454545454552,
+          "rss_bytes": -28.51289467341528
+        }
+      },
+      "split": {
+        "sharing": {
+          "seconds": 0.073785584,
+          "cpu_seconds": 0.43000000000000005,
+          "rss_bytes": 59031552
+        },
+        "combined": {
+          "seconds": 0.064358292,
+          "cpu_seconds": 0.37,
+          "rss_bytes": 55033856
+        },
+        "change_percent": {
+          "seconds": -12.776604167014527,
+          "cpu_seconds": -13.953488372093037,
+          "rss_bytes": -6.7721343325006895
+        }
+      }
+    },
+    "split_intersection_searches": {
+      "sharing": 6,
+      "combined": 3
+    },
+    "samples": [
+      {
+        "op": "batch",
+        "variant": "base",
+        "round": 0,
+        "seconds": 0.048962209,
+        "iterations": 4,
+        "input_triangles": 56048,
+        "results": [
+          {
+            "triangles": 10356,
+            "volume_bits": "4123568fe160912c"
+          }
+        ],
+        "cpu_seconds": 0.25,
+        "rss_bytes": 64192512
+      },
+      {
+        "op": "batch",
+        "variant": "sharing",
+        "round": 0,
+        "seconds": 0.045338333,
+        "iterations": 4,
+        "input_triangles": 56048,
+        "results": [
+          {
+            "triangles": 10356,
+            "volume_bits": "4123568fe160912c"
+          }
+        ],
+        "cpu_seconds": 0.26,
+        "rss_bytes": 47022080
+      },
+      {
+        "op": "batch",
+        "variant": "sharing",
+        "round": 1,
+        "seconds": 0.044087,
+        "iterations": 4,
+        "input_triangles": 56048,
+        "results": [
+          {
+            "triangles": 10356,
+            "volume_bits": "4123568fe160912c"
+          }
+        ],
+        "cpu_seconds": 0.21,
+        "rss_bytes": 48594944
+      },
+      {
+        "op": "batch",
+        "variant": "base",
+        "round": 1,
+        "seconds": 0.047940084,
+        "iterations": 4,
+        "input_triangles": 56048,
+        "results": [
+          {
+            "triangles": 10356,
+            "volume_bits": "4123568fe160912c"
+          }
+        ],
+        "cpu_seconds": 0.22,
+        "rss_bytes": 67977216
+      },
+      {
+        "op": "batch",
+        "variant": "base",
+        "round": 2,
+        "seconds": 0.046982292,
+        "iterations": 4,
+        "input_triangles": 56048,
+        "results": [
+          {
+            "triangles": 10356,
+            "volume_bits": "4123568fe160912c"
+          }
+        ],
+        "cpu_seconds": 0.22,
+        "rss_bytes": 68255744
+      },
+      {
+        "op": "batch",
+        "variant": "sharing",
+        "round": 2,
+        "seconds": 0.045740292,
+        "iterations": 4,
+        "input_triangles": 56048,
+        "results": [
+          {
+            "triangles": 10356,
+            "volume_bits": "4123568fe160912c"
+          }
+        ],
+        "cpu_seconds": 0.21,
+        "rss_bytes": 49561600
+      },
+      {
+        "op": "split",
+        "variant": "sharing",
+        "round": 0,
+        "seconds": 0.072543291,
+        "iterations": 4,
+        "input_triangles": 56048,
+        "results": [
+          {
+            "triangles": 36420,
+            "volume_bits": "41295bc8ca077e97"
+          },
+          {
+            "triangles": 19896,
+            "volume_bits": "4128690030fad938"
+          }
+        ],
+        "cpu_seconds": 0.42000000000000004,
+        "rss_bytes": 59015168
+      },
+      {
+        "op": "split",
+        "variant": "combined",
+        "round": 0,
+        "seconds": 0.064358292,
+        "iterations": 4,
+        "input_triangles": 56048,
+        "results": [
+          {
+            "triangles": 36420,
+            "volume_bits": "41295bc8ca077e97"
+          },
+          {
+            "triangles": 19896,
+            "volume_bits": "4128690030fad938"
+          }
+        ],
+        "cpu_seconds": 0.4,
+        "rss_bytes": 53035008
+      },
+      {
+        "op": "split",
+        "variant": "combined",
+        "round": 1,
+        "seconds": 0.063322958,
+        "iterations": 4,
+        "input_triangles": 56048,
+        "results": [
+          {
+            "triangles": 36420,
+            "volume_bits": "41295bc8ca077e97"
+          },
+          {
+            "triangles": 19896,
+            "volume_bits": "4128690030fad938"
+          }
+        ],
+        "cpu_seconds": 0.37,
+        "rss_bytes": 55033856
+      },
+      {
+        "op": "split",
+        "variant": "sharing",
+        "round": 1,
+        "seconds": 0.073785584,
+        "iterations": 4,
+        "input_triangles": 56048,
+        "results": [
+          {
+            "triangles": 36420,
+            "volume_bits": "41295bc8ca077e97"
+          },
+          {
+            "triangles": 19896,
+            "volume_bits": "4128690030fad938"
+          }
+        ],
+        "cpu_seconds": 0.43000000000000005,
+        "rss_bytes": 59965440
+      },
+      {
+        "op": "split",
+        "variant": "sharing",
+        "round": 2,
+        "seconds": 0.075402333,
+        "iterations": 4,
+        "input_triangles": 56048,
+        "results": [
+          {
+            "triangles": 36420,
+            "volume_bits": "41295bc8ca077e97"
+          },
+          {
+            "triangles": 19896,
+            "volume_bits": "4128690030fad938"
+          }
+        ],
+        "cpu_seconds": 0.43000000000000005,
+        "rss_bytes": 59031552
+      },
+      {
+        "op": "split",
+        "variant": "combined",
+        "round": 2,
+        "seconds": 0.066028542,
+        "iterations": 4,
+        "input_triangles": 56048,
+        "results": [
+          {
+            "triangles": 36420,
+            "volume_bits": "41295bc8ca077e97"
+          },
+          {
+            "triangles": 19896,
+            "volume_bits": "4128690030fad938"
+          }
+        ],
+        "cpu_seconds": 0.37,
+        "rss_bytes": 55033856
+      }
+    ]
+  },
+  "workload": {
+    "producer_count": 61,
+    "medians": {
+      "base": {
+        "seconds": 74.21999912499999,
+        "cpu_seconds": 192.35999999999999,
+        "largest_producer_rss_bytes": 1374109696
+      },
+      "combined": {
+        "seconds": 75.846817459,
+        "cpu_seconds": 191.33999999999997,
+        "largest_producer_rss_bytes": 1360871424
+      }
+    },
+    "change_percent": {
+      "seconds": 2.191886759874717,
+      "cpu_seconds": -0.5302557704304434,
+      "largest_producer_rss_bytes": -0.9634072184001252
+    },
+    "paired_changes": [
+      {
+        "round": 0,
+        "change_percent": {
+          "seconds": -3.2226697337616073,
+          "cpu_seconds": 0.9177215189873245,
+          "largest_producer_rss_bytes": 0.05218897152141633
+        }
+      },
+      {
+        "round": 1,
+        "change_percent": {
+          "seconds": -1.4782823766302355,
+          "cpu_seconds": -2.588632526730461,
+          "largest_producer_rss_bytes": -5.704133827755187
+        }
+      },
+      {
+        "round": 2,
+        "change_percent": {
+          "seconds": 2.205225343386874,
+          "cpu_seconds": 0.8265751715533343,
+          "largest_producer_rss_bytes": 19.627554621001543
+        }
+      }
+    ],
+    "runs": [
+      {
+        "round": 0,
+        "variant": "base",
+        "seconds": 81.777872625,
+        "cpu_seconds": 189.6,
+        "largest_producer_rss_bytes": 1381318656,
+        "counts": {
+          "built": 61
+        }
+      },
+      {
+        "round": 0,
+        "variant": "combined",
+        "seconds": 79.142441875,
+        "cpu_seconds": 191.33999999999997,
+        "largest_producer_rss_bytes": 1382039552,
+        "counts": {
+          "built": 61
+        }
+      },
+      {
+        "round": 1,
+        "variant": "combined",
+        "seconds": 73.122817958,
+        "cpu_seconds": 190.40999999999997,
+        "largest_producer_rss_bytes": 1295728640,
+        "counts": {
+          "built": 61
+        }
+      },
+      {
+        "round": 1,
+        "variant": "base",
+        "seconds": 74.21999912499999,
+        "cpu_seconds": 195.47,
+        "largest_producer_rss_bytes": 1374109696,
+        "counts": {
+          "built": 61
+        }
+      },
+      {
+        "round": 2,
+        "variant": "base",
+        "seconds": 74.21031283299999,
+        "cpu_seconds": 192.35999999999999,
+        "largest_producer_rss_bytes": 1137590272,
+        "counts": {
+          "built": 61
+        }
+      },
+      {
+        "round": 2,
+        "variant": "combined",
+        "seconds": 75.846817459,
+        "cpu_seconds": 193.95,
+        "largest_producer_rss_bytes": 1360871424,
+        "counts": {
+          "built": 61
+        }
+      }
+    ],
+    "producer_medians": [
+      {
+        "target": "above-counter-gasket",
+        "base": {
+          "seconds": 0.189986,
+          "cpu_seconds": 0.19,
+          "rss_bytes": 42287104
+        },
+        "combined": {
+          "seconds": 0.185569292,
+          "cpu_seconds": 0.19,
+          "rss_bytes": 33554432
+        }
+      },
+      {
+        "target": "above-counter-plate",
+        "base": {
+          "seconds": 0.237429958,
+          "cpu_seconds": 0.27,
+          "rss_bytes": 48267264
+        },
+        "combined": {
+          "seconds": 0.232022166,
+          "cpu_seconds": 0.26,
+          "rss_bytes": 39059456
+        }
+      },
+      {
+        "target": "all-aero-float",
+        "base": {
+          "seconds": 0.027294041000000005,
+          "cpu_seconds": 0.01,
+          "rss_bytes": 9519104
+        },
+        "combined": {
+          "seconds": 0.029316582999999997,
+          "cpu_seconds": 0.01,
+          "rss_bytes": 9240576
+        }
+      },
+      {
+        "target": "asse-drain-adapter",
+        "base": {
+          "seconds": 0.220952916,
+          "cpu_seconds": 0.49,
+          "rss_bytes": 110247936
+        },
+        "combined": {
+          "seconds": 0.214635583,
+          "cpu_seconds": 0.48,
+          "rss_bytes": 73547776
+        }
+      },
+      {
+        "target": "asse-straight-cuffs",
+        "base": {
+          "seconds": 0.01710425,
+          "cpu_seconds": 0,
+          "rss_bytes": 6111232
+        },
+        "combined": {
+          "seconds": 0.020011125,
+          "cpu_seconds": 0,
+          "rss_bytes": 6209536
+        }
+      },
+      {
+        "target": "bom",
+        "base": {
+          "seconds": 0.590210917,
+          "cpu_seconds": 0.52,
+          "rss_bytes": 58343424
+        },
+        "combined": {
+          "seconds": 0.625259458,
+          "cpu_seconds": 0.53,
+          "rss_bytes": 58408960
+        }
+      },
+      {
+        "target": "carbonator-tube-step",
+        "base": {
+          "seconds": 0.013885041999999998,
+          "cpu_seconds": 0,
+          "rss_bytes": 3538944
+        },
+        "combined": {
+          "seconds": 0.016326791,
+          "cpu_seconds": 0,
+          "rss_bytes": 3473408
+        }
+      },
+      {
+        "target": "cargo-config",
+        "base": {
+          "seconds": 0.01005275,
+          "cpu_seconds": 0,
+          "rss_bytes": 4964352
+        },
+        "combined": {
+          "seconds": 0.009542666999999998,
+          "cpu_seconds": 0,
+          "rss_bytes": 5013504
+        }
+      },
+      {
+        "target": "coil-mandrel",
+        "base": {
+          "seconds": 1.1214924579999999,
+          "cpu_seconds": 2.0300000000000002,
+          "rss_bytes": 707346432
+        },
+        "combined": {
+          "seconds": 1.0865679169999998,
+          "cpu_seconds": 2,
+          "rss_bytes": 496156672
+        }
+      },
+      {
+        "target": "cold-core-assembly",
+        "base": {
+          "seconds": 2.265158125,
+          "cpu_seconds": 3.33,
+          "rss_bytes": 689438720
+        },
+        "combined": {
+          "seconds": 2.4213017499999996,
+          "cpu_seconds": 3.42,
+          "rss_bytes": 731316224
+        }
+      },
+      {
+        "target": "collet-press",
+        "base": {
+          "seconds": 0.021088708,
+          "cpu_seconds": 0,
+          "rss_bytes": 7372800
+        },
+        "combined": {
+          "seconds": 0.020896708,
+          "cpu_seconds": 0,
+          "rss_bytes": 7225344
+        }
+      },
+      {
+        "target": "diaphragm-pump-sleeve",
+        "base": {
+          "seconds": 0.114460667,
+          "cpu_seconds": 0.15,
+          "rss_bytes": 30408704
+        },
+        "combined": {
+          "seconds": 0.114770833,
+          "cpu_seconds": 0.15,
+          "rss_bytes": 24395776
+        }
+      },
+      {
+        "target": "display-cover",
+        "base": {
+          "seconds": 0.280182625,
+          "cpu_seconds": 0.44,
+          "rss_bytes": 38305792
+        },
+        "combined": {
+          "seconds": 0.278832292,
+          "cpu_seconds": 0.44,
+          "rss_bytes": 35176448
+        }
+      },
+      {
+        "target": "display-gasket",
+        "base": {
+          "seconds": 0.016601791,
+          "cpu_seconds": 0,
+          "rss_bytes": 7258112
+        },
+        "combined": {
+          "seconds": 0.017593417000000004,
+          "cpu_seconds": 0,
+          "rss_bytes": 6782976
+        }
+      },
+      {
+        "target": "elbow-cradle",
+        "base": {
+          "seconds": 0.11192008299999999,
+          "cpu_seconds": 0.15,
+          "rss_bytes": 30720000
+        },
+        "combined": {
+          "seconds": 0.11513933300000001,
+          "cpu_seconds": 0.16,
+          "rss_bytes": 21348352
+        }
+      },
+      {
+        "target": "enclosure",
+        "base": {
+          "seconds": 0.7079529999999999,
+          "cpu_seconds": 0.88,
+          "rss_bytes": 261275648
+        },
+        "combined": {
+          "seconds": 0.754336375,
+          "cpu_seconds": 0.86,
+          "rss_bytes": 253476864
+        }
+      },
+      {
+        "target": "enclosure-back-bottom",
+        "base": {
+          "seconds": 5.66742025,
+          "cpu_seconds": 11.96,
+          "rss_bytes": 933543936
+        },
+        "combined": {
+          "seconds": 5.495864042,
+          "cpu_seconds": 11.86,
+          "rss_bytes": 985595904
+        }
+      },
+      {
+        "target": "enclosure-back-top",
+        "base": {
+          "seconds": 7.558569875,
+          "cpu_seconds": 15.100000000000001,
+          "rss_bytes": 1374109696
+        },
+        "combined": {
+          "seconds": 7.4778885,
+          "cpu_seconds": 14.89,
+          "rss_bytes": 1360871424
+        }
+      },
+      {
+        "target": "enclosure-front-bottom",
+        "base": {
+          "seconds": 2.8304766249999997,
+          "cpu_seconds": 5.4,
+          "rss_bytes": 503103488
+        },
+        "combined": {
+          "seconds": 2.8417990419999994,
+          "cpu_seconds": 5.34,
+          "rss_bytes": 494944256
+        }
+      },
+      {
+        "target": "enclosure-front-top",
+        "base": {
+          "seconds": 8.825108792000002,
+          "cpu_seconds": 16.71,
+          "rss_bytes": 1105788928
+        },
+        "combined": {
+          "seconds": 8.614924875,
+          "cpu_seconds": 16.400000000000002,
+          "rss_bytes": 1094041600
+        }
+      },
+      {
+        "target": "enclosure-pump-retainer",
+        "base": {
+          "seconds": 0.063931709,
+          "cpu_seconds": 0.060000000000000005,
+          "rss_bytes": 12828672
+        },
+        "combined": {
+          "seconds": 0.117718458,
+          "cpu_seconds": 0.060000000000000005,
+          "rss_bytes": 12730368
+        }
+      },
+      {
+        "target": "enclosure-pump-tube-setting-jig",
+        "base": {
+          "seconds": 0.025363874999999998,
+          "cpu_seconds": 0.01,
+          "rss_bytes": 9125888
+        },
+        "combined": {
+          "seconds": 0.02878375,
+          "cpu_seconds": 0.01,
+          "rss_bytes": 8896512
+        }
+      },
+      {
+        "target": "endcap-circular-step",
+        "base": {
+          "seconds": 0.022542832999999998,
+          "cpu_seconds": 0,
+          "rss_bytes": 8470528
+        },
+        "combined": {
+          "seconds": 0.033673292,
+          "cpu_seconds": 0,
+          "rss_bytes": 7405568
+        }
+      },
+      {
+        "target": "fake-countertop",
+        "base": {
+          "seconds": 0.180874791,
+          "cpu_seconds": 0.27,
+          "rss_bytes": 62210048
+        },
+        "combined": {
+          "seconds": 0.18704849999999998,
+          "cpu_seconds": 0.27,
+          "rss_bytes": 44908544
+        }
+      },
+      {
+        "target": "faucet-assembly",
+        "base": {
+          "seconds": 2.004951416,
+          "cpu_seconds": 2.97,
+          "rss_bytes": 484376576
+        },
+        "combined": {
+          "seconds": 2.068324166,
+          "cpu_seconds": 2.94,
+          "rss_bytes": 480985088
+        }
+      },
+      {
+        "target": "faucet-display-cover",
+        "base": {
+          "seconds": 0.466106666,
+          "cpu_seconds": 0.83,
+          "rss_bytes": 91111424
+        },
+        "combined": {
+          "seconds": 0.482973833,
+          "cpu_seconds": 0.78,
+          "rss_bytes": 67846144
+        }
+      },
+      {
+        "target": "faucet-industrial-assembly",
+        "base": {
+          "seconds": 1.6105873750000002,
+          "cpu_seconds": 2.47,
+          "rss_bytes": 390365184
+        },
+        "combined": {
+          "seconds": 1.6389944589999998,
+          "cpu_seconds": 2.48,
+          "rss_bytes": 374947840
+        }
+      },
+      {
+        "target": "faucet-shell",
+        "base": {
+          "seconds": 2.150534666,
+          "cpu_seconds": 4.58,
+          "rss_bytes": 689831936
+        },
+        "combined": {
+          "seconds": 2.147598917,
+          "cpu_seconds": 4.38,
+          "rss_bytes": 476839936
+        }
+      },
+      {
+        "target": "fluid-topology",
+        "base": {
+          "seconds": 0.04293562499999999,
+          "cpu_seconds": 0,
+          "rss_bytes": 6307840
+        },
+        "combined": {
+          "seconds": 0.033153916,
+          "cpu_seconds": 0,
+          "rss_bytes": 6225920
+        }
+      },
+      {
+        "target": "foam-assembly",
+        "base": {
+          "seconds": 0.07776295899999999,
+          "cpu_seconds": 0.04,
+          "rss_bytes": 15597568
+        },
+        "combined": {
+          "seconds": 0.10337595800000002,
+          "cpu_seconds": 0.04,
+          "rss_bytes": 15712256
+        }
+      },
+      {
+        "target": "foam-cap",
+        "base": {
+          "seconds": 1.9758870830000002,
+          "cpu_seconds": 3.25,
+          "rss_bytes": 347815936
+        },
+        "combined": {
+          "seconds": 2.033206916,
+          "cpu_seconds": 3.24,
+          "rss_bytes": 275349504
+        }
+      },
+      {
+        "target": "foam-shell",
+        "base": {
+          "seconds": 1.057938875,
+          "cpu_seconds": 1.76,
+          "rss_bytes": 116801536
+        },
+        "combined": {
+          "seconds": 1.0337467079999998,
+          "cpu_seconds": 1.74,
+          "rss_bytes": 86065152
+        }
+      },
+      {
+        "target": "funnel",
+        "base": {
+          "seconds": 1.7411665,
+          "cpu_seconds": 5.2299999999999995,
+          "rss_bytes": 375816192
+        },
+        "combined": {
+          "seconds": 1.774451625,
+          "cpu_seconds": 5.32,
+          "rss_bytes": 254197760
+        }
+      },
+      {
+        "target": "funnel-cover",
+        "base": {
+          "seconds": 0.0245475,
+          "cpu_seconds": 0.01,
+          "rss_bytes": 9486336
+        },
+        "combined": {
+          "seconds": 0.04946195799999999,
+          "cpu_seconds": 0.01,
+          "rss_bytes": 9027584
+        }
+      },
+      {
+        "target": "funnel-frame",
+        "base": {
+          "seconds": 2.3112492079999996,
+          "cpu_seconds": 5.62,
+          "rss_bytes": 376832000
+        },
+        "combined": {
+          "seconds": 2.243370875,
+          "cpu_seconds": 5.78,
+          "rss_bytes": 250003456
+        }
+      },
+      {
+        "target": "funnel-mold",
+        "base": {
+          "seconds": 6.245650083,
+          "cpu_seconds": 21.95,
+          "rss_bytes": 542539776
+        },
+        "combined": {
+          "seconds": 6.111170208,
+          "cpu_seconds": 21.94,
+          "rss_bytes": 410894336
+        }
+      },
+      {
+        "target": "fuse-clamp",
+        "base": {
+          "seconds": 0.041062749999999995,
+          "cpu_seconds": 0,
+          "rss_bytes": 4800512
+        },
+        "combined": {
+          "seconds": 0.015460333000000001,
+          "cpu_seconds": 0,
+          "rss_bytes": 4767744
+        }
+      },
+      {
+        "target": "industrial-faucet",
+        "base": {
+          "seconds": 1.4418629170000001,
+          "cpu_seconds": 2.59,
+          "rss_bytes": 335020032
+        },
+        "combined": {
+          "seconds": 1.428497208,
+          "cpu_seconds": 2.5200000000000005,
+          "rss_bytes": 242450432
+        }
+      },
+      {
+        "target": "install-guide",
+        "base": {
+          "seconds": 1.752711709,
+          "cpu_seconds": 1.69,
+          "rss_bytes": 604487680
+        },
+        "combined": {
+          "seconds": 1.743125125,
+          "cpu_seconds": 1.71,
+          "rss_bytes": 604454912
+        }
+      },
+      {
+        "target": "installed-machine",
+        "base": {
+          "seconds": 37.246068667,
+          "cpu_seconds": 49.64,
+          "rss_bytes": 1015185408
+        },
+        "combined": {
+          "seconds": 36.99379158400001,
+          "cpu_seconds": 49.51,
+          "rss_bytes": 976601088
+        }
+      },
+      {
+        "target": "kit-art",
+        "base": {
+          "seconds": 1.868623583,
+          "cpu_seconds": 2.02,
+          "rss_bytes": 382517248
+        },
+        "combined": {
+          "seconds": 1.8768668750000002,
+          "cpu_seconds": 2.01,
+          "rss_bytes": 377438208
+        }
+      },
+      {
+        "target": "lever-replica",
+        "base": {
+          "seconds": 0.14510816699999998,
+          "cpu_seconds": 0.14,
+          "rss_bytes": 42795008
+        },
+        "combined": {
+          "seconds": 0.135297916,
+          "cpu_seconds": 0.13,
+          "rss_bytes": 35586048
+        }
+      },
+      {
+        "target": "machine-time",
+        "base": {
+          "seconds": 0.015169500000000002,
+          "cpu_seconds": 0,
+          "rss_bytes": 5029888
+        },
+        "combined": {
+          "seconds": 0.015444375000000002,
+          "cpu_seconds": 0,
+          "rss_bytes": 5160960
+        }
+      },
+      {
+        "target": "magnetic-float",
+        "base": {
+          "seconds": 0.035024333,
+          "cpu_seconds": 0.02,
+          "rss_bytes": 10600448
+        },
+        "combined": {
+          "seconds": 0.034469416999999995,
+          "cpu_seconds": 0.02,
+          "rss_bytes": 10518528
+        }
+      },
+      {
+        "target": "manifold-layout",
+        "base": {
+          "seconds": 8.928918916,
+          "cpu_seconds": 17.630000000000003,
+          "rss_bytes": 1010843648
+        },
+        "combined": {
+          "seconds": 8.661802582999998,
+          "cpu_seconds": 17.72,
+          "rss_bytes": 1088749568
+        }
+      },
+      {
+        "target": "nameplate",
+        "base": {
+          "seconds": 0.5119422499999999,
+          "cpu_seconds": 1.1500000000000001,
+          "rss_bytes": 116162560
+        },
+        "combined": {
+          "seconds": 0.50176575,
+          "cpu_seconds": 1.1600000000000001,
+          "rss_bytes": 91013120
+        }
+      },
+      {
+        "target": "opening-scene",
+        "base": {
+          "seconds": 0.993796,
+          "cpu_seconds": 0.98,
+          "rss_bytes": 601079808
+        },
+        "combined": {
+          "seconds": 0.9866933750000001,
+          "cpu_seconds": 0.98,
+          "rss_bytes": 571195392
+        }
+      },
+      {
+        "target": "pcba-assembly",
+        "base": {
+          "seconds": 0.114753792,
+          "cpu_seconds": 0.11,
+          "rss_bytes": 23019520
+        },
+        "combined": {
+          "seconds": 0.103860125,
+          "cpu_seconds": 0.11,
+          "rss_bytes": 21004288
+        }
+      },
+      {
+        "target": "prv-shroud",
+        "base": {
+          "seconds": 0.04924199999999999,
+          "cpu_seconds": 0.01,
+          "rss_bytes": 8978432
+        },
+        "combined": {
+          "seconds": 0.04480075000000001,
+          "cpu_seconds": 0.01,
+          "rss_bytes": 8601600
+        }
+      },
+      {
+        "target": "purchases",
+        "base": {
+          "seconds": 3.96516075,
+          "cpu_seconds": 3.77,
+          "rss_bytes": 51642368
+        },
+        "combined": {
+          "seconds": 3.922236333,
+          "cpu_seconds": 3.75,
+          "rss_bytes": 51560448
+        }
+      },
+      {
+        "target": "rear-equipment-caps",
+        "base": {
+          "seconds": 0.132843208,
+          "cpu_seconds": 0.13999999999999999,
+          "rss_bytes": 26968064
+        },
+        "combined": {
+          "seconds": 0.155764375,
+          "cpu_seconds": 0.13999999999999999,
+          "rss_bytes": 22200320
+        }
+      },
+      {
+        "target": "rear-identification",
+        "base": {
+          "seconds": 0.223659167,
+          "cpu_seconds": 0.19999999999999998,
+          "rss_bytes": 17547264
+        },
+        "combined": {
+          "seconds": 0.20836791600000001,
+          "cpu_seconds": 0.19999999999999998,
+          "rss_bytes": 16367616
+        }
+      },
+      {
+        "target": "reed-bridge",
+        "base": {
+          "seconds": 0.032095792000000005,
+          "cpu_seconds": 0.02,
+          "rss_bytes": 10420224
+        },
+        "combined": {
+          "seconds": 0.04416383300000001,
+          "cpu_seconds": 0.02,
+          "rss_bytes": 9863168
+        }
+      },
+      {
+        "target": "reservoir",
+        "base": {
+          "seconds": 0.780808875,
+          "cpu_seconds": 1.04,
+          "rss_bytes": 33538048
+        },
+        "combined": {
+          "seconds": 0.772712333,
+          "cpu_seconds": 1.02,
+          "rss_bytes": 31277056
+        }
+      },
+      {
+        "target": "soda-bend-holder",
+        "base": {
+          "seconds": 0.206525833,
+          "cpu_seconds": 0.36,
+          "rss_bytes": 93487104
+        },
+        "combined": {
+          "seconds": 0.213381708,
+          "cpu_seconds": 0.35,
+          "rss_bytes": 71630848
+        }
+      },
+      {
+        "target": "tpu-o-ring",
+        "base": {
+          "seconds": 0.133482875,
+          "cpu_seconds": 0.01,
+          "rss_bytes": 7847936
+        },
+        "combined": {
+          "seconds": 0.0882535,
+          "cpu_seconds": 0.01,
+          "rss_bytes": 7553024
+        }
+      },
+      {
+        "target": "tube-collar",
+        "base": {
+          "seconds": 0.259327959,
+          "cpu_seconds": 0.27,
+          "rss_bytes": 27181056
+        },
+        "combined": {
+          "seconds": 0.249036292,
+          "cpu_seconds": 0.25,
+          "rss_bytes": 26329088
+        }
+      },
+      {
+        "target": "tube-miter-box",
+        "base": {
+          "seconds": 0.021356875,
+          "cpu_seconds": 0.01,
+          "rss_bytes": 8421376
+        },
+        "combined": {
+          "seconds": 0.023151459000000003,
+          "cpu_seconds": 0.01,
+          "rss_bytes": 8257536
+        }
+      },
+      {
+        "target": "umbilical-organizer",
+        "base": {
+          "seconds": 0.156635959,
+          "cpu_seconds": 0.17,
+          "rss_bytes": 20119552
+        },
+        "combined": {
+          "seconds": 0.16704833400000002,
+          "cpu_seconds": 0.18,
+          "rss_bytes": 16318464
+        }
+      },
+      {
+        "target": "water-inlet-jet-fixture",
+        "base": {
+          "seconds": 0.018385999999999996,
+          "cpu_seconds": 0,
+          "rss_bytes": 5816320
+        },
+        "combined": {
+          "seconds": 0.022838,
+          "cpu_seconds": 0,
+          "rss_bytes": 5898240
+        }
+      },
+      {
+        "target": "weld-rotator",
+        "base": {
+          "seconds": 2.122781042,
+          "cpu_seconds": 3.79,
+          "rss_bytes": 550944768
+        },
+        "combined": {
+          "seconds": 2.12288775,
+          "cpu_seconds": 3.75,
+          "rss_bytes": 492683264
+        }
+      }
+    ]
+  },
+  "validation": {
+    "command": "tools/run -- cargo test --release --locked -j 2 --manifest-path tools/hsm/Cargo.toml -p hsm-manifold -p hsm-kernel -p hsm-geometry -p hsm-enclosure-solid --lib --tests",
+    "release_tests_passed": 144,
+    "output_hash_comparisons": [
+      {
+        "round": 0,
+        "base_outputs_sha256": "454685a6c63e025ec901845fa922ba809f3267aa6a6ff2bc486216797f6aa524",
+        "combined_outputs_sha256": "75dd24dc940bc4f448248a06ea0849e62d00d0907b3d80201556220f238faf6c",
+        "counts": {
+          ".glb.mesh": {
+            "total": 11,
+            "identical": 0
+          },
+          "other": {
+            "total": 47,
+            "identical": 47
+          },
+          ".step": {
+            "total": 100,
+            "identical": 100
+          },
+          ".step.mesh": {
+            "total": 108,
+            "identical": 104
+          },
+          ".step.npz": {
+            "total": 108,
+            "identical": 105
+          },
+          ".stl": {
+            "total": 91,
+            "identical": 91
+          }
+        },
+        "changed": {
+          "hardware/assembly/scenes/glb/back-half.glb.mesh": [
+            "79989cd71f7ad69c78b36289f7e84a88099d9b4671833b7a2a2535a4695a7867",
+            "372a932f2c5303a64cd383bb75e707073c0d02b7aaa2cfd1bbd16a74088e1f28"
+          ],
+          "hardware/assembly/scenes/glb/back-top.glb.mesh": [
+            "7243a40d213f2fd5e0fccd4a2ce92a258ec68be8827892315ec98537c1c18a8c",
+            "7ccdcbe0dbea6fdeebf2247f01cdae2c17b4f2e5e1f497a61831d683707afa46"
+          ],
+          "hardware/assembly/scenes/glb/cap-lid-fill.glb.mesh": [
+            "e020e468f3d34ca1f459c582700c21ccccb12626c519061fc0df3ccbd6578fe6",
+            "77a56a58ca1ae484f2dacf5452d39bd1dd6b9f63cf52418be4797750859a221f"
+          ],
+          "hardware/assembly/scenes/glb/cap-lid.glb.mesh": [
+            "76c75b057e35249f87356fe06ca76644fbc8935c912f7baa69b9c10a564b9b6d",
+            "ea16e1dc1ee1c11a770e5b9bd319796f864ba325ee51ab2fc8f76351aa30d752"
+          ],
+          "hardware/assembly/scenes/glb/cold-core-open.glb.mesh": [
+            "d07b63ca24df408135f83376126be9cbf7ed6c64cb7b127596c544b52dcf5a45",
+            "6da3b2158467fe2d7a2c820b2b8b82b4dc8e1eabf053e2e56e273db9743a4570"
+          ],
+          "hardware/assembly/scenes/glb/cold-core.glb.mesh": [
+            "1791a879b7a87d4a690934423a32c18dff7867e23210d5389e6bf17731f1584a",
+            "ff4e21962651e55e5108c61cf0a36108144fc86fac254dfecaedb6222c6ae4ed"
+          ],
+          "hardware/assembly/scenes/glb/en04-compressor-bay.glb.mesh": [
+            "2eee26b56b9bdc43591a0de81662bfeab64859f3ccf0fa430941fa111ec63571",
+            "b14f03266809486ac460ae25843453cffbdb07cf25323f9ea540d541730a692f"
+          ],
+          "hardware/assembly/scenes/glb/en07-electronics-bay.glb.mesh": [
+            "f767ce2ee658bbb0ff9fbbc30d6ee7030babf2cec6a6785cc4f1bf8ccdfb200d",
+            "2712eef9bc87a77514845dab975e734a5934ec4440864b8a8e10e266fd2a3bba"
+          ],
+          "hardware/assembly/scenes/glb/front-top.glb.mesh": [
+            "77a48fc002484cc91d975b97c70db646854e1e7c56e1dd702411d77e9c24c9fb",
+            "a8891d72c8d739c69dfa651fe5d3695e0956807f3f114378bd1b961d500e64b3"
+          ],
+          "hardware/assembly/scenes/glb/funnel-drain.glb.mesh": [
+            "19ed466ba81c97a4de64e4f38fbc06c2d94c711a269acbe0736487eedb501b97",
+            "bb5d28fad0753039dbf464c5a35618836c5e120fc3036d89a85145aeb152dc9d"
+          ],
+          "hardware/assembly/scenes/glb/pump-mount.glb.mesh": [
+            "2d1425db048f91cd2593f041a5e4886e217f070260900f609309a3046221f5fd",
+            "d21277704d9dc6e10af67770e62f093c1b6e2510b70be8e09f2ee4dd5210ef29"
+          ],
+          "hardware/faucet-layout/faucet-assembly.step.mesh": [
+            "fe4614b49c7a5f832d430124d862e31dfa8f2f99c46cce3679ebf4ab7a9b6356",
+            "73e03324a7e00c725f0f1c1bf7f55c6b7efed161f6216ec928bce75a523a9d98"
+          ],
+          "hardware/faucet-layout/faucet-assembly.step.npz": [
+            "b952b334960c451eec945e9e83502bc1ff521f971d2967545054c5a90aa25350",
+            "20ddb16b20c5ac3f647f67f3fcbdbeaa82911aeb7c14bb1d5715df48cf2a306a"
+          ],
+          "hardware/faucet-layout/faucet-industrial-assembly.step.mesh": [
+            "4df41c7f71224363264467703071ab508bf881927d2286c12a953b28738323fe",
+            "59d704ba3ea8b0f4330207f37468b6e3402d9440733f7bc80760b95f4cae8ca4"
+          ],
+          "hardware/faucet-layout/faucet-industrial-assembly.step.npz": [
+            "7d11995427c892549efaf5e51ba4090920d852f9a6412c97ef363d9eed974560",
+            "1b3bb638b7af56511ee733f0b36b6ef6f7b900104e52c5c8b0799d2e6a298c37"
+          ],
+          "hardware/manifold-layout/enclosure-assembly.step.mesh": [
+            "a2ce95e6885cc5fb350d5b8f6d33af5e8e39cc1ccb3e59bfcf6439363d6547ee",
+            "2b0cb6ff438390875c5d6eb256d9efbe65c8a7a959fe7a2f3ecb5ca09eb33c27"
+          ],
+          "hardware/manifold-layout/manifold-layout.step.mesh": [
+            "d48909eb3bcdcccb3abe6530666d0d21a8810fffc4f70b76e79a61ef8a2abae5",
+            "6e2b9d100aac9d481646a6a7e2d4d040aea1af38ab5cd0bd66e3c872a623f930"
+          ],
+          "hardware/manifold-layout/manifold-layout.step.npz": [
+            "6abfde8003972f3525bf7fe3e22bae875802328173480cd7884e7c1b72b27f83",
+            "b1f8214d8f0316ff495266035d59fd6345d951a94360ec6c077315222069d101"
+          ]
+        },
+        "added": [],
+        "missing": []
+      },
+      {
+        "round": 1,
+        "base_outputs_sha256": "43f61bde94609ca470caa440da9ba5d6d13466305743c09dfe9e7a6f77c2421d",
+        "combined_outputs_sha256": "9d8feaaf1f0c97f34586a5584003bbdd98322deddf2a55c07ab9eb9aba3cb604",
+        "counts": {
+          ".glb.mesh": {
+            "total": 11,
+            "identical": 0
+          },
+          "other": {
+            "total": 47,
+            "identical": 47
+          },
+          ".step": {
+            "total": 100,
+            "identical": 100
+          },
+          ".step.mesh": {
+            "total": 108,
+            "identical": 104
+          },
+          ".step.npz": {
+            "total": 108,
+            "identical": 105
+          },
+          ".stl": {
+            "total": 91,
+            "identical": 91
+          }
+        },
+        "changed": {
+          "hardware/assembly/scenes/glb/back-half.glb.mesh": [
+            "ec50b39b55e2748817663d862f3cbb442944e55a436569a03e406e79758d696f",
+            "08b18dbaa431c1084ec81af33835095339e203d01e1da593e9020efd0ae3add0"
+          ],
+          "hardware/assembly/scenes/glb/back-top.glb.mesh": [
+            "b1aea940b35f49653133c8b7c4e546cc044405664dd99afbf6c2f1b9aa3f3581",
+            "c9bb643cc66b7557fbdfeb66ccfc98351310d45c123c8e16b42974607ba3ad64"
+          ],
+          "hardware/assembly/scenes/glb/cap-lid-fill.glb.mesh": [
+            "58767fc0d4e388252bd8be7af07c1d93a7e45530f4597c3ab56892b590ee5bb4",
+            "d949fb5efac82ae62212100a720b5817227ff2738de3d51737a25d90708a9611"
+          ],
+          "hardware/assembly/scenes/glb/cap-lid.glb.mesh": [
+            "8c2c19f54bf451de86dc73c000099c6f46777f7730007e4f2cb061ec18bca035",
+            "4a54f8c954df99416c4fda829f6e22cd1d284f871a8bb8fd051ba357e244b157"
+          ],
+          "hardware/assembly/scenes/glb/cold-core-open.glb.mesh": [
+            "871e0cbefc4a37a9ef5061d64e9910bcfb744300b1a2dee27368e0c6ae6615b8",
+            "2c08f5ee414528b9209d7f8518c73384ff5cd1052af48e868b7f8c1080fdc85d"
+          ],
+          "hardware/assembly/scenes/glb/cold-core.glb.mesh": [
+            "3c29806b31632b3055fa39ce878b27fc4041d17314911c2ecfc3a419c724be88",
+            "87ad3d5d82409e1eb216700a03e089a832d6e9fe79b333aa6bf72c0d73ac1a12"
+          ],
+          "hardware/assembly/scenes/glb/en04-compressor-bay.glb.mesh": [
+            "1746ed8b95a9adb0a7eb916b4b6a14b8ae74f1fda5998fe958620a3d73c9c87f",
+            "75e1c1de24169aa4f7cfd45f5e9484e1276a84d52d052b52a39fe608a7759d5c"
+          ],
+          "hardware/assembly/scenes/glb/en07-electronics-bay.glb.mesh": [
+            "f3c27ea00a8093421adfef3a945b167d3d9c4241ba22a0d4044676da513f5844",
+            "e178c733b7287ca4f2dec164bd619bfc56ce71fa790a78e0854a1d9e1b423929"
+          ],
+          "hardware/assembly/scenes/glb/front-top.glb.mesh": [
+            "186f7df0a48bc58070def6d97c8c8c50d3d2fff6bcd1663b5f82025027ad5dee",
+            "60057059c95ae1b4072a4093c670057aee6edd52f0873b848f84bf0c968bdbc5"
+          ],
+          "hardware/assembly/scenes/glb/funnel-drain.glb.mesh": [
+            "021364fc6460ae731325ab30b65cac634795a036e8938ba40b3ddfc4a0b62554",
+            "d3d33e45f2e8adffcbe725b5b0a8e6a63c2c2790d1b78da36f349140826e7329"
+          ],
+          "hardware/assembly/scenes/glb/pump-mount.glb.mesh": [
+            "86a513fe8d055215e2de6d2de3de322ce8f7c223e886071127e4da5daac79bd5",
+            "33aef0a2eb2d029003928417361b1faa075148d98d0a98745525875cbc38785f"
+          ],
+          "hardware/faucet-layout/faucet-assembly.step.mesh": [
+            "18880c6d5626774c8cb07500f47a4e993d5726cd19f360e46ab0199384eeaedc",
+            "2997e384fdf5b3ecff0769b7093af29c0fbfbbfc1b2ac506fa039c87d36ab396"
+          ],
+          "hardware/faucet-layout/faucet-assembly.step.npz": [
+            "b429dbeeb38cd958c7180adbe62f687d5271f59ef84c3fb2e9181f11c188cf10",
+            "a1373f8cbfabc2f43a172324a542a75665cbdafa68dbb7a8678fd453cd85faa2"
+          ],
+          "hardware/faucet-layout/faucet-industrial-assembly.step.mesh": [
+            "bd9ad7294dc982961975a892c645a8c7451a99b4f025d18796cfcc9019b2a4cb",
+            "d06046f59b136fce36f222af6c8fdf1034afb33fc243d797ddf2c951a198a3a1"
+          ],
+          "hardware/faucet-layout/faucet-industrial-assembly.step.npz": [
+            "2b0aa13161a85f317e3514f99502be538074aa55448ff8b22d64d9e3b6456885",
+            "e7a7bc4a2c3f0099911e5589a2b44f91d54f6c02053c05d0fafad999ed546b3f"
+          ],
+          "hardware/manifold-layout/enclosure-assembly.step.mesh": [
+            "aded1097479e62c57eb6017e67ad691f8e175950b68f2b65f67f7f76be082e86",
+            "03460c9c4e5318f4b3114dcd61643c9f29cb1ff8e35cc94620c6f2596f270e0a"
+          ],
+          "hardware/manifold-layout/manifold-layout.step.mesh": [
+            "b626f7451cf73c9d3cc58bcbb5a9227ff661cf999b768382ee17d79ab43b5ede",
+            "24eebfab382d8df94fd2020743ab4ac4661507795a260aa5e30f6123188bb005"
+          ],
+          "hardware/manifold-layout/manifold-layout.step.npz": [
+            "302cf3970992e5632e988ef2e6a7901d46df443d03600527da40c6c3818f7226",
+            "67f3f52e57c2ab8d41aac544b2dd194e7d2351dec658fa4efb9234e432df1370"
+          ]
+        },
+        "added": [],
+        "missing": []
+      },
+      {
+        "round": 2,
+        "base_outputs_sha256": "73c69bca2d17391f7bfac389318856a1fb236168c3d5402ba6df5bd7b19382de",
+        "combined_outputs_sha256": "7f4a7951c08509ee5d94fd10ed9bcd5019170203c932d6eb674dcadd555da3d1",
+        "counts": {
+          ".glb.mesh": {
+            "total": 11,
+            "identical": 0
+          },
+          "other": {
+            "total": 47,
+            "identical": 47
+          },
+          ".step": {
+            "total": 100,
+            "identical": 100
+          },
+          ".step.mesh": {
+            "total": 108,
+            "identical": 104
+          },
+          ".step.npz": {
+            "total": 108,
+            "identical": 105
+          },
+          ".stl": {
+            "total": 91,
+            "identical": 91
+          }
+        },
+        "changed": {
+          "hardware/assembly/scenes/glb/back-half.glb.mesh": [
+            "5c2bf6f40713b4a3cbf6ceb6ccbb75682ceb8596b1b5251f9260bf77bcc1678b",
+            "c4e2e26e235e9382a2648051e5db3e0bfcba3fbb91055a9aa1aaab426092e6fd"
+          ],
+          "hardware/assembly/scenes/glb/back-top.glb.mesh": [
+            "2dde9c22bad36188dd353caad58f06bc2390c660de317c552fe7853cdc882035",
+            "9cc5668a23a5b837895b63c245d6bba02ce7bb404b716a9e109332a69ca73ef8"
+          ],
+          "hardware/assembly/scenes/glb/cap-lid-fill.glb.mesh": [
+            "5b1ab925a8c8b0ce21a6ee78e658526e4d9b253ae167ee2f226506c521fcab22",
+            "e0007843ef8e9979163d643c505a82637ec77f7c7aae6fc5e47196bce0e8f92f"
+          ],
+          "hardware/assembly/scenes/glb/cap-lid.glb.mesh": [
+            "a5438448bde312db141e39dab33886903e0946af687a23ec67daf8103c270175",
+            "f4cb687a53fdb58a36d02d909b6a01f816fd15aa9e303719108df755f25667d2"
+          ],
+          "hardware/assembly/scenes/glb/cold-core-open.glb.mesh": [
+            "5817eefbddf620697c48126404708d06c154b1a1479b4fedebd58139c12cc295",
+            "ced983211d049bb7d27cd4874b4667577875c5790a5e2b2e779ef290742f8004"
+          ],
+          "hardware/assembly/scenes/glb/cold-core.glb.mesh": [
+            "ef9550ce4dcb369dc910c5a762c0a352b3d50d48ca47085ad9136fa283ac3198",
+            "cc38370ca3fc1460bb21786e8318c2b568b4f6de941fca1e67c6230f8ed34969"
+          ],
+          "hardware/assembly/scenes/glb/en04-compressor-bay.glb.mesh": [
+            "bcfdf92e37c1c19263813d2033d15e8617814163b03a120bc134f5b152d66493",
+            "5c692e02747f7df85944f1342613b3abe29e318360c72a52c6c4c67e1af80460"
+          ],
+          "hardware/assembly/scenes/glb/en07-electronics-bay.glb.mesh": [
+            "8f4a7c1039eaec23e0f4837f098f4aa97f12173ae62a8fc30bbfa21dae766ae3",
+            "c905eef5b8176fcff6a77277bb66b4a094142800ce1e8dad13e8a840ddc2e1b7"
+          ],
+          "hardware/assembly/scenes/glb/front-top.glb.mesh": [
+            "f572d42a778749708fa3ec8b0ac080fac35ad2e109bad24a6a6cca50f14ea9c9",
+            "936cbdc7aa7319311f58c459d0585d1c18aa2903c68081bb30bf7dd9cc9cfc4a"
+          ],
+          "hardware/assembly/scenes/glb/funnel-drain.glb.mesh": [
+            "e0602b76520b58254870d32c6c690633d1281fe4b47aacdc48b30a6436b512a7",
+            "5fa3a1185c2a1225df1e6883c5d4e862a20181ae4b3890d30ce9e7b0f5104722"
+          ],
+          "hardware/assembly/scenes/glb/pump-mount.glb.mesh": [
+            "b1c1b175363461adf817e6eeab670bba85eb3a846fd462562e1108e95a7fd9d3",
+            "1cfa6fab9352d0d337006a3c34fc863b5bb4bbcb306c05f65077d1d60c8bf1a8"
+          ],
+          "hardware/faucet-layout/faucet-assembly.step.mesh": [
+            "486ce55995e0bbb78274291cdfa6b6b52eef1adde0b42beb46175210a1c42eca",
+            "1e324720a5bf1c4ed193af772ae08369d275f46ba26db2afd566c0cfb13aee4b"
+          ],
+          "hardware/faucet-layout/faucet-assembly.step.npz": [
+            "fdf8b9e42b57f0e9a1af37246885151ed29b6eff527f206392f116e1d0e0e4d1",
+            "8fec0ce972fa9b675ccacd9a64c9ca7562831625b55c6e1c6ede9edb64dd06e2"
+          ],
+          "hardware/faucet-layout/faucet-industrial-assembly.step.mesh": [
+            "ca2c55611a8cf79029f61c69d175eec1b920cf2e91f697a09dffd9874ef5267d",
+            "38b2aee17cf036821c2cb53b155d449631e677f82a19924e60f0d1a74bc38ee8"
+          ],
+          "hardware/faucet-layout/faucet-industrial-assembly.step.npz": [
+            "eb6dda17eb5aa43d897b5b426587984e24a323d949f2dfa0cc888a8e52150497",
+            "4c244c6530f0b7eadc76bd8b56fe580b3d9076e54a506883b4f3eca3e1cc410c"
+          ],
+          "hardware/manifold-layout/enclosure-assembly.step.mesh": [
+            "cc81bdec7a4c9a89d218c53c806ba94e18e6e97fd57d7fdc556dbe9f6801685e",
+            "3ef96e73a3470ab596fed3dff2f4ca6616029a84f66ea1a804dc21298a270870"
+          ],
+          "hardware/manifold-layout/manifold-layout.step.mesh": [
+            "708207e32e669d7b342f514556b3cf9ef2b9a2097280ca11b4c145539d257872",
+            "ec77f007d9f38fcd6783e91ef949b879cead7346f2ac7e7ceaccb9b287db842c"
+          ],
+          "hardware/manifold-layout/manifold-layout.step.npz": [
+            "f9f809cd0ed478b4c8e8cc0c40fc686221a437a2c1bf036b137526248f693194",
+            "2594b12389e227d0153567a29758ad4a8f9274e5966d5d609a7259938a0ff421"
+          ]
+        },
+        "added": [],
+        "missing": []
+      }
+    ],
+    "assembly_payload_check": "For the retained pairs, compare mesh arrays and all assembly metadata, resolving changed content-addressed objects. The only differences allowed here are build-directory prefixes, their derived byte lengths and checksums. Compare every NPZ entry, including triangle-to-face mapping and source records.",
+    "assembly_payload_results": [
+      {
+        "round": 1,
+        "inspected_files": 18,
+        "only_staging_metadata": true,
+        "unmatched": []
+      },
+      {
+        "round": 2,
+        "inspected_files": 18,
+        "only_staging_metadata": true,
+        "unmatched": []
+      }
+    ]
+  }
+}

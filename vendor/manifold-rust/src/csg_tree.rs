@@ -25,6 +25,7 @@
 // Cancellation (`CancelToken`) and progress (`ProgressReporter`) are both
 // threaded down to every pairwise boolean; see `evaluate_with_token_and_progress`.
 
+use std::borrow::Cow;
 use std::cmp::Ordering;
 use std::collections::BinaryHeap;
 use std::sync::Arc;
@@ -33,6 +34,7 @@ use crate::boolean3;
 use crate::cancel::{is_cancelled, CancelToken};
 use crate::impl_mesh::ManifoldImpl;
 use crate::linalg::{mat3x4_to_mat4, mat4_to_mat3x4, Mat3x4, Vec3};
+use crate::manifold::Manifold;
 use crate::progress::ProgressReporter;
 use crate::types::{Box as BBox, Error, OpType};
 
@@ -86,13 +88,23 @@ impl CsgLeafNode {
     /// Get the mesh, applying the lazy transform if needed.
     /// Port of C++ CsgLeafNode::GetImpl()
     pub fn get_impl(&self) -> ManifoldImpl {
+        self.mesh().into_owned()
+    }
+
+    /// Read an unchanged mesh in place; materialize only a pending transform.
+    fn mesh(&self) -> Cow<'_, ManifoldImpl> {
         if self.transform == Mat3x4::identity() {
-            (*self.p_impl).clone()
+            Cow::Borrowed(&self.p_impl)
         } else {
-            // ManifoldImpl::transform returns the transformed mesh (it is not
-            // in-place) — discarding its return value silently drops the lazy
-            // transform.
-            self.p_impl.transform(&self.transform)
+            Cow::Owned(self.p_impl.transform(&self.transform))
+        }
+    }
+
+    fn into_shared_impl(self) -> Arc<ManifoldImpl> {
+        if self.transform == Mat3x4::identity() {
+            self.p_impl
+        } else {
+            Arc::new(self.p_impl.transform(&self.transform))
         }
     }
 
@@ -164,6 +176,14 @@ impl CsgNode {
         Self::Leaf(CsgLeafNode::new(mesh))
     }
 
+    /// Use a manifold's immutable mesh as a leaf without copying its arrays.
+    pub fn from_manifold(mesh: &Manifold) -> Self {
+        Self::Leaf(CsgLeafNode {
+            p_impl: mesh.shared_impl(),
+            transform: Mat3x4::identity(),
+        })
+    }
+
     pub fn leaf_node(node: CsgLeafNode) -> Self {
         Self::Leaf(node)
     }
@@ -189,6 +209,12 @@ impl CsgNode {
     /// Port of C++ CsgOpNode::ToLeafNode()
     pub fn evaluate(&self) -> ManifoldImpl {
         self.evaluate_with_token(None)
+    }
+
+    /// Retain the evaluated mesh as a manifold without copying its arrays.
+    pub fn evaluate_manifold(&self) -> Manifold {
+        let leaf = self.to_leaf_node(Mat3x4::identity(), None, None);
+        Manifold::from_shared_impl(leaf.into_shared_impl())
     }
 
     /// [`CsgNode::evaluate`] with cooperative cancellation.
@@ -222,7 +248,7 @@ impl CsgNode {
         progress: Option<&ProgressReporter>,
     ) -> ManifoldImpl {
         let leaf = self.to_leaf_node(Mat3x4::identity(), token, progress);
-        leaf.get_impl()
+        Arc::unwrap_or_clone(leaf.into_shared_impl())
     }
 
     /// Internal: convert this node to a CsgLeafNode, applying the given parent transform.
@@ -415,15 +441,15 @@ fn simple_boolean(
     if is_cancelled(token) {
         return CsgLeafNode::cancelled();
     }
-    let impl_a = a.get_impl();
-    let impl_b = b.get_impl();
+    let impl_a = a.mesh();
+    let impl_b = b.mesh();
     // Engine selection: CSG evaluation honors the process-global default
     // (types::BooleanConfig). With the default (Exact) this call resolves to
     // boolean3::boolean_with_token — behavior byte-identical to before the
     // robust engine existed. `progress == None` is exactly `boolean_dispatch`.
     let result = boolean3::boolean_dispatch_with_progress(
-        &impl_a,
-        &impl_b,
+        impl_a.as_ref(),
+        impl_b.as_ref(),
         op,
         engine.unwrap_or_else(crate::types::BooleanConfig::default_engine),
         token,
@@ -597,8 +623,9 @@ pub(crate) fn batch_union(
                 results.push(chunk[set[0]].clone());
             } else {
                 // Compose disjoint meshes without boolean
-                let meshes: Vec<ManifoldImpl> = set.iter().map(|&i| chunk[i].get_impl()).collect();
-                let composed = boolean3::compose_meshes(&meshes);
+                let meshes: Vec<_> = set.iter().map(|&i| chunk[i].mesh()).collect();
+                let refs: Vec<_> = meshes.iter().map(|m| m.as_ref()).collect();
+                let composed = boolean3::compose_mesh_refs(&refs);
                 results.push(CsgLeafNode::new(composed));
             }
         }

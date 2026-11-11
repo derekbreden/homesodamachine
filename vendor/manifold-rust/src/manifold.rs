@@ -31,10 +31,11 @@ use crate::cross_section::CrossSection;
 use crate::impl_mesh::ManifoldImpl;
 use crate::linalg::{mat4_to_mat3x4, scaling_matrix, translation_matrix, Mat3, Mat3x4, Vec3};
 use crate::types::{Error, RayHit};
+use std::sync::Arc;
 
 #[derive(Clone)]
 pub struct Manifold {
-    imp: ManifoldImpl,
+    imp: Arc<ManifoldImpl>,
 }
 
 impl Default for Manifold {
@@ -45,9 +46,7 @@ impl Default for Manifold {
 
 impl Manifold {
     pub fn new() -> Self {
-        Self {
-            imp: ManifoldImpl::new(),
-        }
+        Self::from_impl(ManifoldImpl::new())
     }
 
     pub fn empty() -> Self {
@@ -58,11 +57,23 @@ impl Manifold {
     pub fn make_empty(status: crate::types::Error) -> Self {
         let mut imp = ManifoldImpl::new();
         imp.make_empty(status);
-        Self { imp }
+        Self::from_impl(imp)
     }
 
     pub fn from_impl(imp: ManifoldImpl) -> Self {
+        Self::from_shared_impl(Arc::new(imp))
+    }
+
+    pub(crate) fn from_shared_impl(imp: Arc<ManifoldImpl>) -> Self {
         Self { imp }
+    }
+
+    pub(crate) fn shared_impl(&self) -> Arc<ManifoldImpl> {
+        Arc::clone(&self.imp)
+    }
+
+    fn make_unique(&mut self) -> &mut ManifoldImpl {
+        Arc::make_mut(&mut self.imp)
     }
 
     pub fn as_impl(&self) -> &ManifoldImpl {
@@ -70,7 +81,7 @@ impl Manifold {
     }
 
     pub fn into_impl(self) -> ManifoldImpl {
-        self.imp
+        Arc::unwrap_or_clone(self.imp)
     }
 
     pub fn num_vert(&self) -> usize {
@@ -153,7 +164,7 @@ impl Manifold {
         if self.is_empty() {
             return self.clone();
         }
-        let mut out = self.imp.clone();
+        let mut out = self.as_impl().clone();
         out.initialize_original();
         out.set_normals_and_coplanar();
         Self::from_impl(out)
@@ -172,7 +183,7 @@ impl Manifold {
         if self.is_empty() {
             return self.clone();
         }
-        let mut out = self.imp.clone();
+        let mut out = self.as_impl().clone();
         // Matches C++ SetTolerance: operate on the `tolerance` field (which
         // drives coplanar grouping in mark_coplanar), not `epsilon`. When
         // raising tolerance, recompute coplanar groups *first* so the
@@ -200,7 +211,7 @@ impl Manifold {
         if self.is_empty() {
             return self.clone();
         }
-        let mut out = self.imp.clone();
+        let mut out = self.as_impl().clone();
         // C++ uses tolerance_ (not epsilon_) throughout Simplify()
         let old_tolerance = out.tolerance;
         let mut tol = tolerance;
@@ -227,7 +238,7 @@ impl Manifold {
         if self.is_empty() {
             return self.clone();
         }
-        let mut out = self.imp.clone();
+        let mut out = self.as_impl().clone();
         warp_fn(&mut out.vert_pos);
         // Arbitrary deformation: nothing about the old verdict survives.
         out.invalidate_self_intersects();
@@ -316,7 +327,7 @@ impl Manifold {
         if self.is_empty() {
             return self.clone();
         }
-        let mut out = self.imp.clone();
+        let mut out = self.as_impl().clone();
         for v in out.vert_pos.iter_mut() {
             warp_fn(v);
         }
@@ -375,7 +386,7 @@ impl Manifold {
         if self.is_empty() {
             return self.clone();
         }
-        let mut out = self.imp.clone();
+        let mut out = self.as_impl().clone();
         out.calculate_curvature(gaussian_idx, mean_idx);
         Self::from_impl(out)
     }
@@ -394,7 +405,7 @@ impl Manifold {
         if self.is_empty() {
             return self.clone();
         }
-        let mut out = self.imp.clone();
+        let mut out = self.as_impl().clone();
         let old_num_prop = out.num_prop;
         let old_properties = out.properties.clone();
 
@@ -431,8 +442,11 @@ impl Manifold {
     }
 
     pub fn compose(parts: &[Self]) -> Self {
-        let impls: Vec<_> = parts.iter().map(|m| m.imp.clone()).collect();
-        Self::from_impl(boolean3::compose_meshes(&impls))
+        if let [part] = parts {
+            return part.clone();
+        }
+        let impls: Vec<_> = parts.iter().map(Self::as_impl).collect();
+        Self::from_impl(boolean3::compose_mesh_refs(&impls))
     }
 
     pub fn decompose(&self) -> Vec<Self> {

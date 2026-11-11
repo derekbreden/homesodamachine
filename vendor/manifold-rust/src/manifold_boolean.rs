@@ -24,15 +24,43 @@ use super::Manifold;
 use crate::boolean3;
 use crate::linalg::{normalize, Vec3};
 use crate::math;
-use crate::types::{Error, OpType};
+use crate::types::{BooleanConfig, BooleanEngine, Error, OpType};
 
 impl Manifold {
     /// Split this manifold into two using a cutter manifold.
     /// Returns (intersection, difference).
     pub fn split(&self, cutter: &Self) -> (Self, Self) {
-        let intersection = self.intersection(cutter);
-        let difference = self.difference(cutter);
-        (intersection, difference)
+        let engine = BooleanConfig::default_engine();
+        let a = self.as_impl();
+        let b = cutter.as_impl();
+        if engine != BooleanEngine::Exact
+            || a.is_soup
+            || b.is_soup
+            || a.is_empty()
+            || b.is_empty()
+            || !a.bbox.does_overlap_box(&b.bbox)
+        {
+            return (
+                self.boolean_with_engine(cutter, OpType::Intersect, engine),
+                self.boolean_with_engine(cutter, OpType::Subtract, engine),
+            );
+        }
+
+        // Intersection and subtraction use the same perturbation and winding
+        // data. Assemble both results from one intersection search.
+        let intersections = boolean3::Boolean3::new(a, b, OpType::Subtract);
+        if !intersections.valid {
+            return (Self::empty(), Self::empty());
+        }
+        let result = |op| {
+            Self::from_impl(crate::boolean_result::boolean_result(
+                a,
+                b,
+                op,
+                &intersections,
+            ))
+        };
+        (result(OpType::Intersect), result(OpType::Subtract))
     }
 
     /// Split this manifold by a plane defined by a normal and offset from origin.

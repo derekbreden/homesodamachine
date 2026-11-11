@@ -23,7 +23,7 @@ impl Manifold {
         if self.is_empty() {
             return self.clone();
         }
-        let mut out = self.imp.clone();
+        let mut out = self.as_impl().clone();
         out.set_normals(normal_idx as i32, min_sharp_angle);
         // Per #1718: record per-meshID hasNormals so get_mesh_gl(-1) can
         // auto-substitute slot 0 on export. Restricted to the standard slot —
@@ -58,20 +58,21 @@ impl Manifold {
 
         // UpdateSharpenedEdges + CreateTangents
         let sharpened: Vec<Smoothness> = sharpened_edges.to_vec();
-        let updated = m.imp.update_sharpened_edges(&sharpened);
-        m.imp.create_tangents(updated);
+        let imp = m.make_unique();
+        let updated = imp.update_sharpened_edges(&sharpened);
+        imp.create_tangents(updated);
 
         // Restore original faceIDs
-        let num_tri_impl = m.imp.num_tri();
+        let num_tri_impl = imp.num_tri();
         for i in 0..num_tri_impl {
-            if i < m.imp.mesh_relation.tri_ref.len() {
-                let face_id = m.imp.mesh_relation.tri_ref[i].face_id;
+            if i < imp.mesh_relation.tri_ref.len() {
+                let face_id = imp.mesh_relation.tri_ref[i].face_id;
                 if mesh_gl.face_id.len() == num_tri && face_id >= 0 && (face_id as usize) < num_tri
                 {
-                    m.imp.mesh_relation.tri_ref[i].face_id =
+                    imp.mesh_relation.tri_ref[i].face_id =
                         mesh_gl.face_id[face_id as usize] as i32;
                 } else {
-                    m.imp.mesh_relation.tri_ref[i].face_id = -1;
+                    imp.mesh_relation.tri_ref[i].face_id = -1;
                 }
             }
         }
@@ -86,7 +87,7 @@ impl Manifold {
         if self.is_empty() {
             return self.clone();
         }
-        let mut out = self.imp.clone();
+        let mut out = self.as_impl().clone();
         // Per C++ #1724 (Fix CalculateNormals): SmoothOut is now self-consistent —
         // it always derives tangents from SharpenEdges, regardless of
         // min_smoothness. The old min_smoothness==0 path (SetNormals +
@@ -103,7 +104,7 @@ impl Manifold {
         if self.is_empty() {
             return self.clone();
         }
-        let mut out = self.imp.clone();
+        let mut out = self.as_impl().clone();
         out.create_tangents_from_normals(normal_idx);
         Self::from_impl(out)
     }
@@ -117,7 +118,7 @@ impl Manifold {
         if n <= 1 || self.imp.is_empty() {
             return self.clone();
         }
-        let mut out = self.imp.clone();
+        let mut out = self.as_impl().clone();
         if !out.valid_tangents() {
             out.make_empty(crate::types::Error::InvalidTangents);
             return Self::from_impl(out);
@@ -150,7 +151,7 @@ impl Manifold {
         if length == 0.0 || self.imp.is_empty() {
             return self.clone();
         }
-        let mut out = self.imp.clone();
+        let mut out = self.as_impl().clone();
         if !out.valid_tangents() {
             out.make_empty(crate::types::Error::InvalidTangents);
             return Self::from_impl(out);
@@ -193,7 +194,7 @@ impl Manifold {
             return self.clone();
         }
         // C++ only refines when tangents are present
-        let mut out = self.imp.clone();
+        let mut out = self.as_impl().clone();
         let had_tangents = out.halfedge_tangent.len() == out.halfedge.len();
         if !had_tangents {
             return self.clone();
