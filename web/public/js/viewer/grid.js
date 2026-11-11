@@ -42,7 +42,7 @@ const pendingStepThumbs = new Set();
 let shelfWork = null;
 
 function syncStepThumbnails() {
-  if (ContentViewer.isOpen()) {
+  if (ContentViewer.isOpen() || state.gridEl.querySelector(":scope > .material-search:focus-within")) {
     shelfWork?.abort();
     shelfWork = null;
   } else if (!shelfWork) {
@@ -52,8 +52,13 @@ function syncStepThumbnails() {
 }
 
 export function startStepThumbnails() {
-  window.addEventListener(HSM_EVENTS.CONTENT_VIEWER_CHANGED, syncStepThumbnails);
-  syncStepThumbnails();
+  requestAnimationFrame(() => requestAnimationFrame(() => {
+    window.addEventListener(HSM_EVENTS.CONTENT_VIEWER_CHANGED, syncStepThumbnails);
+    const search = state.gridEl.querySelector(":scope > .material-search");
+    search?.addEventListener("focusin", syncStepThumbnails);
+    search?.addEventListener("focusout", () => queueMicrotask(syncStepThumbnails));
+    syncStepThumbnails();
+  }));
 }
 
 // `bust` drops the cached picture, so a live reload redraws from the fresh model.
@@ -252,7 +257,9 @@ export function buildGrid() {
     shelfWork.abort();
     shelfWork = new AbortController();
   }
-  state.gridEl.innerHTML = "";
+  const search = state.gridEl.querySelector(":scope > .material-search");
+  for (const child of [...state.gridEl.children]) if (child !== search) child.remove();
+  search?.refresh();
   const section = currentSection();
 
   if (section === "parts") {

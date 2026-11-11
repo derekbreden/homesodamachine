@@ -21,7 +21,7 @@ import { scene, camera, renderer } from "./scene.js";
 import { state } from "./state.js";
 import { setEdgePickEnabled, syncEdgeToggle, invalidateAllEdgesLayer } from "./edge-picker.js";
 import { sourceFileFor } from "/contracts/component-sources.js";
-import { componentLocation, stepLocation } from "/contracts/step-locations.js";
+import { componentLocation, featureUrl, stepLocation } from "/contracts/step-locations.js";
 import { materialForComponent, materialForView } from "/contracts/materials.js";
 import { componentUnitsInScene, unitForBody } from "/contracts/material-instances.js";
 import { relatedStepsForComponent } from "/contracts/related-steps.js";
@@ -30,7 +30,7 @@ import { drillTo, drillToComponent } from "./step-nav.js";
 import { makePanelCollapse } from "./tool-rail.js";
 import { refreshHighlight, fadedBody } from "./part-highlight.js";
 import { containsTriangle, splitFeatureKey } from "/contracts/features.js";
-import { sceneFeature, featureGeometry, featureUrl } from "./features.js";
+import { sceneFeature, featureGeometry } from "./features.js";
 
 const LS_KEY = "step-component-pick";
 const SEL = 0xffa733;   // selection highlight — warm amber (distinct from edge yellow, part-highlight cyan, find magenta)
@@ -427,7 +427,7 @@ function buildPanel() {
   copy.type = "button"; copy.className = "edge-panel-all component-copy";
   copy.textContent = "Copy feature link";
   copy.addEventListener("click", async () => {
-    await navigator.clipboard.writeText(featureUrl(selection));
+    await navigator.clipboard.writeText(new URL(featureUrl(selection, mountedFile()), location.origin).href);
     copy.textContent = "Link copied";
   });
   actions.append(copy); panel._copy = copy;
