@@ -1,6 +1,6 @@
 {
   "purpose": "Print the full faucet coupon with a single dense rim and tree interface roof and unsupported insert cavities.",
-  "status": "RUNNING",
+  "status": "OPERATOR_STOPPED",
   "submitted": true,
   "printer": "Mark1",
   "connection_key": "H2C",
@@ -55,7 +55,7 @@
     "flow_dynamic_calibration": "Auto",
     "nozzle_offset_calibration": "Auto"
   },
-  "physical_result": "pending",
+  "physical_result": "physical-result/physical-result.json",
   "print_only_archive": "faucet-nonplanar-rim-fins-insert-bridges-left04-z018-mark1-print-only.gcode.3mf",
   "print_only_archive_sha256": "252c0ac31dc33832c0c6399f890a05caf0d623ed6baedad7bbff22cd8599bf0c",
   "printer_task_id": "1430310260",
