@@ -1,6 +1,6 @@
 {
   "purpose": "Test bounded nonplanar joint bands on the complete faucet coupon already used in the planar gap comparison.",
-  "status": "RUNNING; deposited layers reported without a printer error.",
+  "status": "CANCELLED by Derek after a partial run; physical inspection and removal result pending.",
   "submitted": true,
   "printer": "Mark1",
   "connection_key": "H2C",
@@ -57,5 +57,7 @@
   "accepted_observed_at": "2026-11-11T00:18:48+00:00",
   "launch": "launch.json",
   "startup_status": "startup-status.json",
-  "first_layer_status": "first-layer-status.json"
+  "first_layer_status": "first-layer-status.json",
+  "cancellation_observed_at": "2026-11-11T01:16:37+00:00",
+  "cancellation_state_source": "../2026-11-10-faucet-nonplanar-gap024-widebands-mark1/prelaunch-printers.json"
 }

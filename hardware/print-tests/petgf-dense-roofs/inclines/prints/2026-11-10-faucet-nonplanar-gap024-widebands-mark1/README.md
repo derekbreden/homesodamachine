@@ -1,9 +1,11 @@
 # Longer nonplanar contact bands with a smaller gap
 
-This prepared Mark1 plate retains the complete frozen faucet coupon, its build
+This Mark1 print retains the complete frozen faucet coupon, its build
 pose, dense roof, side clearance, bridge process and printer calibration. The
-[job](print-job.json) owns the selected gap, machine settings and estimate. No
-printer submission is part of this preparation.
+[job](print-job.json) owns the selected gap, machine settings and estimate.
+The [launch](launch.json) records acceptance of the reviewed dispatch archive;
+the [startup reading](startup-status.json) records the printer state without
+a reported error. Deposition and physical release remain unmeasured.
 
 The [parameters](parameters.json) extend each continuous sloping band before
 its reversal. The requested contact gap is smaller. Both support roofs and
@@ -23,7 +25,7 @@ the swept nozzle, cone, sock or carriage.
 
 The [dispatch archive reading](archive-review.json) binds the print-only
 container to the same G-code bytes. Physical release and underside finish
-remain pending. Derek is stopping and inspecting the
+remain pending. Derek is inspecting the stopped
 [preceding article](../2026-11-10-faucet-nonplanar-bands-mark1/in-progress-observation.json).
 Its partial-run observation supports this next bounded experiment; it does
 not qualify the complete motion range or support release.
