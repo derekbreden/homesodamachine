@@ -9652,7 +9652,7 @@
       ]
     }
   ],
-  "input_fingerprint": "sha256:16b8affe6fe56b4431dcab7d1e2d25e7433a3f9111c31b67b4c5cf084c335222",
+  "input_fingerprint": "sha256:bf39b29914d29fdb67d2ef4d700047474c3c71778f0e2e925f9ddbb1e9ca22d0",
   "orders": [
     {
       "allocation_status": "all_project",
@@ -10380,6 +10380,7 @@
       ],
       "reference": "112-1175582-2386612",
       "source_ids": [
+        "src-ad5570deec324f9cb9ce15c4cddbcc2f",
         "src-b23173b78a9745bbadaf7e701b7adfea",
         "src-b534bb94a46045f19c312922b8204c3a"
       ],
@@ -34617,6 +34618,7 @@
       "section": "11. Enclosure hardware",
       "service_period": null,
       "source_ids": [
+        "src-ad5570deec324f9cb9ce15c4cddbcc2f",
         "src-b23173b78a9745bbadaf7e701b7adfea",
         "src-b534bb94a46045f19c312922b8204c3a"
       ],
@@ -65103,6 +65105,20 @@
       "source_id": "src-ac264e7ec97347a0b7447af38ea1cffe",
       "vendor": "Anthropic",
       "verified_at": "2026-10-04"
+    },
+    {
+      "document_date": null,
+      "document_type": "email_shipment_notification",
+      "note": "Vendor shipment notification identifies the existing washer order and repeats its USD 9.64 total. Shipment is confirmed; the relative arrival estimate does not establish actual delivery. No completed payment or dispatch calendar day is established by the notification timestamp. The notification supplies no item-level change to the previously verified order identity.",
+      "notification_date": {
+        "precision": "day",
+        "value": "2026-11-11"
+      },
+      "proves": [],
+      "reference": "112-1175582-2386612",
+      "source_id": "src-ad5570deec324f9cb9ce15c4cddbcc2f",
+      "vendor": "Amazon",
+      "verified_at": "2026-11-11"
     },
     {
       "document_date": {
