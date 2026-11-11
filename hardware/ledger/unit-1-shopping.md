@@ -6,13 +6,12 @@ Checked November 10, 2026 against the current BOM, purchase ledger, stock record
 
 | Item | Order quantity | Purpose / evidence | Listed price before shipping/tax |
 |---|---:|---|---:|
-| [SVLING M5 × 0.8 × 100 mm, black-oxide class 12.9 fully threaded socket screws — Prime](https://www.amazon.com/dp/B0GHNNYVDH) | 1 pack of 20; use 4 | Current BOM requires 24 for the cold-core closure and enclosure seams; the confirmed delivered pack contains 20. | $8.55 |
 | [MECCANIXITY green 16 AWG solid tinned-copper UL1007 wire — Prime](https://www.amazon.com/dp/B0FK5JHQW7) | 1 spool, 25 ft | Green conductor for AC1 in the [AC wiring schedule](../wiring/ac-wiring-schedule.md). The acquired solid wire is black and white; the acquired stranded green wire serves the separate earth bonds. | $11.99 |
 | [uxcell M3 × 0.5 M35 cobalt tap with Ø2.5 mm drill — Prime](https://www.amazon.com/dp/B09TYSP9NV) | 1 set; select M3 × 0.5 / 2.5 mm | Drill and tap the carbonator upper-rim earth attachment. Listed for stainless steel. Matching metric tools are not recorded as acquired. | $8.39 |
 | [Piutouyar adjustable M1–M6 tap wrench — Prime](https://www.amazon.com/dp/B0F7K43T14) | 1 | Small driver for the M3 tap. The acquired Drill America wrench's tap-capacity range starts at 1/4 inch. | $5.99 |
 | [BelMetric WSE3SS, M3 DIN 6797-A A2 stainless external-tooth washer](https://belmetric.com/toothed-external-star-lock-washer-din-6797-a-stainless/?sku=WSE3SS) | 1; select M3 / 6 mm OD | Earth clamp: 3.2 mm ID, 6 mm OD, 0.4 mm material thickness. Exact variant in stock. BelMetric lists same-day weekday dispatch before its cutoff; freight is calculated at checkout. | $0.06 each |
 
-Amazon Prime badges, exact variants, prices and stock were checked in signed-in Mac Chrome on November 10. The Amazon rows total $34.92 before tax. The washer's shipping is additional.
+Amazon Prime badges, exact variants, prices and stock were checked in signed-in Mac Chrome on November 10. The Amazon rows total $26.37 before tax. The washer's shipping is additional.
 
 ## Conditional purchase for a customer install kit
 
@@ -20,9 +19,13 @@ Amazon Prime badges, exact variants, prices and stock were checked in signed-in 
 |---|---:|---|---:|
 | [Waterdrop 15UC-UF, 1/4-inch inline filter — Prime](https://www.amazon.com/dp/B085G9TZ4L) | 1 | Fresh filter for a customer install kit. The acquired filter is prototype stock with unrecorded remaining service life; a replacement is not established as necessary for bench work. Prime offer verified November 10. | $59.99 |
 
-## Ordered relay hardware
+## Acquired closure hardware
 
-The [purchase ledger](purchases.md) records the Ruthex assortment and Sutemribor M2 × 6 replenishment as ON-ORDER. The assortment contributes 70 RX-M2×4 inserts; the screw pack contains 105 screws. Both cover the relay mounts' current allocation when received. Their combined order totals are $40.73, including estimated tax.
+The [purchase ledger](purchases.md) records two delivered packs of [SVLING M5 × 0.8 × 100 mm screws](https://www.amazon.com/dp/B0GHNNYVDH): 20 delivered October 26 and 20 delivered November 10. These are purchase quantities, not a stocktake. The current BOM allocates 24 screws to one machine; count usable stock after development use before buying another pack.
+
+## Relay hardware
+
+The [purchase ledger](purchases.md) records the ruthex assortment as acquired November 10, including 70 RX-M2×4 inserts. The Sutemribor M2 × 6 replenishment pack contains 105 screws and remains ON-ORDER, shipped and expected November 11. Their combined purchase totals are $40.73; remaining usable quantities are not counted.
 
 ## Already purchased for the 4 mm flavor path
 
