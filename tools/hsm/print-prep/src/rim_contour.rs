@@ -226,6 +226,22 @@ fn arcs_by_layer(rim: &Rim, planes: &[(usize, f64)]) -> BTreeMap<usize, Vec<Arc>
         });
     }
     for arcs in layers.values_mut() {
+        if rim.tip.is_some() {
+            // A single native band can wrap across a height extremum of the tilted ring.
+            // Start at the low end of each piece so the nozzle climbs along fresh material.
+            let mut rising = Vec::with_capacity(arcs.len() + 2);
+            for arc in std::mem::take(arcs) {
+                let mut from = arc.from;
+                for turn in [90., 270.] {
+                    if from + 1e-7 < turn && turn < arc.to - 1e-7 {
+                        rising.push(Arc { from, to: turn });
+                        from = turn;
+                    }
+                }
+                rising.push(Arc { from, to: arc.to });
+            }
+            *arcs = rising;
+        }
         arcs.sort_by(|a, b| {
             let low = |arc: &Arc| {
                 rim.contour(arc.from, COURSE_HEIGHT)[2].min(rim.contour(arc.to, COURSE_HEIGHT)[2])
