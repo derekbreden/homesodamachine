@@ -29,7 +29,7 @@ and the shared tip's curved outer meridian. Wipe is off. The base uses
 Arachne with an infill-only solid foot; its reinforcement modifier inherits
 ordinary wall settings. The other rigid parts use Classic.
 
-The process retains two ordinary walls, 15% grid infill, 15% infill/wall
+The process retains two ordinary walls, 15% gyroid infill, 15% infill/wall
 overlap, 265°C first-layer and 280°C subsequent nozzle temperatures, and an
 80°C bed. The [localized PET-GF cooling policy](../../cooling/README.md) keeps ordinary
 part cooling off. After three fan-off bed courses, bridges and wall paths
@@ -42,15 +42,14 @@ Ordinary supported-wall and infill speeds retain the black print's settings.
 
 | Part | CAD X rotation | Support treatment |
 | --- | ---: | --- |
-| Sculpted base | −15° | Slim trees carry a continuous dense interface under the rim ellipse. A local nonplanar band follows the inclined seat and the first perimeter follows its contour. Each mounting insert recess bridges its shoulder and pilot roof. |
-| Shared tip | −105° | Slim trees carry a dense interface at the mating lip. The first outer perimeter follows the tilted rim. The inner dispense face has its own contact band and an outlet keepout. A removable disc anchors the hidden root. |
+| Sculpted base | −15° | Slim trees and segmented outer fins carry a shared dense interface under the rim ellipse. A local nonplanar band follows the inclined seat and the first perimeter follows its contour. Each mounting insert recess bridges its shoulder and pilot roof. |
+| Shared tip | −105° | Slim trees and segmented outer fins carry a shared dense interface at the mating lip. The first outer perimeter follows the tilted rim. The inner dispense face has its own contact band and an outlet keepout. A removable disc anchors the hidden root. |
 | Sculpted cover | −50° | Saved automatic supports |
 | Matching plate | 0° | Bridge the screw counterbore shoulders and keep the shank passages open. |
 | Side-down lever | 0° of print-oriented STL | Saved automatic supports |
 
-The [shared PET-GF interface](../../petgf.3mf) forms a continuous roof on
-the base's Slim trees and a dense roof at the tip's mating lip. The base
-prints without a brim. The cover prints on its flat lower lands with support
+The [shared PET-GF interface](../../petgf.3mf) joins the fins and trees under
+the mating edges. The base prints without a brim. The cover prints on its flat lower lands with support
 accessible through its open underside. The side-down lever bridges its
 channel and uses accessible support at the attachment relief.
 Ordinary sparse infill follows the shared PET-GF profile.
@@ -61,7 +60,8 @@ Ordinary sparse infill follows the shared PET-GF profile.
 program, prepares the complete plate from current STLs. Pass
 `--slice-output DIRECTORY` for the executable offline slice with the base
 and tip nonplanar contact paths. The editable project carries the actual part meshes
-and support aids.
+and support aids. Pass `--printer Mark1` and `--filament-colour` with the loaded
+spool's colour to prepare a Mark1 plate.
 
 [review_print.py](https://github.com/derekbreden/homesodamachine/blob/306268f870/hardware/printed-parts/faucet/sculpted/review_print.py) (in Git at `306268f870`) reads the native G-code's nominal courses,
 filament assignment, cooling, speed commands, complete bead footprint and

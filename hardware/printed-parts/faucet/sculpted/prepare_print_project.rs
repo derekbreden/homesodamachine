@@ -1,7 +1,8 @@
-//! sculpted-faucet-print-project — the complete Sculpted faucet on one white PET-GF plate, with
-//! the selected Industrial print process, on Mark2's abrasive left nozzle.
+//! sculpted-faucet-print-project — the complete Sculpted faucet on a PET-GF plate for the
+//! selected H2C's hardened left nozzle.
 //!
 //!     sculpted-faucet-print-project <project.3mf> [--slice-output DIRECTORY]
+//!                                 [--printer Mark1|Mark2] [--filament-colour '#RRGGBB']
 //!
 //! The five rigid parts are the faucet shell's base and tip, the display cover, the
 //! above-counter plate and the side-down lever. Their object settings, the solid foot regions
@@ -14,7 +15,7 @@ mod rim_supports;
 use anyhow::{bail, Context, Result};
 use hsm_faucet_numbers::shell::{FOOT_DEPTH, FOOT_WIDTH, PRINT_BASE_BUILD_ROT, PRINT_TIP_BUILD_ROT};
 use hsm_print_prep::faucet::{add_tip_root_anchor, apply_overhang_recipe, archive_members, enforce_rear_seam, file_sha, read_json, recorded_member};
-use hsm_print_prep::faucet_contact::{add_tip_dispense_contact, add_tip_rim_contact, apply_rim_contour, apply_tip_rim_contour, ContactBand};
+use hsm_print_prep::faucet_contact::{add_base_rim_fins, add_tip_dispense_contact, add_tip_rim_contact, apply_rim_contour, apply_tip_rim_contour, ContactBand};
 use hsm_print_prep::faucet_recesses::block_plate_counterbores;
 use hsm_print_prep::json::Json;
 use hsm_print_prep::profile::{cooling_hook, petgf_infill_pattern, relative};
@@ -28,7 +29,6 @@ use std::path::PathBuf;
 const FAUCET: &str = "hardware/printed-parts/faucet";
 const PROFILE: &str = "hardware/printed-parts/faucet/industrial/prints/2026-10-15-all-learnings/mark2/2026-10-15-complete-faucet-all-learnings-mark2-base-arcs-z004.3mf";
 const FINISH: &str = "hardware/printed-parts/faucet/sculpted/finish-selection.json";
-const TITLE: &str = "Complete Sculpted white faucet PET-GF left Mark2";
 /// Each part's own space from the shared plate's centre, for its brim and supports.
 const OFFSETS: [[f64; 2]; 5] = [[-77.0, 0.0], [20.0, 47.0], [89.0, 76.0], [43.0, -52.0], [-17.5, -60.0]];
 /// Each Sculpted part and the Industrial part whose object settings it takes.
@@ -36,13 +36,29 @@ const PART_NAMES: [(&str, &str); 5] = [("faucet-shell-base", "industrial-shell-b
     ("faucet-display-cover", "sculpted-display-cover"), ("above-counter-plate", "industrial-above-counter-plate"), ("lever-replica", "lever-replica")];
 fn main() -> Result<()> {
     let root = root();
-    let args: Vec<_> = std::env::args_os().skip(1).collect();
-    let (project, slice_output) = match args.as_slice() {
-        [project] => (PathBuf::from(project), None),
-        [project, flag, directory] if flag == "--slice-output" => {
-            (PathBuf::from(project), Some(PathBuf::from(directory)))
+    let mut args = std::env::args_os().skip(1);
+    let project = PathBuf::from(args.next().context("expected a Sculpted .3mf output path")?);
+    let mut slice_output = None;
+    let mut printer = "Mark2".to_owned();
+    let mut colour = "#FFFFFF".to_owned();
+    while let Some(arg) = args.next() {
+        let value = args.next().with_context(|| format!("{} needs a value", arg.to_string_lossy()))?;
+        match arg.to_str() {
+            Some("--slice-output") => slice_output = Some(PathBuf::from(value)),
+            Some("--printer") => printer = value.into_string().ok().context("printer name")?,
+            Some("--filament-colour") => colour = value.into_string().ok().context("filament colour")?,
+            _ => bail!("unknown argument {}", arg.to_string_lossy()),
         }
-        _ => bail!("usage: sculpted-faucet-print-project <project.3mf> [--slice-output DIRECTORY]"),
+    }
+    let trim = match printer.as_str() {
+        "Mark1" => 0.18,
+        "Mark2" => 0.04,
+        _ => bail!("expected Mark1 or Mark2, got {printer}"),
+    };
+    let title = if printer == "Mark2" && colour == "#FFFFFF" {
+        "Complete Sculpted white faucet PET-GF left Mark2".to_owned()
+    } else {
+        format!("Complete Sculpted faucet PET-GF left {printer}")
     };
     let faucet = root.join(FAUCET);
     let selection = read_json(&root.join(FINISH))?;
@@ -53,7 +69,7 @@ fn main() -> Result<()> {
         Part::new("above-counter-plate", faucet.join("above-counter-plate/above-counter-plate.stl"), 0.0),
         Part::new("lever-replica", faucet.join("lever-replica/lever-replica-side-down.stl"), 0.0),
     ];
-    let mut r = refresh::refresh(&root, &root.join(PROFILE), &parts, &OFFSETS, TITLE, Some(0.04), 40.0)?;
+    let mut r = refresh::refresh(&root, &root.join(PROFILE), &parts, &OFFSETS, &title, Some(trim), 40.0)?;
     let parent = &selection["industrial_recipe"];
     let parent_project_source = parent["project"].as_str().context("Industrial parent project")?;
     let parent_report_source = parent["report"].as_str().context("Industrial parent report")?;
@@ -95,9 +111,9 @@ fn main() -> Result<()> {
     r.plate.settings.set("filament_map", list(&["1"]));
     r.plate.settings.set("filament_nozzle_map", list(&["0"]));
     r.plate.settings.set("filament_map_mode", text("Manual"));
-    r.plate.settings.set("filament_colour", list(&["#FFFFFF"]));
+    r.plate.settings.set("filament_colour", list(&[&colour]));
     if r.plate.settings.get("filament_multi_colour").is_some() {
-        r.plate.settings.set("filament_multi_colour", list(&["#FFFFFF"]));
+        r.plate.settings.set("filament_multi_colour", list(&[&colour]));
     }
     r.plate.filament_map_mode = "Manual".into();
     for key in ["rear_seam_enforcement", "tip_rear_seam_enforcement"] {
@@ -105,7 +121,7 @@ fn main() -> Result<()> {
         r.extra.insert(key.into(), record);
     }
     let base = r.row("faucet-shell-base")?.index;
-    let rim = rim_supports::add(&root, &mut r, &selection["base_rim_supports"])?;
+    let mut rim = rim_supports::add(&mut r, &selection["base_rim_supports"])?;
     let contact = &selection["base_rim_supports"]["nonplanar_contact"];
     let mapping_source = contact["parameters_source"].as_str().context("contact parameters source")?;
     let mapping_revision = contact["source_commit"].as_str().context("contact parameters revision")?;
@@ -120,6 +136,7 @@ fn main() -> Result<()> {
         semi_axes_mm: [FOOT_WIDTH / 2.0, FOOT_DEPTH / 2.0],
         supported_angles_degrees: supported_angles,
     };
+    rim["fin_layout"] = add_base_rim_fins(&root, &mut r, base, contour, &selection["base_rim_supports"])?;
     let half_span = FOOT_WIDTH.max(FOOT_DEPTH) / 2.0;
     let margin = contact["scope_margin_mm"].as_f64().context("contact scope margin")?;
     let bounds = [-1.0, 1.0].map(|direction| {
@@ -179,8 +196,8 @@ fn main() -> Result<()> {
     let mut report = r.write(&root, &project)?;
     for (k, v) in [
         ("project", json!(relative(&project, &root))), ("native_settings_sha256", report["settings_sha256"].clone()),
-        ("printer", json!("Mark2")), ("active_nozzle", json!(0)), ("external_spool", json!(254)), ("requested_z_trim_mm", json!(0.04)),
-        ("filament_colour", json!("#FFFFFF")), ("parent_project", json!(parent_project_source)),
+        ("printer", json!(printer)), ("active_nozzle", json!(0)), ("external_spool", json!(254)), ("requested_z_trim_mm", json!(trim)),
+        ("filament_colour", json!(colour)), ("parent_project", json!(parent_project_source)),
         ("parent_project_sha256", json!(sha256_hex(&parent_project_bytes))), ("parent_project_source_commit", json!(parent_revision)),
         ("profile_source", json!(PROFILE)), ("profile_source_sha256", json!(file_sha(&root.join(PROFILE))?)),
         ("finish_selection", json!(FINISH)), ("finish_selection_sha256", json!(file_sha(&root.join(FINISH))?)), ("selected_finish", selection.clone()),

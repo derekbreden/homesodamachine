@@ -88,8 +88,7 @@
   "base_rim_supports": {
     "selected_date": "2026-11-11",
     "part": "faucet-shell-base",
-    "method": "dense tree-only rim interface and bridge-only insert recesses",
-    "removable_fins": false,
+    "method": "Segmented outside fins and Slim trees beneath the common dense rim interface",
     "source_preparation": "hardware/printed-parts/faucet/finish-coupons/2026-10-15-edge-supports/base-mark2/preparation.json",
     "source_project": "hardware/printed-parts/faucet/finish-coupons/2026-10-15-edge-supports/base-mark2/2026-10-15-faucet-base-segmented-rim-arcs-tree-current15-bridge125-fan70-z004-mark2.3mf",
     "source_project_sha256": "3fd336e3e44a32896bd0b76c13f11b91c74911308e81454ae670680c6b579cf7",
@@ -97,8 +96,6 @@
     "dense_roof_evidence": "hardware/printed-parts/faucet/sculpted/production/contact-review.json",
     "insert_bridge_evidence": "hardware/printed-parts/faucet/sculpted/production/contact-review.json",
     "reference_rim_diameter_mm": 59.0,
-    "fin_setback_from_model_mm": 0.96,
-    "minimum_fin_height_mm": 0.20,
     "rim_enforcer_angle_degrees": [114.5, 425.5],
     "rim_enforcer_radius_mm": [27.45, 29.95],
     "rim_enforcer_half_height_mm": 0.65,
@@ -117,12 +114,12 @@
       "scope_margin_mm": 8.0,
       "edge_blend_mm": 3.0
     },
-    "scope": "The dense tree interface follows the Sculpted ellipse. The mounting recesses use bridges at their shoulders and blind roofs. Finish and removal require a full Sculpted print."
+    "scope": "Outside fins and Slim trees carry the dense interface under the Sculpted ellipse. The mounting recesses use bridges at their shoulders and blind roofs."
   },
   "edge_support_strategy": {
     "selection_quote": "I'm quite convinced that we need to do this everywhere, that we've got these rough edges on overhangs.",
-    "method": "Follow the visible unsupported edge with a removable fin shaped to that edge; use intermittent arcs on curved rims and retain Tree(auto)/Default on the remaining geometry.",
-    "application": "The Sculpted tip retains its local fin and anchor treatment. The base rim uses its dense tree interface and continuous first perimeter."
+    "method": "Segmented fins follow each outside rim beneath the dense interface and its contoured first perimeter.",
+    "application": "The base uses bridges across its insert recesses. The tip has a hidden-root anchor and a separate dense interface at the inboard dispense face."
   },
   "mounting_plate_counterbores": {
     "blocker_radial_clearance_mm": 0.45,
@@ -132,7 +129,7 @@
   "tip_supports": {
     "selected_date": "2026-10-15",
     "part": "faucet-shell-tip",
-    "method": "Dense Slim trees at the mating lip, a contoured first perimeter and a hidden-root disc",
+    "method": "Segmented outside fins and Slim trees at the mating lip, a contoured first perimeter and a hidden-root disc",
     "source_preparation": "hardware/printed-parts/faucet/finish-coupons/2026-10-15-tip-root-anchor/mark1/preparation.json",
     "source_project": "hardware/printed-parts/faucet/finish-coupons/2026-10-15-tip-root-anchor/mark1/2026-10-15-faucet-tip-root-anchor-eight-fins-lip-trees-current105-bridge125-fan70-z018-mark1.3mf",
     "source_project_sha256": "f6e5c53d4a23b25f568b083d8a3eaa779b7959c666fa41a227a953e21904f3ff",
