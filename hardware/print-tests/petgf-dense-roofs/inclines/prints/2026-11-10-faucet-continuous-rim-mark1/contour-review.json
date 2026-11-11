@@ -1,0 +1,98 @@
+{
+  "source_deposition_segments": 467304,
+  "trial_deposition_segments": 469317,
+  "preserved_support_deposition_segments": 208230,
+  "preserved_bridge_deposition_segments": 12788,
+  "gcode_sha256": "75323f086ba3702180cc620be9013c966119203b6e78c99e793bbf1163cdeebb",
+  "courses": [
+    {
+      "course": 1,
+      "segments": 801,
+      "max_endpoint_mismatch_mm": 0.0,
+      "contact_depth_mm": [
+        0.22999,
+        0.22999,
+        0.23,
+        0.23,
+        0.23,
+        0.23001,
+        0.23001
+      ],
+      "max_deposition_slope_deg": 15.000664317713982,
+      "max_extruding_z_speed_mm_s": 3.8824536681365296
+    }
+  ],
+  "roof_gap_mm": [
+    0.06487,
+    0.10347,
+    0.12175,
+    0.25656,
+    0.38546,
+    0.38583,
+    0.47508
+  ],
+  "direct_roof_gap_mm": [
+    0.10353,
+    0.13576,
+    0.15481,
+    0.29486,
+    0.39917,
+    0.47508,
+    0.6462
+  ],
+  "roof_samples": 801,
+  "no_nearby_lower_roof_count": 0,
+  "no_nearby_lower_roof_angles_deg": [],
+  "model_side_join_height_delta_mm": [
+    -0.02492,
+    -0.02407,
+    -0.02143,
+    0.03179,
+    0.16045,
+    0.1934,
+    0.2313
+  ],
+  "no_nearby_retained_model_count": 0,
+  "upper_join_height_delta_mm": [
+    0.08002,
+    0.08019,
+    0.08083,
+    0.1267,
+    0.21114,
+    0.2453,
+    0.30566
+  ],
+  "upper_join_missing_count": 0,
+  "tangent_join": [
+    {
+      "angle_deg": 114.5,
+      "nearest_original_path_center_delta_mm": 0.028400303946231557,
+      "lateral_delta_mm": 0.026374845448003715,
+      "z_delta_mm": 0.010533033363293476
+    },
+    {
+      "angle_deg": 425.5,
+      "nearest_original_path_center_delta_mm": 0.028719463858550183,
+      "lateral_delta_mm": 0.026716263516137453,
+      "z_delta_mm": 0.010537972673093865
+    }
+  ],
+  "potential_earlier_interference_count": 0,
+  "potential_earlier_interference_examples": [],
+  "potential_support_interference_count": 0,
+  "potential_support_interference_examples": [],
+  "potential_retained_interference_count": 0,
+  "potential_retained_interference_examples": [],
+  "motion": {
+    "arc_count": 123,
+    "emitted_contact_segments": 924,
+    "modified_native_paths": 2119,
+    "extrusion_added_mm": 5.82201,
+    "extrusion_removed_mm": 7.00888,
+    "estimated_motion_delta_seconds": 91.02506,
+    "maximum_contact_depth_below_prior_peak_mm": 1.08,
+    "minimum_contact_z_mm": 0.97539
+  },
+  "roof_gap_definition": "Vertical separation from the calculated bottom of the perimeter bead to earlier nearby support, using overlapping bead footprints.",
+  "interference_definition": "Sampled relative to nearby deposited bead tops and widths; physical surface, nozzle and release verification remain pending."
+}
