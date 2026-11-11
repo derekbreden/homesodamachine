@@ -102,6 +102,136 @@
       "Filament bridge speed": "25 mm/s"
     }
   },
+  "HSM-0025": {
+    "title": "Flavor reservoir · channel B · Mark1 print plan",
+    "recipe": "hardware/printed-parts/cold-core/reservoir/prepare_print.rs",
+    "recipe_target": "reservoir-print-project",
+    "recipe_commit": "706e7a74e9b7acbe073282269711cfe2297fdf38",
+    "recipe_sha256": "1bf429ba96f7b110c599fc9670e4a2db7a7d8fe71a13839fcb3fb92a74a8254b",
+    "project_sha256": "4b80befa4c42da5e45e3c244b866cd8385d115561169f98ea529df279738001e",
+    "archive_sha256": "e013f06702f08932735000cbe5674f7653220fce49563f92bdd405b23cfdc654",
+    "gcode_sha256": "89fddf0bdb427d6e64306a85183d84419d795a3cfc8d5eafb78ed75426b16e7d",
+    "kind": "plan",
+    "sha256": "2c82be7dbb77954cb5232f843faaa4fbd9202089bb485244a17a333c617ad057",
+    "slice": "reservoir-review.3mf",
+    "plate": 1,
+    "layers": 833,
+    "process": {
+      "Material": "Bambu PETG Translucent Clear",
+      "Printer": "Mark1",
+      "Nozzle": "Left 0.8 mm hardened",
+      "Build plate": "Engineering Plate with glue",
+      "Nozzle trim": "0 mm",
+      "Walls": "5 Arachne",
+      "Infill/wall overlap": "50%",
+      "Supports": "None in emitted slice",
+      "Orientation": "Mouth up",
+      "Layer heights": "0.3 mm first, 0.24 mm nominal",
+      "Infill": "100% zig-zag",
+      "Bridge flow": "1",
+      "Process bridge speed": "30 mm/s",
+      "Filament bridge speed": "25 mm/s"
+    },
+    "model_sha256": "58489e732352dc57132485cc98a15cf033a40d52c929b83d81cfb634fd7ea101"
+  },
+  "HSM-0026": {
+    "title": "Flavor reservoir · channel A · Mark1 print plan",
+    "recipe": "hardware/printed-parts/cold-core/reservoir/prepare_print.rs",
+    "recipe_target": "reservoir-print-project",
+    "recipe_commit": "706e7a74e9b7acbe073282269711cfe2297fdf38",
+    "recipe_sha256": "1bf429ba96f7b110c599fc9670e4a2db7a7d8fe71a13839fcb3fb92a74a8254b",
+    "project_sha256": "4b80befa4c42da5e45e3c244b866cd8385d115561169f98ea529df279738001e",
+    "archive_sha256": "e013f06702f08932735000cbe5674f7653220fce49563f92bdd405b23cfdc654",
+    "gcode_sha256": "b1f2d8fe0abd919002a4713797d9e1ca6a57e546e273fd38411736aee0dda4e1",
+    "kind": "plan",
+    "sha256": "3aba3b51a41ee19d7e684bffe27a7e832f858a05fca0dbe5e1a67b06c3fed0bb",
+    "slice": "reservoir-review.3mf",
+    "plate": 2,
+    "layers": 833,
+    "process": {
+      "Material": "Bambu PETG Translucent Clear",
+      "Printer": "Mark1",
+      "Nozzle": "Left 0.8 mm hardened",
+      "Build plate": "Engineering Plate with glue",
+      "Nozzle trim": "0 mm",
+      "Walls": "5 Arachne",
+      "Infill/wall overlap": "30%",
+      "Supports": "None in emitted slice",
+      "Orientation": "Mouth up",
+      "Layer heights": "0.3 mm first, 0.24 mm nominal",
+      "Infill": "100% zig-zag",
+      "Bridge flow": "1",
+      "Process bridge speed": "30 mm/s",
+      "Filament bridge speed": "25 mm/s"
+    },
+    "model_sha256": "cffce729a02e9fcdd72a1ec1ff984eb69e57f3a05a0943e1b520a8ed98138be1"
+  },
+  "HSM-0027": {
+    "title": "Flavor reservoir caps · Mark1 print plan",
+    "recipe": "hardware/printed-parts/cold-core/reservoir/prepare_print.rs",
+    "recipe_target": "reservoir-print-project",
+    "recipe_commit": "706e7a74e9b7acbe073282269711cfe2297fdf38",
+    "recipe_sha256": "1bf429ba96f7b110c599fc9670e4a2db7a7d8fe71a13839fcb3fb92a74a8254b",
+    "project_sha256": "4b80befa4c42da5e45e3c244b866cd8385d115561169f98ea529df279738001e",
+    "archive_sha256": "e013f06702f08932735000cbe5674f7653220fce49563f92bdd405b23cfdc654",
+    "gcode_sha256": "f5fefbba8341f9a34317184a1f8e16387e48454a49746c6787afcdc65f17bcf8",
+    "kind": "plan",
+    "sha256": "8982aba4e134758e0060cdff323f8d45849a7744956c821b0741035390046c14",
+    "slice": "reservoir-review.3mf",
+    "plate": 3,
+    "layers": 46,
+    "process": {
+      "Material": "Bambu PETG Translucent Clear",
+      "Printer": "Mark1",
+      "Nozzle": "Left 0.8 mm hardened",
+      "Build plate": "Engineering Plate with glue",
+      "Nozzle trim": "0 mm",
+      "Walls": "5 Arachne",
+      "Infill/wall overlap": "50%",
+      "Supports": "None in emitted slice",
+      "Ports": "Open fill, draw and air passages",
+      "Orientation": "Exterior face down",
+      "Layer heights": "0.3 mm first, 0.24 mm nominal",
+      "Infill": "100% zig-zag",
+      "Bridge flow": "1",
+      "Process bridge speed": "30 mm/s",
+      "Filament bridge speed": "25 mm/s"
+    },
+    "model_sha256": "f4d38c45e24efecccd0cd85f28e2a702a8d8d27197bb85d6dbe32ff49f202e13"
+  },
+  "HSM-0028": {
+    "title": "Flavor reservoir caps · Mark1 print plan",
+    "recipe": "hardware/printed-parts/cold-core/reservoir/prepare_print.rs",
+    "recipe_target": "reservoir-print-project",
+    "recipe_commit": "706e7a74e9b7acbe073282269711cfe2297fdf38",
+    "recipe_sha256": "1bf429ba96f7b110c599fc9670e4a2db7a7d8fe71a13839fcb3fb92a74a8254b",
+    "project_sha256": "4b80befa4c42da5e45e3c244b866cd8385d115561169f98ea529df279738001e",
+    "archive_sha256": "e013f06702f08932735000cbe5674f7653220fce49563f92bdd405b23cfdc654",
+    "gcode_sha256": "f5fefbba8341f9a34317184a1f8e16387e48454a49746c6787afcdc65f17bcf8",
+    "kind": "plan",
+    "sha256": "8982aba4e134758e0060cdff323f8d45849a7744956c821b0741035390046c14",
+    "slice": "reservoir-review.3mf",
+    "plate": 3,
+    "layers": 46,
+    "process": {
+      "Material": "Bambu PETG Translucent Clear",
+      "Printer": "Mark1",
+      "Nozzle": "Left 0.8 mm hardened",
+      "Build plate": "Engineering Plate with glue",
+      "Nozzle trim": "0 mm",
+      "Walls": "5 Arachne",
+      "Infill/wall overlap": "50%",
+      "Supports": "None in emitted slice",
+      "Ports": "Open fill, draw and air passages",
+      "Orientation": "Exterior face down",
+      "Layer heights": "0.3 mm first, 0.24 mm nominal",
+      "Infill": "100% zig-zag",
+      "Bridge flow": "1",
+      "Process bridge speed": "30 mm/s",
+      "Filament bridge speed": "25 mm/s"
+    },
+    "model_sha256": "f88fb33c8e3af9b131bd02fd26636a14f5eb399d7e606c5950c8051f5e53d75b"
+  },
   "HSM-0029": {
     "title": "PRV shroud and reed bridge · Mark1 print plan",
     "sha256": "e01277847481bba99aa17375f042ee3deb8ce30ea1f70a021817253accc5fe25",
@@ -215,7 +345,9 @@
       "Process bridge speed": "50 mm/s",
       "Filament bridge speed": "25 mm/s"
     },
-    "model_sha256": "a338d0e6bc7d10e8cee610190c02c5109ae4b7e2856c24d5e1cfc88986ae48fe"
+    "model_sha256": "a338d0e6bc7d10e8cee610190c02c5109ae4b7e2856c24d5e1cfc88986ae48fe",
+    "recipe_commit": "706e7a74e9b7acbe073282269711cfe2297fdf38",
+    "recipe_sha256": "6a623e487c4dc105fb9a7aeae5f72f909dcf503b63f9776f7815f81dcf2e90d0"
   },
   "HSM-0063": {
     "title": "Enclosure identification set · Mark1 print plan",
@@ -244,7 +376,9 @@
       "Process bridge speed": "50 mm/s",
       "Filament bridge speed": "25 mm/s"
     },
-    "model_sha256": "166fa15754ce0679587b0c3198c57fe4dc6ab65215c8d1d2cac3e94be887b2b8"
+    "model_sha256": "166fa15754ce0679587b0c3198c57fe4dc6ab65215c8d1d2cac3e94be887b2b8",
+    "recipe_commit": "706e7a74e9b7acbe073282269711cfe2297fdf38",
+    "recipe_sha256": "6a623e487c4dc105fb9a7aeae5f72f909dcf503b63f9776f7815f81dcf2e90d0"
   },
   "HSM-0064": {
     "title": "Enclosure identification set · Mark1 print plan",
@@ -273,7 +407,9 @@
       "Process bridge speed": "50 mm/s",
       "Filament bridge speed": "25 mm/s"
     },
-    "model_sha256": "5b243d44c1bb9e8e53b279334fc9f350a07c51e1048ac6ebfabaae48466e8906"
+    "model_sha256": "5b243d44c1bb9e8e53b279334fc9f350a07c51e1048ac6ebfabaae48466e8906",
+    "recipe_commit": "706e7a74e9b7acbe073282269711cfe2297fdf38",
+    "recipe_sha256": "6a623e487c4dc105fb9a7aeae5f72f909dcf503b63f9776f7815f81dcf2e90d0"
   },
   "HSM-0065": {
     "title": "Enclosure identification set · Mark1 print plan",
@@ -302,7 +438,9 @@
       "Process bridge speed": "50 mm/s",
       "Filament bridge speed": "25 mm/s"
     },
-    "model_sha256": "d5564907639a1cbad1a127e7a104e4edf5cfe47fe78261f218349ce2ebab2f32"
+    "model_sha256": "d5564907639a1cbad1a127e7a104e4edf5cfe47fe78261f218349ce2ebab2f32",
+    "recipe_commit": "706e7a74e9b7acbe073282269711cfe2297fdf38",
+    "recipe_sha256": "6a623e487c4dc105fb9a7aeae5f72f909dcf503b63f9776f7815f81dcf2e90d0"
   },
   "HSM-0066": {
     "title": "Enclosure identification set · Mark1 print plan",
@@ -331,7 +469,9 @@
       "Process bridge speed": "50 mm/s",
       "Filament bridge speed": "25 mm/s"
     },
-    "model_sha256": "3ccc0c7408063c72043f48a53ccfa5832251936740f565779de886dca7b81817"
+    "model_sha256": "3ccc0c7408063c72043f48a53ccfa5832251936740f565779de886dca7b81817",
+    "recipe_commit": "706e7a74e9b7acbe073282269711cfe2297fdf38",
+    "recipe_sha256": "6a623e487c4dc105fb9a7aeae5f72f909dcf503b63f9776f7815f81dcf2e90d0"
   },
   "HSM-0067": {
     "title": "Enclosure identification set · Mark1 print plan",
@@ -360,7 +500,9 @@
       "Process bridge speed": "50 mm/s",
       "Filament bridge speed": "25 mm/s"
     },
-    "model_sha256": "2cbb2fa07300e794cae0ffb6cf471609b8b8171c09c948d3d5808dc856a82bf2"
+    "model_sha256": "2cbb2fa07300e794cae0ffb6cf471609b8b8171c09c948d3d5808dc856a82bf2",
+    "recipe_commit": "706e7a74e9b7acbe073282269711cfe2297fdf38",
+    "recipe_sha256": "6a623e487c4dc105fb9a7aeae5f72f909dcf503b63f9776f7815f81dcf2e90d0"
   },
   "HSM-0069": {
     "title": "Enclosure identification set · Mark1 print plan",
@@ -389,7 +531,9 @@
       "Process bridge speed": "50 mm/s",
       "Filament bridge speed": "25 mm/s"
     },
-    "model_sha256": "9f0a195c4561fe3945ce3e3647060c636de0176e3ead081aa4a15adf46b8e26c"
+    "model_sha256": "9f0a195c4561fe3945ce3e3647060c636de0176e3ead081aa4a15adf46b8e26c",
+    "recipe_commit": "706e7a74e9b7acbe073282269711cfe2297fdf38",
+    "recipe_sha256": "6a623e487c4dc105fb9a7aeae5f72f909dcf503b63f9776f7815f81dcf2e90d0"
   },
   "HSM-0071": {
     "title": "Flavor-fill funnel cover · Mark1 print plan",
@@ -736,11 +880,29 @@
     "source_commit": "f91f00712597b900b2b9fc43def45f19ea844c43"
   },
   "HSM-0093": {
-    "title": "Sculpted faucet mounting gasket · Mark1",
-    "sha256": "3a850c4aaf9285b7a218b008452762ffd31667fcbff32926ca8f60356676d061",
-    "slice": "hardware/printed-parts/faucet/above-counter-gasket/prints/2026-10-16-white-tpu90a-right-mark1/2026-10-16-sculpted-faucet-mounting-gasket-white-tpu90a-right06-z018-mark1-print-only.gcode.3mf",
+    "title": "Sculpted faucet mounting gasket · Mark1 print plan",
+    "recipe": "hardware/printed-parts/faucet/above-counter-gasket/prints/2026-10-16-white-tpu90a-right-mark1/README.md",
+    "recipe_sha256": "6e168ae022b0c60ba5febd15bdf05fe1f2a714517e2def921c12ab0380add66c",
+    "project_sha256": "09b4831fd450844d22c1775bd82d040b526b95a4ea5f2accfd0003aac80bad3c",
+    "archive_sha256": "adcd0f54cb07b127742fac6ee50907a2ce194edf2399ffb691e4783d6e05a5ea",
+    "gcode_sha256": "66d2300a2d3393b21dbfbb6649b7b5e5c87b32517a99d4a372fb862d0ea2c9d2",
+    "kind": "plan",
+    "sha256": "111e2fc2fb6ed7c9e6697de9b13a9805dbe4adfd23e50c981d3e8cfc4cc2f5c5",
+    "slice": "sculpted-gasket-current.gcode.3mf",
     "plate": 1,
-    "source_commit": "f91f00712597b900b2b9fc43def45f19ea844c43"
+    "layers": 10,
+    "process": {
+      "Material": "White Bambu TPU 90A",
+      "Printer": "Mark1",
+      "Nozzle": "Right 0.6 mm",
+      "Z trim": "+0.18 mm requested and emitted",
+      "Supports": "None in emitted slice",
+      "Layer heights": "0.3 mm first, 0.18 mm nominal",
+      "Build plate": "Engineering Plate",
+      "Walls": "2",
+      "Infill": "100% zig-zag"
+    },
+    "model_sha256": "f41031f281214c6c535e6c267ef1a6c33b0e5b21997c1d239cddb892c5d6b5ee"
   },
   "HSM-0094": {
     "title": "Sculpted faucet set · October 17 · Mark2",
@@ -764,11 +926,33 @@
     "source_commit": "f91f00712597b900b2b9fc43def45f19ea844c43"
   },
   "HSM-0098": {
-    "title": "Faucet umbilical organizer · Mark2",
-    "sha256": "d8378ce506ddd960824f70f2527ee72ec40fc32d01fbe5683d191346b1e38165",
-    "slice": "hardware/printed-parts/faucet/umbilical-organizer/prints/2026-10-16-white-right-mark2/2026-10-16-umbilical-organizer-white-petgf-right04-z004-mark2-print-only.gcode.3mf",
+    "title": "Faucet umbilical organizer · Mark2 print plan",
+    "recipe": "hardware/printed-parts/faucet/umbilical-organizer/umbilical-organizer-petgf.print.json",
+    "recipe_sha256": "3fd51cbb9ec11fca97eb4480d6c9a4f7ff5c1300b404c73aae13a37073148a42",
+    "project_sha256": "809de96371175ef1f7fd73cf0a88c1bbfa52e60a50b09237de10ace8b18f2e3c",
+    "archive_sha256": "89b27bdd901601f6aa2201d4b7eabe0d7e27a52757293b998b80239dea9c20fe",
+    "gcode_sha256": "e4f29f8f934290983d0bb9bc07f4c2ff6d46a050dcd12f39e1252fd0fd4ef037",
+    "kind": "plan",
+    "sha256": "0bfeabc60873df1f6a946e8b2de7bb6df0f0f1ce285cb84e5ec1bad3320055d9",
+    "slice": "umbilical-organizer-petgf.gcode.3mf",
     "plate": 1,
-    "source_commit": "f91f00712597b900b2b9fc43def45f19ea844c43"
+    "layers": 42,
+    "process": {
+      "Material": "White Polymaker PET-GF",
+      "Printer": "Mark2",
+      "Nozzle": "Left 0.4 mm Standard",
+      "Z trim": "+0.04 mm requested, +0.02 mm emitted",
+      "Supports": "None in emitted slice",
+      "Orientation": "Flat with vertical bores and signal slot",
+      "Layer heights": "0.2 mm first, 0.24 mm nominal",
+      "Build plate": "Textured PEI Plate",
+      "Walls": "2",
+      "Infill": "15% grid",
+      "Bridge flow": "1.25",
+      "Process bridge speed": "15 mm/s",
+      "Filament bridge speed": "15 mm/s"
+    },
+    "model_sha256": "87641a741b3d2cb750984c325a9175adc10e82833c6fdffcc45ab55302001fc6"
   },
   "HSM-0099": {
     "title": "Blue tube collars · Mark2 print plan",
@@ -798,7 +982,9 @@
       "Process bridge speed": "15 mm/s",
       "Filament bridge speed": "15 mm/s"
     },
-    "model_sha256": "32a208b9bfbc017e8e6eb3528426ca51e0a6158c062173286fb48cda5121dd74"
+    "model_sha256": "32a208b9bfbc017e8e6eb3528426ca51e0a6158c062173286fb48cda5121dd74",
+    "recipe_commit": "706e7a74e9b7acbe073282269711cfe2297fdf38",
+    "recipe_sha256": "df8f28460bf0412e3653ce49d8e03e4d241f9a3723cc97e2d10f4277ee3f4fe9"
   },
   "HSM-0100": {
     "title": "Black tube collars · Mark2 print plan",
@@ -828,7 +1014,9 @@
       "Process bridge speed": "15 mm/s",
       "Filament bridge speed": "15 mm/s"
     },
-    "model_sha256": "30f7f0559729fca6471522ae7bfbefae0d2d1663c64ecbd6f8be58fc342779bd"
+    "model_sha256": "30f7f0559729fca6471522ae7bfbefae0d2d1663c64ecbd6f8be58fc342779bd",
+    "recipe_commit": "706e7a74e9b7acbe073282269711cfe2297fdf38",
+    "recipe_sha256": "df8f28460bf0412e3653ce49d8e03e4d241f9a3723cc97e2d10f4277ee3f4fe9"
   },
   "HSM-0101": {
     "title": "Black tube collars · Mark2 print plan",
@@ -858,7 +1046,9 @@
       "Process bridge speed": "15 mm/s",
       "Filament bridge speed": "15 mm/s"
     },
-    "model_sha256": "f3f2470db047c00eda098c1418d7322b8e4210546d6f3c01dc76af41179287c1"
+    "model_sha256": "f3f2470db047c00eda098c1418d7322b8e4210546d6f3c01dc76af41179287c1",
+    "recipe_commit": "706e7a74e9b7acbe073282269711cfe2297fdf38",
+    "recipe_sha256": "df8f28460bf0412e3653ce49d8e03e4d241f9a3723cc97e2d10f4277ee3f4fe9"
   },
   "HSM-0102": {
     "title": "White tube collars · Mark2 print plan",
@@ -888,7 +1078,9 @@
       "Process bridge speed": "15 mm/s",
       "Filament bridge speed": "15 mm/s"
     },
-    "model_sha256": "e6951ba3a688501a2ce262e6af5caaac6595179001e52e4a1f5c28017eab82ad"
+    "model_sha256": "e6951ba3a688501a2ce262e6af5caaac6595179001e52e4a1f5c28017eab82ad",
+    "recipe_commit": "706e7a74e9b7acbe073282269711cfe2297fdf38",
+    "recipe_sha256": "df8f28460bf0412e3653ce49d8e03e4d241f9a3723cc97e2d10f4277ee3f4fe9"
   },
   "HSM-0111": {
     "title": "Industrial faucet set · October 24 · Mark2",
@@ -899,10 +1091,31 @@
   },
   "HSM-0112": {
     "title": "Industrial faucet mounting gasket · Mark2",
-    "sha256": "2b4c75c86eb738d26edeb0be4fe8add515919f34abda1108098ea74350ab86b6",
+    "recipe": "hardware/printed-parts/faucet/industrial/prints/2026-10-23-mounting-gasket-tpu85a-right06-mark2/README.md",
+    "recipe_sha256": "4505765b8b878880486293a4837626c5bb4dc5b7aef095235b5b11bf741a9594",
+    "project_sha256": "681d80d6f3bdc7f58fb9aa8990229a24ba93d86f060e6de75437e933d09910fc",
+    "archive_sha256": "da062870e394d3f18708d37d26eb1a53fbf2cbc12ab5cff5aa7ae8e0c07b905b",
+    "gcode_sha256": "c7731c4ed42a04ec61860841973548255e25d97f4767e1f4378953ffb875bbfe",
+    "launch": "hardware/printed-parts/faucet/industrial/prints/2026-10-23-mounting-gasket-tpu85a-right06-mark2/launch.json",
+    "source_commit": "f91f00712597b900b2b9fc43def45f19ea844c43",
+    "sha256": "41217dce3e801c9ef7b1c92f100e91bf6564df47ea81ad14da2094d7f14841a8",
     "slice": "hardware/printed-parts/faucet/industrial/prints/2026-10-23-mounting-gasket-tpu85a-right06-mark2/2026-10-23-industrial-mounting-gasket-tpu85a-right06-z000-mark2-continuous-layers.gcode.3mf",
     "plate": 1,
-    "source_commit": "f91f00712597b900b2b9fc43def45f19ea844c43"
+    "layers": 10,
+    "process": {
+      "Material": "Black Bambu TPU 85A",
+      "Printer": "Mark2",
+      "Nozzle": "Right 0.6 mm",
+      "Z trim": "Zero added trim",
+      "Supports": "None in emitted slice",
+      "Layer routing": "Continuous tours with transfers inside the gasket",
+      "Geometry": "Current gasket boundary agrees within 0.005 mm",
+      "Layer heights": "0.3 mm first, 0.18 mm nominal",
+      "Build plate": "Engineering Plate",
+      "Walls": "2",
+      "Infill": "100% zig-zag"
+    },
+    "model_sha256": "4dfefcced0e35110d8f7bdac1b07be5a374a66e03bf339beb426236b5d19a894"
   },
   "HSM-0113": {
     "title": "Industrial faucet set · October 24 · Mark2",
@@ -994,7 +1207,9 @@
       "Process bridge speed": "15 mm/s",
       "Filament bridge speed": "15 mm/s"
     },
-    "model_sha256": "35fb6e564a8e1dfb01ea2ec60951373477ba51ae9039828b14a2e8f1e832c21e"
+    "model_sha256": "35fb6e564a8e1dfb01ea2ec60951373477ba51ae9039828b14a2e8f1e832c21e",
+    "recipe_commit": "706e7a74e9b7acbe073282269711cfe2297fdf38",
+    "recipe_sha256": "df8f28460bf0412e3653ce49d8e03e4d241f9a3723cc97e2d10f4277ee3f4fe9"
   },
   "HSM-0273": {
     "title": "Red tube collars · Mark2 print plan",
@@ -1024,7 +1239,9 @@
       "Process bridge speed": "15 mm/s",
       "Filament bridge speed": "15 mm/s"
     },
-    "model_sha256": "4a7579f6a1e19e9095923b05f1ba76d2b431553f3b9ff11d31b943a4319e31dd"
+    "model_sha256": "4a7579f6a1e19e9095923b05f1ba76d2b431553f3b9ff11d31b943a4319e31dd",
+    "recipe_commit": "706e7a74e9b7acbe073282269711cfe2297fdf38",
+    "recipe_sha256": "df8f28460bf0412e3653ce49d8e03e4d241f9a3723cc97e2d10f4277ee3f4fe9"
   },
   "HSM-0324": {
     "title": "Water-pump elbows · Mark2 production print",
@@ -1356,6 +1573,8 @@
       "Process bridge speed": "50 mm/s",
       "Filament bridge speed": "25 mm/s"
     },
-    "model_sha256": "25a3d016205296d4384aee21d2ca13e3f7123a10227772b3587905def9f9ac16"
+    "model_sha256": "25a3d016205296d4384aee21d2ca13e3f7123a10227772b3587905def9f9ac16",
+    "recipe_commit": "706e7a74e9b7acbe073282269711cfe2297fdf38",
+    "recipe_sha256": "6a623e487c4dc105fb9a7aeae5f72f909dcf503b63f9776f7815f81dcf2e90d0"
   }
 }
