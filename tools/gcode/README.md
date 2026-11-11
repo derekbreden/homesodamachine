@@ -42,6 +42,8 @@ detailed view. Larger plates can select a consecutive range with `--layers` to f
 inline limit. The Print camera follows the plate as it moves, and Whole printer keeps
 the frame in view.
 
+`--inline --data` writes the sampled playback data for a [website Print view](../../print-playbacks/README.md).
+
 Its motion planner reads commanded axis speed limits, acceleration, instantaneous junction
 speed limits and feed overrides. Forward and reverse lookahead passes join consecutive moves;
 each move accelerates, cruises and brakes. Timing is estimated: firmware actions, thermal

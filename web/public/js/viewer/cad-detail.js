@@ -214,7 +214,7 @@ export function openCadDetail(type, file, pushHistory = true, path = null) {
     if (e.key !== "Escape" || !wrapper.isConnected) return;
     const menu = workspace.querySelector(".workspace-menu[open]");
     if (menu) { menu.open = false; menu.querySelector("summary")?.focus(); e.preventDefault(); e.stopPropagation(); return; }
-    if (materialPanel?.closeDrawing()) { e.preventDefault(); e.stopPropagation(); return; }
+    if (materialPanel?.closeView()) { e.preventDefault(); e.stopPropagation(); return; }
     const checks = wrapper.querySelector(".sc-modal");
     if (checks) { checks.remove(); e.preventDefault(); e.stopPropagation(); return; }
     if (closeRelated(wrapper, true)) { e.preventDefault(); e.stopPropagation(); }

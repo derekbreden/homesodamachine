@@ -24,6 +24,9 @@ pub struct Options {
     /// Sample motion and simplify beads to fit the inline visualization limit.
     #[arg(long)]
     inline: bool,
+    /// Write the sampled replay data for a shared player.
+    #[arg(long, requires = "inline")]
+    data: bool,
     #[arg(long, default_value_t = 1)]
     plate: usize,
     #[arg(long, default_value_t = 30.)]
@@ -433,22 +436,27 @@ pub fn run(args: Options) -> Result<i32> {
         seconds.is_finite() && seconds > 0.,
         "invalid playback duration"
     );
-    let mut data = json!({ "features":motion.features,
+    let mut data = json!({ "version":1, "features":motion.features,
         "bed":motion.bed, "bed_mesh":args.bed_model.as_ref().map(|p|bed_triangles(p,origin)).transpose()?,
         "origin":origin, "speed":args.speed, "seconds":seconds, "gcode_sha256":gcode_sha256,
         "source":args.slice.file_name().unwrap_or_default().to_string_lossy(),
         "selected_layers":[motion.moves[0].layer,motion.moves.last().unwrap().layer] });
-    let page = if args.inline {
-        inline::page(&args.title, &mut data, &motion, origin, &end_times)?
+    let output = if args.inline {
+        let page = inline::page(&args.title, &mut data, &motion, origin, &end_times)?;
+        if args.data {
+            serde_json::to_string(&data)?
+        } else {
+            page
+        }
     } else {
         data["detail"] = detailed_data(&motion, origin, &end_times)?;
         playback_page(&args.title, &data)?
     };
-    fs::write(&args.out, &page).with_context(|| format!("writing {}", args.out.display()))?;
+    fs::write(&args.out, &output).with_context(|| format!("writing {}", args.out.display()))?;
     println!(
         "{}  {:.1} MB · {} moves · {:.1} estimated motion seconds",
         args.out.display(),
-        page.len() as f64 / 1e6,
+        output.len() as f64 / 1e6,
         motion.moves.len(),
         seconds
     );
