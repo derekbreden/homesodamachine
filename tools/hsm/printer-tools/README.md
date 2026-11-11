@@ -1,7 +1,14 @@
 # Printer tools
 
-`hsm-printer` runs the existing optional printer status, light, Bambu Connect send,
-print-only archive and timelapse-retention commands in Rust.
+`hsm-printer` runs the optional printer status, light, camera recording, Bambu
+Connect send, print-only archive and timelapse-retention commands in Rust.
+
+`camera` reads or explicitly sets automatic print-process recording and verifies
+the reported setting. `recordings` makes compact, elapsed-time chamber-camera
+playback in iCloud Drive from completed native recordings. It keeps local receipts
+so cloud-offloaded footage stays offloaded and does not remove native footage
+from the printer. [Print-process recordings](../../bambu-recordings.md) describes
+the archive and installed schedule.
 
 `print ARCHIVE PRINTER` holds Bambu Connect in the foreground through the native
 Swift input process. `send ARCHIVE PRINTER` uses the existing background
@@ -20,10 +27,12 @@ plan requires a local archive, a stable remote file, a durable byte-verified cop
 and a final metadata check before deletion. Curl supplies the implicit FTPS
 transport with its TLS session cache enabled. Access codes pass through a private
 stdin configuration, never process arguments.
+Directory flushes open metadata only so cloud-offloaded archives stay offloaded.
 
 Printer names and credentials come from the existing Bambu Studio configuration
-and private timelapse runner. They are not stored in the checkout. `status` is
-read-only; `light`, `print`, `send`, and `gc --apply` perform their named explicit
+and private timelapse runner. They are not stored in the checkout. `status` and
+`camera` without a mode are read-only; `light`, `camera on|off`, `recordings`,
+`print`, `send`, and `gc --apply` perform their named explicit
 actions. These commands are outside the normal build.
 
 `picker-check` renders synthetic popovers and calls native Vision OCR without

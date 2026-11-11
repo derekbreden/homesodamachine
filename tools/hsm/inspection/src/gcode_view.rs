@@ -15,6 +15,9 @@ const PAGE_LIMIT: usize = 16_000_000;
 const SEAM_TEMPLATE: &str = include_str!("../../../gcode/seam-page.html");
 const SPEED_TEMPLATE: &str = include_str!("../../../gcode/speed-page.html");
 
+#[path = "gcode_playback.rs"]
+mod playback;
+
 #[derive(Args)]
 pub struct Options {
     #[command(subcommand)]
@@ -24,6 +27,7 @@ pub struct Options {
 enum Mode {
     Seams(Seams),
     Speed(Speeds),
+    Playback(playback::Options),
 }
 #[derive(Args)]
 struct Page {
@@ -336,6 +340,7 @@ pub fn run(options: Options) -> Result<i32> {
     match options.mode {
         Mode::Seams(args) => seams(args),
         Mode::Speed(args) => speeds(args),
+        Mode::Playback(args) => playback::run(args),
     }
 }
 
