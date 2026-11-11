@@ -9529,7 +9529,7 @@
       ]
     }
   ],
-  "input_fingerprint": "sha256:b98e170f7e3233b66c348178c958a9a816fc99e0fd58b2686bd6906e55e598bd",
+  "input_fingerprint": "sha256:717ca9b5aada4dce40d99f06b256e81dc6868d2c3a8e76733adc4b815c45c575",
   "orders": [
     {
       "allocation_status": "all_project",
@@ -13608,7 +13608,8 @@
       ],
       "reference": "112-8461282-5610650",
       "source_ids": [
-        "src-499eb31e61134d6d8969fb2173d42ae2"
+        "src-499eb31e61134d6d8969fb2173d42ae2",
+        "src-75360555a4ed4860978ddb0b1bf541b4"
       ],
       "vendor": "Amazon"
     },
@@ -26110,7 +26111,8 @@
       "section": "1. Carbonator fabrication",
       "service_period": null,
       "source_ids": [
-        "src-499eb31e61134d6d8969fb2173d42ae2"
+        "src-499eb31e61134d6d8969fb2173d42ae2",
+        "src-75360555a4ed4860978ddb0b1bf541b4"
       ],
       "split_charge": false,
       "stream": "purchase",
@@ -63492,6 +63494,20 @@
       "source_id": "src-74c252eea37f4635be8033ecf2c47d8b",
       "vendor": "Anthropic",
       "verified_at": "2026-10-04"
+    },
+    {
+      "document_date": null,
+      "document_type": "email_shipment_notification",
+      "note": "Shipment notification identifies the existing tap-wrench order and repeats the USD 6.42 total. Shipment is confirmed. The relative arrival estimate does not establish an actual delivery day, and shipment does not prove a completed merchant charge. No new purchase or payment is created.",
+      "notification_date": {
+        "precision": "day",
+        "value": "2026-11-11"
+      },
+      "proves": [],
+      "reference": "112-8461282-5610650",
+      "source_id": "src-75360555a4ed4860978ddb0b1bf541b4",
+      "vendor": "Amazon",
+      "verified_at": "2026-11-11"
     },
     {
       "document_date": null,

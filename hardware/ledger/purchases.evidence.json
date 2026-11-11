@@ -9682,7 +9682,8 @@
       ],
       "allocation_status": "all_project",
       "source_ids": [
-        "src-499eb31e61134d6d8969fb2173d42ae2"
+        "src-499eb31e61134d6d8969fb2173d42ae2",
+        "src-75360555a4ed4860978ddb0b1bf541b4"
       ]
     },
     "pur-6f3e90aba9734990a07d1e24f1f75a86": {
@@ -15930,7 +15931,8 @@
       },
       "allocation_status": "all_project",
       "source_ids": [
-        "src-499eb31e61134d6d8969fb2173d42ae2"
+        "src-499eb31e61134d6d8969fb2173d42ae2",
+        "src-75360555a4ed4860978ddb0b1bf541b4"
       ]
     },
     "amazon:112-1175582-2386612": {
@@ -33665,6 +33667,19 @@
       "proves": [],
       "verified_at": "2026-11-11",
       "note": "Shipment notification identifies the existing tap/drill order and repeats the USD 9.00 total. Shipment is confirmed. The relative arrival estimate does not establish an actual delivery day, and shipment does not prove a completed merchant charge. No new purchase or payment is created."
+    },
+    "src-75360555a4ed4860978ddb0b1bf541b4": {
+      "vendor": "Amazon",
+      "document_type": "email_shipment_notification",
+      "reference": "112-8461282-5610650",
+      "document_date": null,
+      "notification_date": {
+        "precision": "day",
+        "value": "2026-11-11"
+      },
+      "proves": [],
+      "verified_at": "2026-11-11",
+      "note": "Shipment notification identifies the existing tap-wrench order and repeats the USD 6.42 total. Shipment is confirmed. The relative arrival estimate does not establish an actual delivery day, and shipment does not prove a completed merchant charge. No new purchase or payment is created."
     }
   },
   "coverage": [
