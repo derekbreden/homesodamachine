@@ -18,4 +18,3 @@ zip = { version = "9.1.2", default-features = false, features = ["deflate-flate2
 hsm-layout-data = { path = "../layout-data" }
 
 serde.workspace = true
-hsm-documents = { path = "../documents" }

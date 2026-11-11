@@ -12,18 +12,12 @@ mod queries;
 mod reporting;
 mod source;
 mod io;
-mod compiled;
 
 fn answer(request: &Value) -> Result<Value> {
-    if let Some(result) = hsm_documents::interop::native_object(request) {
-        return result;
-    }
     let op = request["op"]
         .as_str()
         .context("machine-data request needs op")?;
     match op {
-        "compiled" => compiled::request(request),
-        "compiled_invoke" => compiled::invoke(request),
         "write_json"|"json_text" => io::request(request),
         "model_source" => source::model(request),
         op if op.starts_with("equipment_") => equipment::request(request),
@@ -57,7 +51,6 @@ fn answer(request: &Value) -> Result<Value> {
 }
 
 fn main() -> Result<()> {
-    hsm_documents::interop::set_dispatch(|request| answer(&request));
     if std::env::args().nth(1).as_deref() != Some("--serve") {
         bail!("usage: machine-data --serve");
     }
@@ -66,8 +59,6 @@ fn main() -> Result<()> {
         let mut line = String::new();
         if stdin.read_line(&mut line)? == 0 { break; }
         let result = serde_json::from_str(&line).context("machine-data JSON request").and_then(|v| answer(&v));
-        let io_result = compiled::register_io();
-        let result = result.and_then(|result| { io_result?; Ok(result) });
         let value = result.unwrap_or_else(|error| json!({"error":format!("{error:#}")}));
         let mut stdout = std::io::stdout().lock();
         serde_json::to_writer(&mut stdout, &value)?;
