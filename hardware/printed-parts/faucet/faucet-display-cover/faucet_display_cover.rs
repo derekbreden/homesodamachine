@@ -10,6 +10,7 @@ use hsm_faucet::shell::PAST;
 use hsm_faucet::{Gooseneck, display};
 use hsm_faucet_display_cover_numbers as cover;
 use hsm_faucet_numbers::catalog;
+use hsm_faucet_numbers::shell::{DISPENSE_FACE_THICKNESS, DISPLAY_HEAD_S_MIN};
 use hsm_kernel::part::write_shown;
 use hsm_kernel::*;
 use hsm_print_payload::printed;
@@ -50,7 +51,11 @@ fn seated_cover(neck: &Gooseneck, open: bool) -> Result<Solid> {
     let [n0, n1] = cover::window_n();
     let window = neck.cradle_prism(cover::WINDOW_HALF_X, (s0, s1), (n0, n1), cover::WINDOW_CORNER_R)?;
     let arch = display::neck_round(neck, cover::neck_clearance_r())?;
-    let skin = sloped(neck, outer.cut_all(&[cavity, window, arch])?)?;
+    let (_, _, normal) = neck.tip_frame();
+    let [half_x, _, _, n0, n1] = cover::outer_clamp();
+    let nose_arch = clamped(neck, arch.translate(normal * cover::NOSE_ARCH_LIFT),
+        [half_x, DISPLAY_HEAD_S_MIN - PAST, DISPENSE_FACE_THICKNESS, n0, n1])?;
+    let skin = sloped(neck, outer.cut_all(&[cavity, window, arch, nose_arch])?)?;
     // The band stands from under the skin's foot, so no face of it lies on the skin's.
     let [hx, s0, s1, n0, n1] = cover::lip_band();
     let band = neck.cradle_prism(hx, (s0, s1), (n0 - PAST, n1), 0.0)?;

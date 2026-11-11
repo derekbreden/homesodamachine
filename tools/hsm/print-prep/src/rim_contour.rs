@@ -16,7 +16,6 @@ const FILAMENT_RADIUS: f64 = 0.875;
 const TRAVEL_CLEARANCE: f64 = 0.40;
 const PATH_STEP: f64 = 0.22;
 const CONTACT_FEED: f64 = 900.;
-const BED_BLEND_END: f64 = 4.0;
 const PI: f64 = std::f64::consts::PI;
 type Point = [f64; 3];
 
@@ -46,23 +45,19 @@ pub struct ContourReport {
 /// Applies the first perimeter to G-code restored from the faucet contact-band map.
 /// The native body uses absolute XYZ and relative extrusion. The caller supplies
 /// the bounds of the rim with a support roof and keeps the resulting executable.
-pub fn apply(input: &Path, output: &Path, spec: RimSpec) -> io::Result<ContourReport> {
-    apply_with_map(input, output, spec, None)
+pub fn apply(input: &Path, output: &Path, spec: RimSpec, mapped_z: &dyn Fn(Point) -> f64) -> io::Result<ContourReport> {
+    apply_with_map(input, output, spec, mapped_z, None)
 }
 
 /// Use the tip's own contact map and machine Z limit to schedule the mating perimeter.
 pub fn apply_tip(
     input: &Path, output: &Path, spec: RimSpec, mapped_z: &dyn Fn(Point) -> f64, maximum_z_feed: f64,
 ) -> io::Result<ContourReport> {
-    apply_with_map(input, output, spec, Some(TipContact { mapped_z, maximum_z_feed }))
+    apply_with_map(input, output, spec, mapped_z, Some(maximum_z_feed))
 }
 
-struct TipContact<'a> {
-    mapped_z: &'a dyn Fn(Point) -> f64,
-    maximum_z_feed: f64,
-}
-
-fn apply_with_map(input: &Path, output: &Path, spec: RimSpec, tip: Option<TipContact<'_>>) -> io::Result<ContourReport> {
+fn apply_with_map(input: &Path, output: &Path, spec: RimSpec, mapped_z: &dyn Fn(Point) -> f64,
+                  tip: Option<f64>) -> io::Result<ContourReport> {
     let [start, end] = spec.supported_angles_degrees;
     let (sin, cos) = spec.seat_fall_angle_degrees.to_radians().sin_cos();
     if spec.identify_id == 0
@@ -87,6 +82,7 @@ fn apply_with_map(input: &Path, output: &Path, spec: RimSpec, tip: Option<TipCon
         start,
         end,
         object: spec.identify_id,
+        mapped_z,
         tip,
     };
     build(input, output, &rim)
@@ -109,7 +105,8 @@ struct Rim<'a> {
     start: f64,
     end: f64,
     object: u64,
-    tip: Option<TipContact<'a>>,
+    mapped_z: &'a dyn Fn(Point) -> f64,
+    tip: Option<f64>,
 }
 
 impl Rim<'_> {
@@ -137,31 +134,8 @@ impl Rim<'_> {
     }
 }
 
-fn smooth(t: f64) -> f64 {
-    let t = t.clamp(0., 1.);
-    t * t * (3. - 2. * t)
-}
-
 fn nominal_z(rim: &Rim, p: Point) -> f64 {
-    if let Some(tip) = &rim.tip {
-        return (tip.mapped_z)(p);
-    }
-    let (_, _, depth) = rim.local(p);
-    let face = p[2] - depth;
-    let period = 1.92;
-    let phase = 0.2;
-    let r = (face - phase + period / 2.).rem_euclid(period) - period / 2.;
-    let delta = if r.abs() <= period / 4. {
-        r
-    } else {
-        r.signum() * (period / 2. - r.abs())
-    };
-    let weight = if depth < -1.5 {
-        smooth((depth + 4.5) / 3.)
-    } else {
-        1. - smooth((depth - 1.) / 3.)
-    };
-    p[2] - delta * smooth((p[2] - 0.44) / (BED_BLEND_END - 0.44)) * weight
+    (rim.mapped_z)(p)
 }
 
 fn baseline_thickness(rim: &Rim, p: Point, layer: usize, height: f64) -> f64 {
@@ -474,10 +448,10 @@ impl<W: Write> Emitter<'_, W> {
             self.minimum_contact_z = self.minimum_contact_z.min(p[2]);
             let amount = lateral(self.actual, p) * volume_per_mm(BEAD_WIDTH, COURSE_HEIGHT);
             let mut feed = CONTACT_FEED;
-            if let Some(tip) = &self.rim.tip {
+            if let Some(maximum_z_feed) = self.rim.tip {
                 let rise = (self.actual[2] - p[2]).abs();
                 if rise > 1e-6 {
-                    feed = feed.min((tip.maximum_z_feed - 1.2) * distance(self.actual, p) / rise);
+                    feed = feed.min((maximum_z_feed - 1.2) * distance(self.actual, p) / rise);
                 }
             }
             self.extrude(p, amount, feed)?;

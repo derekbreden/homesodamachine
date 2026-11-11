@@ -26,6 +26,7 @@ const REVIEW: &str = "Metadata/hsm_nonplanar_contact.json";
 pub struct ContactBand {
     name: Option<String>,
     surface: Surface,
+    rim_inset: Option<RimInset>,
     bounds: [[f64; 2]; 2],
     edge: f64,
     period: f64,
@@ -49,6 +50,11 @@ pub struct ContactBand {
 enum Surface {
     Plane { normal: Point, seat: Point },
     HeightField(HeightField),
+}
+
+struct RimInset {
+    axes: [f64; 2],
+    blend: [f64; 2],
 }
 
 struct SupportPaint {
@@ -143,9 +149,19 @@ impl ContactBand {
             ensure!(normal[2].abs() > 0.5, "contact plane needs a vertical component");
             Surface::Plane { normal, seat: serde_json::from_value(spec["seat_plate_mm"].clone())? }
         };
+        let rim_inset = if let Some(value) = spec.get("rim_inboard_blend_mm") {
+            let blend: [f64; 2] = serde_json::from_value(value.clone())?;
+            let axes: [f64; 2] = serde_json::from_value(spec["rim_semi_axes_mm"].clone())?;
+            ensure!(matches!(surface, Surface::Plane { .. }) && blend[0] >= 0. && blend[0] < blend[1]
+                && axes.into_iter().all(|axis| axis > blend[1]), "invalid inboard rim blend");
+            Some(RimInset { axes, blend })
+        } else {
+            None
+        };
         let band = Self {
             name: spec["name"].as_str().map(str::to_owned),
             surface,
+            rim_inset,
             bounds: serde_json::from_value(spec["bounds_mm"].clone())?,
             edge: spec["edge_blend_mm"].as_f64().context("contact band edge blend")?,
             period: number("band_period_mm")?,
@@ -192,8 +208,18 @@ impl ContactBand {
     }
 
     fn edge_weight(&self, p: Point) -> f64 {
-        (0..2).map(|axis| smooth((p[axis] - self.bounds[0][axis]).min(self.bounds[1][axis] - p[axis]) / self.edge))
-            .product()
+        let window: f64 = (0..2).map(|axis| {
+            smooth((p[axis] - self.bounds[0][axis]).min(self.bounds[1][axis] - p[axis]) / self.edge)
+        }).product();
+        if let (Some(rim), Surface::Plane { normal, seat }) = (&self.rim_inset, &self.surface) {
+            let [x, y, z] = sub(p, *seat);
+            let along = (normal[2] * y - normal[1] * z) / normal[1].hypot(normal[2]);
+            let radius = (x / rim.axes[0]).hypot(along / rim.axes[1]);
+            let inset = (1. - radius) * rim.axes[0].min(rim.axes[1]);
+            window * smooth((inset - rim.blend[0]) / (rim.blend[1] - rim.blend[0]))
+        } else {
+            window
+        }
     }
 
     fn offset(&self, p: Point) -> f64 {
@@ -604,11 +630,14 @@ fn add_rim_fins(project: &mut Refreshed, object: usize, rim: RimSpec, intervals:
         "foot_splay_per_height": FOOT_SPLAY_PER_HEIGHT, "maximum_foot_splay_mm": MAXIMUM_FOOT_SPLAY, "fins": fins}))
 }
 
-/// Locate the visible mating lip and give the outside fins and Slim trees a common roof.
+/// Locate the tip's mating lip and give the Slim trees access to its narrow shoulder.
 pub fn add_tip_rim_contact(project: &mut Refreshed, tip: &Value, parameters: &Value) -> Result<(RimSpec, Value)> {
-    const ENFORCER_INSET: f64 = 1.35;
+    const ENFORCER_INSET: f64 = 1.45;
     const ENFORCER_OUTSET: f64 = 0.6;
     const ENFORCER_HALF_DEPTH: f64 = 0.7;
+    const BREAK_HALF_ANGLE: f64 = 2.5;
+    const TIP_TOP_GAP: f64 = 0.42;
+    const TIP_XY_GAP: f64 = 0.55;
     const MAPPING_MARGIN: f64 = 4.;
     const EDGE_BLEND: f64 = 2.;
 
@@ -648,40 +677,57 @@ pub fn add_tip_rim_contact(project: &mut Refreshed, tip: &Value, parameters: &Va
 
     let inverse = [0, 1, 2].map(|axis| [0, 1, 2].map(|other| rotation[other][axis]));
     let radial = [radius - ENFORCER_INSET, radius + ENFORCER_OUTSET];
-    let count = rim.len();
-    let mut vertices = Vec::with_capacity(count * 4);
-    let mut faces = Vec::with_capacity(count * 8);
-    for i in 0..count {
-        let (sin, cos) = (std::f64::consts::TAU * i as f64 / count as f64).sin_cos();
+    let at = |angle: f64, radius, depth| {
+        let (sin, cos) = angle.to_radians().sin_cos();
         let ray = add([cos, 0., 0.], scale(along, sin));
-        for (r, height) in [(radial[0], -1.), (radial[1], -1.), (radial[1], 1.), (radial[0], 1.)] {
-            let p = add(add(center, scale(ray, r)), scale(inward, height * ENFORCER_HALF_DEPTH));
-            vertices.push(apply(&inverse, sub(p, translation)));
+        add(add(center, scale(ray, radius)), scale(inward, depth))
+    };
+    let mut add_region = |name: &str, subtype: &str, mut mesh: Mesh| -> Result<usize> {
+        for point in &mut mesh.vertices {
+            *point = apply(&inverse, sub(*point, translation));
         }
-        for j in 0..4 {
-            let next = (i + 1) % count;
-            let k = (j + 1) % 4;
-            faces.extend([[4 * i + j, 4 * next + j, 4 * next + k], [4 * i + j, 4 * next + k, 4 * i + k]]);
-        }
+        mesh.check_closed_single_body(name)?;
+        Ok(project.plate.add_part(index, name, mesh.vertices, mesh.faces, subtype, Vec::new(), None))
+    };
+    let strip = |start: f64, end: f64| {
+        let steps = (end - start).ceil() as usize;
+        let sections = (0..=steps).map(|i| {
+            let angle = start + (end - start) * i as f64 / steps as f64;
+            let [lo, hi] = radial;
+            let h = ENFORCER_HALF_DEPTH;
+            [[lo, -h], [hi, -h], [hi, h], [lo, h]].map(|[r, d]| at(angle, r, d))
+        }).collect::<Vec<_>>();
+        closed_rim_strip(&sections)
+    };
+    let mut roofs = Vec::new();
+    let mut breaks = Vec::new();
+    for (number, angle) in [90., 270.].into_iter().enumerate() {
+        roofs.push(add_region(&format!("Mating shoulder support roof {}", number + 1), "support_enforcer",
+            strip(angle + BREAK_HALF_ANGLE, angle + 180. - BREAK_HALF_ANGLE))?);
+        breaks.push(add_region(&format!("Mating shoulder support release break {}", number + 1), "support_blocker",
+            strip(angle - BREAK_HALF_ANGLE, angle + BREAK_HALF_ANGLE))?);
     }
-    let enforcer = "Mating lip support roof";
-    let mesh = Mesh { vertices, faces };
-    mesh.check_closed_single_body(enforcer)?;
-    let id = project.plate.add_part(index, enforcer, mesh.vertices, mesh.faces, "support_enforcer", Vec::new(), None);
+    let plug_depth = points.iter().map(|&p| dot(inward, sub(p, center))).fold(0., f64::min);
+    let mut outline = (0..72).map(|i| at(i as f64 * 5., radial[0], 0.)).collect::<Vec<_>>();
+    let (vertices, faces) = outlet_blocker(&mut outline, inward, 0., [plug_depth - ENFORCER_HALF_DEPTH, ENFORCER_HALF_DEPTH]);
+    let plug_keepout = add_region("Keep tree supports off the mating plug", "support_blocker", Mesh { vertices, faces })?;
+    let settings = &mut project.plate.objects[index].settings;
+    settings.retain(|(key, _)| !matches!(key.as_str(), "support_top_z_distance" | "support_object_xy_distance"));
+    settings.extend([
+        ("support_top_z_distance".into(), TIP_TOP_GAP.to_string()),
+        ("support_object_xy_distance".into(), TIP_XY_GAP.to_string()),
+    ]);
     let contour = RimSpec {
         identify_id, center_mm: center, seat_fall_angle_degrees: inward[1].atan2(inward[2]).to_degrees(),
         semi_axes_mm: [radius; 2], supported_angles_degrees: [0., 360.],
     };
-    let fin_angles: [[f64; 2]; 8] = std::array::from_fn(|i| {
-        let start = i as f64 * 45.;
-        [start + 6.5, start + 38.5]
-    });
-    let fins = add_rim_fins(project, index, contour, &fin_angles)?;
     let window = [-1., 1.].map(|sign| [0, 1].map(|axis| center[axis] + sign * (radius + MAPPING_MARGIN)));
     let band = json!({"name": "faucet-shell-tip mating lip", "parameters": parameters,
         "plane_normal": outward, "seat_plate_mm": center, "bounds_mm": window, "edge_blend_mm": EDGE_BLEND,
+        "rim_semi_axes_mm": contour.semi_axes_mm, "rim_inboard_blend_mm": [0.90, 2.65],
         "refine_mesh_interiors": true});
-    Ok((contour, json!({"part": name, "band": band, "roof_enforcer_part_id": id, "fin_layout": fins,
+    Ok((contour, json!({"part": name, "band": band, "roof_enforcers": roofs, "release_break_blockers": breaks,
+        "plug_keepout": plug_keepout, "top_gap_mm": TIP_TOP_GAP, "xy_gap_mm": TIP_XY_GAP,
         "enforcer_radii_mm": radial, "rim_radius_mm": radius, "lip_face_count": lip_faces})))
 }
 
@@ -959,8 +1005,10 @@ fn restores_sliced_plate_links_without_replacing_the_physical_instances() {
 }
 
 /// Apply the base's first perimeter to the restored slice, retaining the input for review.
-pub fn apply_rim_contour(project: &Path, directory: &Path, spec: RimSpec) -> Result<Value> {
-    apply_contour(project, directory, spec, "rim", |source, output| rim_contour::apply(source, output, spec))
+pub fn apply_rim_contour(project: &Path, directory: &Path, spec: RimSpec, band: &ContactBand) -> Result<Value> {
+    apply_contour(project, directory, spec, "rim", |source, output| {
+        rim_contour::apply(source, output, spec, &|p| band.mapped(p)[2])
+    })
 }
 
 /// Apply the tip's first perimeter in the native layer schedule of its restored mating lip.

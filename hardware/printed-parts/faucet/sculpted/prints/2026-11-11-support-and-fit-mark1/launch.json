@@ -1,0 +1,28 @@
+{
+  "archive": {
+    "gcode_sha256": "336fe396de6d565cdd426189909db4f455bb0d5975aaaefc26deca10633891af",
+    "name": "sculpted-support-and-fit-mark1-ready.gcode.3mf",
+    "objects": [
+      "faucet-shell-base",
+      "faucet-shell-tip",
+      "faucet-display-cover"
+    ],
+    "sha256": "7d8ce25f303194a0a2c47b3111569ecfd67987076b358e0fc4777793e57c2865",
+    "slots": {
+      "1": {
+        "colour": "000000",
+        "type": "PET-CF"
+      }
+    }
+  },
+  "gcode_state": "PREPARE",
+  "hms": [],
+  "layer_num": 1526,
+  "mc_remaining_time": 0,
+  "observed_at": "2026-11-11T19:12:45+00:00",
+  "print_error": 0,
+  "printer": "H2C",
+  "printer_task_id": "1432580532",
+  "subtask_name": "sculpted-support-and-fit-mark1-ready.gcode.3mf",
+  "total_layer_num": 1526
+}
