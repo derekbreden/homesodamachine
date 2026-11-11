@@ -12,7 +12,7 @@ import { openMmdDetail, openPcbDetail } from "./detail-shims.js";
 import { buildPartsSection, syncFaucetCard } from "./parts.js";
 import { HSM_EVENTS } from "/contracts/client-events.js";
 import { renderMmdThumbnail } from "./mermaid.js";
-import { windowContent, markupThumb } from "./lazy.js";
+import { isMounted, windowContent, markupThumb } from "./lazy.js";
 import { renderPcbThumbnail } from "./pcb.js";
 import { renderThumbnail, forgetThumbnail } from "./step.js";
 
@@ -36,23 +36,47 @@ function thumbSize(card) {
   return Math.max(THUMB_MIN, Math.min(THUMB_MAX, Math.round(css * dpr)));
 }
 
+// A foreground modal owns the browser's rendering time. Keep the thumbnails
+// already drawn and resume unfinished or updated cards when the shelf returns.
+const pendingStepThumbs = new Set();
+let shelfWork = null;
+
+function syncStepThumbnails() {
+  if (ContentViewer.isOpen()) {
+    shelfWork?.abort();
+    shelfWork = null;
+  } else if (!shelfWork) {
+    shelfWork = new AbortController();
+    for (const card of pendingStepThumbs) paintStepThumb(card);
+  }
+}
+
+export function startStepThumbnails() {
+  window.addEventListener(HSM_EVENTS.CONTENT_VIEWER_CHANGED, syncStepThumbnails);
+  syncStepThumbnails();
+}
+
 // `bust` drops the cached picture, so a live reload redraws from the fresh model.
 //
 // The card says it is drawing while it draws. Reading a model takes about as long
 // as opening one does, and a card that stands empty for that long reads as a card
 // with nothing in it rather than one on its way.
 export function paintStepThumb(card, { bust = false } = {}) {
+  if (bust) forgetThumbnail(card.dataset.file);
   const img = card.querySelector("img");
-  if (!img) return;
+  if (!img || !card.isConnected || !isMounted(card)) return;
+  pendingStepThumbs.add(card);
+  if (!shelfWork) return;
+  const { signal } = shelfWork;
   const file = card.dataset.file;
   const finish = state.faucetFinish;
   const drawing = (card._drawingSeq || 0) + 1;
   card._drawingSeq = drawing;
-  if (bust) forgetThumbnail(file);
   card.dataset.drawing = "1";
-  return renderThumbnail(file, thumbSize(card), finish, "shelf").then((url) => {
-    if (card._drawingSeq !== drawing || card.dataset.file !== file) return;
-    if (url && card.isConnected && card.dataset.mounted === "1") img.src = url;
+  return renderThumbnail(file, thumbSize(card), finish, "shelf", { signal }).then((url) => {
+    if (signal.aborted || card._drawingSeq !== drawing || card.dataset.file !== file) return;
+    pendingStepThumbs.delete(card);
+    if (url && card.isConnected && isMounted(card)) img.src = url;
     delete card.dataset.drawing;
   });
 }
@@ -223,6 +247,11 @@ export function currentSection() {
 }
 
 export function buildGrid() {
+  pendingStepThumbs.clear();
+  if (shelfWork) {
+    shelfWork.abort();
+    shelfWork = new AbortController();
+  }
   state.gridEl.innerHTML = "";
   const section = currentSection();
 
@@ -310,7 +339,10 @@ export function buildGrid() {
     // back re-reads that rather than the model.
     step: {
       mount: (card) => paintStepThumb(card),
-      unmount: (card) => card.querySelector("img")?.removeAttribute("src"),
+      unmount: (card) => {
+        pendingStepThumbs.delete(card);
+        card.querySelector("img")?.removeAttribute("src");
+      },
     },
     mmd: markupThumb({ hostSelector: ".mmd-thumb", render: renderMmdThumbnail }),
     pcb: markupThumb({ hostSelector: ".pcb-thumb", render: renderPcbThumbnail }),
