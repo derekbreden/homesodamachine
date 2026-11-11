@@ -1,4 +1,4 @@
-//! Fit a whole-plate motion timeline and deposited bead paths into an inline visualization.
+//! Pack a whole-plate motion timeline and deposited bead paths for playback.
 use super::{Motion, Move, base64, bead_dimensions, coordinates, distance, playback_page};
 use anyhow::{Result, bail};
 use flate2::{Compression, write::GzEncoder};
@@ -6,9 +6,12 @@ use serde_json::{Value, json};
 use std::{io::Write, ops::Range};
 
 const INLINE_BYTES: usize = 1_000_000;
+const ARCHIVE_BYTES: usize = 8_000_000;
+const ARCHIVE_BEAD_ROADS: usize = 350_000;
 const SAMPLE_SECONDS: f64 = 0.25;
 const MAX_SAMPLE_INTERVALS: usize = 32_768;
 const ROAD_TOLERANCES_MM: [f64; 3] = [0.12, 0.22, 0.35];
+const SURFACE_TOLERANCE_MM: f64 = 0.22;
 const Z_WEIGHT: f64 = 4.;
 const MAX_RUN_MOVES: usize = 512;
 
@@ -64,8 +67,20 @@ fn simplify(moves: &[Move], run: Range<usize>, tolerance: f64, roads: &mut Vec<R
     }
 }
 
-fn deposition(motion: &Motion, tolerance: f64) -> Vec<Range<usize>> {
+fn deposition(motion: &Motion, tolerance: f64, surface_paths: bool) -> Vec<Range<usize>> {
     let mut roads = Vec::new();
+    let visible: Vec<_> = motion
+        .features
+        .iter()
+        .map(|name| {
+            !surface_paths
+                || !matches!(
+                    name.as_str(),
+                    "Inner wall" | "Sparse infill" | "Internal solid infill" | "Gap infill"
+                )
+        })
+        .collect();
+    let deposits = |movement: &Move| movement.extrusion && visible[movement.feature];
     let support: Vec<_> = motion
         .features
         .iter()
@@ -74,7 +89,7 @@ fn deposition(motion: &Motion, tolerance: f64) -> Vec<Range<usize>> {
     let mut start = 0;
     while start < motion.moves.len() {
         let first = &motion.moves[start];
-        if !first.extrusion {
+        if !deposits(first) {
             start += 1;
             continue;
         }
@@ -82,7 +97,7 @@ fn deposition(motion: &Motion, tolerance: f64) -> Vec<Range<usize>> {
         let mut end = start + 1;
         while end < motion.moves.len() && end - start < MAX_RUN_MOVES {
             let next = &motion.moves[end];
-            if !next.extrusion
+            if !deposits(next)
                 || next.layer != first.layer
                 || bead_dimensions(next) != dimensions
                 || support[next.feature] != support[first.feature]
@@ -201,28 +216,51 @@ fn track_bytes(
     Ok(bytes)
 }
 
-pub(super) fn page(
+pub(super) fn sampled_output(
     title: &str,
     data: &mut Value,
     motion: &Motion,
     origin: [f64; 3],
     end_times: &[f64],
+    data_only: bool,
 ) -> Result<String> {
     let duration = *end_times.last().unwrap();
     let intervals = ((duration / SAMPLE_SECONDS).ceil() as usize).clamp(1, MAX_SAMPLE_INTERVALS);
     let interval = duration / intervals as f64;
-    for tolerance in ROAD_TOLERANCES_MM {
-        let roads = deposition(motion, tolerance);
+    let byte_limit = if data_only {
+        ARCHIVE_BYTES
+    } else {
+        INLINE_BYTES
+    };
+    let attempts = ROAD_TOLERANCES_MM
+        .into_iter()
+        .map(|tolerance| (tolerance, false))
+        .chain(data_only.then_some((SURFACE_TOLERANCE_MM, true)));
+    for (tolerance, surface_paths) in attempts {
+        let roads = deposition(motion, tolerance, surface_paths);
+        if data_only && !surface_paths && roads.len() > ARCHIVE_BEAD_ROADS {
+            continue;
+        }
         data["sampled"] = json!({
             "interval": interval,
             "road_tolerance_mm": tolerance,
+            "surface_paths": surface_paths,
             "track": compressed(&track_bytes(motion, origin, end_times, &roads, intervals, interval)?)?,
             "roads": compressed(&road_bytes(motion, origin, &roads)?)?,
         });
-        let page = playback_page(title, data)?;
-        if page.len() < INLINE_BYTES {
-            return Ok(page);
+        let output = if data_only {
+            serde_json::to_string(data)?
+        } else {
+            playback_page(title, data)?
+        };
+        if output.len() < byte_limit {
+            return Ok(output);
         }
     }
-    bail!("The selected playback exceeds the inline size limit. Select fewer layers.")
+    let destination = if data_only {
+        "website archive"
+    } else {
+        "inline visualization"
+    };
+    bail!("The selected playback exceeds the {destination} size limit. Select fewer layers.")
 }

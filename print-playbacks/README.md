@@ -15,7 +15,9 @@ gzip -n -c "$replay_dir/replay.json" > "print-playbacks/$replay_hash.json.gz"
 ```
 
 Register the material ID in `catalog.json` with `title`, `sha256`, the repo-relative `slice`
-path, and `plate`. Commit and push the catalog and the matching compressed replay together.
-Use the part's material link to check the toolpaths and timeline, then remove the scratch
-directory. The shared player reads the same sampled format as the inline playback and has
-the same size limit.
+path, and `plate`. For an archive retained in Git history, also include its `source_commit`.
+For a saved local printer archive, record its filename, `archive_sha256`, and committed `launch`
+receipt. The receipt identifies the source of the toolpaths.
+Commit and push the catalog and the matching compressed replay together. Use the part's
+material link to check the toolpaths and timeline, then remove the scratch directory.
+Dense plates draw surface and support paths and retain the complete motion timeline.

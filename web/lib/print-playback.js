@@ -11,7 +11,7 @@ const player = new URL("../../tools/gcode/playback-page.html", import.meta.url);
 const theme = new URL("../../tools/viz/inline-mobile/assets/theme.js", import.meta.url);
 const materialId = /^HSM-\d+$/;
 const sha256 = /^[a-f0-9]{64}$/;
-const maxReplayBytes = 1_000_000;
+const maxReplayBytes = 8_000_000;
 let liveCatalog;
 
 function parseCatalog(text) {
