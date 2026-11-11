@@ -1,0 +1,49 @@
+{
+  "changed_container_entries": [
+    "3D/3dmodel.model",
+    "Metadata/model_settings.config"
+  ],
+  "gcode_byte_identical": true,
+  "gcode_sha256": {
+    "Metadata/plate_1.gcode": "7c0302129d06c1cce6efcad98b5b1a908e407ff3aa5ac945e109795438063695"
+  },
+  "omitted_editable_geometry_entries": [
+    "3D/Objects/Continuous-base-rim-roof-enforcer-2-2.model",
+    "3D/Objects/Keep-support-clear-of-beverage-outlet-1-2-4.model",
+    "3D/Objects/Keep-tree-support-clear-of-mounting-insert-1-3-2.model",
+    "3D/Objects/Keep-tree-support-clear-of-mounting-insert-2-4-2.model",
+    "3D/Objects/Keep-tree-support-clear-of-mounting-insert-3-5-2.model",
+    "3D/Objects/Keep-tree-support-clear-of-screw-counterbore-1-1-8.model",
+    "3D/Objects/Keep-tree-support-clear-of-screw-counterbore-2-2-8.model",
+    "3D/Objects/Keep-tree-support-clear-of-screw-counterbore-3-3-8.model",
+    "3D/Objects/Mating-lip-support-roof-3-4.model",
+    "3D/Objects/Removable-outer-rim-fin-1-4-4.model",
+    "3D/Objects/Removable-outer-rim-fin-1-6-2.model",
+    "3D/Objects/Removable-outer-rim-fin-2-5-4.model",
+    "3D/Objects/Removable-outer-rim-fin-2-7-2.model",
+    "3D/Objects/Removable-outer-rim-fin-3-6-4.model",
+    "3D/Objects/Removable-outer-rim-fin-3-8-2.model",
+    "3D/Objects/Removable-outer-rim-fin-4-7-4.model",
+    "3D/Objects/Removable-outer-rim-fin-4-9-2.model",
+    "3D/Objects/Removable-outer-rim-fin-5-10-2.model",
+    "3D/Objects/Removable-outer-rim-fin-5-8-4.model",
+    "3D/Objects/Removable-outer-rim-fin-6-11-2.model",
+    "3D/Objects/Removable-outer-rim-fin-6-9-4.model",
+    "3D/Objects/Removable-outer-rim-fin-7-10-4.model",
+    "3D/Objects/Removable-outer-rim-fin-7-12-2.model",
+    "3D/Objects/Removable-outer-rim-fin-8-11-4.model",
+    "3D/Objects/Solid-continuous-industrial-foot-1-2.model",
+    "3D/Objects/object_1.model",
+    "3D/Objects/object_2.model",
+    "3D/Objects/object_3.model",
+    "3D/Objects/object_4.model",
+    "3D/Objects/object_5.model",
+    "3D/Objects/tip-hidden-root-disc-1-4.model",
+    "3D/_rels/3dmodel.model.rels",
+    "Metadata/cut_information.xml"
+  ],
+  "print_only_archive": "hardware/printed-parts/faucet/sculpted/prints/2026-11-11-rim-fins-mark1/sculpted-faucet-petgf-fins-left04-z018-mark1-ready.gcode.3mf",
+  "print_only_archive_sha256": "905c48edc04fefabce3ac5313abef60bebad0e1df45c3e7a199bf2d7456a4d31",
+  "source_archive": "hardware/printed-parts/faucet/sculpted/prints/2026-11-11-rim-fins-mark1/sculpted-faucet-petgf-fins-left04-z018-mark1.gcode.3mf",
+  "source_archive_sha256": "bef11708c357855780a3ddabe46cd52f41d630a7a30988ae2693ae70b030f5d9"
+}
