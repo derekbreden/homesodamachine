@@ -17,11 +17,11 @@ Amazon Prime badges, exact variants, prices and stock were checked in signed-in 
 |---|---:|---|---:|
 | [Waterdrop 15UC-UF, 1/4-inch inline filter — Prime](https://www.amazon.com/dp/B085G9TZ4L) | 1 | Fresh filter for a customer install kit. The acquired filter is prototype stock with unrecorded remaining service life; a replacement is not established as necessary for bench work. Prime offer verified November 10. | $59.99 |
 
-## Ordered earth-clamp tooling
+## Earth-clamp tooling and washers
 
-The [uxcell M3 × 0.5 tap and Ø2.5 mm drill set](https://www.amazon.com/dp/B09TYSP9NV) and [Piutouyar M1–M6 tap wrench](https://www.amazon.com/dp/B0F7K43T14) are ON-ORDER in the [purchase ledger](purchases.md). Both were placed November 10, for $9.00 and $6.42 respectively including estimated tax. Both tools have shipped. Delivery and completed payments are not yet confirmed.
+The [uxcell M3 × 0.5 tap and Ø2.5 mm drill set](https://www.amazon.com/dp/B09TYSP9NV) and [Piutouyar M1–M6 tap wrench](https://www.amazon.com/dp/B0F7K43T14) are acquired in the [purchase ledger](purchases.md), delivered November 11. Their completed merchant charges are $9.00 and $6.42 respectively.
 
-An [IEAWISL external-tooth washer assortment](https://www.amazon.com/dp/B0D8HVSJMK), advertised as 304 stainless steel, is also ON-ORDER: 550 pieces in eight sizes M2.5–M12, $9.64 including estimated tax, placed November 10. The M3 washer's dimensions and thickness are unverified. Check it against the specified DIN 6797A M3 washer before using it for the earth clamp or purchasing the separate BelMetric washer.
+An [IEAWISL external-tooth washer assortment](https://www.amazon.com/dp/B0D8HVSJMK), advertised as 304 stainless steel, is ON-ORDER: 550 pieces in eight sizes M2.5–M12, $9.64 including estimated tax, placed November 10. The M3 washer's dimensions and thickness are unverified. Check it against the specified DIN 6797A M3 washer before using it for the earth clamp or purchasing the separate BelMetric washer.
 
 ## Acquired closure hardware
 
@@ -29,7 +29,7 @@ The [purchase ledger](purchases.md) records two delivered packs of [SVLING M5 ×
 
 ## Relay hardware
 
-The [purchase ledger](purchases.md) records the ruthex assortment as acquired November 10, including 70 RX-M2×4 inserts. The Sutemribor M2 × 6 replenishment pack contains 105 screws and remains ON-ORDER, shipped and expected November 11. Their combined purchase totals are $40.73; remaining usable quantities are not counted.
+The [purchase ledger](purchases.md) records the ruthex assortment as acquired November 10, including 70 RX-M2×4 inserts. The Sutemribor M2 × 6 replenishment pack contains 105 screws and was delivered November 11. Their combined purchase totals are $40.73; remaining usable quantities are not counted.
 
 ## Already purchased for the 4 mm flavor path
 

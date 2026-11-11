@@ -101,8 +101,8 @@ Stainless carbonator fabrication: 316 SS round-tube body + 1/4" laser-cut 316 SS
 | <!--purchase:pur-93977d9bde974e1fb4e1314af17b3625--> LTWFITTING 316 SS 1/4" female NPT full coupling, 5-pack — one for the argon purge fixture; four spare | [B01ABDD8FY](https://www.amazon.com/dp/B01ABDD8FY) | 1 pk (5) | $10.70 | 112-0884852-3444230 | 2026-09-15 | 2026-09-17 | ACQUIRED |
 | <!--purchase:pur-5416183adaae4c7888924bf7bf589cd8--> ASelected 1" × 1" mounted flap wheels, 1/4" shank, 80 grit aluminum oxide, 10-pack, rated to 35,000 rpm — stuck-wire stub dressing on the 316L welds, stainless-only. Sole item on its invoice, $8.99 + $0.65 NE tax, shipping $0.00. Amazon estimates 2026-09-25 | [B07M97KFZW](https://www.amazon.com/dp/B07M97KFZW) | 1 pk (10) | $9.64 | 112-1566032-1238659 | 2026-09-23 | 2026-09-25 | ACQUIRED |
 | <!--purchase:pur-52a72289085c4b57b86eb0be330227a9--> Knipex 70 11 110 diagonal cutters, 4-1/2", narrow head, opening spring, rated for hard steel wire to 3/64" — snips a stuck ER316L .030 wire between the wire nozzle and the bead, one-handed with the gun held where it stopped. Sole item on its invoice, $30.98 + $2.25 NE tax, shipping $0.00. Amazon estimates 2026-09-25 | [B005EXO806](https://www.amazon.com/dp/B005EXO806) | 1 | $33.23 | 112-6988436-4048226 | 2026-09-24 | 2026-09-26 | ACQUIRED |
-| <!--purchase:pur-770c1f0b7dfd4d458834d39d99185eb3--> uxcell M3 × 0.5 spiral-flute tap and Ø2.5 mm twist-drill set, M35 cobalt HSS — carbonator upper-rim earth attachment. $8.39 item + $0.61 estimated tax; free shipping | [B09TYSP9NV](https://www.amazon.com/dp/B09TYSP9NV) | 1 set | $9.00 | 112-9511233-2346613 | 2026-11-10 | — | ON-ORDER (shipped) |
-| <!--purchase:pur-3bd4a5d8e22947b88ec7bcc9f7a8df8a--> Piutouyar M1–M6 adjustable tap wrench, 1/16"–1/4" tap capacity — small hand driver for the carbonator upper-rim M3 earth-clamp tap. $5.99 item + $0.43 estimated tax; free shipping | [B0F7K43T14](https://www.amazon.com/dp/B0F7K43T14) | 1 | $6.42 | 112-8461282-5610650 | 2026-11-10 | — | ON-ORDER (shipped) |
+| <!--purchase:pur-770c1f0b7dfd4d458834d39d99185eb3--> uxcell M3 × 0.5 spiral-flute tap and Ø2.5 mm twist-drill set, M35 cobalt HSS — carbonator upper-rim earth attachment. $8.39 item + $0.61 estimated tax; free shipping | [B09TYSP9NV](https://www.amazon.com/dp/B09TYSP9NV) | 1 set | $9.00 | 112-9511233-2346613 | 2026-11-10 | 2026-11-11 | ACQUIRED |
+| <!--purchase:pur-3bd4a5d8e22947b88ec7bcc9f7a8df8a--> Piutouyar M1–M6 adjustable tap wrench, 1/16"–1/4" tap capacity — small hand driver for the carbonator upper-rim M3 earth-clamp tap. $5.99 item + $0.43 estimated tax; free shipping | [B0F7K43T14](https://www.amazon.com/dp/B0F7K43T14) | 1 | $6.42 | 112-8461282-5610650 | 2026-11-10 | 2026-11-11 | ACQUIRED |
 
 ## 2. CO2 subsystem
 
@@ -536,7 +536,7 @@ DigiKey salesorder **101910359**, web order **377210254**: the 2026-09-29 confir
 | <!--purchase:pur-090da6f913a54ed8b8785082324e2c8d--> uxcell 304 stainless compression spring, 6 mm OD × 0.8 mm wire × 30 mm free length, 5 pc — spare stock, with no role in the current build. Two packs, $5.19 ea + $0.76 NE tax | [B0C33FQDB6](https://www.amazon.com/dp/B0C33FQDB6) | 2 pk (5) | $11.14 | 112-3782386-8113829 | 2026-09-16 | 2026-09-20 | ACQUIRED |
 | <!--purchase:pur-ed416e9ff39a42f9a0f8705a7d769d5a--> uxcell 304 stainless compression spring, 6 mm OD × 0.6 mm wire × 30 mm free length, 20 pc — spare stock, with no role in the current build; dimensional match to the Lee LCM060C12M ([inventory.md](/hardware/ledger/inventory.md), Diagnostic). $8.89 + $0.64 NE tax | [B076LRZHP5](https://www.amazon.com/dp/B076LRZHP5) | 1 pk (20) | $9.53 | 112-5383652-4465062 | 2026-09-16 | 2026-09-18 | ACQUIRED |
 | <!--purchase:pur-89b25fbe2a3e44adb4cbb188ab8a820f--> ruthex brass heat-set insert assortment: RX-M2x4, RX-M3x5.7, RX-M4x8.1 and RX-M5x9.5; 270 pieces (70 / 100 / 50 / 50). $29.99 merchandise + $2.17 tax; shipping waived | [B08K1BVGN9](https://www.amazon.com/dp/B08K1BVGN9) | 1 box (270) | $32.16 | 112-8336005-3642625 | 2026-11-09 | 2026-11-10 | ACQUIRED |
-| <!--purchase:pur-14f8f47e82a74b129f4677cb0fc2a67d--> Sutemribor M2 × 6 mm socket-head cap screws, M2-0.4, 12.9 alloy steel, black oxide, fully threaded; replenishment pack | [B0CXQ7Q7L3](https://www.amazon.com/dp/B0CXQ7Q7L3) | 1 pk (105) | $8.57 | 112-0448533-3655424 | 2026-11-09 | — | ON-ORDER (shipped; expected 2026-11-11) |
+| <!--purchase:pur-14f8f47e82a74b129f4677cb0fc2a67d--> Sutemribor M2 × 6 mm socket-head cap screws, M2-0.4, 12.9 alloy steel, black oxide, fully threaded; replenishment pack | [B0CXQ7Q7L3](https://www.amazon.com/dp/B0CXQ7Q7L3) | 1 pk (105) | $8.57 | 112-0448533-3655424 | 2026-11-09 | 2026-11-11 | ACQUIRED |
 | <!--purchase:pur-6f3e90aba9734990a07d1e24f1f75a86--> IEAWISL external-tooth lock washer assortment, advertised 304 stainless steel, eight sizes M2.5–M12; project fastener stock. M3 dimensions and 0.4 mm thickness for the earth clamp remain unverified. $8.99 item + $0.65 estimated tax; free shipping | [B0D8HVSJMK](https://www.amazon.com/dp/B0D8HVSJMK) | 1 box (550) | $9.64 | 112-1175582-2386612 | 2026-11-10 | — | ON-ORDER |
 
 ## 12. Shop / bench infrastructure
@@ -851,10 +851,10 @@ Printed copies of the [install guide](/hardware/install-guide/README.md). Lulu o
 
 | Status | $ |
 |---|---|
-| Acquired hardware valuation — includes replaced/returned originals | [$43,304.44](LEDGER_ACQUIRED_HW) |
+| Acquired hardware valuation — includes replaced/returned originals | [$43,328.43](LEDGER_ACQUIRED_HW) |
 | Engineering services (§18) | [$6,719.51](LEDGER_LABOR) |
-| Acquired procurement valuation (combined) | [$50,023.95](LEDGER_ACQUIRED_COMBINED) |
-| ON-ORDER | [$160.86](LEDGER_ON_ORDER) |
+| Acquired procurement valuation (combined) | [$50,047.94](LEDGER_ACQUIRED_COMBINED) |
+| ON-ORDER | [$136.87](LEDGER_ON_ORDER) |
 | MISSING — not in hand | [$53.07](LEDGER_MISSING) |
 | LIKELY-TO-BUY | $0.00 |
 | **Recorded procurement valuation — includes commitments** | [$50,237.88](LEDGER_GRAND_TOTAL) |
@@ -863,17 +863,17 @@ Price evidence within the procurement valuation:
 
 | Amount basis | USD |
 |---|---|
-| Final vendor amounts | [$25,010.28](LEDGER_FINAL_VENDOR) |
-| Estimated amounts | [$2,345.52](LEDGER_ESTIMATES) |
+| Final vendor amounts | [$25,025.70](LEDGER_FINAL_VENDOR) |
+| Estimated amounts | [$2,330.10](LEDGER_ESTIMATES) |
 | Legacy / unverified amounts | [$22,882.08](LEDGER_LEGACY_UNVERIFIED) |
 
 Merchant-evidenced payments (project shares; includes the undated bucket):
 
 | Event basis | USD |
 |---|---|
-| Completed charges | [$21,657.12](LEDGER_MERCHANT_CHARGES) |
+| Completed charges | [$21,681.11](LEDGER_MERCHANT_CHARGES) |
 | Issued monetary refunds | [$0.00](LEDGER_MERCHANT_REFUNDS) |
-| Charges less monetary refunds | [$21,657.12](LEDGER_MERCHANT_NET) |
+| Charges less monetary refunds | [$21,681.11](LEDGER_MERCHANT_NET) |
 
 The retrieved records have partial vendor coverage. An empty month or refund total is not evidence of account-wide zero activity. Authorizations, pending charges and noncash credit do not enter this view.
 
@@ -881,7 +881,7 @@ Acquired hardware valuation by section (includes replaced/returned originals):
 
 | § | Section | $ |
 |---|---|---|
-| 1 | Carbonator fabrication | [$4,903.57](LEDGER_SEC1) |
+| 1 | Carbonator fabrication | [$4,918.99](LEDGER_SEC1) |
 | 2 | CO2 subsystem (incl. Lillium prototype carbonator $1,129) | [$2,288.08](LEDGER_SEC2) |
 | 3 | Water supply + backflow prevention | [$1,641.36](LEDGER_SEC3) |
 | 4 | Carbonator plumbing | [$604.07](LEDGER_SEC4) |
@@ -891,7 +891,7 @@ Acquired hardware valuation by section (includes replaced/returned originals):
 | 8 | Electronics — controllers | [$1,970.50](LEDGER_SEC8) |
 | 9 | Electronics — I/O, drivers, sensors, power | [$2,571.20](LEDGER_SEC9) |
 | 10 | User interface | [$164.11](LEDGER_SEC10) |
-| 11 | Enclosure hardware | [$444.57](LEDGER_SEC11) |
+| 11 | Enclosure hardware | [$453.14](LEDGER_SEC11) |
 | 12 | Shop / bench infrastructure | [$3,128.75](LEDGER_SEC12) |
 | 13 | Printing consumables | [$3,904.48](LEDGER_SEC13) |
 | 14 | Soldering + small-signal tools | [$859.66](LEDGER_SEC14) |
