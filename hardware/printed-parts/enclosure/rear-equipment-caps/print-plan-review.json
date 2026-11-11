@@ -1,0 +1,145 @@
+{
+  "purpose": "Bind the complete rear cap print plans to the current fitted solids and read the support and bridge paths.",
+  "scope": "Offline native slice and commanded bead geometry. Physical fit, finish and support release for these emitted paths await a print.",
+  "recipe": "hardware/printed-parts/enclosure/trial-preparation/pieces.json",
+  "contact_recipe": "hardware/printed-parts/enclosure/rear-equipment-caps/contact.json",
+  "contact_recipe_sha256": "daf97b69c2614949e486e7c99328b75401e0d66d5690a862a6ba301ff7563b6f",
+  "models": {
+    "HSM-0448": {
+      "part": "asse-snap-cap",
+      "stl_sha256": "7dd9150c05aa10466bcbdddd74a192d5ab585efb083b64943484a2f995c0b4e5",
+      "step_sha256": "cf33be71c8495bcac54981668f58a039b78b34b3f01104819521356018fbf1ec"
+    },
+    "HSM-0449": {
+      "part": "pisco-snap-cap",
+      "stl_sha256": "0d8e673e1417aa8eaf205245c56e528ef67c96114e26c8ed91a264d6cf9eb4e2",
+      "step_sha256": "3b46abce88acc23bba53abe15fb85070766dd346cdf4e30b997800f791479934"
+    },
+    "HSM-0451": {
+      "part": "regulator-snap-cap",
+      "stl_sha256": "926df4c063127b01220678a06d1fb9dca5b37111769684aaefc02d4d79c0541e",
+      "step_sha256": "939512b6d3ff66ac4495db1f2e117154701d42f8fe9763d7c46364a1795d6c1d"
+    },
+    "HSM-0450": {
+      "part": "meter-snap-cap",
+      "stl_sha256": "00d14c563b813b71638f8249d87791489888b66cfc06cd7b7471096342acba5a",
+      "step_sha256": "52a87e9fac7ff8c64fb1d2adc754933b88f8b955a6bbaedccba06101b60b4260"
+    }
+  },
+  "printer": {
+    "name": "Mark2",
+    "nozzle_side": "left",
+    "nozzle_diameter_mm": 0.4,
+    "flow": "Standard",
+    "material": "Polymaker Fiberon PET-GF15, black"
+  },
+  "interface_request": {
+    "top_gap_mm": 0.24,
+    "layers": 3,
+    "spacing_mm": 0.0
+  },
+  "model_deposition": {
+    "walls": 3,
+    "wall_generator": "classic",
+    "infill_percent": 100,
+    "bridge_flow": 1.25,
+    "bridge_speed_mm_s": 15
+  },
+  "preparation_tool_sha256": {
+    "hardware/printed-parts/enclosure/trial-preparation/prepare.rs": "bb8e626ac0e4095f710f57104d5cfa6a60539d919b52af3ea1a42ec256014afa",
+    "tools/hsm/print-prep/src/faucet_contact.rs": "d9629784f01390145aeecf3f847a668f6575c56c85982b081c6bc61c0bdb18ce",
+    "hardware/printed-parts/enclosure/rear-equipment-caps/contact.rs": "218cd5b9fb1dcaebb9f5e1a58ccf91d3370eefbdca49ed48c938cd76e6a79f58"
+  },
+  "plans": {
+    "plate": {
+      "target": "rear-equipment-caps",
+      "archive": "2026-11-11-rear-equipment-caps-mark2-dd0cb689.gcode.3mf",
+      "archive_sha256": "95f417692081b10386a67183b9dc4f0b326854d2a770eaeffeaa893c78aaef15",
+      "gcode_sha256": "c4a761b55889c2b48b601bd7c65086c53192b77bc0cebc6b3f075ae51779d6f0",
+      "gcode_md5": "1c99681e2376d708b2e8dfb3b5b62e97",
+      "physical_project_sha256": "5a71680e5ad264f16f4435d342fd3843894531178ea7950f5e768c484224d1a6",
+      "archived_model_members_match_physical_project": true,
+      "material_ids": [
+        "HSM-0448",
+        "HSM-0449",
+        "HSM-0451",
+        "HSM-0450"
+      ],
+      "support_bodies": {
+        "asse-snap-cap": 1,
+        "pisco-snap-cap": 0,
+        "regulator-snap-cap": 1,
+        "meter-snap-cap": 0
+      },
+      "native_smooth_timelapse": false,
+      "regulator_contact": {
+        "mesh_restoration_error_mm": 0.008652,
+        "minimum_vertical_jacobian": 0.681261,
+        "maximum_print_z_speed_mm_s": 7.5,
+        "maximum_path_slope_degrees": 40.7812,
+        "nonplanar_interface_segments_at_roof": 2843,
+        "roof_grid_spacing_mm": 0.15,
+        "roof_cells": 7020,
+        "cells_with_model": 7020,
+        "cells_with_interface": 6639,
+        "first_course_gap_mm": {
+          "p05": 0.1814,
+          "median": 0.242,
+          "p95": 0.3053
+        },
+        "minimum_rounded_bead_gap_mm": 0.0572,
+        "rounded_bead_overlap_cells": 0,
+        "rectangular_envelope_overlap_cells_at_rim": 2,
+        "lateral_backing": {
+          "samples": 1237,
+          "maximum_nearest_usable_support_or_stock_mm": 0.3153
+        }
+      }
+    },
+    "timed_single": {
+      "target": "single-regulator-cap",
+      "archive": "2026-11-11-single-regulator-cap-mark2-84a7e737.gcode.3mf",
+      "archive_sha256": "3c2411c47b5b6bf1dde8487f5f491395324cd50daf92aca4d7dd53954652fa67",
+      "gcode_sha256": "c9a95cdddad9a5a105254faabdc0b6062f47dd25a71af0d7ccf5d282b3036d0d",
+      "gcode_md5": "8ee77e3a2ddc1d833a0beb23d2c6322e",
+      "physical_project_sha256": "fc82f5a6d8607446a585b6db082c53f7ff310e02e5e6042b7e5a0ab026b68d52",
+      "archived_model_members_match_physical_project": true,
+      "material_ids": [
+        "HSM-0451"
+      ],
+      "support_bodies": {
+        "regulator-snap-cap": 1
+      },
+      "native_smooth_timelapse": true,
+      "regulator_contact": {
+        "mesh_restoration_error_mm": 0.008652,
+        "minimum_vertical_jacobian": 0.681261,
+        "maximum_print_z_speed_mm_s": 7.5,
+        "maximum_path_slope_degrees": 37.7645,
+        "nonplanar_interface_segments_at_roof": 2842,
+        "roof_grid_spacing_mm": 0.15,
+        "roof_cells": 7020,
+        "cells_with_model": 7020,
+        "cells_with_interface": 6624,
+        "first_course_gap_mm": {
+          "p05": 0.1779,
+          "median": 0.2415,
+          "p95": 0.289
+        },
+        "minimum_rounded_bead_gap_mm": 0.0615,
+        "rounded_bead_overlap_cells": 0,
+        "rectangular_envelope_overlap_cells_at_rim": 8
+      },
+      "prime_tower_width_mm": 50.0
+    }
+  },
+  "meter_port_bridges": {
+    "supported_reference_archive_sha256": "4db30def019ab386ef958ad7299808c30fb5a14faf63f544179e9e962bb8d28a",
+    "model_xyz_and_extrusion_records_match_reference": true,
+    "support_paths": 0,
+    "bridge_feature_entries": 43,
+    "port_bridge_roads_checked": 14,
+    "longest_port_bridge_road_mm": 5.0049,
+    "minimum_anchor_overlap_with_model_stock_mm": 0.0484
+  }
+}

@@ -119,7 +119,7 @@
       }
     ],
     "slicer": "BambuStudio 02.08.02.61",
-    "support_audit_sha256": "c13577465c22e206f0af72020292943c0724b3d5cad554b97f2d742bbb896127",
+    "support_audit_sha256": "d6412fea4b9d73db5f446324a4f3bb6ac8c2ee6d43cef6c5af137b8229bda3e6",
     "archive": "hardware/printed-parts/faucet/industrial/faucet-industrial-petgf.gcode.3mf",
     "archive_sha256": "fb7b1a692e17c8cdc6fae80fbf7d36517de9ab2c50877c14fb07da931fd60d18",
     "member": "Metadata/plate_1.gcode",

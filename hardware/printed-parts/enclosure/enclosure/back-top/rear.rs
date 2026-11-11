@@ -331,6 +331,28 @@ fn snap() -> Rc<Snap> {
     )))
 }
 
+/// The printable contact profiles of the receiver, in the back-top source frame.
+pub fn nameplate_print_support(bed_source_z_mm: f64) -> serde_json::Value {
+    let s = snap();
+    let p = &layout().rear_identification.nameplate;
+    serde_json::json!({
+        "name": "Removable exterior nameplate support",
+        "shape": "nameplate_panel",
+        "center_x_mm": p.center_x_mm,
+        "center_z_mm": p.center_z_mm,
+        "face_y_mm": p.face_y_mm,
+        "frame_top_mm": p.center_z_mm + s.frame_top,
+        "frame_half_width_mm": s.frame_width / 2.0,
+        "frame_corner_mm": s.frame_corner,
+        "field_proud_mm": s.field_proud,
+        "mouth_floor_mm": p.center_z_mm - s.mouth_height / 2.0 - s.supported,
+        "mouth_half_width_mm": s.mouth_width / 2.0,
+        "mouth_corner_mm": s.corner + s.slip,
+        "bed_source_z_mm": bed_source_z_mm,
+        "reason": "Both rounded contact bands carry on a separate bed-rooted panel with an open aft removal path."
+    })
+}
+
 /// The nameplate's four-screw receiver on the rear face: its frame stock fused, its mouth and
 /// insert pilots cut, with the plate's back at its seat.
 fn nameplate_receiver(g: &mut Graph, piece: Shape) -> Shape {
