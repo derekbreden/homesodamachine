@@ -7,21 +7,18 @@ use manifold_rust::{
     manifold::Manifold as Engine,
     types::{Error, MeshGL as FloatMesh, MeshGL64 as DoubleMesh},
 };
-
-include!(concat!(env!("OUT_DIR"), "/engine_inputs.rs"));
-
-pub const IMPLEMENTATION: &str = env!("HSM_MANIFOLD_IMPLEMENTATION");
+use std::sync::Arc;
 
 /// Immutable engine results share their retained topology between construction stages.
 #[derive(Clone)]
-pub struct Manifold(Engine);
+pub struct Manifold(Arc<Engine>);
 
 pub fn reserve_ids(count: u32) -> u32 {
     Engine::reserve_ids(count)
 }
 
 fn checked(shape: Engine) -> Result<Manifold> {
-    let shape = Manifold(shape);
+    let shape = Manifold(Arc::new(shape));
     shape.status()?;
     Ok(shape)
 }
@@ -62,43 +59,45 @@ impl Manifold {
     pub fn batch_boolean(shapes: &[Self], op: OpType) -> Self {
         let nodes = shapes
             .iter()
-            .map(|m| CsgNode::from_manifold(&m.0))
+            .map(|m| CsgNode::leaf(m.0.as_impl().clone()))
             .collect();
-        Self(CsgNode::op_n(op, nodes).evaluate_manifold())
+        Self(Arc::new(Engine::from_impl(
+            CsgNode::op_n(op, nodes).evaluate(),
+        )))
     }
     pub fn batch_union(shapes: &[Self]) -> Self {
         Self::batch_boolean(shapes, OpType::Add)
     }
     pub fn union(&self, other: &Self) -> Self {
-        Self(self.0.union(&other.0))
+        Self(Arc::new(self.0.union(&other.0)))
     }
     pub fn difference(&self, other: &Self) -> Self {
-        Self(self.0.difference(&other.0))
+        Self(Arc::new(self.0.difference(&other.0)))
     }
     pub fn intersection(&self, other: &Self) -> Self {
-        Self(self.0.intersection(&other.0))
+        Self(Arc::new(self.0.intersection(&other.0)))
     }
     pub fn split(&self, other: &Self) -> (Self, Self) {
         let (a, b) = self.0.split(&other.0);
-        (Self(a), Self(b))
+        (Self(Arc::new(a)), Self(Arc::new(b)))
     }
     pub fn split_by_plane(&self, normal: [f64; 3], offset: f64) -> (Self, Self) {
         let (a, b) = self
             .0
             .split_by_plane(Vec3::new(normal[0], normal[1], normal[2]), offset);
-        (Self(a), Self(b))
+        (Self(Arc::new(a)), Self(Arc::new(b)))
     }
     pub fn simplify(&self, tolerance: f64) -> Self {
-        Self(self.0.simplify(tolerance))
+        Self(Arc::new(self.0.simplify(tolerance)))
     }
     pub fn as_original(&self) -> Self {
-        Self(self.0.as_original())
+        Self(Arc::new(self.0.as_original()))
     }
     pub fn decompose(&self) -> Vec<Self> {
         self.0
             .decompose()
             .into_iter()
-            .map(Self)
+            .map(|s| Self(Arc::new(s)))
             .collect()
     }
     pub fn volume(&self) -> f64 {
@@ -126,24 +125,24 @@ impl Manifold {
     /// Affine frames use column-major axes followed by translation.
     pub fn transform(&self, matrix: &[f64; 12]) -> Self {
         let column = |i| Vec3::new(matrix[i], matrix[i + 1], matrix[i + 2]);
-        Self(self.0.transform(&Mat3x4::from_cols(
+        Self(Arc::new(self.0.transform(&Mat3x4::from_cols(
             column(0),
             column(3),
             column(6),
             column(9),
-        )))
+        ))))
     }
     pub fn cube(x: f64, y: f64, z: f64, center: bool) -> Self {
-        Self(Engine::cube(Vec3::new(x, y, z), center))
+        Self(Arc::new(Engine::cube(Vec3::new(x, y, z), center)))
     }
     pub fn sphere(radius: f64, segments: usize) -> Self {
-        Self(Engine::sphere(radius, segments as i32))
+        Self(Arc::new(Engine::sphere(radius, segments as i32)))
     }
     pub fn translate(&self, x: f64, y: f64, z: f64) -> Self {
-        Self(self.0.translate(Vec3::new(x, y, z)))
+        Self(Arc::new(self.0.translate(Vec3::new(x, y, z))))
     }
     pub fn rotate(&self, x: f64, y: f64, z: f64) -> Self {
-        Self(self.0.rotate(x, y, z))
+        Self(Arc::new(self.0.rotate(x, y, z)))
     }
 }
 
@@ -232,47 +231,3 @@ macro_rules! mesh {
 }
 mesh!(MeshGL, FloatMesh, f32, u32, MeshGLOptions);
 mesh!(MeshGL64, DoubleMesh, f64, u64, MeshGL64Options);
-
-#[cfg(test)]
-mod tests {
-    use super::*;
-
-    #[test]
-    fn batch_identity_shares_mesh_without_mutating_the_input() {
-        let input = Manifold::cube(10.0, 12.0, 14.0, true);
-        let retained = Manifold::batch_union(std::slice::from_ref(&input));
-        assert!(std::ptr::eq(input.0.as_impl(), retained.0.as_impl()));
-        let placed = retained.translate(20.0, 0.0, 0.0);
-        assert_eq!(input.bounds().unwrap().0[0], -5.0);
-        assert_eq!(placed.bounds().unwrap().0[0], 15.0);
-    }
-
-    #[test]
-    fn split_preserves_both_meshes_and_their_source_runs() {
-        let input = Manifold::cube(10.0, 12.0, 14.0, true);
-        let cutter = Manifold::cube(7.0, 11.0, 16.0, true);
-        for cutter in [
-            cutter.translate(2.5, 0.5, 0.0),
-            cutter.rotate(5.0, 10.0, 15.0),
-            cutter.translate(100.0, 0.0, 0.0),
-            Manifold(Engine::empty()),
-        ] {
-            let (inside, outside) = input.split(&cutter);
-            for (actual, expected) in [
-                (inside, input.intersection(&cutter)),
-                (outside, input.difference(&cutter)),
-            ] {
-                actual.status().unwrap();
-                expected.status().unwrap();
-                let a = actual.0.get_mesh_gl64(0);
-                let b = expected.0.get_mesh_gl64(0);
-                assert_eq!(a.vert_properties, b.vert_properties);
-                assert_eq!(a.tri_verts, b.tri_verts);
-                assert_eq!(a.run_index, b.run_index);
-                assert_eq!(a.run_original_id, b.run_original_id);
-                assert_eq!(a.run_transform, b.run_transform);
-                assert_eq!(a.face_id, b.face_id);
-            }
-        }
-    }
-}

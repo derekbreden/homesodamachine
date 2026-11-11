@@ -1,0 +1,135 @@
+{
+  "purpose": "This record compares the published Cargo dependency with the local boolean engine on the same production inputs.",
+  "baseline_commit": "caa9e5888154fc28b110b6ef0646ad06d2e1d929",
+  "at": "2026-11-11T02:46:37.614Z",
+  "crate": {
+    "name": "manifold-rust",
+    "version": "0.19.2",
+    "registry": "crates.io",
+    "checksum": "ddad329fd20646de626e339ea1146de838464060824cb3edd5593d8d061a3f95"
+  },
+  "method": "The normal producer scheduler executes each precompiled producer with frozen external inputs. Each pass produces its own dependencies. Producer result reuse and enclosure stage reuse are disabled. A timing lease excludes other managed heavy jobs during a pair. Both variants use the same temporary input paths. Compilation and publication are outside the timed runs.",
+  "memory": "Peak memory is the largest individual producer's maximum resident set, not combined host memory.",
+  "input_snapshot_sha256": "c8558e003e926fc71dac06ca69602c8d3a336d1926ea00fc5a479682d56ad34b",
+  "producer_binary_set_sha256": {
+    "patched": "15f00eed7e0ed57078f88647c378d462d74f59beaa87d11c7f7c557aab9050cb",
+    "cargo": "1050526ecd6b16baeed13d8cf95da2f311dd905a32145e54f106e15c6063f195"
+  },
+  "pairs": [
+    {
+      "round": 0,
+      "patched": {
+        "pair": 0,
+        "variant": "patched",
+        "producers": 61,
+        "seconds": 85.283800208,
+        "cpu_seconds": 199.57000000000002,
+        "peak_producer_bytes": 1282031616,
+        "peak_producer": "enclosure-back-top"
+      },
+      "cargo": {
+        "pair": 0,
+        "variant": "cargo",
+        "producers": 61,
+        "seconds": 97.66212004200001,
+        "cpu_seconds": 231.96999999999994,
+        "peak_producer_bytes": 1366097920,
+        "peak_producer": "enclosure-back-top"
+      },
+      "change_percent": {
+        "seconds": 14.514268599441316,
+        "cpu_seconds": 16.234905045848524,
+        "peak_producer_bytes": 6.557272297409544
+      },
+      "output_counts": {
+        ".step": {
+          "total": 100,
+          "identical": 100
+        },
+        ".step.mesh": {
+          "total": 108,
+          "identical": 108
+        },
+        ".step.npz": {
+          "total": 108,
+          "identical": 108
+        },
+        ".stl": {
+          "total": 91,
+          "identical": 91
+        },
+        "other": {
+          "total": 47,
+          "identical": 47
+        },
+        ".glb.mesh": {
+          "total": 11,
+          "identical": 11
+        }
+      },
+      "output_set_sha256": {
+        "patched": "bb570b52c75ace79e8dd7f3a98c3b11dbc3a2a35e19fe1812d932d07e2152621",
+        "cargo": "bb570b52c75ace79e8dd7f3a98c3b11dbc3a2a35e19fe1812d932d07e2152621"
+      },
+      "differences": []
+    },
+    {
+      "round": 1,
+      "patched": {
+        "pair": 1,
+        "variant": "patched",
+        "producers": 61,
+        "seconds": 98.10036404099999,
+        "cpu_seconds": 263.3599999999999,
+        "peak_producer_bytes": 1051131904,
+        "peak_producer": "enclosure-front-top"
+      },
+      "cargo": {
+        "pair": 1,
+        "variant": "cargo",
+        "producers": 61,
+        "seconds": 104.40965550000001,
+        "cpu_seconds": 289.98,
+        "peak_producer_bytes": 1141719040,
+        "peak_producer": "enclosure-back-top"
+      },
+      "change_percent": {
+        "seconds": 6.431465897887101,
+        "cpu_seconds": 10.107837181045,
+        "peak_producer_bytes": 8.618055988527962
+      },
+      "output_counts": {
+        ".step": {
+          "total": 100,
+          "identical": 100
+        },
+        ".step.mesh": {
+          "total": 108,
+          "identical": 108
+        },
+        ".step.npz": {
+          "total": 108,
+          "identical": 108
+        },
+        ".stl": {
+          "total": 91,
+          "identical": 91
+        },
+        "other": {
+          "total": 47,
+          "identical": 47
+        },
+        ".glb.mesh": {
+          "total": 11,
+          "identical": 11
+        }
+      },
+      "output_set_sha256": {
+        "patched": "bb570b52c75ace79e8dd7f3a98c3b11dbc3a2a35e19fe1812d932d07e2152621",
+        "cargo": "bb570b52c75ace79e8dd7f3a98c3b11dbc3a2a35e19fe1812d932d07e2152621"
+      },
+      "differences": []
+    }
+  ],
+  "tests_passed": 159
+}

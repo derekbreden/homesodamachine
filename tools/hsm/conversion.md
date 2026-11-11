@@ -255,11 +255,6 @@ fixed external inputs. Each backend supplies its own new exports to dependent st
 record separates elapsed execution, CPU time and producer memory; compilation, result-cache
 lookup and publication are outside that comparison.
 
-The [Rust engine reuse record](conversion-results/manifold-sharing-2026-11-11.json)
-measures shared mesh storage and intersection reuse separately and together. The
-producer comparison checks the print files and the drawing arrays and placements
-that the website uses.
-
 The [enclosure edit record](conversion-results/enclosure-edit-2026-11-07.json) measures an
 authored band dimension change with fresh construction and retained stages. The enclosure
 evaluator retains exact intermediate solids; the band and mechanical body receive their
