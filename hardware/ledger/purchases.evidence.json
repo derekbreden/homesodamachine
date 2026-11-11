@@ -9683,6 +9683,18 @@
       "source_ids": [
         "src-499eb31e61134d6d8969fb2173d42ae2"
       ]
+    },
+    "pur-6f3e90aba9734990a07d1e24f1f75a86": {
+      "vendor": "Amazon",
+      "purpose": "components",
+      "amount_evidence": "estimate",
+      "order_ids": [
+        "amazon:112-1175582-2386612"
+      ],
+      "allocation_status": "all_project",
+      "source_ids": [
+        "src-b23173b78a9745bbadaf7e701b7adfea"
+      ]
     }
   },
   "orders": {
@@ -15918,6 +15930,18 @@
       "source_ids": [
         "src-499eb31e61134d6d8969fb2173d42ae2"
       ]
+    },
+    "amazon:112-1175582-2386612": {
+      "vendor": "Amazon",
+      "reference": "112-1175582-2386612",
+      "order_date": {
+        "precision": "day",
+        "value": "2026-11-10"
+      },
+      "allocation_status": "all_project",
+      "source_ids": [
+        "src-b23173b78a9745bbadaf7e701b7adfea"
+      ]
     }
   },
   "events": [
@@ -20092,6 +20116,23 @@
       "order_ids": [
         "amazon:112-8461282-5610650"
       ]
+    },
+    {
+      "event_id": "evt-a433c78eacf3419f9a8285a9b133fbb7",
+      "vendor": "Amazon",
+      "event_type": "charge",
+      "confirmation": "expected",
+      "event_date": null,
+      "amount_minor": 964,
+      "currency": "USD",
+      "allocation_status": "all_project",
+      "source_ids": [
+        "src-b23173b78a9745bbadaf7e701b7adfea"
+      ],
+      "verified_at": "2026-11-11",
+      "order_ids": [
+        "amazon:112-1175582-2386612"
+      ]
     }
   ],
   "allocations": [
@@ -21797,6 +21838,14 @@
       "purchase_id": "pur-3bd4a5d8e22947b88ec7bcc9f7a8df8a",
       "order_id": "amazon:112-8461282-5610650",
       "amount_minor": 642,
+      "currency": "USD"
+    },
+    {
+      "allocation_id": "alloc-e1069f1f474a49b79692ee1ff5378c51",
+      "event_id": "evt-a433c78eacf3419f9a8285a9b133fbb7",
+      "purchase_id": "pur-6f3e90aba9734990a07d1e24f1f75a86",
+      "order_id": "amazon:112-1175582-2386612",
+      "amount_minor": 964,
       "currency": "USD"
     }
   ],
@@ -33585,6 +33634,22 @@
       ],
       "verified_at": "2026-11-11",
       "note": "Order confirmation matched to signed-in Mac Chrome Order Details and exact B0F7K43T14 Piutouyar M1-6 adjustable tap wrench. One wrench, placed 2026-11-10: USD 5.99 item, USD 0.43 estimated tax, free shipping, USD 6.42 total. Arrival is displayed only as a relative estimate; no actual delivery is established. The order-scoped merchant payment is Pending dated 2026-11-10, not completed. The source establishes an expected charge only."
+    },
+    "src-b23173b78a9745bbadaf7e701b7adfea": {
+      "vendor": "Amazon",
+      "document_type": "order_confirmation_and_merchant_order_details",
+      "reference": "112-1175582-2386612",
+      "document_date": null,
+      "notification_date": {
+        "precision": "day",
+        "value": "2026-11-11"
+      },
+      "proves": [
+        "price",
+        "order_date"
+      ],
+      "verified_at": "2026-11-11",
+      "note": "Exact order details identify one IEAWISL B0D8HVSJMK external-tooth washer assortment, advertised as 304 stainless steel, 550 pieces in eight sizes M2.5-M12. Placed 2026-11-10: USD 8.99 item, USD 0.65 estimated tax, free shipping, USD 9.64 total. Project fastener-stock attribution follows the current external-tooth washer requirement and contemporaneous earth-clamp tooling orders; conformity to the specified M3 washer dimensions and 0.4 mm thickness is unverified. The order-scoped payment page shows no transactions yet. The order supports an expected payment only, not a pending or completed merchant transaction. Relative arrival estimate does not establish actual delivery."
     }
   },
   "coverage": [
@@ -35551,6 +35616,26 @@
         "amazon:112-8461282-5610650"
       ],
       "note": "Two purchase-email events resolved against exact signed-in order identities and existing project tooling requirements. Exact-reference Gmail searches each returned one confirmation with no further pages. Order details establish placed dates and estimated-tax totals; order-scoped payments remain pending. No actual delivery or completed charge inferred, and no broader merchant coverage claimed."
+    },
+    {
+      "coverage_id": "coverage-a0b187f69c724058a8917d8546193058",
+      "vendor": "Amazon",
+      "stream": "one named external-tooth washer order",
+      "evidence_type": "order_confirmation_and_order_scoped_payment_lookup",
+      "checked_at": "2026-11-11",
+      "examined_period": {
+        "start": "2026-11-10",
+        "end": "2026-11-11"
+      },
+      "complete_period": null,
+      "coverage": "partial",
+      "source_ids": [
+        "src-b23173b78a9745bbadaf7e701b7adfea"
+      ],
+      "order_ids": [
+        "amazon:112-1175582-2386612"
+      ],
+      "note": "Exact-reference Gmail search returned one confirmation with no further pages. Signed-in order details establish identity, placed date and estimated-tax total. Order-scoped merchant lookup shows no transactions yet; actual delivery and exact M3 washer conformity remain unverified."
     }
   ],
   "gaps": [
