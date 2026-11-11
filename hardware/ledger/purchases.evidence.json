@@ -9767,7 +9767,8 @@
       "allocation_status": "all_project",
       "source_ids": [
         "src-b23173b78a9745bbadaf7e701b7adfea",
-        "src-b534bb94a46045f19c312922b8204c3a"
+        "src-b534bb94a46045f19c312922b8204c3a",
+        "src-ad5570deec324f9cb9ce15c4cddbcc2f"
       ]
     }
   },
@@ -16025,7 +16026,8 @@
       "allocation_status": "all_project",
       "source_ids": [
         "src-b23173b78a9745bbadaf7e701b7adfea",
-        "src-b534bb94a46045f19c312922b8204c3a"
+        "src-b534bb94a46045f19c312922b8204c3a",
+        "src-ad5570deec324f9cb9ce15c4cddbcc2f"
       ]
     }
   },
@@ -33953,6 +33955,19 @@
       ],
       "verified_at": "2026-11-11",
       "note": "Both merchant document links open the same Receipt / Tax Invoice XLaserlab3271 dated April 5, 2026. It identifies one X1 Pro Ultimate Pack / US Plug, SKU D02AA273, with USD 3,899.00 subtotal, USD 0.00 shipping and USD 3,899.00 total. Explicit Total paid USD 3,899.00 confirms payment. No separate transaction/payment date or placed-order date is labeled; receipt/invoice date is not used as the charge date. No separate tax line is displayed."
+    },
+    "src-ad5570deec324f9cb9ce15c4cddbcc2f": {
+      "vendor": "Amazon",
+      "document_type": "email_shipment_notification",
+      "reference": "112-1175582-2386612",
+      "document_date": null,
+      "notification_date": {
+        "precision": "day",
+        "value": "2026-11-11"
+      },
+      "proves": [],
+      "verified_at": "2026-11-11",
+      "note": "Vendor shipment notification identifies the existing washer order and repeats its USD 9.64 total. Shipment is confirmed; the relative arrival estimate does not establish actual delivery. No completed payment or dispatch calendar day is established by the notification timestamp. The notification supplies no item-level change to the previously verified order identity."
     }
   },
   "coverage": [
