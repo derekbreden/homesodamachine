@@ -51,8 +51,8 @@ pull-ring with the valve hand-tight in the elbow. After full PTFE
 torque the stack shortens by a turn or two; the cap thickness
 gives a few mm of clearance above the pull-ring at full torque.
 
-Print with the closed cap on the bed. The radial vent has an additional
-0.25 mm clearance at its print-up crown. The axial cavity opens upward.
+Print with the closed cap on the bed and supports off. The radial vent bridges
+at its print-up crown using the designed clearance. The axial cavity opens upward.
 
 ## Subassembly procedure
 
