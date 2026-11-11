@@ -803,7 +803,7 @@
   text-overflow: ellipsis;
   white-space: nowrap;
 }
-.cad-workspace-header:has(> .component-panel.show) .cad-context:not(:has(.cad-crumb.show)) > .component-model-name {
+.cad-workspace-header:where(:has(> .component-panel.show)) .cad-context:where(:not(:has(.cad-crumb.show))) > .component-model-name {
   display: block;
 }
 .component-panel {
@@ -917,6 +917,15 @@
 }
 .component-identity { flex: 1 1 240px; min-width: 0; }
 .component-catalog-name { font-size: .8rem; overflow-wrap: anywhere; }
+.component-feature-path {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-top: 4px;
+  font-size: .75rem;
+}
+.component-feature-path:empty { display: none; }
+.component-feature-path > .component-held-step { max-width: 100%; white-space: nowrap; }
 .component-meta {
   display: flex;
   flex-wrap: wrap;
@@ -996,6 +1005,7 @@
 
 @media (max-width: 700px) {
   .component-panel { grid-template-columns: minmax(0, 1fr); }
+  .cad-workspace-header:has(.material-view-switch:not([hidden])) .component-model-name { display: none; }
   .component-hidden,
   .component-selection[hidden] + .component-hidden {
     grid-column: 1;
