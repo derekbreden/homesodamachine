@@ -11,8 +11,5 @@ kernel owns its coordinate agreement, surface records and fabrication rule.
 The enclosure's retained-stage identity includes this crate's source and locked
 dependencies. The geometry daemon's build identity includes this boundary too.
 
-The upstream implementation is
-[`manifold-rust`](https://github.com/larsbrubaker/manifold-rust).
-The [pinned source](../../../vendor/manifold-rust/README.hsm.md) inlines its hot
-intersection helpers into their callers. Its compiled source fingerprint binds
-the geometry daemon and retained enclosure stages to that implementation.
+Cargo resolves the published [`manifold-rust`](https://crates.io/crates/manifold-rust)
+crate. The workspace lockfile pins its source and checksum for builds and cache identities.
