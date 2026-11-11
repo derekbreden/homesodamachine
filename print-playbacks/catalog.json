@@ -1,8 +1,87 @@
 {
+  "HSM-0021": {
+    "title": "Cold-core bottom cap · October 31 · Mark1",
+    "sha256": "3a7d523d4e1edd387e35d7422ea4af5409e9a2d334b88a2ed5514b717cf7dea8",
+    "slice": "2026-10-31-foam-cap-bottom-mark1-20a7d979.gcode.3mf",
+    "plate": 1,
+    "archive_sha256": "60fe6bc99ebeb2a2bc1461d328829b45f9e0946c8b3983b32aef455e411743e2",
+    "launch": "hardware/printed-parts/cold-core/foam-cap/prints/2026-10-31-bottom-pair/mark1/launch.json"
+  },
+  "HSM-0022": {
+    "title": "Cold-core bottom cap lid · October 31 · Mark2",
+    "sha256": "5d53af1e8c39f186720afdfdbab8ed9a2a9a86835621585aecbb4e7476184471",
+    "slice": "2026-10-31-foam-cap-lid-bottom-mark2-cb7b7c83.gcode.3mf",
+    "plate": 1,
+    "archive_sha256": "c1b546c589366ea990b029d70880917775ca83fc3fbf53f4425fe2253acefc47",
+    "launch": "hardware/printed-parts/cold-core/foam-cap/prints/2026-10-31-bottom-pair/mark2/launch.json"
+  },
+  "HSM-0090": {
+    "title": "Faucet tube sealing thimble · Mark2",
+    "sha256": "03d599f342c89050f87f65267015fd49a4998d48618d7d61787d8457e0eedb21",
+    "slice": "hardware/printed-parts/faucet/tpu-o-ring/prints/2026-10-23-black-tpu85a-right06-mark2/2026-10-23-touch-flo-sleeve-tpu85a-right06-z000-mark2-continuous-cap.gcode.3mf",
+    "plate": 1,
+    "source_commit": "f91f00712597b900b2b9fc43def45f19ea844c43"
+  },
+  "HSM-0093": {
+    "title": "Sculpted faucet mounting gasket · Mark1",
+    "sha256": "3a850c4aaf9285b7a218b008452762ffd31667fcbff32926ca8f60356676d061",
+    "slice": "hardware/printed-parts/faucet/above-counter-gasket/prints/2026-10-16-white-tpu90a-right-mark1/2026-10-16-sculpted-faucet-mounting-gasket-white-tpu90a-right06-z018-mark1-print-only.gcode.3mf",
+    "plate": 1,
+    "source_commit": "f91f00712597b900b2b9fc43def45f19ea844c43"
+  },
+  "HSM-0096": {
+    "title": "Sculpted faucet display cover · Mark2",
+    "sha256": "8ff93914f414fc0fbee363948ab110db23562b42b0b1dd8000d6eb2f3ef79f80",
+    "slice": "hardware/printed-parts/faucet/faucet-display-cover/prints/2026-10-25-front-overlap-black-mark2/2026-10-25-sculpted-cover-front-overlap-black-left04-z004-mark2.gcode.3mf",
+    "plate": 1,
+    "source_commit": "f91f00712597b900b2b9fc43def45f19ea844c43"
+  },
+  "HSM-0098": {
+    "title": "Faucet umbilical organizer · Mark2",
+    "sha256": "d8378ce506ddd960824f70f2527ee72ec40fc32d01fbe5683d191346b1e38165",
+    "slice": "hardware/printed-parts/faucet/umbilical-organizer/prints/2026-10-16-white-right-mark2/2026-10-16-umbilical-organizer-white-petgf-right04-z004-mark2-print-only.gcode.3mf",
+    "plate": 1,
+    "source_commit": "f91f00712597b900b2b9fc43def45f19ea844c43"
+  },
+  "HSM-0112": {
+    "title": "Industrial faucet mounting gasket · Mark2",
+    "sha256": "2b4c75c86eb738d26edeb0be4fe8add515919f34abda1108098ea74350ab86b6",
+    "slice": "hardware/printed-parts/faucet/industrial/prints/2026-10-23-mounting-gasket-tpu85a-right06-mark2/2026-10-23-industrial-mounting-gasket-tpu85a-right06-z000-mark2-continuous-layers.gcode.3mf",
+    "plate": 1,
+    "source_commit": "f91f00712597b900b2b9fc43def45f19ea844c43"
+  },
+  "HSM-0151": {
+    "title": "Tube insertion base · Mark1",
+    "sha256": "f86a1b2c91d1f4bed7dc266ba9129ddcfb0384636c0723cb02c209be87ffcd7e",
+    "slice": "hardware/printed-parts/fixtures/tube-insertion/ready/tube-insertion-rigid-base-h2c.gcode.3mf",
+    "plate": 1,
+    "source_commit": "245322abd5be6146d7f3efc3ed0d5d9552961a7d"
+  },
+  "HSM-0153": {
+    "title": "Tube insertion jaws · Mark1",
+    "sha256": "017e45f8679aaea1599d09a82edb00530926fac0a314254686b49228842b64c3",
+    "slice": "hardware/printed-parts/fixtures/tube-insertion/ready/tube-insertion-centered-grip-petgf-left04-z018-mark1.gcode.3mf",
+    "plate": 1,
+    "source_commit": "245322abd5be6146d7f3efc3ed0d5d9552961a7d"
+  },
+  "HSM-0154": {
+    "title": "Tube insertion jaws · Mark1",
+    "sha256": "017e45f8679aaea1599d09a82edb00530926fac0a314254686b49228842b64c3",
+    "slice": "hardware/printed-parts/fixtures/tube-insertion/ready/tube-insertion-centered-grip-petgf-left04-z018-mark1.gcode.3mf",
+    "plate": 1,
+    "source_commit": "245322abd5be6146d7f3efc3ed0d5d9552961a7d"
+  },
   "HSM-0155": {
     "title": "Tube insertion liners · H2C",
     "sha256": "33cb79941cb1c64a33879aa9e9eede7d4894cf44201759a27a2f943dabbea142",
     "slice": "hardware/printed-parts/fixtures/tube-insertion/ready/tube-insertion-centered-liners-tpu85a-right06-z018-mark1.gcode.3mf",
     "plate": 1
+  },
+  "HSM-0403": {
+    "title": "Tube insertion donor hold-down cover · Mark1",
+    "sha256": "cb75d5d97f2a1cda324597584f8f6e024c7f25fde68d4502e3a03f97f30c7a79",
+    "slice": "hardware/printed-parts/fixtures/tube-insertion/donor-hold-down/prints/2026-10-12-half-body-mark1/donor-hold-down-half-body-tpu85a-right06-z018-mark1.gcode.3mf",
+    "plate": 1,
+    "source_commit": "f91f00712597b900b2b9fc43def45f19ea844c43"
   }
 }
