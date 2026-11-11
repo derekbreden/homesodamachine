@@ -1,5 +1,5 @@
 <style>
-#hsm-motion-playback { display: grid; gap: calc(var(--font-size-base, 14px) * .75); min-width: 0; }
+#hsm-motion-playback { display: grid; grid-template-columns: minmax(0, 1fr); gap: calc(var(--font-size-base, 14px) * .75); min-width: 0; }
 #hsm-motion-playback h2 { max-width: calc(100% - 90px); }
 #hsm-motion-playback .motion-stage { position: relative; width: 100%; aspect-ratio: 1.6; min-height: 280px; max-height: 520px; touch-action: none; }
 #hsm-motion-playback .motion-stage canvas { display: block; width: 100%; height: 100%; }
@@ -30,6 +30,7 @@
     <label class="form-label">Speed
       <select class="form-select" id="motion-speed" aria-label="Playback speed">
         <option value="1">1×</option><option value="5">5×</option><option value="10">10×</option><option value="30">30×</option><option value="60">60×</option>
+        <option value="120">120×</option><option value="240">240×</option><option value="480">480×</option><option value="960">960×</option>
       </select>
     </label>
     <label class="form-label">Camera
@@ -45,7 +46,7 @@
   <div class="motion-legend text-small text-muted">
     <span><i class="motion-swatch" aria-hidden="true"></i>Deposited model</span>
     <span><i class="motion-swatch support" aria-hidden="true"></i>Deposited support</span>
-    <span>Acceleration + braking estimate · simplified H2C hardware</span>
+    <span id="motion-timing-method">Acceleration + braking estimate · simplified H2C hardware</span>
     <span>Firmware actions and waits excluded</span>
   </div>
   <div class="sr-only" id="motion-announcement" aria-live="polite"></div>
@@ -66,16 +67,33 @@ const theme = createInlineMobileTheme(root);
 const data = JSON.parse(document.getElementById("motion-data").textContent);
 const $ = (id) => root.querySelector(`#${id}`);
 const bytes = (text) => { const raw = atob(text), out = new Uint8Array(raw.length); for (let i=0;i<raw.length;i++) out[i]=raw.charCodeAt(i); return out.buffer; };
-const coordinates = new Int16Array(bytes(data.positions));
-const profiles = new Float32Array(bytes(data.kinematics));
-const layers = new Uint16Array(bytes(data.layers));
-const flags = new Uint8Array(bytes(data.flags));
-const dimensions = new Uint8Array(bytes(data.dimensions));
-const featureIds = new Uint8Array(bytes(data.feature_ids));
-const count = flags.length;
+async function decompress(text) {
+  const stream = new Blob([bytes(text)]).stream().pipeThrough(new DecompressionStream("gzip"));
+  return new DataView(await new Response(stream).arrayBuffer());
+}
+let track, roads;
+if (data.sampled) {
+  try {
+    [track, roads] = await Promise.all([decompress(data.sampled.track), decompress(data.sampled.roads)]);
+  } catch (error) {
+    $("motion-loading").textContent = "Unable to decode print motion";
+    throw error;
+  }
+  $("motion-timing-method").textContent = "Sampled motion · simplified bead paths and H2C hardware";
+}
+const detail = data.detail;
+const coordinates = detail && new Int16Array(bytes(detail.positions));
+const profiles = detail && new Float32Array(bytes(detail.kinematics));
+const layers = detail && new Uint16Array(bytes(detail.layers));
+const flags = detail && new Uint8Array(bytes(detail.flags));
+const dimensions = detail && new Uint8Array(bytes(detail.dimensions));
+const featureIds = detail && new Uint8Array(bytes(detail.feature_ids));
+const sampleStride = 15;
+const roadStride = 15;
+const count = track ? track.byteLength / sampleStride : flags.length;
 const point = (i, target = new THREE.Vector3()) => target.set(coordinates[3*i]/100,coordinates[3*i+1]/100,coordinates[3*i+2]/100);
 const endTime = (i) => profiles[6*i];
-const duration = endTime(count-1);
+const duration = track ? data.seconds : endTime(count-1);
 const palette = (token) => { const p=theme.rgba(token); return new THREE.Color(p[0]/255,p[1]/255,p[2]/255).convertSRGBToLinear(); };
 
 const stage = $("motion-stage");
@@ -126,10 +144,12 @@ const coneGeometry = new THREE.CylinderGeometry(1.7,.25,4,18);coneGeometry.rotat
 const cone=new THREE.Mesh(coneGeometry,tipMaterial);cone.position.z=2;head.add(cone);
 
 const extrusionMoves=[];
-for(let i=0;i<count;i++) if(flags[i]) extrusionMoves.push(i);
-const beadPositions=new Float32Array(extrusionMoves.length*24);
+if (flags) for (let i = 0; i < count; i++) if (flags[i]) extrusionMoves.push(i);
+const roadCount = roads ? roads.byteLength / roadStride : extrusionMoves.length;
+const roadSupport = new Uint8Array(roadCount);
+const beadPositions=new Float32Array(roadCount*24);
 const beadColors=new Float32Array(beadPositions.length);
-const beadIndices=new Uint32Array(extrusionMoves.length*36);
+const beadIndices=new Uint32Array(roadCount*36);
 const topology=[0,2,1,1,2,3,4,5,6,5,7,6,0,1,4,1,5,4,2,6,3,3,6,7,0,4,2,2,4,6,1,3,5,3,7,5];
 function beadVertices(a,b,width,height,out,offset=0) {
   const dx=b.x-a.x,dy=b.y-a.y,n=Math.hypot(dx,dy)||1,nx=-dy/n*width/2,ny=dx/n*width/2;
@@ -137,10 +157,35 @@ function beadVertices(a,b,width,height,out,offset=0) {
     a.x+nx,a.y+ny,a.z-height,a.x-nx,a.y-ny,a.z-height,b.x+nx,b.y+ny,b.z-height,b.x-nx,b.y-ny,b.z-height],offset);
 }
 const a=new THREE.Vector3(),b=new THREE.Vector3();
-extrusionMoves.forEach((i,j)=>{
-  beadVertices(point(i,a),point(i+1,b),dimensions[2*i]/100,dimensions[2*i+1]/100,beadPositions,j*24);
-  for(let k=0;k<36;k++) beadIndices[j*36+k]=j*8+topology[k];
-});
+const bounds = new THREE.Box3();
+const previousPoint = new Int16Array(3);
+function roadPoint(offset, target) {
+  for (let axis = 0; axis < 3; axis++) previousPoint[axis] += roads.getInt16(offset + 2 * axis, true);
+  return target.set(previousPoint[0] / 100, previousPoint[1] / 100, previousPoint[2] / 100);
+}
+for (let road = 0; road < roadCount; road++) {
+  let width, height;
+  if (roads) {
+    const offset = road * roadStride;
+    roadPoint(offset, a);
+    roadPoint(offset + 6, b);
+    width = roads.getUint8(offset + 12);
+    height = roads.getUint8(offset + 13);
+    roadSupport[road] = roads.getUint8(offset + 14);
+  } else {
+    const movement = extrusionMoves[road];
+    point(movement, a);
+    point(movement + 1, b);
+    width = dimensions[2 * movement];
+    height = dimensions[2 * movement + 1];
+    roadSupport[road] = Number(data.features[featureIds[movement]].startsWith("Support"));
+  }
+  bounds.expandByPoint(a).expandByPoint(b);
+  beadVertices(a, b, width / 100, height / 100, beadPositions, road * 24);
+  for (let corner = 0; corner < topology.length; corner++) {
+    beadIndices[road * 36 + corner] = road * 8 + topology[corner];
+  }
+}
 const beadGeometry=new THREE.BufferGeometry();
 beadGeometry.setAttribute("position",new THREE.BufferAttribute(beadPositions,3));
 beadGeometry.setAttribute("color",new THREE.BufferAttribute(beadColors,3));
@@ -153,33 +198,58 @@ liveGeometry.setAttribute("color",new THREE.BufferAttribute(new Float32Array(24)
 liveGeometry.setIndex(topology);
 const liveBead=new THREE.Mesh(liveGeometry,modelMaterial);bed.add(liveBead);
 liveBead.frustumCulled=false;
-const support = (i) => data.features[featureIds[i]].startsWith("Support");
-
+let modelColor, supportColor;
 function recolor() {
   hardware.color.copy(palette("muted-foreground"));
   frameMaterial.color.copy(palette("foreground"));
   plateMaterial.color.copy(palette("secondary"));
   tipMaterial.color.copy(palette("viz-series-1"));
-  extrusionMoves.forEach((i,j)=>{ const c=palette(support(i)?"viz-series-2":"viz-series-1");for(let k=0;k<8;k++) beadColors.set([c.r,c.g,c.b],j*24+k*3); });
+  modelColor = palette("viz-series-1").toArray();
+  supportColor = palette("viz-series-2").toArray();
+  for (let road = 0; road < roadCount; road++) {
+    const color = roadSupport[road] ? supportColor : modelColor;
+    for (let corner = 0; corner < 8; corner++) beadColors.set(color, road * 24 + corner * 3);
+  }
   beadGeometry.attributes.color.needsUpdate=true;
   draw();
 }
 
-const bounds=new THREE.Box3();for(const i of extrusionMoves){bounds.expandByPoint(point(i,a));bounds.expandByPoint(point(i+1,b));}
-if(bounds.isEmpty())for(let i=0;i<=count;i++)bounds.expandByPoint(point(i,a));
+function samplePoint(index, target) {
+  const offset = index * sampleStride;
+  return target.set(track.getInt16(offset, true) / 100, track.getInt16(offset + 2, true) / 100,
+    track.getInt16(offset + 4, true) / 100);
+}
+if (bounds.isEmpty()) {
+  if (track) for (let i = 0; i < count; i++) bounds.expandByPoint(samplePoint(i, a));
+  else for (let i = 0; i <= count; i++) bounds.expandByPoint(point(i, a));
+}
 const printCenter=bounds.getCenter(new THREE.Vector3());
 const printSize=bounds.getSize(new THREE.Vector3());
-let now=0,playing=false,speed=data.speed,mode="print",lastFrame=0,frameRequest=0,currentIndex=0;
+let now=0,playing=false,speed=data.speed,mode="print",lastFrame=0,frameRequest=0;
+let currentLayer = data.selected_layers[0];
 let followOffset=new THREE.Vector3(-42,-65,48),followTarget=new THREE.Vector3();
+const speedSelect = $("motion-speed");
+const speedChoices = Array.from(speedSelect.options, (option) => Number(option.value));
+if (!speedChoices.includes(data.speed)) {
+  speedChoices.push(data.speed);
+  speedSelect.add(new Option(`${data.speed}×`, String(data.speed)));
+}
+const sameSelection = (state) => state?.modelContent?.source === data.source
+  && state.modelContent.layers?.join() === data.selected_layers.join();
 const remembered=window.openai?.widgetState;
-if(remembered?.modelContent?.source===data.source){
+if(sameSelection(remembered)){
   now=Math.max(0,Math.min(duration,Number(remembered.privateContent?.time)||0));
-  if([1,5,10,30,60].includes(remembered.modelContent.speed))speed=remembered.modelContent.speed;
+  if(speedChoices.includes(remembered.modelContent.speed))speed=remembered.modelContent.speed;
   if(["print","follow","machine"].includes(remembered.modelContent.camera))mode=remembered.modelContent.camera;
 }
 $("motion-speed").value=String(speed);$("motion-camera").value=mode;
 function saveState(){window.openai?.setWidgetState({modelContent:{source:data.source,layers:data.selected_layers,speed,camera:mode},privateContent:{time:now}}).catch(()=>{});}
-const clock = (seconds) => `${Math.floor(seconds/60)}:${String(Math.floor(seconds%60)).padStart(2,"0")}`;
+function clock(seconds) {
+  const minutes = Math.floor(seconds / 60);
+  const suffix = String(Math.floor(seconds % 60)).padStart(2, "0");
+  if (minutes < 60) return `${minutes}:${suffix}`;
+  return `${Math.floor(minutes / 60)}:${String(minutes % 60).padStart(2, "0")}:${suffix}`;
+}
 function findMove(time){let low=0,high=count-1;while(low<high){const mid=(low+high)>>>1;if(endTime(mid)<time)low=mid+1;else high=mid;}return low;}
 function fraction(i,time){
   const p=i*6,L=profiles[p+1],v0=profiles[p+2],peak=profiles[p+3],v1=profiles[p+4],accel=profiles[p+5];
@@ -206,29 +276,58 @@ function setView(value){
   }
   controls.update();draw();
 }
-function draw(){
-  currentIndex=findMove(now);
-  const [part,velocity]=fraction(currentIndex,now);
-  const current=point(currentIndex,new THREE.Vector3()).lerp(point(currentIndex+1,b),part);
-  bed.position.z=-current.z;
-  head.position.set(current.x,current.y,0);gantry.position.y=current.y;
+function detailedPose(time, current) {
+  const movement = findMove(time);
+  const [part, velocity] = fraction(movement, time);
+  current.copy(point(movement, a)).lerp(point(movement + 1, b), part);
+  const headSpeed = velocity * a.distanceTo(b) / profiles[movement * 6 + 1];
   let low=0,high=extrusionMoves.length;
-  while(low<high){const mid=(low+high)>>>1;if(extrusionMoves[mid]<currentIndex)low=mid+1;else high=mid;}
-  beadGeometry.setDrawRange(0,low*36);
-  liveBead.visible=Boolean(flags[currentIndex])&&part>0;
+  while(low<high){const mid=(low+high)>>>1;if(extrusionMoves[mid]<movement)low=mid+1;else high=mid;}
+  liveBead.visible = Boolean(flags[movement]) && part > 0 && time < duration;
   if(liveBead.visible){
-    beadVertices(point(currentIndex,a),current,dimensions[2*currentIndex]/100,dimensions[2*currentIndex+1]/100,liveGeometry.attributes.position.array);
+    beadVertices(a,current,dimensions[2*movement]/100,dimensions[2*movement+1]/100,liveGeometry.attributes.position.array);
     liveGeometry.attributes.position.needsUpdate=true;liveGeometry.computeVertexNormals();
-    const c=palette(support(currentIndex)?"viz-series-2":"viz-series-1");
-    for(let k=0;k<8;k++)liveGeometry.attributes.color.array.set([c.r,c.g,c.b],k*3);
+    const color = roadSupport[low] ? supportColor : modelColor;
+    for(let k=0;k<8;k++)liveGeometry.attributes.color.array.set(color,k*3);
     liveGeometry.attributes.color.needsUpdate=true;
   }
+  return { layer: layers[movement], speed: headSpeed, feature: flags[movement] ? featureIds[movement] : 0,
+    deposited: time >= duration ? roadCount : low };
+}
+function sampledPose(time, current) {
+  const interval = data.sampled.interval;
+  const first = time >= duration ? count - 1 : Math.floor(time / interval);
+  samplePoint(first, current);
+  if (first + 1 < count) {
+    const start = first * interval;
+    const end = Math.min(start + interval, duration);
+    current.lerp(samplePoint(first + 1, b), (time - start) / (end - start));
+  }
+  const offset = first * sampleStride;
+  return { speed: track.getUint16(offset + 6, true), layer: track.getUint16(offset + 8, true),
+    feature: track.getUint8(offset + 10), deposited: track.getUint32(offset + 11, true) };
+}
+const pose = track ? sampledPose : detailedPose;
+const current = new THREE.Vector3();
+if (track) liveBead.visible = false;
+function draw(){
+  const frame = pose(now, current);
+  currentLayer = frame.layer;
+  beadGeometry.setDrawRange(0, frame.deposited * topology.length);
+  const nextBedZ = -current.z;
+  if (mode === "print") {
+    const shift = nextBedZ - bed.position.z;
+    camera.position.z += shift;
+    controls.target.z += shift;
+  }
+  bed.position.z = nextBedZ;
+  head.position.set(current.x, current.y, 0);
+  gantry.position.y = current.y;
   if(mode==="follow"){
     const delta=head.position.clone().sub(followTarget);camera.position.add(delta);controls.target.add(delta);followTarget.copy(head.position);
   }
-  $("motion-layer").textContent=`Layer ${layers[currentIndex]} · ${data.selected_layers[0]}–${data.selected_layers[1]}`;
-  const headSpeed=velocity*point(currentIndex,a).distanceTo(point(currentIndex+1,b))/profiles[currentIndex*6+1];
-  $("motion-readout").textContent=`${flags[currentIndex]?data.features[featureIds[currentIndex]]:"Travel"} · ${headSpeed.toFixed(0)} mm/s · Z ${current.z.toFixed(2)} mm`;
+  $("motion-layer").textContent=`Layer ${currentLayer} · ${data.selected_layers[0]}–${data.selected_layers[1]}`;
+  $("motion-readout").textContent=`${data.features[frame.feature]} · ${frame.speed.toFixed(0)} mm/s · Z ${current.z.toFixed(2)} mm`;
   $("motion-time").textContent=`${clock(now)} / ${clock(duration)}`;
   $("motion-scrub").value=String(now/duration*1000);
   renderer.render(scene,camera);
@@ -236,7 +335,7 @@ function draw(){
 function tick(time){
   frameRequest=0;
   if(!playing||document.hidden)return;
-  if(lastFrame)now=Math.min(duration,now+Math.min((time-lastFrame)/1000,.1)*speed);
+  if(lastFrame)now=Math.min(duration,now+(time-lastFrame)/1000*speed);
   lastFrame=time;draw();
   if(now>=duration){playing=false;$("motion-play").textContent="Replay";saveState();}
   else frameRequest=requestAnimationFrame(tick);
@@ -246,17 +345,17 @@ $("motion-play").addEventListener("click",()=>{if(!playing&&now>=duration)now=0;
 $("motion-speed").addEventListener("change",()=>{speed=Number($("motion-speed").value);saveState();});
 $("motion-camera").addEventListener("change",()=>{setView($("motion-camera").value);saveState();});
 $("motion-scrub").addEventListener("input",()=>{now=Number($("motion-scrub").value)/1000*duration;draw();});
-$("motion-scrub").addEventListener("change",()=>{saveState();$("motion-announcement").textContent=`Layer ${layers[currentIndex]}, ${clock(now)} of estimated motion.`;});
+$("motion-scrub").addEventListener("change",()=>{saveState();$("motion-announcement").textContent=`Layer ${currentLayer}, ${clock(now)} of estimated motion.`;});
 controls.addEventListener("change",()=>{if(mode==="follow")followOffset.copy(camera.position).sub(controls.target);renderer.render(scene,camera);});
 new ResizeObserver(()=>{renderer.setSize(stage.clientWidth,stage.clientHeight,false);camera.aspect=stage.clientWidth/stage.clientHeight;camera.updateProjectionMatrix();draw();}).observe(stage);
 document.addEventListener("visibilitychange",()=>{lastFrame=0;if(!document.hidden&&playing&&!frameRequest)frameRequest=requestAnimationFrame(tick);});
 window.addEventListener("openai:set_globals",(event)=>{
-  const state=event.detail?.globals?.widgetState;if(state?.modelContent?.source!==data.source)return;
+  const state=event.detail?.globals?.widgetState;if(!sameSelection(state))return;
   now=Math.max(0,Math.min(duration,Number(state.privateContent?.time)||0));draw();
 });
 theme.observe(recolor);
 $("motion-loading").remove();
 recolor();draw();setView(mode);
 window.__vizReady=true;
-window.__hsmPlayback={get time(){return now},get duration(){return duration},get playing(){return playing},get layer(){return layers[currentIndex]},get bedZ(){return bed.position.z},get head(){return head.position.toArray()},seek:(time)=>{now=Math.max(0,Math.min(duration,time));draw();},play:()=>setPlaying(true),pause:()=>setPlaying(false)};
+window.__hsmPlayback={get time(){return now},get duration(){return duration},get playing(){return playing},get layer(){return currentLayer},get bedZ(){return bed.position.z},get head(){return head.position.toArray()},seek:(time)=>{now=Math.max(0,Math.min(duration,time));draw();},play:()=>setPlaying(true),pause:()=>setPlaying(false)};
 </script>

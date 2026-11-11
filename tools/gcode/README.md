@@ -26,6 +26,7 @@ hsm-gcode view speed "A=FIRST.gcode.3mf" "B=SECOND.gcode.3mf" --mark-layers FIRS
 
 ```bash
 hsm-gcode view playback SLICE.gcode.3mf --layers FIRST-LAST --title "Print motion" --out PAGE.html
+hsm-gcode view playback SLICE.gcode.3mf --layers all --inline --title "Whole plate" --out PAGE.html
 ```
 
 Playback runs continuously across the selected layers, with a timeline, playback speed and
@@ -34,6 +35,12 @@ moves the bed and its deposited material opposite commanded Z, and keeps the hea
 gantry plane. `--bed-model` accepts the binary build-plate STL from the printer's profile;
 the remaining H2C hardware is a simplified reference model. Start at the first layer when
 the view needs all previously deposited material.
+
+`--inline` packs sampled head motion and simplified bead paths for the chat visualization
+reader. It retains the selected print timeline and uses the same motion planner as the
+detailed view. Larger plates can select a consecutive range with `--layers` to fit the
+inline limit. The Print camera follows the plate as it moves, and Whole printer keeps
+the frame in view.
 
 Its motion planner reads commanded axis speed limits, acceleration, instantaneous junction
 speed limits and feed overrides. Forward and reverse lookahead passes join consecutive moves;
@@ -48,7 +55,7 @@ identify ID and its pose on the plate, so seams are measured in the part's own C
 
 `view seams` accepts `--compare "label=SLICE:PRINT.json"` to overlay another slice in the
 selected part's frame, `--project` to show its seam-enforcer paint and `--frame-z` to focus
-the view. Both view commands write an HTML page at `--out`. Keep pages in a scratch run
+the view. View commands write an HTML page at `--out`. Keep pages in a scratch run
 and inspect them when the current question needs a picture.
 
 ## Reading rules
