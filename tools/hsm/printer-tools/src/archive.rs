@@ -152,40 +152,6 @@ pub fn verify_spools(details: &Details, reading: &Value) -> Result<()> {
     }
     Ok(())
 }
-fn serialize(element: &xml::Element, out: &mut String) {
-    fn escape(text: &str) -> String {
-        text.replace('&', "&amp;")
-            .replace('<', "&lt;")
-            .replace('>', "&gt;")
-            .replace('"', "&quot;")
-    }
-    out.push('<');
-    out.push_str(&element.name);
-    for (key, value) in &element.attributes {
-        out.push(' ');
-        out.push_str(key);
-        out.push_str("=\"");
-        out.push_str(&escape(value));
-        out.push('"');
-    }
-    if element.children.is_empty() && element.text.is_empty() {
-        out.push_str(" />");
-        return;
-    }
-    out.push('>');
-    out.push_str(&escape(&element.text));
-    for child in &element.children {
-        serialize(child, out);
-    }
-    out.push_str("</");
-    out.push_str(&element.name);
-    out.push('>');
-}
-fn document(element: &xml::Element) -> Vec<u8> {
-    let mut out = String::from("<?xml version='1.0' encoding='utf-8'?>\n");
-    serialize(element, &mut out);
-    out.into_bytes()
-}
 pub fn package(source: &Path, destination: &Path) -> Result<Value> {
     if destination.exists() || destination == source {
         bail!("Use a new destination; preserve the reviewed source archive")
@@ -226,8 +192,8 @@ pub fn package(source: &Path, destination: &Path) -> Result<Value> {
         plate.children.retain(|e| e.local() != "model_instance");
     }
     let changed = BTreeMap::from([
-        ("3D/3dmodel.model", document(&model)),
-        ("Metadata/model_settings.config", document(&config)),
+        ("3D/3dmodel.model", xml::document(&model)),
+        ("Metadata/model_settings.config", xml::document(&config)),
     ]);
     let omitted: BTreeSet<_> = data
         .iter()

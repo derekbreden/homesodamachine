@@ -41,6 +41,43 @@ impl Element {
     }
 }
 
+/// Write the XML member of a Bambu project or sliced plate.
+pub fn document(element: &Element) -> Vec<u8> {
+    let mut out = String::from("<?xml version='1.0' encoding='utf-8'?>\n");
+    serialize(element, &mut out);
+    out.into_bytes()
+}
+
+fn serialize(element: &Element, out: &mut String) {
+    fn escape(text: &str) -> String {
+        text.replace('&', "&amp;")
+            .replace('<', "&lt;")
+            .replace('>', "&gt;")
+            .replace('"', "&quot;")
+    }
+    out.push('<');
+    out.push_str(&element.name);
+    for (key, value) in &element.attributes {
+        out.push(' ');
+        out.push_str(key);
+        out.push_str("=\"");
+        out.push_str(&escape(value));
+        out.push('"');
+    }
+    if element.children.is_empty() && element.text.is_empty() {
+        out.push_str(" />");
+        return;
+    }
+    out.push('>');
+    out.push_str(&escape(&element.text));
+    for child in &element.children {
+        serialize(child, out);
+    }
+    out.push_str("</");
+    out.push_str(&element.name);
+    out.push('>');
+}
+
 fn unescape(text: &str) -> String {
     if !text.contains('&') {
         return text.to_string();

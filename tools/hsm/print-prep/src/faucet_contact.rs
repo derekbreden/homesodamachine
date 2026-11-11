@@ -14,12 +14,13 @@ use crate::mesh::{bounds, Mesh};
 use crate::project::{Object, Paint, Plate};
 use crate::refresh::Refreshed;
 use crate::rim_contour::{self, RimSpec};
-use crate::{apply, sha256_hex};
+use crate::{apply, sha256_hex, xml};
 use hsm_faucet_numbers::{paths::TOTAL_ANGLE, shell::DISPENSE_FACE_THICKNESS};
 
 type Point = [f64; 3];
 type Face = [usize; 3];
 const GCODE: &str = "Metadata/plate_1.gcode";
+const MODEL_SETTINGS: &str = "Metadata/model_settings.config";
 const REVIEW: &str = "Metadata/hsm_nonplanar_contact.json";
 
 pub struct ContactBand {
@@ -478,8 +479,11 @@ impl ContactBand {
         review["gcode_input_sha256"] = json!(sha256_hex(&native_gcode));
         review["gcode_sha256"] = json!(sha256_hex(&gcode));
         let mut replaced = physical.into_iter().filter(|(name, _)| {
-            name.starts_with("3D/") || name == "Metadata/model_settings.config"
+            name.starts_with("3D/") || name == MODEL_SETTINGS
         }).collect::<BTreeMap<_, _>>();
+        let physical_settings = replaced.get_mut(MODEL_SETTINGS).context("physical model settings")?;
+        let native_settings = read_member(&mut archive, MODEL_SETTINGS)?;
+        *physical_settings = restore_plate_links(physical_settings, &native_settings)?;
         replaced.insert(format!("{GCODE}.md5"), md5_hex(&gcode).into_bytes());
         replaced.insert(GCODE.to_string(), gcode);
         replace_prediction(&mut archive, &mut replaced, review["added_commanded_motion_seconds"].as_f64().context("contact motion time")?)?;
@@ -899,6 +903,59 @@ fn dot(a: Point, b: Point) -> f64 {
 
 fn scale(point: Point, factor: f64) -> Point {
     point.map(|component| component * factor)
+}
+
+/// Keep the slicer's G-code and preview links on the plate with the physical model settings.
+fn restore_plate_links(physical: &[u8], sliced: &[u8]) -> Result<Vec<u8>> {
+    const FILE_KEYS: [&str; 5] = [
+        "gcode_file", "thumbnail_file", "thumbnail_no_light_file", "top_file", "pick_file",
+    ];
+    fn plate_id(plate: &xml::Element) -> Option<&str> {
+        plate.children_named("metadata")
+            .find(|m| m.attribute("key") == Some("plater_id"))?
+            .attribute("value")
+    }
+    let mut model = xml::parse(std::str::from_utf8(physical)?)?;
+    let sliced = xml::parse(std::str::from_utf8(sliced)?)?;
+    for plate in model.children.iter_mut().filter(|plate| plate.local() == "plate") {
+        let Some(id) = plate_id(plate) else { continue };
+        let Some(sliced_plate) = sliced.children_named("plate").find(|p| plate_id(p) == Some(id)) else { continue };
+        let links: Vec<_> = sliced_plate.children_named("metadata").filter_map(|m| {
+            let key = m.attribute("key")?;
+            FILE_KEYS.contains(&key).then_some((key, m.clone()))
+        }).collect();
+        plate.children.retain(|m| m.local() != "metadata" ||
+            !links.iter().any(|(key, _)| m.attribute("key") == Some(key)));
+        let index = plate.children.iter().position(|m| m.local() != "metadata").unwrap_or(plate.children.len());
+        plate.children.splice(index..index, links.into_iter().map(|(_, link)| link));
+    }
+    Ok(xml::document(&model))
+}
+
+#[cfg(test)]
+#[test]
+fn restores_sliced_plate_links_without_replacing_the_physical_instances() {
+    let physical = br#"<config><object id="5"/><plate>
+        <metadata key="plater_id" value="1"/>
+        <metadata key="thumbnail_file" value="editable.png"/>
+        <model_instance><metadata key="object_id" value="5"/></model_instance>
+    </plate></config>"#;
+    let sliced = br#"<config><object id="9"/><plate>
+        <metadata key="plater_id" value="1"/>
+        <metadata key="gcode_file" value="Metadata/plate_1.gcode"/>
+        <metadata key="thumbnail_file" value="Metadata/plate_1.png"/>
+        <model_instance><metadata key="object_id" value="9"/></model_instance>
+    </plate></config>"#;
+    let restored = restore_plate_links(physical, sliced).unwrap();
+    let restored = xml::parse(std::str::from_utf8(&restored).unwrap()).unwrap();
+    let plate = restored.child("plate").unwrap();
+    let metadata: BTreeMap<_, _> = plate.children_named("metadata")
+        .map(|m| (m.attribute("key").unwrap(), m.attribute("value").unwrap())).collect();
+    assert_eq!(plate.children_named("metadata").count(), metadata.len());
+    assert_eq!(metadata["gcode_file"], GCODE);
+    assert_eq!(metadata["thumbnail_file"], "Metadata/plate_1.png");
+    assert_eq!(restored.child("object").unwrap().attribute("id"), Some("5"));
+    assert_eq!(plate.child("model_instance").unwrap().child("metadata").unwrap().attribute("value"), Some("5"));
 }
 
 /// Apply the base's first perimeter to the restored slice, retaining the input for review.
