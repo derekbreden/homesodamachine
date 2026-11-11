@@ -74,10 +74,11 @@ roofs bridge across the blocked recesses. The mounting plate uses bridges
 over its counterbores. The [process selection](finish-selection.json) owns the
 contact recipe and cavity clearances.
 
-The tip uses Slim trees and nonplanar contact on the back of the dispense
-face, with the beverage aperture kept clear. It retains its fins, local lip
-trees and removable hidden-root disc. The disc's accepted removal scuff is
-confined to the hidden male insertion end. The other parts use their selected
+Slim trees carry the dense interface at the tip's mating lip. The first outer
+perimeter follows the inclined rim and joins the ordinary wall courses. The
+inner dispense face has its own contact band and a keepout at the beverage
+aperture. The removable root disc anchors the plug at the bed and confines
+its contact to the hidden insertion end. The other parts use their selected
 automatic supports.
 
 ## Prepare the next print
@@ -88,7 +89,7 @@ tools/run -- tools/hsm/target/release/industrial-faucet-print-project --slice-ou
 
 The preparer uses the approved frozen meshes and print profile. The slice
 output contains the complete executable plate with the restored contact
-paths, continuous rim perimeter and original production meshes. Optional
+paths, contoured rim perimeters and original production meshes. Optional
 `--printer Mark1 --filament-colour '#000000'` applies Mark1's own trim and the
 specified spool colour. Check the destination's actual material and nozzle
 mapping before sending.

@@ -1,4 +1,4 @@
-//! Replaces the faucet base’s first suspended outer wall with matching arcs along its tilted rim.
+//! Replaces the faucet's first suspended outer wall with rising arcs along each tilted rim.
 
 use std::{
     collections::BTreeMap,
@@ -47,6 +47,22 @@ pub struct ContourReport {
 /// The native body uses absolute XYZ and relative extrusion. The caller supplies
 /// the bounds of the rim with a support roof and keeps the resulting executable.
 pub fn apply(input: &Path, output: &Path, spec: RimSpec) -> io::Result<ContourReport> {
+    apply_with_map(input, output, spec, None)
+}
+
+/// Use the tip's own contact map and machine Z limit to schedule the mating perimeter.
+pub fn apply_tip(
+    input: &Path, output: &Path, spec: RimSpec, mapped_z: &dyn Fn(Point) -> f64, maximum_z_feed: f64,
+) -> io::Result<ContourReport> {
+    apply_with_map(input, output, spec, Some(TipContact { mapped_z, maximum_z_feed }))
+}
+
+struct TipContact<'a> {
+    mapped_z: &'a dyn Fn(Point) -> f64,
+    maximum_z_feed: f64,
+}
+
+fn apply_with_map(input: &Path, output: &Path, spec: RimSpec, tip: Option<TipContact<'_>>) -> io::Result<ContourReport> {
     let [start, end] = spec.supported_angles_degrees;
     let (sin, cos) = spec.seat_fall_angle_degrees.to_radians().sin_cos();
     if spec.identify_id == 0
@@ -71,6 +87,7 @@ pub fn apply(input: &Path, output: &Path, spec: RimSpec) -> io::Result<ContourRe
         start,
         end,
         object: spec.identify_id,
+        tip,
     };
     build(input, output, &rim)
 }
@@ -83,7 +100,7 @@ fn lerp(a: Point, b: Point, t: f64) -> Point {
     std::array::from_fn(|i| a[i] + (b[i] - a[i]) * t)
 }
 
-struct Rim {
+struct Rim<'a> {
     center: Point,
     // The print pose rotates the seat around the plate's X axis.
     sin: f64,
@@ -92,9 +109,10 @@ struct Rim {
     start: f64,
     end: f64,
     object: u64,
+    tip: Option<TipContact<'a>>,
 }
 
-impl Rim {
+impl Rim<'_> {
     fn local(&self, p: Point) -> (f64, f64, f64) {
         let [x, y, z] = std::array::from_fn(|i| p[i] - self.center[i]);
         let along = y * self.cos - z * self.sin;
@@ -125,6 +143,9 @@ fn smooth(t: f64) -> f64 {
 }
 
 fn nominal_z(rim: &Rim, p: Point) -> f64 {
+    if let Some(tip) = &rim.tip {
+        return (tip.mapped_z)(p);
+    }
     let (_, _, depth) = rim.local(p);
     let face = p[2] - depth;
     let period = 1.92;
@@ -274,7 +295,7 @@ fn remnant_flow(rim: &Rim, p: Point, width: f64, layer: usize, height: f64) -> f
     let (offset, angle, depth) = rim.local(p);
     // An under-running fill end needs more lateral room beside the completed first course.
     let inner_limit = if rim.contour(angle, COURSE_HEIGHT)[2] > p[2] + 0.025 {
-        -0.545
+        if rim.tip.is_some() { -0.63 } else { -0.545 }
     } else {
         -0.445
     };
@@ -302,7 +323,7 @@ struct Move {
 
 struct Emitter<'a, W: Write> {
     out: W,
-    rim: &'a Rim,
+    rim: &'a Rim<'a>,
     actual: Point,
     feed: f64,
     retract_debt: f64,
@@ -368,12 +389,13 @@ impl<W: Write> Emitter<'_, W> {
             return f64::NEG_INFINITY;
         }
         let (offset, _, d) = self.rim.local(p);
+        let distance = if self.rim.tip.is_some() { 0.32 } else { 0.29 };
         if !(-0.65..0.25).contains(&offset) || d > 0.85 {
             return f64::NEG_INFINITY;
         }
         self.added_points
             .iter()
-            .filter(|q| lateral(p, **q) < 0.29)
+            .filter(|q| lateral(p, **q) < distance)
             .map(|q| q[2])
             .fold(f64::NEG_INFINITY, f64::max)
     }
@@ -401,9 +423,10 @@ impl<W: Write> Emitter<'_, W> {
         Ok(())
     }
     fn arc(&mut self, arc: &Arc) -> io::Result<()> {
+        let mark = if self.rim.tip.is_some() { "hsm tip contour" } else { "hsm contour" };
         writeln!(
             self.out,
-            "; hsm contour course 1 angles {:.6} {:.6}",
+            "; {mark} course 1 angles {:.6} {:.6}",
             arc.from, arc.to
         )?;
         self.line("; FEATURE: Outer wall")?;
@@ -434,7 +457,14 @@ impl<W: Write> Emitter<'_, W> {
                 .max(self.highest - p[2].min(self.actual[2]));
             self.minimum_contact_z = self.minimum_contact_z.min(p[2]);
             let amount = lateral(self.actual, p) * volume_per_mm(BEAD_WIDTH, COURSE_HEIGHT);
-            self.extrude(p, amount, CONTACT_FEED)?;
+            let mut feed = CONTACT_FEED;
+            if let Some(tip) = &self.rim.tip {
+                let rise = (self.actual[2] - p[2]).abs();
+                if rise > 1e-6 {
+                    feed = feed.min((tip.maximum_z_feed - 1.2) * distance(self.actual, p) / rise);
+                }
+            }
+            self.extrude(p, amount, feed)?;
             self.added_points.push(p);
             self.added_extrusion += amount;
         }
@@ -492,9 +522,9 @@ impl<W: Write> Emitter<'_, W> {
     }
     fn retained_flow(&self, p: Point, width: f64, layer: usize, height: f64) -> f64 {
         let (offset, angle, depth) = self.rim.local(p);
-        if (depth < 0.015 || angle > self.rim.end)
+        if (depth < 0.015 || angle > self.rim.end || self.rim.tip.is_some())
             && (-0.18..COURSE_HEIGHT + MIN_JOIN_HEIGHT).contains(&depth)
-            && (-0.55..0.35).contains(&offset)
+            && ((if self.rim.tip.is_some() { -0.63 } else { -0.55 })..0.35).contains(&offset)
             && self.top_near(p) > p[2] + 0.04
         {
             // A native skin road can run below the seat or across a tangent
@@ -677,7 +707,7 @@ fn build(input: &Path, output: &Path, rim: &Rim) -> io::Result<ContourReport> {
             for arc in *arcs {
                 e.arc(arc)?;
             }
-            e.line("; hsm contour end")?;
+            e.line(if rim.tip.is_some() { "; hsm tip contour end" } else { "; hsm contour end" })?;
             writeln!(
                 e.out,
                 "M106 P1 S{fan}\n; FEATURE: {feature}\n; LINE_WIDTH: {width:.5}"
