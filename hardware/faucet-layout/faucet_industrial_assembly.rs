@@ -1,5 +1,5 @@
-//! The Industrial faucet's assembly: the faucet assembly with the Industrial shell base,
-//! above-counter plate, gasket and seated display cover standing in place of the Sculpted ones.
+//! The Industrial faucet's assembly with its shell base, counter mounting stack and approved
+//! lowered display head.
 //!
 //!     faucet-industrial-assembly [<output directory>]
 fn main() -> anyhow::Result<()> {

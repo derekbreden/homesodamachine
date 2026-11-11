@@ -2,9 +2,10 @@
 //! zone-5 seam (a foot disc, a body over the Westbrass and the neck standing on it), its round
 //! above-counter plate and gasket, and its rectangular display cover, cut as it sits on the tip,
 //! which the Industrial assembly stands in place, and printed with its wings leaned in.
+//! The approved lowered head exports the exact production tip and both cover shapes.
 //!
 //!     industrial-faucet [<output directory>]
-use anyhow::{Result, ensure};
+use anyhow::{Context, Result, ensure};
 use hsm_faucet::shell::{PAST, level, pieces, shell_from};
 use hsm_faucet::{Gooseneck, counter, display};
 use hsm_faucet_numbers::catalog;
@@ -13,6 +14,35 @@ use hsm_industrial_faucet_numbers as industrial;
 use hsm_kernel::part::write_shown;
 use hsm_kernel::*;
 use hsm_print_payload::printed;
+use std::path::Path;
+
+const APPROVED_HEAD_DIR: &str = "hardware/printed-parts/faucet/industrial/production/2026-10-25";
+
+fn write_approved_head(out: &Path) -> Result<()> {
+    let source = Path::new(APPROVED_HEAD_DIR);
+    let read = |member: &str| -> Result<Vec<u8>> {
+        let path = source.join(member);
+        let data = std::fs::read(&path).with_context(|| format!("reading {}", path.display()))?;
+        reads::read(&path, &data);
+        Ok(data)
+    };
+    let black = Some(catalog::faucet_black());
+    for (name, step_source, stl_source, printable) in [
+        ("industrial-production-display-cover", "sculpted-display-cover-print.step", "sculpted-display-cover.stl", true),
+        ("industrial-production-display-cover-seated", "sculpted-display-cover-seated.step", "sculpted-display-cover-seated.stl", false),
+        ("industrial-production-shell-tip", "faucet-shell-tip.step", "faucet-shell-tip.stl", true),
+    ] {
+        let step = read(step_source)?;
+        let stl = read(stl_source)?;
+        let mesh = printed::payload_for(name, black, &step, &stl)?;
+        printed::keep(&out.join(format!("{name}.step")), &step)?;
+        printed::keep(&out.join(format!("{name}.step.mesh")), &mesh)?;
+        if printable {
+            printed::keep(&out.join(format!("{name}.stl")), &stl)?;
+        }
+    }
+    Ok(())
+}
 
 fn main() -> Result<()> {
     let out = printed::out_dir("hardware/printed-parts/faucet/industrial")?;
@@ -35,6 +65,7 @@ fn main() -> Result<()> {
     }
     let seated_name = "industrial-display-cover-seated";
     println!("{}", write_shown(&out, seated_name, &[Body { name: seated_name, color: black, solid: &seated }])?);
+    write_approved_head(&out)?;
     Ok(())
 }
 

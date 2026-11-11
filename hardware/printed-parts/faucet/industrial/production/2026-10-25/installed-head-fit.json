@@ -1,0 +1,76 @@
+{
+  "schema": 1,
+  "scope": "The installed Industrial faucet uses the approved lowered tip, seated display cover and companion display pose. The signal ribbon follows the lowered PCB within the display pocket and retains its upstream path.",
+  "production_selection": "hardware/printed-parts/faucet/industrial/production-selection.json",
+  "fit_reference": {
+    "commit": "e50eb3e4372a4d5b70248795469c02ed8d51d2d3",
+    "seated_head_review": "hardware/printed-parts/faucet/faucet-display-cover/corner-overlap-review/2026-10-25/native-review.json",
+    "tube_envelope_review": "hardware/printed-parts/faucet/industrial/display-seat-review/2026-10-24/geometry-review.json"
+  },
+  "frozen_part_sha256": {
+    "faucet-shell-tip.step": "8116f77a1d2b1856d6bb1ac9cdfe0bb6a7ba39df765c021acd06e5425138f112",
+    "faucet-shell-tip.stl": "35ec9f0b99c5e90f038836549e6f5e8f112b2af03e1849b08b2d759050d260e6",
+    "sculpted-display-cover-print.step": "7ac44e3f72d43be091287266e27a3f61ccf2a6abd18b7ae85b648facda5b201a",
+    "sculpted-display-cover.stl": "3d4d2e05edde5a0e45aad36e9de072a57103c3b0f8da2bbd875cbfbedbe68133",
+    "sculpted-display-cover-seated.step": "e5e37e5314ed6012ae84adcb164ec8e9d0987f29de16a66a061e3839a8ef7206",
+    "sculpted-display-cover-seated.stl": "09201ad9aafaa1c3de95661d0b62d268a8c1e40ab334e18a290f742e9ee3273e"
+  },
+  "assembly_sha256": {
+    "hardware/faucet-layout/faucet-industrial-assembly.step": "0fe171f8209fbfe10552f2f16b57673de57f5cd16e03500d0a99fab5cea94918",
+    "hardware/faucet-layout/faucet-industrial-assembly.step.mesh": "71d745df6d9a4d7322ca1510ee15294a8c2cb9b0a23f00c11f8838e7b9afdb0b",
+    "hardware/faucet-layout/faucet-industrial-assembly.step.npz": "0f78bec5ac57f5a80f5420d47c45bcf988c2a55a153fcb756e251d4504a7bfb2"
+  },
+  "placement": {
+    "body_count": 37,
+    "changed_bounds": [
+      "display_signal_ribbon",
+      "faucet-display-cover-seated",
+      "faucet_display",
+      "faucet_display_screen",
+      "shell_tip"
+    ],
+    "approved_pose_bound_deltas_mm": {
+      "shell_tip": 0.0,
+      "faucet-display-cover-seated": 0.0,
+      "faucet_display": 0.0,
+      "faucet_display_screen": 0.0
+    }
+  },
+  "mesh_intersection_mm3": {
+    "shell_tip / faucet-display-cover-seated": 0.016942,
+    "shell_tip / faucet_display": 5e-05,
+    "faucet-display-cover-seated / faucet_display": 0.0,
+    "faucet-display-cover-seated / faucet_display_screen": 0.0,
+    "display_signal_ribbon / faucet_display": 0.0,
+    "display_signal_ribbon / shell_tip": 0.088106,
+    "display_signal_ribbon / faucet-display-cover-seated": 0.0,
+    "shell_tip / shell_base": 0.000101,
+    "shell_tip / soda_faucet_tube": 0.0,
+    "shell_tip / flavor_tube_pos_x": 0.0,
+    "shell_tip / flavor_tube_neg_x": 0.0,
+    "shell_tip / drain_tube": 0.0,
+    "faucet_display / soda_faucet_tube": 0.0,
+    "faucet_display / flavor_tube_pos_x": 12.253362,
+    "faucet_display / flavor_tube_neg_x": 12.253361,
+    "faucet_display / drain_tube": 0.0
+  },
+  "contact_depth_mm": {
+    "seated_cover_against_tip": 0.011018,
+    "ribbon_against_tip": 0.050027
+  },
+  "retained_ribbon_contact": {
+    "scope": "All islands lie upstream of the restored display approach.",
+    "local_approach_starts_at_tip_station_mm": 46.5,
+    "contact_tip_station_ranges_mm": [
+      [
+        47.24,
+        92.873
+      ],
+      [
+        93.8,
+        106.741
+      ]
+    ]
+  },
+  "retained_tube_envelope": "The installed conservative display envelope retains the reference overlap with the nominal flexible flavor-tube routes. The production selection links the physical fit of the display, tubes and wiring."
+}

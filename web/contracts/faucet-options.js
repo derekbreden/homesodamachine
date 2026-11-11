@@ -3,7 +3,6 @@
 import { PETGF_BLACK } from "./material-finishes.js";
 import { stepLocation } from "./step-locations.js";
 
-const SHARED_TIP = "printed-parts/faucet/faucet-shell/faucet-shell-tip.step";
 const SHARED_LEVER = "printed-parts/faucet/lever-replica/lever-replica.step";
 
 export const FAUCET_STYLES = [
@@ -14,7 +13,7 @@ export const FAUCET_STYLES = [
     parts: {
       lever: SHARED_LEVER,
       shell_base: "printed-parts/faucet/faucet-shell/faucet-shell-base.step",
-      shell_tip: SHARED_TIP,
+      shell_tip: "printed-parts/faucet/faucet-shell/faucet-shell-tip.step",
       "faucet-display-cover-seated": "printed-parts/faucet/faucet-display-cover/faucet-display-cover.step",
       above_counter_plate: "printed-parts/faucet/above-counter-plate/above-counter-plate.step",
       above_counter_gasket: "printed-parts/faucet/above-counter-gasket/above-counter-gasket.step",
@@ -27,8 +26,8 @@ export const FAUCET_STYLES = [
     parts: {
       lever: SHARED_LEVER,
       shell_base: "printed-parts/faucet/industrial/industrial-shell-base.step",
-      shell_tip: SHARED_TIP,
-      "faucet-display-cover-seated": "printed-parts/faucet/industrial/industrial-display-cover.step",
+      shell_tip: "printed-parts/faucet/industrial/industrial-production-shell-tip.step",
+      "faucet-display-cover-seated": "printed-parts/faucet/industrial/industrial-production-display-cover.step",
       above_counter_plate: "printed-parts/faucet/industrial/industrial-above-counter-plate.step",
       above_counter_gasket: "printed-parts/faucet/industrial/industrial-above-counter-gasket.step",
     },
