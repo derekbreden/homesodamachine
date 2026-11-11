@@ -46,16 +46,14 @@ cooling and printer calibration. The [contact comparison](https://github.com/der
 reads the emitted interface and model bead envelopes; it does not measure
 molten material or removal force.
 
-The [active nonplanar Mark1 trial](prints/2026-11-10-faucet-nonplanar-bands-mark1/print-job.json)
-prints the same complete faucet coupon, with bounded contact bands near its
-inclined underside. The dense roof and requested gap retain the completed
-control. The [recipe](nonplanar/README.md) restores both the model and support
+The [active nonplanar Mark1 trial](prints/2026-11-10-faucet-nonplanar-gap024-widebands-mark1/print-job.json)
+prints the same complete faucet coupon and dense roof, with longer bounded
+contact bands and a smaller requested gap. The [recipe](nonplanar/README.md) restores both the model and support
 paths from the mapped native slice. Derek's
 [partial-run observation](prints/2026-11-10-faucet-nonplanar-bands-mark1/in-progress-observation.json)
-reports clean motion and a clean head while that article is printing. The
-[prepared longer-band plate](prints/2026-11-10-faucet-nonplanar-gap024-widebands-mark1/print-job.json)
-retains the complete article and dense roof, with a smaller requested gap and
-longer continuous sloping runs. It has not been submitted. Record whether
+reports clean motion and a clean head during the stopped wider-gap article.
+The [launch](prints/2026-11-10-faucet-nonplanar-gap024-widebands-mark1/launch.json)
+binds the active plate to its printer acceptance. Record whether
 the mat releases, stems break, contact material remains, or a model course peels
 away. Photograph the underside and removed mat together. A useful planar condition
 next needs the actual faucet lower curve in its production pose before it

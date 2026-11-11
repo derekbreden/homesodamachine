@@ -1,7 +1,7 @@
 {
-  "purpose": "Prepare the same complete faucet coupon with longer nonplanar contact bands and a smaller gap for Mark1.",
-  "status": "PREPARED_NOT_SUBMITTED",
-  "submitted": false,
+  "purpose": "Print the complete faucet coupon with longer nonplanar contact bands and a smaller gap on Mark1.",
+  "status": "RUNNING; printer accepted the reviewed archive and is in startup without a reported error.",
+  "submitted": true,
   "printer": "Mark1",
   "connection_key": "H2C",
   "nozzle": {
@@ -67,7 +67,6 @@
   "bead_review": "bead-review.json",
   "executable_review": "executable-review.json",
   "physical_result": "pending",
-  "start_condition": "Derek is stopping and inspecting the preceding trial. This preparation sends no printer commands.",
   "send_options": {
     "timelapse": "On",
     "bed_leveling": "On",
@@ -87,5 +86,13 @@
       "title": "Installed Bambu Studio Tree Slim support generation",
       "url": "https://github.com/bambulab/BambuStudio/blob/v02.08.02.61/src/libslic3r/Support/TreeSupport.cpp"
     }
-  ]
+  ],
+  "preparation_start_condition": "Derek is stopping and inspecting the preceding trial. This preparation sends no printer commands.",
+  "launch_authorization": "Please start it.",
+  "printer_task_id": "1429891846",
+  "accepted_observed_at": "2026-11-11T01:17:13+00:00",
+  "launch": "launch.json",
+  "prelaunch_printers": "prelaunch-printers.json",
+  "startup_status": "startup-status.json",
+  "shared_circuit": "Mark2 continues its existing back-bottom job; no opposite-printer startup is concurrent."
 }
