@@ -31,11 +31,32 @@
     "launch": "hardware/printed-parts/cold-core/foam-cap/prints/2026-10-31-bottom-pair/mark2/launch.json"
   },
   "HSM-0033": {
-    "title": "Magnetic level floats · ASA Aero · Mark2",
-    "sha256": "11545b5957a4299f09919b9e95fc80733064941373c97c99dbd07cead70cf54b",
-    "slice": "hardware/printed-parts/cold-core/magnetic-float/all-aero/mark2-print/three-close-v1/2026-10-08-three-floats-close-asa-aero-right04-engineering-mark2.gcode.3mf",
+    "title": "Magnetic level float · Mark2 print plan",
+    "recipe": "hardware/printed-parts/cold-core/magnetic-float/all-aero/prepare_print.rs",
+    "recipe_commit": "f5e8bed0919827aec6fba620a4b8f15010b70d3d",
+    "project_sha256": "2016ffeafcbb08626703f0e1fac71f1673f925c89e8fbd7d332b99a27b4e2cb6",
+    "archive_sha256": "831633aed61216a9913c199f903514d835b6d28d4682e1efe9a637c0f0a1b482",
+    "gcode_sha256": "a9af3bd7699dc6d3a081302ac6811a475edf49b32c59add029218a3ef95fd4e9",
+    "kind": "plan",
+    "sha256": "35fbbf7e0a9adac7382b776c4f1a38d6fcce68569be6cc0839c1cb841fd86cb4",
+    "slice": "magnetic-float-all-aero-mark2-v2.gcode.3mf",
     "plate": 1,
-    "source_commit": "f91f00712597b900b2b9fc43def45f19ea844c43"
+    "layers": 140,
+    "process": {
+      "Material": "Bambu ASA Aero, white",
+      "Printer": "Mark2",
+      "Nozzle": "Right 0.4 mm hardened Standard",
+      "Build plate": "Engineering Plate with glue",
+      "Walls": "Nested perimeters throughout",
+      "Infill": "None",
+      "Flow ratio": "0.52",
+      "Magnet insertion": "Manual pause after layer 80, before the covering course",
+      "Layer heights": "0.2 mm first, 0.2 mm nominal",
+      "Supports": "None in emitted slice",
+      "Bridge flow": "0.7",
+      "Process bridge speed": "50 mm/s"
+    },
+    "model_sha256": "2228d0933e0a2a7bdd9dd8d6fce4d003a48ac61db1c69f402e5fa5047ae1cef5"
   },
   "HSM-0062": {
     "title": "Enclosure identification set · Mark1",

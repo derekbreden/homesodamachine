@@ -8,9 +8,8 @@
 #hsm-motion-playback .motion-controls label { display: flex; flex-wrap: wrap; align-items: center; gap: .5em; }
 #hsm-motion-playback .motion-scrubber { display: grid; gap: .25em; }
 #hsm-motion-playback .motion-legend { display: flex; flex-wrap: wrap; gap: .5em 1.25em; }
-#hsm-motion-playback .motion-legend span { display: inline-flex; align-items: center; gap: .4em; }
-#hsm-motion-playback .motion-swatch { width: 1em; height: .3em; background: var(--viz-series-1); }
-#hsm-motion-playback .motion-swatch.support { background: var(--viz-series-2); }
+#hsm-motion-playback .motion-legend span:not([hidden]) { display: inline-flex; align-items: center; gap: .4em; }
+#hsm-motion-playback .motion-swatch { width: 1em; height: .3em; }
 #hsm-motion-playback .motion-loading { position: absolute; inset: 0; display: grid; place-items: center; color: var(--muted-foreground); }
 #hsm-motion-playback input[type="range"] { width: 100%; }
 @media(max-width: 420px) { #hsm-motion-playback .motion-stage { aspect-ratio: 1.1; } }
@@ -38,14 +37,17 @@
         <option value="print">Print</option><option value="follow">Follow nozzle</option><option value="machine">Whole printer</option>
       </select>
     </label>
+    <!--PRINT_SETTINGS-->
   </div>
   <label class="form-label motion-scrubber">
     <span class="motion-status tabular-nums"><span>Estimated motion time</span><span id="motion-time"></span></span>
     <input type="range" class="form-range" id="motion-scrub" min="0" max="1000" value="0" step="1" aria-label="Print motion timeline">
   </label>
   <div class="motion-legend text-small text-muted">
-    <span><i class="motion-swatch" aria-hidden="true"></i>Deposited model</span>
-    <span><i class="motion-swatch support" aria-hidden="true"></i>Deposited support</span>
+    <span data-road-kind="0" hidden><i class="motion-swatch" aria-hidden="true"></i>Model</span>
+    <span data-road-kind="1" hidden><i class="motion-swatch" aria-hidden="true"></i>Support</span>
+    <span data-road-kind="2" hidden><i class="motion-swatch" aria-hidden="true"></i>Support interface</span>
+    <span data-road-kind="3" hidden><i class="motion-swatch" aria-hidden="true"></i>Bridge</span>
     <span id="motion-timing-method">Acceleration + braking estimate · simplified H2C hardware</span>
     <span>Firmware actions and waits excluded</span>
   </div>
@@ -71,11 +73,20 @@ async function decompress(text) {
   const stream = new Blob([bytes(text)]).stream().pipeThrough(new DecompressionStream("gzip"));
   return new DataView(await new Response(stream).arrayBuffer());
 }
-let track, roads;
+const sampleStride = 15;
+const roadStride = 15;
+let track, roads, packedRoadKinds;
 const surfacePaths = data.sampled?.surface_paths === true;
 if (data.sampled) {
   try {
-    [track, roads] = await Promise.all([decompress(data.sampled.track), decompress(data.sampled.roads)]);
+    [track, roads, packedRoadKinds] = await Promise.all([
+      decompress(data.sampled.track),
+      decompress(data.sampled.roads),
+      data.sampled.road_kinds ? decompress(data.sampled.road_kinds) : null,
+    ]);
+    if (packedRoadKinds && packedRoadKinds.byteLength * roadStride !== roads.byteLength) {
+      throw new Error("Print road categories do not match the deposited paths");
+    }
   } catch (error) {
     $("motion-loading").textContent = "Unable to decode print motion";
     throw error;
@@ -91,8 +102,6 @@ const layers = detail && new Uint16Array(bytes(detail.layers));
 const flags = detail && new Uint8Array(bytes(detail.flags));
 const dimensions = detail && new Uint8Array(bytes(detail.dimensions));
 const featureIds = detail && new Uint8Array(bytes(detail.feature_ids));
-const sampleStride = 15;
-const roadStride = 15;
 const count = track ? track.byteLength / sampleStride : flags.length;
 const point = (i, target = new THREE.Vector3()) => target.set(coordinates[3*i]/100,coordinates[3*i+1]/100,coordinates[3*i+2]/100);
 const endTime = (i) => profiles[6*i];
@@ -149,7 +158,15 @@ const cone=new THREE.Mesh(coneGeometry,tipMaterial);cone.position.z=2;head.add(c
 const extrusionMoves=[];
 if (flags) for (let i = 0; i < count; i++) if (flags[i]) extrusionMoves.push(i);
 const roadCount = roads ? roads.byteLength / roadStride : extrusionMoves.length;
-const roadSupport = new Uint8Array(roadCount);
+const roadKinds = new Uint8Array(roadCount);
+const presentRoadKinds = new Set();
+const roadColorTokens = ["viz-series-1", "viz-series-2", "viz-series-3", "viz-series-4"];
+const roadLegend = root.querySelectorAll("[data-road-kind]");
+function detailedRoadKind(feature) {
+  if (feature === "Support interface") return 2;
+  if (feature.startsWith("Support")) return 1;
+  return feature === "Bridge" || feature === "Internal Bridge" ? 3 : 0;
+}
 const roadVertices = surfacePaths ? 2 : 8;
 const roadCoordinates = roadVertices * 3;
 const roadPositions = new Float32Array(roadCount * roadCoordinates);
@@ -177,15 +194,16 @@ for (let road = 0; road < roadCount; road++) {
     roadPoint(offset + 6, b);
     width = roads.getUint8(offset + 12);
     height = roads.getUint8(offset + 13);
-    roadSupport[road] = roads.getUint8(offset + 14);
+    roadKinds[road] = packedRoadKinds ? packedRoadKinds.getUint8(road) : roads.getUint8(offset + 14);
   } else {
     const movement = extrusionMoves[road];
     point(movement, a);
     point(movement + 1, b);
     width = dimensions[2 * movement];
     height = dimensions[2 * movement + 1];
-    roadSupport[road] = Number(data.features[featureIds[movement]].startsWith("Support"));
+    roadKinds[road] = detailedRoadKind(data.features[featureIds[movement]]);
   }
+  presentRoadKinds.add(roadKinds[road]);
   bounds.expandByPoint(a).expandByPoint(b);
   const offset = road * roadCoordinates;
   if (surfacePaths) {
@@ -197,6 +215,9 @@ for (let road = 0; road < roadCount; road++) {
       roadIndices[road * topology.length + corner] = road * roadVertices + topology[corner];
     }
   }
+}
+for (const label of roadLegend) {
+  label.hidden = !presentRoadKinds.has(Number(label.dataset.roadKind));
 }
 const roadGeometry = new THREE.BufferGeometry();
 roadGeometry.setAttribute("position", new THREE.BufferAttribute(roadPositions, 3));
@@ -215,16 +236,19 @@ liveGeometry.setAttribute("color",new THREE.BufferAttribute(new Float32Array(24)
 liveGeometry.setIndex(topology);
 const liveBead=new THREE.Mesh(liveGeometry,modelMaterial);bed.add(liveBead);
 liveBead.frustumCulled=false;
-let modelColor, supportColor;
+let roadPalette;
 function recolor() {
   hardware.color.copy(palette("muted-foreground"));
   frameMaterial.color.copy(palette("foreground"));
   plateMaterial.color.copy(palette("secondary"));
   tipMaterial.color.copy(palette("viz-series-1"));
-  modelColor = palette("viz-series-1").toArray();
-  supportColor = palette("viz-series-2").toArray();
+  roadPalette = roadColorTokens.map(token => palette(token).toArray());
+  for (const label of roadLegend) {
+    const token = roadColorTokens[Number(label.dataset.roadKind)];
+    label.querySelector(".motion-swatch").style.backgroundColor = theme.cssColor(token);
+  }
   for (let road = 0; road < roadCount; road++) {
-    const color = roadSupport[road] ? supportColor : modelColor;
+    const color = roadPalette[roadKinds[road]] ?? roadPalette[0];
     for (let vertex = 0; vertex < roadVertices; vertex++) {
       roadColors.set(color, road * roadCoordinates + vertex * 3);
     }
@@ -307,7 +331,7 @@ function detailedPose(time, current) {
   if(liveBead.visible){
     beadVertices(a,current,dimensions[2*movement]/100,dimensions[2*movement+1]/100,liveGeometry.attributes.position.array);
     liveGeometry.attributes.position.needsUpdate=true;liveGeometry.computeVertexNormals();
-    const color = roadSupport[low] ? supportColor : modelColor;
+    const color = roadPalette[roadKinds[low]] ?? roadPalette[0];
     for(let k=0;k<8;k++)liveGeometry.attributes.color.array.set(color,k*3);
     liveGeometry.attributes.color.needsUpdate=true;
   }
