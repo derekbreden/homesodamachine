@@ -1,0 +1,26 @@
+{
+  "archive": {
+    "gcode_sha256": "bcd579f69eb841cbbd0607f90721cd36ccb9c51cf41774861122b2f61fe4f9d3",
+    "name": "faucet-nonplanar-bands-left04-z018-mark1-print-only.gcode.3mf",
+    "objects": [
+      "FD Faucet base through first lower curve"
+    ],
+    "sha256": "28edda9f6f5ef9bbcce4bcbde0c5e44e496e887b4ba88497f017c547d6d9a102",
+    "slots": {
+      "1": {
+        "colour": "000000",
+        "type": "PET-CF"
+      }
+    }
+  },
+  "gcode_state": "RUNNING",
+  "hms": [],
+  "layer_num": 0,
+  "mc_remaining_time": 80,
+  "observed_at": "2026-11-11T00:18:48+00:00",
+  "print_error": 0,
+  "printer": "H2C",
+  "printer_task_id": "1429748793",
+  "subtask_name": "faucet-nonplanar-bands-left04-z018-mark1-print-only.gcode.3mf",
+  "total_layer_num": 134
+}

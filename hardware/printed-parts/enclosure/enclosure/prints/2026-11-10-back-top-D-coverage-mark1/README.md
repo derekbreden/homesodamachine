@@ -16,5 +16,5 @@ themselves constrain every generated branch route.
 
 The printed solid retains the stopped article's hash. Contact targets, bridge
 directions and exclusion metadata are the preparation changes. Physical release
-of curved contacts remains unqualified; the [active faucet trial](../../../../../print-tests/petgf-dense-roofs/inclines/prints/2026-11-10-faucet-slim-gap048-mark1/print-job.json)
-tests a larger contact gap with the dense roof retained.
+of curved contacts remains unqualified; the [active faucet trial](../../../../../print-tests/petgf-dense-roofs/inclines/prints/2026-11-10-faucet-nonplanar-bands-mark1/print-job.json)
+tests bounded nonplanar contact bands with the dense roof and larger gap retained.

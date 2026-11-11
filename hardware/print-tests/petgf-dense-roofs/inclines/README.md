@@ -37,13 +37,20 @@ bead envelopes through the native renderer. Model stock, support stems and dense
 interface paths have separate display colors. The envelopes illustrate the slice;
 they do not simulate molten material, sagging or adhesion.
 
-The planar plates are prepared and unprinted. The [active Mark1 faucet trial](prints/2026-11-10-faucet-slim-gap048-mark1/print-job.json)
-increases the top contact gap on the same article after the
+The planar plates are prepared and unprinted. The [completed larger-gap Mark1 trial](https://github.com/derekbreden/homesodamachine/blob/416bf47e9ded600fa3a0c7d19855d87d20b8b893/hardware/print-tests/petgf-dense-roofs/inclines/prints/2026-11-10-faucet-slim-gap048-mark1/physical-result/physical-result.json)
+records easier support removal with connected roof mats and essentially
+unchanged underside finish. It increases the top contact gap after the
 [completed Slim trial](https://github.com/derekbreden/homesodamachine/blob/1fe50e4ff3209adc4afd6299082bfca21cd8511c/hardware/print-tests/petgf-dense-roofs/inclines/prints/2026-11-10-faucet-slim-mark1/print-job.json)
 failed release. It retains the dense interface, model, pose, side clearance,
-cooling and printer calibration. The [contact comparison](prints/2026-11-10-faucet-slim-gap048-mark1/separation.json)
+cooling and printer calibration. The [contact comparison](https://github.com/derekbreden/homesodamachine/blob/416bf47e9ded600fa3a0c7d19855d87d20b8b893/hardware/print-tests/petgf-dense-roofs/inclines/prints/2026-11-10-faucet-slim-gap048-mark1/separation.json)
 reads the emitted interface and model bead envelopes; it does not measure
-molten material or removal force. Record whether
+molten material or removal force.
+
+The [active nonplanar Mark1 trial](prints/2026-11-10-faucet-nonplanar-bands-mark1/print-job.json)
+prints the same complete faucet coupon, with bounded contact bands near its
+inclined underside. The dense roof and requested gap retain the completed
+control. The [recipe](nonplanar/README.md) restores both the model and support
+paths from the mapped native slice. Record whether
 the mat releases, stems break, contact material remains, or a model course peels
 away. Photograph the underside and removed mat together. A useful planar condition
 next needs the actual faucet lower curve in its production pose before it
