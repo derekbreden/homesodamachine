@@ -13,6 +13,7 @@ import { promisify } from "node:util";
 import { isScorecard } from "../contracts/scorecard-sidecar.js";
 import { isArchivedDocumentFile, isCommittedDocumentFile } from "../contracts/documents.js";
 import { websitePointers } from "../contracts/artifact-scope.js";
+import { carryPrintPlaybacks } from "./print-playback.js";
 
 const run = promisify(execFile);
 
@@ -360,7 +361,7 @@ export function mountArtifactsLive(app, ctx) {
 
   const timer = setInterval(() => {
     refreshArtifacts(ctx);
-    Promise.allSettled([carryChecks(),carryBuildTimes()]);
+    Promise.allSettled([carryChecks(), carryBuildTimes(), carryPrintPlaybacks()]);
   }, POLL_MS);
   timer.unref();
   return timer;

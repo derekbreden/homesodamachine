@@ -8,17 +8,17 @@ const button = (text, label) => {
   return node;
 };
 
-// The workspace owns navigation and document controls. The embedded reader
-// renders the sheet; its camera-bearing model stays mounted behind it.
+// The material workspace switches views and keeps its camera-bearing model mounted.
 export function mountMaterialDrawing(wrapper) {
   const workspace = wrapper.closest(".cad-workspace");
   const switcher = document.createElement("div");
   switcher.className = "material-view-switch";
   switcher.setAttribute("role", "group"); switcher.setAttribute("aria-label", "Material view");
   switcher.hidden = true;
-  const model = button("3D"), drawing = button("Drawing");
-  model.setAttribute("aria-pressed", "true"); drawing.setAttribute("aria-pressed", "false");
-  switcher.append(model, drawing);
+  const model = button("3D"), drawing = button("Drawing"), print = button("Print");
+  const modes = { model, drawing, print };
+  for (const [name, control] of Object.entries(modes)) control.setAttribute("aria-pressed", String(name === "model"));
+  switcher.append(model);
   workspace.querySelector(".cad-view-slot").append(switcher);
 
   const tools = document.createElement("div"); tools.className = "drawing-tools"; tools.hidden = true;
@@ -49,17 +49,22 @@ export function mountMaterialDrawing(wrapper) {
   menuBody.append(menuZoom, pages, full, download); menu.append(summary, menuBody);
   tools.append(zoom, menu); workspace.querySelector(".cad-document-slot").append(tools);
 
-  let selected = null, frame = null, showing = false;
+  let selected = null, frame = null, replay = null, printFrame = null, mode = "model";
   const command = (command, extra = {}) => frame?.contentWindow?.postMessage({
     type: HSM_EVENTS.DOCUMENT_COMMAND, command, ...extra,
   }, location.origin);
-  function showModel() {
-    if (!showing) return false;
-    showing = false; menu.open = false; tools.hidden = true;
-    wrapper.classList.remove("drawing-open");
-    if (frame) frame.hidden = true;
-    model.setAttribute("aria-pressed", "true"); drawing.setAttribute("aria-pressed", "false");
-    if (wrapper.isConnected) startAnimate();
+  function show(nextMode) {
+    if (mode === nextMode) return false;
+    mode = nextMode;
+    menu.open = false;
+    tools.hidden = mode !== "drawing";
+    if (frame) frame.hidden = mode !== "drawing";
+    if (mode !== "print") { printFrame?.remove(); printFrame = null; }
+    wrapper.classList.toggle("drawing-open", mode === "drawing");
+    wrapper.classList.toggle("print-open", mode === "print");
+    for (const [name, control] of Object.entries(modes)) control.setAttribute("aria-pressed", String(name === mode));
+    if (mode !== "model") stopAnimate();
+    else if (wrapper.isConnected) startAnimate();
     return true;
   }
   function showDrawing(doc = selected) {
@@ -72,26 +77,52 @@ export function mountMaterialDrawing(wrapper) {
       frame.addEventListener("load", () => command("state"));
       wrapper.append(frame);
     }
-    showing = true; frame.hidden = false; tools.hidden = false;
-    wrapper.classList.add("drawing-open");
-    model.setAttribute("aria-pressed", "false"); drawing.setAttribute("aria-pressed", "true");
-    stopAnimate();
+    show("drawing");
   }
   function setDrawing(doc) {
     if (selected?.path === doc?.path) { selected = doc; return; }
-    showModel(); frame?.remove(); frame = null; selected = doc;
-    switcher.hidden = !doc;
+    if (mode === "drawing") show("model");
+    frame?.remove(); frame = null; selected = doc;
     for (const control of [out, fit, into, menuOut, menuIn]) control.disabled = true;
     if (doc) {
       const path = doc.path.split("/").map(encodeURIComponent).join("/");
       full.href = "/read/" + path; download.href = "/docs/" + path + "?download=1";
       drawing.title = doc.title;
-    }
+      model.after(drawing);
+    } else drawing.remove();
+    switcher.hidden = !selected && !replay;
   }
-  const mounted = () => { if (showing) stopAnimate(); };
+  function setPrint(id, entry) {
+    if (replay?.id === id && replay?.sha256 === entry?.sha256 && replay?.title === entry?.title) return;
+    if (mode === "print") show("model");
+    replay = entry ? { ...entry, id } : null;
+    if (replay) switcher.append(print);
+    else print.remove();
+    switcher.hidden = !selected && !replay;
+  }
+  function showPrint() {
+    if (!replay || printFrame) return;
+    printFrame = document.createElement("iframe");
+    printFrame.className = "material-print-view";
+    printFrame.title = replay.title;
+    printFrame.setAttribute("sandbox", "allow-scripts");
+    printFrame.src = "/print-playback/" + encodeURIComponent(replay.id);
+    wrapper.append(printFrame);
+    show("print");
+  }
+  function closeView() {
+    const closed = show("model");
+    if (closed) model.focus();
+    return closed;
+  }
+  const mounted = () => { if (mode !== "model") stopAnimate(); };
   const message = event => {
+    if (event.source === printFrame?.contentWindow && event.origin === "null" && event.data?.type === HSM_EVENTS.DOCUMENT_ESCAPE) {
+      closeView();
+      return;
+    }
     if (!frame || event.source !== frame.contentWindow || event.origin !== location.origin) return;
-    if (event.data?.type === HSM_EVENTS.DOCUMENT_ESCAPE) { showModel(); model.focus(); }
+    if (event.data?.type === HSM_EVENTS.DOCUMENT_ESCAPE && mode === "drawing") closeView();
     if (event.data?.type !== HSM_EVENTS.DOCUMENT_STATE) return;
     const state = event.data;
     out.disabled = !state.ready || state.zoom <= 0.5;
@@ -109,12 +140,12 @@ export function mountMaterialDrawing(wrapper) {
   next.addEventListener("click", () => command("page", { page: Number(page.value) + 1 }));
   page.addEventListener("change", () => command("page", { page: page.value }));
   page.addEventListener("keydown", event => { if (event.key === "Enter") { command("page", { page: page.value }); page.blur(); } });
-  model.addEventListener("click", showModel); drawing.addEventListener("click", () => showDrawing());
+  model.addEventListener("click", () => show("model"));
+  drawing.addEventListener("click", () => showDrawing());
+  print.addEventListener("click", showPrint);
   window.addEventListener(HSM_EVENTS.STEP_MOUNTED, mounted); window.addEventListener("message", message);
-  return { setDrawing, showDrawing, drawingPath: () => selected?.path, showing: () => showing, closeDrawing: () => {
-    const closed = showModel(); if (closed) model.focus(); return closed;
-  }, dispose: () => {
+  return { setDrawing, setPrint, showDrawing, drawingPath: () => selected?.path, closeView, dispose: () => {
     window.removeEventListener(HSM_EVENTS.STEP_MOUNTED, mounted); window.removeEventListener("message", message);
-    frame?.remove(); switcher.remove(); tools.remove();
+    frame?.remove(); printFrame?.remove(); switcher.remove(); tools.remove();
   } };
 }

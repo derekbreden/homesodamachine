@@ -342,6 +342,7 @@ export function mountMaterialPanel(workspace, { file = null, material = null } =
     const drawings = current?.documents?.filter(doc => doc.kind === "engineering-drawing" && doc.path.endsWith(".pdf")) || [];
     const activeDrawing = drawings.find(doc => doc.path === drawingView?.drawingPath()) || drawings[0];
     drawingView?.setDrawing(activeDrawing || null);
+    drawingView?.setPrint(current?.id, state.materialCatalog?.printPlaybacks?.[current?.id]);
     headHost.replaceChildren(head);
     const focus = current || rootMaterial;
     const rows = focus ? explodeBom(state.materialCatalog, focus.id, options())
@@ -711,7 +712,7 @@ export function mountMaterialPanel(workspace, { file = null, material = null } =
     if (file && mountedFile !== lastFile) {
       stopLocations(); pendingInstance = null;
       // Another model: its own material, nothing selected, under the camera it opened with.
-      drawingView?.closeDrawing();
+      drawingView?.closeView();
       selectedBody = null; pending = null; status = ""; modelPick = false;
       lastFile = mountedFile; root = materialForFile(state.materialCatalog, mountedFile)?.id; selected = root; selectedPath = []; expanded.clear(); tab = null;
       render();
@@ -782,7 +783,7 @@ export function mountMaterialPanel(workspace, { file = null, material = null } =
     render();
     showInstalled();
   }
-  const handle = { select, setRoot, sync, applyRoute, leave, closeDrawing: () => drawingView?.closeDrawing(), dispose: () => {
+  const handle = { select, setRoot, sync, applyRoute, leave, closeView: () => drawingView?.closeView(), dispose: () => {
     disposed = true;
     stopLocations();
     drawingView?.dispose();
