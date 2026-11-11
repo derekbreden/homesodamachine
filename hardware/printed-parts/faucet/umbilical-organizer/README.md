@@ -65,7 +65,7 @@ The flavor R30 and drain R25 returns begin 3 mm below the organizer's bottom and
 ## Print
 
 The reusable [editable project](umbilical-organizer-petgf.3mf) uses the
-[shared PET-GF support profile](../../petgf.3mf) and
+[shared PET-GF infill and support settings](../../petgf.3mf) and
 [localized cooling](../../cooling/README.md) on Mark2's abrasive left nozzle.
 The flat print keeps the passages vertical and emits bridges without support
 inside the bores. Re-slice the editable project for new printing.
