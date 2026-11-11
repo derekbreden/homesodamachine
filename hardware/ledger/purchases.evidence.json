@@ -7271,15 +7271,37 @@
     "pur-c3762dd3108646668a81c4ce2e3943cc": {
       "vendor": "XLaserlab",
       "purpose": "equipment_tooling",
-      "amount_evidence": "legacy_unverified",
+      "amount_evidence": "final_vendor_amount",
       "order_ids": [
         "xlaserlab:XLaserlab3271"
       ],
       "allocation_status": "all_project",
       "source_ids": [
         "legacy-ledger-2026",
-        "saved-xlaserlab:XLaserlab3271"
-      ]
+        "saved-xlaserlab:XLaserlab3271",
+        "src-160558b7bebd452282f9f257cfb1cbca"
+      ],
+      "price_history": [
+        {
+          "amount_minor": 389900,
+          "currency": "USD",
+          "amount_evidence": "legacy_unverified",
+          "source_ids": [
+            "legacy-ledger-2026",
+            "saved-xlaserlab:XLaserlab3271"
+          ],
+          "verified_at": "2026-11-11",
+          "note": "Prior ledger value preserved as noncontributing history; the paid vendor receipt confirms the same amount."
+        }
+      ],
+      "receipt_date": {
+        "precision": "day",
+        "value": "2026-04-05"
+      },
+      "invoice_date": {
+        "precision": "day",
+        "value": "2026-04-05"
+      }
     },
     "pur-c08cee116c73400bae488deb2d2015f4": {
       "vendor": "Amazon",
@@ -14024,7 +14046,8 @@
       },
       "allocation_status": "all_project",
       "source_ids": [
-        "saved-xlaserlab:XLaserlab3271"
+        "saved-xlaserlab:XLaserlab3271",
+        "src-160558b7bebd452282f9f257cfb1cbca"
       ]
     },
     "amazon:112-5001639-8705857": {
@@ -20208,6 +20231,31 @@
       "order_ids": [
         "amazon:112-1175582-2386612"
       ]
+    },
+    {
+      "event_id": "evt-0dd1678555e5406590e6b25b16d55d75",
+      "vendor": "XLaserlab",
+      "event_type": "charge",
+      "confirmation": "confirmed",
+      "event_date": null,
+      "amount_minor": 389900,
+      "currency": "USD",
+      "allocation_status": "all_project",
+      "source_ids": [
+        "src-160558b7bebd452282f9f257cfb1cbca"
+      ],
+      "verified_at": "2026-11-11",
+      "order_ids": [
+        "xlaserlab:XLaserlab3271"
+      ],
+      "receipt_date": {
+        "precision": "day",
+        "value": "2026-04-05"
+      },
+      "invoice_date": {
+        "precision": "day",
+        "value": "2026-04-05"
+      }
     }
   ],
   "allocations": [
@@ -21921,6 +21969,14 @@
       "purchase_id": "pur-6f3e90aba9734990a07d1e24f1f75a86",
       "order_id": "amazon:112-1175582-2386612",
       "amount_minor": 964,
+      "currency": "USD"
+    },
+    {
+      "allocation_id": "alloc-9ba3a70a3c0b41649fbf4e8c2d6e2125",
+      "event_id": "evt-0dd1678555e5406590e6b25b16d55d75",
+      "purchase_id": "pur-c3762dd3108646668a81c4ce2e3943cc",
+      "order_id": "xlaserlab:XLaserlab3271",
+      "amount_minor": 389900,
       "currency": "USD"
     }
   ],
@@ -33872,6 +33928,31 @@
       "proves": [],
       "verified_at": "2026-11-11",
       "note": "Exact order details retain the IEAWISL washer assortment identity and USD 9.64 order total. The arrival banner remains a relative estimate, not actual delivery. The order-scoped merchant transaction is In Progress / Pending, dated November 11. No completed charge or actual delivery is established."
+    },
+    "src-160558b7bebd452282f9f257cfb1cbca": {
+      "vendor": "XLaserlab",
+      "document_type": "paid_merchant_receipt_invoice",
+      "reference": "XLaserlab3271 Receipt / Tax Invoice",
+      "document_date": {
+        "precision": "day",
+        "value": "2026-04-05"
+      },
+      "receipt_date": {
+        "precision": "day",
+        "value": "2026-04-05"
+      },
+      "invoice_date": {
+        "precision": "day",
+        "value": "2026-04-05"
+      },
+      "proves": [
+        "price",
+        "charge",
+        "receipt_date",
+        "invoice_date"
+      ],
+      "verified_at": "2026-11-11",
+      "note": "Both merchant document links open the same Receipt / Tax Invoice XLaserlab3271 dated April 5, 2026. It identifies one X1 Pro Ultimate Pack / US Plug, SKU D02AA273, with USD 3,899.00 subtotal, USD 0.00 shipping and USD 3,899.00 total. Explicit Total paid USD 3,899.00 confirms payment. No separate transaction/payment date or placed-order date is labeled; receipt/invoice date is not used as the charge date. No separate tax line is displayed."
     }
   },
   "coverage": [
@@ -35908,6 +35989,26 @@
         "amazon:112-1175582-2386612"
       ],
       "note": "Three delivery notifications matched to exact signed-in order details, explicit locally dated delivery timelines and order-scoped Completed transactions. Existing purchase, payment and allocation identities are retained. The washer order remains undelivered with a pending merchant transaction. These order-level checks do not establish broader account coverage or remaining usable stock."
+    },
+    {
+      "coverage_id": "coverage-07575d26f1b2453ba683076fe7b7fa9c",
+      "vendor": "XLaserlab",
+      "stream": "one named X1 Pro purchase",
+      "evidence_type": "paid_receipt_invoice",
+      "checked_at": "2026-11-11",
+      "examined_period": {
+        "start": "2026-04-05",
+        "end": "2026-04-06"
+      },
+      "complete_period": null,
+      "coverage": "partial",
+      "source_ids": [
+        "src-160558b7bebd452282f9f257cfb1cbca"
+      ],
+      "order_ids": [
+        "xlaserlab:XLaserlab3271"
+      ],
+      "note": "The named confirmation email and both linked receipt/invoice documents were examined; both links resolve to the same paid document, recorded once. It confirms purchase value and payment, with a distinct April 5 receipt/invoice date. The separately recorded April 6 order date is preserved rather than replaced by a document date. A separate merchant charge day and broader account coverage remain unestablished."
     }
   ],
   "gaps": [
