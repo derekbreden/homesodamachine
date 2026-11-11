@@ -92,6 +92,66 @@
         "source_component_id": 2402
       }
     ],
+    "fin_layout": {
+      "fins": [
+        {
+          "angles_degrees": [
+            -110.5,
+            -69.5
+          ],
+          "part_id": 16
+        },
+        {
+          "angles_degrees": [
+            -65.5,
+            -24.5
+          ],
+          "part_id": 17
+        },
+        {
+          "angles_degrees": [
+            -20.5,
+            20.5
+          ],
+          "part_id": 18
+        },
+        {
+          "angles_degrees": [
+            24.5,
+            56.505292695976095
+          ],
+          "part_id": 19
+        },
+        {
+          "angles_degrees": [
+            123.4947073040239,
+            155.5
+          ],
+          "part_id": 20
+        },
+        {
+          "angles_degrees": [
+            159.5,
+            200.5
+          ],
+          "part_id": 21
+        },
+        {
+          "angles_degrees": [
+            204.5,
+            245.5
+          ],
+          "part_id": 22
+        }
+      ],
+      "foot_splay_per_height": 0.28,
+      "maximum_foot_splay_mm": 4.0,
+      "radial_allowance_mm": [
+        -0.4,
+        0.5
+      ],
+      "setback_from_seat_mm": 0.96
+    },
     "object_settings": {
       "brim_type": "no_brim"
     },
@@ -152,7 +212,6 @@
       140.12491558071855,
       7.635161830524368
     ],
-    "segmented_fins": false,
     "source_archive": "hardware/print-tests/petgf-dense-roofs/inclines/prints/2026-11-10-faucet-nonplanar-rim-fins-mark1/faucet-nonplanar-rim-fins-insert-bridges-left04-z018-mark1.gcode.3mf",
     "source_archive_sha256": "dfa8d1a52e70a39c6c28c1082ce25b2af608c63a1984c143eaeda0415354da5a",
     "source_commit": "40e364be6749339bf892c49263a5c9d6c5560ca0",
@@ -337,21 +396,21 @@
           22.5,
           -2.0
         ],
-        "part_id": 16
+        "part_id": 23
       },
       {
         "cad_center_mm": [
           -22.5,
           -2.0
         ],
-        "part_id": 17
+        "part_id": 24
       },
       {
         "cad_center_mm": [
           0.0,
           -22.3
         ],
-        "part_id": 18
+        "part_id": 25
       }
     ],
     "counterbore_radius_mm": 3.075,
@@ -661,7 +720,7 @@
   },
   "profile_source": "hardware/printed-parts/faucet/faucet-display-cover/prints/2026-10-25-front-overlap-black-mark2/2026-10-25-sculpted-cover-front-overlap-black-left04-z004-mark2.3mf",
   "project": "hardware/printed-parts/faucet/industrial/faucet-industrial-petgf.3mf",
-  "project_sha256": "b13109a40ae5368e728d3ebdfbf7c4c051d2e5b78ebcd2174ba60f413e1a168b",
+  "project_sha256": "74e5e7d3d9ed6e50e020c383511a145b0741926df96bc04ab53009dd953e7e58",
   "project_title": "Industrial faucet PET-GF",
   "rear_seam_enforcement": {
     "enforced_triangles": 477,
@@ -787,8 +846,8 @@
     1.29
   ],
   "sculpted_artifacts_unchanged": {
-    "hardware/printed-parts/faucet/faucet-petgf.3mf": "f79973dc31d5ca3a9d6832187f3410afc798802c9fb6a147fc76970ec40e8302",
-    "hardware/printed-parts/faucet/faucet-petgf.print.json": "5bb3e10606902d37ab3ab36f7c051cb1695ea15f53ba9a28b01787b0575abf5d",
+    "hardware/printed-parts/faucet/faucet-petgf.3mf": "0d18d16f1d3d8636e5dd6cc062c71835a2e52011bcc81d53880b3ca5a3db6c52",
+    "hardware/printed-parts/faucet/faucet-petgf.print.json": "26fea9625989c1556632f4a444370e094bbcc8cadcf0f10d72a043ef98012f46",
     "hardware/printed-parts/faucet/faucet-petgf.readiness.json": "520bfcfe182db137271f9cfce89b05fc268c625a2ae37593eddf8d0cd42133cb",
     "hardware/printed-parts/faucet/faucet-petgf.support-audit.json": "383212521536bbe4a6661bf127e59203eeacfe3206bf80d4eaea8ea775823b97"
   },
@@ -866,12 +925,11 @@
         "mapping_edge_blend_mm": 2.0,
         "mapping_margin_mm": 6.0,
         "part": "industrial-shell-base",
-        "segmented_fins": false,
         "source_archive": "hardware/print-tests/petgf-dense-roofs/inclines/prints/2026-11-10-faucet-nonplanar-rim-fins-mark1/faucet-nonplanar-rim-fins-insert-bridges-left04-z018-mark1.gcode.3mf",
         "source_archive_sha256": "dfa8d1a52e70a39c6c28c1082ce25b2af608c63a1984c143eaeda0415354da5a",
         "source_commit": "40e364be6749339bf892c49263a5c9d6c5560ca0"
       },
-      "method": "Slim trees with a shared dense interface and a continuous nonplanar first perimeter",
+      "method": "Segmented outside fins and Slim trees with a shared dense interface and a contoured first perimeter",
       "nominal_wall_width_mm": 0.9,
       "object_settings": {
         "brim_type": "no_brim"
@@ -880,7 +938,7 @@
       "physical_result": "hardware/printed-parts/faucet/finish-coupons/2026-10-15-edge-supports/base-mark2/physical-result/physical-result.json",
       "release_gap_degrees": 4,
       "requested_vertical_gap_mm": 0.24,
-      "scope": "A shared dense interface on the rim trees, with bridge paths across both stages of each insert recess.",
+      "scope": "Outside fins and Slim trees carry a shared dense interface at the rim. Bridges span both stages of each insert recess.",
       "selected_date": "2026-10-15",
       "selection_quote": "Those arc fins snapped off super easy, and they provided excellent support.",
       "source_preparation": "hardware/printed-parts/faucet/finish-coupons/2026-10-15-edge-supports/base-mark2/preparation.json",
@@ -898,7 +956,7 @@
     "default_printer": "Mark2",
     "edge_support_strategy": {
       "application": "The base uses bridges across the insert recesses. The tip uses a hidden-root disc for bed anchorage and a separate dense interface at the inboard dispense face.",
-      "method": "Use dense tree interfaces and contoured first perimeters on the base rim and tip mating lip.",
+      "method": "Segmented fins follow each outside rim beneath the dense interface and its contoured first perimeter.",
       "selection_quote": "I'm quite convinced that we need to do this everywhere, that we've got these rough edges on overhangs."
     },
     "filament_overrides": {
@@ -1012,7 +1070,7 @@
           220.8576411168048
         ]
       },
-      "method": "Dense Slim trees at the mating lip, a contoured first perimeter and a hidden-root disc",
+      "method": "Segmented outside fins and Slim trees at the mating lip, a contoured first perimeter and a hidden-root disc",
       "part": "faucet-shell-tip",
       "physical_result": "hardware/printed-parts/faucet/finish-coupons/2026-10-15-tip-root-anchor/mark1/physical-result/physical-result.json",
       "root_anchor_component_id": 2400,
@@ -1112,9 +1170,9 @@
   "source_sha256": {
     "hardware/printed-parts/faucet/finish-coupons/2026-10-15-edge-supports/base-mark2/2026-10-15-faucet-base-segmented-rim-arcs-tree-current15-bridge125-fan70-z004-mark2.3mf": "3fd336e3e44a32896bd0b76c13f11b91c74911308e81454ae670680c6b579cf7",
     "hardware/printed-parts/faucet/finish-coupons/2026-10-15-tip-root-anchor/mark1/2026-10-15-faucet-tip-root-anchor-eight-fins-lip-trees-current105-bridge125-fan70-z018-mark1.3mf": "f6e5c53d4a23b25f568b083d8a3eaa779b7959c666fa41a227a953e21904f3ff",
-    "hardware/printed-parts/faucet/industrial/finish-selection.json": "60178360242cfbf652d4aede98a9ebcee452aca3fc3aee4e6a6587346c777285",
+    "hardware/printed-parts/faucet/industrial/finish-selection.json": "24d4624bd89b2b4026305c65fa0b4f3db77f2d2628711d58c54ccc1337d44463",
     "hardware/printed-parts/faucet/industrial/physical-acceptance.json": "74793cb4503186aca90897b4a3be7ec2ba386247e60d4191880499010405479f",
-    "hardware/printed-parts/faucet/industrial/prepare_print_project.rs": "1a6026109a54e3e264cd6c6353c85d61c3b5ed0c6790223a608b8e56a2d16d51",
+    "hardware/printed-parts/faucet/industrial/prepare_print_project.rs": "542245eb4aa3845939fe9b26a781043e27ec02cabe3fd99d50bb614d90621403",
     "hardware/printed-parts/faucet/industrial/prints/2026-10-10-shoulders012-wing050-restored-joint-mark2/2026-10-10-industrial-faucet-complete-shoulders012-wing050-restored-joint-petgf-left04-z004-mark2.3mf": "2561bcdaa520e94f4b0a5989fcbb9e941f707b50c46af97655ceacf312748302",
     "hardware/printed-parts/faucet/industrial/production-selection.json": "72a99d7374623220ff97edb3a38a853378a5efb989de51851e46bfbd709aa2d1",
     "hardware/printed-parts/faucet/industrial/production/2026-10-25/faucet-shell-tip.stl": "35ec9f0b99c5e90f038836549e6f5e8f112b2af03e1849b08b2d759050d260e6",
@@ -1122,8 +1180,8 @@
     "hardware/printed-parts/faucet/industrial/production/2026-10-25/industrial-shell-base.stl": "dc855eb7d8eae75886222d8b4aee8b9e02fe1d55ae4740c1ae5b4b64cf6ba742",
     "hardware/printed-parts/faucet/industrial/production/2026-10-25/lever-replica.stl": "7a3f5c7d9034c4cce0e0f39bfac6e868f6bd8d01a05add3d21951981eca296eb",
     "hardware/printed-parts/faucet/industrial/production/2026-10-25/sculpted-display-cover.stl": "3d4d2e05edde5a0e45aad36e9de072a57103c3b0f8da2bbd875cbfbedbe68133",
-    "tools/hsm/print-prep/src/faucet.rs": "a311eb264400cfb363d96b2ae3cce2f24e2cc6d243de21011a9b38f368c4ad30",
-    "tools/hsm/print-prep/src/faucet_contact.rs": "7d645f820fc905052f4eb64c4e5336cc8d74320026ef1f81236e90353077bbe0",
+    "tools/hsm/print-prep/src/faucet.rs": "d5aa1f5f44aecb1da18e278cad1ef9693a814e8f91e7f217d86dd5982a65010a",
+    "tools/hsm/print-prep/src/faucet_contact.rs": "3307a4cad2ea741a16f364737abc9f67a66f8cec70d93689d4640931e86198f8",
     "tools/hsm/print-prep/src/faucet_recesses.rs": "67436872fcf6315d00d01dea42322d3c59448c82884e5b5dc010e4c08a51dd9c",
     "tools/hsm/print-prep/src/profile.rs": "8d6d142f54fded17f0110fb1bd5c5140b480082e3f234838608fde8649abaee4",
     "tools/hsm/print-prep/src/rim_contour.rs": "7a448d4c6028f78abd7ac96f9cbb683503e5c4cc4449317edc86f5fb42a480d1"
@@ -2651,7 +2709,7 @@
           -0.65,
           5.0
         ],
-        "part_id": 20
+        "part_id": 27
       }
     ],
     "part": "faucet-shell-tip",
@@ -2746,15 +2804,82 @@
       12.149997455994734,
       14.099997455994734
     ],
+    "fin_layout": {
+      "fins": [
+        {
+          "angles_degrees": [
+            6.5,
+            38.5
+          ],
+          "part_id": 29
+        },
+        {
+          "angles_degrees": [
+            51.5,
+            83.5
+          ],
+          "part_id": 30
+        },
+        {
+          "angles_degrees": [
+            96.5,
+            128.5
+          ],
+          "part_id": 31
+        },
+        {
+          "angles_degrees": [
+            141.5,
+            173.5
+          ],
+          "part_id": 32
+        },
+        {
+          "angles_degrees": [
+            186.5,
+            218.5
+          ],
+          "part_id": 33
+        },
+        {
+          "angles_degrees": [
+            231.5,
+            263.5
+          ],
+          "part_id": 34
+        },
+        {
+          "angles_degrees": [
+            276.5,
+            308.5
+          ],
+          "part_id": 35
+        },
+        {
+          "angles_degrees": [
+            321.5,
+            353.5
+          ],
+          "part_id": 36
+        }
+      ],
+      "foot_splay_per_height": 0.28,
+      "maximum_foot_splay_mm": 4.0,
+      "radial_allowance_mm": [
+        -0.4,
+        0.5
+      ],
+      "setback_from_seat_mm": 0.96
+    },
     "lip_face_count": 262,
     "part": "faucet-shell-tip",
     "rim_radius_mm": 13.499997455994734,
-    "roof_enforcer_part_id": 21
+    "roof_enforcer_part_id": 28
   },
   "tip_supports": {
     "components": [
       {
-        "component_id": 19,
+        "component_id": 26,
         "source_component_id": 2400,
         "source_member": "3D/Objects/plug-root-breakaway-foot.model",
         "source_member_sha256": "ae1749aebf01efcd912f9c9521f81bed6d3b6370b6232b3341c53c8ea181070b"
@@ -2787,8 +2912,8 @@
   "wall_loops": 2,
   "executable": {
     "archive": "hardware/printed-parts/faucet/industrial/faucet-industrial-petgf.gcode.3mf",
-    "archive_sha256": "4ef6bc255765854124d117277a3aeb3d569b0d2fbf61e7f431f14248d70b5c4a",
+    "archive_sha256": "2982ae017cf5b8c8ce7827477e7ab10ef8344c43c8a7fccad0d8c78834acf677",
     "member": "Metadata/plate_1.gcode",
-    "gcode_sha256": "9ff12008c8cb7a7a5a829fb3d6f080554963b015225ad394768d58e044139f4c"
+    "gcode_sha256": "ac8d5a77362beaa2b0964218c0f2382c3b672209a3de1d88ab475470966f590d"
   }
 }
