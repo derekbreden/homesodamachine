@@ -118,6 +118,7 @@ test("feature links and component drill-down use the same exported identity on d
       await page.evaluate(async () => (await import('/js/viewer/component-picker.js')).clearComponentPicker({preserve:true}));
       assert.match(await page.$eval(".component-panel .edge-panel-file", el => el.textContent), /connector well/i);
       await page.evaluate(()=>Object.defineProperty(navigator,'clipboard',{configurable:true,value:{writeText:async text=>window.__copiedFeatureLink=text}}));
+      await page.click('.component-details-toggle');
       await page.click('.component-copy');
       assert.match(await page.evaluate(()=>window.__copiedFeatureLink),/find=feature%3A%20enclosure-back-top%3A%3Awago-h-well/);
       assert.deepEqual(errors, []);

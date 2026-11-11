@@ -436,7 +436,7 @@ function buildPanel() {
   more.setAttribute("aria-expanded", "false");
   more.textContent = "⋯";
   more.addEventListener("click", () => setComponentDetails(panel._details.hidden));
-  actions.append(copy, more);
+  actions.appendChild(more);
   selectionBar.appendChild(actions);
   panel._copy = copy;
   panel._more = more;
@@ -452,11 +452,15 @@ function buildPanel() {
   const description = document.createElement("div");
   description.className = "component-catalog-name";
   identity.appendChild(description);
+  const featurePath = document.createElement("div");
+  featurePath.className = "component-feature-path";
+  identity.appendChild(featurePath);
   const metadata = document.createElement("div");
   metadata.className = "component-meta";
   identity.appendChild(metadata);
   details.appendChild(identity);
   panel._description = description;
+  panel._featurePath = featurePath;
   panel._metadata = metadata;
 
   // Related models offered by the selected float, manifold body or tube.
@@ -478,7 +482,7 @@ function buildPanel() {
   });
   const detailActions = document.createElement("div");
   detailActions.className = "component-detail-actions";
-  detailActions.append(relatedBtn, clear);
+  detailActions.append(copy, relatedBtn, clear);
   details.appendChild(detailActions);
   panel._relatedBtn = relatedBtn;
 
@@ -675,6 +679,7 @@ function showPanel(names = hiddenNames()) {
   if (panel._nameEl.title !== (selection || "")) setComponentDetails(false);
   // Material descriptions name the walkable path; CAD keys identify the selected geometry.
   panel._nameEl.textContent = "";
+  panel._featurePath.replaceChildren();
   panel._nameEl.title = selection || "";
   const feature = sceneFeature(selection);
   const bodyName = componentBody(selection);
@@ -686,18 +691,22 @@ function showPanel(names = hiddenNames()) {
   const nameInTrail = !feature && description && [...header.querySelectorAll(".cad-crumb.show :is(.cad-crumb-step, .cad-crumb-here)")]
     .some(crumb => crumb.textContent === description);
   if (selection) {
-    [...heldBy(bodyName), ...(feature ? [bodyName] : [])].forEach((held) => {
+    const parents = [...heldBy(bodyName), ...(feature ? [bodyName] : [])];
+    const path = feature ? panel._featurePath : panel._nameEl;
+    parents.forEach((held, i) => {
       const step = document.createElement("button");
       step.type = "button";
       step.className = "component-held-step";
       step.textContent = componentName(held);
       step.title = `Take the whole of ${held}`;
       step.addEventListener("click", () => selectComponent(held));
-      panel._nameEl.appendChild(step);
-      const sep = document.createElement("span");
-      sep.className = "component-held-sep";
-      sep.textContent = "/";
-      panel._nameEl.appendChild(sep);
+      path.appendChild(step);
+      if (!feature || i + 1 < parents.length) {
+        const sep = document.createElement("span");
+        sep.className = "component-held-sep";
+        sep.textContent = "/";
+        path.appendChild(sep);
+      }
     });
     const here = document.createElement("span");
     here.className = "component-held-here";
@@ -717,7 +726,7 @@ function showPanel(names = hiddenNames()) {
     }
     const body = document.createElement("span");
     body.className = "component-body-name";
-    body.textContent = feature ? `Feature of ${componentName(bodyName)}` : `CAD body: ${bodyName}`;
+    body.textContent = `CAD body: ${bodyName}`;
     panel._metadata.appendChild(body);
     if (inside.length) {
       const count = document.createElement("span");
