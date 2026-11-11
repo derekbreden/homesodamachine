@@ -442,12 +442,14 @@ pub fn run(args: Options) -> Result<i32> {
         "source":args.slice.file_name().unwrap_or_default().to_string_lossy(),
         "selected_layers":[motion.moves[0].layer,motion.moves.last().unwrap().layer] });
     let output = if args.inline {
-        let page = inline::page(&args.title, &mut data, &motion, origin, &end_times)?;
-        if args.data {
-            serde_json::to_string(&data)?
-        } else {
-            page
-        }
+        inline::sampled_output(
+            &args.title,
+            &mut data,
+            &motion,
+            origin,
+            &end_times,
+            args.data,
+        )?
     } else {
         data["detail"] = detailed_data(&motion, origin, &end_times)?;
         playback_page(&args.title, &data)?
