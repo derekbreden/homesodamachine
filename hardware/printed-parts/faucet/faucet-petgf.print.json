@@ -43,8 +43,66 @@
       0.9830508474576272,
       1.0
     ],
-    "fin_setback_from_model_mm": 0.96,
-    "fins": [],
+    "fin_layout": {
+      "fins": [
+        {
+          "angles_degrees": [
+            -110.5,
+            -69.5
+          ],
+          "part_id": 16
+        },
+        {
+          "angles_degrees": [
+            -65.5,
+            -24.5
+          ],
+          "part_id": 17
+        },
+        {
+          "angles_degrees": [
+            -20.5,
+            20.5
+          ],
+          "part_id": 18
+        },
+        {
+          "angles_degrees": [
+            24.5,
+            56.50529288925463
+          ],
+          "part_id": 19
+        },
+        {
+          "angles_degrees": [
+            123.49470711074537,
+            155.5
+          ],
+          "part_id": 20
+        },
+        {
+          "angles_degrees": [
+            159.5,
+            200.5
+          ],
+          "part_id": 21
+        },
+        {
+          "angles_degrees": [
+            204.5,
+            245.5
+          ],
+          "part_id": 22
+        }
+      ],
+      "foot_splay_per_height": 0.28,
+      "maximum_foot_splay_mm": 4.0,
+      "radial_allowance_mm": [
+        -0.4,
+        0.5
+      ],
+      "setback_from_seat_mm": 0.96
+    },
     "object_settings": {
       "brim_type": "no_brim",
       "enable_support": "1",
@@ -73,7 +131,7 @@
   ],
   "filament_colour": "#FFFFFF",
   "finish_selection": "hardware/printed-parts/faucet/sculpted/finish-selection.json",
-  "finish_selection_sha256": "513bc772259add0cbceb48af21deac904b4cbe2baf0d7fd7fdc11a34eef7ed24",
+  "finish_selection_sha256": "f9f71eba67fb967f4005be7e52ecf4e436c36eec028c85073309d1fff8bdea95",
   "layer_config_ranges": [],
   "layer_height_mm": 0.24,
   "layer_scope": "0.20 mm first bed layer; 0.24 mm thereafter on all five parts. No Industrial shoulder bands or separate eight-layer override.",
@@ -132,21 +190,21 @@
           22.5,
           -2.0
         ],
-        "part_id": 16
+        "part_id": 23
       },
       {
         "cad_center_mm": [
           -22.5,
           -2.0
         ],
-        "part_id": 17
+        "part_id": 24
       },
       {
         "cad_center_mm": [
           0.0,
           -22.3
         ],
-        "part_id": 18
+        "part_id": 25
       }
     ],
     "counterbore_radius_mm": 3.075,
@@ -214,9 +272,9 @@
     ]
   },
   "nonplanar_motion": {
-    "added_commanded_motion_seconds": 2150.2743834992943,
-    "gcode_input_sha256": "a77606d4df8c75b9f22c8754e58ea65034a272e3e44409c3a7b91ef5e910557c",
-    "gcode_sha256": "b14af1e19fbc1cf9e3b597691e783fb8c5dd5eb4780314ffb8245c2b3c383fd8",
+    "added_commanded_motion_seconds": 2429.819321502502,
+    "gcode_input_sha256": "ae6705724509b086c9bd0f8a047c3394144214fbbef71570878c291bbaa4d9bd",
+    "gcode_sha256": "b3e893a52a382b1ddebb7ec46179f9009c4c9a6707c4b1bf9426cf7b80d2dd61",
     "geometry": {
       "faucet-shell-base": {
         "Continuous base rim roof enforcer": {
@@ -254,6 +312,69 @@
           "scoped_support_paint_area_mm2": 0.0,
           "slice_triangles": 17038,
           "source_triangles": 256
+        },
+        "Removable outer rim fin 1": {
+          "maximum_facet_restoration_error_mm": 0.004738808516888682,
+          "maximum_roundtrip_error_mm": 9.958789348729624e-11,
+          "maximum_shift_mm": 0.47999799983658775,
+          "minimum_sampled_jacobian": 0.9887602698439579,
+          "scoped_support_paint_area_mm2": 0.0,
+          "slice_triangles": 17518,
+          "source_triangles": 332
+        },
+        "Removable outer rim fin 2": {
+          "maximum_facet_restoration_error_mm": 0.004668603767733259,
+          "maximum_roundtrip_error_mm": 1.2753709199841978e-10,
+          "maximum_shift_mm": 0.47999039443883795,
+          "minimum_sampled_jacobian": 0.7604017011093589,
+          "scoped_support_paint_area_mm2": 0.0,
+          "slice_triangles": 16084,
+          "source_triangles": 332
+        },
+        "Removable outer rim fin 3": {
+          "maximum_facet_restoration_error_mm": 0.004336536872446395,
+          "maximum_roundtrip_error_mm": 1.2538059479538788e-10,
+          "maximum_shift_mm": 0.47997054304046394,
+          "minimum_sampled_jacobian": 0.7221698914128272,
+          "scoped_support_paint_area_mm2": 0.0,
+          "slice_triangles": 11780,
+          "source_triangles": 332
+        },
+        "Removable outer rim fin 4": {
+          "maximum_facet_restoration_error_mm": 0.0030549047317207645,
+          "maximum_roundtrip_error_mm": 1.2081136091524058e-10,
+          "maximum_shift_mm": 0.45129412875332076,
+          "minimum_sampled_jacobian": 0.7655184256687431,
+          "scoped_support_paint_area_mm2": 0.0,
+          "slice_triangles": 1836,
+          "source_triangles": 268
+        },
+        "Removable outer rim fin 5": {
+          "maximum_facet_restoration_error_mm": 0.0035975300174322378,
+          "maximum_roundtrip_error_mm": 1.2081136091524058e-10,
+          "maximum_shift_mm": 0.45129412875331276,
+          "minimum_sampled_jacobian": 0.7655184256689651,
+          "scoped_support_paint_area_mm2": 0.0,
+          "slice_triangles": 1966,
+          "source_triangles": 268
+        },
+        "Removable outer rim fin 6": {
+          "maximum_facet_restoration_error_mm": 0.005541110839826668,
+          "maximum_roundtrip_error_mm": 1.2444090202734515e-10,
+          "maximum_shift_mm": 0.479848980286695,
+          "minimum_sampled_jacobian": 0.7223797058446557,
+          "scoped_support_paint_area_mm2": 0.0,
+          "slice_triangles": 11860,
+          "source_triangles": 332
+        },
+        "Removable outer rim fin 7": {
+          "maximum_facet_restoration_error_mm": 0.007656557006653131,
+          "maximum_roundtrip_error_mm": 1.2728662568406435e-10,
+          "maximum_shift_mm": 0.4799983657308502,
+          "minimum_sampled_jacobian": 0.760102822187747,
+          "scoped_support_paint_area_mm2": 0.0,
+          "slice_triangles": 15870,
+          "source_triangles": 332
         },
         "Solid continuous industrial foot": {
           "maximum_facet_restoration_error_mm": 0.0105452140397162,
@@ -293,6 +414,78 @@
           "slice_triangles": 1976,
           "source_triangles": 1976
         },
+        "Removable outer rim fin 1": {
+          "maximum_facet_restoration_error_mm": 0.0,
+          "maximum_roundtrip_error_mm": 0.0,
+          "maximum_shift_mm": 0.0,
+          "minimum_sampled_jacobian": 1.0,
+          "scoped_support_paint_area_mm2": 0.0,
+          "slice_triangles": 260,
+          "source_triangles": 260
+        },
+        "Removable outer rim fin 2": {
+          "maximum_facet_restoration_error_mm": 0.0,
+          "maximum_roundtrip_error_mm": 0.0,
+          "maximum_shift_mm": 0.0,
+          "minimum_sampled_jacobian": 1.0,
+          "scoped_support_paint_area_mm2": 0.0,
+          "slice_triangles": 260,
+          "source_triangles": 260
+        },
+        "Removable outer rim fin 3": {
+          "maximum_facet_restoration_error_mm": 0.0,
+          "maximum_roundtrip_error_mm": 0.0,
+          "maximum_shift_mm": 0.0,
+          "minimum_sampled_jacobian": 1.0,
+          "scoped_support_paint_area_mm2": 0.0,
+          "slice_triangles": 260,
+          "source_triangles": 260
+        },
+        "Removable outer rim fin 4": {
+          "maximum_facet_restoration_error_mm": 0.0,
+          "maximum_roundtrip_error_mm": 0.0,
+          "maximum_shift_mm": 0.0,
+          "minimum_sampled_jacobian": 1.0,
+          "scoped_support_paint_area_mm2": 0.0,
+          "slice_triangles": 260,
+          "source_triangles": 260
+        },
+        "Removable outer rim fin 5": {
+          "maximum_facet_restoration_error_mm": 0.0,
+          "maximum_roundtrip_error_mm": 0.0,
+          "maximum_shift_mm": 0.0,
+          "minimum_sampled_jacobian": 1.0,
+          "scoped_support_paint_area_mm2": 0.0,
+          "slice_triangles": 260,
+          "source_triangles": 260
+        },
+        "Removable outer rim fin 6": {
+          "maximum_facet_restoration_error_mm": 0.0,
+          "maximum_roundtrip_error_mm": 0.0,
+          "maximum_shift_mm": 0.0,
+          "minimum_sampled_jacobian": 1.0,
+          "scoped_support_paint_area_mm2": 0.0,
+          "slice_triangles": 260,
+          "source_triangles": 260
+        },
+        "Removable outer rim fin 7": {
+          "maximum_facet_restoration_error_mm": 0.0,
+          "maximum_roundtrip_error_mm": 0.0,
+          "maximum_shift_mm": 0.0,
+          "minimum_sampled_jacobian": 1.0,
+          "scoped_support_paint_area_mm2": 0.0,
+          "slice_triangles": 260,
+          "source_triangles": 260
+        },
+        "Removable outer rim fin 8": {
+          "maximum_facet_restoration_error_mm": 0.0,
+          "maximum_roundtrip_error_mm": 0.0,
+          "maximum_shift_mm": 0.0,
+          "minimum_sampled_jacobian": 1.0,
+          "scoped_support_paint_area_mm2": 0.0,
+          "slice_triangles": 260,
+          "source_triangles": 260
+        },
         "faucet-shell-tip": {
           "maximum_facet_restoration_error_mm": 0.006503342912154153,
           "maximum_roundtrip_error_mm": 1.497255652793683e-10,
@@ -331,6 +524,78 @@
           "slice_triangles": 10030,
           "source_triangles": 1976
         },
+        "Removable outer rim fin 1": {
+          "maximum_facet_restoration_error_mm": 0.004261428261305156,
+          "maximum_roundtrip_error_mm": 1.2787459979790583e-10,
+          "maximum_shift_mm": 0.4800000000000004,
+          "minimum_sampled_jacobian": 0.7600013304873698,
+          "scoped_support_paint_area_mm2": 0.0,
+          "slice_triangles": 74480,
+          "source_triangles": 260
+        },
+        "Removable outer rim fin 2": {
+          "maximum_facet_restoration_error_mm": 0.004162821628764135,
+          "maximum_roundtrip_error_mm": 1.2721557141048834e-10,
+          "maximum_shift_mm": 0.4799999999999951,
+          "minimum_sampled_jacobian": 0.7600015160615925,
+          "scoped_support_paint_area_mm2": 0.0,
+          "slice_triangles": 72466,
+          "source_triangles": 260
+        },
+        "Removable outer rim fin 3": {
+          "maximum_facet_restoration_error_mm": 0.00437742324914403,
+          "maximum_roundtrip_error_mm": 1.2809842075967026e-10,
+          "maximum_shift_mm": 0.4799999999999951,
+          "minimum_sampled_jacobian": 0.7600001624528119,
+          "scoped_support_paint_area_mm2": 0.0,
+          "slice_triangles": 73190,
+          "source_triangles": 260
+        },
+        "Removable outer rim fin 4": {
+          "maximum_facet_restoration_error_mm": 0.004007831819150098,
+          "maximum_roundtrip_error_mm": 1.2865797316408134e-10,
+          "maximum_shift_mm": 0.4800000000000004,
+          "minimum_sampled_jacobian": 0.7600002461156663,
+          "scoped_support_paint_area_mm2": 0.0,
+          "slice_triangles": 73038,
+          "source_triangles": 260
+        },
+        "Removable outer rim fin 5": {
+          "maximum_facet_restoration_error_mm": 0.004251749075358191,
+          "maximum_roundtrip_error_mm": 1.2800782656086085e-10,
+          "maximum_shift_mm": 0.4799999999999969,
+          "minimum_sampled_jacobian": 0.7600268880789685,
+          "scoped_support_paint_area_mm2": 0.0,
+          "slice_triangles": 97906,
+          "source_triangles": 260
+        },
+        "Removable outer rim fin 6": {
+          "maximum_facet_restoration_error_mm": 0.004635927297155007,
+          "maximum_roundtrip_error_mm": 1.284305994886381e-10,
+          "maximum_shift_mm": 0.4800000000000004,
+          "minimum_sampled_jacobian": 0.7600000389196282,
+          "scoped_support_paint_area_mm2": 0.0,
+          "slice_triangles": 92808,
+          "source_triangles": 260
+        },
+        "Removable outer rim fin 7": {
+          "maximum_facet_restoration_error_mm": 0.004468431547291374,
+          "maximum_roundtrip_error_mm": 1.2884626698905777e-10,
+          "maximum_shift_mm": 0.4800000000000004,
+          "minimum_sampled_jacobian": 0.7600003642025399,
+          "scoped_support_paint_area_mm2": 0.0,
+          "slice_triangles": 93476,
+          "source_triangles": 260
+        },
+        "Removable outer rim fin 8": {
+          "maximum_facet_restoration_error_mm": 0.004738389896420614,
+          "maximum_roundtrip_error_mm": 1.2852652275796572e-10,
+          "maximum_shift_mm": 0.4799999999999969,
+          "minimum_sampled_jacobian": 0.7600156235785249,
+          "scoped_support_paint_area_mm2": 0.0,
+          "slice_triangles": 100036,
+          "source_triangles": 260
+        },
         "faucet-shell-tip": {
           "maximum_facet_restoration_error_mm": 0.006324839205689159,
           "maximum_roundtrip_error_mm": 1.2884626698905777e-10,
@@ -351,19 +616,19 @@
         }
       }
     },
-    "lifted_travels": 6715,
-    "mapped_deposition_segments": 652492,
+    "lifted_travels": 8544,
+    "mapped_deposition_segments": 679432,
     "mapped_deposition_segments_by_region": [
-      474814,
-      74517,
-      103161
+      492777,
+      74619,
+      112036
     ],
     "maximum_mapped_path_slope_degrees": 43.98367195513913,
     "maximum_mapped_z_speed_mm_s": 7.499999997691714,
-    "maximum_vertical_motion_offset_mm": 0.4799872251275241,
+    "maximum_vertical_motion_offset_mm": 0.4799961022598733,
     "purpose": "Read the bounded restored movements of the full print.",
-    "restored_extrusion_delta_mm": -17.660834464398565,
-    "pre_contour_archive_sha256": "0dc44e75c3c2e9bedf6316c95e997a30b7d9a96cada4e026b6c382648d1150fa"
+    "restored_extrusion_delta_mm": -9.190158424401044,
+    "pre_contour_archive_sha256": "ebb536c22f542b8c36e6cf18a7a023be00b3ac4c57bae7738d7e583add810413"
   },
   "nozzle_diameter_mm": [
     0.4,
@@ -665,7 +930,7 @@
   "profile_source": "hardware/printed-parts/faucet/industrial/prints/2026-10-15-all-learnings/mark2/2026-10-15-complete-faucet-all-learnings-mark2-base-arcs-z004.3mf",
   "profile_source_sha256": "25ae62b12d2dee09e59b835cce1c63f549bd6f49623956929d631c208f98fc0f",
   "project": "hardware/printed-parts/faucet/faucet-petgf.3mf",
-  "project_sha256": "0d18d16f1d3d8636e5dd6cc062c71835a2e52011bcc81d53880b3ca5a3db6c52",
+  "project_sha256": "dcb830f862b2f0a0880b7491dae16ece3e044d6bda4e7ba7735e1d6cfff85835",
   "rear_seam_enforcement": {
     "enforced_triangles": 1519,
     "half_width_mm": 0.25,
@@ -690,18 +955,18 @@
   "requested_z_trim_mm": 0.04,
   "rigid_part_count": 5,
   "rim_contour": {
-    "added_commanded_motion_seconds": 104.12777699001002,
+    "added_commanded_motion_seconds": 104.18160642986948,
     "arc_count": 123,
-    "archive_sha256": "bb75715c60a50e5175e2d303fb328b43ded007913fdce46628a75e8ce394da80",
+    "archive_sha256": "49c7c36d1526e8ab19309ecd23681c7441162c8b88a63fd34428ef4596fbf7ed",
     "emitted_contact_segments": 801,
     "extrusion_added_mm": 5.778014066399109,
-    "extrusion_removed_mm": 9.653522076572456,
-    "gcode_input_sha256": "b14af1e19fbc1cf9e3b597691e783fb8c5dd5eb4780314ffb8245c2b3c383fd8",
-    "gcode_sha256": "1fbbe68d0d272adcfa54311d39b6da7b71665525d064d92c9bf633056b1f624b",
+    "extrusion_removed_mm": 9.659966481613681,
+    "gcode_input_sha256": "b3e893a52a382b1ddebb7ec46179f9009c4c9a6707c4b1bf9426cf7b80d2dd61",
+    "gcode_sha256": "fe43431abbababbfcb0517bc560f12b52f75b996110c95b90c1a9d83371efaf8",
     "identify_id": 1901,
     "maximum_contact_depth_below_prior_peak_mm": 1.0800000000037517,
     "minimum_contact_z_mm": 0.9753898289152962,
-    "modified_native_paths": 3137,
+    "modified_native_paths": 3145,
     "purpose": "Bind the continuous first outer rim course to the complete product.",
     "rim_semi_axes_mm": [
       29.0,
@@ -728,15 +993,13 @@
     "base_rim_supports": {
       "dense_roof_evidence": "hardware/printed-parts/faucet/sculpted/production/contact-review.json",
       "fin_footprint_physical_result": "hardware/printed-parts/faucet/finish-coupons/2026-10-15-edge-supports/base-mark2/physical-result/physical-result.json",
-      "fin_setback_from_model_mm": 0.96,
       "insert_blocker_depth_allowance_mm": [
         1.0,
         0.55
       ],
       "insert_blocker_radial_clearance_mm": 0.65,
       "insert_bridge_evidence": "hardware/printed-parts/faucet/sculpted/production/contact-review.json",
-      "method": "dense tree-only rim interface and bridge-only insert recesses",
-      "minimum_fin_height_mm": 0.2,
+      "method": "Segmented outside fins and Slim trees beneath the common dense rim interface",
       "nonplanar_contact": {
         "edge_blend_mm": 3.0,
         "parameters_source": "hardware/print-tests/petgf-dense-roofs/inclines/prints/2026-11-11-faucet-trees-only-mark1/mapping.json",
@@ -752,7 +1015,6 @@
       },
       "part": "faucet-shell-base",
       "reference_rim_diameter_mm": 59.0,
-      "removable_fins": false,
       "rim_enforcer_angle_degrees": [
         114.5,
         425.5
@@ -762,7 +1024,7 @@
         27.45,
         29.95
       ],
-      "scope": "The dense tree interface follows the Sculpted ellipse. The mounting recesses use bridges at their shoulders and blind roofs. Finish and removal require a full Sculpted print.",
+      "scope": "Outside fins and Slim trees carry the dense interface under the Sculpted ellipse. The mounting recesses use bridges at their shoulders and blind roofs.",
       "selected_date": "2026-11-11",
       "source_preparation": "hardware/printed-parts/faucet/finish-coupons/2026-10-15-edge-supports/base-mark2/preparation.json",
       "source_project": "hardware/printed-parts/faucet/finish-coupons/2026-10-15-edge-supports/base-mark2/2026-10-15-faucet-base-segmented-rim-arcs-tree-current15-bridge125-fan70-z004-mark2.3mf",
@@ -778,8 +1040,8 @@
     "default_filament_colour": "#FFFFFF",
     "default_printer": "Mark2",
     "edge_support_strategy": {
-      "application": "The Sculpted tip retains its local fin and anchor treatment. The base rim uses its dense tree interface and continuous first perimeter.",
-      "method": "Follow the visible unsupported edge with a removable fin shaped to that edge; use intermittent arcs on curved rims and retain Tree(auto)/Default on the remaining geometry.",
+      "application": "The base uses bridges across its insert recesses. The tip has a hidden-root anchor and a separate dense interface at the inboard dispense face.",
+      "method": "Segmented fins follow each outside rim beneath the dense interface and its contoured first perimeter.",
       "selection_quote": "I'm quite convinced that we need to do this everywhere, that we've got these rough edges on overhangs."
     },
     "filament_overrides": {
@@ -895,7 +1157,7 @@
           220.8576411168048
         ]
       },
-      "method": "Dense Slim trees at the mating lip, a contoured first perimeter and a hidden-root disc",
+      "method": "Segmented outside fins and Slim trees at the mating lip, a contoured first perimeter and a hidden-root disc",
       "part": "faucet-shell-tip",
       "physical_result": "hardware/printed-parts/faucet/finish-coupons/2026-10-15-tip-root-anchor/mark1/physical-result/physical-result.json",
       "root_anchor_component_id": 2400,
@@ -1140,11 +1402,11 @@
     "hardware/printed-parts/faucet/finish-coupons/2026-10-15-edge-supports/base-mark2/preparation.json": "ef809621ac2b4d66ab7c0602848fe73eea37af4107cfb77d63b034088c2c3b33",
     "hardware/printed-parts/faucet/industrial/prints/2026-10-15-all-learnings/mark2/2026-10-15-complete-faucet-all-learnings-mark2-base-arcs-z004.3mf": "25ae62b12d2dee09e59b835cce1c63f549bd6f49623956929d631c208f98fc0f",
     "hardware/printed-parts/faucet/lever-replica/lever-replica-side-down.stl": "19d420b9193d0d691959aadb80095523164afe380189aae1af9eb0c13f8f2d21",
-    "hardware/printed-parts/faucet/sculpted/finish-selection.json": "513bc772259add0cbceb48af21deac904b4cbe2baf0d7fd7fdc11a34eef7ed24",
-    "hardware/printed-parts/faucet/sculpted/prepare_print_project.rs": "075153204b49e2ab9bdf6bc551946134335d0e14a95b84ae288b3cd36796370f",
-    "hardware/printed-parts/faucet/sculpted/rim_supports.rs": "207873e039d476bbbfe5fdec1e98e03c221257f122235410688eb003c51d7c58",
-    "tools/hsm/print-prep/src/faucet.rs": "a311eb264400cfb363d96b2ae3cce2f24e2cc6d243de21011a9b38f368c4ad30",
-    "tools/hsm/print-prep/src/faucet_contact.rs": "7d645f820fc905052f4eb64c4e5336cc8d74320026ef1f81236e90353077bbe0",
+    "hardware/printed-parts/faucet/sculpted/finish-selection.json": "f9f71eba67fb967f4005be7e52ecf4e436c36eec028c85073309d1fff8bdea95",
+    "hardware/printed-parts/faucet/sculpted/prepare_print_project.rs": "ad0af2981c4d6082ffa597b4b3121e680f6cf1156c66ae8dd966f54f5866a221",
+    "hardware/printed-parts/faucet/sculpted/rim_supports.rs": "3db316026040757dcd62cddee8d8034c7408a9da839b21a69a94a8862eb75bbd",
+    "tools/hsm/print-prep/src/faucet.rs": "d5aa1f5f44aecb1da18e278cad1ef9693a814e8f91e7f217d86dd5982a65010a",
+    "tools/hsm/print-prep/src/faucet_contact.rs": "3307a4cad2ea741a16f364737abc9f67a66f8cec70d93689d4640931e86198f8",
     "tools/hsm/print-prep/src/faucet_recesses.rs": "67436872fcf6315d00d01dea42322d3c59448c82884e5b5dc010e4c08a51dd9c",
     "tools/hsm/print-prep/src/profile.rs": "8d6d142f54fded17f0110fb1bd5c5140b480082e3f234838608fde8649abaee4",
     "tools/hsm/print-prep/src/rim_contour.rs": "7a448d4c6028f78abd7ac96f9cbb683503e5c4cc4449317edc86f5fb42a480d1"
@@ -2481,7 +2743,7 @@
           -0.65,
           5.0
         ],
-        "part_id": 20
+        "part_id": 27
       }
     ],
     "part": "faucet-shell-tip",
@@ -2577,24 +2839,91 @@
       12.149636558694963,
       14.099636558694963
     ],
+    "fin_layout": {
+      "fins": [
+        {
+          "angles_degrees": [
+            6.5,
+            38.5
+          ],
+          "part_id": 29
+        },
+        {
+          "angles_degrees": [
+            51.5,
+            83.5
+          ],
+          "part_id": 30
+        },
+        {
+          "angles_degrees": [
+            96.5,
+            128.5
+          ],
+          "part_id": 31
+        },
+        {
+          "angles_degrees": [
+            141.5,
+            173.5
+          ],
+          "part_id": 32
+        },
+        {
+          "angles_degrees": [
+            186.5,
+            218.5
+          ],
+          "part_id": 33
+        },
+        {
+          "angles_degrees": [
+            231.5,
+            263.5
+          ],
+          "part_id": 34
+        },
+        {
+          "angles_degrees": [
+            276.5,
+            308.5
+          ],
+          "part_id": 35
+        },
+        {
+          "angles_degrees": [
+            321.5,
+            353.5
+          ],
+          "part_id": 36
+        }
+      ],
+      "foot_splay_per_height": 0.28,
+      "maximum_foot_splay_mm": 4.0,
+      "radial_allowance_mm": [
+        -0.4,
+        0.5
+      ],
+      "setback_from_seat_mm": 0.96
+    },
     "lip_face_count": 375,
     "part": "faucet-shell-tip",
     "rim_radius_mm": 13.499636558694963,
-    "roof_enforcer_part_id": 21
+    "roof_enforcer_part_id": 28
   },
   "tip_rim_contour": {
-    "added_commanded_motion_seconds": 61.95955014064185,
+    "added_commanded_motion_seconds": 61.70350880336246,
     "arc_count": 129,
-    "archive_sha256": "c99b1ac28ddfa9bc9f151cb4d8e151a6f2ee45c6c57a00e99057f2b354cb53cb",
+    "archive_sha256": "f7877400d05f01365c8a37c0bb840aa4dd2fa2d5ddc4bbe76d160fcd5ec4a81c",
     "emitted_contact_segments": 449,
     "extrusion_added_mm": 2.8419330727906775,
-    "extrusion_removed_mm": 2.637457398055446,
-    "gcode_input_sha256": "1fbbe68d0d272adcfa54311d39b6da7b71665525d064d92c9bf633056b1f624b",
-    "gcode_sha256": "c885a89f516e2592a238c63d4e1c800863d96049ea31a6af30e7225b7319b32f",
+    "extrusion_removed_mm": 2.6380622107903555,
+    "gcode_input_sha256": "fe43431abbababbfcb0517bc560f12b52f75b996110c95b90c1a9d83371efaf8",
+    "gcode_sha256": "273db382779824ad72f5dec2d3bb77aa823d1bcbdbc1da92a34dbabd4f245848",
     "identify_id": 1902,
     "maximum_contact_depth_below_prior_peak_mm": 1.0800000000154135,
     "minimum_contact_z_mm": 15.20329853085721,
-    "modified_native_paths": 775,
+    "modified_native_paths": 773,
     "purpose": "Bind the continuous first outer rim course to the complete product.",
     "rim_semi_axes_mm": [
       13.499636558694963,
@@ -2614,7 +2943,7 @@
   "tip_supports": {
     "components": [
       {
-        "component_id": 19,
+        "component_id": 26,
         "source_component_id": 2400,
         "source_member": "3D/Objects/plug-root-breakaway-foot.model",
         "source_member_sha256": "ae1749aebf01efcd912f9c9521f81bed6d3b6370b6232b3341c53c8ea181070b"
@@ -2647,8 +2976,8 @@
   "wall_loops": 2,
   "executable": {
     "archive": "hardware/printed-parts/faucet/sculpted/production/faucet-petgf.gcode.3mf",
-    "archive_sha256": "c99b1ac28ddfa9bc9f151cb4d8e151a6f2ee45c6c57a00e99057f2b354cb53cb",
+    "archive_sha256": "f7877400d05f01365c8a37c0bb840aa4dd2fa2d5ddc4bbe76d160fcd5ec4a81c",
     "member": "Metadata/plate_1.gcode",
-    "gcode_sha256": "c885a89f516e2592a238c63d4e1c800863d96049ea31a6af30e7225b7319b32f"
+    "gcode_sha256": "273db382779824ad72f5dec2d3bb77aa823d1bcbdbc1da92a34dbabd4f245848"
   }
 }
