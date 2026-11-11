@@ -9529,7 +9529,7 @@
       ]
     }
   ],
-  "input_fingerprint": "sha256:bde3f7f883bca02e1eb2d1381fda976af381827ba08636028e9d71132f41fc74",
+  "input_fingerprint": "sha256:b98e170f7e3233b66c348178c958a9a816fc99e0fd58b2686bd6906e55e598bd",
   "orders": [
     {
       "allocation_status": "all_project",
@@ -14143,6 +14143,7 @@
       ],
       "reference": "112-9511233-2346613",
       "source_ids": [
+        "src-2568f4cd0fe44cdd8c299da4a0f0d2ed",
         "src-88e955c9cffc408097504f74273dea35"
       ],
       "vendor": "Amazon"
@@ -35493,6 +35494,7 @@
       "section": "1. Carbonator fabrication",
       "service_period": null,
       "source_ids": [
+        "src-2568f4cd0fe44cdd8c299da4a0f0d2ed",
         "src-88e955c9cffc408097504f74273dea35"
       ],
       "split_charge": false,
@@ -61299,6 +61301,20 @@
       "source_id": "src-2397788b9661450eab5a6cefddbd067f",
       "vendor": "Fresh Water Systems",
       "verified_at": "2026-10-13"
+    },
+    {
+      "document_date": null,
+      "document_type": "email_shipment_notification",
+      "note": "Shipment notification identifies the existing tap/drill order and repeats the USD 9.00 total. Shipment is confirmed. The relative arrival estimate does not establish an actual delivery day, and shipment does not prove a completed merchant charge. No new purchase or payment is created.",
+      "notification_date": {
+        "precision": "day",
+        "value": "2026-11-11"
+      },
+      "proves": [],
+      "reference": "112-9511233-2346613",
+      "source_id": "src-2568f4cd0fe44cdd8c299da4a0f0d2ed",
+      "vendor": "Amazon",
+      "verified_at": "2026-11-11"
     },
     {
       "document_date": {

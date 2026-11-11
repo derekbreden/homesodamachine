@@ -9669,7 +9669,8 @@
       ],
       "allocation_status": "all_project",
       "source_ids": [
-        "src-88e955c9cffc408097504f74273dea35"
+        "src-88e955c9cffc408097504f74273dea35",
+        "src-2568f4cd0fe44cdd8c299da4a0f0d2ed"
       ]
     },
     "pur-3bd4a5d8e22947b88ec7bcc9f7a8df8a": {
@@ -15916,7 +15917,8 @@
       },
       "allocation_status": "all_project",
       "source_ids": [
-        "src-88e955c9cffc408097504f74273dea35"
+        "src-88e955c9cffc408097504f74273dea35",
+        "src-2568f4cd0fe44cdd8c299da4a0f0d2ed"
       ]
     },
     "amazon:112-8461282-5610650": {
@@ -33650,6 +33652,19 @@
       ],
       "verified_at": "2026-11-11",
       "note": "Exact order details identify one IEAWISL B0D8HVSJMK external-tooth washer assortment, advertised as 304 stainless steel, 550 pieces in eight sizes M2.5-M12. Placed 2026-11-10: USD 8.99 item, USD 0.65 estimated tax, free shipping, USD 9.64 total. Project fastener-stock attribution follows the current external-tooth washer requirement and contemporaneous earth-clamp tooling orders; conformity to the specified M3 washer dimensions and 0.4 mm thickness is unverified. The order-scoped payment page shows no transactions yet. The order supports an expected payment only, not a pending or completed merchant transaction. Relative arrival estimate does not establish actual delivery."
+    },
+    "src-2568f4cd0fe44cdd8c299da4a0f0d2ed": {
+      "vendor": "Amazon",
+      "document_type": "email_shipment_notification",
+      "reference": "112-9511233-2346613",
+      "document_date": null,
+      "notification_date": {
+        "precision": "day",
+        "value": "2026-11-11"
+      },
+      "proves": [],
+      "verified_at": "2026-11-11",
+      "note": "Shipment notification identifies the existing tap/drill order and repeats the USD 9.00 total. Shipment is confirmed. The relative arrival estimate does not establish an actual delivery day, and shipment does not prove a completed merchant charge. No new purchase or payment is created."
     }
   },
   "coverage": [
