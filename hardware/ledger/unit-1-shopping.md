@@ -19,7 +19,7 @@ Amazon Prime badges, exact variants, prices and stock were checked in signed-in 
 
 ## Ordered earth-clamp tooling
 
-The [uxcell M3 × 0.5 tap and Ø2.5 mm drill set](https://www.amazon.com/dp/B09TYSP9NV) and [Piutouyar M1–M6 tap wrench](https://www.amazon.com/dp/B0F7K43T14) are ON-ORDER in the [purchase ledger](purchases.md). Both were placed November 10, for $9.00 and $6.42 respectively including estimated tax. Delivery and completed payments are not yet confirmed.
+The [uxcell M3 × 0.5 tap and Ø2.5 mm drill set](https://www.amazon.com/dp/B09TYSP9NV) and [Piutouyar M1–M6 tap wrench](https://www.amazon.com/dp/B0F7K43T14) are ON-ORDER in the [purchase ledger](purchases.md). Both were placed November 10, for $9.00 and $6.42 respectively including estimated tax. The tap/drill set has shipped. Delivery and completed payments are not yet confirmed.
 
 An [IEAWISL external-tooth washer assortment](https://www.amazon.com/dp/B0D8HVSJMK), advertised as 304 stainless steel, is also ON-ORDER: 550 pieces in eight sizes M2.5–M12, $9.64 including estimated tax, placed November 10. The M3 washer's dimensions and thickness are unverified. Check it against the specified DIN 6797A M3 washer before using it for the earth clamp or purchasing the separate BelMetric washer.
 
