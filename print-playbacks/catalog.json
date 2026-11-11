@@ -931,7 +931,7 @@
     "recipe": "hardware/printed-parts/faucet/sculpted/finish-selection.json",
     "recipe_sha256": "f9f71eba67fb967f4005be7e52ecf4e436c36eec028c85073309d1fff8bdea95",
     "project_sha256": "dcb830f862b2f0a0880b7491dae16ece3e044d6bda4e7ba7735e1d6cfff85835",
-    "archive_sha256": "f7877400d05f01365c8a37c0bb840aa4dd2fa2d5ddc4bbe76d160fcd5ec4a81c",
+    "archive_sha256": "9f8c462679e47cf0dc1359bd5ce94b67dc910b6f31803842bc77d89c3d046848",
     "gcode_sha256": "273db382779824ad72f5dec2d3bb77aa823d1bcbdbc1da92a34dbabd4f245848",
     "kind": "plan",
     "sha256": "2485b67dfec913645dc27bc91eb046780e1ebce56b57f37a86cca487cd2a4629",
@@ -955,7 +955,7 @@
       "Filament bridge speed": "15 mm/s"
     },
     "model_sha256": "cf69dac0a0ce01845ce261d050fbbb876be24baec78d3db77f8d97839bc32990",
-    "recipe_commit": "0d2bbef021e3514fcbc4a014ced8f1d6c9ef97a1"
+    "recipe_commit": "dc5c8629282f7cdca8e02f3d7fec945ca78742a8"
   },
   "HSM-0093": {
     "title": "Sculpted faucet mounting gasket · Mark1 print plan",
@@ -987,7 +987,7 @@
     "recipe": "hardware/printed-parts/faucet/sculpted/finish-selection.json",
     "recipe_sha256": "f9f71eba67fb967f4005be7e52ecf4e436c36eec028c85073309d1fff8bdea95",
     "project_sha256": "dcb830f862b2f0a0880b7491dae16ece3e044d6bda4e7ba7735e1d6cfff85835",
-    "archive_sha256": "f7877400d05f01365c8a37c0bb840aa4dd2fa2d5ddc4bbe76d160fcd5ec4a81c",
+    "archive_sha256": "9f8c462679e47cf0dc1359bd5ce94b67dc910b6f31803842bc77d89c3d046848",
     "gcode_sha256": "273db382779824ad72f5dec2d3bb77aa823d1bcbdbc1da92a34dbabd4f245848",
     "kind": "plan",
     "sha256": "2485b67dfec913645dc27bc91eb046780e1ebce56b57f37a86cca487cd2a4629",
@@ -1018,14 +1018,14 @@
       "Rim fins": "Removable fins beneath the inclined rim"
     },
     "model_sha256": "f49e8818fa749ad57445aca26972ff107d840ed53102d33e6fff7837f46c1bfb",
-    "recipe_commit": "0d2bbef021e3514fcbc4a014ced8f1d6c9ef97a1"
+    "recipe_commit": "dc5c8629282f7cdca8e02f3d7fec945ca78742a8"
   },
   "HSM-0095": {
     "title": "Complete Sculpted faucet · Mark2 print plan",
     "recipe": "hardware/printed-parts/faucet/sculpted/finish-selection.json",
     "recipe_sha256": "f9f71eba67fb967f4005be7e52ecf4e436c36eec028c85073309d1fff8bdea95",
     "project_sha256": "dcb830f862b2f0a0880b7491dae16ece3e044d6bda4e7ba7735e1d6cfff85835",
-    "archive_sha256": "f7877400d05f01365c8a37c0bb840aa4dd2fa2d5ddc4bbe76d160fcd5ec4a81c",
+    "archive_sha256": "9f8c462679e47cf0dc1359bd5ce94b67dc910b6f31803842bc77d89c3d046848",
     "gcode_sha256": "273db382779824ad72f5dec2d3bb77aa823d1bcbdbc1da92a34dbabd4f245848",
     "kind": "plan",
     "sha256": "2485b67dfec913645dc27bc91eb046780e1ebce56b57f37a86cca487cd2a4629",
@@ -1056,14 +1056,14 @@
       "Bed anchor": "Removable disc on the hidden plug end"
     },
     "model_sha256": "a3f80020d3756ea99dc7135a3173c89f9ed05bebebb63ce211d0492e92dc14ad",
-    "recipe_commit": "0d2bbef021e3514fcbc4a014ced8f1d6c9ef97a1"
+    "recipe_commit": "dc5c8629282f7cdca8e02f3d7fec945ca78742a8"
   },
   "HSM-0096": {
     "title": "Complete Sculpted faucet · Mark2 print plan",
     "recipe": "hardware/printed-parts/faucet/sculpted/finish-selection.json",
     "recipe_sha256": "f9f71eba67fb967f4005be7e52ecf4e436c36eec028c85073309d1fff8bdea95",
     "project_sha256": "dcb830f862b2f0a0880b7491dae16ece3e044d6bda4e7ba7735e1d6cfff85835",
-    "archive_sha256": "f7877400d05f01365c8a37c0bb840aa4dd2fa2d5ddc4bbe76d160fcd5ec4a81c",
+    "archive_sha256": "9f8c462679e47cf0dc1359bd5ce94b67dc910b6f31803842bc77d89c3d046848",
     "gcode_sha256": "273db382779824ad72f5dec2d3bb77aa823d1bcbdbc1da92a34dbabd4f245848",
     "kind": "plan",
     "sha256": "2485b67dfec913645dc27bc91eb046780e1ebce56b57f37a86cca487cd2a4629",
@@ -1091,7 +1091,7 @@
       "Filament bridge speed": "15 mm/s"
     },
     "model_sha256": "3a1182b480110d50cb8943dfc4be8d5b5b2344bdcbf10b37052ef2e6423c9cfa",
-    "recipe_commit": "0d2bbef021e3514fcbc4a014ced8f1d6c9ef97a1"
+    "recipe_commit": "dc5c8629282f7cdca8e02f3d7fec945ca78742a8"
   },
   "HSM-0098": {
     "title": "Faucet umbilical organizer · Mark2 print plan",
@@ -1255,9 +1255,9 @@
     "title": "Industrial faucet · Mark2 print plan",
     "recipe": "hardware/printed-parts/faucet/industrial/faucet-industrial-petgf.print.json",
     "recipe_target": "industrial-faucet-print-project",
-    "recipe_sha256": "f4d1e16802f24ce23e385d573eea1abfbebaa780d36f7a1af4a7be612a7703df",
+    "recipe_sha256": "f44ed5c9e8bd18442aecebac829a3e5d35304212013eb18807e6752179a36ce1",
     "project_sha256": "74e5e7d3d9ed6e50e020c383511a145b0741926df96bc04ab53009dd953e7e58",
-    "archive_sha256": "2982ae017cf5b8c8ce7827477e7ab10ef8344c43c8a7fccad0d8c78834acf677",
+    "archive_sha256": "e13af5d68e55fe4439ee729d948cff9dd6960de094baf6cfa48319672f7b203b",
     "gcode_sha256": "ac8d5a77362beaa2b0964218c0f2382c3b672209a3de1d88ab475470966f590d",
     "kind": "plan",
     "sha256": "94ecdded096f35463efacc09ca1bd05b595fa87d8f62c4f1a41388db3d493620",
@@ -1281,7 +1281,7 @@
       "Filament bridge speed": "15 mm/s"
     },
     "model_sha256": "5dcf7c25eddfd45f5a9db12b687b751ba24c3c3f9bb87d042b6d97ca4d134bee",
-    "recipe_commit": "877bb32aae662cb565ed7d47f17d4f0162c07403"
+    "recipe_commit": "abb8c24f14a167c83d7c7e70c0f02608a1b621b9"
   },
   "HSM-0112": {
     "title": "Industrial faucet mounting gasket · Mark2",
@@ -1315,9 +1315,9 @@
     "title": "Industrial faucet · Mark2 print plan",
     "recipe": "hardware/printed-parts/faucet/industrial/faucet-industrial-petgf.print.json",
     "recipe_target": "industrial-faucet-print-project",
-    "recipe_sha256": "f4d1e16802f24ce23e385d573eea1abfbebaa780d36f7a1af4a7be612a7703df",
+    "recipe_sha256": "f44ed5c9e8bd18442aecebac829a3e5d35304212013eb18807e6752179a36ce1",
     "project_sha256": "74e5e7d3d9ed6e50e020c383511a145b0741926df96bc04ab53009dd953e7e58",
-    "archive_sha256": "2982ae017cf5b8c8ce7827477e7ab10ef8344c43c8a7fccad0d8c78834acf677",
+    "archive_sha256": "e13af5d68e55fe4439ee729d948cff9dd6960de094baf6cfa48319672f7b203b",
     "gcode_sha256": "ac8d5a77362beaa2b0964218c0f2382c3b672209a3de1d88ab475470966f590d",
     "kind": "plan",
     "sha256": "94ecdded096f35463efacc09ca1bd05b595fa87d8f62c4f1a41388db3d493620",
@@ -1346,15 +1346,15 @@
       "Rim fins": "Removable fins beneath the inclined rim"
     },
     "model_sha256": "dc855eb7d8eae75886222d8b4aee8b9e02fe1d55ae4740c1ae5b4b64cf6ba742",
-    "recipe_commit": "877bb32aae662cb565ed7d47f17d4f0162c07403"
+    "recipe_commit": "abb8c24f14a167c83d7c7e70c0f02608a1b621b9"
   },
   "HSM-0114": {
     "title": "Industrial faucet · Mark2 print plan",
     "recipe": "hardware/printed-parts/faucet/industrial/faucet-industrial-petgf.print.json",
     "recipe_target": "industrial-faucet-print-project",
-    "recipe_sha256": "f4d1e16802f24ce23e385d573eea1abfbebaa780d36f7a1af4a7be612a7703df",
+    "recipe_sha256": "f44ed5c9e8bd18442aecebac829a3e5d35304212013eb18807e6752179a36ce1",
     "project_sha256": "74e5e7d3d9ed6e50e020c383511a145b0741926df96bc04ab53009dd953e7e58",
-    "archive_sha256": "2982ae017cf5b8c8ce7827477e7ab10ef8344c43c8a7fccad0d8c78834acf677",
+    "archive_sha256": "e13af5d68e55fe4439ee729d948cff9dd6960de094baf6cfa48319672f7b203b",
     "gcode_sha256": "ac8d5a77362beaa2b0964218c0f2382c3b672209a3de1d88ab475470966f590d",
     "kind": "plan",
     "sha256": "94ecdded096f35463efacc09ca1bd05b595fa87d8f62c4f1a41388db3d493620",
@@ -1380,7 +1380,7 @@
       "Filament bridge speed": "15 mm/s"
     },
     "model_sha256": "3d4d2e05edde5a0e45aad36e9de072a57103c3b0f8da2bbd875cbfbedbe68133",
-    "recipe_commit": "877bb32aae662cb565ed7d47f17d4f0162c07403"
+    "recipe_commit": "abb8c24f14a167c83d7c7e70c0f02608a1b621b9"
   },
   "HSM-0151": {
     "title": "Tube insertion base · Mark1",
@@ -1427,9 +1427,9 @@
     "title": "Industrial faucet · Mark2 print plan",
     "recipe": "hardware/printed-parts/faucet/industrial/faucet-industrial-petgf.print.json",
     "recipe_target": "industrial-faucet-print-project",
-    "recipe_sha256": "f4d1e16802f24ce23e385d573eea1abfbebaa780d36f7a1af4a7be612a7703df",
+    "recipe_sha256": "f44ed5c9e8bd18442aecebac829a3e5d35304212013eb18807e6752179a36ce1",
     "project_sha256": "74e5e7d3d9ed6e50e020c383511a145b0741926df96bc04ab53009dd953e7e58",
-    "archive_sha256": "2982ae017cf5b8c8ce7827477e7ab10ef8344c43c8a7fccad0d8c78834acf677",
+    "archive_sha256": "e13af5d68e55fe4439ee729d948cff9dd6960de094baf6cfa48319672f7b203b",
     "gcode_sha256": "ac8d5a77362beaa2b0964218c0f2382c3b672209a3de1d88ab475470966f590d",
     "kind": "plan",
     "sha256": "94ecdded096f35463efacc09ca1bd05b595fa87d8f62c4f1a41388db3d493620",
@@ -1455,7 +1455,7 @@
       "Filament bridge speed": "15 mm/s"
     },
     "model_sha256": "7a3f5c7d9034c4cce0e0f39bfac6e868f6bd8d01a05add3d21951981eca296eb",
-    "recipe_commit": "877bb32aae662cb565ed7d47f17d4f0162c07403"
+    "recipe_commit": "abb8c24f14a167c83d7c7e70c0f02608a1b621b9"
   },
   "HSM-0272": {
     "title": "White tube collars · Mark2 print plan",
@@ -1973,9 +1973,9 @@
     "title": "Industrial faucet · Mark2 print plan",
     "recipe": "hardware/printed-parts/faucet/industrial/faucet-industrial-petgf.print.json",
     "recipe_target": "industrial-faucet-print-project",
-    "recipe_sha256": "f4d1e16802f24ce23e385d573eea1abfbebaa780d36f7a1af4a7be612a7703df",
+    "recipe_sha256": "f44ed5c9e8bd18442aecebac829a3e5d35304212013eb18807e6752179a36ce1",
     "project_sha256": "74e5e7d3d9ed6e50e020c383511a145b0741926df96bc04ab53009dd953e7e58",
-    "archive_sha256": "2982ae017cf5b8c8ce7827477e7ab10ef8344c43c8a7fccad0d8c78834acf677",
+    "archive_sha256": "e13af5d68e55fe4439ee729d948cff9dd6960de094baf6cfa48319672f7b203b",
     "gcode_sha256": "ac8d5a77362beaa2b0964218c0f2382c3b672209a3de1d88ab475470966f590d",
     "kind": "plan",
     "sha256": "94ecdded096f35463efacc09ca1bd05b595fa87d8f62c4f1a41388db3d493620",
@@ -2004,6 +2004,6 @@
       "Bed anchor": "Removable disc on the hidden plug end"
     },
     "model_sha256": "35ec9f0b99c5e90f038836549e6f5e8f112b2af03e1849b08b2d759050d260e6",
-    "recipe_commit": "877bb32aae662cb565ed7d47f17d4f0162c07403"
+    "recipe_commit": "abb8c24f14a167c83d7c7e70c0f02608a1b621b9"
   }
 }
