@@ -94,8 +94,8 @@
   "mass_estimate_note": "Slicer grams use the saved profile density, not a measured PET-GF part mass.",
   "nonplanar_contact": {
     "added_commanded_motion_seconds": 1287.0309562135683,
-    "gcode_input_sha256": "1c64cddad32016ab85ccc9684770bc10c1a3cd2af60ba384e8db42124b0414bc",
-    "gcode_sha256": "1e7aa1861d3dd9fb5dbd19cf743e17414723640246bcba7e911374d35513d538",
+    "gcode_input_sha256": "be21004cefd68de317d2cf058a5597fa032f29eee808d9965badda5f35d2d234",
+    "gcode_sha256": "87fbe1ba496faa6bc0c5a1441c71811fafb683589ae24363e2e44ba51a91ae06",
     "geometry": {
       "faucet-shell-tip": {
         "Keep support clear of beverage outlet 1": {
@@ -203,7 +203,7 @@
     "maximum_vertical_motion_offset_mm": 0.4799940477616076,
     "purpose": "Read the bounded restored movements of the full print.",
     "restored_extrusion_delta_mm": -18.42721620612179,
-    "mapped_input_archive_sha256": "b0ed9469b0ec6d0e941fe5a030966ec589f0436aff84a48f313417e1671d603e"
+    "pre_contour_archive_sha256": "90974521bc4fd42227866d30908fc8b0eb3cc305756826e153fa31b7e30d58a0"
   },
   "parts": [
     {
@@ -227,13 +227,13 @@
       "inputs": {
         "feature_filter": "Other objects' feature labels are masked; coordinates and extrusion commands are retained.",
         "gcode": "plate_1.gcode",
-        "gcode_sha256": "c7be9cf229c47d8fcdac449c324b1b78ab5eac43e634e53ac89e15f8fe1e75ac",
+        "gcode_sha256": "018a0a1168974d9f63eae8f3f673ede734b497860134e89d82feaa64b949d1a8",
         "model": "hardware/printed-parts/faucet/industrial/production/2026-10-25/industrial-shell-base.stl",
         "model_sha256": "dc855eb7d8eae75886222d8b4aee8b9e02fe1d55ae4740c1ae5b4b64cf6ba742",
         "object_label": 1901,
-        "plate_gcode_sha256": "c7be9cf229c47d8fcdac449c324b1b78ab5eac43e634e53ac89e15f8fe1e75ac",
+        "plate_gcode_sha256": "018a0a1168974d9f63eae8f3f673ede734b497860134e89d82feaa64b949d1a8",
         "profile": "hardware/printed-parts/faucet/industrial/faucet-industrial-petgf.3mf",
-        "profile_sha256": "9c0172c3758f1bd6f3a9a8d9ee889be527408dafd9b516d9ffbbc493c74ecdde"
+        "profile_sha256": "2125747b747c09ead2603525ab875cabba37a642421c6aea5452d3f42eddde57"
       },
       "interface_feature_policy": "All support bodies are retained; unlabelled interfaces have unknown contact count and build-up.",
       "interfaces": [
@@ -529,13 +529,13 @@
       "inputs": {
         "feature_filter": "Other objects' feature labels are masked; coordinates and extrusion commands are retained.",
         "gcode": "plate_1.gcode",
-        "gcode_sha256": "c7be9cf229c47d8fcdac449c324b1b78ab5eac43e634e53ac89e15f8fe1e75ac",
+        "gcode_sha256": "018a0a1168974d9f63eae8f3f673ede734b497860134e89d82feaa64b949d1a8",
         "model": "hardware/printed-parts/faucet/industrial/production/2026-10-25/faucet-shell-tip.stl",
         "model_sha256": "35ec9f0b99c5e90f038836549e6f5e8f112b2af03e1849b08b2d759050d260e6",
         "object_label": 1902,
-        "plate_gcode_sha256": "c7be9cf229c47d8fcdac449c324b1b78ab5eac43e634e53ac89e15f8fe1e75ac",
+        "plate_gcode_sha256": "018a0a1168974d9f63eae8f3f673ede734b497860134e89d82feaa64b949d1a8",
         "profile": "hardware/printed-parts/faucet/industrial/faucet-industrial-petgf.3mf",
-        "profile_sha256": "9c0172c3758f1bd6f3a9a8d9ee889be527408dafd9b516d9ffbbc493c74ecdde"
+        "profile_sha256": "2125747b747c09ead2603525ab875cabba37a642421c6aea5452d3f42eddde57"
       },
       "interface_feature_policy": "All support bodies are retained; unlabelled interfaces have unknown contact count and build-up.",
       "interfaces": [
@@ -697,13 +697,13 @@
       "inputs": {
         "feature_filter": "Other objects' feature labels are masked; coordinates and extrusion commands are retained.",
         "gcode": "plate_1.gcode",
-        "gcode_sha256": "c7be9cf229c47d8fcdac449c324b1b78ab5eac43e634e53ac89e15f8fe1e75ac",
+        "gcode_sha256": "018a0a1168974d9f63eae8f3f673ede734b497860134e89d82feaa64b949d1a8",
         "model": "hardware/printed-parts/faucet/industrial/production/2026-10-25/sculpted-display-cover.stl",
         "model_sha256": "3d4d2e05edde5a0e45aad36e9de072a57103c3b0f8da2bbd875cbfbedbe68133",
         "object_label": 1903,
-        "plate_gcode_sha256": "c7be9cf229c47d8fcdac449c324b1b78ab5eac43e634e53ac89e15f8fe1e75ac",
+        "plate_gcode_sha256": "018a0a1168974d9f63eae8f3f673ede734b497860134e89d82feaa64b949d1a8",
         "profile": "hardware/printed-parts/faucet/industrial/faucet-industrial-petgf.3mf",
-        "profile_sha256": "9c0172c3758f1bd6f3a9a8d9ee889be527408dafd9b516d9ffbbc493c74ecdde"
+        "profile_sha256": "2125747b747c09ead2603525ab875cabba37a642421c6aea5452d3f42eddde57"
       },
       "interface_feature_policy": "All support bodies are retained; unlabelled interfaces have unknown contact count and build-up.",
       "interfaces": [
@@ -826,13 +826,13 @@
       "inputs": {
         "feature_filter": "Other objects' feature labels are masked; coordinates and extrusion commands are retained.",
         "gcode": "plate_1.gcode",
-        "gcode_sha256": "c7be9cf229c47d8fcdac449c324b1b78ab5eac43e634e53ac89e15f8fe1e75ac",
+        "gcode_sha256": "018a0a1168974d9f63eae8f3f673ede734b497860134e89d82feaa64b949d1a8",
         "model": "hardware/printed-parts/faucet/industrial/production/2026-10-25/industrial-above-counter-plate.stl",
         "model_sha256": "5dcf7c25eddfd45f5a9db12b687b751ba24c3c3f9bb87d042b6d97ca4d134bee",
         "object_label": 1904,
-        "plate_gcode_sha256": "c7be9cf229c47d8fcdac449c324b1b78ab5eac43e634e53ac89e15f8fe1e75ac",
+        "plate_gcode_sha256": "018a0a1168974d9f63eae8f3f673ede734b497860134e89d82feaa64b949d1a8",
         "profile": "hardware/printed-parts/faucet/industrial/faucet-industrial-petgf.3mf",
-        "profile_sha256": "9c0172c3758f1bd6f3a9a8d9ee889be527408dafd9b516d9ffbbc493c74ecdde"
+        "profile_sha256": "2125747b747c09ead2603525ab875cabba37a642421c6aea5452d3f42eddde57"
       },
       "interface_feature_policy": "All support bodies are retained; unlabelled interfaces have unknown contact count and build-up.",
       "interfaces": [],
@@ -906,13 +906,13 @@
       "inputs": {
         "feature_filter": "Other objects' feature labels are masked; coordinates and extrusion commands are retained.",
         "gcode": "plate_1.gcode",
-        "gcode_sha256": "c7be9cf229c47d8fcdac449c324b1b78ab5eac43e634e53ac89e15f8fe1e75ac",
+        "gcode_sha256": "018a0a1168974d9f63eae8f3f673ede734b497860134e89d82feaa64b949d1a8",
         "model": "hardware/printed-parts/faucet/industrial/production/2026-10-25/lever-replica.stl",
         "model_sha256": "7a3f5c7d9034c4cce0e0f39bfac6e868f6bd8d01a05add3d21951981eca296eb",
         "object_label": 1905,
-        "plate_gcode_sha256": "c7be9cf229c47d8fcdac449c324b1b78ab5eac43e634e53ac89e15f8fe1e75ac",
+        "plate_gcode_sha256": "018a0a1168974d9f63eae8f3f673ede734b497860134e89d82feaa64b949d1a8",
         "profile": "hardware/printed-parts/faucet/industrial/faucet-industrial-petgf.3mf",
-        "profile_sha256": "9c0172c3758f1bd6f3a9a8d9ee889be527408dafd9b516d9ffbbc493c74ecdde"
+        "profile_sha256": "2125747b747c09ead2603525ab875cabba37a642421c6aea5452d3f42eddde57"
       },
       "interface_feature_policy": "All support bodies are retained; unlabelled interfaces have unknown contact count and build-up.",
       "interfaces": [
@@ -1056,23 +1056,23 @@
   ],
   "plates": [
     {
-      "estimated_total_seconds": 28404.0,
+      "estimated_total_seconds": 28364.0,
       "plate": 1,
-      "saved_profile_filament_estimate_g": 169.41482543945312,
+      "saved_profile_filament_estimate_g": 169.2356414794922,
       "slicer_warning": ""
     }
   ],
   "project": "hardware/printed-parts/faucet/industrial/faucet-industrial-petgf.3mf",
-  "project_sha256": "9c0172c3758f1bd6f3a9a8d9ee889be527408dafd9b516d9ffbbc493c74ecdde",
+  "project_sha256": "2125747b747c09ead2603525ab875cabba37a642421c6aea5452d3f42eddde57",
   "rim_contour": {
     "added_commanded_motion_seconds": 105.59759601199295,
     "arc_count": 123,
-    "archive_sha256": "fb7b1a692e17c8cdc6fae80fbf7d36517de9ab2c50877c14fb07da931fd60d18",
+    "archive_sha256": "21c0e647f5b80d38e5a18e20c2ab91748d2545838a7d38b8ad29206de4ce0f80",
     "emitted_contact_segments": 801,
     "extrusion_added_mm": 5.822014105617284,
     "extrusion_removed_mm": 7.501480264748283,
-    "gcode_input_sha256": "1e7aa1861d3dd9fb5dbd19cf743e17414723640246bcba7e911374d35513d538",
-    "gcode_sha256": "c7be9cf229c47d8fcdac449c324b1b78ab5eac43e634e53ac89e15f8fe1e75ac",
+    "gcode_input_sha256": "87fbe1ba496faa6bc0c5a1441c71811fafb683589ae24363e2e44ba51a91ae06",
+    "gcode_sha256": "018a0a1168974d9f63eae8f3f673ede734b497860134e89d82feaa64b949d1a8",
     "identify_id": 1901,
     "maximum_contact_depth_below_prior_peak_mm": 1.08000000001228,
     "minimum_contact_z_mm": 0.9753898145421402,
@@ -1102,9 +1102,23 @@
   "wall_loops": 2,
   "executable": {
     "archive": "hardware/printed-parts/faucet/industrial/faucet-industrial-petgf.gcode.3mf",
-    "archive_sha256": "fb7b1a692e17c8cdc6fae80fbf7d36517de9ab2c50877c14fb07da931fd60d18",
+    "archive_sha256": "21c0e647f5b80d38e5a18e20c2ab91748d2545838a7d38b8ad29206de4ce0f80",
     "member": "Metadata/plate_1.gcode",
-    "gcode_sha256": "c7be9cf229c47d8fcdac449c324b1b78ab5eac43e634e53ac89e15f8fe1e75ac"
+    "gcode_sha256": "018a0a1168974d9f63eae8f3f673ede734b497860134e89d82feaa64b949d1a8"
+  },
+  "base_brim_review": {
+    "previous_gcode_sha256": "c7be9cf229c47d8fcdac449c324b1b78ab5eac43e634e53ac89e15f8fe1e75ac",
+    "base_brim_segments": 0,
+    "base_first_layer_tree_segments": 5064,
+    "tip_brim_segments": 1523,
+    "support_interface_and_bridge_geometry_matches_reviewed_slice": true,
+    "other_deposition_changes": [
+      {
+        "object_id": 1901,
+        "feature": "Support",
+        "different_layer_count": 4
+      }
+    ]
   },
   "selected_contact_and_recesses": {
     "gcode_sha256": "c7be9cf229c47d8fcdac449c324b1b78ab5eac43e634e53ac89e15f8fe1e75ac",

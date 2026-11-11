@@ -46,6 +46,7 @@
     "fin_setback_from_model_mm": 0.96,
     "fins": [],
     "object_settings": {
+      "brim_type": "no_brim",
       "enable_support": "1",
       "support_bottom_z_distance": "0.30",
       "support_style": "tree_slim",
@@ -72,7 +73,7 @@
   ],
   "filament_colour": "#FFFFFF",
   "finish_selection": "hardware/printed-parts/faucet/sculpted/finish-selection.json",
-  "finish_selection_sha256": "17b9c827f42517309b9332e7f39728136eec7598092b025fecabc5ed88c8e9e2",
+  "finish_selection_sha256": "340097eec7f8218a538eb247f93a3b9f8bafdc686a40819c6c9ed4ea86070d96",
   "layer_config_ranges": [],
   "layer_height_mm": 0.24,
   "layer_scope": "0.20 mm first bed layer; 0.24 mm thereafter on all five parts. No Industrial shoulder bands or separate eight-layer override.",
@@ -213,11 +214,9 @@
     ]
   },
   "nonplanar_motion": {
-    "added_commanded_motion_seconds": 1409.9781604377044,
-    "archive": "hardware/printed-parts/faucet/sculpted/production/faucet-petgf.gcode.3mf",
-    "archive_sha256": "f7243ff85093a18b32568c44b3636f6bfb8da79a43cf2ee1f5db296b07bd20d5",
-    "gcode_input_sha256": "81480f155d1135ffb1644b347fd0ca0ac77713831a8bdab86ce230b66d79f89f",
-    "gcode_sha256": "bf1c4c89818195f83c4bc0b6ca7b7999925f9e5dea8ae6bb9ef5548082a03f00",
+    "added_commanded_motion_seconds": 1409.8659757003084,
+    "gcode_input_sha256": "4cdd590bb5b8c38a6fe0f01fdfc8aa2b4843c3b64876469783b07e2cef955cc5",
+    "gcode_sha256": "3809954282f0181e3afe04626f726edd324f36aef62ffcfe124923d80144b30e",
     "geometry": {
       "faucet-shell-base": {
         "Continuous base rim roof enforcer": {
@@ -314,17 +313,18 @@
         }
       }
     },
-    "lifted_travels": 4752,
-    "mapped_deposition_segments": 547534,
+    "lifted_travels": 4753,
+    "mapped_deposition_segments": 547535,
     "mapped_deposition_segments_by_region": [
-      474457,
+      474458,
       73077
     ],
     "maximum_mapped_path_slope_degrees": 43.98367195513913,
     "maximum_mapped_z_speed_mm_s": 7.499999997691714,
     "maximum_vertical_motion_offset_mm": 0.4799872251275241,
     "purpose": "Read the bounded restored movements of the full print.",
-    "restored_extrusion_delta_mm": -16.77660025495466
+    "restored_extrusion_delta_mm": -16.774277172764744,
+    "pre_contour_archive_sha256": "045bb99e098bd4e321058dd2affd768df1cd0c7c065e955feda3f0aa30f3d99f"
   },
   "nozzle_diameter_mm": [
     0.4,
@@ -332,6 +332,7 @@
   ],
   "parent_project": "hardware/printed-parts/faucet/industrial/faucet-industrial-petgf.3mf",
   "parent_project_sha256": "33b248cc401b7f604b61b2cf19b8b978f98283bf870343f6a57b270917e708ec",
+  "parent_project_source_commit": "4642937f98c1b55f2ae3cc0b15b10e39e1f027a4",
   "parts": [
     {
       "body_count": 1,
@@ -625,7 +626,7 @@
   "profile_source": "hardware/printed-parts/faucet/industrial/prints/2026-10-15-all-learnings/mark2/2026-10-15-complete-faucet-all-learnings-mark2-base-arcs-z004.3mf",
   "profile_source_sha256": "25ae62b12d2dee09e59b835cce1c63f549bd6f49623956929d631c208f98fc0f",
   "project": "hardware/printed-parts/faucet/faucet-petgf.3mf",
-  "project_sha256": "fa5b9c66b341f64eb787bc5951da3da561e9bf1ca26d75b461cb6d280cfa1575",
+  "project_sha256": "c93d069effd937cebcac660ff806cf50f84359f63db65e151741484890b72c26",
   "rear_seam_enforcement": {
     "enforced_triangles": 1519,
     "half_width_mm": 0.25,
@@ -650,14 +651,14 @@
   "requested_z_trim_mm": 0.04,
   "rigid_part_count": 5,
   "rim_contour": {
-    "added_commanded_motion_seconds": 103.60201031000942,
+    "added_commanded_motion_seconds": 103.60180497667609,
     "arc_count": 123,
-    "archive_sha256": "4d7fbffcde18daa20d21d2f2677f522fa1a656dc0d7555035b9b5fcee3d87883",
+    "archive_sha256": "61141c713e322fba18c6f623b26f558ff7636450753d5cd3cb80101f4d96b004",
     "emitted_contact_segments": 801,
     "extrusion_added_mm": 5.778014066399109,
     "extrusion_removed_mm": 9.653522076572456,
-    "gcode_input_sha256": "bf1c4c89818195f83c4bc0b6ca7b7999925f9e5dea8ae6bb9ef5548082a03f00",
-    "gcode_sha256": "efd90f466ee785821ee3d19f112842f4fb7dbb42b34f04ca080a6c9c249edd52",
+    "gcode_input_sha256": "3809954282f0181e3afe04626f726edd324f36aef62ffcfe124923d80144b30e",
+    "gcode_sha256": "334faafeaef2a04e3982f56956741bf4c7281aa8fabbad5b8410bb3e64d3100d",
     "identify_id": 1901,
     "maximum_contact_depth_below_prior_peak_mm": 1.0800000000037517,
     "minimum_contact_z_mm": 0.9753898289152962,
@@ -704,6 +705,7 @@
         "source_commit": "b388123d2ac2fdc31fd091f980334b9c99443ab8"
       },
       "object_settings": {
+        "brim_type": "no_brim",
         "enable_support": "1",
         "support_bottom_z_distance": "0.30",
         "support_style": "tree_slim",
@@ -1101,12 +1103,12 @@
     "hardware/printed-parts/faucet/finish-coupons/2026-10-15-edge-supports/base-mark2/preparation.json": "ef809621ac2b4d66ab7c0602848fe73eea37af4107cfb77d63b034088c2c3b33",
     "hardware/printed-parts/faucet/industrial/prints/2026-10-15-all-learnings/mark2/2026-10-15-complete-faucet-all-learnings-mark2-base-arcs-z004.3mf": "25ae62b12d2dee09e59b835cce1c63f549bd6f49623956929d631c208f98fc0f",
     "hardware/printed-parts/faucet/lever-replica/lever-replica-side-down.stl": "19d420b9193d0d691959aadb80095523164afe380189aae1af9eb0c13f8f2d21",
-    "hardware/printed-parts/faucet/sculpted/finish-selection.json": "17b9c827f42517309b9332e7f39728136eec7598092b025fecabc5ed88c8e9e2",
+    "hardware/printed-parts/faucet/sculpted/finish-selection.json": "340097eec7f8218a538eb247f93a3b9f8bafdc686a40819c6c9ed4ea86070d96",
     "hardware/printed-parts/faucet/sculpted/prepare_print_project.rs": "710b06d0d595751693048756a91d46585c6f5e7bfcf00aca1eb2fddcecce7548",
     "hardware/printed-parts/faucet/sculpted/rim_supports.rs": "207873e039d476bbbfe5fdec1e98e03c221257f122235410688eb003c51d7c58",
-    "tools/hsm/print-prep/src/faucet_contact.rs": "19c8c781ca76e2153850340df333af95dfd95021d13ec584475d5d06feb48cc9",
+    "tools/hsm/print-prep/src/faucet_contact.rs": "7d9d19e3809237f471b9c1c26bd5bd8bc14abe0e6f74d64eddb781a131f2b56d",
     "tools/hsm/print-prep/src/faucet_recesses.rs": "67436872fcf6315d00d01dea42322d3c59448c82884e5b5dc010e4c08a51dd9c",
-    "tools/hsm/print-prep/src/rim_contour.rs": "a56acd34e9db824b378a4e8224712e4e4e7d14fb30acf401b4be6fe8e5c66a38"
+    "tools/hsm/print-prep/src/rim_contour.rs": "26d8ad758e8cedd6f95ac7c4288b0ac676248a8b4c0d58f3ce6deeb115aeb721"
   },
   "sparse_infill_pattern": "grid",
   "sparse_infill_percent": 15.0,
@@ -2531,8 +2533,5 @@
     "source_project_sha256": "f6e5c53d4a23b25f568b083d8a3eaa779b7959c666fa41a227a953e21904f3ff",
     "vertices_and_triangle_indices_unchanged": true
   },
-  "wall_loops": 2,
-  "current_archive": "hardware/printed-parts/faucet/sculpted/production/faucet-petgf.gcode.3mf",
-  "current_contact_review": "hardware/printed-parts/faucet/sculpted/production/contact-review.json",
-  "parent_project_source_commit": "4642937f98c1b55f2ae3cc0b15b10e39e1f027a4"
+  "wall_loops": 2
 }

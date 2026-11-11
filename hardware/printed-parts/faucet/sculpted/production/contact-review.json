@@ -5,10 +5,10 @@
   "filament": "White PET-GF",
   "active_nozzle": 0,
   "project": "hardware/printed-parts/faucet/faucet-petgf.3mf",
-  "project_sha256": "fa5b9c66b341f64eb787bc5951da3da561e9bf1ca26d75b461cb6d280cfa1575",
+  "project_sha256": "c93d069effd937cebcac660ff806cf50f84359f63db65e151741484890b72c26",
   "archive": "hardware/printed-parts/faucet/sculpted/production/faucet-petgf.gcode.3mf",
-  "archive_sha256": "4d7fbffcde18daa20d21d2f2677f522fa1a656dc0d7555035b9b5fcee3d87883",
-  "gcode_sha256": "efd90f466ee785821ee3d19f112842f4fb7dbb42b34f04ca080a6c9c249edd52",
+  "archive_sha256": "61141c713e322fba18c6f623b26f558ff7636450753d5cd3cb80101f4d96b004",
+  "gcode_sha256": "334faafeaef2a04e3982f56956741bf4c7281aa8fabbad5b8410bb3e64d3100d",
   "rim": {
     "sampled": 623,
     "covered": 623,
@@ -16,14 +16,14 @@
     "missing_angles_degrees": []
   },
   "first_outer_perimeter": {
-    "added_commanded_motion_seconds": 103.60201031000942,
+    "added_commanded_motion_seconds": 103.60180497667609,
     "arc_count": 123,
-    "archive_sha256": "4d7fbffcde18daa20d21d2f2677f522fa1a656dc0d7555035b9b5fcee3d87883",
+    "archive_sha256": "61141c713e322fba18c6f623b26f558ff7636450753d5cd3cb80101f4d96b004",
     "emitted_contact_segments": 801,
     "extrusion_added_mm": 5.778014066399109,
     "extrusion_removed_mm": 9.653522076572456,
-    "gcode_input_sha256": "bf1c4c89818195f83c4bc0b6ca7b7999925f9e5dea8ae6bb9ef5548082a03f00",
-    "gcode_sha256": "efd90f466ee785821ee3d19f112842f4fb7dbb42b34f04ca080a6c9c249edd52",
+    "gcode_input_sha256": "3809954282f0181e3afe04626f726edd324f36aef62ffcfe124923d80144b30e",
+    "gcode_sha256": "334faafeaef2a04e3982f56956741bf4c7281aa8fabbad5b8410bb3e64d3100d",
     "identify_id": 1901,
     "maximum_contact_depth_below_prior_peak_mm": 1.0800000000037517,
     "minimum_contact_z_mm": 0.9753898289152962,
@@ -438,5 +438,39 @@
     ]
   },
   "submitted": false,
-  "physical_qualification": "Pending for this complete plate."
+  "physical_qualification": "Pending for this complete plate.",
+  "base_brim_review": {
+    "previous_gcode_sha256": "efd90f466ee785821ee3d19f112842f4fb7dbb42b34f04ca080a6c9c249edd52",
+    "base_brim_segments": 0,
+    "base_first_layer_tree_segments": 4645,
+    "tip_brim_segments": 2707,
+    "support_interface_and_bridge_geometry_matches_reviewed_slice": true,
+    "other_deposition_changes": [
+      {
+        "object_id": 1901,
+        "feature": "Floating vertical shell",
+        "different_layer_count": 10
+      },
+      {
+        "object_id": 1901,
+        "feature": "Support",
+        "different_layer_count": 1
+      },
+      {
+        "object_id": 1904,
+        "feature": "Gap infill",
+        "different_layer_count": 7
+      },
+      {
+        "object_id": 1904,
+        "feature": "Inner wall",
+        "different_layer_count": 10
+      },
+      {
+        "object_id": 1904,
+        "feature": "Outer wall",
+        "different_layer_count": 11
+      }
+    ]
+  }
 }
