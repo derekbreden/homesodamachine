@@ -1,0 +1,16 @@
+{
+  "printer": "H2C",
+  "subtask_name": "sculpted-support-and-fit-mark1-ready.gcode.3mf",
+  "gcode_state": "RUNNING",
+  "layer_num": 0,
+  "total_layer_num": 1084,
+  "mc_percent": 1,
+  "mc_remaining_time": 286,
+  "bed_temper": 80.0,
+  "bed_target_temper": 80.0,
+  "nozzle_temper": 42.0,
+  "nozzle_target_temper": 0.0,
+  "print_error": 0,
+  "hms": [],
+  "observed_at": "2026-11-11T19:22:45+00:00"
+}
