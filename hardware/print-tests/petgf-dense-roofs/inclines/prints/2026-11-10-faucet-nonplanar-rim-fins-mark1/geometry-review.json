@@ -1,0 +1,245 @@
+{
+  "purpose": "Bind the watertight rim fins and insert blockers to the frozen coupon.",
+  "components": [
+    {
+      "id": 1,
+      "name": "Frozen faucet coupon",
+      "subtype": "normal_part",
+      "bounds_mm": [
+        [
+          125.5,
+          97.046670914,
+          -5.7617910442786524e-11
+        ],
+        [
+          184.5,
+          162.953329086,
+          32.11999893194238
+        ]
+      ],
+      "source_vertices": 5376,
+      "source_triangles": 10752,
+      "volume_mm3": 40105.296779113654
+    },
+    {
+      "id": 2200,
+      "name": "Rim fin 2200",
+      "subtype": "normal_part",
+      "bounds_mm": [
+        [
+          144.6513718837829,
+          96.99837476227842,
+          0.0
+        ],
+        [
+          165.34862811621744,
+          99.62022758479668,
+          14.323264661602352
+        ]
+      ],
+      "source_vertices": 660,
+      "source_triangles": 1316,
+      "volume_mm3": 254.298878241151
+    },
+    {
+      "id": 2201,
+      "name": "Rim fin 2201",
+      "subtype": "normal_part",
+      "bounds_mm": [
+        [
+          166.88096140210143,
+          99.56835994464136,
+          0.0
+        ],
+        [
+          181.88935555440202,
+          114.06535545494533,
+          13.63463919857682
+        ]
+      ],
+      "source_vertices": 660,
+      "source_triangles": 1316,
+      "volume_mm3": 215.20887932822436
+    },
+    {
+      "id": 2202,
+      "name": "Rim fin 2202",
+      "subtype": "normal_part",
+      "bounds_mm": [
+        [
+          181.83565822196675,
+          115.54547574898406,
+          0.0
+        ],
+        [
+          184.55000000000018,
+          135.53749005992086,
+          9.353583866192547
+        ]
+      ],
+      "source_vertices": 660,
+      "source_triangles": 1316,
+      "volume_mm3": 120.83727379719926
+    },
+    {
+      "id": 2203,
+      "name": "Rim fin 2203",
+      "subtype": "normal_part",
+      "bounds_mm": [
+        [
+          170.28805588098245,
+          137.01761035395683,
+          0.0
+        ],
+        [
+          181.88935555440202,
+          149.68118357816454,
+          3.6001426647144124
+        ]
+      ],
+      "source_vertices": 536,
+      "source_triangles": 1068,
+      "volume_mm3": 26.28451255024395
+    },
+    {
+      "id": 2204,
+      "name": "Rim fin 2204",
+      "subtype": "normal_part",
+      "bounds_mm": [
+        [
+          128.11064444559833,
+          137.017610353913,
+          0.0
+        ],
+        [
+          139.7119441190179,
+          149.681183578138,
+          3.6001426645506998
+        ]
+      ],
+      "source_vertices": 536,
+      "source_triangles": 1068,
+      "volume_mm3": 26.284512548251183
+    },
+    {
+      "id": 2205,
+      "name": "Rim fin 2205",
+      "subtype": "normal_part",
+      "bounds_mm": [
+        [
+          125.45000000000016,
+          115.54547574893748,
+          0.0
+        ],
+        [
+          128.1643417780336,
+          135.53749005987427,
+          9.353583866018738
+        ]
+      ],
+      "source_vertices": 660,
+      "source_triangles": 1316,
+      "volume_mm3": 120.83727379396142
+    },
+    {
+      "id": 2206,
+      "name": "Rim fin 2206",
+      "subtype": "normal_part",
+      "bounds_mm": [
+        [
+          128.11064444559833,
+          99.56835994462075,
+          0.0
+        ],
+        [
+          143.1190385978989,
+          114.06535545490148,
+          13.634639198499869
+        ]
+      ],
+      "source_vertices": 660,
+      "source_triangles": 1316,
+      "volume_mm3": 215.20887932593465
+    },
+    {
+      "id": 2300,
+      "name": "Common interface at the visible rim",
+      "subtype": "support_enforcer",
+      "bounds_mm": [
+        [
+          125.05000000000017,
+          96.61200443209701,
+          -0.0685217492478728
+        ],
+        [
+          184.9500000000002,
+          151.86618790091856,
+          16.036792280890722
+        ]
+      ],
+      "source_vertices": 2492,
+      "source_triangles": 4980,
+      "volume_mm3": 489.03650588911245
+    },
+    {
+      "id": 2400,
+      "name": "Bridge insert recess 1",
+      "subtype": "support_blocker",
+      "bounds_mm": [
+        [
+          127.94999999997061,
+          119.04643637506743,
+          6.347321424758352
+        ],
+        [
+          137.05000000000197,
+          130.33396520202618,
+          18.023758979195005
+        ]
+      ],
+      "source_vertices": 146,
+      "source_triangles": 288,
+      "volume_mm3": 626.8283288946814
+    },
+    {
+      "id": 2401,
+      "name": "Bridge insert recess 2",
+      "subtype": "support_blocker",
+      "bounds_mm": [
+        [
+          150.44999999997106,
+          99.43814212032204,
+          11.60134810319356
+        ],
+        [
+          159.55000000000243,
+          110.72567094728078,
+          23.277785657630208
+        ]
+      ],
+      "source_vertices": 146,
+      "source_triangles": 288,
+      "volume_mm3": 626.828328894681
+    },
+    {
+      "id": 2402,
+      "name": "Bridge insert recess 3",
+      "subtype": "support_blocker",
+      "bounds_mm": [
+        [
+          172.94999999997083,
+          119.04643637510544,
+          6.347321424899597
+        ],
+        [
+          182.0500000000022,
+          130.33396520206418,
+          18.023758979336247
+        ]
+      ],
+      "source_vertices": 146,
+      "source_triangles": 288,
+      "volume_mm3": 626.8283288946808
+    }
+  ]
+}

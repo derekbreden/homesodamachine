@@ -8,8 +8,7 @@ The partial run is stopped by Derek. Physical finish and release remain pending.
 
 The [in-progress observation](in-progress-observation.json) records Derek's
 reported clean motion and clean print head during the partial run. The
-[active comparison](../2026-11-10-faucet-nonplanar-gap024-widebands-mark1/print-job.json)
-retains this complete article with longer contact bands and a smaller gap.
+[completed comparison](https://github.com/derekbreden/homesodamachine/blob/b06ab316f6c796a314a30f0dc8ffda66113b2e4e/hardware/print-tests/petgf-dense-roofs/inclines/prints/2026-11-10-faucet-nonplanar-gap024-widebands-mark1/physical-result/physical-result.json) records the finish and release of the complete article with longer contact bands and a smaller gap.
 
 The [mapping](mapping.json) defines bounded layer bands near the dominant
 inclined underside, blending into the ordinary layer family away from that
