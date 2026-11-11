@@ -223,7 +223,7 @@ pub fn apply_archive(path: &Path, project: Option<&Path>) -> Result<Value> {
 }
 
 /// Each plate's predicted time in slice_info.config, with the cooling stage's added seconds.
-fn add_predictions(info: &str, members: &Value) -> Result<String> {
+pub(crate) fn add_predictions(info: &str, members: &Value) -> Result<String> {
     let mut out = String::with_capacity(info.len());
     let mut rest = info;
     while let Some(start) = rest.find("<plate>") {

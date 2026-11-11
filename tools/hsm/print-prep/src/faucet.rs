@@ -7,11 +7,11 @@ use crate::json::{python_number, Json};
 use crate::project::Paint;
 use crate::refresh::Refreshed;
 use crate::{cooling, sha256_hex, xml};
-use anyhow::{Context, Result};
+use anyhow::{Context, Result, ensure};
 use hsm_faucet_numbers::paths as faucet_paths;
 use serde_json::{json, Map, Value};
 use std::collections::BTreeMap;
-use std::io::Read;
+use std::io::{Cursor, Read, Seek};
 use std::path::Path;
 
 pub fn read_json(path: &Path) -> Result<Value> {
@@ -24,7 +24,12 @@ pub fn file_sha(path: &Path) -> Result<String> {
 
 /// Every member of a project.
 pub fn members(path: &Path) -> Result<BTreeMap<String, Vec<u8>>> {
-    let mut archive = zip::ZipArchive::new(std::fs::File::open(path).with_context(|| format!("opening {}", path.display()))?)?;
+    archive_members(std::fs::File::open(path).with_context(|| format!("opening {}", path.display()))?)
+}
+
+/// Read the members of an open project or a retained project blob.
+pub fn archive_members(input: impl Read + Seek) -> Result<BTreeMap<String, Vec<u8>>> {
+    let mut archive = zip::ZipArchive::new(input)?;
     let mut out = BTreeMap::new();
     for i in 0..archive.len() {
         let mut entry = archive.by_index(i)?;
@@ -34,6 +39,18 @@ pub fn members(path: &Path) -> Result<BTreeMap<String, Vec<u8>>> {
         out.insert(name, bytes);
     }
     Ok(out)
+}
+
+/// Read a production recipe's immutable evidence from its recorded Git revision.
+pub fn recorded_member(root: &Path, record: &Value, key: &str) -> Result<Vec<u8>> {
+    let path = record[key].as_str().with_context(|| format!("missing recorded evidence {key}"))?;
+    let commit = record["source_commit"].as_str().context("recorded evidence revision")?;
+    let result = std::process::Command::new("git")
+        .args(["show", &format!("{commit}:{path}")])
+        .current_dir(root)
+        .output()?;
+    ensure!(result.status.success(), "reading the retained evidence {commit}:{path}");
+    Ok(result.stdout)
 }
 
 /// A JSON value as Python's `str` writes it into a setting.
@@ -330,6 +347,101 @@ pub fn add_selected_base_rim(root: &Path, r: &mut Refreshed, selected: &Value) -
               "source_local_to_target_local_translation_mm": shift, "arc_count": preparation["rim_arcs"].as_array().map_or(0, Vec::len),
               "components": transferred,
               "scope": "Exact accepted curved rim walls and their narrow blocker strips on the base only. Tree(auto)/Default remains elsewhere. The part meshes, poses, seams and layer bands are retained."}))
+}
+
+/// Place the common interface and bridge-only recess masks on the full base's CAD seat.
+pub fn add_common_base_rim(root: &Path, r: &mut Refreshed, selected: &Value) -> Result<Value> {
+    let target = r.row(selected["part"].as_str().context("rim part")?)?;
+    ensure!(selected["base_stl_sha256"].as_str() == Some(&target.stl_sha256), "the rim aids require the bound production base");
+    let index = target.index;
+    let rotation = r.plate.objects[index].rotation;
+    let translation = r.plate.objects[index].translation;
+    let seat = crate::apply(&rotation, target.center.map(|value| -value));
+    let seat = [0, 1, 2].map(|axis| seat[axis] + translation[axis]);
+    let normal = crate::apply(&rotation, [0., 0., -1.]);
+
+    let retained = recorded_member(root, selected, "source_archive")?;
+    ensure!(selected["source_archive_sha256"].as_str() == Some(&sha256_hex(&retained)), "the rim evidence archive digest differs");
+    let source = archive_members(Cursor::new(retained))?;
+    let geometry: Value = serde_json::from_slice(&recorded_member(root, selected, "geometry_review")?)?;
+    let cavities: Value = serde_json::from_slice(&recorded_member(root, selected, "cavities")?)?;
+    let mapping: Value = serde_json::from_slice(&recorded_member(root, selected, "mapping")?)?;
+    let trial_normal: [f64; 3] = serde_json::from_value(mapping["plane_normal"].clone())?;
+    ensure!((0..3).all(|axis| (trial_normal[axis] - normal[axis]).abs() < 1e-5), "the full base and retained rim have different orientations");
+    let axes: [[f64; 3]; 3] = serde_json::from_value(cavities["frame"].clone())?;
+    let [u, v]: [f64; 2] = serde_json::from_value(cavities["outer_rim"]["center"].clone())?;
+    let depth = cavities["seat_offset"].as_f64().context("trial seat offset")?;
+    let trial_seat = [0, 1, 2].map(|axis| u * axes[0][axis] + v * axes[1][axis] + depth * axes[2][axis]);
+    let shift = sub(seat, trial_seat);
+    ensure!(shift[2].abs() < 1e-5, "the rim fins would move off the first bed plane");
+
+    let model = xml::parse(std::str::from_utf8(&source["3D/3dmodel.model"])?)?;
+    let item = model.child("build").and_then(|build| build.child("item")).context("rim evidence build item")?;
+    let transform: Vec<f64> = item.attribute("transform").context("rim evidence transform")?
+        .split_whitespace().map(str::parse).collect::<std::result::Result<_, _>>()?;
+    let transform: [f64; 12] = transform.try_into().map_err(|_| anyhow::anyhow!("invalid rim evidence transform"))?;
+    let trial_rotation = mat(&transform);
+    let trial_translation = [transform[9], transform[10], transform[11]];
+    let owner = item.attribute("objectid").context("rim evidence object")?;
+    let inverse = [0, 1, 2].map(|axis| [0, 1, 2].map(|other| rotation[other][axis]));
+    let components = geometry["components"].as_array().context("rim evidence components")?;
+    let reference = components.first().context("rim evidence reference model")?;
+    let keep_fins = selected["segmented_fins"].as_bool().unwrap_or(true);
+    let mut transferred = Vec::new();
+    for record in &components[1..] {
+        if !keep_fins && record["subtype"].as_str() == Some("normal_part") {
+            continue;
+        }
+        let original = record["id"].as_i64().context("rim component ID")?;
+        let mut aid = carry(&source, owner, original, [0.; 3])?;
+        ensure!(record["subtype"].as_str() == Some(&aid.subtype), "rim component type differs from its geometry review");
+        aid.name = record["name"].as_str().context("rim component name")?.into();
+        for vertex in &mut aid.vertices {
+            let source = crate::apply(&trial_rotation, *vertex);
+            let target = [0, 1, 2].map(|axis| source[axis] + trial_translation[axis] + shift[axis] - translation[axis]);
+            *vertex = crate::apply(&inverse, target);
+        }
+        let reading = json!({"name": aid.name, "subtype": aid.subtype, "source_member_sha256": aid.source_member_sha256});
+        let id = add_carried(r, index, aid);
+        transferred.push(json!({"component_id": id, "source_component_id": original, "geometry": reading}));
+    }
+    let config = xml::parse(std::str::from_utf8(&source["Metadata/model_settings.config"])?)?;
+    let trial = config.children_named("object").find(|object| object.attribute("id") == Some(owner)).context("rim evidence settings")?;
+    let settings = ["support_style", "support_type", "support_object_xy_distance", "support_on_build_plate_only",
+        "tree_support_branch_angle", "support_bottom_z_distance", "support_top_z_distance", "support_interface_top_layers", "support_interface_spacing"];
+    let applied: Map<String, Value> = trial.children_named("metadata").filter_map(|setting| {
+        let key = setting.attribute("key")?;
+        let value = setting.attribute("value")?;
+        settings.contains(&key).then(|| (key.to_string(), json!(value)))
+    }).collect();
+    ensure!(applied.len() == settings.len(), "the rim evidence is missing a support setting");
+    let object = &mut r.plate.objects[index];
+    object.settings.retain(|(key, _)| !applied.contains_key(key));
+    object.settings.extend(applied.iter().map(|(key, value)| (key.clone(), text(value))));
+
+    let trial_bounds: [[f64; 3]; 2] = serde_json::from_value(reference["bounds_mm"].clone())?;
+    let margin = selected["mapping_margin_mm"].as_f64().context("rim mapping margin")?;
+    let bounds = [[trial_bounds[0][0] + shift[0] - margin, trial_bounds[0][1] + shift[1] - margin],
+                  [trial_bounds[1][0] + shift[0] + margin, trial_bounds[1][1] + shift[1] + margin]];
+    let pockets = cavities["pockets"].as_array().context("rim evidence recesses")?.iter().map(|pocket| {
+        let [u, v]: [f64; 2] = serde_json::from_value(pocket["center"].clone())?;
+        let mouth = [0, 1, 2].map(|axis| u * axes[0][axis] + v * axes[1][axis] + depth * axes[2][axis] + shift[axis]);
+        Ok(json!({"mouth_plate_mm": mouth, "mouth_radius_mm": pocket["mouth_radius_mm"],
+            "pilot_radius_mm": pocket["pilot_radius_mm"], "shoulder_depth_mm": pocket["shoulder_depth_mm"],
+            "blind_roof_depth_mm": pocket["blind_roof_depth_mm"], "blocker_radius_mm": pocket["blocker_radius_mm"],
+            "blocker_depth_mm": pocket["blocker_depth_mm"]}))
+    }).collect::<Result<Vec<_>>>()?;
+    let mut parameters = mapping["parameters"].clone();
+    if let Some(entries) = parameters.as_object_mut() {
+        entries.remove("purpose");
+    }
+    Ok(json!({"part": selected["part"], "source_archive": selected["source_archive"],
+        "source_commit": selected["source_commit"], "source_archive_sha256": selected["source_archive_sha256"],
+        "source_to_production_plate_translation_mm": shift, "components": transferred, "segmented_fins": keep_fins,
+        "rim_seat_plate_mm": seat, "rim_radius_mm": cavities["outer_rim"]["radius"],
+        "support_settings": applied, "recesses": pockets,
+        "band": {"parameters": parameters, "plane_normal": normal, "seat_plate_mm": seat,
+                 "bounds_mm": bounds, "edge_blend_mm": selected["mapping_edge_blend_mm"]}}))
 }
 
 /// The accepted tip fins and hidden-root disc, and the accepted lip support selection on the

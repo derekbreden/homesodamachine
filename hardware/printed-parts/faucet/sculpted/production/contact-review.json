@@ -1,0 +1,442 @@
+{
+  "purpose": "Bind the complete current white Sculpted faucet's toolpath, contacts and exact printed parts.",
+  "plate": 1,
+  "printer": "Mark2",
+  "filament": "White PET-GF",
+  "active_nozzle": 0,
+  "project": "hardware/printed-parts/faucet/faucet-petgf.3mf",
+  "project_sha256": "fa5b9c66b341f64eb787bc5951da3da561e9bf1ca26d75b461cb6d280cfa1575",
+  "archive": "hardware/printed-parts/faucet/sculpted/production/faucet-petgf.gcode.3mf",
+  "archive_sha256": "4d7fbffcde18daa20d21d2f2677f522fa1a656dc0d7555035b9b5fcee3d87883",
+  "gcode_sha256": "efd90f466ee785821ee3d19f112842f4fb7dbb42b34f04ca080a6c9c249edd52",
+  "rim": {
+    "sampled": 623,
+    "covered": 623,
+    "max_sampled_vertical_gap_mm": 0.29587812588241713,
+    "missing_angles_degrees": []
+  },
+  "first_outer_perimeter": {
+    "added_commanded_motion_seconds": 103.60201031000942,
+    "arc_count": 123,
+    "archive_sha256": "4d7fbffcde18daa20d21d2f2677f522fa1a656dc0d7555035b9b5fcee3d87883",
+    "emitted_contact_segments": 801,
+    "extrusion_added_mm": 5.778014066399109,
+    "extrusion_removed_mm": 9.653522076572456,
+    "gcode_input_sha256": "bf1c4c89818195f83c4bc0b6ca7b7999925f9e5dea8ae6bb9ef5548082a03f00",
+    "gcode_sha256": "efd90f466ee785821ee3d19f112842f4fb7dbb42b34f04ca080a6c9c249edd52",
+    "identify_id": 1901,
+    "maximum_contact_depth_below_prior_peak_mm": 1.0800000000037517,
+    "minimum_contact_z_mm": 0.9753898289152962,
+    "modified_native_paths": 3137,
+    "purpose": "Bind the continuous first outer rim course to the complete product.",
+    "rim_semi_axes_mm": [
+      29.0,
+      29.5
+    ],
+    "seat_fall_angle_degrees": 14.999999999999998,
+    "seat_plate_mm": [
+      85.49944496154785,
+      140.34437422642304,
+      7.635161830524368
+    ],
+    "supported_angles_degrees": [
+      114.5,
+      425.5
+    ]
+  },
+  "rim_tree_backing": {
+    "scope": "Approximate connectivity of the emitted base support footprints in the restored physical build coordinates.",
+    "sampling_pitch_mm": 0.2,
+    "vertical_sampling_pitch_mm": 0.12,
+    "contact_samples": 623,
+    "support_component_count": 2,
+    "roof_sample_components": {
+      "1": 623
+    },
+    "bed_rooted_roof_sample_components": {
+      "1": 623
+    },
+    "bed_rooted_component_count": 2
+  },
+  "base_insert_recesses": [
+    {
+      "cad_center_mm": [
+        22.5,
+        -2.0
+      ],
+      "wide_recess_support_bead_flags": 6,
+      "pilot_recess_support_bead_flags": 0,
+      "shoulder_bridge_length_mm": 72.95553316279583,
+      "blind_roof_bridge_length_mm": 46.003330999080056,
+      "bead_envelopes": [
+        {
+          "centerline_paths_in_recess": 0,
+          "maximum_cap_past_entrance_mm": 0.005723831302242535
+        },
+        {
+          "centerline_paths_in_recess": 0,
+          "maximum_cap_past_entrance_mm": 0.0
+        }
+      ]
+    },
+    {
+      "cad_center_mm": [
+        -22.5,
+        -2.0
+      ],
+      "wide_recess_support_bead_flags": 6,
+      "pilot_recess_support_bead_flags": 0,
+      "shoulder_bridge_length_mm": 72.29642515995991,
+      "blind_roof_bridge_length_mm": 46.132827723144956,
+      "bead_envelopes": [
+        {
+          "centerline_paths_in_recess": 0,
+          "maximum_cap_past_entrance_mm": 0.005723831302244062
+        },
+        {
+          "centerline_paths_in_recess": 0,
+          "maximum_cap_past_entrance_mm": 0.0
+        }
+      ]
+    },
+    {
+      "cad_center_mm": [
+        0.0,
+        -22.3
+      ],
+      "wide_recess_support_bead_flags": 0,
+      "pilot_recess_support_bead_flags": 0,
+      "shoulder_bridge_length_mm": 72.05334997689607,
+      "blind_roof_bridge_length_mm": 40.88401842620409,
+      "bead_envelopes": [
+        {
+          "centerline_paths_in_recess": 0,
+          "maximum_cap_past_entrance_mm": 0.0
+        },
+        {
+          "centerline_paths_in_recess": 0,
+          "maximum_cap_past_entrance_mm": 0.0
+        }
+      ]
+    }
+  ],
+  "mounting_plate_counterbores": [
+    {
+      "cad_center_mm": [
+        22.5,
+        -2.0
+      ],
+      "wide_recess_support_bead_flags": 0,
+      "pilot_recess_support_bead_flags": 0,
+      "shoulder_bridge_length_mm": 75.97411440059054,
+      "blind_roof_bridge_length_mm": null,
+      "bead_envelopes": [
+        {
+          "centerline_paths_in_recess": 0,
+          "maximum_cap_past_entrance_mm": 0.0
+        },
+        {
+          "centerline_paths_in_recess": 0,
+          "maximum_cap_past_entrance_mm": 0.0
+        }
+      ]
+    },
+    {
+      "cad_center_mm": [
+        -22.5,
+        -2.0
+      ],
+      "wide_recess_support_bead_flags": 0,
+      "pilot_recess_support_bead_flags": 0,
+      "shoulder_bridge_length_mm": 75.97275302102307,
+      "blind_roof_bridge_length_mm": null,
+      "bead_envelopes": [
+        {
+          "centerline_paths_in_recess": 0,
+          "maximum_cap_past_entrance_mm": 0.0
+        },
+        {
+          "centerline_paths_in_recess": 0,
+          "maximum_cap_past_entrance_mm": 0.0
+        }
+      ]
+    },
+    {
+      "cad_center_mm": [
+        0.0,
+        -22.3
+      ],
+      "wide_recess_support_bead_flags": 0,
+      "pilot_recess_support_bead_flags": 0,
+      "shoulder_bridge_length_mm": 75.96388631999046,
+      "blind_roof_bridge_length_mm": null,
+      "bead_envelopes": [
+        {
+          "centerline_paths_in_recess": 0,
+          "maximum_cap_past_entrance_mm": 0.0
+        },
+        {
+          "centerline_paths_in_recess": 0,
+          "maximum_cap_past_entrance_mm": 0.0
+        }
+      ]
+    }
+  ],
+  "tip_dispense_contact": {
+    "inclination_degrees": 34.99999999999998,
+    "contact_area_mm2": 183.10142851993425,
+    "support_near_inner_face": {
+      "Support": {
+        "moves": 47,
+        "gap_range_mm": [
+          0.23999899949008102,
+          0.7951602255405269
+        ]
+      },
+      "Support transition": {
+        "moves": 3,
+        "gap_range_mm": [
+          0.6777421174788814,
+          0.7974798619958267
+        ]
+      },
+      "Support interface": {
+        "moves": 1320,
+        "gap_range_mm": [
+          -1.9354960227597027e-06,
+          0.7971209438326633
+        ]
+      }
+    },
+    "outlet": [
+      {
+        "outlet_area_mm2": 122.33537444688645,
+        "support_envelope_flags": {},
+        "support_centerline_flags": {},
+        "flagged_axial_depth_quantiles_mm": [],
+        "bridge_centerlines_in_outlet_mm": 0.03125980058616011
+      }
+    ]
+  },
+  "parts": {
+    "HSM-0094": {
+      "name": "faucet-shell-base",
+      "source": "hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.stl",
+      "stl_sha256": "f49e8818fa749ad57445aca26972ff107d840ed53102d33e6fff7837f46c1bfb",
+      "object_id": "2",
+      "part_id": "1",
+      "identify_id": 1901,
+      "member": "3D/Objects/object_1.model",
+      "physical_archive_member_sha256": "232066c457e0f1f7760ca841d85a4cc9c20cb986b15db8274e30aa20f737a4c2",
+      "process": {
+        "Supports": "Dense rim roof carried by slim automatic trees",
+        "Requested top gap": "0.24 mm",
+        "Requested bottom gap": "0.30 mm",
+        "Top interface": "3 layers, 0 mm spacing",
+        "Bottom interface": "2 layers",
+        "Supported overhangs": "Local nonplanar contact band and continuous first rim perimeter",
+        "Insert recesses": "Three bridged shoulders and blind pilot roofs, with tree paths outside the recesses",
+        "Walls": "Arachne, solid infill at the foot"
+      }
+    },
+    "HSM-0095": {
+      "name": "faucet-shell-tip",
+      "source": "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.stl",
+      "stl_sha256": "a3f80020d3756ea99dc7135a3173c89f9ed05bebebb63ce211d0492e92dc14ad",
+      "object_id": "4",
+      "part_id": "3",
+      "identify_id": 1902,
+      "member": "3D/Objects/object_2.model",
+      "physical_archive_member_sha256": "cbc42417790703363358fcca8a45a5310d0fd8c654ed27078f7433869b490df2",
+      "process": {
+        "Supports": "Slim automatic trees, local lip supports, removable fins and hidden-root anchor",
+        "Requested top gap": "0.24 mm",
+        "Requested bottom gap": "0.30 mm",
+        "Top interface": "3 layers, 0 mm spacing",
+        "Bottom interface": "2 layers",
+        "Supported overhangs": "Local nonplanar interface on the inclined inner dispense face",
+        "Beverage outlet": "No support in the passage"
+      }
+    },
+    "HSM-0096": {
+      "name": "faucet-display-cover",
+      "source": "hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.stl",
+      "stl_sha256": "3a1182b480110d50cb8943dfc4be8d5b5b2344bdcbf10b37052ef2e6423c9cfa",
+      "object_id": "6",
+      "part_id": "5",
+      "identify_id": 1903,
+      "member": "3D/Objects/object_3.model",
+      "physical_archive_member_sha256": "c2554214c5751f7eb913b5d2bd5b2fc3a323fdd784f77ac204df0228ddf79082",
+      "process": {
+        "Supports": "Automatic trees through the open underside",
+        "Requested top gap": "0.24 mm",
+        "Requested bottom gap": "0.30 mm",
+        "Top interface": "3 layers, 0 mm spacing",
+        "Bottom interface": "2 layers",
+        "Orientation": "Flat lower lands on the plate"
+      }
+    },
+    "HSM-0092": {
+      "name": "above-counter-plate",
+      "source": "hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.stl",
+      "stl_sha256": "cf69dac0a0ce01845ce261d050fbbb876be24baec78d3db77f8d97839bc32990",
+      "object_id": "8",
+      "part_id": "7",
+      "identify_id": 1904,
+      "member": "3D/Objects/object_4.model",
+      "physical_archive_member_sha256": "0c5ea01ca5cbe47ed34b44f0500e163b4ca7e22f154e53bc21fd2d305d98e21b",
+      "process": {
+        "Supports": "None in emitted slice",
+        "Counterbores": "Three flat shoulders bridge, shank passages stay open",
+        "Requested top gap": null,
+        "Top interface": null
+      }
+    },
+    "HSM-0268": {
+      "name": "lever-replica",
+      "source": "hardware/printed-parts/faucet/lever-replica/lever-replica-side-down.stl",
+      "stl_sha256": "19d420b9193d0d691959aadb80095523164afe380189aae1af9eb0c13f8f2d21",
+      "object_id": "10",
+      "part_id": "9",
+      "identify_id": 1905,
+      "member": "3D/Objects/object_5.model",
+      "physical_archive_member_sha256": "979822c3ad1f9d5e23cfef21ca2621645821c7838a48c5f3cb191470828d1c67",
+      "process": {
+        "Supports": "Automatic trees at accessible attachment relief",
+        "Requested top gap": "0.24 mm",
+        "Requested bottom gap": "0.30 mm",
+        "Top interface": "3 layers, 0 mm spacing",
+        "Bottom interface": "2 layers",
+        "Channel": "Side-down, bridged across the gap"
+      }
+    }
+  },
+  "independent_contour_review": {
+    "other_object_segments_preserved": 588864,
+    "source_deposition_segments": 1971960,
+    "trial_deposition_segments": 1974492,
+    "preserved_support_deposition_segments": 390929,
+    "preserved_bridge_deposition_segments": 15503,
+    "gcode_sha256": "efd90f466ee785821ee3d19f112842f4fb7dbb42b34f04ca080a6c9c249edd52",
+    "courses": [
+      {
+        "course": 1,
+        "segments": 801,
+        "max_endpoint_mismatch_mm": 0.0,
+        "contact_depth_mm": [
+          0.22999,
+          0.22999,
+          0.23,
+          0.23,
+          0.23,
+          0.23001,
+          0.23001
+        ],
+        "max_deposition_slope_deg": 15.001377846472494,
+        "max_extruding_z_speed_mm_s": 3.882634103563952
+      }
+    ],
+    "roof_gap_mm": [
+      0.04598,
+      0.09297,
+      0.11892,
+      0.25667,
+      0.38547,
+      0.3858,
+      0.3867
+    ],
+    "direct_roof_gap_mm": [
+      0.08456,
+      0.12883,
+      0.1564,
+      0.29312,
+      0.3867,
+      0.41035,
+      0.44148
+    ],
+    "roof_samples": 801,
+    "no_nearby_lower_roof_count": 0,
+    "no_nearby_lower_roof_angles_deg": [],
+    "model_side_join_height_delta_mm": [
+      -0.02459,
+      -0.02372,
+      -0.02046,
+      0.02507,
+      0.17716,
+      0.1899,
+      0.19281
+    ],
+    "no_nearby_retained_model_count": 0,
+    "upper_join_height_delta_mm": [
+      0.08003,
+      0.08019,
+      0.0807,
+      0.107,
+      0.1899,
+      0.22588,
+      0.26156
+    ],
+    "upper_join_missing_count": 0,
+    "tangent_join": [
+      {
+        "angle_deg": 114.5,
+        "nearest_original_path_center_delta_mm": 0.012984997425386747,
+        "lateral_delta_mm": 0.007962393193403723,
+        "z_delta_mm": 0.010257214669243231
+      },
+      {
+        "angle_deg": 425.5,
+        "nearest_original_path_center_delta_mm": 0.013668761510188013,
+        "lateral_delta_mm": 0.009010645873790243,
+        "z_delta_mm": 0.010278292764829389
+      }
+    ],
+    "potential_earlier_interference_count": 0,
+    "potential_earlier_interference_examples": [],
+    "later_support_under_rim_count": 0,
+    "later_support_under_rim_examples": [],
+    "potential_support_interference_count": 0,
+    "potential_support_interference_examples": [],
+    "potential_retained_interference_count": 0,
+    "potential_retained_interference_examples": []
+  },
+  "independent_tip_contact_review": {
+    "scope": "Plate-normal matched inboard dispense face and sampled support envelopes in the outlet.",
+    "face_area_mm2": 183.1014285199343,
+    "sampled": 1056,
+    "sampled_first_model": 1056,
+    "direct_useful_support": 531,
+    "direct_dense_interface": 522,
+    "direct_support_body": 63,
+    "first_model_bridge": 222,
+    "over_half_mm_from_stock_or_support": 105,
+    "bead_bottom_gap_to_nearby_support_mm": [
+      -0.02882,
+      -0.0169,
+      0.22482,
+      0.63205,
+      0.63205
+    ],
+    "plate_bounds_mm": [
+      [
+        170.44310855865479,
+        189.60134653875954,
+        126.17888288336725
+      ],
+      [
+        194.55572605133057,
+        203.9590396442065,
+        136.23224793637024
+      ]
+    ],
+    "outlets": [
+      {
+        "support_roads_in_bounding_region": 9868,
+        "sampled_support_envelopes_in_bore": 0,
+        "sampled_support_envelopes_in_expanded_keepout": 1163
+      }
+    ]
+  },
+  "submitted": false,
+  "physical_qualification": "Pending for this complete plate."
+}
