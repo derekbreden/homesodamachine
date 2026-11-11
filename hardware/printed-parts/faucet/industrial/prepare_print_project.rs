@@ -357,7 +357,7 @@ fn main() -> Result<()> {
             let joint = ContactBand::new(&r.extra["tip_rim_contact"]["band"])?;
             let contact = ContactBand::slice_bands(&mut r.plate, &[(base, &band), (tip, &dispense), (tip, &joint)],
                 &project, &directory, &slicer)?;
-            let contour = apply_rim_contour(&project, &directory, rim)?;
+            let contour = apply_rim_contour(&project, &directory, rim, &band)?;
             let tip_contour = apply_tip_rim_contour(&project, &directory, tip_rim, &joint)?;
             reading = refresh::slice_review(&root, &project, &report, &directory)?;
             reading["nonplanar_contact"] = contact;

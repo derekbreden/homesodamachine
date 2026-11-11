@@ -3,6 +3,7 @@
 //!
 //!     sculpted-faucet-print-project <project.3mf> [--slice-output DIRECTORY]
 //!                                 [--printer Mark1|Mark2] [--filament-colour '#RRGGBB']
+//!                                 [--base-section SECTION.stl]
 //!
 //! The five rigid parts are the faucet shell's base and tip, the display cover, the
 //! above-counter plate and the side-down lever. Their object settings, the solid foot regions
@@ -39,12 +40,14 @@ fn main() -> Result<()> {
     let mut args = std::env::args_os().skip(1);
     let project = PathBuf::from(args.next().context("expected a Sculpted .3mf output path")?);
     let mut slice_output = None;
+    let mut base_section = None;
     let mut printer = "Mark2".to_owned();
     let mut colour = "#FFFFFF".to_owned();
     while let Some(arg) = args.next() {
         let value = args.next().with_context(|| format!("{} needs a value", arg.to_string_lossy()))?;
         match arg.to_str() {
             Some("--slice-output") => slice_output = Some(PathBuf::from(value)),
+            Some("--base-section") => base_section = Some(PathBuf::from(value)),
             Some("--printer") => printer = value.into_string().ok().context("printer name")?,
             Some("--filament-colour") => colour = value.into_string().ok().context("filament colour")?,
             _ => bail!("unknown argument {}", arg.to_string_lossy()),
@@ -55,21 +58,28 @@ fn main() -> Result<()> {
         "Mark2" => 0.04,
         _ => bail!("expected Mark1 or Mark2, got {printer}"),
     };
-    let title = if printer == "Mark2" && colour == "#FFFFFF" {
+    let title = if base_section.is_some() {
+        format!("Sculpted faucet support and fit PET-GF left {printer}")
+    } else if printer == "Mark2" && colour == "#FFFFFF" {
         "Complete Sculpted white faucet PET-GF left Mark2".to_owned()
     } else {
         format!("Complete Sculpted faucet PET-GF left {printer}")
     };
     let faucet = root.join(FAUCET);
     let selection = read_json(&root.join(FINISH))?;
-    let parts = vec![
-        Part::new("faucet-shell-base", faucet.join("faucet-shell/faucet-shell-base.stl"), -PRINT_BASE_BUILD_ROT.to_degrees()),
+    let is_section = base_section.is_some();
+    let mut parts = vec![
+        Part::new("faucet-shell-base", base_section.unwrap_or_else(|| faucet.join("faucet-shell/faucet-shell-base.stl")), -PRINT_BASE_BUILD_ROT.to_degrees()),
         Part::new("faucet-shell-tip", faucet.join("faucet-shell/faucet-shell-tip.stl"), -PRINT_TIP_BUILD_ROT.to_degrees()),
         Part::new("faucet-display-cover", faucet.join("faucet-display-cover/faucet-display-cover.stl"), -50.0),
-        Part::new("above-counter-plate", faucet.join("above-counter-plate/above-counter-plate.stl"), 0.0),
-        Part::new("lever-replica", faucet.join("lever-replica/lever-replica-side-down.stl"), 0.0),
     ];
-    let mut r = refresh::refresh(&root, &root.join(PROFILE), &parts, &OFFSETS, &title, Some(trim), 40.0)?;
+    if !is_section {
+        parts.extend([
+            Part::new("above-counter-plate", faucet.join("above-counter-plate/above-counter-plate.stl"), 0.0),
+            Part::new("lever-replica", faucet.join("lever-replica/lever-replica-side-down.stl"), 0.0),
+        ]);
+    }
+    let mut r = refresh::refresh(&root, &root.join(PROFILE), &parts, &OFFSETS[..parts.len()], &title, Some(trim), 40.0)?;
     let parent = &selection["industrial_recipe"];
     let parent_project_source = parent["project"].as_str().context("Industrial parent project")?;
     let parent_report_source = parent["report"].as_str().context("Industrial parent report")?;
@@ -89,6 +99,7 @@ fn main() -> Result<()> {
     r.add_local_solid_regions(&regions)?;
     let parent = archive_members(Cursor::new(&parent_project_bytes))?;
     let parent_config = xml::parse(std::str::from_utf8(&parent["Metadata/model_settings.config"])?)?;
+    let shell_gap = selection["shell_ordinary_seam_gap"].as_str().context("shell seam gap")?;
     for obj in r.plate.objects.iter_mut() {
         let industrial = PART_NAMES.iter().find(|(s, _)| *s == obj.name).map(|(_, i)| *i).context("a part without its Industrial counterpart")?;
         let source = parent_config.children_named("object")
@@ -100,6 +111,10 @@ fn main() -> Result<()> {
                     obj.settings.push((k.to_string(), v.to_string()));
                 }
             }
+        }
+        if matches!(obj.name.as_str(), "faucet-shell-base" | "faucet-shell-tip") {
+            obj.settings.retain(|(key, _)| key != "seam_gap");
+            obj.settings.push(("seam_gap".into(), shell_gap.into()));
         }
     }
     let original = r.plate.settings.clone();
@@ -142,30 +157,37 @@ fn main() -> Result<()> {
     let bounds = [-1.0, 1.0].map(|direction| {
         [0, 1].map(|axis| center[axis] + direction * (half_span + margin))
     });
+    let mut base_parameters = mapping["parameters"].clone();
+    let mesh_error = base_parameters["maximum_mesh_mapping_error_mm"].as_f64().context("contact mesh tolerance")?;
+    base_parameters["maximum_mesh_mapping_error_mm"] = json!(mesh_error / 2.);
     let contact_spec = json!({
         "part": "faucet-shell-base",
-        "parameters": mapping["parameters"],
+        "parameters": base_parameters,
         "plane_normal": rim["seat_print_world_outward_normal"],
         "seat_plate_mm": center,
         "bounds_mm": bounds,
         "edge_blend_mm": contact["edge_blend_mm"],
         "rim_semi_axes_mm": contour.semi_axes_mm,
+        "rim_inboard_blend_mm": [0.85, 2.85],
+        "refine_mesh_interiors": true,
         "supported_angles_degrees": supported_angles,
     });
     r.extra.insert("base_rim_supports".into(), rim);
     r.extra.insert("nonplanar_contact".into(), contact_spec.clone());
-    let pocket_recipe = &selection["mounting_plate_counterbores"];
-    let radial_clearance = pocket_recipe["blocker_radial_clearance_mm"].as_f64().context("counterbore blocker clearance")?;
-    let depth_allowance = serde_json::from_value(pocket_recipe["blocker_depth_allowance_mm"].clone())?;
-    let counterbores = block_plate_counterbores(&mut r, "above-counter-plate", radial_clearance, depth_allowance)?;
-    r.extra.insert("mounting_plate_counterbores".into(), counterbores);
+    if !is_section {
+        let pocket_recipe = &selection["mounting_plate_counterbores"];
+        let radial_clearance = pocket_recipe["blocker_radial_clearance_mm"].as_f64().context("counterbore blocker clearance")?;
+        let depth_allowance = serde_json::from_value(pocket_recipe["blocker_depth_allowance_mm"].clone())?;
+        let counterbores = block_plate_counterbores(&mut r, "above-counter-plate", radial_clearance, depth_allowance)?;
+        r.extra.insert("mounting_plate_counterbores".into(), counterbores);
+    }
     let tip = add_tip_root_anchor(&root, &mut r, &selection["tip_supports"])?;
     r.extra.insert("tip_supports".into(), tip);
     let tip_index = r.row("faucet-shell-tip")?.index;
-    let tip_contact = add_tip_dispense_contact(&mut r, &selection["tip_dispense_contact"], &contact_spec["parameters"])?;
+    let tip_contact = add_tip_dispense_contact(&mut r, &selection["tip_dispense_contact"], &mapping["parameters"])?;
     let tip_band_spec = tip_contact["band"].clone();
     r.extra.insert("tip_dispense_contact".into(), tip_contact);
-    let (tip_rim, joint) = add_tip_rim_contact(&mut r, &selection["tip_supports"], &contact_spec["parameters"])?;
+    let (tip_rim, joint) = add_tip_rim_contact(&mut r, &selection["tip_supports"], &mapping["parameters"])?;
     let joint_band_spec = joint["band"].clone();
     r.extra.insert("tip_rim_contact".into(), joint);
 
@@ -202,8 +224,8 @@ fn main() -> Result<()> {
         ("profile_source", json!(PROFILE)), ("profile_source_sha256", json!(file_sha(&root.join(PROFILE))?)),
         ("finish_selection", json!(FINISH)), ("finish_selection_sha256", json!(file_sha(&root.join(FINISH))?)), ("selected_finish", selection.clone()),
         ("layer_config_ranges", json!([])),
-        ("layer_scope", json!("0.20 mm first bed layer; 0.24 mm thereafter on all five parts. No Industrial shoulder bands or separate eight-layer override.")),
-        ("settings_changes", json!(changes)), ("rigid_part_count", json!(5)),
+        ("layer_scope", json!("Use the shared first and ordinary layer heights across the plate.")),
+        ("settings_changes", json!(changes)), ("rigid_part_count", json!(parts.len())),
         ("preparation_only", json!(true)), ("submitted", json!(false)), ("send_attempted", json!(false)),
         ("source_sha256", json!(sources)),
     ] {
@@ -217,7 +239,7 @@ fn main() -> Result<()> {
         let joint = ContactBand::new(&joint_band_spec)?;
         let motion = ContactBand::slice_bands(&mut r.plate, &[(base, &band), (tip_index, &tip_band), (tip_index, &joint)], &project, &directory,
             std::path::Path::new(slice::SLICER))?;
-        let rim = apply_rim_contour(&project, &directory, contour)?;
+        let rim = apply_rim_contour(&project, &directory, contour, &band)?;
         let tip_contour = apply_tip_rim_contour(&project, &directory, tip_rim, &joint)?;
         report["nonplanar_motion"] = motion;
         report["rim_contour"] = rim;

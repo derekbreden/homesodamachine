@@ -27,6 +27,8 @@ pub const REAR_TRIM_DS_DN: f64 = 0.6;
 pub const LIP_RELIEF: f64 = snap::LIP_INNER_EDGE_RELIEF;
 /// The lips' radius about the neck.
 pub const LIP_R: f64 = DISPLAY_NECK_OUTER_R - (DISPLAY_NECK_OUTER_R - DISPLAY_CLIP_LIP_RADIUS);
+/// Clearance above the dispense cap at the front of the cover.
+pub const NOSE_ARCH_LIFT: f64 = 0.5;
 
 /// The window along s.
 pub fn window_s() -> [f64; 2] {
