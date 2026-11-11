@@ -93,9 +93,9 @@
   "layer_height_mm": 0.23999999463558197,
   "mass_estimate_note": "Slicer grams use the saved profile density, not a measured PET-GF part mass.",
   "nonplanar_contact": {
-    "added_commanded_motion_seconds": 2165.715146827104,
-    "gcode_input_sha256": "8e15cf851a0da9755f4d1264414c26c71be7b6b7b5731312a4a21be782fdd033",
-    "gcode_sha256": "ada1024b932db1cde568919929392c472c7834940d1422f72e38cd4ba571d5ba",
+    "added_commanded_motion_seconds": 2170.024464898139,
+    "gcode_input_sha256": "04062c57ae573c6510c349166522ae746614411e14498c7b0b61e59aa35c2b29",
+    "gcode_sha256": "f497ba70fee55ed9988898a2f1a6e42461e49fd13fafeb2def2e2866584b0f8e",
     "geometry": {
       "faucet-shell-tip": {
         "Keep support clear of beverage outlet 1": {
@@ -230,19 +230,19 @@
         }
       }
     },
-    "lifted_travels": 6853,
-    "mapped_deposition_segments": 644562,
+    "lifted_travels": 6717,
+    "mapped_deposition_segments": 648488,
     "mapped_deposition_segments_by_region": [
-      456440,
-      77639,
-      110483
+      456441,
+      79312,
+      112735
     ],
     "maximum_mapped_path_slope_degrees": 58.05378221955885,
     "maximum_mapped_z_speed_mm_s": 7.499999999139649,
     "maximum_vertical_motion_offset_mm": 0.4799940477616076,
     "purpose": "Read the bounded restored movements of the full print.",
-    "restored_extrusion_delta_mm": -18.265760929033597,
-    "pre_contour_archive_sha256": "ed7d95f76843afc59e6004a6f164b30e8eae681560526c6f5baec2ef1019487a"
+    "restored_extrusion_delta_mm": -18.459769900836456,
+    "pre_contour_archive_sha256": "c0b52253f1c9a7b39d6cbc53ea4bf89dd7da6880bacb1a20191fceb78c4529f4"
   },
   "parts": [
     {
@@ -266,13 +266,13 @@
       "inputs": {
         "feature_filter": "Other objects' feature labels are masked; coordinates and extrusion commands are retained.",
         "gcode": "plate_1.gcode",
-        "gcode_sha256": "7763080597d4b3910483dae44b8e367b970d11197fdbc44c9764953d7d409075",
+        "gcode_sha256": "9ff12008c8cb7a7a5a829fb3d6f080554963b015225ad394768d58e044139f4c",
         "model": "hardware/printed-parts/faucet/industrial/production/2026-10-25/industrial-shell-base.stl",
         "model_sha256": "dc855eb7d8eae75886222d8b4aee8b9e02fe1d55ae4740c1ae5b4b64cf6ba742",
         "object_label": 1901,
-        "plate_gcode_sha256": "7763080597d4b3910483dae44b8e367b970d11197fdbc44c9764953d7d409075",
+        "plate_gcode_sha256": "9ff12008c8cb7a7a5a829fb3d6f080554963b015225ad394768d58e044139f4c",
         "profile": "hardware/printed-parts/faucet/industrial/faucet-industrial-petgf.3mf",
-        "profile_sha256": "90a1261e65dab79c4b94ee14e4111eefed69d63f196d7c4d172a8e1a79123bc5"
+        "profile_sha256": "b13109a40ae5368e728d3ebdfbf7c4c051d2e5b78ebcd2174ba60f413e1a168b"
       },
       "interface_feature_policy": "All support bodies are retained; unlabelled interfaces have unknown contact count and build-up.",
       "interfaces": [
@@ -568,13 +568,13 @@
       "inputs": {
         "feature_filter": "Other objects' feature labels are masked; coordinates and extrusion commands are retained.",
         "gcode": "plate_1.gcode",
-        "gcode_sha256": "7763080597d4b3910483dae44b8e367b970d11197fdbc44c9764953d7d409075",
+        "gcode_sha256": "9ff12008c8cb7a7a5a829fb3d6f080554963b015225ad394768d58e044139f4c",
         "model": "hardware/printed-parts/faucet/industrial/production/2026-10-25/faucet-shell-tip.stl",
         "model_sha256": "35ec9f0b99c5e90f038836549e6f5e8f112b2af03e1849b08b2d759050d260e6",
         "object_label": 1902,
-        "plate_gcode_sha256": "7763080597d4b3910483dae44b8e367b970d11197fdbc44c9764953d7d409075",
+        "plate_gcode_sha256": "9ff12008c8cb7a7a5a829fb3d6f080554963b015225ad394768d58e044139f4c",
         "profile": "hardware/printed-parts/faucet/industrial/faucet-industrial-petgf.3mf",
-        "profile_sha256": "90a1261e65dab79c4b94ee14e4111eefed69d63f196d7c4d172a8e1a79123bc5"
+        "profile_sha256": "b13109a40ae5368e728d3ebdfbf7c4c051d2e5b78ebcd2174ba60f413e1a168b"
       },
       "interface_feature_policy": "All support bodies are retained; unlabelled interfaces have unknown contact count and build-up.",
       "interfaces": [
@@ -860,13 +860,13 @@
       "inputs": {
         "feature_filter": "Other objects' feature labels are masked; coordinates and extrusion commands are retained.",
         "gcode": "plate_1.gcode",
-        "gcode_sha256": "7763080597d4b3910483dae44b8e367b970d11197fdbc44c9764953d7d409075",
+        "gcode_sha256": "9ff12008c8cb7a7a5a829fb3d6f080554963b015225ad394768d58e044139f4c",
         "model": "hardware/printed-parts/faucet/industrial/production/2026-10-25/sculpted-display-cover.stl",
         "model_sha256": "3d4d2e05edde5a0e45aad36e9de072a57103c3b0f8da2bbd875cbfbedbe68133",
         "object_label": 1903,
-        "plate_gcode_sha256": "7763080597d4b3910483dae44b8e367b970d11197fdbc44c9764953d7d409075",
+        "plate_gcode_sha256": "9ff12008c8cb7a7a5a829fb3d6f080554963b015225ad394768d58e044139f4c",
         "profile": "hardware/printed-parts/faucet/industrial/faucet-industrial-petgf.3mf",
-        "profile_sha256": "90a1261e65dab79c4b94ee14e4111eefed69d63f196d7c4d172a8e1a79123bc5"
+        "profile_sha256": "b13109a40ae5368e728d3ebdfbf7c4c051d2e5b78ebcd2174ba60f413e1a168b"
       },
       "interface_feature_policy": "All support bodies are retained; unlabelled interfaces have unknown contact count and build-up.",
       "interfaces": [
@@ -989,13 +989,13 @@
       "inputs": {
         "feature_filter": "Other objects' feature labels are masked; coordinates and extrusion commands are retained.",
         "gcode": "plate_1.gcode",
-        "gcode_sha256": "7763080597d4b3910483dae44b8e367b970d11197fdbc44c9764953d7d409075",
+        "gcode_sha256": "9ff12008c8cb7a7a5a829fb3d6f080554963b015225ad394768d58e044139f4c",
         "model": "hardware/printed-parts/faucet/industrial/production/2026-10-25/industrial-above-counter-plate.stl",
         "model_sha256": "5dcf7c25eddfd45f5a9db12b687b751ba24c3c3f9bb87d042b6d97ca4d134bee",
         "object_label": 1904,
-        "plate_gcode_sha256": "7763080597d4b3910483dae44b8e367b970d11197fdbc44c9764953d7d409075",
+        "plate_gcode_sha256": "9ff12008c8cb7a7a5a829fb3d6f080554963b015225ad394768d58e044139f4c",
         "profile": "hardware/printed-parts/faucet/industrial/faucet-industrial-petgf.3mf",
-        "profile_sha256": "90a1261e65dab79c4b94ee14e4111eefed69d63f196d7c4d172a8e1a79123bc5"
+        "profile_sha256": "b13109a40ae5368e728d3ebdfbf7c4c051d2e5b78ebcd2174ba60f413e1a168b"
       },
       "interface_feature_policy": "All support bodies are retained; unlabelled interfaces have unknown contact count and build-up.",
       "interfaces": [],
@@ -1069,13 +1069,13 @@
       "inputs": {
         "feature_filter": "Other objects' feature labels are masked; coordinates and extrusion commands are retained.",
         "gcode": "plate_1.gcode",
-        "gcode_sha256": "7763080597d4b3910483dae44b8e367b970d11197fdbc44c9764953d7d409075",
+        "gcode_sha256": "9ff12008c8cb7a7a5a829fb3d6f080554963b015225ad394768d58e044139f4c",
         "model": "hardware/printed-parts/faucet/industrial/production/2026-10-25/lever-replica.stl",
         "model_sha256": "7a3f5c7d9034c4cce0e0f39bfac6e868f6bd8d01a05add3d21951981eca296eb",
         "object_label": 1905,
-        "plate_gcode_sha256": "7763080597d4b3910483dae44b8e367b970d11197fdbc44c9764953d7d409075",
+        "plate_gcode_sha256": "9ff12008c8cb7a7a5a829fb3d6f080554963b015225ad394768d58e044139f4c",
         "profile": "hardware/printed-parts/faucet/industrial/faucet-industrial-petgf.3mf",
-        "profile_sha256": "90a1261e65dab79c4b94ee14e4111eefed69d63f196d7c4d172a8e1a79123bc5"
+        "profile_sha256": "b13109a40ae5368e728d3ebdfbf7c4c051d2e5b78ebcd2174ba60f413e1a168b"
       },
       "interface_feature_policy": "All support bodies are retained; unlabelled interfaces have unknown contact count and build-up.",
       "interfaces": [
@@ -1219,23 +1219,23 @@
   ],
   "plates": [
     {
-      "estimated_total_seconds": 30146.0,
+      "estimated_total_seconds": 31703.0,
       "plate": 1,
-      "saved_profile_filament_estimate_g": 174.37347412109375,
+      "saved_profile_filament_estimate_g": 174.20657348632812,
       "slicer_warning": ""
     }
   ],
   "project": "hardware/printed-parts/faucet/industrial/faucet-industrial-petgf.3mf",
-  "project_sha256": "90a1261e65dab79c4b94ee14e4111eefed69d63f196d7c4d172a8e1a79123bc5",
+  "project_sha256": "b13109a40ae5368e728d3ebdfbf7c4c051d2e5b78ebcd2174ba60f413e1a168b",
   "rim_contour": {
     "added_commanded_motion_seconds": 106.22721608532453,
     "arc_count": 123,
-    "archive_sha256": "d0ca44777b3268223c8c7181a51f31ad4282e547b0692f4e42ff0e0ba3d475a0",
+    "archive_sha256": "c0176ea0d6954a188c64723d10af5aa64ffba4da7b5d3a8cfe934bd3c91b8ffb",
     "emitted_contact_segments": 801,
     "extrusion_added_mm": 5.822014105617284,
     "extrusion_removed_mm": 7.501480264748283,
-    "gcode_input_sha256": "ada1024b932db1cde568919929392c472c7834940d1422f72e38cd4ba571d5ba",
-    "gcode_sha256": "630e30c6cc3a2caa0876c02a3874254dd402b33f8a2f2f688c7cdd9434abb477",
+    "gcode_input_sha256": "f497ba70fee55ed9988898a2f1a6e42461e49fd13fafeb2def2e2866584b0f8e",
+    "gcode_sha256": "835f3bafc1f2aae07e1c89fc1801b5067e7101edb844474e82e7c633a47300bb",
     "identify_id": 1901,
     "maximum_contact_depth_below_prior_peak_mm": 1.08000000001228,
     "minimum_contact_z_mm": 0.9753898145421402,
@@ -1259,18 +1259,18 @@
   "saved_profile_filament_density_g_cm3": [
     1.29
   ],
-  "settings_sha256": "9f5382f86e98d3aa7d4e0d32f1f28c4f641cc04cfd2697185f053b36c3666c84",
+  "settings_sha256": "af15f35b8a0deb20c56075e1f05d79d4f457190dc3b6fc7f48ea770232c0e3c9",
   "slicer": "BambuStudio 02.08.02.61",
   "sparse_infill_density_percent": 15.0,
   "tip_rim_contour": {
     "added_commanded_motion_seconds": 61.182677246130396,
     "arc_count": 127,
-    "archive_sha256": "bf7462bd297cda5b20449f708eede29e35a93769db8065a75084f995a2339382",
+    "archive_sha256": "4ef6bc255765854124d117277a3aeb3d569b0d2fbf61e7f431f14248d70b5c4a",
     "emitted_contact_segments": 449,
     "extrusion_added_mm": 2.842010457214805,
     "extrusion_removed_mm": 2.635971112544867,
-    "gcode_input_sha256": "630e30c6cc3a2caa0876c02a3874254dd402b33f8a2f2f688c7cdd9434abb477",
-    "gcode_sha256": "7763080597d4b3910483dae44b8e367b970d11197fdbc44c9764953d7d409075",
+    "gcode_input_sha256": "835f3bafc1f2aae07e1c89fc1801b5067e7101edb844474e82e7c633a47300bb",
+    "gcode_sha256": "9ff12008c8cb7a7a5a829fb3d6f080554963b015225ad394768d58e044139f4c",
     "identify_id": 1902,
     "maximum_contact_depth_below_prior_peak_mm": 1.0800000000177583,
     "minimum_contact_z_mm": 15.197532896442565,
@@ -1292,79 +1292,6 @@
     ]
   },
   "wall_loops": 2,
-  "executable": {
-    "archive": "hardware/printed-parts/faucet/industrial/faucet-industrial-petgf.gcode.3mf",
-    "archive_sha256": "bf7462bd297cda5b20449f708eede29e35a93769db8065a75084f995a2339382",
-    "member": "Metadata/plate_1.gcode",
-    "gcode_sha256": "7763080597d4b3910483dae44b8e367b970d11197fdbc44c9764953d7d409075"
-  },
-  "base_brim_review": {
-    "base_brim_segments": 0,
-    "base_bed_layer_support_segments": 5064,
-    "tip_brim_segments": 495
-  },
-  "tip_rim_review": {
-    "style": "industrial",
-    "project": "hardware/printed-parts/faucet/industrial/faucet-industrial-petgf.3mf",
-    "archive": "hardware/printed-parts/faucet/industrial/faucet-industrial-petgf.gcode.3mf",
-    "project_sha256": "90a1261e65dab79c4b94ee14e4111eefed69d63f196d7c4d172a8e1a79123bc5",
-    "archive_sha256": "bf7462bd297cda5b20449f708eede29e35a93769db8065a75084f995a2339382",
-    "gcode_sha256": "7763080597d4b3910483dae44b8e367b970d11197fdbc44c9764953d7d409075",
-    "outlet_clearance": [
-      {
-        "support_roads_sampled": 34008,
-        "centerlines_in_bore": 0,
-        "estimated_beads_in_bore": 0
-      }
-    ],
-    "contact": {
-      "added_commanded_motion_seconds": 61.182677246130396,
-      "arc_count": 127,
-      "emitted_contact_segments": 449,
-      "extrusion_added_mm": 2.842010457214805,
-      "extrusion_removed_mm": 2.635971112544867,
-      "gcode_input_sha256": "630e30c6cc3a2caa0876c02a3874254dd402b33f8a2f2f688c7cdd9434abb477",
-      "gcode_sha256": "7763080597d4b3910483dae44b8e367b970d11197fdbc44c9764953d7d409075",
-      "identify_id": 1902,
-      "maximum_contact_depth_below_prior_peak_mm": 1.0800000000177583,
-      "minimum_contact_z_mm": 15.197532896442565,
-      "modified_native_paths": 778,
-      "purpose": "Bind the continuous first outer rim course to the complete product.",
-      "rim_semi_axes_mm": [
-        13.499997455994734,
-        13.499997455994734
-      ],
-      "seat_fall_angle_degrees": 35.000000000000014,
-      "seat_plate_mm": [
-        182.50059127807617,
-        206.10153498493221,
-        22.65933843985532
-      ],
-      "supported_angles_degrees": [
-        0.0,
-        360.0
-      ]
-    },
-    "all_contour_segments_rise_or_level": true,
-    "evidence": {
-      "nearby_backing_segments": 434,
-      "dense_roof_backing_segments": 425,
-      "largest_spacing_between_backed_samples_mm": 0.8411283055060877,
-      "largest_spacing_between_dense_roof_samples_mm": 1.0887816389071767,
-      "contour_segments": 449,
-      "length_mm": 83.4399299684716,
-      "maximum_extrusion_z_speed_mm_s": 7.480614043856553,
-      "potential_earlier_interference": 0,
-      "potential_later_interference": 0
-    },
-    "slicer_warning": "",
-    "plate_estimated_seconds": 30146.0,
-    "process": {
-      "support_top_z_distance": "0.24",
-      "support_interface_top_layers": "3",
-      "support_interface_spacing": "0"
-    }
-  },
   "selected_contact_and_recesses": {
     "gcode_sha256": "c7be9cf229c47d8fcdac449c324b1b78ab5eac43e634e53ac89e15f8fe1e75ac",
     "target_seat_plate_mm": [
@@ -1710,5 +1637,90 @@
     "faucet-shell-tip": {
       "support_style": "tree_slim"
     }
+  },
+  "executable": {
+    "archive": "hardware/printed-parts/faucet/industrial/faucet-industrial-petgf.gcode.3mf",
+    "archive_sha256": "4ef6bc255765854124d117277a3aeb3d569b0d2fbf61e7f431f14248d70b5c4a",
+    "member": "Metadata/plate_1.gcode",
+    "gcode_sha256": "9ff12008c8cb7a7a5a829fb3d6f080554963b015225ad394768d58e044139f4c"
+  },
+  "tip_rim_review": {
+    "style": "industrial",
+    "project": "hardware/printed-parts/faucet/industrial/faucet-industrial-petgf.3mf",
+    "project_sha256": "b13109a40ae5368e728d3ebdfbf7c4c051d2e5b78ebcd2174ba60f413e1a168b",
+    "archive": "hardware/printed-parts/faucet/industrial/faucet-industrial-petgf.gcode.3mf",
+    "archive_sha256": "4ef6bc255765854124d117277a3aeb3d569b0d2fbf61e7f431f14248d70b5c4a",
+    "member": "Metadata/plate_1.gcode",
+    "gcode_sha256": "9ff12008c8cb7a7a5a829fb3d6f080554963b015225ad394768d58e044139f4c",
+    "contact": {
+      "added_commanded_motion_seconds": 61.182677246130396,
+      "arc_count": 127,
+      "emitted_contact_segments": 449,
+      "extrusion_added_mm": 2.842010457214805,
+      "extrusion_removed_mm": 2.635971112544867,
+      "gcode_input_sha256": "835f3bafc1f2aae07e1c89fc1801b5067e7101edb844474e82e7c633a47300bb",
+      "gcode_sha256": "9ff12008c8cb7a7a5a829fb3d6f080554963b015225ad394768d58e044139f4c",
+      "identify_id": 1902,
+      "maximum_contact_depth_below_prior_peak_mm": 1.0800000000177583,
+      "minimum_contact_z_mm": 15.197532896442565,
+      "modified_native_paths": 778,
+      "purpose": "Bind the continuous first outer rim course to the complete product.",
+      "rim_semi_axes_mm": [
+        13.499997455994734,
+        13.499997455994734
+      ],
+      "seat_fall_angle_degrees": 35.000000000000014,
+      "seat_plate_mm": [
+        182.50059127807617,
+        206.10153498493221,
+        22.65933843985532
+      ],
+      "supported_angles_degrees": [
+        0.0,
+        360.0
+      ]
+    },
+    "outlet_clearance": [
+      {
+        "support_roads_sampled": 34008,
+        "centerlines_in_bore": 0,
+        "estimated_beads_in_bore": 0
+      }
+    ],
+    "outlet_geometry_comparison": {
+      "reference_gcode_sha256": "7763080597d4b3910483dae44b8e367b970d11197fdbc44c9764953d7d409075",
+      "bores": [
+        {
+          "previous_paths": 10717,
+          "current_paths": 10717,
+          "removed_paths": 0,
+          "added_paths": 0
+        }
+      ]
+    },
+    "dense_backing_reference": {
+      "gcode_sha256": "7763080597d4b3910483dae44b8e367b970d11197fdbc44c9764953d7d409075",
+      "evidence": {
+        "nearby_backing_segments": 434,
+        "dense_roof_backing_segments": 425,
+        "largest_spacing_between_backed_samples_mm": 0.8411283055060877,
+        "largest_spacing_between_dense_roof_samples_mm": 1.0887816389071767,
+        "contour_segments": 449,
+        "length_mm": 83.4399299684716,
+        "maximum_extrusion_z_speed_mm_s": 7.480614043856553,
+        "potential_earlier_interference": 0,
+        "potential_later_interference": 0
+      }
+    },
+    "process": {
+      "support_top_z_distance": "0.24",
+      "support_interface_top_layers": "3",
+      "support_interface_spacing": "0"
+    }
+  },
+  "base_brim_review": {
+    "base_brim_segments": 0,
+    "base_bed_layer_support_segments": 5064,
+    "tip_brim_segments": 495
   }
 }

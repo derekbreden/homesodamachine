@@ -19,7 +19,7 @@
   "display_additional_clearance_mm": 1.5,
   "cooling_policy": "hardware/printed-parts/cooling/README.md",
   "current_project": "hardware/printed-parts/faucet/faucet-petgf.3mf",
-  "current_project_sha256": "f79973dc31d5ca3a9d6832187f3410afc798802c9fb6a147fc76970ec40e8302",
+  "current_project_sha256": "0d18d16f1d3d8636e5dd6cc062c71835a2e52011bcc81d53880b3ca5a3db6c52",
   "shared_support_profile": "hardware/printed-parts/petgf.3mf",
   "native_archive_current": true,
   "reslice_required": false,
@@ -31,8 +31,8 @@
     "native_contact_reading": "hardware/print-tests/petgf-dense-roofs/inclines/contact-reading.json"
   },
   "current_archive": "hardware/printed-parts/faucet/sculpted/production/faucet-petgf.gcode.3mf",
-  "current_archive_sha256": "3e2c6cf57c670317b2b935ad6fd27d5e094b64de6e5d0d5aef1d9cb17325e590",
-  "current_gcode_sha256": "2a42fb2cd5f753e90410fba5fc34c0b229a914dd08de9a4fea1d49f754a49053",
+  "current_archive_sha256": "c99b1ac28ddfa9bc9f151cb4d8e151a6f2ee45c6c57a00e99057f2b354cb53cb",
+  "current_gcode_sha256": "c885a89f516e2592a238c63d4e1c800863d96049ea31a6af30e7225b7319b32f",
   "current_plate": 1,
   "current_active_nozzle": 0,
   "current_native_review": "hardware/printed-parts/faucet/sculpted/production/contact-review.json"

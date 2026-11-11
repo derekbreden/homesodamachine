@@ -1,117 +1,29 @@
 {
-  "project": "faucet-display-cover-petgf.3mf",
-  "settings_source": "hardware/printed-parts/faucet/faucet-display-cover/prints/2026-10-25-front-overlap-black-mark2/2026-10-25-sculpted-cover-front-overlap-black-left04-z004-mark2.3mf",
-  "settings_source_sha256": "fb08838af3bf6cff212acec6ccc2dabc6701fe8745840bbbf459c78597cb765d",
-  "settings_sha256": "d77a691c6fe5079623784291943440062a927cc6300e5013f68e26bacb382ec8",
-  "source_settings_sha256": "987a5e177a7ff369594322a0107c23f4dddfdb094bbbfe9fd22f7628e0961d99",
-  "settings_changes": {
-    "machine_start_gcode": {
-      "from_sha256": "b09bc598f2ed7c29dceb227188593905dfc663f0391b98ff708ef00e7ce01bee",
-      "to_sha256": "b09bc598f2ed7c29dceb227188593905dfc663f0391b98ff708ef00e7ce01bee",
-      "requested_z_trim_mm": 0.04
-    },
-    "printer_settings_id": {
-      "from": "Bambu Lab H2C 0.4 Standard +0.04 Z trim",
-      "to": "Bambu Lab H2C 0.4 Standard +0.04 Z trim"
-    },
-    "initial_layer_print_height": {
-      "from": "0.24",
-      "to": "0.2"
-    },
-    "petgf_support_recipe": {
-      "profile": "hardware/printed-parts/petgf.3mf",
-      "sha256": "1be18bdfd75b33efc898b3e5c28a0c1975fc694ef4d94dd88a909472cb96b97f",
-      "members": {
-        "Metadata/filament_settings_1.config": {
-          "filament_bridge_speed": {
-            "from": null,
-            "to": [
-              "15",
-              "15",
-              "15"
-            ]
-          }
-        },
-        "Metadata/project_settings.config": {
-          "support_top_z_distance": {
-            "from": "0.45",
-            "to": "0.24"
-          },
-          "support_interface_top_layers": {
-            "from": "2",
-            "to": "3"
-          },
-          "support_interface_spacing": {
-            "from": "0.5",
-            "to": "0"
-          },
-          "post_process": {
-            "from": [],
-            "to": [
-              "/Users/derekbredensteiner/Developer/homesodamachine/tools/hsm/target/release/petgf-cooling"
-            ]
-          }
-        }
-      }
-    }
-  },
-  "printer": "Mark2",
-  "process": "0.24mm PET-GF faucet",
+  "accepted_remaining_corner_gap": true,
+  "active_nozzle": 0,
+  "bed_type": "Textured PEI Plate",
   "filament": [
     "Polymaker PET-GF @BBL H2C"
   ],
+  "first_bed_layer_height_mm": 0.2,
+  "launch_authorized": false,
   "layer_height_mm": 0.24,
+  "layer_ranges": [],
+  "line_widths_mm": {
+    "inner_wall_line_width": 0.45,
+    "internal_solid_infill_line_width": 0.42,
+    "outer_wall_line_width": 0.42,
+    "sparse_infill_line_width": 0.45,
+    "support_line_width": 0.62,
+    "top_surface_line_width": 0.45
+  },
   "nozzle_diameter_mm": [
     0.4,
     0.4
   ],
-  "line_widths_mm": {
-    "outer_wall_line_width": 0.42,
-    "inner_wall_line_width": 0.45,
-    "sparse_infill_line_width": 0.45,
-    "internal_solid_infill_line_width": 0.42,
-    "top_surface_line_width": 0.45,
-    "support_line_width": 0.62
-  },
-  "wall_loops": 2,
-  "sparse_infill_percent": 15.0,
-  "sparse_infill_pattern": "grid",
-  "saved_profile_filament_density_g_cm3": [
-    1.29
-  ],
-  "bed_type": "Textured PEI Plate",
-  "shared_printable_area_mm": [
-    [
-      0.0,
-      0.0
-    ],
-    [
-      325.0,
-      320.0
-    ]
-  ],
-  "printable_area_extruders": [
-    0
-  ],
-  "plate_border_mm": 80.0,
-  "plate_count": 1,
   "parts": [
     {
-      "name": "sculpted-display-cover",
-      "plate": 1,
-      "object_id": "2",
-      "part_id": "1",
-      "member": "3D/Objects/object_1.model",
-      "identify_id": 1901,
-      "source": "hardware/printed-parts/faucet/industrial/production/2026-10-25/sculpted-display-cover.stl",
-      "stl_sha256": "3d4d2e05edde5a0e45aad36e9de072a57103c3b0f8da2bbd875cbfbedbe68133",
-      "triangles": 4982,
-      "rotation_x_degrees": -50.0,
-      "source_center_mm": [
-        0.0,
-        -128.5051383972168,
-        207.77315521240234
-      ],
+      "body_count": 1,
       "build_transform": [
         1.0,
         0.0,
@@ -126,16 +38,13 @@
         159.01714081182666,
         10.095567854458237
       ],
-      "plate_translation_mm": [
-        162.5,
-        159.01714081182666,
-        10.095567854458237
-      ],
-      "plate_origin_mm": [
-        0.0,
-        0.0,
-        0.0
-      ],
+      "embedded_vertex_error_mm": 4.990234891977252e-10,
+      "identify_id": 1901,
+      "member": "3D/Objects/object_1.model",
+      "name": "sculpted-display-cover",
+      "object_id": "2",
+      "part_id": "1",
+      "plate": 1,
       "plate_bounds_mm": [
         [
           148.27867889404297,
@@ -148,21 +57,124 @@
           16.05001425648164
         ]
       ],
-      "watertight": true,
-      "body_count": 1,
-      "embedded_vertex_error_mm": 4.990234891977252e-10
+      "plate_origin_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "plate_translation_mm": [
+        162.5,
+        159.01714081182666,
+        10.095567854458237
+      ],
+      "rotation_x_degrees": -50.0,
+      "source": "hardware/printed-parts/faucet/industrial/production/2026-10-25/sculpted-display-cover.stl",
+      "source_center_mm": [
+        0.0,
+        -128.5051383972168,
+        207.77315521240234
+      ],
+      "stl_sha256": "3d4d2e05edde5a0e45aad36e9de072a57103c3b0f8da2bbd875cbfbedbe68133",
+      "triangles": 4982,
+      "watertight": true
     }
   ],
-  "project_sha256": "676ddce83c5a0205d5e1c359305b02990e772c96dbbfd0a9d75f52efe847530b",
-  "settings_preserved_byte_for_byte": false,
-  "requested_z_trim_mm": 0.04,
-  "active_nozzle": 0,
-  "first_bed_layer_height_mm": 0.2,
-  "layer_ranges": [],
-  "production_selection": "hardware/printed-parts/faucet/industrial/production-selection.json",
   "physical_approval": "hardware/printed-parts/faucet/faucet-display-cover/prints/2026-10-25-front-overlap-black-mark2/physical-result/physical-result.json",
-  "accepted_remaining_corner_gap": true,
-  "launch_authorized": false,
+  "plate_border_mm": 80.0,
+  "plate_count": 1,
+  "printable_area_extruders": [
+    0
+  ],
+  "printer": "Mark2",
+  "process": "0.24mm PET-GF faucet",
+  "production_selection": "hardware/printed-parts/faucet/industrial/production-selection.json",
+  "project": "hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover-petgf.3mf",
+  "project_sha256": "6387c99afa977f0be9064a45f8c1d0cd243b97d8d9eca464e7c6e6ace19cd1e2",
+  "requested_z_trim_mm": 0.04,
+  "saved_profile_filament_density_g_cm3": [
+    1.29
+  ],
+  "settings_changes": {
+    "initial_layer_print_height": {
+      "from": "0.24",
+      "to": "0.2"
+    },
+    "machine_start_gcode": {
+      "from_sha256": "b09bc598f2ed7c29dceb227188593905dfc663f0391b98ff708ef00e7ce01bee",
+      "requested_z_trim_mm": 0.04,
+      "to_sha256": "b09bc598f2ed7c29dceb227188593905dfc663f0391b98ff708ef00e7ce01bee"
+    },
+    "petgf_support_recipe": {
+      "members": {
+        "Metadata/filament_settings_1.config": {
+          "filament_bridge_speed": {
+            "from": null,
+            "to": [
+              "15",
+              "15",
+              "15"
+            ]
+          }
+        },
+        "Metadata/project_settings.config": {
+          "support_interface_spacing": {
+            "from": "0.5",
+            "to": "0"
+          },
+          "support_interface_top_layers": {
+            "from": "2",
+            "to": "3"
+          },
+          "support_top_z_distance": {
+            "from": "0.45",
+            "to": "0.24"
+          }
+        }
+      },
+      "profile": "hardware/printed-parts/petgf.3mf",
+      "sha256": "1be18bdfd75b33efc898b3e5c28a0c1975fc694ef4d94dd88a909472cb96b97f"
+    },
+    "post_process": {
+      "from": [],
+      "to": [
+        "/Users/derekbredensteiner/Developer/homesodamachine/tools/hsm/target/release/petgf-cooling"
+      ]
+    },
+    "print_compatible_printers": {
+      "from": [
+        "Bambu Lab H2C 0.4 nozzle"
+      ],
+      "to": [
+        "Bambu Lab H2C 0.4 nozzle",
+        "Bambu Lab H2C 0.4 Standard +0.04 Z trim"
+      ]
+    },
+    "printer_settings_id": {
+      "from": "Bambu Lab H2C 0.4 Standard +0.04 Z trim",
+      "to": "Bambu Lab H2C 0.4 Standard +0.04 Z trim"
+    },
+    "sparse_infill_pattern": {
+      "from": "grid",
+      "to": "gyroid"
+    }
+  },
+  "settings_preserved_byte_for_byte": false,
+  "settings_sha256": "af15f35b8a0deb20c56075e1f05d79d4f457190dc3b6fc7f48ea770232c0e3c9",
+  "settings_source": "hardware/printed-parts/faucet/faucet-display-cover/prints/2026-10-25-front-overlap-black-mark2/2026-10-25-sculpted-cover-front-overlap-black-left04-z004-mark2.3mf",
+  "settings_source_sha256": "fb08838af3bf6cff212acec6ccc2dabc6701fe8745840bbbf459c78597cb765d",
+  "shared_printable_area_mm": [
+    [
+      0.0,
+      0.0
+    ],
+    [
+      325.0,
+      320.0
+    ]
+  ],
+  "source_settings_sha256": "987a5e177a7ff369594322a0107c23f4dddfdb094bbbfe9fd22f7628e0961d99",
+  "sparse_infill_pattern": "gyroid",
+  "sparse_infill_percent": 15.0,
   "submitted": false,
-  "reslice_required": true
+  "wall_loops": 2
 }

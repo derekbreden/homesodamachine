@@ -359,7 +359,7 @@
     "shank_radius_mm": 1.95,
     "shoulder_cad_z_mm": -0.7999999999999998
   },
-  "native_settings_sha256": "9f5382f86e98d3aa7d4e0d32f1f28c4f641cc04cfd2697185f053b36c3666c84",
+  "native_settings_sha256": "af15f35b8a0deb20c56075e1f05d79d4f457190dc3b6fc7f48ea770232c0e3c9",
   "nozzle_diameter_mm": [
     0.4,
     0.4
@@ -657,11 +657,11 @@
   "process": "0.24mm PET-GF faucet",
   "profile_member_sha256": {
     "Metadata/filament_settings_1.config": "3c259bd858d6a6ce3e5c1ef3487d7d77bd4ce67675d6df0cb4aa98883ee16415",
-    "Metadata/project_settings.config": "9f5382f86e98d3aa7d4e0d32f1f28c4f641cc04cfd2697185f053b36c3666c84"
+    "Metadata/project_settings.config": "af15f35b8a0deb20c56075e1f05d79d4f457190dc3b6fc7f48ea770232c0e3c9"
   },
   "profile_source": "hardware/printed-parts/faucet/faucet-display-cover/prints/2026-10-25-front-overlap-black-mark2/2026-10-25-sculpted-cover-front-overlap-black-left04-z004-mark2.3mf",
   "project": "hardware/printed-parts/faucet/industrial/faucet-industrial-petgf.3mf",
-  "project_sha256": "90a1261e65dab79c4b94ee14e4111eefed69d63f196d7c4d172a8e1a79123bc5",
+  "project_sha256": "b13109a40ae5368e728d3ebdfbf7c4c051d2e5b78ebcd2174ba60f413e1a168b",
   "project_title": "Industrial faucet PET-GF",
   "rear_seam_enforcement": {
     "enforced_triangles": 477,
@@ -787,8 +787,8 @@
     1.29
   ],
   "sculpted_artifacts_unchanged": {
-    "hardware/printed-parts/faucet/faucet-petgf.3mf": "c93d069effd937cebcac660ff806cf50f84359f63db65e151741484890b72c26",
-    "hardware/printed-parts/faucet/faucet-petgf.print.json": "36c63ab7817e771bbe3dae1bdcbdb1b4bec0a761d571fc456dfa93ea2853745e",
+    "hardware/printed-parts/faucet/faucet-petgf.3mf": "f79973dc31d5ca3a9d6832187f3410afc798802c9fb6a147fc76970ec40e8302",
+    "hardware/printed-parts/faucet/faucet-petgf.print.json": "5bb3e10606902d37ab3ab36f7c051cb1695ea15f53ba9a28b01787b0575abf5d",
     "hardware/printed-parts/faucet/faucet-petgf.readiness.json": "520bfcfe182db137271f9cfce89b05fc268c625a2ae37593eddf8d0cd42133cb",
     "hardware/printed-parts/faucet/faucet-petgf.support-audit.json": "383212521536bbe4a6661bf127e59203eeacfe3206bf80d4eaea8ea775823b97"
   },
@@ -1087,10 +1087,14 @@
     "printer_settings_id": {
       "from": "Bambu Lab H2C 0.4 Standard +0.04 Z trim",
       "to": "Bambu Lab H2C 0.4 Standard +0.04 Z trim"
+    },
+    "sparse_infill_pattern": {
+      "from": "grid",
+      "to": "gyroid"
     }
   },
   "settings_preserved_byte_for_byte": false,
-  "settings_sha256": "9f5382f86e98d3aa7d4e0d32f1f28c4f641cc04cfd2697185f053b36c3666c84",
+  "settings_sha256": "af15f35b8a0deb20c56075e1f05d79d4f457190dc3b6fc7f48ea770232c0e3c9",
   "settings_source": "hardware/printed-parts/faucet/faucet-display-cover/prints/2026-10-25-front-overlap-black-mark2/2026-10-25-sculpted-cover-front-overlap-black-left04-z004-mark2.3mf",
   "settings_source_sha256": "fb08838af3bf6cff212acec6ccc2dabc6701fe8745840bbbf459c78597cb765d",
   "shared_printable_area_mm": [
@@ -1110,7 +1114,7 @@
     "hardware/printed-parts/faucet/finish-coupons/2026-10-15-tip-root-anchor/mark1/2026-10-15-faucet-tip-root-anchor-eight-fins-lip-trees-current105-bridge125-fan70-z018-mark1.3mf": "f6e5c53d4a23b25f568b083d8a3eaa779b7959c666fa41a227a953e21904f3ff",
     "hardware/printed-parts/faucet/industrial/finish-selection.json": "60178360242cfbf652d4aede98a9ebcee452aca3fc3aee4e6a6587346c777285",
     "hardware/printed-parts/faucet/industrial/physical-acceptance.json": "74793cb4503186aca90897b4a3be7ec2ba386247e60d4191880499010405479f",
-    "hardware/printed-parts/faucet/industrial/prepare_print_project.rs": "d802d2e2d54364c37657401a0b944d9abff9054d7bf6e7e1232d10d8a203fc05",
+    "hardware/printed-parts/faucet/industrial/prepare_print_project.rs": "1a6026109a54e3e264cd6c6353c85d61c3b5ed0c6790223a608b8e56a2d16d51",
     "hardware/printed-parts/faucet/industrial/prints/2026-10-10-shoulders012-wing050-restored-joint-mark2/2026-10-10-industrial-faucet-complete-shoulders012-wing050-restored-joint-petgf-left04-z004-mark2.3mf": "2561bcdaa520e94f4b0a5989fcbb9e941f707b50c46af97655ceacf312748302",
     "hardware/printed-parts/faucet/industrial/production-selection.json": "72a99d7374623220ff97edb3a38a853378a5efb989de51851e46bfbd709aa2d1",
     "hardware/printed-parts/faucet/industrial/production/2026-10-25/faucet-shell-tip.stl": "35ec9f0b99c5e90f038836549e6f5e8f112b2af03e1849b08b2d759050d260e6",
@@ -1121,9 +1125,10 @@
     "tools/hsm/print-prep/src/faucet.rs": "a311eb264400cfb363d96b2ae3cce2f24e2cc6d243de21011a9b38f368c4ad30",
     "tools/hsm/print-prep/src/faucet_contact.rs": "7d645f820fc905052f4eb64c4e5336cc8d74320026ef1f81236e90353077bbe0",
     "tools/hsm/print-prep/src/faucet_recesses.rs": "67436872fcf6315d00d01dea42322d3c59448c82884e5b5dc010e4c08a51dd9c",
+    "tools/hsm/print-prep/src/profile.rs": "8d6d142f54fded17f0110fb1bd5c5140b480082e3f234838608fde8649abaee4",
     "tools/hsm/print-prep/src/rim_contour.rs": "7a448d4c6028f78abd7ac96f9cbb683503e5c4cc4449317edc86f5fb42a480d1"
   },
-  "sparse_infill_pattern": "grid",
+  "sparse_infill_pattern": "gyroid",
   "sparse_infill_percent": 15.0,
   "submitted": false,
   "tip_dispense_contact": {
@@ -2782,8 +2787,8 @@
   "wall_loops": 2,
   "executable": {
     "archive": "hardware/printed-parts/faucet/industrial/faucet-industrial-petgf.gcode.3mf",
-    "archive_sha256": "bf7462bd297cda5b20449f708eede29e35a93769db8065a75084f995a2339382",
+    "archive_sha256": "4ef6bc255765854124d117277a3aeb3d569b0d2fbf61e7f431f14248d70b5c4a",
     "member": "Metadata/plate_1.gcode",
-    "gcode_sha256": "7763080597d4b3910483dae44b8e367b970d11197fdbc44c9764953d7d409075"
+    "gcode_sha256": "9ff12008c8cb7a7a5a829fb3d6f080554963b015225ad394768d58e044139f4c"
   }
 }

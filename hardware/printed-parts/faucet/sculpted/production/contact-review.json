@@ -5,10 +5,10 @@
   "filament": "White PET-GF",
   "active_nozzle": 0,
   "project": "hardware/printed-parts/faucet/faucet-petgf.3mf",
-  "project_sha256": "f79973dc31d5ca3a9d6832187f3410afc798802c9fb6a147fc76970ec40e8302",
+  "project_sha256": "0d18d16f1d3d8636e5dd6cc062c71835a2e52011bcc81d53880b3ca5a3db6c52",
   "archive": "hardware/printed-parts/faucet/sculpted/production/faucet-petgf.gcode.3mf",
-  "archive_sha256": "3e2c6cf57c670317b2b935ad6fd27d5e094b64de6e5d0d5aef1d9cb17325e590",
-  "gcode_sha256": "2a42fb2cd5f753e90410fba5fc34c0b229a914dd08de9a4fea1d49f754a49053",
+  "archive_sha256": "c99b1ac28ddfa9bc9f151cb4d8e151a6f2ee45c6c57a00e99057f2b354cb53cb",
+  "gcode_sha256": "c885a89f516e2592a238c63d4e1c800863d96049ea31a6af30e7225b7319b32f",
   "rim": {
     "sampled": 623,
     "covered": 623,
@@ -16,14 +16,14 @@
     "missing_angles_degrees": []
   },
   "first_outer_perimeter": {
-    "added_commanded_motion_seconds": 104.12743565667672,
+    "added_commanded_motion_seconds": 104.12777699001002,
     "arc_count": 123,
-    "archive_sha256": "234e793103933d47e56e65cad7d5a362e76a6e58232b3531ccf9ccc2edf3f66e",
+    "archive_sha256": "bb75715c60a50e5175e2d303fb328b43ded007913fdce46628a75e8ce394da80",
     "emitted_contact_segments": 801,
     "extrusion_added_mm": 5.778014066399109,
     "extrusion_removed_mm": 9.653522076572456,
-    "gcode_input_sha256": "c7f62bed98e9d1a90ecbf9cb958bfeea89ecb135444b2329a33080ec6ed378b5",
-    "gcode_sha256": "c5aa812660d59bf9c256bba35996e6012a11ec4625544c2b0751e27b711b5a7b",
+    "gcode_input_sha256": "b14af1e19fbc1cf9e3b597691e783fb8c5dd5eb4780314ffb8245c2b3c383fd8",
+    "gcode_sha256": "1fbbe68d0d272adcfa54311d39b6da7b71665525d064d92c9bf633056b1f624b",
     "identify_id": 1901,
     "maximum_contact_depth_below_prior_peak_mm": 1.0800000000037517,
     "minimum_contact_z_mm": 0.9753898289152962,
@@ -201,7 +201,8 @@
         "Supported overhangs": "Local nonplanar contact band and continuous first rim perimeter",
         "Insert recesses": "Three bridged shoulders and blind pilot roofs, with tree paths outside the recesses",
         "Walls": "Arachne, solid infill at the foot",
-        "Brim": "Off"
+        "Brim": "Off",
+        "Infill": "15% gyroid"
       }
     },
     "HSM-0095": {
@@ -222,7 +223,8 @@
         "Beverage outlet": "Clear of supports",
         "Mating lip": "Continuous first outer perimeter follows the tilted rim",
         "Dispense face": "Separate nonplanar interface",
-        "Bed anchor": "Removable disc on the hidden plug end"
+        "Bed anchor": "Removable disc on the hidden plug end",
+        "Infill": "15% gyroid"
       }
     },
     "HSM-0096": {
@@ -240,7 +242,8 @@
         "Requested bottom gap": "0.30 mm",
         "Top interface": "3 layers, 0 mm spacing",
         "Bottom interface": "2 layers",
-        "Orientation": "Flat lower lands on the plate"
+        "Orientation": "Flat lower lands on the plate",
+        "Infill": "15% gyroid"
       }
     },
     "HSM-0092": {
@@ -256,7 +259,8 @@
         "Supports": "None in emitted slice",
         "Counterbores": "Three flat shoulders bridge, shank passages stay open",
         "Requested top gap": null,
-        "Top interface": null
+        "Top interface": null,
+        "Infill": "15% gyroid"
       }
     },
     "HSM-0268": {
@@ -274,7 +278,8 @@
         "Requested bottom gap": "0.30 mm",
         "Top interface": "3 layers, 0 mm spacing",
         "Bottom interface": "2 layers",
-        "Channel": "Side-down, bridged across the gap"
+        "Channel": "Side-down, bridged across the gap",
+        "Infill": "15% gyroid"
       }
     }
   },
@@ -377,25 +382,19 @@
   "tip_rim_review": {
     "style": "sculpted",
     "project": "hardware/printed-parts/faucet/faucet-petgf.3mf",
+    "project_sha256": "0d18d16f1d3d8636e5dd6cc062c71835a2e52011bcc81d53880b3ca5a3db6c52",
     "archive": "hardware/printed-parts/faucet/sculpted/production/faucet-petgf.gcode.3mf",
-    "project_sha256": "f79973dc31d5ca3a9d6832187f3410afc798802c9fb6a147fc76970ec40e8302",
-    "archive_sha256": "3e2c6cf57c670317b2b935ad6fd27d5e094b64de6e5d0d5aef1d9cb17325e590",
-    "gcode_sha256": "2a42fb2cd5f753e90410fba5fc34c0b229a914dd08de9a4fea1d49f754a49053",
-    "outlet_clearance": [
-      {
-        "support_roads_sampled": 22625,
-        "centerlines_in_bore": 0,
-        "estimated_beads_in_bore": 0
-      }
-    ],
+    "archive_sha256": "c99b1ac28ddfa9bc9f151cb4d8e151a6f2ee45c6c57a00e99057f2b354cb53cb",
+    "member": "Metadata/plate_1.gcode",
+    "gcode_sha256": "c885a89f516e2592a238c63d4e1c800863d96049ea31a6af30e7225b7319b32f",
     "contact": {
       "added_commanded_motion_seconds": 61.95955014064185,
       "arc_count": 129,
       "emitted_contact_segments": 449,
       "extrusion_added_mm": 2.8419330727906775,
       "extrusion_removed_mm": 2.637457398055446,
-      "gcode_input_sha256": "c5aa812660d59bf9c256bba35996e6012a11ec4625544c2b0751e27b711b5a7b",
-      "gcode_sha256": "2a42fb2cd5f753e90410fba5fc34c0b229a914dd08de9a4fea1d49f754a49053",
+      "gcode_input_sha256": "1fbbe68d0d272adcfa54311d39b6da7b71665525d064d92c9bf633056b1f624b",
+      "gcode_sha256": "c885a89f516e2592a238c63d4e1c800863d96049ea31a6af30e7225b7319b32f",
       "identify_id": 1902,
       "maximum_contact_depth_below_prior_peak_mm": 1.0800000000154135,
       "minimum_contact_z_mm": 15.20329853085721,
@@ -416,20 +415,38 @@
         360.0
       ]
     },
-    "all_contour_segments_rise_or_level": true,
-    "evidence": {
-      "nearby_backing_segments": 432,
-      "dense_roof_backing_segments": 422,
-      "largest_spacing_between_backed_samples_mm": 1.0862831878572945,
-      "largest_spacing_between_dense_roof_samples_mm": 1.0885683916921631,
-      "contour_segments": 449,
-      "length_mm": 83.43765717002914,
-      "maximum_extrusion_z_speed_mm_s": 7.480773914349729,
-      "potential_earlier_interference": 0,
-      "potential_later_interference": 0
+    "outlet_clearance": [
+      {
+        "support_roads_sampled": 22625,
+        "centerlines_in_bore": 0,
+        "estimated_beads_in_bore": 0
+      }
+    ],
+    "outlet_geometry_comparison": {
+      "reference_gcode_sha256": "2a42fb2cd5f753e90410fba5fc34c0b229a914dd08de9a4fea1d49f754a49053",
+      "bores": [
+        {
+          "previous_paths": 11627,
+          "current_paths": 11627,
+          "removed_paths": 0,
+          "added_paths": 0
+        }
+      ]
     },
-    "slicer_warning": "",
-    "plate_estimated_seconds": 28448,
+    "dense_backing_reference": {
+      "gcode_sha256": "2a42fb2cd5f753e90410fba5fc34c0b229a914dd08de9a4fea1d49f754a49053",
+      "evidence": {
+        "nearby_backing_segments": 432,
+        "dense_roof_backing_segments": 422,
+        "largest_spacing_between_backed_samples_mm": 1.0862831878572945,
+        "largest_spacing_between_dense_roof_samples_mm": 1.0885683916921631,
+        "contour_segments": 449,
+        "length_mm": 83.43765717002914,
+        "maximum_extrusion_z_speed_mm_s": 7.480773914349729,
+        "potential_earlier_interference": 0,
+        "potential_later_interference": 0
+      }
+    },
     "process": {
       "support_top_z_distance": "0.24",
       "support_interface_top_layers": "3",
