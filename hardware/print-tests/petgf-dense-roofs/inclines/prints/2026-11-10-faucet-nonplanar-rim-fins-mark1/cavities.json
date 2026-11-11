@@ -1,0 +1,91 @@
+{
+  "frame": [
+    [
+      1.0000000000000002,
+      8.413036756502074e-13,
+      3.1397880215749116e-12
+    ],
+    [
+      0.0,
+      0.965925825453494,
+      -0.2588190482209267
+    ],
+    [
+      -3.250547753085293e-12,
+      0.2588190482209267,
+      0.965925825453494
+    ]
+  ],
+  "seat_offset": 39.86752706832828,
+  "purpose": "Identify the stepped insert cavities on the frozen coupon and bound each support blocker.",
+  "pockets": [
+    {
+      "depth": 0.0,
+      "vertices": 252,
+      "closed": true,
+      "center": [
+        132.50000000012943,
+        117.28763520550551
+      ],
+      "error": 8.143612841848835e-07,
+      "mouth_radius_mm": 4.099999962393885,
+      "pilot_radius_mm": 1.999999990687229,
+      "shoulder_depth_mm": 3.2,
+      "blind_roof_depth_mm": 8.45,
+      "blocker_radius_mm": 4.55,
+      "blocker_depth_mm": [
+        -0.65,
+        9.0
+      ]
+    },
+    {
+      "depth": 0.0,
+      "vertices": 252,
+      "closed": true,
+      "center": [
+        155.0000000001299,
+        96.98763520751561
+      ],
+      "error": 1.6819384081045996e-06,
+      "mouth_radius_mm": 4.100000067097798,
+      "pilot_radius_mm": 1.9999999670417308,
+      "shoulder_depth_mm": 3.2,
+      "blind_roof_depth_mm": 8.45,
+      "blocker_radius_mm": 4.55,
+      "blocker_depth_mm": [
+        -0.65,
+        9.0
+      ]
+    },
+    {
+      "depth": 0.0,
+      "vertices": 252,
+      "closed": true,
+      "center": [
+        177.50000000012966,
+        117.28763520550568
+      ],
+      "error": 8.143603587029702e-07,
+      "mouth_radius_mm": 4.099999962394772,
+      "pilot_radius_mm": 1.9999999906747234,
+      "shoulder_depth_mm": 3.2,
+      "blind_roof_depth_mm": 8.45,
+      "blocker_radius_mm": 4.55,
+      "blocker_depth_mm": [
+        -0.65,
+        9.0
+      ]
+    }
+  ],
+  "outer_rim": {
+    "depth": 0.0,
+    "vertices": 252,
+    "closed": true,
+    "center": [
+      155.00000000012975,
+      119.28763519647667
+    ],
+    "radius": 29.500000066966805,
+    "error": 1.7583502938123274e-06
+  }
+}

@@ -46,18 +46,7 @@ cooling and printer calibration. The [contact comparison](https://github.com/der
 reads the emitted interface and model bead envelopes; it does not measure
 molten material or removal force.
 
-The [active nonplanar Mark1 trial](prints/2026-11-10-faucet-nonplanar-gap024-widebands-mark1/print-job.json)
-prints the same complete faucet coupon and dense roof, with longer bounded
-contact bands and a smaller requested gap. The [recipe](nonplanar/README.md) restores both the model and support
-paths from the mapped native slice. Derek's
-[partial-run observation](prints/2026-11-10-faucet-nonplanar-bands-mark1/in-progress-observation.json)
-reports clean motion and a clean head during the stopped wider-gap article.
-The [launch](prints/2026-11-10-faucet-nonplanar-gap024-widebands-mark1/launch.json)
-binds the active plate to its printer acceptance. Record whether
-the mat releases, stems break, contact material remains, or a model course peels
-away. Photograph the underside and removed mat together. A useful planar condition
-next needs the actual faucet lower curve in its production pose before it
-qualifies a complete faucet print.
+The [completed nonplanar comparison](https://github.com/derekbreden/homesodamachine/blob/b06ab316f6c796a314a30f0dc8ffda66113b2e4e/hardware/print-tests/petgf-dense-roofs/inclines/prints/2026-11-10-faucet-nonplanar-gap024-widebands-mark1/physical-result/physical-result.json) records an improved underside, waves along the outer rim and supports trapped in the insert recesses. The [active Mark1 trial](prints/2026-11-10-faucet-nonplanar-rim-fins-mark1/print-job.json) carries one dense interface across the trees and segmented outer fins. The insert shoulders and blind pilot roofs bridge with clear recesses. Read the common roof and cavity paths in the [trial record](prints/2026-11-10-faucet-nonplanar-rim-fins-mark1/README.md).
 
 The installed slicer's [style selection](https://raw.githubusercontent.com/bambulab/BambuStudio/v02.08.02.61/src/libslic3r/Support/SupportParameters.hpp)
 resolves Default to Organic for these fixed-height, non-soluble tree supports.

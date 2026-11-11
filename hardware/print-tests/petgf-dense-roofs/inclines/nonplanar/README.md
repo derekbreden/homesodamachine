@@ -12,12 +12,4 @@ operation takes the frozen posed mesh, parameters and an output directory;
 Retain the native plate references when packaging the restored paths with the
 physical target model.
 
-The [active Mark1 article](../prints/2026-11-10-faucet-nonplanar-gap024-widebands-mark1/print-job.json)
-binds the complete coupon, its own parameters, mapping, actual paths and printer configuration.
-This is an experimental contact treatment. It does not qualify another
-incline or change the shared Support D profile.
-
-The active comparison's contact bands extend farther along the incline and
-its requested gap is smaller. The
-[stopped partial article](../prints/2026-11-10-faucet-nonplanar-bands-mark1/print-job.json)
-retains its own parameters and reported partial-run observation.
+The [active Mark1 article](../prints/2026-11-10-faucet-nonplanar-rim-fins-mark1/print-job.json) binds the complete coupon, component meshes, mapping and executable. The fins carry the same interface as the trees. The [completed comparison](https://github.com/derekbreden/homesodamachine/blob/b06ab316f6c796a314a30f0dc8ffda66113b2e4e/hardware/print-tests/petgf-dense-roofs/inclines/prints/2026-11-10-faucet-nonplanar-gap024-widebands-mark1/physical-result/physical-result.json) supplies the physical rim and insert observations for this test.
