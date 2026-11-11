@@ -9364,7 +9364,7 @@
       ]
     }
   ],
-  "input_fingerprint": "sha256:1e229bac7663f1cb2c7c6b8e654d2844eb2f1f054612575a2f9b0cde7dcf4aeb",
+  "input_fingerprint": "sha256:ddee517606607218e81bad3ded433ceb5f746d78e04957bc85e732b9aab13012",
   "orders": [
     {
       "allocation_status": "all_project",
@@ -9660,6 +9660,7 @@
       ],
       "reference": "112-0448533-3655424",
       "source_ids": [
+        "src-790955cd49f64e7fbd377f92d87eacb2",
         "src-89ae5a1bc34849d4b07e15ca3a075465"
       ],
       "vendor": "Amazon"
@@ -21577,6 +21578,7 @@
       "section": "11. Enclosure hardware",
       "service_period": null,
       "source_ids": [
+        "src-790955cd49f64e7fbd377f92d87eacb2",
         "src-89ae5a1bc34849d4b07e15ca3a075465"
       ],
       "split_charge": false,
@@ -63094,6 +63096,20 @@
       "source_id": "src-77c9e9a6bebf4c60a9b2cd1345224415",
       "vendor": "Amazon",
       "verified_at": "2026-11-10"
+    },
+    {
+      "document_date": null,
+      "document_type": "email_shipment_notification",
+      "note": "Vendor shipment notification identifies the existing order and repeats its USD 8.57 total. Shipment is confirmed; the relative arrival estimate does not establish actual delivery. No completed payment or dispatch calendar day is established by the notification timestamp. The notification supplies no item-level change to the previously verified order identity.",
+      "notification_date": {
+        "precision": "day",
+        "value": "2026-11-11"
+      },
+      "proves": [],
+      "reference": "112-0448533-3655424",
+      "source_id": "src-790955cd49f64e7fbd377f92d87eacb2",
+      "vendor": "Amazon",
+      "verified_at": "2026-11-11"
     },
     {
       "document_date": {

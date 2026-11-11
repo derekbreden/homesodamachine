@@ -9454,7 +9454,8 @@
       ],
       "allocation_status": "all_project",
       "source_ids": [
-        "src-89ae5a1bc34849d4b07e15ca3a075465"
+        "src-89ae5a1bc34849d4b07e15ca3a075465",
+        "src-790955cd49f64e7fbd377f92d87eacb2"
       ]
     },
     "pur-40f42f9578f642918443b1cc962c3c82": {
@@ -15698,7 +15699,8 @@
       },
       "allocation_status": "all_project",
       "source_ids": [
-        "src-89ae5a1bc34849d4b07e15ca3a075465"
+        "src-89ae5a1bc34849d4b07e15ca3a075465",
+        "src-790955cd49f64e7fbd377f92d87eacb2"
       ]
     },
     "render:EV3NKLCU-0007": {
@@ -33353,6 +33355,19 @@
       "proves": [],
       "verified_at": "2026-11-11",
       "note": "Vendor notification states the two-item package is out for delivery and references the SVLING order. The prior directly verified tracker links identify this shared package as the SVLING and ruthex orders. This is fulfillment progress only: no actual delivery day or completed payment is established. Notification date follows the message UTC date; the relative arrival estimate is not converted into a delivery date."
+    },
+    "src-790955cd49f64e7fbd377f92d87eacb2": {
+      "vendor": "Amazon",
+      "document_type": "email_shipment_notification",
+      "reference": "112-0448533-3655424",
+      "document_date": null,
+      "notification_date": {
+        "precision": "day",
+        "value": "2026-11-11"
+      },
+      "proves": [],
+      "verified_at": "2026-11-11",
+      "note": "Vendor shipment notification identifies the existing order and repeats its USD 8.57 total. Shipment is confirmed; the relative arrival estimate does not establish actual delivery. No completed payment or dispatch calendar day is established by the notification timestamp. The notification supplies no item-level change to the previously verified order identity."
     }
   },
   "coverage": [
