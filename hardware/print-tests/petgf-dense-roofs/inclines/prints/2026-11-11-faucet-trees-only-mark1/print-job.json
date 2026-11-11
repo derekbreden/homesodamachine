@@ -49,5 +49,11 @@
   "path_review": "path-review.json",
   "rim_source": "../../nonplanar/rim-contour.rs",
   "mapping_source": "../../nonplanar/experiment.rs",
-  "reference_job": "https://github.com/derekbredensteiner/homesodamachine/blob/40e364be6749339bf892c49263a5c9d6c5560ca0/hardware/print-tests/petgf-dense-roofs/inclines/prints/2026-11-10-faucet-nonplanar-rim-fins-mark1/print-job.json"
+  "reference_job": "https://github.com/derekbredensteiner/homesodamachine/blob/40e364be6749339bf892c49263a5c9d6c5560ca0/hardware/print-tests/petgf-dense-roofs/inclines/prints/2026-11-10-faucet-nonplanar-rim-fins-mark1/print-job.json",
+  "printing_observation": {
+    "observed_at": "2026-11-11T06:42:17+00:00",
+    "layer_num": 1,
+    "gcode_state": "RUNNING",
+    "print_error": 0
+  }
 }
