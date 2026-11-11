@@ -1,0 +1,15 @@
+{
+  "printer": "H2C",
+  "subtask_name": "sculpted-faucet-petgf-fins-left04-z018-mark1-ready.gcode.3mf",
+  "gcode_state": "RUNNING",
+  "layer_num": 0,
+  "total_layer_num": 1526,
+  "mc_remaining_time": 425,
+  "bed_temper": 80.0,
+  "bed_target_temper": 80.0,
+  "nozzle_temper": 45.0,
+  "nozzle_target_temper": 0.0,
+  "print_error": 0,
+  "hms": [],
+  "observed_at": "2026-11-11T09:03:51+00:00"
+}
