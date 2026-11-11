@@ -70,10 +70,8 @@ const ID = boardVersionParts()
 
 // Hand-routing geometry (frame / pcbPath helpers) lives in ./routing.
 
-// Each framed part is placed here as an element carrying literal x/y on the tag (the drag editor needs
-// a numeric x={…}/y={…} on the component's own line — web/lib/pcb-editor-routes.js parses/rewrites it),
-// then rendered below via {U14El}/… `frame(el)` derives centre, rotation, AND pad geometry from that one
-// element, so a drag moves the part and its routing follows — nothing to keep in sync by hand.
+// A framed part's element owns its placement. The routing frame reads its
+// centre, rotation and pad geometry from the same element.
 const U14El = <Usblc6 name="U14" x={-56.25} y={16} rot={270} ly={1.9} />  // ref-des north: the centre row is the GND/VBUS pads
 const C22El = <Cap name="C22" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={-56.25} y={19.35} rot={0} side="N" />
 const J14El = <UsbC name="J14" x={-62} y={16.5} rot={270} />

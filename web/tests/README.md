@@ -37,12 +37,9 @@ Node's stdlib runner (`>=22`, per `package.json`), no extra deps.
 - **Walkers and seating.** `walk` pins how a PCB board is discovered;
   `parts-tree` pins that every file the walkers offer is claimed — by an
   assembly's model, by a directory an assembly places from, by the bought
-  geometry no one unit owns, or by the tooling a bench works from; `deps` pins the rebuild ordering the dev-server and
-  `build-all` walk.
+  geometry no one unit owns, or by the tooling a bench works from; `deps` pins the rebuild ordering used by `build-all`.
 - **Text-only readers.** `updates` parses the feed's frontmatter and order,
   `pick-format` the edge-picker's copy blobs.
-- **Dev-only editors.** `step-editor` and `pcb-editor` gate the write-back
-  routes that only exist under `npm run dev`.
 
 ## What it does not hold
 

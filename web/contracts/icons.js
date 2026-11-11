@@ -57,7 +57,6 @@ export const ICON_INNER = {
   // One edge and its two vertices — the entity the picker returns.
   "pick-edge": '<line x1="5" y1="19" x2="19" y2="5"></line><circle cx="5" cy="19" r="2.5"></circle><circle cx="19" cy="5" r="2.5"></circle>',
   // The translate gizmo — drag a component somewhere new.
-  "pick-edit": '<polyline points="5 9 2 12 5 15"></polyline><polyline points="9 5 12 2 15 5"></polyline><polyline points="9 19 12 22 15 19"></polyline><polyline points="19 9 22 12 19 15"></polyline><line x1="2" y1="12" x2="22" y2="12"></line><line x1="12" y1="2" x2="12" y2="22"></line>',
   // The eye — X-ray, the one overlay that is about seeing through rather than
   // drawing on top. A dashed shell says it more precisely and loses the dashes
   // at 15px.

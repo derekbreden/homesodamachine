@@ -74,24 +74,7 @@ function renderPlan(catalog, plan) {
   </article>`;
 }
 
-function renderWorkbench(plan) {
-  return `<section class="stock-workbench" id="stock-workbench" data-material="${plan.material}" data-quantity="${plan.quantity}" data-finish="${plan.options.finish}">
-    <h2>Record physical work</h2><p class="build-note">Record what was completed and the inputs actually used. Component quantities are prefilled; adjust them for the work you did.</p>
-    <form id="stock-completion"><h3>Complete this item</h3><p class="stock-output"></p>
-      <details class="stock-inputs"><summary>Inputs used <span id="stock-input-count"></span></summary><div id="stock-input-list"></div><button type="button" id="stock-add-input">Add an input</button></details>
-      <div class="stock-fields"><label>Hands-on minutes<input id="stock-minutes" type="number" min="0" step="any" placeholder="Leave blank if not measured"></label><label>Completed at<input id="stock-completed-at" type="datetime-local" required></label></div>
-      <label>Work note<textarea id="stock-work-note" rows="2" placeholder="Describe preparation, rework or anything the timing includes"></textarea></label>
-      <button type="submit">Record and publish completion</button><button type="button" id="stock-another" hidden>Record another completion</button>
-    </form>
-    <details class="stock-count-panel"><summary>Record a receipt or stock count</summary><form id="stock-count">
-      <label>Stock item<select id="stock-count-target"></select></label><div class="stock-fields"><label>Activity<select id="stock-count-kind"><option value="receipt">Received</option><option value="count">Counted on hand</option></select></label><label>Quantity <span id="stock-count-unit"></span><input id="stock-count-quantity" type="number" min="0" step="any" required></label></div>
-      <label>Record note<input id="stock-count-note" placeholder="Receipt or physical count evidence"></label><button type="submit">Record and publish stock</button>
-    </form></details>
-    <p class="stock-record-status" role="status" aria-live="polite"></p><button type="button" id="stock-publish-retry" hidden>Retry publication</button>
-  </section>`;
-}
-
-export function mountBuildRoutes(app, { hardwareDir, canRecord = false }) {
+export function mountBuildRoutes(app, { hardwareDir }) {
   function read() {
     const catalog = readMaterialCatalog(hardwareDir);
     catalog.costs = readPartCosts(hardwareDir, catalog);
@@ -131,7 +114,7 @@ export function mountBuildRoutes(app, { hardwareDir, canRecord = false }) {
         <label>Quantity<input name="quantity" type="number" min="1" step="1" value="${plan.quantity}" required></label>
         <label>Faucet finish<select name="finish"><option value="white"${plan.options.finish === "white" ? " selected" : ""}>White</option><option value="black"${plan.options.finish === "black" ? " selected" : ""}>Black</option></select></label><button type="submit">Check stock</button></form>
         <p class="build-opening">${escape(catalog.stock.opening.note)} <a href="https://github.com/derekbreden/homesodamachine/blob/main/hardware/ledger/stock.md">About stock and build records →</a></p>
-        ${renderPlan(catalog, plan)}${canRecord ? renderWorkbench(plan) : ""}<section class="build-assemblies"><h2>Build an assembly</h2><p>Each assembly below is an independent stock plan.</p><div>${assemblyCards}</div></section></main>${canRecord ? '<script type="module" src="/stock-entry.js"></script>' : ""}`
+        ${renderPlan(catalog, plan)}<section class="build-assemblies"><h2>Build an assembly</h2><p>Each assembly below is an independent stock plan.</p><div>${assemblyCards}</div></section></main>`
       + renderFooter({ siteFooter: true }));
   });
 }

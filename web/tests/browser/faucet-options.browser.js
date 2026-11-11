@@ -48,7 +48,7 @@ function payload(file) {
 before(async () => {
   const puppeteer = require(require.resolve("puppeteer", { paths: [path.join(root, "tools/render/node_modules")] }));
   browser = await puppeteer.launch({ headless: true });
-  ({ server } = await start({ dev: false, port: 0 }));
+  ({ server } = await start({ port: 0 }));
   baseUrl = `http://127.0.0.1:${server.address().port}`;
 });
 after(async () => {

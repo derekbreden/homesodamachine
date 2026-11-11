@@ -17,9 +17,6 @@
 // state, so the page-load module's close is always correct, and keeping it a
 // plain synchronous function preserves route.js's popstate close-then-open
 // ordering. The next OPEN runs fresh code, so a shell edit is reflected then.
-//
-// The hot-swappable module set here is mirrored by the dev watcher in
-// web/dev-server/server.js; keep the two in sync.
 
 import { state } from "./state.js";
 import * as mermaidMod from "./mermaid.js";
@@ -56,8 +53,8 @@ export async function openMmdDetail(file, push = true)     { return (await modul
 export async function openPcbDetail(file, push = true)     { return (await moduleFor("pcb")).openPcbDetail(file, push); }
 
 // Refetch (open-modal live refresh): resolve current code so a code edit
-// re-renders in place. live.js clears the content sentinels first on a code-only
-// change (see forceDetailRerender) so these don't short-circuit on unchanged bytes.
+// re-renders in place. live.js clears the content sentinels on deploy so a
+// renderer update can redraw the same artifact bytes.
 export async function refetchOpenMmd(file)     { return (await moduleFor("mmd")).refetchOpenMmd(file); }
 export async function refetchOpenPcb(file)     { return (await moduleFor("pcb")).refetchOpenPcb(file); }
 

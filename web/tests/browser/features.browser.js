@@ -10,7 +10,7 @@ const file = process.env.HSM_FEATURE_BROWSER_FILE || "printed-parts/enclosure/en
 const key = "enclosure-back-top::wago-h-well";
 
 test("feature links and component drill-down use the same exported identity on desktop and mobile", async () => {
-  const { server } = process.env.HSM_FEATURE_BROWSER_BASE ? {} : await start({ dev: false, port: 0 });
+  const { server } = process.env.HSM_FEATURE_BROWSER_BASE ? {} : await start({ port: 0 });
   const origin = process.env.HSM_FEATURE_BROWSER_BASE || `http://127.0.0.1:${server.address().port}`;
   const output = process.env.HSM_FEATURE_BROWSER_OUTPUT;
   const browser = await launchBrowser({ headless: true, protocolTimeout: 120000 });

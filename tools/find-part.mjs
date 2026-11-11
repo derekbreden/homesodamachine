@@ -12,7 +12,7 @@ import { stepLocation } from "../web/contracts/step-locations.js";
 import { localFeatureCatalog } from "../web/lib/feature-catalog.js";
 import { matchFeatures } from "../web/contracts/features.js";
 import { instancesInScene, instanceMaterialHash } from "../web/contracts/material-instances.js";
-import { nativeBuildPlan } from "../web/dev-server/deps.js";
+import { nativeBuildPlan } from "../web/scripts/build-deps.js";
 
 export const checkoutRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const website = "https://homesodamachine.com/3d";

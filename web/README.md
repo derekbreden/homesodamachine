@@ -1,6 +1,6 @@
 # web/
 
-The Node web server for **homesodamachine.com** + the browser-rendered viewer at `/3d` and `/charts`. No bundler. Runs on Render as a single web service, plus a Postgres add-on for the notification inbox and FCM hash tables. The dev story is the same code with a chokidar wrapper.
+The Node web server for **homesodamachine.com** + the browser-rendered viewer at `/3d` and `/charts`. No bundler. Runs on Render as a single web service, plus a Postgres add-on for the notification inbox and FCM hash tables.
 
 The hardware, firmware and CAD content the site presents lives in [`hardware/`](/hardware/).
 Native `hsm` programs produce the geometry and print files; the PCB and firmware have their
@@ -83,8 +83,6 @@ Updating them requires no CAD rebuild.
 cd web
 npm ci             # installs package-lock.json exactly — what Render runs
 npm start          # production server (port 3001 by default; PORT env overrides)
-npm run dev        # completed-output and viewer-code watching + WebSocket hot reload (port 3000)
-npm run dev -- --no-watch  # same server without file watchers
 npm test           # route mount, walkers, contracts — no browser, no DB
 npm run test:browser # the browser pass (tests/browser/), on demand
 npm run build      # explicitly run the native progressive print build
@@ -94,22 +92,13 @@ npm run build:check # requested build, reporting newly dirtied outputs as a fail
 npm run subscribers # the signup list; DATABASE_URL comes from Render's dashboard
 ```
 
-`npm start` boots `server.js` directly, as Render does in production. `npm run dev`
-watches completed hardware outputs and the viewer's replaceable render modules, then
-broadcasts changes over the WebSocket. Saving source starts no build. Explicit build
-requests resolve declared native producers and dependencies from
-[`tools/hsm/build-plan/graph.json`](../tools/hsm/build-plan/graph.json) and the native build-plan metadata.
-`--source` selects an input, producer or output and its downstream producers.
+`npm start` runs the production server for troubleshooting. With the assets already
+present, `node server.js` opens the same site directly. Browser tests start it on
+a temporary port and close it when they finish.
 
 The build command runs [`hsm-print-build`](../tools/hsm/print-build/README.md) through
-`tools/run`. Each completed producer reaches the local viewer and is requested for
-publication while the remaining producers continue. The published viewer adopts changed
-members without waiting for the full build or a website deployment. A browser fetch or
-thumbnail request starts no geometry build.
-
-`--no-watch` omits the file watchers; the server and explicit build commands remain
-available. Set `DATABASE_URL` to enable the notification inbox and FCM push paths;
-both no-op without a database.
+`tools/run`. `--source` selects a declared input, producer or output and its downstream
+producers. The published viewer adopts completed artifacts while other producers continue.
 
 ## Dependencies
 
@@ -197,7 +186,6 @@ The single shared shell is [`lib/shell.js`](/web/lib/shell.js). Every page uses 
 | [`lib/viewer-pages.js`](/web/lib/viewer-pages.js) | `/3d`, `/charts`, `/guides`, `/pcb` | The viewer pages — parts, charts, guides, boards. All render [`lib/templates/viewer-body.html`](/web/lib/templates/viewer-body.html). |
 | [`lib/weld-position.js`](/web/lib/weld-position.js) | `/weld-position` | Tube, recessed endcap and gun orientation; grip, hole and vertical rotations about the laser dot. |
 | [`lib/viewer-routes.js`](/web/lib/viewer-routes.js) | `/api/{steps,dxf,mermaid,documents}`, `/steps/*`, `/dxfs/*`, `/read/*`, `/docs/*`, `/api/mermaid-content/*` | API for the viewer's file lists and content, plus document publication gates. The STEP list holds only the models a part number names. |
-| [`lib/hsm.js`](/web/lib/hsm.js) | `/api/hsm` | Off Render only. Whether an `hsm` is installed here, and one hsm query against the payload a model was drawn from ([`tools/hsm/README.md`](/tools/hsm/README.md#the-local-viewer)). |
 | [`lib/document-reader.js`](/web/lib/document-reader.js) | `/vendor/pdfjs/<version>/*` | Document reader HTML and the installed PDF.js assets. `/read/*` renders one page at a time through `public/document-reader.js`, with page links, history, selectable text and zoom. `/docs/*?raw=1` supplies range-capable PDF bytes; `?download=1` supplies an attachment. HTML navigations to saved `/docs/*` links redirect to the reader. |
 | [`lib/changes.js`](/web/lib/changes.js) | `/changes`, `/changes/<id>`, `/changes/<id>/<file>`, `/api/changes` | Before-and-after feed of recorded changes, newest first. Reads `changes/<id>/entry.md` (frontmatter + the Updates markdown subset) and `views.json` (each view's Before and After images, pixel size and marks); [`changes/README.md`](/changes/README.md) is how an entry is made. Serves the cards, `/api/changes?before=<id>` pages for the infinite scroll, the entry page and its `?fragment=1` modal body, and only the images a view names. Entries do not deploy: on the deployed container it carries those committed since its clone from GitHub when the feed is asked for — main's root tree, then the `changes/` subtree only when it moved, at most once a minute, standing down below 20 calls left in the shared hour. |
 | [`lib/latest.js`](/web/lib/latest.js) | `/latest` | The hub the nav's Latest item opens. Changes, then Updates: each section's name, a line on what it is, its newest items as thumbnails and a link into the whole feed. A change's thumbnail is its first view cut down the middle, the Before's left half against the After's right; a post's is its `image`, else its `image_fig`; an item with neither carries its words in the same frame. Each thumbnail opens its item at `/changes/<id>` or `/updates/<slug>`. The entries come through the reader `mountChangesRoutes` hands back, and the page waits on the same carry. |
@@ -271,7 +259,6 @@ is unsupported. It adds no build dependency.
 | `part-highlight.js` | The model's selection, held by one surface at a time (the Materials panel or a checks row). A part chosen in the Materials pane or opened from a part search is highlighted and framed, and while **Focus** is on everything else fades; the switch appears in the Show row only then and is kept under `step-focus`. A part picked in the model keeps the picker's own mark, an opaque model and the reader's camera, and a click into a faded model lands on what stands out. Leaving a framed selection with **←** or Escape flies back to the view from before it, which is also the camera kept for the file while it is up. Closing the Materials pane lets go of a part chosen in it under the same camera, and a click on empty space in Component mode or Reset view lets go of any selection. |
 | `material-nav.js` | Permanent `/3d#material:HSM-0001` links and material records with or without geometry. Model drill-downs retain the STEP navigation trail. |
 | `live.js` | WebSocket-driven refresh — `hsm:files-changed` listener + `refreshXxxCard` per type for per-file updates; `hsm:deploy` listener that wipes caches and refreshes the whole grid + open modal on a new build. Sets `window.__hsmDeploySoft`. |
-| `hsm.js` | Where `/api/hsm` answers: once a second asks for the open model's file under its ETag and, when a new one holds, dispatches `hsm:files-changed` for it; fills the component panel's **Measure** block. Does nothing on the deployed site. |
 | `route.js` | popstate + initial-route translation between URL hash/`?file=` and `currentDetail`. |
 | `main.js` | Entry. Sets up nav active class + title, calls `fetchFiles`, applies the initial route. |
 
@@ -283,7 +270,7 @@ The same response carries `costs`: [`lib/part-costs.js`](/web/lib/part-costs.js)
 
 The response also carries `stock`: [`lib/material-stock.js`](/web/lib/material-stock.js) reads physical inputs from [`lib/bom-lines.js`](/web/lib/bom-lines.js) and the material configurations shared with costing. [`lib/stock-ledger.js`](/web/lib/stock-ledger.js) projects balances from [`stock.json`](/hardware/ledger/stock.json). The material Stock tab, [`/build`](https://homesodamachine.com/build), `/api/build` and purchasing use those same facts. Completed stock reduces component demand before raw inputs are expanded; incoming stock reduces duplicate purchases and remains unavailable to build until receipt. Purchasing lists inputs without a definition or quote separately from its quoted budget.
 
-[`lib/stock-operations.js`](/web/lib/stock-operations.js) saves each completion's inputs, output and measured work atomically. [`lib/stock-routes.js`](/web/lib/stock-routes.js) exposes recording only to the local workbench, with loopback and same-origin requests. The local form records and publishes the ledger; a failed publication can be retried without recording the work again. `node tools/stock.mjs serve` starts that workbench without CAD watchers. `plan`, `record` and `publish` commands use the same writer. [`stock.md`](/hardware/ledger/stock.md) describes the records and workflow.
+[`lib/stock-operations.js`](/web/lib/stock-operations.js) writes completions, receipts and counts through `node tools/stock.mjs`. [Stock records](/hardware/ledger/stock.md) describes the workflow.
 
 3D thumbnails and plain model or material links start with the material companion collapsed. Search results carry `?panel=materials` and open it, including in new tabs and browser Back/Forward. The **Materials** button opens the pane beside the model on wider screens and as a sheet under it on phones, so the model stays in view either way; that manual choice applies to the current view. Component selection updates the material record while preserving whether the panel is open or closed. Closing the panel lets go of a part chosen in it, so the model is whole and opaque again under the same camera, and a drawing being read stays open; material records without geometry open directly as a full panel. `material-panel.js` owns pane visibility and its button state; navigation applies the destination's intent through `applyRoute`.
 
@@ -343,22 +330,6 @@ FCM  → service worker → notification banner
 ```
 
 Three signals drive the page: the WebSocket push, FCM, and activation (focus/visibility/pageshow). Activation does double duty — it refetches notifications AND polls `/api/version`, so a deploy that the socket missed (suspended PWA, lost `recent` race) still reloads the page the next time it's foregrounded. The notification signals all converge on `fetchNotifications()`, which keeps the local state mirror current and dispatches `hsm:notifications-updated` for the toast + bell.
-
-Where `/api/hsm` answers, `viewer/hsm.js` adds a fourth for the open model: it asks for the model's file under its ETag once a second while the page is visible, and dispatches the same `hsm:files-changed` when the file moves.
-
-## Dev vs prod
-
-There is **one server core** ([`server.js`](/web/server.js)). The dev wrapper ([`dev-server/server.js`](/web/dev-server/server.js)) imports `start({ dev: true })` and *adds*:
-
-- A chokidar watcher on completed files under `hardware/`, broadcasting `files-changed`
-  over `/ws` as outputs become available.
-- A viewer-code watcher for render modules the open page can replace through `code-changed`.
-- Explicit editor rebuild callbacks using the native producer graph and progressive print
-  driver. Source changes alone start no generator, board render or thumbnail render.
-
-`dev: true` only changes two things in `server.js` itself: the `commit` signal — sent in the WebSocket hello and served at `/api/version` — becomes `"dev"` instead of the deploy SHA, and the boot-time push diff is skipped. Routes are identical. Off Render, either one also mounts `/api/hsm` ([`lib/hsm.js`](/web/lib/hsm.js)), and the deployed site answers it with a 404.
-
-To verify dev/prod parity, the test in `tests/smoke.test.js` boots `start({ dev: false })` against an ephemeral port. If module evaluation or any default route 5xx's, it fails before any UI test runs.
 
 ## Where things go (cheat sheet)
 

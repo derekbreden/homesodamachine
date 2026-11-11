@@ -20,7 +20,6 @@ import { camera, controls, saveCameraState, applyCameraState } from "./scene.js"
 import { loadStepFile } from "./step.js";
 import { mountScorecard } from "./scorecard-3d.js";
 import { mountRelated } from "./related-nav.js";
-import { probeEditor } from "./component-edit.js";
 
 // The models above the one on screen, outermost first. Reset whenever a move
 // lands somewhere the trail doesn't explain — a fresh open, a Find that jumped
@@ -209,7 +208,6 @@ async function showStep(file, push, view = null, { preview = false } = {}) {
     mountScorecard(state.currentCadWrapper, file);
     mountRelated(state.currentCadWrapper, file, preview ? [] : trail);
   }
-  probeEditor(file);
   return true;
 }
 

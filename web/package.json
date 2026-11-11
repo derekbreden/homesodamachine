@@ -8,10 +8,9 @@
   "scripts": {
     "prestart": "node scripts/fetch-cad-artifacts.mjs && node scripts/fetch-firmware.mjs",
     "start": "node server.js",
-    "dev": "node dev-server/server.js",
-    "build": "node dev-server/build-all.js",
-    "build:check": "node dev-server/build-all.js --check",
-    "subscribers": "node dev-server/subscribers.js",
+    "build": "node scripts/build-all.js",
+    "build:check": "node scripts/build-all.js --check",
+    "subscribers": "node scripts/subscribers.js",
     "test": "node --test 'tests/**/*.test.js'",
     "test:browser": "node --test 'tests/browser/*.browser.js'",
     "audit": "npm audit --omit=dev"
@@ -24,9 +23,6 @@
     "pdfjs-dist": "6.4.299",
     "pg": "^8.23.0",
     "ws": "^8.21.3"
-  },
-  "devDependencies": {
-    "chokidar": "^4.0.0"
   },
   "overrides": {
     "uuid": "^11.1.1"
