@@ -178,5 +178,30 @@
         32.12
       ]
     ]
+  },
+  "roof_connectivity": {
+    "sampling_pitch_mm": 0.125,
+    "nominal_roof_planes": 63,
+    "component_cell_counts": [
+      346231,
+      1448,
+      1387
+    ],
+    "largest_component": 0,
+    "visible_rim": {
+      "samples": 623,
+      "covered": 623,
+      "components": {
+        "0": 623
+      }
+    },
+    "tree_side": {
+      "samples": 623,
+      "covered": 543,
+      "components": {
+        "0": 543
+      }
+    },
+    "scope": "Bead-footprint continuity of the emitted dense interface under the model, using native layer adjacency."
   }
 }
