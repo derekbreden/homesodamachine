@@ -794,63 +794,92 @@
   border-color: #7CFF8A !important;
 }
 
-/* The current selection and hidden parts share the workspace header with the model path. */
+/* The command bar follows the workspace navigation. It only takes space while there is work to do. */
 .cad-workspace-header:has(> .component-panel.show) { flex-wrap: wrap; }
+.component-model-name {
+  display: none;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.cad-workspace-header:has(> .component-panel.show) .cad-context:not(:has(.cad-crumb.show)) > .component-model-name {
+  display: block;
+}
 .component-panel {
   display: none;
   order: 2;
-  flex: 0 0 100%;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 6px 18px;
+  flex: 0 0 calc(100% + 24px);
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: start;
+  gap: 4px 18px;
   box-sizing: border-box;
   min-width: 0;
+  margin: -3px -12px -12px;
+  padding: 4px 12px;
   border-top: 1px solid var(--border);
-  padding-top: 6px;
+  background: color-mix(in srgb, var(--surface) 72%, var(--bg));
 }
-.component-panel.show { display: flex; }
+.component-panel.show { display: grid; }
 .cad-workspace:has(.cad-wrapper:is(.drawing-open, .print-open)) .component-panel { display: none; }
-@media (min-width: 1000px) {
-  .cad-workspace-header:has(> .component-panel.show):not(:has(.cad-crumb.show, .material-view-switch:not([hidden]))) > .cad-context {
-    display: none;
-  }
-  .cad-workspace-header:not(:has(.cad-crumb.show, .material-view-switch:not([hidden]))) > .component-panel {
-    order: -1;
-    flex: 1 1 0;
-    border-top: 0;
-    padding-top: 0;
-  }
-}
-.component-selection {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
+.cad-workspace:has(.cad-wrapper:is(.drawing-open, .print-open)) .component-model-name { visibility: hidden; }
+.component-selection { min-width: 0; }
+.component-selection-bar {
+  display: flex;
   align-items: center;
-  gap: 4px 8px;
-  min-width: 0;
-  max-width: min(100%, 680px);
+  gap: 12px;
+  min-height: 42px;
 }
-.component-selection > .edge-panel-head { min-width: 0; margin: 0; }
 .component-selection[hidden],
 .component-hidden[hidden],
-.component-panel.collapsed .component-selection > :not(.edge-panel-head) { display: none; }
-.component-actions {
+.component-details[hidden] { display: none; }
+.component-actions,
+.component-detail-actions {
   display: flex;
-  flex-wrap: wrap;
+  align-items: center;
   gap: 4px;
 }
-.component-selection .edge-panel-all { width: auto; margin: 0; }
-.component-selection .component-related { grid-column: 1 / -1; justify-self: start; }
-/* The way further in, against Hide's way out of the view. */
-.component-panel .component-open {
-  border-color: color-mix(in srgb, var(--accent) 60%, transparent);
-  background: color-mix(in srgb, var(--accent) 22%, rgba(23, 73, 209, 0.6));
+.component-actions { flex: 0 0 auto; }
+.component-detail-actions { flex-wrap: wrap; min-width: 0; max-width: 100%; }
+.component-command {
+  box-sizing: border-box;
+  flex: 0 0 auto;
+  min-height: 34px;
+  padding: 4px 9px;
+  border: 1px solid transparent;
+  border-radius: 6px;
+  background: transparent;
+  color: var(--text);
+  font: inherit;
+  font-size: .78rem;
+  cursor: pointer;
+  white-space: nowrap;
 }
-.component-panel .component-open:hover {
-  background: color-mix(in srgb, var(--accent) 34%, rgba(23, 73, 209, 0.9));
+.component-command:hover,
+.component-details-toggle[aria-expanded="true"] { background: var(--surface-2); }
+.component-command:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
+.component-command:disabled { opacity: .5; cursor: default; }
+.component-open {
+  padding-inline: 12px;
+  border-color: var(--border);
+  background: color-mix(in srgb, var(--surface-2) 70%, var(--surface));
 }
-.component-panel .component-hide:disabled {
-  opacity: 0.5;
-  cursor: default;
+.component-details-toggle {
+  min-width: 34px;
+  padding-inline: 0;
+  font-size: 1.1rem;
+  line-height: 1;
+}
+.component-related { white-space: normal; max-width: 100%; text-align: left; }
+.component-details {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px 12px;
+  max-width: 640px;
+  margin-top: 4px;
+  padding-top: 6px;
+  border-top: 1px solid var(--border);
 }
 /* --- the path a body's name spells ------------------------------------------
    The name row of the component panel is the branch the body hangs on, and each
@@ -872,44 +901,28 @@
 .component-held-step:hover { border-color: var(--accent); color: var(--accent); }
 .component-held-sep { flex: 0 0 auto; opacity: 0.45; padding: 0 1px; }
 .component-held-here { min-width: 0; overflow: hidden; text-overflow: ellipsis; }
-/* How many bodies stand inside the selected one. Nothing else in the row is a
-   count, so it reads as one without a word for it. */
-.component-held-count {
-  flex: 0 0 auto;
-  margin-left: 6px;
-  padding: 1px 6px;
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.08);
-  color: var(--text-2);
-  font-size: 10px;
-}
 /* The row is a path now, so it lays out as one rather than as a single string. */
 .component-panel .edge-panel-file {
   display: flex;
+  flex: 0 1 auto;
   align-items: center;
-  gap: 2px;
+  gap: 4px;
   overflow: hidden;
   color: var(--text);
   opacity: 1;
   font-family: inherit;
-  font-size: 0.82rem;
-  line-height: 1.25;
+  font-size: .9rem;
+  font-weight: 600;
+  line-height: 1.2;
 }
-.component-panel.feature-selected .edge-panel-file {
-  flex-wrap: wrap;
-  row-gap: 4px;
-  white-space: normal;
-}
-.component-panel.feature-selected .component-held-here {
-  flex-basis: 100%;
-}
-.component-identity {
-  grid-column: 1 / -1;
+.component-identity { flex: 1 1 240px; min-width: 0; }
+.component-catalog-name { font-size: .8rem; overflow-wrap: anywhere; }
+.component-meta {
   display: flex;
   flex-wrap: wrap;
-  gap: 4px 12px;
+  gap: 4px 10px;
+  margin-top: 3px;
 }
-.component-identity:empty { display: none; }
 .component-material-number {
   color: var(--text-2);
   font: 0.72rem ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
@@ -925,80 +938,73 @@
 .component-hidden {
   display: flex;
   align-items: center;
+  align-self: start;
+  grid-column: 2;
   min-width: 0;
-  max-width: min(100%, 480px);
+  max-width: min(39vw, 440px);
+  padding-inline-start: 14px;
+  border-inline-start: 1px solid var(--border);
   gap: 6px;
+}
+.component-selection[hidden] + .component-hidden {
+  grid-column: 1 / -1;
+  justify-self: start;
+  max-width: min(100%, 440px);
+  padding-inline-start: 0;
+  border-inline-start: 0;
 }
 .component-hidden-count {
   color: var(--text-2);
-  font-size: .72rem;
+  font-size: .75rem;
   white-space: nowrap;
 }
 .component-hidden-items {
   display: flex;
   min-width: 0;
-  gap: 4px;
+  gap: 2px;
   overflow-x: auto;
-  padding: 2px;
-  scrollbar-width: thin;
+  scrollbar-width: none;
   touch-action: pan-x;
   overscroll-behavior-x: contain;
 }
-.component-hidden-row { flex: 0 0 auto; max-width: 150px; }
+.component-hidden-row { flex: 0 0 auto; }
 .component-show {
-  display: flex;
-  align-items: center;
-  gap: 5px;
-  width: 100%;
-  text-align: left;
+  display: block;
+  box-sizing: border-box;
+  width: 42px;
+  height: 42px;
+  padding: 3px;
+  background: transparent;
+  border: 0;
+  border-radius: 7px;
+  cursor: pointer;
 }
+.component-show:hover { background: var(--surface-2); }
+.component-show:focus-visible { outline-offset: -2px; }
 .component-hidden-thumb {
   position: relative;
   display: grid;
   place-items: center;
-  flex: 0 0 auto;
-  width: 30px;
-  height: 30px;
+  width: 100%;
+  height: 100%;
   overflow: hidden;
-  border-radius: 4px;
+  border-radius: 5px;
   background: var(--bg);
   color: var(--text-2);
 }
 .component-hidden-thumb img { position: absolute; inset: 0; width: 100%; height: 100%; }
-.component-hidden-name {
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 2;
-  min-width: 0;
-  overflow: hidden;
-  overflow-wrap: anywhere;
-  line-height: 1.15;
-}
-.component-show,
-.component-show-all {
-  flex: 0 0 auto;
-  box-sizing: border-box;
-  min-height: 32px;
-  padding: 2px 6px;
-  background: rgba(23, 73, 209, 0.6);
-  color: var(--text);
-  border: 1px solid var(--border);
-  border-radius: 6px;
-  font-size: 11px;
-  cursor: pointer;
-  -webkit-appearance: none;
-  appearance: none;
-}
-.component-show { padding: 2px 5px 2px 2px; }
-.component-show-all { white-space: nowrap; }
-.component-show:hover,
-.component-show-all:hover {
-  background: rgba(23, 73, 209, 0.9);
-}
 
 @media (max-width: 700px) {
-  .component-selection { grid-template-columns: minmax(0, 1fr); flex-basis: 100%; }
-  .component-hidden-row { max-width: max(70px, calc((100% - 4px) / 2)); }
+  .component-panel { grid-template-columns: minmax(0, 1fr); }
+  .component-hidden,
+  .component-selection[hidden] + .component-hidden {
+    grid-column: 1;
+    justify-self: stretch;
+    max-width: 100%;
+    padding-inline-start: 0;
+    border-inline-start: 0;
+  }
+  .component-show-all { margin-inline-start: auto; }
 }
 
 /* Labels a find pins to its picks (pick-find.js): a dot on the spot, words on
@@ -1619,8 +1625,9 @@
     min-width: 36px;
     min-height: 36px;
   }
+  .component-command { min-height: 44px; }
   .component-show,
-  .component-show-all { min-width: 36px; min-height: 40px; }
+  .component-details-toggle { width: 44px; height: 44px; }
   .edge-panel-close, .edge-panel-collapse {
     display: inline-flex;
     align-items: center;

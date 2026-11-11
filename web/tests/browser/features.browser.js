@@ -63,8 +63,6 @@ test("feature links and component drill-down use the same exported identity on d
       }, key);
       assert.equal(linked.id, "wago-h-well"); assert.ok(linked.count > 0);
       assert.equal(await page.$('.component-explore'),null);
-      if (await page.$eval('.component-panel', panel => panel.classList.contains('collapsed')))
-        await page.click('.component-panel .edge-panel-collapse');
       const point = () => page.evaluate(async key => {
         const { sceneFeature } = await import("/js/viewer/features.js");
         const { THREE, camera, controls, renderer, scene, currentGroup } = window.__hsm;
@@ -116,7 +114,7 @@ test("feature links and component drill-down use the same exported identity on d
       assert.equal(await page.$('.component-explore'),null);
       assert.match(await page.$eval(".component-panel .edge-panel-file", el => el.textContent), /connector well/i);
       assert.ok(await page.$eval('.component-held-here',el=>el.getBoundingClientRect().width>80));
-      assert.equal(await page.$eval(".component-copy", el => el.textContent), "Copy feature link");
+      assert.equal(await page.$eval(".component-copy", el => el.title), "Copy feature link");
       await page.evaluate(async () => (await import('/js/viewer/component-picker.js')).clearComponentPicker({preserve:true}));
       assert.match(await page.$eval(".component-panel .edge-panel-file", el => el.textContent), /connector well/i);
       await page.evaluate(()=>Object.defineProperty(navigator,'clipboard',{configurable:true,value:{writeText:async text=>window.__copiedFeatureLink=text}}));

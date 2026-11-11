@@ -33,7 +33,7 @@ import { makeRulerToggle } from "./rulers.js";
 import { makeXrayToggle } from "./xray.js";
 import { cancelCadLoad, disposeCadGroup } from "./cad-resources.js";
 import { clearEdgePicker } from "./edge-picker.js";
-import { clearComponentPicker } from "./component-picker.js";
+import { clearComponentPicker, closeComponentDetails } from "./component-picker.js";
 import { makePickFindToggle, closePickFind, closeTopPickFind } from "./pick-find.js";
 import { makeToolRail, makeToolGroup, makeChipRow, makeToolButton, mountToolDrawer, closeToolDrawer } from "./tool-rail.js";
 import { makePickModeControl } from "./pick-mode.js";
@@ -222,6 +222,7 @@ export function openCadDetail(type, file, pushHistory = true, path = null, targe
       wrapper.querySelector(".tool-drawer.compact > summary")?.focus();
       e.preventDefault(); e.stopPropagation();
     }
+    else if (closeComponentDetails()) { e.preventDefault(); e.stopPropagation(); }
     // A selection is the last thing up before the viewer itself. A field keeps its own Escape.
     else if (!e.target.closest?.("input, textarea, select") && (materialPanel?.leave() || leaveHighlight())) {
       e.preventDefault(); e.stopPropagation();
