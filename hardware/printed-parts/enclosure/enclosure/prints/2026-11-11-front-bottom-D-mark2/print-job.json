@@ -30,13 +30,17 @@
   "support_contact_review": "support-contact-review.json",
   "support_topology": "support-audit-1901.json",
   "launch": {
-    "submitted": false,
+    "submitted": true,
     "attempted": true,
-    "prior_job_task_id": "1427064817",
-    "ui_error": "Z axis homing failed; the task has been stopped. 0300-4000",
-    "printer_hms_code": "0300-2600-0001-0008",
-    "printer_hms_description": "Abnormal left nozzle contact with the heatbed.",
-    "preflight": "preflight-status.json",
-    "observation": "status-after-send.json"
+    "printer_task_id": "1432869919",
+    "accepted_at": "2026-11-11T20:39:52+00:00",
+    "receipt": "launch.json",
+    "shared_circuit": {
+      "other_printer": "Mark1",
+      "other_printer_task_id": "1432580532",
+      "other_printer_accepted_at": "2026-11-11T19:12:45+00:00",
+      "interval_s": 5227
+    },
+    "startup": "startup-status.json"
   }
 }
