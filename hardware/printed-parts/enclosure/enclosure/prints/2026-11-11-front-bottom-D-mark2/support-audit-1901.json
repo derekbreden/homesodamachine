@@ -1,0 +1,157 @@
+{
+  "coordinate_frame": {
+    "plate_to_cad_transform": [
+      1.0,
+      0.0,
+      0.0,
+      0.0,
+      1.0,
+      0.0,
+      0.0,
+      0.0,
+      1.0,
+      -162.5,
+      -50.099998474,
+      -6.0
+    ],
+    "plate_to_cad_translation_mm": [
+      -162.5,
+      -50.099998,
+      -6.0
+    ]
+  },
+  "first_layer_z_mm": 0.2,
+  "inputs": {
+    "gcode": "hardware/printed-parts/enclosure/enclosure/prints/2026-11-11-front-bottom-D-mark2/2026-11-11-front-bottom-mark2-57427920.gcode.3mf plate_1.gcode, object 1901",
+    "gcode_sha256": "64ff4a4283995c27ab1de28e46def5c66704f4246cd97d3f8b15dac41b2e6e6c",
+    "model": "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.stl",
+    "model_sha256": "eab326ad930ab763de7f0ed97e95c8de07c29dd1f5801c780a6aee5cabaf042c",
+    "profile": "hardware/printed-parts/enclosure/enclosure/prints/2026-11-11-front-bottom-D-mark2/2026-11-11-front-bottom-mark2-57427920.3mf",
+    "profile_sha256": "17878a03bf20f80832e3dd4f1dc5c36087607932f0cd61cdc1e8614c487ba29e"
+  },
+  "interface_feature_policy": "All support bodies are retained; unlabelled interfaces have unknown contact count and build-up.",
+  "interfaces": [
+    {
+      "bbox_cad_xyz_mm": [
+        -103.3,
+        32.7,
+        168.44,
+        -98.9,
+        190.7,
+        168.92
+      ],
+      "bbox_xy_mm": [
+        59.2,
+        82.8,
+        63.6,
+        240.8
+      ],
+      "build_up_mm": 7.92,
+      "first_z_mm": 174.44,
+      "id": "interface-1",
+      "last_z_mm": 174.92,
+      "tree": "tree-1"
+    },
+    {
+      "bbox_cad_xyz_mm": [
+        99.1,
+        32.7,
+        168.44,
+        103.5,
+        190.7,
+        168.92
+      ],
+      "bbox_xy_mm": [
+        261.6,
+        82.8,
+        266.0,
+        240.8
+      ],
+      "build_up_mm": 7.92,
+      "first_z_mm": 174.44,
+      "id": "interface-2",
+      "last_z_mm": 174.92,
+      "tree": "tree-2"
+    }
+  ],
+  "piece": "enclosure-front-bottom",
+  "schema": 1,
+  "slicer": "BambuStudio 02.08.02.61",
+  "slicer_settings": {
+    "layer_height": "0.24",
+    "support_bottom_z_distance": "0.3",
+    "support_interface_bottom_layers": "2",
+    "support_interface_spacing": "0",
+    "support_interface_top_layers": "3",
+    "support_object_xy_distance": "0.4",
+    "support_on_build_plate_only": "0",
+    "support_style": "default",
+    "support_threshold_angle": "35",
+    "support_top_z_distance": "0.24",
+    "support_type": "tree(auto)"
+  },
+  "summary": {
+    "bed_rooted_bodies": 0,
+    "bodies_without_interface_labels": 0,
+    "explicit_interface_islands": 2,
+    "interface_islands": 2,
+    "model_rooted_bodies": 2,
+    "shortest_build_up_mm": 7.92,
+    "shortest_labelled_build_up_mm": 7.92,
+    "support_bodies": 2
+  },
+  "trees": [
+    {
+      "base_z_mm": 166.52,
+      "bbox_cad_xyz_mm": [
+        -103.7,
+        32.7,
+        160.52,
+        -98.9,
+        190.7,
+        168.92
+      ],
+      "bbox_xy_mm": [
+        58.8,
+        82.8,
+        63.6,
+        240.8
+      ],
+      "first_interface_z_mm": 174.44,
+      "id": "tree-1",
+      "interface_reading": "explicit_feature",
+      "interfaces": [
+        "interface-1"
+      ],
+      "root": "model",
+      "shortest_build_up_mm": 7.92,
+      "top_z_mm": 174.92
+    },
+    {
+      "base_z_mm": 166.52,
+      "bbox_cad_xyz_mm": [
+        99.1,
+        32.7,
+        160.52,
+        103.5,
+        190.7,
+        168.92
+      ],
+      "bbox_xy_mm": [
+        261.6,
+        82.8,
+        266.0,
+        240.8
+      ],
+      "first_interface_z_mm": 174.44,
+      "id": "tree-2",
+      "interface_reading": "explicit_feature",
+      "interfaces": [
+        "interface-2"
+      ],
+      "root": "model",
+      "shortest_build_up_mm": 7.92,
+      "top_z_mm": 174.92
+    }
+  ]
+}

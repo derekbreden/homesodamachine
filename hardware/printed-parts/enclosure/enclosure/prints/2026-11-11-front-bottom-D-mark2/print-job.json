@@ -1,0 +1,42 @@
+{
+  "purpose": "Bind the current front-bottom and its flat rail support roofs to the reviewed Mark2 plate.",
+  "source_revision": "d691562ba8b225b103f6edf848241e3ab813889b",
+  "printer": "Mark2",
+  "nozzle": {
+    "diameter_mm": 0.4,
+    "flow": "Standard",
+    "hardened": true,
+    "reason": "Every abrasive stock runs on the left hotend (hardware/ledger/tools.md, Which hotends fit an H2C); Mark1's fixed left hardened 0.4 mm carries black PET-GF (tools/bambu-printers.md, Purge and wipe).",
+    "side": "left",
+    "sliced_diameter_mm": 0.4,
+    "sliced_volume_type": "Standard"
+  },
+  "material": "Polymaker Fiberon PET-GF15, black",
+  "profile": "hardware/printed-parts/petgf.3mf",
+  "profile_sha256": "1be18bdfd75b33efc898b3e5c28a0c1975fc694ef4d94dd88a909472cb96b97f",
+  "project": "2026-11-11-front-bottom-mark2-57427920.3mf",
+  "project_sha256": "17878a03bf20f80832e3dd4f1dc5c36087607932f0cd61cdc1e8614c487ba29e",
+  "mesh_sha256": "eab326ad930ab763de7f0ed97e95c8de07c29dd1f5801c780a6aee5cabaf042c",
+  "print_only_archive": "2026-11-11-front-bottom-D-left04-z004-mark2-print-only.gcode.3mf",
+  "print_only_archive_sha256": "49e9a881b92843bf6724911e8082daf900cb30a1ddb7e82fade257d4ae75ad08",
+  "gcode_sha256": "64ff4a4283995c27ab1de28e46def5c66704f4246cd97d3f8b15dac41b2e6e6c",
+  "requested_z_trim_mm": 0.04,
+  "emitted_textured_z_trim_mm": 0.02,
+  "estimated_seconds": 103293,
+  "estimated_filament_g": 647.19,
+  "layer_count": 754,
+  "minimum_bed_margin_mm": 51.853639499999986,
+  "slice_review": "review.json",
+  "support_contact_review": "support-contact-review.json",
+  "support_topology": "support-audit-1901.json",
+  "launch": {
+    "submitted": false,
+    "attempted": true,
+    "prior_job_task_id": "1427064817",
+    "ui_error": "Z axis homing failed; the task has been stopped. 0300-4000",
+    "printer_hms_code": "0300-2600-0001-0008",
+    "printer_hms_description": "Abnormal left nozzle contact with the heatbed.",
+    "preflight": "preflight-status.json",
+    "observation": "status-after-send.json"
+  }
+}

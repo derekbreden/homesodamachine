@@ -1,0 +1,606 @@
+{
+  "archive": "hardware/printed-parts/enclosure/enclosure/prints/2026-11-11-front-bottom-D-mark2/2026-11-11-front-bottom-mark2-57427920.gcode.3mf",
+  "archive_sha256": "1541b9e7210255fd2cf208a7e822bb7fb6e04fe2c1544a17afea2fbb9fc549a8",
+  "bed_type": "Textured PEI Plate",
+  "brim_allowance_mm": 0.0,
+  "connection_key": "Mark2",
+  "cooling_recovery": {
+    "added_commanded_motion_seconds": 21125.9110958493,
+    "archive_sha256": "1541b9e7210255fd2cf208a7e822bb7fb6e04fe2c1544a17afea2fbb9fc549a8",
+    "changed": true,
+    "estimate_scope": "Native estimate plus the added constant-feed motion time; acceleration and fan spin-up are not simulated.",
+    "input_archive_sha256": "6cfc43305e91185280614579516b57797f12eb0599cca4da1286616251a9837f",
+    "members": [
+      {
+        "added_commanded_motion_seconds": 21125.9110958493,
+        "changed": true,
+        "input_gcode_sha256": "a653f81767f16138d04c65191267f06d89fae5905669e8681fcc85a4195c89ce",
+        "member": "Metadata/plate_1.gcode",
+        "native_cooled_seed_moves": 17637,
+        "ordinary_model_moves": 4141224,
+        "output_gcode_sha256": "64ff4a4283995c27ab1de28e46def5c66704f4246cd97d3f8b15dac41b2e6e6c",
+        "petgf_slots": [
+          0
+        ],
+        "policy": {
+          "grid_mm": 0.2,
+          "height_mm": 0.8
+        },
+        "recovery_by_feature": {
+          "Bridge": [
+            3958.0,
+            3382.7160227306586,
+            0.0
+          ],
+          "Floating vertical shell": [
+            6050.0,
+            22969.429477988982,
+            1407.171058881985
+          ],
+          "Gap infill": [
+            9.0,
+            26.51551047616634,
+            1.6221653843969805
+          ],
+          "Inner wall": [
+            7518.0,
+            23666.674263478806,
+            1430.282447347737
+          ],
+          "Internal solid infill": [
+            16016.0,
+            264110.72203945863,
+            16296.840859175589
+          ],
+          "Outer wall": [
+            17964.0,
+            34617.771930876355,
+            1310.5926083890208
+          ],
+          "Sparse infill": [
+            13238.0,
+            9248.520966684646,
+            567.4281410647227
+          ],
+          "Top surface": [
+            613.0,
+            1825.0631338396622,
+            111.97381560693279
+          ]
+        },
+        "recovery_fan_percent": [
+          "70"
+        ],
+        "recovery_moves": 65366,
+        "recovery_speed_limit_mm_s": [
+          "15",
+          "15",
+          "15"
+        ],
+        "scope": "The complete centerline lies in a recent native-cooled model footprint. Motion coordinates and extrusion words are retained; only local part cooling and recovery feed rates change.",
+        "speed_limited_moves": 61060
+      }
+    ]
+  },
+  "emitted_textured_trim_mm": 0.02,
+  "estimated_seconds": 103293.1064083493,
+  "gcode_sha256": "64ff4a4283995c27ab1de28e46def5c66704f4246cd97d3f8b15dac41b2e6e6c",
+  "material": "Polymaker Fiberon PET-GF15, black",
+  "nozzle": {
+    "diameter_mm": 0.4,
+    "flow": "Standard",
+    "hardened": true,
+    "reason": "Every abrasive stock runs on the left hotend (hardware/ledger/tools.md, Which hotends fit an H2C); Mark1's fixed left hardened 0.4 mm carries black PET-GF (tools/bambu-printers.md, Purge and wipe).",
+    "side": "left",
+    "sliced_diameter_mm": 0.4,
+    "sliced_volume_type": "Standard"
+  },
+  "objects": [
+    {
+      "build_rotation": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "closed": {
+        "bodies": 1,
+        "boundary_edges": 0,
+        "closed_oriented_single_body": true,
+        "edges": 371712,
+        "inconsistent_edges": 0,
+        "nonmanifold_edges": 0
+      },
+      "facets": 247808,
+      "features": [],
+      "fins": [],
+      "identify_id": 1901,
+      "model_bed_margin_mm": 52.0,
+      "modifiers": [
+        {
+          "name": "Y seam knuckle and its wall root +1/61.4536",
+          "plate_bounds_mm": [
+            [
+              55.0,
+              247.0999984741211,
+              46.24
+            ],
+            [
+              71.75,
+              267.89900152587893,
+              142.7
+            ]
+          ],
+          "source_bounds_mm": [
+            [
+              -107.5,
+              197.0,
+              40.24
+            ],
+            [
+              -90.75,
+              217.7990030517578,
+              136.7
+            ]
+          ],
+          "sparse_infill_density": "100%"
+        },
+        {
+          "name": "Y seam knuckle and its wall root -1/61.4536",
+          "plate_bounds_mm": [
+            [
+              253.25,
+              247.0999984741211,
+              46.24
+            ],
+            [
+              270.0,
+              267.89900152587893,
+              142.7
+            ]
+          ],
+          "source_bounds_mm": [
+            [
+              90.75,
+              197.0,
+              40.24
+            ],
+            [
+              107.5,
+              217.7990030517578,
+              136.7
+            ]
+          ],
+          "sparse_infill_density": "100%"
+        },
+        {
+          "name": "Z rail, end stop and wall root -1",
+          "plate_bounds_mm": [
+            [
+              55.0,
+              55.099998474121094,
+              163.0
+            ],
+            [
+              72.5,
+              250.0999984741211,
+              180.7990030517578
+            ]
+          ],
+          "source_bounds_mm": [
+            [
+              -107.5,
+              5.0,
+              157.0
+            ],
+            [
+              -90.0,
+              200.0,
+              174.7990030517578
+            ]
+          ],
+          "sparse_infill_density": "100%"
+        },
+        {
+          "name": "Z rail, end stop and wall root +1",
+          "plate_bounds_mm": [
+            [
+              252.5,
+              55.099998474121094,
+              163.0
+            ],
+            [
+              270.0,
+              250.0999984741211,
+              180.7990030517578
+            ]
+          ],
+          "source_bounds_mm": [
+            [
+              90.0,
+              5.0,
+              157.0
+            ],
+            [
+              107.5,
+              200.0,
+              174.7990030517578
+            ]
+          ],
+          "sparse_infill_density": "100%"
+        },
+        {
+          "name": "Compressor post and floor -54.6003/25.5",
+          "plate_bounds_mm": [
+            [
+              102.09969154037536,
+              69.7999984741211,
+              0.0010000000000047748
+            ],
+            [
+              113.69969154037535,
+              81.39999847412109,
+              20.599999999999994
+            ]
+          ],
+          "source_bounds_mm": [
+            [
+              -60.40030845962464,
+              19.7,
+              -5.999
+            ],
+            [
+              -48.800308459624645,
+              31.3,
+              14.6
+            ]
+          ],
+          "sparse_infill_density": "100%"
+        },
+        {
+          "name": "Compressor post and floor -54.6003/156.5",
+          "plate_bounds_mm": [
+            [
+              102.09969154037536,
+              200.79999847412108,
+              0.0010000000000047748
+            ],
+            [
+              113.69969154037535,
+              212.3999984741211,
+              20.599999999999994
+            ]
+          ],
+          "source_bounds_mm": [
+            [
+              -60.40030845962464,
+              150.7,
+              -5.999
+            ],
+            [
+              -48.800308459624645,
+              162.3,
+              14.6
+            ]
+          ],
+          "sparse_infill_density": "100%"
+        },
+        {
+          "name": "Compressor post and floor 12.3997/25.5",
+          "plate_bounds_mm": [
+            [
+              169.09969154037535,
+              69.7999984741211,
+              0.0010000000000047748
+            ],
+            [
+              180.69969154037537,
+              81.39999847412109,
+              20.599999999999994
+            ]
+          ],
+          "source_bounds_mm": [
+            [
+              6.599691540375357,
+              19.7,
+              -5.999
+            ],
+            [
+              18.19969154037536,
+              31.3,
+              14.6
+            ]
+          ],
+          "sparse_infill_density": "100%"
+        },
+        {
+          "name": "Compressor post and floor 12.3997/156.5",
+          "plate_bounds_mm": [
+            [
+              169.09969154037535,
+              200.79999847412108,
+              0.0010000000000047748
+            ],
+            [
+              180.69969154037537,
+              212.3999984741211,
+              20.599999999999994
+            ]
+          ],
+          "source_bounds_mm": [
+            [
+              6.599691540375357,
+              150.7,
+              -5.999
+            ],
+            [
+              18.19969154037536,
+              162.3,
+              14.6
+            ]
+          ],
+          "sparse_infill_density": "100%"
+        },
+        {
+          "name": "Condenser host and supporting finger 70.5/153",
+          "plate_bounds_mm": [
+            [
+              228.0,
+              198.0999984741211,
+              0.0010000000000047748
+            ],
+            [
+              238.0,
+              208.0999984741211,
+              15.0
+            ]
+          ],
+          "source_bounds_mm": [
+            [
+              65.5,
+              148.0,
+              -5.999
+            ],
+            [
+              75.5,
+              158.0,
+              9.0
+            ]
+          ],
+          "sparse_infill_density": "100%"
+        },
+        {
+          "name": "Condenser host and supporting finger 70.5/153",
+          "plate_bounds_mm": [
+            [
+              228.0,
+              198.0999984741211,
+              0.0010000000000047748
+            ],
+            [
+              238.0,
+              208.0999984741211,
+              151.6
+            ]
+          ],
+          "source_bounds_mm": [
+            [
+              65.5,
+              148.0,
+              -5.999
+            ],
+            [
+              75.5,
+              158.0,
+              145.6
+            ]
+          ],
+          "sparse_infill_density": "100%"
+        }
+      ],
+      "name": "enclosure-front-bottom",
+      "object_id": 2,
+      "object_settings": {},
+      "plate_bounds_mm": [
+        [
+          52.0,
+          52.099998474121094,
+          0.0
+        ],
+        [
+          273.0,
+          267.9000015258789,
+          180.8000030517578
+        ]
+      ],
+      "pose": null,
+      "pose_rotation": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "ranges": [],
+      "regions": {
+        "part_process_overrides": null,
+        "record": "hardware/printed-parts/enclosure/enclosure/heat-set-review/print-regions.json",
+        "record_sha256": "b9675806a7aad95418a76e40de886ae074656054267e1a87c5b9bec9402ba428"
+      },
+      "ribbons": [],
+      "seam_enforcer": null,
+      "source_center_mm": [
+        0.0,
+        109.9000015258789,
+        84.4000015258789
+      ],
+      "step_sha256": null,
+      "stl": "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.stl",
+      "stl_sha256": "eab326ad930ab763de7f0ed97e95c8de07c29dd1f5801c780a6aee5cabaf042c",
+      "support_free_regions": [],
+      "tie_windows": [],
+      "translation_mm": [
+        162.5,
+        160.0,
+        90.4000015258789
+      ],
+      "verify_spans": [],
+      "yaw_degrees": 0.0
+    }
+  ],
+  "pause": null,
+  "piece": "front-bottom",
+  "plate_border_mm": 20.0,
+  "plate_offset_mm": null,
+  "prepared_utc": "2026-11-11T20:07:27+00:00",
+  "printer": "Mark2",
+  "profile": "hardware/printed-parts/petgf.3mf",
+  "profile_changes": {
+    "machine_start_gcode": {
+      "from_sha256": "3cc9e41520dbf5622d6f9a96bce734db9d11b0b48b49f2abec047a6e01dc6a92",
+      "requested_z_trim_mm": 0.04,
+      "to_sha256": "b09bc598f2ed7c29dceb227188593905dfc663f0391b98ff708ef00e7ce01bee"
+    },
+    "petgf_support_recipe": {
+      "members": {},
+      "profile": "hardware/printed-parts/petgf.3mf",
+      "sha256": "1be18bdfd75b33efc898b3e5c28a0c1975fc694ef4d94dd88a909472cb96b97f"
+    },
+    "print_compatible_printers": {
+      "from": [
+        "Bambu Lab H2C 0.4 nozzle"
+      ],
+      "to": [
+        "Bambu Lab H2C 0.4 nozzle",
+        "Bambu Lab H2C 0.4 Standard +0.04 Z trim"
+      ]
+    },
+    "printer_settings_id": {
+      "from": "Bambu Lab H2C 0.4 nozzle 04 first layer by agent",
+      "to": "Bambu Lab H2C 0.4 Standard +0.04 Z trim"
+    }
+  },
+  "profile_sha256": "1be18bdfd75b33efc898b3e5c28a0c1975fc694ef4d94dd88a909472cb96b97f",
+  "project": "hardware/printed-parts/enclosure/enclosure/prints/2026-11-11-front-bottom-D-mark2/2026-11-11-front-bottom-mark2-57427920.3mf",
+  "project_sha256": "17878a03bf20f80832e3dd4f1dc5c36087607932f0cd61cdc1e8614c487ba29e",
+  "requested_z_trim_mm": 0.04,
+  "settings_changes": {
+    "extruder_ams_count": {
+      "from": [
+        "1#0|4#1",
+        "1#0|4#0"
+      ],
+      "reason": "Single external black PET-GF spool on the fixed left nozzle for model, support and interface.",
+      "to": [
+        "1#0|4#0",
+        "1#0|4#0"
+      ]
+    },
+    "filament_colour": {
+      "from": [
+        "#000000"
+      ],
+      "reason": "Mark2's loaded black PET-GF colour reading.",
+      "to": [
+        "#161616"
+      ]
+    },
+    "flush_into_support": {
+      "from": "1",
+      "reason": "Single external black PET-GF spool on the fixed left nozzle for model, support and interface.",
+      "to": "0"
+    },
+    "support_filament": {
+      "from": "0",
+      "reason": "Single external black PET-GF spool on the fixed left nozzle for model, support and interface.",
+      "to": "1"
+    },
+    "support_interface_filament": {
+      "from": "0",
+      "reason": "Single external black PET-GF spool on the fixed left nozzle for model, support and interface.",
+      "to": "1"
+    },
+    "support_on_build_plate_only": {
+      "from": "0",
+      "reason": "Rail trees start on their own cavity floor.",
+      "to": "0"
+    },
+    "support_style": {
+      "from": "default",
+      "reason": "Use the saved Bambu tree style for the rail cavities.",
+      "to": "default"
+    },
+    "support_type": {
+      "from": "tree(auto)",
+      "reason": "Rail cavities retain the locally rooted trees Derek reports are easy to remove.",
+      "to": "tree(auto)"
+    },
+    "tree_support_branch_angle": {
+      "from": "45",
+      "reason": "Keep the rail branches above the cavity floor instead of routing down outside the flank.",
+      "to": "20"
+    }
+  },
+  "settings_sha256": "ee2ea247b6dce5f5e357aa60714ba9dd31972057e14cf6b3219ae47be9691149",
+  "show_faces": "hardware/printed-parts/enclosure/enclosure/prints/2026-11-11-front-bottom-D-mark2/show-faces.npz",
+  "sliced": true,
+  "slicer_warnings": [],
+  "spec": "hardware/printed-parts/enclosure/trial-preparation/pieces.json",
+  "spec_sha256": "638f51fc370c18eff6636ec6cd53442e06745431a797acb666ae885cb850d38d",
+  "submitted": false,
+  "tool_sha256": {
+    "hardware/printed-parts/enclosure/trial-preparation/prepare.rs": "ec089602c58d5e9718e8932a5bfd9d46d6b753d86aea002c1f0aaaf58420f22f",
+    "tools/hsm/print-prep/src/audit.rs": "a00e46498cb0a567a17a67c8ea9e5ede8676ea115f85ef3bbc78de3d4503b43b",
+    "tools/hsm/print-prep/src/cooling.rs": "763d49393491d70d11de18aae5b29fd833c0b13a5e32e3b4cd86ee62d710bb5f",
+    "tools/hsm/print-prep/src/derive.rs": "df646a43abac1b017552df9295d0c53ca4c6a530532e1a6f9ca46792d81e5a41",
+    "tools/hsm/print-prep/src/faucet.rs": "d5aa1f5f44aecb1da18e278cad1ef9693a814e8f91e7f217d86dd5982a65010a",
+    "tools/hsm/print-prep/src/faucet_contact.rs": "125febd46052679fd4cbb9cd04aa233aae84c66a2c3b6e71b4fe5498871b85ad",
+    "tools/hsm/print-prep/src/faucet_recesses.rs": "67436872fcf6315d00d01dea42322d3c59448c82884e5b5dc010e4c08a51dd9c",
+    "tools/hsm/print-prep/src/gcode.rs": "5f35d6f30ce566986e254eb6c720104725204887750269012f5632d834087aae",
+    "tools/hsm/print-prep/src/ids.rs": "27b60717fedb1caa2871f7cd3e7df29e786ab8ec07222c125a490c673dd5884f",
+    "tools/hsm/print-prep/src/json.rs": "f773b793c4cfdae36317dd124507f04d884520df2faf6e2e2128a4a07a0aa5a0",
+    "tools/hsm/print-prep/src/lib.rs": "c84b7a21b899d53e15b41e2fc094a118f7252b45371dec580f2f5540f4fb63df",
+    "tools/hsm/print-prep/src/mesh.rs": "c5fb303c768245243d9104f7a768b2551d5367efc9aeb1022c6113147245cf5f",
+    "tools/hsm/print-prep/src/npz.rs": "d2718b6a4e5b7f022331002746d44c097d8e037afdd061129738695dd45cf3da",
+    "tools/hsm/print-prep/src/preset.rs": "b85af0763911935c777e3f4c77c28e6eea54e8602f974df454de4fbd1837e3d6",
+    "tools/hsm/print-prep/src/profile.rs": "8d6d142f54fded17f0110fb1bd5c5140b480082e3f234838608fde8649abaee4",
+    "tools/hsm/print-prep/src/project.rs": "845bdea24b3b14185c3eb5e5713019ec271466e4d78a5e8a25aa449bd0d1d304",
+    "tools/hsm/print-prep/src/refresh.rs": "6c669c978ac4b254ee9c0d34f96e496e4a4e83855f626ca4bf6198b11eee1fd8",
+    "tools/hsm/print-prep/src/review.rs": "ad1f3f5e20ee7dcf65567f12c2cc61e06a67284611aa805a1324f1705be56c1a",
+    "tools/hsm/print-prep/src/rim_contour.rs": "81c3e0bf93419666b845d9f8339b428dbed3eb7f284870e4c2782051e27ecde1",
+    "tools/hsm/print-prep/src/seam.rs": "f0e8913e8959d7f7937406c5fcc738460e60f40c3fb4c8478c67c90502b5a5c1",
+    "tools/hsm/print-prep/src/slice.rs": "a5bf96dd7bbc64ef2f541db82f05093e52be406880e7819e887f6f228ee47f5c",
+    "tools/hsm/print-prep/src/xml.rs": "6223880bf228c5c0092df6b2f3728fd792bff174ac3ef243e7d81d659f223407"
+  },
+  "usable_plate_mm": [
+    [
+      0.0,
+      0.0
+    ],
+    [
+      325.0,
+      320.0
+    ]
+  ]
+}
