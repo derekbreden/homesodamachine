@@ -72,6 +72,7 @@ async function decompress(text) {
   return new DataView(await new Response(stream).arrayBuffer());
 }
 let track, roads;
+const surfacePaths = data.sampled?.surface_paths === true;
 if (data.sampled) {
   try {
     [track, roads] = await Promise.all([decompress(data.sampled.track), decompress(data.sampled.roads)]);
@@ -79,7 +80,9 @@ if (data.sampled) {
     $("motion-loading").textContent = "Unable to decode print motion";
     throw error;
   }
-  $("motion-timing-method").textContent = "Sampled motion · simplified bead paths and H2C hardware";
+  $("motion-timing-method").textContent = surfacePaths
+    ? "Sampled motion · surface and support paths · simplified H2C hardware"
+    : "Sampled motion · simplified bead paths and H2C hardware";
 }
 const detail = data.detail;
 const coordinates = detail && new Int16Array(bytes(detail.positions));
@@ -147,10 +150,13 @@ const extrusionMoves=[];
 if (flags) for (let i = 0; i < count; i++) if (flags[i]) extrusionMoves.push(i);
 const roadCount = roads ? roads.byteLength / roadStride : extrusionMoves.length;
 const roadSupport = new Uint8Array(roadCount);
-const beadPositions=new Float32Array(roadCount*24);
-const beadColors=new Float32Array(beadPositions.length);
-const beadIndices=new Uint32Array(roadCount*36);
+const roadVertices = surfacePaths ? 2 : 8;
+const roadCoordinates = roadVertices * 3;
+const roadPositions = new Float32Array(roadCount * roadCoordinates);
+const roadColors = new Float32Array(roadPositions.length);
 const topology=[0,2,1,1,2,3,4,5,6,5,7,6,0,1,4,1,5,4,2,6,3,3,6,7,0,4,2,2,4,6,1,3,5,3,7,5];
+const roadIndices = surfacePaths ? null : new Uint32Array(roadCount * topology.length);
+const drawUnitsPerRoad = surfacePaths ? roadVertices : topology.length;
 function beadVertices(a,b,width,height,out,offset=0) {
   const dx=b.x-a.x,dy=b.y-a.y,n=Math.hypot(dx,dy)||1,nx=-dy/n*width/2,ny=dx/n*width/2;
   out.set([a.x+nx,a.y+ny,a.z,a.x-nx,a.y-ny,a.z,b.x+nx,b.y+ny,b.z,b.x-nx,b.y-ny,b.z,
@@ -181,17 +187,28 @@ for (let road = 0; road < roadCount; road++) {
     roadSupport[road] = Number(data.features[featureIds[movement]].startsWith("Support"));
   }
   bounds.expandByPoint(a).expandByPoint(b);
-  beadVertices(a, b, width / 100, height / 100, beadPositions, road * 24);
-  for (let corner = 0; corner < topology.length; corner++) {
-    beadIndices[road * 36 + corner] = road * 8 + topology[corner];
+  const offset = road * roadCoordinates;
+  if (surfacePaths) {
+    a.toArray(roadPositions, offset);
+    b.toArray(roadPositions, offset + 3);
+  } else {
+    beadVertices(a, b, width / 100, height / 100, roadPositions, offset);
+    for (let corner = 0; corner < topology.length; corner++) {
+      roadIndices[road * topology.length + corner] = road * roadVertices + topology[corner];
+    }
   }
 }
-const beadGeometry=new THREE.BufferGeometry();
-beadGeometry.setAttribute("position",new THREE.BufferAttribute(beadPositions,3));
-beadGeometry.setAttribute("color",new THREE.BufferAttribute(beadColors,3));
-beadGeometry.setIndex(new THREE.BufferAttribute(beadIndices,1));
-beadGeometry.computeVertexNormals();beadGeometry.setDrawRange(0,0);
-bed.add(new THREE.Mesh(beadGeometry,modelMaterial));
+const roadGeometry = new THREE.BufferGeometry();
+roadGeometry.setAttribute("position", new THREE.BufferAttribute(roadPositions, 3));
+roadGeometry.setAttribute("color", new THREE.BufferAttribute(roadColors, 3));
+roadGeometry.setDrawRange(0, 0);
+if (surfacePaths) {
+  bed.add(new THREE.LineSegments(roadGeometry, new THREE.LineBasicMaterial({ vertexColors: true })));
+} else {
+  roadGeometry.setIndex(new THREE.BufferAttribute(roadIndices, 1));
+  roadGeometry.computeVertexNormals();
+  bed.add(new THREE.Mesh(roadGeometry, modelMaterial));
+}
 const liveGeometry=new THREE.BufferGeometry();
 liveGeometry.setAttribute("position",new THREE.BufferAttribute(new Float32Array(24),3));
 liveGeometry.setAttribute("color",new THREE.BufferAttribute(new Float32Array(24),3));
@@ -208,9 +225,11 @@ function recolor() {
   supportColor = palette("viz-series-2").toArray();
   for (let road = 0; road < roadCount; road++) {
     const color = roadSupport[road] ? supportColor : modelColor;
-    for (let corner = 0; corner < 8; corner++) beadColors.set(color, road * 24 + corner * 3);
+    for (let vertex = 0; vertex < roadVertices; vertex++) {
+      roadColors.set(color, road * roadCoordinates + vertex * 3);
+    }
   }
-  beadGeometry.attributes.color.needsUpdate=true;
+  roadGeometry.attributes.color.needsUpdate = true;
   draw();
 }
 
@@ -314,7 +333,7 @@ if (track) liveBead.visible = false;
 function draw(){
   const frame = pose(now, current);
   currentLayer = frame.layer;
-  beadGeometry.setDrawRange(0, frame.deposited * topology.length);
+  roadGeometry.setDrawRange(0, frame.deposited * drawUnitsPerRoad);
   const nextBedZ = -current.z;
   if (mode === "print") {
     const shift = nextBedZ - bed.position.z;
