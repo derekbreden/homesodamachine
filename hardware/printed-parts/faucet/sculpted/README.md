@@ -1,18 +1,15 @@
 # Complete white Sculpted faucet
 
-The [selected process](finish-selection.json) carries the latest black
-Industrial faucet printing settings to the Sculpted geometry. The complete
-PET-GF plate contains the Sculpted base, shared tip, Sculpted display cover,
+The [selected process](finish-selection.json) starts from the recorded
+Industrial printing settings and applies the Sculpted finish and supports. The
+complete PET-GF plate contains the Sculpted base, tip and display cover,
 matching above-counter plate and side-down lever replica. TPU pieces and the
 umbilical organizer are separate prints.
 
 The [editable project](../faucet-petgf.3mf)
-targets Mark2's right hardened standard-flow 0.4 mm hotend and white PET-GF in
-external slot 255. Its normal +0.04 mm requested Z trim emits +0.02 mm on
-Textured PEI. The right nozzle retains its recorded native XY registration.
-Filament assignment is Manual at project and plate scope, with filament 1
-assigned to extruder 2. The PET-GF availability metadata includes both of
-Mark2's installed hardened 0.4 mm hotends.
+targets Mark2's abrasive left nozzle and white PET-GF on Textured PEI. It
+uses Mark2's [recorded trim](../../z-trim.md), with the left external spool
+assigned manually at project and plate scope.
 
 ## Layer schedule and finish
 
@@ -45,25 +42,26 @@ Ordinary supported-wall and infill speeds retain the black print's settings.
 
 | Part | CAD X rotation | Support treatment |
 | --- | ---: | --- |
-| Sculpted base | −15° | Seven segmented edge-following arcs fitted to the 58 × 59 mm foot ellipse; local contact-strip blockers; Tree(auto)/Default elsewhere |
-| Shared tip | −105° | Accepted eight fins, seam-side lip tree enforcers and removable disc on the hidden male root; Tree(auto)/Default elsewhere |
+| Sculpted base | −15° | Slim trees carry a continuous dense interface under the rim ellipse. A local nonplanar band follows the inclined seat and the first perimeter follows its contour. Each mounting insert recess bridges its shoulder and pilot roof. |
+| Shared tip | −105° | Selected fins, seam-side lip supports and hidden-root anchor. A local nonplanar interface follows the inclined inner dispense face, with the beverage outlet kept clear. |
 | Sculpted cover | −50° | Saved automatic supports |
-| Matching plate | 0° | Saved automatic supports |
+| Matching plate | 0° | Bridge the screw counterbore shoulders and keep the shank passages open. |
 | Side-down lever | 0° of print-oriented STL | Saved automatic supports |
 
-The base arc arrangement comes from the physically accepted Industrial rim,
-with CAD X scaled by 58/59 to follow the Sculpted ellipse. Release angles,
-build Z and the requested 0.24 mm gap are retained. The shared tip aids retain
-their source geometry and contact scope. Automatic support decisions,
-including normal sections, are retained elsewhere.
+The [shared PET-GF interface](../../petgf.3mf) forms a continuous roof on
+the base's slim trees. The inclined contact treatment is bounded to the
+base rim and the tip's inner dispense face. The cover prints on its flat lower lands with support
+accessible through its open underside. The side-down lever bridges its
+channel and uses accessible support at the attachment relief. The shared tip
+uses its selected lip supports and hidden-root anchor.
 
 ## Preparation and evidence
 
 [prepare_print_project.rs](prepare_print_project.rs), the `sculpted-faucet-print-project`
-program, rebuilds the five parts
-from current STLs, transfers settings by part role, fits the base rim aids
-and applies the right-nozzle filament mapping. It runs manually and never
-starts a printer.
+program, prepares the complete plate from current STLs. Pass
+`--slice-output DIRECTORY` for the executable offline slice with the base
+and tip nonplanar contact paths. The editable project carries the actual part meshes
+and support aids.
 
 [review_print.py](https://github.com/derekbreden/homesodamachine/blob/306268f870/hardware/printed-parts/faucet/sculpted/review_print.py) (in Git at `306268f870`) reads the native G-code's nominal courses,
 filament assignment, cooling, speed commands, complete bead footprint and
@@ -74,8 +72,11 @@ The [native review](prints/2026-10-17-localized-cooling-display-clearance-mark2/
 and per-part seam CSVs bind the submitted commands. Physical white Sculpted
 finish, cleanup and fit remain a result of this complete print.
 
-The [selected print](selected-print.json) and [launch record](prints/2026-10-17-localized-cooling-display-clearance-mark2/launch.json)
-identify the submitted October 17 article. The current 4 mm preparation is bound by [its print report](../faucet-petgf.print.json); its native slice and physical fit remain unmeasured.
+The [current print report](../faucet-petgf.print.json) binds the meshes and
+recipes for the complete plate. The [contact review](production/contact-review.json)
+binds the production motion and the local executable at
+`production/faucet-petgf.gcode.3mf`. Physical removal and fit for this
+complete plate remain pending.
 
 The display seat, bearing pads and cover bezel use their shared mounted datums.
 The [October 17 clearance reading](prints/2026-10-17-localized-cooling-display-clearance-mark2/display-clearance.json)

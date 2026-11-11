@@ -132,7 +132,7 @@ fn word(words: &[(u8, f64)], key: u8) -> Option<f64> {
 const CHORD: f64 = 0.25;
 
 /// The points of a G2/G3 arc, at most `CHORD` apart.
-fn arc(x0: f64, y0: f64, x1: f64, y1: f64, words: &[(u8, f64)], clockwise: bool) -> Vec<(f64, f64)> {
+pub(crate) fn arc(x0: f64, y0: f64, x1: f64, y1: f64, words: &[(u8, f64)], clockwise: bool, chord: f64) -> Vec<(f64, f64)> {
     let (cx, cy) = (x0 + word(words, b'I').unwrap_or(0.0), y0 + word(words, b'J').unwrap_or(0.0));
     let r = (x0 - cx).hypot(y0 - cy);
     let a0 = (y0 - cy).atan2(x0 - cx);
@@ -144,7 +144,7 @@ fn arc(x0: f64, y0: f64, x1: f64, y1: f64, words: &[(u8, f64)], clockwise: bool)
     } else if sweep <= 1e-9 {
         sweep += 2.0 * std::f64::consts::PI;
     }
-    let n = ((sweep.abs() * r / CHORD).ceil() as usize).max(1);
+    let n = ((sweep.abs() * r / chord).ceil() as usize).max(1);
     let mut points: Vec<(f64, f64)> = (0..=n).map(|i| {
         let a = a0 + sweep * i as f64 / n as f64;
         (cx + r * a.cos(), cy + r * a.sin())
@@ -217,7 +217,7 @@ impl Reader {
         };
         if self.z.is_some() && de > 1e-9 && (nx != self.x || ny != self.y) {
             if command == "G2" || command == "G3" {
-                let points = arc(self.x, self.y, nx, ny, &words, command == "G2");
+                let points = arc(self.x, self.y, nx, ny, &words, command == "G2", CHORD);
                 for pair in points.windows(2) {
                     self.roads.push(Road { x0: pair[0].0, y0: pair[0].1, x1: pair[1].0, y1: pair[1].1, width: self.width,
                                            feature: self.feature.clone(), object: self.object, tool: self.tool });

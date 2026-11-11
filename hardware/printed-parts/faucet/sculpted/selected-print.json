@@ -19,15 +19,21 @@
   "display_additional_clearance_mm": 1.5,
   "cooling_policy": "hardware/printed-parts/cooling/README.md",
   "current_project": "hardware/printed-parts/faucet/faucet-petgf.3mf",
-  "current_project_sha256": "8cdbfb3e80d801413f9fd69b52f1588761be17c443396083e4dfa8ef14425512",
+  "current_project_sha256": "fa5b9c66b341f64eb787bc5951da3da561e9bf1ca26d75b461cb6d280cfa1575",
   "shared_support_profile": "hardware/printed-parts/petgf.3mf",
-  "native_archive_current": false,
-  "reslice_required": true,
+  "native_archive_current": true,
+  "reslice_required": false,
   "support_removal_qualification": {
     "shared_D_inclined_tree_contact": "failed in FD lower-curve article",
     "result": "hardware/print-tests/petgf-dense-roofs/D-representative-mark2/physical-result.json",
     "comparison": "hardware/print-tests/petgf-dense-roofs/inclines/matrix.json",
     "accepted_production_geometry_and_fin_records_retain_their_scope": true,
     "native_contact_reading": "hardware/print-tests/petgf-dense-roofs/inclines/contact-reading.json"
-  }
+  },
+  "current_archive": "hardware/printed-parts/faucet/sculpted/production/faucet-petgf.gcode.3mf",
+  "current_archive_sha256": "4d7fbffcde18daa20d21d2f2677f522fa1a656dc0d7555035b9b5fcee3d87883",
+  "current_gcode_sha256": "efd90f466ee785821ee3d19f112842f4fb7dbb42b34f04ca080a6c9c249edd52",
+  "current_plate": 1,
+  "current_active_nozzle": 0,
+  "current_native_review": "hardware/printed-parts/faucet/sculpted/production/contact-review.json"
 }

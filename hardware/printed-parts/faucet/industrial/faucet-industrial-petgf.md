@@ -32,11 +32,12 @@ prints or parts.
 
 ## Selected process
 
-The [complete settings export](production/2026-10-25/all-settings.json) preserves
-all prepared/native settings, filament presets and object overrides. The
-[native reading](production/2026-10-25/native-review.json) verifies the exact
-approved source geometry, selected layer heights and emitted commands. The
-[process selection](finish-selection.json) retains the accepted supports and seams.
+The [approval settings](production/2026-10-25/all-settings.json) and
+[approval slice reading](production/2026-10-25/native-review.json) bind the
+approved geometry, seam setup and calibration to the physical prints. The
+[current process selection](finish-selection.json) and
+[production path review](faucet-industrial-petgf.support-audit.json) record
+the selected support contacts and emitted bridges.
 
 | Setting | Value |
 | --- | --- |
@@ -53,8 +54,7 @@ approved source geometry, selected layer heights and emitted commands. The
 | Qualifying bridges and overhangs | 70% after three fan-off layers; 50% unsupported-width threshold |
 | Wipe | Off |
 | Automatic supports | Tree(auto), saved Default style, 35° threshold |
-| Support top / bottom / XY gaps | 0.45 / 0.30 / 0.40 mm |
-| Support interfaces | 2 top and 2 bottom layers, 0.50 mm spacing |
+| Support gaps and interfaces | [Shared PET-GF recipe](../../petgf.3mf) with the [base contact overrides](finish-selection.json) |
 | Brim | Auto, 5 mm, 0.1 mm gap |
 | Mark2 requested / emitted Z trim | +0.04 / +0.02 mm on Textured PEI |
 | Mark1 requested / emitted Z trim | +0.18 / +0.16 mm on Textured PEI |
@@ -67,31 +67,38 @@ application and inner-wall scarf. The base's full rear silhouette and the tip's
 exposed curved meridian retain their seam enforcement. Cover and lever keep
 Aligned, 15% seam gap and scarf Off.
 
-The base retains seven accepted segmented rim arcs and their narrow contact
-blockers at the −15° pose. The tip retains eight fins, local lip trees and the
-removable hidden-root disc. The disc's accepted removal scuff is confined to
-the hidden male insertion end. Tree(auto)/Default serves the remaining surfaces,
-including its automatically generated normal sections.
+The base uses Slim trees beneath one dense interface. The first supported
+outer perimeter follows the inclined rim and joins the ordinary wall courses.
+The base's insert shoulders and blind pilot
+roofs bridge across the blocked recesses. The mounting plate uses bridges
+over its counterbores. The [process selection](finish-selection.json) owns the
+contact recipe and cavity clearances.
+
+The tip uses Slim trees and nonplanar contact on the back of the dispense
+face, with the beverage aperture kept clear. It retains its fins, local lip
+trees and removable hidden-root disc. The disc's accepted removal scuff is
+confined to the hidden male insertion end. The other parts use their selected
+automatic supports.
 
 ## Prepare the next print
 
 ```sh
-tools/hsm/target/release/industrial-faucet-print-project
+tools/run -- tools/hsm/target/release/industrial-faucet-print-project --slice-output path/to/new-slice-directory
 ```
 
-The preparer uses the approved frozen meshes and print profile. Optional
+The preparer uses the approved frozen meshes and print profile. The slice
+output contains the complete executable plate with the restored contact
+paths, continuous rim perimeter and original production meshes. Optional
 `--printer Mark1 --filament-colour '#000000'` applies Mark1's own trim and the
 specified spool colour. Check the destination's actual material and nozzle
-mapping before sending. Optional `--slice-output <empty-directory>` performs a
-local native slice without contacting a printer.
+mapping before sending.
 
 The current [prepared project](faucet-industrial-petgf.3mf),
-[native archive](https://github.com/derekbreden/homesodamachine/blob/33d50d2ecd2a0fb6b518483a44c8031e3a0c1617/hardware/printed-parts/faucet/industrial/faucet-industrial-petgf.gcode.3mf),
 [preparation](faucet-industrial-petgf.print.json),
 [support reading](faucet-industrial-petgf.support-audit.json) and
 [readiness](faucet-industrial-petgf.readiness.json) describe the complete
-production set with the 0.20 mm first layer and 0.24 mm later layers. Preparing
-or reviewing it does not authorize or submit a print.
+production set. The preparer writes the executable archive to the specified
+slice directory.
 A cover-only project is available through the
 [cover preparer](../faucet-display-cover/README.md#printing-and-checks).
 

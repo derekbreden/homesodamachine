@@ -6,6 +6,8 @@ pub mod audit;
 pub mod cooling;
 pub mod derive;
 pub mod faucet;
+pub mod faucet_contact;
+pub mod faucet_recesses;
 pub mod gcode;
 pub mod ids;
 pub mod json;
@@ -17,6 +19,7 @@ pub mod project;
 pub mod refresh;
 pub mod review;
 pub mod seam;
+pub mod rim_contour;
 pub mod slice;
 pub mod xml;
 
