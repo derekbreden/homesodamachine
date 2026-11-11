@@ -132,14 +132,12 @@
   "tip_supports": {
     "selected_date": "2026-10-15",
     "part": "faucet-shell-tip",
-    "method": "accepted-eight-fins-lip-trees-hidden-root-disc",
+    "method": "Dense Slim trees at the mating lip, a contoured first perimeter and a hidden-root disc",
     "source_preparation": "hardware/printed-parts/faucet/finish-coupons/2026-10-15-tip-root-anchor/mark1/preparation.json",
     "source_project": "hardware/printed-parts/faucet/finish-coupons/2026-10-15-tip-root-anchor/mark1/2026-10-15-faucet-tip-root-anchor-eight-fins-lip-trees-current105-bridge125-fan70-z018-mark1.3mf",
     "source_project_sha256": "f6e5c53d4a23b25f568b083d8a3eaa779b7959c666fa41a227a953e21904f3ff",
     "physical_result": "hardware/printed-parts/faucet/finish-coupons/2026-10-15-tip-root-anchor/mark1/physical-result/physical-result.json",
-    "fin_component_id": 2000,
     "root_anchor_component_id": 2400,
-    "fin_count": 8,
     "joint_plane": {
       "point": [
         0.0,
@@ -152,12 +150,8 @@
         0.3420201433256688
       ]
     },
-    "lip_enforcer_selection": {
-      "maximum_build_z_mm": 21,
-      "maximum_abs_cad_x_mm": 8
-    },
     "root_contact_scope": "Hidden male insertion terminal end only. The directly bonded disc leaves a scuff; do not transfer this bonded contact to visible surfaces.",
-    "tree_support_scope": "Retain the selected joint-plane block paint and seam-side low lip support enforcers. The inner dispense face uses the separately bounded contact treatment.",
+    "tree_support_scope": "The mating lip has a scoped dense roof and the inboard dispense face has a separate outlet keepout.",
     "selection_quote": "That worked. That disc works in this case, and is removable, but it leaves a bit of a scuff that would be a problem on a visible surface, but since its on the male insertion portion that is hidden, we are golden here."
   },
   "tip_dispense_contact": {

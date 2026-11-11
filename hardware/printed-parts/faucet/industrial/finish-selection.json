@@ -59,7 +59,7 @@
   "wall_generators": "Retain base Arachne for the continuous reinforced foot; other rigid parts retain Classic.",
   "base_fine_bands_print_z_mm": [],
   "first_bed_layer_height_mm": 0.2,
-  "scope": "Approved complete Industrial faucet with the Sculpted display cover. Uniform model layers, accepted seams and localized cooling. The supported base rim and inboard dispense face use local nonplanar paths.",
+  "scope": "Complete Industrial faucet with the Sculpted display cover. Uniform model layers, selected seams and localized cooling. The base rim, tip mating lip and inboard dispense face use local nonplanar paths.",
   "seam_selection_record": "hardware/printed-parts/faucet/industrial/prints/2026-10-13-complete-rear-seam-base-tip-mark2/launch.json",
   "default_printer": "Mark2",
   "default_filament_colour": "#161616",
@@ -132,20 +132,18 @@
   },
   "edge_support_strategy": {
     "selection_quote": "I'm quite convinced that we need to do this everywhere, that we've got these rough edges on overhangs.",
-    "method": "Support the base rim with one dense tree interface and a continuous first perimeter along the incline. The tip keeps its local removable edge and root aids.",
-    "application": "The complete Industrial print uses the common base roof and bridge-only insert recesses. The tip retains its fins, lip trees and hidden-root disc alongside the scoped dense interface at the dispense face."
+    "method": "Use dense tree interfaces and contoured first perimeters on the base rim and tip mating lip.",
+    "application": "The base uses bridges across the insert recesses. The tip uses a hidden-root disc for bed anchorage and a separate dense interface at the inboard dispense face."
   },
   "tip_supports": {
     "selected_date": "2026-10-15",
     "part": "faucet-shell-tip",
-    "method": "accepted-eight-fins-lip-trees-hidden-root-disc",
+    "method": "Dense Slim trees at the mating lip, a contoured first perimeter and a hidden-root disc",
     "source_preparation": "hardware/printed-parts/faucet/finish-coupons/2026-10-15-tip-root-anchor/mark1/preparation.json",
     "source_project": "hardware/printed-parts/faucet/finish-coupons/2026-10-15-tip-root-anchor/mark1/2026-10-15-faucet-tip-root-anchor-eight-fins-lip-trees-current105-bridge125-fan70-z018-mark1.3mf",
     "source_project_sha256": "f6e5c53d4a23b25f568b083d8a3eaa779b7959c666fa41a227a953e21904f3ff",
     "physical_result": "hardware/printed-parts/faucet/finish-coupons/2026-10-15-tip-root-anchor/mark1/physical-result/physical-result.json",
-    "fin_component_id": 2000,
     "root_anchor_component_id": 2400,
-    "fin_count": 8,
     "joint_plane": {
       "point": [
         0.0,
@@ -158,12 +156,8 @@
         0.3420201433256688
       ]
     },
-    "lip_enforcer_selection": {
-      "maximum_build_z_mm": 21,
-      "maximum_abs_cad_x_mm": 8
-    },
     "root_contact_scope": "Hidden male insertion terminal end only. The directly bonded disc leaves a scuff; do not transfer this bonded contact to visible surfaces.",
-    "tree_support_scope": "Tree(auto)/Default elsewhere. Retain the accepted joint-plane block paint except the seam-side low lip support enforcers.",
+    "tree_support_scope": "The mating lip has a scoped dense roof and the inboard dispense face has a separate outlet keepout.",
     "selection_quote": "That worked. That disc works in this case, and is removable, but it leaves a bit of a scuff that would be a problem on a visible surface, but since its on the male insertion portion that is hidden, we are golden here."
   },
   "normal_layer_height_mm": 0.24,
