@@ -7,7 +7,7 @@ rust-version.workspace = true
 
 [features]
 default = ["manifold"]
-# Booleans, plane splits and simplification through the Rust Manifold engine.
+# Booleans, plane splits and simplification through Manifold.
 manifold = ["dep:hsm-manifold"]
 
 [dependencies]
