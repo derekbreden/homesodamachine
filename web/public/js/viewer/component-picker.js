@@ -28,7 +28,6 @@ import { componentUnitsInScene, unitForBody } from "/contracts/material-instance
 import { relatedStepsForComponent } from "/contracts/related-steps.js";
 import { showsInFaucetFinish } from "/contracts/faucet-options.js";
 import { drillTo, drillToComponent } from "./step-nav.js";
-import { makePanelCollapse } from "./tool-rail.js";
 import { refreshHighlight, fadedBody } from "./part-highlight.js";
 import { containsTriangle, instanceLabel, splitFeatureKey } from "/contracts/features.js";
 import { sceneFeature, featureGeometry } from "./features.js";
@@ -370,28 +369,21 @@ function buildPanel() {
   panel.className = "component-panel";
   panel.setAttribute("aria-label", "Components in view");
 
+  const model = document.createElement("span");
+  model.className = "component-model-name";
+  panel._model = model;
+
   const selected = document.createElement("div");
   selected.className = "component-selection";
   panel.appendChild(selected);
   panel._selected = selected;
 
-  const head = document.createElement("div");
-  head.className = "edge-panel-head";
+  const selectionBar = document.createElement("div");
+  selectionBar.className = "component-selection-bar";
+  selected.appendChild(selectionBar);
   const nameEl = document.createElement("span");
   nameEl.className = "edge-panel-file";
-  const close = document.createElement("button");
-  close.type = "button";
-  close.className = "edge-panel-close";
-  close.textContent = "×";
-  close.title = "Clear selection";
-  close.setAttribute("aria-label", close.title);
-  close.addEventListener("click", deselect);
-  head.appendChild(nameEl);
-  head.appendChild(makePanelCollapse(panel, "step-component-panel-collapsed", {
-    defaultCollapsed: matchMedia("(max-width: 700px)").matches,
-  }));
-  head.appendChild(close);
-  selected.appendChild(head);
+  selectionBar.appendChild(nameEl);
   panel._nameEl = nameEl;
 
   const actions = document.createElement("div");
@@ -400,8 +392,8 @@ function buildPanel() {
   // Open its canonical part model, or the selected geometry in its owning assembly.
   const openBtn = document.createElement("button");
   openBtn.type = "button";
-  openBtn.className = "edge-panel-all component-open";
-  openBtn.textContent = "Open part";
+  openBtn.className = "component-command component-open";
+  openBtn.textContent = "Open";
   openBtn.addEventListener("click", () => {
     if (!selection) return;
     const body = componentBody(selection);
@@ -413,43 +405,81 @@ function buildPanel() {
 
   const hideBtn = document.createElement("button");
   hideBtn.type = "button";
-  hideBtn.className = "edge-panel-all component-hide";
-  hideBtn.textContent = "Hide component";
+  hideBtn.className = "component-command component-hide";
+  hideBtn.textContent = "Hide";
   hideBtn.addEventListener("click", () => {
     if (!selection) return;
+    const focused = document.activeElement === hideBtn;
     for (const name of selectionBodies || [selection]) state.hiddenComponents.add(selectionName(name));
     persistHidden();
     clearSelectionOverlay();
     applyHiddenComponents();
+    if (focused) focusComponentControls();
   });
   actions.appendChild(hideBtn);
   panel._hideBtn = hideBtn;
 
   const copy = document.createElement("button");
-  copy.type = "button"; copy.className = "edge-panel-all component-copy";
-  copy.textContent = "Copy feature link";
+  copy.type = "button"; copy.className = "component-command component-copy";
+  copy.textContent = "Copy link";
+  copy.title = "Copy feature link";
   copy.addEventListener("click", async () => {
     await navigator.clipboard.writeText(new URL(featureUrl(selection, mountedFile()), location.origin).href);
     copy.textContent = "Link copied";
   });
-  actions.append(copy); panel._copy = copy;
+  const more = document.createElement("button");
+  more.type = "button";
+  more.className = "component-command component-details-toggle";
+  more.title = "Selection details";
+  more.setAttribute("aria-label", more.title);
+  more.setAttribute("aria-controls", "component-selection-details");
+  more.setAttribute("aria-expanded", "false");
+  more.textContent = "⋯";
+  more.addEventListener("click", () => setComponentDetails(panel._details.hidden));
+  actions.append(copy, more);
+  selectionBar.appendChild(actions);
+  panel._copy = copy;
+  panel._more = more;
 
-  selected.appendChild(actions);
+  const details = document.createElement("div");
+  details.className = "component-details";
+  details.id = "component-selection-details";
+  details.hidden = true;
+  panel._details = details;
 
   const identity = document.createElement("div");
   identity.className = "component-identity";
-  selected.appendChild(identity);
-  panel._identity = identity;
+  const description = document.createElement("div");
+  description.className = "component-catalog-name";
+  identity.appendChild(description);
+  const metadata = document.createElement("div");
+  metadata.className = "component-meta";
+  identity.appendChild(metadata);
+  details.appendChild(identity);
+  panel._description = description;
+  panel._metadata = metadata;
 
   // Related models offered by the selected float, manifold body or tube.
   const relatedBtn = document.createElement("button");
   relatedBtn.type = "button";
-  relatedBtn.className = "edge-panel-all component-open component-related";
+  relatedBtn.className = "component-command component-related";
   relatedBtn.addEventListener("click", () => {
     const related = selection && relatedStepsForComponent(selection, state.allFiles)[0];
     if (related) drillTo(related.file);
   });
-  selected.appendChild(relatedBtn);
+  const clear = document.createElement("button");
+  clear.type = "button";
+  clear.className = "component-command component-clear";
+  clear.textContent = "Clear selection";
+  clear.addEventListener("click", () => {
+    const focused = document.activeElement === clear;
+    deselect();
+    if (focused) focusComponentControls();
+  });
+  const detailActions = document.createElement("div");
+  detailActions.className = "component-detail-actions";
+  detailActions.append(relatedBtn, clear);
+  details.appendChild(detailActions);
   panel._relatedBtn = relatedBtn;
 
   const hidden = document.createElement("div");
@@ -462,17 +492,20 @@ function buildPanel() {
   items.setAttribute("aria-label", "Show hidden components");
   const showAll = document.createElement("button");
   showAll.type = "button";
-  showAll.className = "component-show-all";
+  showAll.className = "component-command component-show-all";
   showAll.textContent = "Show all";
   showAll.addEventListener("click", () => {
+    const focused = document.activeElement === showAll;
     state.hiddenComponents.clear();
     state.autoHiddenComponents.clear();
     const view = state.currentGroup?.userData.instanceView;
     if (view) view.rays = [];
     persistHidden();
     applyHiddenComponents();
+    if (focused) focusComponentControls();
   });
   hidden.append(count, items, showAll);
+  selected.appendChild(details);
   panel.appendChild(hidden);
   panel._hidden = hidden;
   panel._hiddenCount = count;
@@ -485,6 +518,24 @@ function buildPanel() {
     }
     queueHiddenThumbnails();
   }, { root: items });
+}
+
+function setComponentDetails(open) {
+  panel._details.hidden = !open;
+  panel._more.setAttribute("aria-expanded", String(open));
+}
+
+export function closeComponentDetails() {
+  if (!panel || panel._details.hidden || !panel.getClientRects().length) return false;
+  setComponentDetails(false);
+  panel._more.focus();
+  return true;
+}
+
+function focusComponentControls(preferred = null) {
+  const target = preferred?.isConnected ? preferred : panel._hiddenItems.querySelector(".component-show")
+    || (selection ? panel._more : panel.parentElement?.querySelector(".materials-toggle"));
+  target?.focus();
 }
 
 function hiddenNames() {
@@ -508,11 +559,10 @@ function updateHiddenRows(names) {
   let next = panel._hiddenItems.firstElementChild;
   for (const name of names) {
     const row = hiddenRows.get(name) || makeHiddenRow(name);
-    const label = componentUnit(name)?.label || instanceLabel(name);
-    if (row.label.textContent !== label) {
-      row.label.textContent = label;
-      row.button.title = `Show ${label}`;
-      row.button.setAttribute("aria-label", row.button.title);
+    const label = `Show ${componentUnit(name)?.label || instanceLabel(name)}`;
+    if (row.button.title !== label) {
+      row.button.title = label;
+      row.button.setAttribute("aria-label", label);
     }
     if (row.element !== next) panel._hiddenItems.insertBefore(row.element, next);
     next = row.element.nextElementSibling;
@@ -535,10 +585,10 @@ function makeHiddenRow(name) {
   image.decoding = "async";
   image.hidden = true;
   thumb.appendChild(image);
-  const label = document.createElement("span");
-  label.className = "component-hidden-name";
-  button.append(thumb, label);
+  button.appendChild(thumb);
   button.addEventListener("click", () => {
+    const focused = document.activeElement === button;
+    const next = focused && (element.nextElementSibling || element.previousElementSibling)?.querySelector("button");
     const view = state.currentGroup?.userData.instanceView;
     const shown = view?.rays.length ? (view.shown ??= new Set()) : null;
     for (const body of componentUnit(name)?.bodies || [name]) {
@@ -548,9 +598,10 @@ function makeHiddenRow(name) {
     }
     persistHidden();
     applyHiddenComponents();
+    if (focused) focusComponentControls(next);
   });
   element.appendChild(button);
-  const row = { element, button, image, label, inView: false, version: "" };
+  const row = { element, button, image, inView: false, version: "" };
   hiddenRows.set(name, row);
   hiddenObserver.observe(element);
   return row;
@@ -613,17 +664,25 @@ function showPanel(names = hiddenNames()) {
   const header = state.currentCadWrapper?.closest(".cad-workspace")?.querySelector(".cad-workspace-header");
   if (!header) return;
   if (!panel) buildPanel();
-  if (panel.parentElement !== header) header.appendChild(panel);
+  if (panel.parentElement !== header) {
+    header.appendChild(panel);
+    header.querySelector(".cad-context")?.appendChild(panel._model);
+  }
+  const file = mountedFile();
+  const model = file ? modelName(file) : "";
+  if (panel._model.textContent !== model) panel._model.textContent = model;
   panel._selected.hidden = !selection;
+  if (panel._nameEl.title !== (selection || "")) setComponentDetails(false);
   // Material descriptions name the walkable path; CAD keys identify the selected geometry.
   panel._nameEl.textContent = "";
   panel._nameEl.title = selection || "";
   const feature = sceneFeature(selection);
-  panel.classList.toggle("feature-selected", !!feature);
   const bodyName = componentBody(selection);
   const inside = feature || !selection ? [] : membersOf(selection);
   const description = selection ? componentName(selection) : "";
   const unit = componentUnit(selection);
+  const instance = state.currentGroup?.userData.instanceView;
+  const installed = instance && !instance.preview && instance.names.has(bodyName);
   const nameInTrail = !feature && description && [...header.querySelectorAll(".cad-crumb.show :is(.cad-crumb-step, .cad-crumb-here)")]
     .some(crumb => crumb.textContent === description);
   if (selection) {
@@ -642,50 +701,47 @@ function showPanel(names = hiddenNames()) {
     });
     const here = document.createElement("span");
     here.className = "component-held-here";
-    here.textContent = nameInTrail ? (unit?.label || instanceLabel(bodyName)) : description;
+    here.textContent = unit?.label || (installed || nameInTrail ? instanceLabel(bodyName) : description);
     here.title = description;
     panel._nameEl.appendChild(here);
-    if (inside.length) {
-      const count = document.createElement("span");
-      count.className = "component-held-count";
-      count.textContent = `${inside.length} inside`;
-      panel._nameEl.appendChild(count);
-    }
   }
-  panel._identity.replaceChildren();
+  panel._description.textContent = description;
+  panel._metadata.replaceChildren();
   if (selection) {
     const material = materialOf(selection);
     if (material) {
       const number = document.createElement("span");
       number.className = "component-material-number";
       number.textContent = material.id;
-      panel._identity.appendChild(number);
+      panel._metadata.appendChild(number);
     }
-    if (!unit || !nameInTrail) {
-      const body = document.createElement("span");
-      body.className = "component-body-name";
-      body.textContent = feature ? `Feature of ${componentName(bodyName)}`
-        : unit ? `Instance: ${unit.label}` : `CAD body: ${selection}`;
-      panel._identity.appendChild(body);
+    const body = document.createElement("span");
+    body.className = "component-body-name";
+    body.textContent = feature ? `Feature of ${componentName(bodyName)}` : `CAD body: ${bodyName}`;
+    panel._metadata.appendChild(body);
+    if (inside.length) {
+      const count = document.createElement("span");
+      count.className = "component-body-name";
+      count.textContent = `${inside.length} inside`;
+      panel._metadata.appendChild(count);
     }
   }
   const already = selection && standsHidden(selection);
-  panel._hideBtn.style.display = selection && !feature ? "block" : "none";
+  panel._hideBtn.hidden = !selection || !!feature;
   panel._hideBtn.disabled = !!already;
   panel._hideBtn.textContent = already ? "Hidden" : "Hide";
   panel._hideBtn.title = selection ? `Hide ${description}` : "";
 
   panel._copy.hidden = !feature;
-  panel._copy.textContent = "Copy feature link";
-  const source = selection ? sourceFileFor(bodyName, state.allFiles, mountedFile(), state.materialCatalog, { finish: state.faucetFinish }) : null;
-  const goes = source && source !== mountedFile() ? source : null;
-  panel._openBtn.style.display = selection ? "block" : "none";
+  panel._copy.textContent = "Copy link";
+  const source = selection ? sourceFileFor(bodyName, state.allFiles, file, state.materialCatalog, { finish: state.faucetFinish }) : null;
+  const goes = source && source !== file ? source : null;
   const destination = goes && materialForView(state.materialCatalog, goes, namingOptions());
   const selectedMaterial = selection && materialOf(selection);
-  panel._openBtn.textContent = goes && destination?.id !== selectedMaterial?.id
+  const openLabel = feature ? "Open containing part" : goes && destination?.id !== selectedMaterial?.id
     ? `Open ${modelName(goes)}` : "Open component";
-  panel._openBtn.title = goes ? `Open ${goes}` : "Open this component from the assembly";
-  if (feature) panel._openBtn.textContent = "Open containing part";
+  panel._openBtn.title = goes ? `Open ${goes}` : openLabel;
+  panel._openBtn.setAttribute("aria-label", openLabel);
 
   // The destination is named beside the selected component, unless Open part already goes there.
   const offered = selection ? relatedStepsForComponent(selection, state.allFiles)[0] : null;
@@ -702,6 +758,7 @@ function showPanel(names = hiddenNames()) {
 function hidePanel() {
   if (!panel) return;
   panel.classList.remove("show");
+  setComponentDetails(false);
   if (!state.currentGroup) updateHiddenRows([]);
 }
 

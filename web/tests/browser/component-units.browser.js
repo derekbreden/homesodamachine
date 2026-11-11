@@ -94,8 +94,6 @@ test("assembly clicks and hiding keep physical copies together; opening exposes 
     assert.deepEqual(migrated.hidden,["pump-b-head"]);
     assert.equal(migrated.visible,false);
     assert.equal(await page.$$eval(".component-hidden-row",rows => rows.length),1);
-    if (await page.$eval(".component-panel", panel => panel.classList.contains("collapsed")))
-      await page.click(".component-panel .edge-panel-collapse");
     await page.click(".component-show-all");
     for (const body of ["pump-b-mount", "coil-v-c", "bulkhead-drain-nut", "nameplate-ink"]) {
       const unit = units.find(unit => unit.bodies.includes(body)); assert.ok(unit, body);
@@ -104,8 +102,6 @@ test("assembly clicks and hiding keep physical copies together; opening exposes 
       assert.equal(result.picked.feature,undefined,body);
       assert.equal(result.hover,result.expected,body);
       assert.equal(result.highlight,result.expected,body);
-      if (await page.$eval(".component-panel", panel => panel.classList.contains("collapsed")))
-        await page.click(".component-panel .edge-panel-collapse");
       if (output && body === "pump-b-mount") {
         fs.mkdirSync(output,{ recursive: true });
         await page.screenshot({ path: path.join(output,"pump-selection.png") });
@@ -119,6 +115,8 @@ test("assembly clicks and hiding keep physical copies together; opening exposes 
       assert.ok(hidden.bodies.every(visible => !visible),body);
       assert.ok(hidden.otherPump,body);
       assert.equal(await page.$$eval(".component-hidden-row", rows => rows.length),1,body);
+      assert.ok(await page.$eval(".component-hidden-row .component-show", button =>
+        !button.textContent.trim() && /^Show .+/.test(button.getAttribute("aria-label"))), body);
       await page.click(".component-hidden-row .component-show");
       assert.ok(await page.evaluate(members => window.__hsm.currentGroup.children
         .filter(mesh => mesh.userData?.side === "front" && members.includes(mesh.name)).every(mesh => mesh.visible),unit.bodies));
