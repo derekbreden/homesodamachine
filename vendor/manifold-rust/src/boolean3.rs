@@ -280,11 +280,15 @@ fn property_row(mesh: &ManifoldImpl, row: usize, width: usize) -> Vec<f64> {
 /// swap stage, and epsilon and tolerance raised to the inputs' max after
 /// `SetNormalsAndCoplanar`.
 pub fn compose_meshes(meshes: &[ManifoldImpl]) -> ManifoldImpl {
+    compose_mesh_refs(&meshes.iter().collect::<Vec<_>>())
+}
+
+pub(crate) fn compose_mesh_refs(meshes: &[&ManifoldImpl]) -> ManifoldImpl {
     if meshes.is_empty() {
         return ManifoldImpl::new();
     }
     if meshes.len() == 1 {
-        return meshes[0].clone();
+        return (*meshes[0]).clone();
     }
     // Soup inputs (robust non-manifold import) cannot go through
     // create_halfedges' strict pairing below; concatenate them geometrically
@@ -419,7 +423,7 @@ pub fn compose_meshes(meshes: &[ManifoldImpl]) -> ManifoldImpl {
 /// order. An input without a full set (a freshly built impl) gets each of
 /// its triangles' geometric normals instead — (0, 0, 1) for a removed or
 /// degenerate one — so the result always has one normal per triangle.
-fn concat_face_normals(meshes: &[ManifoldImpl]) -> Vec<Vec3> {
+fn concat_face_normals(meshes: &[&ManifoldImpl]) -> Vec<Vec3> {
     let mut out = Vec::with_capacity(meshes.iter().map(|m| m.num_tri()).sum());
     for mesh in meshes {
         if mesh.face_normal.len() == mesh.num_tri() {
@@ -515,7 +519,7 @@ pub fn boolean_with_token_and_stage(
         // Non-overlapping fast paths. For Subtract, we still run through the full
         // boolean_result to preserve both meshes' run metadata (C++ behavior).
         match op {
-            OpType::Add => return compose_meshes(&[mesh_a.clone(), mesh_b.clone()]),
+            OpType::Add => return compose_mesh_refs(&[mesh_a, mesh_b]),
             OpType::Intersect => return ManifoldImpl::new(),
             OpType::Subtract => {} // fall through to full boolean
         }

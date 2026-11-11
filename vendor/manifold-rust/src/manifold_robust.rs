@@ -77,7 +77,7 @@ impl Manifold {
         if plan.is_noop() {
             return self.clone();
         }
-        let mut out = self.imp.clone();
+        let mut out = self.as_impl().clone();
         crate::robust::repair::apply_flips(&mut out, &plan.flip);
         // Winding-only edit, but it rewrites halfedges in place; re-deriving
         // the verdict keeps the invalidate-on-in-place-edit rule absolute.

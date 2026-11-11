@@ -415,10 +415,10 @@ pub fn rebuild_with_rule(
 /// coplanar groups renumbered as the strict branch renumbers them, then
 /// fresh mesh IDs handed out the same way. The result keeps the inputs'
 /// largest epsilon and tolerance, as C++ `CsgLeafNode::Compose` does.
-pub(crate) fn assemble_all(meshes: &[ManifoldImpl]) -> ManifoldImpl {
+pub(crate) fn assemble_all(meshes: &[&ManifoldImpl]) -> ManifoldImpl {
     let mut interner = intersection_graph::VertInterner::default();
     let mut pieces: Vec<intersection_graph::Piece> = Vec::new();
-    for t in meshes.iter().flat_map(soup::impl_to_tris) {
+    for t in meshes.iter().copied().flat_map(soup::impl_to_tris) {
         pieces.push(intersection_graph::Piece {
             mesh: 0,
             tri: pieces.len(),
@@ -438,7 +438,7 @@ pub(crate) fn assemble_all(meshes: &[ManifoldImpl]) -> ManifoldImpl {
         |_| true,
         None,
         Some(&refs),
-        Some(assemble::CarriedTolerance::of(meshes)),
+        Some(assemble::CarriedTolerance::of(meshes.iter().copied())),
     )
     .into_impl();
     out.increment_mesh_ids();

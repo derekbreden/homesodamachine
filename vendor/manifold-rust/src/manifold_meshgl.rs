@@ -394,7 +394,7 @@ impl Manifold {
                             imp.mesh_relation.original_id = -1;
                             imp.calculate_bbox();
                             imp.set_epsilon(mesh.tolerance.to_f64(), false);
-                            Self { imp }
+                            Self::from_impl(imp)
                         }
                         Err(e) => Self::make_empty(e),
                     };
@@ -438,7 +438,7 @@ impl Manifold {
         }
         imp.remove_unreferenced_verts();
         imp.sort_geometry();
-        Self { imp }
+        Self::from_impl(imp)
     }
 
     pub fn get_mesh_gl(&self, normal_idx: i32) -> MeshGL {
@@ -567,6 +567,6 @@ impl Manifold {
     }
 
     fn apply_epsilon(&mut self, epsilon: f64) {
-        self.imp.set_epsilon(epsilon, false);
+        self.make_unique().set_epsilon(epsilon, false);
     }
 } // impl Manifold

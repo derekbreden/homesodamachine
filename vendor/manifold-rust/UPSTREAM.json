@@ -1,5 +1,5 @@
 {
-  "purpose": "This record identifies the pinned Rust boolean source and its local inlining patch.",
+  "purpose": "This record identifies the pinned Rust boolean source and its local patches.",
   "crate": "manifold-rust",
   "version": "0.19.2",
   "git_revision": "1e4564ca101674ecdab1dac67a6f6ede18442cd1",
@@ -15,6 +15,33 @@
         "kernel02",
         "kernel12"
       ]
+    },
+    "src/manifold.rs": {
+      "change": "Retain immutable topology through shared ownership and copy only when an owned modification needs it."
+    },
+    "src/csg_tree.rs": {
+      "change": "Borrow unchanged input meshes and retain the evaluated mesh without copying its arrays."
+    },
+    "src/boolean3.rs": {
+      "change": "Compose disjoint meshes from borrowed operands."
+    },
+    "src/manifold_boolean.rs": {
+      "change": "Assemble both halves of an exact split from the same intersection data."
+    },
+    "src/manifold_meshgl.rs": {
+      "change": "Create shared mesh values at import and obtain unique ownership before mutation."
+    },
+    "src/manifold_robust.rs": {
+      "change": "Copy an immutable mesh before changing its orientation."
+    },
+    "src/manifold_smooth.rs": {
+      "change": "Obtain an owned mesh before changing its smoothing data."
+    },
+    "src/robust/mod.rs": {
+      "change": "Compose soup meshes from borrowed operands."
+    },
+    "src/robust/provenance.rs": {
+      "change": "Read source relationships directly from borrowed operands."
     }
   }
 }
