@@ -5,7 +5,7 @@ open-topped bottom cap. The complete casing is 253.4 mm high in the appliance fr
 The shell's internal vessel and reservoir datums are independent of its upper rim.
 
 [`numbers/`](numbers/lib.rs) holds the cap's numbers, and [`foam_cap.rs`](foam_cap.rs),
-the build step, writes the four pieces' STEP, full-precision model, print mesh and
+the build step, writes the top lid and bottom cap STEP, full-precision model, print mesh and
 viewer payload from them, and `foam-cap.numbers.json` for the whole machine. Assembly
 and installation readers use the saved full-precision models.
 
@@ -59,6 +59,10 @@ owns the bearing datums, axial stops and removable sliders.
 V-B uses the shared V69 upright socket. Four DC/sensor WAGO wells occupy the board-facing
 back of its wall. Their levers open west. The wall and wells retain ordinary 3 mm stock.
 The PCB and plumbing poses belong to the [above-core arrangement](../../../manifold-layout/above-core.md).
+
+The [top-lid print recipe](../../enclosure/trial-preparation/pieces.json) uses the PET-GF
+tree support process with a local blocker across the aft saddle's tie passage. Remove the
+supports through the open receiver mouths and the underside inlet groove before assembly.
 
 The V-A feed seats in the lid's C2 clip at world (16.608, 207.300, 268.970) mm.
 The Reservoir A fore fill/draw clips remain at X50.5/64.0, Y209.75, Z258.5 mm,
