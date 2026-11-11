@@ -1,4 +1,19 @@
 {
+  "HSM-0018": {
+    "title": "Cold-core insulation shell · October 27 · Mark2",
+    "sha256": "b49b675164c6751b2d2b3e3f371ca313516593ee69bc420da254239d0b5b047d",
+    "slice": "cold-core-shell-round-ports-mark2-2026-10-27.gcode.3mf",
+    "plate": 1,
+    "archive_sha256": "b08e84852254a382e2aba91014fca7222d1ddb9e2b49160eb9be0caec9fd93c4",
+    "launch": "hardware/printed-parts/cold-core/foam-shell/prints/2026-10-26-mark2-round-ports-a2/launch.json"
+  },
+  "HSM-0020": {
+    "title": "Cold-core top cap lid · October 27 slice · Mark2",
+    "sha256": "cf2039440ec612c84a905a1f62f444248e08445cc0555b0f4427ab47f02161ab",
+    "slice": "hardware/printed-parts/cold-core/foam-cap/wago-wall-review/print/2026-10-27-foam-cap-lid-top-mark2-3f287a66/2026-10-27-foam-cap-lid-top-mark2-3f287a66.gcode.3mf",
+    "plate": 1,
+    "source_commit": "f91f00712597b900b2b9fc43def45f19ea844c43"
+  },
   "HSM-0021": {
     "title": "Cold-core bottom cap · October 31 · Mark1",
     "sha256": "3a7d523d4e1edd387e35d7422ea4af5409e9a2d334b88a2ed5514b717cf7dea8",
@@ -15,6 +30,86 @@
     "archive_sha256": "c1b546c589366ea990b029d70880917775ca83fc3fbf53f4425fe2253acefc47",
     "launch": "hardware/printed-parts/cold-core/foam-cap/prints/2026-10-31-bottom-pair/mark2/launch.json"
   },
+  "HSM-0033": {
+    "title": "Magnetic level floats · ASA Aero · Mark2",
+    "sha256": "11545b5957a4299f09919b9e95fc80733064941373c97c99dbd07cead70cf54b",
+    "slice": "hardware/printed-parts/cold-core/magnetic-float/all-aero/mark2-print/three-close-v1/2026-10-08-three-floats-close-asa-aero-right04-engineering-mark2.gcode.3mf",
+    "plate": 1,
+    "source_commit": "f91f00712597b900b2b9fc43def45f19ea844c43"
+  },
+  "HSM-0062": {
+    "title": "Enclosure identification set · Mark1",
+    "sha256": "5941ee5531f9a02dc5002de416729850b919745452bf14c092cd6f6be7a2a71f",
+    "slice": "hardware/printed-parts/enclosure/display-cover/prints/2026-11-08-identification-set-mark1-right-z005/HSM-identification-Mark1-right-z005.gcode.3mf",
+    "plate": 1,
+    "source_commit": "40e364be6749339bf892c49263a5c9d6c5560ca0"
+  },
+  "HSM-0063": {
+    "title": "Enclosure identification set · Mark1",
+    "sha256": "5941ee5531f9a02dc5002de416729850b919745452bf14c092cd6f6be7a2a71f",
+    "slice": "hardware/printed-parts/enclosure/display-cover/prints/2026-11-08-identification-set-mark1-right-z005/HSM-identification-Mark1-right-z005.gcode.3mf",
+    "plate": 1,
+    "source_commit": "40e364be6749339bf892c49263a5c9d6c5560ca0"
+  },
+  "HSM-0064": {
+    "title": "Enclosure identification set · Mark1",
+    "sha256": "5941ee5531f9a02dc5002de416729850b919745452bf14c092cd6f6be7a2a71f",
+    "slice": "hardware/printed-parts/enclosure/display-cover/prints/2026-11-08-identification-set-mark1-right-z005/HSM-identification-Mark1-right-z005.gcode.3mf",
+    "plate": 1,
+    "source_commit": "40e364be6749339bf892c49263a5c9d6c5560ca0"
+  },
+  "HSM-0065": {
+    "title": "Enclosure identification set · Mark1",
+    "sha256": "5941ee5531f9a02dc5002de416729850b919745452bf14c092cd6f6be7a2a71f",
+    "slice": "hardware/printed-parts/enclosure/display-cover/prints/2026-11-08-identification-set-mark1-right-z005/HSM-identification-Mark1-right-z005.gcode.3mf",
+    "plate": 1,
+    "source_commit": "40e364be6749339bf892c49263a5c9d6c5560ca0"
+  },
+  "HSM-0067": {
+    "title": "Enclosure identification set · Mark1",
+    "sha256": "5941ee5531f9a02dc5002de416729850b919745452bf14c092cd6f6be7a2a71f",
+    "slice": "hardware/printed-parts/enclosure/display-cover/prints/2026-11-08-identification-set-mark1-right-z005/HSM-identification-Mark1-right-z005.gcode.3mf",
+    "plate": 1,
+    "source_commit": "40e364be6749339bf892c49263a5c9d6c5560ca0"
+  },
+  "HSM-0069": {
+    "title": "Enclosure identification set · Mark1",
+    "sha256": "5941ee5531f9a02dc5002de416729850b919745452bf14c092cd6f6be7a2a71f",
+    "slice": "hardware/printed-parts/enclosure/display-cover/prints/2026-11-08-identification-set-mark1-right-z005/HSM-identification-Mark1-right-z005.gcode.3mf",
+    "plate": 1,
+    "source_commit": "40e364be6749339bf892c49263a5c9d6c5560ca0"
+  },
+  "HSM-0079": {
+    "title": "Enclosure front top · November 8 · Mark2",
+    "sha256": "6f993cb4547c92c6050433dbfaf999d562e1bc85d65d2429d18b731904cfdeda",
+    "slice": "2026-11-08-front-top-mark2-af1f846c.gcode.3mf",
+    "plate": 1,
+    "archive_sha256": "90951b1a8d0c7c5dc4723304e34e4672185c88e325820978401c9b1d3388c376",
+    "launch": "hardware/printed-parts/enclosure/enclosure/prints/2026-11-08-front-top-independent-clamps-mark2/launch.json"
+  },
+  "HSM-0080": {
+    "title": "Enclosure back bottom · November 10 slice · Mark2",
+    "sha256": "89de76d6f4fdad000a497711b34611e2168f1c844c413362ae9b0b8f27d42c71",
+    "slice": "hardware/printed-parts/enclosure/enclosure/prints/2026-11-10-back-bottom-D-mark2/2026-11-10-back-bottom-D-arch-left04-z004-mark2-print-only.gcode.3mf",
+    "plate": 1,
+    "source_commit": "40e364be6749339bf892c49263a5c9d6c5560ca0"
+  },
+  "HSM-0081": {
+    "title": "Enclosure back top · November 5 · Mark2",
+    "sha256": "b37dc801ee6b995a30be8f3a92548973508b5bd73c4eace4e522f248ff82bf11",
+    "slice": "HSM-0081-back-top-Mark2.gcode.3mf",
+    "plate": 1,
+    "archive_sha256": "9bf7e28a4573503f8e9954b7ffa82076b03b9b0bd201cbde67b22c763f0d7e3c",
+    "launch": "hardware/printed-parts/enclosure/enclosure/prints/2026-11-05-back-top-smooth-corners-mark2/launch.json"
+  },
+  "HSM-0082": {
+    "title": "Lower pump retainer · Mark1",
+    "sha256": "9cdba0bcc52a589249e2ed89d022523021d5ef309f841a101586ece0548cf6f4",
+    "slice": "HSM-000082-pump-retainer-Mark1.gcode.3mf",
+    "plate": 1,
+    "archive_sha256": "792318561079ddac26bf29bdff49759154595924be16b9d93e1029f6dc4485f1",
+    "launch": "hardware/printed-parts/enclosure/enclosure/prints/2026-11-05-pump-retainer-mark1/launch.json"
+  },
   "HSM-0090": {
     "title": "Faucet tube sealing thimble · Mark2",
     "sha256": "03d599f342c89050f87f65267015fd49a4998d48618d7d61787d8457e0eedb21",
@@ -22,10 +117,31 @@
     "plate": 1,
     "source_commit": "f91f00712597b900b2b9fc43def45f19ea844c43"
   },
+  "HSM-0092": {
+    "title": "Sculpted faucet set · October 17 · Mark2",
+    "sha256": "3424d3ab1d743df5aef066972c33d7507cf6119ad5fec9556d09926f9183fc49",
+    "slice": "hardware/printed-parts/faucet/sculpted/prints/2026-10-17-localized-cooling-display-clearance-mark2/2026-10-17-sculpted-white-localcool-clearance150-right04-z004-mark2-r2-print-only.gcode.3mf",
+    "plate": 1,
+    "source_commit": "f91f00712597b900b2b9fc43def45f19ea844c43"
+  },
   "HSM-0093": {
     "title": "Sculpted faucet mounting gasket · Mark1",
     "sha256": "3a850c4aaf9285b7a218b008452762ffd31667fcbff32926ca8f60356676d061",
     "slice": "hardware/printed-parts/faucet/above-counter-gasket/prints/2026-10-16-white-tpu90a-right-mark1/2026-10-16-sculpted-faucet-mounting-gasket-white-tpu90a-right06-z018-mark1-print-only.gcode.3mf",
+    "plate": 1,
+    "source_commit": "f91f00712597b900b2b9fc43def45f19ea844c43"
+  },
+  "HSM-0094": {
+    "title": "Sculpted faucet set · October 17 · Mark2",
+    "sha256": "3424d3ab1d743df5aef066972c33d7507cf6119ad5fec9556d09926f9183fc49",
+    "slice": "hardware/printed-parts/faucet/sculpted/prints/2026-10-17-localized-cooling-display-clearance-mark2/2026-10-17-sculpted-white-localcool-clearance150-right04-z004-mark2-r2-print-only.gcode.3mf",
+    "plate": 1,
+    "source_commit": "f91f00712597b900b2b9fc43def45f19ea844c43"
+  },
+  "HSM-0095": {
+    "title": "Industrial faucet set · October 24 · Mark2",
+    "sha256": "34b4c85fb320960b791390d2ef5a4c465e842ad2e41d49ed5829aa42e26a139e",
+    "slice": "hardware/printed-parts/faucet/industrial/prints/2026-10-24-lowered-display-complete-mark2/2026-10-24-industrial-complete-display-low45-petgf-left04-z004-mark2.gcode.3mf",
     "plate": 1,
     "source_commit": "f91f00712597b900b2b9fc43def45f19ea844c43"
   },
@@ -43,10 +159,31 @@
     "plate": 1,
     "source_commit": "f91f00712597b900b2b9fc43def45f19ea844c43"
   },
+  "HSM-0111": {
+    "title": "Industrial faucet set · October 24 · Mark2",
+    "sha256": "34b4c85fb320960b791390d2ef5a4c465e842ad2e41d49ed5829aa42e26a139e",
+    "slice": "hardware/printed-parts/faucet/industrial/prints/2026-10-24-lowered-display-complete-mark2/2026-10-24-industrial-complete-display-low45-petgf-left04-z004-mark2.gcode.3mf",
+    "plate": 1,
+    "source_commit": "f91f00712597b900b2b9fc43def45f19ea844c43"
+  },
   "HSM-0112": {
     "title": "Industrial faucet mounting gasket · Mark2",
     "sha256": "2b4c75c86eb738d26edeb0be4fe8add515919f34abda1108098ea74350ab86b6",
     "slice": "hardware/printed-parts/faucet/industrial/prints/2026-10-23-mounting-gasket-tpu85a-right06-mark2/2026-10-23-industrial-mounting-gasket-tpu85a-right06-z000-mark2-continuous-layers.gcode.3mf",
+    "plate": 1,
+    "source_commit": "f91f00712597b900b2b9fc43def45f19ea844c43"
+  },
+  "HSM-0113": {
+    "title": "Industrial faucet set · October 24 · Mark2",
+    "sha256": "34b4c85fb320960b791390d2ef5a4c465e842ad2e41d49ed5829aa42e26a139e",
+    "slice": "hardware/printed-parts/faucet/industrial/prints/2026-10-24-lowered-display-complete-mark2/2026-10-24-industrial-complete-display-low45-petgf-left04-z004-mark2.gcode.3mf",
+    "plate": 1,
+    "source_commit": "f91f00712597b900b2b9fc43def45f19ea844c43"
+  },
+  "HSM-0114": {
+    "title": "Industrial faucet set · October 24 · Mark2",
+    "sha256": "34b4c85fb320960b791390d2ef5a4c465e842ad2e41d49ed5829aa42e26a139e",
+    "slice": "hardware/printed-parts/faucet/industrial/prints/2026-10-24-lowered-display-complete-mark2/2026-10-24-industrial-complete-display-low45-petgf-left04-z004-mark2.gcode.3mf",
     "plate": 1,
     "source_commit": "f91f00712597b900b2b9fc43def45f19ea844c43"
   },
@@ -56,6 +193,13 @@
     "slice": "hardware/printed-parts/fixtures/tube-insertion/ready/tube-insertion-rigid-base-h2c.gcode.3mf",
     "plate": 1,
     "source_commit": "245322abd5be6146d7f3efc3ed0d5d9552961a7d"
+  },
+  "HSM-0152": {
+    "title": "Tube insertion carrier and puck · Mark1",
+    "sha256": "bba40892a9c9fc241e9f811228538a6a2c2902db5c90e30157b249ff14059281",
+    "slice": "hardware/printed-parts/fixtures/tube-insertion/prints/2026-10-12-rigid-parts-mark1/tube-insertion-rigid-parts-h2c.gcode.3mf",
+    "plate": 1,
+    "source_commit": "f91f00712597b900b2b9fc43def45f19ea844c43"
   },
   "HSM-0153": {
     "title": "Tube insertion jaws · Mark1",
@@ -77,11 +221,47 @@
     "slice": "hardware/printed-parts/fixtures/tube-insertion/ready/tube-insertion-centered-liners-tpu85a-right06-z018-mark1.gcode.3mf",
     "plate": 1
   },
+  "HSM-0156": {
+    "title": "Tube insertion carrier and puck · Mark1",
+    "sha256": "bba40892a9c9fc241e9f811228538a6a2c2902db5c90e30157b249ff14059281",
+    "slice": "hardware/printed-parts/fixtures/tube-insertion/prints/2026-10-12-rigid-parts-mark1/tube-insertion-rigid-parts-h2c.gcode.3mf",
+    "plate": 1,
+    "source_commit": "f91f00712597b900b2b9fc43def45f19ea844c43"
+  },
+  "HSM-0268": {
+    "title": "Industrial faucet set · October 24 · Mark2",
+    "sha256": "34b4c85fb320960b791390d2ef5a4c465e842ad2e41d49ed5829aa42e26a139e",
+    "slice": "hardware/printed-parts/faucet/industrial/prints/2026-10-24-lowered-display-complete-mark2/2026-10-24-industrial-complete-display-low45-petgf-left04-z004-mark2.gcode.3mf",
+    "plate": 1,
+    "source_commit": "f91f00712597b900b2b9fc43def45f19ea844c43"
+  },
+  "HSM-0398": {
+    "title": "Tube miter box · Mark2",
+    "sha256": "d647efe1b5cd922bef13caee477f1f364a4eb6b68ab032382b4d00c25cffb4f0",
+    "slice": "hardware/printed-parts/fixtures/tube-miter-box/tube-miter-box-petgf-z004-mark2.gcode.3mf",
+    "plate": 1,
+    "source_commit": "f91f00712597b900b2b9fc43def45f19ea844c43"
+  },
   "HSM-0403": {
     "title": "Tube insertion donor hold-down cover · Mark1",
     "sha256": "cb75d5d97f2a1cda324597584f8f6e024c7f25fde68d4502e3a03f97f30c7a79",
     "slice": "hardware/printed-parts/fixtures/tube-insertion/donor-hold-down/prints/2026-10-12-half-body-mark1/donor-hold-down-half-body-tpu85a-right06-z018-mark1.gcode.3mf",
     "plate": 1,
     "source_commit": "f91f00712597b900b2b9fc43def45f19ea844c43"
+  },
+  "HSM-0451": {
+    "title": "Flavor-water regulator snap cap · Mark2",
+    "sha256": "c66c5f385756845bae50a394c8851c5ba1d4e5231eb8fe032810630111587d93",
+    "slice": "2026-11-07-single-regulator-cap-mark2-192f916b.gcode.3mf",
+    "plate": 1,
+    "archive_sha256": "20528fdcab40a4c487d525e5a2b5b0d6665471f7c1c7e9453d9614693340337d",
+    "launch": "hardware/printed-parts/enclosure/rear-equipment-caps/prints/2026-11-07-single-regulator-mark2/launch.json"
+  },
+  "HSM-0579": {
+    "title": "Enclosure identification set · Mark1",
+    "sha256": "5941ee5531f9a02dc5002de416729850b919745452bf14c092cd6f6be7a2a71f",
+    "slice": "hardware/printed-parts/enclosure/display-cover/prints/2026-11-08-identification-set-mark1-right-z005/HSM-identification-Mark1-right-z005.gcode.3mf",
+    "plate": 1,
+    "source_commit": "40e364be6749339bf892c49263a5c9d6c5560ca0"
   }
 }
