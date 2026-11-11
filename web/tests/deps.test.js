@@ -4,7 +4,7 @@ import assert from "node:assert/strict";
 import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
-import { nativeBuildPlan, buildTargetsForSources, buildOrder, viewerOutput } from "../dev-server/deps.js";
+import { nativeBuildPlan, buildTargetsForSources, buildOrder } from "../scripts/build-deps.js";
 
 function fixture(t, graph) {
   const root = fs.mkdtempSync(path.join(os.tmpdir(), "hsm-native-deps-"));
@@ -85,16 +85,4 @@ test("cycles are named instead of yielding a partial build order", t => {
     "hardware/b.rs": row("hardware/b.rs", ["hardware/a.step"], ["hardware/b.step"]),
   });
   assert.throws(() => buildOrder(nativeBuildPlan(root)), /Native producer cycle: a -> b -> a/);
-});
-
-test("source saves have no output notification while each native payload identifies its model", () => {
-  const root = "/checkout/hardware";
-  for (const file of ["part.rs", "part.py", "part.tsx", "size.json"]) assert.equal(viewerOutput(path.join(root, file), root), null);
-  assert.equal(viewerOutput(path.join(root, "part.step.mesh"), root), "part.step");
-  assert.equal(viewerOutput(path.join(root, "assembly/scenes/glb/install.glb.mesh"), root), "assembly/scenes/glb/install.glb");
-  assert.equal(viewerOutput(path.join(root, "pcb/pcba/out/pcba.glb.mesh"), root), null);
-  assert.equal(viewerOutput(path.join(root, "machine.scene.npz"), root), "machine.step");
-  assert.equal(viewerOutput(path.join(root, "pcb/pcba/out/pcba.glb"), root), "pcb/pcba/out/pcba.glb");
-  assert.equal(viewerOutput(path.join(root, "manual/manual.pdf.json"), root), "manual/manual.pdf");
-  assert.equal(viewerOutput("/outside/part.step", root), null);
 });

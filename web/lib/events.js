@@ -1,17 +1,14 @@
 // WebSocket transport for server -> client push.
 //
-// Two consumers:
-//   - Dev server: file-change broadcasts from chokidar (per-save).
-//   - Production server: deploy-version handshake + boot-time hash-diff
-//     replay so a client whose old connection died during the container
-//     swap gets the change list it missed.
+// The deploy handshake and hash-diff replay give reconnecting clients the
+// changes they missed during the container swap.
 //
 // Liveness: the client reconnects on close with backoff; the server
 // pings every 30s and terminates a socket that misses its pong. A client
 // that reconnects catches up on anything it missed via the `recent`
 // snapshot on the next hello (below).
 //
-// Wire shape (the four frame types + the client-never-sends rule): web/contracts/ws-frames.js.
+// Frame types live in web/contracts/ws-frames.js.
 //
 // `recent` snapshot: latest boot-diff result, set by server.js after
 // the production hash-diff completes. Piggy-backed onto every hello so

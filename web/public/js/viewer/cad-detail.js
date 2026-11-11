@@ -34,7 +34,6 @@ import { makeXrayToggle } from "./xray.js";
 import { cancelCadLoad, disposeCadGroup } from "./cad-resources.js";
 import { clearEdgePicker } from "./edge-picker.js";
 import { clearComponentPicker } from "./component-picker.js";
-import { clearComponentEdit } from "./component-edit.js";
 import { makePickFindToggle, closePickFind, closeTopPickFind } from "./pick-find.js";
 import { makeToolRail, makeToolGroup, makeChipRow, makeToolButton, mountToolDrawer, closeToolDrawer } from "./tool-rail.js";
 import { makePickModeControl } from "./pick-mode.js";
@@ -178,7 +177,7 @@ export function openCadDetail(type, file, pushHistory = true, path = null) {
   let clearFlavorPath = () => {};
   if (type === "step") {
     rail.appendChild(makePickFindToggle());
-    rail.appendChild(makeToolGroup("Select", makePickModeControl(file))).classList.add("tool-group-select");
+    rail.appendChild(makeToolGroup("Select", makePickModeControl())).classList.add("tool-group-select");
     chips.appendChild(makeXrayToggle());
     clearFlavorPath = mountFlavorPath(wrapper, chips);
   }
@@ -301,7 +300,6 @@ export function openCadDetail(type, file, pushHistory = true, path = null) {
       }
       clearEdgePicker(); // drop edge data + any selection/hover overlay
       clearComponentPicker(); // and any component selection/hover overlay + its panel
-      clearComponentEdit();   // and the editor's gizmo + selection + preview
       closePickFind();   // drop find highlights, and shut the box with the modal
       clearHighlight();  // and any scorecard part-highlight overlay
       state.currentCadWrapper = null;
@@ -324,7 +322,7 @@ export function openCadDetail(type, file, pushHistory = true, path = null) {
   window.addEventListener("blur", closeMenus);
 
   // Resolve the loader now (current-build code) rather than binding it at
-  // import time, so opening a part after a code edit / deploy runs fresh code.
+  // import time, so opening a part after a deploy runs fresh code.
   getLoader(type).then((load) => {
     if (state.currentCadWrapper !== wrapper || state.currentDetail?.file !== file) return;
     return load(file);

@@ -290,7 +290,7 @@ export function resolveAtSpecSha(atSpec) {
 //      by file URL, so two different worktrees get separate caches; the same
 //      worktree path imported twice returns the cached module (which is
 //      fine — start() is reentrant).
-//   4. We call start({ port: 0, dev: false }) to get an ephemeral port.
+//   4. We call start({ port: 0 }) to get an ephemeral port.
 //      No env vars are passed, so the historical server's database / Firebase
 //      paths must degrade gracefully when DATABASE_URL /
 //      FIREBASE_SERVICE_ACCOUNT_JSON are absent (current code does; check
@@ -352,7 +352,7 @@ export async function withHistoricalServer(atSpec, callback) {
 
     // Boot on an ephemeral port. No env vars passed — we rely on the server
     // degrading gracefully without DATABASE_URL / Firebase config.
-    const { server } = await mod.start({ port: 0, dev: false });
+    const { server } = await mod.start({ port: 0 });
     // app.listen returns the server synchronously; .address() is populated
     // by the time we get back here in practice (Node binds the socket
     // synchronously inside listen()). Defensive: if it isn't, wait one

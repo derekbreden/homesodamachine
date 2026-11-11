@@ -15,7 +15,7 @@ const settle = page => page.evaluate(() => new Promise(resolve => setTimeout(res
 
 test(recordsOnly ? "material record trees and combined sections retain their state through refreshes"
   : "locations preview compounds and repeated copies, preserve selection and hide only obstructions", async () => {
-  const { server } = process.env.HSM_LOCATIONS_BROWSER_BASE ? {} : await start({ dev: false, port: 0 });
+  const { server } = process.env.HSM_LOCATIONS_BROWSER_BASE ? {} : await start({ port: 0 });
   const origin = process.env.HSM_LOCATIONS_BROWSER_BASE || `http://127.0.0.1:${server.address().port}`;
   const output = process.env.HSM_LOCATIONS_BROWSER_OUTPUT;
   const browser = await launchBrowser({ headless: true, protocolTimeout: 120000 });

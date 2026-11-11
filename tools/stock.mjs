@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-// Stock commands serve the local workbench and record physical activity through the shared ledger writer.
+// Stock commands plan and record physical activity through the shared ledger writer.
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
@@ -15,13 +15,7 @@ const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), ".."),
   hardware = path.join(root, "hardware");
 const [command, ...args] = process.argv.slice(2);
 try {
-  if (command === "serve") {
-    const { start } = await import("../web/server.js");
-    const portIndex = args.indexOf("--port"),
-      port = portIndex < 0 ? 3040 : Number(args[portIndex + 1]);
-    await start({ dev: true, port, hardwareDir: hardware });
-    console.log("Stock workbench: http://localhost:" + port + "/build");
-  } else if (command === "plan") {
+  if (command === "plan") {
     const value = readMaterialCatalog(hardware);
     value.stock = readMaterialStock(hardware, value);
     const quantityIndex = args.indexOf("--quantity"),
@@ -50,7 +44,7 @@ try {
     console.log(JSON.stringify(await publishStockLedger(hardware), null, 2));
   } else {
     console.log(
-      "Use serve [--port PORT], plan MATERIAL [--quantity QTY] [--black], record EVENT.json [--publish], or publish.",
+      "Use plan MATERIAL [--quantity QTY] [--black], record EVENT.json [--publish], or publish.",
     );
     process.exitCode = command ? 1 : 0;
   }

@@ -1,7 +1,7 @@
 // Conformance test for the picks.json contract (web/contracts/picks-schema.ts).
 //
 // The board sidecar crosses from the tscircuit builder (pick-data.ts, TS) to the browser
-// viewer (pcb.js / pcb-pick.js / pcb-edit.js, untyped JS). TS pins the producer end; this pins
+// viewer (pcb.js / pcb-pick.js, untyped JS). TS pins the producer end; this pins
 // the consumer end — load the committed pcba.picks.json and assert it still matches the shape
 // the viewer reads, so a producer change that drops or renames a field fails here instead of
 // silently in the UI. Skips when no board has been rendered (out/ is a build artifact).

@@ -179,12 +179,10 @@ export function makeToolSeg(options, onSelect) {
   const seg = document.createElement("div");
   seg.className = "tool-seg";
   seg.setAttribute("role", "radiogroup");
-  // A segment can arrive after the control is on screen — the editor's does,
-  // once its API answers for the open file (pick-mode.js).
-  seg.addOption = (o, onClick) => {
+  for (const o of options) {
     const btn = document.createElement("button");
     btn.type = "button";
-    btn.className = "tool-seg-btn" + (o.className ? " " + o.className : "");
+    btn.className = "tool-seg-btn";
     btn.dataset.mode = o.id;
     const text = document.createElement("span");
     text.className = "tool-label";
@@ -193,11 +191,9 @@ export function makeToolSeg(options, onSelect) {
     prependIcon(btn, o.icon);
     btn.setAttribute("role", "radio");
     if (o.title) btn.title = o.title;
-    btn.addEventListener("click", onClick || (() => onSelect(o.id)));
+    btn.addEventListener("click", () => onSelect(o.id));
     seg.appendChild(btn);
-    return btn;
-  };
-  for (const o of options) seg.addOption(o);
+  }
   seg.sync = (active) => {
     for (const btn of seg.querySelectorAll(".tool-seg-btn")) {
       const on = btn.dataset.mode === active;

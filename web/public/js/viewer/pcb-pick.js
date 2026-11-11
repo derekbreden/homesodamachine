@@ -21,7 +21,6 @@
 // in PanZoom's CSS transform), so a miss still yields a coordinate.
 
 import { state } from "./state.js";
-import { HSM_EVENTS } from "/contracts/client-events.js";
 import { CONTENT_ROOT } from "./pick-format.js";
 
 const SVGNS = "http://www.w3.org/2000/svg";
@@ -451,26 +450,12 @@ function el2(tag, className) {
 
 let toggleRefresh = null; // the current Inspect toggle button's label refresher
 
-export function setPadPickEnabled(on) {
+function setPadPickEnabled(on) {
   enabled = !!on;
   try { localStorage.setItem(LS_KEY, enabled ? "1" : "0"); } catch {}
   applyEnabled();
   if (!enabled) clearSelection();
-  // Arming Inspect disarms Edit (and vice versa) so their overlays don't both
-  // claim a click. Only announce on arm, so disarming can't ping-pong.
-  if (enabled) window.dispatchEvent(new CustomEvent(HSM_EVENTS.PCB_TOOL, { detail: "inspect" }));
 }
-
-// Another tool (the component editor) armed itself — stand down if it wasn't us.
-window.addEventListener(HSM_EVENTS.PCB_TOOL, (e) => {
-  if (e.detail !== "inspect" && enabled) {
-    enabled = false;
-    try { localStorage.setItem(LS_KEY, "0"); } catch {}
-    applyEnabled();
-    clearSelection();
-    if (toggleRefresh) toggleRefresh();
-  }
-});
 
 export function makePadPickToggle() {
   const btn = document.createElement("button");

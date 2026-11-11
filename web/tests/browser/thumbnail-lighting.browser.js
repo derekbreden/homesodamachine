@@ -61,7 +61,7 @@ test("thumbnail and detail pixels agree for PET-GF and reflective metal", { time
     await fs.mkdir(path.dirname(path.join(hardwareDir, file)), { recursive: true });
     await fs.writeFile(path.join(hardwareDir, file), "fixture");
     await fs.writeFile(path.join(hardwareDir, `${file}.mesh`), payload([PETGF_BLACK.rgb, metal.rgb]));
-    ({ server } = await start({ dev: false, port: 0, hardwareDir }));
+    ({ server } = await start({ port: 0, hardwareDir }));
     browser = await launchBrowser();
     const page = await browser.newPage();
     await page.setViewport({ width: 800, height: 800 });

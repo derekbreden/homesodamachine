@@ -42,13 +42,13 @@ That's it. There is no central router config, no decorator metadata, no plugin r
 | [`notifications.js`](/web/lib/notifications.js) | `/api/notifications/*`, `/notifications` | Per-token inbox CRUD + the page. Routes only mount if `pool` is non-null (i.e. DATABASE_URL is set). |
 | [`push.js`](/web/lib/push.js) | `/api/push/*` | FCM subscriptions + outbound notify. Boot-time hash diff against per-kind tables (`step_hashes`, `dxf_hashes`, `mermaid_hashes`, `drawing_hashes`, `document_hashes`, `pcb_hashes`). |
 | [`walk.js`](/web/lib/walk.js) | — | `walkFiles(rootDir, exts)` and the per-kind walkers (`walkFilesUnderDir`, `walkPcbBoards`, `walkDocuments`) — shared between `viewer-routes.js` and `push.js`. Every one of them skips a retired tree. |
-| [`retired.js`](/web/lib/retired.js) | — | The `.retired` marker: a directory holding that file, and everything under it, is source kept for reading. Read by `walk.js` (what the site browses) and [`dev-server/deps.js`](/web/dev-server/deps.js) (what the build rebuilds), from here so the two cannot disagree. |
+| [`retired.js`](/web/lib/retired.js) | — | The `.retired` marker: a directory holding that file, and everything under it, is source kept for reading. Read by `walk.js` (what the site browses) and [`scripts/build-deps.js`](/web/scripts/build-deps.js) (what the build rebuilds), from here so the two cannot disagree. |
 | [`icons.js`](/web/lib/icons.js) | — | Shared SVG glyphs (cube, chart, gear, bell, scissors, clipboard, file). One source of truth for both nav and notification rows. |
 | [`templates/`](/web/lib/templates/) | — | HTML fragments included by the page-render modules above. Currently just `viewer-body.html`. |
 
 ## Conventions
 
 - **Module-load side effects are minimal.** Imports may register module-level constants, but no module starts a server, opens a connection, or schedules a timer at import time. Wiring happens inside the exported `mountXxxRoutes` so server boot order is deterministic.
-- **DB optionality.** Modules that touch Postgres check `if (!pool) return [...empty...]` at the call boundary, so the dev server (no DATABASE_URL) and the smoke tests both work without a database.
+- **DB optionality.** Modules that touch Postgres check `if (!pool) return [...empty...]` at the call boundary, so a troubleshooting run or smoke test can start without a database.
 - **`window.__hsm` is reserved** for the `/3d` viewer's Puppeteer escape hatch (see [`web/contracts/hsm-globals.js`](/web/contracts/hsm-globals.js)). Don't write to it from server-side modules or `boot.js`.
 - **Inline JS in lib/ is a smell.** If a page needs more than ~10 lines of client-side code, extract to `public/<page>.js` linked via `<script src="..." defer>`. The exception is the synchronous pre-paint class flips in `shell.js` HEAD_TAGS, which must run during head parse to avoid FOUC.

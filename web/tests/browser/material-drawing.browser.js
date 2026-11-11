@@ -13,7 +13,7 @@ const reviewDir = path.resolve(".cache/material-workspace");
 let browser, server, baseUrl;
 before(async () => {
   browser = await require("puppeteer").launch({ headless: true });
-  ({ server } = await start({ dev: true, port: 0 }));
+  ({ server } = await start({ port: 0 }));
   baseUrl = `http://127.0.0.1:${server.address().port}`;
   fs.mkdirSync(reviewDir, { recursive: true });
 });

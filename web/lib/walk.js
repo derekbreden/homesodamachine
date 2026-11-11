@@ -4,8 +4,7 @@
 //
 // Pass a single extension string (".step") or an array ([".step", ".dxf"]);
 // the result is an array of forward-slash relative paths. Returns [] if
-// rootDir doesn't exist (the dev server points at directories that may
-// not yet be populated).
+// the requested directory is absent.
 //
 // Every walker here skips a retired tree (lib/retired.js), on the same marker
 // the build graph reads. What the site browses is therefore what the build can

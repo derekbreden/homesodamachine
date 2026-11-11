@@ -1,6 +1,6 @@
 /**
  * The shape of out/<board>.picks.json — the board sidecar the web viewer reads.
- * Produced by hardware/pcb/pcba/pick-data.ts; consumed by web/public/js/viewer/{pcb,pcb-pick,pcb-edit}.js,
+ * Produced by hardware/pcb/pcba/pick-data.ts; consumed by web/public/js/viewer/{pcb,pcb-pick}.js,
  * served path-confined by web/lib/viewer-routes.js. Positions are board millimetres; the
  * viewer maps mm onto the Gerber SVG at unitsPerMm (1 mm = 1000 units).
  *

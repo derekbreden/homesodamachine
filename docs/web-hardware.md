@@ -1,12 +1,12 @@
 # web-hardware
 
-This is the scope for moving part of [`web/`](/web/) into a standalone package, `web-hardware`: the viewers for the design files (STEP, DXF, PCB, mermaid, print sheets), the picker, editor, live reload, and phone-push it has today. Point the package at a directory of files, hand it an HTML shell, and those come up. Branding, routes, and content layout stay behind in the shell and a config the package takes; it carries none of them. Anyone can run it against their own hardware project.
+This is the scope for moving part of [`web/`](/web/) into a standalone package, `web-hardware`: the viewers for the design files (STEP, DXF, PCB, mermaid, print sheets), the picker, live reload, and phone-push it has today. Point the package at a directory of files, hand it an HTML shell, and those come up. Branding, routes, and content layout stay behind in the shell and a config the package takes; it carries none of them. Anyone can run it against their own hardware project.
 
 `web/` runs on this package and keeps every behavior it has now.
 
 ## Parity
 
-The behaviors are mapped in [`web/README.md`](/web/README.md) and checked by [`smoke.test.js`](/web/tests/smoke.test.js), [`deps.test.js`](/web/tests/deps.test.js), [`pick-format.test.js`](/web/tests/pick-format.test.js), [`pcb-editor.test.js`](/web/tests/pcb-editor.test.js). The README, a green `cd web && npm test`, and the running site are the parity surface. [`browser/viewer.browser.js`](/web/tests/browser/viewer.browser.js) is the browser pass, run by `npm run test:browser`.
+The behaviors are mapped in [`web/README.md`](/web/README.md) and checked by [`smoke.test.js`](/web/tests/smoke.test.js), [`deps.test.js`](/web/tests/deps.test.js) and [`pick-format.test.js`](/web/tests/pick-format.test.js). The README, a green `cd web && npm test`, and the running site are the parity surface. [`browser/viewer.browser.js`](/web/tests/browser/viewer.browser.js) is the browser pass, run by `npm run test:browser`.
 
 The threads below reach past that surface — couplings that live outside `web/`, or that the tests don't exercise.
 
@@ -17,11 +17,11 @@ The threads below reach past that surface — couplings that live outside `web/`
 
 - **A frame is read back in the task that drew it.** [`scene.js`](/web/public/js/viewer/scene.js)'s renderer is built without `preserveDrawingBuffer`, so a capture that goes through the page gets an arbitrary frame and no wait can fix it. Every renderer above ends its `page.evaluate` with `renderer.render(...)` and `toDataURL` on adjacent lines and passes the result to `frameBuffer` — [`browser.js`](/tools/render/browser.js) carries the whole reason. A new renderer that calls `page.screenshot` on the viewer is nondeterministic even though it will look fine the first few runs. The picture being the canvas is also why none of these hide the viewer's nav, gizmo or buttons.
 
-- **Live reload runs the hardware build tools.** CadQuery scripts run under `tools/cad-venv/bin/python`; boards run `bun render-board.ts`. [`dev-server/server.js`](/web/dev-server/server.js), [`dev-server/deps.js`](/web/dev-server/deps.js). Generators write `.step`/`.dxf` beside their `.py`; [`hardware/scripts/_cadq_export.py`](/hardware/scripts/_cadq_export.py) writes them atomically and byte-stable.
+- **The print build publishes completed artifacts.** The site adopts them and broadcasts the changed paths. [`hsm-print-build`](/tools/hsm/print-build/README.md), [`artifacts-live.js`](/web/lib/artifacts-live.js).
 
-- **Board output is a shape the viewer reads.** [`render-board.ts`](/hardware/pcb/pcba/render-board.ts) writes `out/<name>.{top,bottom,overlay,inner N}.svg` and `<name>.picks.json` ([`pick-data.ts`](/hardware/pcb/pcba/pick-data.ts)); read by [`viewer-routes.js`](/web/lib/viewer-routes.js), [`pcb.js`](/web/public/js/viewer/pcb.js), [`pcb-pick.js`](/web/public/js/viewer/pcb-pick.js). The `RENDER_PHASE=placement` line drives the preview.
+- **Board output is a shape the viewer reads.** [`render-board.ts`](/hardware/pcb/pcba/render-board.ts) writes `out/<name>.{top,bottom,overlay,inner N}.svg` and `<name>.picks.json` ([`pick-data.ts`](/hardware/pcb/pcba/pick-data.ts)); read by [`viewer-routes.js`](/web/lib/viewer-routes.js), [`pcb.js`](/web/public/js/viewer/pcb.js), [`pcb-pick.js`](/web/public/js/viewer/pcb-pick.js).
 
-- **`files-changed` paths match what the viewer fetched** — each broadcast relative to the content root the file was listed under. [`dev-server/server.js`](/web/dev-server/server.js), [`live.js`](/web/public/js/viewer/live.js).
+- **`files-changed` paths match what the viewer fetched** — each broadcast relative to the content root the file was listed under. [`artifacts-live.js`](/web/lib/artifacts-live.js), [`live.js`](/web/public/js/viewer/live.js).
 
 - **Clipboard pick text round-trips.** [`pick-format.js`](/web/public/js/viewer/pick-format.js), [`pick-format.test.js`](/web/tests/pick-format.test.js).
 

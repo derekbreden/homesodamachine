@@ -133,7 +133,7 @@ export function createXrayRenderer({
     }
     const line = record.line;
     if (!line) return;
-    // Siblings retain the flat CAD viewer's component editing/picking contract,
+    // Siblings retain the flat CAD viewer's component picking contract,
     // and nested Groups retain their existing transforms and visibility.
     if (line.parent !== mesh.parent) mesh.parent?.add(line);
     if (mesh.matrixAutoUpdate) mesh.updateMatrix();

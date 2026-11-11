@@ -4,7 +4,7 @@ import { start } from "../server.js";
 
 let server, baseUrl;
 before(async () => {
-  ({ server } = await start({ dev: false, port: 0 }));
+  ({ server } = await start({ port: 0 }));
   baseUrl = `http://127.0.0.1:${server.address().port}`;
 });
 after(async () => {
