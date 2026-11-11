@@ -2305,6 +2305,27 @@
       "vendor": "Anthropic"
     },
     {
+      "checked_at": "2026-11-11",
+      "complete_period": null,
+      "coverage": "partial",
+      "coverage_id": "coverage-59ed46ecf3b440448050d1c01f6aeada",
+      "evidence_type": "vendor_shipment_and_carrier_delivery_estimate",
+      "examined_period": {
+        "end": "2026-11-11",
+        "start": "2026-11-08"
+      },
+      "note": "Exact order and tracking-reference email searches exhausted. Vendor shipment identity matched directly to carrier notices; latest retrieved carrier notice schedules estimated delivery for 2026-11-12. No actual delivery or completed merchant charge established.",
+      "order_ids": [
+        "bambu:us795729195777990656"
+      ],
+      "source_ids": [
+        "src-1a7e236f18734150aa122917f332f47f",
+        "src-8944c63d978340d3baaae57ea3c6dc01"
+      ],
+      "stream": "one named in-transit filament order",
+      "vendor": "Bambu Lab"
+    },
+    {
       "checked_at": "2026-10-04",
       "complete_period": null,
       "coverage": "unknown",
@@ -9529,7 +9550,7 @@
       ]
     }
   ],
-  "input_fingerprint": "sha256:717ca9b5aada4dce40d99f06b256e81dc6868d2c3a8e76733adc4b815c45c575",
+  "input_fingerprint": "sha256:752ce81a6e70e48ad56f15805ddc16e7d75c79752770431b9913bed85da25578",
   "orders": [
     {
       "allocation_status": "all_project",
@@ -17894,6 +17915,7 @@
       "reference": "us795729195777990656",
       "source_ids": [
         "src-1a7e236f18734150aa122917f332f47f",
+        "src-8944c63d978340d3baaae57ea3c6dc01",
         "src-fc21b89f674c49d8b7beb35eb29aa7e1"
       ],
       "vendor": "Bambu Lab"
@@ -32903,6 +32925,7 @@
       "service_period": null,
       "source_ids": [
         "src-1a7e236f18734150aa122917f332f47f",
+        "src-8944c63d978340d3baaae57ea3c6dc01",
         "src-fc21b89f674c49d8b7beb35eb29aa7e1"
       ],
       "split_charge": false,
@@ -63859,6 +63882,20 @@
       "verified_at": "2026-11-11"
     },
     {
+      "document_date": null,
+      "document_type": "carrier_rescheduled_delivery_estimate",
+      "note": "UPS rescheduled-delivery notification gives Thursday 2026-11-12, between 10:30 AM and 2:30 PM as displayed. The vendor shipment notification directly joins the carrier tracking identity to this order and its three PETG Basic spools. This is an estimated arrival only, not actual delivery or payment evidence.",
+      "notification_date": {
+        "precision": "day",
+        "value": "2026-11-10"
+      },
+      "proves": [],
+      "reference": "us795729195777990656",
+      "source_id": "src-8944c63d978340d3baaae57ea3c6dc01",
+      "vendor": "Bambu Lab",
+      "verified_at": "2026-11-11"
+    },
+    {
       "document_date": {
         "precision": "day",
         "value": "2026-11-09"
@@ -69226,6 +69263,7 @@
         "coverage-4c9766f8f74146e4b55fba8f7253bef2",
         "coverage-4fe5fcc2ddd0488d9dd0d9097c272a17",
         "coverage-529808250fb54698ba4b715138d42a00",
+        "coverage-59ed46ecf3b440448050d1c01f6aeada",
         "coverage-5d72f7e2ddec401d85de4cb0ce8ed2aa",
         "coverage-615679b164eb4d54b8f4302a8f3b976f",
         "coverage-6194d8a6259e4ec4864ddd8bad6f5a79",
@@ -70490,6 +70528,7 @@
       "coverage-4c9766f8f74146e4b55fba8f7253bef2: evidence coverage is unknown",
       "coverage-4fe5fcc2ddd0488d9dd0d9097c272a17: evidence coverage is partial",
       "coverage-529808250fb54698ba4b715138d42a00: evidence coverage is partial",
+      "coverage-59ed46ecf3b440448050d1c01f6aeada: evidence coverage is partial",
       "coverage-5d72f7e2ddec401d85de4cb0ce8ed2aa: evidence coverage is unknown",
       "coverage-615679b164eb4d54b8f4302a8f3b976f: evidence coverage is unknown",
       "coverage-6194d8a6259e4ec4864ddd8bad6f5a79: evidence coverage is partial",

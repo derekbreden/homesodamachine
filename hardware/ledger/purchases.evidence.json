@@ -9415,7 +9415,8 @@
       "allocation_status": "all_project",
       "source_ids": [
         "src-fc21b89f674c49d8b7beb35eb29aa7e1",
-        "src-1a7e236f18734150aa122917f332f47f"
+        "src-1a7e236f18734150aa122917f332f47f",
+        "src-8944c63d978340d3baaae57ea3c6dc01"
       ]
     },
     "pur-f6aead3aafe3428fa072646852793bab": {
@@ -15732,7 +15733,8 @@
       "allocation_status": "all_project",
       "source_ids": [
         "src-fc21b89f674c49d8b7beb35eb29aa7e1",
-        "src-1a7e236f18734150aa122917f332f47f"
+        "src-1a7e236f18734150aa122917f332f47f",
+        "src-8944c63d978340d3baaae57ea3c6dc01"
       ]
     },
     "fws:WEBFWS100716314": {
@@ -33680,6 +33682,19 @@
       "proves": [],
       "verified_at": "2026-11-11",
       "note": "Shipment notification identifies the existing tap-wrench order and repeats the USD 6.42 total. Shipment is confirmed. The relative arrival estimate does not establish an actual delivery day, and shipment does not prove a completed merchant charge. No new purchase or payment is created."
+    },
+    "src-8944c63d978340d3baaae57ea3c6dc01": {
+      "vendor": "Bambu Lab",
+      "document_type": "carrier_rescheduled_delivery_estimate",
+      "reference": "us795729195777990656",
+      "document_date": null,
+      "notification_date": {
+        "precision": "day",
+        "value": "2026-11-10"
+      },
+      "proves": [],
+      "verified_at": "2026-11-11",
+      "note": "UPS rescheduled-delivery notification gives Thursday 2026-11-12, between 10:30 AM and 2:30 PM as displayed. The vendor shipment notification directly joins the carrier tracking identity to this order and its three PETG Basic spools. This is an estimated arrival only, not actual delivery or payment evidence."
     }
   },
   "coverage": [
@@ -35666,6 +35681,27 @@
         "amazon:112-1175582-2386612"
       ],
       "note": "Exact-reference Gmail search returned one confirmation with no further pages. Signed-in order details establish identity, placed date and estimated-tax total. Order-scoped merchant lookup shows no transactions yet; actual delivery and exact M3 washer conformity remain unverified."
+    },
+    {
+      "coverage_id": "coverage-59ed46ecf3b440448050d1c01f6aeada",
+      "vendor": "Bambu Lab",
+      "stream": "one named in-transit filament order",
+      "evidence_type": "vendor_shipment_and_carrier_delivery_estimate",
+      "checked_at": "2026-11-11",
+      "examined_period": {
+        "start": "2026-11-08",
+        "end": "2026-11-11"
+      },
+      "complete_period": null,
+      "coverage": "partial",
+      "source_ids": [
+        "src-1a7e236f18734150aa122917f332f47f",
+        "src-8944c63d978340d3baaae57ea3c6dc01"
+      ],
+      "order_ids": [
+        "bambu:us795729195777990656"
+      ],
+      "note": "Exact order and tracking-reference email searches exhausted. Vendor shipment identity matched directly to carrier notices; latest retrieved carrier notice schedules estimated delivery for 2026-11-12. No actual delivery or completed merchant charge established."
     }
   ],
   "gaps": [
