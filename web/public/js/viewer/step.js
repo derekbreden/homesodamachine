@@ -470,7 +470,8 @@ export async function loadStepFile(file, { preserveCamera = false, target = null
       state.currentGroup.userData.failedParts = result.errors;
       state.currentGroup.userData.sceneLoading = false;
       if (result.errors.length) console.warn('Parts retain their last available geometry:',result.errors);
-      if (!preserveCamera && !state.currentGroup.userData.focusedTarget) resetCamera(state.currentGroup);
+      const { focusedTarget, instanceView } = state.currentGroup.userData;
+      if (!preserveCamera && !focusedTarget && !instanceView) resetCamera(state.currentGroup);
       const style=faucetStyleFor(file);
       if (style) {state.faucetStyle=style.id;window.dispatchEvent(new CustomEvent(HSM_EVENTS.FAUCET_OPTIONS));}
       if (location.component) window.dispatchEvent(new CustomEvent(HSM_EVENTS.MATERIAL_PICKED,{detail:{file,name:location.component}}));
