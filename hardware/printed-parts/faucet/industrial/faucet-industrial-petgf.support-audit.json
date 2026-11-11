@@ -1565,7 +1565,7 @@
   "tip_rim_contour": {
     "added_commanded_motion_seconds": 60.93353840707162,
     "arc_count": 127,
-    "archive_sha256": "2982ae017cf5b8c8ce7827477e7ab10ef8344c43c8a7fccad0d8c78834acf677",
+    "archive_sha256": "e13af5d68e55fe4439ee729d948cff9dd6960de094baf6cfa48319672f7b203b",
     "emitted_contact_segments": 449,
     "extrusion_added_mm": 2.842010457214805,
     "extrusion_removed_mm": 2.6340449171204017,
@@ -1594,7 +1594,7 @@
   "wall_loops": 2,
   "executable": {
     "archive": "hardware/printed-parts/faucet/industrial/faucet-industrial-petgf.gcode.3mf",
-    "archive_sha256": "2982ae017cf5b8c8ce7827477e7ab10ef8344c43c8a7fccad0d8c78834acf677",
+    "archive_sha256": "e13af5d68e55fe4439ee729d948cff9dd6960de094baf6cfa48319672f7b203b",
     "member": "Metadata/plate_1.gcode",
     "gcode_sha256": "ac8d5a77362beaa2b0964218c0f2382c3b672209a3de1d88ab475470966f590d"
   },
@@ -1603,13 +1603,13 @@
     "project": "hardware/printed-parts/faucet/industrial/faucet-industrial-petgf.3mf",
     "project_sha256": "74e5e7d3d9ed6e50e020c383511a145b0741926df96bc04ab53009dd953e7e58",
     "archive": "hardware/printed-parts/faucet/industrial/faucet-industrial-petgf.gcode.3mf",
-    "archive_sha256": "2982ae017cf5b8c8ce7827477e7ab10ef8344c43c8a7fccad0d8c78834acf677",
+    "archive_sha256": "e13af5d68e55fe4439ee729d948cff9dd6960de094baf6cfa48319672f7b203b",
     "member": "Metadata/plate_1.gcode",
     "gcode_sha256": "ac8d5a77362beaa2b0964218c0f2382c3b672209a3de1d88ab475470966f590d",
     "contact": {
       "added_commanded_motion_seconds": 60.93353840707162,
       "arc_count": 127,
-      "archive_sha256": "2982ae017cf5b8c8ce7827477e7ab10ef8344c43c8a7fccad0d8c78834acf677",
+      "archive_sha256": "e13af5d68e55fe4439ee729d948cff9dd6960de094baf6cfa48319672f7b203b",
       "emitted_contact_segments": 449,
       "extrusion_added_mm": 2.842010457214805,
       "extrusion_removed_mm": 2.6340449171204017,
