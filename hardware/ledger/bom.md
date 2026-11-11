@@ -144,7 +144,7 @@ The soda inlet bend holder is PET-GF with the accepted 2 mm wall, 3 mm legs and 
 | Collet press — install-kit customer tool | 1 | PET-GF | 0.017 | $0.44 <!--@printed--><!--parts HSM-0372--> |
 | Nameplate — one per unit, serialized | 1 | PET-GF (black + white) | 0.027 | $0.69 <!--@printed--><!--parts HSM-0069--> |
 | Fuse clamp | 1 | PETG | 0.005 | $0.06 <!--@printed--><!--parts HSM-0041--> |
-| Faucet shell (2-piece: base + tip) | 1 | PET-GF | 0.105 | $2.63 <!--@printed--><!--parts HSM-0094:76.1 HSM-0095:29.2 HSM-0113:80.3--> |
+| Faucet shell (2-piece: base + tip) | 1 | PET-GF | 0.105 | $2.63 <!--@printed--><!--parts HSM-0094:76.1 HSM-0095:29.2 HSM-0113:80.3 HSM-0581:29.6--> |
 | Faucet display cover plate | 1 | PET-GF | 0.006 | $0.14 <!--@printed--><!--parts HSM-0096 HSM-0114--> |
 | Above-counter plate | 1 | PET-GF | 0.009 | $0.22 <!--@printed--><!--parts HSM-0092 HSM-0111--> |
 | Faucet lever | 1 | PET-GF | 0.004 | $0.09 <!--@printed--><!--parts HSM-0268--> |

@@ -5,6 +5,7 @@
 use crate::legs::{self, path};
 use crate::{Variant, metrics, ribbon};
 use anyhow::{Context, Result, bail, ensure};
+use hsm_build_data::payload;
 use hsm_faucet::{p3, wrapped};
 use hsm_faucet_assembly_numbers::*;
 use hsm_faucet_numbers::interface::*;
@@ -59,6 +60,16 @@ fn part(step: &str, at: V3) -> Result<Solid> {
     Ok(Solid::compose(&bodies.into_iter().map(|b| b.solid).collect::<Vec<_>>()).translate(at))
 }
 
+/// The approved analytic STEP's matching fine payload, in its installed frame.
+fn approved_part(step: &str) -> Result<Solid> {
+    let digest = payload::digest(step)?;
+    hsm_kernel::reads::digest(FilePath::new(step), &digest);
+    let mesh = format!("{step}.mesh");
+    ensure!(payload::header(&mesh)?["src"].as_str() == Some(&digest), "{mesh} differs from {step}");
+    let bodies = import::payload(mesh)?;
+    Ok(Solid::compose(&bodies.into_iter().map(|b| b.solid).collect::<Vec<_>>()))
+}
+
 /// An M3 socket-head screw where it seats under the base: its thread a plain shaft, its hex
 /// socket cut up into the head from just below its underside.
 fn screw(x: f64, y: f64) -> Result<Solid> {
@@ -82,7 +93,7 @@ fn rounded(width: f64, length: f64, r: f64, z0: f64, z1: f64) -> Result<Solid> {
 /// The display and its screen on the tip: the housing on its PCB with the components under it
 /// and the screen's recess in its face, drawn in the display's own frame, then turned down the
 /// tip and set on the feet pads.
-fn display() -> Result<(Solid, Solid)> {
+fn display(variant: Variant) -> Result<(Solid, Solid)> {
     let components: Value = serde_json::from_slice(&read(DISPLAY_COMPONENTS)?)?;
     let buttons: Value = serde_json::from_slice(&read(DISPLAY_BUTTONS)?)?;
     let buttons = buttons["buttons"].as_array().context("the display's buttons")?;
@@ -121,7 +132,7 @@ fn display() -> Result<(Solid, Solid)> {
     let along = DISPLAY_HOUSING_LENGTH / 2.0 + shell::display_s_bottom() + shell::DISPLAY_CRADLE_CLEARANCE;
     let mut seat = [0.0; 3];
     for i in 0..3 {
-        seat[i] = end[i] + normal[i] * shell::DISPLAY_FEET_N;
+        seat[i] = end[i] + normal[i] * variant.display_feet_n();
         seat[i] += up[i] * along;
     }
     let on_tip = |s: &Solid| s.rotate(V3::ZERO, V3::X, turn).translate(p3(seat));
@@ -229,7 +240,7 @@ fn printed(variant: Variant) -> [(&'static str, &'static str); 4] {
             ("shell_base", "hardware/printed-parts/faucet/industrial/industrial-shell-base.step"),
             ("above_counter_plate", "hardware/printed-parts/faucet/industrial/industrial-above-counter-plate.step"),
             ("above_counter_gasket", "hardware/printed-parts/faucet/industrial/industrial-above-counter-gasket.step"),
-            ("faucet-display-cover-seated", "hardware/printed-parts/faucet/industrial/industrial-display-cover-seated.step"),
+            ("faucet-display-cover-seated", "hardware/printed-parts/faucet/industrial/industrial-production-display-cover-seated.step"),
         ],
     }
 }
@@ -261,8 +272,13 @@ pub fn bodies(variant: Variant) -> Result<Vec<Shown>> {
     add(plate.0, faucet_black, part(plate.1, V3::ZERO)?);
     add(gasket.0, tpu, part(gasket.1, V3::ZERO)?);
     add(base.0, faucet_black, part(base.1, V3::ZERO)?);
-    add("shell_tip", faucet_black, part("hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.step", V3::ZERO)?);
-    add(cover.0, faucet_black, part(cover.1, V3::ZERO)?);
+    let tip_step = format!("hardware/printed-parts/faucet/{}", variant.tip_step());
+    let (tip, seated_cover) = match variant {
+        Variant::Sculpted => (part(&tip_step, V3::ZERO)?, part(cover.1, V3::ZERO)?),
+        Variant::Industrial => (approved_part(&tip_step)?, approved_part(cover.1)?),
+    };
+    add("shell_tip", faucet_black, tip);
+    add(cover.0, faucet_black, seated_cover);
     let brass = catalog::color("M_BRASS");
     for (i, [x, y]) in shell::BASE_POD_CENTERS.iter().enumerate() {
         add(&format!("base_screw_{}", i + 1), donor, screw(*x, *y)?);
@@ -270,10 +286,10 @@ pub fn bodies(variant: Variant) -> Result<Vec<Shown>> {
         let insert = annulus(v2(*x, *y), shell::BASE_INSERT_OUTER_DIA / 2.0, BASE_INSERT_INNER_R, z0, z0 + shell::BASE_INSERT_LENGTH)?;
         add(&format!("base_insert_{}", i + 1), brass, insert);
     }
-    let (display, screen) = display()?;
+    let (display, screen) = display(variant)?;
     add("faucet_display", catalog::color("C_FAUCET_DISPLAY"), display);
     add("faucet_display_screen", catalog::color("C_FAUCET_DISPLAY_GLASS"), screen);
-    add("display_signal_ribbon", catalog::color("M_SILICONE_BLACK"), ribbon::ribbon()?);
+    add("display_signal_ribbon", catalog::color("M_SILICONE_BLACK"), ribbon::ribbon(variant)?);
     let hole = Loop::circle(v2(0.0, countertop::hole_center_y()), countertop::HOLE_RADIUS);
     let slab = level(countertop::BOTTOM_Z).extrude(&Profile::rect(v2(0.0, 0.0), countertop::SLAB, countertop::SLAB).with_hole(hole), countertop::TOP_Z - countertop::BOTTOM_Z)?;
     // The kitchen's slab is context, not a part.
