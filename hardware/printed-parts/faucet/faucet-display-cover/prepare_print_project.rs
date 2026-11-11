@@ -9,7 +9,7 @@
 
 use anyhow::{bail, Context, Result};
 use hsm_print_prep::json::{python_number, Json};
-use hsm_print_prep::profile::{relative, SETTINGS_MEMBER};
+use hsm_print_prep::profile::{petgf_infill_pattern, relative, SETTINGS_MEMBER};
 use hsm_print_prep::refresh::{self, Part};
 use hsm_print_prep::{root, sha256_hex, xml};
 use serde_json::{json, Value};
@@ -71,7 +71,11 @@ fn main() -> Result<()> {
     let colour = colour.unwrap_or_else(|| recipe["filament_colour"].as_str().unwrap_or("#161616").to_string());
     r.plate.settings.set("filament_colour", Json::List(vec![Json::Text(colour)]));
     let mut changes = r.profile.changes.clone();
-    for (key, value) in [("initial_layer_print_height", text(&recipe["first_bed_layer_height_mm"])), ("layer_height", text(&recipe["layer_height_mm"]))] {
+    for (key, value) in [
+        ("initial_layer_print_height", text(&recipe["first_bed_layer_height_mm"])),
+        ("layer_height", text(&recipe["layer_height_mm"])),
+        ("sparse_infill_pattern", petgf_infill_pattern(&root)?),
+    ] {
         let old = r.plate.settings.get(key).cloned().unwrap_or(Json::Null);
         if old != Json::Text(value.clone()) {
             changes.insert(key.into(), json!({"from": old.to_value(), "to": value}));

@@ -19,7 +19,7 @@ use hsm_print_prep::faucet::{add_common_base_rim, add_tip_root_anchor, apply_ove
 use hsm_print_prep::faucet_contact::{add_tip_dispense_contact, add_tip_rim_contact, apply_rim_contour, apply_tip_rim_contour, ContactBand};
 use hsm_print_prep::faucet_recesses::block_plate_counterbores;
 use hsm_print_prep::json::{python_number, Json};
-use hsm_print_prep::profile::{cooling_hook, relative, SETTINGS_MEMBER};
+use hsm_print_prep::profile::{cooling_hook, petgf_infill_pattern, relative, SETTINGS_MEMBER};
 use hsm_print_prep::refresh::{self, Part, Refreshed, Region};
 use hsm_print_prep::rim_contour::RimSpec;
 use hsm_print_prep::{cooling, root, sha256_hex, slice, xml};
@@ -176,6 +176,7 @@ fn main() -> Result<()> {
     let settings = &mut r.plate.settings;
     let original_colour = settings.get("filament_colour").map(Json::to_value);
     settings.set("filament_colour", texts(&[colour.clone()]));
+    settings.set("sparse_infill_pattern", Json::Text(petgf_infill_pattern(&root)?));
     for (key, value) in finish["filament_overrides"].as_object().into_iter().flatten() {
         let mut items = as_texts(settings.get(key).with_context(|| format!("the profile has no {key}"))?);
         if items.is_empty() {
@@ -242,10 +243,10 @@ fn main() -> Result<()> {
 
     // What the profile may change: the trim, its printer identity and that identity's
     // compatibility, the colour, the filament overrides, the layers, the overhang recipe and the
-    // shared support recipe and cooling stage with its hook.
+    // shared infill and support settings and cooling stage with its hook.
     let before_settings: Value = serde_json::from_slice(&preserved[SETTINGS_MEMBER])?;
     let after_settings = r.plate.settings.to_value();
-    let mut allowed: Vec<String> = ["machine_start_gcode", "printer_settings_id", "print_compatible_printers", "filament_colour", "post_process"]
+    let mut allowed: Vec<String> = ["machine_start_gcode", "printer_settings_id", "print_compatible_printers", "filament_colour", "post_process", "sparse_infill_pattern"]
         .iter().map(|s| s.to_string()).collect();
     allowed.extend(finish["filament_overrides"].as_object().into_iter().flatten().map(|(k, _)| k.clone()));
     allowed.extend(overhang_changes.keys().cloned());
@@ -268,9 +269,9 @@ fn main() -> Result<()> {
     let layer_height: f64 = text(&after_settings["layer_height"]).parse()?;
     let first_layer: f64 = text(&after_settings["initial_layer_print_height"]).parse()?;
     let mut changes = r.profile.changes.clone();
-    for (key, _) in finish["filament_overrides"].as_object().into_iter().flatten() {
+    for key in finish["filament_overrides"].as_object().into_iter().flatten().map(|(key, _)| key.as_str()).chain(["sparse_infill_pattern"]) {
         if before_settings.get(key) != after_settings.get(key) {
-            changes.insert(key.clone(), json!({"from": before_settings.get(key), "to": after_settings.get(key)}));
+            changes.insert(key.to_owned(), json!({"from": before_settings.get(key), "to": after_settings.get(key)}));
         }
     }
     changes.extend(overhang_changes);
@@ -286,7 +287,7 @@ fn main() -> Result<()> {
         source_sha.insert(relative(&path, &root), json!(file_sha(&path)?));
     }
     for path in ["tools/hsm/print-prep/src/faucet.rs", "tools/hsm/print-prep/src/faucet_contact.rs",
-        "tools/hsm/print-prep/src/faucet_recesses.rs", "tools/hsm/print-prep/src/rim_contour.rs"] {
+        "tools/hsm/print-prep/src/faucet_recesses.rs", "tools/hsm/print-prep/src/profile.rs", "tools/hsm/print-prep/src/rim_contour.rs"] {
         source_sha.insert(path.into(), json!(file_sha(&root.join(path))?));
     }
     for key in ["base_rim_supports", "tip_supports"] {

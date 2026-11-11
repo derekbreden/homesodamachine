@@ -58,6 +58,14 @@ fn filament_member(name: &str) -> bool {
     name.starts_with("Metadata/filament_settings_") && name.ends_with(".config")
 }
 
+/// The shared PET-GF pattern for ordinary sparse infill in an accepted print recipe.
+pub fn petgf_infill_pattern(root: &Path) -> Result<String> {
+    let members = read_members(&root.join(PETGF_PROFILE))?;
+    let payload = members.get(SETTINGS_MEMBER).context("no shared PET-GF settings")?;
+    let settings = Json::parse(std::str::from_utf8(payload)?)?;
+    Ok(settings.first_text("sparse_infill_pattern").context("no shared PET-GF infill pattern")?.to_string())
+}
+
 /// Current PET-GF contact and bridge defaults, including when a preparer takes its other
 /// settings from an accepted print. Part-specific support geometry and later trial overrides
 /// remain the preparer's responsibility.
