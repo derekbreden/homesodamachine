@@ -46,7 +46,10 @@ cooling and printer calibration. The [contact comparison](https://github.com/der
 reads the emitted interface and model bead envelopes; it does not measure
 molten material or removal force.
 
-The [completed nonplanar comparison](https://github.com/derekbreden/homesodamachine/blob/b06ab316f6c796a314a30f0dc8ffda66113b2e4e/hardware/print-tests/petgf-dense-roofs/inclines/prints/2026-11-10-faucet-nonplanar-gap024-widebands-mark1/physical-result/physical-result.json) records an improved underside, waves along the outer rim and supports trapped in the insert recesses. The [active Mark1 trial](prints/2026-11-10-faucet-nonplanar-rim-fins-mark1/print-job.json) carries one dense interface across the trees and segmented outer fins. The insert shoulders and blind pilot roofs bridge with clear recesses. Read the common roof and cavity paths in the [trial record](prints/2026-11-10-faucet-nonplanar-rim-fins-mark1/README.md).
+The [stopped rim-fin trial](https://github.com/derekbredensteiner/homesodamachine/blob/b388123d2ac2fdc31fd091f980334b9c99443ab8/hardware/print-tests/petgf-dense-roofs/inclines/prints/2026-11-10-faucet-nonplanar-rim-fins-mark1/physical-result/physical-result.json) records the dense
+interface and trees releasing together with open heat-insert pockets.
+The [current Mark1 trial](prints/2026-11-11-faucet-trees-only-mark1/print-job.json) uses trees, a dense roof,
+a perimeter that follows the suspended rim, and bridged insert pockets.
 
 The installed slicer's [style selection](https://raw.githubusercontent.com/bambulab/BambuStudio/v02.08.02.61/src/libslic3r/Support/SupportParameters.hpp)
 resolves Default to Organic for these fixed-height, non-soluble tree supports.
