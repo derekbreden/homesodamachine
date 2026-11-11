@@ -1,0 +1,19 @@
+{
+  "changed_container_entries": [
+    "3D/3dmodel.model",
+    "Metadata/model_settings.config"
+  ],
+  "gcode_byte_identical": true,
+  "gcode_sha256": {
+    "Metadata/plate_1.gcode": "77818c5eb14f874c233a008dfb6bcfe77f5a5876a9d6e650cf071b1e6ba9b89e"
+  },
+  "omitted_editable_geometry_entries": [
+    "3D/Objects/object_1.model",
+    "3D/_rels/3dmodel.model.rels",
+    "Metadata/cut_information.xml"
+  ],
+  "print_only_archive": "hardware/print-tests/petgf-dense-roofs/inclines/prints/2026-11-10-faucet-nonplanar-gap024-widebands-mark1/faucet-nonplanar-gap024-widebands-left04-z018-mark1-print-only.gcode.3mf",
+  "print_only_archive_sha256": "36ba31ebd56b3934ff89747d92d8ab8a384ba066a3f91ae6eda673dd756dd45c",
+  "source_archive": "hardware/print-tests/petgf-dense-roofs/inclines/prints/2026-11-10-faucet-nonplanar-gap024-widebands-mark1/faucet-nonplanar-gap024-widebands-left04-z018-mark1.gcode.3mf",
+  "source_archive_sha256": "62ba873ffde72455d37fad9eb7eb3c248646ead2c2cefb19702c004f53d449ba"
+}
