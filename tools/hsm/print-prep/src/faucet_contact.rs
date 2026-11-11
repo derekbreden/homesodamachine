@@ -13,6 +13,7 @@ use crate::ids::md5_hex;
 use crate::mesh::{bounds, Mesh};
 use crate::project::{Object, Paint, Plate};
 use crate::refresh::Refreshed;
+use crate::rim_contour::{self, RimSpec};
 use crate::{apply, sha256_hex};
 use hsm_faucet_numbers::{paths::TOTAL_ANGLE, shell::DISPENSE_FACE_THICKNESS};
 
@@ -22,6 +23,7 @@ const GCODE: &str = "Metadata/plate_1.gcode";
 const REVIEW: &str = "Metadata/hsm_nonplanar_contact.json";
 
 pub struct ContactBand {
+    name: Option<String>,
     surface: Surface,
     bounds: [[f64; 2]; 2],
     edge: f64,
@@ -141,6 +143,7 @@ impl ContactBand {
             Surface::Plane { normal, seat: serde_json::from_value(spec["seat_plate_mm"].clone())? }
         };
         let band = Self {
+            name: spec["name"].as_str().map(str::to_owned),
             surface,
             bounds: serde_json::from_value(spec["bounds_mm"].clone())?,
             edge: spec["edge_blend_mm"].as_f64().context("contact band edge blend")?,
@@ -223,6 +226,28 @@ impl ContactBand {
         p
     }
 
+    fn mapped_z_bounds(&self) -> [f64; 2] {
+        let [low, high] = match &self.surface {
+            Surface::HeightField(field) => field.range,
+            Surface::Plane { .. } => {
+                let mut extent = [f64::INFINITY, f64::NEG_INFINITY];
+                for x in self.bounds.map(|corner| corner[0]) {
+                    for y in self.bounds.map(|corner| corner[1]) {
+                        let z = self.face_z([x, y, 0.]);
+                        extent = [extent[0].min(z), extent[1].max(z)];
+                    }
+                }
+                extent
+            }
+        };
+        let release = match &self.surface {
+            Surface::HeightField(HeightField { release: Some(release), .. }) => release.depth,
+            _ => 0.,
+        };
+        let padding = self.period / 4. + release;
+        [low + self.zero[0] - padding, high + self.zero[1] + padding]
+    }
+
     fn mesh_knot(&self, p: Point, q: Point) -> Option<Point> {
         if !self.refine_interiors || !matches!(self.surface, Surface::Plane { .. }) {
             return None;
@@ -285,17 +310,21 @@ impl ContactBand {
         Self::slice_bands(plate, &[(object, self)], project, directory, slicer)
     }
 
-    /// Slice a plate with contact regions on distinct objects in the same native run.
+    /// Slice disjoint contact regions in the same native run, retaining their application order.
     pub fn slice_bands(plate: &mut Plate, scopes: &[(usize, &Self)], project: &Path, directory: &Path,
                        slicer: &Path) -> Result<Value> {
         ensure!(!directory.exists() || fs::read_dir(directory)?.next().is_none(),
             "the contact slice directory must be empty");
         ensure!(!scopes.is_empty(), "the contact slice needs a contact region");
         for (i, (object, band)) in scopes.iter().enumerate() {
+            let z = band.mapped_z_bounds();
             ensure!(scopes[..i].iter().all(|(other, their_band)| {
-                other != object && (0..2).any(|axis| band.bounds[0][axis] >= their_band.bounds[1][axis]
-                    || band.bounds[1][axis] <= their_band.bounds[0][axis])
-            }), "contact regions on one plate must have distinct objects and XY footprints");
+                let their_z = their_band.mapped_z_bounds();
+                let xy_disjoint = (0..2).any(|axis| band.bounds[0][axis] >= their_band.bounds[1][axis]
+                    || band.bounds[1][axis] <= their_band.bounds[0][axis]);
+                let z_disjoint = z[0] >= their_z[1] || z[1] <= their_z[0];
+                (xy_disjoint || z_disjoint) && (other != object || band.support_paint.is_none())
+            }), "contact bands must be disjoint and indexed facet paint must precede later maps on its object");
         }
         let native = directory.join("mapped-slice");
         fs::create_dir_all(&native)?;
@@ -304,7 +333,9 @@ impl ContactBand {
         let mut geometry = BTreeMap::new();
         for &(object, band) in scopes {
             let object = &mut plate.objects[object];
-            geometry.insert(object.name.clone(), band.warp_object(object)?);
+            let name = band.name.as_ref().unwrap_or(&object.name).clone();
+            ensure!(!geometry.contains_key(&name), "duplicate contact band name {name}");
+            geometry.insert(name, band.warp_object(object)?);
         }
         fs::write(directory.join("contact-geometry.json"), serde_json::to_vec_pretty(&geometry)?)?;
         plate.write(&source)?;
@@ -474,6 +505,82 @@ impl ContactBand {
             "added_commanded_motion_seconds": motion.added_seconds,
             "restored_extrusion_delta_mm": motion.extrusion_delta})))
     }
+}
+
+/// Locate the visible mating lip and give its outer course a continuous support target.
+pub fn add_tip_rim_contact(project: &mut Refreshed, tip: &Value, parameters: &Value) -> Result<(RimSpec, Value)> {
+    const ENFORCER_INSET: f64 = 1.35;
+    const ENFORCER_OUTSET: f64 = 0.6;
+    const ENFORCER_HALF_DEPTH: f64 = 0.7;
+    const MAPPING_MARGIN: f64 = 4.;
+    const EDGE_BLEND: f64 = 2.;
+
+    let name = tip["part"].as_str().context("tip rim part")?;
+    let row = project.row(name)?;
+    let index = row.index;
+    let object = &project.plate.objects[index];
+    let rotation = object.rotation;
+    let translation = object.translation;
+    let identify_id = object.identify_id.try_into()?;
+    let place = |p| add(apply(&rotation, sub(p, row.center)), translation);
+    let origin = place(serde_json::from_value(tip["joint_plane"]["point"].clone())?);
+    let inward = apply(&rotation, serde_json::from_value(tip["joint_plane"]["normal"].clone())?);
+    ensure!(inward[0].abs() < 1e-6 && inward[1] > 0. && inward[2] > 0.5,
+        "tip rim needs a downward-facing lip with its seat rotated about plate X");
+    let outward = scale(inward, -1.);
+    let along = cross(inward, [1., 0., 0.]);
+    let points: Vec<_> = row.mesh.vertices.iter().copied().map(place).collect();
+    let planes = parallel_faces(&points, &row.mesh.faces, outward);
+    let joint = planes.iter().filter(|plane| plane.downward && (plane.offset - dot(origin, outward)).abs() < 0.002)
+        .max_by(|a, b| a.area.total_cmp(&b.area)).context("downward mating lip")?;
+    let loops = boundary_loops(&joint.faces, &points)?;
+    let rim = loops.iter().max_by(|a, b| polygon_area(a, outward).abs().total_cmp(&polygon_area(b, outward).abs()))
+        .context("tip lip exterior boundary")?;
+    let uv: Vec<_> = rim.iter().map(|&p| {
+        let q = sub(p, origin);
+        [q[0], dot(q, along), 0.]
+    }).collect();
+    let (lo, hi) = bounds(&uv);
+    let mid = mix(lo, hi, 0.5);
+    let radius = uv.iter().map(|&p| distance(p, mid)).sum::<f64>() / uv.len() as f64;
+    ensure!(radius > ENFORCER_INSET && uv.iter().all(|&p| (distance(p, mid) - radius).abs() < 0.012),
+        "tip lip exterior differs from a round perimeter");
+    let center = add(add(origin, [mid[0], 0., 0.]), scale(along, mid[1]));
+    let center = add(center, scale(outward, joint.offset - dot(center, outward)));
+    let lip_faces = joint.faces.len();
+
+    let inverse = [0, 1, 2].map(|axis| [0, 1, 2].map(|other| rotation[other][axis]));
+    let radial = [radius - ENFORCER_INSET, radius + ENFORCER_OUTSET];
+    let count = rim.len();
+    let mut vertices = Vec::with_capacity(count * 4);
+    let mut faces = Vec::with_capacity(count * 8);
+    for i in 0..count {
+        let (sin, cos) = (std::f64::consts::TAU * i as f64 / count as f64).sin_cos();
+        let ray = add([cos, 0., 0.], scale(along, sin));
+        for (r, height) in [(radial[0], -1.), (radial[1], -1.), (radial[1], 1.), (radial[0], 1.)] {
+            let p = add(add(center, scale(ray, r)), scale(inward, height * ENFORCER_HALF_DEPTH));
+            vertices.push(apply(&inverse, sub(p, translation)));
+        }
+        for j in 0..4 {
+            let next = (i + 1) % count;
+            let k = (j + 1) % 4;
+            faces.extend([[4 * i + j, 4 * next + j, 4 * next + k], [4 * i + j, 4 * next + k, 4 * i + k]]);
+        }
+    }
+    let enforcer = "Mating lip support roof";
+    let mesh = Mesh { vertices, faces };
+    mesh.check_closed_single_body(enforcer)?;
+    let id = project.plate.add_part(index, enforcer, mesh.vertices, mesh.faces, "support_enforcer", Vec::new(), None);
+    let contour = RimSpec {
+        identify_id, center_mm: center, seat_fall_angle_degrees: inward[1].atan2(inward[2]).to_degrees(),
+        semi_axes_mm: [radius; 2], supported_angles_degrees: [0., 360.],
+    };
+    let window = [-1., 1.].map(|sign| [0, 1].map(|axis| center[axis] + sign * (radius + MAPPING_MARGIN)));
+    let band = json!({"name": "faucet-shell-tip mating lip", "parameters": parameters,
+        "plane_normal": outward, "seat_plate_mm": center, "bounds_mm": window, "edge_blend_mm": EDGE_BLEND,
+        "refine_mesh_interiors": true});
+    Ok((contour, json!({"part": name, "band": band, "roof_enforcer_part_id": id,
+        "enforcer_radii_mm": radial, "rim_radius_mm": radius, "lip_face_count": lip_faces})))
 }
 
 /// Find the supported back of the dispense face and keep the beverage aperture clear.
@@ -696,17 +803,32 @@ fn scale(point: Point, factor: f64) -> Point {
     point.map(|component| component * factor)
 }
 
-/// Apply the supported first perimeter to the restored slice, retaining the input for review.
-pub fn apply_rim_contour(project: &Path, directory: &Path, spec: crate::rim_contour::RimSpec) -> Result<Value> {
+/// Apply the base's first perimeter to the restored slice, retaining the input for review.
+pub fn apply_rim_contour(project: &Path, directory: &Path, spec: RimSpec) -> Result<Value> {
+    apply_contour(project, directory, spec, "rim", |source, output| rim_contour::apply(source, output, spec))
+}
+
+/// Apply the tip's first perimeter in the native layer schedule of its restored mating lip.
+pub fn apply_tip_rim_contour(project: &Path, directory: &Path, spec: RimSpec, band: &ContactBand) -> Result<Value> {
+    apply_contour(project, directory, spec, "tip-rim", |source, output| {
+        rim_contour::apply_tip(source, output, spec, &|p| band.mapped(p)[2], band.z_print_feed)
+    })
+}
+
+fn apply_contour(
+    project: &Path, directory: &Path, spec: RimSpec, name: &str,
+    contour: impl FnOnce(&Path, &Path) -> std::io::Result<rim_contour::ContourReport>,
+) -> Result<Value> {
     let archive_name = format!("{}.gcode.3mf", project.file_stem().context("rim project stem")?.to_string_lossy());
     let archive = directory.join(archive_name);
     let raw = directory.join("plate_1.gcode");
     let prior = directory.join("mapped-slice");
-    let source = prior.join("restored-before-contour.gcode");
+    let stem = if name == "rim" { "restored-before-contour".to_owned() } else { format!("restored-before-{name}-contour") };
+    let source = prior.join(format!("{stem}.gcode"));
     fs::copy(&raw, &source)?;
-    fs::copy(&archive, prior.join("restored-before-contour.gcode.3mf"))?;
-    let output = prior.join("rim-contour.gcode");
-    let reading = crate::rim_contour::apply(&source, &output, spec)?;
+    fs::copy(&archive, prior.join(format!("{stem}.gcode.3mf")))?;
+    let output = prior.join(format!("{name}-contour.gcode"));
+    let reading = contour(&source, &output)?;
     ensure!(reading.emitted_contact_segments > 0 && reading.modified_native_paths > 0,
         "the selected full faucet has no supported first perimeter replacement");
     let gcode = fs::read(&output)?;
@@ -725,7 +847,7 @@ pub fn apply_rim_contour(project: &Path, directory: &Path, spec: crate::rim_cont
     let mut replaced = BTreeMap::from([
         (format!("{GCODE}.md5"), md5_hex(&gcode).into_bytes()),
         (GCODE.into(), gcode),
-        ("Metadata/hsm_rim_contour.json".into(), serde_json::to_vec_pretty(&report)?),
+        (format!("Metadata/hsm_{}_contour.json", name.replace('-', "_")), serde_json::to_vec_pretty(&report)?),
     ]);
     replace_prediction(&mut zip, &mut replaced, reading.estimated_motion_delta_seconds)?;
     write_archive(zip, replaced, &archive, false)?;
@@ -733,7 +855,7 @@ pub fn apply_rim_contour(project: &Path, directory: &Path, spec: crate::rim_cont
     let result = directory.join("result.json");
     write_motion_result(&result, &result, reading.estimated_motion_delta_seconds)?;
     report["archive_sha256"] = json!(sha256_hex(&fs::read(&archive)?));
-    fs::write(directory.join("rim-contour.json"), serde_json::to_vec_pretty(&report)?)?;
+    fs::write(directory.join(format!("{name}-contour.json")), serde_json::to_vec_pretty(&report)?)?;
     Ok(report)
 }
 

@@ -10,13 +10,13 @@
 //! recipe over the localized cooling, rear seams on the base, tip and plate and aligned seams on
 //! the cover and lever. The base uses a connected dense interface over Slim trees and a
 //! continuous first perimeter along the supported rim. The base's insert recesses and the plate's
-//! counterbores use bridges. The complete plate retains the reinforced foot and the tip's fins,
-//! lip trees and hidden-root disc.
+//! counterbores use bridges. The tip uses a contoured perimeter and dense trees at its
+//! mating lip and a removable disc at its hidden root.
 
 use anyhow::{bail, Context, Result};
-use hsm_print_prep::faucet::{add_common_base_rim, add_selected_tip_supports, apply_overhang_recipe, as_texts, cross, enforce_rear_seam,
+use hsm_print_prep::faucet::{add_common_base_rim, add_tip_root_anchor, apply_overhang_recipe, as_texts, cross, enforce_rear_seam,
                              file_sha, mat, members, read_json, sub, text, texts, times};
-use hsm_print_prep::faucet_contact::{add_tip_dispense_contact, apply_rim_contour, ContactBand};
+use hsm_print_prep::faucet_contact::{add_tip_dispense_contact, add_tip_rim_contact, apply_rim_contour, apply_tip_rim_contour, ContactBand};
 use hsm_print_prep::faucet_recesses::block_plate_counterbores;
 use hsm_print_prep::json::{python_number, Json};
 use hsm_print_prep::profile::{cooling_hook, relative, SETTINGS_MEMBER};
@@ -228,12 +228,14 @@ fn main() -> Result<()> {
         serde_json::from_value(plate_recesses["axial_allowance_mm"].clone())?)?;
     r.extra.insert("mounting_plate_counterbores".into(), counterbores);
     if finish["tip_supports"].is_object() {
-        let record = add_selected_tip_supports(&root, &mut r, &finish["tip_supports"])?;
+        let record = add_tip_root_anchor(&root, &mut r, &finish["tip_supports"])?;
         r.extra.insert("tip_supports".into(), record);
     }
     let parameters = r.extra["base_rim_supports"]["band"]["parameters"].clone();
     let tip_contact = add_tip_dispense_contact(&mut r, &finish["tip_dispense_contact"], &parameters)?;
     r.extra.insert("tip_dispense_contact".into(), tip_contact);
+    let (tip_rim, joint) = add_tip_rim_contact(&mut r, &finish["tip_supports"], &parameters)?;
+    r.extra.insert("tip_rim_contact".into(), joint);
     if r.rows.len() != 5 {
         bail!("the complete Industrial project needs five rigid parts on one plate");
     }
@@ -284,7 +286,7 @@ fn main() -> Result<()> {
         source_sha.insert(relative(&path, &root), json!(file_sha(&path)?));
     }
     for path in ["tools/hsm/print-prep/src/faucet.rs", "tools/hsm/print-prep/src/faucet_contact.rs",
-        "tools/hsm/print-prep/src/faucet_recesses.rs", "hardware/print-tests/petgf-dense-roofs/inclines/nonplanar/rim-contour.rs"] {
+        "tools/hsm/print-prep/src/faucet_recesses.rs", "tools/hsm/print-prep/src/rim_contour.rs"] {
         source_sha.insert(path.into(), json!(file_sha(&root.join(path))?));
     }
     for key in ["base_rim_supports", "tip_supports"] {
@@ -349,12 +351,15 @@ fn main() -> Result<()> {
             let band = ContactBand::new(&spec["band"])?;
             let tip = r.row("faucet-shell-tip")?.index;
             let dispense = ContactBand::new(&r.extra["tip_dispense_contact"]["band"])?;
-            let contact = ContactBand::slice_bands(&mut r.plate, &[(base, &band), (tip, &dispense)],
+            let joint = ContactBand::new(&r.extra["tip_rim_contact"]["band"])?;
+            let contact = ContactBand::slice_bands(&mut r.plate, &[(base, &band), (tip, &dispense), (tip, &joint)],
                 &project, &directory, &slicer)?;
             let contour = apply_rim_contour(&project, &directory, rim)?;
+            let tip_contour = apply_tip_rim_contour(&project, &directory, tip_rim, &joint)?;
             reading = refresh::slice_review(&root, &project, &report, &directory)?;
             reading["nonplanar_contact"] = contact;
             reading["rim_contour"] = contour;
+            reading["tip_rim_contour"] = tip_contour;
             std::fs::write(project.with_extension("support-audit.json"), serde_json::to_string_pretty(&reading)? + "\n")?;
         } else {
             reading = refresh::slice_and_review(&root, &project, &report, &directory, &slicer)?;

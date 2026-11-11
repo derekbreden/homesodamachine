@@ -444,65 +444,21 @@ pub fn add_common_base_rim(root: &Path, r: &mut Refreshed, selected: &Value) -> 
                  "bounds_mm": bounds, "edge_blend_mm": selected["mapping_edge_blend_mm"]}}))
 }
 
-/// The accepted tip fins and hidden-root disc, and the accepted lip support selection on the
-/// full tip's downward joint-plane facets; the tip's seams stay.
-pub fn add_selected_tip_supports(root: &Path, r: &mut Refreshed, selected: &Value) -> Result<Value> {
+/// Carry the accepted removable tip anchor beneath the hidden plug end.
+pub fn add_tip_root_anchor(root: &Path, r: &mut Refreshed, selected: &Value) -> Result<Value> {
     let source_path = root.join(selected["source_project"].as_str().context("source project")?);
     let source = members(&source_path)?;
     let (_, origin, shift, index) = origin_shift(root, r, selected)?;
     let origin_object = origin["object_id"].as_str().map(String::from).unwrap_or_else(|| origin["object_id"].to_string());
-    let mut copied = Vec::new();
-    for (key, name) in [("fin_component_id", "tip-eight-fin-walls"), ("root_anchor_component_id", "tip-hidden-root-disc")] {
-        let old = selected[key].as_i64().context("tip component")?;
-        let mut carried = carry(&source, &origin_object, old, shift)?;
-        carried.name = name.into();
-        let (member, sha) = (carried.source_member.clone(), carried.source_member_sha256.clone());
-        let id = add_carried(r, index, carried);
-        copied.push(json!({"source_component_id": old, "component_id": id, "source_member": member, "source_member_sha256": sha}));
-    }
-    let vertices = source_vertices(r, index);
-    let faces = r.plate.objects[index].faces.clone();
-    let center = r.plate.objects[index].source_center;
-    let build = r.plate.objects[index].transform_values();
-    let rotation = mat(&build);
-    let point = [0, 1, 2].map(|k| selected["joint_plane"]["point"][k].as_f64().unwrap_or(0.0));
-    let normal = [0, 1, 2].map(|k| selected["joint_plane"]["normal"][k].as_f64().unwrap_or(0.0));
-    let selection = &selected["lip_enforcer_selection"];
-    let (max_z, max_x) = (selection["maximum_build_z_mm"].as_f64().unwrap_or(0.0), selection["maximum_abs_cad_x_mm"].as_f64().unwrap_or(0.0));
-    let (mut plane_faces, mut plane_area, mut enforced_faces, mut enforced_area) = (0usize, 0.0, 0usize, 0.0);
-    let mut marks = Vec::new();
-    for (fi, f) in faces.iter().enumerate() {
-        let p = f.map(|i| vertices[i]);
-        let c = cross(sub(p[1], p[0]), sub(p[2], p[0]));
-        let length = (c[0] * c[0] + c[1] * c[1] + c[2] * c[2]).sqrt();
-        let n = c.map(|v| v / length.max(1e-20));
-        let off = p.iter().map(|q| { let d = sub(*q, point); (d[0] * normal[0] + d[1] * normal[1] + d[2] * normal[2]).abs() }).fold(0.0, f64::max);
-        let facing = -(n[0] * normal[0] + n[1] * normal[1] + n[2] * normal[2]);
-        if !(off < 0.02 && facing > 0.999) {
-            continue;
-        }
-        let centroid = [0, 1, 2].map(|k| (p[0][k] + p[1][k] + p[2][k]) / 3.0);
-        let placed = times(sub(centroid, center), &rotation);
-        let placed_z = placed[2] + build[11];
-        let enforced = placed_z < max_z && centroid[0].abs() < max_x;
-        plane_faces += 1;
-        plane_area += length / 2.0;
-        if enforced {
-            enforced_faces += 1;
-            enforced_area += length / 2.0;
-        }
-        marks.push((fi, if enforced { "4" } else { "8" }));
-    }
-    let paint = paint_of(r, index);
-    for (fi, code) in marks {
-        set_paint(&mut paint[fi], "paint_supports", code);
-    }
+    let old = selected["root_anchor_component_id"].as_i64().context("tip root anchor component")?;
+    let mut carried = carry(&source, &origin_object, old, shift)?;
+    carried.name = "tip-hidden-root-disc".into();
+    let (member, sha) = (carried.source_member.clone(), carried.source_member_sha256.clone());
+    let id = add_carried(r, index, carried);
+    let anchor = json!({"source_component_id": old, "component_id": id, "source_member": member, "source_member_sha256": sha});
     Ok(json!({"part": selected["part"], "source_project": selected["source_project"], "source_project_sha256": file_sha(&source_path)?,
-              "source_preparation": selected["source_preparation"], "physical_result": selected["physical_result"], "components": copied,
-              "fin_count": selected["fin_count"], "source_local_to_target_local_translation_mm": shift, "joint_plane": selected["joint_plane"],
-              "joint_plane_faces": plane_faces, "joint_plane_area_mm2": plane_area, "enforced_lip_faces": enforced_faces,
-              "enforced_lip_area_mm2": enforced_area, "lip_enforcer_selection": selection, "vertices_and_triangle_indices_unchanged": true,
-              "seam_paint_preserved": true, "root_contact_scope": selected["root_contact_scope"],
-              "scope": "Exact accepted fin and hidden-root-disc meshes; accepted lip support-selection geometry on the full tip tessellation. Tree(auto)/Default elsewhere. Bonded disc contact stays on the hidden male insertion end."}))
+              "source_preparation": selected["source_preparation"], "physical_result": selected["physical_result"], "components": [anchor],
+              "source_local_to_target_local_translation_mm": shift, "joint_plane": selected["joint_plane"],
+              "root_contact_scope": selected["root_contact_scope"]}))
 }
 

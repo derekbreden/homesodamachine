@@ -43,18 +43,16 @@ Ordinary supported-wall and infill speeds retain the black print's settings.
 | Part | CAD X rotation | Support treatment |
 | --- | ---: | --- |
 | Sculpted base | −15° | Slim trees carry a continuous dense interface under the rim ellipse. A local nonplanar band follows the inclined seat and the first perimeter follows its contour. Each mounting insert recess bridges its shoulder and pilot roof. |
-| Shared tip | −105° | Selected fins, seam-side lip supports and hidden-root anchor. A local nonplanar interface follows the inclined inner dispense face, with the beverage outlet kept clear. |
+| Shared tip | −105° | Slim trees carry a dense interface at the mating lip. The first outer perimeter follows the tilted rim. The inner dispense face has its own contact band and an outlet keepout. A removable disc anchors the hidden root. |
 | Sculpted cover | −50° | Saved automatic supports |
 | Matching plate | 0° | Bridge the screw counterbore shoulders and keep the shank passages open. |
 | Side-down lever | 0° of print-oriented STL | Saved automatic supports |
 
 The [shared PET-GF interface](../../petgf.3mf) forms a continuous roof on
-the base's slim trees. The base prints without a brim. The inclined contact
-treatment is bounded to the base rim and the tip's inner dispense face. The
-cover prints on its flat lower lands with support
+the base's Slim trees and a dense roof at the tip's mating lip. The base
+prints without a brim. The cover prints on its flat lower lands with support
 accessible through its open underside. The side-down lever bridges its
-channel and uses accessible support at the attachment relief. The shared tip
-uses its selected lip supports and hidden-root anchor.
+channel and uses accessible support at the attachment relief.
 
 ## Preparation and evidence
 

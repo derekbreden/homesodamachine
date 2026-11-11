@@ -6,14 +6,15 @@
 //! The five rigid parts are the faucet shell's base and tip, the display cover, the
 //! above-counter plate and the side-down lever. Their object settings, the solid foot regions
 //! and the finishing steps are the Industrial project's, by part. The Sculpted rim has
-//! a shared interface roof and clear mounting insert recesses.
+//! a shared interface roof and clear mounting insert recesses. The tip's first mating-lip
+//! perimeter follows the inclined seat above a dense tree interface.
 
 mod rim_supports;
 
 use anyhow::{bail, Context, Result};
 use hsm_faucet_numbers::shell::{FOOT_DEPTH, FOOT_WIDTH, PRINT_BASE_BUILD_ROT, PRINT_TIP_BUILD_ROT};
-use hsm_print_prep::faucet::{add_selected_tip_supports, apply_overhang_recipe, archive_members, enforce_rear_seam, file_sha, read_json, recorded_member};
-use hsm_print_prep::faucet_contact::{add_tip_dispense_contact, apply_rim_contour, ContactBand};
+use hsm_print_prep::faucet::{add_tip_root_anchor, apply_overhang_recipe, archive_members, enforce_rear_seam, file_sha, read_json, recorded_member};
+use hsm_print_prep::faucet_contact::{add_tip_dispense_contact, add_tip_rim_contact, apply_rim_contour, apply_tip_rim_contour, ContactBand};
 use hsm_print_prep::faucet_recesses::block_plate_counterbores;
 use hsm_print_prep::json::Json;
 use hsm_print_prep::profile::{cooling_hook, relative};
@@ -140,12 +141,15 @@ fn main() -> Result<()> {
     let depth_allowance = serde_json::from_value(pocket_recipe["blocker_depth_allowance_mm"].clone())?;
     let counterbores = block_plate_counterbores(&mut r, "above-counter-plate", radial_clearance, depth_allowance)?;
     r.extra.insert("mounting_plate_counterbores".into(), counterbores);
-    let tip = add_selected_tip_supports(&root, &mut r, &selection["tip_supports"])?;
+    let tip = add_tip_root_anchor(&root, &mut r, &selection["tip_supports"])?;
     r.extra.insert("tip_supports".into(), tip);
     let tip_index = r.row("faucet-shell-tip")?.index;
     let tip_contact = add_tip_dispense_contact(&mut r, &selection["tip_dispense_contact"], &contact_spec["parameters"])?;
     let tip_band_spec = tip_contact["band"].clone();
     r.extra.insert("tip_dispense_contact".into(), tip_contact);
+    let (tip_rim, joint) = add_tip_rim_contact(&mut r, &selection["tip_supports"], &contact_spec["parameters"])?;
+    let joint_band_spec = joint["band"].clone();
+    r.extra.insert("tip_rim_contact".into(), joint);
 
     let mut changes = r.profile.changes.clone();
     if let Json::Map(entries) = &r.plate.settings {
@@ -162,7 +166,7 @@ fn main() -> Result<()> {
     let rim_footprint = selection["base_rim_supports"]["source_preparation"].as_str().context("accepted fin footprint source")?;
     for p in ["hardware/printed-parts/faucet/sculpted/prepare_print_project.rs",
         "hardware/printed-parts/faucet/sculpted/rim_supports.rs",
-        "tools/hsm/print-prep/src/faucet_contact.rs", "tools/hsm/print-prep/src/faucet_recesses.rs",
+        "tools/hsm/print-prep/src/faucet.rs", "tools/hsm/print-prep/src/faucet_contact.rs", "tools/hsm/print-prep/src/faucet_recesses.rs",
         "tools/hsm/print-prep/src/rim_contour.rs",
         FINISH, PROFILE, rim_footprint].iter().map(|p| root.join(p))
         .chain(parts.iter().map(|p| p.source.clone())) {
@@ -192,11 +196,14 @@ fn main() -> Result<()> {
     if let Some(directory) = slice_output {
         let band = ContactBand::new(&contact_spec)?;
         let tip_band = ContactBand::new(&tip_band_spec)?;
-        let motion = ContactBand::slice_bands(&mut r.plate, &[(base, &band), (tip_index, &tip_band)], &project, &directory,
+        let joint = ContactBand::new(&joint_band_spec)?;
+        let motion = ContactBand::slice_bands(&mut r.plate, &[(base, &band), (tip_index, &tip_band), (tip_index, &joint)], &project, &directory,
             std::path::Path::new(slice::SLICER))?;
         let rim = apply_rim_contour(&project, &directory, contour)?;
+        let tip_contour = apply_tip_rim_contour(&project, &directory, tip_rim, &joint)?;
         report["nonplanar_motion"] = motion;
         report["rim_contour"] = rim;
+        report["tip_rim_contour"] = tip_contour;
         report["preparation_only"] = json!(false);
         std::fs::write(project.with_extension("print.json"), serde_json::to_string_pretty(&report)? + "\n")?;
     }
