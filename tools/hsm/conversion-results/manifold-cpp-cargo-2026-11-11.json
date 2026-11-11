@@ -1,0 +1,499 @@
+{
+  "purpose": "This record measures the former C++ Manifold and the published Rust Manifold on the same production workload.",
+  "source_commit": "b449e961459faed6ea5a881b5b3f444082c9a3ea",
+  "at": "2026-11-11T03:04:26.976Z",
+  "engines": {
+    "rust": {
+      "crate": "manifold-rust",
+      "version": "0.19.2",
+      "source": "crates.io",
+      "features": [
+        "parallel"
+      ]
+    },
+    "cpp": {
+      "crate": "manifold-csg",
+      "version": "0.4.1",
+      "sys_version": "3.5.105",
+      "native_version": "3.5.3",
+      "features": [
+        "parallel"
+      ],
+      "boundary_sha256": "1250e2057e7dd91492af19b4f30b1063b4a5b6d8a2ab91b025ec8872bac8e891",
+      "compiled_library_sha256": "d87e82d4121a3f1b880a37bc207d059cc879630bff30b2de7ba889028420d480",
+      "compiled_sys_sha256": "4403166e4c088b57e2836bb92ca6503c587c44e3a660b4b2ed23870b6dbc274d"
+    }
+  },
+  "method": "Both variants execute the same recipes with precompiled binaries and one frozen set of external inputs. The normal print scheduler runs two producers at a time. Each variant supplies its own outputs to dependent producers. Whole-producer and enclosure-stage cache hits are bypassed. Temporary producer paths match. Each variant keeps its own import cache between passes. The timing lease excludes other managed heavy work within each pair. Compilation and publication are outside the comparison.",
+  "memory": "Peak memory measures the largest individual producer process.",
+  "input_set_sha256": "2e6b3d38326da036b48c01b61d0e0099f1abed45ef560af837652ec579ff2922",
+  "compiler_input_set_sha256": "5fcba17f581e533fe00be95132aa9101db19cf45133bf316a4ceb2d57e858cf4",
+  "source_differences_during_measurement": [],
+  "binary_set_sha256": {
+    "rust": "1050526ecd6b16baeed13d8cf95da2f311dd905a32145e54f106e15c6063f195",
+    "cpp": "ab4e4120336f0f7c7158995438fa7649654fffc681062c073e76180e8d312330"
+  },
+  "medians": {
+    "rust": {
+      "seconds": 121.50249883349998,
+      "cpu_seconds": 293.3449999999999,
+      "peak_producer_bytes": 1035993088
+    },
+    "cpp": {
+      "seconds": 84.26908937500001,
+      "cpu_seconds": 263.295,
+      "peak_producer_bytes": 1163264000
+    }
+  },
+  "median_cpp_change_percent_of_pair": {
+    "seconds": -30.458101863322955,
+    "cpu_seconds": -10.482621681861975,
+    "peak_producer_bytes": 12.28359443234287
+  },
+  "pairs": [
+    {
+      "round": 0,
+      "rust": {
+        "pair": 0,
+        "variant": "rust",
+        "producers": 61,
+        "seconds": 139.95528604199998,
+        "cpu_seconds": 317.57,
+        "peak_producer_bytes": 1019330560,
+        "peak_producer": "enclosure-front-top"
+      },
+      "cpp": {
+        "pair": 0,
+        "variant": "cpp",
+        "producers": 61,
+        "seconds": 95.613049875,
+        "cpu_seconds": 293.46,
+        "peak_producer_bytes": 1143701504,
+        "peak_producer": "enclosure-back-top"
+      },
+      "cpp_change_percent": {
+        "seconds": -31.68314496795288,
+        "cpu_seconds": -7.592026954687158,
+        "peak_producer_bytes": 12.20123764365506
+      },
+      "output_counts": {
+        ".step": {
+          "total": 100,
+          "identical": 97
+        },
+        ".step.mesh": {
+          "total": 108,
+          "identical": 98
+        },
+        ".step.npz": {
+          "total": 108,
+          "identical": 102
+        },
+        ".stl": {
+          "total": 91,
+          "identical": 85
+        },
+        "other": {
+          "total": 47,
+          "identical": 45
+        },
+        ".glb.mesh": {
+          "total": 11,
+          "identical": 0
+        }
+      },
+      "changed_files": [
+        "hardware/assembly/scenes/glb/back-half.glb.mesh",
+        "hardware/assembly/scenes/glb/back-top.glb.mesh",
+        "hardware/assembly/scenes/glb/cap-lid-fill.glb.mesh",
+        "hardware/assembly/scenes/glb/cap-lid.glb.mesh",
+        "hardware/assembly/scenes/glb/cold-core-open.glb.mesh",
+        "hardware/assembly/scenes/glb/cold-core.glb.mesh",
+        "hardware/assembly/scenes/glb/en04-compressor-bay.glb.mesh",
+        "hardware/assembly/scenes/glb/en07-electronics-bay.glb.mesh",
+        "hardware/assembly/scenes/glb/front-top.glb.mesh",
+        "hardware/assembly/scenes/glb/funnel-drain.glb.mesh",
+        "hardware/assembly/scenes/glb/pump-mount.glb.mesh",
+        "hardware/manifold-layout/enclosure-assembly.step.mesh",
+        "hardware/printed-parts/cold-core/coil-mandrel/coil-mandrel.step",
+        "hardware/printed-parts/cold-core/coil-mandrel/coil-mandrel.step.mesh",
+        "hardware/printed-parts/cold-core/coil-mandrel/coil-mandrel.step.npz",
+        "hardware/printed-parts/cold-core/coil-mandrel/coil-mandrel.stl",
+        "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step.mesh",
+        "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.stl",
+        "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.print-features.json",
+        "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step.mesh",
+        "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl",
+        "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step.mesh",
+        "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.stl",
+        "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step.mesh",
+        "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step.npz",
+        "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl",
+        "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl.sources.json",
+        "hardware/printed-parts/enclosure/enclosure/enclosure.step.mesh",
+        "hardware/printed-parts/enclosure/enclosure/enclosure.step.npz",
+        "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-assembly.step",
+        "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-assembly.step.mesh",
+        "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-assembly.step.npz",
+        "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-base.step",
+        "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-base.step.mesh",
+        "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-base.step.npz",
+        "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-base.stl",
+        "hardware/printed-parts/soda-bend-holder/soda-bend-holder.step.mesh",
+        "hardware/printed-parts/soda-bend-holder/soda-bend-holder.step.npz"
+      ],
+      "only_cpp": [],
+      "only_rust": [],
+      "output_set_sha256": {
+        "rust": "471ab9094efd9f6cb27c7e2df5dbf9aded3981f296dde5b14eb01563057662d7",
+        "cpp": "9ffb251cf7ffa23d905fea892c861aec014dfd7f1b3b06d20ebad2b5bdc69713"
+      }
+    },
+    {
+      "round": 1,
+      "rust": {
+        "pair": 1,
+        "variant": "rust",
+        "producers": 61,
+        "seconds": 103.04971162499999,
+        "cpu_seconds": 269.1199999999999,
+        "peak_producer_bytes": 1052655616,
+        "peak_producer": "enclosure-back-top"
+      },
+      "cpp": {
+        "pair": 1,
+        "variant": "cpp",
+        "producers": 61,
+        "seconds": 72.92512887500001,
+        "cpu_seconds": 233.13000000000008,
+        "peak_producer_bytes": 1182826496,
+        "peak_producer": "enclosure-back-top"
+      },
+      "cpp_change_percent": {
+        "seconds": -29.23305875869303,
+        "cpu_seconds": -13.373216409036793,
+        "peak_producer_bytes": 12.36595122103068
+      },
+      "output_counts": {
+        ".step": {
+          "total": 100,
+          "identical": 97
+        },
+        ".step.mesh": {
+          "total": 108,
+          "identical": 98
+        },
+        ".step.npz": {
+          "total": 108,
+          "identical": 102
+        },
+        ".stl": {
+          "total": 91,
+          "identical": 85
+        },
+        "other": {
+          "total": 47,
+          "identical": 45
+        },
+        ".glb.mesh": {
+          "total": 11,
+          "identical": 0
+        }
+      },
+      "changed_files": [
+        "hardware/assembly/scenes/glb/back-half.glb.mesh",
+        "hardware/assembly/scenes/glb/back-top.glb.mesh",
+        "hardware/assembly/scenes/glb/cap-lid-fill.glb.mesh",
+        "hardware/assembly/scenes/glb/cap-lid.glb.mesh",
+        "hardware/assembly/scenes/glb/cold-core-open.glb.mesh",
+        "hardware/assembly/scenes/glb/cold-core.glb.mesh",
+        "hardware/assembly/scenes/glb/en04-compressor-bay.glb.mesh",
+        "hardware/assembly/scenes/glb/en07-electronics-bay.glb.mesh",
+        "hardware/assembly/scenes/glb/front-top.glb.mesh",
+        "hardware/assembly/scenes/glb/funnel-drain.glb.mesh",
+        "hardware/assembly/scenes/glb/pump-mount.glb.mesh",
+        "hardware/manifold-layout/enclosure-assembly.step.mesh",
+        "hardware/printed-parts/cold-core/coil-mandrel/coil-mandrel.step",
+        "hardware/printed-parts/cold-core/coil-mandrel/coil-mandrel.step.mesh",
+        "hardware/printed-parts/cold-core/coil-mandrel/coil-mandrel.step.npz",
+        "hardware/printed-parts/cold-core/coil-mandrel/coil-mandrel.stl",
+        "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step.mesh",
+        "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.stl",
+        "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.print-features.json",
+        "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step.mesh",
+        "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl",
+        "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step.mesh",
+        "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.stl",
+        "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step.mesh",
+        "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step.npz",
+        "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl",
+        "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl.sources.json",
+        "hardware/printed-parts/enclosure/enclosure/enclosure.step.mesh",
+        "hardware/printed-parts/enclosure/enclosure/enclosure.step.npz",
+        "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-assembly.step",
+        "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-assembly.step.mesh",
+        "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-assembly.step.npz",
+        "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-base.step",
+        "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-base.step.mesh",
+        "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-base.step.npz",
+        "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-base.stl",
+        "hardware/printed-parts/soda-bend-holder/soda-bend-holder.step.mesh",
+        "hardware/printed-parts/soda-bend-holder/soda-bend-holder.step.npz"
+      ],
+      "only_cpp": [],
+      "only_rust": [],
+      "output_set_sha256": {
+        "rust": "471ab9094efd9f6cb27c7e2df5dbf9aded3981f296dde5b14eb01563057662d7",
+        "cpp": "9ffb251cf7ffa23d905fea892c861aec014dfd7f1b3b06d20ebad2b5bdc69713"
+      }
+    }
+  ],
+  "print_differences": [
+    {
+      "file": "hardware/printed-parts/cold-core/coil-mandrel/coil-mandrel.stl",
+      "rust": {
+        "triangles": 199596,
+        "bounds_mm": [
+          [
+            -61.5,
+            -61.5,
+            0
+          ],
+          [
+            61.5,
+            61.5,
+            157.5
+          ]
+        ],
+        "volume_mm3": 280145.5379174023
+      },
+      "cpp": {
+        "triangles": 199596,
+        "bounds_mm": [
+          [
+            -61.5,
+            -61.5,
+            0
+          ],
+          [
+            61.5,
+            61.5,
+            157.5
+          ]
+        ],
+        "volume_mm3": 280145.53809604916
+      },
+      "sha256": {
+        "rust": "c86a274e9d881c5c3b5ad7ea0d941301c010fd0fc535266193b359a12e9e8875",
+        "cpp": "88ce9688c63c6614811545febac096fbed1c2096a9c699d1818af29e6f0c007f"
+      },
+      "bounds_delta_max_mm": 0,
+      "volume_change_percent": 6.376930095086664e-8
+    },
+    {
+      "file": "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.stl",
+      "rust": {
+        "triangles": 517360,
+        "bounds_mm": [
+          [
+            -110.5,
+            200.14999389648438,
+            -6
+          ],
+          [
+            110.5,
+            474.29998779296875,
+            174.8000030517578
+          ]
+        ],
+        "volume_mm3": 1295719.3367556487
+      },
+      "cpp": {
+        "triangles": 512512,
+        "bounds_mm": [
+          [
+            -110.5,
+            200.14999389648438,
+            -6
+          ],
+          [
+            110.5,
+            474.29998779296875,
+            174.8000030517578
+          ]
+        ],
+        "volume_mm3": 1295719.3368502331
+      },
+      "sha256": {
+        "rust": "43f0defbb90b5760f2f4342c26747e7f3c349057a146330c08057f61a75b2f0c",
+        "cpp": "a41f94b4d25fcaeb79ba06e64af1f86ee23709d0c2fc89dcd2b52a9d2bda9d51"
+      },
+      "bounds_delta_max_mm": 0,
+      "volume_change_percent": 7.299760795831389e-9
+    },
+    {
+      "file": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl",
+      "rust": {
+        "triangles": 627540,
+        "bounds_mm": [
+          [
+            -110.5,
+            200.14999389648438,
+            160.25
+          ],
+          [
+            110.5,
+            474.29998779296875,
+            355
+          ]
+        ],
+        "volume_mm3": 1556106.037383315
+      },
+      "cpp": {
+        "triangles": 627462,
+        "bounds_mm": [
+          [
+            -110.5,
+            200.14999389648438,
+            160.25
+          ],
+          [
+            110.5,
+            474.29998779296875,
+            355
+          ]
+        ],
+        "volume_mm3": 1556106.0375530936
+      },
+      "sha256": {
+        "rust": "55443c602f726c67be9705ff7e0667716bbd51adf3f6a2532599673f56234b60",
+        "cpp": "14ca155df697d912670f155000820f304a76937857d82535641505ec21a3c82b"
+      },
+      "bounds_delta_max_mm": 0,
+      "volume_change_percent": 1.0910494729898801e-8
+    },
+    {
+      "file": "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.stl",
+      "rust": {
+        "triangles": 247808,
+        "bounds_mm": [
+          [
+            -110.5,
+            2,
+            -6
+          ],
+          [
+            110.5,
+            217.8000030517578,
+            174.8000030517578
+          ]
+        ],
+        "volume_mm3": 1101015.0163693454
+      },
+      "cpp": {
+        "triangles": 245234,
+        "bounds_mm": [
+          [
+            -110.5,
+            2,
+            -6
+          ],
+          [
+            110.5,
+            217.8000030517578,
+            174.8000030517578
+          ]
+        ],
+        "volume_mm3": 1101015.0184756843
+      },
+      "sha256": {
+        "rust": "eab326ad930ab763de7f0ed97e95c8de07c29dd1f5801c780a6aee5cabaf042c",
+        "cpp": "7eb9455df0f38d96e9edd78384e98b5ac11a2dbfbb43dacf7eab3a378d1360a6"
+      },
+      "bounds_delta_max_mm": 0,
+      "volume_change_percent": 1.913088354399406e-7
+    },
+    {
+      "file": "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl",
+      "rust": {
+        "triangles": 384504,
+        "bounds_mm": [
+          [
+            -110.5,
+            2,
+            160.25
+          ],
+          [
+            110.5,
+            217.8000030517578,
+            355
+          ]
+        ],
+        "volume_mm3": 2575538.019620031
+      },
+      "cpp": {
+        "triangles": 384522,
+        "bounds_mm": [
+          [
+            -110.5,
+            2,
+            160.25
+          ],
+          [
+            110.5,
+            217.8000030517578,
+            355
+          ]
+        ],
+        "volume_mm3": 2575538.0191429597
+      },
+      "sha256": {
+        "rust": "711c78e5f966897bae7624325af823acde20d63dbf18462bfc14a45f53988e57",
+        "cpp": "8263cda99078487fa0c2a68e02f00907145d8a7e9facb98028dea7f2be874f2e"
+      },
+      "bounds_delta_max_mm": 0,
+      "volume_change_percent": -1.852317188522079e-8
+    },
+    {
+      "file": "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-base.stl",
+      "rust": {
+        "triangles": 61602,
+        "bounds_mm": [
+          [
+            -120,
+            -125,
+            0
+          ],
+          [
+            180,
+            125,
+            12
+          ]
+        ],
+        "volume_mm3": 748480.4696756946
+      },
+      "cpp": {
+        "triangles": 61602,
+        "bounds_mm": [
+          [
+            -120,
+            -125,
+            0
+          ],
+          [
+            180,
+            125,
+            12
+          ]
+        ],
+        "volume_mm3": 748480.4696755359
+      },
+      "sha256": {
+        "rust": "ed2f7827f995838da14a14a0befe274b7f51241a66fa2649fa0a79e70d2d42d6",
+        "cpp": "9af41dc6390bd81e9c95582c54d94d6044171791d94356f92a728b45997787f1"
+      },
+      "bounds_delta_max_mm": 0,
+      "volume_change_percent": -2.1194157540094238e-11
+    }
+  ]
+}
