@@ -92,6 +92,13 @@ test(recordsOnly ? "material record trees and combined sections retain their sta
         assert.match(await page.$eval('.material-panel h2', node => node.textContent), /PISCO/);
         assert.equal(await page.$eval('.location-position', node => node.textContent), '1 / 1');
         assert.match(await page.$eval('.location-go', node => node.href), /instance=gas-regulator/);
+        const preview = await page.evaluate(async () => {
+          const {state}=await import('/js/viewer/state.js');
+          const {fadedBody}=await import('/js/viewer/part-highlight.js');
+          return { hidden: [...state.autoHiddenComponents], faded: state.currentGroup.children.some(fadedBody) };
+        });
+        assert.ok(preview.hidden.includes('enclosure-back-top'), JSON.stringify(preview));
+        assert.equal(preview.faded, false);
         if (viewport.isMobile) assert.ok(await page.$eval('.location-go', node => {
           const rect = node.getBoundingClientRect();
           const pane = node.closest('.material-panel').getBoundingClientRect();
@@ -111,7 +118,7 @@ test(recordsOnly ? "material record trees and combined sections retain their sta
         await page.waitForFunction(async () => {
           const { state } = await import('/js/viewer/state.js');
           return !document.querySelector('.cad-workspace').classList.contains('materials-open')
-            && document.querySelector('.component-panel.show .component-body-name')?.textContent === 'CAD body: gas-regulator'
+            && document.querySelector('.component-panel.show .edge-panel-file')?.title === 'gas-regulator'
             && state.autoHiddenComponents.size > 0;
         }, { timeout: 15000 });
         const entered = await page.evaluate(async () => {
@@ -136,11 +143,11 @@ test(recordsOnly ? "material record trees and combined sections retain their sta
           && !window.__hsm.currentGroup.userData.sceneLoading, { timeout: 30000 });
         assert.match(await page.evaluate(() => location.hash), /material:HSM-0331/);
         await page.goForward();
-        await page.waitForFunction(() => document.querySelector('.component-panel.show .component-body-name')?.textContent === 'CAD body: gas-regulator'
+        await page.waitForFunction(() => document.querySelector('.component-panel.show .edge-panel-file')?.title === 'gas-regulator'
           && !document.querySelector('.cad-workspace').classList.contains('materials-open'), { timeout: 15000 });
         await page.reload();
         await waitReady(page);
-        await page.waitForFunction(() => document.querySelector('.component-panel.show .component-body-name')?.textContent === 'CAD body: gas-regulator', { timeout: 15000 });
+        await page.waitForFunction(() => document.querySelector('.component-panel.show .edge-panel-file')?.title === 'gas-regulator', { timeout: 15000 });
         await settle(page);
         assert.equal(await page.$eval('.materials-toggle', button => button.getAttribute('aria-expanded')), 'false');
         }
@@ -162,7 +169,7 @@ test(recordsOnly ? "material record trees and combined sections retain their sta
         await page.locator('.bom-select').filter(node => node.textContent.includes('HSM-0331')).click();
         await settle(page);
         await page.click('.materials-toggle');
-        await page.waitForFunction(() => document.querySelector('.component-panel.show .component-body-name')?.textContent === 'CAD body: gas-regulator');
+        await page.waitForFunction(() => document.querySelector('.component-panel.show .edge-panel-file')?.title === 'gas-regulator');
         await page.waitForFunction(async () => (await import('/js/viewer/state.js')).state.autoHiddenComponents.has('enclosure-back-top'));
         await capture('pisco-pane-closed');
 
@@ -196,7 +203,7 @@ test(recordsOnly ? "material record trees and combined sections retain their sta
         assert.equal(await page.$eval('.location-go', node => node.hidden), true);
         await page.click('.location-next');
         await page.click('.location-go');
-        await page.waitForFunction(() => document.querySelector('.component-panel.show .component-body-name')?.textContent === 'CAD body: relay-2');
+        await page.waitForFunction(() => document.querySelector('.component-panel.show .edge-panel-file')?.title === 'relay-2');
         assert.ok(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth));
         assert.deepEqual(errors, []);
         results.push({ width: viewport.width, entered });

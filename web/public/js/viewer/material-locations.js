@@ -2,9 +2,11 @@
 import { state } from "./state.js";
 import { camera, controls } from "./scene.js";
 import { previewStep } from "./step-nav.js";
-import { highlightParts, clearHighlight, frameParts } from "./part-highlight.js";
-import { clearComponentSelection, applyHiddenComponents } from "./component-picker.js";
-import { standsIn } from "/contracts/body-path.js";
+import { clearHighlight, scenePartNames } from "./part-highlight.js";
+import { clearComponentSelection } from "./component-picker.js";
+import { clearInstancePreview, enterInstance } from "./instance-view.js";
+import { matchesBody } from "/contracts/materials.js";
+import { instanceBody } from "/contracts/features.js";
 
 const el = (tag, className, text) => {
   const node = document.createElement(tag);
@@ -31,8 +33,9 @@ export function makeMaterialLocations({ material, beforeScene, onEnter }) {
   const go = el("a", "location-go", "Go to location →"); go.hidden = true;
   const note = el("p", "material-scope", "Finding installed locations…"); note.setAttribute("role", "status");
   node.append(title, assembly, controlsRow, label, path, go, note);
-  let groups = [], groupIndex = 0, at = 0, disposed = false, generation = 0, needsFrame = false;
-  let loadingScene = null, previewing = Promise.resolve(), framing = Promise.resolve();
+  let groups = [], groupIndex = 0, at = 0, disposed = false, generation = 0, framed = 0;
+  let viewedGroup = null;
+  let ready = Promise.resolve(false), finishPreview = () => {};
   const current = () => groups[groupIndex];
   const selection = () => current() && at >= 0 ? { group: current(), instance: current().instances[at] } : null;
   const bodies = () => current() ? (at < 0 ? current().instances : [current().instances[at]]).flatMap(instance => instance.bodies) : [];
@@ -56,45 +59,55 @@ export function makeMaterialLocations({ material, beforeScene, onEnter }) {
   function draw() {
     const group = current();
     if (disposed || !group || state.mountedDetail?.file !== group.file) return;
-    const names = bodies();
-    highlightParts(names, { owner: "materials", fly: false, fill: true, fade: true, hold: false });
-    if (needsFrame && !state.currentGroup?.userData.sceneLoading) {
-      needsFrame = false;
-      framing = frameParts(names, { outward: true });
-    }
+    if (framed === generation && viewedGroup === state.currentGroup) return;
+    const mounted = scenePartNames();
+    const bindings = bodies();
+    const manifest = state.currentGroup?.userData.sharedHead;
+    const available = manifest ? manifest.meshes.flatMap(node =>
+      node.entries?.map(entry => instanceBody(entry.name)) || [node.name]) : [...mounted];
+    const names = [...new Set(available.filter(name => bindings.some(body => matchesBody(name, body))))];
+    if (!names.length || !names.every(name => mounted.has(name))) return;
+    const locations = at < 0 ? group.instances.map(instance =>
+      names.filter(name => instance.bodies.some(body => matchesBody(name, body)))) : [names];
+    enterInstance(null, { members: names, locations, fly: framed !== generation, preview: true });
+    framed = generation;
+    viewedGroup = state.currentGroup;
+    note.textContent = "";
+    finishPreview(true);
   }
 
   async function preview() {
     const group = current();
     if (disposed || !group) return;
     const run = ++generation;
-    needsFrame = true;
+    finishPreview(false);
+    ready = new Promise(resolve => { finishPreview = resolve; });
     describe();
     note.textContent = "Loading location preview…";
     clearComponentSelection();
     beforeScene(group.file);
-    if (state.mountedDetail?.file !== group.file) await (loadingScene = previewStep(group.file));
-    else if (state.currentGroup?.userData.sceneLoading && loadingScene) await loadingScene;
-    if (disposed || run !== generation) return;
-    if (state.mountedDetail?.file !== group.file) { note.textContent = "The location model could not be loaded."; return; }
-    state.autoHiddenComponents.clear();
-    for (const hidden of state.hiddenComponents) {
-      if (bodies().some(body => standsIn(body, hidden))) state.hiddenComponents.delete(hidden);
-    }
-    applyHiddenComponents();
     draw();
-    note.textContent = "";
+    if (framed === run) return;
+    const names = bodies(), sameFile = state.mountedDetail?.file === group.file;
+    if (!sameFile || state.currentGroup?.userData.sceneLoading) {
+      await previewStep(group.file, { target: { bodies: names }, retarget: sameFile });
+    }
+    if (disposed || run !== generation) return;
+    draw();
+    if (framed !== run) {
+      note.textContent = "The location model could not be loaded.";
+      finishPreview(false);
+    }
   }
 
-  const requestPreview = () => (previewing = preview());
+  const requestPreview = () => preview();
   previous.addEventListener("click", () => { at = at <= 0 ? current().instances.length - 1 : at - 1; requestPreview(); });
   next.addEventListener("click", () => { at = (at + 1) % current().instances.length; requestPreview(); });
   all.addEventListener("click", () => { at = at < 0 ? 0 : -1; requestPreview(); });
   assembly.addEventListener("change", () => { groupIndex = Number(assembly.value); at = 0; requestPreview(); });
   async function enter() {
     const run = generation;
-    await previewing;
-    await framing;
+    if (!await ready) return;
     const chosen = selection();
     if (!disposed && run === generation && chosen) onEnter(chosen.group, chosen.instance);
   }
@@ -128,10 +141,12 @@ export function makeMaterialLocations({ material, beforeScene, onEnter }) {
   }
   discover();
   return { material, node, selection, bodies, enter, sync: draw,
-    async dispose({ restore = false } = {}) {
+    async dispose({ restore = false, keepView = false } = {}) {
       if (disposed) return;
       disposed = true; generation++;
+      finishPreview(false);
       clearHighlight({ owner: "materials" });
+      if (!keepView) clearInstancePreview();
       if (!restore || !origin.file || state.currentDetail?.file !== current()?.file) return;
       beforeScene(origin.file);
       await previewStep(origin.file);

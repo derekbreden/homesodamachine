@@ -2,15 +2,8 @@ import { state } from "./state.js";
 import { materialIndex, modelForMaterial } from "/contracts/materials.js";
 import { parseStepHash, walkDepth } from "./step-nav.js";
 import { dismissViewerHistory } from "./viewer-history.js";
-import { materialTab } from "/contracts/material-tabs.js";
-
-export function materialHash(id, { tab = null, panel = null, instance = null } = {}) {
-  const query = new URLSearchParams();
-  if (materialTab(tab).tab) query.set("tab", tab);
-  if (panel === "materials") query.set("panel", panel);
-  if (instance) query.set("instance", instance);
-  return "material:" + encodeURIComponent(id) + (query.size ? "?" + query : "");
-}
+import { materialHash } from "/contracts/material-tabs.js";
+export { materialHash } from "/contracts/material-tabs.js";
 
 export async function openMaterial(id, pushHistory = true, { tab = null, panel = null, instance = null, fly = true } = {}) {
   // Links written with six-digit ids (`HSM-000546`) open the same material.
@@ -24,6 +17,8 @@ export async function openMaterial(id, pushHistory = true, { tab = null, panel =
   }
   const file = modelForMaterial(state.materialCatalog, id)?.file;
   if (file) {
+    const target = instance ? { instance } : null;
+    let moving = null;
     const originHash = location.hash.slice(1);
     const originID = originHash.startsWith("material:") ? decodeURIComponent(originHash.slice(9).split("?")[0]) : null;
     const originFile = originID && modelForMaterial(state.materialCatalog, originID)?.file;
@@ -33,13 +28,13 @@ export async function openMaterial(id, pushHistory = true, { tab = null, panel =
       if (enterPreview) {
         const parents = history.state?.materialPath;
         enterStepPreview(file, parents?.at(-1) === originFile ? parents : [originFile]);
-      } else if (instance) await jumpToStep(file);
+      } else if (instance) moving = jumpToStep(file, { target, replace: false });
       else if (state.mountedDetail?.type === "step") await drillTo(file);
       else await jumpToStep(file);
       if (state.currentDetail?.file !== file) return;
     } else {
       const { openDetail } = await import("./cad-detail.js");
-      openDetail(file, pushHistory);
+      openDetail(file, pushHistory, null, target);
     }
     const raw = location.hash.slice(1);
     const remembered = raw.startsWith("step:") ? parseStepHash(raw) : history.state?.materialPath;
@@ -47,6 +42,7 @@ export async function openMaterial(id, pushHistory = true, { tab = null, panel =
     history.replaceState({ materialPath }, "", "#" + materialHash(id, { tab, panel, instance }));
     state.materialPanel?.setRoot(id);
     state.materialPanel?.applyRoute({ tab, panel, instance, fly });
+    await moving;
   } else {
     const depth = state.currentCadWrapper ? walkDepth() : 0;
     const { mountMaterialPanel } = await import("./material-panel.js");

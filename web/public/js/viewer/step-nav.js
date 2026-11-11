@@ -169,19 +169,19 @@ function syncCrumb(file, parents = trail) {
 // that bar mounts, and which file the editor writes to. A component step
 // carries the live camera in either direction; every unrelated move takes the
 // camera stored for its file.
-async function showStep(file, push, view = null, { preview = false } = {}) {
-  const from = state.mountedDetail && state.mountedDetail.file;
-  if (!from || file === from) return false;
+async function showStep(file, push, view = null, { preview = false, target = null, retarget = false } = {}) {
+  const from = state.mountedDetail?.file || state.currentDetail?.file;
+  if (!from || (file === from && !retarget)) return false;
   if (!preview) state.materialPanel?.applyRoute();
-  saveCameraState(from);
-  state.currentDetail = { type: "step", file };
+  if (state.mountedDetail?.file === from) saveCameraState(from);
+  const detail = state.currentDetail = { type: "step", file, preview };
   if (push) {
     location.hash = stepHash([...trail, file]);
     pushed += 1;
   }
 
-  await loadStepFile(file, { preserveCamera: !!view });
-  if (!state.mountedDetail || state.mountedDetail.file !== file) return false;
+  await loadStepFile(file, { preserveCamera: !!view, target });
+  if (state.currentDetail !== detail || state.mountedDetail?.file !== file) return false;
 
   if (view) {
     // Stand in the same place relative to the opened body even when its source
@@ -200,24 +200,26 @@ async function showStep(file, push, view = null, { preview = false } = {}) {
     controls.update();
     saveCameraState(file);
     view.appliedShift = shift.clone();
-  } else {
+  } else if (!state.currentGroup?.userData.focusedTarget && !state.currentGroup?.userData.instanceView) {
     applyCameraState(file);
   }
-  syncCrumb(file, preview ? [] : trail);
+  const parents = detail.preview ? [] : trail;
+  syncCrumb(file, parents);
   if (state.currentCadWrapper) {
     mountScorecard(state.currentCadWrapper, file);
-    mountRelated(state.currentCadWrapper, file, preview ? [] : trail);
+    mountRelated(state.currentCadWrapper, file, parents);
   }
   return true;
 }
 
 // A location preview changes the existing canvas without navigating away from its material.
-export async function previewStep(file) {
-  return showStep(file, false, null, { preview: true });
+export async function previewStep(file, { target = null, retarget = false } = {}) {
+  return showStep(file, false, null, { preview: true, target, retarget });
 }
 
 // Opening a preview adds the navigation entry its background model load did not add.
 export function enterStepPreview(file, parents) {
+  if (state.currentDetail?.file === file) state.currentDetail.preview = false;
   trail = [...parents];
   legs = new Array(trail.length).fill(null);
   const path = [...trail, file];
@@ -299,14 +301,14 @@ function viewAcrossWalk(files) {
 // new history entry — and the trail is taken from the URL rather than guessed
 // against it, so forward, back and a pasted path all leave it describing what
 // is shown. `files` is the whole walk, outermost first.
-export async function routeToStep(files) {
+export async function routeToStep(files, target = null) {
   const file = files[files.length - 1];
   const view = viewAcrossWalk(files);
   // The move is one history entry per level, so the levels it crosses are the
   // entries it crosses — forwards or back.
   pushed = Math.max(0, pushed + (files.length - 1) - trail.length);
   trail = files.slice(0, -1);
-  await showStep(file, false, view);
+  await showStep(file, false, view, { target });
   syncCrumb(file);
 }
 
@@ -315,11 +317,11 @@ export async function routeToStep(files) {
 // `pushed` is left where it is on purpose: the jump replaces the entry it lands
 // on rather than adding one, so the entries the walk already pushed are still
 // under it and still have to come off when the modal closes.
-export async function jumpToStep(file) {
+export async function jumpToStep(file, { target = null, replace = true } = {}) {
   trail = [];
   legs = [];
-  const moved = await showStep(file, false);
-  if (moved) history.replaceState(null, "", "#" + stepHash([file]));
+  const moved = await showStep(file, false, null, { target });
+  if (moved && replace) history.replaceState(null, "", "#" + stepHash([file]));
   else syncCrumb(file);
   return moved;
 }

@@ -1,16 +1,17 @@
 // The material panel connects a selected material's contents, records and geometry in its model context.
 import { state } from "./state.js";
-import { materialIndex, materialForFile, materialForComponent, explodeBom, bomItems, bomCountText, bomCounts, materialDocuments, materialUses, occurrenceBodies, occurrenceForBody, matchesBody } from "/contracts/materials.js";
+import { materialIndex, materialForFile, explodeBom, bomItems, bomCountText, bomCounts, materialDocuments, materialUses, occurrenceBodies, occurrenceForBody, matchesBody } from "/contracts/materials.js";
 import { HSM_EVENTS } from "/contracts/client-events.js";
 import { highlightParts, clearHighlight, leaveHighlight, scenePartNames } from "./part-highlight.js";
 import { clearComponentSelection } from "./component-picker.js";
-import { instancesInScene } from "/contracts/material-instances.js";
+import { instancesInScene, membersOfInstance } from "/contracts/material-instances.js";
 import { materialTab } from "/contracts/material-tabs.js";
 import { makeMaterialLocations } from "./material-locations.js";
 import { enterInstance } from "./instance-view.js";
 import { standsIn } from "/contracts/body-path.js";
 import { openMaterial, materialHash } from "./material-nav.js";
 import { makeMaterialSearch } from "./material-search.js";
+import { sceneFeatures } from "./features.js";
 import { componentLocation, stepLabel, stepLocation } from "/contracts/step-locations.js";
 import { mountMaterialDrawing } from "./material-drawing.js";
 import { mountMaterialSheet } from "./material-sheet.js";
@@ -79,7 +80,7 @@ export function mountMaterialPanel(workspace, { file = null, material = null } =
   let lastFile = file;
   const scroll = el("div", "material-panel-scroll");
   const headHost = el("div", "material-head-host"), tabsHost = el("div", "material-tabs-host");
-  const search = makeMaterialSearch({ compact: true });
+  const search = makeMaterialSearch({ compact: true, featuresInView: sceneFeatures });
   panel.append(search, headHost, tabsHost, scroll);
   let disposed = false;
   // A selection made while its model is still loading waits here for STEP_MOUNTED.
@@ -252,14 +253,15 @@ export function mountMaterialPanel(workspace, { file = null, material = null } =
   }
 
   function showInstalled() {
-    if (!pendingInstance || state.mountedDetail?.file !== lastFile || state.currentGroup?.userData.sceneLoading) return;
+    if (!pendingInstance || state.mountedDetail?.file !== lastFile) return;
     const wanted = pendingInstance;
+    const mounted = scenePartNames(), group = state.currentGroup;
+    if (group?.userData.sceneLoading && ![...mounted].some(name => matchesBody(name, wanted.name))) return;
+    const names = group?.userData.sharedHead?.meshes.flatMap(node =>
+      node.entries?.map(entry => entry.name) || [node.name]) || [...mounted];
+    const members = membersOfInstance(state.materialCatalog, lastFile, wanted.name, names, options());
+    if (group?.userData.sceneLoading && (!members.length || !members.every(name => mounted.has(name)))) return;
     pendingInstance = null;
-    const names = [...scenePartNames()], model = materialForFile(state.materialCatalog, lastFile);
-    const material = materialForComponent(state.materialCatalog, lastFile, wanted.name, options());
-    const unit = model && material && instancesInScene(state.materialCatalog, model.id, material.id, names, options())
-      .find(instance => instance.bodies.includes(wanted.name));
-    const members = unit?.bodies || names.filter(name => standsIn(name, wanted.name));
     if (members.length) enterInstance(wanted.name, { members, fly: wanted.fly });
   }
 
@@ -666,7 +668,7 @@ export function mountMaterialPanel(workspace, { file = null, material = null } =
         locations = makeMaterialLocations({ material: current.id,
           beforeScene: file => { lastFile = file; },
           onEnter: (group, instance) => {
-            stopLocations();
+            stopLocations({ keepView: true });
             openMaterial(group.assembly, true, { instance: instance.name, fly: false });
           },
         });

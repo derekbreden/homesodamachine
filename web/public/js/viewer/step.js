@@ -12,7 +12,7 @@ import * as xray from "./xray.js";
 import { getOcct, getThumbnailRuntime, stepRuntime } from "./step-runtime.js";
 import { beginCadLoad, disposeCadGroup } from "./cad-resources.js";
 import { setActiveEdges } from "./edge-picker.js";
-import { clearPickFind } from "./pick-find.js";
+import { clearPickFind, findTargetBodies } from "./pick-find.js";
 import { dropHighlight } from "./part-highlight.js";
 import { clearComponentPicker, loadHiddenForFile, applyHiddenComponents } from "./component-picker.js";
 import { surfaceText } from "./pick-format.js";
@@ -21,7 +21,8 @@ import { FAUCET_FINISHES, faucetStyleFor, hasFaucetFinish, isFaucetFinishBody, s
 import { HSM_EVENTS } from "/contracts/client-events.js";
 import { stepLocation } from "/contracts/step-locations.js";
 import { matchesBody, materialForFile } from "/contracts/materials.js";
-import { componentUnitsInScene, unitForBody } from "/contracts/material-instances.js";
+import { componentUnitsInScene, membersOfInstance, unitForBody } from "/contracts/material-instances.js";
+import { uncoverContext } from "./instance-view.js";
 
 const { applyXray, syncEdgeResolution, setMeshMaterial } = xray;
 // Hot loaders can share a scene module retained by an open page.
@@ -241,7 +242,7 @@ export function setFaucetFinish(finishId) {
 // revalidates completed output bytes. Fetching either starts no producer.
 // `mounted` says this file is the one already in the scene. It carries the caller's
 // If-None-Match and gates the store's own unchanged answer.
-async function fetchMeshes(file, headers, { mounted = false, signal, onPart, priority } = {}) {
+async function fetchMeshes(file, headers, { mounted = false, signal, onPart, select, onTarget, priority } = {}) {
   file = stepLocation(file).file;
   try {
     // THE STORE ANSWERS FIRST WHERE IT HAS THESE BYTES. Its URL carries their hash, so a URL
@@ -262,7 +263,7 @@ async function fetchMeshes(file, headers, { mounted = false, signal, onPart, pri
       if (!resp.ok) return null;
       bytes = new Uint8Array(await resp.arrayBuffer());
     }
-    const result = await resolveScene(bytes, { sourceUrl: resp ? null : url, signal, onPart, priority });
+    const result = await resolveScene(bytes, { sourceUrl: resp ? null : url, signal, onPart, select, onTarget, priority });
     if (!result) return null; // a payload this code doesn't read is no payload
     // `url` only when the store is where these bytes came from. Whoever mounts them records it
     // as what is on screen; a thumbnail asks through here too and mounts nothing.
@@ -311,6 +312,7 @@ function mountScenePart(node, meshes, head, file, location, { current, preserveC
     meshes.forEach((mesh,i)=>placeSharedMesh(prior.solids[i],mesh));
     prior.meshes=meshes;prior.key=key;
     invalidateModelBounds();
+    uncoverContext(group, prior.solids);
   } else if (!prior || prior.key !== key) {
     xray.disposeXray?.(group);
     if (prior) for (const solid of prior.solids) { group.remove(solid); solid.geometry.dispose(); if(solid.userData.ownsMaterial)solid.material.dispose(); }
@@ -319,6 +321,7 @@ function mountScenePart(node, meshes, head, file, location, { current, preserveC
     for (const solid of solids) group.add(solid);
     parts.set(node.name, { meshes, solids, key });
     invalidateModelBounds();
+    uncoverContext(group, solids);
   }
   const present = new Set(head.meshes.map(part => part.name));
   for (const [name,part] of parts) if (!present.has(name)) {
@@ -336,15 +339,21 @@ function mountScenePart(node, meshes, head, file, location, { current, preserveC
     const result = { meshes: ordered.flatMap(part => part.meshes), src: latest.src, cut: latest.cut };
     let index = 0;
     for (const part of ordered) for (const solid of part.solids) solid.userData.occtIndex = index++;
-    setActiveEdges(result); clearPickFind(); dropHighlight(); clearComponentPicker({ preserve: true }); applyXray(group);
+    setActiveEdges(result);
+    if (!group.userData.focusedTarget?.find) clearPickFind();
+    if (!group.userData.instanceView?.preview) dropHighlight();
+    clearComponentPicker({ preserve: true }); applyXray(group);
+    const changedFile = state.mountedDetail?.file !== file;
     state.mountedDetail = {type:'step',file,sourceFile:location.file,surface:'mesh',src:latest.src,cut:latest.cut,scene:true};
-    nameSurface(location.file,'mesh');loadHiddenForFile(file);applyHiddenComponents();
+    nameSurface(location.file,'mesh');
+    if (changedFile) loadHiddenForFile(file);
+    applyHiddenComponents();
     if (group.userData.fitWhenReady) {resetCamera(group);group.userData.fitWhenReady=false;}
     window.dispatchEvent(new CustomEvent(HSM_EVENTS.STEP_MOUNTED,{detail:{file,part:node.name,revision:latest.src,complete:false}}));
   });
 }
 
-export async function loadStepFile(file, { preserveCamera = false } = {}) {
+export async function loadStepFile(file, { preserveCamera = false, target = null } = {}) {
   const location = stepLocation(file);
   const load = beginCadLoad();
   const { current, signal } = load;
@@ -352,6 +361,7 @@ export async function loadStepFile(file, { preserveCamera = false } = {}) {
     cancelAnimationFrame(state.currentGroup.userData.sharedFrame);
     state.currentGroup.userData.sharedFrame = null;
   }
+  if (state.currentGroup?.userData.sharedFile === file) state.currentGroup.userData.focusedTarget = null;
   await loadFinishes();   // before any material is built, so none is built at the default
   if (!current()) { load.finish(); return; }
   // Loading pill lives inside the current step wrapper (or none if the
@@ -377,7 +387,7 @@ export async function loadStepFile(file, { preserveCamera = false } = {}) {
     // screen. The ETag round trip below and the store's URL comparison further down both ask
     // this first.
     const mounted = state.mountedDetail?.type === "step"
-      && state.mountedDetail.file === file;
+      && state.mountedDetail.file === file && !state.currentGroup?.userData.sceneLoading;
     if (mounted && prevEtag) {
       headers["If-None-Match"] = prevEtag;
     }
@@ -387,13 +397,38 @@ export async function loadStepFile(file, { preserveCamera = false } = {}) {
     // binding and reduction metadata when the payload records them.
     let surface = "step";
     let componentBodies = null;
-    const meshed = await fetchMeshes(file, headers, { mounted, signal, onPart: (node, meshes, head) => {
-      if (!current()) return;
-      if (location.component && !componentBodies) componentBodies = componentViewBodies(location,
-        head.meshes.flatMap(part => part.entries?.map(entry => entry.name) || [part.name]));
-      mountScenePart(node, meshes, head, file, location, {current,preserveCamera,componentBodies});
-      if (loadingEl && state.currentGroup?.userData.sharedFile === file) loadingEl.style.display = 'none';
-    }});
+    const meshed = await fetchMeshes(file, headers, {
+      mounted, signal,
+      select: location.component || target ? (head) => {
+        const entries = head.meshes.map(node => node.entries?.map(entry => entry.name) || [node.name]);
+        const names = [...new Set(entries.flat().map(bodyName))];
+        if (location.component) componentBodies = componentViewBodies(location, names);
+        const bodies = componentBodies || target?.bodies
+          || (target?.instance && membersOfInstance(state.materialCatalog, location.file, target.instance, names,
+            { finish: state.faucetFinish }))
+          || (target?.find && findTargetBodies(target.find, names, location.file)) || [];
+        return {
+          first: entries.flatMap((group, index) =>
+            group.some(name => bodies.some(body => matchesBody(name, body))) ? [index] : []),
+          only: !!location.component,
+        };
+      } : null,
+      onPart: (node, meshes, head) => {
+        if (!current()) return;
+        mountScenePart(node, meshes, head, file, location, {current,preserveCamera,componentBodies});
+        if (loadingEl && state.currentGroup?.userData.sharedFile === file) loadingEl.style.display = 'none';
+      },
+      onTarget: async () => {
+        await new Promise(requestAnimationFrame); // the target's shared frame seats its meshes
+        if (!current() || state.currentGroup?.userData.sharedFile !== file) return;
+        state.currentGroup.userData.focusedTarget = target;
+        window.dispatchEvent(new CustomEvent(HSM_EVENTS.STEP_MOUNTED, {
+          detail: { file, target, revision: state.mountedDetail?.src, complete: false },
+        }));
+        // Give the framed target a paint before starting the remaining transfers.
+        await new Promise(requestAnimationFrame);
+      },
+    });
     if (!current()) return;
 
     if (meshed?.unchanged) { landed = true; return; }
@@ -428,11 +463,14 @@ export async function loadStepFile(file, { preserveCamera = false } = {}) {
     if (result.scene) {
       await new Promise(requestAnimationFrame);
       if (!current()) return;
-      if (state.currentGroup?.userData.sharedFile !== file) {failed('No parts could be loaded');return;}
+      if (state.currentGroup?.userData.sharedFile !== file) {
+        failed(location.component ? `Component ${location.component} is not in this model` : 'No parts could be loaded');
+        return;
+      }
       state.currentGroup.userData.failedParts = result.errors;
       state.currentGroup.userData.sceneLoading = false;
       if (result.errors.length) console.warn('Parts retain their last available geometry:',result.errors);
-      if (!preserveCamera) resetCamera(state.currentGroup);
+      if (!preserveCamera && !state.currentGroup.userData.focusedTarget) resetCamera(state.currentGroup);
       const style=faucetStyleFor(file);
       if (style) {state.faucetStyle=style.id;window.dispatchEvent(new CustomEvent(HSM_EVENTS.FAUCET_OPTIONS));}
       if (location.component) window.dispatchEvent(new CustomEvent(HSM_EVENTS.MATERIAL_PICKED,{detail:{file,name:location.component}}));

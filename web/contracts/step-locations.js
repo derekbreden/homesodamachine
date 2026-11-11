@@ -9,6 +9,10 @@ export function componentLocation(owner, name) {
   return stepLocation(owner).file + "?component=" + encodeURIComponent(name);
 }
 
+export function featureUrl(key, file) {
+  return `/3d#step:${encodeURIComponent(file)}?find=${encodeURIComponent(`feature: ${key}`)}`;
+}
+
 export function stepLabel(value) {
   const { file, component } = stepLocation(value);
   return component?.split("/").at(-1) || file.split("/").at(-1).replace(/\.step$/i, "");

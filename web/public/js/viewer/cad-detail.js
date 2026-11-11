@@ -122,7 +122,7 @@ const CAD_KINDS = {
   glb:  { ext: ".glb",  hashPrefix: "glb:"  },
 };
 
-export function openCadDetail(type, file, pushHistory = true, path = null) {
+export function openCadDetail(type, file, pushHistory = true, path = null, target = null) {
   const kind = CAD_KINDS[type];
   // Set currentDetail BEFORE touching location.hash. In Puppeteer (and
   // some browser configurations) setting location.hash can fire a
@@ -325,9 +325,11 @@ export function openCadDetail(type, file, pushHistory = true, path = null) {
   // import time, so opening a part after a deploy runs fresh code.
   getLoader(type).then((load) => {
     if (state.currentCadWrapper !== wrapper || state.currentDetail?.file !== file) return;
-    return load(file);
+    return load(file, { target });
   }).then(() => {
-    if (state.currentCadWrapper === wrapper && state.mountedDetail?.file === file) applyCameraState(file);
+    const view = state.currentGroup?.userData;
+    if (state.currentCadWrapper === wrapper && state.mountedDetail?.file === file
+        && !view?.focusedTarget && !view?.instanceView) applyCameraState(file);
   });
 }
 
@@ -353,6 +355,8 @@ export function closeCadDetail(pushHistory = true) {
 // One name per kind, so a call site says which surface it wants and `OPENERS`
 // can hold them in a table. `path` is STEP's alone: it is the only kind a walk
 // goes through.
-export function openDetail(file, pushHistory = true, path = null) { openCadDetail("step", file, pushHistory, path); }
+export function openDetail(file, pushHistory = true, path = null, target = null) {
+  openCadDetail("step", file, pushHistory, path, target);
+}
 export function openDxfDetail(file, pushHistory = true) { openCadDetail("dxf",  file, pushHistory); }
 export function openGlbDetail(file, pushHistory = true) { openCadDetail("glb",  file, pushHistory); }

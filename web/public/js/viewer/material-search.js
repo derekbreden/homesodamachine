@@ -3,16 +3,19 @@ import { state } from "./state.js";
 import { searchCatalog, materialIndex, bomCounts, bomCountText, materialForFile } from "/contracts/materials.js";
 import { instanceLabel, matchFeatures } from "/contracts/features.js";
 import { instancesInScene } from "/contracts/material-instances.js";
-import { sceneFeatures, featureUrl } from "./features.js";
+import { featureUrl } from "/contracts/step-locations.js";
 import { COST_KINDS } from "/contracts/part-costs.js";
-import { openMaterial, materialHash } from "./material-nav.js";
+import { materialHash } from "/contracts/material-tabs.js";
 
 const searchView = { panel: "materials" };
 const costView = { panel: "materials", tab: "cost" };
+const openMaterial = (...args) => import("./material-nav.js").then(module => module.openMaterial(...args));
 
 // Shared description and construction lookup serves the grid and model companion.
 // Stock and supplies open on the Cost tab of a part that uses them.
-export function makeMaterialSearch({ compact = false } = {}) {
+export function makeMaterialSearch({
+  compact = false, featuresInView = () => [], catalogPending = () => false, navigate = open => open(),
+} = {}) {
   let remote = { file: null, features: [], instances: [], loaded: 0, pending: false };
   const host = document.createElement("div");
   host.className = "material-search" + (compact ? " compact" : "");
@@ -41,7 +44,7 @@ export function makeMaterialSearch({ compact = false } = {}) {
     }
     link.addEventListener("click", (event) => {
       if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
-      event.preventDefault(); input.value = ""; update(); open();
+      event.preventDefault(); input.value = ""; update(); navigate(open);
     });
     destination.append(link);
     return link;
@@ -58,6 +61,7 @@ export function makeMaterialSearch({ compact = false } = {}) {
     const query = input.value.trim();
     results.hidden = !query;
     if (!query) { status.textContent = ""; return; }
+    if (catalogPending()) { status.textContent = "Loading materials…"; return; }
     const featureFile = state.mountedDetail?.sourceFile || state.mountedDetail?.file || "manifold-layout/enclosure-assembly.step";
     if (!remote.pending && (remote.file !== featureFile || Date.now() - remote.loaded > 5000)) {
       remote = { file: featureFile, features: [], instances: [], loaded: Date.now(), pending: true };
@@ -117,13 +121,13 @@ export function makeMaterialSearch({ compact = false } = {}) {
         `${kinds} for ${users[0]}${users.length > 1 ? ` +${users.length - 1} more` : ""}`, () => openMaterial(holder, true, costView));
     }
     const availableFeatures = new Map(remote.features.map(f => [f.key, f]));
-    for (const feature of sceneFeatures()) availableFeatures.set(feature.key, feature);
+    for (const feature of featuresInView()) availableFeatures.set(feature.key, feature);
     const features = matchFeatures(query, [...availableFeatures.values()]);
     for (const feature of features) result(featureUrl(feature.key, feature.file || state.mountedDetail?.file || featureFile), feature.label,
       `Feature of ${instanceLabel(feature.body)}`, async () => {
         const file = feature.file || state.mountedDetail?.file || featureFile;
         if (state.mountedDetail?.file !== file) {
-          location.hash = new URL(featureUrl(feature.key, file)).hash; return;
+          location.hash = new URL(featureUrl(feature.key, file), location.origin).hash; return;
         }
         const { selectComponent } = await import("./component-picker.js"); selectComponent(feature.key);
         const { findWhenMounted } = await import("./pick-find.js"); findWhenMounted(file, `feature: ${feature.key}`);
