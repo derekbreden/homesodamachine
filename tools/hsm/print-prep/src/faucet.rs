@@ -386,10 +386,9 @@ pub fn add_common_base_rim(root: &Path, r: &mut Refreshed, selected: &Value) -> 
     let inverse = [0, 1, 2].map(|axis| [0, 1, 2].map(|other| rotation[other][axis]));
     let components = geometry["components"].as_array().context("rim evidence components")?;
     let reference = components.first().context("rim evidence reference model")?;
-    let keep_fins = selected["segmented_fins"].as_bool().unwrap_or(true);
     let mut transferred = Vec::new();
     for record in &components[1..] {
-        if !keep_fins && record["subtype"].as_str() == Some("normal_part") {
+        if record["subtype"].as_str() == Some("normal_part") {
             continue;
         }
         let original = record["id"].as_i64().context("rim component ID")?;
@@ -437,7 +436,7 @@ pub fn add_common_base_rim(root: &Path, r: &mut Refreshed, selected: &Value) -> 
     }
     Ok(json!({"part": selected["part"], "source_archive": selected["source_archive"],
         "source_commit": selected["source_commit"], "source_archive_sha256": selected["source_archive_sha256"],
-        "source_to_production_plate_translation_mm": shift, "components": transferred, "segmented_fins": keep_fins,
+        "source_to_production_plate_translation_mm": shift, "components": transferred,
         "rim_seat_plate_mm": seat, "rim_radius_mm": cavities["outer_rim"]["radius"],
         "support_settings": applied, "recesses": pockets,
         "band": {"parameters": parameters, "plane_normal": normal, "seat_plate_mm": seat,

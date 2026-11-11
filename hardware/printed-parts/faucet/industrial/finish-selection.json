@@ -84,7 +84,7 @@
   "base_rim_supports": {
     "selected_date": "2026-10-15",
     "part": "industrial-shell-base",
-    "method": "Slim trees with a shared dense interface and a continuous nonplanar first perimeter",
+    "method": "Segmented outside fins and Slim trees with a shared dense interface and a contoured first perimeter",
     "source_preparation": "hardware/printed-parts/faucet/finish-coupons/2026-10-15-edge-supports/base-mark2/preparation.json",
     "source_project": "hardware/printed-parts/faucet/finish-coupons/2026-10-15-edge-supports/base-mark2/2026-10-15-faucet-base-segmented-rim-arcs-tree-current15-bridge125-fan70-z004-mark2.3mf",
     "source_project_sha256": "3fd336e3e44a32896bd0b76c13f11b91c74911308e81454ae670680c6b579cf7",
@@ -99,7 +99,7 @@
       "brim_type": "no_brim"
     },
     "selection_quote": "Those arc fins snapped off super easy, and they provided excellent support.",
-    "scope": "A shared dense interface on the rim trees, with bridge paths across both stages of each insert recess.",
+    "scope": "Outside fins and Slim trees carry a shared dense interface at the rim. Bridges span both stages of each insert recess.",
     "common_interface": {
       "part": "industrial-shell-base",
       "base_stl_sha256": "dc855eb7d8eae75886222d8b4aee8b9e02fe1d55ae4740c1ae5b4b64cf6ba742",
@@ -111,7 +111,6 @@
       "mapping": "hardware/print-tests/petgf-dense-roofs/inclines/prints/2026-11-10-faucet-nonplanar-rim-fins-mark1/mapping.json",
       "mapping_margin_mm": 6.0,
       "mapping_edge_blend_mm": 2.0,
-      "segmented_fins": false,
       "continuous_rim_angle_degrees": [114.5, 425.5]
     }
   },
@@ -132,13 +131,13 @@
   },
   "edge_support_strategy": {
     "selection_quote": "I'm quite convinced that we need to do this everywhere, that we've got these rough edges on overhangs.",
-    "method": "Use dense tree interfaces and contoured first perimeters on the base rim and tip mating lip.",
+    "method": "Segmented fins follow each outside rim beneath the dense interface and its contoured first perimeter.",
     "application": "The base uses bridges across the insert recesses. The tip uses a hidden-root disc for bed anchorage and a separate dense interface at the inboard dispense face."
   },
   "tip_supports": {
     "selected_date": "2026-10-15",
     "part": "faucet-shell-tip",
-    "method": "Dense Slim trees at the mating lip, a contoured first perimeter and a hidden-root disc",
+    "method": "Segmented outside fins and Slim trees at the mating lip, a contoured first perimeter and a hidden-root disc",
     "source_preparation": "hardware/printed-parts/faucet/finish-coupons/2026-10-15-tip-root-anchor/mark1/preparation.json",
     "source_project": "hardware/printed-parts/faucet/finish-coupons/2026-10-15-tip-root-anchor/mark1/2026-10-15-faucet-tip-root-anchor-eight-fins-lip-trees-current105-bridge125-fan70-z018-mark1.3mf",
     "source_project_sha256": "f6e5c53d4a23b25f568b083d8a3eaa779b7959c666fa41a227a953e21904f3ff",

@@ -507,7 +507,100 @@ impl ContactBand {
     }
 }
 
-/// Locate the visible mating lip and give its outer course a continuous support target.
+/// Carry the established arc breaks to the full base's actual seat.
+pub fn add_base_rim_fins(root: &Path, project: &mut Refreshed, object: usize, rim: RimSpec, selection: &Value) -> Result<Value> {
+    let source = selection["source_preparation"].as_str().context("base fin layout source")?;
+    let original = crate::faucet::read_json(&root.join(source))?;
+    let intervals = original["rim_arcs"].as_array().context("base fin arcs")?.iter()
+        .map(|arc| serde_json::from_value(arc["cad_angle_interval_degrees"].clone()))
+        .collect::<std::result::Result<Vec<[f64; 2]>, _>>()?;
+    add_rim_fins(project, object, rim, &intervals)
+}
+
+/// Close a strip whose sections run around a rim with a release gap at each end.
+pub fn closed_rim_strip(sections: &[[Point; 4]]) -> Mesh {
+    let vertices = sections.iter().flatten().copied().collect();
+    let mut faces = vec![[0, 1, 2], [0, 2, 3]];
+    for i in 0..sections.len() - 1 {
+        for j in 0..4 {
+            let start = 4 * i + j;
+            let end = 4 * i + (j + 1) % 4;
+            faces.extend([[start, start + 4, end + 4], [start, end + 4, end]]);
+        }
+    }
+    let end = 4 * (sections.len() - 1);
+    faces.extend([[end, end + 2, end + 1], [end, end + 3, end + 2]]);
+    Mesh { vertices, faces }
+}
+
+fn add_rim_fins(project: &mut Refreshed, object: usize, rim: RimSpec, intervals: &[[f64; 2]]) -> Result<Value> {
+    const RADIAL_ALLOWANCE: [f64; 2] = [-0.4, 0.5];
+    const SETBACK: f64 = 0.96;
+    const MINIMUM_HEIGHT: f64 = 0.20;
+    const ANGLE_STEP: f64 = 1.;
+    const FOOT_SPLAY_PER_HEIGHT: f64 = 0.28;
+    const MAXIMUM_FOOT_SPLAY: f64 = 4.;
+    let placed = &project.plate.objects[object];
+    let rotation = placed.rotation;
+    let inverse = [0, 1, 2].map(|i| [0, 1, 2].map(|j| rotation[j][i]));
+    let translation = placed.translation;
+    let local = |p| apply(&inverse, sub(p, translation));
+    let (fall, level) = rim.seat_fall_angle_degrees.to_radians().sin_cos();
+    let [cx, cy, cz] = rim.center_mm;
+    let [rx, ry] = rim.semi_axes_mm;
+    let top = |theta: f64| {
+        let (sin, cos) = theta.to_radians().sin_cos();
+        RADIAL_ALLOWANCE.map(|offset| {
+            let run = (ry + offset) * sin;
+            [cx + (rx + offset) * cos, cy + level * run, cz - fall * run - SETBACK]
+        })
+    };
+    let fits = |theta| top(theta).iter().all(|p| p[2] >= MINIMUM_HEIGHT);
+    let mut fins = Vec::new();
+    for &[start, end] in intervals {
+        let steps = ((end - start) / ANGLE_STEP).ceil() as usize;
+        let mut angles = Vec::new();
+        let mut previous = None;
+        for i in 0..=steps {
+            let theta = start + (end - start) * i as f64 / steps as f64;
+            let valid = fits(theta);
+            if let Some((mut left, was_valid)) = previous {
+                if was_valid != valid {
+                    let mut right = theta;
+                    for _ in 0..36 {
+                        let mid = (left + right) / 2.;
+                        if fits(mid) == was_valid { left = mid; } else { right = mid; }
+                    }
+                    angles.push(if was_valid { left } else { right });
+                }
+            }
+            if valid {
+                angles.push(theta);
+            }
+            previous = Some((theta, valid));
+        }
+        ensure!(angles.len() >= 2 && angles.windows(2).all(|pair| fits((pair[0] + pair[1]) / 2.)),
+            "removable fin does not clear the bed over its interval");
+        let sections: Vec<_> = angles.iter().map(|&theta| {
+            let [inner, outer] = top(theta);
+            let (sin, cos) = theta.to_radians().sin_cos();
+            let foot = |p: Point| {
+                let splay = (p[2] * FOOT_SPLAY_PER_HEIGHT).min(MAXIMUM_FOOT_SPLAY);
+                local([p[0] + splay * cos, p[1] + splay * level * sin, 0.])
+            };
+            [foot(inner), foot(outer), local(outer), local(inner)]
+        }).collect();
+        let name = format!("Removable outer rim fin {}", fins.len() + 1);
+        let mesh = closed_rim_strip(&sections);
+        mesh.check_closed_single_body(&name)?;
+        let id = project.plate.add_part(object, &name, mesh.vertices, mesh.faces, "normal_part", Vec::new(), None);
+        fins.push(json!({"part_id": id, "angles_degrees": [angles[0], angles[angles.len() - 1]]}));
+    }
+    Ok(json!({"radial_allowance_mm": RADIAL_ALLOWANCE, "setback_from_seat_mm": SETBACK,
+        "foot_splay_per_height": FOOT_SPLAY_PER_HEIGHT, "maximum_foot_splay_mm": MAXIMUM_FOOT_SPLAY, "fins": fins}))
+}
+
+/// Locate the visible mating lip and give the outside fins and Slim trees a common roof.
 pub fn add_tip_rim_contact(project: &mut Refreshed, tip: &Value, parameters: &Value) -> Result<(RimSpec, Value)> {
     const ENFORCER_INSET: f64 = 1.35;
     const ENFORCER_OUTSET: f64 = 0.6;
@@ -575,11 +668,16 @@ pub fn add_tip_rim_contact(project: &mut Refreshed, tip: &Value, parameters: &Va
         identify_id, center_mm: center, seat_fall_angle_degrees: inward[1].atan2(inward[2]).to_degrees(),
         semi_axes_mm: [radius; 2], supported_angles_degrees: [0., 360.],
     };
+    let fin_angles: [[f64; 2]; 8] = std::array::from_fn(|i| {
+        let start = i as f64 * 45.;
+        [start + 6.5, start + 38.5]
+    });
+    let fins = add_rim_fins(project, index, contour, &fin_angles)?;
     let window = [-1., 1.].map(|sign| [0, 1].map(|axis| center[axis] + sign * (radius + MAPPING_MARGIN)));
     let band = json!({"name": "faucet-shell-tip mating lip", "parameters": parameters,
         "plane_normal": outward, "seat_plate_mm": center, "bounds_mm": window, "edge_blend_mm": EDGE_BLEND,
         "refine_mesh_interiors": true});
-    Ok((contour, json!({"part": name, "band": band, "roof_enforcer_part_id": id,
+    Ok((contour, json!({"part": name, "band": band, "roof_enforcer_part_id": id, "fin_layout": fins,
         "enforcer_radii_mm": radial, "rim_radius_mm": radius, "lip_face_count": lip_faces})))
 }
 

@@ -16,7 +16,7 @@
 use anyhow::{bail, Context, Result};
 use hsm_print_prep::faucet::{add_common_base_rim, add_tip_root_anchor, apply_overhang_recipe, as_texts, cross, enforce_rear_seam,
                              file_sha, mat, members, read_json, sub, text, texts, times};
-use hsm_print_prep::faucet_contact::{add_tip_dispense_contact, add_tip_rim_contact, apply_rim_contour, apply_tip_rim_contour, ContactBand};
+use hsm_print_prep::faucet_contact::{add_base_rim_fins, add_tip_dispense_contact, add_tip_rim_contact, apply_rim_contour, apply_tip_rim_contour, ContactBand};
 use hsm_print_prep::faucet_recesses::block_plate_counterbores;
 use hsm_print_prep::json::{python_number, Json};
 use hsm_print_prep::profile::{cooling_hook, petgf_infill_pattern, relative, SETTINGS_MEMBER};
@@ -213,7 +213,7 @@ fn main() -> Result<()> {
         r.extra.insert("tip_rear_seam_enforcement".into(), record);
     }
     let base_rim = &finish["base_rim_supports"];
-    if base_rim["common_interface"].is_object() {
+    let base_contour = if base_rim["common_interface"].is_object() {
         let mut record = add_common_base_rim(&root, &mut r, &base_rim["common_interface"])?;
         let base = r.row(base_rim["part"].as_str().context("base rim part")?)?.index;
         let overrides = base_rim["object_settings"].as_object().context("base object settings")?;
@@ -221,8 +221,20 @@ fn main() -> Result<()> {
         settings.retain(|(key, _)| !overrides.contains_key(key));
         settings.extend(overrides.iter().map(|(key, value)| (key.clone(), text(value))));
         record["object_settings"] = base_rim["object_settings"].clone();
+        let radius = record["rim_radius_mm"].as_f64().context("production rim radius")?;
+        let rim = RimSpec {
+            identify_id: r.plate.objects[base].identify_id.try_into()?,
+            center_mm: serde_json::from_value(record["rim_seat_plate_mm"].clone())?,
+            seat_fall_angle_degrees: -r.row("industrial-shell-base")?.angle,
+            semi_axes_mm: [radius; 2],
+            supported_angles_degrees: serde_json::from_value(base_rim["common_interface"]["continuous_rim_angle_degrees"].clone())?,
+        };
+        record["fin_layout"] = add_base_rim_fins(&root, &mut r, base, rim, base_rim)?;
         r.extra.insert("base_rim_supports".into(), record);
-    }
+        Some((base, rim))
+    } else {
+        None
+    };
     let plate_recesses = &finish["mounting_plate_counterbores"];
     let counterbores = block_plate_counterbores(&mut r, plate_recesses["part"].as_str().context("mounting plate identity")?,
         plate_recesses["radial_clearance_mm"].as_f64().context("counterbore radial clearance")?,
@@ -338,18 +350,8 @@ fn main() -> Result<()> {
         // Bambu Studio's slice is one of the Mac's heavy runs.
         hsm_run_slots::process_enter(&hsm_run_slots::native_key())?;
         let mut reading;
-        if let Some(spec) = r.extra.get("base_rim_supports") {
-            let row = r.row("industrial-shell-base")?;
-            let base = row.index;
-            let radius = spec["rim_radius_mm"].as_f64().context("production rim radius")?;
-            let rim = RimSpec {
-                identify_id: r.plate.objects[base].identify_id.try_into()?,
-                center_mm: serde_json::from_value(spec["rim_seat_plate_mm"].clone())?,
-                seat_fall_angle_degrees: -row.angle,
-                semi_axes_mm: [radius; 2],
-                supported_angles_degrees: serde_json::from_value(finish["base_rim_supports"]["common_interface"]["continuous_rim_angle_degrees"].clone())?,
-            };
-            let band = ContactBand::new(&spec["band"])?;
+        if let Some((base, rim)) = base_contour {
+            let band = ContactBand::new(&r.extra["base_rim_supports"]["band"])?;
             let tip = r.row("faucet-shell-tip")?.index;
             let dispense = ContactBand::new(&r.extra["tip_dispense_contact"]["band"])?;
             let joint = ContactBand::new(&r.extra["tip_rim_contact"]["band"])?;
