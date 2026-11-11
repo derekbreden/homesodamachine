@@ -49,11 +49,9 @@ The front recess prints as a thinner strip of the bed-facing plate; inspect
 that accessible dry face after printing.
 
 The [saved PETG project](funnel-cover-petg.3mf) and
-[native slice review](native-slice-review.json) record the separate cover
-slice with no support paths. It has not been submitted to a printer. The
-review identifies the material preset, source hashes, solid infill and
-toolpaths for its identified artifact. The expanded plate needs a production
-reslice; physical fit and drip exclusion remain unqualified.
+[native slice review](native-slice-review.json) bind the full production cover
+to its support-free paths, solid infill and material preset. Physical fit and
+drip exclusion remain unqualified.
 
 [`prepare_print.rs`](prepare_print.rs) writes the project and slices it offline,
 never contacting a printer. The slice must lay only the cover's roads, from the
