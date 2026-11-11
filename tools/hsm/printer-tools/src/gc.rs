@@ -76,11 +76,11 @@ pub struct ArchiveLock {
 impl ArchiveLock {
     pub fn open(directory: &Path) -> Result<Self> {
         fs::create_dir_all(directory)?;
-        let file = OpenOptions::new()
-            .write(true)
-            .create(true)
-            .truncate(false)
-            .open(directory.join(".rotation.lock"))?;
+        let mut options = OpenOptions::new();
+        options.write(true).create(true).truncate(false);
+        #[cfg(target_os = "macos")]
+        options.custom_flags(libc::O_EVTONLY);
+        let file = options.open(directory.join(".rotation.lock"))?;
         if unsafe { libc::flock(file.as_raw_fd(), libc::LOCK_EX | libc::LOCK_NB) } != 0 {
             bail!("Another rotation is using this archive directory")
         };
