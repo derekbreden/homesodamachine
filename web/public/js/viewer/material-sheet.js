@@ -266,6 +266,7 @@ export function mountMaterialSheet({ workspace, panel }) {
   }
   const resize = new ResizeObserver(() => { if (active() && !animation && !mode) apply(heights()[level]); });
   resize.observe(workspace);
+  if (header) resize.observe(header);
   const onLayout = () => sync({ recentre: true });
   PHONE.addEventListener("change", onLayout);
 
