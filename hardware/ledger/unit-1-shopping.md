@@ -1,23 +1,25 @@
 # Unit 1 shopping list
 
-Checked November 10, 2026 against the current BOM, purchase ledger, stock records and merchant order confirmations. Quantities below are for one integrated machine. Purchase receipts establish acquisitions; remaining development stock is estimated unless counted.
+Checked November 10, 2026 against the current BOM, purchase ledger, stock records and merchant order confirmations. Order and fulfillment updates through November 11. Quantities below are for one integrated machine. Purchase receipts establish acquisitions; remaining development stock is estimated unless counted.
 
 ## Purchase links
 
 | Item | Order quantity | Purpose / evidence | Listed price before shipping/tax |
 |---|---:|---|---:|
 | [MECCANIXITY green 16 AWG solid tinned-copper UL1007 wire — Prime](https://www.amazon.com/dp/B0FK5JHQW7) | 1 spool, 25 ft | Green conductor for AC1 in the [AC wiring schedule](../wiring/ac-wiring-schedule.md). The acquired solid wire is black and white; the acquired stranded green wire serves the separate earth bonds. | $11.99 |
-| [uxcell M3 × 0.5 M35 cobalt tap with Ø2.5 mm drill — Prime](https://www.amazon.com/dp/B09TYSP9NV) | 1 set; select M3 × 0.5 / 2.5 mm | Drill and tap the carbonator upper-rim earth attachment. Listed for stainless steel. Matching metric tools are not recorded as acquired. | $8.39 |
-| [Piutouyar adjustable M1–M6 tap wrench — Prime](https://www.amazon.com/dp/B0F7K43T14) | 1 | Small driver for the M3 tap. The acquired Drill America wrench's tap-capacity range starts at 1/4 inch. | $5.99 |
 | [BelMetric WSE3SS, M3 DIN 6797-A A2 stainless external-tooth washer](https://belmetric.com/toothed-external-star-lock-washer-din-6797-a-stainless/?sku=WSE3SS) | 1; select M3 / 6 mm OD | Earth clamp: 3.2 mm ID, 6 mm OD, 0.4 mm material thickness. Exact variant in stock. BelMetric lists same-day weekday dispatch before its cutoff; freight is calculated at checkout. | $0.06 each |
 
-Amazon Prime badges, exact variants, prices and stock were checked in signed-in Mac Chrome on November 10. The Amazon rows total $26.37 before tax. The washer's shipping is additional.
+Amazon Prime badges, exact variants, prices and stock were checked in signed-in Mac Chrome on November 10. The remaining Amazon row is $11.99 before tax. The washer's shipping is additional.
 
 ## Conditional purchase for a customer install kit
 
 | Item | Order quantity | Purpose / evidence | Listed price before tax |
 |---|---:|---|---:|
 | [Waterdrop 15UC-UF, 1/4-inch inline filter — Prime](https://www.amazon.com/dp/B085G9TZ4L) | 1 | Fresh filter for a customer install kit. The acquired filter is prototype stock with unrecorded remaining service life; a replacement is not established as necessary for bench work. Prime offer verified November 10. | $59.99 |
+
+## Ordered earth-clamp tooling
+
+The [uxcell M3 × 0.5 tap and Ø2.5 mm drill set](https://www.amazon.com/dp/B09TYSP9NV) and [Piutouyar M1–M6 tap wrench](https://www.amazon.com/dp/B0F7K43T14) are ON-ORDER in the [purchase ledger](purchases.md). Both were placed November 10, for $9.00 and $6.42 respectively including estimated tax. Delivery and completed payments are not yet confirmed.
 
 ## Acquired closure hardware
 
