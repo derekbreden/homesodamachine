@@ -73,7 +73,7 @@
   ],
   "filament_colour": "#FFFFFF",
   "finish_selection": "hardware/printed-parts/faucet/sculpted/finish-selection.json",
-  "finish_selection_sha256": "340097eec7f8218a538eb247f93a3b9f8bafdc686a40819c6c9ed4ea86070d96",
+  "finish_selection_sha256": "513bc772259add0cbceb48af21deac904b4cbe2baf0d7fd7fdc11a34eef7ed24",
   "layer_config_ranges": [],
   "layer_height_mm": 0.24,
   "layer_scope": "0.20 mm first bed layer; 0.24 mm thereafter on all five parts. No Industrial shoulder bands or separate eight-layer override.",
@@ -214,9 +214,9 @@
     ]
   },
   "nonplanar_motion": {
-    "added_commanded_motion_seconds": 1409.8659757003084,
-    "gcode_input_sha256": "4cdd590bb5b8c38a6fe0f01fdfc8aa2b4843c3b64876469783b07e2cef955cc5",
-    "gcode_sha256": "3809954282f0181e3afe04626f726edd324f36aef62ffcfe124923d80144b30e",
+    "added_commanded_motion_seconds": 2145.3234456607415,
+    "gcode_input_sha256": "201327aeccdc9fa1068ef1cc4111e967eaa453a8a032863bbcfa91207e273c8c",
+    "gcode_sha256": "c7f62bed98e9d1a90ecbf9cb958bfeea89ecb135444b2329a33080ec6ed378b5",
     "geometry": {
       "faucet-shell-base": {
         "Continuous base rim roof enforcer": {
@@ -284,6 +284,15 @@
           "slice_triangles": 305364,
           "source_triangles": 528
         },
+        "Mating lip support roof": {
+          "maximum_facet_restoration_error_mm": 0.0,
+          "maximum_roundtrip_error_mm": 0.0,
+          "maximum_shift_mm": 0.0,
+          "minimum_sampled_jacobian": 1.0,
+          "scoped_support_paint_area_mm2": 0.0,
+          "slice_triangles": 1976,
+          "source_triangles": 1976
+        },
         "faucet-shell-tip": {
           "maximum_facet_restoration_error_mm": 0.006503342912154153,
           "maximum_roundtrip_error_mm": 1.497255652793683e-10,
@@ -293,14 +302,43 @@
           "slice_triangles": 1112784,
           "source_triangles": 101932
         },
-        "tip-eight-fin-walls": {
+        "tip-hidden-root-disc": {
           "maximum_facet_restoration_error_mm": 0.0,
           "maximum_roundtrip_error_mm": 0.0,
           "maximum_shift_mm": 0.0,
           "minimum_sampled_jacobian": 1.0,
           "scoped_support_paint_area_mm2": 0.0,
-          "slice_triangles": 1428,
-          "source_triangles": 1428
+          "slice_triangles": 396,
+          "source_triangles": 396
+        }
+      },
+      "faucet-shell-tip mating lip": {
+        "Keep support clear of beverage outlet 1": {
+          "maximum_facet_restoration_error_mm": 0.0,
+          "maximum_roundtrip_error_mm": 0.0,
+          "maximum_shift_mm": 0.0,
+          "minimum_sampled_jacobian": 1.0,
+          "scoped_support_paint_area_mm2": 0.0,
+          "slice_triangles": 305364,
+          "source_triangles": 305364
+        },
+        "Mating lip support roof": {
+          "maximum_facet_restoration_error_mm": 3.197442310920451e-14,
+          "maximum_roundtrip_error_mm": 3.552713678800501e-15,
+          "maximum_shift_mm": 0.4800000000000004,
+          "minimum_sampled_jacobian": 0.9999999999976694,
+          "scoped_support_paint_area_mm2": 0.0,
+          "slice_triangles": 10030,
+          "source_triangles": 1976
+        },
+        "faucet-shell-tip": {
+          "maximum_facet_restoration_error_mm": 0.006324839205689159,
+          "maximum_roundtrip_error_mm": 1.2884626698905777e-10,
+          "maximum_shift_mm": 0.4800000000000004,
+          "minimum_sampled_jacobian": 0.7600000355569847,
+          "scoped_support_paint_area_mm2": 0.0,
+          "slice_triangles": 1336498,
+          "source_triangles": 1112784
         },
         "tip-hidden-root-disc": {
           "maximum_facet_restoration_error_mm": 0.0,
@@ -313,18 +351,19 @@
         }
       }
     },
-    "lifted_travels": 4753,
-    "mapped_deposition_segments": 547535,
+    "lifted_travels": 6856,
+    "mapped_deposition_segments": 648488,
     "mapped_deposition_segments_by_region": [
-      474458,
-      73077
+      474813,
+      72773,
+      100902
     ],
     "maximum_mapped_path_slope_degrees": 43.98367195513913,
     "maximum_mapped_z_speed_mm_s": 7.499999997691714,
     "maximum_vertical_motion_offset_mm": 0.4799872251275241,
     "purpose": "Read the bounded restored movements of the full print.",
-    "restored_extrusion_delta_mm": -16.774277172764744,
-    "pre_contour_archive_sha256": "045bb99e098bd4e321058dd2affd768df1cd0c7c065e955feda3f0aa30f3d99f"
+    "restored_extrusion_delta_mm": -17.484007174428886,
+    "pre_contour_archive_sha256": "f5dcf9e4b18b90223dc4922e8a467a6ed029e7c0b232aa2bd443620b9890eee7"
   },
   "nozzle_diameter_mm": [
     0.4,
@@ -626,7 +665,7 @@
   "profile_source": "hardware/printed-parts/faucet/industrial/prints/2026-10-15-all-learnings/mark2/2026-10-15-complete-faucet-all-learnings-mark2-base-arcs-z004.3mf",
   "profile_source_sha256": "25ae62b12d2dee09e59b835cce1c63f549bd6f49623956929d631c208f98fc0f",
   "project": "hardware/printed-parts/faucet/faucet-petgf.3mf",
-  "project_sha256": "c93d069effd937cebcac660ff806cf50f84359f63db65e151741484890b72c26",
+  "project_sha256": "f79973dc31d5ca3a9d6832187f3410afc798802c9fb6a147fc76970ec40e8302",
   "rear_seam_enforcement": {
     "enforced_triangles": 1519,
     "half_width_mm": 0.25,
@@ -651,14 +690,14 @@
   "requested_z_trim_mm": 0.04,
   "rigid_part_count": 5,
   "rim_contour": {
-    "added_commanded_motion_seconds": 103.60180497667609,
+    "added_commanded_motion_seconds": 104.12743565667672,
     "arc_count": 123,
-    "archive_sha256": "61141c713e322fba18c6f623b26f558ff7636450753d5cd3cb80101f4d96b004",
+    "archive_sha256": "234e793103933d47e56e65cad7d5a362e76a6e58232b3531ccf9ccc2edf3f66e",
     "emitted_contact_segments": 801,
     "extrusion_added_mm": 5.778014066399109,
     "extrusion_removed_mm": 9.653522076572456,
-    "gcode_input_sha256": "3809954282f0181e3afe04626f726edd324f36aef62ffcfe124923d80144b30e",
-    "gcode_sha256": "334faafeaef2a04e3982f56956741bf4c7281aa8fabbad5b8410bb3e64d3100d",
+    "gcode_input_sha256": "c7f62bed98e9d1a90ecbf9cb958bfeea89ecb135444b2329a33080ec6ed378b5",
+    "gcode_sha256": "c5aa812660d59bf9c256bba35996e6012a11ec4625544c2b0751e27b711b5a7b",
     "identify_id": 1901,
     "maximum_contact_depth_below_prior_peak_mm": 1.0800000000037517,
     "minimum_contact_z_mm": 0.9753898289152962,
@@ -844,8 +883,6 @@
       "target": "Outer curved neck rear meridian at CAD X=0, excluding plug and display-frame surfaces"
     },
     "tip_supports": {
-      "fin_component_id": 2000,
-      "fin_count": 8,
       "joint_plane": {
         "normal": [
           0.0,
@@ -858,11 +895,7 @@
           220.8576411168048
         ]
       },
-      "lip_enforcer_selection": {
-        "maximum_abs_cad_x_mm": 8,
-        "maximum_build_z_mm": 21
-      },
-      "method": "accepted-eight-fins-lip-trees-hidden-root-disc",
+      "method": "Dense Slim trees at the mating lip, a contoured first perimeter and a hidden-root disc",
       "part": "faucet-shell-tip",
       "physical_result": "hardware/printed-parts/faucet/finish-coupons/2026-10-15-tip-root-anchor/mark1/physical-result/physical-result.json",
       "root_anchor_component_id": 2400,
@@ -872,7 +905,7 @@
       "source_preparation": "hardware/printed-parts/faucet/finish-coupons/2026-10-15-tip-root-anchor/mark1/preparation.json",
       "source_project": "hardware/printed-parts/faucet/finish-coupons/2026-10-15-tip-root-anchor/mark1/2026-10-15-faucet-tip-root-anchor-eight-fins-lip-trees-current105-bridge125-fan70-z018-mark1.3mf",
       "source_project_sha256": "f6e5c53d4a23b25f568b083d8a3eaa779b7959c666fa41a227a953e21904f3ff",
-      "tree_support_scope": "Retain the selected joint-plane block paint and seam-side low lip support enforcers. The inner dispense face uses the separately bounded contact treatment."
+      "tree_support_scope": "The mating lip has a scoped dense roof and the inboard dispense face has a separate outlet keepout."
     },
     "wall_generators": "Retain base Arachne for the continuous reinforced foot; other rigid parts retain Classic."
   },
@@ -1103,12 +1136,13 @@
     "hardware/printed-parts/faucet/finish-coupons/2026-10-15-edge-supports/base-mark2/preparation.json": "ef809621ac2b4d66ab7c0602848fe73eea37af4107cfb77d63b034088c2c3b33",
     "hardware/printed-parts/faucet/industrial/prints/2026-10-15-all-learnings/mark2/2026-10-15-complete-faucet-all-learnings-mark2-base-arcs-z004.3mf": "25ae62b12d2dee09e59b835cce1c63f549bd6f49623956929d631c208f98fc0f",
     "hardware/printed-parts/faucet/lever-replica/lever-replica-side-down.stl": "19d420b9193d0d691959aadb80095523164afe380189aae1af9eb0c13f8f2d21",
-    "hardware/printed-parts/faucet/sculpted/finish-selection.json": "340097eec7f8218a538eb247f93a3b9f8bafdc686a40819c6c9ed4ea86070d96",
-    "hardware/printed-parts/faucet/sculpted/prepare_print_project.rs": "710b06d0d595751693048756a91d46585c6f5e7bfcf00aca1eb2fddcecce7548",
+    "hardware/printed-parts/faucet/sculpted/finish-selection.json": "513bc772259add0cbceb48af21deac904b4cbe2baf0d7fd7fdc11a34eef7ed24",
+    "hardware/printed-parts/faucet/sculpted/prepare_print_project.rs": "b0be948af6f071aff471891a266d801678a1b1758c390cf23d2aa6a804152ef9",
     "hardware/printed-parts/faucet/sculpted/rim_supports.rs": "207873e039d476bbbfe5fdec1e98e03c221257f122235410688eb003c51d7c58",
-    "tools/hsm/print-prep/src/faucet_contact.rs": "7d9d19e3809237f471b9c1c26bd5bd8bc14abe0e6f74d64eddb781a131f2b56d",
+    "tools/hsm/print-prep/src/faucet.rs": "a311eb264400cfb363d96b2ae3cce2f24e2cc6d243de21011a9b38f368c4ad30",
+    "tools/hsm/print-prep/src/faucet_contact.rs": "7d645f820fc905052f4eb64c4e5336cc8d74320026ef1f81236e90353077bbe0",
     "tools/hsm/print-prep/src/faucet_recesses.rs": "67436872fcf6315d00d01dea42322d3c59448c82884e5b5dc010e4c08a51dd9c",
-    "tools/hsm/print-prep/src/rim_contour.rs": "26d8ad758e8cedd6f95ac7c4288b0ac676248a8b4c0d58f3ce6deeb115aeb721"
+    "tools/hsm/print-prep/src/rim_contour.rs": "7a448d4c6028f78abd7ac96f9cbb683503e5c4cc4449317edc86f5fb42a480d1"
   },
   "sparse_infill_pattern": "grid",
   "sparse_infill_percent": 15.0,
@@ -2442,7 +2476,7 @@
           -0.65,
           5.0
         ],
-        "part_id": 21
+        "part_id": 20
       }
     ],
     "part": "faucet-shell-tip",
@@ -2482,24 +2516,105 @@
     "surface": "curved_outer_arc",
     "target": "Outer curved neck rear meridian at CAD X=0, excluding plug and display-frame surfaces"
   },
+  "tip_rim_contact": {
+    "band": {
+      "bounds_mm": [
+        [
+          165.00036344130504,
+          188.59003417957035
+        ],
+        [
+          199.99963655869496,
+          223.58930729696027
+        ]
+      ],
+      "edge_blend_mm": 2.0,
+      "name": "faucet-shell-tip mating lip",
+      "parameters": {
+        "band_period_mm": 1.92,
+        "band_phase_mm": 0.2,
+        "bed_blend_mm": [
+          0.44,
+          4.0
+        ],
+        "contact_full_weight_mm": [
+          -1.5,
+          1.0
+        ],
+        "contact_zero_weight_mm": [
+          -4.5,
+          4.0
+        ],
+        "maximum_gcode_segment_mm": 0.25,
+        "maximum_mesh_mapping_error_mm": 0.003,
+        "maximum_mesh_y_step_mm": 1.0,
+        "maximum_mesh_z_step_mm": 1.0,
+        "maximum_nonplanar_z_speed_mm_s": 7.5,
+        "purpose": "Extend continuous contact bands and reduce the requested gap on the complete retained faucet coupon.",
+        "travel_clearance_mm": 0.4,
+        "travel_retract_mm": 0.8,
+        "travel_retract_speed_mm_s": 30.0,
+        "travel_z_speed_mm_s": 15.0
+      },
+      "plane_normal": [
+        -0.0,
+        -0.5735764363510463,
+        -0.8191520442889917
+      ],
+      "refine_mesh_interiors": true,
+      "seat_plate_mm": [
+        182.5,
+        206.0896707382653,
+        22.66484377746714
+      ]
+    },
+    "enforcer_radii_mm": [
+      12.149636558694963,
+      14.099636558694963
+    ],
+    "lip_face_count": 375,
+    "part": "faucet-shell-tip",
+    "rim_radius_mm": 13.499636558694963,
+    "roof_enforcer_part_id": 21
+  },
+  "tip_rim_contour": {
+    "added_commanded_motion_seconds": 61.95955014064185,
+    "arc_count": 129,
+    "archive_sha256": "3e2c6cf57c670317b2b935ad6fd27d5e094b64de6e5d0d5aef1d9cb17325e590",
+    "emitted_contact_segments": 449,
+    "extrusion_added_mm": 2.8419330727906775,
+    "extrusion_removed_mm": 2.637457398055446,
+    "gcode_input_sha256": "c5aa812660d59bf9c256bba35996e6012a11ec4625544c2b0751e27b711b5a7b",
+    "gcode_sha256": "2a42fb2cd5f753e90410fba5fc34c0b229a914dd08de9a4fea1d49f754a49053",
+    "identify_id": 1902,
+    "maximum_contact_depth_below_prior_peak_mm": 1.0800000000154135,
+    "minimum_contact_z_mm": 15.20329853085721,
+    "modified_native_paths": 775,
+    "purpose": "Bind the continuous first outer rim course to the complete product.",
+    "rim_semi_axes_mm": [
+      13.499636558694963,
+      13.499636558694963
+    ],
+    "seat_fall_angle_degrees": 35.000000000000014,
+    "seat_plate_mm": [
+      182.5,
+      206.0896707382653,
+      22.66484377746714
+    ],
+    "supported_angles_degrees": [
+      0.0,
+      360.0
+    ]
+  },
   "tip_supports": {
     "components": [
       {
         "component_id": 19,
-        "source_component_id": 2000,
-        "source_member": "3D/Objects/retained-tip-eight-fins.model",
-        "source_member_sha256": "2d38b3a328b3d57a3a496062bd7fd866e692be677377c82c11669ddba6fd3b59"
-      },
-      {
-        "component_id": 20,
         "source_component_id": 2400,
         "source_member": "3D/Objects/plug-root-breakaway-foot.model",
         "source_member_sha256": "ae1749aebf01efcd912f9c9521f81bed6d3b6370b6232b3341c53c8ea181070b"
       }
     ],
-    "enforced_lip_area_mm2": 37.18617770467749,
-    "enforced_lip_faces": 83,
-    "fin_count": 8,
     "joint_plane": {
       "normal": [
         0.0,
@@ -2512,17 +2627,9 @@
         220.8576411168048
       ]
     },
-    "joint_plane_area_mm2": 167.93563006372295,
-    "joint_plane_faces": 375,
-    "lip_enforcer_selection": {
-      "maximum_abs_cad_x_mm": 8,
-      "maximum_build_z_mm": 21
-    },
     "part": "faucet-shell-tip",
     "physical_result": "hardware/printed-parts/faucet/finish-coupons/2026-10-15-tip-root-anchor/mark1/physical-result/physical-result.json",
     "root_contact_scope": "Hidden male insertion terminal end only. The directly bonded disc leaves a scuff; do not transfer this bonded contact to visible surfaces.",
-    "scope": "Exact accepted fin and hidden-root-disc meshes; accepted lip support-selection geometry on the full tip tessellation. Tree(auto)/Default elsewhere. Bonded disc contact stays on the hidden male insertion end.",
-    "seam_paint_preserved": true,
     "source_local_to_target_local_translation_mm": [
       -0.0002384185791015625,
       43.82826042175293,
@@ -2530,8 +2637,13 @@
     ],
     "source_preparation": "hardware/printed-parts/faucet/finish-coupons/2026-10-15-tip-root-anchor/mark1/preparation.json",
     "source_project": "hardware/printed-parts/faucet/finish-coupons/2026-10-15-tip-root-anchor/mark1/2026-10-15-faucet-tip-root-anchor-eight-fins-lip-trees-current105-bridge125-fan70-z018-mark1.3mf",
-    "source_project_sha256": "f6e5c53d4a23b25f568b083d8a3eaa779b7959c666fa41a227a953e21904f3ff",
-    "vertices_and_triangle_indices_unchanged": true
+    "source_project_sha256": "f6e5c53d4a23b25f568b083d8a3eaa779b7959c666fa41a227a953e21904f3ff"
   },
-  "wall_loops": 2
+  "wall_loops": 2,
+  "executable": {
+    "archive": "hardware/printed-parts/faucet/sculpted/production/faucet-petgf.gcode.3mf",
+    "archive_sha256": "3e2c6cf57c670317b2b935ad6fd27d5e094b64de6e5d0d5aef1d9cb17325e590",
+    "member": "Metadata/plate_1.gcode",
+    "gcode_sha256": "2a42fb2cd5f753e90410fba5fc34c0b229a914dd08de9a4fea1d49f754a49053"
+  }
 }
