@@ -76,8 +76,9 @@ component, so all of them carry the colour into `/3d`.
 ## Print
 
 Flat face down on the bed, two colours to a plate — the collars off one spool, the words off the
-other, and the lettering in the first layers. The half circle stands as the arch above. PET-GF,
-the enclosure's own stock ([`bom.md`](/hardware/ledger/bom.md) §7).
+other, and the lettering in the first layers. The half circle stands as the arch above.
+The [Mark2 collar plates](../../enclosure/trial-preparation/README.md) use PET-GF
+and leave the bores clear of support.
 
 ## Files
 

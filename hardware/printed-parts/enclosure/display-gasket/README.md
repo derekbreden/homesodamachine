@@ -3,8 +3,7 @@
 A TPU ring under the display cover plate's lap, between the plate and the display's
 cover glass.
 
-Material: Bambu TPU 90A (black), from the same per-unit-trivial stock as the
-foam-cap and reservoir gaskets.
+Material: Bambu TPU 90A (black).
 
 The screw-mounted cover bears on the glass through the soft ring. It spreads
 light clamp pressure along the glass border and accommodates printed surface
@@ -16,7 +15,8 @@ Its thickness and seating follow the shared
 
 ## Print
 
-Same plate as the machine's other soft seals. No supports; the ring lies flat.
+Print the ring flat without supports. The [display-gasket plate](../trial-preparation/pieces.json)
+uses the TPU 90A flat seal profile on the glued Engineering Plate.
 
 ## Regenerate
 

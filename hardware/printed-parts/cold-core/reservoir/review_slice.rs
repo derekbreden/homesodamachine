@@ -4,14 +4,13 @@
 //!     reservoir-slice-review
 //!
 //! It slices `reservoir.3mf` and audits each plate's supports into the review folder when the
-//! folder holds no slice of the current project. The slice must keep the saved process with ironing off, assign the
-//! right 0.8 mm nozzle, emit Mark1's Z trim, climb at the recipe's layer heights, keep every
-//! full bead inside the bed margin with each body clear of its cap, cool the upper walls in the
-//! ordinary range and root every support on the bed.
+//! folder holds no slice of the current project. The review checks the plate processes, left
+//! nozzle assignment, Engineering Plate trim, layer heights, bed margins, body cooling and
+//! support placement.
 
-use anyhow::{bail, Context, Result};
+use anyhow::{bail, ensure, Context, Result};
 use hsm_print_prep::ids::md5_hex;
-use hsm_print_prep::{audit, faucet, root, sha256_hex, slice};
+use hsm_print_prep::{audit, faucet, root, sha256_hex, slice, xml};
 use serde_json::{json, Map, Value};
 use std::collections::{BTreeMap, BTreeSet};
 use std::f64::consts::{FRAC_PI_2, PI, TAU};
@@ -21,14 +20,14 @@ const HERE: &str = "hardware/printed-parts/cold-core/reservoir";
 const FOLDER: &str = ".cache/prints/reservoir-slice-review";
 const ARCHIVE: &str = "reservoir-review.3mf";
 const SETTINGS: &str = "Metadata/project_settings.config";
-const TRIMS: [&str; 2] = ["G29.1 Z0 ; clear z-trim value first", "G29.1 Z-0.02"];
-const ASSIGNMENT: [(&str, &str); 3] = [("filament_map", "2"), ("filament_nozzle_map", "1"), ("nozzle_diameter", "0.8,0.8")];
+const TRIMS: [&str; 2] = ["G29.1 Z0 ; clear z-trim value first", "G29.1 Z0"];
+const ASSIGNMENT: [(&str, &str); 3] = [("filament_map", "1"), ("filament_nozzle_map", "0"), ("nozzle_diameter", "0.8,0.8")];
 const FIRST_LAYER: f64 = 0.30;
 const LAYER: f64 = 0.24;
 /// Walls above this height are the bodies' and caps' upper walls, whose cooling is read.
 const WALL_COOLING_ABOVE_Z: f64 = 12.0;
-/// Each body's beads keep at least this far from its cap's.
-const BODY_CAP_GAP: f64 = 5.0;
+/// The two caps keep this much clearance between their full bead envelopes.
+const CAP_GAP: f64 = 5.0;
 
 /// The letter words of a command, as `([A-Z])([-+]?(?:\d+(?:\.\d*)?|\.\d+))` finds them.
 fn words(code: &str) -> BTreeMap<char, f64> {
@@ -92,7 +91,7 @@ fn arc(start: [f64; 2], end: [f64; 2], w: &BTreeMap<char, f64>, clockwise: bool)
 
 /// Every deposited bead's full width against the bed, each object's bead box, and the fan
 /// commanded on the upper walls.
-fn toolpaths(text: &str, ids: [i64; 2], bed: [[f64; 2]; 2], margin: f64, fan_range: [f64; 2]) -> Result<(Value, Vec<f64>)> {
+fn toolpaths(text: &str, ids: &[i64], bed: [[f64; 2]; 2], margin: f64, body_fan: Option<[f64; 2]>) -> Result<(Value, Vec<f64>)> {
     if text.lines().any(|l| l.strip_prefix("; FEATURE:").is_some_and(|f| f.trim() == "Ironing")) {
         bail!("the slice holds an ironing feature");
     }
@@ -105,7 +104,7 @@ fn toolpaths(text: &str, ids: [i64; 2], bed: [[f64; 2]; 2], margin: f64, fan_ran
     let mut boxes: BTreeMap<i64, ([f64; 2], [f64; 2])> = ids.iter().map(|&i| (i, ([f64::INFINITY; 2], [f64::NEG_INFINITY; 2]))).collect();
     let mut cooling: BTreeMap<u64, f64> = BTreeMap::new();
     for raw in text.lines() {
-        if let Some(rest) = raw.strip_prefix("; start printing object, unique label id: ") {
+        if let Some(rest) = raw.strip_prefix("; OBJECT_ID: ").or_else(|| raw.strip_prefix("; start printing object, unique label id: ")) {
             let id: i64 = rest.chars().take_while(char::is_ascii_digit).collect::<String>().parse()?;
             if !boxes.contains_key(&id) {
                 bail!("an unexpected object in the slice: {id}");
@@ -185,21 +184,26 @@ fn toolpaths(text: &str, ids: [i64; 2], bed: [[f64; 2]; 2], margin: f64, fan_ran
     if boxes.values().any(|(a, b)| !(a.iter().chain(b).all(|v| v.is_finite()))) {
         bail!("a body or cap lays no beads");
     }
-    let (first, second) = (boxes[&ids[0]], boxes[&ids[1]]);
-    let gap = (0..2).map(|k| (first.0[k] - second.1[k]).max(second.0[k] - first.1[k]).max(0.0).powi(2)).sum::<f64>().sqrt();
+    let gap = if let [a, b] = ids {
+        let (first, second) = (boxes[a], boxes[b]);
+        let gap = (0..2).map(|k| (first.0[k] - second.1[k]).max(second.0[k] - first.1[k]).max(0.0).powi(2)).sum::<f64>().sqrt();
+        ensure!(gap >= CAP_GAP, "the caps stand too close together");
+        Some(gap)
+    } else {
+        None
+    };
     let mut pwm: Vec<f64> = cooling.into_values().collect();
     pwm.sort_by(f64::total_cmp);
-    if gap < BODY_CAP_GAP || !pwm.iter().any(|&p| fan_range[0] - 1e-6 <= p && p <= fan_range[1] + 1e-6) {
-        bail!("a body stands too close to its cap, or the upper walls leave the ordinary cooling");
-    }
-    Ok((json!({"right_nozzle_usable_bed_bounds_mm": bed, "model_support_brim_xy_bounds_mm": [low, high],
+    ensure!(body_fan.is_none_or(|[minimum, maximum]| pwm.iter().any(|&p| minimum - 1e-6 <= p && p <= maximum + 1e-6)),
+        "the upper reservoir walls leave the ordinary cooling range");
+    Ok((json!({"left_nozzle_usable_bed_bounds_mm": bed, "model_support_brim_xy_bounds_mm": [low, high],
         "edge_margins_left_front_right_back_mm": margins, "minimum_full_bead_edge_margin_mm": least,
-        "minimum_body_cap_full_bead_box_gap_mm": gap, "deposited_move_count": deposited, "support_move_count": supports,
+        "minimum_cap_full_bead_box_gap_mm": gap, "deposited_move_count": deposited, "support_move_count": supports,
         "scope": "Native deposited model, support and brim beads, including arc extrema and half-width. Vendor startup purge/calibration paths are excluded. Placement does not establish adhesion."}), pwm))
 }
 
 /// Slice the project into `folder` and audit each plate's supports there.
-fn slice_and_audit(project: &Path, folder: &Path) -> Result<()> {
+fn slice_and_audit(project: &Path, folder: &Path, plate_count: usize) -> Result<()> {
     // Bambu Studio's slice is one of the Mac's heavy runs.
     hsm_run_slots::process_enter(&hsm_run_slots::native_key())?;
     std::fs::create_dir_all(folder)?;
@@ -211,7 +215,7 @@ fn slice_and_audit(project: &Path, folder: &Path) -> Result<()> {
         bail!("the offline slice exited {}; {}", status.code().unwrap_or(-1), folder.join("bambu-cli.log").display());
     }
     let members = faucet::members(&folder.join(ARCHIVE))?;
-    for i in 1..=2 {
+    for i in 1..=plate_count {
         let gcode = members.get(&format!("Metadata/plate_{i}.gcode")).with_context(|| format!("the slice has no plate {i}"))?;
         let options = audit::Options { piece: format!("reservoir plate {i}"), object: None, include_unlabelled: true, cad_transform: None,
                                        bed_reseat: None, inputs: json!({"archive": ARCHIVE, "plate": i, "gcode_sha256": sha256_hex(gcode)}) };
@@ -234,25 +238,25 @@ fn main() -> Result<()> {
     if generated["project_sha256"].as_str() != Some(project_sha.as_str()) {
         bail!("reservoir.3mf differs from its preparation record");
     }
-    let source = faucet::read_json(&here.join("print-settings.json"))?["project_settings"].clone();
+    let planned = generated["plates"].as_array().context("the project has no plate plan")?;
+    let project_members = faucet::members(&project)?;
+    let source: Value = serde_json::from_slice(project_members.get(SETTINGS).context("the project has no settings")?)?;
     // A slice of another project is sliced again.
     let sliced_from = folder.join("project.sha256");
     if !folder.join("result.json").is_file() || std::fs::read_to_string(&sliced_from).ok().as_deref() != Some(project_sha.as_str()) {
         if folder.exists() {
             std::fs::remove_dir_all(&folder)?;
         }
-        slice_and_audit(&project, &folder)?;
+        slice_and_audit(&project, &folder, planned.len())?;
         std::fs::write(&sliced_from, &project_sha)?;
     }
     let result = faucet::read_json(&folder.join("result.json"))?;
     let plates = result["sliced_plates"].as_array().context("the slice names no plates")?;
-    if result["return_code"].as_i64() != Some(0) || plates.iter().map(|p| p["id"].as_i64()).collect::<Vec<_>>() != [Some(1), Some(2)] {
-        bail!("the slice did not finish both plates");
-    }
+    ensure!(result["return_code"] == 0 && plates.len() == planned.len(), "the slice did not finish all planned plates");
     if source["ironing_type"] != "no ironing" || source["enable_support_ironing"] != "0" {
         bail!("the recipe must keep model and support ironing off");
     }
-    let area = source["extruder_printable_area"][1].as_str().context("no right-nozzle area")?;
+    let area = source["extruder_printable_area"][0].as_str().context("no left-nozzle area")?;
     let points: Vec<[f64; 2]> = area.split(',').map(|p| {
         let (a, b) = p.split_once('x').context("an area point")?;
         Ok([a.trim().parse()?, b.trim().parse()?])
@@ -266,16 +270,27 @@ fn main() -> Result<()> {
     if !(added.is_empty() || Value::Object(added.clone()) == json!({"filament_map_2": ["1"]})) || source_map.iter().any(|(k, v)| sliced_map.get(k) != Some(v)) {
         bail!("the slicer changed the saved process");
     }
+    let config = xml::parse(std::str::from_utf8(members.get("Metadata/model_settings.config").context("the slice has no object settings")?)?)?;
     let fans = ["fan_min_speed", "fan_max_speed"].map(|k| source[k][0].as_str().and_then(|v| v.parse::<f64>().ok()).unwrap_or(0.0) * 2.55);
     let margin = generated["minimum_emitted_bead_edge_margin_mm"].as_f64().context("no bead margin")?;
     let mut rows = Vec::new();
-    for row in plates {
-        let i = row["id"].as_i64().unwrap_or(0);
+    for (row, planned) in plates.iter().zip(planned) {
+        let i = planned["plate"].as_i64().context("the plan has no plate number")?;
+        ensure!(row["id"] == i, "the slicer changed the plate order");
         let parts: Vec<&Value> = generated["parts"].as_array().into_iter().flatten().filter(|p| p["plate"].as_i64() == Some(i)).collect();
         let names: Vec<&Value> = parts.iter().map(|p| &p["name"]).collect();
         let objects: Vec<&Value> = row["objects"].as_array().into_iter().flatten().map(|o| &o["name"]).collect();
         if row["warning_message"].as_str().is_some_and(|w| !w.is_empty()) || objects != names {
             bail!("plate {i} warns or holds other objects");
+        }
+        for name in &names {
+            let settings = config.children_named("object").map(|object| {
+                object.children_named("metadata").filter_map(|m| Some((m.attribute("key")?, m.attribute("value")?)))
+                    .collect::<BTreeMap<_, _>>()
+            }).find(|settings| settings.get("name").copied() == name.as_str()).context("no native settings for planned object")?;
+            for (key, value) in planned["object_settings"].as_object().context("no planned object settings")? {
+                ensure!(settings.get(key.as_str()).copied() == value.as_str(), "plate {i} lost object setting {key} for {name}");
+            }
         }
         let name = format!("Metadata/plate_{i}.gcode");
         let data = members.get(&name).with_context(|| format!("no {name}"))?;
@@ -290,13 +305,13 @@ fn main() -> Result<()> {
             let prefix = format!("; {key} = ");
             let found = lines.iter().find_map(|l| l.strip_prefix(prefix.as_str())).map(str::trim);
             if found != Some(expected) {
-                bail!("plate {i}'s {key} is not the right 0.8 mm nozzle's");
+                bail!("plate {i}'s {key} does not match the fixed left nozzle");
             }
             assignment.insert(key.into(), json!(expected));
         }
         let trims: Vec<&str> = lines.iter().map(|l| l.trim_start()).filter(|l| l.starts_with("G29.1 Z")).collect();
         if trims != TRIMS {
-            bail!("plate {i} emits Z trims {trims:?}, not Mark1's");
+            bail!("plate {i} emits unexpected Engineering Plate Z trims {trims:?}");
         }
         let layers: Vec<(f64, f64)> = lines.windows(3).filter(|w| w[0] == "; CHANGE_LAYER").filter_map(|w| {
             Some((w[1].strip_prefix("; Z_HEIGHT: ")?.parse().ok()?, w[2].strip_prefix("; LAYER_HEIGHT: ")?.parse().ok()?))
@@ -308,7 +323,11 @@ fn main() -> Result<()> {
         if row["feature_type_times"]["Ironing"].as_f64().unwrap_or(0.0) != 0.0 {
             bail!("plate {i}'s estimate includes ironing");
         }
-        let (placement, cooling) = toolpaths(text, [2400 + 2 * i - 1, 2400 + 2 * i], bed, margin, fans)?;
+        let ids = parts.iter().map(|p| p["object_id"].as_i64().context("missing object ID")).collect::<Result<Vec<_>>>()?;
+        let body = names.iter().any(|n| n.as_str().is_some_and(|s| !s.starts_with("reservoir-cap-")));
+        let (placement, cooling) = toolpaths(text, &ids, bed, margin, body.then_some(fans))?;
+        ensure!(planned["enable_support"] != "0" || placement["support_move_count"] == 0,
+            "plate {i} emits support with the support-free cap recipe");
         let support = faucet::read_json(&folder.join(format!("plate_{i}-supports.json")))?["summary"].clone();
         if support["bed_rooted_bodies"] != support["support_bodies"] || support["model_rooted_bodies"].as_i64() != Some(0) {
             bail!("plate {i}'s supports root on the model");
@@ -319,7 +338,8 @@ fn main() -> Result<()> {
             "ironing_estimated_seconds": 0, "ironing_enable_commands": 0, "ironing_feature_paths": 0, "layer_count": layers.len(),
             "first_layer_height_mm": FIRST_LAYER, "normal_layer_height_mm": LAYER, "model_features": features,
             "wall_generator": source["wall_generator"], "requested_wall_loops": source["wall_loops"].as_str().and_then(|v| v.parse::<i64>().ok()),
-            "infill_wall_overlap": source["infill_wall_overlap"],
+            "infill_wall_overlap": planned["infill_wall_overlap"], "enable_support": planned["enable_support"],
+            "settings_source": planned["settings"], "settings_source_sha256": planned["settings_sha256"],
             "wall_transition_angle_degrees": source["wall_transition_angle"].as_str().and_then(|v| v.parse::<f64>().ok()),
             "warning_message": row["warning_message"], "gcode_sha256": sha256_hex(data), "embedded_gcode_md5_verified": true,
             "emitted_nozzle_assignment": assignment, "z_trim_commands": trims, "placement": placement,
@@ -327,6 +347,7 @@ fn main() -> Result<()> {
             "support_scope": "All detected support bodies start at the bed. Bodies without explicit interface labels have no inferred contact build-up."}));
     }
     let review = json!({"project": "reservoir.3mf", "project_sha256": project_sha, "recipe": "print-settings.json",
+        "archive": format!("{FOLDER}/{ARCHIVE}"), "archive_sha256": faucet::file_sha(&folder.join(ARCHIVE))?,
         "slicer_version": text_version(&members), "return_code": 0, "physical_settings_match_saved_project": true,
         "slicer_added_metadata": added, "plates": rows,
         "scope": "Native slice of current body/cap geometry with ironing off. Coupon finish selection and the historical water-hold acceptance apply to their tested articles; this slice supplies no new physical sealing result."});

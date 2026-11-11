@@ -1,32 +1,31 @@
 //! enclosure-labels — the identification plates: rear chips, tube collars and the nameplate.
 //!
-//!     enclosure-labels [--colour white|blue|red|black]... [--slice] [--output DIR]
+//!     enclosure-labels [--mark1-identification | --collars-only] [--colour COLOUR]... [--slice] [--output DIR]
 //!
-//! Two-colour PET-GF plates on Mark2, one per chip colour. They carry the compact rear chips
-//! (`enclosure/rear-identification/`), the tube collars (`faucet/tube-collar/`) and the serial
-//! nameplate (`enclosure/nameplate/`). Each part's body and lettering are the two solids its
-//! generator writes into `<part>.step.npz`, posed face up: the chips and the nameplate lie on
-//! their flat backs, the collars on their flat faces.
+//! The Mark1 mode prints the rear chips, serial nameplate and status plate in the accepted
+//! multicolor PETG project. The Mark2 mode prints two-colour PET-GF collars, one plate per
+//! colour. Each mode reads the body and lettering from the current STEP payload. The plates
+//! lie on their flat backs and the collars on their lettered faces.
 //!
-//! The recipe is `petgf.3mf` on both nozzles with Mark2's Z trim. White PET-GF is on the left
-//! nozzle and the plate's colour on the right, which takes its measured registration offset
-//! (`calibration/dual-nozzle-registration/mark2-registration.json`). There are no supports and no
-//! brim. One closing layer schedule puts a layer top on every face-up face and lettering top,
-//! because the prime tower needs one schedule.
+//! The collar recipe uses `petgf.3mf` on both nozzles with Mark2's Z trim. White PET-GF is on the
+//! left nozzle and the plate's colour on the right, which takes its measured registration offset
+//! (`calibration/dual-nozzle-registration/mark2-registration.json`). There are no supports or brim.
 //!
-//! A run writes `<output>/<date>-labels-<colour>-mark2-<digest>/`: the project, the body and
-//! lettering meshes, `preparation.json`, and with `--slice` the archive and `review.json`. No
-//! printer is contacted.
+//! A run writes the project and `preparation.json`, and with `--slice` the archive and
+//! `review.json`. No printer is contacted.
 
 use anyhow::{bail, Context, Result};
 use hsm_print_prep::json::Json;
 use hsm_print_prep::mesh::{bounds, write_stl};
 use hsm_print_prep::profile::{self, relative};
-use hsm_print_prep::project::{Plate, Range};
+use hsm_print_prep::project::Plate;
 use hsm_print_prep::{cooling, derive, gcode, npz, sha256_hex, slice};
 use serde_json::{json, Map, Value};
 use std::collections::{BTreeMap, BTreeSet};
 use std::path::{Path, PathBuf};
+
+#[path = "identification_mark1.rs"]
+mod identification_mark1;
 
 const PROFILE: &str = "hardware/printed-parts/petgf.3mf";
 const REGISTRATION: &str = "hardware/printed-parts/calibration/dual-nozzle-registration/mark2-registration.json";
@@ -40,9 +39,6 @@ const GAP: f64 = 8.0;
 const ROW: f64 = 130.0;
 /// The plate both nozzles reach.
 const USABLE: ([f64; 2], [f64; 2]) = ([25.0, 0.0], [325.0, 320.0]);
-/// The closing schedule's finest layer and its coarsest fine layer.
-const FINEST: f64 = 0.08;
-const COARSEST_FINE: f64 = 0.16;
 
 struct Group {
     colour: &'static str,
@@ -52,36 +48,17 @@ struct Group {
     parts: &'static [&'static str],
 }
 
-/// One plate per chip colour. Filament 1 is the left nozzle's white; filament 2 the right's colour.
+/// One plate per collar colour, with white on the left nozzle.
 const GROUPS: [Group; 4] = [
-    Group { colour: "white", colours: ["#FFFFFF", "#000000"], body: 1, word: 2, parts: &["chip:water", "chip:drain", "collar:water", "collar:drain"] },
-    Group { colour: "blue", colours: ["#FFFFFF", "#46A8F9"], body: 2, word: 1, parts: &["chip:carb", "collar:carb"] },
-    Group { colour: "red", colours: ["#FFFFFF", "#F54749"], body: 2, word: 1, parts: &["chip:co2", "collar:co2"] },
+    Group { colour: "white", colours: ["#FFFFFF", "#000000"], body: 1, word: 2, parts: &["water", "drain"] },
+    Group { colour: "blue", colours: ["#FFFFFF", "#46A8F9"], body: 2, word: 1, parts: &["carb"] },
+    Group { colour: "red", colours: ["#FFFFFF", "#F54749"], body: 2, word: 1, parts: &["co2"] },
     Group { colour: "black", colours: ["#FFFFFF", "#000000"], body: 2, word: 1,
-            parts: &["chip:flavor-a", "chip:flavor-b", "collar:flavor-a", "collar:flavor-b", "nameplate"] },
+            parts: &["flavor-a", "flavor-b"] },
 ];
 
 fn file_sha(path: &Path) -> Result<String> {
     Ok(sha256_hex(&std::fs::read(path).with_context(|| format!("reading {}", path.display()))?))
-}
-
-#[derive(Clone, Copy, PartialEq)]
-enum Bed {
-    /// The flat back on the bed, as the nameplate's print pose lays it.
-    Back,
-    /// The collar's flat face on the bed.
-    Face,
-}
-
-fn source(root: &Path, part: &str) -> Result<(PathBuf, Bed)> {
-    let (kind, which) = part.split_once(':').unwrap_or((part, ""));
-    let hp = root.join("hardware/printed-parts");
-    Ok(match kind {
-        "chip" => (hp.join(format!("enclosure/rear-identification/rear-label-{which}.step")), Bed::Back),
-        "collar" => (hp.join(format!("faucet/tube-collar/tube-collar-{which}.step")), Bed::Face),
-        "nameplate" => (hp.join("enclosure/nameplate/nameplate-001.step"), Bed::Back),
-        _ => bail!("no label part {part}"),
-    })
 }
 
 struct Shape {
@@ -102,9 +79,8 @@ impl Shape {
     }
 }
 
-/// The part's body and its lettering, the solids of its fine model, posed face up and centred on
-/// the plate origin.
-fn bodies(step: &Path, bed: Bed) -> Result<(Shape, Shape)> {
+/// The collar's body and lettering posed with the lettered face on the bed.
+fn bodies(step: &Path) -> Result<(Shape, Shape)> {
     let model = PathBuf::from(format!("{}.npz", step.display()));
     let arrays = npz::read_arrays(&model)?;
     let mut solids: Vec<Shape> = Vec::new();
@@ -129,15 +105,10 @@ fn bodies(step: &Path, bed: Bed) -> Result<(Shape, Shape)> {
         word.vertices.extend(s.vertices);
         word.faces.extend(s.faces.iter().map(|f| f.map(|i| i + base)));
     }
-    let pose = |p: [f64; 3]| match bed {
-        // A quarter turn about X, then half a turn about Z.
-        Bed::Back => [-p[0], p[2], p[1]],
-        // Half a turn about X.
-        Bed::Face => [p[0], -p[1], -p[2]],
-    };
     let (mut body, mut word) = (body, word);
-    for v in body.vertices.iter_mut().chain(word.vertices.iter_mut()) {
-        *v = pose(*v);
+    for [_, y, z] in body.vertices.iter_mut().chain(word.vertices.iter_mut()) {
+        *y = -*y;
+        *z = -*z;
     }
     let (lo, hi) = body.bounds();
     let shift = [-(lo[0] + hi[0]) / 2.0, -(lo[1] + hi[1]) / 2.0, -lo[2]];
@@ -250,22 +221,22 @@ fn now_utc() -> Result<String> {
 
 fn prepare(root: &Path, group: &Group, output: &Path) -> Result<PathBuf> {
     let (mut plate, recipe) = two_hotend_settings(root, group.colours)?;
-    plate.title = format!("{} identification; Mark2", group.colour);
+    plate.title = format!("{} tube collars; Mark2", group.colour);
     plate.filament_maps = Some("1 2".into());
     plate.filament_map_mode = "Manual".into();
     plate.filament_volume_maps = "0 0".into();
     let centre = [(USABLE.0[0] + USABLE.1[0]) / 2.0, (USABLE.0[1] + USABLE.1[1]) / 2.0];
-    struct Part { part: &'static str, step: PathBuf, bed: Bed, body: Shape, word: Shape, footprint: [f64; 2] }
+    struct Part { station: &'static str, step: PathBuf, body: Shape, word: Shape, footprint: [f64; 2] }
     let mut parts: Vec<Part> = Vec::new();
     let mut sources: BTreeMap<String, String> = BTreeMap::new();
-    for &part in group.parts {
-        let (step, bed) = source(root, part)?;
-        let (body, word) = bodies(&step, bed)?;
+    for &station in group.parts {
+        let step = root.join(format!("hardware/printed-parts/faucet/tube-collar/tube-collar-{station}.step"));
+        let (body, word) = bodies(&step)?;
         let (bl, bh) = body.bounds();
         let (wl, wh) = word.bounds();
         let footprint = [bh[0].max(wh[0]) - bl[0].min(wl[0]), bh[1].max(wh[1]) - bl[1].min(wl[1])];
         sources.insert(relative(&step, root), file_sha(&step)?);
-        parts.push(Part { part, step, bed, body, word, footprint });
+        parts.push(Part { station, step, body, word, footprint });
     }
     let positions = layout(&parts.iter().map(|p| p.footprint).collect::<Vec<_>>(), centre);
     // The prime tower stands centred behind the parts, clear of every footprint.
@@ -274,14 +245,10 @@ fn prepare(root: &Path, group: &Group, output: &Path) -> Result<PathBuf> {
     let tower = |v: f64| Json::List(vec![Json::Text(format!("{v:.1}")); 2]);
     plate.settings.set("wipe_tower_x", tower(centre[0] - width / 2.0));
     plate.settings.set("wipe_tower_y", tower(back + GAP * 2.0));
-    let tops: Vec<f64> = parts.iter().filter(|p| p.bed == Bed::Back)
-        .flat_map(|p| [round(p.body.bounds().1[2], 4), round(p.word.bounds().1[2], 4)]).collect();
-    let bands = derive::closing_schedule(&tops, FINEST, COARSEST_FINE)?;
-
     let mut digests: Vec<&String> = sources.values().collect();
     digests.sort();
     let digest = &sha256_hex(digests.into_iter().cloned().collect::<Vec<_>>().join("").as_bytes())[..8];
-    let stem = format!("{}-labels-{}-mark2-{digest}", today()?, group.colour);
+    let stem = format!("{}-tube-collars-{}-mark2-{digest}", today()?, group.colour);
     std::fs::create_dir_all(output)?;
     let directory = output.canonicalize()?.join(&stem);
     if directory.exists() {
@@ -290,7 +257,7 @@ fn prepare(root: &Path, group: &Group, output: &Path) -> Result<PathBuf> {
     std::fs::create_dir_all(directory.join("geometry"))?;
     let mut records = Vec::new();
     for (p, at) in parts.iter().zip(&positions) {
-        let name = p.part.replace(':', "-");
+        let name = format!("collar-{}", p.station);
         let mut meshes = Map::new();
         for (label, shape, tool) in [("body", &p.body, group.body), ("word", &p.word, group.word)] {
             let stl = directory.join("geometry").join(format!("{name}-{label}.stl"));
@@ -304,13 +271,10 @@ fn prepare(root: &Path, group: &Group, output: &Path) -> Result<PathBuf> {
                                      [at[0], at[1], 0.0], None, vec![("extruder".into(), group.body.to_string())]);
         plate.add_part(index, "word", p.word.vertices.clone(), p.word.faces.clone(), "normal_part",
                        vec![("extruder".into(), group.word.to_string())], None);
-        plate.objects[index].ranges = bands.iter().map(|&[low, high, height]| Range {
-            min_z: low, max_z: high, options: vec![("layer_height".into(), derive::g(height))],
-        }).collect();
-        records.push(json!({"part": p.part, "step": relative(&p.step, root), "step_sha256": file_sha(&p.step)?,
+        records.push(json!({"part": name, "step": relative(&p.step, root), "step_sha256": file_sha(&p.step)?,
             "model": relative(&PathBuf::from(format!("{}.npz", p.step.display())), root),
             "model_sha256": file_sha(&PathBuf::from(format!("{}.npz", p.step.display())))?,
-            "bed": if p.bed == Bed::Back { "flat back" } else { "flat face" }, "identify_id": plate.objects[index].identify_id,
+            "bed": "flat lettered face", "identify_id": plate.objects[index].identify_id,
             "plate_center_xy_mm": [round(at[0], 3), round(at[1], 3)], "footprint_xy_mm": p.footprint.map(|v| round(v, 3)),
             "meshes": meshes}));
     }
@@ -322,12 +286,9 @@ fn prepare(root: &Path, group: &Group, output: &Path) -> Result<PathBuf> {
     plate.members = members;
     let project = directory.join(format!("{stem}.3mf"));
     plate.write(&project)?;
-    let unique_tops: BTreeSet<u64> = tops.iter().map(|t| t.to_bits()).collect();
-    let mut face_up: Vec<f64> = unique_tops.into_iter().map(f64::from_bits).collect();
-    face_up.sort_by(|a, b| a.partial_cmp(b).unwrap());
     let right = if group.colour == "white" { "black".to_string() } else { group.colour.to_string() };
     let preparation = json!({
-        "piece": format!("labels-{}", group.colour), "printer": "Mark2",
+        "piece": format!("tube-collars-{}", group.colour), "printer": "Mark2",
         "nozzle": {"left": "0.4 mm hardened, white PET-GF (filament 1)", "right": format!("0.4 mm hardened, {right} PET-GF (filament 2)")},
         "material": "Polymaker Fiberon PET-GF15, two colours", "filament_colours": group.colours,
         "body_filament": group.body, "word_filament": group.word,
@@ -335,7 +296,7 @@ fn prepare(root: &Path, group: &Group, output: &Path) -> Result<PathBuf> {
         "profile": PROFILE, "profile_sha256": file_sha(&root.join(PROFILE))?, "requested_z_trim_mm": Z_TRIM,
         // Bambu's Textured PEI compensation emits less than the request, by the amount here.
         "emitted_textured_trim_mm": round(Z_TRIM - 0.02, 3), "recipe": recipe, "cooling_changes": cooling_changes,
-        "closing_layer_ranges_mm": bands, "face_up_tops_mm": face_up,
+        "face_up_tops_mm": [],
         "usable_plate_mm": [USABLE.0, USABLE.1], "plate_border_mm": BORDER,
         "parts": records, "sources_sha256": sources,
         "tool_sha256": {"hardware/printed-parts/enclosure/trial-preparation/labels.rs": file_sha(&root.join("hardware/printed-parts/enclosure/trial-preparation/labels.rs"))?},
@@ -408,9 +369,14 @@ fn slice_and_review(root: &Path, directory: &Path) -> Result<bool> {
     let expected: BTreeSet<i64> = preparation["parts"].as_array().into_iter().flatten().filter_map(|p| p["identify_id"].as_i64()).collect();
     let plates = sliced["sliced_plates"].as_array().cloned().unwrap_or_default();
     let estimated: f64 = plates.iter().map(|p| p["total_predication"].as_f64().unwrap_or(0.0)).sum();
-    let emitted = preparation["emitted_textured_trim_mm"].as_f64().unwrap_or(0.0);
+    let trim_matches = if let Some(right) = preparation["right_nozzle_trim_mm"].as_f64() {
+        identification_mark1::trim_matches(&gcode, right)
+    } else {
+        let emitted = preparation["emitted_textured_trim_mm"].as_f64().unwrap_or(0.0);
+        trims.last().is_some_and(|t| (t - emitted).abs() < 0.005)
+    };
     let checks = json!({
-        "archive": integrity, "z_trim": trims.last().is_some_and(|t| (t - emitted).abs() < 0.005),
+        "archive": integrity, "z_trim": trim_matches,
         "bed_border": minimum >= preparation["plate_border_mm"].as_f64().unwrap_or(BORDER),
         "no_support": supports == 0, "every_part_printed": expected.is_subset(&objects),
         "face_up_tops_closed": closed.values().all(|v| v == &json!(true)),
@@ -441,6 +407,7 @@ fn slice_and_review(root: &Path, directory: &Path) -> Result<bool> {
 fn main() -> Result<()> {
     let root = hsm_print_prep::root();
     let (mut colours, mut do_slice, mut output) = (Vec::new(), false, root.join(".cache/prints/trial"));
+    let (mut mark1_identification, mut collars_only) = (false, false);
     let mut args = std::env::args().skip(1);
     while let Some(arg) = args.next() {
         match arg.as_str() {
@@ -451,6 +418,8 @@ fn main() -> Result<()> {
                 }
                 colours.push(colour);
             }
+            "--mark1-identification" => mark1_identification = true,
+            "--collars-only" => collars_only = true,
             "--slice" => do_slice = true,
             "--output" => output = PathBuf::from(args.next().context("--output needs a directory")?),
             _ => bail!("unknown argument {arg}"),
@@ -458,6 +427,18 @@ fn main() -> Result<()> {
     }
     // Preparing and slicing the plates is one of the Mac's heavy runs.
     hsm_run_slots::process_enter(&hsm_run_slots::native_key())?;
+    if mark1_identification && (collars_only || !colours.is_empty()) {
+        bail!("the Mark1 identification set is one plate with its saved colours");
+    }
+    if mark1_identification || (!collars_only && colours.is_empty()) {
+        let directory = identification_mark1::prepare(&root, &output)?;
+        if do_slice && !slice_and_review(&root, &directory)? {
+            bail!("the Mark1 identification review did not pass");
+        }
+        if mark1_identification {
+            return Ok(());
+        }
+    }
     let mut failed = Vec::new();
     for group in GROUPS.iter().filter(|g| colours.is_empty() || colours.iter().any(|c| c == g.colour)) {
         let directory = prepare(&root, group, &output)?;

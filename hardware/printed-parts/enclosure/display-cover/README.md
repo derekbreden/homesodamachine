@@ -33,7 +33,8 @@ PETG window sits in a white ring, with ON under it in the nameplate's identifica
 The window follows the diameter of the LED's mounting bore and fills the plate's complete
 thickness, flush with both faces. A black margin separates it from the white ring, whose line
 weight matches the frame and rule. Black, white and translucent PETG occupy disjoint volumes.
-The plate prints face up on its flat back, like the cover.
+The plate prints face up on its flat back. The [Mark1 identification plate](../trial-preparation/README.md)
+assigns the window to PETG Translucent and the frame and artwork to white PETG Basic.
 
 Derek accepts the full-thickness window's illumination with the blue LED. The
 [archived physical result](https://github.com/derekbreden/homesodamachine/blob/1fb531af577d22cb70a034cdff4710a7583601c0/hardware/printed-parts/enclosure/display-cover/prints/2026-11-09-status-light/physical-result.json)

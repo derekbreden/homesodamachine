@@ -162,12 +162,12 @@ taking the float's from the [Aero float's numbers](../magnetic-float/all-aero/nu
 and the casing's from the [cold core's interface](../interface/lib.rs).
 [`reservoir.rs`](reservoir.rs), the build step, writes the two bodies, both caps,
 gasket and liquid/air grips as STEP files, f64 models, print meshes and payloads.
-[`prepare_print.rs`](prepare_print.rs), the `reservoir-print-project` program, builds the one
-current project from the emitted STLs bound to the full-precision models and the complete frozen
-recipe. It checks source hashes against the
-[integration record](../magnetic-float/all-aero/integration-check.json), closed
-meshes, centered bed placement and preservation of the frozen native base
-with the declared May adaptation, ironing and assignment settings.
+[`prepare_print.rs`](prepare_print.rs), the `reservoir-print-project` program, gives each
+current body its own plate and puts the open-port caps on a shared plate. It takes the
+Engineering Plate profiles from [`print-settings.json`](print-settings.json), including the
+documented water-hold recipe for each body and support-free caps. The
+[integration record](../magnetic-float/all-aero/integration-check.json) binds the print meshes
+to the current STEP and full-precision models.
 
 ```sh
 tools/run -- cargo build --release --locked -j 2 --manifest-path tools/hsm/Cargo.toml -p hsm-print-prep --bin reservoir-print-project
@@ -175,8 +175,9 @@ tools/hsm/target/release/reservoir-print-project
 ```
 
 [`review_slice.rs`](review_slice.rs), the `reservoir-slice-review` program, slices the project and
-audits its supports when its folder holds no slice of it, then checks the native recipe, absence
-of ironing, right-nozzle assignment, Mark1 Z trim, full bead inset and bed-rooted supports into
+audits its supports when its folder holds no slice of it. It records each plate's process,
+left-nozzle assignment, Engineering Plate trim, full bead inset, bed-rooted body supports
+and support-free caps in
 [`slice-review.json`](slice-review.json):
 
 ```sh

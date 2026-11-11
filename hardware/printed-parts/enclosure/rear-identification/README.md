@@ -11,17 +11,13 @@ Each side rail overlaps the tile's edge, leaving the color face exposed.
 The channel floor is Z240.6. The upper tiles finish at Z355. Each lower tile
 ends 0.2 mm below the next tile, with the words above the upper two fitting rows and below the bottom row. The rails retain 3 mm of fore–aft stock at
 Y471.3–474.3, with 3 mm outer roots beside the tile channels. Their complete
-sections remain plain through exterior fluting. Print face up with the native Y0 back on
-the bed. The raised word uses the shared two-colour label process and two
-0.24 mm layers above the face. The accepted TAP/FLAVOR
-[appearance record](../tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-30-bulkhead-raised-mark2-v2/physical-result.json)
-retains its recorded material and label-interface scope.
+sections remain plain through exterior fluting. Print with the flat back on the
+bed and the raised words up. The [Mark1 identification plate](../trial-preparation/README.md)
+uses PETG Basic for the opaque colours and carries the accepted filament assignments,
+layer heights and side-specific trim.
 
-The [First Edition nameplate](../nameplate/README.md) sits at world X−43.85/Z220
-with its face at Y474.3. Its 92 × 100 mm face is centred between the rear corner's
-X−95.5 tangent and the adjacent card's X7.8 edge, leaving 5.65 mm on each side.
-Its field stands 3.0 mm above the rear wall, with 3.6 mm of receiver backing
-and complete retaining lips. The plate takes no screws. The
+The [First Edition nameplate](../nameplate/README.md) sits between the rear corner
+and the port-label rail. Screws fasten its flat back to the receiver. The
 [nameplate fit review](../nameplate/production-fit.json) records its production geometry.
 
 [`rear_identification.rs`](rear_identification.rs) cuts the six compact two-colour tiles from the

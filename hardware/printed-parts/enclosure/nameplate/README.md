@@ -66,14 +66,10 @@ reached from outside the assembled machine.
 ## Printing and assembly
 
 Print the nameplate flat, face up, with its complete back on the bed and the
-counterbores facing up. No supports are needed. Use the shared PET-GF material
-settings, a 0.20 mm first layer, Arachne walls and a 75% minimum bead width on
-the nozzle to retain the narrow identification strokes.
-
-Preserve the accepted Mark2 black/white alignment compensation in the print
-package; it is not a CAD translation. The [colour registration print records](horizontal-wing-trial/README.md)
-identify that compensation and the external black/white PET-GF spools. Keep the
-standard nozzle-offset startup option at Auto.
+counterbores facing up. The [Mark1 identification plate](../trial-preparation/README.md)
+prints the black and white PETG with fine nozzles on the glued Engineering Plate
+without supports. It carries the filament assignments and side-specific trim from
+the [approved colour registration print](../display-cover/prints/2026-11-08-identification-set-mark1-right-z005/physical-result.json).
 
 Back-top prints roof down using the shared PET-GF tree-support settings. Clear
 the receiver seat and pilots, then press its four short inserts flush while
