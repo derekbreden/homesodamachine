@@ -1,0 +1,182 @@
+{
+  "gcode_sha256": "e96f00376ebd5736dbc6e38b4e8b43458e0a8ee89b431212b977437059f856e0",
+  "native_start_first_two_layers_and_end_preserved": true,
+  "modeled_fin_count": 0,
+  "mapping_motion": {
+    "deposited_segments": 433730,
+    "estimated_added_motion_seconds": 973.9861615684622,
+    "extra_deposition_seconds": 273.5801566759078,
+    "extra_travel_seconds": 613.4193382259482,
+    "filament_length_by_feature_mm": {
+      "Bridge": 316.28116315215675,
+      "Floating vertical shell": 306.2698637066834,
+      "Gap infill": 2.7977999999999863,
+      "Inner wall": 1304.4110256813017,
+      "Internal solid infill": 542.885900925456,
+      "Outer wall": 1165.5260055439467,
+      "Overhang wall": 124.7367467282022,
+      "Sparse infill": 2145.1991967511917,
+      "Support": 1886.1123110784013,
+      "Support interface": 561.6261180062554,
+      "Support transition": 318.77046158923787,
+      "Top surface": 229.7367199999985
+    },
+    "maximum_deposited_z_mm": 32.12,
+    "maximum_deposition_depth_below_prior_peak_mm": 0.9592234999634766,
+    "maximum_nonplanar_segment_angle_degrees": 17.98125656383146,
+    "maximum_nonplanar_z_speed_mm_s": 7.500000000000002,
+    "maximum_vertical_layer_height_mm": 0.4472139999999989,
+    "maximum_vertical_motion_offset_mm": 0.479998323965555,
+    "minimum_vertical_layer_height_mm": 0.18572721988068386,
+    "native_start_end_preserved": true,
+    "nonplanar_segments": 288224,
+    "purpose": "Read the restored actual movements of the complete faucet test before printer submission.",
+    "scope": "Commanded XYZ motion, extrusion volume and bounded displacement; physical finish and release remain unmeasured.",
+    "travel_clearance_over_deposited_maximum_mm": 0.4
+  },
+  "rim_motion": {
+    "arc_count": 123,
+    "emitted_contact_segments": 801,
+    "modified_native_paths": 2120,
+    "extrusion_added_mm": 5.82201,
+    "extrusion_removed_mm": 7.01698,
+    "estimated_motion_delta_seconds": 91.45243,
+    "maximum_contact_depth_below_prior_peak_mm": 1.08,
+    "minimum_contact_z_mm": 0.97539
+  },
+  "rim": {
+    "other_object_segments_preserved": 0,
+    "source_deposition_segments": 433730,
+    "trial_deposition_segments": 435739,
+    "preserved_support_deposition_segments": 196362,
+    "preserved_bridge_deposition_segments": 12789,
+    "gcode_sha256": "e96f00376ebd5736dbc6e38b4e8b43458e0a8ee89b431212b977437059f856e0",
+    "courses": [
+      {
+        "course": 1,
+        "segments": 801,
+        "max_endpoint_mismatch_mm": 0.0,
+        "contact_depth_mm": [
+          0.22999,
+          0.22999,
+          0.23,
+          0.23,
+          0.23,
+          0.23001,
+          0.23001
+        ],
+        "max_deposition_slope_deg": 15.000664317713982,
+        "max_extruding_z_speed_mm_s": 3.8824536681365296
+      }
+    ],
+    "roof_gap_mm": [
+      0.06487,
+      0.10347,
+      0.1205,
+      0.25656,
+      0.38542,
+      0.38569,
+      0.40698
+    ],
+    "direct_roof_gap_mm": [
+      0.10353,
+      0.14243,
+      0.15514,
+      0.29412,
+      0.3901,
+      0.41732,
+      0.6462
+    ],
+    "roof_samples": 801,
+    "no_nearby_lower_roof_count": 0,
+    "no_nearby_lower_roof_angles_deg": [],
+    "model_side_join_height_delta_mm": [
+      -0.02483,
+      -0.02407,
+      -0.02143,
+      0.03179,
+      0.16045,
+      0.1934,
+      0.2313
+    ],
+    "no_nearby_retained_model_count": 0,
+    "upper_join_height_delta_mm": [
+      0.08002,
+      0.08019,
+      0.08083,
+      0.1267,
+      0.21114,
+      0.2453,
+      0.30566
+    ],
+    "upper_join_missing_count": 0,
+    "tangent_join": [
+      {
+        "angle_deg": 114.5,
+        "nearest_original_path_center_delta_mm": 0.028400303946231557,
+        "lateral_delta_mm": 0.026374845448003715,
+        "z_delta_mm": 0.010533033363293476
+      },
+      {
+        "angle_deg": 425.5,
+        "nearest_original_path_center_delta_mm": 0.028719463858550183,
+        "lateral_delta_mm": 0.026716263516137453,
+        "z_delta_mm": 0.010537972673093865
+      }
+    ],
+    "potential_earlier_interference_count": 0,
+    "potential_earlier_interference_examples": [],
+    "later_support_under_rim_count": 0,
+    "later_support_under_rim_examples": [],
+    "potential_support_interference_count": 0,
+    "potential_support_interference_examples": [],
+    "potential_retained_interference_count": 0,
+    "potential_retained_interference_examples": []
+  },
+  "inserts": {
+    "pockets": [
+      {
+        "center": [
+          132.50000000012943,
+          117.28763520550551
+        ],
+        "wide_recess_support_envelope_count": 0,
+        "blind_pilot_support_envelope_count": 0,
+        "shoulder_bridge_length_mm": 109.26452434837768,
+        "blind_roof_bridge_length_mm": 68.01471874027916
+      },
+      {
+        "center": [
+          155.0000000001299,
+          96.98763520751561
+        ],
+        "wide_recess_support_envelope_count": 0,
+        "blind_pilot_support_envelope_count": 0,
+        "shoulder_bridge_length_mm": 108.64736838992968,
+        "blind_roof_bridge_length_mm": 64.0756784909548
+      },
+      {
+        "center": [
+          177.50000000012966,
+          117.28763520550568
+        ],
+        "wide_recess_support_envelope_count": 0,
+        "blind_pilot_support_envelope_count": 0,
+        "shoulder_bridge_length_mm": 109.09766141125235,
+        "blind_roof_bridge_length_mm": 68.24448043031309
+      }
+    ],
+    "all_deposition_bounds_mm": [
+      [
+        120.619,
+        94.076,
+        0.0
+      ],
+      [
+        189.323,
+        162.913997,
+        32.12
+      ]
+    ]
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "changed_container_entries": [
+    "3D/3dmodel.model",
+    "Metadata/model_settings.config"
+  ],
+  "gcode_byte_identical": true,
+  "gcode_sha256": {
+    "Metadata/plate_1.gcode": "e96f00376ebd5736dbc6e38b4e8b43458e0a8ee89b431212b977437059f856e0"
+  },
+  "omitted_editable_geometry_entries": [
+    "3D/Objects/contact-2300.model",
+    "3D/Objects/contact-2400.model",
+    "3D/Objects/contact-2401.model",
+    "3D/Objects/contact-2402.model",
+    "3D/Objects/object_1.model",
+    "3D/_rels/3dmodel.model.rels",
+    "Metadata/cut_information.xml"
+  ],
+  "print_only_archive": "hardware/print-tests/petgf-dense-roofs/inclines/prints/2026-11-11-faucet-trees-only-mark1/faucet-trees-contoured-rim-insert-bridges-left04-z018-mark1-print-only.gcode.3mf",
+  "print_only_archive_sha256": "d4acbf1051bb202eacd50d0b619f7fd7172738b2ab8968b859b8a3fba877215b",
+  "source_archive": "hardware/print-tests/petgf-dense-roofs/inclines/prints/2026-11-11-faucet-trees-only-mark1/faucet-trees-contoured-rim-insert-bridges-left04-z018-mark1.gcode.3mf",
+  "source_archive_sha256": "750b78c6790cdbefd3d1f45aeba8a215c41f2e3b38f95c5a94389e225c968af3"
+}

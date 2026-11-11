@@ -1,0 +1,20 @@
+[
+  {
+    "printer": "H2C",
+    "gcode_state": "FAILED",
+    "subtask_name": "faucet-nonplanar-rim-fins-insert-bridges-left04-z018-mark1-print-only.gcode.3mf",
+    "print_error": 0,
+    "observed_at": "2026-11-11T06:30:50+00:00",
+    "layer_num": 0,
+    "hms": []
+  },
+  {
+    "printer": "Mark2",
+    "gcode_state": "RUNNING",
+    "subtask_name": "2026-11-10-back-bottom-D-arch-left04-z004-mark2-print-only.gcode.3mf",
+    "print_error": 0,
+    "observed_at": "2026-11-11T06:30:50+00:00",
+    "layer_num": 538,
+    "hms": []
+  }
+]
