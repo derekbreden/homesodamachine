@@ -4,7 +4,7 @@
       "bounds_padding_mm": 0.500998,
       "extrusion_bounds_xy_mm": [
         [
-          50.696002,
+          45.861002,
           73.193002
         ],
         [
@@ -16,42 +16,42 @@
     },
     "complete_layer_bead_minimum_bed_margin_mm": 45.250001999999995,
     "minimum_shared_bed_margin_mm": 45.31006049999996,
-    "minimum_toolpath_separation_mm": 9.425667499999989,
+    "minimum_toolpath_separation_mm": 4.651666999999989,
     "pairwise_toolpath_separations": [
       {
         "parts": [
           "industrial-shell-base",
           "faucet-shell-tip"
         ],
-        "separation_mm": 29.422445499999995
+        "separation_mm": 14.738444999999999
       },
       {
         "parts": [
           "industrial-shell-base",
           "sculpted-display-cover"
         ],
-        "separation_mm": 117.1555964986907
+        "separation_mm": 112.40007728083653
       },
       {
         "parts": [
           "faucet-shell-tip",
           "sculpted-display-cover"
         ],
-        "separation_mm": 15.109062499999993
+        "separation_mm": 12.062062499999996
       },
       {
         "parts": [
           "industrial-shell-base",
           "industrial-above-counter-plate"
         ],
-        "separation_mm": 55.4814435
+        "separation_mm": 50.707443
       },
       {
         "parts": [
           "faucet-shell-tip",
           "industrial-above-counter-plate"
         ],
-        "separation_mm": 40.09400199999999
+        "separation_mm": 41.21100199999998
       },
       {
         "parts": [
@@ -65,14 +65,14 @@
           "industrial-shell-base",
           "lever-replica"
         ],
-        "separation_mm": 9.425667499999989
+        "separation_mm": 4.651666999999989
       },
       {
         "parts": [
           "faucet-shell-tip",
           "lever-replica"
         ],
-        "separation_mm": 45.680225999999976
+        "separation_mm": 46.79722599999997
       },
       {
         "parts": [
@@ -93,9 +93,9 @@
   "layer_height_mm": 0.23999999463558197,
   "mass_estimate_note": "Slicer grams use the saved profile density, not a measured PET-GF part mass.",
   "nonplanar_contact": {
-    "added_commanded_motion_seconds": 2170.024464898139,
-    "gcode_input_sha256": "04062c57ae573c6510c349166522ae746614411e14498c7b0b61e59aa35c2b29",
-    "gcode_sha256": "f497ba70fee55ed9988898a2f1a6e42461e49fd13fafeb2def2e2866584b0f8e",
+    "added_commanded_motion_seconds": 2429.2538030987716,
+    "gcode_input_sha256": "cc41f82f877aa63444e4008623257836f0784efc5d7558eb6e5b9367ed3703d3",
+    "gcode_sha256": "024f999ca3d99459f58d5f61af151a1ecb5b5c70bf11064cb579a2a42a02a0cc",
     "geometry": {
       "faucet-shell-tip": {
         "Keep support clear of beverage outlet 1": {
@@ -115,6 +115,78 @@
           "scoped_support_paint_area_mm2": 0.0,
           "slice_triangles": 1088,
           "source_triangles": 1088
+        },
+        "Removable outer rim fin 1": {
+          "maximum_facet_restoration_error_mm": 0.0,
+          "maximum_roundtrip_error_mm": 0.0,
+          "maximum_shift_mm": 0.0,
+          "minimum_sampled_jacobian": 1.0,
+          "scoped_support_paint_area_mm2": 0.0,
+          "slice_triangles": 260,
+          "source_triangles": 260
+        },
+        "Removable outer rim fin 2": {
+          "maximum_facet_restoration_error_mm": 0.0,
+          "maximum_roundtrip_error_mm": 0.0,
+          "maximum_shift_mm": 0.0,
+          "minimum_sampled_jacobian": 1.0,
+          "scoped_support_paint_area_mm2": 0.0,
+          "slice_triangles": 260,
+          "source_triangles": 260
+        },
+        "Removable outer rim fin 3": {
+          "maximum_facet_restoration_error_mm": 0.0,
+          "maximum_roundtrip_error_mm": 0.0,
+          "maximum_shift_mm": 0.0,
+          "minimum_sampled_jacobian": 1.0,
+          "scoped_support_paint_area_mm2": 0.0,
+          "slice_triangles": 260,
+          "source_triangles": 260
+        },
+        "Removable outer rim fin 4": {
+          "maximum_facet_restoration_error_mm": 0.0,
+          "maximum_roundtrip_error_mm": 0.0,
+          "maximum_shift_mm": 0.0,
+          "minimum_sampled_jacobian": 1.0,
+          "scoped_support_paint_area_mm2": 0.0,
+          "slice_triangles": 260,
+          "source_triangles": 260
+        },
+        "Removable outer rim fin 5": {
+          "maximum_facet_restoration_error_mm": 0.0,
+          "maximum_roundtrip_error_mm": 0.0,
+          "maximum_shift_mm": 0.0,
+          "minimum_sampled_jacobian": 1.0,
+          "scoped_support_paint_area_mm2": 0.0,
+          "slice_triangles": 260,
+          "source_triangles": 260
+        },
+        "Removable outer rim fin 6": {
+          "maximum_facet_restoration_error_mm": 0.0,
+          "maximum_roundtrip_error_mm": 0.0,
+          "maximum_shift_mm": 0.0,
+          "minimum_sampled_jacobian": 1.0,
+          "scoped_support_paint_area_mm2": 0.0,
+          "slice_triangles": 260,
+          "source_triangles": 260
+        },
+        "Removable outer rim fin 7": {
+          "maximum_facet_restoration_error_mm": 0.0,
+          "maximum_roundtrip_error_mm": 0.0,
+          "maximum_shift_mm": 0.0,
+          "minimum_sampled_jacobian": 1.0,
+          "scoped_support_paint_area_mm2": 0.0,
+          "slice_triangles": 260,
+          "source_triangles": 260
+        },
+        "Removable outer rim fin 8": {
+          "maximum_facet_restoration_error_mm": 0.0,
+          "maximum_roundtrip_error_mm": 0.0,
+          "maximum_shift_mm": 0.0,
+          "minimum_sampled_jacobian": 1.0,
+          "scoped_support_paint_area_mm2": 0.0,
+          "slice_triangles": 260,
+          "source_triangles": 260
         },
         "faucet-shell-tip": {
           "maximum_facet_restoration_error_mm": 0.005841062137690756,
@@ -153,6 +225,78 @@
           "scoped_support_paint_area_mm2": 0.0,
           "slice_triangles": 6418,
           "source_triangles": 1088
+        },
+        "Removable outer rim fin 1": {
+          "maximum_facet_restoration_error_mm": 0.003926208569556167,
+          "maximum_roundtrip_error_mm": 1.2787282344106643e-10,
+          "maximum_shift_mm": 0.4800000000000004,
+          "minimum_sampled_jacobian": 0.760001108149666,
+          "scoped_support_paint_area_mm2": 0.0,
+          "slice_triangles": 74716,
+          "source_triangles": 260
+        },
+        "Removable outer rim fin 2": {
+          "maximum_facet_restoration_error_mm": 0.004358127247799715,
+          "maximum_roundtrip_error_mm": 1.283986250655289e-10,
+          "maximum_shift_mm": 0.4799999999999969,
+          "minimum_sampled_jacobian": 0.7600000389809125,
+          "scoped_support_paint_area_mm2": 0.0,
+          "slice_triangles": 72928,
+          "source_triangles": 260
+        },
+        "Removable outer rim fin 3": {
+          "maximum_facet_restoration_error_mm": 0.004399983194126378,
+          "maximum_roundtrip_error_mm": 1.282884909414861e-10,
+          "maximum_shift_mm": 0.4799999999999969,
+          "minimum_sampled_jacobian": 0.7600013001711758,
+          "scoped_support_paint_area_mm2": 0.0,
+          "slice_triangles": 73792,
+          "source_triangles": 260
+        },
+        "Removable outer rim fin 4": {
+          "maximum_facet_restoration_error_mm": 0.004014960023924985,
+          "maximum_roundtrip_error_mm": 1.2753886835525918e-10,
+          "maximum_shift_mm": 0.4800000000000004,
+          "minimum_sampled_jacobian": 0.7600007754176019,
+          "scoped_support_paint_area_mm2": 0.0,
+          "slice_triangles": 74000,
+          "source_triangles": 260
+        },
+        "Removable outer rim fin 5": {
+          "maximum_facet_restoration_error_mm": 0.003980092483860886,
+          "maximum_roundtrip_error_mm": 1.2847323205278371e-10,
+          "maximum_shift_mm": 0.4800000000000004,
+          "minimum_sampled_jacobian": 0.7600012219146635,
+          "scoped_support_paint_area_mm2": 0.0,
+          "slice_triangles": 96986,
+          "source_triangles": 260
+        },
+        "Removable outer rim fin 6": {
+          "maximum_facet_restoration_error_mm": 0.004901867225985512,
+          "maximum_roundtrip_error_mm": 1.2874323829237255e-10,
+          "maximum_shift_mm": 0.4800000000000004,
+          "minimum_sampled_jacobian": 0.7600000416374542,
+          "scoped_support_paint_area_mm2": 0.0,
+          "slice_triangles": 93312,
+          "source_triangles": 260
+        },
+        "Removable outer rim fin 7": {
+          "maximum_facet_restoration_error_mm": 0.004404142197600436,
+          "maximum_roundtrip_error_mm": 1.2782308544956322e-10,
+          "maximum_shift_mm": 0.4800000000000004,
+          "minimum_sampled_jacobian": 0.7600002337007083,
+          "scoped_support_paint_area_mm2": 0.0,
+          "slice_triangles": 93186,
+          "source_triangles": 260
+        },
+        "Removable outer rim fin 8": {
+          "maximum_facet_restoration_error_mm": 0.004673207439232385,
+          "maximum_roundtrip_error_mm": 1.2827428008677089e-10,
+          "maximum_shift_mm": 0.4800000000000004,
+          "minimum_sampled_jacobian": 0.7600012219146635,
+          "scoped_support_paint_area_mm2": 0.0,
+          "slice_triangles": 99000,
+          "source_triangles": 260
         },
         "faucet-shell-tip": {
           "maximum_facet_restoration_error_mm": 0.0070706591620144366,
@@ -210,6 +354,69 @@
           "slice_triangles": 50864,
           "source_triangles": 4980
         },
+        "Removable outer rim fin 1": {
+          "maximum_facet_restoration_error_mm": 0.004738813882713799,
+          "maximum_roundtrip_error_mm": 9.958789348729624e-11,
+          "maximum_shift_mm": 0.4799979831398815,
+          "minimum_sampled_jacobian": 0.9887602640779036,
+          "scoped_support_paint_area_mm2": 0.0,
+          "slice_triangles": 17518,
+          "source_triangles": 332
+        },
+        "Removable outer rim fin 2": {
+          "maximum_facet_restoration_error_mm": 0.004668606248436902,
+          "maximum_roundtrip_error_mm": 1.2753709199841978e-10,
+          "maximum_shift_mm": 0.47999040245997726,
+          "minimum_sampled_jacobian": 0.7604017061533241,
+          "scoped_support_paint_area_mm2": 0.0,
+          "slice_triangles": 16084,
+          "source_triangles": 332
+        },
+        "Removable outer rim fin 3": {
+          "maximum_facet_restoration_error_mm": 0.004336536282162129,
+          "maximum_roundtrip_error_mm": 1.2538059479538788e-10,
+          "maximum_shift_mm": 0.4799705392833893,
+          "minimum_sampled_jacobian": 0.7221698897617035,
+          "scoped_support_paint_area_mm2": 0.0,
+          "slice_triangles": 11780,
+          "source_triangles": 332
+        },
+        "Removable outer rim fin 4": {
+          "maximum_facet_restoration_error_mm": 0.0030549047255532535,
+          "maximum_roundtrip_error_mm": 1.2081091682603073e-10,
+          "maximum_shift_mm": 0.4512941212498003,
+          "minimum_sampled_jacobian": 0.7655184298436257,
+          "scoped_support_paint_area_mm2": 0.0,
+          "slice_triangles": 1836,
+          "source_triangles": 268
+        },
+        "Removable outer rim fin 5": {
+          "maximum_facet_restoration_error_mm": 0.0035975249577564483,
+          "maximum_roundtrip_error_mm": 1.2081091682603073e-10,
+          "maximum_shift_mm": 0.45129412124979895,
+          "minimum_sampled_jacobian": 0.7655184298438478,
+          "scoped_support_paint_area_mm2": 0.0,
+          "slice_triangles": 1966,
+          "source_triangles": 268
+        },
+        "Removable outer rim fin 6": {
+          "maximum_facet_restoration_error_mm": 0.005541110810637129,
+          "maximum_roundtrip_error_mm": 1.2444267838418455e-10,
+          "maximum_shift_mm": 0.47984898404730636,
+          "minimum_sampled_jacobian": 0.7223797072608562,
+          "scoped_support_paint_area_mm2": 0.0,
+          "slice_triangles": 11860,
+          "source_triangles": 332
+        },
+        "Removable outer rim fin 7": {
+          "maximum_facet_restoration_error_mm": 0.007656541016219265,
+          "maximum_roundtrip_error_mm": 1.2728662568406435e-10,
+          "maximum_shift_mm": 0.47999835115928846,
+          "minimum_sampled_jacobian": 0.7601028148114253,
+          "scoped_support_paint_area_mm2": 0.0,
+          "slice_triangles": 15870,
+          "source_triangles": 332
+        },
         "Solid continuous industrial foot": {
           "maximum_facet_restoration_error_mm": 0.010545214039709094,
           "maximum_roundtrip_error_mm": 1.283328998624711e-10,
@@ -230,19 +437,19 @@
         }
       }
     },
-    "lifted_travels": 6717,
-    "mapped_deposition_segments": 648488,
+    "lifted_travels": 8369,
+    "mapped_deposition_segments": 671497,
     "mapped_deposition_segments_by_region": [
-      456441,
-      79312,
-      112735
+      470651,
+      78412,
+      122434
     ],
     "maximum_mapped_path_slope_degrees": 58.05378221955885,
     "maximum_mapped_z_speed_mm_s": 7.499999999139649,
-    "maximum_vertical_motion_offset_mm": 0.4799940477616076,
+    "maximum_vertical_motion_offset_mm": 0.4799992705071148,
     "purpose": "Read the bounded restored movements of the full print.",
-    "restored_extrusion_delta_mm": -18.459769900836456,
-    "pre_contour_archive_sha256": "c0b52253f1c9a7b39d6cbc53ea4bf89dd7da6880bacb1a20191fceb78c4529f4"
+    "restored_extrusion_delta_mm": -13.384089751982069,
+    "pre_contour_archive_sha256": "996deffafd33f9589ffee1bbe8e4ddf3bdbeaddcbefe68314d29428c8b3cb868"
   },
   "parts": [
     {
@@ -266,13 +473,13 @@
       "inputs": {
         "feature_filter": "Other objects' feature labels are masked; coordinates and extrusion commands are retained.",
         "gcode": "plate_1.gcode",
-        "gcode_sha256": "9ff12008c8cb7a7a5a829fb3d6f080554963b015225ad394768d58e044139f4c",
+        "gcode_sha256": "ac8d5a77362beaa2b0964218c0f2382c3b672209a3de1d88ab475470966f590d",
         "model": "hardware/printed-parts/faucet/industrial/production/2026-10-25/industrial-shell-base.stl",
         "model_sha256": "dc855eb7d8eae75886222d8b4aee8b9e02fe1d55ae4740c1ae5b4b64cf6ba742",
         "object_label": 1901,
-        "plate_gcode_sha256": "9ff12008c8cb7a7a5a829fb3d6f080554963b015225ad394768d58e044139f4c",
+        "plate_gcode_sha256": "ac8d5a77362beaa2b0964218c0f2382c3b672209a3de1d88ab475470966f590d",
         "profile": "hardware/printed-parts/faucet/industrial/faucet-industrial-petgf.3mf",
-        "profile_sha256": "b13109a40ae5368e728d3ebdfbf7c4c051d2e5b78ebcd2174ba60f413e1a168b"
+        "profile_sha256": "74e5e7d3d9ed6e50e020c383511a145b0741926df96bc04ab53009dd953e7e58"
       },
       "interface_feature_policy": "All support bodies are retained; unlabelled interfaces have unknown contact count and build-up.",
       "interfaces": [
@@ -464,44 +671,44 @@
         "support_type": "tree(auto)"
       },
       "summary": {
-        "bed_rooted_bodies": 2,
-        "bodies_without_interface_labels": 1,
+        "bed_rooted_bodies": 1,
+        "bodies_without_interface_labels": 0,
         "explicit_interface_islands": 8,
-        "interface_islands": null,
+        "interface_islands": 8,
         "model_rooted_bodies": 0,
-        "shortest_build_up_mm": null,
+        "shortest_build_up_mm": 0.24,
         "shortest_labelled_build_up_mm": 0.24,
-        "support_bodies": 2
+        "support_bodies": 1
       },
       "toolpaths": {
-        "bounds_padding_mm": 0.46555650000000004,
+        "bounds_padding_mm": 0.465557,
         "extrusion_bounds_xy_mm": [
           [
-            50.731443500000005,
-            108.5504435
+            45.896443000000005,
+            98.39344299999999
           ],
           [
-            120.3285565,
-            208.62455649999998
+            125.102557,
+            208.62455699999998
           ]
         ],
-        "maximum_line_width_mm": 0.731113
+        "maximum_line_width_mm": 0.731114
       },
       "trees": [
         {
           "base_z_mm": 0.2,
           "bbox_cad_xyz_mm": [
-            -34.3,
-            -44.159,
-            -15.186,
-            34.5,
+            -39.1,
+            -54.205,
+            -17.877,
+            39.3,
             29.622,
             60.745
           ],
           "bbox_xy_mm": [
-            51.2,
-            109.2,
-            120.0,
+            46.4,
+            98.8,
+            124.8,
             168.8
           ],
           "first_interface_z_mm": 0.44,
@@ -520,30 +727,6 @@
           "root": "bed",
           "shortest_build_up_mm": 0.24,
           "top_z_mm": 62.84
-        },
-        {
-          "base_z_mm": 0.2,
-          "bbox_cad_xyz_mm": [
-            21.7,
-            -0.515,
-            -7.835,
-            22.9,
-            1.031,
-            -7.421
-          ],
-          "bbox_xy_mm": [
-            107.2,
-            137.6,
-            108.4,
-            139.2
-          ],
-          "first_interface_z_mm": null,
-          "id": "tree-2",
-          "interface_reading": "unlabelled",
-          "interfaces": [],
-          "root": "bed",
-          "shortest_build_up_mm": null,
-          "top_z_mm": 0.2
         }
       ]
     },
@@ -568,13 +751,13 @@
       "inputs": {
         "feature_filter": "Other objects' feature labels are masked; coordinates and extrusion commands are retained.",
         "gcode": "plate_1.gcode",
-        "gcode_sha256": "9ff12008c8cb7a7a5a829fb3d6f080554963b015225ad394768d58e044139f4c",
+        "gcode_sha256": "ac8d5a77362beaa2b0964218c0f2382c3b672209a3de1d88ab475470966f590d",
         "model": "hardware/printed-parts/faucet/industrial/production/2026-10-25/faucet-shell-tip.stl",
         "model_sha256": "35ec9f0b99c5e90f038836549e6f5e8f112b2af03e1849b08b2d759050d260e6",
         "object_label": 1902,
-        "plate_gcode_sha256": "9ff12008c8cb7a7a5a829fb3d6f080554963b015225ad394768d58e044139f4c",
+        "plate_gcode_sha256": "ac8d5a77362beaa2b0964218c0f2382c3b672209a3de1d88ab475470966f590d",
         "profile": "hardware/printed-parts/faucet/industrial/faucet-industrial-petgf.3mf",
-        "profile_sha256": "b13109a40ae5368e728d3ebdfbf7c4c051d2e5b78ebcd2174ba60f413e1a168b"
+        "profile_sha256": "74e5e7d3d9ed6e50e020c383511a145b0741926df96bc04ab53009dd953e7e58"
       },
       "interface_feature_policy": "All support bodies are retained; unlabelled interfaces have unknown contact count and build-up.",
       "interfaces": [
@@ -686,33 +869,75 @@
         {
           "bbox_cad_xyz_mm": [
             -12.9,
-            -43.237,
-            210.94,
-            12.7,
-            -37.433,
+            -41.846,
+            212.859,
+            -3.7,
+            -37.847,
             218.951
           ],
           "bbox_xy_mm": [
             169.6,
-            194.0,
-            195.2,
+            195.6,
+            178.8,
             201.2
           ],
           "build_up_by_tree_mm": {
-            "tree-1": 26.16,
-            "tree-2": 0.0
+            "tree-3": 2.64,
+            "tree-4": 0.0
           },
           "first_z_by_tree_mm": {
-            "tree-1": 26.36,
-            "tree-2": 28.76
+            "tree-3": 26.36,
+            "tree-4": 28.76
           },
           "first_z_mm": 26.36,
           "id": "interface-6",
-          "last_z_mm": 30.44,
+          "last_z_mm": 29.0,
           "trees": [
-            "tree-1",
-            "tree-2"
+            "tree-3",
+            "tree-4"
           ]
+        },
+        {
+          "bbox_cad_xyz_mm": [
+            4.3,
+            -41.846,
+            212.859,
+            12.7,
+            -37.847,
+            218.951
+          ],
+          "bbox_xy_mm": [
+            186.8,
+            195.6,
+            195.2,
+            201.2
+          ],
+          "build_up_mm": 26.16,
+          "first_z_mm": 26.36,
+          "id": "interface-7",
+          "last_z_mm": 29.0,
+          "tree": "tree-1"
+        },
+        {
+          "bbox_cad_xyz_mm": [
+            -4.1,
+            -41.995,
+            210.94,
+            3.9,
+            -39.519,
+            213.756
+          ],
+          "bbox_xy_mm": [
+            178.4,
+            194.0,
+            186.4,
+            196.4
+          ],
+          "build_up_mm": 28.32,
+          "first_z_mm": 28.52,
+          "id": "interface-8",
+          "last_z_mm": 30.44,
+          "tree": "tree-1"
         },
         {
           "bbox_cad_xyz_mm": [
@@ -731,7 +956,7 @@
           ],
           "build_up_mm": 126.0,
           "first_z_mm": 126.2,
-          "id": "interface-7",
+          "id": "interface-9",
           "last_z_mm": 136.28,
           "tree": "tree-1"
         }
@@ -755,25 +980,25 @@
         "support_type": "tree(auto)"
       },
       "summary": {
-        "bed_rooted_bodies": 1,
-        "bodies_without_interface_labels": 0,
-        "explicit_interface_islands": 7,
-        "interface_islands": 7,
-        "model_rooted_bodies": 1,
-        "shortest_build_up_mm": 0.0,
+        "bed_rooted_bodies": 2,
+        "bodies_without_interface_labels": 2,
+        "explicit_interface_islands": 9,
+        "interface_islands": null,
+        "model_rooted_bodies": 3,
+        "shortest_build_up_mm": null,
         "shortest_labelled_build_up_mm": 0.0,
-        "support_bodies": 2
+        "support_bodies": 5
       },
       "toolpaths": {
         "bounds_padding_mm": 0.500998,
         "extrusion_bounds_xy_mm": [
           [
-            149.751002,
-            177.784002
+            139.841002,
+            178.90100199999998
           ],
           [
-            221.939998,
-            241.152998
+            224.986998,
+            242.03299800000002
           ]
         ],
         "maximum_line_width_mm": 0.801996
@@ -782,18 +1007,18 @@
         {
           "base_z_mm": 0.2,
           "bbox_cad_xyz_mm": [
-            -32.1,
-            -155.72,
-            168.479,
-            39.1,
-            -8.126,
-            263.972
+            -42.1,
+            -155.927,
+            172.729,
+            41.9,
+            -9.265,
+            264.745
           ],
           "bbox_xy_mm": [
-            150.4,
-            178.4,
-            221.6,
-            240.8
+            140.4,
+            182.8,
+            224.4,
+            241.6
           ],
           "first_interface_z_mm": 14.84,
           "id": "tree-1",
@@ -804,12 +1029,63 @@
             "interface-3",
             "interface-4",
             "interface-5",
-            "interface-6",
-            "interface-7"
+            "interface-7",
+            "interface-8",
+            "interface-9"
           ],
           "root": "bed",
           "shortest_build_up_mm": 14.64,
           "top_z_mm": 136.28
+        },
+        {
+          "base_z_mm": 0.2,
+          "bbox_cad_xyz_mm": [
+            -18.1,
+            -40.989,
+            197.217,
+            -2.5,
+            -8.437,
+            219.926
+          ],
+          "bbox_xy_mm": [
+            164.4,
+            179.6,
+            180.0,
+            195.2
+          ],
+          "first_interface_z_mm": null,
+          "id": "tree-2",
+          "interface_reading": "unlabelled",
+          "interfaces": [],
+          "root": "bed",
+          "shortest_build_up_mm": null,
+          "top_z_mm": 29.72
+        },
+        {
+          "base_z_mm": 23.72,
+          "bbox_cad_xyz_mm": [
+            -13.7,
+            -42.053,
+            212.859,
+            -3.7,
+            -35.297,
+            220.407
+          ],
+          "bbox_xy_mm": [
+            168.8,
+            195.6,
+            178.8,
+            202.0
+          ],
+          "first_interface_z_mm": 26.36,
+          "id": "tree-3",
+          "interface_reading": "explicit_feature",
+          "interfaces": [
+            "interface-6"
+          ],
+          "root": "model",
+          "shortest_build_up_mm": 2.64,
+          "top_z_mm": 29.0
         },
         {
           "base_z_mm": 28.76,
@@ -828,13 +1104,37 @@
             198.8
           ],
           "first_interface_z_mm": 28.76,
-          "id": "tree-2",
+          "id": "tree-4",
           "interface_reading": "explicit_feature",
           "interfaces": [
             "interface-6"
           ],
           "root": "model",
           "shortest_build_up_mm": 0.0,
+          "top_z_mm": 28.76
+        },
+        {
+          "base_z_mm": 28.76,
+          "bbox_cad_xyz_mm": [
+            -5.7,
+            -39.854,
+            211.762,
+            -5.7,
+            -39.854,
+            211.762
+          ],
+          "bbox_xy_mm": [
+            176.8,
+            194.4,
+            176.8,
+            194.4
+          ],
+          "first_interface_z_mm": null,
+          "id": "tree-5",
+          "interface_reading": "unlabelled",
+          "interfaces": [],
+          "root": "model",
+          "shortest_build_up_mm": null,
           "top_z_mm": 28.76
         }
       ]
@@ -860,13 +1160,13 @@
       "inputs": {
         "feature_filter": "Other objects' feature labels are masked; coordinates and extrusion commands are retained.",
         "gcode": "plate_1.gcode",
-        "gcode_sha256": "9ff12008c8cb7a7a5a829fb3d6f080554963b015225ad394768d58e044139f4c",
+        "gcode_sha256": "ac8d5a77362beaa2b0964218c0f2382c3b672209a3de1d88ab475470966f590d",
         "model": "hardware/printed-parts/faucet/industrial/production/2026-10-25/sculpted-display-cover.stl",
         "model_sha256": "3d4d2e05edde5a0e45aad36e9de072a57103c3b0f8da2bbd875cbfbedbe68133",
         "object_label": 1903,
-        "plate_gcode_sha256": "9ff12008c8cb7a7a5a829fb3d6f080554963b015225ad394768d58e044139f4c",
+        "plate_gcode_sha256": "ac8d5a77362beaa2b0964218c0f2382c3b672209a3de1d88ab475470966f590d",
         "profile": "hardware/printed-parts/faucet/industrial/faucet-industrial-petgf.3mf",
-        "profile_sha256": "b13109a40ae5368e728d3ebdfbf7c4c051d2e5b78ebcd2174ba60f413e1a168b"
+        "profile_sha256": "74e5e7d3d9ed6e50e020c383511a145b0741926df96bc04ab53009dd953e7e58"
       },
       "interface_feature_policy": "All support bodies are retained; unlabelled interfaces have unknown contact count and build-up.",
       "interfaces": [
@@ -989,13 +1289,13 @@
       "inputs": {
         "feature_filter": "Other objects' feature labels are masked; coordinates and extrusion commands are retained.",
         "gcode": "plate_1.gcode",
-        "gcode_sha256": "9ff12008c8cb7a7a5a829fb3d6f080554963b015225ad394768d58e044139f4c",
+        "gcode_sha256": "ac8d5a77362beaa2b0964218c0f2382c3b672209a3de1d88ab475470966f590d",
         "model": "hardware/printed-parts/faucet/industrial/production/2026-10-25/industrial-above-counter-plate.stl",
         "model_sha256": "5dcf7c25eddfd45f5a9db12b687b751ba24c3c3f9bb87d042b6d97ca4d134bee",
         "object_label": 1904,
-        "plate_gcode_sha256": "9ff12008c8cb7a7a5a829fb3d6f080554963b015225ad394768d58e044139f4c",
+        "plate_gcode_sha256": "ac8d5a77362beaa2b0964218c0f2382c3b672209a3de1d88ab475470966f590d",
         "profile": "hardware/printed-parts/faucet/industrial/faucet-industrial-petgf.3mf",
-        "profile_sha256": "b13109a40ae5368e728d3ebdfbf7c4c051d2e5b78ebcd2174ba60f413e1a168b"
+        "profile_sha256": "74e5e7d3d9ed6e50e020c383511a145b0741926df96bc04ab53009dd953e7e58"
       },
       "interface_feature_policy": "All support bodies are retained; unlabelled interfaces have unknown contact count and build-up.",
       "interfaces": [],
@@ -1069,13 +1369,13 @@
       "inputs": {
         "feature_filter": "Other objects' feature labels are masked; coordinates and extrusion commands are retained.",
         "gcode": "plate_1.gcode",
-        "gcode_sha256": "9ff12008c8cb7a7a5a829fb3d6f080554963b015225ad394768d58e044139f4c",
+        "gcode_sha256": "ac8d5a77362beaa2b0964218c0f2382c3b672209a3de1d88ab475470966f590d",
         "model": "hardware/printed-parts/faucet/industrial/production/2026-10-25/lever-replica.stl",
         "model_sha256": "7a3f5c7d9034c4cce0e0f39bfac6e868f6bd8d01a05add3d21951981eca296eb",
         "object_label": 1905,
-        "plate_gcode_sha256": "9ff12008c8cb7a7a5a829fb3d6f080554963b015225ad394768d58e044139f4c",
+        "plate_gcode_sha256": "ac8d5a77362beaa2b0964218c0f2382c3b672209a3de1d88ab475470966f590d",
         "profile": "hardware/printed-parts/faucet/industrial/faucet-industrial-petgf.3mf",
-        "profile_sha256": "b13109a40ae5368e728d3ebdfbf7c4c051d2e5b78ebcd2174ba60f413e1a168b"
+        "profile_sha256": "74e5e7d3d9ed6e50e020c383511a145b0741926df96bc04ab53009dd953e7e58"
       },
       "interface_feature_policy": "All support bodies are retained; unlabelled interfaces have unknown contact count and build-up.",
       "interfaces": [
@@ -1219,27 +1519,27 @@
   ],
   "plates": [
     {
-      "estimated_total_seconds": 31703.0,
+      "estimated_total_seconds": 32745.0,
       "plate": 1,
-      "saved_profile_filament_estimate_g": 174.20657348632812,
+      "saved_profile_filament_estimate_g": 176.76930236816406,
       "slicer_warning": ""
     }
   ],
   "project": "hardware/printed-parts/faucet/industrial/faucet-industrial-petgf.3mf",
-  "project_sha256": "b13109a40ae5368e728d3ebdfbf7c4c051d2e5b78ebcd2174ba60f413e1a168b",
+  "project_sha256": "74e5e7d3d9ed6e50e020c383511a145b0741926df96bc04ab53009dd953e7e58",
   "rim_contour": {
-    "added_commanded_motion_seconds": 106.22721608532453,
+    "added_commanded_motion_seconds": 106.30754970457191,
     "arc_count": 123,
-    "archive_sha256": "c0176ea0d6954a188c64723d10af5aa64ffba4da7b5d3a8cfe934bd3c91b8ffb",
+    "archive_sha256": "76d13b878d8f86a98eac44a82757150e29eeade70f6e75222877f73682c2c307",
     "emitted_contact_segments": 801,
     "extrusion_added_mm": 5.822014105617284,
-    "extrusion_removed_mm": 7.501480264748283,
-    "gcode_input_sha256": "f497ba70fee55ed9988898a2f1a6e42461e49fd13fafeb2def2e2866584b0f8e",
-    "gcode_sha256": "835f3bafc1f2aae07e1c89fc1801b5067e7101edb844474e82e7c633a47300bb",
+    "extrusion_removed_mm": 7.500799372916653,
+    "gcode_input_sha256": "024f999ca3d99459f58d5f61af151a1ecb5b5c70bf11064cb579a2a42a02a0cc",
+    "gcode_sha256": "e1f2660942287555dde53bd2bbe9d28cd47a674a85b249a212b8318b5202360f",
     "identify_id": 1901,
     "maximum_contact_depth_below_prior_peak_mm": 1.08000000001228,
     "minimum_contact_z_mm": 0.9753898145421402,
-    "modified_native_paths": 3168,
+    "modified_native_paths": 3165,
     "purpose": "Bind the continuous first outer rim course to the complete product.",
     "rim_semi_axes_mm": [
       29.500000066966805,
@@ -1263,18 +1563,18 @@
   "slicer": "BambuStudio 02.08.02.61",
   "sparse_infill_density_percent": 15.0,
   "tip_rim_contour": {
-    "added_commanded_motion_seconds": 61.182677246130396,
+    "added_commanded_motion_seconds": 60.93353840707162,
     "arc_count": 127,
-    "archive_sha256": "4ef6bc255765854124d117277a3aeb3d569b0d2fbf61e7f431f14248d70b5c4a",
+    "archive_sha256": "2982ae017cf5b8c8ce7827477e7ab10ef8344c43c8a7fccad0d8c78834acf677",
     "emitted_contact_segments": 449,
     "extrusion_added_mm": 2.842010457214805,
-    "extrusion_removed_mm": 2.635971112544867,
-    "gcode_input_sha256": "835f3bafc1f2aae07e1c89fc1801b5067e7101edb844474e82e7c633a47300bb",
-    "gcode_sha256": "9ff12008c8cb7a7a5a829fb3d6f080554963b015225ad394768d58e044139f4c",
+    "extrusion_removed_mm": 2.6340449171204017,
+    "gcode_input_sha256": "e1f2660942287555dde53bd2bbe9d28cd47a674a85b249a212b8318b5202360f",
+    "gcode_sha256": "ac8d5a77362beaa2b0964218c0f2382c3b672209a3de1d88ab475470966f590d",
     "identify_id": 1902,
     "maximum_contact_depth_below_prior_peak_mm": 1.0800000000177583,
     "minimum_contact_z_mm": 15.197532896442565,
-    "modified_native_paths": 778,
+    "modified_native_paths": 776,
     "purpose": "Bind the continuous first outer rim course to the complete product.",
     "rim_semi_axes_mm": [
       13.499997455994734,
@@ -1292,378 +1592,33 @@
     ]
   },
   "wall_loops": 2,
-  "selected_contact_and_recesses": {
-    "gcode_sha256": "c7be9cf229c47d8fcdac449c324b1b78ab5eac43e634e53ac89e15f8fe1e75ac",
-    "target_seat_plate_mm": [
-      85.5,
-      140.12491558071855,
-      7.635161830524368
-    ],
-    "cavities": [
-      {
-        "mouth_plate_mm": [
-          62.99999999999969,
-          138.19306393851383,
-          8.152799924558739
-        ],
-        "shoulder": {
-          "support_envelope_intersections": 0,
-          "support_intersection_depth_range_mm": null,
-          "bridge_path_mm": 38.444008753590744,
-          "bridge_roads": 170
-        },
-        "blind_roof": {
-          "support_envelope_intersections": 0,
-          "support_intersection_depth_range_mm": null,
-          "bridge_path_mm": 14.836744349733376,
-          "bridge_roads": 8
-        }
-      },
-      {
-        "mouth_plate_mm": [
-          85.50000000000014,
-          118.58476968376843,
-          13.406826602993945
-        ],
-        "shoulder": {
-          "support_envelope_intersections": 0,
-          "support_intersection_depth_range_mm": null,
-          "bridge_path_mm": 32.85358707237024,
-          "bridge_roads": 147
-        },
-        "blind_roof": {
-          "support_envelope_intersections": 0,
-          "support_intersection_depth_range_mm": null,
-          "bridge_path_mm": 10.480002409870261,
-          "bridge_roads": 2
-        }
-      },
-      {
-        "mouth_plate_mm": [
-          107.99999999999991,
-          138.19306393855183,
-          8.152799924699984
-        ],
-        "shoulder": {
-          "support_envelope_intersections": 0,
-          "support_intersection_depth_range_mm": null,
-          "bridge_path_mm": 36.420729948449356,
-          "bridge_roads": 163
-        },
-        "blind_roof": {
-          "support_envelope_intersections": 0,
-          "support_intersection_depth_range_mm": null,
-          "bridge_path_mm": 14.864470878620965,
-          "bridge_roads": 9
-        }
-      }
-    ],
-    "rim": {
-      "grid_mm": 0.125,
-      "scope": "Connected sampled emitted interface bead envelopes near the rim.",
-      "largest_component": 0,
-      "interface_cells": {
-        "0": 548690
-      },
-      "roof_layers": 63,
-      "rim_spans": [
-        {
-          "angle_interval_degrees": [
-            -110.5,
-            -69.5
-          ],
-          "samples": 31,
-          "covered": 31,
-          "component_counts": {
-            "0": 31
-          },
-          "maximum_sampled_gap_mm": 0.3512
-        },
-        {
-          "angle_interval_degrees": [
-            -65.5,
-            -24.5
-          ],
-          "samples": 31,
-          "covered": 31,
-          "component_counts": {
-            "0": 31
-          },
-          "maximum_sampled_gap_mm": 0.40689
-        },
-        {
-          "angle_interval_degrees": [
-            -20.5,
-            20.5
-          ],
-          "samples": 31,
-          "covered": 31,
-          "component_counts": {
-            "0": 31
-          },
-          "maximum_sampled_gap_mm": 0.40381
-        },
-        {
-          "angle_interval_degrees": [
-            24.5,
-            65.5
-          ],
-          "samples": 31,
-          "covered": 31,
-          "component_counts": {
-            "0": 31
-          },
-          "maximum_sampled_gap_mm": 0.37134
-        },
-        {
-          "angle_interval_degrees": [
-            114.5,
-            155.5
-          ],
-          "samples": 31,
-          "covered": 31,
-          "component_counts": {
-            "0": 31
-          },
-          "maximum_sampled_gap_mm": 0.37134
-        },
-        {
-          "angle_interval_degrees": [
-            159.5,
-            200.5
-          ],
-          "samples": 31,
-          "covered": 31,
-          "component_counts": {
-            "0": 31
-          },
-          "maximum_sampled_gap_mm": 0.40381
-        },
-        {
-          "angle_interval_degrees": [
-            204.5,
-            245.5
-          ],
-          "samples": 31,
-          "covered": 31,
-          "component_counts": {
-            "0": 31
-          },
-          "maximum_sampled_gap_mm": 0.40689
-        }
-      ],
-      "between_span_samples": [
-        {
-          "angle_degrees": -67.5,
-          "contact": {
-            "component": 0,
-            "gap_mm": 0.37935
-          }
-        },
-        {
-          "angle_degrees": -22.5,
-          "contact": {
-            "component": 0,
-            "gap_mm": 0.40725
-          }
-        },
-        {
-          "angle_degrees": 22.5,
-          "contact": {
-            "component": 0,
-            "gap_mm": 0.36307
-          }
-        },
-        {
-          "angle_degrees": 157.5,
-          "contact": {
-            "component": 0,
-            "gap_mm": 0.36307
-          }
-        },
-        {
-          "angle_degrees": 202.5,
-          "contact": {
-            "component": 0,
-            "gap_mm": 0.40725
-          }
-        },
-        {
-          "angle_degrees": 247.5,
-          "contact": {
-            "component": 0,
-            "gap_mm": 0.37935
-          }
-        }
-      ],
-      "tree_side_component_counts": {
-        "0": 63
-      }
-    },
-    "mounting_plate_counterbores": [
-      {
-        "cad_center_mm": [
-          22.5,
-          -2.0
-        ],
-        "counterbore_support_flags": 0,
-        "shank_support_flags": 0,
-        "bridge_path_mm": 75.95858458371605,
-        "bridge_segments": 57
-      },
-      {
-        "cad_center_mm": [
-          -22.5,
-          -2.0
-        ],
-        "counterbore_support_flags": 0,
-        "shank_support_flags": 0,
-        "bridge_path_mm": 75.94923411699581,
-        "bridge_segments": 56
-      },
-      {
-        "cad_center_mm": [
-          0.0,
-          -22.3
-        ],
-        "counterbore_support_flags": 0,
-        "shank_support_flags": 0,
-        "bridge_path_mm": 75.95313498093391,
-        "bridge_segments": 56
-      }
-    ]
-  },
-  "contour_clearance": {
-    "other_object_segments_preserved": 601114,
-    "source_deposition_segments": 1962650,
-    "trial_deposition_segments": 1964914,
-    "preserved_support_deposition_segments": 409289,
-    "preserved_bridge_deposition_segments": 15993,
-    "gcode_sha256": "c7be9cf229c47d8fcdac449c324b1b78ab5eac43e634e53ac89e15f8fe1e75ac",
-    "courses": [
-      {
-        "course": 1,
-        "segments": 801,
-        "max_endpoint_mismatch_mm": 0.0,
-        "contact_depth_mm": [
-          0.22999,
-          0.22999,
-          0.23,
-          0.23,
-          0.23,
-          0.23001,
-          0.23001
-        ],
-        "max_deposition_slope_deg": 15.001374239870318,
-        "max_extruding_z_speed_mm_s": 3.8826331915366277
-      }
-    ],
-    "roof_gap_mm": [
-      0.06496,
-      0.10358,
-      0.11967,
-      0.25911,
-      0.3855,
-      0.38579,
-      0.40706
-    ],
-    "direct_roof_gap_mm": [
-      0.10361,
-      0.14168,
-      0.15502,
-      0.29409,
-      0.39451,
-      0.42148,
-      0.6462
-    ],
-    "roof_samples": 801,
-    "no_nearby_lower_roof_count": 0,
-    "no_nearby_lower_roof_angles_deg": [],
-    "model_side_join_height_delta_mm": [
-      -0.02468,
-      -0.02409,
-      -0.02263,
-      0.02201,
-      0.15647,
-      0.17594,
-      0.21763
-    ],
-    "no_nearby_retained_model_count": 0,
-    "upper_join_height_delta_mm": [
-      0.08,
-      0.08011,
-      0.08056,
-      0.10986,
-      0.19246,
-      0.23016,
-      0.24982
-    ],
-    "upper_join_missing_count": 0,
-    "tangent_join": [
-      {
-        "angle_deg": 114.5,
-        "nearest_original_path_center_delta_mm": 0.028936361350004044,
-        "lateral_delta_mm": 0.02694961215450908,
-        "z_delta_mm": 0.010537144437633206
-      },
-      {
-        "angle_deg": 425.5,
-        "nearest_original_path_center_delta_mm": 0.028936361350004044,
-        "lateral_delta_mm": 0.02694961215450908,
-        "z_delta_mm": 0.010537144437633206
-      }
-    ],
-    "potential_earlier_interference_count": 0,
-    "potential_earlier_interference_examples": [],
-    "later_support_under_rim_count": 0,
-    "later_support_under_rim_examples": [],
-    "potential_support_interference_count": 0,
-    "potential_support_interference_examples": [],
-    "potential_retained_interference_count": 0,
-    "potential_retained_interference_examples": []
-  },
-  "object_support_overrides": {
-    "industrial-shell-base": {
-      "support_bottom_z_distance": "0.0",
-      "support_interface_spacing": "0",
-      "support_interface_top_layers": "3",
-      "support_object_xy_distance": "0.4",
-      "support_on_build_plate_only": "0",
-      "support_style": "tree_slim",
-      "support_top_z_distance": "0.24",
-      "support_type": "tree(auto)",
-      "tree_support_branch_angle": "45"
-    },
-    "faucet-shell-tip": {
-      "support_style": "tree_slim"
-    }
-  },
   "executable": {
     "archive": "hardware/printed-parts/faucet/industrial/faucet-industrial-petgf.gcode.3mf",
-    "archive_sha256": "4ef6bc255765854124d117277a3aeb3d569b0d2fbf61e7f431f14248d70b5c4a",
+    "archive_sha256": "2982ae017cf5b8c8ce7827477e7ab10ef8344c43c8a7fccad0d8c78834acf677",
     "member": "Metadata/plate_1.gcode",
-    "gcode_sha256": "9ff12008c8cb7a7a5a829fb3d6f080554963b015225ad394768d58e044139f4c"
+    "gcode_sha256": "ac8d5a77362beaa2b0964218c0f2382c3b672209a3de1d88ab475470966f590d"
   },
   "tip_rim_review": {
     "style": "industrial",
     "project": "hardware/printed-parts/faucet/industrial/faucet-industrial-petgf.3mf",
-    "project_sha256": "b13109a40ae5368e728d3ebdfbf7c4c051d2e5b78ebcd2174ba60f413e1a168b",
+    "project_sha256": "74e5e7d3d9ed6e50e020c383511a145b0741926df96bc04ab53009dd953e7e58",
     "archive": "hardware/printed-parts/faucet/industrial/faucet-industrial-petgf.gcode.3mf",
-    "archive_sha256": "4ef6bc255765854124d117277a3aeb3d569b0d2fbf61e7f431f14248d70b5c4a",
+    "archive_sha256": "2982ae017cf5b8c8ce7827477e7ab10ef8344c43c8a7fccad0d8c78834acf677",
     "member": "Metadata/plate_1.gcode",
-    "gcode_sha256": "9ff12008c8cb7a7a5a829fb3d6f080554963b015225ad394768d58e044139f4c",
+    "gcode_sha256": "ac8d5a77362beaa2b0964218c0f2382c3b672209a3de1d88ab475470966f590d",
     "contact": {
-      "added_commanded_motion_seconds": 61.182677246130396,
+      "added_commanded_motion_seconds": 60.93353840707162,
       "arc_count": 127,
+      "archive_sha256": "2982ae017cf5b8c8ce7827477e7ab10ef8344c43c8a7fccad0d8c78834acf677",
       "emitted_contact_segments": 449,
       "extrusion_added_mm": 2.842010457214805,
-      "extrusion_removed_mm": 2.635971112544867,
-      "gcode_input_sha256": "835f3bafc1f2aae07e1c89fc1801b5067e7101edb844474e82e7c633a47300bb",
-      "gcode_sha256": "9ff12008c8cb7a7a5a829fb3d6f080554963b015225ad394768d58e044139f4c",
+      "extrusion_removed_mm": 2.6340449171204017,
+      "gcode_input_sha256": "e1f2660942287555dde53bd2bbe9d28cd47a674a85b249a212b8318b5202360f",
+      "gcode_sha256": "ac8d5a77362beaa2b0964218c0f2382c3b672209a3de1d88ab475470966f590d",
       "identify_id": 1902,
       "maximum_contact_depth_below_prior_peak_mm": 1.0800000000177583,
       "minimum_contact_z_mm": 15.197532896442565,
-      "modified_native_paths": 778,
+      "modified_native_paths": 776,
       "purpose": "Bind the continuous first outer rim course to the complete product.",
       "rim_semi_axes_mm": [
         13.499997455994734,
@@ -1680,47 +1635,249 @@
         360.0
       ]
     },
-    "outlet_clearance": [
-      {
-        "support_roads_sampled": 34008,
-        "centerlines_in_bore": 0,
-        "estimated_beads_in_bore": 0
-      }
+    "base_fin_components": [
+      "Removable outer rim fin 1",
+      "Removable outer rim fin 2",
+      "Removable outer rim fin 3",
+      "Removable outer rim fin 4",
+      "Removable outer rim fin 5",
+      "Removable outer rim fin 6",
+      "Removable outer rim fin 7"
     ],
-    "outlet_geometry_comparison": {
-      "reference_gcode_sha256": "7763080597d4b3910483dae44b8e367b970d11197fdbc44c9764953d7d409075",
-      "bores": [
+    "tip_fin_components": [
+      "Removable outer rim fin 1",
+      "Removable outer rim fin 2",
+      "Removable outer rim fin 3",
+      "Removable outer rim fin 4",
+      "Removable outer rim fin 5",
+      "Removable outer rim fin 6",
+      "Removable outer rim fin 7",
+      "Removable outer rim fin 8"
+    ],
+    "placement": {
+      "bead_bounds_xy_mm": [
+        [
+          46.112,
+          73.48400000000001
+        ],
+        [
+          265.71999999999997,
+          274.499
+        ]
+      ],
+      "minimum_bead_margin_mm": 45.500999999999976
+    },
+    "rims": {
+      "base": {
+        "fin_count": 7,
+        "fin_top_road_samples": 2304,
+        "interface_road_samples_above_fin_sector": 2423,
+        "contour_segments": 801,
+        "contour_with_nearby_backing": 801,
+        "largest_backed_sample_spacing_mm": 0.21940065132055575,
+        "missing_roof_angles_by_tens": [],
+        "earlier_toolpath_interference_angles": [],
+        "later_toolpath_interference_angles": [],
+        "upper_course_nearby_count": 801,
+        "nearby_shared_roof_and_fin_samples": 687,
+        "outside_tree_road_samples_under_fin_sectors": 30776,
+        "outside_tree_road_samples_within_two_mm_of_fin_wall": 15918,
+        "outside_tree_road_samples_near_top_of_fin": 6718,
+        "tree_road_samples_under_fin_sectors": 113812,
+        "maximum_tree_centerline_outset_mm": 11.399229429006937,
+        "highest_outside_tree_road_mm": 14.726424999999999
+      },
+      "tip": {
+        "fin_count": 8,
+        "fin_top_road_samples": 888,
+        "interface_road_samples_above_fin_sector": 493,
+        "contour_segments": 449,
+        "contour_with_nearby_backing": 350,
+        "largest_backed_sample_spacing_mm": 3.9235298186949925,
+        "missing_roof_angles_by_tens": [
+          [
+            0,
+            1
+          ],
+          [
+            10,
+            8
+          ],
+          [
+            30,
+            8
+          ],
+          [
+            50,
+            2
+          ],
+          [
+            120,
+            2
+          ],
+          [
+            140,
+            8
+          ],
+          [
+            160,
+            8
+          ],
+          [
+            180,
+            1
+          ],
+          [
+            190,
+            4
+          ],
+          [
+            200,
+            8
+          ],
+          [
+            240,
+            3
+          ],
+          [
+            250,
+            11
+          ],
+          [
+            260,
+            4
+          ],
+          [
+            270,
+            4
+          ],
+          [
+            280,
+            11
+          ],
+          [
+            290,
+            3
+          ],
+          [
+            330,
+            8
+          ],
+          [
+            340,
+            4
+          ],
+          [
+            350,
+            1
+          ]
+        ],
+        "earlier_toolpath_interference_angles": [],
+        "later_toolpath_interference_angles": [],
+        "upper_course_nearby_count": 449,
+        "nearby_shared_roof_and_fin_samples": 226,
+        "outside_tree_road_samples_under_fin_sectors": 36336,
+        "outside_tree_road_samples_within_two_mm_of_fin_wall": 9348,
+        "outside_tree_road_samples_near_top_of_fin": 3167,
+        "tree_road_samples_under_fin_sectors": 43520,
+        "maximum_tree_centerline_outset_mm": 28.831030503834118,
+        "highest_outside_tree_road_mm": 32.36
+      }
+    },
+    "clearance": {
+      "base_recesses": [
         {
-          "previous_paths": 10717,
-          "current_paths": 10717,
-          "removed_paths": 0,
-          "added_paths": 0
+          "cad_center_mm": [
+            -22.500000000000313,
+            -1.9999999909711512
+          ],
+          "stages": [
+            {
+              "support_centerlines": 0,
+              "bridge_segments": 470
+            },
+            {
+              "support_centerlines": 0,
+              "bridge_segments": 26
+            }
+          ],
+          "center_height_stages": [
+            {
+              "support_centerlines": 0,
+              "bridge_segments": 470
+            },
+            {
+              "support_centerlines": 0,
+              "bridge_segments": 26
+            }
+          ]
+        },
+        {
+          "cad_center_mm": [
+            1.4210854715202004e-13,
+            -22.299999988961062
+          ],
+          "stages": [
+            {
+              "support_centerlines": 0,
+              "bridge_segments": 459
+            },
+            {
+              "support_centerlines": 0,
+              "bridge_segments": 21
+            }
+          ],
+          "center_height_stages": [
+            {
+              "support_centerlines": 0,
+              "bridge_segments": 459
+            },
+            {
+              "support_centerlines": 0,
+              "bridge_segments": 21
+            }
+          ]
+        },
+        {
+          "cad_center_mm": [
+            22.499999999999915,
+            -1.999999990971002
+          ],
+          "stages": [
+            {
+              "support_centerlines": 0,
+              "bridge_segments": 470
+            },
+            {
+              "support_centerlines": 0,
+              "bridge_segments": 26
+            }
+          ],
+          "center_height_stages": [
+            {
+              "support_centerlines": 0,
+              "bridge_segments": 470
+            },
+            {
+              "support_centerlines": 0,
+              "bridge_segments": 26
+            }
+          ]
+        }
+      ],
+      "mounting_plate_support_segments": 0,
+      "mounting_plate_bridge_segments": 810,
+      "beverage_bores": [
+        {
+          "support_centerlines": 0,
+          "approximate_support_beads": 0
         }
       ]
-    },
-    "dense_backing_reference": {
-      "gcode_sha256": "7763080597d4b3910483dae44b8e367b970d11197fdbc44c9764953d7d409075",
-      "evidence": {
-        "nearby_backing_segments": 434,
-        "dense_roof_backing_segments": 425,
-        "largest_spacing_between_backed_samples_mm": 0.8411283055060877,
-        "largest_spacing_between_dense_roof_samples_mm": 1.0887816389071767,
-        "contour_segments": 449,
-        "length_mm": 83.4399299684716,
-        "maximum_extrusion_z_speed_mm_s": 7.480614043856553,
-        "potential_earlier_interference": 0,
-        "potential_later_interference": 0
-      }
-    },
-    "process": {
-      "support_top_z_distance": "0.24",
-      "support_interface_top_layers": "3",
-      "support_interface_spacing": "0"
     }
   },
   "base_brim_review": {
     "base_brim_segments": 0,
-    "base_bed_layer_support_segments": 5064,
-    "tip_brim_segments": 495
+    "base_bed_layer_support_segments": 5482,
+    "tip_brim_segments": 2428
   }
 }
