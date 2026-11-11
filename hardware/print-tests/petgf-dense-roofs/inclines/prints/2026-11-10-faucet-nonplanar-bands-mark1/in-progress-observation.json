@@ -1,0 +1,15 @@
+{
+  "purpose": "Record Derek's in-progress observation of the first nonplanar faucet coupon.",
+  "print_task_id": "1429748793",
+  "source": "Derek in this chat",
+  "partial_print": true,
+  "reported_while_printing": [
+    "It seems to be working.",
+    "everything is fine right now",
+    "nothing is crashing",
+    "the print head is clean"
+  ],
+  "planned_user_action": "Stop the print part way through and inspect it further.",
+  "removal_and_underside_finish": "pending",
+  "scope": "This observation establishes the reported partial run, not completed motion clearance or physical support release."
+}

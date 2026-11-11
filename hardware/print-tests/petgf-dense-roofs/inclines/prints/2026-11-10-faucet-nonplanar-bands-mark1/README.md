@@ -6,6 +6,11 @@ archive, printer calibration, settings and estimate. The dense roof process and
 requested gap retain the [completed planar control](https://github.com/derekbreden/homesodamachine/blob/416bf47e9ded600fa3a0c7d19855d87d20b8b893/hardware/print-tests/petgf-dense-roofs/inclines/prints/2026-11-10-faucet-slim-gap048-mark1/physical-result/physical-result.json).
 Physical finish and release remain pending.
 
+The [in-progress observation](in-progress-observation.json) records Derek's
+reported clean motion and clean print head during the partial run. The
+[prepared comparison](../2026-11-10-faucet-nonplanar-gap024-widebands-mark1/print-job.json)
+retains this complete article with longer contact bands and a smaller gap.
+
 The [mapping](mapping.json) defines bounded layer bands near the dominant
 inclined underside, blending into the ordinary layer family away from that
 contact. Both the model and support roof follow those coordinates. Native
