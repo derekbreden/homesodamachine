@@ -214,7 +214,7 @@
   },
   "nonplanar_motion": {
     "added_commanded_motion_seconds": 1409.9781604377044,
-    "archive": ".cache/runs/sculpted-current-preview-20261110/production-final/slice-trees/faucet-petgf.gcode.3mf",
+    "archive": "hardware/printed-parts/faucet/sculpted/production/faucet-petgf.gcode.3mf",
     "archive_sha256": "f7243ff85093a18b32568c44b3636f6bfb8da79a43cf2ee1f5db296b07bd20d5",
     "gcode_input_sha256": "81480f155d1135ffb1644b347fd0ca0ac77713831a8bdab86ce230b66d79f89f",
     "gcode_sha256": "bf1c4c89818195f83c4bc0b6ca7b7999925f9e5dea8ae6bb9ef5548082a03f00",
