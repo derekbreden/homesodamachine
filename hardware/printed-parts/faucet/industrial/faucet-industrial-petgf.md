@@ -67,15 +67,17 @@ application and inner-wall scarf. The base's full rear silhouette and the tip's
 exposed curved meridian retain their seam enforcement. Cover and lever keep
 Aligned, 15% seam gap and scarf Off.
 
-The base uses Slim trees beneath one dense interface. The first supported
-outer perimeter follows the inclined rim and joins the ordinary wall courses.
+The base uses Slim trees and segmented outer fins beneath a shared dense
+interface. The first supported outer perimeter follows the inclined rim and
+joins the ordinary wall courses.
 The base's insert shoulders and blind pilot
 roofs bridge across the blocked recesses. The mounting plate uses bridges
 over its counterbores. The [process selection](finish-selection.json) owns the
 contact recipe and cavity clearances.
 
-Slim trees carry the dense interface at the tip's mating lip. The first outer
-perimeter follows the inclined rim and joins the ordinary wall courses. The
+Slim trees and segmented outer fins carry the shared dense interface at the
+tip's mating lip. The first outer perimeter follows the inclined rim and
+joins the ordinary wall courses. The
 inner dispense face has its own contact band and a keepout at the beverage
 aperture. The removable root disc anchors the plug at the bed and confines
 its contact to the hidden insertion end. The other parts use their selected
