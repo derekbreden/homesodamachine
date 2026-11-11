@@ -216,6 +216,9 @@ test("a copy blob's solid: line stands alone but never over its own picks", () =
   assert.equal(picks.length, 1);
   assert.deepEqual(names, []); // the picks are the target; the solid is the container
   assert.deepEqual(solids, ["fluid-17"]);
+  const nested = parsePicks("solid: cold-core/evap-coil/2");
+  assert.deepEqual(nested.names, ["cold-core/evap-coil"]);
+  assert.deepEqual(nested.solids, ["cold-core/evap-coil"]);
 });
 
 test("explicit CAD references remain distinct from human material lookup text", () => {
