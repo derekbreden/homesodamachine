@@ -2,7 +2,7 @@
 
 The [selected process](finish-selection.json) starts from the recorded
 Industrial printing settings and applies the Sculpted finish and supports. The
-complete PET-GF plate contains the Sculpted base, tip and display cover,
+complete PET-GF plate contains the Sculpted base, tip, display cover,
 matching above-counter plate and side-down lever replica. TPU pieces and the
 umbilical organizer are separate prints.
 

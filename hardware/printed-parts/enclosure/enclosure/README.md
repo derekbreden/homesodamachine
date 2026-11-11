@@ -738,21 +738,22 @@ enclosure, front pump cavities and lower pump retainer select Tree Slim. Inspect
 the actual branches and removal openings in the emitted native slice. A smaller
 footprint or an open-looking lane alone does not establish easy cleanup.
 
-Back-top prints ceiling-down with its rear flutes clear of the bed. Accessible
-exterior features and rails use manual Tree Slim selected by native contact
-regions. Native exclusions
-keep the receiver interiors and covered passages clear of supports.
-The contact regions also cover front joint ends, funnel receiver undersides,
-the valve-seat underside, initial relay-boss curves,
-cable-hook lands and the tube seat's outer underside. Pilot roofs stay outside
-the contact targets. Connector insertion pockets bridge between their well walls
-and remain support-free. The current back-top recipe retains bed-only native
-roots. Its [replacement audit](prints/2026-11-10-back-top-D-coverage-mark1/support-audit.json)
-remains unqualified for passage clearance and bed placement. Inspect the first
-deposited courses beneath each contact; a support
-body or interface-island count alone does not establish complete coverage. The
-nameplate target includes its complete receiver frame; joint targets follow the
+Back-top prints ceiling-down with its rear flutes clear of the bed. Manual Tree
+Slim carries the exposed joint ends, funnel receiver shoulders, valve seat and
+routing lands. The first model courses on the tube-seat and relay-boss arcs
+have dense interface or adjacent deposited stock throughout the sampled contact
+areas. The native layers retain that local backing. Joint targets follow the
 raked ends and counterbore roofs above the bed chamfer.
+
+The nameplate receiver's exterior panel follows both rounded ledges and pulls
+straight aft. Each split rail cap starts on narrow roots in its own cavity;
+sever the necks and pull the cap inward through the open sliding lane. The
+native slice review confirms the cap air gaps, bed border and clear fitted
+interiors. Funnel insert pilots bridge between their own walls inside the
+supported shoulders. The connector insertion pockets and both power-inlet
+passages remain clear. The [current review record](../../support-D-rollout.json)
+binds those results to the exact enclosure mesh and toolpaths. Physical cleanup
+and fit of this prepared plate await its first print.
 
 The rear receiver catches bridge along their pockets between the complete end
 shoulders. The Pisco entry relief ends below a full-thickness fore bridge anchor. The sideways meter host uses authored removable trees under its
@@ -783,6 +784,10 @@ The [front rail support reading](front-rail-support-review.json) binds the curre
 meshes to their prepared native projects and measured roots. The front-bottom recipe
 keeps its rail trees inside their cavities; front-top's gabled rail roofs print without
 support contacts.
+
+Back-bottom's automatic trees root on their rail cavity floors. Its local handhold
+requests produce dense support under the flat seam lips and tree tips under the
+rounded mouths. The handhold interiors use their integral corbels.
 
 The rail support's root and removal lane both matter. Keep its branches inside the cavity
 above their local floor, with the sliding lane open until cleanup is complete. The Z-seam catches
@@ -1150,9 +1155,9 @@ retainer below it resist axial movement. The insert posts root in surrounding st
 pockets and the head wells open at the underside; there is no connecting retainer channel.
 The loading wells taper toward the motor guide to reduce flat overhang area.
 
-Front-top prints on its seam plane. The retainer prints with its flange-bearing face on the bed and screw-head recesses
-facing upward, with local solid infill at the bearing and screw seats. Use accessible Tree Slim supports
-only where needed; inspect the native slice before printing this revision.
+Front-top prints on its seam plane. The retainer prints on its Y end with
+local solid infill at the bearing and screw seats. Its short screw openings
+bridge across their walls and the head seats print clear.
 
 Service takes place with front-top open, power disconnected and the pump plumbing and
 motor leads released. Support the pump, remove its retainer screws and lower it motor-first

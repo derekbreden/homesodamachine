@@ -1,0 +1,30 @@
+{
+  "purpose": "Bound nonplanar deposition around the supported transition in the regulator snap cap.",
+  "source_evidence": "40e364be6749339bf892c49263a5c9d6c5560ca0:hardware/print-tests/petgf-dense-roofs/inclines/prints/2026-11-10-faucet-nonplanar-rim-fins-mark1/mapping.json",
+  "parameters": {
+    "band_period_mm": 1.92,
+    "bed_blend_mm": [0.44, 4.0],
+    "contact_full_weight_mm": [-1.5, 1.0],
+    "contact_zero_weight_mm": [-4.5, 4.0],
+    "maximum_gcode_segment_mm": 0.25,
+    "maximum_mesh_mapping_error_mm": 0.003,
+    "maximum_mesh_y_step_mm": 0.25,
+    "maximum_mesh_z_step_mm": 1.0,
+    "maximum_nonplanar_z_speed_mm_s": 7.5,
+    "travel_clearance_mm": 0.4,
+    "travel_retract_mm": 0.8,
+    "travel_retract_speed_mm_s": 30.0,
+    "travel_z_speed_mm_s": 15.0,
+    "support_release": {
+      "depth_mm": 0.085,
+      "blend_below_roof_mm": [-1.4, -0.7, -0.4, 0.0]
+    }
+  },
+  "object": "regulator-snap-cap",
+  "roof": {
+    "reason": "Follow the curved transition between the fitted body bearing and outlet neck.",
+    "bounds_source_mm": [[-13.0, -13.25, 21.25], [2.0, 13.25, 22.05]],
+    "band_phase_source_mm": 21.56,
+    "edge_blend_mm": 1.5
+  }
+}
