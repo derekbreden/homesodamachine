@@ -19,6 +19,7 @@ pub fn geometry_version() -> String {
     h.update(include_str!("../../geometry/src/lib.rs"));
     h.update(include_str!("../../geometry/Cargo.toml"));
     h.update(include_str!("../../manifold/src/lib.rs"));
+    h.update(include_str!("../../manifold/src/native.rs"));
     h.update(include_str!("../../manifold/Cargo.toml"));
     h.update(include_str!("../../Cargo.toml"));
     h.update(include_str!("../../Cargo.lock"));
