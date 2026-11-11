@@ -44,7 +44,7 @@ the selected support contacts and emitted bridges.
 | First / later layer height | 0.20 / 0.24 mm |
 | Nozzle / bed temperatures | 265°C first, 280°C later / 80°C |
 | Flow / volumetric limit | 0.9555 / 18 mm³/s |
-| Global walls / infill | 2 / 15% grid |
+| Global walls / infill | 2 / 15% gyroid |
 | Base foot | Continuous 100% zigzag infill modifier; base Arachne |
 | Other objects | Classic wall generator |
 | Top / bottom shells | 4 layers, minimum 1 mm / 3 layers |

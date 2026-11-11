@@ -17,7 +17,7 @@ use hsm_print_prep::faucet::{add_tip_root_anchor, apply_overhang_recipe, archive
 use hsm_print_prep::faucet_contact::{add_tip_dispense_contact, add_tip_rim_contact, apply_rim_contour, apply_tip_rim_contour, ContactBand};
 use hsm_print_prep::faucet_recesses::block_plate_counterbores;
 use hsm_print_prep::json::Json;
-use hsm_print_prep::profile::{cooling_hook, relative};
+use hsm_print_prep::profile::{cooling_hook, petgf_infill_pattern, relative};
 use hsm_print_prep::refresh::{self, Part, Region};
 use hsm_print_prep::rim_contour::RimSpec;
 use hsm_print_prep::{root, sha256_hex, slice, xml};
@@ -89,6 +89,7 @@ fn main() -> Result<()> {
     let original = r.plate.settings.clone();
     let hook = cooling_hook(&root);
     apply_overhang_recipe(&mut r.plate.settings, &selection["overhang_recipe"], &hook)?;
+    r.plate.settings.set("sparse_infill_pattern", Json::Text(petgf_infill_pattern(&root)?));
     let text = |s: &str| Json::Text(s.into());
     let list = |items: &[&str]| Json::List(items.iter().map(|s| Json::Text(s.to_string())).collect());
     r.plate.settings.set("filament_map", list(&["1"]));
@@ -167,7 +168,7 @@ fn main() -> Result<()> {
     for p in ["hardware/printed-parts/faucet/sculpted/prepare_print_project.rs",
         "hardware/printed-parts/faucet/sculpted/rim_supports.rs",
         "tools/hsm/print-prep/src/faucet.rs", "tools/hsm/print-prep/src/faucet_contact.rs", "tools/hsm/print-prep/src/faucet_recesses.rs",
-        "tools/hsm/print-prep/src/rim_contour.rs",
+        "tools/hsm/print-prep/src/profile.rs", "tools/hsm/print-prep/src/rim_contour.rs",
         FINISH, PROFILE, rim_footprint].iter().map(|p| root.join(p))
         .chain(parts.iter().map(|p| p.source.clone())) {
         sources.insert(relative(&p, &root), json!(file_sha(&p)?));

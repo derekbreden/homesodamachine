@@ -53,6 +53,7 @@ the base's Slim trees and a dense roof at the tip's mating lip. The base
 prints without a brim. The cover prints on its flat lower lands with support
 accessible through its open underside. The side-down lever bridges its
 channel and uses accessible support at the attachment relief.
+Ordinary sparse infill follows the shared PET-GF profile.
 
 ## Preparation and evidence
 
