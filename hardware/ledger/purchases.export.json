@@ -3302,6 +3302,29 @@
       "vendor": "Bambu Lab"
     },
     {
+      "checked_at": "2026-11-11",
+      "complete_period": null,
+      "coverage": "partial",
+      "coverage_id": "coverage-d3a4c887543c450ea70db8ae18851a32",
+      "evidence_type": "actual_delivery_and_completed_transactions",
+      "examined_period": {
+        "end": "2026-11-11",
+        "start": "2026-11-09"
+      },
+      "note": "Delivery email followed by exact order-detail, locally dated shared tracking timeline and separate Completed transaction checks. Existing purchase, event and allocation identities are retained; no duplicate combined shipment charge is introduced.",
+      "order_ids": [
+        "amazon:112-3519445-7276244",
+        "amazon:112-8336005-3642625"
+      ],
+      "source_ids": [
+        "src-19c7acadc23447b599db9eee88a605be",
+        "src-cd38de3ce18f4c4cac1f4abc6ae316cc",
+        "src-ddc63814e2f1416da699ca543eaf46b6"
+      ],
+      "stream": "two named fastener orders",
+      "vendor": "Amazon"
+    },
+    {
       "checked_at": "2026-10-04",
       "complete_period": null,
       "coverage": "partial",
@@ -3805,7 +3828,7 @@
       ],
       "allocation_status": "all_project",
       "amount_minor": 3216,
-      "confirmation": "expected",
+      "confirmation": "confirmed",
       "currency": "USD",
       "event_date": {
         "precision": "day",
@@ -3820,12 +3843,14 @@
         "pur-89b25fbe2a3e44adb4cbb188ab8a820f"
       ],
       "source_ids": [
+        "src-19c7acadc23447b599db9eee88a605be",
         "src-562754f7ecd34ad9a37d14abe9d1a9ce",
-        "src-73fadd67b373402ab590db8148bbb3c8"
+        "src-73fadd67b373402ab590db8148bbb3c8",
+        "src-ddc63814e2f1416da699ca543eaf46b6"
       ],
       "unallocated_to_purchase_minor": 0,
       "vendor": "Amazon",
-      "verified_at": "2026-11-10"
+      "verified_at": "2026-11-11"
     },
     {
       "allocation_ids": [
@@ -7037,7 +7062,7 @@
       ],
       "allocation_status": "all_project",
       "amount_minor": 917,
-      "confirmation": "expected",
+      "confirmation": "confirmed",
       "currency": "USD",
       "event_date": {
         "precision": "day",
@@ -7052,13 +7077,15 @@
         "pur-f72407db7ffa450695c514cf2f38539b"
       ],
       "source_ids": [
+        "src-19c7acadc23447b599db9eee88a605be",
         "src-37ceea4a8ea54360a5ba11cafbcef9eb",
         "src-73fadd67b373402ab590db8148bbb3c8",
-        "src-821de3ba9cfc4967ac712f6960983312"
+        "src-821de3ba9cfc4967ac712f6960983312",
+        "src-cd38de3ce18f4c4cac1f4abc6ae316cc"
       ],
       "unallocated_to_purchase_minor": 0,
       "vendor": "Amazon",
-      "verified_at": "2026-11-10"
+      "verified_at": "2026-11-11"
     },
     {
       "allocation_ids": [
@@ -9364,7 +9391,7 @@
       ]
     }
   ],
-  "input_fingerprint": "sha256:ddee517606607218e81bad3ded433ceb5f746d78e04957bc85e732b9aab13012",
+  "input_fingerprint": "sha256:dfc77ca7a8135fbc6af0597f8cb9f0f8c3f619634a8d50c7cc06e566579c1f99",
   "orders": [
     {
       "allocation_status": "all_project",
@@ -10978,9 +11005,11 @@
       ],
       "reference": "112-3519445-7276244",
       "source_ids": [
+        "src-19c7acadc23447b599db9eee88a605be",
         "src-37ceea4a8ea54360a5ba11cafbcef9eb",
         "src-73fadd67b373402ab590db8148bbb3c8",
         "src-821de3ba9cfc4967ac712f6960983312",
+        "src-cd38de3ce18f4c4cac1f4abc6ae316cc",
         "src-de3a10832f034b28849155c54a27d3b0"
       ],
       "vendor": "Amazon"
@@ -13361,8 +13390,10 @@
       ],
       "reference": "112-8336005-3642625",
       "source_ids": [
+        "src-19c7acadc23447b599db9eee88a605be",
         "src-562754f7ecd34ad9a37d14abe9d1a9ce",
         "src-73fadd67b373402ab590db8148bbb3c8",
+        "src-ddc63814e2f1416da699ca543eaf46b6",
         "src-de3a10832f034b28849155c54a27d3b0"
       ],
       "vendor": "Amazon"
@@ -37411,15 +37442,24 @@
       "amount_minor": 3216,
       "contributes": true,
       "currency": "USD",
-      "delivery_date": null,
-      "description": "ruthex brass heat-set insert assortment: RX-M2x4, RX-M3x5.7, RX-M4x8.1 and RX-M5x9.5; 270 pieces (70 / 100 / 50 / 50). $29.99 merchandise + $2.17 estimated tax; shipping waived",
+      "delivery_date": {
+        "precision": "day",
+        "value": "2026-11-10"
+      },
+      "delivery_dates": [
+        {
+          "precision": "day",
+          "value": "2026-11-10"
+        }
+      ],
+      "description": "ruthex brass heat-set insert assortment: RX-M2x4, RX-M3x5.7, RX-M4x8.1 and RX-M5x9.5; 270 pieces (70 / 100 / 50 / 50). $29.99 merchandise + $2.17 tax; shipping waived",
       "event_ids": [
         "evt-0daeac8a24434db6abdfdeb3d8dc4a57"
       ],
-      "fulfillment": "ON-ORDER",
+      "fulfillment": "ACQUIRED",
       "invoice_date": null,
       "ledger_purchase_id": "pur-89b25fbe2a3e44adb4cbb188ab8a820f",
-      "merchant_charge_allocated_minor": 0,
+      "merchant_charge_allocated_minor": 3216,
       "merchant_refund_allocated_minor": 0,
       "order_date": {
         "precision": "day",
@@ -37428,7 +37468,7 @@
       "order_ids": [
         "amazon:112-8336005-3642625"
       ],
-      "payment_evidence": "unknown",
+      "payment_evidence": "merchant_charge",
       "price_basis": "row_total",
       "purchase_id": "pur-89b25fbe2a3e44adb4cbb188ab8a820f",
       "purpose": "components",
@@ -37444,8 +37484,10 @@
       "section": "11. Enclosure hardware",
       "service_period": null,
       "source_ids": [
+        "src-19c7acadc23447b599db9eee88a605be",
         "src-562754f7ecd34ad9a37d14abe9d1a9ce",
         "src-73fadd67b373402ab590db8148bbb3c8",
+        "src-ddc63814e2f1416da699ca543eaf46b6",
         "src-de3a10832f034b28849155c54a27d3b0"
       ],
       "split_charge": false,
@@ -52498,19 +52540,28 @@
     },
     {
       "allocation_status": "all_project",
-      "amount_evidence": "estimate",
+      "amount_evidence": "final_vendor_amount",
       "amount_minor": 917,
       "contributes": true,
       "currency": "USD",
-      "delivery_date": null,
+      "delivery_date": {
+        "precision": "day",
+        "value": "2026-11-10"
+      },
+      "delivery_dates": [
+        {
+          "precision": "day",
+          "value": "2026-11-10"
+        }
+      ],
       "description": "SVLING M5 × 0.8 × 100 mm socket-head cap screws, 20 pc, 12.9 alloy steel, black — seam rods; $8.55 item + $0.62 tax, shipping offset by credit",
       "event_ids": [
         "evt-a65135dfda964b4faa92d367bd777b81"
       ],
-      "fulfillment": "ON-ORDER",
+      "fulfillment": "ACQUIRED",
       "invoice_date": null,
       "ledger_purchase_id": "pur-f72407db7ffa450695c514cf2f38539b",
-      "merchant_charge_allocated_minor": 0,
+      "merchant_charge_allocated_minor": 917,
       "merchant_refund_allocated_minor": 0,
       "order_date": {
         "precision": "day",
@@ -52519,8 +52570,23 @@
       "order_ids": [
         "amazon:112-3519445-7276244"
       ],
-      "payment_evidence": "unknown",
+      "payment_evidence": "merchant_charge",
       "price_basis": "row_total",
+      "price_history": [
+        {
+          "amount_evidence": "estimate",
+          "amount_minor": 917,
+          "currency": "USD",
+          "note": "Prior quoted amount retained as noncontributing history; order details and the completed merchant charge confirm the same value.",
+          "source_ids": [
+            "src-37ceea4a8ea54360a5ba11cafbcef9eb",
+            "src-73fadd67b373402ab590db8148bbb3c8",
+            "src-821de3ba9cfc4967ac712f6960983312",
+            "src-de3a10832f034b28849155c54a27d3b0"
+          ],
+          "verified_at": "2026-11-11"
+        }
+      ],
       "purchase_id": "pur-f72407db7ffa450695c514cf2f38539b",
       "purpose": "components",
       "quantity": 1,
@@ -52535,9 +52601,11 @@
       "section": "11. Enclosure hardware",
       "service_period": null,
       "source_ids": [
+        "src-19c7acadc23447b599db9eee88a605be",
         "src-37ceea4a8ea54360a5ba11cafbcef9eb",
         "src-73fadd67b373402ab590db8148bbb3c8",
         "src-821de3ba9cfc4967ac712f6960983312",
+        "src-cd38de3ce18f4c4cac1f4abc6ae316cc",
         "src-de3a10832f034b28849155c54a27d3b0"
       ],
       "split_charge": false,
@@ -60628,6 +60696,23 @@
     },
     {
       "document_date": null,
+      "document_type": "merchant_order_details_and_delivery_timeline",
+      "note": "Both signed-in order-detail pages confirm delivered fulfillment. The shared-package tracking timeline explicitly gives Tuesday, November 10, 2026 at 7:59 PM and states its times are local. The package still identifies both named orders. Actual delivery is therefore 2026-11-10, distinct from the delivery email dated November 11 UTC. Existing order amounts remain USD 9.17 for SVLING and USD 32.16 for ruthex; there is no new combined purchase.",
+      "notification_date": {
+        "precision": "day",
+        "value": "2026-11-11"
+      },
+      "proves": [
+        "delivery",
+        "price"
+      ],
+      "reference": "112-3519445-7276244 + 112-8336005-3642625",
+      "source_id": "src-19c7acadc23447b599db9eee88a605be",
+      "vendor": "Amazon",
+      "verified_at": "2026-11-11"
+    },
+    {
+      "document_date": null,
       "document_type": "completed_merchant_transaction",
       "merchant_event_date": {
         "precision": "day",
@@ -64985,6 +65070,23 @@
     },
     {
       "document_date": null,
+      "document_type": "completed_merchant_transaction",
+      "merchant_event_date": {
+        "precision": "day",
+        "value": "2026-11-10"
+      },
+      "note": "Live order-scoped Your Payments > Completed shows the separate USD 9.17 charge dated 2026-11-10. It confirms the existing expected event in place. No bank posting or funding ownership is inferred.",
+      "proves": [
+        "charge",
+        "merchant_event_date"
+      ],
+      "reference": "112-3519445-7276244",
+      "source_id": "src-cd38de3ce18f4c4cac1f4abc6ae316cc",
+      "vendor": "Amazon",
+      "verified_at": "2026-11-11"
+    },
+    {
+      "document_date": null,
       "document_type": "merchant_order_details_and_invoice",
       "note": "Signed-in Mac Chrome Order Details identify the project lines, order total and actual delivery dates. Shipping is free. The separately opened invoice matches the order summary and completed charge. All six project items were delivered 2026-10-27. USD 1,180.96 merchandise less USD 16.90 promotion plus USD 84.39 tax totals USD 1,248.45; the recorded item-discount and tax allocations sum exactly to that total.",
       "proves": [
@@ -65396,6 +65498,23 @@
       "source_id": "src-dd42b2706ded4a53bb706c48c3f89cd9",
       "vendor": "Anthropic",
       "verified_at": "2026-10-04"
+    },
+    {
+      "document_date": null,
+      "document_type": "completed_merchant_transaction",
+      "merchant_event_date": {
+        "precision": "day",
+        "value": "2026-11-10"
+      },
+      "note": "Live order-scoped Your Payments > Completed shows the separate USD 32.16 charge dated 2026-11-10. It confirms the existing expected event in place. No bank posting or funding ownership is inferred.",
+      "proves": [
+        "charge",
+        "merchant_event_date"
+      ],
+      "reference": "112-8336005-3642625",
+      "source_id": "src-ddc63814e2f1416da699ca543eaf46b6",
+      "vendor": "Amazon",
+      "verified_at": "2026-11-11"
     },
     {
       "document_date": {
@@ -66487,7 +66606,7 @@
       "basis": "Current procurement status, independently of payment evidence.",
       "by_status": [
         {
-          "amount_minor": 4990542,
+          "amount_minor": 4994675,
           "currency": "USD",
           "fulfillment": "ACQUIRED",
           "purchase_ids": [
@@ -66867,6 +66986,7 @@
             "pur-88d876b026634c7f9c10629458923a5e",
             "pur-891c7eeab5084844ae5e5bd9910213e7",
             "pur-899e1d6d76f847ab91e145eed0147cb6",
+            "pur-89b25fbe2a3e44adb4cbb188ab8a820f",
             "pur-89e490b0d2914be3aa97ec95d97adef7",
             "pur-8a47ddc2781a4af6a68530d2438363d8",
             "pur-8a85e9d576814316aeb8ba10a5f0992b",
@@ -67170,6 +67290,7 @@
             "pur-f6aead3aafe3428fa072646852793bab",
             "pur-f6b7d75f40e1438eb4f40369415eae9b",
             "pur-f70555b4b44a48bfb6a721df7ce9c67a",
+            "pur-f72407db7ffa450695c514cf2f38539b",
             "pur-f72654878f064c6181771847d3914c8d",
             "pur-f72970704bb14ff7b68602d671974ed2",
             "pur-f74c9bed15074f37af9c1d3f616ef230",
@@ -67226,15 +67347,13 @@
           "unknown_amount_ids": []
         },
         {
-          "amount_minor": 17713,
+          "amount_minor": 13580,
           "currency": "USD",
           "fulfillment": "ON-ORDER",
           "purchase_ids": [
             "pur-14f8f47e82a74b129f4677cb0fc2a67d",
             "pur-4eaf76e6557740d7b0e85e0be8664f71",
-            "pur-6655f4a0c1c747bc8ce06a69596eb432",
-            "pur-89b25fbe2a3e44adb4cbb188ab8a820f",
-            "pur-f72407db7ffa450695c514cf2f38539b"
+            "pur-6655f4a0c1c747bc8ce06a69596eb432"
           ],
           "unknown_amount_ids": []
         },
@@ -67254,24 +67373,20 @@
         "pur-14f8f47e82a74b129f4677cb0fc2a67d",
         "pur-4eaf76e6557740d7b0e85e0be8664f71",
         "pur-6655f4a0c1c747bc8ce06a69596eb432",
-        "pur-89b25fbe2a3e44adb4cbb188ab8a820f",
         "pur-b6c01a5b012340fc888139c1070dc054",
-        "pur-c887374045604177851c4a81cc779f0e",
-        "pur-f72407db7ffa450695c514cf2f38539b"
+        "pur-c887374045604177851c4a81cc779f0e"
       ],
       "returned_without_evidenced_refund_purchase_ids": []
     },
     "merchant_payments": {
       "basis": "Confirmed merchant-evidenced project charges and issued monetary refunds by merchant event calendar month; bank posting is outside this ledger. Expected events, authorizations, noncash credits and unresolved project shares are excluded from charges/refunds/net.",
       "expected_event_ids": [
-        "evt-0daeac8a24434db6abdfdeb3d8dc4a57",
         "evt-1399a1a835ce4be3a489628c06225b33",
         "evt-44d3b6c0a264492589465271e6914753",
         "evt-5a6637d18fab4dbaa2c3a7428c33273f",
         "evt-5fddb80e882c4533bf9042d5a74088cc",
         "evt-9fd2d4a65f7d45a594a7ac3a6837d416",
         "evt-a3c8a2e1a259405e85d14c27817deb58",
-        "evt-a65135dfda964b4faa92d367bd777b81",
         "evt-c0203246ff88423a9af71d1977ede6c4",
         "evt-c8a1b3ae1a6d4021a36b2fe4e55971e9",
         "evt-e5f1a5d1860941fe82124df7e77e67fe"
@@ -67562,7 +67677,7 @@
         },
         {
           "authorizations_minor": 0,
-          "charges_minor": 61067,
+          "charges_minor": 65200,
           "currency": "USD",
           "event_ids": [
             "evt-03528b8bbe2f47c39bee9b7de9b837c3",
@@ -67580,7 +67695,7 @@
           ],
           "evidence_scope": "retrieved_records_only",
           "month": "2026-11",
-          "net_minor": 61067,
+          "net_minor": 65200,
           "noncash_credits_minor": 0,
           "refunds_minor": 0,
           "unknown_amount_ids": [],
@@ -67603,9 +67718,9 @@
       "totals": [
         {
           "authorizations_minor": 0,
-          "charges_minor": 2161579,
+          "charges_minor": 2165712,
           "currency": "USD",
-          "net_minor": 2161579,
+          "net_minor": 2165712,
           "noncash_credits_minor": 0,
           "refunds_minor": 0,
           "unresolved_project_share_minor": 0
@@ -68366,9 +68481,9 @@
         },
         {
           "currency": "USD",
-          "estimate_minor": 3841,
+          "estimate_minor": 2924,
           "evidence_scope": "retrieved_records_only",
-          "final_vendor_amount_minor": 64489,
+          "final_vendor_amount_minor": 65406,
           "legacy_unverified_minor": 0,
           "month": "2026-11",
           "purchase_ids": [
@@ -68443,8 +68558,8 @@
       "totals": [
         {
           "currency": "USD",
-          "estimate_minor": 232963,
-          "final_vendor_amount_minor": 2500111,
+          "estimate_minor": 232046,
+          "final_vendor_amount_minor": 2501028,
           "legacy_unverified_minor": 2288208,
           "total_minor": 5021282
         }
@@ -68605,11 +68720,11 @@
       "by_currency": [
         {
           "currency": "USD",
-          "estimated_purchase_minor": 232963,
+          "estimated_purchase_minor": 232046,
           "legacy_unverified_purchase_minor": 2288208,
           "order_only_charge_allocation_minor": 6561,
           "partial_charge_purchase_minor": 0,
-          "purchases_without_merchant_charge_minor": 2866264,
+          "purchases_without_merchant_charge_minor": 2862131,
           "undated_charge_minor": 174052,
           "undated_refund_minor": 0,
           "undated_unallocated_purchase_minor": 975132,
@@ -68648,8 +68763,7 @@
         "pur-d8a8a1e239ff48b6a6b19c43e22b4858",
         "pur-e7fa6e37def64cf3baaf64a1a2458232",
         "pur-f24cd0a88f4b4a8ca76f3abc490f81b3",
-        "pur-f4ddddb90dbd4ae2bba5008f74f8d4b6",
-        "pur-f72407db7ffa450695c514cf2f38539b"
+        "pur-f4ddddb90dbd4ae2bba5008f74f8d4b6"
       ],
       "incomplete_coverage_ids": [
         "coverage-008d521abab24498bf9db4a8c5993e38",
@@ -68724,6 +68838,7 @@
         "coverage-c7f0244fd78749e6a3eda6f37122dba0",
         "coverage-cb3b2897e4284f688f9d1a76d4f04536",
         "coverage-cc292b42ae1940038cd7f9aba1893147",
+        "coverage-d3a4c887543c450ea70db8ae18851a32",
         "coverage-d4baf4542f40450189a7fdcacc197039",
         "coverage-dad019e8b30b485e9203a063ea3654ba",
         "coverage-dc497fe458424d6e96f59f91a9cd428e",
@@ -69507,7 +69622,6 @@
         "pur-88ca0527b3ab43cbb73c23e13a806b9c",
         "pur-891c7eeab5084844ae5e5bd9910213e7",
         "pur-899e1d6d76f847ab91e145eed0147cb6",
-        "pur-89b25fbe2a3e44adb4cbb188ab8a820f",
         "pur-89e490b0d2914be3aa97ec95d97adef7",
         "pur-8a85e9d576814316aeb8ba10a5f0992b",
         "pur-8b077cfa48914cb4aa77a40fc39a5fb4",
@@ -69729,7 +69843,6 @@
         "pur-f6aead3aafe3428fa072646852793bab",
         "pur-f6b7d75f40e1438eb4f40369415eae9b",
         "pur-f70555b4b44a48bfb6a721df7ce9c67a",
-        "pur-f72407db7ffa450695c514cf2f38539b",
         "pur-f72654878f064c6181771847d3914c8d",
         "pur-f72970704bb14ff7b68602d671974ed2",
         "pur-f74c9bed15074f37af9c1d3f616ef230",
@@ -69981,6 +70094,7 @@
       "coverage-c7f0244fd78749e6a3eda6f37122dba0: evidence coverage is unknown",
       "coverage-cb3b2897e4284f688f9d1a76d4f04536: evidence coverage is partial",
       "coverage-cc292b42ae1940038cd7f9aba1893147: evidence coverage is partial",
+      "coverage-d3a4c887543c450ea70db8ae18851a32: evidence coverage is partial",
       "coverage-d4baf4542f40450189a7fdcacc197039: evidence coverage is partial",
       "coverage-dad019e8b30b485e9203a063ea3654ba: evidence coverage is partial",
       "coverage-dc497fe458424d6e96f59f91a9cd428e: evidence coverage is unknown",

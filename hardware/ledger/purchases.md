@@ -524,7 +524,7 @@ DigiKey salesorder **101910359**, web order **377210254**: the 2026-09-29 confir
 | <!--purchase:pur-5e0a7b4d2f6c4b9e1d4a8f0b2c3d5e74--> SVLING M5 × 0.8 × 60 mm socket-head cap screws, 40 pc, 12.9 alloy steel, black. $7.50 item price + $0.54 allocated tax | [B0GHNHFYJN](https://www.amazon.com/dp/B0GHNHFYJN) | 1 pk (40) | $8.04 | 114-8768578-0217027 | 2026-10-17 | 2026-10-18 | ACQUIRED |
 | <!--purchase:pur-6f1b8c5e3a7d4c0f2e5b9a1c3d4e6f85--> Small Parts M5 flat washers, DIN 125, 5.3 mm ID × 10 mm OD × 1 mm, 18-8 stainless, black oxide, 100 pc. $7.16 item price + $0.52 allocated tax | [B009OK27FI](https://www.amazon.com/dp/B009OK27FI) | 1 pk (100) | $7.68 | 114-8768578-0217027 | 2026-10-17 | 2026-10-19 | ACQUIRED |
 | <!--purchase:pur-7a2c9d6f4b8e4d1a3f6c0b2d4e5f7a96--> SVLING M5 × 0.8 × 100 mm socket-head cap screws, 20 pc, 12.9 alloy steel, black — seam rods. $7.70 + $0.56 tax | [B0GHNNYVDH](https://www.amazon.com/dp/B0GHNNYVDH) | 1 pk (20) | $8.26 | 112-8643704-3927458 | 2026-10-25 | 2026-10-26 | ACQUIRED |
-| <!--purchase:pur-f72407db7ffa450695c514cf2f38539b--> SVLING M5 × 0.8 × 100 mm socket-head cap screws, 20 pc, 12.9 alloy steel, black — seam rods; $8.55 item + $0.62 tax, shipping offset by credit | [B0GHNNYVDH](https://www.amazon.com/dp/B0GHNNYVDH) | 1 pk (20) | $9.17 | 112-3519445-7276244 | 2026-11-09 | — | ON-ORDER (out for delivery) |
+| <!--purchase:pur-f72407db7ffa450695c514cf2f38539b--> SVLING M5 × 0.8 × 100 mm socket-head cap screws, 20 pc, 12.9 alloy steel, black — seam rods; $8.55 item + $0.62 tax, shipping offset by credit | [B0GHNNYVDH](https://www.amazon.com/dp/B0GHNNYVDH) | 1 pk (20) | $9.17 | 112-3519445-7276244 | 2026-11-09 | 2026-11-10 | ACQUIRED |
 | <!--purchase:pur-6b2a8bfdb28140f9b07113a2d70f70e6--> BNUOK M3 × 60 mm Hex Socket Head Cap Screws, 60 pc, 12.9 alloy steel, black oxide, full thread — the pump clamp's two, and the whole of what fastens either pump: each drops through the clamp crown's counterbore, runs the filled field and the bracket-height gap under it, and takes the full-length ruthex in the lower cradle's centre lane. Head Ø5.5 × 3, 2.5 mm hex, the same BNUOK black-oxide family as the M3×8/10/25 | [B0DJQHNL3H](https://www.amazon.com/dp/B0DJQHNL3H) | 1 pk (60) | $10.18 | 112-5107616-8144245 | 2026-09-18 | 2026-09-19 | ACQUIRED |
 | <!--purchase:pur-eb29d9d132f94e3492692ca28f52e8bd--> BNUOK M3 × 20 mm Hex Socket Head Cap Screws, 60 pc, 12.9 alloy steel, black oxide, full thread — the water pump's four mounting screws, one through the slot in each G Ganen rubber foot, through the top cap lid, into a deck-mount column's ruthex. Same family and same 2.5 mm hex as the rest of the box's M3 | [B0DJR2Q5LP](https://www.amazon.com/dp/B0DJR2Q5LP) | 1 pk (60) | $8.14 | 112-0416491-0117835 | 2026-09-18 | 2026-09-20 | ACQUIRED |
 | <!--purchase:pur-52ab7650d37f439e9edf9276dbf8f96d--> binifiMux M3 flat washers, Ø12 mm OD × 1.0 mm, 100 pc, 304 stainless steel — general stock, with no role in the current build: the water pump's screws take the Ø9 × 0.8 below | [B0DDTRPSPH](https://www.amazon.com/dp/B0DDTRPSPH) | 1 pk (100) | $6.42 | 112-2270140-6656239 | 2026-09-18 | 2026-09-19 | ACQUIRED |
@@ -533,7 +533,7 @@ DigiKey salesorder **101910359**, web order **377210254**: the 2026-09-29 confir
 | <!--purchase:pur-6e0f14f448b24df9b79955fe92b6dde5--> Mudder PTFE / PVC / PU tubing cutter, ≤3/4" OD (3-pk, black) | [B08VW15TK8](https://www.amazon.com/dp/B08VW15TK8) | 1 pk (3) | $12.86 | 112-8598924-2300214 | 2026-05-17 | 2026-05-18 | ACQUIRED |
 | <!--purchase:pur-090da6f913a54ed8b8785082324e2c8d--> uxcell 304 stainless compression spring, 6 mm OD × 0.8 mm wire × 30 mm free length, 5 pc — spare stock, with no role in the current build. Two packs, $5.19 ea + $0.76 NE tax | [B0C33FQDB6](https://www.amazon.com/dp/B0C33FQDB6) | 2 pk (5) | $11.14 | 112-3782386-8113829 | 2026-09-16 | 2026-09-20 | ACQUIRED |
 | <!--purchase:pur-ed416e9ff39a42f9a0f8705a7d769d5a--> uxcell 304 stainless compression spring, 6 mm OD × 0.6 mm wire × 30 mm free length, 20 pc — spare stock, with no role in the current build; dimensional match to the Lee LCM060C12M ([inventory.md](/hardware/ledger/inventory.md), Diagnostic). $8.89 + $0.64 NE tax | [B076LRZHP5](https://www.amazon.com/dp/B076LRZHP5) | 1 pk (20) | $9.53 | 112-5383652-4465062 | 2026-09-16 | 2026-09-18 | ACQUIRED |
-| <!--purchase:pur-89b25fbe2a3e44adb4cbb188ab8a820f--> ruthex brass heat-set insert assortment: RX-M2x4, RX-M3x5.7, RX-M4x8.1 and RX-M5x9.5; 270 pieces (70 / 100 / 50 / 50). $29.99 merchandise + $2.17 estimated tax; shipping waived | [B08K1BVGN9](https://www.amazon.com/dp/B08K1BVGN9) | 1 box (270) | $32.16 | 112-8336005-3642625 | 2026-11-09 | — | ON-ORDER (out for delivery) |
+| <!--purchase:pur-89b25fbe2a3e44adb4cbb188ab8a820f--> ruthex brass heat-set insert assortment: RX-M2x4, RX-M3x5.7, RX-M4x8.1 and RX-M5x9.5; 270 pieces (70 / 100 / 50 / 50). $29.99 merchandise + $2.17 tax; shipping waived | [B08K1BVGN9](https://www.amazon.com/dp/B08K1BVGN9) | 1 box (270) | $32.16 | 112-8336005-3642625 | 2026-11-09 | 2026-11-10 | ACQUIRED |
 | <!--purchase:pur-14f8f47e82a74b129f4677cb0fc2a67d--> Sutemribor M2 × 6 mm socket-head cap screws, M2-0.4, 12.9 alloy steel, black oxide, fully threaded; replenishment pack | [B0CXQ7Q7L3](https://www.amazon.com/dp/B0CXQ7Q7L3) | 1 pk (105) | $8.57 | 112-0448533-3655424 | 2026-11-09 | — | ON-ORDER (shipped; expected 2026-11-11) |
 
 ## 12. Shop / bench infrastructure
@@ -840,7 +840,7 @@ Printed copies of the [install guide](/hardware/install-guide/README.md). Lulu o
 | **DIN 6797A M3 external-tooth washer, A2 stainless, 0.4 mm** | One per carbonator upper-rim earth clamp. [BelMetric WSE3SS](https://belmetric.com/toothed-external-star-lock-washer-din-6797-a-stainless/?sku=WSE3SS): 3.2 mm ID × 6 mm OD, $0.06 each before shipping/tax, in stock November 10. Not recorded as acquired. [Attachment procedure](/hardware/assembly/pressure-vessel.md#upper-rim-earth-bond). |
 | **M3 × 0.5 tap and Ø2.5 mm drill suitable for 316L stainless** | [uxcell M35 cobalt tap/drill set](https://www.amazon.com/dp/B09TYSP9NV), exact M3 × 0.5 / 2.5 mm variant: $8.39, Prime, checked November 10. Upper-rim earth-clamp tooling; not recorded as acquired. |
 | **Small hand driver for the M3 tap** | [Piutouyar M1–M6 adjustable tap wrench](https://www.amazon.com/dp/B0F7K43T14): $5.99, Prime, checked November 10. Not recorded as acquired. |
-| **SVLING M5 × 100 socket screws and green 16 AWG solid UL1007 wire** | Current unit-one quantity gaps and selected Prime links are in [unit-1-shopping.md](/hardware/ledger/unit-1-shopping.md). Not recorded as newly ordered. |
+| **Green 16 AWG solid UL1007 wire** | Current unit-one conductor gap and selected Prime link are in [unit-1-shopping.md](/hardware/ledger/unit-1-shopping.md). Not recorded as newly ordered. |
 | **BenchPro Kennedy mobile workbench, 96 × 48 in, 1¾ in maple butcher-block top, gray (KW4896 LP 30-36 CL5-UB-Gray)** | Garage table for kit photos, moving large assemblies and general work. 30–36 in adjustable height, 1,200 lb capacity, four 5 in locking casters. $2,299 plus freight at [Global Industrial](https://www.globalindustrial.com/p/kennedy-mobile-workbench-96-x-48-maple-butcher-block-top-gray), ships in 15 business days. |
 | **hykolity 4 ft LED shop light, 5000K, 4-pack (×5, 20 lights)** | Garage ceiling: three rows of six, 2¼, 9.4 and 16½ ft from the back wall, two lights spare. 4,400 lm and 42 W each, six linked to one plug; 756 W for all eighteen. The three ceiling light boxes take receptacles in place of their lampholders: the middle row plugs into the middle box, and the back and front rows each take a new ceiling receptacle fed from a box. $40.84 a 4-pack, $204.20 for five, Amazon Prime, [B06XGBKDKZ](https://www.amazon.com/dp/B06XGBKDKZ). |
 
@@ -850,10 +850,10 @@ Printed copies of the [install guide](/hardware/install-guide/README.md). Lulu o
 
 | Status | $ |
 |---|---|
-| Acquired hardware valuation — includes replaced/returned originals | [$43,263.11](LEDGER_ACQUIRED_HW) |
+| Acquired hardware valuation — includes replaced/returned originals | [$43,304.44](LEDGER_ACQUIRED_HW) |
 | Engineering services (§18) | [$6,719.51](LEDGER_LABOR) |
-| Acquired procurement valuation (combined) | [$49,982.62](LEDGER_ACQUIRED_COMBINED) |
-| ON-ORDER | [$177.13](LEDGER_ON_ORDER) |
+| Acquired procurement valuation (combined) | [$50,023.95](LEDGER_ACQUIRED_COMBINED) |
+| ON-ORDER | [$135.80](LEDGER_ON_ORDER) |
 | MISSING — not in hand | [$53.07](LEDGER_MISSING) |
 | LIKELY-TO-BUY | $0.00 |
 | **Recorded procurement valuation — includes commitments** | [$50,212.82](LEDGER_GRAND_TOTAL) |
@@ -862,17 +862,17 @@ Price evidence within the procurement valuation:
 
 | Amount basis | USD |
 |---|---|
-| Final vendor amounts | [$25,001.11](LEDGER_FINAL_VENDOR) |
-| Estimated amounts | [$2,329.63](LEDGER_ESTIMATES) |
+| Final vendor amounts | [$25,010.28](LEDGER_FINAL_VENDOR) |
+| Estimated amounts | [$2,320.46](LEDGER_ESTIMATES) |
 | Legacy / unverified amounts | [$22,882.08](LEDGER_LEGACY_UNVERIFIED) |
 
 Merchant-evidenced payments (project shares; includes the undated bucket):
 
 | Event basis | USD |
 |---|---|
-| Completed charges | [$21,615.79](LEDGER_MERCHANT_CHARGES) |
+| Completed charges | [$21,657.12](LEDGER_MERCHANT_CHARGES) |
 | Issued monetary refunds | [$0.00](LEDGER_MERCHANT_REFUNDS) |
-| Charges less monetary refunds | [$21,615.79](LEDGER_MERCHANT_NET) |
+| Charges less monetary refunds | [$21,657.12](LEDGER_MERCHANT_NET) |
 
 The retrieved records have partial vendor coverage. An empty month or refund total is not evidence of account-wide zero activity. Authorizations, pending charges and noncash credit do not enter this view.
 
@@ -890,7 +890,7 @@ Acquired hardware valuation by section (includes replaced/returned originals):
 | 8 | Electronics — controllers | [$1,970.50](LEDGER_SEC8) |
 | 9 | Electronics — I/O, drivers, sensors, power | [$2,571.20](LEDGER_SEC9) |
 | 10 | User interface | [$164.11](LEDGER_SEC10) |
-| 11 | Enclosure hardware | [$403.24](LEDGER_SEC11) |
+| 11 | Enclosure hardware | [$444.57](LEDGER_SEC11) |
 | 12 | Shop / bench infrastructure | [$3,128.75](LEDGER_SEC12) |
 | 13 | Printing consumables | [$3,904.48](LEDGER_SEC13) |
 | 14 | Soldering + small-signal tools | [$859.66](LEDGER_SEC14) |

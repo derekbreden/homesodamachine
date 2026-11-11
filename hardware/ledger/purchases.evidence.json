@@ -9442,7 +9442,15 @@
       "source_ids": [
         "src-562754f7ecd34ad9a37d14abe9d1a9ce",
         "src-73fadd67b373402ab590db8148bbb3c8",
-        "src-de3a10832f034b28849155c54a27d3b0"
+        "src-de3a10832f034b28849155c54a27d3b0",
+        "src-19c7acadc23447b599db9eee88a605be",
+        "src-ddc63814e2f1416da699ca543eaf46b6"
+      ],
+      "delivery_dates": [
+        {
+          "precision": "day",
+          "value": "2026-11-10"
+        }
       ]
     },
     "pur-14f8f47e82a74b129f4677cb0fc2a67d": {
@@ -9507,7 +9515,7 @@
     "pur-f72407db7ffa450695c514cf2f38539b": {
       "vendor": "Amazon",
       "purpose": "components",
-      "amount_evidence": "estimate",
+      "amount_evidence": "final_vendor_amount",
       "order_ids": [
         "amazon:112-3519445-7276244"
       ],
@@ -9516,7 +9524,30 @@
         "src-821de3ba9cfc4967ac712f6960983312",
         "src-37ceea4a8ea54360a5ba11cafbcef9eb",
         "src-73fadd67b373402ab590db8148bbb3c8",
-        "src-de3a10832f034b28849155c54a27d3b0"
+        "src-de3a10832f034b28849155c54a27d3b0",
+        "src-19c7acadc23447b599db9eee88a605be",
+        "src-cd38de3ce18f4c4cac1f4abc6ae316cc"
+      ],
+      "price_history": [
+        {
+          "amount_minor": 917,
+          "currency": "USD",
+          "amount_evidence": "estimate",
+          "source_ids": [
+            "src-821de3ba9cfc4967ac712f6960983312",
+            "src-37ceea4a8ea54360a5ba11cafbcef9eb",
+            "src-73fadd67b373402ab590db8148bbb3c8",
+            "src-de3a10832f034b28849155c54a27d3b0"
+          ],
+          "verified_at": "2026-11-11",
+          "note": "Prior quoted amount retained as noncontributing history; order details and the completed merchant charge confirm the same value."
+        }
+      ],
+      "delivery_dates": [
+        {
+          "precision": "day",
+          "value": "2026-11-10"
+        }
       ]
     },
     "pur-0b426a7ded014916bd32dde66a3d3030": {
@@ -15687,7 +15718,9 @@
       "source_ids": [
         "src-562754f7ecd34ad9a37d14abe9d1a9ce",
         "src-73fadd67b373402ab590db8148bbb3c8",
-        "src-de3a10832f034b28849155c54a27d3b0"
+        "src-de3a10832f034b28849155c54a27d3b0",
+        "src-19c7acadc23447b599db9eee88a605be",
+        "src-ddc63814e2f1416da699ca543eaf46b6"
       ]
     },
     "amazon:112-0448533-3655424": {
@@ -15734,7 +15767,9 @@
         "src-821de3ba9cfc4967ac712f6960983312",
         "src-37ceea4a8ea54360a5ba11cafbcef9eb",
         "src-73fadd67b373402ab590db8148bbb3c8",
-        "src-de3a10832f034b28849155c54a27d3b0"
+        "src-de3a10832f034b28849155c54a27d3b0",
+        "src-19c7acadc23447b599db9eee88a605be",
+        "src-cd38de3ce18f4c4cac1f4abc6ae316cc"
       ]
     },
     "amazon:114-1960396-3476246": {
@@ -19412,7 +19447,7 @@
       "event_id": "evt-0daeac8a24434db6abdfdeb3d8dc4a57",
       "vendor": "Amazon",
       "event_type": "charge",
-      "confirmation": "expected",
+      "confirmation": "confirmed",
       "event_date": {
         "precision": "day",
         "value": "2026-11-10"
@@ -19422,9 +19457,11 @@
       "allocation_status": "all_project",
       "source_ids": [
         "src-562754f7ecd34ad9a37d14abe9d1a9ce",
-        "src-73fadd67b373402ab590db8148bbb3c8"
+        "src-73fadd67b373402ab590db8148bbb3c8",
+        "src-19c7acadc23447b599db9eee88a605be",
+        "src-ddc63814e2f1416da699ca543eaf46b6"
       ],
-      "verified_at": "2026-11-10",
+      "verified_at": "2026-11-11",
       "order_ids": [
         "amazon:112-8336005-3642625"
       ]
@@ -19807,7 +19844,7 @@
       "event_id": "evt-a65135dfda964b4faa92d367bd777b81",
       "vendor": "Amazon",
       "event_type": "charge",
-      "confirmation": "expected",
+      "confirmation": "confirmed",
       "event_date": {
         "precision": "day",
         "value": "2026-11-10"
@@ -19818,9 +19855,11 @@
       "source_ids": [
         "src-821de3ba9cfc4967ac712f6960983312",
         "src-37ceea4a8ea54360a5ba11cafbcef9eb",
-        "src-73fadd67b373402ab590db8148bbb3c8"
+        "src-73fadd67b373402ab590db8148bbb3c8",
+        "src-19c7acadc23447b599db9eee88a605be",
+        "src-cd38de3ce18f4c4cac1f4abc6ae316cc"
       ],
-      "verified_at": "2026-11-10",
+      "verified_at": "2026-11-11",
       "order_ids": [
         "amazon:112-3519445-7276244"
       ]
@@ -33368,6 +33407,54 @@
       "proves": [],
       "verified_at": "2026-11-11",
       "note": "Vendor shipment notification identifies the existing order and repeats its USD 8.57 total. Shipment is confirmed; the relative arrival estimate does not establish actual delivery. No completed payment or dispatch calendar day is established by the notification timestamp. The notification supplies no item-level change to the previously verified order identity."
+    },
+    "src-19c7acadc23447b599db9eee88a605be": {
+      "vendor": "Amazon",
+      "document_type": "merchant_order_details_and_delivery_timeline",
+      "reference": "112-3519445-7276244 + 112-8336005-3642625",
+      "document_date": null,
+      "notification_date": {
+        "precision": "day",
+        "value": "2026-11-11"
+      },
+      "proves": [
+        "delivery",
+        "price"
+      ],
+      "verified_at": "2026-11-11",
+      "note": "Both signed-in order-detail pages confirm delivered fulfillment. The shared-package tracking timeline explicitly gives Tuesday, November 10, 2026 at 7:59 PM and states its times are local. The package still identifies both named orders. Actual delivery is therefore 2026-11-10, distinct from the delivery email dated November 11 UTC. Existing order amounts remain USD 9.17 for SVLING and USD 32.16 for ruthex; there is no new combined purchase."
+    },
+    "src-cd38de3ce18f4c4cac1f4abc6ae316cc": {
+      "vendor": "Amazon",
+      "document_type": "completed_merchant_transaction",
+      "reference": "112-3519445-7276244",
+      "document_date": null,
+      "proves": [
+        "charge",
+        "merchant_event_date"
+      ],
+      "merchant_event_date": {
+        "precision": "day",
+        "value": "2026-11-10"
+      },
+      "verified_at": "2026-11-11",
+      "note": "Live order-scoped Your Payments > Completed shows the separate USD 9.17 charge dated 2026-11-10. It confirms the existing expected event in place. No bank posting or funding ownership is inferred."
+    },
+    "src-ddc63814e2f1416da699ca543eaf46b6": {
+      "vendor": "Amazon",
+      "document_type": "completed_merchant_transaction",
+      "reference": "112-8336005-3642625",
+      "document_date": null,
+      "proves": [
+        "charge",
+        "merchant_event_date"
+      ],
+      "merchant_event_date": {
+        "precision": "day",
+        "value": "2026-11-10"
+      },
+      "verified_at": "2026-11-11",
+      "note": "Live order-scoped Your Payments > Completed shows the separate USD 32.16 charge dated 2026-11-10. It confirms the existing expected event in place. No bank posting or funding ownership is inferred."
     }
   },
   "coverage": [
@@ -35289,6 +35376,29 @@
         "amazon:112-3519445-7276244"
       ],
       "note": "New shipment notification matched against both exact order-detail pages, their shared tracker links and order-scoped pending payments. No new purchase, completed charge or delivery is inferred from the combined shipment total or estimated arrival."
+    },
+    {
+      "coverage_id": "coverage-d3a4c887543c450ea70db8ae18851a32",
+      "vendor": "Amazon",
+      "stream": "two named fastener orders",
+      "evidence_type": "actual_delivery_and_completed_transactions",
+      "checked_at": "2026-11-11",
+      "examined_period": {
+        "start": "2026-11-09",
+        "end": "2026-11-11"
+      },
+      "complete_period": null,
+      "coverage": "partial",
+      "source_ids": [
+        "src-19c7acadc23447b599db9eee88a605be",
+        "src-cd38de3ce18f4c4cac1f4abc6ae316cc",
+        "src-ddc63814e2f1416da699ca543eaf46b6"
+      ],
+      "order_ids": [
+        "amazon:112-3519445-7276244",
+        "amazon:112-8336005-3642625"
+      ],
+      "note": "Delivery email followed by exact order-detail, locally dated shared tracking timeline and separate Completed transaction checks. Existing purchase, event and allocation identities are retained; no duplicate combined shipment charge is introduced."
     }
   ],
   "gaps": [
