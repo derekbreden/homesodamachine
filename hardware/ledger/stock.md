@@ -33,15 +33,10 @@ balances and reserves nothing.
 
 ## Record physical activity
 
-Start the workbench on this Mac from the repository root:
-
-```sh
-node tools/stock.mjs serve
-```
-
-The command prints the local address. Open Build from stock there and choose
-the material and output quantity. The local page offers completion, receipt and
-count entry. Recording controls write only through the local workbench.
+`node tools/stock.mjs plan <material>` prints a completion draft with its stable
+identity and proposed inputs. Edit it to reflect the actual work. Save and publish
+a completion, receipt or count with `node tools/stock.mjs record <event-file> --publish`.
+The record fields are described below.
 
 A completion starts with the listed inputs and ends with the completed output.
 Prepared components are consumed as components; printing a component consumes
@@ -51,12 +46,9 @@ when the work requires it. Estimated usage remains marked until measured.
 Record hands-on minutes when known and describe preparation or rework in the note.
 Equipment waits belong to machine time.
 
-**Record and publish completion** saves the consumed inputs, completed stock and
-measured effort in the same ledger entry, then commits and pushes the stock ledger.
-The local plans update immediately; the shared site adopts the published ledger
-through its normal deployment. A publication failure leaves the physical record
-saved and offers publication retry. Retrying the same record cannot consume
-stock again.
+Recording saves the consumed inputs, completed stock and measured effort in the
+same ledger entry. The site adopts the ledger through its normal deployment.
+`node tools/stock.mjs publish` retries publication of a saved record.
 
 Receipts add received stock and reduce incoming quantities. Counts establish
 observed on-hand stock and can correct an estimated balance. Use the actual
@@ -85,14 +77,6 @@ Recorded consumption beyond an estimated balance remains visible and calls for
 a physical count. Consumption from an unknown balance does not invent a remainder.
 The ledger writer serializes concurrent entries and replaces the file atomically.
 The lock serves stock recording and adds nothing to CAD or normal builds.
-
-## Agent commands
-
-`node tools/stock.mjs plan <material>` prints a completion draft with its stable
-record identity and proposed inputs. Edit it to describe the actual work, then
-use `node tools/stock.mjs record <event-file> --publish`. The same writer and
-projections serve the workbench. `node tools/stock.mjs publish` retries publication
-of a saved stock record without creating another physical event.
 
 Stock quantities establish material availability. Fabrication methods, fit and
 physical qualification remain in the relevant part and assembly records.

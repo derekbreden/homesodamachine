@@ -162,7 +162,7 @@ These are interesting on their own merits. They reach people who aren't looking 
 
 ### 4. The Live-Reload CAD Viewer (30-60 seconds)
 
-The system has matured into something more interesting than the original framing. The pitch now: fire off a CAD prompt on the laptop. Close the laptop. Go fold laundry. The agent edits the CadQuery script, the dev wrapper regenerates the STEP file, the production server hashes it, FCM pushes a notification to the phone. Open the homesodamachine.com PWA on the phone — the new 3D model is already rendered, same viewer as the desktop one (`web/dev-server/server.js` is just a dev wrapper around the production `web/server.js`; both serve `/3d`).
+Ask for a CAD change on the laptop. Go fold laundry. The agent edits the Rust geometry, the print build publishes completed parts, and the website sends a notification. Open the homesodamachine.com PWA on the phone to see the updated model.
 
 This is an ambient-computing story now. The "wait, what?" beat isn't the speed of the loop — it's that you delegated a CAD edit to an agent and got back to your life until your phone said "look."
 
@@ -170,8 +170,8 @@ One possible direction: laptop screen split with terminal + viewer, fire the pro
 
 - **Audience:** Makers, 3D printing, CadQuery users, AI-assisted-workflow people, ambient-computing/PWA people. Anyone building physical things with code who's curious about agent + push-notification feedback loops.
 - **Shareability:** Very high in maker/dev communities. Possibly higher than the original framing — this version has a clearer "I want this" moment.
-- **Trust signal:** Strong. "This person built real infrastructure all the way from CadQuery script through FCM to phone" = "this person is serious."
-- **Where it lives in the repo:** `web/dev-server/server.js` (dev wrapper, file watcher, WebSocket hot reload), `web/lib/push.js` (FCM push on STEP/Mermaid changes), `web/lib/viewer-pages.js` and `web/lib/viewer-routes.js` (shared production+dev viewer).
+- **Trust signal:** The demo follows a source edit through to a model on the phone.
+- The print build publishes the model and `web/lib/artifacts-live.js` delivers the changes to the viewer. `web/lib/push.js` sends notifications.
 
 ### 5. The AI Design Pipeline Failure (2-3 minutes)
 

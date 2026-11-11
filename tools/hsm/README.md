@@ -278,22 +278,6 @@ The response has `ok`, `elapsed_ms`, and either `result` or `error`. A CLI calle
 same request with `hsm request '<json>'`. A failed query exits with status 1. `status`, `ping`
 and `shutdown` need no scene.
 
-## The local viewer
-
-Off Render, the site's server (`npm start` in `web`) answers `/api/hsm` with the `hsm` on its
-`PATH`, or `HSM_BIN` ([`web/lib/hsm.js`](../../web/lib/hsm.js)), and `/3d` uses it
-([`web/public/js/viewer/hsm.js`](../../web/public/js/viewer/hsm.js)):
-
-- Once a second while a model is open and the page is visible, the page asks again for the
-  file it drew, under the ETag it came with. The server answers off a stat, and a new ETag that
-  holds for another second redraws the model in place, camera kept. Nothing watches a file, so
-  a payload redraws however it was written: by its producer, `hsm-build-plan sync-tree` or
-  `fetch-cad-artifacts`.
-- With **Measure** on in the component panel, a picked body shows its payload index and world
-  bounds, and its clearance to the body picked before it, with the closest points drawn.
-
-The deployed site answers `/api/hsm` with a 404, and its viewer does neither.
-
 ## Render
 
 `hsm render` draws a payload as `/3d` draws it: the viewer's colours, `web/public/finishes.json`,

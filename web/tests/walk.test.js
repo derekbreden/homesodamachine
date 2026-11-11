@@ -12,7 +12,7 @@ import os from "node:os";
 import path from "node:path";
 
 import { walkFiles, walkPcbBoards, walkDocuments } from "../lib/walk.js";
-import { nativeBuildPlan } from "../dev-server/deps.js";
+import { nativeBuildPlan } from "../scripts/build-deps.js";
 
 // Write a .tsx source plus a rendered overlay (the "is rendered" tell) for a
 // board of the given basename inside <root>/pcb/<dir>/.

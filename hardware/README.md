@@ -200,7 +200,7 @@ Pull values from the part's generator-script docstring when one exists; otherwis
 ### When to update
 
 - **Adding a part:** add the matching `.json` sidecar in the same commit. The viewer treats a DXF without a sidecar as zero-thickness and falls back to wireframe.
-- **Changing thickness or material:** update the sidecar in the same commit as the geometry. The dev server's watcher picks up sidecar changes and hot-reloads with the new thickness, no page refresh needed.
+- **Changing thickness or material:** update the sidecar in the same commit as the geometry. The published viewer reads thickness and material from the sidecar.
 - **Renaming or moving a part:** rename/move the sidecar alongside the geometry file.
 
 ### Harvested reference parts

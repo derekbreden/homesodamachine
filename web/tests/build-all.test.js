@@ -4,7 +4,7 @@ import assert from "node:assert/strict";
 import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
-import { main, runPrintBuild } from "../dev-server/build-all.js";
+import { main } from "../scripts/build-all.js";
 
 const silent = { log() {}, error() {} };
 function fixture(t) {
@@ -65,11 +65,4 @@ test("PCB fabrication is separate and its detailed model uses the native command
   assert.deepEqual(commands[1].args, ["--", "/fixture/tools/hsm/target/release/hsm-pcb", "--root", "/fixture", "model", "/fixture/hardware/pcb/pcba/out/pcba.circuit.json"]);
   assert.ok(commands.every(command => command.file === "/fixture/tools/run"));
   assert.ok(commands.every(command => !command.args.some(arg => arg.includes("hsm-print-build"))));
-});
-
-test("an editor rebuild retains native failure output", async t => {
-  const projectRoot = fixture(t);
-  const result = await runPrintBuild({ projectRoot, sources: ["hardware/part.rs"], capture: true,
-    runCommand: async (_command, options) => { assert.equal(options.capture, true); return { code: 17, stderr: "native producer failed" }; } });
-  assert.deepEqual(result, { code: 17, stderr: "native producer failed" });
 });

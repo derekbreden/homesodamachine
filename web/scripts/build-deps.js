@@ -6,23 +6,6 @@ export function contentRoots(projectRoot) {
   return [path.join(projectRoot, "hardware")].filter(root => fs.existsSync(root));
 }
 
-export function viewerOutput(absPath, hardwareRoot) {
-  const relative = path.relative(hardwareRoot, absPath).split(path.sep).join("/");
-  if (!relative || relative === ".." || relative.startsWith("../") || path.isAbsolute(relative)) return null;
-  if (relative.endsWith(".step.mesh")) return relative.slice(0, -5);
-  if (relative.startsWith("assembly/scenes/glb/") && relative.endsWith(".glb.mesh")) return relative.slice(0, -5);
-  if (relative.endsWith(".scene.npz")) return relative.slice(0, -10) + ".step";
-  if (relative.endsWith(".dxf.json") || relative.endsWith(".step.json") || relative.endsWith(".pdf.json")) return relative.slice(0, -5);
-  if (relative.endsWith(".cover.png")) return relative.slice(0, -10) + ".pdf";
-  if (/\.(?:step|glb|mmd|dxf|pdf)$/.test(relative)) return relative;
-  const copper = relative.match(/^(pcb\/.*)\/out\/([^/]+)\.(?:overlay|top|bottom|schematic)\.(?:svg|png)$/);
-  if (copper) {
-    const board = `${copper[1]}/${copper[2]}.tsx`;
-    if (fs.existsSync(path.join(hardwareRoot, board))) return board;
-  }
-  return null;
-}
-
 function repoPath(projectRoot, file) {
   const relative = path.relative(projectRoot, path.resolve(projectRoot, file));
   if (!relative || relative === ".." || relative.startsWith(`..${path.sep}`) || path.isAbsolute(relative))

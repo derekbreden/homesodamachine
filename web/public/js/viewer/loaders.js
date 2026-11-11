@@ -10,8 +10,7 @@
 // "./glb.js?v=<token>" is a DIFFERENT URL — the browser fetches and evaluates the
 // new source. state.codeVersion is that token: null at page load (the statically
 // imported loaders below ARE the current code, nothing to re-fetch), set to the
-// build commit on a prod deploy and to a change nonce on a dev viewer-source save
-// (both in live.js). getLoader returns the fresh loader for the active version,
+// deploy commit (live.js). getLoader returns the fresh loader for the active version,
 // so both opening a part and refreshing an open one run current code.
 //
 // Only the leaf renderer is re-imported. Its own `import { scene } from
@@ -23,10 +22,6 @@
 // (scene.js, state.js) therefore can NOT hot-swap and still needs a manual
 // reload — an honest, rarely-hit boundary; the render code that actually gets
 // iterated on (glb.js et al.) lives in the leaves.
-//
-// The set of hot-swappable leaves here is mirrored by the dev watcher in
-// web/dev-server/server.js (which decides what edits broadcast CODE_CHANGED);
-// keep the two in sync.
 
 import { state } from "./state.js";
 import { loadStepFile } from "./step.js";

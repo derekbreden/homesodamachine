@@ -219,8 +219,7 @@
 
 /* ── Tool rail ─────────────────────────────────────────────────────────────────
    The controls that change what the view shows and what a click does, in one
-   bottom-left column laid out in flow. A control this file has no use for — the
-   dev-only editor segment — is absent from the column.
+   bottom-left column laid out in flow.
 
    A pill opens something: Find here, Reset view in the opposite corner. The
    segmented control holds the pick modes, which are mutually exclusive over
@@ -400,7 +399,6 @@
   font-weight: 600;
 }
 /* The editor writes to the source; armed, its segment is green. */
-.tool-seg-btn.edit.active { background: var(--ok); color: var(--brand-navy); }
 
 .tool-chips {
   display: flex;
@@ -517,15 +515,11 @@
 .edge-panel-close:focus-visible,
 .component-show:focus-visible,
 .component-show-all:focus-visible,
-.component-edit-tab:focus-visible,
-.component-edit-reset:focus-visible,
 .sc-badge:focus-visible,
 .sc-x:focus-visible,
 .sc-toggle:focus-visible,
 .pcb-view-btn:focus-visible,
 .pad-pick-toggle:focus-visible,
-.pcb-edit-toggle:focus-visible,
-.pcb-edit-tool-btn:focus-visible,
 .pcb-checks:focus-visible,
 .pcb-checks-x:focus-visible,
 .pcb-checks-toggle:focus-visible {
@@ -673,8 +667,6 @@
 .edge-panel-close,
 .component-show,
 .component-show-all,
-.component-edit-tab,
-.component-edit-reset,
 .sc-x {
   font-family: inherit;
 }
@@ -914,29 +906,6 @@
 }
 .component-holds-row:hover { border-color: var(--accent); color: var(--accent); }
 
-/* WHAT HSM MEASURES OF THE PICK, on a machine whose server has hsm (hsm.js). */
-.component-measure:empty { display: none; }
-.component-measure {
-  padding-top: 8px;
-  margin: 6px 0 8px;
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
-  font-size: 0.82rem;
-  line-height: 1.35;
-}
-.component-measure-head {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 8px;
-  margin-bottom: 4px;
-  color: var(--text-2);
-  font-size: 11px;
-  letter-spacing: 0.03em;
-  text-transform: uppercase;
-  font-weight: 600;
-}
-.component-measure-line { overflow-wrap: anywhere; font-variant-numeric: tabular-nums; }
-
 .component-hidden:empty {
   margin-top: 0;
 }
@@ -986,104 +955,6 @@
 .component-show-all:hover {
   background: rgba(23, 73, 209, 0.9);
 }
-
-/* Component editor panel — reuses .edge-panel chrome (head/name/close), plus a
-   Move/Rotate mode switch, numeric offset fields, and the Apply/Reset actions. */
-.component-edit-mode {
-  display: flex;
-  gap: 6px;
-  margin: 6px 0;
-}
-.component-edit-tab {
-  flex: 1 1 0;
-  padding: 5px 8px;
-  background: rgba(23, 73, 209, 0.4);
-  color: var(--text-2);
-  border: 1px solid var(--border);
-  border-radius: 6px;
-  font-size: 12px;
-  cursor: pointer;
-  -webkit-appearance: none;
-  appearance: none;
-}
-.component-edit-tab.on {
-  background: rgba(89, 255, 158, 0.16);
-  border-color: rgba(89, 255, 158, 0.6);
-  color: #9dffc8;
-}
-.component-edit-fields {
-  display: flex;
-  gap: 8px;
-  align-items: flex-end;
-  flex-wrap: wrap;
-}
-.component-edit-field {
-  display: flex;
-  flex-direction: column;
-  gap: 3px;
-  font-size: 10px;
-  color: var(--text-2);
-  text-transform: uppercase;
-  letter-spacing: 0.03em;
-}
-.component-edit-num,
-.component-edit-axis {
-  width: 72px;
-  box-sizing: border-box;
-  padding: 5px 6px;
-  background: rgba(0, 0, 0, 0.28);
-  color: var(--text);
-  border: 1px solid var(--border);
-  border-radius: 6px;
-  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-  font-size: 12px;
-  -webkit-appearance: none;
-  appearance: none;
-}
-.component-edit-axis {
-  width: 56px;
-  appearance: auto;
-  -webkit-appearance: auto;
-}
-.component-edit-actions {
-  display: flex;
-  gap: 8px;
-  margin-top: 10px;
-}
-.component-edit-actions > .component-edit-apply {
-  margin-top: 0;
-  flex: 1 1 auto;
-}
-.component-edit-reset {
-  flex: 0 0 auto;
-  padding: 6px 12px;
-  background: rgba(23, 73, 209, 0.6);
-  color: var(--text);
-  border: 1px solid var(--border);
-  border-radius: 7px;
-  font-size: 12px;
-  cursor: pointer;
-  -webkit-appearance: none;
-  appearance: none;
-}
-.component-edit-reset:hover {
-  background: rgba(23, 73, 209, 0.9);
-}
-.component-edit-apply:disabled {
-  opacity: 0.55;
-  cursor: default;
-}
-.component-edit-status {
-  margin-top: 8px;
-  min-height: 15px;
-  font-size: 11px;
-  line-height: 1.4;
-  color: var(--text-2);
-  word-break: break-word;
-}
-.component-edit-status.busy { color: #ffd400; }
-.component-edit-status.ok { color: #7CFF8A; }
-.component-edit-status.err { color: #ff6b81; }
 
 /* Labels a find pins to its picks (pick-find.js): a dot on the spot, words on
    a leader, over the model and under every panel. Faint and dashed where the
@@ -1524,9 +1395,7 @@
 /* Phone: dims + via count + clearance floor + the checks badge together overrun
    a narrow bottom bar and bury the corner Inspect / Reset pills. Lift the readout
    onto its own row a full pill-height above that corner row (it wraps and grows
-   upward into empty board space, so the corners stay clear). On the dev server the
-   Edit pill stacks a second control into the left corner, so lift a notch higher
-   there (:has) to clear it too. */
+   upward into empty board space, so the corners stay clear). */
 @media (max-width: 600px) {
   .pcb-wrapper > .pcb-dims {
     bottom: calc(env(safe-area-inset-bottom, 0px) + 16px + 44px);
@@ -1539,9 +1408,6 @@
      toggle keeps the band and the indicator stands down. The fit reads its
      obstacles off the live chrome, so it takes the room back. */
   .pcb-wrapper > .pan-zoom-minimap { display: none; }
-  .pcb-wrapper:has(.pcb-edit-toggle) > .pcb-dims {
-    bottom: calc(env(safe-area-inset-bottom, 0px) + 16px + 44px + 40px);
-  }
 }
 /* Board-checks modal: backdrop + centred card, scoped inside the board wrapper. */
 .pcb-wrapper > .pcb-checks-modal {
@@ -1724,7 +1590,6 @@
   .pcb-view-toggle { padding: 2px; }
   .pcb-view-btn { min-height: 36px; }
   .pcb-wrapper > .pad-pick-toggle,
-  .pcb-wrapper > .pcb-edit-toggle,
   .pan-zoom-reset {
     min-height: 40px;
     display: inline-flex;
@@ -1741,10 +1606,6 @@
     justify-content: center;
   }
   .pcb-checks-toggle { min-height: 36px; }
-  .pcb-edit-tool-btn { width: 36px; height: 36px; }
-  /* The Edit pill stacks on the Inspect pill, and clears the height it just
-     took. */
-  .pcb-wrapper > .pcb-edit-toggle { bottom: calc(env(safe-area-inset-bottom, 0px) + 16px + 48px); }
   /* The checks card is read and dismissed with a thumb too. */
   .sc-x {
     min-width: 36px;
@@ -1962,165 +1823,4 @@
 }
 .pcb-pick-hilite {
   pointer-events: none;
-}
-
-/* Component editor (pcb-edit.js) — dev-server-only. Toggle stacked just above
-   the Inspect pill (bottom-left). When armed, each component shows a draggable
-   box over its footprint; dragging writes the new position back to the board
-   source. Green to read distinctly from Inspect's cyan and the selection's
-   yellow. */
-.pcb-wrapper > .pcb-edit-toggle {
-  position: absolute;
-  bottom: calc(env(safe-area-inset-bottom, 0px) + 16px + 40px);
-  left: calc(env(safe-area-inset-left, 0px) + 16px);
-  z-index: 12;
-  padding: 6px 10px;
-  background: rgba(16, 49, 156, 0.85);
-  color: var(--text);
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  font: 13px var(--font-sans);
-  cursor: pointer;
-  -webkit-appearance: none;
-  appearance: none;
-}
-.pcb-wrapper > .pcb-edit-toggle:hover {
-  background: rgba(23, 73, 209, 0.9);
-}
-.pcb-wrapper > .pcb-edit-toggle.off {
-  color: var(--text-2);
-}
-
-/* The overlay is inert (invisible, non-interactive) until armed, so it never
-   paints over the copper or swallows a pan when Edit is off. */
-.pcb-edit-layer {
-  pointer-events: none;
-}
-.pcb-edit-box {
-  fill: transparent;
-  stroke: none;
-}
-.pcb-edit-label { display: none; }
-.pcb-edit-label text {
-  fill: rgba(170, 240, 190, 0.95);
-  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-  paint-order: stroke;
-  stroke: rgba(0, 0, 0, 0.55);
-  stroke-width: 220;
-}
-.pcb-edit-layer.active .pcb-edit-box {
-  pointer-events: all;
-  cursor: grab;
-  fill: rgba(110, 215, 140, 0.10);
-  stroke: rgba(110, 215, 140, 0.85);
-  stroke-width: 130;
-}
-.pcb-edit-layer.active .pcb-edit-label { display: block; }
-.pcb-edit-layer.active .pcb-edit-box:hover {
-  fill: rgba(110, 215, 140, 0.22);
-}
-/* In the multi-selection: brighter than armed-idle, dimmer than the active drag,
-   so the grabbed set reads at a glance. */
-.pcb-edit-layer.active .pcb-edit-comp.selected .pcb-edit-box {
-  fill: rgba(110, 215, 140, 0.28);
-  stroke: rgba(150, 245, 180, 1);
-  stroke-width: 170;
-}
-.pcb-edit-layer.active .pcb-edit-comp.dragging .pcb-edit-box {
-  cursor: grabbing;
-  fill: rgba(110, 215, 140, 0.30);
-  stroke: rgba(150, 245, 180, 1);
-  stroke-width: 200;
-}
-
-/* Dashed box around the whole selection. non-scaling-stroke keeps it a crisp,
-   constant width through the board's huge Gerber-unit zoom. Inert, and only
-   while armed. */
-.pcb-edit-bounds-g { pointer-events: none; }
-.pcb-edit-bounds {
-  fill: none;
-  stroke: rgba(150, 245, 180, 0.95);
-  stroke-width: 1.5px;
-  stroke-dasharray: 5 4;
-  vector-effect: non-scaling-stroke;
-}
-.pcb-edit-layer:not(.active) .pcb-edit-bounds-g { display: none !important; }
-
-/* Floating selection toolbar — rotate + the six alignments. Positioned in
-   wrapper px over the selection's top edge (left/top set live in JS); the
-   transform lifts it clear of the box, flipping below near the top chrome. The
-   align row is revealed only when ≥ 2 parts are selected (.multi). */
-.pcb-wrapper > .pcb-edit-toolbar {
-  position: absolute;
-  z-index: 13;
-  display: flex;
-  align-items: center;
-  gap: 2px;
-  padding: 3px;
-  background: rgba(16, 49, 156, 0.92);
-  border: 1px solid var(--border);
-  border-radius: 10px;
-  -webkit-backdrop-filter: blur(4px);
-  backdrop-filter: blur(4px);
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.35);
-  opacity: 0;
-  pointer-events: none;
-  transform: translate(-50%, calc(-100% - 10px));
-  transition: opacity 0.12s;
-}
-.pcb-wrapper > .pcb-edit-toolbar.show { opacity: 1; pointer-events: auto; }
-.pcb-wrapper > .pcb-edit-toolbar.below { transform: translate(-50%, 10px); }
-.pcb-wrapper > .pcb-edit-toolbar:not(.multi) .align-only { display: none; }
-.pcb-edit-tool-btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 30px;
-  height: 30px;
-  padding: 0;
-  border: none;
-  border-radius: 7px;
-  background: transparent;
-  color: rgba(190, 245, 205, 0.92);
-  cursor: pointer;
-  -webkit-appearance: none;
-  appearance: none;
-}
-.pcb-edit-tool-btn svg { width: 19px; height: 19px; display: block; }
-.pcb-edit-tool-btn:hover { background: rgba(110, 215, 140, 0.20); color: #d8ffe4; }
-.pcb-edit-tool-btn:active { background: rgba(110, 215, 140, 0.34); }
-.pcb-edit-tool-sep {
-  width: 1px;
-  align-self: stretch;
-  margin: 3px 2px;
-  background: var(--border);
-}
-
-/* Drag readout / save status — bottom-centre, on the Edit pill's row and
-   clear of it at either end. Transient: shown only mid-drag and briefly
-   after a save. */
-.pcb-wrapper > .pcb-edit-status {
-  position: absolute;
-  bottom: calc(env(safe-area-inset-bottom, 0px) + 16px + 40px);
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 12;
-  max-width: calc(100% - 240px);
-  padding: 5px 10px;
-  background: rgba(16, 49, 156, 0.9);
-  color: var(--text);
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  font: 12px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-  text-align: center;
-  -webkit-backdrop-filter: blur(4px);
-  backdrop-filter: blur(4px);
-  pointer-events: none;
-  opacity: 0;
-  transition: opacity 0.15s;
-}
-.pcb-wrapper > .pcb-edit-status.show { opacity: 1; }
-.pcb-wrapper > .pcb-edit-status.error {
-  color: #ff8a8a;
-  border-color: #7a3a3a;
 }

@@ -1,8 +1,7 @@
 // WebSocket-driven live updates for the viewer. Side-effect import only —
 // registers the listeners below on import:
 //
-//   hsm:files-changed (detail.files = [...]) — fired by both dev chokidar
-//     saves and the prod boot-diff. Same wire format both sides. We refresh
+//   hsm:files-changed (detail.files = [...]) — fired when published files change. We refresh
 //     the per-file grid thumbnail and, if that file is the one currently
 //     open in the modal, refetch the file into the open viewer too.
 //
@@ -245,18 +244,4 @@ window.addEventListener(HSM_EVENTS.DEPLOY, async (e) => {
   // so a re-render ahead of the list rebuilds the open model from the previous cut.
   await fetchFiles();
   if (newBuild) reloadOpenDetail();
-});
-
-// Dev viewer-source hot-reload: a render module (glb/step/dxf leaf, or a
-// mermaid/pcb detail module) was edited. The artifact bytes are
-// unchanged — only the code moved — so adopt the change nonce as the code-bust
-// token, force a full re-render past the unchanged-content guards, and re-render
-// the open modal in place. No card refresh or list re-fetch: nothing on disk that
-// the grid reads changed. A modal opened after this naturally re-imports fresh
-// (getLoader / detail-shims). No-op if nothing is open.
-window.addEventListener(HSM_EVENTS.CODE_CHANGED, (e) => {
-  const version = e.detail && e.detail.version;
-  if (version) state.codeVersion = String(version);
-  forceDetailRerender();
-  reloadOpenDetail();
 });

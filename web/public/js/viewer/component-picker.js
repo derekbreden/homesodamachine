@@ -29,7 +29,6 @@ import { showsInFaucetFinish } from "/contracts/faucet-options.js";
 import { drillTo, drillToComponent } from "./step-nav.js";
 import { makePanelCollapse } from "./tool-rail.js";
 import { refreshHighlight, fadedBody } from "./part-highlight.js";
-import { renderMeasure } from "./hsm.js";
 import { containsTriangle, splitFeatureKey } from "/contracts/features.js";
 import { sceneFeature, featureGeometry, featureUrl } from "./features.js";
 
@@ -393,12 +392,6 @@ function buildPanel() {
   panel.appendChild(identity);
   panel._identity = identity;
 
-  // What hsm measures of the selection, where the server has one (hsm.js).
-  const measure = document.createElement("div");
-  measure.className = "component-measure";
-  panel.appendChild(measure);
-  panel._measure = measure;
-
   const actions = document.createElement("div");
   actions.className = "component-actions";
 
@@ -520,11 +513,6 @@ function showPanel() {
       : unit ? `Instance: ${unit.label}` : `CAD body: ${selection}`;
     panel._identity.appendChild(body);
   }
-  renderMeasure(panel._measure, feature ? null : selection, {
-    file: state.mountedDetail?.sourceFile,
-    solids: selection ? frontMeshes().filter(m => (selectionBodies || [selection]).some(body => standsIn(m.name, body))).length : 0,
-    label: componentName,
-  });
   panel._close.style.display = selection ? "" : "none";
   const already = selection && standsHidden(selection);
   panel._hideBtn.style.display = selection && !feature ? "block" : "none";
@@ -608,7 +596,6 @@ function showPanel() {
 function hidePanel() {
   if (!panel) return;
   panel.classList.remove("show");
-  renderMeasure(panel._measure, null, {});
 }
 
 // --- pointer wiring (attached once; act only when enabled + STEP open) ---

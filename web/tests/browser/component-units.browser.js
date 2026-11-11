@@ -60,7 +60,7 @@ async function clickBody(page, body, members) {
 
 test("assembly clicks and hiding keep physical copies together; opening exposes their internal bodies", async () => {
   const base = process.env.HSM_COMPONENT_BROWSER_BASE;
-  const { server } = base ? {} : await start({ dev: false, port: 0 });
+  const { server } = base ? {} : await start({ port: 0 });
   const origin = base || `http://127.0.0.1:${server.address().port}`;
   const browser = await launchBrowser({ headless: true, protocolTimeout: 120000 });
   const output = process.env.HSM_COMPONENT_BROWSER_OUTPUT;

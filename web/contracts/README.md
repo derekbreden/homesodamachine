@@ -12,7 +12,7 @@ same file the server does — Node by path, the browser by URL, one source eithe
 - **picks-schema.ts** — `out/<board>.picks.json`: pads/vias/traces the pad picker hit-tests, plus
   the board readout (size) and checks (clearance floor + tight pairs, DRC errors, cap-decoupling
   audit). Produced by `hardware/pcb/pcba/pick-data.ts`; read by
-  `web/public/js/viewer/{pcb,pcb-pick,pcb-edit}.js`; pinned by `web/tests/picks-schema.test.js`.
+  `web/public/js/viewer/{pcb,pcb-pick}.js`; pinned by `web/tests/picks-schema.test.js`.
 - **pcb-out.js** — the board `out/` render layout: view filenames + the `/api/pcb-*` path
   confinement. Produced by `hardware/pcb/pcba/render-board.ts`; read by `web/lib/{walk,viewer-routes}.js`.
 - **mesh payloads** — native part arrays and face contributors come from
@@ -68,10 +68,10 @@ tree needs no edit here.
 
 - **api-shapes.js** — the `/api` endpoints and their responses (PathList, DxfItem, Board, Document). Produced
   by `web/lib/viewer-routes.js`; consumed by `web/public/js/viewer/main.js`.
-- **ws-frames.js** — the `/ws` WebSocket frames (hello, ping, files-changed, code-changed). Produced
-  by `web/lib/events.js` (broadcasters `web/server.js`, `web/dev-server/server.js`); read by `web/public/boot.js`.
-- **client-events.js** — the `hsm:*` window CustomEvents. Dispatched by `web/public/boot.js` (pcb-tool
-  by the viewer itself); listened for by `web/public/js/viewer/*.js`.
+- **ws-frames.js** — the `/ws` WebSocket frames (hello, ping, files-changed). Produced by
+  `web/lib/events.js` and read by `web/public/boot.js`.
+- **client-events.js** — the `hsm:*` window CustomEvents. Shared by `web/public/boot.js`
+  and `web/public/js/viewer/*.js`.
 - **icons.js** — the Feather glyph table and its `<svg>` attributes. Drawn by `web/lib/icons.js`
   into the shell nav and the notification rows, and by
   `web/public/js/viewer/tool-rail.js` into the 3D viewer's tool rail.
@@ -91,14 +91,12 @@ tree needs no edit here.
 ## Conventions (enforced in code, no shared module)
 
 - **legacy redirects** `/dev`, `/dev/diagrams`, `/dev/mermaid`, `/dev/settings` → 301. `web/lib/viewer-pages.js`.
-- **explicit build selection** — `web/dev-server/deps.js` reads native program declarations,
+- **explicit build selection** — `web/scripts/build-deps.js` reads native program declarations,
   inputs and outputs from `tools/hsm/build-plan/graph.json` and `tools/hsm/build-plan/inventory.json`.
-  It selects producer targets and their dependents for requested builds. The dev server
-  watches completed outputs; saving source starts no build.
+  It selects producer targets and their dependents for requested builds.
 - **importmap** — the three.js bare specifiers resolve through the importmap in the page.
   `web/lib/templates/viewer-body.html`.
 - **progressive publication** — `hsm-print-build` carries completed producer outputs and requests
   `hsm-publish` while other producers continue. Shared mesh objects precede the manifests
   that reference them. `tools/hsm/geometry/src/scene.rs` retains identical scene bytes and
-  replaces changed manifests atomically. Neither a viewer request nor the output watcher
-  starts a producer.
+  replaces changed manifests atomically.

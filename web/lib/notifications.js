@@ -99,9 +99,8 @@ export async function markSeen(pool, { token, ids, all }) {
 }
 
 // THE BELL IS ON EVERY PAGE, so what it points at answers on every boot. `renderNav` puts
-// `/notifications` in the nav of each page the shell draws, and a boot with no DATABASE_URL —
-// which is every `npm run dev` — has no pool. A run with no pool holds no rows, and no rows is
-// the empty answer each of these already gives a caller who names no token.
+// `/notifications` in the nav of each page. A server without a database pool
+// returns an empty inbox.
 export function mountNotificationsRoutes(app, pool) {
   app.get("/api/notifications", async (req, res) => {
     const token = String(req.query.token || "");

@@ -32,9 +32,8 @@ let server;
 let baseUrl;
 
 before(async () => {
-  // port: 0 lets the OS pick a free port — the test never collides with a
-  // running dev server. dev: false matches the production code path.
-  const started = await start({ dev: false, port: 0 });
+  // The production server binds an ephemeral port for this test.
+  const started = await start({ port: 0 });
   server = started.server;
   baseUrl = `http://127.0.0.1:${server.address().port}`;
 });
@@ -135,22 +134,12 @@ for (const r of routes) {
 // the client matches them (web/contracts/ws-frames.js). A reintroduced literal
 // would still work today but drift silently if a tag is ever renamed in one
 // place. events.js is guarded implicitly (it imports WS or fails to boot);
-// these broadcasters only fire on a dev save or a prod deploy diff, so a source
+// the deploy broadcaster only fires after a hosted deploy, so a source
 // check is the cheap guard.
 test("WebSocket broadcasters emit frame types via the WS contract", () => {
-  for (const rel of ["server.js", "dev-server/server.js"]) {
-    const src = fs.readFileSync(path.join(WEB_ROOT, rel), "utf8");
-    assert.match(
-      src,
-      /import\s*\{[^}]*\bWS\b[^}]*\}\s*from\s*["'][^"']*contracts\/ws-frames\.js["']/,
-      `${rel} must import WS from the ws-frames contract`,
-    );
-    assert.doesNotMatch(
-      src,
-      /broadcast\(\s*\{\s*type:\s*["']files-changed["']/,
-      `${rel} broadcasts a frame type by literal instead of WS`,
-    );
-  }
+  const src = fs.readFileSync(path.join(WEB_ROOT, "server.js"), "utf8");
+  assert.match(src, /import\s*\{[^}]*\bWS\b[^}]*\}\s*from\s*["'][^"']*contracts\/ws-frames\.js["']/);
+  assert.doesNotMatch(src, /broadcast\(\s*\{\s*type:\s*["']files-changed["']/);
 });
 
 // WebSocket channel. Open a connection, wait for the initial `hello`

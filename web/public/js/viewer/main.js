@@ -5,8 +5,7 @@
 //   2. Expose window.__hsm for the headless render tools (Puppeteer
 //      drives loadStepFile / loadDxfFile and reads scene/camera).
 //   3. fetchFiles() → buildGrid() → applyInitialRoute().
-//   4. Side-effect import ./live.js to register the live-update listeners, and
-//      ./hsm.js, which redraws a payload that moved where the server has hsm.
+//   4. Register the publication update listeners through ./live.js.
 
 import * as THREE from "three";
 import { state } from "./state.js";
@@ -16,7 +15,6 @@ import { loadStepFile } from "./step.js";
 import { loadDxfFile } from "./dxf.js";
 import { renderer, scene, camera, controls } from "./scene.js";
 import "./live.js";
-import "./hsm.js";
 
 state.gridEl = document.getElementById("grid");
 

@@ -300,9 +300,7 @@ import { WS } from "/contracts/ws-frames.js";
 
   // ===== 3. WebSocket owner =====
   //
-  // Server -> client push transport. Used by both the dev server
-  // (file-change broadcasts from chokidar) and the production server
-  // (deploy-version handshake on connect + boot-time diff replay).
+  // The server pushes deploy versions and changed artifact paths.
   //
   // Liveness rests on three mechanisms:
   //   - onclose drives a reconnect loop with exponential backoff
@@ -461,12 +459,6 @@ import { WS } from "/contracts/ws-frames.js";
     if (msg.type === WS.FILES_CHANGED) {
       window.dispatchEvent(new CustomEvent(HSM_EVENTS.FILES_CHANGED, { detail: { files: msg.files || [] } }));
       fetchNotifications();
-      return;
-    }
-    if (msg.type === WS.CODE_CHANGED) {
-      // Dev-only viewer-source edit. The parts viewer re-imports the open
-      // detail's loader under this token (live.js); no other page listens.
-      window.dispatchEvent(new CustomEvent(HSM_EVENTS.CODE_CHANGED, { detail: { version: msg.version } }));
       return;
     }
     // type === "ping" and anything else: lastActivityAt already bumped at

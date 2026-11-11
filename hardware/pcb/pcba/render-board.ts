@@ -238,68 +238,13 @@ function sh(cmd: string, args: string[], opts: { cwd?: string; inherit?: boolean
   })
 }
 
-// Write a board's composed views to out/ as SVG + PNG. Shared by the placement
-// preview and the full render (extracted so both paint the views identically).
+// Write the composed copper and mask views as SVG and PNG.
 const writeViews = (svgs: Record<string, string>) => {
   for (const v of Object.keys(svgs)) {
     writeFileSync(path.join(outDir, `${board}.${v}.svg`), svgs[v])
     // PNG width tracks the board's aspect so neither view is squashed.
     writeFileSync(path.join(outDir, `${board}.${v}.png`), new Resvg(svgs[v], { fitTo: { mode: "width", value: 1600 } }).render().asPng())
   }
-}
-
-// PHASE 1 — placement preview (dev-server only). Paint where every pad, hole, and
-// silk legend lands BEFORE the slow route passes, so an interactive save shows up
-// in the viewer in ~3s. Strip the netlist traces + pours (nothing to autoroute, no
-// pour to solve, and no flood to hide the pads) and export gerbers in one tsci boot,
-// then compose the SAME views the full render does — identical styling AND viewBox,
-// so the viewer keeps its pan/zoom across the swap. The full render below overwrites
-// out/ with the routed copper and the watcher broadcasts again. Best-effort: any
-// failure here just skips the preview; the full render still runs.
-async function placementPreview() {
-  // Drop every netlist trace + pour so the preview has nothing to route. `[^<]` (not `[\s\S]`)
-  // keeps the match from spanning across real code: a doc comment or string that MENTIONS an open
-  // `<trace from={…}>` (no `/>`) would otherwise let the non-greedy `*?` run to the next `/>`
-  // anywhere below and swallow whatever sits between. Real trace/pour elements carry no `<` between
-  // their tag and `/>`, so `[^<]*?` matches them exactly and stops a stray comment cold. Replace
-  // with an empty fragment, not "", so a trace returned from an arrow — `.map((b) => (<trace/>))`
-  // (logoRoutes) — collapses to `(<></>)` and stays valid instead of an empty `() => ()`.
-  const placementSrc = readFileSync(boardFile, "utf8")
-    .replace(/<trace\b[^<]*?\/>/g, "<></>")
-    .replace(/<copperpour\b[^<]*?\/>/g, "<></>")
-  const name = `_build-${board}.placement.tmp`
-  track(path.join(dir, `${name}.tsx`))
-  writeFileSync(path.join(dir, `${name}.tsx`), placementSrc)
-  // Gerbers in-process from the circuit-json — the SAME standalone converter the full
-  // render uses below, NOT `tsci export -f gerbers`. tsci's bundled gerber converter
-  // throws on pill-shaped SMD pads ("Unsupported shape pill", e.g. the DRV8870 land
-  // pattern), which would fail the export and skip the whole preview; circuit-json-to-gerber
-  // handles them. Keeps the preview alive for any footprint the full render can gerber.
-  const circuit = await exportCircuitJson(name)
-  const scratch = track(mkdtempSync(path.join(tmpdir(), `pcb-${board}-place-`)))
-  const layers = stringifyGerberCommandLayers(convertSoupToGerberCommands(circuit, { flip_y_axis: false }))
-  spliceInnerRings(circuit, layers as Record<string, string>)
-  if (layers["F_SilkScreen"]) layers["F_SilkScreen"] = layers["F_SilkScreen"].replace(/M02\*/, `${ledKnockoutGerber(circuit, layers["F_SilkScreen"])}\nM02*`)
-  for (const [n, txt] of Object.entries(layers)) writeFileSync(path.join(scratch, `${n}.gbr`), txt as string)
-  const pth = convertSoupToExcellonDrillCommands({ circuitJson: throughDrilled(circuit), is_plated: true, flip_y_axis: false })
-  if (pth.length) writeFileSync(path.join(scratch, "drill.drl"), stringifyExcellonDrill(pth))
-  const npth = convertSoupToExcellonDrillCommands({ circuitJson: circuit, is_plated: false, flip_y_axis: false })
-  if (npth.length) writeFileSync(path.join(scratch, "drill_npth.drl"), stringifyExcellonDrill(npth))
-  const { top, bottom, overlay, inners, topmask, bottommask, widthMm, heightMm } = await composeViews(scratch, scheme)
-  const previewSvgs: Record<string, string> = { top, bottom, overlay, ...inners }
-  if (topmask) previewSvgs.topmask = topmask
-  if (bottommask) previewSvgs.bottommask = bottommask
-  writeViews(previewSvgs)
-  rmSync(scratch, { recursive: true, force: true })
-  // Refresh picks from the placement circuit-json (pads only) so the pad picker
-  // lands on the new positions during the preview, not the prior render's.
-  try {
-    const picksTmp = track(path.join(dir, `_build-${board}.place-picks.tmp.json`))
-    writeFileSync(picksTmp, JSON.stringify(circuit))
-    await sh("bun", [path.join(dir, "pick-data.ts"), `${board}.tsx`, picksTmp], { cwd: dir, inherit: true })
-    rmSync(picksTmp, { force: true })
-  } catch {}
-  console.error(`[${board}] placement preview: ${widthMm} × ${heightMm} mm (no traces/pours)`)
 }
 
 // Export a board .tsx to circuit-json via tsci (one autoroute + pour pass). A <trace> with
@@ -313,18 +258,6 @@ const exportCircuitJson = async (name: string) => {
   rmSync(path.join(dir, out), { force: true }); rmSync(path.join(dir, `${name}.circuit.json`), { force: true })
   return cj
 }
-// Paint the placement preview first under the live watcher, then fall through to the
-// full routed render below. build-all / manual stay single-pass, so the committed
-// out/ artifacts are always trace-complete (never a placement-only view).
-if (process.env.RENDER_SOURCE === "dev-server") {
-  try {
-    await placementPreview()
-    console.log("RENDER_PHASE=placement") // the dev watcher broadcasts the preview on this line
-  } catch (e: any) {
-    console.error(`[${board}] placement preview failed — going straight to full render: ${e?.message || e}`)
-  }
-}
-
 // The COMPLETE routed circuit-json in ONE render: tscircuit places every pcbComb trace as
 // fixed copper before autorouting, routes the rest around it, and solves the pours against
 // all of it. The post-export passes below only widen/clean pours the solver already cut.
@@ -339,11 +272,7 @@ if (antN) console.log(`[${board}] antenna keepout: cleared the WROOM antenna box
 const slivN = dropPourSlivers(circuit)
 if (slivN) console.log(`[${board}] pour slivers: dropped ${slivN} sub-min-feature floating fragment(s)`)
 
-// Persist the routed circuit-json for the native hsm-pcb model step. Its circuit loader
-// reuses out/<board>.circuit.json when it's newer than the board .tsx — so writing it here lets
-// the dev-server's background GLB rebuild skip a second full autoroute pass and just read our
-// already-routed board. It's a gitignored regenerable intermediate (never committed), and the
-// watcher ignores out/, so this write neither bloats commits nor re-triggers a render.
+// The native model step reuses this routed circuit-json to avoid another routing pass.
 writeFileSync(path.join(outDir, `${board}.circuit.json`), JSON.stringify(circuit))
 
 // Generate the fabrication set (gerbers + drill + BOM + CPL) from that circuit-json with
@@ -470,9 +399,6 @@ if (circuit) {
   rmSync(path.join(dir, picksTmp), { force: true })
 }
 
-// NB: the render intentionally does NOT rebuild the 3D assembly (out/<board>.glb + face
-// textures) — CadQuery adds ~14 s and iteration must stay fast. Rebuild it directly with
-// `hsm-pcb model`; the dev-server also rebuilds it in the background.
-// See the README's Building section.
+// The explicit PCB build runs hsm-pcb model after this fabrication export.
 
 lock.release()

@@ -60,7 +60,7 @@ test("live STEP reloads retain one renderer and release departed x-ray geometry"
     await fs.mkdir(path.dirname(path.join(hardwareDir, file)), { recursive: true });
     await fs.writeFile(path.join(hardwareDir, file), "fixture");
     await fs.writeFile(path.join(hardwareDir, `${file}.mesh`), payload());
-    ({ server } = await start({ dev: false, port: 0, hardwareDir }));
+    ({ server } = await start({ port: 0, hardwareDir }));
     browser = await launchBrowser();
     const page = await browser.newPage();
     const errors = [];
@@ -170,7 +170,7 @@ for (const shared of [false, true]) test(`Find survives a ${shared ? "shared" : 
     await fs.writeFile(path.join(hardwareDir, file), "fixture");
     const current = shared ? sharedPayload() : { scene: payload() };
     await fs.writeFile(path.join(hardwareDir, `${file}.mesh`), current.scene);
-    ({ server } = await start({ dev: false, port: 0, hardwareDir }));
+    ({ server } = await start({ port: 0, hardwareDir }));
     browser = await launchBrowser();
     const page = await browser.newPage();
     if (shared) {
@@ -227,7 +227,7 @@ test("new shared parts extend clipping bounds while existing GPU geometry stays 
     await fs.mkdir(path.dirname(destination), { recursive: true });
     await fs.writeFile(path.join(hardwareDir, file), "fixture");
     await fs.writeFile(destination, current.scene);
-    ({ server } = await start({ dev: false, port: 0, hardwareDir }));
+    ({ server } = await start({ port: 0, hardwareDir }));
     browser = await launchBrowser();
     const page = await browser.newPage();
     await page.setRequestInterception(true);

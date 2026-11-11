@@ -11,7 +11,7 @@ consume their requirements before later units can use the remaining stock.
 their evidence and uncertainty. The material catalog owns assembly contents;
 [`bom.md`](bom.md) supplies physical manufacturing inputs. Completed machines and
 subassemblies satisfy demand before their components are expanded. The
-[stock workbench](https://homesodamachine.com/build) reads those same records.
+[build planner](https://homesodamachine.com/build) reads those same records.
 
 On-hand stock, estimated quantities, existing orders and proposed purchases
 have distinct representations. Incoming orders reduce duplicate purchasing but

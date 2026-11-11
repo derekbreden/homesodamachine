@@ -29,16 +29,14 @@ const read = (rel) => fs.readFileSync(path.join(PUBLIC, rel), "utf8");
 const EVENT_MODULES = [
   "boot.js",
   "js/viewer/live.js",
-  "js/viewer/pcb-pick.js",
-  "js/viewer/pcb-edit.js",
+  "js/viewer/component-picker.js",
+  "js/viewer/edge-picker.js",
 ];
 
 const IMPORTS_HSM_EVENTS =
   /import\s*\{[^}]*\bHSM_EVENTS\b[^}]*\}\s*from\s*["']\/contracts\/client-events\.js["']/;
 
-// A dispatch/listen call built from a raw "hsm:" literal — the pattern the
-// refactor removed. Anchored on the call so the "hsm:pcb-tool" that appears
-// inside a comment (pcb-edit.js) is not mistaken for a live call site.
+// Match event calls that use literal wire names.
 const RAW_EVENT_CALL = /(?:CustomEvent|addEventListener)\(\s*["']hsm:/;
 
 test("every hsm:* consumer imports HSM_EVENTS from the served contract", () => {
@@ -76,7 +74,6 @@ test("contract constants hold the agreed wire strings", () => {
   assert.equal(HSM_EVENTS.FILES_CHANGED, "hsm:files-changed");
   assert.equal(HSM_EVENTS.DEPLOY, "hsm:deploy");
   assert.equal(HSM_EVENTS.NOTIFICATIONS_UPDATED, "hsm:notifications-updated");
-  assert.equal(HSM_EVENTS.PCB_TOOL, "hsm:pcb-tool");
   assert.equal(WS.HELLO, "hello");
   assert.equal(WS.PING, "ping");
   assert.equal(WS.FILES_CHANGED, "files-changed");

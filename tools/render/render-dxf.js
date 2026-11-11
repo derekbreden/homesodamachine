@@ -76,7 +76,7 @@ async function renderOne({ dxfRel, outAbs, hardwareDir }) {
     throw new Error(`dxf file not found: ${dxfAbs}`);
   }
 
-  const { server } = await start({ port: 0, dev: false, hardwareDir });
+  const { server } = await start({ port: 0, hardwareDir });
   const port = server.address().port;
   console.log(`server up on :${port}`);
 

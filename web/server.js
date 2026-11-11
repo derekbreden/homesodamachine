@@ -7,7 +7,6 @@ import pg from "pg";
 
 import { mountShortHost } from "./lib/short-host.js";
 import { mountViewerRoutes } from "./lib/viewer-routes.js";
-import { mountHsmRoutes } from "./lib/hsm.js";
 import { mountLandingRoutes } from "./lib/landing.js";
 import { mountUnitRoutes } from "./lib/unit.js";
 import { mountViewerPages } from "./lib/viewer-pages.js";
@@ -16,7 +15,6 @@ import { mountWeldPositionRoutes } from "./lib/weld-position.js";
 import { mountPositionerRoutes } from "./lib/positioner.js";
 import { mountCostRoutes } from "./lib/cost.js";
 import { mountBuildRoutes } from "./lib/build.js";
-import { mountStockRoutes } from "./lib/stock-routes.js";
 import { mountUpdatesRoutes } from "./lib/updates.js";
 import { mountChangesRoutes } from "./lib/changes.js";
 import { mountLatestRoutes } from "./lib/latest.js";
@@ -232,7 +230,7 @@ self.addEventListener("activate", (event) => {
     res.sendFile(path.join(PWA_ICONS_DIR, "favicon-64.png"), icon));
 }
 
-export async function start({ dev = false, port, hardwareDir } = {}) {
+export async function start({ port, hardwareDir } = {}) {
   // hardwareDir lets callers (e.g. the historical-render tools in
   // tools/render/) point the viewer at a git worktree's hardware/ subtree
   // instead of the live tree, so a render captures the source artifact as
@@ -252,16 +250,13 @@ export async function start({ dev = false, port, hardwareDir } = {}) {
   //     across reconnects); also carries the most recent boot-diff
   //     `recent` field so a client that reconnected after the deploy
   //     gets the change list it missed during the server-down window.
-  //   - files-changed (broadcast): dev chokidar fires per-save; prod
-  //     fires once at boot if the diff loop found anything. Same wire
-  //     format both sides.
+  //   - files-changed (broadcast): a deploy or artifact adoption finds new files.
   //   - ping/pong: 30s heartbeat used by both ends to detect a dead
   //     socket and trigger a clean reconnect.
   // mountEvents takes the http.Server (not the express app) so it can
   // attach its WebSocketServer to the upgrade pipeline.
-  const commit = dev
-    ? "dev"
-    : (process.env.RENDER_GIT_COMMIT || `local-${Date.now()}`);
+  const deployed = Boolean(process.env.RENDER_GIT_COMMIT);
+  const commit = process.env.RENDER_GIT_COMMIT || `local-${Date.now()}`;
   const server = http.createServer(app);
   // THE OBJECT STORE (web/lib/store.js): Cloudflare R2 when render.yaml names the account and
   // key pair, the disk when it names a directory. Every member the pointer file names is held
@@ -271,7 +266,7 @@ export async function start({ dev = false, port, hardwareDir } = {}) {
   if (store) {
     console.log(`[objects] store: ${store.kind}`);
     mountObjectRoutes(app, { store });
-    mountObjectPrune({ store, pointersPath, mainPointers: lockOnMain });
+    if (deployed) mountObjectPrune({ store, pointersPath, mainPointers: lockOnMain });
   }
 
   const { broadcast, setRecent } = mountEvents(server, { commit });
@@ -281,20 +276,7 @@ export async function start({ dev = false, port, hardwareDir } = {}) {
     serviceAccountJson: process.env.FIREBASE_SERVICE_ACCOUNT_JSON,
   });
 
-  // URL structure is identical in dev and prod: landing at /, parts
-  // viewer at /3d, charts viewer at /charts, settings at
-  // /settings, with LANDING_PUBLIC served at /. The localhost dev server
-  // hits the same routes the public site does, so ContentViewer and
-  // other LANDING_PUBLIC assets just work in dev.
-  // The dev wrapper (web/dev-server/server.js) is purely additive: it
-  // attaches chokidar + Python + the WebSocket broadcast for hot reload,
-  // and doesn't change any routes. The only behavioral differences in dev:
-  //   - commit signal is "dev" instead of the deploy SHA
-  //   - the boot-time push diff is skipped (no real deploy, no FCM)
   mountViewerRoutes(app, { hardwareDir: HARDWARE_DIR, store, pointersPath });
-  // The machine's own geometry service, where one is installed. Render runs none, and its pages
-  // read the 404 (web/lib/hsm.js).
-  if (!process.env.RENDER_GIT_COMMIT) mountHsmRoutes(app, { hardwareDir: HARDWARE_DIR });
   mountPushRoutes(app);
   mountNotificationsRoutes(app, pool);
   mountFirebaseConfig(app);
@@ -305,15 +287,14 @@ export async function start({ dev = false, port, hardwareDir } = {}) {
   mountWeldPositionRoutes(app);
   mountPositionerRoutes(app);
   mountCostRoutes(app, { hardwareDir: HARDWARE_DIR });
-  mountBuildRoutes(app, { hardwareDir: HARDWARE_DIR, canRecord: dev && !process.env.RENDER_GIT_COMMIT });
-  mountStockRoutes(app, { hardwareDir: HARDWARE_DIR, enabled: dev && !process.env.RENDER_GIT_COMMIT });
+  mountBuildRoutes(app, { hardwareDir: HARDWARE_DIR });
   mountUpdatesRoutes(app, { updatesDir: UPDATES_DIR, publicDir: LANDING_PUBLIC });
   // The feed's entries reach a deployed container without a deploy (web/lib/changes.js), and only
   // there: `RENDER_GIT_COMMIT` is Render's alone, for the reason `mountArtifactsLive` gives below.
   // Anywhere else the feed is the `changes/` on this disk.
   const changes = mountChangesRoutes(app, {
     changesDir: CHANGES_DIR,
-    carry: !dev && Boolean(process.env.RENDER_GIT_COMMIT),
+    carry: deployed,
   });
   mountLatestRoutes(app, { changesDir: CHANGES_DIR, changes, updatesDir: UPDATES_DIR, publicDir: LANDING_PUBLIC });
   mountSettingsRoutes(app);
@@ -346,9 +327,7 @@ export async function start({ dev = false, port, hardwareDir } = {}) {
   // comes back after the container is gone catches up via boot.js's
   // /api/version check instead.
   //
-  // Skipped in dev since no real deploy event happens; chokidar fires
-  // files-changed on save.
-  if (!dev) {
+  if (deployed) {
     (async () => {
       try {
         const [changedSteps, changedMermaid, changedDxf, changedDocuments, changedPcb] = await Promise.all([
@@ -381,29 +360,20 @@ export async function start({ dev = false, port, hardwareDir } = {}) {
     // frame this block sends, so new geometry reaches an open page without a deploy — which is
     // why the pointer file is not among `render.yaml`'s buildFilter paths.
     //
-    // ON THE DEPLOYED CONTAINER AND NOWHERE ELSE, WHICH `!dev` DOES NOT SAY. `npm start` on a
-    // laptop is this same branch — the dev wrapper is a separate entry point — and a laptop is
-    // exactly the machine holding cuts the pointer file has not named yet. Adopting there would pull
-    // published bytes over a generator's fresh work, the one thing
-    // `fetch-cad-artifacts.mjs` refuses to do by default. `RENDER_GIT_COMMIT` is set by Render
-    // and by nothing else; `commit` above already falls back to `local-…` without it.
-    if (process.env.RENDER_GIT_COMMIT) {
-      mountArtifactsLive(app, {
-        broadcast,
-        setRecent,
-        commit,
-        hardwareDir: HARDWARE_DIR,
-        detect: [detectChangedSteps, detectChangedMermaid, detectChangedDxf,
-                 detectChangedDocuments, detectChangedPcb],
-      });
-    }
+    mountArtifactsLive(app, {
+      broadcast,
+      setRecent,
+      commit,
+      hardwareDir: HARDWARE_DIR,
+      detect: [detectChangedSteps, detectChangedMermaid, detectChangedDxf,
+               detectChangedDocuments, detectChangedPcb],
+    });
   }
 
-  const defaultPort = dev ? 3000 : 3001;
   // AND THE STORE CATCHES UP BEHIND THE PORT. A container serves off its own disk from the
   // moment it boots; what the store is missing goes up after that, so a fill of 401 members
   // never stands between a deploy and the port it binds.
-  if (store && !dev) {
+  if (store && deployed) {
     server.on("listening", () => {
       (async () => {
         try {
@@ -416,13 +386,8 @@ export async function start({ dev = false, port, hardwareDir } = {}) {
     });
   }
 
-  server.listen(port ?? process.env.PORT ?? defaultPort, () => {
-    if (dev) {
-      console.log(`Dev server: http://localhost:${server.address().port}`);
-      console.log("  Landing /, Parts /3d, Charts /charts, Settings /settings");
-    } else {
-      console.log(`Listening on :${server.address().port}`);
-    }
+  server.listen(port ?? process.env.PORT ?? 3001, () => {
+    console.log(`Listening on :${server.address().port}`);
   });
 
   return { app, server, broadcast, hardwareDir: HARDWARE_DIR };
@@ -433,5 +398,5 @@ export async function start({ dev = false, port, hardwareDir } = {}) {
 // has no `argv[1]` to be, and importing the module is not running it.
 const isMain = !!process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href;
 if (isMain) {
-  start({ dev: false });
+  start();
 }

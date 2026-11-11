@@ -2,7 +2,7 @@
 import path from "node:path";
 import { spawn, execFileSync } from "node:child_process";
 import { fileURLToPath } from "node:url";
-import { contentRoots, nativeBuildPlan, buildTargetsForSources, buildOrder } from "./deps.js";
+import { contentRoots, nativeBuildPlan, buildTargetsForSources, buildOrder } from "./build-deps.js";
 import { walkPcbBoards } from "../lib/walk.js";
 
 const PROJECT_ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../..");
@@ -15,25 +15,23 @@ export function printBuildCommand(projectRoot, targets = []) {
   };
 }
 
-function processRun(command, { capture = false, spawnProcess = spawn } = {}) {
+function processRun(command) {
   return new Promise(resolve => {
-    let stderr = "";
-    const child = spawnProcess(command.file, command.args, {
-      cwd: command.cwd, stdio: ["ignore", "inherit", capture ? "pipe" : "inherit"],
-      env: { ...process.env, ...command.env, HSM_BUILD_SOURCE: "dev-server (explicit build)" },
+    const child = spawn(command.file, command.args, {
+      cwd: command.cwd, stdio: ["ignore", "inherit", "inherit"],
+      env: { ...process.env, ...command.env, HSM_BUILD_SOURCE: "npm run build" },
     });
-    if (capture && child.stderr) {
-      child.stderr.setEncoding("utf8");
-      child.stderr.on("data", text => { stderr = (stderr + text).slice(-8000); });
-    }
-    child.once("error", error => resolve({ code: 1, stderr: (stderr + error.message).slice(-8000) }));
-    child.once("close", code => resolve({ code: code ?? 1, stderr }));
+    child.once("error", error => {
+      console.error(error.message);
+      resolve({ code: 1 });
+    });
+    child.once("close", code => resolve({ code: code ?? 1 }));
   });
 }
 
-export function runPrintBuild({ projectRoot = PROJECT_ROOT, sources = [], capture = false, runCommand = processRun } = {}) {
+function runPrintBuild({ projectRoot, sources, runCommand }) {
   const targets = sources.length ? buildTargetsForSources(sources, projectRoot) : [];
-  return runCommand(printBuildCommand(projectRoot, targets), { capture });
+  return runCommand(printBuildCommand(projectRoot, targets));
 }
 
 function pcbBoards(projectRoot) {
@@ -80,7 +78,7 @@ export async function main(argv = process.argv.slice(2), {
         if (!argv[at + 1] || argv[at + 1].startsWith("--")) throw new Error("--source requires a declared producer or input path");
         sources.push(argv[++at]); break;
       case "--help": case "-h":
-        output.log("Usage: node dev-server/build-all.js [--list] [--check] [--source SOURCE ...]\n       node dev-server/build-all.js --pcb [--list] [--check]\nThe default is the native progressive print build. PCB fabrication is explicit.");
+        output.log("Usage: npm run build -- [--list] [--check] [--source SOURCE ...]\n       npm run build -- --pcb [--list] [--check]\nThe default is the native progressive print build. PCB fabrication is explicit.");
         return 0;
       default: throw new Error(`Unknown build option ${argv[at]}`);
     }

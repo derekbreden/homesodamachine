@@ -39,7 +39,7 @@ let browser;
 before(async () => {
   const puppeteer = loadPuppeteer();
   browser = await puppeteer.launch({ headless: true });
-  const started = await start({ dev: false, port: 0 });
+  const started = await start({ port: 0 });
   server = started.server;
   baseUrl = `http://127.0.0.1:${server.address().port}`;
 });

@@ -15,7 +15,6 @@ import { setActiveEdges } from "./edge-picker.js";
 import { clearPickFind } from "./pick-find.js";
 import { dropHighlight } from "./part-highlight.js";
 import { clearComponentPicker, loadHiddenForFile, applyHiddenComponents } from "./component-picker.js";
-import { onStepReloaded } from "./component-edit.js";
 import { surfaceText } from "./pick-format.js";
 import { fetchMember, memberLoaded, memberUrl, rememberMember } from "./member.js";
 import { FAUCET_FINISHES, faucetStyleFor, hasFaucetFinish, isFaucetFinishBody, showsInFaucetFinish } from "/contracts/faucet-options.js";
@@ -338,7 +337,7 @@ function mountScenePart(node, meshes, head, file, location, { current, preserveC
     for (const part of ordered) for (const solid of part.solids) solid.userData.occtIndex = index++;
     setActiveEdges(result); clearPickFind(); dropHighlight(); clearComponentPicker({ preserve: true }); applyXray(group);
     state.mountedDetail = {type:'step',file,sourceFile:location.file,surface:'mesh',src:latest.src,cut:latest.cut,scene:true};
-    nameSurface(location.file,'mesh');loadHiddenForFile(file);applyHiddenComponents();onStepReloaded();
+    nameSurface(location.file,'mesh');loadHiddenForFile(file);applyHiddenComponents();
     if (group.userData.fitWhenReady) {resetCamera(group);group.userData.fitWhenReady=false;}
     window.dispatchEvent(new CustomEvent(HSM_EVENTS.STEP_MOUNTED,{detail:{file,part:node.name,revision:latest.src,complete:false}}));
   });
@@ -467,7 +466,6 @@ export async function loadStepFile(file, { preserveCamera = false } = {}) {
     nameSurface(location.file, surface);
     loadHiddenForFile(file);     // restore this file's locally-hidden components…
     applyHiddenComponents();     // …and take them out of the freshly-built view
-    onStepReloaded();            // re-seat the component editor's selection on the fresh meshes
     if (!preserveCamera) resetCamera(state.currentGroup);
     const style = faucetStyleFor(file);
     if (style) state.faucetStyle = style.id;

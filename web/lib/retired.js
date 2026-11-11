@@ -7,7 +7,7 @@
 // the tree is kept for.
 //
 // Both readers import the rule from here so they cannot disagree about what is retired: the
-// build graph (`dev-server/deps.js`), which decides what gets built, and the file walkers
+// build graph (`scripts/build-deps.js`), which decides what gets built, and the file walkers
 // (`lib/walk.js`), which decide what the viewer browses and what the deploy diff notifies on.
 // A tree one excludes and the other still lists is a model nothing can rebuild, served as if
 // it were live.

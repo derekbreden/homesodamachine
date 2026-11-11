@@ -40,7 +40,6 @@ export const state = {
   currentPcbMinimap: null,    // Minimap handle
   currentPcbChrome: null,     // makeChromeFit handle — the board's fit, and what it clears
   currentPcbPicks: null,      // {pads,unitsPerMm} pad-picker data for the open board
-  currentPcbEdit: null,       // {name,components} dev-only editor data for the open board (null in prod)
   currentCadWrapper: null,    // host div inside the modal (parent of canvases)
   currentCadResizeObserver: null,
   currentGroup: null,         // Three.js group currently in scene
@@ -65,11 +64,7 @@ export const state = {
   gridWindow: null,           // lazy.js handle for the current grid's mount/release observers;
                               // disconnected and replaced on each buildGrid so the observers die
                               // with the cards they watch
-  codeVersion: null,          // cache-bust token for re-importing the render modules (loaders.js /
-                              // detail-shims.js); null = page-load code is current. Set to the build
-                              // commit on a prod deploy (live.js DEPLOY) and to a change nonce on a dev
-                              // viewer-source save (live.js CODE_CHANGED), so a code edit is picked up
-                              // in place.
+  codeVersion: null,          // Deploy commit used to re-import the detail loaders.
   svgIdSeq: 0,                // monotonic token source for pcb.js's per-instance SVG id rewrite; lives
                               // here (not module-local) so it stays unique across a hot re-import of
                               // pcb.js — a reset counter would re-issue "__b1" and collide with a grid
