@@ -1,0 +1,30 @@
+{
+  "archive": {
+    "gcode_sha256": "7c0302129d06c1cce6efcad98b5b1a908e407ff3aa5ac945e109795438063695",
+    "name": "sculpted-faucet-petgf-fins-left04-z018-mark1-ready.gcode.3mf",
+    "objects": [
+      "faucet-shell-base",
+      "faucet-shell-tip",
+      "faucet-display-cover",
+      "above-counter-plate",
+      "lever-replica"
+    ],
+    "sha256": "905c48edc04fefabce3ac5313abef60bebad0e1df45c3e7a199bf2d7456a4d31",
+    "slots": {
+      "1": {
+        "colour": "000000",
+        "type": "PET-CF"
+      }
+    }
+  },
+  "gcode_state": "PREPARE",
+  "hms": [],
+  "layer_num": 0,
+  "mc_remaining_time": 0,
+  "observed_at": "2026-11-11T08:52:08+00:00",
+  "print_error": 0,
+  "printer": "H2C",
+  "printer_task_id": "1430728926",
+  "subtask_name": "sculpted-faucet-petgf-fins-left04-z018-mark1-ready.gcode.3mf",
+  "total_layer_num": 143
+}
