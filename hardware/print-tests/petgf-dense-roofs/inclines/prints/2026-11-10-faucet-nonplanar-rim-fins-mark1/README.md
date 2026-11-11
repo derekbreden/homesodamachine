@@ -15,4 +15,4 @@ the recesses. [Roof connectivity](roof-connectivity.json) · [Insert and rim pat
 The archived physical model retains the frozen coupon and the authored support
 components. The mapping and recipe bind the actual nonplanar motion to those
 meshes. The launch record confirms the submitted archive and printer acceptance.
-Physical finish and removal remain pending. [Print job](print-job.json) · [Launch](launch.json)
+The operator stopped the print and removed the support roof as one piece. [Physical result](physical-result/physical-result.json). [Print job](print-job.json) · [Launch](launch.json)

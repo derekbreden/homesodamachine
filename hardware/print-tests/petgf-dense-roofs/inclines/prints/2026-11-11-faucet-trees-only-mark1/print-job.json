@@ -1,0 +1,53 @@
+{
+  "purpose": "Print the complete lower faucet curve with tree-supported dense interface, an inclined rim perimeter and bridge-only insert recesses.",
+  "status": "RUNNING",
+  "submitted": true,
+  "printer": "Mark1",
+  "connection_key": "H2C",
+  "nozzle": {
+    "side": "left",
+    "diameter_mm": 0.4,
+    "flow": "Standard",
+    "hardened": true
+  },
+  "material": "Polymaker Fiberon PET-GF15 black",
+  "requested_z_trim_mm": 0.18,
+  "emitted_textured_trim_mm": 0.16,
+  "archive": "faucet-trees-contoured-rim-insert-bridges-left04-z018-mark1.gcode.3mf",
+  "gcode_sha256": "e96f00376ebd5736dbc6e38b4e8b43458e0a8ee89b431212b977437059f856e0",
+  "reference_archive_sha256": "dfa8d1a52e70a39c6c28c1082ce25b2af608c63a1984c143eaeda0415354da5a",
+  "reference_model_member_sha256": "82cd013a7b7d249a182abb0228acb8e0f493a6adbb338dc77f5d6fb7f3af40e5",
+  "settings": {
+    "support_style": "tree_slim",
+    "support_type": "tree(auto)",
+    "support_top_z_distance": ".24",
+    "support_interface_top_layers": 3,
+    "support_interface_spacing_mm": 0,
+    "support_object_xy_distance_mm": 0.4,
+    "support_on_build_plate_only": false,
+    "bridge_flow": 1.25,
+    "bridge_speed_mm_s": 15,
+    "support_bottom_z_distance_mm": 0.0
+  },
+  "estimated_seconds": 7052,
+  "estimated_filament_g": 27.624840961701164,
+  "minimum_full_bead_bed_margin_mm": 94.076,
+  "send_options": {
+    "timelapse": "On",
+    "bed_leveling": "On",
+    "flow_dynamic_calibration": "Auto",
+    "nozzle_offset_calibration": "Auto"
+  },
+  "physical_result": "pending",
+  "archive_sha256": "750b78c6790cdbefd3d1f45aeba8a215c41f2e3b38f95c5a94389e225c968af3",
+  "print_only_archive": "faucet-trees-contoured-rim-insert-bridges-left04-z018-mark1-print-only.gcode.3mf",
+  "print_only_archive_sha256": "d4acbf1051bb202eacd50d0b619f7fd7172738b2ab8968b859b8a3fba877215b",
+  "printer_task_id": "1430488709",
+  "accepted_observed_at": "2026-11-11T06:31:45+00:00",
+  "launch": "launch.json",
+  "mapping": "mapping.json",
+  "path_review": "path-review.json",
+  "rim_source": "../../nonplanar/rim-contour.rs",
+  "mapping_source": "../../nonplanar/experiment.rs",
+  "reference_job": "https://github.com/derekbredensteiner/homesodamachine/blob/40e364be6749339bf892c49263a5c9d6c5560ca0/hardware/print-tests/petgf-dense-roofs/inclines/prints/2026-11-10-faucet-nonplanar-rim-fins-mark1/print-job.json"
+}

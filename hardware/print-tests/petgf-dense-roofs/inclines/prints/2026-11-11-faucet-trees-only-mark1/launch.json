@@ -1,0 +1,26 @@
+{
+  "archive": {
+    "gcode_sha256": "e96f00376ebd5736dbc6e38b4e8b43458e0a8ee89b431212b977437059f856e0",
+    "name": "faucet-trees-contoured-rim-insert-bridges-left04-z018-mark1-print-only.gcode.3mf",
+    "objects": [
+      "FD Faucet base through first lower curve"
+    ],
+    "sha256": "d4acbf1051bb202eacd50d0b619f7fd7172738b2ab8968b859b8a3fba877215b",
+    "slots": {
+      "1": {
+        "colour": "000000",
+        "type": "PET-CF"
+      }
+    }
+  },
+  "gcode_state": "RUNNING",
+  "hms": [],
+  "layer_num": 0,
+  "mc_remaining_time": 80,
+  "observed_at": "2026-11-11T06:31:45+00:00",
+  "print_error": 0,
+  "printer": "H2C",
+  "printer_task_id": "1430488709",
+  "subtask_name": "faucet-trees-contoured-rim-insert-bridges-left04-z018-mark1-print-only.gcode.3mf",
+  "total_layer_num": 143
+}
