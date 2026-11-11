@@ -826,9 +826,8 @@
   grid-template-columns: minmax(0, 1fr) auto;
   align-items: center;
   gap: 4px 8px;
-  flex: 1 1 360px;
   min-width: 0;
-  max-width: 680px;
+  max-width: min(100%, 680px);
 }
 .component-selection > .edge-panel-head { min-width: 0; margin: 0; }
 .component-selection[hidden],
@@ -998,7 +997,7 @@
 }
 
 @media (max-width: 700px) {
-  .component-selection { grid-template-columns: minmax(0, 1fr); }
+  .component-selection { grid-template-columns: minmax(0, 1fr); flex-basis: 100%; }
   .component-hidden-row { max-width: max(70px, calc((100% - 4px) / 2)); }
 }
 

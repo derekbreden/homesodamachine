@@ -622,6 +622,10 @@ function showPanel(names = hiddenNames()) {
   panel.classList.toggle("feature-selected", !!feature);
   const bodyName = componentBody(selection);
   const inside = feature || !selection ? [] : membersOf(selection);
+  const description = selection ? componentName(selection) : "";
+  const unit = componentUnit(selection);
+  const nameInTrail = !feature && description && [...header.querySelectorAll(".cad-crumb.show :is(.cad-crumb-step, .cad-crumb-here)")]
+    .some(crumb => crumb.textContent === description);
   if (selection) {
     [...heldBy(bodyName), ...(feature ? [bodyName] : [])].forEach((held) => {
       const step = document.createElement("button");
@@ -638,8 +642,8 @@ function showPanel(names = hiddenNames()) {
     });
     const here = document.createElement("span");
     here.className = "component-held-here";
-    here.textContent = componentName(selection);
-    here.title = here.textContent;
+    here.textContent = nameInTrail ? (unit?.label || instanceLabel(bodyName)) : description;
+    here.title = description;
     panel._nameEl.appendChild(here);
     if (inside.length) {
       const count = document.createElement("span");
@@ -657,18 +661,19 @@ function showPanel(names = hiddenNames()) {
       number.textContent = material.id;
       panel._identity.appendChild(number);
     }
-    const body = document.createElement("span");
-    body.className = "component-body-name";
-    const unit = componentUnit(selection);
-    body.textContent = feature ? `Feature of ${componentName(bodyName)}`
-      : unit ? `Instance: ${unit.label}` : `CAD body: ${selection}`;
-    panel._identity.appendChild(body);
+    if (!unit || !nameInTrail) {
+      const body = document.createElement("span");
+      body.className = "component-body-name";
+      body.textContent = feature ? `Feature of ${componentName(bodyName)}`
+        : unit ? `Instance: ${unit.label}` : `CAD body: ${selection}`;
+      panel._identity.appendChild(body);
+    }
   }
   const already = selection && standsHidden(selection);
   panel._hideBtn.style.display = selection && !feature ? "block" : "none";
   panel._hideBtn.disabled = !!already;
   panel._hideBtn.textContent = already ? "Hidden" : "Hide";
-  panel._hideBtn.title = selection ? `Hide ${componentName(selection)}` : "";
+  panel._hideBtn.title = selection ? `Hide ${description}` : "";
 
   panel._copy.hidden = !feature;
   panel._copy.textContent = "Copy feature link";
