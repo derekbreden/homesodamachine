@@ -13,3 +13,10 @@ Retain the native plate references when packaging the restored paths with the
 physical target model.
 
 The [active Mark1 article](../prints/2026-11-10-faucet-nonplanar-rim-fins-mark1/print-job.json) binds the complete coupon, component meshes, mapping and executable. The fins carry the same interface as the trees. The [completed comparison](https://github.com/derekbreden/homesodamachine/blob/b06ab316f6c796a314a30f0dc8ffda66113b2e4e/hardware/print-tests/petgf-dense-roofs/inclines/prints/2026-11-10-faucet-nonplanar-gap024-widebands-mark1/physical-result/physical-result.json) supplies the physical rim and insert observations for this test.
+
+The [rim contour editor](rim-contour.rs) reads the restored physical G-code.
+It takes the selected object identity, seat center in print coordinates,
+seat tilt, rim semi-axes, and supported angular interval. It replaces the
+first suspended outer wall with matching arcs and trims the neighbouring
+roads where they meet it. The [prepared Mark1 plate](../prints/2026-11-10-faucet-continuous-rim-mark1/print-job.json)
+records the executable and its coverage review.
