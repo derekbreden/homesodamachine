@@ -38,7 +38,7 @@
     "hardware/cut-parts/carbonation/endcaps-circular/endcap-circular-2hole.step.mesh": "2dc1966be1e6db9c3aa054602e00e6c96408eac7a9f0bfdfcff943b2fbb00e9f",
     "hardware/cut-parts/faucet/under-counter-plate/under-counter-plate.dxf": "8b1196fa7451cc7b3af804dffbbecbdf1ed217db43a6e1ec0f00741b580eca5b",
     "hardware/cut-parts/faucet/under-counter-plate/under-counter-plate.dxf.json": "d0104c2e8a994dc859257b9361c9f0a12ed026b5339c1c3f54165c65cd039675",
-    "hardware/faucet-layout/faucet-assembly.step": "dd2208ec02c85b7edf719fb92947da836480cce220b9e38dd6e8a826223ea2c8",
+    "hardware/faucet-layout/faucet-assembly.step": "073e60642fed1a7152d761faf5398df1d42c5eed7ffb928e318fdd97f0124ce0",
     "hardware/faucet-layout/faucet-assembly.step.mesh": "0458bf117c231f702db52ac6c5ce33f4bb489f2fdbf1132309146d93e3abb3b7",
     "hardware/faucet-layout/faucet-industrial-assembly.step": "0fe171f8209fbfe10552f2f16b57673de57f5cd16e03500d0a99fab5cea94918",
     "hardware/faucet-layout/faucet-industrial-assembly.step.mesh": "71d745df6d9a4d7322ca1510ee15294a8c2cb9b0a23f00c11f8838e7b9afdb0b",
@@ -360,11 +360,11 @@
     "hardware/printed-parts/faucet/faucet-display-cover/corner-overlap-review/2026-10-25/proposed-cover-print.step": "7ac44e3f72d43be091287266e27a3f61ccf2a6abd18b7ae85b648facda5b201a",
     "hardware/printed-parts/faucet/faucet-display-cover/corner-overlap-review/2026-10-25/proposed-cover.step": "e5e37e5314ed6012ae84adcb164ec8e9d0987f29de16a66a061e3839a8ef7206",
     "hardware/printed-parts/faucet/faucet-display-cover/corner-overlap-review/2026-10-25/proposed-cover.stl": "3d4d2e05edde5a0e45aad36e9de072a57103c3b0f8da2bbd875cbfbedbe68133",
-    "hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover-seated.step": "8d4410919e2b6232192ecd1124ea9aaa0792ae59fc71cc48a7f8dce0324ad703",
+    "hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover-seated.step": "49a4353b887804751eeff6030f92bf749bcc4f6748005ae20768634da5a37d18",
     "hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover-seated.step.mesh": "fd02b2bdaddc739cc46374e85b35ab18a9ff1fc6a5014cd794249963ccf6f321",
-    "hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.step": "d4702f0d9d2b1bd1e960304e8741f93d9b437ad153b82fb0a8fbf7ebec67988b",
+    "hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.step": "ebf6ba4e7d0206223e21a703161563012985e8d6acb7bcc1bb53ea1e4d19c973",
     "hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.step.mesh": "c59233780ea99688c9a3cf37fe377392b86c722a7ec597be683966a629452763",
-    "hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.stl": "3a1182b480110d50cb8943dfc4be8d5b5b2344bdcbf10b37052ef2e6423c9cfa",
+    "hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.stl": "52fa7904a560b146e6a25fcc2685b36c0cbc61461b7e13329be83a80fe2e529d",
     "hardware/printed-parts/faucet/faucet-display-cover/fit-review/2026-10-24/button-interference.step": "51c15a76ea9631115e18df83fa15dcc7cea412241eb5e877618cde0763e36721",
     "hardware/printed-parts/faucet/faucet-display-cover/fit-review/2026-10-24/corrected-sculpted-cover.stl": "7e45df88d35c61e990a3bcf7c1c3f1f1021120460bf108e331ec5ee011ccf59a",
     "hardware/printed-parts/faucet/faucet-display-cover/fit-review/2026-10-24/corrected-tip.step": "8116f77a1d2b1856d6bb1ac9cdfe0bb6a7ba39df765c021acd06e5425138f112",
@@ -961,7 +961,7 @@
       "hardware/cut-parts/carbonation/endcaps-circular/endcap-circular-2hole.step.mesh": "2dc1966be1e6db9c3aa054602e00e6c96408eac7a9f0bfdfcff943b2fbb00e9f",
       "hardware/cut-parts/faucet/under-counter-plate/under-counter-plate.dxf": "8b1196fa7451cc7b3af804dffbbecbdf1ed217db43a6e1ec0f00741b580eca5b",
       "hardware/cut-parts/faucet/under-counter-plate/under-counter-plate.dxf.json": "d0104c2e8a994dc859257b9361c9f0a12ed026b5339c1c3f54165c65cd039675",
-      "hardware/faucet-layout/faucet-assembly.step": "dd2208ec02c85b7edf719fb92947da836480cce220b9e38dd6e8a826223ea2c8",
+      "hardware/faucet-layout/faucet-assembly.step": "073e60642fed1a7152d761faf5398df1d42c5eed7ffb928e318fdd97f0124ce0",
       "hardware/faucet-layout/faucet-assembly.step.mesh": "0458bf117c231f702db52ac6c5ce33f4bb489f2fdbf1132309146d93e3abb3b7",
       "hardware/faucet-layout/faucet-industrial-assembly.step": "0fe171f8209fbfe10552f2f16b57673de57f5cd16e03500d0a99fab5cea94918",
       "hardware/faucet-layout/faucet-industrial-assembly.step.mesh": "71d745df6d9a4d7322ca1510ee15294a8c2cb9b0a23f00c11f8838e7b9afdb0b",
@@ -1132,9 +1132,9 @@
       "hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.step.json": "9113c67ce12eeaa9619bace4dae70fb3cb76ab3750f3e28a80ec30a3aa130fc7",
       "hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.step.mesh": "d32ce1afe36b7e4b633c39a07e2d22d123a696fdf1ff1d21426cfbb791f09b88",
       "hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.stl": "cf69dac0a0ce01845ce261d050fbbb876be24baec78d3db77f8d97839bc32990",
-      "hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.step": "d4702f0d9d2b1bd1e960304e8741f93d9b437ad153b82fb0a8fbf7ebec67988b",
+      "hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.step": "ebf6ba4e7d0206223e21a703161563012985e8d6acb7bcc1bb53ea1e4d19c973",
       "hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.step.mesh": "c59233780ea99688c9a3cf37fe377392b86c722a7ec597be683966a629452763",
-      "hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.stl": "3a1182b480110d50cb8943dfc4be8d5b5b2344bdcbf10b37052ef2e6423c9cfa",
+      "hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.stl": "52fa7904a560b146e6a25fcc2685b36c0cbc61461b7e13329be83a80fe2e529d",
       "hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.step": "b49260b14f48c5daa2d1c93e9e7613142fed713856e1d64850d5b335b2cd294c",
       "hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.step.mesh": "04ceb278399687abd33fa293eeb58b95e8a2485665d44050788f5bd2ab691267",
       "hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.stl": "f49e8818fa749ad57445aca26972ff107d840ed53102d33e6fff7837f46c1bfb",
@@ -2264,7 +2264,7 @@
     "hardware/cut-parts/carbonation/endcaps-circular/endcap-circular-2hole.step.mesh": 1793943432,
     "hardware/cut-parts/faucet/under-counter-plate/under-counter-plate.dxf": 1793811159,
     "hardware/cut-parts/faucet/under-counter-plate/under-counter-plate.dxf.json": 1793750338,
-    "hardware/faucet-layout/faucet-assembly.step": 1794024858,
+    "hardware/faucet-layout/faucet-assembly.step": 1794423346.827734,
     "hardware/faucet-layout/faucet-assembly.step.mesh": 1794423338.838363,
     "hardware/faucet-layout/faucet-industrial-assembly.step": 1794377740.08692,
     "hardware/faucet-layout/faucet-industrial-assembly.step.mesh": 1794377730.150382,
@@ -2586,11 +2586,11 @@
     "hardware/printed-parts/faucet/faucet-display-cover/corner-overlap-review/2026-10-25/proposed-cover-print.step": 1792947439,
     "hardware/printed-parts/faucet/faucet-display-cover/corner-overlap-review/2026-10-25/proposed-cover.step": 1792947439,
     "hardware/printed-parts/faucet/faucet-display-cover/corner-overlap-review/2026-10-25/proposed-cover.stl": 1792947439,
-    "hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover-seated.step": 1793938190,
+    "hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover-seated.step": 1794423346.827734,
     "hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover-seated.step.mesh": 1794423328.140163,
-    "hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.step": 1793938190,
+    "hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.step": 1794423346.827734,
     "hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.step.mesh": 1794423328.140163,
-    "hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.stl": 1793938190,
+    "hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.stl": 1794423346.827734,
     "hardware/printed-parts/faucet/faucet-display-cover/fit-review/2026-10-24/button-interference.step": 1792893021,
     "hardware/printed-parts/faucet/faucet-display-cover/fit-review/2026-10-24/corrected-sculpted-cover.stl": 1792893021,
     "hardware/printed-parts/faucet/faucet-display-cover/fit-review/2026-10-24/corrected-tip.step": 1792893021,
@@ -3251,7 +3251,8 @@
       "unproven": true
     },
     "hardware/faucet-layout/faucet-assembly.step": {
-      "commit": "d704dab3005059971ab61aaefe806de87ed07e15",
+      "commit": "a9865aa7d5a7522bccb936b3d23e88ba85f00355",
+      "inputs": "a96fc711658763b8662b26390971b27f287ce5a7d97dd1516def041a4f375ef8",
       "unproven": true
     },
     "hardware/faucet-layout/faucet-assembly.step.mesh": {
@@ -4340,8 +4341,8 @@
       "unproven": true
     },
     "hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover-seated.step": {
-      "commit": "e1207cfaf4440daff1e9b61e77e8f033feb49d58",
-      "inputs": "ae8ef418f807e6d5147495d8d57d65e4d2737aa6b78e828333309cd1715fb884",
+      "commit": "a9865aa7d5a7522bccb936b3d23e88ba85f00355",
+      "inputs": "3654e5fd360168cf11e731248e6502dce3885161e0fec9d76533c1afd711a5ef",
       "unproven": true
     },
     "hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover-seated.step.mesh": {
@@ -4350,8 +4351,8 @@
       "unproven": true
     },
     "hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.step": {
-      "commit": "e1207cfaf4440daff1e9b61e77e8f033feb49d58",
-      "inputs": "ae8ef418f807e6d5147495d8d57d65e4d2737aa6b78e828333309cd1715fb884",
+      "commit": "a9865aa7d5a7522bccb936b3d23e88ba85f00355",
+      "inputs": "3654e5fd360168cf11e731248e6502dce3885161e0fec9d76533c1afd711a5ef",
       "unproven": true
     },
     "hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.step.mesh": {
@@ -4360,8 +4361,8 @@
       "unproven": true
     },
     "hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.stl": {
-      "commit": "e1207cfaf4440daff1e9b61e77e8f033feb49d58",
-      "inputs": "ae8ef418f807e6d5147495d8d57d65e4d2737aa6b78e828333309cd1715fb884",
+      "commit": "a9865aa7d5a7522bccb936b3d23e88ba85f00355",
+      "inputs": "3654e5fd360168cf11e731248e6502dce3885161e0fec9d76533c1afd711a5ef",
       "unproven": true
     },
     "hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.step": {
