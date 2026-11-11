@@ -144,47 +144,15 @@ function reconstructEdges(meshes) {
     meshRecs.push(rec);
     faces.forEach((f, fi) => { faceTable[faceBase + fi] = { rec, fi }; });
 
-    // vertex index -> position key; key -> the exact Vector3 (first seen)
-    const keyToPos = new Map();
-    const keyOf = (vi) => {
-      const x = pos[vi * 3], y = pos[vi * 3 + 1], z = pos[vi * 3 + 2];
-      const k = Math.round(x * QUANT) + "," + Math.round(y * QUANT) + "," + Math.round(z * QUANT);
-      if (!keyToPos.has(k)) keyToPos.set(k, new THREE.Vector3(x, y, z));
-      return k;
-    };
-
-    // mesh-edge (by unordered position pair) -> set of bordering face ids
-    const meshEdges = new Map();
-    const addMeshEdge = (p, q, f) => {
-      if (p === q) return;
-      const id = p < q ? p + "|" + q : q + "|" + p;
-      let rec = meshEdges.get(id);
-      if (!rec) { rec = { a: p, b: q, faces: new Set() }; meshEdges.set(id, rec); }
-      rec.faces.add(f);
-    };
-    for (let t = 0; t < triCount; t++) {
-      const ka = keyOf(idx[t * 3]), kb = keyOf(idx[t * 3 + 1]), kc = keyOf(idx[t * 3 + 2]);
-      const f = triFace[t];
-      addMeshEdge(ka, kb, f);
-      addMeshEdge(kb, kc, f);
-      addMeshEdge(kc, ka, f);
-    }
-
-    // boundary segments grouped by unordered face-pair
-    const byPair = new Map();
-    for (const rec of meshEdges.values()) {
-      if (rec.faces.size < 2) continue; // interior to one face (incl. seams)
-      const fs = [...rec.faces].sort((p, q) => p - q);
-      const pk = fs[0] + "," + fs[1]; // clamp to first two if non-manifold
-      let arr = byPair.get(pk);
-      if (!arr) { arr = []; byPair.set(pk, arr); }
-      arr.push(rec);
-    }
+    const byPair = boundarySegments(pos, idx, triFace);
 
     for (const [pk, segs] of byPair.entries()) {
       const faceIds = pk.split(",").map(Number);
       for (const path of chainSegments(segs)) {
-        const e = makeEdge(path.map((k) => keyToPos.get(k)));
+        const e = makeEdge(path.map(id => {
+          const offset = (id - 1) * 3;
+          return new THREE.Vector3(pos[offset], pos[offset + 1], pos[offset + 2]);
+        }));
         e.solid = mesh.name; // assembly component name (occt), for the blob
         e.faceIds = faceIds; // the two bordering BREP faces
         edges.push(e);
@@ -195,6 +163,95 @@ function reconstructEdges(meshes) {
 
   edges.forEach((e, i) => { e.id = i; });
   return edges;
+}
+
+function tableSize(entries) {
+  return 2 ** Math.ceil(Math.log2(Math.max(1, entries * 1.5)));
+}
+
+function sameCoordinate(a, b) {
+  return a === b || (Number.isNaN(a) && Number.isNaN(b));
+}
+
+// Keep the topology pass in compact tables. Weld each vertex once and retain
+// the first exact position at each quantized coordinate.
+function boundarySegments(pos, idx, triFace) {
+  const vertexIds = new Uint32Array(pos.length / 3);
+  const welded = new Uint32Array(tableSize(vertexIds.length));
+  const weldMask = welded.length - 1;
+  const vertexId = (index) => {
+    if (vertexIds[index]) return vertexIds[index];
+    if (index >= vertexIds.length) return vertexIds.length + 1;
+    const i = index * 3;
+    const x = Math.round(pos[i] * QUANT);
+    const y = Math.round(pos[i + 1] * QUANT);
+    const z = Math.round(pos[i + 2] * QUANT);
+    let slot = (Math.imul(x, 73856093) ^ Math.imul(y, 19349663) ^ Math.imul(z, 83492791)) & weldMask;
+    while (welded[slot]) {
+      const j = (welded[slot] - 1) * 3;
+      if (sameCoordinate(x, Math.round(pos[j] * QUANT)) &&
+          sameCoordinate(y, Math.round(pos[j + 1] * QUANT)) &&
+          sameCoordinate(z, Math.round(pos[j + 2] * QUANT))) {
+        vertexIds[index] = welded[slot];
+        return vertexIds[index];
+      }
+      slot = (slot + 1) & weldMask;
+    }
+    welded[slot] = index + 1;
+    vertexIds[index] = index + 1;
+    return vertexIds[index];
+  };
+
+  // Each record holds the first directed segment and the lowest two distinct
+  // face IDs. The slots find a record while the array keeps triangle order.
+  const slots = new Uint32Array(tableSize(idx.length));
+  const mask = slots.length - 1;
+  const segments = new Int32Array(idx.length * 4);
+  const noSecondFace = 0x7fffffff;
+  let length = 0;
+  const add = (p, q, face) => {
+    if (p === q) return;
+    let slot = (Math.imul(Math.min(p, q), 73856093) ^ Math.imul(Math.max(p, q), 19349663)) & mask;
+    while (slots[slot]) {
+      const i = (slots[slot] - 1) * 4;
+      const a = segments[i], b = segments[i + 1];
+      if ((p === a && q === b) || (p === b && q === a)) {
+        const first = segments[i + 2];
+        if (face < first) {
+          segments[i + 3] = first;
+          segments[i + 2] = face;
+        } else if (face > first && face < segments[i + 3]) {
+          segments[i + 3] = face;
+        }
+        return;
+      }
+      slot = (slot + 1) & mask;
+    }
+    slots[slot] = length / 4 + 1;
+    segments[length++] = p;
+    segments[length++] = q;
+    segments[length++] = face;
+    segments[length++] = noSecondFace;
+  };
+  for (let t = 0; t < triFace.length; t++) {
+    const i = t * 3;
+    const a = vertexId(idx[i]), b = vertexId(idx[i + 1]), c = vertexId(idx[i + 2]);
+    const face = triFace[t];
+    add(a, b, face);
+    add(b, c, face);
+    add(c, a, face);
+  }
+
+  const byPair = new Map();
+  for (let i = 0; i < length; i += 4) {
+    const second = segments[i + 3];
+    if (second === noSecondFace) continue;
+    const key = segments[i + 2] + "," + second;
+    let list = byPair.get(key);
+    if (!list) { list = []; byPair.set(key, list); }
+    list.push({ a: segments[i], b: segments[i + 1] });
+  }
+  return byPair;
 }
 
 // Chain boundary segments (all sharing one face-pair) into polylines. Walks
