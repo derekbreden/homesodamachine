@@ -95,6 +95,9 @@
     "release_gap_degrees": 4,
     "requested_vertical_gap_mm": 0.24,
     "tree_support_scope": "The base uses Slim trees and a dense interface. Local blockers keep both stages of each insert recess clear.",
+    "object_settings": {
+      "brim_type": "no_brim"
+    },
     "selection_quote": "Those arc fins snapped off super easy, and they provided excellent support.",
     "scope": "A shared dense interface on the rim trees, with bridge paths across both stages of each insert recess.",
     "common_interface": {

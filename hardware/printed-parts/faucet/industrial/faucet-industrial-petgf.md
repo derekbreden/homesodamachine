@@ -55,7 +55,7 @@ the selected support contacts and emitted bridges.
 | Wipe | Off |
 | Automatic supports | Tree(auto), saved Default style, 35° threshold |
 | Support gaps and interfaces | [Shared PET-GF recipe](../../petgf.3mf) with the [base contact overrides](finish-selection.json) |
-| Brim | Auto, 5 mm, 0.1 mm gap |
+| Brim | Off for the base. Auto on the rest of the plate |
 | Mark2 requested / emitted Z trim | +0.04 / +0.02 mm on Textured PEI |
 | Mark1 requested / emitted Z trim | +0.18 / +0.16 mm on Textured PEI |
 | Timelapse / bed leveling | On / On |

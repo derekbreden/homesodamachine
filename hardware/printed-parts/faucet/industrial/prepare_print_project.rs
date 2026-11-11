@@ -211,8 +211,15 @@ fn main() -> Result<()> {
         let record = enforce_rear_seam(&mut r, &finish["tip_rear_seam_enforcement"])?;
         r.extra.insert("tip_rear_seam_enforcement".into(), record);
     }
-    if finish["base_rim_supports"]["common_interface"].is_object() {
-        let record = add_common_base_rim(&root, &mut r, &finish["base_rim_supports"]["common_interface"])?;
+    let base_rim = &finish["base_rim_supports"];
+    if base_rim["common_interface"].is_object() {
+        let mut record = add_common_base_rim(&root, &mut r, &base_rim["common_interface"])?;
+        let base = r.row(base_rim["part"].as_str().context("base rim part")?)?.index;
+        let overrides = base_rim["object_settings"].as_object().context("base object settings")?;
+        let settings = &mut r.plate.objects[base].settings;
+        settings.retain(|(key, _)| !overrides.contains_key(key));
+        settings.extend(overrides.iter().map(|(key, value)| (key.clone(), text(value))));
+        record["object_settings"] = base_rim["object_settings"].clone();
         r.extra.insert("base_rim_supports".into(), record);
     }
     let plate_recesses = &finish["mounting_plate_counterbores"];

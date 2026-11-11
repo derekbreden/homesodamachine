@@ -49,8 +49,9 @@ Ordinary supported-wall and infill speeds retain the black print's settings.
 | Side-down lever | 0° of print-oriented STL | Saved automatic supports |
 
 The [shared PET-GF interface](../../petgf.3mf) forms a continuous roof on
-the base's slim trees. The inclined contact treatment is bounded to the
-base rim and the tip's inner dispense face. The cover prints on its flat lower lands with support
+the base's slim trees. The base prints without a brim. The inclined contact
+treatment is bounded to the base rim and the tip's inner dispense face. The
+cover prints on its flat lower lands with support
 accessible through its open underside. The side-down lever bridges its
 channel and uses accessible support at the attachment relief. The shared tip
 uses its selected lip supports and hidden-root anchor.
