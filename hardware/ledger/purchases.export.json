@@ -513,6 +513,14 @@
       "purchase_id": "pur-3ce173932d6c45f184bcd60237a2c790"
     },
     {
+      "allocation_id": "alloc-437357377f864e1695ffd1ce84def658",
+      "amount_minor": 642,
+      "currency": "USD",
+      "event_id": "evt-1192b2180d784a0cb3a1c85da3946034",
+      "order_id": "amazon:112-8461282-5610650",
+      "purchase_id": "pur-3bd4a5d8e22947b88ec7bcc9f7a8df8a"
+    },
+    {
       "allocation_id": "alloc-46d597a68ada4e9cb985e3178b0678b5",
       "amount_minor": 950,
       "currency": "USD",
@@ -751,6 +759,14 @@
       "event_id": "evt-ec80401c9c4543868df5dad0e746aa0b",
       "order_id": "anthropic:HYODLCRX-0072",
       "purchase_id": "pur-c31998ca39ca4f85aebc8dedadcf032a"
+    },
+    {
+      "allocation_id": "alloc-732b654fb9b04ab1a233b019f6e320e3",
+      "amount_minor": 900,
+      "currency": "USD",
+      "event_id": "evt-51181bad6ecd4fcfb97e622f5e17a5f9",
+      "order_id": "amazon:112-9511233-2346613",
+      "purchase_id": "pur-770c1f0b7dfd4d458834d39d99185eb3"
     },
     {
       "allocation_id": "alloc-7403c57d1ce44f5388187b4cd879af04",
@@ -3094,6 +3110,28 @@
       "vendor": "Draft Warehouse"
     },
     {
+      "checked_at": "2026-11-11",
+      "complete_period": null,
+      "coverage": "partial",
+      "coverage_id": "coverage-bb9e6d8e7ee44541935e7b7717d4e077",
+      "evidence_type": "order_confirmations_and_pending_merchant_payments",
+      "examined_period": {
+        "end": "2026-11-11",
+        "start": "2026-11-10"
+      },
+      "note": "Two purchase-email events resolved against exact signed-in order identities and existing project tooling requirements. Exact-reference Gmail searches each returned one confirmation with no further pages. Order details establish placed dates and estimated-tax totals; order-scoped payments remain pending. No actual delivery or completed charge inferred, and no broader merchant coverage claimed.",
+      "order_ids": [
+        "amazon:112-8461282-5610650",
+        "amazon:112-9511233-2346613"
+      ],
+      "source_ids": [
+        "src-499eb31e61134d6d8969fb2173d42ae2",
+        "src-88e955c9cffc408097504f74273dea35"
+      ],
+      "stream": "two named carbonator earth-clamp tooling orders",
+      "vendor": "Amazon"
+    },
+    {
       "checked_at": "2026-10-04",
       "complete_period": null,
       "coverage": "unknown",
@@ -3883,6 +3921,30 @@
       "unallocated_to_purchase_minor": 0,
       "vendor": "Anthropic",
       "verified_at": "2026-10-04"
+    },
+    {
+      "allocation_ids": [
+        "alloc-437357377f864e1695ffd1ce84def658"
+      ],
+      "allocation_status": "all_project",
+      "amount_minor": 642,
+      "confirmation": "expected",
+      "currency": "USD",
+      "event_date": null,
+      "event_id": "evt-1192b2180d784a0cb3a1c85da3946034",
+      "event_type": "charge",
+      "order_ids": [
+        "amazon:112-8461282-5610650"
+      ],
+      "purchase_ids": [
+        "pur-3bd4a5d8e22947b88ec7bcc9f7a8df8a"
+      ],
+      "source_ids": [
+        "src-499eb31e61134d6d8969fb2173d42ae2"
+      ],
+      "unallocated_to_purchase_minor": 0,
+      "vendor": "Amazon",
+      "verified_at": "2026-11-11"
     },
     {
       "allocation_ids": [
@@ -5003,6 +5065,30 @@
       "unallocated_to_purchase_minor": 0,
       "vendor": "Amazon",
       "verified_at": "2026-10-13"
+    },
+    {
+      "allocation_ids": [
+        "alloc-732b654fb9b04ab1a233b019f6e320e3"
+      ],
+      "allocation_status": "all_project",
+      "amount_minor": 900,
+      "confirmation": "expected",
+      "currency": "USD",
+      "event_date": null,
+      "event_id": "evt-51181bad6ecd4fcfb97e622f5e17a5f9",
+      "event_type": "charge",
+      "order_ids": [
+        "amazon:112-9511233-2346613"
+      ],
+      "purchase_ids": [
+        "pur-770c1f0b7dfd4d458834d39d99185eb3"
+      ],
+      "source_ids": [
+        "src-88e955c9cffc408097504f74273dea35"
+      ],
+      "unallocated_to_purchase_minor": 0,
+      "vendor": "Amazon",
+      "verified_at": "2026-11-11"
     },
     {
       "allocation_ids": [
@@ -9391,7 +9477,7 @@
       ]
     }
   ],
-  "input_fingerprint": "sha256:dfc77ca7a8135fbc6af0597f8cb9f0f8c3f619634a8d50c7cc06e566579c1f99",
+  "input_fingerprint": "sha256:44e5360e40f6f1a1a22f6999b19de1249e8a381c63621880a095c73afaeffe2b",
   "orders": [
     {
       "allocation_status": "all_project",
@@ -13438,6 +13524,25 @@
     },
     {
       "allocation_status": "all_project",
+      "event_ids": [
+        "evt-1192b2180d784a0cb3a1c85da3946034"
+      ],
+      "order_date": {
+        "precision": "day",
+        "value": "2026-11-10"
+      },
+      "order_id": "amazon:112-8461282-5610650",
+      "purchase_ids": [
+        "pur-3bd4a5d8e22947b88ec7bcc9f7a8df8a"
+      ],
+      "reference": "112-8461282-5610650",
+      "source_ids": [
+        "src-499eb31e61134d6d8969fb2173d42ae2"
+      ],
+      "vendor": "Amazon"
+    },
+    {
+      "allocation_status": "all_project",
       "event_ids": [],
       "order_date": {
         "precision": "day",
@@ -13949,6 +14054,25 @@
       "reference": "112-9399398-0475445",
       "source_ids": [
         "saved-amazon:112-9399398-0475445"
+      ],
+      "vendor": "Amazon"
+    },
+    {
+      "allocation_status": "all_project",
+      "event_ids": [
+        "evt-51181bad6ecd4fcfb97e622f5e17a5f9"
+      ],
+      "order_date": {
+        "precision": "day",
+        "value": "2026-11-10"
+      },
+      "order_id": "amazon:112-9511233-2346613",
+      "purchase_ids": [
+        "pur-770c1f0b7dfd4d458834d39d99185eb3"
+      ],
+      "reference": "112-9511233-2346613",
+      "source_ids": [
+        "src-88e955c9cffc408097504f74273dea35"
       ],
       "vendor": "Amazon"
     },
@@ -25877,6 +26001,52 @@
     },
     {
       "allocation_status": "all_project",
+      "amount_evidence": "estimate",
+      "amount_minor": 642,
+      "contributes": true,
+      "currency": "USD",
+      "delivery_date": null,
+      "description": "Piutouyar M1–M6 adjustable tap wrench, 1/16\"–1/4\" tap capacity — small hand driver for the carbonator upper-rim M3 earth-clamp tap. $5.99 item + $0.43 estimated tax; free shipping",
+      "event_ids": [
+        "evt-1192b2180d784a0cb3a1c85da3946034"
+      ],
+      "fulfillment": "ON-ORDER",
+      "invoice_date": null,
+      "ledger_purchase_id": "pur-3bd4a5d8e22947b88ec7bcc9f7a8df8a",
+      "merchant_charge_allocated_minor": 0,
+      "merchant_refund_allocated_minor": 0,
+      "order_date": {
+        "precision": "day",
+        "value": "2026-11-10"
+      },
+      "order_ids": [
+        "amazon:112-8461282-5610650"
+      ],
+      "payment_evidence": "unknown",
+      "price_basis": "row_total",
+      "purchase_id": "pur-3bd4a5d8e22947b88ec7bcc9f7a8df8a",
+      "purpose": "equipment_tooling",
+      "quantity": 1,
+      "quantity_text": "1",
+      "receipt_date": null,
+      "record_role": "purchase",
+      "row_date": {
+        "precision": "day",
+        "value": "2026-11-10"
+      },
+      "row_date_basis": "order_date",
+      "section": "1. Carbonator fabrication",
+      "service_period": null,
+      "source_ids": [
+        "src-499eb31e61134d6d8969fb2173d42ae2"
+      ],
+      "split_charge": false,
+      "stream": "purchase",
+      "unit_amount_minor": null,
+      "vendor": "Amazon"
+    },
+    {
+      "allocation_status": "all_project",
       "amount_evidence": "legacy_unverified",
       "amount_minor": 728,
       "contributes": true,
@@ -35161,6 +35331,52 @@
       "source_ids": [
         "legacy-ledger-2026",
         "saved-amazon:112-2295053-5101056"
+      ],
+      "split_charge": false,
+      "stream": "purchase",
+      "unit_amount_minor": null,
+      "vendor": "Amazon"
+    },
+    {
+      "allocation_status": "all_project",
+      "amount_evidence": "estimate",
+      "amount_minor": 900,
+      "contributes": true,
+      "currency": "USD",
+      "delivery_date": null,
+      "description": "uxcell M3 × 0.5 spiral-flute tap and Ø2.5 mm twist-drill set, M35 cobalt HSS — carbonator upper-rim earth attachment. $8.39 item + $0.61 estimated tax; free shipping",
+      "event_ids": [
+        "evt-51181bad6ecd4fcfb97e622f5e17a5f9"
+      ],
+      "fulfillment": "ON-ORDER",
+      "invoice_date": null,
+      "ledger_purchase_id": "pur-770c1f0b7dfd4d458834d39d99185eb3",
+      "merchant_charge_allocated_minor": 0,
+      "merchant_refund_allocated_minor": 0,
+      "order_date": {
+        "precision": "day",
+        "value": "2026-11-10"
+      },
+      "order_ids": [
+        "amazon:112-9511233-2346613"
+      ],
+      "payment_evidence": "unknown",
+      "price_basis": "row_total",
+      "purchase_id": "pur-770c1f0b7dfd4d458834d39d99185eb3",
+      "purpose": "equipment_tooling",
+      "quantity": 1,
+      "quantity_text": "1 set",
+      "receipt_date": null,
+      "record_role": "purchase",
+      "row_date": {
+        "precision": "day",
+        "value": "2026-11-10"
+      },
+      "row_date_basis": "order_date",
+      "section": "1. Carbonator fabrication",
+      "service_period": null,
+      "source_ids": [
+        "src-88e955c9cffc408097504f74273dea35"
       ],
       "split_charge": false,
       "stream": "purchase",
@@ -61890,6 +62106,23 @@
       "verified_at": "2026-10-13"
     },
     {
+      "document_date": null,
+      "document_type": "order_confirmation_and_merchant_order_details",
+      "note": "Order confirmation matched to signed-in Mac Chrome Order Details and exact B0F7K43T14 Piutouyar M1-6 adjustable tap wrench. One wrench, placed 2026-11-10: USD 5.99 item, USD 0.43 estimated tax, free shipping, USD 6.42 total. Arrival is displayed only as a relative estimate; no actual delivery is established. The order-scoped merchant payment is Pending dated 2026-11-10, not completed. The source establishes an expected charge only.",
+      "notification_date": {
+        "precision": "day",
+        "value": "2026-11-11"
+      },
+      "proves": [
+        "price",
+        "order_date"
+      ],
+      "reference": "112-8461282-5610650",
+      "source_id": "src-499eb31e61134d6d8969fb2173d42ae2",
+      "vendor": "Amazon",
+      "verified_at": "2026-11-11"
+    },
+    {
       "document_date": {
         "precision": "day",
         "value": "2026-04-26"
@@ -63458,6 +63691,23 @@
       "source_id": "src-87da27cdf1a646c9971668c463005473",
       "vendor": "Amazon",
       "verified_at": "2026-11-10"
+    },
+    {
+      "document_date": null,
+      "document_type": "order_confirmation_and_merchant_order_details",
+      "note": "Order confirmation matched to signed-in Mac Chrome Order Details and the exact B09TYSP9NV M3 x 0.5 tap / 2.5 mm drill variant. One set, placed 2026-11-10: USD 8.39 item, USD 0.61 estimated tax, free shipping, USD 9.00 total. Tracker is Ordered, step 1 of 4. Arrival is displayed only as a relative estimate; no actual delivery is established. The order-scoped merchant payment is Pending dated 2026-11-10, not completed. The source establishes an expected charge only.",
+      "notification_date": {
+        "precision": "day",
+        "value": "2026-11-11"
+      },
+      "proves": [
+        "price",
+        "order_date"
+      ],
+      "reference": "112-9511233-2346613",
+      "source_id": "src-88e955c9cffc408097504f74273dea35",
+      "vendor": "Amazon",
+      "verified_at": "2026-11-11"
     },
     {
       "document_date": {
@@ -67347,13 +67597,15 @@
           "unknown_amount_ids": []
         },
         {
-          "amount_minor": 13580,
+          "amount_minor": 15122,
           "currency": "USD",
           "fulfillment": "ON-ORDER",
           "purchase_ids": [
             "pur-14f8f47e82a74b129f4677cb0fc2a67d",
+            "pur-3bd4a5d8e22947b88ec7bcc9f7a8df8a",
             "pur-4eaf76e6557740d7b0e85e0be8664f71",
-            "pur-6655f4a0c1c747bc8ce06a69596eb432"
+            "pur-6655f4a0c1c747bc8ce06a69596eb432",
+            "pur-770c1f0b7dfd4d458834d39d99185eb3"
           ],
           "unknown_amount_ids": []
         },
@@ -67371,8 +67623,10 @@
       "expected_refund_event_ids": [],
       "outstanding_purchase_ids": [
         "pur-14f8f47e82a74b129f4677cb0fc2a67d",
+        "pur-3bd4a5d8e22947b88ec7bcc9f7a8df8a",
         "pur-4eaf76e6557740d7b0e85e0be8664f71",
         "pur-6655f4a0c1c747bc8ce06a69596eb432",
+        "pur-770c1f0b7dfd4d458834d39d99185eb3",
         "pur-b6c01a5b012340fc888139c1070dc054",
         "pur-c887374045604177851c4a81cc779f0e"
       ],
@@ -67381,8 +67635,10 @@
     "merchant_payments": {
       "basis": "Confirmed merchant-evidenced project charges and issued monetary refunds by merchant event calendar month; bank posting is outside this ledger. Expected events, authorizations, noncash credits and unresolved project shares are excluded from charges/refunds/net.",
       "expected_event_ids": [
+        "evt-1192b2180d784a0cb3a1c85da3946034",
         "evt-1399a1a835ce4be3a489628c06225b33",
         "evt-44d3b6c0a264492589465271e6914753",
+        "evt-51181bad6ecd4fcfb97e622f5e17a5f9",
         "evt-5a6637d18fab4dbaa2c3a7428c33273f",
         "evt-5fddb80e882c4533bf9042d5a74088cc",
         "evt-9fd2d4a65f7d45a594a7ac3a6837d416",
@@ -67733,10 +67989,12 @@
           "currency": "USD",
           "event_ids": [
             "evt-0447af18f1f34778b9cd0f9facee2d40",
+            "evt-1192b2180d784a0cb3a1c85da3946034",
             "evt-1399a1a835ce4be3a489628c06225b33",
             "evt-1bead24454464c688dab3d4b9f2bc2bc",
             "evt-44d3b6c0a264492589465271e6914753",
             "evt-4f3044872f6347a3b95f8efefe1bae8d",
+            "evt-51181bad6ecd4fcfb97e622f5e17a5f9",
             "evt-5a6637d18fab4dbaa2c3a7428c33273f",
             "evt-5fddb80e882c4533bf9042d5a74088cc",
             "evt-6540e6fba6f049698b43911f57012c6b",
@@ -68481,7 +68739,7 @@
         },
         {
           "currency": "USD",
-          "estimate_minor": 2924,
+          "estimate_minor": 4466,
           "evidence_scope": "retrieved_records_only",
           "final_vendor_amount_minor": 65406,
           "legacy_unverified_minor": 0,
@@ -68491,9 +68749,11 @@
             "pur-14f8f47e82a74b129f4677cb0fc2a67d",
             "pur-24623d00c3e94898adf2465f7537b1bd",
             "pur-3161c146b8ef40e5817e13af4dc07846",
+            "pur-3bd4a5d8e22947b88ec7bcc9f7a8df8a",
             "pur-3fca793e96a64c20b79ac0831efc3b50",
             "pur-5f9b203a9810468f8bab74284d78f44d",
             "pur-6655f4a0c1c747bc8ce06a69596eb432",
+            "pur-770c1f0b7dfd4d458834d39d99185eb3",
             "pur-7ebe706384b34c718af7af886e0988d7",
             "pur-89b25fbe2a3e44adb4cbb188ab8a820f",
             "pur-97a6d900980c4b878f717f19b72badae",
@@ -68503,7 +68763,7 @@
             "pur-d6686b26577043b2acf9c6793d085302",
             "pur-f72407db7ffa450695c514cf2f38539b"
           ],
-          "total_minor": 68330,
+          "total_minor": 69872,
           "unknown_amount_ids": []
         },
         {
@@ -68540,7 +68800,7 @@
           "purpose": "engineering_software_services"
         },
         {
-          "amount_minor": 2379885,
+          "amount_minor": 2381427,
           "currency": "USD",
           "purpose": "equipment_tooling"
         },
@@ -68558,10 +68818,10 @@
       "totals": [
         {
           "currency": "USD",
-          "estimate_minor": 232046,
+          "estimate_minor": 233588,
           "final_vendor_amount_minor": 2501028,
           "legacy_unverified_minor": 2288208,
-          "total_minor": 5021282
+          "total_minor": 5022824
         }
       ],
       "undated_unallocated": [
@@ -68720,11 +68980,11 @@
       "by_currency": [
         {
           "currency": "USD",
-          "estimated_purchase_minor": 232046,
+          "estimated_purchase_minor": 233588,
           "legacy_unverified_purchase_minor": 2288208,
           "order_only_charge_allocation_minor": 6561,
           "partial_charge_purchase_minor": 0,
-          "purchases_without_merchant_charge_minor": 2862131,
+          "purchases_without_merchant_charge_minor": 2863673,
           "undated_charge_minor": 174052,
           "undated_refund_minor": 0,
           "undated_unallocated_purchase_minor": 975132,
@@ -68739,12 +68999,14 @@
         "pur-0d4eaf3ef27646a8b8f77ea46d4f2d44",
         "pur-1394610e499a45c08ba665ed1200053c",
         "pur-250afee3f9d341c9a9d18d4e33c0fd0e",
+        "pur-3bd4a5d8e22947b88ec7bcc9f7a8df8a",
         "pur-3ce173932d6c45f184bcd60237a2c790",
         "pur-3e2e38c4658c47eba0f7b8efe6bb4734",
         "pur-406788001c4d41f39213bbd4ec7a35ad",
         "pur-4eaf76e6557740d7b0e85e0be8664f71",
         "pur-5090fe33ed404b20b5f3401171bf8565",
         "pur-5da1ea9540d44a8897b0c2774fe1ff35",
+        "pur-770c1f0b7dfd4d458834d39d99185eb3",
         "pur-7a2c9d6f4b8e4d1a3f6c0b2d4e5f7a96",
         "pur-7cb5c1d8028249feb0e80687059fc82e",
         "pur-87565d390bcc451a9fbfb44dc871d585",
@@ -68830,6 +69092,7 @@
         "coverage-b8b45e49d70542c79e84138ae30ce7a7",
         "coverage-b9b06230952f4f6795765fbb8e7c1222",
         "coverage-ba4bf9754c174c37ad1d77933b5a2574",
+        "coverage-bb9e6d8e7ee44541935e7b7717d4e077",
         "coverage-bd073659d99f4c38b20c1d9fac3c8155",
         "coverage-bd8d0957451549b2bd2006065f3ef7cb",
         "coverage-c2b991ed7f77417889868ab62b87b299",
@@ -69448,6 +69711,7 @@
         "pur-39eaa2bc1e864273b83e0f52945fef6e",
         "pur-3b3178c78ce243199ced7cba1eca0b84",
         "pur-3b72c994b94b43c29f76326060b40799",
+        "pur-3bd4a5d8e22947b88ec7bcc9f7a8df8a",
         "pur-3bd5d44c62d84422b3dbe3310c70a21a",
         "pur-3be1b856906740fcbb8abccf195fcf8c",
         "pur-3ce496aeefa54ba3ac576dd7b9d3ec91",
@@ -69588,6 +69852,7 @@
         "pur-75e2868ec892406fa186ca13d17e7497",
         "pur-763a5d1b60e4425180a1bb9110e46614",
         "pur-764f5a241d364192abf88a18b9e465b8",
+        "pur-770c1f0b7dfd4d458834d39d99185eb3",
         "pur-77516c5268634911aa7b8d417365da4e",
         "pur-781382ae4d994c73ba85c16561f653b2",
         "pur-78b35b2efbb941efbb1ab93268589ce8",
@@ -69867,10 +70132,12 @@
       ],
       "undated_unallocated_event_ids": [
         "evt-0447af18f1f34778b9cd0f9facee2d40",
+        "evt-1192b2180d784a0cb3a1c85da3946034",
         "evt-1399a1a835ce4be3a489628c06225b33",
         "evt-1bead24454464c688dab3d4b9f2bc2bc",
         "evt-44d3b6c0a264492589465271e6914753",
         "evt-4f3044872f6347a3b95f8efefe1bae8d",
+        "evt-51181bad6ecd4fcfb97e622f5e17a5f9",
         "evt-5a6637d18fab4dbaa2c3a7428c33273f",
         "evt-5fddb80e882c4533bf9042d5a74088cc",
         "evt-6540e6fba6f049698b43911f57012c6b",
@@ -70086,6 +70353,7 @@
       "coverage-b8b45e49d70542c79e84138ae30ce7a7: evidence coverage is partial",
       "coverage-b9b06230952f4f6795765fbb8e7c1222: evidence coverage is unknown",
       "coverage-ba4bf9754c174c37ad1d77933b5a2574: evidence coverage is partial",
+      "coverage-bb9e6d8e7ee44541935e7b7717d4e077: evidence coverage is partial",
       "coverage-bd073659d99f4c38b20c1d9fac3c8155: evidence coverage is unknown",
       "coverage-bd8d0957451549b2bd2006065f3ef7cb: evidence coverage is partial",
       "coverage-c2b991ed7f77417889868ab62b87b299: evidence coverage is partial",
@@ -70113,7 +70381,7 @@
       "coverage-fee7edc5545c4ce58fba854587790eb4: evidence coverage is partial",
       "Legacy order 112-0019658-3684217: row valuation USD 139.80, preserved project invoice USD 139.81; historical allocation residual USD +0.01. Original prices retained; no balancing payment invented.",
       "Legacy order 112-0066205-0960237: row valuation USD 423.94, preserved project invoice USD 423.95; historical allocation residual USD +0.01. Original prices retained; no balancing payment invented.",
-      "19 legacy named order(s) lack an exact invoice allocation check",
+      "21 legacy named order(s) lack an exact invoice allocation check",
       "1 preserved potentially project order(s) have no named Markdown row"
     ]
   }

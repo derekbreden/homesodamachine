@@ -9659,6 +9659,30 @@
         "precision": "day",
         "value": "2026-04-13"
       }
+    },
+    "pur-770c1f0b7dfd4d458834d39d99185eb3": {
+      "vendor": "Amazon",
+      "purpose": "equipment_tooling",
+      "amount_evidence": "estimate",
+      "order_ids": [
+        "amazon:112-9511233-2346613"
+      ],
+      "allocation_status": "all_project",
+      "source_ids": [
+        "src-88e955c9cffc408097504f74273dea35"
+      ]
+    },
+    "pur-3bd4a5d8e22947b88ec7bcc9f7a8df8a": {
+      "vendor": "Amazon",
+      "purpose": "equipment_tooling",
+      "amount_evidence": "estimate",
+      "order_ids": [
+        "amazon:112-8461282-5610650"
+      ],
+      "allocation_status": "all_project",
+      "source_ids": [
+        "src-499eb31e61134d6d8969fb2173d42ae2"
+      ]
     }
   },
   "orders": {
@@ -15870,6 +15894,30 @@
       "source_ids": [
         "src-94242d2479d545fcb0e218b38fd1585a"
       ]
+    },
+    "amazon:112-9511233-2346613": {
+      "vendor": "Amazon",
+      "reference": "112-9511233-2346613",
+      "order_date": {
+        "precision": "day",
+        "value": "2026-11-10"
+      },
+      "allocation_status": "all_project",
+      "source_ids": [
+        "src-88e955c9cffc408097504f74273dea35"
+      ]
+    },
+    "amazon:112-8461282-5610650": {
+      "vendor": "Amazon",
+      "reference": "112-8461282-5610650",
+      "order_date": {
+        "precision": "day",
+        "value": "2026-11-10"
+      },
+      "allocation_status": "all_project",
+      "source_ids": [
+        "src-499eb31e61134d6d8969fb2173d42ae2"
+      ]
     }
   },
   "events": [
@@ -20010,6 +20058,40 @@
       "order_ids": [
         "amazon:114-4680955-8473844"
       ]
+    },
+    {
+      "event_id": "evt-51181bad6ecd4fcfb97e622f5e17a5f9",
+      "vendor": "Amazon",
+      "event_type": "charge",
+      "confirmation": "expected",
+      "event_date": null,
+      "amount_minor": 900,
+      "currency": "USD",
+      "allocation_status": "all_project",
+      "source_ids": [
+        "src-88e955c9cffc408097504f74273dea35"
+      ],
+      "verified_at": "2026-11-11",
+      "order_ids": [
+        "amazon:112-9511233-2346613"
+      ]
+    },
+    {
+      "event_id": "evt-1192b2180d784a0cb3a1c85da3946034",
+      "vendor": "Amazon",
+      "event_type": "charge",
+      "confirmation": "expected",
+      "event_date": null,
+      "amount_minor": 642,
+      "currency": "USD",
+      "allocation_status": "all_project",
+      "source_ids": [
+        "src-499eb31e61134d6d8969fb2173d42ae2"
+      ],
+      "verified_at": "2026-11-11",
+      "order_ids": [
+        "amazon:112-8461282-5610650"
+      ]
     }
   ],
   "allocations": [
@@ -21699,6 +21781,22 @@
       "purchase_id": "pur-6fb9cbd2160040c983dc0055e58d4de1",
       "order_id": "amazon:114-4680955-8473844",
       "amount_minor": 3002,
+      "currency": "USD"
+    },
+    {
+      "allocation_id": "alloc-732b654fb9b04ab1a233b019f6e320e3",
+      "event_id": "evt-51181bad6ecd4fcfb97e622f5e17a5f9",
+      "purchase_id": "pur-770c1f0b7dfd4d458834d39d99185eb3",
+      "order_id": "amazon:112-9511233-2346613",
+      "amount_minor": 900,
+      "currency": "USD"
+    },
+    {
+      "allocation_id": "alloc-437357377f864e1695ffd1ce84def658",
+      "event_id": "evt-1192b2180d784a0cb3a1c85da3946034",
+      "purchase_id": "pur-3bd4a5d8e22947b88ec7bcc9f7a8df8a",
+      "order_id": "amazon:112-8461282-5610650",
+      "amount_minor": 642,
       "currency": "USD"
     }
   ],
@@ -33455,6 +33553,38 @@
       },
       "verified_at": "2026-11-11",
       "note": "Live order-scoped Your Payments > Completed shows the separate USD 32.16 charge dated 2026-11-10. It confirms the existing expected event in place. No bank posting or funding ownership is inferred."
+    },
+    "src-88e955c9cffc408097504f74273dea35": {
+      "vendor": "Amazon",
+      "document_type": "order_confirmation_and_merchant_order_details",
+      "reference": "112-9511233-2346613",
+      "document_date": null,
+      "notification_date": {
+        "precision": "day",
+        "value": "2026-11-11"
+      },
+      "proves": [
+        "price",
+        "order_date"
+      ],
+      "verified_at": "2026-11-11",
+      "note": "Order confirmation matched to signed-in Mac Chrome Order Details and the exact B09TYSP9NV M3 x 0.5 tap / 2.5 mm drill variant. One set, placed 2026-11-10: USD 8.39 item, USD 0.61 estimated tax, free shipping, USD 9.00 total. Tracker is Ordered, step 1 of 4. Arrival is displayed only as a relative estimate; no actual delivery is established. The order-scoped merchant payment is Pending dated 2026-11-10, not completed. The source establishes an expected charge only."
+    },
+    "src-499eb31e61134d6d8969fb2173d42ae2": {
+      "vendor": "Amazon",
+      "document_type": "order_confirmation_and_merchant_order_details",
+      "reference": "112-8461282-5610650",
+      "document_date": null,
+      "notification_date": {
+        "precision": "day",
+        "value": "2026-11-11"
+      },
+      "proves": [
+        "price",
+        "order_date"
+      ],
+      "verified_at": "2026-11-11",
+      "note": "Order confirmation matched to signed-in Mac Chrome Order Details and exact B0F7K43T14 Piutouyar M1-6 adjustable tap wrench. One wrench, placed 2026-11-10: USD 5.99 item, USD 0.43 estimated tax, free shipping, USD 6.42 total. Arrival is displayed only as a relative estimate; no actual delivery is established. The order-scoped merchant payment is Pending dated 2026-11-10, not completed. The source establishes an expected charge only."
     }
   },
   "coverage": [
@@ -35399,6 +35529,28 @@
         "amazon:112-8336005-3642625"
       ],
       "note": "Delivery email followed by exact order-detail, locally dated shared tracking timeline and separate Completed transaction checks. Existing purchase, event and allocation identities are retained; no duplicate combined shipment charge is introduced."
+    },
+    {
+      "coverage_id": "coverage-bb9e6d8e7ee44541935e7b7717d4e077",
+      "vendor": "Amazon",
+      "stream": "two named carbonator earth-clamp tooling orders",
+      "evidence_type": "order_confirmations_and_pending_merchant_payments",
+      "checked_at": "2026-11-11",
+      "examined_period": {
+        "start": "2026-11-10",
+        "end": "2026-11-11"
+      },
+      "complete_period": null,
+      "coverage": "partial",
+      "source_ids": [
+        "src-88e955c9cffc408097504f74273dea35",
+        "src-499eb31e61134d6d8969fb2173d42ae2"
+      ],
+      "order_ids": [
+        "amazon:112-9511233-2346613",
+        "amazon:112-8461282-5610650"
+      ],
+      "note": "Two purchase-email events resolved against exact signed-in order identities and existing project tooling requirements. Exact-reference Gmail searches each returned one confirmation with no further pages. Order details establish placed dates and estimated-tax totals; order-scoped payments remain pending. No actual delivery or completed charge inferred, and no broader merchant coverage claimed."
     }
   ],
   "gaps": [

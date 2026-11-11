@@ -101,6 +101,8 @@ Stainless carbonator fabrication: 316 SS round-tube body + 1/4" laser-cut 316 SS
 | <!--purchase:pur-93977d9bde974e1fb4e1314af17b3625--> LTWFITTING 316 SS 1/4" female NPT full coupling, 5-pack — one for the argon purge fixture; four spare | [B01ABDD8FY](https://www.amazon.com/dp/B01ABDD8FY) | 1 pk (5) | $10.70 | 112-0884852-3444230 | 2026-09-15 | 2026-09-17 | ACQUIRED |
 | <!--purchase:pur-5416183adaae4c7888924bf7bf589cd8--> ASelected 1" × 1" mounted flap wheels, 1/4" shank, 80 grit aluminum oxide, 10-pack, rated to 35,000 rpm — stuck-wire stub dressing on the 316L welds, stainless-only. Sole item on its invoice, $8.99 + $0.65 NE tax, shipping $0.00. Amazon estimates 2026-09-25 | [B07M97KFZW](https://www.amazon.com/dp/B07M97KFZW) | 1 pk (10) | $9.64 | 112-1566032-1238659 | 2026-09-23 | 2026-09-25 | ACQUIRED |
 | <!--purchase:pur-52a72289085c4b57b86eb0be330227a9--> Knipex 70 11 110 diagonal cutters, 4-1/2", narrow head, opening spring, rated for hard steel wire to 3/64" — snips a stuck ER316L .030 wire between the wire nozzle and the bead, one-handed with the gun held where it stopped. Sole item on its invoice, $30.98 + $2.25 NE tax, shipping $0.00. Amazon estimates 2026-09-25 | [B005EXO806](https://www.amazon.com/dp/B005EXO806) | 1 | $33.23 | 112-6988436-4048226 | 2026-09-24 | 2026-09-26 | ACQUIRED |
+| <!--purchase:pur-770c1f0b7dfd4d458834d39d99185eb3--> uxcell M3 × 0.5 spiral-flute tap and Ø2.5 mm twist-drill set, M35 cobalt HSS — carbonator upper-rim earth attachment. $8.39 item + $0.61 estimated tax; free shipping | [B09TYSP9NV](https://www.amazon.com/dp/B09TYSP9NV) | 1 set | $9.00 | 112-9511233-2346613 | 2026-11-10 | — | ON-ORDER |
+| <!--purchase:pur-3bd4a5d8e22947b88ec7bcc9f7a8df8a--> Piutouyar M1–M6 adjustable tap wrench, 1/16"–1/4" tap capacity — small hand driver for the carbonator upper-rim M3 earth-clamp tap. $5.99 item + $0.43 estimated tax; free shipping | [B0F7K43T14](https://www.amazon.com/dp/B0F7K43T14) | 1 | $6.42 | 112-8461282-5610650 | 2026-11-10 | — | ON-ORDER |
 
 ## 2. CO2 subsystem
 
@@ -838,8 +840,6 @@ Printed copies of the [install guide](/hardware/install-guide/README.md). Lulu o
 | **Google Pixel 10a unlocked Android phone, 128 GB Obsidian (2026 model)** | Android development handset for the soda-machine app's Android side (`android/`). [B0GHRHXVN1](https://www.amazon.com/dp/B0GHRHXVN1). |
 | **Smooth-On XTC-3D 3D-print smoothing epoxy, 6.4 oz (~$19.99) — optional** | Self-leveling epoxy base coat under the §21 core's clear-acrylic seal, only if the 0.08 mm core texture still telegraphs through the acrylic alone. Fills/seals; not the release face. [B01BKSLI9M](https://www.amazon.com/dp/B01BKSLI9M). |
 | **DIN 6797A M3 external-tooth washer, A2 stainless, 0.4 mm** | One per carbonator upper-rim earth clamp. [BelMetric WSE3SS](https://belmetric.com/toothed-external-star-lock-washer-din-6797-a-stainless/?sku=WSE3SS): 3.2 mm ID × 6 mm OD, $0.06 each before shipping/tax, in stock November 10. Not recorded as acquired. [Attachment procedure](/hardware/assembly/pressure-vessel.md#upper-rim-earth-bond). |
-| **M3 × 0.5 tap and Ø2.5 mm drill suitable for 316L stainless** | [uxcell M35 cobalt tap/drill set](https://www.amazon.com/dp/B09TYSP9NV), exact M3 × 0.5 / 2.5 mm variant: $8.39, Prime, checked November 10. Upper-rim earth-clamp tooling; not recorded as acquired. |
-| **Small hand driver for the M3 tap** | [Piutouyar M1–M6 adjustable tap wrench](https://www.amazon.com/dp/B0F7K43T14): $5.99, Prime, checked November 10. Not recorded as acquired. |
 | **Green 16 AWG solid UL1007 wire** | Current unit-one conductor gap and selected Prime link are in [unit-1-shopping.md](/hardware/ledger/unit-1-shopping.md). Not recorded as newly ordered. |
 | **BenchPro Kennedy mobile workbench, 96 × 48 in, 1¾ in maple butcher-block top, gray (KW4896 LP 30-36 CL5-UB-Gray)** | Garage table for kit photos, moving large assemblies and general work. 30–36 in adjustable height, 1,200 lb capacity, four 5 in locking casters. $2,299 plus freight at [Global Industrial](https://www.globalindustrial.com/p/kennedy-mobile-workbench-96-x-48-maple-butcher-block-top-gray), ships in 15 business days. |
 | **hykolity 4 ft LED shop light, 5000K, 4-pack (×5, 20 lights)** | Garage ceiling: three rows of six, 2¼, 9.4 and 16½ ft from the back wall, two lights spare. 4,400 lm and 42 W each, six linked to one plug; 756 W for all eighteen. The three ceiling light boxes take receptacles in place of their lampholders: the middle row plugs into the middle box, and the back and front rows each take a new ceiling receptacle fed from a box. $40.84 a 4-pack, $204.20 for five, Amazon Prime, [B06XGBKDKZ](https://www.amazon.com/dp/B06XGBKDKZ). |
@@ -853,17 +853,17 @@ Printed copies of the [install guide](/hardware/install-guide/README.md). Lulu o
 | Acquired hardware valuation — includes replaced/returned originals | [$43,304.44](LEDGER_ACQUIRED_HW) |
 | Engineering services (§18) | [$6,719.51](LEDGER_LABOR) |
 | Acquired procurement valuation (combined) | [$50,023.95](LEDGER_ACQUIRED_COMBINED) |
-| ON-ORDER | [$135.80](LEDGER_ON_ORDER) |
+| ON-ORDER | [$151.22](LEDGER_ON_ORDER) |
 | MISSING — not in hand | [$53.07](LEDGER_MISSING) |
 | LIKELY-TO-BUY | $0.00 |
-| **Recorded procurement valuation — includes commitments** | [$50,212.82](LEDGER_GRAND_TOTAL) |
+| **Recorded procurement valuation — includes commitments** | [$50,228.24](LEDGER_GRAND_TOTAL) |
 
 Price evidence within the procurement valuation:
 
 | Amount basis | USD |
 |---|---|
 | Final vendor amounts | [$25,010.28](LEDGER_FINAL_VENDOR) |
-| Estimated amounts | [$2,320.46](LEDGER_ESTIMATES) |
+| Estimated amounts | [$2,335.88](LEDGER_ESTIMATES) |
 | Legacy / unverified amounts | [$22,882.08](LEDGER_LEGACY_UNVERIFIED) |
 
 Merchant-evidenced payments (project shares; includes the undated bucket):
