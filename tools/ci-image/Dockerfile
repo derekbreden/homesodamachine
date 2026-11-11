@@ -47,7 +47,9 @@ COPY web/package.json web/package-lock.json /opt/hsm/web/
 RUN cd /opt/hsm/web && npm ci --omit=dev --no-audit --no-fund
 
 ARG RUST_VERSION=1.99.1
-RUN curl -fsSL "https://static.rust-lang.org/dist/rust-${RUST_VERSION}-x86_64-unknown-linux-gnu.tar.xz" \
+RUN apt-get update && apt-get install -y --no-install-recommends cmake \
+    && rm -rf /var/lib/apt/lists/* \
+    && curl -fsSL "https://static.rust-lang.org/dist/rust-${RUST_VERSION}-x86_64-unknown-linux-gnu.tar.xz" \
       | tar -xJ -C /tmp \
     && "/tmp/rust-${RUST_VERSION}-x86_64-unknown-linux-gnu/install.sh" --prefix=/usr/local \
       --components=rustc,cargo,rust-std-x86_64-unknown-linux-gnu \

@@ -7,4 +7,9 @@ rust-version.workspace = true
 
 [dependencies]
 anyhow.workspace = true
+
+[target.'cfg(not(target_arch = "wasm32"))'.dependencies]
+manifold-csg = { version = "0.4.1", default-features = false, features = ["parallel"] }
+
+[target.'cfg(target_arch = "wasm32")'.dependencies]
 manifold-rust = { version = "0.19.2", features = ["parallel"] }

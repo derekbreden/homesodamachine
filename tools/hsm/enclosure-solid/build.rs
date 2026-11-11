@@ -23,10 +23,13 @@ fn main() {
     let workspace = manifest.parent().unwrap();
     let root = workspace.parent().unwrap().parent().unwrap();
     let solid = root.join("hardware/printed-parts/enclosure/enclosure/solid");
+    let manifold_backend = match env::var("CARGO_CFG_TARGET_ARCH").as_deref() {
+        Ok("wasm32") => "manifold/src/wasm.rs",
+        _ => "manifold/src/native.rs",
+    };
     let mut sources = BTreeSet::new();
     for path in [
         workspace.join("kernel/src"),
-        workspace.join("manifold/src"),
         root.join("hardware/printed-parts/enclosure/enclosure/numbers"),
         solid,
     ] {
@@ -35,6 +38,8 @@ fn main() {
     for path in [
         workspace.join("kernel/Cargo.toml"),
         workspace.join("manifold/Cargo.toml"),
+        workspace.join("manifold/src/lib.rs"),
+        workspace.join(manifold_backend),
         manifest.join("Cargo.toml"),
         manifest.join("build.rs"),
         root.join("hardware/printed-parts/enclosure/nameplate/snap_geometry.rs"),

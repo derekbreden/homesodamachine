@@ -249,7 +249,7 @@ a completed conversion does not by itself establish that this Mac is free of mem
 
 ## Speed work
 
-The [boolean engine workload record](conversion-results/manifold-workload-2026-11-10.json)
+The [boolean engine workload record](conversion-results/manifold-cpp-cargo-2026-11-11.json)
 compares both native backends through the normal producer graph with identical recipes and
 fixed external inputs. Each backend supplies its own new exports to dependent steps. The
 record separates elapsed execution, CPU time and producer memory; compilation, result-cache
