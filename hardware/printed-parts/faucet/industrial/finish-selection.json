@@ -59,7 +59,7 @@
   "wall_generators": "Retain base Arachne for the continuous reinforced foot; other rigid parts retain Classic.",
   "base_fine_bands_print_z_mm": [],
   "first_bed_layer_height_mm": 0.2,
-  "scope": "Approved complete Industrial faucet with the Sculpted display cover. Bambu's 0.20 mm first bed layer and 0.24 mm later layers without fine bands; accepted seams, support geometry and localized cooling retained.",
+  "scope": "Approved complete Industrial faucet with the Sculpted display cover. Uniform model layers, accepted seams and localized cooling. The supported base rim and inboard dispense face use local nonplanar paths.",
   "seam_selection_record": "hardware/printed-parts/faucet/industrial/prints/2026-10-13-complete-rear-seam-base-tip-mark2/launch.json",
   "default_printer": "Mark2",
   "default_filament_colour": "#161616",
@@ -84,7 +84,7 @@
   "base_rim_supports": {
     "selected_date": "2026-10-15",
     "part": "industrial-shell-base",
-    "method": "accepted-segmented-edge-following-arcs",
+    "method": "Slim trees with a shared dense interface and a continuous nonplanar first perimeter",
     "source_preparation": "hardware/printed-parts/faucet/finish-coupons/2026-10-15-edge-supports/base-mark2/preparation.json",
     "source_project": "hardware/printed-parts/faucet/finish-coupons/2026-10-15-edge-supports/base-mark2/2026-10-15-faucet-base-segmented-rim-arcs-tree-current15-bridge125-fan70-z004-mark2.3mf",
     "source_project_sha256": "3fd336e3e44a32896bd0b76c13f11b91c74911308e81454ae670680c6b579cf7",
@@ -94,14 +94,43 @@
     "arc_span_degrees": 41,
     "release_gap_degrees": 4,
     "requested_vertical_gap_mm": 0.24,
-    "tree_support_scope": "Tree(auto)/Default elsewhere, retaining automatic normal sections. Narrow blockers duplicate the accepted arc contact strips only.",
+    "tree_support_scope": "The base uses Slim trees and a dense interface. Local blockers keep both stages of each insert recess clear.",
     "selection_quote": "Those arc fins snapped off super easy, and they provided excellent support.",
-    "scope": "Exact accepted base-rim support meshes at the retained -15 degree pose, with narrow contact blockers and Tree(auto)/Default elsewhere."
+    "scope": "A shared dense interface on the rim trees, with bridge paths across both stages of each insert recess.",
+    "common_interface": {
+      "part": "industrial-shell-base",
+      "base_stl_sha256": "dc855eb7d8eae75886222d8b4aee8b9e02fe1d55ae4740c1ae5b4b64cf6ba742",
+      "source_commit": "40e364be6749339bf892c49263a5c9d6c5560ca0",
+      "source_archive": "hardware/print-tests/petgf-dense-roofs/inclines/prints/2026-11-10-faucet-nonplanar-rim-fins-mark1/faucet-nonplanar-rim-fins-insert-bridges-left04-z018-mark1.gcode.3mf",
+      "source_archive_sha256": "dfa8d1a52e70a39c6c28c1082ce25b2af608c63a1984c143eaeda0415354da5a",
+      "geometry_review": "hardware/print-tests/petgf-dense-roofs/inclines/prints/2026-11-10-faucet-nonplanar-rim-fins-mark1/geometry-review.json",
+      "cavities": "hardware/print-tests/petgf-dense-roofs/inclines/prints/2026-11-10-faucet-nonplanar-rim-fins-mark1/cavities.json",
+      "mapping": "hardware/print-tests/petgf-dense-roofs/inclines/prints/2026-11-10-faucet-nonplanar-rim-fins-mark1/mapping.json",
+      "mapping_margin_mm": 6.0,
+      "mapping_edge_blend_mm": 2.0,
+      "segmented_fins": false,
+      "continuous_rim_angle_degrees": [114.5, 425.5]
+    }
+  },
+  "mounting_plate_counterbores": {
+    "part": "industrial-above-counter-plate",
+    "radial_clearance_mm": 0.45,
+    "axial_allowance_mm": [0.65, 0.55]
+  },
+  "tip_dispense_contact": {
+    "part": "faucet-shell-tip",
+    "mapping_margin_mm": 5.0,
+    "mapping_edge_blend_mm": 2.0,
+    "interior_full_mm": 0.25,
+    "interior_end_mm": 2.35,
+    "outlet_clearance_mm": 0.30,
+    "outlet_shadow_clearance_mm": 0.90,
+    "outlet_depth_mm": [-0.65, 5.0]
   },
   "edge_support_strategy": {
     "selection_quote": "I'm quite convinced that we need to do this everywhere, that we've got these rough edges on overhangs.",
-    "method": "Follow the visible unsupported edge with a removable fin shaped to that edge; use intermittent arcs on curved rims and retain Tree(auto)/Default on the remaining geometry.",
-    "application": "The approved complete Industrial print retains the base rim arcs and tip fins, local lip trees and hidden-root disc. Other features retain their own edge-placement and physical-result scope."
+    "method": "Support the base rim with one dense tree interface and a continuous first perimeter along the incline. The tip keeps its local removable edge and root aids.",
+    "application": "The complete Industrial print uses the common base roof and bridge-only insert recesses. The tip retains its fins, lip trees and hidden-root disc alongside the scoped dense interface at the dispense face."
   },
   "tip_supports": {
     "selected_date": "2026-10-15",

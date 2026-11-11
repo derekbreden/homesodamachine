@@ -34,6 +34,8 @@ Three M3× socket-head screws enter from below. Each
 giving a bearing section above the head. The screw passes
 through a Ø clearance hole and into a ruthex M3 short
 insert above the shell socket. All heads sit below the gasket-contact face.
+The flat print bridges each counterbore shoulder and leaves the screw passage
+clear for assembly.
 
 The pedestals' lead chamfers guide them into
 the shell's blind sockets. The plate seats on the shell's full bottom

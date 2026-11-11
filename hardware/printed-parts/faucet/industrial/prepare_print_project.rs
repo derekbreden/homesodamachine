@@ -8,16 +8,20 @@
 //! it poses them. The settings are the approved cover print's, with the selected finish: the
 //! printer's Z trim, Bambu's first bed layer and uniform later layers, the overhang and bridge
 //! recipe over the localized cooling, rear seams on the base, tip and plate and aligned seams on
-//! the cover and lever. The accepted recipe's solid foot and object settings, the base's rim arcs
-//! and the tip's fins, lip trees and hidden-root disc come across from the projects that proved
-//! them. The Sculpted project's files are left as they are.
+//! the cover and lever. The base uses a connected dense interface over Slim trees and a
+//! continuous first perimeter along the supported rim. The base's insert recesses and the plate's
+//! counterbores use bridges. The complete plate retains the reinforced foot and the tip's fins,
+//! lip trees and hidden-root disc.
 
 use anyhow::{bail, Context, Result};
-use hsm_print_prep::faucet::{add_selected_base_rim, add_selected_tip_supports, apply_overhang_recipe, as_texts, cross, enforce_rear_seam,
+use hsm_print_prep::faucet::{add_common_base_rim, add_selected_tip_supports, apply_overhang_recipe, as_texts, cross, enforce_rear_seam,
                              file_sha, mat, members, read_json, sub, text, texts, times};
+use hsm_print_prep::faucet_contact::{add_tip_dispense_contact, apply_rim_contour, ContactBand};
+use hsm_print_prep::faucet_recesses::block_plate_counterbores;
 use hsm_print_prep::json::{python_number, Json};
 use hsm_print_prep::profile::{cooling_hook, relative, SETTINGS_MEMBER};
 use hsm_print_prep::refresh::{self, Part, Refreshed, Region};
+use hsm_print_prep::rim_contour::RimSpec;
 use hsm_print_prep::{cooling, root, sha256_hex, slice, xml};
 use serde_json::{json, Map, Value};
 use std::collections::BTreeMap;
@@ -207,14 +211,22 @@ fn main() -> Result<()> {
         let record = enforce_rear_seam(&mut r, &finish["tip_rear_seam_enforcement"])?;
         r.extra.insert("tip_rear_seam_enforcement".into(), record);
     }
-    if finish["base_rim_supports"].is_object() {
-        let record = add_selected_base_rim(&root, &mut r, &finish["base_rim_supports"])?;
+    if finish["base_rim_supports"]["common_interface"].is_object() {
+        let record = add_common_base_rim(&root, &mut r, &finish["base_rim_supports"]["common_interface"])?;
         r.extra.insert("base_rim_supports".into(), record);
     }
+    let plate_recesses = &finish["mounting_plate_counterbores"];
+    let counterbores = block_plate_counterbores(&mut r, plate_recesses["part"].as_str().context("mounting plate identity")?,
+        plate_recesses["radial_clearance_mm"].as_f64().context("counterbore radial clearance")?,
+        serde_json::from_value(plate_recesses["axial_allowance_mm"].clone())?)?;
+    r.extra.insert("mounting_plate_counterbores".into(), counterbores);
     if finish["tip_supports"].is_object() {
         let record = add_selected_tip_supports(&root, &mut r, &finish["tip_supports"])?;
         r.extra.insert("tip_supports".into(), record);
     }
+    let parameters = r.extra["base_rim_supports"]["band"]["parameters"].clone();
+    let tip_contact = add_tip_dispense_contact(&mut r, &finish["tip_dispense_contact"], &parameters)?;
+    r.extra.insert("tip_dispense_contact".into(), tip_contact);
     if r.rows.len() != 5 {
         bail!("the complete Industrial project needs five rigid parts on one plate");
     }
@@ -264,6 +276,10 @@ fn main() -> Result<()> {
         .into_iter().chain(parts.iter().map(|p| p.source.clone())) {
         source_sha.insert(relative(&path, &root), json!(file_sha(&path)?));
     }
+    for path in ["tools/hsm/print-prep/src/faucet.rs", "tools/hsm/print-prep/src/faucet_contact.rs",
+        "tools/hsm/print-prep/src/faucet_recesses.rs", "hardware/print-tests/petgf-dense-roofs/inclines/nonplanar/rim-contour.rs"] {
+        source_sha.insert(path.into(), json!(file_sha(&root.join(path))?));
+    }
     for key in ["base_rim_supports", "tip_supports"] {
         if let Some(p) = finish[key]["source_project"].as_str() {
             source_sha.insert(p.to_string(), json!(file_sha(&root.join(p))?));
@@ -311,7 +327,31 @@ fn main() -> Result<()> {
     if let Some(directory) = slice_output {
         // Bambu Studio's slice is one of the Mac's heavy runs.
         hsm_run_slots::process_enter(&hsm_run_slots::native_key())?;
-        let reading = refresh::slice_and_review(&root, &project, &report, &directory, &slicer)?;
+        let mut reading;
+        if let Some(spec) = r.extra.get("base_rim_supports") {
+            let row = r.row("industrial-shell-base")?;
+            let base = row.index;
+            let radius = spec["rim_radius_mm"].as_f64().context("production rim radius")?;
+            let rim = RimSpec {
+                identify_id: r.plate.objects[base].identify_id.try_into()?,
+                center_mm: serde_json::from_value(spec["rim_seat_plate_mm"].clone())?,
+                seat_fall_angle_degrees: -row.angle,
+                semi_axes_mm: [radius; 2],
+                supported_angles_degrees: serde_json::from_value(finish["base_rim_supports"]["common_interface"]["continuous_rim_angle_degrees"].clone())?,
+            };
+            let band = ContactBand::new(&spec["band"])?;
+            let tip = r.row("faucet-shell-tip")?.index;
+            let dispense = ContactBand::new(&r.extra["tip_dispense_contact"]["band"])?;
+            let contact = ContactBand::slice_bands(&mut r.plate, &[(base, &band), (tip, &dispense)],
+                &project, &directory, &slicer)?;
+            let contour = apply_rim_contour(&project, &directory, rim)?;
+            reading = refresh::slice_review(&root, &project, &report, &directory)?;
+            reading["nonplanar_contact"] = contact;
+            reading["rim_contour"] = contour;
+            std::fs::write(project.with_extension("support-audit.json"), serde_json::to_string_pretty(&reading)? + "\n")?;
+        } else {
+            reading = refresh::slice_and_review(&root, &project, &report, &directory, &slicer)?;
+        }
         if protected_hashes()? != before {
             bail!("a Sculpted project artifact changed during the Industrial slice");
         }
