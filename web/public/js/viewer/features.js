@@ -33,7 +33,3 @@ export function featureGeometry(mesh, feature) {
   }
   return new THREE.BufferGeometry().setAttribute("position", new THREE.BufferAttribute(positions, 3));
 }
-
-export function featureUrl(key, file = state.mountedDetail?.file) {
-  return `${location.origin}/3d#step:${encodeURIComponent(file)}?find=${encodeURIComponent(`feature: ${key}`)}`;
-}

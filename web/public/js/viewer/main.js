@@ -11,6 +11,7 @@ import * as THREE from "three";
 import { state } from "./state.js";
 import { buildGrid, currentSection, startStepThumbnails } from "./grid.js";
 import { applyInitialRoute } from "./route.js";
+import { initialCatalog, loadMaterialCatalog, enableShelfSearchNavigation } from "./shelf-search.js";
 import { loadStepFile } from "./step.js";
 import { loadDxfFile } from "./dxf.js";
 import { renderer, scene, camera, controls } from "./scene.js";
@@ -49,8 +50,8 @@ function setupNav() {
   document.title = titleMap[section] || document.title;
 }
 
-export async function fetchFiles() {
-  const [stepResp, mmdResp, dxfResp, pcbResp, glbResp, docResp, objResp, materialResp] = await Promise.all([
+export async function fetchFiles(catalog = loadMaterialCatalog()) {
+  const [stepResp, mmdResp, dxfResp, pcbResp, glbResp, docResp, objResp] = await Promise.all([
     fetch("/api/steps"),
     fetch("/api/mermaid"),
     fetch("/api/dxf"),
@@ -58,10 +59,8 @@ export async function fetchFiles() {
     fetch("/api/glbs"),
     fetch("/api/documents"),
     fetch("/api/objects"),
-    fetch("/api/materials").catch(() => null),
+    catalog,
   ]);
-  state.materialCatalog = materialResp?.ok ? await materialResp.json() : null;
-  state.materialCatalogTag = materialResp?.ok ? materialResp.headers.get("ETag") : null;
   // Where each model's bytes are on the store, when the store has a public address; empty
   // otherwise, and every loader reads this site's own routes.
   state.memberUrls.clear();
@@ -88,4 +87,7 @@ export async function fetchFiles() {
 }
 
 setupNav();
-fetchFiles().then(applyInitialRoute).finally(startStepThumbnails);
+fetchFiles(initialCatalog).then(applyInitialRoute).finally(() => {
+  enableShelfSearchNavigation();
+  startStepThumbnails();
+});

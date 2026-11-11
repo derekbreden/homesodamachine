@@ -27,7 +27,7 @@ import { jumpToStep } from "./step-nav.js";
 import { makeToolButton } from "./tool-rail.js";
 import { materialForFile, materialForComponent, searchMaterials, explodeBom, occurrenceBodies, matchesBody } from "/contracts/materials.js";
 import { HSM_EVENTS } from "/contracts/client-events.js";
-import { matchFeatures } from "/contracts/features.js";
+import { matchFeatures, splitFeatureKey } from "/contracts/features.js";
 import { sceneFeatures, featureGeometry } from "./features.js";
 
 const FIND = 0xff5ce1; // found-entity highlight (magenta — distinct from select/hover)
@@ -153,7 +153,7 @@ function addPointHighlight(p, box) {
 // line names the direction instead, upright, so a link can show a feature
 // from the side it is seen from: inside a wall, under a ledge.
 let flyToken = 0;
-function flyToBox(box, view = null) {
+function flyToBox(box, view = null, instant = false) {
   if (box.isEmpty()) return;
   const center = box.getCenter(new THREE.Vector3());
   const size = box.getSize(new THREE.Vector3());
@@ -166,6 +166,13 @@ function flyToBox(box, view = null) {
   }
   const destTarget = center;
   const destPos = center.clone().addScaledVector(dir, maxDim * 2.2);
+  if (instant) {
+    flyToken++;
+    camera.position.copy(destPos);
+    controls.target.copy(destTarget);
+    controls.update();
+    return;
+  }
 
   const startPos = camera.position.clone();
   const startTarget = controls.target.clone();
@@ -273,9 +280,9 @@ function setPanelOpen(open) {
 // a part that lives in a different file, and saying so beats a silent zero.
 const SHOWN_NAMES = 6;
 
-function materialBodies(query, available) {
+function materialBodies(query, available, file = state.mountedDetail?.file) {
   if (query.replace(/[^\p{L}\p{N}]/gu, "").length < 2) return null;
-  const catalog = state.materialCatalog, file = state.mountedDetail?.file;
+  const catalog = state.materialCatalog;
   const parent = materialForFile(catalog, file);
   if (!parent) return null;
   const ids = new Set(searchMaterials(catalog, query).map((material) => material.id));
@@ -287,6 +294,28 @@ function materialBodies(query, available) {
   for (const relation of parent.relations || []) if (ids.has(relation.material))
     names.push(...[...available].filter((name) => relation.bodies?.some((body) => matchesBody(name, body))));
   return [...new Set(names)];
+}
+
+// A link can put named bodies first using just the scene manifest. Unbound
+// coordinate picks wait for the geometry they will search.
+export function findTargetBodies(text, available, file) {
+  const features = [], other = [];
+  for (const line of text.split("\n")) {
+    const feature = line.match(/^\s*feature\s*:\s*(.+)$/i);
+    if (feature) {
+      const key = splitFeatureKey(feature[1].trim());
+      if (key) features.push(key.body);
+    } else other.push(line);
+  }
+  const { picks, names, solids } = parsePicks(other.join("\n"));
+  if (picks.length && !solids.length) return [];
+  const exact = [...solids, ...features];
+  const found = new Set([...available].filter(name => exact.some(body => matchesBody(name, body))));
+  if (!picks.length) for (const query of names) {
+    if (solids.includes(query)) continue;
+    for (const name of materialBodies(query, available, file) || matchNames([query], available)[0].names) found.add(name);
+  }
+  return [...found];
 }
 
 function nameStatus(hits) {
@@ -304,7 +333,7 @@ function nameStatus(hits) {
   return out.join(" · ");
 }
 
-async function runFind({ focus = true, text = textarea.value } = {}) {
+async function runFind({ focus = true, text = textarea.value, instant = false } = {}) {
   // The box is on screen from the moment the modal opens; a big assembly is
   // still parsing for seconds after that. Say so rather than doing nothing.
   if (!state.mountedDetail || state.mountedDetail.type !== "step") {
@@ -411,7 +440,7 @@ async function runFind({ focus = true, text = textarea.value } = {}) {
   }
 
   setStatus(status.filter(Boolean).join(" · "));
-  if (focus) flyToBox(box, view);
+  if (focus) flyToBox(box, view, instant);
   showLabels(labels);
 }
 
@@ -535,17 +564,21 @@ export function findWhenMounted(file, text) {
       && !state.currentGroup?.userData.sceneLoading) runPendingFind();
 }
 
-function runPendingFind() {
+function runPendingFind(instant = false) {
   const { text } = pendingFind;
   pendingFind = null;
   if (!panel) buildPanel();
   textarea.value = text;
   // A frame on, past the camera the open restores, which is the one it flies from.
-  requestAnimationFrame(() => runFind());
+  if (instant) runFind({ text, instant });
+  else requestAnimationFrame(() => runFind({ text }));
 }
 
 window.addEventListener(HSM_EVENTS.STEP_MOUNTED, (e) => {
-  if (e.detail?.complete === false) return;
+  if (e.detail?.complete === false) {
+    if (pendingFind?.file === e.detail.file && e.detail.target?.find === pendingFind.text) runPendingFind(true);
+    return;
+  }
   if (pendingFind && e.detail?.file === pendingFind.file) runPendingFind();
   else if (activeFind && activeFind.file === e.detail?.file) runFind({ focus: false, text: activeFind.text });
 });

@@ -77,6 +77,7 @@ window.addEventListener("popstate", () => {
     return;
   }
   const want = wantFromHash(location.hash ? location.hash.slice(1) : "");
+  const target = stepTarget(want);
   if (want.find) findWhenMounted(want.file, want.find);
   // Already showing the right thing? Nothing to do.
   if (want.type && state.currentDetail
@@ -85,7 +86,7 @@ window.addEventListener("popstate", () => {
       if (want.material) state.materialPanel?.setRoot(want.material);
       state.materialPanel?.applyRoute(want);
     };
-    if (want.type === "step" && state.mountedDetail?.file === want.file) routeToStep(want.path).then(apply);
+    if (want.type === "step" && state.mountedDetail?.file === want.file) routeToStep(want.path, target).then(apply);
     else apply();
     return;
   }
@@ -95,10 +96,13 @@ window.addEventListener("popstate", () => {
   // navigated, and ContentViewer.close defers its teardown past the reopen.
   if (want.type === "step" && state.currentDetail && state.currentDetail.type === "step"
       && ContentViewer.isOpen()) {
-    routeToStep(want.path).then(() => {
+    const apply = () => {
       if (want.material) state.materialPanel?.setRoot(want.material);
       state.materialPanel?.applyRoute(want);
-    });
+    };
+    const move = routeToStep(want.path, target);
+    if (want.instance) apply();
+    else move.then(apply);
     return;
   }
   if (want.material && (want.type === "material" || state.currentDetail?.type === "material")) {
@@ -114,7 +118,7 @@ window.addEventListener("popstate", () => {
     else closeCadDetail(false);
   }
   if (want.material) openMaterial(want.material, false, want);
-  else if (want.type === "step") { openDetail(want.file, false, want.path); state.materialPanel?.applyRoute(want); }
+  else if (want.type === "step") { openDetail(want.file, false, want.path, target); state.materialPanel?.applyRoute(want); }
   else if (want.type) OPENERS[want.type](want.file, false);
 });
 
@@ -125,11 +129,12 @@ window.addEventListener("popstate", () => {
 // Extension → the surface a `?file=` link opens. Anything the table does not
 // name is a STEP, which is what a hand-written link and every render tool pass.
 const FILE_KINDS = { ".mmd": "mmd", ".dxf": "dxf", ".glb": "glb", ".tsx": "pcb" };
+const stepTarget = ({ instance, find }) => instance ? { instance } : find ? { find } : null;
 
 export function applyInitialRoute() {
   const open = (type, file, push, path = null, pane = {}) => {
     if (type === "step") {
-      openDetail(file, push, path);
+      openDetail(file, push, path, stepTarget(pane));
       state.materialPanel?.applyRoute(pane);
     } else {
       return OPENERS[type](file, push);

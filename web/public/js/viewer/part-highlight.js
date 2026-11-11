@@ -91,17 +91,23 @@ function flyTo({ position, target, up = camera.up }) {
 }
 
 // Frame `box` in the part of the canvas a phone's Materials sheet leaves uncovered.
-function flyToBox(box, direction = null) {
+function flyToBox(box, direction = null, instant = false) {
   if (box.isEmpty()) return Promise.resolve(false);
   const center = box.getCenter(new THREE.Vector3());
   const size = box.getSize(new THREE.Vector3());
   const maxDim = Math.max(size.x, size.y, size.z, 2);
   const dir = direction || camera.position.clone().sub(controls.target).normalize();
-  return flyTo({ position: center.clone().addScaledVector(dir, maxDim * 2.4 / visibleShare()), target: center });
+  const position = center.clone().addScaledVector(dir, maxDim * 2.4 / visibleShare());
+  if (!instant) return flyTo({ position, target: center });
+  flyToken++;
+  camera.position.copy(position);
+  controls.target.copy(center);
+  controls.update();
+  return Promise.resolve(true);
 }
 
 // Installed locations face out from the assembly so its nearby context stays in view.
-export function frameParts(names, { outward = false } = {}) {
+export function frameParts(names, { outward = false, instant = false } = {}) {
   const want = new Set(names), meshes = bodies(), picked = meshes.filter(mesh => want.has(mesh.name));
   const box = solidsBox(picked);
   let direction = null;
@@ -112,7 +118,7 @@ export function frameParts(names, { outward = false } = {}) {
     if (direction.length() < 0.1) direction = null;
     else direction.normalize();
   }
-  return flyToBox(box, direction);
+  return flyToBox(box, direction, instant);
 }
 
 function solidsBox(meshes) {

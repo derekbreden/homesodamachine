@@ -5,7 +5,6 @@ import { seatParts } from '/contracts/parts-tree.js';
 import { materialForFile, materialIndex, bomCounts, bomCountText } from '/contracts/materials.js';
 import { FAUCET_STYLES, FAUCET_FINISHES, faucetStyleFor } from '/contracts/faucet-options.js';
 import { state } from './state.js';
-import { makeMaterialSearch } from './material-search.js';
 import { openMaterial, materialHash } from './material-nav.js';
 import { rollupCost, money } from '/contracts/part-costs.js';
 
@@ -77,7 +76,6 @@ function renderAssembly({ description, note, file, id }) {
 }
 
 export function buildPartsSection(gridEl, { steps, dxfs, glbs }) {
-  const search = makeMaterialSearch(); gridEl.append(search);
   if (!state.materialCatalog) {
     const note = document.createElement('p'); note.className = 'material-catalog-status';
     note.textContent = 'The material catalog is unavailable. You can still open the assemblies below.'; gridEl.append(note);

@@ -1,5 +1,5 @@
 // Installed locations bind BOM occurrences to the bodies already present in each model.
-import { explodeBom, occurrenceBodies, materialIndex, matchesBody } from "./materials.js";
+import { explodeBom, occurrenceBodies, materialIndex, materialForFile, materialForComponent, matchesBody } from "./materials.js";
 import { instanceBody, instanceLabel } from "./features.js";
 
 function rowInstances(catalog, row, names, index, options) {
@@ -67,6 +67,16 @@ export function componentUnitsInScene(catalog, assembly, names, options = {}) {
 
 export function unitForBody(units, name) {
   return units.find(unit => unit.bodies.some(body => matchesBody(name, body))) || null;
+}
+
+// The same installed unit drives both its request order and its on-screen selection.
+export function membersOfInstance(catalog, file, name, names, options = {}) {
+  const owner = materialForFile(catalog, file);
+  const material = materialForComponent(catalog, file, name, options);
+  const available = [...new Set(names.map(instanceBody))];
+  const unit = owner && material && instancesInScene(catalog, owner.id, material.id, available, options)
+    .find(instance => instance.bodies.includes(name));
+  return unit?.bodies || available.filter(body => matchesBody(body, name));
 }
 
 export function instanceMaterialHash(assembly, name) {

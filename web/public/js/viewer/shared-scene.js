@@ -94,35 +94,45 @@ function placed(mesh, node, index) {
   return out;
 }
 
-export async function resolveScene(bytes, { sourceUrl, signal, onPart, priority } = {}) {
+export async function resolveScene(bytes, { sourceUrl, signal, onPart, select, onTarget, priority } = {}) {
   signal?.throwIfAborted();
   const head = sceneHeader(bytes);
   if (!head) return decodeMeshPayload(bytes);
-  let next = 0;
+  const { first = [], only = false } = select?.(head) || {};
+  const selected = new Set(first);
+  const context = only ? [] : head.meshes.map((_, index) => index).filter(index => !selected.has(index));
   const results = new Array(head.meshes.length), errors = [];
-  const worker = async () => {
-    while (next < head.meshes.length) {
-      const index = next++, node = head.meshes[index];
-      try {
-        if (signal?.aborted) throw new DOMException('Aborted', 'AbortError');
-        const key=JSON.stringify([node.asset,node.transform||null,node.entries]);
-        const held=instances.get(key);
-        if(held){
-          instances.delete(key);instances.set(key,held);results[index]=held.meshes;
-        }else{
-          const meshes = await object(node.asset, sourceUrl, priority);
-          if (signal?.aborted) throw new DOMException('Aborted', 'AbortError');
-          results[index]=meshes.map((mesh,i)=>placed(mesh,node,i));retainInstance(key,results[index]);
-        }
-        onPart?.(node,results[index],head);
-      } catch (error) {
-        if (error.name === 'AbortError') throw error;
-        errors.push({ name: node.name, message: error.message });
-      }
-    }
-  };
   const concurrency = priority === "low" ? 4 : 16;
-  await Promise.all(Array.from({length:Math.min(concurrency,head.meshes.length)},worker));
+  async function readNodes(indices) {
+    let next = 0;
+    const worker = async () => {
+      while (next < indices.length) {
+        const index = indices[next++], node = head.meshes[index];
+        try {
+          signal?.throwIfAborted();
+          const key=JSON.stringify([node.asset,node.transform||null,node.entries]);
+          const held=instances.get(key);
+          if(held){
+            instances.delete(key);instances.set(key,held);results[index]=held.meshes;
+          }else{
+            const meshes = await object(node.asset, sourceUrl, priority);
+            signal?.throwIfAborted();
+            results[index]=meshes.map((mesh,i)=>placed(mesh,node,i));retainInstance(key,results[index]);
+          }
+          onPart?.(node,results[index],head);
+        } catch (error) {
+          if (error.name === 'AbortError') throw error;
+          errors.push({ name: node.name, message: error.message });
+        }
+      }
+    };
+    await Promise.all(Array.from({length:Math.min(concurrency,indices.length)},worker));
+  }
+  if (first.length) {
+    await readNodes(first);
+    if (context.length && first.every(index => results[index])) await onTarget?.();
+  }
+  await readNodes(context);
   return { meshes: results.flatMap(value=>value || []), src: head.src, cut: head.cut,
     scene: head, errors };
 }
