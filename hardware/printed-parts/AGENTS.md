@@ -92,9 +92,9 @@ The [explicit Slim faucet trial](https://github.com/derekbreden/homesodamachine/
 also failed release despite generating interface paths along the curve. The
 [larger-gap trial](https://github.com/derekbreden/homesodamachine/blob/416bf47e9ded600fa3a0c7d19855d87d20b8b893/hardware/print-tests/petgf-dense-roofs/inclines/prints/2026-11-10-faucet-slim-gap048-mark1/physical-result/physical-result.json)
 records easier release with connected roof mats and essentially unchanged
-underside finish. The [active nonplanar trial](../print-tests/petgf-dense-roofs/inclines/prints/2026-11-10-faucet-nonplanar-bands-mark1/print-job.json)
-retains the complete faucet coupon, dense roof and requested larger gap, with
-bounded changes to the layer family near the inclined contact. Physical
+underside finish. The [active nonplanar trial](../print-tests/petgf-dense-roofs/inclines/prints/2026-11-10-faucet-nonplanar-gap024-widebands-mark1/print-job.json)
+retains the complete faucet coupon and dense roof, with a smaller requested gap
+and longer bounded layer bands near the inclined contact. Physical
 finish and release remain pending; this does not change the shared D profile.
 The [active incline comparisons](../print-tests/petgf-dense-roofs/inclines/matrix.json)
 retain D's dense interface and vary contact gap and tree generation. Interface
