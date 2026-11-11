@@ -22,6 +22,19 @@ Chamber illumination supports the printer's camera-based detection during a prin
 [Print-process recordings](bambu-recordings.md) covers automatic chamber video
 and compact playback archived in iCloud Drive.
 
+## Maintenance
+
+The [H2C maintenance log](bambu-maintenance.md) records completed service on
+Mark1 and Mark2.
+
+`hsm-printer status` reads active HMS alerts, which can include maintenance
+reminders. Full LAN MQTT status reports also contain packed `print.care`
+counters whose units are unverified.
+
+On the printer touchscreen, **Settings → Toolbox** shows maintenance progress
+under **XYZ Axis Cleaning** and **Lead Screws Lubrication**. Each has a
+**Complete** button to acknowledge service. [H2C screen operation guide](https://wiki.bambulab.com/en/h2c/manual/screen-operation#h-6-toolbox)
+
 ## What ready looks like from software
 
 Derek's request to start a print on a printer confirms that its bed is clear.
