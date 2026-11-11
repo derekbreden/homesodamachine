@@ -1,0 +1,228 @@
+{
+  "purpose": "Carry the accepted segmented rim footprint below the common support interface.",
+  "source": "hardware/printed-parts/faucet/finish-coupons/2026-10-15-edge-supports/base-mark2/preparation.json",
+  "arcs": [
+    {
+      "component_id": 2200,
+      "blocker_component_id": 2300,
+      "cad_angle_interval_degrees": [
+        -110.5,
+        -69.5
+      ],
+      "cad_radius_interval_mm": [
+        28.65,
+        29.55
+      ],
+      "nominal_wall_width_mm": 0.9,
+      "requested_vertical_gap_mm": 0.24,
+      "world_bounds_mm": [
+        [
+          152.15137188378273,
+          129.05649371292998,
+          0.0
+        ],
+        [
+          172.84862811621727,
+          131.67834653770785,
+          15.043264613303847
+        ]
+      ],
+      "blocker_radius_interval_mm": [
+        28.45,
+        29.95
+      ]
+    },
+    {
+      "component_id": 2201,
+      "blocker_component_id": 2301,
+      "cad_angle_interval_degrees": [
+        -65.5,
+        -24.5
+      ],
+      "cad_radius_interval_mm": [
+        28.65,
+        29.55
+      ],
+      "nominal_wall_width_mm": 0.9,
+      "requested_vertical_gap_mm": 0.24,
+      "world_bounds_mm": [
+        [
+          174.38096140210126,
+          131.6264788975058,
+          0.0
+        ],
+        [
+          189.38935555440185,
+          146.12347442033877,
+          14.35463915853681
+        ]
+      ],
+      "blocker_radius_interval_mm": [
+        28.45,
+        29.95
+      ]
+    },
+    {
+      "component_id": 2202,
+      "blocker_component_id": 2302,
+      "cad_angle_interval_degrees": [
+        -20.5,
+        20.5
+      ],
+      "cad_radius_interval_mm": [
+        28.65,
+        29.55
+      ],
+      "nominal_wall_width_mm": 0.9,
+      "requested_vertical_gap_mm": 0.24,
+      "world_bounds_mm": [
+        [
+          189.33565822196658,
+          147.6035947156565,
+          0.0
+        ],
+        [
+          192.05,
+          167.59560904388738,
+          10.07358387768481
+        ]
+      ],
+      "blocker_radius_interval_mm": [
+        28.45,
+        29.95
+      ]
+    },
+    {
+      "component_id": 2203,
+      "blocker_component_id": 2303,
+      "cad_angle_interval_degrees": [
+        24.5,
+        65.5
+      ],
+      "cad_radius_interval_mm": [
+        28.65,
+        29.55
+      ],
+      "nominal_wall_width_mm": 0.9,
+      "requested_vertical_gap_mm": 0.24,
+      "world_bounds_mm": [
+        [
+          174.38096140210126,
+          169.0757293392051,
+          0.0
+        ],
+        [
+          189.38935555440185,
+          183.57272486203811,
+          4.320142745532609
+        ]
+      ],
+      "blocker_radius_interval_mm": [
+        28.45,
+        29.95
+      ]
+    },
+    {
+      "component_id": 2204,
+      "blocker_component_id": 2304,
+      "cad_angle_interval_degrees": [
+        114.5,
+        155.5
+      ],
+      "cad_radius_interval_mm": [
+        28.65,
+        29.55
+      ],
+      "nominal_wall_width_mm": 0.9,
+      "requested_vertical_gap_mm": 0.24,
+      "world_bounds_mm": [
+        [
+          135.61064444559815,
+          169.07572933920514,
+          0.0
+        ],
+        [
+          150.61903859789876,
+          183.57272486203811,
+          4.320142745532609
+        ]
+      ],
+      "blocker_radius_interval_mm": [
+        28.45,
+        29.95
+      ]
+    },
+    {
+      "component_id": 2205,
+      "blocker_component_id": 2305,
+      "cad_angle_interval_degrees": [
+        159.5,
+        200.5
+      ],
+      "cad_radius_interval_mm": [
+        28.65,
+        29.55
+      ],
+      "nominal_wall_width_mm": 0.9,
+      "requested_vertical_gap_mm": 0.24,
+      "world_bounds_mm": [
+        [
+          132.95,
+          147.6035947156565,
+          0.0
+        ],
+        [
+          135.66434177803342,
+          167.5956090438874,
+          10.07358387768481
+        ]
+      ],
+      "blocker_radius_interval_mm": [
+        28.45,
+        29.95
+      ]
+    },
+    {
+      "component_id": 2206,
+      "blocker_component_id": 2306,
+      "cad_angle_interval_degrees": [
+        204.5,
+        245.5
+      ],
+      "cad_radius_interval_mm": [
+        28.65,
+        29.55
+      ],
+      "nominal_wall_width_mm": 0.9,
+      "requested_vertical_gap_mm": 0.24,
+      "world_bounds_mm": [
+        [
+          135.61064444559815,
+          131.6264788975058,
+          0.0
+        ],
+        [
+          150.61903859789874,
+          146.12347442033877,
+          14.35463915853681
+        ]
+      ],
+      "blocker_radius_interval_mm": [
+        28.45,
+        29.95
+      ]
+    }
+  ],
+  "fin_setback_from_model_mm": 0.96,
+  "minimum_fin_height_mm": 0.2,
+  "rim_enforcer_angle_degrees": [
+    114.5,
+    425.5
+  ],
+  "rim_enforcer_radius_mm": [
+    27.45,
+    29.95
+  ],
+  "rim_enforcer_half_height_mm": 0.65,
+  "support_bottom_z_distance_mm": 0.0
+}

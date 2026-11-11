@@ -1,11 +1,10 @@
 {
-  "mapped_vertices": 153510,
+  "mapped_vertices": 302899,
   "maximum_sampled_facet_restoration_error_mm": 0.006665518660780023,
-  "maximum_vertex_roundtrip_error_mm": 9.947598300641403e-14,
+  "maximum_vertex_roundtrip_error_mm": 4.5137227289160364e-12,
   "maximum_vertical_offset_mm": 0.4799999407036317,
-  "minimum_sampled_vertical_jacobian": 0.7600549300508241,
+  "minimum_sampled_vertical_jacobian": 0.7231474776472346,
   "parameters": {
-    "purpose": "Extend continuous contact bands and reduce the requested gap on the complete retained faucet coupon.",
     "band_period_mm": 1.92,
     "band_phase_mm": 0.2,
     "bed_blend_mm": [
@@ -20,15 +19,16 @@
       -4.5,
       4.0
     ],
+    "maximum_gcode_segment_mm": 0.25,
+    "maximum_mesh_mapping_error_mm": 0.003,
     "maximum_mesh_y_step_mm": 1.0,
     "maximum_mesh_z_step_mm": 1.0,
-    "maximum_mesh_mapping_error_mm": 0.003,
-    "maximum_gcode_segment_mm": 0.25,
     "maximum_nonplanar_z_speed_mm_s": 7.5,
+    "purpose": "Extend continuous contact bands and reduce the requested gap on the complete retained faucet coupon.",
     "travel_clearance_mm": 0.4,
-    "travel_z_speed_mm_s": 15.0,
     "travel_retract_mm": 0.8,
-    "travel_retract_speed_mm_s": 30.0
+    "travel_retract_speed_mm_s": 30.0,
+    "travel_z_speed_mm_s": 15.0
   },
   "plane_area_mm2": 1641.428001813611,
   "plane_d_mm": -39.86752706832828,
@@ -38,8 +38,8 @@
     -0.9659258254526524
   ],
   "purpose": "Bind the bounded nonplanar map to the dominant inclined contact plane of the complete frozen article.",
-  "refined_triangles": 349852,
-  "refined_vertices": 174926,
-  "source_triangles": 10752,
-  "source_vertices": 5376
+  "refined_triangles": 704840,
+  "refined_vertices": 352442,
+  "source_triangles": 25312,
+  "source_vertices": 12678
 }

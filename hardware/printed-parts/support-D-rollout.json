@@ -1263,12 +1263,13 @@
   "historical_archives": "Preserved with their recorded process. Current editable projects require a fresh slice before their next print.",
   "scope": "D remains the shared contact recipe. Physical acceptance covers the tested flat rail ceiling and removal access; inclined faucet release failed and remains under comparison.",
   "inclined_contact_qualification": {
-    "status": "Flat D rail acceptance remains scoped to those contacts. Larger-gap inclined release improved, with essentially unchanged underside finish. Derek reports clean motion during the stopped first nonplanar partial run; the smaller-gap longer-band trial is printing, with finish and release pending.",
+    "status": "Flat D rail acceptance remains scoped to the tested contacts. The active faucet trial bridges the insert recesses and shares a dense rim interface between fins and trees. Its physical finish and release are pending.",
     "default_result": "https://github.com/derekbreden/homesodamachine/blob/de202da37ef6b132a07fe1863b304381f4ccc394/hardware/print-tests/petgf-dense-roofs/D-representative-mark2/physical-result.json",
     "slim_result": "https://github.com/derekbreden/homesodamachine/blob/1fe50e4ff3209adc4afd6299082bfca21cd8511c/hardware/print-tests/petgf-dense-roofs/inclines/prints/2026-11-10-faucet-slim-mark1/physical-result/physical-result.json",
     "prepared_comparisons": "hardware/print-tests/petgf-dense-roofs/inclines/matrix.json",
     "larger_gap_result": "https://github.com/derekbreden/homesodamachine/blob/416bf47e9ded600fa3a0c7d19855d87d20b8b893/hardware/print-tests/petgf-dense-roofs/inclines/prints/2026-11-10-faucet-slim-gap048-mark1/physical-result/physical-result.json",
-    "active_nonplanar_trial": "hardware/print-tests/petgf-dense-roofs/inclines/prints/2026-11-10-faucet-nonplanar-gap024-widebands-mark1/print-job.json"
+    "active_nonplanar_trial": "hardware/print-tests/petgf-dense-roofs/inclines/prints/2026-11-10-faucet-nonplanar-rim-fins-mark1/print-job.json",
+    "nonplanar_smaller_gap_result": "https://github.com/derekbreden/homesodamachine/blob/b06ab316f6c796a314a30f0dc8ffda66113b2e4e/hardware/print-tests/petgf-dense-roofs/inclines/prints/2026-11-10-faucet-nonplanar-gap024-widebands-mark1/physical-result/physical-result.json"
   },
   "current_full_parts": {
     "Mark1": "hardware/printed-parts/enclosure/enclosure/prints/2026-11-10-back-top-D-mark1/print-job.json",
