@@ -4,184 +4,6 @@
   "printer": "Mark2",
   "filament": "White PET-GF",
   "active_nozzle": 0,
-  "project": "hardware/printed-parts/faucet/faucet-petgf.3mf",
-  "project_sha256": "0d18d16f1d3d8636e5dd6cc062c71835a2e52011bcc81d53880b3ca5a3db6c52",
-  "archive": "hardware/printed-parts/faucet/sculpted/production/faucet-petgf.gcode.3mf",
-  "archive_sha256": "c99b1ac28ddfa9bc9f151cb4d8e151a6f2ee45c6c57a00e99057f2b354cb53cb",
-  "gcode_sha256": "c885a89f516e2592a238c63d4e1c800863d96049ea31a6af30e7225b7319b32f",
-  "rim": {
-    "sampled": 623,
-    "covered": 623,
-    "max_sampled_vertical_gap_mm": 0.29587812588241713,
-    "missing_angles_degrees": []
-  },
-  "first_outer_perimeter": {
-    "added_commanded_motion_seconds": 104.12777699001002,
-    "arc_count": 123,
-    "archive_sha256": "bb75715c60a50e5175e2d303fb328b43ded007913fdce46628a75e8ce394da80",
-    "emitted_contact_segments": 801,
-    "extrusion_added_mm": 5.778014066399109,
-    "extrusion_removed_mm": 9.653522076572456,
-    "gcode_input_sha256": "b14af1e19fbc1cf9e3b597691e783fb8c5dd5eb4780314ffb8245c2b3c383fd8",
-    "gcode_sha256": "1fbbe68d0d272adcfa54311d39b6da7b71665525d064d92c9bf633056b1f624b",
-    "identify_id": 1901,
-    "maximum_contact_depth_below_prior_peak_mm": 1.0800000000037517,
-    "minimum_contact_z_mm": 0.9753898289152962,
-    "modified_native_paths": 3137,
-    "purpose": "Bind the continuous first outer rim course to the complete product.",
-    "rim_semi_axes_mm": [
-      29.0,
-      29.5
-    ],
-    "seat_fall_angle_degrees": 14.999999999999998,
-    "seat_plate_mm": [
-      85.49944496154785,
-      140.34437422642304,
-      7.635161830524368
-    ],
-    "supported_angles_degrees": [
-      114.5,
-      425.5
-    ]
-  },
-  "rim_tree_backing": {
-    "scope": "Approximate connectivity of the emitted base support footprints in the restored physical build coordinates.",
-    "sampling_pitch_mm": 0.2,
-    "vertical_sampling_pitch_mm": 0.12,
-    "contact_samples": 623,
-    "support_component_count": 2,
-    "roof_sample_components": {
-      "1": 623
-    },
-    "bed_rooted_roof_sample_components": {
-      "1": 623
-    },
-    "bed_rooted_component_count": 2
-  },
-  "base_insert_recesses": [
-    {
-      "cad_center_mm": [
-        22.5,
-        -2.0
-      ],
-      "wide_recess_support_bead_flags": 6,
-      "pilot_recess_support_bead_flags": 0,
-      "shoulder_bridge_length_mm": 72.95553316279583,
-      "blind_roof_bridge_length_mm": 46.003330999080056,
-      "bead_envelopes": [
-        {
-          "centerline_paths_in_recess": 0,
-          "maximum_cap_past_entrance_mm": 0.005723831302242535
-        },
-        {
-          "centerline_paths_in_recess": 0,
-          "maximum_cap_past_entrance_mm": 0.0
-        }
-      ]
-    },
-    {
-      "cad_center_mm": [
-        -22.5,
-        -2.0
-      ],
-      "wide_recess_support_bead_flags": 6,
-      "pilot_recess_support_bead_flags": 0,
-      "shoulder_bridge_length_mm": 72.29642515995991,
-      "blind_roof_bridge_length_mm": 46.132827723144956,
-      "bead_envelopes": [
-        {
-          "centerline_paths_in_recess": 0,
-          "maximum_cap_past_entrance_mm": 0.005723831302244062
-        },
-        {
-          "centerline_paths_in_recess": 0,
-          "maximum_cap_past_entrance_mm": 0.0
-        }
-      ]
-    },
-    {
-      "cad_center_mm": [
-        0.0,
-        -22.3
-      ],
-      "wide_recess_support_bead_flags": 0,
-      "pilot_recess_support_bead_flags": 0,
-      "shoulder_bridge_length_mm": 72.05334997689607,
-      "blind_roof_bridge_length_mm": 40.88401842620409,
-      "bead_envelopes": [
-        {
-          "centerline_paths_in_recess": 0,
-          "maximum_cap_past_entrance_mm": 0.0
-        },
-        {
-          "centerline_paths_in_recess": 0,
-          "maximum_cap_past_entrance_mm": 0.0
-        }
-      ]
-    }
-  ],
-  "mounting_plate_counterbores": [
-    {
-      "cad_center_mm": [
-        22.5,
-        -2.0
-      ],
-      "wide_recess_support_bead_flags": 0,
-      "pilot_recess_support_bead_flags": 0,
-      "shoulder_bridge_length_mm": 75.97411440059054,
-      "blind_roof_bridge_length_mm": null,
-      "bead_envelopes": [
-        {
-          "centerline_paths_in_recess": 0,
-          "maximum_cap_past_entrance_mm": 0.0
-        },
-        {
-          "centerline_paths_in_recess": 0,
-          "maximum_cap_past_entrance_mm": 0.0
-        }
-      ]
-    },
-    {
-      "cad_center_mm": [
-        -22.5,
-        -2.0
-      ],
-      "wide_recess_support_bead_flags": 0,
-      "pilot_recess_support_bead_flags": 0,
-      "shoulder_bridge_length_mm": 75.97275302102307,
-      "blind_roof_bridge_length_mm": null,
-      "bead_envelopes": [
-        {
-          "centerline_paths_in_recess": 0,
-          "maximum_cap_past_entrance_mm": 0.0
-        },
-        {
-          "centerline_paths_in_recess": 0,
-          "maximum_cap_past_entrance_mm": 0.0
-        }
-      ]
-    },
-    {
-      "cad_center_mm": [
-        0.0,
-        -22.3
-      ],
-      "wide_recess_support_bead_flags": 0,
-      "pilot_recess_support_bead_flags": 0,
-      "shoulder_bridge_length_mm": 75.96388631999046,
-      "blind_roof_bridge_length_mm": null,
-      "bead_envelopes": [
-        {
-          "centerline_paths_in_recess": 0,
-          "maximum_cap_past_entrance_mm": 0.0
-        },
-        {
-          "centerline_paths_in_recess": 0,
-          "maximum_cap_past_entrance_mm": 0.0
-        }
-      ]
-    }
-  ],
   "parts": {
     "HSM-0094": {
       "name": "faucet-shell-base",
@@ -202,7 +24,8 @@
         "Insert recesses": "Three bridged shoulders and blind pilot roofs, with tree paths outside the recesses",
         "Walls": "Arachne, solid infill at the foot",
         "Brim": "Off",
-        "Infill": "15% gyroid"
+        "Infill": "15% gyroid",
+        "Rim fins": "Removable fins beneath the inclined rim"
       }
     },
     "HSM-0095": {
@@ -221,7 +44,7 @@
         "Top interface": "3 layers, 0 mm spacing",
         "Bottom interface": "2 layers",
         "Beverage outlet": "Clear of supports",
-        "Mating lip": "Continuous first outer perimeter follows the tilted rim",
+        "Mating lip": "Removable fins and a first outer perimeter that follows the tilt",
         "Dispense face": "Separate nonplanar interface",
         "Bed anchor": "Removable disc on the hidden plug end",
         "Infill": "15% gyroid"
@@ -283,122 +106,62 @@
       }
     }
   },
-  "independent_contour_review": {
-    "other_object_segments_preserved": 588864,
-    "source_deposition_segments": 1971960,
-    "trial_deposition_segments": 1974492,
-    "preserved_support_deposition_segments": 390929,
-    "preserved_bridge_deposition_segments": 15503,
-    "gcode_sha256": "efd90f466ee785821ee3d19f112842f4fb7dbb42b34f04ca080a6c9c249edd52",
-    "courses": [
-      {
-        "course": 1,
-        "segments": 801,
-        "max_endpoint_mismatch_mm": 0.0,
-        "contact_depth_mm": [
-          0.22999,
-          0.22999,
-          0.23,
-          0.23,
-          0.23,
-          0.23001,
-          0.23001
-        ],
-        "max_deposition_slope_deg": 15.001377846472494,
-        "max_extruding_z_speed_mm_s": 3.882634103563952
-      }
+  "project": "hardware/printed-parts/faucet/faucet-petgf.3mf",
+  "project_sha256": "dcb830f862b2f0a0880b7491dae16ece3e044d6bda4e7ba7735e1d6cfff85835",
+  "archive": "hardware/printed-parts/faucet/sculpted/production/faucet-petgf.gcode.3mf",
+  "archive_sha256": "f7877400d05f01365c8a37c0bb840aa4dd2fa2d5ddc4bbe76d160fcd5ec4a81c",
+  "member": "Metadata/plate_1.gcode",
+  "gcode_sha256": "273db382779824ad72f5dec2d3bb77aa823d1bcbdbc1da92a34dbabd4f245848",
+  "first_outer_perimeter": {
+    "added_commanded_motion_seconds": 104.18160642986948,
+    "arc_count": 123,
+    "archive_sha256": "49c7c36d1526e8ab19309ecd23681c7441162c8b88a63fd34428ef4596fbf7ed",
+    "emitted_contact_segments": 801,
+    "extrusion_added_mm": 5.778014066399109,
+    "extrusion_removed_mm": 9.659966481613681,
+    "gcode_input_sha256": "b3e893a52a382b1ddebb7ec46179f9009c4c9a6707c4b1bf9426cf7b80d2dd61",
+    "gcode_sha256": "fe43431abbababbfcb0517bc560f12b52f75b996110c95b90c1a9d83371efaf8",
+    "identify_id": 1901,
+    "maximum_contact_depth_below_prior_peak_mm": 1.0800000000037517,
+    "minimum_contact_z_mm": 0.9753898289152962,
+    "modified_native_paths": 3145,
+    "purpose": "Bind the continuous first outer rim course to the complete product.",
+    "rim_semi_axes_mm": [
+      29.0,
+      29.5
     ],
-    "roof_gap_mm": [
-      0.04598,
-      0.09297,
-      0.11892,
-      0.25667,
-      0.38547,
-      0.3858,
-      0.3867
+    "seat_fall_angle_degrees": 14.999999999999998,
+    "seat_plate_mm": [
+      85.49944496154785,
+      140.34437422642304,
+      7.635161830524368
     ],
-    "direct_roof_gap_mm": [
-      0.08456,
-      0.12883,
-      0.1564,
-      0.29312,
-      0.3867,
-      0.41035,
-      0.44148
-    ],
-    "roof_samples": 801,
-    "no_nearby_lower_roof_count": 0,
-    "no_nearby_lower_roof_angles_deg": [],
-    "model_side_join_height_delta_mm": [
-      -0.02459,
-      -0.02372,
-      -0.02046,
-      0.02507,
-      0.17716,
-      0.1899,
-      0.19281
-    ],
-    "no_nearby_retained_model_count": 0,
-    "upper_join_height_delta_mm": [
-      0.08003,
-      0.08019,
-      0.0807,
-      0.107,
-      0.1899,
-      0.22588,
-      0.26156
-    ],
-    "upper_join_missing_count": 0,
-    "tangent_join": [
-      {
-        "angle_deg": 114.5,
-        "nearest_original_path_center_delta_mm": 0.012984997425386747,
-        "lateral_delta_mm": 0.007962393193403723,
-        "z_delta_mm": 0.010257214669243231
-      },
-      {
-        "angle_deg": 425.5,
-        "nearest_original_path_center_delta_mm": 0.013668761510188013,
-        "lateral_delta_mm": 0.009010645873790243,
-        "z_delta_mm": 0.010278292764829389
-      }
-    ],
-    "potential_earlier_interference_count": 0,
-    "potential_earlier_interference_examples": [],
-    "later_support_under_rim_count": 0,
-    "later_support_under_rim_examples": [],
-    "potential_support_interference_count": 0,
-    "potential_support_interference_examples": [],
-    "potential_retained_interference_count": 0,
-    "potential_retained_interference_examples": []
-  },
-  "submitted": false,
-  "physical_qualification": "Pending for this complete plate.",
-  "base_brim_review": {
-    "base_brim_segments": 0,
-    "base_bed_layer_support_segments": 4401,
-    "tip_brim_segments": 748
+    "supported_angles_degrees": [
+      114.5,
+      425.5
+    ]
   },
   "tip_rim_review": {
     "style": "sculpted",
     "project": "hardware/printed-parts/faucet/faucet-petgf.3mf",
-    "project_sha256": "0d18d16f1d3d8636e5dd6cc062c71835a2e52011bcc81d53880b3ca5a3db6c52",
+    "project_sha256": "dcb830f862b2f0a0880b7491dae16ece3e044d6bda4e7ba7735e1d6cfff85835",
     "archive": "hardware/printed-parts/faucet/sculpted/production/faucet-petgf.gcode.3mf",
-    "archive_sha256": "c99b1ac28ddfa9bc9f151cb4d8e151a6f2ee45c6c57a00e99057f2b354cb53cb",
+    "archive_sha256": "f7877400d05f01365c8a37c0bb840aa4dd2fa2d5ddc4bbe76d160fcd5ec4a81c",
     "member": "Metadata/plate_1.gcode",
-    "gcode_sha256": "c885a89f516e2592a238c63d4e1c800863d96049ea31a6af30e7225b7319b32f",
+    "gcode_sha256": "273db382779824ad72f5dec2d3bb77aa823d1bcbdbc1da92a34dbabd4f245848",
     "contact": {
-      "added_commanded_motion_seconds": 61.95955014064185,
+      "added_commanded_motion_seconds": 61.70350880336246,
       "arc_count": 129,
+      "archive_sha256": "f7877400d05f01365c8a37c0bb840aa4dd2fa2d5ddc4bbe76d160fcd5ec4a81c",
       "emitted_contact_segments": 449,
       "extrusion_added_mm": 2.8419330727906775,
-      "extrusion_removed_mm": 2.637457398055446,
-      "gcode_input_sha256": "1fbbe68d0d272adcfa54311d39b6da7b71665525d064d92c9bf633056b1f624b",
-      "gcode_sha256": "c885a89f516e2592a238c63d4e1c800863d96049ea31a6af30e7225b7319b32f",
+      "extrusion_removed_mm": 2.6380622107903555,
+      "gcode_input_sha256": "fe43431abbababbfcb0517bc560f12b52f75b996110c95b90c1a9d83371efaf8",
+      "gcode_sha256": "273db382779824ad72f5dec2d3bb77aa823d1bcbdbc1da92a34dbabd4f245848",
       "identify_id": 1902,
       "maximum_contact_depth_below_prior_peak_mm": 1.0800000000154135,
       "minimum_contact_z_mm": 15.20329853085721,
-      "modified_native_paths": 775,
+      "modified_native_paths": 773,
       "purpose": "Bind the continuous first outer rim course to the complete product.",
       "rim_semi_axes_mm": [
         13.499636558694963,
@@ -415,43 +178,247 @@
         360.0
       ]
     },
-    "outlet_clearance": [
-      {
-        "support_roads_sampled": 22625,
-        "centerlines_in_bore": 0,
-        "estimated_beads_in_bore": 0
-      }
+    "base_fin_components": [
+      "Removable outer rim fin 1",
+      "Removable outer rim fin 2",
+      "Removable outer rim fin 3",
+      "Removable outer rim fin 4",
+      "Removable outer rim fin 5",
+      "Removable outer rim fin 6",
+      "Removable outer rim fin 7"
     ],
-    "outlet_geometry_comparison": {
-      "reference_gcode_sha256": "2a42fb2cd5f753e90410fba5fc34c0b229a914dd08de9a4fea1d49f754a49053",
-      "bores": [
+    "tip_fin_components": [
+      "Removable outer rim fin 1",
+      "Removable outer rim fin 2",
+      "Removable outer rim fin 3",
+      "Removable outer rim fin 4",
+      "Removable outer rim fin 5",
+      "Removable outer rim fin 6",
+      "Removable outer rim fin 7",
+      "Removable outer rim fin 8"
+    ],
+    "placement": {
+      "bead_bounds_xy_mm": [
+        [
+          46.586,
+          73.485
+        ],
+        [
+          265.654,
+          264.476
+        ]
+      ],
+      "minimum_bead_margin_mm": 46.586
+    },
+    "rims": {
+      "base": {
+        "fin_count": 7,
+        "fin_top_road_samples": 2278,
+        "interface_road_samples_above_fin_sector": 2525,
+        "contour_segments": 801,
+        "contour_with_nearby_backing": 801,
+        "largest_backed_sample_spacing_mm": 0.2194276387510659,
+        "missing_roof_angles_by_tens": [],
+        "earlier_toolpath_interference_angles": [],
+        "later_toolpath_interference_angles": [],
+        "upper_course_nearby_count": 801,
+        "nearby_shared_roof_and_fin_samples": 687,
+        "outside_tree_road_samples_under_fin_sectors": 41843,
+        "outside_tree_road_samples_within_two_mm_of_fin_wall": 18777,
+        "outside_tree_road_samples_near_top_of_fin": 7675,
+        "tree_road_samples_under_fin_sectors": 128865,
+        "maximum_tree_centerline_outset_mm": 11.289232143246963,
+        "highest_outside_tree_road_mm": 14.837615
+      },
+      "tip": {
+        "fin_count": 8,
+        "fin_top_road_samples": 884,
+        "interface_road_samples_above_fin_sector": 476,
+        "contour_segments": 449,
+        "contour_with_nearby_backing": 351,
+        "largest_backed_sample_spacing_mm": 3.913511350925189,
+        "missing_roof_angles_by_tens": [
+          [
+            10,
+            8
+          ],
+          [
+            30,
+            8
+          ],
+          [
+            50,
+            2
+          ],
+          [
+            120,
+            2
+          ],
+          [
+            140,
+            8
+          ],
+          [
+            160,
+            8
+          ],
+          [
+            180,
+            1
+          ],
+          [
+            190,
+            4
+          ],
+          [
+            200,
+            8
+          ],
+          [
+            240,
+            3
+          ],
+          [
+            250,
+            11
+          ],
+          [
+            260,
+            4
+          ],
+          [
+            270,
+            4
+          ],
+          [
+            280,
+            11
+          ],
+          [
+            290,
+            3
+          ],
+          [
+            330,
+            8
+          ],
+          [
+            340,
+            4
+          ],
+          [
+            350,
+            1
+          ]
+        ],
+        "earlier_toolpath_interference_angles": [],
+        "later_toolpath_interference_angles": [],
+        "upper_course_nearby_count": 449,
+        "nearby_shared_roof_and_fin_samples": 226,
+        "outside_tree_road_samples_under_fin_sectors": 32705,
+        "outside_tree_road_samples_within_two_mm_of_fin_wall": 8708,
+        "outside_tree_road_samples_near_top_of_fin": 2749,
+        "tree_road_samples_under_fin_sectors": 41696,
+        "maximum_tree_centerline_outset_mm": 31.031922763126676,
+        "highest_outside_tree_road_mm": 29.92197
+      }
+    },
+    "clearance": {
+      "base_recesses": [
         {
-          "previous_paths": 11627,
-          "current_paths": 11627,
-          "removed_paths": 0,
-          "added_paths": 0
+          "cad_center_mm": [
+            22.5,
+            -2.0
+          ],
+          "stages": [
+            {
+              "support_centerlines": 0,
+              "bridge_segments": 472
+            },
+            {
+              "support_centerlines": 0,
+              "bridge_segments": 25
+            }
+          ],
+          "center_height_stages": [
+            {
+              "support_centerlines": 0,
+              "bridge_segments": 472
+            },
+            {
+              "support_centerlines": 0,
+              "bridge_segments": 25
+            }
+          ]
+        },
+        {
+          "cad_center_mm": [
+            -22.5,
+            -2.0
+          ],
+          "stages": [
+            {
+              "support_centerlines": 0,
+              "bridge_segments": 472
+            },
+            {
+              "support_centerlines": 0,
+              "bridge_segments": 25
+            }
+          ],
+          "center_height_stages": [
+            {
+              "support_centerlines": 0,
+              "bridge_segments": 472
+            },
+            {
+              "support_centerlines": 0,
+              "bridge_segments": 25
+            }
+          ]
+        },
+        {
+          "cad_center_mm": [
+            0.0,
+            -22.3
+          ],
+          "stages": [
+            {
+              "support_centerlines": 0,
+              "bridge_segments": 460
+            },
+            {
+              "support_centerlines": 0,
+              "bridge_segments": 21
+            }
+          ],
+          "center_height_stages": [
+            {
+              "support_centerlines": 0,
+              "bridge_segments": 460
+            },
+            {
+              "support_centerlines": 0,
+              "bridge_segments": 21
+            }
+          ]
+        }
+      ],
+      "mounting_plate_support_segments": 0,
+      "mounting_plate_bridge_segments": 772,
+      "beverage_bores": [
+        {
+          "support_centerlines": 0,
+          "approximate_support_beads": 0
         }
       ]
-    },
-    "dense_backing_reference": {
-      "gcode_sha256": "2a42fb2cd5f753e90410fba5fc34c0b229a914dd08de9a4fea1d49f754a49053",
-      "evidence": {
-        "nearby_backing_segments": 432,
-        "dense_roof_backing_segments": 422,
-        "largest_spacing_between_backed_samples_mm": 1.0862831878572945,
-        "largest_spacing_between_dense_roof_samples_mm": 1.0885683916921631,
-        "contour_segments": 449,
-        "length_mm": 83.43765717002914,
-        "maximum_extrusion_z_speed_mm_s": 7.480773914349729,
-        "potential_earlier_interference": 0,
-        "potential_later_interference": 0
-      }
-    },
-    "process": {
-      "support_top_z_distance": "0.24",
-      "support_interface_top_layers": "3",
-      "support_interface_spacing": "0"
     }
   },
-  "base_contact_source_gcode_sha256": "efd90f466ee785821ee3d19f112842f4fb7dbb42b34f04ca080a6c9c249edd52"
+  "base_brim_review": {
+    "base_brim_segments": 0,
+    "base_bed_layer_support_segments": 5507,
+    "tip_brim_segments": 2716
+  },
+  "submitted": false,
+  "physical_qualification": "Finish and support release await a physical print of this recipe."
 }
