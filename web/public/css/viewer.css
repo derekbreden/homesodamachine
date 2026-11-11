@@ -492,7 +492,6 @@
    say so, or a finger drag over it is swallowed. */
 .pick-find-input,
 .edge-panel-text,
-.component-hidden,
 .sc-card,
 .pcb-checks-card,
 .related-menu,
@@ -795,15 +794,53 @@
   border-color: #7CFF8A !important;
 }
 
-/* Component picker readout — same top-left panel + head/button styling as the
-   edge panel, plus the way down into the selected component's own part, a Hide
-   button, and the list of components hidden from the local view (each with its
-   own Show, and a Show-all). */
+/* The current selection and hidden parts share the workspace header with the model path. */
+.cad-workspace-header:has(> .component-panel.show) { flex-wrap: wrap; }
+.component-panel {
+  display: none;
+  order: 2;
+  flex: 0 0 100%;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px 18px;
+  box-sizing: border-box;
+  min-width: 0;
+  border-top: 1px solid var(--border);
+  padding-top: 6px;
+}
+.component-panel.show { display: flex; }
+.cad-workspace:has(.cad-wrapper:is(.drawing-open, .print-open)) .component-panel { display: none; }
+@media (min-width: 1000px) {
+  .cad-workspace-header:has(> .component-panel.show):not(:has(.cad-crumb.show, .material-view-switch:not([hidden]))) > .cad-context {
+    display: none;
+  }
+  .cad-workspace-header:not(:has(.cad-crumb.show, .material-view-switch:not([hidden]))) > .component-panel {
+    order: -1;
+    flex: 1 1 0;
+    border-top: 0;
+    padding-top: 0;
+  }
+}
+.component-selection {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 4px 8px;
+  flex: 1 1 360px;
+  min-width: 0;
+  max-width: 680px;
+}
+.component-selection > .edge-panel-head { min-width: 0; margin: 0; }
+.component-selection[hidden],
+.component-hidden[hidden],
+.component-panel.collapsed .component-selection > :not(.edge-panel-head) { display: none; }
 .component-actions {
   display: flex;
-  gap: 6px;
+  flex-wrap: wrap;
+  gap: 4px;
 }
-.component-actions > .edge-panel-all { width: auto; flex: 1 1 0; }
+.component-selection .edge-panel-all { width: auto; margin: 0; }
+.component-selection .component-related { grid-column: 1 / -1; justify-self: start; }
 /* The way further in, against Hide's way out of the view. */
 .component-panel .component-open {
   border-color: color-mix(in srgb, var(--accent) 60%, transparent);
@@ -812,22 +849,19 @@
 .component-panel .component-open:hover {
   background: color-mix(in srgb, var(--accent) 34%, rgba(23, 73, 209, 0.9));
 }
-.component-panel .component-hide {
-  margin-top: 8px;
-}
 .component-panel .component-hide:disabled {
   opacity: 0.5;
   cursor: default;
-}
-.component-hidden {
-  margin-top: 8px;
 }
 /* --- the path a body's name spells ------------------------------------------
    The name row of the component panel is the branch the body hangs on, and each
    step above it is a button that takes the whole of that sub-assembly. A body at
    the top of the machine has one step and reads as it always did. */
 .component-held-step {
-  flex: 0 0 auto;
+  flex: 0 1 auto;
+  max-width: 40%;
+  overflow: hidden;
+  text-overflow: ellipsis;
   padding: 1px 5px;
   background: rgba(23, 73, 209, 0.55);
   color: var(--text);
@@ -838,7 +872,7 @@
 }
 .component-held-step:hover { border-color: var(--accent); color: var(--accent); }
 .component-held-sep { flex: 0 0 auto; opacity: 0.45; padding: 0 1px; }
-.component-held-here { flex: 0 1 auto; min-width: 0; white-space: normal; }
+.component-held-here { min-width: 0; overflow: hidden; text-overflow: ellipsis; }
 /* How many bodies stand inside the selected one. Nothing else in the row is a
    count, so it reads as one without a word for it. */
 .component-held-count {
@@ -856,6 +890,8 @@
   align-items: center;
   gap: 2px;
   overflow: hidden;
+  color: var(--text);
+  opacity: 1;
   font-family: inherit;
   font-size: 0.82rem;
   line-height: 1.25;
@@ -869,10 +905,10 @@
   flex-basis: 100%;
 }
 .component-identity {
+  grid-column: 1 / -1;
   display: flex;
   flex-wrap: wrap;
   gap: 4px 12px;
-  margin-top: 6px;
 }
 .component-identity:empty { display: none; }
 .component-material-number {
@@ -887,61 +923,64 @@
   overflow-wrap: anywhere;
 }
 
-/* Installed instance buttons share the component panel's compact styling. */
-.component-holds-row {
-  flex: 0 0 auto;
-  max-width: 100%;
-  overflow: hidden;
-  white-space: normal;
-  padding: 2px 7px;
-  background: rgba(23, 73, 209, 0.45);
-  color: var(--text);
-  border: 1px solid var(--border);
-  border-radius: 6px;
-  font-family: inherit;
-  font-size: 0.82rem;
-  line-height: 1.25;
-  text-align: left;
-  cursor: pointer;
-}
-.component-holds-row:hover { border-color: var(--accent); color: var(--accent); }
-
-.component-hidden:empty {
-  margin-top: 0;
-}
-.component-hidden-head {
+.component-hidden {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: 8px;
-  padding-top: 8px;
-  margin-top: 4px;
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  min-width: 0;
+  max-width: min(100%, 480px);
+  gap: 6px;
+}
+.component-hidden-count {
   color: var(--text-2);
-  font-size: 11px;
-  letter-spacing: 0.03em;
-  text-transform: uppercase;
-  font-weight: 600;
+  font-size: .72rem;
+  white-space: nowrap;
 }
-.component-hidden-row {
+.component-hidden-items {
+  display: flex;
+  min-width: 0;
+  gap: 4px;
+  overflow-x: auto;
+  padding: 2px;
+  scrollbar-width: thin;
+  touch-action: pan-x;
+  overscroll-behavior-x: contain;
+}
+.component-hidden-row { flex: 0 0 auto; max-width: 150px; }
+.component-show {
   display: flex;
   align-items: center;
-  gap: 8px;
-  padding: 4px 0;
+  gap: 5px;
+  width: 100%;
+  text-align: left;
 }
+.component-hidden-thumb {
+  position: relative;
+  display: grid;
+  place-items: center;
+  flex: 0 0 auto;
+  width: 30px;
+  height: 30px;
+  overflow: hidden;
+  border-radius: 4px;
+  background: var(--bg);
+  color: var(--text-2);
+}
+.component-hidden-thumb img { position: absolute; inset: 0; width: 100%; height: 100%; }
 .component-hidden-name {
-  flex: 1 1 auto;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
   min-width: 0;
   overflow: hidden;
-  white-space: normal;
-  font-family: inherit;
-  font-size: 0.82rem;
-  line-height: 1.25;
+  overflow-wrap: anywhere;
+  line-height: 1.15;
 }
 .component-show,
 .component-show-all {
   flex: 0 0 auto;
-  padding: 2px 8px;
+  box-sizing: border-box;
+  min-height: 32px;
+  padding: 2px 6px;
   background: rgba(23, 73, 209, 0.6);
   color: var(--text);
   border: 1px solid var(--border);
@@ -951,9 +990,16 @@
   -webkit-appearance: none;
   appearance: none;
 }
+.component-show { padding: 2px 5px 2px 2px; }
+.component-show-all { white-space: nowrap; }
 .component-show:hover,
 .component-show-all:hover {
   background: rgba(23, 73, 209, 0.9);
+}
+
+@media (max-width: 700px) {
+  .component-selection { grid-template-columns: minmax(0, 1fr); }
+  .component-hidden-row { max-width: max(70px, calc((100% - 4px) / 2)); }
 }
 
 /* Labels a find pins to its picks (pick-find.js): a dot on the spot, words on
@@ -1570,12 +1616,12 @@
   .tool-icon { width: 17px; height: 17px; }
   .edge-panel-all { min-height: 38px; }
   .edge-panel-close,
-  .edge-panel-collapse,
-  .component-show,
-  .component-show-all {
+  .edge-panel-collapse {
     min-width: 36px;
     min-height: 36px;
   }
+  .component-show,
+  .component-show-all { min-width: 36px; min-height: 40px; }
   .edge-panel-close, .edge-panel-collapse {
     display: inline-flex;
     align-items: center;
@@ -1634,18 +1680,6 @@
     top: calc(env(safe-area-inset-top, 0px) + 54px);
     width: max-content;
     max-width: calc(100% - 32px - var(--cube-size, 140px) - 28px);
-  }
-  .cad-wrapper > .component-panel.collapsed {
-    top: calc(env(safe-area-inset-top, 0px) + var(--cube-size, 140px) + 28px);
-    width: calc(100% - 32px);
-    max-width: calc(100% - 32px);
-  }
-  .component-panel.collapsed .edge-panel-title { display: none; }
-  .component-panel.collapsed .component-held-here {
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
-    -webkit-line-clamp: 2;
-    overflow: hidden;
   }
 }
 .cad-wrapper > .sc-modal {

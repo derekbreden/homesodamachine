@@ -17,6 +17,7 @@
 import * as THREE from "three";
 import { HSM_EVENTS } from "/contracts/client-events.js";
 import { heldBy, leafOf, standsIn } from "/contracts/body-path.js";
+import { iconSvg } from "/contracts/icons.js";
 import { scene, camera, renderer } from "./scene.js";
 import { state } from "./state.js";
 import { setEdgePickEnabled, syncEdgeToggle, invalidateAllEdgesLayer } from "./edge-picker.js";
@@ -29,8 +30,9 @@ import { showsInFaucetFinish } from "/contracts/faucet-options.js";
 import { drillTo, drillToComponent } from "./step-nav.js";
 import { makePanelCollapse } from "./tool-rail.js";
 import { refreshHighlight, fadedBody } from "./part-highlight.js";
-import { containsTriangle, splitFeatureKey } from "/contracts/features.js";
+import { containsTriangle, instanceLabel, splitFeatureKey } from "/contracts/features.js";
 import { sceneFeature, featureGeometry } from "./features.js";
+import { snapThumbnail } from "./step.js";
 
 const LS_KEY = "step-component-pick";
 const SEL = 0xffa733;   // selection highlight — warm amber (distinct from edge yellow, part-highlight cyan, find magenta)
@@ -357,18 +359,24 @@ function setHover(name) {
   drawOverlay(hoverGroup, name, HOVER, hoverEdgeMat, 0.1);
 }
 
-// --- panel (selected component + the hidden-components list) ---
+// The workspace header keeps the selected component and restore controls out of the canvas.
 let panel = null;
+let hiddenObserver = null;
+let thumbnailQueued = false;
+const hiddenRows = new Map();
 
 function buildPanel() {
-  panel = document.createElement("div");
-  panel.className = "edge-panel component-panel";
+  panel = document.createElement("aside");
+  panel.className = "component-panel";
+  panel.setAttribute("aria-label", "Components in view");
+
+  const selected = document.createElement("div");
+  selected.className = "component-selection";
+  panel.appendChild(selected);
+  panel._selected = selected;
 
   const head = document.createElement("div");
   head.className = "edge-panel-head";
-  const title = document.createElement("span");
-  title.className = "edge-panel-title";
-  title.textContent = "Component";
   const nameEl = document.createElement("span");
   nameEl.className = "edge-panel-file";
   const close = document.createElement("button");
@@ -376,21 +384,15 @@ function buildPanel() {
   close.className = "edge-panel-close";
   close.textContent = "×";
   close.title = "Clear selection";
+  close.setAttribute("aria-label", close.title);
   close.addEventListener("click", deselect);
-  head.appendChild(title);
   head.appendChild(nameEl);
   head.appendChild(makePanelCollapse(panel, "step-component-panel-collapsed", {
     defaultCollapsed: matchMedia("(max-width: 700px)").matches,
   }));
   head.appendChild(close);
-  panel.appendChild(head);
+  selected.appendChild(head);
   panel._nameEl = nameEl;
-  panel._close = close;
-
-  const identity = document.createElement("div");
-  identity.className = "component-identity";
-  panel.appendChild(identity);
-  panel._identity = identity;
 
   const actions = document.createElement("div");
   actions.className = "component-actions";
@@ -432,7 +434,12 @@ function buildPanel() {
   });
   actions.append(copy); panel._copy = copy;
 
-  panel.appendChild(actions);
+  selected.appendChild(actions);
+
+  const identity = document.createElement("div");
+  identity.className = "component-identity";
+  selected.appendChild(identity);
+  panel._identity = identity;
 
   // Related models offered by the selected float, manifold body or tube.
   const relatedBtn = document.createElement("button");
@@ -442,28 +449,172 @@ function buildPanel() {
     const related = selection && relatedStepsForComponent(selection, state.allFiles)[0];
     if (related) drillTo(related.file);
   });
-  panel.appendChild(relatedBtn);
+  selected.appendChild(relatedBtn);
   panel._relatedBtn = relatedBtn;
 
   const hidden = document.createElement("div");
   hidden.className = "component-hidden";
+  const count = document.createElement("span");
+  count.className = "component-hidden-count";
+  const items = document.createElement("div");
+  items.className = "component-hidden-items";
+  items.setAttribute("role", "group");
+  items.setAttribute("aria-label", "Show hidden components");
+  const showAll = document.createElement("button");
+  showAll.type = "button";
+  showAll.className = "component-show-all";
+  showAll.textContent = "Show all";
+  showAll.addEventListener("click", () => {
+    state.hiddenComponents.clear();
+    state.autoHiddenComponents.clear();
+    const view = state.currentGroup?.userData.instanceView;
+    if (view) view.rays = [];
+    persistHidden();
+    applyHiddenComponents();
+  });
+  hidden.append(count, items, showAll);
   panel.appendChild(hidden);
   panel._hidden = hidden;
+  panel._hiddenCount = count;
+  panel._hiddenItems = items;
+
+  hiddenObserver = new IntersectionObserver(entries => {
+    for (const entry of entries) {
+      const row = hiddenRows.get(entry.target.dataset.body);
+      if (row?.element === entry.target) row.inView = entry.isIntersecting;
+    }
+    queueHiddenThumbnails();
+  }, { root: items });
 }
 
-// The panel earns its place when there's a live selection or something hidden
-// to restore; otherwise it collapses (showPanel is idempotent, so re-showing to
-// refresh content is fine).
-function refreshPanel() {
-  if (selection || state.hiddenComponents.size) showPanel();
-  else hidePanel();
-}
-
-function showPanel() {
-  if (!panel) buildPanel();
-  if (state.currentCadWrapper && panel.parentElement !== state.currentCadWrapper) {
-    state.currentCadWrapper.appendChild(panel);
+function hiddenNames() {
+  const names = new Set(state.hiddenComponents);
+  if (!state.currentGroup?.userData.instanceView?.preview) {
+    for (const name of state.autoHiddenComponents) names.add(name);
   }
+  return [...names].sort();
+}
+
+function updateHiddenRows(names) {
+  panel._hidden.hidden = !names.length;
+  panel._hiddenCount.textContent = `Hidden ${names.length}`;
+  const keep = new Set(names);
+  for (const [name, row] of hiddenRows) {
+    if (keep.has(name)) continue;
+    hiddenObserver.unobserve(row.element);
+    row.element.remove();
+    hiddenRows.delete(name);
+  }
+  let next = panel._hiddenItems.firstElementChild;
+  for (const name of names) {
+    const row = hiddenRows.get(name) || makeHiddenRow(name);
+    const label = componentUnit(name)?.label || instanceLabel(name);
+    if (row.label.textContent !== label) {
+      row.label.textContent = label;
+      row.button.title = `Show ${label}`;
+      row.button.setAttribute("aria-label", row.button.title);
+    }
+    if (row.element !== next) panel._hiddenItems.insertBefore(row.element, next);
+    next = row.element.nextElementSibling;
+  }
+}
+
+function makeHiddenRow(name) {
+  const element = document.createElement("div");
+  element.className = "component-hidden-row";
+  element.dataset.body = name;
+  const button = document.createElement("button");
+  button.type = "button";
+  button.className = "component-show";
+  const thumb = document.createElement("span");
+  thumb.className = "component-hidden-thumb";
+  thumb.setAttribute("aria-hidden", "true");
+  thumb.innerHTML = iconSvg("cube", "tool-icon");
+  const image = document.createElement("img");
+  image.alt = "";
+  image.decoding = "async";
+  image.hidden = true;
+  thumb.appendChild(image);
+  const label = document.createElement("span");
+  label.className = "component-hidden-name";
+  button.append(thumb, label);
+  button.addEventListener("click", () => {
+    const view = state.currentGroup?.userData.instanceView;
+    const shown = view?.rays.length ? (view.shown ??= new Set()) : null;
+    for (const body of componentUnit(name)?.bodies || [name]) {
+      shown?.add(body);
+      state.hiddenComponents.delete(body);
+      state.autoHiddenComponents.delete(body);
+    }
+    persistHidden();
+    applyHiddenComponents();
+  });
+  element.appendChild(button);
+  const row = { element, button, image, label, inView: false, version: "" };
+  hiddenRows.set(name, row);
+  hiddenObserver.observe(element);
+  return row;
+}
+
+// Capture one visible tile at a time from the mounted solids, after the viewer can paint.
+function queueHiddenThumbnails() {
+  if (thumbnailQueued || !hiddenRows.size) return;
+  thumbnailQueued = true;
+  const paint = () => {
+    thumbnailQueued = false;
+    const group = state.currentGroup;
+    if (!group || !panel.classList.contains("show") || !panel.getClientRects().length) return;
+    for (const [name, row] of hiddenRows) {
+      if (!row.inView) continue;
+      const bodies = componentUnit(name)?.bodies || [name];
+      const meshes = group.children.filter(mesh => mesh.userData.side === "front" && inFinish(mesh.name)
+        && bodies.some(body => standsIn(mesh.name, body)));
+      const version = meshes.map(mesh => {
+        mesh.updateWorldMatrix(true, false);
+        return [mesh.geometry.id, (mesh.userData.baseMaterial || mesh.material).id, ...mesh.matrixWorld.elements].join(",");
+      }).join(";");
+      if (version === row.version) continue;
+      row.version = version;
+      row.image.hidden = true;
+      if (!meshes.length) continue;
+      const thumbnail = new THREE.Group();
+      for (const mesh of meshes) {
+        const copy = new THREE.Mesh(mesh.geometry, mesh.userData.baseMaterial || mesh.material);
+        copy.matrix.copy(mesh.matrixWorld);
+        copy.matrixAutoUpdate = false;
+        thumbnail.add(copy);
+      }
+      try {
+        row.image.src = snapThumbnail(thumbnail, 64, "shelf");
+        row.image.hidden = false;
+      } catch (error) {
+        console.warn("Hidden part thumbnail:", error);
+      } finally {
+        thumbnail.removeFromParent();
+      }
+      queueHiddenThumbnails();
+      break;
+    }
+  };
+  if (window.requestIdleCallback) requestIdleCallback(paint);
+  else requestAnimationFrame(() => setTimeout(paint, 0));
+}
+
+function refreshPanel() {
+  const names = hiddenNames();
+  if (selection || names.length) showPanel(names);
+  else {
+    if (panel) updateHiddenRows(names);
+    hidePanel();
+  }
+}
+
+function showPanel(names = hiddenNames()) {
+  const header = state.currentCadWrapper?.closest(".cad-workspace")?.querySelector(".cad-workspace-header");
+  if (!header) return;
+  if (!panel) buildPanel();
+  if (panel.parentElement !== header) header.appendChild(panel);
+  panel._selected.hidden = !selection;
   // Material descriptions name the walkable path; CAD keys identify the selected geometry.
   panel._nameEl.textContent = "";
   panel._nameEl.title = selection || "";
@@ -488,6 +639,7 @@ function showPanel() {
     const here = document.createElement("span");
     here.className = "component-held-here";
     here.textContent = componentName(selection);
+    here.title = here.textContent;
     panel._nameEl.appendChild(here);
     if (inside.length) {
       const count = document.createElement("span");
@@ -496,7 +648,6 @@ function showPanel() {
       panel._nameEl.appendChild(count);
     }
   }
-  panel.querySelector(".edge-panel-title").textContent = feature ? "Feature" : "Component";
   panel._identity.replaceChildren();
   if (selection) {
     const material = materialOf(selection);
@@ -513,12 +664,11 @@ function showPanel() {
       : unit ? `Instance: ${unit.label}` : `CAD body: ${selection}`;
     panel._identity.appendChild(body);
   }
-  panel._close.style.display = selection ? "" : "none";
   const already = selection && standsHidden(selection);
   panel._hideBtn.style.display = selection && !feature ? "block" : "none";
   panel._hideBtn.disabled = !!already;
-  panel._hideBtn.textContent = already ? "Already hidden"
-    : inside.length ? `Hide ${componentName(selection)} (${inside.length})` : "Hide component";
+  panel._hideBtn.textContent = already ? "Hidden" : "Hide";
+  panel._hideBtn.title = selection ? `Hide ${componentName(selection)}` : "";
 
   panel._copy.hidden = !feature;
   panel._copy.textContent = "Copy feature link";
@@ -535,67 +685,19 @@ function showPanel() {
   // The destination is named beside the selected component, unless Open part already goes there.
   const offered = selection ? relatedStepsForComponent(selection, state.allFiles)[0] : null;
   const related = offered && offered.file !== goes ? offered : null;
-  panel._relatedBtn.style.display = related ? "block" : "none";
+  panel._relatedBtn.hidden = !related;
   panel._relatedBtn.textContent = related ? `Open ${modelName(related.file)}` : "";
   panel._relatedBtn.title = related ? `Open ${related.file}` : "";
 
-  // Hidden list.
-  const hidden = panel._hidden;
-  hidden.textContent = "";
-  const names = [...new Set([...state.hiddenComponents, ...state.autoHiddenComponents])].sort();
-  if (names.length) {
-    const head = document.createElement("div");
-    head.className = "component-hidden-head";
-    const label = document.createElement("span");
-    label.textContent = `Hidden (${names.length})`;
-    const showAll = document.createElement("button");
-    showAll.type = "button";
-    showAll.className = "component-show-all";
-    showAll.textContent = "Show all";
-    showAll.addEventListener("click", () => {
-      state.hiddenComponents.clear();
-      state.autoHiddenComponents.clear();
-      persistHidden();
-      applyHiddenComponents();
-    });
-    head.appendChild(label);
-    head.appendChild(showAll);
-    hidden.appendChild(head);
-
-    for (const name of names) {
-      const row = document.createElement("div");
-      row.className = "component-hidden-row";
-      const n = document.createElement("span");
-      n.className = "component-hidden-name";
-      n.textContent = componentName(name);
-      const body = document.createElement("span");
-      body.className = "component-body-name";
-      body.textContent = componentUnit(name)?.label || name;
-      n.appendChild(body);
-      n.title = name;
-      const show = document.createElement("button");
-      show.type = "button";
-      show.className = "component-show";
-      show.textContent = "Show";
-      show.addEventListener("click", () => {
-        for (const body of componentUnit(name)?.bodies || [name]) {
-          state.hiddenComponents.delete(body);
-          state.autoHiddenComponents.delete(body);
-        }
-        persistHidden();
-        applyHiddenComponents();
-      });
-      row.appendChild(n);
-      row.appendChild(show);
-      hidden.appendChild(row);
-    }
-  }
+  updateHiddenRows(names);
   panel.classList.add("show");
+  queueHiddenThumbnails();
 }
 
 function hidePanel() {
   if (!panel) return;
   panel.classList.remove("show");
+  if (!state.currentGroup) updateHiddenRows([]);
 }
 
 // --- pointer wiring (attached once; act only when enabled + STEP open) ---

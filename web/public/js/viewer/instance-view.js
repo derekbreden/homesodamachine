@@ -40,9 +40,10 @@ function sightLines(selected) {
 export function uncoverContext(group, solids) {
   const view = group.userData.instanceView;
   if (!view?.rays.length || group !== state.currentGroup) return;
+  const shown = view.shown ? [...view.shown] : [];
   const hits = [];
   for (const mesh of solids) {
-    if (!mesh.visible || view.names.has(mesh.name)) continue;
+    if (!mesh.visible || view.names.has(mesh.name) || shown.some(body => standsIn(mesh.name, body))) continue;
     mesh.updateWorldMatrix(true, false);
     for (const ray of view.rays) {
       ray.intersectObject(mesh, false, hits);

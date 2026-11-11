@@ -531,9 +531,8 @@ export async function loadStepFile(file, { preserveCamera = false, target = null
 // and what a caller naming no size gets.
 const THUMB_SIZE = 400;
 
-// Frame a group front-iso in the offscreen scene, snap it, and tear it down.
-// Shared with glb.js so every 3D thumbnail is composed the same way.
-function snapThumbnail(group, px = THUMB_SIZE, presentation = "viewer") {
+// Frame a group front-iso in the offscreen scene and snap it. The caller removes the group.
+export function snapThumbnail(group, px = THUMB_SIZE, presentation = "viewer") {
   const { renderer: thumbRenderer, scene: thumbScene, camera: thumbCam } = getThumbnailRuntime();
   // The drawing buffer only, so the canvas keeps no style of its own — nothing
   // puts this element on a page.
