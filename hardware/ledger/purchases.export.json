@@ -1689,7 +1689,7 @@
       "purchase_id": "pur-e09e5d28db894792aef087da03caea51"
     }
   ],
-  "as_of": "2026-11-10",
+  "as_of": "2026-11-11",
   "coverage": [
     {
       "checked_at": "2026-10-04",
@@ -9364,7 +9364,7 @@
       ]
     }
   ],
-  "input_fingerprint": "sha256:57726c619f0e69398f5298a17063e30e29835b09b24e9fac3acca70f5c29d33e",
+  "input_fingerprint": "sha256:1e229bac7663f1cb2c7c6b8e654d2844eb2f1f054612575a2f9b0cde7dcf4aeb",
   "orders": [
     {
       "allocation_status": "all_project",
@@ -10979,7 +10979,8 @@
       "source_ids": [
         "src-37ceea4a8ea54360a5ba11cafbcef9eb",
         "src-73fadd67b373402ab590db8148bbb3c8",
-        "src-821de3ba9cfc4967ac712f6960983312"
+        "src-821de3ba9cfc4967ac712f6960983312",
+        "src-de3a10832f034b28849155c54a27d3b0"
       ],
       "vendor": "Amazon"
     },
@@ -13360,7 +13361,8 @@
       "reference": "112-8336005-3642625",
       "source_ids": [
         "src-562754f7ecd34ad9a37d14abe9d1a9ce",
-        "src-73fadd67b373402ab590db8148bbb3c8"
+        "src-73fadd67b373402ab590db8148bbb3c8",
+        "src-de3a10832f034b28849155c54a27d3b0"
       ],
       "vendor": "Amazon"
     },
@@ -37441,7 +37443,8 @@
       "service_period": null,
       "source_ids": [
         "src-562754f7ecd34ad9a37d14abe9d1a9ce",
-        "src-73fadd67b373402ab590db8148bbb3c8"
+        "src-73fadd67b373402ab590db8148bbb3c8",
+        "src-de3a10832f034b28849155c54a27d3b0"
       ],
       "split_charge": false,
       "stream": "purchase",
@@ -52532,7 +52535,8 @@
       "source_ids": [
         "src-37ceea4a8ea54360a5ba11cafbcef9eb",
         "src-73fadd67b373402ab590db8148bbb3c8",
-        "src-821de3ba9cfc4967ac712f6960983312"
+        "src-821de3ba9cfc4967ac712f6960983312",
+        "src-de3a10832f034b28849155c54a27d3b0"
       ],
       "split_charge": false,
       "stream": "purchase",
@@ -65403,6 +65407,20 @@
       "source_id": "src-de26ef7aeda3418c86a3f2d3f292cd30",
       "vendor": "Anthropic",
       "verified_at": "2026-10-04"
+    },
+    {
+      "document_date": null,
+      "document_type": "email_out_for_delivery_notification",
+      "note": "Vendor notification states the two-item package is out for delivery and references the SVLING order. The prior directly verified tracker links identify this shared package as the SVLING and ruthex orders. This is fulfillment progress only: no actual delivery day or completed payment is established. Notification date follows the message UTC date; the relative arrival estimate is not converted into a delivery date.",
+      "notification_date": {
+        "precision": "day",
+        "value": "2026-11-11"
+      },
+      "proves": [],
+      "reference": "112-3519445-7276244",
+      "source_id": "src-de3a10832f034b28849155c54a27d3b0",
+      "vendor": "Amazon",
+      "verified_at": "2026-11-11"
     },
     {
       "document_date": {
