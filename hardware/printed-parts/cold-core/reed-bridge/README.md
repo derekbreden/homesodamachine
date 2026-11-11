@@ -109,7 +109,7 @@ plateau, at the skirt.
   of arc each, of the
   3.877 m wrap —.
 
-**Print** — PETG, outer (convex) face down on the plate. The lead-groove floor
+**Print** — PETG, outer (convex) face down on the plate, supports off. The lead-groove floor
 bridges above the bed; its retained strands have a 0.25 mm allowance in the
 groove depth. The outer plateau supplies that room, preserving the full
 0.8 mm skirt backing, tube seat, and reed-glass bearing plane. The glass
