@@ -1,0 +1,69 @@
+{
+  "cooling": {
+    "additional_cooling_fan_speed": [
+      "0"
+    ],
+    "fan_max_speed": [
+      "0"
+    ],
+    "fan_min_speed": [
+      "0"
+    ],
+    "overhang_fan_speed": [
+      "70"
+    ],
+    "overhang_fan_threshold": [
+      "50%"
+    ]
+  },
+  "objects": [
+    {
+      "bed_contact_z_mm": -4.7400000369179907e-07,
+      "blocked_facets": 0,
+      "embedded_vertex_error_mm": 5.001210894306496e-07,
+      "layer_ranges": [],
+      "modifiers_expected": 10,
+      "name": "enclosure-front-bottom",
+      "partially_painted_facets": 0,
+      "parts": {
+        "modifier_part": 10,
+        "normal_part": 1
+      },
+      "placed_bounds_mm": [
+        [
+          52.0,
+          52.099998,
+          -4.7400000369179907e-07
+        ],
+        [
+          273.0,
+          267.900002,
+          180.800003526
+        ]
+      ],
+      "seam_painted_facets": 0,
+      "source_comparison": "source vertices in order",
+      "source_sha256_matches": true,
+      "vertices": 123534
+    }
+  ],
+  "pass": true,
+  "problems": [],
+  "project_sha256_matches": true,
+  "support": {
+    "brim_type": "auto_brim",
+    "max_bridge_length": "0",
+    "support_object_xy_distance": "0.4",
+    "support_style": "default",
+    "support_type": "tree(auto)",
+    "tree_support_branch_diameter": "2",
+    "tree_support_branch_diameter_angle": "5"
+  },
+  "z_trim_block": [
+    "+0.0",
+    "0.04 - 0.01",
+    "0.04 - 0.02",
+    "0.04 + 0.01",
+    "0.04"
+  ]
+}
