@@ -114,6 +114,8 @@ Every feature is a prism on the part's one mm width, so the
 whole clamp is a single profile swept across X. It prints on its side, on that
 face: every layer is the same silhouette, the channel opens to the outside
 rather than bridging, and nothing needs support.
+The [`small-petg` print recipe](../../enclosure/trial-preparation/pieces.json)
+uses black PETG Basic and its standard bridge settings for the short closures.
 
 ## Regenerate
 
