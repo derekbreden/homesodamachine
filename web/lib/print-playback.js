@@ -48,10 +48,9 @@ async function readReplay(hash) {
   }
   const bytes = gunzipSync(compressed, { maxOutputLength: maxReplayBytes });
   if (createHash("sha256").update(bytes).digest("hex") !== hash) throw new Error("Print playback hash mismatch");
-  const data = bytes.toString("utf8");
-  const replay = JSON.parse(data);
+  const replay = JSON.parse(bytes.toString("utf8"));
   if (replay.version !== 1 || !replay.sampled) throw new Error("Unsupported print playback data");
-  return data;
+  return replay;
 }
 
 const escapeText = value => value.replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;");
@@ -84,11 +83,12 @@ export function mountPrintPlayback(app) {
     const entry = materialId.test(id) && readPrintPlaybacks()[id];
     if (!entry) return res.status(404).end();
     try {
-      const [template, themeSource, data] = await Promise.all([
+      const [template, themeSource, replay] = await Promise.all([
         readFile(player, "utf8"), readFile(theme, "utf8"), readReplay(entry.sha256),
       ]);
       const title = escapeText(entry.title);
-      const substitutions = { "{{TITLE}}": title, "/*THEME*/": themeSource, "/*DATA*/": data.replaceAll("<", "\\u003c") };
+      const data = JSON.stringify({ ...replay, start_at_end: true }).replaceAll("<", "\\u003c");
+      const substitutions = { "{{TITLE}}": title, "/*THEME*/": themeSource, "/*DATA*/": data };
       const body = template.replace(/\{\{TITLE\}\}|\/\*(THEME|DATA)\*\//g, token => substitutions[token]);
       res.set("Cache-Control", "no-cache");
       res.set("Content-Security-Policy", "default-src 'none'; script-src 'unsafe-inline' https://cdn.jsdelivr.net; style-src 'unsafe-inline'; frame-ancestors 'self'; base-uri 'none'");
