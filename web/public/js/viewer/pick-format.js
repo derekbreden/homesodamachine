@@ -142,12 +142,16 @@ export function fileLine(file, detail, root = CONTENT_ROOT) {
 const NAME_WORD = /^[A-Za-z0-9][A-Za-z0-9_+.-]*$/;
 const NAME_WORD_MAX = 4;
 
-export function parseNames(body) {
+export function parseNames(body, { paths = false } = {}) {
   const line = String(body || "").trim();
   const words = line.split(/[\s,]+/).filter(Boolean);
   if (!words.length || words.length > NAME_WORD_MAX) return [];
-  if (!words.every((w) => NAME_WORD.test(w))) return [];
-  return line.split(",").map((q) => q.trim()).filter(Boolean);
+  if (!words.every(word => NAME_WORD.test(word)
+      || (paths && word.split("/").every(segment => NAME_WORD.test(segment))))) return [];
+  return line.split(",").map(query => {
+    const name = query.trim();
+    return paths ? name.replace(/\/\d+$/, "") : name;
+  }).filter(Boolean);
 }
 
 // THE WORDS A PICK CARRIES close its line in quotes, straight or curly, so they
@@ -174,7 +178,7 @@ export function parsePicks(text) {
 
     // the path is the head of the line; `fileLine`'s readings follow it after a ·
     if (label === "file") { files.push(body.split("·")[0].trim()); continue; }
-    if (label === "solid") { solids.push(...parseNames(body)); continue; }
+    if (label === "solid") { solids.push(...parseNames(body, { paths: true })); continue; }
     if (label === "sources") continue;
     if (label === "view") {
       const az = numAfter(body, new RegExp(`az=${NUM}`));
