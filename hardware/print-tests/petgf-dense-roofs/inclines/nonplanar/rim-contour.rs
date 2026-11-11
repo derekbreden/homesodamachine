@@ -7,8 +7,6 @@ use std::{
     path::Path,
 };
 
-const COS_TILT: f64 = 0.96592582545;
-const SIN_TILT: f64 = 0.25881904822;
 const BEAD_WIDTH: f64 = 0.44;
 const COURSE_HEIGHT: f64 = 0.23;
 const MIN_JOIN_HEIGHT: f64 = 0.09;
@@ -21,6 +19,61 @@ const CONTACT_FEED: f64 = 900.;
 const BED_BLEND_END: f64 = 4.0;
 const PI: f64 = std::f64::consts::PI;
 type Point = [f64; 3];
+
+/// The rim’s center in print coordinates and semi-axes in its own seat plane.
+/// A positive fall angle puts the positive seat Y edge closer to the bed.
+#[derive(Clone, Copy, Debug)]
+pub struct RimSpec {
+    pub identify_id: u64,
+    pub center_mm: [f64; 3],
+    pub seat_fall_angle_degrees: f64,
+    pub semi_axes_mm: [f64; 2],
+    pub supported_angles_degrees: [f64; 2],
+}
+
+#[derive(Clone, Copy, Debug)]
+pub struct ContourReport {
+    pub arc_count: usize,
+    pub emitted_contact_segments: usize,
+    pub modified_native_paths: usize,
+    pub extrusion_added_mm: f64,
+    pub extrusion_removed_mm: f64,
+    pub estimated_motion_delta_seconds: f64,
+    pub maximum_contact_depth_below_prior_peak_mm: f64,
+    pub minimum_contact_z_mm: f64,
+}
+
+/// Applies the first perimeter to G-code restored from the faucet contact-band map.
+/// The native body uses absolute XYZ and relative extrusion. The caller supplies
+/// the bounds of the rim with a support roof and keeps the resulting executable.
+pub fn apply(input: &Path, output: &Path, spec: RimSpec) -> io::Result<ContourReport> {
+    let [start, end] = spec.supported_angles_degrees;
+    let (sin, cos) = spec.seat_fall_angle_degrees.to_radians().sin_cos();
+    if spec.identify_id == 0
+        || !spec.center_mm.iter().all(|v| v.is_finite())
+        || !(0. ..90.).contains(&spec.seat_fall_angle_degrees)
+        || spec
+            .semi_axes_mm
+            .iter()
+            .any(|r| !r.is_finite() || *r <= BEAD_WIDTH)
+        || !(0. < end - start && end - start <= 360.)
+    {
+        return Err(io::Error::new(
+            io::ErrorKind::InvalidInput,
+            "expected a native object identity, finite seat frame, and a supported angular interval",
+        ));
+    }
+    let rim = Rim {
+        center: spec.center_mm,
+        sin,
+        cos,
+        radii: spec.semi_axes_mm,
+        start,
+        end,
+        object: spec.identify_id,
+    };
+    build(input, output, &rim)
+}
 
 fn distance(a: Point, b: Point) -> f64 {
     (b[0] - a[0]).hypot(b[1] - a[1]).hypot(b[2] - a[2])
@@ -476,7 +529,7 @@ impl<W: Write> Emitter<'_, W> {
     }
 }
 
-fn build(input: &Path, output: &Path, rim: &Rim) -> io::Result<()> {
+fn build(input: &Path, output: &Path, rim: &Rim) -> io::Result<ContourReport> {
     let source = fs::read_to_string(input)?;
     let lines: Vec<_> = source.lines().collect();
     let mut planes = Vec::new();
@@ -505,7 +558,19 @@ fn build(input: &Path, output: &Path, rim: &Rim) -> io::Result<()> {
         if let Some(s) = line.strip_prefix("; Z_HEIGHT: ") {
             plane = s.parse().unwrap();
         }
-        if !body || !line.starts_with("G1 ") {
+        if !body {
+            continue;
+        }
+        let code = line.split(';').next().unwrap_or_default().trim();
+        if matches!(code.split_whitespace().next(), Some("G91" | "M82"))
+            || (code.starts_with("G92 ") && words(code).xyz.iter().any(Option::is_some))
+        {
+            return Err(io::Error::new(
+                io::ErrorKind::InvalidData,
+                "the restored print body must use absolute XYZ and relative extrusion",
+            ));
+        }
+        if !line.starts_with("G1 ") {
             continue;
         }
         let w = words(line);
@@ -530,6 +595,12 @@ fn build(input: &Path, output: &Path, rim: &Rim) -> io::Result<()> {
         ));
     }
     let arcs = arcs_by_layer(rim, &planes);
+    if arcs.keys().any(|layer| *layer <= 2) {
+        return Err(io::Error::new(
+            io::ErrorKind::InvalidData,
+            "the selected rim interval overlaps the bed-backed layers",
+        ));
+    }
     let mut insert_at = BTreeMap::new();
     for (layer, arcs) in &arcs {
         let mut insertion = at[layer];
@@ -644,20 +715,20 @@ fn build(input: &Path, output: &Path, rim: &Rim) -> io::Result<()> {
         }
     }
     e.out.flush()?;
-    println!(
-        "{{\"arc_count\":{},\"emitted_contact_segments\":{},\"modified_native_paths\":{},\"extrusion_added_mm\":{:.5},\"extrusion_removed_mm\":{:.5},\"estimated_motion_delta_seconds\":{:.5},\"maximum_contact_depth_below_prior_peak_mm\":{:.5},\"minimum_contact_z_mm\":{:.5}}}",
-        arcs.values().map(Vec::len).sum::<usize>(),
-        e.added_points.len(),
-        e.moved_paths,
-        e.added_extrusion,
-        e.removed_extrusion,
-        e.estimated_add_seconds - e.estimated_cut_seconds,
-        e.max_rim_below_peak,
-        e.minimum_contact_z
-    );
-    Ok(())
+    let arc_count = arcs.values().map(Vec::len).sum();
+    Ok(ContourReport {
+        arc_count,
+        emitted_contact_segments: e.added_points.len() - arc_count,
+        modified_native_paths: e.moved_paths,
+        extrusion_added_mm: e.added_extrusion,
+        extrusion_removed_mm: e.removed_extrusion,
+        estimated_motion_delta_seconds: e.estimated_add_seconds - e.estimated_cut_seconds,
+        maximum_contact_depth_below_prior_peak_mm: e.max_rim_below_peak,
+        minimum_contact_z_mm: e.minimum_contact_z,
+    })
 }
 
+#[allow(dead_code)]
 fn main() -> io::Result<()> {
     let args: Vec<_> = env::args().collect();
     if args.len() != 12 {
@@ -671,28 +742,26 @@ fn main() -> io::Result<()> {
             .parse::<f64>()
             .map_err(|e| io::Error::new(io::ErrorKind::InvalidInput, e))
     };
-    let (sin, cos) = parse(7)?.to_radians().sin_cos();
-    let rim = Rim {
-        object: args[3]
+    let spec = RimSpec {
+        identify_id: args[3]
             .parse()
             .map_err(|e| io::Error::new(io::ErrorKind::InvalidInput, e))?,
-        center: [parse(4)?, parse(5)?, parse(6)?],
-        sin,
-        cos,
-        radii: [parse(8)?, parse(9)?],
-        start: parse(10)?,
-        end: parse(11)?,
+        center_mm: [parse(4)?, parse(5)?, parse(6)?],
+        seat_fall_angle_degrees: parse(7)?,
+        semi_axes_mm: [parse(8)?, parse(9)?],
+        supported_angles_degrees: [parse(10)?, parse(11)?],
     };
-    if !rim.center.iter().all(|v| v.is_finite())
-        || (sin - SIN_TILT).abs() > 0.001
-        || (cos - COS_TILT).abs() > 0.001
-        || rim.radii.iter().any(|r| !r.is_finite() || *r < 5.)
-        || !(0. ..=360.).contains(&(rim.end - rim.start))
-    {
-        return Err(io::Error::new(
-            io::ErrorKind::InvalidInput,
-            "expected a positive 15-degree seat tilt and a valid rim",
-        ));
-    }
-    build(Path::new(&args[1]), Path::new(&args[2]), &rim)
+    let report = apply(Path::new(&args[1]), Path::new(&args[2]), spec)?;
+    println!(
+        "{{\"arc_count\":{},\"emitted_contact_segments\":{},\"modified_native_paths\":{},\"extrusion_added_mm\":{:.5},\"extrusion_removed_mm\":{:.5},\"estimated_motion_delta_seconds\":{:.5},\"maximum_contact_depth_below_prior_peak_mm\":{:.5},\"minimum_contact_z_mm\":{:.5}}}",
+        report.arc_count,
+        report.emitted_contact_segments,
+        report.modified_native_paths,
+        report.extrusion_added_mm,
+        report.extrusion_removed_mm,
+        report.estimated_motion_delta_seconds,
+        report.maximum_contact_depth_below_prior_peak_mm,
+        report.minimum_contact_z_mm
+    );
+    Ok(())
 }
