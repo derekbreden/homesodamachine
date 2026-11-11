@@ -1,0 +1,22 @@
+{
+  "purpose": "Restore the physical target geometry after native slicing in bounded nonplanar contact coordinates.",
+  "source_project_sha256": "d4f4ff2229829c3951b7326c74c1677ec30a31b64a2274595cba85e9da3bc2dc",
+  "source_project": "https://github.com/derekbreden/homesodamachine/blob/416bf47e9ded600fa3a0c7d19855d87d20b8b893/hardware/print-tests/petgf-dense-roofs/inclines/prints/2026-11-10-faucet-slim-gap048-mark1/faucet-slim-gap048-left04-z018-mark1.3mf",
+  "mapping": "mapping.json",
+  "motion_review": "motion-review.json",
+  "bead_review": "bead-review.json",
+  "physical_target_geometry_identical_to_control": true,
+  "same_build_transform": true,
+  "settings_retained": {
+    "support_style": "tree_slim",
+    "support_type": "tree(auto)",
+    "support_top_z_distance": "0.48",
+    "support_interface_top_layers": "3",
+    "support_interface_spacing": "0",
+    "support_object_xy_distance": "0.4",
+    "bridge_flow": "1.25",
+    "bridge_speed_mm_s": 15
+  },
+  "scope": "The physical target is the complete previous faucet coupon. Short nonplanar bands follow its dominant inclined underside, blending into the ordinary layer family away from that contact. The physical print paths are the restored G-code; ordinary native reslicing does not reproduce them.",
+  "gcode_sha256": "bcd579f69eb841cbbd0607f90721cd36ccb9c51cf41774861122b2f61fe4f9d3"
+}

@@ -1,0 +1,20 @@
+{
+  "purpose": "Read back the packaged executable and dispatch archive before printer submission.",
+  "gcode_sha256": "bcd579f69eb841cbbd0607f90721cd36ccb9c51cf41774861122b2f61fe4f9d3",
+  "md5_matches": true,
+  "print_only_gcode_byte_identical": true,
+  "emitted_trim_commands_mm": [
+    0.0,
+    0.16
+  ],
+  "body_extruding_z_changes": 207966,
+  "maximum_observed_extrusion_z_speed_mm_s": 8.04051882161834,
+  "stock_z_speed_limit_mm_s": 30.0,
+  "extruding_nozzle_z_bounds_mm": [
+    0.2,
+    32.12
+  ],
+  "prelaunch_idle_confirmed": true,
+  "scope": "Read-back of emitted commands and checksums; nozzle shape and physical deposition are not measured.",
+  "plate_gcode_reference": "Metadata/plate_1.gcode"
+}

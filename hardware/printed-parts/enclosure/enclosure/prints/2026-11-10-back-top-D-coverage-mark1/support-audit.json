@@ -658,5 +658,6 @@
     }
   ],
   "rejected_archive_disposition": "Rejected temporary archives are removed after retaining their hashes, settings and findings. This directory contains no launchable enclosure archive.",
-  "active_release_trial": "hardware/print-tests/petgf-dense-roofs/inclines/prints/2026-11-10-faucet-slim-gap048-mark1/print-job.json"
+  "active_release_trial": "hardware/print-tests/petgf-dense-roofs/inclines/prints/2026-11-10-faucet-nonplanar-bands-mark1/print-job.json",
+  "completed_planar_release_control": "https://github.com/derekbreden/homesodamachine/blob/416bf47e9ded600fa3a0c7d19855d87d20b8b893/hardware/print-tests/petgf-dense-roofs/inclines/prints/2026-11-10-faucet-slim-gap048-mark1/physical-result/physical-result.json"
 }

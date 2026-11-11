@@ -1,0 +1,21 @@
+{
+  "purpose": "Bind the native slicer-space mesh to the frozen complete article.",
+  "source_project_sha256": "d4f4ff2229829c3951b7326c74c1677ec30a31b64a2274595cba85e9da3bc2dc",
+  "slicer_space_project_sha256": "00bc9d304daa1d28a9af9ac761d24428250838a314a3ae86fd714d5ac4f40067",
+  "closed_indexed_mesh": true,
+  "every_edge_use_count": 2,
+  "slicer_space_bounds_mm": [
+    [
+      125.5,
+      97.046670914,
+      -5.7617910442786524e-11
+    ],
+    [
+      184.5,
+      162.953329086,
+      32.11999893194238
+    ]
+  ],
+  "triangles": 404378,
+  "physical_geometry": "Restore every print movement using mapping.json; this slicer-space model is not the physical target."
+}

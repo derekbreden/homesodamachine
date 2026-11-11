@@ -14,7 +14,7 @@
     },
     "gcode_state": "RUNNING",
     "hms": [],
-    "layer_num": 2,
+    "layer_num": 1,
     "lights_report": [
       {
         "mode": "on",
@@ -29,10 +29,10 @@
         "node": "chamber_light2"
       }
     ],
-    "mc_percent": 8,
-    "mc_remaining_time": 76,
-    "nozzle_target_temper": 280.0,
-    "nozzle_temper": 282.0,
+    "mc_percent": 6,
+    "mc_remaining_time": 75,
+    "nozzle_target_temper": 265.0,
+    "nozzle_temper": 266.0,
     "nozzle_type": "HS00-0.2",
     "nozzles": [
       {
@@ -66,10 +66,10 @@
         "type": "HS00"
       }
     ],
-    "observed_at": "2026-11-10T21:23:13+00:00",
+    "observed_at": "2026-11-11T00:28:28+00:00",
     "print_error": 0,
     "printer": "H2C",
-    "subtask_name": "faucet-slim-gap048-left04-z018-mark1-print-only.gcode.3mf",
+    "subtask_name": "faucet-nonplanar-bands-left04-z018-mark1-print-only.gcode.3mf",
     "total_layer_num": 134
   }
 ]

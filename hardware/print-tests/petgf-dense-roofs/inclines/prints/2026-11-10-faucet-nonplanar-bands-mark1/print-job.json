@@ -1,0 +1,61 @@
+{
+  "purpose": "Test bounded nonplanar joint bands on the complete faucet coupon already used in the planar gap comparison.",
+  "status": "RUNNING; deposited layers reported without a printer error.",
+  "submitted": true,
+  "printer": "Mark1",
+  "connection_key": "H2C",
+  "nozzle": {
+    "side": "left",
+    "diameter_mm": 0.4,
+    "flow": "Standard",
+    "hardened": true
+  },
+  "material": "Polymaker Fiberon PET-GF15 black",
+  "requested_z_trim_mm": 0.18,
+  "emitted_textured_trim_mm": 0.16,
+  "source_project": "https://github.com/derekbreden/homesodamachine/blob/416bf47e9ded600fa3a0c7d19855d87d20b8b893/hardware/print-tests/petgf-dense-roofs/inclines/prints/2026-11-10-faucet-slim-gap048-mark1/faucet-slim-gap048-left04-z018-mark1.3mf",
+  "source_project_sha256": "d4f4ff2229829c3951b7326c74c1677ec30a31b64a2274595cba85e9da3bc2dc",
+  "control_result": "https://github.com/derekbreden/homesodamachine/blob/416bf47e9ded600fa3a0c7d19855d87d20b8b893/hardware/print-tests/petgf-dense-roofs/inclines/prints/2026-11-10-faucet-slim-gap048-mark1/physical-result/physical-result.json",
+  "target_geometry_bounds_plate_mm": [
+    [
+      125.5,
+      97.046670914,
+      0.0
+    ],
+    [
+      184.5,
+      162.953329086,
+      32.11999893194238
+    ]
+  ],
+  "full_coupon_geometry_retained": true,
+  "native_archive": "faucet-nonplanar-bands-left04-z018-mark1.gcode.3mf",
+  "native_archive_sha256": "04b0047c8466095a0bd562338c872f9140bb86ed3a0792c387b7d4121456415c",
+  "gcode_sha256": "bcd579f69eb841cbbd0607f90721cd36ccb9c51cf41774861122b2f61fe4f9d3",
+  "gcode_md5_matches": true,
+  "physical_result": "pending",
+  "nonplanar_manifest": "nonplanar-manifest.json",
+  "estimated_seconds": 6710.167031062674,
+  "estimated_filament_g": 27.34075175630979,
+  "estimate_scope": "Native cooled estimate plus calculated additional motion and retractions; firmware acceleration and experimental deposition can change the actual duration.",
+  "minimum_full_bead_bed_margin_mm": 95.0,
+  "send_options": {
+    "timelapse": "On",
+    "bed_leveling": "On",
+    "flow_dynamic_calibration": "Auto",
+    "nozzle_offset_calibration": "Auto"
+  },
+  "recipe_source": "../../nonplanar/experiment.rs",
+  "recipe_source_sha256": "b8d1657dd27cc2311bff259eb0a945eb75202da79a4047ea3ef388f61fdbf7cc",
+  "parameters": "../../nonplanar/parameters.json",
+  "parameters_sha256": "05c5b7c26e914bd62558784dbca33fd27bacde1eeddd2aa388732090d7b39c2a",
+  "submitted_archive": "faucet-nonplanar-bands-left04-z018-mark1-print-only.gcode.3mf",
+  "submitted_archive_sha256": "28edda9f6f5ef9bbcce4bcbde0c5e44e496e887b4ba88497f017c547d6d9a102",
+  "executable_review": "executable-review.json",
+  "shared_circuit": "Mark2 continues the prior back-bottom job; no opposite-printer startup is concurrent.",
+  "printer_task_id": "1429748793",
+  "accepted_observed_at": "2026-11-11T00:18:48+00:00",
+  "launch": "launch.json",
+  "startup_status": "startup-status.json",
+  "first_layer_status": "first-layer-status.json"
+}

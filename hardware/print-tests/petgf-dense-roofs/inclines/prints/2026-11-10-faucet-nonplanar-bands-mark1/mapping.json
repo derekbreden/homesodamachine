@@ -1,0 +1,45 @@
+{
+  "mapped_vertices": 180564,
+  "maximum_sampled_facet_restoration_error_mm": 0.007500461707861561,
+  "maximum_vertex_roundtrip_error_mm": 3.552713678800501e-15,
+  "maximum_vertical_offset_mm": 0.23999999477103096,
+  "minimum_sampled_vertical_jacobian": 0.8800122806658095,
+  "parameters": {
+    "purpose": "Bound nonplanar contact bands on the complete frozen faucet coupon while preserving its physical geometry.",
+    "band_period_mm": 0.96,
+    "band_phase_mm": 0.2,
+    "bed_blend_mm": [
+      0.44,
+      4.0
+    ],
+    "contact_full_weight_mm": [
+      -1.5,
+      1.0
+    ],
+    "contact_zero_weight_mm": [
+      -4.5,
+      4.0
+    ],
+    "maximum_mesh_y_step_mm": 1.0,
+    "maximum_mesh_z_step_mm": 1.0,
+    "maximum_mesh_mapping_error_mm": 0.003,
+    "maximum_gcode_segment_mm": 0.25,
+    "maximum_nonplanar_z_speed_mm_s": 8.0,
+    "travel_clearance_mm": 0.4,
+    "travel_z_speed_mm_s": 15.0,
+    "travel_retract_mm": 0.8,
+    "travel_retract_speed_mm_s": 30.0
+  },
+  "plane_area_mm2": 1641.428001813611,
+  "plane_d_mm": -39.86752706832828,
+  "plane_normal": [
+    3.2505477530824607e-12,
+    -0.25881904822070123,
+    -0.9659258254526524
+  ],
+  "purpose": "Bind the bounded nonplanar map to the dominant inclined contact plane of the complete frozen article.",
+  "refined_triangles": 404378,
+  "refined_vertices": 202189,
+  "source_triangles": 10752,
+  "source_vertices": 5376
+}

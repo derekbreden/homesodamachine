@@ -1,0 +1,98 @@
+{
+  "purpose": "Read the complete restored faucet attempt and the dense interface separation before submission.",
+  "scope": "Axis-preserving rounded stadium bead envelopes, with independent lower bounds on XY segment distance and vertical centre ranges. These lower bounds can flag conservative overlaps and do not measure molten material, sagging, nozzle dimensions or release force.",
+  "full_bead_envelope_mm": [
+    [
+      121.32,
+      95.0,
+      0.0
+    ],
+    [
+      188.261,
+      162.913997,
+      32.12
+    ]
+  ],
+  "minimum_bed_border_mm": 95.0,
+  "deposition_segments_by_feature": {
+    "Support": 137147,
+    "Outer wall": 58670,
+    "Support interface": 33887,
+    "Support transition": 22974,
+    "Inner wall": 58167,
+    "Overhang wall": 11508,
+    "Bridge": 14455,
+    "Internal solid infill": 24210,
+    "Sparse infill": 60133,
+    "Floating vertical shell": 8343,
+    "Top surface": 1888,
+    "Gap infill": 603
+  },
+  "segments_with_actual_extruding_z_change": {
+    "Support transition": 7973,
+    "Support interface": 14822,
+    "Support": 81909,
+    "Inner wall": 27503,
+    "Overhang wall": 2648,
+    "Outer wall": 29313,
+    "Bridge": 2470,
+    "Internal solid infill": 6389,
+    "Sparse infill": 31121,
+    "Floating vertical shell": 1067
+  },
+  "extruding_z_change_length_mm": {
+    "Support transition": 1809.2911971713922,
+    "Support interface": 3319.9920005606723,
+    "Support": 14587.493667973613,
+    "Inner wall": 5567.835620284404,
+    "Overhang wall": 559.6551290125902,
+    "Outer wall": 5355.658948875397,
+    "Bridge": 549.9494558675789,
+    "Internal solid infill": 1417.3100946296229,
+    "Sparse infill": 7472.225360266968,
+    "Floating vertical shell": 240.6035692611947
+  },
+  "model_segments": 237977,
+  "support_segments": 194008,
+  "dense_interface_segments": 33887,
+  "dense_interface_subsegments_reviewed": 36586,
+  "minimum_interface_model_gap_lower_bound_mm": 0.20597895848631387,
+  "conservative_overlap_flags": 0,
+  "closest_pair": {
+    "interface": [
+      183.14,
+      131.6067142857143,
+      5.409987915294436,
+      183.14,
+      131.37742857142857,
+      5.471424838066667,
+      0.62,
+      0.2400000000000002,
+      1.0
+    ],
+    "model": [
+      183.1245,
+      132.00575,
+      5.993066616519611,
+      183.065,
+      132.2415,
+      5.929897593588031,
+      0.462871,
+      0.3000000000000007
+    ],
+    "support_subsegment": [
+      [
+        183.14,
+        131.6067142857143,
+        5.409987915294436
+      ],
+      [
+        183.14,
+        131.37742857142857,
+        5.471424838066667
+      ]
+    ]
+  },
+  "flag_examples": [],
+  "gcode_sha256": "bcd579f69eb841cbbd0607f90721cd36ccb9c51cf41774861122b2f61fe4f9d3"
+}
