@@ -7,7 +7,6 @@ rust-version.workspace = true
 
 [dependencies]
 hsm-geometry = { path = "../geometry" }
-hsm-manifold = { path = "../manifold" }
 hsm-render = { path = "../render" }
 hsm-run-slots = { path = "../run-slots" }
 anyhow.workspace = true

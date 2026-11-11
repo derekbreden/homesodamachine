@@ -1043,7 +1043,6 @@ dependencies = [
  "clap",
  "fs2",
  "hsm-geometry",
- "hsm-manifold",
  "hsm-render",
  "hsm-run-slots",
  "libc",
@@ -1901,6 +1900,7 @@ version = "0.1.0"
 dependencies = [
  "anyhow",
  "clap",
+ "flate2",
  "hsm-geometry",
  "hsm-kernel",
  "hsm-print-prep",
@@ -2079,7 +2079,6 @@ version = "0.1.0"
 dependencies = [
  "anyhow",
  "manifold-rust",
- "sha2 0.10.9",
 ]
 
 [[package]]
@@ -2864,6 +2863,8 @@ dependencies = [
 [[package]]
 name = "manifold-rust"
 version = "0.19.2"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "ddad329fd20646de626e339ea1146de838464060824cb3edd5593d8d061a3f95"
 dependencies = [
  "clipper2-rust",
  "dashu-int",
