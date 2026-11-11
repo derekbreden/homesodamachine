@@ -9,6 +9,18 @@ use std::{
     path::{Path, PathBuf},
     time::{Duration, SystemTime, UNIX_EPOCH},
 };
+#[cfg(target_os = "macos")]
+use std::os::unix::fs::OpenOptionsExt;
+
+/// Flush directory metadata without asking iCloud to materialize its contents.
+pub fn sync_directory(directory: &Path) -> Result<()> {
+    let mut options = OpenOptions::new();
+    options.read(true);
+    #[cfg(target_os = "macos")]
+    options.custom_flags(libc::O_EVTONLY | libc::O_DIRECTORY);
+    options.open(directory)?.sync_all()?;
+    Ok(())
+}
 
 #[derive(Clone, Debug)]
 pub struct Clip {
@@ -175,7 +187,7 @@ pub fn archive(
         &checksum.path,
         directory.join(format!("{}.sha256", clip.name)),
     )?;
-    File::open(directory)?.sync_all()?;
+    sync_directory(directory)?;
     Ok((destination, sha))
 }
 pub fn archive_and_delete(

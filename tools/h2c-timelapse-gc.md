@@ -18,6 +18,8 @@ Cleanup does not enable timelapse recording or establish why recording failed.
 Timelapses live in `/timelapse/*.mp4`, with thumbnails in
 `/timelapse/thumbnail`. Continuous chamber recordings live in `/ipcam`;
 they have a separate recording switch and are outside the scheduled rotation.
+[Print-process recordings](bambu-recordings.md) controls that switch and archives
+compact elapsed-time playback to iCloud Drive.
 
 ## Use
 
@@ -75,6 +77,9 @@ Agent comparisons and publication snapshots use `.cache/runs/<purpose>-<run-id>`
 Each run expires independently, so a new run does not keep old snapshots alive.
 Agents remove completed runs immediately; the scheduled cleanup handles leftovers.
 Finished deliverables and physical print records live outside `.cache`.
+
+`~/Bambu-timelapses` links to `Bambu-timelapses` in iCloud Drive. macOS manages
+uploading and local storage optimization for that folder.
 
 - Runner: `~/.config/h2c-gc/run.sh` (mode `700`). It stores printer credentials,
   `KEEP_COUNT`, and `ARCHIVE_ROOT` outside Git.
