@@ -138,7 +138,7 @@ impl RefCtx {
     /// each input's mesh IDs become local IDs 1, 2, 3, … in input order and
     /// its coplanar groups are offset by the triangles before it; the caller
     /// then hands out fresh IDs with `increment_mesh_ids`.
-    pub fn for_compose(meshes: &[ManifoldImpl]) -> Self {
+    pub fn for_compose(meshes: &[&ManifoldImpl]) -> Self {
         let mut tri_ref = Vec::new();
         let mut relations = BTreeMap::new();
         let mut next_local = 1i32;
