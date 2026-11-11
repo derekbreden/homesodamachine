@@ -1972,7 +1972,7 @@
       "kind": "manufactured",
       "models": [
         {
-          "file": "printed-parts/cold-core/magnetic-float/body-aero.step"
+          "file": "printed-parts/cold-core/magnetic-float/all-aero/float-aero.step"
         }
       ],
       "aliases": [
@@ -10302,14 +10302,6 @@
             ]
           },
           {
-            "material": "HSM-0019",
-            "quantity": 1,
-            "unit": "ea",
-            "bodies": [
-              "foam-cap-top"
-            ]
-          },
-          {
             "material": "HSM-0020",
             "quantity": 1,
             "unit": "ea",
@@ -10323,14 +10315,6 @@
             "unit": "ea",
             "bodies": [
               "foam-cap-bottom"
-            ]
-          },
-          {
-            "material": "HSM-0022",
-            "quantity": 1,
-            "unit": "ea",
-            "bodies": [
-              "foam-cap-lid-bottom"
             ]
           },
           {

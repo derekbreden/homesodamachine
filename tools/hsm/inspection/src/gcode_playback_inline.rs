@@ -15,6 +15,30 @@ const SURFACE_TOLERANCE_MM: f64 = 0.22;
 const Z_WEIGHT: f64 = 4.;
 const MAX_RUN_MOVES: usize = 512;
 
+#[repr(u8)]
+#[derive(Clone, Copy, PartialEq, Eq)]
+enum RoadKind {
+    Model = 0,
+    Support = 1,
+    Interface = 2,
+    Bridge = 3,
+}
+
+impl RoadKind {
+    fn from_feature(feature: &str) -> Self {
+        match feature {
+            "Support interface" => Self::Interface,
+            "Bridge" | "Internal Bridge" => Self::Bridge,
+            other if other.starts_with("Support") => Self::Support,
+            _ => Self::Model,
+        }
+    }
+
+    fn is_support(self) -> bool {
+        matches!(self, Self::Support | Self::Interface)
+    }
+}
+
 fn compressed(bytes: &[u8]) -> Result<String> {
     let mut encoder = GzEncoder::new(Vec::new(), Compression::default());
     encoder.write_all(bytes)?;
@@ -67,7 +91,12 @@ fn simplify(moves: &[Move], run: Range<usize>, tolerance: f64, roads: &mut Vec<R
     }
 }
 
-fn deposition(motion: &Motion, tolerance: f64, surface_paths: bool) -> Vec<Range<usize>> {
+fn deposition(
+    motion: &Motion,
+    kinds: &[RoadKind],
+    tolerance: f64,
+    surface_paths: bool,
+) -> Vec<Range<usize>> {
     let mut roads = Vec::new();
     let visible: Vec<_> = motion
         .features
@@ -81,11 +110,6 @@ fn deposition(motion: &Motion, tolerance: f64, surface_paths: bool) -> Vec<Range
         })
         .collect();
     let deposits = |movement: &Move| movement.extrusion && visible[movement.feature];
-    let support: Vec<_> = motion
-        .features
-        .iter()
-        .map(|name| name.starts_with("Support"))
-        .collect();
     let mut start = 0;
     while start < motion.moves.len() {
         let first = &motion.moves[start];
@@ -100,7 +124,7 @@ fn deposition(motion: &Motion, tolerance: f64, surface_paths: bool) -> Vec<Range
             if !deposits(next)
                 || next.layer != first.layer
                 || bead_dimensions(next) != dimensions
-                || support[next.feature] != support[first.feature]
+                || kinds[next.feature] != kinds[first.feature]
                 || next.start != motion.moves[end - 1].end
             {
                 break;
@@ -148,8 +172,14 @@ fn sampled_position(movement: &Move, elapsed: f64) -> ([f64; 3], f64) {
     )
 }
 
-fn road_bytes(motion: &Motion, origin: [f64; 3], roads: &[Range<usize>]) -> Result<Vec<u8>> {
+fn road_bytes(
+    motion: &Motion,
+    origin: [f64; 3],
+    roads: &[Range<usize>],
+    kinds: &[RoadKind],
+) -> Result<(Vec<u8>, Vec<u8>)> {
     let mut bytes = Vec::new();
+    let mut road_kinds = Vec::with_capacity(roads.len());
     let mut previous_end = [0_i16; 3];
     for span in roads {
         let first = &motion.moves[span.start];
@@ -162,12 +192,12 @@ fn road_bytes(motion: &Motion, origin: [f64; 3], roads: &[Range<usize>]) -> Resu
             bytes.extend_from_slice(&end[axis].wrapping_sub(start[axis]).to_le_bytes());
         }
         bytes.extend_from_slice(&bead_dimensions(first));
-        bytes.push(u8::from(
-            motion.features[first.feature].starts_with("Support"),
-        ));
+        let kind = kinds[first.feature];
+        bytes.push(u8::from(kind.is_support()));
+        road_kinds.push(kind as u8);
         previous_end = end;
     }
-    Ok(bytes)
+    Ok((bytes, road_kinds))
 }
 
 fn track_bytes(
@@ -236,18 +266,32 @@ pub(super) fn sampled_output(
         .into_iter()
         .map(|tolerance| (tolerance, false))
         .chain(data_only.then_some((SURFACE_TOLERANCE_MM, true)));
+    let kinds: Vec<_> = motion
+        .features
+        .iter()
+        .map(|name| RoadKind::from_feature(name))
+        .collect();
     for (tolerance, surface_paths) in attempts {
-        let roads = deposition(motion, tolerance, surface_paths);
+        let roads = deposition(motion, &kinds, tolerance, surface_paths);
         if data_only && !surface_paths && roads.len() > ARCHIVE_BEAD_ROADS {
             continue;
         }
-        data["sampled"] = json!({
+        let (road_bytes, road_kinds) = road_bytes(motion, origin, &roads, &kinds)?;
+        let mut sampled = json!({
             "interval": interval,
             "road_tolerance_mm": tolerance,
             "surface_paths": surface_paths,
             "track": compressed(&track_bytes(motion, origin, end_times, &roads, intervals, interval)?)?,
-            "roads": compressed(&road_bytes(motion, origin, &roads)?)?,
+            "roads": compressed(&road_bytes)?,
         });
+        // The support byte stays readable by deployed players while the catalog updates.
+        if road_kinds
+            .iter()
+            .any(|&kind| kind > RoadKind::Support as u8)
+        {
+            sampled["road_kinds"] = json!(compressed(&road_kinds)?);
+        }
+        data["sampled"] = sampled;
         let output = if data_only {
             serde_json::to_string(data)?
         } else {
