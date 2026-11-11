@@ -1,6 +1,6 @@
 {
   "purpose": "Print the complete faucet coupon with longer nonplanar contact bands and a smaller gap on Mark1.",
-  "status": "RUNNING; printer accepted the reviewed archive and is in startup without a reported error.",
+  "status": "FINISH",
   "submitted": true,
   "printer": "Mark1",
   "connection_key": "H2C",
@@ -66,7 +66,7 @@
   "motion_review": "motion-review.json",
   "bead_review": "bead-review.json",
   "executable_review": "executable-review.json",
-  "physical_result": "pending",
+  "physical_result": "physical-result/physical-result.json",
   "send_options": {
     "timelapse": "On",
     "bed_leveling": "On",
@@ -94,5 +94,6 @@
   "launch": "launch.json",
   "prelaunch_printers": "prelaunch-printers.json",
   "startup_status": "startup-status.json",
-  "shared_circuit": "Mark2 continues its existing back-bottom job; no opposite-printer startup is concurrent."
+  "shared_circuit": "Mark2 continues its existing back-bottom job; no opposite-printer startup is concurrent.",
+  "completion_status": "completion-status.json"
 }

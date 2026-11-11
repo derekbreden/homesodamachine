@@ -1,0 +1,39 @@
+{
+  "purpose": "Record the underside appearance, rim variation and trapped insert support on the completed wider-band coupon.",
+  "printer": "Mark1",
+  "task_id": "1429891846",
+  "archive_sha256": "36ba31ebd56b3934ff89747d92d8ab8a384ba066a3f91ae6eda673dd756dd45c",
+  "gcode_sha256": "77818c5eb14f874c233a008dfb6bcfe77f5a5876a9d6e650cf071b1e6ba9b89e",
+  "completion_status": "../completion-status.json",
+  "underside_observation": "Derek reports improved finish and would likely accept the underside on its own.",
+  "edge_observation": "Photos show repeated waves along the outer rim. Derek associates the high spots with tree contacts and the low spots with the spans between them.",
+  "insert_observation": "Tree stems break off and stay inside the heat-insert recesses.",
+  "operator_quotes": [
+    "So on this latest print, the bottom surface is looking better. This is improved, and I am pleased with progress here.",
+    "Basically wherever a tree was, it's pushed up into the print.",
+    "They break off and they're stuck in there."
+  ],
+  "photos": [
+    {
+      "file": "photo-1.jpg",
+      "sha256": "3ce4497706770dc1c492e9687802369c74fac4ed7f2026f741df94f15d0dd743"
+    },
+    {
+      "file": "photo-2.jpg",
+      "sha256": "b59be064bb8bc362d4c75283cde9d3aab423e45ba4573d2a9612dbe2731ff313"
+    },
+    {
+      "file": "photo-3.jpg",
+      "sha256": "e9b1db003a73617eae7c26f86254c1643697d62b5955a4b1de81dbbbdc18ca80"
+    },
+    {
+      "file": "photo-4.jpg",
+      "sha256": "1406dee8cd27100cc9b8b9d75fdb445e224744d88484fe28f497ded6389a3221"
+    },
+    {
+      "file": "photo-5.jpg",
+      "sha256": "16fd13cbe87efd38654df1dbed8c50f19af5868f3f1f2ee676fa7e6d718d7406"
+    }
+  ],
+  "requested_followup": "Support the rim with segmented fins under the same dense interface as the trees. Bridge each insert recess with no support inside."
+}
