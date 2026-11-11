@@ -33,7 +33,7 @@ are on order; neither is recorded as delivered.
 | Tool | Source | Role | Cost |
 |---|---|---|---:|
 | **M3 × 0.5 tap and Ø2.5 mm drill** | [uxcell B09TYSP9NV](https://www.amazon.com/dp/B09TYSP9NV), [purchases.md §1](/hardware/ledger/purchases.md); ON-ORDER | M35 cobalt HSS spiral-flute tap/drill set for the carbonator upper-rim earth-clamp screw. One set ordered November 10; shipped, not delivered. | $9.00 including estimated tax |
-| **M1–M6 adjustable tap wrench** | [Piutouyar B0F7K43T14](https://www.amazon.com/dp/B0F7K43T14), [purchases.md §1](/hardware/ledger/purchases.md); ON-ORDER | Small hand driver for the M3 tap, 1/16"–1/4" tap capacity. One wrench ordered November 10; not delivered. | $6.42 including estimated tax |
+| **M1–M6 adjustable tap wrench** | [Piutouyar B0F7K43T14](https://www.amazon.com/dp/B0F7K43T14), [purchases.md §1](/hardware/ledger/purchases.md); ON-ORDER | Small hand driver for the M3 tap, 1/16"–1/4" tap capacity. One wrench ordered November 10; shipped, not delivered. | $6.42 including estimated tax |
 
 ## Hydro / pressure testing
 
