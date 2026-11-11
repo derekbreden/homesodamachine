@@ -50,7 +50,12 @@ The [active nonplanar Mark1 trial](prints/2026-11-10-faucet-nonplanar-bands-mark
 prints the same complete faucet coupon, with bounded contact bands near its
 inclined underside. The dense roof and requested gap retain the completed
 control. The [recipe](nonplanar/README.md) restores both the model and support
-paths from the mapped native slice. Record whether
+paths from the mapped native slice. Derek's
+[partial-run observation](prints/2026-11-10-faucet-nonplanar-bands-mark1/in-progress-observation.json)
+reports clean motion and a clean head while that article is printing. The
+[prepared longer-band plate](prints/2026-11-10-faucet-nonplanar-gap024-widebands-mark1/print-job.json)
+retains the complete article and dense roof, with a smaller requested gap and
+longer continuous sloping runs. It has not been submitted. Record whether
 the mat releases, stems break, contact material remains, or a model course peels
 away. Photograph the underside and removed mat together. A useful planar condition
 next needs the actual faucet lower curve in its production pose before it

@@ -1,0 +1,50 @@
+{
+  "purpose": "Read the physical contact commands independently of the mapping output.",
+  "startup_and_first_two_bed_layers_identical": true,
+  "native_end_gcode_identical": true,
+  "emitted_trim_commands_mm": [
+    0.0,
+    0.16
+  ],
+  "actual_extruding_z_changes_by_feature": {
+    "Support interface": 18249,
+    "Support": 83099,
+    "Support transition": 8358,
+    "Inner wall": 27087,
+    "Overhang wall": 2825,
+    "Outer wall": 29347,
+    "Bridge": 2617,
+    "Internal solid infill": 8147,
+    "Sparse infill": 30735,
+    "Floating vertical shell": 1609
+  },
+  "maximum_extruding_z_speed_mm_s": 7.689169809455316,
+  "extruding_nozzle_z_bounds_mm": [
+    0.2,
+    32.12
+  ],
+  "total_layer_comments": 134,
+  "speed_rounding_margin_changes_only_F_commands": true,
+  "full_bead_envelope_mm": [
+    [
+      121.633,
+      94.282,
+      0.0
+    ],
+    [
+      187.883,
+      162.913997,
+      32.12
+    ]
+  ],
+  "minimum_bed_border_mm": 94.282,
+  "scope": "G-code commands, conservative axis bead bounds and preserved native preparation; no measured nozzle swept geometry or release result.",
+  "gcode_sha256": "77818c5eb14f874c233a008dfb6bcfe77f5a5876a9d6e650cf071b1e6ba9b89e",
+  "packaged_gcode_sha256": "77818c5eb14f874c233a008dfb6bcfe77f5a5876a9d6e650cf071b1e6ba9b89e",
+  "packaged_md5_matches": true,
+  "dispatch_gcode_byte_identical": true,
+  "full_reference_model_byte_identical": true,
+  "requested_gap_matches_project_and_object": true,
+  "native_startup_and_first_two_layers_command_identical": true,
+  "plate_gcode_reference": "Metadata/plate_1.gcode"
+}

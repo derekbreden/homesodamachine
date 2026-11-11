@@ -1,0 +1,34 @@
+{
+  "purpose": "Bind the complete retained physical coupon to the new contact experiment.",
+  "source_archive": "hardware/print-tests/petgf-dense-roofs/inclines/prints/2026-11-10-faucet-nonplanar-bands-mark1/faucet-nonplanar-bands-left04-z018-mark1.gcode.3mf",
+  "source_archive_sha256": "04b0047c8466095a0bd562338c872f9140bb86ed3a0792c387b7d4121456415c",
+  "source_model_member_sha256": "82cd013a7b7d249a182abb0228acb8e0f493a6adbb338dc77f5d6fb7f3af40e5",
+  "build_transform": [
+    1.0,
+    0.0,
+    0.0,
+    0.0,
+    1.0,
+    0.0,
+    0.0,
+    0.0,
+    1.0,
+    155.0,
+    130.0,
+    16.059999465942383
+  ],
+  "vertices": 5376,
+  "triangles": 10752,
+  "physical_bounds_mm": [
+    [
+      125.5,
+      97.046670914,
+      -5.7617910442786524e-11
+    ],
+    [
+      184.5,
+      162.953329086,
+      32.11999893194238
+    ]
+  ]
+}

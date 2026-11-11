@@ -16,3 +16,8 @@ The [active Mark1 article](../prints/2026-11-10-faucet-nonplanar-bands-mark1/pri
 binds the complete coupon, mapping, actual paths and printer configuration.
 This is an experimental contact treatment. It does not qualify another
 incline or change the shared Support D profile.
+
+The [prepared longer-band comparison](../prints/2026-11-10-faucet-nonplanar-gap024-widebands-mark1/print-job.json)
+uses its own retained parameters with the same recipe. Its contact bands
+extend farther along the incline and its requested gap is smaller. The
+preceding article's parameters remain bound to that article.
