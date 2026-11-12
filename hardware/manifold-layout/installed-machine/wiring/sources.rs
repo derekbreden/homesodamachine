@@ -11,7 +11,7 @@ use anyhow::{Context, Result, ensure};
 use hsm_cold_core_interface as cci;
 use hsm_enclosure_numbers::{catalog, structure};
 use serde::Deserialize;
-use serde_json::{Value, json};
+use serde_json::Value;
 use std::cell::RefCell;
 use std::collections::{BTreeMap, BTreeSet};
 use std::path::{Path, PathBuf};
@@ -80,8 +80,8 @@ impl Sources {
     }
 
     /// The colour of the hub the final connections' WAGOs are drawn in, as linear RGB.
-    pub fn ac_hub_colour(&self) -> Result<Value> {
-        Ok(json!({"$linear": design::material("C_AC_HUB")?}))
+    pub fn ac_hub_colour(&self) -> Result<[f64; 3]> {
+        design::material("C_AC_HUB")
     }
 
     /// The foam shell's outer height, which the cap lid's frame stands above.
@@ -119,19 +119,23 @@ impl Sources {
     }
 
     /// The viewer payload's linear deflection ratio.
-    pub fn presentation_deflection_ratio(&self) -> Result<Value> {
+    pub fn presentation_deflection_ratio(&self) -> Result<f64> {
         self.context(
             "presentation_deflection_ratio",
             "the viewer payload's linear deflection ratio, which the payload rule owns",
-        )
+        )?
+        .as_f64()
+        .context("the viewer payload's linear deflection ratio")
     }
 
     /// The viewer payload's angular deflection.
-    pub fn presentation_angular_deflection(&self) -> Result<Value> {
+    pub fn presentation_angular_deflection(&self) -> Result<f64> {
         self.context(
             "presentation_angular_deflection_rad",
             "the viewer payload's angular deflection, which the payload rule owns",
-        )
+        )?
+        .as_f64()
+        .context("the viewer payload's angular deflection")
     }
 
     /// The JSON file at `path` under the root, read once per request.
@@ -283,18 +287,6 @@ impl Sources {
         Ok(self.root.join(WAGO_REFERENCE).join(file))
     }
 
-    /// Every WAGO reference of the family, by its size.
-    pub fn wago_references(&self) -> Result<Value> {
-        let queries = self.document(&format!("{WAGO_REFERENCE}/native-queries.json"))?;
-        let mut out = json!({});
-        for file in queries["references"].as_object().context("the WAGO references")?.keys() {
-            if let Some(size) = file.strip_prefix("wago-221-").and_then(|f| f.strip_suffix(".step")) {
-                out[size] = json!(self.wago_reference(size)?);
-            }
-        }
-        Ok(out)
-    }
-
     /// The main board's outline centre in its own PCB frame, where its tray mounts it.
     pub fn pcba_centre(&self) -> Result<[f64; 2]> {
         let assembly = self.document("hardware/printed-parts/electronics/pcba-tray/pcba-assembly.numbers.json")?;
@@ -418,10 +410,10 @@ impl Sources {
     }
 
     /// The name the installed-wires program imports the STEP at `path` by: its checkout path.
-    pub fn checkout_name(&self, path: &str) -> Result<Value> {
-        let relative = Path::new(path).strip_prefix(&self.root)
-            .with_context(|| format!("{path} is outside the checkout"))?;
-        Ok(json!(relative.to_string_lossy()))
+    pub fn checkout_name(&self, path: &Path) -> Result<String> {
+        let relative = path.strip_prefix(&self.root)
+            .with_context(|| format!("{} is outside the checkout", path.display()))?;
+        Ok(relative.to_string_lossy().into_owned())
     }
 }
 

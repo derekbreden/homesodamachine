@@ -225,30 +225,49 @@ impl State {
 
     /// The point a route station names: a written point, a passage's end, a terminal, or a
     /// fraction of a body's bounds, moved by its offset.
-    pub fn station(&self, spec: &Value) -> Result<V> {
-        let p = if let Some(value) = spec.get("point_mm") {
-            v(value)?
-        } else if let Some(passage) = spec.get("passage") {
-            self.passage_point(
-                string(passage)?,
-                spec.get("end").and_then(Value::as_u64).unwrap_or(0) as usize,
-            )?
-        } else if let Some(id) = spec.get("terminal") {
-            self.point(string(id)?)?
+    /// Where `spec` stands in the installed machine.
+    pub fn station(&self, spec: &Station) -> Result<V> {
+        let p = if let Some(point) = spec.point_mm {
+            point
+        } else if let Some(passage) = &spec.passage {
+            self.passage_point(passage, spec.end.unwrap_or(0))?
+        } else if let Some(id) = &spec.terminal {
+            self.point(id)?
         } else {
-            let (lo, hi) = self.part(string(&spec["part"])?)?.bounds()?;
-            let f = spec.get("fraction").map(v).transpose()?.unwrap_or([0.5; 3]);
+            let part = spec
+                .part
+                .as_deref()
+                .context("a station names a point, a passage, a terminal or a part")?;
+            let (lo, hi) = self.part(part)?.bounds()?;
+            let f = spec.fraction.unwrap_or([0.5; 3]);
             [
                 lo[0] + (hi[0] - lo[0]) * f[0],
                 lo[1] + (hi[1] - lo[1]) * f[1],
                 lo[2] + (hi[2] - lo[2]) * f[2],
             ]
         };
-        Ok(add(
-            p,
-            spec.get("offset").map(v).transpose()?.unwrap_or([0.; 3]),
-        ))
+        Ok(add(p, spec.offset.unwrap_or([0.; 3])))
     }
+}
+
+/// A point a course is drawn through: one given outright, an end of a cable passage, a
+/// terminal, or a place within a part's bounds, each moved by `offset`.
+#[derive(Clone, Debug, Deserialize, Serialize)]
+pub struct Station {
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub point_mm: Option<V>,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub passage: Option<String>,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub end: Option<usize>,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub terminal: Option<String>,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub part: Option<String>,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub fraction: Option<V>,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub offset: Option<V>,
 }
 
 /// A pin as a source document numbers or labels it.

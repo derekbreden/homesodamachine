@@ -1,7 +1,31 @@
 use super::*;
-use model::{V, add, mul, v};
 use graph::Connection;
-use terminals::State;
+use model::{Route, V, add, mul};
+use serde::Deserialize;
+use terminals::{State, Station};
+
+/// A conductor's saved course: the stations it is drawn through, and how its ends and bends
+/// are dressed.
+#[derive(Clone, Debug, Default, Deserialize)]
+pub struct Saved {
+    stations: Option<Vec<Station>>,
+    tail_stations: Option<Vec<Station>>,
+    front_top_passage: Option<String>,
+    #[serde(default)]
+    preserve_stations: bool,
+    end_lands_mm: Option<[f64; 2]>,
+    bend_radius_mm: Option<f64>,
+    endpoint_tangent_fraction: Option<f64>,
+    route_status: Option<String>,
+    note: Option<String>,
+}
+
+/// A printed cable seat: where each lead it holds is centred.
+#[derive(Deserialize)]
+struct CableSite {
+    #[serde(default)]
+    target_centers: BTreeMap<String, V>,
+}
 const PITCH: f64 = 1.85;
 const J1: [&str; 7] = [
     "J1-COM", "J1-OUT3", "J1-OUT4", "J1-OUT5", "J1-OUT6", "J1-OUT7", "J1-OUT8",
@@ -10,12 +34,11 @@ const J2: [&str; 4] = ["J2-OUT1", "J2-OUT2", "J2-FAN", "J2-COM"];
 fn p(at: &State, id: &str) -> Result<V> {
     at.point(id)
 }
-fn has(value: &Value, key: &str) -> bool {
-    value.get(key).is_some()
-}
-pub fn manifold_site() -> Result<Value> {
-    let mut out = hsm_kernel::reads::json("tools/hsm/assembly-docs/src/wiring/manifold-bank.json")?;
-    out["target_centers"] = json!({});
+
+/// Where each front-going lead of the two board connectors is centred in the lid's manifold
+/// bank.
+fn manifold_centres() -> BTreeMap<&'static str, V> {
+    let mut out = BTreeMap::new();
     for (x, z, wires) in [
         (
             74.1,
@@ -31,17 +54,25 @@ pub fn manifold_site() -> Result<Value> {
         ),
     ] {
         for (i, id) in wires.iter().enumerate() {
-            out["target_centers"][*id] = json!([
-                x,
-                192.6,
-                z + (i as f64 - (wires.len() as f64 - 1.) / 2.) * PITCH
-            ]);
+            out.insert(
+                *id,
+                [
+                    x,
+                    192.6,
+                    z + (i as f64 - (wires.len() as f64 - 1.) / 2.) * PITCH,
+                ],
+            );
         }
     }
-    Ok(out)
+    out
 }
-fn cable_sites() -> Result<Value> {
-    hsm_kernel::reads::json("tools/hsm/assembly-docs/src/wiring/cable-sites.json")
+
+/// The printed cable seats of the enclosure.
+fn cable_sites() -> Result<Vec<CableSite>> {
+    serde_json::from_value(hsm_kernel::reads::json(
+        "tools/hsm/assembly-docs/src/wiring/cable-sites.json",
+    )?)
+    .context("the printed cable seats")
 }
 pub fn pump_internal(at: &State, x: f64, terminal_x: f64, lane: f64, n: f64) -> Result<Vec<V>> {
     let rear = at.passage_point("front-top-electrical", 0)?;
@@ -87,14 +118,14 @@ fn pump_lead(c: &Connection, at: &State, n: f64) -> Result<Vec<V>> {
     out.extend(pump_terminal(c, at, n)?);
     Ok(out)
 }
-fn station_rows(at: &State, value: &Value) -> Result<Vec<V>> {
-    rows(value)?.iter().map(|s| at.station(s)).collect()
+fn station_rows(at: &State, stations: &[Station]) -> Result<Vec<V>> {
+    stations.iter().map(|s| at.station(s)).collect()
 }
 fn guide(
     c: &Connection,
     at: &State,
     groups: &BTreeMap<String, Vec<String>>,
-    saved: &Value,
+    saved: &Saved,
 ) -> Result<Vec<V>> {
     let (id, harness, start, end) = (
         c.id.as_str(),
@@ -155,8 +186,8 @@ fn guide(
         let last = *pts.last().unwrap();
         if end.starts_with("V-") {
             let letter = end.chars().nth(2).context("valve letter")?;
-            if has(saved, "tail_stations") {
-                pts.extend(station_rows(at, &saved["tail_stations"])?);
+            if let Some(tail) = &saved.tail_stations {
+                pts.extend(station_rows(at, tail)?);
                 return Ok(pts);
             }
             if letter == 'B' {
@@ -424,12 +455,13 @@ fn dress_bank(
     c: &Connection,
     guides: &[V],
     at: &State,
-    saved: &mut Value,
+    saved: &mut Saved,
 ) -> Result<Option<Vec<V>>> {
     let (id, end, start) = (c.id.as_str(), c.end.as_str(), c.start.as_str());
     if id == "J2-positive-K" {
-        saved["note"] = json!(
+        saved.note = Some(
             "The V-K positive lead passes beside the manifold bank before rejoining its retained east-wall hook course; terminal positions and hook datums remain fixed."
+                .into(),
         );
         let mut out = vec![[84.8, 185., 267.]];
         out.extend(guides);
@@ -442,11 +474,13 @@ fn dress_bank(
     } else {
         return Ok(None);
     };
-    saved["note"] = json!(
+    saved.note = Some(
         "Front-going J1/J2 leads retain their terminal lands and pass through the two-channel lid bank using a shared board crossing and separated fore fanouts; physical dressing and packing remain unqualified."
+            .into(),
     );
-    let site = manifold_site()?;
-    let [x, _, z] = v(&site["target_centers"][id])?;
+    let [x, _, z] = *manifold_centres()
+        .get(id)
+        .with_context(|| format!("the manifold bank holds no {id}"))?;
     let index = group.iter().position(|&s| s == id).unwrap();
     let a = p(at, start)?;
     let b = p(at, end)?;
@@ -517,9 +551,9 @@ fn dress(
     c: &Connection,
     mut guides: Vec<V>,
     at: &State,
-    saved: &mut Value,
+    saved: &mut Saved,
 ) -> Result<Vec<V>> {
-    if boolean(saved, "preserve_stations", false) && has(saved, "stations") {
+    if saved.preserve_stations && saved.stations.is_some() {
         return Ok(guides);
     }
     if let Some(bank) = dress_bank(c, &guides, at, saved)? {
@@ -527,13 +561,9 @@ fn dress(
     }
     let id = c.id.as_str();
     let sites = cable_sites()?;
-    let target = rows(&sites)?
-        .iter()
-        .find_map(|s| s["target_centers"].get(id));
-    let Some(target) = target else {
+    let Some(&[x, _, z]) = sites.iter().find_map(|s| s.target_centers.get(id)) else {
         return Ok(guides);
     };
-    let [x, _, z] = v(target)?;
     if id.starts_with("J5-") {
         let a = p(at, c.start.as_str())?;
         let b = p(at, c.end.as_str())?;
@@ -573,13 +603,21 @@ fn dress(
     out.extend(&guides[last + 1..]);
     Ok(out)
 }
+
+/// Every conductor's route, in the graph's order: along its shared cable where one carries it,
+/// else through its saved stations or its harness's own course, with a straight land at each
+/// terminal.
 pub fn routed(
     src: &sources::Sources,
     root: &Path,
     connections: &[Connection],
     at: &State,
-) -> Result<Value> {
-    let mut overrides = load(root, "hardware/wiring/installed/route-overrides.json")?;
+) -> Result<Vec<Route>> {
+    let overrides: BTreeMap<String, Saved> = serde_json::from_value(load(
+        root,
+        "hardware/wiring/installed/route-overrides.json",
+    )?)
+    .context("the saved conductor courses")?;
     let mut groups: BTreeMap<String, Vec<String>> = BTreeMap::new();
     for c in connections {
         groups
@@ -598,33 +636,29 @@ pub fn routed(
         let id = c.id.as_str();
         let start = c.start.as_str();
         let end = c.end.as_str();
-        let mut saved = overrides
-            .get_mut(id)
-            .map(|v| v.clone())
-            .unwrap_or_else(|| json!({}));
-        let mut guides = if has(&saved, "stations") {
-            station_rows(at, &saved["stations"])?
-        } else {
-            guide(c, at, &groups, &saved)?
+        let mut saved = overrides.get(id).cloned().unwrap_or_default();
+        let mut guides = match &saved.stations {
+            Some(stations) => station_rows(at, stations)?,
+            None => guide(c, at, &groups, &saved)?,
         };
         let index = groups[c.harness.as_str()]
             .iter()
             .position(|v| v == id)
             .unwrap() as f64;
-        match saved.get("front_top_passage").and_then(Value::as_str) {
+        match saved.front_top_passage.as_deref() {
             Some("pump") => guides.extend(pump_terminal(c, at, index)?),
             Some("display") => guides.extend(display_internal(at, index)?),
             _ => {}
         }
         guides = dress(c, guides, at, &mut saved)?;
-        let lead = if stock[c.stock.as_str()]["awg"] == 22 {
+        let lead = if model::stock_of(&stock, c)?.awg == 22 {
             6.
         } else {
             8.
         };
-        let lands = saved.get("end_lands_mm");
-        let mut start_lead = lands.map(|v| number(&v[0])).transpose()?.unwrap_or(lead);
-        let mut end_lead = lands.map(|v| number(&v[1])).transpose()?.unwrap_or(lead);
+        let lands = saved.end_lands_mm;
+        let mut start_lead = lands.map_or(lead, |v| v[0]);
+        let mut end_lead = lands.map_or(lead, |v| v[1]);
         if lands.is_none() {
             if start.starts_with("psu.") {
                 start_lead = 6.;
@@ -653,16 +687,17 @@ pub fn routed(
             add(b, mul(at.terminal(end)?.outward, end_lead)),
             b,
         ]);
-        let mut input = json!({"connection":c,"points":points,"note":saved.get("note").and_then(Value::as_str).unwrap_or("Selected installed route between native terminal frames."),"endpoint_tangent_fraction":optional(&saved,"endpoint_tangent_fraction",0.44)});
-        if let Some(radius) = saved.get("bend_radius_mm") {
-            input["radius"] = radius.clone();
-        }
-        let mut route = model::finish(&input)?;
-        route["status"] = saved
-            .get("route_status")
-            .cloned()
-            .unwrap_or_else(|| json!("selected_layout"));
-        result.push(route);
+        result.push(model::finish(
+            c,
+            points,
+            saved.bend_radius_mm,
+            saved.endpoint_tangent_fraction.unwrap_or(0.44),
+            saved
+                .note
+                .as_deref()
+                .unwrap_or("Selected installed route between native terminal frames."),
+            saved.route_status.as_deref().unwrap_or("selected_layout"),
+        )?);
     }
-    Ok(json!(result))
+    Ok(result)
 }

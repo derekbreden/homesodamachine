@@ -1,16 +1,25 @@
 //! Length, arc-length positions and bend samples of recorded installed-wire splines.
 use anyhow::{Context, Result, ensure};
-use hsm_kernel::{Spline, V3, part, v3};
-use serde_json::{Value, json};
+use hsm_kernel::{Spline, V3, part};
+use serde::{Deserialize, Serialize};
+use serde_json::json;
 
-fn point(value: &Value) -> Result<V3> {
-    let values = value.as_array().context("wire interpolation point")?;
-    ensure!(values.len() == 3, "three wire coordinates");
-    Ok(v3(
-        values[0].as_f64().context("wire x")?,
-        values[1].as_f64().context("wire y")?,
-        values[2].as_f64().context("wire z")?,
-    ))
+/// A spline to measure: its interpolation points, their parameters and its end derivatives.
+#[derive(Deserialize)]
+struct Asked {
+    interpolation_points_mm: Vec<[f64; 3]>,
+    parameters: Vec<f64>,
+    endpoint_derivatives: [[f64; 3]; 2],
+}
+
+/// What is measured along a spline: its length, points at even steps of that length, the step
+/// between them and its tightest bend.
+#[derive(Serialize)]
+pub struct Reading {
+    pub length_mm: f64,
+    pub sampled_points_mm: Vec<[f64; 3]>,
+    pub maximum_sample_step_mm: f64,
+    pub minimum_bend_mm: Option<f64>,
 }
 
 fn integrate(curve: &Spline, a: f64, b: f64) -> f64 {
@@ -70,28 +79,10 @@ struct Measured {
 }
 
 impl Measured {
-    fn new(value: &Value) -> Result<Self> {
-        let points = value["interpolation_points_mm"]
-            .as_array()
-            .context("wire interpolation points")?
-            .iter()
-            .map(point)
-            .collect::<Result<Vec<_>>>()?;
-        let parameters = value["parameters"]
-            .as_array()
-            .context("wire spline parameters")?
-            .iter()
-            .map(|v| v.as_f64().context("numeric wire parameter"))
-            .collect::<Result<Vec<_>>>()?;
-        let derivatives = value["endpoint_derivatives"]
-            .as_array()
-            .context("wire endpoint derivatives")?;
-        ensure!(derivatives.len() == 2, "two wire endpoint derivatives");
-        let curve = Spline::clamped(
-            &points,
-            &parameters,
-            [point(&derivatives[0])?, point(&derivatives[1])?],
-        )?;
+    fn new(points: &[[f64; 3]], parameters: &[f64], derivatives: [[f64; 3]; 2]) -> Result<Self> {
+        let points: Vec<V3> = points.iter().map(|&p| V3::from(p)).collect();
+        let parameters = parameters.to_vec();
+        let curve = Spline::clamped(&points, &parameters, derivatives.map(V3::from))?;
         let mut cumulative = vec![0.];
         for span in parameters.windows(2) {
             cumulative.push(cumulative.last().unwrap() + integrate(&curve, span[0], span[1]));
@@ -167,7 +158,7 @@ impl Measured {
         first.cross(second).norm() / first.norm().powi(3)
     }
 
-    fn reading(&self) -> Value {
+    fn reading(&self) -> Reading {
         let length = self.length();
         let count = (length / 0.25).ceil().max(2.) as usize;
         let positions: Vec<_> = (0..=count)
@@ -182,8 +173,12 @@ impl Measured {
             .filter(|&k| k > 1e-12)
             .map(|k| 1. / k)
             .reduce(f64::min);
-        json!({"length_mm":length,"sampled_points_mm":positions,
-            "maximum_sample_step_mm":length/count as f64,"minimum_bend_mm":minimum})
+        Reading {
+            length_mm: length,
+            sampled_points_mm: positions,
+            maximum_sample_step_mm: length / count as f64,
+            minimum_bend_mm: minimum,
+        }
     }
 }
 
@@ -193,18 +188,17 @@ fn main() -> Result<()> {
         output.as_os_str() == "--check",
         "wire-route-samples reads numeric splines only"
     );
-    let readings = numbers
-        .get("splines")?
-        .as_array()
-        .context("wire spline requests")?
+    let asked = Vec::<Asked>::deserialize(numbers.get("splines")?).context("wire spline requests")?;
+    let readings = asked
         .iter()
-        .map(|value| Ok(Measured::new(value)?.reading()))
+        .map(|spline| measure(&spline.interpolation_points_mm, &spline.parameters, spline.endpoint_derivatives))
         .collect::<Result<Vec<_>>>()?;
     println!("{}", json!({"splines":readings}));
     Ok(())
 }
 
-/// Scalar spline measurements shared with the installed wiring recipe composer.
-pub fn measure(value: &Value) -> Result<Value> {
-    Ok(Measured::new(value)?.reading())
+/// The measurements along the clamped spline through `points` at `parameters`, with
+/// `derivatives` at its ends.
+pub fn measure(points: &[[f64; 3]], parameters: &[f64], derivatives: [[f64; 3]; 2]) -> Result<Reading> {
+    Ok(Measured::new(points, parameters, derivatives)?.reading())
 }
