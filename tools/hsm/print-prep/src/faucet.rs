@@ -6,7 +6,7 @@
 use crate::json::{python_number, Json};
 use crate::project::Paint;
 use crate::refresh::Refreshed;
-use crate::{cooling, sha256_hex, xml};
+use crate::{cooling, seam, sha256_hex, xml};
 use anyhow::{Context, Result, ensure};
 use hsm_faucet_numbers::paths as faucet_paths;
 use serde_json::{json, Map, Value};
@@ -159,7 +159,8 @@ pub fn paint_of(r: &mut Refreshed, index: usize) -> &mut Vec<Paint> {
 
 /// Paint the part's complete rear silhouette, in the actual build pose, as a seam: the facets
 /// crossing CAD X = 0 within the declared half-width whose crossing lies on the section's rear
-/// boundary at its build height, including tilted stage shoulders. The mesh is unchanged.
+/// boundary at its build height, including tilted stage shoulders. A paint strip clips broad
+/// facets at the band edges while keeping the original surface.
 pub fn enforce_rear_seam(r: &mut Refreshed, target: &Value) -> Result<Value> {
     let name = target["part"].as_str().context("seam part")?;
     let index = r.row(name)?.index;
@@ -250,17 +251,44 @@ pub fn enforce_rear_seam(r: &mut Refreshed, target: &Value) -> Result<Value> {
             }
         }
     }
-    let paint = paint_of(r, index);
-    for fi in picked {
-        set_paint(&mut paint[fi], "paint_seam", "4");
+    let mut record = target.as_object().cloned().unwrap_or_default();
+    let strip_width = target["paint_strip_half_width_mm"].as_f64();
+    if let Some(width) = strip_width {
+        ensure!(width > 0.0 && width.is_finite(), "rear seam paint strip half-width must be positive");
+        let obj = &mut r.plate.objects[index];
+        let original: Vec<_> = faces.iter().map(|face| face.map(|v| obj.vertices[v])).collect();
+        let center_x = -obj.source_center[0];
+        let (vertices, faces, parents) = seam::split_at_strip(&original, 0, center_x, width);
+        let original_paint = obj.paint.take();
+        let paint = faces.iter().zip(parents).map(|(face, parent)| {
+            let mut paint = original_paint.as_ref().map_or_else(Vec::new, |rows| rows[parent].clone());
+            if picked.binary_search(&parent).is_ok()
+                && face.iter().all(|&v| (vertices[v][0] - center_x).abs() <= width + ON_PLANE)
+            {
+                set_paint(&mut paint, "paint_seam", "4");
+            }
+            paint
+        }).collect::<Vec<_>>();
+        selected = paint.iter().filter(|row| row.iter().any(|(key, value)| key == "paint_seam" && value == "4")).count();
+        ensure!(selected > 0, "rear seam strip misses {name}");
+        obj.vertices = vertices;
+        obj.faces = faces;
+        obj.paint = Some(paint);
+        lo[0] = lo[0].max(-width);
+        hi[0] = hi[0].min(width);
+        record.insert("project_facets".into(), json!(obj.faces.len()));
+    } else {
+        let paint = paint_of(r, index);
+        for fi in picked {
+            set_paint(&mut paint[fi], "paint_seam", "4");
+        }
     }
     if !r.plate.model_metadata.iter().any(|(k, _)| k == "BambuStudio:SeamPaintingVersion") {
         r.plate.model_metadata.push(("BambuStudio:SeamPaintingVersion".into(), "0".into()));
     }
-    let mut record = target.as_object().cloned().unwrap_or_default();
     record.insert("enforced_triangles".into(), json!(selected));
     record.insert("painted_facet_bounds_cad_mm".into(), json!([lo, hi]));
-    record.insert("mesh_vertices_and_triangle_indices_unchanged".into(), json!(true));
+    record.insert("mesh_vertices_and_triangle_indices_unchanged".into(), json!(strip_width.is_none()));
     Ok(Value::Object(record))
 }
 

@@ -86,6 +86,11 @@
     "native_evidence": "hardware/printed-parts/faucet/industrial/seam-placement/rear-center-v2/native-review.json",
     "physical_result": "Retain the shared tip rear seam enforcement from the accepted Industrial process."
   },
+  "cover_rear_seam_enforcement": {
+    "part": "faucet-display-cover",
+    "paint_strip_half_width_mm": 0.35,
+    "target": "Exterior rear wall on the tip's CAD center plane above the opening"
+  },
   "base_rim_supports": {
     "selected_date": "2026-11-11",
     "part": "faucet-shell-base",
