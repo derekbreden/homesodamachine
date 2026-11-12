@@ -298,6 +298,32 @@ uint8_t machineNoticeHeld();          // the kinds held now
 uint32_t machineNoticeHoldLeftMs();   // what is left of the lease
 uint8_t machineNoticeStanding();      // the notice with nothing held
 
+// ── The sweep ─────────────────────────────────────────────────────────────
+// A carbonator that was drained and opened holds air, and a fill would squeeze it into the
+// headspace to stay. While a sweep is owed the refill is held and the meter's pulses open
+// no pour: with the tank dry and the cylinder open, the lever at the faucet lets CO2 carry
+// the air out, and the meter counts it (machine_policy::Sweep). The lever let go after the
+// target asks for the first fill. That a sweep is owed is kept in flash.
+struct MachineSweep {
+    bool     owed;
+    bool     flowing;   // gas is moving and the count is short of its target
+    bool     done;      // the target is met and the lever is still down
+    uint8_t  percent;   // of the target
+    uint32_t pulses;    // counted so far
+};
+void machineSweep(MachineSweep &sweep);
+
+// The tank has been drained and opened: owe a sweep, and drop any refill that is owed.
+// False while a carbonator reed reads closed, which is a tank that holds water.
+bool machineSweepOwe();
+
+// Give the sweep up and ask for the first fill without it. False when none is owed. The
+// machine's own display sends it, and the console's `sweep skip`.
+bool machineSweepSkip();
+
+// Drop a sweep that is owed and ask for nothing, for a bench. False when none is owed.
+bool machineSweepForget();
+
 // Read-only commissioning snapshot of the two MCP23017s and all ten reeds.
 // This is populated only when explicitly requested from the USB console; it is
 // not polled in the interaction loop or placed on J9.

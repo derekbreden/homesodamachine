@@ -65,7 +65,7 @@ Failures at this step: cosmetic blemishes are repaired in place where possible (
 
 ### 2. Confirm system fluid-drain dry
 
-The machine ships **DRY**. Carbonator and both flavor reservoirs are emptied at [`acceptance-and-burn-in.md`](/hardware/assembly/acceptance-and-burn-in.md) step 13, after the burn-in refill defined in [`/hardware/topology/fluid-topology.md`](/hardware/topology/fluid-topology.md) "Air Purge In/Out" — pump air through each reservoir into the gooseneck until the discharge runs dry, with the carbonator drained through the dispense path under residual CO2 pressure first.
+The machine ships **DRY**. Carbonator and both flavor reservoirs are emptied at [`acceptance-and-burn-in.md`](/hardware/assembly/acceptance-and-burn-in.md) step 13, after the burn-in refill defined in [`/hardware/topology/fluid-topology.md`](/hardware/topology/fluid-topology.md) "Air Purge In/Out" — pump air through each reservoir into the gooseneck until the discharge runs dry, with the carbonator drained through the dispense path under residual CO2 pressure first. It also ships owing a sweep, set at the end of that step: the drained tank stands open to the air through its uncapped SODA port, and the machine holds its first fill at the customer's until that air has been let out at the faucet.
 
 Carton-weight references: ~ full carton; emptied reservoirs save ~ water + ~ flavor.
 
@@ -192,6 +192,7 @@ A finished, ship-ready unit is:
 
 - Cosmetically wiped and visually inspected on every exposed surface, with cosmetic conditions within the [accepted defects and tolerances](/hardware/defects-and-tolerances.md)
 - Confirmed fluid-drained dry: no water in the carbonator or any line, no flavor in either reservoir, system at atmospheric pressure
+- Owing a sweep, as acceptance step 13 left it
 - Nameplate secured with four screws into the +Y wall, retained and scanned to confirm this unit
 - Water + CO2 inlets, both on the +Y wall, capped for transit
 - Carton sealed with the machine + bagged faucet-and-umbilical sub-assembly + install kit (the collet press, the regulator and the cold kit inside it) + customer documentation packet with the install guide face up

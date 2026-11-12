@@ -300,7 +300,8 @@ static bool isUserAction(uint8_t type) {
            type == MSG_AIR_STOP || type == MSG_SOUND_CFG_SET || type == MSG_FLAVOR_ART_SET ||
            type == MSG_FLAVOR_ART_SET_ONE || type == MSG_RATIO_SET_ONE ||
            type == MSG_RATIO_SET || type == MSG_SETTING_SET_IF || type == MSG_PRIME_SESSION_SET ||
-           type == MSG_TRUST_ANSWER || type == MSG_TRUST_FORGET || type == MSG_REFILL_RETRY;
+           type == MSG_TRUST_ANSWER || type == MSG_TRUST_FORGET || type == MSG_REFILL_RETRY ||
+           type == MSG_SWEEP_SKIP;
 }
 
 // What the main board reads about itself, as either link carries it.
@@ -698,6 +699,18 @@ static void dispatch(HdlcLink *link, const uint8_t *frame, uint16_t len) {
     if (type == MSG_REFILL_RETRY) {
         Serial.printf("\n[J9] MSG_REFILL_RETRY — %s\n",
                       machineRefillRetry() ? "trying the water again" : "no refill stands latched");
+        StatusPayload s;
+        linkFillStatus(s);
+        link->send(MSG_RESP_STATUS, &s, sizeof(s));
+        return;
+    }
+
+    // Fill anyway, pressed on the machine's own display: the sweep is given up and the first
+    // fill is asked for without it. Answered with the status that shows what it did.
+    if (type == MSG_SWEEP_SKIP) {
+        Serial.printf("\n[J9] MSG_SWEEP_SKIP — %s\n",
+                      machineSweepSkip() ? "the sweep is given up and the first fill asked for"
+                                         : "no sweep is owed");
         StatusPayload s;
         linkFillStatus(s);
         link->send(MSG_RESP_STATUS, &s, sizeof(s));

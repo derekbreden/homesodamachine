@@ -118,8 +118,8 @@ board also establishes and reports the safe I/O foundation the next connected be
   has turned for `kUpdateTrialMs` and its boot is in the record, at an idle and quiet moment.
   Until then the bootloader still holds the image before it and returns to it on any
   restart, so a build that cannot stay up undoes itself. The record notes the image kept.
-- **The record.** Every pour, refill draw, compressor run, fill, clean cycle, air cycle and
-  prime is noted as it ends — what ran, for how long, and how it ended — beside every boot
+- **The record.** Every pour, refill draw, compressor run, fill, clean cycle, air cycle,
+  prime and sweep is noted as it ends — what ran, for how long, and how it ended — beside every boot
   with its reset reason, the gas alarm, the valve drivers going unverified and coming back,
   and the cold loop losing its probes or reaching the freeze cutout. `log` reads it back; [The record](#the-record) is how it is kept.
 
@@ -161,6 +161,24 @@ first filled; `refill latch` stands a refill latched as one that spent its ceili
 see what the glasses say; `refill forget` drops a refill that is owed. A reading put in with
 `sim` is not the water: what it asks for is not kept, and ends with `sim off`.
 
+A carbonator that was drained and opened owes a sweep before its first fill
+([`sweep_policy.h`](/firmware/lib/machine_policy/sweep_policy.h)): the air it holds would be
+squeezed into the headspace by the fill and stay there. `sweep owe` sets it,
+[`sweep_store.cpp`](sweep_store.cpp) keeps it through a power cut, and a board that was never
+told owes none. While it stands the refill's gate is shut and the meter's pulses open no
+pour. They are gas: with the tank dry and the cylinder open, the lever at the faucet lets CO2
+through the tank and out, and the meter at the tank's outlet counts the sweep in tank
+volumes. Both glasses say why there is no soda yet (`NOTICE_SWEEP`): the faucet's shows the
+count as a bar under the hand that is holding the lever, and the machine's own sends the
+person to the faucet. The lever let go pauses the count and keeps it. The count reaching its
+target sounds `chime` and both glasses say Done; the meter going quiet after that is the
+lever let go, and only then is the first fill asked for, so its first water is not sent out
+of an open faucet. A reed that stays closed says the tank holds water, which a sweep cannot
+work through, and drops it. `sweep skip`, or Fill anyway on the machine's display
+(`MSG_SWEEP_SKIP`), gives the sweep up and fills without it. Whether the meter counts gas and
+how long a sweep takes are wet-bench measurements; `flow <n> [s]` stands in for the gas on a
+bench.
+
 `status` prints both loops with their relays; `thermal` walks the bus; `sim` puts a reading at
 the top of either so the policy, the relays and the fan can be exercised with no probe on the
 bench, and says `SIMULATED` on every `status` while one stands.
@@ -172,7 +190,11 @@ carry it: `MSG_NOTICE` on J3's heartbeat to the faucet, which says so and points
 machine, and `StatusPayload::notice` to the machine's own display and a phone. A refill that
 stands latched is `NOTICE_NO_WATER`. The machine's display says what to check and offers
 **Not now** and **Try again**, once each time it wakes and each time the latch is new. A
-notice that comes up lights both glasses.
+sweep that is owed is `NOTICE_SWEEP`, and `NOTICE_SWEEP_DONE` from its target until a few
+seconds after the lever is let go. The faucet's notice carries two more bytes for it, the
+percent counted and whether gas is moving now, and goes out as they change as well as on
+the heartbeat, so the bar moves under the hand. A notice that comes up lights both glasses,
+and a sweep with gas moving keeps them lit.
 
 A machine on a bench has no water to find. `notice hold <name>…` from a host on this console
 keeps the named notices off both glasses for `kNoticeHoldLeaseMs`, and a host that stays says
@@ -249,6 +271,7 @@ clock or `-`, what it was, and that thing's own fields by name —
 | `flavor.cpp` | main-board-owned flavor state and deferred NVS persistence |
 | `rtc.cpp` | U6 DS3231 — what hour it is, and whether that answer can be believed |
 | `refill_store.cpp` | what the refill keeps through a power cut: that it is owed, and the pumping time spent on it |
+| `sweep_store.cpp` | what the sweep keeps through a power cut: that it is owed |
 | `recorder.cpp` | the machine's record: entries waiting for an idle moment, the flash they are kept in, the console's `log` |
 | `pins.h` | what this image reaches on the main board, off `pcba.tsx` |
 | [`/firmware/lib/sound`](/firmware/lib/sound/sound.h) | U8, IO13, and the machine's sounds — shared with the bench |
@@ -282,9 +305,13 @@ pio device monitor -e appliance
 | `selftest` | [`firmware-and-commissioning.md`](/hardware/assembly/firmware-and-commissioning.md) §7: V-A through V-K for a quarter second each, the condenser fan for a second, then each pump for a second, one load at a time, each parked and read back before the next |
 | `refill clear` | grant a latched refill another pumping ceiling and set it trying again |
 | `refill latch` | stand a refill latched as one that spent its ceiling does |
-| `notice [hold <name>…\|release]` | what the glasses are told, and a bench host's hold on it: keep the named notices (`no-water`) off both glasses for a lease the host renews |
+| `notice [hold <name>…\|release]` | what the glasses are told, and a bench host's hold on it: keep the named notices (`no-water`, `welcome` for a sweep) off both glasses for a lease the host renews |
 | `refill fill` | fill the carbonator now, whatever its reeds read: to the high reed or the pumping ceiling |
 | `refill forget` | drop a refill that is owed, and the flash's note of it |
+| `sweep` | whether the carbonator owes a sweep of its air, and how far one has got |
+| `sweep owe` | the tank was drained and opened: hold its first fill until the lever at the faucet has let CO2 carry the air out; drops any refill that is owed |
+| `sweep skip` | give the sweep up and fill without it, as the machine's display can |
+| `sweep forget` | drop a sweep that is owed and ask for nothing |
 | `stop` | end whatever is running |
 | `hang` | stop the loop turning, to see the watchdog restart the board |
 | `status` | machine state, uptime, heap, verified MCP configuration/output park, all ten reeds |

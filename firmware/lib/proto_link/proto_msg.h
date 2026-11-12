@@ -1076,19 +1076,33 @@ static_assert(sizeof(LogEntryPayload) == sizeof(StatusPayload),
 // display reads the same reason in the status it polls (StatusPayload::notice); it is where
 // the looking is done, so it alone offers Try again, and MSG_REFILL_RETRY is what that
 // sends.
+//
+// A carbonator that was drained and opened owes a sweep before its first fill: the lever at
+// the faucet lets CO2 carry the tank's air out, and the main board counts it on the meter.
+// The faucet's glass is where the hand is, so its notice carries how far the sweep has got
+// and whether gas is moving now. The machine's own display sends the person to the faucet,
+// and MSG_SWEEP_SKIP is its way to have the tank filled without a sweep.
 constexpr uint8_t MSG_NOTICE       = 0x78;  // NoticePayload: main board → faucet
 constexpr uint8_t MSG_REFILL_RETRY = 0x79;  // no payload: enclosure → main board, answered with StatusPayload
+constexpr uint8_t MSG_SWEEP_SKIP   = 0x7A;  // no payload: enclosure → main board, answered with StatusPayload
 
-constexpr uint8_t NOTICE_NONE     = 0;
-constexpr uint8_t NOTICE_NO_WATER = 1;  // a refill stands latched at its pumping ceiling
+constexpr uint8_t NOTICE_NONE       = 0;
+constexpr uint8_t NOTICE_NO_WATER   = 1;  // a refill stands latched at its pumping ceiling
+constexpr uint8_t NOTICE_SWEEP      = 2;  // the dry tank's air goes out at the faucet before its first fill
+constexpr uint8_t NOTICE_SWEEP_DONE = 3;  // that sweep has met its target: let go of the lever
+
+constexpr uint8_t NOTICE_F_FLOWING = 1 << 0;  // NOTICE_SWEEP: gas is moving through the tank now
 
 // The kind comes first and a glass reads the bytes it knows, so a reason that needs more
-// than its name appends them.
+// than its name appends them. A glass takes bytes that do not arrive as zero.
 struct __attribute__((packed)) NoticePayload {
   uint8_t kind;      // NOTICE_*
+  uint8_t progress;  // NOTICE_SWEEP: percent of the sweep counted
+  uint8_t flags;     // NOTICE_F_*
 };
 
-static_assert(sizeof(NoticePayload) == 1, "notice wire layout drift");
+constexpr uint8_t NOTICE_CORE_BYTES = 1;   // the kind
+static_assert(sizeof(NoticePayload) == 3, "notice wire layout drift");
 
 // ── The radio bench ──────────────────────────────────────────────────────
 // The enclosure display raises the access point and sinks the bytes; the
