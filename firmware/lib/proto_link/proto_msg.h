@@ -526,12 +526,14 @@ constexpr uint8_t UI_RAIL_PRIME    = 1;
 constexpr uint8_t UI_RAIL_FILL     = 2;
 constexpr uint8_t UI_RAIL_CLEAN    = 3;
 constexpr uint8_t UI_RAIL_SETTINGS = 4;      // the corner: the system status
-constexpr uint8_t UI_RAIL_NOTICE   = 5;      // the no-water notice, while a refill stands latched
+constexpr uint8_t UI_RAIL_NOTICE   = 5;      // the notice standing: no water, or the welcome while a sweep is owed
 constexpr uint8_t UI_CHANNEL_NONE  = 0xFF;   // the rail's own page rather than a channel's
 
 constexpr uint8_t UI_ACT_NONE    = 0;        // show the page and press nothing
-constexpr uint8_t UI_ACT_COMMIT  = 1;        // also press its commitment: START FILL, START CLEAN CYCLE, Try again
-constexpr uint8_t UI_ACT_DECLINE = 2;        // also press the notice's Not now
+constexpr uint8_t UI_ACT_COMMIT  = 1;        // also press its commitment: START FILL, START CLEAN CYCLE, Try again,
+                                             // the welcome's OK, or Skip on its confirmation
+constexpr uint8_t UI_ACT_DECLINE = 2;        // also press the notice's Not now, the welcome's Skip, or Cancel on
+                                             // Skip's confirmation
 
 struct __attribute__((packed)) UiShowPayload {
   uint8_t rail;      // UI_RAIL_*
