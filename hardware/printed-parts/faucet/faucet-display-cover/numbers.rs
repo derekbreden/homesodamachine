@@ -12,8 +12,11 @@ pub const WINDOW_INSET: f64 = 2.0;
 /// The window, across and its corner radius.
 pub const WINDOW_HALF_X: f64 = DISPLAY_HOUSING_WIDTH / 2.0 - WINDOW_INSET;
 pub const WINDOW_CORNER_R: f64 = DISPLAY_CORNER_R - WINDOW_INSET;
-/// The bezel's underside, over the glass.
-pub const BEZEL_N_BOTTOM: f64 = DISPLAY_FACE_N + DISPLAY_COVER_OVER_FACE;
+/// The reach from the lip seating lands to the raised bezel and skirt shoulder.
+pub const WING_REACH: f64 = 0.5;
+/// The bezel's underside, over the glass, and its top.
+pub const BEZEL_N_BOTTOM: f64 = DISPLAY_FACE_N + DISPLAY_COVER_OVER_FACE + WING_REACH;
+pub const BEZEL_N_TOP: f64 = DISPLAY_COVER_TOP_N + WING_REACH;
 /// The cover's lower front edge: where it starts up from the open underside, along n, and its
 /// slope up per millimetre along s.
 pub const FRONT_RIM_N: f64 = 14.0;
@@ -25,8 +28,9 @@ pub const REAR_TRIM_S0: f64 = 42.1;
 pub const REAR_TRIM_DS_DN: f64 = 0.6;
 /// What the lips' inner corners are relieved by.
 pub const LIP_RELIEF: f64 = snap::LIP_INNER_EDGE_RELIEF;
-/// The lips' radius about the neck.
-pub const LIP_R: f64 = DISPLAY_NECK_OUTER_R - (DISPLAY_NECK_OUTER_R - DISPLAY_CLIP_LIP_RADIUS);
+/// Radial clearance for the printed lip to settle against the groove floor under spring preload.
+pub const LIP_ROOT_CLEARANCE: f64 = 0.2;
+pub const LIP_R: f64 = DISPLAY_CLIP_LIP_RADIUS + LIP_ROOT_CLEARANCE;
 /// Clearance above the dispense cap at the front of the cover.
 pub const NOSE_ARCH_LIFT: f64 = 0.5;
 
@@ -37,7 +41,7 @@ pub fn window_s() -> [f64; 2] {
 
 /// The window along n: from under the bezel out past the cover's face.
 pub fn window_n() -> [f64; 2] {
-    [BEZEL_N_BOTTOM - 0.1, DISPLAY_COVER_TOP_N + 1.0]
+    [BEZEL_N_BOTTOM - 0.1, BEZEL_N_TOP + 1.0]
 }
 
 /// What the cover clears the neck by.
@@ -59,8 +63,8 @@ pub fn outer_rows() -> [[f64; 5]; 3] {
     let skirt_s = display_cover_center_s() + REAR_SKIRT_EXTENSION / 2.0;
     [
         [skirt_width, skirt_length, DISPLAY_COVER_SKIRT_R, DISPLAY_COVER_BOTTOM_N, skirt_s],
-        [skirt_width, skirt_length, DISPLAY_COVER_SKIRT_R, DISPLAY_COVER_SHOULDER_N, skirt_s],
-        [DISPLAY_COVER_FACE_WIDTH, display_cover_face_length(), DISPLAY_COVER_FACE_R, DISPLAY_COVER_TOP_N, display_cover_center_s()],
+        [skirt_width, skirt_length, DISPLAY_COVER_SKIRT_R, DISPLAY_COVER_SHOULDER_N + WING_REACH, skirt_s],
+        [DISPLAY_COVER_FACE_WIDTH, display_cover_face_length(), DISPLAY_COVER_FACE_R, BEZEL_N_TOP, display_cover_center_s()],
     ]
 }
 
@@ -72,7 +76,10 @@ pub fn outer_clamp() -> [f64; 5] {
 /// The cavity's outline rows, each the shell's with the housing's centre along s.
 pub fn cavity_rows() -> [[f64; 5]; 3] {
     let centre = display_housing_center_s();
-    display_cover_inner_rows().map(|[w, l, r, n]| [w, l, r, n, centre])
+    let [skirt, mut shoulder, mut ceiling] = display_cover_inner_rows();
+    shoulder[3] += WING_REACH;
+    ceiling[3] = BEZEL_N_BOTTOM;
+    [skirt, shoulder, ceiling].map(|[w, l, r, n]| [w, l, r, n, centre])
 }
 
 /// The prisms the cavity is clamped to: the shell's, and the dispense face's.
