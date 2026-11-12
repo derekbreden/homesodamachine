@@ -99,9 +99,10 @@ Co-Authored-By: <the harness's line, when it adds one>
 
 When Derek tries a made part in hand and says anything affirmative about it, add a row to
 [`hardware/ledger/fitted.json`](hardware/ledger/fitted.json): the part's material number, the
-date, his words exactly, what he tried, and where the fuller record is. The bar is low: "looks
-good" counts once he has tried the print. A remark about a model or a picture is not a try. When
-a later try of that part fails in his hands, take the part's rows out; Git keeps them.
+date, his words exactly, what he tried, and where the fuller record is. The bar is "good
+enough": anything he says along those lines once he has tried the print counts, with whatever
+flaw he names beside it. A remark about a model or a picture is not a try. When a later try of
+that part fails in his hands, take the part's rows out; Git keeps them.
 
 The site reads the record and measures nothing. A printed part shows as fitted or not fitted
 yet, and the list behind the machine's mark names its printed parts that are not fitted yet.

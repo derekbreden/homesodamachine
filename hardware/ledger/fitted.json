@@ -2,6 +2,30 @@
   "purpose": "The parts Derek has tried in hand and said yes to, in his words. The site shows each as fitted and lists the printed parts with no row here as not fitted yet.",
   "fitted": [
     {
+      "material": "HSM-0099",
+      "date": "2026-08-17",
+      "said": "Printed your new design and it works beautifully, please make a note of it. Goes on easy enough and the slight bend a tube always has because it starts coiled causes enough friction to keep the collar in place.",
+      "tried": "the printed collar slid onto its tube"
+    },
+    {
+      "material": "HSM-0100",
+      "date": "2026-08-17",
+      "said": "Printed your new design and it works beautifully, please make a note of it. Goes on easy enough and the slight bend a tube always has because it starts coiled causes enough friction to keep the collar in place.",
+      "tried": "the printed collar slid onto its tube"
+    },
+    {
+      "material": "HSM-0101",
+      "date": "2026-08-17",
+      "said": "Printed your new design and it works beautifully, please make a note of it. Goes on easy enough and the slight bend a tube always has because it starts coiled causes enough friction to keep the collar in place.",
+      "tried": "the printed collar slid onto its tube"
+    },
+    {
+      "material": "HSM-0102",
+      "date": "2026-08-17",
+      "said": "Printed your new design and it works beautifully, please make a note of it. Goes on easy enough and the slight bend a tube always has because it starts coiled causes enough friction to keep the collar in place.",
+      "tried": "the printed collar slid onto its tube"
+    },
+    {
       "material": "HSM-0372",
       "date": "2026-09-03",
       "said": "The push connect tool we just printed worked so well that I've reconsidered",
@@ -128,6 +152,12 @@
       "record": "hardware/print-tests/rear-snap-retention/v4/physical-result/physical-result.json"
     },
     {
+      "material": "HSM-0448",
+      "date": "2026-11-02",
+      "said": "But then on the ASSC, I think we're pretty good there. Like, I'd say that one's in pretty good shape.",
+      "tried": "the ASSE snapped into its printed cap and receiver"
+    },
+    {
       "material": "HSM-0455",
       "date": "2026-11-02",
       "said": "Oh, and regarding the pump, I mean it's pretty damn good. The only complaint I have there is the wings and how they bend. ... So other than that, the pump snap is looking really good to me.",
@@ -138,6 +168,48 @@
       "date": "2026-11-08",
       "said": "The longer pointed tips on the snaps there worked beautifully.",
       "tried": "the cap with longer pointed tips snapped on its printed receiver"
+    },
+    {
+      "material": "HSM-0062",
+      "date": "2026-11-09",
+      "said": "Like honestly either would be fine. If I'm being really nitpicky though, (A) is closer but a bit tight and (B) is further and a bit loose so let's go with somewhere in between, 0.20 mm per side, as our approved variant implemented on all 6 color chips.",
+      "tried": "printed plates of two widths pressed into the enclosure's port recess; he chose a width between them for all six",
+      "record": "hardware/printed-parts/enclosure/rear-identification/prints/2026-11-09-co2-width-mark1/physical-result.json"
+    },
+    {
+      "material": "HSM-0063",
+      "date": "2026-11-09",
+      "said": "Like honestly either would be fine. If I'm being really nitpicky though, (A) is closer but a bit tight and (B) is further and a bit loose so let's go with somewhere in between, 0.20 mm per side, as our approved variant implemented on all 6 color chips.",
+      "tried": "printed plates of two widths pressed into the enclosure's port recess; he chose a width between them for all six",
+      "record": "hardware/printed-parts/enclosure/rear-identification/prints/2026-11-09-co2-width-mark1/physical-result.json"
+    },
+    {
+      "material": "HSM-0064",
+      "date": "2026-11-09",
+      "said": "Like honestly either would be fine. If I'm being really nitpicky though, (A) is closer but a bit tight and (B) is further and a bit loose so let's go with somewhere in between, 0.20 mm per side, as our approved variant implemented on all 6 color chips.",
+      "tried": "printed plates of two widths pressed into the enclosure's port recess; he chose a width between them for all six",
+      "record": "hardware/printed-parts/enclosure/rear-identification/prints/2026-11-09-co2-width-mark1/physical-result.json"
+    },
+    {
+      "material": "HSM-0065",
+      "date": "2026-11-09",
+      "said": "Like honestly either would be fine. If I'm being really nitpicky though, (A) is closer but a bit tight and (B) is further and a bit loose so let's go with somewhere in between, 0.20 mm per side, as our approved variant implemented on all 6 color chips.",
+      "tried": "printed plates of two widths pressed into the enclosure's port recess; he chose a width between them for all six",
+      "record": "hardware/printed-parts/enclosure/rear-identification/prints/2026-11-09-co2-width-mark1/physical-result.json"
+    },
+    {
+      "material": "HSM-0066",
+      "date": "2026-11-09",
+      "said": "Like honestly either would be fine. If I'm being really nitpicky though, (A) is closer but a bit tight and (B) is further and a bit loose so let's go with somewhere in between, 0.20 mm per side, as our approved variant implemented on all 6 color chips.",
+      "tried": "printed plates of two widths pressed into the enclosure's port recess; he chose a width between them for all six",
+      "record": "hardware/printed-parts/enclosure/rear-identification/prints/2026-11-09-co2-width-mark1/physical-result.json"
+    },
+    {
+      "material": "HSM-0067",
+      "date": "2026-11-09",
+      "said": "Like honestly either would be fine. If I'm being really nitpicky though, (A) is closer but a bit tight and (B) is further and a bit loose so let's go with somewhere in between, 0.20 mm per side, as our approved variant implemented on all 6 color chips.",
+      "tried": "printed plates of two widths pressed into the enclosure's port recess; he chose a width between them for all six",
+      "record": "hardware/printed-parts/enclosure/rear-identification/prints/2026-11-09-co2-width-mark1/physical-result.json"
     }
   ]
 }
