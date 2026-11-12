@@ -1,0 +1,26 @@
+{
+  "archive": {
+    "gcode_sha256": "011c9b17fed3dd1e40586a2c8ba5859f31d17b403f681029e72e82a47c897305",
+    "name": "sculpted-faucet-tip-white-mark1-ready.gcode.3mf",
+    "objects": [
+      "faucet-shell-tip"
+    ],
+    "sha256": "492bef1bbb8b967e2e07b9a542d555c26712ea0a157689415e885ad2e63b1f78",
+    "slots": {
+      "1": {
+        "colour": "FFFFFF",
+        "type": "PET-CF"
+      }
+    }
+  },
+  "gcode_state": "PREPARE",
+  "hms": [],
+  "layer_num": 86,
+  "mc_remaining_time": 0,
+  "observed_at": "2026-11-12T02:49:38+00:00",
+  "print_error": 0,
+  "printer": "H2C",
+  "printer_task_id": "1433852816",
+  "subtask_name": "sculpted-faucet-tip-white-mark1-ready.gcode.3mf",
+  "total_layer_num": 971
+}

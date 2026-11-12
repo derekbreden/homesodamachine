@@ -1,0 +1,103 @@
+{
+  "purpose": "Print the complete Sculpted faucet tip in white for a scan and cover fit check.",
+  "model_objects": [
+    "faucet-shell-tip"
+  ],
+  "source_stl": "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.stl",
+  "source_stl_sha256": "a3f80020d3756ea99dc7135a3173c89f9ed05bebebb63ce211d0492e92dc14ad",
+  "preparer": {
+    "path": "hardware/printed-parts/faucet/sculpted/prepare_print_project.rs",
+    "sha256": "25406c17edd6fa33a33054f128dbbdc051623bb9c4b0ad0d65e41f1126c2d1cf"
+  },
+  "finish_selection_sha256": "725110795d268b9bebe48a9cbb8fab41fe0ae117ca7955ad5dfae6bd5c9743e8",
+  "tip_pose": {
+    "identify_id": 1901,
+    "build_transform": [
+      1.0,
+      0.0,
+      0.0,
+      0.0,
+      -0.25881904510252085,
+      -0.9659258262890683,
+      0.0,
+      0.9659258262890683,
+      -0.25881904510252085,
+      162.5,
+      154.785128820301,
+      68.93456774147909
+    ],
+    "plate_translation_mm": [
+      162.5,
+      154.785128820301,
+      68.93456774147909
+    ],
+    "source_center_mm": [
+      0.0002460479736328125,
+      -80.5707836151123,
+      208.50538635253906
+    ]
+  },
+  "project": "sculpted-faucet-tip-white-mark1.3mf",
+  "project_sha256": "402f3a50e99fcb035130a9e12e902ccf8846505ac127fedf8b7a1c91398bdc79",
+  "archive": {
+    "gcode_sha256": "011c9b17fed3dd1e40586a2c8ba5859f31d17b403f681029e72e82a47c897305",
+    "name": "sculpted-faucet-tip-white-mark1-ready.gcode.3mf",
+    "objects": [
+      "faucet-shell-tip"
+    ],
+    "sha256": "492bef1bbb8b967e2e07b9a542d555c26712ea0a157689415e885ad2e63b1f78",
+    "slots": {
+      "1": {
+        "colour": "FFFFFF",
+        "type": "PET-CF"
+      }
+    }
+  },
+  "printer": "Mark1",
+  "nozzle": "fixed left hardened 0.4 mm",
+  "spool": "white PET-GF on left external",
+  "emitted_z_trim_mm": 0.16,
+  "bed": "Textured PEI",
+  "layer_count": 971,
+  "predicted_seconds": 8081,
+  "predicted_filament_g": 44.26,
+  "full_bead_bounds_xy_mm": [
+    [
+      135.6756715,
+      133.5026715
+    ],
+    [
+      190.2643285,
+      199.8833285
+    ]
+  ],
+  "minimum_usable_bed_margin_mm": 120.117,
+  "tip_shoulder_support": {
+    "top_gap_mm": 0.42,
+    "xy_gap_mm": 0.55,
+    "roof_enforcers": [
+      5,
+      7
+    ],
+    "release_break_blockers": [
+      6,
+      8
+    ],
+    "plug_keepout": 9
+  },
+  "dispense_outlet_blocker_count": 1,
+  "nonplanar_deposition_segments": [
+    69963,
+    57734
+  ],
+  "rim_contour_segments": 447,
+  "neck_seam_reading": {
+    "sample_build_z_mm": [
+      30,
+      90
+    ],
+    "outer_wall_courses": 250,
+    "max_abs_cad_x_mm": 0.396
+  },
+  "physical_scan_and_fit": "Pending"
+}
