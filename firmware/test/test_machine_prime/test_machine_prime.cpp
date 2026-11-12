@@ -1076,7 +1076,7 @@ void test_a_refill_owed_when_the_power_went_is_resumed_by_the_boot_after() {
     expectParked();
 }
 
-void test_someone_at_the_machine_sets_a_timed_out_refill_trying_again() {
+void test_a_timed_out_refill_waits_to_be_told_to_try_again() {
     carbonatorReeds(true, false);
     runFor(machine_policy::kRefillDebounceMs + 3000);
     TEST_ASSERT_EQUAL(ST_REFILLING, machineState());
@@ -1088,15 +1088,18 @@ void test_someone_at_the_machine_sets_a_timed_out_refill_trying_again() {
     TEST_ASSERT_EQUAL_UINT8(static_cast<uint8_t>(machine_policy::RefillState::Timeout), thermal.refillState);
     TEST_ASSERT_TRUE(host::refillOwedInFlash);
 
-    // A touch too soon after it gave up changes nothing.
-    machineSomeoneHere();
-    runAt(host::now + 1000);
-    TEST_ASSERT_EQUAL(ST_IDLE, machineState());
+    // Nothing the machine goes on doing starts the pump again.
+    const uint32_t gaveUp = host::now;
+    for (uint32_t t = 60000; t <= 3600000; t += 60000) {
+        runAt(gaveUp + t);
+        TEST_ASSERT_EQUAL(ST_IDLE, machineState());
+    }
+    machineThermal(thermal);
+    TEST_ASSERT_EQUAL_UINT8(static_cast<uint8_t>(machine_policy::RefillState::Timeout), thermal.refillState);
+    TEST_ASSERT_TRUE(host::refillOwedInFlash);
 
-    // Once it has rested, a touch sets it trying again.
-    runAt(host::now + machine_policy::kRefillRetryRestMs);
-    TEST_ASSERT_EQUAL(ST_IDLE, machineState());
-    machineSomeoneHere();
+    // The console's `refill clear` does.
+    machineRefillClear();
     runFor(3000);
     TEST_ASSERT_EQUAL(ST_REFILLING, machineState());
     carbonatorReeds(false, true);
@@ -1223,7 +1226,7 @@ int main(int, char **) {
     RUN_TEST(test_a_bus_glitch_does_not_cost_the_machine_its_valves_until_a_power_cycle);
     RUN_TEST(test_the_valve_drivers_are_not_reverified_under_a_running_operation);
     RUN_TEST(test_a_refill_owed_when_the_power_went_is_resumed_by_the_boot_after);
-    RUN_TEST(test_someone_at_the_machine_sets_a_timed_out_refill_trying_again);
+    RUN_TEST(test_a_timed_out_refill_waits_to_be_told_to_try_again);
     RUN_TEST(test_a_refill_a_pretend_reading_asked_for_is_not_kept_and_ends_with_it);
     RUN_TEST(test_a_fill_asked_for_at_the_console_runs_to_the_high_reed_and_can_be_forgotten);
     RUN_TEST(test_refill_and_automatic_pour_cannot_join_a_wet_prime);

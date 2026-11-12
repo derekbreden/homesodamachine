@@ -53,8 +53,10 @@ constexpr uint64_t kGraceMs = 15 * kMinute;
 // The month's last days, by which every trouble is long over.
 constexpr uint64_t kLateFrom = 27 * kDay;
 
-// How long someone waits before trying the faucet again after a poor glass.
+// How long someone waits before trying the faucet again after a poor glass, and how long
+// the machine is off when they switch it off and on first.
 constexpr uint64_t kTryAgainMs = 3 * kMinute;
+constexpr uint64_t kOffAndOnMs = 10 * kSecond;
 
 struct Glass {
     uint64_t at;
@@ -91,9 +93,10 @@ struct Kitchen {
     uint32_t lateGlasses = 0, lateSoda = 0;   // in the month's last days
     std::vector<std::pair<uint64_t, uint64_t>> troubles;   // [from, until] in month time
 
-    // A person who gets a poor glass touches the display and tries again shortly.
-    bool triesAgain = false;
+    // A person who gets a poor glass switches the machine off and on, and tries again shortly.
+    bool restartsIt = false;
     bool tryingAgain = false;
+    uint32_t restarts = 0;
     std::vector<Glass> again;
     std::vector<std::pair<uint64_t, std::function<void(Kitchen &)>>> later;
     std::function<void(Kitchen &)> watch;
@@ -130,9 +133,6 @@ uint8_t valveCount(uint16_t mask) {
 // What a power cut leaves: nothing in RAM, a clock at zero, and every chip reset.
 void boot(Kitchen &k, uint32_t clockAt = 0) {
     host::now = clockAt;
-    host::gasMv = 0;
-    host::attachSucceeds = true;
-    host::pumpClosedAgainstDrive = false;
     memset(host::duties, 0, sizeof(host::duties));
     memset(host::modes, 0, sizeof(host::modes));
     host::bus.reset();
@@ -182,8 +182,10 @@ void closeGlass(Kitchen &k) {
         if (got == Poured::Soda) k.lateSoda++;
     }
     k.faucetOpen = false;
-    if (got != Poured::Soda && k.triesAgain && !k.tryingAgain && k.powered) {
-        machineSomeoneHere();
+    if (got != Poured::Soda && k.restartsIt && !k.tryingAgain && k.powered) {
+        cutPower(k);
+        k.restarts++;
+        k.later.push_back({k.t + kOffAndOnMs, [](Kitchen &back) { boot(back); }});
         k.again.push_back({k.t + kTryAgainMs, 6000, host::flavor});
     }
     k.tryingAgain = false;
@@ -387,10 +389,11 @@ void never(const Kitchen &k) {
 }
 
 void report(const char *name, const Kitchen &k) {
-    printf("\n%s: %lu glasses — %lu soda, %lu plain, %lu dry; %lu refills, %lu compressor runs, %lu boots\n",
+    printf("\n%s: %lu glasses — %lu soda, %lu plain, %lu dry; %lu refills, %lu compressor runs, %lu boots, "
+           "%lu of them someone switching it off and on\n",
            name, (unsigned long)k.glasses, (unsigned long)k.soda, (unsigned long)k.plain,
            (unsigned long)k.dry, (unsigned long)k.refills, (unsigned long)k.compressorRuns,
-           (unsigned long)k.boots);
+           (unsigned long)k.boots, (unsigned long)k.restarts);
     printf("  record: %lu pours, %lu refills full, %lu timed out, %lu compressor runs, %lu cold, %lu io, %lu gas\n",
            (unsigned long)noted(machine_log::Kind::Pour),
            (unsigned long)notedRefills(machine_log::RefillEnd::Full),
@@ -413,6 +416,9 @@ void fresh() {
     host::refillOwedWrites  = 0;
     host::flashForgets      = false;
     host::busMs             = 1;   // a bus that takes time, as the board's does
+    host::gasMv             = 0;
+    host::attachSucceeds    = true;
+    host::pumpClosedAgainstDrive = false;
 }
 
 // The clock starts close enough to its wrap that the month crosses it.
@@ -452,10 +458,11 @@ void test_a_month_of_trouble() {
     fresh();
     Kitchen k;
     // Two things carry a machine through this month: the flash keeping an owed refill, and
-    // a touch setting a timed-out one trying again. Run with either taken away to see what
-    // it is for: MONTH_FLASH_FORGETS=1 or MONTH_NOBODY_TOUCHES=1.
+    // someone switching the machine off and on after a refill has timed out, which is the
+    // one thing at the machine that sets it trying again. Run with either taken away to see
+    // what it is for: MONTH_FLASH_FORGETS=1 or MONTH_NOBODY_RESTARTS_IT=1.
     host::flashForgets = getenv("MONTH_FLASH_FORGETS") != nullptr;
-    k.triesAgain       = getenv("MONTH_NOBODY_TOUCHES") == nullptr;
+    k.restartsIt       = getenv("MONTH_NOBODY_RESTARTS_IT") == nullptr;
     boot(k, kClockNearWrap);
 
     const uint64_t pitcherAt = 6 * kDay + 10 * kHour;
@@ -535,10 +542,13 @@ void test_a_month_of_trouble() {
 
     never(k);
     TEST_ASSERT_TRUE(cutMidRefillDone);
-    TEST_ASSERT_EQUAL_UINT32(5, k.boots);
     TEST_ASSERT_EQUAL_UINT32_MESSAGE(0, k.unexplained, "a poor glass came with no trouble to explain it");
     TEST_ASSERT_TRUE(k.lateGlasses > 0);
     TEST_ASSERT_EQUAL_UINT32_MESSAGE(k.lateGlasses, k.lateSoda, "the month did not end with every glass a soda");
+    // The water being shut off leaves a refill timed out, and it is someone switching the
+    // machine off and on that sets it filling again.
+    TEST_ASSERT_TRUE(k.restarts >= 1);
+    TEST_ASSERT_EQUAL_UINT32(5 + k.restarts, k.boots);
 
     // It ends as a machine that is working: its drivers verified, nothing latched, water in it.
     TEST_ASSERT_TRUE(machineIoReady());

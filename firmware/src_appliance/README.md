@@ -150,10 +150,9 @@ Once the water has fallen through the low reed a refill is owed until the high r
 it. Below the low reed's window no reed is closed, so nothing a later reading shows could
 raise the ask again; it is therefore kept through a pour, through reeds that cannot be read,
 and, in flash ([`refill_store.cpp`](refill_store.cpp)), through a power cut. A pump-time
-timeout sounds `fault` and stays latched and still owed. A touch on either display once it
-has rested `kRefillRetryRestMs`, `refill clear`, or a restart sets it trying again. `refill
-fill` asks for a fill whatever the reeds read, which is how an empty carbonator is first
-filled; `refill forget` drops a refill that is owed. A reading put in with `sim` is not the
+timeout sounds `fault` and stays latched and still owed: `refill clear` or a restart sets it
+trying again, and nothing else does. `refill fill` asks for a fill whatever the reeds read,
+which is how an empty carbonator is first filled; `refill forget` drops a refill that is owed. A reading put in with `sim` is not the
 water: what it asks for is not kept, and ends with `sim off`.
 
 `status` prints both loops with their relays; `thermal` walks the bus; `sim` puts a reading at
