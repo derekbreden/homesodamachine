@@ -139,7 +139,6 @@ fn dispatch(request: &Request) -> Result<Output> {
         for job in &output.jobs {
             let kind = match job.kind.as_str() {
                 "markdown" => Kind::Markdown,
-                "python" => Kind::Python,
                 "mermaid" => Kind::Mermaid,
                 _ => bail!("unknown document kind"),
             };
@@ -164,9 +163,8 @@ fn dispatch(request: &Request) -> Result<Output> {
     Ok(output)
 }
 fn main() -> Result<()> {
-    let serve = std::env::args().nth(1).as_deref() == Some("--serve");
     let mut stdout = io::stdout().lock();
-    for line in io::stdin().lock().lines() {
+    if let Some(line) = io::stdin().lock().lines().next() {
         let line = line?;
         let result: Result<Output> = serde_json::from_str(&line)
             .context("assembly document request")
@@ -178,9 +176,6 @@ fn main() -> Result<()> {
         serde_json::to_writer(&mut stdout, &value)?;
         writeln!(stdout)?;
         stdout.flush()?;
-        if !serve {
-            break;
-        }
     }
     Ok(())
 }

@@ -6,10 +6,6 @@ license.workspace = true
 rust-version.workspace = true
 publish = false
 
-[[bin]]
-name = "build-data"
-path = "src/main.rs"
-
 [dependencies]
 anyhow.workspace = true
 serde.workspace = true

@@ -1596,40 +1596,6 @@ fn cold_core(request: &Request) -> Result<Output> {
     output
         .exports
         .insert("CAP_DECK_INSERTS".into(), json!(cap_deck_inserts as i64));
-    let mut variables = Variables::new();
-    variables.insert(
-        "CO2_INLET_Y".into(),
-        [fmt(n(input, "_port_cuts.co2_inlet_y")?, ".4g")?].concat(),
-    );
-    variables.insert(
-        "FRONT_FACE_PORT_Z".into(),
-        [fmt(n(input, "_port_cuts.front_face_port_z")?, ".4g")?].concat(),
-    );
-    variables.insert(
-        "PORT_HOLE_DIAMETER".into(),
-        [fmt(n(input, "port_hole_radius")? * 2.0, ".4g")?].concat(),
-    );
-    output.jobs.push(Job {
-        path: "hardware/printed-parts/cold-core/_port_cuts.py".into(),
-        kind: "python".into(),
-        variables,
-    });
-    output.stdout.push_str("-> _port_cuts.py\n");
-    let mut variables = Variables::new();
-    variables.insert(
-        "PORT_HOLE_DIAMETER".into(),
-        [fmt(n(input, "port_hole_radius")? * 2.0, ".4g")?].concat(),
-    );
-    variables.insert(
-        "LLDPE_TUBE_OD".into(),
-        [fmt(n(input, "lldpe_tube_od")?, ".4g")?].concat(),
-    );
-    output.jobs.push(Job {
-        path: "hardware/printed-parts/cold-core/_internal_routes.py".into(),
-        kind: "python".into(),
-        variables,
-    });
-    output.stdout.push_str("-> _internal_routes.py\n");
     Ok(output)
 }
 fn electronics_bay(request: &Request) -> Result<Output> {

@@ -14,9 +14,5 @@ The pair list preserves distinct output names that share a content blob. Managed
 figures splice into authored text, and derived staging preserves the publisher's
 model cohort.
 
-`build-data` serves retained CAD compatibility callers as newline-delimited JSON
-with `--serve`. Source parsing and tokenization use explicit callbacks. Those
-callbacks can issue nested requests on the same service.
-
 Compiler source declarations come from Cargo dep-info. Native producer tracing
 combines that closure with the program's runtime-read receipt.
