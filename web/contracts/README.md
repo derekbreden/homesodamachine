@@ -33,8 +33,8 @@ same file the server does — Node by path, the browser by URL, one source eithe
   does not complete, the tubes and fittings each of those lacks, and the scene bodies that stand
   for a run's two ends. The installed machine writes the facts; read by
   `web/lib/viewer-routes.js` (`/api/step-missing`) and
-  `web/public/js/viewer/missing-parts.js`, which says them over the model; pinned by
-  `web/tests/missing-parts.test.js`.
+  `web/public/js/viewer/missing-parts.js`, which marks the model with a check or an x and lists
+  them behind it; pinned by `web/tests/missing-parts.test.js`.
 
 ## The shape of the machine
 

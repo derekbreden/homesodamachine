@@ -1,4 +1,4 @@
-// What the missing-parts notice reads (web/contracts/missing-parts.js): which runs a machine's
+// What the missing-parts mark reads (web/contracts/missing-parts.js): which runs a machine's
 // published facts say it does not complete, and which bodies in the scene stand for a run's
 // ends. The machine's own facts are read when the build has written them.
 
@@ -61,7 +61,7 @@ test("a run's ends resolve to the bodies the scene draws", () => {
   assert.deepEqual(sceneBodies("Y-A-1", names), []);
 });
 
-test("the machine's own facts give every run a verdict the notice reads", (t) => {
+test("the machine's own facts give every run a verdict the mark reads", (t) => {
   if (!fs.existsSync(FACTS)) return t.skip("no built machine facts");
   const facts = JSON.parse(fs.readFileSync(FACTS, "utf8"));
   assert.ok(Array.isArray(facts.runs) && facts.runs.length, "the facts list the machine's runs");
