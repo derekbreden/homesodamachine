@@ -73,6 +73,8 @@ Git keeps history. Code and docs in this repo describe current state. Don't writ
 When Derek identifies a class of obsolete work, trace why the example persisted and
 investigate the other instances of that class. Removing a design includes its unused
 catalog identities, relationships, publication entries and agent-facing commands.
+When Derek shares a print result, save his photos and observations with the
+print they document. Hand off the result by its file path or archived Git link.
 Archive completed and retired trials in Git, including their physical evidence, and
 remove their working-tree copies. Current instructions that use a past observation
 link to the archived file at its Git SHA.
