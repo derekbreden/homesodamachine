@@ -47,15 +47,8 @@ export const syncEdgeResolution = renderer => rendering.syncEdgeResolution(rende
 export const forgetEdgeMaterials = () => rendering.forgetEdgeMaterials();
 export function applyXray(group, on = enabled) { rendering.apply(group, on); }
 export function disposeXray(group) { rendering.dispose(group); }
-export function setMeshMaterial(group, mesh, material) {
-  rendering.setMeshMaterial(group, mesh, material, enabled);
-}
-
-// Fade every body of the loaded model that `holds(mesh)` does not keep — the
-// rest of the model behind a focused selection (part-highlight.js). No argument
-// ends it. The fade lives here because it swaps the same materials x-ray does.
-export function setFocusFade(holds = null) {
-  rendering.setFocus(holds ? state.currentGroup : null, holds);
+export function setMeshMaterial(_group, mesh, material) {
+  rendering.setMeshMaterial(mesh, material, enabled);
 }
 
 export function setXrayEnabled(on, { persist = true } = {}) {

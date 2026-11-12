@@ -495,7 +495,7 @@ export async function loadStepFile(file, { preserveCamera = false, target = null
     applyXray(state.currentGroup); // ghost + edges if x-ray mode is on
     setActiveEdges(result); // face-range edges for the picker, lazily reconstructed from triangles
     clearPickFind(); // stale find highlights reference the old geometry
-    dropHighlight(); // and the selection's overlay and fade; its owner draws it again on STEP_MOUNTED
+    dropHighlight(); // the selection's owner draws its overlay again on STEP_MOUNTED
     clearComponentPicker();      // drop a stale component selection/hover overlay
     scene.add(state.currentGroup);
     state.mountedDetail = {

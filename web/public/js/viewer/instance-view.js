@@ -1,12 +1,14 @@
-// Installed locations keep their context solid and uncover the selected parts.
+// Part selections and installed locations uncover their geometry in solid context.
 import * as THREE from "three";
 import { HSM_EVENTS } from "/contracts/client-events.js";
 import { standsIn } from "/contracts/body-path.js";
+import { materialForFile } from "/contracts/materials.js";
+import { instancesInScene } from "/contracts/material-instances.js";
 import { state } from "./state.js";
 import { camera } from "./scene.js";
 import { clearHighlight, frameParts, highlightParts } from "./part-highlight.js";
 import { selectComponent, setComponentPickEnabled, applyHiddenComponents, loadHiddenForFile } from "./component-picker.js";
-import { setXrayEnabled } from "./xray.js";
+import { isXrayEnabled, setXrayEnabled } from "./xray.js";
 
 function visibleSolids(group) {
   return group.children.filter(mesh => mesh.userData?.side === "front" && mesh.visible !== false);
@@ -65,39 +67,71 @@ export function clearInstancePreview() {
   applyHiddenComponents();
 }
 
+export function clearMaterialView() {
+  const group = state.currentGroup;
+  if (!group?.userData.instanceView?.material) return;
+  delete group.userData.instanceView;
+  state.autoHiddenComponents.clear();
+  applyHiddenComponents();
+}
+
+// Each installed copy gets its own sight lines when a BOM row names several copies.
+function materialLocations(material, members) {
+  if (members.length === 1) return [members];
+  const catalog = state.materialCatalog, model = materialForFile(catalog, state.mountedDetail?.file);
+  const locations = instancesInScene(catalog, model?.id, material, members, { finish: state.faucetFinish })
+    .map(instance => instance.bodies);
+  const covered = new Set(locations.flat());
+  const remaining = members.filter(body => !covered.has(body));
+  if (remaining.length) locations.push(remaining);
+  return locations;
+}
+
+function showContext(group, members, { locations, fly, preview = false, material = null }) {
+  const names = new Set(members), previous = group.userData.instanceView;
+  const reveal = material ? [] : [...state.hiddenComponents].filter(hidden => members.some(body => standsIn(body, hidden)));
+  const keepView = !fly && previous && previous.names.size === names.size
+    && !reveal.length && members.every(body => previous.names.has(body));
+  if (isXrayEnabled() && (!keepView || !material)) setXrayEnabled(false, { persist: false });
+  if (keepView) {
+    previous.preview = preview;
+    previous.material = material;
+    return;
+  }
+
+  const view = group.userData.instanceView = { names, preview, material, rays: [] };
+  state.autoHiddenComponents.clear();
+  state.autoHiddenFile = state.mountedDetail?.file;
+  for (const hidden of reveal) state.hiddenComponents.delete(hidden);
+  applyHiddenComponents();
+  if (fly) frameParts(members, { outward: true, instant: true });
+  group.updateWorldMatrix(true, true);
+  camera.updateMatrixWorld();
+  const solids = visibleSolids(group);
+  const targets = locations || materialLocations(material, members);
+  view.rays = targets.flatMap(location => sightLines(solids.filter(mesh => location.includes(mesh.name))));
+  uncoverContext(group, solids);
+  applyHiddenComponents();
+}
+
+export function uncoverMaterialParts(material, members, { fly }) {
+  showContext(state.currentGroup, members, { fly, material });
+}
+
 export function enterInstance(name, { members = [name], locations = [members], fly = true, preview = false } = {}) {
   const group = state.currentGroup;
   if (!group || !members.length) return false;
-  const names = new Set(members), previous = group.userData.instanceView;
-  const keepView = !fly && previous && previous.names.size === names.size
-    && members.every(body => previous.names.has(body));
-  setXrayEnabled(false, { persist: false });
-  if (!keepView) {
-    clearHighlight({ owner: "materials" });
-    state.autoHiddenComponents.clear();
-    state.autoHiddenFile = state.mountedDetail?.file;
-    for (const hidden of state.hiddenComponents) {
-      if (members.some(body => standsIn(body, hidden))) state.hiddenComponents.delete(hidden);
-    }
-    applyHiddenComponents();
-    if (fly) frameParts(members, { outward: true, instant: true });
-    group.updateWorldMatrix(true, true);
-    camera.updateMatrixWorld();
-    const solids = visibleSolids(group);
-    const rays = locations.flatMap(location => sightLines(solids.filter(mesh => location.includes(mesh.name))));
-    group.userData.instanceView = { names, preview, rays };
-    uncoverContext(group, solids);
-    applyHiddenComponents();
-  } else previous.preview = preview;
+  clearHighlight({ owner: "materials" });
+  showContext(group, members, { locations, fly, preview });
   setComponentPickEnabled(true);
-  if (preview) highlightParts(members, { owner: "materials", fly: false, fill: true, fade: false, hold: false });
+  if (preview) highlightParts(members, { owner: "materials", fly: false, visibleOnly: true, hold: false });
   else selectComponent(name, { members });
   return true;
 }
 
 window.addEventListener(HSM_EVENTS.MATERIAL_PICKED, event => {
   const group = state.currentGroup, view = group?.userData.instanceView;
-  if (view && !view.preview && event.detail.file === state.mountedDetail?.file && !view.names.has(event.detail.name)) {
+  if (view && !view.preview && !view.material && event.detail.file === state.mountedDetail?.file && !view.names.has(event.detail.name)) {
     delete group.userData.instanceView;
   }
 });

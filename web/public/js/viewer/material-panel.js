@@ -1,13 +1,15 @@
 // The material panel connects a selected material's contents, records and geometry in its model context.
 import { state } from "./state.js";
+import { holdCameraPose } from "./scene.js";
 import { materialIndex, materialForFile, explodeBom, bomItems, bomCountText, bomCounts, materialDocuments, materialUses, occurrenceBodies, occurrenceForBody, matchesBody } from "/contracts/materials.js";
 import { HSM_EVENTS } from "/contracts/client-events.js";
+import { instanceBody } from "/contracts/features.js";
 import { highlightParts, clearHighlight, leaveHighlight, scenePartNames } from "./part-highlight.js";
 import { clearComponentSelection } from "./component-picker.js";
 import { instancesInScene, membersOfInstance } from "/contracts/material-instances.js";
 import { materialTab } from "/contracts/material-tabs.js";
 import { makeMaterialLocations } from "./material-locations.js";
-import { enterInstance } from "./instance-view.js";
+import { clearMaterialView, enterInstance, uncoverMaterialParts } from "./instance-view.js";
 import { standsIn } from "/contracts/body-path.js";
 import { openMaterial, materialHash } from "./material-nav.js";
 import { makeMaterialSearch } from "./material-search.js";
@@ -113,12 +115,8 @@ export function mountMaterialPanel(workspace, { file = null, material = null } =
   }
   const bindingsFor = (path, names) => occurrenceBodies(state.materialCatalog, [...contextPath(), ...path], names, options());
 
-  // THE PANEL'S SELECTION IS THE MODEL'S. What the model picks out: the selected BOM item, a
-  // related material's bodies, a picked body with no record, or this material where it stands
-  // in the larger model it was opened in. The model's own material picks nothing out, so the
-  // model opens whole and opaque. A part chosen here or opened from a search is highlighted,
-  // framed and faded around (Focus); a click in the model is the picker's own mark, and the
-  // model stays opaque under the reader's camera so the next click can aim.
+  // A material chosen in the panel or from search is framed with its obstructions hidden.
+  // The model's own material opens whole, and a canvas pick keeps the reader's camera.
   function hasSubject() {
     return Boolean(selectedBody || selectedPath.length || selected !== root || contextPath().length);
   }
@@ -135,24 +133,40 @@ export function mountMaterialPanel(workspace, { file = null, material = null } =
   // Bring the model into line with the panel. `fly` frames a new selection, or flies back out
   // to the view from before one that ended; a pick made in the model keeps the camera where
   // the reader has it.
-  function show({ fly = true } = {}) {
+  function show({ fly = true, hold = fly ? true : null } = {}) {
     if (disposed || !lastFile || locations || pendingInstance) return;
     if (state.mountedDetail?.file !== lastFile) {
-      pending = { fly };
+      pending = { fly, hold };
       setStatus(hasSubject() ? "The model is loading." : "");
       return;
     }
-    pending = null;
     if (!hasSubject()) {
+      pending = null;
+      clearMaterialView();
       setStatus("");
       if (fly) leaveHighlight({ owner: "materials" });
       else clearHighlight({ owner: "materials" });
       return;
     }
-    const names = subjectNames(scenePartNames());
+    const mounted = scenePartNames(), view = state.currentGroup?.userData;
+    const names = subjectNames(mounted);
+    if (!modelPick && view?.sceneLoading) {
+      const available = view.sharedHead?.meshes.flatMap(node =>
+        node.entries?.map(entry => instanceBody(entry.name)) || [node.name]);
+      if (!names.length || (available && subjectNames(available).some(name => !mounted.has(name)))) {
+        pending = { fly, hold };
+        setStatus("The model is loading.");
+        return;
+      }
+    }
+    pending = null;
+    if (!modelPick && names.length) {
+      if (hold) holdCameraPose();
+      uncoverMaterialParts(selected, names, { fly });
+    } else clearMaterialView();
     highlightParts(names, {
-      owner: "materials", onRelease: released, fly,
-      fill: !modelPick, fade: !modelPick, hold: modelPick ? false : fly ? true : null,
+      owner: "materials", onRelease: released, fly: false,
+      fill: !modelPick, visibleOnly: true, hold: modelPick || hold === false ? false : null,
       onDraw: (drawn) => setStatus(modelPick ? ""
         : !names.length ? "This material has no drawn geometry in the current model."
         : drawn.shown ? "All visible occurrences highlighted in this model."
@@ -261,7 +275,7 @@ export function mountMaterialPanel(workspace, { file = null, material = null } =
       const name = selectedBody || units[0].name;
       if (model) history.replaceState(history.state, "", "#" + materialHash(model.id, { instance: name }));
       await enterInstance(name, { members: selectedBody ? names : units[0].bodies, fly: false });
-    } else highlightParts(names, { owner: "materials", fly: false, fill: true, fade: false, hold: false });
+    } else show({ fly: false, hold: false });
   }
 
   function showInstalled() {
@@ -277,9 +291,9 @@ export function mountMaterialPanel(workspace, { file = null, material = null } =
     if (members.length) enterInstance(wanted.name, { members, fly: wanted.fly });
   }
 
-  // Another surface took the model's selection, or it was cleared from outside (Reset view,
-  // the checks): the panel lets go of its own without touching the model.
+  // Reset and other selection surfaces release the panel's selection and its temporary hides.
   function released() {
+    clearMaterialView();
     if (disposed || !hasSubject()) return;
     clearComponentSelection();
     const model = contextPath().length ? materialForFile(state.materialCatalog, lastFile) : null;
@@ -381,9 +395,10 @@ export function mountMaterialPanel(workspace, { file = null, material = null } =
         tab = key;
         pendingSection = null;
         scroll.scrollTop = panel.scrollTop = 0;
-        if (key !== "location") stopLocations({ restore: true });
+        const restoring = key !== "location" && stopLocations({ restore: true });
         history.replaceState(history.state, "", "#" + materialHash(key === "location" ? current.id : root, { tab: key, panel: "materials" }));
         render();
+        if (restoring) restoring.then(() => { if (tab === key) show({ fly: false }); });
       }); tabs.append(button);
     }
     tabsHost.replaceChildren(tabs);
@@ -802,6 +817,7 @@ export function mountMaterialPanel(workspace, { file = null, material = null } =
   const handle = { select, setRoot, sync, applyRoute, leave, closeView: () => drawingView?.closeView(), dispose: () => {
     disposed = true;
     stopLocations();
+    if (state.materialPanel === handle) clearMaterialView();
     drawingView?.dispose();
     sheet?.dispose();
     window.removeEventListener(HSM_EVENTS.STEP_MOUNTED, sync);

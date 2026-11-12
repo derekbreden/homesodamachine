@@ -1,10 +1,4 @@
-// The model's selection: the solids one surface has picked out — a Materials row, a part
-// picked in the model, a checks row from the scorecard — drawn with bright feature-edges + a
-// faint shell (depth-test off, so it reads through the enclosure walls) and framed by the
-// camera. A part chosen in the Materials pane or opened from a part search can also fade every
-// other body behind it, while Focus is on. A click in the model never fades it: through a faded
-// model a click cannot aim, which is also why x-ray starts off. Nothing is faded unless such a
-// part is selected, and a selection that is the whole of what is drawn picks nothing out.
+// Highlights the geometry selected by Materials or a model check.
 //
 // One surface holds the selection at a time. A surface that takes it from another tells the
 // other through its `onRelease`, so the Materials panel never names a part the model has
@@ -18,36 +12,25 @@
 import * as THREE from "three";
 import { scene, camera, controls, holdCameraPose, releaseCameraPose, visibleShare } from "./scene.js";
 import { state } from "./state.js";
-import { setFocusFade } from "./xray.js";
-import { makeToolChip } from "./tool-rail.js";
 
 const HL = 0x35e0d0; // highlight cyan — distinct from pick-find magenta and edge select/hover
 const EDGE_THRESHOLD_DEG = 30;
-const FOCUS_KEY = "step-focus";
 
 const overlay = new THREE.Group();
 overlay.name = "part-highlight";
 overlay.renderOrder = 996;
 scene.add(overlay);
 
-const edgeMat = new THREE.LineBasicMaterial({ color: HL, transparent: true, opacity: 0.95, depthTest: false });
-edgeMat.depthWrite = false;
+const edgeMat = new THREE.LineBasicMaterial({ color: HL, transparent: true, opacity: 0.95, depthTest: false, depthWrite: false });
+const visibleEdgeMat = new THREE.LineBasicMaterial({ color: HL, depthWrite: false });
 
-// { names, owner, onRelease, onDraw, fill, fade } — what is selected, which surface selected
-// it, and whether it is filled and the rest faded.
 let subject = null;
-let fading = false;   // the rest of the model is faded behind the selection
-let offerFocus = false; // the selection is one Focus fades around
-let focusOn = (() => {
-  try { return localStorage.getItem(FOCUS_KEY) !== "0"; } catch { return true; }
-})();
-let focusChip = null;
 
 function clearOverlay() {
   for (const c of [...overlay.children]) {
     overlay.remove(c);
     if (c.geometry) c.geometry.dispose();        // edges + cloned shells are ours to dispose
-    if (c.material && c.material !== edgeMat) c.material.dispose();
+    if (c.material && c.material !== edgeMat && c.material !== visibleEdgeMat) c.material.dispose();
   }
 }
 
@@ -137,8 +120,7 @@ function bodies() {
     m.isMesh && !m.userData?.isXrayEdge && !m.userData?.hitOnly && m.visible !== false);
 }
 
-// Draw the selection on the geometry as it stands: edges + shell over each of its visible
-// solids, and the fade over everything else.
+// Draw visible edges for Materials and mark referenced geometry through walls for checks.
 function draw() {
   clearOverlay();
   const report = { shown: 0, hidden: 0, whole: false, box: new THREE.Box3() };
@@ -163,6 +145,11 @@ function draw() {
   if (subject?.fill) {
     for (const mesh of solids) {
       mesh.updateWorldMatrix(true, false);
+      if (subject.visibleOnly) {
+        const edges = new THREE.EdgesGeometry(mesh.geometry, EDGE_THRESHOLD_DEG).applyMatrix4(mesh.matrixWorld);
+        overlay.add(new THREE.LineSegments(edges, visibleEdgeMat));
+        continue;
+      }
       const geometry = mesh.geometry.clone().applyMatrix4(mesh.matrixWorld);
       overlay.add(new THREE.LineSegments(new THREE.EdgesGeometry(geometry, EDGE_THRESHOLD_DEG), edgeMat));
       const shell = new THREE.Mesh(geometry, new THREE.MeshBasicMaterial({
@@ -173,33 +160,32 @@ function draw() {
       overlay.add(shell);
     }
   }
-  offerFocus = Boolean(report.shown && subject.fade);
-  fading = offerFocus && focusOn;
-  setFocusFade(fading ? (mesh) => want.has(mesh.name) : null);
-  syncFocusChip();
   subject?.onDraw?.(report);
   return report;
 }
 
 // Select the solids named in `names` (Set or array) for `owner`, replacing whatever was
 // selected, and frame them unless `fly` is false (a pick made in the model keeps the camera
-// where the reader has it). `fill` draws them in the highlight, `fade` lets Focus fade the
-// rest of the model, and `hold` keeps the view from before the selection to fly back to
+// where the reader has it). `fill` draws the highlight, `visibleOnly` limits it to visible
+// edges, and `hold` keeps the view from before the selection to fly back to
 // (false lets go of it; null leaves it as it is). `onRelease` runs when another surface takes
 // the selection or it is cleared from outside. Each drawing reports { shown, hidden, whole } to
 // `onDraw` and is returned: solids picked out, solids of the selection hidden from this view,
 // and whether it is all of what is drawn.
 export function highlightParts(names, {
-  owner = null, onRelease = null, onDraw = null, fly = true, fill = true, fade = false, hold = fly ? true : null,
+  owner = null, onRelease = null, onDraw = null, fly = true, fill = true, visibleOnly = false, hold = fly ? true : null,
 } = {}) {
   const previous = subject;
-  subject = { names: names instanceof Set ? names : new Set(names), owner, onRelease, onDraw, fill, fade };
+  if (previous && previous.owner !== owner) {
+    subject = null;
+    previous.onRelease?.();
+  }
+  subject = { names: names instanceof Set ? names : new Set(names), owner, onRelease, onDraw, fill, visibleOnly };
   if (hold) holdCameraPose();
   else if (hold === false) releaseCameraPose();
   const report = draw();
   if (fly && !report.box.isEmpty()) flyToBox(report.box);
   else if (fly) flyToken++;
-  if (previous && previous.owner !== owner) previous.onRelease?.();
   return report;
 }
 
@@ -232,43 +218,10 @@ export function leaveHighlight({ owner = null } = {}) {
   return end(owner, true);
 }
 
-// The geometry under the selection is being replaced. Its overlay and fade go with it; the
+// The geometry under the selection is being replaced. Its overlay goes with it; the
 // view held from before it stays, for the owner to draw its selection again on the new model.
 export function dropHighlight() {
   subject = null;
   clearOverlay();
-  fading = offerFocus = false;
-  setFocusFade(null);
-  syncFocusChip();
   flyToken++;
-}
-
-function syncFocusChip() {
-  if (focusChip) focusChip.hidden = !offerFocus;
-}
-
-// Whether `mesh` is faded behind the selection. A click in the model goes through a faded
-// body to whatever stands out behind it.
-export function fadedBody(mesh) {
-  return fading && !subject.names.has(mesh.name);
-}
-
-// Focus: whether the rest of the model fades behind a part chosen in the Materials pane or
-// opened from a search. The switch stands in the Show row only while such a part is selected;
-// the choice is kept in this browser under `step-focus`.
-export function makeFocusToggle() {
-  focusChip = makeToolChip({
-    className: "focus-toggle",
-    label: "Focus",
-    icon: "focus",
-    title: "Fade everything but the selection",
-    read: () => focusOn,
-    write: (on) => {
-      focusOn = !!on;
-      try { localStorage.setItem(FOCUS_KEY, focusOn ? "1" : "0"); } catch {}
-      if (subject) draw();
-    },
-  });
-  syncFocusChip();
-  return focusChip;
 }
