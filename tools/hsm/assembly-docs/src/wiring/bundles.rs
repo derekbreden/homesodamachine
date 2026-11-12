@@ -329,9 +329,9 @@ impl<'a> Context<'a> {
             Ok((points, segments))
         }
     }
-    fn entries(&self, c: &Value, b: &Value, first: V) -> Result<Vec<V>> {
-        let id = string(&c["id"])?;
-        let start = string(&c["start"])?;
+    fn entries(&self, c: &graph::Connection, b: &Value, first: V) -> Result<Vec<V>> {
+        let id = c.id.as_str();
+        let start = c.start.as_str();
         let p = self.at.point(start)?;
         let fan = &b["fanouts"][id];
         if let Some(entries) = fan
@@ -377,8 +377,8 @@ impl<'a> Context<'a> {
             None => Ok(vec![]),
         }
     }
-    pub fn core_route(&mut self, c: &Value) -> Result<Option<Value>> {
-        let id = string(&c["id"])?;
+    pub fn core_route(&mut self, c: &graph::Connection) -> Result<Option<Value>> {
+        let id = c.id.as_str();
         let definitions = self.definitions.clone();
         for (_, b) in &definitions {
             if b["cores"].get(id).is_none() {
@@ -387,8 +387,8 @@ impl<'a> Context<'a> {
             let (_, shared) = self.centreline(b)?;
             let core = offset_path(&shared, &b["cores"][id])?;
             let core_rows = rows(&core)?;
-            let a = self.at.terminal(string(&c["start"])?)?;
-            let end = self.at.terminal(string(&c["end"])?)?;
+            let a = self.at.terminal(&c.start)?;
+            let end = self.at.terminal(&c.end)?;
             let first = v(&core_rows[0]["start_mm"])?;
             let last = v(&core_rows.last().context("shared cable tail")?["end_mm"])?;
             let lands = b

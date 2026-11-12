@@ -8,16 +8,15 @@ fn counts(values: impl Iterator<Item = String>) -> Value {
 }
 pub fn manifest(
     at: &terminals::State,
-    graph: &Value,
+    graph: &[graph::Connection],
     routes: &Value,
     terminations: &Value,
     bundles: &Value,
 ) -> Result<Value> {
-    let graph_rows = rows(graph)?;
     let route_rows = rows(routes)?;
-    let used = graph_rows
+    let used = graph
         .iter()
-        .flat_map(|c| [c["start"].as_str().unwrap(), c["end"].as_str().unwrap()])
+        .flat_map(|c| [c.start.as_str(), c.end.as_str()])
         .collect::<BTreeSet<_>>();
     let terminals = used
         .iter()
@@ -25,7 +24,7 @@ pub fn manifest(
         .collect::<BTreeMap<_, _>>();
     let constants = graph::constants()?;
     Ok(
-        json!({"schema":1,"units":"mm","frame":"Enclosure assembly XYZ; Z up","scope":"Installed enclosure wiring, including embedded core leads. External cord, faucet and umbilical end at the enclosure interfaces.","connection_count":graph_rows.len(),"harnesses":counts(graph_rows.iter().map(|c|c["harness"].as_str().unwrap().to_owned())),"route_status_counts":counts(route_rows.iter().map(|r|r["status"].as_str().unwrap().to_owned())),"stock":model::stock()?,"unused":constants["UNUSED"],"boundaries":constants["BOUNDARIES"],"interfaces":graph::interfaces(&at.terminals,graph)?,"terminal_status_counts":counts(used.iter().map(|id|at.terminals[*id].status.clone())),"terminals":terminals,"reference_frames":at.frame_checks,"cable_passages":at.passages,"pcb_reference":at.pcb_reference,"terminations":terminations,"bundles":bundles,"routes":route_rows.iter().map(model::record).collect::<Result<Vec<_>>>()?,"limits":hsm_kernel::reads::json("tools/hsm/assembly-docs/src/wiring/manifest-limits.json")?}),
+        json!({"schema":1,"units":"mm","frame":"Enclosure assembly XYZ; Z up","scope":"Installed enclosure wiring, including embedded core leads. External cord, faucet and umbilical end at the enclosure interfaces.","connection_count":graph.len(),"harnesses":counts(graph.iter().map(|c|c.harness.clone())),"route_status_counts":counts(route_rows.iter().map(|r|r["status"].as_str().unwrap().to_owned())),"stock":model::stock()?,"unused":constants["UNUSED"],"boundaries":constants["BOUNDARIES"],"interfaces":graph::interfaces(&at.terminals,graph)?,"terminal_status_counts":counts(used.iter().map(|id|at.terminals[*id].status.clone())),"terminals":terminals,"reference_frames":at.frame_checks,"cable_passages":at.passages,"pcb_reference":at.pcb_reference,"terminations":terminations,"bundles":bundles,"routes":route_rows.iter().map(model::record).collect::<Result<Vec<_>>>()?,"limits":hsm_kernel::reads::json("tools/hsm/assembly-docs/src/wiring/manifest-limits.json")?}),
     )
 }
 pub fn numeric(src: &sources::Sources, root: &Path, at: &terminals::State) -> Result<(Value, Value)> {
