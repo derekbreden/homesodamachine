@@ -97,13 +97,15 @@ func runHistoryChecks(_ check: (Bool, String) -> Void) {
 
     history.took(newer: entries(plan.ask), next: 4, keep: plan.keep, at: read)
     check(history.entries.map(\.seq) == [3, 2, 1] && history.nextSeq == 4 && history.reachedEnd
-          && history.earlier.isEmpty,
+          && history.earlier().isEmpty,
           "Reading down to the first entry is the end of the record")
 
     history = MachineHistory()
     history.took(newer: entries(Array((60...99).reversed())), next: 100, keep: false, at: read)
-    check(!history.reachedEnd && history.earlier == Array(((60 - page)...59).reversed()),
+    check(!history.reachedEnd && history.earlier() == Array(((60 - page)...59).reversed()),
           "An older page continues below what is kept")
+    check(history.earlier(below: 58) == Array(((58 - page)...57).reversed()),
+          "An older page continues below the oldest entry asked for, when that one could not be read")
     plan = history.newer(next: 100)
     check(plan.ask.isEmpty && plan.keep, "Nothing new asks for nothing")
     plan = history.newer(next: 104)
@@ -120,9 +122,16 @@ func runHistoryChecks(_ check: (Bool, String) -> Void) {
 
     history = MachineHistory()
     history.took(newer: entries([12, 11, 10]), next: 13, keep: false, at: read)
-    history.took(earlier: entries([9, 8]), asked: 9)
-    check(history.entries.map(\.seq) == [12, 11, 10, 9, 8] && history.reachedEnd,
-          "Fewer entries than asked for is everything the machine has kept")
+    history.took(earlier: entries([9, 7]), ranOut: false)
+    check(history.entries.map(\.seq) == [12, 11, 10, 9, 7] && !history.reachedEnd,
+          "An entry this app cannot read is stepped over, and is not the end of the record")
+    history.took(earlier: entries([6, 5]), ranOut: true)
+    check(history.entries.map(\.seq) == [12, 11, 10, 9, 7, 6, 5] && history.reachedEnd && history.earlier().isEmpty,
+          "An entry the machine no longer holds is the end of what it has kept")
+    history.askedDownTo = 5
+    history.took(newer: entries([40, 39]), next: 41, keep: false, at: read)
+    check(history.askedDownTo == nil && !history.reachedEnd && history.entries.map(\.seq) == [40, 39],
+          "Starting over forgets how far back the old entries went")
 
     // ── How much it poured ───────────────────────────────────────────────
     func clock(_ year: Int, _ month: Int, _ day: Int, _ hour: Int) -> UInt32 {

@@ -14,10 +14,18 @@ extension BLEManager {
     /// Questions in the air at once. The faucet holds a few more than this.
     private static let historyAtOnce = 4
 
-    /// One entry by its number, or the newest for zero, and the number the
-    /// machine will give its next. A nil entry is one the machine does not
-    /// hold.
-    func readHistoryEntry(_ seq: UInt32) async -> Result<(entry: HistoryEntry?, next: UInt32), BridgeError> {
+    /// What the machine said about one entry.
+    struct HistoryAnswer {
+        /// The entry, when the machine holds it and this app can read it.
+        var entry: HistoryEntry?
+        /// The machine holds an entry under the number asked for.
+        var held: Bool
+        /// The number the machine will give its next entry.
+        var next: UInt32
+    }
+
+    /// One entry by its number, or the newest for zero.
+    func readHistoryEntry(_ seq: UInt32) async -> Result<HistoryAnswer, BridgeError> {
         switch await request(MachineMessage.historyRead, withUnsafeBytes(of: seq.littleEndian, Array.init)) {
         case .failure(let failure):
             return .failure(failure)
@@ -27,40 +35,45 @@ extension BLEManager {
                 return .failure(.refused)
             }
             func u32(_ o: Int) -> UInt32 { UInt32(b[o]) | UInt32(b[o + 1]) << 8 | UInt32(b[o + 2]) << 16 | UInt32(b[o + 3]) << 24 }
-            let entry = u32(0) == 0 ? nil : HistoryEntry(wire: Array(b[8..<(8 + HistoryEntry.wireBytes)]))
-            return .success((entry, u32(4)))
+            let held = u32(0) != 0
+            let entry = held ? HistoryEntry(wire: Array(b[8..<(8 + HistoryEntry.wireBytes)])) : nil
+            return .success(HistoryAnswer(entry: entry, held: held, next: u32(4)))
         }
     }
 
     /// The entries with these numbers, in the order asked, a few at a time.
-    /// It stops at the first the machine does not hold, and at a failure.
-    private func readHistory(_ seqs: [UInt32]) async -> (entries: [HistoryEntry], failure: BridgeError?) {
+    /// It stops at the first the machine does not hold — `ranOut` — and at a
+    /// failure. An entry the machine holds and this app cannot read, a kind
+    /// newer than the app, is stepped over. `through` is how many of the
+    /// numbers were answered for.
+    private func readHistory(_ seqs: [UInt32]) async
+        -> (entries: [HistoryEntry], through: Int, ranOut: Bool, failure: BridgeError?) {
         var entries: [HistoryEntry] = []
         var start = 0
         while start < seqs.count {
             let group = Array(seqs[start..<min(start + Self.historyAtOnce, seqs.count)])
-            let answers = await withTaskGroup(of: (Int, Result<(entry: HistoryEntry?, next: UInt32), BridgeError>).self) { tasks in
+            let answers = await withTaskGroup(of: (Int, Result<HistoryAnswer, BridgeError>).self) { tasks in
                 for (index, seq) in group.enumerated() {
                     tasks.addTask { (index, await self.readHistoryEntry(seq)) }
                 }
-                var collected = Array<Result<(entry: HistoryEntry?, next: UInt32), BridgeError>?>(repeating: nil, count: group.count)
+                var collected = Array<Result<HistoryAnswer, BridgeError>?>(repeating: nil, count: group.count)
                 for await (index, answer) in tasks { collected[index] = answer }
                 return collected
             }
-            for answer in answers {
+            for (index, answer) in answers.enumerated() {
                 switch answer {
                 case .success(let read):
-                    guard let entry = read.entry else { return (entries, nil) }
-                    entries.append(entry)
+                    guard read.held else { return (entries, start + index, true, nil) }
+                    if let entry = read.entry { entries.append(entry) }
                 case .failure(let failure):
-                    return (entries, failure)
+                    return (entries, start + index, false, failure)
                 case nil:
-                    return (entries, .noAnswer)
+                    return (entries, start + index, false, .noAnswer)
                 }
             }
             start += group.count
         }
-        return (entries, nil)
+        return (entries, seqs.count, false, nil)
     }
 
     /// Read whatever is newer than what this machine's history holds. The
@@ -70,7 +83,7 @@ extension BLEManager {
         guard let m = current else { return .offline }
         let machine = m.id
         await readStatus()
-        let newest: (entry: HistoryEntry?, next: UInt32)
+        let newest: HistoryAnswer
         switch await readHistoryEntry(0) {
         case .failure(let failure): return failure
         case .success(let read): newest = read
@@ -78,30 +91,23 @@ extension BLEManager {
         guard current?.id == machine else { return .offline }
 
         let plan = m.history.newer(next: newest.next)
-        var read: [HistoryEntry] = []
-        var failure: BridgeError?
-        if let first = newest.entry, plan.ask.first == first.seq {
-            let rest = await readHistory(Array(plan.ask.dropFirst()))
-            read = [first] + rest.entries
-            failure = rest.failure
-        } else if !plan.ask.isEmpty {
-            (read, failure) = await readHistory(plan.ask)
-        }
+        let got = await readHistory(plan.ask)
         guard current?.id == machine else { return .offline }
 
         var history = m.history
-        // Entries that stopped short of what is kept leave a gap, so they
-        // stand alone rather than ahead of it.
-        let whole = read.count == plan.ask.count
-        if failure == nil || !read.isEmpty {
-            history.took(newer: read, next: newest.next, keep: plan.keep && whole, at: Date())
-            if failure == nil, !whole { history.reachedEnd = true }
+        // A reading that stopped short of what is kept leaves a gap, so what
+        // it brought stands alone rather than ahead of the kept entries.
+        let whole = got.through == plan.ask.count
+        if got.failure == nil || !got.entries.isEmpty {
+            history.took(newer: got.entries, next: newest.next, keep: plan.keep && whole, at: Date())
+            if !(plan.keep && whole), got.through > 0 { history.askedDownTo = plan.ask[got.through - 1] }
+            if got.ranOut { history.reachedEnd = true }
         }
         if let first = newest.entry, let status = m.appliance.status, let uptime = status.value.uptimeS {
             history.anchor = HistoryAnchor(boot: first.boot, uptime: uptime, at: status.at)
         }
         if history != m.history { m.history = history }
-        return failure
+        return got.failure
     }
 
     /// The next older page.
@@ -109,21 +115,20 @@ extension BLEManager {
     func readEarlierHistory() async -> BridgeError? {
         guard let m = current else { return .offline }
         let machine = m.id
-        let ask = m.history.earlier
+        let from = m.history.askedDownTo
+        let ask = m.history.earlier(below: from)
         guard !ask.isEmpty else { return nil }
-        let (read, failure) = await readHistory(ask)
+        let got = await readHistory(ask)
         guard current?.id == machine else { return .offline }
         var history = m.history
         // The kept entries may have grown at the front meanwhile, never at
-        // the back, so an older page still joins where it was asked from.
-        guard history.entries.last?.seq == ask.first.map({ $0 + 1 }) else { return failure }
-        if failure == nil {
-            history.took(earlier: read, asked: ask.count)
-        } else if !read.isEmpty {
-            history.entries += read
-        }
+        // the back; a reading that started them over is the one case an older
+        // page no longer joins.
+        guard history.askedDownTo == from, !history.reachedEnd else { return got.failure }
+        history.took(earlier: got.entries, ranOut: got.ranOut)
+        if got.through > 0 { history.askedDownTo = ask[got.through - 1] }
         if history != m.history { m.history = history }
-        return failure
+        return got.failure
     }
 
     /// The demo's record: a few days at a kitchen sink, ending now.
