@@ -29,6 +29,12 @@ same file the server does — Node by path, the browser by URL, one source eithe
   a document and, for a guide, the `<name>.cover.png` beside it. Written by whatever builds the document
   (`hsm-manual-guides` and `hsm-fabrication-guides` for shop books); read by `web/lib/{walk,viewer-routes}.js` and
   `web/public/js/viewer/grid.js`.
+- **fitted.js** — which materials have a print file published, what
+  [`hardware/ledger/fitted.json`](../../hardware/ledger/fitted.json) records Derek saying of the
+  ones he has tried, and which printed parts are not fitted yet. `web/lib/fitted.js` puts it on
+  the catalog `/api/materials` serves; read by `web/public/js/viewer/material-panel.js` (a line
+  under a part's name) and `web/public/js/viewer/missing-parts.js` (the mark on a part, and the
+  list behind the machine's mark); pinned by `web/tests/fitted.test.js`.
 - **missing-parts.js** — which runs a machine's published `<model>.facts.json` says the machine
   does not complete, the tubes and fittings each of those lacks, and the scene bodies that stand
   for a run's two ends. The installed machine writes the facts; read by

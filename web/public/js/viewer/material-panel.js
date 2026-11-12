@@ -17,6 +17,7 @@ import { mountMaterialDrawing } from "./material-drawing.js";
 import { mountMaterialSheet } from "./material-sheet.js";
 import { rollupCost, directCost, laborUsd, money, duration, runText, COST_KINDS } from "/contracts/part-costs.js";
 import { planMaterial, stockSummary } from "/contracts/material-stock.js";
+import { fittedState } from "/contracts/fitted.js";
 
 const el = (tag, className, text) => {
   const node = document.createElement(tag);
@@ -25,6 +26,17 @@ const el = (tag, className, text) => {
   return node;
 };
 const options = () => ({ finish: state.faucetFinish });
+// A printed part's standing in the fitted record, as one short line: fitted with the day and
+// Derek's words a click away, or not fitted yet.
+function fittedLine(fit) {
+  if (!fit.fitted) return el("p", "material-fitted not-yet", "Not fitted yet");
+  const line = el("details", "material-fitted");
+  line.append(el("summary", "", `Fitted · ${fit.rows[0].date}`));
+  for (const row of fit.rows) {
+    line.append(el("blockquote", "", `“${row.said}”`), el("p", "material-fitted-note", [row.date, row.tried].filter(Boolean).join(" · ")));
+  }
+  return line;
+}
 const quantity = (q, unit = "ea") => q == null ? "As required" : `${Number(q.toFixed(3))} ${unit}`;
 const pathKey = (path) => path.map((item) => `${item.material}:${item.occurrence}`).join("/");
 const docHref = (path) => "/read/" + path;
@@ -313,6 +325,8 @@ export function mountMaterialPanel(workspace, { file = null, material = null } =
       actions.append(open);
     }
     if (current?.manufacturer_number) identity.append(el("p", "material-meta", "Manufacturer part: " + current.manufacturer_number));
+    const fit = current && fittedState(state.materialCatalog.fitted, current.id);
+    if (fit) identity.append(fittedLine(fit));
     const costed = costedIds(), memo = new Map();
     const costOf = (id) => rollupCost(state.materialCatalog, id, options(), memo);
     const costedCurrent = Boolean(current && costed.has(current.id));

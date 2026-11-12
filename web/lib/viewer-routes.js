@@ -10,6 +10,7 @@ import { SCORECARD_SUFFIX } from "../contracts/scorecard-sidecar.js";
 import { FACTS_SUFFIX, missingRuns } from "../contracts/missing-parts.js";
 import { mountPdfjsAssets, renderDocumentReader } from "./document-reader.js";
 import { readMaterialCatalog } from "./material-catalog.js";
+import { readFitted } from "./fitted.js";
 import { numberedModels } from "../contracts/materials.js";
 import { readPartCosts } from "./part-costs.js";
 import { readMaterialStock } from "./material-stock.js";
@@ -83,6 +84,8 @@ export function mountViewerRoutes(app, { hardwareDir, store, pointersPath }) {
     // Costs ride with the catalog; a checkout without the ledgers serves parts uncosted.
     try { catalog.costs = readPartCosts(hardwareDir, catalog); } catch { catalog.costs = null; }
     try { catalog.stock = readMaterialStock(hardwareDir, catalog); } catch { catalog.stock = null; }
+    // The fitted record rides with it too; a checkout without the record says nothing of fit.
+    try { catalog.fitted = readFitted(hardwareDir, catalog, pointersPath); } catch { catalog.fitted = null; }
     catalog.printPlaybacks = readPrintPlaybacks();
     res.json(catalog);
   });

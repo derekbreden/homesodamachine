@@ -95,6 +95,17 @@ Co-Authored-By: <the harness's line, when it adds one>
 
 [`hardware/concerns.md`](hardware/concerns.md) holds concerns that are already answered, so no agent raises them again. Agents are bad at telling a legitimate concern from one that isn't, so an agent never writes its own concern there. Tell Derek the concern. If he convinces you it isn't one, record his answer there. If he doesn't, it is work to do, not a row. If he doesn't respond, you haven't told him yet.
 
+## Fitted
+
+When Derek tries a made part in hand and says anything affirmative about it, add a row to
+[`hardware/ledger/fitted.json`](hardware/ledger/fitted.json): the part's material number, the
+date, his words exactly, what he tried, and where the fuller record is. The bar is low: "looks
+good" counts once he has tried the print. A remark about a model or a picture is not a try. When
+a later try of that part fails in his hands, take the part's rows out; Git keeps them.
+
+The site reads the record and measures nothing. A printed part shows as fitted or not fitted
+yet, and the list behind the machine's mark names its printed parts that are not fitted yet.
+
 ## Missing Tools
 
 A script you write because nothing in the repo answers your question is a tool the repo lacks. [`calibration/principle/Positions.md`](calibration/principle/Positions.md) shows one: a ten-minute search for a part's move, beside the same move read off the scene in a second. Derek decides what joins the repo.

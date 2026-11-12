@@ -74,6 +74,14 @@
 .material-eyebrow { font: 0.72rem/1.5 ui-monospace, monospace; color: var(--text-2); text-transform: uppercase; letter-spacing: .05em; }
 .material-context { display: block; text-align: left; padding: 0; margin-bottom: 12px; border: 0; background: transparent; color: var(--accent); cursor: pointer; font: inherit; font-size: 0.82rem; }
 .material-meta { display: block; color: var(--text-2); font-size: 0.72rem; line-height: 1.5; margin: 5px 0; }
+/* A printed part's standing in the fitted record: one short line under its name. */
+.material-fitted { display: block; color: var(--text-2); font-size: 0.72rem; line-height: 1.5; margin: 5px 0; }
+.material-fitted.not-yet { color: var(--text-3); }
+.material-fitted > summary { cursor: pointer; color: var(--ok); list-style: none; width: max-content; }
+.material-fitted > summary::-webkit-details-marker { display: none; }
+.material-fitted > summary::before { content: "✓ "; }
+.material-fitted blockquote { margin: 6px 0 0; padding-left: 8px; border-left: 2px solid var(--border); color: var(--text); }
+.material-fitted-note { margin: 2px 0 6px; padding-left: 10px; color: var(--text-3); }
 .material-actions { display: flex; gap: 9px; align-items: center; flex-wrap: wrap; }
 .material-document.material-drawing-feature { border-left: 3px solid var(--accent); padding-left: 12px; background: var(--surface-2); }
 .material-document-kind { text-transform: uppercase; font-size: .7rem; letter-spacing: .05em; }
