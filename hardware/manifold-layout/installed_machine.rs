@@ -58,6 +58,7 @@ mod routes_program;
 #[allow(dead_code)]
 #[path = "../wiring/installed/wire_geometry.rs"]
 mod wires_program;
+use wires_program::wire_request;
 
 /// Retained stages use the shared writable geometry cache across staged build directories.
 const WORK: &str = ".cache/realized/installed-machine";
@@ -272,8 +273,11 @@ fn main() -> Result<()> {
     let wiring_dir = work.join("wiring");
     std::fs::create_dir_all(&wiring_dir)?;
     let wiring_request = wiring::wiring_request(&root, &plan, &fine, &mut cache)?;
-    write_json(&wiring_dir.join("request.json"), &wiring_request)?;
-    wires_program::run(&Numbers::from_value(wiring_request), &wiring_dir)?;
+    write_json(
+        &wiring_dir.join("request.json"),
+        &serde_json::to_value(&wiring_request)?,
+    )?;
+    wires_program::run(&wiring_request, &wiring_dir)?;
     progress::complete(
         &mechanical_mesh,
         &wiring_dir.join("enclosure-wiring.step.mesh"),
