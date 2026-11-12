@@ -10,10 +10,6 @@ publish = false
 name = "faucet-shell"
 path = "../../../hardware/printed-parts/faucet/faucet-shell/faucet_shell.rs"
 
-[[bin]]
-name = "faucet-shell-print-rotations"
-path = "../../../hardware/printed-parts/faucet/faucet-shell/print_rotations.rs"
-
 [dependencies]
 anyhow.workspace = true
 hsm-faucet = { path = "../faucet" }
