@@ -30,8 +30,9 @@ same file the server does — Node by path, the browser by URL, one source eithe
   (`hsm-manual-guides` and `hsm-fabrication-guides` for shop books); read by `web/lib/{walk,viewer-routes}.js` and
   `web/public/js/viewer/grid.js`.
 - **missing-parts.js** — which runs a machine's published `<model>.facts.json` says the machine
-  does not complete, and the scene bodies that stand for a run's two ends. The installed machine
-  writes the facts; read by `web/lib/viewer-routes.js` (`/api/step-missing`) and
+  does not complete, the tubes and fittings each of those lacks, and the scene bodies that stand
+  for a run's two ends. The installed machine writes the facts; read by
+  `web/lib/viewer-routes.js` (`/api/step-missing`) and
   `web/public/js/viewer/missing-parts.js`, which says them over the model; pinned by
   `web/tests/missing-parts.test.js`.
 

@@ -2,11 +2,12 @@
 //
 // The machine's published facts list every run the plumbing needs and whether the machine as
 // built completes it. When a run is not complete — a tube that was never routed, a fitting that
-// is not there — this says so over the model, where it cannot be missed, and each row lights
-// the two bodies the run would join. A machine with nothing missing shows nothing. The site
-// works it out from the published facts (/api/step-missing, contracts/missing-parts.js).
+// is not there — this says so over the model, where it cannot be missed, naming each absent
+// tube and fitting, and each row lights the two bodies the run would join. A machine with
+// nothing missing shows nothing. The site works it out from the published facts
+// (/api/step-missing, contracts/missing-parts.js).
 
-import { factsPathFor, bodyOf, sceneBodies } from "/contracts/missing-parts.js";
+import { factsPathFor, bodyOf, sceneBodies, lacks } from "/contracts/missing-parts.js";
 import { scenePartNames, highlightParts } from "./part-highlight.js";
 
 function el(tag, cls, text) {
@@ -35,7 +36,7 @@ function buildNotice(wrapper, missing) {
       ? "Missing from this machine: 1 connection"
       : `Missing from this machine: ${missing.length} connections`));
   for (const run of missing) {
-    const row = el("button", "missing-row", `${run.id} — nothing joins ${run.from} to ${run.to}`);
+    const row = el("button", "missing-row", `${run.id} — ${run.from} to ${run.to}: ${lacks(run)}`);
     row.type = "button";
     row.title = "Show the two ends on the model";
     row.addEventListener("click", (e) => {
