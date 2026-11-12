@@ -25,8 +25,16 @@
     ],
     "order": "Left to right, top to bottom."
   },
-  "first_visible_tilt_seconds": 185,
-  "section_on_side_seconds": 188,
-  "observation": "The right-hand section tips onto the bed. The head continues over the opening and strands span the displaced section and the material still standing. A nearby tree shifts afterward.",
-  "limit": "The head obscures the initial release. The camera does not identify the trigger or exact layer."
+  "first_visible_tilt_seconds": 184.7,
+  "section_on_side_seconds": 188.2,
+  "observation": "The foreground Y-shaped tree lifts clear of its brim during the toolhead pass and then drops back. The right-hand tip section subsequently rises and rolls onto its side. The head continues over the opening and strands span the displaced section and the material still standing.",
+  "limit": "The toolhead housing obscures the exact contact point. The footage identifies elapsed time within the recording.",
+  "native_excerpt": {
+    "file": "failure-release.mp4",
+    "source_filename": "ipcam-record.2026-11-12_11-19-45.189.mp4",
+    "source_start_seconds": 182,
+    "excerpt_sha256": "15f0a6ab8bf5922faf939b56ade9bf19fbc786e3c6b13a83a94e6db2814ed801"
+  },
+  "foreground_tree_lift_seconds": 182.6,
+  "interpretation": "The branch moves with the toolhead as the foot lifts, consistent with the toolhead snagging the tree."
 }
