@@ -38,13 +38,6 @@ void Refill::clear(uint32_t now_ms) {
     enter(RefillState::Queued, now_ms);
 }
 
-bool Refill::retry(uint32_t now_ms) {
-    if (state_ != RefillState::Timeout) return false;
-    if (now_ms - filling_since_ms_ < kRefillRetryRestMs) return false;
-    clear(now_ms);
-    return true;
-}
-
 void Refill::resume(uint32_t now_ms) {
     if (state_ != RefillState::Idle) return;
     pumped_ms_ = 0;
