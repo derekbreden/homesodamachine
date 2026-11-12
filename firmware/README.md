@@ -356,9 +356,11 @@ hsm-peripheral ota enclosure
 Targets are `self`, `faucet`, `enclosure` and `art`; `pio run -e <env>` first. The console runs
 at 500000 for the duration of a session and drops back when it ends.
 
-Opening the main board's CH340 port restarts the board, and a main board image taken this way
-is on trial like any other: a port opened inside `kUpdateTrialMs` of its restart puts the old
-image back. `[update] this image is kept` on the console is the end of the trial.
+`hsm-peripheral ota` opens the main board's console with DTR released, which restarts the
+board through its auto-reset lattice, and a main board image taken this way is on trial like
+any other: a restart inside `kUpdateTrialMs` of its first boot puts the old image back. The
+tool waits that out before it reads the version, and `[update] this image is kept` on the
+console is the end of the trial.
 
 `hsm-peripheral boards` names each S3 on sight — every one reports its MAC as its USB serial number.
 
@@ -369,8 +371,10 @@ the glass.
 
 - **The main board's console** — `status`, `pump <a|b> [ms]`, `ui <page> [a|b] [go]`, `test`,
   `wake`, `selftest` and the rest — is in [`src_appliance/README.md`](src_appliance/README.md).
-  Opening its CH340 port restarts the board; [`hsm-peripheral panelcam-console`](/tools/hsm/peripheral/src/serials.rs)
-  waits out the restart and sends one line.
+  Its CH340's DTR and RTS lines drive the board's auto-reset lattice: a port opened with DTR
+  released restarts the board, and one opened with both lines held does not.
+  [`hsm-peripheral panelcam-console`](/tools/hsm/peripheral/src/serials.rs) holds them, waits
+  out any boot text and sends one line.
 - **The machine display's own console**, on its native USB, runs the pads' handlers without a
   finger — `PRIME:START:<1|2>` / `PRIME:STOP`, `FILL:START:<1|2>`, `CLEAN:START:<1|2>` — and
   starts the dry cycle with `AIR:DRY` ([`src_front/README.md`](src_front/README.md)). [`hsm-peripheral firmware-live-check`](/tools/hsm/peripheral/src/live.rs)
