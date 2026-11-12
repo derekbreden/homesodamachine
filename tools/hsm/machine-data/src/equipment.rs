@@ -15,7 +15,7 @@ pub struct Equipment {
     pub items: Vec<Item>,
     pub frames: Map<String, Value>,
     pub world_ports: Map<String, Value>,
-    pub routes: Map<String, Value>,
+    pub routes: BTreeMap<String, Tube>,
     pub route_order: Vec<String>,
     pub core_equipment: Vec<String>,
     pub insulation: Value,
@@ -113,14 +113,14 @@ pub fn route_params(data: &Value) -> Result<Value> {
         json!({"reducer_insertion":ports::reducer_insertion(data)?,"stem_insertion":data["stem"]["published_socket_insertion_mm"],"tee_insertion":15.7,"check_insertion":data["check"]["socket_insertion_estimate_mm"],"bulkhead_tube_stop":data["jg"]["published"]["tube_stop_depth_mm"]}),
     )
 }
-pub fn local_routes(request: &Value) -> Result<(Vec<String>, Value)> {
+pub fn local_routes(request: &Value) -> Result<(Vec<String>, BTreeMap<String, Tube>)> {
     let spec = &request["spec"];
     let data = &request["data"];
     let stations = route_stations(spec, data)?;
     let rear = layout::rear::route_specs(spec, &stations, &route_params(data)?)?;
-    let fore = layout::fore::routes(spec, &json!({}))?;
+    let fore = layout::fore::routes(spec)?;
     let mut order = Vec::new();
-    let mut routes = Map::new();
+    let mut routes = BTreeMap::new();
     let source_order = request
         .get("fore_tube_order")
         .and_then(Value::as_array)
@@ -145,7 +145,7 @@ pub fn local_routes(request: &Value) -> Result<(Vec<String>, Value)> {
         }
         routes.insert(name, row);
     }
-    Ok((order, Value::Object(routes)))
+    Ok((order, routes))
 }
 
 struct Builder<'a> {
@@ -516,7 +516,7 @@ pub fn numbers(request: &Value) -> Result<(Equipment, BTreeMap<String, Vec<Strin
             items: b.items,
             frames: b.frames,
             world_ports,
-            routes: object(&routes)?.clone(),
+            routes,
             route_order: order,
             core_equipment: layout::equipment_names(),
             insulation,
@@ -528,7 +528,7 @@ pub fn numbers(request: &Value) -> Result<(Equipment, BTreeMap<String, Vec<Strin
 /// Adds the tubes routed between the placed ports (`integrated`, in their order) to the
 /// equipment's own, a tube of the same name taking the earlier one's place, and gives every tube
 /// without a colour its spool's.
-pub fn finalize(equipment: &mut Equipment, integrated: Vec<(String, Value)>, spool_colors: &Value) -> Result<()> {
+pub fn finalize(equipment: &mut Equipment, integrated: Vec<(String, Tube)>, spool_colors: &Value) -> Result<()> {
     for (key, route) in integrated {
         if !equipment.routes.contains_key(&key) {
             equipment.route_order.push(key.clone());
@@ -536,12 +536,10 @@ pub fn finalize(equipment: &mut Equipment, integrated: Vec<(String, Value)>, spo
         equipment.routes.insert(key, route);
     }
     for route in equipment.routes.values_mut() {
-        if route.get("color").is_none() {
-            let spool = text(&route["spool"])?;
-            route["color"] = spool_colors
-                .get(spool)
-                .with_context(|| format!("no equipment spool color {spool}"))?
-                .clone();
+        if route.color.is_none() {
+            let spool = route.spool.as_str();
+            let color = spool_colors.get(spool).with_context(|| format!("no equipment spool color {spool}"))?;
+            route.color = Some(Deserialize::deserialize(color).with_context(|| format!("the spool color {spool}"))?);
         }
     }
     Ok(())

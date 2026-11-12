@@ -1,7 +1,7 @@
 //! Rear tube recipes from raw world-port stations and reference dimensions.
 use crate::*;
 
-pub type Routes = Vec<(String, Value)>;
+pub type Routes = Vec<(String, Tube)>;
 
 pub fn station(stations: &Value, name: &str, port: &str) -> Result<(V3, V3)> {
     let key = format!("{name}.{port}");
@@ -14,7 +14,7 @@ pub fn station(stations: &Value, name: &str, port: &str) -> Result<(V3, V3)> {
 fn add_route(
     out: &mut Routes,
     name: &str,
-    segments: Vec<Value>,
+    segments: Vec<Segment>,
     source: (&str, &str),
     destination: (&str, &str),
     radius: Option<f64>,
@@ -23,11 +23,16 @@ fn add_route(
     inside: f64,
 ) -> Result<()> {
     let points = sample(&segments)?;
-    out.push((name.to_owned(),json!({"segments":segments,"points_mm":points,"centerline_mm":points,
-        "od_mm":od,"id_mm":inside,"spool":spool,"owners":[source.0,destination.0],
-        "from":format!("{}.{}",source.0,source.1),"frm":format!("{}.{}",source.0,source.1),
-        "to":format!("{}.{}",destination.0,destination.1),"minimum_radius_mm":radius,"radius_mm":radius,
-        "status":"selected_native_layout"})));
+    out.push((name.to_owned(), Tube {
+        owners: Some(vec![source.0.to_owned(), destination.0.to_owned()]),
+        from: Some(format!("{}.{}",source.0,source.1)),
+        frm: Some(format!("{}.{}",source.0,source.1)),
+        to: Some(format!("{}.{}",destination.0,destination.1)),
+        minimum_radius_mm: Some(radius),
+        radius_mm: Some(radius),
+        status: Some("selected_native_layout".to_owned()),
+        ..Tube::of(segments, od, inside, spool).through(points)
+    }));
     Ok(())
 }
 
@@ -89,14 +94,19 @@ pub fn route_specs(spec: &Value, stations: &Value, params: &Value) -> Result<Rou
     let plan = &spec["rear_plumbing"];
     let mut out = Vec::new();
     let mut add =
-        |name: &str, segments: Vec<Value>, owners: [&str; 2], radius: Option<f64>| -> Result<()> {
+        |name: &str, segments: Vec<Segment>, owners: [&str; 2], radius: Option<f64>| -> Result<()> {
             let points = sample(&segments)?;
             out.push((
                 name.to_owned(),
-                json!({"segments":segments,"points_mm":points,"centerline_mm":points,
-            "od_mm":6.35,"id_mm":4.32,"spool":"white","owners":owners,
-            "from":owners[0],"to":owners[1],"minimum_radius_mm":radius,
-            "status":"complete_between_named_interfaces","basis":"Named receiving socket depths"}),
+                Tube {
+                    owners: Some(owners.map(str::to_owned).to_vec()),
+                    from: Some(owners[0].to_owned()),
+                    to: Some(owners[1].to_owned()),
+                    minimum_radius_mm: Some(radius),
+                    status: Some("complete_between_named_interfaces".to_owned()),
+                    basis: Some("Named receiving socket depths".to_owned()),
+                    ..Tube::of(segments, 6.35, 4.32, "white").through(points)
+                },
             ));
             Ok(())
         };
@@ -189,7 +199,7 @@ pub fn route_specs(spec: &Value, stations: &Value, params: &Value) -> Result<Rou
     for (name, row) in &mut out {
         let id = name.strip_prefix("above-core-").unwrap_or(name);
         if plan["flex_links"][id]["kind"] == "tangent_cubic" {
-            row["radius_basis"] = json!("Conservative derivative bound on the tangent cubic");
+            row.radius_basis = Some("Conservative derivative bound on the tangent cubic".to_owned());
         }
     }
     Ok(out)
@@ -199,14 +209,14 @@ pub fn continuations(spec: &Value, stations: &Value, params: &Value) -> Result<R
     let plan = &spec["rear_plumbing"];
     let mut out = Vec::new();
     let data = &plan["water5_bend"];
-    let arcs = data["segments"].as_array().context("water5 arcs")?;
-    let a = xyz(&arcs.first().context("water5 arc start")?["points_mm"][0])?;
+    let arcs = crate::segments(&data["segments"]).context("water5 arcs")?;
+    let a = arcs.first().context("water5 arc start")?.points()[0];
     let inserted = sub(
         a,
         mul(xyz(&data["flow"])?, number(&params["check_insertion"])?),
     );
     let mut segments = vec![line(inserted, a)];
-    segments.extend(arcs.clone());
+    segments.extend(arcs);
     add_route(
         &mut out,
         "water-5",
@@ -272,10 +282,8 @@ pub fn continuations(spec: &Value, stations: &Value, params: &Value) -> Result<R
     add_route(
         &mut out,
         "above-core-va-fore-feed",
-        spec["fore_routes"]["native_segments"]["va-fore-feed"]
-            .as_array()
-            .context("VA feed segments")?
-            .clone(),
+        crate::segments(&spec["fore_routes"]["native_segments"]["va-fore-feed"])
+            .context("VA feed segments")?,
         ("va-south-elbow", "socket"),
         ("ya-stem-elbow", "socket"),
         Some(14.),
@@ -287,7 +295,7 @@ pub fn continuations(spec: &Value, stations: &Value, params: &Value) -> Result<R
     let (b, ub) = station(stations, "bulkhead-drain", "inboard")?;
     let vent = &plan["drain_vent"];
     let mut segments = vec![line(sub(a, mul(ua, 14.)), a)];
-    segments.extend(vent["segments"].as_array().context("vent return segments")?.clone());
+    segments.extend(crate::segments(&vent["segments"]).context("vent return segments")?);
     segments.push(line(b, sub(b, mul(ub, 10.))));
     add_route(
         &mut out,
@@ -303,7 +311,7 @@ pub fn continuations(spec: &Value, stations: &Value, params: &Value) -> Result<R
     Ok(out)
 }
 
-pub fn flavor_s_bend(start: V3, heading: V3, offset: V3, axis: V3) -> Result<(Vec<Value>, V3)> {
+pub fn flavor_s_bend(start: V3, heading: V3, offset: V3, axis: V3) -> Result<(Vec<Segment>, V3)> {
     let angle = (1. - norm(offset) / 50.).acos();
     ensure!(angle.is_finite(), "math domain error");
     let (first, end) = arc(start, heading, axis, angle, 25.);
@@ -315,7 +323,7 @@ pub fn flavor_s_bend(start: V3, heading: V3, offset: V3, axis: V3) -> Result<(Ve
     Ok((vec![first, second], end))
 }
 
-pub fn flavor_rear(flavor: &str, destination: V3) -> Result<Vec<Value>> {
+pub fn flavor_rear(flavor: &str, destination: V3) -> Result<Vec<Segment>> {
     let radius = 25.;
     if flavor == "a" {
         // Pass between the pump and meter caps, below the ASSE and its sleeve.
@@ -424,12 +432,10 @@ pub fn flavor_routes(stations: &Value) -> Result<Routes> {
         let (rise, end) = flavor_s_bend([aisle, lift_y, cross_z], [0., 1., 0.], offset, normal)?;
         segments.extend(rise);
         let rear = flavor_rear(flavor, destination)?;
-        let stop = xyz(rear.last().context("flavor rear end")?["points_mm"]
-            .as_array()
-            .context("rear end points")?
+        let stop = *rear.last().context("flavor rear end")?.points()
             .last()
-            .context("rear end point")?)?;
-        segments.push(line(end, xyz(&rear[0]["points_mm"][0])?));
+            .context("rear end point")?;
+        segments.push(line(end, rear[0].points()[0]));
         segments.extend(rear);
         segments.push(line(stop, sub(destination, mul(outward, 10.))));
         let id = if flavor == "a" {

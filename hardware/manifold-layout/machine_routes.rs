@@ -87,11 +87,11 @@ fn start_and_tangent(segments: &[Segment]) -> Result<(V3, V3)> {
     for s in segments {
         let points: &[[f64; 3]] = match s {
             Segment::Line { points_mm } => points_mm,
-            Segment::Arc { points_mm } => points_mm,
+            Segment::Arc { points_mm, .. } => points_mm,
             Segment::Bezier { control_points_mm } => control_points_mm,
         };
         let start = V3::from(*points.first().context("tube segment has no points")?);
-        if let Segment::Arc { points_mm } = s {
+        if let Segment::Arc { points_mm, .. } = s {
             let middle = V3::from(points_mm[1]);
             let end = V3::from(points_mm[2]);
             let (u, v) = (middle - start, end - start);
@@ -118,7 +118,7 @@ fn route_path(segments: &[Segment]) -> Result<SweepPath> {
                 let end = V3::from(points_mm[1]);
                 if (end - path.at()).norm() > 1e-6 { path = path.line_to(end); }
             }
-            Segment::Arc { points_mm } => path = path.arc_through(V3::from(points_mm[1]),
+            Segment::Arc { points_mm, .. } => path = path.arc_through(V3::from(points_mm[1]),
                                                                   V3::from(points_mm[2]))?,
             Segment::Bezier { control_points_mm } => {
                 let controls = control_points_mm.iter().map(|&p| V3::from(p)).collect::<Vec<_>>();
@@ -182,7 +182,7 @@ fn lead_exits(pose: &Affine) -> Result<Vec<Solid>> {
         let middle = tip + v3(0.,-3.+3./2_f64.sqrt(),-3.-3./2_f64.sqrt());
         exits.push(sweep(&[
             Segment::Line { points_mm: [a.to_array(), before.to_array()] },
-            Segment::Arc { points_mm: [before.to_array(), middle.to_array(), after.to_array()] },
+            Segment::through(before.to_array(), middle.to_array(), after.to_array()),
             Segment::Line { points_mm: [after.to_array(), (tip+v3(0.,-12.,-6.)).to_array()] },
         ],2.,None)?);
     }

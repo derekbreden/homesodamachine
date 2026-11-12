@@ -1,9 +1,9 @@
 use crate::*;
 
 /// Short warm-side tubes and the socket insertions authored in the layout.
-pub fn routes(spec: &Value, rear: &Value) -> Result<Value> {
+pub fn routes(spec: &Value) -> Result<std::collections::BTreeMap<String, Tube>> {
     let fore = &spec["fore_routes"];
-    let mut result = serde_json::Map::new();
+    let mut result = std::collections::BTreeMap::new();
     for (name, raw) in fore["tubes"].as_object().context("fore tubes")? {
         if name.starts_with("soda-")
             || matches!(name.as_str(), "va-fore-feed" | "ya-concealed-link")
@@ -11,7 +11,10 @@ pub fn routes(spec: &Value, rear: &Value) -> Result<Value> {
             continue;
         }
         let mut points = points3(raw)?;
-        let mut segments = fore["native_segments"][name].as_array().cloned();
+        let mut segments = match &fore["native_segments"][name] {
+            authored @ Value::Array(_) => Some(crate::segments(authored)?),
+            _ => None,
+        };
         if segments.is_none() && name == "drain-vb-east-link" {
             let control = fore
                 .get("vb_drain_control_mm")
@@ -50,9 +53,9 @@ pub fn routes(spec: &Value, rear: &Value) -> Result<Value> {
                 .get("vb_drain_minimum_radius_mm")
                 .filter(|v| !v.is_null())
                 .unwrap_or(&fore["b_plumbing"]["inlet_minimum_radius_mm"])
-                .clone(),
-            "vb-yb-link" => fore["vb_return_minimum_radius_mm"].clone(),
-            _ => Value::Null,
+                .as_f64(),
+            "vb-yb-link" => fore["vb_return_minimum_radius_mm"].as_f64(),
+            _ => None,
         };
         let owners = match name.as_str() {
             "drain-vb-east-link" => ["drain-outlet-stem", "vb-inlet-turn"],
@@ -69,12 +72,13 @@ pub fn routes(spec: &Value, rear: &Value) -> Result<Value> {
         } else {
             "white"
         };
-        result.insert(id,json!({"points_mm":points,"centerline_mm":points,"od_mm":6.35,"id_mm":4.24,
-            "owners":owners,"status":"complete_between_named_interfaces","basis":"Nominal socket insertion",
-            "segments":segments,"spool":spool,"minimum_radius_mm":radius}));
+        result.insert(id, Tube {
+            owners: Some(owners.map(str::to_owned).to_vec()),
+            status: Some("complete_between_named_interfaces".to_owned()),
+            basis: Some("Nominal socket insertion".to_owned()),
+            minimum_radius_mm: Some(radius),
+            ..Tube::of(segments, 6.35, 4.24, spool).through(points)
+        });
     }
-    if let Some(rows) = rear.as_object() {
-        result.extend(rows.clone());
-    }
-    Ok(Value::Object(result))
+    Ok(result)
 }

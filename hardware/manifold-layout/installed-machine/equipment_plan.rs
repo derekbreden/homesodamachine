@@ -2,7 +2,7 @@
 //! the pack the placement program set down, and the warm-side tubes run between their ports.
 use crate::{color, design, equipment};
 use anyhow::{Context, Result};
-use hsm_layout_data::{rear, routes, soda};
+use hsm_layout_data::{Tube, rear, routes, soda};
 use serde::Deserialize;
 use serde::de::{DeserializeOwned, IgnoredAny, MapAccess, Visitor};
 use serde_json::{Map, Value, json};
@@ -193,26 +193,20 @@ fn stations(world_ports: &Map<String, Value>) -> Result<Value> {
     Ok(Value::Object(out))
 }
 
-/// Routes as `[name, route]` pairs, in their order.
-fn pairs(routes: Vec<(String, Value)>) -> Value {
-    Value::Array(routes.into_iter().map(|(name, route)| json!([name, route])).collect())
-}
-
 /// The warm-side tubes run between the placed ports, in the order they are swept.
-fn warm_routes(root: &Path, spec: &Value, data: &Value, world_ports: &Map<String, Value>) -> Result<Vec<(String, Value)>> {
+fn warm_routes(root: &Path, spec: &Value, data: &Value, world_ports: &Map<String, Value>) -> Result<Vec<(String, Tube)>> {
     let stations = stations(world_ports)?;
     let continuations = rear::continuations(spec, &stations, &equipment::route_params(data)?)?;
     let flavors = rear::flavor_routes(&stations)?;
     let (authored, order) =
         read_ordered::<ReservoirOrder>(&root.join("hardware/manifold-layout/reservoir-a-routes.json"))?;
     let reservoir = hsm_layout_data::reservoir_routes(&authored)?;
-    let reservoir: Vec<Value> = order.paths.0.iter().map(|name| json!([name, reservoir[name]])).collect();
-    let result = routes::specifications(&json!({"spec": spec, "stations": stations,
-        "continuations": pairs(continuations), "flavors": pairs(flavors), "reservoir": reservoir}))?;
-    let rows = result["routes"].as_array().context("the warm routes")?;
-    rows.iter()
-        .map(|row| Ok((row[0].as_str().context("a warm route's name")?.to_owned(), row[1].clone())))
-        .collect()
+    let mut ordered = vec![];
+    for name in &order.paths.0 {
+        let tube = reservoir.get(name).with_context(|| format!("reservoir A has no tube {name}"))?;
+        ordered.push((name.clone(), tube.clone()));
+    }
+    routes::specifications(spec, &stations, continuations, flavors, ordered)
 }
 
 /// Whether a JSON value states something: present, and neither false, zero nor empty.

@@ -104,7 +104,7 @@ pub fn equipment_block(
     }
     let mut owners = Map::new();
     for (name, route) in &equipment_request.routes {
-        if let Some(joined) = route.get("owners") {
+        if let Some(joined) = &route.owners {
             owners.insert(name.clone(), json!({"owners": joined}));
         }
     }
@@ -180,11 +180,11 @@ pub fn wiring_placements(root: &Path) -> Result<Value> {
 }
 
 /// The route lengths of the routes whose length the routing measured.
-pub fn route_lengths(routes: &Map<String, Value>) -> Value {
+pub fn route_lengths(routes: &std::collections::BTreeMap<String, hsm_layout_data::Tube>) -> Value {
     Value::Object(
         routes
             .iter()
-            .filter_map(|(name, row)| row.get("length_mm").map(|l| (name.clone(), l.clone())))
+            .filter_map(|(name, row)| row.length_mm.map(|l| (name.clone(), json!(l))))
             .collect(),
     )
 }
