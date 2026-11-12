@@ -43,9 +43,10 @@ export function mountMaterialSheet({ workspace, panel }) {
   let fling = 0;
   const active = () => open && PHONE.matches;
 
-  // The three heights, from the room under the header.
+  // The sheet follows the model's single toolbar row while a drawing's controls can wrap.
   function heights() {
-    const room = Math.max(0, workspace.clientHeight - (header?.offsetHeight || 0));
+    const toolbarHeight = header ? (parseFloat(getComputedStyle(header).minHeight) || header.offsetHeight) : 0;
+    const room = Math.max(0, workspace.clientHeight - toolbarHeight);
     const low = Math.round(Math.max(150, room * 0.28));
     const half = Math.round(Math.max(low, room * 0.5));
     const top = Math.round(Math.max(half, room - Math.max(96, room * 0.12)));
