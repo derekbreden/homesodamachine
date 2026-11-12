@@ -17,15 +17,8 @@ pub const WING_REACH: f64 = 0.83;
 /// The bezel's underside, over the glass, and its top.
 pub const BEZEL_N_BOTTOM: f64 = DISPLAY_FACE_N + DISPLAY_COVER_OVER_FACE + WING_REACH;
 pub const BEZEL_N_TOP: f64 = DISPLAY_COVER_TOP_N + WING_REACH;
-/// The cover's lower front edge: where it starts up from the open underside, along n, and its
-/// slope up per millimetre along s.
-pub const FRONT_RIM_N: f64 = 14.0;
-pub const FRONT_RIM_SLOPE: f64 = 1.8;
 /// How far the skirt runs on past the face toward the base.
 pub const REAR_SKIRT_EXTENSION: f64 = 1.2;
-/// The lower rear edge: where it starts along s, and how far back it runs per millimetre up.
-pub const REAR_TRIM_S0: f64 = 42.1;
-pub const REAR_TRIM_DS_DN: f64 = 0.6;
 /// What the lips' inner corners are relieved by.
 pub const LIP_RELIEF: f64 = snap::LIP_INNER_EDGE_RELIEF;
 /// Radial clearance for the printed lip to settle against the groove floor under spring preload.

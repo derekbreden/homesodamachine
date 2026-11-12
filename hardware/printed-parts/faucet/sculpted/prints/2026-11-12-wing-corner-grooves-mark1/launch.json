@@ -1,0 +1,27 @@
+{
+  "archive": {
+    "gcode_sha256": "b63daa0a65e5bd3363024a56798d52ed08a8c3e90f5542da2b448d165df2d7aa",
+    "name": "sculpted-tip-cover-corner-grooves-black-mark1-ready.gcode.3mf",
+    "objects": [
+      "faucet-shell-tip",
+      "faucet-display-cover"
+    ],
+    "sha256": "a807963a4b865e4a17634a00e55e59800064d55377908571341d0357396a63e3",
+    "slots": {
+      "1": {
+        "colour": "000000",
+        "type": "PET-CF"
+      }
+    }
+  },
+  "gcode_state": "RUNNING",
+  "hms": [],
+  "layer_num": 0,
+  "mc_remaining_time": 0,
+  "observed_at": "2026-11-12T23:50:48+00:00",
+  "print_error": 0,
+  "printer": "H2C",
+  "printer_task_id": "1437099870",
+  "subtask_name": "sculpted-tip-cover-corner-grooves-black-mark1-ready.gcode.3mf",
+  "total_layer_num": 971
+}
