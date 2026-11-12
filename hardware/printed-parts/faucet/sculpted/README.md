@@ -65,11 +65,12 @@ and support aids. Pass `--printer Mark1` and `--filament-colour` with the loaded
 spool's colour to prepare a Mark1 plate. `--base-section SECTION.stl` pairs a
 section of the base in its CAD frame with the full tip and cover.
 
-The [Mark1 support and fit plate](prints/2026-11-11-support-and-fit-mark1/sculpted-support-and-fit-mark1.3mf)
-includes the entire bottom rim and the bore seam on the base section, plus
-the full tip and supported cover for the dry fit. Its
-[slice review](prints/2026-11-11-support-and-fit-mark1/support-review.json) records
-the seam gaps, exterior wall paths, shoulder support and nose clearance.
+The [Mark1 support and fit trial](https://github.com/derekbreden/homesodamachine/blob/7ebe4a45b0fd8064118e95f2cc1445c5ee643722/hardware/printed-parts/faucet/sculpted/prints/2026-11-11-support-and-fit-mark1/physical-result/physical-result.json)
+records the base section's one-piece support release, the tip cleanup and the
+cover seating on one wing. Its
+[slice review](https://github.com/derekbreden/homesodamachine/blob/7ebe4a45b0fd8064118e95f2cc1445c5ee643722/hardware/printed-parts/faucet/sculpted/prints/2026-11-11-support-and-fit-mark1/support-review.json)
+binds the seam gaps, exterior wall paths, shoulder support and nose clearance
+to the submitted toolpath.
 
 [review_print.py](https://github.com/derekbreden/homesodamachine/blob/306268f870/hardware/printed-parts/faucet/sculpted/review_print.py) (in Git at `306268f870`) reads the native G-code's nominal courses,
 filament assignment, cooling, speed commands, complete bead footprint and
