@@ -235,6 +235,13 @@ void loop() {
         if (notice != NOTICE_NONE && notice != noticeWas) idleTouched();
         noticeWas = notice;
     }
+    // A sweep under way is a hand on the lever and eyes on the faucet's glass, which stays
+    // lit for the length of it.
+    {
+        MachineSweep sweep;
+        machineSweep(sweep);
+        if (sweep.flowing || sweep.done) idleTouched();
+    }
     // A fill or a clean cycle is something a person asked for and is watching.
     // Both glasses stay lit for the length of it, and the quiet stretch starts
     // when it ends.
@@ -283,6 +290,8 @@ void loop() {
 struct NoticeName { const char *name; uint8_t kind; };
 static const NoticeName kNoticeNames[] = {
     {"no-water", NOTICE_NO_WATER},
+    {"welcome", NOTICE_SWEEP},
+    {"welcome", NOTICE_SWEEP_DONE},
 };
 
 static const char *noticeName(uint8_t kind) {
@@ -362,6 +371,11 @@ static void help() {
     Serial.println("  refill forget     drop a refill that is owed, and the flash's note of it");
     Serial.println("  refill fill       fill the carbonator now, whatever its reeds read: until the high");
     Serial.println("                    reed closes or the pumping ceiling, as any refill");
+    Serial.println("  sweep             whether the carbonator owes a sweep of its air, and how far one has got");
+    Serial.println("  sweep owe         the tank was drained and opened: hold its first fill until the lever at");
+    Serial.println("                    the faucet has let CO2 carry the air out; drops any refill that is owed");
+    Serial.println("  sweep skip        give the sweep up and fill without it, as the machine's display can");
+    Serial.println("  sweep forget      drop a sweep that is owed and ask for nothing");
     Serial.println("  hang              stop the loop turning, to see the watchdog restart the board");
     Serial.printf("  log [n|all|status]   the machine's record: its newest n entries (default %ld),\n",
                   kLogDefaultEntries);
@@ -988,6 +1002,31 @@ static void console(const String &line) {
     if (line == "refill forget") {
         machineRefillForget();
         Serial.println("\n[machine] refill forgotten — nothing is owed");
+        return;
+    }
+    if (line == "sweep") {
+        MachineSweep s;
+        machineSweep(s);
+        if (!s.owed) Serial.println("\n[machine] no sweep is owed");
+        else Serial.printf("\n[machine] sweep owed: %s, %u %% of the target, %lu pulses\n",
+                           s.done ? "done, waiting for the lever" : s.flowing ? "gas is moving" : "waiting for gas",
+                           (unsigned)s.percent, (unsigned long)s.pulses);
+        return;
+    }
+    if (line == "sweep owe") {
+        Serial.println(machineSweepOwe()
+                           ? "\n[machine] sweep owed — the first fill waits for the lever at the faucet"
+                           : "\n[machine] refused: a carbonator reed reads closed, so the tank holds water");
+        return;
+    }
+    if (line == "sweep skip") {
+        Serial.println(machineSweepSkip() ? "\n[machine] sweep given up — the first fill is asked for"
+                                          : "\n[machine] no sweep is owed");
+        return;
+    }
+    if (line == "sweep forget") {
+        Serial.println(machineSweepForget() ? "\n[machine] sweep forgotten — nothing is owed for it"
+                                            : "\n[machine] no sweep is owed");
         return;
     }
     if (line == "hang") {

@@ -534,10 +534,11 @@ void onMessage(ProtoLink *link, const uint8_t *frame, uint16_t len) {
     return;
   }
 
-  if (type == MSG_NOTICE && plen >= sizeof(NoticePayload)) {
-    NoticePayload notice;
-    memcpy(&notice, payload, sizeof(notice));
-    faucetApplyNotice(notice.kind);
+  if (type == MSG_NOTICE && plen >= NOTICE_CORE_BYTES) {
+    // A main board built before a byte existed does not send it, and it reads as zero.
+    NoticePayload notice{};
+    memcpy(&notice, payload, plen < sizeof(notice) ? plen : sizeof(notice));
+    faucetApplyNotice(notice);
     return;
   }
 
