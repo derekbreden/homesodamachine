@@ -307,7 +307,7 @@ uint8_t machineNoticeStanding();      // the notice with nothing held
 struct MachineSweep {
     bool     owed;
     bool     flowing;   // gas is moving and the count is short of its target
-    bool     done;      // the target is met and the lever is still down
+    bool     done;      // the count is over and the lever is still down
     uint8_t  percent;   // of the target
     uint32_t pulses;    // counted so far
 };
@@ -317,8 +317,10 @@ void machineSweep(MachineSweep &sweep);
 // False while a carbonator reed reads closed, which is a tank that holds water.
 bool machineSweepOwe();
 
-// Give the sweep up and ask for the first fill without it. False when none is owed. The
-// machine's own display sends it, and the console's `sweep skip`.
+// Give the sweep up and fill without it. With no gas moving the first fill is asked for at
+// once. Gas moving is a lever that is down, so the fill waits for it to be let go, as it
+// does after the target. False when none is owed. The machine's own display sends it, and
+// the console's `sweep skip`.
 bool machineSweepSkip();
 
 // Drop a sweep that is owed and ask for nothing, for a bench. False when none is owed.

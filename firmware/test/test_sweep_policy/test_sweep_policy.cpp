@@ -132,6 +132,45 @@ void test_a_sputter_after_the_target_is_not_the_lever_let_go() {
     TEST_ASSERT_EQUAL(SweepAction::Released, carry(s, kSweepReleaseSamples, 0));
 }
 
+void test_a_sweep_given_up_with_gas_moving_waits_for_the_meter_to_go_quiet() {
+    Sweep s;
+    s.owe();
+    carry(s, 20, 30);
+    TEST_ASSERT_TRUE(s.flowing());
+    const uint32_t counted = s.pulses();
+
+    TEST_ASSERT_TRUE(s.giveUpWhileFlowing());
+    TEST_ASSERT_TRUE(s.owed());
+    TEST_ASSERT_TRUE(s.done());
+    TEST_ASSERT_FALSE(s.flowing());
+
+    // The lever is still down: nothing more is counted, and no target is said.
+    TEST_ASSERT_EQUAL(SweepAction::None, carry(s, 400, 30));
+    TEST_ASSERT_EQUAL_UINT32(counted, s.pulses());
+    TEST_ASSERT_TRUE(s.owed());
+
+    TEST_ASSERT_EQUAL(SweepAction::None, carry(s, kSweepReleaseSamples - 1, 0));
+    TEST_ASSERT_EQUAL(SweepAction::Released, s.sample(0, kDry));
+    TEST_ASSERT_FALSE(s.owed());
+}
+
+void test_a_sweep_is_given_up_that_way_only_while_gas_is_moving() {
+    Sweep s;
+    TEST_ASSERT_FALSE(s.giveUpWhileFlowing());
+    TEST_ASSERT_EQUAL(SweepState::Clear, s.state());
+
+    s.owe();
+    TEST_ASSERT_FALSE(s.giveUpWhileFlowing());
+    TEST_ASSERT_EQUAL(SweepState::Owed, s.state());
+
+    // Let go short of the target, the lever is up and the count is kept for the caller.
+    carry(s, 20, 30);
+    carry(s, kSweepQuietSamples, 0);
+    TEST_ASSERT_FALSE(s.giveUpWhileFlowing());
+    TEST_ASSERT_EQUAL(SweepState::Owed, s.state());
+    TEST_ASSERT_EQUAL_UINT32(600, s.pulses());
+}
+
 void test_water_found_after_the_target_does_not_undo_the_sweep() {
     Sweep s;
     nearlyDone(s);
@@ -269,6 +308,8 @@ int main(int, char **) {
     RUN_TEST(test_the_target_is_said_once_and_the_sweep_stays_owed_while_the_lever_is_down);
     RUN_TEST(test_the_lever_let_go_after_the_target_ends_the_sweep);
     RUN_TEST(test_a_sputter_after_the_target_is_not_the_lever_let_go);
+    RUN_TEST(test_a_sweep_given_up_with_gas_moving_waits_for_the_meter_to_go_quiet);
+    RUN_TEST(test_a_sweep_is_given_up_that_way_only_while_gas_is_moving);
     RUN_TEST(test_water_found_after_the_target_does_not_undo_the_sweep);
     RUN_TEST(test_a_meter_that_turns_slowly_on_gas_costs_a_bounded_hold);
     RUN_TEST(test_time_without_gas_moving_is_not_counted);

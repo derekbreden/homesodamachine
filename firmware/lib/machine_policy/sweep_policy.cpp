@@ -20,6 +20,14 @@ void Sweep::clear() {
     wet_    = 0;
 }
 
+bool Sweep::giveUpWhileFlowing() {
+    if (state_ != SweepState::Flowing) return false;
+    state_ = SweepState::Releasing;
+    quiet_ = 0;
+    wet_   = 0;
+    return true;
+}
+
 SweepAction Sweep::sample(uint32_t pulses, const RefillReading &reeds) {
     if (state_ == SweepState::Clear) return SweepAction::None;
 

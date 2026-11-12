@@ -26,7 +26,8 @@
 //
 // The count reaching its target is the moment to say so, and the lever is still down. A fill
 // begun then would send its first water out of the open faucet, so the sweep stays owed
-// until the meter has gone quiet: the hand has let go.
+// until the meter has gone quiet: the hand has let go. A sweep given up while gas is moving
+// is given up with the lever down, and waits for the same quiet.
 //
 // machine.cpp keeps `owed` in flash, holds the refill and the pour while it stands, and
 // asks for the first fill when the lever is let go. A reed that stays closed says the tank
@@ -62,7 +63,7 @@ enum class SweepState : uint8_t {
     Clear = 0,   // no sweep is owed
     Owed,        // waiting for gas
     Flowing,     // gas is moving through the tank
-    Releasing,   // the target is met and the lever is still down
+    Releasing,   // the count is over and the lever is still down
 };
 
 enum class SweepAction : uint8_t {
@@ -84,6 +85,11 @@ public:
     // The sweep is given up, and its count with it.
     void clear();
 
+    // The sweep is given up while gas is moving, which is a lever that is down: the count
+    // stops where it stands and the sweep stays owed until the meter has gone quiet. False
+    // with no gas moving, and nothing is changed.
+    bool giveUpWhileFlowing();
+
     // A flow reading, pulses over the last kFlowSampleMs, beside the carbonator's reeds.
     SweepAction sample(uint32_t pulses, const RefillReading &reeds);
 
@@ -91,7 +97,7 @@ public:
     const char *stateName() const;
     bool        owed() const;      // from owe() until the lever is let go, the tank is found wet, or clear()
     bool        flowing() const;   // gas is moving and the count is short of its target
-    bool        done() const;      // the target is met and the lever is still down
+    bool        done() const;      // the count is over, met or given up, and the lever is still down
     uint32_t    pulses() const;    // counted in the sweep that is owed, or the one that just ended
     uint32_t    flowedMs() const;  // time with gas moving in that sweep
     uint8_t     percent() const;   // of the count's target or the time's, whichever is further on
