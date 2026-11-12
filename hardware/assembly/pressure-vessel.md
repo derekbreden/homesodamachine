@@ -59,9 +59,8 @@ Per-unit BOM lives in [`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) §2 (
 Tooling (per-carbonator-amortized only — single-asset tools live in [`/hardware/ledger/purchases.md`](/hardware/ledger/purchases.md), not here): XLaserlab X1 Pro laser welder, WEN 4208T drill press, LingGan M35 cobalt 1/4-18 NPT pipe tap + Drill America DWT adjustable tap wrench, Brown & Sharpe spring tap guide, Drill Hulk 9/64" M35 cobalt drill bit (rod register), JNB Pro 82° M35 cobalt countersink set (port-hole chamfer, step 1), Noga NG8150 swivel-blade deburr tool (plate + tube edges, steps 1 and 3), 3M Scotch-Brite 7447 very-fine hand pads (weld-surface prep, step 3), Knipex 70 11 110 diagonal cutters and 1/4"-shank flap wheels in a drill (stuck wire, step 3), argon at the welder, hydro test rig (see step 7).
 
 The upper-rim bond also needs a Ø2.5 mm drill suitable for 316L stainless,
-an M3 × 0.5 tap and a driver that holds that tap. These tools are not recorded
-as acquired in the [tool ledger](/hardware/ledger/tools.md); their unpriced
-requirements are listed with the [remaining purchases](/hardware/ledger/purchases.md#still-needed--likely-to-buy).
+an M3 × 0.5 tap and a driver that holds that tap. The acquired tap/drill set
+and hand driver are recorded in the [tool ledger](/hardware/ledger/tools.md).
 
 ## CO2 supply and pressure protection
 
