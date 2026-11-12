@@ -22,14 +22,6 @@ path = "../../../hardware/printed-parts/enclosure/display-cover/display_cover.rs
 name = "display-gasket"
 path = "../../../hardware/printed-parts/enclosure/display-gasket/display_gasket.rs"
 
-[[bin]]
-name = "pump-tray"
-path = "../../../hardware/printed-parts/enclosure/pump-tray/pump_tray.rs"
-
-[[bin]]
-name = "valve-tray"
-path = "../../../hardware/printed-parts/enclosure/valve-tray/valve_tray.rs"
-
 [dependencies]
 hsm-bulkhead-ring-numbers = { path = "../bulkhead-ring-numbers" }
 hsm-enclosure-numbers = { path = "../enclosure-numbers" }

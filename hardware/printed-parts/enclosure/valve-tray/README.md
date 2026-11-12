@@ -98,4 +98,4 @@ row).
 
 ## Files
 
-- [`valve_tray.rs`](valve_tray.rs) — the tray's figures, from the [valve seat's numbers](/hardware/printed-parts/valve-seat/numbers.rs), and one drawn in its own frame for the wall to turn
+- [`quadrants/valves.rs`](/hardware/printed-parts/enclosure/enclosure/quadrants/valves.rs) — each tray fused into its quadrant, with its clearances, sockets and port channels cut, from the [valve seat's numbers](/hardware/printed-parts/valve-seat/numbers.rs)
