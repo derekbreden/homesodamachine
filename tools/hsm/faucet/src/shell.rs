@@ -282,25 +282,38 @@ fn display_cavity(neck: &Gooseneck, pads: &[Solid]) -> Result<Solid> {
 
 /// The side grooves the display cover's lips snap into.
 fn retention_grooves(neck: &Gooseneck) -> Result<Solid> {
-    let (tip, along, outward) = neck.tip_frame();
-    let ends = [display_clip_s_bottom() - snap::END_SLIP, display_clip_s_top() + snap::END_SLIP];
-    let heights = [DISPLAY_CLIP_BOTTOM_N, DISPLAY_CLIP_TOP_N + snap::BEARING_SLIP];
-    let c = DISPLAY_GROOVE_YZ_CLEARANCE;
-    let offsets = [v2(-c, -c), v2(c, -c), v2(c, c), v2(-c, c)];
-    let mut corners = Vec::with_capacity(16);
-    // Expand the tilted outline in world Y and Z while retaining its sloping faces.
-    for s in ends {
-        for n in heights {
-            let p = tip + along * s + outward * n;
-            corners.extend(offsets.map(|offset| Wrapped::Point(v2(p.y, p.z) + offset)));
-        }
-    }
-    let half_x = DISPLAY_GROOVE_HALF_X;
-    let band = side(-half_x)?.extrude(&Profile::new(hull_loop(&corners)?), 2.0 * half_x)?;
+    let end_slip = snap::END_SLIP + DISPLAY_GROOVE_END_CLEARANCE;
+    let s_min = display_clip_s_bottom() - end_slip;
+    let s_max = display_clip_s_top() + end_slip;
+    let band = neck.cradle_prism(
+        DISPLAY_GROOVE_HALF_X,
+        (s_min, s_max),
+        (DISPLAY_CLIP_BOTTOM_N, DISPLAY_CLIP_TOP_N + snap::BEARING_SLIP),
+        0.0,
+    )?;
+    let grooves = band.cut(&retention_core(neck, DISPLAY_GROOVE_CORE_R, DISPLAY_GROOVE_X_CLEARANCE)?)?;
 
-    // Each root follows the original circular profile shifted toward the center in X.
-    let r = DISPLAY_GROOVE_CORE_R;
-    let depth = DISPLAY_GROOVE_X_CLEARANCE;
+    // Relieve the tube under the plain wing ends while leaving the blade's bearing ledge.
+    let end_heights = (DISPLAY_CLIP_BOTTOM_N, DISPLAY_CLIP_TOP_N);
+    let fore = neck.cradle_prism(
+        DISPLAY_GROOVE_HALF_X,
+        (display_clip_s_bottom() - snap::END_MARGIN, s_min + PAST),
+        end_heights,
+        0.0,
+    )?;
+    let aft = neck.cradle_prism(
+        DISPLAY_GROOVE_HALF_X,
+        (s_max - PAST, display_clip_s_top() + snap::END_MARGIN),
+        end_heights,
+        0.0,
+    )?;
+    let end_core = retention_core(neck, DISPLAY_NECK_OUTER_R, DISPLAY_WING_END_RELIEF)?;
+    let end_relief = fore.union(&aft)?.cut(&end_core)?;
+    grooves.union(&end_relief)
+}
+
+// Each root follows the original circular profile shifted toward the center in X.
+fn retention_core(neck: &Gooseneck, r: f64, depth: f64) -> Result<Solid> {
     let half_n = (r * r - depth * depth).sqrt();
     let center = TUBE_SHELL_CENTER_Y;
     let bottom = v2(0.0, center - half_n);
@@ -309,7 +322,7 @@ fn retention_grooves(neck: &Gooseneck) -> Result<Solid> {
         .arc_through(v2(r - depth, center), top)?
         .arc_through(v2(depth - r, center), bottom)?
         .close()?;
-    band.cut(&neck.sweep(&Profile::new(core), 0.0, neck.length())?)
+    neck.sweep(&Profile::new(core), 0.0, neck.length())
 }
 
 /// The flat rear cable lane and the opening that gathers the tubes and the cable from the
