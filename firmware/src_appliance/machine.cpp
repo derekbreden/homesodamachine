@@ -339,18 +339,27 @@ void machineLevels(MachineLevels &l) {
 }
 
 // ── The pump, driven from nowhere but here ────────────────────────────────
+// A pour parks its pump between bursts and again as its path closes, so a park often finds
+// the pin already parked. LEDC is asked to let go only of a pin it holds.
+static bool pumpAttached[2] = {false, false};
+
 static bool pumpDrive(uint8_t channel) {
     if (!ledcAttach(kPump[channel].pin, PUMP_PWM_HZ, PUMP_PWM_BITS)) {
+        pumpAttached[channel & 1] = false;
         pinMode(kPump[channel].pin, INPUT);   // back to the park
         return false;
     }
+    pumpAttached[channel & 1] = true;
     ledcWrite(kPump[channel].pin, 255);       // full duty
     return true;
 }
 
 static void pumpPark(uint8_t channel) {
-    ledcWrite(kPump[channel].pin, 0);
-    ledcDetach(kPump[channel].pin);
+    if (pumpAttached[channel & 1]) {
+        ledcWrite(kPump[channel].pin, 0);
+        ledcDetach(kPump[channel].pin);
+        pumpAttached[channel & 1] = false;
+    }
     pinMode(kPump[channel].pin, INPUT);       // back to the boot parking
 }
 
@@ -1466,26 +1475,42 @@ static void relayDrive(int pin, bool on) {
     }
 }
 
-static void compressorRelaySet(bool on) {
+// The condenser fan is behind the valve drivers, and the compressor is not run without it:
+// the fan is written first, and relay #1 closes only once that write has verified. The
+// self-test walks the fan bit itself and re-applies it on its next step.
+static bool compressorRelaySet(bool on) {
     const bool was = compressorRelay;
-    compressorRelay = on;
-    relayDrive(PIN_RELAY_COMPRESSOR, on);
-    condenserFanOn = on;
-    // The self-test walks the fan bit itself and re-applies on its next step.
-    if (state != ST_SELFTEST) applyOutputs(machineValvesOpen());
+    if (on) {
+        condenserFanOn = true;
+        if (state != ST_SELFTEST && !applyOutputs(machineValvesOpen())) {
+            condenserFanOn = false;
+            Serial.println("\n[machine] compressor held off — the condenser fan could not be turned");
+            return false;
+        }
+        relayDrive(PIN_RELAY_COMPRESSOR, true);
+        compressorRelay = true;
+    } else {
+        relayDrive(PIN_RELAY_COMPRESSOR, false);
+        compressorRelay = false;
+        condenserFanOn  = false;
+        if (state != ST_SELFTEST) applyOutputs(machineValvesOpen());
+    }
     Serial.printf("\n[machine] compressor %s — %s, tank %.1f C, coil %.1f C\n",
                   on ? "ON" : "off", cold.stateName(), cold.tankC(), cold.coilC());
     if (on && !was) {
         compressorOnMs = millis();
         coilMinTenths  = tenths(cold.coilC(), cold.coilValid());
     } else if (!on && was) {
-        // Under the gas alarm the policy is about to be reset, and has not yet left On.
-        recorderNote(machine_log::Kind::Compressor,
-                     machineGasTripped() ? static_cast<uint8_t>(machine_log::ColdTo::Off)
-                                         : coldTo(cold.state()),
-                     (millis() - compressorOnMs) / 1000, 0,
+        // Stood down for the valve drivers or the gas alarm, the policy has not yet left On.
+        const uint8_t into = !pcba::expanders().initialized()
+                                 ? static_cast<uint8_t>(machine_log::ColdTo::Fault)
+                             : machineGasTripped()
+                                 ? static_cast<uint8_t>(machine_log::ColdTo::Off)
+                                 : coldTo(cold.state());
+        recorderNote(machine_log::Kind::Compressor, into, (millis() - compressorOnMs) / 1000, 0,
                      tenths(cold.tankC(), cold.tankValid()), coilMinTenths);
     }
+    return true;
 }
 
 static const uint32_t kColdPeriodMs = 1000;
@@ -1498,6 +1523,14 @@ static void coldService(uint32_t now) {
     // U15 holds relay #1 open on a gas trip with no firmware in the path.
     // Firmware stands down as well, and the minimum off-time runs from here.
     if (machineGasTripped()) {
+        if (compressorRelay) compressorRelaySet(false);
+        cold.reset(now);
+        return;
+    }
+
+    // With the valve drivers unverified the condenser fan cannot be turned. The compressor
+    // stands down with them, and its minimum off-time runs from when they answer again.
+    if (!pcba::expanders().initialized()) {
         if (compressorRelay) compressorRelaySet(false);
         cold.reset(now);
         return;
@@ -1517,7 +1550,9 @@ static void coldService(uint32_t now) {
     }
 
     switch (cold.service(now)) {
-        case machine_policy::ColdAction::CompressorOn:  compressorRelaySet(true);  break;
+        case machine_policy::ColdAction::CompressorOn:
+            if (!compressorRelaySet(true)) cold.reset(now);
+            break;
         case machine_policy::ColdAction::CompressorOff: compressorRelaySet(false); break;
         case machine_policy::ColdAction::None: break;
     }
@@ -1638,6 +1673,46 @@ static void refillService(uint32_t now) {
             break;
         }
         case machine_policy::RefillAction::None:  break;
+    }
+}
+
+// ── The valve drivers, watched and brought back ───────────────────────────
+// One failed write or read parks every valve inside the driver and leaves the expanders
+// unverified, which is right: nothing is opened on a bus that cannot be believed. A boot is
+// what verifies them, by clearing every latch and reading every output back low, and that
+// same verification is run again here once the machine is idle, so a bus that glitched once
+// does not cost the machine its flavor, its refills and its cooling until someone
+// power-cycles it. A bus that is really gone keeps failing it, and everything stays parked.
+static const uint32_t kIoRetryMs = 10000;
+
+static bool     ioWasReady  = true;
+static uint32_t ioRetryAtMs = 0;
+static NoteGate ioGate      = {};
+
+static void ioService(uint32_t now) {
+    bool ready = pcba::expanders().initialized();
+    if (ready != ioWasReady) {
+        ioWasReady = ready;
+        ioGate.changes++;
+        if (!ready) ioRetryAtMs = now + kIoRetryMs;
+    }
+    if (!ready && state == ST_IDLE && (int32_t)(now - ioRetryAtMs) >= 0) {
+        ioRetryAtMs = now + kIoRetryMs;
+        ready = pcba::expanders().begin();
+        Serial.printf("\n[machine] valve drivers %s\n",
+                      ready ? "verified again — outputs parked low, reed pull-ups enabled"
+                            : "still unverified — everything stays parked");
+        if (ready) {
+            ioWasReady = true;
+            ioGate.changes++;
+            pinMode(PIN_LED_ERR, INPUT_PULLUP);
+        }
+    }
+    if (noteDue(ioGate, now)) {
+        recorderNote(machine_log::Kind::Io,
+                     ready ? 0 : static_cast<uint8_t>(pcba::expanders().lastFault()),
+                     ioGate.changes);
+        ioGate.changes = 0;
     }
 }
 
@@ -1868,6 +1943,7 @@ void machineBegin() {
     compressorRelay = false;
     refillRelay     = false;
     condenserFanOn  = false;
+    pumpAttached[0] = pumpAttached[1] = false;
     coldBootMs      = millis();
     coldWatched     = false;
     coldTrouble     = false;
@@ -1904,6 +1980,11 @@ void machineBegin() {
         pinMode(PIN_LED_ERR, OUTPUT);
         led(PIN_LED_ERR, true);
     }
+    // A boot that could not verify them is where the watch starts from.
+    ioWasReady  = pcba::expanders().initialized();
+    ioRetryAtMs = millis() + kIoRetryMs;
+    ioGate      = {};
+    if (!ioWasReady) ioGate.changes = 1;
 
     // The flow meter: open-collector into the internal pull-up, one falling
     // edge per impeller pulse.
@@ -1948,6 +2029,7 @@ void machineService() {
     coldService(now);
     refillService(now);
     reedIdleService(now);
+    ioService(now);
     if (state != ST_PUMPING) return;
     // A cold-loop valve/fan write can discover a fault later in this pass.
     if (hold == HOLD_PRIME && (primeIoFaulted || !pcba::expanders().initialized())) {

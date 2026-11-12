@@ -865,12 +865,13 @@ bool faucetLinkBenchPush(uint32_t bytes) {
         // J9 is a half-duplex pair whose far end polls: leave it unanswered that
         // long and the enclosure gives up on the link and reinitialises it.
         linkService();
+        feedLoopWDT();
         if (millis() - started > 120000) return false;
     }
     // The last frames are still in the window; keep servicing so they land and
     // the far end's report can come back.
     const uint32_t drainUntil = millis() + 3000;
-    while ((long)(millis() - drainUntil) < 0) { faucet.service(); linkService(); delay(1); }
+    while ((long)(millis() - drainUntil) < 0) { faucet.service(); linkService(); feedLoopWDT(); delay(1); }
     return true;
 }
 
