@@ -81,7 +81,10 @@ the gas alarm at full through all of them; it also checks the quiet window's mid
 its empty case, and that the duty conversion is linear in amplitude rather than in duty.
 `test_echo_policy` checks that a frame the main board sent comes back and is swallowed whole,
 that a collision abandons the outstanding echo instead of eating the far end's next frame,
-and that the ring wraps under sustained traffic and holds a whole stuffed J9 frame. They run on the build host
+and that the ring wraps under sustained traffic and holds a whole stuffed J9 frame.
+`test_phone_trust_policy` checks the faucet's Trust request: its window closes on time however
+often the request is repeated, declines back off across new connections and rotating
+identities, a refused request extends nothing, and its deadlines survive the clock's wrap. They run on the build host
 and are safe with every USB device connected. `test_weld_rotator_policy` checks the purchased
 20T:90T drive ratio, speed envelope, exact 380-degree lap count, boot-held pedal lockout,
 deadman release, and jog/lap state transitions.
