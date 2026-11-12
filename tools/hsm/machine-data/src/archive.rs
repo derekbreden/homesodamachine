@@ -56,7 +56,7 @@ pub fn metadata(request: &Value) -> Result<Value> {
     }
 }
 
-/// Extract one entry's raw typed arrays. Python only hydrates their native array type.
+/// One entry's raw typed arrays.
 pub fn entry(request: &Value) -> Result<Value> {
     use std::path::Path;
     let path=request["path"].as_str().context("array source path")?;

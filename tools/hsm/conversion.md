@@ -130,6 +130,7 @@ explicit input recipes come from Rust data providers.
 | Equipment | `machine-equipment`; fittings, clamps, bulkheads and mounting hardware | `hardware/manifold-layout/machine_equipment.rs` |
 | Fluid and refrigeration tubes | `machine-routes`; sweeps, insulation and developed lengths | `hardware/manifold-layout/machine_routes.rs` |
 | Wire curves | `wire-route-samples`; interpolation, lengths and curvature | `hardware/wiring/installed/wire_route_samples.rs` |
+| Installed wires | `installed-wires`, which `installed-machine` runs in its own process; each conductor swept along its segments and each termination and jacket cut from its shape | `hardware/wiring/installed/wire_geometry.rs`, `hardware/wiring/installed/wire_request.rs` |
 | Enclosure pieces | `enclosure-front-bottom`, `enclosure-front-top`, `enclosure-back-bottom`, `enclosure-back-top`, `enclosure-pump-retainer`, `enclosure-pump-tube-setting-jig`; each printed piece's files from the declared Box through its typed recipe | `hardware/printed-parts/enclosure/enclosure/enclosure_*.rs` |
 | Enclosure model | `enclosure`; the shown pieces in place from their fine models, with the dock's tees and stem elbows | `hardware/printed-parts/enclosure/enclosure/enclosure.rs` |
 | Enclosure measurements | `enclosure-checks`; piece bounds and Box measurements | `hardware/printed-parts/enclosure/enclosure/enclosure_checks.rs` |
@@ -169,6 +170,35 @@ The equipment fixture preserves a documented limitation for two PVC cuff joining
 the authored construction, dimensions, bounds and material colours agree, while the internal
 Boolean-cap triangulations differ. The retained comparison records those differences; it does
 not state that every raw surface matches.
+
+## The installed machine's hand-overs
+
+`installed-machine` runs its stages in one process, and each stage hands the next its result.
+
+The wiring's hand-overs are typed.
+[`wire_request.rs`](../../hardware/wiring/installed/wire_request.rs) defines the `Request` the
+wiring stage builds and the installed-wires program cuts from: a `Wire` of `Segment`s for each
+conductor, and a `Part` with one `Shape` for each termination and jacket. The routing in
+[`assembly-docs/src/wiring`](assembly-docs/src/wiring/) holds the terminals, poses and cable
+passages as a `State`, a conductor as a `Connection` and its course as a `Route`, a shared cable
+as a `Bundle`, a saved course as a `Saved` with its `Station`s, and the wire stock as a `Stock`.
+It takes each value it needs from a named method of `Sources`. The review that `hsm-wiring`
+writes is a JSON document built from those.
+
+The mechanical stages hand each other JSON documents: the pack and the placement plan, the
+equipment request and its result, the tube routes and the facts request. The stage programs
+[`machine_layout.rs`](../../hardware/manifold-layout/machine_layout.rs),
+[`machine_equipment.rs`](../../hardware/manifold-layout/machine_equipment.rs) and
+[`machine_routes.rs`](../../hardware/manifold-layout/machine_routes.rs) read theirs through
+`hsm_kernel::part::Numbers`. They call the layout data's functions by name. Typing these
+documents is open work.
+
+Two record encodings remain in what the mechanical stages read.
+[`enclosure-box.json`](../../hardware/manifold-layout/enclosure-box.json) writes its records as
+`__hsm_namedtuple__`, `__hsm_dict__` and `__hsm_list__` objects, which `design::plain`, the
+enclosure's `numbers/spec.rs`, the facts' `reporting.rs` and the publisher each read back as
+plain objects and lists. `shared-data`'s `common.rs` reads a non-finite number from a
+`_hsm_float` record.
 
 ## Current coverage
 

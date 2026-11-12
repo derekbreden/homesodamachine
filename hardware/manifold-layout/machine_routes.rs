@@ -1,7 +1,7 @@
 //! World-placed warm fluid/gas tube paths and their occupied insulation.
 //!
-//! The caller supplies the selected authored route segments and installed
-//! equipment groups that bound foam compression. No Python CAD is constructed.
+//! The caller supplies the selected authored route segments and the installed
+//! equipment groups that bound foam compression.
 use anyhow::{Context, Result, bail, ensure};
 use hsm_kernel::{Affine, Body, Leg, Path as SweepPath, Plane, Profile,
                  Solid, Spline, V2, V3, import, part, step, v3};
