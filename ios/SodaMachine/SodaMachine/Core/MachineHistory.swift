@@ -13,7 +13,7 @@ import Foundation
 struct HistoryEntry: Codable, Equatable, Identifiable {
     /// machine_log::Kind.
     enum Kind: UInt8, Codable {
-        case start = 1, pour, refill, cooling, coldTrouble, gas, fill, clean, air, prime, update, valves
+        case start = 1, pour, refill, cooling, coldTrouble, gas, fill, clean, air, prime, update, valves, sweep
     }
 
     static let wireBytes = 32
@@ -166,6 +166,13 @@ extension HistoryEntry {
             return detail != 0 ? "Software update kept" : "Software update not confirmed"
         case .valves:
             return detail != 0 ? "Valves stopped answering" : "Valves answering again"
+        case .sweep:
+            // machine_log::SweepEnd.
+            switch Int(detail) {
+            case 0: return "Cleared the tank's air"
+            case 1: return "Air clearing not needed"
+            default: return "Air clearing skipped"
+            }
         }
     }
 
@@ -240,6 +247,12 @@ extension HistoryEntry {
             return nil
         case .valves:
             return detail != 0 ? "Flavor, refills and cooling wait until they answer" : nil
+        case .sweep:
+            switch Int(detail) {
+            case 0: return "\(Self.spoken(seconds: Int((a + 500) / 1000))) of gas at the faucet before the first fill"
+            case 1: return "The tank already held water"
+            default: return "The tank was filled with its air still in it"
+            }
         }
     }
 
@@ -254,7 +267,7 @@ extension HistoryEntry {
         case .update: return detail == 0
         case .start: return [4, 5, 6, 7].contains(Int(detail))
         case .valves: return detail != 0
-        case .cooling, .prime: return false
+        case .cooling, .prime, .sweep: return false
         }
     }
 
@@ -272,6 +285,7 @@ extension HistoryEntry {
         case .prime: "hand.tap"
         case .update: "arrow.down.circle"
         case .valves: "cable.connector"
+        case .sweep: "wind"
         }
     }
 
