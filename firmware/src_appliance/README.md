@@ -146,7 +146,15 @@ debounced, then held in `Queued` for as long as a dispense window is open or ano
 owns the manifold; a draw runs `ST_REFILLING` with V-K open and relay #2 closed until CHI, a
 ceiling on pumping time, or a pour — which stops the draw before it opens its own path. Two
 reeds can close together in an RC62 activation overlap; the high reed keeps refill off.
-A pump-time timeout sounds `fault` and remains latched until `refill clear`.
+Once the water has fallen through the low reed a refill is owed until the high reed pays
+it. Below the low reed's window no reed is closed, so nothing a later reading shows could
+raise the ask again; it is therefore kept through a pour, through reeds that cannot be read,
+and, in flash ([`refill_store.cpp`](refill_store.cpp)), through a power cut. A pump-time
+timeout sounds `fault` and stays latched and still owed. A touch on either display once it
+has rested `kRefillRetryRestMs`, `refill clear`, or a restart sets it trying again. `refill
+fill` asks for a fill whatever the reeds read, which is how an empty carbonator is first
+filled; `refill forget` drops a refill that is owed. A reading put in with `sim` is not the
+water: what it asks for is not kept, and ends with `sim off`.
 
 `status` prints both loops with their relays; `thermal` walks the bus; `sim` puts a reading at
 the top of either so the policy, the relays and the fan can be exercised with no probe on the
@@ -220,6 +228,7 @@ clock or `-`, what it was, and that thing's own fields by name —
 | `faucet_link.cpp` | J3 full-duplex flavor acknowledgements, shared-prime controls/state, and what a phone may ask |
 | `flavor.cpp` | main-board-owned flavor state and deferred NVS persistence |
 | `rtc.cpp` | U6 DS3231 — what hour it is, and whether that answer can be believed |
+| `refill_store.cpp` | the one fact the refill keeps through a power cut: that it is owed |
 | `recorder.cpp` | the machine's record: entries waiting for an idle moment, the flash they are kept in, the console's `log` |
 | `pins.h` | what this image reaches on the main board, off `pcba.tsx` |
 | [`/firmware/lib/sound`](/firmware/lib/sound/sound.h) | U8, IO13, and the machine's sounds — shared with the bench |
@@ -250,6 +259,9 @@ pio device monitor -e appliance
 | `purge <a\|b> [s]` | air into that reservoir, then the reservoir out the faucet until its empty reed opens; `s` caps every step |
 | `flow <n> [s]` | the meter without water: `n` pulses per 50 ms for `s` s (default 5), and the selected channel pours against that reading |
 | `selftest` | [`firmware-and-commissioning.md`](/hardware/assembly/firmware-and-commissioning.md) §7: V-A through V-K for a quarter second each, the condenser fan for a second, then each pump for a second, one load at a time, each parked and read back before the next |
+| `refill clear` | set a refill that timed out trying again |
+| `refill fill` | fill the carbonator now, whatever its reeds read: to the high reed or the pumping ceiling |
+| `refill forget` | drop a refill that is owed, and the flash's note of it |
 | `stop` | end whatever is running |
 | `hang` | stop the loop turning, to see the watchdog restart the board |
 | `status` | machine state, uptime, heap, verified MCP configuration/output park, all ten reeds |
