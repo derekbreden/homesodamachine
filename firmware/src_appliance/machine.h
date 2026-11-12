@@ -323,7 +323,8 @@ bool machineSweepOwe();
 // the console's `sweep skip`.
 bool machineSweepSkip();
 
-// Drop a sweep that is owed and ask for nothing, for a bench. False when none is owed.
+// Drop a sweep that is owed and ask for nothing, for a bench. With gas moving the meter stays
+// the sweep's until the lever is let go, so that gas opens no pour. False when none is owed.
 bool machineSweepForget();
 
 // Read-only commissioning snapshot of the two MCP23017s and all ten reeds.

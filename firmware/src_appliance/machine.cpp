@@ -1333,6 +1333,7 @@ static bool     sweepOwedKept = false;   // what the flash holds of sweep.owed()
 static uint32_t sweepBeganMs  = 0;       // the first gas of the sweep that is owed; 0 before any
 static uint32_t sweepDoneMs   = 0;       // when the glasses began saying Done; 0 once they have stopped
 static uint32_t sweepNoteMs   = 0;
+static bool     sweepNoFill   = false;   // forgotten with the lever down: its let-go asks for nothing
 
 // How long both glasses go on saying a sweep is done after the lever is let go.
 static const uint32_t kSweepDoneNoticeMs = 6000;
@@ -1374,6 +1375,11 @@ static void sweepSample(uint32_t pulses, uint32_t now) {
             break;
         case machine_policy::SweepAction::Released:
             sweepKeep(false);
+            if (sweepNoFill) {
+                sweepNoFill = false;
+                Serial.println("\n[machine] sweep: the lever is let go — nothing is asked for");
+                break;
+            }
             sweepDoneMs = now ? now : 1;
             Serial.println("\n[machine] sweep: the lever is let go — the first fill is asked for");
             machineRefillRequest();
@@ -1907,8 +1913,11 @@ static uint8_t  noticeHoldKinds   = 0;
 static uint32_t noticeHoldSinceMs = 0;
 
 uint8_t machineNoticeStanding() {
-    if (sweep.done() || sweepDoneMs) return NOTICE_SWEEP_DONE;
-    if (sweep.owed()) return NOTICE_SWEEP;
+    // A sweep forgotten with the lever down is nothing to tell anyone: it only keeps the meter.
+    if (!sweepNoFill) {
+        if (sweep.done() || sweepDoneMs) return NOTICE_SWEEP_DONE;
+        if (sweep.owed()) return NOTICE_SWEEP;
+    }
     return machineRefillLatched() ? NOTICE_NO_WATER : NOTICE_NONE;
 }
 
@@ -1934,9 +1943,9 @@ uint8_t machineNotice() {
 }
 
 void machineSweep(MachineSweep &s) {
-    s.owed    = sweep.owed();
+    s.owed    = sweep.owed() && !sweepNoFill;
     s.flowing = sweep.flowing();
-    s.done    = sweep.done();
+    s.done    = sweep.done() && !sweepNoFill;
     s.percent = sweep.percent();
     s.pulses  = sweep.pulses();
 }
@@ -1948,12 +1957,13 @@ bool machineSweepOwe() {
     sweep.owe();
     sweepBeganMs = 0;
     sweepDoneMs  = 0;
+    sweepNoFill  = false;
     sweepKeep(true);
     return true;
 }
 
 bool machineSweepSkip() {
-    if (!sweep.owed()) return false;
+    if (!sweep.owed() || sweepNoFill) return false;
     // The count is over already, and the fill comes with the lever let go.
     if (sweep.done()) return true;
     const uint32_t now = millis();
@@ -1972,11 +1982,17 @@ bool machineSweepSkip() {
 }
 
 bool machineSweepForget() {
-    if (!sweep.owed()) return false;
-    sweep.clear();
+    if (!sweep.owed() || sweepNoFill) return false;
     sweepBeganMs = 0;
     sweepDoneMs  = 0;
     sweepKeep(false);
+    // Gas moving is a lever that is down. The meter stays the sweep's until it is let go, so
+    // that gas opens no pour, and the let-go asks for nothing.
+    if (sweep.giveUpWhileFlowing() || sweep.done()) {
+        sweepNoFill = true;
+        return true;
+    }
+    sweep.clear();
     return true;
 }
 
@@ -2176,6 +2192,7 @@ void machineBegin() {
     sweepBeganMs = 0;
     sweepDoneMs  = 0;
     sweepNoteMs  = 0;
+    sweepNoFill  = false;
     // A bench's hold is the bench's to renew: a board that restarts starts with none.
     noticeHoldKinds = 0;
     compressorRelay = false;
