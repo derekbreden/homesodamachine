@@ -120,8 +120,8 @@ board also establishes and reports the safe I/O foundation the next connected be
   restart, so a build that cannot stay up undoes itself. The record notes the image kept.
 - **The record.** Every pour, refill draw, compressor run, fill, clean cycle, air cycle and
   prime is noted as it ends — what ran, for how long, and how it ended — beside every boot
-  with its reset reason, the gas alarm, and the cold loop losing its probes or reaching the
-  freeze cutout. `log` reads it back; [The record](#the-record) is how it is kept.
+  with its reset reason, the gas alarm, the valve drivers going unverified and coming back,
+  and the cold loop losing its probes or reaching the freeze cutout. `log` reads it back; [The record](#the-record) is how it is kept.
 
 At boot both MCP23017 output latches are cleared before Port A becomes output, their complete
 safety configuration is read back, and Port B gets the internal pull-ups the reed looms rely
@@ -151,6 +151,26 @@ A pump-time timeout sounds `fault` and remains latched until `refill clear`.
 `status` prints both loops with their relays; `thermal` walks the bus; `sim` puts a reading at
 the top of either so the policy, the relays and the fan can be exercised with no probe on the
 bench, and says `SIMULATED` on every `status` while one stands.
+
+## When something stops answering
+
+**The loop.** A loop that stops turning restarts the board. The loop watchdog is enabled at
+the end of `setup()`, and the few waits that hold the loop on purpose feed it. A restart
+parks every load, so a hang costs seconds with whatever was energised left on. `hang` on the
+console stops the loop so a bench can see the watchdog bite; the record's next `boot` carries
+the watchdog's reset reason.
+
+**The valve drivers.** One failed write or read parks every valve inside the driver and
+leaves the expanders unverified, and nothing opens on a bus that cannot be believed. Once
+the machine is idle they are verified again the way a boot verifies them, every
+`kIoRetryMs`, until they answer. A bus that glitched once gives the machine back its flavor,
+its refills and its cooling without a power cycle; a bus that is gone keeps everything
+parked. The record notes the fault and their return.
+
+**The condenser fan.** The fan is behind those drivers. It is written before relay #1
+closes, the relay closes only once that write has verified, and the compressor stands down
+for as long as the drivers are unverified, with its minimum off-time running from when they
+answer again.
 
 ## The record
 
@@ -231,6 +251,7 @@ pio device monitor -e appliance
 | `flow <n> [s]` | the meter without water: `n` pulses per 50 ms for `s` s (default 5), and the selected channel pours against that reading |
 | `selftest` | [`firmware-and-commissioning.md`](/hardware/assembly/firmware-and-commissioning.md) §7: V-A through V-K for a quarter second each, the condenser fan for a second, then each pump for a second, one load at a time, each parked and read back before the next |
 | `stop` | end whatever is running |
+| `hang` | stop the loop turning, to see the watchdog restart the board |
 | `status` | machine state, uptime, heap, verified MCP configuration/output park, all ten reeds |
 | `log [n\|all\|status]` | the machine's record: its newest `n` entries, every entry it holds, or where the ring stands |
 | `link` | J9 frames/echo plus J3 connection, synchronization, state heartbeats, duplicates and invalid frames |

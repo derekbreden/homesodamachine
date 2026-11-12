@@ -47,7 +47,11 @@ trial itself is the bootloader's and has no host test: a board taking an update 
 `test_machine_prime` holds what the production machine code notes: a pour with its length
 and bursts, a refill draw ending full, taken down by a pour, or timing out with the fault
 sounded once, a compressor run with its coldest coil, probes that never answer, a probe that
-chatters and the gas alarm inside the note gap, and a prime and a fill as they end.
+chatters and the gas alarm inside the note gap, and a prime and a fill as they end. It
+checks that the compressor is not started when its fan's write fails, that a running one
+stops when the valve drivers stop answering, that a bus glitch is verified away once the
+machine is idle and a pour injects again, and that nothing is re-verified under a running
+operation. The loop watchdog has no host test: `hang` on a bench board is its check.
 `test_pour_policy` checks the pour's cycle timing at 1:20, 1:6 and 1:24, the clamps either
 side of the flow reading and the floor and ceiling on the two phases, the sequence one pour
 walks — valves and pump opening on the first reading, each cycle's timing taken from the

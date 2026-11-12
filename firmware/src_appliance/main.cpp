@@ -161,6 +161,12 @@ void setup() {
     // else — which on a line is how a unit is heard coming up without being
     // watched, and in a kitchen is just the machine saying hello.
     soundPlay(machineIoReady() ? SND_WELCOME : SND_FAULT);
+
+    // From here a loop that stops turning restarts the board. Every load is parked by a
+    // boot, so a hang costs seconds with whatever was energised left on, and not the hours
+    // until someone notices. The few waits that hold the loop on purpose feed the watchdog
+    // themselves; `hang` on the console is how a bench sees it bite.
+    enableLoopWDT();
 }
 
 static void relayOwe(uint8_t slot);
@@ -281,6 +287,7 @@ static void help() {
     Serial.println("  selftest          every solenoid in turn, the fan, then each pump — one at a time");
     Serial.println("  thermal           the 1-wire bus: every ROM found, its family and its last reading");
     Serial.println("  refill clear      leave a latched refill TIMEOUT or FAULT");
+    Serial.println("  hang              stop the loop turning, to see the watchdog restart the board");
     Serial.printf("  log [n|all|status]   the machine's record: its newest n entries (default %ld),\n",
                   kLogDefaultEntries);
     Serial.println("                    every entry it holds, or where the ring stands");
@@ -655,6 +662,7 @@ static bool relayImageOnce(uint8_t slot) {
         linkService();
         faucetLinkService();
         if (faucetLinkTakePushResult(r)) { answered = true; break; }
+        feedLoopWDT();
         delay(2);
     }
     linkWifiAp(false);
@@ -886,6 +894,11 @@ static void console(const String &line) {
         machineRefillClear();
         Serial.println("\n[machine] refill latch cleared");
         return;
+    }
+    if (line == "hang") {
+        Serial.println("\n[machine] the loop stops here — the watchdog restarts the board");
+        Serial.flush();
+        for (;;) {}
     }
     if (line == "log status") { recorderReport(); return; }
     if (line == "log" || line.startsWith("log ")) {

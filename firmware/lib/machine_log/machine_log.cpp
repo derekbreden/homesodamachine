@@ -385,6 +385,7 @@ const char *kindName(Kind kind) {
         case Kind::Air:        return "air";
         case Kind::Prime:      return "prime";
         case Kind::Update:     return "update";
+        case Kind::Io:         return "io";
         case Kind::None:
         case Kind::Count:      break;
     }
@@ -452,6 +453,13 @@ size_t format(const Entry &entry, char *out, size_t n) {
         case Kind::Update:
             snprintf(body, sizeof(body), "%s build=%lu",
                      entry.detail ? "kept" : "unconfirmed", (unsigned long)entry.a);
+            break;
+        case Kind::Io:
+            if (entry.detail)
+                snprintf(body, sizeof(body), "fault=%u changes=%lu",
+                         (unsigned)entry.detail, (unsigned long)entry.a);
+            else
+                snprintf(body, sizeof(body), "verified changes=%lu", (unsigned long)entry.a);
             break;
         case Kind::None:
         case Kind::Count:
