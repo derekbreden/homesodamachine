@@ -1,0 +1,61 @@
+{
+  "purpose": "The parts Derek has tried in hand and said yes to, in his words. The site shows each as fitted and lists the printed parts with no row here as not fitted yet.",
+  "fitted": [
+    {
+      "material": "HSM-0268",
+      "date": "2026-09-20",
+      "said": "The lever you printed turned out great, fits and works functionally. Please ensure that's what we have on record and in our models.",
+      "tried": "the printed lever on the faucet valve",
+      "record": "hardware/printed-parts/faucet/lever-replica/physical-acceptance.json"
+    },
+    {
+      "material": "HSM-0069",
+      "date": "2026-09-30",
+      "said": "Alright, nameplate is good. Mark2 is free - what shall we print next?",
+      "tried": "the flat-wing nameplate in its printed receiver",
+      "record": "hardware/printed-parts/enclosure/nameplate/horizontal-wing-trial/physical-acceptance.json"
+    },
+    {
+      "material": "HSM-0073",
+      "date": "2026-10-02",
+      "said": "Very good.",
+      "tried": "the third printed drain cradle snapped into its receiver",
+      "record": "https://github.com/derekbreden/homesodamachine/blob/b57b985c648c34346481a57fde897374b0e8f068/hardware/printed-parts/zone-c/funnel/cradle-trial/physical-acceptance.json"
+    },
+    {
+      "material": "HSM-0098",
+      "date": "2026-10-09",
+      "said": "Tested these. A is best for the 1/4\" tube holes and B is best for the 4 mm tube holes. Make sure our geometry is updated and everything reflects this. Thanks.",
+      "tried": "printed bore samples on the faucet's tubes",
+      "record": "hardware/printed-parts/faucet/umbilical-organizer/physical-acceptance.json"
+    },
+    {
+      "material": "HSM-0006",
+      "date": "2026-10-13",
+      "said": "The tool works very well. Successful insertion, far easier than before. Handle alone works well for starting it, and the full tool makes the final press very easy. Please document the success.",
+      "tried": "a tube pressed home with the printed tool",
+      "record": "hardware/printed-parts/fixtures/tube-insertion/physical-acceptance.json"
+    },
+    {
+      "material": "HSM-0358",
+      "date": "2026-10-23",
+      "said": "2 mm works.",
+      "tried": "printed holders of three wall thicknesses on the tube",
+      "record": "future/tube-bend-holder-exploration/prints/2026-10-23-walls-234-petgf-left04-z018-mark1/physical-result.json"
+    },
+    {
+      "material": "HSM-0019",
+      "date": "2026-10-29",
+      "said": "Turned out well. Clamps the tube well where it needs to be. All fits.",
+      "tried": "a cup cropped from the cap at reservoir B's fill clamps, with its lid",
+      "record": "hardware/printed-parts/cold-core/foam-cap/prints/2026-10-28-b-fill-round-fore-20560/physical-result.json"
+    },
+    {
+      "material": "HSM-0020",
+      "date": "2026-10-29",
+      "said": "Turned out well. Clamps the tube well where it needs to be. All fits.",
+      "tried": "a lid cropped from the cap lid at reservoir B's fill clamps, on its cup",
+      "record": "hardware/printed-parts/cold-core/foam-cap/prints/2026-10-28-b-fill-round-fore-20560/physical-result.json"
+    }
+  ]
+}
