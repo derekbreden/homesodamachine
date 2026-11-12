@@ -13,6 +13,7 @@
 #include "pins.h"
 #include "proto_link.h"
 #include "proto_msg.h"
+#include "recorder.h"
 #include "sound.h"
 #include "settings.h"
 
@@ -196,6 +197,23 @@ void onBridge(const uint8_t *payload, uint16_t plen) {
     if (type == MSG_FLAVOR_QUERY) {
         FlavorStatePayload state{flavorSelected(), stateFlags(), 0};
         sendBridge(reqId, MSG_RESP_FLAVOR_STATE, &state, sizeof(state));
+        return;
+    }
+
+    // The record, an entry at a time: the one asked for by number, or the newest.
+    if (type == MSG_LOG_READ && blen == sizeof(LogReadPayload)) {
+        static_assert(LOG_ENTRY_BYTES == machine_log::kEntryBytes,
+                      "the wire carries a record entry as the ring keeps it");
+        LogReadPayload ask;
+        memcpy(&ask, body, sizeof(ask));
+        LogEntryPayload answer = {};
+        answer.nextSeq = recorderNextSeq();
+        machine_log::Entry entry;
+        if (recorderFind(ask.seq ? ask.seq : answer.nextSeq - 1, entry)) {
+            answer.seq = entry.seq;
+            machine_log::encode(entry, answer.entry);
+        }
+        sendBridge(reqId, MSG_RESP_LOG, &answer, sizeof(answer));
         return;
     }
 

@@ -177,6 +177,9 @@ void recorderNote(machine_log::Kind kind, uint8_t detail,
 
 bool recorderSettled() { return !store.ready() || queued == 0; }
 
+bool     recorderFind(uint32_t seq, machine_log::Entry &out) { return store.find(seq, out); }
+uint32_t recorderNextSeq() { return store.nextSeq(); }
+
 void recorderPrint(uint32_t count) {
     printCursor = store.tail(count);
     printLen    = 0;
