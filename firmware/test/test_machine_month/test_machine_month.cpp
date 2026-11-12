@@ -428,6 +428,8 @@ void fresh() {
     host::ratio  = 20;
     host::probeCount = 2;
     host::refillOwedInFlash  = false;
+    host::refillFilledInFlash = false;
+    host::sweepMovingInFlash = false;
     host::refillSpentInFlash = 0;
     host::refillOwedWrites   = 0;
     host::refillSpentWrites  = 0;

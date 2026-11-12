@@ -232,6 +232,7 @@ struct MachineLevels {
     uint8_t level[2];     // 0..LEVEL_SEGMENTS, or LEVEL_UNKNOWN
     bool    carbLow;
     bool    carbHigh;
+    bool    carbBelow;    // while the machine is moving: the float has passed down through the low reed
 };
 void machineLevels(MachineLevels &levels);
 
@@ -326,6 +327,29 @@ bool machineSweepSkip();
 // Drop a sweep that is owed and ask for nothing, for a bench. With gas moving the meter stays
 // the sweep's until the lever is let go, so that gas opens no pour. False when none is owed.
 bool machineSweepForget();
+
+// ── The move ──────────────────────────────────────────────────────────────
+// A machine that is to be moved is told so before its plug comes out, because its tank is
+// emptied at the faucet and the board cannot see that done with the power off
+// (machine_policy::Move). While it is moving no refill starts, the meter's pulses open no
+// pour, and nothing else that would move liquid begins. That it is moving is kept in flash,
+// and the start that finds it kept owes a sweep: a first start again.
+struct MachineMove {
+    bool     moving;
+    bool     flowing;    // something is leaving through the meter now
+    bool     belowLow;   // the float has passed down through the low reed
+    uint32_t pulses;     // counted since the move began
+};
+void machineMove(MachineMove &move);
+
+// The machine is to be moved. A pour or a refill under way is stopped. False, and nothing
+// changed, while a fill, a clean or air cycle, a prime, a pump check or the self-test has the
+// manifold. The machine's own display sends it, and the console's `move`.
+bool machineMoveBegin();
+
+// The move is called off: the machine pours and refills again, and a refill the float asked
+// for meanwhile runs. False when it was not moving.
+bool machineMoveCancel();
 
 // Read-only commissioning snapshot of the two MCP23017s and all ten reeds.
 // This is populated only when explicitly requested from the USB console; it is

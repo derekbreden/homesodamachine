@@ -242,6 +242,12 @@ void loop() {
         machineSweep(sweep);
         if (sweep.flowing || sweep.done) idleTouched();
     }
+    // So is a tank being emptied for a move.
+    {
+        MachineMove moving;
+        machineMove(moving);
+        if (moving.flowing) idleTouched();
+    }
     // A fill or a clean cycle is something a person asked for and is watching.
     // Both glasses stay lit for the length of it, and the quiet stretch starts
     // when it ends.
@@ -292,6 +298,7 @@ static const NoticeName kNoticeNames[] = {
     {"no-water", NOTICE_NO_WATER},
     {"welcome", NOTICE_SWEEP},
     {"welcome", NOTICE_SWEEP_DONE},
+    {"move", NOTICE_MOVE},
 };
 
 static const char *noticeName(uint8_t kind) {
@@ -389,6 +396,10 @@ static void help() {
     Serial.println("                    gas moving, the fill waits for the lever to be let go");
     Serial.println("  sweep forget      drop a sweep that is owed and ask for nothing; with gas moving, the");
     Serial.println("                    meter is the pour's again once the lever is let go");
+    Serial.println("  move              the machine is to be moved: from now no refill, no pour and no cycle,");
+    Serial.println("                    the faucet says to empty the tank, and the start after the plug comes");
+    Serial.println("                    out owes a sweep, as Move the machine on its display does");
+    Serial.println("  move cancel       call the move off");
     Serial.println("  hang              stop the loop turning, to see the watchdog restart the board");
     Serial.printf("  log [n|all|status]   the machine's record: its newest n entries (default %ld),\n",
                   kLogDefaultEntries);
@@ -415,9 +426,9 @@ static void help() {
     Serial.println("                    or settings; with a flavor, that flavor's own page; go presses its START");
     Serial.println("  ui notice [go|no]      the notice the enclosure puts up, and one of its two answers: no");
     Serial.println("                    water's Try again or Not now, the welcome's OK or Skip, then Skip's Skip");
-    Serial.println("                    or Cancel");
+    Serial.println("                    or Cancel; a move answers only to no, its Cancel");
     Serial.println("  notice [hold <name>…|release]   keep named notices off both glasses while a bench");
-    Serial.println("                    host goes on asking: no-water, welcome");
+    Serial.println("                    host goes on asking: no-water, welcome, move");
     Serial.println("  sound <name>      play one of the machine's sounds; 'sound list' names them");
     Serial.println("  volume [0-100]    how loud everything but the alarm is (persisted)");
     Serial.println("  quiet [on|off] [start] [end] [pct]   quiet hours, off the DS3231 (persisted)");
@@ -1020,6 +1031,13 @@ static void console(const String &line) {
         return;
     }
     if (line == "sweep") {
+        MachineMove m;
+        machineMove(m);
+        if (m.moving)
+            Serial.printf("\n[machine] moving: %s, %s, %lu pulses since it began — the next start owes a sweep\n",
+                          m.flowing ? "the meter is turning" : "nothing is leaving",
+                          m.belowLow ? "the float is below the low reed" : "the float has not been seen to pass the low reed",
+                          (unsigned long)m.pulses);
         MachineSweep s;
         machineSweep(s);
         if (!s.owed) Serial.println("\n[machine] no sweep is owed");
@@ -1045,6 +1063,17 @@ static void console(const String &line) {
     if (line == "sweep forget") {
         Serial.println(machineSweepForget() ? "\n[machine] sweep forgotten — nothing is owed for it"
                                             : "\n[machine] no sweep is owed");
+        return;
+    }
+    if (line == "move") {
+        Serial.println(machineMoveBegin()
+                           ? "\n[machine] moving — no refill, no pour and no cycle until it is called off, and the next start owes a sweep"
+                           : "\n[machine] refused: something has the manifold — ask again when it has finished");
+        return;
+    }
+    if (line == "move cancel") {
+        Serial.println(machineMoveCancel() ? "\n[machine] the move is called off"
+                                           : "\n[machine] the machine is not moving");
         return;
     }
     if (line == "hang") {
@@ -1376,6 +1405,7 @@ static void console(const String &line) {
             !act                               ? ""
             : rail != UI_RAIL_NOTICE           ? ", and pressed START"
             : notice == NOTICE_NO_WATER        ? (act == UI_ACT_COMMIT ? ", and pressed Try again" : ", and pressed Not now")
+            : notice == NOTICE_MOVE            ? (act == UI_ACT_DECLINE ? ", and pressed Cancel" : ", which answers only to Cancel")
             : notice == NOTICE_SWEEP_DONE      ? (act == UI_ACT_COMMIT ? ", and pressed OK" : ", which says Done and has no Skip")
             : act == UI_ACT_COMMIT             ? ", and pressed OK, or Skip on Skip's confirmation"
                                                : ", and pressed Skip, or Cancel on Skip's confirmation";

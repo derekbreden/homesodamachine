@@ -407,6 +407,8 @@ void setUp() {
     host::attachSucceeds = true;
     host::pumpClosedAgainstDrive = false;
     host::refillOwedInFlash = false;
+    host::refillFilledInFlash = false;
+    host::sweepMovingInFlash = false;
     host::refillSpentInFlash = 0;
     host::refillOwedWrites = 0;
     host::refillSpentWrites = 0;
