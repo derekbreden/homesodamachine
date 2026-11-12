@@ -1,7 +1,7 @@
 # Funnel integration review
 
 The exported frame enters front-top along Y, and back-top captures its opposite
-rails as the enclosure closes. `check_fit.py` measures the actual frame and shell
+rails as the enclosure closes. [`check_fit.py`](https://github.com/derekbreden/homesodamachine/blob/a518a57a878f02d9ac5b8b638c1c5883cadf6669/hardware/printed-parts/zone-c/funnel/integration-review/check_fit.py) measures the actual frame and shell
 STLs through those motions. The seated pairs have no shared volume, and the
 closed enclosure captures the frame against 2 mm translations in every axis
 direction. [`rail-motion-check.json`](rail-motion-check.json) binds those

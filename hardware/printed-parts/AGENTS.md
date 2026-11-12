@@ -182,7 +182,7 @@ requires them.
 
 Use a 0.20 mm first bed layer and normal 0.24 mm layers above it. Expanding
 print-down show rounds use an additive chamfer tangent to their retained taper,
-following `cadlib/overhang_round.py`: 0.5 mm outward per millimetre of build rise.
+following [`enclosure/enclosure/numbers/structure.rs`](enclosure/enclosure/numbers/structure.rs): 0.5 mm outward per millimetre of build rise.
 Use six walls locally through that transition band, saved speeds and wall-first order,
 15% infill/wall overlap, and no supports on that exterior transition. Derek's accepted
 tee-carrier surface is recorded in

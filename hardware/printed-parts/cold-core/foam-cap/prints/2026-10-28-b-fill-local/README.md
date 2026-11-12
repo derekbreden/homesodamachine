@@ -29,7 +29,7 @@ Mark1 uses its +0.18 mm user trim (Textured PEI emission +0.16 mm); Mark2 uses
 +0.04 mm (+0.02 mm emitted). Each complete deposited bead envelope is at least
 89.768 mm inside the usable bed. Starts are separated by at least three minutes.
 
-`generate.py` reads the production STEP files and writes local test files under
+[`generate.py`](https://github.com/derekbreden/homesodamachine/blob/a518a57a878f02d9ac5b8b638c1c5883cadf6669/hardware/printed-parts/cold-core/foam-cap/prints/2026-10-28-b-fill-local/generate.py) reads the production STEP files and writes local test files under
 `.cache/prints/2026-10-28-b-fill-local/`. `geometry.json` binds those files to their
 source. [`prepare.py`](https://github.com/derekbreden/homesodamachine/blob/306268f870/hardware/printed-parts/cold-core/foam-cap/prints/2026-10-28-b-fill-local/prepare.py) (in Git at `306268f870`) makes and manually reviews each native slice; the two
 `*-preflight.json` records bind the archives, settings and bead bounds. The

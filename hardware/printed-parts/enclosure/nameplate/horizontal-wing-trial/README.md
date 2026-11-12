@@ -55,14 +55,14 @@ is X=±(body half-width + 0.15 mm); its Y position follows the slot roof while
 its width and slope stay fixed.
 The retaining lip is 1.23 mm thick over the flat bearing.
 
-`wing_interface.py` supplies the reusable wall cutter. The [physical acceptance](physical-acceptance.json)
+[`wing_interface.py`](https://github.com/derekbreden/homesodamachine/blob/a518a57a878f02d9ac5b8b638c1c5883cadf6669/hardware/printed-parts/enclosure/nameplate/horizontal-wing-trial/wing_interface.py) supplies the reusable wall cutter. The [physical acceptance](physical-acceptance.json)
 qualifies this receiver with the existing flat nameplate. The full back-top integration is prepared with a local PSU backing relief; its
 print is on hold in [accepted-fit-integration](../../enclosure/accepted-fit-integration/README.md). Its mouth and slots establish the locating clearances.
 
 ## Verification and printing
 
-`horizontal_wing_trial.py` generates the STEP/STL/viewer triplets and
-`geometry-check.json`. `verify_insertion.py` checks 101 positions of an ideal
+[`horizontal_wing_trial.py`](https://github.com/derekbreden/homesodamachine/blob/a518a57a878f02d9ac5b8b638c1c5883cadf6669/hardware/printed-parts/enclosure/nameplate/horizontal-wing-trial/horizontal_wing_trial.py) generates the STEP/STL/viewer triplets and
+`geometry-check.json`. [`verify_insertion.py`](https://github.com/derekbreden/homesodamachine/blob/a518a57a878f02d9ac5b8b638c1c5883cadf6669/hardware/printed-parts/enclosure/nameplate/horizontal-wing-trial/verify_insertion.py) checks 101 positions of an ideal
 circular bend in the central cross-section. [`verify_pair.py`](https://github.com/derekbreden/homesodamachine/blob/9884d0e7f4/hardware/printed-parts/enclosure/nameplate/horizontal-wing-trial/verify_pair.py) checks exported
 solids at all six pure-axis travel limits and just beyond each, then verifies
 the emitted artwork, wing layers, supports and native coordinate correction.

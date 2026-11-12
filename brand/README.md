@@ -90,4 +90,4 @@ when it is uploaded again or rebuilt by hand.
 | YouTube channel picture | `avatar-1024.png` | YouTube Studio → Customization → Profile → Picture |
 | YouTube video watermark | `icon-1024.png` | YouTube Studio → Customization → Profile → Video watermark |
 | [Install guide](../hardware/install-guide/README.md) | Copies in `hardware/install-guide/assets/brand/` | [`hardware/install-guide/install_guide.rs`](../hardware/install-guide/install_guide.rs) |
-| [Weld-rotator guide](../hardware/weld-rotator-guide/README.md) cover | `ios/AppIcon.svg`, read when the page renders | [`tools/weld-rotator-guide/build.py`](../tools/weld-rotator-guide/build.py) |
+| [Weld-rotator guide](../hardware/weld-rotator-guide/README.md) cover | `ios/AppIcon.svg`, read when the page renders | [`hsm-manual-guides bind weld-rotator-guide`](../tools/hsm/manual-guides/README.md) |

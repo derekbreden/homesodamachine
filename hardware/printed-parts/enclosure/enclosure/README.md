@@ -537,7 +537,7 @@ The production preparation retains Tree(auto)/Default.
 
 The standing walls' flat show faces are **fluted** — half-round grooves
  across and deep, with the profile from
-`cadlib/reeding.py`. The four R12 standing corners are smooth through their full
+`reeding` in [`scalars.json`](/tools/hsm/shared-data/catalog/scalars.json). The four R12 standing corners are smooth through their full
 90° turn, at the same outer envelope as the flute tips. The exterior field adds
 up to 1.2 mm of material where a corner groove would otherwise cut inward.
 
@@ -672,7 +672,7 @@ out at with the transoms, the hips and the intake's rail in it. The tallest open
 them stand in the donor ice maker's own arrangement
 ([`reference/ice-maker/`](/hardware/reference/ice-maker/README.md)), and these flanks are
 pierced more openly than the donor's grilles. The compressor in the pack is a clearance
-envelope: [`compressor.py`](/hardware/reference/compressor/compressor.py) runs the shell's
+envelope: [`compressor.step`](/hardware/reference/compressor/README.md) runs the shell's
 calipered section straight through its full height, so the gap that envelope leaves at the
 condenser's intake face is packing room, not the air passage. The heat the loop
 rejects, ~240 W at worst, and the 40 mm side gap that keeps the cabinet from being the

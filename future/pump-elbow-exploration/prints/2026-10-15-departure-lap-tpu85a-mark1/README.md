@@ -63,7 +63,7 @@ estimates do not include the inserted moves. The
 [processed archive](https://github.com/derekbreden/homesodamachine/blob/33d50d2ecd2a0fb6b518483a44c8031e3a0c1617/future/pump-elbow-exploration/prints/2026-10-15-departure-lap-tpu85a-mark1/2026-10-15-elbow-pair-tpu85a-lap020-right06-z000-mark1.gcode.3mf)
 is the print file. Reslicing the editable project does not retain the laps.
 
-`prepare_mark1.py` slices offline and invokes the post-processor. It neither
+[`prepare_mark1.py`](https://github.com/derekbreden/homesodamachine/blob/324f11661598699f3bb2a93be1ea0d4669cac6d7/future/pump-elbow-exploration/prints/2026-10-15-departure-lap-tpu85a-mark1/prepare_mark1.py) slices offline and invokes the post-processor. It neither
 connects to a printer nor changes a global preset. Submission uses a separate
 copy of the reviewed processed archive in Bambu Connect, with Timelapse On,
 Bed Leveling On, Flow Calibration Auto and Nozzle Offset Auto. Keep the selected

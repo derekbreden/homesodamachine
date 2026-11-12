@@ -95,7 +95,7 @@ Flash it, then write its factory logos over the same cable. They live in its ima
 
 ```
 pio run -e esp32s3_faucet -t upload
-~/.platformio/penv/bin/python tools/make_logos.py --store -o .pio/build/esp32s3_faucet/logos-store.bin
+hsm-marketing make-logos --store -o .pio/build/esp32s3_faucet/logos-store.bin
 ~/.platformio/penv/bin/python -m esptool --chip esp32s3 --port <the display's port> write-flash 0x6d4000 .pio/build/esp32s3_faucet/logos-store.bin
 ```
 

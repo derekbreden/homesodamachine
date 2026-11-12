@@ -85,7 +85,7 @@ starts and across the bores, compared with the baseline job.
 
 ### Inserting it
 
-A post-processor runs between the offline slice and `tools/bambu_print.py`.
+A post-processor runs between the offline slice and [`tools/bambu_print.py`](https://github.com/derekbreden/homesodamachine/blob/a518a57a878f02d9ac5b8b638c1c5883cadf6669/tools/bambu_print.py).
 [`departure_lap.py`](https://github.com/derekbreden/homesodamachine/blob/2f2d9c94a1c3fbf007dfa1bd7e93095197079895/future/pump-elbow-exploration/departure_lap.py) prepares the wall-lap files by hand;
 its [print record](prints/2026-10-16-departure-lap040-normal-lift-tpu85a-mark1/README.md)
 specifies the emitted path, thin-rim fallbacks, full-height wall connectors

@@ -9,7 +9,7 @@ reached from Latest in the site's navigation, and tapping one opens its detail.
 
 A change that moves geometry inside the integrated machine: a printed part, a dock, a tube
 route, the layout, anything
-[`enclosure-assembly.step`](../hardware/manifold-layout/enclosure_assembly.py) contains. One
+[`enclosure-assembly.step`](../hardware/manifold-layout/installed_machine.rs) contains. One
 entry per change, however many commits it took. A rebuild that moves bytes and no visible shape
 gets none.
 

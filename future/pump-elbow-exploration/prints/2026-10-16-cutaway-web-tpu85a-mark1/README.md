@@ -70,7 +70,7 @@ estimates **2 hours 17 minutes / 9.14 g**. Routing adds short detours and lifts;
 allow roughly **2 hours 20 minutes**. Native preview travel and time estimates
 exclude the replaced routes. The
 [processed archive](https://github.com/derekbreden/homesodamachine/blob/33d50d2ecd2a0fb6b518483a44c8031e3a0c1617/future/pump-elbow-exploration/prints/2026-10-16-cutaway-web-tpu85a-mark1/2026-10-16-elbow-pair-cutaway-web-tpu85a-right06-z000-mark1.gcode.3mf)
-is the selected print file. `prepare_mark1.py` builds both models, slices the
+is the selected print file. [`prepare_mark1.py`](https://github.com/derekbreden/homesodamachine/blob/324f11661598699f3bb2a93be1ea0d4669cac6d7/future/pump-elbow-exploration/prints/2026-10-16-cutaway-web-tpu85a-mark1/prepare_mark1.py) builds both models, slices the
 pair and invokes the manual router. Reslicing the editable project omits
 that routing step.
 

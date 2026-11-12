@@ -11,7 +11,7 @@ A TPU 90A spool seats in matching 45° countersinks through the lid's 4 mm
 flat plate. Both annular faces are flush. The air spool has a 6 mm waist,
 8 mm flares and 3.9 mm bore, with 0.3 mm lead-ins opening to 4.5 mm.
 Print two [reservoir-air-grip.step](reservoir-air-grip.step) parts per machine.
-The production geometry is shared in [../_reservoir_ports.py](../_reservoir_ports.py).
+The production geometry is shared in [numbers.rs](numbers.rs).
 
 The countersunk air port is open through the plate. The 4 mm tube passes
 through its TPU grommet and ends 1 mm below the plate, directly in the

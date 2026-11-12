@@ -32,7 +32,8 @@ The archived front-bottom and placed body references are evidence inputs, not
 current printable parts. The pump cartridge/cap equality uses the frozen canonical
 geometry in `fit-correction-baseline.zip` (in git at aab7f24fec).
 
-Reproduce without writing production outputs:
+Reproduce without writing production outputs. The script this command runs
+is in Git at [`5d63329191`](https://github.com/derekbreden/homesodamachine/tree/5d633291918a02e34734ef15445158dcaa97d8c8):
 
 ```sh
 HSM_NO_BUILD_LOCK=1 tools/cad-venv/bin/python \

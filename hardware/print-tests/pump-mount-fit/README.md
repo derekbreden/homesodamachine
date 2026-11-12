@@ -47,9 +47,9 @@ replacement pump and four rear equipment pairs.
 
 ## Reproduce
 
-`build.py` exports the isolated base from the production mount generator.
-Run it through `python3 tools/run.py --cad -- <CAD Python> .../build.py`.
-`prepare.py --piece pump-fit-base` prepares and reviews only the base; it never
+[`build.py`](https://github.com/derekbreden/homesodamachine/blob/a518a57a878f02d9ac5b8b638c1c5883cadf6669/hardware/print-tests/pump-mount-fit/build.py) exports the isolated base from the production mount generator.
+Run it through [`python3 tools/run.py --cad -- <CAD Python> .../build.py`](https://github.com/derekbreden/homesodamachine/blob/a518a57a878f02d9ac5b8b638c1c5883cadf6669/tools/run.py).
+[`prepare.py --piece pump-fit-base`](https://github.com/derekbreden/homesodamachine/blob/f5e8bed0919827aec6fba620a4b8f15010b70d3d/hardware/print-tests/pump-mount-fit/prepare.py) prepares and reviews only the base; it never
 sends a job. The cap archive retains the already reviewed production G-code
 without reslicing.
 

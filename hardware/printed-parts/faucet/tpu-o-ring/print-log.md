@@ -94,7 +94,7 @@ Derek said:
 
 First successful dual-interface seat (LLDPE tube through the thimble **and** the thimble in the Westbrass's port, together) — the lockup diagnosed on the 95A v2 print. Confirms queued fix #1 (drop to 85A). The 85A spool was dried before this run (v2 notes had both 90A/85A undried).
 
-Geometry as printed (per the current `tpu_o_ring.py` / `README.md`): inner Ø 9.2 mm, outer Ø 10.44 mm, wall 0.62 mm, cap hole Ø 6.5 mm, cap 2.1 mm, cylinder 13.5 mm, total 15.6 mm. (Wall is up from the v2-logged 0.375 mm; the part is now a 0.62 mm single Arachne wall.)
+Geometry as printed (per the current [`tpu_o_ring.py`](https://github.com/derekbreden/homesodamachine/blob/a518a57a878f02d9ac5b8b638c1c5883cadf6669/hardware/printed-parts/faucet/tpu-o-ring/tpu_o_ring.py) / `README.md`): inner Ø 9.2 mm, outer Ø 10.44 mm, wall 0.62 mm, cap hole Ø 6.5 mm, cap 2.1 mm, cylinder 13.5 mm, total 15.6 mm. (Wall is up from the v2-logged 0.375 mm; the part is now a 0.62 mm single Arachne wall.)
 
 Settings observed in the 3mf:
 - Printer: Bambu Lab H2C, `nozzle_diameter` `[0.6, 0.6]`; `print_settings_id` `0.18mm Balanced Quality @BBL H2C 0.6 nozzle`. Textured plate.

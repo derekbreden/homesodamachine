@@ -33,7 +33,7 @@ paths show their arrangement; cable routing, guide mounting and clearances
 are schematic.
 
 The tube dimensions come from
-[`_rotator_interface.py`](../printed-parts/fixtures/weld-rotator/_rotator_interface.py).
+[`weld-rotator/numbers.rs`](../printed-parts/fixtures/weld-rotator/numbers.rs).
 The disc and port dimensions come from
 [`numbers.rs`](../cut-parts/carbonation/endcaps-circular/numbers.rs).
 The scene's dimension check holds those values against the fabrication sources.

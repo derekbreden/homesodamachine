@@ -26,8 +26,8 @@ The requested Z trim is +0.04 mm, emitted as `G29.1 Z0.02` on Textured PEI.
 Timelapse and bed leveling are On, and flow and nozzle-offset calibration are Auto.
 
 [`prepare.py`](https://github.com/derekbreden/homesodamachine/blob/306268f870/hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-10-04-bulkhead-co2-raised-mark2-v1/prepare.py) (in Git at `306268f870`) builds the geometry with `raised_rings.build('co2')`
-from the committed sources. It loads `bulkhead_ring.py`, `raised_rings.py`,
-`_y_wall_dimensions.py` and `_materials.py` from HEAD in place of their working
+from the committed sources. It loads [`bulkhead_ring.py`](https://github.com/derekbreden/homesodamachine/blob/a518a57a878f02d9ac5b8b638c1c5883cadf6669/hardware/printed-parts/enclosure/bulkhead-ring/bulkhead_ring.py), [`raised_rings.py`](https://github.com/derekbreden/homesodamachine/blob/e70a3b617eb33572a821be2805b02a646773713a/hardware/printed-parts/enclosure/bulkhead-ring/face-up-trial/raised_rings.py),
+[`_y_wall_dimensions.py`](https://github.com/derekbreden/homesodamachine/blob/a518a57a878f02d9ac5b8b638c1c5883cadf6669/hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py) and [`_materials.py`](https://github.com/derekbreden/homesodamachine/blob/a518a57a878f02d9ac5b8b638c1c5883cadf6669/hardware/scripts/_materials.py) from HEAD in place of their working
 copies, and records the commit and every other loaded source in
 [`geometry-snapshot.json`](geometry-snapshot.json). [`verify.py`](https://github.com/derekbreden/homesodamachine/blob/306268f870/hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-10-04-bulkhead-co2-raised-mark2-v1/verify.py) (in Git at `306268f870`) checks
 the archive, layers, letter nozzle, filament colours, trim, support absence and the

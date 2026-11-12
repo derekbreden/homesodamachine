@@ -76,7 +76,7 @@ All 16 gaps and interface-layer counts are verified in `verification.json`.
 - `verification.json` records the sliced settings, support paths and file hashes.
 - `print-job.json` records printer acceptance and the started job.
 
-Generate with `tools/cad-venv/bin/python hardware/print-tests/petgf-support-interface/prepare.py`.
+Generate with [`tools/cad-venv/bin/python hardware/print-tests/petgf-support-interface/prepare.py`](https://github.com/derekbreden/homesodamachine/blob/0a648015e07ed6ea7eb962ec559e0a836c3a4439/hardware/print-tests/petgf-support-interface/prepare.py).
 
 The default tree setting selects organic support for this fixed-layer model.
 That implementation rounds the top gap into whole model layers: the baseline

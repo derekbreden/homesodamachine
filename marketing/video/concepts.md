@@ -191,7 +191,7 @@ Print three test pieces at different deflection values (0.3mm, 0.4mm, 0.5mm). Sn
 - **Audience:** 3D printing community, mechanical design people, anyone who's tried to design snap fits.
 - **Shareability:** High in printing communities. Empirical testing with real results.
 - **Trust signal:** "This person tests before they commit. The product is engineered, not guessed."
-- **Where it lives:** `hardware/printed-parts/case-snaps/`, `hardware/printed-parts/cadlib/snap.py`
+- **Where it lives:** [`hardware/printed-parts/case-snaps/`](https://github.com/derekbreden/homesodamachine/tree/254395b22f39248b72841c3891717d3778e5cf50/hardware/printed-parts/case-snaps), [`hardware/printed-parts/cadlib/snap.py`](https://github.com/derekbreden/homesodamachine/blob/254395b22f39248b72841c3891717d3778e5cf50/hardware/printed-parts/cadlib/snap.py)
 
 ### 7. The Logo Pipeline (60-90 seconds)
 
