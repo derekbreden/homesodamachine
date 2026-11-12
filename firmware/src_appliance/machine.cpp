@@ -1811,11 +1811,6 @@ void machineRefillForget() {
     }
 }
 
-void machineSomeoneHere() {
-    if (refill.retry(millis()))
-        Serial.println("\n[machine] refill: someone is here — trying the water again");
-}
-
 void machineFlowSimulate(uint32_t pulses, uint32_t ms) {
     flowSimPulses  = pulses;
     flowSimUntilMs = ms ? millis() + ms : 0;

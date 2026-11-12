@@ -35,10 +35,6 @@ constexpr uint32_t kRefillDebounceMs = 1500;
 // none of its ceiling waiting for them.
 constexpr uint32_t kRefillCeilingMs = 180000;
 
-// What a draw that timed out rests before someone at the machine can set it trying again:
-// it bounds how much of an hour the pump can spend against a supply that is not there.
-constexpr uint32_t kRefillRetryRestMs = 300000;
-
 enum class RefillState : uint8_t {
     Idle = 0,
     Queued,    // CLO asked; the dispense window or another operation holds it
@@ -82,10 +78,6 @@ public:
     // Leave Timeout or Fault and try again: the refill is still owed. Idle and the two
     // running states are unmoved.
     void clear(uint32_t now_ms);
-
-    // The same, asked by someone at the machine rather than at its console: only once the
-    // timed-out draw has rested kRefillRetryRestMs. False when it changed nothing.
-    bool retry(uint32_t now_ms);
 
     // A boot that finds a refill was owed when the power went: queue it.
     void resume(uint32_t now_ms);

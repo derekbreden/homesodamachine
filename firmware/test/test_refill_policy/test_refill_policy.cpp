@@ -236,7 +236,7 @@ void test_reeds_that_cannot_be_read_are_not_reeds_that_read_open() {
     TEST_ASSERT_EQUAL(RefillState::Idle, r2.state());
 }
 
-void test_a_refill_owed_at_a_power_cut_is_resumed_and_a_timed_out_one_can_be_retried() {
+void test_a_refill_owed_at_a_power_cut_is_resumed_and_a_timed_out_one_stays_owed() {
     // A boot that is told a refill was owed queues it, whatever the reeds read: below the
     // low reed's window both are open.
     Refill r;
@@ -254,8 +254,8 @@ void test_a_refill_owed_at_a_power_cut_is_resumed_and_a_timed_out_one_can_be_ret
     busy.resume(2000);
     TEST_ASSERT_EQUAL(RefillState::Filling, busy.state());
 
-    // A draw that timed out stays owed, rests, and then can be set trying again by someone
-    // at the machine.
+    // A draw that timed out stays owed and stays stopped, however long it is left and
+    // whatever the low reed does: only being told to try again starts it.
     Refill dry;
     dry.resume(1000);
     step(dry, 1100, reeds(false, false), ctx(false));
@@ -263,17 +263,15 @@ void test_a_refill_owed_at_a_power_cut_is_resumed_and_a_timed_out_one_can_be_ret
     TEST_ASSERT_EQUAL(RefillState::Timeout, dry.state());
     TEST_ASSERT_TRUE(dry.owed());
     const uint32_t gaveUp = 1100 + kRefillCeilingMs;
-    TEST_ASSERT_FALSE(dry.retry(gaveUp + kRefillRetryRestMs - 1));
+    TEST_ASSERT_EQUAL(RefillAction::None, step(dry, gaveUp + 3600000, reeds(false, false), ctx(false)));
+    TEST_ASSERT_EQUAL(RefillAction::None, step(dry, gaveUp + 3601000, reeds(true, false), ctx(false)));
+    TEST_ASSERT_EQUAL(RefillAction::None, step(dry, gaveUp + 3610000, reeds(true, false), ctx(false)));
     TEST_ASSERT_EQUAL(RefillState::Timeout, dry.state());
-    TEST_ASSERT_TRUE(dry.retry(gaveUp + kRefillRetryRestMs));
-    TEST_ASSERT_EQUAL(RefillAction::Start, step(dry, gaveUp + kRefillRetryRestMs + 100, reeds(false, false), ctx(false)));
-    TEST_ASSERT_EQUAL(RefillAction::Stop, step(dry, gaveUp + kRefillRetryRestMs + 20000, reeds(false, true), ctx(false)));
+    TEST_ASSERT_TRUE(dry.owed());
+    dry.clear(gaveUp + 3620000);
+    TEST_ASSERT_EQUAL(RefillAction::Start, step(dry, gaveUp + 3620100, reeds(false, false), ctx(false)));
+    TEST_ASSERT_EQUAL(RefillAction::Stop, step(dry, gaveUp + 3640000, reeds(false, true), ctx(false)));
     TEST_ASSERT_FALSE(dry.owed());
-
-    // Nothing to retry when nothing timed out.
-    Refill idle;
-    TEST_ASSERT_FALSE(idle.retry(kRefillRetryRestMs * 2));
-    TEST_ASSERT_EQUAL(RefillState::Idle, idle.state());
 }
 
 void test_a_level_that_recovers_while_queued_stands_the_ask_down() {
@@ -301,7 +299,7 @@ int main(int, char **) {
     RUN_TEST(test_overlapping_reed_windows_stop_refill_without_latching_a_fault);
     RUN_TEST(test_an_overlapping_high_signal_does_not_clear_a_refill_timeout);
     RUN_TEST(test_reeds_that_cannot_be_read_are_not_reeds_that_read_open);
-    RUN_TEST(test_a_refill_owed_at_a_power_cut_is_resumed_and_a_timed_out_one_can_be_retried);
+    RUN_TEST(test_a_refill_owed_at_a_power_cut_is_resumed_and_a_timed_out_one_stays_owed);
     RUN_TEST(test_a_level_that_recovers_while_queued_stands_the_ask_down);
     return UNITY_END();
 }
