@@ -124,6 +124,13 @@
       "record": "future/pump-elbow-exploration/prints/2026-10-22-deposited-links-siraya85a-mark2/physical-result.json"
     },
     {
+      "material": "HSM-0358",
+      "date": "2026-10-23",
+      "said": "2 mm works.",
+      "tried": "trial holders of three wall thicknesses on the tube; the part takes the wall that worked",
+      "record": "future/tube-bend-holder-exploration/prints/2026-10-23-walls-234-petgf-left04-z018-mark1/physical-result.json"
+    },
+    {
       "material": "HSM-0114",
       "date": "2026-10-25",
       "said": "That worked. There's still a gap, so make a note of it, but I don't want to iterate any further on this right now. It's fine. It's good enough.",
