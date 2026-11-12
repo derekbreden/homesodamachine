@@ -4,20 +4,18 @@
 //!
 //! A value no typed crate or published file holds yet comes from the plan's
 //! `metadata.wiring_context`, and its absence is an error that names the value and its owner.
-use super::{measure, readers, terminals};
+use super::terminals::{Passage, Pose, Turn};
+use super::{measure, readers};
 use crate::design;
 use anyhow::{Context, Result, ensure};
 use hsm_cold_core_interface as cci;
 use hsm_enclosure_numbers::{catalog, structure};
+use serde::Deserialize;
 use serde_json::{Value, json};
 use std::cell::RefCell;
 use std::collections::{BTreeMap, BTreeSet};
 use std::path::{Path, PathBuf};
 use std::rc::Rc;
-
-/// What a turn names for a part that the layout or the plan places by its own native pose: the
-/// pose decides, and a turn read in its place fails as a list of turns.
-pub const PLACED: &str = "placed by its native pose";
 
 /// The final connections' WAGOs stand with their ports fore: a half turn about Z from the
 /// reference's own frame.
@@ -25,6 +23,35 @@ pub const PORTS_FORE: [[f64; 3]; 3] = [[-1., 0., 0.], [0., -1., 0.], [0., 0., 1.
 
 /// The reference family every WAGO lever connector of the wiring is drawn from.
 const WAGO_REFERENCE: &str = "hardware/reference/wago-221";
+
+/// A WAGO lever connector the plan places: its size and its native pose.
+#[derive(Clone, Debug, Deserialize)]
+pub struct Placement {
+    pub size: String,
+    #[serde(flatten)]
+    pub pose: Pose,
+}
+
+/// The carbonator's earth bond: the tube it lands on, its contact and wire datums and its ring.
+#[derive(Clone, Debug, Deserialize)]
+pub struct Bond {
+    pub body: String,
+    pub contact_point_mm: [f64; 3],
+    pub wire_exit_mm: [f64; 3],
+    pub contact_outward: [f64; 3],
+    pub wire_outward: [f64; 3],
+    pub ring_tongue_thickness_mm: f64,
+    pub ring_eye_diameter_mm: f64,
+    pub ring_barrel_diameter_mm: f64,
+    pub ring_barrel_length_mm: f64,
+}
+
+/// A cable conduit's corridor in world XYZ and the bend its guide is printed to.
+#[derive(Clone, Debug)]
+pub struct CableGuide {
+    pub points_mm: Vec<[f64; 3]>,
+    pub bend_radius_mm: f64,
+}
 
 /// The plan, the checkout and the documents read from it for one wiring request.
 pub struct Sources {
@@ -48,8 +75,8 @@ impl Sources {
 
     /// The display reference's screen faces −Y, upright; the display plane tilts back from
     /// upright by the facet's tilt from level less a quarter turn.
-    pub fn display_tilt(&self) -> Value {
-        json!([[1., 0., 0.], structure::ANGLE - 90.])
+    pub fn display_tilt(&self) -> Turn {
+        ([1., 0., 0.], structure::ANGLE - 90.)
     }
 
     /// The colour of the hub the final connections' WAGOs are drawn in, as linear RGB.
@@ -72,20 +99,23 @@ impl Sources {
         cci::foam_cap_lid_height(&self.fits)
     }
 
-    /// The front top's fixed cable passages.
-    pub fn fixed_passages(&self) -> Result<Value> {
-        self.context(
+    /// The front top's fixed cable passages, by name.
+    pub fn fixed_passages(&self) -> Result<BTreeMap<String, Passage>> {
+        let passages = self.context(
             "fixed_passages",
             "the front top's fixed cable passages, which the enclosure's fixed pump mount owns",
-        )
+        )?;
+        serde_json::from_value(passages).context("the front top's fixed cable passages")
     }
 
     /// The thermal fuse's lead diameter.
-    pub fn fuse_lead_diameter(&self) -> Result<Value> {
+    pub fn fuse_lead_diameter(&self) -> Result<f64> {
         self.context(
             "fuse_lead_diameter_mm",
             "the thermal fuse's lead diameter, which the SF76E reference owns",
-        )
+        )?
+        .as_f64()
+        .context("the thermal fuse's lead diameter")
     }
 
     /// The viewer payload's linear deflection ratio.
@@ -131,11 +161,11 @@ impl Sources {
         })
     }
 
-    /// The WAGO lever connectors the plan places, by name: size, parent and native pose.
-    pub fn placements(&self) -> Result<Value> {
+    /// The WAGO lever connectors the plan places, by name.
+    pub fn placements(&self) -> Result<BTreeMap<String, Placement>> {
         let placements = &self.plan["metadata"]["wiring_placements"];
         ensure!(placements.is_object(), "the plan's metadata has no wiring_placements");
-        Ok(placements.clone())
+        serde_json::from_value(placements.clone()).context("the plan's wiring placements")
     }
 
     /// The plan's instance `name`, when it places its frozen reference's own fine model, with
@@ -173,30 +203,46 @@ impl Sources {
 
     /// The native pose a part is placed by: its WAGO placement, or the plan's placement of its
     /// reference's own fine model. A part placed any other way has none here.
-    pub fn native_frame(&self, name: &str) -> Result<Value> {
+    pub fn native_frame(&self, name: &str) -> Result<Option<Pose>> {
         if let Some(row) = self.placements()?.get(name) {
-            return Ok(row.clone());
+            return Ok(Some(row.pose.clone()));
         }
-        let Some((instance, _)) = self.native_instance(name)? else { return Ok(Value::Null) };
+        let Some((instance, _)) = self.native_instance(name)? else { return Ok(None) };
         let placed = measure::frame(instance.get("transform"))?.context("a native instance's placement")?;
         let m = placed.m;
-        Ok(json!({"rotation": [[m[0][0], m[0][1], m[0][2]], [m[1][0], m[1][1], m[1][2]], [m[2][0], m[2][1], m[2][2]]],
-                  "translation_mm": [m[0][3], m[1][3], m[2][3]]}))
+        Ok(Some(Pose {
+            rotation: [[m[0][0], m[0][1], m[0][2]], [m[1][0], m[1][1], m[1][2]], [m[2][0], m[2][1], m[2][2]]],
+            translation_mm: [m[0][3], m[1][3], m[2][3]],
+        }))
     }
 
-    /// The turns of a part that the above-core layout or the plan places by its native pose.
-    pub fn placed(&self, name: &str) -> Result<Value> {
+    /// The pose a part is placed by: its native pose, else the one the above-core layout writes
+    /// down for it.
+    pub fn written_pose(&self, name: &str) -> Result<Option<Pose>> {
+        if let Some(pose) = self.native_frame(name)? {
+            return Ok(Some(pose));
+        }
+        match self.above_core()?["parts"].get(name).filter(|part| !part.is_null()) {
+            Some(part) => Ok(Some(
+                serde_json::from_value(part.clone()).with_context(|| format!("the above-core layout's pose for {name}"))?,
+            )),
+            None => Ok(None),
+        }
+    }
+
+    /// Holds for a part that the above-core layout or the plan places by its native pose.
+    pub fn placed(&self, name: &str) -> Result<()> {
         let written = !self.above_core()?["parts"][name].is_null();
         ensure!(
-            written || !self.native_frame(name)?.is_null(),
+            written || self.native_frame(name)?.is_some(),
             "{name} has no written-down pose, and nothing owns turns for it"
         );
-        Ok(json!(PLACED))
+        Ok(())
     }
 
     /// The cap lid's pose in the installed frame.
-    pub fn cap_lid_pose(&self) -> Result<Value> {
-        Ok(self.above_core()?["cap_lid_pose"].clone())
+    pub fn cap_lid_pose(&self) -> Result<Pose> {
+        serde_json::from_value(self.above_core()?["cap_lid_pose"].clone()).context("the cap lid's pose")
     }
 
     /// The reference STEP part `name` is drawn from: the one the above-core layout names for it,
@@ -306,10 +352,10 @@ impl Sources {
     }
 
     /// The carbonator's earth bond datums in the cold core's frame, at its top plate.
-    pub fn bond(&self) -> Result<Value> {
+    pub fn bond(&self) -> Result<Bond> {
         let bond = self.cold_core()?["bond"].clone();
         ensure!(bond.is_object(), "the cold core publishes no bond datums");
-        Ok(bond)
+        serde_json::from_value(bond).context("the cold core's bond datums")
     }
 
     /// The foam cap's height above the shell top to the lid's underside.
@@ -319,12 +365,12 @@ impl Sources {
 
     /// The cap conduits the wiring's cables pass through, in the cap's frame, as the foam cap is
     /// cut with them.
-    pub fn cable_conduits(&self) -> Result<Value> {
+    pub fn cable_conduits(&self) -> Result<BTreeMap<String, [f64; 2]>> {
         let cap = self.document("hardware/printed-parts/cold-core/foam-cap/foam-cap.numbers.json")?;
-        let mut out = json!({});
+        let mut out = BTreeMap::new();
         for name in self.cable_passages()? {
-            out[&name] = cap["conduits"].get(&name).cloned()
-                .with_context(|| format!("the foam cap cuts no conduit {name}"))?;
+            let at = cap["conduits"].get(&name).with_context(|| format!("the foam cap cuts no conduit {name}"))?;
+            out.insert(name, [number(&at[0])?, number(&at[1])?]);
         }
         Ok(out)
     }
@@ -351,24 +397,24 @@ impl Sources {
 
     /// A cable conduit's corridor in world XYZ and the bend its guide is printed to: the foam
     /// assembly's own probe of that guide, carried off the shell the way the cap lid sits on it.
-    pub fn cable_guide(&self, name: &str) -> Result<Value> {
+    pub fn cable_guide(&self, name: &str) -> Result<CableGuide> {
         let assembly = self.document("hardware/printed-parts/cold-core/foam-assembly/foam-assembly.numbers.json")?;
         let probe = assembly["report"]["probes"].as_array().context("the foam assembly's probes")?
             .iter().find(|p| p["name"] == name && p["points"].is_array())
             .with_context(|| format!("the foam assembly probes no guide {name}"))?;
-        let pose = self.above_core()?["cap_lid_pose"].clone();
+        let pose = self.cap_lid_pose()?;
         let offset = cci::FOAM_SHELL_OUTER_HEIGHT + self.top_cap_height();
         let points = probe["points"].as_array().unwrap().iter().map(|p| {
             let [x, y, z] = xyz(p)?;
-            terminals::carry(&pose, [-x, -y, z - offset])
+            Ok(pose.carry([-x, -y, z - offset]))
         }).collect::<Result<Vec<_>>>()?;
-        Ok(json!({"points_mm": points, "bend_radius_mm": probe["bend"]}))
+        Ok(CableGuide { points_mm: points, bend_radius_mm: number(&probe["bend"])? })
     }
 
     /// The bounds of the reference at `path` turned by `rotation`, from its native queries or
     /// its fine model.
-    pub fn reference_bounds(&self, path: &str, rotation: &Value) -> Result<Value> {
-        Ok(readers::reference(Path::new(path), rotation)?["bounds"].clone())
+    pub fn reference_bounds(&self, path: &str, rotation: &[[f64; 3]; 3]) -> Result<([f64; 3], [f64; 3])> {
+        readers::reference(Path::new(path), rotation)
     }
 
     /// The name the installed-wires program imports the STEP at `path` by: its checkout path.

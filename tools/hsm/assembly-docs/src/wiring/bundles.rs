@@ -3,7 +3,7 @@ use anyhow::Context as _;
 use model::{V, add, circle, cross, dot, mul, norm, points, rotate, sub, unit, v};
 pub struct Context<'a> {
     src: &'a sources::Sources,
-    at: &'a Value,
+    at: &'a terminals::State,
     definitions: Vec<(String, Value)>,
     cache: BTreeMap<String, (Vec<V>, Value)>,
 }
@@ -267,7 +267,11 @@ pub fn reed_levels(segments: &Value, recipe: &Value, identity: Option<&str>) -> 
     Ok(json!(prefix))
 }
 impl<'a> Context<'a> {
-    pub fn new(src: &'a sources::Sources, root: &'a Path, at: &'a Value) -> Result<Self> {
+    pub fn new(
+        src: &'a sources::Sources,
+        root: &'a Path,
+        at: &'a terminals::State,
+    ) -> Result<Self> {
         Ok(Self {
             src,
             at,
@@ -286,7 +290,7 @@ impl<'a> Context<'a> {
                 return Ok(value.clone());
             }
             let corridor = self.src.cable_guide(string(passage)?)?;
-            let mut source_points = points(&corridor["points_mm"])?;
+            let mut source_points = corridor.points_mm.clone();
             source_points.reverse();
             let above = b
                 .get("above_cap_stations_mm")
@@ -298,10 +302,10 @@ impl<'a> Context<'a> {
             }
             let mut segments = corridors::route_segments(
                 &source_points,
-                number(
-                    b.get("above_cap_bend_radius_mm")
-                        .unwrap_or(&corridor["bend_radius_mm"]),
-                )?,
+                match b.get("above_cap_bend_radius_mm") {
+                    Some(radius) => number(radius)?,
+                    None => corridor.bend_radius_mm,
+                },
             )?;
             if above.is_empty() {
                 let first = *source_points.first().context("cap cable corridor")?;
@@ -318,7 +322,7 @@ impl<'a> Context<'a> {
         } else {
             let points = rows(&b["stations"])?
                 .iter()
-                .map(|s| terminals::station(self.at, s))
+                .map(|s| self.at.station(s))
                 .collect::<Result<Vec<_>>>()?;
             let segments =
                 model::rounded(&json!(points), number(&b["bend_radius_mm"])?, true, 0.44)?;
@@ -328,7 +332,7 @@ impl<'a> Context<'a> {
     fn entries(&self, c: &Value, b: &Value, first: V) -> Result<Vec<V>> {
         let id = string(&c["id"])?;
         let start = string(&c["start"])?;
-        let p = terminals::point(self.at, start)?;
+        let p = self.at.point(start)?;
         let fan = &b["fanouts"][id];
         if let Some(entries) = fan
             .get("entry_stations")
@@ -336,7 +340,7 @@ impl<'a> Context<'a> {
         {
             return rows(entries)?
                 .iter()
-                .map(|s| terminals::station(self.at, s))
+                .map(|s| self.at.station(s))
                 .collect();
         }
         if b["entry_family"] == "cap-cable" {
@@ -368,7 +372,7 @@ impl<'a> Context<'a> {
         match fan.get("entry_stations") {
             Some(value) => rows(value)?
                 .iter()
-                .map(|s| terminals::station(self.at, s))
+                .map(|s| self.at.station(s))
                 .collect(),
             None => Ok(vec![]),
         }
@@ -383,8 +387,8 @@ impl<'a> Context<'a> {
             let (_, shared) = self.centreline(b)?;
             let core = offset_path(&shared, &b["cores"][id])?;
             let core_rows = rows(&core)?;
-            let a = &self.at["terminals"][string(&c["start"])?];
-            let end = &self.at["terminals"][string(&c["end"])?];
+            let a = self.at.terminal(string(&c["start"])?)?;
+            let end = self.at.terminal(string(&c["end"])?)?;
             let first = v(&core_rows[0]["start_mm"])?;
             let last = v(&core_rows.last().context("shared cable tail")?["end_mm"])?;
             let lands = b
@@ -406,11 +410,11 @@ impl<'a> Context<'a> {
                 ),
             );
             let fan = &b["fanouts"][id];
-            let ap = v(&a["point"])?;
-            let ep = v(&end["point"])?;
+            let ap = a.point;
+            let ep = end.point;
             let mut entry = vec![
                 ap,
-                add(ap, mul(v(&a["outward"])?, number(&fan["end_lands_mm"][0])?)),
+                add(ap, mul(a.outward, number(&fan["end_lands_mm"][0])?)),
             ];
             entry.extend(self.entries(c, b, first)?);
             entry.extend([head, first]);
@@ -419,15 +423,12 @@ impl<'a> Context<'a> {
                 exit.extend(
                     rows(stations)?
                         .iter()
-                        .map(|s| terminals::station(self.at, s))
+                        .map(|s| self.at.station(s))
                         .collect::<Result<Vec<_>>>()?,
                 );
             }
             exit.extend([
-                add(
-                    ep,
-                    mul(v(&end["outward"])?, number(&fan["end_lands_mm"][1])?),
-                ),
+                add(ep, mul(end.outward, number(&fan["end_lands_mm"][1])?)),
                 ep,
             ]);
             let fixed = boolean(b, "jacket", true);

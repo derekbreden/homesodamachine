@@ -42,7 +42,9 @@ pub fn bodies(rows_input: &Value, grid: Option<f64>) -> Result<Value> {
     }
     Ok(out)
 }
-pub fn reference(path: &Path, rotation: &Value) -> Result<Value> {
+/// The bounds of the reference STEP at `path` turned by `rotation`: from its frozen native
+/// queries where the reference keeps them, else from its fine model.
+pub fn reference(path: &Path, rotation: &[V; 3]) -> Result<(V, V)> {
     let queries = path.with_file_name("native-queries.json");
     if queries.is_file() {
         let raw = std::fs::read(&queries)?;
@@ -65,8 +67,7 @@ pub fn reference(path: &Path, rotation: &Value) -> Result<Value> {
         if let Some(support) = row.get("yz_support_mm") {
             for (i, j) in [(0, 0), (0, 1), (0, 2), (1, 0), (2, 0)] {
                 ensure!(
-                    (number(&rotation[i][j])? - if i == 0 && j == 0 { 1. } else { 0. }).abs()
-                        <= 1e-12,
+                    (rotation[i][j] - if i == 0 && j == 0 { 1. } else { 0. }).abs() <= 1e-12,
                     "{}: reference supports X-axis turns",
                     path.display()
                 );
@@ -77,8 +78,7 @@ pub fn reference(path: &Path, rotation: &Value) -> Result<Value> {
                 }
             }
         } else {
-            for row in rows(rotation)? {
-                let axis = v(row)?;
+            for axis in rotation {
                 ensure!(
                     (axis.iter().map(|v| v.abs()).sum::<f64>() - 1.).abs() <= 1e-12
                         && axis
@@ -99,26 +99,23 @@ pub fn reference(path: &Path, rotation: &Value) -> Result<Value> {
         let mut lower = [f64::INFINITY; 3];
         let mut upper = [f64::NEG_INFINITY; 3];
         for point in source {
-            let p = terminals::rotate(rotation, point)?;
+            let p = terminals::rotate(rotation, point);
             for i in 0..3 {
                 lower[i] = lower[i].min(p[i]);
                 upper[i] = upper[i].max(p[i]);
             }
         }
-        return Ok(json!({"bounds":[lower,upper],"query_sources":[queries,manifest]}));
+        return Ok((lower, upper));
     }
-    let transform = rows(rotation)?
-        .iter()
-        .map(|row| {
-            let mut a = rows(row)?.clone();
-            a.push(json!(0.));
-            Ok(a)
-        })
-        .collect::<Result<Vec<_>>>()?;
     let model = format!("{}.npz", path.display());
+    let m = rotation.map(|row| [row[0], row[1], row[2], 0.]);
+    ensure!(
+        m.iter().flatten().all(|v| v.is_finite()),
+        "a placement holds a non-finite number"
+    );
     let bodies = measure::summaries(
         Path::new(&model),
-        measure::frame(Some(&json!(transform)))?.as_ref(),
+        Some(&hsm_kernel::Affine { m }),
         &BTreeSet::new(),
     )?;
     let mut lo = [f64::INFINITY; 3];
@@ -130,7 +127,7 @@ pub fn reference(path: &Path, rotation: &Value) -> Result<Value> {
             hi[i] = hi[i].max(b[i]);
         }
     }
-    Ok(json!({"bounds":[lo,hi],"query_sources":[]}))
+    Ok((lo, hi))
 }
 fn rgb(value: &Value) -> Result<Value> {
     if let Some(linear) = value.get("$linear") {
