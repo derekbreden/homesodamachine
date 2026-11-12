@@ -103,8 +103,8 @@ when the strip comes up it sends its laid-out sizes to the main board's console.
 A sweep is the other way round: the lever beside this glass is what lets a dry tank's air
 out, so the hand and the eyes are here. The strip asks for the lever (**Hold the lever**),
 shows the main board's count as a bar while gas is moving (**Keep holding**), asks again when
-the lever was let go short of the count, and says **Done** and to let go once it is met.
-`NoticePayload` carries the percent and whether gas is moving; bytes a main board does not
+the lever was let go short of the count, and says **Done** and to let go once the count is
+over: met, or given up at the machine with the lever still down. `NoticePayload` carries the percent and whether gas is moving; bytes a main board does not
 send read as zero. Each face the strip wears sends its laid-out sizes once.
 
 Trusted phones are kept in NVS namespace `trust` by pairing — the identity address and a digest
