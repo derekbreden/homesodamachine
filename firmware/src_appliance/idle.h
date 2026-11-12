@@ -10,7 +10,9 @@
 // is a link that stopped talking, and reads as exactly that.
 void idleBegin();
 
-// A finger landed on one of the glasses.
+// Something worth lighting both glasses for: a finger on either, a phone talking to the
+// faucet, an operation someone started, the console's `wake`. It is not a person standing at
+// the machine, so nothing that moves water or closes a relay hangs on it.
 void idleTouched();
 
 // Advances the clock. Returns true when awake/asleep changed on this call.
