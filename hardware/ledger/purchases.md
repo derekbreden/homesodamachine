@@ -710,8 +710,8 @@ A confirmation carries no order date. The number after `us` is a snowflake ID: `
 | <!--purchase:pur-27bb6c07598243e390e2ca407e908695--> 2026-10-05 | us783865986561351681 | PETG Translucent Clear 32101 refill ×10 (1 kg each, bulk; $159.90, Filament Bulk Sale −$47.97) + NE tax $8.12; shipping waived | $120.05 | ACQUIRED (delivered Oct 8) |
 | <!--purchase:pur-25f35741f88e40729bec555987f79640--> 2026-10-08 | us784775952755326977 | ASA Aero filament with spool, White 46100, 1 kg ×2 ($99.98) + NE tax $7.25; shipping waived — the magnetic-float material | $107.23 | ACQUIRED (delivered Oct 13; Bambu delivery confirmation in Gmail) |
 | <!--purchase:pur-8b3d0e7a5c9f4e2b4a7d1c3e5f6a8b07--> 2026-10-26 | us791135084148191233 | H2C Induction Hotend (Right), standard flow, hardened steel: 0.8 mm ×2 ($79.98) + 0.6 mm ×2 ($79.98) + NE tax $11.60; shipping waived | $171.56 | ACQUIRED (delivery confirmed; exact day unknown) |
-| <!--purchase:pur-6655f4a0c1c747bc8ce06a69596eb432--> 2026-11-07 | us795729195777990656 | PETG Basic filament with spool ×3 — Red 30201, White 30106, Navy Blue 30604 (1 kg each, one of each color; $15.29 each after bulk discount, $45.87 subtotal) + shipping $6.99 + NE tax $3.83 | $56.69 | ON-ORDER (in transit; estimated delivery 2026-11-12; all three spools named in shipment notification) |
-| **§15 acquired valuation** | | | **[$9,628.15](LEDGER_SEC15)** | |
+| <!--purchase:pur-6655f4a0c1c747bc8ce06a69596eb432--> 2026-11-07 | us795729195777990656 | PETG Basic filament with spool ×3 — Red 30201, White 30106, Navy Blue 30604 (1 kg each, one of each color; $15.29 each after bulk discount, $45.87 subtotal) + shipping $6.99 + NE tax $3.83 | $56.69 | ACQUIRED (delivered 2026-11-12; all three spools named in shipment notification) |
+| **§15 acquired valuation** | | | **[$9,684.84](LEDGER_SEC15)** | |
 
 ## 16. Laser welding / cleaning / cutting
 
@@ -850,10 +850,10 @@ Printed copies of the [install guide](/hardware/install-guide/README.md). Lulu o
 
 | Status | $ |
 |---|---|
-| Acquired hardware valuation — includes replaced/returned originals | [$43,328.43](LEDGER_ACQUIRED_HW) |
+| Acquired hardware valuation — includes replaced/returned originals | [$43,385.12](LEDGER_ACQUIRED_HW) |
 | Engineering services (§18) | [$6,719.51](LEDGER_LABOR) |
-| Acquired procurement valuation (combined) | [$50,047.94](LEDGER_ACQUIRED_COMBINED) |
-| ON-ORDER | [$136.87](LEDGER_ON_ORDER) |
+| Acquired procurement valuation (combined) | [$50,104.63](LEDGER_ACQUIRED_COMBINED) |
+| ON-ORDER | [$80.18](LEDGER_ON_ORDER) |
 | MISSING — not in hand | [$53.07](LEDGER_MISSING) |
 | LIKELY-TO-BUY | $0.00 |
 | **Recorded procurement valuation — includes commitments** | [$50,237.88](LEDGER_GRAND_TOTAL) |
@@ -894,7 +894,7 @@ Acquired hardware valuation by section (includes replaced/returned originals):
 | 12 | Shop / bench infrastructure | [$3,128.75](LEDGER_SEC12) |
 | 13 | Printing consumables | [$3,904.48](LEDGER_SEC13) |
 | 14 | Soldering + small-signal tools | [$859.66](LEDGER_SEC14) |
-| 15 | 3D printing equipment + filaments (Bambu direct) | [$9,628.15](LEDGER_SEC15) |
+| 15 | 3D printing equipment + filaments (Bambu direct) | [$9,684.84](LEDGER_SEC15) |
 | 16 | Laser welding / cleaning / cutting | [$3,944.02](LEDGER_SEC16) |
 | 17 | Domain / infrastructure | [$921.02](LEDGER_SEC17) |
 | 19 | Video / marketing capture | [$1,388.14](LEDGER_SEC19) |
