@@ -1716,6 +1716,17 @@ dependencies = [
 ]
 
 [[package]]
+name = "hsm-foam"
+version = "0.1.0"
+dependencies = [
+ "anyhow",
+ "flate2",
+ "hsm-kernel",
+ "rayon",
+ "serde_json",
+]
+
+[[package]]
 name = "hsm-foam-assembly"
 version = "0.1.0"
 dependencies = [
