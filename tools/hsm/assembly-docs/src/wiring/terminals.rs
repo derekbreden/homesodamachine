@@ -1,11 +1,6 @@
 use super::*;
 use model::{V, add, dot, mul, points, sub, unit, v};
-fn ea(path: &str) -> Result<Value> {
-    get("ea", path)
-}
-fn module(name: &str, path: &str, args: Value) -> Result<Value> {
-    call(name, path, args)
-}
+use sources::{PLACED, PORTS_FORE, Sources};
 pub fn rotate(matrix: &Value, p: V) -> Result<V> {
     let mut out = [0.; 3];
     for (i, row) in rows(matrix)?.iter().enumerate() {
@@ -115,6 +110,7 @@ fn put(
     at["terminals"][id] = json!({"id":id,"part":part,"point":p,"outward":unit(outward),"kind":kind,"basis":basis,"status":status,"pin":pin});
 }
 fn frame(
+    src: &Sources,
     at: &mut Value,
     root: &Path,
     name: &str,
@@ -124,9 +120,9 @@ fn frame(
     if let Some(pose) = at["frames_data"].get(name) {
         return Ok(pose.clone());
     }
-    let mut explicit = module("above_core_wiring", "frame", json!([name]))?;
+    let mut explicit = src.native_frame(name)?;
     if explicit.is_null() {
-        explicit = module("above_core", "specification", json!([]))?["parts"]
+        explicit = src.above_core()?["parts"]
             .get(name)
             .cloned()
             .unwrap_or(Value::Null);
@@ -136,7 +132,7 @@ fn frame(
     } else {
         explicit["rotation"].clone()
     };
-    let source = provider(json!({"kind":"reference_bounds","path":reference,"rotation":rotation}))?;
+    let source = src.reference_bounds(reference, &rotation)?;
     let (mut a, mut b) = (v(&source[0])?, v(&source[1])?);
     let (c, d) = bounds(part(at, name)?)?;
     let reference = Path::new(reference)
@@ -164,16 +160,16 @@ fn frame(
     at["frames_data"][name] = pose.clone();
     Ok(pose)
 }
-fn frame_ea(
+/// The frame of a part the layout or the plan places by its native pose.
+fn frame_placed(
+    src: &Sources,
     at: &mut Value,
     root: &Path,
     name: &str,
-    reference: &str,
-    turns: &str,
+    reference: &Path,
 ) -> Result<Value> {
-    let reference = ea(reference)?;
-    let turns = ea(turns)?;
-    frame(at, root, name, string(&reference)?, &turns)
+    let turns = src.placed(name)?;
+    frame(src, at, root, name, &reference.to_string_lossy(), &turns)
 }
 fn apply(
     at: &mut Value,
@@ -200,12 +196,12 @@ fn apply(
     );
     Ok(())
 }
-fn board(at: &mut Value, root: &Path) -> Result<()> {
+fn board(src: &Sources, at: &mut Value, root: &Path) -> Result<()> {
     let data = load(root, "hardware/wiring/installed/connector-map.json")?;
     at["pcb_reference"] = data["source_sha256"].clone();
-    let pose = frame_ea(at, root, "pcba", "PCBA_STEP", "PCBA_TURN")?;
-    let centre = ea("_pcba._centre")?;
-    let top = number(&ea("_pcba._thickness")?)?;
+    let pose = frame_placed(src, at, root, "pcba", &src.reference_step("pcba")?)?;
+    let centre = src.pcba_centre()?;
+    let top = src.pcba_thickness()?;
     for (owner, entry) in data["connectors"].as_object().context("board connectors")? {
         if owner == "J8" {
             continue;
@@ -214,14 +210,14 @@ fn board(at: &mut Value, root: &Path) -> Result<()> {
             let x = number(&pin["xy_mm"][0])?;
             let y = number(&pin["xy_mm"][1])?;
             let label = string(&pin["label"])?;
-            let mut local = [x - number(&centre[0])?, y - number(&centre[1])?, top + 9.8];
+            let mut local = [x - centre[0], y - centre[1], top + 9.8];
             let mut direction = [0., 0., 1.];
             let mut basis = "connector-map.json fabricated physical pad and native board pose; JST XH nominal 9.8 mm assembled height";
             if owner == "J10" {
                 let b = &entry["component_glb_bounds_mm"];
                 local = [
-                    number(&b[1])? - number(&centre[0])?,
-                    y - number(&centre[1])?,
+                    number(&b[1])? - centre[0],
+                    y - centre[1],
                     top + (number(&b[5])? - 0.7) * 0.4,
                 ];
                 direction = [1., 0., 0.];
@@ -243,7 +239,7 @@ fn board(at: &mut Value, root: &Path) -> Result<()> {
     }
     Ok(())
 }
-fn valves(at: &mut Value, root: &Path) -> Result<()> {
+fn valves(src: &Sources, at: &mut Value, root: &Path) -> Result<()> {
     for letter in "ABCDEFGHIJK".chars() {
         let name = if letter == 'K' {
             "vk-solenoid".into()
@@ -315,8 +311,8 @@ fn valves(at: &mut Value, root: &Path) -> Result<()> {
                 );
             }
         } else if "ABK".contains(letter) {
-            let reference = provider(json!({"kind":"valve_reference"}))?;
-            let pose = frame(at, root, &name, string(&reference)?, &json!([]))?;
+            let reference = src.valve_reference()?;
+            let pose = frame(src, at, root, &name, &reference.to_string_lossy(), &json!([]))?;
             let mut entries = Vec::new();
             for sx in [-1., 1.] {
                 entries.push((
@@ -347,25 +343,20 @@ fn valves(at: &mut Value, root: &Path) -> Result<()> {
     }
     Ok(())
 }
-fn wagos(at: &mut Value, root: &Path) -> Result<()> {
+fn wagos(src: &Sources, at: &mut Value, root: &Path) -> Result<()> {
     let interfaces = hsm_kernel::reads::json(
         root.join("hardware/reference/wago-221/terminal-interfaces.json"),
     )?;
     let pitch = number(&interfaces["pole_pitch_mm"])?;
     let entry_z = number(&interfaces["entry_center_z_mm"])?;
-    let placements = module("above_core_wiring", "placements", json!([]))?;
+    let placements = src.placements()?;
     for (name, row) in placements.as_object().context("junction placements")? {
         if !name.starts_with("wago-") {
             continue;
         }
         let size = string(&row["size"])?;
-        let reference = call("ea", "wago_step", json!([size]))?;
-        let turns = ea(if name.contains("reeds-") || name == "wago-sensors" {
-            "WAGO_TURN_WEST"
-        } else {
-            "WAGO_TURN"
-        })?;
-        let pose = frame(at, root, name, string(&reference)?, &turns)?;
+        let reference = src.wago_reference(size)?;
+        let pose = frame(src, at, root, name, &reference.to_string_lossy(), &json!(PLACED))?;
         let (d, h, n, rows) = match size {
             "413" => (18.6, 8.4, 3, 1),
             "415" => (18.6, 8.4, 5, 1),
@@ -393,7 +384,7 @@ fn wagos(at: &mut Value, root: &Path) -> Result<()> {
             )?;
         }
     }
-    let rotation = get("above_core_wiring", "PORTS_FORE")?;
+    let rotation = json!(PORTS_FORE);
     for (name, point) in final_joins().as_object().unwrap() {
         let pose = json!({"rotation":rotation,"translation_mm":point});
         for i in 0..3 {
@@ -420,11 +411,11 @@ fn wagos(at: &mut Value, root: &Path) -> Result<()> {
 pub fn final_joins() -> Value {
     json!({"compressor-h":[-65.,247.,290.5],"compressor-n":[-85.,247.,290.5],"pump-positive":[-45.,255.,278.]})
 }
-fn power(at: &mut Value, root: &Path) -> Result<()> {
+fn power(src: &Sources, at: &mut Value, root: &Path) -> Result<()> {
     let supply = hsm_kernel::reads::json(
         root.join("hardware/reference/meanwell-irm90/replica-parameters.json"),
     )?;
-    let pose = frame_ea(at, root, "psu", "PSU_STEP", "PSU_TURN")?;
+    let pose = frame_placed(src, at, root, "psu", &src.reference_step("psu")?)?;
     for (row_name, side) in [("ac", 1.), ("dc", -1.)] {
         let row = rows(&supply["terminals"])?
             .iter()
@@ -464,9 +455,9 @@ fn power(at: &mut Value, root: &Path) -> Result<()> {
         .iter()
         .map(number)
         .collect::<Result<Vec<_>>>()?;
-    for (index, turn) in [(1, "RELAY_TURN"), (2, "RELAY2_TURN")] {
+    for index in [1, 2] {
         let name = format!("relay-{index}");
-        let pose = frame_ea(at, root, &name, "RELAY_STEP", turn)?;
+        let pose = frame_placed(src, at, root, &name, &src.relay_reference()?)?;
         for (group, labels) in [
             ("contacts", ["COM", "NO", "NC"]),
             ("logic", ["V5", "GND", "IN"]),
@@ -496,8 +487,8 @@ fn power(at: &mut Value, root: &Path) -> Result<()> {
             }
         }
     }
-    let reference = ea("C14_STEP")?;
-    let pose = frame(at, root, "c14-inlet", string(&reference)?, &json!([]))?;
+    let reference = src.reference_step("c14-inlet")?;
+    let pose = frame(src, at, root, "c14-inlet", &reference.to_string_lossy(), &json!([]))?;
     for (label, x, z) in [("L", -6.7, 2.45), ("PE", 0.35, -2.6), ("N", 7.1, 2.65)] {
         apply(
             at,
@@ -513,19 +504,20 @@ fn power(at: &mut Value, root: &Path) -> Result<()> {
         )?;
     }
     let pose = frame(
+        src,
         at,
         root,
         "thermal-fuse",
         &root
             .join("hardware/reference/sf76e-thermal-fuse/sf76e-thermal-fuse.step")
             .to_string_lossy(),
-        &ea("FUSE_TURN")?,
+        &src.placed("thermal-fuse")?,
     )?;
     let bundles = load(root, "hardware/wiring/installed/bundle-routes.json")?;
     let leads = &bundles["compressor-cord"]["fuse_leads"];
-    let body_l = number(&ea("_fuse.BODY_L")?)?;
-    let stub = number(&ea("_fuse.LEAD_STUB")?)?;
-    let z = number(&ea("_fuse.AXIS_Z")?)?;
+    let (body_l, case_d) = src.fuse_case()?;
+    let stub = src.fuse_lead_stub()?;
+    let z = case_d / 2.;
     for (label, sign) in [("in", -1.), ("out", 1.)] {
         let p = carry(&pose, [sign * (body_l / 2. + stub), 0., z])?;
         let mut lead = leads[label].clone();
@@ -535,13 +527,9 @@ fn power(at: &mut Value, root: &Path) -> Result<()> {
             .collect::<Vec<_>>();
         lead["points_mm"] = json!(points);
         lead["native_stub_tip_mm"] = json!(p);
-        lead["lead_diameter_mm"] = ea("_fuse.LEAD_D")?;
+        lead["lead_diameter_mm"] = src.fuse_lead_diameter()?;
         lead["native_straight_mm"] = json!(stub);
-        lead["available_lead_mm"] = ea(if label == "in" {
-            "_fuse.LEAD_LONG"
-        } else {
-            "_fuse.LEAD_SHORT"
-        })?;
+        lead["available_lead_mm"] = Value::Null;
         at["fuse_leads"][label] = lead;
         put(
             at,
@@ -578,8 +566,8 @@ fn pump_motors(at: &mut Value) -> Result<()> {
     }
     Ok(())
 }
-fn sensors(at: &mut Value, root: &Path) -> Result<()> {
-    let pose = frame_ea(at, root, "mq6-sensor", "MQ6_STEP", "MQ6_TURN")?;
+fn sensors(src: &Sources, at: &mut Value, root: &Path) -> Result<()> {
+    let pose = frame_placed(src, at, root, "mq6-sensor", &src.reference_step("mq6-sensor")?)?;
     for i in 0..4 {
         apply(
             at,
@@ -594,10 +582,8 @@ fn sensors(at: &mut Value, root: &Path) -> Result<()> {
             json!(i + 1),
         )?;
     }
-    let pose = frame_ea(at, root, "digiten-flow", "DIGITEN_STEP", "DIGITEN_TURN")?;
-    let exit = call("ea", "_digiten.wire_exit", json!([]))?;
-    let local = v(&exit[0])?;
-    let outward = v(&exit[1])?;
+    let pose = frame_placed(src, at, root, "digiten-flow", &src.reference_step("digiten-flow")?)?;
+    let (local, outward) = src.digiten_wire_exit()?;
     for (i, label) in ["V", "PULSE", "GND"].into_iter().enumerate() {
         apply(
             at,
@@ -687,13 +673,14 @@ fn sensors(at: &mut Value, root: &Path) -> Result<()> {
         }
     }
     let pose = frame(
+        src,
         at,
         root,
         "display",
         &root
             .join("hardware/reference/waveshare-43b-display/waveshare-43b-display.step")
             .to_string_lossy(),
-        &json!([ea("DISPLAY_TILT")?]),
+        &json!([src.display_tilt()]),
     )?;
     let interfaces = hsm_kernel::reads::json(
         root.join("hardware/reference/waveshare-43b-display/terminal-interfaces.json"),
@@ -740,12 +727,10 @@ fn sensors(at: &mut Value, root: &Path) -> Result<()> {
     }
     Ok(())
 }
-pub fn bond() -> Result<Value> {
-    let plates = ea("_cca._V.top_plate_z")?;
-    let mut d = call("ea", "_cca._V._bond.datums", json!([plates[1]]))?;
-    let pose = module("above_core", "cap_lid_pose", json!([]))?;
-    let offset = number(&ea("_cci.foam_shell_outer_height")?)?
-        + number(&get("_foam_cap", "top_cap_height")?)?;
+pub fn bond(src: &Sources) -> Result<Value> {
+    let mut d = src.bond()?;
+    let pose = src.cap_lid_pose()?;
+    let offset = src.foam_shell_outer_height() + src.top_cap_height();
     for key in ["contact_point_mm", "wire_exit_mm"] {
         let [x, y, z] = v(&d[key])?;
         d[key] = json!(carry(&pose, [-x, -y, z - offset])?);
@@ -756,7 +741,7 @@ pub fn bond() -> Result<Value> {
     }
     Ok(d)
 }
-fn boundaries(at: &mut Value) -> Result<()> {
+fn boundaries(src: &Sources, at: &mut Value) -> Result<()> {
     let body = part(at, "compressor")?;
     let mut found = None;
     for s in rows(&body["solids"])? {
@@ -817,7 +802,7 @@ fn boundaries(at: &mut Value) -> Result<()> {
             Value::Null,
         );
     }
-    let d = bond()?;
+    let d = bond(src)?;
     put(
         at,
         "carbonator.PE",
@@ -831,21 +816,20 @@ fn boundaries(at: &mut Value) -> Result<()> {
     );
     Ok(())
 }
-fn passages(at: &mut Value) -> Result<()> {
-    let spec = module("above_core", "specification", json!([]))?;
-    let face = number(&spec["cap_face_z_mm"])?;
-    let pose = module("above_core", "cap_lid_pose", json!([]))?;
-    let conduits = ea("_cci.cap_cable_conduits")?;
-    let height = number(&ea("_foam.lid_total_height")?)?;
-    let bore = 2. * number(&ea("_cci.cap_conduit_bore_radius")?)?;
+fn passages(src: &Sources, at: &mut Value) -> Result<()> {
+    let face = number(&src.above_core()?["cap_face_z_mm"])?;
+    let pose = src.cap_lid_pose()?;
+    let conduits = src.cable_conduits()?;
+    let height = src.lid_total_height();
+    let bore = src.cap_conduit_bore();
     for (name, xy) in conduits.as_object().context("cable conduits")? {
-        let corridor = module("_above_core_mounts", "cable_guide_points", json!([name]))?;
+        let corridor = src.cable_guide(name)?;
         let lower = v(&corridor["points_mm"][0])?;
         let floor = [lower[0], lower[1], lower[2] + 1.];
         let upper = carry(&pose, [number(&xy[0])?, number(&xy[1])?, height])?;
         at["passages"][name] = json!({"points_mm":[[upper[0],upper[1],face+1.6],[floor[0],floor[1],floor[2]-1.6]],"upper_mouth_mm":upper,"lower_entry_mm":floor,"corridor_points_mm":corridor["points_mm"],"corridor_bend_radius_mm":corridor["bend_radius_mm"],"bore_diameter_mm":bore,"basis":"Native top-cap cable conduit, carried into the installed frame"});
     }
-    let fixed = provider(json!({"kind":"fixed_wiring_passages"}))?;
+    let fixed = src.fixed_passages()?;
     at["passages"].as_object_mut().unwrap().extend(
         fixed
             .as_object()
@@ -871,14 +855,14 @@ pub fn init(scene: &Value) -> Result<Value> {
     )
 }
 /// Every terminal, reference frame, fuse lead and cable passage, resolved onto the scene `at`.
-pub fn resolve(mut at: Value, root: &Path) -> Result<Value> {
-    board(&mut at, root)?;
-    valves(&mut at, root)?;
-    wagos(&mut at, root)?;
-    power(&mut at, root)?;
+pub fn resolve(src: &Sources, mut at: Value, root: &Path) -> Result<Value> {
+    board(src, &mut at, root)?;
+    valves(src, &mut at, root)?;
+    wagos(src, &mut at, root)?;
+    power(src, &mut at, root)?;
     pump_motors(&mut at)?;
-    sensors(&mut at, root)?;
-    boundaries(&mut at)?;
-    passages(&mut at)?;
+    sensors(src, &mut at, root)?;
+    boundaries(src, &mut at)?;
+    passages(src, &mut at)?;
     Ok(at)
 }
