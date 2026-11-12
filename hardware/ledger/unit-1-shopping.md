@@ -1,13 +1,13 @@
 # Unit 1 shopping list
 
-Checked November 10, 2026 against the current BOM, purchase ledger, stock records and merchant order confirmations. Order and fulfillment updates through November 11. Quantities below are for one integrated machine. Purchase receipts establish acquisitions; remaining development stock is estimated unless counted.
+Checked November 10, 2026 against the current BOM, purchase ledger, stock records and merchant order confirmations. Order and fulfillment updates through November 12. Quantities below are for one integrated machine. Purchase receipts establish acquisitions; remaining development stock is estimated unless counted.
 
 ## Purchase links
 
 | Item | Order quantity | Purpose / evidence | Listed price before shipping/tax |
 |---|---:|---|---:|
 | [MECCANIXITY green 16 AWG solid tinned-copper UL1007 wire — Prime](https://www.amazon.com/dp/B0FK5JHQW7) | 1 spool, 25 ft | Green conductor for AC1 in the [AC wiring schedule](../wiring/ac-wiring-schedule.md). The acquired solid wire is black and white; the acquired stranded green wire serves the separate earth bonds. | $11.99 |
-| [BelMetric WSE3SS, M3 DIN 6797-A A2 stainless external-tooth washer](https://belmetric.com/toothed-external-star-lock-washer-din-6797-a-stainless/?sku=WSE3SS) | 1; select M3 / 6 mm OD | Conditional on the ordered IEAWISL assortment: verify its M3 washer before buying separately. Earth-clamp specification remains 3.2 mm ID, 6 mm OD, 0.4 mm material thickness. Exact BelMetric variant in stock. BelMetric lists same-day weekday dispatch before its cutoff; freight is calculated at checkout. | $0.06 each |
+| [BelMetric WSE3SS, M3 DIN 6797-A A2 stainless external-tooth washer](https://belmetric.com/toothed-external-star-lock-washer-din-6797-a-stainless/?sku=WSE3SS) | 1; select M3 / 6 mm OD | Conditional on the acquired IEAWISL assortment: verify its M3 washer before buying separately. Earth-clamp specification remains 3.2 mm ID, 6 mm OD, 0.4 mm material thickness. Exact BelMetric variant in stock. BelMetric lists same-day weekday dispatch before its cutoff; freight is calculated at checkout. | $0.06 each |
 
 Amazon Prime badges, exact variants, prices and stock were checked in signed-in Mac Chrome on November 10. The remaining Amazon row is $11.99 before tax. The washer's shipping is additional.
 
@@ -21,7 +21,7 @@ Amazon Prime badges, exact variants, prices and stock were checked in signed-in 
 
 The [uxcell M3 × 0.5 tap and Ø2.5 mm drill set](https://www.amazon.com/dp/B09TYSP9NV) and [Piutouyar M1–M6 tap wrench](https://www.amazon.com/dp/B0F7K43T14) are acquired in the [purchase ledger](purchases.md), delivered November 11. Their completed merchant charges are $9.00 and $6.42 respectively.
 
-An [IEAWISL external-tooth washer assortment](https://www.amazon.com/dp/B0D8HVSJMK), advertised as 304 stainless steel, is ON-ORDER and shipped: 550 pieces in eight sizes M2.5–M12, $9.64 including estimated tax, placed November 10. The M3 washer's dimensions and thickness are unverified. Check it against the specified DIN 6797A M3 washer before using it for the earth clamp or purchasing the separate BelMetric washer.
+An [IEAWISL external-tooth washer assortment](https://www.amazon.com/dp/B0D8HVSJMK), advertised as 304 stainless steel, is acquired, delivered November 12: 550 pieces in eight sizes M2.5–M12, $9.64 including tax, placed November 10. Its completed merchant charge is dated November 11. The M3 washer's dimensions and thickness are unverified. Check it against the specified DIN 6797A M3 washer before using it for the earth clamp or purchasing the separate BelMetric washer.
 
 ## Acquired closure hardware
 

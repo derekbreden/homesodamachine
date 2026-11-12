@@ -9767,7 +9767,7 @@
     "pur-6f3e90aba9734990a07d1e24f1f75a86": {
       "vendor": "Amazon",
       "purpose": "components",
-      "amount_evidence": "estimate",
+      "amount_evidence": "final_vendor_amount",
       "order_ids": [
         "amazon:112-1175582-2386612"
       ],
@@ -9775,7 +9775,27 @@
       "source_ids": [
         "src-b23173b78a9745bbadaf7e701b7adfea",
         "src-b534bb94a46045f19c312922b8204c3a",
-        "src-ad5570deec324f9cb9ce15c4cddbcc2f"
+        "src-ad5570deec324f9cb9ce15c4cddbcc2f",
+        "src-00856c18fb5b415294932e8cac6f8e1a",
+        "src-41b1a3aa72b14f9ebbf132969ccfca13"
+      ],
+      "delivery_dates": [
+        {
+          "precision": "day",
+          "value": "2026-11-12"
+        }
+      ],
+      "price_history": [
+        {
+          "amount_minor": 964,
+          "currency": "USD",
+          "amount_evidence": "estimate",
+          "source_ids": [
+            "src-b23173b78a9745bbadaf7e701b7adfea"
+          ],
+          "verified_at": "2026-11-11",
+          "note": "Prior quoted amount with estimated tax, preserved as noncontributing history; the completed merchant charge confirms the same total."
+        }
       ]
     }
   },
@@ -16035,7 +16055,9 @@
       "source_ids": [
         "src-b23173b78a9745bbadaf7e701b7adfea",
         "src-b534bb94a46045f19c312922b8204c3a",
-        "src-ad5570deec324f9cb9ce15c4cddbcc2f"
+        "src-ad5570deec324f9cb9ce15c4cddbcc2f",
+        "src-00856c18fb5b415294932e8cac6f8e1a",
+        "src-41b1a3aa72b14f9ebbf132969ccfca13"
       ]
     }
   },
@@ -20228,16 +20250,20 @@
       "event_id": "evt-a433c78eacf3419f9a8285a9b133fbb7",
       "vendor": "Amazon",
       "event_type": "charge",
-      "confirmation": "expected",
-      "event_date": null,
+      "confirmation": "confirmed",
+      "event_date": {
+        "precision": "day",
+        "value": "2026-11-11"
+      },
       "amount_minor": 964,
       "currency": "USD",
       "allocation_status": "all_project",
       "source_ids": [
         "src-b23173b78a9745bbadaf7e701b7adfea",
-        "src-b534bb94a46045f19c312922b8204c3a"
+        "src-b534bb94a46045f19c312922b8204c3a",
+        "src-41b1a3aa72b14f9ebbf132969ccfca13"
       ],
-      "verified_at": "2026-11-11",
+      "verified_at": "2026-11-12",
       "order_ids": [
         "amazon:112-1175582-2386612"
       ]
@@ -33991,6 +34017,39 @@
       ],
       "verified_at": "2026-11-12",
       "note": "UPS delivery confirmation explicitly states Delivered Thursday 11/12/2026 at 11:30 AM as displayed. The vendor shipment notification directly joins the carrier tracking identity to this order and its three PETG Basic spools. Fulfillment evidence only; no completed merchant charge or remaining inventory quantity is inferred."
+    },
+    "src-00856c18fb5b415294932e8cac6f8e1a": {
+      "vendor": "Amazon",
+      "document_type": "merchant_order_details_and_delivery_timeline",
+      "reference": "112-1175582-2386612",
+      "document_date": null,
+      "notification_date": {
+        "precision": "day",
+        "value": "2026-11-12"
+      },
+      "proves": [
+        "delivery",
+        "price"
+      ],
+      "verified_at": "2026-11-12",
+      "note": "Signed-in order details retain the IEAWISL B0D8HVSJMK washer assortment identity and USD 9.64 total. The tracking history explicitly records Thursday, November 12, 2026 at 3:03 PM with times shown in the local timezone. The delivery notification corroborates fulfillment but does not supply the calendar day independently. No exact M3 washer conformity or remaining usable stock is established."
+    },
+    "src-41b1a3aa72b14f9ebbf132969ccfca13": {
+      "vendor": "Amazon",
+      "document_type": "completed_merchant_transaction",
+      "reference": "112-1175582-2386612",
+      "document_date": null,
+      "proves": [
+        "charge",
+        "merchant_event_date",
+        "price"
+      ],
+      "merchant_event_date": {
+        "precision": "day",
+        "value": "2026-11-11"
+      },
+      "verified_at": "2026-11-12",
+      "note": "Live order-scoped Your Payments > Completed shows USD 9.64 dated 2026-11-11. The completed merchant amount confirms the existing expected event in place; no bank posting or funding ownership is inferred."
     }
   },
   "coverage": [
@@ -35963,21 +36022,23 @@
       "coverage_id": "coverage-a0b187f69c724058a8917d8546193058",
       "vendor": "Amazon",
       "stream": "one named external-tooth washer order",
-      "evidence_type": "order_confirmation_and_order_scoped_payment_lookup",
-      "checked_at": "2026-11-11",
+      "evidence_type": "order_details_actual_delivery_and_completed_transaction",
+      "checked_at": "2026-11-12",
       "examined_period": {
         "start": "2026-11-10",
-        "end": "2026-11-11"
+        "end": "2026-11-12"
       },
       "complete_period": null,
       "coverage": "partial",
       "source_ids": [
-        "src-b23173b78a9745bbadaf7e701b7adfea"
+        "src-b23173b78a9745bbadaf7e701b7adfea",
+        "src-00856c18fb5b415294932e8cac6f8e1a",
+        "src-41b1a3aa72b14f9ebbf132969ccfca13"
       ],
       "order_ids": [
         "amazon:112-1175582-2386612"
       ],
-      "note": "Exact-reference Gmail search returned one confirmation with no further pages. Signed-in order details establish identity, placed date and estimated-tax total. Order-scoped merchant lookup shows no transactions yet; actual delivery and exact M3 washer conformity remain unverified."
+      "note": "Named confirmation and delivery notices matched to signed-in order details and explicit local delivery timeline. Completed order-scoped transaction confirms USD 9.64 dated November 11; actual delivery is November 12. Exact M3 washer conformity remains unverified. This does not establish broader account coverage."
     },
     {
       "coverage_id": "coverage-59ed46ecf3b440448050d1c01f6aeada",
@@ -36005,11 +36066,11 @@
       "coverage_id": "coverage-3f9213df0aa74f0ea6c1edddede6913c",
       "vendor": "Amazon",
       "stream": "four named fastener and earth-clamp tooling orders",
-      "evidence_type": "actual_delivery_and_completed_or_pending_transactions",
-      "checked_at": "2026-11-11",
+      "evidence_type": "actual_delivery_and_completed_transactions",
+      "checked_at": "2026-11-12",
       "examined_period": {
         "start": "2026-11-09",
-        "end": "2026-11-11"
+        "end": "2026-11-12"
       },
       "complete_period": null,
       "coverage": "partial",
@@ -36020,7 +36081,9 @@
         "src-ead91959a0574e2fb1ee501665f3df43",
         "src-aaab8a5e634c4f45b75e8732f26034c0",
         "src-d018e7783b7440fdab9e1080cf905e1f",
-        "src-b534bb94a46045f19c312922b8204c3a"
+        "src-b534bb94a46045f19c312922b8204c3a",
+        "src-00856c18fb5b415294932e8cac6f8e1a",
+        "src-41b1a3aa72b14f9ebbf132969ccfca13"
       ],
       "order_ids": [
         "amazon:112-0448533-3655424",
@@ -36028,7 +36091,7 @@
         "amazon:112-9511233-2346613",
         "amazon:112-1175582-2386612"
       ],
-      "note": "Three delivery notifications matched to exact signed-in order details, explicit locally dated delivery timelines and order-scoped Completed transactions. Existing purchase, payment and allocation identities are retained. The washer order remains undelivered with a pending merchant transaction. These order-level checks do not establish broader account coverage or remaining usable stock."
+      "note": "Four delivery notifications matched to exact signed-in order details, explicit locally dated delivery timelines and order-scoped Completed transactions. Existing purchase, payment and allocation identities are retained. These order-level checks do not establish broader account coverage, exact washer conformity or remaining usable stock."
     },
     {
       "coverage_id": "coverage-07575d26f1b2453ba683076fe7b7fa9c",
