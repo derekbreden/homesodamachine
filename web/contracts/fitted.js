@@ -23,10 +23,12 @@
  */
 
 // The materials a print file is published for: a model of theirs has an STL beside its STEP.
-// `printFiles` are those STLs' paths under hardware/, without the extension.
+// `printFiles` are those STLs' paths under hardware/, without the extension. A bought part is
+// not one of them, whatever files its reference model has.
 export function printedMaterials(catalog, printFiles) {
   const files = new Set(printFiles);
   return (catalog?.materials || [])
+    .filter((m) => m.kind !== "purchased")
     .filter((m) => (m.models || []).some((model) => model.file?.endsWith(".step") && files.has(model.file.slice(0, -5))))
     .map((m) => m.id);
 }

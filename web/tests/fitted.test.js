@@ -24,6 +24,8 @@ const catalog = { materials: [
 test("a material with a print file beside its model is a printed one", () => {
   assert.deepEqual(printedMaterials(catalog, ["printed-parts/a/a", "printed-parts/b/b", "printed-parts/z/z"]), ["HSM-1", "HSM-2"]);
   assert.deepEqual(printedMaterials(catalog, []), []);
+  const bought = { materials: [{ id: "HSM-5", kind: "purchased", models: [{ file: "reference/e/e.step" }] }] };
+  assert.deepEqual(printedMaterials(bought, ["reference/e/e"]), [], "a bought part is not a printed one");
 });
 
 test("the record's rows sort by material, each material's latest first", () => {
