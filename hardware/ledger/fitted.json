@@ -219,6 +219,20 @@
       "record": "hardware/printed-parts/enclosure/rear-identification/prints/2026-11-09-co2-width-mark1/physical-result.json"
     },
     {
+      "material": "HSM-0025",
+      "date": "2026-11-12",
+      "said": "On the reservoirs, there was only *one* leak in that recent round of prints, and that one was clearly documented and we changed settings after, and all reservoir prints after that setting change have been holding water since.",
+      "tried": "the reservoirs printed after the wall-overlap change, filled with water",
+      "record": "hardware/printed-parts/cold-core/reservoir/water-hold-evidence/2026-10-26-two-hour-leak/physical-result.json"
+    },
+    {
+      "material": "HSM-0026",
+      "date": "2026-11-12",
+      "said": "On the reservoirs, there was only *one* leak in that recent round of prints, and that one was clearly documented and we changed settings after, and all reservoir prints after that setting change have been holding water since.",
+      "tried": "the reservoirs printed after the wall-overlap change, filled with water",
+      "record": "hardware/printed-parts/cold-core/reservoir/water-hold-evidence/2026-10-26-two-hour-leak/physical-result.json"
+    },
+    {
       "material": "HSM-0099",
       "date": "2026-11-12",
       "said": "tube collars and asse snap cap are both good enough.",
