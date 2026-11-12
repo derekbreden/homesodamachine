@@ -160,6 +160,8 @@ static lv_obj_t *primeExitBtn, *primeHoldBtn;
 static lv_obj_t *primeExitLbl, *primeHoldLbl, *primeStatusLbl;
 static lv_obj_t *trustLayer, *trustTitleLbl, *trustBodyLbl;
 static uint8_t   trustShownAsk = 0;   // the ask on the glass; 0 while none is
+static lv_obj_t *noticeLayer, *noticeTitleLbl, *noticeBodyLbl;
+static uint8_t   noticeKind = NOTICE_NONE;   // what the main board says stops the soda
 static bool trustLayoutReserved = false;
 static bool trustPressed = false;
 static bool touchIsDown = false;
@@ -890,6 +892,7 @@ static void primeService(const BaseLinkStatus &link) {
 // ════════════════════════════════════════════════════════════
 
 static void buildTrustLayer(lv_obj_t *scr);
+static void buildNoticeLayer(lv_obj_t *scr);
 
 static void buildUi() {
   bindLogos();
@@ -966,6 +969,7 @@ static void buildUi() {
   lv_obj_add_flag(primeLayer, LV_OBJ_FLAG_HIDDEN);
 
   buildTrustLayer(scr);
+  buildNoticeLayer(scr);
   applyFlavorUi();
 }
 
@@ -1018,12 +1022,15 @@ static lv_obj_t *trustButton(lv_obj_t *parent, lv_coord_t x, lv_coord_t y,
 // above it; Prime keeps two complete targets in the remaining 208 pixels.
 // Arrival or departure waits for a resting finger and a pending Stop, so a
 // target never moves underneath a hold. Replays do not touch this layout.
+// The no-water notice takes the same strip when no request holds it, and gives
+// way to Prime, which is someone at work on the machine.
 static void trustLayoutService(lv_timer_t *) {
   if (!trustLayer) return;
   const bool finger = touchIsDown;
   if (!finger) trustPressed = false;
   const bool sensitive = finger || primePressed || primeStopPending || primeCancelPending;
-  const bool wanted = trustShownAsk != 0;
+  const bool noticeWanted = noticeKind != NOTICE_NONE && !primeVisible;
+  const bool wanted = trustShownAsk != 0 || noticeWanted;
   if (wanted != trustLayoutReserved && !sensitive) {
     if (touchInput) lv_indev_wait_release(touchInput);
     trustLayoutReserved = wanted;
@@ -1035,12 +1042,30 @@ static void trustLayoutService(lv_timer_t *) {
     lv_obj_align(logoImg, LV_ALIGN_CENTER, 0, wanted ? -56 : 0);
   }
   const bool updating = otaLayer && !lv_obj_has_flag(otaLayer, LV_OBJ_FLAG_HIDDEN);
-  const bool show = wanted && trustLayoutReserved && !updating;
+  const bool show = trustShownAsk != 0 && trustLayoutReserved && !updating;
   if (show && lv_obj_has_flag(trustLayer, LV_OBJ_FLAG_HIDDEN)) {
     lv_obj_clear_flag(trustLayer, LV_OBJ_FLAG_HIDDEN);
     lv_obj_move_foreground(trustLayer);
   } else if (!show) {
     lv_obj_add_flag(trustLayer, LV_OBJ_FLAG_HIDDEN);
+  }
+  if (!noticeLayer) return;
+  const bool notice = trustShownAsk == 0 && noticeWanted && trustLayoutReserved && !updating;
+  if (notice && lv_obj_has_flag(noticeLayer, LV_OBJ_FLAG_HIDDEN)) {
+    lv_obj_clear_flag(noticeLayer, LV_OBJ_FLAG_HIDDEN);
+    lv_obj_move_foreground(noticeLayer);
+    // This glass has no camera on it. What it laid out goes to the main board's console.
+    lv_obj_update_layout(noticeLayer);
+    char line[80];
+    snprintf(line, sizeof(line), "notice %u up: title %dx%d at %d, body %dx%d at %d, strip %d",
+             (unsigned)noticeKind,
+             (int)lv_obj_get_width(noticeTitleLbl), (int)lv_obj_get_height(noticeTitleLbl),
+             (int)lv_obj_get_y(noticeTitleLbl),
+             (int)lv_obj_get_width(noticeBodyLbl), (int)lv_obj_get_height(noticeBodyLbl),
+             (int)lv_obj_get_y(noticeBodyLbl), (int)lv_obj_get_height(noticeLayer));
+    baseLinkSay(line);
+  } else if (!notice) {
+    lv_obj_add_flag(noticeLayer, LV_OBJ_FLAG_HIDDEN);
   }
 }
 
@@ -1079,6 +1104,66 @@ static void buildTrustLayer(lv_obj_t *scr) {
 
   lv_obj_add_flag(trustLayer, LV_OBJ_FLAG_HIDDEN);
   lv_timer_create(trustLayoutService, 50, nullptr);
+}
+
+// ════════════════════════════════════════════════════════════
+//  No water
+// ════════════════════════════════════════════════════════════
+//
+// A refill that spent its pumping ceiling stands latched until someone has
+// looked at the machine. This glass is at the sink and the machine is not, so
+// it says only that there is no water and where to go: the machine's own
+// display says what to check and is where Try again is.
+
+// A finger on the notice is a finger: it wakes the glass and is reported, and
+// reaches nothing beneath.
+static void onNoticeTouch(lv_event_t *e) {
+  (void)e;
+  lastInputTime = millis();
+  if (dimmed) wakeBacklight();
+  faucetTouched();
+}
+
+static void buildNoticeLayer(lv_obj_t *scr) {
+  noticeLayer = lv_obj_create(scr);
+  lv_obj_remove_style_all(noticeLayer);
+  lv_obj_set_pos(noticeLayer, 0, SCREEN_H - 112);
+  lv_obj_set_size(noticeLayer, SCREEN_W, 112);
+  lv_obj_set_style_bg_color(noticeLayer, lv_color_hex(COL_CARD), 0);
+  lv_obj_set_style_bg_opa(noticeLayer, LV_OPA_COVER, 0);
+  lv_obj_clear_flag(noticeLayer, LV_OBJ_FLAG_SCROLLABLE);
+  lv_obj_add_flag(noticeLayer, LV_OBJ_FLAG_CLICKABLE);
+  lv_obj_add_event_cb(noticeLayer, onNoticeTouch, LV_EVENT_PRESSED, NULL);
+  lv_obj_set_style_border_width(noticeLayer, 1, 0);
+  lv_obj_set_style_border_side(noticeLayer, LV_BORDER_SIDE_TOP, 0);
+  lv_obj_set_style_border_color(noticeLayer, lv_color_hex(COL_ACCENT), 0);
+
+  noticeTitleLbl = lv_label_create(noticeLayer);
+  lv_obj_set_width(noticeTitleLbl, SCREEN_W - 16);
+  lv_obj_set_pos(noticeTitleLbl, 8, 16);
+  lv_obj_set_style_text_align(noticeTitleLbl, LV_TEXT_ALIGN_CENTER, 0);
+  lv_obj_set_style_text_font(noticeTitleLbl, &lv_font_montserrat_20, 0);
+  lv_obj_set_style_text_color(noticeTitleLbl, lv_color_hex(COL_WARN), 0);
+  lv_label_set_text(noticeTitleLbl, "No water");
+
+  noticeBodyLbl = lv_label_create(noticeLayer);
+  lv_obj_set_width(noticeBodyLbl, SCREEN_W - 16);
+  lv_obj_set_pos(noticeBodyLbl, 8, 52);
+  lv_label_set_long_mode(noticeBodyLbl, LV_LABEL_LONG_WRAP);
+  lv_obj_set_style_text_align(noticeBodyLbl, LV_TEXT_ALIGN_CENTER, 0);
+  lv_obj_set_style_text_font(noticeBodyLbl, &lv_font_montserrat_14, 0);
+  lv_obj_set_style_text_color(noticeBodyLbl, lv_color_hex(COL_TEXT), 0);
+  lv_label_set_text(noticeBodyLbl, "See the display\non the machine.");
+
+  lv_obj_add_flag(noticeLayer, LV_OBJ_FLAG_HIDDEN);
+}
+
+void faucetApplyNotice(uint8_t kind) {
+  // A reason this glass has no words for is not shown as one it has.
+  if (kind != NOTICE_NO_WATER) kind = NOTICE_NONE;
+  if (kind == noticeKind) return;
+  noticeKind = kind;
+  trustLayoutService(nullptr);
 }
 
 void faucetTrustShow(const TrustShowPayload &ask) {

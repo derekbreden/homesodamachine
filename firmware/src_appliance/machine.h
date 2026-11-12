@@ -272,9 +272,31 @@ const char *machineRefillStateName(uint8_t refillState);
 void machineSimThermal(float tankC, bool tankValid, float coilC, bool coilValid);
 void machineSimReeds(bool carbLow, bool carbHigh);
 void machineSimClear();
-void machineRefillClear();   // leave a latched refill Timeout or Fault and try again
 void machineRefillRequest(); // fill now, whatever the reeds read: until the high reed or the ceiling
+void machineRefillLatch();   // stand a refill latched as one that spent its ceiling does
 void machineRefillForget();  // drop a refill that is owed, and the flash's note of it
+
+// Someone at the machine, told what to check, asks for the water again: a refill that stands
+// latched gets a whole pumping ceiling and tries. False when none stood latched. The
+// machine's own display sends it, and the console's `refill clear`.
+bool machineRefillRetry();
+
+// True while a refill stands latched at its pumping ceiling.
+bool machineRefillLatched();
+
+// What stops the machine making soda, NOTICE_*: the one answer both links carry to the
+// glasses. A kind a host on the console is holding reads as none.
+uint8_t machineNotice();
+
+// A machine on a bench has no water to find and nobody to tell so. A host on its console
+// holds named notices off the glasses for a lease it renews while it stays connected; bit n
+// of `kinds` holds NOTICE kind n, and none releases. Only what the glasses say is held:
+// a refill that stands latched still stands. A restart or a lapsed lease ends the hold.
+constexpr uint32_t kNoticeHoldLeaseMs = 900000;
+void    machineNoticeHold(uint8_t kinds);
+uint8_t machineNoticeHeld();          // the kinds held now
+uint32_t machineNoticeHoldLeftMs();   // what is left of the lease
+uint8_t machineNoticeStanding();      // the notice with nothing held
 
 // Read-only commissioning snapshot of the two MCP23017s and all ten reeds.
 // This is populated only when explicitly requested from the USB console; it is

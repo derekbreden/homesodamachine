@@ -52,11 +52,14 @@ uint8_t probeCount = 0;
 uint8_t flavor = 0;
 uint8_t ratio = 20;
 
-// The one fact refill_store keeps in flash. It outlives a boot, as flash does. A test can
-// have the flash forget it, to see what keeping it is for.
-bool     refillOwedInFlash = false;
-uint32_t refillOwedWrites  = 0;
-bool     flashForgets      = false;
+// What refill_store keeps in flash: that a refill is owed, and the pumping time spent on it.
+// Both outlive a boot, as flash does. A test can have the flash forget them, to see what
+// keeping them is for.
+bool     refillOwedInFlash  = false;
+uint32_t refillSpentInFlash = 0;
+uint32_t refillOwedWrites   = 0;
+uint32_t refillSpentWrites  = 0;
+bool     flashForgets       = false;
 
 class RegisterBus : public pcba::Transport {
 public:
@@ -182,6 +185,11 @@ bool refillOwedLoad() { return host::refillOwedInFlash && !host::flashForgets; }
 void refillOwedSave(bool owed) {
     host::refillOwedInFlash = owed;
     host::refillOwedWrites++;
+}
+uint32_t refillSpentLoad() { return host::flashForgets ? 0 : host::refillSpentInFlash; }
+void refillSpentSave(uint32_t spentMs) {
+    host::refillSpentInFlash = spentMs;
+    host::refillSpentWrites++;
 }
 
 // The recorder's queue and flash stay on the board; what machine.cpp notes is kept here.

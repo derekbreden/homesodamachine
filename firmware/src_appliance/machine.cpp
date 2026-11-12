@@ -1445,6 +1445,7 @@ static bool     compressorRelay = false;
 static bool     refillRelay     = false;
 static uint32_t refillReedMs    = 0;
 static bool     refillOwedKept  = false;   // what the flash holds of refill.owed()
+static uint32_t refillSpentKept = 0;       // and of refill.keptMs()
 
 // What the record keeps of a compressor run and of the cold loop's troubles.
 static uint32_t compressorOnMs = 0;
@@ -1667,11 +1668,18 @@ static void refillService(uint32_t now) {
 
     const machine_policy::RefillAction action = refill.service(now, ctx);
 
-    // The flash follows the ask, so a power cut does not lose it. A reading put in from the
-    // console is not the water, and what it asks for is not kept.
-    if (!simReedsOn && refill.owed() != refillOwedKept) {
-        refillOwedKept = refill.owed();
-        refillOwedSave(refillOwedKept);
+    // The flash follows the ask and the pumping time spent on it, so a power cut loses
+    // neither. A reading put in from the console is not the water, and what it asks for is
+    // not kept.
+    if (!simReedsOn) {
+        if (refill.owed() != refillOwedKept) {
+            refillOwedKept = refill.owed();
+            refillOwedSave(refillOwedKept);
+        }
+        if (refill.keptMs() != refillSpentKept) {
+            refillSpentKept = refill.keptMs();
+            refillSpentSave(refillSpentKept);
+        }
     }
 
     switch (action) {
@@ -1798,9 +1806,43 @@ void machineSimClear() {
     simReedsOn = false;
 }
 
-void machineRefillClear() { refill.clear(millis()); }
+bool machineRefillRetry() { return refill.clear(millis()); }
+
+bool machineRefillLatched() {
+    return refill.state() == machine_policy::RefillState::Timeout ||
+           refill.state() == machine_policy::RefillState::Fault;
+}
+
+// ── The notice, and a bench's hold on it ──────────────────────────────────
+static uint8_t  noticeHoldKinds   = 0;
+static uint32_t noticeHoldSinceMs = 0;
+
+uint8_t machineNoticeStanding() { return machineRefillLatched() ? NOTICE_NO_WATER : NOTICE_NONE; }
+
+void machineNoticeHold(uint8_t kinds) {
+    noticeHoldKinds   = kinds;
+    noticeHoldSinceMs = millis();
+}
+
+uint8_t machineNoticeHeld() {
+    if (noticeHoldKinds && (uint32_t)(millis() - noticeHoldSinceMs) >= kNoticeHoldLeaseMs)
+        noticeHoldKinds = 0;
+    return noticeHoldKinds;
+}
+
+uint32_t machineNoticeHoldLeftMs() {
+    if (!machineNoticeHeld()) return 0;
+    return kNoticeHoldLeaseMs - (uint32_t)(millis() - noticeHoldSinceMs);
+}
+
+uint8_t machineNotice() {
+    const uint8_t kind = machineNoticeStanding();
+    return kind < 8 && ((machineNoticeHeld() >> kind) & 1) ? NOTICE_NONE : kind;
+}
 
 void machineRefillRequest() { refill.resume(millis()); }
+
+void machineRefillLatch() { refill.resume(millis(), machine_policy::kRefillCeilingMs); }
 
 void machineRefillForget() {
     if (state == ST_REFILLING) refillStop("forgotten on request", machine_log::RefillEnd::Stopped, millis());
@@ -1808,6 +1850,10 @@ void machineRefillForget() {
     if (refillOwedKept) {
         refillOwedKept = false;
         refillOwedSave(false);
+    }
+    if (refillSpentKept) {
+        refillSpentKept = 0;
+        refillSpentSave(0);
     }
 }
 
@@ -1978,9 +2024,13 @@ void machineBegin() {
     // inherited has been stopped.
     cold.reset(millis());
     refill.reset(millis());
-    // A refill that was owed when the power went is owed still.
-    refillOwedKept = refillOwedLoad();
-    if (refillOwedKept) refill.resume(millis());
+    // A refill that was owed when the power went is owed still, with the pumping time
+    // already spent on it: a refill that had spent its ceiling comes up latched.
+    refillOwedKept  = refillOwedLoad();
+    refillSpentKept = refillSpentLoad();
+    if (refillOwedKept) refill.resume(millis(), refillSpentKept);
+    // A bench's hold is the bench's to renew: a board that restarts starts with none.
+    noticeHoldKinds = 0;
     compressorRelay = false;
     refillRelay     = false;
     condenserFanOn  = false;

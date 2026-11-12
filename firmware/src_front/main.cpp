@@ -650,6 +650,9 @@ static uint32_t idleWindowMs = 0;      // the window it is counting against
 static uint8_t idleStage = 0;    // 0 lit · 1 dark · 2 at the page's root · 3 Choose
 static bool screenIdle = false;  // true while asleep (backlight off via idle)
 
+// The no-water ask has been put up since this glass last woke (noWaterService()).
+static bool noWaterOffered = false;
+
 // A finger here is presence the main board has to hear. It keeps the one clock
 // for both glasses, so a touch it never learns of leaves the other glass dark
 // and this one about to follow it back down. MSG_TOUCH is a single frame into a
@@ -1193,6 +1196,7 @@ static void wake() {
     if (kickStage) return;   // a wake is already on its way through the stages
     screenIdle = false;
     idleStage = 0;
+    noWaterOffered = false;
     // Whatever the dark decided to keep or throw away is already on screen — waking shows
     // it rather than moving to it. The light comes back once the panel has been reset.
     if (uiReady) panelKick();
@@ -1809,6 +1813,7 @@ static bool uiShow(const UiShowPayload &req);
 static void trustShow(const TrustShowPayload &ask);
 static void trustClose(uint8_t askId);
 static void trustForgot(uint8_t count);
+static void noWaterService();
 
 static void j9OnMessage(HdlcLink *link, const uint8_t *frame, uint16_t len) {
   awaitingAnswer = false;   // the main board has spoken; the wire is ours again
@@ -2111,6 +2116,7 @@ static void j9OnMessage(HdlcLink *link, const uint8_t *frame, uint16_t len) {
       }
     }
     refreshHomeLevel();
+    noWaterService();
     // A fill this glass did not start — the console's, or one whose answer
     // lost its turn — is still the machine being busy, and is shown as such.
     if ((ctrlStatus.flags & STATUS_F_FILLING) && !fillLockShown && !fillStartSentMs)
@@ -4294,18 +4300,19 @@ static void testScreenHide() {
 //
 // Remote requests enter a small inbox in the flavor rail. Only a local tap
 // opens their normal task page; the rail, task tabs and Done remain available.
-// Forget's local confirmation alone uses a modal. A remote request never
-// replaces that confirmation, the operation lock, or a physical hold.
+// Forget's local confirmation and the no-water ask use a modal. A remote request
+// never replaces either, the operation lock, or a physical hold.
 #define ASK_W        640
 #define ASK_H        330
 #define ASK_PAD       32
 #define ASK_BTN_H     66
 #define ASK_BTN_GAP   16
-#define ASK_MS     75000   // the local Forget confirmation's maximum lifetime
+#define ASK_MS     75000   // the longest an ask stands unanswered
 #define FORGOT_MS   6000   // how long what Forget found stays above it
 
-enum AskMode : uint8_t { ASK_NONE, ASK_FORGET };
+enum AskMode : uint8_t { ASK_NONE, ASK_FORGET, ASK_NO_WATER };
 static AskMode askMode = ASK_NONE;
+static unsigned long noWaterTriedMs = 0;   // nonzero: Try again went out then, and no status has answered it
 static uint8_t trustAskId = 0;           // the faucet's number for the ask on the glass
 static unsigned long askShownMs = 0;
 static lv_obj_t *askScreen, *askTitle, *askBody, *askNoLabel, *askYesLabel;
@@ -4472,16 +4479,20 @@ static void trustAnswer(bool trusted) {
 static void trustNoCb(lv_event_t *e) { (void)e; trustAnswer(false); }
 static void trustYesCb(lv_event_t *e) { (void)e; trustAnswer(true); }
 
-// Cancel the local Forget confirmation.
+// Cancel the local Forget confirmation, or leave the no-water ask for now.
 static void askNoCb(lv_event_t *e) {
   (void)e;
   askHide();
 }
 
-// Confirm Forget.
+// Confirm Forget, or have the main board try the water again.
 static void askYesCb(lv_event_t *e) {
   (void)e;
   if (askMode == ASK_FORGET) j9Post(MSG_TRUST_FORGET, nullptr, 0);
+  if (askMode == ASK_NO_WATER) {
+    j9Post(MSG_REFILL_RETRY, nullptr, 0);
+    noWaterTriedMs = millis() ? millis() : 1;
+  }
   askHide();
 }
 
@@ -4521,6 +4532,49 @@ static void askService() {
     forgotUntilMs = 0;
     lv_obj_add_flag(forgotNote, LV_OBJ_FLAG_HIDDEN);
   }
+}
+
+// ── No water ──────────────────────────────────────────────────────────────
+// A refill that has spent its pumping ceiling stands latched on the main board, and the
+// status this glass polls names it. The machine cannot tell a supply that is shut off from a
+// line that has come off, so the ask says what to look at — here, at the machine, where the
+// looking is done — and Try again is the answer of someone who has looked. It is put up once
+// each time this glass wakes while the latch stands, and each time the latch is new; Not now
+// leaves every page usable until the next of either. An operation lock, a hold and the
+// Forget confirmation keep the glass, and it waits for them.
+#define NO_WATER_UNANSWERED_MS 2500   // a Try again no status has answered by now did not arrive
+
+static bool noWaterLatched() {
+  return ctrlStatusThermal && ctrlStatus.notice == NOTICE_NO_WATER;
+}
+
+static void noWaterShow() {
+  noWaterOffered = true;
+  askShow(ASK_NO_WATER, "No water",
+          "The machine pumped and its tank did not fill. Check that the water is turned on "
+          "and that nothing around the machine is wet.",
+          "Not now", "Try again");
+}
+
+// From loop(), and on every status the main board answers with.
+static void noWaterService() {
+  // Only a reading that has just arrived says anything: this glass does not poll while dark.
+  if (!front_ui::readingFresh(ctrlStatusMs, millis(), STATUS_ANSWER_MS)) return;
+  if (!noWaterLatched()) {
+    noWaterOffered = false;
+    noWaterTriedMs = 0;
+    if (askMode == ASK_NO_WATER) askHide();
+    return;
+  }
+  if (noWaterTriedMs && millis() - noWaterTriedMs >= NO_WATER_UNANSWERED_MS) {
+    // The press did not reach the main board, and asking again is how this glass says so.
+    noWaterTriedMs = 0;
+    noWaterOffered = false;
+  }
+  if (noWaterOffered || noWaterTriedMs || askMode != ASK_NONE) return;
+  if (!uiReady || screenIdle || lockActive || holding || primeStopPending || testActive ||
+      (primeSessionKnown && primeSession.phase == PRIME_SESSION_RUNNING)) return;
+  noWaterShow();
 }
 
 static void buildRail(lv_obj_t *scr) {
@@ -5089,6 +5143,16 @@ static bool uiShow(const UiShowPayload &req) {
       return true;
     case UI_RAIL_SETTINGS:
       showPage(PAGE_SETUP);
+      return true;
+    case UI_RAIL_NOTICE:
+      // The no-water ask as the latch itself puts it up, and either of its answers.
+      if (!noWaterLatched()) return false;
+      if (askMode != ASK_NO_WATER) {
+        if (askMode != ASK_NONE || testActive) return false;
+        noWaterShow();
+      }
+      if (req.act == UI_ACT_COMMIT) askYesCb(nullptr);
+      else if (req.act == UI_ACT_DECLINE) askNoCb(nullptr);
       return true;
     default:
       return false;
@@ -5725,6 +5789,7 @@ void loop() {
   airService();
   ratioService();
   askService();
+  noWaterService();
 
   // The status request keeps main board truth fresh once a second whenever a
   // shared prime hold does not own the pair.

@@ -268,10 +268,109 @@ void test_a_refill_owed_at_a_power_cut_is_resumed_and_a_timed_out_one_stays_owed
     TEST_ASSERT_EQUAL(RefillAction::None, step(dry, gaveUp + 3610000, reeds(true, false), ctx(false)));
     TEST_ASSERT_EQUAL(RefillState::Timeout, dry.state());
     TEST_ASSERT_TRUE(dry.owed());
-    dry.clear(gaveUp + 3620000);
+    TEST_ASSERT_TRUE(dry.clear(gaveUp + 3620000));
     TEST_ASSERT_EQUAL(RefillAction::Start, step(dry, gaveUp + 3620100, reeds(false, false), ctx(false)));
     TEST_ASSERT_EQUAL(RefillAction::Stop, step(dry, gaveUp + 3640000, reeds(false, true), ctx(false)));
     TEST_ASSERT_FALSE(dry.owed());
+
+    // Nothing stands latched in a refill that is idle or running, and clearing says so.
+    Refill idle;
+    TEST_ASSERT_FALSE(idle.clear(1000));
+    TEST_ASSERT_FALSE(busy.clear(3000));
+    TEST_ASSERT_EQUAL(RefillState::Filling, busy.state());
+}
+
+void test_the_pumping_time_to_keep_runs_ahead_of_the_pump_and_never_back() {
+    const RefillReading low = reeds(true, false);
+    Refill r;
+    // An ask that has not pumped has spent nothing.
+    step(r, 1000, low, ctx(true));
+    step(r, 1000 + kRefillDebounceMs, low, ctx(true));
+    TEST_ASSERT_EQUAL(RefillState::Queued, r.state());
+    TEST_ASSERT_EQUAL_UINT32(0, r.keptMs());
+
+    // The pump starts, and the step it is in is already counted.
+    TEST_ASSERT_EQUAL(RefillAction::Start, step(r, 10000, low, ctx(false)));
+    TEST_ASSERT_EQUAL_UINT32(kRefillKeepStepMs, r.keptMs());
+    step(r, 10000 + kRefillKeepStepMs - 1, low, ctx(false));
+    TEST_ASSERT_EQUAL_UINT32(kRefillKeepStepMs, r.keptMs());
+    step(r, 10000 + kRefillKeepStepMs, low, ctx(false));
+    TEST_ASSERT_EQUAL_UINT32(2 * kRefillKeepStepMs, r.keptMs());
+
+    // A pour takes the pump down part-way through a step. The count stays where it is,
+    // through the pour and into the pumping after it, until the pump has caught it up.
+    TEST_ASSERT_EQUAL(RefillAction::Stop, step(r, 10000 + kRefillKeepStepMs + 4000, low, ctx(true)));
+    TEST_ASSERT_EQUAL_UINT32(2 * kRefillKeepStepMs, r.keptMs());
+    step(r, 60000, low, ctx(true));
+    TEST_ASSERT_EQUAL_UINT32(2 * kRefillKeepStepMs, r.keptMs());
+    TEST_ASSERT_EQUAL(RefillAction::Start, step(r, 70000, low, ctx(false)));
+    TEST_ASSERT_EQUAL_UINT32(2 * kRefillKeepStepMs, r.keptMs());
+    step(r, 70000 + kRefillKeepStepMs - 4000, low, ctx(false));
+    TEST_ASSERT_EQUAL_UINT32(3 * kRefillKeepStepMs, r.keptMs());
+    TEST_ASSERT_TRUE(r.keptMs() >= r.pumpedMs(70000 + kRefillKeepStepMs - 4000));
+
+    // The high reed pays the refill, and nothing is left to keep.
+    TEST_ASSERT_EQUAL(RefillAction::Stop, step(r, 90000, reeds(false, true), ctx(false)));
+    TEST_ASSERT_EQUAL_UINT32(0, r.keptMs());
+
+    // A draw that spends the whole ceiling keeps the whole ceiling, at every pass on the
+    // way there no less than it has pumped and no more than the ceiling.
+    Refill dry;
+    dry.resume(1000);
+    step(dry, 1000, reeds(false, false), ctx(false));
+    for (uint32_t t = 2000; t <= 1000 + kRefillCeilingMs; t += 1000) {
+        step(dry, t, reeds(false, false), ctx(false));
+        TEST_ASSERT_TRUE(dry.keptMs() >= dry.pumpedMs(t) || dry.keptMs() == kRefillCeilingMs);
+        TEST_ASSERT_TRUE(dry.keptMs() <= kRefillCeilingMs);
+    }
+    TEST_ASSERT_EQUAL(RefillState::Timeout, dry.state());
+    TEST_ASSERT_EQUAL_UINT32(kRefillCeilingMs, dry.keptMs());
+}
+
+void test_a_restart_takes_up_the_pumping_time_it_left() {
+    // A boot told how much of the ceiling was spent pumps only the rest of it.
+    Refill r;
+    r.resume(1000, kRefillCeilingMs - 2 * kRefillKeepStepMs);
+    TEST_ASSERT_EQUAL(RefillState::Queued, r.state());
+    TEST_ASSERT_EQUAL_UINT32(kRefillCeilingMs - 2 * kRefillKeepStepMs, r.keptMs());
+    TEST_ASSERT_EQUAL(RefillAction::Start, step(r, 2000, reeds(false, false), ctx(false)));
+    TEST_ASSERT_EQUAL(RefillAction::None,
+                      step(r, 2000 + 2 * kRefillKeepStepMs - 1, reeds(false, false), ctx(false)));
+    TEST_ASSERT_EQUAL(RefillAction::Stop,
+                      step(r, 2000 + 2 * kRefillKeepStepMs, reeds(false, false), ctx(false)));
+    TEST_ASSERT_EQUAL(RefillState::Timeout, r.state());
+
+    // A boot told the whole ceiling was spent comes up latched, and pumps nothing however
+    // long it stands or whatever the reeds read. Being told to try again grants a whole
+    // ceiling.
+    Refill spent;
+    spent.resume(1000, kRefillCeilingMs);
+    TEST_ASSERT_EQUAL(RefillState::Timeout, spent.state());
+    TEST_ASSERT_TRUE(spent.owed());
+    TEST_ASSERT_EQUAL(RefillAction::None, carry(spent, 2000, 600000, reeds(false, false), ctx(false)));
+    TEST_ASSERT_EQUAL(RefillAction::None, carry(spent, 600000, 700000, reeds(true, false), ctx(false)));
+    TEST_ASSERT_EQUAL(RefillState::Timeout, spent.state());
+    TEST_ASSERT_EQUAL_UINT32(kRefillCeilingMs, spent.keptMs());
+    TEST_ASSERT_TRUE(spent.clear(700000));
+    TEST_ASSERT_EQUAL_UINT32(0, spent.keptMs());
+    TEST_ASSERT_EQUAL(RefillAction::Start, step(spent, 701000, reeds(false, false), ctx(false)));
+    TEST_ASSERT_EQUAL(RefillAction::None,
+                      step(spent, 701000 + kRefillCeilingMs - 1000, reeds(false, false), ctx(false)));
+    TEST_ASSERT_EQUAL(RefillState::Filling, spent.state());
+
+    // A board that restarts every few seconds, each time finding what the last boot kept,
+    // starts its pump only as often as the ceiling has steps.
+    uint32_t kept = 0;
+    uint32_t starts = 0;
+    for (int boot = 0; boot < 100; boot++) {
+        Refill looping;
+        looping.resume(0, kept);
+        if (step(looping, 500, reeds(false, false), ctx(false)) == RefillAction::Start) starts++;
+        step(looping, 3000, reeds(false, false), ctx(false));
+        kept = looping.keptMs();
+    }
+    TEST_ASSERT_EQUAL_UINT32(kRefillCeilingMs / kRefillKeepStepMs, starts);
+    TEST_ASSERT_EQUAL_UINT32(kRefillCeilingMs, kept);
 }
 
 void test_a_level_that_recovers_while_queued_stands_the_ask_down() {
@@ -300,6 +399,8 @@ int main(int, char **) {
     RUN_TEST(test_an_overlapping_high_signal_does_not_clear_a_refill_timeout);
     RUN_TEST(test_reeds_that_cannot_be_read_are_not_reeds_that_read_open);
     RUN_TEST(test_a_refill_owed_at_a_power_cut_is_resumed_and_a_timed_out_one_stays_owed);
+    RUN_TEST(test_the_pumping_time_to_keep_runs_ahead_of_the_pump_and_never_back);
+    RUN_TEST(test_a_restart_takes_up_the_pumping_time_it_left);
     RUN_TEST(test_a_level_that_recovers_while_queued_stands_the_ask_down);
     return UNITY_END();
 }

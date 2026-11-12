@@ -53,10 +53,8 @@ constexpr uint64_t kGraceMs = 15 * kMinute;
 // The month's last days, by which every trouble is long over.
 constexpr uint64_t kLateFrom = 27 * kDay;
 
-// How long someone waits before trying the faucet again after a poor glass, and how long
-// the machine is off when they switch it off and on first.
+// How long someone waits before trying the faucet again after a poor glass.
 constexpr uint64_t kTryAgainMs = 3 * kMinute;
-constexpr uint64_t kOffAndOnMs = 10 * kSecond;
 
 struct Glass {
     uint64_t at;
@@ -93,10 +91,11 @@ struct Kitchen {
     uint32_t lateGlasses = 0, lateSoda = 0;   // in the month's last days
     std::vector<std::pair<uint64_t, uint64_t>> troubles;   // [from, until] in month time
 
-    // A person who gets a poor glass switches the machine off and on, and tries again shortly.
-    bool restartsIt = false;
+    // A person who gets a poor glass goes to the machine, does what its display says and
+    // has it try the water again, then tries the faucet again shortly.
+    bool asksAgain = false;
     bool tryingAgain = false;
-    uint32_t restarts = 0;
+    uint32_t retries = 0;                  // asks that found a refill standing latched
     std::vector<Glass> again;
     std::vector<std::pair<uint64_t, std::function<void(Kitchen &)>>> later;
     std::function<void(Kitchen &)> watch;
@@ -120,6 +119,11 @@ struct Kitchen {
     uint32_t refillChatter = 0;            // relay #2 closed again within a second of opening
     uint64_t refillOffAt = 0;
     bool     refillEverOff = false;
+    // Pumping on one owed refill since it was asked for or someone last asked again, through
+    // every restart, and the most that ever reached.
+    uint64_t pumpedUnasked = 0;
+    uint64_t mostPumpedUnasked = 0;
+    uint64_t pumpedMs = 0;
 };
 
 bool relayClosed(int pin) { return host::modes[pin] == OUTPUT; }
@@ -182,10 +186,11 @@ void closeGlass(Kitchen &k) {
         if (got == Poured::Soda) k.lateSoda++;
     }
     k.faucetOpen = false;
-    if (got != Poured::Soda && k.restartsIt && !k.tryingAgain && k.powered) {
-        cutPower(k);
-        k.restarts++;
-        k.later.push_back({k.t + kOffAndOnMs, [](Kitchen &back) { boot(back); }});
+    if (got != Poured::Soda && k.asksAgain && !k.tryingAgain && k.powered) {
+        if (machineRefillRetry()) {
+            k.retries++;
+            k.pumpedUnasked = 0;
+        }
         k.again.push_back({k.t + kTryAgainMs, 6000, host::flavor});
     }
     k.tryingAgain = false;
@@ -275,6 +280,14 @@ void step(Kitchen &k, uint32_t dtMs) {
         k.refillOffAt   = k.t;
         k.refillEverOff = true;
     }
+    if (refillNow) {
+        k.pumpedMs      += dtMs;
+        k.pumpedUnasked += dtMs;
+        k.mostPumpedUnasked = std::max(k.mostPumpedUnasked, k.pumpedUnasked);
+    }
+    MachineThermal thermal;
+    machineThermal(thermal);
+    if (thermal.refillState == static_cast<uint8_t>(machine_policy::RefillState::Idle)) k.pumpedUnasked = 0;
     k.compressorWas = compressorNow;
     k.refillWas     = refillNow;
 }
@@ -386,14 +399,16 @@ void never(const Kitchen &k) {
     TEST_ASSERT_FALSE_MESSAGE(host::pumpClosedAgainstDrive, "a valve closed against a running flavor pump");
     TEST_ASSERT_TRUE_MESSAGE(k.peakLevelMl <= plant::kHighReedMl + plant::kReedWindowMl,
                              "the carbonator was filled past its high reed");
+    TEST_ASSERT_TRUE_MESSAGE(k.mostPumpedUnasked <= machine_policy::kRefillCeilingMs + kIdleStepMs,
+                             "one refill was pumped past its ceiling with nobody asking for it");
 }
 
 void report(const char *name, const Kitchen &k) {
     printf("\n%s: %lu glasses — %lu soda, %lu plain, %lu dry; %lu refills, %lu compressor runs, %lu boots, "
-           "%lu of them someone switching it off and on\n",
+           "%lu times someone had it try the water again\n",
            name, (unsigned long)k.glasses, (unsigned long)k.soda, (unsigned long)k.plain,
            (unsigned long)k.dry, (unsigned long)k.refills, (unsigned long)k.compressorRuns,
-           (unsigned long)k.boots, (unsigned long)k.restarts);
+           (unsigned long)k.boots, (unsigned long)k.retries);
     printf("  record: %lu pours, %lu refills full, %lu timed out, %lu compressor runs, %lu cold, %lu io, %lu gas\n",
            (unsigned long)noted(machine_log::Kind::Pour),
            (unsigned long)notedRefills(machine_log::RefillEnd::Full),
@@ -412,9 +427,11 @@ void fresh() {
     host::flavor = 0;
     host::ratio  = 20;
     host::probeCount = 2;
-    host::refillOwedInFlash = false;
-    host::refillOwedWrites  = 0;
-    host::flashForgets      = false;
+    host::refillOwedInFlash  = false;
+    host::refillSpentInFlash = 0;
+    host::refillOwedWrites   = 0;
+    host::refillSpentWrites  = 0;
+    host::flashForgets       = false;
     host::busMs             = 1;   // a bus that takes time, as the board's does
     host::gasMv             = 0;
     host::attachSucceeds    = true;
@@ -457,12 +474,12 @@ void test_an_ordinary_month() {
 void test_a_month_of_trouble() {
     fresh();
     Kitchen k;
-    // Two things carry a machine through this month: the flash keeping an owed refill, and
-    // someone switching the machine off and on after a refill has timed out, which is the
-    // one thing at the machine that sets it trying again. Run with either taken away to see
-    // what it is for: MONTH_FLASH_FORGETS=1 or MONTH_NOBODY_RESTARTS_IT=1.
+    // Two things carry a machine through this month: the flash keeping an owed refill and
+    // the pumping time spent on it, and someone at the machine having it try the water again
+    // after a refill has timed out, which nothing else does. Run with either taken away to
+    // see what it is for: MONTH_FLASH_FORGETS=1 or MONTH_NOBODY_ASKS=1.
     host::flashForgets = getenv("MONTH_FLASH_FORGETS") != nullptr;
-    k.restartsIt       = getenv("MONTH_NOBODY_RESTARTS_IT") == nullptr;
+    k.asksAgain        = getenv("MONTH_NOBODY_ASKS") == nullptr;
     boot(k, kClockNearWrap);
 
     const uint64_t pitcherAt = 6 * kDay + 10 * kHour;
@@ -545,10 +562,10 @@ void test_a_month_of_trouble() {
     TEST_ASSERT_EQUAL_UINT32_MESSAGE(0, k.unexplained, "a poor glass came with no trouble to explain it");
     TEST_ASSERT_TRUE(k.lateGlasses > 0);
     TEST_ASSERT_EQUAL_UINT32_MESSAGE(k.lateGlasses, k.lateSoda, "the month did not end with every glass a soda");
-    // The water being shut off leaves a refill timed out, and it is someone switching the
-    // machine off and on that sets it filling again.
-    TEST_ASSERT_TRUE(k.restarts >= 1);
-    TEST_ASSERT_EQUAL_UINT32(5 + k.restarts, k.boots);
+    // The water being shut off leaves a refill timed out, and it is someone at the machine
+    // that sets it filling again.
+    TEST_ASSERT_TRUE(k.retries >= 1);
+    TEST_ASSERT_EQUAL_UINT32(5, k.boots);
 
     // It ends as a machine that is working: its drivers verified, nothing latched, water in it.
     TEST_ASSERT_TRUE(machineIoReady());
@@ -565,8 +582,11 @@ void test_a_month_of_trouble() {
     TEST_ASSERT_TRUE(host::played[SND_ALARM] >= 1);
     TEST_ASSERT_TRUE(host::played[SND_FAULT] >= 1);
 
-    // The flash is written when a refill is owed and when it is paid, and no oftener.
+    // The flash is written when a refill is owed and when it is paid, and for each step of
+    // pumping, and no oftener.
     TEST_ASSERT_TRUE(host::refillOwedWrites <= 2 * k.refills + 2 * k.boots);
+    TEST_ASSERT_TRUE(host::refillSpentWrites <=
+                     2 * k.refills + 2 * k.boots + k.pumpedMs / machine_policy::kRefillKeepStepMs);
 }
 
 }  // namespace

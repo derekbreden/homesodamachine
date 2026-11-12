@@ -149,15 +149,36 @@ reeds can close together in an RC62 activation overlap; the high reed keeps refi
 Once the water has fallen through the low reed a refill is owed until the high reed pays
 it. Below the low reed's window no reed is closed, so nothing a later reading shows could
 raise the ask again; it is therefore kept through a pour, through reeds that cannot be read,
-and, in flash ([`refill_store.cpp`](refill_store.cpp)), through a power cut. A pump-time
-timeout sounds `fault` and stays latched and still owed: `refill clear` or a restart sets it
-trying again, and nothing else does. `refill fill` asks for a fill whatever the reeds read,
-which is how an empty carbonator is first filled; `refill forget` drops a refill that is owed. A reading put in with `sim` is not the
-water: what it asks for is not kept, and ends with `sim off`.
+and, in flash ([`refill_store.cpp`](refill_store.cpp)), through a power cut, together with
+the pumping time spent on it. That count is written ahead of the pump, a step of
+`kRefillKeepStepMs` at a time, so a board that restarts — once, or in a loop — takes up the
+ceiling it left and cannot buy the pump another. A pump-time timeout sounds `fault` and stays
+latched and still owed through every restart. The machine cannot tell a supply that is shut
+off from a line that has come off, so only someone told what to look at sets it trying again:
+**Try again** on the machine's own display (`MSG_REFILL_RETRY`), or `refill clear` here.
+`refill fill` asks for a fill whatever the reeds read, which is how an empty carbonator is
+first filled; `refill latch` stands a refill latched as one that spent its ceiling does, to
+see what the glasses say; `refill forget` drops a refill that is owed. A reading put in with
+`sim` is not the water: what it asks for is not kept, and ends with `sim off`.
 
 `status` prints both loops with their relays; `thermal` walks the bus; `sim` puts a reading at
 the top of either so the policy, the relays and the fan can be exercised with no probe on the
 bench, and says `SIMULATED` on every `status` while one stands.
+
+## What the glasses are told
+
+`machineNotice()` is the one answer to why the machine is not making soda, and both links
+carry it: `MSG_NOTICE` on J3's heartbeat to the faucet, which says so and points at the
+machine, and `StatusPayload::notice` to the machine's own display and a phone. A refill that
+stands latched is `NOTICE_NO_WATER`. The machine's display says what to check and offers
+**Not now** and **Try again**, once each time it wakes and each time the latch is new. A
+notice that comes up lights both glasses.
+
+A machine on a bench has no water to find. `notice hold <name>…` from a host on this console
+keeps the named notices off both glasses for `kNoticeHoldLeaseMs`, and a host that stays says
+it again; `notice release`, a lapsed lease or a restart ends it. Only what the glasses say is
+held: a refill that stands latched still stands. [`tools/bench.md`](/tools/bench.md) is the
+laptop that says it.
 
 ## When something stops answering
 
@@ -227,7 +248,7 @@ clock or `-`, what it was, and that thing's own fields by name —
 | `faucet_link.cpp` | J3 full-duplex flavor acknowledgements, shared-prime controls/state, and what a phone may ask |
 | `flavor.cpp` | main-board-owned flavor state and deferred NVS persistence |
 | `rtc.cpp` | U6 DS3231 — what hour it is, and whether that answer can be believed |
-| `refill_store.cpp` | the one fact the refill keeps through a power cut: that it is owed |
+| `refill_store.cpp` | what the refill keeps through a power cut: that it is owed, and the pumping time spent on it |
 | `recorder.cpp` | the machine's record: entries waiting for an idle moment, the flash they are kept in, the console's `log` |
 | `pins.h` | what this image reaches on the main board, off `pcba.tsx` |
 | [`/firmware/lib/sound`](/firmware/lib/sound/sound.h) | U8, IO13, and the machine's sounds — shared with the bench |
@@ -250,6 +271,7 @@ pio device monitor -e appliance
 | `fill <a\|b> [s]` | the funnel fill: the channel's funnel path open and its pump drawing, for `s` s (default 80) or until the reservoir's full reed closes |
 | `clean <a\|b> [rounds] [s]` | the clean cycle: the funnel pumped through to the faucet, then tap water pumped into the reservoir and out the faucet, `rounds` times (default 3); `s` caps every step (default 141 funnel, 240 in, 248 out) |
 | `ui <page> [a\|b] [go]` | put a customer page on the enclosure — choose, prime, fill, clean, settings — optionally for a flavor, `go` pressing its START |
+| `ui notice [go\|no]` | put the no-water notice up on the enclosure while a refill stands latched; `go` presses Try again and `no` presses Not now |
 | `flavor [a\|b]` | read or set the main-board-owned flavor selection, and the logo pair beside it |
 | `ratio [a\|b] [6-24]` | read or set what a channel pours at, persisted in NVS and carried to the enclosure on its next poll |
 | `art [<a> <b>]` | read or set which logo each channel wears, persisted in NVS and published to both glasses |
@@ -258,7 +280,9 @@ pio device monitor -e appliance
 | `purge <a\|b> [s]` | air into that reservoir, then the reservoir out the faucet until its empty reed opens; `s` caps every step |
 | `flow <n> [s]` | the meter without water: `n` pulses per 50 ms for `s` s (default 5), and the selected channel pours against that reading |
 | `selftest` | [`firmware-and-commissioning.md`](/hardware/assembly/firmware-and-commissioning.md) §7: V-A through V-K for a quarter second each, the condenser fan for a second, then each pump for a second, one load at a time, each parked and read back before the next |
-| `refill clear` | set a refill that timed out trying again |
+| `refill clear` | grant a latched refill another pumping ceiling and set it trying again |
+| `refill latch` | stand a refill latched as one that spent its ceiling does |
+| `notice [hold <name>…\|release]` | what the glasses are told, and a bench host's hold on it: keep the named notices (`no-water`) off both glasses for a lease the host renews |
 | `refill fill` | fill the carbonator now, whatever its reeds read: to the high reed or the pumping ceiling |
 | `refill forget` | drop a refill that is owed, and the flash's note of it |
 | `stop` | end whatever is running |

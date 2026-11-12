@@ -1048,32 +1048,167 @@ void carbonatorReeds(bool low, bool high) {
     if (high) pins &= static_cast<uint8_t>(~0x20);
 }
 
+// The power goes and comes back: every load dropped, nothing in RAM, the clock at zero.
+void restart() {
+    host::now = 0;
+    memset(host::duties, 0, sizeof(host::duties));
+    memset(host::modes, 0, sizeof(host::modes));
+    reedCacheValid = false;
+    reedIdleMs = 0;
+    machineBegin();
+}
+
+bool refillRelayClosed() {
+    MachineThermal thermal;
+    machineThermal(thermal);
+    return thermal.refillRelay;
+}
+
+uint8_t refillStateNow() {
+    MachineThermal thermal;
+    machineThermal(thermal);
+    return thermal.refillState;
+}
+
 void test_a_refill_owed_when_the_power_went_is_resumed_by_the_boot_after() {
     carbonatorReeds(true, false);
     runFor(machine_policy::kRefillDebounceMs + 3000);
     TEST_ASSERT_EQUAL(ST_REFILLING, machineState());
     TEST_ASSERT_TRUE(host::refillOwedInFlash);
+    // The step being pumped is in the flash before it has been pumped.
+    TEST_ASSERT_EQUAL_UINT32(machine_policy::kRefillKeepStepMs, host::refillSpentInFlash);
 
     // The power goes with the water below the low reed's window: no reed is closed.
     carbonatorReeds(false, false);
-    host::now = 0;
-    memset(host::modes, 0, sizeof(host::modes));
-    reedCacheValid = false;
-    reedIdleMs = 0;
-    machineBegin();
+    restart();
     TEST_ASSERT_EQUAL(ST_IDLE, machineState());
     runFor(3000);
     TEST_ASSERT_EQUAL(ST_REFILLING, machineState());
-    MachineThermal thermal;
-    machineThermal(thermal);
-    TEST_ASSERT_TRUE(thermal.refillRelay);
+    TEST_ASSERT_TRUE(refillRelayClosed());
+    // And the boot after takes that step as spent, and counts the next ahead of it.
+    TEST_ASSERT_EQUAL_UINT32(2 * machine_policy::kRefillKeepStepMs, host::refillSpentInFlash);
 
     // The high reed pays it, and the flash is told.
     carbonatorReeds(false, true);
     runAt(host::now + 1000);
     TEST_ASSERT_EQUAL(ST_IDLE, machineState());
     TEST_ASSERT_FALSE(host::refillOwedInFlash);
+    TEST_ASSERT_EQUAL_UINT32(0, host::refillSpentInFlash);
     expectParked();
+}
+
+void test_restarts_cannot_buy_the_pump_more_than_its_ceiling() {
+    // An empty carbonator and no water arriving: both reeds stay open.
+    machineRefillRequest();
+    runFor(1000);
+    TEST_ASSERT_EQUAL(ST_REFILLING, machineState());
+
+    // The board restarts every twenty seconds, for whatever reason, for an hour.
+    uint32_t pumpedMs = 0;
+    uint32_t boots = 0;
+    for (; boots < 180; boots++) {
+        for (uint32_t t = 0; t < 20000; t += 250) {
+            runAt(host::now + 250);
+            if (refillRelayClosed()) pumpedMs += 250;
+        }
+        restart();
+    }
+    TEST_ASSERT_TRUE(pumpedMs <= machine_policy::kRefillCeilingMs);
+    TEST_ASSERT_TRUE(pumpedMs >= machine_policy::kRefillCeilingMs / 2);
+
+    // It has come up latched, with the flash saying why, and a further restart changes
+    // nothing: the pump stays off.
+    runFor(5000);
+    TEST_ASSERT_EQUAL(ST_IDLE, machineState());
+    TEST_ASSERT_EQUAL_UINT8(static_cast<uint8_t>(machine_policy::RefillState::Timeout), refillStateNow());
+    TEST_ASSERT_TRUE(host::refillOwedInFlash);
+    TEST_ASSERT_EQUAL_UINT32(machine_policy::kRefillCeilingMs, host::refillSpentInFlash);
+    restart();
+    for (uint32_t t = 0; t < 600000; t += 1000) {
+        runAt(host::now + 1000);
+        TEST_ASSERT_FALSE(refillRelayClosed());
+    }
+    TEST_ASSERT_EQUAL_UINT8(static_cast<uint8_t>(machine_policy::RefillState::Timeout), refillStateNow());
+
+    // Someone told to look asks for the water again, and the pump has a whole ceiling.
+    TEST_ASSERT_TRUE(machineRefillRetry());
+    runFor(1000);
+    TEST_ASSERT_EQUAL(ST_REFILLING, machineState());
+    TEST_ASSERT_EQUAL_UINT32(machine_policy::kRefillKeepStepMs, host::refillSpentInFlash);
+    const uint32_t retried = host::now;
+    for (uint32_t t = 1000; t < machine_policy::kRefillCeilingMs - 2000; t += 1000) runAt(retried + t);
+    TEST_ASSERT_EQUAL(ST_REFILLING, machineState());
+    carbonatorReeds(false, true);
+    runAt(host::now + 1000);
+    TEST_ASSERT_EQUAL(ST_IDLE, machineState());
+    TEST_ASSERT_FALSE(host::refillOwedInFlash);
+    TEST_ASSERT_EQUAL_UINT32(0, host::refillSpentInFlash);
+    expectParked();
+}
+
+void test_a_refill_latched_from_the_console_stands_as_a_timed_out_one_does() {
+    runFor(5000);
+    machineRefillLatch();
+    runFor(1000);
+    TEST_ASSERT_EQUAL(ST_IDLE, machineState());
+    TEST_ASSERT_EQUAL_UINT8(static_cast<uint8_t>(machine_policy::RefillState::Timeout), refillStateNow());
+    TEST_ASSERT_TRUE(host::refillOwedInFlash);
+    TEST_ASSERT_EQUAL_UINT32(machine_policy::kRefillCeilingMs, host::refillSpentInFlash);
+    restart();
+    runFor(5000);
+    TEST_ASSERT_EQUAL_UINT8(static_cast<uint8_t>(machine_policy::RefillState::Timeout), refillStateNow());
+    TEST_ASSERT_FALSE(refillRelayClosed());
+    TEST_ASSERT_TRUE(machineRefillRetry());
+    TEST_ASSERT_FALSE(machineRefillRetry());
+    runFor(1000);
+    TEST_ASSERT_EQUAL(ST_REFILLING, machineState());
+    machineRefillForget();
+    TEST_ASSERT_FALSE(host::refillOwedInFlash);
+    TEST_ASSERT_EQUAL_UINT32(0, host::refillSpentInFlash);
+}
+
+void test_a_bench_holds_a_notice_off_the_glasses_and_nothing_else() {
+    runFor(5000);
+    TEST_ASSERT_EQUAL_UINT8(NOTICE_NONE, machineNotice());
+    machineRefillLatch();
+    runFor(1000);
+    TEST_ASSERT_EQUAL_UINT8(NOTICE_NO_WATER, machineNotice());
+
+    // Held, the glasses are told nothing. The refill still stands latched and still owed.
+    machineNoticeHold(static_cast<uint8_t>(1u << NOTICE_NO_WATER));
+    TEST_ASSERT_EQUAL_UINT8(NOTICE_NONE, machineNotice());
+    TEST_ASSERT_EQUAL_UINT8(NOTICE_NO_WATER, machineNoticeStanding());
+    TEST_ASSERT_TRUE(machineRefillLatched());
+    TEST_ASSERT_TRUE(host::refillOwedInFlash);
+    runFor(60000);
+    TEST_ASSERT_FALSE(refillRelayClosed());
+    TEST_ASSERT_EQUAL_UINT8(NOTICE_NONE, machineNotice());
+
+    // A hold that is not said again lapses with its lease, and the notice is back.
+    runAt(host::now + kNoticeHoldLeaseMs - 62000);
+    TEST_ASSERT_EQUAL_UINT8(NOTICE_NONE, machineNotice());
+    runAt(host::now + 2000);
+    TEST_ASSERT_EQUAL_UINT8(NOTICE_NO_WATER, machineNotice());
+    TEST_ASSERT_EQUAL_UINT8(0, machineNoticeHeld());
+
+    // Said again in time it goes on; released it ends at once; a hold on another notice
+    // leaves this one showing; and a board that restarts starts with none.
+    machineNoticeHold(static_cast<uint8_t>(1u << NOTICE_NO_WATER));
+    runAt(host::now + kNoticeHoldLeaseMs - 1000);
+    machineNoticeHold(static_cast<uint8_t>(1u << NOTICE_NO_WATER));
+    runAt(host::now + kNoticeHoldLeaseMs - 1000);
+    TEST_ASSERT_EQUAL_UINT8(NOTICE_NONE, machineNotice());
+    machineNoticeHold(0);
+    TEST_ASSERT_EQUAL_UINT8(NOTICE_NO_WATER, machineNotice());
+    machineNoticeHold(static_cast<uint8_t>(1u << 5));
+    TEST_ASSERT_EQUAL_UINT8(NOTICE_NO_WATER, machineNotice());
+    machineNoticeHold(static_cast<uint8_t>(1u << NOTICE_NO_WATER));
+    TEST_ASSERT_EQUAL_UINT8(NOTICE_NONE, machineNotice());
+    restart();
+    runFor(1000);
+    TEST_ASSERT_EQUAL_UINT8(NOTICE_NO_WATER, machineNotice());
+    machineRefillForget();
+    TEST_ASSERT_EQUAL_UINT8(NOTICE_NONE, machineNotice());
 }
 
 void test_a_timed_out_refill_waits_to_be_told_to_try_again() {
@@ -1087,6 +1222,7 @@ void test_a_timed_out_refill_waits_to_be_told_to_try_again() {
     machineThermal(thermal);
     TEST_ASSERT_EQUAL_UINT8(static_cast<uint8_t>(machine_policy::RefillState::Timeout), thermal.refillState);
     TEST_ASSERT_TRUE(host::refillOwedInFlash);
+    TEST_ASSERT_EQUAL_UINT32(machine_policy::kRefillCeilingMs, host::refillSpentInFlash);
 
     // Nothing the machine goes on doing starts the pump again.
     const uint32_t gaveUp = host::now;
@@ -1098,14 +1234,22 @@ void test_a_timed_out_refill_waits_to_be_told_to_try_again() {
     TEST_ASSERT_EQUAL_UINT8(static_cast<uint8_t>(machine_policy::RefillState::Timeout), thermal.refillState);
     TEST_ASSERT_TRUE(host::refillOwedInFlash);
 
-    // The console's `refill clear` does.
-    machineRefillClear();
+    // Nor does a restart: the boot after finds the ceiling spent.
+    restart();
+    runFor(10000);
+    TEST_ASSERT_EQUAL(ST_IDLE, machineState());
+    TEST_ASSERT_FALSE(refillRelayClosed());
+    TEST_ASSERT_EQUAL_UINT8(static_cast<uint8_t>(machine_policy::RefillState::Timeout), refillStateNow());
+
+    // Being asked to try again does.
+    TEST_ASSERT_TRUE(machineRefillRetry());
     runFor(3000);
     TEST_ASSERT_EQUAL(ST_REFILLING, machineState());
     carbonatorReeds(false, true);
     runAt(host::now + 1000);
     TEST_ASSERT_EQUAL(ST_IDLE, machineState());
     TEST_ASSERT_FALSE(host::refillOwedInFlash);
+    TEST_ASSERT_EQUAL_UINT32(0, host::refillSpentInFlash);
 }
 
 void test_a_refill_a_pretend_reading_asked_for_is_not_kept_and_ends_with_it() {
@@ -1115,6 +1259,7 @@ void test_a_refill_a_pretend_reading_asked_for_is_not_kept_and_ends_with_it() {
     TEST_ASSERT_EQUAL(ST_REFILLING, machineState());
     TEST_ASSERT_FALSE(host::refillOwedInFlash);
     TEST_ASSERT_EQUAL_UINT32(0, host::refillOwedWrites);
+    TEST_ASSERT_EQUAL_UINT32(0, host::refillSpentWrites);
     machineSimClear();
     TEST_ASSERT_EQUAL(ST_IDLE, machineState());
     runAt(host::now + 5000);
@@ -1160,7 +1305,9 @@ void setUp() {
     host::attachSucceeds = true;
     host::pumpClosedAgainstDrive = false;
     host::refillOwedInFlash = false;
+    host::refillSpentInFlash = 0;
     host::refillOwedWrites = 0;
+    host::refillSpentWrites = 0;
     host::flashForgets = false;
     host::sounding = SND_NONE;
     memset(host::duties, 0, sizeof(host::duties));
@@ -1226,6 +1373,9 @@ int main(int, char **) {
     RUN_TEST(test_a_bus_glitch_does_not_cost_the_machine_its_valves_until_a_power_cycle);
     RUN_TEST(test_the_valve_drivers_are_not_reverified_under_a_running_operation);
     RUN_TEST(test_a_refill_owed_when_the_power_went_is_resumed_by_the_boot_after);
+    RUN_TEST(test_restarts_cannot_buy_the_pump_more_than_its_ceiling);
+    RUN_TEST(test_a_refill_latched_from_the_console_stands_as_a_timed_out_one_does);
+    RUN_TEST(test_a_bench_holds_a_notice_off_the_glasses_and_nothing_else);
     RUN_TEST(test_a_timed_out_refill_waits_to_be_told_to_try_again);
     RUN_TEST(test_a_refill_a_pretend_reading_asked_for_is_not_kept_and_ends_with_it);
     RUN_TEST(test_a_fill_asked_for_at_the_console_runs_to_the_high_reed_and_can_be_forgotten);

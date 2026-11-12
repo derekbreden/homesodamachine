@@ -110,6 +110,17 @@ bool sendIdle() {
     return false;
 }
 
+// Why there is no soda, for the faucet's glass. Absolute and on the heartbeat, like the idle
+// state above, and on its own message so a faucet built before it is unaffected.
+bool sendNotice() {
+    NoticePayload notice{machineNotice()};
+    if (faucet.trySend(MSG_NOTICE, &notice, sizeof(notice)) >= 0) {
+        ++framesTx;
+        return true;
+    }
+    return false;
+}
+
 bool sendArt() {
     FlavorArtPayload art{{flavorArt(0), flavorArt(1)}};
     if (faucet.trySend(MSG_RESP_FLAVOR_ART, &art, sizeof(art)) >= 0) {
@@ -748,6 +759,7 @@ void faucetLinkService() {
         // presence the machine stopped believing in, and nothing would say so
         // again until the next transition — which is one touch away from never.
         sendIdle();
+        sendNotice();
     }
 
     faucet.service();
