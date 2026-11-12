@@ -519,6 +519,10 @@ constexpr uint8_t LEVEL_F_CARB_LOW  = 1 << 1;  // the carbonator's low reed is c
 constexpr uint8_t LEVEL_F_CARB_HIGH = 1 << 2;  // its high reed is closed
 constexpr uint8_t LEVEL_F_SIMULATED = 1 << 3;  // a reading injected from the main board's
                                                // console, not read off a probe or an expander
+constexpr uint8_t LEVEL_F_CARB_BELOW = 1 << 4; // while the machine is moving: the carbonator's
+                                               // float has passed down through its low reed.
+                                               // Below that reed both read open, as they do
+                                               // between the two, so the reeds alone cannot say it
 
 // ── A page asked for by the console ──────────────────────────────────────
 constexpr uint8_t UI_RAIL_CHOOSE   = 0;
@@ -1084,16 +1088,26 @@ static_assert(sizeof(LogEntryPayload) == sizeof(StatusPayload),
 // The faucet's glass is where the hand is, so its notice carries how far the sweep has got
 // and whether gas is moving now. The machine's own display sends the person to the faucet,
 // and MSG_SWEEP_SKIP is its way to have the tank filled without a sweep.
+//
+// A machine that is to be moved is told so at its own display before the plug comes out
+// (MSG_MOVE_BEGIN): the board cannot see a tank emptied with the power off. While it is
+// moving it starts no refill and opens no pour, the faucet's glass says to hold the lever
+// until nothing comes out, and MSG_MOVE_CANCEL calls it off. The power going is what ends
+// it, and the board that starts next owes a sweep: the same first start as a new machine's.
 constexpr uint8_t MSG_NOTICE       = 0x78;  // NoticePayload: main board → faucet
 constexpr uint8_t MSG_REFILL_RETRY = 0x79;  // no payload: enclosure → main board, answered with StatusPayload
 constexpr uint8_t MSG_SWEEP_SKIP   = 0x7A;  // no payload: enclosure → main board, answered with StatusPayload
+constexpr uint8_t MSG_MOVE_BEGIN   = 0x7B;  // no payload: enclosure → main board, answered with StatusPayload
+constexpr uint8_t MSG_MOVE_CANCEL  = 0x7C;  // no payload: enclosure → main board, answered with StatusPayload
 
 constexpr uint8_t NOTICE_NONE       = 0;
 constexpr uint8_t NOTICE_NO_WATER   = 1;  // a refill stands latched at its pumping ceiling
 constexpr uint8_t NOTICE_SWEEP      = 2;  // the dry tank's air goes out at the faucet before its first fill
 constexpr uint8_t NOTICE_SWEEP_DONE = 3;  // that sweep has met its target: let go of the lever
+constexpr uint8_t NOTICE_MOVE       = 4;  // the machine is moving: its tank is being emptied at the faucet
 
-constexpr uint8_t NOTICE_F_FLOWING = 1 << 0;  // NOTICE_SWEEP: gas is moving through the tank now
+constexpr uint8_t NOTICE_F_FLOWING = 1 << 0;  // NOTICE_SWEEP, NOTICE_MOVE: the meter is turning now
+constexpr uint8_t NOTICE_F_BELOW   = 1 << 1;  // NOTICE_MOVE: the float has passed down through the low reed
 
 // The kind comes first and a glass reads the bytes it knows, so a reason that needs more
 // than its name appends them. A glass takes bytes that do not arrive as zero.

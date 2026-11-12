@@ -108,6 +108,13 @@ over: met, or given up at the machine with the lever still down. `NoticePayload`
 percent and whether gas is moving; bytes a main board does not send read as zero. Each face
 the strip wears sends its laid-out sizes once.
 
+A move is at the lever too. The machine's display has said to shut the supplies and empty
+the tank here, so the strip says **Draining** and to hold the lever until nothing comes out,
+and **Keep holding** while the meter turns. The main board cannot tell an empty tank: its
+notice says only whether the meter is turning and whether the float has passed the low reed.
+Once it has and the flow has stopped, the strip asks **Nothing more?** and says to unplug
+the machine.
+
 Trusted phones are kept in NVS namespace `trust` by pairing — the identity address and a digest
 of the bond's key — sixteen at most, oldest dropped first, through every restart and update. A
 phone that forgets the machine and pairs again holds a new key, and is asked again. **Forget

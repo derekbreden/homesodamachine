@@ -163,7 +163,8 @@ static uint8_t   trustShownAsk = 0;   // the ask on the glass; 0 while none is
 static lv_obj_t *noticeLayer, *noticeTitleLbl, *noticeBodyLbl, *noticeTrack, *noticeFill;
 static uint8_t   noticeKind = NOTICE_NONE;   // what the main board says stops the soda
 static uint8_t   noticeProgress = 0;         // a sweep's count, percent
-static bool      noticeFlowing = false;      // gas is moving through the tank now
+static bool      noticeFlowing = false;      // the meter is turning now
+static bool      noticeBelow = false;        // a move: the float has passed the low reed
 static uint8_t   noticeFace = 0xFF;          // which words the strip wears, NOTICE_FACE_*; none yet
 static uint8_t   noticeFaceSaid = 0xFF;      // the face whose layout the console last heard
 static bool trustLayoutReserved = false;
@@ -1131,12 +1132,21 @@ static void buildTrustLayer(lv_obj_t *scr) {
 // the dry tank's air out, so the hand and the eyes are here: the strip asks
 // for the lever, shows the main board's count as a bar while gas is moving,
 // and says when to let go.
+//
+// A move is at the lever too. The machine's display has told the person to
+// shut the supplies and empty the tank here, so the strip says to hold the
+// lever until nothing comes out. The main board cannot tell an empty tank: it
+// says only whether the meter is turning and whether the float has passed
+// the low reed, and once it has and the flow has stopped the strip asks.
 enum : uint8_t {
   NOTICE_FACE_NO_WATER,
   NOTICE_FACE_SWEEP_ASK,     // nothing counted yet
   NOTICE_FACE_SWEEP_HOLD,    // gas is moving
   NOTICE_FACE_SWEEP_AGAIN,   // the lever was let go short of the target
   NOTICE_FACE_SWEEP_DONE,
+  NOTICE_FACE_MOVE_ASK,      // nothing is leaving
+  NOTICE_FACE_MOVE_HOLD,     // the meter is turning
+  NOTICE_FACE_MOVE_STOPPED,  // the float is below the low reed and nothing is leaving
 };
 
 #define NOTICE_BAR_W (SCREEN_W - 32)
@@ -1212,8 +1222,13 @@ static void noticeDress() {
     face = noticeFlowing    ? NOTICE_FACE_SWEEP_HOLD
          : noticeProgress   ? NOTICE_FACE_SWEEP_AGAIN
                             : NOTICE_FACE_SWEEP_ASK;
+  else if (noticeKind == NOTICE_MOVE)
+    face = noticeFlowing    ? NOTICE_FACE_MOVE_HOLD
+         : noticeBelow      ? NOTICE_FACE_MOVE_STOPPED
+                            : NOTICE_FACE_MOVE_ASK;
 
-  const bool sweep = face != NOTICE_FACE_NO_WATER;
+  // Only a sweep has a count to show, and its bar stands between the title and the words.
+  const bool sweep = face >= NOTICE_FACE_SWEEP_ASK && face <= NOTICE_FACE_SWEEP_DONE;
   lv_obj_set_width(noticeFill, (lv_coord_t)(NOTICE_BAR_W * (uint32_t)noticeProgress / 100));
   if (face == noticeFace) return;
   noticeFace = face;
@@ -1242,6 +1257,21 @@ static void noticeDress() {
       body  = "Let go. The machine\nfills itself now.";
       color = COL_GOOD;
       break;
+    case NOTICE_FACE_MOVE_ASK:
+      title = "Draining";
+      body  = "Hold the lever until\nnothing comes out.";
+      color = COL_TEXT;
+      break;
+    case NOTICE_FACE_MOVE_HOLD:
+      title = "Keep holding";
+      body  = "Until water and\nhissing stop.";
+      color = COL_ACCENT;
+      break;
+    case NOTICE_FACE_MOVE_STOPPED:
+      title = "Nothing more?";
+      body  = "Then unplug\nthe machine.";
+      color = COL_TEXT;
+      break;
     default:
       break;
   }
@@ -1257,16 +1287,20 @@ static void noticeDress() {
 void faucetApplyNotice(const NoticePayload &notice) {
   // A reason this glass has no words for is not shown as one it has.
   uint8_t kind = notice.kind;
-  if (kind != NOTICE_NO_WATER && kind != NOTICE_SWEEP && kind != NOTICE_SWEEP_DONE) kind = NOTICE_NONE;
+  if (kind != NOTICE_NO_WATER && kind != NOTICE_SWEEP && kind != NOTICE_SWEEP_DONE && kind != NOTICE_MOVE)
+    kind = NOTICE_NONE;
   const uint8_t progress = kind == NOTICE_SWEEP_DONE ? 100
                          : kind != NOTICE_SWEEP      ? 0
                          : notice.progress > 100     ? 100
                                                      : notice.progress;
-  const bool flowing = kind == NOTICE_SWEEP && (notice.flags & NOTICE_F_FLOWING);
-  if (kind == noticeKind && progress == noticeProgress && flowing == noticeFlowing) return;
+  const bool flowing = (kind == NOTICE_SWEEP || kind == NOTICE_MOVE) && (notice.flags & NOTICE_F_FLOWING);
+  const bool below   = kind == NOTICE_MOVE && (notice.flags & NOTICE_F_BELOW);
+  if (kind == noticeKind && progress == noticeProgress && flowing == noticeFlowing && below == noticeBelow)
+    return;
   noticeKind     = kind;
   noticeProgress = progress;
   noticeFlowing  = flowing;
+  noticeBelow    = below;
   if (kind != NOTICE_NONE) noticeDress();
   trustLayoutService(nullptr);
 }

@@ -61,9 +61,14 @@ uint32_t refillOwedWrites   = 0;
 uint32_t refillSpentWrites  = 0;
 bool     flashForgets       = false;
 
-// What sweep_store keeps in flash: that the carbonator owes a sweep of its air.
-bool     sweepOwedInFlash = false;
-uint32_t sweepOwedWrites  = 0;
+// What sweep_store keeps in flash: that the carbonator owes a sweep of its air, and that the
+// machine was moving.
+bool     sweepOwedInFlash   = false;
+uint32_t sweepOwedWrites    = 0;
+bool     sweepMovingInFlash = false;
+
+// What refill_store keeps for good: that this carbonator has been filled.
+bool     refillFilledInFlash = false;
 
 class RegisterBus : public pcba::Transport {
 public:
@@ -200,6 +205,10 @@ void sweepOwedSave(bool owed) {
     host::sweepOwedInFlash = owed;
     host::sweepOwedWrites++;
 }
+bool sweepMovingLoad() { return host::sweepMovingInFlash && !host::flashForgets; }
+void sweepMovingSave(bool moving) { host::sweepMovingInFlash = moving; }
+bool refillFilledLoad() { return host::refillFilledInFlash && !host::flashForgets; }
+void refillFilledSave(bool filled) { host::refillFilledInFlash = filled; }
 
 // The recorder's queue and flash stay on the board; what machine.cpp notes is kept here.
 void recorderNote(machine_log::Kind kind, uint8_t detail,
