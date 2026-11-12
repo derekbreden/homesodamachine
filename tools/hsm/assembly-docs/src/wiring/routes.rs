@@ -1,12 +1,13 @@
 use super::*;
 use model::{V, add, mul, v};
+use terminals::State;
 const PITCH: f64 = 1.85;
 const J1: [&str; 7] = [
     "J1-COM", "J1-OUT3", "J1-OUT4", "J1-OUT5", "J1-OUT6", "J1-OUT7", "J1-OUT8",
 ];
 const J2: [&str; 4] = ["J2-OUT1", "J2-OUT2", "J2-FAN", "J2-COM"];
-fn p(at: &Value, id: &str) -> Result<V> {
-    terminals::point(at, id)
+fn p(at: &State, id: &str) -> Result<V> {
+    at.point(id)
 }
 fn text<'a>(c: &'a Value, key: &str) -> Result<&'a str> {
     string(&c[key])
@@ -44,10 +45,10 @@ pub fn manifold_site() -> Result<Value> {
 fn cable_sites() -> Result<Value> {
     hsm_kernel::reads::json("tools/hsm/assembly-docs/src/wiring/cable-sites.json")
 }
-pub fn pump_internal(at: &Value, x: f64, terminal_x: f64, lane: f64, n: f64) -> Result<Vec<V>> {
-    let rear = v(&at["passages"]["front-top-electrical"]["points_mm"][0])?;
-    let fore = v(&at["passages"]["front-top-electrical"]["points_mm"][1])?;
-    let cross = v(&at["passages"]["front-top-pump-cross"]["points_mm"][1])?;
+pub fn pump_internal(at: &State, x: f64, terminal_x: f64, lane: f64, n: f64) -> Result<Vec<V>> {
+    let rear = at.passage_point("front-top-electrical", 0)?;
+    let fore = at.passage_point("front-top-electrical", 1)?;
+    let cross = at.passage_point("front-top-pump-cross", 1)?;
     Ok(vec![
         [x, rear[1] + 14.5, rear[2] - 2.7 + n * 1.9],
         [x, rear[1] + 5.5, rear[2] - 4.5],
@@ -57,18 +58,18 @@ pub fn pump_internal(at: &Value, x: f64, terminal_x: f64, lane: f64, n: f64) -> 
         [terminal_x, cross[1] + lane, cross[2]],
     ])
 }
-pub fn display_internal(at: &Value, n: f64) -> Result<Vec<V>> {
+pub fn display_internal(at: &State, n: f64) -> Result<Vec<V>> {
     let x = (n - 1.5) * PITCH;
-    let rear = v(&at["passages"]["front-top-electrical"]["points_mm"][0])?;
-    let low = v(&at["passages"]["front-top-display-chimney"]["points_mm"][0])?;
-    let high = v(&at["passages"]["front-top-display-chimney"]["points_mm"][1])?;
+    let rear = at.passage_point("front-top-electrical", 0)?;
+    let low = at.passage_point("front-top-display-chimney", 0)?;
+    let high = at.passage_point("front-top-display-chimney", 1)?;
     Ok(vec![
         [x, rear[1], rear[2] + 4.5],
         [x, low[1], rear[2] + 4.5],
         [x, high[1], high[2]],
     ])
 }
-fn pump_terminal(c: &Value, at: &Value, n: f64) -> Result<Vec<V>> {
+fn pump_terminal(c: &Value, at: &State, n: f64) -> Result<Vec<V>> {
     let end = text(c, "end")?;
     let tab = p(at, end)?;
     let bank = end.split('.').next().unwrap();
@@ -81,22 +82,19 @@ fn pump_terminal(c: &Value, at: &Value, n: f64) -> Result<Vec<V>> {
     };
     pump_internal(at, x, tab[0], lane, n)
 }
-fn pump_lead(c: &Value, at: &Value, n: f64) -> Result<Vec<V>> {
+fn pump_lead(c: &Value, at: &State, n: f64) -> Result<Vec<V>> {
     let p = p(at, text(c, "start")?)?;
     let z = 277.3 + n * 1.9;
     let mut out = vec![[p[0], p[1], z], [-36., 157., z]];
     out.extend(pump_terminal(c, at, n)?);
     Ok(out)
 }
-fn station_rows(at: &Value, value: &Value) -> Result<Vec<V>> {
-    rows(value)?
-        .iter()
-        .map(|s| terminals::station(at, s))
-        .collect()
+fn station_rows(at: &State, value: &Value) -> Result<Vec<V>> {
+    rows(value)?.iter().map(|s| at.station(s)).collect()
 }
 fn guide(
     c: &Value,
-    at: &Value,
+    at: &State,
     groups: &BTreeMap<String, Vec<String>>,
     saved: &Value,
 ) -> Result<Vec<V>> {
@@ -196,7 +194,7 @@ fn guide(
                 ]);
                 return Ok(pts);
             }
-            let z = q[2] + v(&at["terminals"][end]["outward"])?[2] * (11. + (idx % 2) as f64 * 2.);
+            let z = q[2] + at.terminal(end)?.outward[2] * (11. + (idx % 2) as f64 * 2.);
             pts.extend([
                 [x, 190., last[2]],
                 [x, q[1] + 12., last[2]],
@@ -424,7 +422,7 @@ fn guide(
         _ => bail!("No installed route family for {id}"),
     }
 }
-fn dress_bank(c: &Value, guides: &[V], at: &Value, saved: &mut Value) -> Result<Option<Vec<V>>> {
+fn dress_bank(c: &Value, guides: &[V], at: &State, saved: &mut Value) -> Result<Option<Vec<V>>> {
     let (id, end, start) = (text(c, "id")?, text(c, "end")?, text(c, "start")?);
     if id == "J2-positive-K" {
         saved["note"] = json!(
@@ -512,7 +510,7 @@ fn dress_bank(c: &Value, guides: &[V], at: &Value, saved: &mut Value) -> Result<
     }
     Ok(Some(common))
 }
-fn dress(c: &Value, mut guides: Vec<V>, at: &Value, saved: &mut Value) -> Result<Vec<V>> {
+fn dress(c: &Value, mut guides: Vec<V>, at: &State, saved: &mut Value) -> Result<Vec<V>> {
     if boolean(saved, "preserve_stations", false) && has(saved, "stations") {
         return Ok(guides);
     }
@@ -571,7 +569,7 @@ pub fn routed(
     src: &sources::Sources,
     root: &Path,
     connections: &Value,
-    at: &Value,
+    at: &State,
 ) -> Result<Value> {
     let mut overrides = load(root, "hardware/wiring/installed/route-overrides.json")?;
     let mut groups: BTreeMap<String, Vec<String>> = BTreeMap::new();
@@ -640,11 +638,11 @@ pub fn routed(
         let b = p(at, end)?;
         let mut points = vec![
             a,
-            add(a, mul(v(&at["terminals"][start]["outward"])?, start_lead)),
+            add(a, mul(at.terminal(start)?.outward, start_lead)),
         ];
         points.extend(guides);
         points.extend([
-            add(b, mul(v(&at["terminals"][end]["outward"])?, end_lead)),
+            add(b, mul(at.terminal(end)?.outward, end_lead)),
             b,
         ]);
         let mut input = json!({"connection":c,"points":points,"note":saved.get("note").and_then(Value::as_str).unwrap_or("Selected installed route between native terminal frames."),"endpoint_tangent_fraction":optional(&saved,"endpoint_tangent_fraction",0.44)});

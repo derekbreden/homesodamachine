@@ -550,7 +550,10 @@ pub fn owner(part: &str) -> &str {
     }
     "back-top"
 }
-pub fn interfaces(terminals: &Value, graph: &Value) -> Result<Value> {
+pub fn interfaces(
+    terminals: &BTreeMap<String, terminals::Terminal>,
+    graph: &Value,
+) -> Result<Value> {
     let used = rows(graph)?
         .iter()
         .flat_map(|c| [c["start"].as_str().unwrap(), c["end"].as_str().unwrap()])
@@ -559,23 +562,23 @@ pub fn interfaces(terminals: &Value, graph: &Value) -> Result<Value> {
     let parts = used
         .iter()
         .filter(|t| t.starts_with("wago-") || t.starts_with("join-"))
-        .map(|t| terminals[*t]["part"].as_str().unwrap())
+        .map(|t| terminals[*t].part.as_str())
         .collect::<BTreeSet<_>>();
     for part in parts {
         let ports = used
             .iter()
-            .filter(|t| terminals[**t]["part"] == part)
+            .filter(|t| terminals[**t].part == part)
             .collect::<Vec<_>>();
         buses.push(json!({"id":part,"terminals":ports,"kind":"WAGO busbar"}));
     }
     let owners = used
         .iter()
-        .map(|t| Ok(((*t).to_owned(), owner(string(&terminals[*t]["part"])?))))
-        .collect::<Result<BTreeMap<_, _>>>()?;
+        .map(|t| ((*t).to_owned(), owner(&terminals[*t].part)))
+        .collect::<BTreeMap<_, _>>();
     let mut crossing = Vec::new();
     for c in rows(graph)? {
-        let from = owner(string(&terminals[string(&c["start"])?]["part"])?);
-        let to = owner(string(&terminals[string(&c["end"])?]["part"])?);
+        let from = owner(&terminals[string(&c["start"])?].part);
+        let to = owner(&terminals[string(&c["end"])?].part);
         if from != to {
             crossing.push(json!({"wire":c["id"],"from":from,"to":to}));
         }

@@ -69,8 +69,10 @@ pub fn wiring_request(
         "fits":{"slip":hsm_enclosure_numbers::catalog::slip(),"running":hsm_enclosure_numbers::catalog::running(),
             "supported":hsm_enclosure_numbers::catalog::supported(),"m5_thread_pass":hsm_enclosure_numbers::catalog::m5_thread_pass_dia()}});
     let attachments = cache.run("wire attachments", &recipe, &[], || {
-        attachments(&sources, root, physical_model)
+        Ok(serde_json::to_value(attachments(&sources, root, physical_model)?)?)
     })?;
+    let attachments: terminals::State =
+        serde_json::from_value(attachments).context("the retained wire attachments")?;
     let mut numbers = build::numeric_only(&sources, root, &attachments)?;
     numbers["file_stem"] = json!(FILE_STEM);
     Ok(numbers)
@@ -84,14 +86,20 @@ pub fn manual_request(root: &Path, spec: &Value, physical_model: &Path) -> Resul
 
 /// Every terminal, reference frame, fuse lead and cable passage of the wiring, resolved onto
 /// the bodies of the physical fine model at `physical_model`.
-fn attachments(sources: &sources::Sources, root: &Path, physical_model: &Path) -> Result<Value> {
+fn attachments(
+    sources: &sources::Sources,
+    root: &Path,
+    physical_model: &Path,
+) -> Result<terminals::State> {
     let rows = measure::summaries(physical_model, None, &solids_read())?;
     let grouped = readers::bodies(&Value::Array(rows), Some(hsm_kernel::GRID))?;
-    let mut scene = json!({});
+    let mut scene = BTreeMap::new();
     for (name, row) in grouped.as_object().context("the physical model's bodies")? {
-        scene[name] = row[0].clone();
+        let body = serde_json::from_value(row[0].clone())
+            .with_context(|| format!("the installed body {name}"))?;
+        scene.insert(name.clone(), body);
     }
-    terminals::resolve(sources, terminals::init(&scene)?, root)
+    terminals::resolve(sources, terminals::init(scene), root)
 }
 
 /// The bodies whose separate solids the terminals read, under both names the model may give
