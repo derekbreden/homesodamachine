@@ -291,6 +291,13 @@ boot partition moves only after the whole image is in and its CRC32 matches; a t
 stalls leaves the board running what it booted. The machine display also carries `art` — a data
 partition holding the loading animation, erased and rewritten in place, verified the same way.
 
+**A main board update is on trial until it has run.** The bootloader keeps the image before
+it until the new one has reached its loop, kept it turning for `kUpdateTrialMs` and written
+its boot into [the record](src_appliance/README.md#the-record). A new image that restarts
+before then is undone, and the board comes back on the image it had: a main board build that
+cannot stay up costs one update that did not take, and no USB cable. The two displays confirm
+an update as they start.
+
 | Target | Image | Slot | Reached over |
 |---|---|---|---|
 | `self` | `appliance` | 768 KB | J3, or the console |
@@ -330,6 +337,9 @@ image to its crc32 and moves its boot partition without asking what it came from
 end predates the field it reads as "did not say", and the dates in the strings answer instead —
 which cannot separate two builds made on one day, so neither is offered over the other.
 
+**Main is what a phone offers.** A firmware change is published when it lands, so there is no
+build on main that a machine cannot be given:
+
 ```bash
 tools/run -- hsm-publish-firmware --write
 ```
@@ -345,6 +355,10 @@ hsm-peripheral ota enclosure
 
 Targets are `self`, `faucet`, `enclosure` and `art`; `pio run -e <env>` first. The console runs
 at 500000 for the duration of a session and drops back when it ends.
+
+Opening the main board's CH340 port restarts the board, and a main board image taken this way
+is on trial like any other: a port opened inside `kUpdateTrialMs` of its restart puts the old
+image back. `[update] this image is kept` on the console is the end of the trial.
 
 `hsm-peripheral boards` names each S3 on sight — every one reports its MAC as its USB serial number.
 
