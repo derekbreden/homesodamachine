@@ -96,9 +96,9 @@ fn ends(route: &Tube) -> (String, String) {
     (from, route.to.clone().unwrap_or_else(|| owner(owners.last())))
 }
 
-/// Takes the tubes the routes stage could not sweep out of the equipment request's routes and
-/// out of the copper runs, and lists them with the tubes that could not be laid out. A copper
-/// run that could not be solved is listed too, unless a tube of its name stands for it.
+/// Takes the tubes the routes stage did not sweep out of the equipment request's routes and
+/// out of the copper runs, and lists them with the tubes that are not laid out. A copper
+/// run that is not solved is listed too, unless a tube of its name stands for it.
 pub fn leave_out(
     equipment_request: &mut Equipment,
     copper: &mut Vec<copper::Run>,

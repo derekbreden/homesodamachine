@@ -51,7 +51,7 @@ impl Segment {
     }
 }
 
-/// A tube the layout was asked for and could not lay out: the ports it would join, and why.
+/// A tube the machine is built without: the ports it would join and the error that ended it.
 #[derive(Clone, Debug, Deserialize, Serialize)]
 pub struct Unrouted {
     pub name: String,
@@ -61,7 +61,7 @@ pub struct Unrouted {
 }
 
 impl Unrouted {
-    /// The tube `name` between `from` and `to`, which `error` kept from being laid out.
+    /// The tube `name` between `from` and `to`, whose layout or sweep ended in `error`.
     pub fn of(name: &str, from: &str, to: &str, error: &anyhow::Error) -> Unrouted {
         Unrouted {
             name: name.to_owned(),

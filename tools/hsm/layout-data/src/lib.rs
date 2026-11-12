@@ -287,7 +287,7 @@ pub fn crowned_beziers(control: &[V3], crown: f64, intervals: usize) -> Result<V
     }
     Ok(out)
 }
-/// Reservoir A's tubes as they are written down, by name. A tube that cannot be laid out is left
+/// Reservoir A's tubes as they are written down, by name. A tube that is not laid out is left
 /// out of them and listed beside them.
 pub fn reservoir_routes(
     data: &Value,

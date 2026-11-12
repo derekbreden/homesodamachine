@@ -14,7 +14,7 @@ fn append(out: &mut Routes, rows: Routes) {
 }
 
 /// The warm-side tubes in the order they are swept: the soda rise, the rear continuations, the
-/// flavor lines, reservoir A's tubes, and reservoir B's draw and fill. A tube that cannot be
+/// flavor lines, reservoir A's tubes, and reservoir B's draw and fill. A tube that is not
 /// laid out is left out of them and listed beside them.
 pub fn specifications(
     spec: &Value,
@@ -150,7 +150,7 @@ mod tests {
     /// With no port placed and nothing written down, every tube laid out here is left out and
     /// listed with the ends it would join, and a tube handed in still goes through.
     #[test]
-    fn a_tube_that_cannot_be_laid_out_is_left_out_and_listed() {
+    fn a_tube_that_is_not_laid_out_is_left_out_and_listed() {
         let nothing = json!({});
         let held = vec![("water-5".to_owned(), Tube::of(vec![line([0., 0., 0.], [1., 0., 0.])], 6.35, 4.32, "white"))];
         let (routes, unrouted) = specifications(&nothing, &nothing, held, vec![], vec![]);

@@ -91,7 +91,7 @@ fn links(
 }
 
 /// Lays the tube `name` from `source` to `destination` by `lay`, which gives its segments and
-/// its tightest bend. A tube that cannot be laid out joins `unrouted`.
+/// its tightest bend. A tube that is not laid out joins `unrouted`.
 fn route(
     out: &mut Routes,
     unrouted: &mut Vec<Unrouted>,
@@ -117,7 +117,7 @@ fn route(
 }
 
 /// Lays the equipment's own tube `name` between the bodies `owners` by `lay`, which gives its
-/// segments and its tightest bend. A tube that cannot be laid out joins `unrouted`.
+/// segments and its tightest bend. A tube that is not laid out joins `unrouted`.
 fn link(
     out: &mut Routes,
     unrouted: &mut Vec<Unrouted>,
@@ -147,7 +147,7 @@ fn link(
 }
 
 /// The equipment's own short tubes: the water split's stub and the links between the placed
-/// fittings. A tube that cannot be laid out is left out of them and listed beside them.
+/// fittings. A tube that is not laid out is left out of them and listed beside them.
 pub fn route_specs(spec: &Value, stations: &Value, params: &Value) -> Result<(Routes, Vec<Unrouted>)> {
     let plan = &spec["rear_plumbing"];
     let mut out = Vec::new();
@@ -233,8 +233,8 @@ pub fn route_specs(spec: &Value, stations: &Value, params: &Value) -> Result<(Ro
 }
 
 /// The tubes that run on from the rear equipment: the water into the core, the soda out to its
-/// bulkhead, the gas down to the core, the feed to V-A and the drain's vent. A tube that cannot
-/// be laid out is left out of them and listed beside them.
+/// bulkhead, the gas down to the core, the feed to V-A and the drain's vent. A tube that is not
+/// laid out is left out of them and listed beside them.
 pub fn continuations(spec: &Value, stations: &Value, params: &Value) -> (Routes, Vec<Unrouted>) {
     let plan = &spec["rear_plumbing"];
     let mut out = Vec::new();
@@ -360,7 +360,7 @@ pub fn flavor_rear(flavor: &str, destination: V3) -> Result<Vec<Segment>> {
     Ok(fall)
 }
 
-/// The two flavor lines from their valves to their bulkheads. A line that cannot be laid out is
+/// The two flavor lines from their valves to their bulkheads. A line that is not laid out is
 /// left out of them and listed beside them.
 pub fn flavor_routes(stations: &Value) -> (Routes, Vec<Unrouted>) {
     let radius = 25.;
