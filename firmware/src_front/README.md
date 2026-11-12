@@ -117,6 +117,15 @@ welcome says **Done**, with **OK** alone. It is put up once each time the panel 
 again when the notice changes; it waits for an operation lock, a hold and an ask, and comes
 down by itself when the main board stops naming the sweep.
 
+**Move the machine** on System status asks **Move the machine?** first, and its **Move** sends
+`MSG_MOVE_BEGIN`. While the main board names the move (`NOTICE_MOVE`) the glass shows **Moving
+the machine**: close the water shutoff and the cylinder valve, hold the faucet's lever over a
+jug until water and hissing stop, unplug it and free its tubes. Under the steps is what the
+reeds can say of the tank, at its low mark (`LEVEL_F_CARB_LOW`) or below it
+(`LEVEL_F_CARB_BELOW`), and **Cancel** sends `MSG_MOVE_CANCEL`. The steps hold the glass while
+the notice stands and come back after a restart, and the next power-up opens onto **Welcome**.
+A move the main board does not begin says so under the button.
+
 ## Build / flash
 
 ```
@@ -363,7 +372,7 @@ while an operation is pending or running.
 | Fill | instructions, Start filling, authoritative progress and Stop |
 | Prime | shared main-board session and Hold to prime |
 | Clean | three rinse cycles, authoritative progress and Stop |
-| System status | complete machine profile, ten live reed indicators, and Forget trusted phones |
+| System status | complete machine profile, ten live reed indicators, Move the machine, and Forget trusted phones |
 
 Ratios appear only on the Ratio page. Image assignments and ratios are saved by the
 main board and shared with the faucet. Missing uploaded images are unavailable choices;
@@ -402,8 +411,9 @@ ui fill a           # Fill instructions; no actuator
 ui prime a          # shared prime-ready session; pump waits for a hold
 ui clean a          # Clean instructions; no actuator
 ui settings         # System status
-ui notice           # the notice standing: No water, or Welcome
-ui notice no        # Welcome's Skip, which asks first; then go is Skip and no is Cancel
+ui notice           # the notice standing: No water, Welcome, or Moving the machine
+ui notice no        # Welcome's Skip, which asks first; then go is Skip and no is Cancel;
+                    # on Moving the machine, its Cancel
 ```
 
 `go` starts an operation on Fill or Clean. On Choose, it opens the image
@@ -554,7 +564,8 @@ dark off, and a lock coming up takes it down.
 **Forget trusted phones** is at the foot of System status's right-hand column. It asks
 **Forget all trusted phones?** first, and **Forget** sends `MSG_TRUST_FORGET`. The faucet's
 `MSG_RESP_TRUST_FORGET { count }` shows above the button for six seconds: *Forgot 2 trusted
-phones.*, *Forgot 1 trusted phone.* or *No phones were trusted.*
+phones.*, *Forgot 1 trusted phone.* or *No phones were trusted.* **Move the machine** stands
+above it, under the readings.
 
 ## Integration seams (not implemented)
 

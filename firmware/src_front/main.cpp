@@ -271,6 +271,7 @@ static void lockScreenShow(const char *kicker, const char *title, const char *bo
 static void lockScreenHide();
 static void askHide();
 static void welcomeHide();
+static void moveHide();
 
 // ── UI objects ──
 static lv_obj_t *lockScreen, *lockLogoImg, *lockKicker, *lockTitle, *lockBody;
@@ -582,6 +583,7 @@ static bool      statusFreshShown = false;
 // — the state each of the two loops stands in, and how many devices answered
 // the bus. Five lines, label and value, filling the card's right-hand column.
 #define STATUS_THERMAL_ROWS 5
+#define STATUS_BTN_H 56   // Move the machine and Forget trusted phones, in the column beneath
 static lv_obj_t *statusThermalValue[STATUS_THERMAL_ROWS] = {NULL};
 
 // The reading the column is drawn with. `drawn` is false until the first pass,
@@ -1823,6 +1825,7 @@ static void trustClose(uint8_t askId);
 static void trustForgot(uint8_t count);
 static void noWaterService();
 static void welcomeService();
+static void moveService();
 
 static void j9OnMessage(HdlcLink *link, const uint8_t *frame, uint16_t len) {
   awaitingAnswer = false;   // the main board has spoken; the wire is ours again
@@ -2127,6 +2130,7 @@ static void j9OnMessage(HdlcLink *link, const uint8_t *frame, uint16_t len) {
     refreshHomeLevel();
     noWaterService();
     welcomeService();
+    moveService();
     // A fill this glass did not start — the console's, or one whose answer
     // lost its turn — is still the machine being busy, and is shown as such.
     if ((ctrlStatus.flags & STATUS_F_FILLING) && !fillLockShown && !fillStartSentMs)
@@ -3501,6 +3505,7 @@ static void lockScreenShow(const char *kicker, const char *title, const char *bo
   if (!lockScreen) return;
   askHide();   // the lock takes the glass; the nonmodal inbox retains its request
   welcomeHide();
+  moveHide();
   lv_obj_set_pos(lockScreen, 0, 0);
   lv_obj_set_size(lockScreen, SCREEN_W, SCREEN_H);
   operationResultVisible = false;
@@ -4321,13 +4326,13 @@ static void testScreenHide() {
 #define ASK_MS     75000   // the longest an ask stands unanswered
 #define FORGOT_MS   6000   // how long what Forget found stays above it
 
-enum AskMode : uint8_t { ASK_NONE, ASK_FORGET, ASK_NO_WATER, ASK_SWEEP_SKIP };
+enum AskMode : uint8_t { ASK_NONE, ASK_FORGET, ASK_NO_WATER, ASK_SWEEP_SKIP, ASK_MOVE };
 static AskMode askMode = ASK_NONE;
 static unsigned long noWaterTriedMs = 0;   // nonzero: Try again went out then, and no status has answered it
 static uint8_t trustAskId = 0;           // the faucet's number for the ask on the glass
 static unsigned long askShownMs = 0;
 static lv_obj_t *askScreen, *askTitle, *askBody, *askNoLabel, *askYesLabel;
-static lv_obj_t *forgetBtn, *forgotNote;
+static lv_obj_t *moveBtn, *forgetBtn, *forgotNote;
 static unsigned long forgotUntilMs = 0;  // nonzero: the note is up until then
 static lv_obj_t *trustInbox, *trustTaskTitle, *trustTaskBody, *trustTaskNo, *trustTaskYes;
 static uint32_t trustReceivedMs = 0;
@@ -4336,6 +4341,7 @@ static uint8_t trustAnsweredAskId = 0;
 static void askNoCb(lv_event_t *e);
 static void askYesCb(lv_event_t *e);
 static void welcomeSkip();
+static void moveBegin();
 static void trustNoCb(lv_event_t *e);
 static void trustYesCb(lv_event_t *e);
 
@@ -4500,7 +4506,8 @@ static void askNoCb(lv_event_t *e) {
   askHide();
 }
 
-// Confirm Forget, have the main board try the water again, or give the sweep up.
+// Confirm Forget, have the main board try the water again, give the sweep up, or begin a
+// move.
 static void askYesCb(lv_event_t *e) {
   (void)e;
   if (askMode == ASK_FORGET) j9Post(MSG_TRUST_FORGET, nullptr, 0);
@@ -4509,6 +4516,7 @@ static void askYesCb(lv_event_t *e) {
     noWaterTriedMs = millis() ? millis() : 1;
   }
   if (askMode == ASK_SWEEP_SKIP) welcomeSkip();
+  if (askMode == ASK_MOVE) moveBegin();
   askHide();
 }
 
@@ -4519,16 +4527,29 @@ static void forgetAskCb(lv_event_t *e) {
           "Cancel", "Forget");
 }
 
-// What the faucet found when it forgot them, above Forget for FORGOT_MS.
+static void moveAskCb(lv_event_t *e) {
+  (void)e;
+  askShow(ASK_MOVE, "Move the machine?",
+          "It stops pouring and filling while you drain it. When it is plugged in again, it "
+          "welcomes you.",
+          "Cancel", "Move");
+}
+
+// The column's note, above Forget for FORGOT_MS: what the faucet found when it forgot the
+// phones, or a move the main board did not begin.
+static void columnNote() {
+  lv_obj_clear_flag(forgotNote, LV_OBJ_FLAG_HIDDEN);
+  lv_obj_align_to(forgotNote, forgetBtn, LV_ALIGN_OUT_TOP_LEFT, 0, -8);
+  forgotUntilMs = millis() + FORGOT_MS;
+  if (!forgotUntilMs) forgotUntilMs = 1;
+}
+
 static void trustForgot(uint8_t count) {
   if (!forgotNote) return;
   if (count == 0)      lv_label_set_text(forgotNote, "No phones were trusted.");
   else if (count == 1) lv_label_set_text(forgotNote, "Forgot 1 trusted phone.");
   else                 lv_label_set_text_fmt(forgotNote, "Forgot %u trusted phones.", (unsigned)count);
-  lv_obj_clear_flag(forgotNote, LV_OBJ_FLAG_HIDDEN);
-  lv_obj_align_to(forgotNote, forgetBtn, LV_ALIGN_OUT_TOP_LEFT, 0, -12);
-  forgotUntilMs = millis() + FORGOT_MS;
-  if (!forgotUntilMs) forgotUntilMs = 1;
+  columnNote();
 }
 
 // From loop(): an ask stands ASK_MS at most, and the note keeps its own clock.
@@ -4769,6 +4790,146 @@ static void welcomeService() {
       primeStopPending || testActive ||
       (primeSessionKnown && primeSession.phase == PRIME_SESSION_RUNNING)) return;
   welcomeShow(kind);
+}
+
+// ── Moving ────────────────────────────────────────────────────────────────
+// Move the machine, confirmed on System status, has the main board stop pouring and filling
+// while its tank is drained (NOTICE_MOVE). The next power-up turns the move into an owed
+// sweep, so the machine comes back with its welcome. While the notice stands this glass shows
+// the drain step by step, with Cancel. The tank's line is what the reeds can say: at the low
+// mark, or below it once the float has passed down through that reed.
+#define MOVE_W              700
+#define MOVE_H              420
+#define MOVE_NUM_W           44
+#define MOVE_UNANSWERED_MS 2500   // a Move or a Cancel no status has answered by now did not take
+
+static lv_obj_t *moveScreen, *moveTank;
+static bool moveUp = false;
+static unsigned long moveAskedMs = 0;    // nonzero: Move went out then, and no status has shown it
+static unsigned long moveCancelMs = 0;   // nonzero: Cancel went out then, and no status has shown it
+
+static void moveCancelCb(lv_event_t *e);
+
+// Built once and hidden, like the ask it follows: the theme's blue across the glass, and a card
+// as wide as the steps need.
+static void buildMove(lv_obj_t *scr) {
+  moveScreen = mkFlat(scr, 0, 0, SCREEN_W, SCREEN_H, THEME_BG);
+  lv_obj_add_flag(moveScreen, LV_OBJ_FLAG_CLICKABLE);   // a finger here reaches no page beneath
+
+  lv_obj_t *card = mkCard(moveScreen, MOVE_W, MOVE_H);
+  lv_obj_center(card);
+  lv_obj_set_style_radius(card, 0, 0);
+  lv_obj_set_style_pad_all(card, ASK_PAD, 0);
+  const lv_coord_t w = MOVE_W - 2 * ASK_PAD;
+
+  lv_obj_set_pos(mkText(card, "Moving the machine", &lv_font_montserrat_40, COL_TEXT), 0, 0);
+  static const char *const kNumber[] = {"1", "2", "3"};
+  static const char *const kStep[] = {
+      "Close the water shutoff and the cylinder valve.",
+      "Hold the faucet's lever down over a jug until water and hissing stop.",
+      "Unplug the machine and keep it upright. Free its tubes with the collet press.",
+  };
+  lv_coord_t y = TEXT_H_40 + 16;
+  for (uint8_t i = 0; i < 3; i++) {
+    lv_obj_set_pos(mkText(card, kNumber[i], &lv_font_montserrat_24, COL_ACCENT), 0, y);
+    lv_obj_t *step = mkText(card, kStep[i], &lv_font_montserrat_24, COL_DIM);
+    lv_obj_set_width(step, w - MOVE_NUM_W);
+    lv_obj_set_style_text_line_space(step, 4, 0);
+    lv_obj_set_pos(step, MOVE_NUM_W, y);
+    lv_obj_update_layout(step);
+    y += lv_obj_get_height(step) + 12;
+  }
+  moveTank = mkText(card, "", &lv_font_montserrat_20, COL_ACCENT);
+  lv_obj_set_pos(moveTank, MOVE_NUM_W, y + 2);
+
+  // Cancel takes a release on its target, like an ask's answers.
+  lv_obj_t *cancel = mkBtn(card, (w - ASK_BTN_GAP) / 2, ASK_BTN_H, COL_BLUE);
+  lv_obj_align(cancel, LV_ALIGN_BOTTOM_LEFT, 0, 0);
+  lv_obj_set_style_border_width(cancel, 2, 0);
+  lv_obj_set_style_border_color(cancel, lv_color_hex(0x7d9eed), 0);
+  lv_obj_clear_flag(cancel, LV_OBJ_FLAG_PRESS_LOCK);
+  lv_obj_add_event_cb(cancel, moveCancelCb, LV_EVENT_CLICKED, NULL);
+  lv_obj_center(mkText(cancel, "Cancel", &lv_font_montserrat_24, COL_TEXT));
+
+  lv_obj_add_flag(moveScreen, LV_OBJ_FLAG_HIDDEN);
+}
+
+static bool moving() { return ctrlStatusThermal && ctrlStatus.notice == NOTICE_MOVE; }
+
+// What the reeds can say of the tank, and nothing while they say nothing.
+static void moveDressTank() {
+  const uint8_t f = ctrlStatus.levelFlags;
+  const char *line = !(f & LEVEL_F_VALID)       ? ""
+                     : (f & LEVEL_F_CARB_BELOW) ? "The tank is below its low mark."
+                     : (f & LEVEL_F_CARB_LOW)   ? "The tank is at its low mark."
+                                                : "";
+  if (strcmp(lv_label_get_text(moveTank), line) != 0) lv_label_set_text(moveTank, line);
+}
+
+static void moveShow() {
+  if (!moveScreen) return;
+  // A finger already down pressed something else. It answers nothing here, and chooses no
+  // picture beneath.
+  if (touchInput) lv_indev_wait_release(touchInput);
+  tileDisarm();
+  moveUp = true;
+  moveDressTank();
+  lv_obj_clear_flag(moveScreen, LV_OBJ_FLAG_HIDDEN);
+  lv_obj_move_foreground(moveScreen);
+  if (testActive) lv_obj_move_foreground(testScreen);   // the camera reads it through anything
+}
+
+static void moveHide() {
+  if (!moveUp) return;
+  moveUp = false;
+  // A finger resting on Cancel as the move ends answers nothing beneath it.
+  if (touchInput) lv_indev_wait_release(touchInput);
+  lv_obj_add_flag(moveScreen, LV_OBJ_FLAG_HIDDEN);
+}
+
+static void moveBegin() {
+  j9Post(MSG_MOVE_BEGIN, nullptr, 0);
+  moveAskedMs = millis() ? millis() : 1;
+}
+
+static void moveCancelCb(lv_event_t *e) {
+  (void)e;
+  j9Post(MSG_MOVE_CANCEL, nullptr, 0);
+  moveCancelMs = millis() ? millis() : 1;
+  moveHide();
+}
+
+// From loop(), and on every status the main board answers with.
+static void moveService() {
+  // Only a reading that has just arrived says anything: this glass does not poll while dark.
+  if (!front_ui::readingFresh(ctrlStatusMs, millis(), STATUS_ANSWER_MS)) return;
+  const unsigned long now = millis();
+  if (!moving()) {
+    moveCancelMs = 0;
+    moveHide();
+    if (moveAskedMs && now - moveAskedMs >= MOVE_UNANSWERED_MS) {
+      // The main board did not begin it: a cycle it is running holds the machine.
+      moveAskedMs = 0;
+      if (forgotNote) {
+        lv_label_set_text(forgotNote, "Busy. Try again when it is done.");
+        columnNote();
+      }
+    }
+    return;
+  }
+  moveAskedMs = 0;
+  if (moveCancelMs) {
+    if (now - moveCancelMs < MOVE_UNANSWERED_MS) return;
+    moveCancelMs = 0;   // the Cancel did not take, and the move stands: the steps come back
+  }
+  if (moveUp) {
+    moveDressTank();
+    return;
+  }
+  if (!uiReady || screenIdle || lockActive || holding || primeTouchStartPending ||
+      primeStopPending || testActive || askMode != ASK_NONE ||
+      (primeSessionKnown && primeSession.phase == PRIME_SESSION_RUNNING)) return;
+  moveShow();
 }
 
 static void buildRail(lv_obj_t *scr) {
@@ -5123,12 +5284,21 @@ static void buildSettings(lv_obj_t *page) {
     statusThermalValue[i] = mkText(status, "--", &lv_font_montserrat_20, COL_TEXT);
     lv_obj_set_pos(statusThermalValue[i], 548, y);
   }
-  // Forget trusted phones, at the foot of the column, level with the profile's
-  // floor. It asks before anything is forgotten, and what the faucet forgot
-  // shows above it.
+  // Move the machine under the readings, and Forget trusted phones at the foot of the
+  // column, level with the profile's floor. Each asks first; the column's note shows between
+  // them.
   const lv_coord_t colW = SCREEN_W - RAIL_W - 2 * PANE_PAD - 460;
-  forgetBtn = mkBtn(status, colW, 66, COL_BLUE);
-  lv_obj_set_pos(forgetBtn, 460, 5 + diagramHeight - 66);
+  moveBtn = mkBtn(status, colW, STATUS_BTN_H, COL_BLUE);
+  lv_obj_set_pos(moveBtn, 460, 5 + (STATUS_THERMAL_ROWS - 1) * 34 + TEXT_H_20 + 11);
+  lv_obj_set_style_border_width(moveBtn, 2, 0);
+  lv_obj_set_style_border_color(moveBtn, lv_color_hex(0x7d9eed), 0);
+  lv_obj_add_event_cb(moveBtn, moveAskCb, ACT_EVENT, NULL);
+  lv_obj_t *move = mkText(moveBtn, "Move the machine", &lv_font_montserrat_20, COL_TEXT);
+  lv_obj_set_width(move, colW - 16);
+  lv_obj_set_style_text_align(move, LV_TEXT_ALIGN_CENTER, 0);
+  lv_obj_center(move);
+  forgetBtn = mkBtn(status, colW, STATUS_BTN_H, COL_BLUE);
+  lv_obj_set_pos(forgetBtn, 460, 5 + diagramHeight - STATUS_BTN_H);
   lv_obj_set_style_border_width(forgetBtn, 2, 0);
   lv_obj_set_style_border_color(forgetBtn, lv_color_hex(0x7d9eed), 0);
   lv_obj_add_event_cb(forgetBtn, forgetAskCb, ACT_EVENT, NULL);
@@ -5339,7 +5509,8 @@ static bool uiShow(const UiShowPayload &req) {
       showPage(PAGE_SETUP);
       return true;
     case UI_RAIL_NOTICE:
-      // The notice as it puts itself up, the no-water ask or the welcome, and either answer.
+      // The notice as it puts itself up, the no-water ask, the welcome or the move, and its
+      // answers.
       if (noWaterLatched()) {
         if (askMode != ASK_NO_WATER) {
           if (askMode != ASK_NONE || testActive) return false;
@@ -5347,6 +5518,14 @@ static bool uiShow(const UiShowPayload &req) {
         }
         if (req.act == UI_ACT_COMMIT) askYesCb(nullptr);
         else if (req.act == UI_ACT_DECLINE) askNoCb(nullptr);
+        return true;
+      }
+      if (moving()) {   // the move's steps, and Cancel, their one answer
+        if (!moveUp) {
+          if (askMode != ASK_NONE || testActive) return false;
+          moveShow();
+        }
+        if (req.act == UI_ACT_DECLINE) moveCancelCb(nullptr);
         return true;
       }
       if (welcomeNotice() == NOTICE_NONE) return false;
@@ -5397,6 +5576,7 @@ static void buildUi() {
   buildLockScreen(scr);
   buildAsk(scr);          // local Forget confirmation and the nonmodal phone inbox
   buildWelcome(scr);      // a new machine's first start
+  buildMove(scr);         // and the drain before a move
   buildTestScreen(scr);   // above the lock: the camera reads it through anything
 
   uiReady = true;
@@ -5998,6 +6178,7 @@ void loop() {
   askService();
   noWaterService();
   welcomeService();
+  moveService();
 
   // The status request keeps main board truth fresh once a second whenever a
   // shared prime hold does not own the pair.
