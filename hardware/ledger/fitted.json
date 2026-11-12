@@ -217,6 +217,48 @@
       "said": "Like honestly either would be fine. If I'm being really nitpicky though, (A) is closer but a bit tight and (B) is further and a bit loose so let's go with somewhere in between, 0.20 mm per side, as our approved variant implemented on all 6 color chips.",
       "tried": "printed plates of two widths pressed into the enclosure's port recess; he chose a width between them for all six",
       "record": "hardware/printed-parts/enclosure/rear-identification/prints/2026-11-09-co2-width-mark1/physical-result.json"
+    },
+    {
+      "material": "HSM-0099",
+      "date": "2026-11-12",
+      "said": "tube collars and asse snap cap are both good enough.",
+      "tried": "nothing new; his word on the printed collars he tried before"
+    },
+    {
+      "material": "HSM-0100",
+      "date": "2026-11-12",
+      "said": "tube collars and asse snap cap are both good enough.",
+      "tried": "nothing new; his word on the printed collars he tried before"
+    },
+    {
+      "material": "HSM-0101",
+      "date": "2026-11-12",
+      "said": "tube collars and asse snap cap are both good enough.",
+      "tried": "nothing new; his word on the printed collars he tried before"
+    },
+    {
+      "material": "HSM-0102",
+      "date": "2026-11-12",
+      "said": "tube collars and asse snap cap are both good enough.",
+      "tried": "nothing new; his word on the printed collars he tried before"
+    },
+    {
+      "material": "HSM-0272",
+      "date": "2026-11-12",
+      "said": "tube collars and asse snap cap are both good enough.",
+      "tried": "nothing new; his word on the printed collars he tried before"
+    },
+    {
+      "material": "HSM-0273",
+      "date": "2026-11-12",
+      "said": "tube collars and asse snap cap are both good enough.",
+      "tried": "nothing new; his word on the printed collars he tried before"
+    },
+    {
+      "material": "HSM-0448",
+      "date": "2026-11-12",
+      "said": "tube collars and asse snap cap are both good enough.",
+      "tried": "nothing new; his word on the printed cap he tried before, after reporting a slight lift"
     }
   ]
 }
