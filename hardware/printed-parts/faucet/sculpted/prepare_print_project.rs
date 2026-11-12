@@ -3,7 +3,7 @@
 //!
 //!     sculpted-faucet-print-project <project.3mf> [--slice-output DIRECTORY]
 //!                                 [--printer Mark1|Mark2] [--filament-colour '#RRGGBB']
-//!                                 [--base-section SECTION.stl]
+//!                                 [--base-section SECTION.stl | --tip-only]
 //!
 //! The five rigid parts are the faucet shell's base and tip, the display cover, the
 //! above-counter plate and the side-down lever. Their object settings, the solid foot regions
@@ -13,19 +13,19 @@
 
 mod rim_supports;
 
-use anyhow::{bail, Context, Result};
+use anyhow::{bail, ensure, Context, Result};
 use hsm_faucet_numbers::shell::{FOOT_DEPTH, FOOT_WIDTH, PRINT_BASE_BUILD_ROT, PRINT_TIP_BUILD_ROT};
 use hsm_print_prep::faucet::{add_tip_root_anchor, apply_overhang_recipe, archive_members, enforce_rear_seam, file_sha, read_json, recorded_member};
 use hsm_print_prep::faucet_contact::{add_base_rim_fins, add_tip_dispense_contact, add_tip_rim_contact, apply_rim_contour, apply_tip_rim_contour, ContactBand};
 use hsm_print_prep::faucet_recesses::block_plate_counterbores;
 use hsm_print_prep::json::Json;
 use hsm_print_prep::profile::{cooling_hook, petgf_infill_pattern, relative};
-use hsm_print_prep::refresh::{self, Part, Region};
+use hsm_print_prep::refresh::{self, Part, Refreshed, Region};
 use hsm_print_prep::rim_contour::RimSpec;
 use hsm_print_prep::{root, sha256_hex, slice, xml};
 use serde_json::{json, Map, Value};
 use std::io::Cursor;
-use std::path::PathBuf;
+use std::path::{Path, PathBuf};
 
 const FAUCET: &str = "hardware/printed-parts/faucet";
 const PROFILE: &str = "hardware/printed-parts/faucet/industrial/prints/2026-10-15-all-learnings/mark2/2026-10-15-complete-faucet-all-learnings-mark2-base-arcs-z004.3mf";
@@ -41,9 +41,14 @@ fn main() -> Result<()> {
     let project = PathBuf::from(args.next().context("expected a Sculpted .3mf output path")?);
     let mut slice_output = None;
     let mut base_section = None;
+    let mut tip_only = false;
     let mut printer = "Mark2".to_owned();
     let mut colour = "#FFFFFF".to_owned();
     while let Some(arg) = args.next() {
+        if arg == "--tip-only" {
+            tip_only = true;
+            continue;
+        }
         let value = args.next().with_context(|| format!("{} needs a value", arg.to_string_lossy()))?;
         match arg.to_str() {
             Some("--slice-output") => slice_output = Some(PathBuf::from(value)),
@@ -53,12 +58,15 @@ fn main() -> Result<()> {
             _ => bail!("unknown argument {}", arg.to_string_lossy()),
         }
     }
+    ensure!(!tip_only || base_section.is_none(), "--tip-only and --base-section are mutually exclusive");
     let trim = match printer.as_str() {
         "Mark1" => 0.18,
         "Mark2" => 0.04,
         _ => bail!("expected Mark1 or Mark2, got {printer}"),
     };
-    let title = if base_section.is_some() {
+    let title = if tip_only {
+        format!("Sculpted faucet tip PET-GF left {printer}")
+    } else if base_section.is_some() {
         format!("Sculpted faucet support and fit PET-GF left {printer}")
     } else if printer == "Mark2" && colour == "#FFFFFF" {
         "Complete Sculpted white faucet PET-GF left Mark2".to_owned()
@@ -67,36 +75,44 @@ fn main() -> Result<()> {
     };
     let faucet = root.join(FAUCET);
     let selection = read_json(&root.join(FINISH))?;
-    let is_section = base_section.is_some();
-    let mut parts = vec![
-        Part::new("faucet-shell-base", base_section.unwrap_or_else(|| faucet.join("faucet-shell/faucet-shell-base.stl")), -PRINT_BASE_BUILD_ROT.to_degrees()),
-        Part::new("faucet-shell-tip", faucet.join("faucet-shell/faucet-shell-tip.stl"), -PRINT_TIP_BUILD_ROT.to_degrees()),
-        Part::new("faucet-display-cover", faucet.join("faucet-display-cover/faucet-display-cover.stl"), -50.0),
-    ];
-    if !is_section {
+    let full_plate = !tip_only && base_section.is_none();
+    let tip_part = Part::new("faucet-shell-tip", faucet.join("faucet-shell/faucet-shell-tip.stl"), -PRINT_TIP_BUILD_ROT.to_degrees());
+    let mut parts = if tip_only {
+        vec![tip_part]
+    } else {
+        vec![
+            Part::new("faucet-shell-base", base_section.unwrap_or_else(|| faucet.join("faucet-shell/faucet-shell-base.stl")), -PRINT_BASE_BUILD_ROT.to_degrees()),
+            tip_part,
+            Part::new("faucet-display-cover", faucet.join("faucet-display-cover/faucet-display-cover.stl"), -50.0),
+        ]
+    };
+    if full_plate {
         parts.extend([
             Part::new("above-counter-plate", faucet.join("above-counter-plate/above-counter-plate.stl"), 0.0),
             Part::new("lever-replica", faucet.join("lever-replica/lever-replica-side-down.stl"), 0.0),
         ]);
     }
-    let mut r = refresh::refresh(&root, &root.join(PROFILE), &parts, &OFFSETS[..parts.len()], &title, Some(trim), 40.0)?;
+    let offsets = if tip_only { &[[0.0, 0.0]][..] } else { &OFFSETS[..parts.len()] };
+    let mut r = refresh::refresh(&root, &root.join(PROFILE), &parts, offsets, &title, Some(trim), 40.0)?;
     let parent = &selection["industrial_recipe"];
     let parent_project_source = parent["project"].as_str().context("Industrial parent project")?;
     let parent_report_source = parent["report"].as_str().context("Industrial parent report")?;
     let parent_revision = parent["source_commit"].as_str().context("Industrial parent revision")?;
     let parent_project_bytes = recorded_member(&root, parent, "project")?;
     let parent_report_bytes = recorded_member(&root, parent, "report")?;
-    let parent_report: Value = serde_json::from_slice(&parent_report_bytes)?;
-    let regions: Vec<Region> = parent_report["local_solid_regions"].as_array().into_iter().flatten().map(|row| {
-        let b = &row["source_bounds_mm"];
-        let mut declared = row.as_object().cloned().unwrap_or_default();
-        declared.insert("part".into(), json!("faucet-shell-base"));
-        declared.insert("clip_to_part_bounds".into(), json!(false));
-        Ok(Region { part: "faucet-shell-base".into(), name: row["name"].as_str().context("region name")?.to_string(),
-                    low: [0, 1, 2].map(|k| b[0][k].as_f64().unwrap_or(f64::NAN)), high: [0, 1, 2].map(|k| b[1][k].as_f64().unwrap_or(f64::NAN)),
-                    clip_to_part_bounds: false, declared: Value::Object(declared) })
-    }).collect::<Result<_>>()?;
-    r.add_local_solid_regions(&regions)?;
+    if !tip_only {
+        let parent_report: Value = serde_json::from_slice(&parent_report_bytes)?;
+        let regions: Vec<Region> = parent_report["local_solid_regions"].as_array().into_iter().flatten().map(|row| {
+            let b = &row["source_bounds_mm"];
+            let mut declared = row.as_object().cloned().unwrap_or_default();
+            declared.insert("part".into(), json!("faucet-shell-base"));
+            declared.insert("clip_to_part_bounds".into(), json!(false));
+            Ok(Region { part: "faucet-shell-base".into(), name: row["name"].as_str().context("region name")?.to_string(),
+                        low: [0, 1, 2].map(|k| b[0][k].as_f64().unwrap_or(f64::NAN)), high: [0, 1, 2].map(|k| b[1][k].as_f64().unwrap_or(f64::NAN)),
+                        clip_to_part_bounds: false, declared: Value::Object(declared) })
+        }).collect::<Result<_>>()?;
+        r.add_local_solid_regions(&regions)?;
+    }
     let parent = archive_members(Cursor::new(&parent_project_bytes))?;
     let parent_config = xml::parse(std::str::from_utf8(&parent["Metadata/model_settings.config"])?)?;
     let shell_gap = selection["shell_ordinary_seam_gap"].as_str().context("shell seam gap")?;
@@ -132,49 +148,21 @@ fn main() -> Result<()> {
     }
     r.plate.filament_map_mode = "Manual".into();
     for key in ["rear_seam_enforcement", "tip_rear_seam_enforcement"] {
+        if tip_only && key == "rear_seam_enforcement" {
+            continue;
+        }
         let record = enforce_rear_seam(&mut r, &selection[key])?;
         r.extra.insert(key.into(), record);
     }
-    let base = r.row("faucet-shell-base")?.index;
-    let mut rim = rim_supports::add(&mut r, &selection["base_rim_supports"])?;
     let contact = &selection["base_rim_supports"]["nonplanar_contact"];
     let mapping_source = contact["parameters_source"].as_str().context("contact parameters source")?;
     let mapping_revision = contact["source_commit"].as_str().context("contact parameters revision")?;
     let mapping_bytes = recorded_member(&root, contact, "parameters_source")?;
     let mapping: Value = serde_json::from_slice(&mapping_bytes)?;
-    let center: [f64; 3] = serde_json::from_value(rim["seat_print_world_center_mm"].clone())?;
-    let supported_angles = serde_json::from_value(selection["base_rim_supports"]["rim_enforcer_angle_degrees"].clone())?;
-    let contour = RimSpec {
-        identify_id: r.plate.objects[base].identify_id as u64,
-        center_mm: center,
-        seat_fall_angle_degrees: PRINT_BASE_BUILD_ROT.to_degrees(),
-        semi_axes_mm: [FOOT_WIDTH / 2.0, FOOT_DEPTH / 2.0],
-        supported_angles_degrees: supported_angles,
-    };
-    rim["fin_layout"] = add_base_rim_fins(&root, &mut r, base, contour, &selection["base_rim_supports"])?;
-    let half_span = FOOT_WIDTH.max(FOOT_DEPTH) / 2.0;
-    let margin = contact["scope_margin_mm"].as_f64().context("contact scope margin")?;
-    let bounds = [-1.0, 1.0].map(|direction| {
-        [0, 1].map(|axis| center[axis] + direction * (half_span + margin))
-    });
-    let mut base_parameters = mapping["parameters"].clone();
-    let mesh_error = base_parameters["maximum_mesh_mapping_error_mm"].as_f64().context("contact mesh tolerance")?;
-    base_parameters["maximum_mesh_mapping_error_mm"] = json!(mesh_error / 2.);
-    let contact_spec = json!({
-        "part": "faucet-shell-base",
-        "parameters": base_parameters,
-        "plane_normal": rim["seat_print_world_outward_normal"],
-        "seat_plate_mm": center,
-        "bounds_mm": bounds,
-        "edge_blend_mm": contact["edge_blend_mm"],
-        "rim_semi_axes_mm": contour.semi_axes_mm,
-        "rim_inboard_blend_mm": [0.85, 2.85],
-        "refine_mesh_interiors": true,
-        "supported_angles_degrees": supported_angles,
-    });
-    r.extra.insert("base_rim_supports".into(), rim);
-    r.extra.insert("nonplanar_contact".into(), contact_spec.clone());
-    if !is_section {
+    let base_contact = (!tip_only)
+        .then(|| prepare_base_contact(&root, &mut r, &selection["base_rim_supports"], &mapping["parameters"]))
+        .transpose()?;
+    if full_plate {
         let pocket_recipe = &selection["mounting_plate_counterbores"];
         let radial_clearance = pocket_recipe["blocker_radial_clearance_mm"].as_f64().context("counterbore blocker clearance")?;
         let depth_allowance = serde_json::from_value(pocket_recipe["blocker_depth_allowance_mm"].clone())?;
@@ -234,18 +222,60 @@ fn main() -> Result<()> {
     std::fs::write(project.with_extension("print.json"), serde_json::to_string_pretty(&report)? + "\n")?;
     println!("{}", project.display());
     if let Some(directory) = slice_output {
-        let band = ContactBand::new(&contact_spec)?;
         let tip_band = ContactBand::new(&tip_band_spec)?;
         let joint = ContactBand::new(&joint_band_spec)?;
-        let motion = ContactBand::slice_bands(&mut r.plate, &[(base, &band), (tip_index, &tip_band), (tip_index, &joint)], &project, &directory,
-            std::path::Path::new(slice::SLICER))?;
-        let rim = apply_rim_contour(&project, &directory, contour, &band)?;
-        let tip_contour = apply_tip_rim_contour(&project, &directory, tip_rim, &joint)?;
+        let mut bands = vec![(tip_index, &tip_band), (tip_index, &joint)];
+        if let Some((base, _, band)) = &base_contact {
+            bands.insert(0, (*base, band));
+        }
+        let motion = ContactBand::slice_bands(&mut r.plate, &bands, &project, &directory, Path::new(slice::SLICER))?;
+        if let Some((_, contour, band)) = &base_contact {
+            report["rim_contour"] = apply_rim_contour(&project, &directory, *contour, band)?;
+        }
         report["nonplanar_motion"] = motion;
-        report["rim_contour"] = rim;
-        report["tip_rim_contour"] = tip_contour;
+        report["tip_rim_contour"] = apply_tip_rim_contour(&project, &directory, tip_rim, &joint)?;
         report["preparation_only"] = json!(false);
         std::fs::write(project.with_extension("print.json"), serde_json::to_string_pretty(&report)? + "\n")?;
     }
     Ok(())
+}
+
+fn prepare_base_contact(root: &Path, r: &mut Refreshed, recipe: &Value, parameters: &Value) -> Result<(usize, RimSpec, ContactBand)> {
+    let base = r.row("faucet-shell-base")?.index;
+    let mut rim = rim_supports::add(r, recipe)?;
+    let contact = &recipe["nonplanar_contact"];
+    let center: [f64; 3] = serde_json::from_value(rim["seat_print_world_center_mm"].clone())?;
+    let supported_angles = serde_json::from_value(recipe["rim_enforcer_angle_degrees"].clone())?;
+    let contour = RimSpec {
+        identify_id: r.plate.objects[base].identify_id as u64,
+        center_mm: center,
+        seat_fall_angle_degrees: PRINT_BASE_BUILD_ROT.to_degrees(),
+        semi_axes_mm: [FOOT_WIDTH / 2.0, FOOT_DEPTH / 2.0],
+        supported_angles_degrees: supported_angles,
+    };
+    rim["fin_layout"] = add_base_rim_fins(root, r, base, contour, recipe)?;
+    let half_span = FOOT_WIDTH.max(FOOT_DEPTH) / 2.0;
+    let margin = contact["scope_margin_mm"].as_f64().context("contact scope margin")?;
+    let bounds = [-1.0, 1.0].map(|direction| {
+        [0, 1].map(|axis| center[axis] + direction * (half_span + margin))
+    });
+    let mut parameters = parameters.clone();
+    let mesh_error = parameters["maximum_mesh_mapping_error_mm"].as_f64().context("contact mesh tolerance")?;
+    parameters["maximum_mesh_mapping_error_mm"] = json!(mesh_error / 2.);
+    let spec = json!({
+        "part": "faucet-shell-base",
+        "parameters": parameters,
+        "plane_normal": rim["seat_print_world_outward_normal"],
+        "seat_plate_mm": center,
+        "bounds_mm": bounds,
+        "edge_blend_mm": contact["edge_blend_mm"],
+        "rim_semi_axes_mm": contour.semi_axes_mm,
+        "rim_inboard_blend_mm": [0.85, 2.85],
+        "refine_mesh_interiors": true,
+        "supported_angles_degrees": supported_angles,
+    });
+    let band = ContactBand::new(&spec)?;
+    r.extra.insert("base_rim_supports".into(), rim);
+    r.extra.insert("nonplanar_contact".into(), spec);
+    Ok((base, contour, band))
 }
