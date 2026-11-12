@@ -5,6 +5,9 @@
 # The update path this serves is `firmware/README.md`, "A shipped unit is
 # updated from the iOS app".
 #
+# spiffs holds the machine's record of what it did, as a ring of entries with no
+# filesystem over it: `firmware/src_appliance/README.md`, "The record".
+#
 # nvs is where the flavor selection and sound settings live, and it sits below
 # the app slots — a USB reflash writes 0x1000/0x8000/0xe000/0x10000 and leaves
 # it alone, so a partition change does not cost the machine its selection.
