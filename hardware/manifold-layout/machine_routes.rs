@@ -66,7 +66,7 @@ pub struct Instance {
 }
 
 /// What the routes stage hands on: the swept bodies to place, each tube's developed length and
-/// the tubes that could not be swept.
+/// the tubes that are not swept.
 #[derive(Clone, Debug, Deserialize, Serialize)]
 pub struct Routed {
     pub instances: Vec<Instance>,
@@ -232,7 +232,7 @@ fn equipment(components: &BTreeMap<String, Bodies>) -> Result<BTreeMap<String, V
 }
 
 /// The routed tubes cut into `output` as one model, and what the placement takes of them. A tube
-/// that cannot be swept is left out of the model and listed beside it.
+/// that is not swept is left out of the model and listed beside it.
 pub fn run(request: &Request, output: &std::path::Path) -> Result<Routed> {
     let mut placed: Vec<(String, Option<[f64; 3]>, Solid)> = vec![];
     if let Some(sleeve) = &request.insulation {

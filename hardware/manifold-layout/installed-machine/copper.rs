@@ -289,7 +289,7 @@ fn solve(authored: &Authored, frames: &Value, stock: f64) -> Result<Run> {
 }
 
 /// The copper runs, solved through the ports of the pack the placement program set down in
-/// `prepared`. A run that cannot be solved is left out of them and listed beside them.
+/// `prepared`. A run that is not solved is left out of them and listed beside them.
 pub fn runs(root: &Path, prepared: &Value) -> Result<(Vec<Run>, Vec<Unrouted>)> {
     let frames = &prepared["metadata"]["frames"];
     let stock = stock_cap(root)?;
