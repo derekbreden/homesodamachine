@@ -3,7 +3,6 @@
 #include <stdint.h>
 
 #include "pour_policy.h"
-#include "refill_policy.h"
 
 // ── The sweep ─────────────────────────────────────────────────────────────
 // A carbonator that was drained and opened holds air. A fill squeezes that air into the
@@ -30,8 +29,12 @@
 // is given up with the lever down, and waits for the same quiet.
 //
 // machine.cpp keeps `owed` in flash, holds the refill and the pour while it stands, and
-// asks for the first fill when the lever is let go. A reed that stays closed says the tank
-// holds water, which a sweep cannot work through, and the sweep is dropped.
+// asks for the first fill when the lever is let go.
+//
+// Nothing here reads the carbonator's reeds. What they read of a float at rest on an empty
+// tank is not known until they are calibrated: at their distance from the magnet a reed
+// closes in more than one band, and the float's rest may stand in one. So a closed reed is no
+// evidence of water. A tank that does hold some gives it up at the lever, ahead of the gas.
 namespace machine_policy {
 
 // The meter's pulses for a litre through it, and what the dry carbonator holds.
@@ -55,10 +58,6 @@ constexpr uint32_t kSweepQuietSamples = 4;
 constexpr uint32_t kSweepReleaseMs      = 1000;
 constexpr uint32_t kSweepReleaseSamples = kSweepReleaseMs / kFlowSampleMs;
 
-// How long a carbonator reed stays closed before the tank is believed to hold water.
-constexpr uint32_t kSweepWetMs      = 3000;
-constexpr uint32_t kSweepWetSamples = kSweepWetMs / kFlowSampleMs;
-
 enum class SweepState : uint8_t {
     Clear = 0,   // no sweep is owed
     Owed,        // waiting for gas
@@ -72,7 +71,6 @@ enum class SweepAction : uint8_t {
     Paused,     // it stopped short of the target
     Done,       // the target is met
     Released,   // the lever is let go and the sweep is no longer owed
-    Moot,       // the tank holds water and the sweep is dropped
 };
 
 class Sweep {
@@ -90,12 +88,12 @@ public:
     // with no gas moving, and nothing is changed.
     bool giveUpWhileFlowing();
 
-    // A flow reading, pulses over the last kFlowSampleMs, beside the carbonator's reeds.
-    SweepAction sample(uint32_t pulses, const RefillReading &reeds);
+    // A flow reading, pulses over the last kFlowSampleMs.
+    SweepAction sample(uint32_t pulses);
 
     SweepState  state() const;
     const char *stateName() const;
-    bool        owed() const;      // from owe() until the lever is let go, the tank is found wet, or clear()
+    bool        owed() const;      // from owe() until the lever is let go, or clear()
     bool        flowing() const;   // gas is moving and the count is short of its target
     bool        done() const;      // the count is over, met or given up, and the lever is still down
     uint32_t    pulses() const;    // counted in the sweep that is owed, or the one that just ended
@@ -107,7 +105,6 @@ private:
     uint32_t   pulses_;
     uint32_t   flowed_;   // readings with gas moving
     uint32_t   quiet_;
-    uint32_t   wet_;
 };
 
 }  // namespace machine_policy
