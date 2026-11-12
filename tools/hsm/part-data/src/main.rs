@@ -1,11 +1,9 @@
-//! Scalar construction recipes for the water-inlet jet's drilling jaws, valve seat and reference parts.
+//! Document figures for the water-inlet jet's drilling jaws and the valve seat.
 #![recursion_limit = "512"]
 use anyhow::{Context, Result, bail};
 use hsm_documents::format_number;
 use serde_json::{Value, json};
 use std::collections::BTreeMap;
-
-mod reference;
 
 fn num(v: &Value, key: &str) -> Result<f64> {
     v[key]
@@ -128,7 +126,6 @@ fn valve_seat(v: &Value) -> Result<Value> {
 
 fn request(v: &Value) -> Result<Value> {
     match v["part"].as_str().context("Missing part name")? {
-        "reference" => reference::request(v),
         "water-inlet-jet-fixture" => jet_fixture(v),
         "valve-seat" => valve_seat(v),
         other => bail!("Unknown part-data provider {other}"),

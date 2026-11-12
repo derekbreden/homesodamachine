@@ -38,5 +38,4 @@ tools/run -- cargo run --release --locked -j 2 \
 ```
 
 `frozen-asset.json` binds the published files to their native source. Layout and
-wiring read the saved model and terminal-interface data directly. The native
-`part-data` reference provider also exposes the measured display dimensions.
+wiring read the saved model and terminal-interface data directly.

@@ -7,7 +7,7 @@ use hsm_cold_core_layout::cap::{cap_face_z, world_to_cap};
 
 /// The main board's mounting holes MH1 to MH4 in its PCB frame, the outline whose centre the
 /// board is drawn about, and its thickness. The board's design (`hardware/pcb/pcba/pcba.tsx`)
-/// and the PCBA tray (part-data's `electronics`) own these.
+/// and the PCBA tray (`hsm-pcba-numbers`) own these.
 pub const BOARD_HOLES: [[f64; 2]; 4] = [[-64.5, 33.0], [13.5, 33.0], [13.5, -33.3], [-64.5, -33.3]];
 pub const BOARD_OUTLINE_X: [f64; 2] = [-68.0, 17.0];
 pub const BOARD_OUTLINE_Y: [f64; 2] = [-36.3, 36.5];
