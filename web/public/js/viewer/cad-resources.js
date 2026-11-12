@@ -16,6 +16,7 @@ export function cadGroupDisposed(group) { return disposed.has(group); }
 export function disposeCadGroup(group) {
   if (!group || disposed.has(group)) return;
   disposed.add(group);
+  if (group === state.currentGroup && group.userData.instanceView?.material) state.autoHiddenComponents.clear();
   xray.disposeXray?.(group);
   const own = ownedMaterials.has(group) || (group === state.currentGroup
     && (state.mountedDetail?.type === "glb" || state.mountedDetail?.type === "dxf"));

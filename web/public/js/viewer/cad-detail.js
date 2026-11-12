@@ -41,7 +41,7 @@ import { setTrail, stepHash, walkDepth } from "./step-nav.js";
 import { mountScorecard } from "./scorecard-3d.js";
 import { mountMissing } from "./missing-parts.js";
 import { mountRelated, closeRelated } from "./related-nav.js";
-import { clearHighlight, leaveHighlight, makeFocusToggle } from "./part-highlight.js";
+import { clearHighlight, leaveHighlight } from "./part-highlight.js";
 import { mountFaucetOptions } from "./faucet-options.js";
 import { mountFlavorPath } from "./flavor-path.js";
 import { HSM_EVENTS } from "/contracts/client-events.js";
@@ -183,7 +183,6 @@ export function openCadDetail(type, file, pushHistory = true, path = null, targe
     clearFlavorPath = mountFlavorPath(wrapper, chips);
   }
   chips.appendChild(makeRulerToggle());
-  if (type === "step") chips.appendChild(makeFocusToggle());
   rail.appendChild(makeToolGroup("Show", chips)).classList.add("tool-group-show");
   const clearToolDrawer = mountToolDrawer(rail);
   const footer = document.createElement("div");

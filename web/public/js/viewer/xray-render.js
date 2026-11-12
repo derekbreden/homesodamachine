@@ -8,18 +8,12 @@ import { LineMaterial } from "three/addons/lines/LineMaterial.js";
 export function createXrayRenderer({
   enabled = false,
   surfaceOpacity = 0.14,
-  // A body faded behind a focused selection: fainter than an x-ray ghost, and drawn without
-  // its feature edges, so the selection is the only structure that reads.
-  fadedOpacity = 0.07,
   edgeThreshold = 30,
   edgeWidth = 1.4,
   isMeshVisible = () => true,
 } = {}) {
   let active = !!enabled;
-  // The root whose bodies fade unless `holds` keeps them; null when nothing is in focus.
-  let focus = null;
   const variants = new WeakMap();
-  const fadedVariants = new WeakMap();
   const records = new WeakMap();
   const roots = new WeakMap();
   const edgeMaterials = new Set();
@@ -50,16 +44,16 @@ export function createXrayRenderer({
     }
     return material;
   }
-  function variant(cache, base, opacity) {
-    let entry = cache.get(base);
+  function ghostVariant(base) {
+    let entry = variants.get(base);
     if (!entry) {
       entry = { material: base.clone(), version: base.version };
-      cache.set(base, entry);
+      variants.set(base, entry);
       // Opened procedural views dispose their base materials when closed. The
       // ghost owns a separate GPU program reference and follows that lifetime.
       const disposeVariant = () => {
         entry.material.dispose();
-        cache.delete(base);
+        variants.delete(base);
         base.removeEventListener("dispose", disposeVariant);
       };
       base.addEventListener("dispose", disposeVariant);
@@ -74,15 +68,13 @@ export function createXrayRenderer({
     material.onBeforeCompile = base.onBeforeCompile;
     material.customProgramCacheKey = base.customProgramCacheKey;
     material.transparent = true;
-    material.opacity = opacity;
+    material.opacity = surfaceOpacity;
     material.depthWrite = false;
     material.forceSinglePass = true;
     return material;
   }
-  const variantsOf = (cache, opacity) => base =>
-    Array.isArray(base) ? base.map(material => material ? variant(cache, material, opacity) : material) : variant(cache, base, opacity);
-  const ghostMaterial = variantsOf(variants, surfaceOpacity);
-  const fadedMaterial = variantsOf(fadedVariants, fadedOpacity);
+  const ghostMaterial = base => Array.isArray(base)
+    ? base.map(material => material ? ghostVariant(material) : material) : ghostVariant(base);
   const eligible = object => object.isMesh && !object.userData?.isXrayEdge && !object.userData?.hitOnly && object.geometry && object.material;
   function meshesIn(root) {
     const meshes = new Set();
@@ -151,14 +143,11 @@ export function createXrayRenderer({
   function detachEdge(record) {
     if (record.line) { record.line.visible = false; record.line.removeFromParent(); }
   }
-  // A body outside the focus fades in either mode. The rest draw solid, or as
-  // ghosts with their feature edges while x-ray is on.
-  function present(root, mesh, record, on) {
-    const faded = focus?.root === root && !focus.holds(mesh);
-    record.ghost = faded ? fadedMaterial(record.base) : on ? ghostMaterial(record.base) : null;
+  function present(mesh, record, on) {
+    record.ghost = on ? ghostMaterial(record.base) : null;
     mesh.material = record.ghost || record.base;
     record.applied = !!record.ghost;
-    if (on && !faded) updateEdge(mesh, record);
+    if (on) updateEdge(mesh, record);
     else detachEdge(record);
   }
 
@@ -183,34 +172,25 @@ export function createXrayRenderer({
     // content root. Drop only those departed objects, retaining all other edges.
     if (previous) for (const mesh of previous) if (!meshes.has(mesh)) release(mesh);
     roots.set(root, meshes);
-    if (!on && focus?.root !== root) { restore(root); return; }
+    if (!on) { restore(root); return; }
     for (const mesh of meshes) {
       const record = meshRecord(mesh);
       mesh.userData.baseMaterial = record.base;
-      present(root, mesh, record, on);
+      present(mesh, record, on);
     }
   }
-  function setMeshMaterial(root, mesh, material, on = active) {
+  function setMeshMaterial(mesh, material, on = active) {
     if (!mesh || !eligible(mesh)) return;
     const record = meshRecord(mesh);
     record.base = material;
     mesh.userData.baseMaterial = material;
-    present(root, mesh, record, on);
-  }
-  // Fade every body under `root` that `holds(mesh)` does not keep; no root ends the focus.
-  // A root that has left the scene is not redrawn on the way out.
-  function setFocus(root = null, holds = null) {
-    const previous = focus?.root;
-    focus = root && holds ? { root, holds } : null;
-    if (previous && previous !== root && previous.parent) apply(previous);
-    if (root) apply(root);
+    present(mesh, record, on);
   }
   function dispose(root) {
     if (!root) return;
     const meshes = roots.get(root) || meshesIn(root);
     for (const mesh of meshes) release(mesh);
     roots.delete(root);
-    if (focus?.root === root) focus = null;
   }
   function forgetEdgeMaterials() {
     for (const material of edgeColors.values()) material.dispose();
@@ -219,5 +199,5 @@ export function createXrayRenderer({
   function setEnabled(on) { active = !!on; }
   function isEnabled() { return active; }
 
-  return { apply, restore, setEnabled, isEnabled, syncEdgeResolution, makeEdgeMaterial, setMeshMaterial, setFocus, forgetEdgeMaterials, dispose };
+  return { apply, restore, setEnabled, isEnabled, syncEdgeResolution, makeEdgeMaterial, setMeshMaterial, forgetEdgeMaterials, dispose };
 }

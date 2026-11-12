@@ -49,7 +49,7 @@ export const state = {
   cadLoadAbort: null,         // active CAD transfer; shared across hot loader imports
   hiddenComponents: new Set(), // component-picker.js: names hidden in the local view (per open file);
                               // repopulated from localStorage on each STEP load, applied to mesh.visible
-  autoHiddenComponents: new Set(), // obstructions removed for the current installed-location view
+  autoHiddenComponents: new Set(), // obstructions hidden around the current selection
   autoHiddenFile: null,
   thumbnailCache: new Map(),  // "<STEP file>@<square px>[@<faucet finish>]" -> dataURL
   mmdThumbCache: new Map(),   // Mermaid file -> svgHTML
