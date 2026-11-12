@@ -568,8 +568,8 @@ pub fn numbers(request: &Value) -> Result<Value> {
         .collect::<Vec<_>>();
     Ok(
         json!({"name":"machine-equipment","items":b.items,"frames":b.frames,"world_ports":world_ports,"routes":routes,
-        "native_connections":spec["logical_connections"],"keystone_station":[face[0],face[2]],"keystone_clearances":[],"route_order":order,"component_order":component_order,
-        "core_equipment":layout::equipment_names(),"colors":colors,"insulation":insulation,
+        "route_order":order,"component_order":component_order,
+        "core_equipment":layout::equipment_names(),"insulation":insulation,
         "_frame_port_order":b.frames.iter().map(|(name,row)|(name.clone(),json!(ports::order(name,&row["ports"])))).collect::<Map<_,_>>() }),
     )
 }
@@ -585,23 +585,7 @@ pub fn finalize(request: &Value) -> Result<Value> {
         }
         routes.insert(key.to_owned(), request["integrated_routes"][key].clone());
     }
-    let native_order = order.clone();
-    let mut native = routes.clone();
-    let mut replaced = std::collections::BTreeSet::new();
-    for route in rows(&request["extra_routes"])? {
-        let name = text(&route["name"])?.trim_start_matches("tube-");
-        if !routes.contains_key(name) {
-            order.push(json!(name));
-        }
-        let row = object(route)?
-            .iter()
-            .filter(|(key, _)| key.as_str() != "name")
-            .map(|(key, value)| (key.clone(), value.clone()))
-            .collect();
-        routes.insert(name.to_owned(), Value::Object(row));
-        replaced.insert(name.to_owned());
-    }
-    for (name, route) in &mut routes {
+    for route in routes.values_mut() {
         if route.get("color").is_none() {
             let spool = text(&route["spool"])?;
             route["color"] = request["spool_colors"]
@@ -609,13 +593,8 @@ pub fn finalize(request: &Value) -> Result<Value> {
                 .with_context(|| format!("no equipment spool color {spool}"))?
                 .clone();
         }
-        if native.contains_key(name) && !replaced.contains(name) {
-            native.insert(name.clone(), route.clone());
-        }
     }
     equipment["routes"] = Value::Object(routes);
-    equipment["native_route_specs"] = Value::Object(native);
     equipment["route_order"] = json!(order);
-    equipment["native_route_order"] = json!(native_order);
     Ok(equipment)
 }

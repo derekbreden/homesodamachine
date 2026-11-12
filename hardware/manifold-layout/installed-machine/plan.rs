@@ -59,44 +59,17 @@ fn canonical(value: &Value) -> String {
     sorted(value).to_string()
 }
 
-/// The equipment the complete placement takes: the equipment program's plan with the routed
-/// tubes (`tubes`, as placed bodies) added, the frames and ports it places, the junctions, and
-/// the metadata the plan carries.
+/// The equipment as the complete placement takes it: each component's bodies in `model` as the
+/// equipment stage `placed` them, then the routed `tubes`; the reference items' drawings; each
+/// body's frame and placed ports; the junctions; the bodies each tube joins; and the metadata
+/// the plan carries.
 pub fn equipment_block(
-    equipment_request: &Value,
-    equipment: Value,
-    tubes: Vec<Value>,
-    junctions: Vec<Value>,
-    metadata: Value,
-) -> Result<Value> {
-    let mut equipment = equipment;
-    let mut instances = equipment["instances"].as_array().cloned().unwrap_or_default();
-    instances.extend(tubes);
-    equipment["instances"] = Value::Array(instances);
-    equipment["route_specs"] = equipment_request["routes"].clone();
-    equipment["metadata"] = metadata;
-    equipment["core_equipment"] = equipment_request["core_equipment"].clone();
-    equipment["component_order"] = equipment_request["component_order"].clone();
-    let mut frames = Map::new();
-    for (name, row) in equipment_request["frames"].as_object().context("equipment frames")? {
-        let mut ports = Map::new();
-        for (port, at) in equipment_request["world_ports"][name].as_object().into_iter().flatten() {
-            ports.insert(port.clone(), json!({"pos": at[0], "axis": at[1], "diam": at[2]}));
-        }
-        frames.insert(name.clone(), json!({"transform": row["transform"], "ports": ports}));
-    }
-    equipment["frames"] = Value::Object(frames);
-    equipment["junctions"] = Value::Array(junctions);
-    Ok(equipment)
-}
-
-/// The equipment as the plan carries it: what the equipment request states, with each
-/// component's bodies in `model`, the reference items' drawings and every placed body's
-/// measures as the equipment stage `placed` them.
-pub fn equipment_document(
     equipment_request: &Value,
     placed: &crate::equipment_program::Placed,
     model: &Path,
+    tubes: Vec<Value>,
+    junctions: Vec<Value>,
+    metadata: Value,
 ) -> Result<Value> {
     use crate::equipment_program::Drawn;
     let model = json!(std::path::absolute(model)?);
@@ -110,6 +83,7 @@ pub fn equipment_document(
         let key = name.as_str().context("a component's name")?;
         instances.push(json!({"model": model, "indices": placed.groups.get(key), "name": name}));
     }
+    instances.extend(tubes);
     let mut presentation = vec![];
     for skin in &placed.presentation {
         presentation.push(match &skin.drawn {
@@ -120,25 +94,28 @@ pub fn equipment_document(
                 "source_sha256": source_sha256}),
         });
     }
+    let mut frames = Map::new();
+    for (name, row) in equipment_request["frames"].as_object().context("equipment frames")? {
+        let mut ports = Map::new();
+        for (port, at) in equipment_request["world_ports"][name].as_object().into_iter().flatten() {
+            ports.insert(port.clone(), json!({"pos": at[0], "axis": at[1], "diam": at[2]}));
+        }
+        frames.insert(name.clone(), json!({"transform": row["transform"], "ports": ports}));
+    }
+    let mut owners = Map::new();
+    for (name, route) in equipment_request["routes"].as_object().context("the equipment's routes")? {
+        if let Some(joined) = route.get("owners") {
+            owners.insert(name.clone(), json!({"owners": joined}));
+        }
+    }
     Ok(json!({
-        "equipment": items,
-        "frames": equipment_request["frames"],
-        "world_ports": equipment_request["world_ports"],
-        "routes": equipment_request["routes"],
-        "component_order": equipment_request["component_order"],
         "core_equipment": equipment_request["core_equipment"],
-        "groups": placed.groups,
-        "native_route_specs": equipment_request["native_route_specs"],
-        "native_connections": equipment_request["native_connections"],
-        "native_route_order": equipment_request["native_route_order"],
-        "keystone_station": equipment_request["keystone_station"],
-        "keystone_clearances": equipment_request["keystone_clearances"],
         "instances": instances,
+        "junctions": junctions,
+        "route_specs": owners,
         "presentation": presentation,
-        "insulation": equipment_request["insulation"],
-        "route_order": equipment_request["route_order"],
-        "bodies": placed.bodies,
-        "model": model,
+        "frames": frames,
+        "metadata": metadata,
     }))
 }
 
