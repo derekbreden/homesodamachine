@@ -24,6 +24,9 @@ mod layout;
 #[path = "../../../../hardware/manifold-layout/installed-machine/plan.rs"]
 mod plan;
 #[allow(dead_code)]
+#[path = "../../../../hardware/wiring/installed/wire_request.rs"]
+mod wire_request;
+#[allow(dead_code)]
 #[path = "../../../../hardware/manifold-layout/installed-machine/wiring.rs"]
 mod wiring;
 
