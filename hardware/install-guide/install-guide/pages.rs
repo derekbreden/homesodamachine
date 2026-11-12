@@ -499,7 +499,7 @@ pub fn compose(b: &mut Book) -> Result<()> {
             .limit(51.0),
     )?;
     b.caption(
-        "Filter: replace yearly; relieve the white line's pressure as on page 31 first. Cylinder: refill when its left gauge reaches the red band. Keep the spare nylon washer for the refill.",
+        "Filter: replace yearly; relieve the white line's pressure as on page 31 first. Cylinder: refill when its left gauge reaches the red band. Keep the spare nylon washer for the refill. To move the machine, tap Move the machine in System status; it guides you.",
         402.0,
         M,
         CW,
