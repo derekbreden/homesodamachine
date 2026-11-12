@@ -74,6 +74,11 @@ cover seating on one wing. Its
 binds the seam gaps, exterior wall paths, shoulder support and nose clearance
 to the submitted toolpath.
 
+The [Mark1 wing receiver fit result](https://github.com/derekbreden/homesodamachine/blob/4b44ac1a2d32679244ecc587144a0afc8a6fb2ac/hardware/printed-parts/faucet/sculpted/prints/2026-11-12-wing-receiver-clearance-mark1/physical-result/physical-result.json)
+records the plain wing ends bearing on the tip and holding the blades out of
+their channels. The tip's pockets provide clearance for the plain ends
+alongside the channels and preserve the blade retaining ledges.
+
 [review_print.py](https://github.com/derekbreden/homesodamachine/blob/306268f870/hardware/printed-parts/faucet/sculpted/review_print.py) (in Git at `306268f870`) reads the native G-code's nominal courses,
 filament assignment, cooling, speed commands, complete bead footprint and
 whole-height seam paths. It packages a separate print-only archive with
