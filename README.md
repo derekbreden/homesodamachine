@@ -16,13 +16,13 @@ The product under development is an integrated under-counter soda machine — cu
 | [`hardware/`](/hardware/) | The integrated soda machine under development — CAD scripts, [`bom.md`](/hardware/ledger/bom.md), [`purchases.md`](/hardware/ledger/purchases.md), [`assembly/`](/hardware/assembly/) procedures, printed parts, wiring schedules |
 | [`firmware/`](/firmware/) | ESP32 + ESP32-S3 firmware: the main board, the machine display and the faucet display of the soda machine under development, the bare-board bench rig, and the weld rotator — see [`firmware/README.md`](/firmware/README.md) for which tree runs where. |
 | [`web/`](/web/) | homesodamachine.com — Node server, CAD viewer — see [`web/README.md`](/web/README.md) |
-| [`ios/`](/ios/) | iOS companion app (BLE bridge, settings, usage stats) |
-| [`android/`](/android/) | Android companion app |
+| [`ios/`](/ios/) | iOS companion app: the BLE link to a machine, firmware updates, pictures, mix, care and settings |
+| [`android/`](/android/) | The start of an Android port: a splash and onboarding screens over a stubbed BLE layer |
 | [`brand/`](brand/README.md) | On tap faucet identity, Big Blue palette, app icons, wordmarks, and shared asset generation |
 | [`marketing/`](/marketing/) | Target market analysis, [Lincoln sales and installation](marketing/lincoln/README.md), unboxing brief, video scripts |
 | [`business/`](/business/) | Incorporation, regulatory (UL 943, ASSE 1022) |
 | [`future/`](/future/) | Where the project is going — the vision and the plan in [`README.md`](/future/README.md), and the desires not yet committed to plans in [`pie-in-the-sky/`](/future/pie-in-the-sky/) |
-| [`tools/`](/tools/) | [Resident geometry queries with `hsm`](tools/hsm/README.md), CadQuery venv, render scripts, measurement utilities |
+| [`tools/`](/tools/) | [The `hsm` kernel, build and geometry queries](tools/hsm/README.md), render scripts, printer and bench utilities |
 
 Agents and collaborators landing in this repo: [`CLAUDE.md`](/CLAUDE.md) is the entry point.
 
