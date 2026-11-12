@@ -3,7 +3,7 @@
 //!
 //!     sculpted-faucet-print-project <project.3mf> [--slice-output DIRECTORY]
 //!                                 [--printer Mark1|Mark2] [--filament-colour '#RRGGBB']
-//!                                 [--base-section SECTION.stl | --tip-only]
+//!                                 [--base-section SECTION.stl | --tip-only | --tip-and-cover]
 //!
 //! The five rigid parts are the faucet shell's base and tip, the display cover, the
 //! above-counter plate and the side-down lever. Their object settings, the solid foot regions
@@ -32,6 +32,7 @@ const PROFILE: &str = "hardware/printed-parts/faucet/industrial/prints/2026-10-1
 const FINISH: &str = "hardware/printed-parts/faucet/sculpted/finish-selection.json";
 /// Each part's own space from the shared plate's centre, for its brim and supports.
 const OFFSETS: [[f64; 2]; 5] = [[-77.0, 0.0], [20.0, 47.0], [89.0, 76.0], [43.0, -52.0], [-17.5, -60.0]];
+const TIP_AND_COVER_OFFSETS: [[f64; 2]; 2] = [[-31.0, 0.0], [31.0, 0.0]];
 /// Each Sculpted part and the Industrial part whose object settings it takes.
 const PART_NAMES: [(&str, &str); 5] = [("faucet-shell-base", "industrial-shell-base"), ("faucet-shell-tip", "faucet-shell-tip"),
     ("faucet-display-cover", "sculpted-display-cover"), ("above-counter-plate", "industrial-above-counter-plate"), ("lever-replica", "lever-replica")];
@@ -42,11 +43,16 @@ fn main() -> Result<()> {
     let mut slice_output = None;
     let mut base_section = None;
     let mut tip_only = false;
+    let mut tip_and_cover = false;
     let mut printer = "Mark2".to_owned();
     let mut colour = "#FFFFFF".to_owned();
     while let Some(arg) = args.next() {
         if arg == "--tip-only" {
             tip_only = true;
+            continue;
+        }
+        if arg == "--tip-and-cover" {
+            tip_and_cover = true;
             continue;
         }
         let value = args.next().with_context(|| format!("{} needs a value", arg.to_string_lossy()))?;
@@ -58,7 +64,9 @@ fn main() -> Result<()> {
             _ => bail!("unknown argument {}", arg.to_string_lossy()),
         }
     }
-    ensure!(!tip_only || base_section.is_none(), "--tip-only and --base-section are mutually exclusive");
+    let include_base = !tip_only && !tip_and_cover;
+    ensure!(!(tip_only && tip_and_cover) && (include_base || base_section.is_none()),
+        "--tip-only, --tip-and-cover and --base-section are mutually exclusive");
     let trim = match printer.as_str() {
         "Mark1" => 0.18,
         "Mark2" => 0.04,
@@ -66,6 +74,8 @@ fn main() -> Result<()> {
     };
     let title = if tip_only {
         format!("Sculpted faucet tip PET-GF left {printer}")
+    } else if tip_and_cover {
+        format!("Sculpted faucet tip and display cover PET-GF left {printer}")
     } else if base_section.is_some() {
         format!("Sculpted faucet support and fit PET-GF left {printer}")
     } else if printer == "Mark2" && colour == "#FFFFFF" {
@@ -75,24 +85,28 @@ fn main() -> Result<()> {
     };
     let faucet = root.join(FAUCET);
     let selection = read_json(&root.join(FINISH))?;
-    let full_plate = !tip_only && base_section.is_none();
-    let tip_part = Part::new("faucet-shell-tip", faucet.join("faucet-shell/faucet-shell-tip.stl"), -PRINT_TIP_BUILD_ROT.to_degrees());
-    let mut parts = if tip_only {
-        vec![tip_part]
-    } else {
-        vec![
-            Part::new("faucet-shell-base", base_section.unwrap_or_else(|| faucet.join("faucet-shell/faucet-shell-base.stl")), -PRINT_BASE_BUILD_ROT.to_degrees()),
-            tip_part,
-            Part::new("faucet-display-cover", faucet.join("faucet-display-cover/faucet-display-cover.stl"), -50.0),
-        ]
-    };
+    let full_plate = include_base && base_section.is_none();
+    let mut parts = Vec::new();
+    if include_base {
+        parts.push(Part::new("faucet-shell-base", base_section.unwrap_or_else(|| faucet.join("faucet-shell/faucet-shell-base.stl")), -PRINT_BASE_BUILD_ROT.to_degrees()));
+    }
+    parts.push(Part::new("faucet-shell-tip", faucet.join("faucet-shell/faucet-shell-tip.stl"), -PRINT_TIP_BUILD_ROT.to_degrees()));
+    if !tip_only {
+        parts.push(Part::new("faucet-display-cover", faucet.join("faucet-display-cover/faucet-display-cover.stl"), -50.0));
+    }
     if full_plate {
         parts.extend([
             Part::new("above-counter-plate", faucet.join("above-counter-plate/above-counter-plate.stl"), 0.0),
             Part::new("lever-replica", faucet.join("lever-replica/lever-replica-side-down.stl"), 0.0),
         ]);
     }
-    let offsets = if tip_only { &[[0.0, 0.0]][..] } else { &OFFSETS[..parts.len()] };
+    let offsets = if tip_only {
+        &[[0.0, 0.0]][..]
+    } else if tip_and_cover {
+        &TIP_AND_COVER_OFFSETS[..]
+    } else {
+        &OFFSETS[..parts.len()]
+    };
     let mut r = refresh::refresh(&root, &root.join(PROFILE), &parts, offsets, &title, Some(trim), 40.0)?;
     let parent = &selection["industrial_recipe"];
     let parent_project_source = parent["project"].as_str().context("Industrial parent project")?;
@@ -100,7 +114,7 @@ fn main() -> Result<()> {
     let parent_revision = parent["source_commit"].as_str().context("Industrial parent revision")?;
     let parent_project_bytes = recorded_member(&root, parent, "project")?;
     let parent_report_bytes = recorded_member(&root, parent, "report")?;
-    if !tip_only {
+    if include_base {
         let parent_report: Value = serde_json::from_slice(&parent_report_bytes)?;
         let regions: Vec<Region> = parent_report["local_solid_regions"].as_array().into_iter().flatten().map(|row| {
             let b = &row["source_bounds_mm"];
@@ -132,6 +146,12 @@ fn main() -> Result<()> {
             obj.settings.retain(|(key, _)| key != "seam_gap");
             obj.settings.push(("seam_gap".into(), shell_gap.into()));
         }
+        if tip_and_cover && obj.name == "faucet-shell-tip" {
+            // Anchor the tip's small bed contacts with an attached outer brim.
+            let brim = [("brim_type", "outer_only"), ("brim_width", "7"), ("brim_object_gap", "0")];
+            obj.settings.retain(|(key, _)| !brim.iter().any(|(setting, _)| key == setting));
+            obj.settings.extend(brim.map(|(key, value)| (key.into(), value.into())));
+        }
     }
     let original = r.plate.settings.clone();
     let hook = cooling_hook(&root);
@@ -149,6 +169,8 @@ fn main() -> Result<()> {
     r.plate.filament_map_mode = "Manual".into();
     let seam_keys = if tip_only {
         &["tip_rear_seam_enforcement"][..]
+    } else if tip_and_cover {
+        &["tip_rear_seam_enforcement", "cover_rear_seam_enforcement"][..]
     } else {
         &["rear_seam_enforcement", "tip_rear_seam_enforcement", "cover_rear_seam_enforcement"][..]
     };
@@ -161,7 +183,7 @@ fn main() -> Result<()> {
     let mapping_revision = contact["source_commit"].as_str().context("contact parameters revision")?;
     let mapping_bytes = recorded_member(&root, contact, "parameters_source")?;
     let mapping: Value = serde_json::from_slice(&mapping_bytes)?;
-    let base_contact = (!tip_only)
+    let base_contact = include_base
         .then(|| prepare_base_contact(&root, &mut r, &selection["base_rim_supports"], &mapping["parameters"]))
         .transpose()?;
     if full_plate {
