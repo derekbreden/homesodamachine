@@ -14,6 +14,9 @@ pub const ESP32_S3: (u16, u16) = (0x303a, 0x1001);
 
 pub fn ports() -> Result<Vec<SerialPortInfo>> {
     let mut ports = serialport::available_ports()?;
+    // macOS lists every device twice, as its call-out node and its dial-in node. They are one
+    // board, and the call-out node is the one that opens without waiting for carrier.
+    ports.retain(|port| !port.port_name.starts_with("/dev/tty."));
     ports.sort_by(|a, b| a.port_name.cmp(&b.port_name));
     Ok(ports)
 }
