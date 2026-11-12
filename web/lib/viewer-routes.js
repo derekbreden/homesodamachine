@@ -238,9 +238,9 @@ export function mountViewerRoutes(app, { hardwareDir, store, pointersPath }) {
   });
 
   // What a machine's published facts say it is missing — the runs the plumbing needs that the
-  // machine as built does not complete — for the notice the 3D viewer draws over the model
+  // machine as built does not complete — for the check or x the 3D viewer marks the model with
   // (public/js/viewer/missing-parts.js). Read from <model>.facts.json when asked; a model with
-  // no facts answers 404 and gets no notice. no-cache so a republished model is not read stale.
+  // no facts answers 404 and gets no mark. no-cache so a republished model is not read stale.
   app.get("/api/step-missing/*splat", (req, res) => {
     const abs = safeFile(hardwareDir, relOf(req), FACTS_SUFFIX);
     if (!abs) return res.status(400).send("Invalid path");

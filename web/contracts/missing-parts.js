@@ -3,7 +3,7 @@
 // The installed machine's facts (<model>.facts.json, a published file beside its STEP) list
 // every run the plumbing needs — a tube, a mate, a threaded joint — with the two ports it joins
 // and whether the machine as built completes it. This reads the runs it does not complete, for
-// the notice the 3D viewer draws over the model (public/js/viewer/missing-parts.js). The site
+// the check or x the 3D viewer marks the model with (public/js/viewer/missing-parts.js). The site
 // reads the published file when a model is opened; the build does nothing for it.
 
 export const FACTS_SUFFIX = ".facts.json";

@@ -12,7 +12,8 @@ and regulatory basis is [`/business/regulatory.md`](/business/regulatory.md), an
 
 | Concern | Answer |
 | --- | --- |
-| Stopping the build when it cannot make something, such as a tube it cannot route | Derek: “Failed build means I don't get to see *any* updates at all.” The site reads the machine's published facts and says over [its model](https://homesodamachine.com/3d#step:manifold-layout%2Fenclosure-assembly.step) which of the plumbing's connections the machine does not complete ([`missing-parts.js`](/web/contracts/missing-parts.js)). |
+| Stopping the build when it cannot make something, such as a tube it cannot route | Derek: “Failed build means I don't get to see *any* updates at all.” and “I want to see changes. I don't want to not see changes. Not seeing things is the worst.” The site reads the machine's published facts and marks [its model](https://homesodamachine.com/3d#step:manifold-layout%2Fenclosure-assembly.step) with a red x that lists the plumbing connections the machine does not complete ([`missing-parts.js`](/web/contracts/missing-parts.js)). |
+| Saying what is broken with a notice laid over the model | Derek: “I do want to see it, and I want to see it red, but it should be small and unobstrusive and *NOT* covering anything else or pushing anything else on the screen. Basically a green check when things are good and a red x when they are not, and I can click the red x to see the actual issue(s).” |
 | Having the build report or check what it made | Derek: “I don't want *anything* added to my build time please” and “time from agent tries to show me something on the website to the time I see it on the website is all that matters”. [What Runs Every Time](/AGENTS.md#what-runs-every-time) and [Speed](/AGENTS.md#speed) say the same. |
 
 ## Printed and assembled

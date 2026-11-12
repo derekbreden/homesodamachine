@@ -198,7 +198,7 @@ export function openCadDetail(type, file, pushHistory = true, path = null, targe
   // badge + drill-down modal. Async fetch, fire-and-forget: no sidecar → no badge, and
   // mountScorecard bails if the modal closed before the fetch resolved.
   if (type === "step") mountScorecard(wrapper, file);
-  // What the model's published facts say is missing from it, said over the canvas.
+  // Whether the model's published facts say anything is missing from it: a small check or x.
   if (type === "step") mountMissing(wrapper, file);
 
   state.currentCadWrapper = wrapper;
