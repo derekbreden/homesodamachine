@@ -161,6 +161,14 @@ first filled; `refill latch` stands a refill latched as one that spent its ceili
 see what the glasses say; `refill forget` drops a refill that is owed. A reading put in with
 `sim` is not the water: what it asks for is not kept, and ends with `sim off`.
 
+A tank emptied with the power off leaves nothing asked: the float fell through the low reed
+unseen, and below it no reed is closed. That is how the booklet lets the pressure out before
+a tube is pulled, so a start that finds the high reed open asks for water once, on its first
+good reading. A tank that stood between its reeds gets a top-up it did not strictly need, and
+an empty one gets its water back. Only a carbonator that has been filled is looked after this
+way: [`refill_store.cpp`](refill_store.cpp) keeps for good that a refill has ended at the high
+reed, which a board on a bench never has. A sweep that is owed asks for the fill itself.
+
 A carbonator that was drained and opened owes a sweep before its first fill
 ([`sweep_policy.h`](/firmware/lib/machine_policy/sweep_policy.h)): the air it holds would be
 squeezed into the headspace by the fill and stay there. `sweep owe` sets it,
@@ -180,6 +188,22 @@ for the lever to be let go, as it does after the target, and both glasses say Do
 then. Whether the meter counts gas and how long a sweep takes are wet-bench measurements;
 `flow <n> [s]` stands in for the gas on a bench.
 
+A machine that is to be moved is told so before its plug comes out
+([`move_policy.h`](/firmware/lib/machine_policy/move_policy.h)): its tank is emptied at the
+faucet with the supplies shut, and the board cannot see that done with the power off.
+**Move the machine** on its own display sends `MSG_MOVE_BEGIN`, and `move` here does the
+same. While it is moving the refill's gate is shut, the meter's pulses open no pour, and no
+fill, clean or air cycle, prime, pump check or self-test begins; a pour or refill under way
+is stopped. Both glasses say so (`NOTICE_MOVE`): the machine's own shows the steps and its
+one answer, Cancel (`MSG_MOVE_CANCEL`, `move cancel`), and the faucet's says to hold the lever
+until nothing comes out. The board can tell little of the drain. The meter turning says
+something is leaving, and the float passing the low reed says the water is below it
+(`LEVEL_F_CARB_BELOW`). No reed stands lower, so nothing says the tank is empty. The power
+going ends the move: [`sweep_store.cpp`](sweep_store.cpp) keeps that the machine was moving,
+and the start that finds it kept owes a sweep, so the same welcome and the same hold at the
+lever come first, as on a new machine. A move called off runs the refill the float asked for
+meanwhile.
+
 `status` prints both loops with their relays; `thermal` walks the bus; `sim` puts a reading at
 the top of either so the policy, the relays and the fan can be exercised with no probe on the
 bench, and says `SIMULATED` on every `status` while one stands.
@@ -198,6 +222,8 @@ step at the faucet with **Skip** and **OK**, then Done
 percent counted and whether gas is moving now, and goes out as they change as well as on
 the heartbeat, so the bar moves under the hand. A notice that comes up lights both glasses,
 and a sweep with gas moving keeps them lit.
+A machine that is moving is `NOTICE_MOVE`, and the faucet's notice then says whether the
+meter is turning and whether the float has passed the low reed.
 
 A machine on a bench has no water to find. `notice hold <name>…` from a host on this console
 keeps the named notices off both glasses for `kNoticeHoldLeaseMs`, and a host that stays says
@@ -273,8 +299,8 @@ clock or `-`, what it was, and that thing's own fields by name —
 | `faucet_link.cpp` | J3 full-duplex flavor acknowledgements, shared-prime controls/state, and what a phone may ask |
 | `flavor.cpp` | main-board-owned flavor state and deferred NVS persistence |
 | `rtc.cpp` | U6 DS3231 — what hour it is, and whether that answer can be believed |
-| `refill_store.cpp` | what the refill keeps through a power cut: that it is owed, and the pumping time spent on it |
-| `sweep_store.cpp` | what the sweep keeps through a power cut: that it is owed |
+| `refill_store.cpp` | what the refill keeps through a power cut: that it is owed, and the pumping time spent on it; and, for good, that the carbonator has been filled |
+| `sweep_store.cpp` | what the sweep keeps through a power cut: that it is owed, and that the machine was moving |
 | `recorder.cpp` | the machine's record: entries waiting for an idle moment, the flash they are kept in, the console's `log` |
 | `pins.h` | what this image reaches on the main board, off `pcba.tsx` |
 | [`/firmware/lib/sound`](/firmware/lib/sound/sound.h) | U8, IO13, and the machine's sounds — shared with the bench |
@@ -297,7 +323,7 @@ pio device monitor -e appliance
 | `fill <a\|b> [s]` | the funnel fill: the channel's funnel path open and its pump drawing, for `s` s (default 80) or until the reservoir's full reed closes |
 | `clean <a\|b> [rounds] [s]` | the clean cycle: the funnel pumped through to the faucet, then tap water pumped into the reservoir and out the faucet, `rounds` times (default 3); `s` caps every step (default 141 funnel, 240 in, 248 out) |
 | `ui <page> [a\|b] [go]` | put a customer page on the enclosure — choose, prime, fill, clean, settings — optionally for a flavor, `go` pressing its START |
-| `ui notice [go\|no]` | put the notice standing up on the enclosure, and press one of its answers: on no water `go` is Try again and `no` is Not now; on the welcome `go` is OK and `no` is Skip, whose confirmation then takes `go` for Skip and `no` for Cancel |
+| `ui notice [go\|no]` | put the notice standing up on the enclosure, and press one of its answers: on no water `go` is Try again and `no` is Not now; on the welcome `go` is OK and `no` is Skip, whose confirmation then takes `go` for Skip and `no` for Cancel; a move answers only to `no`, its Cancel |
 | `flavor [a\|b]` | read or set the main-board-owned flavor selection, and the logo pair beside it |
 | `ratio [a\|b] [6-24]` | read or set what a channel pours at, persisted in NVS and carried to the enclosure on its next poll |
 | `art [<a> <b>]` | read or set which logo each channel wears, persisted in NVS and published to both glasses |
@@ -308,13 +334,15 @@ pio device monitor -e appliance
 | `selftest` | [`firmware-and-commissioning.md`](/hardware/assembly/firmware-and-commissioning.md) §7: V-A through V-K for a quarter second each, the condenser fan for a second, then each pump for a second, one load at a time, each parked and read back before the next |
 | `refill clear` | grant a latched refill another pumping ceiling and set it trying again |
 | `refill latch` | stand a refill latched as one that spent its ceiling does |
-| `notice [hold <name>…\|release]` | what the glasses are told, and a bench host's hold on it: keep the named notices (`no-water`, `welcome` for a sweep) off both glasses for a lease the host renews |
+| `notice [hold <name>…\|release]` | what the glasses are told, and a bench host's hold on it: keep the named notices (`no-water`, `welcome` for a sweep, `move`) off both glasses for a lease the host renews |
 | `refill fill` | fill the carbonator now, whatever its reeds read: to the high reed or the pumping ceiling |
 | `refill forget` | drop a refill that is owed, and the flash's note of it |
-| `sweep` | whether the carbonator owes a sweep of its air, and how far one has got |
+| `sweep` | whether the carbonator owes a sweep of its air, and how far one has got; and whether the machine is moving |
 | `sweep owe` | the tank was drained and opened: hold its first fill until the lever at the faucet has let CO2 carry the air out; drops any refill that is owed |
 | `sweep skip` | give the sweep up and fill without it, as the welcome's Skip does; with gas moving, the fill waits for the lever to be let go |
 | `sweep forget` | drop a sweep that is owed and ask for nothing; with gas moving, the meter is the pour's again once the lever is let go |
+| `move` | the machine is to be moved: no refill, no pour and no cycle from now, and the start after the plug comes out owes a sweep, as Move the machine on its display does |
+| `move cancel` | call the move off |
 | `stop` | end whatever is running |
 | `hang` | stop the loop turning, to see the watchdog restart the board |
 | `status` | machine state, uptime, heap, verified MCP configuration/output park, all ten reeds |

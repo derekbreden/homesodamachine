@@ -73,6 +73,19 @@ refill dropped by owing one, and the ways a sweep is given up: at the machine wi
 moving, at the machine with the lever down, which waits for the lever, and forgotten at a
 bench, where gas still moving opens no pour. Gas through a real meter has no host test: the
 first wet carbonator is its check.
+`test_move_policy` checks what a move can tell of the tank being emptied: the meter turning
+with one empty reading inside the flow, the float passing down through the low reed and a
+reed that only blinks, reeds that cannot be read, water already below the low reed as it
+begins, and a move called off.
+`test_machine_move` runs the production machine code through a move and through the starts
+that follow a drain. A machine that is moving starts no refill, opens no pour and begins
+nothing else; a pour or refill under way is stopped; a busy manifold refuses it; calling it
+off runs the refill the float asked for. The power going ends it, and the next start owes a
+sweep and fills only after the lever. It checks a tank that was never emptied dropping that
+sweep, and a machine moved before its first sweep. For a start it checks a filled tank
+emptied with the power off getting its water back, a high reed found closed asking for
+nothing, a board that never filled a tank, a sweep or a refill already owed, and a reading
+from the console filling no tank.
 `test_machine_month` lives a month at a kitchen sink on the build host: the production machine
 code against a carbonator that drains and fills, a cooling loop that warms and cools, and a
 household that pours, with the clock crossing its wrap on the way. An ordinary month must

@@ -301,7 +301,7 @@ static bool isUserAction(uint8_t type) {
            type == MSG_FLAVOR_ART_SET_ONE || type == MSG_RATIO_SET_ONE ||
            type == MSG_RATIO_SET || type == MSG_SETTING_SET_IF || type == MSG_PRIME_SESSION_SET ||
            type == MSG_TRUST_ANSWER || type == MSG_TRUST_FORGET || type == MSG_REFILL_RETRY ||
-           type == MSG_SWEEP_SKIP;
+           type == MSG_SWEEP_SKIP || type == MSG_MOVE_BEGIN || type == MSG_MOVE_CANCEL;
 }
 
 // What the main board reads about itself, as either link carries it.
@@ -332,6 +332,7 @@ void linkFillStatus(StatusPayload &s) {
     s.levelFlags = (lv.valid    ? LEVEL_F_VALID     : 0)
                  | (lv.carbLow  ? LEVEL_F_CARB_LOW  : 0)
                  | (lv.carbHigh ? LEVEL_F_CARB_HIGH : 0)
+                 | (lv.carbBelow ? LEVEL_F_CARB_BELOW : 0)
                  | (th.simulated ? LEVEL_F_SIMULATED  : 0);
     s.ratio[0] = flavorRatio(0);
     s.ratio[1] = flavorRatio(1);
@@ -716,6 +717,29 @@ static void dispatch(HdlcLink *link, const uint8_t *frame, uint16_t len) {
                       !owed        ? "no sweep is owed"
                       : sweep.owed ? "the sweep is given up; the first fill waits for the lever to be let go"
                                    : "the sweep is given up and the first fill asked for");
+        StatusPayload s;
+        linkFillStatus(s);
+        link->send(MSG_RESP_STATUS, &s, sizeof(s));
+        return;
+    }
+
+    // Move the machine, confirmed on its own display: from here until the power goes it starts
+    // no refill and opens no pour, and the start after that owes a sweep. Answered with the
+    // status, whose notice says whether it took.
+    if (type == MSG_MOVE_BEGIN) {
+        Serial.printf("\n[J9] MSG_MOVE_BEGIN — %s\n",
+                      machineMoveBegin() ? "the machine is moving; the next start owes a sweep"
+                                         : "refused: something has the manifold");
+        StatusPayload s;
+        linkFillStatus(s);
+        link->send(MSG_RESP_STATUS, &s, sizeof(s));
+        return;
+    }
+
+    // Cancel, on the move's screen: the machine pours and refills again.
+    if (type == MSG_MOVE_CANCEL) {
+        Serial.printf("\n[J9] MSG_MOVE_CANCEL — %s\n",
+                      machineMoveCancel() ? "the move is called off" : "the machine was not moving");
         StatusPayload s;
         linkFillStatus(s);
         link->send(MSG_RESP_STATUS, &s, sizeof(s));

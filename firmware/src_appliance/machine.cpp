@@ -11,6 +11,7 @@
 #include "recorder.h"
 #include "refill_policy.h"
 #include "refill_store.h"
+#include "move_policy.h"
 #include "sweep_policy.h"
 #include "sweep_store.h"
 #include "proto_msg.h"
@@ -54,6 +55,12 @@ static const PumpChannel kPump[2] = {
     {"A", PIN_PUMP_A, "U11", "AM1 + AM2 (the two WEST pins)"},
     {"B", PIN_PUMP_B, "U12", "BM1 + BM2 (the two EAST pins)"},
 };
+
+// The move (machine_policy::Move) stands with the sweep, further down. While the machine is
+// moving nothing that would move liquid begins, and the level it reports says what the move
+// has seen of the carbonator's float.
+static bool movingNow();
+static bool movingBelowLow();
 
 // ── State ─────────────────────────────────────────────────────────────────
 static MachineState  state       = ST_IDLE;
@@ -339,6 +346,7 @@ void machineLevels(MachineLevels &l) {
     l.level[1] = reservoirLevel[1].segments();
     l.carbLow  = simReedsOn ? simCarbLow  : reedCache.carbonatorLowClosed;
     l.carbHigh = simReedsOn ? simCarbHigh : reedCache.carbonatorHighClosed;
+    l.carbBelow = movingBelowLow();
 }
 
 // ── The pump, driven from nowhere but here ────────────────────────────────
@@ -617,9 +625,9 @@ bool machineFillBegin(uint8_t channel, uint32_t plannedMs) {
     if (state == ST_FILLING) { soundPlay(SND_REFUSE); fillAnnounce(now); return false; }
 
     uint8_t refusal = FILL_OUTCOME_NONE;
-    if (channel > 1 || state != ST_IDLE)       refusal = FILL_OUTCOME_BUSY;
-    else if (machineGasTripped())              refusal = FILL_OUTCOME_GAS;
-    else if (!pcba::expanders().initialized()) refusal = FILL_OUTCOME_NO_IO;
+    if (channel > 1 || state != ST_IDLE || movingNow()) refusal = FILL_OUTCOME_BUSY;
+    else if (machineGasTripped())                       refusal = FILL_OUTCOME_GAS;
+    else if (!pcba::expanders().initialized())          refusal = FILL_OUTCOME_NO_IO;
     fillChannel   = channel & 1;
     fillPlannedMs = plannedMs ? plannedMs : machine_policy::kFillPlannedMs;
     fillElapsedMs = 0;
@@ -977,9 +985,9 @@ bool machineCleanBegin(uint8_t channel, uint8_t rounds, uint32_t stepPlannedMs) 
     if (state == ST_CLEANING) { soundPlay(SND_REFUSE); cleanAnnounce(now); return false; }
 
     uint8_t refusal = CLEAN_OUTCOME_NONE;
-    if (channel > 1 || state != ST_IDLE)       refusal = CLEAN_OUTCOME_BUSY;
-    else if (machineGasTripped())              refusal = CLEAN_OUTCOME_GAS;
-    else if (!pcba::expanders().initialized()) refusal = CLEAN_OUTCOME_NO_IO;
+    if (channel > 1 || state != ST_IDLE || movingNow()) refusal = CLEAN_OUTCOME_BUSY;
+    else if (machineGasTripped())                       refusal = CLEAN_OUTCOME_GAS;
+    else if (!pcba::expanders().initialized())          refusal = CLEAN_OUTCOME_NO_IO;
     cleanChannel        = channel & 1;
     cleanRounds         = rounds ? rounds : machine_policy::kCleanRounds;
     cleanFunnelPlannedMs = stepPlannedMs ? stepPlannedMs : machine_policy::kCleanFunnelPlannedMs;
@@ -1261,9 +1269,10 @@ bool machineAirBegin(uint8_t mode, uint8_t channel, uint32_t stepPlannedMs) {
     if (state == ST_AIRING) { soundPlay(SND_REFUSE); airAnnounce(now); return false; }
 
     uint8_t refusal = AIR_OUTCOME_NONE;
-    if (mode > AIR_MODE_PURGE || channel > 1 || state != ST_IDLE) refusal = AIR_OUTCOME_BUSY;
-    else if (machineGasTripped())                                  refusal = AIR_OUTCOME_GAS;
-    else if (!pcba::expanders().initialized())                     refusal = AIR_OUTCOME_NO_IO;
+    if (mode > AIR_MODE_PURGE || channel > 1 || state != ST_IDLE || movingNow())
+        refusal = AIR_OUTCOME_BUSY;
+    else if (machineGasTripped())              refusal = AIR_OUTCOME_GAS;
+    else if (!pcba::expanders().initialized()) refusal = AIR_OUTCOME_NO_IO;
     airMode           = mode > AIR_MODE_PURGE ? AIR_MODE_DRY : mode;
     airChannel        = channel & 1;
     airStepCapMs      = stepPlannedMs;
@@ -1401,6 +1410,25 @@ static void sweepSample(uint32_t pulses, uint32_t now) {
     }
 }
 
+// ── The move ──────────────────────────────────────────────────────────────
+// A machine that is to be moved is told so before its plug comes out
+// (machine_policy::Move): its tank is emptied at the faucet, and the board cannot see that
+// done with the power off. Like the sweep it drives no load and stands beside `state`.
+// While it stands the refill's gate is shut, the meter's pulses open no pour, and no fill,
+// cycle, prime or pump check begins. That it stands is kept in flash, and machineBegin()
+// turns a move it finds kept into a sweep that is owed.
+static machine_policy::Move moveMode;
+static bool moveKept = false;   // what the flash holds of moveMode.moving()
+
+static bool movingNow() { return moveMode.moving(); }
+static bool movingBelowLow() { return moveMode.moving() && moveMode.belowLow(); }
+
+static void moveKeep(bool moving) {
+    if (moving == moveKept) return;
+    moveKept = moving;
+    sweepMovingSave(moving);
+}
+
 // ── The pour ──────────────────────────────────────────────────────────────
 // The meter's falling edges are counted on IO25; every kFlowSampleMs the
 // count is a flow reading for machine_policy::Pour, which says when the
@@ -1447,11 +1475,17 @@ static void pourService(uint32_t now) {
             else flowSimUntilMs = 0;
         }
         pour.sample(n);
-        sweepSample(n, now);
+        // A machine that is moving leaves a sweep where it stands: what leaves the tank now is
+        // being emptied out, and is no part of the count.
+        if (moveMode.moving()) moveMode.sample(n, carbonatorReading());
+        else sweepSample(n, now);
     }
-    // A sweep that is owed has the meter: its pulses are gas, and no flavor follows them.
-    if (sweep.owed()) {
-        if (state == ST_POURING) pourClose("a sweep is owed", machine_log::PourEnd::Stopped);
+    // A sweep that is owed has the meter: its pulses are gas, and no flavor follows them. A
+    // machine that is moving has it too: what leaves goes down the sink.
+    if (sweep.owed() || moveMode.moving()) {
+        if (state == ST_POURING)
+            pourClose(moveMode.moving() ? "the machine is moving" : "a sweep is owed",
+                      machine_log::PourEnd::Stopped);
         pour.reset();
         return;
     }
@@ -1745,6 +1779,20 @@ static void refillStop(const char *why, machine_log::RefillEnd end, uint32_t now
                      tenths(cold.tankC(), cold.tankValid()));
 }
 
+// ── The water a start finds ───────────────────────────────────────────────
+// The refill asks when the float falls through the low reed, and below that reed nothing
+// reads closed. A tank emptied with the power off, which is how the pressure is let out
+// before a tube is pulled, comes back with nothing asked and nothing left to ask it: the
+// machine would never fill again. So a start that finds the high reed open asks once, on
+// its first good reading. A tank that stood between its reeds gets a top-up it did not
+// strictly need, and an empty one gets its water back.
+//
+// Only a carbonator that has been filled is looked after this way (refill_store). A board on
+// a bench has no tank, and one that never ended a refill at the high reed has no water to
+// have lost. A sweep that is owed asks for the fill itself, when its lever is let go.
+static bool refillFilledKept = false;   // what the flash holds: a refill has ended at the high reed
+static bool startAskDue      = false;   // this start has not yet looked at the high reed
+
 static void refillService(uint32_t now) {
     // Nothing else reads the reeds while ST_REFILLING stands.
     if (state == ST_REFILLING && now - refillReedMs >= kRefillReedPeriodMs) {
@@ -1755,11 +1803,21 @@ static void refillService(uint32_t now) {
     const machine_policy::RefillReading rd = carbonatorReading();
     refill.reading(rd, now);
 
+    if (startAskDue && rd.valid && !simReedsOn) {
+        startAskDue = false;
+        if (!rd.highClosed && !refill.owed() && !sweep.owed() && !moveMode.moving()) {
+            Serial.println("\n[machine] this start finds the high reed open — water is asked for");
+            refill.resume(now);
+        }
+    }
+
     machine_policy::RefillContext ctx;
     ctx.dispenseOpen = machineDispenseWindowOpen();
-    // No water goes in over air that a sweep has still to take out.
+    // No water goes in over air that a sweep has still to take out, and none into a tank
+    // that is being emptied for a move.
     ctx.machineIdle  = (state == ST_IDLE || state == ST_REFILLING) &&
-                       !machineGasTripped() && pcba::expanders().initialized() && !sweep.owed();
+                       !machineGasTripped() && pcba::expanders().initialized() && !sweep.owed() &&
+                       !moveMode.moving();
 
     const machine_policy::RefillAction action = refill.service(now, ctx);
 
@@ -1785,6 +1843,11 @@ static void refillService(uint32_t now) {
                 : (rd.valid && rd.highClosed)                          ? machine_log::RefillEnd::Full
                                                                        : machine_log::RefillEnd::Held;
             refillStop("the policy stood it down", end, now);
+            // A reading put in from the console is not the water, and fills no tank.
+            if (end == machine_log::RefillEnd::Full && !simReedsOn && !refillFilledKept) {
+                refillFilledKept = true;
+                refillFilledSave(true);
+            }
             // The machine has stopped making soda and will not start again by itself.
             if (end == machine_log::RefillEnd::Timeout) soundPlay(SND_FAULT);
             break;
@@ -1913,6 +1976,7 @@ static uint8_t  noticeHoldKinds   = 0;
 static uint32_t noticeHoldSinceMs = 0;
 
 uint8_t machineNoticeStanding() {
+    if (moveMode.moving()) return NOTICE_MOVE;
     // A sweep forgotten with the lever down is nothing to tell anyone: it only keeps the meter.
     if (!sweepNoFill) {
         if (sweep.done() || sweepDoneMs) return NOTICE_SWEEP_DONE;
@@ -1993,6 +2057,33 @@ bool machineSweepForget() {
         return true;
     }
     sweep.clear();
+    return true;
+}
+
+void machineMove(MachineMove &m) {
+    m.moving   = moveMode.moving();
+    m.flowing  = moveMode.flowing();
+    m.belowLow = moveMode.belowLow();
+    m.pulses   = moveMode.pulses();
+}
+
+bool machineMoveBegin() {
+    if (moveMode.moving()) return true;
+    if (state != ST_IDLE && state != ST_POURING && state != ST_REFILLING) return false;
+    if (state == ST_POURING) pourClose("the machine is moving", machine_log::PourEnd::Stopped);
+    pour.reset();
+    // A refill that is owed and has pumped nothing is water that fell through the low reed and
+    // has had none added. One that is running is stood down by its own gate on the next pass,
+    // and stays owed.
+    moveMode.begin(refill.owed() && refill.pumpedMs(millis()) == 0);
+    moveKeep(true);
+    return true;
+}
+
+bool machineMoveCancel() {
+    if (!moveMode.moving()) return false;
+    moveMode.end();
+    moveKeep(false);
     return true;
 }
 
@@ -2143,7 +2234,7 @@ static void selfTestService(uint32_t now) {
 }
 
 bool machineSelfTestBegin() {
-    if (state != ST_IDLE || machineGasTripped() || !pcba::expanders().initialized()) {
+    if (state != ST_IDLE || movingNow() || machineGasTripped() || !pcba::expanders().initialized()) {
         soundPlay(SND_REFUSE);
         return false;
     }
@@ -2193,6 +2284,20 @@ void machineBegin() {
     sweepDoneMs  = 0;
     sweepNoteMs  = 0;
     sweepNoFill  = false;
+    // A move the power ended. The tank was emptied and has stood open to the air, so this is
+    // a first start again: a sweep is owed, and it asks for the fill itself. The refill the
+    // float asked for on its way down is dropped with the move.
+    moveMode = machine_policy::Move();
+    moveKept = sweepMovingLoad();
+    if (moveKept) {
+        machineRefillForget();
+        if (!sweep.owed()) sweep.owe();
+        sweepKeep(true);
+        moveKeep(false);
+        Serial.println("\n[machine] the power went while the machine was moving — this start owes a sweep");
+    }
+    refillFilledKept = refillFilledLoad();
+    startAskDue      = refillFilledKept;
     // A bench's hold is the bench's to renew: a board that restarts starts with none.
     noticeHoldKinds = 0;
     compressorRelay = false;
@@ -2325,6 +2430,7 @@ static bool claimPump(uint8_t channel, PumpHold why, uint32_t requestedMs = 0,
                       uint32_t *acceptedMs = nullptr) {
     if (channel > 1)         return false;
     if (state != ST_IDLE)    return false;   // one operation at a time is the interlock
+    if (movingNow())         return false;   // and a machine that is moving starts none
     if (why == HOLD_PRIME) {
         if (machineGasTripped() || !pcba::expanders().initialized() || !readReeds())
             return false;

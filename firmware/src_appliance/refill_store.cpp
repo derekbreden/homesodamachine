@@ -6,6 +6,7 @@ namespace {
 const char *const kNamespace = "refill";
 const char *const kKey       = "owed";
 const char *const kSpentKey  = "spent";
+const char *const kFilledKey = "filled";
 }  // namespace
 
 bool refillOwedLoad() {
@@ -37,5 +38,20 @@ void refillSpentSave(uint32_t spentMs) {
     Preferences prefs;
     if (!prefs.begin(kNamespace, false)) return;
     prefs.putULong(kSpentKey, spentMs);
+    prefs.end();
+}
+
+bool refillFilledLoad() {
+    Preferences prefs;
+    if (!prefs.begin(kNamespace, true)) return false;
+    const bool filled = prefs.getBool(kFilledKey, false);
+    prefs.end();
+    return filled;
+}
+
+void refillFilledSave(bool filled) {
+    Preferences prefs;
+    if (!prefs.begin(kNamespace, false)) return;
+    prefs.putBool(kFilledKey, filled);
     prefs.end();
 }

@@ -117,7 +117,8 @@ NoticePayload noticeSent{NOTICE_NONE, 0, 0};
 uint32_t      noticeSentMs = 0;
 constexpr uint32_t kNoticeMinMs = 100;
 
-// The notice as it stands: the kind, and for a sweep how far it has got.
+// The notice as it stands: the kind, for a sweep how far it has got, and for a move what is
+// known of the tank being emptied.
 NoticePayload noticeNow() {
     NoticePayload notice{machineNotice(), 0, 0};
     if (notice.kind == NOTICE_SWEEP) {
@@ -127,6 +128,11 @@ NoticePayload noticeNow() {
         notice.flags    = sweep.flowing ? NOTICE_F_FLOWING : 0;
     } else if (notice.kind == NOTICE_SWEEP_DONE) {
         notice.progress = 100;
+    } else if (notice.kind == NOTICE_MOVE) {
+        MachineMove moving;
+        machineMove(moving);
+        notice.flags = static_cast<uint8_t>((moving.flowing ? NOTICE_F_FLOWING : 0) |
+                                            (moving.belowLow ? NOTICE_F_BELOW : 0));
     }
     return notice;
 }
