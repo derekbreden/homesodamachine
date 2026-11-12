@@ -90,15 +90,56 @@ pub fn equipment_block(
     Ok(equipment)
 }
 
-/// The equipment program's plan, read from `dir`, its bodies named by the model it wrote there.
-pub fn equipment_plan(dir: &Path, name: &str) -> Result<Value> {
-    let mut plan = design::read(dir.join(format!("{name}.json")))?;
-    let model = json!(std::path::absolute(dir.join(format!("{name}.step.npz")))?);
-    for instance in plan["instances"].as_array_mut().into_iter().flatten() {
-        instance["model"] = model.clone();
+/// The equipment as the plan carries it: what the equipment request states, with each
+/// component's bodies in `model`, the reference items' drawings and every placed body's
+/// measures as the equipment stage `placed` them.
+pub fn equipment_document(
+    equipment_request: &Value,
+    placed: &crate::equipment_program::Placed,
+    model: &Path,
+) -> Result<Value> {
+    use crate::equipment_program::Drawn;
+    let model = json!(std::path::absolute(model)?);
+    let items = equipment_request["items"].as_array().context("the equipment request's items")?;
+    let transform = |name: &str| -> Result<&Value> {
+        let item = items.iter().find(|item| item["name"] == name);
+        Ok(&item.with_context(|| format!("the equipment request holds no {name}"))?["transform"])
+    };
+    let mut instances = vec![];
+    for name in equipment_request["component_order"].as_array().context("the equipment's component order")? {
+        let key = name.as_str().context("a component's name")?;
+        instances.push(json!({"model": model, "indices": placed.groups.get(key), "name": name}));
     }
-    plan["model"] = model;
-    Ok(plan)
+    let mut presentation = vec![];
+    for skin in &placed.presentation {
+        presentation.push(match &skin.drawn {
+            Drawn::Model(path) => json!({"model": path, "indices": skin.indices,
+                "targets": skin.targets, "transform": transform(&skin.item)?}),
+            Drawn::Payload { path, source_sha256 } => json!({"payload": path, "indices": skin.indices,
+                "targets": skin.targets, "transform": transform(&skin.item)?,
+                "source_sha256": source_sha256}),
+        });
+    }
+    Ok(json!({
+        "equipment": items,
+        "frames": equipment_request["frames"],
+        "world_ports": equipment_request["world_ports"],
+        "routes": equipment_request["routes"],
+        "component_order": equipment_request["component_order"],
+        "core_equipment": equipment_request["core_equipment"],
+        "groups": placed.groups,
+        "native_route_specs": equipment_request["native_route_specs"],
+        "native_connections": equipment_request["native_connections"],
+        "native_route_order": equipment_request["native_route_order"],
+        "keystone_station": equipment_request["keystone_station"],
+        "keystone_clearances": equipment_request["keystone_clearances"],
+        "instances": instances,
+        "presentation": presentation,
+        "insulation": equipment_request["insulation"],
+        "route_order": equipment_request["route_order"],
+        "bodies": placed.bodies,
+        "model": model,
+    }))
 }
 
 /// One wiring connector where the piece that holds it cuts its well: its name, catalog size,
