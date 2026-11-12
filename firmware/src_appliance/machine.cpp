@@ -1954,7 +1954,16 @@ bool machineSweepOwe() {
 
 bool machineSweepSkip() {
     if (!sweep.owed()) return false;
-    if (!sweep.done()) sweepRecord(machine_log::SweepEnd::Skipped, millis());
+    // The count is over already, and the fill comes with the lever let go.
+    if (sweep.done()) return true;
+    const uint32_t now = millis();
+    sweepRecord(machine_log::SweepEnd::Skipped, now);
+    // Gas moving is a lever that is down. The meter stays the sweep's and no water is sent
+    // out of the open faucet: the fill waits for the lever, as it does after the target.
+    if (sweep.giveUpWhileFlowing()) {
+        sweepDoneMs = now ? now : 1;
+        return true;
+    }
     sweep.clear();
     sweepDoneMs = 0;
     sweepKeep(false);

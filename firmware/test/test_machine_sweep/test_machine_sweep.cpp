@@ -253,6 +253,67 @@ void test_a_sweep_given_up_at_the_machine_fills_without_it() {
     TEST_ASSERT_FALSE(machineSweepSkip());
 }
 
+void test_a_sweep_given_up_with_the_lever_down_waits_for_the_lever() {
+    TEST_ASSERT_TRUE(machineSweepOwe());
+    machineFlowSimulate(kGas, 600000);
+    sampleFor(1000);
+    TEST_ASSERT_TRUE(sweepNow().flowing);
+
+    TEST_ASSERT_TRUE(machineSweepSkip());
+    TEST_ASSERT_TRUE(sweepNow().owed);
+    TEST_ASSERT_TRUE(sweepNow().done);
+    TEST_ASSERT_TRUE(host::sweepOwedInFlash);
+    TEST_ASSERT_EQUAL_UINT8(NOTICE_SWEEP_DONE, machineNotice());
+    const std::vector<machine_log::Entry> sweeps = notedOf(machine_log::Kind::Sweep);
+    TEST_ASSERT_EQUAL_UINT32(1, sweeps.size());
+    TEST_ASSERT_EQUAL_UINT8(static_cast<uint8_t>(machine_log::SweepEnd::Skipped), sweeps[0].detail);
+    TEST_ASSERT_TRUE(sweeps[0].b > 0);
+
+    // The gas still moving opens no pour, and no water is sent out of the open faucet.
+    for (uint32_t t = kStep; t <= 4000; t += kStep) {
+        runAt(host::now + kStep);
+        TEST_ASSERT_FALSE(machineIsPouring());
+        TEST_ASSERT_EQUAL_UINT16(0, machineValvesOpen());
+        TEST_ASSERT_FALSE(refillRelayClosed());
+    }
+    TEST_ASSERT_EQUAL_UINT32(0, host::played[SND_CHIME]);
+
+    // Asked again while it waits, it is one sweep given up once.
+    TEST_ASSERT_TRUE(machineSweepSkip());
+    TEST_ASSERT_EQUAL_UINT32(1, notedOf(machine_log::Kind::Sweep).size());
+    TEST_ASSERT_TRUE(sweepNow().owed);
+
+    letTheLeverGo();
+    sampleFor(machine_policy::kSweepReleaseMs + 2 * kStep);
+    TEST_ASSERT_FALSE(sweepNow().owed);
+    TEST_ASSERT_FALSE(host::sweepOwedInFlash);
+    sampleFor(1500);
+    TEST_ASSERT_EQUAL(ST_REFILLING, machineState());
+    TEST_ASSERT_TRUE(refillRelayClosed());
+    TEST_ASSERT_EQUAL_UINT32(0, notedOf(machine_log::Kind::Pour).size());
+}
+
+void test_a_sweep_given_up_after_its_target_still_waits_for_the_lever() {
+    TEST_ASSERT_TRUE(machineSweepOwe());
+    holdTheLeverUntilDone();
+
+    TEST_ASSERT_TRUE(machineSweepSkip());
+    TEST_ASSERT_TRUE(sweepNow().owed);
+    sampleFor(4000);
+    TEST_ASSERT_EQUAL(ST_IDLE, machineState());
+    TEST_ASSERT_FALSE(refillRelayClosed());
+
+    // The target was its end, and stays the one that is noted.
+    const std::vector<machine_log::Entry> sweeps = notedOf(machine_log::Kind::Sweep);
+    TEST_ASSERT_EQUAL_UINT32(1, sweeps.size());
+    TEST_ASSERT_EQUAL_UINT8(static_cast<uint8_t>(machine_log::SweepEnd::Done), sweeps[0].detail);
+
+    letTheLeverGo();
+    sampleFor(machine_policy::kSweepReleaseMs + 2 * kStep + 1500);
+    TEST_ASSERT_EQUAL(ST_REFILLING, machineState());
+    TEST_ASSERT_EQUAL_UINT32(1, notedOf(machine_log::Kind::Sweep).size());
+}
+
 void test_a_bench_that_holds_the_notice_off_still_has_the_sweep() {
     TEST_ASSERT_TRUE(machineSweepOwe());
     machineNoticeHold(static_cast<uint8_t>((1u << NOTICE_SWEEP) | (1u << NOTICE_SWEEP_DONE)));
@@ -335,6 +396,8 @@ int main(int, char **) {
     RUN_TEST(test_a_sweep_owed_when_the_power_went_is_owed_still);
     RUN_TEST(test_power_lost_between_the_target_and_the_lever_leaves_the_sweep_owed);
     RUN_TEST(test_a_sweep_given_up_at_the_machine_fills_without_it);
+    RUN_TEST(test_a_sweep_given_up_with_the_lever_down_waits_for_the_lever);
+    RUN_TEST(test_a_sweep_given_up_after_its_target_still_waits_for_the_lever);
     RUN_TEST(test_a_bench_that_holds_the_notice_off_still_has_the_sweep);
     RUN_TEST(test_a_sweep_forgotten_at_the_bench_asks_for_nothing);
     return UNITY_END();
