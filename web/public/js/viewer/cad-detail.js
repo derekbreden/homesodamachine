@@ -39,6 +39,7 @@ import { makeToolRail, makeToolGroup, makeChipRow, makeToolButton, mountToolDraw
 import { makePickModeControl } from "./pick-mode.js";
 import { setTrail, stepHash, walkDepth } from "./step-nav.js";
 import { mountScorecard } from "./scorecard-3d.js";
+import { mountMissing } from "./missing-parts.js";
 import { mountRelated, closeRelated } from "./related-nav.js";
 import { clearHighlight, leaveHighlight, makeFocusToggle } from "./part-highlight.js";
 import { mountFaucetOptions } from "./faucet-options.js";
@@ -197,6 +198,8 @@ export function openCadDetail(type, file, pushHistory = true, path = null, targe
   // badge + drill-down modal. Async fetch, fire-and-forget: no sidecar → no badge, and
   // mountScorecard bails if the modal closed before the fetch resolved.
   if (type === "step") mountScorecard(wrapper, file);
+  // What the model's published facts say is missing from it, said over the canvas.
+  if (type === "step") mountMissing(wrapper, file);
 
   state.currentCadWrapper = wrapper;
   const clearFaucetOptions = type === "step" ? mountFaucetOptions(wrapper) : () => {};
