@@ -7,7 +7,7 @@ use hsm_layout_data::tube::Segment;
 use serde::Deserialize;
 use serde_json::{Value, json};
 use std::collections::BTreeMap;
-use std::path::{Path, PathBuf};
+use std::path::Path;
 
 /// The program's name for its request and the files it writes.
 const NAME: &str = "machine-routes";
@@ -44,21 +44,15 @@ struct SleevePlan {
     tube_id_mm: f64,
 }
 
-/// The model the equipment program wrote into `output`, by the name its request gives it.
-fn equipment_model(equipment_request: &Value, output: &Path) -> Result<PathBuf> {
-    let name = equipment_request["name"].as_str().context("the equipment request's name")?;
-    Ok(output.join(format!("{name}.step.npz")))
-}
-
 /// The routes program's request: the copper runs, the equipment request's tubes, and the soda foam.
 ///
 /// A tube the equipment request routes under a copper run's name takes that run's place. The
-/// foam is cut around bodies of the model the equipment program wrote into `equipment_output`,
-/// found by the groups its result (`equipment_result`) names.
+/// foam is cut around bodies of the model the equipment stage wrote (`equipment_model`), found
+/// by the `groups` it placed them in.
 pub fn routes_request(
     equipment_request: &Value,
-    equipment_output: &Path,
-    equipment_result: &Value,
+    equipment_model: &Path,
+    groups: &BTreeMap<String, Vec<usize>>,
     copper: &[copper::Run],
 ) -> Result<Request> {
     let mut tubes = vec![];
@@ -81,13 +75,9 @@ pub fn routes_request(
     let mut components = BTreeMap::new();
     if !equipment_request["insulation"].is_null() {
         let sleeve = Sleeve::deserialize(&equipment_request["insulation"]).context("the soda insulation")?;
-        let model = equipment_model(equipment_request, equipment_output)?;
         for name in std::iter::once(HOLDER).chain(sleeve.neighbors.iter().map(String::as_str)) {
-            let indices = equipment_result["groups"]
-                .get(name)
-                .with_context(|| format!("the equipment model holds no {name}"))?;
-            let indices = Vec::<usize>::deserialize(indices).with_context(|| format!("the bodies of {name}"))?;
-            components.insert(name.to_owned(), Bodies { model: model.clone(), indices });
+            let indices = groups.get(name).with_context(|| format!("the equipment model holds no {name}"))?;
+            components.insert(name.to_owned(), Bodies { model: equipment_model.to_owned(), indices: indices.clone() });
         }
         insulation = Some(Insulation {
             foam_segments: sleeve.plan.foam_segments,
