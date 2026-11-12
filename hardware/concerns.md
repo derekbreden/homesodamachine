@@ -8,6 +8,13 @@ not a row. Physical records and fastener specifications are in
 and regulatory basis is [`/business/regulatory.md`](/business/regulatory.md), and the cabinet is
 [`/marketing/install-envelope.md`](/marketing/install-envelope.md).
 
+## Designed and built
+
+| Concern | Answer |
+| --- | --- |
+| Stopping the build when it cannot make something, such as a tube it cannot route | Derek: “Failed build means I don't get to see *any* updates at all.” |
+| Having the build report or check what it made | Derek: “I don't want *anything* added to my build time please” and “time from agent tries to show me something on the website to the time I see it on the website is all that matters”. [What Runs Every Time](/AGENTS.md#what-runs-every-time) and [Speed](/AGENTS.md#speed) say the same. |
+
 ## Printed and assembled
 
 | Concern | Answer |
