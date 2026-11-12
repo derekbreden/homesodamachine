@@ -355,6 +355,7 @@ const char *kindName(Kind kind) {
         case Kind::Clean:      return "clean";
         case Kind::Air:        return "air";
         case Kind::Prime:      return "prime";
+        case Kind::Update:     return "update";
         case Kind::None:
         case Kind::Count:      break;
     }
@@ -418,6 +419,10 @@ size_t format(const Entry &entry, char *out, size_t n) {
         case Kind::Air:
             snprintf(body, sizeof(body), "mode=%s end=%s step=%lu",
                      low ? "purge" : "dry", opEndName(high), (unsigned long)entry.a);
+            break;
+        case Kind::Update:
+            snprintf(body, sizeof(body), "%s build=%lu",
+                     entry.detail ? "kept" : "unconfirmed", (unsigned long)entry.a);
             break;
         case Kind::None:
         case Kind::Count:

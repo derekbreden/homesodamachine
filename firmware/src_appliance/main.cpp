@@ -1,4 +1,5 @@
 #include <Arduino.h>
+#include <esp_ota_ops.h>
 
 #include "fw_version.h"
 #include "fw_build_time.h"   // churns every build; the banner is what reads it
@@ -79,6 +80,31 @@ static void console(const String &line);
 // What a bare `log` prints: enough to see the last day at the faucet on one screen.
 static const long kLogDefaultEntries = 40;
 
+// ── An update on trial ────────────────────────────────────────────────────
+// The Arduino core confirms a freshly updated image the instant it starts, which leaves a
+// build that cannot stay up with nothing to undo it but a USB cable at J14. This image
+// answers for itself instead. The bootloader keeps the image before it until this one has
+// reached the loop, kept it turning for kUpdateTrialMs and put its boot in the record, and
+// goes back to that image if this one restarts first. An image flashed over USB is never on
+// trial.
+extern "C" bool verifyRollbackLater() { return true; }
+
+static const uint32_t kUpdateTrialMs = 10000;
+
+// Confirming writes flash, so it waits for the same idle, quiet moment the record does.
+static void updateTrialService(bool mayWrite) {
+    static bool settled = false;
+    if (settled || !mayWrite || millis() < kUpdateTrialMs || !recorderSettled()) return;
+    settled = true;
+    esp_ota_img_states_t image;
+    if (esp_ota_get_state_partition(esp_ota_get_running_partition(), &image) != ESP_OK ||
+        image != ESP_OTA_IMG_PENDING_VERIFY) return;
+    const bool kept = esp_ota_mark_app_valid_cancel_rollback() == ESP_OK;
+    Serial.printf("\n[update] %s\n> ",
+                  kept ? "this image is kept" : "this image could not be confirmed, and stays on trial");
+    recorderNote(machine_log::Kind::Update, kept ? 1 : 0, FW_BUILD_EPOCH);
+}
+
 void setup() {
     machineBegin();   // actuators parked before anything else runs — including U8's coil
 
@@ -158,6 +184,7 @@ void loop() {
     // The record reaches flash on the same terms as the selection below: a write stalls
     // this loop, so it waits for nothing to be running and nothing to be sounding.
     recorderService(machineState() == ST_IDLE && !soundBusy());
+    updateTrialService(machineState() == ST_IDLE && !soundBusy());
 
     // Preferences can occasionally compact a flash page. Keep that work out of
     // every pump deadline and sound step; the logo already changed locally.

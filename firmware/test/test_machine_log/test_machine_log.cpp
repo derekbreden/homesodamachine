@@ -452,6 +452,15 @@ void test_an_entry_reads_as_one_line() {
     machine_log::format(gas, line, sizeof(line));
     TEST_ASSERT_EQUAL_STRING("46 3 0 - gas tripped changes=3", line);
 
+    Entry update;
+    update.seq    = 47;
+    update.boot   = 4;
+    update.kind   = Kind::Update;
+    update.detail = 1;
+    update.a      = 1793171856u;
+    machine_log::format(update, line, sizeof(line));
+    TEST_ASSERT_EQUAL_STRING("47 4 0 - update kept build=1793171856", line);
+
     // A line that does not fit is cut, and still ends.
     char small[12];
     const size_t wrote = machine_log::format(pour, small, sizeof(small));

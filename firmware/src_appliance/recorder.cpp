@@ -175,6 +175,8 @@ void recorderNote(machine_log::Kind kind, uint8_t detail,
     queued++;
 }
 
+bool recorderSettled() { return !store.ready() || queued == 0; }
+
 void recorderPrint(uint32_t count) {
     printCursor = store.tail(count);
     printLen    = 0;

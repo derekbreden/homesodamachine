@@ -113,6 +113,10 @@ board also establishes and reports the safe I/O foundation the next connected be
   none of it.
 - **Sound.** The whole vocabulary below, the volume and quiet-hours settings behind it,
   and the gas alarm that none of those settings can reach.
+- **An update on trial.** An image that arrived as an update confirms itself once the loop
+  has turned for `kUpdateTrialMs` and its boot is in the record, at an idle and quiet moment.
+  Until then the bootloader still holds the image before it and returns to it on any
+  restart, so a build that cannot stay up undoes itself. The record notes the image kept.
 - **The record.** Every pour, refill draw, compressor run, fill, clean cycle, air cycle and
   prime is noted as it ends — what ran, for how long, and how it ended — beside every boot
   with its reset reason, the gas alarm, and the cold loop losing its probes or reaching the
