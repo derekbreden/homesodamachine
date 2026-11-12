@@ -1,0 +1,26 @@
+{
+  "archive": {
+    "gcode_sha256": "2c11caf131f51be7cc06b7477073b80da0a06c4e707485bbc0f6428e2d85f58a",
+    "name": "sculpted-display-cover-fore-aft-fit-black-mark1-ready.gcode.3mf",
+    "objects": [
+      "faucet-display-cover"
+    ],
+    "sha256": "41d7240ee34103a3a78eca306809569a394359816782d360ae2e5063af803de4",
+    "slots": {
+      "1": {
+        "colour": "000000",
+        "type": "PET-CF"
+      }
+    }
+  },
+  "gcode_state": "RUNNING",
+  "hms": [],
+  "layer_num": 0,
+  "mc_remaining_time": 29,
+  "observed_at": "2026-11-12T06:09:04+00:00",
+  "print_error": 0,
+  "printer": "H2C",
+  "printer_task_id": "1434203305",
+  "subtask_name": "sculpted-display-cover-fore-aft-fit-black-mark1-ready.gcode.3mf",
+  "total_layer_num": 87
+}
