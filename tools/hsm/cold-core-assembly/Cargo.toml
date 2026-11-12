@@ -30,7 +30,3 @@ hsm-shared-data = { path = "../shared-data" }
 [[bin]]
 name = "cold-core-assembly"
 path = "../../../hardware/cold-core-layout/cold_core_assembly.rs"
-
-[[bin]]
-name = "evaporator-coil-model"
-path = "../../../hardware/cold-core-layout/evaporator_coil_model.rs"
