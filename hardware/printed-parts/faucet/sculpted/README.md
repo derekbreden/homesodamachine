@@ -26,9 +26,10 @@ courses.
 | Cover, lever | Aligned | 15% | Off |
 
 Rear seam enforcement follows the entire base silhouette in its build pose
-and the shared tip's curved outer meridian. Wipe is off. The base uses
-Arachne with an infill-only solid foot; its reinforcement modifier inherits
-ordinary wall settings. The other rigid parts use Classic.
+and the shared tip's curved outer meridian. The preparer paints the cover seam
+on the same lateral center plane wherever its rear wall crosses it. Wipe is off.
+The base uses Arachne with an infill-only solid foot; its reinforcement modifier
+inherits ordinary wall settings. The other rigid parts use Classic.
 
 The process retains two ordinary walls, 15% gyroid infill, 15% infill/wall
 overlap, 265°C first-layer and 280°C subsequent nozzle temperatures, and an
@@ -63,7 +64,8 @@ program, prepares the complete plate from current STLs. Pass
 and tip nonplanar contact paths. The editable project carries the actual part meshes
 and support aids. Pass `--printer Mark1` and `--filament-colour` with the loaded
 spool's colour to prepare a Mark1 plate. `--base-section SECTION.stl` pairs a
-section of the base in its CAD frame with the full tip and cover.
+section of the base in its CAD frame with the full tip and cover. `--tip-only`
+prepares the complete tip by itself with its production support and seam settings.
 
 The [Mark1 support and fit trial](https://github.com/derekbreden/homesodamachine/blob/7ebe4a45b0fd8064118e95f2cc1445c5ee643722/hardware/printed-parts/faucet/sculpted/prints/2026-11-11-support-and-fit-mark1/physical-result/physical-result.json)
 records the base section's one-piece support release, the tip cleanup and the

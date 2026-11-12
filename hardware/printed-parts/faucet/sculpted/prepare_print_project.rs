@@ -147,10 +147,12 @@ fn main() -> Result<()> {
         r.plate.settings.set("filament_multi_colour", list(&[&colour]));
     }
     r.plate.filament_map_mode = "Manual".into();
-    for key in ["rear_seam_enforcement", "tip_rear_seam_enforcement"] {
-        if tip_only && key == "rear_seam_enforcement" {
-            continue;
-        }
+    let seam_keys = if tip_only {
+        &["tip_rear_seam_enforcement"][..]
+    } else {
+        &["rear_seam_enforcement", "tip_rear_seam_enforcement", "cover_rear_seam_enforcement"][..]
+    };
+    for &key in seam_keys {
         let record = enforce_rear_seam(&mut r, &selection[key])?;
         r.extra.insert(key.into(), record);
     }
@@ -195,7 +197,7 @@ fn main() -> Result<()> {
     for p in ["hardware/printed-parts/faucet/sculpted/prepare_print_project.rs",
         "hardware/printed-parts/faucet/sculpted/rim_supports.rs",
         "tools/hsm/print-prep/src/faucet.rs", "tools/hsm/print-prep/src/faucet_contact.rs", "tools/hsm/print-prep/src/faucet_recesses.rs",
-        "tools/hsm/print-prep/src/profile.rs", "tools/hsm/print-prep/src/rim_contour.rs",
+        "tools/hsm/print-prep/src/profile.rs", "tools/hsm/print-prep/src/rim_contour.rs", "tools/hsm/print-prep/src/seam.rs",
         FINISH, PROFILE, rim_footprint].iter().map(|p| root.join(p))
         .chain(parts.iter().map(|p| p.source.clone())) {
         sources.insert(relative(&p, &root), json!(file_sha(&p)?));
