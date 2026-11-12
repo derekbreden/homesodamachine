@@ -64,9 +64,9 @@ const REGULATOR_OUTLET_SETBACK: f64 = 1.0;
 const FORE: [P3; 3] = [[0.0, 1.0, 0.0], [-1.0, 0.0, 0.0], [0.0, 0.0, 1.0]];
 
 /// The ASSE drain adapter's vent cup and drain socket, as its recipe cuts them
-/// (`tools/hsm/part-data`, `drain`): the bores and the outsides the walls make of them, the cup's
-/// reach up the vent stem, the socket's reach and its drop below the vent tip, and the drain tube
-/// it takes.
+/// (`hardware/printed-parts/asse-drain-adapter/numbers.rs`): the bores and the outsides the
+/// walls make of them, the cup's reach up the vent stem, the socket's reach and its drop below
+/// the vent tip, and the drain tube it takes.
 mod drain_adapter {
     pub const BARB_BORE: f64 = 6.10;
     pub const TUBE_BORE: f64 = 3.80;

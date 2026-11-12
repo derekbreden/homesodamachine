@@ -108,8 +108,7 @@ washer coverage, screw length and rubber compression are integration checks.
 ## Native model and checks
 
 [reference-parameters.json](reference-parameters.json) retains the independently
-measured ports, rail observations, mounting slots and datum frame. The native
-`part-data` provider exposes these records without a Python accessor. The saved
+measured ports, rail observations, mounting slots and datum frame. The saved
 detailed reference is an input to [replica.rs](replica.rs), which constructs the
 exterior model used by the native equipment assembly.
 
