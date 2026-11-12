@@ -28,7 +28,7 @@ import { componentUnitsInScene, unitForBody } from "/contracts/material-instance
 import { relatedStepsForComponent } from "/contracts/related-steps.js";
 import { showsInFaucetFinish } from "/contracts/faucet-options.js";
 import { drillTo, drillToComponent } from "./step-nav.js";
-import { refreshHighlight, fadedBody } from "./part-highlight.js";
+import { refreshHighlight } from "./part-highlight.js";
 import { containsTriangle, instanceLabel, splitFeatureKey } from "/contracts/features.js";
 import { sceneFeature, featureGeometry } from "./features.js";
 import { snapThumbnail } from "./step.js";
@@ -224,8 +224,10 @@ export function isolateComponent(name, { persist = true } = {}) {
 /** Whether `name` is hidden outright or stands inside something that is. */
 export function standsHidden(name) {
   if (!state.hiddenComponents.size && !state.autoHiddenComponents.size) return false;
-  return [selectionName(name), name, ...heldBy(name)].some(held =>
-    state.hiddenComponents.has(held) || state.autoHiddenComponents.has(held));
+  const keys = [selectionName(name), name, ...heldBy(name)];
+  const view = state.currentGroup?.userData.instanceView;
+  return keys.some(key => state.hiddenComponents.has(key)) ||
+    (!(view?.material && view.names.has(name)) && keys.some(key => state.autoHiddenComponents.has(key)));
 }
 
 // One overlay Group per role so we can rebuild each independently.
@@ -241,8 +243,7 @@ function disposeGroup(g) {
 }
 
 // Bright edges + a faint translucent shell over every (visible) mesh of `name`,
-// depth-test off so it reads through the translucent enclosure. Mirrors
-// part-highlight.js, deduped by shared front/back geometry.
+// depth-test off so it reads through the enclosure. Shared geometry draws once.
 function drawOverlay(g, name, color, edgeMat, shellOpacity) {
   disposeGroup(g);
   if (!name || !state.currentGroup) return;
@@ -289,10 +290,7 @@ function pickComponent(clientX, clientY) {
     -((clientY - rect.top) / rect.height) * 2 + 1,
   );
   _raycaster.setFromCamera(_ndc, camera);
-  const hits = _raycaster.intersectObjects(targets, false);
-  // Behind a part chosen in the Materials pane the rest of the model is faded, and a click
-  // goes through what is faded to what stands out.
-  const hit = hits.find((h) => !fadedBody(h.object)) || hits[0];
+  const [hit] = _raycaster.intersectObjects(targets, false);
   if (!hit) return null;
   if (insideOpenedPart(hit.object.name)) {
     const feature = hit.object.userData.features?.find(f => containsTriangle(f, hit.faceIndex));

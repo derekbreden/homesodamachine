@@ -12,6 +12,17 @@ const focusTabs = process.env.HSM_LOCATIONS_BROWSER_FOCUS === 'tabs';
 const recordsOnly = process.env.HSM_LOCATIONS_BROWSER_FOCUS === 'records';
 const waitReady = page => page.waitForFunction(() => window.__hsm?.currentGroup && !window.__hsm.currentGroup.userData.sceneLoading, { timeout: 45000 });
 const settle = page => page.evaluate(() => new Promise(resolve => setTimeout(resolve, 650)));
+const context = page => page.evaluate(async () => {
+  const { state } = await import('/js/viewer/state.js');
+  const { isXrayEnabled } = await import('/js/viewer/xray.js');
+  const visible = state.currentGroup.children.filter(mesh => mesh.userData.side === 'front' && mesh.visible);
+  return {
+    hidden: [...state.autoHiddenComponents],
+    ghosted: visible.some(mesh => mesh.userData.baseMaterial && mesh.material !== mesh.userData.baseMaterial),
+    xray: isXrayEnabled(),
+    selectedMeshes: window.__hsm.scene.getObjectByName('component-picker').children[0].children.filter(child => child.isMesh).length,
+  };
+});
 
 test(recordsOnly ? "material record trees and combined sections retain their state through refreshes"
   : "locations preview compounds and repeated copies, preserve selection and hide only obstructions", async () => {
@@ -92,13 +103,9 @@ test(recordsOnly ? "material record trees and combined sections retain their sta
         assert.match(await page.$eval('.material-panel h2', node => node.textContent), /PISCO/);
         assert.equal(await page.$eval('.location-position', node => node.textContent), '1 / 1');
         assert.match(await page.$eval('.location-go', node => node.href), /instance=gas-regulator/);
-        const preview = await page.evaluate(async () => {
-          const {state}=await import('/js/viewer/state.js');
-          const {fadedBody}=await import('/js/viewer/part-highlight.js');
-          return { hidden: [...state.autoHiddenComponents], faded: state.currentGroup.children.some(fadedBody) };
-        });
+        const preview = await context(page);
         assert.ok(preview.hidden.includes('enclosure-back-top'), JSON.stringify(preview));
-        assert.equal(preview.faded, false);
+        assert.equal(preview.ghosted, false);
         if (viewport.isMobile) assert.ok(await page.$eval('.location-go', node => {
           const rect = node.getBoundingClientRect();
           const pane = node.closest('.material-panel').getBoundingClientRect();
@@ -121,15 +128,9 @@ test(recordsOnly ? "material record trees and combined sections retain their sta
             && document.querySelector('.component-panel.show .edge-panel-file')?.title === 'gas-regulator'
             && state.autoHiddenComponents.size > 0;
         }, { timeout: 15000 });
-        const entered = await page.evaluate(async () => {
-          const { state } = await import('/js/viewer/state.js');
-          const { fadedBody } = await import('/js/viewer/part-highlight.js');
-          const { isXrayEnabled } = await import('/js/viewer/xray.js');
-          return { hidden: [...state.autoHiddenComponents], faded: state.currentGroup.children.some(mesh => mesh.isMesh && fadedBody(mesh)),
-            xray: isXrayEnabled(), selectedMeshes: window.__hsm.scene.getObjectByName('component-picker').children[0].children.filter(child => child.isMesh).length };
-        });
+        const entered = await context(page);
         assert.ok(entered.hidden.includes('enclosure-back-top'), JSON.stringify(entered));
-        assert.equal(entered.faded, false); assert.equal(entered.xray, false);
+        assert.equal(entered.ghosted, false); assert.equal(entered.xray, false);
         assert.equal(await page.$eval('.xray-toggle', node => node.getAttribute('aria-pressed')), 'false');
         assert.ok(entered.selectedMeshes >= 4, JSON.stringify(entered));
         if (viewport.isMobile) {
@@ -164,9 +165,24 @@ test(recordsOnly ? "material record trees and combined sections retain their sta
         assert.equal(await page.$eval('.material-tree-focus', node => node.dataset.material), childID);
         assert.ok(await page.$('.bom-tree > .bom-node'));
         assert.equal(await page.$('.bom-own'), null);
+        await page.type('.material-panel .material-search input', 'HSM-0288');
+        await page.locator('.material-search-entry[data-material="HSM-0288"] > a[href*="material:HSM-0288"]').click();
+        await page.waitForFunction(() => location.hash.startsWith('#material:HSM-0288')
+          && window.__hsm.currentGroup.userData.instanceView?.material === 'HSM-0288');
+        const searched = await context(page);
+        assert.ok(searched.hidden.length, JSON.stringify(searched));
+        assert.equal(searched.ghosted, false);
+        assert.ok(await page.evaluate(() => window.__hsm.currentGroup.children.some(mesh => mesh.name === 'tube-refrig-3' && mesh.visible)));
+        await page.evaluate(() => document.activeElement.blur());
+        await page.keyboard.press('Escape');
+        assert.deepEqual((await context(page)).hidden, []);
+
         await page.evaluate(async () => (await import('/js/viewer/material-nav.js')).openMaterial('HSM-0559', true, { panel: 'materials', tab: 'structure' }));
         await capture('pisco-assembly-tree');
         await page.locator('.bom-select').filter(node => node.textContent.includes('HSM-0331')).click();
+        const bom = await context(page);
+        assert.ok(bom.hidden.includes('enclosure-back-top'), JSON.stringify(bom));
+        assert.equal(bom.ghosted, false);
         await settle(page);
         await page.click('.materials-toggle');
         await page.waitForFunction(() => document.querySelector('.component-panel.show .edge-panel-file')?.title === 'gas-regulator');
@@ -193,11 +209,8 @@ test(recordsOnly ? "material record trees and combined sections retain their sta
         await capture('relay-second');
         await page.click('.location-all'); await settle(page);
         assert.equal(await page.$eval('.location-all', node => node.getAttribute('aria-pressed')), 'true');
-        const all = await page.evaluate(async () => {
-          const { state } = await import('/js/viewer/state.js');
-          const { fadedBody } = await import('/js/viewer/part-highlight.js');
-          return ['relay-1', 'relay-2'].map(name => state.currentGroup.children.filter(mesh => mesh.name === name).every(mesh => !fadedBody(mesh)));
-        });
+        const all = await page.evaluate(() => ['relay-1', 'relay-2'].map(name =>
+          window.__hsm.currentGroup.children.some(mesh => mesh.name === name && mesh.visible && !mesh.material.transparent)));
         assert.deepEqual(all, [true, true]);
         await capture('relay-all');
         assert.equal(await page.$eval('.location-go', node => node.hidden), true);
