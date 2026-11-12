@@ -151,8 +151,8 @@ pub fn wire_numbers(
     Ok(wire_request::Request {
         name: "installed-wiring".into(),
         file_stem: None,
-        presentation_deflection_ratio: src.presentation_deflection_ratio()?,
-        presentation_angular_deflection_rad: src.presentation_angular_deflection()?,
+        presentation_deflection_ratio: src.presentation_deflection_ratio(),
+        presentation_angular_deflection_rad: src.presentation_angular_deflection(),
         routes: wires,
         components: bodies
             .into_iter()
