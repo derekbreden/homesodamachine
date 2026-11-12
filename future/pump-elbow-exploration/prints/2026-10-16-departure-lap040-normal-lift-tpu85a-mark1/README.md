@@ -59,7 +59,7 @@ before acceleration overhead. Native thumbnails and displayed time estimates
 exclude the added laps.
 
 The [processed archive](https://github.com/derekbreden/homesodamachine/blob/33d50d2ecd2a0fb6b518483a44c8031e3a0c1617/future/pump-elbow-exploration/prints/2026-10-16-departure-lap040-normal-lift-tpu85a-mark1/2026-10-16-elbow-pair-tpu85a-lap040-normal-right06-z000-mark1.gcode.3mf)
-is the print file. `prepare_mark1.py` slices offline and calls
+is the print file. [`prepare_mark1.py`](https://github.com/derekbreden/homesodamachine/blob/324f11661598699f3bb2a93be1ea0d4669cac6d7/future/pump-elbow-exploration/prints/2026-10-16-departure-lap040-normal-lift-tpu85a-mark1/prepare_mark1.py) slices offline and calls
 [`departure_lap.py`](https://github.com/derekbreden/homesodamachine/blob/2f2d9c94a1c3fbf007dfa1bd7e93095197079895/future/pump-elbow-exploration/departure_lap.py) with `height=.4`; it does not send
 or alter global presets. Reslicing the editable project alone omits the lap.
 Submission uses an untouched separate copy in Bambu Connect, with Timelapse On,

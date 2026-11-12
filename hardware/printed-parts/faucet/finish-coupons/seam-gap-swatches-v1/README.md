@@ -51,5 +51,5 @@ This separate plate is prepared only: **3 h 42 min 57 s**, **85.7 mm** minimum
 full-bead edge clearance. The [combined plate](../coarse-start-v1/combined/README.md)
 is the only plate authorized to start. [Native review](native-check.json) and
 [study plan](study-plan.json) preserve hashes, local settings and emitted ramps.
-Generate with `tools/cad-venv/bin/python prepare.py`; manually inspect the slice
-with `tools/cad-venv/bin/python ../coarse-start-v1/review.py --seam-only`.
+Generate with [`tools/cad-venv/bin/python prepare.py`](https://github.com/derekbreden/homesodamachine/blob/306268f870dccc55f5a3a9044669904f1cd360cb/hardware/printed-parts/faucet/finish-coupons/seam-gap-swatches-v1/prepare.py); manually inspect the slice
+with [`tools/cad-venv/bin/python ../coarse-start-v1/review.py --seam-only`](https://github.com/derekbreden/homesodamachine/blob/306268f870dccc55f5a3a9044669904f1cd360cb/hardware/printed-parts/faucet/finish-coupons/coarse-start-v1/review.py).

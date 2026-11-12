@@ -115,7 +115,7 @@ and lifetime are unmeasured. Physical observations remain pending.
 ## Manual reproduction
 
 From the repository root, use `tools/cad-venv/bin/python` to run this directory's
-`prepare.py Mark1` or `prepare.py Mark2`, then its [`finish.py`](https://github.com/derekbreden/homesodamachine/blob/306268f870/hardware/printed-parts/faucet/finish-coupons/2026-10-14-bridge-transfer/finish.py) (in Git at `306268f870`) for that printer.
+[`prepare.py Mark1`](https://github.com/derekbreden/homesodamachine/blob/306268f870dccc55f5a3a9044669904f1cd360cb/hardware/printed-parts/faucet/finish-coupons/2026-10-14-bridge-transfer/prepare.py) or [`prepare.py Mark2`](https://github.com/derekbreden/homesodamachine/blob/306268f870dccc55f5a3a9044669904f1cd360cb/hardware/printed-parts/faucet/finish-coupons/2026-10-14-bridge-transfer/prepare.py), then its [`finish.py`](https://github.com/derekbreden/homesodamachine/blob/306268f870/hardware/printed-parts/faucet/finish-coupons/2026-10-14-bridge-transfer/finish.py) (in Git at `306268f870`) for that printer.
 Preparation refuses to overwrite a
 launched experiment. The saved slice command calls the installed Bambu Studio
 with arrange/orient disabled. [`finish.py`](https://github.com/derekbreden/homesodamachine/blob/306268f870/hardware/printed-parts/faucet/finish-coupons/2026-10-14-bridge-transfer/finish.py) (in Git at `306268f870`) packages a print-only copy with the

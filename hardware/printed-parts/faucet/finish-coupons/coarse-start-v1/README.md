@@ -44,7 +44,7 @@ This separate plate is prepared only: native estimate **3 h 10 min 18 s**,
 clearance. The [combined plate](combined/README.md) contains these five cases
 and the seam-gap matrix and is the only plate authorized to start.
 
-Reproduce with `tools/cad-venv/bin/python prepare.py`, the private saved native
-slice command, then `tools/cad-venv/bin/python review.py`. These are manual
+Reproduce with [`tools/cad-venv/bin/python prepare.py`](https://github.com/derekbreden/homesodamachine/blob/306268f870dccc55f5a3a9044669904f1cd360cb/hardware/printed-parts/faucet/finish-coupons/coarse-start-v1/prepare.py), the private saved native
+slice command, then [`tools/cad-venv/bin/python review.py`](https://github.com/derekbreden/homesodamachine/blob/306268f870dccc55f5a3a9044669904f1cd360cb/hardware/printed-parts/faucet/finish-coupons/coarse-start-v1/review.py). These are manual
 study tools; no hook or automatic verification is installed. Preparation tools
 refuse to overwrite a plate with an attempted or accepted launch receipt.

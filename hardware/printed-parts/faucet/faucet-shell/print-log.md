@@ -544,7 +544,7 @@ Slice saved 2026-06-10; print started (Derek: "saved a 3mf for the faucet after 
 
 **Geometry — the redesign.** Accumulated since attempt 18's `d166c99b` (no-joinery) baseline through HEAD `53381d70`. Two functional additions to the printed parts (the rest of the ~76-commit range is docgen / comment-discipline / +Z-up-rebase / repo-reorg refactor that does not change printed geometry):
 
-1. **Three-point screw-boss mount (shell foot ↔ above-counter plate)** — replaces attempt-16's no-joinery gravity-sit. The shell foot gains three base pods: two lateral (±X) teardrop pods tangent to the Westbrass bore, plus one front (−Y) D-pod on the centerline (the off-axis third anchor). Each pod hosts the same plate-to-shell fastener chain (dims from `_faucet_interface.py` / `faucet_shell.py`):
+1. **Three-point screw-boss mount (shell foot ↔ above-counter plate)** — replaces attempt-16's no-joinery gravity-sit. The shell foot gains three base pods: two lateral (±X) teardrop pods tangent to the Westbrass bore, plus one front (−Y) D-pod on the centerline (the off-axis third anchor). Each pod hosts the same plate-to-shell fastener chain (dims from [`_faucet_interface.py`](https://github.com/derekbreden/homesodamachine/blob/a518a57a878f02d9ac5b8b638c1c5883cadf6669/hardware/printed-parts/faucet/_faucet_interface.py) / [`faucet_shell.py`](https://github.com/derekbreden/homesodamachine/blob/a518a57a878f02d9ac5b8b638c1c5883cadf6669/hardware/printed-parts/faucet/faucet-shell/faucet_shell.py)):
    - ruthex M3 short heat-set insert (⌀4.2 OD) in a ⌀4.0 pocket, 5.25 mm deep (4 mm engagement + 1.25 mm relief), seated opening-down above an 8 mm boss-engagement hole;
    - BNUOK M3 SHCS (304 SS, head ~5.43 mm measured) driven up from under the plate, through the plate boss, into the insert — clamping the plate up into the shell;
    - plate-side counterbore ⌀5.55 + boss OD 11.55 (5.55 + 2 × 3.0 wall); shell pocket ⌀11.65 (0.10 mm diametral slip).
@@ -578,7 +578,7 @@ Derek said:
 
 **Outcome: success.** All fits acceptable — the mounting-plate-to-shell screw bosses seat, the two spout slip-joints (A spout↔bend, B bend↔tip) slide together, and the M3 SHCS heads clear their counterbores. This is the print that closes the fit iteration opened by attempt 19.
 
-**Geometry — clearances opened from attempt 19.** Same three-piece shell + above-counter plate; only the mating clearances changed (each one knob in `faucet_shell.py` / `above_counter_plate.py`, parts re-derive):
+**Geometry — clearances opened from attempt 19.** Same three-piece shell + above-counter plate; only the mating clearances changed (each one knob in [`faucet_shell.py`](https://github.com/derekbreden/homesodamachine/blob/a518a57a878f02d9ac5b8b638c1c5883cadf6669/hardware/printed-parts/faucet/faucet-shell/faucet_shell.py) / [`above_counter_plate.py`](https://github.com/derekbreden/homesodamachine/blob/a518a57a878f02d9ac5b8b638c1c5883cadf6669/hardware/printed-parts/faucet/above-counter-plate/above_counter_plate.py), parts re-derive):
 - Boss-to-hole slip 0.10 → **0.40 diametral** (`base_pod_slip`); pods + footprint re-derive, walls stay 3.0.
 - Boss seat gap 0.5 → **1.0** (`boss_seat_clearance`; boss 7.0 in the 8.0 hole) + **0.6 × 45° lead-in chamfer** on each boss top rim (`boss_chamfer`).
 - SHCS-head counterbore ⌀5.55 → **⌀6.15** (`base_pod_counterbore_dia`, ~0.72 diametral over the ~5.43 measured head); chain re-derives boss ⌀12.15, shell hole ⌀12.55, pod radius 9.275.

@@ -137,7 +137,7 @@ The [physical trial log](https://github.com/derekbreden/homesodamachine/blob/b57
 records the reported print and retention observations.
 
 ```
-python3 tools/run.py -- cargo run --release -j 2 --manifest-path tools/hsm/Cargo.toml -p hsm-faucet-display-cover
+tools/run -- cargo run --release -j 2 --manifest-path tools/hsm/Cargo.toml -p hsm-faucet-display-cover
 ```
 
 The program, [`faucet_display_cover.rs`](faucet_display_cover.rs), cuts the cover from

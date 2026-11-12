@@ -108,8 +108,8 @@ is not the stock fin-wall comparison.
 
 ## Manual reproduction
 
-From the repository root, run this directory's `prepare.py stock` using
-`tools/cad-venv/bin/python`, then `review.py stock` with the same runtime.
+From the repository root, run this directory's [`prepare.py stock`](https://github.com/derekbreden/homesodamachine/blob/306268f870dccc55f5a3a9044669904f1cd360cb/hardware/printed-parts/faucet/finish-coupons/2026-10-14-foot-fins-current-angle/prepare.py) using
+`tools/cad-venv/bin/python`, then [`review.py stock`](https://github.com/derekbreden/homesodamachine/blob/0a648015e07ed6ea7eb962ec559e0a836c3a4439/hardware/printed-parts/faucet/finish-coupons/2026-10-14-foot-fins-current-angle/review.py) with the same runtime.
 Preparation expects the recorded upstream pin at `.cache/support-fins-faucet`.
 The scripts preserve the native slice, package a print-only copy, and refuse
 to overwrite a launched plate. They are manual experiment tools, with no build

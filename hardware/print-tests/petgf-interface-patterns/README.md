@@ -65,7 +65,7 @@ preserved. Their retained bridge surface looks and feels loose.
 ## Files
 
 [`prepare.py`](https://github.com/derekbreden/homesodamachine/blob/0a648015e0/hardware/print-tests/petgf-interface-patterns/prepare.py) (in Git at `0a648015e0`) builds the labeled specimens and editable `interface-patterns.3mf`.
-A, B and D use native slicer settings. C additionally uses `finish.py` after
+A, B and D use native slicer settings. C additionally uses [`finish.py`](https://github.com/derekbreden/homesodamachine/blob/9884d0e7f43329c4f4aa8d1d8aa2ce3493aa4a2b/hardware/print-tests/petgf-interface-patterns/finish.py) after
 slicing: it removes only E extrusion words from the 26 end connections in its
 upper contact layer. XYZ motions, speeds, retractions, lower branch transitions
 and all other commands remain identical to the native slice. The package G-code
@@ -76,7 +76,7 @@ final hashes, measured support/roof directions, all four actual gaps and the
 exact changed-line list. `print-job.json` records printer acceptance.
 
 Generate the final machine file with
-`tools/cad-venv/bin/python hardware/print-tests/petgf-interface-patterns/prepare.py`.
+[`tools/cad-venv/bin/python hardware/print-tests/petgf-interface-patterns/prepare.py`](https://github.com/derekbreden/homesodamachine/blob/0a648015e07ed6ea7eb962ec559e0a836c3a4439/hardware/print-tests/petgf-interface-patterns/prepare.py).
 Slice its input with Bambu Studio 02.08.02.61, using `--arrange 0 --orient 0
 --slice 0 --min-save`, exporting `native.gcode.3mf` into that input directory.
 Run [`finish.py`](https://github.com/derekbreden/homesodamachine/blob/9884d0e7f4/hardware/print-tests/petgf-interface-patterns/finish.py), then

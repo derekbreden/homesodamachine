@@ -7,7 +7,7 @@ scarf and partial-loop mode. The cover and lever retain petgf.3mf corner setting
 **Aligned, 15% gap and scarf off**. Wipe is off.
 
 The saved [project](../../faucet-industrial-petgf.3mf),
-[selection](../../finish-selection.json) and [preparer](../../prepare_print_project.py)
+[selection](../../finish-selection.json) and [preparer](https://github.com/derekbreden/homesodamachine/blob/e9434b42c0520c00b1e5d6e8a8c68775ecaf1220/hardware/printed-parts/faucet/industrial/prepare_print_project.py)
 carry this per-part recipe. The source geometry, placements, eight 0.24 mm lip
 layers before 0.12 mm, and infill-only foot match task 1334704608.
 

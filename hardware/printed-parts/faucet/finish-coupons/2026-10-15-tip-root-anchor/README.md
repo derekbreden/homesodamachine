@@ -72,7 +72,7 @@ The completed article and disc removal have physical acceptance at the hidden
 insertion end. This does not establish removal without a scuff, dimensional
 mating fit, strength or lifetime.
 
-`prepare.py --slice`, [`review.py`](https://github.com/derekbreden/homesodamachine/blob/0a648015e0/hardware/printed-parts/faucet/finish-coupons/2026-10-15-tip-root-anchor/review.py) (in Git at `0a648015e0`), and
-`../2026-10-15-edge-supports/review.py tip --folder <this-directory>/mark1`
+[`prepare.py --slice`](https://github.com/derekbreden/homesodamachine/blob/306268f870dccc55f5a3a9044669904f1cd360cb/hardware/printed-parts/faucet/finish-coupons/2026-10-15-tip-root-anchor/prepare.py), [`review.py`](https://github.com/derekbreden/homesodamachine/blob/0a648015e0/hardware/printed-parts/faucet/finish-coupons/2026-10-15-tip-root-anchor/review.py) (in Git at `0a648015e0`), and
+[`../2026-10-15-edge-supports/review.py tip --folder <this-directory>/mark1`](https://github.com/derekbreden/homesodamachine/blob/0a648015e07ed6ea7eb962ec559e0a836c3a4439/hardware/printed-parts/faucet/finish-coupons/2026-10-15-edge-supports/review.py)
 are manual experiment tools, outside build and commit paths. Accepted launches
 are preserved rather than overwritten.

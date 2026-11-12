@@ -67,8 +67,6 @@ internals, seals, retention or pressure performance. Paint thickness and optical
 scale are not independently calibrated.
 
 `dimensions.json` separates published product facts from the fitted envelope.
-`model.py` exposes `library()`, `instances()`, `ports()` and `mates()` using
-the frozen NumPy mesh, without importing production CAD.
 
 The source derivations are preserved at their recorded revision: [analyze_scan.py](https://github.com/derekbreden/homesodamachine/blob/a518a57a878f02d9ac5b8b638c1c5883cadf6669/hardware/reference/yzmsz-water-regulator/analyze_scan.py), [validate_scan.py](https://github.com/derekbreden/homesodamachine/blob/a518a57a878f02d9ac5b8b638c1c5883cadf6669/hardware/reference/yzmsz-water-regulator/validate_scan.py).
 

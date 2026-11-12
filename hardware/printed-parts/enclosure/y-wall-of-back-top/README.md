@@ -87,7 +87,3 @@ row spacing and the nameplate field's clearance to the core. They do not
 establish printed fit, tube insertion force, insert strength, pressure sealing
 or lifetime. The selected components retain the limits in their part
 references and the [mechanical qualification index](/hardware/mechanical-qualification/README.md).
-
-## Sources
-
-`_y_wall_dimensions.py` reads its dimensions from the production rear grid. Color helpers in that module serve labels, tubing and installation art.

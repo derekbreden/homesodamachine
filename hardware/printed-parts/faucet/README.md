@@ -88,7 +88,7 @@ display fit, snap retention and surface finish.
 ## Prepare the approved Industrial print
 
 ```
-python3 tools/run.py -- cargo build --release --locked --manifest-path tools/hsm/Cargo.toml -p hsm-print-prep
+tools/run -- cargo build --release --locked --manifest-path tools/hsm/Cargo.toml -p hsm-print-prep
 tools/hsm/target/release/industrial-faucet-print-project
 ```
 

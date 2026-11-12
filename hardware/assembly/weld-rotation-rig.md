@@ -317,7 +317,7 @@ laser is enabled.
 ## Regenerate
 
 ```bash
-tools/cad-venv/bin/python hardware/printed-parts/fixtures/weld-rotator/weld_rotator.py
+tools/run -- hsm-print-build -- //:weld-rotator
 ~/.platformio/penv/bin/pio test -e native -f test_weld_rotator_policy
 ~/.platformio/penv/bin/pio run -e weld_rotator
 ```
