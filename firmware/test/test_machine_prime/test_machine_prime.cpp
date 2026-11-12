@@ -1,175 +1,4 @@
-#include <string.h>
-#include <vector>
-
-#include <unity.h>
-#include "fakes/Arduino.h"
-#include "../../src_appliance/pins.h"
-#include "../../src_appliance/pcba_expanders.cpp"
-#include "machine_log.h"
-#include "sound_policy.h"
-#include "sound.h"
-
-namespace host {
-
-constexpr uint8_t kGpioB = 0x13;
-constexpr uint8_t kOlatA = 0x14;
-
-enum class EventKind { Register, Duty, Mode, Attach };
-struct Event {
-    EventKind kind;
-    int address;
-    int reg;
-    uint32_t before;
-    uint32_t value;
-};
-
-std::vector<Event> events;
-uint32_t now = 1000;
-uint32_t gasMv = 0;
-uint32_t duties[40] = {};
-int modes[40] = {};
-bool attachSucceeds = true;
-bool pumpClosedAgainstDrive = false;
-SoundId sounding = SND_NONE;
-std::vector<machine_log::Entry> noted;
-
-class RegisterBus : public pcba::Transport {
-public:
-    void reset() {
-        memset(registers, 0, sizeof(registers));
-        registers[0][kGpioB] = registers[1][kGpioB] = 0xff;
-        failedReadAddress = failedWriteAddress = 0;
-        readFailures = writeFailures = 0;
-    }
-
-    bool begin() override { return true; }
-
-    bool writeRegister(uint8_t address, uint8_t reg, uint8_t value) override {
-        uint8_t &previous = at(address, reg);
-        events.push_back({EventKind::Register, address, reg, previous, value});
-        if (writeFailures && address == failedWriteAddress &&
-            reg == failedWriteRegister && value == failedWriteValue) {
-            --writeFailures;
-            return false;
-        }
-        if (reg == kOlatA) {
-            // Cover each pump's source, fill and dispense valves on the real
-            // PCB map. A fault park stops GPIO PWM before closing a wet path.
-            const uint8_t removed = previous & static_cast<uint8_t>(~value);
-            if ((duties[PIN_PUMP_A] && address == 0x20 && (removed & 0xee)) ||
-                (duties[PIN_PUMP_B] && ((address == 0x20 && (removed & 0xd1)) ||
-                                       (address == 0x21 && (removed & 0xc0)))))
-                pumpClosedAgainstDrive = true;
-        }
-        previous = value;
-        return true;
-    }
-
-    bool readRegister(uint8_t address, uint8_t reg, uint8_t &value) override {
-        if (readFailures && address == failedReadAddress && reg == failedReadRegister) {
-            --readFailures;
-            return false;
-        }
-        value = at(address, reg);
-        return true;
-    }
-
-    uint8_t &at(uint8_t address, uint8_t reg) {
-        return registers[address == pcba::MCP_RESERVOIR_A ? 0 : 1][reg];
-    }
-
-    void failRead(uint8_t address, uint8_t reg) {
-        failedReadAddress = address;
-        failedReadRegister = reg;
-        readFailures = 1;
-    }
-
-    void failWrite(uint8_t address, uint8_t reg, uint8_t value) {
-        failedWriteAddress = address;
-        failedWriteRegister = reg;
-        failedWriteValue = value;
-        writeFailures = 1;
-    }
-
-private:
-    uint8_t registers[2][256] = {};
-    uint8_t failedReadAddress = 0, failedReadRegister = 0, readFailures = 0;
-    uint8_t failedWriteAddress = 0, failedWriteRegister = 0;
-    uint8_t failedWriteValue = 0, writeFailures = 0;
-};
-
-RegisterBus bus;
-
-}  // namespace host
-
-HostSerial Serial;
-unsigned long millis() { return host::now; }
-void pinMode(int pin, int mode) {
-    host::events.push_back({host::EventKind::Mode, pin, 0,
-                           static_cast<uint32_t>(host::modes[pin]),
-                           static_cast<uint32_t>(mode)});
-    host::modes[pin] = mode;
-}
-void digitalWrite(int, int) {}
-uint32_t analogReadMilliVolts(int) { return host::gasMv; }
-bool ledcAttach(int pin, uint32_t, uint8_t) {
-    host::events.push_back({host::EventKind::Attach, pin, 0, 0, 0});
-    return host::attachSucceeds;
-}
-bool ledcWrite(int pin, uint32_t duty) {
-    host::events.push_back({host::EventKind::Duty, pin, 0, host::duties[pin], duty});
-    host::duties[pin] = duty;
-    return true;
-}
-bool ledcDetach(int) { return true; }
-void noInterrupts() {}
-void interrupts() {}
-int digitalPinToInterrupt(int pin) { return pin; }
-void attachInterrupt(int, void (*)(), int) {}
-
-void soundBegin(int) { host::sounding = SND_NONE; }
-bool soundPlay(SoundId id) {
-    if (host::sounding != SND_ALARM) host::sounding = id;
-    return true;
-}
-void soundStop() { host::sounding = SND_NONE; }
-SoundId soundPlaying() { return host::sounding; }
-bool soundPlayNote(uint16_t, uint16_t, uint8_t) { return true; }
-
-void oneWireBegin() {}
-void oneWireService(uint32_t) {}
-void oneWireRead(float &tank, bool &tankValid, float &coil, bool &coilValid) {
-    tank = coil = 0;
-    tankValid = coilValid = false;
-}
-uint8_t oneWireDeviceCount() { return 0; }
-uint8_t flavorSelected() { return 0; }
-uint8_t flavorRatio(uint8_t) { return 20; }
-
-// The recorder's queue and flash stay on the board; what machine.cpp notes is kept here.
-void recorderNote(machine_log::Kind kind, uint8_t detail,
-                  uint32_t a, uint32_t b, int16_t d, int16_t e) {
-    machine_log::Entry entry;
-    entry.kind   = kind;
-    entry.detail = detail;
-    entry.a      = a;
-    entry.b      = b;
-    entry.d      = d;
-    entry.e      = e;
-    host::noted.push_back(entry);
-}
-
-namespace pcba {
-Expanders &expanders() {
-    static Expanders instance(host::bus);
-    return instance;
-}
-}  // namespace pcba
-
-// Compile the production actuator arbiter and expander driver, with only
-// their hardware endpoints replaced. This covers the actual entry/exit
-// handlers for Prime and cleaning.
-#include "../../src_appliance/machine.cpp"
+#include "../machine_host/machine_host.h"
 
 namespace {
 
@@ -1205,6 +1034,121 @@ void test_the_valve_drivers_are_not_reverified_under_a_running_operation() {
     expectParked();
 }
 
+// Time passing a quarter second at a pass: long enough for an idle reed read to be taken,
+// believed and acted on.
+void runFor(uint32_t ms) {
+    for (uint32_t t = 250; t <= ms; t += 250) runAt(host::now + 250);
+}
+
+// The carbonator's two reeds as the expander reads them: a closed reed pulls its pin low.
+void carbonatorReeds(bool low, bool high) {
+    uint8_t &pins = host::bus.at(pcba::MCP_RESERVOIR_B, host::kGpioB);
+    pins |= 0x30;
+    if (low) pins &= static_cast<uint8_t>(~0x10);
+    if (high) pins &= static_cast<uint8_t>(~0x20);
+}
+
+void test_a_refill_owed_when_the_power_went_is_resumed_by_the_boot_after() {
+    carbonatorReeds(true, false);
+    runFor(machine_policy::kRefillDebounceMs + 3000);
+    TEST_ASSERT_EQUAL(ST_REFILLING, machineState());
+    TEST_ASSERT_TRUE(host::refillOwedInFlash);
+
+    // The power goes with the water below the low reed's window: no reed is closed.
+    carbonatorReeds(false, false);
+    host::now = 0;
+    memset(host::modes, 0, sizeof(host::modes));
+    reedCacheValid = false;
+    reedIdleMs = 0;
+    machineBegin();
+    TEST_ASSERT_EQUAL(ST_IDLE, machineState());
+    runFor(3000);
+    TEST_ASSERT_EQUAL(ST_REFILLING, machineState());
+    MachineThermal thermal;
+    machineThermal(thermal);
+    TEST_ASSERT_TRUE(thermal.refillRelay);
+
+    // The high reed pays it, and the flash is told.
+    carbonatorReeds(false, true);
+    runAt(host::now + 1000);
+    TEST_ASSERT_EQUAL(ST_IDLE, machineState());
+    TEST_ASSERT_FALSE(host::refillOwedInFlash);
+    expectParked();
+}
+
+void test_someone_at_the_machine_sets_a_timed_out_refill_trying_again() {
+    carbonatorReeds(true, false);
+    runFor(machine_policy::kRefillDebounceMs + 3000);
+    TEST_ASSERT_EQUAL(ST_REFILLING, machineState());
+    const uint32_t began = host::now;
+    for (uint32_t t = 1000; t <= machine_policy::kRefillCeilingMs + 1000; t += 1000) runAt(began + t);
+    TEST_ASSERT_EQUAL(ST_IDLE, machineState());
+    MachineThermal thermal;
+    machineThermal(thermal);
+    TEST_ASSERT_EQUAL_UINT8(static_cast<uint8_t>(machine_policy::RefillState::Timeout), thermal.refillState);
+    TEST_ASSERT_TRUE(host::refillOwedInFlash);
+
+    // A touch too soon after it gave up changes nothing.
+    machineSomeoneHere();
+    runAt(host::now + 1000);
+    TEST_ASSERT_EQUAL(ST_IDLE, machineState());
+
+    // Once it has rested, a touch sets it trying again.
+    runAt(host::now + machine_policy::kRefillRetryRestMs);
+    TEST_ASSERT_EQUAL(ST_IDLE, machineState());
+    machineSomeoneHere();
+    runFor(3000);
+    TEST_ASSERT_EQUAL(ST_REFILLING, machineState());
+    carbonatorReeds(false, true);
+    runAt(host::now + 1000);
+    TEST_ASSERT_EQUAL(ST_IDLE, machineState());
+    TEST_ASSERT_FALSE(host::refillOwedInFlash);
+}
+
+void test_a_refill_a_pretend_reading_asked_for_is_not_kept_and_ends_with_it() {
+    machineSimReeds(true, false);
+    machineService();
+    runAt(host::now + machine_policy::kRefillDebounceMs);
+    TEST_ASSERT_EQUAL(ST_REFILLING, machineState());
+    TEST_ASSERT_FALSE(host::refillOwedInFlash);
+    TEST_ASSERT_EQUAL_UINT32(0, host::refillOwedWrites);
+    machineSimClear();
+    TEST_ASSERT_EQUAL(ST_IDLE, machineState());
+    runAt(host::now + 5000);
+    TEST_ASSERT_EQUAL(ST_IDLE, machineState());
+    expectParked();
+}
+
+void test_a_fill_asked_for_at_the_console_runs_to_the_high_reed_and_can_be_forgotten() {
+    // An empty carbonator: no reed closed, and nothing to raise the ask.
+    runFor(5000);
+    TEST_ASSERT_EQUAL(ST_IDLE, machineState());
+    machineRefillRequest();
+    runFor(1000);
+    TEST_ASSERT_EQUAL(ST_REFILLING, machineState());
+    TEST_ASSERT_TRUE(host::refillOwedInFlash);
+    carbonatorReeds(true, false);
+    runAt(host::now + 5000);
+    TEST_ASSERT_EQUAL(ST_REFILLING, machineState());
+    carbonatorReeds(false, true);
+    runAt(host::now + 1000);
+    TEST_ASSERT_EQUAL(ST_IDLE, machineState());
+    TEST_ASSERT_FALSE(host::refillOwedInFlash);
+
+    // Asked for again and then forgotten: the pump stops and the flash holds nothing.
+    carbonatorReeds(false, false);
+    runFor(3000);
+    machineRefillRequest();
+    runFor(1000);
+    TEST_ASSERT_EQUAL(ST_REFILLING, machineState());
+    machineRefillForget();
+    TEST_ASSERT_EQUAL(ST_IDLE, machineState());
+    TEST_ASSERT_FALSE(host::refillOwedInFlash);
+    runAt(host::now + 5000);
+    TEST_ASSERT_EQUAL(ST_IDLE, machineState());
+    expectParked();
+}
+
 void setUp() {
     static uint32_t bootMs = 1000;
     host::now = bootMs;
@@ -1212,6 +1156,9 @@ void setUp() {
     host::gasMv = 0;
     host::attachSucceeds = true;
     host::pumpClosedAgainstDrive = false;
+    host::refillOwedInFlash = false;
+    host::refillOwedWrites = 0;
+    host::flashForgets = false;
     host::sounding = SND_NONE;
     memset(host::duties, 0, sizeof(host::duties));
     memset(host::modes, 0, sizeof(host::modes));
@@ -1275,6 +1222,10 @@ int main(int, char **) {
     RUN_TEST(test_a_running_compressor_stops_when_the_valve_drivers_stop_answering);
     RUN_TEST(test_a_bus_glitch_does_not_cost_the_machine_its_valves_until_a_power_cycle);
     RUN_TEST(test_the_valve_drivers_are_not_reverified_under_a_running_operation);
+    RUN_TEST(test_a_refill_owed_when_the_power_went_is_resumed_by_the_boot_after);
+    RUN_TEST(test_someone_at_the_machine_sets_a_timed_out_refill_trying_again);
+    RUN_TEST(test_a_refill_a_pretend_reading_asked_for_is_not_kept_and_ends_with_it);
+    RUN_TEST(test_a_fill_asked_for_at_the_console_runs_to_the_high_reed_and_can_be_forgotten);
     RUN_TEST(test_refill_and_automatic_pour_cannot_join_a_wet_prime);
     RUN_TEST(test_active_refill_refuses_prime_without_changing_its_outputs);
     RUN_TEST(test_cold_fan_is_preserved_on_prime_open_and_normal_close);

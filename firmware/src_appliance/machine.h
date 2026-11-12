@@ -272,7 +272,13 @@ const char *machineRefillStateName(uint8_t refillState);
 void machineSimThermal(float tankC, bool tankValid, float coilC, bool coilValid);
 void machineSimReeds(bool carbLow, bool carbHigh);
 void machineSimClear();
-void machineRefillClear();   // leave a latched refill Timeout or Fault
+void machineRefillClear();   // leave a latched refill Timeout or Fault and try again
+void machineRefillRequest(); // fill now, whatever the reeds read: until the high reed or the ceiling
+void machineRefillForget();  // drop a refill that is owed, and the flash's note of it
+
+// Someone is at the machine: a finger on either glass. What was waiting on a person may try
+// again — today, a refill that timed out and has rested.
+void machineSomeoneHere();
 
 // Read-only commissioning snapshot of the two MCP23017s and all ten reeds.
 // This is populated only when explicitly requested from the USB console; it is

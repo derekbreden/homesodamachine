@@ -10,6 +10,7 @@
 #include "pour_policy.h"
 #include "recorder.h"
 #include "refill_policy.h"
+#include "refill_store.h"
 #include "proto_msg.h"
 #include "sound.h"
 
@@ -1443,6 +1444,7 @@ static machine_policy::Refill refill;
 static bool     compressorRelay = false;
 static bool     refillRelay     = false;
 static uint32_t refillReedMs    = 0;
+static bool     refillOwedKept  = false;   // what the flash holds of refill.owed()
 
 // What the record keeps of a compressor run and of the cold loop's troubles.
 static uint32_t compressorOnMs = 0;
@@ -1660,7 +1662,16 @@ static void refillService(uint32_t now) {
     ctx.machineIdle  = (state == ST_IDLE || state == ST_REFILLING) &&
                        !machineGasTripped() && pcba::expanders().initialized();
 
-    switch (refill.service(now, ctx)) {
+    const machine_policy::RefillAction action = refill.service(now, ctx);
+
+    // The flash follows the ask, so a power cut does not lose it. A reading put in from the
+    // console is not the water, and what it asks for is not kept.
+    if (!simReedsOn && refill.owed() != refillOwedKept) {
+        refillOwedKept = refill.owed();
+        refillOwedSave(refillOwedKept);
+    }
+
+    switch (action) {
         case machine_policy::RefillAction::Start: refillStart(now); break;
         case machine_policy::RefillAction::Stop: {
             const machine_log::RefillEnd end =
@@ -1694,7 +1705,15 @@ static void ioService(uint32_t now) {
     if (ready != ioWasReady) {
         ioWasReady = ready;
         ioGate.changes++;
-        if (!ready) ioRetryAtMs = now + kIoRetryMs;
+        if (!ready) {
+            ioRetryAtMs = now + kIoRetryMs;
+            // The fan went with the valves. The compressor goes now, not at the cold loop's
+            // next reading.
+            if (compressorRelay) {
+                compressorRelaySet(false);
+                cold.reset(now);
+            }
+        }
     }
     if (!ready && state == ST_IDLE && (int32_t)(now - ioRetryAtMs) >= 0) {
         ioRetryAtMs = now + kIoRetryMs;
@@ -1768,10 +1787,31 @@ void machineSimReeds(bool carbLow, bool carbHigh) {
 
 void machineSimClear() {
     simThermalOn = false;
-    simReedsOn   = false;
+    // A refill asked for by a pretend reading ends with the pretending.
+    if (simReedsOn && refill.owed() && !refillOwedKept) {
+        if (state == ST_REFILLING) refillStop("the simulation ended", machine_log::RefillEnd::Stopped, millis());
+        refill.reset(millis());
+    }
+    simReedsOn = false;
 }
 
 void machineRefillClear() { refill.clear(millis()); }
+
+void machineRefillRequest() { refill.resume(millis()); }
+
+void machineRefillForget() {
+    if (state == ST_REFILLING) refillStop("forgotten on request", machine_log::RefillEnd::Stopped, millis());
+    refill.reset(millis());
+    if (refillOwedKept) {
+        refillOwedKept = false;
+        refillOwedSave(false);
+    }
+}
+
+void machineSomeoneHere() {
+    if (refill.retry(millis()))
+        Serial.println("\n[machine] refill: someone is here — trying the water again");
+}
 
 void machineFlowSimulate(uint32_t pulses, uint32_t ms) {
     flowSimPulses  = pulses;
@@ -1940,6 +1980,9 @@ void machineBegin() {
     // inherited has been stopped.
     cold.reset(millis());
     refill.reset(millis());
+    // A refill that was owed when the power went is owed still.
+    refillOwedKept = refillOwedLoad();
+    if (refillOwedKept) refill.resume(millis());
     compressorRelay = false;
     refillRelay     = false;
     condenserFanOn  = false;
