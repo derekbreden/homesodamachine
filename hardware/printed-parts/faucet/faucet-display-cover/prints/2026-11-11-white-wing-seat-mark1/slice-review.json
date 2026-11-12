@@ -1,0 +1,70 @@
+{
+  "model_objects": [
+    "faucet-display-cover"
+  ],
+  "printer": "Mark1",
+  "nozzle": "fixed left hardened 0.4 mm",
+  "spool": "white PET-GF on left external",
+  "gcode_sha256": "fc4c526a34f9f88682e53e0cb247641f7f21d7f4489f9f81415d47e95e68c085",
+  "archive_sha256": "1b1dfb9924d5e3b0f55eb7b7e0429b6dbabd81b8a8e3f9f6f7eff8ca96e4e412",
+  "cover_stl_sha256": "ee8ca6e1306f663bb7f4ec83d7e45be30b059888dbe87da40e091e5e0404b13f",
+  "layer_count": 86,
+  "role_extrusion_segments": {
+    "Bridge": 306,
+    "Floating vertical shell": 217,
+    "Gap infill": 3836,
+    "Inner wall": 8309,
+    "Internal solid infill": 2445,
+    "Outer wall": 12635,
+    "Overhang wall": 251,
+    "Prime tower": 3538,
+    "Sparse infill": 875,
+    "Support": 38844,
+    "Support interface": 997,
+    "Top surface": 325
+  },
+  "prime_tower_layers": 86,
+  "printed_xy_bounds_mm": {
+    "cover_and_supports": [
+      [
+        125.835,
+        132.231
+      ],
+      [
+        154.165,
+        188.533
+      ]
+    ],
+    "prime_tower": [
+      [
+        191.929,
+        153.926
+      ],
+      [
+        205.388,
+        167.41
+      ]
+    ]
+  },
+  "parked_cooling_seconds_per_wait": 10,
+  "parked_wait_count": 85,
+  "parked_wait_layers": [
+    2,
+    86
+  ],
+  "cooling_wait_position": "Native lifted and retracted first arrival above the prime tower before the first prime moves",
+  "native_estimate_after_cooling_seconds": 1938,
+  "estimate_including_parked_waits_seconds": 2788,
+  "predicted_filament_g": 8.25,
+  "emitted_z_trim_mm": 0.16,
+  "cad_source_commit": "c8d293e64",
+  "editable_project_sha256": "70c6ce74af63900630e039e38e4a9ef15a7ced71dbe6364487d400801daab239",
+  "measured_fit": {
+    "additional_wing_reach_mm": 0.5,
+    "nominal_lip_to_groove_root_clearance_mm": 0.2,
+    "nose_crown_clearance_mm": 0.65,
+    "seated_assembly_payload_sha256": "0440cd4368d934e3ebe4a3227264396e92ad28d50377cd4094ee3abacd937ed0",
+    "physical_seating": "Pending the printed cover fit."
+  },
+  "print_only_archive_sha256": "5eae720282ff7af52e0f1b159268a5389c66c6530e017c6e9b50071a0f131053"
+}
