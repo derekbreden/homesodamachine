@@ -56,8 +56,14 @@ func runHistoryChecks(_ check: (Bool, String) -> Void) {
           && HistoryEntry(seq: 3, kind: .start, detail: 4).needsAttention
           && !HistoryEntry(seq: 4, kind: .start, detail: 1).needsAttention
           && HistoryEntry(seq: 5, kind: .update, detail: 0).needsAttention
-          && !HistoryEntry(seq: 6, kind: .cooling, detail: 1, a: 600).needsAttention,
+          && !HistoryEntry(seq: 6, kind: .cooling, detail: 1, a: 600).needsAttention
+          && HistoryEntry(seq: 7, kind: .valves, detail: 5).needsAttention
+          && !HistoryEntry(seq: 8, kind: .valves, detail: 0).needsAttention,
           "Only what a person should act on asks for attention")
+    check(HistoryEntry(seq: 7, kind: .valves, detail: 5).title == "Valves stopped answering"
+          && HistoryEntry(seq: 8, kind: .valves, detail: 0).title == "Valves answering again"
+          && HistoryEntry.Kind.valves.rawValue == 12,
+          "The valve drivers going quiet and coming back read as that")
 
     check(HistoryEntry.spoken(seconds: 8) == "8 s" && HistoryEntry.spoken(seconds: 80) == "1 min 20 s"
           && HistoryEntry.spoken(seconds: 120) == "2 min" && HistoryEntry.spoken(seconds: 840) == "14 min"

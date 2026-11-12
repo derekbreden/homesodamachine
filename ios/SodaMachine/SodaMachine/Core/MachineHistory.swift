@@ -13,7 +13,7 @@ import Foundation
 struct HistoryEntry: Codable, Equatable, Identifiable {
     /// machine_log::Kind.
     enum Kind: UInt8, Codable {
-        case start = 1, pour, refill, cooling, coldTrouble, gas, fill, clean, air, prime, update
+        case start = 1, pour, refill, cooling, coldTrouble, gas, fill, clean, air, prime, update, valves
     }
 
     static let wireBytes = 32
@@ -164,6 +164,8 @@ extension HistoryEntry {
             return ending == 7 ? "Prime refused for \(flavor)" : "Primed \(flavor)"
         case .update:
             return detail != 0 ? "Software update kept" : "Software update not confirmed"
+        case .valves:
+            return detail != 0 ? "Valves stopped answering" : "Valves answering again"
         }
     }
 
@@ -236,6 +238,8 @@ extension HistoryEntry {
             }
         case .update:
             return nil
+        case .valves:
+            return detail != 0 ? "Flavor, refills and cooling wait until they answer" : nil
         }
     }
 
@@ -249,6 +253,7 @@ extension HistoryEntry {
         case .fill, .clean, .air: return ending == 3
         case .update: return detail == 0
         case .start: return [4, 5, 6, 7].contains(Int(detail))
+        case .valves: return detail != 0
         case .cooling, .prime: return false
         }
     }
@@ -266,6 +271,7 @@ extension HistoryEntry {
         case .air: "wind"
         case .prime: "hand.tap"
         case .update: "arrow.down.circle"
+        case .valves: "cable.connector"
         }
     }
 
