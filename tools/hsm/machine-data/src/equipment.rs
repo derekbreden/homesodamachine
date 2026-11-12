@@ -9,7 +9,8 @@ use std::collections::{BTreeMap, BTreeSet};
 
 /// The equipment above the core as the stages take it: the items in the order they are placed,
 /// each body's frame with its own ports, the ports as placed, the tubes and the order they are
-/// swept in, the bodies that ride with the cold core, and the soda inlet's insulation.
+/// swept in, the tubes that could not be laid out, the bodies that ride with the cold core, and
+/// the soda inlet's insulation.
 pub struct Equipment {
     pub name: String,
     pub items: Vec<Item>,
@@ -17,6 +18,7 @@ pub struct Equipment {
     pub world_ports: Map<String, Value>,
     pub routes: BTreeMap<String, Tube>,
     pub route_order: Vec<String>,
+    pub unrouted: Vec<tube::Unrouted>,
     pub core_equipment: Vec<String>,
     pub insulation: Value,
 }
@@ -113,14 +115,17 @@ pub fn route_params(data: &Value) -> Result<Value> {
         json!({"reducer_insertion":ports::reducer_insertion(data)?,"stem_insertion":data["stem"]["published_socket_insertion_mm"],"tee_insertion":15.7,"check_insertion":data["check"]["socket_insertion_estimate_mm"],"bulkhead_tube_stop":data["jg"]["published"]["tube_stop_depth_mm"]}),
     )
 }
-pub fn local_routes(request: &Value) -> Result<(Vec<String>, BTreeMap<String, Tube>)> {
+/// The equipment's own tubes in the order they are swept, by name, and the ones among them
+/// that could not be laid out.
+pub fn local_routes(request: &Value) -> Result<(Vec<String>, BTreeMap<String, Tube>, Vec<tube::Unrouted>)> {
     let spec = &request["spec"];
     let data = &request["data"];
     let stations = route_stations(spec, data)?;
-    let rear = layout::rear::route_specs(spec, &stations, &route_params(data)?)?;
-    let fore = layout::fore::routes(spec)?;
+    let (rear, rear_unrouted) = layout::rear::route_specs(spec, &stations, &route_params(data)?)?;
+    let (fore, fore_unrouted) = layout::fore::routes(spec)?;
     let mut order = Vec::new();
     let mut routes = BTreeMap::new();
+    let mut unrouted = Vec::new();
     let source_order = request
         .get("fore_tube_order")
         .and_then(Value::as_array)
@@ -137,6 +142,8 @@ pub fn local_routes(request: &Value) -> Result<(Vec<String>, BTreeMap<String, Tu
         if let Some(row) = fore.get(&name) {
             order.push(name.clone());
             routes.insert(name, row.clone());
+        } else if let Some(tube) = fore_unrouted.iter().find(|tube| tube.name == name) {
+            unrouted.push(tube.clone());
         }
     }
     for (name, row) in rear {
@@ -145,7 +152,8 @@ pub fn local_routes(request: &Value) -> Result<(Vec<String>, BTreeMap<String, Tu
         }
         routes.insert(name, row);
     }
-    Ok((order, routes))
+    unrouted.extend(rear_unrouted);
+    Ok((order, routes, unrouted))
 }
 
 struct Builder<'a> {
@@ -508,7 +516,7 @@ pub fn numbers(request: &Value) -> Result<(Equipment, BTreeMap<String, Vec<Strin
         }
         world_ports.insert(name.clone(), Value::Object(table));
     }
-    let (order, routes) = local_routes(request)?;
+    let (order, routes, unrouted) = local_routes(request)?;
     let kept = b.frames.iter().map(|(name, row)| (name.clone(), ports::order(name, &row["ports"]))).collect();
     Ok((
         Equipment {
@@ -518,6 +526,7 @@ pub fn numbers(request: &Value) -> Result<(Equipment, BTreeMap<String, Vec<Strin
             world_ports,
             routes,
             route_order: order,
+            unrouted,
             core_equipment: layout::equipment_names(),
             insulation,
         },
@@ -528,12 +537,25 @@ pub fn numbers(request: &Value) -> Result<(Equipment, BTreeMap<String, Vec<Strin
 /// Adds the tubes routed between the placed ports (`integrated`, in their order) to the
 /// equipment's own, a tube of the same name taking the earlier one's place, and gives every tube
 /// without a colour its spool's.
-pub fn finalize(equipment: &mut Equipment, integrated: Vec<(String, Tube)>, spool_colors: &Value) -> Result<()> {
+pub fn finalize(
+    equipment: &mut Equipment,
+    integrated: Vec<(String, Tube)>,
+    unrouted: Vec<tube::Unrouted>,
+    spool_colors: &Value,
+) -> Result<()> {
     for (key, route) in integrated {
         if !equipment.routes.contains_key(&key) {
             equipment.route_order.push(key.clone());
         }
         equipment.routes.insert(key, route);
+    }
+    // A tube laid out here stands for one of its name the equipment could not lay out itself,
+    // and one that could not be laid out here leaves the machine.
+    equipment.unrouted.retain(|tube| !equipment.routes.contains_key(&tube.name));
+    for tube in unrouted {
+        equipment.routes.remove(&tube.name);
+        equipment.route_order.retain(|name| name != &tube.name);
+        equipment.unrouted.push(tube);
     }
     for route in equipment.routes.values_mut() {
         if route.color.is_none() {

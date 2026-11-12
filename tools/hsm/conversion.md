@@ -194,7 +194,7 @@ bodies in the model it wrote, the reference items' drawings and every body's mea
 [`machine_routes.rs`](../../hardware/manifold-layout/machine_routes.rs) defines its `Request`:
 a `Sweep` for each tube, whose centreline is a list of the layout data's `tube::Segment`, the
 soda `Insulation`, and the placed `Bodies` the foam is cut around. It hands on a `Routed`: the
-swept bodies to place and each tube's developed length.
+swept bodies to place, each tube's developed length and the tubes it could not sweep.
 
 `tools/hsm/machine-data/src/equipment.rs` builds the `Equipment` both requests are taken
 from: its `Item`s, typed as the stage takes them; its tubes, each a `Tube` the layout data
@@ -202,6 +202,13 @@ routes, with its `Segment`s, stock, ports and notes; and each body's frame, the 
 the soda insulation, which are JSON values in its fields. The plan composes what the placement
 takes of the equipment from it and the `Placed`: the placed bodies, their drawings, frames and
 ports, the junctions, the bodies each tube joins and the metadata.
+
+A tube that cannot be made does not stop the machine. The layout data lays each tube out on its
+own and lists one it cannot lay out as a `tube::Unrouted`: its name, the two ends it would join
+and why. The copper runs and the sweeps do the same. The `Equipment` carries the list, the scene
+views leave those tubes' bodies out, and the facts mark each such run `incomplete` with the tube
+it lacks and the reason, which is what the site's mark over the machine's model reads
+([`web/contracts/missing-parts.js`](../../web/contracts/missing-parts.js)).
 
 The other mechanical hand-overs are JSON documents: the pack, the placement plan and the facts
 request. The placement program

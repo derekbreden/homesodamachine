@@ -1,6 +1,6 @@
 //! Appliance frames and native tube recipes, in enclosure millimetres.
 
-use anyhow::{Context, Result, bail, ensure};
+use anyhow::{Context, Result, ensure};
 use serde_json::{Value, json};
 use std::f64::consts::PI;
 
@@ -287,74 +287,93 @@ pub fn crowned_beziers(control: &[V3], crown: f64, intervals: usize) -> Result<V
     }
     Ok(out)
 }
-/// Reservoir A's tubes as they are written down, by name.
-pub fn reservoir_routes(data: &Value) -> Result<std::collections::BTreeMap<String, Tube>> {
+/// Reservoir A's tubes as they are written down, by name. A tube that cannot be laid out is left
+/// out of them and listed beside them.
+pub fn reservoir_routes(
+    data: &Value,
+) -> Result<(std::collections::BTreeMap<String, Tube>, Vec<tube::Unrouted>)> {
     let mut out = std::collections::BTreeMap::new();
+    let mut unrouted = Vec::new();
     for (id, row) in data["paths"].as_object().context("reservoir paths")? {
-        let mut segments = Vec::new();
-        for s in row["segments"].as_array().context("reservoir segments")? {
-            if s["kind"] == "line" {
-                segments.push(line(xyz(&s["points_mm"][0])?, xyz(&s["points_mm"][1])?));
-                continue;
+        match reservoir_route(data, row) {
+            Ok(tube) => {
+                out.insert(id.clone(), tube);
             }
-            let start = xyz(&s["start_mm"])?;
-            let axis = xyz(&s["axis"])?;
-            let tangent = unit(cross(axis, sub(start, xyz(&s["center_mm"])?)))?;
-            let (mut native, _) = arc(
-                start,
-                tangent,
-                axis,
-                number(&s["angle_rad"])?,
-                number(&s["radius_mm"])?,
-            );
-            if let Segment::Arc { points_mm, .. } = &mut native {
-                points_mm[0] = start;
-                points_mm[2] = xyz(&s["end_mm"])?;
-            }
-            segments.push(native);
+            Err(error) => unrouted.push(tube::Unrouted::of(
+                id,
+                row["frm"].as_str().unwrap_or(""),
+                row["to"].as_str().unwrap_or(""),
+                &error,
+            )),
         }
-        if row["reverse"].as_bool().unwrap_or(false) {
-            segments.reverse();
-            for s in &mut segments {
-                match s {
-                    Segment::Line { points_mm } => points_mm.reverse(),
-                    Segment::Bezier { control_points_mm } => control_points_mm.reverse(),
-                    Segment::Arc { points_mm, axis, .. } => {
-                        points_mm.reverse();
-                        *axis = match *axis {
-                            Some(axis) => Some(mul(axis, -1.)),
-                            None => None,
-                        };
-                    }
+    }
+    Ok((out, unrouted))
+}
+
+/// One of reservoir A's tubes from its written-down lines and arcs.
+fn reservoir_route(data: &Value, row: &Value) -> Result<Tube> {
+    let mut segments = Vec::new();
+    for s in row["segments"].as_array().context("reservoir segments")? {
+        if s["kind"] == "line" {
+            segments.push(line(xyz(&s["points_mm"][0])?, xyz(&s["points_mm"][1])?));
+            continue;
+        }
+        let start = xyz(&s["start_mm"])?;
+        let axis = xyz(&s["axis"])?;
+        let tangent = unit(cross(axis, sub(start, xyz(&s["center_mm"])?)))?;
+        let (mut native, _) = arc(
+            start,
+            tangent,
+            axis,
+            number(&s["angle_rad"])?,
+            number(&s["radius_mm"])?,
+        );
+        if let Segment::Arc { points_mm, .. } = &mut native {
+            points_mm[0] = start;
+            points_mm[2] = xyz(&s["end_mm"])?;
+        }
+        segments.push(native);
+    }
+    if row["reverse"].as_bool().unwrap_or(false) {
+        segments.reverse();
+        for s in &mut segments {
+            match s {
+                Segment::Line { points_mm } => points_mm.reverse(),
+                Segment::Bezier { control_points_mm } => control_points_mm.reverse(),
+                Segment::Arc { points_mm, axis, .. } => {
+                    points_mm.reverse();
+                    *axis = match *axis {
+                        Some(axis) => Some(mul(axis, -1.)),
+                        None => None,
+                    };
                 }
             }
         }
-        let points = sample(&segments)?;
-        let from = row["frm"].as_str().context("reservoir from")?;
-        let to = row["to"].as_str().context("reservoir to")?;
-        let a = from.split('.').next().unwrap();
-        let b = to.split('.').next().unwrap();
-        let owners = if a == b { vec![a] } else { vec![a, b] };
-        let radius = data["minimum_radius_mm"].as_f64();
-        out.insert(id.clone(), Tube {
-            radius_mm: Some(radius),
-            minimum_radius_mm: Some(radius),
-            from: Some(from.to_owned()),
-            frm: Some(from.to_owned()),
-            to: Some(to.to_owned()),
-            owners: Some(owners.into_iter().map(str::to_owned).collect()),
-            status: Some("selected_native_layout".to_owned()),
-            note: Some("Reservoir A continuous tube retained by the fore and aft paired lid anchors; the plain guide adds no joint or cut".to_owned()),
-            ..Tube::of(
-                segments,
-                number(&data["tube_od_mm"])?,
-                number(&data["tube_id_mm"])?,
-                data["spool"].as_str().context("reservoir spool")?,
-            )
-            .through(points)
-        });
     }
-    Ok(out)
+    let points = sample(&segments)?;
+    let from = row["frm"].as_str().context("reservoir from")?;
+    let to = row["to"].as_str().context("reservoir to")?;
+    let a = from.split('.').next().unwrap();
+    let b = to.split('.').next().unwrap();
+    let owners = if a == b { vec![a] } else { vec![a, b] };
+    let radius = data["minimum_radius_mm"].as_f64();
+    Ok(Tube {
+        radius_mm: Some(radius),
+        minimum_radius_mm: Some(radius),
+        from: Some(from.to_owned()),
+        frm: Some(from.to_owned()),
+        to: Some(to.to_owned()),
+        owners: Some(owners.into_iter().map(str::to_owned).collect()),
+        status: Some("selected_native_layout".to_owned()),
+        note: Some("Reservoir A continuous tube retained by the fore and aft paired lid anchors; the plain guide adds no joint or cut".to_owned()),
+        ..Tube::of(
+            segments,
+            number(&data["tube_od_mm"])?,
+            number(&data["tube_id_mm"])?,
+            data["spool"].as_str().context("reservoir spool")?,
+        )
+        .through(points)
+    })
 }
 
 /// The above-core fittings that are NeoFit stem elbows, among those the layout places: every
