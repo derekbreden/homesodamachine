@@ -253,7 +253,10 @@ fn confirm_version(root: &Path, path: &str, target: &str) -> Result<()> {
     let Some(wanted) = expected_version(root, target) else {
         return Ok(());
     };
-    thread::sleep(Duration::from_secs(8));
+    // Opening the console restarts the main board, and a main board that restarts inside its
+    // update trial (`kUpdateTrialMs`, firmware/src_appliance/main.cpp) goes back to the image
+    // it had. This wait outlasts the restart delay, the boot and that trial together.
+    thread::sleep(Duration::from_secs(12));
     let mut port = open_console(path)?;
     let deadline = Instant::now() + Duration::from_secs(75);
     let mut asked = None::<Instant>;
