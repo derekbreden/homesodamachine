@@ -130,7 +130,7 @@ explicit input recipes come from Rust data providers.
 | Equipment | `machine-equipment`; fittings, clamps, bulkheads and mounting hardware | `hardware/manifold-layout/machine_equipment.rs` |
 | Fluid and refrigeration tubes | `machine-routes`; sweeps, insulation and developed lengths | `hardware/manifold-layout/machine_routes.rs` |
 | Wire curves | `wire-route-samples`; interpolation, lengths and curvature | `hardware/wiring/installed/wire_route_samples.rs` |
-| Installed wires | `installed-wires`, which `installed-machine` runs in its own process; each conductor swept along its segments and each termination and jacket cut from its shape | `hardware/wiring/installed/wire_geometry.rs`, `hardware/wiring/installed/wire_request.rs` |
+| Installed wires | `installed-wires`, which `installed-machine` runs as one of its stages; each conductor swept along its segments and each termination and jacket cut from its shape | `hardware/wiring/installed/wire_geometry.rs`, `hardware/wiring/installed/wire_request.rs` |
 | Enclosure pieces | `enclosure-front-bottom`, `enclosure-front-top`, `enclosure-back-bottom`, `enclosure-back-top`, `enclosure-pump-retainer`, `enclosure-pump-tube-setting-jig`; each printed piece's files from the declared Box through its typed recipe | `hardware/printed-parts/enclosure/enclosure/enclosure_*.rs` |
 | Enclosure model | `enclosure`; the shown pieces in place from their fine models, with the dock's tees and stem elbows | `hardware/printed-parts/enclosure/enclosure/enclosure.rs` |
 | Enclosure measurements | `enclosure-checks`; piece bounds and Box measurements | `hardware/printed-parts/enclosure/enclosure/enclosure_checks.rs` |
