@@ -141,6 +141,10 @@ enum class Append : uint8_t {
 // The fewest sectors a ring can turn in: one being written while another still holds entries.
 constexpr uint32_t kMinSectors = 2;
 
+// Slots find() reads before it gives an entry up. Each spoiled slot between an entry and the
+// head costs one.
+constexpr uint32_t kFindProbes = 16;
+
 // Entries are written one after another and a sector is erased only when the head enters it,
 // so the ring always holds the newest entries and loses the oldest a sector at a time. A
 // write that loses power leaves one bad slot, which every reader steps over.
@@ -176,6 +180,11 @@ public:
 
     // The cursor's next entry, toward the newest. False when it has read them all.
     bool next(Cursor &cursor, Entry &out);
+
+    // The entry with this number, read where it stands rather than walked to, so a reader
+    // far from the machine can ask for one entry at a time. False when the ring no longer
+    // holds it, or never did.
+    bool find(uint32_t seq, Entry &out);
 
 private:
     Slot     readSlot(uint32_t slot, Entry &out);
