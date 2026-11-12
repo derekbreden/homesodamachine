@@ -15,20 +15,48 @@ export function factsPathFor(stepPath) {
 
 /**
  * @typedef {Object} MissingRun
- * @property {string} id    the run's connection id, such as "fluid-26"
- * @property {string} from  the port it leaves, "body.port"
- * @property {string} to    the port it reaches, "body.port"
+ * @property {string} id          the run's connection id, such as "fluid-26"
+ * @property {string} from        the port it leaves, "body.port"
+ * @property {string} to          the port it reaches, "body.port"
+ * @property {string[]} tubes     the tubes of the run that the machine does not hold
+ * @property {string[]} fittings  the fittings of the run that the machine does not hold
  */
 
+// The names a run row lists under `key`.
+function listed(run, key) {
+  return Array.isArray(run[key]) ? run[key].filter((name) => typeof name === "string") : [];
+}
+
 /**
- * The runs `facts` lists that the machine does not complete, in the facts' order.
+ * The runs `facts` lists that the machine does not complete, in the facts' order, each with the
+ * tubes and fittings its row names as absent.
  * @returns {MissingRun[]}
  */
 export function missingRuns(facts) {
   const runs = Array.isArray(facts?.runs) ? facts.runs : [];
   return runs
     .filter((run) => run && typeof run.id === "string" && run.status !== "complete")
-    .map((run) => ({ id: run.id, from: String(run.frm ?? ""), to: String(run.to ?? "") }));
+    .map((run) => ({
+      id: run.id,
+      from: String(run.frm ?? ""),
+      to: String(run.to ?? ""),
+      tubes: listed(run, "missing_native_routes"),
+      fittings: listed(run, "missing_fittings"),
+    }));
+}
+
+/**
+ * What a missing run lacks, in words: each tube and fitting its facts name as absent. A run
+ * whose facts name neither is only said to be not complete.
+ * @param {MissingRun} run
+ * @returns {string}
+ */
+export function lacks(run) {
+  const parts = [
+    ...(run.tubes ?? []).map((name) => `no tube ${name}`),
+    ...(run.fittings ?? []).map((name) => `no fitting ${name}`),
+  ];
+  return parts.length ? parts.join(", ") : "not complete";
 }
 
 // The body a port is on: "valve-v-h.inlet" -> "valve-v-h".
