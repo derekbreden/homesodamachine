@@ -51,6 +51,27 @@ impl Segment {
     }
 }
 
+/// A tube the layout was asked for and could not lay out: the ports it would join, and why.
+#[derive(Clone, Debug, Deserialize, Serialize)]
+pub struct Unrouted {
+    pub name: String,
+    pub from: String,
+    pub to: String,
+    pub reason: String,
+}
+
+impl Unrouted {
+    /// The tube `name` between `from` and `to`, which `error` kept from being laid out.
+    pub fn of(name: &str, from: &str, to: &str, error: &anyhow::Error) -> Unrouted {
+        Unrouted {
+            name: name.to_owned(),
+            from: from.to_owned(),
+            to: to.to_owned(),
+            reason: format!("{error:#}"),
+        }
+    }
+}
+
 /// A radius a tube's record states as a number or as none, where the record states it at all.
 mod stated {
     use serde::{Deserialize, Deserializer, Serialize, Serializer};

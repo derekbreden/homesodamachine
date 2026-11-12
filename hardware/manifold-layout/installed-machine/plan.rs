@@ -205,7 +205,7 @@ pub fn placement_metadata(root: &Path, equipment_request: &Equipment, runs: Vec<
     let probes: Vec<Value> = casing["report"]["probes"].as_array().context("the casing's probes")?
         .iter().map(|probe| probe["name"].clone()).collect();
     let holders = design::read(root.join("hardware/manifold-layout/manifold-tube-holders.json"))?;
-    Ok(json!({
+    let mut metadata = json!({
         "runs": runs,
         "native_route_specs": routes,
         "native_route_order": equipment_request.route_order,
@@ -224,7 +224,12 @@ pub fn placement_metadata(root: &Path, equipment_request: &Equipment, runs: Vec<
         "union_supports": cap["union_supports"],
         "cap_conduits": probes,
         "manifold_tube_holders": holders["holders"],
-    }))
+    });
+    // The tubes the machine was built without, which the facts mark incomplete.
+    if !equipment_request.unrouted.is_empty() {
+        metadata["unrouted"] = json!(equipment_request.unrouted);
+    }
+    Ok(metadata)
 }
 
 /// The piece the above-core layout hangs its wall-mounted parts from.

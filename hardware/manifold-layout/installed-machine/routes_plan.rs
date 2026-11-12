@@ -4,7 +4,7 @@ use crate::copper;
 use crate::equipment::Equipment;
 use crate::routes_program::{Bodies, Insulation, Pose, Request, Sweep};
 use anyhow::{Context, Result};
-use hsm_layout_data::tube::{Segment, Tube};
+use hsm_layout_data::tube::{Segment, Tube, Unrouted};
 use serde::Deserialize;
 use serde_json::{Value, json};
 use std::collections::BTreeMap;
@@ -88,6 +88,42 @@ pub fn routes_request(
     Ok(Request { name: NAME.to_owned(), tubes, insulation, components })
 }
 
+/// The two ends a tube's record names: its ports where it states them, else the bodies it joins.
+fn ends(route: &Tube) -> (String, String) {
+    let owner = |end: Option<&String>| end.cloned().unwrap_or_default();
+    let owners = route.owners.as_deref().unwrap_or(&[]);
+    let from = route.frm.clone().or_else(|| route.from.clone()).unwrap_or_else(|| owner(owners.first()));
+    (from, route.to.clone().unwrap_or_else(|| owner(owners.last())))
+}
+
+/// Takes the tubes the routes stage could not sweep out of the equipment request's routes and
+/// out of the copper runs, and lists them with the tubes that could not be laid out. A copper
+/// run that could not be solved is listed too, unless a tube of its name stands for it.
+pub fn leave_out(
+    equipment_request: &mut Equipment,
+    copper: &mut Vec<copper::Run>,
+    unsolved: Vec<Unrouted>,
+    routes: &crate::routes_program::Routed,
+) {
+    for run in unsolved {
+        if !equipment_request.routes.contains_key(&run.name) {
+            equipment_request.unrouted.push(run);
+        }
+    }
+    for tube in &routes.unrouted {
+        let mut left = tube.clone();
+        if let Some(run) = copper.iter().find(|run| run.id == tube.name) {
+            (left.from, left.to) = (run.from.to_owned(), run.to.to_owned());
+        }
+        if let Some(route) = equipment_request.routes.remove(&tube.name) {
+            (left.from, left.to) = ends(&route);
+        }
+        equipment_request.route_order.retain(|name| name != &tube.name);
+        copper.retain(|run| run.id != tube.name);
+        equipment_request.unrouted.push(left);
+    }
+}
+
 /// Writes each tube's length, as the routing measured it, into the equipment request's routes.
 pub fn write_route_lengths(equipment_request: &mut Equipment, routes: &crate::routes_program::Routed) {
     for (name, length) in &routes.lengths {
@@ -119,10 +155,7 @@ fn polyline_length(points: &[[f64; 3]]) -> f64 {
 /// One authored tube as the plan's metadata records it.
 fn route_record(name: &str, route: &Tube) -> Option<Value> {
     let points = route.points_mm.as_ref().or(route.centerline_mm.as_ref())?;
-    let owner = |end: Option<&String>| end.cloned().unwrap_or_default();
-    let owners = route.owners.as_deref().unwrap_or(&[]);
-    let from = route.frm.clone().or_else(|| route.from.clone()).unwrap_or_else(|| owner(owners.first()));
-    let to = route.to.clone().unwrap_or_else(|| owner(owners.last()));
+    let (from, to) = ends(route);
     let bend = route.minimum_radius_mm.flatten().unwrap_or(0.);
     let note = route.basis.clone().unwrap_or_default();
     Some(json!({"id": name, "kind": "fluid", "frm": from, "to": to, "pts": points, "diam": route.od_mm,
