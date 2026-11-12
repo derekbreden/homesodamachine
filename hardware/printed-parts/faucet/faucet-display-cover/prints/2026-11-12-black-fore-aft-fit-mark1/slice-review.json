@@ -1,0 +1,155 @@
+{
+  "cover_rear_seam_enforcement": {
+    "enforced_triangles": 82,
+    "mesh_vertices_and_triangle_indices_unchanged": false,
+    "paint_strip_half_width_mm": 0.35,
+    "painted_facet_bounds_cad_mm": [
+      [
+        -0.35,
+        -121.35090637233789,
+        228.82814025844922
+      ],
+      [
+        0.35,
+        -112.52111816433789,
+        233.07684326144923
+      ]
+    ],
+    "part": "faucet-display-cover",
+    "project_facets": 12862,
+    "target": "Exterior rear wall on the tip's CAD center plane above the opening"
+  },
+  "diameter_mm": 0.4,
+  "edited_settings": [
+    "filament_colour",
+    "filament_multi_colour"
+  ],
+  "emitted_z_trim_mm": [
+    0.0,
+    0.16
+  ],
+  "estimated_seconds": 2802,
+  "first_layer_bounds_mm": {
+    "faucet-display-cover": [
+      126.51546,
+      132.50063,
+      153.48452,
+      186.51183
+    ],
+    "wipe_tower": [
+      192.14565000000002,
+      154.14565000000002,
+      205.21830000000003,
+      167.21830000000003
+    ]
+  },
+  "fit": {
+    "faucet_assembly_payload_sha256": "e57650b6bde45bf33161733c992e35de775b43be1282bbf9a1b100c2f7557bba",
+    "nose_arch_relief_increase_mm": 0.5,
+    "nose_cut_extension_into_cavity_mm": 1.0,
+    "rear_arch_relief_mm": 1.0,
+    "seated_display_overlap_mm3": 0.0,
+    "seated_tip_overlap_mm3": 0.0001231211
+  },
+  "gcode_sha256": "2c11caf131f51be7cc06b7477073b80da0a06c4e707485bbc0f6428e2d85f58a",
+  "model_objects": [
+    "faucet-display-cover"
+  ],
+  "native_seconds_including_localized_cooling": 1942,
+  "nozzle": "fixed left hardened",
+  "park_count": 86,
+  "park_layers": [
+    2,
+    87
+  ],
+  "park_seconds": 10,
+  "part_fan_at_parks_percent": 0,
+  "predicted_filament_g": 8.2,
+  "print_extrusion_envelope_xy_mm": [
+    [
+      125.593993,
+      132.285993
+    ],
+    [
+      205.652007,
+      186.725007
+    ]
+  ],
+  "printer": "Mark1",
+  "project_sha256": "b076586c2f150070d50512c6a7d6c9ab9622ac1c2a15842ad4887fe3833ce761",
+  "ready_archive_sha256": "41d7240ee34103a3a78eca306809569a394359816782d360ae2e5063af803de4",
+  "role_path_blocks": {
+    "Bridge": 19,
+    "Custom": 2,
+    "Floating vertical shell": 19,
+    "Gap infill": 211,
+    "Inner wall": 184,
+    "Internal solid infill": 95,
+    "Outer wall": 210,
+    "Overhang wall": 89,
+    "Prime tower": 174,
+    "Sparse infill": 34,
+    "Support": 111,
+    "Support interface": 38,
+    "Top surface": 4
+  },
+  "settings_source": "hardware/printed-parts/faucet/faucet-display-cover/prints/2026-11-11-white-scan-fit-mark1/sculpted-display-cover-scan-fit-white-mark1.3mf",
+  "source_part": {
+    "body_count": 1,
+    "build_transform": [
+      1.0,
+      0.0,
+      0.0,
+      0.0,
+      0.6427876096865394,
+      -0.766044443118978,
+      0.0,
+      0.766044443118978,
+      0.6427876096865394,
+      140.0,
+      159.3236938630398,
+      12.989291613511204
+    ],
+    "embedded_vertex_error_mm": 4.995115432393504e-10,
+    "identify_id": 1901,
+    "member": "3D/Objects/object_1.model",
+    "name": "faucet-display-cover",
+    "object_id": "2",
+    "part_id": "1",
+    "plate": 1,
+    "plate_bounds_mm": [
+      [
+        125.82660388946533,
+        134.245571004393,
+        0.0
+      ],
+      [
+        154.17339611053467,
+        185.754428995607,
+        20.880016884148453
+      ]
+    ],
+    "plate_origin_mm": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "plate_translation_mm": [
+      140.0,
+      159.3236938630398,
+      12.989291613511204
+    ],
+    "rotation_x_degrees": -50.0,
+    "source": "hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.stl",
+    "source_center_mm": [
+      0.0,
+      -130.3551368713379,
+      210.07024383544922
+    ],
+    "stl_sha256": "588ab96222e71a1d879d85ddbfccb86bc7d926e9e25d928a1eb1153839617a31",
+    "triangles": 12452,
+    "watertight": true
+  },
+  "spool": "black PET-GF",
+  "tower_layers": 87
+}

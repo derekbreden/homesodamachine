@@ -52,10 +52,19 @@ fn seated_cover(neck: &Gooseneck, open: bool) -> Result<Solid> {
     let window = neck.cradle_prism(cover::WINDOW_HALF_X, (s0, s1), (n0, n1), cover::WINDOW_CORNER_R)?;
     let arch = display::neck_round(neck, cover::neck_clearance_r())?;
     let (_, _, normal) = neck.tip_frame();
-    let [half_x, _, _, n0, n1] = cover::outer_clamp();
-    let nose_arch = clamped(neck, arch.translate(normal * cover::NOSE_ARCH_LIFT),
-        [half_x, DISPLAY_HEAD_S_MIN - PAST, DISPENSE_FACE_THICKNESS, n0, n1])?;
-    let skin = sloped(neck, outer.cut_all(&[cavity, window, arch, nose_arch])?)?;
+    let [half_x, _, rear_s, n0, n1] = cover::outer_clamp();
+    // Carry the nose cut past the cavity's front face so the cutters overlap.
+    let nose_arch = clamped(
+        neck,
+        arch.translate(normal * cover::NOSE_ARCH_LIFT),
+        [half_x, DISPLAY_HEAD_S_MIN - PAST, DISPENSE_FACE_THICKNESS + PAST, n0, n1],
+    )?;
+    let rear_arch = clamped(
+        neck,
+        arch.translate(normal * cover::REAR_ARCH_LIFT),
+        [half_x, cover::REAR_TRIM_S0, rear_s + PAST, n0, n1],
+    )?;
+    let skin = sloped(neck, outer.cut_all(&[cavity, window, arch, nose_arch, rear_arch])?)?;
     // The band stands from under the skin's foot, so no face of it lies on the skin's.
     let [hx, s0, s1, n0, n1] = cover::lip_band();
     let band = neck.cradle_prism(hx, (s0, s1), (n0 - PAST, n1), 0.0)?;
