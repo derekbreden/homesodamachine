@@ -35,8 +35,23 @@ void Refill::enter(RefillState s, uint32_t now_ms) {
 void Refill::clear(uint32_t now_ms) {
     if (state_ != RefillState::Timeout && state_ != RefillState::Fault) return;
     pumped_ms_ = 0;
-    enter(RefillState::Idle, now_ms);
+    enter(RefillState::Queued, now_ms);
 }
+
+bool Refill::retry(uint32_t now_ms) {
+    if (state_ != RefillState::Timeout) return false;
+    if (now_ms - filling_since_ms_ < kRefillRetryRestMs) return false;
+    clear(now_ms);
+    return true;
+}
+
+void Refill::resume(uint32_t now_ms) {
+    if (state_ != RefillState::Idle) return;
+    pumped_ms_ = 0;
+    enter(RefillState::Queued, now_ms);
+}
+
+bool Refill::owed() const { return state_ != RefillState::Idle; }
 
 void Refill::reset(uint32_t now_ms) {
     state_            = RefillState::Idle;
@@ -77,8 +92,9 @@ RefillAction Refill::service(uint32_t now_ms, const RefillContext &ctx) {
                     break;
 
                 case RefillState::Queued:
-                    if (!last_.valid || last_.highClosed)        enter(RefillState::Idle, now_ms);
-                    else if (!ctx.dispenseOpen && ctx.machineIdle)
+                    // Reeds that cannot be read start nothing and end nothing: the ask
+                    // waits for a reading.
+                    if (last_.valid && !ctx.dispenseOpen && ctx.machineIdle)
                         enter(RefillState::Filling, now_ms);
                     break;
 

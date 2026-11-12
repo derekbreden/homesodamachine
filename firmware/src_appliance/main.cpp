@@ -286,7 +286,10 @@ static void help() {
     Serial.println("                    the selected channel pours as if carbonated water were flowing");
     Serial.println("  selftest          every solenoid in turn, the fan, then each pump — one at a time");
     Serial.println("  thermal           the 1-wire bus: every ROM found, its family and its last reading");
-    Serial.println("  refill clear      leave a latched refill TIMEOUT or FAULT");
+    Serial.println("  refill clear      leave a latched refill TIMEOUT or FAULT and try again");
+    Serial.println("  refill forget     drop a refill that is owed, and the flash's note of it");
+    Serial.println("  refill fill       fill the carbonator now, whatever its reeds read: until the high");
+    Serial.println("                    reed closes or the pumping ceiling, as any refill");
     Serial.println("  hang              stop the loop turning, to see the watchdog restart the board");
     Serial.printf("  log [n|all|status]   the machine's record: its newest n entries (default %ld),\n",
                   kLogDefaultEntries);
@@ -892,7 +895,17 @@ static void console(const String &line) {
     if (line == "thermal")     { oneWireDump(); return; }
     if (line == "refill clear") {
         machineRefillClear();
-        Serial.println("\n[machine] refill latch cleared");
+        Serial.println("\n[machine] refill latch cleared — trying again");
+        return;
+    }
+    if (line == "refill fill") {
+        machineRefillRequest();
+        Serial.println("\n[machine] refill asked for — it runs to the high reed or the ceiling");
+        return;
+    }
+    if (line == "refill forget") {
+        machineRefillForget();
+        Serial.println("\n[machine] refill forgotten — nothing is owed");
         return;
     }
     if (line == "hang") {

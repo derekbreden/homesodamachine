@@ -10,6 +10,12 @@
 // Between activation windows both reeds can be open; the windows may overlap. A refill is a latch
 // from the one to the other and not a level a single reading answers.
 //
+// The latch is the one thing known about the water once it has fallen through the low reed:
+// a refill is owed until the high reed says it was paid. Below the low reed's window no reed
+// is closed, so nothing a later reading shows can raise the ask again. It is therefore kept
+// through everything that is not the high reed: a pour, reeds that cannot be read, a draw
+// that timed out, and — in the flash machine.cpp keeps it in — a power cut.
+//
 // The G Ganen is budgeted at 5 A and the main board peaks at 3.33 A against a
 // 6.7 A supply, so relay #2 is off while a dispense window is open. CLO closes
 // mid-pour — the level falls past it while the glass is filling — so the ask
@@ -28,6 +34,10 @@ constexpr uint32_t kRefillDebounceMs = 1500;
 // Pumping time, not wall time: a draw interrupted by three pours has spent
 // none of its ceiling waiting for them.
 constexpr uint32_t kRefillCeilingMs = 180000;
+
+// What a draw that timed out rests before someone at the machine can set it trying again:
+// it bounds how much of an hour the pump can spend against a supply that is not there.
+constexpr uint32_t kRefillRetryRestMs = 300000;
 
 enum class RefillState : uint8_t {
     Idle = 0,
@@ -69,8 +79,19 @@ public:
 
     RefillAction service(uint32_t now_ms, const RefillContext &ctx);
 
-    // Leave Timeout or Fault. Idle and the two running states are unmoved.
+    // Leave Timeout or Fault and try again: the refill is still owed. Idle and the two
+    // running states are unmoved.
     void clear(uint32_t now_ms);
+
+    // The same, asked by someone at the machine rather than at its console: only once the
+    // timed-out draw has rested kRefillRetryRestMs. False when it changed nothing.
+    bool retry(uint32_t now_ms);
+
+    // A boot that finds a refill was owed when the power went: queue it.
+    void resume(uint32_t now_ms);
+
+    // True from the ask until the high reed ends it.
+    bool owed() const;
 
     void reset(uint32_t now_ms);
 

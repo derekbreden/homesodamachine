@@ -51,7 +51,23 @@ chatters and the gas alarm inside the note gap, and a prime and a fill as they e
 checks that the compressor is not started when its fan's write fails, that a running one
 stops when the valve drivers stop answering, that a bus glitch is verified away once the
 machine is idle and a pour injects again, and that nothing is re-verified under a running
-operation. The loop watchdog has no host test: `hang` on a bench board is its check.
+operation. A refill owed when the power went is resumed by the boot after, a timed-out one is
+set trying again by someone at the machine once it has rested, a fill asked for at the
+console runs to the high reed, and a refill a pretend reading asked for is not kept. The loop
+watchdog has no host test: `hang` on a bench board is its check.
+`test_machine_month` lives a month at a kitchen sink on the build host: the production machine
+code against a carbonator that drains and fills, a cooling loop that warms and cools, and a
+household that pours, with the clock crossing its wrap on the way. An ordinary month must
+make every glass a soda with no fault sounded. A month of trouble shuts the water off for a
+morning, cuts the power four times — once mid-refill and once just after a pitcher has taken
+the water below the low reed — loses a probe, glitches the bus twice, trips the gas alarm and
+runs the suction line to its freeze cutoff; every poor glass must fall inside a trouble, and
+the month must end with every glass a soda and nothing latched. Both hold the machine to what
+it must never do at every step: more than three valves, the refill pump during a dispense or
+against a closed V-K, the compressor inside its minimum off-time or without its fan.
+`MONTH_FLASH_FORGETS=1` and `MONTH_NOBODY_TOUCHES=1` run the same month with the kept ask or
+the touch taken away, to see what each is for. The kitchen's numbers are a plausible kitchen,
+not a measured one.
 `test_pour_policy` checks the pour's cycle timing at 1:20, 1:6 and 1:24, the clamps either
 side of the flow reading and the floor and ceiling on the two phases, the sequence one pour
 walks — valves and pump opening on the first reading, each cycle's timing taken from the
