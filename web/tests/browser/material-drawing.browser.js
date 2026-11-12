@@ -98,8 +98,7 @@ test("one workspace toolbar contains navigation, view mode and document controls
     await materialReady(page, parentFile);
     await page.click(".materials-toggle");
     await page.type(".material-panel .material-search input", "HSM-0009");
-    await page.waitForSelector(".material-panel .material-search-results a", { visible: true });
-    await page.click(".material-panel .material-search-results a");
+    await page.locator(".material-panel .material-search-results a").click();
     await materialReady(page);
     const layout = await page.evaluate(() => {
       const crumb = document.querySelector(".cad-crumb.show").getBoundingClientRect();
@@ -199,7 +198,7 @@ test("material search opens the pane and features a working drawing beside the p
     // Selecting another search result while reading must discard the old part's
     // drawing and return to the newly selected material's model.
     await page.type(".material-panel .material-search input", "HSM-0008");
-    await page.click(".material-panel .material-search-results a");
+    await page.locator(".material-panel .material-search-results a").click();
     await materialReady(page, "cut-parts/carbonation/carbonator-tube/carbonator-tube.step");
     assert.equal(await page.$(".material-drawing-view"), null);
     assert.equal(await page.$eval(".material-view-switch", control => control.hidden), true);
@@ -219,7 +218,7 @@ test("phone searches open the pane under the model; drawings keep the pane and t
     await page.goto(baseUrl + "/3d", { waitUntil: "domcontentloaded" });
     await page.waitForSelector(".material-search input");
     await page.type(".material-search input", "HSM-0009");
-    await page.click(".material-search-results a");
+    await page.locator(".material-search-results a").click();
     await materialReady(page);
     await assertPane(page, true);
     // The pane takes the lower part of the screen, and the model stays in view above it.
@@ -244,7 +243,7 @@ test("phone searches open the pane under the model; drawings keep the pane and t
     assert.equal(await page.$eval(".material-view-switch button[aria-pressed=true]", button => button.textContent), "3D");
     assert.deepEqual(await cameraPose(page), pose);
     await page.type(".material-panel .material-search input", "HSM-0008");
-    await page.click(".material-panel .material-search-results a");
+    await page.locator(".material-panel .material-search-results a").click();
     await materialReady(page, "cut-parts/carbonation/carbonator-tube/carbonator-tube.step");
     await assertPane(page, true);
     await page.goBack();
@@ -303,15 +302,18 @@ test("direct links and responsive layout apply the pane rules without storing a 
     await page.reload({ waitUntil: "domcontentloaded" });
     await materialReady(page);
     await assertPane(page, true);
-    await page.setViewport({ width: 844, height: 390, isMobile: true, hasTouch: true });
-    await page.goto(baseUrl + searchUrl, { waitUntil: "domcontentloaded" });
-    await materialReady(page);
-    await assertPane(page, true);
-    await page.click(".material-view-switch button:last-child");
-    await drawingReady(page);
-    assert.equal(await page.$eval(".cad-workspace-header", header => header.getBoundingClientRect().height <= 80), true,
-      "landscape phones should keep one toolbar row");
-    await page.screenshot({ path: path.join(reviewDir, "landscape-phone-drawing.png") });
+    const landscape = await browser.newPage();
+    try {
+      await landscape.setViewport({ width: 844, height: 390, isMobile: true, hasTouch: true });
+      await landscape.goto(baseUrl + searchUrl, { waitUntil: "domcontentloaded" });
+      await materialReady(landscape);
+      await assertPane(landscape, true);
+      await landscape.click(".material-view-switch button:last-child");
+      await drawingReady(landscape);
+      assert.equal(await landscape.$eval(".cad-workspace-header", header => header.getBoundingClientRect().height <= 80), true,
+        "landscape phones should keep one toolbar row");
+      await landscape.screenshot({ path: path.join(reviewDir, "landscape-phone-drawing.png") });
+    } finally { await landscape.close(); }
   } finally { await page.close(); }
 });
 

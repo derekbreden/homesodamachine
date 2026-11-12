@@ -794,8 +794,7 @@
   border-color: #7CFF8A !important;
 }
 
-/* The command bar follows the workspace navigation. It only takes space while there is work to do. */
-.cad-workspace-header:has(> .component-panel.show) { flex-wrap: wrap; }
+/* The component controls float below the toolbar so they cannot resize the viewport. */
 .component-model-name {
   display: none;
   min-width: 0;
@@ -803,25 +802,33 @@
   text-overflow: ellipsis;
   white-space: nowrap;
 }
-.cad-workspace-header:where(:has(> .component-panel.show)) .cad-context:where(:not(:has(.cad-crumb.show))) > .component-model-name {
+.cad-workspace:where(:has(.component-panel.show)) .cad-context:where(:not(:has(.cad-crumb.show))) > .component-model-name {
   display: block;
 }
-.component-panel {
+.cad-wrapper > .component-panel {
   display: none;
-  order: 2;
-  flex: 0 0 calc(100% + 24px);
+  position: absolute;
+  inset-block-start: 0;
+  inset-inline-start: 12px;
+  z-index: 16;
+  width: max-content;
+  max-width: min(calc(100% - var(--cube-size, 180px) - 40px), 900px);
+  max-height: 100%;
   grid-template-columns: minmax(0, 1fr) auto;
   align-items: start;
   gap: 4px 18px;
   box-sizing: border-box;
   min-width: 0;
-  margin: -3px -12px -12px;
+  overflow: auto;
+  overscroll-behavior: contain;
+  touch-action: pan-y;
   padding: 4px 12px;
-  border-top: 1px solid var(--border);
+  border: 1px solid var(--border);
+  border-radius: 0 0 8px 8px;
   background: color-mix(in srgb, var(--surface) 72%, var(--bg));
 }
-.component-panel.show { display: grid; }
-.cad-workspace:has(.cad-wrapper:is(.drawing-open, .print-open)) .component-panel { display: none; }
+.cad-wrapper > .component-panel.show { display: grid; }
+.cad-wrapper:is(.drawing-open, .print-open) > .component-panel { display: none; }
 .cad-workspace:has(.cad-wrapper:is(.drawing-open, .print-open)) .component-model-name { visibility: hidden; }
 .component-selection { min-width: 0; }
 .component-selection-bar {
@@ -1003,9 +1010,11 @@
 }
 .component-hidden-thumb img { position: absolute; inset: 0; width: 100%; height: 100%; }
 
-@media (max-width: 700px) {
-  .component-panel { grid-template-columns: minmax(0, 1fr); }
-  .cad-workspace-header:has(.material-view-switch:not([hidden])) .component-model-name { display: none; }
+@container (max-width: 620px) {
+  .cad-wrapper > .component-panel {
+    max-width: calc(100% - 24px);
+    grid-template-columns: minmax(0, 1fr);
+  }
   .component-hidden,
   .component-selection[hidden] + .component-hidden {
     grid-column: 1;

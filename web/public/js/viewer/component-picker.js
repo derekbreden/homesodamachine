@@ -356,7 +356,7 @@ function setHover(name) {
   drawOverlay(hoverGroup, name, HOVER, hoverEdgeMat, 0.1);
 }
 
-// The workspace header keeps the selected component and restore controls out of the canvas.
+// Component commands overlay the canvas below the workspace toolbar.
 let panel = null;
 let hiddenObserver = null;
 let thumbnailQueued = false;
@@ -536,7 +536,7 @@ export function closeComponentDetails() {
 
 function focusComponentControls(preferred = null) {
   const target = preferred?.isConnected ? preferred : panel._hiddenItems.querySelector(".component-show")
-    || (selection ? panel._more : panel.parentElement?.querySelector(".materials-toggle"));
+    || (selection ? panel._more : panel.closest(".cad-workspace")?.querySelector(".materials-toggle"));
   target?.focus();
 }
 
@@ -663,11 +663,12 @@ function refreshPanel() {
 }
 
 function showPanel(names = hiddenNames()) {
-  const header = state.currentCadWrapper?.closest(".cad-workspace")?.querySelector(".cad-workspace-header");
+  const wrapper = state.currentCadWrapper;
+  const header = wrapper?.closest(".cad-workspace")?.querySelector(".cad-workspace-header");
   if (!header) return;
   if (!panel) buildPanel();
-  if (panel.parentElement !== header) {
-    header.appendChild(panel);
+  if (panel.parentElement !== wrapper) {
+    wrapper.prepend(panel);
     header.querySelector(".cad-context")?.appendChild(panel._model);
   }
   const file = mountedFile();

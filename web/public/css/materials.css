@@ -26,9 +26,9 @@
 .material-search-results .material-search-location { margin-left: 8px; padding: 9px 12px; border-bottom: 0; border-left: 2px solid var(--border); }
 .material-search-results .material-search-location strong { font-size: .75rem; font-weight: 500; }
 .material-catalog-status { grid-column: 1 / -1; color: var(--text-3); }
-.cad-workspace { display: grid; grid-template: auto minmax(0, 1fr) / minmax(0, 1fr); position: relative; width: 100%; height: 100%; min-width: 0; overflow: clip; }
+.cad-workspace { --cad-control-height: 44px; --cad-header-padding: 12px; display: grid; grid-template: auto minmax(0, 1fr) / minmax(0, 1fr); position: relative; width: 100%; height: 100%; min-width: 0; overflow: clip; }
 .cad-workspace.materials-open { grid-template-columns: minmax(0, 1fr) 370px; }
-.cad-workspace-header { grid-column: 1 / -1; display: flex; align-items: center; gap: 12px; padding: 12px; min-width: 0; position: relative; z-index: 50; background: var(--surface); border-bottom: 1px solid var(--border); }
+.cad-workspace-header { grid-column: 1 / -1; display: flex; align-items: center; gap: 12px; padding: var(--cad-header-padding); min-width: 0; min-height: calc(var(--cad-control-height) + 2 * var(--cad-header-padding) + 3px); position: relative; z-index: 50; background: var(--surface); border-bottom: 1px solid var(--border); }
 .cad-context { display: flex; align-items: center; flex: 1; min-width: 0; font-size: 15px; }
 .cad-context > .cad-crumb { position: static; max-width: 100%; padding: 0; border: 0; background: none; border-radius: 0; font: inherit; -webkit-backdrop-filter: none; backdrop-filter: none; }
 .cad-context .cad-crumb-step, .cad-context .cad-crumb-here { padding: 8px; }
@@ -39,7 +39,7 @@
 .cad-stage { grid-area: 2 / 1; display: flex; flex-direction: column; position: relative; height: 100%; min-height: 0; min-width: 0; z-index: 0; }
 .cad-stage > .cad-wrapper { flex: 1; width: 100%; height: auto; min-width: 0; min-height: 0; }
 .material-view-switch { display: flex; flex-shrink: 0; border: 1px solid var(--border); border-radius: 7px; overflow: hidden; }
-.material-view-switch button { min-height: 44px; min-width: 52px; padding: 8px 12px; border: 0; background: var(--surface); color: var(--text); font: inherit; font-size: 0.8rem; cursor: pointer; }
+.material-view-switch button { min-height: var(--cad-control-height); min-width: 52px; padding: 8px 12px; border: 0; background: var(--surface); color: var(--text); font: inherit; font-size: 0.8rem; cursor: pointer; }
 .material-view-switch button[aria-pressed=true] { background: var(--action); color: var(--on-action); font-weight: 600; }
 .material-view-switch button:focus-visible { outline: 2px solid var(--text); outline-offset: -4px; }
 .material-view-switch[hidden], .material-drawing-view[hidden], .drawing-tools[hidden], .drawing-pages[hidden] { display: none; }
@@ -211,14 +211,11 @@
   .records-compact .material-identity h2 { display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; overflow: hidden; font-size: .82rem; line-height: 1.4; margin: 0; }
   .locations-active .material-locations { gap: 8px; padding-top: 10px; padding-bottom: 12px; }
   .locations-active .material-locations h3 { display: none; }
-  /* One row: the view switch beside the actions, the drawing's controls on a second row. A
-     breadcrumb, or a screen too narrow for the switch, takes the first row with the actions and
-     sends the switch down with the drawing's controls. */
-  .cad-workspace-header { flex-wrap: wrap; gap: 8px; }
-  .cad-view-tools { display: contents; }
-  .cad-document-slot { order: 1; margin-left: auto; }
-  .cad-workspace-header:has(.cad-crumb.show) > .cad-context { flex-basis: calc(100% - 160px); }
-  .cad-workspace-header:has(.cad-crumb.show) .cad-view-slot { order: 1; }
+  .cad-workspace-header { gap: 8px; }
+  .material-view-switch button { min-width: 44px; padding-inline: 6px; }
+  .cad-workspace:has(.drawing-open) .cad-workspace-header { flex-wrap: wrap; }
+  .cad-workspace:has(.drawing-open) .cad-view-tools { display: contents; }
+  .cad-document-slot { order: 1; margin-inline-start: auto; }
 }
 @media (max-width: 700px) {
   .assembly-row { grid-template-columns: minmax(0, 1fr); }
@@ -233,9 +230,24 @@
   .material-panel .material-search-results { max-height: max(96px, calc(var(--sheet-height, 50dvh) - 104px)); }
   .material-record-workspace > .material-panel { flex-basis: 100%; width: 100%; }
 }
+@media (max-width: 375px) {
+  /* The full view switch can use the strip below the toolbar on narrow phones. */
+  .cad-workspace { --view-switch-height: calc(var(--cad-control-height) + 2px); }
+  .cad-workspace:has(.material-view-switch > :nth-child(3)):not(:has(.drawing-open)) .cad-view-tools {
+    position: absolute;
+    inset-block-start: 100%;
+    inset-inline-end: 12px;
+  }
+  .cad-workspace:has(.material-view-switch > :nth-child(3)) .cad-wrapper > .component-panel {
+    inset-block-start: var(--view-switch-height);
+    max-height: calc(100% - var(--view-switch-height));
+  }
+  .cad-workspace:has(.material-view-switch > :nth-child(3)) .material-print-view {
+    inset-block-start: var(--view-switch-height);
+    height: calc(100% - var(--view-switch-height));
+  }
+}
 @media (max-width: 360px) {
-  .cad-context { flex-basis: calc(100% - 160px); }
-  .cad-view-slot { order: 1; }
   .drawing-zoom > :first-child, .drawing-zoom > :last-child { display: none; }
   .drawing-menu-zoom { display: flex; align-items: center; gap: 8px; padding: 4px 8px 12px; border-bottom: 1px solid var(--border); }
 }
