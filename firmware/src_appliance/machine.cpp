@@ -1651,7 +1651,10 @@ static void refillService(uint32_t now) {
         rd.highClosed = simCarbHigh;
         rd.valid      = true;
     } else {
-        rd.valid      = reedCacheValid && (uint32_t)(now - reedCacheMs) < kReedFreshMs;
+        // Against the clock as it stands, not this pass's `now`: the read above took time,
+        // so its stamp is later than `now`, and the difference the other way round is not
+        // a small number.
+        rd.valid      = reedCacheValid && (uint32_t)(millis() - reedCacheMs) < kReedFreshMs;
         rd.lowClosed  = reedCache.carbonatorLowClosed;
         rd.highClosed = reedCache.carbonatorHighClosed;
     }

@@ -31,6 +31,9 @@ struct Event {
 std::vector<Event> events;
 bool keepEvents = true;   // off for a run too long to keep every write of
 uint32_t now = 1000;
+// What one register read or write costs on the clock. A real bus takes time, so a stamp
+// taken after a read is later than the `now` its pass began with.
+uint32_t busMs = 0;
 uint32_t gasMv = 0;
 uint32_t duties[40] = {};
 int modes[40] = {};
@@ -67,6 +70,7 @@ public:
     bool begin() override { return true; }
 
     bool writeRegister(uint8_t address, uint8_t reg, uint8_t value) override {
+        now += busMs;
         uint8_t &previous = at(address, reg);
         if (keepEvents) events.push_back({EventKind::Register, address, reg, previous, value});
         if (writeFailures && address == failedWriteAddress &&
@@ -88,6 +92,7 @@ public:
     }
 
     bool readRegister(uint8_t address, uint8_t reg, uint8_t &value) override {
+        now += busMs;
         if (readFailures && address == failedReadAddress && reg == failedReadRegister) {
             --readFailures;
             return false;

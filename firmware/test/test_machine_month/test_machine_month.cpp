@@ -114,6 +114,9 @@ struct Kitchen {
     uint32_t refillDuringDispense = 0;
     uint32_t refillWithoutValve = 0;
     uint32_t tooManyValves = 0;
+    uint32_t refillChatter = 0;            // relay #2 closed again within a second of opening
+    uint64_t refillOffAt = 0;
+    bool     refillEverOff = false;
 };
 
 bool relayClosed(int pin) { return host::modes[pin] == OUTPUT; }
@@ -146,6 +149,7 @@ void boot(Kitchen &k, uint32_t clockAt = 0) {
     k.compressorWas   = false;
     k.compressorEverOff = false;
     k.refillWas       = false;
+    k.refillEverOff   = false;
     k.boots++;
 }
 
@@ -261,6 +265,13 @@ void step(Kitchen &k, uint32_t dtMs) {
     if (refillNow && !k.refillWas) {
         k.refills++;
         k.refillOnSince = k.t;
+        // A pour takes the pump down and gives it back when it ends; nothing else starts
+        // it again within a second of stopping it.
+        if (k.refillEverOff && k.t - k.refillOffAt < kSecond && !k.faucetOpen) k.refillChatter++;
+    }
+    if (!refillNow && k.refillWas) {
+        k.refillOffAt   = k.t;
+        k.refillEverOff = true;
     }
     k.compressorWas = compressorNow;
     k.refillWas     = refillNow;
@@ -369,6 +380,7 @@ void never(const Kitchen &k) {
     TEST_ASSERT_EQUAL_UINT32_MESSAGE(0, k.refillDuringDispense, "the refill pump ran while a dispense was open");
     TEST_ASSERT_EQUAL_UINT32_MESSAGE(0, k.refillWithoutValve, "the refill pump ran against a closed V-K");
     TEST_ASSERT_EQUAL_UINT32_MESSAGE(0, k.tooManyValves, "more than three valves were open at once");
+    TEST_ASSERT_EQUAL_UINT32_MESSAGE(0, k.refillChatter, "the refill pump was switched off and straight back on");
     TEST_ASSERT_FALSE_MESSAGE(host::pumpClosedAgainstDrive, "a valve closed against a running flavor pump");
     TEST_ASSERT_TRUE_MESSAGE(k.peakLevelMl <= plant::kHighReedMl + plant::kReedWindowMl,
                              "the carbonator was filled past its high reed");
@@ -400,6 +412,7 @@ void fresh() {
     host::refillOwedInFlash = false;
     host::refillOwedWrites  = 0;
     host::flashForgets      = false;
+    host::busMs             = 1;   // a bus that takes time, as the board's does
 }
 
 // The clock starts close enough to its wrap that the month crosses it.
