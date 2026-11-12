@@ -1727,6 +1727,12 @@
 }
 .cad-wrapper > .missing-mark:hover { filter: brightness(1.15); }
 .cad-wrapper > .missing-mark.has-missing { background: #e03131; }
+/* A printed part not fitted yet: quiet, the look of the pills around it. */
+.cad-wrapper > .missing-mark.not-yet {
+  border-color: var(--border);
+  background: rgba(16, 49, 156, 0.85);
+  color: var(--text-2);
+}
 .missing-mark svg {
   width: 16px;
   height: 16px;
@@ -1771,6 +1777,8 @@
   box-shadow: 0 6px 24px rgba(0, 0, 0, 0.45);
 }
 .cad-wrapper > .missing-list.has-missing { border-color: var(--err); }
+.cad-wrapper > .missing-list.not-yet { border-color: var(--border); }
+.missing-list .missing-said { margin: 0; padding-left: 8px; border-left: 2px solid var(--border); white-space: normal; }
 @media (pointer: coarse) {
   .cad-wrapper > .missing-list { --reset-height: 40px; }
 }
@@ -1778,6 +1786,11 @@
 .missing-list .missing-h { color: var(--ok); font-weight: 700; }
 .missing-list.has-missing .missing-h { color: var(--err); }
 .missing-list .missing-note { color: var(--text-2); }
+/* The printed parts not fitted yet, under the rest: plain, never red. */
+.missing-list .missing-h.fitted-h { color: var(--text-2); margin-top: 6px; }
+.missing-list .missing-row.fitted-row { border-color: var(--border); }
+.missing-list .missing-row.fitted-row:hover,
+.missing-list .missing-row.fitted-row:focus-visible { background: rgba(255, 255, 255, 0.08); }
 .missing-list .missing-row {
   -webkit-appearance: none;
   appearance: none;
