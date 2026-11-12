@@ -89,6 +89,9 @@ struct MachineStatus: Codable, Equatable {
     /// Seconds since the machine last started; nil in a reading kept from
     /// before the app read it.
     var uptimeS: UInt32?
+    /// NOTICE_*: what stops the machine making soda; nil in a reading kept
+    /// from before the app read it.
+    var notice: UInt8?
 
     static let levelUnknown: UInt8 = 0xFF
     static let segments = 4
@@ -108,7 +111,10 @@ struct MachineStatus: Codable, Equatable {
         tankTenthsC = tank == Int16.min ? nil : Int(tank)
         coldState = b[36]
         refillState = b[37]
+        notice = b[39]
     }
+
+    var machineNotice: MachineNotice { notice.flatMap(MachineNotice.init(rawValue:)) ?? .none }
 
     var gasAlarm: Bool { flags & 0x01 != 0 }
     var priming:  Bool { flags & 0x02 != 0 }
