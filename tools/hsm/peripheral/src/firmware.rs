@@ -34,7 +34,11 @@ pub fn pre_build(root: &Path, args: &[String]) -> Result<()> {
                 "HEAD",
             ])
             .unwrap_or_else(|_| today.clone());
-            if git(&["status", "--porcelain"]).is_ok_and(|v| !v.is_empty()) {
+            // `+` marks an image built from firmware sources the commit does not hold. The
+            // rest of the shared checkout is other agents' work in progress and is in no image.
+            if git(&["status", "--porcelain", "--", "firmware", "platformio.ini"])
+                .is_ok_and(|v| !v.is_empty())
+            {
                 revision.push('+');
             }
             format!("{date} {revision}")
