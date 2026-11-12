@@ -195,7 +195,7 @@ pub fn run_length(row: &Value) -> Result<f64> {
     Ok(straight - reduction)
 }
 
-/// Why the tubes `names` could not be laid out, where the request says.
+/// The errors that ended the tubes `names`, where the request lists them as not routed.
 fn reasons(metadata: &Value, names: &[Value]) -> Option<String> {
     let said: Vec<&str> = rows_or_empty(metadata, "unrouted")
         .into_iter()
@@ -206,8 +206,8 @@ fn reasons(metadata: &Value, names: &[Value]) -> Option<String> {
 }
 
 /// The machine's runs, then its tubes as drawn. A connection is incomplete when a tube or a
-/// fitting it names is not in the machine, and so is a tube the request lists as one that could
-/// not be laid out.
+/// fitting it names is not in the machine, and so is a tube the request lists as not
+/// routed.
 pub fn route_rows(metadata: &Value) -> Result<Value> {
     let empty = json!({});
     let specs = metadata
@@ -310,7 +310,7 @@ pub fn route_rows(metadata: &Value) -> Result<Value> {
             runs.push(row);
         }
     }
-    // A tube that could not be laid out and that no connection names is its own incomplete run.
+    // A tube that is not routed and that no connection names is its own incomplete run.
     for tube in rows_or_empty(metadata, "unrouted") {
         let name = text(&tube["name"])?;
         if grouped.contains(name) || native.contains_key(name) || runs.iter().any(|row| row["id"] == name) {
@@ -418,7 +418,7 @@ pub fn facts(request: &Value) -> Result<Value> {
 mod tests {
     use super::*;
 
-    /// A connection whose tube could not be laid out is incomplete and says why, and a left-out
+    /// A connection whose tube is not routed is incomplete and gives the error, and a left-out
     /// tube that no connection names is an incomplete run of its own.
     #[test]
     fn a_tube_left_out_marks_its_run_incomplete() {

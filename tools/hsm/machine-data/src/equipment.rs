@@ -9,7 +9,7 @@ use std::collections::{BTreeMap, BTreeSet};
 
 /// The equipment above the core as the stages take it: the items in the order they are placed,
 /// each body's frame with its own ports, the ports as placed, the tubes and the order they are
-/// swept in, the tubes that could not be laid out, the bodies that ride with the cold core, and
+/// swept in, the tubes that are not laid out, the bodies that ride with the cold core, and
 /// the soda inlet's insulation.
 pub struct Equipment {
     pub name: String,
@@ -116,7 +116,7 @@ pub fn route_params(data: &Value) -> Result<Value> {
     )
 }
 /// The equipment's own tubes in the order they are swept, by name, and the ones among them
-/// that could not be laid out.
+/// that are not laid out.
 pub fn local_routes(request: &Value) -> Result<(Vec<String>, BTreeMap<String, Tube>, Vec<tube::Unrouted>)> {
     let spec = &request["spec"];
     let data = &request["data"];
@@ -549,8 +549,8 @@ pub fn finalize(
         }
         equipment.routes.insert(key, route);
     }
-    // A tube laid out here stands for one of its name the equipment could not lay out itself,
-    // and one that could not be laid out here leaves the machine.
+    // A tube laid out here stands for one of its name the equipment did not lay out itself,
+    // and one that is not laid out here leaves the machine.
     equipment.unrouted.retain(|tube| !equipment.routes.contains_key(&tube.name));
     for tube in unrouted {
         equipment.routes.remove(&tube.name);

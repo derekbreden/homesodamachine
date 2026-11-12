@@ -12,8 +12,8 @@ fn owners(name: &str) -> Option<[&'static str; 2]> {
     }
 }
 
-/// Short warm-side tubes and the socket insertions authored in the layout. A tube that cannot
-/// be laid out is left out of them and listed beside them.
+/// Short warm-side tubes and the socket insertions authored in the layout. A tube that is not
+/// laid out is left out of them and listed beside them.
 pub fn routes(spec: &Value) -> Result<(std::collections::BTreeMap<String, Tube>, Vec<Unrouted>)> {
     let fore = &spec["fore_routes"];
     let mut result = std::collections::BTreeMap::new();
