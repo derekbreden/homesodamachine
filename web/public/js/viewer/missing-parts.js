@@ -1,14 +1,15 @@
 // The missing-parts mark: whether the machine on the canvas has everything it is meant to have.
 //
 // The machine's published facts list every run the plumbing needs and whether the machine as
-// built completes it. This puts one small mark above Reset view: a green check when every run
-// is complete, a red x when one is not — a tube that was never routed, a fitting that is not
-// there. The mark covers no other control and moves none. A click on it opens the list behind
-// it: each incomplete run with the tubes and fittings it lacks and why the build left a tube
-// out, and a click on a run lights the two bodies it would join. A model with no facts gets no mark. The site works it out from the
-// published facts (/api/step-missing, contracts/missing-parts.js).
+// built completes it, and the wires the build left out as not routed. This puts one small mark
+// above Reset view: a green check when every run is complete and no wire is left out, a red x
+// when not — a tube or a wire that is not routed, a fitting that is not there. The mark covers
+// no other control and moves none. A click on it opens the list behind it: each of those with
+// what is so of it and the error the build gave, and a click on one lights the two bodies it
+// would join. A model with no facts gets no mark. The site works it out from the published
+// facts (/api/step-missing, contracts/missing-parts.js).
 
-import { factsPathFor, bodyOf, sceneBodies, lacks } from "/contracts/missing-parts.js";
+import { factsPathFor, bodyOf, sceneBodies, said } from "/contracts/missing-parts.js";
 import { scenePartNames, highlightParts } from "./part-highlight.js";
 
 const SVG = "http://www.w3.org/2000/svg";
@@ -67,10 +68,10 @@ function openList(wrapper, mark, missing) {
   keepGestures(list);
   list.appendChild(el("div", "missing-h", verdict(missing)));
   if (!missing.length) {
-    list.appendChild(el("div", "missing-note", "Every connection the plumbing lists is complete."));
+    list.appendChild(el("div", "missing-note", "Every plumbing connection is complete and no wire is left out."));
   }
   for (const run of missing) {
-    const row = el("button", "missing-row", `${run.id} — ${run.from} to ${run.to}: ${lacks(run)}`);
+    const row = el("button", "missing-row", said(run));
     if (run.why) row.appendChild(el("span", "missing-why", run.why));
     row.type = "button";
     row.title = "Show the two ends on the model";
