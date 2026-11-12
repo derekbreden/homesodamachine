@@ -129,9 +129,36 @@ struct RootView: View {
             // only for a machine that needs it: a phone with none, or with only
             // the demo, leaves the looking to the system's sheet.
             ble.activateBluetooth()
+            #if DEBUG
+            openDemoPage()
+            #endif
         }
     }
 }
+
+#if DEBUG
+extension RootView {
+    /// A debug build opened on the demo at one page, so a page can be photographed from the
+    /// shell with no finger on the glass:
+    /// `xcrun simctl launch <device> com.derekbreden.SodaMachine -demoPage history`.
+    fileprivate func openDemoPage() {
+        guard let page = UserDefaults.standard.string(forKey: "demoPage") else { return }
+        let routes: [String: AppRoute] = [
+            "history": .history, "sound": .sound, "update": .update, "rename": .rename,
+            "flavor1": .flavor(0), "flavor2": .flavor(1),
+        ]
+        let tabs: [String: AppTab] = ["machine": .machine, "care": .care, "settings": .settings]
+        guard routes[page] != nil || tabs[page] != nil else { return }
+        if !ble.demoMode { ble.addDemo() }
+        Task {
+            // Choosing a machine returns every stack to its top; the page opens after that.
+            try? await Task.sleep(for: .milliseconds(400))
+            if let tab = tabs[page] { nav.select(tab) }
+            if let route = routes[page] { nav.push(route) }
+        }
+    }
+}
+#endif
 
 extension RootView {
     fileprivate var pageContext: String? {
@@ -316,6 +343,7 @@ struct RoutePage: View {
             case .sound: SoundView(entry: entry)
             case .update: SoftwareUpdateView(entry: entry)
             case .rename: RenameView(entry: entry)
+            case .history: HistoryView(entry: entry)
             }
         }
         .modifier(PageTitle(title: entry.route.title, subtitle: ble.machineLine))
@@ -363,6 +391,7 @@ extension AppRoute {
         case .sound: "Sound"
         case .update: "Software Update"
         case .rename: "Machine name"
+        case .history: "History"
         }
     }
 }

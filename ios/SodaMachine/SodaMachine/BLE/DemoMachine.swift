@@ -40,6 +40,7 @@ extension BLEManager {
     func demoAnswer(_ type: UInt8, _ body: [UInt8]) -> Result<BridgeAnswer, BridgeError> {
         guard let m = current else { return .failure(.offline) }
         if type == SettingsWire.get || type == SettingsWire.setIf { return demoSettingAnswer(type, body, machine: m) }
+        if type == MachineMessage.historyRead { return demoHistoryAnswer(body) }
         let now = Date()
         var a = m.appliance
         var answer = BridgeAnswer(type: type, body: Data())

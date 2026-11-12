@@ -16,6 +16,7 @@ enum ExperienceChecks {
         runSettingsSyncChecks(check)
         runMixChecks(check)
         runTrustChecks(check)
+        runHistoryChecks(check)
 
         for failure in failures { print("FAIL: \(failure)") }
         print("\(count - failures.count)/\(count) experience checks passed")

@@ -30,6 +30,7 @@ pub fn checks(root: &Path, args: &[String]) -> Result<()> {
         "Management",
         "MachineModel",
         "Firmware",
+        "MachineHistory",
     ] {
         compiler.arg(core.join(format!("{name}.swift")));
     }
@@ -39,6 +40,7 @@ pub fn checks(root: &Path, args: &[String]) -> Result<()> {
         "SettingsSync",
         "Mix",
         "Trust",
+        "History",
         "Experience",
     ] {
         compiler.arg(checks.join(format!("{name}Checks.swift")));
