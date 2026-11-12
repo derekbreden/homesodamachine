@@ -104,9 +104,8 @@ read there, with each Python file replaced by the Rust that took its place.
   shows how a step makes those; it is not the specification, and it is not translated line by
   line. No Python interface, `Val` value or name looked up at run time stays inside the Rust.
 - **The bet is on Rust.** A step moves as soon as its Rust program makes the outputs it
-  replaces. One that is slower on its first try lands anyway and is made faster in Rust
-  afterwards. One that stays slower after that goes to Derek to re-examine, and holds up nothing
-  else.
+  replaces. One that is slower on its first try lands anyway; making it faster is
+  [speed work](#speed-work).
 - **A step is converted whole** before anything in it is verified.
 - **A step is verified once, at its end, on fixed inputs:** what the website shows and what
   prints, against what the code it replaces makes from the same inputs. The same solids within
@@ -237,9 +236,10 @@ artifact hashes, comparison counts, numerical differences and public type bounda
 - [Native workflows and live integration](conversion-results/native-workflows-2026-11-10.json)
 - [Deferred Python callers and adapter retirement](conversion-results/python-tail-2026-11-10.json)
 
-The CPU and memory goal still needs performance work in Rust. Component reductions and
-incremental build measurements do not establish a matched whole-machine speed or memory gain;
-a completed conversion does not by itself establish that this Mac is free of memory pressure.
+The conversion is complete and its [speed work](#speed-work) is closed. These records are
+component reductions and incremental build measurements: they establish no matched
+whole-machine memory gain, and a completed conversion does not by itself establish that this
+Mac is free of memory pressure.
 
 ## Speed work
 
@@ -297,15 +297,12 @@ barely moves CPU seconds, so it needs no quiet Mac. A change within 10% either w
 improvements. A piece gets no full normal build; the normal build follows a batch merged to
 main. Independent pieces run in parallel.
 
-| Piece | Scope |
-| --- | --- |
-| Enclosure construction | Identical panel construction expressions share their result |
-| Equipment | Repeated fittings share construction and imported models release after final use |
-| Fluid routes | Insulation reads only its referenced equipment bodies |
-| Print presentation | Topology, contributor records and reduction scratch share storage |
-| Enclosure measurements | Model selections from the same file share one import pass |
-| Installed placement | Reference names and bounds avoid unrelated model data |
-| Fine-model reading | Typed array values decode directly into final vertex and triangle rows |
+No speed piece is open. The [runtime-input record](conversion-results/runtime-iteration-2026-11-08.json)
+and the [live-publication record](conversion-results/progressive-publication-2026-11-07.json)
+put an authored edit on the live website in seconds, so the build is not the long part of the
+time from Derek's request to a change he can see. Speed work opens again from a
+[measured request](../iteration/README.md) in which the build is the long part, and its
+pieces are then measured as above.
 
 An explicit local build uses the same native producer targets and progressive publication as
 the print build. Saving source starts no build. Manual fine-model probes read saved exports.

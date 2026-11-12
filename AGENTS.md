@@ -150,10 +150,9 @@ keep detailed constraints beside the geometry or physical record that owns them.
 [`tools/iteration/`](tools/iteration/README.md) records request and view milestones when
 someone asks for a timing measurement. It adds nothing to ordinary edits or builds.
 
-Rust is how the build gets there: it moves off CadQuery, OpenCASCADE and meshcad onto the `hsm`
-kernel. The bet is on Rust. A program converted to Rust lands even when it isn't faster on its
-first try, and is made faster in Rust afterwards. [`tools/hsm/conversion.md`](tools/hsm/conversion.md)
-is the plan.
+The build runs in Rust on the `hsm` kernel, and its speed work is closed:
+[`tools/hsm/conversion.md`](tools/hsm/conversion.md) records it. Speed work opens again from a
+measured request in which the build is the long part.
 
 A concept, a throwaway part or a study starts in Rust too: [`tools/hsm/sandbox`](tools/hsm/sandbox/README.md)
 is a file to copy and a command to rerun, with nothing to set up.
