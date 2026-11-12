@@ -2,7 +2,7 @@
 
 The PET-GF shroud follows the Waveshare display and meets the three tube
 outlets at one flush front plane. The cover's side walls spread over the
-rigid round neck, then its two broad lips seat against the roots of side grooves.
+rigid round neck, then its two broad lips seat in the side grooves.
 The display and cover slide onto the tip together, then seat toward the neck.
 No display fasteners are fitted.
 
@@ -52,16 +52,11 @@ at their shared display datums. Its rear opening follows
 s = + × n.
 The underside remains open.
 
-The lips follow the neck profile with nominal radial
-engagement in -deep grooves. The seated lip and groove
-roots share a contact surface. The relaxed print pulls each wing inward by
- at the lip top and at
-its bottom. This inset tapers to zero at the bezel's inner face.
-The grooves leave above the lip tops and
- at their ends. The lips' inner upper and lower
-corners carry chamfers. Their central curved
-faces contact the groove roots under preload, and the remaining flat lower
-lands seat on the groove floors before the bezel can reach the glass.
+The raised bezel and skirt shoulder give the wings more reach from the bezel
+to the groove floors. The lips have radial clearance at the groove roots in
+the seated model and engage below both retaining shoulders. The relaxed print
+pulls the wings inward below the bezel's inner face. The lips' inner corners
+carry chamfers, and their flat lower lands seat on the groove floors.
 
 The standalone STEP, STL and print project contain the relaxed shape.
 The faucet assembly shows the nominal seated fit surface. That surface
