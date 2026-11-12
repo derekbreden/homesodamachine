@@ -21,6 +21,11 @@ void recorderNote(machine_log::Kind kind, uint8_t detail,
 // True once nothing is waiting to be written, or there is no ring to write it to.
 bool recorderSettled();
 
+// One entry by its number, for a reader that asks for them one at a time, and the number
+// the next entry will be given.
+bool     recorderFind(uint32_t seq, machine_log::Entry &out);
+uint32_t recorderNextSeq();
+
 // The newest `count` entries, oldest first, a line a pass so the loop keeps turning.
 void recorderPrint(uint32_t count);
 
