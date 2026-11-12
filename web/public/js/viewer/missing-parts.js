@@ -4,8 +4,8 @@
 // built completes it. This puts one small mark above Reset view: a green check when every run
 // is complete, a red x when one is not — a tube that was never routed, a fitting that is not
 // there. The mark covers no other control and moves none. A click on it opens the list behind
-// it: each incomplete run with the tubes and fittings it lacks, and a click on a run lights the
-// two bodies it would join. A model with no facts gets no mark. The site works it out from the
+// it: each incomplete run with the tubes and fittings it lacks and why the build left a tube
+// out, and a click on a run lights the two bodies it would join. A model with no facts gets no mark. The site works it out from the
 // published facts (/api/step-missing, contracts/missing-parts.js).
 
 import { factsPathFor, bodyOf, sceneBodies, lacks } from "/contracts/missing-parts.js";
@@ -71,6 +71,7 @@ function openList(wrapper, mark, missing) {
   }
   for (const run of missing) {
     const row = el("button", "missing-row", `${run.id} — ${run.from} to ${run.to}: ${lacks(run)}`);
+    if (run.why) row.appendChild(el("span", "missing-why", run.why));
     row.type = "button";
     row.title = "Show the two ends on the model";
     row.addEventListener("click", (e) => {

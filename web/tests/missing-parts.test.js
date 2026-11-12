@@ -22,14 +22,16 @@ test("a run the machine does not complete is missing, and a complete one is not"
     run("fluid-24", "complete"), run("fluid-26", "incomplete", { tubes: ["fluid-26"] }), run("water-5", "complete"),
   ] };
   assert.deepEqual(missingRuns(facts), [
-    { id: "fluid-26", from: "foam-assembly.reservoir-b", to: "valve-v-h.inlet", tubes: ["fluid-26"], fittings: [] },
+    { id: "fluid-26", from: "foam-assembly.reservoir-b", to: "valve-v-h.inlet", tubes: ["fluid-26"], fittings: [], why: "" },
   ]);
+  const [told] = missingRuns({ runs: [{ ...run("fluid-26", "incomplete", { tubes: ["fluid-26"] }), why: "missing station valve-v-h.inlet" }] });
+  assert.equal(told.why, "missing station valve-v-h.inlet");
   assert.deepEqual(missingRuns({ runs: [run("fluid-26", "complete")] }), []);
 });
 
 test("a run with no verdict counts as missing, and facts with no runs list none", () => {
   assert.deepEqual(missingRuns({ runs: [{ id: "fluid-26", frm: "a.b", to: "c.d" }] }),
-    [{ id: "fluid-26", from: "a.b", to: "c.d", tubes: [], fittings: [] }]);
+    [{ id: "fluid-26", from: "a.b", to: "c.d", tubes: [], fittings: [], why: "" }]);
   assert.deepEqual(missingRuns({}), []);
   assert.deepEqual(missingRuns(null), []);
   assert.deepEqual(missingRuns({ runs: "none" }), []);
