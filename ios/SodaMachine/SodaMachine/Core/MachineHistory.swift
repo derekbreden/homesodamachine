@@ -322,6 +322,9 @@ struct MachineHistory: Equatable {
     /// The machine holds nothing older than the last entry here.
     var reachedEnd = false
     var anchor: HistoryAnchor?
+    /// The oldest number asked for so far. An entry this app cannot read is
+    /// stepped over, so the oldest entry kept is not always the oldest asked.
+    var askedDownTo: UInt32?
 
     /// How many entries one reading asks for.
     static let page = 40
@@ -339,10 +342,10 @@ struct MachineHistory: Equatable {
         return (Array((oldest...newest).reversed()), false)
     }
 
-    /// The numbers of the next older page, newest first; empty at the start
-    /// of the record.
-    var earlier: [UInt32] {
-        guard !reachedEnd, let oldest = entries.last?.seq, oldest > 1 else { return [] }
+    /// The numbers of the next older page, newest first, below `below` — the
+    /// oldest number already asked for. Empty at the start of the record.
+    func earlier(below: UInt32? = nil) -> [UInt32] {
+        guard !reachedEnd, let oldest = below ?? entries.last?.seq, oldest > 1 else { return [] }
         let first = oldest - 1
         let last = first >= UInt32(Self.page) ? first - UInt32(Self.page) + 1 : 1
         return Array((last...first).reversed())
@@ -351,17 +354,17 @@ struct MachineHistory: Equatable {
     /// Entries just read, newest first, put ahead of what is kept or in its
     /// place.
     mutating func took(newer: [HistoryEntry], next: UInt32, keep: Bool, at: Date) {
-        if keep { entries = newer + entries } else { entries = newer; reachedEnd = false }
+        if keep { entries = newer + entries } else { entries = newer; reachedEnd = false; askedDownTo = nil }
         nextSeq = next
         readAt = at
         if next <= 1 || entries.last?.seq == 1 { reachedEnd = true }
     }
 
-    /// An older page just read. Fewer than asked for means the machine holds
-    /// no more.
-    mutating func took(earlier: [HistoryEntry], asked: Int) {
+    /// An older page just read, and whether the reading ran into an entry
+    /// the machine no longer holds.
+    mutating func took(earlier: [HistoryEntry], ranOut: Bool) {
         entries += earlier
-        if earlier.count < asked || entries.last?.seq == 1 { reachedEnd = true }
+        if ranOut || entries.last?.seq == 1 { reachedEnd = true }
     }
 
     /// Pours on each of the last `days` days, today last, for entries whose
