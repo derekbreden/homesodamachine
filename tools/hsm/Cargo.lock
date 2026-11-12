@@ -1121,18 +1121,6 @@ name = "hsm-asse-straight-cuffs-numbers"
 version = "0.1.0"
 
 [[package]]
-name = "hsm-assembly-docs"
-version = "0.1.0"
-dependencies = [
- "anyhow",
- "hsm-ac-harness-numbers",
- "hsm-documents",
- "regex",
- "serde",
- "serde_json",
-]
-
-[[package]]
 name = "hsm-bom"
 version = "0.1.0"
 dependencies = [
@@ -2174,16 +2162,6 @@ dependencies = [
  "sha2 0.10.9",
  "tiny-skia",
  "ttf-parser",
-]
-
-[[package]]
-name = "hsm-part-data"
-version = "0.1.0"
-dependencies = [
- "anyhow",
- "hsm-documents",
- "hsm-valve-seat-numbers",
- "serde_json",
 ]
 
 [[package]]
