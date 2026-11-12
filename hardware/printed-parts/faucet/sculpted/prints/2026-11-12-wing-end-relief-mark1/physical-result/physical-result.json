@@ -1,0 +1,62 @@
+{
+  "date": "2026-11-12",
+  "reported_by": "Derek",
+  "printer_task_id": "1436504388",
+  "submitted_archive": {
+    "gcode_sha256": "00cbd7f4ff7b46bda75a43f6ac206f1f81b69bd88634cd375223583810f6e253",
+    "name": "sculpted-tip-cover-wing-end-relief-black-mark1-ready.gcode.3mf",
+    "objects": [
+      "faucet-shell-tip",
+      "faucet-display-cover"
+    ],
+    "sha256": "ca2961cd498b66cbdbb95809e4ea858a5b179657a4c9b26b7a640e3555533dee",
+    "slots": {
+      "1": {
+        "colour": "000000",
+        "type": "PET-CF"
+      }
+    }
+  },
+  "scope": "Hand fit of the black Sculpted faucet tip and display cover printed on Mark One.",
+  "observations": [
+    "In those first 4 screenshots you should see where I am indicating that the cover is pressing against the faucet tip, and those are the pressure points I was referring to in my last message. Where you added reliefs didn't actually relieve any of those pressure points.",
+    "In the fifth photo you should see that where you added reliefs was already *not* in contact, and so you added reliefs that do absolutely nothing."
+  ],
+  "requested_grooves": [
+    "We need grooves cut for the faucet to melt/meld/fit into the faucet tip. See the sixth screenshot, the red lines I drew.",
+    "I expect the grooves to be like a wave pool, starting with 0 depth at the extremities of your new grooves and ramping to the final depth you choose in the *corner* that I specified in red there, then back to 0 depth as it hits either endpoint of the red line traveling away from that corner."
+  ],
+  "image_processing": "Original attachments copied unchanged.",
+  "images": [
+    {
+      "file": "front-corner-edge.png",
+      "sha256": "34c4de58f04a2ddc9764d11a3c7865cbbf999ac3cfe2da3848244c8bab9580f5",
+      "view": "Front wing corner picked in the Sculpted faucet assembly."
+    },
+    {
+      "file": "front-arch-edge.png",
+      "sha256": "8f89c5327638db4613bc0a91e4f500d1c67f955c7d74ca3f0a1380cde7e589f4",
+      "view": "Lower front arch edge picked next to the corner."
+    },
+    {
+      "file": "rear-corner-edge.png",
+      "sha256": "97858ffa6805eb1f110019eaae9959c6f5132746747651f90eb8e8ed5be9b3f5",
+      "view": "Rear wing corner picked in the Sculpted faucet assembly."
+    },
+    {
+      "file": "rear-arch-edge.png",
+      "sha256": "3305688ce77386827a3728ed9f20099819b6a7d70a44e1522df2f6a98d8be764",
+      "view": "Rear arch edge picked next to the corner."
+    },
+    {
+      "file": "IMG_8614.jpeg",
+      "sha256": "ec23bb59e24793adaa823a0baa548b59f79e793b999543bcbffcaaa22dedfcea",
+      "view": "Side view of the printed cover wing showing clearance over the pockets beside the blade."
+    },
+    {
+      "file": "marked-groove-paths.png",
+      "sha256": "0f18ee7479409c5450c54903733feaebc16b39b771a514a2d9deda6b71d5dfe5",
+      "view": "Red marks follow the lower front and rear corners of the cover wing."
+    }
+  ]
+}
