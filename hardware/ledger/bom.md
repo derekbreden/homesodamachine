@@ -145,7 +145,7 @@ The soda inlet bend holder is PET-GF with the accepted 2 mm wall, 3 mm legs and 
 | Nameplate — one per unit, serialized | 1 | PET-GF (black + white) | 0.027 | $0.69 <!--@printed--><!--parts HSM-0069--> |
 | Fuse clamp | 1 | PETG | 0.005 | $0.06 <!--@printed--><!--parts HSM-0041--> |
 | Faucet shell (2-piece: base + tip) | 1 | PET-GF | 0.105 | $2.63 <!--@printed--><!--parts HSM-0094:76.1 HSM-0095:29.2 HSM-0113:80.3 HSM-0581:29.6--> |
-| Faucet display cover plate | 1 | PET-GF | 0.006 | $0.14 <!--@printed--><!--parts HSM-0096 HSM-0114--> |
+| Faucet display cover plate | 1 | PET-GF | 0.006 | $0.15 <!--@printed--><!--parts HSM-0096 HSM-0114--> |
 | Above-counter plate | 1 | PET-GF | 0.009 | $0.22 <!--@printed--><!--parts HSM-0092 HSM-0111--> |
 | Faucet lever | 1 | PET-GF | 0.004 | $0.09 <!--@printed--><!--parts HSM-0268--> |
 | Umbilical organizer — below faucet mount | 1 | PET-GF | 0.005 | $0.12 <!--@printed--><!--parts HSM-0098--> |
@@ -160,9 +160,9 @@ The soda inlet bend holder is PET-GF with the accepted 2 mm wall, 3 mm legs and 
 | Reservoir cap gaskets | 2 | Bambu TPU 85A | 0.011102 | $0.54 <!--@printed--><!--parts HSM-0456--> |
 | Display gasket | 1 | Bambu TPU 90A | 0.001351 | $0.06 <!--@printed--><!--parts HSM-0077--> |
 | ASSE drain adapter | 1 | Siraya TPU 85A (clear) | 0.005709 | $0.19 <!--@printed--><!--parts HSM-0088--> |
-| **Printed parts total** | | | **~7.16** | **[$165.11](BOM_SEC7)** |
+| **Printed parts total** | | | **~7.16** | **[$165.12](BOM_SEC7)** |
 
-By material: PETG ≈ 1.04 kg / $11.64 — of which the four translucent reservoir parts are ≈ 0.87 kg / $9.76 — and PET-GF ≈ 6.10 kg / $152.62. Bambu TPU 85A ≈ 0.011102 kg / $0.54. Bambu TPU 90A ≈ 0.002343 kg / $0.11. Siraya TPU 85A ≈ 0.005709 kg / $0.19.
+By material: PETG ≈ 1.04 kg / $11.64 — of which the four translucent reservoir parts are ≈ 0.87 kg / $9.76 — and PET-GF ≈ 6.10 kg / $152.63. Bambu TPU 85A ≈ 0.011102 kg / $0.54. Bambu TPU 90A ≈ 0.002343 kg / $0.11. Siraya TPU 85A ≈ 0.005709 kg / $0.19.
 
 These geometry-based estimates use the shared wall and sparse-infill recipes.
 They exclude the additional material in the enclosure's
@@ -359,7 +359,7 @@ The papers packed with each machine ([`assembly/finish-pack-ship.md`](/hardware/
 | 4. CO2 subsystem | [$134.94](BOM_SEC4) |
 | 5. Refrigeration | [$143.06](BOM_SEC5) |
 | 6. Cold core insulation | [$20.76](BOM_SEC6) |
-| 7. Printed parts (PETG + PET-GF) | [$165.11](BOM_SEC7) |
+| 7. Printed parts (PETG + PET-GF) | [$165.12](BOM_SEC7) |
 | 8. Flavor subsystem | [$259.45](BOM_SEC8) |
 | 9. Dispensing | [$78.57](BOM_SEC9) |
 | 10. UI | [$0.00](BOM_SEC10) |
@@ -368,7 +368,7 @@ The papers packed with each machine ([`assembly/finish-pack-ship.md`](/hardware/
 | 13. Mechanical attach hardware | [$27.45](BOM_SEC13) |
 | 14. Cold kit | [$4.29](BOM_SEC14) |
 | 15. Customer documentation | [$25.14](BOM_SEC15) |
-| **Total** | **[$1,461.93](BOM_GRAND)** |
+| **Total** | **[$1,461.94](BOM_GRAND)** |
 
 ## External / user-supplied (not shipped)
 
