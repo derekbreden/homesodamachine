@@ -1,8 +1,8 @@
 // Shared HTML shell for every server-rendered page (landing, parts
 // viewer, charts viewer, settings). One source of truth for:
 //   - <head> meta tags, font loading, manifest, icons, theme color
-//   - The :root CSS variables (palette tokens shared with the iOS / Android
-//     apps and enclosure display — same brand hues as Theme.swift / Theme.kt)
+//   - The :root CSS variables (palette tokens shared with the iOS app and
+//     enclosure display — same brand hues as Theme.swift)
 //   - body base styles (font, background)
 //   - The top nav, including the gear that links to /settings
 //   - The .ios-toggle pill primitive (shared between /settings rows and

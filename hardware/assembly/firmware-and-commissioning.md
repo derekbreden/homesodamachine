@@ -2,7 +2,7 @@
 
 The procedure for first-time firmware flash and DC-side commissioning of a fully wired chassis. Takes the never-powered output of [`wiring.md`](/hardware/assembly/wiring.md) — AC and DC continuity checks already passed — through three MCU flashes, a controlled first power-on under PSU, a sensor-health walkthrough, a valve self-test, and a brief firmware-driven compressor cycle confirming relay #1 switches the AC leg. Stops short of any test that requires water or CO2 — those live in [`acceptance-and-burn-in.md`](/hardware/assembly/acceptance-and-burn-in.md).
 
-Customer-side firmware binding (Wi-Fi credentials, cloud pairing, app association, per-customer ratio tuning) is **not** done here. Firmware ships with factory defaults; the iOS/Android app handles binding at first install. This procedure ends with a unit that boots clean, self-tests clean, and is ready to take water + CO2 in [`acceptance-and-burn-in.md`](/hardware/assembly/acceptance-and-burn-in.md).
+Customer-side firmware binding (Wi-Fi credentials, cloud pairing, app association, per-customer ratio tuning) is **not** done here. Firmware ships with factory defaults; the iOS app handles binding at first install. This procedure ends with a unit that boots clean, self-tests clean, and is ready to take water + CO2 in [`acceptance-and-burn-in.md`](/hardware/assembly/acceptance-and-burn-in.md).
 
 Design intent and runtime behavior live in [`/hardware/README.md`](/hardware/README.md) "Refrigeration" + "Carbonation". Pin assignments and wiring topology live in [`/hardware/wiring/esp32-pinout.mmd`](/hardware/wiring/esp32-pinout.mmd) and [`/hardware/wiring/valve-control.mmd`](/hardware/wiring/valve-control.mmd). The PlatformIO environment names live at the repo root in [`/platformio.ini`](/platformio.ini).
 
@@ -21,7 +21,7 @@ Out:
 - Firmware setpoints loaded with factory defaults: **carbonator target, hysteresis ** (compressor off at, on at), **freeze-protect cutoff ** on the suction-line probe, ** minimum off-time** for the compressor start capacitor, refill threshold on the carbonator's low-level reed.
 - Per-serial commissioning log archived (sensor readings, I²C ACK list, valve click confirmation, compressor-cycle suction-line ΔT).
 
-Not in scope: any acceptance test that requires water or CO2 (that's [`acceptance-and-burn-in.md`](/hardware/assembly/acceptance-and-burn-in.md)); customer-side firmware binding via the iOS/Android app at install (post-shipping); the over-the-air firmware-update flow (not in scope for first-unit shipping).
+Not in scope: any acceptance test that requires water or CO2 (that's [`acceptance-and-burn-in.md`](/hardware/assembly/acceptance-and-burn-in.md)); customer-side firmware binding via the iOS app at install (post-shipping); the over-the-air firmware-update flow (not in scope for first-unit shipping).
 
 ## Inputs per appliance
 
@@ -164,7 +164,7 @@ is standing in them. Expected:
 Every figure above is read out of [`cold_policy.h`](/firmware/lib/machine_policy/cold_policy.h)
 when this page is generated, so the number Derek confirms and the number
 the compressor obeys are one number. They are baked into the firmware on `main`
-as factory defaults; no per-unit setting is required here. Customer-side tuning (ratio adjust, Wi-Fi binding, cloud pairing) happens through the iOS/Android app post-install.
+as factory defaults; no per-unit setting is required here. Customer-side tuning (ratio adjust, Wi-Fi binding, cloud pairing) happens through the iOS app post-install.
 
 Then query the three limits the hardware imposes. Each one is a part's rating, and the firmware is the only thing holding the machine inside it:
 
