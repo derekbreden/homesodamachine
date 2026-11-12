@@ -7,10 +7,6 @@ rust-version.workspace = true
 publish = false
 
 [[bin]]
-name = "shared-data"
-path = "src/main.rs"
-
-[[bin]]
 name = "hsm-finishes"
 path = "src/finishes.rs"
 

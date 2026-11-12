@@ -11,11 +11,9 @@ analytical measurements and document figures for these printed parts:
 The geometry and inspection tools consume these native recipes. The reference catalog
 provides explicitly requested dimension and port readings from its retained source data.
 
-One JSON request is either a command-line argument or a line on stdin with
-`part-data --serve`. Each request names `part`, an optional `method`, and the raw
-upstream inputs that provider uses. Each response is its JSON result, or an
-`error` object. The server flushes one response per request and writes no diagnostic
-text to stdout.
+One JSON request is the command-line argument. It names `part`, an optional `method`,
+and the raw upstream inputs that provider uses. The response is its JSON result on
+stdout.
 
 The cradle's cantilever calculation supplies its insertion deflection and
 slot lane. The mold report reads binary STL vertices for its chamber envelope and

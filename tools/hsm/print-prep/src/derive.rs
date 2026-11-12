@@ -11,7 +11,7 @@ use std::collections::{BTreeMap, HashMap};
 pub const FIRST_LAYER: f64 = 0.20;
 pub const LAYER: f64 = 0.24;
 /// The normal's Z on an additive chamfer tangent to an expanding round, at the outward run per
-/// millimetre of rise `cadlib/overhang_round.py` gives it.
+/// millimetre of rise the catalog's `overhang_round` gives it.
 pub fn chamfer_nz() -> f64 { -1.0 / 5f64.sqrt() }
 /// The chamfer's rise per radius, and the arc retained above it.
 pub fn rise_per_radius() -> f64 { 1.0 - 0.5 / 1.25f64.sqrt() }

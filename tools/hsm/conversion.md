@@ -160,7 +160,7 @@ explicit input recipes come from Rust data providers.
 | Counter opening | `opening-scene`; the faucet's tails over the counter's hole, rendered, and the parts' outline in the same frame | `hardware/install-guide/opening_scene.rs` |
 | Page drawing | the `hsm-pages` library; PDF, type and line breaking, outlined pictures, pixels and line drawings of models | `tools/hsm/pages/` |
 | Model exports | the `hsm-model-export` library; physical models, display surfaces, wiring append and scene GLBs | `hardware/assembly/scenes/model_export/` |
-| Model context | `machine-data`; facts, scene documents and numerical wiring context | `tools/hsm/machine-data/` |
+| Model context | `installed-machine`'s equipment recipes and stations, fine-model metadata reads, facts and scene documents | `tools/hsm/machine-data/src/` |
 | Document readers | Rust ledger and procedure programs, with explicit source dependencies and remaining raw provider inputs | `tools/hsm/ledger/`, `tools/hsm/assembly-docs/` |
 
 The final machine report carries its existing construction questions from current scalar source
@@ -200,9 +200,8 @@ commands also expose explicitly requested dimension, source and model readings.
 | `ledger-analysis` | Purchase evidence, exact decimal reconciliation, validation, CSV/JSON and reports, for the synthetic ledger tests |
 | `assembly-docs` | Assembly constants, electrical budgets, schedules, fluid-topology diagrams and the installed wiring model, routing and readers |
 | `cold-core-data` | Typed carbonator rod requirements and jet interfaces for native fabrication tools |
-| `machine-data` | Retained model, equipment, archive and geometry-query interfaces for native inspection tools |
 | `part-data` | Purchased reference providers, storage catalogues, refrigeration/printing fixtures, drain adapters, cuffs, press, sleeve, trays, and the funnel's, frame's and cradle's datums for the hand-run tools that read them |
-| `shared-data` | Materials, finishes, colour arithmetic, stock routing and shared fit/snap/reeding/cooling helpers |
+| `shared-data` | Materials, finishes, colour arithmetic and the PET-GF cooling policy |
 | `layout-data` | Appliance frames, fitting names, native tube construction and sampling, reservoir routes and soda inlet/holder recipes |
 | `hsm-manual-guides`, `hsm-fabrication-guides`, `hsm-install-art` | Optional books, fixture art, engineering reference sheets and selected install illustrations |
 | `hsm-build-data`, `hsm-build-plan` | Mesh and artifact identity, native producer inventory, dependency tracing, BUILD rendering, affected targets and completed-output carry |

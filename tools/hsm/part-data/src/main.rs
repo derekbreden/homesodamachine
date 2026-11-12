@@ -3,10 +3,7 @@
 use anyhow::{Context, Result, bail};
 use hsm_documents::format_number;
 use serde_json::{Value, json};
-use std::{
-    collections::BTreeMap,
-    io::{self, BufRead, Write},
-};
+use std::collections::BTreeMap;
 
 mod reference;
 
@@ -138,26 +135,11 @@ fn request(v: &Value) -> Result<Value> {
     }
 }
 
-fn answer(line: &str) -> Value {
-    let result = serde_json::from_str(line)
-        .context("Invalid request JSON")
-        .and_then(|v| request(&v));
-    result.unwrap_or_else(|e| json!({"error":format!("{e:#}")}))
-}
 fn main() -> Result<()> {
     let args: Vec<_> = std::env::args().skip(1).collect();
-    if args.as_slice() == ["--serve"] {
-        let stdin = io::stdin();
-        let stdout = io::stdout();
-        let mut out = stdout.lock();
-        for line in stdin.lock().lines() {
-            writeln!(out, "{}", answer(&line?))?;
-            out.flush()?;
-        }
-    } else if let [payload] = args.as_slice() {
-        println!("{}", request(&serde_json::from_str(payload)?)?);
-    } else {
-        bail!("usage: part-data --serve | '<request JSON>'");
-    }
+    let [payload] = args.as_slice() else {
+        bail!("usage: part-data '<request JSON>'");
+    };
+    println!("{}", request(&serde_json::from_str(payload)?)?);
     Ok(())
 }
