@@ -20,6 +20,7 @@ export function factsPathFor(stepPath) {
  * @property {string} to          the port it reaches, "body.port"
  * @property {string[]} tubes     the tubes of the run that the machine does not hold
  * @property {string[]} fittings  the fittings of the run that the machine does not hold
+ * @property {string} why         why the build left a tube out, where the facts say; else empty
  */
 
 // The names a run row lists under `key`.
@@ -42,6 +43,7 @@ export function missingRuns(facts) {
       to: String(run.to ?? ""),
       tubes: listed(run, "missing_native_routes"),
       fittings: listed(run, "missing_fittings"),
+      why: typeof run.why === "string" ? run.why : "",
     }));
 }
 

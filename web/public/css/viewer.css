@@ -1790,6 +1790,7 @@
   font: inherit;
   cursor: pointer;
 }
+.missing-list .missing-why { display: block; margin-top: 2px; color: var(--text-2); font-size: 12px; }
 .missing-list .missing-row:hover,
 .missing-list .missing-row:focus-visible {
   background: color-mix(in srgb, var(--err) 22%, transparent);
