@@ -71,7 +71,8 @@ both glasses' notice follows it through. It checks a sweep kept through a power 
 lost between the target and the lever, a tank found wet, a sweep refused over water, a latched
 refill dropped by owing one, and the ways a sweep is given up: at the machine with no gas
 moving, at the machine with the lever down, which waits for the lever, and forgotten at a
-bench. Gas through a real meter has no host test: the first wet carbonator is its check.
+bench, where gas still moving opens no pour. Gas through a real meter has no host test: the
+first wet carbonator is its check.
 `test_machine_month` lives a month at a kitchen sink on the build host: the production machine
 code against a carbonator that drains and fills, a cooling loop that warms and cools, and a
 household that pours, with the clock crossing its wrap on the way. An ordinary month must

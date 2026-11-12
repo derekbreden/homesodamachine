@@ -346,6 +346,57 @@ void test_a_sweep_forgotten_at_the_bench_asks_for_nothing() {
     TEST_ASSERT_FALSE(machineSweepForget());
 }
 
+void test_a_sweep_forgotten_with_the_lever_down_opens_no_pour() {
+    TEST_ASSERT_TRUE(machineSweepOwe());
+    machineFlowSimulate(kGas, 600000);
+    sampleFor(1000);
+    TEST_ASSERT_TRUE(sweepNow().flowing);
+
+    TEST_ASSERT_TRUE(machineSweepForget());
+    TEST_ASSERT_FALSE(sweepNow().owed);
+    TEST_ASSERT_FALSE(host::sweepOwedInFlash);
+    TEST_ASSERT_EQUAL_UINT8(NOTICE_NONE, machineNoticeStanding());
+    TEST_ASSERT_FALSE(machineSweepForget());
+    TEST_ASSERT_FALSE(machineSweepSkip());
+
+    // The gas that is still moving is not a pour.
+    for (uint32_t t = kStep; t <= 4000; t += kStep) {
+        runAt(host::now + kStep);
+        TEST_ASSERT_FALSE(machineIsPouring());
+        TEST_ASSERT_EQUAL_UINT16(0, machineValvesOpen());
+        TEST_ASSERT_EQUAL_UINT8(NOTICE_NONE, machineNoticeStanding());
+    }
+
+    // The lever let go hands the meter back, and nothing is asked for.
+    letTheLeverGo();
+    sampleFor(machine_policy::kSweepReleaseMs + 2 * kStep + 1500);
+    TEST_ASSERT_EQUAL(ST_IDLE, machineState());
+    TEST_ASSERT_FALSE(refillRelayClosed());
+    TEST_ASSERT_FALSE(host::refillOwedInFlash);
+    TEST_ASSERT_EQUAL_UINT8(NOTICE_NONE, machineNoticeStanding());
+    TEST_ASSERT_EQUAL_UINT32(0, notedOf(machine_log::Kind::Sweep).size());
+    TEST_ASSERT_EQUAL_UINT32(0, notedOf(machine_log::Kind::Pour).size());
+    machineFlowSimulate(6, 5000);
+    sampleFor(200);
+    TEST_ASSERT_TRUE(machineIsPouring());
+}
+
+void test_a_sweep_owed_again_after_one_forgotten_with_the_lever_down_is_a_whole_sweep() {
+    TEST_ASSERT_TRUE(machineSweepOwe());
+    machineFlowSimulate(kGas, 600000);
+    sampleFor(1000);
+    TEST_ASSERT_TRUE(machineSweepForget());
+
+    TEST_ASSERT_TRUE(machineSweepOwe());
+    TEST_ASSERT_TRUE(sweepNow().owed);
+    TEST_ASSERT_TRUE(host::sweepOwedInFlash);
+    TEST_ASSERT_EQUAL_UINT8(NOTICE_SWEEP, machineNoticeStanding());
+    holdTheLeverUntilDone();
+    letTheLeverGo();
+    sampleFor(machine_policy::kSweepReleaseMs + 2 * kStep + 1500);
+    TEST_ASSERT_EQUAL(ST_REFILLING, machineState());
+}
+
 }  // namespace
 
 void setUp() {
@@ -400,5 +451,7 @@ int main(int, char **) {
     RUN_TEST(test_a_sweep_given_up_after_its_target_still_waits_for_the_lever);
     RUN_TEST(test_a_bench_that_holds_the_notice_off_still_has_the_sweep);
     RUN_TEST(test_a_sweep_forgotten_at_the_bench_asks_for_nothing);
+    RUN_TEST(test_a_sweep_forgotten_with_the_lever_down_opens_no_pour);
+    RUN_TEST(test_a_sweep_owed_again_after_one_forgotten_with_the_lever_down_is_a_whole_sweep);
     return UNITY_END();
 }
