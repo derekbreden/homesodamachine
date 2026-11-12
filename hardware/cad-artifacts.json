@@ -41,7 +41,7 @@
     "hardware/faucet-layout/faucet-assembly.step": "49f5be5e70d8cee50ea3d5b30ed77c5651056b62b54dfcd37fa47dfc54ecc09a",
     "hardware/faucet-layout/faucet-assembly.step.mesh": "e8b9a06be4eae53ceea88681d779b3aebe6ee87bb837e904f69dc5106684bbca",
     "hardware/faucet-layout/faucet-industrial-assembly.step": "0fe171f8209fbfe10552f2f16b57673de57f5cd16e03500d0a99fab5cea94918",
-    "hardware/faucet-layout/faucet-industrial-assembly.step.mesh": "acc28ac0d93098b7054da2cd5487bf124335fc965bd837a40db96bff2d2bf19e",
+    "hardware/faucet-layout/faucet-industrial-assembly.step.mesh": "20e2bee46211610af8ca90356205859b9ea3d45e2221b296bf90b2930b2b101f",
     "hardware/install-guide/plumbing/art/plumbing-pre-tee.png": "f777688d43515f39d4445c50e2d31ea18b2d7dd9b0eb149cbf4c49fc8d2a01f7",
     "hardware/install-guide/plumbing/art/plumbing-tee-installed.png": "2c9f151c05dca1102d00f63c984b2b3f8b29bc5be2b0aa1e005b408dc32affb2",
     "hardware/install-guide/plumbing/art/plumbing-valve-off.png": "60d310a111f2437e7197a1721a65494b5030e2e8b1aff8d78c96b1b06ec4328f",
@@ -962,7 +962,7 @@
       "hardware/faucet-layout/faucet-assembly.step": "49f5be5e70d8cee50ea3d5b30ed77c5651056b62b54dfcd37fa47dfc54ecc09a",
       "hardware/faucet-layout/faucet-assembly.step.mesh": "e8b9a06be4eae53ceea88681d779b3aebe6ee87bb837e904f69dc5106684bbca",
       "hardware/faucet-layout/faucet-industrial-assembly.step": "0fe171f8209fbfe10552f2f16b57673de57f5cd16e03500d0a99fab5cea94918",
-      "hardware/faucet-layout/faucet-industrial-assembly.step.mesh": "acc28ac0d93098b7054da2cd5487bf124335fc965bd837a40db96bff2d2bf19e",
+      "hardware/faucet-layout/faucet-industrial-assembly.step.mesh": "20e2bee46211610af8ca90356205859b9ea3d45e2221b296bf90b2930b2b101f",
       "hardware/manifold-layout/enclosure-assembly.facts.json": "7fe5548b9972ab514f70becfbc21d981cd438531293d2c03d9f8014b6c473152",
       "hardware/manifold-layout/enclosure-assembly.step.mesh": "91e3a8608bd4704c5a1c2727ae8b322ff689aa918c4310f834b9ed71a7a989fa",
       "hardware/pcb/pcba/out/pcba.bom.csv": "8e50da9512f4775249bb0a81e7ef8dc1059fbd3ed31513aaae1511838bb65209",
@@ -2512,7 +2512,7 @@
     "hardware/faucet-layout/faucet-assembly.step": 1794470197.446965,
     "hardware/faucet-layout/faucet-assembly.step.mesh": 1794470188.619041,
     "hardware/faucet-layout/faucet-industrial-assembly.step": 1794377740.08692,
-    "hardware/faucet-layout/faucet-industrial-assembly.step.mesh": 1794445929.08732,
+    "hardware/faucet-layout/faucet-industrial-assembly.step.mesh": 1794473092.94196,
     "hardware/install-guide/plumbing/art/plumbing-pre-tee.png": 1793830497,
     "hardware/install-guide/plumbing/art/plumbing-tee-installed.png": 1793830497,
     "hardware/install-guide/plumbing/art/plumbing-valve-off.png": 1793830497,
@@ -3508,7 +3508,7 @@
       "unproven": true
     },
     "hardware/faucet-layout/faucet-industrial-assembly.step.mesh": {
-      "commit": "5c9dd517ac6066cab81b10f39dd06ebe22b4f62a",
+      "commit": "7ca07e47e2cf6bd39caec8c2c6d0480540d83155",
       "unproven": true
     },
     "hardware/install-guide/plumbing/art/plumbing-pre-tee.png": {
