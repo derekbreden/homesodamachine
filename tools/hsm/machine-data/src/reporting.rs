@@ -195,6 +195,19 @@ pub fn run_length(row: &Value) -> Result<f64> {
     Ok(straight - reduction)
 }
 
+/// Why the tubes `names` could not be laid out, where the request says.
+fn reasons(metadata: &Value, names: &[Value]) -> Option<String> {
+    let said: Vec<&str> = rows_or_empty(metadata, "unrouted")
+        .into_iter()
+        .filter(|tube| names.contains(&tube["name"]))
+        .filter_map(|tube| tube["reason"].as_str())
+        .collect();
+    (!said.is_empty()).then(|| said.join("; "))
+}
+
+/// The machine's runs, then its tubes as drawn. A connection is incomplete when a tube or a
+/// fitting it names is not in the machine, and so is a tube the request lists as one that could
+/// not be laid out.
 pub fn route_rows(metadata: &Value) -> Result<Value> {
     let empty = json!({});
     let specs = metadata
@@ -279,11 +292,16 @@ pub fn route_rows(metadata: &Value) -> Result<Value> {
             .filter_map(|row| row["bend"].as_f64().filter(|v| *v > 0.))
             .reduce(f64::min)
             .unwrap_or(0.);
-        runs.push(json!({"id":name,"frm":group["from"],"to":group["to"],"length":if complete {json!(length)} else {Value::Null},
+        let why = reasons(metadata, &missing);
+        let mut row = json!({"id":name,"frm":group["from"],"to":group["to"],"length":if complete {json!(length)} else {Value::Null},
             "corners":rows.iter().map(|row|row["corners"].as_u64().unwrap()).sum::<u64>(),"bend":bend,
             "diam":rows.iter().filter_map(|row|row["diam"].as_f64()).reduce(f64::max).unwrap_or(0.),"made":group["made"],
             "native_routes":route_names,"fittings":fittings,"status":if complete {"complete"} else {"incomplete"},
-            "missing_native_routes":missing,"missing_fittings":missing_fittings}));
+            "missing_native_routes":missing,"missing_fittings":missing_fittings});
+        if let Some(why) = why {
+            row["why"] = json!(why);
+        }
+        runs.push(row);
     }
     for name in &route_order {
         if !grouped.contains(name.as_str()) {
@@ -291,6 +309,16 @@ pub fn route_rows(metadata: &Value) -> Result<Value> {
             row["status"] = json!("complete");
             runs.push(row);
         }
+    }
+    // A tube that could not be laid out and that no connection names is its own incomplete run.
+    for tube in rows_or_empty(metadata, "unrouted") {
+        let name = text(&tube["name"])?;
+        if grouped.contains(name) || native.contains_key(name) || runs.iter().any(|row| row["id"] == name) {
+            continue;
+        }
+        runs.push(json!({"id":name,"frm":tube["from"],"to":tube["to"],"length":Value::Null,"corners":0,
+            "bend":0.,"diam":0.,"made":"drawn","status":"incomplete",
+            "missing_native_routes":[name],"missing_fittings":[],"why":tube["reason"]}));
     }
     Ok(json!([
         runs,
@@ -305,7 +333,7 @@ pub fn route_rows(metadata: &Value) -> Result<Value> {
 /// `box_fact_order`, the placed bodies and their bounds, the card ports, the drawn runs and the
 /// constants the request carries.
 pub fn facts(request: &Value) -> Result<Value> {
-    const RUN_FIELDS: [&str; 9] = [
+    const RUN_FIELDS: [&str; 10] = [
         "id",
         "frm",
         "to",
@@ -315,6 +343,7 @@ pub fn facts(request: &Value) -> Result<Value> {
         "status",
         "missing_native_routes",
         "missing_fittings",
+        "why",
     ];
     let spec = &request["spec"];
     let metadata = &spec["metadata"];
@@ -383,4 +412,51 @@ pub fn facts(request: &Value) -> Result<Value> {
     placed.sort();
     Ok(json!({"box":projected,"constants":constants,"pack":{"placed":placed},
         "bodies":bounds(spec)?,"card_ports":port_rows,"runs":runs}))
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    /// A connection whose tube could not be laid out is incomplete and says why, and a left-out
+    /// tube that no connection names is an incomplete run of its own.
+    #[test]
+    fn a_tube_left_out_marks_its_run_incomplete() {
+        let metadata = json!({
+            "native_route_specs": {}, "native_route_order": [], "route_lengths": {}, "runs": [],
+            "raw_bounds": {},
+            "native_connections": {"fluid-26": {"from": "foam-assembly.reservoir-b", "to": "valve-v-h.inlet",
+                "made": "drawn", "native_routes": ["fluid-26"], "fittings": []}},
+            "unrouted": [
+                {"name": "fluid-26", "from": "foam-assembly.reservoir-b", "to": "valve-v-h.inlet",
+                 "reason": "missing station valve-v-h.inlet"},
+                {"name": "refrig-2", "from": "condenser+fan.refrig-outlet", "to": "foam-assembly.evap-inlet",
+                 "reason": "its sweep: tube path has no finite span"},
+            ],
+        });
+        let rows = route_rows(&metadata).unwrap();
+        let runs = rows[0].as_array().unwrap();
+        assert_eq!(runs.len(), 2);
+        assert_eq!(runs[0]["id"], "fluid-26");
+        assert_eq!(runs[0]["status"], "incomplete");
+        assert_eq!(runs[0]["missing_native_routes"], json!(["fluid-26"]));
+        assert_eq!(runs[0]["why"], "missing station valve-v-h.inlet");
+        assert_eq!(runs[1]["id"], "refrig-2");
+        assert_eq!(runs[1]["frm"], "condenser+fan.refrig-outlet");
+        assert_eq!(runs[1]["status"], "incomplete");
+        assert_eq!(runs[1]["missing_native_routes"], json!(["refrig-2"]));
+
+        // With nothing left out, the connection whose tube is in the machine is complete and
+        // carries no reason.
+        let whole = json!({
+            "native_route_specs": {"fluid-26": {"owners": ["foam-assembly", "valve-v-h"], "segments": [], "od_mm": 6.35}},
+            "native_route_order": ["fluid-26"], "route_lengths": {"fluid-26": 248.}, "runs": [], "raw_bounds": {},
+            "native_connections": metadata["native_connections"],
+        });
+        let rows = route_rows(&whole).unwrap();
+        let runs = rows[0].as_array().unwrap();
+        assert_eq!(runs.len(), 1);
+        assert_eq!(runs[0]["status"], "complete");
+        assert!(runs[0].get("why").is_none());
+    }
 }

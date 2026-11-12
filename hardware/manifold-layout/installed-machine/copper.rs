@@ -4,7 +4,7 @@
 use crate::design;
 use crate::routes_program::Sweep;
 use anyhow::{Context, Result, ensure};
-use hsm_layout_data::tube::Segment;
+use hsm_layout_data::tube::{Segment, Unrouted};
 use serde_json::{Map, Value, json};
 use std::collections::{BTreeMap, BTreeSet};
 use std::path::Path;
@@ -288,14 +288,20 @@ fn solve(authored: &Authored, frames: &Value, stock: f64) -> Result<Run> {
     })
 }
 
-/// The copper runs, solved through the ports of the pack the placement program set down in `prepared`.
-pub fn runs(root: &Path, prepared: &Value) -> Result<Vec<Run>> {
+/// The copper runs, solved through the ports of the pack the placement program set down in
+/// `prepared`. A run that cannot be solved is left out of them and listed beside them.
+pub fn runs(root: &Path, prepared: &Value) -> Result<(Vec<Run>, Vec<Unrouted>)> {
     let frames = &prepared["metadata"]["frames"];
     let stock = stock_cap(root)?;
-    AUTHORED
-        .iter()
-        .map(|authored| solve(authored, frames, stock).with_context(|| format!("copper run {}", authored.id)))
-        .collect()
+    let mut runs = vec![];
+    let mut unrouted = vec![];
+    for authored in AUTHORED {
+        match solve(authored, frames, stock) {
+            Ok(run) => runs.push(run),
+            Err(error) => unrouted.push(Unrouted::of(authored.id, authored.from, authored.to, &error)),
+        }
+    }
+    Ok((runs, unrouted))
 }
 
 /// Per-corner values as a JSON object keyed by corner index.

@@ -197,7 +197,7 @@ fn main() -> Result<()> {
         || Ok(serde_json::to_value(equipment_program::run(&equipment_items, &equipment_dir)?)?),
     )?)
     .context("the retained equipment")?;
-    let copper = copper::runs(&root, &prepared)?;
+    let (mut copper, unsolved) = copper::runs(&root, &prepared)?;
     let routes_request =
         routes_plan::routes_request(&equipment_request, &equipment_model, &placed.groups, &copper)?;
     let routes_dir = work.join("routes");
@@ -209,6 +209,10 @@ fn main() -> Result<()> {
         || Ok(serde_json::to_value(routes_program::run(&routes_request, &routes_dir)?)?),
     )?)
     .context("the retained routes")?;
+    routes_plan::leave_out(&mut equipment_request, &mut copper, unsolved, &routes);
+    for tube in &equipment_request.unrouted {
+        eprintln!("installed-machine: left out {}, {} to {}: {}", tube.name, tube.from, tube.to, tube.reason);
+    }
     routes_plan::write_route_lengths(&mut equipment_request, &routes);
     let runs = routes_plan::run_records(&copper, &equipment_request)?;
     let metadata = plan::placement_metadata(&root, &equipment_request, runs)?;

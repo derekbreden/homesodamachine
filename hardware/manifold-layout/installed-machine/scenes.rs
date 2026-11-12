@@ -61,9 +61,13 @@ pub fn views_spec(root: &Path, spec: &Value, physical_model: &Path, payload: &Pa
     }
     let world = World { scenes: &scenes, holders: &holders, runs: &runs, core_names: &core_names,
                         promoted: &promoted, crossings: &crossings, bare: &strings(&constants["BARE"]) };
+    // The bodies of the tubes the machine was built without, which no scene can show.
+    let left_out: BTreeSet<String> = metadata["unrouted"].as_array().into_iter().flatten()
+        .filter_map(|tube| tube["name"].as_str()).map(|name| format!("tube-{name}")).collect();
     let mut views = Vec::new();
     for scene in &scenes {
-        let names = world.named(scene)?;
+        let mut names = world.named(scene)?;
+        names.retain(|name| !left_out.contains(name));
         let missing: Vec<&String> = names.difference(&present).collect();
         ensure!(missing.is_empty(), "scene '{}' names bodies absent from the model: {missing:?}", scene.id);
         let mut overrides = Map::new();

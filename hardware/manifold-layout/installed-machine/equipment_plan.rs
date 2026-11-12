@@ -2,6 +2,7 @@
 //! the pack the placement program set down, and the warm-side tubes run between their ports.
 use crate::{color, design, equipment};
 use anyhow::{Context, Result};
+use hsm_layout_data::tube::Unrouted;
 use hsm_layout_data::{Tube, rear, routes, soda};
 use serde::Deserialize;
 use serde::de::{DeserializeOwned, IgnoredAny, MapAccess, Visitor};
@@ -194,19 +195,32 @@ fn stations(world_ports: &Map<String, Value>) -> Result<Value> {
 }
 
 /// The warm-side tubes run between the placed ports, in the order they are swept.
-fn warm_routes(root: &Path, spec: &Value, data: &Value, world_ports: &Map<String, Value>) -> Result<Vec<(String, Tube)>> {
+fn warm_routes(
+    root: &Path,
+    spec: &Value,
+    data: &Value,
+    world_ports: &Map<String, Value>,
+) -> Result<(Vec<(String, Tube)>, Vec<Unrouted>)> {
     let stations = stations(world_ports)?;
-    let continuations = rear::continuations(spec, &stations, &equipment::route_params(data)?)?;
-    let flavors = rear::flavor_routes(&stations)?;
+    let (continuations, mut unrouted) = rear::continuations(spec, &stations, &equipment::route_params(data)?);
+    let (flavors, more) = rear::flavor_routes(&stations);
+    unrouted.extend(more);
     let (authored, order) =
         read_ordered::<ReservoirOrder>(&root.join("hardware/manifold-layout/reservoir-a-routes.json"))?;
-    let reservoir = hsm_layout_data::reservoir_routes(&authored)?;
+    let (reservoir, written_off) = hsm_layout_data::reservoir_routes(&authored)?;
     let mut ordered = vec![];
     for name in &order.paths.0 {
-        let tube = reservoir.get(name).with_context(|| format!("reservoir A has no tube {name}"))?;
-        ordered.push((name.clone(), tube.clone()));
+        match reservoir.get(name) {
+            Some(tube) => ordered.push((name.clone(), tube.clone())),
+            None => unrouted.push(match written_off.iter().find(|tube| &tube.name == name) {
+                Some(tube) => tube.clone(),
+                None => Unrouted::of(name, "", "", &anyhow::anyhow!("reservoir A has no tube {name}")),
+            }),
+        }
     }
-    routes::specifications(spec, &stations, continuations, flavors, ordered)
+    let (routes, more) = routes::specifications(spec, &stations, continuations, flavors, ordered);
+    unrouted.extend(more);
+    Ok((routes, unrouted))
 }
 
 /// Whether a JSON value states something: present, and neither false, zero nor empty.
@@ -242,8 +256,8 @@ pub fn equipment_request(root: &Path, prepared: &Value) -> Result<equipment::Equ
         "external_ports": pack_ports(prepared)?, "sources": sources(root)?, "colors": palette()?,
         "pump_cap": pump["pump"], "insulation_plan": soda::plan(&spec)?, "soft_neighbors": SOFT_NEIGHBORS,
     }))?;
-    let warm = warm_routes(root, &spec, &data, &request.world_ports)?;
-    equipment::finalize(&mut request, warm, &spool_colors(root)?)?;
+    let (warm, unrouted) = warm_routes(root, &spec, &data, &request.world_ports)?;
+    equipment::finalize(&mut request, warm, unrouted, &spool_colors(root)?)?;
     for (name, frame) in request.frames.iter_mut() {
         if let Some(names) = named.get(name) {
             keep_named(&mut frame["ports"], names)?;

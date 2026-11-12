@@ -3,12 +3,10 @@
 //! The caller supplies the selected authored route segments and the installed
 //! equipment groups that bound foam compression.
 use anyhow::{Context, Result, bail};
-use hsm_kernel::{Affine, Body, Leg, Path as SweepPath, Plane, Profile,
-                 Solid, Spline, V2, V3, import, step, v3};
-use hsm_layout_data::tube::Segment;
+use hsm_kernel::{Affine, Body, Leg, Path as SweepPath, Plane, Profile, Solid, Spline, V2, V3, import, step, v3};
+use hsm_layout_data::tube::{Segment, Unrouted};
 use serde::{Deserialize, Serialize};
-use std::collections::{BTreeMap, BTreeSet};
-use std::path::PathBuf;
+use std::{collections::{BTreeMap, BTreeSet}, path::PathBuf};
 
 /// A tube to sweep along its centreline, hollow where its inner diameter is positive.
 #[derive(Clone, Debug, Deserialize, Serialize)]
@@ -67,11 +65,13 @@ pub struct Instance {
     pub name: String,
 }
 
-/// What the routes stage hands on: the swept bodies to place and each tube's developed length.
+/// What the routes stage hands on: the swept bodies to place, each tube's developed length and
+/// the tubes that could not be swept.
 #[derive(Clone, Debug, Deserialize, Serialize)]
 pub struct Routed {
     pub instances: Vec<Instance>,
     pub lengths: BTreeMap<String, f64>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")] pub unrouted: Vec<Unrouted>,
 }
 
 fn datum(pose: &Pose) -> Affine {
@@ -231,7 +231,8 @@ fn equipment(components: &BTreeMap<String, Bodies>) -> Result<BTreeMap<String, V
             .collect::<Result<Vec<_>>>()?))).collect()
 }
 
-/// The routed tubes cut into `output` as one model, and what the placement takes of them.
+/// The routed tubes cut into `output` as one model, and what the placement takes of them. A tube
+/// that cannot be swept is left out of the model and listed beside it.
 pub fn run(request: &Request, output: &std::path::Path) -> Result<Routed> {
     let mut placed: Vec<(String, Option<[f64; 3]>, Solid)> = vec![];
     if let Some(sleeve) = &request.insulation {
@@ -240,13 +241,20 @@ pub fn run(request: &Request, output: &std::path::Path) -> Result<Routed> {
         placed.push(("soda-continuous-insulation".to_owned(), sleeve.color, foam));
     }
     let mut lengths = BTreeMap::new();
+    let mut unrouted = vec![];
     for tube in &request.tubes {
-        lengths.insert(tube.name.clone(), route_length(&route_path(&tube.segments)?));
         let inside = tube.id_mm;
-        let body = sweep(&tube.segments, tube.od_mm / 2.,
-                         (inside > 0.).then_some(inside / 2.))
-            .with_context(|| format!("warm tube route {}", tube.name))?;
-        placed.push((format!("tube-{}", tube.name), tube.color, body));
+        let swept = route_path(&tube.segments).and_then(|path| {
+            let body = sweep(&tube.segments, tube.od_mm / 2., (inside > 0.).then_some(inside / 2.))?;
+            Ok((route_length(&path), body))
+        });
+        match swept {
+            Ok((length, body)) => {
+                lengths.insert(tube.name.clone(), length);
+                placed.push((format!("tube-{}", tube.name), tube.color, body));
+            }
+            Err(error) => unrouted.push(Unrouted::of(&tube.name, "", "", &error.context("its sweep"))),
+        }
     }
     let bodies = placed.iter().map(|(name, color, solid)|
         Body { name, color: *color, solid }).collect::<Vec<_>>();
@@ -254,5 +262,5 @@ pub fn run(request: &Request, output: &std::path::Path) -> Result<Routed> {
     step::write_model(&model, &bodies)?;
     let instances = placed.iter().enumerate().map(|(index, (name, _, _))| Instance {
         model: model.clone(), indices: vec![index], name: name.clone() }).collect();
-    Ok(Routed { instances, lengths })
+    Ok(Routed { instances, lengths, unrouted })
 }
