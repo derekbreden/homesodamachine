@@ -341,6 +341,35 @@ bool Store::next(Cursor &cursor, Entry &out) {
     return false;
 }
 
+bool Store::find(uint32_t seq, Entry &out) {
+    if (!ready_ || seq == 0 || seq >= next_seq_) return false;
+    const uint32_t behind = next_seq_ - seq;   // one for the newest entry
+    if (behind > slots_) return false;
+
+    // With no slot spoiled the entry stands exactly that far behind the head, and every
+    // spoiled slot between pushes it one further back. What is read on the way says how far
+    // off the guess was.
+    uint32_t at = (head_ + slots_ - behind) % slots_;
+    for (uint32_t probe = 0; probe < kFindProbes; probe++) {
+        const Slot state = readSlot(at, out);
+        if (state != Slot::Valid) {
+            at = at == 0 ? slots_ - 1 : at - 1;
+            continue;
+        }
+        if (out.seq == seq) return true;
+        if (out.seq > seq) {
+            const uint32_t back = out.seq - seq;
+            if (back >= slots_) return false;   // the ring has turned past it
+            at = (at + slots_ - back) % slots_;
+        } else {
+            const uint32_t forward = seq - out.seq;
+            if (forward >= slots_) return false;
+            at = (at + forward) % slots_;
+        }
+    }
+    return false;
+}
+
 // ── The words ─────────────────────────────────────────────────────────────
 
 const char *kindName(Kind kind) {

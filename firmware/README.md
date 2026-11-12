@@ -337,8 +337,8 @@ image to its crc32 and moves its boot partition without asking what it came from
 end predates the field it reads as "did not say", and the dates in the strings answer instead —
 which cannot separate two builds made on one day, so neither is offered over the other.
 
-**Main is what a phone offers.** A firmware change is published when it lands, so there is no
-build on main that a machine cannot be given:
+**Main is what a phone offers.** A change to what a board does is published when it lands, so
+main holds no behaviour a machine cannot be given:
 
 ```bash
 tools/run -- hsm-publish-firmware --write
