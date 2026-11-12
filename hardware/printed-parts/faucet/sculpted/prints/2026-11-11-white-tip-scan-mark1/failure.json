@@ -25,16 +25,22 @@
     ],
     "order": "Left to right, top to bottom."
   },
-  "first_visible_tilt_seconds": 184.7,
+  "tip_deflection_observed_seconds": 181.223,
+  "foreground_tree_lift_seconds": 182.6,
+  "rollover_begins_seconds": 184.7,
   "section_on_side_seconds": 188.2,
-  "observation": "The foreground Y-shaped tree lifts clear of its brim during the toolhead pass and then drops back. The right-hand tip section subsequently rises and rolls onto its side. The head continues over the opening and strands span the displaced section and the material still standing.",
-  "limit": "The toolhead housing obscures the exact contact point. The footage identifies elapsed time within the recording.",
+  "observation": "The lower edge of the tip moves behind the Y-shaped tree while both support feet stay planted. The Y-shaped tree subsequently lifts from its brim during a toolhead pass and drops back. The tip section then rises farther and rolls onto its side. The head continues over the opening and strands span the displaced section and the material still standing.",
+  "limit": "The camera view leaves the cause of the initial deflection and the moment of adhesion loss unresolved. Times are elapsed within the recording.",
+  "matched_passes": {
+    "file": "failure-matched-passes.mp4",
+    "source_elapsed_seconds": [[112, 148], [113, 149], [146.081, 180.455], [156.831, 181.223]],
+    "method": "Alternate closeups at similar toolhead positions and register the frames against the bed and support feet.",
+    "excerpt_sha256": "0daa5a1de3cb364eb74a064704273b6e2753a714d7e7877f24938a403ae70836"
+  },
   "native_excerpt": {
     "file": "failure-release.mp4",
     "source_filename": "ipcam-record.2026-11-12_11-19-45.189.mp4",
     "source_start_seconds": 182,
     "excerpt_sha256": "15f0a6ab8bf5922faf939b56ade9bf19fbc786e3c6b13a83a94e6db2814ed801"
-  },
-  "foreground_tree_lift_seconds": 182.6,
-  "interpretation": "The branch moves with the toolhead as the foot lifts, consistent with the toolhead snagging the tree."
+  }
 }
