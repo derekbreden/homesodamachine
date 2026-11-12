@@ -291,25 +291,7 @@ fn retention_grooves(neck: &Gooseneck) -> Result<Solid> {
         (DISPLAY_CLIP_BOTTOM_N, DISPLAY_CLIP_TOP_N + snap::BEARING_SLIP),
         0.0,
     )?;
-    let grooves = band.cut(&retention_core(neck, DISPLAY_GROOVE_CORE_R, DISPLAY_GROOVE_X_CLEARANCE)?)?;
-
-    // Relieve the tube under the plain wing ends while leaving the blade's bearing ledge.
-    let end_heights = (DISPLAY_CLIP_BOTTOM_N, DISPLAY_CLIP_TOP_N);
-    let fore = neck.cradle_prism(
-        DISPLAY_GROOVE_HALF_X,
-        (display_clip_s_bottom() - snap::END_MARGIN, s_min + PAST),
-        end_heights,
-        0.0,
-    )?;
-    let aft = neck.cradle_prism(
-        DISPLAY_GROOVE_HALF_X,
-        (s_max - PAST, display_clip_s_top() + snap::END_MARGIN),
-        end_heights,
-        0.0,
-    )?;
-    let end_core = retention_core(neck, DISPLAY_NECK_OUTER_R, DISPLAY_WING_END_RELIEF)?;
-    let end_relief = fore.union(&aft)?.cut(&end_core)?;
-    grooves.union(&end_relief)
+    band.cut(&retention_core(neck, DISPLAY_GROOVE_CORE_R, DISPLAY_GROOVE_X_CLEARANCE)?)
 }
 
 // Each root follows the original circular profile shifted toward the center in X.
@@ -374,7 +356,7 @@ fn beverage_outlets(neck: &Gooseneck) -> Result<Solid> {
 /// The whole shell, before it is split into its two prints.
 pub fn shell(neck: &Gooseneck) -> Result<Solid> {
     let (lower, seam) = lower_outer()?;
-    shell_from(neck, lower, &seam, &[])
+    shell_from(neck, lower, &seam, &crate::display::sculpted_wing_corner_grooves(neck)?)
 }
 
 /// A shell whose stock below the zone-5 seam is `lower`, with `seam` the ring the gooseneck is

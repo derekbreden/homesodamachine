@@ -10,7 +10,10 @@ use hsm_faucet::shell::PAST;
 use hsm_faucet::{Gooseneck, display};
 use hsm_faucet_display_cover_numbers as cover;
 use hsm_faucet_numbers::catalog;
-use hsm_faucet_numbers::shell::{DISPENSE_FACE_THICKNESS, DISPLAY_HEAD_S_MIN};
+use hsm_faucet_numbers::shell::{
+    DISPENSE_FACE_THICKNESS, DISPLAY_COVER_FRONT_RIM_N, DISPLAY_COVER_FRONT_RIM_SLOPE,
+    DISPLAY_COVER_REAR_TRIM_DS_DN, DISPLAY_COVER_REAR_TRIM_S0, DISPLAY_HEAD_S_MIN,
+};
 use hsm_kernel::part::write_shown;
 use hsm_kernel::*;
 use hsm_print_payload::printed;
@@ -62,7 +65,7 @@ fn seated_cover(neck: &Gooseneck, open: bool) -> Result<Solid> {
     let rear_arch = clamped(
         neck,
         arch.translate(normal * cover::REAR_ARCH_LIFT),
-        [half_x, cover::REAR_TRIM_S0, rear_s + PAST, n0, n1],
+        [half_x, DISPLAY_COVER_REAR_TRIM_S0, rear_s + PAST, n0, n1],
     )?;
     let skin = sloped(neck, outer.cut_all(&[cavity, window, arch, nose_arch, rear_arch])?)?;
     // The band stands from under the skin's foot, so no face of it lies on the skin's.
@@ -113,7 +116,7 @@ fn clamped(neck: &Gooseneck, solid: Solid, [hx, s0, s1, n0, n1]: [f64; 5]) -> Re
 /// to `s = s0 + ds_dn n`, each from the open underside.
 fn sloped(neck: &Gooseneck, skin: Solid) -> Result<Solid> {
     let (tip, up, normal) = neck.tip_frame();
-    let front = Plane::new(tip + normal * cover::FRONT_RIM_N, V3::X, normal + up * cover::FRONT_RIM_SLOPE)?;
-    let rear = Plane::new(tip + up * cover::REAR_TRIM_S0, V3::X, normal * cover::REAR_TRIM_DS_DN - up)?;
+    let front = Plane::new(tip + normal * DISPLAY_COVER_FRONT_RIM_N, V3::X, normal + up * DISPLAY_COVER_FRONT_RIM_SLOPE)?;
+    let rear = Plane::new(tip + up * DISPLAY_COVER_REAR_TRIM_S0, V3::X, normal * DISPLAY_COVER_REAR_TRIM_DS_DN - up)?;
     skin.trim(&front)?.trim(&rear)
 }

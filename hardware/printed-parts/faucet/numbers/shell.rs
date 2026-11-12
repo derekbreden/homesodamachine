@@ -455,6 +455,12 @@ pub const DISPLAY_COVER_END_MARGIN: f64 = 1.25;
 /// The cover's face and skirt corner radii.
 pub const DISPLAY_COVER_FACE_R: f64 = 7.25;
 pub const DISPLAY_COVER_SKIRT_R: f64 = 10.0;
+/// The front skirt's lower trim plane in the display frame, set by its intercept and slope.
+pub const DISPLAY_COVER_FRONT_RIM_N: f64 = 14.0;
+pub const DISPLAY_COVER_FRONT_RIM_SLOPE: f64 = 1.8;
+/// The rear skirt's lower trim plane in the display frame, set by its intercept and slope.
+pub const DISPLAY_COVER_REAR_TRIM_S0: f64 = 42.1;
+pub const DISPLAY_COVER_REAR_TRIM_DS_DN: f64 = 0.6;
 /// The display's neck: the tube shell.
 pub const DISPLAY_NECK_OUTER_R: f64 = TUBE_SHELL_OUTER_R;
 /// The cover's head, along s.
@@ -530,8 +536,14 @@ pub const DISPLAY_GROOVE_CORE_R: f64 = DISPLAY_NECK_OUTER_R - (DISPLAY_NECK_OUTE
 pub const DISPLAY_GROOVE_END_CLEARANCE: f64 = 0.25;
 /// Extra depth towards the center of the neck on each side.
 pub const DISPLAY_GROOVE_X_CLEARANCE: f64 = 0.75;
-/// Radial relief under the plain ends of the display cover wings.
-pub const DISPLAY_WING_END_RELIEF: f64 = 0.75;
+/// Inward travel available at the two lower corners of each Sculpted display wing.
+pub const DISPLAY_WING_CORNER_GROOVE_DEPTH: f64 = 1.1;
+/// The groove's transverse half span, including the blend to the tube skin.
+pub const DISPLAY_WING_CORNER_GROOVE_HALF_WIDTH: f64 = 1.4;
+/// The groove's run from a corner along the skirt's bottom edge toward the blade.
+pub const DISPLAY_WING_CORNER_GROOVE_RUN: f64 = 1.75;
+/// The height at which the rear groove fades into the arch.
+pub const DISPLAY_WING_CORNER_GROOVE_REAR_END_N: f64 = 8.6;
 
 /// The cover's face along s.
 pub fn display_cover_face_length() -> f64 {

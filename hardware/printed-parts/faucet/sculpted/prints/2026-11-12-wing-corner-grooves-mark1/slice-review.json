@@ -1,0 +1,188 @@
+{
+  "purpose": "Check whether the Sculpted cover wings can seat in the tip at their front and rear corners.",
+  "printer": "Mark1",
+  "archive": {
+    "gcode_sha256": "b63daa0a65e5bd3363024a56798d52ed08a8c3e90f5542da2b448d165df2d7aa",
+    "name": "sculpted-tip-cover-corner-grooves-black-mark1-ready.gcode.3mf",
+    "objects": [
+      "faucet-shell-tip",
+      "faucet-display-cover"
+    ],
+    "sha256": "a807963a4b865e4a17634a00e55e59800064d55377908571341d0357396a63e3",
+    "slots": {
+      "1": {
+        "colour": "000000",
+        "type": "PET-CF"
+      }
+    }
+  },
+  "project": "sculpted-tip-cover-corner-grooves-black-mark1.3mf",
+  "project_sha256": "327fe7aea4629934c53726579f23c49cdd99570d9b838f60345b394defb48f19",
+  "native_settings_sha256": "9eccc99999124da384f669e780d80c20d4ac26c7e213cc4d2984d5c3fc4d4491",
+  "finish_selection_sha256": "957979c2874999e96ae4adc479ec6c994a28e20d48455f871d41e2aa021d95e2",
+  "bed": "Textured PEI Plate",
+  "nozzle": {
+    "side": "left",
+    "diameter_mm": 0.4
+  },
+  "spool": {
+    "colour": "#000000",
+    "external_spool": 254,
+    "material": "Polymaker PET-GF"
+  },
+  "emitted_z_trim_mm": 0.16,
+  "layer_count": 971,
+  "predicted_seconds": 9662,
+  "predicted_filament_g": 51.99,
+  "minimum_bead_edge_margin_mm": 102.15,
+  "extrusion_bounds_xy_mm": [
+    [
+      102.154,
+      131.153
+    ],
+    [
+      207.975,
+      199.75
+    ]
+  ],
+  "tip_rim_contour_segments": 447,
+  "parts": [
+    {
+      "name": "faucet-shell-tip",
+      "source": "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.stl",
+      "stl_sha256": "31f41fe8ded3e5862f68c57082dde65725cd4c1bd7597778b958fc22e6e29082",
+      "watertight": true,
+      "rotation_x_degrees": -105.0,
+      "build_transform": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        -0.25881904510252085,
+        -0.9659258262890683,
+        0.0,
+        0.9659258262890683,
+        -0.25881904510252085,
+        131.5,
+        154.785128820301,
+        68.93456774147909
+      ],
+      "plate_bounds_mm": [
+        [
+          118.00024604797363,
+          133.69518368615223,
+          0.0
+        ],
+        [
+          144.99975395202637,
+          186.30481631384777,
+          137.87054537063977
+        ]
+      ]
+    },
+    {
+      "name": "faucet-display-cover",
+      "source": "hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.stl",
+      "stl_sha256": "fec8defeead2860ef13cf2fef4b981b6b1296d0540bee42e82eb80f7d23e3b0a",
+      "watertight": true,
+      "rotation_x_degrees": -50.0,
+      "build_transform": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.6427876096865394,
+        -0.766044443118978,
+        0.0,
+        0.766044443118978,
+        0.6427876096865394,
+        193.5,
+        159.3236938630398,
+        12.989291613511204
+      ],
+      "plate_bounds_mm": [
+        [
+          179.32660388946533,
+          134.245571004393,
+          0.0
+        ],
+        [
+          207.67339611053467,
+          185.754428995607,
+          20.880016884148453
+        ]
+      ]
+    }
+  ],
+  "geometry": {
+    "coordinates": "Display frame, with X across the tube, S along the display and N normal to its face.",
+    "faucet_assembly_mesh_sha256": "be7248cc8b07792d6888210fab6ae63f3e6f3ea6ce97524867c5fe6416f2a7e6",
+    "depth_along_x_mm": [
+      {
+        "station": "front-skirt-end",
+        "s": 7.6944,
+        "n": 3.3,
+        "depth": 0.0
+      },
+      {
+        "station": "front-skirt-mid",
+        "s": 6.8194,
+        "n": 3.3,
+        "depth": 0.55
+      },
+      {
+        "station": "front-corner",
+        "s": 5.9444,
+        "n": 3.3,
+        "depth": 1.1
+      },
+      {
+        "station": "front-arch-mid",
+        "s": 4.4722,
+        "n": 5.95,
+        "depth": 0.551
+      },
+      {
+        "station": "front-arch-end",
+        "s": 3,
+        "n": 8.6,
+        "depth": 0.0
+      },
+      {
+        "station": "rear-skirt-end",
+        "s": 42.33,
+        "n": 3.3,
+        "depth": 0.0
+      },
+      {
+        "station": "rear-skirt-mid",
+        "s": 43.205,
+        "n": 3.3,
+        "depth": 0.549
+      },
+      {
+        "station": "rear-corner",
+        "s": 44.08,
+        "n": 3.3,
+        "depth": 1.099
+      },
+      {
+        "station": "rear-arch-mid",
+        "s": 45.67,
+        "n": 5.95,
+        "depth": 0.55
+      },
+      {
+        "station": "rear-arch-end",
+        "s": 47.26,
+        "n": 8.6,
+        "depth": 0.0
+      }
+    ],
+    "max_depth_mm": 1.1,
+    "front_corner_clearance_in_seated_pose_mm": 1.25,
+    "rear_corner_clearance_in_seated_pose_mm": 1.3,
+    "blade_ledge_check": "Lateral ray hits agree at the sampled center, fore and aft ledge stations.",
+    "fit_status": "Physical seating is pending."
+  }
+}

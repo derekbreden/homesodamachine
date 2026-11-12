@@ -6,7 +6,11 @@ use crate::Gooseneck;
 use crate::shell::PAST;
 use anyhow::{Result, anyhow, ensure};
 use hsm_faucet_numbers::shell::{
-    DISPLAY_CLIP_BOTTOM_N, DISPLAY_CLIP_TOP_N, TUBE_SHELL_CENTER_Y, display_clip_s_bottom, display_clip_s_top,
+    DISPLAY_CLIP_BOTTOM_N, DISPLAY_CLIP_TOP_N, DISPLAY_COVER_BOTTOM_N, DISPLAY_COVER_FRONT_RIM_N,
+    DISPLAY_COVER_FRONT_RIM_SLOPE, DISPLAY_COVER_REAR_TRIM_DS_DN, DISPLAY_COVER_REAR_TRIM_S0,
+    DISPLAY_NECK_OUTER_R, DISPLAY_WING_CORNER_GROOVE_DEPTH, DISPLAY_WING_CORNER_GROOVE_HALF_WIDTH,
+    DISPLAY_WING_CORNER_GROOVE_REAR_END_N, DISPLAY_WING_CORNER_GROOVE_RUN, DISPENSE_FACE_THICKNESS,
+    TUBE_SHELL_CENTER_Y, display_clip_s_bottom, display_clip_s_top,
 };
 use hsm_kernel::*;
 
@@ -22,6 +26,70 @@ pub fn tip_plane(neck: &Gooseneck) -> Result<Plane> {
 #[track_caller]
 pub fn neck_round(neck: &Gooseneck, r: f64) -> Result<Solid> {
     neck.sweep(&Profile::circle(v2(0.0, TUBE_SHELL_CENTER_Y), r), 0.0, neck.length() + PAST)
+}
+
+/// The shallow grooves in the Sculpted tip along the wing corners, where the arch and the
+/// bottom of the skirt meet. The paths follow the cover's trim planes in the display frame.
+pub(crate) fn sculpted_wing_corner_grooves(neck: &Gooseneck) -> Result<Vec<Solid>> {
+    let front_s = |n| (DISPLAY_COVER_FRONT_RIM_N - n) / DISPLAY_COVER_FRONT_RIM_SLOPE;
+    let rear_s = |n| DISPLAY_COVER_REAR_TRIM_S0 + n * DISPLAY_COVER_REAR_TRIM_DS_DN;
+    let n = DISPLAY_COVER_BOTTOM_N;
+    let front = v2(front_s(n), n);
+    let rear = v2(rear_s(n), n);
+    let front_end_s = DISPENSE_FACE_THICKNESS + PAST;
+    let front_arch = v2(front_end_s, DISPLAY_COVER_FRONT_RIM_N - front_end_s * DISPLAY_COVER_FRONT_RIM_SLOPE);
+    let rear_end_n = DISPLAY_WING_CORNER_GROOVE_REAR_END_N;
+    let rear_arch = v2(rear_s(rear_end_n), rear_end_n);
+    let run = v2(DISPLAY_WING_CORNER_GROOVE_RUN, 0.0);
+    let round = Round { c: TUBE_SHELL_CENTER_Y, bend: neck.radius, tip: neck.tip, r: DISPLAY_NECK_OUTER_R };
+    let frame = tip_plane(neck)?;
+    let mut grooves = Vec::with_capacity(4);
+    for side in [-1.0, 1.0] {
+        for (start, corner, end) in [(front + run, front, front_arch), (rear - run, rear, rear_arch)] {
+            grooves.push(wing_corner_groove(&round, side, start, corner, end)?.placed(&Plane::XY, &frame));
+        }
+    }
+    Ok(grooves)
+}
+
+/// Loft the cutter with a common mitred section at the corner. The floor follows the neck
+/// in X, blending out into the skin across the groove and towards both ends of the path.
+fn wing_corner_groove(round: &Round, side: f64, start: V2, corner: V2, end: V2) -> Result<Solid> {
+    let across = |v: V2| v2(-v.y, v.x).unit();
+    let before = across(corner - start);
+    let after = across(end - corner);
+    let bisector = (before + after).unit();
+    let miter = bisector / bisector.dot(before);
+    let section = |point: V2, across: V2, depth: f64| -> Result<Region> {
+        let mut profile = Vec::with_capacity(11);
+        let half_width = DISPLAY_WING_CORNER_GROOVE_HALF_WIDTH;
+        for i in -4..=4 {
+            let t = f64::from(i) / 4.0;
+            let p = point + across * (half_width * t);
+            let blend = (1.0 - t * t).powi(2);
+            let surface = round.edge(side, p.y, p.x)?;
+            profile.push(surface - V3::X * (side * depth * blend));
+        }
+        for sign in [1.0, -1.0] {
+            let p = point + across * (sign * half_width);
+            profile.push(v3(side * (round.r + PAST), p.x, p.y));
+        }
+        Ok(Region::polygon(profile))
+    };
+    let steps = |length: f64| (length / STEP).ceil() as usize;
+    let depth = |t: f64| DISPLAY_WING_CORNER_GROOVE_DEPTH * (1.0 - t).powi(2) * (1.0 + 2.0 * t);
+    let mut sections = vec![];
+    let before_steps = steps((corner - start).norm());
+    for i in (0..=before_steps).rev() {
+        let t = i as f64 / before_steps as f64;
+        sections.push(section(corner + (start - corner) * t, miter + (before - miter) * t, depth(t))?);
+    }
+    let after_steps = steps((end - corner).norm());
+    for i in 1..=after_steps {
+        let t = i as f64 / after_steps as f64;
+        sections.push(section(corner + (end - corner) * t, miter + (after - miter) * t, depth(t))?);
+    }
+    Solid::loft(&sections)
 }
 
 /// How far a relief cutter stands out past the faces it cuts between, into the air.
