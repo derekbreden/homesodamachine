@@ -280,11 +280,11 @@ fn start_and_tangent(segments: &[Segment]) -> Result<(V3, V3)> {
     for s in segments {
         let points: &[[f64; 3]] = match s {
             Segment::Line { points_mm } => points_mm,
-            Segment::Arc { points_mm } => points_mm,
+            Segment::Arc { points_mm, .. } => points_mm,
             Segment::Bezier { control_points_mm } => control_points_mm,
         };
         let start = V3::from(*points.first().context("tube segment has no points")?);
-        if let Segment::Arc { points_mm } = s {
+        if let Segment::Arc { points_mm, .. } = s {
             let (u, v) = (V3::from(points_mm[1]) - start, V3::from(points_mm[2]) - start);
             let w = u.cross(v);
             let center = start + (v * u.norm2() - u * v.norm2()).cross(w) / (2. * w.norm2());
@@ -306,7 +306,7 @@ fn sweep(segments: &[Segment], outer: f64, inner: Option<f64>) -> Result<Solid> 
                 let end = V3::from(points_mm[1]);
                 if (end - path.at()).norm() > 1e-6 { path = path.line_to(end); }
             }
-            Segment::Arc { points_mm } => path = path.arc_through(V3::from(points_mm[1]),
+            Segment::Arc { points_mm, .. } => path = path.arc_through(V3::from(points_mm[1]),
                                                                   V3::from(points_mm[2]))?,
             Segment::Bezier { control_points_mm } => {
                 let controls = control_points_mm.iter().map(|&p| V3::from(p)).collect::<Vec<_>>();
@@ -435,8 +435,8 @@ fn vent_adapter(vent_tip: V3) -> Result<Solid> {
     let (drop, reach, bend) = (9.55, 25.4, 4.05);
     let cup = Solid::cylinder(v3(0., 0., -drop - rt), V3::Z, rb, 8.6 + drop + rt)?;
     let socket = Solid::cylinder(v3(0., 0., -drop), -V3::X, rt, reach)?;
-    let channel = sweep(&[Segment::Arc { points_mm: [
-        [0.,0.,-5.5],[-bend+bend/2_f64.sqrt(),0.,-5.5-bend/2_f64.sqrt()],[-bend,0.,-drop]] }],
+    let channel = sweep(&[Segment::through(
+        [0.,0.,-5.5],[-bend+bend/2_f64.sqrt(),0.,-5.5-bend/2_f64.sqrt()],[-bend,0.,-drop])],
         2., None)?;
     let bore = Solid::cylinder(v3(-bend, 0., -drop), -V3::X, 2., reach - bend + 0.1)?;
     let transition = Solid::cone(v3(0., 0., -5.5), V3::Z, 2., 7.7 / 2., 5.5)?;

@@ -17,9 +17,9 @@ pub fn tail(control: &[V3], t: f64) -> Vec<V3> {
     tails.reverse();
     tails
 }
-fn transition(a: V3, b: V3) -> Value {
+fn transition(a: V3, b: V3) -> [V3; 4] {
     let third = (b[2] - a[2]) / 3.;
-    bezier(&[a, add(a, [0., 0., third]), add(b, [0., 0., -third]), b])
+    [a, add(a, [0., 0., third]), add(b, [0., 0., -third]), b]
 }
 pub fn plan(spec: &Value) -> Result<Value> {
     let selected = &spec["soda_inlet"];
@@ -50,13 +50,18 @@ pub fn plan(spec: &Value) -> Result<Value> {
     let translation = add(centre, mul(zaxis, -zc));
     let insertion = number(&selected["meter_insertion_estimate_mm"])?;
     let inserted = add(mouth, mul(forward, insertion));
-    let transition = transition(guide, start);
-    let controls = points3(&transition["control_points_mm"])?;
+    let controls = transition(guide, start);
+    let transition = bezier(&controls);
     let foam_t = number(&foam["start_above_guide_mm"])? / (start[2] - guide[2]);
     let foam_controls = tail(&controls, foam_t);
     let foam_end = add(mouth, mul(forward, -number(&foam["end_before_meter_mm"])?));
-    let arc = json!({"kind":"arc","points_mm":[start,middle,end],"radius_mm":radius,"center_mm":centre,
-        "axis":[-forward[1],forward[0],0.],"angle_rad":PI/2.});
+    let arc = Segment::Arc {
+        points_mm: [start, middle, end],
+        radius_mm: Some(radius),
+        center_mm: Some(centre),
+        axis: Some([-forward[1], forward[0], 0.]),
+        angle_rad: Some(PI / 2.),
+    };
     let tube_segments = vec![transition, arc.clone(), line(end, inserted)];
     let foam_segments = vec![bezier(&foam_controls), arc, line(end, foam_end)];
     let samples: Vec<_> = (0..129)
@@ -85,7 +90,7 @@ pub fn plan(spec: &Value) -> Result<Value> {
         "foam_model_scope":foam["occupied_model_scope"],"assembly":selected["assembly"]}),
     )
 }
-pub fn tube(spec: &Value) -> Result<Value> {
+pub fn tube(spec: &Value) -> Result<Tube> {
     let p = plan(spec)?;
     let centre = xyz(&p["bend_center_mm"])?;
     let forward = xyz(&p["flow_axis"])?;
@@ -103,11 +108,21 @@ pub fn tube(spec: &Value) -> Result<Value> {
         ));
     }
     points.push(xyz(&p["tube_segments"][2]["points_mm"][1])?);
-    Ok(
-        json!({"points_mm":points,"centerline_mm":points,"segments":p["tube_segments"],"od_mm":p["tube_od_mm"],
-        "id_mm":p["tube_id_mm"],"radius_mm":radius,"minimum_radius_mm":radius,"spool":"blue",
-        "from":"foam-assembly.carb-water-out","frm":"foam-assembly.carb-water-out","to":"digiten-flow.inlet",
-        "owners":["foam-assembly","digiten-flow"],"status":"selected_native_layout",
-        "note":"Continuous soda tube through the plain guide and accepted R14 holder into the meter; the guide adds no insertion, joint or cut."}),
-    )
+    Ok(Tube {
+        radius_mm: Some(Some(radius)),
+        minimum_radius_mm: Some(Some(radius)),
+        from: Some("foam-assembly.carb-water-out".to_owned()),
+        frm: Some("foam-assembly.carb-water-out".to_owned()),
+        to: Some("digiten-flow.inlet".to_owned()),
+        owners: Some(vec!["foam-assembly".to_owned(), "digiten-flow".to_owned()]),
+        status: Some("selected_native_layout".to_owned()),
+        note: Some("Continuous soda tube through the plain guide and accepted R14 holder into the meter; the guide adds no insertion, joint or cut.".to_owned()),
+        ..Tube::of(
+            segments(&p["tube_segments"])?,
+            number(&p["tube_od_mm"])?,
+            number(&p["tube_id_mm"])?,
+            "blue",
+        )
+        .through(points)
+    })
 }

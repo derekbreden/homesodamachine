@@ -66,11 +66,17 @@ pub fn compose(outer: &Value, inner: &Value) -> Result<Value> {
     }
     Ok(json!({"rotation":r,"translation_mm":point(outer,xyz(&inner["translation_mm"])?)?}))
 }
-pub fn line(a: V3, b: V3) -> Value {
-    json!({"kind":"line","points_mm":[a,b]})
+pub use tube::{Segment, Tube};
+pub fn line(a: V3, b: V3) -> Segment {
+    Segment::Line { points_mm: [a, b] }
 }
-pub fn bezier(control: &[V3]) -> Value {
-    json!({"kind":"bezier","control_points_mm":control})
+pub fn bezier(control: &[V3]) -> Segment {
+    Segment::Bezier { control_points_mm: control.to_vec() }
+}
+/// The segments an authored list states.
+pub fn segments(v: &Value) -> Result<Vec<Segment>> {
+    use serde::Deserialize;
+    Vec::deserialize(v).context("expected tube segments")
 }
 pub fn points3(v: &Value) -> Result<Vec<V3>> {
     v.as_array()
@@ -79,7 +85,7 @@ pub fn points3(v: &Value) -> Result<Vec<V3>> {
         .map(xyz)
         .collect()
 }
-pub fn arc(start: V3, tangent: V3, axis: V3, angle: f64, radius: f64) -> (Value, V3) {
+pub fn arc(start: V3, tangent: V3, axis: V3, angle: f64, radius: f64) -> (Segment, V3) {
     let center = add(start, mul(cross(axis, tangent), radius));
     let radial = sub(start, center);
     let at = |t: f64| {
@@ -90,12 +96,17 @@ pub fn arc(start: V3, tangent: V3, axis: V3, angle: f64, radius: f64) -> (Value,
     };
     let end = at(angle);
     (
-        json!({"kind":"arc","points_mm":[start,at(angle/2.),end],"radius_mm":radius,
-        "center_mm":center,"axis":axis,"angle_rad":angle}),
+        Segment::Arc {
+            points_mm: [start, at(angle / 2.), end],
+            radius_mm: Some(radius),
+            center_mm: Some(center),
+            axis: Some(axis),
+            angle_rad: Some(angle),
+        },
         end,
     )
 }
-pub fn arc_three(points: &[V3]) -> Result<Value> {
+pub fn arc_three(points: &[V3]) -> Result<Segment> {
     ensure!(points.len() == 3, "an arc takes three points");
     let [a, m, b] = [points[0], points[1], points[2]];
     let u = sub(m, a);
@@ -116,12 +127,15 @@ pub fn arc_three(points: &[V3]) -> Result<Value> {
     if angle < 0. {
         angle += 2. * PI;
     }
-    Ok(
-        json!({"kind":"arc","points_mm":points,"center_mm":center,"axis":axis,
-        "angle_rad":angle,"radius_mm":norm(start)}),
-    )
+    Ok(Segment::Arc {
+        points_mm: [a, m, b],
+        radius_mm: Some(norm(start)),
+        center_mm: Some(center),
+        axis: Some(axis),
+        angle_rad: Some(angle),
+    })
 }
-pub fn rounded(points: &[V3], radius: f64) -> Result<Vec<Value>> {
+pub fn rounded(points: &[V3], radius: f64) -> Result<Vec<Segment>> {
     let mut clean = Vec::new();
     for &p in points {
         if clean.last().is_none_or(|&q| norm(sub(q, p)) > 1e-7) {
@@ -202,20 +216,20 @@ pub fn bezier_at(control: &[V3], t: f64) -> V3 {
         .collect();
     std::array::from_fn(|i| control.iter().zip(&weights).map(|(p, w)| w * p[i]).sum())
 }
-pub fn sample(segments: &[Value]) -> Result<Vec<V3>> {
+pub fn sample(segments: &[Segment]) -> Result<Vec<V3>> {
     let mut result: Vec<V3> = Vec::new();
     for s in segments {
-        let points = match s["kind"].as_str().context("segment kind")? {
-            "line" => points3(&s["points_mm"])?,
-            "bezier" => {
-                let c = points3(&s["control_points_mm"])?;
-                (0..65).map(|i| bezier_at(&c, i as f64 / 64.)).collect()
+        let points: Vec<V3> = match s {
+            Segment::Line { points_mm } => points_mm.to_vec(),
+            Segment::Bezier { control_points_mm } => {
+                let c = control_points_mm;
+                (0..65).map(|i| bezier_at(c, i as f64 / 64.)).collect()
             }
-            _ => {
-                let c = xyz(&s["center_mm"])?;
-                let axis = xyz(&s["axis"])?;
-                let radial = sub(xyz(&s["points_mm"][0])?, c);
-                let angle = number(&s["angle_rad"])?;
+            Segment::Arc { points_mm, center_mm, axis, angle_rad, .. } => {
+                let c = center_mm.context("expected three coordinates")?;
+                let axis = axis.context("expected three coordinates")?;
+                let radial = sub(points_mm[0], c);
+                let angle = angle_rad.context("expected a number")?;
                 (0..25)
                     .map(|i| {
                         let t = angle * i as f64 / 24.;
@@ -235,7 +249,7 @@ pub fn sample(segments: &[Value]) -> Result<Vec<V3>> {
     }
     Ok(result)
 }
-pub fn crowned_beziers(control: &[V3], crown: f64, intervals: usize) -> Result<Vec<Value>> {
+pub fn crowned_beziers(control: &[V3], crown: f64, intervals: usize) -> Result<Vec<Segment>> {
     ensure!(
         control.len() == 4 && intervals > 0,
         "crowned cubic needs four controls and positive intervals"
@@ -273,8 +287,9 @@ pub fn crowned_beziers(control: &[V3], crown: f64, intervals: usize) -> Result<V
     }
     Ok(out)
 }
-pub fn reservoir_routes(data: &Value) -> Result<Value> {
-    let mut out = serde_json::Map::new();
+/// Reservoir A's tubes as they are written down, by name.
+pub fn reservoir_routes(data: &Value) -> Result<std::collections::BTreeMap<String, Tube>> {
+    let mut out = std::collections::BTreeMap::new();
     for (id, row) in data["paths"].as_object().context("reservoir paths")? {
         let mut segments = Vec::new();
         for s in row["segments"].as_array().context("reservoir segments")? {
@@ -292,16 +307,25 @@ pub fn reservoir_routes(data: &Value) -> Result<Value> {
                 number(&s["angle_rad"])?,
                 number(&s["radius_mm"])?,
             );
-            native["points_mm"][0] = s["start_mm"].clone();
-            native["points_mm"][2] = s["end_mm"].clone();
+            if let Segment::Arc { points_mm, .. } = &mut native {
+                points_mm[0] = start;
+                points_mm[2] = xyz(&s["end_mm"])?;
+            }
             segments.push(native);
         }
         if row["reverse"].as_bool().unwrap_or(false) {
             segments.reverse();
             for s in &mut segments {
-                s["points_mm"].as_array_mut().unwrap().reverse();
-                if s["kind"] == "arc" {
-                    s["axis"] = json!(mul(xyz(&s["axis"])?, -1.));
+                match s {
+                    Segment::Line { points_mm } => points_mm.reverse(),
+                    Segment::Bezier { control_points_mm } => control_points_mm.reverse(),
+                    Segment::Arc { points_mm, axis, .. } => {
+                        points_mm.reverse();
+                        *axis = match *axis {
+                            Some(axis) => Some(mul(axis, -1.)),
+                            None => None,
+                        };
+                    }
                 }
             }
         }
@@ -311,13 +335,26 @@ pub fn reservoir_routes(data: &Value) -> Result<Value> {
         let a = from.split('.').next().unwrap();
         let b = to.split('.').next().unwrap();
         let owners = if a == b { vec![a] } else { vec![a, b] };
-        out.insert(id.clone(),json!({"points_mm":points,"centerline_mm":points,"segments":segments,
-            "od_mm":data["tube_od_mm"],"id_mm":data["tube_id_mm"],"radius_mm":data["minimum_radius_mm"],
-            "minimum_radius_mm":data["minimum_radius_mm"],"spool":data["spool"],"from":from,"frm":from,"to":to,
-            "owners":owners,"status":"selected_native_layout",
-            "note":"Reservoir A continuous tube retained by the fore and aft paired lid anchors; the plain guide adds no joint or cut"}));
+        let radius = data["minimum_radius_mm"].as_f64();
+        out.insert(id.clone(), Tube {
+            radius_mm: Some(radius),
+            minimum_radius_mm: Some(radius),
+            from: Some(from.to_owned()),
+            frm: Some(from.to_owned()),
+            to: Some(to.to_owned()),
+            owners: Some(owners.into_iter().map(str::to_owned).collect()),
+            status: Some("selected_native_layout".to_owned()),
+            note: Some("Reservoir A continuous tube retained by the fore and aft paired lid anchors; the plain guide adds no joint or cut".to_owned()),
+            ..Tube::of(
+                segments,
+                number(&data["tube_od_mm"])?,
+                number(&data["tube_id_mm"])?,
+                data["spool"].as_str().context("reservoir spool")?,
+            )
+            .through(points)
+        });
     }
-    Ok(Value::Object(out))
+    Ok(out)
 }
 
 /// The above-core fittings that are NeoFit stem elbows, among those the layout places: every
