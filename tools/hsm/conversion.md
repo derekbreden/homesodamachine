@@ -184,19 +184,24 @@ as a `Bundle`, a saved course as a `Saved` with its `Station`s, and the wire sto
 It takes each value it needs from a named method of `Sources`. The review that `hsm-wiring`
 writes is a JSON document built from those.
 
-The routes stage's hand-overs are typed.
+The equipment and routes stages' hand-overs are typed, and each request holds only what its
+stage uses.
+[`machine_equipment.rs`](../../hardware/manifold-layout/machine_equipment.rs) defines its
+`Request` of `Item`s: each a name, a transform, a colour and a `Make`, which says how its solids
+are made (a reference model's bodies, a valve, a stem elbow, a pump tube, reducer or clamp, a
+bulkhead or its nut, mounting hardware, the vent adapter). It hands on a `Placed`: each item's
+bodies in the model it wrote, the reference items' drawings and every body's measures.
 [`machine_routes.rs`](../../hardware/manifold-layout/machine_routes.rs) defines its `Request`:
 a `Sweep` for each tube, whose centreline is a list of the layout data's `tube::Segment`, the
 soda `Insulation`, and the placed `Bodies` the foam is cut around. It hands on a `Routed`: the
-swept bodies to place and each tube's developed length. The request holds only what the sweep
-uses, so a tube's notes and ports are outside it.
+swept bodies to place and each tube's developed length.
 
-The other mechanical stages hand each other JSON documents: the pack and the placement plan,
-the equipment request and its result, which holds the tube records the routes request is read
-from, and the facts request. The stage programs
-[`machine_layout.rs`](../../hardware/manifold-layout/machine_layout.rs) and
-[`machine_equipment.rs`](../../hardware/manifold-layout/machine_equipment.rs) read theirs as
-JSON. They call the layout data's functions by name. Typing these documents is open work.
+The other mechanical hand-overs are JSON documents: the pack and the placement plan, the
+facts request, and the equipment request, which `tools/hsm/machine-data/src/equipment.rs`
+builds and the two typed requests are read from. The plan composes the equipment it carries
+from that request and the `Placed`. The placement program
+[`machine_layout.rs`](../../hardware/manifold-layout/machine_layout.rs) reads its request as
+JSON. Typing these documents is open work.
 
 Two record encodings remain in what the mechanical stages read.
 [`enclosure-box.json`](../../hardware/manifold-layout/enclosure-box.json) writes its records as

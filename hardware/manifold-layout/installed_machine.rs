@@ -2,7 +2,6 @@
 //! written-down design and its parts' own files, with shared website meshes, native construction
 //! models, facts and scene views.
 use anyhow::{Context, Result};
-use hsm_kernel::part::Numbers;
 use serde_json::{Value, json};
 use std::path::Path;
 
@@ -189,24 +188,23 @@ fn main() -> Result<()> {
         .to_owned();
     let equipment_dir = work.join("equipment");
     std::fs::create_dir_all(&equipment_dir)?;
-    let equipment = cache.run(
+    let equipment_items = equipment_program::Request {
+        name: name.clone(),
+        items: serde::Deserialize::deserialize(&equipment_request["items"])
+            .context("the equipment request's items")?,
+    };
+    let equipment_model = equipment_dir.join(format!("{name}.step.npz"));
+    let placed: equipment_program::Placed = serde_json::from_value(cache.run(
         "equipment",
-        &equipment_request,
-        &[
-            equipment_dir.join(format!("{name}.step.npz")),
-            equipment_dir.join(format!("{name}.json")),
-        ],
-        || {
-            equipment_program::run(
-                &Numbers::from_value(equipment_request.clone()),
-                &equipment_dir,
-            )?;
-            plan::equipment_plan(&equipment_dir, &name)
-        },
-    )?;
+        &serde_json::to_value(&equipment_items)?,
+        &[equipment_model.clone()],
+        || Ok(serde_json::to_value(equipment_program::run(&equipment_items, &equipment_dir)?)?),
+    )?)
+    .context("the retained equipment")?;
+    let equipment = plan::equipment_document(&equipment_request, &placed, &equipment_model)?;
     let copper = copper::runs(&root, &prepared)?;
     let routes_request =
-        routes_plan::routes_request(&equipment_request, &equipment_dir, &equipment, &copper)?;
+        routes_plan::routes_request(&equipment_request, &equipment_model, &placed.groups, &copper)?;
     let routes_dir = work.join("routes");
     std::fs::create_dir_all(&routes_dir)?;
     let routes: routes_program::Routed = serde_json::from_value(cache.run(
