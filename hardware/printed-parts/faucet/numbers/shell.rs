@@ -526,10 +526,12 @@ pub const DISPLAY_CHANNEL_TOP_N: f64 = DISPLAY_SEAT_REFERENCE_N + DISPLAY_CHANNE
 /// The grooves' half width and the core they leave round the neck.
 pub const DISPLAY_GROOVE_HALF_X: f64 = DISPLAY_NECK_OUTER_R + DISPLAY_GROOVE_REACH;
 pub const DISPLAY_GROOVE_CORE_R: f64 = DISPLAY_NECK_OUTER_R - (DISPLAY_NECK_OUTER_R - DISPLAY_CLIP_GROOVE_RADIUS);
-/// Extra clearance at each end of the groove in world Y and Z.
-pub const DISPLAY_GROOVE_YZ_CLEARANCE: f64 = 0.25;
+/// Extra clearance along the display face at each end of the groove.
+pub const DISPLAY_GROOVE_END_CLEARANCE: f64 = 0.25;
 /// Extra depth towards the center of the neck on each side.
-pub const DISPLAY_GROOVE_X_CLEARANCE: f64 = 0.50;
+pub const DISPLAY_GROOVE_X_CLEARANCE: f64 = 0.75;
+/// Radial relief under the plain ends of the display cover wings.
+pub const DISPLAY_WING_END_RELIEF: f64 = 0.75;
 
 /// The cover's face along s.
 pub fn display_cover_face_length() -> f64 {
