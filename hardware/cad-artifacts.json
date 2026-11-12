@@ -38,7 +38,7 @@
     "hardware/cut-parts/carbonation/endcaps-circular/endcap-circular-2hole.step.mesh": "2dc1966be1e6db9c3aa054602e00e6c96408eac7a9f0bfdfcff943b2fbb00e9f",
     "hardware/cut-parts/faucet/under-counter-plate/under-counter-plate.dxf": "8b1196fa7451cc7b3af804dffbbecbdf1ed217db43a6e1ec0f00741b580eca5b",
     "hardware/cut-parts/faucet/under-counter-plate/under-counter-plate.dxf.json": "d0104c2e8a994dc859257b9361c9f0a12ed026b5339c1c3f54165c65cd039675",
-    "hardware/faucet-layout/faucet-assembly.step": "6cfa0c0afda03ce25c6aba61a7b8d94e23999ea673e678539f32b9c5f2becf31",
+    "hardware/faucet-layout/faucet-assembly.step": "793f0a6496133f26aa11e8706e2272faef08d27e482001d5323bf58cd1aa2c40",
     "hardware/faucet-layout/faucet-assembly.step.mesh": "c0c954cde5c5c37bd16e50c53d64eff727e0351ce2367e90ca1c82a85ca91569",
     "hardware/faucet-layout/faucet-industrial-assembly.step": "0fe171f8209fbfe10552f2f16b57673de57f5cd16e03500d0a99fab5cea94918",
     "hardware/faucet-layout/faucet-industrial-assembly.step.mesh": "acc28ac0d93098b7054da2cd5487bf124335fc965bd837a40db96bff2d2bf19e",
@@ -961,7 +961,7 @@
       "hardware/cut-parts/carbonation/endcaps-circular/endcap-circular-2hole.step.mesh": "2dc1966be1e6db9c3aa054602e00e6c96408eac7a9f0bfdfcff943b2fbb00e9f",
       "hardware/cut-parts/faucet/under-counter-plate/under-counter-plate.dxf": "8b1196fa7451cc7b3af804dffbbecbdf1ed217db43a6e1ec0f00741b580eca5b",
       "hardware/cut-parts/faucet/under-counter-plate/under-counter-plate.dxf.json": "d0104c2e8a994dc859257b9361c9f0a12ed026b5339c1c3f54165c65cd039675",
-      "hardware/faucet-layout/faucet-assembly.step": "6cfa0c0afda03ce25c6aba61a7b8d94e23999ea673e678539f32b9c5f2becf31",
+      "hardware/faucet-layout/faucet-assembly.step": "793f0a6496133f26aa11e8706e2272faef08d27e482001d5323bf58cd1aa2c40",
       "hardware/faucet-layout/faucet-assembly.step.mesh": "c0c954cde5c5c37bd16e50c53d64eff727e0351ce2367e90ca1c82a85ca91569",
       "hardware/faucet-layout/faucet-industrial-assembly.step": "0fe171f8209fbfe10552f2f16b57673de57f5cd16e03500d0a99fab5cea94918",
       "hardware/faucet-layout/faucet-industrial-assembly.step.mesh": "acc28ac0d93098b7054da2cd5487bf124335fc965bd837a40db96bff2d2bf19e",
@@ -2296,7 +2296,7 @@
     "hardware/cut-parts/carbonation/endcaps-circular/endcap-circular-2hole.step.mesh": 1793943432,
     "hardware/cut-parts/faucet/under-counter-plate/under-counter-plate.dxf": 1793811159,
     "hardware/cut-parts/faucet/under-counter-plate/under-counter-plate.dxf.json": 1793750338,
-    "hardware/faucet-layout/faucet-assembly.step": 1794446635.486779,
+    "hardware/faucet-layout/faucet-assembly.step": 1794458160.993837,
     "hardware/faucet-layout/faucet-assembly.step.mesh": 1794458153.557061,
     "hardware/faucet-layout/faucet-industrial-assembly.step": 1794377740.08692,
     "hardware/faucet-layout/faucet-industrial-assembly.step.mesh": 1794445929.08732,
@@ -3283,8 +3283,8 @@
       "unproven": true
     },
     "hardware/faucet-layout/faucet-assembly.step": {
-      "commit": "ba3d99677f8880daea2504343975782b9d0a8dd2",
-      "inputs": "f5ad03870520ec601ea2fad7c14f6b1915271a0b47f1a33d00df59a273f24379",
+      "commit": "d547d57f696973301241c842e74d126209545a9c",
+      "inputs": "0add9de6fac6ac47bf6d7c6b34637e9777c20e2cfe7f5562e7c2b9a6d63c218e",
       "unproven": true
     },
     "hardware/faucet-layout/faucet-assembly.step.mesh": {
