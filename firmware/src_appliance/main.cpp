@@ -1371,13 +1371,14 @@ static void console(const String &line) {
             if (rail == UI_RAIL_NOTICE && tail == "no") act = UI_ACT_DECLINE;
         }
         idleTouched();
-        const bool noWater = machineNotice() == NOTICE_NO_WATER;
+        const uint8_t notice = machineNotice();
         const char *pressed =
-            !act                     ? ""
-            : rail != UI_RAIL_NOTICE ? ", and pressed START"
-            : noWater                ? (act == UI_ACT_COMMIT ? ", and pressed Try again" : ", and pressed Not now")
-            : act == UI_ACT_COMMIT   ? ", and pressed OK, or Skip on Skip's confirmation"
-                                     : ", and pressed Skip, or Cancel on Skip's confirmation";
+            !act                               ? ""
+            : rail != UI_RAIL_NOTICE           ? ", and pressed START"
+            : notice == NOTICE_NO_WATER        ? (act == UI_ACT_COMMIT ? ", and pressed Try again" : ", and pressed Not now")
+            : notice == NOTICE_SWEEP_DONE      ? (act == UI_ACT_COMMIT ? ", and pressed OK" : ", which says Done and has no Skip")
+            : act == UI_ACT_COMMIT             ? ", and pressed OK, or Skip on Skip's confirmation"
+                                               : ", and pressed Skip, or Cancel on Skip's confirmation";
         if (!linkUiShow(rail, channel, act)) {
             Serial.println("\n[ui] the enclosure display did not show it");
         } else {
