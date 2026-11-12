@@ -2,8 +2,8 @@
 
 The complete HSM-0081 back top, HSM-0079 front top, HSM-0082 lower pump
 retainer and HSM-0020 equipment lid carry their production retention geometry.
-Front top is printing on Mark1 as job **1405624302**. The other three parts have
-prepared, reviewed archives and have not been submitted.
+Front top went to Mark1 as job **1405624302**. The other three parts have
+prepared, reviewed archives; what has been sent since is in each part's `prints/` records.
 
 | Complete part | Printer | Estimate | Current review |
 | --- | --- | --- | --- |

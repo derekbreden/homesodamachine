@@ -14,8 +14,10 @@ lower pump retainer HSM-0082 and equipment lid HSM-0020. Their
 binds the final meshes, reinforcement regions and reviewed complete native slices.
 The [prepared print set](../../print-tests/receiver-tool-access/full-part-review/finished/README.md)
 includes the actual support-removal routes, surface readings, printer mappings and
-print-only archive hashes. Front-top HSM-0079 is printing on Mark1 as job
+print-only archive hashes. Front-top HSM-0079's archive went to Mark1 as job
 1405624302. Back-top, the lower retainer and equipment lid have prepared archives.
+What has printed since, and on which machine, is in the [print log](enclosure/print-log.md)
+and each part's `prints/` records.
 The latest physical feedback accepts the other completed snap fits and calls for
 the ASSE adapter and its conforming cavity to rise 0.18 mm. The integrated
 production parts include that alignment and continuous rear receiver bases;
