@@ -34,17 +34,17 @@ pub fn numeric(
     root: &Path,
     at: &terminals::State,
 ) -> Result<(wire_request::Request, Value)> {
-    let (numbers, manifest) = numeric_request(src, root, at, true)?;
+    let (numbers, manifest, _) = numeric_request(src, root, at, true)?;
     Ok((numbers, manifest.context("the wiring review")?))
 }
 
-/// The request the installed wires are cut from.
+/// The request the installed wires are cut from, and the conductors that are not routed.
 pub fn numeric_only(
     src: &sources::Sources,
     root: &Path,
     at: &terminals::State,
-) -> Result<wire_request::Request> {
-    numeric_request(src, root, at, false).map(|(numbers, _)| numbers)
+) -> Result<(wire_request::Request, Vec<model::NotRouted>)> {
+    numeric_request(src, root, at, false).map(|(numbers, _, not_routed)| (numbers, not_routed))
 }
 
 fn numeric_request(
@@ -52,17 +52,21 @@ fn numeric_request(
     root: &Path,
     at: &terminals::State,
     review: bool,
-) -> Result<(wire_request::Request, Option<Value>)> {
+) -> Result<(wire_request::Request, Option<Value>, Vec<model::NotRouted>)> {
     let graph = graph::connections();
-    let routes = routes::routed(src, root, &graph, at)?;
+    let (routes, not_routed) = routes::routed(src, root, &graph, at)?;
     let (mut bodies, terminations) = terminations::inputs(src, at, &graph)?;
     let (jackets, bundles) = bundles::Context::new(src, root, at)?.inputs()?;
     bodies.extend(jackets);
     let numbers = readers::wire_numbers(src, &routes, &model::stock()?, bodies)?;
     let manifest = if review {
-        Some(manifest(at, &graph, &routes, &terminations, &bundles)?)
+        let mut manifest = manifest(at, &graph, &routes, &terminations, &bundles)?;
+        if !not_routed.is_empty() {
+            manifest["not_routed"] = json!(not_routed);
+        }
+        Some(manifest)
     } else {
         None
     };
-    Ok((numbers, manifest))
+    Ok((numbers, manifest, not_routed))
 }

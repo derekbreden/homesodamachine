@@ -263,19 +263,22 @@ pub fn mechanics(mechanical: &Path, previous_scene: &Path, out: &Path) -> Result
     emit(out, "mechanics")
 }
 
-/// Installed wiring replaces only wiring nodes in the completed mechanical scene.
-pub fn complete(mechanical: &Path, wires: &Path, out: &Path) -> Result<()> {
+/// Installed wiring replaces only wiring nodes in the completed mechanical scene. A machine
+/// built without its wiring has none.
+pub fn complete(mechanical: &Path, wires: Option<&Path>, out: &Path) -> Result<()> {
     let mut head = read(mechanical)?;
-    let wires = read(wires)?;
     let nodes = head["meshes"].as_array_mut().context("mechanical nodes")?;
     nodes.retain(|node| !wiring(node["name"].as_str().unwrap_or("")));
-    nodes.extend(
-        wires["meshes"]
-            .as_array()
-            .context("wiring nodes")?
-            .iter()
-            .cloned(),
-    );
+    if let Some(wires) = wires {
+        let wires = read(wires)?;
+        nodes.extend(
+            wires["meshes"]
+                .as_array()
+                .context("wiring nodes")?
+                .iter()
+                .cloned(),
+        );
+    }
     head["iteration"] = json!({"stage":"installed","complete":true});
     write(out, head)?;
     emit(out, "installed")

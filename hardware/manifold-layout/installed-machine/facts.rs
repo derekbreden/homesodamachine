@@ -16,8 +16,14 @@ const PORT_BODIES: [&str; 15] = [
     "jg-pp061208w", "suction-reducer", "vk-solenoid", "water-split",
 ];
 
-/// The facts of the plan `spec`, with the stations taken from the written-down above-core layout.
-pub fn facts(root: &Path, spec: &Value, floor_grommet_squeeze: f64) -> Result<Value> {
+/// The facts of the plan `spec`, with the stations taken from the written-down above-core layout,
+/// and what the wiring is built without where there is anything.
+pub fn facts(
+    root: &Path,
+    spec: &Value,
+    floor_grommet_squeeze: f64,
+    not_wired: &[crate::wiring::NotRouted],
+) -> Result<Value> {
     let above = design::read(root.join("hardware/manifold-layout/above-core.json"))?;
     let c14 = &above["parts"]["c14-inlet"]["translation_mm"];
     let keystone = &above["rear_wall"]["dry_openings"]["keystone"]["face_center_mm"];
@@ -34,5 +40,13 @@ pub fn facts(root: &Path, spec: &Value, floor_grommet_squeeze: f64) -> Result<Va
             "KEYSTONE_STATION": station(keystone)?,
         },
     });
-    crate::reporting::facts(&request)
+    let mut facts = crate::reporting::facts(&request)?;
+    if !not_wired.is_empty() {
+        let rows: Vec<Value> = not_wired
+            .iter()
+            .map(|wire| json!({"id": wire.id, "frm": wire.from, "to": wire.to, "why": wire.reason}))
+            .collect();
+        facts["wiring_not_routed"] = json!(rows);
+    }
+    Ok(facts)
 }

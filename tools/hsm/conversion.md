@@ -210,6 +210,12 @@ the list, the scene views leave those tubes' bodies out, and the facts mark each
 `incomplete` with the tube it lacks and the error, which is what the site's mark over the
 machine's model reads ([`web/contracts/missing-parts.js`](../../web/contracts/missing-parts.js)).
 
+A wire that is not routed does not stop the machine either. Each conductor is routed on its own
+and each conductor, termination and jacket is cut on its own; one whose routing or cutting ends
+in an error is left out as a `NotRouted`. Wiring that ends in an error as a whole leaves the
+machine without wiring. The facts list either under `wiring_not_routed`, a field they carry
+only then.
+
 The other mechanical hand-overs are JSON documents: the pack, the placement plan and the facts
 request. The placement program
 [`machine_layout.rs`](../../hardware/manifold-layout/machine_layout.rs) reads its request as
