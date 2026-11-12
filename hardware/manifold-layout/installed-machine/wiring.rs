@@ -56,15 +56,18 @@ mod sources;
 /// The name the installed-wires program writes its STEP, model and payload under.
 const FILE_STEM: &str = "enclosure-wiring";
 
+pub use model::NotRouted;
+
 /// The request the installed-wires program cuts the machine's wiring from: every conductor's
 /// routed segments and every termination and jacket, resolved against the bodies of the
-/// physical fine model at `physical_model` as the plan `spec` placed them.
+/// physical fine model at `physical_model` as the plan `spec` placed them. Beside it, the
+/// conductors that are not routed, each under its wire's name.
 pub fn wiring_request(
     root: &Path,
     spec: &Value,
     physical_model: &Path,
     cache: &mut crate::cache::Cache,
-) -> Result<wire_request::Request> {
+) -> Result<(wire_request::Request, Vec<NotRouted>)> {
     let sources = sources::Sources::read(root, spec)?;
     let recipe = json!({"plan":spec,"physical_model":physical_model,
         "fits":{"slip":hsm_enclosure_numbers::catalog::slip(),"running":hsm_enclosure_numbers::catalog::running(),
@@ -74,9 +77,30 @@ pub fn wiring_request(
     })?;
     let attachments: terminals::State =
         serde_json::from_value(attachments).context("the retained wire attachments")?;
-    let mut numbers = build::numeric_only(&sources, root, &attachments)?;
+    let (mut numbers, mut not_routed) = build::numeric_only(&sources, root, &attachments)?;
     numbers.file_stem = Some(FILE_STEM.into());
-    Ok(numbers)
+    for wire in &mut not_routed {
+        wire.id = format!("wire-{}", wire.id);
+    }
+    Ok((numbers, not_routed))
+}
+
+/// What the installed-wires program left out of what it cut, as `cut` reports it: a conductor
+/// with the two terminals it would join, a termination or a jacket by its name alone.
+pub fn left_out(cut: &Value) -> Vec<NotRouted> {
+    let graph = graph::connections();
+    let mut out = Vec::new();
+    for row in cut["left_out"].as_array().into_iter().flatten() {
+        let name = row["name"].as_str().unwrap_or_default();
+        let joined = name.strip_prefix("wire-").and_then(|id| graph.iter().find(|c| c.id == id));
+        out.push(NotRouted {
+            id: name.to_owned(),
+            from: joined.map(|c| c.start.clone()).unwrap_or_default(),
+            to: joined.map(|c| c.end.clone()).unwrap_or_default(),
+            reason: row["reason"].as_str().unwrap_or_default().to_owned(),
+        });
+    }
+    out
 }
 
 /// The request the wiring is cut from and the review of it, resolved against the placed

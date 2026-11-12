@@ -312,6 +312,16 @@ pub fn sample(segments: &[Segment], step: f64) -> Vec<V> {
     out
 }
 
+/// A conductor, termination or jacket the wiring is built without: its name, the two terminals
+/// a conductor would join, and the error its routing or its cutting ended in.
+#[derive(Clone, Debug, Serialize, Deserialize)]
+pub struct NotRouted {
+    pub id: String,
+    pub from: String,
+    pub to: String,
+    pub reason: String,
+}
+
 /// A conductor's routed course: the points it is drawn through and the segments fitted to
 /// them.
 #[derive(Clone, Debug, Serialize)]

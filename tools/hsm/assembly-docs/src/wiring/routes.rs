@@ -604,15 +604,14 @@ fn dress(
     Ok(out)
 }
 
-/// Every conductor's route, in the graph's order: along its shared cable where one carries it,
-/// else through its saved stations or its harness's own course, with a straight land at each
-/// terminal.
+/// Every conductor's route, in the graph's order. A conductor whose routing ends in an error is
+/// left out of them and listed beside them as not routed.
 pub fn routed(
     src: &sources::Sources,
     root: &Path,
     connections: &[Connection],
     at: &State,
-) -> Result<Vec<Route>> {
+) -> Result<(Vec<Route>, Vec<model::NotRouted>)> {
     let overrides: BTreeMap<String, Saved> = serde_json::from_value(load(
         root,
         "hardware/wiring/installed/route-overrides.json",
@@ -627,77 +626,98 @@ pub fn routed(
     }
     let stock = model::stock()?;
     let mut result = Vec::new();
+    let mut not_routed = Vec::new();
     let mut bundle_context = bundles::Context::new(src, root, at)?;
     for c in connections {
-        if let Some(shared) = bundle_context.core_route(c)? {
-            result.push(shared);
-            continue;
+        match route(c, at, &overrides, &groups, &stock, &mut bundle_context) {
+            Ok(route) => result.push(route),
+            Err(error) => not_routed.push(model::NotRouted {
+                id: c.id.clone(),
+                from: c.start.clone(),
+                to: c.end.clone(),
+                reason: format!("{error:#}"),
+            }),
         }
-        let id = c.id.as_str();
-        let start = c.start.as_str();
-        let end = c.end.as_str();
-        let mut saved = overrides.get(id).cloned().unwrap_or_default();
-        let mut guides = match &saved.stations {
-            Some(stations) => station_rows(at, stations)?,
-            None => guide(c, at, &groups, &saved)?,
-        };
-        let index = groups[c.harness.as_str()]
-            .iter()
-            .position(|v| v == id)
-            .unwrap() as f64;
-        match saved.front_top_passage.as_deref() {
-            Some("pump") => guides.extend(pump_terminal(c, at, index)?),
-            Some("display") => guides.extend(display_internal(at, index)?),
-            _ => {}
-        }
-        guides = dress(c, guides, at, &mut saved)?;
-        let lead = if model::stock_of(&stock, c)?.awg == 22 {
-            6.
-        } else {
-            8.
-        };
-        let lands = saved.end_lands_mm;
-        let mut start_lead = lands.map_or(lead, |v| v[0]);
-        let mut end_lead = lands.map_or(lead, |v| v[1]);
-        if lands.is_none() {
-            if start.starts_with("psu.") {
-                start_lead = 6.;
-            }
-            if end.starts_with("psu.") {
-                end_lead = 6.;
-            }
-            if ["J9", "J13"].contains(&c.harness.as_str()) {
-                end_lead = 3.;
-            }
-        }
-        if start.starts_with("wago-mana.") || start.starts_with("wago-manb.") {
-            start_lead = 4.;
-        }
-        if end.starts_with("wago-mana.") || end.starts_with("wago-manb.") {
-            end_lead = 4.;
-        }
-        let a = p(at, start)?;
-        let b = p(at, end)?;
-        let mut points = vec![
-            a,
-            add(a, mul(at.terminal(start)?.outward, start_lead)),
-        ];
-        points.extend(guides);
-        points.extend([
-            add(b, mul(at.terminal(end)?.outward, end_lead)),
-            b,
-        ]);
-        result.push(model::finish(
-            c,
-            points,
-            saved.bend_radius_mm,
-            saved.endpoint_tangent_fraction.unwrap_or(0.44),
-            saved
-                .note
-                .as_deref()
-                .unwrap_or("Selected installed route between native terminal frames."),
-            saved.route_status.as_deref().unwrap_or("selected_layout"),
-        )?);
     }
-    Ok(result)
+    Ok((result, not_routed))
+}
+
+/// One conductor's route: along its shared cable where one carries it, else through its saved
+/// stations or its harness's own course, with a straight land at each terminal.
+fn route(
+    c: &Connection,
+    at: &State,
+    overrides: &BTreeMap<String, Saved>,
+    groups: &BTreeMap<String, Vec<String>>,
+    stock: &BTreeMap<String, model::Stock>,
+    bundle_context: &mut bundles::Context,
+) -> Result<Route> {
+    if let Some(shared) = bundle_context.core_route(c)? {
+        return Ok(shared);
+    }
+    let id = c.id.as_str();
+    let start = c.start.as_str();
+    let end = c.end.as_str();
+    let mut saved = overrides.get(id).cloned().unwrap_or_default();
+    let mut guides = match &saved.stations {
+        Some(stations) => station_rows(at, stations)?,
+        None => guide(c, at, groups, &saved)?,
+    };
+    let index = groups[c.harness.as_str()]
+        .iter()
+        .position(|v| v == id)
+        .unwrap() as f64;
+    match saved.front_top_passage.as_deref() {
+        Some("pump") => guides.extend(pump_terminal(c, at, index)?),
+        Some("display") => guides.extend(display_internal(at, index)?),
+        _ => {}
+    }
+    guides = dress(c, guides, at, &mut saved)?;
+    let lead = if model::stock_of(stock, c)?.awg == 22 {
+        6.
+    } else {
+        8.
+    };
+    let lands = saved.end_lands_mm;
+    let mut start_lead = lands.map_or(lead, |v| v[0]);
+    let mut end_lead = lands.map_or(lead, |v| v[1]);
+    if lands.is_none() {
+        if start.starts_with("psu.") {
+            start_lead = 6.;
+        }
+        if end.starts_with("psu.") {
+            end_lead = 6.;
+        }
+        if ["J9", "J13"].contains(&c.harness.as_str()) {
+            end_lead = 3.;
+        }
+    }
+    if start.starts_with("wago-mana.") || start.starts_with("wago-manb.") {
+        start_lead = 4.;
+    }
+    if end.starts_with("wago-mana.") || end.starts_with("wago-manb.") {
+        end_lead = 4.;
+    }
+    let a = p(at, start)?;
+    let b = p(at, end)?;
+    let mut points = vec![
+        a,
+        add(a, mul(at.terminal(start)?.outward, start_lead)),
+    ];
+    points.extend(guides);
+    points.extend([
+        add(b, mul(at.terminal(end)?.outward, end_lead)),
+        b,
+    ]);
+    model::finish(
+        c,
+        points,
+        saved.bend_radius_mm,
+        saved.endpoint_tangent_fraction.unwrap_or(0.44),
+        saved
+            .note
+            .as_deref()
+            .unwrap_or("Selected installed route between native terminal frames."),
+        saved.route_status.as_deref().unwrap_or("selected_layout"),
+    )
 }

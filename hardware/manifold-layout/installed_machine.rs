@@ -85,6 +85,25 @@ fn sorted(value: &Value) -> Value {
     }
 }
 
+/// The machine's wiring, routed against the fine model at `fine` and cut into `wiring_dir`: the
+/// conductors, terminations and jackets it is built without.
+fn wire(
+    root: &Path,
+    plan: &Value,
+    fine: &Path,
+    wiring_dir: &Path,
+    cache: &mut cache::Cache,
+) -> Result<Vec<wiring::NotRouted>> {
+    let (wiring_request, mut left_out) = wiring::wiring_request(root, plan, fine, cache)?;
+    write_json(
+        &wiring_dir.join("request.json"),
+        &serde_json::to_value(&wiring_request)?,
+    )?;
+    let cut = wires_program::run(&wiring_request, wiring_dir)?;
+    left_out.extend(wiring::left_out(&cut));
+    Ok(left_out)
+}
+
 fn main() -> Result<()> {
     let mut placements_only = false;
     let mut destination = None;
@@ -265,21 +284,36 @@ fn main() -> Result<()> {
     progress::mechanics(&mechanical_mesh, &previous_scene, &payload)?;
     let wiring_dir = work.join("wiring");
     std::fs::create_dir_all(&wiring_dir)?;
-    let wiring_request = wiring::wiring_request(&root, &plan, &fine, &mut cache)?;
-    write_json(
-        &wiring_dir.join("request.json"),
-        &serde_json::to_value(&wiring_request)?,
-    )?;
-    wires_program::run(&wiring_request, &wiring_dir)?;
-    progress::complete(
-        &mechanical_mesh,
-        &wiring_dir.join("enclosure-wiring.step.mesh"),
-        &payload,
-    )?;
+    // A wire that is not routed is left out, and wiring that ends in an error leaves the
+    // machine without wiring; the facts list either.
+    let not_wired = match wire(&root, &plan, &fine, &wiring_dir, &mut cache) {
+        Ok(left_out) => {
+            progress::complete(
+                &mechanical_mesh,
+                Some(&wiring_dir.join("enclosure-wiring.step.mesh")),
+                &payload,
+            )?;
+            plan["metadata"]["wiring_names"] =
+                plan::wiring_names(&wiring_dir.join("enclosure-wiring.step.npz"))?;
+            left_out
+        }
+        Err(error) => {
+            progress::complete(&mechanical_mesh, None, &payload)?;
+            plan["metadata"]["wiring_names"] = json!([]);
+            vec![wiring::NotRouted {
+                id: "wiring".to_owned(),
+                from: String::new(),
+                to: String::new(),
+                reason: format!("{error:#}"),
+            }]
+        }
+    };
+    for wire in &not_wired {
+        let ends = if wire.from.is_empty() { String::new() } else { format!(", {} to {}", wire.from, wire.to) };
+        eprintln!("installed-machine: left out {}{ends}: {}", wire.id, wire.reason);
+    }
 
     // The scene views, cut from the finished model.
-    plan["metadata"]["wiring_names"] =
-        plan::wiring_names(&wiring_dir.join("enclosure-wiring.step.npz"))?;
     let glb = out.join("hardware/assembly/scenes/glb");
     std::fs::create_dir_all(&glb)?;
     let views = scenes::views_spec(&root, &plan, &fine, &payload)?;
@@ -291,7 +325,7 @@ fn main() -> Result<()> {
         .context("the floor grommets' squeeze")?;
     write_json(
         &shown.join("enclosure-assembly.facts.json"),
-        &facts::facts(&root, &plan, squeeze)?,
+        &facts::facts(&root, &plan, squeeze, &not_wired)?,
     )?;
     progress::remember(&mut cache, placement_state, &payload, &previous_scene)?;
     Ok(())
