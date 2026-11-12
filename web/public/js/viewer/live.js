@@ -33,6 +33,7 @@ import { renderMmdThumbnail } from "./mermaid.js";
 import { renderPcbThumbnail } from "./pcb.js";
 import { fetchFiles } from "./main.js";
 import { mountScorecard } from "./scorecard-3d.js";
+import { mountMissing } from "./missing-parts.js";
 import { afterGesture } from "./scene.js";
 import { HSM_EVENTS } from "/contracts/client-events.js";
 import { isMounted } from "./lazy.js";
@@ -145,6 +146,7 @@ async function reloadCad(type, file) {
     await load(file, { preserveCamera: true });
     if (type === "step" && isOpenAs(type, file) && wrapper === state.currentCadWrapper && wrapper) {
       mountScorecard(wrapper, file);
+      mountMissing(wrapper, file);
     }
   });
 }

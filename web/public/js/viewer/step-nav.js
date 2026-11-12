@@ -19,6 +19,7 @@ import { materialForView } from "/contracts/materials.js";
 import { camera, controls, saveCameraState, applyCameraState } from "./scene.js";
 import { loadStepFile } from "./step.js";
 import { mountScorecard } from "./scorecard-3d.js";
+import { mountMissing } from "./missing-parts.js";
 import { mountRelated } from "./related-nav.js";
 
 // The models above the one on screen, outermost first. Reset whenever a move
@@ -207,6 +208,7 @@ async function showStep(file, push, view = null, { preview = false, target = nul
   syncCrumb(file, parents);
   if (state.currentCadWrapper) {
     mountScorecard(state.currentCadWrapper, file);
+    mountMissing(state.currentCadWrapper, file);
     mountRelated(state.currentCadWrapper, file, parents);
   }
   return true;

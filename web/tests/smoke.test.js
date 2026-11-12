@@ -309,6 +309,16 @@ test("GET /api/step-scorecard/* serves a scorecard sidecar when one exists", asy
   assert.match(res.headers.get("content-type") || "", /^application\/json/);
 });
 
+test("GET /api/step-missing/* answers what a model's facts say it is missing", async (t) => {
+  const rel = await firstFileWithExt(path.join(REPO_ROOT, "hardware"), ".facts.json");
+  if (!rel) return t.skip("no .facts.json under hardware/");
+  const res = await fetch(`${baseUrl}/api/step-missing/${rel}`);
+  assert.equal(res.status, 200);
+  assert.ok(Array.isArray((await res.json()).missing), "the answer lists the missing runs");
+  const other = await fetch(`${baseUrl}/api/step-missing/ledger/bom.json`);
+  assert.equal(other.status, 400, "only a model's facts are read");
+});
+
 // CONFINEMENT IS THE ONE BEHAVIOUR OF THE TAIL THAT MUST NOT MOVE. Every route above
 // resolves its tail against the content root and must refuse to leave it, whether the
 // climb is written plainly or percent-encoded — the router decodes before the route

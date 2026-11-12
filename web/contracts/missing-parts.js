@@ -1,0 +1,53 @@
+// What a machine's published facts say it is missing.
+//
+// The installed machine's facts (<model>.facts.json, a published file beside its STEP) list
+// every run the plumbing needs — a tube, a mate, a threaded joint — with the two ports it joins
+// and whether the machine as built completes it. This reads the runs it does not complete, for
+// the notice the 3D viewer draws over the model (public/js/viewer/missing-parts.js). The site
+// reads the published file when a model is opened; the build does nothing for it.
+
+export const FACTS_SUFFIX = ".facts.json";
+
+// A STEP path -> the facts beside it (both root-relative).
+export function factsPathFor(stepPath) {
+  return stepPath.replace(/\.step$/, FACTS_SUFFIX);
+}
+
+/**
+ * @typedef {Object} MissingRun
+ * @property {string} id    the run's connection id, such as "fluid-26"
+ * @property {string} from  the port it leaves, "body.port"
+ * @property {string} to    the port it reaches, "body.port"
+ */
+
+/**
+ * The runs `facts` lists that the machine does not complete, in the facts' order.
+ * @returns {MissingRun[]}
+ */
+export function missingRuns(facts) {
+  const runs = Array.isArray(facts?.runs) ? facts.runs : [];
+  return runs
+    .filter((run) => run && typeof run.id === "string" && run.status !== "complete")
+    .map((run) => ({ id: run.id, from: String(run.frm ?? ""), to: String(run.to ?? "") }));
+}
+
+// The body a port is on: "valve-v-h.inlet" -> "valve-v-h".
+export function bodyOf(port) {
+  return String(port ?? "").split(".")[0];
+}
+
+/**
+ * The bodies in a scene that stand for the body `name`, among the scene's `names`: the body
+ * itself, the same body carried by the cold core, or the cold core's casing for the foam
+ * assembly.
+ * @param {string} name
+ * @param {Iterable<string>} names
+ * @returns {string[]}
+ */
+export function sceneBodies(name, names) {
+  const held = new Set(names);
+  if (held.has(name)) return [name];
+  if (held.has(`cold-core/${name}`)) return [`cold-core/${name}`];
+  if (name === "foam-assembly") return [...held].filter((n) => n.startsWith("cold-core/foam-"));
+  return [];
+}
