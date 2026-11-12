@@ -62,13 +62,12 @@ else, and ends with its lease, a release or a restart. The loop watchdog has no 
 is owed, gas on the meter beginning the count, the lever let go pausing it with the count
 kept, one empty reading inside the flow, the target said once with the sweep still owed while
 the lever is down, the meter going quiet ending it and a sputter not, a sweep given up with
-gas moving waiting for that same quiet, a reed that stays closed dropping it while one that
-blinks or cannot be read does not, and the target as the tank passed through the meter.
+gas moving waiting for that same quiet, and the target as the tank passed through the meter.
 `test_machine_sweep` runs the production machine code through one. A sweep that is owed holds
 the refill and opens no pour on the meter's pulses; the target chimes and is noted; no fill
 starts while the lever is down; the lever let go brings the first fill and clears the flash;
 both glasses' notice follows it through. It checks a sweep kept through a power cut and one
-lost between the target and the lever, a tank found wet, a sweep refused over water, a latched
+lost between the target and the lever, a sweep that stands whatever the reeds read, a latched
 refill dropped by owing one, and the ways a sweep is given up: at the machine with no gas
 moving, at the machine with the lever down, which waits for the lever, and forgotten at a
 bench, where gas still moving opens no pour. Gas through a real meter has no host test: the
@@ -81,11 +80,11 @@ begins, and a move called off.
 that follow a drain. A machine that is moving starts no refill, opens no pour and begins
 nothing else; a pour or refill under way is stopped; a busy manifold refuses it; calling it
 off runs the refill the float asked for. The power going ends it, and the next start owes a
-sweep and fills only after the lever. It checks a tank that was never emptied dropping that
-sweep, and a machine moved before its first sweep. For a start it checks a filled tank
-emptied with the power off getting its water back, a high reed found closed asking for
-nothing, a board that never filled a tank, a sweep or a refill already owed, and a reading
-from the console filling no tank.
+sweep and fills only after the lever. It checks a move that never emptied the tank still
+starting with the welcome, and a machine moved before its first sweep. For a start it checks
+a filled tank emptied with the power off getting its water back, a high reed found closed
+asking for nothing, a board that never filled a tank, a sweep or a refill already owed, and a
+reading from the console filling no tank.
 `test_machine_month` lives a month at a kitchen sink on the build host: the production machine
 code against a carbonator that drains and fills, a cooling loop that warms and cools, and a
 household that pours, with the clock crossing its wrap on the way. An ordinary month must

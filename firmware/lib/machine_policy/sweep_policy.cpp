@@ -2,14 +2,13 @@
 
 namespace machine_policy {
 
-Sweep::Sweep() : state_(SweepState::Clear), pulses_(0), flowed_(0), quiet_(0), wet_(0) {}
+Sweep::Sweep() : state_(SweepState::Clear), pulses_(0), flowed_(0), quiet_(0) {}
 
 void Sweep::owe() {
     state_  = SweepState::Owed;
     pulses_ = 0;
     flowed_ = 0;
     quiet_  = 0;
-    wet_    = 0;
 }
 
 void Sweep::clear() {
@@ -17,18 +16,16 @@ void Sweep::clear() {
     pulses_ = 0;
     flowed_ = 0;
     quiet_  = 0;
-    wet_    = 0;
 }
 
 bool Sweep::giveUpWhileFlowing() {
     if (state_ != SweepState::Flowing) return false;
     state_ = SweepState::Releasing;
     quiet_ = 0;
-    wet_   = 0;
     return true;
 }
 
-SweepAction Sweep::sample(uint32_t pulses, const RefillReading &reeds) {
+SweepAction Sweep::sample(uint32_t pulses) {
     if (state_ == SweepState::Clear) return SweepAction::None;
 
     if (state_ == SweepState::Releasing) {
@@ -42,25 +39,12 @@ SweepAction Sweep::sample(uint32_t pulses, const RefillReading &reeds) {
         return SweepAction::None;
     }
 
-    // Reeds that cannot be read are not reeds that read closed.
-    if (reeds.valid && (reeds.lowClosed || reeds.highClosed)) {
-        if (++wet_ >= kSweepWetSamples) {
-            state_ = SweepState::Clear;
-            quiet_ = 0;
-            wet_   = 0;
-            return SweepAction::Moot;
-        }
-    } else {
-        wet_ = 0;
-    }
-
     if (pulses >= kFlowMinPulses) {
         quiet_ = 0;
         pulses_ = pulses > kSweepTargetPulses - pulses_ ? kSweepTargetPulses : pulses_ + pulses;
         if (flowed_ < kSweepCeilingSamples) flowed_++;
         if (pulses_ >= kSweepTargetPulses || flowed_ >= kSweepCeilingSamples) {
             state_ = SweepState::Releasing;
-            wet_   = 0;
             return SweepAction::Done;
         }
         if (state_ == SweepState::Owed) {

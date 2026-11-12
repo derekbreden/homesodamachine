@@ -1363,7 +1363,7 @@ static void sweepSample(uint32_t pulses, uint32_t now) {
     if (sweepDoneMs && !sweep.owed() && now - sweepDoneMs >= kSweepDoneNoticeMs) sweepDoneMs = 0;
     if (!sweep.owed()) return;
 
-    switch (sweep.sample(pulses, carbonatorReading())) {
+    switch (sweep.sample(pulses)) {
         case machine_policy::SweepAction::Began:
             if (!sweepBeganMs) sweepBeganMs = now ? now : 1;
             sweepNoteMs = now;
@@ -1392,11 +1392,6 @@ static void sweepSample(uint32_t pulses, uint32_t now) {
             sweepDoneMs = now ? now : 1;
             Serial.println("\n[machine] sweep: the lever is let go — the first fill is asked for");
             machineRefillRequest();
-            break;
-        case machine_policy::SweepAction::Moot:
-            Serial.println("\n[machine] sweep dropped: the carbonator holds water");
-            sweepRecord(machine_log::SweepEnd::Moot, now);
-            sweepKeep(false);
             break;
         case machine_policy::SweepAction::None:
             break;
@@ -2014,16 +2009,13 @@ void machineSweep(MachineSweep &s) {
     s.pulses  = sweep.pulses();
 }
 
-bool machineSweepOwe() {
-    const machine_policy::RefillReading rd = carbonatorReading();
-    if (rd.valid && (rd.lowClosed || rd.highClosed)) return false;
+void machineSweepOwe() {
     machineRefillForget();
     sweep.owe();
     sweepBeganMs = 0;
     sweepDoneMs  = 0;
     sweepNoFill  = false;
     sweepKeep(true);
-    return true;
 }
 
 bool machineSweepSkip() {
