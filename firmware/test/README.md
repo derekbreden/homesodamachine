@@ -36,6 +36,16 @@ skipping a full reservoir, and stopping motors before emergency valve closure on
 health-read faults in every cleaning step. They cover inlet-close failures and gas stops.
 These tests do not establish
 physical wet operation.
+`test_machine_log` keeps the machine's record in a flash region made of RAM that can only
+clear bits and can lose power part-way through a write. It checks that an entry survives its
+round trip and that any damaged byte is seen, that a restart finds the head and carries the
+count on, that a full ring asks for one erase and loses only its oldest sector, that power
+lost in a write costs one slot wherever in the entry it fell — a sector's first slot
+included — that a region holding other bytes starts clean, and the line an entry reads as.
+`test_machine_prime` holds what the production machine code notes: a pour with its length
+and bursts, a refill draw ending full, taken down by a pour, or timing out with the fault
+sounded once, a compressor run with its coldest coil, probes that never answer, a probe that
+chatters and the gas alarm inside the note gap, and a prime and a fill as they end.
 `test_pour_policy` checks the pour's cycle timing at 1:20, 1:6 and 1:24, the clamps either
 side of the flow reading and the floor and ceiling on the two phases, the sequence one pour
 walks — valves and pump opening on the first reading, each cycle's timing taken from the

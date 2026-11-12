@@ -1,6 +1,7 @@
 #include <Arduino.h>
 #include <Wire.h>
 
+#include "machine_log.h"
 #include "rtc.h"
 #include "pins.h"
 
@@ -92,6 +93,17 @@ void rtcStamp(char *out, size_t n) {
     snprintf(out, n, "20%02u-%02u-%02u %02u:%02u:%02u",
              bcdToBin(tb[6]), bcdToBin(tb[5] & 0x1F), bcdToBin(tb[4]),
              hour, bcdToBin(tb[1]), bcdToBin(tb[0] & 0x7F));
+}
+
+uint32_t rtcClock() {
+    uint8_t tb[7], st;
+    if (!i2cRead(REG_STATUS, &st, 1) || (st & 0x80) || !i2cRead(REG_SECONDS, tb, 7)) return 0;
+    uint8_t hr = tb[2];
+    int hour = (hr & 0x40) ? ((bcdToBin(hr & 0x1F) % 12) + ((hr & 0x20) ? 12 : 0))
+                           : bcdToBin(hr & 0x3F);
+    return machine_log::clockFromCivil(2000 + bcdToBin(tb[6]), bcdToBin(tb[5] & 0x1F),
+                                       bcdToBin(tb[4]), hour, bcdToBin(tb[1]),
+                                       bcdToBin(tb[0] & 0x7F));
 }
 
 bool rtcSet(int year, int mon, int day, int hour, int min, int sec) {

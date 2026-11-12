@@ -13,6 +13,7 @@
 #include "onewire.h"
 #include "refill_policy.h"
 #include "pins.h"
+#include "recorder.h"
 #include "rtc.h"
 #include "sound.h"
 #include "settings.h"
@@ -75,6 +76,9 @@
 
 static void console(const String &line);
 
+// What a bare `log` prints: enough to see the last day at the faucet on one screen.
+static const long kLogDefaultEntries = 40;
+
 void setup() {
     machineBegin();   // actuators parked before anything else runs — including U8's coil
 
@@ -102,6 +106,7 @@ void setup() {
         rtcStamp(when, sizeof(when));
         Serial.printf("U6 DS3231: %s\n", when);
     }
+    recorderBegin();
     Serial.printf("sound: volume %u%%, quiet hours %s%s\n", soundVolume(),
                   soundQuietOn() ? "on" : "off",
                   soundInQuietHours() ? " — in force now" : "");
@@ -149,6 +154,10 @@ void loop() {
     soundService();     // U8's step boundaries — nothing here blocks, and it must
                         // run every pass: LEDC keeps oscillating on its own, so a
                         // sequencer that stops being serviced holds the coil on.
+
+    // The record reaches flash on the same terms as the selection below: a write stalls
+    // this loop, so it waits for nothing to be running and nothing to be sounding.
+    recorderService(machineState() == ST_IDLE && !soundBusy());
 
     // Preferences can occasionally compact a flash page. Keep that work out of
     // every pump deadline and sound step; the logo already changed locally.
@@ -241,6 +250,9 @@ static void help() {
     Serial.println("  selftest          every solenoid in turn, the fan, then each pump — one at a time");
     Serial.println("  thermal           the 1-wire bus: every ROM found, its family and its last reading");
     Serial.println("  refill clear      leave a latched refill TIMEOUT or FAULT");
+    Serial.printf("  log [n|all|status]   the machine's record: its newest n entries (default %ld),\n",
+                  kLogDefaultEntries);
+    Serial.println("                    every entry it holds, or where the ring stands");
     Serial.println("  sim tank <C> coil <C>   put a reading at the top of the cold loop; -- for a probe");
     Serial.println("                    that does not answer. The policy, the relays and the fan then run");
     Serial.println("                    for real on it");
@@ -842,6 +854,14 @@ static void console(const String &line) {
     if (line == "refill clear") {
         machineRefillClear();
         Serial.println("\n[machine] refill latch cleared");
+        return;
+    }
+    if (line == "log status") { recorderReport(); return; }
+    if (line == "log" || line.startsWith("log ")) {
+        const String arg = line.length() > 4 ? line.substring(4) : String("");
+        const long n = arg == "all" ? -1 : arg.length() ? arg.toInt() : kLogDefaultEntries;
+        if (n == 0) { Serial.println("\nlog [n|all|status]"); return; }
+        recorderPrint(n < 0 ? UINT32_MAX : (uint32_t)n);
         return;
     }
     // ── Injected readings ─────────────────────────────────────────────────

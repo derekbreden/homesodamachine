@@ -5,6 +5,7 @@
 #include "fakes/Arduino.h"
 #include "../../src_appliance/pins.h"
 #include "../../src_appliance/pcba_expanders.cpp"
+#include "machine_log.h"
 #include "sound_policy.h"
 #include "sound.h"
 
@@ -30,6 +31,7 @@ int modes[40] = {};
 bool attachSucceeds = true;
 bool pumpClosedAgainstDrive = false;
 SoundId sounding = SND_NONE;
+std::vector<machine_log::Entry> noted;
 
 class RegisterBus : public pcba::Transport {
 public:
@@ -143,6 +145,19 @@ void oneWireRead(float &tank, bool &tankValid, float &coil, bool &coilValid) {
 uint8_t oneWireDeviceCount() { return 0; }
 uint8_t flavorSelected() { return 0; }
 uint8_t flavorRatio(uint8_t) { return 20; }
+
+// The recorder's queue and flash stay on the board; what machine.cpp notes is kept here.
+void recorderNote(machine_log::Kind kind, uint8_t detail,
+                  uint32_t a, uint32_t b, int16_t d, int16_t e) {
+    machine_log::Entry entry;
+    entry.kind   = kind;
+    entry.detail = detail;
+    entry.a      = a;
+    entry.b      = b;
+    entry.d      = d;
+    entry.e      = e;
+    host::noted.push_back(entry);
+}
 
 namespace pcba {
 Expanders &expanders() {
@@ -852,6 +867,249 @@ void test_selftest_motor_step_remains_an_individual_load() {
 
 }  // namespace
 
+std::vector<machine_log::Entry> notedOf(machine_log::Kind kind) {
+    std::vector<machine_log::Entry> out;
+    for (const machine_log::Entry &entry : host::noted)
+        if (entry.kind == kind) out.push_back(entry);
+    return out;
+}
+
+void test_a_pour_is_noted_when_its_path_closes() {
+    const uint32_t flowMs = 2000;
+    machineFlowSimulate(6, flowMs);
+    const uint32_t began = host::now;
+    bool poured = false;
+    for (uint32_t t = machine_policy::kFlowSampleMs; t <= flowMs * 3; t += machine_policy::kFlowSampleMs) {
+        runAt(began + t);
+        if (machineIsPouring()) poured = true;
+        else if (poured) break;
+    }
+    TEST_ASSERT_TRUE(poured);
+    TEST_ASSERT_EQUAL(ST_IDLE, machineState());
+    expectParked();
+
+    const std::vector<machine_log::Entry> pours = notedOf(machine_log::Kind::Pour);
+    TEST_ASSERT_EQUAL_UINT32(1, pours.size());
+    TEST_ASSERT_EQUAL_UINT8(0, machine_log::detailLow(pours[0].detail));
+    TEST_ASSERT_EQUAL_UINT8(static_cast<uint8_t>(machine_log::PourEnd::FlowStopped),
+                            machine_log::detailHigh(pours[0].detail));
+    TEST_ASSERT_TRUE(pours[0].a >= flowMs - machine_policy::kFlowSampleMs);
+    TEST_ASSERT_TRUE(pours[0].a < flowMs * 2);
+    // The bench's pretend reading turns no impeller, and the entry says so.
+    TEST_ASSERT_EQUAL_UINT32(0, pours[0].b);
+    TEST_ASSERT_TRUE(pours[0].d >= 1);
+    TEST_ASSERT_EQUAL_INT16(20, pours[0].e);
+}
+
+void test_a_pour_stopped_on_request_is_noted_as_stopped() {
+    machineFlowSimulate(6, 5000);
+    runAt(host::now + machine_policy::kFlowSampleMs);
+    runAt(host::now + machine_policy::kFlowSampleMs);
+    TEST_ASSERT_TRUE(machineIsPouring());
+    machineStop();
+    expectParked();
+    const std::vector<machine_log::Entry> pours = notedOf(machine_log::Kind::Pour);
+    TEST_ASSERT_EQUAL_UINT32(1, pours.size());
+    TEST_ASSERT_EQUAL_UINT8(static_cast<uint8_t>(machine_log::PourEnd::Stopped),
+                            machine_log::detailHigh(pours[0].detail));
+}
+
+void test_a_refill_that_reaches_the_high_reed_is_noted_full() {
+    machineSimReeds(true, false);
+    machineService();
+    runAt(host::now + machine_policy::kRefillDebounceMs);
+    TEST_ASSERT_EQUAL(ST_REFILLING, machineState());
+    const uint32_t drawMs = 5000;
+    runAt(host::now + drawMs);
+    TEST_ASSERT_EQUAL(ST_REFILLING, machineState());
+    machineSimReeds(false, true);
+    runAt(host::now + 250);
+    TEST_ASSERT_EQUAL(ST_IDLE, machineState());
+    expectParked();
+
+    const std::vector<machine_log::Entry> refills = notedOf(machine_log::Kind::Refill);
+    TEST_ASSERT_EQUAL_UINT32(1, refills.size());
+    TEST_ASSERT_EQUAL_UINT8(static_cast<uint8_t>(machine_log::RefillEnd::Full), refills[0].detail);
+    TEST_ASSERT_TRUE(refills[0].a >= drawMs);
+    TEST_ASSERT_TRUE(refills[0].a <= drawMs + 250);
+    TEST_ASSERT_NOT_EQUAL(SND_FAULT, host::sounding);
+}
+
+void test_a_refill_that_times_out_sounds_the_fault_and_is_noted_once() {
+    machineSimReeds(true, false);
+    machineService();
+    runAt(host::now + machine_policy::kRefillDebounceMs);
+    TEST_ASSERT_EQUAL(ST_REFILLING, machineState());
+    TEST_ASSERT_NOT_EQUAL(SND_FAULT, host::sounding);
+
+    const uint32_t began = host::now;
+    for (uint32_t t = 1000; t < machine_policy::kRefillCeilingMs; t += 1000) runAt(began + t);
+    TEST_ASSERT_EQUAL(ST_REFILLING, machineState());
+    TEST_ASSERT_EQUAL_UINT32(0, notedOf(machine_log::Kind::Refill).size());
+    runAt(began + machine_policy::kRefillCeilingMs);
+
+    TEST_ASSERT_EQUAL(ST_IDLE, machineState());
+    expectParked();
+    MachineThermal thermal;
+    machineThermal(thermal);
+    TEST_ASSERT_EQUAL_UINT8(static_cast<uint8_t>(machine_policy::RefillState::Timeout),
+                            thermal.refillState);
+    TEST_ASSERT_FALSE(thermal.refillRelay);
+    TEST_ASSERT_EQUAL(SND_FAULT, host::sounding);
+
+    std::vector<machine_log::Entry> refills = notedOf(machine_log::Kind::Refill);
+    TEST_ASSERT_EQUAL_UINT32(1, refills.size());
+    TEST_ASSERT_EQUAL_UINT8(static_cast<uint8_t>(machine_log::RefillEnd::Timeout), refills[0].detail);
+    TEST_ASSERT_EQUAL_UINT32(machine_policy::kRefillCeilingMs, refills[0].a);
+
+    // The latch holds with the low reed still asking, and says nothing more.
+    host::sounding = SND_NONE;
+    runAt(host::now + machine_policy::kRefillCeilingMs);
+    TEST_ASSERT_EQUAL(ST_IDLE, machineState());
+    TEST_ASSERT_EQUAL_UINT32(1, notedOf(machine_log::Kind::Refill).size());
+    TEST_ASSERT_EQUAL(SND_NONE, host::sounding);
+}
+
+void test_a_pour_that_takes_the_refill_down_notes_both() {
+    machineSimReeds(true, false);
+    machineService();
+    runAt(host::now + machine_policy::kRefillDebounceMs);
+    TEST_ASSERT_EQUAL(ST_REFILLING, machineState());
+    machineFlowSimulate(6, 1000);
+    runAt(host::now + machine_policy::kFlowSampleMs);
+    runAt(host::now + machine_policy::kFlowSampleMs);
+    TEST_ASSERT_TRUE(machineIsPouring());
+    MachineThermal thermal;
+    machineThermal(thermal);
+    TEST_ASSERT_FALSE(thermal.refillRelay);
+
+    const std::vector<machine_log::Entry> refills = notedOf(machine_log::Kind::Refill);
+    TEST_ASSERT_EQUAL_UINT32(1, refills.size());
+    TEST_ASSERT_EQUAL_UINT8(static_cast<uint8_t>(machine_log::RefillEnd::Pour), refills[0].detail);
+    machineStop();
+    machineFlowSimulate(0, 0);
+    TEST_ASSERT_EQUAL_UINT32(1, notedOf(machine_log::Kind::Pour).size());
+}
+
+void test_a_compressor_run_is_noted_with_its_length_and_coldest_coil() {
+    machineSimThermal(6.0f, true, 5.0f, true);
+    runAt(host::now + machine_policy::kMinOffMs);
+    MachineThermal thermal;
+    machineThermal(thermal);
+    TEST_ASSERT_TRUE(thermal.compressorRelay);
+    TEST_ASSERT_EQUAL_UINT32(0, notedOf(machine_log::Kind::Compressor).size());
+
+    const uint32_t on = host::now;
+    machineSimThermal(3.0f, true, -6.5f, true);
+    runAt(on + machine_policy::kMinOnMs / 2);
+    machineSimThermal(1.5f, true, -4.0f, true);
+    runAt(on + machine_policy::kMinOnMs - 1000);
+    machineThermal(thermal);
+    TEST_ASSERT_TRUE(thermal.compressorRelay);
+    runAt(on + machine_policy::kMinOnMs);
+    machineThermal(thermal);
+    TEST_ASSERT_FALSE(thermal.compressorRelay);
+
+    const std::vector<machine_log::Entry> runs = notedOf(machine_log::Kind::Compressor);
+    TEST_ASSERT_EQUAL_UINT32(1, runs.size());
+    TEST_ASSERT_EQUAL_UINT8(static_cast<uint8_t>(machine_log::ColdTo::Off), runs[0].detail);
+    TEST_ASSERT_EQUAL_UINT32(machine_policy::kMinOnMs / 1000, runs[0].a);
+    TEST_ASSERT_EQUAL_INT16(15, runs[0].d);
+    TEST_ASSERT_EQUAL_INT16(-65, runs[0].e);
+    // Good probes from the first reading on: the loop was never in trouble.
+    TEST_ASSERT_EQUAL_UINT32(0, notedOf(machine_log::Kind::Cold).size());
+}
+
+void test_probes_that_never_answer_are_noted_once_the_readings_are_overdue() {
+    runAt(host::now + machine_policy::kReadingStaleMs - 1000);
+    TEST_ASSERT_EQUAL_UINT32(0, notedOf(machine_log::Kind::Cold).size());
+    runAt(host::now + 2000);
+    std::vector<machine_log::Entry> cold = notedOf(machine_log::Kind::Cold);
+    TEST_ASSERT_EQUAL_UINT32(1, cold.size());
+    TEST_ASSERT_EQUAL_UINT8(static_cast<uint8_t>(machine_log::ColdTo::Fault), cold[0].detail);
+    TEST_ASSERT_EQUAL_INT16(machine_log::kNoTemp, cold[0].d);
+    runAt(host::now + kNoteGapMs * 2);
+    TEST_ASSERT_EQUAL_UINT32(1, notedOf(machine_log::Kind::Cold).size());
+}
+
+void test_a_probe_that_chatters_cannot_fill_the_record() {
+    machineSimThermal(1.0f, true, 0.0f, true);
+    runAt(host::now + machine_policy::kReadingStaleMs + 1000);
+    TEST_ASSERT_EQUAL_UINT32(0, notedOf(machine_log::Kind::Cold).size());
+
+    // It stops answering: noted at once.
+    machineSimThermal(0.0f, false, 0.0f, false);
+    runAt(host::now + 1000);
+    std::vector<machine_log::Entry> cold = notedOf(machine_log::Kind::Cold);
+    TEST_ASSERT_EQUAL_UINT32(1, cold.size());
+    TEST_ASSERT_EQUAL_UINT8(static_cast<uint8_t>(machine_log::ColdTo::Fault), cold[0].detail);
+    TEST_ASSERT_EQUAL_UINT32(1, cold[0].a);
+
+    // Then it comes and goes every second for a minute: nothing more yet.
+    const uint32_t flaps = 60;
+    for (uint32_t i = 0; i < flaps; i++) {
+        const bool good = i % 2 == 0;
+        machineSimThermal(1.0f, good, 0.0f, good);
+        runAt(host::now + 1000);
+    }
+    TEST_ASSERT_EQUAL_UINT32(1, notedOf(machine_log::Kind::Cold).size());
+
+    // When the gap has passed, one entry stands for all of it and names where it ended.
+    machineSimThermal(1.0f, true, 0.0f, true);
+    runAt(host::now + kNoteGapMs);
+    cold = notedOf(machine_log::Kind::Cold);
+    TEST_ASSERT_EQUAL_UINT32(2, cold.size());
+    TEST_ASSERT_EQUAL_UINT8(static_cast<uint8_t>(machine_log::ColdTo::Off), cold[1].detail);
+    TEST_ASSERT_TRUE(cold[1].a >= flaps);
+    TEST_ASSERT_EQUAL_INT16(10, cold[1].d);
+}
+
+void test_the_gas_alarm_is_noted_when_it_trips() {
+    host::gasMv = GAS_TRIP_MV + 500;
+    machineService();
+    runAt(host::now + GAS_SETTLE_MS);
+    TEST_ASSERT_TRUE(machineGasTripped());
+    std::vector<machine_log::Entry> gas = notedOf(machine_log::Kind::Gas);
+    TEST_ASSERT_EQUAL_UINT32(1, gas.size());
+    TEST_ASSERT_EQUAL_UINT8(1, gas[0].detail);
+
+    // The clear inside the gap waits for it, and is not lost.
+    host::gasMv = 0;
+    machineService();
+    runAt(host::now + GAS_SETTLE_MS);
+    TEST_ASSERT_FALSE(machineGasTripped());
+    TEST_ASSERT_EQUAL_UINT32(1, notedOf(machine_log::Kind::Gas).size());
+    runAt(host::now + kNoteGapMs);
+    gas = notedOf(machine_log::Kind::Gas);
+    TEST_ASSERT_EQUAL_UINT32(2, gas.size());
+    TEST_ASSERT_EQUAL_UINT8(0, gas[1].detail);
+    TEST_ASSERT_EQUAL_UINT32(1, gas[1].a);
+}
+
+void test_a_fill_and_a_prime_are_noted_as_they_end() {
+    start(1);
+    runAt(host::now + 700);
+    machineStop();
+    expectParked();
+    std::vector<machine_log::Entry> primes = notedOf(machine_log::Kind::Prime);
+    TEST_ASSERT_EQUAL_UINT32(1, primes.size());
+    TEST_ASSERT_EQUAL_UINT8(1, machine_log::detailLow(primes[0].detail));
+    TEST_ASSERT_EQUAL_UINT8(static_cast<uint8_t>(machine_log::OpEnd::Stopped),
+                            machine_log::detailHigh(primes[0].detail));
+    TEST_ASSERT_EQUAL_UINT32(700, primes[0].a);
+
+    TEST_ASSERT_TRUE(machineFillBegin(0, 3000));
+    runAt(host::now + 3000);
+    runAt(host::now + machine_policy::kFillParkDwellMs);
+    TEST_ASSERT_EQUAL(ST_IDLE, machineState());
+    const std::vector<machine_log::Entry> fills = notedOf(machine_log::Kind::Fill);
+    TEST_ASSERT_EQUAL_UINT32(1, fills.size());
+    TEST_ASSERT_EQUAL_UINT8(0, machine_log::detailLow(fills[0].detail));
+    TEST_ASSERT_EQUAL_UINT8(static_cast<uint8_t>(machine_log::OpEnd::Done),
+                            machine_log::detailHigh(fills[0].detail));
+    TEST_ASSERT_EQUAL_UINT32(3000, fills[0].a);
+}
+
 void setUp() {
     static uint32_t bootMs = 1000;
     host::now = bootMs;
@@ -859,6 +1117,7 @@ void setUp() {
     host::gasMv = 0;
     host::attachSucceeds = true;
     host::pumpClosedAgainstDrive = false;
+    host::sounding = SND_NONE;
     memset(host::duties, 0, sizeof(host::duties));
     memset(host::modes, 0, sizeof(host::modes));
     host::bus.reset();
@@ -879,6 +1138,7 @@ void setUp() {
     lastPrimeElapsed = 0;
     lastEventSessionOwned = false;
     primeEventCount = pumpDoneCount = 0;
+    host::noted.clear();
 }
 
 void tearDown() { TEST_ASSERT_FALSE(host::pumpClosedAgainstDrive); }
@@ -906,6 +1166,16 @@ int main(int, char **) {
     RUN_TEST(test_initial_reed_failure_never_opens_a_path_or_starts_a_motor);
     RUN_TEST(test_verified_fault_park_is_terminal_even_if_configuration_remains_ready);
     RUN_TEST(test_wet_prime_updates_only_selected_reservoir_as_falling);
+    RUN_TEST(test_a_pour_is_noted_when_its_path_closes);
+    RUN_TEST(test_a_pour_stopped_on_request_is_noted_as_stopped);
+    RUN_TEST(test_a_refill_that_reaches_the_high_reed_is_noted_full);
+    RUN_TEST(test_a_refill_that_times_out_sounds_the_fault_and_is_noted_once);
+    RUN_TEST(test_a_pour_that_takes_the_refill_down_notes_both);
+    RUN_TEST(test_a_compressor_run_is_noted_with_its_length_and_coldest_coil);
+    RUN_TEST(test_probes_that_never_answer_are_noted_once_the_readings_are_overdue);
+    RUN_TEST(test_a_probe_that_chatters_cannot_fill_the_record);
+    RUN_TEST(test_the_gas_alarm_is_noted_when_it_trips);
+    RUN_TEST(test_a_fill_and_a_prime_are_noted_as_they_end);
     RUN_TEST(test_refill_and_automatic_pour_cannot_join_a_wet_prime);
     RUN_TEST(test_active_refill_refuses_prime_without_changing_its_outputs);
     RUN_TEST(test_cold_fan_is_preserved_on_prime_open_and_normal_close);

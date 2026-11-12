@@ -27,6 +27,10 @@ bool rtcValid();      // present, answering, and OSF clear
 // "2026-08-19 14:32:05", or "unset" — into a caller's buffer.
 void rtcStamp(char *out, size_t n);
 
+// The date and time as machine_log::clockFromCivil() counts them, or 0 when the clock is
+// absent, unset or cannot be believed. One bus read.
+uint32_t rtcClock();
+
 // Sets the clock, clears OSF, and clears EOSC so the oscillator runs on battery.
 bool rtcSet(int year, int mon, int day, int hour, int min, int sec);
 
