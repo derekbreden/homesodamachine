@@ -392,7 +392,8 @@ pub fn compose(b: &mut Book) -> Result<()> {
     let (cord, socket) = (anchor(b, "steps/power-ready.png", "cord-approach")?, anchor(b, "steps/power-ready.png", "power-mouth")?);
     b.arrow(&[p.at(cord), p.at(socket)], 10.0);
     b.item("3 / POWER", "Connect the supplied cord", "Push it straight into the recessed power socket at the upper right of the rear panel. Plug into a grounded 120 V outlet.", 144.0, RIGHT, RW, 13.0)?;
-    b.para(Para::new("The machine chimes and its display starts. Follow the display if it reports an issue.", RIGHT, 296.0, RW))?;
+    b.para(Para::new("The machine chimes and both displays start. Follow them if they report an issue.", RIGHT, 278.0, RW))?;
+    b.note("THEN, AT THE FAUCET", "Hold the lever down until the faucet display says Done. Gas hisses while the tank clears its air.", 342.0, RIGHT, RW, false)?;
     b.caption("120 V, 60 Hz; 5 A, 600 W. Keep the plug accessible.", 396.0, M, CW)?;
     b.end()?;
 
