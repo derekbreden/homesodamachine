@@ -110,8 +110,8 @@ complete animation cycles. It then opens onto the main board's flavor selection
 as soon as that state is known, with a six-second ceiling when J9 is absent.
 
 A machine that owes a sweep (`NOTICE_SWEEP`) opens from boot onto **Welcome**: the still
-mark where the boot's animation stood and, in the boot's card grown taller, the step at the
-faucet, **Skip** and **OK**. **Skip** asks **Skip this step?** first, and its **Skip** sends
+mark where the boot's animation stood and, in a card like the boot's but taller and out to
+the mark, the step at the faucet, **Skip** and **OK**. **Skip** asks **Skip this step?** first, and its **Skip** sends
 `MSG_SWEEP_SKIP`. From the count's target until the notice ends (`NOTICE_SWEEP_DONE`) the
 welcome says **Done**, with **OK** alone. It is put up once each time the panel wakes and
 again when the notice changes; it waits for an operation lock, a hold and an ask, and comes

@@ -655,7 +655,9 @@ static bool screenIdle = false;  // true while asleep (backlight off via idle)
 // The no-water ask has been put up since this glass last woke (noWaterService()).
 static bool noWaterOffered = false;
 
-// The notice the welcome has been put up for since this glass last woke (welcomeService()).
+// The notice the welcome is up for, NOTICE_NONE while it is down, and the one it has been put
+// up for since this glass last woke (welcomeService()).
+static uint8_t welcomeKind = NOTICE_NONE;
 static uint8_t welcomeOffered = NOTICE_NONE;
 
 // A finger here is presence the main board has to hear. It keeps the one clock
@@ -1202,7 +1204,7 @@ static void wake() {
     screenIdle = false;
     idleStage = 0;
     noWaterOffered = false;
-    welcomeOffered = NOTICE_NONE;
+    welcomeOffered = welcomeKind;   // a welcome the dark left up is this wake's
     // Whatever the dark decided to keep or throw away is already on screen — waking shows
     // it rather than moving to it. The light comes back once the panel has been reset.
     if (uiReady) panelKick();
@@ -4445,6 +4447,8 @@ static void askShow(AskMode mode, const char *title, const char *body,
 static void askHide() {
   if (askMode == ASK_NONE) return;
   askMode = ASK_NONE;
+  // A finger resting on an answer as the ask goes by itself answers nothing beneath it.
+  if (touchInput) lv_indev_wait_release(touchInput);
   lv_obj_add_flag(askScreen, LV_OBJ_FLAG_HIDDEN);
 }
 
@@ -4584,7 +4588,8 @@ static void noWaterService() {
     noWaterOffered = false;
   }
   if (noWaterOffered || noWaterTriedMs || askMode != ASK_NONE) return;
-  if (!uiReady || screenIdle || lockActive || holding || primeStopPending || testActive ||
+  if (!uiReady || screenIdle || lockActive || holding || primeTouchStartPending ||
+      primeStopPending || testActive ||
       (primeSessionKnown && primeSession.phase == PRIME_SESSION_RUNNING)) return;
   noWaterShow();
 }
@@ -4609,7 +4614,6 @@ static void noWaterService() {
 static_assert(WELCOME_X + WELCOME_W + LOCK_MODAL_MARGIN == SCREEN_W, "the card keeps the boot's margin");
 
 static lv_obj_t *welcomeScreen, *welcomeTitle, *welcomeBody, *welcomeSkipBtn;
-static uint8_t welcomeKind = NOTICE_NONE;    // the notice the welcome is up for; NOTICE_NONE while down
 static unsigned long welcomeSkippedMs = 0;   // nonzero: Skip went out then, and no status has answered it
 
 static void welcomeOkCb(lv_event_t *e);
@@ -4704,6 +4708,8 @@ static void welcomeShow(uint8_t kind) {
 static void welcomeHide() {
   if (welcomeKind == NOTICE_NONE) return;
   welcomeKind = NOTICE_NONE;
+  // A finger resting on an answer as the welcome goes by itself answers nothing beneath it.
+  if (touchInput) lv_indev_wait_release(touchInput);
   lv_obj_add_flag(welcomeScreen, LV_OBJ_FLAG_HIDDEN);
 }
 
@@ -4759,7 +4765,8 @@ static void welcomeService() {
     return;
   }
   if (welcomeOffered == kind || askMode != ASK_NONE) return;
-  if (!uiReady || screenIdle || lockActive || holding || primeStopPending || testActive ||
+  if (!uiReady || screenIdle || lockActive || holding || primeTouchStartPending ||
+      primeStopPending || testActive ||
       (primeSessionKnown && primeSession.phase == PRIME_SESSION_RUNNING)) return;
   welcomeShow(kind);
 }
