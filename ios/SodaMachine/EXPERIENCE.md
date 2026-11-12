@@ -98,6 +98,17 @@ sets the active flavor. The page stays in place and shows the confirmed selectio
 Back remains the way to the overview. Editing requires a stamped baseline;
 an unread mix is unavailable rather than an invented ratio.
 
+**History** opens from the Machine overview. It is the machine's own record of
+what it did — pours, refills, cooling, cycles, faults and starts — read newest
+first while the page is up, with pours counted for today and the past week. The
+machine keeps the record whether or not a device is near; the page keeps what it
+has read while the app runs and reads again after a relaunch. An entry carries
+the machine's own clock when it had one; an entry of the running start is
+otherwise dated back from the machine's uptime, and anything else is shown
+without a time rather than with a guessed one. Reading it requires machine
+Trust. The page explains that and offers the request; opening it never raises
+one by itself. A machine whose software predates the record says so.
+
 Change image opens a child task and returns to the same flavor with its ratio
 draft intact. Fill, Clean, and Prime entry points on the detail retain the
 channel and return to that flavor when finished. Care also provides the shared
@@ -229,7 +240,12 @@ use the demo unless the appliance is prepared for the physical operation.
 These checks are specific to this experience task and are not build or commit
 hooks.
 
-The pure navigation, draft, removal, and firmware-comparison checks run manually
+A debug build opens on the demo at one page when launched with
+`-demoPage <page>`, so a page can be photographed in the simulator from the
+shell: `history`, `sound`, `update`, `rename`, `flavor1`, `flavor2`, or a
+destination's name.
+
+The pure navigation, draft, removal, firmware-comparison, and history checks run manually
 on macOS with `hsm-peripheral ios-checks`. They compile the app's
 actual Foundation/Observation sources and use no simulator. They do not verify
 SwiftUI view lifetimes, gestures, or Bluetooth transport; those need the

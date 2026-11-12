@@ -40,6 +40,7 @@ enum AppRoute: Hashable {
     case sound
     case update
     case rename
+    case history
 }
 
 /// One opening of a page.
