@@ -631,17 +631,48 @@ fn partial_reference_refresh(parent: &Path) -> Result<()> {
         scene::encode(&json!({"v":4,"meshes":[],"source_groups":groups}), &[])?,
     )?;
     fixture.write(bad, scene::encode(&json!({"v":4,"meshes":null}), &[])?)?;
+    let built = "hardware/parts/m-built.step.mesh";
+    let revision = scene::digest(&fs::read(fixture.root().join(VIEWER))?);
+    let as_built = scene::encode(
+        &json!({"v":4,"sources":{(VIEWER):revision},"meshes":[{"name":"plate","source":VIEWER,
+            "source_sha256":revision,"asset":"a".repeat(64),"bytes":0,
+            "entries":[{"name":"plate","color":null}]}]}),
+        &[],
+    )?;
+    fixture.write(built, &as_built)?;
+    let behind = "hardware/parts/n-behind.step.mesh";
+    let earlier = scene::digest(b"an earlier revision");
+    fixture.write(
+        behind,
+        scene::encode(
+            &json!({"v":4,"sources":{(VIEWER):earlier},
+                "source_inventory":{(VIEWER):[{"name":"plate","transform":null}]},
+                "meshes":[{"name":"plate","source":VIEWER,"source_sha256":earlier,
+                    "asset":"a".repeat(64),"bytes":0,"entries":[{"name":"plate","color":null}]}]}),
+            &[],
+        )?,
+    )?;
     let mut graph = ctx.graph_source.clone();
     graph["hardware/parts/build.rs"]["writes"]
         .as_array_mut()
         .unwrap()
-        .extend([json!(good), json!(bad)]);
+        .extend([json!(good), json!(bad), json!(built), json!(behind)]);
     fixture.write("tools/hsm/build-plan/graph.json", serde_json::to_vec(&graph)?)?;
     let ctx = ctx.reload()?;
     let refreshed = pack::refresh_sources(&ctx, &[VIEWER.into()])?;
     ensure!(
-        refreshed.grafted == [good] && refreshed.errors.iter().any(|row| row.contains(bad)),
+        refreshed.grafted == [good, behind]
+            && refreshed.errors.iter().any(|row| row.contains(bad)),
         "a later refresh failure discarded completed hosts"
+    );
+    ensure!(
+        fs::read(fixture.root().join(built))? == as_built,
+        "a host built from the current source was rewritten"
+    );
+    ensure!(
+        hsm_build_data::payload::header(fixture.root().join(behind))?["sources"][VIEWER]
+            == revision,
+        "a host behind the current source kept its earlier revision"
     );
     let head = hsm_build_data::payload::header(fixture.root().join(good))?;
     ensure!(
