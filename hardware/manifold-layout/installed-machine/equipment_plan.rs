@@ -183,9 +183,9 @@ fn spool_colors(root: &Path) -> Result<Value> {
 }
 
 /// Every placed port as a route station, keyed `body.port`.
-fn stations(world_ports: &Value) -> Result<Value> {
+fn stations(world_ports: &Map<String, Value>) -> Result<Value> {
     let mut out = Map::new();
-    for (name, ports) in world_ports.as_object().context("the placed ports")? {
+    for (name, ports) in world_ports {
         for (port, row) in ports.as_object().with_context(|| format!("{name}'s placed ports"))? {
             out.insert(format!("{name}.{port}"), row.clone());
         }
@@ -199,7 +199,7 @@ fn pairs(routes: Vec<(String, Value)>) -> Value {
 }
 
 /// The warm-side tubes run between the placed ports, in the order they are swept.
-fn warm_routes(root: &Path, spec: &Value, data: &Value, world_ports: &Value) -> Result<Vec<(String, Value)>> {
+fn warm_routes(root: &Path, spec: &Value, data: &Value, world_ports: &Map<String, Value>) -> Result<Vec<(String, Value)>> {
     let stations = stations(world_ports)?;
     let continuations = rear::continuations(spec, &stations, &equipment::route_params(data)?)?;
     let flavors = rear::flavor_routes(&stations)?;
@@ -228,46 +228,34 @@ fn stated(value: &Value) -> bool {
 }
 
 /// A body's port table cut down to the ports the recipe names for it, in its order.
-fn keep_named(ports: &mut Value, names: &Value) -> Result<()> {
+fn keep_named(ports: &mut Value, names: &[String]) -> Result<()> {
     let held = ports.as_object().context("a port table")?;
     let kept: Map<String, Value> = names
-        .as_array()
-        .context("a body's port names")?
         .iter()
-        .filter_map(Value::as_str)
-        .filter_map(|port| held.get(port).map(|row| (port.to_owned(), row.clone())))
+        .filter_map(|port| held.get(port).map(|row| (port.clone(), row.clone())))
         .collect();
     *ports = Value::Object(kept);
     Ok(())
 }
 
 /// The equipment program's request, around the pack the placement program set down in `prepared`.
-pub fn equipment_request(root: &Path, prepared: &Value) -> Result<Value> {
+pub fn equipment_request(root: &Path, prepared: &Value) -> Result<equipment::Equipment> {
     let (spec, order) = read_ordered::<AboveCoreOrder>(&root.join("hardware/manifold-layout/above-core.json"))?;
     let data = parameters(root)?;
     let pump = design::read(root.join("hardware/printed-parts/cold-core/foam-cap/foam-cap.numbers.json"))?;
-    let placed = equipment::numbers(&json!({
+    let (mut request, named) = equipment::numbers(&json!({
         "spec": spec, "data": data, "fore_tube_order": order.fore_routes.tubes.0,
         "external_ports": pack_ports(prepared)?, "sources": sources(root)?, "colors": palette()?,
         "pump_cap": pump["pump"], "insulation_plan": soda::plan(&spec)?, "soft_neighbors": SOFT_NEIGHBORS,
     }))?;
-    let warm = warm_routes(root, &spec, &data, &placed["world_ports"])?;
-    let names: Vec<&str> = warm.iter().map(|(name, _)| name.as_str()).collect();
-    let mut request = equipment::finalize(&json!({
-        "equipment": placed, "integrated_order": names,
-        "integrated_routes": warm.iter().cloned().collect::<Map<_, _>>(),
-        "spool_colors": spool_colors(root)?,
-    }))?;
-    let named = request
-        .as_object_mut()
-        .and_then(|fields| fields.remove("_frame_port_order"))
-        .context("the frames' port names")?;
-    for (name, frame) in request["frames"].as_object_mut().context("the equipment frames")? {
+    let warm = warm_routes(root, &spec, &data, &request.world_ports)?;
+    equipment::finalize(&mut request, warm, &spool_colors(root)?)?;
+    for (name, frame) in request.frames.iter_mut() {
         if let Some(names) = named.get(name) {
             keep_named(&mut frame["ports"], names)?;
         }
     }
-    for (name, ports) in request["world_ports"].as_object_mut().context("the placed ports")? {
+    for (name, ports) in request.world_ports.iter_mut() {
         if let Some(names) = named.get(name) {
             keep_named(ports, names)?;
         }
