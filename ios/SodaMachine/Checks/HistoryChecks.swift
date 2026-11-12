@@ -64,6 +64,13 @@ func runHistoryChecks(_ check: (Bool, String) -> Void) {
           && HistoryEntry(seq: 8, kind: .valves, detail: 0).title == "Valves answering again"
           && HistoryEntry.Kind.valves.rawValue == 12,
           "The valve drivers going quiet and coming back read as that")
+    let swept = HistoryEntry(seq: 9, kind: .sweep, detail: 0, a: 14200, b: 8697)
+    check(swept.title == "Cleared the tank's air"
+          && swept.note(temperature: plain) == "14 s of gas at the faucet before the first fill"
+          && HistoryEntry(seq: 10, kind: .sweep, detail: 1).title == "Air clearing not needed"
+          && HistoryEntry(seq: 11, kind: .sweep, detail: 2).title == "Air clearing skipped"
+          && !swept.needsAttention && HistoryEntry.Kind.sweep.rawValue == 13,
+          "The first start's sweep of the tank's air reads as that, however it ended")
 
     check(HistoryEntry.spoken(seconds: 8) == "8 s" && HistoryEntry.spoken(seconds: 80) == "1 min 20 s"
           && HistoryEntry.spoken(seconds: 120) == "2 min" && HistoryEntry.spoken(seconds: 840) == "14 min"
