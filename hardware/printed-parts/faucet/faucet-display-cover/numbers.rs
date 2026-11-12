@@ -13,7 +13,7 @@ pub const WINDOW_INSET: f64 = 2.0;
 pub const WINDOW_HALF_X: f64 = DISPLAY_HOUSING_WIDTH / 2.0 - WINDOW_INSET;
 pub const WINDOW_CORNER_R: f64 = DISPLAY_CORNER_R - WINDOW_INSET;
 /// The reach from the lip seating lands to the raised bezel and skirt shoulder.
-pub const WING_REACH: f64 = 0.5;
+pub const WING_REACH: f64 = 0.83;
 /// The bezel's underside, over the glass, and its top.
 pub const BEZEL_N_BOTTOM: f64 = DISPLAY_FACE_N + DISPLAY_COVER_OVER_FACE + WING_REACH;
 pub const BEZEL_N_TOP: f64 = DISPLAY_COVER_TOP_N + WING_REACH;
@@ -32,7 +32,7 @@ pub const LIP_RELIEF: f64 = snap::LIP_INNER_EDGE_RELIEF;
 pub const LIP_ROOT_CLEARANCE: f64 = 0.2;
 pub const LIP_R: f64 = DISPLAY_CLIP_LIP_RADIUS + LIP_ROOT_CLEARANCE;
 /// Clearance above the dispense cap at the front of the cover.
-pub const NOSE_ARCH_LIFT: f64 = 0.5;
+pub const NOSE_ARCH_LIFT: f64 = 1.0;
 
 /// The window along s.
 pub fn window_s() -> [f64; 2] {
