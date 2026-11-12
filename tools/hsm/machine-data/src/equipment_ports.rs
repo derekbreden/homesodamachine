@@ -62,9 +62,6 @@ pub fn reducer_insertion(data: &Value) -> Result<f64> {
     Ok(number(&d["length_mm"])? - number(&d["body_face_x_mm"])?
         + number(&d["body_face_to_stop_display_mm"])?)
 }
-pub fn grid(spec: &Value) -> Result<Value> {
-    layout::request(json!({"op":"grid","spec":spec}))
-}
 pub fn local_ports(name: &str, data: &Value, spec: &Value) -> Result<Value> {
     let stem = &data["stem"];
     let reducer = &data["reducer"];
@@ -134,17 +131,13 @@ pub fn local_ports(name: &str, data: &Value, spec: &Value) -> Result<Value> {
             json!({"inlet":[[-30.5,0.,0.],[-1.,0.,0.],6.35],"outlet":[[30.5,0.,0.],[1.,0.,0.],6.35]})
         }
         _ => {
-            let stems = layout::request(json!({"op":"stem-elbow-names","spec":spec}))?;
-            let hosts = layout::request(json!({"op":"reservoir-gates"}))?;
-            if stems.as_array().unwrap().iter().any(|v| v == name) || hosts.get(name).is_some() {
+            let stems = layout::stem_elbow_names(&spec["snapshots"]);
+            let hosts = layout::gates();
+            if stems.contains(&name) || hosts.get(name).is_some() {
                 json!({"socket":[[0.,number(&stem["socket_mouth_y_mm"])?,0.],[0.,1.,0.],6.35]})
             } else {
-                let rows = grid(spec)?;
-                let selected = rows
-                    .as_array()
-                    .unwrap()
-                    .iter()
-                    .find(|row| row["name"] == name);
+                let rows = layout::grid(spec)?;
+                let selected = rows.iter().find(|row| row["name"] == name);
                 if let Some(row) = selected {
                     let d = if row["native_kind"] == "quarter" {
                         &data["jg"]
