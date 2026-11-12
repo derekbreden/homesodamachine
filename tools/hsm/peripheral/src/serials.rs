@@ -47,12 +47,43 @@ pub fn main_board_port() -> Result<String> {
     Ok(ports[0].port_name.clone())
 }
 
-pub fn open(path: &str, dtr: bool, timeout: Duration) -> Result<Box<dyn SerialPort>> {
+/// True when another program has the port. Every tool here opens a port to itself, so a second
+/// opener is refused instead of being fed half of the first one's bytes.
+pub fn busy(error: &serialport::Error) -> bool {
+    error.description.to_lowercase().contains("busy")
+}
+
+fn open_once(path: &str, dtr: bool, timeout: Duration) -> serialport::Result<Box<dyn SerialPort>> {
     let mut port = serialport::new(path, 115200)
         .timeout(timeout)
         .dtr_on_open(dtr)
         .open()?;
     port.write_request_to_send(false)?;
+    Ok(port)
+}
+
+pub fn open(path: &str, dtr: bool, timeout: Duration) -> Result<Box<dyn SerialPort>> {
+    // The bench watcher (bench.rs) has a main board's port for a fraction of a second every few
+    // seconds. An open that lands on that waits it out; one that lands on a tool at work fails.
+    let started = Instant::now();
+    loop {
+        match open_once(path, dtr, timeout) {
+            Ok(port) => return Ok(port),
+            Err(error) if busy(&error) && started.elapsed() < Duration::from_secs(3) => {
+                thread::sleep(Duration::from_millis(50));
+            }
+            Err(error) => return Err(error.into()),
+        }
+    }
+}
+
+/// A port opened without restarting the board and with neither of its strapping lines held.
+/// DTR is left as the open made it until RTS is let go, because the other order is the reset
+/// pulse; it is then let go too, so a board that restarts for its own reasons while the port is
+/// open boots its firmware and not its loader. A port another program has is refused at once.
+pub fn open_quiet(path: &str, timeout: Duration) -> serialport::Result<Box<dyn SerialPort>> {
+    let mut port = open_once(path, true, timeout)?;
+    port.write_data_terminal_ready(false)?;
     Ok(port)
 }
 

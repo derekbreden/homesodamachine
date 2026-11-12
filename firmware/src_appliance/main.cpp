@@ -227,6 +227,14 @@ void loop() {
         if ((long)(millis() - testScreenUntilMs) < 0) idleTouched();
         else testScreenUntilMs = 0;
     }
+    // A notice that has just come up is worth lighting both glasses for: they say why
+    // there is no soda.
+    {
+        static uint8_t noticeWas = NOTICE_NONE;
+        const uint8_t notice = machineNotice();
+        if (notice != NOTICE_NONE && notice != noticeWas) idleTouched();
+        noticeWas = notice;
+    }
     // A fill or a clean cycle is something a person asked for and is watching.
     // Both glasses stay lit for the length of it, and the quiet stretch starts
     // when it ends.
@@ -267,6 +275,69 @@ void loop() {
 // The same intents the glass reaches, from a keyboard. Every one of them goes
 // through machine.h; there is no command here that writes a pin.
 
+// ── A bench's hold on the notices ─────────────────────────────────────────
+// `notice hold <notice>…` from a host on this console keeps those notices off both glasses
+// while the host goes on saying so; machine.h has what that does and does not change. The
+// names are the host's: one it gives that this build has no notice for is said back, and
+// costs nothing.
+struct NoticeName { const char *name; uint8_t kind; };
+static const NoticeName kNoticeNames[] = {
+    {"no-water", NOTICE_NO_WATER},
+};
+
+static const char *noticeName(uint8_t kind) {
+    for (const NoticeName &n : kNoticeNames)
+        if (n.kind == kind) return n.name;
+    return kind == NOTICE_NONE ? "none" : "?";
+}
+
+static void noticeReport() {
+    const uint8_t standing = machineNoticeStanding();
+    const uint8_t held = machineNoticeHeld();
+    Serial.printf("  notice   %s", noticeName(standing));
+    if (!held) { Serial.println(); return; }
+    Serial.print(standing != NOTICE_NONE && ((held >> standing) & 1) ? ", held off the glasses" : "");
+    Serial.print(" — a host on this console holds");
+    for (const NoticeName &n : kNoticeNames)
+        if ((held >> n.kind) & 1) Serial.printf(" %s", n.name);
+    Serial.printf(" off for %lu s more\n", (unsigned long)(machineNoticeHoldLeftMs() / 1000));
+}
+
+static void cmdNotice(const String &line) {
+    String rest = line.substring(6); rest.trim();
+    if (rest == "release") {
+        machineNoticeHold(0);
+        Serial.println("\n[notice] nothing is held: the glasses say what the machine has to say");
+        return;
+    }
+    if (rest.startsWith("hold")) {
+        String names = rest.substring(4); names.trim();
+        uint8_t kinds = 0;
+        String unknown;
+        while (names.length()) {
+            const int sp = names.indexOf(' ');
+            const String one = sp < 0 ? names : names.substring(0, sp);
+            names = sp < 0 ? String("") : names.substring(sp + 1);
+            names.trim();
+            bool found = false;
+            for (const NoticeName &n : kNoticeNames)
+                if (one == n.name) { kinds |= (uint8_t)(1u << n.kind); found = true; }
+            if (!found) { unknown += ' '; unknown += one; }
+        }
+        machineNoticeHold(kinds);
+        Serial.print("\n[notice] held off the glasses:");
+        if (!kinds) Serial.print(" nothing");
+        for (const NoticeName &n : kNoticeNames)
+            if ((kinds >> n.kind) & 1) Serial.printf(" %s", n.name);
+        if (kinds) Serial.printf(", for %lu s unless said again", (unsigned long)(kNoticeHoldLeaseMs / 1000));
+        if (unknown.length()) Serial.printf("; this build has no notice called%s", unknown.c_str());
+        Serial.println();
+        return;
+    }
+    Serial.println();
+    noticeReport();
+}
+
 static void help() {
     Serial.println("\n  pump <a|b> [ms]   run one flavor pump, bounded (default 2000, ceiling 60000)");
     Serial.println("  fill <a|b> [s]    the funnel fill: that channel's funnel path open and its pump drawing,");
@@ -287,6 +358,7 @@ static void help() {
     Serial.println("  selftest          every solenoid in turn, the fan, then each pump — one at a time");
     Serial.println("  thermal           the 1-wire bus: every ROM found, its family and its last reading");
     Serial.println("  refill clear      leave a latched refill TIMEOUT or FAULT and try again");
+    Serial.println("  refill latch      stand a refill latched as one that spent its ceiling does");
     Serial.println("  refill forget     drop a refill that is owed, and the flash's note of it");
     Serial.println("  refill fill       fill the carbonator now, whatever its reeds read: until the high");
     Serial.println("                    reed closes or the pumping ceiling, as any refill");
@@ -313,6 +385,9 @@ static void help() {
     Serial.println("  idle              awake or asleep, and how far into the quiet stretch");
     Serial.println("  test [s|off]      the camera's test screen on the enclosure, s seconds (default 120)");
     Serial.println("  ui <page> [a|b] [go]   a customer page on the enclosure: choose, prime, fill, clean");
+    Serial.println("  ui notice [go|no]      the no-water notice while a refill stands latched; go is Try again");
+    Serial.println("  notice [hold <name>…|release]   keep named notices off both glasses while a bench");
+    Serial.println("                    host goes on asking: no-water");
     Serial.println("                    or settings; with a flavor, that flavor's own page; go presses its START");
     Serial.println("  sound <name>      play one of the machine's sounds; 'sound list' names them");
     Serial.println("  volume [0-100]    how loud everything but the alarm is (persisted)");
@@ -439,6 +514,7 @@ static void status() {
         if (t.simulated)
             Serial.println("  SIMULATED — readings injected from this console, not read off a probe");
     }
+    noticeReport();
 
     char when[48];
     rtcStamp(when, sizeof(when));
@@ -893,9 +969,15 @@ static void console(const String &line) {
     if (line == "status")      { status(); return; }
     if (line == "link")        { linkReport(); faucetLinkReport(); return; }
     if (line == "thermal")     { oneWireDump(); return; }
+    if (line == "notice" || line.startsWith("notice ")) { cmdNotice(line); return; }
     if (line == "refill clear") {
-        machineRefillClear();
-        Serial.println("\n[machine] refill latch cleared — trying again");
+        Serial.println(machineRefillRetry() ? "\n[machine] refill latch cleared — trying again"
+                                            : "\n[machine] no refill stands latched");
+        return;
+    }
+    if (line == "refill latch") {
+        machineRefillLatch();
+        Serial.println("\n[machine] refill latched as one that spent its ceiling — `refill clear` tries again");
         return;
     }
     if (line == "refill fill") {
@@ -1206,7 +1288,7 @@ static void console(const String &line) {
         return;
     }
     if (line == "ui" || line.startsWith("ui ")) {
-        // ui <choose|prime|fill|clean|settings> [a|b] [go]
+        // ui <choose|prime|fill|clean|settings> [a|b] [go], and ui notice [go|no]
         String rest = line.substring(2); rest.trim();
         String page = rest, tail;
         int sp = rest.indexOf(' ');
@@ -1217,8 +1299,9 @@ static void console(const String &line) {
         else if (page == "fill")     rail = UI_RAIL_FILL;
         else if (page == "clean")    rail = UI_RAIL_CLEAN;
         else if (page == "settings") rail = UI_RAIL_SETTINGS;
+        else if (page == "notice")   rail = UI_RAIL_NOTICE;
         if (rail == 0xFF) {
-            Serial.println("\nusage: ui <choose|prime|fill|clean|settings> [a|b] [go]");
+            Serial.println("\nusage: ui <choose|prime|fill|clean|settings> [a|b] [go], ui notice [go|no]");
             return;
         }
         uint8_t channel = UI_CHANNEL_NONE;
@@ -1227,7 +1310,8 @@ static void console(const String &line) {
             char which = tail[0] | 0x20;
             if ((which == 'a' || which == 'b') && (tail.length() == 1 || tail[1] == ' '))
                 channel = which == 'a' ? PUMP_CHANNEL_A : PUMP_CHANNEL_B;
-            act = rail != UI_RAIL_SETTINGS && tail.endsWith("go") ? 1 : 0;
+            act = rail != UI_RAIL_SETTINGS && tail.endsWith("go") ? UI_ACT_COMMIT : UI_ACT_NONE;
+            if (rail == UI_RAIL_NOTICE && tail == "no") act = UI_ACT_DECLINE;
         }
         idleTouched();
         if (!linkUiShow(rail, channel, act)) {
@@ -1236,7 +1320,10 @@ static void console(const String &line) {
             Serial.printf("\n[ui] the enclosure shows %s%s%s%s\n", page.c_str(),
                           channel == UI_CHANNEL_NONE ? "" : " for flavor ",
                           channel == UI_CHANNEL_NONE ? "" : machinePumpName(channel),
-                          act ? ", and pressed START" : "");
+                          act == UI_ACT_DECLINE     ? ", and pressed Not now"
+                          : !act                    ? ""
+                          : rail == UI_RAIL_NOTICE  ? ", and pressed Try again"
+                                                    : ", and pressed START");
         }
         return;
     }
