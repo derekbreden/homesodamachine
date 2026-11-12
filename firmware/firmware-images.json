@@ -1,21 +1,21 @@
 {
   "_": "Written by hsm-publish-firmware. The images are fetched, not committed — web/scripts/fetch-firmware.mjs reads this at deploy and /api/firmware serves it.",
   "bundle": {
-    "bytes": 2195304,
+    "bytes": 2197145,
     "images": 4,
-    "sha256": "1838bbbd4a3bac2cca1a1e9fb1b76b86044dfff37d39bdb8d27a36f1859d45ca"
+    "sha256": "d78ba2c6ac4fa90f0f520cbe9f7041ebd5184f283328a57d8ccc4f2e475a5730"
   },
   "images": {
     "appliance": {
-      "build_epoch": 1794473545,
-      "bytes": 518896,
-      "crc32": 3012171783,
+      "build_epoch": 1794474731,
+      "bytes": 519968,
+      "crc32": 3075700011,
       "env": "appliance",
       "file": "appliance.bin",
       "kind": "app",
       "machine": "appliance",
-      "sha256": "94a66c143afb2efb6117321affbbb281097d5fc0d4bd4084abf36ece94fc33fa",
-      "version": "2026.11.12 b9c030c6f",
+      "sha256": "d24391528bd0e11b150f40d735854a2f7ca9b475f8a14e1832a6bc3ba9480766",
+      "version": "2026.11.12 2f3bc58af",
       "what": "the main board's own firmware"
     },
     "art": {
@@ -32,42 +32,41 @@
       "what": "the machine display's loading animation"
     },
     "enclosure": {
-      "build_epoch": 1794473545,
-      "bytes": 1566864,
-      "crc32": 2796491017,
+      "build_epoch": 1794474731,
+      "bytes": 1568464,
+      "crc32": 2865418210,
       "env": "esp32s3_front",
       "file": "enclosure.bin",
       "kind": "app",
       "machine": "appliance",
-      "sha256": "bbf35cf8d2d200d5b702fcd3177f21abd2a82e85aa054c92977ae0afc7d00fd3",
-      "version": "2026.11.12 b9c030c6f",
+      "sha256": "01a40995fceb0c7dd9c06dd5d7b0b0c54a4ca54018bfbbdfa225dc857981798e",
+      "version": "2026.11.12 2f3bc58af",
       "what": "the 4.3\" machine display"
     },
     "faucet": {
-      "build_epoch": 1794473610,
+      "build_epoch": 1794474731,
       "bytes": 1479200,
-      "crc32": 3157048808,
+      "crc32": 1589104661,
       "env": "esp32s3_faucet",
       "file": "faucet.bin",
       "kind": "app",
       "machine": "appliance",
-      "sha256": "437a62b776607dac52e20c87f6aed02315f79c0fcca964cac4102a2c5d84fdca",
-      "version": "2026.11.12 c6573dcf5",
+      "sha256": "bf4aea9dc52435547c41ebe47fbd3da333133d77277335e92fa41b037868ff67",
+      "version": "2026.11.12 2f3bc58af",
       "what": "the 1.47\" faucet display"
     }
   },
   "release": {
-    "asset": "fw-1838bbbd4a3bac2c.tar.gz",
+    "asset": "fw-d78ba2c6ac4fa90f.tar.gz",
     "tag": "firmware",
-    "url": "https://github.com/derekbreden/homesodamachine/releases/download/firmware/fw-1838bbbd4a3bac2c.tar.gz"
+    "url": "https://github.com/derekbreden/homesodamachine/releases/download/firmware/fw-d78ba2c6ac4fa90f.tar.gz"
   },
   "source": {
-    "commit": "c6573dcf5842a11700131d719992b372df4657dc"
+    "commit": "2f3bc58afeab572fdaae21c1352d4575c21715da"
   },
   "unproven": {
     "_": "source.commit does not describe these images: an uncommitted path below reaches what built them.",
     "paths": [
-      "firmware/src_front/main.cpp",
       "tools/hsm/Cargo.lock",
       "tools/hsm/Cargo.toml",
       "tools/hsm/print-payload/src/printed.rs"
