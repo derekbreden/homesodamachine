@@ -60,7 +60,7 @@ fn construction(item: &Value) -> Value {
 }
 
 /// Retain only placement recipes whose unchanged local geometry can be reused exactly.
-pub fn state(cache: &mut Cache, equipment: &Value, junctions: &[Value]) -> Result<Value> {
+pub fn state(cache: &mut Cache, equipment: &crate::equipment::Equipment, junctions: &[Value]) -> Result<Value> {
     let mut inputs = serde_json::Map::new();
     for relative in [
         "hardware/manifold-layout/above-core.json",
@@ -73,21 +73,17 @@ pub fn state(cache: &mut Cache, equipment: &Value, junctions: &[Value]) -> Resul
         );
     }
     let mut items = Vec::new();
-    let core: Vec<&str> = equipment["core_equipment"]
-        .as_array()
-        .into_iter()
-        .flatten()
-        .filter_map(Value::as_str)
-        .collect();
-    for item in equipment["items"].as_array().into_iter().flatten() {
-        if !matches!(item["op"].as_str(), Some("reference" | "mount-hardware")) {
+    let core = &equipment.core_equipment;
+    for item in &equipment.items {
+        use crate::equipment_program::Make;
+        if !matches!(item.make, Make::Reference(_) | Make::MountHardware { .. }) {
             continue;
         }
-        let mut item = item.clone();
+        let mut item = serde_json::to_value(item)?;
         if let Some(source) = item["source"].as_str() {
             item["source_sha256"] = json!(cache.input_digest(Path::new(source))?);
         }
-        if core.contains(&item["name"].as_str().unwrap_or("")) {
+        if core.iter().any(|name| item["name"] == name.as_str()) {
             item["name"] = json!(format!("cold-core/{}", item["name"].as_str().unwrap()));
         }
         items.push(item);

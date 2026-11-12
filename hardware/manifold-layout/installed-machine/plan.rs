@@ -1,6 +1,7 @@
 //! The installed machine's plan: every placement run in this process, the equipment and its
 //! routes merged in, and the metadata the facts and the scene views read.
 use crate::design;
+use crate::equipment::Equipment;
 use anyhow::{Context, Result};
 use serde_json::{Map, Value, json};
 use std::collections::BTreeSet;
@@ -64,7 +65,7 @@ fn canonical(value: &Value) -> String {
 /// body's frame and placed ports; the junctions; the bodies each tube joins; and the metadata
 /// the plan carries.
 pub fn equipment_block(
-    equipment_request: &Value,
+    equipment_request: &Equipment,
     placed: &crate::equipment_program::Placed,
     model: &Path,
     tubes: Vec<Value>,
@@ -73,15 +74,14 @@ pub fn equipment_block(
 ) -> Result<Value> {
     use crate::equipment_program::Drawn;
     let model = json!(std::path::absolute(model)?);
-    let items = equipment_request["items"].as_array().context("the equipment request's items")?;
-    let transform = |name: &str| -> Result<&Value> {
-        let item = items.iter().find(|item| item["name"] == name);
-        Ok(&item.with_context(|| format!("the equipment request holds no {name}"))?["transform"])
+    let items = &equipment_request.items;
+    let transform = |name: &str| -> Result<[[f64; 4]; 3]> {
+        let item = items.iter().find(|item| item.name == name);
+        Ok(item.with_context(|| format!("the equipment request holds no {name}"))?.transform)
     };
     let mut instances = vec![];
-    for name in equipment_request["component_order"].as_array().context("the equipment's component order")? {
-        let key = name.as_str().context("a component's name")?;
-        instances.push(json!({"model": model, "indices": placed.groups.get(key), "name": name}));
+    for item in items {
+        instances.push(json!({"model": model, "indices": placed.groups.get(&item.name), "name": item.name}));
     }
     instances.extend(tubes);
     let mut presentation = vec![];
@@ -95,21 +95,21 @@ pub fn equipment_block(
         });
     }
     let mut frames = Map::new();
-    for (name, row) in equipment_request["frames"].as_object().context("equipment frames")? {
+    for (name, row) in &equipment_request.frames {
         let mut ports = Map::new();
-        for (port, at) in equipment_request["world_ports"][name].as_object().into_iter().flatten() {
+        for (port, at) in equipment_request.world_ports.get(name).and_then(Value::as_object).into_iter().flatten() {
             ports.insert(port.clone(), json!({"pos": at[0], "axis": at[1], "diam": at[2]}));
         }
         frames.insert(name.clone(), json!({"transform": row["transform"], "ports": ports}));
     }
     let mut owners = Map::new();
-    for (name, route) in equipment_request["routes"].as_object().context("the equipment's routes")? {
+    for (name, route) in &equipment_request.routes {
         if let Some(joined) = route.get("owners") {
             owners.insert(name.clone(), json!({"owners": joined}));
         }
     }
     Ok(json!({
-        "core_equipment": equipment_request["core_equipment"],
+        "core_equipment": equipment_request.core_equipment,
         "instances": instances,
         "junctions": junctions,
         "route_specs": owners,
@@ -180,12 +180,10 @@ pub fn wiring_placements(root: &Path) -> Result<Value> {
 }
 
 /// The route lengths of the routes whose length the routing measured.
-pub fn route_lengths(routes: &Value) -> Value {
+pub fn route_lengths(routes: &Map<String, Value>) -> Value {
     Value::Object(
         routes
-            .as_object()
-            .into_iter()
-            .flatten()
+            .iter()
             .filter_map(|(name, row)| row.get("length_mm").map(|l| (name.clone(), l.clone())))
             .collect(),
     )
@@ -195,9 +193,10 @@ pub fn route_lengths(routes: &Value) -> Value {
 /// the runs as drawn, the routes and their lengths, the ports, the connections the routes make,
 /// the connectors and mounts, and the names and holders the facts and the scene views sort
 /// bodies by.
-pub fn placement_metadata(root: &Path, equipment_request: &Value, runs: Vec<Value>) -> Result<Value> {
+pub fn placement_metadata(root: &Path, equipment_request: &Equipment, runs: Vec<Value>) -> Result<Value> {
     let above = design::read(root.join("hardware/manifold-layout/above-core.json"))?;
-    let routes = &equipment_request["routes"];
+    let routes = &equipment_request.routes;
+    let fittings: Vec<&str> = equipment_request.items.iter().map(|item| item.name.as_str()).collect();
     let keystone = &above["rear_wall"]["dry_openings"]["keystone"]["face_center_mm"];
     let core = design::read_document(&root.join("hardware/cold-core-layout/cold-core-assembly.scene.npz"))?;
     let core_equipment = hsm_layout_data::equipment_names();
@@ -209,13 +208,13 @@ pub fn placement_metadata(root: &Path, equipment_request: &Value, runs: Vec<Valu
     Ok(json!({
         "runs": runs,
         "native_route_specs": routes,
-        "native_route_order": equipment_request["route_order"],
+        "native_route_order": equipment_request.route_order,
         "route_lengths": route_lengths(routes),
-        "world_ports": equipment_request["world_ports"],
+        "world_ports": equipment_request.world_ports,
         "native_connections": above["logical_connections"],
-        "selected_fitting_names": equipment_request["component_order"],
+        "selected_fitting_names": fittings,
         "fluid_grid_assignment": above["fluid_grid"]["assignment"],
-        "soft_neighbors": equipment_request["insulation"].get("neighbors").cloned().unwrap_or(json!([])),
+        "soft_neighbors": equipment_request.insulation.get("neighbors").cloned().unwrap_or(json!([])),
         "keystone_station": [keystone[0], keystone[2]],
         "keystone_clearances": [],
         "core_equipment_names": core_equipment,
@@ -233,18 +232,22 @@ const WALL_HOST: &str = "enclosure-back-top";
 
 /// The parts the above-core layout hangs from the back top's wall, each with the stations its
 /// screws thread into, from the mount hardware the equipment places.
-fn wall_mounts(equipment_request: &Value) -> Result<Value> {
+fn wall_mounts(equipment_request: &Equipment) -> Result<Value> {
+    use crate::equipment_program::{Hardware, Make};
     let mut mounts = Map::new();
-    let items = equipment_request["items"].as_array().context("the equipment's items")?;
+    let items = &equipment_request.items;
     for item in items {
-        if item["op"] != "mount-hardware" || item["kind"] != "screw" {
+        let Make::MountHardware { axis, point, setback, dimensions: Hardware::Screw { shaft_radius, .. }, .. } = &item.make else {
             continue;
-        }
-        let name = item["name"].as_str().context("a mount's screw name")?;
+        };
+        let name = item.name.as_str();
         let (part, index) = name.rsplit_once("-screw-").context("a mount's screw is named for its part")?;
         let insert_name = format!("{part}-insert-{index}");
-        let insert = items.iter().find(|candidate| candidate["name"] == insert_name)
+        let insert = items.iter().find(|candidate| candidate.name == insert_name)
             .context("a mount's matching insert")?;
+        let Make::MountHardware { dimensions: Hardware::Insert { radius, bore_radius, length }, .. } = &insert.make else {
+            anyhow::bail!("{insert_name} is not a mount's insert");
+        };
         let pilot_radius = match part {
             "relay-1" | "relay-2" => Some(hsm_enclosure_numbers::rear_wall::hosts::RELAY_PILOT_RADIUS),
             "psu" => Some(hsm_enclosure_numbers::shell::HEATSET_DIA / 2.),
@@ -252,19 +255,17 @@ fn wall_mounts(equipment_request: &Value) -> Result<Value> {
         };
         let mount = mounts.entry(part.to_owned()).or_insert_with(|| json!({
             "parent": WALL_HOST, "stations": [], "pilot_radius_mm": pilot_radius,
-            "screw_radius_mm": item["dimensions"]["shaft_radius"],
-            "insert_radius_mm": insert["dimensions"]["radius"],
-            "insert_bore_radius_mm": insert["dimensions"]["bore_radius"],
-            "insert_length_mm": insert["dimensions"]["length"],
+            "screw_radius_mm": shaft_radius,
+            "insert_radius_mm": radius,
+            "insert_bore_radius_mm": bore_radius,
+            "insert_length_mm": length,
         }));
-        let setback = item["setback"].as_f64().context("a mount's insert setback")?;
         let mut face = [0.; 3];
-        for (axis, value) in face.iter_mut().enumerate() {
-            *value = item["point"][axis].as_f64().context("a mount's point coordinate")?
-                - setback * item["axis"][axis].as_f64().context("a mount's axis coordinate")?;
+        for (k, value) in face.iter_mut().enumerate() {
+            *value = point[k] - setback * axis[k];
         }
         mount["stations"].as_array_mut().context("a mount's stations")?.push(
-            json!({"threaded": true, "position_world_mm": item["point"], "axis_world": item["axis"],
+            json!({"threaded": true, "position_world_mm": point, "axis_world": axis,
                    "insert_face_world_mm": face}),
         );
     }

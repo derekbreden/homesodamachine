@@ -1,8 +1,25 @@
 //! Equipment construction recipes from current scalar source ledgers and file references.
 use crate::equipment_ports as ports;
+use crate::equipment_program::{Bend, ClampPiece, Hardware, Item, Joint, Make, Nut, Side, Source};
 use anyhow::{Context, Result};
 use hsm_layout_data::{self as layout, *};
+use serde::Deserialize;
 use serde_json::{Map, Value, json};
+use std::collections::{BTreeMap, BTreeSet};
+
+/// The equipment above the core as the stages take it: the items in the order they are placed,
+/// each body's frame with its own ports, the ports as placed, the tubes and the order they are
+/// swept in, the bodies that ride with the cold core, and the soda inlet's insulation.
+pub struct Equipment {
+    pub name: String,
+    pub items: Vec<Item>,
+    pub frames: Map<String, Value>,
+    pub world_ports: Map<String, Value>,
+    pub routes: Map<String, Value>,
+    pub route_order: Vec<String>,
+    pub core_equipment: Vec<String>,
+    pub insulation: Value,
+}
 
 pub const SOURCES: &[&str] = &[
     "printed-parts/electronics/pcba-tray/pcba-board.step",
@@ -133,45 +150,60 @@ pub fn local_routes(request: &Value) -> Result<(Vec<String>, Value)> {
 
 struct Builder<'a> {
     request: &'a Value,
-    items: Vec<Value>,
+    items: Vec<Item>,
     frames: Map<String, Value>,
+    undrawn: BTreeSet<String>,
 }
 impl Builder<'_> {
-    fn add(
-        &mut self,
-        name: &str,
-        op: &str,
-        pose: Value,
-        color: &str,
-        mut parameters: Value,
-    ) -> Result<()> {
-        if let Some(relative) = parameters
-            .get("source")
-            .and_then(Value::as_str)
-            .map(str::to_owned)
-        {
-            let info = self.request["sources"]
-                .get(&relative)
-                .with_context(|| format!("equipment source not declared: {relative}"))?;
-            parameters["source"] = info["path"].clone();
-            if op == "reference"
-                && text(&info["path"])?.ends_with(".npz")
-                && info["presentation"] == false
-            {
-                parameters["presentation"] = json!(false);
-            }
+    /// The bodies of the reference model the request declares at `relative`: all of them, or
+    /// those under the `select`ed names, less any whose name holds an `exclude`d text.
+    fn from(&mut self, relative: &str, select: &[&str], exclude: &[&str]) -> Result<Source> {
+        let info = self.request["sources"]
+            .get(relative)
+            .with_context(|| format!("equipment source not declared: {relative}"))?;
+        let source = text(&info["path"])?.to_owned();
+        if info["presentation"] == false {
+            self.undrawn.insert(source.clone());
         }
+        let names = |names: &[&str]| (!names.is_empty()).then(|| names.iter().map(|n| (*n).to_owned()).collect());
+        Ok(Source { source, select: names(select), exclude: names(exclude) })
+    }
+
+    /// Adds the item `name` standing at `pose`, in the palette's `color` or its model's own
+    /// colours, with its frame and its own ports.
+    fn add(&mut self, name: &str, pose: Value, color: Option<&str>, make: Make) -> Result<()> {
         let transform = ports::transform(&pose)?;
-        let mut item = json!({"name":name,"op":op,"transform":transform,"color":self.request["colors"].get(color).with_context(||format!("equipment color {color}"))?});
-        for (key, value) in object(&parameters)? {
-            item[key] = value.clone();
-        }
-        self.items.push(item);
+        let color = match color {
+            Some(color) => Some(
+                <[f64; 3]>::deserialize(self.request["colors"].get(color).with_context(|| format!("equipment color {color}"))?)
+                    .with_context(|| format!("equipment color {color}"))?,
+            ),
+            None => None,
+        };
+        let presentation = match &make {
+            Make::Reference(from) if from.source.ends_with(".npz") && self.undrawn.contains(&from.source) => Some(false),
+            _ => None,
+        };
+        self.items.push(Item {
+            name: name.to_owned(),
+            transform: Deserialize::deserialize(&transform).with_context(|| format!("the transform of {name}"))?,
+            color,
+            presentation,
+            make,
+        });
         self.frames.insert(name.to_owned(),json!({"transform":transform,"ports":ports::local_ports(name,&self.request["data"],&self.request["spec"])?}));
         Ok(())
     }
+
+    /// Adds the reference model at `relative` as the item `name`.
+    fn reference(&mut self, name: &str, pose: Value, color: Option<&str>, relative: &str, select: &[&str], exclude: &[&str]) -> Result<()> {
+        let from = self.from(relative, select, exclude)?;
+        self.add(name, pose, color, Make::Reference(from))
+    }
 }
-pub fn numbers(request: &Value) -> Result<Value> {
+/// The equipment the request places, before its tubes between the placed ports are routed, with
+/// the ports each frame keeps, in their order.
+pub fn numbers(request: &Value) -> Result<(Equipment, BTreeMap<String, Vec<String>>)> {
     let spec = &request["spec"];
     let rear = &spec["rear_plumbing"];
     let data = &request["data"];
@@ -181,6 +213,7 @@ pub fn numbers(request: &Value) -> Result<Value> {
         request,
         items: Vec::new(),
         frames: Map::new(),
+        undrawn: BTreeSet::new(),
     };
     for (name, source, color) in [
         ("pcba", SOURCES[0], "C_PCBA"),
@@ -191,17 +224,8 @@ pub fn numbers(request: &Value) -> Result<Value> {
         ("asse1022-assembly", SOURCES[4], "M_BRASS"),
         ("digiten-flow", SOURCES[5], "C_DIGITEN"),
     ] {
-        b.add(
-            name,
-            "reference",
-            pose(spec, name)?,
-            color,
-            if matches!(name, "psu" | "relay-1" | "relay-2") {
-                json!({"source":source,"color":null})
-            } else {
-                json!({"source":source})
-            },
-        )?;
+        let own_colours = matches!(name, "psu" | "relay-1" | "relay-2");
+        b.reference(name, pose(spec, name)?, (!own_colours).then_some(color), source, &[], &[])?;
     }
     for valve in ["valve-v-g", "valve-v-j"] {
         let Some(ports) = request["external_ports"].get(valve) else {
@@ -213,41 +237,30 @@ pub fn numbers(request: &Value) -> Result<Value> {
         if outlet[2] == 4. {
             mouth = sub(mouth, mul(axis, (1.445 - 0.827) * 25.4));
         }
-        b.add(
+        b.reference(
             &format!("flavor-reducer-{}", valve.trim_start_matches("valve-")),
-            "reference",
             ports::along_y(mouth, axis)?,
-            "M_NEOFIT_ACETAL",
-            json!({"source":SOURCES[6]}),
+            Some("M_NEOFIT_ACETAL"),
+            SOURCES[6],
+            &[],
+            &[],
         )?;
     }
     for name in ["valve-v-a", "valve-v-b", "vk-solenoid"] {
         let pose = pose(spec, name)?;
-        let clock = pose
-            .get("collet_clock_degrees")
-            .cloned()
-            .unwrap_or_else(|| json!({}));
-        b.add(
-            name,
-            "valve",
-            pose,
-            "C_VALVE",
-            json!({"source":SOURCES[7],"clock":clock}),
-        )?;
+        let clock = match pose.get("collet_clock_degrees") {
+            Some(clock) => BTreeMap::deserialize(clock).with_context(|| format!("the collet clock of {name}"))?,
+            None => BTreeMap::new(),
+        };
+        let from = b.from(SOURCES[7], &[], &[])?;
+        b.add(name, pose, Some("C_VALVE"), Make::Valve { from, clock })?;
     }
-    b.add(
-        "g-ganen-pump",
-        "reference",
-        pose(spec, "g-ganen-pump")?,
-        "M_DONOR_BLACK",
-        json!({"source":SOURCES[8],"color":null,"exclude":["rubber_slider"]}),
-    )?;
+    b.reference("g-ganen-pump", pose(spec, "g-ganen-pump")?, None, SOURCES[8], &[], &["rubber_slider"])?;
     let pump = &request["pump_cap"];
     let center = xyz(&pump["centre_world_mm"])?;
     let roof = -(number(&pump["bore_radius_mm"])? + number(&pump["selected"]["cap_arch_wall_mm"])?);
-    b.add(
+    b.reference(
         "pump-snap-cap",
-        "reference",
         ports::frame(
             Some(&json!([[1., 0., 0.], [0., 0., 1.], [0., -1., 0.]])),
             Some(&json!([
@@ -256,8 +269,10 @@ pub fn numbers(request: &Value) -> Result<Value> {
                 center[2] - (number(&pump["snap_station"]["tip"])? + roof) / 2.
             ])),
         ),
-        "M_PETGF_BLACK",
-        json!({"source":SOURCES[9]}),
+        Some("M_PETGF_BLACK"),
+        SOURCES[9],
+        &[],
+        &[],
     )?;
     b.frames.insert(
         "pump-snap-cap".to_owned(),
@@ -265,10 +280,9 @@ pub fn numbers(request: &Value) -> Result<Value> {
     );
     b.add(
         "asse-drain-adapter",
-        "vent-adapter",
         pose(spec, "asse-drain-adapter")?,
-        "M_TPU_BLACK",
-        json!({"vent_tip":data["multiplex_ports"]["vent"][0]}),
+        Some("M_TPU_BLACK"),
+        Make::VentAdapter { vent_tip: xyz(&data["multiplex_ports"]["vent"][0])? },
     )?;
     for (original, name, color) in [
         ("pp010822e", "bulkhead-water", "M_JG_BLACK_PP"),
@@ -281,56 +295,14 @@ pub fn numbers(request: &Value) -> Result<Value> {
             pose["translation_mm"][2] =
                 json!(number(&pose["translation_mm"][2])? + number(&rear["asse_adapter_rise_mm"])?);
         }
-        b.add(
-            name,
-            "reference",
-            pose,
-            color,
-            json!({"source":SOURCES[10],"select":[original]}),
-        )?;
+        b.reference(name, pose, Some(color), SOURCES[10], &[original], &[])?;
     }
-    b.add(
-        "water-split",
-        "reference",
-        snapshot(spec, "water-split")?,
-        "M_JG_BLACK_PP",
-        json!({"source":SOURCES[11]}),
-    )?;
-    b.add(
-        "flow-regulator",
-        "reference",
-        snapshot(spec, "reg")?,
-        "M_NEOFIT_WHITE_ACETAL",
-        json!({"source":SOURCES[12]}),
-    )?;
-    b.add(
-        "co2-inlet",
-        "reference",
-        rear["gas_frame"].clone(),
-        "M_JG_BLACK_PP",
-        json!({"source":SOURCES[13],"select":["inlet_collet"]}),
-    )?;
-    b.add(
-        "gas-regulator",
-        "reference",
-        rear["gas_frame"].clone(),
-        "M_JG_BLACK_PP",
-        json!({"source":SOURCES[13],"exclude":["inlet_collet"]}),
-    )?;
-    b.add(
-        "gas-check",
-        "reference",
-        rear["gas_check_frame"].clone(),
-        "M_NEOFIT_WHITE_ACETAL",
-        json!({"source":SOURCES[14]}),
-    )?;
-    b.add(
-        "discharge-chain",
-        "reference",
-        pose(spec, "discharge-chain")?,
-        "M_NEOFIT_WHITE_ACETAL",
-        json!({"source":SOURCES[14]}),
-    )?;
+    b.reference("water-split", snapshot(spec, "water-split")?, Some("M_JG_BLACK_PP"), SOURCES[11], &[], &[])?;
+    b.reference("flow-regulator", snapshot(spec, "reg")?, Some("M_NEOFIT_WHITE_ACETAL"), SOURCES[12], &[], &[])?;
+    b.reference("co2-inlet", rear["gas_frame"].clone(), Some("M_JG_BLACK_PP"), SOURCES[13], &["inlet_collet"], &[])?;
+    b.reference("gas-regulator", rear["gas_frame"].clone(), Some("M_JG_BLACK_PP"), SOURCES[13], &[], &["inlet_collet"])?;
+    b.reference("gas-check", rear["gas_check_frame"].clone(), Some("M_NEOFIT_WHITE_ACETAL"), SOURCES[14], &[], &[])?;
+    b.reference("discharge-chain", pose(spec, "discharge-chain")?, Some("M_NEOFIT_WHITE_ACETAL"), SOURCES[14], &[], &[])?;
     let joint = &rear["joint"];
     for side in ["suction", "discharge"] {
         let local_joint = ports::joint(side, data)?;
@@ -339,12 +311,16 @@ pub fn numbers(request: &Value) -> Result<Value> {
         let end = &bend["end_frame"];
         b.add(
             &format!("{side}-tube"),
-            "pump-tube",
             base.clone(),
-            "M_PVC_CLEAR",
-            json!({"side":side,"joint":local_joint,"bend":bend}),
+            Some("M_PVC_CLEAR"),
+            Make::PumpTube {
+                side: if side == "suction" { Side::Suction } else { Side::Discharge },
+                joint: Joint::deserialize(&local_joint).with_context(|| format!("the {side} joint"))?,
+                bend: Bend::deserialize(bend).with_context(|| format!("the {side} bend"))?,
+            },
         )?;
-        b.add(&format!("{side}-reducer"),"pump-reducer",compose(base,end)?,"M_JG_WHITE_PP",json!({"source":SOURCES[15],"cut_x":number(&data["reducer"]["nominal_free_stem_to_shoulder_mm"])?-10.}))?;
+        let from = b.from(SOURCES[15], &[], &[])?;
+        b.add(&format!("{side}-reducer"),compose(base,end)?,Some("M_JG_WHITE_PP"),Make::PumpReducer { from, cut_x: number(&data["reducer"]["nominal_free_stem_to_shoulder_mm"])?-10. })?;
         for station in ["barb", "stem"] {
             let band = &local_joint["bands"][station];
             let angle = if station == "barb" {
@@ -374,25 +350,18 @@ pub fn numbers(request: &Value) -> Result<Value> {
             } else {
                 &joint[format!("{side}_keys")]
             };
-            for (kind, color) in [("clamp", "M_STAINLESS"), ("key", "M_POM_ORANGE")] {
+            for (kind, piece, color) in [("clamp", ClampPiece::Clamp, "M_STAINLESS"), ("key", ClampPiece::Key, "M_POM_ORANGE")] {
                 b.add(
                     &format!("{side}-{station}-{kind}"),
-                    "pump-clamp",
                     local.clone(),
-                    color,
-                    json!({"diameter":band[1],"xc":band[0],"keys":keys,"kind":kind}),
+                    Some(color),
+                    Make::PumpClamp { kind: piece, diameter: number(&band[1])?, xc: number(&band[0])?, keys: number(keys)? },
                 )?;
             }
         }
     }
     let face = &spec["rear_wall"]["dry_openings"]["keystone"]["face_center_mm"];
-    b.add(
-        "keystone-jack",
-        "reference",
-        ports::frame(None, Some(face)),
-        "C_C14",
-        json!({"source":SOURCES[16]}),
-    )?;
+    b.reference("keystone-jack", ports::frame(None, Some(face)), Some("C_C14"), SOURCES[16], &[], &[])?;
     let insert = number(&data["stem"]["published_socket_insertion_mm"])?;
     let mut depths = json!({"tee-fold":12.7,"lower-valve-elbow":12.7,"lower-pump-elbow":insert+number(&rear["water_male_shoulder_land_mm"])?,"reg-va-elbow":12.7,"va-outlet-elbow":12.7,"va-south-elbow":insert,
         "carbonator-fold":number(&data["reducer"]["length_mm"])?-(number(&data["reducer"]["body_face_x_mm"])?-number(&data["reducer"]["body_face_to_stop_display_mm"])?)+number(&rear["water_male_shoulder_land_mm"])?,
@@ -401,24 +370,20 @@ pub fn numbers(request: &Value) -> Result<Value> {
         depths[name] = json!(12.7);
     }
     for name in layout::stem_elbow_names(&spec["snapshots"]) {
-        b.add(name,"stem-elbow",snapshot(spec,name)?,"M_NEOFIT_WHITE_ACETAL",json!({"source":SOURCES[17],"tip_x":number(&data["stem"]["stem_shoulder_x_mm"])?-number(&depths[name])?}))?;
+        let from = b.from(SOURCES[17], &[], &[])?;
+        b.add(name,snapshot(spec,name)?,Some("M_NEOFIT_WHITE_ACETAL"),Make::StemElbow { from, tip_x: number(&data["stem"]["stem_shoulder_x_mm"])?-number(&depths[name])? })?;
     }
     for name in layout::union_elbow_names(&spec["snapshots"]) {
-        b.add(
-            name,
-            "reference",
-            snapshot(spec, name)?,
-            "M_JG_BLACK_PP",
-            json!({"source":SOURCES[18]}),
-        )?;
+        b.reference(name, snapshot(spec, name)?, Some("M_JG_BLACK_PP"), SOURCES[18], &[], &[])?;
     }
-    b.add(
+    b.reference(
         "soda-bend-holder",
-        "reference",
         json!({"rotation":request["insulation_plan"]["holder_rotation"],
                "translation_mm":request["insulation_plan"]["holder_translation_mm"]}),
-        "M_PETGF_BLACK",
-        json!({"source":SOURCES[19]}),
+        Some("M_PETGF_BLACK"),
+        SOURCES[19],
+        &[],
+        &[],
     )?;
     let insulation = json!({"plan":request["insulation_plan"],"neighbors":request["soft_neighbors"],"valve_pose":pose(spec,"vk-solenoid")?,"color":colors["M_NITRILE_BLACK"]});
     for row in &layout::grid(spec)? {
@@ -434,16 +399,9 @@ pub fn numbers(request: &Value) -> Result<Value> {
             "M_NEOFIT_ACETAL"
         };
         if quarter {
-            b.add(
-                name,
-                "reference",
-                ports::frame(None, Some(&at)),
-                color,
-                json!({"source":SOURCES[20],"select":["fitting"]}),
-            )?;
-            b.add(
+            b.reference(name, ports::frame(None, Some(&at)), Some(color), SOURCES[20], &["fitting"], &[])?;
+            b.reference(
                 &format!("{name}-nut"),
-                "reference",
                 ports::frame(
                     None,
                     Some(&json!([
@@ -453,23 +411,19 @@ pub fn numbers(request: &Value) -> Result<Value> {
                         row["z"]
                     ])),
                 ),
-                color,
-                json!({"source":SOURCES[20],"select":["nut"]}),
+                Some(color),
+                SOURCES[20],
+                &["nut"],
+                &[],
             )?;
         } else {
-            b.add(
-                name,
-                "bulkhead",
-                ports::frame(None, Some(&at)),
-                color,
-                json!({"source":SOURCES[21],"data":row}),
-            )?;
+            let from = b.from(SOURCES[21], &[], &[])?;
+            b.add(name, ports::frame(None, Some(&at)), Some(color), Make::Bulkhead { from })?;
             b.add(
                 &format!("{name}-nut"),
-                "bulkhead-nut",
                 identity.clone(),
-                color,
-                json!({"data":row}),
+                Some(color),
+                Make::BulkheadNut { data: Nut::deserialize(row).with_context(|| format!("the nut of {name}"))? },
             )?;
         }
     }
@@ -479,27 +433,21 @@ pub fn numbers(request: &Value) -> Result<Value> {
         "meter-snap-cap",
         "regulator-snap-cap",
     ] {
-        b.add(
-            name,
-            "reference",
-            identity.clone(),
-            "M_PETGF_BLACK",
-            json!({"source":SOURCES[22],"select":[name]}),
-        )?;
+        b.reference(name, identity.clone(), Some("M_PETGF_BLACK"), SOURCES[22], &[name], &[])?;
     }
     use hsm_enclosure_numbers::rear_wall::hosts;
-    let psu_hardware = json!({
-        "screw":{"shaft_radius":1.5,"head_radius":2.75,"head_height":3.,
-                 "socket_af":2.5,"socket_depth":1.5},
-        "insert":{"radius":2.3,"length":4.,"bore_radius":1.25},
-    });
-    let relay_hardware = json!({
-        "screw":{"shaft_radius":hosts::RELAY_SCREW_RADIUS,
-                 "head_radius":hosts::RELAY_HEAD_RADIUS,"head_height":hosts::RELAY_HEAD_HEIGHT,
-                 "socket_af":hosts::RELAY_SOCKET_AF,"socket_depth":hosts::RELAY_SOCKET_DEPTH},
-        "insert":{"radius":hosts::RELAY_INSERT_RADIUS,"length":hosts::RELAY_INSERT_LENGTH,
-                  "bore_radius":hosts::RELAY_INSERT_BORE_RADIUS},
-    });
+    let psu_hardware = [
+        Hardware::Screw { shaft_radius: 1.5, head_radius: 2.75, head_height: 3.,
+                          socket_af: 2.5, socket_depth: 1.5 },
+        Hardware::Insert { radius: 2.3, length: 4., bore_radius: 1.25 },
+    ];
+    let relay_hardware = [
+        Hardware::Screw { shaft_radius: hosts::RELAY_SCREW_RADIUS,
+                          head_radius: hosts::RELAY_HEAD_RADIUS, head_height: hosts::RELAY_HEAD_HEIGHT,
+                          socket_af: hosts::RELAY_SOCKET_AF, socket_depth: hosts::RELAY_SOCKET_DEPTH },
+        Hardware::Insert { radius: hosts::RELAY_INSERT_RADIUS, length: hosts::RELAY_INSERT_LENGTH,
+                           bore_radius: hosts::RELAY_INSERT_BORE_RADIUS },
+    ];
     for (name, holes, reach, length, setback, hardware, screw_color) in [
         (
             "psu",
@@ -519,10 +467,10 @@ pub fn numbers(request: &Value) -> Result<Value> {
         let axis = vector(&pose["rotation"], [0., 0., 1.])?;
         for (index, hole) in holes.iter().enumerate() {
             let at = point(&pose, [hole[0], hole[1], 0.])?;
-            for (kind, color) in [("screw", screw_color), ("insert", "M_BRASS")] {
-                b.add(&format!("{name}-{kind}-{}",index+1),"mount-hardware",identity.clone(),color,
-                    json!({"kind":kind,"axis":axis,"point":at,"head_reach":reach,
-                           "length":length,"setback":setback,"dimensions":hardware[kind]}))?;
+            for (kind, dimensions, color) in [("screw", &hardware[0], screw_color), ("insert", &hardware[1], "M_BRASS")] {
+                b.add(&format!("{name}-{kind}-{}",index+1),identity.clone(),Some(color),
+                    Make::MountHardware { axis, point: at, head_reach: reach,
+                           length, setback, dimensions: dimensions.clone() })?;
             }
         }
     }
@@ -561,40 +509,40 @@ pub fn numbers(request: &Value) -> Result<Value> {
         world_ports.insert(name.clone(), Value::Object(table));
     }
     let (order, routes) = local_routes(request)?;
-    let component_order = b
-        .items
-        .iter()
-        .map(|row| row["name"].clone())
-        .collect::<Vec<_>>();
-    Ok(
-        json!({"name":"machine-equipment","items":b.items,"frames":b.frames,"world_ports":world_ports,"routes":routes,
-        "route_order":order,"component_order":component_order,
-        "core_equipment":layout::equipment_names(),"insulation":insulation,
-        "_frame_port_order":b.frames.iter().map(|(name,row)|(name.clone(),json!(ports::order(name,&row["ports"])))).collect::<Map<_,_>>() }),
-    )
+    let kept = b.frames.iter().map(|(name, row)| (name.clone(), ports::order(name, &row["ports"]))).collect();
+    Ok((
+        Equipment {
+            name: "machine-equipment".to_owned(),
+            items: b.items,
+            frames: b.frames,
+            world_ports,
+            routes: object(&routes)?.clone(),
+            route_order: order,
+            core_equipment: layout::equipment_names(),
+            insulation,
+        },
+        kept,
+    ))
 }
 
-pub fn finalize(request: &Value) -> Result<Value> {
-    let mut equipment = request["equipment"].clone();
-    let mut routes = object(&equipment["routes"])?.clone();
-    let mut order = rows(&equipment["route_order"])?.clone();
-    for name in rows(&request["integrated_order"])? {
-        let key = text(name)?;
-        if !routes.contains_key(key) {
-            order.push(name.clone());
+/// Adds the tubes routed between the placed ports (`integrated`, in their order) to the
+/// equipment's own, a tube of the same name taking the earlier one's place, and gives every tube
+/// without a colour its spool's.
+pub fn finalize(equipment: &mut Equipment, integrated: Vec<(String, Value)>, spool_colors: &Value) -> Result<()> {
+    for (key, route) in integrated {
+        if !equipment.routes.contains_key(&key) {
+            equipment.route_order.push(key.clone());
         }
-        routes.insert(key.to_owned(), request["integrated_routes"][key].clone());
+        equipment.routes.insert(key, route);
     }
-    for route in routes.values_mut() {
+    for route in equipment.routes.values_mut() {
         if route.get("color").is_none() {
             let spool = text(&route["spool"])?;
-            route["color"] = request["spool_colors"]
+            route["color"] = spool_colors
                 .get(spool)
                 .with_context(|| format!("no equipment spool color {spool}"))?
                 .clone();
         }
     }
-    equipment["routes"] = Value::Object(routes);
-    equipment["route_order"] = json!(order);
-    Ok(equipment)
+    Ok(())
 }
