@@ -98,6 +98,58 @@ function samePose(actual, expected) {
   for (const axis of ["p", "u", "t"]) actual[axis].forEach((n, i) => assert.ok(Math.abs(n - expected[axis][i]) < 1e-8, `${axis}[${i}] moved`));
 }
 
+test("selecting and clearing the display cover leaves the viewport and its controls in place", async () => {
+  const { page } = await openPage();
+  try {
+    const nextPaint = () => page.evaluate(() => new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve))));
+    await page.waitForFunction(() => getComputedStyle(document.querySelector(".cv-card")).transform === "matrix(1, 0, 0, 1, 0, 0)");
+    const layout = () => page.evaluate(async () => {
+      await new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve)));
+      const selectors = [".cad-workspace-header", ".cad-viewport", ".cad-gizmo", ".faucet-options", ".materials-toggle", ".cv-close", ".material-panel"];
+      const bounds = Object.fromEntries(selectors.map(selector => [selector, document.querySelector(selector).getBoundingClientRect().toJSON()]));
+      const { camera, renderer } = window.__hsm;
+      return { bounds, projection: camera.projectionMatrix.toArray(), pixels: [renderer.domElement.width, renderer.domElement.height] };
+    });
+    for (const viewport of [{ width: 1280, height: 900 }, { width: 390, height: 844 }, { width: 320, height: 710 }]) {
+      await page.setViewport(viewport);
+      const open = await page.$eval(".materials-toggle", button => button.getAttribute("aria-expanded") === "true");
+      if (open !== (viewport.width === 390)) await page.click(".materials-toggle");
+      await nextPaint();
+      const { pick, empty } = await page.evaluate(async () => {
+        (await import("/js/viewer/component-picker.js")).setComponentPickEnabled(true);
+        const { THREE, camera, controls, renderer, currentGroup } = window.__hsm;
+        const cover = currentGroup.children.find(mesh => mesh.name === "faucet-display-cover-seated");
+        const center = new THREE.Box3().setFromObject(cover).getCenter(new THREE.Vector3());
+        controls.target.copy(center);
+        camera.position.copy(center).add(new THREE.Vector3(0, -120, 0));
+        camera.up.set(0, 0, 1);
+        controls.update();
+        camera.updateMatrixWorld();
+        const rect = renderer.domElement.getBoundingClientRect();
+        const point = center.project(camera);
+        const pick = [rect.left + (point.x + 1) * rect.width / 2, rect.top + (1 - point.y) * rect.height / 2];
+        const empty = [pick[0], pick[1] + 90];
+        return { pick, empty };
+      });
+      const before = await layout(), cameraBefore = await pose(page);
+      await page.mouse.click(...pick);
+      await page.waitForSelector(".component-panel .component-open", { visible: true, timeout: 3000 });
+      assert.equal(await page.$eval(".component-panel .edge-panel-file", node => node.title), "faucet-display-cover-seated");
+      assert.equal(await page.$eval(".material-view-switch", node => node.hidden), false);
+      assert.deepEqual(await layout(), before);
+      samePose(await pose(page), cameraBefore);
+      await page.click(".component-details-toggle");
+      await page.waitForSelector(".component-details", { visible: true });
+      assert.deepEqual(await layout(), before);
+      await page.mouse.click(...empty);
+      await page.waitForSelector(".component-panel", { hidden: true, timeout: 3000 });
+      assert.equal(await page.$eval(".material-view-switch", node => node.hidden), true);
+      assert.deepEqual(await layout(), before);
+      samePose(await pose(page), cameraBefore);
+    }
+  } finally { await page.close(); }
+});
+
 test("style swaps actual geometry in place; finish covers the exterior, lever, dispense tubes and gasket", async () => {
   const { page } = await openPage();
   try {
