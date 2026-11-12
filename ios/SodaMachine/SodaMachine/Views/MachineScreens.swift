@@ -126,6 +126,10 @@ struct MachineNotices: View {
             Notice(title: "Trusted", message: "This \(BLEManager.deviceWord) can change settings and run cycles.", icon: "checkmark.circle")
         }
         if let s = ble.appliance.status?.value {
+            // What the machine's own glasses say now: a reading the phone is still hearing.
+            if ble.statusIsLive, let title = s.machineNotice.title, let message = s.machineNotice.message {
+                Notice(title: title, message: message, icon: s.machineNotice.icon, urgent: s.machineNotice.urgent)
+            }
             if s.gasAlarm {
                 Notice(title: "Gas alarm",
                        message: "Check the machine now. Filling, cleaning and flavor injection are unavailable.",
@@ -253,8 +257,9 @@ struct MachineStatusPanel: View {
         }
     }
 
-    /// Where the carbonator's water is, by its two reeds, and its refill.
+    /// Where the carbonator's water is, by its notice, its two reeds, and its refill.
     static func water(_ s: MachineStatus) -> String {
+        if let water = s.machineNotice.water { return water }
         switch RefillState(rawValue: s.refillState) {
         case .filling: return "Refilling with water"
         case .queued: return "Refill waiting"
