@@ -339,7 +339,7 @@ impl Run {
             if distance(cursor, start) > SAME_POINT {
                 segments.push(Segment::Line { points_mm: [cursor, start] });
             }
-            segments.push(Segment::Arc { points_mm: [start, middle, end] });
+            segments.push(Segment::through(start, middle, end));
             cursor = end;
         }
         if distance(cursor, *p.last().unwrap()) > SAME_POINT {

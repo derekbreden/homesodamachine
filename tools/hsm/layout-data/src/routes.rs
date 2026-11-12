@@ -2,25 +2,30 @@
 use crate::rear::{Routes, station};
 use crate::*;
 
-fn append_pairs(out: &mut Routes, rows: &Value) -> Result<()> {
-    for row in rows.as_array().context("ordered route rows")? {
-        let name = row[0].as_str().context("route name")?;
-        if let Some((_, held)) = out.iter_mut().find(|(key, _)| key == name) {
-            *held = row[1].clone();
+/// Adds `rows` to `out`, a tube of a name `out` already holds taking that tube's place.
+fn append(out: &mut Routes, rows: Routes) {
+    for (name, tube) in rows {
+        if let Some((_, held)) = out.iter_mut().find(|(key, _)| *key == name) {
+            *held = tube;
         } else {
-            out.push((name.to_owned(), row[1].clone()));
+            out.push((name, tube));
         }
     }
-    Ok(())
 }
 
-pub fn specifications(v: &Value) -> Result<Value> {
-    let spec = &v["spec"];
-    let stations = &v["stations"];
+/// The warm-side tubes in the order they are swept: the soda rise, the rear continuations, the
+/// flavor lines, reservoir A's tubes, and reservoir B's draw and fill.
+pub fn specifications(
+    spec: &Value,
+    stations: &Value,
+    continuations: Routes,
+    flavors: Routes,
+    reservoir: Routes,
+) -> Result<Routes> {
     let mut out = vec![("soda-core-rise".to_owned(), soda::tube(spec)?)];
-    append_pairs(&mut out, &v["continuations"])?;
-    append_pairs(&mut out, &v["flavors"])?;
-    append_pairs(&mut out, &v["reservoir"])?;
+    append(&mut out, continuations);
+    append(&mut out, flavors);
+    append(&mut out, reservoir);
     let (a, ua) = station(stations, "foam-assembly", "reservoir-b")?;
     let (b, ub) = station(stations, "valve-v-h", "inlet")?;
     let z = 295.7;
@@ -56,50 +61,54 @@ pub fn specifications(v: &Value) -> Result<Value> {
         [b[0] + 33.65, b[1], z],
         rise_start,
     ];
-    let mut full = vec![xyz(prefix.last().unwrap()["points_mm"]
-        .as_array()
-        .unwrap()
-        .last()
-        .unwrap())?];
+    let mut full = vec![*prefix.last().unwrap().points().last().unwrap()];
     full.extend(points);
-    let mut unresolved = Vec::new();
-    let route = (|| -> Result<Value> {
+    let route = (|| -> Result<Tube> {
         let mut segments = prefix;
         segments.extend(rounded(&full, 14.)?);
         segments.extend([rise_first, rise_second, down]);
         segments.push(line(b, sub(b, mul(ub, 12.7))));
         let points = sample(&segments)?;
-        Ok(
-            json!({"points_mm":points,"centerline_mm":points,"segments":segments,"od_mm":6.35,"id_mm":4.24,
-            "radius_mm":14.,"minimum_radius_mm":14.,"spool":"black","from":"foam-assembly.reservoir-b",
-            "frm":"foam-assembly.reservoir-b","to":"valve-v-h.inlet","owners":["foam-assembly","valve-v-h"],
-            "status":"selected_native_layout","note":"B draw completes its westward offset aft of the drain cradle, then enters V-H from the fore corridor"}),
-        )
+        Ok(Tube {
+            radius_mm: Some(Some(14.)),
+            minimum_radius_mm: Some(Some(14.)),
+            from: Some("foam-assembly.reservoir-b".to_owned()),
+            frm: Some("foam-assembly.reservoir-b".to_owned()),
+            to: Some("valve-v-h.inlet".to_owned()),
+            owners: Some(vec!["foam-assembly".to_owned(), "valve-v-h".to_owned()]),
+            status: Some("selected_native_layout".to_owned()),
+            note: Some("B draw completes its westward offset aft of the drain cradle, then enters V-H from the fore corridor".to_owned()),
+            ..Tube::of(segments, 6.35, 4.24, "black").through(points)
+        })
     })();
-    match route {
-        Ok(row) => out.push(("fluid-26".to_owned(), row)),
-        Err(error) => unresolved.push(json!({"id":"fluid-26","reason":error.to_string()})),
+    // A B draw that cannot be laid out is left out of the tubes.
+    if let Ok(row) = route {
+        out.push(("fluid-26".to_owned(), row));
     }
     // The fill path is authored as exact native segments; resolving both ports
     // retains the same named-interface contract as the other continuations.
     let _ = station(stations, "reservoir-b-fill-turn", "socket")?;
     let _ = station(stations, "foam-assembly", "reservoir-b-fill")?;
     let fill = &spec["reservoir_b_fill_external"];
-    let segments = fill["segments"]
-        .as_array()
-        .context("B fill native segments")?;
-    let points = sample(segments)?;
-    let bent = segments.iter().any(|s| s["kind"] != "line");
+    let segments = crate::segments(&fill["segments"]).context("B fill native segments")?;
+    let points = sample(&segments)?;
+    let bent = segments.iter().any(|s| !matches!(s, Segment::Line { .. }));
     let radius = if bent {
-        fill["minimum_radius_mm"].clone()
+        fill["minimum_radius_mm"].as_f64()
     } else {
-        Value::Null
+        None
     };
-    out.push(("fluid-24".to_owned(),json!({"points_mm":points,"centerline_mm":points,"segments":segments,
-        "od_mm":6.35,"id_mm":4.24,"radius_mm":radius,"minimum_radius_mm":radius,"spool":"black",
-        "from":"reservoir-b-fill-turn.socket","frm":"reservoir-b-fill-turn.socket","to":"foam-assembly.reservoir-b-fill",
-        "owners":["reservoir-b-fill-turn","foam-assembly"],"status":"selected_native_layout",
-        "note":"B fill follows two exposed circular arcs to the fore cap entry"})));
+    out.push(("fluid-24".to_owned(), Tube {
+        radius_mm: Some(radius),
+        minimum_radius_mm: Some(radius),
+        from: Some("reservoir-b-fill-turn.socket".to_owned()),
+        frm: Some("reservoir-b-fill-turn.socket".to_owned()),
+        to: Some("foam-assembly.reservoir-b-fill".to_owned()),
+        owners: Some(vec!["reservoir-b-fill-turn".to_owned(), "foam-assembly".to_owned()]),
+        status: Some("selected_native_layout".to_owned()),
+        note: Some("B fill follows two exposed circular arcs to the fore cap entry".to_owned()),
+        ..Tube::of(segments, 6.35, 4.24, "black").through(points)
+    }));
     let _ = ua;
-    Ok(json!({"routes":out,"unresolved":unresolved}))
+    Ok(out)
 }
