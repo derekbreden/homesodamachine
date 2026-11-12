@@ -204,6 +204,7 @@ static uint32_t frameDoneTimeouts = 0;
 #define TEXT_H_20        22
 #define TEXT_H_28        30
 #define TEXT_H_40        44
+#define TEXT_H_48        52
 #define STATUS_REEDS     10
 #define RATIO_MIN        FLAVOR_RATIO_MIN
 #define RATIO_MAX        FLAVOR_RATIO_MAX
@@ -269,6 +270,7 @@ static void primeSessionService();
 static void lockScreenShow(const char *kicker, const char *title, const char *body);
 static void lockScreenHide();
 static void askHide();
+static void welcomeHide();
 
 // ── UI objects ──
 static lv_obj_t *lockScreen, *lockLogoImg, *lockKicker, *lockTitle, *lockBody;
@@ -652,6 +654,9 @@ static bool screenIdle = false;  // true while asleep (backlight off via idle)
 
 // The no-water ask has been put up since this glass last woke (noWaterService()).
 static bool noWaterOffered = false;
+
+// The notice the welcome has been put up for since this glass last woke (welcomeService()).
+static uint8_t welcomeOffered = NOTICE_NONE;
 
 // A finger here is presence the main board has to hear. It keeps the one clock
 // for both glasses, so a touch it never learns of leaves the other glass dark
@@ -1197,6 +1202,7 @@ static void wake() {
     screenIdle = false;
     idleStage = 0;
     noWaterOffered = false;
+    welcomeOffered = NOTICE_NONE;
     // Whatever the dark decided to keep or throw away is already on screen — waking shows
     // it rather than moving to it. The light comes back once the panel has been reset.
     if (uiReady) panelKick();
@@ -1814,6 +1820,7 @@ static void trustShow(const TrustShowPayload &ask);
 static void trustClose(uint8_t askId);
 static void trustForgot(uint8_t count);
 static void noWaterService();
+static void welcomeService();
 
 static void j9OnMessage(HdlcLink *link, const uint8_t *frame, uint16_t len) {
   awaitingAnswer = false;   // the main board has spoken; the wire is ours again
@@ -2117,6 +2124,7 @@ static void j9OnMessage(HdlcLink *link, const uint8_t *frame, uint16_t len) {
     }
     refreshHomeLevel();
     noWaterService();
+    welcomeService();
     // A fill this glass did not start — the console's, or one whose answer
     // lost its turn — is still the machine being busy, and is shown as such.
     if ((ctrlStatus.flags & STATUS_F_FILLING) && !fillLockShown && !fillStartSentMs)
@@ -3490,6 +3498,7 @@ static void buildLockScreen(lv_obj_t *scr) {
 static void lockScreenShow(const char *kicker, const char *title, const char *body) {
   if (!lockScreen) return;
   askHide();   // the lock takes the glass; the nonmodal inbox retains its request
+  welcomeHide();
   lv_obj_set_pos(lockScreen, 0, 0);
   lv_obj_set_size(lockScreen, SCREEN_W, SCREEN_H);
   operationResultVisible = false;
@@ -4300,8 +4309,8 @@ static void testScreenHide() {
 //
 // Remote requests enter a small inbox in the flavor rail. Only a local tap
 // opens their normal task page; the rail, task tabs and Done remain available.
-// Forget's local confirmation and the no-water ask use a modal. A remote request
-// never replaces either, the operation lock, or a physical hold.
+// Forget's local confirmation, the no-water ask and the welcome's Skip use a modal. A
+// remote request never replaces one, the operation lock, or a physical hold.
 #define ASK_W        640
 #define ASK_H        330
 #define ASK_PAD       32
@@ -4310,7 +4319,7 @@ static void testScreenHide() {
 #define ASK_MS     75000   // the longest an ask stands unanswered
 #define FORGOT_MS   6000   // how long what Forget found stays above it
 
-enum AskMode : uint8_t { ASK_NONE, ASK_FORGET, ASK_NO_WATER };
+enum AskMode : uint8_t { ASK_NONE, ASK_FORGET, ASK_NO_WATER, ASK_SWEEP_SKIP };
 static AskMode askMode = ASK_NONE;
 static unsigned long noWaterTriedMs = 0;   // nonzero: Try again went out then, and no status has answered it
 static uint8_t trustAskId = 0;           // the faucet's number for the ask on the glass
@@ -4324,6 +4333,7 @@ static uint8_t trustAnsweredAskId = 0;
 
 static void askNoCb(lv_event_t *e);
 static void askYesCb(lv_event_t *e);
+static void welcomeSkip();
 static void trustNoCb(lv_event_t *e);
 static void trustYesCb(lv_event_t *e);
 
@@ -4479,13 +4489,14 @@ static void trustAnswer(bool trusted) {
 static void trustNoCb(lv_event_t *e) { (void)e; trustAnswer(false); }
 static void trustYesCb(lv_event_t *e) { (void)e; trustAnswer(true); }
 
-// Cancel the local Forget confirmation, or leave the no-water ask for now.
+// Cancel the local Forget confirmation or the welcome's Skip, or leave the no-water ask for
+// now.
 static void askNoCb(lv_event_t *e) {
   (void)e;
   askHide();
 }
 
-// Confirm Forget, or have the main board try the water again.
+// Confirm Forget, have the main board try the water again, or give the sweep up.
 static void askYesCb(lv_event_t *e) {
   (void)e;
   if (askMode == ASK_FORGET) j9Post(MSG_TRUST_FORGET, nullptr, 0);
@@ -4493,6 +4504,7 @@ static void askYesCb(lv_event_t *e) {
     j9Post(MSG_REFILL_RETRY, nullptr, 0);
     noWaterTriedMs = millis() ? millis() : 1;
   }
+  if (askMode == ASK_SWEEP_SKIP) welcomeSkip();
   askHide();
 }
 
@@ -4575,6 +4587,181 @@ static void noWaterService() {
   if (!uiReady || screenIdle || lockActive || holding || primeStopPending || testActive ||
       (primeSessionKnown && primeSession.phase == PRIME_SESSION_RUNNING)) return;
   noWaterShow();
+}
+
+// ── Welcome ───────────────────────────────────────────────────────────────
+// A machine from the factory owes a sweep (NOTICE_SWEEP): the air in its dry carbonator goes
+// out through the faucet before the first fill, while a hand holds the lever and the faucet's
+// glass counts it. This glass greets the person with that step, beside the mark the boot
+// showed, and says Done from the count's target until the notice ends (NOTICE_SWEEP_DONE).
+//
+// It is put up once each time this glass wakes while a sweep is owed, and again when the
+// notice changes; OK leaves every page usable until the next of either. It waits for an
+// operation lock, a hold and an ask. Skip goes with the step and asks first.
+#define WELCOME_X          (18 + LOGO_SIZE + 18)   // the card stands beside the mark, as the boot's does
+#define WELCOME_W          (SCREEN_W - LOCK_MODAL_MARGIN - WELCOME_X)
+#define WELCOME_H          404
+#define WELCOME_COL_W      (WELCOME_W - LOCK_PAD_L - LOCK_PAD_R)
+#define WELCOME_TITLE_Y     30
+#define WELCOME_BODY_Y     (WELCOME_TITLE_Y + TEXT_H_48 + 14)
+#define WELCOME_BTN_W      ((WELCOME_COL_W - ASK_BTN_GAP) / 2)
+#define SKIP_UNANSWERED_MS 2500   // a Skip no status has answered by now did not arrive
+static_assert(WELCOME_X + WELCOME_W + LOCK_MODAL_MARGIN == SCREEN_W, "the card keeps the boot's margin");
+
+static lv_obj_t *welcomeScreen, *welcomeTitle, *welcomeBody, *welcomeSkipBtn;
+static uint8_t welcomeKind = NOTICE_NONE;    // the notice the welcome is up for; NOTICE_NONE while down
+static unsigned long welcomeSkippedMs = 0;   // nonzero: Skip went out then, and no status has answered it
+
+static void welcomeOkCb(lv_event_t *e);
+static void welcomeSkipCb(lv_event_t *e);
+
+// Built once and hidden, like the lock it follows at boot: the mark where the lock's
+// animation stood, still, and the lock's card grown to hold the step and two answers.
+static void buildWelcome(lv_obj_t *scr) {
+  welcomeScreen = mkFlat(scr, 0, 0, SCREEN_W, SCREEN_H, THEME_BG);
+  lv_obj_add_flag(welcomeScreen, LV_OBJ_FLAG_CLICKABLE);   // a finger here reaches no page beneath
+
+  lv_obj_t *mark = lv_img_create(welcomeScreen);
+  if (animBase) lv_img_set_src(mark, &frameDsc[0]);   // the animation's first frame is the still mark
+  else lv_obj_add_flag(mark, LV_OBJ_FLAG_HIDDEN);
+  lv_obj_align(mark, LV_ALIGN_LEFT_MID, 18, 0);
+
+  lv_obj_t *card = mkCard(welcomeScreen, WELCOME_W, WELCOME_H);
+  lv_obj_align(card, LV_ALIGN_RIGHT_MID, -LOCK_MODAL_MARGIN, 0);
+  lv_obj_set_style_radius(card, 0, 0);
+  lv_obj_set_style_pad_left(card, LOCK_PAD_L, 0);
+  lv_obj_set_style_pad_right(card, LOCK_PAD_R, 0);
+  lv_obj_set_style_pad_top(card, LOCK_PAD_T, 0);
+  lv_obj_set_style_pad_bottom(card, LOCK_PAD_B, 0);
+
+  // The boot's accent, beside the words and clear of the answers.
+  lv_obj_t *accent = lv_obj_create(card);
+  lv_obj_set_size(accent, 6, WELCOME_H - LOCK_PAD_T - LOCK_PAD_B - ASK_BTN_H - 24);
+  lv_obj_set_pos(accent, -18, 0);
+  lv_obj_set_style_bg_color(accent, lv_color_hex(COL_ACCENT), 0);
+  lv_obj_set_style_border_width(accent, 0, 0);
+  lv_obj_set_style_radius(accent, 3, 0);
+  lv_obj_set_style_pad_all(accent, 0, 0);
+  lv_obj_clear_flag(accent, LV_OBJ_FLAG_SCROLLABLE);
+
+  lv_obj_t *kicker = mkText(card, "HOME SODA MACHINE", &lv_font_montserrat_20, COL_ACCENT);
+  lv_obj_set_pos(kicker, 0, 0);
+  welcomeTitle = mkText(card, "", &lv_font_montserrat_48, COL_TEXT);
+  lv_obj_set_pos(welcomeTitle, 0, WELCOME_TITLE_Y);
+  welcomeBody = mkText(card, "", &lv_font_montserrat_24, COL_DIM);
+  lv_obj_set_width(welcomeBody, WELCOME_COL_W);
+  lv_obj_set_style_text_line_space(welcomeBody, 6, 0);
+  lv_obj_set_pos(welcomeBody, 0, WELCOME_BODY_Y);
+
+  // The ask's two answers, as its modal draws them: each takes a release on its target.
+  welcomeSkipBtn = mkBtn(card, WELCOME_BTN_W, ASK_BTN_H, COL_BLUE);
+  lv_obj_align(welcomeSkipBtn, LV_ALIGN_BOTTOM_LEFT, 0, 0);
+  lv_obj_set_style_border_width(welcomeSkipBtn, 2, 0);
+  lv_obj_set_style_border_color(welcomeSkipBtn, lv_color_hex(0x7d9eed), 0);
+  lv_obj_clear_flag(welcomeSkipBtn, LV_OBJ_FLAG_PRESS_LOCK);
+  lv_obj_add_event_cb(welcomeSkipBtn, welcomeSkipCb, LV_EVENT_CLICKED, NULL);
+  lv_obj_center(mkText(welcomeSkipBtn, "Skip", &lv_font_montserrat_24, COL_TEXT));
+
+  lv_obj_t *ok = mkBtn(card, WELCOME_BTN_W, ASK_BTN_H, COL_ACCENT);
+  lv_obj_align(ok, LV_ALIGN_BOTTOM_RIGHT, 0, 0);
+  lv_obj_clear_flag(ok, LV_OBJ_FLAG_PRESS_LOCK);
+  lv_obj_add_event_cb(ok, welcomeOkCb, LV_EVENT_CLICKED, NULL);
+  lv_obj_center(mkText(ok, "OK", &lv_font_montserrat_24, COL_INK));
+
+  lv_obj_add_flag(welcomeScreen, LV_OBJ_FLAG_HIDDEN);
+}
+
+// The words for the notice standing: the step while the sweep waits for it, Done once the
+// count has met its target. Skip goes with the step.
+static void welcomeDress(uint8_t kind) {
+  welcomeKind = kind;
+  welcomeOffered = kind;
+  if (kind == NOTICE_SWEEP_DONE) {
+    lv_label_set_text(welcomeTitle, "Done");
+    lv_label_set_text(welcomeBody, "Let go of the faucet's lever. The machine fills itself now.");
+    lv_obj_add_flag(welcomeSkipBtn, LV_OBJ_FLAG_HIDDEN);
+  } else {
+    lv_label_set_text(welcomeTitle, "Welcome");
+    lv_label_set_text(welcomeBody,
+                      "With the cylinder open, hold the faucet's lever down until it says Done. "
+                      "Gas hisses while the tank clears its air.");
+    lv_obj_clear_flag(welcomeSkipBtn, LV_OBJ_FLAG_HIDDEN);
+  }
+}
+
+static void welcomeShow(uint8_t kind) {
+  if (!welcomeScreen) return;
+  // A finger already down pressed something else. It answers nothing here, and chooses no
+  // picture beneath: the welcome takes a press that begins on it.
+  if (touchInput) lv_indev_wait_release(touchInput);
+  tileDisarm();
+  welcomeDress(kind);
+  lv_obj_clear_flag(welcomeScreen, LV_OBJ_FLAG_HIDDEN);
+  lv_obj_move_foreground(welcomeScreen);
+  if (testActive) lv_obj_move_foreground(testScreen);   // the camera reads it through anything
+}
+
+static void welcomeHide() {
+  if (welcomeKind == NOTICE_NONE) return;
+  welcomeKind = NOTICE_NONE;
+  lv_obj_add_flag(welcomeScreen, LV_OBJ_FLAG_HIDDEN);
+}
+
+static void welcomeOkCb(lv_event_t *e) {
+  (void)e;
+  welcomeHide();
+}
+
+static void welcomeSkipCb(lv_event_t *e) {
+  (void)e;
+  if (welcomeKind != NOTICE_SWEEP) return;
+  askShow(ASK_SWEEP_SKIP, "Skip this step?",
+          "The tank fills with its air still in it, and soda pours less fizzy for weeks.",
+          "Cancel", "Skip");
+}
+
+// Skip, confirmed. The main board gives the sweep up and asks for the first fill; with gas
+// moving, the fill waits for the lever to be let go, and both glasses say Done until then.
+static void welcomeSkip() {
+  if (welcomeKind != NOTICE_SWEEP) return;
+  j9Post(MSG_SWEEP_SKIP, nullptr, 0);
+  welcomeSkippedMs = millis() ? millis() : 1;
+  welcomeHide();
+}
+
+static uint8_t welcomeNotice() {
+  if (!ctrlStatusThermal) return NOTICE_NONE;
+  const uint8_t kind = ctrlStatus.notice;
+  return kind == NOTICE_SWEEP || kind == NOTICE_SWEEP_DONE ? kind : NOTICE_NONE;
+}
+
+// From loop(), and on every status the main board answers with.
+static void welcomeService() {
+  // Only a reading that has just arrived says anything: this glass does not poll while dark.
+  if (!front_ui::readingFresh(ctrlStatusMs, millis(), STATUS_ANSWER_MS)) return;
+  const uint8_t kind = welcomeNotice();
+  if (kind != NOTICE_SWEEP && askMode == ASK_SWEEP_SKIP) askHide();   // Skip belongs to the step
+  if (kind == NOTICE_NONE) {
+    welcomeOffered = NOTICE_NONE;
+    welcomeSkippedMs = 0;
+    welcomeHide();
+    return;
+  }
+  if (welcomeSkippedMs) {
+    // An answer that no longer names the step has taken the Skip. One that still does after a
+    // while did not hear it, and the welcome comes back to say so.
+    if (kind == NOTICE_SWEEP && millis() - welcomeSkippedMs < SKIP_UNANSWERED_MS) return;
+    welcomeSkippedMs = 0;
+    if (kind == NOTICE_SWEEP) welcomeOffered = NOTICE_NONE;
+  }
+  if (welcomeKind != NOTICE_NONE) {
+    if (welcomeKind != kind) welcomeDress(kind);
+    return;
+  }
+  if (welcomeOffered == kind || askMode != ASK_NONE) return;
+  if (!uiReady || screenIdle || lockActive || holding || primeStopPending || testActive ||
+      (primeSessionKnown && primeSession.phase == PRIME_SESSION_RUNNING)) return;
+  welcomeShow(kind);
 }
 
 static void buildRail(lv_obj_t *scr) {
@@ -5145,14 +5332,26 @@ static bool uiShow(const UiShowPayload &req) {
       showPage(PAGE_SETUP);
       return true;
     case UI_RAIL_NOTICE:
-      // The no-water ask as the latch itself puts it up, and either of its answers.
-      if (!noWaterLatched()) return false;
-      if (askMode != ASK_NO_WATER) {
-        if (askMode != ASK_NONE || testActive) return false;
-        noWaterShow();
+      // The notice as it puts itself up, the no-water ask or the welcome, and either answer.
+      if (noWaterLatched()) {
+        if (askMode != ASK_NO_WATER) {
+          if (askMode != ASK_NONE || testActive) return false;
+          noWaterShow();
+        }
+        if (req.act == UI_ACT_COMMIT) askYesCb(nullptr);
+        else if (req.act == UI_ACT_DECLINE) askNoCb(nullptr);
+        return true;
       }
-      if (req.act == UI_ACT_COMMIT) askYesCb(nullptr);
-      else if (req.act == UI_ACT_DECLINE) askNoCb(nullptr);
+      if (welcomeNotice() == NOTICE_NONE) return false;
+      if (askMode == ASK_SWEEP_SKIP) {   // Skip's confirmation is up and takes them: Skip, Cancel
+        if (req.act == UI_ACT_COMMIT) askYesCb(nullptr);
+        else if (req.act == UI_ACT_DECLINE) askNoCb(nullptr);
+        return true;
+      }
+      if (askMode != ASK_NONE || testActive) return false;
+      if (welcomeKind == NOTICE_NONE) welcomeShow(welcomeNotice());
+      if (req.act == UI_ACT_COMMIT) welcomeOkCb(nullptr);
+      else if (req.act == UI_ACT_DECLINE) welcomeSkipCb(nullptr);   // Done has no Skip
       return true;
     default:
       return false;
@@ -5190,6 +5389,7 @@ static void buildUi() {
   buildSettingsButton(scr);
   buildLockScreen(scr);
   buildAsk(scr);          // local Forget confirmation and the nonmodal phone inbox
+  buildWelcome(scr);      // a new machine's first start
   buildTestScreen(scr);   // above the lock: the camera reads it through anything
 
   uiReady = true;
@@ -5790,6 +5990,7 @@ void loop() {
   ratioService();
   askService();
   noWaterService();
+  welcomeService();
 
   // The status request keeps main board truth fresh once a second whenever a
   // shared prime hold does not own the pair.
