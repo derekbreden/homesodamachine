@@ -1721,7 +1721,7 @@
       "purchase_id": "pur-e09e5d28db894792aef087da03caea51"
     }
   ],
-  "as_of": "2026-11-11",
+  "as_of": "2026-11-12",
   "coverage": [
     {
       "checked_at": "2026-10-04",
@@ -2362,24 +2362,25 @@
       "vendor": "Anthropic"
     },
     {
-      "checked_at": "2026-11-11",
+      "checked_at": "2026-11-12",
       "complete_period": null,
       "coverage": "partial",
       "coverage_id": "coverage-59ed46ecf3b440448050d1c01f6aeada",
-      "evidence_type": "vendor_shipment_and_carrier_delivery_estimate",
+      "evidence_type": "vendor_shipment_and_carrier_delivery",
       "examined_period": {
-        "end": "2026-11-11",
+        "end": "2026-11-12",
         "start": "2026-11-08"
       },
-      "note": "Exact order and tracking-reference email searches exhausted. Vendor shipment identity matched directly to carrier notices; latest retrieved carrier notice schedules estimated delivery for 2026-11-12. No actual delivery or completed merchant charge established.",
+      "note": "Named vendor shipment identity matched directly to carrier notices. UPS explicitly confirms delivery on November 12, 2026 at 11:30 AM as displayed. No completed merchant charge established. This is order-scoped fulfillment evidence, not merchant-account coverage.",
       "order_ids": [
         "bambu:us795729195777990656"
       ],
       "source_ids": [
         "src-1a7e236f18734150aa122917f332f47f",
+        "src-2994d26d9a9843b78a6be9fa957e3302",
         "src-8944c63d978340d3baaae57ea3c6dc01"
       ],
-      "stream": "one named in-transit filament order",
+      "stream": "one named filament order",
       "vendor": "Bambu Lab"
     },
     {
@@ -3277,22 +3278,23 @@
       "vendor": "Amazon"
     },
     {
-      "checked_at": "2026-11-10",
+      "checked_at": "2026-11-12",
       "complete_period": null,
       "coverage": "partial",
       "coverage_id": "coverage-c2b991ed7f77417889868ab62b87b299",
       "evidence_type": "fulfillment",
       "examined_period": {
-        "end": "2026-11-10",
+        "end": "2026-11-12",
         "start": "2026-10-26"
       },
-      "note": "Named delivery and shipment notices only; payment and exact delivery dates are not inferred from notification timestamps.",
+      "note": "Named delivery and shipment notices only. The carrier explicitly supplies the November 12 delivery day for the three-spool filament order; payment is not inferred from fulfillment.",
       "order_ids": [
         "bambu:us791135084148191233",
         "bambu:us795729195777990656"
       ],
       "source_ids": [
         "src-1a7e236f18734150aa122917f332f47f",
+        "src-2994d26d9a9843b78a6be9fa957e3302",
         "src-573612223a5d4cc198ffc89874fade44"
       ],
       "stream": "selected hotend and filament orders",
@@ -3411,7 +3413,7 @@
         "end": "2026-11-10",
         "start": "2026-01-01"
       },
-      "note": "All 25 retrieved order confirmations were read and compared line by line; 16 contain filament. Filament quantities, grades, colors and amounts match section 15, including the three PETG Basic spools in the November 7 order. No additional delivery notice was found for that order. Searches included archived/read mail, vendor and material aliases, generic printing categories, and purchase evidence in promotions; all scoped Gmail query pages were retrieved. This is scoped evidence, not complete merchant-account coverage.",
+      "note": "All 25 retrieved order confirmations were read and compared line by line; 16 contain filament. Filament quantities, grades, colors and amounts match section 15, including the three PETG Basic spools in the November 7 order. Fulfillment evidence is tracked separately from the confirmation comparison. Searches included archived/read mail, vendor and material aliases, generic printing categories, and purchase evidence in promotions; all scoped Gmail query pages were retrieved. This is scoped evidence, not complete merchant-account coverage.",
       "order_ids": [
         "bambu:us712460111015776257",
         "bambu:us712597240994926592",
@@ -9652,7 +9654,7 @@
       ]
     }
   ],
-  "input_fingerprint": "sha256:73f9c3859d9e2101f2c23f6fcc748efd806df642ec50bd2875e89de26c91db8c",
+  "input_fingerprint": "sha256:8e9ef779b65104dd98f361fb8b4a9b9624db953d7879661c43fcb8a9532b3f71",
   "orders": [
     {
       "allocation_status": "all_project",
@@ -18025,6 +18027,7 @@
       "reference": "us795729195777990656",
       "source_ids": [
         "src-1a7e236f18734150aa122917f332f47f",
+        "src-2994d26d9a9843b78a6be9fa957e3302",
         "src-8944c63d978340d3baaae57ea3c6dc01",
         "src-fc21b89f674c49d8b7beb35eb29aa7e1"
       ],
@@ -33041,9 +33044,15 @@
       "contributes": true,
       "currency": "USD",
       "delivery_date": null,
+      "delivery_dates": [
+        {
+          "precision": "day",
+          "value": "2026-11-12"
+        }
+      ],
       "description": "PETG Basic filament with spool ×3 — Red 30201, White 30106, Navy Blue 30604 (1 kg each, one of each color; $15.29 each after bulk discount, $45.87 subtotal) + shipping $6.99 + NE tax $3.83",
       "event_ids": [],
-      "fulfillment": "ON-ORDER",
+      "fulfillment": "ACQUIRED",
       "invoice_date": null,
       "ledger_purchase_id": "pur-6655f4a0c1c747bc8ce06a69596eb432",
       "merchant_charge_allocated_minor": 0,
@@ -33072,6 +33081,7 @@
       "service_period": null,
       "source_ids": [
         "src-1a7e236f18734150aa122917f332f47f",
+        "src-2994d26d9a9843b78a6be9fa957e3302",
         "src-8944c63d978340d3baaae57ea3c6dc01",
         "src-fc21b89f674c49d8b7beb35eb29aa7e1"
       ],
@@ -61692,6 +61702,22 @@
       "verified_at": "2026-10-04"
     },
     {
+      "document_date": null,
+      "document_type": "carrier_delivery_confirmation",
+      "note": "UPS delivery confirmation explicitly states Delivered Thursday 11/12/2026 at 11:30 AM as displayed. The vendor shipment notification directly joins the carrier tracking identity to this order and its three PETG Basic spools. Fulfillment evidence only; no completed merchant charge or remaining inventory quantity is inferred.",
+      "notification_date": {
+        "precision": "day",
+        "value": "2026-11-12"
+      },
+      "proves": [
+        "delivery"
+      ],
+      "reference": "us795729195777990656",
+      "source_id": "src-2994d26d9a9843b78a6be9fa957e3302",
+      "vendor": "Bambu Lab",
+      "verified_at": "2026-11-12"
+    },
+    {
       "document_date": {
         "precision": "day",
         "value": "2026-04-22"
@@ -67404,7 +67430,7 @@
       "basis": "Current procurement status, independently of payment evidence.",
       "by_status": [
         {
-          "amount_minor": 4997074,
+          "amount_minor": 5002743,
           "currency": "USD",
           "fulfillment": "ACQUIRED",
           "purchase_ids": [
@@ -67689,6 +67715,7 @@
             "pur-65b004ee31ff47e991a043d3d92847b3",
             "pur-65c979f1bb194148918426361d985f73",
             "pur-66308bfbd5f94fd99e1e2975197c8ded",
+            "pur-6655f4a0c1c747bc8ce06a69596eb432",
             "pur-668385101ed147b6a915178e21b5d9e9",
             "pur-66c97ae5c6ad4297ae368293a49ce4e2",
             "pur-66e2820d4cc946ba9db3b4a003f6c6a3",
@@ -68148,12 +68175,11 @@
           "unknown_amount_ids": []
         },
         {
-          "amount_minor": 13687,
+          "amount_minor": 8018,
           "currency": "USD",
           "fulfillment": "ON-ORDER",
           "purchase_ids": [
             "pur-4eaf76e6557740d7b0e85e0be8664f71",
-            "pur-6655f4a0c1c747bc8ce06a69596eb432",
             "pur-6f3e90aba9734990a07d1e24f1f75a86"
           ],
           "unknown_amount_ids": []
@@ -68172,7 +68198,6 @@
       "expected_refund_event_ids": [],
       "outstanding_purchase_ids": [
         "pur-4eaf76e6557740d7b0e85e0be8664f71",
-        "pur-6655f4a0c1c747bc8ce06a69596eb432",
         "pur-6f3e90aba9734990a07d1e24f1f75a86",
         "pur-b6c01a5b012340fc888139c1070dc054",
         "pur-c887374045604177851c4a81cc779f0e"
