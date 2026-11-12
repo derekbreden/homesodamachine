@@ -2,7 +2,9 @@
 //! evaporator: each a centreline from port to port, rounded at every corner by the largest radius
 //! its legs seat under the run's cap.
 use crate::design;
+use crate::routes_program::Sweep;
 use anyhow::{Context, Result, ensure};
+use hsm_layout_data::tube::Segment;
 use serde_json::{Map, Value, json};
 use std::collections::{BTreeMap, BTreeSet};
 use std::path::Path;
@@ -314,7 +316,7 @@ impl Run {
     }
 
     /// The centreline as the kernel sweeps it, straights joined by an arc at each rounded corner.
-    pub fn segments(&self) -> Vec<Value> {
+    pub fn segments(&self) -> Vec<Segment> {
         let p = &self.points;
         let mut segments = vec![];
         let mut cursor = p[0];
@@ -335,13 +337,13 @@ impl Run {
             let radial = sub(vertex, center);
             let middle = add(center, scale(divide(radial, length(radial)), radius));
             if distance(cursor, start) > SAME_POINT {
-                segments.push(json!({"kind": "line", "points_mm": [cursor, start]}));
+                segments.push(Segment::Line { points_mm: [cursor, start] });
             }
-            segments.push(json!({"kind": "arc", "points_mm": [start, middle, end]}));
+            segments.push(Segment::Arc { points_mm: [start, middle, end] });
             cursor = end;
         }
         if distance(cursor, *p.last().unwrap()) > SAME_POINT {
-            segments.push(json!({"kind": "line", "points_mm": [cursor, p.last().unwrap()]}));
+            segments.push(Segment::Line { points_mm: [cursor, *p.last().unwrap()] });
         }
         segments
     }
@@ -356,8 +358,13 @@ impl Run {
     }
 
     /// The run as the routes program sweeps it: a solid copper tube along its centreline.
-    pub fn route(&self) -> Result<Value> {
-        Ok(json!({"segments": self.segments(), "od_mm": self.bore, "id_mm": 0.,
-            "color": design::material("M_COPPER")?, "spool": "copper"}))
+    pub fn sweep(&self) -> Result<Sweep> {
+        Ok(Sweep {
+            name: self.id.to_owned(),
+            segments: self.segments(),
+            od_mm: self.bore,
+            id_mm: 0.,
+            color: Some(design::material("M_COPPER")?),
+        })
     }
 }

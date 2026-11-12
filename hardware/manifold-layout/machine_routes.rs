@@ -2,53 +2,98 @@
 //!
 //! The caller supplies the selected authored route segments and the installed
 //! equipment groups that bound foam compression.
-use anyhow::{Context, Result, bail, ensure};
+use anyhow::{Context, Result, bail};
 use hsm_kernel::{Affine, Body, Leg, Path as SweepPath, Plane, Profile,
                  Solid, Spline, V2, V3, import, step, v3};
-use hsm_kernel::part::Numbers;
-use serde_json::{Value, json};
+use hsm_layout_data::tube::Segment;
+use serde::{Deserialize, Serialize};
 use std::collections::{BTreeMap, BTreeSet};
+use std::path::PathBuf;
 
-fn f(v: &Value, key: &str) -> Result<f64> {
-    v[key].as_f64().with_context(|| format!("numeric {key}"))
+/// A tube to sweep along its centreline, hollow where its inner diameter is positive.
+#[derive(Clone, Debug, Deserialize, Serialize)]
+pub struct Sweep {
+    pub name: String,
+    pub segments: Vec<Segment>,
+    pub od_mm: f64,
+    pub id_mm: f64,
+    pub color: Option<[f64; 3]>,
 }
 
-fn point(v: &Value) -> Result<V3> {
-    let a = v.as_array().context("three-vector")?;
-    ensure!(a.len() == 3, "three-vector");
-    Ok(v3(a[0].as_f64().context("x")?, a[1].as_f64().context("y")?,
-          a[2].as_f64().context("z")?))
+/// A placement: the rows of its rotation and its translation.
+#[derive(Clone, Debug, Deserialize, Serialize)]
+pub struct Pose {
+    pub rotation: [[f64; 3]; 3],
+    pub translation_mm: [f64; 3],
 }
 
-fn text<'a>(v: &'a Value, key: &str) -> Result<&'a str> {
-    v[key].as_str().with_context(|| format!("text {key}"))
+/// The soda inlet's foam sleeve: the foam and the tube it covers as swept sections, the valve
+/// whose leads leave through it, and the placed neighbours it is cut around.
+#[derive(Clone, Debug, Deserialize, Serialize)]
+pub struct Insulation {
+    pub foam_segments: Vec<Segment>,
+    pub foam_od_mm: f64,
+    pub foam_id_mm: f64,
+    pub tube_segments: Vec<Segment>,
+    pub tube_od_mm: f64,
+    pub tube_id_mm: f64,
+    pub valve_pose: Pose,
+    pub neighbors: Vec<String>,
+    pub color: Option<[f64; 3]>,
 }
 
-fn array(v: &Value) -> Result<&Vec<Value>> { v.as_array().context("array") }
+/// The bodies of a fine model that one placed component is.
+#[derive(Clone, Debug, Deserialize, Serialize)]
+pub struct Bodies {
+    pub model: PathBuf,
+    pub indices: Vec<usize>,
+}
 
-fn datum(v: &Value) -> Result<Affine> {
-    let r = array(&v["rotation"])?;
-    let t = point(&v["translation_mm"])?;
+/// What the routes are cut from: the tubes in the order they are swept, the soda foam where the
+/// machine has it, and the placed components the foam is cut around.
+#[derive(Clone, Debug, Deserialize, Serialize)]
+pub struct Request {
+    pub name: String,
+    pub tubes: Vec<Sweep>,
+    pub insulation: Option<Insulation>,
+    pub components: BTreeMap<String, Bodies>,
+}
+
+/// One swept body as the placement takes it: its model, its index there and its name.
+#[derive(Clone, Debug, Deserialize, Serialize)]
+pub struct Instance {
+    pub model: PathBuf,
+    pub indices: Vec<usize>,
+    pub name: String,
+}
+
+/// What the routes stage hands on: the swept bodies to place and each tube's developed length.
+#[derive(Clone, Debug, Deserialize, Serialize)]
+pub struct Routed {
+    pub instances: Vec<Instance>,
+    pub lengths: BTreeMap<String, f64>,
+}
+
+fn datum(pose: &Pose) -> Affine {
     let mut m = [[0.; 4]; 3];
     for i in 0..3 {
-        for j in 0..3 { m[i][j] = r[i][j].as_f64().context("rotation")?; }
-        m[i][3] = t[i];
+        for j in 0..3 { m[i][j] = pose.rotation[i][j]; }
+        m[i][3] = pose.translation_mm[i];
     }
-    Ok(Affine { m })
+    Affine { m }
 }
 
-fn color(v: &Value) -> Result<Option<[f64; 3]>> {
-    Ok(if v.is_null() { None } else { Some(point(v)?.to_array()) })
-}
-
-fn start_and_tangent(segments: &Value) -> Result<(V3, V3)> {
-    for s in array(segments)? {
-        let points = array(if s["kind"] == "bezier" { &s["control_points_mm"] }
-                           else { &s["points_mm"] })?;
-        let start = point(&points[0])?;
-        if s["kind"] == "arc" {
-            let middle = point(&points[1])?;
-            let end = point(&points[2])?;
+fn start_and_tangent(segments: &[Segment]) -> Result<(V3, V3)> {
+    for s in segments {
+        let points: &[[f64; 3]] = match s {
+            Segment::Line { points_mm } => points_mm,
+            Segment::Arc { points_mm } => points_mm,
+            Segment::Bezier { control_points_mm } => control_points_mm,
+        };
+        let start = V3::from(*points.first().context("tube segment has no points")?);
+        if let Segment::Arc { points_mm } = s {
+            let middle = V3::from(points_mm[1]);
+            let end = V3::from(points_mm[2]);
             let (u, v) = (middle - start, end - start);
             let cross = u.cross(v);
             let center = start + (v * u.norm2() - u * v.norm2()).cross(cross)
@@ -57,36 +102,34 @@ fn start_and_tangent(segments: &Value) -> Result<(V3, V3)> {
             return Ok((start, axis.cross(start - center).unit()));
         }
         for p in &points[1..] {
-            let d = point(p)? - start;
+            let d = V3::from(*p) - start;
             if d.norm() > 1e-8 { return Ok((start, d.unit())); }
         }
     }
     bail!("tube path has no finite span")
 }
 
-fn route_path(segments: &Value) -> Result<SweepPath> {
+fn route_path(segments: &[Segment]) -> Result<SweepPath> {
     let (start, _) = start_and_tangent(segments)?;
     let mut path = SweepPath::new(start);
-    for segment in array(segments)? {
-        match text(segment, "kind")? {
-            "line" => {
-                let end = point(&segment["points_mm"][1])?;
+    for segment in segments {
+        match segment {
+            Segment::Line { points_mm } => {
+                let end = V3::from(points_mm[1]);
                 if (end - path.at()).norm() > 1e-6 { path = path.line_to(end); }
             }
-            "arc" => path = path.arc_through(point(&segment["points_mm"][1])?,
-                                              point(&segment["points_mm"][2])?)?,
-            "bezier" => {
-                let controls = array(&segment["control_points_mm"])?
-                    .iter().map(point).collect::<Result<Vec<_>>>()?;
+            Segment::Arc { points_mm } => path = path.arc_through(V3::from(points_mm[1]),
+                                                                  V3::from(points_mm[2]))?,
+            Segment::Bezier { control_points_mm } => {
+                let controls = control_points_mm.iter().map(|&p| V3::from(p)).collect::<Vec<_>>();
                 path = path.bezier(&controls)?;
             }
-            other => bail!("unknown warm tube path {other}"),
         }
     }
     Ok(path)
 }
 
-fn sweep(segments: &Value, outer: f64, inner: Option<f64>) -> Result<Solid> {
+fn sweep(segments: &[Segment], outer: f64, inner: Option<f64>) -> Result<Solid> {
     let (start, tangent) = start_and_tangent(segments)?;
     let path = route_path(segments)?;
     let wide = if tangent.x.abs() < 0.9 { V3::X } else { V3::Y };
@@ -128,8 +171,7 @@ fn route_length(path: &SweepPath) -> f64 {
     }).sum()
 }
 
-fn lead_exits(v: &Value) -> Result<Vec<Solid>> {
-    let pose = datum(&v["valve_pose"])?;
+fn lead_exits(pose: &Affine) -> Result<Vec<Solid>> {
     let mut exits = vec![];
     for x in [-7.45,7.45] {
         let tip = pose.point(v3(x,27.1,52.2));
@@ -138,27 +180,24 @@ fn lead_exits(v: &Value) -> Result<Vec<Solid>> {
         let before = tip + v3(0.,0.,-3.);
         let after = tip + v3(0.,-3.,-6.);
         let middle = tip + v3(0.,-3.+3./2_f64.sqrt(),-3.-3./2_f64.sqrt());
-        exits.push(sweep(&json!([
-            {"kind":"line","points_mm":[a.to_array(),before.to_array()]},
-            {"kind":"arc","points_mm":[before.to_array(),middle.to_array(),after.to_array()]},
-            {"kind":"line","points_mm":[after.to_array(),(tip+v3(0.,-12.,-6.)).to_array()]}
-        ]),2.,None)?);
+        exits.push(sweep(&[
+            Segment::Line { points_mm: [a.to_array(), before.to_array()] },
+            Segment::Arc { points_mm: [before.to_array(), middle.to_array(), after.to_array()] },
+            Segment::Line { points_mm: [after.to_array(), (tip+v3(0.,-12.,-6.)).to_array()] },
+        ],2.,None)?);
     }
     Ok(exits)
 }
 
-fn insulation(v: &Value, parts: &BTreeMap<String, Vec<Solid>>) -> Result<Solid> {
-    let p = &v["plan"];
-    let mut foam = sweep(&p["foam_segments"], f(p,"nominal_foam_od_mm")?/2.,
-                         Some(f(p,"nominal_foam_id_mm")?/2.))?;
-    let tube = sweep(&p["tube_segments"],f(p,"tube_od_mm")?/2.,Some(f(p,"tube_id_mm")?/2.))?;
+fn insulation(v: &Insulation, parts: &BTreeMap<String, Vec<Solid>>) -> Result<Solid> {
+    let mut foam = sweep(&v.foam_segments, v.foam_od_mm/2., Some(v.foam_id_mm/2.))?;
+    let tube = sweep(&v.tube_segments, v.tube_od_mm/2., Some(v.tube_id_mm/2.))?;
     let mut tools: Vec<&Solid> = parts.get("soda-bend-holder").context("soda holder")?.iter().collect();
     tools.push(&tube);
-    let exits = lead_exits(v)?;
+    let exits = lead_exits(&datum(&v.valve_pose))?;
     tools.extend(exits.iter());
-    for name in array(&v["neighbors"])? {
-        tools.extend(parts.get(name.as_str().context("foam neighbor")?)
-            .context("placed foam neighbor")?.iter());
+    for name in &v.neighbors {
+        tools.extend(parts.get(name).context("placed foam neighbor")?.iter());
     }
     for tool in tools {
         for solid in tool.components() { foam = foam.cut(&solid)?; }
@@ -166,22 +205,19 @@ fn insulation(v: &Value, parts: &BTreeMap<String, Vec<Solid>>) -> Result<Solid> 
     Ok(Solid::compose(&foam.components().into_iter().filter(|s|s.volume()>1.).collect::<Vec<_>>()))
 }
 
-fn equipment(n: &Numbers) -> Result<BTreeMap<String, Vec<Solid>>> {
-    let mut requested: BTreeMap<String, BTreeMap<usize, Vec<(String, usize)>>> = BTreeMap::new();
+fn equipment(components: &BTreeMap<String, Bodies>) -> Result<BTreeMap<String, Vec<Solid>>> {
+    let mut requested: BTreeMap<&PathBuf, BTreeMap<usize, Vec<(String, usize)>>> = BTreeMap::new();
     let mut parts: BTreeMap<String, Vec<Option<Solid>>> = BTreeMap::new();
-    for (name, reference) in n.get("components")?.as_object().context("named equipment references")? {
-        let path = text(reference, "model")?;
-        let indices = array(&reference["indices"])?;
-        parts.insert(name.clone(), vec![None; indices.len()]);
-        let model = requested.entry(path.to_owned()).or_default();
-        for (slot, index) in indices.iter().enumerate() {
-            let index = index.as_u64().context("equipment body index")? as usize;
+    for (name, reference) in components {
+        parts.insert(name.clone(), vec![None; reference.indices.len()]);
+        let model = requested.entry(&reference.model).or_default();
+        for (slot, &index) in reference.indices.iter().enumerate() {
             model.entry(index).or_default().push((name.clone(), slot));
         }
     }
     for (path, bodies) in requested {
         let indices: BTreeSet<_> = bodies.keys().copied().collect();
-        import::visit_model_indices(&path, &indices, |index, body| {
+        import::visit_model_indices(path, &indices, |index, body| {
             let (last, others) = bodies[&index].split_last().unwrap();
             for (name, slot) in others {
                 parts.get_mut(name).unwrap()[*slot] = Some(body.solid.clone());
@@ -195,57 +231,28 @@ fn equipment(n: &Numbers) -> Result<BTreeMap<String, Vec<Solid>>> {
             .collect::<Result<Vec<_>>>()?))).collect()
 }
 
-/// The routed tubes cut into `output`, and what it wrote there.
-pub fn run(n: &Numbers, output: &std::path::Path) -> Result<Value> {
+/// The routed tubes cut into `output` as one model, and what the placement takes of them.
+pub fn run(request: &Request, output: &std::path::Path) -> Result<Routed> {
     let mut placed: Vec<(String, Option<[f64; 3]>, Solid)> = vec![];
-    let mut groups = serde_json::Map::new();
-    let mut order = vec![];
-    let insulation_request = n.get("insulation")?;
-    if !insulation_request.is_null() {
-        let parts = equipment(&n)?;
-        let foam = insulation(insulation_request, &parts).context("occupied soda insulation")?;
-        let name = "soda-continuous-insulation".to_owned();
-        groups.insert(name.clone(), json!([placed.len()]));
-        placed.push((name.clone(), color(&insulation_request["color"])?, foam));
-        order.push(name);
+    if let Some(sleeve) = &request.insulation {
+        let parts = equipment(&request.components)?;
+        let foam = insulation(sleeve, &parts).context("occupied soda insulation")?;
+        placed.push(("soda-continuous-insulation".to_owned(), sleeve.color, foam));
     }
-    let routes = n.get("routes")?;
-    let mut lengths = serde_json::Map::new();
-    for name in array(n.get("route_order")?)? {
-        let identifier = name.as_str().context("ordered route name")?;
-        let spec = &routes[identifier];
-        lengths.insert(identifier.to_owned(), json!(route_length(&route_path(&spec["segments"])?)));
-        let inside = f(spec, "id_mm")?;
-        let body = sweep(&spec["segments"], f(spec, "od_mm")? / 2.,
+    let mut lengths = BTreeMap::new();
+    for tube in &request.tubes {
+        lengths.insert(tube.name.clone(), route_length(&route_path(&tube.segments)?));
+        let inside = tube.id_mm;
+        let body = sweep(&tube.segments, tube.od_mm / 2.,
                          (inside > 0.).then_some(inside / 2.))
-            .with_context(|| format!("warm tube route {identifier}"))?;
-        let name = format!("tube-{identifier}");
-        groups.insert(name.clone(), json!([placed.len()]));
-        placed.push((name.clone(), color(&spec["color"])?, body));
-        order.push(name);
+            .with_context(|| format!("warm tube route {}", tube.name))?;
+        placed.push((format!("tube-{}", tube.name), tube.color, body));
     }
     let bodies = placed.iter().map(|(name, color, solid)|
         Body { name, color: *color, solid }).collect::<Vec<_>>();
-    let name = n.text("name")?;
-    let model_name = format!("{name}.step.npz");
-    let document_name = format!("{name}.json");
-    let model = output.join(&model_name);
+    let model = output.join(format!("{}.step.npz", request.name));
     step::write_model(&model, &bodies)?;
-    let instances: Vec<_> = order.iter().map(|name| json!({"model": model,
-        "indices": groups[name], "name": name})).collect();
-    let reports: Vec<_> = placed.iter().map(|(name, color, solid)| {
-        let bounds = solid.bounds();
-        json!({"name":name, "color":color, "min":bounds.min.to_array(),
-            "max":bounds.max.to_array(), "volume":solid.volume(),
-            "centroid":solid.centroid().to_array(), "vertices":solid.verts().len(),
-            "triangles":solid.tris().len()})
-    }).collect();
-    let document = json!({"routes":routes, "route_lengths":lengths, "lengths":lengths,
-        "route_order":n.get("route_order")?, "body_order":order,
-        "insulation":insulation_request, "components":n.get("components")?,
-        "component_order":order, "groups":groups, "instances":instances, "bodies":reports});
-    std::fs::write(output.join(&document_name), serde_json::to_vec_pretty(&document)?)?;
-    Ok(json!({"files":[model_name, document_name], "bodies":reports,
-        "groups":groups, "instances":instances, "lengths":lengths,
-        "body_order":order, "routes":routes, "route_order":n.get("route_order")?}))
+    let instances = placed.iter().enumerate().map(|(index, (name, _, _))| Instance {
+        model: model.clone(), indices: vec![index], name: name.clone() }).collect();
+    Ok(Routed { instances, lengths })
 }
