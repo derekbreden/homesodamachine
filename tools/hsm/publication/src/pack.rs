@@ -64,7 +64,18 @@ pub struct Refreshed {
     pub grafted: Vec<String>,
     pub errors: Vec<String>,
 }
-/// A completed producer replaces geometry through the assembly's retained import frames.
+/// A host shows a revision of a source when every body it took from that source came from it.
+fn shows(head: &Value, source: &str, revision: &str) -> bool {
+    head["sources"][source] == revision
+        && head["meshes"]
+            .as_array()
+            .into_iter()
+            .flatten()
+            .filter(|node| node["source"] == source)
+            .all(|node| node["source_sha256"] == revision)
+}
+/// A completed producer replaces geometry through the assembly's retained import frames. A host
+/// built from this revision stays as built.
 pub fn refresh_sources(ctx: &ContextData, changed: &[String]) -> Result<Refreshed> {
     let hosts = ctx
         .solids()?
@@ -84,6 +95,7 @@ pub fn refresh_sources(ctx: &ContextData, changed: &[String]) -> Result<Refreshe
                 continue;
             }
         };
+        let revision = scene::digest(&bytes);
         for host in &hosts {
             if host == relative {
                 continue;
@@ -97,6 +109,9 @@ pub fn refresh_sources(ctx: &ContextData, changed: &[String]) -> Result<Refreshe
             }
             let refreshed = (|| -> Result<usize> {
                 let mut head = scene::pack(&fs::read(&file)?)?;
+                if shows(&head, relative, &revision) {
+                    return Ok(0);
+                }
                 let replaced = if host.ends_with(".glb.mesh") {
                     scene::replace_selected(&mut head, relative, &bytes)?
                 } else {
