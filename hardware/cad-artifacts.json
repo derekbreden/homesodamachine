@@ -844,8 +844,6 @@
     "hardware/reference/meanwell-irm90/meanwell-irm90.step": "8fd515d22ce2ad70c53da588dc3d34d73ebe505b649cc82816c9a98273ad97a6",
     "hardware/reference/meanwell-irm90/meanwell-irm90.step.mesh": "c5ab179f21d889cb99dc038d5f9f9cdcf3e25e092b7560645c565bcdc94dcb00",
     "hardware/reference/meanwell-irm90/meanwell-irm90.step.npz": "32feaa8371fe3db27ac1e8514a512a1f3478ad8cb52f7f0e3bdf66b61f1f27af",
-    "hardware/reference/molex-micro-fit-4/molex-micro-fit-4-panel.step": "29d0cff41861a2a32b4f911e58c3eda5959cc32a15585c6b6f213fd6e3c54e6c",
-    "hardware/reference/molex-micro-fit-4/molex-micro-fit-4-panel.step.mesh": "cccc70bff2b92a5d24758c034fe9d8fec977f8b3e2bd01b715d6f92edda77773",
     "hardware/reference/mq6-gas-sensor/mq6-gas-sensor.fine.step.npz": "ab023aa13553fe9c0d961c9e58a31885bdb5205e66f8b623cfe9a67812923965",
     "hardware/reference/mq6-gas-sensor/mq6-gas-sensor.step": "fb24dfa14266da28fe06300508ae6584ca68da9ee851d136e4896d5970f09040",
     "hardware/reference/mq6-gas-sensor/mq6-gas-sensor.step.mesh": "2d05151890ceae500ca3691532615e63590b24a5394b57106e680f030c4d04d1",
@@ -3102,8 +3100,6 @@
     "hardware/reference/meanwell-irm90/meanwell-irm90.step": 1794271733.267325,
     "hardware/reference/meanwell-irm90/meanwell-irm90.step.mesh": 1794271693.665262,
     "hardware/reference/meanwell-irm90/meanwell-irm90.step.npz": 1794271733.267325,
-    "hardware/reference/molex-micro-fit-4/molex-micro-fit-4-panel.step": 1791566298,
-    "hardware/reference/molex-micro-fit-4/molex-micro-fit-4-panel.step.mesh": 1793568839,
     "hardware/reference/mq6-gas-sensor/mq6-gas-sensor.fine.step.npz": 1793697604,
     "hardware/reference/mq6-gas-sensor/mq6-gas-sensor.step": 1794271411.5702882,
     "hardware/reference/mq6-gas-sensor/mq6-gas-sensor.step.mesh": 1794271403.428597,
@@ -5607,14 +5603,6 @@
     },
     "hardware/reference/meanwell-irm90/meanwell-irm90.step.npz": {
       "commit": "4afbd7d6865af640ba5363b6b59c14de35fa4e04",
-      "unproven": true
-    },
-    "hardware/reference/molex-micro-fit-4/molex-micro-fit-4-panel.step": {
-      "commit": "d2c7e36f5c616919c8be5d1ccb8205b0fbac8540",
-      "unproven": true
-    },
-    "hardware/reference/molex-micro-fit-4/molex-micro-fit-4-panel.step.mesh": {
-      "commit": "831d7c85eca5996faffd66ad3bda685ed2871f84",
       "unproven": true
     },
     "hardware/reference/mq6-gas-sensor/mq6-gas-sensor.fine.step.npz": {
