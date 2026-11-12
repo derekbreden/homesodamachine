@@ -209,21 +209,18 @@ fn main() -> Result<()> {
         routes_plan::routes_request(&equipment_request, &equipment_dir, &equipment, &copper)?;
     let routes_dir = work.join("routes");
     std::fs::create_dir_all(&routes_dir)?;
-    let routes_name = routes_request["name"].as_str().context("routes name")?;
-    let routes = cache.run(
+    let routes: routes_program::Routed = serde_json::from_value(cache.run(
         "routes",
-        &routes_request,
-        &[
-            routes_dir.join(format!("{routes_name}.step.npz")),
-            routes_dir.join(format!("{routes_name}.json")),
-        ],
-        || routes_program::run(&Numbers::from_value(routes_request.clone()), &routes_dir),
-    )?;
-    plan::write_route_lengths(&mut equipment_request, &routes);
+        &serde_json::to_value(&routes_request)?,
+        &[routes_dir.join(format!("{}.step.npz", routes_request.name))],
+        || Ok(serde_json::to_value(routes_program::run(&routes_request, &routes_dir)?)?),
+    )?)
+    .context("the retained routes")?;
+    routes_plan::write_route_lengths(&mut equipment_request, &routes);
     let runs = routes_plan::run_records(&copper, &equipment_request)?;
     let metadata = plan::placement_metadata(&root, &equipment_request, runs)?;
     let equipment =
-        plan::equipment_block(&equipment_request, equipment, &routes, junctions, metadata)?;
+        plan::equipment_block(&equipment_request, equipment, routes_plan::placed(&routes)?, junctions, metadata)?;
 
     // Everything installed around the pack, the pump dock's fittings, and the whole machine placed.
     let installed = json!({

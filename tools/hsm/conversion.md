@@ -184,13 +184,19 @@ as a `Bundle`, a saved course as a `Saved` with its `Station`s, and the wire sto
 It takes each value it needs from a named method of `Sources`. The review that `hsm-wiring`
 writes is a JSON document built from those.
 
-The mechanical stages hand each other JSON documents: the pack and the placement plan, the
-equipment request and its result, the tube routes and the facts request. The stage programs
-[`machine_layout.rs`](../../hardware/manifold-layout/machine_layout.rs),
-[`machine_equipment.rs`](../../hardware/manifold-layout/machine_equipment.rs) and
-[`machine_routes.rs`](../../hardware/manifold-layout/machine_routes.rs) read theirs through
-`hsm_kernel::part::Numbers`. They call the layout data's functions by name. Typing these
-documents is open work.
+The routes stage's hand-overs are typed.
+[`machine_routes.rs`](../../hardware/manifold-layout/machine_routes.rs) defines its `Request`:
+a `Sweep` for each tube, whose centreline is a list of the layout data's `tube::Segment`, the
+soda `Insulation`, and the placed `Bodies` the foam is cut around. It hands on a `Routed`: the
+swept bodies to place and each tube's developed length. The request holds only what the sweep
+uses, so a tube's notes and ports are outside it.
+
+The other mechanical stages hand each other JSON documents: the pack and the placement plan,
+the equipment request and its result, which holds the tube records the routes request is read
+from, and the facts request. The stage programs
+[`machine_layout.rs`](../../hardware/manifold-layout/machine_layout.rs) and
+[`machine_equipment.rs`](../../hardware/manifold-layout/machine_equipment.rs) read theirs as
+JSON. They call the layout data's functions by name. Typing these documents is open work.
 
 Two record encodings remain in what the mechanical stages read.
 [`enclosure-box.json`](../../hardware/manifold-layout/enclosure-box.json) writes its records as

@@ -60,18 +60,18 @@ fn canonical(value: &Value) -> String {
 }
 
 /// The equipment the complete placement takes: the equipment program's plan with the routed
-/// tubes added, the route lengths written back, the frames and ports it places, the junctions,
-/// and the metadata the plan carries.
+/// tubes (`tubes`, as placed bodies) added, the frames and ports it places, the junctions, and
+/// the metadata the plan carries.
 pub fn equipment_block(
     equipment_request: &Value,
     equipment: Value,
-    routes: &Value,
+    tubes: Vec<Value>,
     junctions: Vec<Value>,
     metadata: Value,
 ) -> Result<Value> {
     let mut equipment = equipment;
     let mut instances = equipment["instances"].as_array().cloned().unwrap_or_default();
-    instances.extend(routes["instances"].as_array().cloned().unwrap_or_default());
+    instances.extend(tubes);
     equipment["instances"] = Value::Array(instances);
     equipment["route_specs"] = equipment_request["routes"].clone();
     equipment["metadata"] = metadata;
@@ -88,16 +88,6 @@ pub fn equipment_block(
     equipment["frames"] = Value::Object(frames);
     equipment["junctions"] = Value::Array(junctions);
     Ok(equipment)
-}
-
-/// Writes each tube's length, as the routing measured it, into the equipment's routes.
-pub fn write_route_lengths(equipment_request: &mut Value, routes: &Value) {
-    let lengths = routes.get("lengths").or_else(|| routes.get("route_lengths")).cloned().unwrap_or(json!({}));
-    for (name, length) in lengths.as_object().into_iter().flatten() {
-        if let Some(route) = equipment_request["routes"].get_mut(name) {
-            route["length_mm"] = length.clone();
-        }
-    }
 }
 
 /// The equipment program's plan, read from `dir`, its bodies named by the model it wrote there.

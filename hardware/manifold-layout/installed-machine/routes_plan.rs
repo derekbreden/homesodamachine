@@ -1,8 +1,12 @@
 //! The request the routes program sweeps from, and the run records the plan's metadata carries:
 //! the copper runs first, then every warm-side tube the equipment request routes.
 use crate::copper;
+use crate::routes_program::{Bodies, Insulation, Pose, Request, Sweep};
 use anyhow::{Context, Result};
-use serde_json::{Map, Value, json};
+use hsm_layout_data::tube::Segment;
+use serde::Deserialize;
+use serde_json::{Value, json};
+use std::collections::BTreeMap;
 use std::path::{Path, PathBuf};
 
 /// The program's name for its request and the files it writes.
@@ -10,6 +14,35 @@ const NAME: &str = "machine-routes";
 
 /// The body the soda inlet's tube bends through, which its foam sleeve is cut around.
 const HOLDER: &str = "soda-bend-holder";
+
+/// What the routes program sweeps of one tube the equipment request routes.
+#[derive(Deserialize)]
+struct Routed {
+    segments: Vec<Segment>,
+    od_mm: f64,
+    id_mm: f64,
+    color: Option<[f64; 3]>,
+}
+
+/// What the routes program reads of the equipment request's soda insulation.
+#[derive(Deserialize)]
+struct Sleeve {
+    plan: SleevePlan,
+    neighbors: Vec<String>,
+    valve_pose: Pose,
+    color: Option<[f64; 3]>,
+}
+
+/// The foam and the tube it covers, as the soda inlet's plan gives them.
+#[derive(Deserialize)]
+struct SleevePlan {
+    foam_segments: Vec<Segment>,
+    nominal_foam_od_mm: f64,
+    nominal_foam_id_mm: f64,
+    tube_segments: Vec<Segment>,
+    tube_od_mm: f64,
+    tube_id_mm: f64,
+}
 
 /// The model the equipment program wrote into `output`, by the name its request gives it.
 fn equipment_model(equipment_request: &Value, output: &Path) -> Result<PathBuf> {
@@ -19,42 +52,70 @@ fn equipment_model(equipment_request: &Value, output: &Path) -> Result<PathBuf> 
 
 /// The routes program's request: the copper runs, the equipment request's tubes, and the soda foam.
 ///
-/// The foam is cut around bodies of the model the equipment program wrote into `equipment_output`,
+/// A tube the equipment request routes under a copper run's name takes that run's place. The
+/// foam is cut around bodies of the model the equipment program wrote into `equipment_output`,
 /// found by the groups its result (`equipment_result`) names.
 pub fn routes_request(
     equipment_request: &Value,
     equipment_output: &Path,
     equipment_result: &Value,
     copper: &[copper::Run],
-) -> Result<Value> {
-    let mut routes = Map::new();
-    let mut order = vec![];
+) -> Result<Request> {
+    let mut tubes = vec![];
     for run in copper {
-        routes.insert(run.id.to_owned(), run.route()?);
-        order.push(json!(run.id));
+        tubes.push(run.sweep()?);
     }
     let authored = &equipment_request["routes"];
     for name in equipment_request["route_order"].as_array().context("the equipment request's route order")? {
         let key = name.as_str().context("a route name")?;
-        if !routes.contains_key(key) {
-            order.push(name.clone());
+        let route = authored.get(key).with_context(|| format!("no route {key}"))?;
+        let Routed { segments, od_mm, id_mm, color } =
+            Routed::deserialize(route).with_context(|| format!("the route {key}"))?;
+        let tube = Sweep { name: key.to_owned(), segments, od_mm, id_mm, color };
+        match tubes.iter_mut().find(|held| held.name == key) {
+            Some(held) => *held = tube,
+            None => tubes.push(tube),
         }
-        routes.insert(key.to_owned(), authored.get(key).with_context(|| format!("no route {key}"))?.clone());
     }
-    let insulation = equipment_request["insulation"].clone();
-    let model = equipment_model(equipment_request, equipment_output)?;
-    let mut components = Map::new();
-    if !insulation.is_null() {
-        let neighbors = insulation["neighbors"].as_array().context("the insulation's neighbours")?;
-        for name in std::iter::once(HOLDER).chain(neighbors.iter().filter_map(Value::as_str)) {
+    let mut insulation = None;
+    let mut components = BTreeMap::new();
+    if !equipment_request["insulation"].is_null() {
+        let sleeve = Sleeve::deserialize(&equipment_request["insulation"]).context("the soda insulation")?;
+        let model = equipment_model(equipment_request, equipment_output)?;
+        for name in std::iter::once(HOLDER).chain(sleeve.neighbors.iter().map(String::as_str)) {
             let indices = equipment_result["groups"]
                 .get(name)
                 .with_context(|| format!("the equipment model holds no {name}"))?;
-            components.insert(name.to_owned(), json!({"model": model, "indices": indices}));
+            let indices = Vec::<usize>::deserialize(indices).with_context(|| format!("the bodies of {name}"))?;
+            components.insert(name.to_owned(), Bodies { model: model.clone(), indices });
+        }
+        insulation = Some(Insulation {
+            foam_segments: sleeve.plan.foam_segments,
+            foam_od_mm: sleeve.plan.nominal_foam_od_mm,
+            foam_id_mm: sleeve.plan.nominal_foam_id_mm,
+            tube_segments: sleeve.plan.tube_segments,
+            tube_od_mm: sleeve.plan.tube_od_mm,
+            tube_id_mm: sleeve.plan.tube_id_mm,
+            valve_pose: sleeve.valve_pose,
+            neighbors: sleeve.neighbors,
+            color: sleeve.color,
+        });
+    }
+    Ok(Request { name: NAME.to_owned(), tubes, insulation, components })
+}
+
+/// Writes each tube's length, as the routing measured it, into the equipment request's routes.
+pub fn write_route_lengths(equipment_request: &mut Value, routes: &crate::routes_program::Routed) {
+    for (name, length) in &routes.lengths {
+        if let Some(route) = equipment_request["routes"].get_mut(name) {
+            route["length_mm"] = json!(length);
         }
     }
-    Ok(json!({"name": NAME, "routes": routes, "route_order": order, "insulation": insulation,
-        "components": components}))
+}
+
+/// The swept bodies as the placement plan lists a placed body.
+pub fn placed(routes: &crate::routes_program::Routed) -> Result<Vec<Value>> {
+    routes.instances.iter().map(|instance| Ok(serde_json::to_value(instance)?)).collect()
 }
 
 /// The length of a centreline drawn through `points`.
