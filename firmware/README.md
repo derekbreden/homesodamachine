@@ -366,8 +366,8 @@ board through its auto-reset lattice, and a main board image taken this way is o
 any other: a restart inside `kUpdateTrialMs` of its first boot puts the old image back. The
 tool waits that out before it reads the version, and `[update] this image is kept` on the
 console is the end of the trial. A refill owed at that boot starts with it and the image is
-kept only once the machine is idle again, which is later than the tool waits: on a bench
-board with a refill owed, `refill forget` comes first.
+kept only once the machine is idle again, which with no water to end the refill is later
+than the tool waits: on a bench board with a refill owed, `refill forget` comes first.
 
 `hsm-peripheral boards` names each S3 on sight — every one reports its MAC as its USB serial number.
 
