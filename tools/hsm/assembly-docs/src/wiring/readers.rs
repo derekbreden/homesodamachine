@@ -1,120 +1,6 @@
 use super::*;
-use model::{V, cross, dot, sub, v};
-use sha2::{Digest, Sha256};
-use std::io::Read;
-pub fn digest(path: &Path) -> Result<String> {
-    let mut file = std::fs::File::open(path)?;
-    let mut hash = Sha256::new();
-    let mut buffer = [0u8; 1 << 16];
-    loop {
-        let read = file.read(&mut buffer)?;
-        if read == 0 {
-            break;
-        }
-        hash.update(&buffer[..read]);
-    }
-    let hex = format!("{:x}", hash.finalize());
-    hsm_kernel::reads::digest(path, &hex);
-    Ok(hex)
-}
-fn components(vertices: &Value, triangles: &Value) -> Result<Value> {
-    let vertices = model::points(vertices)?;
-    fn indices(value: &Value, out: &mut Vec<usize>) -> Result<()> {
-        if let Some(rows) = value.as_array() {
-            for row in rows {
-                indices(row, out)?;
-            }
-        } else {
-            out.push(value.as_u64().context("triangle index")? as usize);
-        }
-        Ok(())
-    }
-    let mut indices_flat = Vec::new();
-    indices(triangles, &mut indices_flat)?;
-    ensure!(indices_flat.len() % 3 == 0, "triangle indices");
-    if indices_flat.is_empty() {
-        return Ok(json!([]));
-    }
-    let mut parent = (0..vertices.len()).collect::<Vec<_>>();
-    fn find(parent: &mut [usize], i: usize) -> usize {
-        if parent[i] != i {
-            parent[i] = find(parent, parent[i]);
-        }
-        parent[i]
-    }
-    fn join(parent: &mut [usize], a: usize, b: usize) {
-        let (a, b) = (find(parent, a), find(parent, b));
-        if a != b {
-            parent[a.max(b)] = a.min(b);
-        }
-    }
-    let triangles = indices_flat
-        .chunks_exact(3)
-        .map(|row| [row[0], row[1], row[2]])
-        .collect::<Vec<_>>();
-    for face in &triangles {
-        ensure!(
-            face.iter().all(|&i| i < vertices.len()),
-            "triangle vertex index"
-        );
-        join(&mut parent, face[0], face[1]);
-        join(&mut parent, face[1], face[2]);
-    }
-    let mut labels = BTreeMap::new();
-    for i in 0..vertices.len() {
-        let root = find(&mut parent, i);
-        let count = labels.len();
-        labels.entry(root).or_insert(count);
-    }
-    let count = labels.len();
-    let mut volumes = vec![0.; count];
-    let mut lower = vec![[f64::INFINITY; 3]; count];
-    let mut upper = vec![[f64::NEG_INFINITY; 3]; count];
-    for (i, p) in vertices.iter().enumerate() {
-        let label = labels[&find(&mut parent, i)];
-        for k in 0..3 {
-            lower[label][k] = lower[label][k].min(p[k]);
-            upper[label][k] = upper[label][k].max(p[k]);
-        }
-    }
-    let origin = vertices[0];
-    for face in triangles {
-        let label = labels[&find(&mut parent, face[0])];
-        let (a, b, c) = (
-            sub(vertices[face[0]], origin),
-            sub(vertices[face[1]], origin),
-            sub(vertices[face[2]], origin),
-        );
-        volumes[label] += dot(a, cross(b, c)) / 6.;
-    }
-    let positive = (0..count).filter(|&i| volumes[i] > 0.).collect::<Vec<_>>();
-    let sizes = positive
-        .iter()
-        .map(|&i| (0..3).map(|k| upper[i][k] - lower[i][k]).product::<f64>())
-        .collect::<Vec<_>>();
-    for i in 0..count {
-        if volumes[i] >= 0. {
-            continue;
-        }
-        let around = positive
-            .iter()
-            .enumerate()
-            .filter(|(_, j)| {
-                (0..3).all(|k| lower[**j][k] <= lower[i][k] && upper[**j][k] >= upper[i][k])
-            })
-            .min_by(|(a, _), (b, _)| sizes[*a].total_cmp(&sizes[*b]));
-        if let Some((_, &outside)) = around {
-            volumes[outside] += volumes[i];
-        }
-    }
-    Ok(json!(
-        positive
-            .into_iter()
-            .map(|i| json!({"lower":lower[i],"upper":upper[i],"volume_mm3":volumes[i]}))
-            .collect::<Vec<_>>()
-    ))
-}
-fn bodies(rows_input: &Value, grid: Option<f64>) -> Result<Value> {
+use model::{V, v};
+pub fn bodies(rows_input: &Value, grid: Option<f64>) -> Result<Value> {
     let suffix = regex::Regex::new(r"/\d+$")?;
     let mut grouped: BTreeMap<String, Vec<&Value>> = BTreeMap::new();
     for row in rows(rows_input)? {
@@ -156,32 +42,7 @@ fn bodies(rows_input: &Value, grid: Option<f64>) -> Result<Value> {
     }
     Ok(out)
 }
-fn measurements(path: &Path, names: &Value) -> Result<Value> {
-    let mut components = if names.is_null() {
-        BTreeSet::new()
-    } else {
-        rows(names)?
-            .iter()
-            .map(|v| string(v).map(str::to_owned))
-            .collect::<Result<BTreeSet<_>>>()?
-    };
-    let mut hosts = vec![
-        "compressor".into(),
-        "valve-v-a".into(),
-        "valve-v-b".into(),
-        "vk-solenoid".into(),
-    ];
-    hosts.extend("cdefghij".chars().map(|c| format!("coil-v-{c}")));
-    for host in hosts {
-        components.insert(host.clone());
-        components.insert(format!("cold-core/{host}"));
-    }
-    let result = provider(
-        json!({"kind":"measure","instances":[{"model":path}],"queries":[],"component_names":components}),
-    )?;
-    Ok(json!({"path":path,"sha256":digest(path)?,"bodies":result["bodies"]}))
-}
-fn reference(path: &Path, rotation: &Value) -> Result<Value> {
+pub fn reference(path: &Path, rotation: &Value) -> Result<Value> {
     let queries = path.with_file_name("native-queries.json");
     if queries.is_file() {
         let raw = std::fs::read(&queries)?;
@@ -304,33 +165,4 @@ pub fn wire_numbers(routes: &Value, stock: &Value, components: &Value) -> Result
         out["components"] = json!(output);
     }
     Ok(out)
-}
-pub fn request(request: &Request) -> Result<Value> {
-    let d = &request.data;
-    match request.op.as_str() {
-        "file_digest" => Ok(json!(digest(Path::new(string(&d["path"])?))?)),
-        "model_components" => components(&d["vertices"], &d["triangles"]),
-        "model_bodies" => bodies(&d["rows"], d.get("grid").and_then(Value::as_f64)),
-        "model_measurements" => measurements(Path::new(string(&d["path"])?), &d["component_names"]),
-        "model_read" => {
-            let path = Path::new(string(&d["path"])?);
-            let reading = if d["reading"].is_null() {
-                measurements(path, &Value::Null)?
-            } else {
-                d["reading"].clone()
-            };
-            ensure!(
-                reading["path"] == path.to_string_lossy().as_ref(),
-                "Physical measurements belong to another model"
-            );
-            ensure!(
-                reading["sha256"] == digest(path)?,
-                "Physical model changed after its measurements"
-            );
-            bodies(&reading["bodies"], Some(2_f64.powi(-30)))
-        }
-        "model_reference_bounds" => reference(Path::new(string(&d["path"])?), &d["rotation"]),
-        "wire_numbers" => wire_numbers(&d["routes"], &d["stock"], &d["components"]),
-        _ => bail!("wiring reader operation {}", request.op),
-    }
 }

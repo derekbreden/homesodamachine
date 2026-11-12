@@ -4,7 +4,7 @@
 //!
 //! A value no typed crate or published file holds yet comes from the plan's
 //! `metadata.wiring_context`, and its absence is an error that names the value and its owner.
-use super::{Request, corridors, measure, readers, terminals};
+use super::{corridors, measure, readers, terminals};
 use crate::design;
 use anyhow::{Context, Result, bail, ensure};
 use hsm_cold_core_interface as cci;
@@ -398,12 +398,8 @@ impl Sources {
 
     /// The bounds of a reference turned by `rotation`, from its native queries or its fine model.
     fn reference_bounds(&self, query: &Value) -> Result<Value> {
-        let result = readers::request(&Request {
-            op: "model_reference_bounds".into(),
-            data: json!({"path": query["path"], "rotation": query["rotation"]}),
-            root: self.root.clone(),
-        })?;
-        Ok(result["bounds"].clone())
+        let path = query["path"].as_str().context("a reference's path")?;
+        Ok(readers::reference(Path::new(path), &query["rotation"])?["bounds"].clone())
     }
 
     /// The bodies of the models a measurement query names, as the fine model reader states them.
