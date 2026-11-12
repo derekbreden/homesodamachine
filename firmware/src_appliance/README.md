@@ -181,12 +181,13 @@ count as a bar under the hand that is holding the lever, and the machine's own p
 welcome, which sends the person to the faucet. The lever let go pauses the count and keeps
 it. The count reaching its target sounds `chime` and both glasses say Done; the meter going
 quiet after that is the lever let go, and only then is the first fill asked for, so its first
-water is not sent out of an open faucet. A reed that stays closed says the tank holds water,
-which a sweep cannot work through, and drops it. `sweep skip`, or Skip on the welcome
-(`MSG_SWEEP_SKIP`), gives the sweep up and fills without it; with gas moving, the fill waits
-for the lever to be let go, as it does after the target, and both glasses say Done until
-then. Whether the meter counts gas and how long a sweep takes are wet-bench measurements;
-`flow <n> [s]` stands in for the gas on a bench.
+water is not sent out of an open faucet. The sweep reads no reed: what the reeds read of a
+float at rest on an empty tank is not known until they are calibrated, so a closed reed is no
+evidence of water, and a tank that holds some gives it up at the lever ahead of the gas.
+`sweep skip`, or Skip on the welcome (`MSG_SWEEP_SKIP`), gives the sweep up and fills without
+it; with gas moving, the fill waits for the lever to be let go, as it does after the target,
+and both glasses say Done until then. Whether the meter counts gas and how long a sweep takes
+are wet-bench measurements; `flow <n> [s]` stands in for the gas on a bench.
 
 A machine that is to be moved is told so before its plug comes out
 ([`move_policy.h`](/firmware/lib/machine_policy/move_policy.h)): its tank is emptied at the

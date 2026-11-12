@@ -1047,9 +1047,8 @@ static void console(const String &line) {
         return;
     }
     if (line == "sweep owe") {
-        Serial.println(machineSweepOwe()
-                           ? "\n[machine] sweep owed — the first fill waits for the lever at the faucet"
-                           : "\n[machine] refused: a carbonator reed reads closed, so the tank holds water");
+        machineSweepOwe();
+        Serial.println("\n[machine] sweep owed — the first fill waits for the lever at the faucet");
         return;
     }
     if (line == "sweep skip") {

@@ -80,7 +80,7 @@ void test_a_machine_that_owes_no_sweep_pours_as_it_did() {
 }
 
 void test_a_sweep_that_is_owed_holds_the_refill_and_opens_no_pour() {
-    TEST_ASSERT_TRUE(machineSweepOwe());
+    machineSweepOwe();
     TEST_ASSERT_TRUE(host::sweepOwedInFlash);
     TEST_ASSERT_EQUAL_UINT8(NOTICE_SWEEP, machineNotice());
 
@@ -104,7 +104,7 @@ void test_a_sweep_that_is_owed_holds_the_refill_and_opens_no_pour() {
 }
 
 void test_gas_through_the_tank_is_counted_and_the_lever_let_go_brings_the_first_fill() {
-    TEST_ASSERT_TRUE(machineSweepOwe());
+    machineSweepOwe();
     machineFlowSimulate(kGas, 600000);
     sampleFor(1000);
     TEST_ASSERT_TRUE(sweepNow().flowing);
@@ -154,7 +154,7 @@ void test_gas_through_the_tank_is_counted_and_the_lever_let_go_brings_the_first_
 }
 
 void test_the_lever_let_go_early_keeps_the_count() {
-    TEST_ASSERT_TRUE(machineSweepOwe());
+    machineSweepOwe();
     machineFlowSimulate(kGas, 3000);
     sampleFor(3000);
     const uint32_t counted = sweepNow().pulses;
@@ -171,27 +171,29 @@ void test_the_lever_let_go_early_keeps_the_count() {
     TEST_ASSERT_EQUAL_UINT32(2, host::played[SND_ENGAGE]);
 }
 
-void test_a_tank_found_to_hold_water_drops_the_sweep() {
-    TEST_ASSERT_TRUE(machineSweepOwe());
-    carbonatorReeds(true, true);
-    sampleFor(machine_policy::kSweepWetMs + 3000);
-    TEST_ASSERT_FALSE(sweepNow().owed);
-    TEST_ASSERT_FALSE(host::sweepOwedInFlash);
-    TEST_ASSERT_EQUAL_UINT8(NOTICE_NONE, machineNotice());
-    const std::vector<machine_log::Entry> sweeps = notedOf(machine_log::Kind::Sweep);
-    TEST_ASSERT_EQUAL_UINT32(1, sweeps.size());
-    TEST_ASSERT_EQUAL_UINT8(static_cast<uint8_t>(machine_log::SweepEnd::Moot), sweeps[0].detail);
-    // A full tank is asked for no water.
-    TEST_ASSERT_EQUAL(ST_IDLE, machineState());
-    TEST_ASSERT_FALSE(host::refillOwedInFlash);
-}
-
-void test_a_sweep_cannot_be_owed_over_water() {
+void test_what_the_reeds_read_neither_refuses_a_sweep_nor_drops_one() {
+    // What the reeds read of a float at rest on an empty tank is not known until they are
+    // calibrated, so a closed reed is no evidence that the tank holds water.
     carbonatorReeds(true, false);
     sampleFor(1500);
-    TEST_ASSERT_FALSE(machineSweepOwe());
-    TEST_ASSERT_FALSE(sweepNow().owed);
-    TEST_ASSERT_FALSE(host::sweepOwedInFlash);
+    machineSweepOwe();
+    TEST_ASSERT_TRUE(sweepNow().owed);
+    TEST_ASSERT_TRUE(host::sweepOwedInFlash);
+
+    sampleFor(20000);
+    TEST_ASSERT_TRUE(sweepNow().owed);
+    TEST_ASSERT_TRUE(host::sweepOwedInFlash);
+    TEST_ASSERT_EQUAL_UINT8(NOTICE_SWEEP, machineNotice());
+    TEST_ASSERT_EQUAL(ST_IDLE, machineState());
+    TEST_ASSERT_FALSE(refillRelayClosed());
+    TEST_ASSERT_EQUAL_UINT32(0, notedOf(machine_log::Kind::Sweep).size());
+
+    // Both reeds closed, and the lever still does its work.
+    carbonatorReeds(true, true);
+    sampleFor(5000);
+    TEST_ASSERT_TRUE(sweepNow().owed);
+    holdTheLeverUntilDone();
+    TEST_ASSERT_EQUAL_UINT8(NOTICE_SWEEP_DONE, machineNotice());
 }
 
 void test_owing_a_sweep_drops_the_refill_that_was_owed() {
@@ -200,7 +202,7 @@ void test_owing_a_sweep_drops_the_refill_that_was_owed() {
     TEST_ASSERT_EQUAL_UINT8(NOTICE_NO_WATER, machineNotice());
     TEST_ASSERT_TRUE(host::refillOwedInFlash);
 
-    TEST_ASSERT_TRUE(machineSweepOwe());
+    machineSweepOwe();
     sampleFor(500);
     TEST_ASSERT_EQUAL_UINT8(NOTICE_SWEEP, machineNotice());
     TEST_ASSERT_EQUAL_UINT8(static_cast<uint8_t>(machine_policy::RefillState::Idle), refillStateNow());
@@ -209,7 +211,7 @@ void test_owing_a_sweep_drops_the_refill_that_was_owed() {
 }
 
 void test_a_sweep_owed_when_the_power_went_is_owed_still() {
-    TEST_ASSERT_TRUE(machineSweepOwe());
+    machineSweepOwe();
     machineFlowSimulate(kGas, 2000);
     sampleFor(2000);
     TEST_ASSERT_TRUE(sweepNow().pulses > 0);
@@ -224,7 +226,7 @@ void test_a_sweep_owed_when_the_power_went_is_owed_still() {
 }
 
 void test_power_lost_between_the_target_and_the_lever_leaves_the_sweep_owed() {
-    TEST_ASSERT_TRUE(machineSweepOwe());
+    machineSweepOwe();
     holdTheLeverUntilDone();
     TEST_ASSERT_TRUE(host::sweepOwedInFlash);
 
@@ -236,7 +238,7 @@ void test_power_lost_between_the_target_and_the_lever_leaves_the_sweep_owed() {
 }
 
 void test_a_sweep_given_up_at_the_machine_fills_without_it() {
-    TEST_ASSERT_TRUE(machineSweepOwe());
+    machineSweepOwe();
     machineFlowSimulate(kGas, 1000);
     sampleFor(1500);
     TEST_ASSERT_TRUE(machineSweepSkip());
@@ -254,7 +256,7 @@ void test_a_sweep_given_up_at_the_machine_fills_without_it() {
 }
 
 void test_a_sweep_given_up_with_the_lever_down_waits_for_the_lever() {
-    TEST_ASSERT_TRUE(machineSweepOwe());
+    machineSweepOwe();
     machineFlowSimulate(kGas, 600000);
     sampleFor(1000);
     TEST_ASSERT_TRUE(sweepNow().flowing);
@@ -294,7 +296,7 @@ void test_a_sweep_given_up_with_the_lever_down_waits_for_the_lever() {
 }
 
 void test_a_sweep_given_up_after_its_target_still_waits_for_the_lever() {
-    TEST_ASSERT_TRUE(machineSweepOwe());
+    machineSweepOwe();
     holdTheLeverUntilDone();
 
     TEST_ASSERT_TRUE(machineSweepSkip());
@@ -315,7 +317,7 @@ void test_a_sweep_given_up_after_its_target_still_waits_for_the_lever() {
 }
 
 void test_a_bench_that_holds_the_notice_off_still_has_the_sweep() {
-    TEST_ASSERT_TRUE(machineSweepOwe());
+    machineSweepOwe();
     machineNoticeHold(static_cast<uint8_t>((1u << NOTICE_SWEEP) | (1u << NOTICE_SWEEP_DONE)));
     TEST_ASSERT_EQUAL_UINT8(NOTICE_SWEEP, machineNoticeStanding());
     TEST_ASSERT_EQUAL_UINT8(NOTICE_NONE, machineNotice());
@@ -336,7 +338,7 @@ void test_a_bench_that_holds_the_notice_off_still_has_the_sweep() {
 }
 
 void test_a_sweep_forgotten_at_the_bench_asks_for_nothing() {
-    TEST_ASSERT_TRUE(machineSweepOwe());
+    machineSweepOwe();
     TEST_ASSERT_TRUE(machineSweepForget());
     TEST_ASSERT_FALSE(host::sweepOwedInFlash);
     sampleFor(5000);
@@ -347,7 +349,7 @@ void test_a_sweep_forgotten_at_the_bench_asks_for_nothing() {
 }
 
 void test_a_sweep_forgotten_with_the_lever_down_opens_no_pour() {
-    TEST_ASSERT_TRUE(machineSweepOwe());
+    machineSweepOwe();
     machineFlowSimulate(kGas, 600000);
     sampleFor(1000);
     TEST_ASSERT_TRUE(sweepNow().flowing);
@@ -382,12 +384,12 @@ void test_a_sweep_forgotten_with_the_lever_down_opens_no_pour() {
 }
 
 void test_a_sweep_owed_again_after_one_forgotten_with_the_lever_down_is_a_whole_sweep() {
-    TEST_ASSERT_TRUE(machineSweepOwe());
+    machineSweepOwe();
     machineFlowSimulate(kGas, 600000);
     sampleFor(1000);
     TEST_ASSERT_TRUE(machineSweepForget());
 
-    TEST_ASSERT_TRUE(machineSweepOwe());
+    machineSweepOwe();
     TEST_ASSERT_TRUE(sweepNow().owed);
     TEST_ASSERT_TRUE(host::sweepOwedInFlash);
     TEST_ASSERT_EQUAL_UINT8(NOTICE_SWEEP, machineNoticeStanding());
@@ -443,8 +445,7 @@ int main(int, char **) {
     RUN_TEST(test_a_sweep_that_is_owed_holds_the_refill_and_opens_no_pour);
     RUN_TEST(test_gas_through_the_tank_is_counted_and_the_lever_let_go_brings_the_first_fill);
     RUN_TEST(test_the_lever_let_go_early_keeps_the_count);
-    RUN_TEST(test_a_tank_found_to_hold_water_drops_the_sweep);
-    RUN_TEST(test_a_sweep_cannot_be_owed_over_water);
+    RUN_TEST(test_what_the_reeds_read_neither_refuses_a_sweep_nor_drops_one);
     RUN_TEST(test_owing_a_sweep_drops_the_refill_that_was_owed);
     RUN_TEST(test_a_sweep_owed_when_the_power_went_is_owed_still);
     RUN_TEST(test_power_lost_between_the_target_and_the_lever_leaves_the_sweep_owed);

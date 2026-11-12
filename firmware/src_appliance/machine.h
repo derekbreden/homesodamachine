@@ -314,9 +314,9 @@ struct MachineSweep {
 };
 void machineSweep(MachineSweep &sweep);
 
-// The tank has been drained and opened: owe a sweep, and drop any refill that is owed.
-// False while a carbonator reed reads closed, which is a tank that holds water.
-bool machineSweepOwe();
+// The tank has been drained and opened: owe a sweep, and drop any refill that is owed. It
+// is taken on the word of whoever says so: no reed is asked whether the tank holds water.
+void machineSweepOwe();
 
 // Give the sweep up and fill without it. With no gas moving the first fill is asked for at
 // once. Gas moving is a lever that is down, so the fill waits for it to be let go, as it

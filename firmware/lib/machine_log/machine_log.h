@@ -53,7 +53,7 @@ enum class RefillEnd : uint8_t {
 // How a sweep of the carbonator's air ended.
 enum class SweepEnd : uint8_t {
     Done = 0,      // the meter counted the whole sweep
-    Moot,          // the tank held water
+    Moot,          // the tank held water: no build notes it, and a record that carries it is still read
     Skipped,       // on request
 };
 

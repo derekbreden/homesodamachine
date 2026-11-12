@@ -289,7 +289,7 @@ void test_a_move_is_refused_while_something_has_the_manifold() {
 }
 
 void test_a_machine_moved_before_its_first_sweep_still_owes_it() {
-    TEST_ASSERT_TRUE(machineSweepOwe());
+    machineSweepOwe();
     TEST_ASSERT_TRUE(machineMoveBegin());
     TEST_ASSERT_EQUAL_UINT8(NOTICE_MOVE, machineNotice());
 
@@ -317,18 +317,24 @@ void test_a_bench_can_hold_the_move_off_the_glasses() {
     TEST_ASSERT_EQUAL_UINT8(NOTICE_MOVE, machineNotice());
 }
 
-void test_a_tank_that_was_never_emptied_drops_the_sweep_the_move_left() {
+void test_a_move_that_never_emptied_the_tank_still_starts_with_the_welcome() {
     fillTheTank();
     TEST_ASSERT_TRUE(machineMoveBegin());
 
-    // The plug came out and went back with the water still at its high reed.
+    // The plug came out and went back with the water still at its high reed. The board cannot
+    // tell, so the welcome stands, and Skip leaves the water as it is.
     restart();
+    sampleFor(10000);
     TEST_ASSERT_TRUE(sweepNow().owed);
-    sampleFor(machine_policy::kSweepWetMs + 3000);
+    TEST_ASSERT_EQUAL_UINT8(NOTICE_SWEEP, machineNotice());
+    TEST_ASSERT_FALSE(refillRelayClosed());
+
+    TEST_ASSERT_TRUE(machineSweepSkip());
+    sampleFor(3000);
     TEST_ASSERT_FALSE(sweepNow().owed);
-    TEST_ASSERT_FALSE(host::sweepOwedInFlash);
-    TEST_ASSERT_EQUAL_UINT8(NOTICE_NONE, machineNotice());
     TEST_ASSERT_EQUAL(ST_IDLE, machineState());
+    TEST_ASSERT_FALSE(refillRelayClosed());
+    TEST_ASSERT_EQUAL_UINT8(NOTICE_NONE, machineNotice());
 }
 
 // ── The water a start finds ───────────────────────────────────────────────
@@ -386,7 +392,7 @@ void test_a_start_that_owes_a_sweep_leaves_the_asking_to_the_sweep() {
     fillTheTank();
     carbonatorReeds(false, false);
     sampleFor(1500);
-    TEST_ASSERT_TRUE(machineSweepOwe());
+    machineSweepOwe();
 
     restart();
     sampleFor(6000);
@@ -476,7 +482,7 @@ int main(int, char **) {
     RUN_TEST(test_a_move_is_refused_while_something_has_the_manifold);
     RUN_TEST(test_a_machine_moved_before_its_first_sweep_still_owes_it);
     RUN_TEST(test_a_bench_can_hold_the_move_off_the_glasses);
-    RUN_TEST(test_a_tank_that_was_never_emptied_drops_the_sweep_the_move_left);
+    RUN_TEST(test_a_move_that_never_emptied_the_tank_still_starts_with_the_welcome);
     RUN_TEST(test_a_tank_emptied_with_the_power_off_is_filled_at_the_next_start);
     RUN_TEST(test_a_start_that_finds_the_high_reed_closed_asks_for_nothing);
     RUN_TEST(test_a_start_asks_once_and_not_again_when_the_water_falls);
