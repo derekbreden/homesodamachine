@@ -248,7 +248,6 @@ fn main() -> Result<()> {
 
     // The machine's model and STEP, with its wiring in them.
     let mut plan = plan;
-    plan["metadata"]["wiring_context"] = plan::wiring_context(&root)?;
     let model_dir = work.join("mechanics");
     std::fs::create_dir_all(&model_dir)?;
     let fine = model_dir.join("enclosure-assembly.step.npz");

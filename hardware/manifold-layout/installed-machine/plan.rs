@@ -316,18 +316,6 @@ pub fn normal_metadata(mut plan: Value, request: &Value) -> Result<Value> {
     Ok(plan)
 }
 
-/// What the wiring takes beside the placed machine: the front top's cable passages from the
-/// wiring's own routing files, the fuse's lead from its reference, and the viewer's payload rule.
-pub fn wiring_context(root: &Path) -> Result<Value> {
-    let fuse = design::read(root.join("hardware/reference/sf76e-thermal-fuse/reference-parameters.json"))?;
-    Ok(json!({
-        "fixed_passages": design::read(root.join("hardware/wiring/installed/fixed-passages.json"))?,
-        "fuse_lead_diameter_mm": fuse["lead_diameter_mm"],
-        "presentation_deflection_ratio": hsm_print_payload::LINEAR_DEFLECTION_RATIO,
-        "presentation_angular_deflection_rad": hsm_print_payload::ANGULAR_DEFLECTION,
-    }))
-}
-
 /// The wiring's bodies as the scene views name them: each conductor and terminal once, without
 /// the index a split body's pieces carry.
 pub fn wiring_names(wire_model: &Path) -> Result<Value> {

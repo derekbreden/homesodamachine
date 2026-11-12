@@ -1,9 +1,7 @@
 //! What the installed wiring's routing is cut from, each value read from where it is owned: the
-//! above-core layout, the plan's placements, the parts' own reference files and published
-//! numbers, the cold core's typed interface and the materials catalog.
-//!
-//! A value no typed crate or published file holds yet comes from the plan's
-//! `metadata.wiring_context`, and its absence is an error that names the value and its owner.
+//! above-core layout, the plan's placements, the wiring's own routing files, the parts' own
+//! reference files and published numbers, the cold core's typed interface, the payload rule and
+//! the materials catalog.
 use super::terminals::{Passage, Pose, Turn};
 use super::{measure, readers};
 use crate::design;
@@ -101,41 +99,24 @@ impl Sources {
 
     /// The front top's fixed cable passages, by name.
     pub fn fixed_passages(&self) -> Result<BTreeMap<String, Passage>> {
-        let passages = self.context(
-            "fixed_passages",
-            "the front top's fixed cable passages, which the enclosure's fixed pump mount owns",
-        )?;
-        serde_json::from_value(passages).context("the front top's fixed cable passages")
+        let passages = self.document("hardware/wiring/installed/fixed-passages.json")?;
+        serde_json::from_value((*passages).clone()).context("the front top's fixed cable passages")
     }
 
     /// The thermal fuse's lead diameter.
     pub fn fuse_lead_diameter(&self) -> Result<f64> {
-        self.context(
-            "fuse_lead_diameter_mm",
-            "the thermal fuse's lead diameter, which the SF76E reference owns",
-        )?
-        .as_f64()
-        .context("the thermal fuse's lead diameter")
+        let fuse = self.document("hardware/reference/sf76e-thermal-fuse/reference-parameters.json")?;
+        fuse["lead_diameter_mm"].as_f64().context("the thermal fuse's lead diameter")
     }
 
     /// The viewer payload's linear deflection ratio.
-    pub fn presentation_deflection_ratio(&self) -> Result<f64> {
-        self.context(
-            "presentation_deflection_ratio",
-            "the viewer payload's linear deflection ratio, which the payload rule owns",
-        )?
-        .as_f64()
-        .context("the viewer payload's linear deflection ratio")
+    pub fn presentation_deflection_ratio(&self) -> f64 {
+        hsm_print_payload::LINEAR_DEFLECTION_RATIO
     }
 
     /// The viewer payload's angular deflection.
-    pub fn presentation_angular_deflection(&self) -> Result<f64> {
-        self.context(
-            "presentation_angular_deflection_rad",
-            "the viewer payload's angular deflection, which the payload rule owns",
-        )?
-        .as_f64()
-        .context("the viewer payload's angular deflection")
+    pub fn presentation_angular_deflection(&self) -> f64 {
+        hsm_print_payload::ANGULAR_DEFLECTION
     }
 
     /// The JSON file at `path` under the root, read once per request.
@@ -156,13 +137,6 @@ impl Sources {
     /// The cold core's own published numbers: its carbonator and its earth bond's datums.
     fn cold_core(&self) -> Result<Rc<Value>> {
         self.document("hardware/cold-core-layout/cold-core-assembly.numbers.json")
-    }
-
-    /// A value the plan hands the wiring because nothing typed or published holds it yet.
-    fn context(&self, key: &str, what: &str) -> Result<Value> {
-        self.plan["metadata"]["wiring_context"].get(key).cloned().with_context(|| {
-            format!("the plan's metadata.wiring_context gives no `{key}`: {what}, and no typed crate or published file holds it yet")
-        })
     }
 
     /// The WAGO lever connectors the plan places, by name.

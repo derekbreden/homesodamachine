@@ -18,12 +18,6 @@ mod cache;
 #[path = "../../../../hardware/manifold-layout/installed-machine/design.rs"]
 mod design;
 #[allow(dead_code)]
-#[path = "../../../../hardware/manifold-layout/machine_layout.rs"]
-mod layout;
-#[allow(dead_code)]
-#[path = "../../../../hardware/manifold-layout/installed-machine/plan.rs"]
-mod plan;
-#[allow(dead_code)]
 #[path = "../../../../hardware/wiring/installed/wire_request.rs"]
 mod wire_request;
 #[allow(dead_code)]
@@ -136,9 +130,8 @@ fn main() -> Result<()> {
     )?;
     let (mut numbers, mut manifest, physical_sha) = {
         let _assembly = cache::lock(&work)?;
-        let mut spec = cache::retained_value(&root, &work, "placement")?
+        let spec = cache::retained_value(&root, &work, "placement")?
             .context("the normal print build has not retained the installed machine's placement")?;
-        spec["metadata"]["wiring_context"] = plan::wiring_context(&root)?;
         let physical = work.join("mechanics/enclosure-assembly.step.npz");
         ensure!(
             physical.is_file(),
