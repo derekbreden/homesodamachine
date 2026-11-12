@@ -66,6 +66,7 @@ and support aids. Pass `--printer Mark1` and `--filament-colour` with the loaded
 spool's colour to prepare a Mark1 plate. `--base-section SECTION.stl` pairs a
 section of the base in its CAD frame with the full tip and cover. `--tip-only`
 prepares the complete tip by itself with its production support and seam settings.
+`--tip-and-cover` prepares the two pieces together for a fit trial.
 
 The [Mark1 support and fit trial](https://github.com/derekbreden/homesodamachine/blob/7ebe4a45b0fd8064118e95f2cc1445c5ee643722/hardware/printed-parts/faucet/sculpted/prints/2026-11-11-support-and-fit-mark1/physical-result/physical-result.json)
 records the base section's one-piece support release, the tip cleanup and the
@@ -74,10 +75,10 @@ cover seating on one wing. Its
 binds the seam gaps, exterior wall paths, shoulder support and nose clearance
 to the submitted toolpath.
 
-The [Mark1 wing receiver fit result](https://github.com/derekbreden/homesodamachine/blob/4b44ac1a2d32679244ecc587144a0afc8a6fb2ac/hardware/printed-parts/faucet/sculpted/prints/2026-11-12-wing-receiver-clearance-mark1/physical-result/physical-result.json)
-records the plain wing ends bearing on the tip and holding the blades out of
-their channels. The tip's pockets provide clearance for the plain ends
-alongside the channels and preserve the blade retaining ledges.
+The Sculpted tip's grooves follow the lower front and rear corners of each display-cover wing.
+Their deepest points are where the skirt meets the arches, with the floor blending back into the
+tube along both legs. The [wing contact record](https://github.com/derekbreden/homesodamachine/blob/2ac8b452d916cb323d39cce42306069da7a25f91/hardware/printed-parts/faucet/sculpted/prints/2026-11-12-wing-end-relief-mark1/physical-result/physical-result.json)
+locates these corners from the hand fit and the picked model edges.
 
 [review_print.py](https://github.com/derekbreden/homesodamachine/blob/306268f870/hardware/printed-parts/faucet/sculpted/review_print.py) (in Git at `306268f870`) reads the native G-code's nominal courses,
 filament assignment, cooling, speed commands, complete bead footprint and
