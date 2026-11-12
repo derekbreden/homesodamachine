@@ -53,17 +53,6 @@ pub fn point(frame: &Value, p: V3) -> Result<V3> {
         xyz(&frame["translation_mm"])?,
     ))
 }
-pub fn inverse_point(frame: &Value, p: V3) -> Result<V3> {
-    let delta = sub(p, xyz(&frame["translation_mm"])?);
-    let r = &frame["rotation"];
-    let mut out = [0.; 3];
-    for j in 0..3 {
-        for i in 0..3 {
-            out[j] += number(&r[i][j])? * delta[i];
-        }
-    }
-    Ok(out)
-}
 pub fn compose(outer: &Value, inner: &Value) -> Result<Value> {
     let a = &outer["rotation"];
     let b = &inner["rotation"];
@@ -246,20 +235,6 @@ pub fn sample(segments: &[Value]) -> Result<Vec<V3>> {
     }
     Ok(result)
 }
-pub fn lane_transition(start: V3, displacement: V3, radius: f64) -> Result<(Vec<Value>, V3)> {
-    let distance = norm(displacement);
-    let direction = unit(displacement)?;
-    let angle = (1. - distance / (2. * radius)).acos();
-    let axis = cross([0., 1., 0.], direction);
-    ensure!(
-        angle.is_finite(),
-        "lane displacement exceeds the bend diameter"
-    );
-    let (a, p) = arc(start, [0., 1., 0.], axis, angle, radius);
-    let tangent = add(mul([0., 1., 0.], angle.cos()), mul(direction, angle.sin()));
-    let (b, p) = arc(p, tangent, mul(axis, -1.), angle, radius);
-    Ok((vec![a, b], p))
-}
 pub fn crowned_beziers(control: &[V3], crown: f64, intervals: usize) -> Result<Vec<Value>> {
     ensure!(
         control.len() == 4 && intervals > 0,
@@ -387,268 +362,62 @@ pub fn union_elbow_names(snapshots: &Value) -> Vec<&'static str> {
         .collect()
 }
 
-fn gates() -> Value {
+/// The reservoir turns that plug straight into a valve: each turn's valve and its port.
+pub fn gates() -> Value {
     json!({"reservoir-a-fill-turn":["valve-v-f","outlet"],"reservoir-a-draw-turn":["valve-v-e","inlet"],"reservoir-b-fill-turn":["valve-v-i","outlet"]})
 }
-pub fn request(v: Value) -> Result<Value> {
-    let op = v["op"].as_str().context("layout data operation")?;
-    Ok(match op {
-        "specification" => {
-            let raw = std::fs::read_to_string(v["path"].as_str().context("specification path")?)?;
-            let _: Value = serde_json::from_str(&raw)?;
-            json!(raw)
+
+/// The equipment the cold core's side of the layout owns, by name, sorted.
+pub fn equipment_names() -> Vec<String> {
+    let mut names = vec![
+        "pcba".to_string(),
+        "g-ganen-pump".into(),
+        "pump-snap-cap".into(),
+        "valve-v-b".into(),
+        "discharge-chain".into(),
+        "carbonator-fold".into(),
+        "vb-inlet-turn".into(),
+        "vb-outlet-stem".into(),
+        "vb-outlet-return".into(),
+        "lower-pump-elbow".into(),
+    ];
+    for side in ["suction", "discharge"] {
+        for p in [
+            "tube",
+            "reducer",
+            "barb-clamp",
+            "barb-key",
+            "stem-clamp",
+            "stem-key",
+        ] {
+            names.push(format!("{side}-{p}"));
         }
-        "vector" => json!(vector(&v["rotation"], xyz(&v["point"])?)?),
-        "point" => json!(point(&v["frame"], xyz(&v["point"])?)?),
-        "inverse-point" => json!(inverse_point(&v["frame"], xyz(&v["point"])?)?),
-        "compose" => compose(&v["outer"], &v["inner"])?,
-        "equipment-names" => {
-            let mut names = vec![
-                "pcba".to_string(),
-                "g-ganen-pump".into(),
-                "pump-snap-cap".into(),
-                "valve-v-b".into(),
-                "discharge-chain".into(),
-                "carbonator-fold".into(),
-                "vb-inlet-turn".into(),
-                "vb-outlet-stem".into(),
-                "vb-outlet-return".into(),
-                "lower-pump-elbow".into(),
-            ];
-            for side in ["suction", "discharge"] {
-                for p in [
-                    "tube",
-                    "reducer",
-                    "barb-clamp",
-                    "barb-key",
-                    "stem-clamp",
-                    "stem-key",
-                ] {
-                    names.push(format!("{side}-{p}"));
-                }
-            }
-            names.sort();
-            json!(names)
+    }
+    names.sort();
+    names
+}
+
+/// The rear wall's bulkhead fittings in the order of the fluid grid's rows and columns: each
+/// one's place on the wall and the tube, nut and barrel its kind takes.
+pub fn grid(spec: &Value) -> Result<Vec<Value>> {
+    let g = &spec["fluid_grid"];
+    let mut rows = Vec::new();
+    for (row, names) in g["assignment"]
+        .as_array()
+        .context("grid assignment")?
+        .iter()
+        .enumerate()
+    {
+        for (column, name) in names.as_array().context("grid row")?.iter().enumerate() {
+            let gas = name == "co2-inlet";
+            let quarter = name == "bulkhead-water" || name == "bulkhead-carb" || gas;
+            rows.push(json!({"name":name,"x":g["columns_x_mm"][column],"z":g["rows_z_mm"][row],"tube_od_mm":if quarter{6.35}else{4.},
+                "flange_y":spec["enclosure"]["rear_y_mm"],"nut_af_mm":if gas{21.0058}else if quarter{20.}else{18.},
+                "nut_depth_mm":if gas{7.0104}else if quarter{4.}else{6.5},"barrel_d_mm":if gas{17.}else if quarter{17.14}else{15.},
+                "native_kind":if gas{"gas"}else if quarter{"quarter"}else{"four"}}));
         }
-        "valve-names" => json!(["valve-v-a", "valve-v-b", "vk-solenoid"]),
-        "reservoir-gates" => gates(),
-        "stem-elbow-names" => json!(stem_elbow_names(&v["spec"]["snapshots"])),
-        "union-elbow-names" => json!(union_elbow_names(&v["spec"]["snapshots"])),
-        "grid" => {
-            let spec = &v["spec"];
-            let g = &spec["fluid_grid"];
-            let mut rows = Vec::new();
-            for (row, names) in g["assignment"]
-                .as_array()
-                .context("grid assignment")?
-                .iter()
-                .enumerate()
-            {
-                for (column, name) in names.as_array().context("grid row")?.iter().enumerate() {
-                    let gas = name == "co2-inlet";
-                    let quarter = name == "bulkhead-water" || name == "bulkhead-carb" || gas;
-                    rows.push(json!({"name":name,"x":g["columns_x_mm"][column],"z":g["rows_z_mm"][row],"tube_od_mm":if quarter{6.35}else{4.},
-                        "flange_y":spec["enclosure"]["rear_y_mm"],"nut_af_mm":if gas{21.0058}else if quarter{20.}else{18.},
-                        "nut_depth_mm":if gas{7.0104}else if quarter{4.}else{6.5},"barrel_d_mm":if gas{17.}else if quarter{17.14}else{15.},
-                        "native_kind":if gas{"gas"}else if quarter{"quarter"}else{"four"}}));
-                }
-            }
-            json!(rows)
-        }
-        "offset" => json!(add(
-            xyz(&v["point"])?,
-            mul(xyz(&v["vector"])?, number(&v["length"])?)
-        )),
-        "link" => {
-            let a = xyz(&v["a"])?;
-            let b = xyz(&v["b"])?;
-            let ua = xyz(&v["axis_a"])?;
-            let ub = xyz(&v["axis_b"])?;
-            let start = sub(a, mul(ua, number(&v["depth_a"])?));
-            let end = sub(b, mul(ub, number(&v["depth_b"])?));
-            if dot(sub(b, a), ua) < 0. {
-                json!([start, end])
-            } else {
-                json!([start, a, b, end])
-            }
-        }
-        "line" => line(xyz(&v["a"])?, xyz(&v["b"])?),
-        "bezier" => bezier(&points3(&v["control"])?),
-        "crowned-beziers" => json!(crowned_beziers(
-            &points3(&v["control"])?,
-            number(&v["crown"])?,
-            v["intervals"].as_u64().context("interval count")? as usize
-        )?),
-        "sample-bezier" => {
-            let c = points3(&v["control"])?;
-            let samples = v["samples"].as_u64().context("sample count")?;
-            ensure!(
-                samples > 1 && c.len() == 4,
-                "a cubic needs four controls and at least two samples"
-            );
-            json!(
-                (0..samples)
-                    .map(|i| {
-                        let t = i as f64 / (samples - 1) as f64;
-                        let w = [
-                            (1. - t).powi(3),
-                            3. * (1. - t).powi(2) * t,
-                            3. * (1. - t) * t * t,
-                            t.powi(3),
-                        ];
-                        std::array::from_fn::<_, 3, _>(|k| {
-                            w.iter().zip(&c).map(|(w, p)| w * p[k]).sum::<f64>()
-                        })
-                    })
-                    .collect::<Vec<_>>()
-            )
-        }
-        "add" => json!(add(xyz(&v["a"])?, xyz(&v["b"])?)),
-        "sub" => json!(sub(xyz(&v["a"])?, xyz(&v["b"])?)),
-        "mul" => json!(mul(xyz(&v["a"])?, number(&v["scale"])?)),
-        "dot" => json!(dot(xyz(&v["a"])?, xyz(&v["b"])?)),
-        "norm" => json!(norm(xyz(&v["a"])?)),
-        "unit" => json!(unit(xyz(&v["a"])?)?),
-        "cross" => json!(cross(xyz(&v["a"])?, xyz(&v["b"])?)),
-        "arc" => {
-            let (s, p) = arc(
-                xyz(&v["start"])?,
-                xyz(&v["tangent"])?,
-                xyz(&v["axis"])?,
-                number(&v["angle"])?,
-                number(&v["radius"])?,
-            );
-            json!([s, p])
-        }
-        "arc-three" => arc_three(&points3(&v["points"])?)?,
-        "rounded" => json!(rounded(&points3(&v["points"])?, number(&v["radius"])?)?),
-        "lane-transition" => {
-            let (s, p) = lane_transition(
-                xyz(&v["start"])?,
-                xyz(&v["displacement"])?,
-                number(&v["radius"])?,
-            )?;
-            json!([s, p])
-        }
-        "ease-lane" => {
-            let a = xyz(&v["start"])?;
-            let b = xyz(&v["end"])?;
-            let step = (b[1] - a[1]) / 5.;
-            bezier(&[
-                a,
-                [a[0], a[1] + step, a[2]],
-                [a[0], a[1] + 2. * step, a[2]],
-                [b[0], a[1] + 3. * step, b[2]],
-                [b[0], a[1] + 4. * step, b[2]],
-                b,
-            ])
-        }
-        "points" => json!(sample(v["segments"].as_array().context("segments")?)?),
-        "reservoir-routes" => {
-            let routes = reservoir_routes(&v["data"])?;
-            if let Some(order) = v["order"].as_array() {
-                json!(
-                    order
-                        .iter()
-                        .map(|key| json!([key, routes[key.as_str().unwrap()].clone()]))
-                        .collect::<Vec<_>>()
-                )
-            } else {
-                routes
-            }
-        }
-        "fore-routes" => {
-            let result = fore::routes(&v["spec"], &v["rear"])?;
-            if let Some(order) = v["order"].as_array() {
-                let mut rows = Vec::new();
-                for key in order {
-                    let id = format!("above-core-{}", key.as_str().context("fore route key")?);
-                    if let Some(route) = result.get(&id) {
-                        rows.push(json!([id, route]));
-                    }
-                }
-                if let Some(rear) = v["rear_order"].as_array() {
-                    for key in rear {
-                        rows.push(json!([key, result[key.as_str().unwrap()]]));
-                    }
-                }
-                json!(rows)
-            } else {
-                result
-            }
-        }
-        "route-stations" => rear::required_stations(
-            v["operation"].as_str().context("route station operation")?,
-            &v["spec"],
-        )?,
-        "rear-route-specs" => json!(rear::route_specs(&v["spec"], &v["stations"], &v["params"])?),
-        "rear-continuations" => json!(rear::continuations(
-            &v["spec"],
-            &v["stations"],
-            &v["params"]
-        )?),
-        "flavor-routes" => json!(rear::flavor_routes(&v["stations"])?),
-        "flavor-s-bend" => {
-            let (s, end) = rear::flavor_s_bend(
-                xyz(&v["start"])?,
-                xyz(&v["heading"])?,
-                xyz(&v["offset"])?,
-                xyz(&v["axis"])?,
-            )?;
-            json!([s, end])
-        }
-        "flavor-rear" => json!(rear::flavor_rear(
-            v["flavor"].as_str().context("flavor name")?,
-            xyz(&v["destination"])?
-        )?),
-        "route-specifications" => routes::specifications(&v)?,
-        "soda-plan" => soda::plan(&v["spec"])?,
-        "soda-tube" => soda::tube(&v["spec"])?,
-        "soda-holder" => soda::holder(&v["spec"])?,
-        "soda-holder-section" => {
-            let p = &v["spec"]["soda_inlet"]["holder"];
-            let r = number(&p["channel_d_mm"])? / 2.;
-            let wall = number(&p["wall_mm"])?;
-            json!([
-                p,
-                json!(r),
-                json!(r + wall),
-                json!(wall + r),
-                json!((2f64.sqrt() - 1.) * r)
-            ])
-        }
-        "soda-tail" => json!(soda::tail(&points3(&v["control"])?, number(&v["t"])?)),
-        "soda-bezier-length" => {
-            let controls = points3(&v["control"])?;
-            let points: Vec<_> = (0..129)
-                .map(|i| soda::tail(&controls, i as f64 / 128.)[0])
-                .collect();
-            json!(
-                points
-                    .windows(2)
-                    .map(|w| norm(sub(w[0], w[1])))
-                    .sum::<f64>()
-            )
-        }
-        "vertical-transition" => {
-            let a = xyz(&v["a"])?;
-            let b = xyz(&v["b"])?;
-            let third = (b[2] - a[2]) / 3.;
-            bezier(&[a, add(a, [0., 0., third]), add(b, [0., 0., -third]), b])
-        }
-        "soda-passage" => {
-            let guide = xyz(&soda::plan(&v["spec"])?["core_guide_mm"])?;
-            json!([
-                [
-                    v["lower_world_xy"][0].clone(),
-                    v["lower_world_xy"][1].clone(),
-                    json!(guide[2] - 21.)
-                ],
-                json!(guide)
-            ])
-        }
-        _ => bail!("unknown layout data operation {op}"),
-    })
+    }
+    Ok(rows)
 }
 
 pub mod fore;

@@ -192,7 +192,7 @@ pub fn placement_metadata(root: &Path, equipment_request: &Value, runs: Vec<Valu
     let routes = &equipment_request["routes"];
     let keystone = &above["rear_wall"]["dry_openings"]["keystone"]["face_center_mm"];
     let core = design::read_document(&root.join("hardware/cold-core-layout/cold-core-assembly.scene.npz"))?;
-    let core_equipment = hsm_layout_data::request(json!({"op": "equipment-names"}))?;
+    let core_equipment = hsm_layout_data::equipment_names();
     let cap = design::read(root.join("hardware/printed-parts/cold-core/foam-cap/foam-cap.numbers.json"))?;
     let casing = design::read(root.join("hardware/printed-parts/cold-core/foam-assembly/foam-assembly.numbers.json"))?;
     let probes: Vec<Value> = casing["report"]["probes"].as_array().context("the casing's probes")?

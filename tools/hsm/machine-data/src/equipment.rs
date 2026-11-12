@@ -397,19 +397,13 @@ pub fn numbers(request: &Value) -> Result<Value> {
     let mut depths = json!({"tee-fold":12.7,"lower-valve-elbow":12.7,"lower-pump-elbow":insert+number(&rear["water_male_shoulder_land_mm"])?,"reg-va-elbow":12.7,"va-outlet-elbow":12.7,"va-south-elbow":insert,
         "carbonator-fold":number(&data["reducer"]["length_mm"])?-(number(&data["reducer"]["body_face_x_mm"])?-number(&data["reducer"]["body_face_to_stop_display_mm"])?)+number(&rear["water_male_shoulder_land_mm"])?,
         "ya-stem-elbow":10.,"yb-stem-elbow":10.,"drain-outlet-stem":spec["fore_routes"]["drain_stem_length_mm"],"vb-inlet-turn":12.7,"vb-outlet-stem":12.7,"vb-outlet-return":16.891});
-    for name in object(&layout::request(json!({"op":"reservoir-gates"}))?)?.keys() {
+    for name in object(&layout::gates())?.keys() {
         depths[name] = json!(12.7);
     }
-    for name in rows(&layout::request(
-        json!({"op":"stem-elbow-names","spec":spec}),
-    )?)? {
-        let name = text(name)?;
+    for name in layout::stem_elbow_names(&spec["snapshots"]) {
         b.add(name,"stem-elbow",snapshot(spec,name)?,"M_NEOFIT_WHITE_ACETAL",json!({"source":SOURCES[17],"tip_x":number(&data["stem"]["stem_shoulder_x_mm"])?-number(&depths[name])?}))?;
     }
-    for name in rows(&layout::request(
-        json!({"op":"union-elbow-names","spec":spec}),
-    )?)? {
-        let name = text(name)?;
+    for name in layout::union_elbow_names(&spec["snapshots"]) {
         b.add(
             name,
             "reference",
@@ -427,7 +421,7 @@ pub fn numbers(request: &Value) -> Result<Value> {
         json!({"source":SOURCES[19]}),
     )?;
     let insulation = json!({"plan":request["insulation_plan"],"neighbors":request["soft_neighbors"],"valve_pose":pose(spec,"vk-solenoid")?,"color":colors["M_NITRILE_BLACK"]});
-    for row in rows(&ports::grid(spec)?)? {
+    for row in &layout::grid(spec)? {
         let name = text(&row["name"])?;
         if matches!(name, "bulkhead-water" | "co2-inlet") {
             continue;
@@ -575,7 +569,7 @@ pub fn numbers(request: &Value) -> Result<Value> {
     Ok(
         json!({"name":"machine-equipment","items":b.items,"frames":b.frames,"world_ports":world_ports,"routes":routes,
         "native_connections":spec["logical_connections"],"keystone_station":[face[0],face[2]],"keystone_clearances":[],"route_order":order,"component_order":component_order,
-        "core_equipment":layout::request(json!({"op":"equipment-names"}))?,"colors":colors,"insulation":insulation,
+        "core_equipment":layout::equipment_names(),"colors":colors,"insulation":insulation,
         "_frame_port_order":b.frames.iter().map(|(name,row)|(name.clone(),json!(ports::order(name,&row["ports"])))).collect::<Map<_,_>>() }),
     )
 }
@@ -624,43 +618,4 @@ pub fn finalize(request: &Value) -> Result<Value> {
     equipment["route_order"] = json!(order);
     equipment["native_route_order"] = json!(native_order);
     Ok(equipment)
-}
-
-pub fn request(request: &Value) -> Result<Value> {
-    Ok(
-        match request["op"].as_str().context("equipment operation")? {
-            "equipment_sources" => json!(SOURCES),
-            "equipment_compose" => compose(&request["a"], &request["b"])?,
-            "equipment_transform" => ports::transform(&request["pose"])?,
-            "equipment_along_y" => ports::along_y(xyz(&request["point"])?, xyz(&request["axis"])?)?,
-            "equipment_chain_inlet" => ports::chain_inlet(&request["data"])?,
-            "equipment_ports" => {
-                let name = text(&request["name"])?;
-                let rows = ports::local_ports(name, &request["data"], &request["spec"])?;
-                json!({"order":ports::order(name,&rows),"ports":rows})
-            }
-            "equipment_grid" => ports::grid(&request["spec"])?,
-            "equipment_joint" => ports::joint(text(&request["port"])?, &request["data"])?,
-            "equipment_reducer_insertion" => json!(ports::reducer_insertion(&request["data"])?),
-            "equipment_route_frame" => route_frame(&request["spec"], text(&request["name"])?)?,
-            "equipment_local_routes" => {
-                let (order, routes) = local_routes(request)?;
-                json!({"order":order,"routes":routes})
-            }
-            "equipment_rear_routes" => json!(layout::rear::route_specs(
-                &request["spec"],
-                &route_stations(&request["spec"], &request["data"])?,
-                &route_params(&request["data"])?
-            )?),
-            "equipment_continuations" => json!(layout::rear::continuations(
-                &request["spec"],
-                &request["stations"],
-                &route_params(&request["data"])?
-            )?),
-            "equipment_flavor_routes" => json!(layout::rear::flavor_routes(&request["stations"])?),
-            "equipment_numbers" => numbers(request)?,
-            "equipment_finalize" => finalize(request)?,
-            other => anyhow::bail!("unknown equipment operation {other}"),
-        },
-    )
 }

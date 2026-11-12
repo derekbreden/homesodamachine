@@ -84,44 +84,6 @@ fn links(
     ])
 }
 
-pub fn required_stations(operation: &str, spec: &Value) -> Result<Value> {
-    let pairs = match operation {
-        "rear-route-specs" => {
-            let mut pairs = Vec::new();
-            for (name, a, pa, _, b, pb, _) in
-                links(&json!({"reducer_insertion":0.,"stem_insertion":0.}))?
-            {
-                let flex = &spec["rear_plumbing"]["flex_links"][name];
-                if flex.is_null() || flex["kind"] == "tangent_cubic" {
-                    pairs.push((a, pa));
-                    pairs.push((b, pb));
-                }
-            }
-            pairs
-        }
-        "rear-continuations" => vec![
-            ("digiten-flow", "outlet"),
-            ("bulkhead-carb", "tube-in"),
-            ("gas-check", "outlet"),
-            ("asse-drain-adapter", "tube"),
-            ("bulkhead-drain", "inboard"),
-        ],
-        "flavor-routes" => vec![
-            ("valve-v-g", "outlet"),
-            ("bulkhead-flavor-a", "tube-in"),
-            ("valve-v-j", "outlet"),
-            ("bulkhead-flavor-b", "tube-in"),
-        ],
-        "route-specifications" => vec![
-            ("foam-assembly", "reservoir-b"),
-            ("valve-v-h", "inlet"),
-            ("reservoir-b-fill-turn", "socket"),
-            ("foam-assembly", "reservoir-b-fill"),
-        ],
-        _ => bail!("unknown station set {operation}"),
-    };
-    Ok(json!(pairs))
-}
 
 pub fn route_specs(spec: &Value, stations: &Value, params: &Value) -> Result<Routes> {
     let plan = &spec["rear_plumbing"];
