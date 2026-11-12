@@ -4,7 +4,7 @@
 //! equipment groups that bound foam compression.
 use anyhow::{Context, Result, bail, ensure};
 use hsm_kernel::{Affine, Body, Leg, Path as SweepPath, Plane, Profile,
-                 Solid, Spline, V2, V3, import, part, step, v3};
+                 Solid, Spline, V2, V3, import, step, v3};
 use hsm_kernel::part::Numbers;
 use serde_json::{Value, json};
 use std::collections::{BTreeMap, BTreeSet};
@@ -193,12 +193,6 @@ fn equipment(n: &Numbers) -> Result<BTreeMap<String, Vec<Solid>>> {
     parts.into_iter().map(|(name, bodies)| Ok((name,
         bodies.into_iter().map(|body| body.context("equipment body outside model"))
             .collect::<Result<Vec<_>>>()?))).collect()
-}
-
-fn main() -> Result<()> {
-    let (n, output) = part::args()?;
-    println!("{}", run(&n, &output)?);
-    Ok(())
 }
 
 /// The routed tubes cut into `output`, and what it wrote there.

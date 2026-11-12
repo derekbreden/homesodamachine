@@ -31,28 +31,22 @@ mod scenes;
 #[path = "installed-machine/wiring.rs"]
 mod wiring;
 
-#[allow(dead_code)]
 #[path = "../../tools/hsm/shared-data/src/color.rs"]
 mod color;
 #[allow(dead_code)]
 #[path = "../../tools/hsm/shared-data/src/common.rs"]
 mod common;
-#[allow(dead_code)]
 #[path = "../../tools/hsm/machine-data/src/equipment.rs"]
 mod equipment;
-#[allow(dead_code)]
 #[path = "../../tools/hsm/machine-data/src/equipment_ports.rs"]
 mod equipment_ports;
-#[allow(dead_code)]
 #[path = "machine_equipment.rs"]
 mod equipment_program;
 #[allow(dead_code)]
 #[path = "machine_layout.rs"]
 mod layout;
-#[allow(dead_code)]
 #[path = "../../tools/hsm/machine-data/src/reporting.rs"]
 mod reporting;
-#[allow(dead_code)]
 #[path = "machine_routes.rs"]
 mod routes_program;
 #[allow(dead_code)]

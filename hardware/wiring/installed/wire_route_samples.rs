@@ -1,16 +1,7 @@
 //! Length, arc-length positions and bend samples of recorded installed-wire splines.
-use anyhow::{Context, Result, ensure};
-use hsm_kernel::{Spline, V3, part};
-use serde::{Deserialize, Serialize};
-use serde_json::json;
-
-/// A spline to measure: its interpolation points, their parameters and its end derivatives.
-#[derive(Deserialize)]
-struct Asked {
-    interpolation_points_mm: Vec<[f64; 3]>,
-    parameters: Vec<f64>,
-    endpoint_derivatives: [[f64; 3]; 2],
-}
+use anyhow::Result;
+use hsm_kernel::{Spline, V3};
+use serde::Serialize;
 
 /// What is measured along a spline: its length, points at even steps of that length, the step
 /// between them and its tightest bend.
@@ -180,21 +171,6 @@ impl Measured {
             minimum_bend_mm: minimum,
         }
     }
-}
-
-fn main() -> Result<()> {
-    let (numbers, output) = part::args()?;
-    ensure!(
-        output.as_os_str() == "--check",
-        "wire-route-samples reads numeric splines only"
-    );
-    let asked = Vec::<Asked>::deserialize(numbers.get("splines")?).context("wire spline requests")?;
-    let readings = asked
-        .iter()
-        .map(|spline| measure(&spline.interpolation_points_mm, &spline.parameters, spline.endpoint_derivatives))
-        .collect::<Result<Vec<_>>>()?;
-    println!("{}", json!({"splines":readings}));
-    Ok(())
 }
 
 /// The measurements along the clamped spline through `points` at `parameters`, with

@@ -1699,19 +1699,3 @@ pub fn run(v: &Value, out: &Path) -> Result<Value> {
         "presentation":layout.presentation,"metadata":metadata,"envelope":core_meta["envelope"]}),
     )
 }
-fn main() -> Result<()> {
-    let (numbers, directory) = hsm_kernel::part::args()?;
-    std::fs::create_dir_all(&directory)?;
-    let output = directory.join("machine-layout.json");
-    let value = run(numbers.get("request")?, &output)?;
-    if let Some(parent) = output.parent() {
-        std::fs::create_dir_all(parent)?;
-    }
-    std::fs::write(&output, serde_json::to_vec(&value)?)?;
-    println!(
-        "{}",
-        json!({"files":["machine-layout.json","machine-layout.parts.npz"],"bodies":[],
-        "plan":output,"components":value["instances"].as_array().unwrap().len()})
-    );
-    Ok(())
-}

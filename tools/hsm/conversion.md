@@ -126,11 +126,11 @@ explicit input recipes come from Rust data providers.
 
 | Piece | Rust program or data boundary | Source |
 | --- | --- | --- |
-| Machine placement | `machine-layout`; installed transforms and model selections | `hardware/manifold-layout/machine_layout.rs` |
-| Equipment | `machine-equipment`; fittings, clamps, bulkheads and mounting hardware | `hardware/manifold-layout/machine_equipment.rs` |
-| Fluid and refrigeration tubes | `machine-routes`; sweeps, insulation and developed lengths | `hardware/manifold-layout/machine_routes.rs` |
-| Wire curves | `wire-route-samples`; interpolation, lengths and curvature | `hardware/wiring/installed/wire_route_samples.rs` |
-| Installed wires | `installed-wires`, which `installed-machine` runs as one of its stages; each conductor swept along its segments and each termination and jacket cut from its shape | `hardware/wiring/installed/wire_geometry.rs`, `hardware/wiring/installed/wire_request.rs` |
+| Machine placement | the installed machine's placement stage; installed transforms and model selections | `hardware/manifold-layout/machine_layout.rs` |
+| Equipment | the installed machine's equipment stage; fittings, clamps, bulkheads and mounting hardware | `hardware/manifold-layout/machine_equipment.rs` |
+| Fluid and refrigeration tubes | the installed machine's routes stage; sweeps, insulation and developed lengths | `hardware/manifold-layout/machine_routes.rs` |
+| Wire curves | the wiring's spline measuring; interpolation, lengths and curvature | `hardware/wiring/installed/wire_route_samples.rs` |
+| Installed wires | `installed-wires`, which `installed-machine` runs as one of its stages and `hsm-wiring` runs as a program; each conductor swept along its segments and each termination and jacket cut from its shape | `hardware/wiring/installed/wire_geometry.rs`, `hardware/wiring/installed/wire_request.rs` |
 | Enclosure pieces | `enclosure-front-bottom`, `enclosure-front-top`, `enclosure-back-bottom`, `enclosure-back-top`, `enclosure-pump-retainer`, `enclosure-pump-tube-setting-jig`; each printed piece's files from the declared Box through its typed recipe | `hardware/printed-parts/enclosure/enclosure/enclosure_*.rs` |
 | Enclosure model | `enclosure`; the shown pieces in place from their fine models, with the dock's tees and stem elbows | `hardware/printed-parts/enclosure/enclosure/enclosure.rs` |
 | Enclosure measurements | `enclosure-checks`; piece bounds and Box measurements | `hardware/printed-parts/enclosure/enclosure/enclosure_checks.rs` |
@@ -144,7 +144,6 @@ explicit input recipes come from Rust data providers.
 | Faucet assemblies | `faucet-assembly`, `faucet-industrial-assembly`; the faucet and its umbilical as the bench bags them, from the assembly's numbers crate, each printed piece drawn with its own surface | `hardware/faucet-layout/faucet_assembly.rs`, `hardware/faucet-layout/faucet_industrial_assembly.rs` |
 | Zone C | `funnel`, `funnel-frame`, `elbow-cradle`, `funnel-cover`, `funnel-mold`; the cast funnel, its frame, cradle and cover, and the mold it is cast in, from zone C's numbers crate, with the numbers the installed machine places the funnel, frame and cradle by and the mold's design record | `hardware/printed-parts/zone-c/*/*.rs` |
 | Installed machine | `installed-machine`; the placements, equipment, tubes, installed parts and wiring in one process, written as the machine's STEP, viewer payload, facts and scene GLBs | `hardware/manifold-layout/installed_machine.rs` |
-| Machine checks | `machine-checks`; fit, clearance and scalar readings, off during the conversion | `hardware/manifold-layout/machine_checks.rs` |
 | Flavor manifold | `manifold-layout`; the manifold's valves, tees, pumps and stem elbows from their reference models and its tubes swept, written as the model and the construction the installed machine seats it by; its arrangement is written down in `hsm-manifold-numbers` | `hardware/manifold-layout/manifold_layout.rs`, `hardware/manifold-layout/manifold/` |
 | Rear equipment caps | `rear-equipment-caps`; the snap caps and their installed set from the receivers' stations and the parts' measured profiles | `hardware/printed-parts/enclosure/rear-equipment-caps/rear_equipment_caps.rs` |
 | Display cover and status plate | `display-cover`; the display's bezel, the status plate beside it, their screws and inserts, and the mount dimensions, from the enclosure's display numbers | `hardware/printed-parts/enclosure/display-cover/display_cover.rs` |
