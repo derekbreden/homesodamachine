@@ -2,7 +2,7 @@
 #[path = "retainer/retainer.rs"]
 mod retainer;
 
-use anyhow::Result;
+use anyhow::{Context, Result};
 use hsm_enclosure_numbers::{catalog, spec};
 use hsm_enclosure_retainer_numbers as dimensions;
 use hsm_enclosure_solid::pieces::{digest, keep, payload, solids};
@@ -15,7 +15,7 @@ fn main() -> Result<()> {
     let (b,out)=hsm_enclosure_solid::run::arguments("enclosure-pump-retainer")?;
     let mut g=Graph::new();
     let shape=retainer::retainer(&mut g,&b,0.);
-    let [part]=solids(&g,[shape],None)?;
+    let part=as_saved(solids(&g,[shape],None)?)?;
     write_print(&out,&part)?;
     let mut placed=Vec::new();
     for (i,p) in b.pack.pump_trays.iter().enumerate() {
@@ -71,4 +71,11 @@ fn hardware(b:&spec::Box)->Result<Vec<(String,[f64;3],Solid)>> {
         }
     }
     Ok(out)
+}
+
+/// The clamp as a saved model holds it, so one built in this run draws the same installed
+/// payload as one restored from a saved stage.
+fn as_saved([solid]:[Solid;1])->Result<Solid> {
+    let model=hsm_kernel::model_bytes(&[Body{name:"clamp",color:None,solid:&solid}]);
+    Ok(hsm_kernel::import::model_bodies(&model)?.pop().context("the saved clamp")?.solid)
 }
