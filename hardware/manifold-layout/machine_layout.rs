@@ -107,7 +107,7 @@ fn payload_entries(path: &str) -> Result<Vec<Imported>> {
         let mut payload = (head.len() as u32).to_le_bytes().to_vec();
         payload.extend(head);
         payload.extend_from_slice(&bytes[4 + n..]);
-        for mut body in hsm_kernel::import::bodies(&payload, path)? {
+        for mut body in hsm_kernel::import::bodies(&payload, &hsm_kernel::import::name_of(Path::new(path)))? {
             body.name = entry["name"]
                 .as_str()
                 .context("payload entry name")?

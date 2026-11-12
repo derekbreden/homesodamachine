@@ -418,12 +418,19 @@ fn cache() -> PathBuf {
     std::env::var_os("HSM_IMPORT_DIR").map(PathBuf::from).unwrap_or_else(|| root().join(".cache/hsm/import"))
 }
 
-/// `path` as a face record names it: from the checkout's root, or from the working directory
-/// when it lies outside the checkout, or whole.
-fn name_of(path: &Path) -> String {
+/// `path` as a face record names it: from the staged repository's root when the part engine
+/// names one in `HSM_REPO_ROOT`, else from the checkout's root, or from the working directory
+/// when it lies outside both, or whole. A caller that hands `bodies` a file's bytes names them so.
+pub fn name_of(path: &Path) -> String {
     let cwd = std::env::current_dir().unwrap_or_default();
+    let stage = std::env::var_os("HSM_REPO_ROOT").map(|stage| lexical(&cwd.join(stage)));
+    named(&lexical(&cwd.join(path)), stage.as_deref(), &cwd)
+}
+
+/// `path` with its `.` and `..` components resolved, without reading the disk.
+fn lexical(path: &Path) -> PathBuf {
     let mut full = PathBuf::new();
-    for c in cwd.join(path).components() {
+    for c in path.components() {
         match c {
             Component::ParentDir => {
                 full.pop();
@@ -432,7 +439,17 @@ fn name_of(path: &Path) -> String {
             c => full.push(c),
         }
     }
-    let named = full.strip_prefix(root()).or_else(|_| full.strip_prefix(&cwd)).unwrap_or(&full);
+    full
+}
+
+/// `full` from the first of `stage`, the checkout's root and `cwd` that holds it, else whole. A
+/// stage inside the checkout comes first, so its own folder stays out of the name.
+fn named(full: &Path, stage: Option<&Path>, cwd: &Path) -> String {
+    let named = stage
+        .and_then(|stage| full.strip_prefix(stage).ok())
+        .or_else(|| full.strip_prefix(root()).ok())
+        .or_else(|| full.strip_prefix(cwd).ok())
+        .unwrap_or(full);
     named.to_string_lossy().into_owned()
 }
 
@@ -443,6 +460,16 @@ mod tests {
     use crate::face::src_line;
     use crate::step::step_bytes;
     use crate::write::{Body, payload_bytes};
+
+    #[test]
+    fn a_staged_file_is_named_from_its_stage() {
+        let stage = root().join(".cache/runs/example/work/part-1-2");
+        let file = stage.join("hardware/reference/part/part.step.mesh");
+        assert_eq!(named(&file, Some(&stage), &stage), "hardware/reference/part/part.step.mesh");
+        assert_eq!(named(&root().join("hardware/a.step"), Some(&stage), &stage), "hardware/a.step");
+        assert_eq!(named(&root().join("hardware/a.step"), None, root()), "hardware/a.step");
+        assert_eq!(lexical(&stage.join("hardware/../tools/./x")), stage.join("tools/x"));
+    }
 
     #[test]
     fn a_payload_reads_back_as_written() -> Result<()> {
