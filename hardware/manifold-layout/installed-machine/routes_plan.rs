@@ -1,6 +1,7 @@
 //! The request the routes program sweeps from, and the run records the plan's metadata carries:
 //! the copper runs first, then every warm-side tube the equipment request routes.
 use crate::copper;
+use crate::equipment::Equipment;
 use crate::routes_program::{Bodies, Insulation, Pose, Request, Sweep};
 use anyhow::{Context, Result};
 use hsm_layout_data::tube::Segment;
@@ -50,7 +51,7 @@ struct SleevePlan {
 /// foam is cut around bodies of the model the equipment stage wrote (`equipment_model`), found
 /// by the `groups` it placed them in.
 pub fn routes_request(
-    equipment_request: &Value,
+    equipment_request: &Equipment,
     equipment_model: &Path,
     groups: &BTreeMap<String, Vec<usize>>,
     copper: &[copper::Run],
@@ -59,22 +60,20 @@ pub fn routes_request(
     for run in copper {
         tubes.push(run.sweep()?);
     }
-    let authored = &equipment_request["routes"];
-    for name in equipment_request["route_order"].as_array().context("the equipment request's route order")? {
-        let key = name.as_str().context("a route name")?;
-        let route = authored.get(key).with_context(|| format!("no route {key}"))?;
+    for key in &equipment_request.route_order {
+        let route = equipment_request.routes.get(key).with_context(|| format!("no route {key}"))?;
         let Routed { segments, od_mm, id_mm, color } =
             Routed::deserialize(route).with_context(|| format!("the route {key}"))?;
         let tube = Sweep { name: key.to_owned(), segments, od_mm, id_mm, color };
-        match tubes.iter_mut().find(|held| held.name == key) {
+        match tubes.iter_mut().find(|held| &held.name == key) {
             Some(held) => *held = tube,
             None => tubes.push(tube),
         }
     }
     let mut insulation = None;
     let mut components = BTreeMap::new();
-    if !equipment_request["insulation"].is_null() {
-        let sleeve = Sleeve::deserialize(&equipment_request["insulation"]).context("the soda insulation")?;
+    if !equipment_request.insulation.is_null() {
+        let sleeve = Sleeve::deserialize(&equipment_request.insulation).context("the soda insulation")?;
         for name in std::iter::once(HOLDER).chain(sleeve.neighbors.iter().map(String::as_str)) {
             let indices = groups.get(name).with_context(|| format!("the equipment model holds no {name}"))?;
             components.insert(name.to_owned(), Bodies { model: equipment_model.to_owned(), indices: indices.clone() });
@@ -95,9 +94,9 @@ pub fn routes_request(
 }
 
 /// Writes each tube's length, as the routing measured it, into the equipment request's routes.
-pub fn write_route_lengths(equipment_request: &mut Value, routes: &crate::routes_program::Routed) {
+pub fn write_route_lengths(equipment_request: &mut Equipment, routes: &crate::routes_program::Routed) {
     for (name, length) in &routes.lengths {
-        if let Some(route) = equipment_request["routes"].get_mut(name) {
+        if let Some(route) = equipment_request.routes.get_mut(name) {
             route["length_mm"] = json!(length);
         }
     }
@@ -142,12 +141,10 @@ fn route_record(name: &str, route: &Value) -> Result<Option<Value>> {
 }
 
 /// The run records the plan's metadata carries: the copper runs, then the equipment request's tubes.
-pub fn run_records(copper: &[copper::Run], equipment_request: &Value) -> Result<Vec<Value>> {
+pub fn run_records(copper: &[copper::Run], equipment_request: &Equipment) -> Result<Vec<Value>> {
     let mut records: Vec<Value> = copper.iter().map(copper::Run::record).collect();
-    let routes = &equipment_request["routes"];
-    for name in equipment_request["route_order"].as_array().context("the equipment request's route order")? {
-        let name = name.as_str().context("a route name")?;
-        let route = routes.get(name).with_context(|| format!("no route {name}"))?;
+    for name in &equipment_request.route_order {
+        let route = equipment_request.routes.get(name).with_context(|| format!("no route {name}"))?;
         records.extend(route_record(name, route)?);
     }
     Ok(records)

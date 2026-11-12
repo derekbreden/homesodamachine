@@ -182,16 +182,12 @@ fn main() -> Result<()> {
         );
         return Ok(());
     }
-    let name = equipment_request["name"]
-        .as_str()
-        .unwrap_or("machine-equipment")
-        .to_owned();
+    let name = equipment_request.name.clone();
     let equipment_dir = work.join("equipment");
     std::fs::create_dir_all(&equipment_dir)?;
     let equipment_items = equipment_program::Request {
         name: name.clone(),
-        items: serde::Deserialize::deserialize(&equipment_request["items"])
-            .context("the equipment request's items")?,
+        items: equipment_request.items.clone(),
     };
     let equipment_model = equipment_dir.join(format!("{name}.step.npz"));
     let placed: equipment_program::Placed = serde_json::from_value(cache.run(

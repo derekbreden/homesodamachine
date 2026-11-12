@@ -196,13 +196,17 @@ a `Sweep` for each tube, whose centreline is a list of the layout data's `tube::
 soda `Insulation`, and the placed `Bodies` the foam is cut around. It hands on a `Routed`: the
 swept bodies to place and each tube's developed length.
 
-The other mechanical hand-overs are JSON documents: the pack and the placement plan, the
-facts request, and the equipment request, which `tools/hsm/machine-data/src/equipment.rs`
-builds and the two typed requests are read from. The plan composes what the placement takes
-of the equipment from that request and the `Placed`: the placed bodies, their drawings, frames
-and ports, the junctions, the bodies each tube joins and the metadata. The placement program
+`tools/hsm/machine-data/src/equipment.rs` builds the `Equipment` both requests are taken
+from: its `Item`s, typed as the stage takes them, and each body's frame, the placed ports, the
+tubes and the soda insulation, which are JSON values in its fields. The plan composes what the
+placement takes of the equipment from it and the `Placed`: the placed bodies, their drawings,
+frames and ports, the junctions, the bodies each tube joins and the metadata.
+
+The other mechanical hand-overs are JSON documents: the pack, the placement plan and the facts
+request. The placement program
 [`machine_layout.rs`](../../hardware/manifold-layout/machine_layout.rs) reads its request as
-JSON. Typing these documents is open work.
+JSON. Typing these documents, and the frames, ports and tubes the `Equipment` holds, is open
+work.
 
 Two record encodings remain in what the mechanical stages read.
 [`enclosure-box.json`](../../hardware/manifold-layout/enclosure-box.json) writes its records as
