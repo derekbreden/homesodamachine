@@ -111,15 +111,3 @@ pub fn tube(spec: &Value) -> Result<Value> {
         "note":"Continuous soda tube through the plain guide and accepted R14 holder into the meter; the guide adds no insertion, joint or cut."}),
     )
 }
-pub fn holder(spec: &Value) -> Result<Value> {
-    let p = &spec["soda_inlet"]["holder"];
-    let radius = number(&p["channel_d_mm"])? / 2.;
-    let wall = number(&p["wall_mm"])?;
-    let zc = wall + radius;
-    let half = (number(&p["turn_degrees"])? / 2.).to_radians();
-    Ok(
-        json!({"bend_radius":p["centreline_bend_r_mm"],"channel_radius":radius,"outer_radius":radius+wall,
-        "channel_z":zc,"stock_arc_z":zc+(2f64.sqrt()-1.)*radius,"leg":p["leg_mm"],"turn_degrees":p["turn_degrees"],
-        "mirror_normal":[half.sin(),-half.cos(),0.],"mouth_y":[-0.3,0.55],"mouth_radii":[radius+0.8,radius-0.05]}),
-    )
-}

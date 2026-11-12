@@ -301,63 +301,6 @@ pub fn route_rows(metadata: &Value) -> Result<Value> {
     ]))
 }
 
-pub fn scene(request: &Value) -> Result<Value> {
-    let metadata = &request["spec"]["metadata"];
-    let mut frames = Map::new();
-    for (name, frame) in object(&metadata["frames"])? {
-        let bb = if let Some(bb) = frame.get("bb") {
-            bb.clone()
-        } else {
-            let raw = array(get(&metadata["raw_bounds"], name)?)?;
-            let low = array(&raw[0])?;
-            let high = array(&raw[1])?;
-            json!([low[0], high[0], low[1], high[1], low[2], high[2]])
-        };
-        let ports = object(&ports(frame)?)?
-            .iter()
-            .map(|(name, row)| (name.clone(), json!([row["pos"], row["axis"], row["diam"]])))
-            .collect::<Map<_, _>>();
-        frames.insert(name.clone(), json!({"ports":ports,"bb":bb}));
-    }
-    let fields: BTreeSet<&str> = array(&request["run_fields"])?
-        .iter()
-        .filter_map(Value::as_str)
-        .collect();
-    let runs = rows_or_empty(metadata, "runs")
-        .iter()
-        .map(|row| {
-            object(row).map(|row| {
-                row.iter()
-                    .filter(|(key, _)| fields.contains(key.as_str()))
-                    .map(|(key, value)| (key.clone(), value.clone()))
-                    .collect::<Map<_, _>>()
-            })
-        })
-        .collect::<Result<Vec<_>>>()?;
-    let mut anchors = Map::new();
-    for key in ["tube_anchors", "cap_tube_anchors", "body_anchors"] {
-        anchors.insert(
-            key.to_owned(),
-            metadata
-                .get(key)
-                .or_else(|| metadata.get("anchors").and_then(|v| v.get(key)))
-                .cloned()
-                .unwrap_or_else(|| json!([])),
-        );
-    }
-    let mut bb = metadata.get("box").cloned().unwrap_or(Value::Null);
-    if bb.get("box_fields").is_some() {
-        bb["bounds"] = json!([]);
-    }
-    let mut result = plain(
-        &json!({"schema":1,"taken":request["taken"],"sources":request["sources"],"solids":metadata.get("solids").cloned().unwrap_or_else(||json!([])),
-        "core":metadata.get("core_body_names").cloned().unwrap_or_else(||json!([])),"runs":runs,"frames":frames,"anchors":anchors,
-        "card":request["checked"]["scorecard"],"drain":request["checked"]["drain"]}),
-    )?;
-    result["box"] = bb;
-    Ok(result)
-}
-
 /// The fields the BOM, the fluid diagrams and the install guide read: the Box fields named in
 /// `box_fact_order`, the placed bodies and their bounds, the card ports, the drawn runs and the
 /// constants the request carries.
