@@ -1,0 +1,32 @@
+{
+  "printer": "Mark1",
+  "printer_task_id": "1433852816",
+  "launch_record": "launch.json",
+  "outcome": "Operator stopped the print after the lower section tipped.",
+  "recording": "/Users/derekbredensteiner/Library/Mobile Documents/com~apple~CloudDocs/Bambu-recordings/Mark1/ipcam-record.2026-11-12_11-19-45.189-30x.mp4",
+  "playback_sha256": "def2ba0a1a050441389d60eee8e31533e7ffddf0f17324f13e7b2ea54c81a3c2",
+  "sample_fps": 1,
+  "playback_fps": 30,
+  "contact_sheet": {
+    "file": "failure-frames.jpg",
+    "source_elapsed_seconds": [
+      182,
+      183,
+      184,
+      185,
+      186,
+      187,
+      188,
+      189,
+      190,
+      191,
+      192,
+      193
+    ],
+    "order": "Left to right, top to bottom."
+  },
+  "first_visible_tilt_seconds": 185,
+  "section_on_side_seconds": 188,
+  "observation": "The right-hand section tips onto the bed. The head continues over the opening and strands span the displaced section and the material still standing. A nearby tree shifts afterward.",
+  "limit": "The head obscures the initial release. The camera does not identify the trigger or exact layer."
+}

@@ -1,0 +1,26 @@
+{
+  "archive": {
+    "gcode_sha256": "2e46c066f50d802cff7287d8dbf54dc318ec5e9f295de21fcba7940a60df8887",
+    "name": "sculpted-display-cover-scan-fit-white-mark1-ready.gcode.3mf",
+    "objects": [
+      "faucet-display-cover"
+    ],
+    "sha256": "38c85ac738c60c7ea8c7784be13b60d47540c89797b6f4b022c86ae5858f2f12",
+    "slots": {
+      "1": {
+        "colour": "FFFFFF",
+        "type": "PET-CF"
+      }
+    }
+  },
+  "gcode_state": "RUNNING",
+  "hms": [],
+  "layer_num": 0,
+  "mc_remaining_time": 30,
+  "observed_at": "2026-11-12T04:36:00+00:00",
+  "print_error": 0,
+  "printer": "H2C",
+  "printer_task_id": "1434052188",
+  "subtask_name": "sculpted-display-cover-scan-fit-white-mark1-ready.gcode.3mf",
+  "total_layer_num": 87
+}
