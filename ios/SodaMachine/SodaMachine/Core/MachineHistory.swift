@@ -197,7 +197,7 @@ extension HistoryEntry {
             case 0: return "\(length) of pumping"
             case 1: return "Something else needed the valves"
             case 2: return "A pour came first"
-            case 3: return "No water reached the tank in \(length). Check the water supply, then touch either display to try again."
+            case 3: return "No water reached the tank in \(length). Check the water supply and look for a leak under the sink, then switch the machine off and on to try again."
             case 4: return nil
             default: return "Its valve could not be opened"
             }
