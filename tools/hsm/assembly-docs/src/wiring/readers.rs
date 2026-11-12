@@ -129,45 +129,38 @@ pub fn reference(path: &Path, rotation: &[V; 3]) -> Result<(V, V)> {
     }
     Ok((lo, hi))
 }
-fn rgb(value: &Value) -> Result<Value> {
-    if let Some(linear) = value.get("$linear") {
-        return Ok(linear.clone());
-    }
-    let mut color = v(value)?;
-    for c in &mut color {
-        let v = if *c <= 0.04045 {
-            *c / 12.92
-        } else {
-            ((*c + 0.055) / 1.055).powf(2.4)
-        };
-        *c = v as f32 as f64;
-    }
-    Ok(json!(color))
-}
+
+/// The request the installed wires are cut from: each route as a wire of its stock's diameter
+/// and colour, and each body with its colour made linear.
 pub fn wire_numbers(
     src: &sources::Sources,
-    routes: &Value,
-    stock: &Value,
-    components: &Value,
-) -> Result<Value> {
+    routes: &[model::Route],
+    stock: &BTreeMap<String, model::Stock>,
+    bodies: Vec<model::Body>,
+) -> Result<wire_request::Request> {
     let mut wires = Vec::new();
-    for r in rows(routes)? {
-        let material = &stock[string(&r["stock"])?];
-        wires.push(json!({"name":format!("wire-{}",string(&r["id"])?),"diameter_mm":material["od_mm"],"linear_rgb":rgb(&material["color"] )?,"segments":r["segments"]}));
+    for r in routes {
+        let material = model::stock_of(stock, &r.connection)?;
+        wires.push(wire_request::Wire {
+            name: format!("wire-{}", r.connection.id),
+            diameter_mm: material.od_mm,
+            linear_rgb: model::Colour::Srgb(material.color).linear(),
+            segments: r.segments.clone(),
+        });
     }
-    let mut out = json!({"name":"installed-wiring","presentation_deflection_ratio":src.presentation_deflection_ratio()?,"presentation_angular_deflection_rad":src.presentation_angular_deflection()?,"routes":wires});
-    if !components.is_null() && !rows(components)?.is_empty() {
-        let mut output = Vec::new();
-        for row in rows(components)? {
-            let mut recipe = row[1].clone();
-            recipe["name"] = row[0].clone();
-            recipe["linear_rgb"] = rgb(&row[2])?;
-            if recipe["kind"] == "import" {
-                recipe["step"] = src.checkout_name(string(&recipe["step"])?)?;
-            }
-            output.push(recipe);
-        }
-        out["components"] = json!(output);
-    }
-    Ok(out)
+    Ok(wire_request::Request {
+        name: "installed-wiring".into(),
+        file_stem: None,
+        presentation_deflection_ratio: src.presentation_deflection_ratio()?,
+        presentation_angular_deflection_rad: src.presentation_angular_deflection()?,
+        routes: wires,
+        components: bodies
+            .into_iter()
+            .map(|body| wire_request::Part {
+                name: body.name,
+                linear_rgb: body.colour.linear(),
+                shape: body.shape,
+            })
+            .collect(),
+    })
 }
