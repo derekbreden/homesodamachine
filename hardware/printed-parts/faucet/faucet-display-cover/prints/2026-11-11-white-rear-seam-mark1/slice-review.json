@@ -1,0 +1,101 @@
+{
+  "purpose": "Align the white cover seam with the rear meridian of the assembled Sculpted faucet.",
+  "printer": "Mark1",
+  "nozzle": "fixed left hardened 0.4 mm",
+  "spool": "white PET-GF on left external",
+  "emitted_z_trim_mm": 0.16,
+  "build_pose": [
+    1.0,
+    0.0,
+    0.0,
+    0.0,
+    0.64278761,
+    -0.766044443,
+    0.0,
+    0.766044443,
+    0.64278761,
+    140.0,
+    159.348661495,
+    12.82428535
+  ],
+  "project": {
+    "file": "sculpted-display-cover-rear-seam-white-mark1.3mf",
+    "sha256": "8b7180d18a207a72297fab700f25383de281500169dc869a4304945110f66148",
+    "changed_members_against_white_baseline": [
+      "3D/Objects/object_3.model",
+      "Metadata/model_settings.config"
+    ]
+  },
+  "ready_archive": {
+    "file": "sculpted-display-cover-rear-seam-white-mark1-ready.gcode.3mf",
+    "sha256": "da89db6560dce4d71d703e808ae9b6655d9333d11fb675e670b8a0d7a6199e85",
+    "predicted_filament_g": 8.25
+  },
+  "baseline": {
+    "print": "../2026-11-11-white-wing-seat-mark1/launch.json",
+    "printer_job": 1433696583
+  },
+  "mesh": {
+    "cover_stl_sha256": "ee8ca6e1306f663bb7f4ec83d7e45be30b059888dbe87da40e091e5e0404b13f",
+    "source_facet_count": 12186,
+    "project_facet_count": 12742,
+    "original_vertices_retained": 6093,
+    "unmatched_edges": 0,
+    "absolute_volume_change_mm3": 4.942194209434092e-08,
+    "cover_rear_seam_enforcement": {
+      "enforced_triangles": 115,
+      "mesh_vertices_and_triangle_indices_unchanged": false,
+      "paint_strip_half_width_mm": 0.35,
+      "painted_facet_bounds_cad_mm": [
+        [
+          -0.35,
+          -121.09811401374414,
+          227.9726104736758
+        ],
+        [
+          0.35,
+          -112.22592926074414,
+          232.86471557567577
+        ]
+      ],
+      "part": "faucet-display-cover",
+      "project_facets": 12742,
+      "target": "Exterior rear wall on the tip's CAD center plane above the opening"
+    }
+  },
+  "parked_cooling": {
+    "layers": 86,
+    "tower_layers": 86,
+    "park_layers": [
+      2,
+      86
+    ],
+    "park_count": 85,
+    "park_seconds": 10,
+    "part_fan_at_parks_percent": 0,
+    "native_estimate_after_cooling_seconds": 1945,
+    "predicted_seconds_with_parks": 2795,
+    "gcode_sha256": "322ff643cdb5d85c37a826ee740bb21dba14397293f15ebf723aea0f8255976b"
+  },
+  "seam": {
+    "lateral_center_cad_x_mm": 0,
+    "rear_wall_layers": [
+      46,
+      86
+    ],
+    "rear_wall_course_count": 41,
+    "baseline_max_lateral_error_mm": 10.281,
+    "max_lateral_error_mm": 0.183,
+    "baseline_max_perimeter_error_mm": 126.965,
+    "max_perimeter_error_mm": 0.183,
+    "lower_courses": "Rear center plane crosses the open part of the cover below the arch."
+  },
+  "submitted": false,
+  "complete_sculpted_offline_check": {
+    "printer": "Mark2",
+    "native_gcode_sha256": "a1e246c491d964af132bcdec7c6c3529323636e0fb09f54cb952a89c6985e74a",
+    "rear_wall_courses": 41,
+    "max_lateral_error_mm": 0.183,
+    "preparer": "hardware/printed-parts/faucet/sculpted/prepare_print_project.rs"
+  }
+}

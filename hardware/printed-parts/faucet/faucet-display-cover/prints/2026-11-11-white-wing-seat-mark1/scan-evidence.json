@@ -1,0 +1,38 @@
+{
+  "part": "Sculpted faucet display cover, relaxed white PET-GF print",
+  "source_print": {
+    "job_id": "1433696583",
+    "gcode_sha256": "fc4c526a34f9f88682e53e0cb247641f7f21d7f4489f9f81415d47e95e68c085",
+    "record": "launch.json"
+  },
+  "date": "2026-11-11",
+  "scanner": "Revopoint MINI 2",
+  "application": "Revo Scan 6.3.2",
+  "capture": {
+    "project_id": "7798bb32-46cd-42ca-912c-954ca9f85aef",
+    "native_scan_name": "20261111204749",
+    "rendering_frames": 1290,
+    "accuracy": "High Accuracy",
+    "tracking": "Feature",
+    "object_type": "Normal",
+    "color": false,
+    "distance_range_mm": [
+      120,
+      250
+    ],
+    "mount": "One full turntable pass on the puttied fixture at the angle set by Derek.",
+    "native_project_archive": "/Users/derekbredensteiner/Documents/3D Scans/2026-11-11-sculpted-display-cover-white-mark1/pass-01/native-project"
+  },
+  "cloud": {
+    "file": "/Users/derekbredensteiner/Documents/3D Scans/2026-11-11-sculpted-display-cover-white-mark1/pass-01/sculpted-display-cover-fused.ply",
+    "sha256": "89c59d0ceaf93e65835caaa142535edd2b6d6139b1ea612a76fb15c75702e9d2",
+    "point_count": 750411,
+    "fusion_spacing_mm": 0.1,
+    "processing": "Native fusion in scanner coordinates. Fixture retained. No smoothing, meshing, hole filling or rescaling."
+  },
+  "limits": [
+    "The scan is of the unassembled cover in one mounting orientation.",
+    "Contact with the fixture and optical occlusion limit observed surface coverage.",
+    "The fusion spacing does not establish dimensional accuracy or assembled seating."
+  ]
+}

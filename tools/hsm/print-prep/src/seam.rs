@@ -33,15 +33,13 @@ fn cross_length(t: &[[f64; 3]; 3]) -> f64 {
     (c[0] * c[0] + c[1] * c[1] + c[2] * c[2]).sqrt()
 }
 
-/// The split mesh (vertices sorted by their rounded coordinates, as numpy's unique sorts them),
-/// each facet's paint, and the record of the strip.
-pub fn strip(vertices: &[[f64; 3]], faces: &[[usize; 3]], declaration: &Value) -> Result<(Vec<[f64; 3]>, Vec<[usize; 3]>, Vec<Option<Paint>>, Value)> {
-    let original: Vec<[[f64; 3]; 3]> = faces.iter().map(|f| f.map(|i| vertices[i])).collect();
-    let mut triangles = original.clone();
-    let mut parents: Vec<usize> = (0..faces.len()).collect();
-    let axis = "xyz".find(declaration["axis"].as_str().unwrap_or("x")).unwrap_or(0);
-    let center = declaration["center_mm"].as_f64().unwrap_or(0.0);
-    let half_width = declaration["half_width_mm"].as_f64().unwrap_or(0.0);
+/// Split both sides of each crossed mesh edge so the paint boundary can follow the strip
+/// without moving the surface or leaving unmatched edges.
+pub(crate) fn split_at_strip(
+    original: &[[[f64; 3]; 3]], axis: usize, center: f64, half_width: f64,
+) -> (Vec<[f64; 3]>, Vec<[usize; 3]>, Vec<usize>) {
+    let mut triangles = original.to_vec();
+    let mut parents: Vec<usize> = (0..original.len()).collect();
     for coordinate in [center - half_width, center + half_width] {
         let (mut result, mut ids) = (Vec::new(), Vec::new());
         for (triangle, &parent) in triangles.iter().zip(&parents) {
@@ -76,6 +74,16 @@ pub fn strip(vertices: &[[f64; 3]], faces: &[[usize; 3]], declaration: &Value) -
     let keys: BTreeMap<[u64; 3], usize> = sorted.iter().enumerate().map(|(i, p)| (p.map(f64::to_bits), i)).collect();
     let flat: Vec<usize> = corners.iter().map(|p| keys[&p.map(f64::to_bits)]).collect();
     let split_faces: Vec<[usize; 3]> = flat.chunks(3).map(|c| [c[0], c[1], c[2]]).collect();
+    (sorted, split_faces, parents)
+}
+
+/// The split mesh, each facet's paint, and the record of the strip.
+pub fn strip(vertices: &[[f64; 3]], faces: &[[usize; 3]], declaration: &Value) -> Result<(Vec<[f64; 3]>, Vec<[usize; 3]>, Vec<Option<Paint>>, Value)> {
+    let original: Vec<_> = faces.iter().map(|f| f.map(|i| vertices[i])).collect();
+    let axis = "xyz".find(declaration["axis"].as_str().unwrap_or("x")).unwrap_or(0);
+    let center = declaration["center_mm"].as_f64().unwrap_or(0.0);
+    let half_width = declaration["half_width_mm"].as_f64().unwrap_or(0.0);
+    let (sorted, split_faces, parents) = split_at_strip(&original, axis, center, half_width);
     let face_axis = "xyz".find(declaration["face_axis"].as_str().unwrap_or("x")).unwrap_or(0);
     let plane = declaration["face_coordinate_mm"].as_f64().unwrap_or(0.0);
     let face_sign = declaration["face_sign"].as_f64().unwrap_or(1.0);
