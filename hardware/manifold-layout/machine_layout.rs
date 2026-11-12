@@ -894,7 +894,7 @@ fn pack(
         "vent_chase".into(),
         json!([[core.min.x - foil, tip.y, tip.z]]),
     );
-    // The two flank pockets use fine coil/valve geometry, not expanded Python Shapes.
+    // The two flank pockets use the fine coil and valve geometry.
     let model = source(v, "manifold")?;
     let transform = Affine::rotation(V3::ZERO, V3::X, 90.)
         .then(&Affine::rotation(V3::ZERO, V3::Z, 180.))
@@ -1659,8 +1659,8 @@ pub fn run(v: &Value, out: &Path) -> Result<Value> {
         if prefix == "cold-core/" {
             continue;
         }
-        // Metadata needs names/indices only; reading source identities here avoids creating
-        // another placed model solely to rediscover its groups in Python.
+        // Metadata needs names and indices only, which the model's source identities give
+        // without placing the model again.
         let body_names = layout.identities(model)?;
         let indices = instance["indices"]
             .as_array()
