@@ -161,7 +161,7 @@ explicit input recipes come from Rust data providers.
 | Page drawing | the `hsm-pages` library; PDF, type and line breaking, outlined pictures, pixels and line drawings of models | `tools/hsm/pages/` |
 | Model exports | the `hsm-model-export` library; physical models, display surfaces, wiring append and scene GLBs | `hardware/assembly/scenes/model_export/` |
 | Model context | `installed-machine`'s equipment recipes and stations, fine-model metadata reads, facts and scene documents | `tools/hsm/machine-data/src/` |
-| Document readers | Rust ledger and procedure programs, with explicit source dependencies and remaining raw provider inputs | `tools/hsm/ledger/`, `tools/hsm/assembly-docs/` |
+| Document readers | Rust ledger programs, with explicit source dependencies | `tools/hsm/ledger/` |
 
 The final machine report carries its existing construction questions from current scalar source
 ledgers and Rust measurements, including handhold sections and supported sloping faces.
@@ -191,16 +191,14 @@ reference models and the source data their native replicas consume remain in the
 
 ## Scalar, recipe and document programs
 
-Typed commands own maintained build, inspection and optional authoring work. Native provider
-commands also expose explicitly requested dimension, source and model readings.
+Typed commands own maintained build, inspection and optional authoring work.
 
 | Program | Converted work |
 | --- | --- |
 | `hsm-documents` | The ledger's managed markers, Sources blocks and figure sidecars, tables, formatting, placement and PDF/DXF normalization |
 | `ledger-analysis` | Purchase evidence, exact decimal reconciliation, validation, CSV/JSON and reports, for the synthetic ledger tests |
-| `assembly-docs` | Assembly constants, electrical budgets, schedules, fluid-topology diagrams and the installed wiring model, routing and readers |
+| `assembly-docs/src/wiring` | The installed wiring model, routing and readers, which `installed-machine` compiles |
 | `cold-core-data` | Typed carbonator rod requirements and jet interfaces for native fabrication tools |
-| `part-data` | The figures the water-inlet jet fixture's and the valve seat's documents quote |
 | `shared-data` | Materials, finishes, colour arithmetic and the PET-GF cooling policy |
 | `layout-data` | Appliance frames, fitting names, native tube construction and sampling, reservoir routes and soda inlet/holder recipes |
 | `hsm-manual-guides`, `hsm-fabrication-guides`, `hsm-install-art` | Optional books, fixture art, engineering reference sheets and selected install illustrations |

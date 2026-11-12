@@ -189,8 +189,6 @@ pub fn pinmap(root: &Path) -> Result<i32> {
     let board = crate::text(root.join("hardware/pcb/pcba/pcba.tsx"))?;
     let pinout = crate::text(root.join("hardware/wiring/esp32-pinout.mmd"))?;
     let bom = crate::text(root.join("hardware/ledger/bom.md"))?;
-    let shelf = crate::text(root.join("tools/hsm/assembly-docs/src/procedures.rs"))?;
-    let fw = crate::text(root.join("tools/hsm/assembly-docs/src/procedures/specialized.rs"))?;
     let used: BTreeSet<u32> = Regex::new(r"\bU1\.IO(\d+)|\.U1[AB]? > \.IO(\d+)")?
         .captures_iter(&board)
         .map(|c| c.get(1).or_else(|| c.get(2)).unwrap().as_str().parse())
@@ -220,40 +218,6 @@ pub fn pinmap(root: &Path) -> Result<i32> {
             "GPIO{g}: documented in esp32-pinout.mmd (role {:?}) but NOT used on the main board",
             roles[g]
         ));
-    }
-    for (source, var, kw) in [
-        (&shelf, "relay_compressor_gpio", "compressor"),
-        (&shelf, "relay_diaphragm_gpio", "diaphragm"),
-        (&fw, "gpio_relay1", "compressor"),
-        (&fw, "gpio_relay2", "diaphragm"),
-        (&fw, "gpio_onewire", "1-wire"),
-        (&fw, "gpio_flow", "flow meter"),
-    ] {
-        let pattern = Regex::new(&format!(
-            r"\blet\s+{}\s*(?::\s*\w+\s*)?=\s*(\d+)(?:\.0*)?\s*;",
-            regex::escape(var)
-        ))?;
-        let value = pattern
-            .captures(source)
-            .and_then(|c| c[1].parse::<u32>().ok());
-        let hits: Vec<_> = roles
-            .iter()
-            .filter_map(|(g, role)| role.to_lowercase().contains(kw).then_some(*g))
-            .collect();
-        if let Some(value) = value {
-            if hits.len() != 1 {
-                failures.push(format!("role ~{kw:?} is not uniquely identifiable in the pinout (matched {hits:?}) — can't check {var}"));
-            } else if value != hits[0] {
-                failures.push(format!(
-                    "{var}={value} but the pinout says GPIO{} is the {kw:?} pin",
-                    hits[0]
-                ));
-            }
-        } else {
-            failures.push(format!(
-                "GPIO constant {var:?} not found in tools/hsm/assembly-docs (renamed?)"
-            ));
-        }
     }
     for (name, mk, bk) in &r.cross {
         if !Regex::new(mk)?.is_match(&board) {
@@ -299,7 +263,7 @@ pub fn pinmap(root: &Path) -> Result<i32> {
     );
     Ok(report(
         &failures,
-        "pin map in sync: pinout, document GPIOs and BOM all agree with the main board.",
+        "pin map in sync: the pinout and the BOM agree with the main board.",
     ))
 }
 pub fn purchases(root: &Path) -> Result<i32> {

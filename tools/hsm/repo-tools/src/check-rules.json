@@ -251,6 +251,6 @@
       "gas-sensor output divider"
     ]
   ],
-  "no_pin": "ESP32-WROOM|MCP23017|DS3231|Mean Well|pump retainer|pump joints|[Dd]isplay cover plate",
+  "no_pin": "ESP32-WROOM|MCP23017|DS3231|Mean Well|pump retainer|pump joints|[Dd]isplay cover plate|[Dd]isplay gasket",
   "electrical": "sensor|buzzer|piezo|relay|\\breed\\b|MCP23017|ULN2803|L298|ESP32|RS485|RS-485|DS18B20|DS3231|\\bpump\\b|solenoid|\\bgas\\b|flow sensor|flow meter|display"
 }
