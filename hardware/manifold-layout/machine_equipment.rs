@@ -293,12 +293,6 @@ fn vent_adapter(v: &Value) -> Result<Solid> {
         .rotate(V3::ZERO, V3::Y, -45.);
     Ok(body.translate(point(&v["vent_tip"])?))
 }
-fn main() -> Result<()> {
-    let (n, output) = part::args()?;
-    println!("{}", run(&n, &output)?);
-    Ok(())
-}
-
 /// The placed equipment cut into `output`, and what it wrote there.
 pub fn run(n: &part::Numbers, output: &std::path::Path) -> Result<Value> {
     let mut sources = BTreeMap::new();
