@@ -419,9 +419,9 @@
     "hardware/printed-parts/faucet/industrial/industrial-production-shell-tip.step": "8116f77a1d2b1856d6bb1ac9cdfe0bb6a7ba39df765c021acd06e5425138f112",
     "hardware/printed-parts/faucet/industrial/industrial-production-shell-tip.step.mesh": "761ea13c2c1dad1a4bf722705dfc4d91c8686cf12928a366b1cbb74309269db4",
     "hardware/printed-parts/faucet/industrial/industrial-production-shell-tip.stl": "35ec9f0b99c5e90f038836549e6f5e8f112b2af03e1849b08b2d759050d260e6",
-    "hardware/printed-parts/faucet/industrial/industrial-shell-base.step": "b1de2f8a9ef33c22ddc1b6fbfde5e0d7e88996de4945d78604297f5f48e8599a",
+    "hardware/printed-parts/faucet/industrial/industrial-shell-base.step": "1801b2248f857e1abece701fadb140beb43e5d364fb6c3d4ba87f25e79f65d91",
     "hardware/printed-parts/faucet/industrial/industrial-shell-base.step.mesh": "e1014abb799c03a8d8a27f533b1338c15fd24dbf715af3bef83d0104d123dee4",
-    "hardware/printed-parts/faucet/industrial/industrial-shell-base.stl": "d5af4190a44abf5f63d0a77147037414728616a97d4794343c82e354561c2b46",
+    "hardware/printed-parts/faucet/industrial/industrial-shell-base.stl": "80ad44c47bc00801d6193e42e13f54f5bb194c8f90ac2820c37dfc3333dfcd39",
     "hardware/printed-parts/faucet/industrial/prints/2026-10-24-sculpted-cover-uniform024-mark2/sculpted-display-cover-low45.step": "1c6f3aeac91ec3b927a830a5004dcc27f81ef20181c6cf288118e318fa88fd1a",
     "hardware/printed-parts/faucet/industrial/prints/2026-10-24-sculpted-cover-uniform024-mark2/sculpted-display-cover-low45.stl": "95f8c4708d6527fb84f12aed8d4e4b776d39fe78137d51c1c4ced83b0d995af2",
     "hardware/printed-parts/faucet/industrial/production/2026-10-25/faucet-shell-tip.step": "8116f77a1d2b1856d6bb1ac9cdfe0bb6a7ba39df765c021acd06e5425138f112",
@@ -1151,9 +1151,9 @@
       "hardware/printed-parts/faucet/industrial/industrial-production-shell-tip.step": "8116f77a1d2b1856d6bb1ac9cdfe0bb6a7ba39df765c021acd06e5425138f112",
       "hardware/printed-parts/faucet/industrial/industrial-production-shell-tip.step.mesh": "761ea13c2c1dad1a4bf722705dfc4d91c8686cf12928a366b1cbb74309269db4",
       "hardware/printed-parts/faucet/industrial/industrial-production-shell-tip.stl": "35ec9f0b99c5e90f038836549e6f5e8f112b2af03e1849b08b2d759050d260e6",
-      "hardware/printed-parts/faucet/industrial/industrial-shell-base.step": "b1de2f8a9ef33c22ddc1b6fbfde5e0d7e88996de4945d78604297f5f48e8599a",
+      "hardware/printed-parts/faucet/industrial/industrial-shell-base.step": "1801b2248f857e1abece701fadb140beb43e5d364fb6c3d4ba87f25e79f65d91",
       "hardware/printed-parts/faucet/industrial/industrial-shell-base.step.mesh": "e1014abb799c03a8d8a27f533b1338c15fd24dbf715af3bef83d0104d123dee4",
-      "hardware/printed-parts/faucet/industrial/industrial-shell-base.stl": "d5af4190a44abf5f63d0a77147037414728616a97d4794343c82e354561c2b46",
+      "hardware/printed-parts/faucet/industrial/industrial-shell-base.stl": "80ad44c47bc00801d6193e42e13f54f5bb194c8f90ac2820c37dfc3333dfcd39",
       "hardware/printed-parts/faucet/lever-replica/lever-replica-petgf-white.3mf": "29e6cc20997738144db0d9e4e9c830e73627b7033d4449c0513305369281e6f1",
       "hardware/printed-parts/faucet/lever-replica/lever-replica-petgf.3mf": "76cbc7ee5dcef1c2a02bfff22e796b901c7664bef3db6210dfad0e349d1ac571",
       "hardware/printed-parts/faucet/lever-replica/lever-replica-side-down.stl": "19d420b9193d0d691959aadb80095523164afe380189aae1af9eb0c13f8f2d21",
@@ -2890,9 +2890,9 @@
     "hardware/printed-parts/faucet/industrial/industrial-production-shell-tip.step": 1794376920.526966,
     "hardware/printed-parts/faucet/industrial/industrial-production-shell-tip.step.mesh": 1794376910.744439,
     "hardware/printed-parts/faucet/industrial/industrial-production-shell-tip.stl": 1794376920.526966,
-    "hardware/printed-parts/faucet/industrial/industrial-shell-base.step": 1794020197,
+    "hardware/printed-parts/faucet/industrial/industrial-shell-base.step": 1794473076.346493,
     "hardware/printed-parts/faucet/industrial/industrial-shell-base.step.mesh": 1794473067.732562,
-    "hardware/printed-parts/faucet/industrial/industrial-shell-base.stl": 1794020197,
+    "hardware/printed-parts/faucet/industrial/industrial-shell-base.stl": 1794473076.346493,
     "hardware/printed-parts/faucet/industrial/prints/2026-10-24-sculpted-cover-uniform024-mark2/sculpted-display-cover-low45.step": 1792893021,
     "hardware/printed-parts/faucet/industrial/prints/2026-10-24-sculpted-cover-uniform024-mark2/sculpted-display-cover-low45.stl": 1792893021,
     "hardware/printed-parts/faucet/industrial/production/2026-10-25/faucet-shell-tip.step": 1794376420.175176,
@@ -4737,8 +4737,8 @@
       "unproven": true
     },
     "hardware/printed-parts/faucet/industrial/industrial-shell-base.step": {
-      "commit": "05d517cc09d27f40298daae79f3dce954ed65c1e",
-      "inputs": "dd722fd59981595a97dac788fc3f08447db16aa9fa6e9c9d5c1d7b0cad01bb18",
+      "commit": "aeef4648d01357255927fd5be59ede8e289948be",
+      "inputs": "c4d69e7dc28b53dae4dda067cadd23421008609860f3ef6730ebbabbcd388ef3",
       "unproven": true
     },
     "hardware/printed-parts/faucet/industrial/industrial-shell-base.step.mesh": {
@@ -4747,8 +4747,8 @@
       "unproven": true
     },
     "hardware/printed-parts/faucet/industrial/industrial-shell-base.stl": {
-      "commit": "05d517cc09d27f40298daae79f3dce954ed65c1e",
-      "inputs": "dd722fd59981595a97dac788fc3f08447db16aa9fa6e9c9d5c1d7b0cad01bb18",
+      "commit": "aeef4648d01357255927fd5be59ede8e289948be",
+      "inputs": "c4d69e7dc28b53dae4dda067cadd23421008609860f3ef6730ebbabbcd388ef3",
       "unproven": true
     },
     "hardware/printed-parts/faucet/lever-replica/lever-replica-side-down.stl": {
