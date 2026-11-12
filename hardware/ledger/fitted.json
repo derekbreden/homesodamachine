@@ -2,6 +2,12 @@
   "purpose": "The parts Derek has tried in hand and said yes to, in his words. The site shows each as fitted and lists the printed parts with no row here as not fitted yet.",
   "fitted": [
     {
+      "material": "HSM-0372",
+      "date": "2026-09-03",
+      "said": "The push connect tool we just printed worked so well that I've reconsidered",
+      "tried": "the printed press used on push-connect fittings"
+    },
+    {
       "material": "HSM-0268",
       "date": "2026-09-20",
       "said": "The lever you printed turned out great, fits and works functionally. Please ensure that's what we have on record and in our models.",
@@ -16,11 +22,54 @@
       "record": "hardware/printed-parts/enclosure/nameplate/horizontal-wing-trial/physical-acceptance.json"
     },
     {
+      "material": "HSM-0076",
+      "date": "2026-09-30",
+      "said": "Tee carrier and display cover are good. ... Display cover still has a bow, but I think it is mostly from the bend action leaving a bit of bend behind, so not sure there is much we can do there, or much I'm willing to iterate on right now at least. I think it is good enough. It survives the shake test and it looks good",
+      "tried": "the cover snapped into its printed receiver and shaken",
+      "record": "https://github.com/derekbreden/homesodamachine/blob/0785c32f89a6e08609e5348aa2beb0096d560326/hardware/printed-parts/enclosure/display-cover/face-up-trial/physical-acceptance.json"
+    },
+    {
       "material": "HSM-0073",
       "date": "2026-10-02",
       "said": "Very good.",
       "tried": "the third printed drain cradle snapped into its receiver",
       "record": "https://github.com/derekbreden/homesodamachine/blob/b57b985c648c34346481a57fde897374b0e8f068/hardware/printed-parts/zone-c/funnel/cradle-trial/physical-acceptance.json"
+    },
+    {
+      "material": "HSM-0033",
+      "date": "2026-10-03",
+      "said": "It worked. Maybe one more layer of space needed above the magnet for next time, as the first layer on the magnet was a bit too tight, but the second layer went down beautifully.",
+      "tried": "a magnet seated in the float at a print pause and printed over"
+    },
+    {
+      "material": "HSM-0018",
+      "date": "2026-10-07",
+      "said": "I have a front top printed for it and a front bottom and a back bottom and a cold core foam shell (no top or cap) and pump cradle and cap, and a tee carrier, and a funnel frame. Reservoirs are starting to print now. And all those prints fit together right now",
+      "tried": "the printed shell, without its top or cap, assembled with the enclosure quarters"
+    },
+    {
+      "material": "HSM-0072",
+      "date": "2026-10-07",
+      "said": "I have a front top printed for it and a front bottom and a back bottom and a cold core foam shell (no top or cap) and pump cradle and cap, and a tee carrier, and a funnel frame. Reservoirs are starting to print now. And all those prints fit together right now",
+      "tried": "the printed frame assembled with the enclosure quarters"
+    },
+    {
+      "material": "HSM-0078",
+      "date": "2026-10-07",
+      "said": "I have a front top printed for it and a front bottom and a back bottom and a cold core foam shell (no top or cap) and pump cradle and cap, and a tee carrier, and a funnel frame. Reservoirs are starting to print now. And all those prints fit together right now",
+      "tried": "the printed front bottom assembled with the other quarters, the foam shell and the funnel frame"
+    },
+    {
+      "material": "HSM-0079",
+      "date": "2026-10-07",
+      "said": "I have a front top printed for it and a front bottom and a back bottom and a cold core foam shell (no top or cap) and pump cradle and cap, and a tee carrier, and a funnel frame. Reservoirs are starting to print now. And all those prints fit together right now",
+      "tried": "the printed front top assembled with the other quarters, the foam shell and the funnel frame"
+    },
+    {
+      "material": "HSM-0080",
+      "date": "2026-10-07",
+      "said": "I have a front top printed for it and a front bottom and a back bottom and a cold core foam shell (no top or cap) and pump cradle and cap, and a tee carrier, and a funnel frame. Reservoirs are starting to print now. And all those prints fit together right now",
+      "tried": "the printed back bottom assembled with the other quarters, the foam shell and the funnel frame"
     },
     {
       "material": "HSM-0098",
@@ -30,6 +79,13 @@
       "record": "hardware/printed-parts/faucet/umbilical-organizer/physical-acceptance.json"
     },
     {
+      "material": "HSM-0007",
+      "date": "2026-10-10",
+      "said": "Alright, the faucet looks good. Please commit it and git tag it. I am okay shipping this.",
+      "tried": "the whole printed faucet, looked over and assembled",
+      "record": "hardware/printed-parts/faucet/industrial/physical-acceptance.json"
+    },
+    {
       "material": "HSM-0006",
       "date": "2026-10-13",
       "said": "The tool works very well. Successful insertion, far easier than before. Handle alone works well for starting it, and the full tool makes the final press very easy. Please document the success.",
@@ -37,11 +93,51 @@
       "record": "hardware/printed-parts/fixtures/tube-insertion/physical-acceptance.json"
     },
     {
-      "material": "HSM-0358",
-      "date": "2026-10-23",
-      "said": "2 mm works.",
-      "tried": "printed holders of three wall thicknesses on the tube",
-      "record": "future/tube-bend-holder-exploration/prints/2026-10-23-walls-234-petgf-left04-z018-mark1/physical-result.json"
+      "material": "HSM-0324",
+      "date": "2026-10-21",
+      "said": "That worked very well. I see no strings, and seal seems as good as before.",
+      "tried": "the printed elbow on the pump, with its seal checked",
+      "record": "future/pump-elbow-exploration/prints/2026-10-22-deposited-links-siraya85a-mark2/physical-result.json"
+    },
+    {
+      "material": "HSM-0114",
+      "date": "2026-10-25",
+      "said": "That worked. There's still a gap, so make a note of it, but I don't want to iterate any further on this right now. It's fine. It's good enough.",
+      "tried": "the cover on the printed tip, over the display, tubes and wiring",
+      "record": "hardware/printed-parts/faucet/faucet-display-cover/prints/2026-10-25-front-overlap-black-mark2/physical-result/physical-result.json"
+    },
+    {
+      "material": "HSM-0025",
+      "date": "2026-10-26",
+      "said": "All right, that reservoir print turned out well. It's holding water so far.",
+      "tried": "the printed reservoir filled with water",
+      "record": "hardware/printed-parts/cold-core/reservoir/prints/2026-10-26-mark1-left-engineering-flow105-overlap50-temp260-left08-z000/physical-result/physical-result.json"
+    },
+    {
+      "material": "HSM-0449",
+      "date": "2026-11-01",
+      "said": "On the most recent round of finished prints there for the snap prints, the water regulator and the pisco and the flow meter are all perfect, or close enough to perfect, that we definitely want to call these approved and good for all aspects of fit other than the wing tips",
+      "tried": "the regulator snapped into its printed cap and receiver",
+      "record": "hardware/print-tests/rear-snap-retention/v4/physical-result/physical-result.json"
+    },
+    {
+      "material": "HSM-0450",
+      "date": "2026-11-01",
+      "said": "On the most recent round of finished prints there for the snap prints, the water regulator and the pisco and the flow meter are all perfect, or close enough to perfect, that we definitely want to call these approved and good for all aspects of fit other than the wing tips",
+      "tried": "the flow sensor snapped into its printed cap and receiver",
+      "record": "hardware/print-tests/rear-snap-retention/v4/physical-result/physical-result.json"
+    },
+    {
+      "material": "HSM-0455",
+      "date": "2026-11-02",
+      "said": "Oh, and regarding the pump, I mean it's pretty damn good. The only complaint I have there is the wings and how they bend. ... So other than that, the pump snap is looking really good to me.",
+      "tried": "the cap snapped over the pump"
+    },
+    {
+      "material": "HSM-0451",
+      "date": "2026-11-08",
+      "said": "The longer pointed tips on the snaps there worked beautifully.",
+      "tried": "the cap with longer pointed tips snapped on its printed receiver"
     }
   ]
 }
