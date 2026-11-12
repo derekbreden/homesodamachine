@@ -42,20 +42,6 @@
       "said": "2 mm works.",
       "tried": "printed holders of three wall thicknesses on the tube",
       "record": "future/tube-bend-holder-exploration/prints/2026-10-23-walls-234-petgf-left04-z018-mark1/physical-result.json"
-    },
-    {
-      "material": "HSM-0019",
-      "date": "2026-10-29",
-      "said": "Turned out well. Clamps the tube well where it needs to be. All fits.",
-      "tried": "a cup cropped from the cap at reservoir B's fill clamps, with its lid",
-      "record": "hardware/printed-parts/cold-core/foam-cap/prints/2026-10-28-b-fill-round-fore-20560/physical-result.json"
-    },
-    {
-      "material": "HSM-0020",
-      "date": "2026-10-29",
-      "said": "Turned out well. Clamps the tube well where it needs to be. All fits.",
-      "tried": "a lid cropped from the cap lid at reservoir B's fill clamps, on its cup",
-      "record": "hardware/printed-parts/cold-core/foam-cap/prints/2026-10-28-b-fill-round-fore-20560/physical-result.json"
     }
   ]
 }
