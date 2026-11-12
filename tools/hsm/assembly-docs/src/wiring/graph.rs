@@ -582,15 +582,7 @@ pub fn interfaces(terminals: &Value, graph: &Value) -> Result<Value> {
     }
     Ok(json!({"common_junctions":buses,"assembly_owners":owners,"crossing_wires":crossing}))
 }
-pub fn request(request: &Request) -> Result<Value> {
-    let d = &request.data;
-    match request.op.as_str() {
-        "connections" => Ok(connections()),
-        "graph_constants" => Ok(
-            json!({"UNUSED":hsm_kernel::reads::json("tools/hsm/assembly-docs/src/wiring/unused.json")?,"BOUNDARIES":hsm_kernel::reads::json("tools/hsm/assembly-docs/src/wiring/boundaries.json")?}),
-        ),
-        "owner" => Ok(json!(owner(string(&d["part"])?))),
-        "interfaces" => interfaces(&d["terminals"], &d["graph"]),
-        _ => bail!("graph operation"),
-    }
+/// The terminals the wiring leaves unused and the interfaces it ends at, as the review lists them.
+pub fn constants() -> Result<Value> {
+    Ok(json!({"UNUSED":hsm_kernel::reads::json("tools/hsm/assembly-docs/src/wiring/unused.json")?,"BOUNDARIES":hsm_kernel::reads::json("tools/hsm/assembly-docs/src/wiring/boundaries.json")?}))
 }

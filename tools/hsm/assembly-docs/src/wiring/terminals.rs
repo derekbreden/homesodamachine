@@ -870,92 +870,15 @@ pub fn init(scene: &Value) -> Result<Value> {
         json!({"scene":filtered,"source_names":source_names,"terminals":{},"frames_data":{},"frame_checks":{},"parts":{},"fuse_leads":{},"passages":{},"pcb_reference":null}),
     )
 }
-pub fn request(request: &Request) -> Result<Value> {
-    let d = &request.data;
-    match request.op.as_str() {
-        "terminal_init" => init(&d["scene"]),
-        "terminal_part_name" => {
-            let name = string(&d["name"])?;
-            let scene = d["state"]["scene"]
-                .as_object()
-                .context("attachment scene")?;
-            Ok(json!(if scene.contains_key(name) {
-                name.to_owned()
-            } else {
-                let name = format!("cold-core/{name}");
-                ensure!(scene.contains_key(&name), "installed body {name}");
-                name
-            }))
-        }
-        "terminal_put" => {
-            let mut at = d["state"].clone();
-            put(
-                &mut at,
-                string(&d["id"])?,
-                string(&d["part"])?,
-                v(&d["point"])?,
-                v(&d["outward"])?,
-                string(&d["kind"])?,
-                string(&d["basis"])?,
-                string(&d["status"])?,
-                d["pin"].clone(),
-            );
-            Ok(at)
-        }
-        "terminal_bounds" => {
-            let (a, b) = bounds(&d["body"])?;
-            Ok(json!([a, b]))
-        }
-        "terminal_centre" => Ok(json!(centre(&d["body"])?)),
-        "terminal_turns" => turns(&d["turns"]),
-        "terminal_bond" => bond(),
-        "terminal_station" => Ok(json!(station(&d["state"], &d["spec"])?)),
-        "terminal_carry" => Ok(json!([
-            carry(&d["pose"], v(&d["point"])?)?,
-            rotate(&d["pose"]["rotation"], v(&d["axis"])?)?
-        ])),
-        "terminal_frame" => {
-            let mut at = d["state"].clone();
-            let pose = frame(
-                &mut at,
-                &request.root,
-                string(&d["part"])?,
-                string(&d["reference"])?,
-                &d["turns"],
-            )?;
-            Ok(json!({"state":at,"pose":pose}))
-        }
-        "terminal_resolve" | "terminal_stage" => {
-            let mut at = d["state"].clone();
-            let stages = if request.op == "terminal_resolve" {
-                vec![
-                    "board",
-                    "valves",
-                    "wagos",
-                    "power",
-                    "pump_motors",
-                    "sensors",
-                    "boundaries",
-                    "cable_passages",
-                ]
-            } else {
-                vec![string(&d["stage"])?]
-            };
-            for stage in stages {
-                match stage {
-                    "board" => board(&mut at, &request.root)?,
-                    "valves" => valves(&mut at, &request.root)?,
-                    "wagos" => wagos(&mut at, &request.root)?,
-                    "power" => power(&mut at, &request.root)?,
-                    "pump_motors" => pump_motors(&mut at)?,
-                    "sensors" => sensors(&mut at, &request.root)?,
-                    "boundaries" => boundaries(&mut at)?,
-                    "cable_passages" => passages(&mut at)?,
-                    _ => bail!("attachment stage {stage}"),
-                }
-            }
-            Ok(at)
-        }
-        _ => bail!("terminal operation {}", request.op),
-    }
+/// Every terminal, reference frame, fuse lead and cable passage, resolved onto the scene `at`.
+pub fn resolve(mut at: Value, root: &Path) -> Result<Value> {
+    board(&mut at, root)?;
+    valves(&mut at, root)?;
+    wagos(&mut at, root)?;
+    power(&mut at, root)?;
+    pump_motors(&mut at)?;
+    sensors(&mut at, root)?;
+    boundaries(&mut at)?;
+    passages(&mut at)?;
+    Ok(at)
 }

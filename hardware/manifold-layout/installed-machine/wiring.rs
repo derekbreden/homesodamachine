@@ -4,12 +4,10 @@
 //! The routing is the assembly-docs wiring code, included here unchanged. Everything it asks its
 //! host for is answered by `sources`, from the file or the plan that owns the value.
 use anyhow::{Context, Result, bail, ensure};
-use serde::Deserialize;
 use serde_json::{Value, json};
 use std::cell::RefCell;
 use std::collections::{BTreeMap, BTreeSet};
-use std::io::Write;
-use std::path::{Path, PathBuf};
+use std::path::Path;
 use std::rc::Rc;
 
 /// The request and review the routed wiring is written up as.
@@ -36,10 +34,6 @@ mod readers;
 #[allow(dead_code, unused_imports)]
 #[path = "../../../tools/hsm/assembly-docs/src/wiring/routes.rs"]
 mod routes;
-/// STEP records of the wiring, which the request leaves out.
-#[allow(dead_code, unused_imports)]
-#[path = "../../../tools/hsm/assembly-docs/src/wiring/step.rs"]
-mod step;
 /// Every terminal's point and outward direction on the installed bodies.
 #[allow(dead_code, unused_imports)]
 #[path = "../../../tools/hsm/assembly-docs/src/wiring/terminals.rs"]
@@ -77,22 +71,7 @@ pub fn wiring_request(
         "fits":{"slip":hsm_enclosure_numbers::catalog::slip(),"running":hsm_enclosure_numbers::catalog::running(),
             "supported":hsm_enclosure_numbers::catalog::supported(),"m5_thread_pass":hsm_enclosure_numbers::catalog::m5_thread_pass_dia()}});
     let attachments = cache.run("wire attachments", &recipe, &[], || {
-        let rows = measure::summaries(physical_model, None, &solids_read())?;
-        let grouped = readers::request(&Request {
-            op: "model_bodies".into(),
-            data: json!({"rows": rows, "grid": hsm_kernel::GRID}),
-            root: root.into(),
-        })?;
-        let mut scene = json!({});
-        for (name, row) in grouped.as_object().context("the physical model's bodies")? {
-            scene[name] = row[0].clone();
-        }
-        let attachments = terminals::init(&scene)?;
-        terminals::request(&Request {
-            op: "terminal_resolve".into(),
-            data: json!({"state": attachments}),
-            root: root.into(),
-        })
+        attachments(root, physical_model)
     })?;
     let mut numbers = build::numeric_only(root, &attachments)?;
     numbers["file_stem"] = json!(FILE_STEM);
@@ -102,22 +81,19 @@ pub fn wiring_request(
 /// Resolves the optional bench manifest and its geometry recipe from the placed physical model.
 pub fn manual_request(root: &Path, spec: &Value, physical_model: &Path) -> Result<(Value, Value)> {
     let _host = Host::enter(sources::Sources::read(root, spec)?);
+    build::numeric(root, &attachments(root, physical_model)?)
+}
+
+/// Every terminal, reference frame, fuse lead and cable passage of the wiring, resolved onto
+/// the bodies of the physical fine model at `physical_model`.
+fn attachments(root: &Path, physical_model: &Path) -> Result<Value> {
     let rows = measure::summaries(physical_model, None, &solids_read())?;
-    let grouped = readers::request(&Request {
-        op: "model_bodies".into(),
-        data: json!({"rows": rows, "grid": hsm_kernel::GRID}),
-        root: root.into(),
-    })?;
+    let grouped = readers::bodies(&Value::Array(rows), Some(hsm_kernel::GRID))?;
     let mut scene = json!({});
     for (name, row) in grouped.as_object().context("the physical model's bodies")? {
         scene[name] = row[0].clone();
     }
-    let state = terminals::request(&Request {
-        op: "terminal_resolve".into(),
-        data: json!({"state": terminals::init(&scene)?}),
-        root: root.into(),
-    })?;
-    build::numeric(root, &state)
+    terminals::resolve(terminals::init(&scene)?, root)
 }
 
 /// The bodies whose separate solids the terminals read, under both names the model may give
@@ -134,15 +110,6 @@ fn solids_read() -> BTreeSet<String> {
         .iter()
         .flat_map(|h| [h.clone(), format!("cold-core/{h}")])
         .collect()
-}
-
-/// One operation of the included wiring code, as its own dispatchers take it.
-#[derive(Deserialize)]
-struct Request {
-    op: String,
-    #[serde(default)]
-    data: Value,
-    root: PathBuf,
 }
 
 thread_local! {

@@ -41,17 +41,6 @@ pub fn manifold_site() -> Result<Value> {
     }
     Ok(out)
 }
-pub fn rear_site() -> Result<Value> {
-    let mut out = hsm_kernel::reads::json("tools/hsm/assembly-docs/src/wiring/rear-level-hook.json")?;
-    out["target_centers"] = json!({});
-    for (i, id) in ["J6-GND", "J6-RA4", "J6-RA3", "J6-RA2", "J6-RA1"]
-        .into_iter()
-        .enumerate()
-    {
-        out["target_centers"][id] = json!([-73.9, 424., 257.5 + i as f64 * PITCH]);
-    }
-    Ok(out)
-}
 fn cable_sites() -> Result<Value> {
     hsm_kernel::reads::json("tools/hsm/assembly-docs/src/wiring/cable-sites.json")
 }
@@ -665,45 +654,4 @@ pub fn routed(root: &Path, connections: &Value, at: &Value) -> Result<Value> {
         result.push(route);
     }
     Ok(json!(result))
-}
-pub fn request(request: &Request) -> Result<Value> {
-    let d = &request.data;
-    let at = &d["state"];
-    match request.op.as_str() {
-        "retainer_manifold_site" => manifold_site(),
-        "retainer_rear_site" => rear_site(),
-        "retainer_cable_sites" => cable_sites(),
-        "retainer_dress" | "route_dress_bank" => {
-            let mut saved = d["saved"].clone();
-            let guides = model::points(&d["guides"])?;
-            let result = if request.op == "route_dress_bank" {
-                dress_bank(&d["connection"], &guides, at, &mut saved)?
-            } else {
-                Some(dress(&d["connection"], guides, at, &mut saved)?)
-            };
-            Ok(json!({"guides":result,"saved":saved}))
-        }
-        "route_routed" => routed(&request.root, &d["connections"], at),
-        "route_guide" => {
-            let groups =
-                serde_json::from_value::<BTreeMap<String, Vec<String>>>(d["groups"].clone())?;
-            Ok(json!(guide(&d["connection"], at, &groups, &d["saved"])?))
-        }
-        "route_pump_lead" => Ok(json!(pump_lead(&d["connection"], at, number(&d["n"])?)?)),
-        "route_pump_terminal" => Ok(json!(pump_terminal(
-            &d["connection"],
-            at,
-            number(&d["n"])?
-        )?)),
-        "route_pump_internal" => Ok(json!(pump_internal(
-            at,
-            number(&d["x"])?,
-            number(&d["terminal_x"])?,
-            number(&d["lane"])?,
-            number(&d["n"])?
-        )?)),
-        "route_display_internal" => Ok(json!(display_internal(at, number(&d["n"])?)?)),
-        "route_constants" => Ok(json!({"RIBBON_PITCH_MM":PITCH})),
-        _ => bail!("route operation {}", request.op),
-    }
 }

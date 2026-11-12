@@ -23,11 +23,7 @@ pub fn manifest(
         .iter()
         .map(|id| ((*id).to_owned(), at["terminals"][*id].clone()))
         .collect::<BTreeMap<_, _>>();
-    let constants = graph::request(&Request {
-        op: "graph_constants".into(),
-        data: Value::Null,
-        root: PathBuf::new(),
-    })?;
+    let constants = graph::constants()?;
     Ok(
         json!({"schema":1,"units":"mm","frame":"Enclosure assembly XYZ; Z up","scope":"Installed enclosure wiring, including embedded core leads. External cord, faucet and umbilical end at the enclosure interfaces.","connection_count":graph_rows.len(),"harnesses":counts(graph_rows.iter().map(|c|c["harness"].as_str().unwrap().to_owned())),"route_status_counts":counts(route_rows.iter().map(|r|r["status"].as_str().unwrap().to_owned())),"stock":model::stock()?,"unused":constants["UNUSED"],"boundaries":constants["BOUNDARIES"],"interfaces":graph::interfaces(&at["terminals"],graph)?,"terminal_status_counts":counts(used.iter().map(|id|at["terminals"][*id]["status"].as_str().unwrap().to_owned())),"terminals":terminals,"reference_frames":at["frame_checks"],"cable_passages":at["passages"],"pcb_reference":at["pcb_reference"],"terminations":terminations,"bundles":bundles,"routes":route_rows.iter().map(model::record).collect::<Result<Vec<_>>>()?,"limits":hsm_kernel::reads::json("tools/hsm/assembly-docs/src/wiring/manifest-limits.json")?}),
     )
@@ -59,21 +55,4 @@ fn numeric_request(root: &Path, at: &Value, review: bool) -> Result<(Value, Valu
         Value::Null
     };
     Ok((numbers, manifest))
-}
-pub fn request(request: &Request) -> Result<Value> {
-    let d = &request.data;
-    match request.op.as_str() {
-        "build_manifest" => manifest(
-            &d["state"],
-            &d["graph"],
-            &d["routes"],
-            &d["terminations"],
-            &d["bundles"],
-        ),
-        "build_numeric" => {
-            let (a, b) = numeric(&request.root, &d["state"])?;
-            Ok(json!([a, b]))
-        }
-        _ => bail!("build operation {}", request.op),
-    }
 }

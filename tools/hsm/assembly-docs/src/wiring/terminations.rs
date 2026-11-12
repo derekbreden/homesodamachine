@@ -111,22 +111,3 @@ pub fn inputs(at: &Value, connections: &Value) -> Result<Value> {
     }
     Ok(json!([bodies, records]))
 }
-pub fn request(request: &Request) -> Result<Value> {
-    let d = &request.data;
-    match request.op.as_str() {
-        "termination_joins" => Ok(terminals::final_joins()),
-        "termination_constants" => Ok(json!({"RING_BORE":RING_BORE})),
-        "termination_ring" => {
-            let (r, d) = ring()?;
-            Ok(json!([r, d]))
-        }
-        "termination_cylinder" => Ok(cylinder(
-            number(&d["radius"])?,
-            number(&d["height"])?,
-            v(&d["base"])?,
-            v(&d["axis"])?,
-        )),
-        "termination_inputs" => inputs(&d["state"], &d["connections"]),
-        _ => bail!("termination operation"),
-    }
-}
