@@ -1,67 +1,75 @@
 {
-  "_": "Written by tools/publish_firmware.py. The images are fetched, not committed \u2014 web/scripts/fetch-firmware.mjs reads this at deploy and /api/firmware serves it.",
-  "release": {
-    "tag": "firmware",
-    "asset": "fw-b0a9dd423a11a9da.tar.gz",
-    "url": "https://github.com/derekbreden/homesodamachine/releases/download/firmware/fw-b0a9dd423a11a9da.tar.gz"
-  },
-  "source": {
-    "commit": "f8cb0bd3365218b6d7a71637cd5ca45cb7a5f272"
-  },
+  "_": "Written by hsm-publish-firmware. The images are fetched, not committed — web/scripts/fetch-firmware.mjs reads this at deploy and /api/firmware serves it.",
   "bundle": {
-    "sha256": "b0a9dd423a11a9da1e7b364a32ff19b413fcbd4bee142d78ca1d5a30d502e478",
-    "bytes": 2176325,
-    "images": 4
+    "bytes": 2190112,
+    "images": 4,
+    "sha256": "21025260f2390b4c2c13b4a01d152e2b07f22127bc84358a1b95e9bc61ec35e8"
   },
   "images": {
     "appliance": {
+      "build_epoch": 1794457500,
+      "bytes": 508640,
+      "crc32": 1000971416,
       "env": "appliance",
-      "machine": "appliance",
-      "what": "the main board's own firmware",
+      "file": "appliance.bin",
       "kind": "app",
-      "version": "2026.10.28 f8cb0bd33",
-      "build_epoch": 1793171847,
-      "bytes": 491936,
-      "crc32": 704206197,
-      "sha256": "c739aa7814aaa2c00127fbb30f47728f5b3e27742d9898dd35ddfcb2541c7154",
-      "file": "appliance.bin"
+      "machine": "appliance",
+      "sha256": "d883487676d9e6e71d15ba7aea07418f2c356ea76a24ffd536d272724a7f88b0",
+      "version": "2026.11.11 82a6991d2",
+      "what": "the main board's own firmware"
     },
     "art": {
-      "env": "esp32s3_front",
-      "machine": "appliance",
-      "what": "the machine display's loading animation",
-      "kind": "art",
-      "version": null,
+      "art_crc32": 3273463198,
       "build_epoch": null,
       "bytes": 4147232,
       "crc32": 2210037632,
-      "sha256": "cbcb71b394644d4c1d2170bc84aa10fab665f9fa98d493470af498879db08311",
+      "env": "esp32s3_front",
       "file": "art.bin",
-      "art_crc32": 3273463198
+      "kind": "art",
+      "machine": "appliance",
+      "sha256": "cbcb71b394644d4c1d2170bc84aa10fab665f9fa98d493470af498879db08311",
+      "version": null,
+      "what": "the machine display's loading animation"
     },
     "enclosure": {
+      "build_epoch": 1794457500,
+      "bytes": 1566176,
+      "crc32": 1346486346,
       "env": "esp32s3_front",
-      "machine": "appliance",
-      "what": "the 4.3\" machine display",
+      "file": "enclosure.bin",
       "kind": "app",
-      "version": "2026.10.28 f8cb0bd33",
-      "build_epoch": 1793171847,
-      "bytes": 1565040,
-      "crc32": 2544266295,
-      "sha256": "d0ee89c0f57530e46f392ae6b20e82f1d8659fa87c57e57a1cd40635b726d3e7",
-      "file": "enclosure.bin"
+      "machine": "appliance",
+      "sha256": "a26c0025d94dc9076706cc906c5adbbd74b433db6ae674f6d6607f0164af8baa",
+      "version": "2026.11.11 82a6991d2",
+      "what": "the 4.3\" machine display"
     },
     "faucet": {
+      "build_epoch": 1794457500,
+      "bytes": 1477584,
+      "crc32": 2988811599,
       "env": "esp32s3_faucet",
-      "machine": "appliance",
-      "what": "the 1.47\" faucet display",
+      "file": "faucet.bin",
       "kind": "app",
-      "version": "2026.10.28 f8cb0bd33",
-      "build_epoch": 1793171847,
-      "bytes": 1475952,
-      "crc32": 2571528641,
-      "sha256": "5f158d4dd4c7b03be0991ac4bc5f1761b8e0704daf205481c0c4a388a97d7e90",
-      "file": "faucet.bin"
+      "machine": "appliance",
+      "sha256": "c0aaf4ee1163a077ffdcb1c1441b2a692403ad564c96c02691df851eb57a9860",
+      "version": "2026.11.11 82a6991d2",
+      "what": "the 1.47\" faucet display"
     }
+  },
+  "release": {
+    "asset": "fw-21025260f2390b4c.tar.gz",
+    "tag": "firmware",
+    "url": "https://github.com/derekbreden/homesodamachine/releases/download/firmware/fw-21025260f2390b4c.tar.gz"
+  },
+  "source": {
+    "commit": "82a6991d2c48864e1cb0a32b4abe0535c7cc3b3c"
+  },
+  "unproven": {
+    "_": "source.commit does not describe these images: an uncommitted path below reaches what built them.",
+    "paths": [
+      "tools/hsm/Cargo.toml",
+      "tools/hsm/marketing/src/brand.rs",
+      "tools/hsm/print-payload/src/printed.rs"
+    ]
   }
 }
