@@ -198,8 +198,9 @@ swept bodies to place and each tube's developed length.
 
 The other mechanical hand-overs are JSON documents: the pack and the placement plan, the
 facts request, and the equipment request, which `tools/hsm/machine-data/src/equipment.rs`
-builds and the two typed requests are read from. The plan composes the equipment it carries
-from that request and the `Placed`. The placement program
+builds and the two typed requests are read from. The plan composes what the placement takes
+of the equipment from that request and the `Placed`: the placed bodies, their drawings, frames
+and ports, the junctions, the bodies each tube joins and the metadata. The placement program
 [`machine_layout.rs`](../../hardware/manifold-layout/machine_layout.rs) reads its request as
 JSON. Typing these documents is open work.
 

@@ -256,7 +256,7 @@ pub fn equipment_request(root: &Path, prepared: &Value) -> Result<Value> {
     let mut request = equipment::finalize(&json!({
         "equipment": placed, "integrated_order": names,
         "integrated_routes": warm.iter().cloned().collect::<Map<_, _>>(),
-        "extra_routes": [], "spool_colors": spool_colors(root)?,
+        "spool_colors": spool_colors(root)?,
     }))?;
     let named = request
         .as_object_mut()

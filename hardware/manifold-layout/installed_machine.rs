@@ -201,7 +201,6 @@ fn main() -> Result<()> {
         || Ok(serde_json::to_value(equipment_program::run(&equipment_items, &equipment_dir)?)?),
     )?)
     .context("the retained equipment")?;
-    let equipment = plan::equipment_document(&equipment_request, &placed, &equipment_model)?;
     let copper = copper::runs(&root, &prepared)?;
     let routes_request =
         routes_plan::routes_request(&equipment_request, &equipment_model, &placed.groups, &copper)?;
@@ -217,8 +216,14 @@ fn main() -> Result<()> {
     routes_plan::write_route_lengths(&mut equipment_request, &routes);
     let runs = routes_plan::run_records(&copper, &equipment_request)?;
     let metadata = plan::placement_metadata(&root, &equipment_request, runs)?;
-    let equipment =
-        plan::equipment_block(&equipment_request, equipment, routes_plan::placed(&routes)?, junctions, metadata)?;
+    let equipment = plan::equipment_block(
+        &equipment_request,
+        &placed,
+        &equipment_model,
+        routes_plan::placed(&routes)?,
+        junctions,
+        metadata,
+    )?;
 
     // Everything installed around the pack, the pump dock's fittings, and the whole machine placed.
     let installed = json!({
