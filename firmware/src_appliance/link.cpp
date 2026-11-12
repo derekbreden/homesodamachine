@@ -705,12 +705,17 @@ static void dispatch(HdlcLink *link, const uint8_t *frame, uint16_t len) {
         return;
     }
 
-    // Fill anyway, pressed on the machine's own display: the sweep is given up and the first
-    // fill is asked for without it. Answered with the status that shows what it did.
+    // Skip, confirmed on the machine's own display: the sweep is given up and the first fill
+    // is asked for without it, once the lever is let go. Answered with the status that shows
+    // what it did.
     if (type == MSG_SWEEP_SKIP) {
+        const bool owed = machineSweepSkip();
+        MachineSweep sweep;
+        machineSweep(sweep);
         Serial.printf("\n[J9] MSG_SWEEP_SKIP — %s\n",
-                      machineSweepSkip() ? "the sweep is given up and the first fill asked for"
-                                         : "no sweep is owed");
+                      !owed        ? "no sweep is owed"
+                      : sweep.owed ? "the sweep is given up; the first fill waits for the lever to be let go"
+                                   : "the sweep is given up and the first fill asked for");
         StatusPayload s;
         linkFillStatus(s);
         link->send(MSG_RESP_STATUS, &s, sizeof(s));

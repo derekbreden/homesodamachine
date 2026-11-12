@@ -109,6 +109,14 @@ Boot opens with **Powering on · Getting everything ready.** for at least two
 complete animation cycles. It then opens onto the main board's flavor selection
 as soon as that state is known, with a six-second ceiling when J9 is absent.
 
+A machine that owes a sweep (`NOTICE_SWEEP`) opens from boot onto **Welcome**: the still
+mark where the boot's animation stood and, in the boot's card grown taller, the step at the
+faucet, **Skip** and **OK**. **Skip** asks **Skip this step?** first, and its **Skip** sends
+`MSG_SWEEP_SKIP`. From the count's target until the notice ends (`NOTICE_SWEEP_DONE`) the
+welcome says **Done**, with **OK** alone. It is put up once each time the panel wakes and
+again when the notice changes; it waits for an operation lock, a hold and an ask, and comes
+down by itself when the main board stops naming the sweep.
+
 ## Build / flash
 
 ```
@@ -394,6 +402,8 @@ ui fill a           # Fill instructions; no actuator
 ui prime a          # shared prime-ready session; pump waits for a hold
 ui clean a          # Clean instructions; no actuator
 ui settings         # System status
+ui notice           # the notice standing: No water, or Welcome
+ui notice no        # Welcome's Skip, which asks first; then go is Skip and no is Cancel
 ```
 
 `go` starts an operation on Fill or Clean. On Choose, it opens the image
@@ -493,7 +503,7 @@ remain visible for six seconds. A console air purge uses the same operation surf
 ### Rendering
 
 Boot and `LOCK:SHOW` use the 10 fps animation timer. Fill, Prime, Clean, Ratio, images,
-On tap and Settings repaint only when their displayed state changes. `GET_DIAG` exposes
+On tap, Settings and the welcome repaint only when their displayed state changes. `GET_DIAG` exposes
 loop and rendering counters for live measurement.
 
 ### Level and ratio

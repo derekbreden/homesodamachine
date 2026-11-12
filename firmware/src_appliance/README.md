@@ -169,15 +169,16 @@ told owes none. While it stands the refill's gate is shut and the meter's pulses
 pour. They are gas: with the tank dry and the cylinder open, the lever at the faucet lets CO2
 through the tank and out, and the meter at the tank's outlet counts the sweep in tank
 volumes. Both glasses say why there is no soda yet (`NOTICE_SWEEP`): the faucet's shows the
-count as a bar under the hand that is holding the lever, and the machine's own sends the
-person to the faucet. The lever let go pauses the count and keeps it. The count reaching its
-target sounds `chime` and both glasses say Done; the meter going quiet after that is the
-lever let go, and only then is the first fill asked for, so its first water is not sent out
-of an open faucet. A reed that stays closed says the tank holds water, which a sweep cannot
-work through, and drops it. `sweep skip`, or Fill anyway on the machine's display
-(`MSG_SWEEP_SKIP`), gives the sweep up and fills without it. Whether the meter counts gas and
-how long a sweep takes are wet-bench measurements; `flow <n> [s]` stands in for the gas on a
-bench.
+count as a bar under the hand that is holding the lever, and the machine's own puts up its
+welcome, which sends the person to the faucet. The lever let go pauses the count and keeps
+it. The count reaching its target sounds `chime` and both glasses say Done; the meter going
+quiet after that is the lever let go, and only then is the first fill asked for, so its first
+water is not sent out of an open faucet. A reed that stays closed says the tank holds water,
+which a sweep cannot work through, and drops it. `sweep skip`, or Skip on the welcome
+(`MSG_SWEEP_SKIP`), gives the sweep up and fills without it; with gas moving, the fill waits
+for the lever to be let go, as it does after the target, and both glasses say Done until
+then. Whether the meter counts gas and how long a sweep takes are wet-bench measurements;
+`flow <n> [s]` stands in for the gas on a bench.
 
 `status` prints both loops with their relays; `thermal` walks the bus; `sim` puts a reading at
 the top of either so the policy, the relays and the fan can be exercised with no probe on the
@@ -191,7 +192,9 @@ machine, and `StatusPayload::notice` to the machine's own display and a phone. A
 stands latched is `NOTICE_NO_WATER`. The machine's display says what to check and offers
 **Not now** and **Try again**, once each time it wakes and each time the latch is new. A
 sweep that is owed is `NOTICE_SWEEP`, and `NOTICE_SWEEP_DONE` from its target until a few
-seconds after the lever is let go. The faucet's notice carries two more bytes for it, the
+seconds after the lever is let go. On those the machine's display puts up its welcome: the
+step at the faucet with **Skip** and **OK**, then Done
+([`src_front/README.md`](/firmware/src_front/README.md)). The faucet's notice carries two more bytes for it, the
 percent counted and whether gas is moving now, and goes out as they change as well as on
 the heartbeat, so the bar moves under the hand. A notice that comes up lights both glasses,
 and a sweep with gas moving keeps them lit.
@@ -294,7 +297,7 @@ pio device monitor -e appliance
 | `fill <a\|b> [s]` | the funnel fill: the channel's funnel path open and its pump drawing, for `s` s (default 80) or until the reservoir's full reed closes |
 | `clean <a\|b> [rounds] [s]` | the clean cycle: the funnel pumped through to the faucet, then tap water pumped into the reservoir and out the faucet, `rounds` times (default 3); `s` caps every step (default 141 funnel, 240 in, 248 out) |
 | `ui <page> [a\|b] [go]` | put a customer page on the enclosure — choose, prime, fill, clean, settings — optionally for a flavor, `go` pressing its START |
-| `ui notice [go\|no]` | put the no-water notice up on the enclosure while a refill stands latched; `go` presses Try again and `no` presses Not now |
+| `ui notice [go\|no]` | put the notice standing up on the enclosure, and press one of its answers: on no water `go` is Try again and `no` is Not now; on the welcome `go` is OK and `no` is Skip, whose confirmation then takes `go` for Skip and `no` for Cancel |
 | `flavor [a\|b]` | read or set the main-board-owned flavor selection, and the logo pair beside it |
 | `ratio [a\|b] [6-24]` | read or set what a channel pours at, persisted in NVS and carried to the enclosure on its next poll |
 | `art [<a> <b>]` | read or set which logo each channel wears, persisted in NVS and published to both glasses |
@@ -310,8 +313,8 @@ pio device monitor -e appliance
 | `refill forget` | drop a refill that is owed, and the flash's note of it |
 | `sweep` | whether the carbonator owes a sweep of its air, and how far one has got |
 | `sweep owe` | the tank was drained and opened: hold its first fill until the lever at the faucet has let CO2 carry the air out; drops any refill that is owed |
-| `sweep skip` | give the sweep up and fill without it, as the machine's display can |
-| `sweep forget` | drop a sweep that is owed and ask for nothing |
+| `sweep skip` | give the sweep up and fill without it, as the welcome's Skip does; with gas moving, the fill waits for the lever to be let go |
+| `sweep forget` | drop a sweep that is owed and ask for nothing; with gas moving, the meter is the pour's again once the lever is let go |
 | `stop` | end whatever is running |
 | `hang` | stop the loop turning, to see the watchdog restart the board |
 | `status` | machine state, uptime, heap, verified MCP configuration/output park, all ten reeds |
