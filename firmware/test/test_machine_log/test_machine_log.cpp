@@ -389,6 +389,63 @@ void test_a_ring_of_real_sectors_keeps_its_newest_entries() {
     TEST_ASSERT_EQUAL_UINT32(written - 4, few.front().seq);
 }
 
+void test_an_entry_is_found_by_its_number() {
+    RamFlash flash(kPerSector, kSectors);
+    Store store(flash);
+    TEST_ASSERT_TRUE(store.begin());
+    Entry e;
+    TEST_ASSERT_FALSE(store.find(1, e));
+
+    // A ring with spoiled slots in it: power lost in a write, and a write refused.
+    uint32_t written = 0;
+    for (uint32_t i = 1; i <= kSlots - 3; i++) {
+        if (i == 3) {
+            flash.powerAfterBytes = kEntryBytes / 2;
+            Entry lost = pourEntry(0);
+            TEST_ASSERT_EQUAL(Append::Failed, store.append(lost));
+        }
+        if (i == 7) {
+            flash.refuse = true;
+            Entry lost = pourEntry(0);
+            TEST_ASSERT_EQUAL(Append::Failed, store.append(lost));
+            flash.refuse = false;
+        }
+        const Append r = put(store, pourEntry(i));
+        if (r == Append::Written) written = i;
+        TEST_ASSERT_EQUAL(Append::Written, r);
+    }
+    TEST_ASSERT_EQUAL_UINT32(written + 1, store.nextSeq());
+    for (uint32_t seq = 1; seq <= written; seq++) {
+        TEST_ASSERT_TRUE(store.find(seq, e));
+        TEST_ASSERT_EQUAL_UINT32(seq, e.seq);
+        TEST_ASSERT_EQUAL_UINT32(seq, e.a);
+    }
+    TEST_ASSERT_FALSE(store.find(0, e));
+    TEST_ASSERT_FALSE(store.find(written + 1, e));
+    TEST_ASSERT_FALSE(store.find(UINT32_MAX, e));
+
+    // Round the ring: what it still holds is found, and what it lost is not.
+    for (uint32_t i = written + 1; i <= kSlots * 2 + 5; i++)
+        TEST_ASSERT_EQUAL(Append::Written, put(store, pourEntry(i)));
+    const std::vector<Entry> held = readAll(store);
+    TEST_ASSERT_TRUE(held.size() > kSlots - kPerSector - 1);
+    for (const Entry &each : held) {
+        TEST_ASSERT_TRUE(store.find(each.seq, e));
+        TEST_ASSERT_EQUAL_UINT32(each.seq, e.seq);
+        TEST_ASSERT_EQUAL_UINT32(each.seq, e.a);
+    }
+    for (uint32_t seq = 1; seq < held.front().seq; seq++) TEST_ASSERT_FALSE(store.find(seq, e));
+
+    // And after a restart.
+    Store again(flash);
+    TEST_ASSERT_TRUE(again.begin());
+    for (const Entry &each : held) {
+        TEST_ASSERT_TRUE(again.find(each.seq, e));
+        TEST_ASSERT_EQUAL_UINT32(each.seq, e.a);
+    }
+    TEST_ASSERT_FALSE(again.find(held.front().seq - 1, e));
+}
+
 void test_an_entry_reads_as_one_line() {
     char line[160];
 
@@ -487,6 +544,7 @@ int main(int, char **) {
     RUN_TEST(test_a_refused_write_is_reported_and_the_next_one_lands);
     RUN_TEST(test_a_region_too_small_to_turn_is_refused);
     RUN_TEST(test_a_ring_of_real_sectors_keeps_its_newest_entries);
+    RUN_TEST(test_an_entry_is_found_by_its_number);
     RUN_TEST(test_an_entry_reads_as_one_line);
     return UNITY_END();
 }
