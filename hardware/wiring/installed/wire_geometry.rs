@@ -1,89 +1,67 @@
 //! Installed conductors cut from the recorded native line/arc/clamped-spline routes.
-use anyhow::{Context, Result, bail, ensure};
+use anyhow::{Context, Result, ensure};
 use hsm_kernel::{Face, Leg, Path, Plane, Profile, Solid, Surface, V2, V3, part, src_line};
+use serde::Deserialize;
 use serde_json::{Value, json};
+use wire_request::{Request, Segment};
 
-fn point(value: &Value) -> Result<V3> {
-    let values = value
-        .as_array()
-        .context("wire point is three coordinates")?;
-    ensure!(
-        values.len() == 3,
-        "wire point has {} coordinates",
-        values.len()
-    );
-    let mut p = [0.0; 3];
-    for (i, value) in values.iter().enumerate() {
-        p[i] = value
-            .as_f64()
-            .filter(|v| v.is_finite())
-            .context("wire point is not finite")?;
-    }
-    Ok(V3::from(p))
-}
+/// The request the wires are cut from: each conductor's centreline and each termination's
+/// shape.
+pub(crate) mod wire_request;
 
-fn route_path(segments: &[Value]) -> Result<Path> {
+/// The path a centreline's segments trace, end to end.
+fn route_path(segments: &[Segment]) -> Result<Path> {
     let first = segments.first().context("wire has no segments")?;
-    let mut path = Path::new(point(&first["start_mm"])?);
+    let mut path = Path::new(V3::from(first.start()));
     for segment in segments {
-        let start = point(&segment["start_mm"])?;
         ensure!(
-            (path.at() - start).norm() < 1e-7,
+            (path.at() - V3::from(segment.start())).norm() < 1e-7,
             "wire segments do not meet"
         );
-        path = match segment["kind"].as_str().context("wire segment kind")? {
-            "line" => path.line_to(point(&segment["end_mm"])?),
-            "arc" => {
-                path.arc_through(point(&segment["midpoint_mm"])?, point(&segment["end_mm"])?)?
-            }
-            "spline" => {
-                let points: Vec<V3> = segment["interpolation_points_mm"]
-                    .as_array()
-                    .context("spline interpolation points")?
+        path = match segment {
+            Segment::Line { end_mm, .. } => path.line_to(V3::from(*end_mm)),
+            Segment::Arc {
+                midpoint_mm,
+                end_mm,
+                ..
+            } => path.arc_through(V3::from(*midpoint_mm), V3::from(*end_mm))?,
+            Segment::Spline(spline) => {
+                let points: Vec<V3> = spline
+                    .interpolation_points_mm
                     .iter()
-                    .map(point)
-                    .collect::<Result<_>>()?;
-                let parameters: Vec<f64> = segment["parameters"]
-                    .as_array()
-                    .context("spline parameters")?
-                    .iter()
-                    .map(|v| v.as_f64().context("spline parameter is not numeric"))
-                    .collect::<Result<_>>()?;
-                let values = segment["endpoint_derivatives"]
-                    .as_array()
-                    .context("spline endpoint derivatives")?;
-                ensure!(values.len() == 2, "spline needs two endpoint derivatives");
+                    .map(|&p| V3::from(p))
+                    .collect();
                 path.clamped_spline(
                     &points,
-                    &parameters,
-                    [point(&values[0])?, point(&values[1])?],
+                    &spline.parameters,
+                    spline.endpoint_derivatives.map(V3::from),
                 )?
             }
-            kind => bail!("unsupported recorded wire segment {kind:?}"),
         };
     }
     Ok(path)
 }
 
-fn wire(segments: &[Value], diameter: f64) -> Result<Solid> {
-    ensure!(
-        diameter.is_finite() && diameter > 0.0,
-        "wire diameter must be positive"
-    );
-    let path = route_path(segments)?;
+/// The frame a section is swept from: at the path's start, its normal along the path.
+fn start_frame(path: &Path, origin: V3) -> Plane {
     let tangent = match path.legs[0] {
         Leg::Line { a, b } => (b - a).unit(),
         Leg::Arc { a, c, d, .. } => d.cross(a - c).unit(),
         Leg::Curve { k, .. } => path.curves[k].derivative(path.curves[k].range().0).unit(),
     };
     let (z, x, y) = hsm_kernel::rule::plane_frame(tangent);
-    let plane = Plane {
-        origin: point(&segments[0]["start_mm"])?,
-        x,
-        y,
-        z,
-    };
-    plane.sweep(&Profile::circle(V2::ZERO, diameter / 2.0), &path)
+    Plane { origin, x, y, z }
+}
+
+/// A round wire of `diameter` along `segments`.
+fn wire(segments: &[Segment], diameter: f64) -> Result<Solid> {
+    ensure!(
+        diameter.is_finite() && diameter > 0.0,
+        "wire diameter must be positive"
+    );
+    let path = route_path(segments)?;
+    start_frame(&path, V3::from(segments[0].start()))
+        .sweep(&Profile::circle(V2::ZERO, diameter / 2.0), &path)
 }
 
 fn presentation(solid: &Solid, tolerance: f64) -> Result<Solid> {
@@ -154,14 +132,25 @@ mod wire_components;
 
 fn main() -> Result<()> {
     let (numbers, output) = part::args()?;
-    let mut result = run(&numbers, &output)?;
-    if output != std::path::Path::new("--check") {
-        let root = numbers.text("name")?;
-        let name = numbers
+    let request = Request {
+        name: numbers.text("name")?.to_owned(),
+        file_stem: numbers
             .get("file_stem")
             .ok()
             .and_then(Value::as_str)
-            .unwrap_or(root);
+            .map(str::to_owned),
+        presentation_deflection_ratio: numbers.f("presentation_deflection_ratio")?,
+        presentation_angular_deflection_rad: numbers.f("presentation_angular_deflection_rad")?,
+        routes: Vec::deserialize(numbers.get("routes")?).context("ordered wire routes")?,
+        components: match numbers.get("components") {
+            Ok(components) => Vec::deserialize(components).context("wire components")?,
+            Err(_) => Vec::new(),
+        },
+    };
+    let mut result = run(&request, &output)?;
+    if output != std::path::Path::new("--check") {
+        let root = request.name.as_str();
+        let name = request.file_stem.as_deref().unwrap_or(root);
         let mesh = output.join(format!("{name}.step.mesh"));
         let shown = hsm_kernel::import::payload(&mesh)?;
         let bodies: Vec<_> = shown
@@ -193,6 +182,6 @@ fn main() -> Result<()> {
 mod retained;
 
 /// The installed conductors reuse unchanged fine and presentation entries between route edits.
-pub fn run(numbers: &part::Numbers, output: &std::path::Path) -> Result<Value> {
-    retained::run(numbers, output)
+pub fn run(request: &Request, output: &std::path::Path) -> Result<Value> {
+    retained::run(request, output)
 }

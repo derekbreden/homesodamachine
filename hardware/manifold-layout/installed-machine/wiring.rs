@@ -3,6 +3,7 @@
 //!
 //! The routing is the assembly-docs wiring code, included here. `sources` gives it each value
 //! from the file or the plan that owns it.
+use crate::wire_request;
 use anyhow::{Context, Result, bail, ensure};
 use serde_json::{Value, json};
 use std::collections::{BTreeMap, BTreeSet};
@@ -40,10 +41,6 @@ mod terminals;
 #[allow(dead_code, unused_imports)]
 #[path = "../../../tools/hsm/assembly-docs/src/wiring/terminations.rs"]
 mod terminations;
-/// The request the installed-wires program reads: wires, terminations and jackets.
-#[allow(dead_code)]
-#[path = "../../wiring/installed/wire_request.rs"]
-mod wire_request;
 /// Lengths and bend samples of the spline segments.
 #[allow(dead_code, unused_imports)]
 #[path = "../../wiring/installed/wire_route_samples.rs"]
@@ -67,7 +64,7 @@ pub fn wiring_request(
     spec: &Value,
     physical_model: &Path,
     cache: &mut crate::cache::Cache,
-) -> Result<Value> {
+) -> Result<wire_request::Request> {
     let sources = sources::Sources::read(root, spec)?;
     let recipe = json!({"plan":spec,"physical_model":physical_model,
         "fits":{"slip":hsm_enclosure_numbers::catalog::slip(),"running":hsm_enclosure_numbers::catalog::running(),
@@ -79,7 +76,7 @@ pub fn wiring_request(
         serde_json::from_value(attachments).context("the retained wire attachments")?;
     let mut numbers = build::numeric_only(&sources, root, &attachments)?;
     numbers.file_stem = Some(FILE_STEM.into());
-    Ok(serde_json::to_value(numbers)?)
+    Ok(numbers)
 }
 
 /// The request the wiring is cut from and the review of it, resolved against the placed

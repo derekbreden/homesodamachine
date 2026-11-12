@@ -1,33 +1,79 @@
 //! Each conductor and termination retains its own fine geometry and shared presentation object.
+use super::wire_request::{Part, Request, Shape, Wire};
 use anyhow::{Context, Result, ensure};
-use hsm_kernel::{Body, Solid, part};
+use hsm_kernel::{Body, Solid};
 use serde_json::{Value, json};
 use std::path::{Path, PathBuf};
 
 #[path = "../../manifold-layout/installed-machine/cache.rs"]
 mod stage_cache;
 
-fn colour(value: &Value) -> Result<[f64; 3]> {
-    let values = value.as_array().context("wire RGB")?;
-    ensure!(values.len() == 3, "wire RGB channels");
-    let mut rgb = [0.; 3];
-    for i in 0..3 {
-        rgb[i] = values[i]
-            .as_f64()
-            .filter(|v| v.is_finite())
-            .context("finite wire RGB")?;
-    }
-    Ok(rgb)
+/// One thing to cut: a conductor, or a termination or jacket.
+#[derive(Clone, Copy)]
+enum Entity<'a> {
+    Wire(&'a Wire),
+    Part(&'a Part),
 }
 
-fn build(value: &Value, route: bool) -> Result<Vec<Solid>> {
-    if route {
-        let diameter = value["diameter_mm"].as_f64().context("wire diameter")?;
-        let segments = value["segments"].as_array().context("wire segments")?;
-        Ok(vec![super::wire(segments, diameter)?])
-    } else {
-        super::wire_components::build(value)
+impl Entity<'_> {
+    fn name(&self) -> &str {
+        match self {
+            Entity::Wire(wire) => &wire.name,
+            Entity::Part(part) => &part.name,
+        }
     }
+
+    fn colour(&self) -> [f64; 3] {
+        match self {
+            Entity::Wire(wire) => wire.linear_rgb,
+            Entity::Part(part) => part.linear_rgb,
+        }
+    }
+
+    /// The name the entity's fine model is retained under.
+    fn id(&self) -> String {
+        match self {
+            Entity::Wire(wire) => format!("route:{}", wire.name),
+            Entity::Part(part) => format!("component:{}", part.name),
+        }
+    }
+
+    /// The diameter of a swept section, which its presentation tolerance follows.
+    fn diameter(&self) -> Option<f64> {
+        match self {
+            Entity::Wire(wire) => Some(wire.diameter_mm),
+            Entity::Part(part) => match &part.shape {
+                Shape::Sweep { diameter_mm, .. } | Shape::AnnularSweep { diameter_mm, .. } => {
+                    Some(*diameter_mm)
+                }
+                _ => None,
+            },
+        }
+    }
+
+    /// The entity as it is asked for, which its fine model is retained against.
+    fn recipe(&self) -> Result<Value> {
+        Ok(match self {
+            Entity::Wire(wire) => serde_json::to_value(wire)?,
+            Entity::Part(part) => serde_json::to_value(part)?,
+        })
+    }
+
+    fn build(&self) -> Result<Vec<Solid>> {
+        match self {
+            Entity::Wire(wire) => Ok(vec![super::wire(&wire.segments, wire.diameter_mm)?]),
+            Entity::Part(part) => super::wire_components::build(&part.shape),
+        }
+    }
+}
+
+/// The request's conductors, then its terminations and jackets.
+fn entities(request: &Request) -> impl Iterator<Item = Entity<'_>> {
+    request
+        .routes
+        .iter()
+        .map(Entity::Wire)
+        .chain(request.components.iter().map(Entity::Part))
 }
 
 fn records(name: &str, rgb: [f64; 3], parts: &[Solid]) -> Vec<Value> {
@@ -43,26 +89,12 @@ fn key(name: &str) -> String {
     hsm_model_export::digest(name.as_bytes())
 }
 
-/// The same numeric recipes supply explicit checks and retained production geometry.
-pub fn run(numbers: &part::Numbers, output: &Path) -> Result<Value> {
-    let routes = numbers
-        .get("routes")?
-        .as_array()
-        .context("ordered wire routes")?;
-    let components = numbers.get("components").ok().and_then(Value::as_array);
+/// The same request supplies explicit checks and retained production geometry.
+pub fn run(request: &Request, output: &Path) -> Result<Value> {
     if output == Path::new("--check") {
         let mut rows = Vec::new();
-        for (value, route) in routes
-            .iter()
-            .map(|v| (v, true))
-            .chain(components.into_iter().flatten().map(|v| (v, false)))
-        {
-            let name = value["name"].as_str().context("wire name")?;
-            rows.extend(records(
-                name,
-                colour(&value["linear_rgb"])?,
-                &build(value, route)?,
-            ));
+        for entity in entities(request) {
+            rows.extend(records(entity.name(), entity.colour(), &entity.build()?));
         }
         return Ok(json!({"files":[],"bodies":rows}));
     }
@@ -72,18 +104,14 @@ pub fn run(numbers: &part::Numbers, output: &Path) -> Result<Value> {
     std::fs::create_dir_all(&parts_dir)?;
     let _work_lock = stage_cache::lock(&parts_dir)?;
     let mut cache = stage_cache::Cache::new(&root, &parts_dir)?;
-    let mut entities = Vec::new();
-    for (value, route) in routes
-        .iter()
-        .map(|v| (v, true))
-        .chain(components.into_iter().flatten().map(|v| (v, false)))
-    {
-        let name = value["name"].as_str().context("wire component name")?;
-        let id = format!("{}:{name}", if route { "route" } else { "component" });
+    let mut cut = Vec::new();
+    for entity in entities(request) {
+        let name = entity.name();
+        let id = entity.id();
         let fine = parts_dir.join(format!("{}.npz", key(&id)));
-        let rgb = colour(&value["linear_rgb"])?;
-        let record = cache.run(&format!("fine {id}"), value, &[fine.clone()], || {
-            let mut solids = build(value, route).with_context(|| format!("building {name}"))?;
+        let rgb = entity.colour();
+        let record = cache.run(&format!("fine {id}"), &entity.recipe()?, &[fine.clone()], || {
+            let mut solids = entity.build().with_context(|| format!("building {name}"))?;
             for solid in &mut solids {
                 solid.forget_backend();
             }
@@ -97,13 +125,13 @@ pub fn run(numbers: &part::Numbers, output: &Path) -> Result<Value> {
                 })
                 .collect();
             hsm_kernel::step::write_model(&fine, &bodies)?;
-            Ok(json!({"name":name,"fine":fine,"bodies":rows,"diameter_mm":value["diameter_mm"]}))
+            Ok(json!({"name":name,"fine":fine,"bodies":rows,"diameter_mm":entity.diameter()}))
         })?;
-        entities.push(record);
+        cut.push(record);
     }
     let mut lower = [f64::INFINITY; 3];
     let mut upper = [f64::NEG_INFINITY; 3];
-    for body in entities
+    for body in cut
         .iter()
         .flat_map(|entity| entity["bodies"].as_array().into_iter().flatten())
     {
@@ -116,14 +144,15 @@ pub fn run(numbers: &part::Numbers, output: &Path) -> Result<Value> {
         lower.iter().chain(&upper).all(|v| v.is_finite()),
         "wire assembly is empty"
     );
-    let deflection = (0..3).map(|k| upper[k] - lower[k]).sum::<f64>() / 3.
-        * numbers.f("presentation_deflection_ratio")?;
-    let angular = numbers.f("presentation_angular_deflection_rad")?;
+    let deflection =
+        (0..3).map(|k| upper[k] - lower[k]).sum::<f64>() / 3. * request.presentation_deflection_ratio;
+    let angular = request.presentation_angular_deflection_rad;
     let angular_tolerance =
         |diameter: f64| deflection.min(diameter / 2. * (1. - (angular / 2.).cos()));
-    let radius = routes
+    let radius = request
+        .routes
         .iter()
-        .filter_map(|r| r["diameter_mm"].as_f64())
+        .map(|wire| wire.diameter_mm)
         .fold(f64::INFINITY, f64::min)
         / 2.;
     let fallback = deflection.min(radius * (1. - (angular / 2.).cos()));
@@ -132,7 +161,7 @@ pub fn run(numbers: &part::Numbers, output: &Path) -> Result<Value> {
     let mut bodies = Vec::new();
     let mut tolerances = serde_json::Map::new();
     let mut fine_digests = Vec::new();
-    for entity in &entities {
+    for entity in &cut {
         let name = entity["name"].as_str().unwrap();
         let fine = PathBuf::from(entity["fine"].as_str().context("retained wire model")?);
         let fine_sha = cache.input_digest(&fine)?;
@@ -208,12 +237,8 @@ pub fn run(numbers: &part::Numbers, output: &Path) -> Result<Value> {
         tolerances.insert(name.to_owned(), json!(tolerance));
         fine_digests.push(json!({"name":name,"sha256":fine_sha}));
     }
-    let root_name = numbers.text("name")?;
-    let file_stem = numbers
-        .get("file_stem")
-        .ok()
-        .and_then(Value::as_str)
-        .unwrap_or(root_name);
+    let root_name = request.name.as_str();
+    let file_stem = request.file_stem.as_deref().unwrap_or(root_name);
     let fine = output.join(format!("{file_stem}.step.npz"));
     let mesh = output.join(format!("{file_stem}.step.mesh"));
     let mut head = json!({"v":4,"meshes":nodes,"source_kind":"scene","step_export":false});
@@ -229,7 +254,7 @@ pub fn run(numbers: &part::Numbers, output: &Path) -> Result<Value> {
             "presentation_tolerance_mm":fallback,"presentation_angular_deflection_rad":angular,
             "presentation_surface_partitions":"coalesced with complete fine-face contributors",
             "presentation_tolerance_by_name_mm":tolerances,
-            "alpha_by_name":entities.iter().map(|entity|(entity["name"].as_str().unwrap().to_owned(),json!(1.))).collect::<serde_json::Map<_,_>>(),
+            "alpha_by_name":cut.iter().map(|entity|(entity["name"].as_str().unwrap().to_owned(),json!(1.))).collect::<serde_json::Map<_,_>>(),
             "presentation":{"path":format!("{file_stem}.step.mesh"),"sha256":hsm_geometry::scene::digest(&payload)}});
         hsm_model_export::model::entries(&json!({"target":fine,"entries":entries,"document":document}),output)?;
         Ok(json!({"files":[format!("{file_stem}.step.npz"),format!("{file_stem}.step.mesh")],"bodies":bodies}))
