@@ -85,7 +85,7 @@ observations; neither alone establishes the cause of the other.
 ## Live observations
 
 Read the exact Mark1 task, layer, temperatures, fans, timelapse and error/HMS
-status through `tools/bambu_printer.py`. Use `cua_repl` for Bambu Studio's Device
+status through [`tools/bambu_printer.py`](https://github.com/derekbreden/homesodamachine/blob/a518a57a878f02d9ac5b8b638c1c5883cadf6669/tools/bambu_printer.py). Use `cua_repl` for Bambu Studio's Device
 view and camera; verify the visible printer name and archive. Connect's device
 page has status and filament controls but no live camera. Bambu Studio's camera
 must be playing before treating its image as a live observation. In Device,

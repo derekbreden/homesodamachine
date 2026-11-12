@@ -98,7 +98,4 @@ row).
 
 ## Files
 
-- `valve_tray.py` — the tray's figures, from the [valve seat's numbers](/hardware/printed-parts/valve-seat/numbers.rs), and one drawn in its own frame for the wall to turn
-
-Run with `tools/cad-venv/bin/python` per the hardware context file. `selftest` reads the plate
-against the valve it holds and the seat it carries.
+- [`valve_tray.rs`](valve_tray.rs) — the tray's figures, from the [valve seat's numbers](/hardware/printed-parts/valve-seat/numbers.rs), and one drawn in its own frame for the wall to turn

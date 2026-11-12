@@ -254,14 +254,16 @@ placement engine and do not validate that engine.
 
 ## Reproduce by hand
 
-From the repository root, run `tools/cad-venv/bin/python
-hardware/print-tests/petgf-fins/build.py`. Slice the generated `.3mf` with the
+From the repository root, run
+[`tools/cad-venv/bin/python hardware/print-tests/petgf-fins/build.py`](https://github.com/derekbreden/homesodamachine/blob/0a648015e07ed6ea7eb962ec559e0a836c3a4439/hardware/print-tests/petgf-fins/build.py).
+Slice the generated `.3mf` with the
 installed Bambu Studio, `--arrange 0 --orient 0 --slice 0`, exporting a
-`.gcode.3mf` to an **absolute** output directory. Run `review.py <native-archive>`
+`.gcode.3mf` to an **absolute** output directory. Run [`review.py <native-archive>`](https://github.com/derekbreden/homesodamachine/blob/0a648015e07ed6ea7eb962ec559e0a836c3a4439/hardware/print-tests/petgf-fins/review.py)
 to read this plate's bead envelope, bridge directions and tine layers. These
 commands are manual experiment tools and do not join a build or commit path.
 
-Send the reviewed archive with `tools/cad-venv/bin/python tools/bambu_print.py
-<native-archive> Mark2`, retaining Timelapse On, Bed Leveling On, Flow Calibration
+Send the reviewed archive with
+[`tools/cad-venv/bin/python tools/bambu_print.py <native-archive> Mark2`](https://github.com/derekbreden/homesodamachine/blob/a518a57a878f02d9ac5b8b638c1c5883cadf6669/tools/bambu_print.py),
+retaining Timelapse On, Bed Leveling On, Flow Calibration
 Auto and Nozzle Offset Calibration Auto and the three-minute shared-circuit
 spacing.

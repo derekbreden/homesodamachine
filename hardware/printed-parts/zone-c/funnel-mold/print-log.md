@@ -128,7 +128,7 @@ The original supplied JPEG bytes are preserved; their hashes are in
 
 The saved [funnel-mold.3mf](funnel-mold.3mf) contains the **600 mL**
 rounded-mouth funnel's cavity and core from geometry commit `953dbfa68`.
-Its finished casting solid matched that commit's `../funnel/funnel.py`,
+Its finished casting solid matched that commit's [`../funnel/funnel.py`](https://github.com/derekbreden/homesodamachine/blob/a518a57a878f02d9ac5b8b638c1c5883cadf6669/hardware/printed-parts/zone-c/funnel/funnel.py),
 with zero symmetric-difference volume after trimming that design's sacrificial tip.
 Both embedded meshes match the current STL files and retain their print
 orientations. The complete process, filament and machine settings equal

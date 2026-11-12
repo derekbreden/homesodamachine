@@ -2,7 +2,7 @@
 
 Two photographs of **full-size enclosure front assemblies** — front-top and front-bottom, stood
 together — printed once in PETG and once in PET-GF and set side by side. They are what the
-appearance claims in `flute_skin.py`, `enclosure.py` and the cold core's own prose are read off.
+appearance claims in the enclosure's [reeded skin](/hardware/printed-parts/enclosure/enclosure/README.md#the-reeded-skin) and the cold core's own prose are read off.
 
 This is not the corner coupon and does not stand in for it. That coupon — two 50 mm standing
 walls meeting at the box's rounded corner, at `c14bb2fff` under

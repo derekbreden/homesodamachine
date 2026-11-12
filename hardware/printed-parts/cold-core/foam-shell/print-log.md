@@ -2,7 +2,7 @@
 
 Format: facts only. Direct quotes from Derek where applicable. Settings observed in committed `.3mf` snapshots. No interpretation, no hypothesis — analysis lives in the conversation, decisions land in the geometry.
 
-Geometry: the full cold-core foam shell, from [`foam_shell.py`](/hardware/printed-parts/cold-core/foam-shell/foam_shell.py). The smooth casing is 282.4 × 180.4 mm, 213.4 mm tall, with ordinary 2.38 mm standing walls and a 2 mm floor. README is the geometry source-of-truth.
+Geometry: the full cold-core foam shell, from [`foam_shell.py`](https://github.com/derekbreden/homesodamachine/blob/6c4084d1d214c2da4a92e1fc909e05b4cb18fa67/hardware/printed-parts/cold-core/foam-shell/foam_shell.py). The smooth casing is 282.4 × 180.4 mm, 213.4 mm tall, with ordinary 2.38 mm standing walls and a 2 mm floor. README is the geometry source-of-truth.
 
 The launch record binds the exact `foam-shell.stl` embedded in the sliced project. The current shell, caps and lid edges have smooth surfaces. Historical fluted projects remain identified with their own attempts below.
 
@@ -122,7 +122,7 @@ Otherwise "nearly everything was perfect."
 
 ## Print attempt 2 (sliced, settings per [`foam-shell-8mm-high-flow.3mf`](foam-shell-8mm-high-flow.3mf))
 
-`foam-shell.step` at geometry commit `7cd49702`: rounded outer corners (12 mm), cylindrical bosses tangent to the exterior wall with teardrop corner-fill webs, four corner gussets (z 2–42). Cap + gasket pads share the boss shape. Geometry in [`README.md`](/hardware/printed-parts/cold-core/foam-shell/README.md); construction in [`../_outer_shell.py`](/hardware/printed-parts/cold-core/_outer_shell.py); the four corner gussets were defined in `_corner_gussets.py` at that commit.
+`foam-shell.step` at geometry commit `7cd49702`: rounded outer corners (12 mm), cylindrical bosses tangent to the exterior wall with teardrop corner-fill webs, four corner gussets (z 2–42). Cap + gasket pads share the boss shape. Geometry in [`README.md`](/hardware/printed-parts/cold-core/foam-shell/README.md); construction in [`../_outer_shell.py`](https://github.com/derekbreden/homesodamachine/blob/bc84c88552075f1828c4111c21bf4a8e78f1a560/hardware/printed-parts/cold-core/_outer_shell.py); the four corner gussets were defined in [`_corner_gussets.py`](https://github.com/derekbreden/homesodamachine/blob/56c4d179be828195a3601854420f8be692649d1b/hardware/printed-parts/cold-core/_corner_gussets.py) at that commit.
 
 Settings observed (same stock profile as attempt 1):
 - Profile `0.40mm Standard @BBL H2C 0.8 nozzle`, dual 0.8 mm nozzle; `Bambu PETG Basic`, black

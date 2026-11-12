@@ -99,9 +99,9 @@ omits its ceiling support.
 
 The editable [support-interface.3mf](support-interface.3mf) carries the geometry
 and per-object Z settings. **Edge treatments are applied after slicing** by
-`setback.py`; simply re-slicing this project does not reproduce the experiment.
+[`setback.py`](https://github.com/derekbreden/homesodamachine/blob/9884d0e7f43329c4f4aa8d1d8aa2ce3493aa4a2b/hardware/print-tests/petgf-interface-edges/setback.py); simply re-slicing this project does not reproduce the experiment.
 
-`setback.py` measures both interface layers independently and clips only positive
+[`setback.py`](https://github.com/derekbreden/homesodamachine/blob/9884d0e7f43329c4f4aa8d1d8aa2ce3493aa4a2b/hardware/print-tests/petgf-interface-edges/setback.py) measures both interface layers independently and clips only positive
 Support interface extrusion at the selected edges. Removed portions become
 non-extruding moves on the same XYZ route. Temperatures, feed rates, retractions,
 model commands and tree commands are retained. The package G-code checksum is
@@ -114,7 +114,7 @@ all 16 measured Z gaps, both measured interface envelopes, and an independent
 comparison of central interface, tree and ceiling paths against the native slice.
 `print-job.json` records printer acceptance; physical results remain separate.
 
-Generate with `tools/cad-venv/bin/python hardware/print-tests/petgf-interface-edges/prepare.py`.
+Generate with [`tools/cad-venv/bin/python hardware/print-tests/petgf-interface-edges/prepare.py`](https://github.com/derekbreden/homesodamachine/blob/0a648015e07ed6ea7eb962ec559e0a836c3a4439/hardware/print-tests/petgf-interface-edges/prepare.py).
 Slice the generated input with Bambu Studio 02.08.02.61 using `--arrange 0 --orient 0
 --slice 0 --min-save`, exporting `native.gcode.3mf` into the input directory.
 Run [`setback.py`](https://github.com/derekbreden/homesodamachine/blob/9884d0e7f4/hardware/print-tests/petgf-interface-edges/setback.py) `--input <native.gcode.3mf> --output <petgf-interface-edges-mark2.gcode.3mf>`,

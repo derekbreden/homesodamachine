@@ -132,7 +132,7 @@ error text and float rounding can all change.
 ## Purpose
 
 Every piece of machinery says in one line what it is for, where it is defined: a build step, a
-check, a report, a cache, a lock, a program. The line is in the present tense, as in "`run.py`
+check, a report, a cache, a lock, a program. The line is in the present tense, as in "`tools/run`
 keeps heavy runs from running this Mac out of memory." When the line stops being true, the
 machinery goes. Something with no line gets one before anything is built on it.
 

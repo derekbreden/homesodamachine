@@ -99,8 +99,7 @@ Keep the short remainder for other coupons.
 From the repository root:
 
 ```sh
-tools/cad-venv/bin/python hardware/printed-parts/fixtures/water-inlet-jet/water_inlet_jet_fixture.py selftest
-tools/cad-venv/bin/python hardware/printed-parts/fixtures/water-inlet-jet/water_inlet_jet_fixture.py
+tools/run -- hsm-print-build -- //:water-inlet-jet-fixture
 ```
 
 The checks establish valid individual solids, print orientation, open-jaw

@@ -174,7 +174,7 @@ The optional [native bench export](../../tools/hsm/wiring/README.md) writes the 
 manifest, conductor worksheet, numeric recipe and standalone wiring geometry on request:
 
 ```sh
-python3 tools/run.py -- tools/hsm/target/release/hsm-wiring
+tools/run -- tools/hsm/target/release/hsm-wiring
 ```
 
 It reads the normal build's retained placement and physical model and uses the same

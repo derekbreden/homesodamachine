@@ -36,7 +36,7 @@ of the passive fluid-passage diameter.
 back-top solid and the retained main-board mounting stations. The wire
 probes use the selected 2 mm OD stock, a 1 mm straight and R3 fixed bend;
 these are nominal access probes, not a qualified installed bend radius.
-Run `measure_native.py` manually with the CAD Python to reproduce them.
+Run [`measure_native.py`](https://github.com/derekbreden/homesodamachine/blob/5d633291918a02e34734ef15445158dcaa97d8c8/hardware/printed-parts/enclosure/enclosure/assembly-fit-review/measure_native.py) manually with the CAD Python to reproduce them.
 
 [Printed C14 measurements](printed-c14-measurements.json) compare the
 October 10 Mark1 project's main mesh and the current print STL at the
@@ -53,7 +53,7 @@ preparation records `prepared_not_started`.
 
 [Core passage measurements](core-passage-measurements.json) read Ø7.5 mm
 cylinder faces from the exported top cap, top lid, both reservoir caps and
-foam shell and measure both connecting webs at 5 mm. `measure_core.py` is a
+foam shell and measure both connecting webs at 5 mm. [`measure_core.py`](https://github.com/derekbreden/homesodamachine/blob/a518a57a878f02d9ac5b8b638c1c5883cadf6669/hardware/printed-parts/enclosure/enclosure/assembly-fit-review/measure_core.py) is a
 manual B-rep measurement. The [appliance assembly review](../../../../manifold-layout/enclosure-assembly.scorecard.json)
 passes its active checks, including pack closure and conduit wall/pair stock.
 

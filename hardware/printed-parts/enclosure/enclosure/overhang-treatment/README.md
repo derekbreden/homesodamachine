@@ -1,6 +1,6 @@
 # Expanding show-edge treatment
 
-`cadlib/overhang_round.py` supplies additive chamfer/tapers inside the original
+[`numbers/structure.rs`](../numbers/structure.rs) supplies additive chamfer/tapers inside the original
 unrounded stock. The R6 profile starts 2.292 mm inward and advances 0.5 mm per
 millimetre of build rise until it meets the retained round at 3.317 mm. The
 straight profile advances 0.12 mm per normal 0.24 mm layer. Top/inward rounds

@@ -72,7 +72,7 @@ are blocked on the compressor's rotation and the condenser's undefined ports.**
 - **refrig-2 (condenser → evaporator): can't be assessed.** The condenser outlet + its brazed
   drier/cap-tube are unpositioned. The evaporator inlet is fixed at (141.5, 155, 72). See Q3
   for the 4 mm channel this subassembly has to live in.
-- **The rotation, precisely.** `_contents.py` rotates the shroud 90° about Z before placing
+- **The rotation, precisely.** [`_contents.py`](https://github.com/derekbreden/homesodamachine/blob/c4a5a2be93018addd8d28b7f508c6550c42bd501/hardware/printed-parts/enclosure/enclosure-assembly/_contents.py) rotates the shroud 90° about Z before placing
   it. That maps the shroud's one copper-bearing face (native −X "left") to world −Y (front)
   and its AC face (native +Y "back") to world −X (left wall). So **both refrigerant stubs face
   the front wall**; the AC gland faces the left wall. The AC orientation is fine — the cable

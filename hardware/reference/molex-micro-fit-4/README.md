@@ -50,7 +50,7 @@ halves nest by **6.12 mm**. The assembly's service path therefore pulls the cart
 **7.12 mm** toward the user — the complete nesting distance plus 1 mm of true air — before
 lowering it into the empty pump bay.
 
-The enclosure installs the keyed/latching side downward. `enclosure_assembly.py` sweeps a
+The enclosure installs the keyed/latching side downward. [`enclosure_assembly.py`](https://github.com/derekbreden/homesodamachine/blob/7a9a8abaa8ce982d47e7cb9e3275e7f85cb53416/hardware/manifold-layout/enclosure_assembly.py) sweeps a
 conservative envelope of the complete body and latch through that pull-and-drop motion and
 checks it against the live front-top and display solids. It also requires at least 12 mm
 between the latch and the pump-bay lintel for a fingertip.
