@@ -876,6 +876,7 @@ static bool askEnclosure(uint8_t type, const void *data, uint8_t len,
         j9.service();
         faucetLinkService();
         soundService();
+        feedLoopWDT();
         delay(2);
     }
     return ack;
@@ -955,6 +956,7 @@ bool linkWifiApMode(uint8_t mode) {
     while ((long)(millis() - deadline) < 0) {
         unsigned long until = millis() + 400;
         while ((long)(millis() - until) < 0) { j9.service(); delay(2); }
+        feedLoopWDT();
         if (!linkWifiAsk(2)) {
             // Taking the radio away is what ends in a reboot on that board,
             // because its panel only comes back on one. So a display that has

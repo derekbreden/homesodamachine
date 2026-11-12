@@ -1110,6 +1110,101 @@ void test_a_fill_and_a_prime_are_noted_as_they_end() {
     TEST_ASSERT_EQUAL_UINT32(3000, fills[0].a);
 }
 
+void test_the_compressor_is_not_started_when_its_fan_cannot_be_turned() {
+    machineSimThermal(6.0f, true, 5.0f, true);
+    runAt(host::now + machine_policy::kMinOffMs - 1000);
+    MachineThermal thermal;
+    machineThermal(thermal);
+    TEST_ASSERT_FALSE(thermal.compressorRelay);
+    // The write that would turn the condenser fan fails as the loop calls for cooling.
+    host::bus.failWrite(pcba::MCP_RESERVOIR_B, host::kOlatA, 0x08);
+    runAt(host::now + 1000);
+    machineThermal(thermal);
+    TEST_ASSERT_FALSE(thermal.compressorRelay);
+    TEST_ASSERT_EQUAL(INPUT, host::modes[PIN_RELAY_COMPRESSOR]);
+    TEST_ASSERT_FALSE(machineIoReady());
+    // However warm the tank, it stays off while the valve drivers are unverified.
+    for (int second = 0; second < 5; second++) {
+        runAt(host::now + 1000);
+        machineThermal(thermal);
+        TEST_ASSERT_FALSE(thermal.compressorRelay);
+    }
+    TEST_ASSERT_EQUAL_UINT32(0, notedOf(machine_log::Kind::Compressor).size());
+}
+
+void test_a_running_compressor_stops_when_the_valve_drivers_stop_answering() {
+    machineSimThermal(6.0f, true, 5.0f, true);
+    runAt(host::now + machine_policy::kMinOffMs);
+    MachineThermal thermal;
+    machineThermal(thermal);
+    TEST_ASSERT_TRUE(thermal.compressorRelay);
+    TEST_ASSERT_TRUE(pcba::expanders().currentOutputs().condenserFan);
+
+    // One idle reed read fails: every output is parked, the fan with them.
+    host::bus.failRead(pcba::MCP_RESERVOIR_A, host::kGpioB);
+    runAt(host::now + 1000);
+    TEST_ASSERT_FALSE(machineIoReady());
+    runAt(host::now + 1000);
+    machineThermal(thermal);
+    TEST_ASSERT_FALSE(thermal.compressorRelay);
+    TEST_ASSERT_EQUAL(INPUT, host::modes[PIN_RELAY_COMPRESSOR]);
+
+    const std::vector<machine_log::Entry> runs = notedOf(machine_log::Kind::Compressor);
+    TEST_ASSERT_EQUAL_UINT32(1, runs.size());
+    TEST_ASSERT_EQUAL_UINT8(static_cast<uint8_t>(machine_log::ColdTo::Fault), runs[0].detail);
+}
+
+void test_a_bus_glitch_does_not_cost_the_machine_its_valves_until_a_power_cycle() {
+    host::bus.failRead(pcba::MCP_RESERVOIR_A, host::kGpioB);
+    runAt(host::now + 1000);
+    TEST_ASSERT_FALSE(machineIoReady());
+    std::vector<machine_log::Entry> io = notedOf(machine_log::Kind::Io);
+    TEST_ASSERT_EQUAL_UINT32(1, io.size());
+    TEST_ASSERT_NOT_EQUAL(0, io[0].detail);
+
+    // Unverified, nothing opens: a pour gets water and no flavor.
+    machineFlowSimulate(6, 400);
+    runAt(host::now + machine_policy::kFlowSampleMs);
+    runAt(host::now + machine_policy::kFlowSampleMs);
+    TEST_ASSERT_FALSE(machineIsPouring());
+    expectParked();
+    machineFlowSimulate(0, 0);
+
+    // Idle, the drivers are verified again the way a boot verifies them.
+    runAt(host::now + kIoRetryMs);
+    TEST_ASSERT_TRUE(machineIoReady());
+    TEST_ASSERT_EQUAL_HEX16(0, machineValvesOpen());
+
+    machineFlowSimulate(6, 400);
+    runAt(host::now + machine_policy::kFlowSampleMs);
+    runAt(host::now + machine_policy::kFlowSampleMs);
+    TEST_ASSERT_TRUE(machineIsPouring());
+    machineStop();
+    machineFlowSimulate(0, 0);
+    expectParked();
+
+    // Their return is noted once the gap has passed, with how much changed.
+    runAt(host::now + kNoteGapMs);
+    io = notedOf(machine_log::Kind::Io);
+    TEST_ASSERT_EQUAL_UINT32(2, io.size());
+    TEST_ASSERT_EQUAL_UINT8(0, io[1].detail);
+    TEST_ASSERT_EQUAL_UINT32(1, io[1].a);
+}
+
+void test_the_valve_drivers_are_not_reverified_under_a_running_operation() {
+    start(0);
+    host::now += 100;
+    host::bus.failRead(pcba::MCP_RESERVOIR_A, 0x00);
+    // The prime's own reed read is what meets the failure and ends it.
+    host::bus.failRead(pcba::MCP_RESERVOIR_A, host::kGpioB);
+    runAt(host::now + 1000);
+    expectParked();
+    TEST_ASSERT_FALSE(machineIoReady());
+    runAt(host::now + kIoRetryMs);
+    TEST_ASSERT_TRUE(machineIoReady());
+    expectParked();
+}
+
 void setUp() {
     static uint32_t bootMs = 1000;
     host::now = bootMs;
@@ -1176,6 +1271,10 @@ int main(int, char **) {
     RUN_TEST(test_a_probe_that_chatters_cannot_fill_the_record);
     RUN_TEST(test_the_gas_alarm_is_noted_when_it_trips);
     RUN_TEST(test_a_fill_and_a_prime_are_noted_as_they_end);
+    RUN_TEST(test_the_compressor_is_not_started_when_its_fan_cannot_be_turned);
+    RUN_TEST(test_a_running_compressor_stops_when_the_valve_drivers_stop_answering);
+    RUN_TEST(test_a_bus_glitch_does_not_cost_the_machine_its_valves_until_a_power_cycle);
+    RUN_TEST(test_the_valve_drivers_are_not_reverified_under_a_running_operation);
     RUN_TEST(test_refill_and_automatic_pour_cannot_join_a_wet_prime);
     RUN_TEST(test_active_refill_refuses_prime_without_changing_its_outputs);
     RUN_TEST(test_cold_fan_is_preserved_on_prime_open_and_normal_close);

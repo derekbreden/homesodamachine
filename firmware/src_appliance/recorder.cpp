@@ -118,7 +118,7 @@ void printStep() {
 }  // namespace
 
 void recorderBegin() {
-    lastMs = millis();
+    tick();   // uptime counts from the boot, not from here
     flash.attach(esp_partition_find_first(ESP_PARTITION_TYPE_DATA,
                                           ESP_PARTITION_SUBTYPE_DATA_SPIFFS, nullptr));
     const bool ok = store.begin();

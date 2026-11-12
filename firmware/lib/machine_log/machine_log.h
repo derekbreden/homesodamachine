@@ -25,6 +25,7 @@ enum class Kind : uint8_t {
     Air,         // detail: mode + OpEnd, mode nonzero for a purge; a: the step reached
     Prime,       // detail: channel + OpEnd; a: ms held
     Update,      // detail: nonzero kept, zero could not be confirmed; a: the image's build epoch
+    Io,          // detail: the valve drivers' fault, zero once they verify again; a: changes since the last entry
     Count,
 };
 
