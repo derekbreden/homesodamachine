@@ -34,5 +34,217 @@
     "The scan is of the unassembled cover in one mounting orientation.",
     "Contact with the fixture and optical occlusion limit observed surface coverage.",
     "The fusion spacing does not establish dimensional accuracy or assembled seating."
-  ]
+  ],
+  "loose_fit": {
+    "printed_cover_stl": "hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.stl",
+    "printed_cover_stl_sha256": "ee8ca6e1306f663bb7f4ec83d7e45be30b059888dbe87da40e091e5e0404b13f",
+    "reference_frame": "Faucet tip frame. X across the neck, S back from the dispense face, N outward through the display.",
+    "registration": "Rigid fit to the exact relaxed print STL, refined at the bezel. The broad top bezel establishes the N datum. The wings and nose are measurement surfaces.",
+    "transform": {
+      "coordinate_map": "Row vector in the tip frame equals (scanner point minus scanner origin) times the rotation.",
+      "rotation": [
+        [
+          0.645509402,
+          0.477740929,
+          -0.595886916
+        ],
+        [
+          -0.216938895,
+          0.862764354,
+          0.456700324
+        ],
+        [
+          0.732294427,
+          -0.165533304,
+          0.660563091
+        ]
+      ],
+      "scanner_origin_mm": [
+        36.863458,
+        -30.034948,
+        189.523289
+      ]
+    },
+    "nominal_bezel_face_to_lip_floor_mm": 20.55,
+    "lip_floor_reach": {
+      "measured_s_span_mm": [
+        12,
+        35
+      ],
+      "negative_x_median_mm": 20.25,
+      "positive_x_median_mm": 20.37,
+      "negative_x_sample_count": 1943,
+      "positive_x_sample_count": 2011
+    },
+    "nose_arch": {
+      "measured_s_span_mm": [
+        0.65,
+        1.65
+      ],
+      "sample_x_spans_mm": [
+        [
+          -2.9,
+          -1.55
+        ],
+        [
+          -0.65,
+          0.65
+        ],
+        [
+          1.55,
+          2.9
+        ]
+      ],
+      "sample_counts": [
+        62,
+        61,
+        75
+      ],
+      "median_n_minus_relaxed_stl_mm": [
+        -0.18,
+        0.01,
+        -0.5
+      ],
+      "nominal_center_crown_clearance_mm": 0.65,
+      "method": "Compare downward-facing observed points to the intersection of the relaxed print STL at the same X and S, in the loose bezel datum."
+    },
+    "interpretation": "Reduced wing reach and asymmetric arch intrusion can contribute to partial seating. The loose scan measures the printed cover shape. Assembled contact depends on the tip and the deflected cover."
+  },
+  "mounted_scan": {
+    "part": "The same white PET-GF Sculpted display cover dry-mounted on Derek’s black Sculpted faucet tip.",
+    "date": "2026-11-11",
+    "scanner": "Revopoint MINI 2",
+    "application": "Revo Scan 6.3.2",
+    "mount": "Derek’s dry fit on the puttied turntable. Both passes retain that placement. No display installed.",
+    "tip_print_provenance": "Derek’s existing black tip. Its print job and exact CAD revision are unverified.",
+    "processing": "Native fusion in scanner coordinates. No mesh generation, smoothing, hole filling or rescaling.",
+    "passes": [
+      {
+        "project_id": "6cde56d8-9fc8-4e71-982b-260da8e0ab29",
+        "native_scan_name": "20261111211618",
+        "rendering_frames": 1303,
+        "accuracy": "High Accuracy",
+        "tracking": "Feature",
+        "object_type": "Normal",
+        "color": false,
+        "distance_range_mm": [
+          120,
+          250
+        ],
+        "native_project_archive": "/Users/derekbredensteiner/Documents/3D Scans/2026-11-11-sculpted-display-cover-mounted-black-tip/pass-01/native-project",
+        "cloud_file": "/Users/derekbredensteiner/Documents/3D Scans/2026-11-11-sculpted-display-cover-mounted-black-tip/pass-01/sculpted-cover-mounted-normal-fused.ply",
+        "sha256": "eaa479cb22172276d7e0a9bac7a9824a69723af4034c05b1502dc8cf0b3e8495",
+        "point_count": 826771,
+        "fusion_spacing_mm": 0.1,
+        "observed": "White cover surface. Sparse black tip returns."
+      },
+      {
+        "project_id": "22ea895c-e03a-4191-a4e8-d08766f9f333",
+        "native_scan_name": "20261111212651",
+        "rendering_frames": 1190,
+        "accuracy": "High Accuracy",
+        "tracking": "Feature",
+        "object_type": "Dark/Black",
+        "color": false,
+        "distance_range_mm": [
+          120,
+          250
+        ],
+        "native_project_archive": "/Users/derekbredensteiner/Documents/3D Scans/2026-11-11-sculpted-display-cover-mounted-black-tip/pass-02/native-project",
+        "cloud_file": "/Users/derekbredensteiner/Documents/3D Scans/2026-11-11-sculpted-display-cover-mounted-black-tip/pass-02/sculpted-cover-mounted-fused.ply",
+        "sha256": "62a3c3077b80c729badd34fae507b99e208b4878f67c3737de3b0b586b64cce5",
+        "point_count": 1306744,
+        "fusion_spacing_mm": 0.1,
+        "observed": "White cover and exposed black tip, including the outlet face and exterior neck. The joint obscures the internal contact."
+      }
+    ],
+    "fit_observation": {
+      "reference_tip_stl": "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.stl",
+      "reference_tip_stl_sha256": "a3f80020d3756ea99dc7135a3173c89f9ed05bebebb63ce211d0492e92dc14ad",
+      "nominal_seated_cover_payload": "hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover-seated.step.npz",
+      "nominal_seated_cover_payload_sha256": "ea82af791f1f2611250451b2ccc9aa629ea093c3448eaf706dd3c55c94b108d6",
+      "registration": "Set the longitudinal datum on the observed tip outlet face and refine the pose on the exposed neck shell. Use the measured bezel as the witness for the cover pose. Repeat the tip fit with near-only and longer neck surfaces.",
+      "near_tip_transform": {
+        "coordinate_map": "Row vector in the tip frame equals (scanner point minus scanner origin) times the rotation.",
+        "rotation": [
+          [
+            0.640954413,
+            -0.437402023,
+            -0.630758996
+          ],
+          [
+            -0.322152158,
+            0.59258032,
+            -0.738286226
+          ],
+          [
+            0.696703256,
+            0.676408186,
+            0.238906965
+          ]
+        ],
+        "scanner_origin_mm": [
+          36.347237,
+          -15.996515,
+          185.111155
+        ]
+      },
+      "full_tip_transform": {
+        "coordinate_map": "Row vector in the tip frame equals (scanner point minus scanner origin) times the rotation.",
+        "rotation": [
+          [
+            0.631369916,
+            -0.438016028,
+            -0.6399328
+          ],
+          [
+            -0.332603422,
+            0.592499709,
+            -0.733702295
+          ],
+          [
+            0.700533363,
+            0.676081396,
+            0.228400862
+          ]
+        ],
+        "scanner_origin_mm": [
+          36.377222,
+          -16.021067,
+          185.155857
+        ]
+      },
+      "bezel_s_stations_mm": [
+        5,
+        25,
+        45
+      ],
+      "bezel_n_minus_nominal_seated_near_fit_mm": [
+        1.12,
+        0.42,
+        -0.27
+      ],
+      "bezel_n_minus_nominal_seated_full_fit_mm": [
+        1.11,
+        0.41,
+        -0.29
+      ],
+      "bezel_pitch_deg_approx": 2,
+      "cover_front_setback_from_tip_outlet_face_mm_approx": 0.97,
+      "bezel_agreement_between_mounted_passes": {
+        "method": "Register the Normal cloud to the Dark/Black cloud on overlapping cover faces. Compare the exposed bezel rails.",
+        "point_count": 4746,
+        "normal_pass_minus_dark_pass_n_p10_p50_p90_mm": [
+          -0.05,
+          -0.01,
+          0.06
+        ]
+      }
+    },
+    "limits": [
+      "Hidden lip and groove contact is not observed by the exterior capture.",
+      "Different exposed-neck registrations give opposite small transverse roll, so the scan does not identify which lip is caught.",
+      "Fusion spacing is not a statement of measurement accuracy."
+    ]
+  }
 }
