@@ -8,6 +8,7 @@
 #include "pcba_expanders.h"
 #include "pins.h"
 #include "pour_policy.h"
+#include "recorder.h"
 #include "refill_policy.h"
 #include "proto_msg.h"
 #include "sound.h"
@@ -100,7 +101,7 @@ static bool  simTankValid = false, simCoilValid = false;
 static bool  simReedsOn = false;
 static bool  simCarbLow = false, simCarbHigh = false;
 
-static void refillStop(const char *why, uint32_t now);
+static void refillStop(const char *why, machine_log::RefillEnd end, uint32_t now);
 
 // ── Indicators ────────────────────────────────────────────────────────────
 // ERR hangs off 3V3, so LOW lights it; RUN and ACT run to GND and light HIGH.
@@ -156,6 +157,37 @@ static void heartbeat() {
     }
 }
 
+// ── The record ────────────────────────────────────────────────────────────
+// Every ending below is noted to recorder.h as it happens: what ran, for how long and how
+// it ended. A temperature goes into an entry as tenths of a degree.
+static int16_t tenths(float c, bool valid) {
+    if (!valid) return machine_log::kNoTemp;
+    const float t = c * 10.0f;
+    return (int16_t)(t < 0 ? t - 0.5f : t + 0.5f);
+}
+
+static uint8_t opEnd(machine_log::OpEnd end) { return static_cast<uint8_t>(end); }
+
+// A condition that can chatter — a comparator sitting on its threshold, a probe that answers
+// every other time — is noted when it first changes and then no oftener than this, each
+// entry carrying how many changes it stands for. The ring keeps months only while a bad
+// sensor cannot fill it in a day.
+static const uint32_t kNoteGapMs = 10UL * 60UL * 1000UL;
+
+struct NoteGate {
+    bool     noted;
+    uint32_t notedMs;
+    uint32_t changes;
+};
+
+static bool noteDue(NoteGate &gate, uint32_t now) {
+    if (!gate.changes) return false;
+    if (gate.noted && now - gate.notedMs < kNoteGapMs) return false;
+    gate.noted   = true;
+    gate.notedMs = now;
+    return true;
+}
+
 // ── The gas watch ─────────────────────────────────────────────────────────
 // U15 already holds the compressor off a gas trip in hardware, with no firmware
 // in the path — that interlock is the safety, and this is not it. This is the
@@ -172,12 +204,14 @@ static const uint32_t GAS_SETTLE_MS = 500;
 static bool          gasTrip     = false;
 static bool          gasRaw      = false;
 static unsigned long gasChanged  = 0;
+static NoteGate      gasGate     = {};
 
 static void gasService() {
     bool raw = analogReadMilliVolts(PIN_GAS_DOUT) > GAS_TRIP_MV;
     if (raw != gasRaw) { gasRaw = raw; gasChanged = millis(); }
     if (raw != gasTrip && millis() - gasChanged >= GAS_SETTLE_MS) {
         gasTrip = raw;
+        gasGate.changes++;
         if (gasTrip) {
             Serial.println("\n[machine] GAS TRIP — MQ-6 comparator asserted, alarm sounding");
             soundPlay(SND_ALARM);
@@ -189,6 +223,10 @@ static void gasService() {
     // The alarm loops forever, so re-asserting it costs nothing and covers a
     // soundStop() from anywhere else while the condition still stands.
     if (gasTrip) soundPlay(SND_ALARM);
+    if (noteDue(gasGate, millis())) {
+        recorderNote(machine_log::Kind::Gas, gasTrip ? 1 : 0, gasGate.changes);
+        gasGate.changes = 0;
+    }
 }
 
 bool machineGasTripped() { return gasTrip; }
@@ -354,6 +392,15 @@ static machine_policy::PrimeSessionOutcome primeOutcome(uint8_t state) {
     }
 }
 
+static machine_log::OpEnd primeEnd(uint8_t state) {
+    switch (state) {
+        case PRIME_STOPPED: return machine_log::OpEnd::Stopped;
+        case PRIME_TIMEOUT: return machine_log::OpEnd::Timeout;
+        case PRIME_LIMIT:   return machine_log::OpEnd::Limit;
+        default:            return machine_log::OpEnd::Refused;
+    }
+}
+
 static void announce(uint8_t primeState, uint8_t channel, uint32_t ms) {
     Serial.printf("\n[machine] pump %s %s after %lu ms\n",
                   kPump[channel & 1].who, primeStateName(primeState), (unsigned long)ms);
@@ -386,6 +433,10 @@ static void endPumping(uint8_t primeState, uint32_t ran) {
     }
     led(PIN_LED_ACT, false);
     state = ST_IDLE;
+    recorderNote(machine_log::Kind::Prime,
+                 machine_log::detailOf(ch, opEnd(why == HOLD_PRIME ? primeEnd(primeState)
+                                                                   : machine_log::OpEnd::Done)),
+                 ran);
 
     if (why == HOLD_PRIME) {
         primeSession.pumpStopped(primeOutcome(primeState), ran);
@@ -510,6 +561,17 @@ static void fillParked() {
     Serial.printf("\n[machine] fill %s: %s after %lu ms — valves closed\n",
                   kPump[fillChannel & 1].who, fillOutcomeName(fillOutcome),
                   (unsigned long)fillElapsedMs);
+    machine_log::OpEnd end = machine_log::OpEnd::Other;
+    switch (fillOutcome) {
+        case FILL_OUTCOME_DONE:    end = machine_log::OpEnd::Done;    break;
+        case FILL_OUTCOME_FULL:    end = machine_log::OpEnd::Full;    break;
+        case FILL_OUTCOME_STOPPED: end = machine_log::OpEnd::Stopped; break;
+        case FILL_OUTCOME_FAULT:   end = machine_log::OpEnd::Fault;   break;
+        case FILL_OUTCOME_GAS:     end = machine_log::OpEnd::Gas;     break;
+        default: break;
+    }
+    recorderNote(machine_log::Kind::Fill, machine_log::detailOf(fillChannel & 1, opEnd(end)),
+                 fillElapsedMs);
     switch (fillOutcome) {
         case FILL_OUTCOME_DONE:
         case FILL_OUTCOME_FULL:    soundPlay(SND_CHIME); break;
@@ -764,6 +826,16 @@ static void cleanParked(uint8_t outcome) {
     Serial.printf("\n[machine] clean %s: %s in %s — valves closed\n",
                   kPump[cleanChannel & 1].who, cleanOutcomeName(outcome),
                   cleanStepWhere(cleanStepIndex, where, sizeof(where)));
+    machine_log::OpEnd end = machine_log::OpEnd::Other;
+    switch (outcome) {
+        case CLEAN_OUTCOME_DONE:    end = machine_log::OpEnd::Done;    break;
+        case CLEAN_OUTCOME_STOPPED: end = machine_log::OpEnd::Stopped; break;
+        case CLEAN_OUTCOME_FAULT:   end = machine_log::OpEnd::Fault;   break;
+        case CLEAN_OUTCOME_GAS:     end = machine_log::OpEnd::Gas;     break;
+        default: break;
+    }
+    recorderNote(machine_log::Kind::Clean, machine_log::detailOf(cleanChannel & 1, opEnd(end)),
+                 cleanStepIndex);
     switch (outcome) {
         case CLEAN_OUTCOME_DONE:    soundPlay(SND_CHIME); break;
         case CLEAN_OUTCOME_STOPPED: soundPlay(SND_ACK);   break;
@@ -1066,6 +1138,17 @@ static void airParked(uint8_t outcome) {
                   (unsigned)(airStepIndex + 1),
                   (unsigned)machine_policy::airSteps(airModeOf(airMode)),
                   airStepName(airStepKind(airMode, airStepIndex)));
+    machine_log::OpEnd end = machine_log::OpEnd::Other;
+    switch (outcome) {
+        case AIR_OUTCOME_DONE:    end = machine_log::OpEnd::Done;    break;
+        case AIR_OUTCOME_STOPPED: end = machine_log::OpEnd::Stopped; break;
+        case AIR_OUTCOME_FAULT:   end = machine_log::OpEnd::Fault;   break;
+        case AIR_OUTCOME_GAS:     end = machine_log::OpEnd::Gas;     break;
+        default: break;
+    }
+    recorderNote(machine_log::Kind::Air,
+                 machine_log::detailOf(airMode == AIR_MODE_PURGE ? 1 : 0, opEnd(end)),
+                 airStepIndex);
     switch (outcome) {
         case AIR_OUTCOME_DONE:    soundPlay(SND_CHIME); break;
         case AIR_OUTCOME_STOPPED: soundPlay(SND_ACK);   break;
@@ -1223,10 +1306,11 @@ static machine_policy::Pour pour;
 static uint8_t  pourChannel = 0;
 static uint32_t pourCycles  = 0;
 static uint32_t pourStartMs = 0;
+static uint32_t pourStartPulses = 0;   // flowTotal when the path opened
 
 static void IRAM_ATTR flowIsr() { flowEdges = flowEdges + 1; }
 
-static void pourClose(const char *how) {
+static void pourClose(const char *how, machine_log::PourEnd end) {
     if (pour.pumpOn() || state == ST_POURING) pumpPark(pourChannel);
     if (!applyOutputs(0)) pcba::expanders().parkAll();
     led(PIN_LED_ACT, false);
@@ -1234,6 +1318,11 @@ static void pourClose(const char *how) {
     Serial.printf("\n[machine] pour %s: %s after %lu ms, %lu bursts — valves closed\n",
                   kPump[pourChannel].who, how, (unsigned long)(millis() - pourStartMs),
                   (unsigned long)pourCycles);
+    recorderNote(machine_log::Kind::Pour,
+                 machine_log::detailOf(pourChannel, static_cast<uint8_t>(end)),
+                 millis() - pourStartMs, flowTotal - pourStartPulses,
+                 (int16_t)(pourCycles > (uint32_t)INT16_MAX ? INT16_MAX : pourCycles),
+                 (int16_t)flavorRatio(pourChannel));
 }
 
 static void pourService(uint32_t now) {
@@ -1257,7 +1346,7 @@ static void pourService(uint32_t now) {
     }
     if (state == ST_POURING && machineGasTripped()) {
         pour.reset();
-        pourClose("gas alarm");
+        pourClose("gas alarm", machine_log::PourEnd::Gas);
         return;
     }
     const uint8_t ratio = flavorRatio(state == ST_POURING ? pourChannel : flavorSelected());
@@ -1265,7 +1354,7 @@ static void pourService(uint32_t now) {
     switch (action) {
         case machine_policy::PourAction::Start: {
             // The 5 A comes off the rail before the dispense path opens.
-            if (state == ST_REFILLING) refillStop("a pour began", now);
+            if (state == ST_REFILLING) refillStop("a pour began", machine_log::RefillEnd::Pour, now);
             pourChannel = flavorSelected() & 1;
             const machine_policy::ActuatorPlan plan = machine_policy::canonicalPlan(
                 pourChannel == 0 ? machine_policy::Operation::DispenseA
@@ -1277,10 +1366,15 @@ static void pourService(uint32_t now) {
                 pour.reset();
                 Serial.printf("\n[machine] pour %s: the path could not be opened — parked\n",
                               kPump[pourChannel].who);
+                recorderNote(machine_log::Kind::Pour,
+                             machine_log::detailOf(pourChannel, static_cast<uint8_t>(
+                                                       machine_log::PourEnd::PathFault)),
+                             0, 0, 0, (int16_t)ratio);
                 soundPlay(SND_FAULT);
                 return;
             }
             pourStartMs = now;
+            pourStartPulses = flowTotal;
             pourCycles  = 1;
             state = ST_POURING;
             led(PIN_LED_ACT, true);
@@ -1292,17 +1386,24 @@ static void pourService(uint32_t now) {
         }
         case machine_policy::PourAction::PumpOn:
             if (state != ST_POURING) { pour.reset(); return; }
-            if (!pumpDrive(pourChannel)) { pour.reset(); pourClose("the pump would not start"); return; }
+            if (!pumpDrive(pourChannel)) {
+                pour.reset();
+                pourClose("the pump would not start", machine_log::PourEnd::PumpFault);
+                return;
+            }
             pourCycles++;
             break;
         case machine_policy::PourAction::PumpOff:
             if (state == ST_POURING) pumpPark(pourChannel);
             break;
         case machine_policy::PourAction::Stop:
-            if (state == ST_POURING) pourClose("flow stopped");
+            if (state == ST_POURING) pourClose("flow stopped", machine_log::PourEnd::FlowStopped);
             break;
         case machine_policy::PourAction::Ceiling:
-            if (state == ST_POURING) { pourClose("the meter never stopped"); soundPlay(SND_FAULT); }
+            if (state == ST_POURING) {
+                pourClose("the meter never stopped", machine_log::PourEnd::Ceiling);
+                soundPlay(SND_FAULT);
+            }
             break;
         case machine_policy::PourAction::None:
             break;
@@ -1334,6 +1435,26 @@ static bool     compressorRelay = false;
 static bool     refillRelay     = false;
 static uint32_t refillReedMs    = 0;
 
+// What the record keeps of a compressor run and of the cold loop's troubles.
+static uint32_t compressorOnMs = 0;
+static int16_t  coilMinTenths  = machine_log::kNoTemp;
+static machine_policy::ColdState coldSeen = machine_policy::ColdState::Off;
+static bool     coldTrouble    = false;   // a change into or out of Fault or Freeze is unnoted
+static NoteGate coldGate       = {};
+static uint32_t coldBootMs     = 0;
+static bool     coldWatched    = false;   // the probes have had kReadingStaleMs to answer
+
+static uint8_t coldTo(machine_policy::ColdState s) {
+    switch (s) {
+        case machine_policy::ColdState::Fault:   return static_cast<uint8_t>(machine_log::ColdTo::Fault);
+        case machine_policy::ColdState::Off:     return static_cast<uint8_t>(machine_log::ColdTo::Off);
+        case machine_policy::ColdState::Holding: return static_cast<uint8_t>(machine_log::ColdTo::Holding);
+        case machine_policy::ColdState::On:      return static_cast<uint8_t>(machine_log::ColdTo::On);
+        case machine_policy::ColdState::Freeze:  return static_cast<uint8_t>(machine_log::ColdTo::Freeze);
+    }
+    return static_cast<uint8_t>(machine_log::ColdTo::Fault);
+}
+
 // A relay coil is a level, not a sequence. Parked as an input, which is dark:
 // a Teyleten opto with no drive holds its relay open.
 static void relayDrive(int pin, bool on) {
@@ -1346,6 +1467,7 @@ static void relayDrive(int pin, bool on) {
 }
 
 static void compressorRelaySet(bool on) {
+    const bool was = compressorRelay;
     compressorRelay = on;
     relayDrive(PIN_RELAY_COMPRESSOR, on);
     condenserFanOn = on;
@@ -1353,6 +1475,17 @@ static void compressorRelaySet(bool on) {
     if (state != ST_SELFTEST) applyOutputs(machineValvesOpen());
     Serial.printf("\n[machine] compressor %s — %s, tank %.1f C, coil %.1f C\n",
                   on ? "ON" : "off", cold.stateName(), cold.tankC(), cold.coilC());
+    if (on && !was) {
+        compressorOnMs = millis();
+        coilMinTenths  = tenths(cold.coilC(), cold.coilValid());
+    } else if (!on && was) {
+        // Under the gas alarm the policy is about to be reset, and has not yet left On.
+        recorderNote(machine_log::Kind::Compressor,
+                     machineGasTripped() ? static_cast<uint8_t>(machine_log::ColdTo::Off)
+                                         : coldTo(cold.state()),
+                     (millis() - compressorOnMs) / 1000, 0,
+                     tenths(cold.tankC(), cold.tankValid()), coilMinTenths);
+    }
 }
 
 static const uint32_t kColdPeriodMs = 1000;
@@ -1378,11 +1511,44 @@ static void coldService(uint32_t now) {
         oneWireRead(r.tankC, r.tankValid, r.coilC, r.coilValid);
     }
     cold.reading(r, now);
+    if (compressorRelay && r.coilValid) {
+        const int16_t coil = tenths(r.coilC, true);
+        if (coilMinTenths == machine_log::kNoTemp || coil < coilMinTenths) coilMinTenths = coil;
+    }
 
     switch (cold.service(now)) {
         case machine_policy::ColdAction::CompressorOn:  compressorRelaySet(true);  break;
         case machine_policy::ColdAction::CompressorOff: compressorRelaySet(false); break;
         case machine_policy::ColdAction::None: break;
+    }
+
+    // A compressor run is its own entry. What is noted here is the loop losing its readings
+    // or reaching the freeze cutout, and its way back out of either. A boot starts with no
+    // reading at all, so the watch begins once the probes have had time to give one: a
+    // machine whose probes never answer is noted then, and one whose probes do is not.
+    const machine_policy::ColdState s = cold.state();
+    if (!coldWatched) {
+        if (now - coldBootMs < machine_policy::kReadingStaleMs) return;
+        coldWatched = true;
+        coldSeen    = machine_policy::ColdState::Off;
+    }
+    if (s != coldSeen) {
+        const bool trouble = s == machine_policy::ColdState::Fault ||
+                             s == machine_policy::ColdState::Freeze ||
+                             coldSeen == machine_policy::ColdState::Fault ||
+                             coldSeen == machine_policy::ColdState::Freeze;
+        coldSeen = s;
+        if (trouble) {
+            coldTrouble = true;
+            coldGate.changes++;
+        }
+    }
+    if (coldTrouble && noteDue(coldGate, now)) {
+        recorderNote(machine_log::Kind::Cold, coldTo(s), coldGate.changes, 0,
+                     tenths(cold.tankC(), cold.tankValid()),
+                     tenths(cold.coilC(), cold.coilValid()));
+        coldGate.changes = 0;
+        coldTrouble      = false;
     }
 }
 
@@ -1398,6 +1564,9 @@ static void refillStart(uint32_t now) {
         applyOutputs(0);
         refill.reset(now);
         Serial.println("\n[machine] refill: the path could not be opened — parked");
+        recorderNote(machine_log::Kind::Refill,
+                     static_cast<uint8_t>(machine_log::RefillEnd::PathFault), 0, 0,
+                     tenths(cold.tankC(), cold.tankValid()));
         soundPlay(SND_FAULT);
         return;
     }
@@ -1412,8 +1581,10 @@ static void refillStart(uint32_t now) {
                   valveNames(plan.valves, names, sizeof(names)));
 }
 
-static void refillStop(const char *why, uint32_t now) {
-    (void)now;
+static void refillStop(const char *why, machine_log::RefillEnd end, uint32_t now) {
+    // A pour stops the draw itself and the policy then stands the same draw down: it is
+    // one draw, and the first of the two names how it ended.
+    const bool drawing = refillRelay;
     // The relay first: the 5 A comes off the rail before anything else moves.
     if (refillRelay) {
         relayDrive(PIN_RELAY_REFILL, false);
@@ -1425,6 +1596,9 @@ static void refillStop(const char *why, uint32_t now) {
         led(PIN_LED_ACT, false);
     }
     Serial.printf("\n[machine] refill stopped — %s (%s)\n", why, refill.stateName());
+    if (drawing)
+        recorderNote(machine_log::Kind::Refill, static_cast<uint8_t>(end), refill.pumpedMs(now), 0,
+                     tenths(cold.tankC(), cold.tankValid()));
 }
 
 static void refillService(uint32_t now) {
@@ -1453,7 +1627,16 @@ static void refillService(uint32_t now) {
 
     switch (refill.service(now, ctx)) {
         case machine_policy::RefillAction::Start: refillStart(now); break;
-        case machine_policy::RefillAction::Stop:  refillStop("the policy stood it down", now); break;
+        case machine_policy::RefillAction::Stop: {
+            const machine_log::RefillEnd end =
+                refill.state() == machine_policy::RefillState::Timeout ? machine_log::RefillEnd::Timeout
+                : (rd.valid && rd.highClosed)                          ? machine_log::RefillEnd::Full
+                                                                       : machine_log::RefillEnd::Held;
+            refillStop("the policy stood it down", end, now);
+            // The machine has stopped making soda and will not start again by itself.
+            if (end == machine_log::RefillEnd::Timeout) soundPlay(SND_FAULT);
+            break;
+        }
         case machine_policy::RefillAction::None:  break;
     }
 }
@@ -1685,6 +1868,12 @@ void machineBegin() {
     compressorRelay = false;
     refillRelay     = false;
     condenserFanOn  = false;
+    coldBootMs      = millis();
+    coldWatched     = false;
+    coldTrouble     = false;
+    coldGate        = {};
+    gasGate         = {};
+    coilMinTenths   = machine_log::kNoTemp;
     oneWireBegin();
     primeSession = machine_policy::PrimeSession();
     primeRunUsesSession = false;
@@ -1981,8 +2170,12 @@ void machineStop() {
     else if (state == ST_CLEANING) machineCleanStop();
     else if (state == ST_AIRING)   machineAirStop();
     else if (state == ST_SELFTEST) machineSelfTestStop();
-    else if (state == ST_POURING)  { pour.reset(); flowSimUntilMs = 0; pourClose("stopped on request"); }
-    else if (state == ST_REFILLING) refillStop("stopped on request", millis());
+    else if (state == ST_POURING)  {
+        pour.reset();
+        flowSimUntilMs = 0;
+        pourClose("stopped on request", machine_log::PourEnd::Stopped);
+    }
+    else if (state == ST_REFILLING) refillStop("stopped on request", machine_log::RefillEnd::Stopped, millis());
     else                           endPumping(PRIME_STOPPED);
 }
 

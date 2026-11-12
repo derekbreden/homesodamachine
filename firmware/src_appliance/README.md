@@ -113,6 +113,10 @@ board also establishes and reports the safe I/O foundation the next connected be
   none of it.
 - **Sound.** The whole vocabulary below, the volume and quiet-hours settings behind it,
   and the gas alarm that none of those settings can reach.
+- **The record.** Every pour, refill draw, compressor run, fill, clean cycle, air cycle and
+  prime is noted as it ends — what ran, for how long, and how it ended — beside every boot
+  with its reset reason, the gas alarm, and the cold loop losing its probes or reaching the
+  freeze cutout. `log` reads it back; [The record](#the-record) is how it is kept.
 
 At boot both MCP23017 output latches are cleared before Port A becomes output, their complete
 safety configuration is read back, and Port B gets the internal pull-ups the reed looms rely
@@ -137,11 +141,43 @@ debounced, then held in `Queued` for as long as a dispense window is open or ano
 owns the manifold; a draw runs `ST_REFILLING` with V-K open and relay #2 closed until CHI, a
 ceiling on pumping time, or a pour — which stops the draw before it opens its own path. Two
 reeds can close together in an RC62 activation overlap; the high reed keeps refill off.
-A pump-time timeout remains latched until `refill clear`.
+A pump-time timeout sounds `fault` and remains latched until `refill clear`.
 
 `status` prints both loops with their relays; `thermal` walks the bus; `sim` puts a reading at
 the top of either so the policy, the relays and the fan can be exercised with no probe on the
 bench, and says `SIMULATED` on every `status` while one stands.
+
+## The record
+
+The machine keeps its own account of what it did, so that a month at a sink is something
+that can be read afterwards. [`/firmware/lib/machine_log`](/firmware/lib/machine_log/machine_log.h)
+is the entry, the ring it is kept in and the line it reads as, and reaches no Arduino;
+`recorder.cpp` puts that ring in the main board's `spiffs` partition, which no filesystem is
+mounted on and which no update has to change the partition table to reach.
+
+An entry is made when a thing ends and waits in RAM. It is written only while the machine is
+idle and the sounder is quiet, one flash operation a pass of the loop, on the same terms as
+the flavor selection: a write stalls the loop and an erase stalls it for longer, and neither
+belongs inside a pour. A queue that fills keeps what it holds and counts what it turned away.
+
+Entries are written one after another and a sector is erased only as the head enters it, so
+the ring always holds the newest and loses the oldest a sector at a time. Each carries its
+own check, so a write that loses power costs that one slot and every reader steps over it.
+A boot finds the head by reading the first entry of every sector.
+
+Each entry carries its number, which boot it was made in, the seconds since that boot, and
+U6's date and time when U6 can be believed. A condition that can chatter — the gas comparator
+on its threshold, a probe that answers every other time — is noted when it first changes and
+then no oftener than `kNoteGapMs`, each entry carrying how many changes it stands for, so a
+bad sensor cannot turn the ring over in a day. A boot is given `kReadingStaleMs` for its
+probes to answer before the cold loop is judged: a machine whose probes never answer is noted
+once, and one whose probes do is not.
+
+`log` prints the newest entries oldest first, a line a pass so the loop keeps turning under
+it; `log all` prints every entry the ring holds and `log status` says where the ring stands,
+what is waiting and what was lost. A line is the entry's number, its boot, its uptime, its
+clock or `-`, what it was, and that thing's own fields by name —
+[`machine_log::format`](/firmware/lib/machine_log/machine_log.cpp) is the whole of it.
 
 ## The files
 
@@ -154,6 +190,7 @@ bench, and says `SIMULATED` on every `status` while one stands.
 | `faucet_link.cpp` | J3 full-duplex flavor acknowledgements, shared-prime controls/state, and what a phone may ask |
 | `flavor.cpp` | main-board-owned flavor state and deferred NVS persistence |
 | `rtc.cpp` | U6 DS3231 — what hour it is, and whether that answer can be believed |
+| `recorder.cpp` | the machine's record: entries waiting for an idle moment, the flash they are kept in, the console's `log` |
 | `pins.h` | what this image reaches on the main board, off `pcba.tsx` |
 | [`/firmware/lib/sound`](/firmware/lib/sound/sound.h) | U8, IO13, and the machine's sounds — shared with the bench |
 
@@ -185,6 +222,7 @@ pio device monitor -e appliance
 | `selftest` | [`firmware-and-commissioning.md`](/hardware/assembly/firmware-and-commissioning.md) §7: V-A through V-K for a quarter second each, the condenser fan for a second, then each pump for a second, one load at a time, each parked and read back before the next |
 | `stop` | end whatever is running |
 | `status` | machine state, uptime, heap, verified MCP configuration/output park, all ten reeds |
+| `log [n\|all\|status]` | the machine's record: its newest `n` entries, every entry it holds, or where the ring stands |
 | `link` | J9 frames/echo plus J3 connection, synchronization, state heartbeats, duplicates and invalid frames |
 | `ping` | put a frame on the pair and read its echo back |
 | `display usb` | explicitly detach/wake the enclosure display's USB PHY |
