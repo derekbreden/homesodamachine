@@ -11,6 +11,8 @@
 #include "recorder.h"
 #include "refill_policy.h"
 #include "refill_store.h"
+#include "sweep_policy.h"
+#include "sweep_store.h"
 #include "proto_msg.h"
 #include "sound.h"
 
@@ -1302,6 +1304,97 @@ bool machineIsAiring() { return state == ST_AIRING; }
 
 void machineReadAirState(MachineAirState &st) { airFill(st, millis()); }
 
+// The carbonator's two reeds as the refill and the sweep read them: the console's, or the
+// cache while it is fresh.
+static machine_policy::RefillReading carbonatorReading() {
+    machine_policy::RefillReading rd;
+    if (simReedsOn) {
+        rd.lowClosed  = simCarbLow;
+        rd.highClosed = simCarbHigh;
+        rd.valid      = true;
+    } else {
+        // Against the clock as it stands, not a pass's `now`: a read made in that pass took
+        // time, so its stamp is later than `now`, and the difference the other way round is
+        // not a small number.
+        rd.valid      = reedCacheValid && (uint32_t)(millis() - reedCacheMs) < kReedFreshMs;
+        rd.lowClosed  = reedCache.carbonatorLowClosed;
+        rd.highClosed = reedCache.carbonatorHighClosed;
+    }
+    return rd;
+}
+
+// ── The sweep ─────────────────────────────────────────────────────────────
+// A carbonator that was drained and opened owes a sweep before it is filled
+// (machine_policy::Sweep). The sweep drives no load, so it stands beside `state` the way
+// the cold loop does. While it is owed the refill's gate is shut and the meter's pulses
+// are gas: pourService() hands each flow reading here and opens no pour on them.
+static machine_policy::Sweep sweep;
+static bool     sweepOwedKept = false;   // what the flash holds of sweep.owed()
+static uint32_t sweepBeganMs  = 0;       // the first gas of the sweep that is owed; 0 before any
+static uint32_t sweepDoneMs   = 0;       // when the glasses began saying Done; 0 once they have stopped
+static uint32_t sweepNoteMs   = 0;
+
+// How long both glasses go on saying a sweep is done after the lever is let go.
+static const uint32_t kSweepDoneNoticeMs = 6000;
+
+static void sweepKeep(bool owed) {
+    if (owed == sweepOwedKept) return;
+    sweepOwedKept = owed;
+    sweepOwedSave(owed);
+}
+
+static void sweepRecord(machine_log::SweepEnd end, uint32_t now) {
+    recorderNote(machine_log::Kind::Sweep, static_cast<uint8_t>(end),
+                 sweepBeganMs ? now - sweepBeganMs : 0, sweep.pulses());
+    sweepBeganMs = 0;
+}
+
+static void sweepSample(uint32_t pulses, uint32_t now) {
+    if (sweepDoneMs && !sweep.owed() && now - sweepDoneMs >= kSweepDoneNoticeMs) sweepDoneMs = 0;
+    if (!sweep.owed()) return;
+
+    switch (sweep.sample(pulses, carbonatorReading())) {
+        case machine_policy::SweepAction::Began:
+            if (!sweepBeganMs) sweepBeganMs = now ? now : 1;
+            sweepNoteMs = now;
+            soundPlay(SND_ENGAGE);
+            Serial.printf("\n[machine] sweep: gas is moving, from %u %%\n", (unsigned)sweep.percent());
+            break;
+        case machine_policy::SweepAction::Paused:
+            soundPlay(SND_RELEASE);
+            Serial.printf("\n[machine] sweep: the gas stopped at %u %% — still owed\n",
+                          (unsigned)sweep.percent());
+            break;
+        case machine_policy::SweepAction::Done:
+            Serial.printf("\n[machine] sweep done: %lu pulses — the first fill waits for the lever\n",
+                          (unsigned long)sweep.pulses());
+            sweepRecord(machine_log::SweepEnd::Done, now);
+            sweepDoneMs = now ? now : 1;
+            soundPlay(SND_CHIME);
+            break;
+        case machine_policy::SweepAction::Released:
+            sweepKeep(false);
+            sweepDoneMs = now ? now : 1;
+            Serial.println("\n[machine] sweep: the lever is let go — the first fill is asked for");
+            machineRefillRequest();
+            break;
+        case machine_policy::SweepAction::Moot:
+            Serial.println("\n[machine] sweep dropped: the carbonator holds water");
+            sweepRecord(machine_log::SweepEnd::Moot, now);
+            sweepKeep(false);
+            break;
+        case machine_policy::SweepAction::None:
+            break;
+    }
+
+    // The pitch is the progress bar, as it is for a hold.
+    if (sweep.flowing() && now - sweepNoteMs >= HOLD_NOTE_MS) {
+        sweepNoteMs = now;
+        soundPlayNote((uint16_t)(HOLD_HZ_LO + (HOLD_HZ_HI - HOLD_HZ_LO) * (int)sweep.percent() / 100),
+                      HOLD_NOTE_LEN_MS, HOLD_NOTE_DUTY);
+    }
+}
+
 // ── The pour ──────────────────────────────────────────────────────────────
 // The meter's falling edges are counted on IO25; every kFlowSampleMs the
 // count is a flow reading for machine_policy::Pour, which says when the
@@ -1348,6 +1441,13 @@ static void pourService(uint32_t now) {
             else flowSimUntilMs = 0;
         }
         pour.sample(n);
+        sweepSample(n, now);
+    }
+    // A sweep that is owed has the meter: its pulses are gas, and no flavor follows them.
+    if (sweep.owed()) {
+        if (state == ST_POURING) pourClose("a sweep is owed", machine_log::PourEnd::Stopped);
+        pour.reset();
+        return;
     }
     if (state != ST_IDLE && state != ST_POURING && state != ST_REFILLING) { pour.reset(); return; }
     if (state == ST_IDLE && (machineGasTripped() || !pcba::expanders().initialized())) {
@@ -1646,25 +1746,14 @@ static void refillService(uint32_t now) {
         readReeds();
     }
 
-    machine_policy::RefillReading rd;
-    if (simReedsOn) {
-        rd.lowClosed  = simCarbLow;
-        rd.highClosed = simCarbHigh;
-        rd.valid      = true;
-    } else {
-        // Against the clock as it stands, not this pass's `now`: the read above took time,
-        // so its stamp is later than `now`, and the difference the other way round is not
-        // a small number.
-        rd.valid      = reedCacheValid && (uint32_t)(millis() - reedCacheMs) < kReedFreshMs;
-        rd.lowClosed  = reedCache.carbonatorLowClosed;
-        rd.highClosed = reedCache.carbonatorHighClosed;
-    }
+    const machine_policy::RefillReading rd = carbonatorReading();
     refill.reading(rd, now);
 
     machine_policy::RefillContext ctx;
     ctx.dispenseOpen = machineDispenseWindowOpen();
+    // No water goes in over air that a sweep has still to take out.
     ctx.machineIdle  = (state == ST_IDLE || state == ST_REFILLING) &&
-                       !machineGasTripped() && pcba::expanders().initialized();
+                       !machineGasTripped() && pcba::expanders().initialized() && !sweep.owed();
 
     const machine_policy::RefillAction action = refill.service(now, ctx);
 
@@ -1817,7 +1906,11 @@ bool machineRefillLatched() {
 static uint8_t  noticeHoldKinds   = 0;
 static uint32_t noticeHoldSinceMs = 0;
 
-uint8_t machineNoticeStanding() { return machineRefillLatched() ? NOTICE_NO_WATER : NOTICE_NONE; }
+uint8_t machineNoticeStanding() {
+    if (sweep.done() || sweepDoneMs) return NOTICE_SWEEP_DONE;
+    if (sweep.owed()) return NOTICE_SWEEP;
+    return machineRefillLatched() ? NOTICE_NO_WATER : NOTICE_NONE;
+}
 
 void machineNoticeHold(uint8_t kinds) {
     noticeHoldKinds   = kinds;
@@ -1838,6 +1931,44 @@ uint32_t machineNoticeHoldLeftMs() {
 uint8_t machineNotice() {
     const uint8_t kind = machineNoticeStanding();
     return kind < 8 && ((machineNoticeHeld() >> kind) & 1) ? NOTICE_NONE : kind;
+}
+
+void machineSweep(MachineSweep &s) {
+    s.owed    = sweep.owed();
+    s.flowing = sweep.flowing();
+    s.done    = sweep.done();
+    s.percent = sweep.percent();
+    s.pulses  = sweep.pulses();
+}
+
+bool machineSweepOwe() {
+    const machine_policy::RefillReading rd = carbonatorReading();
+    if (rd.valid && (rd.lowClosed || rd.highClosed)) return false;
+    machineRefillForget();
+    sweep.owe();
+    sweepBeganMs = 0;
+    sweepDoneMs  = 0;
+    sweepKeep(true);
+    return true;
+}
+
+bool machineSweepSkip() {
+    if (!sweep.owed()) return false;
+    if (!sweep.done()) sweepRecord(machine_log::SweepEnd::Skipped, millis());
+    sweep.clear();
+    sweepDoneMs = 0;
+    sweepKeep(false);
+    machineRefillRequest();
+    return true;
+}
+
+bool machineSweepForget() {
+    if (!sweep.owed()) return false;
+    sweep.clear();
+    sweepBeganMs = 0;
+    sweepDoneMs  = 0;
+    sweepKeep(false);
+    return true;
 }
 
 void machineRefillRequest() { refill.resume(millis()); }
@@ -2029,6 +2160,13 @@ void machineBegin() {
     refillOwedKept  = refillOwedLoad();
     refillSpentKept = refillSpentLoad();
     if (refillOwedKept) refill.resume(millis(), refillSpentKept);
+    // A sweep that was owed when the power went is owed still, from the start of its count.
+    sweep         = machine_policy::Sweep();
+    sweepOwedKept = sweepOwedLoad();
+    if (sweepOwedKept) sweep.owe();
+    sweepBeganMs = 0;
+    sweepDoneMs  = 0;
+    sweepNoteMs  = 0;
     // A bench's hold is the bench's to renew: a board that restarts starts with none.
     noticeHoldKinds = 0;
     compressorRelay = false;

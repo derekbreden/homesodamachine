@@ -84,7 +84,8 @@ Coca-Cola measured unvented fountain carbonators at up to 30 % air and put a
 20–25 % level at 1.0–1.5 volumes of lost carbonation
 ([US4745853](https://patents.google.com/patent/US4745853A/en)). A carbonator
 measured before and after that build-up has been measured at two operating
-points.
+points. The air a drained tank holds is swept out before its first fill
+([pressure vessel](/hardware/assembly/pressure-vessel.md#co2-supply-and-pressure-protection)) and is no part of it.
 
 Qualify at the nominal 43.5 psig feed, the primary at its factory 75 psig.
 Trials at other feeds use the bench's adjustable regulator, never a unit's

@@ -110,12 +110,35 @@ bool sendIdle() {
     return false;
 }
 
+// What the faucet's glass was last told, and when. A sweep's bar moves under a hand, so a
+// notice that has changed goes out without waiting for the heartbeat, and no closer to the
+// one before it than kNoticeMinMs.
+NoticePayload noticeSent{NOTICE_NONE, 0, 0};
+uint32_t      noticeSentMs = 0;
+constexpr uint32_t kNoticeMinMs = 100;
+
+// The notice as it stands: the kind, and for a sweep how far it has got.
+NoticePayload noticeNow() {
+    NoticePayload notice{machineNotice(), 0, 0};
+    if (notice.kind == NOTICE_SWEEP) {
+        MachineSweep sweep;
+        machineSweep(sweep);
+        notice.progress = sweep.percent;
+        notice.flags    = sweep.flowing ? NOTICE_F_FLOWING : 0;
+    } else if (notice.kind == NOTICE_SWEEP_DONE) {
+        notice.progress = 100;
+    }
+    return notice;
+}
+
 // Why there is no soda, for the faucet's glass. Absolute and on the heartbeat, like the idle
 // state above, and on its own message so a faucet built before it is unaffected.
 bool sendNotice() {
-    NoticePayload notice{machineNotice()};
+    const NoticePayload notice = noticeNow();
     if (faucet.trySend(MSG_NOTICE, &notice, sizeof(notice)) >= 0) {
         ++framesTx;
+        noticeSent   = notice;
+        noticeSentMs = millis();
         return true;
     }
     return false;
@@ -742,6 +765,16 @@ void faucetLinkService() {
     // replica gets its turn. A RUNNING/OFF transition therefore is never held
     // behind a routine flavor heartbeat.
     faucet.service();
+
+    // A notice that has changed since the glass was last told.
+    {
+        const NoticePayload notice = noticeNow();
+        if (memcmp(&notice, &noticeSent, sizeof(notice)) != 0 &&
+            static_cast<uint32_t>(now - noticeSentMs) >= kNoticeMinMs) {
+            sendNotice();
+            faucet.service();
+        }
+    }
 
     const bool revisionPending = flavorRevision() != lastSentRevision;
     if (flavor_link_policy::mainBoardStatePublicationDue(

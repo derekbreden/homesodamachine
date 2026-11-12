@@ -160,8 +160,12 @@ static lv_obj_t *primeExitBtn, *primeHoldBtn;
 static lv_obj_t *primeExitLbl, *primeHoldLbl, *primeStatusLbl;
 static lv_obj_t *trustLayer, *trustTitleLbl, *trustBodyLbl;
 static uint8_t   trustShownAsk = 0;   // the ask on the glass; 0 while none is
-static lv_obj_t *noticeLayer, *noticeTitleLbl, *noticeBodyLbl;
+static lv_obj_t *noticeLayer, *noticeTitleLbl, *noticeBodyLbl, *noticeTrack, *noticeFill;
 static uint8_t   noticeKind = NOTICE_NONE;   // what the main board says stops the soda
+static uint8_t   noticeProgress = 0;         // a sweep's count, percent
+static bool      noticeFlowing = false;      // gas is moving through the tank now
+static uint8_t   noticeFace = 0xFF;          // which words the strip wears, NOTICE_FACE_*; none yet
+static uint8_t   noticeFaceSaid = 0xFF;      // the face whose layout the console last heard
 static bool trustLayoutReserved = false;
 static bool trustPressed = false;
 static bool touchIsDown = false;
@@ -1054,18 +1058,26 @@ static void trustLayoutService(lv_timer_t *) {
   if (notice && lv_obj_has_flag(noticeLayer, LV_OBJ_FLAG_HIDDEN)) {
     lv_obj_clear_flag(noticeLayer, LV_OBJ_FLAG_HIDDEN);
     lv_obj_move_foreground(noticeLayer);
-    // This glass has no camera on it. What it laid out goes to the main board's console.
+    noticeFaceSaid = 0xFF;
+  } else if (!notice) {
+    lv_obj_add_flag(noticeLayer, LV_OBJ_FLAG_HIDDEN);
+  }
+  // This glass has no camera on it. What it laid out goes to the main board's console, once
+  // for each face the strip wears while it is up.
+  if (notice && noticeFace != noticeFaceSaid) {
+    noticeFaceSaid = noticeFace;
     lv_obj_update_layout(noticeLayer);
-    char line[80];
-    snprintf(line, sizeof(line), "notice %u up: title %dx%d at %d, body %dx%d at %d, strip %d",
-             (unsigned)noticeKind,
+    char line[112];
+    snprintf(line, sizeof(line),
+             "notice %u.%u up: title %dx%d at %d, body %dx%d at %d, bar %d at %d, strip %d",
+             (unsigned)noticeKind, (unsigned)noticeFace,
              (int)lv_obj_get_width(noticeTitleLbl), (int)lv_obj_get_height(noticeTitleLbl),
              (int)lv_obj_get_y(noticeTitleLbl),
              (int)lv_obj_get_width(noticeBodyLbl), (int)lv_obj_get_height(noticeBodyLbl),
-             (int)lv_obj_get_y(noticeBodyLbl), (int)lv_obj_get_height(noticeLayer));
+             (int)lv_obj_get_y(noticeBodyLbl),
+             lv_obj_has_flag(noticeTrack, LV_OBJ_FLAG_HIDDEN) ? 0 : (int)lv_obj_get_width(noticeTrack),
+             (int)lv_obj_get_y(noticeTrack), (int)lv_obj_get_height(noticeLayer));
     baseLinkSay(line);
-  } else if (!notice) {
-    lv_obj_add_flag(noticeLayer, LV_OBJ_FLAG_HIDDEN);
   }
 }
 
@@ -1107,13 +1119,28 @@ static void buildTrustLayer(lv_obj_t *scr) {
 }
 
 // ════════════════════════════════════════════════════════════
-//  No water
+//  Why there is no soda
 // ════════════════════════════════════════════════════════════
 //
 // A refill that spent its pumping ceiling stands latched until someone has
 // looked at the machine. This glass is at the sink and the machine is not, so
 // it says only that there is no water and where to go: the machine's own
 // display says what to check and is where Try again is.
+//
+// A sweep is the other way round. The lever beside this glass is what lets
+// the dry tank's air out, so the hand and the eyes are here: the strip asks
+// for the lever, shows the main board's count as a bar while gas is moving,
+// and says when to let go.
+enum : uint8_t {
+  NOTICE_FACE_NO_WATER,
+  NOTICE_FACE_SWEEP_ASK,     // nothing counted yet
+  NOTICE_FACE_SWEEP_HOLD,    // gas is moving
+  NOTICE_FACE_SWEEP_AGAIN,   // the lever was let go short of the target
+  NOTICE_FACE_SWEEP_DONE,
+};
+
+#define NOTICE_BAR_W (SCREEN_W - 32)
+#define NOTICE_BAR_H 8
 
 // A finger on the notice is a finger: it wakes the glass and is reported, and
 // reaches nothing beneath.
@@ -1155,14 +1182,92 @@ static void buildNoticeLayer(lv_obj_t *scr) {
   lv_obj_set_style_text_color(noticeBodyLbl, lv_color_hex(COL_TEXT), 0);
   lv_label_set_text(noticeBodyLbl, "See the display\non the machine.");
 
+  noticeTrack = lv_obj_create(noticeLayer);
+  lv_obj_remove_style_all(noticeTrack);
+  lv_obj_set_pos(noticeTrack, (SCREEN_W - NOTICE_BAR_W) / 2, 42);
+  lv_obj_set_size(noticeTrack, NOTICE_BAR_W, NOTICE_BAR_H);
+  lv_obj_set_style_radius(noticeTrack, NOTICE_BAR_H / 2, 0);
+  lv_obj_set_style_bg_color(noticeTrack, lv_color_hex(COL_TEXT), 0);
+  lv_obj_set_style_bg_opa(noticeTrack, LV_OPA_30, 0);
+  lv_obj_clear_flag(noticeTrack, LV_OBJ_FLAG_SCROLLABLE | LV_OBJ_FLAG_CLICKABLE);
+  lv_obj_add_flag(noticeTrack, LV_OBJ_FLAG_HIDDEN);
+
+  noticeFill = lv_obj_create(noticeTrack);
+  lv_obj_remove_style_all(noticeFill);
+  lv_obj_set_pos(noticeFill, 0, 0);
+  lv_obj_set_size(noticeFill, 0, NOTICE_BAR_H);
+  lv_obj_set_style_radius(noticeFill, NOTICE_BAR_H / 2, 0);
+  lv_obj_set_style_bg_color(noticeFill, lv_color_hex(COL_ACCENT), 0);
+  lv_obj_set_style_bg_opa(noticeFill, LV_OPA_COVER, 0);
+  lv_obj_clear_flag(noticeFill, LV_OBJ_FLAG_SCROLLABLE | LV_OBJ_FLAG_CLICKABLE);
+
   lv_obj_add_flag(noticeLayer, LV_OBJ_FLAG_HIDDEN);
 }
 
-void faucetApplyNotice(uint8_t kind) {
+// The strip's words for what the main board last said.
+static void noticeDress() {
+  uint8_t face = NOTICE_FACE_NO_WATER;
+  if (noticeKind == NOTICE_SWEEP_DONE) face = NOTICE_FACE_SWEEP_DONE;
+  else if (noticeKind == NOTICE_SWEEP)
+    face = noticeFlowing    ? NOTICE_FACE_SWEEP_HOLD
+         : noticeProgress   ? NOTICE_FACE_SWEEP_AGAIN
+                            : NOTICE_FACE_SWEEP_ASK;
+
+  const bool sweep = face != NOTICE_FACE_NO_WATER;
+  lv_obj_set_width(noticeFill, (lv_coord_t)(NOTICE_BAR_W * (uint32_t)noticeProgress / 100));
+  if (face == noticeFace) return;
+  noticeFace = face;
+
+  const char *title = "No water";
+  const char *body  = "See the display\non the machine.";
+  uint32_t color = COL_WARN;
+  switch (face) {
+    case NOTICE_FACE_SWEEP_ASK:
+      title = "Hold the lever";
+      body  = "Gas will hiss until\nthis says Done.";
+      color = COL_TEXT;
+      break;
+    case NOTICE_FACE_SWEEP_HOLD:
+      title = "Keep holding";
+      body  = "The tank is clearing\nits air.";
+      color = COL_ACCENT;
+      break;
+    case NOTICE_FACE_SWEEP_AGAIN:
+      title = "Hold the lever";
+      body  = "Not done yet.\nHold it down again.";
+      color = COL_TEXT;
+      break;
+    case NOTICE_FACE_SWEEP_DONE:
+      title = "Done";
+      body  = "Let go. The machine\nfills itself now.";
+      color = COL_GOOD;
+      break;
+    default:
+      break;
+  }
+  lv_label_set_text(noticeTitleLbl, title);
+  lv_label_set_text(noticeBodyLbl, body);
+  lv_obj_set_style_text_color(noticeTitleLbl, lv_color_hex(color), 0);
+  lv_obj_set_y(noticeTitleLbl, sweep ? 10 : 16);
+  lv_obj_set_y(noticeBodyLbl, sweep ? 58 : 52);
+  if (sweep) lv_obj_clear_flag(noticeTrack, LV_OBJ_FLAG_HIDDEN);
+  else lv_obj_add_flag(noticeTrack, LV_OBJ_FLAG_HIDDEN);
+}
+
+void faucetApplyNotice(const NoticePayload &notice) {
   // A reason this glass has no words for is not shown as one it has.
-  if (kind != NOTICE_NO_WATER) kind = NOTICE_NONE;
-  if (kind == noticeKind) return;
-  noticeKind = kind;
+  uint8_t kind = notice.kind;
+  if (kind != NOTICE_NO_WATER && kind != NOTICE_SWEEP && kind != NOTICE_SWEEP_DONE) kind = NOTICE_NONE;
+  const uint8_t progress = kind == NOTICE_SWEEP_DONE ? 100
+                         : kind != NOTICE_SWEEP      ? 0
+                         : notice.progress > 100     ? 100
+                                                     : notice.progress;
+  const bool flowing = kind == NOTICE_SWEEP && (notice.flags & NOTICE_F_FLOWING);
+  if (kind == noticeKind && progress == noticeProgress && flowing == noticeFlowing) return;
+  noticeKind     = kind;
+  noticeProgress = progress;
+  noticeFlowing  = flowing;
+  if (kind != NOTICE_NONE) noticeDress();
   trustLayoutService(nullptr);
 }
 

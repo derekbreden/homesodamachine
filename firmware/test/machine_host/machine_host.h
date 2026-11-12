@@ -61,6 +61,10 @@ uint32_t refillOwedWrites   = 0;
 uint32_t refillSpentWrites  = 0;
 bool     flashForgets       = false;
 
+// What sweep_store keeps in flash: that the carbonator owes a sweep of its air.
+bool     sweepOwedInFlash = false;
+uint32_t sweepOwedWrites  = 0;
+
 class RegisterBus : public pcba::Transport {
 public:
     void reset() {
@@ -190,6 +194,11 @@ uint32_t refillSpentLoad() { return host::flashForgets ? 0 : host::refillSpentIn
 void refillSpentSave(uint32_t spentMs) {
     host::refillSpentInFlash = spentMs;
     host::refillSpentWrites++;
+}
+bool sweepOwedLoad() { return host::sweepOwedInFlash && !host::flashForgets; }
+void sweepOwedSave(bool owed) {
+    host::sweepOwedInFlash = owed;
+    host::sweepOwedWrites++;
 }
 
 // The recorder's queue and flash stay on the board; what machine.cpp notes is kept here.
