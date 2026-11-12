@@ -200,7 +200,7 @@ commands also expose explicitly requested dimension, source and model readings.
 | `ledger-analysis` | Purchase evidence, exact decimal reconciliation, validation, CSV/JSON and reports, for the synthetic ledger tests |
 | `assembly-docs` | Assembly constants, electrical budgets, schedules, fluid-topology diagrams and the installed wiring model, routing and readers |
 | `cold-core-data` | Typed carbonator rod requirements and jet interfaces for native fabrication tools |
-| `part-data` | Purchased reference providers, storage catalogues, refrigeration/printing fixtures, drain adapters, cuffs, press, sleeve, trays, and the funnel's, frame's and cradle's datums for the hand-run tools that read them |
+| `part-data` | The figures the water-inlet jet fixture's and the valve seat's documents quote |
 | `shared-data` | Materials, finishes, colour arithmetic and the PET-GF cooling policy |
 | `layout-data` | Appliance frames, fitting names, native tube construction and sampling, reservoir routes and soda inlet/holder recipes |
 | `hsm-manual-guides`, `hsm-fabrication-guides`, `hsm-install-art` | Optional books, fixture art, engineering reference sheets and selected install illustrations |
