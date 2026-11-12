@@ -1,6 +1,23 @@
 use super::*;
+use serde::{Deserialize, Serialize};
+
+/// One conductor of the installed wiring: the two terminals it joins, the harness and net it
+/// belongs to, the stock it is cut from and how the schedule and the service list name it.
+#[derive(Clone, Debug, Serialize, Deserialize)]
+pub struct Connection {
+    pub id: String,
+    pub harness: String,
+    pub net: String,
+    pub start: String,
+    pub end: String,
+    pub stock: String,
+    pub schedule: String,
+    pub service: String,
+    pub note: String,
+}
+
 fn wire(
-    out: &mut Vec<Value>,
+    out: &mut Vec<Connection>,
     id: impl Into<String>,
     harness: &str,
     net: impl Into<String>,
@@ -11,9 +28,21 @@ fn wire(
     service: &str,
     note: &str,
 ) {
-    out.push(json!({"id":id.into(),"harness":harness,"net":net.into(),"start":start.into(),"end":end.into(),"stock":stock,"schedule":schedule,"service":service,"note":note}));
+    out.push(Connection {
+        id: id.into(),
+        harness: harness.into(),
+        net: net.into(),
+        start: start.into(),
+        end: end.into(),
+        stock: stock.into(),
+        schedule: schedule.into(),
+        service: service.into(),
+        note: note.into(),
+    });
 }
-pub fn connections() -> Value {
+
+/// Every conductor of the installed wiring, in schedule order.
+pub fn connections() -> Vec<Connection> {
     let mut out = Vec::new();
     for (net, port, stock) in [
         ("L", "h", "power16"),
@@ -516,7 +545,7 @@ pub fn connections() -> Value {
             "",
         );
     }
-    json!(out)
+    out
 }
 pub fn owner(part: &str) -> &str {
     if part.starts_with("wiring-junction-") {
@@ -552,11 +581,11 @@ pub fn owner(part: &str) -> &str {
 }
 pub fn interfaces(
     terminals: &BTreeMap<String, terminals::Terminal>,
-    graph: &Value,
+    graph: &[Connection],
 ) -> Result<Value> {
-    let used = rows(graph)?
+    let used = graph
         .iter()
-        .flat_map(|c| [c["start"].as_str().unwrap(), c["end"].as_str().unwrap()])
+        .flat_map(|c| [c.start.as_str(), c.end.as_str()])
         .collect::<BTreeSet<_>>();
     let mut buses = Vec::new();
     let parts = used
@@ -576,11 +605,11 @@ pub fn interfaces(
         .map(|t| ((*t).to_owned(), owner(&terminals[*t].part)))
         .collect::<BTreeMap<_, _>>();
     let mut crossing = Vec::new();
-    for c in rows(graph)? {
-        let from = owner(&terminals[string(&c["start"])?].part);
-        let to = owner(&terminals[string(&c["end"])?].part);
+    for c in graph {
+        let from = owner(&terminals[&c.start].part);
+        let to = owner(&terminals[&c.end].part);
         if from != to {
-            crossing.push(json!({"wire":c["id"],"from":from,"to":to}));
+            crossing.push(json!({"wire":c.id,"from":from,"to":to}));
         }
     }
     Ok(json!({"common_junctions":buses,"assembly_owners":owners,"crossing_wires":crossing}))

@@ -1,5 +1,6 @@
 use super::*;
 use model::{V, add, mul, v};
+use graph::Connection;
 use terminals::State;
 const PITCH: f64 = 1.85;
 const J1: [&str; 7] = [
@@ -8,9 +9,6 @@ const J1: [&str; 7] = [
 const J2: [&str; 4] = ["J2-OUT1", "J2-OUT2", "J2-FAN", "J2-COM"];
 fn p(at: &State, id: &str) -> Result<V> {
     at.point(id)
-}
-fn text<'a>(c: &'a Value, key: &str) -> Result<&'a str> {
-    string(&c[key])
 }
 fn has(value: &Value, key: &str) -> bool {
     value.get(key).is_some()
@@ -69,8 +67,8 @@ pub fn display_internal(at: &State, n: f64) -> Result<Vec<V>> {
         [x, high[1], high[2]],
     ])
 }
-fn pump_terminal(c: &Value, at: &State, n: f64) -> Result<Vec<V>> {
-    let end = text(c, "end")?;
+fn pump_terminal(c: &Connection, at: &State, n: f64) -> Result<Vec<V>> {
+    let end = c.end.as_str();
     let tab = p(at, end)?;
     let bank = end.split('.').next().unwrap();
     let axis = (p(at, &format!("{bank}.1"))?[0] + p(at, &format!("{bank}.2"))?[0]) / 2.;
@@ -82,8 +80,8 @@ fn pump_terminal(c: &Value, at: &State, n: f64) -> Result<Vec<V>> {
     };
     pump_internal(at, x, tab[0], lane, n)
 }
-fn pump_lead(c: &Value, at: &State, n: f64) -> Result<Vec<V>> {
-    let p = p(at, text(c, "start")?)?;
+fn pump_lead(c: &Connection, at: &State, n: f64) -> Result<Vec<V>> {
+    let p = p(at, c.start.as_str())?;
     let z = 277.3 + n * 1.9;
     let mut out = vec![[p[0], p[1], z], [-36., 157., z]];
     out.extend(pump_terminal(c, at, n)?);
@@ -93,16 +91,16 @@ fn station_rows(at: &State, value: &Value) -> Result<Vec<V>> {
     rows(value)?.iter().map(|s| at.station(s)).collect()
 }
 fn guide(
-    c: &Value,
+    c: &Connection,
     at: &State,
     groups: &BTreeMap<String, Vec<String>>,
     saved: &Value,
 ) -> Result<Vec<V>> {
     let (id, harness, start, end) = (
-        text(c, "id")?,
-        text(c, "harness")?,
-        text(c, "start")?,
-        text(c, "end")?,
+        c.id.as_str(),
+        c.harness.as_str(),
+        c.start.as_str(),
+        c.end.as_str(),
     );
     let (a, b) = (p(at, start)?, p(at, end)?);
     let q = b;
@@ -422,8 +420,13 @@ fn guide(
         _ => bail!("No installed route family for {id}"),
     }
 }
-fn dress_bank(c: &Value, guides: &[V], at: &State, saved: &mut Value) -> Result<Option<Vec<V>>> {
-    let (id, end, start) = (text(c, "id")?, text(c, "end")?, text(c, "start")?);
+fn dress_bank(
+    c: &Connection,
+    guides: &[V],
+    at: &State,
+    saved: &mut Value,
+) -> Result<Option<Vec<V>>> {
+    let (id, end, start) = (c.id.as_str(), c.end.as_str(), c.start.as_str());
     if id == "J2-positive-K" {
         saved["note"] = json!(
             "The V-K positive lead passes beside the manifold bank before rejoining its retained east-wall hook course; terminal positions and hook datums remain fixed."
@@ -510,14 +513,19 @@ fn dress_bank(c: &Value, guides: &[V], at: &State, saved: &mut Value) -> Result<
     }
     Ok(Some(common))
 }
-fn dress(c: &Value, mut guides: Vec<V>, at: &State, saved: &mut Value) -> Result<Vec<V>> {
+fn dress(
+    c: &Connection,
+    mut guides: Vec<V>,
+    at: &State,
+    saved: &mut Value,
+) -> Result<Vec<V>> {
     if boolean(saved, "preserve_stations", false) && has(saved, "stations") {
         return Ok(guides);
     }
     if let Some(bank) = dress_bank(c, &guides, at, saved)? {
         guides = bank;
     }
-    let id = text(c, "id")?;
+    let id = c.id.as_str();
     let sites = cable_sites()?;
     let target = rows(&sites)?
         .iter()
@@ -527,8 +535,8 @@ fn dress(c: &Value, mut guides: Vec<V>, at: &State, saved: &mut Value) -> Result
     };
     let [x, _, z] = v(target)?;
     if id.starts_with("J5-") {
-        let a = p(at, text(c, "start")?)?;
-        let b = p(at, text(c, "end")?)?;
+        let a = p(at, c.start.as_str())?;
+        let b = p(at, c.end.as_str())?;
         return Ok(vec![
             [-88.5, a[1], z - 4.],
             [x, 256.5, z],
@@ -568,28 +576,28 @@ fn dress(c: &Value, mut guides: Vec<V>, at: &State, saved: &mut Value) -> Result
 pub fn routed(
     src: &sources::Sources,
     root: &Path,
-    connections: &Value,
+    connections: &[Connection],
     at: &State,
 ) -> Result<Value> {
     let mut overrides = load(root, "hardware/wiring/installed/route-overrides.json")?;
     let mut groups: BTreeMap<String, Vec<String>> = BTreeMap::new();
-    for c in rows(connections)? {
+    for c in connections {
         groups
-            .entry(text(c, "harness")?.into())
+            .entry(c.harness.as_str().into())
             .or_default()
-            .push(text(c, "id")?.into());
+            .push(c.id.as_str().into());
     }
     let stock = model::stock()?;
     let mut result = Vec::new();
     let mut bundle_context = bundles::Context::new(src, root, at)?;
-    for c in rows(connections)? {
+    for c in connections {
         if let Some(shared) = bundle_context.core_route(c)? {
             result.push(shared);
             continue;
         }
-        let id = text(c, "id")?;
-        let start = text(c, "start")?;
-        let end = text(c, "end")?;
+        let id = c.id.as_str();
+        let start = c.start.as_str();
+        let end = c.end.as_str();
         let mut saved = overrides
             .get_mut(id)
             .map(|v| v.clone())
@@ -599,7 +607,7 @@ pub fn routed(
         } else {
             guide(c, at, &groups, &saved)?
         };
-        let index = groups[text(c, "harness")?]
+        let index = groups[c.harness.as_str()]
             .iter()
             .position(|v| v == id)
             .unwrap() as f64;
@@ -609,7 +617,7 @@ pub fn routed(
             _ => {}
         }
         guides = dress(c, guides, at, &mut saved)?;
-        let lead = if stock[text(c, "stock")?]["awg"] == 22 {
+        let lead = if stock[c.stock.as_str()]["awg"] == 22 {
             6.
         } else {
             8.
@@ -624,7 +632,7 @@ pub fn routed(
             if end.starts_with("psu.") {
                 end_lead = 6.;
             }
-            if ["J9", "J13"].contains(&text(c, "harness")?) {
+            if ["J9", "J13"].contains(&c.harness.as_str()) {
                 end_lead = 3.;
             }
         }

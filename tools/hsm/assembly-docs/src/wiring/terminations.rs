@@ -18,7 +18,7 @@ fn ring(src: &sources::Sources) -> Result<(Value, sources::Bond)> {
 pub fn inputs(
     src: &sources::Sources,
     at: &terminals::State,
-    connections: &Value,
+    connections: &[graph::Connection],
 ) -> Result<Value> {
     let mut records = json!({});
     let mut bodies = Vec::new();
@@ -30,9 +30,8 @@ pub fn inputs(
         let name = format!("wiring-junction-{id}");
         bodies.push(json!([name,{"kind":"import","step":references["413"],"pose":{"rotation":rotation,"translation_mm":point}},color]));
         let mut used = BTreeSet::new();
-        for connection in rows(connections)? {
-            for terminal in [&connection["start"], &connection["end"]] {
-                let terminal = string(terminal)?;
+        for connection in connections {
+            for terminal in [&connection.start, &connection.end] {
                 if terminal.starts_with(&format!("join-{id}.")) {
                     used.insert(terminal.to_owned());
                 }
