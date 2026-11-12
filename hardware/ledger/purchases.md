@@ -838,7 +838,6 @@ Printed copies of the [install guide](/hardware/install-guide/README.md). Lulu o
 
 | Part | Notes |
 |---|---|
-| **Google Pixel 10a unlocked Android phone, 128 GB Obsidian (2026 model)** | Android development handset for the soda-machine app's Android side (`android/`). [B0GHRHXVN1](https://www.amazon.com/dp/B0GHRHXVN1). |
 | **Smooth-On XTC-3D 3D-print smoothing epoxy, 6.4 oz (~$19.99) — optional** | Self-leveling epoxy base coat under the §21 core's clear-acrylic seal, only if the 0.08 mm core texture still telegraphs through the acrylic alone. Fills/seals; not the release face. [B01BKSLI9M](https://www.amazon.com/dp/B01BKSLI9M). |
 | **DIN 6797A M3 external-tooth washer, A2 stainless, 0.4 mm** | Conditional purchase: first verify the M3 washer in the ordered IEAWISL assortment against this specification. One per carbonator upper-rim earth clamp. [BelMetric WSE3SS](https://belmetric.com/toothed-external-star-lock-washer-din-6797-a-stainless/?sku=WSE3SS): 3.2 mm ID × 6 mm OD, $0.06 each before shipping/tax, in stock November 10. Not recorded as acquired. [Attachment procedure](/hardware/assembly/pressure-vessel.md#upper-rim-earth-bond). |
 | **Green 16 AWG solid UL1007 wire** | Current unit-one conductor gap and selected Prime link are in [unit-1-shopping.md](/hardware/ledger/unit-1-shopping.md). Not recorded as newly ordered. |
