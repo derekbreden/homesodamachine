@@ -18,6 +18,9 @@ void recorderService(bool mayWrite);
 void recorderNote(machine_log::Kind kind, uint8_t detail,
                   uint32_t a = 0, uint32_t b = 0, int16_t d = 0, int16_t e = 0);
 
+// True once nothing is waiting to be written, or there is no ring to write it to.
+bool recorderSettled();
+
 // The newest `count` entries, oldest first, a line a pass so the loop keeps turning.
 void recorderPrint(uint32_t count);
 

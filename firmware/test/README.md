@@ -41,7 +41,8 @@ clear bits and can lose power part-way through a write. It checks that an entry 
 round trip and that any damaged byte is seen, that a restart finds the head and carries the
 count on, that a full ring asks for one erase and loses only its oldest sector, that power
 lost in a write costs one slot wherever in the entry it fell — a sector's first slot
-included — that a region holding other bytes starts clean, and the line an entry reads as.
+included — that a region holding other bytes starts clean, and the line an entry reads as. The update
+trial itself is the bootloader's and has no host test: a board taking an update is its check.
 `test_machine_prime` holds what the production machine code notes: a pour with its length
 and bursts, a refill draw ending full, taken down by a pour, or timing out with the fault
 sounded once, a compressor run with its coldest coil, probes that never answer, a probe that

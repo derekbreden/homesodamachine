@@ -24,6 +24,7 @@ enum class Kind : uint8_t {
     Clean,       // detail: channel + OpEnd; a: the step reached
     Air,         // detail: mode + OpEnd, mode nonzero for a purge; a: the step reached
     Prime,       // detail: channel + OpEnd; a: ms held
+    Update,      // detail: nonzero kept, zero could not be confirmed; a: the image's build epoch
     Count,
 };
 
