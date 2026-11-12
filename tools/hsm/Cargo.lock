@@ -2008,6 +2008,7 @@ dependencies = [
  "hsm-geometry",
  "hsm-kernel",
  "hsm-model-export",
+ "serde",
  "serde_json",
  "sha2 0.10.9",
  "zip",

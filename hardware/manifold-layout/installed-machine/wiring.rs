@@ -40,6 +40,10 @@ mod terminals;
 #[allow(dead_code, unused_imports)]
 #[path = "../../../tools/hsm/assembly-docs/src/wiring/terminations.rs"]
 mod terminations;
+/// The request the installed-wires program reads: wires, terminations and jackets.
+#[allow(dead_code)]
+#[path = "../../wiring/installed/wire_request.rs"]
+mod wire_request;
 /// Lengths and bend samples of the spline segments.
 #[allow(dead_code, unused_imports)]
 #[path = "../../wiring/installed/wire_route_samples.rs"]
@@ -74,14 +78,16 @@ pub fn wiring_request(
     let attachments: terminals::State =
         serde_json::from_value(attachments).context("the retained wire attachments")?;
     let mut numbers = build::numeric_only(&sources, root, &attachments)?;
-    numbers["file_stem"] = json!(FILE_STEM);
-    Ok(numbers)
+    numbers.file_stem = Some(FILE_STEM.into());
+    Ok(serde_json::to_value(numbers)?)
 }
 
-/// Resolves the optional bench manifest and its geometry recipe from the placed physical model.
+/// The request the wiring is cut from and the review of it, resolved against the placed
+/// physical model.
 pub fn manual_request(root: &Path, spec: &Value, physical_model: &Path) -> Result<(Value, Value)> {
     let sources = sources::Sources::read(root, spec)?;
-    build::numeric(&sources, root, &attachments(&sources, root, physical_model)?)
+    let (numbers, review) = build::numeric(&sources, root, &attachments(&sources, root, physical_model)?)?;
+    Ok((serde_json::to_value(numbers)?, review))
 }
 
 /// Every terminal, reference frame, fuse lead and cable passage of the wiring, resolved onto
@@ -133,27 +139,17 @@ fn rows(value: &Value) -> Result<&Vec<Value>> {
     value.as_array().context("wiring rows")
 }
 
-/// A record's number at `key`, or `default` where it states none.
-fn optional(data: &Value, key: &str, default: f64) -> f64 {
-    data.get(key).and_then(Value::as_f64).unwrap_or(default)
-}
-
-/// A record's flag at `key`, or `default` where it states none.
-fn boolean(data: &Value, key: &str, default: bool) -> bool {
-    data.get(key).and_then(Value::as_bool).unwrap_or(default)
-}
-
 /// A JSON file of the checkout, by its path under `root`.
 fn load(root: &Path, path: &str) -> Result<Value> {
     crate::design::read(root.join(path))
 }
 
 /// A JSON object of the checkout as its entries in written order.
-fn load_ordered(root: &Path, path: &str) -> Result<Vec<(String, Value)>> {
+fn load_ordered<T: serde::de::DeserializeOwned>(root: &Path, path: &str) -> Result<Vec<(String, T)>> {
     /// Reads a JSON object's entries in the order they are written.
-    struct Ordered;
-    impl<'de> serde::de::Visitor<'de> for Ordered {
-        type Value = Vec<(String, Value)>;
+    struct Ordered<T>(std::marker::PhantomData<T>);
+    impl<'de, T: serde::de::DeserializeOwned> serde::de::Visitor<'de> for Ordered<T> {
+        type Value = Vec<(String, T)>;
         fn expecting(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
             f.write_str("ordered source object")
         }
@@ -162,7 +158,7 @@ fn load_ordered(root: &Path, path: &str) -> Result<Vec<(String, Value)>> {
             mut map: A,
         ) -> std::result::Result<Self::Value, A::Error> {
             let mut out = Vec::new();
-            while let Some(pair) = map.next_entry::<String, Value>()? {
+            while let Some(pair) = map.next_entry::<String, T>()? {
                 out.push(pair);
             }
             Ok(out)
@@ -171,13 +167,14 @@ fn load_ordered(root: &Path, path: &str) -> Result<Vec<(String, Value)>> {
     let path = root.join(path);
     let bytes = std::fs::read(&path).with_context(|| format!("reading {}", path.display()))?;
     hsm_kernel::reads::read(&path, &bytes);
-    Ok(serde::Deserializer::deserialize_map(
+    serde::Deserializer::deserialize_map(
         &mut serde_json::Deserializer::from_slice(&bytes),
-        Ordered,
-    )?)
+        Ordered(std::marker::PhantomData),
+    )
+    .with_context(|| format!("reading {}", path.display()))
 }
 
-/// `value` rounded to `digits` places half to even, as the route records state their lengths.
-fn py_round(value: f64, digits: i32) -> Result<f64> {
+/// `value` rounded to `digits` decimal places, as the route records state their lengths.
+fn places(value: f64, digits: i32) -> Result<f64> {
     Ok(hsm_documents::format_number(value, &format!(".{digits}f"))?.parse()?)
 }
