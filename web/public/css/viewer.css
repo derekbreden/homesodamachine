@@ -1698,6 +1698,55 @@
     max-width: calc(100% - 32px - var(--cube-size, 140px) - 28px);
   }
 }
+/* ── The missing-parts notice: what the machine on the canvas is meant to have and does not,
+   said across the top of the canvas in the colour of an error. Built by
+   public/js/viewer/missing-parts.js from the model's published facts; absent when nothing is
+   missing. ── */
+.cad-wrapper > .missing-notice {
+  position: absolute;
+  top: calc(env(safe-area-inset-top, 0px) + 64px);
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 13;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  width: max-content;
+  max-width: calc(100% - 32px);
+  max-height: 45%;
+  overflow-y: auto;
+  padding: 12px 14px;
+  border-radius: 10px;
+  border: 2px solid var(--err);
+  background: color-mix(in srgb, var(--err) 26%, rgba(10, 10, 24, 0.92));
+  color: var(--text);
+  font: 13px var(--font-sans);
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.45);
+}
+.missing-notice .missing-h {
+  color: var(--err);
+  font-weight: 700;
+  font-size: 15px;
+}
+.missing-notice .missing-row {
+  -webkit-appearance: none;
+  appearance: none;
+  text-align: left;
+  padding: 6px 8px;
+  border-radius: 6px;
+  border: 1px solid color-mix(in srgb, var(--err) 45%, transparent);
+  background: transparent;
+  color: var(--text);
+  font: inherit;
+  cursor: pointer;
+}
+.missing-notice .missing-row:hover,
+.missing-notice .missing-row:focus-visible {
+  background: color-mix(in srgb, var(--err) 22%, transparent);
+}
+@media (pointer: coarse) {
+  .missing-notice .missing-row { min-height: 40px; }
+}
 .cad-wrapper > .sc-modal {
   position: absolute;
   inset: 0;

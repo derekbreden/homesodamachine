@@ -7,6 +7,7 @@ import { DOC_SIDECAR_SUFFIX, isPublishedDocument } from "../contracts/documents.
 import { VIEW_REQUEST_RE, PICKS_REQUEST_RE } from "../contracts/pcb-out.js";
 import { sidecarFields } from "../contracts/sidecar.js";
 import { SCORECARD_SUFFIX } from "../contracts/scorecard-sidecar.js";
+import { FACTS_SUFFIX, missingRuns } from "../contracts/missing-parts.js";
 import { mountPdfjsAssets, renderDocumentReader } from "./document-reader.js";
 import { readMaterialCatalog } from "./material-catalog.js";
 import { numberedModels } from "../contracts/materials.js";
@@ -234,6 +235,22 @@ export function mountViewerRoutes(app, { hardwareDir, store, pointersPath }) {
     if (!fs.existsSync(abs)) return res.status(404).send("Not found");
     res.set("Cache-Control", "no-cache");
     res.type("application/json").send(fs.readFileSync(abs, "utf-8"));
+  });
+
+  // What a machine's published facts say it is missing — the runs the plumbing needs that the
+  // machine as built does not complete — for the notice the 3D viewer draws over the model
+  // (public/js/viewer/missing-parts.js). Read from <model>.facts.json when asked; a model with
+  // no facts answers 404 and gets no notice. no-cache so a republished model is not read stale.
+  app.get("/api/step-missing/*splat", (req, res) => {
+    const abs = safeFile(hardwareDir, relOf(req), FACTS_SUFFIX);
+    if (!abs) return res.status(400).send("Invalid path");
+    if (!publishedFile(relOf(req))) return res.status(404).send("Not found");
+    if (!fs.existsSync(abs)) return res.status(404).send("Not found");
+    let facts;
+    try { facts = JSON.parse(fs.readFileSync(abs, "utf-8")); }
+    catch { return res.status(404).send("Not found"); }
+    res.set("Cache-Control", "no-cache");
+    res.json({ missing: missingRuns(facts) });
   });
 
   // What the build remakes a model on and what it remakes, read off the build's own record
