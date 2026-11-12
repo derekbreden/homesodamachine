@@ -282,15 +282,34 @@ fn display_cavity(neck: &Gooseneck, pads: &[Solid]) -> Result<Solid> {
 
 /// The side grooves the display cover's lips snap into.
 fn retention_grooves(neck: &Gooseneck) -> Result<Solid> {
-    let slip = snap::END_SLIP;
-    let band = neck.cradle_prism(
-        DISPLAY_GROOVE_HALF_X,
-        (display_clip_s_bottom() - slip, display_clip_s_top() + slip),
-        (DISPLAY_CLIP_BOTTOM_N, DISPLAY_CLIP_TOP_N + snap::BEARING_SLIP),
-        0.0,
-    )?;
-    let core = Profile::circle(v2(0.0, TUBE_SHELL_CENTER_Y), DISPLAY_GROOVE_CORE_R);
-    band.cut(&neck.sweep(&core, 0.0, neck.length())?)
+    let (tip, along, outward) = neck.tip_frame();
+    let ends = [display_clip_s_bottom() - snap::END_SLIP, display_clip_s_top() + snap::END_SLIP];
+    let heights = [DISPLAY_CLIP_BOTTOM_N, DISPLAY_CLIP_TOP_N + snap::BEARING_SLIP];
+    let c = DISPLAY_GROOVE_YZ_CLEARANCE;
+    let offsets = [v2(-c, -c), v2(c, -c), v2(c, c), v2(-c, c)];
+    let mut corners = Vec::with_capacity(16);
+    // Expand the tilted outline in world Y and Z while retaining its sloping faces.
+    for s in ends {
+        for n in heights {
+            let p = tip + along * s + outward * n;
+            corners.extend(offsets.map(|offset| Wrapped::Point(v2(p.y, p.z) + offset)));
+        }
+    }
+    let half_x = DISPLAY_GROOVE_HALF_X;
+    let band = side(-half_x)?.extrude(&Profile::new(hull_loop(&corners)?), 2.0 * half_x)?;
+
+    // Each root follows the original circular profile shifted toward the center in X.
+    let r = DISPLAY_GROOVE_CORE_R;
+    let depth = DISPLAY_GROOVE_X_CLEARANCE;
+    let half_n = (r * r - depth * depth).sqrt();
+    let center = TUBE_SHELL_CENTER_Y;
+    let bottom = v2(0.0, center - half_n);
+    let top = v2(0.0, center + half_n);
+    let core = Pen::new(bottom)
+        .arc_through(v2(r - depth, center), top)?
+        .arc_through(v2(depth - r, center), bottom)?
+        .close()?;
+    band.cut(&neck.sweep(&Profile::new(core), 0.0, neck.length())?)
 }
 
 /// The flat rear cable lane and the opening that gathers the tubes and the cable from the
