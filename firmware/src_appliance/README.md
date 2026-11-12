@@ -102,7 +102,8 @@ board also establishes and reports the safe I/O foundation the next connected be
 - **A phone.** What a phone asks through the faucet's radio arrives on J3 inside
   `MSG_BRIDGE_REQ`, and `faucet_link.cpp` holds the whole list of what it may ask: status,
   the selection, a channel's ratio, the fill and the clean cycle, sound, Prime's session,
-  ending that session, and opening a flavor's Prime page on the enclosure.
+  ending that session, opening a flavor's Prime page on the enclosure, and the machine's
+  record an entry at a time.
   Each is answered inside `MSG_BRIDGE_RESP` with the frame the same request gets on J9, and
   anything else is refused. Every fill and clean change goes to J3 as well, under request
   id 0, so a phone follows a run whoever started it; the enclosure follows one a phone
@@ -176,6 +177,11 @@ then no oftener than `kNoteGapMs`, each entry carrying how many changes it stand
 bad sensor cannot turn the ring over in a day. A boot is given `kReadingStaleMs` for its
 probes to answer before the cold loop is judged: a machine whose probes never answer is noted
 once, and one whose probes do is not.
+
+A phone the machine trusts reads the record through the faucet's radio, an entry at a time:
+`MSG_LOG_READ` names an entry by its number, or asks for the newest, and the answer carries
+that entry as the ring keeps it beside the number the next one will be given, which is how a
+reader walks back through it ([`proto_msg.h`](/firmware/lib/proto_link/proto_msg.h)).
 
 `log` prints the newest entries oldest first, a line a pass so the loop keeps turning under
 it; `log all` prints every entry the ring holds and `log status` says where the ring stands,

@@ -274,8 +274,8 @@ constexpr uint8_t MSG_IDENTITY_SET = 0x66;  // IdentityNamePayload; empty clears
 // board answers inside MSG_BRIDGE_RESP with the same request id — the answer
 // the same request gets on J9, as the same MSG_RESP_* frame. What a phone may
 // ask is the main board's list (faucet_link.cpp): status, the selection, a
-// channel's ratio, the fill and the clean cycle, sound, and Prime's session.
-// Anything else is answered BRIDGE_ERR_REFUSED.
+// channel's ratio, the fill and the clean cycle, sound, Prime's session, and
+// the machine's record. Anything else is answered BRIDGE_ERR_REFUSED.
 //
 // An id of zero is the main board volunteering state that moved — a fill or a
 // clean cycle stepping or ending, whoever started it — and the faucet passes
@@ -1036,6 +1036,32 @@ constexpr uint8_t BRIDGE_ERR_UNTRUSTED = 0xD5;  // a change from a phone the mac
 // What the faucet tells a phone about the bridge when the phone asks who the
 // machine is. A faucet that predates it never sends one.
 constexpr uint8_t BRIDGE_VERSION = 2;  // stamped settings GET / conditional SET
+
+// ── The machine's record, an entry at a time ─────────────────────────────
+// A phone names an entry by its number, or zero for the newest, and the main
+// board answers with that entry exactly as machine_log::encode() lays it out,
+// beside the number the next entry will be given — which is how a reader
+// learns how far the record goes and walks back through it. An entry the ring
+// no longer holds, or never held, answers with `seq` zero. The faucet carries
+// it only for a phone the machine trusts: the record is when a household
+// pours.
+constexpr uint8_t MSG_LOG_READ = 0x76;  // LogReadPayload
+constexpr uint8_t MSG_RESP_LOG = 0x77;  // LogEntryPayload
+
+constexpr uint8_t LOG_ENTRY_BYTES = 32;  // machine_log::kEntryBytes; faucet_link.cpp holds them equal
+
+struct __attribute__((packed)) LogReadPayload {
+  uint32_t seq;      // the entry asked for; 0 for the newest
+};
+
+struct __attribute__((packed)) LogEntryPayload {
+  uint32_t seq;      // the entry answered with; 0 when the ring does not hold the one asked for
+  uint32_t nextSeq;  // the number the next entry will be given
+  uint8_t  entry[LOG_ENTRY_BYTES];
+};
+
+static_assert(sizeof(LogEntryPayload) == sizeof(StatusPayload),
+              "a record answer rides the frame a status answer does");
 
 // ── The radio bench ──────────────────────────────────────────────────────
 // The enclosure display raises the access point and sinks the bytes; the
