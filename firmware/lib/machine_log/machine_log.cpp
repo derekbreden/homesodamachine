@@ -87,6 +87,15 @@ const char *refillEndName(uint8_t end) {
     return "?";
 }
 
+const char *sweepEndName(uint8_t end) {
+    switch (static_cast<SweepEnd>(end)) {
+        case SweepEnd::Done:    return "done";
+        case SweepEnd::Moot:    return "moot";
+        case SweepEnd::Skipped: return "skipped";
+    }
+    return "?";
+}
+
 const char *opEndName(uint8_t end) {
     switch (static_cast<OpEnd>(end)) {
         case OpEnd::Done:     return "done";
@@ -386,6 +395,7 @@ const char *kindName(Kind kind) {
         case Kind::Prime:      return "prime";
         case Kind::Update:     return "update";
         case Kind::Io:         return "io";
+        case Kind::Sweep:      return "sweep";
         case Kind::None:
         case Kind::Count:      break;
     }
@@ -460,6 +470,10 @@ size_t format(const Entry &entry, char *out, size_t n) {
                          (unsigned)entry.detail, (unsigned long)entry.a);
             else
                 snprintf(body, sizeof(body), "verified changes=%lu", (unsigned long)entry.a);
+            break;
+        case Kind::Sweep:
+            snprintf(body, sizeof(body), "end=%s ms=%lu pulses=%lu",
+                     sweepEndName(entry.detail), (unsigned long)entry.a, (unsigned long)entry.b);
             break;
         case Kind::None:
         case Kind::Count:
