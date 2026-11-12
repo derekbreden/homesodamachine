@@ -356,6 +356,11 @@ hsm-peripheral ota enclosure
 Targets are `self`, `faucet`, `enclosure` and `art`; `pio run -e <env>` first. The console runs
 at 500000 for the duration of a session and drops back when it ends.
 
+A publish leaves the images it published in `.pio/build`, so `hsm-peripheral ota` straight after
+one puts on a bench board the bytes a phone is offered. A `pio run` after the pointer commit
+stamps that commit instead, a build no phone is offered and one a phone reads as newer than
+the published one.
+
 `hsm-peripheral ota` opens the main board's console with DTR released, which restarts the
 board through its auto-reset lattice, and a main board image taken this way is on trial like
 any other: a restart inside `kUpdateTrialMs` of its first boot puts the old image back. The
