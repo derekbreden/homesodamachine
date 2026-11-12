@@ -195,9 +195,9 @@ Print three test pieces at different deflection values (0.3mm, 0.4mm, 0.5mm). Sn
 
 ### 7. The Logo Pipeline (60-90 seconds)
 
-One vector mark — a faucet path and a drop circle — works as: the machine display's loading animation (the drop falls), the iOS and Android app icons and launch screens, the website's favicons and home-screen icons, the main board's silkscreen, and the two-colour printed nameplate. Show each context, then the one file behind them all. Show the consistency — same geometry, same colors, from screen pixels to silkscreen to printed plastic.
+One vector mark — a faucet path and a drop circle — works as: the machine display's loading animation (the drop falls), the iOS app's icon and launch screen, the website's favicons and home-screen icons, the main board's silkscreen, and the two-colour printed nameplate. Show each context, then the one file behind them all. Show the consistency — same geometry, same colors, from screen pixels to silkscreen to printed plastic.
 
-- **Audience:** designers, iOS and Android developers, anyone interested in brand consistency across platforms.
+- **Audience:** designers, iOS developers, anyone interested in brand consistency across platforms.
 - **Shareability:** Moderate-high. Multi-platform design consistency is satisfying to see.
 - **Trust signal:** Strong. "This person cares about polish across every surface" = "this is a real product."
 - **Where it lives:** `brand/mark.svg`, `hsm-marketing brand-assets`, `hsm-marketing animation-frames`, `hardware/printed-parts/enclosure/nameplate/`
