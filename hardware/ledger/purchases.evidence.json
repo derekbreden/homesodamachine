@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "as_of": "2026-11-11",
+  "as_of": "2026-11-12",
   "reporting_period": {
     "start": "2026-01-01",
     "end": "2026-12-31"
@@ -9438,7 +9438,14 @@
       "source_ids": [
         "src-fc21b89f674c49d8b7beb35eb29aa7e1",
         "src-1a7e236f18734150aa122917f332f47f",
-        "src-8944c63d978340d3baaae57ea3c6dc01"
+        "src-8944c63d978340d3baaae57ea3c6dc01",
+        "src-2994d26d9a9843b78a6be9fa957e3302"
+      ],
+      "delivery_dates": [
+        {
+          "precision": "day",
+          "value": "2026-11-12"
+        }
       ]
     },
     "pur-f6aead3aafe3428fa072646852793bab": {
@@ -15807,7 +15814,8 @@
       "source_ids": [
         "src-fc21b89f674c49d8b7beb35eb29aa7e1",
         "src-1a7e236f18734150aa122917f332f47f",
-        "src-8944c63d978340d3baaae57ea3c6dc01"
+        "src-8944c63d978340d3baaae57ea3c6dc01",
+        "src-2994d26d9a9843b78a6be9fa957e3302"
       ]
     },
     "fws:WEBFWS100716314": {
@@ -33968,6 +33976,21 @@
       "proves": [],
       "verified_at": "2026-11-11",
       "note": "Vendor shipment notification identifies the existing washer order and repeats its USD 9.64 total. Shipment is confirmed; the relative arrival estimate does not establish actual delivery. No completed payment or dispatch calendar day is established by the notification timestamp. The notification supplies no item-level change to the previously verified order identity."
+    },
+    "src-2994d26d9a9843b78a6be9fa957e3302": {
+      "vendor": "Bambu Lab",
+      "document_type": "carrier_delivery_confirmation",
+      "reference": "us795729195777990656",
+      "document_date": null,
+      "notification_date": {
+        "precision": "day",
+        "value": "2026-11-12"
+      },
+      "proves": [
+        "delivery"
+      ],
+      "verified_at": "2026-11-12",
+      "note": "UPS delivery confirmation explicitly states Delivered Thursday 11/12/2026 at 11:30 AM as displayed. The vendor shipment notification directly joins the carrier tracking identity to this order and its three PETG Basic spools. Fulfillment evidence only; no completed merchant charge or remaining inventory quantity is inferred."
     }
   },
   "coverage": [
@@ -35533,22 +35556,23 @@
       "vendor": "Bambu Lab",
       "stream": "selected hotend and filament orders",
       "evidence_type": "fulfillment",
-      "checked_at": "2026-11-10",
+      "checked_at": "2026-11-12",
       "examined_period": {
         "start": "2026-10-26",
-        "end": "2026-11-10"
+        "end": "2026-11-12"
       },
       "complete_period": null,
       "coverage": "partial",
       "source_ids": [
         "src-573612223a5d4cc198ffc89874fade44",
-        "src-1a7e236f18734150aa122917f332f47f"
+        "src-1a7e236f18734150aa122917f332f47f",
+        "src-2994d26d9a9843b78a6be9fa957e3302"
       ],
       "order_ids": [
         "bambu:us791135084148191233",
         "bambu:us795729195777990656"
       ],
-      "note": "Named delivery and shipment notices only; payment and exact delivery dates are not inferred from notification timestamps."
+      "note": "Named delivery and shipment notices only. The carrier explicitly supplies the November 12 delivery day for the three-spool filament order; payment is not inferred from fulfillment."
     },
     {
       "coverage_id": "coverage-acea061ce3204d5f89dca212d3c84ba8",
@@ -35791,7 +35815,7 @@
         "bambu:us791135084148191233",
         "bambu:us795729195777990656"
       ],
-      "note": "All 25 retrieved order confirmations were read and compared line by line; 16 contain filament. Filament quantities, grades, colors and amounts match section 15, including the three PETG Basic spools in the November 7 order. No additional delivery notice was found for that order. Searches included archived/read mail, vendor and material aliases, generic printing categories, and purchase evidence in promotions; all scoped Gmail query pages were retrieved. This is scoped evidence, not complete merchant-account coverage."
+      "note": "All 25 retrieved order confirmations were read and compared line by line; 16 contain filament. Filament quantities, grades, colors and amounts match section 15, including the three PETG Basic spools in the November 7 order. Fulfillment evidence is tracked separately from the confirmation comparison. Searches included archived/read mail, vendor and material aliases, generic printing categories, and purchase evidence in promotions; all scoped Gmail query pages were retrieved. This is scoped evidence, not complete merchant-account coverage."
     },
     {
       "coverage_id": "coverage-6c7e8c703b9449708f17b28895f08bf8",
@@ -35958,23 +35982,24 @@
     {
       "coverage_id": "coverage-59ed46ecf3b440448050d1c01f6aeada",
       "vendor": "Bambu Lab",
-      "stream": "one named in-transit filament order",
-      "evidence_type": "vendor_shipment_and_carrier_delivery_estimate",
-      "checked_at": "2026-11-11",
+      "stream": "one named filament order",
+      "evidence_type": "vendor_shipment_and_carrier_delivery",
+      "checked_at": "2026-11-12",
       "examined_period": {
         "start": "2026-11-08",
-        "end": "2026-11-11"
+        "end": "2026-11-12"
       },
       "complete_period": null,
       "coverage": "partial",
       "source_ids": [
         "src-1a7e236f18734150aa122917f332f47f",
-        "src-8944c63d978340d3baaae57ea3c6dc01"
+        "src-8944c63d978340d3baaae57ea3c6dc01",
+        "src-2994d26d9a9843b78a6be9fa957e3302"
       ],
       "order_ids": [
         "bambu:us795729195777990656"
       ],
-      "note": "Exact order and tracking-reference email searches exhausted. Vendor shipment identity matched directly to carrier notices; latest retrieved carrier notice schedules estimated delivery for 2026-11-12. No actual delivery or completed merchant charge established."
+      "note": "Named vendor shipment identity matched directly to carrier notices. UPS explicitly confirms delivery on November 12, 2026 at 11:30 AM as displayed. No completed merchant charge established. This is order-scoped fulfillment evidence, not merchant-account coverage."
     },
     {
       "coverage_id": "coverage-3f9213df0aa74f0ea6c1edddede6913c",
