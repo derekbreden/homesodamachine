@@ -1127,11 +1127,9 @@ dependencies = [
  "anyhow",
  "hsm-ac-harness-numbers",
  "hsm-documents",
- "hsm-kernel",
  "regex",
  "serde",
  "serde_json",
- "sha2 0.10.9",
 ]
 
 [[package]]
@@ -2024,18 +2022,6 @@ dependencies = [
  "hsm-model-export",
  "serde_json",
  "sha2 0.10.9",
- "zip",
-]
-
-[[package]]
-name = "hsm-machine-data"
-version = "0.1.0"
-dependencies = [
- "anyhow",
- "hsm-enclosure-numbers",
- "hsm-layout-data",
- "serde",
- "serde_json",
  "zip",
 ]
 

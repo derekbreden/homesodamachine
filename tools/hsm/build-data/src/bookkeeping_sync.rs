@@ -39,37 +39,24 @@ pub fn publisher(path: &str, cfg: &Value) -> bool {
 pub fn whole(path: &str) -> bool {
     [".json", ".png"].contains(&suffix(path)) || path == "hardware/ledger/purchases.export.csv"
 }
-fn managed(text: &str, kind: &str, names: Option<&BTreeSet<String>>) -> Vec<(usize, usize)> {
+/// The spans whose figures a carry may rewrite: all of a Markdown file, and a Mermaid file's
+/// `%%` comment lines.
+fn managed(text: &str, kind: &str) -> Vec<(usize, usize)> {
     if kind == ".md" {
         return vec![(0, text.len())];
     }
-    if kind == ".mmd" {
-        let mut at = 0;
-        return text
-            .split_inclusive('\n')
-            .filter_map(|line| {
-                let start = at;
-                at += line.len();
-                line.trim_start().starts_with("%%").then_some((start, at))
-            })
-            .collect();
-    }
-    hsm_documents::python_regions_checked(text)
-        .unwrap_or_default()
-        .into_iter()
-        .filter(|(a, b, comment)| {
-            *comment
-                || names.is_none()
-                || hsm_documents::markers(&text[*a..*b])
-                    .iter()
-                    .any(|(_, _, _, name)| names.unwrap().contains(*name))
+    let mut at = 0;
+    text.split_inclusive('\n')
+        .filter_map(|line| {
+            let start = at;
+            at += line.len();
+            line.trim_start().starts_with("%%").then_some((start, at))
         })
-        .map(|(a, b, _)| (a, b))
         .collect()
 }
 fn figures(text: &str, kind: &str) -> BTreeMap<String, String> {
     let mut out = BTreeMap::new();
-    for (a, b) in managed(text, kind, None) {
+    for (a, b) in managed(text, kind) {
         for (_, _, value, name) in hsm_documents::markers(&text[a..b]) {
             out.insert(name.into(), value.into());
         }
@@ -93,9 +80,8 @@ fn fill(text: &str, figures: &BTreeMap<String, String>) -> String {
 }
 pub fn carried(built: &str, tracked: &str, kind: &str) -> String {
     let values = figures(built, kind);
-    let names = values.keys().cloned().collect();
     let mut out = tracked.to_owned();
-    let spans = managed(tracked, kind, Some(&names))
+    let spans = managed(tracked, kind)
         .into_iter()
         .collect::<BTreeSet<_>>();
     for (a, b) in spans.into_iter().rev() {
@@ -256,7 +242,7 @@ pub fn carry_request(request: &CarryRequest) -> Result<CarryResult> {
         let b = built.as_path();
         let t = root.join(relative);
         let kind = suffix(relative);
-        let spliceable = rewritten.contains(relative) && [".md", ".mmd", ".py"].contains(&kind);
+        let spliceable = rewritten.contains(relative) && [".md", ".mmd"].contains(&kind);
         if !b.is_file() {
             missing.push(relative.to_owned());
         } else if rewritten.contains(relative) && !spliceable && !whole(relative) {
@@ -366,9 +352,7 @@ pub fn stage_selection(status: &[u8], config: &Value) -> StageSelection {
 
 pub fn drop_paths(dirty: &[String], made: &BTreeSet<String>) -> (Vec<String>, Vec<String>) {
     dirty.iter().cloned().partition(|path| {
-        !(glob("hardware/**/*.py", path)
-            || glob("hardware/**/*.rs", path)
-            || path == "tools/hsm/build-plan/graph.json")
+        !(glob("hardware/**/*.rs", path) || path == "tools/hsm/build-plan/graph.json")
             && made.contains(path)
     })
 }

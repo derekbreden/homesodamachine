@@ -26,9 +26,7 @@ pub const WALL_BACK_FORE: [P3; 3] = [[0., 0., -1.], [0., -1., 0.], [-1., 0., 0.]
 pub const WALL_BACK_AFT: [P3; 3] = [[0., 0., -1.], [0., 1., 0.], [1., 0., 0.]];
 
 /// One junction as the wiring model places it on V-B's wall: its name, its connector, where it
-/// stands in V-B's frame, its frame, and what it joins. The wiring model's placement
-/// (`hardware/manifold-layout/above_core_wiring.py`, held for the build in machine-data's
-/// generated `above_core_wiring`) owns these.
+/// stands in V-B's frame, its frame, and what it joins. The wiring model's placement owns these.
 pub struct Junction {
     pub name: &'static str,
     pub wago: Wago,

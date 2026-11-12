@@ -18,7 +18,6 @@ pub type Variables = BTreeMap<String, String>;
 pub enum Kind {
     Markdown,
     Mermaid,
-    Python,
 }
 
 #[derive(Debug, Serialize)]
@@ -190,160 +189,6 @@ pub fn mermaid(text: &str, variables: &Variables) -> String {
         .collect()
 }
 
-fn string_end(bytes: &[u8], quote: usize) -> usize {
-    let c = bytes[quote];
-    let triple = bytes.get(quote..quote + 3) == Some(&[c, c, c]);
-    let width = if triple { 3 } else { 1 };
-    let mut pos = quote + width;
-    while pos < bytes.len() {
-        if bytes[pos] == b'\\' {
-            pos = (pos + 2).min(bytes.len());
-        } else if bytes[pos] == c && (!triple || bytes.get(pos..pos + 3) == Some(&[c, c, c])) {
-            return pos + width;
-        } else if !triple && bytes[pos] == b'\n' {
-            return pos;
-        } else {
-            pos += 1;
-        }
-    }
-    bytes.len()
-}
-
-fn string_prefix(text: &str, quote: usize) -> (usize, bool) {
-    let mut start = quote;
-    while start > 0
-        && (text.as_bytes()[start - 1].is_ascii_alphabetic() || text.as_bytes()[start - 1] == b'_')
-    {
-        start -= 1;
-    }
-    let prefix = text[start..quote].to_ascii_lowercase();
-    if matches!(prefix.as_str(), "r" | "u" | "b" | "br" | "rb") {
-        (start, false)
-    } else if matches!(prefix.as_str(), "f" | "fr" | "rf") {
-        (start, true)
-    } else {
-        (quote, false)
-    }
-}
-
-fn python_string(text: &str, quote: usize, regions: &mut Vec<(usize, usize, bool)>) -> usize {
-    let (start, formatted) = string_prefix(text, quote);
-    if !formatted {
-        let end = string_end(text.as_bytes(), quote);
-        regions.push((start, end, false));
-        return end;
-    }
-    let bytes = text.as_bytes();
-    let c = bytes[quote];
-    let triple = bytes.get(quote..quote + 3) == Some(&[c, c, c]);
-    let width = if triple { 3 } else { 1 };
-    let mut pos = quote + width;
-    while pos < bytes.len() {
-        if bytes[pos] == b'\\' {
-            if matches!(bytes.get(pos + 1), Some(b'{' | b'}')) {
-                pos += 1;
-            } else {
-                pos = (pos + 2).min(bytes.len());
-            }
-        } else if bytes[pos] == c && (!triple || bytes.get(pos..pos + 3) == Some(&[c, c, c])) {
-            return pos + width;
-        } else if bytes.get(pos..pos + 2) == Some(b"{{") || bytes.get(pos..pos + 2) == Some(b"}}") {
-            pos += 2;
-        } else if bytes[pos] == b'{' {
-            pos = python_field(text, pos + 1, regions);
-        } else {
-            pos += 1;
-        }
-    }
-    bytes.len()
-}
-
-fn python_field(text: &str, mut pos: usize, regions: &mut Vec<(usize, usize, bool)>) -> usize {
-    let bytes = text.as_bytes();
-    let mut grouping = Vec::new();
-    while pos < bytes.len() {
-        match bytes[pos] {
-            b'\'' | b'"' => pos = python_string(text, pos, regions),
-            b'#' => {
-                let end = text[pos..].find('\n').map_or(bytes.len(), |n| pos + n);
-                regions.push((pos, end, true));
-                pos = end;
-            }
-            b'(' | b'[' | b'{' => {
-                grouping.push(bytes[pos]);
-                pos += 1;
-            }
-            b'}' if grouping.is_empty() => return pos + 1,
-            b')' | b']' | b'}' => {
-                grouping.pop();
-                pos += 1;
-            }
-            b':' if grouping.is_empty() => {
-                pos += 1;
-                while pos < bytes.len() {
-                    if bytes[pos] == b'{' {
-                        pos = python_field(text, pos + 1, regions);
-                    } else if bytes[pos] == b'}' {
-                        return pos + 1;
-                    } else {
-                        pos += 1;
-                    }
-                }
-            }
-            _ => pos += 1,
-        }
-    }
-    pos
-}
-
-/// Comment and ordinary string token bounds. F-string literal segments are
-/// excluded, matching Python 3.13's STRING/COMMENT token scopes.
-mod python_checked;
-
-/// Managed token bounds only when tokenization can finish. A carry into an
-/// unfinished file must leave every byte where its author put it.
-pub fn python_regions_checked(text: &str) -> Result<Vec<(usize, usize, bool)>> {
-    python_checked::validate(text)?;
-    Ok(python_regions(text))
-}
-
-pub fn python_regions(text: &str) -> Vec<(usize, usize, bool)> {
-    let bytes = text.as_bytes();
-    let mut regions = Vec::new();
-    let mut pos = 0;
-    while pos < bytes.len() {
-        if bytes[pos] == b'#' {
-            let end = text[pos..].find('\n').map_or(bytes.len(), |n| pos + n);
-            regions.push((pos, end, true));
-            pos = end;
-        } else if bytes[pos] == b'\'' || bytes[pos] == b'"' {
-            pos = python_string(text, pos, &mut regions);
-        } else {
-            pos += 1;
-        }
-    }
-    regions
-}
-
-pub fn python_comments(text: &str, variables: &Variables) -> String {
-    let mut out = String::with_capacity(text.len());
-    let mut pos = 0;
-    for (start, end, comment) in python_regions(text) {
-        let region = &text[start..end];
-        if comment
-            || markers(region)
-                .iter()
-                .any(|(_, _, _, name)| variables.contains_key(*name))
-        {
-            out.push_str(&text[pos..start]);
-            out.push_str(&replace_markers(region, variables));
-            pos = end;
-        }
-    }
-    out.push_str(&text[pos..]);
-    out
-}
-
 fn normalized_text(path: &Path) -> Result<String> {
     Ok(fs::read_to_string(path)?
         .replace("\r\n", "\n")
@@ -362,7 +207,6 @@ pub fn substitute(
     let (new_text, figures) = match kind {
         Kind::Markdown => markdown(&text, variables, caller),
         Kind::Mermaid => (mermaid(&text, variables), Variables::new()),
-        Kind::Python => (python_comments(&text, variables), Variables::new()),
     };
     let mut result = Substitution {
         maintained: vec![path.to_owned()],
@@ -381,8 +225,7 @@ pub fn substitute(
             .and_then(|data| serde_json::from_slice(&data).ok())
             .unwrap_or_default();
         held.insert(caller.to_owned(), figures);
-        // Python's json.dumps default escapes non-ASCII, while serde_json
-        // writes UTF-8. Preserve the sidecar's existing ASCII encoding.
+        // The figure sidecars are ASCII-escaped JSON; serde_json writes UTF-8.
         let json = ascii_json(&serde_json::to_string_pretty(&held)?) + "\n";
         result.changed |= write_if_changed(&sidecar, json.as_bytes())?;
         result.maintained.push(sidecar);

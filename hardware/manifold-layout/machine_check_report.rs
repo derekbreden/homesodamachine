@@ -606,7 +606,7 @@ fn routed(conns: &[Value], rules: &Value) -> Value {
     }
     let mut how = how.into_iter().collect::<Vec<_>>();
     how.sort_by(|a, b| b.1.cmp(&a.1).then(a.0.cmp(&b.0)));
-    let mut detail=vec!["a connection is MADE when the machine holds a path for it: a run `_lines.py` draws, one of the pack's own constructions — a butt between two collets, a fixed TPU return with straight links, a permanent pump dock, or a quarter turn and the step off it — or a joint made up across a plane two bodies already share or on its fittings' threads".to_owned(),format!("{} — {} still to route",how.iter().map(|(h,n)|format!("{h} {n}")).collect::<Vec<_>>().join(", "),missing.len()),format!("by circuit — {}",kinds.iter().map(|(k,(d,t))|format!("{k} {d}/{t}")).collect::<Vec<_>>().join(", "))];
+    let mut detail=vec!["a connection is MADE when the machine holds a path for it: a run the machine's routes draw, one of the pack's own constructions — a butt between two collets, a fixed TPU return with straight links, a permanent pump dock, or a quarter turn and the step off it — or a joint made up across a plane two bodies already share or on its fittings' threads".to_owned(),format!("{} — {} still to route",how.iter().map(|(h,n)|format!("{h} {n}")).collect::<Vec<_>>().join(", "),missing.len()),format!("by circuit — {}",kinds.iter().map(|(k,(d,t))|format!("{k} {d}/{t}")).collect::<Vec<_>>().join(", "))];
     let row = |c: &&Value| {
         format!(
             "{} ({}): {} → {} — {}{}",
