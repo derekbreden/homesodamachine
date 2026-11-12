@@ -173,13 +173,17 @@ impl Cache {
         Ok(result)
     }
 
+    /// A staged root may itself stand in the persistent cache; its files are inputs all the same.
     fn logical(&self, path: &Path) -> String {
-        if path.starts_with(&self.persistent) {
-            return path.to_string_lossy().into_owned();
+        match path.strip_prefix(&self.root) {
+            Ok(relative)
+                if self.root.starts_with(&self.persistent)
+                    || !path.starts_with(&self.persistent) =>
+            {
+                format!("@input/{}", relative.display())
+            }
+            _ => path.to_string_lossy().into_owned(),
         }
-        path.strip_prefix(&self.root)
-            .map(|relative| format!("@input/{}", relative.display()))
-            .unwrap_or_else(|_| path.to_string_lossy().into_owned())
     }
 
     fn physical(&self, path: &str) -> PathBuf {
@@ -389,9 +393,10 @@ mod tests {
                 .duration_since(std::time::UNIX_EPOCH)?
                 .as_nanos()
         ));
-        let first = base.join("first");
-        let second = base.join("second");
-        let work = base.join("retained");
+        let persistent = base.join("cache");
+        let first = persistent.join("runs/first/work");
+        let second = persistent.join("runs/second/work");
+        let work = persistent.join("retained");
         for dir in [&first, &second, &work] {
             std::fs::create_dir_all(dir)?;
         }
@@ -403,7 +408,7 @@ mod tests {
         let output = work.join("output.json");
         let make_cache = |root: &Path| Cache {
             root: root.to_owned(),
-            persistent: work.clone(),
+            persistent: persistent.clone(),
             work: work.clone(),
             implementation: "fixture".into(),
             reads: log.clone(),
