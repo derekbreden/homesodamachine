@@ -1,0 +1,61 @@
+<main id="foam">
+  <div class="foam-heading">
+    <div>
+      <h1>Foam pours</h1>
+      <p>What the fill model says each pour will do, before it is poured: where the foam ends up, where it does not, and how it got there.</p>
+    </div>
+    <nav class="foam-links" aria-label="Sources">
+      <a href="https://github.com/derekbreden/homesodamachine/blob/main/hardware/print-tests/foam-fill/README.md">Test pieces and pour steps</a>
+      <a href="https://github.com/derekbreden/homesodamachine/blob/main/tools/hsm/foam/README.md">The model</a>
+    </nav>
+  </div>
+  <div class="foam-tabs" role="tablist" aria-label="Pours"></div>
+  <p class="foam-says" id="foam-says"></p>
+  <div class="foam-controls" aria-label="Pour playback">
+    <button type="button" id="foam-play" disabled>Play</button>
+    <label class="foam-scrub" for="foam-time">
+      <span>Since mixing began <output for="foam-time" id="foam-time-value">0 s</output></span>
+      <input id="foam-time" type="range" min="0" max="1" step="0.5" value="1" disabled>
+    </label>
+    <label class="foam-check"><input id="foam-age" type="checkbox"> Colour by arrival</label>
+    <label class="foam-check"><input id="foam-print" type="checkbox" checked> Show the print</label>
+  </div>
+  <div class="foam-stage" role="img" aria-label="Three-dimensional view of a clear printed test piece and the foam the model predicts in it. The time slider moves the foam from the pour to the end of its rise.">
+    <span class="foam-loading" role="status">Loading the prediction…</span>
+    <div class="foam-legend" id="foam-legend" hidden>
+      <span id="foam-legend-from"></span><i></i><span id="foam-legend-to"></span>
+    </div>
+  </div>
+  <div class="foam-caption">
+    <p>Drag to orbit · Scroll or pinch to zoom · Right-drag or two fingers to pan</p>
+    <p id="foam-status" aria-live="polite"></p>
+  </div>
+
+  <section class="foam-section" aria-labelledby="foam-read-title">
+    <h2 id="foam-read-title">What to read after the pour</h2>
+    <p class="foam-note">Each row is a place in the piece and the part of the machine it stands for. Choose a row to mark the place in the view and draw its curve.</p>
+    <div class="foam-table-wrap">
+      <table class="foam-table">
+        <thead><tr><th scope="col">Place</th><th scope="col">Stands for</th><th scope="col">Predicted</th><th scope="col">Poured</th></tr></thead>
+        <tbody id="foam-places"></tbody>
+      </table>
+    </div>
+    <figure class="foam-chart">
+      <figcaption id="foam-chart-title"></figcaption>
+      <svg id="foam-chart" viewBox="0 0 640 200" role="img" aria-label="The chosen place's reading over time"></svg>
+    </figure>
+  </section>
+
+  <section class="foam-section" aria-labelledby="foam-pour-title">
+    <h2 id="foam-pour-title">The pour this prediction assumes</h2>
+    <ul class="foam-list" id="foam-pour"></ul>
+  </section>
+
+  <section class="foam-section" aria-labelledby="foam-model-title">
+    <h2 id="foam-model-title">What the model believes about the foam</h2>
+    <p class="foam-note">These are starting values from the maker's page and the usual run of two-pound pour foams. No pour here has corrected them yet. The test pieces exist to correct them.</p>
+    <dl class="foam-facts" id="foam-model"></dl>
+  </section>
+  <noscript><p>Enable JavaScript to see the predictions.</p></noscript>
+</main>
+<script type="module" src="/js/foam/main.js"></script>

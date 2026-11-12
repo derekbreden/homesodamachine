@@ -103,6 +103,9 @@ const routes = [
   { path: "/settings.js",         expect: 200, ct: "text/javascript" },
   { path: "/pan-zoom.js",         expect: 200, ct: "text/javascript" },
   { path: "/js/weld-position/main.js", expect: 200, ct: "text/javascript" },
+  { path: "/foam", expect: 200, ct: "text/html" },
+  { path: "/js/foam/main.js", expect: 200, ct: "text/javascript" },
+  { path: "/foam/index.json", expect: 200, ct: "application/json" },
   { path: "/js/weld-position/pose.js", expect: 200, ct: "text/javascript" },
   { path: "/content-viewer.js",   expect: 200, ct: "text/javascript" },
 
