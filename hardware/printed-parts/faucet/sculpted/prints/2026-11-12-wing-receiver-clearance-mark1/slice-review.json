@@ -1,0 +1,96 @@
+{
+  "purpose": "Check the Sculpted tip's relieved wing blade receivers against the previously fitted display cover.",
+  "parts": [
+    {
+      "name": "faucet-shell-tip",
+      "source": "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.stl",
+      "stl_sha256": "5463b63f4779fca27cad326f1d9981dd340273f1cee436664ec5eb003fd3a5f0",
+      "identify_id": 1901,
+      "rotation_x_degrees": -105.0,
+      "build_transform": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        -0.25881904510252085,
+        -0.9659258262890683,
+        0.0,
+        0.9659258262890683,
+        -0.25881904510252085,
+        131.5,
+        154.785128820301,
+        68.93456774147909
+      ],
+      "watertight": true
+    },
+    {
+      "name": "faucet-display-cover",
+      "source": "hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.stl",
+      "stl_sha256": "588ab96222e71a1d879d85ddbfccb86bc7d926e9e25d928a1eb1153839617a31",
+      "identify_id": 1902,
+      "rotation_x_degrees": -50.0,
+      "build_transform": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.6427876096865394,
+        -0.766044443118978,
+        0.0,
+        0.766044443118978,
+        0.6427876096865394,
+        193.5,
+        159.3236938630398,
+        12.989291613511204
+      ],
+      "watertight": true
+    }
+  ],
+  "fit": {
+    "receiver_root_relief_x_mm_per_receiver": 0.5,
+    "receiver_edge_relief_y_mm_each_side": 0.25,
+    "receiver_edge_relief_z_mm_each_side": 0.25,
+    "seated_cover_overlap_mm3": 0.0,
+    "assembly_mesh_sha256": "e8b9a06be4eae53ceea88681d779b3aebe6ee87bb837e904f69dc5106684bbca",
+    "cover_reference_printer_task_id": "1434203305"
+  },
+  "project": "sculpted-tip-cover-wing-clearance-black-mark1.3mf",
+  "project_sha256": "c9b870f851ca943e26ce8a6aec7b5677ae33dd29ac490474b329c854eb615354",
+  "finish_selection_sha256": "957979c2874999e96ae4adc479ec6c994a28e20d48455f871d41e2aa021d95e2",
+  "archive": {
+    "gcode_sha256": "2338c645618cab4f89fa5cd936545e3b4970ab1669fa2123a700ef06df1d75d8",
+    "name": "sculpted-tip-cover-wing-clearance-black-mark1-ready.gcode.3mf",
+    "objects": [
+      "faucet-shell-tip",
+      "faucet-display-cover"
+    ],
+    "sha256": "bf99b84da67bcc1ce46bde0e5c6b1a4b6ff31800e058560d6d6944ee06a91466",
+    "slots": {
+      "1": {
+        "colour": "000000",
+        "type": "PET-CF"
+      }
+    }
+  },
+  "printer": "Mark1",
+  "nozzle": "fixed left hardened 0.4 mm",
+  "spool": "black PET-GF on left external",
+  "bed": "Textured PEI Plate",
+  "emitted_z_trim_mm": 0.16,
+  "layer_count": 971,
+  "predicted_seconds": 9587,
+  "predicted_filament_g": 51.69,
+  "full_bead_bounds_xy_mm": [
+    [
+      104.6756715,
+      132.2166715
+    ],
+    [
+      207.9753285,
+      199.8833285
+    ]
+  ],
+  "tip_attached_outer_brim_mm": 7.0,
+  "tip_rim_contour_segments": 447,
+  "cover_wall_part_fan_percent": 0
+}
