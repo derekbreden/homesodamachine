@@ -7,36 +7,8 @@ rust-version.workspace = true
 publish = false
 
 [[bin]]
-name = "machine-assembly-model"
-path = "../../../hardware/manifold-layout/enclosure_assembly.rs"
-
-[[bin]]
-name = "machine-checks"
-path = "../../../hardware/manifold-layout/machine_checks.rs"
-
-[[bin]]
-name = "machine-layout"
-path = "../../../hardware/manifold-layout/machine_layout.rs"
-
-[[bin]]
-name = "machine-equipment"
-path = "../../../hardware/manifold-layout/machine_equipment.rs"
-
-[[bin]]
 name = "installed-wires"
 path = "../../../hardware/wiring/installed/wire_geometry.rs"
-
-[[bin]]
-name = "machine-export"
-path = "../../../hardware/assembly/scenes/machine_export.rs"
-
-[[bin]]
-name = "machine-routes"
-path = "../../../hardware/manifold-layout/machine_routes.rs"
-
-[[bin]]
-name = "wire-route-samples"
-path = "../../../hardware/wiring/installed/wire_route_samples.rs"
 
 [dependencies]
 anyhow.workspace = true
@@ -46,4 +18,3 @@ hsm-model-export = { path = "../model-export" }
 serde.workspace = true
 serde_json = { workspace = true, features = ["float_roundtrip"] }
 sha2.workspace = true
-zip = { version = "9.1.2", default-features = false, features = ["deflate-flate2-zlib-rs"] }
