@@ -2126,16 +2126,16 @@
       "vendor": "DigiKey"
     },
     {
-      "checked_at": "2026-11-11",
+      "checked_at": "2026-11-12",
       "complete_period": null,
       "coverage": "partial",
       "coverage_id": "coverage-3f9213df0aa74f0ea6c1edddede6913c",
-      "evidence_type": "actual_delivery_and_completed_or_pending_transactions",
+      "evidence_type": "actual_delivery_and_completed_transactions",
       "examined_period": {
-        "end": "2026-11-11",
+        "end": "2026-11-12",
         "start": "2026-11-09"
       },
-      "note": "Three delivery notifications matched to exact signed-in order details, explicit locally dated delivery timelines and order-scoped Completed transactions. Existing purchase, payment and allocation identities are retained. The washer order remains undelivered with a pending merchant transaction. These order-level checks do not establish broader account coverage or remaining usable stock.",
+      "note": "Four delivery notifications matched to exact signed-in order details, explicit locally dated delivery timelines and order-scoped Completed transactions. Existing purchase, payment and allocation identities are retained. These order-level checks do not establish broader account coverage, exact washer conformity or remaining usable stock.",
       "order_ids": [
         "amazon:112-0448533-3655424",
         "amazon:112-1175582-2386612",
@@ -2143,6 +2143,8 @@
         "amazon:112-9511233-2346613"
       ],
       "source_ids": [
+        "src-00856c18fb5b415294932e8cac6f8e1a",
+        "src-41b1a3aa72b14f9ebbf132969ccfca13",
         "src-44d108bf8eef4096bf188fb901b37494",
         "src-84538fd649a445de836e5a033a2fe94e",
         "src-a817b838cfb64584830049903860f236",
@@ -2925,20 +2927,22 @@
       "vendor": "CNCKitchen USA"
     },
     {
-      "checked_at": "2026-11-11",
+      "checked_at": "2026-11-12",
       "complete_period": null,
       "coverage": "partial",
       "coverage_id": "coverage-a0b187f69c724058a8917d8546193058",
-      "evidence_type": "order_confirmation_and_order_scoped_payment_lookup",
+      "evidence_type": "order_details_actual_delivery_and_completed_transaction",
       "examined_period": {
-        "end": "2026-11-11",
+        "end": "2026-11-12",
         "start": "2026-11-10"
       },
-      "note": "Exact-reference Gmail search returned one confirmation with no further pages. Signed-in order details establish identity, placed date and estimated-tax total. Order-scoped merchant lookup shows no transactions yet; actual delivery and exact M3 washer conformity remain unverified.",
+      "note": "Named confirmation and delivery notices matched to signed-in order details and explicit local delivery timeline. Completed order-scoped transaction confirms USD 9.64 dated November 11; actual delivery is November 12. Exact M3 washer conformity remains unverified. This does not establish broader account coverage.",
       "order_ids": [
         "amazon:112-1175582-2386612"
       ],
       "source_ids": [
+        "src-00856c18fb5b415294932e8cac6f8e1a",
+        "src-41b1a3aa72b14f9ebbf132969ccfca13",
         "src-b23173b78a9745bbadaf7e701b7adfea"
       ],
       "stream": "one named external-tooth washer order",
@@ -7184,9 +7188,12 @@
       ],
       "allocation_status": "all_project",
       "amount_minor": 964,
-      "confirmation": "expected",
+      "confirmation": "confirmed",
       "currency": "USD",
-      "event_date": null,
+      "event_date": {
+        "precision": "day",
+        "value": "2026-11-11"
+      },
       "event_id": "evt-a433c78eacf3419f9a8285a9b133fbb7",
       "event_type": "charge",
       "order_ids": [
@@ -7196,12 +7203,13 @@
         "pur-6f3e90aba9734990a07d1e24f1f75a86"
       ],
       "source_ids": [
+        "src-41b1a3aa72b14f9ebbf132969ccfca13",
         "src-b23173b78a9745bbadaf7e701b7adfea",
         "src-b534bb94a46045f19c312922b8204c3a"
       ],
       "unallocated_to_purchase_minor": 0,
       "vendor": "Amazon",
-      "verified_at": "2026-11-11"
+      "verified_at": "2026-11-12"
     },
     {
       "allocation_ids": [
@@ -9654,7 +9662,7 @@
       ]
     }
   ],
-  "input_fingerprint": "sha256:8e9ef779b65104dd98f361fb8b4a9b9624db953d7879661c43fcb8a9532b3f71",
+  "input_fingerprint": "sha256:5dee11c3041df3272513af3f99f7281cc6782413d009b96e06088040998dfef6",
   "orders": [
     {
       "allocation_status": "all_project",
@@ -10382,6 +10390,8 @@
       ],
       "reference": "112-1175582-2386612",
       "source_ids": [
+        "src-00856c18fb5b415294932e8cac6f8e1a",
+        "src-41b1a3aa72b14f9ebbf132969ccfca13",
         "src-ad5570deec324f9cb9ce15c4cddbcc2f",
         "src-b23173b78a9745bbadaf7e701b7adfea",
         "src-b534bb94a46045f19c312922b8204c3a"
@@ -34591,19 +34601,28 @@
     },
     {
       "allocation_status": "all_project",
-      "amount_evidence": "estimate",
+      "amount_evidence": "final_vendor_amount",
       "amount_minor": 964,
       "contributes": true,
       "currency": "USD",
-      "delivery_date": null,
-      "description": "IEAWISL external-tooth lock washer assortment, advertised 304 stainless steel, eight sizes M2.5–M12; project fastener stock. M3 dimensions and 0.4 mm thickness for the earth clamp remain unverified. $8.99 item + $0.65 estimated tax; free shipping",
+      "delivery_date": {
+        "precision": "day",
+        "value": "2026-11-12"
+      },
+      "delivery_dates": [
+        {
+          "precision": "day",
+          "value": "2026-11-12"
+        }
+      ],
+      "description": "IEAWISL external-tooth lock washer assortment, advertised 304 stainless steel, eight sizes M2.5–M12; project fastener stock. M3 dimensions and 0.4 mm thickness for the earth clamp remain unverified. $8.99 item + $0.65 tax; free shipping",
       "event_ids": [
         "evt-a433c78eacf3419f9a8285a9b133fbb7"
       ],
-      "fulfillment": "ON-ORDER",
+      "fulfillment": "ACQUIRED",
       "invoice_date": null,
       "ledger_purchase_id": "pur-6f3e90aba9734990a07d1e24f1f75a86",
-      "merchant_charge_allocated_minor": 0,
+      "merchant_charge_allocated_minor": 964,
       "merchant_refund_allocated_minor": 0,
       "order_date": {
         "precision": "day",
@@ -34612,8 +34631,20 @@
       "order_ids": [
         "amazon:112-1175582-2386612"
       ],
-      "payment_evidence": "unknown",
+      "payment_evidence": "merchant_charge",
       "price_basis": "row_total",
+      "price_history": [
+        {
+          "amount_evidence": "estimate",
+          "amount_minor": 964,
+          "currency": "USD",
+          "note": "Prior quoted amount with estimated tax, preserved as noncontributing history; the completed merchant charge confirms the same total.",
+          "source_ids": [
+            "src-b23173b78a9745bbadaf7e701b7adfea"
+          ],
+          "verified_at": "2026-11-11"
+        }
+      ],
       "purchase_id": "pur-6f3e90aba9734990a07d1e24f1f75a86",
       "purpose": "components",
       "quantity": 1,
@@ -34628,6 +34659,8 @@
       "section": "11. Enclosure hardware",
       "service_period": null,
       "source_ids": [
+        "src-00856c18fb5b415294932e8cac6f8e1a",
+        "src-41b1a3aa72b14f9ebbf132969ccfca13",
         "src-ad5570deec324f9cb9ce15c4cddbcc2f",
         "src-b23173b78a9745bbadaf7e701b7adfea",
         "src-b534bb94a46045f19c312922b8204c3a"
@@ -60878,6 +60911,23 @@
       "verified_at": "2026-10-13"
     },
     {
+      "document_date": null,
+      "document_type": "merchant_order_details_and_delivery_timeline",
+      "note": "Signed-in order details retain the IEAWISL B0D8HVSJMK washer assortment identity and USD 9.64 total. The tracking history explicitly records Thursday, November 12, 2026 at 3:03 PM with times shown in the local timezone. The delivery notification corroborates fulfillment but does not supply the calendar day independently. No exact M3 washer conformity or remaining usable stock is established.",
+      "notification_date": {
+        "precision": "day",
+        "value": "2026-11-12"
+      },
+      "proves": [
+        "delivery",
+        "price"
+      ],
+      "reference": "112-1175582-2386612",
+      "source_id": "src-00856c18fb5b415294932e8cac6f8e1a",
+      "vendor": "Amazon",
+      "verified_at": "2026-11-12"
+    },
+    {
       "document_date": {
         "precision": "day",
         "value": "2026-10-05"
@@ -62357,6 +62407,24 @@
       "source_id": "src-40cb8737c36c4fb18d3e9b2e20bfb63e",
       "vendor": "Amazon",
       "verified_at": "2026-10-13"
+    },
+    {
+      "document_date": null,
+      "document_type": "completed_merchant_transaction",
+      "merchant_event_date": {
+        "precision": "day",
+        "value": "2026-11-11"
+      },
+      "note": "Live order-scoped Your Payments > Completed shows USD 9.64 dated 2026-11-11. The completed merchant amount confirms the existing expected event in place; no bank posting or funding ownership is inferred.",
+      "proves": [
+        "charge",
+        "merchant_event_date",
+        "price"
+      ],
+      "reference": "112-1175582-2386612",
+      "source_id": "src-41b1a3aa72b14f9ebbf132969ccfca13",
+      "vendor": "Amazon",
+      "verified_at": "2026-11-12"
     },
     {
       "document_date": null,
@@ -67430,7 +67498,7 @@
       "basis": "Current procurement status, independently of payment evidence.",
       "by_status": [
         {
-          "amount_minor": 5002743,
+          "amount_minor": 5003707,
           "currency": "USD",
           "fulfillment": "ACQUIRED",
           "purchase_ids": [
@@ -67747,6 +67815,7 @@
             "pur-6efcbbd5fcb44c888f18a2ef86a18960",
             "pur-6f026c64ba934cfa86597b5748ded272",
             "pur-6f1b8c5e3a7d4c0f2e5b9a1c3d4e6f85",
+            "pur-6f3e90aba9734990a07d1e24f1f75a86",
             "pur-6f714d0f4e0b4fb4851561e01f5783b4",
             "pur-6fb9cbd2160040c983dc0055e58d4de1",
             "pur-6fdb34ee8f244808a9fc68ef8751a970",
@@ -68175,12 +68244,11 @@
           "unknown_amount_ids": []
         },
         {
-          "amount_minor": 8018,
+          "amount_minor": 7054,
           "currency": "USD",
           "fulfillment": "ON-ORDER",
           "purchase_ids": [
-            "pur-4eaf76e6557740d7b0e85e0be8664f71",
-            "pur-6f3e90aba9734990a07d1e24f1f75a86"
+            "pur-4eaf76e6557740d7b0e85e0be8664f71"
           ],
           "unknown_amount_ids": []
         },
@@ -68198,7 +68266,6 @@
       "expected_refund_event_ids": [],
       "outstanding_purchase_ids": [
         "pur-4eaf76e6557740d7b0e85e0be8664f71",
-        "pur-6f3e90aba9734990a07d1e24f1f75a86",
         "pur-b6c01a5b012340fc888139c1070dc054",
         "pur-c887374045604177851c4a81cc779f0e"
       ],
@@ -68212,7 +68279,6 @@
         "evt-5fddb80e882c4533bf9042d5a74088cc",
         "evt-9fd2d4a65f7d45a594a7ac3a6837d416",
         "evt-a3c8a2e1a259405e85d14c27817deb58",
-        "evt-a433c78eacf3419f9a8285a9b133fbb7",
         "evt-c0203246ff88423a9af71d1977ede6c4",
         "evt-c8a1b3ae1a6d4021a36b2fe4e55971e9",
         "evt-e5f1a5d1860941fe82124df7e77e67fe"
@@ -68503,7 +68569,7 @@
         },
         {
           "authorizations_minor": 0,
-          "charges_minor": 67599,
+          "charges_minor": 68563,
           "currency": "USD",
           "event_ids": [
             "evt-03528b8bbe2f47c39bee9b7de9b837c3",
@@ -68515,6 +68581,7 @@
             "evt-46ab695dde87410681a27f2d7fd8a499",
             "evt-51181bad6ecd4fcfb97e622f5e17a5f9",
             "evt-92e67e1783c94f10ac80f6a9895996db",
+            "evt-a433c78eacf3419f9a8285a9b133fbb7",
             "evt-a518d84ef1464651bd19812f7d6129d0",
             "evt-a65135dfda964b4faa92d367bd777b81",
             "evt-a778aae0f86a47a6b10d733d848c637f",
@@ -68524,7 +68591,7 @@
           ],
           "evidence_scope": "retrieved_records_only",
           "month": "2026-11",
-          "net_minor": 67599,
+          "net_minor": 68563,
           "noncash_credits_minor": 0,
           "refunds_minor": 0,
           "unknown_amount_ids": [],
@@ -68547,9 +68614,9 @@
       "totals": [
         {
           "authorizations_minor": 0,
-          "charges_minor": 2558011,
+          "charges_minor": 2558975,
           "currency": "USD",
-          "net_minor": 2558011,
+          "net_minor": 2558975,
           "noncash_credits_minor": 0,
           "refunds_minor": 0,
           "unresolved_project_share_minor": 0
@@ -68578,7 +68645,6 @@
             "evt-99939add7e964cfb9fb65ee05dc98a55",
             "evt-9fd2d4a65f7d45a594a7ac3a6837d416",
             "evt-a3c8a2e1a259405e85d14c27817deb58",
-            "evt-a433c78eacf3419f9a8285a9b133fbb7",
             "evt-a44b7291eb25461f97cd8d045faebd4e",
             "evt-c73bf4b9bbe14a74b8b42e94dabd00aa",
             "evt-c8a1b3ae1a6d4021a36b2fe4e55971e9",
@@ -69311,9 +69377,9 @@
         },
         {
           "currency": "USD",
-          "estimate_minor": 3888,
+          "estimate_minor": 2924,
           "evidence_scope": "retrieved_records_only",
-          "final_vendor_amount_minor": 66948,
+          "final_vendor_amount_minor": 67912,
           "legacy_unverified_minor": 0,
           "month": "2026-11",
           "purchase_ids": [
@@ -69391,8 +69457,8 @@
       "totals": [
         {
           "currency": "USD",
-          "estimate_minor": 233010,
-          "final_vendor_amount_minor": 2892470,
+          "estimate_minor": 232046,
+          "final_vendor_amount_minor": 2893434,
           "legacy_unverified_minor": 1898308,
           "total_minor": 5023788
         }
@@ -69553,11 +69619,11 @@
       "by_currency": [
         {
           "currency": "USD",
-          "estimated_purchase_minor": 233010,
+          "estimated_purchase_minor": 232046,
           "legacy_unverified_purchase_minor": 1898308,
           "order_only_charge_allocation_minor": 6561,
           "partial_charge_purchase_minor": 0,
-          "purchases_without_merchant_charge_minor": 2472338,
+          "purchases_without_merchant_charge_minor": 2471374,
           "undated_charge_minor": 563952,
           "undated_refund_minor": 0,
           "undated_unallocated_purchase_minor": 975132,
@@ -69578,7 +69644,6 @@
         "pur-4eaf76e6557740d7b0e85e0be8664f71",
         "pur-5090fe33ed404b20b5f3401171bf8565",
         "pur-5da1ea9540d44a8897b0c2774fe1ff35",
-        "pur-6f3e90aba9734990a07d1e24f1f75a86",
         "pur-7a2c9d6f4b8e4d1a3f6c0b2d4e5f7a96",
         "pur-7cb5c1d8028249feb0e80687059fc82e",
         "pur-87565d390bcc451a9fbfb44dc871d585",
@@ -70408,7 +70473,6 @@
         "pur-6e9a8d44f2e24b729ca4888aba4b57aa",
         "pur-6efcbbd5fcb44c888f18a2ef86a18960",
         "pur-6f026c64ba934cfa86597b5748ded272",
-        "pur-6f3e90aba9734990a07d1e24f1f75a86",
         "pur-6fdb34ee8f244808a9fc68ef8751a970",
         "pur-6fefb1717dc14ed4bfb05d815886f6ba",
         "pur-6ff288deba9941ab8dfef9db361e0cae",
@@ -70720,7 +70784,6 @@
         "evt-99939add7e964cfb9fb65ee05dc98a55",
         "evt-9fd2d4a65f7d45a594a7ac3a6837d416",
         "evt-a3c8a2e1a259405e85d14c27817deb58",
-        "evt-a433c78eacf3419f9a8285a9b133fbb7",
         "evt-a44b7291eb25461f97cd8d045faebd4e",
         "evt-c73bf4b9bbe14a74b8b42e94dabd00aa",
         "evt-c8a1b3ae1a6d4021a36b2fe4e55971e9",

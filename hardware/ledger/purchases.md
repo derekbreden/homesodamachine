@@ -537,7 +537,7 @@ DigiKey salesorder **101910359**, web order **377210254**: the 2026-09-29 confir
 | <!--purchase:pur-ed416e9ff39a42f9a0f8705a7d769d5a--> uxcell 304 stainless compression spring, 6 mm OD × 0.6 mm wire × 30 mm free length, 20 pc — spare stock, with no role in the current build; dimensional match to the Lee LCM060C12M ([inventory.md](/hardware/ledger/inventory.md), Diagnostic). $8.89 + $0.64 NE tax | [B076LRZHP5](https://www.amazon.com/dp/B076LRZHP5) | 1 pk (20) | $9.53 | 112-5383652-4465062 | 2026-09-16 | 2026-09-18 | ACQUIRED |
 | <!--purchase:pur-89b25fbe2a3e44adb4cbb188ab8a820f--> ruthex brass heat-set insert assortment: RX-M2x4, RX-M3x5.7, RX-M4x8.1 and RX-M5x9.5; 270 pieces (70 / 100 / 50 / 50). $29.99 merchandise + $2.17 tax; shipping waived | [B08K1BVGN9](https://www.amazon.com/dp/B08K1BVGN9) | 1 box (270) | $32.16 | 112-8336005-3642625 | 2026-11-09 | 2026-11-10 | ACQUIRED |
 | <!--purchase:pur-14f8f47e82a74b129f4677cb0fc2a67d--> Sutemribor M2 × 6 mm socket-head cap screws, M2-0.4, 12.9 alloy steel, black oxide, fully threaded; replenishment pack | [B0CXQ7Q7L3](https://www.amazon.com/dp/B0CXQ7Q7L3) | 1 pk (105) | $8.57 | 112-0448533-3655424 | 2026-11-09 | 2026-11-11 | ACQUIRED |
-| <!--purchase:pur-6f3e90aba9734990a07d1e24f1f75a86--> IEAWISL external-tooth lock washer assortment, advertised 304 stainless steel, eight sizes M2.5–M12; project fastener stock. M3 dimensions and 0.4 mm thickness for the earth clamp remain unverified. $8.99 item + $0.65 estimated tax; free shipping | [B0D8HVSJMK](https://www.amazon.com/dp/B0D8HVSJMK) | 1 box (550) | $9.64 | 112-1175582-2386612 | 2026-11-10 | — | ON-ORDER (shipped) |
+| <!--purchase:pur-6f3e90aba9734990a07d1e24f1f75a86--> IEAWISL external-tooth lock washer assortment, advertised 304 stainless steel, eight sizes M2.5–M12; project fastener stock. M3 dimensions and 0.4 mm thickness for the earth clamp remain unverified. $8.99 item + $0.65 tax; free shipping | [B0D8HVSJMK](https://www.amazon.com/dp/B0D8HVSJMK) | 1 box (550) | $9.64 | 112-1175582-2386612 | 2026-11-10 | 2026-11-12 | ACQUIRED |
 
 ## 12. Shop / bench infrastructure
 
@@ -839,7 +839,7 @@ Printed copies of the [install guide](/hardware/install-guide/README.md). Lulu o
 | Part | Notes |
 |---|---|
 | **Smooth-On XTC-3D 3D-print smoothing epoxy, 6.4 oz (~$19.99) — optional** | Self-leveling epoxy base coat under the §21 core's clear-acrylic seal, only if the 0.08 mm core texture still telegraphs through the acrylic alone. Fills/seals; not the release face. [B01BKSLI9M](https://www.amazon.com/dp/B01BKSLI9M). |
-| **DIN 6797A M3 external-tooth washer, A2 stainless, 0.4 mm** | Conditional purchase: first verify the M3 washer in the ordered IEAWISL assortment against this specification. One per carbonator upper-rim earth clamp. [BelMetric WSE3SS](https://belmetric.com/toothed-external-star-lock-washer-din-6797-a-stainless/?sku=WSE3SS): 3.2 mm ID × 6 mm OD, $0.06 each before shipping/tax, in stock November 10. Not recorded as acquired. [Attachment procedure](/hardware/assembly/pressure-vessel.md#upper-rim-earth-bond). |
+| **DIN 6797A M3 external-tooth washer, A2 stainless, 0.4 mm** | Conditional purchase: first verify the M3 washer in the acquired IEAWISL assortment against this specification. One per carbonator upper-rim earth clamp. [BelMetric WSE3SS](https://belmetric.com/toothed-external-star-lock-washer-din-6797-a-stainless/?sku=WSE3SS): 3.2 mm ID × 6 mm OD, $0.06 each before shipping/tax, in stock November 10. Not recorded as acquired. [Attachment procedure](/hardware/assembly/pressure-vessel.md#upper-rim-earth-bond). |
 | **Green 16 AWG solid UL1007 wire** | Current unit-one conductor gap and selected Prime link are in [unit-1-shopping.md](/hardware/ledger/unit-1-shopping.md). Not recorded as newly ordered. |
 | **BenchPro Kennedy mobile workbench, 96 × 48 in, 1¾ in maple butcher-block top, gray (KW4896 LP 30-36 CL5-UB-Gray)** | Garage table for kit photos, moving large assemblies and general work. 30–36 in adjustable height, 1,200 lb capacity, four 5 in locking casters. $2,299 plus freight at [Global Industrial](https://www.globalindustrial.com/p/kennedy-mobile-workbench-96-x-48-maple-butcher-block-top-gray), ships in 15 business days. |
 | **hykolity 4 ft LED shop light, 5000K, 4-pack (×5, 20 lights)** | Garage ceiling: three rows of six, 2¼, 9.4 and 16½ ft from the back wall, two lights spare. 4,400 lm and 42 W each, six linked to one plug; 756 W for all eighteen. The three ceiling light boxes take receptacles in place of their lampholders: the middle row plugs into the middle box, and the back and front rows each take a new ceiling receptacle fed from a box. $40.84 a 4-pack, $204.20 for five, Amazon Prime, [B06XGBKDKZ](https://www.amazon.com/dp/B06XGBKDKZ). |
@@ -850,10 +850,10 @@ Printed copies of the [install guide](/hardware/install-guide/README.md). Lulu o
 
 | Status | $ |
 |---|---|
-| Acquired hardware valuation — includes replaced/returned originals | [$43,385.12](LEDGER_ACQUIRED_HW) |
+| Acquired hardware valuation — includes replaced/returned originals | [$43,394.76](LEDGER_ACQUIRED_HW) |
 | Engineering services (§18) | [$6,719.51](LEDGER_LABOR) |
-| Acquired procurement valuation (combined) | [$50,104.63](LEDGER_ACQUIRED_COMBINED) |
-| ON-ORDER | [$80.18](LEDGER_ON_ORDER) |
+| Acquired procurement valuation (combined) | [$50,114.27](LEDGER_ACQUIRED_COMBINED) |
+| ON-ORDER | [$70.54](LEDGER_ON_ORDER) |
 | MISSING — not in hand | [$53.07](LEDGER_MISSING) |
 | LIKELY-TO-BUY | $0.00 |
 | **Recorded procurement valuation — includes commitments** | [$50,237.88](LEDGER_GRAND_TOTAL) |
@@ -862,17 +862,17 @@ Price evidence within the procurement valuation:
 
 | Amount basis | USD |
 |---|---|
-| Final vendor amounts | [$28,924.70](LEDGER_FINAL_VENDOR) |
-| Estimated amounts | [$2,330.10](LEDGER_ESTIMATES) |
+| Final vendor amounts | [$28,934.34](LEDGER_FINAL_VENDOR) |
+| Estimated amounts | [$2,320.46](LEDGER_ESTIMATES) |
 | Legacy / unverified amounts | [$18,983.08](LEDGER_LEGACY_UNVERIFIED) |
 
 Merchant-evidenced payments (project shares; includes the undated bucket):
 
 | Event basis | USD |
 |---|---|
-| Completed charges | [$25,580.11](LEDGER_MERCHANT_CHARGES) |
+| Completed charges | [$25,589.75](LEDGER_MERCHANT_CHARGES) |
 | Issued monetary refunds | [$0.00](LEDGER_MERCHANT_REFUNDS) |
-| Charges less monetary refunds | [$25,580.11](LEDGER_MERCHANT_NET) |
+| Charges less monetary refunds | [$25,589.75](LEDGER_MERCHANT_NET) |
 
 The retrieved records have partial vendor coverage. An empty month or refund total is not evidence of account-wide zero activity. Authorizations, pending charges and noncash credit do not enter this view.
 
@@ -890,7 +890,7 @@ Acquired hardware valuation by section (includes replaced/returned originals):
 | 8 | Electronics — controllers | [$1,970.50](LEDGER_SEC8) |
 | 9 | Electronics — I/O, drivers, sensors, power | [$2,571.20](LEDGER_SEC9) |
 | 10 | User interface | [$164.11](LEDGER_SEC10) |
-| 11 | Enclosure hardware | [$453.14](LEDGER_SEC11) |
+| 11 | Enclosure hardware | [$462.78](LEDGER_SEC11) |
 | 12 | Shop / bench infrastructure | [$3,128.75](LEDGER_SEC12) |
 | 13 | Printing consumables | [$3,904.48](LEDGER_SEC13) |
 | 14 | Soldering + small-signal tools | [$859.66](LEDGER_SEC14) |
