@@ -89,7 +89,8 @@ fn key(name: &str) -> String {
     hsm_model_export::digest(name.as_bytes())
 }
 
-/// The same request supplies explicit checks and retained production geometry.
+/// The same request supplies explicit checks and retained production geometry. A conductor,
+/// termination or jacket whose cutting ends in an error is left out and named in `left_out`.
 pub fn run(request: &Request, output: &Path) -> Result<Value> {
     if output == Path::new("--check") {
         let mut rows = Vec::new();
@@ -105,6 +106,7 @@ pub fn run(request: &Request, output: &Path) -> Result<Value> {
     let _work_lock = stage_cache::lock(&parts_dir)?;
     let mut cache = stage_cache::Cache::new(&root, &parts_dir)?;
     let mut cut = Vec::new();
+    let mut left_out = Vec::new();
     for entity in entities(request) {
         let name = entity.name();
         let id = entity.id();
@@ -126,8 +128,11 @@ pub fn run(request: &Request, output: &Path) -> Result<Value> {
                 .collect();
             hsm_kernel::step::write_model(&fine, &bodies)?;
             Ok(json!({"name":name,"fine":fine,"bodies":rows,"diameter_mm":entity.diameter()}))
-        })?;
-        cut.push(record);
+        });
+        match record {
+            Ok(record) => cut.push(record),
+            Err(error) => left_out.push(json!({"name":name,"reason":format!("{error:#}")})),
+        }
     }
     let mut lower = [f64::INFINITY; 3];
     let mut upper = [f64::NEG_INFINITY; 3];
@@ -259,5 +264,9 @@ pub fn run(request: &Request, output: &Path) -> Result<Value> {
         hsm_model_export::model::entries(&json!({"target":fine,"entries":entries,"document":document}),output)?;
         Ok(json!({"files":[format!("{file_stem}.step.npz"),format!("{file_stem}.step.mesh")],"bodies":bodies}))
     })?;
+    let mut result = result;
+    if !left_out.is_empty() {
+        result["left_out"] = json!(left_out);
+    }
     Ok(result)
 }
