@@ -534,6 +534,13 @@ void onMessage(ProtoLink *link, const uint8_t *frame, uint16_t len) {
     return;
   }
 
+  if (type == MSG_NOTICE && plen >= sizeof(NoticePayload)) {
+    NoticePayload notice;
+    memcpy(&notice, payload, sizeof(notice));
+    faucetApplyNotice(notice.kind);
+    return;
+  }
+
   if (type == MSG_RESP_FLAVOR_ART && plen >= sizeof(FlavorArtPayload)) {
     FlavorArtPayload art;
     memcpy(&art, payload, sizeof(art));

@@ -526,12 +526,17 @@ constexpr uint8_t UI_RAIL_PRIME    = 1;
 constexpr uint8_t UI_RAIL_FILL     = 2;
 constexpr uint8_t UI_RAIL_CLEAN    = 3;
 constexpr uint8_t UI_RAIL_SETTINGS = 4;      // the corner: the system status
+constexpr uint8_t UI_RAIL_NOTICE   = 5;      // the no-water notice, while a refill stands latched
 constexpr uint8_t UI_CHANNEL_NONE  = 0xFF;   // the rail's own page rather than a channel's
+
+constexpr uint8_t UI_ACT_NONE    = 0;        // show the page and press nothing
+constexpr uint8_t UI_ACT_COMMIT  = 1;        // also press its commitment: START FILL, START CLEAN CYCLE, Try again
+constexpr uint8_t UI_ACT_DECLINE = 2;        // also press the notice's Not now
 
 struct __attribute__((packed)) UiShowPayload {
   uint8_t rail;      // UI_RAIL_*
   uint8_t channel;   // PUMP_CHANNEL_*, or UI_CHANNEL_NONE
-  uint8_t act;       // 1: also press the page's commitment — START FILL, START CLEAN CYCLE
+  uint8_t act;       // UI_ACT_*
 };
 
 // Whether a phone's Prime reached the glass. SHOWN is the page; the session's
@@ -811,7 +816,7 @@ struct __attribute__((packed)) StatusPayload {
   uint8_t  coldState;     // machine_policy::ColdState
   uint8_t  refillState;   // machine_policy::RefillState
   uint8_t  probeCount;    // devices found on the 1-wire bus
-  uint8_t  thermalPad;    // keeps the struct even
+  uint8_t  notice;        // NOTICE_*: what stops the machine making soda, 0 from a board built before it
 };
 
 static_assert(sizeof(StatusPayload) == 40, "main board status wire layout drift");
@@ -1062,6 +1067,28 @@ struct __attribute__((packed)) LogEntryPayload {
 
 static_assert(sizeof(LogEntryPayload) == sizeof(StatusPayload),
               "a record answer rides the frame a status answer does");
+
+// ── Why there is no soda (0x78..) ─────────────────────────────────────────
+// A refill that spends its pumping ceiling stands latched: the machine cannot tell a supply
+// that is shut off from a line that has come off, so it stops until someone has looked.
+// The main board names the reason and both glasses say it. The faucet's is told by
+// MSG_NOTICE, absolute and on its heartbeat, and points at the machine. The machine's own
+// display reads the same reason in the status it polls (StatusPayload::notice); it is where
+// the looking is done, so it alone offers Try again, and MSG_REFILL_RETRY is what that
+// sends.
+constexpr uint8_t MSG_NOTICE       = 0x78;  // NoticePayload: main board → faucet
+constexpr uint8_t MSG_REFILL_RETRY = 0x79;  // no payload: enclosure → main board, answered with StatusPayload
+
+constexpr uint8_t NOTICE_NONE     = 0;
+constexpr uint8_t NOTICE_NO_WATER = 1;  // a refill stands latched at its pumping ceiling
+
+// The kind comes first and a glass reads the bytes it knows, so a reason that needs more
+// than its name appends them.
+struct __attribute__((packed)) NoticePayload {
+  uint8_t kind;      // NOTICE_*
+};
+
+static_assert(sizeof(NoticePayload) == 1, "notice wire layout drift");
 
 // ── The radio bench ──────────────────────────────────────────────────────
 // The enclosure display raises the access point and sinks the bytes; the

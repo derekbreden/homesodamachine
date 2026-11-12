@@ -1,4 +1,5 @@
 //! Optional host commands prepare display assets, firmware releases and native app reviews.
+mod bench;
 mod firmware;
 mod ios;
 mod live;
@@ -57,6 +58,9 @@ fn run() -> Result<()> {
         "panelcam-console" => serials::panelcam(&args, false),
         "panelcam-wake" => serials::panelcam(&args, true),
         "ota" => ota::run(&root, &args),
+        "bench" => bench::run(&root, &args),
+        "bench-watch" => bench::watch(&args),
+        "console-session" => bench::session(&args),
         "x1-console" => x1::console(&args),
         "x1-capture" => x1::capture(&args),
         "firmware-live-check" => live::enclosure(&args),
@@ -71,7 +75,7 @@ fn run() -> Result<()> {
 }
 
 fn usage() -> &'static str {
-    "hsm-peripheral [--root CHECKOUT] COMMAND [OPTIONS]\nCommands: ios-checks, ios-capture, positioner-geometry, positioner-verify, uf2, pico-pad-checksum, firmware-pre-build, boards, display-usb, panelcam-console, panelcam-wake, ota, x1-console, x1-capture, firmware-live-check, firmware-faucet-check, panelcam-rectify"
+    "hsm-peripheral [--root CHECKOUT] COMMAND [OPTIONS]\nCommands: ios-checks, ios-capture, positioner-geometry, positioner-verify, uf2, pico-pad-checksum, firmware-pre-build, boards, display-usb, panelcam-console, panelcam-wake, ota, bench, bench-watch, console-session, x1-console, x1-capture, firmware-live-check, firmware-faucet-check, panelcam-rectify"
 }
 
 fn root() -> Result<PathBuf> {

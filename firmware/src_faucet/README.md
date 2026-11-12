@@ -93,6 +93,13 @@ The phone hears how it ended, and where it now stands, as `BLE_FRAME_TRUST`. One
 a time; another phone asking meanwhile is told the machine is busy. A phone with no bond is
 asked to pair again instead, which iOS puts to its owner.
 
+The main board names what stops the machine making soda (`MSG_NOTICE`, on its heartbeat). For
+a refill that stands latched this glass takes the strip a trust ask uses and says **No water**
+and **See the display on the machine.** It has no button: the machine's own display is where
+someone can look at the water and the floor, so it is where Try again is. A trust ask takes
+the strip while one is up and Prime takes the whole glass. Nothing photographs this glass, so
+when the strip comes up it sends its laid-out sizes to the main board's console.
+
 Trusted phones are kept in NVS namespace `trust` by pairing — the identity address and a digest
 of the bond's key — sixteen at most, oldest dropped first, through every restart and update. A
 phone that forgets the machine and pairs again holds a new key, and is asked again. **Forget

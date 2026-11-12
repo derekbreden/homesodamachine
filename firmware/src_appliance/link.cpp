@@ -300,7 +300,7 @@ static bool isUserAction(uint8_t type) {
            type == MSG_AIR_STOP || type == MSG_SOUND_CFG_SET || type == MSG_FLAVOR_ART_SET ||
            type == MSG_FLAVOR_ART_SET_ONE || type == MSG_RATIO_SET_ONE ||
            type == MSG_RATIO_SET || type == MSG_SETTING_SET_IF || type == MSG_PRIME_SESSION_SET ||
-           type == MSG_TRUST_ANSWER || type == MSG_TRUST_FORGET;
+           type == MSG_TRUST_ANSWER || type == MSG_TRUST_FORGET || type == MSG_REFILL_RETRY;
 }
 
 // What the main board reads about itself, as either link carries it.
@@ -339,6 +339,7 @@ void linkFillStatus(StatusPayload &s) {
     s.coldState   = th.coldState;
     s.refillState = th.refillState;
     s.probeCount  = th.probeCount;
+    s.notice      = machineNotice();
     s.flags |= (th.compressorRelay ? STATUS_F_COMPRESSOR : 0)
              | (th.refillRelay     ? STATUS_F_REFILL     : 0);
 }
@@ -685,6 +686,18 @@ static void dispatch(HdlcLink *link, const uint8_t *frame, uint16_t len) {
     }
 
     if (type == MSG_STATUS_REQ) {
+        StatusPayload s;
+        linkFillStatus(s);
+        link->send(MSG_RESP_STATUS, &s, sizeof(s));
+        return;
+    }
+
+    // Try again, pressed on the machine's own display by someone it has just told what to
+    // check: the one way a glass grants a latched refill another pumping ceiling. Answered
+    // with the status that shows what it did.
+    if (type == MSG_REFILL_RETRY) {
+        Serial.printf("\n[J9] MSG_REFILL_RETRY — %s\n",
+                      machineRefillRetry() ? "trying the water again" : "no refill stands latched");
         StatusPayload s;
         linkFillStatus(s);
         link->send(MSG_RESP_STATUS, &s, sizeof(s));

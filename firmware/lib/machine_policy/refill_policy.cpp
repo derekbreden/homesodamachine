@@ -13,6 +13,7 @@ Refill::Refill()
       low_seen_(false),
       low_since_ms_(0),
       pumped_ms_(0),
+      kept_ms_(0),
       filling_since_ms_(0) {}
 
 void Refill::reading(const RefillReading &r, uint32_t now_ms) {
@@ -32,16 +33,19 @@ void Refill::enter(RefillState s, uint32_t now_ms) {
     filling_since_ms_ = now_ms;
 }
 
-void Refill::clear(uint32_t now_ms) {
-    if (state_ != RefillState::Timeout && state_ != RefillState::Fault) return;
+bool Refill::clear(uint32_t now_ms) {
+    if (state_ != RefillState::Timeout && state_ != RefillState::Fault) return false;
     pumped_ms_ = 0;
+    kept_ms_   = 0;
     enter(RefillState::Queued, now_ms);
+    return true;
 }
 
-void Refill::resume(uint32_t now_ms) {
+void Refill::resume(uint32_t now_ms, uint32_t spent_ms) {
     if (state_ != RefillState::Idle) return;
-    pumped_ms_ = 0;
-    enter(RefillState::Queued, now_ms);
+    pumped_ms_ = spent_ms;
+    kept_ms_   = spent_ms;
+    enter(spent_ms >= kRefillCeilingMs ? RefillState::Timeout : RefillState::Queued, now_ms);
 }
 
 bool Refill::owed() const { return state_ != RefillState::Idle; }
@@ -53,6 +57,7 @@ void Refill::reset(uint32_t now_ms) {
     low_seen_         = false;
     low_since_ms_     = 0;
     pumped_ms_        = 0;
+    kept_ms_          = 0;
     filling_since_ms_ = now_ms;
 }
 
@@ -80,6 +85,7 @@ RefillAction Refill::service(uint32_t now_ms, const RefillContext &ctx) {
                 case RefillState::Idle:
                     if (low_seen_ && now_ms - low_since_ms_ >= kRefillDebounceMs) {
                         pumped_ms_ = 0;
+                        kept_ms_   = 0;
                         enter(RefillState::Queued, now_ms);
                     }
                     break;
@@ -109,6 +115,19 @@ RefillAction Refill::service(uint32_t now_ms, const RefillContext &ctx) {
 
     pump_on_ = (state_ == RefillState::Filling);
 
+    // What a restart is to find. It moves ahead of the pump, to the end of the step being
+    // pumped, and never back while the refill is owed: a pour that takes the pump down
+    // leaves it where it stands.
+    if (state_ == RefillState::Idle) {
+        kept_ms_ = 0;
+    } else if (state_ == RefillState::Timeout || state_ == RefillState::Fault) {
+        kept_ms_ = kRefillCeilingMs;
+    } else if (state_ == RefillState::Filling) {
+        uint32_t ahead = (pumped_ms_ / kRefillKeepStepMs + 1) * kRefillKeepStepMs;
+        if (ahead > kRefillCeilingMs) ahead = kRefillCeilingMs;
+        if (ahead > kept_ms_) kept_ms_ = ahead;
+    }
+
     if (pump_on_ && !was_on) return RefillAction::Start;
     if (!pump_on_ && was_on) return RefillAction::Stop;
     return RefillAction::None;
@@ -132,5 +151,7 @@ uint32_t Refill::pumpedMs(uint32_t now_ms) const {
     if (state_ != RefillState::Filling) return pumped_ms_;
     return pumped_ms_ + (now_ms - filling_since_ms_);
 }
+
+uint32_t Refill::keptMs() const { return kept_ms_; }
 
 }  // namespace machine_policy

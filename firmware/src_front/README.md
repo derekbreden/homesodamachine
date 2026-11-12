@@ -98,6 +98,13 @@ while querying; Stop is retried until an answer proves the operation ended.
 Completed operations keep their result in the task pane for six seconds, with Done,
 flavor selection and task navigation available immediately.
 
+A refill that stands latched at its pumping ceiling is named in the status this panel polls
+(`StatusPayload::notice`). The machine cannot tell a supply that is shut off from a line that
+has come off, and this panel is where someone can look, so it puts up **No water**: what to
+check, **Not now** and **Try again** (`MSG_REFILL_RETRY`). The ask is put up once each time
+the panel wakes and each time the latch is new; it waits for an operation lock, a hold and the
+Forget confirmation, and comes down by itself when the main board stops naming the notice.
+
 Boot opens with **Powering on · Getting everything ready.** for at least two
 complete animation cycles. It then opens onto the main board's flavor selection
 as soon as that state is known, with a six-second ceiling when J9 is absent.

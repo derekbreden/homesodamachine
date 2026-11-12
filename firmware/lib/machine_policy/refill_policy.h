@@ -16,6 +16,13 @@
 // through everything that is not the high reed: a pour, reeds that cannot be read, a draw
 // that timed out, and — in the flash machine.cpp keeps it in — a power cut.
 //
+// The pumping ceiling is what stops a draw that is going nowhere: a supply that is shut off,
+// a line that has come off, a float that no longer rises. The machine cannot tell these
+// apart, so the ceiling is spent once and only someone told to look can grant another. The
+// time spent is therefore kept with the ask, counted ahead of the pump so that a restart
+// never finds less than was pumped, and a board that restarts — once or in a loop — takes
+// up the count it left and comes up latched when the count is the whole ceiling.
+//
 // The G Ganen is budgeted at 5 A and the main board peaks at 3.33 A against a
 // 6.7 A supply, so relay #2 is off while a dispense window is open. CLO closes
 // mid-pour — the level falls past it while the glass is filling — so the ask
@@ -34,6 +41,10 @@ constexpr uint32_t kRefillDebounceMs = 1500;
 // Pumping time, not wall time: a draw interrupted by three pours has spent
 // none of its ceiling waiting for them.
 constexpr uint32_t kRefillCeilingMs = 180000;
+
+// The step the kept pumping time moves in. While the pump runs the count stands at the end
+// of the step it is in, so a restart costs a campaign at most one step it did not pump.
+constexpr uint32_t kRefillKeepStepMs = 15000;
 
 enum class RefillState : uint8_t {
     Idle = 0,
@@ -75,12 +86,13 @@ public:
 
     RefillAction service(uint32_t now_ms, const RefillContext &ctx);
 
-    // Leave Timeout or Fault and try again: the refill is still owed. Idle and the two
-    // running states are unmoved.
-    void clear(uint32_t now_ms);
+    // Leave Timeout or Fault and try again with a whole ceiling: the refill is still owed.
+    // Idle and the two running states are unmoved, and false says so.
+    bool clear(uint32_t now_ms);
 
-    // A boot that finds a refill was owed when the power went: queue it.
-    void resume(uint32_t now_ms);
+    // A boot that finds a refill was owed when the power went: queue it with the pumping
+    // time already spent on it, or stand latched when that is the whole ceiling.
+    void resume(uint32_t now_ms, uint32_t spent_ms = 0);
 
     // True from the ask until the high reed ends it.
     bool owed() const;
@@ -94,6 +106,9 @@ public:
     // Pumping time in the campaign that is running, or the one that timed out.
     uint32_t pumpedMs(uint32_t now_ms) const;
 
+    // The pumping time to keep through a restart: never less than was pumped.
+    uint32_t keptMs() const;
+
 private:
     void enter(RefillState s, uint32_t now_ms);
 
@@ -103,6 +118,7 @@ private:
     bool          low_seen_;        // CLO has been closed continuously since:
     uint32_t      low_since_ms_;
     uint32_t      pumped_ms_;       // accumulated over the campaign
+    uint32_t      kept_ms_;         // what a restart is to find of it
     uint32_t      filling_since_ms_;
 };
 

@@ -61,6 +61,10 @@ void faucetSayReadAsked(uint8_t slot, uint16_t mtu);
 // the backlight lives.
 void faucetApplyIdle(bool asleep);
 
+// What the main board says stops the machine making soda, NOTICE_*. Defined in
+// main.cpp, where the glass says it.
+void faucetApplyNotice(uint8_t kind);
+
 // What the glass shows while an image is arriving. Defined in main.cpp, where
 // the display lives. Flash writes stall this board for whole seconds at a
 // time, so the panel says what is happening rather than appearing to hang.
