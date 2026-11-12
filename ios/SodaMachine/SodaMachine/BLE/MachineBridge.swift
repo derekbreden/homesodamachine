@@ -47,6 +47,8 @@ enum MachineMessage {
     static let prime:         UInt8 = 0x2C
     static let primeOpen:     UInt8 = 0x6A
     static let primeOpened:   UInt8 = 0x6B
+    static let historyRead:   UInt8 = 0x76
+    static let historyEntry:  UInt8 = 0x77
     static let settingGet = SettingsWire.get
     static let settingSetIf = SettingsWire.setIf
     static let settingState = SettingsWire.state
@@ -84,6 +86,9 @@ struct MachineStatus: Codable, Equatable {
     var tankTenthsC: Int?
     var coldState: UInt8 = 0
     var refillState: UInt8 = 0
+    /// Seconds since the machine last started; nil in a reading kept from
+    /// before the app read it.
+    var uptimeS: UInt32?
 
     static let levelUnknown: UInt8 = 0xFF
     static let segments = 4
@@ -93,6 +98,7 @@ struct MachineStatus: Codable, Equatable {
     init?(_ d: Data) {
         let b = [UInt8](d)
         guard b.count >= 40 else { return nil }
+        uptimeS = UInt32(b[0]) | UInt32(b[1]) << 8 | UInt32(b[2]) << 16 | UInt32(b[3]) << 24
         flags = b[18]
         operationChannel = b[19]
         levels = [b[27], b[28]]

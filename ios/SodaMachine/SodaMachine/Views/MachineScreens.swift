@@ -211,6 +211,7 @@ struct FlavorCard: View {
 
 struct MachineStatusPanel: View {
     @Environment(BLEManager.self) var ble
+    @Environment(Navigator.self) var nav
 
     var body: some View {
         let reading = ble.appliance.status
@@ -229,6 +230,9 @@ struct MachineStatusPanel: View {
                 Label(s.map(Self.cooling) ?? "Waiting for a reading", systemImage: "snowflake").font(.subheadline)
                 Label(s.map(Self.water) ?? "Water level unknown", systemImage: "drop").font(.subheadline)
                 if let reading, !ble.statusIsLive { Note("As of \(said(reading.at))") }
+            }
+            GroupedPanel {
+                SettingsRow(title: "History", icon: "clock.arrow.circlepath") { nav.push(.history) }
             }
         }
     }

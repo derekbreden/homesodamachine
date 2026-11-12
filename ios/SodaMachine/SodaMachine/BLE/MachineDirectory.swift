@@ -141,6 +141,10 @@ final class KnownMachine: Identifiable {
     // moment it was read (MachineBridge.swift).
     var appliance = ApplianceState()
 
+    // What the machine did, as far back as this run of the app has read
+    // (MachineHistory.swift). Read again from the machine after a relaunch.
+    var history = MachineHistory()
+
     /// Main-board setting stamps, retained with their values so an offline
     /// edit still refers to the exact revision it was based on.
     var settingStorageProblem = false
