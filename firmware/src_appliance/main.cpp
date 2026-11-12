@@ -89,7 +89,11 @@ static const long kLogDefaultEntries = 40;
 // trial.
 extern "C" bool verifyRollbackLater() { return true; }
 
-static const uint32_t kUpdateTrialMs = 10000;
+// Long enough to cover the boot, the welcome, both links coming up and the first write to
+// the record. Short enough to be over before `hsm-peripheral ota` reopens this board's
+// console to read its version: opening that port restarts the board, and a restart inside
+// the trial is exactly what undoes an update.
+static const uint32_t kUpdateTrialMs = 4000;
 
 // Confirming writes flash, so it waits for the same idle, quiet moment the record does.
 static void updateTrialService(bool mayWrite) {
