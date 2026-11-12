@@ -31,7 +31,7 @@ The carbonator's upper-rim earth clamp uses the following acquired tooling.
 
 | Tool | Source | Role | Cost |
 |---|---|---|---:|
-| **M3 × 0.5 tap and Ø2.5 mm drill** | [uxcell B09TYSP9NV](https://www.amazon.com/dp/B09TYSP9NV), [purchases.md §1](/hardware/ledger/purchases.md); acquired November 11 | M35 cobalt HSS spiral-flute tap/drill set for the carbonator upper-rim earth-clamp screw. One set acquired. | $9.00 charged total |
+| **M3 × 0.5 tap and Ø2.5 mm drill** | [uxcell B09TYSP9NV](https://www.amazon.com/dp/B09TYSP9NV), [purchases.md §1](/hardware/ledger/purchases.md); acquired November 11 | M35 cobalt HSS spiral-flute tap/drill set for the carbonator upper-rim earth-clamp screw. One set acquired; one additional set ON-ORDER, placed November 12. | $9.00 charged; $9.00 additional-set quote |
 | **M1–M6 adjustable tap wrench** | [Piutouyar B0F7K43T14](https://www.amazon.com/dp/B0F7K43T14), [purchases.md §1](/hardware/ledger/purchases.md); acquired November 11 | Small hand driver for the M3 tap, 1/16"–1/4" tap capacity. One wrench acquired. | $6.42 charged total |
 
 ## Hydro / pressure testing
