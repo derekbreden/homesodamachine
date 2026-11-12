@@ -518,6 +518,16 @@ void test_an_entry_reads_as_one_line() {
     machine_log::format(update, line, sizeof(line));
     TEST_ASSERT_EQUAL_STRING("47 4 0 - update kept build=1793171856", line);
 
+    Entry sweep;
+    sweep.seq    = 48;
+    sweep.boot   = 4;
+    sweep.kind   = Kind::Sweep;
+    sweep.detail = static_cast<uint8_t>(machine_log::SweepEnd::Done);
+    sweep.a      = 14200;
+    sweep.b      = 8697;
+    machine_log::format(sweep, line, sizeof(line));
+    TEST_ASSERT_EQUAL_STRING("48 4 0 - sweep end=done ms=14200 pulses=8697", line);
+
     // A line that does not fit is cut, and still ends.
     char small[12];
     const size_t wrote = machine_log::format(pour, small, sizeof(small));

@@ -26,6 +26,7 @@ enum class Kind : uint8_t {
     Prime,       // detail: channel + OpEnd; a: ms held
     Update,      // detail: nonzero kept, zero could not be confirmed; a: the image's build epoch
     Io,          // detail: the valve drivers' fault, zero once they verify again; a: changes since the last entry
+    Sweep,       // detail: SweepEnd; a: ms from the first gas to the end; b: meter pulses counted
     Count,
 };
 
@@ -47,6 +48,13 @@ enum class RefillEnd : uint8_t {
     Timeout,       // pumped to the ceiling without the high reed — latched
     Stopped,       // on request
     PathFault,     // the refill path could not be opened
+};
+
+// How a sweep of the carbonator's air ended.
+enum class SweepEnd : uint8_t {
+    Done = 0,      // the meter counted the whole sweep
+    Moot,          // the tank held water
+    Skipped,       // on request
 };
 
 // How a fill, a clean cycle, an air cycle or a prime ended. The record keeps its own words
