@@ -13,10 +13,11 @@ hsm-publish --root . --check
 ```
 
 The publisher hashes completed members, refreshes retained assembly references, and
-freezes the changed bytes. Shared mesh objects upload before manifests that refer to
-them. Viewer members advance before manufacturing members; absent retained members
-keep their pointers and shared objects. Membership follows the material catalog,
-native producer graph and [`config.json`](config.json).
+freezes the changed bytes. An assembly built from a member's current revision publishes
+as built. Shared mesh objects upload before manifests that refer to them. Viewer members
+advance before manufacturing members; absent retained members keep their pointers and
+shared objects. Membership follows the material catalog, native producer graph and
+[`config.json`](config.json).
 
 Named assembly views use their shared mesh manifests. The PCB's GLB remains a
 viewer member: its component hierarchy and materials serve the board viewer and
