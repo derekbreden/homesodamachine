@@ -1,12 +1,12 @@
-//! The values the installed wiring's routing asks its host for, each read from where it is
-//! owned: the above-core layout, the plan's placements, the parts' own reference files and
-//! published numbers, the cold core's typed interface and the materials catalog.
+//! What the installed wiring's routing is cut from, each value read from where it is owned: the
+//! above-core layout, the plan's placements, the parts' own reference files and published
+//! numbers, the cold core's typed interface and the materials catalog.
 //!
 //! A value no typed crate or published file holds yet comes from the plan's
 //! `metadata.wiring_context`, and its absence is an error that names the value and its owner.
-use super::{corridors, measure, readers, terminals};
+use super::{measure, readers, terminals};
 use crate::design;
-use anyhow::{Context, Result, bail, ensure};
+use anyhow::{Context, Result, ensure};
 use hsm_cold_core_interface as cci;
 use hsm_enclosure_numbers::{catalog, structure};
 use serde_json::{Value, json};
@@ -17,11 +17,11 @@ use std::rc::Rc;
 
 /// What a turn names for a part that the layout or the plan places by its own native pose: the
 /// pose decides, and a turn read in its place fails as a list of turns.
-const PLACED: &str = "placed by its native pose";
+pub const PLACED: &str = "placed by its native pose";
 
 /// The final connections' WAGOs stand with their ports fore: a half turn about Z from the
 /// reference's own frame.
-const PORTS_FORE: [[f64; 3]; 3] = [[-1., 0., 0.], [0., -1., 0.], [0., 0., 1.]];
+pub const PORTS_FORE: [[f64; 3]; 3] = [[-1., 0., 0.], [0., -1., 0.], [0., 0., 1.]];
 
 /// The reference family every WAGO lever connector of the wiring is drawn from.
 const WAGO_REFERENCE: &str = "hardware/reference/wago-221";
@@ -46,96 +46,62 @@ impl Sources {
         Ok(Self { root: root.to_owned(), plan: plan.clone(), fits, documents: RefCell::new(BTreeMap::new()) })
     }
 
-    /// One of the included code's provider queries, by its kind.
-    pub fn answer(&self, query: &Value) -> Result<Value> {
-        match query["kind"].as_str().context("a provider query names its kind")? {
-            "measure" => self.measure(query),
-            "reference_bounds" => self.reference_bounds(query),
-            "valve_reference" => self.valve_reference(),
-            "fixed_wiring_passages" => self.context(
-                "fixed_passages",
-                "the front top's fixed cable passages, which the enclosure's fixed pump mount owns",
-            ),
-            "step" => self.checkout_name(query["path"].as_str().context("a STEP's path")?),
-            "get" => self.value(
-                query["base"].as_str().context("a query's module")?,
-                query["path"].as_str().context("a query's attribute")?,
-                query.get("args"),
-            ),
-            kind => bail!("the installed wiring has no source for a {kind} query"),
-        }
+    /// The display reference's screen faces −Y, upright; the display plane tilts back from
+    /// upright by the facet's tilt from level less a quarter turn.
+    pub fn display_tilt(&self) -> Value {
+        json!([[1., 0., 0.], structure::ANGLE - 90.])
     }
 
-    /// The value the included code names `base`.`path`, given `args` where it is a function.
-    pub fn value(&self, base: &str, path: &str, args: Option<&Value>) -> Result<Value> {
-        let arg = |i: usize| -> Result<&Value> {
-            args.and_then(|a| a.get(i)).with_context(|| format!("{base}.{path} takes an argument"))
-        };
-        match (base, path) {
-            ("ea", "PCBA_STEP") => self.reference_step("pcba"),
-            ("ea", "PSU_STEP") => self.reference_step("psu"),
-            ("ea", "RELAY_STEP") => self.shared_reference(&["relay-1", "relay-2"]),
-            ("ea", "C14_STEP") => self.reference_step("c14-inlet"),
-            ("ea", "MQ6_STEP") => self.reference_step("mq6-sensor"),
-            ("ea", "DIGITEN_STEP") => self.reference_step("digiten-flow"),
-            ("ea", "PCBA_TURN") => self.placed("pcba"),
-            ("ea", "PSU_TURN") => self.placed("psu"),
-            ("ea", "RELAY_TURN") => self.placed("relay-1"),
-            ("ea", "RELAY2_TURN") => self.placed("relay-2"),
-            ("ea", "DIGITEN_TURN") => self.placed("digiten-flow"),
-            ("ea", "MQ6_TURN") => self.placed("mq6-sensor"),
-            ("ea", "FUSE_TURN") => self.placed("thermal-fuse"),
-            ("ea", "WAGO_TURN" | "WAGO_TURN_WEST") => {
-                ensure!(self.placements()?.as_object().is_some_and(|m| !m.is_empty()), "the plan places no WAGO");
-                Ok(json!(PLACED))
-            }
-            // The display reference's screen faces −Y, upright; the display plane tilts back from
-            // upright by the facet's tilt from level less a quarter turn.
-            ("ea", "DISPLAY_TILT") => Ok(json!([[1., 0., 0.], structure::ANGLE - 90.])),
-            ("ea", "wago_step") => Ok(json!(self.wago_reference(string(arg(0)?)?)?)),
-            ("ea", "_pcba._centre") => self.pcba_centre(),
-            ("ea", "_pcba._thickness") => self.pcba_thickness(),
-            ("ea", "_fuse.BODY_L") => Ok(json!(self.fuse_case()?.0)),
-            ("ea", "_fuse.AXIS_Z") => Ok(json!(self.fuse_case()?.1 / 2.)),
-            ("ea", "_fuse.LEAD_STUB") => self.fuse_lead_stub(),
-            ("ea", "_fuse.LEAD_D") => self.context(
-                "fuse_lead_diameter_mm",
-                "the thermal fuse's lead diameter, which the SF76E reference owns",
-            ),
-            // How much lead the fuse comes with reaches only the wiring's review, which this
-            // request leaves out.
-            ("ea", "_fuse.LEAD_LONG" | "_fuse.LEAD_SHORT") => Ok(Value::Null),
-            ("ea", "_digiten.wire_exit") => self.digiten_wire_exit(),
-            ("ea", "_cca._V.top_plate_z") => Ok(self.cold_core()?["carbonator"]["top_plate_z"].clone()),
-            ("ea", "_cca._V._bond.datums") => self.bond(arg(0)?),
-            ("ea", "_cci.foam_shell_outer_height") => Ok(json!(cci::FOAM_SHELL_OUTER_HEIGHT)),
-            ("ea", "_cci.cap_cable_conduits") => self.cable_conduits(),
-            ("ea", "_cci.cap_conduit_bore_radius") => Ok(json!(cci::CAP_CONDUIT_BORE_RADIUS)),
-            ("ea", "_foam.lid_total_height") => Ok(json!(cci::foam_cap_lid_height(&self.fits))),
-            ("above_core_wiring", "frame") => self.native_frame(string(arg(0)?)?),
-            ("above_core_wiring", "placements") => self.placements(),
-            ("above_core_wiring", "PORTS_FORE") => Ok(json!(PORTS_FORE)),
-            ("above_core_wiring", "REFERENCES") => self.wago_references(),
-            ("above_core_wiring", "C_AC_HUB") => Ok(json!({"$linear": design::material("C_AC_HUB")?})),
-            ("above_core", "specification") => Ok((*self.above_core()?).clone()),
-            ("above_core", "cap_lid_pose") => Ok(self.above_core()?["cap_lid_pose"].clone()),
-            ("_foam_cap", "top_cap_height") => Ok(json!(self.top_cap_height())),
-            ("_above_core_mounts", "cable_guide_points") => self.cable_guide(string(arg(0)?)?),
-            ("_internal_routes", "route_segments") => {
-                let points = arg(0)?.as_array().context("a corridor's points")?
-                    .iter().map(xyz).collect::<Result<Vec<_>>>()?;
-                corridors::route_segments(&points, arg(1)?.as_f64().context("a corridor's bend radius")?)
-            }
-            ("_payload_rules", "LINEAR_DEFLECTION_RATIO") => self.context(
-                "presentation_deflection_ratio",
-                "the viewer payload's linear deflection ratio, which the payload rule owns",
-            ),
-            ("_mesh_payload", "ANGULAR_DEFLECTION") => self.context(
-                "presentation_angular_deflection_rad",
-                "the viewer payload's angular deflection, which the payload rule owns",
-            ),
-            _ => bail!("nothing owns {base}.{path} for the installed wiring"),
-        }
+    /// The colour of the hub the final connections' WAGOs are drawn in, as linear RGB.
+    pub fn ac_hub_colour(&self) -> Result<Value> {
+        Ok(json!({"$linear": design::material("C_AC_HUB")?}))
+    }
+
+    /// The foam shell's outer height, which the cap lid's frame stands above.
+    pub fn foam_shell_outer_height(&self) -> f64 {
+        cci::FOAM_SHELL_OUTER_HEIGHT
+    }
+
+    /// The bore of a cap cable conduit.
+    pub fn cap_conduit_bore(&self) -> f64 {
+        2. * cci::CAP_CONDUIT_BORE_RADIUS
+    }
+
+    /// The foam cap lid's height.
+    pub fn lid_total_height(&self) -> f64 {
+        cci::foam_cap_lid_height(&self.fits)
+    }
+
+    /// The front top's fixed cable passages.
+    pub fn fixed_passages(&self) -> Result<Value> {
+        self.context(
+            "fixed_passages",
+            "the front top's fixed cable passages, which the enclosure's fixed pump mount owns",
+        )
+    }
+
+    /// The thermal fuse's lead diameter.
+    pub fn fuse_lead_diameter(&self) -> Result<Value> {
+        self.context(
+            "fuse_lead_diameter_mm",
+            "the thermal fuse's lead diameter, which the SF76E reference owns",
+        )
+    }
+
+    /// The viewer payload's linear deflection ratio.
+    pub fn presentation_deflection_ratio(&self) -> Result<Value> {
+        self.context(
+            "presentation_deflection_ratio",
+            "the viewer payload's linear deflection ratio, which the payload rule owns",
+        )
+    }
+
+    /// The viewer payload's angular deflection.
+    pub fn presentation_angular_deflection(&self) -> Result<Value> {
+        self.context(
+            "presentation_angular_deflection_rad",
+            "the viewer payload's angular deflection, which the payload rule owns",
+        )
     }
 
     /// The JSON file at `path` under the root, read once per request.
@@ -149,7 +115,7 @@ impl Sources {
     }
 
     /// The above-core layout as written down: its parts' poses, the cap lid's pose, the guides.
-    fn above_core(&self) -> Result<Rc<Value>> {
+    pub fn above_core(&self) -> Result<Rc<Value>> {
         self.document("hardware/manifold-layout/above-core.json")
     }
 
@@ -166,7 +132,7 @@ impl Sources {
     }
 
     /// The WAGO lever connectors the plan places, by name: size, parent and native pose.
-    fn placements(&self) -> Result<Value> {
+    pub fn placements(&self) -> Result<Value> {
         let placements = &self.plan["metadata"]["wiring_placements"];
         ensure!(placements.is_object(), "the plan's metadata has no wiring_placements");
         Ok(placements.clone())
@@ -207,7 +173,7 @@ impl Sources {
 
     /// The native pose a part is placed by: its WAGO placement, or the plan's placement of its
     /// reference's own fine model. A part placed any other way has none here.
-    fn native_frame(&self, name: &str) -> Result<Value> {
+    pub fn native_frame(&self, name: &str) -> Result<Value> {
         if let Some(row) = self.placements()?.get(name) {
             return Ok(row.clone());
         }
@@ -219,7 +185,7 @@ impl Sources {
     }
 
     /// The turns of a part that the above-core layout or the plan places by its native pose.
-    fn placed(&self, name: &str) -> Result<Value> {
+    pub fn placed(&self, name: &str) -> Result<Value> {
         let written = !self.above_core()?["parts"][name].is_null();
         ensure!(
             written || !self.native_frame(name)?.is_null(),
@@ -228,33 +194,43 @@ impl Sources {
         Ok(json!(PLACED))
     }
 
+    /// The cap lid's pose in the installed frame.
+    pub fn cap_lid_pose(&self) -> Result<Value> {
+        Ok(self.above_core()?["cap_lid_pose"].clone())
+    }
+
     /// The reference STEP part `name` is drawn from: the one the above-core layout names for it,
     /// or the one the plan's native instance of it was cut from.
-    fn reference_step(&self, name: &str) -> Result<Value> {
+    pub fn reference_step(&self, name: &str) -> Result<PathBuf> {
         if let Some(reference) = self.above_core()?["parts"][name]["reference"].as_str() {
-            return Ok(json!(self.root.join(reference)));
+            return Ok(self.root.join(reference));
         }
         let (_, step) = self.native_instance(name)?.with_context(|| format!("{name} names no reference STEP"))?;
-        Ok(json!(step))
+        Ok(step)
     }
 
     /// The reference STEP the parts `names` are all drawn from.
-    fn shared_reference(&self, names: &[&str]) -> Result<Value> {
+    fn shared_reference(&self, names: &[&str]) -> Result<PathBuf> {
         let mut found = BTreeSet::new();
         for name in names {
-            found.insert(self.reference_step(name)?.as_str().context("a reference's path")?.to_owned());
+            found.insert(self.reference_step(name)?);
         }
         ensure!(found.len() == 1, "{names:?} are drawn from different references: {found:?}");
-        Ok(json!(found.pop_first()))
+        found.pop_first().context("a shared reference")
+    }
+
+    /// The reference both relays are drawn from.
+    pub fn relay_reference(&self) -> Result<PathBuf> {
+        self.shared_reference(&["relay-1", "relay-2"])
     }
 
     /// The reference the solenoid valves are drawn from where their tabs are not modelled.
-    fn valve_reference(&self) -> Result<Value> {
+    pub fn valve_reference(&self) -> Result<PathBuf> {
         self.shared_reference(&["valve-v-a", "valve-v-b", "vk-solenoid"])
     }
 
     /// The WAGO reference of `size` poles, as the reference family names its STEPs.
-    fn wago_reference(&self, size: &str) -> Result<PathBuf> {
+    pub fn wago_reference(&self, size: &str) -> Result<PathBuf> {
         let file = format!("wago-221-{size}.step");
         let queries = self.document(&format!("{WAGO_REFERENCE}/native-queries.json"))?;
         ensure!(queries["references"].get(&file).is_some(), "the WAGO reference family has no {file}");
@@ -262,7 +238,7 @@ impl Sources {
     }
 
     /// Every WAGO reference of the family, by its size.
-    fn wago_references(&self) -> Result<Value> {
+    pub fn wago_references(&self) -> Result<Value> {
         let queries = self.document(&format!("{WAGO_REFERENCE}/native-queries.json"))?;
         let mut out = json!({});
         for file in queries["references"].as_object().context("the WAGO references")?.keys() {
@@ -274,24 +250,22 @@ impl Sources {
     }
 
     /// The main board's outline centre in its own PCB frame, where its tray mounts it.
-    fn pcba_centre(&self) -> Result<Value> {
+    pub fn pcba_centre(&self) -> Result<[f64; 2]> {
         let assembly = self.document("hardware/printed-parts/electronics/pcba-tray/pcba-assembly.numbers.json")?;
         let mounts = assembly["mounts"].as_array().context("the board's mounts")?;
         ensure!(mounts.len() == 1, "the board tray mounts {} boards", mounts.len());
         let at = mounts[0]["translation"].as_array().context("the board's mount")?;
-        Ok(json!([at[0], at[1]]))
+        Ok([number(&at[0])?, number(&at[1])?])
     }
 
     /// The main board's thickness: the height of its slab.
-    fn pcba_thickness(&self) -> Result<Value> {
+    pub fn pcba_thickness(&self) -> Result<f64> {
         let assembly = self.document("hardware/printed-parts/electronics/pcba-tray/pcba-assembly.numbers.json")?;
-        let thickness = &assembly["board"]["slab"][1][2];
-        ensure!(thickness.is_number(), "the board's slab states no thickness");
-        Ok(thickness.clone())
+        assembly["board"]["slab"][1][2].as_f64().context("the board's slab states no thickness")
     }
 
     /// The thermal fuse's case length and diameter, as its clamp is cut to them.
-    fn fuse_case(&self) -> Result<(f64, f64)> {
+    pub fn fuse_case(&self) -> Result<(f64, f64)> {
         let clamp = self.document("hardware/printed-parts/refrigeration/fuse-clamp/fuse-clamp.numbers.json")?;
         Ok((
             clamp["case_l"].as_f64().context("the fuse clamp's case length")?,
@@ -301,17 +275,17 @@ impl Sources {
 
     /// The straight lead stub the fuse's reference models each side of its case: the reference
     /// reaches the stub's tip along its own axis.
-    fn fuse_lead_stub(&self) -> Result<Value> {
+    pub fn fuse_lead_stub(&self) -> Result<f64> {
         let queries = self.document("hardware/reference/sf76e-thermal-fuse/native-queries.json")?;
         let bounds = &queries["references"]["sf76e-thermal-fuse.step"]["bounds_mm"];
         let (low, high) = (number(&bounds[0][0])?, number(&bounds[1][0])?);
         ensure!((low + high).abs() < 1e-9, "the fuse reference is not centred on its case");
-        Ok(json!(high - self.fuse_case()?.0 / 2.))
+        Ok(high - self.fuse_case()?.0 / 2.)
     }
 
     /// The flow meter's wire exit in its own frame: the wire root its model check records, and
     /// the outward normal of the reference's envelope face it lies on.
-    fn digiten_wire_exit(&self) -> Result<Value> {
+    pub fn digiten_wire_exit(&self) -> Result<([f64; 3], [f64; 3])> {
         let check = self.document("hardware/reference/digiten-flow-sensor/model-check.json")?;
         let root = xyz(&check["wire_root_mm"])?;
         let queries = self.document("hardware/reference/digiten-flow-sensor/native-queries.json")?;
@@ -328,29 +302,24 @@ impl Sources {
             }
         }
         ensure!(faces.len() == 1, "the flow meter's wire root lies on {} envelope faces", faces.len());
-        Ok(json!([root, faces[0]]))
+        Ok((root, faces[0]))
     }
 
-    /// The carbonator's earth bond datums in the cold core's frame, for the top plate at `plate`.
-    fn bond(&self, plate: &Value) -> Result<Value> {
-        let core = self.cold_core()?;
-        ensure!(
-            core["carbonator"]["top_plate_z"][1] == *plate,
-            "the cold core publishes its bond datums for the top plate, not for {plate}"
-        );
-        let bond = core["bond"].clone();
+    /// The carbonator's earth bond datums in the cold core's frame, at its top plate.
+    pub fn bond(&self) -> Result<Value> {
+        let bond = self.cold_core()?["bond"].clone();
         ensure!(bond.is_object(), "the cold core publishes no bond datums");
         Ok(bond)
     }
 
     /// The foam cap's height above the shell top to the lid's underside.
-    fn top_cap_height(&self) -> f64 {
+    pub fn top_cap_height(&self) -> f64 {
         cci::FOAM_CAP_HEIGHT - cci::head_pad_height(&self.fits)
     }
 
     /// The cap conduits the wiring's cables pass through, in the cap's frame, as the foam cap is
     /// cut with them.
-    fn cable_conduits(&self) -> Result<Value> {
+    pub fn cable_conduits(&self) -> Result<Value> {
         let cap = self.document("hardware/printed-parts/cold-core/foam-cap/foam-cap.numbers.json")?;
         let mut out = json!({});
         for name in self.cable_passages()? {
@@ -382,7 +351,7 @@ impl Sources {
 
     /// A cable conduit's corridor in world XYZ and the bend its guide is printed to: the foam
     /// assembly's own probe of that guide, carried off the shell the way the cap lid sits on it.
-    fn cable_guide(&self, name: &str) -> Result<Value> {
+    pub fn cable_guide(&self, name: &str) -> Result<Value> {
         let assembly = self.document("hardware/printed-parts/cold-core/foam-assembly/foam-assembly.numbers.json")?;
         let probe = assembly["report"]["probes"].as_array().context("the foam assembly's probes")?
             .iter().find(|p| p["name"] == name && p["points"].is_array())
@@ -396,35 +365,18 @@ impl Sources {
         Ok(json!({"points_mm": points, "bend_radius_mm": probe["bend"]}))
     }
 
-    /// The bounds of a reference turned by `rotation`, from its native queries or its fine model.
-    fn reference_bounds(&self, query: &Value) -> Result<Value> {
-        let path = query["path"].as_str().context("a reference's path")?;
-        Ok(readers::reference(Path::new(path), &query["rotation"])?["bounds"].clone())
-    }
-
-    /// The bodies of the models a measurement query names, as the fine model reader states them.
-    fn measure(&self, query: &Value) -> Result<Value> {
-        let components: BTreeSet<String> = query["component_names"].as_array().into_iter().flatten()
-            .filter_map(Value::as_str).map(str::to_owned).collect();
-        let mut bodies = Vec::new();
-        for instance in query["instances"].as_array().context("a measurement's models")? {
-            let path = Path::new(instance["model"].as_str().context("a measured model's path")?);
-            bodies.extend(measure::summaries(path, measure::frame(instance.get("transform"))?.as_ref(), &components)?);
-        }
-        Ok(json!({"bodies": bodies}))
+    /// The bounds of the reference at `path` turned by `rotation`, from its native queries or
+    /// its fine model.
+    pub fn reference_bounds(&self, path: &str, rotation: &Value) -> Result<Value> {
+        Ok(readers::reference(Path::new(path), rotation)?["bounds"].clone())
     }
 
     /// The name the installed-wires program imports the STEP at `path` by: its checkout path.
-    fn checkout_name(&self, path: &str) -> Result<Value> {
+    pub fn checkout_name(&self, path: &str) -> Result<Value> {
         let relative = Path::new(path).strip_prefix(&self.root)
             .with_context(|| format!("{path} is outside the checkout"))?;
         Ok(json!(relative.to_string_lossy()))
     }
-}
-
-/// A text of a query's arguments.
-fn string(value: &Value) -> Result<&str> {
-    value.as_str().context("a query's text argument")
 }
 
 /// A number of a source document.

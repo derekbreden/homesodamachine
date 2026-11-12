@@ -1,14 +1,12 @@
 //! The installed wiring's request: the conductors, terminations and jackets the installed-wires
 //! program cuts, resolved against the machine's physical fine model.
 //!
-//! The routing is the assembly-docs wiring code, included here unchanged. Everything it asks its
-//! host for is answered by `sources`, from the file or the plan that owns the value.
+//! The routing is the assembly-docs wiring code, included here. `sources` gives it each value
+//! from the file or the plan that owns it.
 use anyhow::{Context, Result, bail, ensure};
 use serde_json::{Value, json};
-use std::cell::RefCell;
 use std::collections::{BTreeMap, BTreeSet};
 use std::path::Path;
-use std::rc::Rc;
 
 /// The request and review the routed wiring is written up as.
 #[allow(dead_code, unused_imports)]
@@ -66,34 +64,34 @@ pub fn wiring_request(
     physical_model: &Path,
     cache: &mut crate::cache::Cache,
 ) -> Result<Value> {
-    let _host = Host::enter(sources::Sources::read(root, spec)?);
+    let sources = sources::Sources::read(root, spec)?;
     let recipe = json!({"plan":spec,"physical_model":physical_model,
         "fits":{"slip":hsm_enclosure_numbers::catalog::slip(),"running":hsm_enclosure_numbers::catalog::running(),
             "supported":hsm_enclosure_numbers::catalog::supported(),"m5_thread_pass":hsm_enclosure_numbers::catalog::m5_thread_pass_dia()}});
     let attachments = cache.run("wire attachments", &recipe, &[], || {
-        attachments(root, physical_model)
+        attachments(&sources, root, physical_model)
     })?;
-    let mut numbers = build::numeric_only(root, &attachments)?;
+    let mut numbers = build::numeric_only(&sources, root, &attachments)?;
     numbers["file_stem"] = json!(FILE_STEM);
     Ok(numbers)
 }
 
 /// Resolves the optional bench manifest and its geometry recipe from the placed physical model.
 pub fn manual_request(root: &Path, spec: &Value, physical_model: &Path) -> Result<(Value, Value)> {
-    let _host = Host::enter(sources::Sources::read(root, spec)?);
-    build::numeric(root, &attachments(root, physical_model)?)
+    let sources = sources::Sources::read(root, spec)?;
+    build::numeric(&sources, root, &attachments(&sources, root, physical_model)?)
 }
 
 /// Every terminal, reference frame, fuse lead and cable passage of the wiring, resolved onto
 /// the bodies of the physical fine model at `physical_model`.
-fn attachments(root: &Path, physical_model: &Path) -> Result<Value> {
+fn attachments(sources: &sources::Sources, root: &Path, physical_model: &Path) -> Result<Value> {
     let rows = measure::summaries(physical_model, None, &solids_read())?;
     let grouped = readers::bodies(&Value::Array(rows), Some(hsm_kernel::GRID))?;
     let mut scene = json!({});
     for (name, row) in grouped.as_object().context("the physical model's bodies")? {
         scene[name] = row[0].clone();
     }
-    terminals::resolve(terminals::init(&scene)?, root)
+    terminals::resolve(sources, terminals::init(&scene)?, root)
 }
 
 /// The bodies whose separate solids the terminals read, under both names the model may give
@@ -110,52 +108,6 @@ fn solids_read() -> BTreeSet<String> {
         .iter()
         .flat_map(|h| [h.clone(), format!("cold-core/{h}")])
         .collect()
-}
-
-thread_local! {
-    /// The sources the included wiring code is answered from while a request is built.
-    static SOURCES: RefCell<Option<Rc<sources::Sources>>> = const { RefCell::new(None) };
-}
-
-/// Holds this thread's sources for the included wiring code until it is dropped.
-struct Host;
-
-impl Host {
-    /// Answers the included wiring code from `sources` until the returned guard drops.
-    fn enter(sources: sources::Sources) -> Self {
-        SOURCES.with(|slot| *slot.borrow_mut() = Some(Rc::new(sources)));
-        Host
-    }
-}
-
-impl Drop for Host {
-    /// Leaves no sources behind for a later request to read by mistake.
-    fn drop(&mut self) {
-        SOURCES.with(|slot| *slot.borrow_mut() = None);
-    }
-}
-
-/// The sources the current request is built from.
-fn current() -> Result<Rc<sources::Sources>> {
-    SOURCES
-        .with(|slot| slot.borrow().clone())
-        .context("the wiring's sources are read only while its request is built")
-}
-
-/// Answers one of the included code's provider queries: a measurement, a reference's bounds,
-/// a STEP's checkout name, a fixed passage set.
-fn provider(query: Value) -> Result<Value> {
-    current()?.answer(&query)
-}
-
-/// A value the included code names by module and attribute, such as `ea` `PSU_STEP`.
-fn get(base: &str, path: &str) -> Result<Value> {
-    current()?.value(base, path, None)
-}
-
-/// A value the included code computes by module function, such as `above_core` `cap_lid_pose`.
-fn call(base: &str, path: &str, args: Value) -> Result<Value> {
-    current()?.value(base, path, Some(&args))
 }
 
 /// A number of the included code's records.

@@ -2,6 +2,7 @@ use super::*;
 use anyhow::Context as _;
 use model::{V, add, circle, cross, dot, mul, norm, points, rotate, sub, unit, v};
 pub struct Context<'a> {
+    src: &'a sources::Sources,
     at: &'a Value,
     definitions: Vec<(String, Value)>,
     cache: BTreeMap<String, (Vec<V>, Value)>,
@@ -266,8 +267,9 @@ pub fn reed_levels(segments: &Value, recipe: &Value, identity: Option<&str>) -> 
     Ok(json!(prefix))
 }
 impl<'a> Context<'a> {
-    pub fn new(root: &'a Path, at: &'a Value) -> Result<Self> {
+    pub fn new(src: &'a sources::Sources, root: &'a Path, at: &'a Value) -> Result<Self> {
         Ok(Self {
+            src,
             at,
             definitions: load_ordered(root, "hardware/wiring/installed/bundle-routes.json")?,
             cache: BTreeMap::new(),
@@ -283,7 +285,7 @@ impl<'a> Context<'a> {
             if let Some(value) = self.cache.get(&key) {
                 return Ok(value.clone());
             }
-            let corridor = call("_above_core_mounts", "cable_guide_points", json!([passage]))?;
+            let corridor = self.src.cable_guide(string(passage)?)?;
             let mut source_points = points(&corridor["points_mm"])?;
             source_points.reverse();
             let above = b
@@ -294,14 +296,12 @@ impl<'a> Context<'a> {
             if !above.is_empty() {
                 source_points = [above.clone(), source_points].concat();
             }
-            let mut segments = call(
-                "_internal_routes",
-                "route_segments",
-                json!([
-                    source_points,
+            let mut segments = corridors::route_segments(
+                &source_points,
+                number(
                     b.get("above_cap_bend_radius_mm")
-                        .unwrap_or(&corridor["bend_radius_mm"])
-                ]),
+                        .unwrap_or(&corridor["bend_radius_mm"]),
+                )?,
             )?;
             if above.is_empty() {
                 let first = *source_points.first().context("cap cable corridor")?;

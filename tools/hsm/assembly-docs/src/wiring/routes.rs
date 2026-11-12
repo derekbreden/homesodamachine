@@ -567,7 +567,12 @@ fn dress(c: &Value, mut guides: Vec<V>, at: &Value, saved: &mut Value) -> Result
     out.extend(&guides[last + 1..]);
     Ok(out)
 }
-pub fn routed(root: &Path, connections: &Value, at: &Value) -> Result<Value> {
+pub fn routed(
+    src: &sources::Sources,
+    root: &Path,
+    connections: &Value,
+    at: &Value,
+) -> Result<Value> {
     let mut overrides = load(root, "hardware/wiring/installed/route-overrides.json")?;
     let mut groups: BTreeMap<String, Vec<String>> = BTreeMap::new();
     for c in rows(connections)? {
@@ -578,7 +583,7 @@ pub fn routed(root: &Path, connections: &Value, at: &Value) -> Result<Value> {
     }
     let stock = model::stock()?;
     let mut result = Vec::new();
-    let mut bundle_context = bundles::Context::new(root, at)?;
+    let mut bundle_context = bundles::Context::new(src, root, at)?;
     for c in rows(connections)? {
         if let Some(shared) = bundle_context.core_route(c)? {
             result.push(shared);

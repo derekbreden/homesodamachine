@@ -115,12 +115,15 @@ pub fn reference(path: &Path, rotation: &Value) -> Result<Value> {
             Ok(a)
         })
         .collect::<Result<Vec<_>>>()?;
-    let result = provider(
-        json!({"kind":"measure","instances":[{"model":format!("{}.npz",path.display()),"transform":transform}],"queries":[],"component_names":[]}),
+    let model = format!("{}.npz", path.display());
+    let bodies = measure::summaries(
+        Path::new(&model),
+        measure::frame(Some(&json!(transform)))?.as_ref(),
+        &BTreeSet::new(),
     )?;
     let mut lo = [f64::INFINITY; 3];
     let mut hi = [f64::NEG_INFINITY; 3];
-    for row in rows(&result["bodies"])? {
+    for row in &bodies {
         let (a, b) = (v(&row["min"])?, v(&row["max"])?);
         for i in 0..3 {
             lo[i] = lo[i].min(a[i]);
@@ -144,13 +147,18 @@ fn rgb(value: &Value) -> Result<Value> {
     }
     Ok(json!(color))
 }
-pub fn wire_numbers(routes: &Value, stock: &Value, components: &Value) -> Result<Value> {
+pub fn wire_numbers(
+    src: &sources::Sources,
+    routes: &Value,
+    stock: &Value,
+    components: &Value,
+) -> Result<Value> {
     let mut wires = Vec::new();
     for r in rows(routes)? {
         let material = &stock[string(&r["stock"])?];
         wires.push(json!({"name":format!("wire-{}",string(&r["id"])?),"diameter_mm":material["od_mm"],"linear_rgb":rgb(&material["color"] )?,"segments":r["segments"]}));
     }
-    let mut out = json!({"name":"installed-wiring","presentation_deflection_ratio":get("_payload_rules","LINEAR_DEFLECTION_RATIO")?,"presentation_angular_deflection_rad":get("_mesh_payload","ANGULAR_DEFLECTION")?,"routes":wires});
+    let mut out = json!({"name":"installed-wiring","presentation_deflection_ratio":src.presentation_deflection_ratio()?,"presentation_angular_deflection_rad":src.presentation_angular_deflection()?,"routes":wires});
     if !components.is_null() && !rows(components)?.is_empty() {
         let mut output = Vec::new();
         for row in rows(components)? {
@@ -158,7 +166,7 @@ pub fn wire_numbers(routes: &Value, stock: &Value, components: &Value) -> Result
             recipe["name"] = row[0].clone();
             recipe["linear_rgb"] = rgb(&row[2])?;
             if recipe["kind"] == "import" {
-                recipe["step"] = provider(json!({"kind":"step","path":recipe["step"]}))?;
+                recipe["step"] = src.checkout_name(string(&recipe["step"])?)?;
             }
             output.push(recipe);
         }
