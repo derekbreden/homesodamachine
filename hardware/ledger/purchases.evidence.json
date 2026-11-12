@@ -9797,6 +9797,18 @@
           "note": "Prior quoted amount with estimated tax, preserved as noncontributing history; the completed merchant charge confirms the same total."
         }
       ]
+    },
+    "pur-36841266e8fb437a8d42247cbf7ee53d": {
+      "vendor": "Amazon",
+      "purpose": "equipment_tooling",
+      "amount_evidence": "estimate",
+      "order_ids": [
+        "amazon:114-4687967-9041802"
+      ],
+      "allocation_status": "all_project",
+      "source_ids": [
+        "src-f222afa30a654f9cb63b1cbf6992b390"
+      ]
     }
   },
   "orders": {
@@ -16059,6 +16071,18 @@
         "src-00856c18fb5b415294932e8cac6f8e1a",
         "src-41b1a3aa72b14f9ebbf132969ccfca13"
       ]
+    },
+    "amazon:114-4687967-9041802": {
+      "vendor": "Amazon",
+      "reference": "114-4687967-9041802",
+      "order_date": {
+        "precision": "day",
+        "value": "2026-11-12"
+      },
+      "allocation_status": "all_project",
+      "source_ids": [
+        "src-f222afa30a654f9cb63b1cbf6992b390"
+      ]
     }
   },
   "events": [
@@ -20292,6 +20316,23 @@
         "precision": "day",
         "value": "2026-04-05"
       }
+    },
+    {
+      "event_id": "evt-bd8302df82b54c40af7121a5187455cf",
+      "vendor": "Amazon",
+      "event_type": "charge",
+      "confirmation": "expected",
+      "event_date": null,
+      "amount_minor": 900,
+      "currency": "USD",
+      "allocation_status": "all_project",
+      "source_ids": [
+        "src-f222afa30a654f9cb63b1cbf6992b390"
+      ],
+      "verified_at": "2026-11-12",
+      "order_ids": [
+        "amazon:114-4687967-9041802"
+      ]
     }
   ],
   "allocations": [
@@ -22013,6 +22054,14 @@
       "purchase_id": "pur-c3762dd3108646668a81c4ce2e3943cc",
       "order_id": "xlaserlab:XLaserlab3271",
       "amount_minor": 389900,
+      "currency": "USD"
+    },
+    {
+      "allocation_id": "alloc-4edbbf45ce7b4002aef49291548a9db4",
+      "event_id": "evt-bd8302df82b54c40af7121a5187455cf",
+      "purchase_id": "pur-36841266e8fb437a8d42247cbf7ee53d",
+      "order_id": "amazon:114-4687967-9041802",
+      "amount_minor": 900,
       "currency": "USD"
     }
   ],
@@ -34050,6 +34099,22 @@
       },
       "verified_at": "2026-11-12",
       "note": "Live order-scoped Your Payments > Completed shows USD 9.64 dated 2026-11-11. The completed merchant amount confirms the existing expected event in place; no bank posting or funding ownership is inferred."
+    },
+    "src-f222afa30a654f9cb63b1cbf6992b390": {
+      "vendor": "Amazon",
+      "document_type": "order_confirmation_and_merchant_order_details",
+      "reference": "114-4687967-9041802",
+      "document_date": null,
+      "notification_date": {
+        "precision": "day",
+        "value": "2026-11-12"
+      },
+      "proves": [
+        "price",
+        "order_date"
+      ],
+      "verified_at": "2026-11-12",
+      "note": "Signed-in order details identify one uxcell B09TYSP9NV M3x0.5 spiral-flute M35 cobalt HSS tap with a 2.5 mm drill, matching established earth-clamp tooling. Placed November 12, 2026: USD 8.39 item, USD 0.61 estimated tax, free shipping, USD 9.00 total. Ordered status only; the relative Saturday arrival estimate is not an actual delivery date. Order-scoped payment lookup shows no transactions yet. No explicit replacement or cancellation relationship is displayed; this distinct order is recorded separately without inferring the condition of the earlier acquired set."
     }
   },
   "coverage": [
@@ -36112,6 +36177,26 @@
         "xlaserlab:XLaserlab3271"
       ],
       "note": "The named confirmation email and both linked receipt/invoice documents were examined; both links resolve to the same paid document, recorded once. It confirms purchase value and payment, with a distinct April 5 receipt/invoice date. The separately recorded April 6 order date is preserved rather than replaced by a document date. A separate merchant charge day and broader account coverage remain unestablished."
+    },
+    {
+      "coverage_id": "coverage-6a60c8b39347479a87795362270944e3",
+      "vendor": "Amazon",
+      "stream": "one named additional tap and drill order",
+      "evidence_type": "order_confirmation_and_order_scoped_payment_lookup",
+      "checked_at": "2026-11-12",
+      "examined_period": {
+        "start": "2026-11-12",
+        "end": "2026-11-12"
+      },
+      "complete_period": null,
+      "coverage": "partial",
+      "source_ids": [
+        "src-f222afa30a654f9cb63b1cbf6992b390"
+      ],
+      "order_ids": [
+        "amazon:114-4687967-9041802"
+      ],
+      "note": "Exact-reference email search returned one confirmation and no further pages. Signed-in order details establish item, quantity, placed date and estimated-tax total. Payment lookup shows no transactions yet; no shipment, delivery or replacement relationship is established. This is order-scoped evidence, not account-wide coverage."
     }
   ],
   "gaps": [

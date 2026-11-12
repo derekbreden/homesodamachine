@@ -593,6 +593,14 @@
       "purchase_id": "pur-c3b3b0a2274849c591fa9619695bc636"
     },
     {
+      "allocation_id": "alloc-4edbbf45ce7b4002aef49291548a9db4",
+      "amount_minor": 900,
+      "currency": "USD",
+      "event_id": "evt-bd8302df82b54c40af7121a5187455cf",
+      "order_id": "amazon:114-4687967-9041802",
+      "purchase_id": "pur-36841266e8fb437a8d42247cbf7ee53d"
+    },
+    {
       "allocation_id": "alloc-4f5463bfe1d44e35bf0691931651a898",
       "amount_minor": 7875,
       "currency": "USD",
@@ -2443,6 +2451,26 @@
       "source_ids": [],
       "stream": "project merchant charges and refunds",
       "vendor": "SendCutSend"
+    },
+    {
+      "checked_at": "2026-11-12",
+      "complete_period": null,
+      "coverage": "partial",
+      "coverage_id": "coverage-6a60c8b39347479a87795362270944e3",
+      "evidence_type": "order_confirmation_and_order_scoped_payment_lookup",
+      "examined_period": {
+        "end": "2026-11-12",
+        "start": "2026-11-12"
+      },
+      "note": "Exact-reference email search returned one confirmation and no further pages. Signed-in order details establish item, quantity, placed date and estimated-tax total. Payment lookup shows no transactions yet; no shipment, delivery or replacement relationship is established. This is order-scoped evidence, not account-wide coverage.",
+      "order_ids": [
+        "amazon:114-4687967-9041802"
+      ],
+      "source_ids": [
+        "src-f222afa30a654f9cb63b1cbf6992b390"
+      ],
+      "stream": "one named additional tap and drill order",
+      "vendor": "Amazon"
     },
     {
       "checked_at": "2026-10-04",
@@ -7753,6 +7781,30 @@
     },
     {
       "allocation_ids": [
+        "alloc-4edbbf45ce7b4002aef49291548a9db4"
+      ],
+      "allocation_status": "all_project",
+      "amount_minor": 900,
+      "confirmation": "expected",
+      "currency": "USD",
+      "event_date": null,
+      "event_id": "evt-bd8302df82b54c40af7121a5187455cf",
+      "event_type": "charge",
+      "order_ids": [
+        "amazon:114-4687967-9041802"
+      ],
+      "purchase_ids": [
+        "pur-36841266e8fb437a8d42247cbf7ee53d"
+      ],
+      "source_ids": [
+        "src-f222afa30a654f9cb63b1cbf6992b390"
+      ],
+      "unallocated_to_purchase_minor": 0,
+      "vendor": "Amazon",
+      "verified_at": "2026-11-12"
+    },
+    {
+      "allocation_ids": [
         "alloc-c28e2ecb9ae546359302e911b3a0dea3"
       ],
       "allocation_status": "all_project",
@@ -9662,7 +9714,7 @@
       ]
     }
   ],
-  "input_fingerprint": "sha256:5dee11c3041df3272513af3f99f7281cc6782413d009b96e06088040998dfef6",
+  "input_fingerprint": "sha256:7c2567442f5ff41c793f239bca6b30ee722b7dc283e2876047966be1c2f0c6f8",
   "orders": [
     {
       "allocation_status": "all_project",
@@ -15281,6 +15333,25 @@
         "saved-amazon:114-4680955-8473844",
         "src-b0e6fc40a56749629c8eb21d20e6f7b4",
         "src-fddc9ac2f31a4383989f4f65e6b72648"
+      ],
+      "vendor": "Amazon"
+    },
+    {
+      "allocation_status": "all_project",
+      "event_ids": [
+        "evt-bd8302df82b54c40af7121a5187455cf"
+      ],
+      "order_date": {
+        "precision": "day",
+        "value": "2026-11-12"
+      },
+      "order_id": "amazon:114-4687967-9041802",
+      "purchase_ids": [
+        "pur-36841266e8fb437a8d42247cbf7ee53d"
+      ],
+      "reference": "114-4687967-9041802",
+      "source_ids": [
+        "src-f222afa30a654f9cb63b1cbf6992b390"
       ],
       "vendor": "Amazon"
     },
@@ -25690,6 +25761,52 @@
       "source_ids": [
         "legacy-ledger-2026",
         "saved-amazon:112-1967009-0797830"
+      ],
+      "split_charge": false,
+      "stream": "purchase",
+      "unit_amount_minor": null,
+      "vendor": "Amazon"
+    },
+    {
+      "allocation_status": "all_project",
+      "amount_evidence": "estimate",
+      "amount_minor": 900,
+      "contributes": true,
+      "currency": "USD",
+      "delivery_date": null,
+      "description": "uxcell M3 × 0.5 spiral-flute tap and Ø2.5 mm twist-drill set, M35 cobalt HSS — additional earth-clamp tooling set. $8.39 item + $0.61 estimated tax; free shipping",
+      "event_ids": [
+        "evt-bd8302df82b54c40af7121a5187455cf"
+      ],
+      "fulfillment": "ON-ORDER",
+      "invoice_date": null,
+      "ledger_purchase_id": "pur-36841266e8fb437a8d42247cbf7ee53d",
+      "merchant_charge_allocated_minor": 0,
+      "merchant_refund_allocated_minor": 0,
+      "order_date": {
+        "precision": "day",
+        "value": "2026-11-12"
+      },
+      "order_ids": [
+        "amazon:114-4687967-9041802"
+      ],
+      "payment_evidence": "unknown",
+      "price_basis": "row_total",
+      "purchase_id": "pur-36841266e8fb437a8d42247cbf7ee53d",
+      "purpose": "equipment_tooling",
+      "quantity": 1,
+      "quantity_text": "1 set",
+      "receipt_date": null,
+      "record_role": "purchase",
+      "row_date": {
+        "precision": "day",
+        "value": "2026-11-12"
+      },
+      "row_date_basis": "order_date",
+      "section": "1. Carbonator fabrication",
+      "service_period": null,
+      "source_ids": [
+        "src-f222afa30a654f9cb63b1cbf6992b390"
       ],
       "split_charge": false,
       "stream": "purchase",
@@ -67016,6 +67133,23 @@
     },
     {
       "document_date": null,
+      "document_type": "order_confirmation_and_merchant_order_details",
+      "note": "Signed-in order details identify one uxcell B09TYSP9NV M3x0.5 spiral-flute M35 cobalt HSS tap with a 2.5 mm drill, matching established earth-clamp tooling. Placed November 12, 2026: USD 8.39 item, USD 0.61 estimated tax, free shipping, USD 9.00 total. Ordered status only; the relative Saturday arrival estimate is not an actual delivery date. Order-scoped payment lookup shows no transactions yet. No explicit replacement or cancellation relationship is displayed; this distinct order is recorded separately without inferring the condition of the earlier acquired set.",
+      "notification_date": {
+        "precision": "day",
+        "value": "2026-11-12"
+      },
+      "proves": [
+        "price",
+        "order_date"
+      ],
+      "reference": "114-4687967-9041802",
+      "source_id": "src-f222afa30a654f9cb63b1cbf6992b390",
+      "vendor": "Amazon",
+      "verified_at": "2026-11-12"
+    },
+    {
+      "document_date": null,
       "document_type": "completed_merchant_transaction",
       "merchant_event_date": {
         "precision": "day",
@@ -68244,10 +68378,11 @@
           "unknown_amount_ids": []
         },
         {
-          "amount_minor": 7054,
+          "amount_minor": 7954,
           "currency": "USD",
           "fulfillment": "ON-ORDER",
           "purchase_ids": [
+            "pur-36841266e8fb437a8d42247cbf7ee53d",
             "pur-4eaf76e6557740d7b0e85e0be8664f71"
           ],
           "unknown_amount_ids": []
@@ -68265,6 +68400,7 @@
       "cancelled_with_evidenced_charge_purchase_ids": [],
       "expected_refund_event_ids": [],
       "outstanding_purchase_ids": [
+        "pur-36841266e8fb437a8d42247cbf7ee53d",
         "pur-4eaf76e6557740d7b0e85e0be8664f71",
         "pur-b6c01a5b012340fc888139c1070dc054",
         "pur-c887374045604177851c4a81cc779f0e"
@@ -68279,6 +68415,7 @@
         "evt-5fddb80e882c4533bf9042d5a74088cc",
         "evt-9fd2d4a65f7d45a594a7ac3a6837d416",
         "evt-a3c8a2e1a259405e85d14c27817deb58",
+        "evt-bd8302df82b54c40af7121a5187455cf",
         "evt-c0203246ff88423a9af71d1977ede6c4",
         "evt-c8a1b3ae1a6d4021a36b2fe4e55971e9",
         "evt-e5f1a5d1860941fe82124df7e77e67fe"
@@ -68646,6 +68783,7 @@
             "evt-9fd2d4a65f7d45a594a7ac3a6837d416",
             "evt-a3c8a2e1a259405e85d14c27817deb58",
             "evt-a44b7291eb25461f97cd8d045faebd4e",
+            "evt-bd8302df82b54c40af7121a5187455cf",
             "evt-c73bf4b9bbe14a74b8b42e94dabd00aa",
             "evt-c8a1b3ae1a6d4021a36b2fe4e55971e9",
             "evt-efe204a6e93f4a538e1f0a7d9274f382"
@@ -69377,7 +69515,7 @@
         },
         {
           "currency": "USD",
-          "estimate_minor": 2924,
+          "estimate_minor": 3824,
           "evidence_scope": "retrieved_records_only",
           "final_vendor_amount_minor": 67912,
           "legacy_unverified_minor": 0,
@@ -69387,6 +69525,7 @@
             "pur-14f8f47e82a74b129f4677cb0fc2a67d",
             "pur-24623d00c3e94898adf2465f7537b1bd",
             "pur-3161c146b8ef40e5817e13af4dc07846",
+            "pur-36841266e8fb437a8d42247cbf7ee53d",
             "pur-3bd4a5d8e22947b88ec7bcc9f7a8df8a",
             "pur-3fca793e96a64c20b79ac0831efc3b50",
             "pur-5f9b203a9810468f8bab74284d78f44d",
@@ -69402,7 +69541,7 @@
             "pur-d6686b26577043b2acf9c6793d085302",
             "pur-f72407db7ffa450695c514cf2f38539b"
           ],
-          "total_minor": 70836,
+          "total_minor": 71736,
           "unknown_amount_ids": []
         },
         {
@@ -69439,7 +69578,7 @@
           "purpose": "engineering_software_services"
         },
         {
-          "amount_minor": 2381427,
+          "amount_minor": 2382327,
           "currency": "USD",
           "purpose": "equipment_tooling"
         },
@@ -69457,10 +69596,10 @@
       "totals": [
         {
           "currency": "USD",
-          "estimate_minor": 232046,
+          "estimate_minor": 232946,
           "final_vendor_amount_minor": 2893434,
           "legacy_unverified_minor": 1898308,
-          "total_minor": 5023788
+          "total_minor": 5024688
         }
       ],
       "undated_unallocated": [
@@ -69619,11 +69758,11 @@
       "by_currency": [
         {
           "currency": "USD",
-          "estimated_purchase_minor": 232046,
+          "estimated_purchase_minor": 232946,
           "legacy_unverified_purchase_minor": 1898308,
           "order_only_charge_allocation_minor": 6561,
           "partial_charge_purchase_minor": 0,
-          "purchases_without_merchant_charge_minor": 2471374,
+          "purchases_without_merchant_charge_minor": 2472274,
           "undated_charge_minor": 563952,
           "undated_refund_minor": 0,
           "undated_unallocated_purchase_minor": 975132,
@@ -69638,6 +69777,7 @@
         "pur-0d4eaf3ef27646a8b8f77ea46d4f2d44",
         "pur-1394610e499a45c08ba665ed1200053c",
         "pur-250afee3f9d341c9a9d18d4e33c0fd0e",
+        "pur-36841266e8fb437a8d42247cbf7ee53d",
         "pur-3ce173932d6c45f184bcd60237a2c790",
         "pur-3e2e38c4658c47eba0f7b8efe6bb4734",
         "pur-406788001c4d41f39213bbd4ec7a35ad",
@@ -69698,6 +69838,7 @@
         "coverage-615679b164eb4d54b8f4302a8f3b976f",
         "coverage-6194d8a6259e4ec4864ddd8bad6f5a79",
         "coverage-683c80d033e445e5a06780abc6fd7762",
+        "coverage-6a60c8b39347479a87795362270944e3",
         "coverage-6ae0fe39a22446b5af11066bec38e300",
         "coverage-6c7e8c703b9449708f17b28895f08bf8",
         "coverage-6e94055bf3074d6eb35fed6a91a4a83a",
@@ -70339,6 +70480,7 @@
         "pur-336e07bc67a84844b311d58e52364d25",
         "pur-338d6a3954314978b9c3b0b3023e441f",
         "pur-362dc6a7dece45c9a2adb878ace2e60c",
+        "pur-36841266e8fb437a8d42247cbf7ee53d",
         "pur-375429e1cb9c4b95bb3584b04f7284da",
         "pur-375bb2f248d3428ba0372071b0658305",
         "pur-37e05f9c156c41cf96b8fb94e4de5ecf",
@@ -70785,6 +70927,7 @@
         "evt-9fd2d4a65f7d45a594a7ac3a6837d416",
         "evt-a3c8a2e1a259405e85d14c27817deb58",
         "evt-a44b7291eb25461f97cd8d045faebd4e",
+        "evt-bd8302df82b54c40af7121a5187455cf",
         "evt-c73bf4b9bbe14a74b8b42e94dabd00aa",
         "evt-c8a1b3ae1a6d4021a36b2fe4e55971e9",
         "evt-efe204a6e93f4a538e1f0a7d9274f382"
@@ -70956,6 +71099,7 @@
       "coverage-615679b164eb4d54b8f4302a8f3b976f: evidence coverage is unknown",
       "coverage-6194d8a6259e4ec4864ddd8bad6f5a79: evidence coverage is partial",
       "coverage-683c80d033e445e5a06780abc6fd7762: evidence coverage is unknown",
+      "coverage-6a60c8b39347479a87795362270944e3: evidence coverage is partial",
       "coverage-6ae0fe39a22446b5af11066bec38e300: evidence coverage is unknown",
       "coverage-6c7e8c703b9449708f17b28895f08bf8: evidence coverage is partial",
       "coverage-6e94055bf3074d6eb35fed6a91a4a83a: evidence coverage is partial",
@@ -71019,7 +71163,7 @@
       "coverage-fee7edc5545c4ce58fba854587790eb4: evidence coverage is partial",
       "Legacy order 112-0019658-3684217: row valuation USD 139.80, preserved project invoice USD 139.81; historical allocation residual USD +0.01. Original prices retained; no balancing payment invented.",
       "Legacy order 112-0066205-0960237: row valuation USD 423.94, preserved project invoice USD 423.95; historical allocation residual USD +0.01. Original prices retained; no balancing payment invented.",
-      "22 legacy named order(s) lack an exact invoice allocation check",
+      "23 legacy named order(s) lack an exact invoice allocation check",
       "1 preserved potentially project order(s) have no named Markdown row"
     ]
   }

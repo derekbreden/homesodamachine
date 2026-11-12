@@ -21,6 +21,8 @@ Amazon Prime badges, exact variants, prices and stock were checked in signed-in 
 
 The [uxcell M3 × 0.5 tap and Ø2.5 mm drill set](https://www.amazon.com/dp/B09TYSP9NV) and [Piutouyar M1–M6 tap wrench](https://www.amazon.com/dp/B0F7K43T14) are acquired in the [purchase ledger](purchases.md), delivered November 11. Their completed merchant charges are $9.00 and $6.42 respectively.
 
+An additional uxcell tap/drill set is ON-ORDER, placed November 12 for $9.00 including estimated tax. It is a distinct order; no shipment or merchant transaction is recorded yet.
+
 An [IEAWISL external-tooth washer assortment](https://www.amazon.com/dp/B0D8HVSJMK), advertised as 304 stainless steel, is acquired, delivered November 12: 550 pieces in eight sizes M2.5–M12, $9.64 including tax, placed November 10. Its completed merchant charge is dated November 11. The M3 washer's dimensions and thickness are unverified. Check it against the specified DIN 6797A M3 washer before using it for the earth clamp or purchasing the separate BelMetric washer.
 
 ## Acquired closure hardware

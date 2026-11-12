@@ -102,6 +102,7 @@ Stainless carbonator fabrication: 316 SS round-tube body + 1/4" laser-cut 316 SS
 | <!--purchase:pur-5416183adaae4c7888924bf7bf589cd8--> ASelected 1" × 1" mounted flap wheels, 1/4" shank, 80 grit aluminum oxide, 10-pack, rated to 35,000 rpm — stuck-wire stub dressing on the 316L welds, stainless-only. Sole item on its invoice, $8.99 + $0.65 NE tax, shipping $0.00. Amazon estimates 2026-09-25 | [B07M97KFZW](https://www.amazon.com/dp/B07M97KFZW) | 1 pk (10) | $9.64 | 112-1566032-1238659 | 2026-09-23 | 2026-09-25 | ACQUIRED |
 | <!--purchase:pur-52a72289085c4b57b86eb0be330227a9--> Knipex 70 11 110 diagonal cutters, 4-1/2", narrow head, opening spring, rated for hard steel wire to 3/64" — snips a stuck ER316L .030 wire between the wire nozzle and the bead, one-handed with the gun held where it stopped. Sole item on its invoice, $30.98 + $2.25 NE tax, shipping $0.00. Amazon estimates 2026-09-25 | [B005EXO806](https://www.amazon.com/dp/B005EXO806) | 1 | $33.23 | 112-6988436-4048226 | 2026-09-24 | 2026-09-26 | ACQUIRED |
 | <!--purchase:pur-770c1f0b7dfd4d458834d39d99185eb3--> uxcell M3 × 0.5 spiral-flute tap and Ø2.5 mm twist-drill set, M35 cobalt HSS — carbonator upper-rim earth attachment. $8.39 item + $0.61 estimated tax; free shipping | [B09TYSP9NV](https://www.amazon.com/dp/B09TYSP9NV) | 1 set | $9.00 | 112-9511233-2346613 | 2026-11-10 | 2026-11-11 | ACQUIRED |
+| <!--purchase:pur-36841266e8fb437a8d42247cbf7ee53d--> uxcell M3 × 0.5 spiral-flute tap and Ø2.5 mm twist-drill set, M35 cobalt HSS — additional earth-clamp tooling set. $8.39 item + $0.61 estimated tax; free shipping | [B09TYSP9NV](https://www.amazon.com/dp/B09TYSP9NV) | 1 set | $9.00 | 114-4687967-9041802 | 2026-11-12 | — | ON-ORDER |
 | <!--purchase:pur-3bd4a5d8e22947b88ec7bcc9f7a8df8a--> Piutouyar M1–M6 adjustable tap wrench, 1/16"–1/4" tap capacity — small hand driver for the carbonator upper-rim M3 earth-clamp tap. $5.99 item + $0.43 estimated tax; free shipping | [B0F7K43T14](https://www.amazon.com/dp/B0F7K43T14) | 1 | $6.42 | 112-8461282-5610650 | 2026-11-10 | 2026-11-11 | ACQUIRED |
 
 ## 2. CO2 subsystem
@@ -853,17 +854,17 @@ Printed copies of the [install guide](/hardware/install-guide/README.md). Lulu o
 | Acquired hardware valuation — includes replaced/returned originals | [$43,394.76](LEDGER_ACQUIRED_HW) |
 | Engineering services (§18) | [$6,719.51](LEDGER_LABOR) |
 | Acquired procurement valuation (combined) | [$50,114.27](LEDGER_ACQUIRED_COMBINED) |
-| ON-ORDER | [$70.54](LEDGER_ON_ORDER) |
+| ON-ORDER | [$79.54](LEDGER_ON_ORDER) |
 | MISSING — not in hand | [$53.07](LEDGER_MISSING) |
 | LIKELY-TO-BUY | $0.00 |
-| **Recorded procurement valuation — includes commitments** | [$50,237.88](LEDGER_GRAND_TOTAL) |
+| **Recorded procurement valuation — includes commitments** | [$50,246.88](LEDGER_GRAND_TOTAL) |
 
 Price evidence within the procurement valuation:
 
 | Amount basis | USD |
 |---|---|
 | Final vendor amounts | [$28,934.34](LEDGER_FINAL_VENDOR) |
-| Estimated amounts | [$2,320.46](LEDGER_ESTIMATES) |
+| Estimated amounts | [$2,329.46](LEDGER_ESTIMATES) |
 | Legacy / unverified amounts | [$18,983.08](LEDGER_LEGACY_UNVERIFIED) |
 
 Merchant-evidenced payments (project shares; includes the undated bucket):
