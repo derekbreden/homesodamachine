@@ -335,7 +335,7 @@
       ]
     }
   },
-  "physical_fit": "Pending.",
+  "physical_fit": "Unevaluated. See physical-result/physical-result.json.",
   "startup_pause": {
     "state": "PAUSE",
     "layer_num": 0,
