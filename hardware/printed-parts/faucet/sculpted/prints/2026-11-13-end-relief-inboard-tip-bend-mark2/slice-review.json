@@ -301,10 +301,108 @@
    }
   ],
   "previous_plate_archive": "sculpted-tip-cover-bowed-tip-cooling-black-mark2-ready.gcode.3mf",
-  "remaining": "What is still off level on this plate lies on one side of the tube and across the cap, every path below its layer by a fifth of a millimetre or less. Its place and size fit the slicer's sloped seam starts; the reading does not name their cause.",
+  "remaining": "What is still off level on this plate is the tip's sloped seam start, which its seam recipe asks for: a loop that starts in the display pocket begins a fifth of a millimetre low and climbs to its layer along the wall. The slicer's own output, before the bend is applied, carries the same shares, so the bend adds nothing on the outside wall.",
   "contact_band": [
    0.9,
    2.65
+  ],
+  "native_slice": [
+   {
+    "back_mm": [
+     0,
+     1
+    ],
+    "off_level_share": 0.188,
+    "largest_mm": 0.215
+   },
+   {
+    "back_mm": [
+     1,
+     2
+    ],
+    "off_level_share": 0.197,
+    "largest_mm": 0.215
+   },
+   {
+    "back_mm": [
+     2,
+     3
+    ],
+    "off_level_share": 0.156,
+    "largest_mm": 0.148
+   },
+   {
+    "back_mm": [
+     3,
+     4
+    ],
+    "off_level_share": 0.164,
+    "largest_mm": 0.16
+   },
+   {
+    "back_mm": [
+     4,
+     5
+    ],
+    "off_level_share": 0.157,
+    "largest_mm": 0.167
+   },
+   {
+    "back_mm": [
+     5,
+     6
+    ],
+    "off_level_share": 0.117,
+    "largest_mm": 0.178
+   },
+   {
+    "back_mm": [
+     6,
+     7
+    ],
+    "off_level_share": 0.104,
+    "largest_mm": 0.186
+   },
+   {
+    "back_mm": [
+     7,
+     8
+    ],
+    "off_level_share": 0.09,
+    "largest_mm": 0.187
+   },
+   {
+    "back_mm": [
+     8,
+     9
+    ],
+    "off_level_share": 0.046,
+    "largest_mm": 0.189
+   },
+   {
+    "back_mm": [
+     9,
+     10
+    ],
+    "off_level_share": 0.023,
+    "largest_mm": 0.192
+   },
+   {
+    "back_mm": [
+     10,
+     11
+    ],
+    "off_level_share": 0.005,
+    "largest_mm": 0.191
+   },
+   {
+    "back_mm": [
+     11,
+     12
+    ],
+    "off_level_share": 0.0,
+    "largest_mm": 0.0
+   }
   ]
  },
  "tip_supports": {
