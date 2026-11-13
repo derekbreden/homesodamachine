@@ -26,9 +26,8 @@ fn main() -> Result<()> {
     let out = printed::out_dir("hardware/printed-parts/faucet/faucet-display-cover")?;
     let neck = Gooseneck::shell();
     let black = Some(catalog::faucet_black());
-    let seated = seated_cover(&neck, false)?;
-    let open = seated_cover(&neck, true)?;
-    let relaxed = display::relaxed_by(&neck, &seated, &open, cover::BEZEL_N_BOTTOM, cover::wing_inward)?;
+    let seated = seated_cover(&neck)?;
+    let relaxed = display::relaxed_by(&neck, &seated, cover::BEZEL_N_BOTTOM, cover::wing_inward)?;
     ensure!(relaxed.components().len() == 1, "the display cover is not one solid");
     println!("{}", printed::write(&out, PRINTED, Body { name: PRINTED, color: black, solid: &relaxed })?);
     println!("{}", write_shown(&out, SEATED, &[Body { name: SEATED, color: black, solid: &seated }])?);
@@ -36,19 +35,12 @@ fn main() -> Result<()> {
 }
 
 /// The cover as it sits on the tip: its skin hollowed for the display, opened for the glass and
-/// round the neck, its lower edges sloped, with its lips. `open` runs the display's cavity on up
-/// through the bezel.
-fn seated_cover(neck: &Gooseneck, open: bool) -> Result<Solid> {
-    let (outer, top, _) = loft(neck, &cover::outer_rows())?;
-    let outer = clamped(neck, outer, cover::outer_clamp())?;
-    let (mut cavity, ceiling, ring) = loft(neck, &cover::cavity_rows())?;
+/// round the neck, its lower edges sloped, with its lips.
+fn seated_cover(neck: &Gooseneck) -> Result<Solid> {
+    let outer = clamped(neck, loft(neck, &cover::outer_rows())?, cover::outer_clamp())?;
+    let mut cavity = loft(neck, &cover::cavity_rows())?;
     for clamp in cover::cavity_clamps() {
         cavity = clamped(neck, cavity, clamp)?;
-    }
-    if open {
-        // Stood on the loft's own ring at the ceiling, so the two meet point for point.
-        let (_, _, normal) = neck.tip_frame();
-        cavity = cavity.union(&Solid::extrude(&ring, normal, normal * (top + PAST - ceiling))?)?;
     }
     let [s0, s1] = cover::window_s();
     let [n0, n1] = cover::window_n();
@@ -75,14 +67,12 @@ fn seated_cover(neck: &Gooseneck, open: bool) -> Result<Solid> {
     skin.union(&lips)
 }
 
-/// The smooth loft through the rows' outlines (`outline`), with the n of its last row and its
-/// ring there.
-fn loft(neck: &Gooseneck, rows: &[[f64; 5]]) -> Result<(Solid, f64, Region)> {
+/// The smooth loft through the rows' outlines (`outline`).
+fn loft(neck: &Gooseneck, rows: &[[f64; 5]]) -> Result<Solid> {
     let sections: Vec<LoftSection> = rows.iter().map(|&[w, l, r, nn, centre]| outline(neck, w, l, r, nn, centre)).collect();
-    let last = rows.last().map_or(f64::NAN, |row| row[3]);
     let surface = SmoothLoft::new(&compatible(&sections)?)?;
     let (us, vs) = surface.grid();
-    Ok((surface.solid_on(&us, &vs)?, last, surface.end_region(true, &us)))
+    surface.solid_on(&us, &vs)
 }
 
 /// The eight-edge outline at height `nn` of the tip frame: `w` across and `l` along s about
