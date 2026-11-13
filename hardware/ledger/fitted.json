@@ -94,7 +94,7 @@
       "date": "2026-11-12",
       "said": "They work right now. In Z they are pretty close to snug, but in Y they are a bit loose. ... (currently they cannot be, and in fact forcing it into the pocket fully will force the snaps shut on the wago).",
       "tried": "both Wago connectors pressed into the printed front-top tower",
-      "record": "hardware/print-tests/front-top-wago-fit/2026-11-12-mark2/physical-observation.json"
+      "record": "https://github.com/derekbreden/homesodamachine/blob/a8f24b2b5d16fcc4a23abb2832802df7cbcf50ca/hardware/print-tests/front-top-wago-fit/2026-11-12-mark2/physical-observation.json"
     },
     {
       "material": "HSM-0080",

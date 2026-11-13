@@ -1,0 +1,290 @@
+{
+  "purpose": "Compare two tighter front-top Wago pocket fits at the production insertion depth.",
+  "source_revision": "ffe670b3c4a83a970d2e52dd81c75eddb7f12522",
+  "source_sha256": {
+    "hardware/manifold-layout/junctions.json": "9dc938e52afd235079fdeaa4a1f4bf726090277696ca286bda7cae788e548c40",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step.npz": "e029fa10eab4830904df0035cde34c2cb8ffc1182fdf65c72a38ca304bd5f38a",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl": "8263cda99078487fa0c2a68e02f00907145d8a7e9facb98028dea7f2be874f2e",
+    "hardware/printed-parts/petgf.3mf": "1be18bdfd75b33efc898b3e5c28a0c1975fc694ef4d94dd88a909472cb96b97f"
+  },
+  "geometry": {
+    "box_stock_volume_mm3": 18151.614001,
+    "coupons": [
+      {
+        "dots": 1,
+        "name": "wago-fit-1",
+        "per_side_reduction_yz_mm": [
+          0.5,
+          0.2
+        ],
+        "pockets": [
+          {
+            "bounds_mm": [
+              [
+                95.8,
+                169.6,
+                262.15
+              ],
+              [
+                104.5,
+                184.7,
+                291.85
+              ]
+            ],
+            "name": "wago-mana",
+            "opening_yz_mm": [
+              15.1,
+              29.7
+            ],
+            "side_wall_widths_y_mm": [
+              3.5,
+              3.5
+            ]
+          },
+          {
+            "bounds_mm": [
+              [
+                95.8,
+                169.6,
+                228.05
+              ],
+              [
+                104.5,
+                177.3,
+                257.95
+              ]
+            ],
+            "name": "wago-manb",
+            "opening_yz_mm": [
+              7.7,
+              29.9
+            ],
+            "side_wall_widths_y_mm": [
+              3.5,
+              10.9
+            ]
+          }
+        ],
+        "volume_mm3": 12245.562667,
+        "stl_sha256": "d499690a742bbf774bc162a1d88fd75c5212d4ccfea8a838ae55200bf09e8b6c",
+        "plate_bounds_mm": [
+          [
+            136.650002,
+            148.950005,
+            0.0
+          ],
+          [
+            148.349998,
+            171.049995,
+            70.199982
+          ]
+        ],
+        "build_transform": [
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0,
+          0.0,
+          0.0,
+          -0.0,
+          1.0,
+          142.5,
+          160.0,
+          35.099991
+        ],
+        "watertight": true
+      },
+      {
+        "dots": 2,
+        "name": "wago-fit-2",
+        "per_side_reduction_yz_mm": [
+          0.75,
+          0.3
+        ],
+        "pockets": [
+          {
+            "bounds_mm": [
+              [
+                95.8,
+                169.85,
+                262.25
+              ],
+              [
+                104.5,
+                184.45,
+                291.75
+              ]
+            ],
+            "name": "wago-mana",
+            "opening_yz_mm": [
+              14.6,
+              29.5
+            ],
+            "side_wall_widths_y_mm": [
+              3.75,
+              3.75
+            ]
+          },
+          {
+            "bounds_mm": [
+              [
+                95.8,
+                169.85,
+                228.15
+              ],
+              [
+                104.5,
+                177.05,
+                257.85
+              ]
+            ],
+            "name": "wago-manb",
+            "opening_yz_mm": [
+              7.2,
+              29.7
+            ],
+            "side_wall_widths_y_mm": [
+              3.75,
+              11.15
+            ]
+          }
+        ],
+        "volume_mm3": 12541.393333,
+        "stl_sha256": "92c4c038b773036c691d5aa61b27f43afed6d74cadbe94f291500034931056cb",
+        "plate_bounds_mm": [
+          [
+            176.650002,
+            148.950005,
+            0.0
+          ],
+          [
+            188.349998,
+            171.049995,
+            70.199982
+          ]
+        ],
+        "build_transform": [
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0,
+          0.0,
+          0.0,
+          -0.0,
+          1.0,
+          182.5,
+          160.0,
+          35.099991
+        ],
+        "watertight": true
+      }
+    ],
+    "crop_bounds_mm": [
+      [
+        95.8,
+        166.1,
+        224.85
+      ],
+      [
+        107.5,
+        188.2,
+        295.05
+      ]
+    ],
+    "original_pocket_volume_mm3": 6509.514,
+    "part": "printed-parts/enclosure/enclosure/enclosure-front-top.step",
+    "pocket_depth_x_mm": 8.7,
+    "restored_crop_stock_volume_mm3": 18151.614001
+  },
+  "orientation": "The enclosure Z axis is printer Z. The pockets bridge along the enclosure Y axis between the full-depth sidewalls.",
+  "source_project": "front-top-wago-fit-mark1.3mf",
+  "source_project_sha256": "84f27516978ff572a31c7312912061f6a420e2f7e8b1c579df571913516f26b1",
+  "previous_trial": "https://github.com/derekbreden/homesodamachine/blob/a8f24b2b5d16fcc4a23abb2832802df7cbcf50ca/hardware/print-tests/front-top-wago-fit/2026-11-12-mark2/physical-result/physical-result.json",
+  "launch_record": "launch.json",
+  "slice": {
+    "archive": {
+      "gcode_sha256": "a65b890cb66fd8c45b6cb359dc51eec9da29abb10e8a904732069b9960b08be8",
+      "name": "front-top-wago-fit-mark1-ready.gcode.3mf",
+      "objects": [
+        "Wago fit 1",
+        "Wago fit 2"
+      ],
+      "sha256": "7acddcf18ffad4868a90f29d413e7f02537f3b4aeca838f8372f6ae71ba38891",
+      "slots": {
+        "1": {
+          "colour": "000000",
+          "type": "PET-CF"
+        }
+      }
+    },
+    "printer": "Mark1 (H2C)",
+    "material": "Black Polymaker Fiberon PET-GF15 on the left external spool",
+    "bed": "Textured PEI Plate",
+    "left_nozzle_diameter_mm": 0.4,
+    "firmware_z_trim_mm": 0.16,
+    "layer_height_mm": 0.24,
+    "bridge_angle_deg": 90,
+    "estimated_filament_g": 16.84516,
+    "native_estimated_seconds": 3010.818403,
+    "localized_cooling_added_commanded_seconds": 604.15312,
+    "bead_envelope_plate_mm": [
+      [
+        133.612883,
+        145.912883
+      ],
+      [
+        191.387117,
+        174.087117
+      ]
+    ],
+    "minimum_bead_margin_mm": 133.612883,
+    "slicer_warnings": [],
+    "pocket_roofs": [
+      {
+        "fit": "Wago fit 1",
+        "pocket": "wago-mana",
+        "roof_layer_mm": 67.16,
+        "landing_layer_mm": 66.92,
+        "bridge_crossings": 23,
+        "continuous_mouth_wall_crossings": 2,
+        "minimum_path_end_inside_sidewall_mm": 0.169,
+        "minimum_path_end_overlap_with_prior_bead_mm": 0.245
+      },
+      {
+        "fit": "Wago fit 1",
+        "pocket": "wago-manb",
+        "roof_layer_mm": 33.32,
+        "landing_layer_mm": 33.08,
+        "bridge_crossings": 23,
+        "continuous_mouth_wall_crossings": 2,
+        "minimum_path_end_inside_sidewall_mm": 0.169,
+        "minimum_path_end_overlap_with_prior_bead_mm": 0.245
+      },
+      {
+        "fit": "Wago fit 2",
+        "pocket": "wago-mana",
+        "roof_layer_mm": 67.16,
+        "landing_layer_mm": 66.92,
+        "bridge_crossings": 23,
+        "continuous_mouth_wall_crossings": 2,
+        "minimum_path_end_inside_sidewall_mm": 0.169,
+        "minimum_path_end_overlap_with_prior_bead_mm": 0.245
+      },
+      {
+        "fit": "Wago fit 2",
+        "pocket": "wago-manb",
+        "roof_layer_mm": 33.32,
+        "landing_layer_mm": 33.08,
+        "bridge_crossings": 23,
+        "continuous_mouth_wall_crossings": 2,
+        "minimum_path_end_inside_sidewall_mm": 0.169,
+        "minimum_path_end_overlap_with_prior_bead_mm": 0.245
+      }
+    ],
+    "support_roads": 0,
+    "layers": 293
+  },
+  "physical_fit": "Pending."
+}
