@@ -575,12 +575,13 @@ General shop equipment supporting fabrication, assembly, and teardown. Not proje
 | <!--purchase:pur-7ebe706384b34c718af7af886e0988d7--> nVent Gardner Bender PS915143 appliance cord, 9 ft, 14/3 SJTW, 15 A/125 V — cut in two: the plug end powers the Shelly 1 Mini above from a garage outlet, and the cut-off end is the 14 AWG lead from the Shelly's I and O terminals to the heater's terminals 1 and 2. Sold by Amazon.com; $10.59 + $0.77 NE tax, free shipping | [B07BQ8PY21](https://www.amazon.com/dp/B07BQ8PY21) | 1 | $11.36 | 112-6057627-7806613 | 2026-11-05 | 2026-11-07 | ACQUIRED |
 | <!--purchase:pur-24623d00c3e94898adf2465f7537b1bd--> LISTENJIALE nylon cable glands with gaskets, PG7–PG19, 50 pcs — one seals the 14 AWG thermostat lead into the heater's second knockout. Sold by ListenJiaLe; $12.99 + $0.94 NE tax, free shipping | [B09Z24H77M](https://www.amazon.com/dp/B09Z24H77M) | 1 pk (50) | $13.93 | 112-5039065-3785859 | 2026-11-05 | 2026-11-07 | ACQUIRED |
 | <!--purchase:pur-9fe3b15945c3487da36214f92b80f9ee--> Zulkit IP65 ABS electrical box, hinged shell, 2 cable glands, 5.9 × 3.9 × 2.8 in — holds the Shelly 1 Mini on the ceiling beside the garage heater; plastic so its Wi-Fi gets out. Sold by VeSumly; $9.99 + $0.72 NE tax, free shipping | [B08KY7VK8W](https://www.amazon.com/dp/B08KY7VK8W) | 1 | $10.71 | 112-0673623-4429031 | 2026-11-05 | 2026-11-07 | ACQUIRED |
-| <!--purchase:pur-fd0447880897405fb697a1c430b6bba0--> Befenybay BE069-2 linear stage actuator, 200 mm travel, SFU1605 ball screw on square rails, with its NEMA 17 stepper and motor cable (the listing's 200mm-NEMA17 option) — the motion axis of the [reed sweep rig](/hardware/assembly/reed-sweep-rig.md). $83.80 item + $6.08 estimated tax; free shipping | [B085TG12D1](https://www.amazon.com/dp/B085TG12D1) | 1 | $89.88 | 112-1265759-9506602 | 2026-11-12 | — | ON-ORDER |
-| <!--purchase:pur-79ed4268d7cf4c8ba55804d8d07a8adc--> BIGTREETECH TMC2209 V1.3 stepper driver, 1 pc — drives the reed sweep rig's stage in step/direction mode. $9.99 item + $0.72 estimated tax; free shipping | [B07ZPV4HFP](https://www.amazon.com/dp/B07ZPV4HFP) | 1 | $10.71 | 112-1265759-9506602 | 2026-11-12 | — | ON-ORDER |
-| <!--purchase:pur-c421deec9a2f4c7b868ae95b9e1499c1--> ZXXP 42 stepper-driver expansion board for A4988/DRV8825-format drivers, DIP microstep switches and screw terminals, 2 pc — carrier for the reed sweep rig's driver. $7.99 item + $0.58 estimated tax; free shipping | [B0FQC39GJ2](https://www.amazon.com/dp/B0FQC39GJ2) | 1 pk (2) | $8.57 | 112-1265759-9506602 | 2026-11-12 | — | ON-ORDER |
-| <!--purchase:pur-2ad02a3c76fc4de6b57a9424c7892858--> R REIFENG mechanical endstop limit switch with 22 AWG cable, 10 pc — the reed sweep rig's home switch. $11.99 item + $0.87 estimated tax; free shipping | [B07TWKH7F7](https://www.amazon.com/dp/B07TWKH7F7) | 1 pk (10) | $12.86 | 112-1265759-9506602 | 2026-11-12 | — | ON-ORDER |
-| <!--purchase:pur-c692f77e911c4e6fa40da3baf52ca7bd--> DORHEA ESP32 38-pin narrow USB-C development board with its screw-terminal breakout board, 3 sets (the listing's option A) — the reed sweep rig's controller. $19.99 item + $1.45 estimated tax; free shipping | [B0C8DBN29X](https://www.amazon.com/dp/B0C8DBN29X) | 1 pk (3 sets) | $21.44 | 112-1265759-9506602 | 2026-11-12 | — | ON-ORDER |
-| <!--purchase:pur-349e89ac22704ecaa32c57926e7c0d7e--> BTF-LIGHTING 12 V 3 A 36 W Class 2 power adapter, ETL listed, 5.5 × 2.1 mm DC plug with its female barrel connector — the reed sweep rig's motor supply. $14.99 item + $1.09 estimated tax; free shipping | [B01D8FLQHE](https://www.amazon.com/dp/B01D8FLQHE) | 1 | $16.08 | 112-1265759-9506602 | 2026-11-12 | — | ON-ORDER |
+| <!--purchase:pur-fd0447880897405fb697a1c430b6bba0--> Befenybay BE069-2 linear stage actuator, 200 mm travel, SFU1605 ball screw on square rails, with its NEMA 17 stepper and motor cable (the listing's 200mm-NEMA17 option) — the motion axis of the [reed sweep rig](/hardware/assembly/reed-sweep-rig.md). Item price; order-level estimated tax recorded separately; free shipping | [B085TG12D1](https://www.amazon.com/dp/B085TG12D1) | 1 | $83.80 | 112-1265759-9506602 | 2026-11-12 | — | ON-ORDER |
+| <!--purchase:pur-79ed4268d7cf4c8ba55804d8d07a8adc--> BIGTREETECH TMC2209 V1.3 stepper driver, 1 pc — drives the reed sweep rig's stage in step/direction mode. Item price; order-level estimated tax recorded separately; free shipping | [B07ZPV4HFP](https://www.amazon.com/dp/B07ZPV4HFP) | 1 | $9.99 | 112-1265759-9506602 | 2026-11-12 | — | ON-ORDER |
+| <!--purchase:pur-c421deec9a2f4c7b868ae95b9e1499c1--> ZXXP 42 stepper-driver expansion board for A4988/DRV8825-format drivers, DIP microstep switches and screw terminals, 2 pc — carrier for the reed sweep rig's driver. Item price; order-level estimated tax recorded separately; free shipping | [B0FQC39GJ2](https://www.amazon.com/dp/B0FQC39GJ2) | 1 pk (2) | $7.99 | 112-1265759-9506602 | 2026-11-12 | — | ON-ORDER |
+| <!--purchase:pur-2ad02a3c76fc4de6b57a9424c7892858--> R REIFENG mechanical endstop limit switch with 22 AWG cable, 10 pc — the reed sweep rig's home switch. Item price; order-level estimated tax recorded separately; free shipping | [B07TWKH7F7](https://www.amazon.com/dp/B07TWKH7F7) | 1 pk (10) | $11.99 | 112-1265759-9506602 | 2026-11-12 | — | ON-ORDER |
+| <!--purchase:pur-c692f77e911c4e6fa40da3baf52ca7bd--> DORHEA ESP32 38-pin narrow USB-C development board with its screw-terminal breakout board, 3 sets (the listing's option A) — the reed sweep rig's controller. Item price; order-level estimated tax recorded separately; free shipping | [B0C8DBN29X](https://www.amazon.com/dp/B0C8DBN29X) | 1 pk (3 sets) | $19.99 | 112-1265759-9506602 | 2026-11-12 | — | ON-ORDER |
+| <!--purchase:pur-349e89ac22704ecaa32c57926e7c0d7e--> BTF-LIGHTING 12 V 3 A 36 W Class 2 power adapter, ETL listed, 5.5 × 2.1 mm DC plug with its female barrel connector — the reed sweep rig's motor supply. Item price; order-level estimated tax recorded separately; free shipping | [B01D8FLQHE](https://www.amazon.com/dp/B01D8FLQHE) | 1 | $14.99 | 112-1265759-9506602 | 2026-11-12 | — | ON-ORDER |
+| <!--purchase:pur-dfd251509a3543c5b3bd9e358dcef85f--> Order-level estimated tax for the reed sweep rig components above; no line-level tax allocation supplied | — | 1 | $10.79 | 112-1265759-9506602 | 2026-11-12 | — | ON-ORDER |
 
 ## 13. Printing consumables
 
@@ -869,17 +870,17 @@ Price evidence within the procurement valuation:
 
 | Amount basis | USD |
 |---|---|
-| Final vendor amounts | [$28,934.34](LEDGER_FINAL_VENDOR) |
-| Estimated amounts | [$2,489.00](LEDGER_ESTIMATES) |
+| Final vendor amounts | [$29,043.83](LEDGER_FINAL_VENDOR) |
+| Estimated amounts | [$2,379.51](LEDGER_ESTIMATES) |
 | Legacy / unverified amounts | [$18,983.08](LEDGER_LEGACY_UNVERIFIED) |
 
 Merchant-evidenced payments (project shares; includes the undated bucket):
 
 | Event basis | USD |
 |---|---|
-| Completed charges | [$25,589.75](LEDGER_MERCHANT_CHARGES) |
+| Completed charges | [$25,755.93](LEDGER_MERCHANT_CHARGES) |
 | Issued monetary refunds | [$0.00](LEDGER_MERCHANT_REFUNDS) |
-| Charges less monetary refunds | [$25,589.75](LEDGER_MERCHANT_NET) |
+| Charges less monetary refunds | [$25,755.93](LEDGER_MERCHANT_NET) |
 
 The retrieved records have partial vendor coverage. An empty month or refund total is not evidence of account-wide zero activity. Authorizations, pending charges and noncash credit do not enter this view.
 
