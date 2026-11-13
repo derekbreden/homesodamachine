@@ -5,7 +5,7 @@
   ],
   "pages": 60,
   "pdf": "printing-the-machine.pdf",
-  "pdf_sha256": "32d87fbfdb3e5f31e03973beca06ab67db5b45de30de4a74efbfbf2a9f64e5fa",
+  "pdf_sha256": "b6ffb98b324a4ec1a1bacbce41056dc2a5142000841f226fdb0c4d8ad3f0cb3e",
   "print_layout": {
     "canvas_px": [
       2550,
@@ -40,7 +40,7 @@
     "hardware/printed-parts/enclosure/enclosure/prints/2026-11-11-front-bottom-D-mark2/support-audit-1901.json": "44d25d6d771f4053f8b531cbafd7191e9afeebe1d89dee2816d02412b1c78f1b",
     "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-10-04-bulkhead-co2-raised-mark2-v1/launch.json": "778ccea7bbd80fa0f19df3b1394c19a8d0bb080b2bc0ea911e8db5aba4c787b3",
     "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-10-04-bulkhead-co2-raised-mark2-v1/rejected-send.json": "76cd78fb8f0cf6c4e794e153d97c14e19af4ff1e708a70a1d330dd4367c7cbd9",
-    "hardware/printed-parts/enclosure/trial-preparation/pieces.json": "3f22b1f865bb9e10755cd88f99a751a6eaeb952a492c77671de522c7c3682b01",
+    "hardware/printed-parts/enclosure/trial-preparation/pieces.json": "23d9157aaab2ce7aed3dc67910a9976c9dfd47b0bd01cc9b865c95deb2705ad0",
     "hardware/printed-parts/faucet/faucet-pet-cf.3mf": "8467954366d6147b8b143a77b4eee93ca9e5ca9d7dc4d6d51b7e8c65c19518df",
     "hardware/printed-parts/faucet/tpu-o-ring/prints/2026-10-23-black-tpu85a-right06-mark2/2026-10-23-touch-flo-sleeve-tpu85a-right06-z000-mark2.3mf": "61d5259014da0965a5bff2a0e2c342dbda0acb07e1f6d13269a3af2642368405",
     "hardware/printed-parts/faucet/tpu-o-ring/prints/2026-10-23-black-tpu85a-right06-mark2/emitted-path-review.json": "5bfb31053174fa76eb095c3da13b2a63d280cb246f98154a70f330d055ce668b",
@@ -58,7 +58,7 @@
     "hardware/printing-the-machine/10-the-same-question-a-different-answer.html": "12c54a3f93db96030ae0ede01670811bac595dc06a39b7623b6946f717a67864",
     "hardware/printing-the-machine/11-petgf-the-plastic.html": "fa4f518ad9fbf58970eb28cfe3481c298e648b41317e988c96cf127948fda7b6",
     "hardware/printing-the-machine/12-petgf-one-file-holds-the-recipe.html": "e205594e1ddececf8f4d16223a571c1fe1ead423c4da5e27495951444f17c7e4",
-    "hardware/printing-the-machine/13-petgf-a-trim-does-not-travel.html": "67c12e3addbb2a1e19654cbb67afb2f4c1f04b09612c5657a772ecfff3537fc4",
+    "hardware/printing-the-machine/13-petgf-a-trim-does-not-travel.html": "b5b5a63d15b98cd9945cd61b130fed8e25b0471128e104748a28a29b871d719a",
     "hardware/printing-the-machine/14-petgf-season-the-edge.html": "f1b668d01fc11038e00e4a43f28e1a69f647a6dc743929cbed9b682df858e7e4",
     "hardware/printing-the-machine/15-petgf-fan-only-over-air.html": "5064bf56ab475f8a29f665ed09ccdd6d9ab397ab51ec57111d4ff8c1d08bbfca",
     "hardware/printing-the-machine/16-petgf-time-between-layers.html": "afa010b082a2c08dbf3f208b52207ac423d4a2ecf35aa863fa5697b5abe4d94b",
