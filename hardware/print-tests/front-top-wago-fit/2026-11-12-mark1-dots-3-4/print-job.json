@@ -324,7 +324,7 @@
     "support_roads": 0,
     "layers": 297
   },
-  "physical_fit": "Pending.",
+  "physical_fit": "Unevaluated. The print was canceled.",
   "status_at_handoff": {
     "state": "RUNNING",
     "layer_num": 1,
@@ -332,5 +332,18 @@
     "print_error": 0,
     "observed_at": "2026-11-13T04:21:24+00:00",
     "hms": []
+  },
+  "cancellation": {
+    "state": "FAILED",
+    "observed_at": "2026-11-13T04:25:11+00:00",
+    "printer_task_id": "1437689054",
+    "print_error": 50348044,
+    "message": "The task was canceled.",
+    "reported_heater_targets_c": {
+      "nozzle": 0,
+      "bed": 0
+    },
+    "last_reported_running_layer": 12,
+    "instruction": "Do not use finer layers anywhere - that is not an option - that is a completely different variable"
   }
 }
