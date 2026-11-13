@@ -48,6 +48,17 @@ pub mod slide {
     pub const MOTOR_LENGTH: f64 = 40.;
 }
 
+/// The driver on its carrier with the carrier's three switches off: the microsteps it makes of
+/// one full step.
+pub mod drive {
+    pub const MICROSTEPS: f64 = 8.;
+}
+
+/// The step pulses that move the carriage a millimetre.
+pub fn steps_per_mm() -> f64 {
+    slide::MOTOR_STEPS * drive::MICROSTEPS / slide::SCREW_LEAD
+}
+
 /// The bought home switch, a Makerbot-pattern board: the board, the two holes that flank its
 /// switch, how far they stand in from the switch's edge, and how high the lever's middle rides
 /// over the board's top.
@@ -311,6 +322,9 @@ pub const LEG_CLEARANCE: f64 = 3.;
 /// The stem and the roller that stand in the sled's slot.
 pub const STEM: f64 = 4.6;
 pub const ROLLER: f64 = 5.;
+/// The roller's play along the slot. The sled trails the roller by it when the rod pushes into
+/// the tube, and not when the rod draws it back.
+pub const ROLLER_PLAY: f64 = SLOT - ROLLER;
 /// The finger that carries the striker screw out to the home switch. The screw's hole takes its
 /// whole thread, so the screw reaches from seated on the finger to as far out as its insert
 /// still holds it, and the finger's length puts the switch in the middle of that reach.
@@ -341,9 +355,10 @@ pub const fn switch_pad_top() -> f64 {
 // --- Where things stand ------------------------------------------------------------------------
 
 /// The sled's near face at the comb's tab, at its home, and at the deepest it goes with all of
-/// it still in the tube.
+/// it still in the tube. Home is a bank card's thickness off the tab: the striker is set with a
+/// card held between the sled and the tab.
 pub const SLED_AT_TAB: f64 = 0.;
-pub const HOME_BEFORE_TAB: f64 = 1.;
+pub const HOME_BEFORE_TAB: f64 = 0.76;
 
 pub fn sled_deepest() -> f64 {
     tube::LENGTH - sled_length()

@@ -9,8 +9,9 @@ asks for by hand.
 
 **Status: sliced, nothing printed.** The slide, its driver, the controller boards and the home
 switch are on order ([purchases.md §12](/hardware/ledger/purchases.md)). Every fit to a bought
-part comes from its maker's drawing. The controller's program and the log reader are not
-written. The build is in the [assembly guide](/hardware/assembly/reed-sweep-rig.md).
+part comes from its maker's drawing. The [controller's program](/firmware/src_reed_rig/README.md)
+is written and has run on no board, and the log reader is not written. The build is in the
+[assembly guide](/hardware/assembly/reed-sweep-rig.md).
 
 ![The rig assembled round the slide, the tube and a float](views/rig.png)
 
@@ -33,10 +34,12 @@ written. The build is in the [assembly guide](/hardware/assembly/reed-sweep-rig.
   and the three screws near the tube's mouth are stainless.
 
 [`numbers.rs`](numbers.rs) owns every dimension, and takes the float's, the tube's and the reed
-bridge's from their own files. The program writes what the controller and the log reader need
-into [`reed-sweep-rig-datums.json`](reed-sweep-rig-datums.json): each station's place along the
-tube, each sled's float gap and magnet-to-glass distance, the magnet's place on the sled, and
-the slide's travel, lead and steps.
+bridge's from their own files. The program writes what the log reader needs into
+[`reed-sweep-rig-datums.json`](reed-sweep-rig-datums.json): each station's place along the
+tube, each sled's float gap and magnet-to-glass distance, the magnet's place on the sled, the
+roller's play in its slot, and the slide's travel, lead and steps. It writes what the
+controller compiles into [`reed-sweep-rig-datums.h`](reed-sweep-rig-datums.h): the steps to a
+millimetre, the station count, and where home and the sled's deepest stand from the tab.
 
 ![The tube's mouth with the sled at its home](views/mouth.png)
 
@@ -79,9 +82,12 @@ Each readiness file holds its slice's time, filament, layers, bead margin and ch
   lever height, and the float's own printed size are drawn from listings and from numbers, not
   from parts in hand. The rod's flexure and the striker screw take up the slide's and the
   switch's; the gauge window in each sled's back wall is there to read the float's gap.
-- The driver on its carrier, its microstep switches and its current setting are untested.
+- The driver on its carrier, its microstep switches and its current setting are untested, and
+  so are the home switch's pressed level and the motor's direction. The controller keeps a
+  setting for each of the last two.
 - The roller's play in the sled's slot is a fixed offset between the two sweep directions. It is
   read with calipers off the printed pieces.
+- Home is set a bank card's thickness off the tab by hand, and is as true as that.
 
 ## Regenerate
 
