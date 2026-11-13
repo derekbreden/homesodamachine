@@ -60,6 +60,10 @@ also applies to trials outside `hardware/printed-parts`. Read the fundamentals
 and the entry for the material or feature you are working on. The guide points
 to the owning recipes, native slice reviews, and bench evidence.
 
+[Printing the Machine](hardware/printing-the-machine/README.md) tells those lessons one
+print at a time, a page each, sorted by plastic. Every page names the plastic, printer,
+plate and nozzle its evidence comes from. Read the part for the plastic you are printing.
+
 ## Mechanical Layout
 
 Finish the mechanical layout before placing Wagos or routing wires. Position

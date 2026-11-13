@@ -152,6 +152,8 @@ outputs run only when requested; they remain outside the normal print build.
 
 The [FDM print guide](fdm-print-guide/README.md) indexes shop lessons by feature,
 filament and printer, with [an illustrated PDF](fdm-print-guide/fdm-print-guide.pdf).
+[Printing the Machine](printing-the-machine/README.md) tells those lessons one print at a
+time, a page each, sorted by plastic, as [a book](printing-the-machine/printing-the-machine.pdf).
 
 `hsm render` and `tools/look.sh` draw the exported payloads in the website's viewer.
 The [conversion records](/tools/hsm/conversion.md#fixed-input-evidence) retain measured build
