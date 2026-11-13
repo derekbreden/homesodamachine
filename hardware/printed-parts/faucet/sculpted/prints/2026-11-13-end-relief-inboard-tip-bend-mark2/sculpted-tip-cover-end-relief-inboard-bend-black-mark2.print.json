@@ -18,7 +18,7 @@
       ]
     ],
     "part": "faucet-display-cover",
-    "project_facets": 25340,
+    "project_facets": 25476,
     "target": "Exterior rear wall on the tip's CAD center plane above the opening"
   },
   "external_spool": 254,
@@ -27,7 +27,7 @@
   ],
   "filament_colour": "#161616",
   "finish_selection": "hardware/printed-parts/faucet/sculpted/finish-selection.json",
-  "finish_selection_sha256": "3e5ca5b4bee1b7385cf638b2874499e4f6410a437577171797fda37b8c6349f5",
+  "finish_selection_sha256": "34d8595074c2dffe6db3d3c3f9e77618747299ba624b10c1e8bab95348dc137b",
   "layer_config_ranges": [],
   "layer_height_mm": 0.24,
   "layer_scope": "Use the shared first and ordinary layer heights across the plate.",
@@ -41,11 +41,11 @@
   },
   "native_settings_sha256": "0a18e0ba14f91b489509242a2bee812a8cbfb9e4705808e12bbc6ccae65a8bc8",
   "nonplanar_motion": {
-    "added_commanded_motion_seconds": 848.0306924812102,
-    "archive": ".cache/runs/sculpted-bowed-cover-tip-cooling-mark2/slice/sculpted-tip-cover-bowed-tip-cooling-black-mark2.gcode.3mf",
-    "archive_sha256": "11c248172463bb7a540d7e96193c75e0d03257a05b7a16b425a207dc2a19e6e2",
-    "gcode_input_sha256": "a97eaf1eb5d0c6d9213c1363b1eb450f6dc32ac113bd72d9d1651704fb3ff5b8",
-    "gcode_sha256": "eb7f972f8d531572b0bda04d6726300fdc079ad00252a2662c3a51aa9cfa4cab",
+    "added_commanded_motion_seconds": 760.8905110071003,
+    "archive": ".cache/runs/sculpted-end-relief-inboard-bend-mark2/slice/sculpted-tip-cover-end-relief-inboard-bend-black-mark2.gcode.3mf",
+    "archive_sha256": "1ef08b5809fc72f4bd1ed738d91b40406675870eb136ca23b634a7a68bb5a64f",
+    "gcode_input_sha256": "c223087991ed412a92abd59130ad3fa36408c5adf05dbe76731b99a977b32603",
+    "gcode_sha256": "f2e513e4e60b51cb32aad4522a42944fd58d25496448ebe3097c8d9ec7535b15",
     "geometry": {
       "faucet-shell-tip": {
         "Keep support clear of beverage outlet 1": {
@@ -54,7 +54,7 @@
           "maximum_shift_mm": 0.480000000000004,
           "minimum_sampled_jacobian": 0.6571429637318715,
           "scoped_support_paint_area_mm2": 0.0,
-          "slice_triangles": 305356,
+          "slice_triangles": 308094,
           "source_triangles": 528
         },
         "Keep tree supports off the mating plug": {
@@ -106,9 +106,9 @@
           "maximum_facet_restoration_error_mm": 0.006503342912154153,
           "maximum_roundtrip_error_mm": 1.497255652793683e-10,
           "maximum_shift_mm": 0.480000000000004,
-          "minimum_sampled_jacobian": 0.6571429609891766,
-          "scoped_support_paint_area_mm2": 82.6101109159897,
-          "slice_triangles": 1110574,
+          "minimum_sampled_jacobian": 0.6571429730399814,
+          "scoped_support_paint_area_mm2": 82.77898936121119,
+          "slice_triangles": 642910,
           "source_triangles": 101932
         },
         "tip-hidden-root-disc": {
@@ -128,8 +128,8 @@
           "maximum_shift_mm": 0.0,
           "minimum_sampled_jacobian": 1.0,
           "scoped_support_paint_area_mm2": 0.0,
-          "slice_triangles": 305356,
-          "source_triangles": 305356
+          "slice_triangles": 308094,
+          "source_triangles": 308094
         },
         "Keep tree supports off the mating plug": {
           "maximum_facet_restoration_error_mm": 0.006325507464939761,
@@ -182,8 +182,8 @@
           "maximum_shift_mm": 0.4800000000000004,
           "minimum_sampled_jacobian": 0.7063848308694887,
           "scoped_support_paint_area_mm2": 0.0,
-          "slice_triangles": 1336222,
-          "source_triangles": 1110574
+          "slice_triangles": 868558,
+          "source_triangles": 642910
         },
         "tip-hidden-root-disc": {
           "maximum_facet_restoration_error_mm": 0.0,
@@ -196,17 +196,17 @@
         }
       }
     },
-    "lifted_travels": 2725,
-    "mapped_deposition_segments": 127701,
+    "lifted_travels": 2965,
+    "mapped_deposition_segments": 114537,
     "mapped_deposition_segments_by_region": [
-      69965,
-      57736
+      56838,
+      57699
     ],
     "maximum_mapped_path_slope_degrees": 43.98367195513966,
-    "maximum_mapped_z_speed_mm_s": 7.49999998189728,
+    "maximum_mapped_z_speed_mm_s": 7.4999999804535245,
     "maximum_vertical_motion_offset_mm": 0.47984634404964766,
     "purpose": "Read the bounded restored movements of the full print.",
-    "restored_extrusion_delta_mm": -0.5228516039944828
+    "restored_extrusion_delta_mm": 0.3556166903620971
   },
   "nozzle_diameter_mm": [
     0.4,
@@ -297,12 +297,12 @@
       "plate": 1,
       "plate_bounds_mm": [
         [
-          178.89676094055176,
+          178.75037574768066,
           134.245571004393,
           0.0
         ],
         [
-          208.10323905944824,
+          208.24962425231934,
           185.754428995607,
           20.880017218108712
         ]
@@ -324,8 +324,8 @@
         -130.3551368713379,
         210.07024383544922
       ],
-      "stl_sha256": "e10ae3dcab9be91e1d8aa308e4e108e992fb88e3f084d1acfa8179ad387b838f",
-      "triangles": 24992,
+      "stl_sha256": "81961019dadf2bdfe1c5f048dad7ae598d69cce77f36f4b6db580ed1869b6ab0",
+      "triangles": 24966,
       "watertight": true
     }
   ],
@@ -339,8 +339,8 @@
   "process": "0.24mm PET-GF faucet",
   "profile_source": "hardware/printed-parts/faucet/industrial/prints/2026-10-15-all-learnings/mark2/2026-10-15-complete-faucet-all-learnings-mark2-base-arcs-z004.3mf",
   "profile_source_sha256": "25ae62b12d2dee09e59b835cce1c63f549bd6f49623956929d631c208f98fc0f",
-  "project": "hardware/printed-parts/faucet/sculpted/prints/2026-11-12-bowed-cover-tip-end-cooling-mark2/sculpted-tip-cover-bowed-tip-cooling-black-mark2.3mf",
-  "project_sha256": "31e8e4dc73a1466d9448b1af0841a98398afbc784da4f51d6df1dc7e175b0236",
+  "project": "hardware/printed-parts/faucet/sculpted/prints/2026-11-13-end-relief-inboard-tip-bend-mark2/sculpted-tip-cover-end-relief-inboard-bend-black-mark2.3mf",
+  "project_sha256": "b4311ef6e5c1b882d51aa28105a7387c2362c3bc96a52abbf9ed745a7758628b",
   "requested_z_trim_mm": 0.04,
   "rigid_part_count": 2,
   "saved_profile_filament_density_g_cm3": [
@@ -499,8 +499,12 @@
         5.0
       ],
       "outlet_shadow_clearance_mm": 0.9,
+      "outside_wall_inboard_blend_mm": [
+        0.9,
+        2.65
+      ],
       "part": "faucet-shell-tip",
-      "scope": "Carry the dense interface to the inclined inner dispense face. Keep the actual outlet mouth clear for its bridging paths."
+      "scope": "Carry the dense interface to the inclined inner dispense face. Keep the actual outlet mouth clear for its bridging paths. The mapping fades out inboard of the tube's outside wall."
     },
     "tip_end_cooling": {
       "back_from_dispense_face_mm": [
@@ -765,15 +769,15 @@
     "4642937f98c1b55f2ae3cc0b15b10e39e1f027a4:hardware/printed-parts/faucet/industrial/faucet-industrial-petgf.3mf": "33b248cc401b7f604b61b2cf19b8b978f98283bf870343f6a57b270917e708ec",
     "4642937f98c1b55f2ae3cc0b15b10e39e1f027a4:hardware/printed-parts/faucet/industrial/faucet-industrial-petgf.print.json": "9215b8d53ac56ed0eecee6f64f60f8f6ec745e626a7639ff2c6a4e36bbcf950d",
     "b388123d2ac2fdc31fd091f980334b9c99443ab8:hardware/print-tests/petgf-dense-roofs/inclines/prints/2026-11-11-faucet-trees-only-mark1/mapping.json": "568808776590b7f6afb5d92330a3fcf04d5041e94767e18657b05c95ce0cfbf1",
-    "hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.stl": "e10ae3dcab9be91e1d8aa308e4e108e992fb88e3f084d1acfa8179ad387b838f",
+    "hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.stl": "81961019dadf2bdfe1c5f048dad7ae598d69cce77f36f4b6db580ed1869b6ab0",
     "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.stl": "d7dee1ce647c7022d99f966f600d860d8142901ebe32d934a4290e6dec73c071",
     "hardware/printed-parts/faucet/finish-coupons/2026-10-15-edge-supports/base-mark2/preparation.json": "ef809621ac2b4d66ab7c0602848fe73eea37af4107cfb77d63b034088c2c3b33",
     "hardware/printed-parts/faucet/industrial/prints/2026-10-15-all-learnings/mark2/2026-10-15-complete-faucet-all-learnings-mark2-base-arcs-z004.3mf": "25ae62b12d2dee09e59b835cce1c63f549bd6f49623956929d631c208f98fc0f",
-    "hardware/printed-parts/faucet/sculpted/finish-selection.json": "3e5ca5b4bee1b7385cf638b2874499e4f6410a437577171797fda37b8c6349f5",
+    "hardware/printed-parts/faucet/sculpted/finish-selection.json": "34d8595074c2dffe6db3d3c3f9e77618747299ba624b10c1e8bab95348dc137b",
     "hardware/printed-parts/faucet/sculpted/prepare_print_project.rs": "0cdfaaf8ec75a6debebbb21edae915c6be66c183dc3009abda8a82057d9d7315",
     "hardware/printed-parts/faucet/sculpted/rim_supports.rs": "3db316026040757dcd62cddee8d8034c7408a9da839b21a69a94a8862eb75bbd",
     "tools/hsm/print-prep/src/faucet.rs": "9aa7e250dceafb5f84a3f2e1ac046bbad4ab72bcc7baa0301cb6f95fb9ed9782",
-    "tools/hsm/print-prep/src/faucet_contact.rs": "39d592d59c1f18ed4afc99f8f168c61e43921a79464a3ecd554a7e17c99ac69f",
+    "tools/hsm/print-prep/src/faucet_contact.rs": "6c8a15aed68bd09119076204a57fdb53fe37b4f1bd8a1357f2f8085b2b0d0065",
     "tools/hsm/print-prep/src/faucet_recesses.rs": "67436872fcf6315d00d01dea42322d3c59448c82884e5b5dc010e4c08a51dd9c",
     "tools/hsm/print-prep/src/profile.rs": "8d6d142f54fded17f0110fb1bd5c5140b480082e3f234838608fde8649abaee4",
     "tools/hsm/print-prep/src/rim_contour.rs": "81c3e0bf93419666b845d9f8339b428dbed3eb7f284870e4c2782051e27ecde1",
@@ -828,10 +832,18 @@
         -0.819152044288992
       ],
       "refine_mesh_interiors": true,
+      "rim_inboard_blend_mm": [
+        0.9,
+        2.65
+      ],
+      "rim_semi_axes_mm": [
+        13.5,
+        13.5
+      ],
       "seat_plate_mm": [
-        131.49941730499268,
-        149.78019309148303,
-        131.20556312298794
+        131.49975395202637,
+        145.90048590967768,
+        128.4889629082415
       ],
       "support_paint": {
         "faces": [
@@ -2131,31 +2143,31 @@
     "support_style": "tree_slim"
   },
   "tip_end_cooling": {
-    "already_cooled_commanded_motion_seconds": 160.32619715439557,
-    "archive_sha256": "ae2761b40d7216ba3f20fe68a734c64cdbdfe82ab3e557b21ed85aac0028e3df",
+    "already_cooled_commanded_motion_seconds": 165.69349855426995,
+    "archive_sha256": "e6118352a84e93df1c74125127e46ce0057faa088d5ff0530312905e450be580",
     "axis_plate": [
       0.0,
       0.5735764363510459,
       -0.819152044288992
     ],
-    "cooled_commanded_motion_seconds": 575.9242399324007,
-    "cooled_moves": 78635,
-    "cooled_path_mm": 21147.57330382364,
+    "cooled_commanded_motion_seconds": 489.0631780334805,
+    "cooled_moves": 79606,
+    "cooled_path_mm": 21269.963312133692,
     "cooled_z_mm": [
       115.16,
-      137.720285
+      137.72
     ],
-    "fan_commands_added": 808,
+    "fan_commands_added": 932,
     "fan_percent": 70.0,
-    "gcode_input_sha256": "1a31d287379e8b43304edcda7c6dfca04ea4fb7b36f41812ec4a1ebc043c2ed4",
-    "gcode_sha256": "f0fb7507a3db5d8728b68b8c3838db78e049a28d8de7b6699a0247a265f3c9c1",
+    "gcode_input_sha256": "b4287f42301723b3774152feebe64ac0457e360523f9c8c47a2cedff67153396",
+    "gcode_sha256": "8497b4c1a6a2cd521393c715d47c5b02acdb46419f31337a6e102a0e9d99b429",
     "identify_id": 1901,
     "origin_plate_mm": [
       131.49975395202637,
       141.45418759351898,
       127.81718410840821
     ],
-    "other_model_commanded_motion_seconds": 2468.542309434456,
+    "other_model_commanded_motion_seconds": 2469.0665084020516,
     "purpose": "Part cooling on one stretch of one object's model paths.",
     "scope": "Motion and extrusion words are retained; only part-fan commands are added.",
     "span_mm": [
@@ -2267,12 +2279,12 @@
   "tip_rim_contour": {
     "added_commanded_motion_seconds": 66.40267961604083,
     "arc_count": 127,
-    "archive_sha256": "63b5b471b628926db4f8a21a02fbfc22ff1ea21f6e2e1eb31eed815940c796b9",
+    "archive_sha256": "3635e5534cbe876ccb9b79da6dfe8a69de556678b257429539d8013b61a81d51",
     "emitted_contact_segments": 447,
     "extrusion_added_mm": 2.841934522821492,
     "extrusion_removed_mm": 3.25251452351691,
-    "gcode_input_sha256": "eb7f972f8d531572b0bda04d6726300fdc079ad00252a2662c3a51aa9cfa4cab",
-    "gcode_sha256": "1a31d287379e8b43304edcda7c6dfca04ea4fb7b36f41812ec4a1ebc043c2ed4",
+    "gcode_input_sha256": "f2e513e4e60b51cb32aad4522a42944fd58d25496448ebe3097c8d9ec7535b15",
+    "gcode_sha256": "b4287f42301723b3774152feebe64ac0457e360523f9c8c47a2cedff67153396",
     "identify_id": 1901,
     "maximum_contact_depth_below_prior_peak_mm": 0.4798300999917444,
     "minimum_contact_z_mm": 15.203288200770428,
