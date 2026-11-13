@@ -238,7 +238,7 @@
       ]
     }
   },
-  "physical_fit": "Pending.",
+  "physical_fit": "physical-result/physical-result.json",
   "launch_record": "launch.json",
   "previous_fit_result": "https://github.com/derekbreden/homesodamachine/blob/474000169aef000f16a765554fcc51038d954d6c/hardware/print-tests/front-top-wago-fit/2026-11-12-mark1-five-dot/physical-result/physical-result.json",
   "source_sha256": {
