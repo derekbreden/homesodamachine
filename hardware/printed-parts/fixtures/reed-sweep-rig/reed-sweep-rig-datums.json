@@ -1,0 +1,65 @@
+{
+  "carriage_spare_travel_mm": {
+    "ahead_at_deepest": 3.3999999999999915,
+    "behind_home": 89.69999999999999
+  },
+  "frame": "X is millimetres into the tube from the rim that seats on the comb's tab, which stands for the carbonator's bottom rim.",
+  "machine": {
+    "float_guide_radial_clearance_mm": 0.8125,
+    "magnet_axis_to_glass_centre_mm": 22.901
+  },
+  "magnet": {
+    "at_tab_mm": 25.4,
+    "deepest_mm": 133.3
+  },
+  "magnet_from_sled_face_mm": 25.4,
+  "reed_below_wall_mm": 0.13999999999999968,
+  "sled_face": {
+    "at_tab_mm": 0.0,
+    "deepest_mm": 107.9,
+    "home_mm": 1.0
+  },
+  "sleds": [
+    {
+      "float_axis_above_bore_mm": 19.0475,
+      "float_to_wall_gap_mm": 1.0474999999999994,
+      "magnet_axis_to_glass_centre_mm": 22.0885,
+      "sled": "near"
+    },
+    {
+      "float_axis_above_bore_mm": 19.86,
+      "float_to_wall_gap_mm": 1.8599999999999994,
+      "magnet_axis_to_glass_centre_mm": 22.901,
+      "sled": "nominal"
+    },
+    {
+      "float_axis_above_bore_mm": 20.6725,
+      "float_to_wall_gap_mm": 2.6724999999999994,
+      "magnet_axis_to_glass_centre_mm": 23.7135,
+      "sled": "far"
+    }
+  ],
+  "slide": {
+    "motor_steps_per_turn": 200.0,
+    "screw_lead_mm": 5.0,
+    "travel_mm": 200.0
+  },
+  "stations": [
+    {
+      "reed_centre_mm": 30.17979344153305,
+      "station": "below"
+    },
+    {
+      "reed_centre_mm": 58.33184375843412,
+      "station": "low"
+    },
+    {
+      "reed_centre_mm": 86.48389407533519,
+      "station": "high"
+    },
+    {
+      "reed_centre_mm": 114.63594439223625,
+      "station": "above"
+    }
+  ]
+}

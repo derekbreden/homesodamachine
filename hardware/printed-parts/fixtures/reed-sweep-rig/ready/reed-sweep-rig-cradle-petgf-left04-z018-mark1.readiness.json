@@ -1,0 +1,60 @@
+{
+  "archive": "reed-sweep-rig-cradle-petgf-left04-z018-mark1.gcode.3mf",
+  "archive_sha256": "492d0e5521976d33a12f7cc5f23c8ba5e8ad063646234a36fba99e75c5e28880",
+  "bead_envelope": {
+    "bounds_padding_mm": 0.43068550000000005,
+    "extrusion_bounds_xy_mm": [
+      [
+        40.579314499999995,
+        107.5293145
+      ],
+      [
+        284.4206855,
+        212.4706855
+      ]
+    ],
+    "maximum_line_width_mm": 0.661371
+  },
+  "bead_margin_mm": [
+    40.579314499999995,
+    107.5293145,
+    40.57931450000001,
+    107.5293145
+  ],
+  "estimated_filament_g": 101.30308532714844,
+  "estimated_seconds": 22789.886187351774,
+  "features": [
+    "Bottom surface",
+    "Bridge",
+    "Custom",
+    "Floating vertical shell",
+    "Gap infill",
+    "Inner wall",
+    "Internal solid infill",
+    "Outer wall",
+    "Sparse infill",
+    "Top surface"
+  ],
+  "gcode_sha256": "a5ec84597269bbd3812d197f6b064a42b511485f5e5b33b1979aff927aba77ce",
+  "layers": 101,
+  "native_process": {
+    "layer_height": 0.23999999463558197,
+    "sparse_infill_density": 15.0,
+    "wall_loops": 2
+  },
+  "nozzle_mapping": "Left hardened 0.4 mm; black PET-GF external spool 254",
+  "plate_trim_commands_mm": [
+    0.0,
+    0.16
+  ],
+  "printer": "Mark1 (H2C)",
+  "printer_submission": false,
+  "project": "reed-sweep-rig-cradle-petgf-left04-z018-mark1.3mf",
+  "project_sha256": "12efa3c64ef74397e7898e33a654e0d927974fb113c86a2a505203795610c36f",
+  "slicer_warning": "",
+  "source_stls": {
+    "hardware/printed-parts/fixtures/reed-sweep-rig/reed-sweep-rig-cradle.stl": "1c1d7c8c735d8b44175b745660ab334ce34b1b4c028fcad5f310a282232cd3da"
+  },
+  "status": "offline slice reviewed; no physical print or force qualification",
+  "support_generated": false
+}

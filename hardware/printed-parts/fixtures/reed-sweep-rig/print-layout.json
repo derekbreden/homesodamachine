@@ -1,0 +1,154 @@
+{
+  "schema": 1,
+  "scope": "Native print preparation for the reed sweep rig; no printer submission",
+  "plates": [
+    {
+      "id": "cradle-mark1",
+      "project": "reed-sweep-rig-cradle-petgf-left04-z018-mark1.3mf",
+      "title": "Reed sweep rig cradle - black PET-GF - Mark1",
+      "printer": "Mark1 (H2C)",
+      "material": "PET-GF",
+      "settings_source": "hardware/printed-parts/petgf.3mf",
+      "z_trim_mm": 0.18,
+      "nozzle_mapping": "Left hardened 0.4 mm; black PET-GF external spool 254",
+      "filament_colour": "#000000",
+      "parts": [
+        {
+          "name": "cradle",
+          "source": "reed-sweep-rig-cradle.stl",
+          "offset_mm": [
+            0,
+            0
+          ]
+        }
+      ]
+    },
+    {
+      "id": "cradle-mark2",
+      "project": "reed-sweep-rig-cradle-petgf-left04-z004-mark2.3mf",
+      "title": "Reed sweep rig cradle - black PET-GF - Mark2",
+      "printer": "Mark2",
+      "material": "PET-GF",
+      "settings_source": "hardware/printed-parts/petgf.3mf",
+      "z_trim_mm": 0.04,
+      "nozzle_mapping": "Left hardened 0.4 mm; black PET-GF external spool 254",
+      "filament_colour": "#161616",
+      "parts": [
+        {
+          "name": "cradle",
+          "source": "reed-sweep-rig-cradle.stl",
+          "offset_mm": [
+            0,
+            0
+          ]
+        }
+      ]
+    },
+    {
+      "id": "small-parts-mark1",
+      "project": "reed-sweep-rig-small-parts-petgf-left04-z018-mark1.3mf",
+      "title": "Reed sweep rig rod, comb and sleds - black PET-GF - Mark1",
+      "printer": "Mark1 (H2C)",
+      "material": "PET-GF",
+      "settings_source": "hardware/printed-parts/petgf.3mf",
+      "z_trim_mm": 0.18,
+      "nozzle_mapping": "Left hardened 0.4 mm; black PET-GF external spool 254",
+      "filament_colour": "#000000",
+      "parts": [
+        {
+          "name": "push rod",
+          "source": "reed-sweep-rig-rod.stl",
+          "offset_mm": [
+            0,
+            47.5
+          ]
+        },
+        {
+          "name": "reed comb",
+          "source": "reed-sweep-rig-comb.stl",
+          "offset_mm": [
+            0,
+            -2.15
+          ]
+        },
+        {
+          "name": "float sled near",
+          "source": "reed-sweep-rig-sled-near.stl",
+          "offset_mm": [
+            -52,
+            -49.65
+          ]
+        },
+        {
+          "name": "float sled nominal",
+          "source": "reed-sweep-rig-sled-nominal.stl",
+          "offset_mm": [
+            0,
+            -49.65
+          ]
+        },
+        {
+          "name": "float sled far",
+          "source": "reed-sweep-rig-sled-far.stl",
+          "offset_mm": [
+            52,
+            -49.65
+          ]
+        }
+      ]
+    },
+    {
+      "id": "small-parts-mark2",
+      "project": "reed-sweep-rig-small-parts-petgf-left04-z004-mark2.3mf",
+      "title": "Reed sweep rig rod, comb and sleds - black PET-GF - Mark2",
+      "printer": "Mark2",
+      "material": "PET-GF",
+      "settings_source": "hardware/printed-parts/petgf.3mf",
+      "z_trim_mm": 0.04,
+      "nozzle_mapping": "Left hardened 0.4 mm; black PET-GF external spool 254",
+      "filament_colour": "#161616",
+      "parts": [
+        {
+          "name": "push rod",
+          "source": "reed-sweep-rig-rod.stl",
+          "offset_mm": [
+            0,
+            47.5
+          ]
+        },
+        {
+          "name": "reed comb",
+          "source": "reed-sweep-rig-comb.stl",
+          "offset_mm": [
+            0,
+            -2.15
+          ]
+        },
+        {
+          "name": "float sled near",
+          "source": "reed-sweep-rig-sled-near.stl",
+          "offset_mm": [
+            -52,
+            -49.65
+          ]
+        },
+        {
+          "name": "float sled nominal",
+          "source": "reed-sweep-rig-sled-nominal.stl",
+          "offset_mm": [
+            0,
+            -49.65
+          ]
+        },
+        {
+          "name": "float sled far",
+          "source": "reed-sweep-rig-sled-far.stl",
+          "offset_mm": [
+            52,
+            -49.65
+          ]
+        }
+      ]
+    }
+  ]
+}
