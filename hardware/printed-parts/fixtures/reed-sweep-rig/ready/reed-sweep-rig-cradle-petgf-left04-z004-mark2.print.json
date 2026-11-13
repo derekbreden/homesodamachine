@@ -1,0 +1,145 @@
+{
+  "bed_type": "Textured PEI Plate",
+  "filament": [
+    "Polymaker PET-GF @BBL H2C"
+  ],
+  "intended_printer": "Mark2",
+  "layer_height_mm": 0.24,
+  "line_widths_mm": {
+    "inner_wall_line_width": 0.45,
+    "internal_solid_infill_line_width": 0.42,
+    "outer_wall_line_width": 0.42,
+    "sparse_infill_line_width": 0.45,
+    "support_line_width": 0.62,
+    "top_surface_line_width": 0.45
+  },
+  "material": "PET-GF",
+  "nozzle_diameter_mm": [
+    0.4,
+    0.4
+  ],
+  "nozzle_mapping": "Left hardened 0.4 mm; black PET-GF external spool 254",
+  "original_settings_source": "hardware/printed-parts/petgf.3mf",
+  "original_settings_source_sha256": "1be18bdfd75b33efc898b3e5c28a0c1975fc694ef4d94dd88a909472cb96b97f",
+  "parts": [
+    {
+      "body_count": 1,
+      "build_transform": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        -0.0,
+        1.0,
+        162.5,
+        160.0,
+        12.095499992370605
+      ],
+      "embedded_vertex_error_mm": 4.980478252036846e-10,
+      "identify_id": 1901,
+      "member": "3D/Objects/object_1.model",
+      "name": "cradle",
+      "object_id": "2",
+      "part_id": "1",
+      "plate": 1,
+      "plate_bounds_mm": [
+        [
+          40.80000305175781,
+          107.75,
+          0.0
+        ],
+        [
+          284.1999969482422,
+          212.25,
+          24.19099998474121
+        ]
+      ],
+      "plate_origin_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "plate_translation_mm": [
+        162.5,
+        160.0,
+        12.095499992370605
+      ],
+      "rotation_x_degrees": 0.0,
+      "source": "hardware/printed-parts/fixtures/reed-sweep-rig/reed-sweep-rig-cradle.stl",
+      "source_center_mm": [
+        56.69999694824219,
+        2.25,
+        12.095499992370605
+      ],
+      "stl_sha256": "1c1d7c8c735d8b44175b745660ab334ce34b1b4c028fcad5f310a282232cd3da",
+      "triangles": 1160,
+      "watertight": true
+    }
+  ],
+  "plate_border_mm": 20.0,
+  "plate_count": 1,
+  "print_pose": "each piece on the face its STL stands on; no support",
+  "printable_area_extruders": [
+    0
+  ],
+  "printer": "Bambu Lab H2C 0.4 Standard +0.04 Z trim",
+  "printer_submission": false,
+  "process": "0.24mm PET-GF reed sweep rig - cradle-mark2",
+  "project": "reed-sweep-rig-cradle-petgf-left04-z004-mark2.3mf",
+  "project_sha256": "7334873c58c293e1c73edc52577fc043097e6131c3664d8d34805364722a4d1f",
+  "saved_profile_filament_density_g_cm3": [
+    1.29
+  ],
+  "settings_changes": {
+    "machine_start_gcode": {
+      "from_sha256": "3cc9e41520dbf5622d6f9a96bce734db9d11b0b48b49f2abec047a6e01dc6a92",
+      "requested_z_trim_mm": 0.04,
+      "to_sha256": "b09bc598f2ed7c29dceb227188593905dfc663f0391b98ff708ef00e7ce01bee"
+    },
+    "petgf_support_recipe": {
+      "members": {},
+      "profile": "hardware/printed-parts/petgf.3mf",
+      "sha256": "1be18bdfd75b33efc898b3e5c28a0c1975fc694ef4d94dd88a909472cb96b97f"
+    },
+    "printer_settings_id": {
+      "from": "Bambu Lab H2C 0.4 nozzle 04 first layer by agent",
+      "to": "Bambu Lab H2C 0.4 Standard +0.04 Z trim"
+    }
+  },
+  "settings_preserved_byte_for_byte": false,
+  "settings_sha256": "0be3aeca0f30e7ad0f625e9eab59e395a7640cfb408b291c4ffce3bd816d3562",
+  "settings_source": ".cache/runs/reed-sweep-rig-print-settings/cradle-mark2-settings.3mf",
+  "settings_source_sha256": "6496dba463177af42b64fa6ccc433a68588cfa6c92886782405189453f2bdf1f",
+  "shared_printable_area_mm": [
+    [
+      0.0,
+      0.0
+    ],
+    [
+      325.0,
+      320.0
+    ]
+  ],
+  "source_settings_sha256": "48650d41001e71797c13b3e3f8087cca9140bee3caf8be92f929ec16ed9f3847",
+  "sparse_infill_pattern": "gyroid",
+  "sparse_infill_percent": 15.0,
+  "status": "offline project preparation; no printer submission",
+  "task_process_changes": {
+    "enable_prime_tower": {
+      "from": "1",
+      "to": "0"
+    },
+    "enable_support": {
+      "from": "1",
+      "to": "0"
+    },
+    "print_settings_id": {
+      "from": "0.24mm PET-GF faucet",
+      "to": "0.24mm PET-GF reed sweep rig - cradle-mark2"
+    }
+  },
+  "wall_loops": 2
+}

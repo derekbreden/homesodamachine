@@ -79,6 +79,10 @@ name = "tube-insertion-print-project"
 path = "../../../hardware/printed-parts/fixtures/tube-insertion/prepare_print.rs"
 
 [[bin]]
+name = "reed-sweep-rig-print-project"
+path = "../../../hardware/printed-parts/fixtures/reed-sweep-rig/prepare_print.rs"
+
+[[bin]]
 name = "donor-hold-down-print-project"
 path = "../../../hardware/printed-parts/fixtures/tube-insertion/donor-hold-down/prepare_print.rs"
 

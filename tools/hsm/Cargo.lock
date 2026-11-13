@@ -2467,7 +2467,10 @@ name = "hsm-sandbox"
 version = "0.1.0"
 dependencies = [
  "anyhow",
+ "hsm-aero-float-numbers",
+ "hsm-carbonator-tube-numbers",
  "hsm-kernel",
+ "hsm-reed-bridge-numbers",
  "serde_json",
 ]
 

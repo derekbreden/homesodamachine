@@ -47,7 +47,14 @@ path = "../../../hardware/reference/g-ganen-pump/replica.rs"
 name = "support-inclines"
 path = "../../../hardware/print-tests/petgf-dense-roofs/inclines/samples.rs"
 
+[[example]]
+name = "reed-sweep-rig"
+path = "../../../hardware/printed-parts/fixtures/reed-sweep-rig/reed_sweep_rig.rs"
+
 [dependencies]
 anyhow.workspace = true
 serde_json.workspace = true
 hsm-kernel = { path = "../kernel" }
+hsm-aero-float-numbers = { path = "../aero-float-numbers" }
+hsm-carbonator-tube-numbers = { path = "../carbonator-tube-numbers" }
+hsm-reed-bridge-numbers = { path = "../reed-bridge-numbers" }
