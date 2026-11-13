@@ -70,7 +70,10 @@ and support aids. Pass `--printer Mark1` and `--filament-colour` with the loaded
 spool's colour to prepare a Mark1 plate. `--base-section SECTION.stl` pairs a
 section of the base in its CAD frame with the full tip and cover. `--tip-only`
 prepares the complete tip by itself with its production support and seam settings.
-`--tip-and-cover` prepares the two pieces together for a fit trial.
+`--tip-and-cover` prepares the two pieces together for a fit trial. `--filled-base FILLED.stl`
+prepares the complete plate around a base whose space under its mounting face is filled to the bed,
+for a stage that prints that space itself: the base then takes no rim supports and no contact
+band, and the lever stands beyond the above-counter plate.
 
 The [Mark1 support and fit trial](https://github.com/derekbreden/homesodamachine/blob/7ebe4a45b0fd8064118e95f2cc1445c5ee643722/hardware/printed-parts/faucet/sculpted/prints/2026-11-11-support-and-fit-mark1/physical-result/physical-result.json)
 records the base section's one-piece support release, the tip cleanup and the

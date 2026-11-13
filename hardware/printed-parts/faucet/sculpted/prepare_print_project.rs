@@ -4,13 +4,17 @@
 //!     sculpted-faucet-print-project <project.3mf> [--slice-output DIRECTORY]
 //!                                 [--printer Mark1|Mark2] [--filament-colour '#RRGGBB']
 //!                                 [--base-only] [--base-section SECTION.stl | --tip-only | --tip-and-cover]
+//!                                 [--filled-base FILLED.stl]
 //!
 //! The five rigid parts are the faucet shell's base and tip, the display cover, the
 //! above-counter plate and the side-down lever. Their object settings, the solid foot regions
 //! and the finishing steps are the Industrial project's, by part. The Sculpted rim has
 //! a shared interface roof and clear mounting insert recesses. The tip's first mating-lip
 //! perimeter follows the inclined seat above a dense tree interface, and its model paths by the
-//! dispense face take part cooling.
+//! dispense face take part cooling. `--filled-base` gives the slicer the base with the space under
+//! its mounting face filled to the bed, for the stage that prints that space as a scaffold with a
+//! sloped roof and skin: the base then takes no rim supports and no contact band here, and the
+//! lever stands clear of the toolhead's reach over that scaffold.
 
 mod rim_supports;
 
@@ -34,6 +38,9 @@ const FINISH: &str = "hardware/printed-parts/faucet/sculpted/finish-selection.js
 /// Each part's own space from the shared plate's centre, for its brim and supports.
 const OFFSETS: [[f64; 2]; 5] = [[-77.0, 0.0], [20.0, 47.0], [89.0, 76.0], [43.0, -52.0], [-17.5, -60.0]];
 const TIP_AND_COVER_OFFSETS: [[f64; 2]; 2] = [[-31.0, 0.0], [31.0, 0.0]];
+/// The full plate's spaces when the base's scaffold stands before the other parts start: the
+/// lever beyond the above-counter plate, where the toolhead over it stays off the scaffold.
+const FILLED_BASE_OFFSETS: [[f64; 2]; 5] = [[-77.0, 0.0], [24.0, 47.0], [89.0, 76.0], [43.0, -52.0], [94.0, -58.0]];
 /// Each Sculpted part and the Industrial part whose object settings it takes.
 const PART_NAMES: [(&str, &str); 5] = [("faucet-shell-base", "industrial-shell-base"), ("faucet-shell-tip", "faucet-shell-tip"),
     ("faucet-display-cover", "sculpted-display-cover"), ("above-counter-plate", "industrial-above-counter-plate"), ("lever-replica", "lever-replica")];
@@ -43,6 +50,7 @@ fn main() -> Result<()> {
     let project = PathBuf::from(args.next().context("expected a Sculpted .3mf output path")?);
     let mut slice_output = None;
     let mut base_section = None;
+    let mut filled_base = None;
     let mut base_only = false;
     let mut tip_only = false;
     let mut tip_and_cover = false;
@@ -65,12 +73,15 @@ fn main() -> Result<()> {
         match arg.to_str() {
             Some("--slice-output") => slice_output = Some(PathBuf::from(value)),
             Some("--base-section") => base_section = Some(PathBuf::from(value)),
+            Some("--filled-base") => filled_base = Some(PathBuf::from(value)),
             Some("--printer") => printer = value.into_string().ok().context("printer name")?,
             Some("--filament-colour") => colour = value.into_string().ok().context("filament colour")?,
             _ => bail!("unknown argument {}", arg.to_string_lossy()),
         }
     }
     let include_base = !tip_only && !tip_and_cover;
+    ensure!(filled_base.is_none() || (include_base && !base_only && base_section.is_none()),
+        "--filled-base prepares the complete plate");
     ensure!(!(tip_only && tip_and_cover) && (include_base || (!base_only && base_section.is_none())),
         "--base-only and --base-section cannot be combined with a tip plate");
     let trim = hsm_print_prep::profile::petgf_z_trim(&root, &printer)?;
@@ -82,6 +93,8 @@ fn main() -> Result<()> {
         format!("Sculpted faucet tip and display cover PET-GF left {printer}")
     } else if base_section.is_some() {
         format!("Sculpted faucet support and fit PET-GF left {printer}")
+    } else if filled_base.is_some() {
+        format!("Complete Sculpted faucet sloped underside PET-GF left {printer}")
     } else if printer == "Mark2" && colour == "#FFFFFF" {
         "Complete Sculpted white faucet PET-GF left Mark2".to_owned()
     } else {
@@ -92,7 +105,8 @@ fn main() -> Result<()> {
     let full_plate = include_base && !base_only && base_section.is_none();
     let mut parts = Vec::new();
     if include_base {
-        parts.push(Part::new("faucet-shell-base", base_section.unwrap_or_else(|| faucet.join("faucet-shell/faucet-shell-base.stl")), -PRINT_BASE_BUILD_ROT.to_degrees()));
+        let source = filled_base.clone().or(base_section).unwrap_or_else(|| faucet.join("faucet-shell/faucet-shell-base.stl"));
+        parts.push(Part::new("faucet-shell-base", source, -PRINT_BASE_BUILD_ROT.to_degrees()));
     }
     if !base_only {
         parts.push(Part::new("faucet-shell-tip", faucet.join("faucet-shell/faucet-shell-tip.stl"), -PRINT_TIP_BUILD_ROT.to_degrees()));
@@ -110,6 +124,8 @@ fn main() -> Result<()> {
         &[[0.0, 0.0]][..]
     } else if tip_and_cover {
         &TIP_AND_COVER_OFFSETS[..]
+    } else if filled_base.is_some() {
+        &FILLED_BASE_OFFSETS[..]
     } else {
         &OFFSETS[..parts.len()]
     };
@@ -191,9 +207,17 @@ fn main() -> Result<()> {
     let mapping_revision = contact["source_commit"].as_str().context("contact parameters revision")?;
     let mapping_bytes = recorded_member(&root, contact, "parameters_source")?;
     let mapping: Value = serde_json::from_slice(&mapping_bytes)?;
-    let base_contact = include_base
-        .then(|| prepare_base_contact(&root, &mut r, &selection["base_rim_supports"], &mapping["parameters"]))
-        .transpose()?;
+    let base_contact = if filled_base.is_some() {
+        // The fill stands where the rim's supports would: only the insert recesses' blockers and
+        // the base's support settings apply.
+        let seat = rim_supports::add(&mut r, &selection["base_rim_supports"], false)?;
+        r.extra.insert("base_rim_supports".into(), seat);
+        None
+    } else {
+        include_base
+            .then(|| prepare_base_contact(&root, &mut r, &selection["base_rim_supports"], &mapping["parameters"]))
+            .transpose()?
+    };
     if full_plate {
         let pocket_recipe = &selection["mounting_plate_counterbores"];
         let radial_clearance = pocket_recipe["blocker_radial_clearance_mm"].as_f64().context("counterbore blocker clearance")?;
@@ -285,7 +309,7 @@ fn main() -> Result<()> {
 
 fn prepare_base_contact(root: &Path, r: &mut Refreshed, recipe: &Value, parameters: &Value) -> Result<(usize, RimSpec, ContactBand)> {
     let base = r.row("faucet-shell-base")?.index;
-    let mut rim = rim_supports::add(r, recipe)?;
+    let mut rim = rim_supports::add(r, recipe, true)?;
     let contact = &recipe["nonplanar_contact"];
     let center: [f64; 3] = serde_json::from_value(rim["seat_print_world_center_mm"].clone())?;
     let supported_angles = serde_json::from_value(recipe["rim_enforcer_angle_degrees"].clone())?;

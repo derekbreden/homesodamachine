@@ -21,7 +21,8 @@ fn pair(value: &Value) -> Result<[f64; 2]> {
     ])
 }
 
-pub fn add(r: &mut Refreshed, recipe: &Value) -> Result<Value> {
+/// `roof` adds the enforcer that asks for a support roof along the rim.
+pub fn add(r: &mut Refreshed, recipe: &Value, roof: bool) -> Result<Value> {
     let base = r.row("faucet-shell-base")?.index;
     let object = &r.plate.objects[base];
     let source_center = object.source_center;
@@ -75,12 +76,16 @@ pub fn add(r: &mut Refreshed, recipe: &Value) -> Result<Value> {
                 .map(|[radius, z]| local(rim(theta, radius, z)))
         })
         .collect();
-    let enforcer = add(
-        r,
-        "Continuous base rim roof enforcer",
-        closed_rim_strip(&sections),
-        "support_enforcer",
-    )?;
+    let enforcer = if roof {
+        Some(add(
+            r,
+            "Continuous base rim roof enforcer",
+            closed_rim_strip(&sections),
+            "support_enforcer",
+        )?)
+    } else {
+        None
+    };
 
     let clearance = recipe["insert_blocker_radial_clearance_mm"]
         .as_f64()
