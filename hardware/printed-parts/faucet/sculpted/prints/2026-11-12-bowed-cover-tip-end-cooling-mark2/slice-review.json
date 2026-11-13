@@ -1,0 +1,173 @@
+{
+ "purpose": "Try the bowed display cover on the plain-grooved Sculpted tip, with part cooling on the tip's paths by its dispense face.",
+ "printer": "Mark2",
+ "archive": {
+  "gcode_sha256": "f0fb7507a3db5d8728b68b8c3838db78e049a28d8de7b6699a0247a265f3c9c1",
+  "name": "sculpted-tip-cover-bowed-tip-cooling-black-mark2-ready.gcode.3mf",
+  "objects": [
+   "faucet-shell-tip",
+   "faucet-display-cover"
+  ],
+  "sha256": "862adb8e4f818e1acc6512c0dd5f5ad2dd300b2d0d3668d29d1f31625ba3eaa3",
+  "slots": {
+   "1": {
+    "colour": "161616",
+    "type": "PET-CF"
+   }
+  }
+ },
+ "project": "sculpted-tip-cover-bowed-tip-cooling-black-mark2.3mf",
+ "project_sha256": "31e8e4dc73a1466d9448b1af0841a98398afbc784da4f51d6df1dc7e175b0236",
+ "native_settings_sha256": "0a18e0ba14f91b489509242a2bee812a8cbfb9e4705808e12bbc6ccae65a8bc8",
+ "finish_selection_sha256": "3e5ca5b4bee1b7385cf638b2874499e4f6410a437577171797fda37b8c6349f5",
+ "bed": "Textured PEI Plate",
+ "nozzle": {
+  "side": "left",
+  "diameter_mm": 0.4
+ },
+ "spool": {
+  "colour": "#161616",
+  "external_spool": 254,
+  "material": "Polymaker PET-GF"
+ },
+ "requested_z_trim_mm": 0.04,
+ "emitted_z_trim_mm": 0.02,
+ "layer_count": 971,
+ "predicted_seconds": 9597,
+ "predicted_filament_g": 51.79,
+ "minimum_bead_edge_margin_mm": 105.19,
+ "extrusion_bounds_xy_mm": [
+  [
+   105.188,
+   130.652
+  ],
+  [
+   207.89,
+   199.37
+  ]
+ ],
+ "tip_rim_contour_segments": 447,
+ "tip_end_cooling": {
+  "fan_percent": 70.0,
+  "back_from_dispense_face_mm": [
+   -1.0,
+   9.0
+  ],
+  "cooled_moves": 78635,
+  "cooled_path_mm": 21147.6,
+  "cooled_print_z_mm": [
+   115.16,
+   137.72
+  ],
+  "fan_commands_added": 808,
+  "commanded_motion_seconds": 575.9,
+  "of_which_cooled_as_sliced_seconds": 160.3,
+  "emitted_seconds_by_feature": {
+   "Bridge": {
+    "motion": 21.8,
+    "at_or_above_selected_fan": 21.8
+   },
+   "Floating vertical shell": {
+    "motion": 31.8,
+    "at_or_above_selected_fan": 31.8
+   },
+   "Gap infill": {
+    "motion": 0.9,
+    "at_or_above_selected_fan": 0.9
+   },
+   "Inner wall": {
+    "motion": 146.1,
+    "at_or_above_selected_fan": 146.1
+   },
+   "Internal solid infill": {
+    "motion": 68.3,
+    "at_or_above_selected_fan": 68.3
+   },
+   "Outer wall": {
+    "motion": 226.0,
+    "at_or_above_selected_fan": 226.0
+   },
+   "Overhang wall": {
+    "motion": 18.1,
+    "at_or_above_selected_fan": 18.1
+   },
+   "Sparse infill": {
+    "motion": 62.0,
+    "at_or_above_selected_fan": 62.0
+   },
+   "Top surface": {
+    "motion": 1.0,
+    "at_or_above_selected_fan": 1.0
+   }
+  },
+  "scope": "Commanded motion read from the submitted G-code. The fan's own response time is not in it."
+ },
+ "parts": [
+  {
+   "name": "faucet-shell-tip",
+   "source": "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.stl",
+   "stl_sha256": "d7dee1ce647c7022d99f966f600d860d8142901ebe32d934a4290e6dec73c071",
+   "watertight": true,
+   "rotation_x_degrees": -105.0,
+   "build_transform": [
+    1.0,
+    0.0,
+    0.0,
+    0.0,
+    -0.25881904510252085,
+    -0.9659258262890683,
+    0.0,
+    0.9659258262890683,
+    -0.25881904510252085,
+    131.5,
+    154.785128820301,
+    68.93456774147909
+   ],
+   "plate_bounds_mm": [
+    [
+     118.00024604797363,
+     133.69518368615223,
+     0.0
+    ],
+    [
+     144.99975395202637,
+     186.30481631384777,
+     137.87054537063977
+    ]
+   ]
+  },
+  {
+   "name": "faucet-display-cover",
+   "source": "hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.stl",
+   "stl_sha256": "e10ae3dcab9be91e1d8aa308e4e108e992fb88e3f084d1acfa8179ad387b838f",
+   "watertight": true,
+   "rotation_x_degrees": -50.0,
+   "build_transform": [
+    1.0,
+    0.0,
+    0.0,
+    0.0,
+    0.6427876096865394,
+    -0.766044443118978,
+    0.0,
+    0.766044443118978,
+    0.6427876096865394,
+    193.5,
+    159.3236938630398,
+    12.989291947471461
+   ],
+   "plate_bounds_mm": [
+    [
+     178.89676094055176,
+     134.245571004393,
+     0.0
+    ],
+    [
+     208.10323905944824,
+     185.754428995607,
+     20.880017218108712
+    ]
+   ]
+  }
+ ]
+}

@@ -1,0 +1,27 @@
+{
+  "archive": {
+    "gcode_sha256": "f0fb7507a3db5d8728b68b8c3838db78e049a28d8de7b6699a0247a265f3c9c1",
+    "name": "sculpted-tip-cover-bowed-tip-cooling-black-mark2-ready.gcode.3mf",
+    "objects": [
+      "faucet-shell-tip",
+      "faucet-display-cover"
+    ],
+    "sha256": "862adb8e4f818e1acc6512c0dd5f5ad2dd300b2d0d3668d29d1f31625ba3eaa3",
+    "slots": {
+      "1": {
+        "colour": "161616",
+        "type": "PET-CF"
+      }
+    }
+  },
+  "gcode_state": "PREPARE",
+  "hms": [],
+  "layer_num": 293,
+  "mc_remaining_time": 0,
+  "observed_at": "2026-11-13T02:50:50+00:00",
+  "print_error": 0,
+  "printer": "Mark2",
+  "printer_task_id": "1437531304",
+  "subtask_name": "sculpted-tip-cover-bowed-tip-cooling-black-mark2-ready.gcode.3mf",
+  "total_layer_num": 971
+}
