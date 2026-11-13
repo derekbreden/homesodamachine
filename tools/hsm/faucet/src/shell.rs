@@ -72,19 +72,6 @@ pub fn lower_outer() -> Result<(Solid, Region)> {
     Ok((body.union(&land)?, moved(&ring, v3(0.0, 0.0, ZONE5_Z_TOP - LOWER_NECK_Z))))
 }
 
-/// Four bearing pads under the display, their inner walls flush with the open channel.
-pub fn feet_pads(neck: &Gooseneck) -> Result<Vec<Solid>> {
-    let h = DISPLAY_FOOT_PAD_WIDTH / 2.0;
-    let (feet, depth) = (DISPLAY_FEET_N, DISPLAY_FOOT_PAD_DEPTH);
-    let mut pads = vec![];
-    for [x, s] in display_foot_centers() {
-        let (outer, inner) = (x.abs() + h, (x.abs() - h).min(DISPLAY_CHANNEL_HALF_WIDTH));
-        let pad = neck.cradle_prism((outer - inner) / 2.0, (s - h, s + h), (feet - depth, feet), 0.0)?;
-        pads.push(pad.translate(v3(((outer + inner) / 2.0).copysign(x), 0.0, 0.0)));
-    }
-    Ok(pads)
-}
-
 /// The Westbrass bore, a cylinder standing from `z0`.
 fn bore(z0: f64, h: f64) -> Result<Solid> {
     Solid::cylinder(v3(WESTBRASS_BORE_X, WESTBRASS_BORE_Y, z0), V3::Z, WESTBRASS_BORE_DIAMETER / 2.0, h)
@@ -271,13 +258,25 @@ pub fn lever_clearance() -> Result<Solid> {
     Solid::union_all(&[travel, overhead, opening.cut(&cap)?.union(&entry)?])
 }
 
-/// The display pocket over the feet, and the open channel under it.
-fn display_cavity(neck: &Gooseneck, pads: &[Solid]) -> Result<Solid> {
+/// The display pocket down to its ledge, the recesses its feet stand in, the pockets under its
+/// switches, and the open channel under it.
+fn display_cavity(neck: &Gooseneck) -> Result<Solid> {
     let s = (DISPENSE_FACE_THICKNESS, display_s_top());
     let half_x = DISPLAY_NECK_OUTER_R + WALL_THICKNESS_MIN;
-    let device = neck.cradle_prism(half_x, s, (DISPLAY_SEAT_REFERENCE_N, DISPLAY_POCKET_TOP_N), 0.0)?.cut_all(pads)?;
-    let channel = neck.cradle_prism(DISPLAY_CHANNEL_HALF_WIDTH, s, (0.0, DISPLAY_CHANNEL_TOP_N), 0.0)?;
-    device.union(&channel)
+    let (tip, up, normal) = neck.tip_frame();
+    // Each cut below the ledge runs up past it, so its top meets no face of the pocket's.
+    let above = DISPLAY_LEDGE_N + PAST;
+    let mut cuts = vec![neck.cradle_prism(half_x, s, (DISPLAY_LEDGE_N, DISPLAY_POCKET_TOP_N), 0.0)?];
+    for [x, s] in display_foot_centers() {
+        let foot = tip + V3::X * x + up * s + normal * DISPLAY_FEET_N;
+        cuts.push(Solid::cylinder(foot, normal, DISPLAY_FOOT_RECESS_DIAMETER / 2.0, above - DISPLAY_FEET_N)?);
+    }
+    for [x0, x1, s0, s1] in display_switch_pockets() {
+        let pocket = neck.cradle_prism((x1 - x0) / 2.0, (s0, s1), (DISPLAY_FEET_N, above), 0.0)?;
+        cuts.push(pocket.translate(v3((x0 + x1) / 2.0, 0.0, 0.0)));
+    }
+    cuts.push(neck.cradle_prism(DISPLAY_CHANNEL_HALF_WIDTH, s, (0.0, DISPLAY_CHANNEL_TOP_N), 0.0)?);
+    Solid::union_all(&cuts)
 }
 
 /// The side grooves the display cover's lips snap into.
@@ -351,10 +350,7 @@ pub fn shell(neck: &Gooseneck) -> Result<Solid> {
 /// swept from, cut by the shell's cutters and `extra`, the variant's own.
 pub fn shell_from(neck: &Gooseneck, lower: Solid, seam: &Region, extra: &[Solid]) -> Result<Solid> {
     let gooseneck = Solid::sweep(seam, &neck.path(0.0, neck.length())?)?;
-    let pads = feet_pads(neck)?;
-    let mut stock = vec![lower, gooseneck];
-    stock.extend(pads.iter().cloned());
-    let outer = Solid::union_all(&stock)?;
+    let outer = Solid::union_all(&[lower, gooseneck])?;
     let mut cutters = vec![zone1_inner()?];
     cutters.extend(base_pod_holes()?);
     cutters.push(zone2_inner()?);
@@ -362,7 +358,7 @@ pub fn shell_from(neck: &Gooseneck, lower: Solid, seam: &Region, extra: &[Solid]
     cutters.push(drain_relief_cut()?);
     cutters.push(vent_outlet_cut()?);
     cutters.push(lever_clearance()?);
-    cutters.push(display_cavity(neck, &pads)?);
+    cutters.push(display_cavity(neck)?);
     cutters.push(retention_grooves(neck)?);
     cutters.push(lower_bundle_opening()?);
     cutters.push(upstream_passage(neck)?);

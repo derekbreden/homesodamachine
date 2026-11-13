@@ -18,21 +18,17 @@ to the identified pre-clearance-change STL. The current seat and bezel add
 1.50 mm outward clearance while retaining the neck snap datums.
 Numerical force and cycle life have not been measured.
 
-The [lowered-head fit review](fit-review/2026-10-24/README.md) records the
-October 24 black Sculpted cover's installation failure and a working Industrial
-control on the same tip. Its corrected print variant includes two local switch
-pockets in the tip and 0.50 mm extra Sculpted cover reach with matching arch
-relief. This variant retains the lowered display and four foot recesses; its
-physical fit is separate from the earlier accepted covers above.
-
-The corrected black head's [October 25 physical record](../industrial/prints/2026-10-24-buttons-sculpted-bands020-mark2/physical-result/physical-result.json)
-reports very good fit with the display, tubes and wiring. Its visible front-corner
-opening is the subject of the [skirt-overlap print trial](corner-overlap-review/2026-10-25/README.md).
-The extended-skirt cover's [physical approval](prints/2026-10-25-front-overlap-black-mark2/physical-result/physical-result.json)
+Both faucet styles carry this cover on the tip they share. The tip's ledge holds
+the display low over the tube, with a recess for each of the display's feet and a
+pocket for each of its switches. The [lowered-head fit review](fit-review/2026-10-24/README.md)
+and the [skirt-overlap print trial](corner-overlap-review/2026-10-25/README.md) record
+how that head was fitted. The extended-skirt cover's
+[physical approval](prints/2026-10-25-front-overlap-black-mark2/physical-result/physical-result.json)
 accepts its working fit and appearance, including the remaining visible gap.
-No further iteration on that gap is requested. The
-[production source set](../industrial/production-selection.json) identifies the
-exact approved cover and matching lowered tip for subsequent Industrial prints.
+No further iteration on that gap is requested. The cover has since gained reach on
+its sides and pockets at its crown; its fit in that shape is a print result. The
+[production selection](../industrial/production-selection.json) names the approved
+print's meshes beside the generated parts.
 
 ## Geometry
 
@@ -40,9 +36,8 @@ The planar face is wide and long. Its
 rounded skin tapers to the skirt around the neck. The bezel is
  thick. The finished rim has a 1 mm minimum cosmetic
 section; the front wall is thick. Two broad -high retaining lips
-continue inward from the side walls. The four metal-foot bearing pads are
- along the display and 3.25 mm across it, with
-inner faces flush to the open channel, and deep.
+continue inward from the side walls. The display's four metal feet sit in
+recesses in the tip's ledge.
 
 The rear wall closes within the rounded skirt outline. Its inner face is
 vertical at the display's rear clearance plane; its lower edge slopes upward
@@ -52,21 +47,21 @@ at their shared display datums. Its rear opening follows
 s = + × n.
 The underside remains open.
 
-The raised bezel and skirt shoulder give the wings more reach from the bezel
-to the groove floors. The lips meet the groove roots in the seated model and
-engage below both retaining shoulders. The relaxed print bows each side inward
-below the bezel's inner face: most at mid-length, where the side flexes freely,
-fading toward the front and rear walls, which hold the side's ends. That bow is
-the shape a side springs back to when its lip is pushed out to the groove root,
-so the seated cover bears on its two lips and clears the neck along the rest of
-both sides. Past each lip's end the print lets the side out further, where it
-springs back less than the bow allows. A side left to bear on the neck there
-is wedged outward, and that levers the arch beside it up off the neck. Over the dispense cap and in the rear
-skirt the arch keeps the neck's clearance, with a pocket at its crown where
-its underside prints low over its support. [`numbers.rs`](numbers.rs) holds the
-bow's shares of the lip's lean, the ends' relief and the crown's pockets.
-The lips' inner corners carry chamfers, and their flat lower lands seat on the
-groove floors.
+The skirt's shoulder gives the wings their reach from the bezel to the groove
+floors. The lips meet the groove roots in the seated model and engage below both
+retaining shoulders. The relaxed print bows each side inward below the bezel's
+inner face: most at mid-length, where the side flexes freely, fading toward the
+front and rear walls, which hold the side's ends. That bow is the shape a side
+springs back to when its lip is pushed out to the groove root, so the seated cover
+bears on its two lips and clears the neck along the rest of both sides. Past each
+lip's end the bow is scaled down to what the printed ends spring back, which is
+less than the model's share and least toward the bezel; a side bowed further than
+it springs back bears on the neck there, wedges outward and levers the arch beside
+it off the cap. Over the dispense cap and in the rear skirt the arch keeps the
+neck's clearance, with a pocket at its crown where its underside prints low over
+its support. [`numbers.rs`](numbers.rs) holds the bow's shares of the lip's lean,
+the ends' spring and the crown's pockets. The lips' inner corners carry chamfers,
+and their flat lower lands seat on the groove floors.
 
 The standalone STEP, STL and print project contain the relaxed shape.
 The faucet assembly shows the nominal seated fit surface. That surface
@@ -77,8 +72,8 @@ The window is ×. Its lip overlaps the
 module housing and leaves above the glass. The display
 feet sit at n =. The measured device and corrected
 vendor component envelopes leave 1.80064 mm between the flavor tubes and
-the limiting USB-C housing. The underside over the tubes is open; four small
-pads support the metal feet.
+the limiting USB-C housing. The underside over the tubes is open; the metal
+feet sit in the tip's four recesses.
 
 The frame is the shell's `_tip_frame`: x is lateral, s runs up the final
 neck tangent from the tube exit, and n points toward the display face. The
@@ -97,10 +92,10 @@ neck, so the parting line stays below the display face.
    components, with slack for the assembly motion.
 3. Approach from the tube-outlet end with the display and cover held together
    above their seated position. Slide along the
-   gooseneck to align the module with its four metal-foot pads, then lower the
+   gooseneck to align the module's four metal feet with their recesses, then lower the
    pair squarely toward the neck. Both lips enter their grooves below the
    retaining shoulders. The wings remain spread from their relaxed positions.
-   Confirm the feet rest on their pads and both lip bottoms reach their seating
+   Confirm the feet rest in their recesses and both lip bottoms reach their seating
    floors, with the ribbon in its passage.
 4. Read complete seating, display fit, touch response, retention, permanent
    spreading and any whitening or cracks on the cover. Record the trial result
@@ -110,7 +105,7 @@ Customer installation uses the assembled faucet.
 
 ## Printing and checks
 
-The approved production cover uses black PET-GF, **Bambu’s 0.20 mm first bed
+The production cover uses black PET-GF, **Bambu’s 0.20 mm first bed
 layer and 0.24 mm later layers**, with no fine bands. Its
 [cover-only project](faucet-display-cover-petgf.3mf) retains the accepted −50°
 pose, localized cooling, supports and Mark2 trim.
@@ -120,7 +115,7 @@ Prepare it with:
 tools/hsm/target/release/faucet-cover-print-project
 ```
 
-The preparer uses the exact approved STL in the production source set. It does
+The preparer uses the generated STL the production selection names. It does
 not submit a print. The identified historical white covers below retain their
 own geometry and print scope.
 

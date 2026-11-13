@@ -1,6 +1,6 @@
 //! The faucet and its umbilical as the bench bags them, from the display on the tip down to the
 //! four square-cut tails and their collars, on the kernel: the Sculpted faucet's assembly and the
-//! Industrial one's, with its shell base, plate, gasket and approved lowered display head.
+//! Industrial one's, with its shell base, plate and gasket under the head both styles share.
 pub mod bodies;
 pub mod cuts;
 pub mod legs;
@@ -30,21 +30,10 @@ impl Variant {
             Variant::Industrial => "faucet-industrial-assembly",
         }
     }
-
-    fn tip_step(self) -> &'static str {
-        match self {
-            Variant::Sculpted => "faucet-shell/faucet-shell-tip.step",
-            Variant::Industrial => "industrial/industrial-production-shell-tip.step",
-        }
-    }
-
-    fn display_feet_n(self) -> f64 {
-        match self {
-            Variant::Sculpted => hsm_faucet_numbers::shell::DISPLAY_FEET_N,
-            Variant::Industrial => hsm_faucet_assembly_numbers::INDUSTRIAL_DISPLAY_FEET_N,
-        }
-    }
 }
+
+/// The tip both faucets share, under `printed-parts/faucet/`.
+const TIP_STEP: &str = "faucet-shell/faucet-shell-tip.step";
 
 /// The printed pieces whose own surfaces the payload draws, each by the body that stands it in
 /// place and its STEP under `printed-parts/faucet/`: a piece's surface keeps every triangle it
@@ -65,7 +54,7 @@ fn printed_surfaces(variant: Variant) -> [(&'static str, &'static str); 6] {
     [
         ("lever", "lever-replica/lever-replica.step"),
         ("shell_base", base),
-        ("shell_tip", variant.tip_step()),
+        ("shell_tip", TIP_STEP),
         ("above_counter_plate", plate),
         ("above_counter_gasket", gasket),
         ("umbilical-organizer", "umbilical-organizer/umbilical-organizer.step"),

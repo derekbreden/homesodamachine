@@ -432,12 +432,24 @@ pub fn lower_opening_sections() -> Vec<(f64, Vec<[f64; 3]>)> {
 pub const DISPLAY_USB_REFERENCE_BOUNDS: [P3; 2] = [[-4.799962, -22.484226, 0.750479], [4.780038, -14.954223, 4.910479]];
 /// The dispense face's thickness at the tip.
 pub const DISPENSE_FACE_THICKNESS: f64 = 2.0;
-/// The display's seat on the tip, along n.
-pub const DISPLAY_SEAT_REFERENCE_N: f64 = 10.1;
-/// What the display stands clear of the tubes by, past its seat.
-pub const DISPLAY_ADDITIONAL_TUBE_CLEARANCE: f64 = 1.5;
+/// The datum the cover's skirt is set out from, along n: its bottom and the lips' band below it,
+/// its shoulder above.
+pub const DISPLAY_COVER_DATUM_N: f64 = 10.1;
+/// The ledge the display lies over on the tip, along n.
+pub const DISPLAY_LEDGE_N: f64 = 8.1;
+/// The recesses the display's four feet stand in, below the ledge: their depth and diameter.
+pub const DISPLAY_FOOT_RECESS_DEPTH: f64 = 1.0;
+pub const DISPLAY_FOOT_RECESS_DIAMETER: f64 = 4.0;
 /// The display's feet, along n.
-pub const DISPLAY_FEET_N: f64 = DISPLAY_SEAT_REFERENCE_N + DISPLAY_ADDITIONAL_TUBE_CLEARANCE;
+pub const DISPLAY_FEET_N: f64 = DISPLAY_LEDGE_N - DISPLAY_FOOT_RECESS_DEPTH;
+/// The display's two side switches, from the vendor's model
+/// (`ESP32-S3-Touch-LCD-1_47_20250411.stp`): each one's bounds in the display's frame.
+pub const DISPLAY_SWITCH_REFERENCE_BOUNDS: [[P3; 2]; 2] = [
+    [[7.555094, -16.799938, 0.600000], [11.555095, -12.199938, 4.400001]],
+    [[-11.555123, -16.800122, 0.600000], [-7.555123, -12.200122, 4.400001]],
+];
+/// The room the tip's pockets leave round each switch. Their floors are the feet's.
+pub const DISPLAY_SWITCH_POCKET_CLEARANCE: f64 = 0.5;
 /// What the cradle clears the display by.
 pub const DISPLAY_CRADLE_CLEARANCE: f64 = 0.25;
 /// The display's glass, along n.
@@ -447,8 +459,8 @@ pub const DISPLAY_COSMETIC_WALL: f64 = 1.3;
 /// The cover's top, along n.
 pub const DISPLAY_COVER_TOP_N: f64 = DISPLAY_FACE_N + DISPLAY_COVER_OVER_FACE + DISPLAY_COSMETIC_WALL;
 /// The cover's skirt bottom and its shoulder, along n.
-pub const DISPLAY_COVER_BOTTOM_N: f64 = DISPLAY_SEAT_REFERENCE_N - 6.8;
-pub const DISPLAY_COVER_SHOULDER_N: f64 = DISPLAY_SEAT_REFERENCE_N + 0.5;
+pub const DISPLAY_COVER_BOTTOM_N: f64 = DISPLAY_COVER_DATUM_N - 6.8;
+pub const DISPLAY_COVER_SHOULDER_N: f64 = DISPLAY_COVER_DATUM_N + 0.5;
 /// The cover's face, across, and its margin past the display's end.
 pub const DISPLAY_COVER_FACE_WIDTH: f64 = 27.5;
 pub const DISPLAY_COVER_END_MARGIN: f64 = 1.25;
@@ -456,7 +468,7 @@ pub const DISPLAY_COVER_END_MARGIN: f64 = 1.25;
 pub const DISPLAY_COVER_FACE_R: f64 = 7.25;
 pub const DISPLAY_COVER_SKIRT_R: f64 = 10.0;
 /// The front skirt's lower trim plane in the display frame, set by its intercept and slope.
-pub const DISPLAY_COVER_FRONT_RIM_N: f64 = 14.0;
+pub const DISPLAY_COVER_FRONT_RIM_N: f64 = 10.5;
 pub const DISPLAY_COVER_FRONT_RIM_SLOPE: f64 = 1.8;
 /// The rear skirt's lower trim plane in the display frame, set by its intercept and slope.
 pub const DISPLAY_COVER_REAR_TRIM_S0: f64 = 42.1;
@@ -470,10 +482,7 @@ pub const DISPLAY_CLIP_BOTTOM_N: f64 = DISPLAY_COVER_BOTTOM_N;
 pub const DISPLAY_CLIP_TOP_N: f64 = DISPLAY_CLIP_BOTTOM_N + snap::LIP_HEIGHT;
 pub const DISPLAY_CLIP_LIP_RADIUS: f64 = DISPLAY_NECK_OUTER_R - snap::ENGAGEMENT;
 pub const DISPLAY_CLIP_GROOVE_RADIUS: f64 = DISPLAY_CLIP_LIP_RADIUS - snap::RADIAL_SLIP;
-/// The bearing pads under the display: their width and depth.
-pub const DISPLAY_FOOT_PAD_WIDTH: f64 = 3.0;
-pub const DISPLAY_FOOT_PAD_DEPTH: f64 = WALL_THICKNESS_MIN + DISPLAY_ADDITIONAL_TUBE_CLEARANCE;
-/// The pads' places on the housing, from its centre: `[x, s]` offsets.
+/// The feet's places on the housing, from its centre: `[x, s]` offsets.
 pub const DISPLAY_FOOT_OFFSETS: [P2; 4] = [[-8.5, -19.5], [-8.5, 19.5], [8.5, -19.5], [8.5, 19.5]];
 /// The open channel under the display.
 pub const DISPLAY_CHANNEL_HALF_WIDTH: f64 = 6.75;
@@ -491,7 +500,7 @@ pub const DISPLAY_RIBBON_SIDE_X: f64 = -8.2;
 pub const DISPLAY_RIBBON_SIDE_RADIUS: f64 = 8.0;
 pub const DISPLAY_RIBBON_SIDE_DROP: f64 = 0.0;
 pub const DISPLAY_RIBBON_SIDE_LIFT: f64 = 0.4;
-pub const DISPLAY_RIBBON_SIDE_RUN_N: f64 = DISPLAY_SEAT_REFERENCE_N + 1.0;
+pub const DISPLAY_RIBBON_SIDE_RUN_N: f64 = DISPLAY_LEDGE_N + 1.1;
 pub const DISPLAY_RIBBON_PCB_GAP: f64 = 0.3;
 pub const DISPLAY_RIBBON_TERMINAL_Y: f64 = -11.0;
 pub const DISPLAY_RIBBON_TOP_N: f64 = DISPLAY_FEET_N + DISPLAY_PCB_BOTTOM_Z - DISPLAY_RIBBON_PCB_GAP;
@@ -517,7 +526,7 @@ pub fn display_housing_center_s() -> f64 {
     (display_s_bottom() + DISPLAY_CRADLE_CLEARANCE) + DISPLAY_HOUSING_LENGTH / 2.0
 }
 
-/// The bearing pads' centres, `[x, s]`.
+/// The feet's centres, `[x, s]`.
 pub fn display_foot_centers() -> Vec<P2> {
     DISPLAY_FOOT_OFFSETS
         .iter()
@@ -525,10 +534,18 @@ pub fn display_foot_centers() -> Vec<P2> {
         .collect()
 }
 
+/// The tip's pockets under the display's switches, `[x0, x1, s0, s1]` each.
+pub fn display_switch_pockets() -> [[f64; 4]; 2] {
+    let c = DISPLAY_SWITCH_POCKET_CLEARANCE;
+    DISPLAY_SWITCH_REFERENCE_BOUNDS.map(|[low, high]| {
+        [low[0] - c, high[0] + c, display_housing_center_s() + low[1] - c, display_housing_center_s() + high[1] + c]
+    })
+}
+
 /// The display pocket's top, along n.
 pub const DISPLAY_POCKET_TOP_N: f64 = DISPLAY_COVER_TOP_N + DISPLAY_POCKET_OVERRUN;
 /// The open channel's top, along n.
-pub const DISPLAY_CHANNEL_TOP_N: f64 = DISPLAY_SEAT_REFERENCE_N + DISPLAY_CHANNEL_OVERLAP;
+pub const DISPLAY_CHANNEL_TOP_N: f64 = DISPLAY_LEDGE_N + DISPLAY_CHANNEL_OVERLAP;
 /// The grooves' half width and the core they leave round the neck.
 pub const DISPLAY_GROOVE_HALF_X: f64 = DISPLAY_NECK_OUTER_R + DISPLAY_GROOVE_REACH;
 pub const DISPLAY_GROOVE_CORE_R: f64 = DISPLAY_NECK_OUTER_R - (DISPLAY_NECK_OUTER_R - DISPLAY_CLIP_GROOVE_RADIUS);

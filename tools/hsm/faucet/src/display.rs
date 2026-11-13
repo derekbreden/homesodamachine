@@ -353,11 +353,13 @@ fn zipped(verts: &[V3], tris: &[[u32; 3]], face_of: &[u32]) -> (Vec<[u32; 3]>, V
         chain.sort_by(|p, q| p.0.total_cmp(&q.0));
         let stops: Vec<u32> = std::iter::once(a).chain(chain.iter().map(|&(_, c)| c)).chain(std::iter::once(b)).collect();
         // A fan from the far corner over the edge's stops. Its first part keeps the edge back to
-        // `a`, its last the edge on from `b`.
+        // `a`, its last the edge on from `b`. A corner that stands off the whole edge can still
+        // stand on one of its parts, where the seam curves, so each part is looked at again.
+        let again = stops.len() > 2;
         for (i, pair) in stops.windows(2).enumerate() {
             let onward = i + 2 == stops.len() && to_split[(k + 1) % 3];
             let back = i == 0 && to_split[(k + 2) % 3];
-            work.push(([pair[0], pair[1], o], face, [false, onward, back]));
+            work.push(([pair[0], pair[1], o], face, [again, onward, back]));
         }
     }
     (done.iter().map(|&(t, _)| t).collect(), done.iter().map(|&(_, face)| face).collect())

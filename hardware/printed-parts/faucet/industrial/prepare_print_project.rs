@@ -4,8 +4,7 @@
 //!     industrial-faucet-print-project [--project P] [--settings-from S] [--printer Mark1|Mark2]
 //!                                     [--filament-colour #RRGGBB] [--slice-output DIR] [--slicer PATH]
 //!
-//! The parts are the physically approved print meshes the production selection names, posed as
-//! it poses them. The settings are the approved cover print's, with the selected finish: the
+//! The parts are the generated meshes the production selection names, posed as it poses them. The settings are the approved cover print's, with the selected finish: the
 //! printer's Z trim, Bambu's first bed layer and uniform later layers, the overhang and bridge
 //! recipe over the localized cooling, rear seams on the base, tip and plate and aligned seams on
 //! the cover and lever. The base uses a connected dense interface over Slim trees and a
