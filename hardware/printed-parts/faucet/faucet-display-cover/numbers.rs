@@ -29,12 +29,18 @@ pub const LIP_R: f64 = DISPLAY_CLIP_LIP_RADIUS;
 /// the tube exit, reach toward the base]`, at the skirt's bottom and at the display's seat.
 pub const SPRING_BACK_LOW: [f64; 4] = [1.05, 21.0, 26.2, 29.1];
 pub const SPRING_BACK_HIGH: [f64; 4] = [0.99, 21.5, 22.75, 27.3];
-/// How far each side's ends are let out at the skirt's bottom, over what the bow leaves them: a
-/// side's ends spring back less than the bow allows, so its tips and the front rim would
-/// otherwise lie on the neck.
-pub const END_RELIEF: f64 = 0.25;
-/// Clearance above the dispense cap at the front of the cover.
-pub const NOSE_ARCH_LIFT: f64 = 0.5;
+/// How far each side's ends are let out over what the bow leaves them, `[at the skirt's bottom,
+/// at the display's seat]`. A side's ends spring back less than the bow allows. Left to bear on
+/// the neck, they are wedged outward, which levers the arch beside them up off the neck. The
+/// fore end falls furthest short up its front rim; the aft end at its tip.
+pub const END_RELIEF_FORE: [f64; 2] = [0.15, 0.50];
+pub const END_RELIEF_AFT: [f64; 2] = [0.30, 0.20];
+/// The pocket over the dispense cap's crown, where the arch's underside prints low over its
+/// support: how far it stands off the neck's clearance at the crown, and the angle from the crown
+/// at which it runs out into that clearance. Past it the arch's underside prints clean and keeps
+/// the neck's clearance alone.
+pub const NOSE_CROWN_POCKET: f64 = 0.5;
+pub const NOSE_CROWN_POCKET_REACH: f64 = std::f64::consts::FRAC_PI_6;
 /// Clearance over the curved neck at the rear skirt, aft of both snap lips.
 pub const REAR_ARCH_LIFT: f64 = 0.5;
 
@@ -68,16 +74,34 @@ pub fn wing_tips_s() -> [f64; 2] {
     ]
 }
 
-/// The share of the ends' relief at s: none along the lips, all of it from each tip on, eased
-/// between a lip's end and its tip.
-pub fn end_run(s: f64) -> f64 {
+/// The round the crown's pocket is cut with: its radius, and how far its centre stands out from
+/// the tube's along n. It meets the neck's clearance at the pocket's reach either side of the
+/// crown and stands the pocket's depth off it at the crown.
+pub fn nose_crown_pocket() -> [f64; 2] {
+    let (r, d) = (neck_clearance_r(), NOSE_CROWN_POCKET);
+    let out = (2.0 * r * d + d * d) / (2.0 * (r + d - r * NOSE_CROWN_POCKET_REACH.cos()));
+    [r + d - out, out]
+}
+
+/// The ends' relief at (s, n): none along the lips, all of it from each tip on, eased between a
+/// lip's end and its tip; by height, from its amount at the skirt's bottom to its amount at the
+/// display's seat, then away to nothing at the bezel.
+pub fn end_relief(s: f64, n: f64) -> f64 {
     let ease = |t: f64| {
         let t = t.clamp(0.0, 1.0);
         t * t * (3.0 - 2.0 * t)
     };
     let [fore, aft] = wing_tips_s();
     let (lip_fore, lip_aft) = (display_clip_s_bottom(), display_clip_s_top());
-    ease((lip_fore - s) / (lip_fore - fore)).max(ease((s - lip_aft) / (aft - lip_aft)))
+    let at = |[low, high]: [f64; 2]| {
+        if n <= DISPLAY_SEAT_REFERENCE_N {
+            let up = ((n - DISPLAY_COVER_BOTTOM_N) / (DISPLAY_SEAT_REFERENCE_N - DISPLAY_COVER_BOTTOM_N)).max(0.0);
+            low + (high - low) * up
+        } else {
+            high * ((BEZEL_N_BOTTOM - n) / (BEZEL_N_BOTTOM - DISPLAY_SEAT_REFERENCE_N)).max(0.0)
+        }
+    };
+    (ease((lip_fore - s) / (lip_fore - fore)) * at(END_RELIEF_FORE)).max(ease((s - lip_aft) / (aft - lip_aft)) * at(END_RELIEF_AFT))
 }
 
 /// How far the relaxed print's side stands in toward the neck from its seated place at (s, n):
@@ -89,9 +113,7 @@ pub fn wing_inward(s: f64, n: f64) -> f64 {
     };
     let up = ((n - DISPLAY_COVER_BOTTOM_N) / (DISPLAY_SEAT_REFERENCE_N - DISPLAY_COVER_BOTTOM_N)).clamp(0.0, 1.0);
     let share = bow(SPRING_BACK_LOW) * (1.0 - up) + bow(SPRING_BACK_HIGH) * up;
-    let drop = (BEZEL_N_BOTTOM - n).max(0.0);
-    let relief = END_RELIEF * end_run(s) * drop / (BEZEL_N_BOTTOM - DISPLAY_COVER_BOTTOM_N);
-    (wing_slope() * drop * share - relief).max(0.0)
+    (wing_slope() * (BEZEL_N_BOTTOM - n).max(0.0) * share - end_relief(s, n)).max(0.0)
 }
 
 /// The skin's outline rows, `[width, length, corner r, n, centre s]`: the skirt at its bottom and

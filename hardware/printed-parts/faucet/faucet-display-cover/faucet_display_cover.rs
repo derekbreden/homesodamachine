@@ -48,10 +48,12 @@ fn seated_cover(neck: &Gooseneck) -> Result<Solid> {
     let arch = display::neck_round(neck, cover::neck_clearance_r())?;
     let (_, _, normal) = neck.tip_frame();
     let [half_x, _, rear_s, n0, n1] = cover::outer_clamp();
-    // Carry the nose cut past the cavity's front face so the cutters overlap.
+    // The crown's pocket over the dispense cap, carried past the cavity's front face so the
+    // cutters overlap.
+    let [pocket_r, pocket_out] = cover::nose_crown_pocket();
     let nose_arch = clamped(
         neck,
-        arch.translate(normal * cover::NOSE_ARCH_LIFT),
+        display::neck_round(neck, pocket_r)?.translate(normal * pocket_out),
         [half_x, DISPLAY_HEAD_S_MIN - PAST, DISPENSE_FACE_THICKNESS + PAST, n0, n1],
     )?;
     let rear_arch = clamped(
