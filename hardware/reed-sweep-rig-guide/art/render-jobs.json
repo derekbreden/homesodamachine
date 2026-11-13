@@ -1,0 +1,158 @@
+[
+  {
+    "step": "printed-parts/fixtures/reed-sweep-rig/reed-sweep-rig-assembly.step",
+    "out": "hardware/reed-sweep-rig-guide/art/rig.png",
+    "cam": [-0.51, -1, 0.74],
+    "target": [-111, 9, 51],
+    "span": 168,
+    "size": "2100x1180",
+    "xray": ["carbonator-tube"],
+    "materials": [{"names": ["push-rod"], "color": "#ed6574"}, {"names": ["reed-comb"], "color": "#4081cf"}]
+  },
+  {
+    "step": "printed-parts/fixtures/reed-sweep-rig/reed-sweep-rig-cradle.step",
+    "out": "hardware/reed-sweep-rig-guide/art/cradle-print.png",
+    "cam": [-0.2, -0.85, 1.2],
+    "span": 70,
+    "size": "1400x650"
+  },
+  {
+    "step": "printed-parts/fixtures/reed-sweep-rig/reed-sweep-rig-rod.step",
+    "out": "hardware/reed-sweep-rig-guide/art/rod-print.png",
+    "cam": [-0.25, -0.76, 1.1],
+    "span": 66,
+    "size": "1400x650"
+  },
+  {
+    "step": "printed-parts/fixtures/reed-sweep-rig/reed-sweep-rig-comb.step",
+    "out": "hardware/reed-sweep-rig-guide/art/comb-print.png",
+    "cam": [-0.14, -0.8, 1.4],
+    "span": 46,
+    "size": "1400x650"
+  },
+  {
+    "step": "printed-parts/fixtures/reed-sweep-rig/reed-sweep-rig-sled-nominal.step",
+    "out": "hardware/reed-sweep-rig-guide/art/sled-print.png",
+    "cam": [-0.58, -0.85, 0.91],
+    "span": 28,
+    "size": "950x650"
+  },
+  {
+    "step": "printed-parts/fixtures/reed-sweep-rig/reed-sweep-rig-assembly.step",
+    "out": "hardware/reed-sweep-rig-guide/art/switch-pad.png",
+    "cam": [-0.35, -0.55, 1],
+    "target": [-22, 0, 21],
+    "span": 23,
+    "size": "1050x850",
+    "only": ["cradle"],
+    "context": "drop"
+  },
+  {
+    "step": "printed-parts/fixtures/reed-sweep-rig/reed-sweep-rig-assembly.step",
+    "out": "hardware/reed-sweep-rig-guide/art/finger.png",
+    "cam": [-1, -0.43, 0.56],
+    "target": [-9, 0, 32],
+    "span": 18,
+    "size": "1050x850",
+    "only": ["push-rod"],
+    "context": "drop",
+    "materials": [{"names": ["push-rod"], "color": "#ed6574"}]
+  },
+  {
+    "step": "printed-parts/fixtures/reed-sweep-rig/reed-sweep-rig-assembly.step",
+    "out": "hardware/reed-sweep-rig-guide/art/switch-and-striker.png",
+    "cam": [-0.15, -1, 0.77],
+    "target": [-16, 0, 29],
+    "span": 32,
+    "only": ["cradle", "home-switch-board", "home-switch", "push-rod", "striker-screw", "reed-comb"],
+    "context": "drop",
+    "materials": [{"names": ["home-switch-board", "home-switch", "striker-screw"], "color": "#ed6574"}]
+  },
+  {
+    "step": "printed-parts/fixtures/reed-sweep-rig/reed-sweep-rig-assembly.step",
+    "out": "hardware/reed-sweep-rig-guide/art/carriage.png",
+    "cam": [-0.25, -0.76, 1.23],
+    "target": [-179, 26, 52],
+    "span": 42,
+    "only": ["slide-carriage", "slide-frame", "slide-screw", "push-rod"],
+    "context": "drop",
+    "materials": [{"names": ["push-rod"], "color": "#ed6574"}]
+  },
+  {
+    "step": "printed-parts/fixtures/reed-sweep-rig/reed-sweep-rig-assembly.step",
+    "out": "hardware/reed-sweep-rig-guide/art/comb.png",
+    "cam": [0, 0, 1],
+    "up": [0, 1, 0],
+    "target": [78, 0, 8],
+    "span": 45,
+    "size": "2100x990",
+    "only": ["reed-comb", "reeds"],
+    "context": "drop",
+    "materials": [{"names": ["reeds"], "color": "#ed6574"}]
+  },
+  {
+    "step": "printed-parts/fixtures/reed-sweep-rig/reed-sweep-rig-assembly.step",
+    "out": "hardware/reed-sweep-rig-guide/art/seat-at-tab.png",
+    "xray": ["carbonator-tube"],
+    "cam": [-0.48, -1, 1.2],
+    "target": [26, 7, 32],
+    "span": 73,
+    "only": ["cradle", "reed-comb", "carbonator-tube", "slide-frame"],
+    "context": "drop",
+    "materials": [{"names": ["reed-comb"], "color": "#ed6574"}]
+  },
+  {
+    "step": "printed-parts/fixtures/reed-sweep-rig/reed-sweep-rig-assembly.step",
+    "out": "hardware/reed-sweep-rig-guide/art/empty-sled.png",
+    "cam": [-0.58, -1, 0.94],
+    "target": [23, 0, 24],
+    "span": 31,
+    "size": "1050x850",
+    "only": ["float-sled-nominal"],
+    "context": "drop",
+    "materials": [{"names": ["float-sled-nominal"], "color": "#ed6574"}]
+  },
+  {
+    "step": "printed-parts/fixtures/reed-sweep-rig/reed-sweep-rig-assembly.step",
+    "out": "hardware/reed-sweep-rig-guide/art/float-in-sled.png",
+    "cam": [-0.58, -1, 0.94],
+    "target": [23, 0, 24],
+    "span": 31,
+    "size": "1050x850",
+    "only": ["float-sled-nominal", "aero-float"],
+    "context": "drop"
+  },
+  {
+    "step": "printed-parts/fixtures/reed-sweep-rig/reed-sweep-rig-assembly.step",
+    "out": "hardware/reed-sweep-rig-guide/art/couple-the-sled.png",
+    "xray": ["carbonator-tube"],
+    "cam": [-0.7, -1, 0.64],
+    "target": [13, 0, 27],
+    "span": 41,
+    "only": ["cradle", "reed-comb", "carbonator-tube", "push-rod", "float-sled-nominal", "aero-float"],
+    "context": "drop",
+    "materials": [{"names": ["push-rod"], "color": "#ed6574"}]
+  },
+  {
+    "step": "printed-parts/fixtures/reed-sweep-rig/reed-sweep-rig-assembly.step",
+    "out": "hardware/reed-sweep-rig-guide/art/gauge-window.png",
+    "cam": [1, -0.48, 0.33],
+    "target": [30, 0, 22],
+    "span": 26,
+    "only": ["float-sled-nominal", "aero-float"],
+    "context": "drop",
+    "materials": [{"names": ["float-sled-nominal"], "color": "#ed6574"}]
+  },
+  {
+    "step": "printed-parts/fixtures/reed-sweep-rig/reed-sweep-rig-assembly.step",
+    "out": "hardware/reed-sweep-rig-guide/art/striker-side.png",
+    "xray": ["carbonator-tube"],
+    "cam": [0, -1, 0],
+    "target": [-4, 0, 22],
+    "span": 22,
+    "section": {"at": [0, 0.5, 0], "normal": [0, -1, 0]},
+    "only": ["cradle", "home-switch-board", "home-switch", "striker-screw", "push-rod", "float-sled-nominal", "reed-comb", "carbonator-tube"],
+    "context": "drop",
+    "materials": [{"names": ["striker-screw", "home-switch"], "color": "#ed6574"}, {"names": ["reed-comb"], "color": "#4081cf"}]
+  }
+]

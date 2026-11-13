@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Meter the wiring before power</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<article class="card">
+  <header>
+    <span class="eyebrow"><b>Check the wiring</b></span>
+    <h1>Meter the wiring before power</h1>
+    <i class="rule"></i>
+    <p class="lede">Pull USB and the barrel adapter. Leave the driver and motor unplugged while you trace the carrier and harness.</p>
+  </header>
+  <main>
+    <table>
+      <thead><tr><th scope="col">Probe at</th><th scope="col">Check at the other end</th></tr></thead>
+      <tbody>
+        <tr><td class="k">Barrel connector</td><td>Plus reaches carrier VIN. Minus reaches carrier power GND and the logic return.</td></tr>
+        <tr><td class="k">Breakout 3V3</td><td>Reaches carrier V and endstop supply. On the empty carrier, V reaches the driver's VCC_IO socket.</td></tr>
+        <tr><td class="k">Breakout GND</td><td>Reaches carrier G, endstop ground and reed return.</td></tr>
+        <tr><td class="k">P25 / P26 / P27</td><td>Reach STEP / DIR / EN on the carrier and their respective driver sockets.</td></tr>
+        <tr><td class="k">P33 and reed inputs</td><td>Reach the switch signal and the matching comb leads.</td></tr>
+        <tr><td class="k">Unplugged motor</td><td>Each phase has finite resistance within its pair. A wire from one pair to the other reads open.</td></tr>
+      </tbody>
+    </table>
+    <div class="gate">
+      <span class="gate-label">Check for bridges</span>
+      <p>VIN to GND, VIN to 3V3, and 3V3 to GND must show no persistent short. Check for strands bridging neighboring terminals and tug each connection lightly.</p>
+    </div>
+    <div class="mind">
+      <span class="mind-label">Prove the carrier's logic rail</span>
+      <p>Disconnect the whole logic header and leave the driver out. Apply the adapter to the carrier alone. Meter VIN to GND for the correct positive supply and V to G for an undriven logic rail. If the carrier sources voltage at V, stop and check its circuit before joining it to the ESP32's 3V3. Unplug the adapter and reconnect the logic header.</p>
+    </div>
+  </main>
+  <footer><span>Reed sweep rig &middot; build guide</span><span class="folio">18</span></footer>
+</article>
+</body>
+</html>
