@@ -69,7 +69,6 @@ services:
         # clone. It changes when a person redraws it, which is rarely.
         - hardware/weld-rotator-guide/**
         - hardware/reed-sweep-rig-guide/**
-        - hardware/fdm-print-guide/**
         - hardware/printing-the-machine/**
         - hardware/faucet-assembly-guide/**
         - hardware/tube-insertion-guide/**

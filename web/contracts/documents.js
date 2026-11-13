@@ -49,7 +49,7 @@ const COMMITTED_DOCUMENT_FILES = new Set([
 
 export function isCommittedDocumentFile(repoRel) {
   return COMMITTED_DOCUMENT_FILES.has(repoRel) || (
-    /^hardware\/(?:faucet-assembly-guide|fdm-print-guide|printing-the-machine|tube-insertion-guide|carbonator-filming-guide|drill-and-cut-guide|mold-guide|refrigeration-guide|assembly-letter-guide|gun-positioner-guide|reed-sweep-rig-guide)\//.test(repoRel)
+    /^hardware\/(?:faucet-assembly-guide|printing-the-machine|tube-insertion-guide|carbonator-filming-guide|drill-and-cut-guide|mold-guide|refrigeration-guide|assembly-letter-guide|gun-positioner-guide|reed-sweep-rig-guide)\//.test(repoRel)
     && /(?:\.pdf|\.cover\.png|\.pdf\.json)$/.test(repoRel)
   );
 }

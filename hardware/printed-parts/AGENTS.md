@@ -1,7 +1,7 @@
 # Printed parts
 
-The [FDM print guide](../fdm-print-guide/README.md) routes printing work to the
-fundamentals, material recipes, and examples. Use it for both parts and coupons.
+[Printing the Machine](../printing-the-machine/README.md) tells the lessons behind these
+rules on the prints that taught them, sorted by plastic. Use it for both parts and coupons.
 
 ## Publish loop
 
