@@ -5,7 +5,7 @@ The faucet has two styles, each in Black or White PET-GF.
 | Faucet style | Shape | PET-GF print project |
 |---|---|---|
 | **Sculpted** | Smooth curves and softly blended transitions. | [Production project](faucet-petgf.3mf) · [print settings](sculpted/README.md) |
-| **Industrial** | Simple cylinders and crisp shoulders, with the approved Sculpted display cover. | [Production project](industrial/faucet-industrial-petgf.3mf) · [print settings](industrial/faucet-industrial-petgf.md) |
+| **Industrial** | Simple cylinders and crisp shoulders. | [Production project](industrial/faucet-industrial-petgf.3mf) · [print settings](industrial/faucet-industrial-petgf.md) |
 
 **Finish** is a separate Black or White choice in the [3D viewer](/3d).
 It applies to the PET-GF shell, display cover and above-counter plate.
@@ -43,21 +43,22 @@ drip behavior and complete fault-vent capacity are unmeasured.
 Both styles enclose the same harvested Westbrass, printed lever, Waveshare
 faucet display, four LLDPE tubes and continuous insulated signal conductors. They share
 the curved gooseneck joint, the three hidden mounting screws and the stainless
-under-counter plate. The Industrial tip carries the lowered display and matching
-cover. The cover's preformed side walls seat their broad lips in the tip's retaining
+under-counter plate. They also share one head: the tip, whose ledge carries the lowered
+display with a recess for each of its feet and a pocket for each of its switches, and the
+display cover. The cover's preformed side walls seat their broad lips in the tip's retaining
 grooves. The printed cover is its relaxed shape. Assembly models show its nominal
 seated surface.
 
 | Piece | Sculpted | Industrial |
 |---|---|---|
 | Shell base | [STEP](faucet-shell/faucet-shell-base.step) · [STL](faucet-shell/faucet-shell-base.stl) | [STEP](industrial/industrial-shell-base.step) · [STL](industrial/industrial-shell-base.stl) |
-| Shell tip | [STEP](faucet-shell/faucet-shell-tip.step) · [STL](faucet-shell/faucet-shell-tip.stl) | [STEP](industrial/industrial-production-shell-tip.step) · [STL](industrial/industrial-production-shell-tip.stl) |
-| Display cover | [STEP](faucet-display-cover/faucet-display-cover.step) · [STL](faucet-display-cover/faucet-display-cover.stl) | [STEP](industrial/industrial-production-display-cover.step) · [STL](industrial/industrial-production-display-cover.stl) |
+| Shell tip, shared | [STEP](faucet-shell/faucet-shell-tip.step) · [STL](faucet-shell/faucet-shell-tip.stl) | Same part |
+| Display cover, shared | [STEP](faucet-display-cover/faucet-display-cover.step) · [STL](faucet-display-cover/faucet-display-cover.stl) | Same part |
 | Above-counter plate | [STEP](above-counter-plate/above-counter-plate.step) · [STL](above-counter-plate/above-counter-plate.stl) | [STEP](industrial/industrial-above-counter-plate.step) · [STL](industrial/industrial-above-counter-plate.stl) |
 | Above-counter gasket, TPU | [STL](above-counter-gasket/above-counter-gasket.stl) | [STL](industrial/industrial-above-counter-gasket.stl) |
 | Umbilical organizer, shared | [STEP](umbilical-organizer/umbilical-organizer.step) · [STL](umbilical-organizer/umbilical-organizer.stl) · [accepted fit and settings](umbilical-organizer/README.md) | Same part |
 
-Use the matching base, cover, plate and gasket for the selected style.
+Use the matching base, plate and gasket for the selected style.
 Both current PET-GF projects contain the base, tip, cover, plate and
 side-down lever replica.
 The gasket is a separate TPU print.
@@ -71,12 +72,13 @@ Back with A2 on the base, tip and mounting plate, rear-center seam enforcement
 through the base's full rear silhouette and the tip's exposed curved neck, default Aligned/15%/scarf-off
 seams on the cover and lever, **Bambu’s 0.20 mm first bed layer and 0.24 mm later
 layers**, with no fine bands.
-The [production selection](industrial/production-selection.json) identifies the
-exact approved five-part source set: Industrial base, lowered tip with foot and
-switch recesses, extended-skirt Sculpted cover, rigid Industrial plate and
-side-down lever. The [October 25 approval](faucet-display-cover/prints/2026-10-25-front-overlap-black-mark2/physical-result/physical-result.json)
+The [production selection](industrial/production-selection.json) names the
+five generated parts the Industrial plate prints, the Industrial base, the shared
+tip and cover, the rigid Industrial plate and the side-down lever, and beside each
+the mesh of the approved print it is read against. The [October 25 approval](faucet-display-cover/prints/2026-10-25-front-overlap-black-mark2/physical-result/physical-result.json)
 accepts the remaining visible corner gap as good enough, with no further
-iteration requested. Historical physical and sealed-cavity records retain
+iteration requested. The cover has since gained reach on its sides and pockets
+at its crown, and its fit in that shape is a print result. Historical physical and sealed-cavity records retain
 their identified geometry and material scope.
 
 The [assembly procedure](faucet-shell/ASSEMBLY.md) supplies the shared mounting,
@@ -92,16 +94,15 @@ tools/run -- cargo build --release --locked --manifest-path tools/hsm/Cargo.toml
 tools/hsm/target/release/industrial-faucet-print-project
 ```
 
-The production preparer reads the preserved approved print meshes and retains
-the selected process, supports and per-printer trim. The source set is separate
-from the design generators used for CAD studies. Preparing a project does not
-submit it to a printer.
+The production preparer reads the generated parts the production selection names
+and retains the selected process, supports and per-printer trim. Preparing a
+project does not submit it to a printer.
 
 `hsm --scene faucet` reads the current exported assembly for positions,
 clearances, intersections, sections and rays. [`inspect-part.mjs`](/tools/inspect-part.mjs)
 retains the selected geometry, camera and targeted measurements between exports.
 The [native printed-mesh review](/tools/hsm/mesh-review/README.md) ranks local
-anomalies in the preserved print meshes without rebuilding the faucet.
+anomalies in the print meshes without rebuilding the faucet.
 
 The [simple drip geometry reading](vent-qualification/simple-drip-check.json)
 binds both bases and the shared tip, verifies the joint and nominal tube

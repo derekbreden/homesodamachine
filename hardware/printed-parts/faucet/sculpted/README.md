@@ -88,8 +88,8 @@ bear on the groove roots and clear the rest of the neck when seated, as the
 locates where a rigidly leaned cover's wing ends bore on the tip instead. The
 [bowed cover's fit record](https://github.com/derekbreden/homesodamachine/blob/2ec8379a49dab4833c363c0129f5298c7435f70f/hardware/printed-parts/faucet/sculpted/prints/2026-11-12-bowed-cover-tip-end-cooling-mark2/physical-result/physical-result.json)
 holds Derek's approval of the bowed cover on this tip, with its aft tips touching the neck and
-its front edge lying on the tip for part of its run. The cover's end relief is for both; its
-fit remains a print result.
+its front edge lying on the tip for part of its run. The cover's ends are bowed by what they
+spring back for both; its fit remains a print result.
 
 [review_print.py](https://github.com/derekbreden/homesodamachine/blob/306268f870/hardware/printed-parts/faucet/sculpted/review_print.py) (in Git at `306268f870`) reads the native G-code's nominal courses,
 filament assignment, cooling, speed commands, complete bead footprint and
@@ -106,7 +106,7 @@ binds the production motion and the local executable at
 `production/faucet-petgf.gcode.3mf`. Physical removal and fit for this
 complete plate remain pending.
 
-The display seat, bearing pads and cover bezel use their shared mounted datums.
+The display seat, foot recesses and cover bezel use their shared mounted datums.
 The [October 17 clearance reading](prints/2026-10-17-localized-cooling-display-clearance-mark2/display-clearance.json)
 binds that print's geometry. Current 4 mm tubing and passage evidence are in
 [flavor dispense lines](../flavor-lines/README.md); physical assembly of the current preparation remains unmeasured.
