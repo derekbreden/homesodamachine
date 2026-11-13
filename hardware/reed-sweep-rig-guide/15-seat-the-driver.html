@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Match the driver to the carrier</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<article class="card">
+  <header>
+    <span class="eyebrow"><b>Wire the controller</b></span>
+    <h1>Match the driver to the carrier</h1>
+    <i class="rule"></i>
+    <p class="lede">Identify the enable and motor-supply pins on both boards before fitting the TMC2209.</p>
+  </header>
+  <main>
+    <figure>
+      <svg class="schematic" viewBox="0 0 1100 490" role="img" aria-label="The two identifying driver pins align with EN and VIN at the same end of the carrier socket">
+        <rect class="box-dim" x="55" y="62" width="990" height="132" rx="14"/>
+        <rect class="box-dim" x="55" y="295" width="990" height="132" rx="14"/>
+        <text class="lbl" x="550" y="112" text-anchor="middle">TMC2209 V1.3</text>
+        <text class="lbl" x="550" y="397" text-anchor="middle">ZXXP carrier socket</text>
+        <text class="pin" x="220" y="161" text-anchor="middle">EN</text>
+        <text class="pin" x="880" y="161" text-anchor="middle">VS / VM</text>
+        <text class="pin" x="220" y="358" text-anchor="middle">EN</text>
+        <text class="pin" x="880" y="358" text-anchor="middle">VIN / VMOT</text>
+        <path class="motion" d="M220 198v93m-13-17 13 17 13-17M880 198v93m-13-17 13 17 13-17"/>
+        <text class="sub" x="550" y="253" text-anchor="middle">Match the two corners at the same end</text>
+      </svg>
+      <figcaption>Use the pin names and confirm the orientation against the carrier in hand. This drawing shows the identifying ends of the two pin rows.</figcaption>
+    </figure>
+    <ol class="actions">
+      <li>Disconnect USB and the motor adapter. Locate EN and VS on the driver and the matching socket positions on the carrier.</li>
+      <li>Set the carrier's three configuration switches to OFF for standalone STEP/DIR. The TMC2209 uses eight microsteps when both MS inputs are low.</li>
+      <li>With the driver still out, confirm both socket rows match the driver's pinout. Leave it out for the wiring and carrier meter checks.</li>
+    </ol>
+    <div class="gate">
+      <span class="gate-label">Check the socket</span>
+      <p>EN, STEP and DIR go to their labeled signals. Logic supply goes to VCC_IO, motor supply to VS, and ground to GND. Every pin fits its own socket with both rows aligned.</p>
+    </div>
+    <p><a href="https://github.com/bigtreetech/docs/blob/master/docs/TMC2209.md#pinoutfunction">BIGTREETECH pinout and current adjustment</a></p>
+  </main>
+  <footer><span>Reed sweep rig &middot; build guide</span><span class="folio">15</span></footer>
+</article>
+</body>
+</html>

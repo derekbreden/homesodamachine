@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Read the float's wall gap</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<article class="card">
+  <header>
+    <span class="eyebrow"><b>Set the float and home</b></span>
+    <h1>Read the float's wall gap</h1>
+    <i class="rule"></i>
+    <p class="lede">The gauge enters the window in the back of the sled from the open end away from the slide.</p>
+  </header>
+  <main>
+    <figure>
+      <div class="annotated">
+          <img src="art/gauge-window.png" alt="Back of a loaded sled with a window below the float for a gauge pin">
+          <svg viewBox="0 0 1000 583" aria-hidden="true">
+            <path class="leader" d="M899 494L585 424"/>
+            <circle class="point" cx="585" cy="424" r="4"/>
+            <text class="tag" x="899" y="481" text-anchor="end">Gauge window</text>
+            <path class="leader" d="M77 173L327 207"/>
+            <circle class="point" cx="327" cy="207" r="4"/>
+            <text class="tag" x="77" y="160" text-anchor="start">Float</text>
+          </svg>
+        </div>
+      <figcaption>Pass the gauge along the bore floor and through the window under the float. The opening above it is the float's guide bore.</figcaption>
+    </figure>
+    <ol class="actions">
+      <li>Try smooth gauge pins or smooth drill shanks. Find the largest that passes under the float without lifting it or rocking the sled.</li>
+      <li>Record the measured gap with the sled name. Compare with that sled's <code>float_to_wall_gap_mm</code> in the <a href="https://github.com/derekbredensteiner/homesodamachine/blob/main/hardware/printed-parts/fixtures/reed-sweep-rig/reed-sweep-rig-datums.json">rig datums</a>.</li>
+      <li>With the sled out, measure the slot width along the travel axis and subtract the roller diameter. The sled trails by that amount as the rod pushes it into the tube.</li>
+    </ol>
+    <div class="gate">
+      <span class="gate-label">Check the running gap</span>
+      <p>The gauge enters without force. Remove it after recording the reading. The float must clear the bore in each sled used for measurement.</p>
+    </div>
+  </main>
+  <footer><span>Reed sweep rig &middot; build guide</span><span class="folio">13</span></footer>
+</article>
+</body>
+</html>

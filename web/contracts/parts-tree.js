@@ -68,6 +68,7 @@ export const EXCLUDED_DIRS = [
   "quickstart/out",
   "quickstart/plumbing/out",
   "quickstart/studies/first-power-link/out",
+  "reed-sweep-rig-guide/out",
   "weld-rotator-guide/out",
 ];
 

@@ -1,5 +1,7 @@
 # Reed sweep rig
 
+[Open the illustrated Letter build guide](https://homesodamachine.com/read/reed-sweep-rig-guide/reed-sweep-rig-guide.pdf).
+
 This bench rig measures where a level reed closes and opens as the float's magnet passes it. A
 ball-screw slide pushes a finished Aero float along a bare carbonator tube. The reeds lie under
 the tube's wall on a printed comb. A controller counts the slide's steps and logs every reed
@@ -123,10 +125,11 @@ Before the first power:
   with red. Each coil's two wires belong on `1A`/`1B` or on `2A`/`2B`. A lead whose pairs are
   split across those makes the motor buzz without turning. Plug and unplug the motor lead only
   with the 12 V adapter off.
-- **Current.** With the motor lead out and both supplies on, measure from the driver's trimmer
-  to ground and turn the trimmer clockwise until it reads about half a volt. The screw turns
-  the motor's torque into a push many times what the sled needs. At the setting the driver
-  comes with, that push could snap the rod's stem if the home switch were ever missed.
+- **Current.** With the motor lead out and both supplies on, measure the driver's `VREF` to
+  carrier ground. Adjust the trimmer in small increments until the meter reads about half a volt.
+  The ball screw multiplies the motor's torque. At the factory current, a missed home switch
+  could let the slide break the rod's stem.
+  [Driver current adjustment](https://github.com/bigtreetech/docs/blob/master/docs/TMC2209.md#potentiometer-regulation-instructions).
 - **Home switch.** Press the switch's lever by hand. The board's light answers.
 
 ## Controller
@@ -150,9 +153,9 @@ With the sled in the tube near its middle and the roller in the slot:
    `homelevel low`.
 3. **Direction.** Send `jog 5`. The sled moves into the tube. If it moves toward the slide,
    send `dirinvert on`.
-4. **Home.** Send `home`. The sled comes back to the switch, backs off, creeps onto it and
-   stops. The controller refuses to seek a switch it has not seen change since power-up, so
-   step 2 comes first.
+4. **Home.** Send `home`. The sled comes back to the switch, backs off, creeps onto it, then
+   backs off to release. The slow trip is the position reference. The controller refuses to seek
+   a switch it has not seen change since power-up, so step 2 comes first.
 5. **A sweep.** Send `sweep 2 100`. The sled runs out to 100 mm from the tab and back at the
    controller's own sweep speed, and the console prints a `P` line as each leg begins, an `R`
    line at each reed change and an `E` line as the leg ends.

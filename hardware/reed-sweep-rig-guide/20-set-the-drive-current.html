@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Set the drive current</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<article class="card">
+  <header>
+    <span class="eyebrow"><b>Check the wiring</b></span>
+    <h1>Set the drive current</h1>
+    <i class="rule"></i>
+    <p class="lede">Start at the low reference voltage specified in the rig procedure. The motor stays unplugged while you measure.</p>
+  </header>
+  <main>
+    <figure>
+      <svg class="schematic" viewBox="0 0 1100 500" role="img" aria-label="The meter is on DC volts with common at carrier ground and the red probe at the driver's VREF point">
+        <rect class="box" x="66" y="93" width="293" height="313" rx="28"/>
+        <text class="lbl" x="212" y="147" text-anchor="middle">Multimeter</text>
+        <rect class="box-dim" x="114" y="174" width="197" height="90" rx="8"/>
+        <text class="pin" x="212" y="228" text-anchor="middle">DC volts</text>
+        <circle cx="151" cy="336" r="10" fill="var(--muted)"/><circle cx="276" cy="336" r="10" fill="var(--action)"/>
+        <text class="sub" x="151" y="373" text-anchor="middle">COM</text><text class="sub" x="276" y="373" text-anchor="middle">V</text>
+        <rect class="box" x="610" y="70" width="422" height="360" rx="17"/>
+        <text class="lbl" x="821" y="125" text-anchor="middle">Driver on carrier</text>
+        <rect class="box-dim" x="780" y="163" width="170" height="130" rx="12"/>
+        <circle cx="865" cy="220" r="23" fill="none" stroke="var(--ink)" stroke-width="3"/>
+        <path class="w" d="M852 220h26m-13-13v26"/>
+        <text class="sub" x="865" y="271" text-anchor="middle">VREF trimmer</text>
+        <path class="w-sig" d="M276 336h203V220h354"/>
+        <path class="w-gnd" d="M151 336v114h588v-89"/>
+        <circle cx="739" cy="361" r="7" fill="var(--muted)"/>
+        <text class="pin" x="756" y="368">Carrier GND</text>
+      </svg>
+      <figcaption>Clip COM to carrier ground before applying power. Touch the other probe to the driver's VREF point. Keep both probes clear of adjacent pins.</figcaption>
+    </figure>
+    <ol class="actions">
+      <li>Disconnect both supplies. Seat the driver as on page 15 and reconnect the logic header. Leave the motor lead out.</li>
+      <li>Connect USB first, then the adapter. Measure VREF and adjust in small increments with an insulated tool to about half a volt. Read the meter after each adjustment.</li>
+      <li>Unplug the adapter and USB before plugging in the motor lead.</li>
+    </ol>
+    <div class="gate">
+      <span class="gate-label">Ready for a short jog</span>
+      <p>The initial reference is measured and recorded. Recheck the carrier and switch if any reading disagrees with the schematic. Keep the motor adapter within reach for first motion.</p>
+    </div>
+  </main>
+  <footer><span>Reed sweep rig &middot; build guide</span><span class="folio">20</span></footer>
+</article>
+</body>
+</html>

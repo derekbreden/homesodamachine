@@ -1,0 +1,62 @@
+/* Reuse the weld rotator's Letter page furniture for the reed rig booklet. */
+@import url("../weld-rotator-guide/style.css");
+
+a { color: var(--heading); text-underline-offset: 0.15em; }
+
+.annotated { position: relative; }
+.annotated > svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+.annotated .leader {
+  fill: none;
+  stroke: var(--heading);
+  stroke-width: 2.5;
+}
+.annotated .point { fill: var(--blue); stroke: var(--paper); stroke-width: 1.3; }
+.annotated .tag {
+  fill: var(--heading);
+  font-size: 22px;
+  font-weight: 700;
+  stroke: var(--field-pale);
+  stroke-width: 6px;
+  stroke-linejoin: round;
+  paint-order: stroke fill;
+}
+.annotated .insert {
+  fill: var(--brass);
+  stroke: #6d5016;
+  stroke-width: 2;
+}
+
+.plate-parts {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 30px;
+  margin-top: 30px;
+}
+.plate-parts figure { margin-top: 0; }
+.plate-parts img {
+  height: 400px;
+  object-fit: contain;
+}
+.cradle-plate img { height: 700px; object-fit: contain; }
+
+.callout { color: var(--blue); font-weight: 700; }
+
+svg.schematic {
+  display: block;
+  width: 100%;
+  height: auto;
+  background: var(--field-pale);
+  border-radius: 18px;
+}
+.schematic .box, .schematic .box-dim { stroke-width: 2; }
+.schematic .lbl { font-size: 26px; }
+.schematic .pin { font-size: 22px; }
+.schematic .sub { font-size: 20px; }
+.schematic .w, .schematic .w-sig, .schematic .w-pwr, .schematic .w-gnd { stroke-width: 3.5; }
+.schematic .motion { fill: none; stroke: var(--action); stroke-width: 4; }
+.schematic .datum { fill: none; stroke: var(--muted); stroke-width: 2; stroke-dasharray: 7 6; }
