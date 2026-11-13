@@ -8,41 +8,45 @@
 <body>
 <article class="card">
   <header>
-    <span class="eyebrow"><b>Before the bench</b></span>
+    <span class="eyebrow"><b>Before assembly</b></span>
     <h1>How the rig works</h1>
     <i class="rule"></i>
-    <p class="lede">The slide drives the float lengthwise. The reeds sit under the tube wall on the same line the float passes over.</p>
+    <p class="lede">The slide moves the Aero float through the dry tube. The controller logs where each reed switch closes and opens as the magnet passes.</p>
   </header>
   <main>
     <figure>
       <div class="annotated">
           <img src="art/rig.png" alt="The stage, rod, tube, float and comb in their working positions">
           <svg viewBox="0 0 1000 562" aria-hidden="true">
-            <path class="leader" d="M125 493L212 373"/>
+            <path class="leader" d="M177 457L212 373"/>
             <circle class="point" cx="212" cy="373" r="4"/>
-            <text class="tag" x="125" y="480" text-anchor="start">Ball-screw slide</text>
-            <path class="leader" d="M397 212L503 271"/>
+            <g class="tag"><rect x="76" y="457" width="202" height="42" rx="7"/>
+              <text x="177" y="486">Ball-screw slide</text></g>
+            <path class="leader" d="M423 213L503 271"/>
             <circle class="point" cx="503" cy="271" r="4"/>
-            <text class="tag" x="397" y="199" text-anchor="start">Push rod</text>
+            <g class="tag"><rect x="361" y="171" width="124" height="42" rx="7"/>
+              <text x="423" y="200">Push rod</text></g>
             <path class="leader" d="M688 124L707 257"/>
             <circle class="point" cx="707" cy="257" r="4"/>
-            <text class="tag" x="688" y="112" text-anchor="middle">Aero float</text>
-            <path class="leader" d="M889 423L828 267"/>
+            <g class="tag"><rect x="617" y="82" width="142" height="42" rx="7"/>
+              <text x="688" y="111">Aero float</text></g>
+            <path class="leader" d="M871 384L828 267"/>
             <circle class="point" cx="828" cy="267" r="4"/>
-            <text class="tag" x="889" y="411" text-anchor="end">Reed comb</text>
+            <g class="tag"><rect x="792" y="384" width="158" height="42" rx="7"/>
+              <text x="871" y="413">Reed comb</text></g>
           </svg>
         </div>
-      <figcaption>The rim at the rod end seats on the comb's tab. The reader uses that rim as the carbonator's bottom reference, with positions increasing into the tube.</figcaption>
+      <figcaption>The tube rim at the slide end seats against the comb tab. That rim represents the bottom of the upright carbonator. Positions increase into the tube.</figcaption>
     </figure>
     <div class="split">
       <div><h2>The sled sets the gap</h2><p><b>NEAR</b>, <b>NOMINAL</b> and <b>FAR</b> place the
         same float progressively farther from the reeds. The sled's runners ride on the bore.</p></div>
       <div><h2>The switch sets home</h2><p>The striker trips the switch as the sled moves toward the
-        mouth. The distance from that trip to the tab ties the step count to the tube.</p></div>
+        mouth. The trip sets the controller's zero. The clearance from the tab puts that zero in the tube's coordinate system.</p></div>
     </div>
     <div class="mind">
       <span class="mind-label">Set up on wood or plastic</span>
-      <p>Keep loose steel, rulers and tools a hand's width from the tube during readings. Use the specified stainless fasteners by the mouth. The slide stays out at the end of the long push rod.</p>
+      <p>Steel can distort the float's magnetic field. Use the specified stainless fasteners near the tube mouth and keep loose steel tools and fasteners a hand's width from the tube while taking readings.</p>
     </div>
   </main>
   <footer><span>Reed sweep rig &middot; build guide</span><span class="folio">3</span></footer>

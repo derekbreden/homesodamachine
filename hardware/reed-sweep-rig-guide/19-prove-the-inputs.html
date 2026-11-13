@@ -2,42 +2,32 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>Prove the inputs on USB</title>
+  <title>Verify the inputs on USB</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 <article class="card">
   <header>
     <span class="eyebrow"><b>Check the wiring</b></span>
-    <h1>Prove the inputs on USB</h1>
+    <h1>Verify the inputs on USB</h1>
     <i class="rule"></i>
     <p class="lede">Leave the adapter and motor unplugged. Use the ESP32 console to check the reeds and home switch before the carriage can move.</p>
   </header>
   <main>
-    <div class="split">
-      <div>
-        <h2>Load the rig controller</h2>
-        <p>Find the board's port with <code>hsm-peripheral boards</code>. Run the commands below
-          from the checkout. The monitor reads its baud rate from the rig's PlatformIO target.</p>
-      </div>
-      <div>
-        <h2>Watch the reed inputs</h2>
-        <p>Lift the roller free and move the loaded sled along the tube by hand. Each wired
-          station reports an <code>R</code> line on closure and release. Put the roller back
-          in its slot once the check is done.</p>
-      </div>
-    </div>
+    <h2>Load the rig controller</h2>
+    <p>Use <code>pio device list</code> to find the port that appears when you connect the ESP32 over USB.
+      From the repository root, run these commands with that port in place of <code>&lt;port&gt;</code>.</p>
     <pre class="console">pio run -e reed_rig -t upload --upload-port &lt;port&gt;
 pio device monitor -e reed_rig --port &lt;port&gt; --echo</pre>
-    <h2>Watch the home input</h2>
+    <h2>Check reeds and home switch</h2>
     <ol class="actions">
+      <li>Lift the roller out of its slot and move the loaded sled by hand. Confirm that the console reports an <code>R</code> line at each closure and release, with the correct station number. Lower the roller back into its slot.</li>
       <li>Send <code>status</code> with the lever free. Press and hold it, then send <code>status</code> again. The console should read <code>home free</code>, then <code>home pressed</code>.</li>
-      <li>If those states are reversed, set <code>homelevel low</code> for a pin that goes low when pressed or <code>homelevel high</code> for one that goes high.</li>
-      <li>Repeat the press and release after any polarity change or controller reset. Leave the lever free.</li>
+      <li>If those states are reversed, read the pin level in <code>status</code> with the lever held. Send <code>homelevel low</code> for a low pin or <code>homelevel high</code> for a high pin. Repeat the lever check after any polarity change or reset, then leave the lever free.</li>
     </ol>
     <div class="gate">
-      <span class="gate-label">Both inputs are proven</span>
-      <p>Each intended reed changes on its assigned station and the home input follows the real lever. The endstop's light is a local indication. Use the console reading to confirm what the ESP32 sees.</p>
+      <span class="gate-label">Home switch ready</span>
+      <p>With the lever released, <code>status</code> reports the home input free and the controller has registered a switch change since power-up.</p>
     </div>
   </main>
   <footer><span>Reed sweep rig &middot; build guide</span><span class="folio">19</span></footer>

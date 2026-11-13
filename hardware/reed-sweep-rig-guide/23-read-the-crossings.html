@@ -2,22 +2,22 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>Use the directional crossings</title>
+  <title>Set reed heights from the sweep</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 <article class="card">
   <header>
-    <span class="eyebrow"><b>Calibration</b></span>
-    <h1>Use the directional crossings</h1>
+    <span class="eyebrow"><b>Run the rig</b></span>
+    <h1>Set reed heights from the sweep</h1>
     <i class="rule"></i>
-    <p class="lede">The dry rig measures the magnet's position relative to the reed. The float procedure supplies the waterline reading and the final liquid check.</p>
+    <p class="lede">Combine each reed's closure position with the float's measured waterline to calculate where the reed goes.</p>
   </header>
   <main>
     <figure>
       <svg class="schematic" viewBox="0 0 1100 418" role="img" aria-label="Illustrative rising and falling activation windows on a common axis. The rising closure occurs at the lower end of its window and the falling closure at the higher end.">
         <path class="datum" d="M550 70v274"/>
-        <text class="sub" x="550" y="55" text-anchor="middle">Glass centre</text>
+        <text class="sub" x="550" y="55" text-anchor="middle">Reed glass center</text>
         <path class="w-gnd" d="M270 149H1007M270 282H1007"/>
         <path d="M404 149H703M454 282H758" stroke="#1749d1" stroke-width="16" stroke-linecap="round"/>
         <path class="motion" d="M275 106H997m-17-12 17 12-17 12M997 326H275m17-12-17 12 17 12"/>
@@ -29,16 +29,21 @@
           <text x="638" y="384">Magnet position increases into the tube</text>
         </g>
       </svg>
-      <figcaption>The blue span is a closed contact. The sketch shows how to choose the closure for each direction. Use the positions from your run.</figcaption>
+      <figcaption>The blue spans show where the contact is closed. Follow the arrow for each leg to find the closure at the start of that leg's closed window.</figcaption>
     </figure>
     <ol class="actions">
-      <li>Capture NOMINAL, then NEAR and FAR, in separate directories. Home again after changing sleds.</li>
-      <li>Read the directional closing and opening positions and their spread in <code>sweep.json</code>. Keep separate activation regions and retain <code>raw.log</code> so the run can be replayed.</li>
-      <li>Use the inward closure for full and the return closure for empty. In the same height frame, add the measured magnet-to-liquid offset to the target liquid height, then subtract the signed magnet-to-reed offset at closure. Record the result in the <a href="https://github.com/derekbreden/homesodamachine/blob/main/hardware/printed-parts/cold-core/magnetic-float/all-aero/reed-calibration.json">reed calibration record</a>.</li>
+      <li>Run NOMINAL, NEAR and FAR in separate directories. Check clearance and home again each time you change sleds.</li>
+      <li>For each reed, read the closure and release positions and their spread in <code>sweep.json</code>. Retain separate activation windows and keep <code>raw.log</code> for replay.</li>
+      <li>Use the rising closure for full (pump off) and the falling closure for empty (pump on). For each threshold, use the signed offsets below to calculate the reed center height. Record the result and the release position in the <a href="https://github.com/derekbreden/homesodamachine/blob/main/hardware/printed-parts/cold-core/magnetic-float/all-aero/reed-calibration.json">reed calibration record</a>.</li>
     </ol>
+    <div class="calculation">
+      <p><b>Reed center height</b> = target liquid height + <i>a</i> &minus; <i>d</i></p>
+      <p><i>a</i> = magnet center height minus liquid surface height, measured with the float in liquid.<br>
+        <i>d</i> = magnet center height minus reed center height, from the directional closure in <code>sweep.json</code>.</p>
+    </div>
     <div class="gate">
       <span class="gate-label">Check in liquid before fixing the reeds</span>
-      <p>Confirm both control crossings are accessible and repeatable in the intended vessel. Apply the acceptance limits in the <a href="https://github.com/derekbreden/homesodamachine/blob/main/hardware/printed-parts/cold-core/magnetic-float/all-aero/installation.md#reed-calibration">float calibration procedure</a> before soldering fixed columns or printing the final bridge.</p>
+      <p>In the intended vessel, confirm both crossings repeat and occur before their respective travel stops. Apply the acceptance limits in the <a href="https://github.com/derekbreden/homesodamachine/blob/main/hardware/printed-parts/cold-core/magnetic-float/all-aero/installation.md#reed-calibration">float calibration procedure</a> before soldering fixed columns or printing the final bridge.</p>
     </div>
     <p><a href="https://github.com/derekbreden/homesodamachine/blob/main/hardware/assembly/reed-sweep-rig.md">Rig procedure and log processing</a></p>
   </main>
