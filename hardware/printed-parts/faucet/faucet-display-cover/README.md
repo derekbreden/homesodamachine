@@ -59,10 +59,13 @@ below the bezel's inner face: most at mid-length, where the side flexes freely,
 fading toward the front and rear walls, which hold the side's ends. That bow is
 the shape a side springs back to when its lip is pushed out to the groove root,
 so the seated cover bears on its two lips and clears the neck along the rest of
-both sides. Past each lip's end the print lets the side out a little more, most
-at its fore and aft tips, because the ends spring back less than the bow allows.
-[`numbers.rs`](numbers.rs) holds the bow's shares of the lip's lean and the ends'
-relief.
+both sides. Past each lip's end the print lets the side out further, where it
+springs back least: up the front rim at the fore end and at the tip at the aft
+end. A side left to bear on the neck there is wedged outward, and that levers
+the arch beside it up off the neck. Over the dispense cap the arch keeps the
+neck's clearance, with a pocket at its crown where its underside prints low
+over its support. [`numbers.rs`](numbers.rs) holds the bow's shares of the lip's
+lean, the ends' relief and the crown's pocket.
 The lips' inner corners carry chamfers, and their flat lower lands seat on the
 groove floors.
 
