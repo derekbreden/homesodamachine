@@ -1,18 +1,16 @@
 //! What the display covers share, in the tip frame of `Gooseneck::tip_frame`: x across the neck,
 //! s back up it from the tube exit, n out through the glass. The round neck the cover closes on,
 //! the lips that snap into the shell's grooves, their inner corners relieved, and the relaxed
-//! print, each wing leaned inward below the bezel by the preload it springs back from on the neck.
+//! print, each side standing inward below the bezel by what it springs back from on the neck: a
+//! rigid lean (`relaxed`), or a move that varies along the side (`relaxed_by`).
 use crate::Gooseneck;
 use crate::shell::PAST;
 use anyhow::{Result, anyhow, ensure};
 use hsm_faucet_numbers::shell::{
-    DISPLAY_CLIP_BOTTOM_N, DISPLAY_CLIP_TOP_N, DISPLAY_COVER_BOTTOM_N, DISPLAY_COVER_FRONT_RIM_N,
-    DISPLAY_COVER_FRONT_RIM_SLOPE, DISPLAY_COVER_REAR_TRIM_DS_DN, DISPLAY_COVER_REAR_TRIM_S0,
-    DISPLAY_NECK_OUTER_R, DISPLAY_WING_CORNER_GROOVE_DEPTH, DISPLAY_WING_CORNER_GROOVE_HALF_WIDTH,
-    DISPLAY_WING_CORNER_GROOVE_REAR_END_N, DISPLAY_WING_CORNER_GROOVE_RUN, DISPENSE_FACE_THICKNESS,
-    TUBE_SHELL_CENTER_Y, display_clip_s_bottom, display_clip_s_top,
+    DISPLAY_CLIP_BOTTOM_N, DISPLAY_CLIP_TOP_N, TUBE_SHELL_CENTER_Y, display_clip_s_bottom, display_clip_s_top,
 };
 use hsm_kernel::*;
+use std::collections::HashMap;
 
 /// The tip frame as a plane: a point (x, s, n) of the frame is the plane's (x, y, z).
 pub fn tip_plane(neck: &Gooseneck) -> Result<Plane> {
@@ -26,70 +24,6 @@ pub fn tip_plane(neck: &Gooseneck) -> Result<Plane> {
 #[track_caller]
 pub fn neck_round(neck: &Gooseneck, r: f64) -> Result<Solid> {
     neck.sweep(&Profile::circle(v2(0.0, TUBE_SHELL_CENTER_Y), r), 0.0, neck.length() + PAST)
-}
-
-/// The shallow grooves in the Sculpted tip along the wing corners, where the arch and the
-/// bottom of the skirt meet. The paths follow the cover's trim planes in the display frame.
-pub(crate) fn sculpted_wing_corner_grooves(neck: &Gooseneck) -> Result<Vec<Solid>> {
-    let front_s = |n| (DISPLAY_COVER_FRONT_RIM_N - n) / DISPLAY_COVER_FRONT_RIM_SLOPE;
-    let rear_s = |n| DISPLAY_COVER_REAR_TRIM_S0 + n * DISPLAY_COVER_REAR_TRIM_DS_DN;
-    let n = DISPLAY_COVER_BOTTOM_N;
-    let front = v2(front_s(n), n);
-    let rear = v2(rear_s(n), n);
-    let front_end_s = DISPENSE_FACE_THICKNESS + PAST;
-    let front_arch = v2(front_end_s, DISPLAY_COVER_FRONT_RIM_N - front_end_s * DISPLAY_COVER_FRONT_RIM_SLOPE);
-    let rear_end_n = DISPLAY_WING_CORNER_GROOVE_REAR_END_N;
-    let rear_arch = v2(rear_s(rear_end_n), rear_end_n);
-    let run = v2(DISPLAY_WING_CORNER_GROOVE_RUN, 0.0);
-    let round = Round { c: TUBE_SHELL_CENTER_Y, bend: neck.radius, tip: neck.tip, r: DISPLAY_NECK_OUTER_R };
-    let frame = tip_plane(neck)?;
-    let mut grooves = Vec::with_capacity(4);
-    for side in [-1.0, 1.0] {
-        for (start, corner, end) in [(front + run, front, front_arch), (rear - run, rear, rear_arch)] {
-            grooves.push(wing_corner_groove(&round, side, start, corner, end)?.placed(&Plane::XY, &frame));
-        }
-    }
-    Ok(grooves)
-}
-
-/// Loft the cutter with a common mitred section at the corner. The floor follows the neck
-/// in X, blending out into the skin across the groove and towards both ends of the path.
-fn wing_corner_groove(round: &Round, side: f64, start: V2, corner: V2, end: V2) -> Result<Solid> {
-    let across = |v: V2| v2(-v.y, v.x).unit();
-    let before = across(corner - start);
-    let after = across(end - corner);
-    let bisector = (before + after).unit();
-    let miter = bisector / bisector.dot(before);
-    let section = |point: V2, across: V2, depth: f64| -> Result<Region> {
-        let mut profile = Vec::with_capacity(11);
-        let half_width = DISPLAY_WING_CORNER_GROOVE_HALF_WIDTH;
-        for i in -4..=4 {
-            let t = f64::from(i) / 4.0;
-            let p = point + across * (half_width * t);
-            let blend = (1.0 - t * t).powi(2);
-            let surface = round.edge(side, p.y, p.x)?;
-            profile.push(surface - V3::X * (side * depth * blend));
-        }
-        for sign in [1.0, -1.0] {
-            let p = point + across * (sign * half_width);
-            profile.push(v3(side * (round.r + PAST), p.x, p.y));
-        }
-        Ok(Region::polygon(profile))
-    };
-    let steps = |length: f64| (length / STEP).ceil() as usize;
-    let depth = |t: f64| DISPLAY_WING_CORNER_GROOVE_DEPTH * (1.0 - t).powi(2) * (1.0 + 2.0 * t);
-    let mut sections = vec![];
-    let before_steps = steps((corner - start).norm());
-    for i in (0..=before_steps).rev() {
-        let t = i as f64 / before_steps as f64;
-        sections.push(section(corner + (start - corner) * t, miter + (before - miter) * t, depth(t))?);
-    }
-    let after_steps = steps((end - corner).norm());
-    for i in 1..=after_steps {
-        let t = i as f64 / after_steps as f64;
-        sections.push(section(corner + (end - corner) * t, miter + (after - miter) * t, depth(t))?);
-    }
-    Solid::loft(&sections)
 }
 
 /// How far a relief cutter stands out past the faces it cuts between, into the air.
@@ -220,4 +154,107 @@ pub fn relaxed(neck: &Gooseneck, seated: &Solid, open: &Solid, bezel_n: f64, slo
         pieces.push(wing.mapped(&t)?);
     }
     Ok(Solid::union_all(&pieces)?.placed(&Plane::XY, &frame))
+}
+
+/// The longest edge the relaxed print's bent faces are split to, in mm.
+const BEND_EDGE: f64 = 2.0;
+
+/// How far out from the middle of the neck a side's whole move applies. Inboard of it the move
+/// fades to nothing at the middle, where the two sides meet in the cover's end walls.
+const BEND_FULL_X: f64 = 8.0;
+
+/// The relaxed print of a cover whose sides spring back by different amounts along their length:
+/// the seated cover's bezel above `bezel_n` as it is, and below it every point moved in toward the
+/// neck by `inward(s, n)`, which is nothing at the bezel. The lower part is taken from `open`, as
+/// `relaxed` takes its wings.
+pub fn relaxed_by(neck: &Gooseneck, seated: &Solid, open: &Solid, bezel_n: f64, inward: impl Fn(f64, f64) -> f64) -> Result<Solid> {
+    let frame = tip_plane(neck)?;
+    let top = seated.placed(&frame, &Plane::XY).trim(&Plane::XY.at(v3(0.0, 0.0, bezel_n)))?;
+    let below = open.placed(&frame, &Plane::XY).trim(&Plane::new(v3(0.0, 0.0, bezel_n), V3::X, -V3::Z)?)?;
+    let bent = warped(&below, BEND_EDGE, |p| {
+        let across = (p.x / BEND_FULL_X).clamp(-1.0, 1.0);
+        v3(p.x - across * inward(p.y, p.z), p.y, p.z)
+    })?;
+    Ok(top.union(&bent)?.placed(&Plane::XY, &frame))
+}
+
+/// How far a bent point may stand off a face's surface and the face still keep its record.
+const ON_SURFACE: f64 = 1e-9;
+
+/// `solid` carried point for point by `f`, a smooth map that bends, which no affine map gives.
+/// Its triangles are first split until no edge is longer than `max_edge`, so a bent face follows
+/// `f` that closely. A plane whose points all stay on it keeps its record, as does any face `f`
+/// leaves where it is; every other face becomes a free surface, as `Solid::mapped` makes one.
+fn warped(solid: &Solid, max_edge: f64, f: impl Fn(V3) -> V3) -> Result<Solid> {
+    let (verts, tris, face_of) = refined(solid.verts(), solid.tris(), solid.face_of(), max_edge)?;
+    let moved: Vec<V3> = verts.iter().map(|&p| f(p)).collect();
+    ensure!(moved.iter().all(|p| p.x.is_finite() && p.y.is_finite() && p.z.is_finite()), "a bend left a point nowhere");
+    let mut kept = vec![true; solid.faces().len()];
+    for (t, &face) in tris.iter().zip(&face_of) {
+        let face = face as usize;
+        for &v in t {
+            let (was, is) = (verts[v as usize], moved[v as usize]);
+            kept[face] &= match solid.faces()[face].surface {
+                Surface::Plane { p, n } => (is - p).dot(n).abs() <= ON_SURFACE,
+                _ => (is - was).norm() <= ON_SURFACE,
+            };
+        }
+    }
+    let faces: Vec<Face> = solid
+        .faces()
+        .iter()
+        .zip(&kept)
+        .map(|(face, &kept)| if kept { *face } else { Face { surface: Surface::Free { kind: "BSPLINE" }, ..*face } })
+        .collect();
+    Solid::from_mesh(&moved, &tris, &face_of, &faces)
+}
+
+/// The mesh with every edge longer than `max_edge` halved, and halved again until none is. Each
+/// long edge takes one midpoint, which both of its triangles use, so the surface stays closed.
+fn refined(verts: &[V3], tris: &[[u32; 3]], face_of: &[u32], max_edge: f64) -> Result<(Vec<V3>, Vec<[u32; 3]>, Vec<u32>)> {
+    ensure!(max_edge > 0.0, "a bend's longest edge must be positive");
+    let mut verts = verts.to_vec();
+    let mut tris = tris.to_vec();
+    let mut face_of = face_of.to_vec();
+    for _ in 0..64 {
+        let mut mids: HashMap<(u32, u32), u32> = HashMap::new();
+        let mut next = Vec::with_capacity(tris.len());
+        let mut next_face = Vec::with_capacity(tris.len());
+        for (t, &face) in tris.iter().zip(&face_of) {
+            // The midpoint of each edge `t[k]` to `t[k + 1]` that is too long.
+            let mut mid = [None; 3];
+            for k in 0..3 {
+                let (a, b) = (t[k], t[(k + 1) % 3]);
+                let (pa, pb) = (verts[a as usize], verts[b as usize]);
+                if (pa - pb).norm() > max_edge {
+                    mid[k] = Some(*mids.entry((a.min(b), a.max(b))).or_insert_with(|| {
+                        verts.push((pa + pb) * 0.5);
+                        (verts.len() - 1) as u32
+                    }));
+                }
+            }
+            let pieces: Vec<[u32; 3]> = match mid {
+                [None, None, None] => vec![*t],
+                [Some(ab), Some(bc), Some(ca)] => vec![[t[0], ab, ca], [ab, t[1], bc], [ca, bc, t[2]], [ab, bc, ca]],
+                _ => {
+                    // Turn the triangle so its first edge is split and its last is whole.
+                    let whole = (0..3).find(|&k| mid[k].is_none() && mid[(k + 1) % 3].is_some()).expect("a split edge follows a whole one");
+                    let [a, b, c] = [t[(whole + 1) % 3], t[(whole + 2) % 3], t[whole]];
+                    let ab = mid[(whole + 1) % 3].expect("the first edge is split");
+                    match mid[(whole + 2) % 3] {
+                        Some(bc) => vec![[ab, b, bc], [a, ab, bc], [a, bc, c]],
+                        None => vec![[a, ab, c], [ab, b, c]],
+                    }
+                }
+            };
+            next_face.extend(std::iter::repeat_n(face, pieces.len()));
+            next.extend(pieces);
+        }
+        if mids.is_empty() {
+            return Ok((verts, tris, face_of));
+        }
+        tris = next;
+        face_of = next_face;
+    }
+    Err(anyhow!("a bend's triangles never came down to edges of {max_edge}"))
 }
