@@ -59,10 +59,13 @@
 // entry naming nothing is the normal state and not a stale line.
 export const EXCLUDED_DIRS = [
   "assembly/scenes/out",
-  "fdm-print-guide/out",
+  "carbonator-filming-guide/out",
   "gun-positioner-guide/out",
   "install-guide/out",
   "magnetic-float-guide/out",
+  "manifold-layout/studies/east-feed/out",
+  "manifold-layout/studies/stem-fittings/out",
+  "manifold-layout/studies/wall-supported/out",
   "pcb/pcba/out",
   "printing-the-machine/out",
   "quickstart-claude/out",
@@ -71,6 +74,7 @@ export const EXCLUDED_DIRS = [
   "quickstart/plumbing/out",
   "quickstart/studies/first-power-link/out",
   "reed-sweep-rig-guide/out",
+  "tube-insertion-guide/out",
   "weld-rotator-guide/out",
 ];
 

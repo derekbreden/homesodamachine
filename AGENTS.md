@@ -54,15 +54,13 @@ reading the next export. These commands run only when the current question needs
 
 ## FDM printing
 
-Start with the [FDM print guide](hardware/fdm-print-guide/README.md) when designing
+Start with [Printing the Machine](hardware/printing-the-machine/README.md) when designing
 for FDM, comparing fit coupons, preparing a plate, or diagnosing a print. This
-also applies to trials outside `hardware/printed-parts`. Read the fundamentals
-and the entry for the material or feature you are working on. The guide points
-to the owning recipes, native slice reviews, and bench evidence.
-
-[Printing the Machine](hardware/printing-the-machine/README.md) tells those lessons one
-print at a time, a page each, sorted by plastic. Every page names the plastic, printer,
-plate and nozzle its evidence comes from. Read the part for the plastic you are printing.
+also applies to trials outside `hardware/printed-parts`. The book tells each lesson on
+the print that taught it, a page each, sorted by plastic, and every page names the
+plastic, printer, plate and nozzle its evidence comes from. Read "Before any filament"
+and the part for the plastic you are printing. Its index points to the owning recipes,
+native slice reviews, and bench evidence.
 
 ## Mechanical Layout
 

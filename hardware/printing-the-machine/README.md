@@ -30,12 +30,22 @@ not a rule for another, so read the part for the plastic you are printing.
 | Send a job | [The H2C: a send is proven only by a new job number](56-a-send-is-proven-only-by-a-new-job-number.html) · [The H2C: start the second printer three minutes after the first](55-start-the-second-printer-three-minutes-after-the-first.html) |
 | Diagnose an overload message | [The H2C: one overload message, three causes](57-one-message-three-causes.html) |
 
-The current recipes and their rules are owned elsewhere, and this book links to them page by page:
-[`hardware/printed-parts/AGENTS.md`](../printed-parts/AGENTS.md) for the print rules,
-[`hardware/printed-parts/petgf.3mf`](../printed-parts/petgf.3mf) for the PET-GF recipe,
-[`hardware/printed-parts/cooling/README.md`](../printed-parts/cooling/README.md) for cooling,
-[`tools/bambu-printers.md`](../../tools/bambu-printers.md) for the printers, and
-[`hardware/fdm-print-guide/README.md`](../fdm-print-guide/README.md) for the earlier twelve-page guide and its index.
+## The owning files
+
+The current recipes and rules are owned by these files, and the book's pages link into them.
+
+| For | Owner |
+| --- | --- |
+| The print rules for every printed part | [`hardware/printed-parts/AGENTS.md`](../printed-parts/AGENTS.md) |
+| Preparing a plate: part recipes, declared layer features, the review before a send | [`trial-preparation/README.md`](../printed-parts/enclosure/trial-preparation/README.md) |
+| Reading a print mesh | [`tools/hsm/mesh-review/README.md`](../../tools/hsm/mesh-review/README.md) |
+| PET-GF: recipe, cooling, supports | [`petgf.3mf`](../printed-parts/petgf.3mf) · [`cooling/README.md`](../printed-parts/cooling/README.md) · [`support-D-rollout.json`](../printed-parts/support-D-rollout.json) · [support-removal strategy](../printed-parts/enclosure/enclosure/README.md#support-removal-strategy) |
+| PET-GF faucets | [Industrial](../printed-parts/faucet/industrial/faucet-industrial-petgf.md) · [Sculpted](../printed-parts/faucet/sculpted/README.md) |
+| PETG: reservoirs and lids, the funnel cover, the molds | [`reservoir/README.md`](../printed-parts/cold-core/reservoir/README.md) · [`funnel-cover/README.md`](../printed-parts/zone-c/funnel-cover/README.md) · [`funnel-mold/print-log.md`](../printed-parts/zone-c/funnel-mold/print-log.md) |
+| TPU: the sleeve, gaskets, elbows | [`tpu-o-ring/README.md`](../printed-parts/faucet/tpu-o-ring/README.md) · [`gaskets-print-log.md`](../printed-parts/gaskets-print-log.md) · [`pump-elbow-exploration`](../../future/pump-elbow-exploration/README.md) |
+| ASA Aero: the float | [`all-aero/README.md`](../printed-parts/cold-core/magnetic-float/all-aero/README.md) |
+| The printers: runbook, first-layer trims, maintenance, what dries where | [`tools/bambu-printers.md`](../../tools/bambu-printers.md) · [`z-trim.md`](../printed-parts/z-trim.md) · [`tools/bambu-maintenance.md`](../../tools/bambu-maintenance.md) · [`ledger/tools.md`](../ledger/tools.md) |
+| What Derek has tried in hand, in his words | [`hardware/ledger/fitted.json`](../ledger/fitted.json) |
 
 ## Every page, by part
 
@@ -129,7 +139,7 @@ The current recipes and their rules are owned elsewhere, and this book links to 
 
 These have prints on record and no page: how far PET-GF leans, and its bridges and fins; screws and heat-set inserts;
 why clear PETG moved to a glued plate, and PETG's molds; reading back the file the printer receives. For those, start from
-[`hardware/printed-parts/AGENTS.md`](../printed-parts/AGENTS.md) and the [FDM print guide](../fdm-print-guide/README.md).
+[the owning files](#the-owning-files).
 
 ## Keeping the book
 
