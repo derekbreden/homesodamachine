@@ -16,7 +16,7 @@ use crate::refresh::Refreshed;
 use crate::rim_contour::{self, RimSpec};
 use crate::stretch_cooling::{self, Stretch};
 use crate::{apply, sha256_hex, xml};
-use hsm_faucet_numbers::{paths::TOTAL_ANGLE, shell::DISPENSE_FACE_THICKNESS};
+use hsm_faucet_numbers::{paths::TOTAL_ANGLE, shell::{DISPENSE_FACE_THICKNESS, TUBE_SHELL_CENTER_Y, TUBE_SHELL_OUTER_R}};
 
 type Point = [f64; 3];
 type Face = [usize; 3];
@@ -766,6 +766,19 @@ pub fn add_tip_dispense_contact(project: &mut Refreshed, spec: &Value, parameter
     }
     let mut band = json!({"parameters": parameters, "plane_normal": normal, "seat_plate_mm": seat,
         "bounds_mm": window, "edge_blend_mm": spec["mapping_edge_blend_mm"], "refine_mesh_interiors": true});
+    if let Some(blend) = spec.get("outside_wall_inboard_blend_mm") {
+        // The mapping fades out toward the tube's outside wall, round the tube's centre line
+        // where it meets the supported face.
+        let [exit, up, out] = hsm_faucet_numbers::shell::tip_frame();
+        let centre = add(exit, add(scale(up, DISPENSE_FACE_THICKNESS), scale(out, TUBE_SHELL_CENTER_Y)));
+        let mut centre = add(apply(&object.rotation, sub(centre, row.center)), object.translation);
+        let off_face = (inside.offset - dot(normal, centre)) / normal[2];
+        ensure!(normal[0].abs() < 1e-6 && off_face.abs() < 0.01, "the tube's centre line misses the supported dispense face");
+        centre[2] += off_face;
+        band["seat_plate_mm"] = json!(centre);
+        band["rim_semi_axes_mm"] = json!([TUBE_SHELL_OUTER_R, TUBE_SHELL_OUTER_R]);
+        band["rim_inboard_blend_mm"] = blend.clone();
+    }
     ContactBand::new(&band)?;
     ensure!(band["parameters"]["contact_zero_weight_mm"][1].as_f64().unwrap_or(f64::INFINITY)
         < DISPENSE_FACE_THICKNESS / normal[2].abs(), "the dispense mapping reaches the exterior face");
