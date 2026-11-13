@@ -1,0 +1,65 @@
+{
+  "archive": "reed-sweep-rig-small-parts-petgf-left04-z018-mark1.gcode.3mf",
+  "archive_sha256": "d431b6a43a6e42af405d45f9f7b6c88f5e7cdaf507c6cb45022f43180fb8e277",
+  "bead_envelope": {
+    "bounds_padding_mm": 0.479151,
+    "extrusion_bounds_xy_mm": [
+      [
+        45.230849,
+        83.580849
+      ],
+      [
+        279.769151,
+        235.673151
+      ]
+    ],
+    "maximum_line_width_mm": 0.758302
+  },
+  "bead_margin_mm": [
+    45.230849,
+    83.580849,
+    45.23084899999998,
+    84.32684900000001
+  ],
+  "estimated_filament_g": 70.00122833251953,
+  "estimated_seconds": 12257.506005471056,
+  "features": [
+    "Bottom surface",
+    "Bridge",
+    "Custom",
+    "Floating vertical shell",
+    "Gap infill",
+    "Inner wall",
+    "Internal solid infill",
+    "Outer wall",
+    "Overhang wall",
+    "Sparse infill",
+    "Top surface"
+  ],
+  "gcode_sha256": "89413caf7d590d2206684ed70fd982e48827a0a7bc7471e49336ae8ec212d670",
+  "layers": 219,
+  "native_process": {
+    "layer_height": 0.23999999463558197,
+    "sparse_infill_density": 15.0,
+    "wall_loops": 2
+  },
+  "nozzle_mapping": "Left hardened 0.4 mm; black PET-GF external spool 254",
+  "plate_trim_commands_mm": [
+    0.0,
+    0.16
+  ],
+  "printer": "Mark1 (H2C)",
+  "printer_submission": false,
+  "project": "reed-sweep-rig-small-parts-petgf-left04-z018-mark1.3mf",
+  "project_sha256": "721e2699c681151cbfbe92208cf78f82cf6211de6d6d3d83b9cdfc6d555122c8",
+  "slicer_warning": "",
+  "source_stls": {
+    "hardware/printed-parts/fixtures/reed-sweep-rig/reed-sweep-rig-comb.stl": "3b29f25ec1c30b154f9ca90845024cf286564393e1008174cc006a9b8d336463",
+    "hardware/printed-parts/fixtures/reed-sweep-rig/reed-sweep-rig-rod.stl": "731cdf9580edeb2f87fa32f5029b67b80bdb3580de398c8af489b55bd59ed98d",
+    "hardware/printed-parts/fixtures/reed-sweep-rig/reed-sweep-rig-sled-far.stl": "efaa94727eb064ac5c2461980c2c14a06c0be37f09c1b937a7860674f455469d",
+    "hardware/printed-parts/fixtures/reed-sweep-rig/reed-sweep-rig-sled-near.stl": "20a64b47c2d939c23d9abdb6197f40dbd61e567cab43df975957c816fd7d8be5",
+    "hardware/printed-parts/fixtures/reed-sweep-rig/reed-sweep-rig-sled-nominal.stl": "28af104488c79f77c588ae73c9c6cf27717392726e3f54957d96bd761ff8ba5d"
+  },
+  "status": "offline slice reviewed; no physical print or force qualification",
+  "support_generated": false
+}
