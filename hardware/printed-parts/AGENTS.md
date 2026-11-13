@@ -1,5 +1,8 @@
 # Printed parts
 
+The [FDM print guide](../fdm-print-guide/README.md) routes printing work to the
+fundamentals, material recipes, and examples. Use it for both parts and coupons.
+
 ## Publish loop
 
 Find a part by the description Derek uses:
@@ -134,7 +137,9 @@ receiver ledges and pulls aft. Manual Tree Slim supports exposed joint ends,
 funnel receivers, the valve seat, initial boss curves and routing lands. Read the
 actual removal openings and first model courses in the native slice. Keep blind pilot roofs
 outside support enforcers. Connector insertion pockets bridge between their well
-walls and remain support-free. Read each exposed underside's first deposited courses
+walls and remain support-free. A bridge path needs a landing at both ends. Follow
+the first paths across the opening to the deposited courses that carry them.
+Read each exposed underside's first deposited courses
 and its actual support contacts; the support topology alone does not establish
 coverage. Derive contact bands from the complete receiver stock and its exposed
 undersides; keep the self-supporting bed chamfer outside joint enforcers.
@@ -180,7 +185,10 @@ use the nominal 3 mm wall section. Remove cut remnants and tapered tips that lea
 Apply thinner-section exceptions only to the specific flexure, cover or other feature that
 requires them.
 
-Use a 0.20 mm first bed layer and normal 0.24 mm layers above it. Expanding
+Use the shared project's first bed layer and ordinary layer schedule. Keep the
+production schedule for geometry and fit comparisons. If a requested dimension
+slices to the same opening, report the emitted dimension. Treat any change to
+the layer schedule as its own experiment. Expanding
 print-down show rounds use an additive chamfer tangent to their retained taper,
 following [`enclosure/enclosure/numbers/structure.rs`](enclosure/enclosure/numbers/structure.rs): 0.5 mm outward per millimetre of build rise.
 Use six walls locally through that transition band, saved speeds and wall-first order,

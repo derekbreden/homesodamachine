@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Cooling follows the toolpath</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<article class="card">
+  <header>
+    <p class="kicker">PET-GF</p>
+    <h1>Cooling follows the toolpath</h1>
+    <p class="lede">Use the shared Fiberon PET-GF15 project and the named part’s recipe. The part determines where it needs extra cooling.</p>
+  </header>
+  <main>
+<div class="stack">
+      <div class="two">
+        <table class="recipe">
+  <caption>Shared PET-GF project</caption>
+  <tbody>
+    <tr><th scope="row">Left nozzle</th><td>{{petgf:/nozzle_diameter/0}} mm</td></tr>
+    <tr><th scope="row">First / ordinary layers</th><td>{{petgf:/initial_layer_print_height}} / {{petgf:/layer_height}} mm</td></tr>
+    <tr><th scope="row">Nozzle, first / ordinary</th><td>{{petgf:/nozzle_temperature_initial_layer/0}} / {{petgf:/nozzle_temperature/0}} °C</td></tr>
+    <tr><th scope="row">Textured PEI bed</th><td>{{petgf:/textured_plate_temp/0}} °C</td></tr>
+    <tr><th scope="row">Walls / gyroid</th><td>{{petgf:/wall_loops}} / {{petgf:/sparse_infill_density}}</td></tr>
+    <tr><th scope="row">Infill / wall overlap</th><td>{{petgf:/infill_wall_overlap}}</td></tr>
+    <tr><th scope="row">Ordinary / auxiliary fan</th><td>{{petgf:/fan_max_speed/0}}% / {{petgf:/additional_cooling_fan_speed/0}}%</td></tr>
+    <tr><th scope="row">Overhang trigger / fan</th><td>{{petgf:/overhang_fan_threshold/0}} / {{petgf:/overhang_fan_speed/0}}%</td></tr>
+    <tr><th scope="row">Initial fan-off courses</th><td>{{petgf:/close_fan_the_first_x_layers/0}}</td></tr>
+  </tbody>
+</table>
+        <figure>
+  <img class="frame tall" src="art/cover-fracture.jpg" alt="White PET-GF cover fractured at its curved rim during assembly">
+  <figcaption><span class="caption-label">Bench photograph · cover fracture</span>The photographed cover peeled near the rim. Derek’s subsequent fan-off cover passed display loading and installation.</figcaption>
+</figure>
+      </div>
+      <div class="two">
+        <section class="lesson">
+          <h2>Cool the span and its footing</h2>
+          <p>Ordinary and auxiliary cooling stay off. The project adds part fan for bridges and qualifying overhangs. The output stage retains that fan on fresh courses over the cooled footprint and caps deposition there at bridge speed.</p>
+        </section>
+        <section class="lesson">
+          <h2>Give a small hot tip time</h2>
+          <p>Use the production batch when comparing small parts. Check the time before the nozzle returns to the same area. Where a recipe qualifies a separate tower, use its placement and retained time between visits.</p>
+        </section>
+      </div>
+      <p class="sources"><a href="https://github.com/derekbreden/homesodamachine/blob/main/hardware/printed-parts/petgf.3mf">Full project</a> · <a href="https://github.com/derekbreden/homesodamachine/blob/main/hardware/printed-parts/cooling/README.md">Cooling and recovery policy</a> · <a href="https://github.com/derekbreden/homesodamachine/blob/9ae148e1d78407917c1e8f6d0a78132e2fcbae5c/hardware/printed-parts/faucet/faucet-display-cover/prints/2026-10-17-cooling-off-prepared-mark2/reported-failure.json">Cover fracture report</a> · <a href="https://github.com/derekbreden/homesodamachine/blob/9ae148e1d78407917c1e8f6d0a78132e2fcbae5c/hardware/printed-parts/faucet/faucet-display-cover/prints/2026-10-17-cooling-off-prepared-mark2/physical-result.json">Fan-off cover evidence</a></p>
+    </div>
+  </main>
+  <footer><span>Home Soda Machine · FDM print guide</span><span>PET-GF · Cooling · 06</span></footer>
+</article>
+</body>
+</html>

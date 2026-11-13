@@ -52,6 +52,14 @@ Use `tools/inspect-part.mjs` for a focused view or `--measure-only` for a cleara
 question. Reuse its saved inspection to retain the subject, camera, neighbours and rays while
 reading the next export. These commands run only when the current question needs them.
 
+## FDM printing
+
+Start with the [FDM print guide](hardware/fdm-print-guide/README.md) when designing
+for FDM, comparing fit coupons, preparing a plate, or diagnosing a print. This
+also applies to trials outside `hardware/printed-parts`. Read the fundamentals
+and the entry for the material or feature you are working on. The guide points
+to the owning recipes, native slice reviews, and bench evidence.
+
 ## Mechanical Layout
 
 Finish the mechanical layout before placing Wagos or routing wires. Position
