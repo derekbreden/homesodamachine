@@ -115,6 +115,14 @@ pub const SPECS: &[Spec] = &[
             "tools/bambu-printers.md",
         ],
     },
+    Spec {
+        id: "printing-the-machine",
+        title: "Printing the Machine",
+        subtitle: "FDM lessons from printing the Home Soda Machine, by plastic",
+        contents_links: false,
+        delivery_copy: false,
+        sources: &[],
+    },
 ];
 
 pub fn leaves(guide: &Path) -> Result<Vec<PathBuf>> {
@@ -345,7 +353,7 @@ fn source_paths(
             paths.insert(path);
         }
     }
-    if spec.id == "fdm-print-guide" {
+    if guide.join("guide-inputs.json").is_file() {
         for input in print_guide_inputs(guide)?.into_values() {
             if input.revision.is_none() {
                 paths.insert(root.join(input.path));
@@ -499,7 +507,7 @@ pub fn bind(
                 }
             }
         }
-        if name == "fdm-print-guide" {
+        if guide.join("guide-inputs.json").is_file() {
             let staged = print_guide_leaves(root, &guide, &out, &pages)?;
             run_renderer(root, &staged, &out, &leaves(&staged)?, selected)?;
         } else {
