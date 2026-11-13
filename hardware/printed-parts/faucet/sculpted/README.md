@@ -84,7 +84,7 @@ bear on the groove roots and clear the rest of the neck when seated, as the
 [cover's geometry](../faucet-display-cover/README.md#geometry) describes. The
 [wing contact record](https://github.com/derekbreden/homesodamachine/blob/2ac8b452d916cb323d39cce42306069da7a25f91/hardware/printed-parts/faucet/sculpted/prints/2026-11-12-wing-end-relief-mark1/physical-result/physical-result.json)
 locates where a rigidly leaned cover's wing ends bore on the tip instead. The
-[bowed cover's fit record](https://github.com/derekbreden/homesodamachine/blob/d4792f7b56c9645f29ceacbd7c33ce57d7f79e40/hardware/printed-parts/faucet/sculpted/prints/2026-11-12-bowed-cover-tip-end-cooling-mark2/physical-result/physical-result.json)
+[bowed cover's fit record](https://github.com/derekbreden/homesodamachine/blob/2ec8379a49dab4833c363c0129f5298c7435f70f/hardware/printed-parts/faucet/sculpted/prints/2026-11-12-bowed-cover-tip-end-cooling-mark2/physical-result/physical-result.json)
 holds Derek's approval of the bowed cover on this tip, with its aft tips touching the neck and
 its front edge lying on the tip for part of its run. The cover's end relief is for both; its
 fit remains a print result.
