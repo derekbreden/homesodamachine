@@ -1,0 +1,57 @@
+{
+  "date": "2026-11-13",
+  "reported_by": "Derek",
+  "scope": "Single six-dot front-top Wago fit coupon with floor-rooted tree supports and no prime tower.",
+  "job": {
+    "printer": "H2C",
+    "task_id": "1438015656",
+    "archive": {
+      "gcode_sha256": "374a1a18cb9ce997aeefb8fd2cd6e308892a826680b6e9501d85b2d594e43d28",
+      "name": "front-top-wago-fit-mark1-rail-trees-ready.gcode.3mf",
+      "objects": [
+        "Wago six dots"
+      ],
+      "sha256": "71c0bad3eca403b01ce5a2510c6b258a551e61819f305b4480b92a4af9ec0024",
+      "slots": {
+        "1": {
+          "colour": "000000",
+          "type": "PET-CF"
+        }
+      }
+    }
+  },
+  "observations": [
+    "Printing one at a time with no prime tower on this size coupon did not work with our current settings. We got a melty blob."
+  ],
+  "production_fit_acceptance": {
+    "said": "please implement that, and call it fitted close enough and good enough.",
+    "basis": "Derek accepts the pocket dimensions from the fit series for production. The photographed coupon is distorted.",
+    "per_side_reduction_yz_mm": {
+      "wago-mana": [
+        0.2,
+        0.05
+      ],
+      "wago-manb": [
+        0.25,
+        0.05
+      ]
+    },
+    "pocket_depth_x_mm": 8.7,
+    "roof": "Bridge from sidewall to sidewall with the pocket clear of supports."
+  },
+  "photos": [
+    {
+      "path": "IMG_8638.jpeg",
+      "source_sha256": "6f52e158e003d3a1fe79b0b73f8ca1c42ba6dca02ddb2137508e31d91dd53698",
+      "sha256": "88e97e700323ab9607fbd7c0f83633725bbbc614c3323f2c6e78c2fad295c875",
+      "processing": "JPEG scan data, colour profile and orientation retained. Private metadata removed."
+    },
+    {
+      "path": "IMG_8639.jpeg",
+      "source_sha256": "23218a1f76e8f7fb836ffa2721151a4998afb10a95c121e4730fa9a4b64c1d7c",
+      "sha256": "237b65bbd037ac84d3e93ce9314e8ab236ae55d23d83efbc2e0ae0d09990f5fb",
+      "processing": "JPEG scan data, colour profile and orientation retained. Private metadata removed."
+    }
+  ],
+  "print_job": "../print-job.json"
+}
