@@ -1,0 +1,59 @@
+{
+  "date": "2026-11-12",
+  "reported_by": "Derek",
+  "printer_task_id": "1436504388",
+  "submitted_archive": {
+    "gcode_sha256": "00cbd7f4ff7b46bda75a43f6ac206f1f81b69bd88634cd375223583810f6e253",
+    "name": "sculpted-tip-cover-wing-end-relief-black-mark1-ready.gcode.3mf",
+    "sha256": "ca2961cd498b66cbdbb95809e4ea858a5b179657a4c9b26b7a640e3555533dee"
+  },
+  "scope": "Outside surface of the black Sculpted faucet tip at its dispense end, printed on Mark One.",
+  "print_identification": "The photographed tip carries the pockets beside its lip grooves, which this plate alone printed. Derek reports the same surface on every tip since the support recipe changed.",
+  "observations": [
+    "So on all of the prints since we started using the better supports, we've had this problem at the faucet tip.",
+    "You just need part cooling on for those surfaces that are rough on both sides, as you can see in the photos. Rough is maybe not the right word. We can be more precise about the exact shapes that are forming there, but hopefully you can see them yourself and choose your own words."
+  ],
+  "requested_change": [
+    "I want you to turn on part cooling for the area I highlighted in red there."
+  ],
+  "agent_reading": {
+    "author": "Claude, from the photos and this plate's G-code; not Derek's words.",
+    "surface": "On both sides of the tube, for a few millimetres back from the dispense face, the layer lines leave their even pitch: they bunch into ridges, wander off level and sag between ridges. The rim of the dispense face carries lumps and torn strands. The tube beyond the band is even.",
+    "gcode": "On the tube's outside skin this plate lays most of its outer-wall beads off their layer's height in the same band: by distance back from the dispense face, about two thirds of the points in the first 2 mm, three quarters from 2 to 4 mm and two fifths from 4 to 6 mm, by up to 0.67 mm, and none beyond 12 mm. The off-level motion is the inner dispense face's contact mapping, whose window takes in the outside walls. The part fan is off for about nine tenths of the wall motion in the band.",
+    "limits": "The G-code reading locates commanded motion. It does not establish how much of the surface comes from off-level beads and how much from heat."
+  },
+  "image_processing": "JPEG uploads copied unchanged. The marked photo was uploaded as a PNG and is saved as a JPEG at its full size.",
+  "images": [
+    {
+      "file": "tip-end-side.jpg",
+      "sha256": "f5291f6d60efaac4e77bdeffe75e3e42811f303eb7a83c9bd2d3cb90a9de9532",
+      "view": "Side of the tip with the lip groove's front end and the band by the dispense face."
+    },
+    {
+      "file": "tip-end-marked-band.jpg",
+      "sha256": "2d5f7f9d9b4f1e83561eaeb3472d973def03fd94720a9b7449d3c6a1fc40b125",
+      "upload_sha256": "67ff00534faff8795f3c6eef8770a4668403e03d6432370a9b40d6ba9c363d1f",
+      "view": "The same view with Derek's red outline round the band to cool."
+    },
+    {
+      "file": "tip-end-rim-close.jpg",
+      "sha256": "e170dd1ddc6f9c5654afb08a017af1e29bdecc6ff98a9a379462234d2b920a7d",
+      "view": "Close view of the rim of the dispense face from the display side."
+    },
+    {
+      "file": "tip-end-side-close.jpg",
+      "sha256": "23ac196677bdde1abb268bab4d357e4d86f9f57a629cba7a1ac55f6a80d96c78",
+      "view": "Close side view of the band and the groove's front end."
+    },
+    {
+      "file": "tip-end-other-side.jpg",
+      "sha256": "0e8a59120ae9ac1a90b860b75f9d9d86153d51d543200b1498c3a98bd9393fcb",
+      "view": "The band on the tip's other side, toward the dispense face."
+    },
+    {
+      "file": "tip-end-outlet.jpg",
+      "sha256": "329aa5f5ecae89ddde478e9964375385cebfcffaf60ed527c3feeecbba529b3e",
+      "view": "The dispense end with its outlet, from below."
+    }
+  ]
+}
