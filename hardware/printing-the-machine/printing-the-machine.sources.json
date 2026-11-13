@@ -5,7 +5,7 @@
   ],
   "pages": 60,
   "pdf": "printing-the-machine.pdf",
-  "pdf_sha256": "3668426684f16c0e09f6b7083e1118a31e20a3c8ec6cbdd64c8ead74fd001f13",
+  "pdf_sha256": "2410494804a9dc050c8672cafaaee339e29c7a9fe40678704b0f039d5c406fb6",
   "print_layout": {
     "canvas_px": [
       2550,
@@ -77,7 +77,7 @@
     "hardware/printing-the-machine/29-the-roof-is-the-first-layer.html": "6da6994de8ef3264f75d29429697762b008f0fd7e6ba7af8812075a0883eb8c6",
     "hardware/printing-the-machine/30-the-skin-is-a-printing-decision.html": "993604e3023717d25841ea81a8c4e230ec88330738352aeef326268461b0b53b",
     "hardware/printing-the-machine/31-a-clearance-is-surface-not-air.html": "77271c71fa7e294e96e093cad12bc57edb5d57ce776daa5e48e514097b1d8769",
-    "hardware/printing-the-machine/32-pet-gf-does-not-stretch.html": "ac9bf1b9e69006a38ead03fb26966a8be685c3a1d19075656896432719e8e29e",
+    "hardware/printing-the-machine/32-pet-gf-does-not-stretch.html": "ecd9cb6103a2a96900e430789b16270e252321f7cff9bc66e211dba02ba54c92",
     "hardware/printing-the-machine/33-a-snap-bends-within-its-layers.html": "dc461e5bb82d86ef282446f32842a4250e1d554be63172019e4344c515da74f1",
     "hardware/printing-the-machine/34-never-load-a-peg-across-its-layers.html": "56a319de768fc62cd5589c5e74750409a126779cf1cb417f88de9e38ee657978",
     "hardware/printing-the-machine/35-plain-petg-holds-the-flavoring.html": "c5bd6621f6de569a7d43a49c8f0200b05732d82cfbc82ac74ee26ee3bc1939e6",
