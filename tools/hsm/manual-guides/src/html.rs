@@ -100,6 +100,21 @@ pub const SPECS: &[Spec] = &[
             "hardware/assembly/pressure-vessel.md",
         ],
     },
+    Spec {
+        id: "fdm-print-guide",
+        title: "FDM print guide",
+        subtitle: "Printing the Home Soda Machine",
+        contents_links: false,
+        delivery_copy: true,
+        sources: &[
+            "AGENTS.md",
+            "hardware/printed-parts/AGENTS.md",
+            "hardware/printed-parts/enclosure/enclosure/README.md",
+            "hardware/printed-parts/enclosure/trial-preparation/README.md",
+            "hardware/printed-parts/cooling/README.md",
+            "tools/bambu-printers.md",
+        ],
+    },
 ];
 
 pub fn leaves(guide: &Path) -> Result<Vec<PathBuf>> {
@@ -330,6 +345,13 @@ fn source_paths(
             paths.insert(path);
         }
     }
+    if spec.id == "fdm-print-guide" {
+        for input in print_guide_inputs(guide)?.into_values() {
+            if input.revision.is_none() {
+                paths.insert(root.join(input.path));
+            }
+        }
+    }
     for source in [
         "src/lib.rs",
         "src/main.rs",
@@ -343,6 +365,103 @@ fn source_paths(
         paths.insert(root.join("tools/hsm/manual-guides/src/float.rs"));
     }
     Ok(paths)
+}
+
+#[derive(Deserialize)]
+struct SettingSource {
+    path: String,
+    revision: Option<String>,
+    member: Option<String>,
+}
+
+fn print_guide_inputs(guide: &Path) -> Result<BTreeMap<String, SettingSource>> {
+    let path = guide.join("guide-inputs.json");
+    Ok(serde_json::from_slice(&std::fs::read(path)?)?)
+}
+
+// Resolve the guide's displayed values from the selected recipes and slice records.
+fn print_guide_leaves(root: &Path, guide: &Path, out: &Path, pages: &[PathBuf]) -> Result<PathBuf> {
+    let mut settings = BTreeMap::new();
+    for (name, input) in print_guide_inputs(guide)? {
+        let bytes = if let Some(revision) = input.revision {
+            let read = Command::new("git")
+                .args(["show", &format!("{revision}:{}", input.path)])
+                .current_dir(root)
+                .output()?;
+            ensure!(
+                read.status.success(),
+                "cannot read {revision}:{}",
+                input.path
+            );
+            read.stdout
+        } else if let Some(member) = input.member {
+            let read = Command::new("unzip")
+                .arg("-p")
+                .arg(root.join(&input.path))
+                .arg(&member)
+                .output()?;
+            ensure!(
+                read.status.success(),
+                "cannot read {member} in {}",
+                input.path
+            );
+            read.stdout
+        } else {
+            std::fs::read(root.join(&input.path))?
+        };
+        let source: Value = serde_json::from_slice(&bytes).with_context(|| input.path.clone())?;
+        settings.insert(name, source);
+    }
+    let staged = out.join("source");
+    if staged.is_dir() {
+        std::fs::remove_dir_all(&staged)?;
+    }
+    let escape = |s: &str| {
+        s.replace('&', "&amp;")
+            .replace('"', "&quot;")
+            .replace('<', "&lt;")
+            .replace('>', "&gt;")
+    };
+    let base = escape(
+        &guide
+            .to_string_lossy()
+            .replace('%', "%25")
+            .replace('#', "%23")
+            .replace('?', "%3F"),
+    );
+    for page in pages {
+        let html = std::fs::read_to_string(page)?;
+        let html = html.replacen(
+            "<head>",
+            &format!("<head>\n  <base href=\"file://{base}/\">"),
+            1,
+        );
+        let mut remaining = html.as_str();
+        let mut rendered = String::new();
+        while let Some((before, rest)) = remaining.split_once("{{") {
+            let (key, after) = rest.split_once("}}").context("unclosed guide setting")?;
+            let (source, pointer) = key
+                .split_once(':')
+                .context("expected source:JSON pointer")?;
+            let value = settings
+                .get(source)
+                .and_then(|data| data.pointer(pointer))
+                .with_context(|| format!("{} has no setting {key}", page.display()))?;
+            rendered.push_str(before);
+            match value {
+                Value::String(s) => rendered.push_str(&escape(s)),
+                Value::Number(n) => rendered.push_str(&n.to_string()),
+                _ => bail!("guide setting {key} must be a string or number"),
+            }
+            remaining = after;
+        }
+        rendered.push_str(remaining);
+        crate::write(
+            &staged.join(page.file_name().context("guide leaf name")?),
+            rendered.as_bytes(),
+        )?;
+    }
+    Ok(staged)
 }
 
 pub fn bind(
@@ -380,7 +499,12 @@ pub fn bind(
                 }
             }
         }
-        run_renderer(root, &guide, &out, &pages, selected)?;
+        if name == "fdm-print-guide" {
+            let staged = print_guide_leaves(root, &guide, &out, &pages)?;
+            run_renderer(root, &staged, &out, &leaves(&staged)?, selected)?;
+        } else {
+            run_renderer(root, &guide, &out, &pages, selected)?;
+        }
     }
     let leaves = pages
         .iter()

@@ -150,6 +150,9 @@ carries completed exports into the checkout, and the
 viewer pointers. Manual guides, kitchen illustrations, cut drawings and PCB manufacturing
 outputs run only when requested; they remain outside the normal print build.
 
+The [FDM print guide](fdm-print-guide/README.md) indexes shop lessons by feature,
+filament and printer, with [an illustrated PDF](fdm-print-guide/fdm-print-guide.pdf).
+
 `hsm render` and `tools/look.sh` draw the exported payloads in the website's viewer.
 The [conversion records](/tools/hsm/conversion.md#fixed-input-evidence) retain measured build
 and publication results with their source revisions and measurement scope.
