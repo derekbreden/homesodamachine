@@ -104,6 +104,13 @@
       "record": "https://github.com/derekbreden/homesodamachine/blob/eb3ec0fcfb192c179362f20fa5e17cb1c4d9c5ff/hardware/print-tests/front-top-wago-fit/2026-11-12-mark1-dots-3-4-standard-layers/physical-result/physical-result.json"
     },
     {
+      "material": "HSM-0079",
+      "date": "2026-11-13",
+      "said": "Size wise I think we're getting very good, I'd just like to go tighter again on the slimmer 5 conductor wago only",
+      "tried": "Wago fit in the five-dot front-top receiver coupons",
+      "record": "https://github.com/derekbreden/homesodamachine/blob/474000169aef000f16a765554fcc51038d954d6c/hardware/print-tests/front-top-wago-fit/2026-11-12-mark1-five-dot/physical-result/physical-result.json"
+    },
+    {
       "material": "HSM-0080",
       "date": "2026-10-07",
       "said": "I have a front top printed for it and a front bottom and a back bottom and a cold core foam shell (no top or cap) and pump cradle and cap, and a tee carrier, and a funnel frame. Reservoirs are starting to print now. And all those prints fit together right now",
