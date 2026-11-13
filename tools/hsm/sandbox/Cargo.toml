@@ -42,6 +42,10 @@ path = "../../../hardware/reference/meanwell-irm90/meanwell_irm90.rs"
 name = "g-ganen-replica"
 path = "../../../hardware/reference/g-ganen-pump/replica.rs"
 
+[[example]]
+name = "h2c-toolhead"
+path = "../../../hardware/reference/h2c-toolhead/h2c_toolhead.rs"
+
 # A concept is a file in examples/. README.md says how to run one.
 [[example]]
 name = "support-inclines"

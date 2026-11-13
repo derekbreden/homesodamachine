@@ -1,0 +1,117 @@
+{
+  "purpose": "Records selected image landmarks used to estimate the H2C assembly geometry.",
+  "units": "mm except image coordinates",
+  "manual_pdf_page": 17,
+  "image_crops": {
+    "source_render_dpi": 230,
+    "source_crop_pixels": [
+      200,
+      365,
+      1700,
+      1160
+    ],
+    "front": {
+      "crop_pixels": [
+        151,
+        0,
+        590,
+        540
+      ],
+      "scale_after_crop": 2,
+      "inlet_centers_xy": [
+        [
+          195.0,
+          219.0
+        ],
+        [
+          389.0,
+          250.0
+        ]
+      ],
+      "right_duct_near_far_xy": [
+        [
+          470.0,
+          1046.0
+        ],
+        [
+          689.0,
+          913.0
+        ]
+      ],
+      "cover_edge_xy": [
+        [
+          463.0,
+          350.0
+        ],
+        [
+          463.0,
+          763.0
+        ]
+      ]
+    },
+    "rear": {
+      "crop_pixels": [
+        850,
+        0,
+        1305,
+        540
+      ],
+      "scale_after_crop": 2,
+      "rear_fan_seam_xy": [
+        [
+          62.0,
+          549.0
+        ],
+        [
+          385.0,
+          494.0
+        ]
+      ],
+      "duct_side_direction_xy": [
+        [
+          820.0,
+          975.0
+        ],
+        [
+          565.0,
+          892.0
+        ]
+      ],
+      "rear_fan_edge_xy": [
+        [
+          65.0,
+          184.0
+        ],
+        [
+          57.0,
+          605.0
+        ]
+      ],
+      "nozzle_camera_flange_near_xy": [
+        425.0,
+        883.0
+      ],
+      "near_right_duct_lip_xy": [
+        765.0,
+        983.0
+      ],
+      "aft_duct_corner_xy": [
+        174.0,
+        906.0
+      ]
+    }
+  },
+  "part_photo": {
+    "duct_plan_silhouette_pixels": [
+      243.0,
+      369.0
+    ],
+    "depth_width_ratio": 1.519,
+    "selected_duct_width": 83.0,
+    "width_scale_basis": "Production front photos scaled by the nominal tip pitch, cross-checked with the assembly drawing.",
+    "depth_width_applied_to_width": 126.0,
+    "selected_modeled_duct_depth": 116.0,
+    "depth_adjustment_basis": "The catalog view is pitched. The manual's oblique side outline was used to round down the direct image ratio."
+  },
+  "limits": "Projection and installed pose estimates. Service images and the catalogue image have no scale certification."
+}
