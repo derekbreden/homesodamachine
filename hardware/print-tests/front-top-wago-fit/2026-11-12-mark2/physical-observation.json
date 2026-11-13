@@ -1,0 +1,11 @@
+{
+  "date": "2026-11-12",
+  "reported_by": "Derek",
+  "part": "HSM-0079",
+  "scope": "The existing printed front-top Wago tower.",
+  "observations": [
+    "They work right now. In Z they are pretty close to snug, but in Y they are a bit loose.",
+    "If we go shallower, it would be so that they could be opened while inserted fully into the pocket (currently they cannot be, and in fact forcing it into the pocket fully will force the snaps shut on the wago)."
+  ],
+  "fit_trial": "print-job.json"
+}

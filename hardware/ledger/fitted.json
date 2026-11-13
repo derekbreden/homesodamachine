@@ -90,6 +90,13 @@
       "tried": "the printed front top assembled with the other quarters, the foam shell and the funnel frame"
     },
     {
+      "material": "HSM-0079",
+      "date": "2026-11-12",
+      "said": "They work right now. In Z they are pretty close to snug, but in Y they are a bit loose. ... (currently they cannot be, and in fact forcing it into the pocket fully will force the snaps shut on the wago).",
+      "tried": "both Wago connectors pressed into the printed front-top tower",
+      "record": "hardware/print-tests/front-top-wago-fit/2026-11-12-mark2/physical-observation.json"
+    },
+    {
       "material": "HSM-0080",
       "date": "2026-10-07",
       "said": "I have a front top printed for it and a front bottom and a back bottom and a cold core foam shell (no top or cap) and pump cradle and cap, and a tee carrier, and a funnel frame. Reservoirs are starting to print now. And all those prints fit together right now",
