@@ -346,10 +346,10 @@
   },
   "status_at_handoff": {
     "state": "RUNNING",
-    "layer_num": 0,
-    "observed_at": "2026-11-13T01:38:14+00:00",
+    "layer_num": 1,
+    "observed_at": "2026-11-13T01:45:34+00:00",
     "print_error": 0,
     "hms": [],
-    "remaining_minutes": 37
+    "remaining_minutes": 32
   }
 }
