@@ -21,6 +21,7 @@ pub mod review;
 pub mod seam;
 pub mod rim_contour;
 pub mod slice;
+pub mod stretch_cooling;
 pub mod xml;
 
 use sha2::{Digest, Sha256};

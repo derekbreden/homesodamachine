@@ -57,6 +57,14 @@ The [prepared-output reading](recovery-preparation.json) records the current
 enclosure and pump outputs, command preservation and scope exercises. Finish
 and strength remain physical observations.
 
+## Selected stretches
+
+A part's recipe may name one stretch of its model paths for part cooling. The
+Sculpted tip's [finish selection](../faucet/sculpted/finish-selection.json) cools
+its paths by the dispense face. The preparer adds the fan commands as its last
+G-code stage, which changes no motion or extrusion; paths outside the stretch
+keep the cooling above.
+
 ## Small individual parts
 
 Time spent printing the rest of a batch is part of the PET-GF recipe. Derek

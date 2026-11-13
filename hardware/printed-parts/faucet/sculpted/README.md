@@ -39,6 +39,10 @@ meeting the 50% overhang threshold receive 70%; fan-always-on, fan pre-start
 and auxiliary part cooling are off. Bridge flow is 125%, bridges
 are 15 mm/s, and overhang limits retain the selected 10/15 mm/s values.
 Ordinary supported-wall and infill speeds retain the black print's settings.
+The tip's model paths by its dispense face take the same part cooling, from the
+face back to just short of the lip grooves on both sides. The
+[tip-end surface record](https://github.com/derekbreden/homesodamachine/blob/ffe670b3c4a83a970d2e52dd81c75eddb7f12522/hardware/printed-parts/faucet/sculpted/prints/2026-11-12-wing-end-relief-mark1/physical-result/tip-end-surface.json)
+shows the band and reads the photographed plate's motion over it.
 
 ## Supports and poses
 

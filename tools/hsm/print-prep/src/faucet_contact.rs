@@ -14,6 +14,7 @@ use crate::mesh::{bounds, Mesh};
 use crate::project::{Object, Paint, Plate};
 use crate::refresh::Refreshed;
 use crate::rim_contour::{self, RimSpec};
+use crate::stretch_cooling::{self, Stretch};
 use crate::{apply, sha256_hex, xml};
 use hsm_faucet_numbers::{paths::TOTAL_ANGLE, shell::DISPENSE_FACE_THICKNESS};
 
@@ -1059,6 +1060,59 @@ fn apply_contour(
     write_motion_result(&result, &result, reading.estimated_motion_delta_seconds)?;
     report["archive_sha256"] = json!(sha256_hex(&fs::read(&archive)?));
     fs::write(directory.join(format!("{name}-contour.json")), serde_json::to_vec_pretty(&report)?)?;
+    Ok(report)
+}
+
+/// The stretch of the tip that takes part cooling: from its dispense face back up the neck by the
+/// recipe's span, at the recipe's fan speed.
+pub fn tip_end_stretch(project: &Refreshed, spec: &Value) -> Result<Stretch> {
+    let row = project.row(spec["part"].as_str().context("cooled part")?)?;
+    let object = &project.plate.objects[row.index];
+    let [exit, up, _] = hsm_faucet_numbers::shell::tip_frame();
+    let span: [f64; 2] = serde_json::from_value(spec["back_from_dispense_face_mm"].clone())?;
+    let fan_percent = spec["fan_percent"].as_f64().context("cooled stretch fan speed")?;
+    ensure!(span[0] < span[1] && fan_percent > 0. && fan_percent <= 100., "invalid cooled stretch");
+    Ok(Stretch {
+        object: object.identify_id as i64,
+        origin: add(apply(&object.rotation, sub(exit, row.center)), object.translation),
+        axis: apply(&object.rotation, up),
+        span,
+        fan_percent,
+    })
+}
+
+/// Bind a stretch's part cooling to the sliced plate in `directory`, as its last G-code stage.
+pub fn apply_stretch_cooling(project: &Path, directory: &Path, name: &str, stretch: &Stretch) -> Result<Value> {
+    let archive_name = format!("{}.gcode.3mf", project.file_stem().context("cooled project stem")?.to_string_lossy());
+    let archive = directory.join(archive_name);
+    let raw = directory.join("plate_1.gcode");
+    let prior = directory.join("mapped-slice");
+    let source = prior.join(format!("before-{name}.gcode"));
+    fs::copy(&raw, &source)?;
+    let output = prior.join(format!("{name}.gcode"));
+    let reading = stretch_cooling::apply(&source, &output, stretch)?;
+    ensure!(reading.cooled_moves > 0, "the plate has no model path in the cooled stretch");
+    let gcode = fs::read(&output)?;
+    let mut report = json!({"purpose": "Part cooling on one stretch of one object's model paths.",
+        "identify_id": stretch.object, "origin_plate_mm": stretch.origin, "axis_plate": stretch.axis,
+        "span_mm": stretch.span, "fan_percent": stretch.fan_percent,
+        "gcode_input_sha256": sha256_hex(&fs::read(&source)?), "gcode_sha256": sha256_hex(&gcode),
+        "cooled_moves": reading.cooled_moves, "cooled_path_mm": reading.cooled_mm,
+        "cooled_commanded_motion_seconds": reading.cooled_seconds,
+        "already_cooled_commanded_motion_seconds": reading.already_cooled_seconds,
+        "other_model_commanded_motion_seconds": reading.other_seconds,
+        "fan_commands_added": reading.fan_commands, "cooled_z_mm": reading.z_mm,
+        "scope": "Motion and extrusion words are retained; only part-fan commands are added."});
+    let zip = zip::ZipArchive::new(fs::File::open(&archive)?)?;
+    let replaced = BTreeMap::from([
+        (format!("{GCODE}.md5"), md5_hex(&gcode).into_bytes()),
+        (GCODE.into(), gcode),
+        (format!("Metadata/hsm_{}.json", name.replace('-', "_")), serde_json::to_vec_pretty(&report)?),
+    ]);
+    write_archive(zip, replaced, &archive, false)?;
+    fs::rename(output, raw)?;
+    report["archive_sha256"] = json!(sha256_hex(&fs::read(&archive)?));
+    fs::write(directory.join(format!("{name}.json")), serde_json::to_vec_pretty(&report)?)?;
     Ok(report)
 }
 
