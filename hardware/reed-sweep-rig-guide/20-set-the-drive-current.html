@@ -11,7 +11,7 @@
     <span class="eyebrow"><b>Check the wiring</b></span>
     <h1>Set the drive current</h1>
     <i class="rule"></i>
-    <p class="lede">Start at the low reference voltage specified in the rig procedure. The motor stays unplugged while you measure.</p>
+    <p class="lede">Use the driver's reference voltage, VREF, to set the initial current limit. Leave the motor unplugged while you adjust it.</p>
   </header>
   <main>
     <figure>
@@ -21,7 +21,7 @@
         <rect class="box-dim" x="114" y="174" width="197" height="90" rx="8"/>
         <text class="pin" x="212" y="228" text-anchor="middle">DC volts</text>
         <circle cx="151" cy="336" r="10" fill="var(--muted)"/><circle cx="276" cy="336" r="10" fill="var(--action)"/>
-        <text class="sub" x="151" y="373" text-anchor="middle">COM</text><text class="sub" x="276" y="373" text-anchor="middle">V</text>
+        <text class="sub" x="151" y="310" text-anchor="middle">COM</text><text class="sub" x="276" y="310" text-anchor="middle">V</text>
         <rect class="box" x="610" y="70" width="422" height="360" rx="17"/>
         <text class="lbl" x="821" y="125" text-anchor="middle">Driver on carrier</text>
         <rect class="box-dim" x="780" y="163" width="170" height="130" rx="12"/>
@@ -36,13 +36,13 @@
       <figcaption>Clip COM to carrier ground before applying power. Touch the other probe to the driver's VREF point. Keep both probes clear of adjacent pins.</figcaption>
     </figure>
     <ol class="actions">
-      <li>Disconnect both supplies. Seat the driver as on page 15 and reconnect the logic header. Leave the motor lead out.</li>
-      <li>Connect USB first, then the adapter. Measure VREF and adjust in small increments with an insulated tool to about half a volt. Read the meter after each adjustment.</li>
-      <li>Unplug the adapter and USB before plugging in the motor lead.</li>
+      <li>Disconnect both supplies. Seat the driver in the orientation shown on page 15. Verify the logic header is connected and clip the meter's COM lead to carrier ground.</li>
+      <li>Connect USB first, then the adapter. Measure VREF on the DC volts setting and adjust to about half a volt. Use an insulated tool and read the meter after each small adjustment.</li>
+      <li>Record VREF. Unplug the adapter and USB, then plug the motor lead into the carrier.</li>
     </ol>
     <div class="gate">
       <span class="gate-label">Ready for a short jog</span>
-      <p>The initial reference is measured and recorded. Recheck the carrier and switch if any reading disagrees with the schematic. Keep the motor adapter within reach for first motion.</p>
+      <p>The measured VREF is set and recorded. Leave both supplies disconnected until the sled is positioned for the first jog.</p>
     </div>
   </main>
   <footer><span>Reed sweep rig &middot; build guide</span><span class="folio">20</span></footer>
