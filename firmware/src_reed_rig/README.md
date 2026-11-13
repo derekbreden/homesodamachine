@@ -2,8 +2,9 @@
 
 One ESP32 dev board steps the [reed sweep rig](/hardware/assembly/reed-sweep-rig.md)'s slide
 through a TMC2209, finds the rig's home switch, and prints every reed change with the step the
-sled stood at. It decides nothing about what the reeds mean: its lines are the record a host
-reads.
+sled stood at. It decides nothing about what the reeds mean:
+[`hsm-peripheral reed-sweep`](/tools/hsm/peripheral/src/reed.rs) runs a sweep through it and
+turns its lines into the places each reed closes and opens.
 
 The wiring is the table in the [build guide](/hardware/assembly/reed-sweep-rig.md#wiring), and
 the pins are the constants at the top of [`main.cpp`](main.cpp).
