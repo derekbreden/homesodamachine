@@ -1,0 +1,38 @@
+{
+  "date": "2026-11-12",
+  "reported_by": "Derek",
+  "scope": "Bench fit on the Mark 1 standard-layer front-top Wago receiver coupons.",
+  "part": "HSM-0079",
+  "job": {
+    "printer": "H2C",
+    "task_id": "1437718284",
+    "archive": {
+      "gcode_sha256": "35308323415d21edaccac1b98d5a1d445a7537781e4304c4a2096cbd171efc13",
+      "name": "front-top-wago-fit-mark1-dots-3-4-standard-layers-ready.gcode.3mf",
+      "objects": [
+        "Wago fit 3",
+        "Wago fit 4"
+      ],
+      "sha256": "0f50fa9e9525807aa4f8cf9db9bd3bbad3c6b18848aa42307f25faa2de9c8551",
+      "slots": {
+        "1": {
+          "colour": "000000",
+          "type": "PET-CF"
+        }
+      }
+    }
+  },
+  "articles": [
+    {
+      "dots": 3,
+      "result": "Wago inserts easily and is retained. Fit accepted on the coupon.",
+      "observation": "So, on the last print there, on the 3.1, the WAGO fits in very easily, but is still held pretty well. It's awesome. The 3.1 is definitely good enough."
+    },
+    {
+      "dots": 4,
+      "result": "Wago can be inserted with substantial force. Tightness was reported primarily in Z and possibly in X.",
+      "observation": "The 4.1, it was just— it's possible to get in there, but it's too tight. It takes quite a bit of force to get it in, particularly in the Z-axis, but also maybe the X-axis a bit."
+    }
+  ],
+  "print_job": "../print-job.json"
+}
