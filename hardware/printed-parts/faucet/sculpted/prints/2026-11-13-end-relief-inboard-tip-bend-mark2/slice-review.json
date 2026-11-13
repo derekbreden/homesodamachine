@@ -1,0 +1,489 @@
+{
+ "purpose": "Try the cover with its sides' ends let out, on a tip whose dispense-face layer bend stops inboard of the outside wall.",
+ "printer": "Mark2",
+ "archive": {
+  "gcode_sha256": "8497b4c1a6a2cd521393c715d47c5b02acdb46419f31337a6e102a0e9d99b429",
+  "name": "sculpted-tip-cover-end-relief-inboard-bend-black-mark2-ready.gcode.3mf",
+  "objects": [
+   "faucet-shell-tip",
+   "faucet-display-cover"
+  ],
+  "sha256": "6c8f254fee589ce800c11c5b62b5e492c08e688edd174495d5ebb48768bdcec6",
+  "slots": {
+   "1": {
+    "colour": "161616",
+    "type": "PET-CF"
+   }
+  }
+ },
+ "project": "sculpted-tip-cover-end-relief-inboard-bend-black-mark2.3mf",
+ "project_sha256": "b4311ef6e5c1b882d51aa28105a7387c2362c3bc96a52abbf9ed745a7758628b",
+ "native_settings_sha256": "0a18e0ba14f91b489509242a2bee812a8cbfb9e4705808e12bbc6ccae65a8bc8",
+ "finish_selection_sha256": "34d8595074c2dffe6db3d3c3f9e77618747299ba624b10c1e8bab95348dc137b",
+ "bed": "Textured PEI Plate",
+ "nozzle": {
+  "side": "left",
+  "diameter_mm": 0.4
+ },
+ "spool": {
+  "colour": "#161616",
+  "external_spool": 254,
+  "material": "Polymaker PET-GF"
+ },
+ "requested_z_trim_mm": 0.04,
+ "emitted_z_trim_mm": 0.02,
+ "layer_count": 971,
+ "predicted_seconds": 9978,
+ "predicted_filament_g": 54.76,
+ "minimum_bead_edge_margin_mm": 104.39,
+ "extrusion_bounds_xy_mm": [
+  [
+   104.393,
+   132.69
+  ],
+  [
+   208.032,
+   198.007
+  ]
+ ],
+ "tip_rim_contour_segments": 447,
+ "tip_end_cooling": {
+  "fan_percent": 70.0,
+  "back_from_dispense_face_mm": [
+   -1.0,
+   9.0
+  ],
+  "cooled_moves": 79606,
+  "cooled_path_mm": 21270.0,
+  "cooled_print_z_mm": [
+   115.16,
+   137.72
+  ],
+  "fan_commands_added": 932,
+  "commanded_motion_seconds": 489.1,
+  "of_which_cooled_as_sliced_seconds": 165.7,
+  "emitted_seconds_by_feature": {
+   "Bridge": {
+    "motion": 19.6,
+    "at_or_above_selected_fan": 19.6
+   },
+   "Floating vertical shell": {
+    "motion": 30.5,
+    "at_or_above_selected_fan": 30.5
+   },
+   "Gap infill": {
+    "motion": 0.9,
+    "at_or_above_selected_fan": 0.9
+   },
+   "Inner wall": {
+    "motion": 110.1,
+    "at_or_above_selected_fan": 110.1
+   },
+   "Internal solid infill": {
+    "motion": 59.8,
+    "at_or_above_selected_fan": 59.8
+   },
+   "Outer wall": {
+    "motion": 199.9,
+    "at_or_above_selected_fan": 199.9
+   },
+   "Overhang wall": {
+    "motion": 17.3,
+    "at_or_above_selected_fan": 17.3
+   },
+   "Sparse infill": {
+    "motion": 50.0,
+    "at_or_above_selected_fan": 50.0
+   },
+   "Top surface": {
+    "motion": 1.0,
+    "at_or_above_selected_fan": 1.0
+   }
+  },
+  "scope": "Commanded motion read from the submitted G-code. The fan's own response time is not in it."
+ },
+ "tip_outside_wall": {
+  "reading": "Outer-wall paths on the tube's outside skin, by millimetres back from the dispense face: the share of their length laid off their layer's height, and the largest distance off.",
+  "this_plate": [
+   {
+    "back_mm": [
+     0,
+     1
+    ],
+    "off_level_share": 0.198,
+    "largest_mm": 0.215
+   },
+   {
+    "back_mm": [
+     1,
+     2
+    ],
+    "off_level_share": 0.202,
+    "largest_mm": 0.215
+   },
+   {
+    "back_mm": [
+     2,
+     3
+    ],
+    "off_level_share": 0.159,
+    "largest_mm": 0.149
+   },
+   {
+    "back_mm": [
+     3,
+     4
+    ],
+    "off_level_share": 0.159,
+    "largest_mm": 0.164
+   },
+   {
+    "back_mm": [
+     4,
+     5
+    ],
+    "off_level_share": 0.153,
+    "largest_mm": 0.168
+   },
+   {
+    "back_mm": [
+     5,
+     6
+    ],
+    "off_level_share": 0.132,
+    "largest_mm": 0.179
+   },
+   {
+    "back_mm": [
+     6,
+     7
+    ],
+    "off_level_share": 0.099,
+    "largest_mm": 0.186
+   },
+   {
+    "back_mm": [
+     7,
+     8
+    ],
+    "off_level_share": 0.09,
+    "largest_mm": 0.187
+   },
+   {
+    "back_mm": [
+     8,
+     9
+    ],
+    "off_level_share": 0.046,
+    "largest_mm": 0.189
+   },
+   {
+    "back_mm": [
+     9,
+     10
+    ],
+    "off_level_share": 0.023,
+    "largest_mm": 0.192
+   },
+   {
+    "back_mm": [
+     10,
+     11
+    ],
+    "off_level_share": 0.005,
+    "largest_mm": 0.191
+   },
+   {
+    "back_mm": [
+     11,
+     12
+    ],
+    "off_level_share": 0.0,
+    "largest_mm": 0.0
+   }
+  ],
+  "previous_plate": [
+   {
+    "back_mm": [
+     0,
+     1
+    ],
+    "off_level_share": 0.305,
+    "largest_mm": 0.329
+   },
+   {
+    "back_mm": [
+     1,
+     2
+    ],
+    "off_level_share": 0.697,
+    "largest_mm": 0.672
+   },
+   {
+    "back_mm": [
+     2,
+     3
+    ],
+    "off_level_share": 0.665,
+    "largest_mm": 0.568
+   },
+   {
+    "back_mm": [
+     3,
+     4
+    ],
+    "off_level_share": 0.665,
+    "largest_mm": 0.563
+   },
+   {
+    "back_mm": [
+     4,
+     5
+    ],
+    "off_level_share": 0.598,
+    "largest_mm": 0.463
+   },
+   {
+    "back_mm": [
+     5,
+     6
+    ],
+    "off_level_share": 0.172,
+    "largest_mm": 0.228
+   },
+   {
+    "back_mm": [
+     6,
+     7
+    ],
+    "off_level_share": 0.094,
+    "largest_mm": 0.186
+   },
+   {
+    "back_mm": [
+     7,
+     8
+    ],
+    "off_level_share": 0.087,
+    "largest_mm": 0.188
+   },
+   {
+    "back_mm": [
+     8,
+     9
+    ],
+    "off_level_share": 0.054,
+    "largest_mm": 0.189
+   },
+   {
+    "back_mm": [
+     9,
+     10
+    ],
+    "off_level_share": 0.023,
+    "largest_mm": 0.192
+   },
+   {
+    "back_mm": [
+     10,
+     11
+    ],
+    "off_level_share": 0.005,
+    "largest_mm": 0.191
+   },
+   {
+    "back_mm": [
+     11,
+     12
+    ],
+    "off_level_share": 0.0,
+    "largest_mm": 0.0
+   }
+  ],
+  "previous_plate_archive": "sculpted-tip-cover-bowed-tip-cooling-black-mark2-ready.gcode.3mf",
+  "remaining": "What is still off level on this plate is the tip's sloped seam start, which its seam recipe asks for: a loop that starts in the display pocket begins a fifth of a millimetre low and climbs to its layer along the wall. The slicer's own output, before the bend is applied, carries the same shares, so the bend adds nothing on the outside wall.",
+  "contact_band": [
+   0.9,
+   2.65
+  ],
+  "native_slice": [
+   {
+    "back_mm": [
+     0,
+     1
+    ],
+    "off_level_share": 0.188,
+    "largest_mm": 0.215
+   },
+   {
+    "back_mm": [
+     1,
+     2
+    ],
+    "off_level_share": 0.197,
+    "largest_mm": 0.215
+   },
+   {
+    "back_mm": [
+     2,
+     3
+    ],
+    "off_level_share": 0.156,
+    "largest_mm": 0.148
+   },
+   {
+    "back_mm": [
+     3,
+     4
+    ],
+    "off_level_share": 0.164,
+    "largest_mm": 0.16
+   },
+   {
+    "back_mm": [
+     4,
+     5
+    ],
+    "off_level_share": 0.157,
+    "largest_mm": 0.167
+   },
+   {
+    "back_mm": [
+     5,
+     6
+    ],
+    "off_level_share": 0.117,
+    "largest_mm": 0.178
+   },
+   {
+    "back_mm": [
+     6,
+     7
+    ],
+    "off_level_share": 0.104,
+    "largest_mm": 0.186
+   },
+   {
+    "back_mm": [
+     7,
+     8
+    ],
+    "off_level_share": 0.09,
+    "largest_mm": 0.187
+   },
+   {
+    "back_mm": [
+     8,
+     9
+    ],
+    "off_level_share": 0.046,
+    "largest_mm": 0.189
+   },
+   {
+    "back_mm": [
+     9,
+     10
+    ],
+    "off_level_share": 0.023,
+    "largest_mm": 0.192
+   },
+   {
+    "back_mm": [
+     10,
+     11
+    ],
+    "off_level_share": 0.005,
+    "largest_mm": 0.191
+   },
+   {
+    "back_mm": [
+     11,
+     12
+    ],
+    "off_level_share": 0.0,
+    "largest_mm": 0.0
+   }
+  ]
+ },
+ "tip_supports": {
+  "support_filament_mm": {
+   "this_plate": 6538.1,
+   "previous_plate": 5576.2
+  },
+  "reading": "This slice stands a tree trunk inside the tip's tube passage, from the neck's bend up to the inner dispense face. The previous plate reached that face from the display pocket alone. The pockets plate of 2026-11-12 on Mark One had the same trunk in the passage.",
+  "variant": "A second slice with the band fading out nearer the wall drew the same trunk."
+ },
+ "cover": {
+  "end_relief_mm": 0.25,
+  "reading": "Against the previous plate's cover, the printed sides' inner faces stand out by nothing along the lips, rising to the relief at the fore and aft tips at the skirt's bottom and four fifths of it at mid height.",
+  "model": "The contact model lands the same force on the lips as the previous cover and leaves the ends a quarter millimetre of room. Its stiffness numbers are assumed, and the previous cover's ends touched where it had left a sixth to a fifth."
+ },
+ "parts": [
+  {
+   "name": "faucet-shell-tip",
+   "source": "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.stl",
+   "stl_sha256": "d7dee1ce647c7022d99f966f600d860d8142901ebe32d934a4290e6dec73c071",
+   "watertight": true,
+   "rotation_x_degrees": -105.0,
+   "build_transform": [
+    1.0,
+    0.0,
+    0.0,
+    0.0,
+    -0.25881904510252085,
+    -0.9659258262890683,
+    0.0,
+    0.9659258262890683,
+    -0.25881904510252085,
+    131.5,
+    154.785128820301,
+    68.93456774147909
+   ],
+   "plate_bounds_mm": [
+    [
+     118.00024604797363,
+     133.69518368615223,
+     0.0
+    ],
+    [
+     144.99975395202637,
+     186.30481631384777,
+     137.87054537063977
+    ]
+   ]
+  },
+  {
+   "name": "faucet-display-cover",
+   "source": "hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.stl",
+   "stl_sha256": "81961019dadf2bdfe1c5f048dad7ae598d69cce77f36f4b6db580ed1869b6ab0",
+   "watertight": true,
+   "rotation_x_degrees": -50.0,
+   "build_transform": [
+    1.0,
+    0.0,
+    0.0,
+    0.0,
+    0.6427876096865394,
+    -0.766044443118978,
+    0.0,
+    0.766044443118978,
+    0.6427876096865394,
+    193.5,
+    159.3236938630398,
+    12.989291947471461
+   ],
+   "plate_bounds_mm": [
+    [
+     178.75037574768066,
+     134.245571004393,
+     0.0
+    ],
+    [
+     208.24962425231934,
+     185.754428995607,
+     20.880017218108712
+    ]
+   ]
+  }
+ ]
+}
