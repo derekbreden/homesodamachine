@@ -74,8 +74,8 @@
     "external_spool": 254,
     "filament_colour": "#161616",
     "plate": "Textured PEI Plate",
-    "requested_z_trim_mm": 0.06,
-    "emitted_z_trim_mm": 0.04,
+    "requested_z_trim_mm": 0.1,
+    "emitted_z_trim_mm": 0.08,
     "retain_other_settings_from_accepted_print": true
   },
   "accepted_cosmetic_condition": {

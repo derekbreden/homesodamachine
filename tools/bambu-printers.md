@@ -148,11 +148,11 @@ then emits **`G29.1 Z0.02`** on textured PEI with the 0.8 mm nozzle.
 
 Each first-layer trim belongs to its recorded printer, material, nozzle and plate.
 The printer preset's start G-code carries it. Job names carry the requested value
-(`z006`, `z018`).
+(`z010`, `z018`).
 
 | printer | nozzle | requested | emitted on Textured PEI | preset on current jobs |
 | --- | --- | --- | --- | --- |
-| Mark2, PET-GF on Textured PEI | 0.4 mm | +0.06 mm | `G29.1 Z0.04` | `Bambu Lab H2C 0.4 Standard +0.06 Z trim` |
+| Mark2, PET-GF on Textured PEI | 0.4 mm | +0.10 mm | `G29.1 Z0.08` | `Bambu Lab H2C 0.4 Standard +0.10 Z trim` |
 | Mark2 | 0.8 mm | +0.04 mm | `G29.1 Z0.02` | `Bambu Lab H2C 0.8 Standard +0.04 Z trim` |
 | Mark1 (`H2C`), PET-GF on Textured PEI | 0.4 mm | +0.18 mm | `G29.1 Z0.16` | `Bambu Lab H2C 0.4 Standard +0.18 Z trim` |
 | Mark1, clear PETG reservoir | 0.8 mm | 0.00 mm | `G29.1 Z-0.02` | `Bambu Lab H2C 0.8 Standard PETG zero Z trim` |

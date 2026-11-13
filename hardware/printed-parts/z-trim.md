@@ -10,8 +10,7 @@ Derek: *"No. That should be documented as for pet-gf on textured plate."*
 Each printer's PET-GF trim is set under `printers` in
 [`pieces.json`](enclosure/trial-preparation/pieces.json), and
 [the printer runbook](../../tools/bambu-printers.md#z-trim) tabulates it. Derek on Mark2's,
-13 November 2026, after two faucet plates that were hard to lift: *"I think I'd like to
-permanently bump Mark II up from 0.04 to 0.06 for its Z-layer offset for PetGF"*.
+13 November 2026: *"And let's use 0.10 z offset on mark2 now."*
 
 The [accepted identification-set print](enclosure/display-cover/prints/2026-11-08-identification-set-mark1-right-z005/physical-result.json)
 owns the right-side clearance setting for its PETG, plate and nozzle setup. It
