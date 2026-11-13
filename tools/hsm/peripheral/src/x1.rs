@@ -17,9 +17,13 @@ static INTERRUPTED: AtomicBool = AtomicBool::new(false);
 extern "C" fn interrupt(_: libc::c_int) {
     INTERRUPTED.store(true, Ordering::Relaxed);
 }
-struct Interrupt(libc::sighandler_t);
+/// Whether Ctrl-C has come since the handler was last installed.
+pub(crate) fn interrupted() -> bool {
+    INTERRUPTED.load(Ordering::Relaxed)
+}
+pub(crate) struct Interrupt(libc::sighandler_t);
 impl Interrupt {
-    fn install() -> Self {
+    pub(crate) fn install() -> Self {
         INTERRUPTED.store(false, Ordering::Relaxed);
         Self(unsafe { libc::signal(libc::SIGINT, interrupt as *const () as libc::sighandler_t) })
     }
@@ -32,7 +36,7 @@ impl Drop for Interrupt {
     }
 }
 
-fn utc() -> Result<String> {
+pub(crate) fn utc() -> Result<String> {
     text_output(Command::new("date").args(["-u", "+%Y-%m-%dT%H:%M:%SZ"]))
 }
 fn new_directory(path: &PathBuf) -> Result<()> {

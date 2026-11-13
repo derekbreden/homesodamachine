@@ -10,8 +10,8 @@ It does by motor the sweep in step 3 of the float's
 and what it measures goes in
 [`reed-calibration.json`](/hardware/printed-parts/cold-core/magnetic-float/all-aero/reed-calibration.json).
 
-**Status.** The bought parts are on order and nothing is printed. The controller's program is
-written and has run on no board. The log reader is not written.
+**Status.** The bought parts are on order and nothing is printed. The controller's program and
+the log reader are written and tested on this Mac. Neither has met a board.
 
 ![The rig assembled](/hardware/printed-parts/fixtures/reed-sweep-rig/views/rig.png)
 
@@ -159,7 +159,33 @@ With the sled in the tube near its middle and the roller in the slot:
 
 Any line sent while the sled moves stops it.
 
-The lines of a sweep are its whole record. Turning them into each reed's closing and opening
-places along the tube takes
+## A measured sweep
+
+The log reader runs the sweep and reads it. Close the console first, so the port is free:
+
+    hsm-peripheral reed-sweep --port <port> --sled nominal --reeds 2=A,3=B \
+        --output hardware/printed-parts/cold-core/magnetic-float/all-aero/reed-sweeps/<date>-nominal
+
+`--sled` names the sled in the tube, and `--reeds` the reed lying at each station by whatever
+name it carries on the bench. The reader homes the sled, sweeps its whole reach out and back
+three times, and prints where each reed closed and opened on the way up and on the way down,
+as the magnet's centre past the reed's centre, with how far the three readings spread.
+`--from`, `--to`, `--speed` and `--cycles` change the sweep. Ctrl-C stops the sled.
+
+It keeps two files in the new directory: `raw.log`, every line the controller sent, and
+`sweep.json`, the sweep in millimetres with each crossing in the fields
+[`reed-calibration.json`](/hardware/printed-parts/cold-core/magnetic-float/all-aero/reed-calibration.json)
+takes. `--replay <raw.log>` reads a kept log again without the rig.
+
+The reader places the magnet from
 [`reed-sweep-rig-datums.json`](/hardware/printed-parts/fixtures/reed-sweep-rig/reed-sweep-rig-datums.json)
-and a log reader, which is not written.
+and three things read off this bench:
+
+- **Home.** The controller takes the tab to stand a bank card's thickness behind home.
+  `tab <mm>` on the console gives it a measured distance.
+- **The roller's play.** Measure the sled's slot and the rod's roller with calipers and pass
+  the difference as `--play`. The sled trails the rod by it on the way into the tube.
+- **The glass.** Measure one reed's glass and pass it as `--glass`. The reeds lie pushed
+  toward the tab, so a shorter glass has its centre nearer the tab.
+
+Run each sled in turn: `nominal`, then `near` and `far`.

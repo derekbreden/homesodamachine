@@ -10,7 +10,8 @@ asks for by hand.
 **Status: sliced, nothing printed.** The slide, its driver, the controller boards and the home
 switch are on order ([purchases.md §12](/hardware/ledger/purchases.md)). Every fit to a bought
 part comes from its maker's drawing. The [controller's program](/firmware/src_reed_rig/README.md)
-is written and has run on no board, and the log reader is not written. The build is in the
+and the [log reader](/tools/hsm/peripheral/src/reed.rs) are written and tested on this Mac, and
+neither has met a board. The build is in the
 [assembly guide](/hardware/assembly/reed-sweep-rig.md).
 
 ![The rig assembled round the slide, the tube and a float](views/rig.png)

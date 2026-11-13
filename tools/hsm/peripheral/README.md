@@ -22,6 +22,7 @@ Its commands run when requested, outside the print build.
 | `panelcam-rectify` | Find the panel, resample its pixel grid and read its test patterns |
 | `x1-capture` | Record bytes from a physically receive-only serial connection |
 | `x1-console` | Send an explicit rear-port console command and save the reply |
+| `reed-sweep` | Run a sweep on the reed sweep rig and turn its controller's lines into each reed's closing and opening places |
 
 `--root` selects the checkout. `HSM_PERIPHERAL_BIN` selects the installed executable
 for the PlatformIO bridge and camera shell. `HSM_MARKETING_BIN` selects the native
