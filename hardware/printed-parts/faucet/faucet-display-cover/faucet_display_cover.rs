@@ -12,7 +12,7 @@ use hsm_faucet_display_cover_numbers as cover;
 use hsm_faucet_numbers::catalog;
 use hsm_faucet_numbers::shell::{
     DISPENSE_FACE_THICKNESS, DISPLAY_COVER_FRONT_RIM_N, DISPLAY_COVER_FRONT_RIM_SLOPE,
-    DISPLAY_COVER_REAR_TRIM_DS_DN, DISPLAY_COVER_REAR_TRIM_S0, DISPLAY_HEAD_S_MIN,
+    DISPLAY_COVER_REAR_TRIM_DS_DN, DISPLAY_COVER_REAR_TRIM_S0, DISPLAY_HEAD_S_MIN, TUBE_SHELL_CENTER_Y,
 };
 use hsm_kernel::part::write_shown;
 use hsm_kernel::*;
@@ -46,22 +46,14 @@ fn seated_cover(neck: &Gooseneck) -> Result<Solid> {
     let [n0, n1] = cover::window_n();
     let window = neck.cradle_prism(cover::WINDOW_HALF_X, (s0, s1), (n0, n1), cover::WINDOW_CORNER_R)?;
     let arch = display::neck_round(neck, cover::neck_clearance_r())?;
-    let (_, _, normal) = neck.tip_frame();
     let [half_x, _, rear_s, n0, n1] = cover::outer_clamp();
-    // The crown's pocket over the dispense cap, carried past the cavity's front face so the
-    // cutters overlap.
-    let [pocket_r, pocket_out] = cover::nose_crown_pocket();
-    let nose_arch = clamped(
-        neck,
-        display::neck_round(neck, pocket_r)?.translate(normal * pocket_out),
-        [half_x, DISPLAY_HEAD_S_MIN - PAST, DISPENSE_FACE_THICKNESS + PAST, n0, n1],
-    )?;
-    let rear_arch = clamped(
-        neck,
-        arch.translate(normal * cover::REAR_ARCH_LIFT),
-        [half_x, DISPLAY_COVER_REAR_TRIM_S0, rear_s + PAST, n0, n1],
-    )?;
-    let skin = sloped(neck, outer.cut_all(&[cavity, window, arch, nose_arch, rear_arch])?)?;
+    // The crown's pockets, swept along the neck: the nose's carried past the cavity's front face
+    // so the cutters overlap, the rear skirt's from the rear trim back.
+    let [pocket_r, pocket_out] = cover::crown_pocket();
+    let pocket = neck.sweep(&Profile::circle(v2(0.0, TUBE_SHELL_CENTER_Y + pocket_out), pocket_r), 0.0, neck.length() + PAST)?;
+    let nose_pocket = clamped(neck, pocket.clone(), [half_x, DISPLAY_HEAD_S_MIN - PAST, DISPENSE_FACE_THICKNESS + PAST, n0, n1])?;
+    let rear_pocket = clamped(neck, pocket, [half_x, DISPLAY_COVER_REAR_TRIM_S0, rear_s + PAST, n0, n1])?;
+    let skin = sloped(neck, outer.cut_all(&[cavity, window, arch, nose_pocket, rear_pocket])?)?;
     // The band stands from under the skin's foot, so no face of it lies on the skin's.
     let [hx, s0, s1, n0, n1] = cover::lip_band();
     let band = neck.cradle_prism(hx, (s0, s1), (n0 - PAST, n1), 0.0)?;
