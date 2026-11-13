@@ -69,9 +69,9 @@ The existing macOS LaunchAgent runs every six hours. Its private runner applies
 `--keep 96 --keep-gb 0` and archives clips under
 `~/Bambu-timelapses/Mark1` and `~/Bambu-timelapses/Mark2`. An unavailable printer
 is logged and skipped until the next run. The runner then applies
-[`repo-tools cache-gc`](hsm/repo-tools/README.md) `--days 3 --apply`, which deletes
-scratch in the repository's `.cache` that has gone three days without a write, and the cargo
-units in `tools/hsm/target` that no recent build has read. Shared geometry memo caches, the
+[`repo-tools cache-gc`](hsm/repo-tools/README.md) `--apply`, which deletes what Git can
+rebuild that nothing has used lately from the repository's `.cache`, `tools/hsm/target` and
+the installed builds in `~/.local/lib/hsm`, and keeps what builds still use. The
 printer-control environment and installed runtimes remain.
 
 Agent comparisons and publication snapshots use `.cache/runs/<purpose>-<run-id>`.
