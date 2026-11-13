@@ -165,28 +165,30 @@ const BEND_FULL_X: f64 = 8.0;
 
 /// The relaxed print of a cover whose sides spring back by different amounts along their length:
 /// the seated cover's bezel above `bezel_n` as it is, and below it every point moved in toward the
-/// neck by `inward(s, n)`, which is nothing at the bezel. The lower part is taken from `open`, as
-/// `relaxed` takes its wings.
-pub fn relaxed_by(neck: &Gooseneck, seated: &Solid, open: &Solid, bezel_n: f64, inward: impl Fn(f64, f64) -> f64) -> Result<Solid> {
+/// neck by `inward(s, n)`. The cover is bent in one piece, so it has no seam at the bezel.
+pub fn relaxed_by(neck: &Gooseneck, seated: &Solid, bezel_n: f64, inward: impl Fn(f64, f64) -> f64) -> Result<Solid> {
     let frame = tip_plane(neck)?;
-    let top = seated.placed(&frame, &Plane::XY).trim(&Plane::XY.at(v3(0.0, 0.0, bezel_n)))?;
-    let below = open.placed(&frame, &Plane::XY).trim(&Plane::new(v3(0.0, 0.0, bezel_n), V3::X, -V3::Z)?)?;
-    let bent = warped(&below, BEND_EDGE, |p| {
+    let bent = warped(&seated.placed(&frame, &Plane::XY), BEND_EDGE, |p| {
+        if p.z >= bezel_n {
+            return p;
+        }
         let across = (p.x / BEND_FULL_X).clamp(-1.0, 1.0);
         v3(p.x - across * inward(p.y, p.z), p.y, p.z)
     })?;
-    Ok(top.union(&bent)?.placed(&Plane::XY, &frame))
+    Ok(bent.placed(&Plane::XY, &frame))
 }
 
 /// How far a bent point may stand off a face's surface and the face still keep its record.
 const ON_SURFACE: f64 = 1e-9;
 
 /// `solid` carried point for point by `f`, a smooth map that bends, which no affine map gives.
-/// Its triangles are first split until no edge is longer than `max_edge`, so a bent face follows
-/// `f` that closely. A plane whose points all stay on it keeps its record, as does any face `f`
-/// leaves where it is; every other face becomes a free surface, as `Solid::mapped` makes one.
+/// Where `f` moves it, its triangles are first split until no edge is longer than `max_edge`, so
+/// a bent face follows `f` that closely. A plane whose points all stay on it keeps its record, as
+/// does any face `f` leaves where it is; every other face becomes a free surface, as
+/// `Solid::mapped` makes one.
 fn warped(solid: &Solid, max_edge: f64, f: impl Fn(V3) -> V3) -> Result<Solid> {
-    let (verts, tris, face_of) = refined(solid.verts(), solid.tris(), solid.face_of(), max_edge)?;
+    let moves = |p: V3| (f(p) - p).norm() > ON_SURFACE;
+    let (verts, tris, face_of) = refined(solid.verts(), solid.tris(), solid.face_of(), max_edge, &moves)?;
     let moved: Vec<V3> = verts.iter().map(|&p| f(p)).collect();
     ensure!(moved.iter().all(|p| p.x.is_finite() && p.y.is_finite() && p.z.is_finite()), "a bend left a point nowhere");
     let mut kept = vec![true; solid.faces().len()];
@@ -209,29 +211,37 @@ fn warped(solid: &Solid, max_edge: f64, f: impl Fn(V3) -> V3) -> Result<Solid> {
     Solid::from_mesh(&moved, &tris, &face_of, &faces)
 }
 
-/// The mesh with every edge longer than `max_edge` halved, and halved again until none is. Each
-/// long edge takes one midpoint, which both of its triangles use, so the surface stays closed.
-fn refined(verts: &[V3], tris: &[[u32; 3]], face_of: &[u32], max_edge: f64) -> Result<(Vec<V3>, Vec<[u32; 3]>, Vec<u32>)> {
+/// The mesh with every edge that is longer than `max_edge` and has a point that `moves` halved,
+/// and halved again until none is left. Each such edge takes one midpoint, which both of its
+/// triangles use, so the surface stays closed.
+fn refined(
+    verts: &[V3],
+    tris: &[[u32; 3]],
+    face_of: &[u32],
+    max_edge: f64,
+    moves: &dyn Fn(V3) -> bool,
+) -> Result<(Vec<V3>, Vec<[u32; 3]>, Vec<u32>)> {
     ensure!(max_edge > 0.0, "a bend's longest edge must be positive");
     let mut verts = verts.to_vec();
     let mut tris = tris.to_vec();
     let mut face_of = face_of.to_vec();
     for _ in 0..64 {
-        let mut mids: HashMap<(u32, u32), u32> = HashMap::new();
+        let mut mids: HashMap<(u32, u32), Option<u32>> = HashMap::new();
         let mut next = Vec::with_capacity(tris.len());
         let mut next_face = Vec::with_capacity(tris.len());
         for (t, &face) in tris.iter().zip(&face_of) {
-            // The midpoint of each edge `t[k]` to `t[k + 1]` that is too long.
+            // The midpoint of each edge `t[k]` to `t[k + 1]` that is to be halved.
             let mut mid = [None; 3];
             for k in 0..3 {
                 let (a, b) = (t[k], t[(k + 1) % 3]);
                 let (pa, pb) = (verts[a as usize], verts[b as usize]);
-                if (pa - pb).norm() > max_edge {
-                    mid[k] = Some(*mids.entry((a.min(b), a.max(b))).or_insert_with(|| {
+                mid[k] = *mids.entry((a.min(b), a.max(b))).or_insert_with(|| {
+                    let bends = (0..=4).any(|i| moves(pa + (pb - pa) * (f64::from(i) / 4.0)));
+                    ((pa - pb).norm() > max_edge && bends).then(|| {
                         verts.push((pa + pb) * 0.5);
                         (verts.len() - 1) as u32
-                    }));
-                }
+                    })
+                });
             }
             let pieces: Vec<[u32; 3]> = match mid {
                 [None, None, None] => vec![*t],
@@ -250,7 +260,7 @@ fn refined(verts: &[V3], tris: &[[u32; 3]], face_of: &[u32], max_edge: f64) -> R
             next_face.extend(std::iter::repeat_n(face, pieces.len()));
             next.extend(pieces);
         }
-        if mids.is_empty() {
+        if mids.values().all(Option::is_none) {
             return Ok((verts, tris, face_of));
         }
         tris = next;
