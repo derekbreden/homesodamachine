@@ -9809,6 +9809,78 @@
       "source_ids": [
         "src-f222afa30a654f9cb63b1cbf6992b390"
       ]
+    },
+    "pur-fd0447880897405fb697a1c430b6bba0": {
+      "vendor": "Amazon",
+      "purpose": "equipment_tooling",
+      "amount_evidence": "estimate",
+      "order_ids": [
+        "amazon:112-1265759-9506602"
+      ],
+      "allocation_status": "all_project",
+      "source_ids": [
+        "src-a84df1f538bc452984cd3d04e10595c3"
+      ]
+    },
+    "pur-79ed4268d7cf4c8ba55804d8d07a8adc": {
+      "vendor": "Amazon",
+      "purpose": "equipment_tooling",
+      "amount_evidence": "estimate",
+      "order_ids": [
+        "amazon:112-1265759-9506602"
+      ],
+      "allocation_status": "all_project",
+      "source_ids": [
+        "src-a84df1f538bc452984cd3d04e10595c3"
+      ]
+    },
+    "pur-c421deec9a2f4c7b868ae95b9e1499c1": {
+      "vendor": "Amazon",
+      "purpose": "equipment_tooling",
+      "amount_evidence": "estimate",
+      "order_ids": [
+        "amazon:112-1265759-9506602"
+      ],
+      "allocation_status": "all_project",
+      "source_ids": [
+        "src-a84df1f538bc452984cd3d04e10595c3"
+      ]
+    },
+    "pur-2ad02a3c76fc4de6b57a9424c7892858": {
+      "vendor": "Amazon",
+      "purpose": "equipment_tooling",
+      "amount_evidence": "estimate",
+      "order_ids": [
+        "amazon:112-1265759-9506602"
+      ],
+      "allocation_status": "all_project",
+      "source_ids": [
+        "src-a84df1f538bc452984cd3d04e10595c3"
+      ]
+    },
+    "pur-c692f77e911c4e6fa40da3baf52ca7bd": {
+      "vendor": "Amazon",
+      "purpose": "equipment_tooling",
+      "amount_evidence": "estimate",
+      "order_ids": [
+        "amazon:112-1265759-9506602"
+      ],
+      "allocation_status": "all_project",
+      "source_ids": [
+        "src-a84df1f538bc452984cd3d04e10595c3"
+      ]
+    },
+    "pur-349e89ac22704ecaa32c57926e7c0d7e": {
+      "vendor": "Amazon",
+      "purpose": "equipment_tooling",
+      "amount_evidence": "estimate",
+      "order_ids": [
+        "amazon:112-1265759-9506602"
+      ],
+      "allocation_status": "all_project",
+      "source_ids": [
+        "src-a84df1f538bc452984cd3d04e10595c3"
+      ]
     }
   },
   "orders": {
@@ -16083,6 +16155,18 @@
       "source_ids": [
         "src-f222afa30a654f9cb63b1cbf6992b390"
       ]
+    },
+    "amazon:112-1265759-9506602": {
+      "vendor": "Amazon",
+      "reference": "112-1265759-9506602",
+      "order_date": {
+        "precision": "day",
+        "value": "2026-11-12"
+      },
+      "allocation_status": "all_project",
+      "source_ids": [
+        "src-a84df1f538bc452984cd3d04e10595c3"
+      ]
     }
   },
   "events": [
@@ -20333,6 +20417,23 @@
       "order_ids": [
         "amazon:114-4687967-9041802"
       ]
+    },
+    {
+      "event_id": "evt-9ed31057386d4c8fb11aeec9f8b619f8",
+      "vendor": "Amazon",
+      "event_type": "charge",
+      "confirmation": "expected",
+      "event_date": null,
+      "amount_minor": 15954,
+      "currency": "USD",
+      "allocation_status": "all_project",
+      "source_ids": [
+        "src-a84df1f538bc452984cd3d04e10595c3"
+      ],
+      "verified_at": "2026-11-12",
+      "order_ids": [
+        "amazon:112-1265759-9506602"
+      ]
     }
   ],
   "allocations": [
@@ -22062,6 +22163,54 @@
       "purchase_id": "pur-36841266e8fb437a8d42247cbf7ee53d",
       "order_id": "amazon:114-4687967-9041802",
       "amount_minor": 900,
+      "currency": "USD"
+    },
+    {
+      "allocation_id": "alloc-21a46a0a4f52439889402b499123b2da",
+      "event_id": "evt-9ed31057386d4c8fb11aeec9f8b619f8",
+      "purchase_id": "pur-fd0447880897405fb697a1c430b6bba0",
+      "order_id": "amazon:112-1265759-9506602",
+      "amount_minor": 8988,
+      "currency": "USD"
+    },
+    {
+      "allocation_id": "alloc-22ffaffb5b8b4c0e8d54ba3ffe5534fd",
+      "event_id": "evt-9ed31057386d4c8fb11aeec9f8b619f8",
+      "purchase_id": "pur-79ed4268d7cf4c8ba55804d8d07a8adc",
+      "order_id": "amazon:112-1265759-9506602",
+      "amount_minor": 1071,
+      "currency": "USD"
+    },
+    {
+      "allocation_id": "alloc-4e58d8f3ae2b42e6ada5705a283db3bb",
+      "event_id": "evt-9ed31057386d4c8fb11aeec9f8b619f8",
+      "purchase_id": "pur-c421deec9a2f4c7b868ae95b9e1499c1",
+      "order_id": "amazon:112-1265759-9506602",
+      "amount_minor": 857,
+      "currency": "USD"
+    },
+    {
+      "allocation_id": "alloc-660da71d54994a75b5cc689d79d5e875",
+      "event_id": "evt-9ed31057386d4c8fb11aeec9f8b619f8",
+      "purchase_id": "pur-2ad02a3c76fc4de6b57a9424c7892858",
+      "order_id": "amazon:112-1265759-9506602",
+      "amount_minor": 1286,
+      "currency": "USD"
+    },
+    {
+      "allocation_id": "alloc-85b8b9f620ed45b69c5d375820f4625d",
+      "event_id": "evt-9ed31057386d4c8fb11aeec9f8b619f8",
+      "purchase_id": "pur-c692f77e911c4e6fa40da3baf52ca7bd",
+      "order_id": "amazon:112-1265759-9506602",
+      "amount_minor": 2144,
+      "currency": "USD"
+    },
+    {
+      "allocation_id": "alloc-16c57a6de2424e729b6a1fd653780926",
+      "event_id": "evt-9ed31057386d4c8fb11aeec9f8b619f8",
+      "purchase_id": "pur-349e89ac22704ecaa32c57926e7c0d7e",
+      "order_id": "amazon:112-1265759-9506602",
+      "amount_minor": 1608,
       "currency": "USD"
     }
   ],
@@ -34115,6 +34264,19 @@
       ],
       "verified_at": "2026-11-12",
       "note": "Signed-in order details identify one uxcell B09TYSP9NV M3x0.5 spiral-flute M35 cobalt HSS tap with a 2.5 mm drill, matching established earth-clamp tooling. Placed November 12, 2026: USD 8.39 item, USD 0.61 estimated tax, free shipping, USD 9.00 total. Ordered status only; the relative Saturday arrival estimate is not an actual delivery date. Order-scoped payment lookup shows no transactions yet. No explicit replacement or cancellation relationship is displayed; this distinct order is recorded separately without inferring the condition of the earlier acquired set."
+    },
+    "src-a84df1f538bc452984cd3d04e10595c3": {
+      "vendor": "Amazon",
+      "document_type": "merchant_order_details",
+      "reference": "112-1265759-9506602",
+      "document_date": null,
+      "notification_date": null,
+      "proves": [
+        "price",
+        "order_date"
+      ],
+      "verified_at": "2026-11-12",
+      "note": "Signed-in Mac Chrome Order Details, read the day the order was placed. Six lines, one of each: Befenybay 200 mm SFU1605 stage with NEMA 17 USD 83.80, BIGTREETECH TMC2209 V1.3 one piece USD 9.99, two-piece 42 stepper driver expansion board USD 7.99, R REIFENG ten-piece mechanical endstops with cable USD 11.99, Dorhea three-set ESP32 38-pin boards with screw-terminal breakouts USD 19.99, BTF-LIGHTING 12 V 3 A adapter USD 14.99. Items subtotal USD 148.75, free shipping, estimated tax USD 10.79, grand total USD 159.54. The tax is spread over the six rows in proportion to their prices and rounded to the cent. Ordered status only: the relative Tuesday arrival is not a delivery date, and no order-scoped payment lookup was made."
     }
   },
   "coverage": [
@@ -36197,6 +36359,26 @@
         "amazon:114-4687967-9041802"
       ],
       "note": "Exact-reference email search returned one confirmation and no further pages. Signed-in order details establish item, quantity, placed date and estimated-tax total. Payment lookup shows no transactions yet; no shipment, delivery or replacement relationship is established. This is order-scoped evidence, not account-wide coverage."
+    },
+    {
+      "coverage_id": "coverage-b3638bce1721458893c995d406a8e011",
+      "vendor": "Amazon",
+      "stream": "one named reed sweep rig order",
+      "evidence_type": "merchant_order_details",
+      "checked_at": "2026-11-12",
+      "examined_period": {
+        "start": "2026-11-12",
+        "end": "2026-11-12"
+      },
+      "complete_period": null,
+      "coverage": "partial",
+      "source_ids": [
+        "src-a84df1f538bc452984cd3d04e10595c3"
+      ],
+      "order_ids": [
+        "amazon:112-1265759-9506602"
+      ],
+      "note": "Signed-in order details establish the six items, their prices, the placed date and the estimated-tax total. No confirmation email, shipment, delivery or completed charge was examined. This is order-scoped evidence, not account-wide coverage."
     }
   ],
   "gaps": [
