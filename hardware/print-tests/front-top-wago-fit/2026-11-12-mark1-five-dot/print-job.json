@@ -272,7 +272,7 @@
     "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step.npz": "e029fa10eab4830904df0035cde34c2cb8ffc1182fdf65c72a38ca304bd5f38a",
     "hardware/print-tests/front-top-wago-fit/2026-11-12-mark1-dots-3-4-standard-layers/front-top-wago-fit-mark1-dots-3-4-standard-layers.3mf": "98943ea3c492e069cdd6f66edecbb14cf1faab8a9fe2846bbaae03658a74b668"
   },
-  "physical_fit": "Pending.",
+  "physical_fit": "physical-result/physical-result.json",
   "status_at_handoff": {
     "observed_at": "2026-11-13T05:55:22+00:00",
     "gcode_state": "RUNNING",
