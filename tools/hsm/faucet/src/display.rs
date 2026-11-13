@@ -188,7 +188,8 @@ const ON_SURFACE: f64 = 1e-9;
 /// `Solid::mapped` makes one.
 fn warped(solid: &Solid, max_edge: f64, f: impl Fn(V3) -> V3) -> Result<Solid> {
     let moves = |p: V3| (f(p) - p).norm() > ON_SURFACE;
-    let (verts, tris, face_of) = refined(solid.verts(), solid.tris(), solid.face_of(), max_edge, &moves)?;
+    let (tris, face_of) = zipped(solid.verts(), solid.tris(), solid.face_of());
+    let (verts, tris, face_of) = refined(solid.verts(), &tris, &face_of, max_edge, &moves)?;
     let moved: Vec<V3> = verts.iter().map(|&p| f(p)).collect();
     ensure!(moved.iter().all(|p| p.x.is_finite() && p.y.is_finite() && p.z.is_finite()), "a bend left a point nowhere");
     let mut kept = vec![true; solid.faces().len()];
@@ -267,4 +268,97 @@ fn refined(
         face_of = next_face;
     }
     Err(anyhow!("a bend's triangles never came down to edges of {max_edge}"))
+}
+
+/// How far a triangle's third corner may stand off its longest edge and the triangle still be
+/// flat: a seam's filler, with no face of its own.
+const FLAT: f64 = 1e-3;
+
+/// How close two of a seam's corners may stand and still be one corner. It is wider than `FLAT`,
+/// so the corners left along a seam come in one order from either side.
+const SEAM_CORNER: f64 = 4.0 * FLAT;
+
+/// Gives each of `corners` the first corner before it within `radius`, in `one`.
+fn fuse(verts: &[V3], corners: impl Iterator<Item = u32>, radius: f64, one: &mut [u32]) {
+    let cell = |p: V3| [p.x, p.y, p.z].map(|v| (v / radius).floor() as i64);
+    let mut kept: HashMap<[i64; 3], Vec<u32>> = HashMap::new();
+    for corner in corners {
+        let p = verts[corner as usize];
+        let [cx, cy, cz] = cell(p);
+        let near = (-1..=1)
+            .flat_map(|dx| (-1..=1).flat_map(move |dy| (-1..=1).map(move |dz| [cx + dx, cy + dy, cz + dz])))
+            .flat_map(|key| kept.get(&key).into_iter().flatten().copied())
+            .find(|&other| (verts[other as usize] - p).norm() <= radius);
+        match near {
+            Some(other) => one[corner as usize] = other,
+            None => kept.entry([cx, cy, cz]).or_default().push(corner),
+        }
+    }
+}
+
+/// The triangles with their seams zipped. A kernel mesh closes a seam whose two sides were cut at
+/// different points with flat triangles, which a bend would open into slivers facing either way.
+/// Here corners closer than the kernel's shortest edge become one corner, a seam's corners
+/// closer than `SEAM_CORNER` become one, every flat triangle is dropped, and each triangle that
+/// bordered one is split at the seam's corners along its edge, so both sides of a seam carry the
+/// same corners.
+fn zipped(verts: &[V3], tris: &[[u32; 3]], face_of: &[u32]) -> (Vec<[u32; 3]>, Vec<u32>) {
+    let at = |v: u32| verts[v as usize];
+    // How far along the edge from `a` to `b` the corner `c` stands, if it stands on it between
+    // its ends.
+    let on_edge = |a: u32, b: u32, c: u32| {
+        let (edge, to) = (at(b) - at(a), at(c) - at(a));
+        let along = to.dot(edge) / edge.norm2();
+        (along > 0.0 && along < 1.0 && (to - edge * along).norm() <= FLAT).then_some(along)
+    };
+    let flat = |t: &[u32; 3]| (0..3).any(|k| on_edge(t[k], t[(k + 1) % 3], t[(k + 2) % 3]).is_some());
+    let whole = |t: &[u32; 3]| t[0] != t[1] && t[1] != t[2] && t[2] != t[0];
+    let mut one: Vec<u32> = (0..verts.len() as u32).collect();
+    fuse(verts, 0..verts.len() as u32, TOLERANCE, &mut one);
+    let mut pieces: Vec<([u32; 3], u32)> =
+        tris.iter().zip(face_of).map(|(t, &face)| (t.map(|v| one[v as usize]), face)).filter(|(t, _)| whole(t)).collect();
+    // Fusing a seam's corners can flatten more triangles, so it repeats until none is added.
+    for _ in 0..8 {
+        let mut seam: Vec<u32> = pieces.iter().filter(|(t, _)| flat(t)).flat_map(|(t, _)| *t).collect();
+        seam.sort_unstable();
+        seam.dedup();
+        let mut one: Vec<u32> = (0..verts.len() as u32).collect();
+        fuse(verts, seam.iter().copied(), SEAM_CORNER, &mut one);
+        if seam.iter().all(|&v| one[v as usize] == v) {
+            break;
+        }
+        pieces = pieces.into_iter().map(|(t, face)| (t.map(|v| one[v as usize]), face)).filter(|(t, _)| whole(t)).collect();
+    }
+    let (flats, faces): (Vec<_>, Vec<_>) = pieces.into_iter().partition(|(t, _)| flat(t));
+    let mut seam: Vec<u32> = flats.iter().flat_map(|(t, _)| *t).collect();
+    seam.sort_unstable();
+    seam.dedup();
+    // The directed edges the flat triangles held: a face on the far side of one borders the seam.
+    let held: std::collections::HashSet<(u32, u32)> =
+        flats.iter().flat_map(|(t, _)| (0..3).map(move |k| (t[k], t[(k + 1) % 3]))).collect();
+    // Each face with, per edge, whether it lies along a seam and is still to be split.
+    let mut work: Vec<([u32; 3], u32, [bool; 3])> = faces
+        .into_iter()
+        .map(|(t, face)| (t, face, [0, 1, 2].map(|k| held.contains(&(t[(k + 1) % 3], t[k])))))
+        .collect();
+    let mut done = Vec::with_capacity(work.len());
+    while let Some((t, face, to_split)) = work.pop() {
+        let Some(k) = (0..3).find(|&k| to_split[k]) else {
+            done.push((t, face));
+            continue;
+        };
+        let (a, b, o) = (t[k], t[(k + 1) % 3], t[(k + 2) % 3]);
+        let mut chain: Vec<(f64, u32)> =
+            seam.iter().filter(|&&c| c != a && c != b && c != o).filter_map(|&c| on_edge(a, b, c).map(|along| (along, c))).collect();
+        chain.sort_by(|p, q| p.0.total_cmp(&q.0));
+        let stops: Vec<u32> = std::iter::once(a).chain(chain.iter().map(|&(_, c)| c)).chain(std::iter::once(b)).collect();
+        // A fan from the far corner over the edge's stops. Its first part keeps the edge back to
+        // `a`, its last the edge on from `b`.
+        for (i, pair) in stops.windows(2).enumerate() {
+            let onward = i + 2 == stops.len() && to_split[(k + 1) % 3];
+            let back = i == 0 && to_split[(k + 2) % 3];
+            work.push(([pair[0], pair[1], o], face, [false, onward, back]));
+        }
+    }
+    (done.iter().map(|&(t, _)| t).collect(), done.iter().map(|&(_, face)| face).collect())
 }
