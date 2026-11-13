@@ -3,7 +3,7 @@
   "piece": "enclosure-front-top",
   "printer": "Mark1",
   "connection_key": "H2C",
-  "status": "accepted",
+  "status": "started",
   "printer_task_id": "1438216432",
   "source_commit": "ffb0b27aa050491e1976f337c59cdcedd1b009c9",
   "build_base_commit": "dbdbb78f611746f7e96d6e5499c4145b758d36ab",
@@ -107,5 +107,6 @@
     }
   ],
   "accepted_fit_evidence": "https://github.com/derekbreden/homesodamachine/blob/53de04d569cdcbdbf9d43c05f4d11b93e7070c04/hardware/print-tests/front-top-wago-fit/2026-11-13-mark1-six-dot-rail-trees/physical-result/physical-result.json",
-  "launch": "launch.json"
+  "launch": "launch.json",
+  "startup": "startup-status.json"
 }
