@@ -17,7 +17,7 @@
       "filament_colour": "#000000"
     },
     "Mark2": {
-      "z_trim_mm": 0.04,
+      "z_trim_mm": 0.06,
       "filament_colour": "#161616"
     }
   },
