@@ -1,0 +1,40 @@
+{
+  "date": "2026-11-12",
+  "reported_by": "Derek",
+  "result": "The full-depth coupons printed successfully. Straight insertion failed, and forcing the Wago against the edge cracked the receiver. Z fit is unevaluated.",
+  "observations": [
+    "Prints turned out well. My guesses on adjustments were way off. It looks likethe PET-GF does flex enough at some points there to allow me to corner shove in a wago, but when I pressed the wago to the edge, you can see it snapped the edge of the receiver.",
+    "Now, granted, we may be able to add more material around those in the Y and Z axis in the real print (and we probably should as I am seeing some unnecessary edges, objects that could be fused more simply, contrary to our guidance) so it is not as thin as our coupon there, but even in that case we probably do not want to be stretching the 0.7 mm I apparently measured there that we are pushing the pet-gf beyond its natural position.",
+    "And then Z because I couldn't insert it we'll have to guess, I'd say just based on how far off my sense was on the other, that it's 0.05 mm per side or 0.10 mm per side in Z that we need to reduce."
+  ],
+  "photos_sha256": {
+    "IMG_8625.jpeg": "200cfd6e6de63ccace3769d0df8a9a2bfd65965ce0fd74f8f9eaa8042ecc2a02",
+    "IMG_8624.jpeg": "fa9b7cc85c8f80f4723a67b117235e3b49fa73f674f44e9706f03d2647014566",
+    "IMG_8623.jpeg": "397d3d90d66ffd8eaec338ea74cd1092b8728dd493ca43c7a246779add1d2cbe"
+  },
+  "caliper_readings_mm": {
+    "IMG_8625.jpeg": 22.53,
+    "IMG_8624.jpeg": 21.83
+  },
+  "reported_y_deflection_mm": 0.7,
+  "earlier_mark2_bridge_failure_photos": "https://github.com/derekbreden/homesodamachine/tree/a8f24b2b5d16fcc4a23abb2832802df7cbcf50ca/hardware/print-tests/front-top-wago-fit/2026-11-12-mark2/physical-result",
+  "job": {
+    "printer": "H2C",
+    "task_id": "1437522972",
+    "archive": {
+      "gcode_sha256": "a65b890cb66fd8c45b6cb359dc51eec9da29abb10e8a904732069b9960b08be8",
+      "name": "front-top-wago-fit-mark1-ready.gcode.3mf",
+      "objects": [
+        "Wago fit 1",
+        "Wago fit 2"
+      ],
+      "sha256": "7acddcf18ffad4868a90f29d413e7f02537f3b4aeca838f8372f6ae71ba38891",
+      "slots": {
+        "1": {
+          "colour": "000000",
+          "type": "PET-CF"
+        }
+      }
+    }
+  }
+}

@@ -286,7 +286,7 @@
     "support_roads": 0,
     "layers": 293
   },
-  "physical_fit": "Pending.",
+  "physical_fit": "Excessive insertion force and cracked edge. See physical-result/physical-result.json.",
   "status_at_handoff": {
     "state": "RUNNING",
     "layer_num": 3,
