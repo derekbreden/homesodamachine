@@ -1,0 +1,111 @@
+{
+  "purpose": "Identify the production front-top slice sent to Mark 1 and the Wago pocket roof paths it contains.",
+  "piece": "enclosure-front-top",
+  "printer": "Mark1",
+  "connection_key": "H2C",
+  "status": "accepted",
+  "printer_task_id": "1438216432",
+  "source_commit": "ffb0b27aa050491e1976f337c59cdcedd1b009c9",
+  "build_base_commit": "dbdbb78f611746f7e96d6e5499c4145b758d36ab",
+  "source_stl": "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl",
+  "source_stl_sha256": "0fe1c4f6cad10a003be82101065b73eaea3d4a4f0824795a60ed37083355e3fc",
+  "source_model_payload": "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step.npz",
+  "source_model_payload_sha256": "6870f1997f73e8fed5bbede827f3d930c56e05c5f0eff0f8a1e01b544bd5ae4b",
+  "print_features": "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.print-features.json",
+  "print_features_sha256": "0fa6765f23af005537bf0d07c85c74880b328acd6cecd11ca0a5173b1153fd8e",
+  "project": "front-top-wago-mark1.3mf",
+  "project_sha256": "a9c5abedae18bd7d10946c67d821ffb0e49a96fb13a4fe4677fa397ab97886d9",
+  "archive": "front-top-wago-mark1-ready.gcode.3mf",
+  "archive_sha256": "d5987fc0ce7408bdfe83ad30ac5a422a811fa3386b757616f29314cf37a29332",
+  "gcode_sha256": "aff1d37dc24777ef6c07bdfbac4b195fe1f29ce9a27081066fd47a691c6b6c9d",
+  "material": "Polymaker Fiberon PET-GF15, black",
+  "profile": "hardware/printed-parts/petgf.3mf",
+  "profile_sha256": "1be18bdfd75b33efc898b3e5c28a0c1975fc694ef4d94dd88a909472cb96b97f",
+  "nozzle": {
+    "side": "left",
+    "diameter_mm": 0.4,
+    "flow": "Standard",
+    "hardened": true
+  },
+  "bed_type": "Textured PEI Plate",
+  "textured_plate_trim_mm": 0.16,
+  "layers": 1090,
+  "standard_layer_height_mm": 0.24,
+  "estimated_seconds": 135788,
+  "estimated_filament_grams": 971.27,
+  "native_review_pass": true,
+  "native_review_checks": {
+    "archive": true,
+    "bed_border": true,
+    "declared_interiors_support_free": true,
+    "fine_and_transition_bands": true,
+    "show_faces_support_free": true,
+    "solid_hosts_sampled": true,
+    "tie_windows_support_free": true,
+    "z_trim": true
+  },
+  "native_slicer_warnings": [],
+  "minimum_bead_bed_margin_mm": 51.875,
+  "wago_pocket_paths": [
+    {
+      "name": "wago-mana insertion pocket",
+      "cad_bounds_mm": [
+        95.8,
+        104.5,
+        169.3,
+        185.0,
+        262.0,
+        292.0
+      ],
+      "cad_opening_xyz_mm": [
+        8.7,
+        15.7,
+        30.0
+      ],
+      "sliced_opening_xyz_mm": [
+        8.7,
+        15.7,
+        30.0
+      ],
+      "floor_top_plate_z_mm": 101.72,
+      "roof_underside_plate_z_mm": 131.72,
+      "first_roof_layer_plate_z_mm": 131.96,
+      "bridge_roads_with_sidewall_landings": 23,
+      "mouth_roads_with_sidewall_landings": 2,
+      "minimum_end_seat_mm": 0.169,
+      "minimum_end_overlap_mm": 0.24826,
+      "support_roads_in_pocket": 0
+    },
+    {
+      "name": "wago-manb insertion pocket",
+      "cad_bounds_mm": [
+        95.8,
+        104.5,
+        169.35,
+        177.55,
+        227.9,
+        258.1
+      ],
+      "cad_opening_xyz_mm": [
+        8.7,
+        8.2,
+        30.2
+      ],
+      "sliced_opening_xyz_mm": [
+        8.7,
+        8.2,
+        30.24
+      ],
+      "floor_top_plate_z_mm": 67.64,
+      "roof_underside_plate_z_mm": 97.88,
+      "first_roof_layer_plate_z_mm": 98.12,
+      "bridge_roads_with_sidewall_landings": 23,
+      "mouth_roads_with_sidewall_landings": 2,
+      "minimum_end_seat_mm": 0.169,
+      "minimum_end_overlap_mm": 0.23102,
+      "support_roads_in_pocket": 0
+    }
+  ],
+  "accepted_fit_evidence": "https://github.com/derekbreden/homesodamachine/blob/53de04d569cdcbdbf9d43c05f4d11b93e7070c04/hardware/print-tests/front-top-wago-fit/2026-11-13-mark1-six-dot-rail-trees/physical-result/physical-result.json",
+  "launch": "launch.json"
+}
