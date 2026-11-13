@@ -1,0 +1,54 @@
+{
+  "purpose": "Records what Mark2 reported while it printed the base's scaffold, roof and skin, read once a minute.",
+  "printer": "Mark2",
+  "printer_task_id": "1440074146",
+  "date": "2026-11-13",
+  "first_reading_in_the_first_layer": {
+    "clock_cst": "13:48:36",
+    "state": "RUNNING",
+    "layer": 1,
+    "percent": 1,
+    "minutes_left": 388,
+    "print_error": 0,
+    "notices_other_than_the_door": 0,
+    "nozzle_c": 265.0,
+    "bed_c": 80.0
+  },
+  "first_reading_after_the_underside": {
+    "clock_cst": "14:30:18",
+    "state": "RUNNING",
+    "layer": 1,
+    "percent": 1,
+    "minutes_left": 387,
+    "print_error": 0,
+    "notices_other_than_the_door": 0,
+    "nozzle_c": 262.0,
+    "bed_c": 80.0
+  },
+  "first_reading_in_the_second_layer": {
+    "clock_cst": "14:35:25",
+    "state": "RUNNING",
+    "layer": 2,
+    "percent": 3,
+    "minutes_left": 381,
+    "print_error": 0,
+    "notices_other_than_the_door": 0,
+    "nozzle_c": 281.0,
+    "bed_c": 80.0
+  },
+  "door_notice": {
+    "first_read_clock_cst": "14:17:18",
+    "last_read_clock_cst": "14:18:00",
+    "gone_by_clock_cst": "14:19:02",
+    "hms": "HMS_0300_9600_0003_0001",
+    "text": "The front door is open."
+  },
+  "print_errors": [
+    0
+  ],
+  "states": [
+    "RUNNING"
+  ],
+  "scope": "The printer's own status, not a view of the print. It raised no print error and no notice but the door's while the sloped courses ran. A rub that lost no steps would not show here.",
+  "readings": 57
+}

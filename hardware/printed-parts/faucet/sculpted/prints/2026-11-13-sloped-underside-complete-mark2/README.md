@@ -46,6 +46,9 @@ from photographs, and no witness on Mark2 has measured them. The slope climbs to
 of the printer, the one direction in which the reference's underside clears it. Every sloped
 pass comes before the plate's first layer.
 
+[What Mark2 reported](status-through-the-underside.json) while those courses ran is the printer's
+own status, read once a minute: no print error, and no notice but the front door's.
+
 ## What this print is to answer
 
 - Whether the scaffold and its roof come away in one piece, and what the face under them looks
