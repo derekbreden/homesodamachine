@@ -324,5 +324,13 @@
     "support_roads": 0,
     "layers": 297
   },
-  "physical_fit": "Pending."
+  "physical_fit": "Pending.",
+  "status_at_handoff": {
+    "state": "RUNNING",
+    "layer_num": 1,
+    "remaining_minutes": 34,
+    "print_error": 0,
+    "observed_at": "2026-11-13T04:21:24+00:00",
+    "hms": []
+  }
 }
