@@ -46,6 +46,9 @@ pub struct Junction {
     pub translation: P3,
     pub mouth: f64,
     pub fit: f64,
+    /// Pocket inset per side across the poles and along the body height.
+    pub well_width_inset: f64,
+    pub well_height_inset: f64,
 }
 
 #[derive(Deserialize)]
@@ -56,6 +59,10 @@ struct Placement {
     rotation: [P3; 3],
     translation_mm: P3,
     mouth_mm: f64,
+    #[serde(default)]
+    well_width_inset_mm: f64,
+    #[serde(default)]
+    well_height_inset_mm: f64,
 }
 
 #[derive(Deserialize)]
@@ -90,6 +97,8 @@ pub fn junctions() -> &'static [Junction] {
                 translation: j.translation_mm,
                 mouth: j.mouth_mm,
                 fit: document.well_fit_mm,
+                well_width_inset: j.well_width_inset_mm,
+                well_height_inset: j.well_height_inset_mm,
             })
             .collect()
     })

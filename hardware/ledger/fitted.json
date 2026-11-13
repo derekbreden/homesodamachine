@@ -111,6 +111,13 @@
       "record": "https://github.com/derekbreden/homesodamachine/blob/474000169aef000f16a765554fcc51038d954d6c/hardware/print-tests/front-top-wago-fit/2026-11-12-mark1-five-dot/physical-result/physical-result.json"
     },
     {
+      "material": "HSM-0079",
+      "date": "2026-11-13",
+      "said": "please implement that, and call it fitted close enough and good enough.",
+      "tried": "Front-top Wago receiver fit series, with the production dimensions accepted by Derek",
+      "record": "https://github.com/derekbreden/homesodamachine/blob/53de04d569cdcbdbf9d43c05f4d11b93e7070c04/hardware/print-tests/front-top-wago-fit/2026-11-13-mark1-six-dot-rail-trees/physical-result/physical-result.json"
+    },
+    {
       "material": "HSM-0080",
       "date": "2026-10-07",
       "said": "I have a front top printed for it and a front bottom and a back bottom and a cold core foam shell (no top or cap) and pump cradle and cap, and a tee carrier, and a funnel frame. Reservoirs are starting to print now. And all those prints fit together right now",
