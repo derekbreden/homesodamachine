@@ -336,12 +336,20 @@
     }
   },
   "physical_fit": "Pending.",
-  "status_at_handoff": {
+  "startup_pause": {
     "state": "PAUSE",
     "layer_num": 0,
     "observed_at": "2026-11-13T01:37:14+00:00",
     "error": "0300-801E",
     "message": "The extrusion motor is overloaded, please check the Assistant for details.",
-    "recovery": "Cut the left PET-GF, unload, remove the cut segment, and reload before resuming the same job."
+    "recovery": "The same job resumed after the pause. The printer reported no active error."
+  },
+  "status_at_handoff": {
+    "state": "RUNNING",
+    "layer_num": 0,
+    "observed_at": "2026-11-13T01:38:14+00:00",
+    "print_error": 0,
+    "hms": [],
+    "remaining_minutes": 37
   }
 }
