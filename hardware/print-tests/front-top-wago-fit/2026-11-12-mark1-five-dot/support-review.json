@@ -1,0 +1,105 @@
+{
+  "coordinate_frame": null,
+  "first_layer_z_mm": 0.2,
+  "inputs": {
+    "gcode": "front-top-wago-fit-mark1-five-dot-ready.gcode.3mf",
+    "gcode_sha256": "413d3f29b0121b713c8ec70e6247e21f500b7e9ef101a8f71e07c33531580f40",
+    "model": null,
+    "model_sha256": null,
+    "profile": null,
+    "profile_sha256": null
+  },
+  "interface_feature_policy": "All support bodies are retained; unlabelled interfaces have unknown contact count and build-up.",
+  "interfaces": [
+    {
+      "bbox_xy_mm": [
+        176.8,
+        152.8,
+        184.8,
+        160.0
+      ],
+      "build_up_mm": 28.979,
+      "first_z_mm": 32.523,
+      "id": "interface-1",
+      "last_z_mm": 33.08,
+      "tree": "tree-1"
+    },
+    {
+      "bbox_xy_mm": [
+        176.8,
+        152.8,
+        184.8,
+        167.2
+      ],
+      "build_up_mm": 28.602,
+      "first_z_mm": 66.365,
+      "id": "interface-2",
+      "last_z_mm": 66.92,
+      "tree": "tree-2"
+    }
+  ],
+  "piece": "Wago five-dot comparison",
+  "schema": 1,
+  "slicer": "BambuStudio 02.08.02.61",
+  "slicer_settings": {
+    "layer_height": "0.24",
+    "support_bottom_z_distance": "0.3",
+    "support_interface_bottom_layers": "2",
+    "support_interface_spacing": "0",
+    "support_interface_top_layers": "3",
+    "support_object_xy_distance": "0.2",
+    "support_on_build_plate_only": "0",
+    "support_style": "tree_slim",
+    "support_threshold_angle": "35",
+    "support_top_z_distance": "0.24",
+    "support_type": "tree(auto)"
+  },
+  "summary": {
+    "bed_rooted_bodies": 0,
+    "bodies_without_interface_labels": 0,
+    "explicit_interface_islands": 2,
+    "interface_islands": 2,
+    "model_rooted_bodies": 2,
+    "shortest_build_up_mm": 28.602,
+    "shortest_labelled_build_up_mm": 28.602,
+    "support_bodies": 2
+  },
+  "trees": [
+    {
+      "base_z_mm": 3.544,
+      "bbox_xy_mm": [
+        176.4,
+        152.8,
+        184.8,
+        160.0
+      ],
+      "first_interface_z_mm": 32.523,
+      "id": "tree-1",
+      "interface_reading": "explicit_feature",
+      "interfaces": [
+        "interface-1"
+      ],
+      "root": "model",
+      "shortest_build_up_mm": 28.979,
+      "top_z_mm": 33.08
+    },
+    {
+      "base_z_mm": 37.763,
+      "bbox_xy_mm": [
+        176.4,
+        152.8,
+        184.8,
+        167.2
+      ],
+      "first_interface_z_mm": 66.365,
+      "id": "tree-2",
+      "interface_reading": "explicit_feature",
+      "interfaces": [
+        "interface-2"
+      ],
+      "root": "model",
+      "shortest_build_up_mm": 28.602,
+      "top_z_mm": 66.92
+    }
+  ]
+}

@@ -97,6 +97,13 @@
       "record": "https://github.com/derekbreden/homesodamachine/blob/a8f24b2b5d16fcc4a23abb2832802df7cbcf50ca/hardware/print-tests/front-top-wago-fit/2026-11-12-mark2/physical-observation.json"
     },
     {
+      "material": "HSM-0079",
+      "date": "2026-11-12",
+      "said": "the WAGO fits in very easily, but is still held pretty well. It's awesome. The 3.1 is definitely good enough.",
+      "tried": "Wago insertion and retention in the three-dot front-top receiver coupon",
+      "record": "https://github.com/derekbreden/homesodamachine/blob/eb3ec0fcfb192c179362f20fa5e17cb1c4d9c5ff/hardware/print-tests/front-top-wago-fit/2026-11-12-mark1-dots-3-4-standard-layers/physical-result/physical-result.json"
+    },
+    {
       "material": "HSM-0080",
       "date": "2026-10-07",
       "said": "I have a front top printed for it and a front bottom and a back bottom and a cold core foam shell (no top or cap) and pump cradle and cap, and a tee carrier, and a funnel frame. Reservoirs are starting to print now. And all those prints fit together right now",
