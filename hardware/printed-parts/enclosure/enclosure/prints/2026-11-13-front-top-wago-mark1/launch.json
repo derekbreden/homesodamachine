@@ -1,0 +1,26 @@
+{
+  "archive": {
+    "gcode_sha256": "aff1d37dc24777ef6c07bdfbac4b195fe1f29ce9a27081066fd47a691c6b6c9d",
+    "name": "front-top-wago-mark1-ready.gcode.3mf",
+    "objects": [
+      "enclosure-front-top"
+    ],
+    "sha256": "d5987fc0ce7408bdfe83ad30ac5a422a811fa3386b757616f29314cf37a29332",
+    "slots": {
+      "1": {
+        "colour": "000000",
+        "type": "PET-CF"
+      }
+    }
+  },
+  "gcode_state": "PREPARE",
+  "hms": [],
+  "layer_num": 293,
+  "mc_remaining_time": 0,
+  "observed_at": "2026-11-13T09:09:30+00:00",
+  "print_error": 0,
+  "printer": "H2C",
+  "printer_task_id": "1438216432",
+  "subtask_name": "front-top-wago-mark1-ready.gcode.3mf",
+  "total_layer_num": 293
+}
