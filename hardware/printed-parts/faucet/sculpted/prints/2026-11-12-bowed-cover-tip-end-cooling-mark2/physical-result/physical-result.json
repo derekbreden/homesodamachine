@@ -1,0 +1,87 @@
+{
+  "date": "2026-11-12",
+  "reported_by": "Derek",
+  "printer": "Mark2",
+  "printer_task_id": "1437531304",
+  "submitted_archive": {
+    "gcode_sha256": "f0fb7507a3db5d8728b68b8c3838db78e049a28d8de7b6699a0247a265f3c9c1",
+    "name": "sculpted-tip-cover-bowed-tip-cooling-black-mark2-ready.gcode.3mf",
+    "sha256": "862adb8e4f818e1acc6512c0dd5f5ad2dd300b2d0d3668d29d1f31625ba3eaa3"
+  },
+  "scope": "The black Sculpted display cover with bowed sides, snapped onto the plain-grooved Sculpted tip printed beside it.",
+  "tried": "the printed cover snapped onto the printed tip",
+  "observations": [
+    "On the prints that just finished, the fit turned out wonderful. Best faucet display cover fit so far, and very tight/firm. It is good enough. You can see in the photos it is not perfect though. When viewed from below both the aft and fore side are improved from the previous prints. On the fore side specifically we can see that at least from this angle, the very foremost tip of the wing there is *not* contacting the surface, so the bend was a total success there it seems, with that very tip on the very bottom as we look at it from below. And on the aft side it is almost like that, but still a bit of a ramp where you can see the tip kissing the surface. But on the fore side, as we bring the camera around the side you see we do make quite a lot of contact with the surface there for a bit, and then we get gaps again.",
+    "So, I'm thinking some further small adjustments could go a long ways.",
+    "There is a *part* of the arch which is raised, not all of it. Not at the center, and not at the wing tips. And the same thing is present on the aft side as well, but to a much lesser extent.",
+    "Oh and I think you failed to use our documented print settings for the z offset on the first layer on pet-gf on that printer ... or I hope you did at least, because that last plate was tortuous to scrape off and I'm afraid this one will be too ... or it will be good news if you have this failure because then it is something we can fix."
+  ],
+  "agent_reading": {
+    "author": "Claude, from the photos; not Derek's words.",
+    "sides": "Between the lips' ends each side sits evenly. Past each lip's end the side stands off the tube, most beside the lip and less toward the tip. The fore tip stays off the tube. The aft tip touches it.",
+    "front": "From the fore corner the cover's front rim lies on the tip for a stretch. Above that the front arch stands off the cap on both halves, widest partway between the rim and the arch's centre, and closes at the centre, where the underside carries support marks.",
+    "rear": "The rear arch shows the same thing, thinner: an opening partway round, closed at the centre and toward the tips.",
+    "tip_end": "The band by the dispense face still shows ripples on this plate, which printed with part cooling there. Derek has not said how it compares.",
+    "plate_release": "The plate printed with Mark2's documented first-layer trim for this nozzle and plate; the submitted G-code sets it once.",
+    "estimates": "Scaled against the layer lines on the cover's front face and the dispense face, the front arch stands roughly 0.7 to 0.8 mm off the cap at its widest in the view from above, and more in the view from below. The cover's model allows about half a millimetre there and two thirds at the centre.",
+    "limits": "Photographs only. No opening was measured on the part."
+  },
+  "image_processing": "Saved as this session received them, JPEGs two thousand pixels wide. The originals did not reach this Mac.",
+  "images": [
+    {
+      "file": "01-fore-end-gap-close.jpg",
+      "sha256": "e6cbeae8de505562ddde1a8398209401046b3d2fcc834ed951441154b63dc818",
+      "view": "Close view from below of a side's fore end: the opening beside the lip's end, and the tip's rippled band by the dispense face beyond it."
+    },
+    {
+      "file": "02-fore-corner-and-front-edge.jpg",
+      "sha256": "2a84f1f4aa090eb5e3670bd78ad858c1d3b4c2c1ddb526de778d42bcc1697a49",
+      "view": "The fore corner from below: the lip's end, the cover's front rim lying on the tip for a stretch, then standing open up the arch."
+    },
+    {
+      "file": "03-nose-arch-gap-front.jpg",
+      "sha256": "48d418a299f3d887dd850d0e8ce497f46b239a70543de2e8786c6ca480e3e73b",
+      "view": "The front arch over the cap, from in front and below: light through the opening between the arch's centre and one side."
+    },
+    {
+      "file": "04-nose-arch-gap-above.jpg",
+      "sha256": "a9a84654d7d273c35f9fabf3c27e8d0a985743a76feb8c0bf5efc1aaef773075",
+      "view": "The same opening from in front and above the dispense face: widest partway round, closing toward the arch's centre, where the support marks are."
+    },
+    {
+      "file": "05-nose-arch-gap-other-half.jpg",
+      "sha256": "ac9836bc9e7eadad418190429947fa4f9ee7ecd76f9991e4d58459a0ba961cca",
+      "view": "The front arch's other half from in front: the same opening partway round."
+    },
+    {
+      "file": "06-side-from-below.jpg",
+      "sha256": "defc06c7e7f544351dde7cf07771fbf915a2e8bf56e6f158cb3234777c63f351",
+      "view": "One whole side from below: the lip's length between its two ends, and the rippled band by the dispense face."
+    },
+    {
+      "file": "07-aft-tip-from-below.jpg",
+      "sha256": "fac5fd5a2bb1cb1e0c56e7a7f82f87e841e8ee1c8a498b9ac589118ca19ac968",
+      "view": "The aft end from below: light under the side past the lip's end, closing to where the tip touches the neck."
+    },
+    {
+      "file": "08-fore-tip-from-below.jpg",
+      "sha256": "66ae161b6ce4e94d17df124ad33f8bd92a15d45aeecdfd71bb77b0f734154f42",
+      "view": "The fore end from below: the opening past the lip's end and the foremost tip standing off the tube."
+    },
+    {
+      "file": "09-fore-side-contact-then-gap.jpg",
+      "sha256": "04c6620b06d2ed8e06122d3d587a226ada53ee4e6c32ec16fbf3d74efb4617d9",
+      "view": "The fore end from the side: the front rim lying on the tube, then light under it."
+    },
+    {
+      "file": "10-rear-arch-from-side.jpg",
+      "sha256": "658ff96701caecb2713c3d33e80b918ec392bf3d5fce33a6b11e36963d168452",
+      "view": "The rear arch over the neck, from the side: a thin opening partway round, closed at the centre and toward the tip."
+    },
+    {
+      "file": "11-rear-arch-from-behind.jpg",
+      "sha256": "9decb1fb1cbd0d5817a218ba4b33aca75d9fb663763e9ec7b51080a2628edb2a",
+      "view": "The rear arch from behind, the rear seam at its centre: a thin opening on one side, support marks at the centre."
+    }
+  ]
+}
