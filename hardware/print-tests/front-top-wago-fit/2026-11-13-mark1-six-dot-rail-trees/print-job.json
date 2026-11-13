@@ -245,5 +245,27 @@
     "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step.npz": "e029fa10eab4830904df0035cde34c2cb8ffc1182fdf65c72a38ca304bd5f38a",
     "hardware/print-tests/front-top-wago-fit/2026-11-12-mark1-five-dot/front-top-wago-fit-mark1-five-dot.3mf": "56202e8f68116edb8a21285f6914220e8140fbcee3a4007ab9946e899e2a11d7",
     "hardware/printed-parts/enclosure/enclosure/prints/2026-11-11-front-bottom-D-mark2/2026-11-11-front-bottom-mark2-57427920.3mf": "17878a03bf20f80832e3dd4f1dc5c36087607932f0cd61cdc1e8614c487ba29e"
+  },
+  "startup_spacing": {
+    "other_printer": "Mark2",
+    "other_task_id": "1437924119",
+    "other_accepted_at": "2026-11-13T06:31:42+00:00",
+    "seconds_between_acceptances": 3085
+  },
+  "status_at_handoff": {
+    "observed_at": "2026-11-13T07:32:25+00:00",
+    "gcode_state": "RUNNING",
+    "subtask_name": "front-top-wago-fit-mark1-rail-trees-ready.gcode.3mf",
+    "layer_num": 1,
+    "total_layer_num": 293,
+    "mc_remaining_time": 19,
+    "mc_percent": 21,
+    "print_error": 0,
+    "hms": [],
+    "nozzle_temper": 267.0,
+    "nozzle_target_temper": 265.0,
+    "bed_temper": 80.0,
+    "bed_target_temper": 80.0,
+    "printer_task_id": "1438015656"
   }
 }
