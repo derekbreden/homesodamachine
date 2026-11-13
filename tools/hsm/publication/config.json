@@ -8,6 +8,7 @@
     "hardware/quickstart-claude",
     "hardware/install-guide/out",
     "hardware/weld-rotator-guide/out",
+    "hardware/reed-sweep-rig-guide/out",
     "hardware/gun-positioner-guide/out",
     "hardware/magnetic-float-guide/out",
     "hardware/tube-insertion-guide/out",

@@ -8,6 +8,7 @@ the normal build.
 tools/run -- cargo build --manifest-path tools/hsm/Cargo.toml --release --locked -j 2 -p hsm-manual-guides
 hsm-manual-guides list
 tools/run hsm-manual-guides bind tube-insertion-guide
+tools/run hsm-manual-guides bind reed-sweep-rig-guide
 tools/run hsm-manual-guides build faucet-assembly-guide
 tools/run hsm-manual-guides markings refrigerant-warning
 tools/run --cad -- hsm-manual-guides art tube-insertion-guide --list

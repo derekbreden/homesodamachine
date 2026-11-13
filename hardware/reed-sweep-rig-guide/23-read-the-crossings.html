@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Use the directional crossings</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<article class="card">
+  <header>
+    <span class="eyebrow"><b>Calibration</b></span>
+    <h1>Use the directional crossings</h1>
+    <i class="rule"></i>
+    <p class="lede">The dry rig measures the magnet's position relative to the reed. The float procedure supplies the waterline reading and the final liquid check.</p>
+  </header>
+  <main>
+    <figure>
+      <svg class="schematic" viewBox="0 0 1100 418" role="img" aria-label="Illustrative rising and falling activation windows on a common axis. The rising closure occurs at the lower end of its window and the falling closure at the higher end.">
+        <path class="datum" d="M550 70v274"/>
+        <text class="sub" x="550" y="55" text-anchor="middle">Glass centre</text>
+        <path class="w-gnd" d="M270 149H1007M270 282H1007"/>
+        <path d="M404 149H703M454 282H758" stroke="#1749d1" stroke-width="16" stroke-linecap="round"/>
+        <path class="motion" d="M275 106H997m-17-12 17 12-17 12M997 326H275m17-12-17 12 17 12"/>
+        <g class="lbl"><text x="63" y="157">Rising</text><text x="63" y="290">Falling</text></g>
+        <g fill="var(--action)"><circle cx="404" cy="149" r="10"/><circle cx="758" cy="282" r="10"/></g>
+        <g class="sub" text-anchor="middle">
+          <text x="404" y="188">Closes</text><text x="703" y="188">Opens</text>
+          <text x="454" y="254">Opens</text><text x="758" y="254">Closes</text>
+          <text x="638" y="384">Magnet position increases into the tube</text>
+        </g>
+      </svg>
+      <figcaption>The blue span is a closed contact. The sketch shows how to choose the closure for each direction. Use the positions from your run.</figcaption>
+    </figure>
+    <ol class="actions">
+      <li>Capture NOMINAL, then NEAR and FAR, in separate directories. Home again after changing sleds.</li>
+      <li>Read the directional closing and opening positions and their spread in <code>sweep.json</code>. Keep separate activation regions and retain <code>raw.log</code> so the run can be replayed.</li>
+      <li>Use the inward closure for full and the return closure for empty. In the same height frame, add the measured magnet-to-liquid offset to the target liquid height, then subtract the signed magnet-to-reed offset at closure. Record the result in the <a href="https://github.com/derekbredensteiner/homesodamachine/blob/main/hardware/printed-parts/cold-core/magnetic-float/all-aero/reed-calibration.json">reed calibration record</a>.</li>
+    </ol>
+    <div class="gate">
+      <span class="gate-label">Check in liquid before fixing the reeds</span>
+      <p>Confirm both control crossings are accessible and repeatable in the intended vessel. Apply the acceptance limits in the <a href="https://github.com/derekbredensteiner/homesodamachine/blob/main/hardware/printed-parts/cold-core/magnetic-float/all-aero/installation.md#reed-calibration">float calibration procedure</a> before soldering fixed columns or printing the final bridge.</p>
+    </div>
+    <p><a href="https://github.com/derekbredensteiner/homesodamachine/blob/main/hardware/assembly/reed-sweep-rig.md">Rig procedure and log processing</a></p>
+  </main>
+  <footer><span>Reed sweep rig &middot; build guide</span><span class="folio">23</span></footer>
+</article>
+</body>
+</html>
