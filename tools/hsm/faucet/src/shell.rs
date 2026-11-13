@@ -284,7 +284,7 @@ fn display_cavity(neck: &Gooseneck, pads: &[Solid]) -> Result<Solid> {
 fn retention_grooves(neck: &Gooseneck) -> Result<Solid> {
     let end_slip = snap::END_SLIP + DISPLAY_GROOVE_END_CLEARANCE;
     let s_min = display_clip_s_bottom() - end_slip;
-    let s_max = display_clip_s_top() + end_slip;
+    let s_max = display_clip_s_top() + end_slip - DISPLAY_GROOVE_AFT_STOP;
     let band = neck.cradle_prism(
         DISPLAY_GROOVE_HALF_X,
         (s_min, s_max),

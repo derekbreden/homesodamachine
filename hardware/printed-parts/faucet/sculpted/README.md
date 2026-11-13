@@ -79,7 +79,9 @@ cover seating on one wing. Its
 binds the seam gaps, exterior wall paths, shoulder support and nose clearance
 to the submitted toolpath.
 
-The Sculpted tip's two lip grooves are its only relief for the display cover. The cover's sides
+The Sculpted tip's two lip grooves are its only relief for the display cover. Their aft ends
+stand closer to the lips than their fore ends, so the snapped cover rests toward the tube exit.
+The cover's sides
 bear on the groove roots and clear the rest of the neck when seated, as the
 [cover's geometry](../faucet-display-cover/README.md#geometry) describes. The
 [wing contact record](https://github.com/derekbreden/homesodamachine/blob/2ac8b452d916cb323d39cce42306069da7a25f91/hardware/printed-parts/faucet/sculpted/prints/2026-11-12-wing-end-relief-mark1/physical-result/physical-result.json)

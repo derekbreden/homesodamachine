@@ -534,6 +534,9 @@ pub const DISPLAY_GROOVE_HALF_X: f64 = DISPLAY_NECK_OUTER_R + DISPLAY_GROOVE_REA
 pub const DISPLAY_GROOVE_CORE_R: f64 = DISPLAY_NECK_OUTER_R - (DISPLAY_NECK_OUTER_R - DISPLAY_CLIP_GROOVE_RADIUS);
 /// Extra clearance along the display face at each end of the groove.
 pub const DISPLAY_GROOVE_END_CLEARANCE: f64 = 0.25;
+/// How far the grooves' aft ends stand in from that clearance. The snapped cover has less room
+/// to settle aft, so it rests toward the tube exit, where it sits best.
+pub const DISPLAY_GROOVE_AFT_STOP: f64 = 0.4;
 
 /// The cover's face along s.
 pub fn display_cover_face_length() -> f64 {
