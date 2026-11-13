@@ -30,7 +30,9 @@ mod identification_mark1;
 const PROFILE: &str = "hardware/printed-parts/petgf.3mf";
 const REGISTRATION: &str = "hardware/printed-parts/calibration/dual-nozzle-registration/mark2-registration.json";
 /// Mark2's Z trim, as `pieces.json` gives it for every Mark2 plate.
-const Z_TRIM: f64 = 0.04;
+fn z_trim(root: &Path) -> Result<f64> {
+    profile::petgf_z_trim(root, "Mark2")
+}
 /// The unseasoned outer bed every bead keeps clear of.
 const BORDER: f64 = 20.0;
 /// Between parts, and between rows.
@@ -120,7 +122,7 @@ fn bodies(step: &Path) -> Result<(Shape, Shape)> {
 
 /// `petgf.3mf` with its filament arrays doubled onto both nozzles, as the nameplate's preparer does.
 fn two_hotend_settings(root: &Path, colours: [&str; 2]) -> Result<(Plate, Value)> {
-    let profile = profile::load(&root.join(PROFILE), Some(Z_TRIM), None, root)?;
+    let profile = profile::load(&root.join(PROFILE), Some(z_trim(root)?), None, root)?;
     let mut plate = Plate::new("", &profile, "homesodamachine/labels/");
     let original = profile.settings.clone();
     let variants = original.get("filament_extruder_variant").map(Json::list).map_or(0, <[Json]>::len);
@@ -293,9 +295,9 @@ fn prepare(root: &Path, group: &Group, output: &Path) -> Result<PathBuf> {
         "material": "Polymaker Fiberon PET-GF15, two colours", "filament_colours": group.colours,
         "body_filament": group.body, "word_filament": group.word,
         "project": relative(&project, root), "project_sha256": file_sha(&project)?,
-        "profile": PROFILE, "profile_sha256": file_sha(&root.join(PROFILE))?, "requested_z_trim_mm": Z_TRIM,
+        "profile": PROFILE, "profile_sha256": file_sha(&root.join(PROFILE))?, "requested_z_trim_mm": z_trim(root)?,
         // Bambu's Textured PEI compensation emits less than the request, by the amount here.
-        "emitted_textured_trim_mm": round(Z_TRIM - 0.02, 3), "recipe": recipe, "cooling_changes": cooling_changes,
+        "emitted_textured_trim_mm": round(z_trim(root)? - 0.02, 3), "recipe": recipe, "cooling_changes": cooling_changes,
         "face_up_tops_mm": [],
         "usable_plate_mm": [USABLE.0, USABLE.1], "plate_border_mm": BORDER,
         "parts": records, "sources_sha256": sources,

@@ -148,11 +148,11 @@ then emits **`G29.1 Z0.02`** on textured PEI with the 0.8 mm nozzle.
 
 Each first-layer trim belongs to its recorded printer, material, nozzle and plate.
 The printer preset's start G-code carries it. Job names carry the requested value
-(`z004`, `z018`).
+(`z006`, `z018`).
 
 | printer | nozzle | requested | emitted on Textured PEI | preset on current jobs |
 | --- | --- | --- | --- | --- |
-| Mark2 | 0.4 mm | +0.04 mm | `G29.1 Z0.02` | `Bambu Lab H2C 0.4 Standard +0.04 Z trim` |
+| Mark2, PET-GF on Textured PEI | 0.4 mm | +0.06 mm | `G29.1 Z0.04` | `Bambu Lab H2C 0.4 Standard +0.06 Z trim` |
 | Mark2 | 0.8 mm | +0.04 mm | `G29.1 Z0.02` | `Bambu Lab H2C 0.8 Standard +0.04 Z trim` |
 | Mark1 (`H2C`), PET-GF on Textured PEI | 0.4 mm | +0.18 mm | `G29.1 Z0.16` | `Bambu Lab H2C 0.4 Standard +0.18 Z trim` |
 | Mark1, clear PETG reservoir | 0.8 mm | 0.00 mm | `G29.1 Z-0.02` | `Bambu Lab H2C 0.8 Standard PETG zero Z trim` |
@@ -169,9 +169,16 @@ clear the trim before tool changes and maintenance. The clear PETG reservoir
 keeps its own recorded recipe. Other trim changes require explicit authorization
 for their specific print.
 
+Each printer's PET-GF trim is set under `printers` in
+[`pieces.json`](../hardware/printed-parts/enclosure/trial-preparation/pieces.json). The
+enclosure, faucet and tube-collar preparers read it there and write it over the trim the
+shared [`petgf.3mf`](../hardware/printed-parts/petgf.3mf) working profile carries. The
+coupon plate specs under `hardware/print-tests` restate it. The fixture preparers and the
+lever replica keep each recorded job's own trim in their variant tables and layouts, and
+a project or archive named for a trim holds that trim.
+
 Bambu's Textured PEI compensation subtracts 0.02 mm from the requested trim with
-the 0.4 and 0.8 mm nozzles above; other plates emit the requested value. The shared
-[`petgf.3mf`](../hardware/printed-parts/petgf.3mf) working profile carries Mark2's +0.04.
+the 0.4 and 0.8 mm nozzles above; other plates emit the requested value.
 A sliced archive holds `G29.1 Z0` and exactly one trim line; read that line before
 sending. [z-trim.md](../hardware/printed-parts/z-trim.md) describes the mechanism.
 
