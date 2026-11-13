@@ -1,7 +1,7 @@
 {
   "carriage_spare_travel_mm": {
     "ahead_at_deepest": 3.3999999999999915,
-    "behind_home": 89.69999999999999
+    "behind_home": 89.46000000000001
   },
   "frame": "X is millimetres into the tube from the rim that seats on the comb's tab, which stands for the carbonator's bottom rim.",
   "machine": {
@@ -14,10 +14,13 @@
   },
   "magnet_from_sled_face_mm": 25.4,
   "reed_below_wall_mm": 0.13999999999999968,
+  "reed_glass_length_mm": 14.0,
+  "reed_pocket_length_mm": 14.3,
+  "roller_play_in_slot_mm": 0.40000000000000036,
   "sled_face": {
     "at_tab_mm": 0.0,
     "deepest_mm": 107.9,
-    "home_mm": 1.0
+    "home_mm": 0.76
   },
   "sleds": [
     {
@@ -61,5 +64,6 @@
       "reed_centre_mm": 114.63594439223625,
       "station": "above"
     }
-  ]
+  ],
+  "steps_per_mm": 320.0
 }

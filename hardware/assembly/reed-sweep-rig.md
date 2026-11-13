@@ -10,9 +10,8 @@ It does by motor the sweep in step 3 of the float's
 and what it measures goes in
 [`reed-calibration.json`](/hardware/printed-parts/cold-core/magnetic-float/all-aero/reed-calibration.json).
 
-**Status.** The bought parts are on order and nothing is printed. The controller's program and
-the log reader are not written. This guide builds and wires the rig, and sets it up as far as
-hands can without them.
+**Status.** The bought parts are on order and nothing is printed. The controller's program is
+written and has run on no board. The log reader is not written.
 
 ![The rig assembled](/hardware/printed-parts/fixtures/reed-sweep-rig/views/rig.png)
 
@@ -85,9 +84,11 @@ sliced for Mark1 and for Mark2, and the slices are linked from the
 11. **Read the float's gap.** From the tube's far end, slide a gauge pin or a drill's shank
     under the float through the window in the sled's back wall. The gap it finds is the
     sled's `float off the wall` line in the program's `--fits` report.
-12. **Set the striker.** Turn the coupling by hand until the sled touches the comb's tab. With
-    your fingers, turn the striker screw out toward the switch until the switch clicks, then
-    two turns more. The switch now trips before the sled reaches the tab.
+12. **Set the striker.** Hold a bank card between the sled's near face and the comb's tab, and
+    turn the coupling by hand until the sled just grips it. With your fingers, turn the striker
+    screw out toward the switch until the switch clicks, then draw the card out. The switch now
+    trips a card's thickness before the sled reaches the tab, and that is where the controller
+    takes home to be.
 
 ![A cut along the reed line at the tube's mouth](/hardware/printed-parts/fixtures/reed-sweep-rig/views/section.png)
 
@@ -128,11 +129,37 @@ Before the first power:
   comes with, that push could snap the rod's stem if the home switch were ever missed.
 - **Home switch.** Press the switch's lever by hand. The board's light answers.
 
-## What the controller is to do
+## Controller
 
-The wiring above is the pin map the controller's program takes. It homes the sled toward the
-switch, sweeps it into the tube and back at a steady speed, and writes a line for every reed
-change with the step count and the direction. The log reader turns those lines into each
-reed's closing and opening places along the tube, using
-[`reed-sweep-rig-datums.json`](/hardware/printed-parts/fixtures/reed-sweep-rig/reed-sweep-rig-datums.json).
-Neither is written.
+The ESP32 runs the rig's own program, [`firmware/src_reed_rig/`](/firmware/src_reed_rig/README.md).
+Its pins are the wiring table's, and its commands and the lines it prints are in that README.
+Flash it over the board's USB-C:
+
+    pio run -e reed_rig -t upload --upload-port <port>
+
+The console is the same USB at 115200 baud. `help` lists the commands.
+
+## First run
+
+With the sled in the tube near its middle and the roller in the slot:
+
+1. **Reeds.** Lift the rod's end and slide the sled along the tube by hand. The console prints
+   an `R` line each time a reed changes, with its station's number.
+2. **Home switch.** Send `status` with the lever free and again with it held down. It reads
+   `home free`, then `home pressed`. If it reads them the other way round, send
+   `homelevel low`.
+3. **Direction.** Send `jog 5`. The sled moves into the tube. If it moves toward the slide,
+   send `dirinvert on`.
+4. **Home.** Send `home`. The sled comes back to the switch, backs off, creeps onto it and
+   stops. The controller refuses to seek a switch it has not seen change since power-up, so
+   step 2 comes first.
+5. **A sweep.** Send `sweep 2 100`. The sled runs out to 100 mm from the tab and back at the
+   controller's own sweep speed, and the console prints a `P` line as each leg begins, an `R`
+   line at each reed change and an `E` line as the leg ends.
+
+Any line sent while the sled moves stops it.
+
+The lines of a sweep are its whole record. Turning them into each reed's closing and opening
+places along the tube takes
+[`reed-sweep-rig-datums.json`](/hardware/printed-parts/fixtures/reed-sweep-rig/reed-sweep-rig-datums.json)
+and a log reader, which is not written.

@@ -1,6 +1,6 @@
 {
   "archive": "reed-sweep-rig-small-parts-petgf-left04-z018-mark1.gcode.3mf",
-  "archive_sha256": "d431b6a43a6e42af405d45f9f7b6c88f5e7cdaf507c6cb45022f43180fb8e277",
+  "archive_sha256": "ea7608f8417ac795e446587feeaa06c6060be9e0203db2b33af398a4a1aaf55a",
   "bead_envelope": {
     "bounds_padding_mm": 0.479151,
     "extrusion_bounds_xy_mm": [
@@ -22,7 +22,7 @@
     84.32684900000001
   ],
   "estimated_filament_g": 70.00122833251953,
-  "estimated_seconds": 12257.506005471056,
+  "estimated_seconds": 12257.65658954818,
   "features": [
     "Bottom surface",
     "Bridge",
@@ -36,7 +36,7 @@
     "Sparse infill",
     "Top surface"
   ],
-  "gcode_sha256": "89413caf7d590d2206684ed70fd982e48827a0a7bc7471e49336ae8ec212d670",
+  "gcode_sha256": "b84f31cec9262e58dbaf624b6ded4c6224cf8584ed77bdf8605073673974997a",
   "layers": 219,
   "native_process": {
     "layer_height": 0.23999999463558197,
@@ -51,11 +51,11 @@
   "printer": "Mark1 (H2C)",
   "printer_submission": false,
   "project": "reed-sweep-rig-small-parts-petgf-left04-z018-mark1.3mf",
-  "project_sha256": "721e2699c681151cbfbe92208cf78f82cf6211de6d6d3d83b9cdfc6d555122c8",
+  "project_sha256": "8829d4d7de04f8f93aa20b61668f81f2ec05c53549c2a76f75162aefeca2ca06",
   "slicer_warning": "",
   "source_stls": {
     "hardware/printed-parts/fixtures/reed-sweep-rig/reed-sweep-rig-comb.stl": "3b29f25ec1c30b154f9ca90845024cf286564393e1008174cc006a9b8d336463",
-    "hardware/printed-parts/fixtures/reed-sweep-rig/reed-sweep-rig-rod.stl": "731cdf9580edeb2f87fa32f5029b67b80bdb3580de398c8af489b55bd59ed98d",
+    "hardware/printed-parts/fixtures/reed-sweep-rig/reed-sweep-rig-rod.stl": "df1d822e8002ea4a29b1fbc245734cb0f59e40dd1003ec8a2d8d2346315a0fff",
     "hardware/printed-parts/fixtures/reed-sweep-rig/reed-sweep-rig-sled-far.stl": "efaa94727eb064ac5c2461980c2c14a06c0be37f09c1b937a7860674f455469d",
     "hardware/printed-parts/fixtures/reed-sweep-rig/reed-sweep-rig-sled-near.stl": "20a64b47c2d939c23d9abdb6197f40dbd61e567cab43df975957c816fd7d8be5",
     "hardware/printed-parts/fixtures/reed-sweep-rig/reed-sweep-rig-sled-nominal.stl": "28af104488c79f77c588ae73c9c6cf27717392726e3f54957d96bd761ff8ba5d"

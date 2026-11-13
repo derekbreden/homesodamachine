@@ -1,6 +1,6 @@
 {
   "archive": "reed-sweep-rig-small-parts-petgf-left04-z004-mark2.gcode.3mf",
-  "archive_sha256": "7035b7c2d3d8031aa2b379663569194a9091b7b303d2fbc145bdff2e8bd59069",
+  "archive_sha256": "f6d56cd71ef002c44a1f4f2e6c13cf23eceaefac6c80213539a46233cacb73aa",
   "bead_envelope": {
     "bounds_padding_mm": 0.479151,
     "extrusion_bounds_xy_mm": [
@@ -51,11 +51,11 @@
   "printer": "Mark2",
   "printer_submission": false,
   "project": "reed-sweep-rig-small-parts-petgf-left04-z004-mark2.3mf",
-  "project_sha256": "1b290c9abdc5e6bb1617282d384e53a322b7424836ebc8dd37f670e5071c07ee",
+  "project_sha256": "463b79ad2fc62bca5f6f548da4a97ca3527b679eb6052cd38684b6c0e333f9fc",
   "slicer_warning": "",
   "source_stls": {
     "hardware/printed-parts/fixtures/reed-sweep-rig/reed-sweep-rig-comb.stl": "3b29f25ec1c30b154f9ca90845024cf286564393e1008174cc006a9b8d336463",
-    "hardware/printed-parts/fixtures/reed-sweep-rig/reed-sweep-rig-rod.stl": "731cdf9580edeb2f87fa32f5029b67b80bdb3580de398c8af489b55bd59ed98d",
+    "hardware/printed-parts/fixtures/reed-sweep-rig/reed-sweep-rig-rod.stl": "df1d822e8002ea4a29b1fbc245734cb0f59e40dd1003ec8a2d8d2346315a0fff",
     "hardware/printed-parts/fixtures/reed-sweep-rig/reed-sweep-rig-sled-far.stl": "efaa94727eb064ac5c2461980c2c14a06c0be37f09c1b937a7860674f455469d",
     "hardware/printed-parts/fixtures/reed-sweep-rig/reed-sweep-rig-sled-near.stl": "20a64b47c2d939c23d9abdb6197f40dbd61e567cab43df975957c816fd7d8be5",
     "hardware/printed-parts/fixtures/reed-sweep-rig/reed-sweep-rig-sled-nominal.stl": "28af104488c79f77c588ae73c9c6cf27717392726e3f54957d96bd761ff8ba5d"

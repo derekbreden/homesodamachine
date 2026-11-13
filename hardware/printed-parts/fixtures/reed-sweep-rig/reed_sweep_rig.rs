@@ -1,6 +1,6 @@
 //! The reed sweep rig's files: each printed piece on the face it prints on, the numbers the
-//! rig's controller and its log reader take, and the rig drawn assembled round the bought slide,
-//! the tube, a float and four reeds.
+//! rig's log reader takes and the header its controller compiles, and the rig drawn assembled
+//! round the bought slide, the tube, a float and four reeds.
 //!
 //!     reed-sweep-rig <output directory> [--fits]
 //!
@@ -32,7 +32,7 @@ fn main() -> Result<()> {
 
     let cradle = piece("cradle", cradle()?)?;
     let comb = piece("comb", comb(&font)?)?;
-    let rod_printed = piece("rod", rod(home_pin(), n::ROLLER_PRELOAD)?)?;
+    let rod_printed = piece("rod", rod(0., n::ROLLER_PRELOAD)?)?;
     let rod = piece("rod", rod(home_pin(), 0.)?)?;
     let sleds = n::sleds()
         .into_iter()
@@ -57,6 +57,7 @@ fn main() -> Result<()> {
     }
 
     std::fs::write(dir.join("reed-sweep-rig-datums.json"), serde_json::to_string_pretty(&numbers())? + "\n")?;
+    std::fs::write(dir.join("reed-sweep-rig-datums.h"), controller_header()?)?;
 
     // The rig assembled, with the sled at its home.
     let (_, nominal) = sleds.iter().find(|(name, _)| *name == "nominal").expect("a nominal sled");
@@ -456,11 +457,42 @@ fn numbers() -> serde_json::Value {
             "deepest_mm": n::sled_deepest() + n::magnet_from_sled_face(),
         },
         "slide": {"travel_mm": slide::TRAVEL, "screw_lead_mm": slide::SCREW_LEAD, "motor_steps_per_turn": slide::MOTOR_STEPS},
+        "steps_per_mm": n::steps_per_mm(),
+        "roller_play_in_slot_mm": n::ROLLER_PLAY,
+        "reed_pocket_length_mm": bridge::pocket_length(),
+        "reed_glass_length_mm": bridge::REED_GLASS_LENGTH,
         "carriage_spare_travel_mm": {
             "behind_home": slide::TRAVEL - carriage_ahead_at(n::HOME_BEFORE_TAB),
             "ahead_at_deepest": carriage_ahead_at(n::sled_deepest()),
         },
     })
+}
+
+/// The numbers the controller compiles, as a C++ header. Its positions are whole steps.
+fn controller_header() -> Result<String> {
+    let per_mm = n::steps_per_mm();
+    ensure!(per_mm.fract() == 0., "the controller counts whole steps to a millimetre, and {per_mm} is not whole");
+    let steps = |mm: f64| (mm * per_mm).round() as i64;
+    Ok(format!(
+        "// The reed sweep rig's numbers as its controller compiles them. reed_sweep_rig.rs writes this\n\
+         // file from the rig's numbers.rs: change a number there and run it again.\n\
+         #pragma once\n\n\
+         #include <stdint.h>\n\n\
+         namespace reed_sweep_datums {{\n\n\
+         // The step pulses that move the carriage a millimetre.\n\
+         constexpr int32_t kStepsPerMm = {};\n\
+         // The reed stations along the comb.\n\
+         constexpr uint8_t kStations = {};\n\
+         // The sled's near face, in steps from the comb's tab: where the home switch is set to trip,\n\
+         // and the deepest the sled goes with all of it in the tube.\n\
+         constexpr int32_t kHomeFromTabSteps = {};\n\
+         constexpr int32_t kDeepestFromTabSteps = {};\n\n\
+         }}  // namespace reed_sweep_datums\n",
+        per_mm as i64,
+        n::stations().len(),
+        steps(n::HOME_BEFORE_TAB),
+        steps(n::sled_deepest()),
+    ))
 }
 
 /// How far the carriage still has to run toward the tube when the sled's near face is at `sled`.

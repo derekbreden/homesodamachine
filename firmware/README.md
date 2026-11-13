@@ -1,6 +1,6 @@
 # Firmware
 
-Five source trees, each its own PlatformIO environment in [`/platformio.ini`](/platformio.ini), each running on its own board.
+Six source trees, each its own PlatformIO environment in [`/platformio.ini`](/platformio.ini), each running on its own board.
 
 | Tree | Env | Runs on | Machine |
 |---|---|---|---|
@@ -9,6 +9,7 @@ Five source trees, each its own PlatformIO environment in [`/platformio.ini`](/p
 | `src_front/` | `esp32s3_front` | Waveshare ESP32-S3-Touch-LCD-4.3B | the soda machine |
 | `src_faucet/` | `esp32s3_faucet` | Waveshare ESP32-S3-Touch-LCD-1.47 | the soda machine |
 | `src_weld_rotator/` | `weld_rotator` | ESP32-DevKitC-32E + DM542T | the cap-weld bench fixture |
+| `src_reed_rig/` | `reed_rig` | ESP32 dev board + TMC2209 on its carrier | the reed sweep bench rig |
 
 Two of them run on the main board, and only one of the two ships inside a machine.
 
@@ -19,7 +20,7 @@ Shared libraries sit under `lib/`, compiled into whichever trees include them:
 [`lib/machine_policy`](lib/machine_policy/machine_policy.h) is the Arduino-free actuator-plan,
 safety-transition and pump-timing policy; [`lib/machine_log`](lib/machine_log/machine_log.h) is
 the machine's record of what it did — the entry, the flash ring it is kept in and the line it
-reads as; [`lib/flavor_selection`](lib/flavor_selection/flavor_selection.h) is main board authority and persistence policy; [`lib/weld_rotator_policy`](lib/weld_rotator_policy/weld_rotator_policy.h) holds the rotator's physical ratio and every deadman transition; and [`lib/sound`](lib/sound/sound.h) is U8 — the drive on IO13, the machine's sound vocabulary,
+reads as; [`lib/flavor_selection`](lib/flavor_selection/flavor_selection.h) is main board authority and persistence policy; [`lib/weld_rotator_policy`](lib/weld_rotator_policy/weld_rotator_policy.h) holds the rotator's physical ratio and every deadman transition; [`lib/reed_rig_policy`](lib/reed_rig_policy/reed_rig_policy.h) holds the reed sweep rig's moves, its homing, its sweep's legs and when a reed's change counts; and [`lib/sound`](lib/sound/sound.h) is U8 — the drive on IO13, the machine's sound vocabulary,
 and the volume/quiet-hours settings behind it. The machine and the bench share that one
 table on purpose: a board on the line makes exactly the sounds a customer's machine makes.
 Neither display carries a sounder, so every sound the machine makes is made on the main board.
@@ -404,7 +405,7 @@ the glass.
 Every environment in [`/platformio.ini`](/platformio.ini) builds with `pio run -e <env>` and
 flashes with `-t upload`. `firmware/pre_build.py` passes the SCons environment to
 `hsm-peripheral firmware-pre-build`, which stamps `fw_version.h` from the Git revision.
-`weld_rotator` names no pre-build script and reports none.
+`weld_rotator` and `reed_rig` name no pre-build script and report none.
 
 **With more than one board on USB, name the port.** PlatformIO picks one otherwise, and it picks the S3 — esptool opens that port, drops the display into download mode, and only then fails on the chip id, leaving the panel dark until it is reflashed ([`/hardware/pcb/pcba/bench-log.md`](/hardware/pcb/pcba/bench-log.md)).
 

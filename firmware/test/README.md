@@ -119,7 +119,12 @@ often the request is repeated, declines back off across new connections and rota
 identities, a refused request extends nothing, and its deadlines survive the clock's wrap. They run on the build host
 and are safe with every USB device connected. `test_weld_rotator_policy` checks the purchased
 20T:90T drive ratio, speed envelope, exact 380-degree lap count, boot-held pedal lockout,
-deadman release, and jog/lap state transitions.
+deadman release, and jog/lap state transitions. `test_reed_rig_policy` checks the reed sweep
+rig's controller: a move's climb to its cruise and back down, a sweep leg's one speed, where
+the sled may go, a reed change logged at the step it first read differently and a bounce
+logged nowhere, homing from a free and from a pressed switch onto the creeping trip, its
+refusal to seek a switch never seen to change, its endings when the switch never trips or
+never lets go, and a sweep's run-in and read legs.
 
 Board builds remain separate because they compile different source trees:
 
@@ -129,6 +134,7 @@ pio run -e esp32s3_front
 pio run -e esp32s3_faucet
 pio run -e pcba_bench
 pio run -e weld_rotator
+pio run -e reed_rig
 ```
 
 Building does not open a serial port. Uploading and monitoring do; name the port whenever
