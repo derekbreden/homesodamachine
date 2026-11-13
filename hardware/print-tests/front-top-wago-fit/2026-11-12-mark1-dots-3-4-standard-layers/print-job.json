@@ -313,6 +313,6 @@
     "layers": 293,
     "first_layer_height_mm": 0.2
   },
-  "physical_fit": "Pending.",
+  "physical_fit": "physical-result/physical-result.json",
   "canceled_variable_layer_trial": "https://github.com/derekbreden/homesodamachine/blob/48e5d53646b516e235259e7f5422a69bd68494c2/hardware/print-tests/front-top-wago-fit/2026-11-12-mark1-dots-3-4/print-job.json"
 }
