@@ -19,7 +19,7 @@
   "agent_reading": {
     "author": "Claude, from the photos and this plate's G-code; not Derek's words.",
     "surface": "On both sides of the tube, for a few millimetres back from the dispense face, the layer lines leave their even pitch: they bunch into ridges, wander off level and sag between ridges. The rim of the dispense face carries lumps and torn strands. The tube beyond the band is even.",
-    "gcode": "On the tube's outside skin this plate lays most of its outer-wall beads off their layer's height in the same band: by distance back from the dispense face, about two thirds of the points in the first 2 mm, three quarters from 2 to 4 mm and two fifths from 4 to 6 mm, by up to 0.67 mm, and none beyond 12 mm. The off-level motion is the inner dispense face's contact mapping, whose window takes in the outside walls. The part fan is off for about nine tenths of the wall motion in the band.",
+    "gcode": "On the tube's outside skin this plate lays most of its outer-wall beads off their layer's height in the same band: by distance back from the dispense face, about two thirds of the points in the first 2 mm, three quarters from 2 to 4 mm and two fifths from 4 to 6 mm, by up to 0.67 mm, and none beyond 12 mm. The off-level motion is the inner dispense face's contact mapping, whose window takes in the outside walls. The part fan is off for about nine tenths of the outer-wall motion and three quarters of the inner-wall motion in the band.",
     "limits": "The G-code reading locates commanded motion. It does not establish how much of the surface comes from off-level beads and how much from heat."
   },
   "image_processing": "JPEG uploads copied unchanged. The marked photo was uploaded as a PNG and is saved as a JPEG at its full size.",
