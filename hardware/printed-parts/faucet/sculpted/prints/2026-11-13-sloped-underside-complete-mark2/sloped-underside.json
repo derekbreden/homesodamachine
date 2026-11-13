@@ -1,0 +1,65 @@
+{
+  "purpose": "Binds the Sculpted base's sloped underside to the courses this stage laid and what it kept of the plate.",
+  "input_archive": {
+    "path": ".cache/runs/faucet-nonplanar-base-20261113/sloped/slice/sculpted-faucet-sloped-underside-black-mark2.gcode.3mf",
+    "sha256": "184ebc9b4963bb80236f419e8255706c3eb73479d251ba9304850cb7cf9cfaba"
+  },
+  "gcode_sha256": "8bec1bac1848b4b92d4ef2f082f6cd67a862d2997ae192815c923f6a1688818e",
+  "seat_center_mm": [
+    85.49944496154785,
+    140.34437517845532,
+    7.635167989157424
+  ],
+  "tilt_x_degrees": -15,
+  "stack_normal_mm": {
+    "course": 0.24,
+    "air_asked": 0.24,
+    "roof_courses": 3,
+    "skin_courses": 2,
+    "scaffold_ceiling": -0.96,
+    "roof_tops": [
+      -0.72,
+      -0.48,
+      -0.24
+    ],
+    "skin_tops": [
+      0.24,
+      0.48
+    ],
+    "deck_top": 0.0
+  },
+  "roof_lip_mm": 2.0,
+  "laid": {
+    "scaffold_layers": 61,
+    "scaffold_top_mm": 14.6,
+    "skin_ring_halves": 10
+  },
+  "preamble": {
+    "seconds": 2167.1,
+    "filament_mm": 3701.23,
+    "extrusion_mm_by_feature": {
+      "Support": 45652.2,
+      "Support interface": 15714.7,
+      "Bottom surface": 4154.2,
+      "Internal solid infill": 3222.6
+    }
+  },
+  "plate": {
+    "kept_mm": 169589.84,
+    "dropped_mm": 83282.515,
+    "dropped_support_mm": 0.0,
+    "lifted_travels": 660,
+    "highest_lift_mm": 15.193,
+    "clipped_layers": 167,
+    "least_base_head_clearance_mm": 2.093,
+    "least_other_head_clearance_mm": null,
+    "rewritten_travels": 12
+  },
+  "limits": {
+    "z_while_printing_mm_s": 7.5,
+    "z_while_travelling_mm_s": 15.0,
+    "head_travel_margin_mm": 3.0,
+    "nozzle_travel_margin_mm": 0.3,
+    "kept_fraction_of_course_height": 0.5
+  }
+}
