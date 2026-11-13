@@ -169,6 +169,14 @@
       "purchase_id": "pur-539bfaea7cec48b7b401d902590a4088"
     },
     {
+      "allocation_id": "alloc-16c57a6de2424e729b6a1fd653780926",
+      "amount_minor": 1608,
+      "currency": "USD",
+      "event_id": "evt-9ed31057386d4c8fb11aeec9f8b619f8",
+      "order_id": "amazon:112-1265759-9506602",
+      "purchase_id": "pur-349e89ac22704ecaa32c57926e7c0d7e"
+    },
+    {
       "allocation_id": "alloc-17ff16b1c9414127a51e9e16347789fd",
       "amount_minor": 3002,
       "currency": "USD",
@@ -289,12 +297,28 @@
       "purchase_id": "pur-9b24ddfcac444a6398f62c24c98b000d"
     },
     {
+      "allocation_id": "alloc-21a46a0a4f52439889402b499123b2da",
+      "amount_minor": 8988,
+      "currency": "USD",
+      "event_id": "evt-9ed31057386d4c8fb11aeec9f8b619f8",
+      "order_id": "amazon:112-1265759-9506602",
+      "purchase_id": "pur-fd0447880897405fb697a1c430b6bba0"
+    },
+    {
       "allocation_id": "alloc-2226cb82f09d49439dcbc98e5e689ba0",
       "amount_minor": 10789,
       "currency": "USD",
       "event_id": "evt-a3c8a2e1a259405e85d14c27817deb58",
       "order_id": "pisco:8638",
       "purchase_id": "pur-1ead43e8eead4989adf3de560d23febe"
+    },
+    {
+      "allocation_id": "alloc-22ffaffb5b8b4c0e8d54ba3ffe5534fd",
+      "amount_minor": 1071,
+      "currency": "USD",
+      "event_id": "evt-9ed31057386d4c8fb11aeec9f8b619f8",
+      "order_id": "amazon:112-1265759-9506602",
+      "purchase_id": "pur-79ed4268d7cf4c8ba55804d8d07a8adc"
     },
     {
       "allocation_id": "alloc-2323ffeba8f64263886b4a93660f45ac",
@@ -593,6 +617,14 @@
       "purchase_id": "pur-c3b3b0a2274849c591fa9619695bc636"
     },
     {
+      "allocation_id": "alloc-4e58d8f3ae2b42e6ada5705a283db3bb",
+      "amount_minor": 857,
+      "currency": "USD",
+      "event_id": "evt-9ed31057386d4c8fb11aeec9f8b619f8",
+      "order_id": "amazon:112-1265759-9506602",
+      "purchase_id": "pur-c421deec9a2f4c7b868ae95b9e1499c1"
+    },
+    {
       "allocation_id": "alloc-4edbbf45ce7b4002aef49291548a9db4",
       "amount_minor": 900,
       "currency": "USD",
@@ -727,6 +759,14 @@
       "event_id": "evt-66ddeac3226743dda427fea8db281746",
       "order_id": "amazon:112-8772290-0884241",
       "purchase_id": "pur-d95243a541864bd887feefcc369098d4"
+    },
+    {
+      "allocation_id": "alloc-660da71d54994a75b5cc689d79d5e875",
+      "amount_minor": 1286,
+      "currency": "USD",
+      "event_id": "evt-9ed31057386d4c8fb11aeec9f8b619f8",
+      "order_id": "amazon:112-1265759-9506602",
+      "purchase_id": "pur-2ad02a3c76fc4de6b57a9424c7892858"
     },
     {
       "allocation_id": "alloc-6cc4d0f82b1842dba2cd0594e7b1a231",
@@ -911,6 +951,14 @@
       "event_id": "evt-278aa22ab69d415e9381c8f7a01b2ee0",
       "order_id": "anthropic:HYODLCRX-0055",
       "purchase_id": "pur-9e4cb7cabe0d49589e61a4b9445bfb81"
+    },
+    {
+      "allocation_id": "alloc-85b8b9f620ed45b69c5d375820f4625d",
+      "amount_minor": 2144,
+      "currency": "USD",
+      "event_id": "evt-9ed31057386d4c8fb11aeec9f8b619f8",
+      "order_id": "amazon:112-1265759-9506602",
+      "purchase_id": "pur-c692f77e911c4e6fa40da3baf52ca7bd"
     },
     {
       "allocation_id": "alloc-8bb78428ad344b5b9c3eabd28822fbfc",
@@ -3192,6 +3240,26 @@
       ],
       "stream": "two additional project fabrication invoices",
       "vendor": "SendCutSend"
+    },
+    {
+      "checked_at": "2026-11-12",
+      "complete_period": null,
+      "coverage": "partial",
+      "coverage_id": "coverage-b3638bce1721458893c995d406a8e011",
+      "evidence_type": "merchant_order_details",
+      "examined_period": {
+        "end": "2026-11-12",
+        "start": "2026-11-12"
+      },
+      "note": "Signed-in order details establish the six items, their prices, the placed date and the estimated-tax total. No confirmation email, shipment, delivery or completed charge was examined. This is order-scoped evidence, not account-wide coverage.",
+      "order_ids": [
+        "amazon:112-1265759-9506602"
+      ],
+      "source_ids": [
+        "src-a84df1f538bc452984cd3d04e10595c3"
+      ],
+      "stream": "one named reed sweep rig order",
+      "vendor": "Amazon"
     },
     {
       "checked_at": "2026-10-13",
@@ -7023,6 +7091,40 @@
     },
     {
       "allocation_ids": [
+        "alloc-16c57a6de2424e729b6a1fd653780926",
+        "alloc-21a46a0a4f52439889402b499123b2da",
+        "alloc-22ffaffb5b8b4c0e8d54ba3ffe5534fd",
+        "alloc-4e58d8f3ae2b42e6ada5705a283db3bb",
+        "alloc-660da71d54994a75b5cc689d79d5e875",
+        "alloc-85b8b9f620ed45b69c5d375820f4625d"
+      ],
+      "allocation_status": "all_project",
+      "amount_minor": 15954,
+      "confirmation": "expected",
+      "currency": "USD",
+      "event_date": null,
+      "event_id": "evt-9ed31057386d4c8fb11aeec9f8b619f8",
+      "event_type": "charge",
+      "order_ids": [
+        "amazon:112-1265759-9506602"
+      ],
+      "purchase_ids": [
+        "pur-2ad02a3c76fc4de6b57a9424c7892858",
+        "pur-349e89ac22704ecaa32c57926e7c0d7e",
+        "pur-79ed4268d7cf4c8ba55804d8d07a8adc",
+        "pur-c421deec9a2f4c7b868ae95b9e1499c1",
+        "pur-c692f77e911c4e6fa40da3baf52ca7bd",
+        "pur-fd0447880897405fb697a1c430b6bba0"
+      ],
+      "source_ids": [
+        "src-a84df1f538bc452984cd3d04e10595c3"
+      ],
+      "unallocated_to_purchase_minor": 0,
+      "vendor": "Amazon",
+      "verified_at": "2026-11-12"
+    },
+    {
+      "allocation_ids": [
         "alloc-3548ee9639564ed59c4c699d6b68c432"
       ],
       "allocation_status": "all_project",
@@ -9714,7 +9816,7 @@
       ]
     }
   ],
-  "input_fingerprint": "sha256:7c2567442f5ff41c793f239bca6b30ee722b7dc283e2876047966be1c2f0c6f8",
+  "input_fingerprint": "sha256:d24a389fc9547f82051f090fae4c4ee6d1541e27e8f545f8e9cfd81d2e0c32f4",
   "orders": [
     {
       "allocation_status": "all_project",
@@ -10447,6 +10549,30 @@
         "src-ad5570deec324f9cb9ce15c4cddbcc2f",
         "src-b23173b78a9745bbadaf7e701b7adfea",
         "src-b534bb94a46045f19c312922b8204c3a"
+      ],
+      "vendor": "Amazon"
+    },
+    {
+      "allocation_status": "all_project",
+      "event_ids": [
+        "evt-9ed31057386d4c8fb11aeec9f8b619f8"
+      ],
+      "order_date": {
+        "precision": "day",
+        "value": "2026-11-12"
+      },
+      "order_id": "amazon:112-1265759-9506602",
+      "purchase_ids": [
+        "pur-2ad02a3c76fc4de6b57a9424c7892858",
+        "pur-349e89ac22704ecaa32c57926e7c0d7e",
+        "pur-79ed4268d7cf4c8ba55804d8d07a8adc",
+        "pur-c421deec9a2f4c7b868ae95b9e1499c1",
+        "pur-c692f77e911c4e6fa40da3baf52ca7bd",
+        "pur-fd0447880897405fb697a1c430b6bba0"
+      ],
+      "reference": "112-1265759-9506602",
+      "source_ids": [
+        "src-a84df1f538bc452984cd3d04e10595c3"
       ],
       "vendor": "Amazon"
     },
@@ -24629,6 +24755,52 @@
     },
     {
       "allocation_status": "all_project",
+      "amount_evidence": "estimate",
+      "amount_minor": 1286,
+      "contributes": true,
+      "currency": "USD",
+      "delivery_date": null,
+      "description": "R REIFENG mechanical endstop limit switch with 22 AWG cable, 10 pc — the reed sweep rig's home switch. $11.99 item + $0.87 estimated tax; free shipping",
+      "event_ids": [
+        "evt-9ed31057386d4c8fb11aeec9f8b619f8"
+      ],
+      "fulfillment": "ON-ORDER",
+      "invoice_date": null,
+      "ledger_purchase_id": "pur-2ad02a3c76fc4de6b57a9424c7892858",
+      "merchant_charge_allocated_minor": 0,
+      "merchant_refund_allocated_minor": 0,
+      "order_date": {
+        "precision": "day",
+        "value": "2026-11-12"
+      },
+      "order_ids": [
+        "amazon:112-1265759-9506602"
+      ],
+      "payment_evidence": "unknown",
+      "price_basis": "row_total",
+      "purchase_id": "pur-2ad02a3c76fc4de6b57a9424c7892858",
+      "purpose": "equipment_tooling",
+      "quantity": 1,
+      "quantity_text": "1 pk (10)",
+      "receipt_date": null,
+      "record_role": "purchase",
+      "row_date": {
+        "precision": "day",
+        "value": "2026-11-12"
+      },
+      "row_date_basis": "order_date",
+      "section": "12. Shop / bench infrastructure",
+      "service_period": null,
+      "source_ids": [
+        "src-a84df1f538bc452984cd3d04e10595c3"
+      ],
+      "split_charge": false,
+      "stream": "purchase",
+      "unit_amount_minor": null,
+      "vendor": "Amazon"
+    },
+    {
+      "allocation_status": "all_project",
       "amount_evidence": "legacy_unverified",
       "amount_minor": 771,
       "contributes": true,
@@ -25713,6 +25885,52 @@
       "source_ids": [
         "legacy-ledger-2026",
         "saved-amazon:112-1974343-4486643"
+      ],
+      "split_charge": false,
+      "stream": "purchase",
+      "unit_amount_minor": null,
+      "vendor": "Amazon"
+    },
+    {
+      "allocation_status": "all_project",
+      "amount_evidence": "estimate",
+      "amount_minor": 1608,
+      "contributes": true,
+      "currency": "USD",
+      "delivery_date": null,
+      "description": "BTF-LIGHTING 12 V 3 A 36 W Class 2 power adapter, ETL listed, 5.5 × 2.1 mm DC plug with its female barrel connector — the reed sweep rig's motor supply. $14.99 item + $1.09 estimated tax; free shipping",
+      "event_ids": [
+        "evt-9ed31057386d4c8fb11aeec9f8b619f8"
+      ],
+      "fulfillment": "ON-ORDER",
+      "invoice_date": null,
+      "ledger_purchase_id": "pur-349e89ac22704ecaa32c57926e7c0d7e",
+      "merchant_charge_allocated_minor": 0,
+      "merchant_refund_allocated_minor": 0,
+      "order_date": {
+        "precision": "day",
+        "value": "2026-11-12"
+      },
+      "order_ids": [
+        "amazon:112-1265759-9506602"
+      ],
+      "payment_evidence": "unknown",
+      "price_basis": "row_total",
+      "purchase_id": "pur-349e89ac22704ecaa32c57926e7c0d7e",
+      "purpose": "equipment_tooling",
+      "quantity": 1,
+      "quantity_text": "1",
+      "receipt_date": null,
+      "record_role": "purchase",
+      "row_date": {
+        "precision": "day",
+        "value": "2026-11-12"
+      },
+      "row_date_basis": "order_date",
+      "section": "12. Shop / bench infrastructure",
+      "service_period": null,
+      "source_ids": [
+        "src-a84df1f538bc452984cd3d04e10595c3"
       ],
       "split_charge": false,
       "stream": "purchase",
@@ -36146,6 +36364,52 @@
     },
     {
       "allocation_status": "all_project",
+      "amount_evidence": "estimate",
+      "amount_minor": 1071,
+      "contributes": true,
+      "currency": "USD",
+      "delivery_date": null,
+      "description": "BIGTREETECH TMC2209 V1.3 stepper driver, 1 pc — drives the reed sweep rig's stage in step/direction mode. $9.99 item + $0.72 estimated tax; free shipping",
+      "event_ids": [
+        "evt-9ed31057386d4c8fb11aeec9f8b619f8"
+      ],
+      "fulfillment": "ON-ORDER",
+      "invoice_date": null,
+      "ledger_purchase_id": "pur-79ed4268d7cf4c8ba55804d8d07a8adc",
+      "merchant_charge_allocated_minor": 0,
+      "merchant_refund_allocated_minor": 0,
+      "order_date": {
+        "precision": "day",
+        "value": "2026-11-12"
+      },
+      "order_ids": [
+        "amazon:112-1265759-9506602"
+      ],
+      "payment_evidence": "unknown",
+      "price_basis": "row_total",
+      "purchase_id": "pur-79ed4268d7cf4c8ba55804d8d07a8adc",
+      "purpose": "equipment_tooling",
+      "quantity": 1,
+      "quantity_text": "1",
+      "receipt_date": null,
+      "record_role": "purchase",
+      "row_date": {
+        "precision": "day",
+        "value": "2026-11-12"
+      },
+      "row_date_basis": "order_date",
+      "section": "12. Shop / bench infrastructure",
+      "service_period": null,
+      "source_ids": [
+        "src-a84df1f538bc452984cd3d04e10595c3"
+      ],
+      "split_charge": false,
+      "stream": "purchase",
+      "unit_amount_minor": null,
+      "vendor": "Amazon"
+    },
+    {
+      "allocation_status": "all_project",
       "amount_evidence": "legacy_unverified",
       "amount_minor": 6756,
       "contributes": true,
@@ -46462,6 +46726,52 @@
     },
     {
       "allocation_status": "all_project",
+      "amount_evidence": "estimate",
+      "amount_minor": 857,
+      "contributes": true,
+      "currency": "USD",
+      "delivery_date": null,
+      "description": "ZXXP 42 stepper-driver expansion board for A4988/DRV8825-format drivers, DIP microstep switches and screw terminals, 2 pc — carrier for the reed sweep rig's driver. $7.99 item + $0.58 estimated tax; free shipping",
+      "event_ids": [
+        "evt-9ed31057386d4c8fb11aeec9f8b619f8"
+      ],
+      "fulfillment": "ON-ORDER",
+      "invoice_date": null,
+      "ledger_purchase_id": "pur-c421deec9a2f4c7b868ae95b9e1499c1",
+      "merchant_charge_allocated_minor": 0,
+      "merchant_refund_allocated_minor": 0,
+      "order_date": {
+        "precision": "day",
+        "value": "2026-11-12"
+      },
+      "order_ids": [
+        "amazon:112-1265759-9506602"
+      ],
+      "payment_evidence": "unknown",
+      "price_basis": "row_total",
+      "purchase_id": "pur-c421deec9a2f4c7b868ae95b9e1499c1",
+      "purpose": "equipment_tooling",
+      "quantity": 1,
+      "quantity_text": "1 pk (2)",
+      "receipt_date": null,
+      "record_role": "purchase",
+      "row_date": {
+        "precision": "day",
+        "value": "2026-11-12"
+      },
+      "row_date_basis": "order_date",
+      "section": "12. Shop / bench infrastructure",
+      "service_period": null,
+      "source_ids": [
+        "src-a84df1f538bc452984cd3d04e10595c3"
+      ],
+      "split_charge": false,
+      "stream": "purchase",
+      "unit_amount_minor": null,
+      "vendor": "Amazon"
+    },
+    {
+      "allocation_status": "all_project",
       "amount_evidence": "legacy_unverified",
       "amount_minor": 1629,
       "contributes": true,
@@ -46694,6 +47004,52 @@
       "source_ids": [
         "legacy-ledger-2026",
         "saved-amazon:112-9710760-9385027"
+      ],
+      "split_charge": false,
+      "stream": "purchase",
+      "unit_amount_minor": null,
+      "vendor": "Amazon"
+    },
+    {
+      "allocation_status": "all_project",
+      "amount_evidence": "estimate",
+      "amount_minor": 2144,
+      "contributes": true,
+      "currency": "USD",
+      "delivery_date": null,
+      "description": "DORHEA ESP32 38-pin narrow USB-C development board with its screw-terminal breakout board, 3 sets (the listing's option A) — the reed sweep rig's controller. $19.99 item + $1.45 estimated tax; free shipping",
+      "event_ids": [
+        "evt-9ed31057386d4c8fb11aeec9f8b619f8"
+      ],
+      "fulfillment": "ON-ORDER",
+      "invoice_date": null,
+      "ledger_purchase_id": "pur-c692f77e911c4e6fa40da3baf52ca7bd",
+      "merchant_charge_allocated_minor": 0,
+      "merchant_refund_allocated_minor": 0,
+      "order_date": {
+        "precision": "day",
+        "value": "2026-11-12"
+      },
+      "order_ids": [
+        "amazon:112-1265759-9506602"
+      ],
+      "payment_evidence": "unknown",
+      "price_basis": "row_total",
+      "purchase_id": "pur-c692f77e911c4e6fa40da3baf52ca7bd",
+      "purpose": "equipment_tooling",
+      "quantity": 1,
+      "quantity_text": "1 pk (3 sets)",
+      "receipt_date": null,
+      "record_role": "purchase",
+      "row_date": {
+        "precision": "day",
+        "value": "2026-11-12"
+      },
+      "row_date_basis": "order_date",
+      "section": "12. Shop / bench infrastructure",
+      "service_period": null,
+      "source_ids": [
+        "src-a84df1f538bc452984cd3d04e10595c3"
       ],
       "split_charge": false,
       "stream": "purchase",
@@ -54363,6 +54719,52 @@
       "source_ids": [
         "legacy-ledger-2026",
         "saved-amazon:112-5503072-4357859"
+      ],
+      "split_charge": false,
+      "stream": "purchase",
+      "unit_amount_minor": null,
+      "vendor": "Amazon"
+    },
+    {
+      "allocation_status": "all_project",
+      "amount_evidence": "estimate",
+      "amount_minor": 8988,
+      "contributes": true,
+      "currency": "USD",
+      "delivery_date": null,
+      "description": "Befenybay BE069-2 linear stage actuator, 200 mm travel, SFU1605 ball screw on square rails, with its NEMA 17 stepper and motor cable (the listing's 200mm-NEMA17 option) — the motion axis of the reed sweep rig. $83.80 item + $6.08 estimated tax; free shipping",
+      "event_ids": [
+        "evt-9ed31057386d4c8fb11aeec9f8b619f8"
+      ],
+      "fulfillment": "ON-ORDER",
+      "invoice_date": null,
+      "ledger_purchase_id": "pur-fd0447880897405fb697a1c430b6bba0",
+      "merchant_charge_allocated_minor": 0,
+      "merchant_refund_allocated_minor": 0,
+      "order_date": {
+        "precision": "day",
+        "value": "2026-11-12"
+      },
+      "order_ids": [
+        "amazon:112-1265759-9506602"
+      ],
+      "payment_evidence": "unknown",
+      "price_basis": "row_total",
+      "purchase_id": "pur-fd0447880897405fb697a1c430b6bba0",
+      "purpose": "equipment_tooling",
+      "quantity": 1,
+      "quantity_text": "1",
+      "receipt_date": null,
+      "record_role": "purchase",
+      "row_date": {
+        "precision": "day",
+        "value": "2026-11-12"
+      },
+      "row_date_basis": "order_date",
+      "section": "12. Shop / bench infrastructure",
+      "service_period": null,
+      "source_ids": [
+        "src-a84df1f538bc452984cd3d04e10595c3"
       ],
       "split_charge": false,
       "stream": "purchase",
@@ -65188,6 +65590,20 @@
     },
     {
       "document_date": null,
+      "document_type": "merchant_order_details",
+      "note": "Signed-in Mac Chrome Order Details, read the day the order was placed. Six lines, one of each: Befenybay 200 mm SFU1605 stage with NEMA 17 USD 83.80, BIGTREETECH TMC2209 V1.3 one piece USD 9.99, two-piece 42 stepper driver expansion board USD 7.99, R REIFENG ten-piece mechanical endstops with cable USD 11.99, Dorhea three-set ESP32 38-pin boards with screw-terminal breakouts USD 19.99, BTF-LIGHTING 12 V 3 A adapter USD 14.99. Items subtotal USD 148.75, free shipping, estimated tax USD 10.79, grand total USD 159.54. The tax is spread over the six rows in proportion to their prices and rounded to the cent. Ordered status only: the relative Tuesday arrival is not a delivery date, and no order-scoped payment lookup was made.",
+      "notification_date": null,
+      "proves": [
+        "price",
+        "order_date"
+      ],
+      "reference": "112-1265759-9506602",
+      "source_id": "src-a84df1f538bc452984cd3d04e10595c3",
+      "vendor": "Amazon",
+      "verified_at": "2026-11-12"
+    },
+    {
+      "document_date": null,
       "document_type": "order_confirmation_and_delivery_notice",
       "note": "Vendor notification confirms actual delivery. The notification calendar date does not independently establish the exact delivery day; no completed payment is inferred.",
       "notification_date": null,
@@ -68378,12 +68794,18 @@
           "unknown_amount_ids": []
         },
         {
-          "amount_minor": 7954,
+          "amount_minor": 23908,
           "currency": "USD",
           "fulfillment": "ON-ORDER",
           "purchase_ids": [
+            "pur-2ad02a3c76fc4de6b57a9424c7892858",
+            "pur-349e89ac22704ecaa32c57926e7c0d7e",
             "pur-36841266e8fb437a8d42247cbf7ee53d",
-            "pur-4eaf76e6557740d7b0e85e0be8664f71"
+            "pur-4eaf76e6557740d7b0e85e0be8664f71",
+            "pur-79ed4268d7cf4c8ba55804d8d07a8adc",
+            "pur-c421deec9a2f4c7b868ae95b9e1499c1",
+            "pur-c692f77e911c4e6fa40da3baf52ca7bd",
+            "pur-fd0447880897405fb697a1c430b6bba0"
           ],
           "unknown_amount_ids": []
         },
@@ -68400,10 +68822,16 @@
       "cancelled_with_evidenced_charge_purchase_ids": [],
       "expected_refund_event_ids": [],
       "outstanding_purchase_ids": [
+        "pur-2ad02a3c76fc4de6b57a9424c7892858",
+        "pur-349e89ac22704ecaa32c57926e7c0d7e",
         "pur-36841266e8fb437a8d42247cbf7ee53d",
         "pur-4eaf76e6557740d7b0e85e0be8664f71",
+        "pur-79ed4268d7cf4c8ba55804d8d07a8adc",
         "pur-b6c01a5b012340fc888139c1070dc054",
-        "pur-c887374045604177851c4a81cc779f0e"
+        "pur-c421deec9a2f4c7b868ae95b9e1499c1",
+        "pur-c692f77e911c4e6fa40da3baf52ca7bd",
+        "pur-c887374045604177851c4a81cc779f0e",
+        "pur-fd0447880897405fb697a1c430b6bba0"
       ],
       "returned_without_evidenced_refund_purchase_ids": []
     },
@@ -68413,6 +68841,7 @@
         "evt-1399a1a835ce4be3a489628c06225b33",
         "evt-5a6637d18fab4dbaa2c3a7428c33273f",
         "evt-5fddb80e882c4533bf9042d5a74088cc",
+        "evt-9ed31057386d4c8fb11aeec9f8b619f8",
         "evt-9fd2d4a65f7d45a594a7ac3a6837d416",
         "evt-a3c8a2e1a259405e85d14c27817deb58",
         "evt-bd8302df82b54c40af7121a5187455cf",
@@ -68780,6 +69209,7 @@
             "evt-903eedfb26fd4f999dda301c34468ee4",
             "evt-998ca791689f49919e825d9ad1e0def0",
             "evt-99939add7e964cfb9fb65ee05dc98a55",
+            "evt-9ed31057386d4c8fb11aeec9f8b619f8",
             "evt-9fd2d4a65f7d45a594a7ac3a6837d416",
             "evt-a3c8a2e1a259405e85d14c27817deb58",
             "evt-a44b7291eb25461f97cd8d045faebd4e",
@@ -69515,7 +69945,7 @@
         },
         {
           "currency": "USD",
-          "estimate_minor": 3824,
+          "estimate_minor": 19778,
           "evidence_scope": "retrieved_records_only",
           "final_vendor_amount_minor": 67912,
           "legacy_unverified_minor": 0,
@@ -69524,7 +69954,9 @@
             "pur-0b426a7ded014916bd32dde66a3d3030",
             "pur-14f8f47e82a74b129f4677cb0fc2a67d",
             "pur-24623d00c3e94898adf2465f7537b1bd",
+            "pur-2ad02a3c76fc4de6b57a9424c7892858",
             "pur-3161c146b8ef40e5817e13af4dc07846",
+            "pur-349e89ac22704ecaa32c57926e7c0d7e",
             "pur-36841266e8fb437a8d42247cbf7ee53d",
             "pur-3bd4a5d8e22947b88ec7bcc9f7a8df8a",
             "pur-3fca793e96a64c20b79ac0831efc3b50",
@@ -69532,16 +69964,20 @@
             "pur-6655f4a0c1c747bc8ce06a69596eb432",
             "pur-6f3e90aba9734990a07d1e24f1f75a86",
             "pur-770c1f0b7dfd4d458834d39d99185eb3",
+            "pur-79ed4268d7cf4c8ba55804d8d07a8adc",
             "pur-7ebe706384b34c718af7af886e0988d7",
             "pur-89b25fbe2a3e44adb4cbb188ab8a820f",
             "pur-97a6d900980c4b878f717f19b72badae",
             "pur-9a08e76abb825705aff0991b6c1bf389",
             "pur-9fe3b15945c3487da36214f92b80f9ee",
             "pur-a9aeeb7107e24ef68654ee86aa1fbe14",
+            "pur-c421deec9a2f4c7b868ae95b9e1499c1",
+            "pur-c692f77e911c4e6fa40da3baf52ca7bd",
             "pur-d6686b26577043b2acf9c6793d085302",
-            "pur-f72407db7ffa450695c514cf2f38539b"
+            "pur-f72407db7ffa450695c514cf2f38539b",
+            "pur-fd0447880897405fb697a1c430b6bba0"
           ],
-          "total_minor": 71736,
+          "total_minor": 87690,
           "unknown_amount_ids": []
         },
         {
@@ -69578,7 +70014,7 @@
           "purpose": "engineering_software_services"
         },
         {
-          "amount_minor": 2382327,
+          "amount_minor": 2398281,
           "currency": "USD",
           "purpose": "equipment_tooling"
         },
@@ -69596,10 +70032,10 @@
       "totals": [
         {
           "currency": "USD",
-          "estimate_minor": 232946,
+          "estimate_minor": 248900,
           "final_vendor_amount_minor": 2893434,
           "legacy_unverified_minor": 1898308,
-          "total_minor": 5024688
+          "total_minor": 5040642
         }
       ],
       "undated_unallocated": [
@@ -69758,11 +70194,11 @@
       "by_currency": [
         {
           "currency": "USD",
-          "estimated_purchase_minor": 232946,
+          "estimated_purchase_minor": 248900,
           "legacy_unverified_purchase_minor": 1898308,
           "order_only_charge_allocation_minor": 6561,
           "partial_charge_purchase_minor": 0,
-          "purchases_without_merchant_charge_minor": 2472274,
+          "purchases_without_merchant_charge_minor": 2488228,
           "undated_charge_minor": 563952,
           "undated_refund_minor": 0,
           "undated_unallocated_purchase_minor": 975132,
@@ -69777,6 +70213,8 @@
         "pur-0d4eaf3ef27646a8b8f77ea46d4f2d44",
         "pur-1394610e499a45c08ba665ed1200053c",
         "pur-250afee3f9d341c9a9d18d4e33c0fd0e",
+        "pur-2ad02a3c76fc4de6b57a9424c7892858",
+        "pur-349e89ac22704ecaa32c57926e7c0d7e",
         "pur-36841266e8fb437a8d42247cbf7ee53d",
         "pur-3ce173932d6c45f184bcd60237a2c790",
         "pur-3e2e38c4658c47eba0f7b8efe6bb4734",
@@ -69784,6 +70222,7 @@
         "pur-4eaf76e6557740d7b0e85e0be8664f71",
         "pur-5090fe33ed404b20b5f3401171bf8565",
         "pur-5da1ea9540d44a8897b0c2774fe1ff35",
+        "pur-79ed4268d7cf4c8ba55804d8d07a8adc",
         "pur-7a2c9d6f4b8e4d1a3f6c0b2d4e5f7a96",
         "pur-7cb5c1d8028249feb0e80687059fc82e",
         "pur-87565d390bcc451a9fbfb44dc871d585",
@@ -69796,13 +70235,16 @@
         "pur-a667e3ee975c42218852bc7b225d75a8",
         "pur-b03a2dd1d7054c408d12d07ac3eaa1ec",
         "pur-c08cee116c73400bae488deb2d2015f4",
+        "pur-c421deec9a2f4c7b868ae95b9e1499c1",
+        "pur-c692f77e911c4e6fa40da3baf52ca7bd",
         "pur-cfc338b991f7400a851a0ea5a018e44e",
         "pur-d0a38d1d52934be7866d5286a6a8271e",
         "pur-d6686b26577043b2acf9c6793d085302",
         "pur-d8a8a1e239ff48b6a6b19c43e22b4858",
         "pur-e7fa6e37def64cf3baaf64a1a2458232",
         "pur-f24cd0a88f4b4a8ca76f3abc490f81b3",
-        "pur-f4ddddb90dbd4ae2bba5008f74f8d4b6"
+        "pur-f4ddddb90dbd4ae2bba5008f74f8d4b6",
+        "pur-fd0447880897405fb697a1c430b6bba0"
       ],
       "incomplete_coverage_ids": [
         "coverage-008d521abab24498bf9db4a8c5993e38",
@@ -69871,6 +70313,7 @@
         "coverage-acea061ce3204d5f89dca212d3c84ba8",
         "coverage-b136418b081343e5b6fa252ee1b86a7c",
         "coverage-b315012d5a28447bb3ce18fede75ae7f",
+        "coverage-b3638bce1721458893c995d406a8e011",
         "coverage-b8b45e49d70542c79e84138ae30ce7a7",
         "coverage-b9b06230952f4f6795765fbb8e7c1222",
         "coverage-ba4bf9754c174c37ad1d77933b5a2574",
@@ -70460,6 +70903,7 @@
         "pur-28f5f5bc86674717aa6f6b96b2079ca8",
         "pur-290815c457f54714a5735fb1e54360a9",
         "pur-2aa2349ca254425ba4ef67c46431c772",
+        "pur-2ad02a3c76fc4de6b57a9424c7892858",
         "pur-2ad8154642d3443ea53044f5c4fe0222",
         "pur-2adc38c7f40a47c0a7ce61c92ac8671d",
         "pur-2b02951001084d3da886fff6f90ab5ed",
@@ -70479,6 +70923,7 @@
         "pur-32156ab6ed504d49912a70643ac7648f",
         "pur-336e07bc67a84844b311d58e52364d25",
         "pur-338d6a3954314978b9c3b0b3023e441f",
+        "pur-349e89ac22704ecaa32c57926e7c0d7e",
         "pur-362dc6a7dece45c9a2adb878ace2e60c",
         "pur-36841266e8fb437a8d42247cbf7ee53d",
         "pur-375429e1cb9c4b95bb3584b04f7284da",
@@ -70637,6 +71082,7 @@
         "pur-78b35b2efbb941efbb1ab93268589ce8",
         "pur-78ea1f58114044aaa33af53b0930e8d0",
         "pur-791463522f344caf818637b6bed6a2ac",
+        "pur-79ed4268d7cf4c8ba55804d8d07a8adc",
         "pur-7a0bf59561314549bacf12589f4fd2f4",
         "pur-7a2c9d6f4b8e4d1a3f6c0b2d4e5f7a96",
         "pur-7ab9e4672d6f45dcb02e637077481082",
@@ -70781,9 +71227,11 @@
         "pur-c236a1fde9dc4036911e3ac588e4571a",
         "pur-c2989eb14f024256babfd3912e142609",
         "pur-c31eddcc31554604ae1cf85fb16d9536",
+        "pur-c421deec9a2f4c7b868ae95b9e1499c1",
         "pur-c42545bec1f74aa8b33c3976c8988412",
         "pur-c444ea7f58834964b05cf2a767596f98",
         "pur-c630840aeb274ece80243d4499e26364",
+        "pur-c692f77e911c4e6fa40da3baf52ca7bd",
         "pur-c697d15ec50b42eeb73ae9c8bb6cdcba",
         "pur-c6f724e023c44e7e8a576b147258d8ea",
         "pur-c7cd43298809474ca0d28bec2d91da35",
@@ -70901,6 +71349,7 @@
         "pur-fb8bbd6de85e488bb5bc76437949ff9d",
         "pur-fc68e8713b2a41ab8baef861721af0d1",
         "pur-fcf61f35d1e04f098360e65ab77cce06",
+        "pur-fd0447880897405fb697a1c430b6bba0",
         "pur-fd783b99321f417788c5e4b8e89eddf4",
         "pur-fdc581d6e00244e4a20e069178ea4c50",
         "pur-fea530ae80304ebe82ba2d6d74518e45",
@@ -70924,6 +71373,7 @@
         "evt-903eedfb26fd4f999dda301c34468ee4",
         "evt-998ca791689f49919e825d9ad1e0def0",
         "evt-99939add7e964cfb9fb65ee05dc98a55",
+        "evt-9ed31057386d4c8fb11aeec9f8b619f8",
         "evt-9fd2d4a65f7d45a594a7ac3a6837d416",
         "evt-a3c8a2e1a259405e85d14c27817deb58",
         "evt-a44b7291eb25461f97cd8d045faebd4e",
@@ -71132,6 +71582,7 @@
       "coverage-acea061ce3204d5f89dca212d3c84ba8: evidence coverage is partial",
       "coverage-b136418b081343e5b6fa252ee1b86a7c: evidence coverage is partial",
       "coverage-b315012d5a28447bb3ce18fede75ae7f: evidence coverage is partial",
+      "coverage-b3638bce1721458893c995d406a8e011: evidence coverage is partial",
       "coverage-b8b45e49d70542c79e84138ae30ce7a7: evidence coverage is partial",
       "coverage-b9b06230952f4f6795765fbb8e7c1222: evidence coverage is unknown",
       "coverage-ba4bf9754c174c37ad1d77933b5a2574: evidence coverage is partial",
@@ -71163,7 +71614,7 @@
       "coverage-fee7edc5545c4ce58fba854587790eb4: evidence coverage is partial",
       "Legacy order 112-0019658-3684217: row valuation USD 139.80, preserved project invoice USD 139.81; historical allocation residual USD +0.01. Original prices retained; no balancing payment invented.",
       "Legacy order 112-0066205-0960237: row valuation USD 423.94, preserved project invoice USD 423.95; historical allocation residual USD +0.01. Original prices retained; no balancing payment invented.",
-      "23 legacy named order(s) lack an exact invoice allocation check",
+      "24 legacy named order(s) lack an exact invoice allocation check",
       "1 preserved potentially project order(s) have no named Markdown row"
     ]
   }
