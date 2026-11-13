@@ -101,21 +101,6 @@ pub const SPECS: &[Spec] = &[
         ],
     },
     Spec {
-        id: "fdm-print-guide",
-        title: "FDM print guide",
-        subtitle: "Printing the Home Soda Machine",
-        contents_links: false,
-        delivery_copy: true,
-        sources: &[
-            "AGENTS.md",
-            "hardware/printed-parts/AGENTS.md",
-            "hardware/printed-parts/enclosure/enclosure/README.md",
-            "hardware/printed-parts/enclosure/trial-preparation/README.md",
-            "hardware/printed-parts/cooling/README.md",
-            "tools/bambu-printers.md",
-        ],
-    },
-    Spec {
         id: "printing-the-machine",
         title: "Printing the Machine",
         subtitle: "FDM lessons from printing the Home Soda Machine, by plastic",
