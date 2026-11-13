@@ -2,45 +2,46 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>Prove direction and home</title>
+  <title>Verify direction and home</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 <article class="card">
   <header>
-    <span class="eyebrow"><b>First motion</b></span>
-    <h1>Prove direction and home</h1>
+    <span class="eyebrow"><b>Run the rig</b></span>
+    <h1>Verify direction and home</h1>
     <i class="rule"></i>
-    <p class="lede">Start with the loaded sled partway down the tube, clear of both ends, with the roller engaged. Keep the motor adapter within reach.</p>
+    <p class="lede">Start with the loaded sled clear of both ends and the roller in its slot. Keep the motor adapter within reach.</p>
   </header>
   <main>
     <figure>
       <svg class="schematic" viewBox="0 0 1100 486" role="img" aria-label="A positive jog moves the sled deeper into the tube. Homing moves the sled toward the tab until the striker trips the switch.">
         <rect class="box" x="255" y="145" width="778" height="206" rx="8"/>
         <path class="w" d="M255 325h778"/>
-        <path class="datum" d="M286 118v259"/>
-        <path d="M255 323v-35h21v35" fill="var(--blue)"/>
-        <path d="M287 325v-27h97v27" fill="var(--ice)" stroke="var(--blue)" stroke-width="2"/>
+        <path class="datum" d="M315 122v267"/>
+        <path d="M255 325v-37h21v37" fill="var(--blue)"/>
+        <path d="M315 325v-27h97v27" fill="var(--ice)" stroke="var(--blue)" stroke-width="2"/>
         <rect x="568" y="299" width="99" height="26" fill="var(--action)"/>
-        <path class="motion" d="M620 229H847m-18-13 18 13-18 13"/>
-        <path class="motion" d="M550 268H296m18-13-18 13 18 13"/>
-        <text class="lbl" x="731" y="207" text-anchor="middle">Positive jog</text>
-        <text class="lbl" x="422" y="244" text-anchor="middle">Seek home</text>
-        <text class="sub" x="305" y="406" text-anchor="middle">Tab and home</text>
-        <text class="sub" x="617" y="406" text-anchor="middle">Start clear of both ends</text>
-        <text class="lbl" x="1026" y="100" text-anchor="end">Into the tube</text>
+        <path class="motion" d="M617 243H854m-18-13 18 13-18 13"/>
+        <path class="motion" d="M569 243H326m18-13-18 13 18 13"/>
+        <text class="lbl" x="736" y="216" text-anchor="middle">Jog into tube</text>
+        <text class="lbl" x="448" y="216" text-anchor="middle">Seek home</text>
+        <path class="w-gnd" d="M266 349v34l-44 18"/>
+        <text class="sub" x="218" y="421" text-anchor="end">Comb tab</text>
+        <text class="sub" x="315" y="421" text-anchor="middle">Switch trip</text>
+        <text class="sub" x="617" y="384" text-anchor="middle">Starting position</text>
       </svg>
-      <figcaption>Positive is deeper into the tube. Home is the switch trip, with clearance left at the tab.</figcaption>
+      <figcaption>A positive jog moves into the tube. The switch trip sets home while there is still clearance at the comb tab.</figcaption>
     </figure>
     <ol class="actions">
-      <li>Connect USB and then the motor adapter. Repeat the free/pressed check if the ESP32 has restarted.</li>
-      <li>Send <code>jog 5</code>. The sled should move into the tube. If it moves toward the tab, stop and flip the saved direction with <code>dirinvert on</code> or <code>dirinvert off</code>, then jog again.</li>
-      <li>Send <code>home</code>. Watch it trip, back off, creep onto the switch and back off to release. Use the card's measured thickness at the trip for <code>tab &lt;mm&gt;</code>. The final stopped position includes the release travel.</li>
-      <li>Home again and look for the same stop. Compare a short commanded move with measured carriage travel.</li>
+      <li>Connect USB and open the console. Repeat the lever check on page 19, then connect the motor adapter. To stop a move, send <code>stop</code> in the console. If it keeps moving, disconnect motor power and reset the controller before repeating the lever check.</li>
+      <li>Send <code>jog 5</code>. If the sled moves toward the tab, stop. Use <code>status</code> to check the current direction, change it with <code>dirinvert on</code> or <code>dirinvert off</code>, then jog again.</li>
+      <li>Enter the measured card thickness in millimeters with <code>tab &lt;mm&gt;</code>. Send <code>home</code> and watch the sled approach the switch, back off, creep onto it, then back off to release it.</li>
+      <li>Home again to confirm that it stops at the same spot. Compare measured carriage travel with a short commanded jog.</li>
     </ol>
     <div class="gate">
       <span class="gate-label">Ready to sweep</span>
-      <p>The switch trips before contact, the drive travels the commanded distance and nothing binds. Send a non-empty line to stop motion if the rig misbehaves. Home again before taking data after an interrupted move.</p>
+      <p>The switch trips before the sled reaches the tab and the carriage moves the commanded distance without binding. Home again after an interrupted move.</p>
     </div>
   </main>
   <footer><span>Reed sweep rig &middot; build guide</span><span class="folio">21</span></footer>

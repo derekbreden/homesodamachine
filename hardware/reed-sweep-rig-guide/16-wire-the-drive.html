@@ -11,7 +11,7 @@
     <span class="eyebrow"><b>Wire the controller</b></span>
     <h1>Wire the drive and supplies</h1>
     <i class="rule"></i>
-    <p class="lede">The Mac powers the ESP32 over USB-C. The barrel adapter supplies motor power at the driver carrier.</p>
+    <p class="lede">USB-C powers the ESP32. The barrel adapter connects only to the driver carrier's motor power terminals.</p>
   </header>
   <main>
     <figure>
@@ -44,18 +44,18 @@
         <path class="w-gnd" d="M581 608v-28h246v-53"/>
         <g class="pin" text-anchor="middle">
           <text x="747" y="507">VIN</text><text x="827" y="507">GND</text>
-          <text x="477" y="598">+</text><text x="581" y="598">&minus;</text>
+          <text x="459" y="597">+</text><text x="599" y="597">&minus;</text>
         </g>
         <rect class="box-dim" x="817" y="608" width="238" height="62" rx="12"/>
         <text class="lbl" x="936" y="647" text-anchor="middle">Stage motor</text>
         <path class="w" d="M936 527v81"/>
         <text class="sub" x="947" y="561">motor lead</text>
       </svg>
-      <figcaption>On the carrier, S is the signal row. V feeds the driver's logic, G is its return, and VIN takes motor power. The sensor branches are on the next page.</figcaption>
+      <figcaption>On the carrier, S is the signal row. V and G carry logic power and ground. VIN and the adjacent GND take the motor supply.</figcaption>
     </figure>
     <ol class="actions">
-      <li>With both supplies unplugged, match the breakout terminals to the carrier labels. Wire the barrel connector's marked plus to VIN and minus to the carrier's power GND.</li>
-      <li>At the loose motor plug, use resistance to identify the two coil pairs. The expected pairs are black/green and blue/red. Each pair must land on its own phase, <code>1A/1B</code> or <code>2A/2B</code>.</li>
+      <li>With both supplies unplugged, wire the ESP32 terminals to the carrier as shown. Connect the barrel connector's marked plus to <code>VIN</code> and minus to the carrier's power <code>GND</code>.</li>
+      <li>Measure resistance at the loose motor plug to identify the coil pairs. Expect black with green and blue with red. One pair goes to <code>1A/1B</code> and the other to <code>2A/2B</code>.</li>
     </ol>
     <div class="gate">
       <span class="gate-label">Leave power disconnected</span>

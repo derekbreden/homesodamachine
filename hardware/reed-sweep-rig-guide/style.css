@@ -2,6 +2,7 @@
 @import url("../weld-rotator-guide/style.css");
 
 a { color: var(--heading); text-underline-offset: 0.15em; }
+.cover footer a { color: inherit; }
 
 .annotated { position: relative; }
 .annotated > svg {
@@ -12,19 +13,25 @@ a { color: var(--heading); text-underline-offset: 0.15em; }
 }
 .annotated .leader {
   fill: none;
-  stroke: var(--heading);
-  stroke-width: 2.5;
+  stroke: var(--blue);
+  stroke-width: 3;
 }
-.annotated .point { fill: var(--blue); stroke: var(--paper); stroke-width: 1.3; }
-.annotated .tag {
+.annotated .point { fill: var(--blue); stroke: var(--paper); stroke-width: 1.8; }
+.annotated .tag rect {
+  fill: var(--paper);
+  stroke: var(--line);
+  stroke-width: 1.5;
+}
+.annotated .tag text {
   fill: var(--heading);
-  font-size: 22px;
+  font-size: 24px;
   font-weight: 700;
-  stroke: var(--field-pale);
-  stroke-width: 6px;
-  stroke-linejoin: round;
-  paint-order: stroke fill;
+  text-anchor: middle;
 }
+.split .annotated .tag text { font-size: 40px; }
+.split .annotated .leader { stroke-width: 5; }
+.split .annotated .point { r: 7; stroke-width: 3; }
+.annotated .station { fill: var(--ink); font-size: 22px; font-weight: 700; }
 .annotated .insert {
   fill: var(--brass);
   stroke: #6d5016;
@@ -44,8 +51,6 @@ a { color: var(--heading); text-underline-offset: 0.15em; }
 }
 .cradle-plate img { height: 700px; object-fit: contain; }
 
-.callout { color: var(--blue); font-weight: 700; }
-
 svg.schematic {
   display: block;
   width: 100%;
@@ -60,3 +65,13 @@ svg.schematic {
 .schematic .w, .schematic .w-sig, .schematic .w-pwr, .schematic .w-gnd { stroke-width: 3.5; }
 .schematic .motion { fill: none; stroke: var(--action); stroke-width: 4; }
 .schematic .datum { fill: none; stroke: var(--muted); stroke-width: 2; stroke-dasharray: 7 6; }
+
+.calculation {
+  margin-top: 32px;
+  padding: 26px 34px;
+  background: var(--field-pale);
+  border-radius: 10px;
+  font-size: 40px;
+  line-height: 1.42;
+}
+.calculation p + p { margin-top: 12px; }

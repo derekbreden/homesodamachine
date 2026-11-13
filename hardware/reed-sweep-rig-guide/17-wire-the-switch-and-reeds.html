@@ -11,48 +11,48 @@
     <span class="eyebrow"><b>Wire the controller</b></span>
     <h1>Wire the switch and reeds</h1>
     <i class="rule"></i>
-    <p class="lede">Each reed closes its own input to the common return. The home switch has a separate signal and takes power from the breakout's 3V3 terminal.</p>
+    <p class="lede">The home switch takes power from the breakout. The reeds share a ground return and each has a dedicated input.</p>
   </header>
   <main>
     <figure>
       <svg class="schematic" viewBox="0 0 1100 680" role="img" aria-label="ESP32 3V3, P33 and GND to the endstop. P16 through P19 to the four reed signals with a common ground.">
-        <rect class="box" x="45" y="60" width="325" height="534" rx="14"/>
+        <rect class="box" x="45" y="60" width="325" height="563" rx="14"/>
         <text class="lbl" x="206" y="108" text-anchor="middle">ESP32 breakout</text>
         <rect class="box-dim" x="745" y="60" width="309" height="206" rx="14"/>
         <text class="lbl" x="900" y="108" text-anchor="middle">Home endstop</text>
         <g class="pin" text-anchor="end">
           <text x="344" y="154">3V3</text><text x="344" y="198">P33</text>
           <text x="344" y="242">GND</text>
-          <text x="344" y="343">P16</text><text x="344" y="399">P17</text>
-          <text x="344" y="455">P18</text><text x="344" y="511">P19</text>
-          <text x="344" y="562">GND</text>
+          <text x="344" y="372">P16</text><text x="344" y="428">P17</text>
+          <text x="344" y="484">P18</text><text x="344" y="540">P19</text>
+          <text x="344" y="591">GND</text>
         </g>
         <g class="pin"><text x="766" y="154">red · +</text><text x="766" y="198">green · S</text>
           <text x="766" y="242">black · GND</text></g>
         <path class="w-pwr" d="M370 147H745"/>
         <path class="w-sig" d="M370 191H745"/>
         <path class="w-gnd" d="M370 235H745"/>
-        <rect class="box-dim" x="745" y="287" width="309" height="307" rx="14"/>
-        <text class="lbl" x="900" y="321" text-anchor="middle">Reed comb</text>
-        <path class="w-sig" d="M370 336h432m-432 56h432m-432 56h432m-432 56h432"/>
-        <path class="w-gnd" d="M370 555h618V336m0 0h-75m75 56h-75m75 56h-75m75 56h-75"/>
-        <path class="w" d="M802 336h20l69-18m-89 74h20l69-18m-89 74h20l69-18m-89 74h20l69-18"/>
+        <rect class="box-dim" x="745" y="287" width="309" height="336" rx="14"/>
+        <text class="lbl" x="900" y="327" text-anchor="middle">Reed comb</text>
+        <path class="w-sig" d="M370 365h432m-432 56h432m-432 56h432m-432 56h432"/>
+        <path class="w-gnd" d="M370 584h618V365h-75m75 56h-75m75 56h-75m75 56h-75"/>
+        <path class="w" d="M802 365h20l69-18m-89 74h20l69-18m-89 74h20l69-18m-89 74h20l69-18"/>
         <g fill="var(--ink)">
-          <circle cx="913" cy="336" r="4"/><circle cx="913" cy="392" r="4"/>
-          <circle cx="913" cy="448" r="4"/><circle cx="913" cy="504" r="4"/>
-          <circle cx="988" cy="392" r="4"/><circle cx="988" cy="448" r="4"/><circle cx="988" cy="504" r="4"/>
+          <circle cx="913" cy="365" r="4"/><circle cx="913" cy="421" r="4"/>
+          <circle cx="913" cy="477" r="4"/><circle cx="913" cy="533" r="4"/>
+          <circle cx="988" cy="421" r="4"/><circle cx="988" cy="477" r="4"/><circle cx="988" cy="533" r="4"/>
         </g>
         <g class="sub" text-anchor="middle">
-          <text x="859" y="366">1 · below</text><text x="859" y="422">2 · low</text>
-          <text x="859" y="478">3 · high</text><text x="859" y="534">4 · above</text>
-          <text x="705" y="584">Common return</text>
+          <text x="859" y="395">1 · below</text><text x="859" y="451">2 · low</text>
+          <text x="859" y="507">3 · high</text><text x="859" y="563">4 · above</text>
+          <text x="558" y="613">Common return</text>
         </g>
       </svg>
       <figcaption>The ESP32 pulls each reed input up. A closed contact pulls its station input to ground.</figcaption>
     </figure>
     <ol class="actions">
       <li>Match the endstop lead colors against the board's markings. Run the red supply to <code>3V3</code>, black return to <code>GND</code> and green signal to <code>P33</code>.</li>
-      <li>Land the numbered comb signals in order from <code>P16</code> through <code>P19</code>. Land the comb's common return at <code>GND</code>.</li>
+      <li>Connect the comb signals in station order from <code>P16</code> through <code>P19</code>. Connect the common return to <code>GND</code>.</li>
       <li>Route leads outside the cradle and away from the rod, carriage and coupling.</li>
     </ol>
     <div class="gate">
