@@ -74,8 +74,8 @@
         27.904499053955078,
         26.25
       ],
-      "stl_sha256": "731cdf9580edeb2f87fa32f5029b67b80bdb3580de398c8af489b55bd59ed98d",
-      "triangles": 3030,
+      "stl_sha256": "df1d822e8002ea4a29b1fbc245734cb0f59e40dd1003ec8a2d8d2346315a0fff",
+      "triangles": 3026,
       "watertight": true
     },
     {
@@ -313,7 +313,7 @@
   "printer_submission": false,
   "process": "0.24mm PET-GF reed sweep rig - small-parts-mark1",
   "project": "reed-sweep-rig-small-parts-petgf-left04-z018-mark1.3mf",
-  "project_sha256": "721e2699c681151cbfbe92208cf78f82cf6211de6d6d3d83b9cdfc6d555122c8",
+  "project_sha256": "8829d4d7de04f8f93aa20b61668f81f2ec05c53549c2a76f75162aefeca2ca06",
   "saved_profile_filament_density_g_cm3": [
     1.29
   ],
