@@ -1,0 +1,942 @@
+{
+  "estimated_seconds": 10078,
+  "deposition_and_travel_command_seconds": 9773,
+  "first_layer_command_seconds": 123.11,
+  "band_count": 118,
+  "bed_clearance_motion_mm": 93995.95,
+  "extrusion_length_mm": 12395.681,
+  "estimated_g": 38.46,
+  "feature_extrusion_lengths_mm": {
+    "Support": 52866.72,
+    "Support interface": 8186.49,
+    "Conformal support interface": 10853.55,
+    "Bed landing": 24.13,
+    "Continuous uphill rim left": 78.25,
+    "Continuous uphill rim right": 79.23,
+    "Inner wall": 18088.77,
+    "Outer wall": 17951.05,
+    "Bottom surface": 2645.72,
+    "Internal solid infill": 21671.86,
+    "Sparse infill": 167106.48,
+    "Overhang wall": 89.94,
+    "Bridge": 617.5,
+    "Floating vertical shell": 4567.36,
+    "Top surface": 3280.64,
+    "Gap infill": 26.19
+  },
+  "rim_passes": [
+    {
+      "feature": "Continuous uphill rim left",
+      "road_index": 5303,
+      "elapsed_motion_seconds": 3422.108,
+      "start_xyz_mm": [
+        150.81024088423493,
+        184.0216857940647,
+        0.9540000000000042
+      ],
+      "end_xyz_mm": [
+        162.011,
+        130.20265735542827,
+        15.37476520756026
+      ],
+      "length_mm": 78.2485,
+      "positive_extrusion_moves": 372,
+      "end_motion_seconds": 3427.325
+    },
+    {
+      "feature": "Continuous uphill rim right",
+      "road_index": 5304,
+      "elapsed_motion_seconds": 3428.695,
+      "start_xyz_mm": [
+        174.18523243857177,
+        184.0216857940647,
+        0.9540000000000038
+      ],
+      "end_xyz_mm": [
+        162.011,
+        130.20265735542827,
+        15.37476520756026
+      ],
+      "length_mm": 79.2285,
+      "positive_extrusion_moves": 378,
+      "end_motion_seconds": 3433.977
+    }
+  ],
+  "highest_extrusion_mm": 26.9535,
+  "extrusion_count": 1232330,
+  "gcode_sha256": "2102c83ee9a3ea6020052ba91ea3cee4c833920703fcf8971a2f0dabce031260",
+  "seat_center_mm": [
+    162.49944496154785,
+    158.31450972792663,
+    7.635161830524362
+  ],
+  "tilt_x_degrees": -15,
+  "yaw_z_degrees": 0,
+  "roof_release_normal_mm": 0.24,
+  "purpose": "Binds the experimental Sculpted base print archive to its paths and Mark2 clearance replay.",
+  "printer": "Mark2",
+  "project": {
+    "path": "sculpted-base-uphill-mark2.3mf",
+    "sha256": "76ab4c9ba45e00e23f7bd720653f7e08bcb51c4cec10a1466fbd14f589f26d28"
+  },
+  "archive": {
+    "path": "sculpted-base-uphill-mark2-ready.gcode.3mf",
+    "sha256": "cca432e090fd00fc51f335af2cd5d624062c0cfd7dafc12a2afd4f8e45250328",
+    "gcode_member": "Metadata/plate_1.gcode",
+    "gcode_byte_identical_to_review": true
+  },
+  "object": {
+    "count": 1,
+    "name": "faucet-shell-base",
+    "cad_crop_top_mm": 13.0,
+    "source_sha256": "0235ad65d4d5dc92164c925887a82eb5355511e228c405e9a9d31baaf97938e2",
+    "watertight": true,
+    "build_transform": [
+      1.0,
+      0.0,
+      0.0,
+      0.0,
+      0.9659258262890683,
+      -0.25881904510252074,
+      0.0,
+      0.25881904510252074,
+      0.9659258262890683,
+      162.5,
+      159.57557299642247,
+      14.026556118791891
+    ],
+    "support_release_reference_revision": "7ebe4a45b0fd8064118e95f2cc1445c5ee643722",
+    "support_release_reference": "hardware/printed-parts/faucet/sculpted/prints/2026-11-11-support-and-fit-mark1/physical-result/physical-result.json",
+    "bridge_only_pockets": [
+      {
+        "blocker_cad_z_mm": [
+          -1.0,
+          9.0
+        ],
+        "blocker_radius_mm": 4.750000000000001,
+        "cad_center_mm": [
+          22.5,
+          -2.0
+        ],
+        "part_id": 5
+      },
+      {
+        "blocker_cad_z_mm": [
+          -1.0,
+          9.0
+        ],
+        "blocker_radius_mm": 4.750000000000001,
+        "cad_center_mm": [
+          -22.5,
+          -2.0
+        ],
+        "part_id": 6
+      },
+      {
+        "blocker_cad_z_mm": [
+          -1.0,
+          9.0
+        ],
+        "blocker_radius_mm": 4.750000000000001,
+        "cad_center_mm": [
+          0.0,
+          -22.3
+        ],
+        "part_id": 7
+      }
+    ]
+  },
+  "settings": {
+    "bed": "Textured PEI Plate",
+    "left_nozzle_mm": 0.4,
+    "filament": "Polymaker Fiberon PET-GF15",
+    "tray_reported_type": "PET-CF",
+    "filament_preset_id": "GFT01",
+    "filament_colour": "#161616",
+    "external_spool": 254,
+    "requested_z_trim_mm": 0.06,
+    "emitted_plate_compensation_mm": 0.04,
+    "bed_temperature_c": 80,
+    "bed_start_nozzle_temperature_c": 265,
+    "printing_nozzle_temperature_c": 280,
+    "time_lapse_detours": false
+  },
+  "geometry": {
+    "conformal_interface_courses": 3,
+    "conformal_interface_normal_course_mm": 0.24,
+    "native_scaffold_model_normal_lowering_mm": 0.79,
+    "local_tie_pitch_mm": 0.85,
+    "bed_tangent_blend_mm": [
+      0.07,
+      0.72
+    ],
+    "bed_tangent_return_height_mm": 1.64,
+    "contact_backing": {
+      "top_of_scaffold_mm": 14.600000381469727,
+      "roof_course_1": {
+        "tip_to_backing_mm_quantiles": [
+          0.1467,
+          0.2043,
+          0.229,
+          0.3466,
+          0.5568,
+          1.3244,
+          13.8574
+        ],
+        "longest_gaps": [
+          [
+            1.4227528757949557,
+            0,
+            [
+              190.6159673539151,
+              154.27381811191438,
+              7.972463036002793
+            ],
+            [
+              190.6159673539151,
+              152.899544364757,
+              8.340698576732908
+            ]
+          ],
+          [
+            1.4227528757949535,
+            0,
+            [
+              190.6159673539151,
+              163.66468871748995,
+              5.456186841013651
+            ],
+            [
+              190.6159673539151,
+              162.29041497033256,
+              5.824422381743767
+            ]
+          ],
+          [
+            1.4093149505069071,
+            0,
+            [
+              134.36636735391477,
+              154.31190493902665,
+              7.962257701435799
+            ],
+            [
+              134.36636735391477,
+              152.95061123095672,
+              8.327015251174704
+            ]
+          ],
+          [
+            1.1744291254224335,
+            0,
+            [
+              134.36636735391477,
+              163.61407861083774,
+              5.469747778219966
+            ],
+            [
+              134.36636735391477,
+              162.47966718744613,
+              5.7737124030023885
+            ]
+          ],
+          [
+            1.1695691858320405,
+            0,
+            [
+              191.0295673539151,
+              159.41341720499042,
+              6.595311609593337
+            ],
+            [
+              191.0295673539151,
+              158.28370012276338,
+              6.898018389451718
+            ]
+          ]
+        ],
+        "measured_release_normal_mm_quantiles": null
+      },
+      "roof_course_2": {
+        "tip_to_backing_mm_quantiles": [
+          0.1527,
+          0.1576,
+          0.1653,
+          0.2046,
+          0.2465,
+          0.273,
+          2.0332
+        ],
+        "longest_gaps": [
+          [
+            0.0,
+            1,
+            [
+              191.41085628981511,
+              161.18799371343698,
+              6.368281550546261
+            ],
+            [
+              191.41085628981511,
+              161.18799371343698,
+              6.368281550546261
+            ]
+          ],
+          [
+            0.0,
+            1,
+            [
+              191.3647224492847,
+              154.98399371343694,
+              8.030638340388956
+            ],
+            [
+              191.3647224492847,
+              154.98399371343694,
+              8.030638340388956
+            ]
+          ],
+          [
+            0.0,
+            1,
+            [
+              190.95837441541232,
+              152.50239371343693,
+              8.695581056326034
+            ],
+            [
+              190.95837441541232,
+              152.50239371343693,
+              8.695581056326034
+            ]
+          ],
+          [
+            0.0,
+            1,
+            [
+              190.95396502802924,
+              164.083193713437,
+              5.59251504861967
+            ],
+            [
+              190.95396502802924,
+              164.083193713437,
+              5.59251504861967
+            ]
+          ],
+          [
+            0.0,
+            1,
+            [
+              188.86942801068358,
+              146.2983937134369,
+              10.357937846168728
+            ],
+            [
+              188.86942801068358,
+              146.2983937134369,
+              10.357937846168728
+            ]
+          ]
+        ],
+        "measured_release_normal_mm_quantiles": null
+      },
+      "roof_course_3": {
+        "tip_to_backing_mm_quantiles": [
+          0.1529,
+          0.161,
+          0.1712,
+          0.2251,
+          0.2803,
+          0.3087,
+          0.4969
+        ],
+        "longest_gaps": [],
+        "measured_release_normal_mm_quantiles": null
+      },
+      "first_model_course": {
+        "tip_to_backing_mm_quantiles": [
+          0.2089,
+          0.3613,
+          0.3708,
+          0.4102,
+          0.4489,
+          0.4609,
+          0.5869
+        ],
+        "longest_gaps": [],
+        "measured_release_normal_mm_quantiles": [
+          0.1526,
+          0.1595,
+          0.1964,
+          0.233,
+          0.2435
+        ]
+      }
+    }
+  },
+  "head_sweep": {
+    "reference": "hardware/reference/h2c-toolhead/README.md",
+    "source_revision": "850187397c11f9092c906406758fdbb4a36d819e",
+    "head_mesh_sha256": "cd57c349cfe8e75b0713bfb0c71a553682de57d69f89d0ddbe8919f60c6738eb",
+    "gantry_mesh_sha256": "db6a1886378618ef3252f6de85327d087345bae62962da4ab746a0229800caf8",
+    "mesh_bodies": 52,
+    "method": "Stock occupancy from preceding moves, including newly deposited portions of the current road. H2C head surface minimum height compared at each XY footprint sample. The active nozzle contact land is excluded.",
+    "scope": "All generated extrusion and travel moves between the native start and end programs. Photo-derived installed geometry, pending a physical run.",
+    "maximum_step_mm": {
+      "deposition": 0.1,
+      "travel": 0.15
+    },
+    "head_xy_spacing_mm": 0.24,
+    "stock_xy_spacing_mm": 0.12,
+    "assembly_z_allowance_mm": 0.3,
+    "assembly_xy_allowance_mm": 0.24,
+    "active_nozzle_contact_exclusion_radius_mm": 0.62,
+    "samples": 4563597,
+    "moves": 1251437,
+    "head_bodies_with_low_geometry": 23,
+    "components": {
+      "Part_cooling_duct_FAF012": {
+        "whole_plate": {
+          "margin": 2.3325672,
+          "tip_xyz": [
+            145.12047,
+            166.31931,
+            13.896733
+          ],
+          "head_xyz": [
+            44.360001,
+            -13.36,
+            6.0407996
+          ],
+          "road_index": 5897,
+          "band": 97,
+          "travel": false
+        },
+        "climbs": {
+          "margin": 2.8205328,
+          "tip_xyz": [
+            134.90401,
+            165.9595,
+            5.7937665
+          ],
+          "head_xyz": [
+            47,
+            -13.36,
+            6.0407996
+          ],
+          "road_index": 5303,
+          "band": 64,
+          "travel": false
+        }
+      },
+      "Duct_outlet_vanes": {
+        "whole_plate": {
+          "margin": 7.178299,
+          "tip_xyz": [
+            146.7187,
+            169.1992,
+            14.6159
+          ],
+          "head_xyz": [
+            43.16,
+            -8.5600004,
+            9.5999994
+          ],
+          "road_index": 6005,
+          "band": 103,
+          "travel": false
+        },
+        "climbs": {
+          "margin": 7.6667991,
+          "tip_xyz": [
+            145.46111,
+            180.955,
+            1.7757
+          ],
+          "head_xyz": [
+            41,
+            -8.5600004,
+            9.5999994
+          ],
+          "road_index": 5303,
+          "band": 64,
+          "travel": false
+        }
+      },
+      "Outboard_toolhead_camera": {
+        "whole_plate": {
+          "margin": 12.442071,
+          "tip_xyz": [
+            138.916,
+            174.9455,
+            2.4335003
+          ],
+          "head_xyz": [
+            53.48,
+            -3.28,
+            12.848571
+          ],
+          "road_index": 4566,
+          "band": 61,
+          "travel": true
+        },
+        "climbs": {
+          "margin": 15.00829,
+          "tip_xyz": [
+            140.69063,
+            176.58966,
+            2.9454334
+          ],
+          "head_xyz": [
+            53.240002,
+            -2.3199999,
+            12.742857
+          ],
+          "road_index": 5303,
+          "band": 64,
+          "travel": false
+        }
+      },
+      "Toolhead_camera_window": {
+        "whole_plate": {
+          "margin": 14.909833,
+          "tip_xyz": [
+            136.84801,
+            170.9286,
+            3.5098333
+          ],
+          "head_xyz": [
+            56.599998,
+            5.8400002,
+            11.599999
+          ],
+          "road_index": 4577,
+          "band": 61,
+          "travel": false
+        }
+      },
+      "Toolhead_camera_lower_bezel": {
+        "whole_plate": {
+          "margin": 14.353466,
+          "tip_xyz": [
+            137.2616,
+            171.8107,
+            3.2734666
+          ],
+          "head_xyz": [
+            54.439999,
+            3.6800001,
+            12
+          ],
+          "road_index": 4575,
+          "band": 61,
+          "travel": false
+        }
+      },
+      "Left_nozzle_contact_heated": {
+        "whole_plate": {
+          "margin": 0.083687782,
+          "tip_xyz": [
+            166.28461,
+            185.5065,
+            0.68120003
+          ],
+          "head_xyz": [
+            -0.039999999,
+            -0.63999999,
+            0.45028767
+          ],
+          "road_index": 5337,
+          "band": 65,
+          "travel": false
+        },
+        "climbs": {
+          "margin": 0.48510933,
+          "tip_xyz": [
+            146.4967,
+            134.9949,
+            14.0907
+          ],
+          "head_xyz": [
+            -0.28,
+            0.56,
+            0.4277094
+          ],
+          "road_index": 5303,
+          "band": 64,
+          "travel": false
+        }
+      },
+      "Left_silicone_sock": {
+        "whole_plate": {
+          "margin": 2.0334001,
+          "tip_xyz": [
+            165.37801,
+            185.877,
+            0.56550002
+          ],
+          "head_xyz": [
+            -2.6800001,
+            -4.2399998,
+            3.4000001
+          ],
+          "road_index": 5337,
+          "band": 65,
+          "travel": false
+        },
+        "climbs": {
+          "margin": 2.6235998,
+          "tip_xyz": [
+            140.0204,
+            175.798,
+            3.1575334
+          ],
+          "head_xyz": [
+            -2.6800001,
+            -4.2399998,
+            3.4000001
+          ],
+          "road_index": 5303,
+          "band": 64,
+          "travel": false
+        }
+      },
+      "Right_nozzle_induction": {
+        "whole_plate": {
+          "margin": 4.4796162,
+          "tip_xyz": [
+            150.56039,
+            184.4277,
+            1.8358999
+          ],
+          "head_xyz": [
+            25.16,
+            -0.63999999,
+            4.747416
+          ],
+          "road_index": 5373,
+          "band": 68,
+          "travel": false
+        },
+        "climbs": {
+          "margin": 4.7994666,
+          "tip_xyz": [
+            149.99973,
+            183.65193,
+            1.0530666
+          ],
+          "head_xyz": [
+            24.440001,
+            0.31999999,
+            4.6999998
+          ],
+          "road_index": 5303,
+          "band": 64,
+          "travel": false
+        }
+      },
+      "Right_silicone_boot": {
+        "whole_plate": {
+          "margin": 5.8017998,
+          "tip_xyz": [
+            155.50467,
+            185.86954,
+            0.56760001
+          ],
+          "head_xyz": [
+            23,
+            -4,
+            7.0999999
+          ],
+          "road_index": 5325,
+          "band": 65,
+          "travel": false
+        },
+        "climbs": {
+          "margin": 6.387866,
+          "tip_xyz": [
+            147.24702,
+            182.15924,
+            1.4530667
+          ],
+          "head_xyz": [
+            25.16,
+            -4,
+            7.0999999
+          ],
+          "road_index": 5303,
+          "band": 64,
+          "travel": false
+        }
+      },
+      "Right_induction_barrel": {
+        "whole_plate": {
+          "margin": 12.2085,
+          "tip_xyz": [
+            154.536,
+            185.61369,
+            0.64490002
+          ],
+          "head_xyz": [
+            24.440001,
+            -4,
+            13.5
+          ],
+          "road_index": 5325,
+          "band": 65,
+          "travel": false
+        },
+        "climbs": {
+          "margin": 12.787867,
+          "tip_xyz": [
+            147.24702,
+            182.15924,
+            1.4530667
+          ],
+          "head_xyz": [
+            25.16,
+            -4,
+            13.5
+          ],
+          "road_index": 5303,
+          "band": 64,
+          "travel": false
+        }
+      },
+      "Right_induction_coil": {
+        "whole_plate": {
+          "margin": 14.652866,
+          "tip_xyz": [
+            158.4897,
+            185.7422,
+            0.3448
+          ],
+          "head_xyz": [
+            18.92,
+            -3.04,
+            15.7
+          ],
+          "road_index": 5305,
+          "band": 64,
+          "travel": false
+        }
+      },
+      "Induction_coil_cradle": {
+        "whole_plate": {
+          "margin": 10.932266,
+          "tip_xyz": [
+            163.68967,
+            185.99806,
+            0.27546665
+          ],
+          "head_xyz": [
+            17,
+            -5.6799998,
+            12.691999
+          ],
+          "road_index": 5305,
+          "band": 64,
+          "travel": false
+        },
+        "climbs": {
+          "margin": 11.529699,
+          "tip_xyz": [
+            145.62939,
+            181.07809,
+            1.7427
+          ],
+          "head_xyz": [
+            32.599998,
+            -5.6799998,
+            12.691999
+          ],
+          "road_index": 5303,
+          "band": 64,
+          "travel": false
+        }
+      },
+      "Flow_blocker_pad": {
+        "whole_plate": {
+          "margin": 1.6069001,
+          "tip_xyz": [
+            157.74117,
+            185.62833,
+            0.3811
+          ],
+          "head_xyz": [
+            22.280001,
+            -4.7199998,
+            3.1000001
+          ],
+          "road_index": 5305,
+          "band": 64,
+          "travel": false
+        },
+        "climbs": {
+          "margin": 2.1956005,
+          "tip_xyz": [
+            136.371,
+            146.75571,
+            10.9394
+          ],
+          "head_xyz": [
+            27.799999,
+            -4.7199998,
+            3.1000001
+          ],
+          "road_index": 5303,
+          "band": 64,
+          "travel": false
+        }
+      },
+      "Flow_blocker_arm": {
+        "whole_plate": {
+          "margin": 2.9132047,
+          "tip_xyz": [
+            152.7953,
+            185.14104,
+            1.082
+          ],
+          "head_xyz": [
+            23,
+            -1.6,
+            3.5000048
+          ],
+          "road_index": 5340,
+          "band": 66,
+          "travel": false
+        },
+        "climbs": {
+          "margin": 3.4348049,
+          "tip_xyz": [
+            149.87286,
+            183.5941,
+            1.0685667
+          ],
+          "head_xyz": [
+            23,
+            -1.6,
+            3.5000048
+          ],
+          "road_index": 5303,
+          "band": 64,
+          "travel": false
+        }
+      },
+      "Flow_blocker_pivot": {
+        "whole_plate": {
+          "margin": 12.319134,
+          "tip_xyz": [
+            147.20467,
+            171.11996,
+            9.8772335
+          ],
+          "head_xyz": [
+            12.68,
+            14.24,
+            8.5999994
+          ],
+          "road_index": 5710,
+          "band": 86,
+          "travel": false
+        },
+        "climbs": {
+          "margin": 12.321699,
+          "tip_xyz": [
+            136.05811,
+            169.1971,
+            4.9261999
+          ],
+          "head_xyz": [
+            12.92,
+            14.24,
+            8.5999994
+          ],
+          "road_index": 5303,
+          "band": 64,
+          "travel": false
+        }
+      }
+    }
+  },
+  "archive_review": {
+    "printed_bounds_mm": [
+      [
+        123.787,
+        117.786,
+        0.2
+      ],
+      [
+        201.127,
+        190.3608,
+        26.9535
+      ]
+    ],
+    "travel_bounds_mm": [
+      [
+        127.264,
+        -0.5,
+        0.2
+      ],
+      [
+        290.0,
+        190.3608,
+        27.5535
+      ]
+    ],
+    "maximum_volumetric_rate_mm3_s": 18.0,
+    "maximum_extrusion_z_speed_mm_s": 7.5,
+    "maximum_travel_z_speed_mm_s": 15.0,
+    "exact_rim_moves": {
+      "Continuous uphill rim left": {
+        "start": [
+          150.8102,
+          184.0217,
+          0.954
+        ],
+        "last": [
+          162.011,
+          130.2027,
+          15.3748
+        ],
+        "distance": 78.24846560832542,
+        "moves": 372,
+        "start_seconds": 3422.108,
+        "end_seconds": 3427.325
+      },
+      "Continuous uphill rim right": {
+        "start": [
+          174.1852,
+          184.0217,
+          0.954
+        ],
+        "last": [
+          162.011,
+          130.2027,
+          15.3748
+        ],
+        "distance": 79.22850049921048,
+        "moves": 378,
+        "start_seconds": 3428.695,
+        "end_seconds": 3433.977
+      }
+    }
+  },
+  "camera": {
+    "source": "Mark2 continuous print-process recording",
+    "state": {
+      "ipcam_dev": "1",
+      "ipcam_record": "enable",
+      "mode_bits": 2,
+      "resolution": "1080p",
+      "timelapse": "disable"
+    },
+    "verified_at_utc": "2026-11-13T18:39:28+00:00",
+    "inspect_from_motion_seconds": 3417,
+    "inspect_through_motion_seconds": 3448,
+    "reference_event": "First model course, marked by the two continuous perimeter climbs. Offsets use commanded motion from first deposition and will drift with machine acceleration and startup.",
+    "physical_result": "Pending print"
+  },
+  "submitted": false
+}
