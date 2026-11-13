@@ -64,6 +64,7 @@ export const EXCLUDED_DIRS = [
   "install-guide/out",
   "magnetic-float-guide/out",
   "pcb/pcba/out",
+  "printing-the-machine/out",
   "quickstart-claude/out",
   "quickstart-codex/out",
   "quickstart/out",

@@ -1,0 +1,1690 @@
+{
+ "purpose": "Trace the book's pictures to photographs in the repository and to model payloads.",
+ "images": {
+  "aero-magnet-overprint.jpg": {
+   "kind": "Bench photograph",
+   "source": "hardware/printed-parts/cold-core/magnetic-float/all-aero/mark2-print/v1/evidence/magnet-insertion-overprint-2026-10-03.jpg",
+   "revision": null,
+   "max_px": 1700,
+   "width_px": 504,
+   "made_with": "magick auto-orient",
+   "source_sha256": "5cf085bba95407c77af32557fb85ef49bb4849e2b47385c53d09759ced32944c",
+   "image_sha256": "404fbbd50e04850273652ca45c9e2ba26e09b0b73872317cef93e7265225cd47"
+  },
+  "any-five-coupons.jpg": {
+   "kind": "Bench photograph",
+   "source": "hardware/print-tests/rear-snap-retention/v4/physical-result/10-all-five.jpg",
+   "revision": null,
+   "max_px": 2000,
+   "width_px": 1173,
+   "made_with": "magick auto-orient",
+   "source_sha256": "60d8add307c64f916710a657803754c729a606caf67df78a4294e76ccbd73b04",
+   "image_sha256": "e0bcd663cef30ad8b06d49e2210d47fe9cc138583bf191ad0f8304feaaac4127"
+  },
+  "h2c-inside-mark1.jpg": {
+   "kind": "Bench photograph",
+   "source": "hardware/printed-parts/enclosure/display-cover/prints/2026-11-06-identification-set-mark1-z000/physical-result/photo-3.jpg",
+   "revision": null,
+   "max_px": 1700,
+   "width_px": 607,
+   "made_with": "magick auto-orient",
+   "source_sha256": "83866839ab2fcd3fc2ad3b34e7cde5cd9128aaa8c0703cdf0e1632ab4cf1f2af",
+   "image_sha256": "aef3309cca39e3cb5d3f2e79d7849d9f42c4568e994e04728dd9d21099eafbd3"
+  },
+  "h2c-overload-message.jpg": {
+   "kind": "Bench photograph",
+   "source": "hardware/printed-parts/enclosure/display-cover/prints/2026-11-06-identification-set-mark1-z000/physical-result/photo-1.jpg",
+   "revision": null,
+   "max_px": 1700,
+   "width_px": 869,
+   "made_with": "magick auto-orient",
+   "source_sha256": "dcc8746735ab368d157bcfcf152abd41c673acd3a984070fa7549a7b9724e4a4",
+   "image_sha256": "5040f992f00bb4b7d65ce8c4460a19b2a4a21ad003c46d755aa7584e6d2aed74"
+  },
+  "h2c-removed-hotend.jpg": {
+   "kind": "Bench photograph",
+   "source": "hardware/printed-parts/enclosure/display-cover/prints/2026-11-06-identification-set-mark1-z000/drying/physical-result/photo-4.jpg",
+   "revision": null,
+   "max_px": 1700,
+   "width_px": 924,
+   "made_with": "magick auto-orient",
+   "source_sha256": "08df05cc68282b9c849f74bbcfee62bcf49ef728719b9f8b123cd4f5a3db5d55",
+   "image_sha256": "ddf8fdc51165bd82cff0114f43d7e2e15ace29dd63b18cf85ec061c199fe7248"
+  },
+  "h2c-two-colour-labels.jpg": {
+   "kind": "Bench photograph",
+   "source": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-10-04-bulkhead-co2-raised-mark2-v1/physical-result.jpg",
+   "revision": null,
+   "max_px": 1700,
+   "width_px": 480,
+   "made_with": "magick auto-orient",
+   "source_sha256": "1029f741dddc010338183afc0659723b7c5e1845f61adf732ff941967222cca7",
+   "image_sha256": "0cb21b67323fb74f114eea6463e33d53ccece39f5adfed50760ce1bb59ff22fc"
+  },
+  "petcf-try-nine.jpg": {
+   "kind": "Frame from the project's video of 10 May 2026, a photograph with the video's title drawn across the top",
+   "source": "public/post-images/2026-05-10-faucet-shell-thumbnail.png",
+   "revision": "b100c064b",
+   "max_px": 1700,
+   "width_px": 897,
+   "made_with": "magick auto-orient",
+   "source_sha256": "68acca7aeddb5ca7c0d7f22bcf4d0886f6c0fe489d43c3209e1fdef3e0264ef0",
+   "image_sha256": "d3c5866c1086dfea69e354260b44e1679409c270c527a01f81858d976d2c4f5e"
+  },
+  "petg-first-layer-lifted.jpg": {
+   "kind": "Bench photograph",
+   "source": "hardware/printed-parts/enclosure/display-cover/prints/2026-11-08-identification-set-mark1-right-z005/physical-progress/white-first-layer.jpg",
+   "revision": null,
+   "max_px": 2000,
+   "width_px": 746,
+   "made_with": "magick auto-orient",
+   "source_sha256": "266b4a277e67bcc26662f1e24135481d6d41d60c443f2d8af7ebe6155588c8e4",
+   "image_sha256": "99caa4b624c99961330b206f32d9d533ba9cc5d3e4b977cdbaa52e854ed93272"
+  },
+  "petg-first-layer-torn.jpg": {
+   "kind": "Bench photograph",
+   "source": "hardware/printed-parts/enclosure/display-cover/prints/2026-11-08-identification-set-mark1-dried-rethreaded/physical-result/photo-1.jpg",
+   "revision": null,
+   "max_px": 2000,
+   "width_px": 746,
+   "made_with": "magick auto-orient",
+   "source_sha256": "ad9df9de794c5054ba14d3badccee9fcda3e025ae99a4191be0e84bbdef4612a",
+   "image_sha256": "079945649eb059bc813f7f3aa21f4ccc4afa8fbd31e4e2fa625e2f69429d5f72"
+  },
+  "petg-floor-seam-drops.jpg": {
+   "kind": "Bench photograph",
+   "source": "hardware/printed-parts/cold-core/reservoir/prints/2026-10-21-mark1-may-water-right08-z000/physical-result/photo-3.jpg",
+   "revision": null,
+   "max_px": 1700,
+   "width_px": 673,
+   "made_with": "magick auto-orient",
+   "source_sha256": "f306f269a9f53e1095e257b36222266f659e1d8f811caf55dea6dea950fc4d6b",
+   "image_sha256": "3beaadb59be31f61f87991e5e4db56323c66c16860fcd0336246c84e9a09bc0b"
+  },
+  "petg-loops-only-drops.jpg": {
+   "kind": "Bench photograph",
+   "source": "hardware/printed-parts/cold-core/reservoir/prints/2026-10-21-mark1-walls-only-right08-z000-a4/physical-result/photo-1.jpg",
+   "revision": null,
+   "max_px": 1700,
+   "width_px": 827,
+   "made_with": "magick auto-orient",
+   "source_sha256": "dcedb0e483049a7b17739e4bec01a04086296ebfd4dd8fc5acd4955d33165f5f",
+   "image_sha256": "ef38d94e6b506a4991dbab5d4350c6c29012524f17ea20637d70194769852cdb"
+  },
+  "petg-loops-only-paths.png": {
+   "kind": "Figure from the record",
+   "source": "hardware/printed-parts/cold-core/reservoir/prints/2026-10-21-mark1-walls-only-right08-z000-a4/floor-wall-paths.png",
+   "revision": null,
+   "max_px": 1700,
+   "width_px": 659,
+   "made_with": "magick auto-orient",
+   "source_sha256": "254cc7ccce514128038398a4a4e79ad5408682d4f15e2d6040ff1a12fb8edb9b",
+   "image_sha256": "d97c2a76678a4f5185759b94540260c0fc2ae00ecd95e0b498d9c2a2c4c42002"
+  },
+  "petgf-design-back-top-loops.jpg": {
+   "kind": "Bench photograph",
+   "source": "hardware/printed-parts/enclosure/enclosure/prints/2026-11-10-back-top-D-mark1/physical-observation/photo-1.jpg",
+   "revision": null,
+   "max_px": 1700,
+   "width_px": 547,
+   "made_with": "magick auto-orient",
+   "source_sha256": "15693d8df201394b7dcdd559d1ac9785acbcd16a0e1aae357a00a4a28eb65f66",
+   "image_sha256": "b1a76b7efca0345d9a49981f43f1cde818a1ea26b5159e8cd2798c70a8c56372"
+  },
+  "petgf-design-back-top-roof-first.jpg": {
+   "kind": "Bench photograph",
+   "source": "hardware/printed-parts/enclosure/enclosure/prints/2026-11-10-back-top-D-mark1/physical-observation/photo-2.jpg",
+   "revision": null,
+   "max_px": 1700,
+   "width_px": 547,
+   "made_with": "magick auto-orient",
+   "source_sha256": "1f4eac58ad4ea214db4ebe01ec3bf54836747c1950254acbbfc5b247e127ff29",
+   "image_sha256": "ef4162f26b1ac43b10dee595d7cbc62d7c36b40ae451614023b7ca569f740364"
+  },
+  "petgf-design-skin-front-top-printed.jpg": {
+   "kind": "Photograph from the site's update of 25 September 2026",
+   "source": "web/public/update-images/2026-09-25-front-top.png",
+   "revision": null,
+   "max_px": 1700,
+   "width_px": 486,
+   "made_with": "magick auto-orient",
+   "source_sha256": "b9cf6c2014705e6797a0b58cd36bff115fddeb171dd378680a8d55af3c7c1b57",
+   "image_sha256": "e34233a2d17305231adfa5e0a4d7724af045ba9aa70b2cf21002cd0b3e4160bc"
+  },
+  "petgf-fits-rail-pair.jpg": {
+   "kind": "Bench photograph",
+   "source": "hardware/print-tests/petgf-dense-roofs/rail-fit-30/photos/03-mating-rail-fit.jpg",
+   "revision": null,
+   "max_px": 1700,
+   "width_px": 829,
+   "made_with": "magick auto-orient",
+   "source_sha256": "1ac72ee430006d98f50242bb94f55df008034f8d0c15dd2b4ad9eebd1ae7ffb2",
+   "image_sha256": "2b282e9aa1d80fba3bc0b006d54200c177fb7e5060f498f9151376910347d90c"
+  },
+  "petgf-fits-snap-torn-wing.jpg": {
+   "kind": "Bench photograph",
+   "source": "hardware/print-tests/rear-snap-retention/physical-result/meter-fracture.jpg",
+   "revision": null,
+   "max_px": 1700,
+   "width_px": 564,
+   "made_with": "magick auto-orient",
+   "source_sha256": "eaec3247967cc34434628f62edbd67c36cce83392d8c41e98e67e22531b76e5c",
+   "image_sha256": "8cc3bd9316bb96d7d88ff4042fd8f2c6a409e7aee04901aa2343b6f2dac38b90"
+  },
+  "petgf-fits-split-base.jpg": {
+   "kind": "Bench photograph",
+   "source": "hardware/print-tests/rear-snap-retention/v2/physical-result/pump-base-fracture.jpg",
+   "revision": null,
+   "max_px": 1700,
+   "width_px": 584,
+   "made_with": "magick auto-orient",
+   "source_sha256": "2c70cc278f33707c5254abff1151ba865895e8bd705f92849e09e473032273b3",
+   "image_sha256": "67b64b66d140373368aa1b3e65a2d0f958c7244064d5b424a6bf9fcdb13e3d5d"
+  },
+  "petgf-fits-wago-crack.jpg": {
+   "kind": "Bench photograph",
+   "source": "hardware/print-tests/front-top-wago-fit/2026-11-12-mark1/physical-result/IMG_8623.jpeg",
+   "revision": "cbd8efc66",
+   "max_px": 2000,
+   "width_px": 661,
+   "made_with": "magick auto-orient",
+   "source_sha256": "397d3d90d66ffd8eaec338ea74cd1092b8728dd493ca43c7a246779add1d2cbe",
+   "image_sha256": "9c71f2e9125b65a7ee76272837cfc17881d7ddb753200e782bbc965fc1f01910"
+  },
+  "petgf-fits-wago-rest.jpg": {
+   "kind": "Bench photograph",
+   "source": "hardware/print-tests/front-top-wago-fit/2026-11-12-mark1/physical-result/IMG_8624.jpeg",
+   "revision": "cbd8efc66",
+   "max_px": 1700,
+   "width_px": 480,
+   "made_with": "magick auto-orient",
+   "source_sha256": "fa9b7cc85c8f80f4723a67b117235e3b49fa73f674f44e9706f03d2647014566",
+   "image_sha256": "53a15dfbd48624819fcdc2c4a839d93083679de61d36ff5a569436489593b303"
+  },
+  "petgf-fits-wago-spread.jpg": {
+   "kind": "Bench photograph",
+   "source": "hardware/print-tests/front-top-wago-fit/2026-11-12-mark1/physical-result/IMG_8625.jpeg",
+   "revision": "cbd8efc66",
+   "max_px": 1700,
+   "width_px": 480,
+   "made_with": "magick auto-orient",
+   "source_sha256": "200cfd6e6de63ccace3769d0df8a9a2bfd65965ce0fd74f8f9eaa8042ecc2a02",
+   "image_sha256": "18f4bc02a89b56bef9b64670fbbe678a55654b698f15789a25c3a146472b3362"
+  },
+  "petgf-overhangs-tee-bed-round.jpg": {
+   "kind": "Bench photograph",
+   "source": "hardware/printed-parts/enclosure/tee-carrier/physical-observations/2026-09-24-v11/IMG_7842.jpeg",
+   "revision": "aab7f24fec",
+   "max_px": 1700,
+   "width_px": 950,
+   "made_with": "magick auto-orient",
+   "source_sha256": "3ba75d11222382ce56952cb292ae1f73936fa6ae1cb38b34fdac67de6f1e9329",
+   "image_sha256": "1aabe3be7b2f2e0ad1099592422245c81e261e3d234181dc21e0aee38d9b8cf5"
+  },
+  "petgf-overhangs-tee-fan-off.jpg": {
+   "kind": "Bench photograph",
+   "source": "hardware/printed-parts/enclosure/tee-carrier/physical-observations/2026-09-24-v12/IMG_7847.jpeg",
+   "revision": "aab7f24fec",
+   "max_px": 1700,
+   "width_px": 490,
+   "made_with": "magick auto-orient",
+   "source_sha256": "573f27fe248298636e70968a3f27b6f5b2ffa398d5dbd34fee04455d6a2d9d13",
+   "image_sha256": "a03272eecface7a380941599c28add8db61e8047e1b7ea96c87332a6c7259e83"
+  },
+  "petgf-overhangs-tee-top-round.jpg": {
+   "kind": "Bench photograph",
+   "source": "hardware/printed-parts/enclosure/tee-carrier/physical-observations/2026-09-24-v11/IMG_7844.jpeg",
+   "revision": "aab7f24fec",
+   "max_px": 1700,
+   "width_px": 743,
+   "made_with": "magick auto-orient",
+   "source_sha256": "f6800ceed7541570545a1fa77af6aabe6d0981950ff6e0ff47d2175ef4c07096",
+   "image_sha256": "c62010c8bcf9a6964e52f9f474066e58a11d8f4ea9347fc9e048241c9fdbea55"
+  },
+  "petgf-setup-centred-plate.jpg": {
+   "kind": "Bench photograph",
+   "source": "hardware/print-tests/petgf-fins/photos/01-plate.jpg",
+   "revision": null,
+   "max_px": 2000,
+   "width_px": 617,
+   "made_with": "magick auto-orient",
+   "source_sha256": "b3ce152f21bac83d4d63587322f13c2ffbab3272c9a17a72eaabbc1fae798fd3",
+   "image_sha256": "ff264ffc1b504e581e4654ccfb0e958b809654d5ffc0d5b0fff6722ea9934845"
+  },
+  "petgf-setup-cover-cracked.jpg": {
+   "kind": "Bench photograph",
+   "source": "hardware/printed-parts/faucet/faucet-display-cover/prints/2026-10-17-cooling-off-prepared-mark2/fracture-photo.jpg",
+   "revision": null,
+   "max_px": 2000,
+   "width_px": 740,
+   "made_with": "magick auto-orient",
+   "source_sha256": "a9765d6371ec86a6b7b92ae4437ac775d5a768d6cc5e152b074fc6821279e8cb",
+   "image_sha256": "4902df33d8e2fbec3385aeb23b2c5c232dff36ab7cf3a7d4848b2ba83bea6eef"
+  },
+  "petgf-setup-cover-fitted.jpg": {
+   "kind": "Bench photograph",
+   "source": "hardware/printed-parts/faucet/faucet-display-cover/prints/2026-10-25-front-overlap-black-mark2/physical-result/photo-4.jpg",
+   "revision": null,
+   "max_px": 2000,
+   "width_px": 740,
+   "made_with": "magick auto-orient",
+   "source_sha256": "13a33b7e21b0feba442d1ff049877f6eae130e4c640638335dafe1dd535cd9a3",
+   "image_sha256": "75bd4e8aee07d45d2dc388238bd380773ffba670fff2b4633b3521f2363c2113"
+  },
+  "petgf-setup-melted-clip.jpg": {
+   "kind": "Bench photograph",
+   "source": "future/cable-clip-exploration/prints/2026-10-26-mark2-relay-ribbon/physical-photo-2.jpg",
+   "revision": "2f2d9c94a",
+   "max_px": 2000,
+   "width_px": 899,
+   "made_with": "magick auto-orient",
+   "source_sha256": "b07abf4fb5ccc0de3682ce51bc0ccfa2a279ce3e95137e7e736d70175a328011",
+   "image_sha256": "5a5ccac87389e333693d0b810b41dacc6929c7220e3feee744b8e94dc1c3af52"
+  },
+  "petgf-setup-nameplate-first-layer.jpg": {
+   "kind": "Bench photograph",
+   "source": "hardware/printed-parts/enclosure/nameplate/physical-fit/front.jpg",
+   "revision": null,
+   "max_px": 2000,
+   "width_px": 962,
+   "made_with": "magick auto-orient",
+   "source_sha256": "a02e211d2da582a93e6111786609dc426ed1b3d5d110c40e8e0fbf555228535e",
+   "image_sha256": "f41532b1215c66a59cd1f8222cb926f60954b362a88ca549fe7fb41450c17564"
+  },
+  "petgf-setup-shell-ripples.jpg": {
+   "kind": "Bench photograph",
+   "source": "hardware/printed-parts/cold-core/foam-shell/prints/2026-10-29-mark2-seam-channel/physical-result/photos/03-wall-overview.jpg",
+   "revision": null,
+   "max_px": 2000,
+   "width_px": 741,
+   "made_with": "magick auto-orient",
+   "source_sha256": "9801ddffdae4456ade72ee1db6866e96ba4e259d19f953e3f8bc81097972bfe1",
+   "image_sha256": "62f28b02ca760c8a68f4e673dc30151dffe4f248b24096e707b70442a72a40a9"
+  },
+  "petgf-setup-shell-seam.jpg": {
+   "kind": "Bench photograph",
+   "source": "hardware/printed-parts/cold-core/foam-shell/prints/2026-10-26-mark2-round-ports-a2/physical-result/photos/04-overview.jpg",
+   "revision": null,
+   "max_px": 2000,
+   "width_px": 741,
+   "made_with": "magick auto-orient",
+   "source_sha256": "eb7a673614fefc7fa3353bf05ca379235a4784e49260f39c3d81fd1981f1781a",
+   "image_sha256": "26e845941d3fff2269aeb84abe975dca881f1e4258df520beebcf6d4c6cc8fb2"
+  },
+  "petgf-setup-two-plastics.jpg": {
+   "kind": "Bench photograph",
+   "source": "hardware/printed-parts/cadlib/flute-evidence/01-flat-faces-raking-light-petgf-left-petg-right.jpeg",
+   "revision": null,
+   "max_px": 2000,
+   "width_px": 1520,
+   "made_with": "magick auto-orient",
+   "source_sha256": "deb2912fcebff621b19169e7559c2f61af71c4b5b35b69becd683adf255e576f",
+   "image_sha256": "a4be9cdbddfa783245c9d987562e79352ce5ba37e73663ab43e7f232bbbeafdd"
+  },
+  "petgf-supports-backtop-ledge.jpg": {
+   "kind": "Bench photograph",
+   "source": "hardware/printed-parts/enclosure/enclosure/prints/2026-11-10-back-top-D-mark1/physical-observation/photo-3.jpg",
+   "revision": null,
+   "max_px": 1700,
+   "width_px": 906,
+   "made_with": "magick auto-orient",
+   "source_sha256": "7e45aae1897a738d09c54dfa7808c68df2f2f8ef2551930db21bc64659512c5e",
+   "image_sha256": "ab25a8fde02ce62f608ea015d56b78ea2f7cb0e3c3ce96328d023ee10543a0b7"
+  },
+  "petgf-supports-backtop-wall-end.jpg": {
+   "kind": "Bench photograph",
+   "source": "hardware/printed-parts/enclosure/enclosure/prints/2026-11-10-back-top-D-mark1/physical-observation/photo-4.jpg",
+   "revision": null,
+   "max_px": 1700,
+   "width_px": 1039,
+   "made_with": "magick auto-orient",
+   "source_sha256": "4bb3dcec41807ba0d656f7fd1d6b06b2f8ab846259561cd46a5baedfde3e240e",
+   "image_sha256": "b14ad7aa86568f365c0b03836a9a8524c0c0bca021fabf881dc6e7042c8c16dc"
+  },
+  "petgf-supports-coupon-in-hand.jpg": {
+   "kind": "Bench photograph",
+   "source": "hardware/print-tests/rear-snap-retention/physical-result/asse-fit.jpg",
+   "revision": null,
+   "max_px": 1700,
+   "width_px": 480,
+   "made_with": "magick auto-orient",
+   "source_sha256": "569b9f2d8f379f80c6cbf921de9febdf830378b875dc28bce75c38fd6e476678",
+   "image_sha256": "077a29144a9f2760f1b7c282169dcfa24848599aa9cd11d0c9c13ed070c2d48d"
+  },
+  "petgf-supports-de-ceilings.jpg": {
+   "kind": "Bench photograph",
+   "source": "hardware/print-tests/petgf-dense-roofs/close-contact/photos/01-D-E-undersides.jpg",
+   "revision": null,
+   "max_px": 1700,
+   "width_px": 493,
+   "made_with": "magick auto-orient",
+   "source_sha256": "e16f21ab82bce3f3c6e968fa4c0c8475f37aa9d1b5971f1d145df7f452fc7699",
+   "image_sha256": "7e28765a648dd117146e08f170747b5146442049fee6abb46ae7d20f5715ee74"
+  },
+  "petgf-supports-faucet-one-ring.jpg": {
+   "kind": "Bench photograph",
+   "source": "hardware/print-tests/petgf-dense-roofs/inclines/prints/2026-11-10-faucet-nonplanar-rim-fins-mark1/physical-result/photo-2.jpg",
+   "revision": "b388123d2",
+   "max_px": 1700,
+   "width_px": 490,
+   "made_with": "magick auto-orient",
+   "source_sha256": "40b8c2777cced2578740a7e1f841e958523d41b18a1370f85d0be08d39b17eb2",
+   "image_sha256": "049f714ca7eb2ee1d907c8ba8b322d01a990fe09f5f3791195d2975c56ea9061"
+  },
+  "petgf-supports-faucet-pried.jpg": {
+   "kind": "Bench photograph",
+   "source": "hardware/print-tests/petgf-dense-roofs/inclines/prints/2026-11-10-faucet-slim-mark1/physical-result/photo-4.jpg",
+   "revision": "1fe50e4ff",
+   "max_px": 1700,
+   "width_px": 490,
+   "made_with": "magick auto-orient",
+   "source_sha256": "50c6ed9fe3976c4feb5b9518c391922e4aea079fc94e036f6d5331a2c76bad3c",
+   "image_sha256": "4b0e6323755afa6bc434529ef848f969ef9a9a6cf6490ce956d63c1e6abe04ab"
+  },
+  "petgf-supports-faucet-slit.jpg": {
+   "kind": "Bench photograph",
+   "source": "hardware/printed-parts/faucet/finish-coupons/2026-10-10/physical-result/in-progress-photo-2.jpg",
+   "revision": null,
+   "max_px": 1700,
+   "width_px": 862,
+   "made_with": "magick auto-orient",
+   "source_sha256": "7f1b5f553e7534582b496da136ecd3fe18c6c99285006c7877c0190655dfdc19",
+   "image_sha256": "e1a588c3667a9671003879e550143e9decaa13610b43504b8d472dd13429472f"
+  },
+  "petgf-supports-mats-on-bed.jpg": {
+   "kind": "Bench photograph",
+   "source": "hardware/print-tests/petgf-dense-roofs/photos/01-separated-supports.jpg",
+   "revision": null,
+   "max_px": 1700,
+   "width_px": 750,
+   "made_with": "magick auto-orient",
+   "source_sha256": "de8ac07e4f7ba21a8c68d03c0c2cae5f674fc5403b97453b8724e998d7849201",
+   "image_sha256": "c8fbe40c3af8b2df9cde328aef0446eea3353e5dc8983619b0832e194890db71"
+  },
+  "petgf-supports-rail-d-one-piece.jpg": {
+   "kind": "Bench photograph",
+   "source": "hardware/print-tests/petgf-dense-roofs/rail-fit-30/photos/01-whole-support-release.jpg",
+   "revision": null,
+   "max_px": 1700,
+   "width_px": 493,
+   "made_with": "magick auto-orient",
+   "source_sha256": "40526fdb5cc1b726a84f4eabf30462b60062f560cf2c9b153a473e754f685285",
+   "image_sha256": "1289482fa0e455ef4eb1ffaa5bb4f037de0d5eaf703cb776567a78e6c91c75c9"
+  },
+  "petgf-supports-rail-e-corner.jpg": {
+   "kind": "Bench photograph",
+   "source": "hardware/print-tests/petgf-dense-roofs/rail-cavity-30-E/photos/02-pale-roughened-corner.jpg",
+   "revision": null,
+   "max_px": 1700,
+   "width_px": 594,
+   "made_with": "magick auto-orient",
+   "source_sha256": "6082e51c25d93cefa517b7995bdd98266b7af3fbb7425bbdb9336d85faaeaf63",
+   "image_sha256": "a2f4b72be7e40acebbda433f55db7bd0ec491659cedca75971b787285a0bc80f"
+  },
+  "petgf-supports-roof-strands.jpg": {
+   "kind": "Bench photograph",
+   "source": "hardware/print-tests/petgf-dense-roofs/photos/02-roof-undersides.jpg",
+   "revision": null,
+   "max_px": 1700,
+   "width_px": 480,
+   "made_with": "magick auto-orient",
+   "source_sha256": "9635e5153908af990ca30a4e5136ad69b166c7b81fe382b11e27d98708bc8b1f",
+   "image_sha256": "703a2eff48a8dcd3b4ce6a995b0d77a3b90e099c75b64c2ef6c8e97eb63a54bd"
+  },
+  "tpu-curled-lip.jpg": {
+   "kind": "Bench photograph",
+   "source": "future/pump-elbow-exploration/prints/2026-10-13-compact-single-tpu85a-engineering-z000-mark1/curl-left-edge.jpg",
+   "revision": null,
+   "max_px": 1700,
+   "width_px": 876,
+   "made_with": "magick auto-orient",
+   "source_sha256": "5bbe873b6ae4dcb77624212e04d7dd2e3cd6d1adb02117a4882f1ca9862ed507",
+   "image_sha256": "6ebc053d7993f1dd9b2e7cc0167716c0cc71ee0690850adcc6277730fa4c9b16"
+  },
+  "tpu-elbow-on-the-pump.jpg": {
+   "kind": "Bench photograph",
+   "source": "hardware/reference/g-ganen-pump/under-head-tube/IMG_8159.jpeg",
+   "revision": null,
+   "max_px": 2000,
+   "width_px": 1233,
+   "made_with": "magick auto-orient",
+   "source_sha256": "18a8b6ef950efc38c57381fe3af59a0547d9a4366cb385d0f25f62e59c7f5ad9",
+   "image_sha256": "1f1f63235b4f136228b68ee15e6398d664bbd970eac3b4ef98b778d9ebfbe83f"
+  },
+  "tpu-elbow-ragged-edges.jpg": {
+   "kind": "Bench photograph",
+   "source": "future/pump-elbow-exploration/prints/2026-10-13-compact-single-tpu85a-outer10-engineering-z000-mark1/underside-sag-photo-1.jpg",
+   "revision": null,
+   "max_px": 1700,
+   "width_px": 739,
+   "made_with": "magick auto-orient",
+   "source_sha256": "a0e460e01945ff0cffeb17daaedc2d63856e0ee7840decf3abc9168eac55ac1e",
+   "image_sha256": "a0cdb64a06d34359c804bc6330df5e5771918f8c0a379335a858b9bbfb15d0f4"
+  },
+  "tpu-elbow-siraya-clean.jpg": {
+   "kind": "Bench photograph",
+   "source": "future/pump-elbow-exploration/prints/2026-10-14-compact-single-siraya85a-overhang10-engineering-z000-mark1/finished-elbow-1.jpg",
+   "revision": null,
+   "max_px": 1700,
+   "width_px": 1108,
+   "made_with": "magick auto-orient",
+   "source_sha256": "3b08d7c0c0464a86c91b498dc289b2ea63e8d199179a90686936b45e042a63c9",
+   "image_sha256": "5454c800558294b973a6ecd42b53d72245623cf3c87bf8ebcb053a5b07d18f7d"
+  },
+  "tpu-elbow-threads.jpg": {
+   "kind": "Bench photograph",
+   "source": "future/pump-elbow-exploration/prints/2026-10-16-vertical-center-web-tpu85a-mark1/result-photo.jpg",
+   "revision": null,
+   "max_px": 2000,
+   "width_px": 631,
+   "made_with": "magick auto-orient",
+   "source_sha256": "1437af11634f7f2dd22b8dba491f0a5dc97b8dcaefaa5fce36969b68ae6bf385",
+   "image_sha256": "6ed255317adbf3dd3ccaac77d45f06e25e2074d161dfbb081f0108847b8d2328"
+  },
+  "tpu-liner-loops.jpg": {
+   "kind": "Bench photograph",
+   "source": "hardware/printed-parts/fixtures/tube-insertion/prints/2026-10-12-liners-d775-mark1/wall-start-physical-1.jpg",
+   "revision": null,
+   "max_px": 1700,
+   "width_px": 907,
+   "made_with": "magick auto-orient",
+   "source_sha256": "40697a4a1de58a975e824eaad5c02a319e224123248cb95f890e7a458c916295",
+   "image_sha256": "7a9dfa8b3dc7b8dafae9cd42eb319402de61405c72e8aaae346d4eab42707ca3"
+  },
+  "wago-roof-fell.jpg": {
+   "kind": "Bench photograph",
+   "source": "hardware/print-tests/front-top-wago-fit/2026-11-12-mark2/physical-result/IMG_8622.jpeg",
+   "revision": "a8f24b2b5",
+   "max_px": 1700,
+   "width_px": 861,
+   "made_with": "magick auto-orient",
+   "source_sha256": "3204653dc6d4edf37cf8f23afc68585b3f5a2b70d283bab8d54d380447d77103",
+   "image_sha256": "c981ce808702b6f8775bd6056a4c5406860ac3332d98663a75052e822240a2c2"
+  }
+ },
+ "renders": [
+  {
+   "cam": [
+    0.55,
+    -1.0,
+    0.62
+   ],
+   "edges": true,
+   "fog": false,
+   "ground": false,
+   "materials": [
+    {
+     "color": "#5f7180",
+     "names": [
+      "float-aero"
+     ],
+     "roughness": 0.95
+    },
+    {
+     "color": "#27313b",
+     "metalness": 0.5,
+     "names": [
+      "RC62"
+     ],
+     "roughness": 0.4
+    }
+   ],
+   "ortho": true,
+   "out": "hardware/printing-the-machine/art/aero-float-cutaway.png",
+   "section": {
+    "at": [
+     0,
+     0,
+     0
+    ],
+    "normal": [
+     0,
+     -1,
+     0
+    ]
+   },
+   "size": "1040x880",
+   "span": 20.5,
+   "step": "printed-parts/cold-core/magnetic-float/all-aero/assembly.step",
+   "target": [
+    0.0,
+    0.0,
+    13.6
+   ],
+   "transparent": true
+  },
+  {
+   "cam": [
+    0.63,
+    0.9,
+    0.7
+   ],
+   "clip": [
+    {
+     "axis": "z",
+     "hi": 200.0,
+     "lo": 96.0
+    }
+   ],
+   "fog": false,
+   "ghost": [
+    "enclosure-front-bottom"
+   ],
+   "ground": false,
+   "ortho": true,
+   "out": "hardware/printing-the-machine/art/cover-ghost.png",
+   "size": "2430x2025",
+   "span": 152,
+   "step": "printed-parts/enclosure/enclosure/enclosure-front-bottom.step",
+   "target": [
+    0.0,
+    110.0,
+    86.0
+   ],
+   "transparent": true
+  },
+  {
+   "cam": [
+    0.63,
+    0.9,
+    0.7
+   ],
+   "clip": [
+    {
+     "axis": "z",
+     "hi": 96.0,
+     "lo": 94.7
+    }
+   ],
+   "fog": false,
+   "ground": false,
+   "materials": [
+    {
+     "color": "#f26a21",
+     "names": [
+      "enclosure-front-bottom"
+     ],
+     "unlit": true
+    }
+   ],
+   "ortho": true,
+   "out": "hardware/printing-the-machine/art/cover-layer.png",
+   "size": "2430x2025",
+   "span": 152,
+   "step": "printed-parts/enclosure/enclosure/enclosure-front-bottom.step",
+   "target": [
+    0.0,
+    110.0,
+    86.0
+   ],
+   "transparent": true
+  },
+  {
+   "cam": [
+    0.63,
+    0.9,
+    0.7
+   ],
+   "clip": [
+    {
+     "axis": "z",
+     "hi": 96.0,
+     "lo": -10.0
+    }
+   ],
+   "edges": true,
+   "fog": false,
+   "ground": false,
+   "materials": [
+    {
+     "color": "#4a5a6b",
+     "names": [
+      "enclosure-front-bottom"
+     ],
+     "roughness": 0.8
+    }
+   ],
+   "ortho": true,
+   "out": "hardware/printing-the-machine/art/cover-printed.png",
+   "size": "2430x2025",
+   "span": 152,
+   "step": "printed-parts/enclosure/enclosure/enclosure-front-bottom.step",
+   "target": [
+    0.0,
+    110.0,
+    86.0
+   ],
+   "transparent": true
+  },
+  {
+   "cam": [
+    0.72,
+    0.86,
+    0.62
+   ],
+   "edges": true,
+   "fog": false,
+   "ground": false,
+   "materials": [
+    {
+     "color": "#3a4654",
+     "names": [
+      "enclosure-front-bottom"
+     ],
+     "roughness": 0.85
+    }
+   ],
+   "ortho": true,
+   "out": "hardware/printing-the-machine/art/front-bottom-on-the-bed.png",
+   "size": "2170x1110",
+   "span": 147,
+   "step": "printed-parts/enclosure/enclosure/enclosure-front-bottom.step",
+   "target": [
+    0.0,
+    112.0,
+    82.0
+   ],
+   "transparent": true
+  },
+  {
+   "cam": [
+    0.0,
+    1.0,
+    0.0
+   ],
+   "edges": true,
+   "fog": false,
+   "ground": false,
+   "materials": [
+    {
+     "color": "#3a4654",
+     "names": [
+      "enclosure-front-bottom"
+     ],
+     "roughness": 0.85
+    }
+   ],
+   "ortho": true,
+   "out": "hardware/printing-the-machine/art/front-bottom-rail-section.png",
+   "section": {
+    "at": [
+     0,
+     110,
+     0
+    ],
+    "normal": [
+     0,
+     1,
+     0
+    ]
+   },
+   "size": "860x1000",
+   "span": 9.5,
+   "step": "printed-parts/enclosure/enclosure/enclosure-front-bottom.step",
+   "target": [
+    100.6,
+    110.0,
+    167.0
+   ],
+   "transparent": true
+  },
+  {
+   "cam": [
+    1.0,
+    -0.55,
+    0.38
+   ],
+   "context": "hide",
+   "fog": false,
+   "ground": false,
+   "materials": [
+    {
+     "color": "#4b5864",
+     "names": [
+      "enclosure-front-bottom",
+      "enclosure-front-top",
+      "enclosure-back-bottom",
+      "enclosure-back-top",
+      "enclosure-pump-retainer-a",
+      "enclosure-pump-retainer-b",
+      "display-cover",
+      "funnel-frame",
+      "elbow-cradle",
+      "cold-core/foam-shell",
+      "cold-core/foam-cap-bottom",
+      "cold-core/foam-cap-lid-top",
+      "nameplate",
+      "bulkhead-ring-carb",
+      "bulkhead-ring-co2",
+      "bulkhead-ring-drain",
+      "bulkhead-ring-flavor-a",
+      "bulkhead-ring-flavor-b",
+      "bulkhead-ring-water",
+      "asse-snap-cap",
+      "meter-snap-cap",
+      "pisco-snap-cap",
+      "regulator-snap-cap",
+      "cold-core/pump-snap-cap",
+      "soda-bend-holder",
+      "cold-core/reservoir-b-fill-guide"
+     ],
+     "roughness": 0.9
+    },
+    {
+     "color": "#3bb6d1",
+     "names": [
+      "cold-core/reservoir-a",
+      "cold-core/reservoir-b",
+      "cold-core/reservoir-a-cap",
+      "cold-core/reservoir-b-cap",
+      "funnel-cover",
+      "cold-core/prv-shroud",
+      "cold-core/reed-bridge",
+      "fuse-clamp",
+      "status-plate"
+     ],
+     "roughness": 0.5
+    },
+    {
+     "color": "#d04fa8",
+     "names": [
+      "cold-core/reservoir-a-gasket",
+      "cold-core/reservoir-b-gasket",
+      "cold-core/reservoir-grip-a-air",
+      "cold-core/reservoir-grip-a-draw",
+      "cold-core/reservoir-grip-a-fill",
+      "cold-core/reservoir-grip-b-air",
+      "cold-core/reservoir-grip-b-draw",
+      "cold-core/reservoir-grip-b-fill",
+      "display-gasket",
+      "asse-drain-adapter"
+     ],
+     "roughness": 0.7
+    },
+    {
+     "color": "#edbd3f",
+     "names": [
+      "cold-core/float-a/1",
+      "cold-core/float-b/1",
+      "cold-core/float-carb/1",
+      "cold-core/float-a",
+      "cold-core/float-b",
+      "cold-core/float-carb",
+      "float-a",
+      "float-b",
+      "float-carb"
+     ],
+     "roughness": 0.8
+    }
+   ],
+   "only": [
+    "enclosure-front-bottom",
+    "enclosure-front-top",
+    "enclosure-back-bottom",
+    "enclosure-back-top",
+    "enclosure-pump-retainer-a",
+    "enclosure-pump-retainer-b",
+    "display-cover",
+    "funnel-frame",
+    "elbow-cradle",
+    "cold-core/foam-shell",
+    "cold-core/foam-cap-bottom",
+    "cold-core/foam-cap-lid-top",
+    "nameplate",
+    "bulkhead-ring-carb",
+    "bulkhead-ring-co2",
+    "bulkhead-ring-drain",
+    "bulkhead-ring-flavor-a",
+    "bulkhead-ring-flavor-b",
+    "bulkhead-ring-water",
+    "asse-snap-cap",
+    "meter-snap-cap",
+    "pisco-snap-cap",
+    "regulator-snap-cap",
+    "cold-core/pump-snap-cap",
+    "soda-bend-holder",
+    "cold-core/reservoir-b-fill-guide",
+    "cold-core/reservoir-a",
+    "cold-core/reservoir-b",
+    "cold-core/reservoir-a-cap",
+    "cold-core/reservoir-b-cap",
+    "funnel-cover",
+    "cold-core/prv-shroud",
+    "cold-core/reed-bridge",
+    "fuse-clamp",
+    "status-plate",
+    "cold-core/reservoir-a-gasket",
+    "cold-core/reservoir-b-gasket",
+    "cold-core/reservoir-grip-a-air",
+    "cold-core/reservoir-grip-a-draw",
+    "cold-core/reservoir-grip-a-fill",
+    "cold-core/reservoir-grip-b-air",
+    "cold-core/reservoir-grip-b-draw",
+    "cold-core/reservoir-grip-b-fill",
+    "display-gasket",
+    "asse-drain-adapter",
+    "cold-core/float-a/1",
+    "cold-core/float-b/1",
+    "cold-core/float-carb/1",
+    "cold-core/float-a",
+    "cold-core/float-b",
+    "cold-core/float-carb",
+    "float-a",
+    "float-b",
+    "float-carb"
+   ],
+   "ortho": true,
+   "out": "hardware/printing-the-machine/art/front-machine-by-plastic.png",
+   "section": {
+    "at": [
+     -12,
+     0,
+     0
+    ],
+    "normal": [
+     1,
+     0,
+     0
+    ]
+   },
+   "size": "2170x1560",
+   "span": 232,
+   "step": "manifold-layout/enclosure-assembly.step",
+   "target": [
+    -12.0,
+    238.0,
+    172.0
+   ],
+   "transparent": true
+  },
+  {
+   "cam": [
+    1.0,
+    0.9,
+    0.55
+   ],
+   "context": "hide",
+   "edges": true,
+   "fog": false,
+   "ground": false,
+   "materials": [
+    {
+     "color": "#1f8aa5",
+     "names": [
+      "cold-core/reservoir-a",
+      "cold-core/reservoir-a-cap",
+      "cold-core/reservoir-b",
+      "cold-core/reservoir-b-cap",
+      "status-plate-diffuser"
+     ],
+     "roughness": 0.55
+    },
+    {
+     "color": "#1b242d",
+     "names": [
+      "funnel-cover",
+      "status-plate",
+      "nameplate",
+      "cold-core/prv-shroud",
+      "cold-core/reed-bridge",
+      "fuse-clamp",
+      "bulkhead-ring-flavor-a",
+      "bulkhead-ring-flavor-b",
+      "bulkhead-ring-*-word"
+     ],
+     "roughness": 0.8
+    },
+    {
+     "color": "#f4f5f6",
+     "names": [
+      "bulkhead-ring-water",
+      "bulkhead-ring-drain",
+      "nameplate-ink",
+      "bulkhead-ring-flavor-*-word"
+     ],
+     "roughness": 0.8
+    },
+    {
+     "color": "#0086d6",
+     "names": [
+      "bulkhead-ring-carb"
+     ],
+     "roughness": 0.8
+    },
+    {
+     "color": "#d6001c",
+     "names": [
+      "bulkhead-ring-co2"
+     ],
+     "roughness": 0.8
+    }
+   ],
+   "only": [
+    "cold-core/reservoir-a",
+    "cold-core/reservoir-a-cap",
+    "cold-core/reservoir-b",
+    "cold-core/reservoir-b-cap",
+    "status-plate-diffuser",
+    "funnel-cover",
+    "status-plate",
+    "nameplate",
+    "cold-core/prv-shroud",
+    "cold-core/reed-bridge",
+    "fuse-clamp",
+    "bulkhead-ring-flavor-a",
+    "bulkhead-ring-flavor-b",
+    "bulkhead-ring-*-word",
+    "bulkhead-ring-*",
+    "nameplate-ink"
+   ],
+   "ortho": true,
+   "out": "hardware/printing-the-machine/art/petg-machine-parts.png",
+   "size": "800x760",
+   "span": 270,
+   "step": "manifold-layout/enclosure-assembly.step",
+   "target": [
+    0.0,
+    238.0,
+    177.5
+   ],
+   "transparent": true
+  },
+  {
+   "cam": [
+    1.0,
+    0.9,
+    0.55
+   ],
+   "context": "hide",
+   "fog": false,
+   "ground": false,
+   "materials": [
+    {
+     "color": "#9aa7b2",
+     "names": [
+      "enclosure-*"
+     ],
+     "opacity": 0.22
+    }
+   ],
+   "only": [
+    "enclosure-front-*",
+    "enclosure-back-*"
+   ],
+   "ortho": true,
+   "out": "hardware/printing-the-machine/art/petg-machine-shell.png",
+   "size": "800x760",
+   "span": 270,
+   "step": "manifold-layout/enclosure-assembly.step",
+   "target": [
+    0.0,
+    238.0,
+    177.5
+   ],
+   "transparent": true
+  },
+  {
+   "cam": [
+    -0.8,
+    0.35,
+    0.5
+   ],
+   "edges": true,
+   "fog": false,
+   "ground": false,
+   "materials": [
+    {
+     "color": "#3a4654",
+     "names": [
+      "enclosure-back-top"
+     ],
+     "roughness": 0.85
+    }
+   ],
+   "ortho": true,
+   "out": "hardware/printing-the-machine/art/petgf-design-back-top-catch-section.png",
+   "payload": "a pointer scene that places the part's published mesh in its print pose, written by hardware/printing-the-machine/workshop/chapters/petgf_design.py at 474d5e90c",
+   "section": {
+    "at": [
+     64.6,
+     0,
+     0
+    ],
+    "normal": [
+     -1,
+     0,
+     0
+    ]
+   },
+   "size": "1280x840",
+   "span": 18.5,
+   "step": "printed-parts/enclosure/enclosure/enclosure-back-top.step",
+   "target": [
+    64.6,
+    -105.27500915527344,
+    10.000000000000057
+   ],
+   "transparent": true
+  },
+  {
+   "cam": [
+    -0.62,
+    0.62,
+    0.7
+   ],
+   "edges": true,
+   "fog": false,
+   "ground": false,
+   "materials": [
+    {
+     "color": "#3a4654",
+     "names": [
+      "enclosure-back-top"
+     ],
+     "roughness": 0.85
+    }
+   ],
+   "ortho": true,
+   "out": "hardware/printing-the-machine/art/petgf-design-back-top-on-the-bed.png",
+   "payload": "a pointer scene that places the part's published mesh in its print pose, written by hardware/printing-the-machine/workshop/chapters/petgf_design.py at 474d5e90c",
+   "section": {
+    "at": [
+     -62,
+     0,
+     0
+    ],
+    "normal": [
+     -1,
+     0,
+     0
+    ]
+   },
+   "size": "1500x950",
+   "span": 166,
+   "step": "printed-parts/enclosure/enclosure/enclosure-back-top.step",
+   "target": [
+    18.0,
+    -6.0,
+    98.0
+   ],
+   "transparent": true
+  },
+  {
+   "cam": [
+    1.0,
+    -0.3,
+    0.24
+   ],
+   "edges": true,
+   "fog": false,
+   "ground": false,
+   "materials": [
+    {
+     "color": "#3a4654",
+     "names": [
+      "enclosure-back-top"
+     ],
+     "roughness": 0.85
+    }
+   ],
+   "ortho": true,
+   "out": "hardware/printing-the-machine/art/petgf-design-back-top-two-poses.png",
+   "payload": "a pointer scene that places the part's published mesh in its print pose, written by hardware/printing-the-machine/workshop/chapters/petgf_design.py at 474d5e90c",
+   "size": "2000x1200",
+   "span": 240.5059853100039,
+   "step": "printed-parts/enclosure/enclosure/enclosure-back-top.step",
+   "target": [
+    -34.8328728083862,
+    7.202512392835816,
+    140.14011052598727
+   ],
+   "transparent": true
+  },
+  {
+   "cam": [
+    0,
+    0,
+    1
+   ],
+   "clip": [
+    {
+     "axis": "z",
+     "hi": 0.9,
+     "lo": -1.0
+    }
+   ],
+   "fog": false,
+   "ground": false,
+   "materials": [
+    {
+     "color": "#f26a21",
+     "names": [
+      "enclosure-back-bottom"
+     ],
+     "tone_mapped": false,
+     "unlit": true
+    }
+   ],
+   "ortho": true,
+   "out": "hardware/printing-the-machine/art/petgf-design-foot-back-bottom.png",
+   "payload": "a pointer scene that places the part's published mesh in its print pose, written by hardware/printing-the-machine/workshop/chapters/petgf_design.py at 474d5e90c",
+   "size": "300x300",
+   "span": 150,
+   "step": "printed-parts/enclosure/enclosure/enclosure-back-bottom.step",
+   "target": [
+    0,
+    0,
+    0
+   ],
+   "transparent": true,
+   "up": [
+    0,
+    1,
+    0
+   ]
+  },
+  {
+   "cam": [
+    0,
+    0,
+    1
+   ],
+   "clip": [
+    {
+     "axis": "z",
+     "hi": 0.9,
+     "lo": -1.0
+    }
+   ],
+   "fog": false,
+   "ground": false,
+   "materials": [
+    {
+     "color": "#f26a21",
+     "names": [
+      "enclosure-back-top"
+     ],
+     "tone_mapped": false,
+     "unlit": true
+    }
+   ],
+   "ortho": true,
+   "out": "hardware/printing-the-machine/art/petgf-design-foot-back-top.png",
+   "payload": "a pointer scene that places the part's published mesh in its print pose, written by hardware/printing-the-machine/workshop/chapters/petgf_design.py at 474d5e90c",
+   "size": "300x300",
+   "span": 150,
+   "step": "printed-parts/enclosure/enclosure/enclosure-back-top.step",
+   "target": [
+    0,
+    0,
+    0
+   ],
+   "transparent": true,
+   "up": [
+    0,
+    1,
+    0
+   ]
+  },
+  {
+   "cam": [
+    0,
+    0,
+    1
+   ],
+   "clip": [
+    {
+     "axis": "z",
+     "hi": 0.9,
+     "lo": -1.0
+    }
+   ],
+   "fog": false,
+   "ground": false,
+   "materials": [
+    {
+     "color": "#f26a21",
+     "names": [
+      "enclosure-front-bottom"
+     ],
+     "tone_mapped": false,
+     "unlit": true
+    }
+   ],
+   "ortho": true,
+   "out": "hardware/printing-the-machine/art/petgf-design-foot-front-bottom.png",
+   "payload": "a pointer scene that places the part's published mesh in its print pose, written by hardware/printing-the-machine/workshop/chapters/petgf_design.py at 474d5e90c",
+   "size": "300x300",
+   "span": 150,
+   "step": "printed-parts/enclosure/enclosure/enclosure-front-bottom.step",
+   "target": [
+    0,
+    0,
+    0
+   ],
+   "transparent": true,
+   "up": [
+    0,
+    1,
+    0
+   ]
+  },
+  {
+   "cam": [
+    0,
+    0,
+    1
+   ],
+   "clip": [
+    {
+     "axis": "z",
+     "hi": 0.9,
+     "lo": -1.0
+    }
+   ],
+   "fog": false,
+   "ground": false,
+   "materials": [
+    {
+     "color": "#f26a21",
+     "names": [
+      "enclosure-front-top"
+     ],
+     "tone_mapped": false,
+     "unlit": true
+    }
+   ],
+   "ortho": true,
+   "out": "hardware/printing-the-machine/art/petgf-design-foot-front-top.png",
+   "payload": "a pointer scene that places the part's published mesh in its print pose, written by hardware/printing-the-machine/workshop/chapters/petgf_design.py at 474d5e90c",
+   "size": "300x300",
+   "span": 150,
+   "step": "printed-parts/enclosure/enclosure/enclosure-front-top.step",
+   "target": [
+    0,
+    0,
+    0
+   ],
+   "transparent": true,
+   "up": [
+    0,
+    1,
+    0
+   ]
+  },
+  {
+   "cam": [
+    0.72,
+    -0.86,
+    0.62
+   ],
+   "edges": true,
+   "fog": false,
+   "ground": false,
+   "materials": [
+    {
+     "color": "#3a4654",
+     "names": [
+      "enclosure-back-bottom"
+     ],
+     "roughness": 0.85
+    }
+   ],
+   "ortho": true,
+   "out": "hardware/printing-the-machine/art/petgf-design-pose-back-bottom.png",
+   "payload": "a pointer scene that places the part's published mesh in its print pose, written by hardware/printing-the-machine/workshop/chapters/petgf_design.py at 474d5e90c",
+   "size": "1034x1000",
+   "span": 182.40750546876265,
+   "step": "printed-parts/enclosure/enclosure/enclosure-back-bottom.step",
+   "target": [
+    -24.570482635869674,
+    29.348076481733216,
+    69.24208592276892
+   ],
+   "transparent": true
+  },
+  {
+   "cam": [
+    -0.7,
+    0.74,
+    0.6
+   ],
+   "edges": true,
+   "fog": false,
+   "ground": false,
+   "materials": [
+    {
+     "color": "#3a4654",
+     "names": [
+      "enclosure-back-top"
+     ],
+     "roughness": 0.85
+    }
+   ],
+   "ortho": true,
+   "out": "hardware/printing-the-machine/art/petgf-design-pose-back-top.png",
+   "payload": "a pointer scene that places the part's published mesh in its print pose, written by hardware/printing-the-machine/workshop/chapters/petgf_design.py at 474d5e90c",
+   "size": "1034x1000",
+   "span": 182.40750546876265,
+   "step": "printed-parts/enclosure/enclosure/enclosure-back-top.step",
+   "target": [
+    29.262664567830566,
+    -30.93481682884946,
+    72.29271608471667
+   ],
+   "transparent": true
+  },
+  {
+   "cam": [
+    0.72,
+    0.86,
+    0.62
+   ],
+   "edges": true,
+   "fog": false,
+   "ground": false,
+   "materials": [
+    {
+     "color": "#3a4654",
+     "names": [
+      "enclosure-front-bottom"
+     ],
+     "roughness": 0.85
+    }
+   ],
+   "ortho": true,
+   "out": "hardware/printing-the-machine/art/petgf-design-pose-front-bottom.png",
+   "payload": "a pointer scene that places the part's published mesh in its print pose, written by hardware/printing-the-machine/workshop/chapters/petgf_design.py at 474d5e90c",
+   "size": "1034x1000",
+   "span": 182.40750546876265,
+   "step": "printed-parts/enclosure/enclosure/enclosure-front-bottom.step",
+   "target": [
+    -24.570482635869674,
+    -29.348076481733216,
+    69.24208592276892
+   ],
+   "transparent": true
+  },
+  {
+   "cam": [
+    0.62,
+    -0.8,
+    0.56
+   ],
+   "edges": true,
+   "fog": false,
+   "ground": false,
+   "materials": [
+    {
+     "color": "#3a4654",
+     "names": [
+      "enclosure-front-top"
+     ],
+     "roughness": 0.85
+    }
+   ],
+   "ortho": true,
+   "out": "hardware/printing-the-machine/art/petgf-design-pose-front-top.png",
+   "payload": "a pointer scene that places the part's published mesh in its print pose, written by hardware/printing-the-machine/workshop/chapters/petgf_design.py at 474d5e90c",
+   "size": "1034x1000",
+   "span": 182.40750546876265,
+   "step": "printed-parts/enclosure/enclosure/enclosure-front-top.step",
+   "target": [
+    -25.26801195814648,
+    32.60388639760837,
+    74.55227952167412
+   ],
+   "transparent": true
+  },
+  {
+   "cam": [
+    1.0,
+    -0.5,
+    0.34
+   ],
+   "fog": false,
+   "ground": false,
+   "materials": [
+    {
+     "color": "#3a4654",
+     "names": [
+      "enclosure-front-bottom"
+     ],
+     "roughness": 0.85
+    }
+   ],
+   "ortho": true,
+   "out": "hardware/printing-the-machine/art/petgf-design-skin-flank.png",
+   "size": "1440x960",
+   "span": 104.37448108547125,
+   "step": "printed-parts/enclosure/enclosure/enclosure-front-bottom.step",
+   "target": [
+    47.93834212067958,
+    139.55582893966027,
+    64.23403632103106
+   ],
+   "transparent": true
+  },
+  {
+   "cam": [
+    0.25,
+    -0.2,
+    1.0
+   ],
+   "edges": true,
+   "fog": false,
+   "ground": false,
+   "materials": [
+    {
+     "color": "#3a4654",
+     "names": [
+      "enclosure-front-bottom"
+     ],
+     "roughness": 0.85
+    }
+   ],
+   "ortho": true,
+   "out": "hardware/printing-the-machine/art/petgf-design-skin-section.png",
+   "section": {
+    "at": [
+     0,
+     0,
+     70
+    ],
+    "normal": [
+     0,
+     0,
+     1
+    ]
+   },
+   "size": "1380x840",
+   "span": 10.5,
+   "step": "printed-parts/enclosure/enclosure/enclosure-front-bottom.step",
+   "target": [
+    105.5,
+    60.0,
+    70.0
+   ],
+   "transparent": true
+  },
+  {
+   "cam": [
+    1.0,
+    -0.5,
+    0.3
+   ],
+   "fog": false,
+   "ground": false,
+   "materials": [
+    {
+     "color": "#3a4654",
+     "names": [
+      "enclosure-front-bottom"
+     ],
+     "roughness": 0.85
+    }
+   ],
+   "ortho": true,
+   "out": "hardware/printing-the-machine/art/petgf-design-skin-slot-ends.png",
+   "size": "1380x840",
+   "span": 13.0,
+   "step": "printed-parts/enclosure/enclosure/enclosure-front-bottom.step",
+   "target": [
+    108.0,
+    60.0,
+    57.5
+   ],
+   "transparent": true
+  },
+  {
+   "cam": [
+    0.45,
+    -0.8,
+    0.62
+   ],
+   "edges": true,
+   "fog": false,
+   "ground": false,
+   "materials": [
+    {
+     "color": "#4a5a6b",
+     "names": [
+      "above-counter-plate"
+     ],
+     "roughness": 0.85
+    }
+   ],
+   "ortho": true,
+   "out": "hardware/printing-the-machine/art/petgf-fits-plate-pedestals.png",
+   "size": "1100x800",
+   "span": 27.0,
+   "step": "printed-parts/faucet/above-counter-plate/above-counter-plate.step",
+   "target": [
+    0.0,
+    0.0,
+    -1.0
+   ],
+   "transparent": true
+  },
+  {
+   "cam": [
+    0.0,
+    0.0,
+    1.0
+   ],
+   "edges": true,
+   "fog": false,
+   "ground": false,
+   "materials": [
+    {
+     "color": "#3a4654",
+     "names": [
+      "regulator-snap-cap"
+     ],
+     "roughness": 0.85
+    }
+   ],
+   "ortho": true,
+   "out": "hardware/printing-the-machine/art/petgf-fits-snap-profile.png",
+   "size": "1080x1080",
+   "span": 26.0,
+   "step": "printed-parts/enclosure/rear-equipment-caps/regulator-snap-cap.step",
+   "target": [
+    0.0,
+    0.0,
+    18.0
+   ],
+   "transparent": true,
+   "up": [
+    0.0,
+    1.0,
+    0.0
+   ]
+  },
+  {
+   "cam": [
+    1.0,
+    -0.55,
+    0.38
+   ],
+   "context": "hide",
+   "edges": true,
+   "fog": false,
+   "ground": false,
+   "materials": [
+    {
+     "color": "#3a4654",
+     "names": [
+      "enclosure-front-bottom",
+      "enclosure-front-top",
+      "enclosure-back-bottom",
+      "enclosure-back-top",
+      "enclosure-pump-retainer-a",
+      "enclosure-pump-retainer-b",
+      "display-cover",
+      "funnel-frame",
+      "elbow-cradle",
+      "cold-core/foam-shell",
+      "cold-core/foam-cap-bottom",
+      "cold-core/foam-cap-lid-top",
+      "asse-snap-cap",
+      "meter-snap-cap",
+      "pisco-snap-cap",
+      "regulator-snap-cap",
+      "cold-core/pump-snap-cap",
+      "soda-bend-holder",
+      "cold-core/reservoir-b-fill-guide"
+     ],
+     "roughness": 0.9
+    }
+   ],
+   "only": [
+    "enclosure-front-bottom",
+    "enclosure-front-top",
+    "enclosure-back-bottom",
+    "enclosure-back-top",
+    "enclosure-pump-retainer-a",
+    "enclosure-pump-retainer-b",
+    "display-cover",
+    "funnel-frame",
+    "elbow-cradle",
+    "cold-core/foam-shell",
+    "cold-core/foam-cap-bottom",
+    "cold-core/foam-cap-lid-top",
+    "asse-snap-cap",
+    "meter-snap-cap",
+    "pisco-snap-cap",
+    "regulator-snap-cap",
+    "cold-core/pump-snap-cap",
+    "soda-bend-holder",
+    "cold-core/reservoir-b-fill-guide"
+   ],
+   "ortho": true,
+   "out": "hardware/printing-the-machine/art/petgf-setup-machine.png",
+   "section": {
+    "at": [
+     -12,
+     0,
+     0
+    ],
+    "normal": [
+     1,
+     0,
+     0
+    ]
+   },
+   "size": "1090x1010",
+   "span": 232,
+   "step": "manifold-layout/enclosure-assembly.step",
+   "target": [
+    -77.0,
+    120.0,
+    172.0
+   ],
+   "transparent": true
+  }
+ ],
+ "drawn_from_the_book_itself": [
+  "about-a-page.jpg"
+ ]
+}

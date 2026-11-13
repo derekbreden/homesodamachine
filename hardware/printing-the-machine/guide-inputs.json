@@ -1,0 +1,183 @@
+{
+  "petgf": {
+    "path": "hardware/printed-parts/petgf.3mf",
+    "member": "Metadata/project_settings.config"
+  },
+  "reservoir": {
+    "path": "hardware/printed-parts/cold-core/reservoir/reservoir.3mf",
+    "member": "Metadata/project_settings.config"
+  },
+  "tpusleeve": {
+    "path": "hardware/printed-parts/faucet/tpu-o-ring/prints/2026-10-23-black-tpu85a-right06-mark2/2026-10-23-touch-flo-sleeve-tpu85a-right06-z000-mark2.3mf",
+    "member": "Metadata/project_settings.config"
+  },
+  "aerofloat": {
+    "path": "hardware/printed-parts/cold-core/magnetic-float/all-aero/all-aero-float.3mf",
+    "member": "Metadata/project_settings.config"
+  },
+  "petgf-setup-pieces": {
+    "path": "hardware/printed-parts/enclosure/trial-preparation/pieces.json"
+  },
+  "scalars": {
+    "path": "tools/hsm/shared-data/catalog/scalars.json"
+  },
+  "petgf-setup-tpu-sleeve": {
+    "path": "hardware/printed-parts/faucet/tpu-o-ring/prints/2026-10-23-black-tpu85a-right06-mark2/2026-10-23-touch-flo-sleeve-tpu85a-right06-z000-mark2.3mf",
+    "member": "Metadata/project_settings.config"
+  },
+  "petgf-overhangs-catalog": {
+    "path": "tools/hsm/shared-data/catalog/scalars.json"
+  },
+  "front": {
+    "path": "hardware/printed-parts/enclosure/enclosure/prints/2026-11-11-front-bottom-D-mark2/support-audit-1901.json"
+  },
+  "fits": {
+    "path": "tools/hsm/shared-data/catalog/scalars.json"
+  },
+  "frontslice": {
+    "path": "hardware/printed-parts/enclosure/enclosure/prints/2026-11-11-front-bottom-D-mark2/review.json"
+  },
+  "tilt": {
+    "path": "hardware/printed-parts/enclosure/enclosure/support-removal-review/height-reading.json",
+    "revision": "642e1aaa3"
+  },
+  "skin": {
+    "path": "tools/hsm/shared-data/catalog/scalars.json"
+  },
+  "petgf-fits-catalog": {
+    "path": "tools/hsm/shared-data/catalog/scalars.json"
+  },
+  "petgf-fits-junctions": {
+    "path": "hardware/manifold-layout/junctions.json"
+  },
+  "petgf-fits-above-core": {
+    "path": "hardware/manifold-layout/above-core.json"
+  },
+  "petg_res": {
+    "path": "hardware/printed-parts/cold-core/reservoir/reservoir.3mf",
+    "member": "Metadata/project_settings.config"
+  },
+  "petg_plan": {
+    "path": "hardware/printed-parts/cold-core/reservoir/reservoir.print.json"
+  },
+  "petg_slice": {
+    "path": "hardware/printed-parts/cold-core/reservoir/slice-review.json"
+  },
+  "petg_gf": {
+    "path": "hardware/printed-parts/petgf.3mf",
+    "member": "Metadata/project_settings.config"
+  },
+  "petg_mold": {
+    "path": "tools/funnel-mold-print/recipes.json"
+  },
+  "tpu-elbow": {
+    "path": "future/pump-elbow-exploration/prints/2026-10-16-deposited-links-siraya85a-mark1/2026-10-16-elbows-deposited-links-siraya85a-right06-z000-mark1.3mf",
+    "member": "Metadata/project_settings.config"
+  },
+  "tpu-sleeve": {
+    "path": "hardware/printed-parts/faucet/tpu-o-ring/prints/2026-10-23-black-tpu85a-right06-mark2/2026-10-23-touch-flo-sleeve-tpu85a-right06-z000-mark2.3mf",
+    "member": "Metadata/project_settings.config"
+  },
+  "tpu-gasket": {
+    "path": "hardware/printed-parts/gaskets.3mf",
+    "member": "Metadata/project_settings.config"
+  },
+  "tpu-petgf": {
+    "path": "hardware/printed-parts/petgf.3mf",
+    "member": "Metadata/project_settings.config"
+  },
+  "tpu-accepted": {
+    "path": "future/pump-elbow-exploration/prints/2026-10-22-deposited-links-siraya85a-mark2/physical-result.json"
+  },
+  "tpu-sleeve-cap": {
+    "path": "hardware/printed-parts/faucet/tpu-o-ring/prints/2026-10-23-black-tpu85a-right06-mark2/emitted-path-review.json"
+  },
+  "tpu-drying": {
+    "path": "future/pump-elbow-exploration/prints/2026-10-13-compact-single-tpu85a-overhang10-engineering-z000-mark1/filament-drying.json",
+    "revision": "85cc475e9"
+  },
+  "tpu-lip-set10": {
+    "path": "future/pump-elbow-exploration/prints/2026-10-13-compact-single-tpu85a-t215-engineering-z000-mark1/emitted-commands.json",
+    "revision": "a5eb3dff1"
+  },
+  "tpu-lip-compare": {
+    "path": "future/pump-elbow-exploration/prints/2026-10-13-compact-single-tpu85a-outer10-engineering-z000-mark1/outer-speed-comparison.json",
+    "revision": "a5eb3dff1"
+  },
+  "tpu-lip-fixed": {
+    "path": "future/pump-elbow-exploration/prints/2026-10-14-compact-single-siraya85a-overhang10-engineering-z000-mark1/emitted-command-review.json",
+    "revision": "b61ea4bef"
+  },
+  "tpu-underside": {
+    "path": "future/pump-elbow-exploration/prints/2026-10-13-compact-single-tpu85a-engineering-z000-mark1/underside-side-comparison.json",
+    "revision": "3d2e975a9"
+  },
+  "aero": {
+    "path": "hardware/printed-parts/cold-core/magnetic-float/all-aero/all-aero-float.3mf",
+    "member": "Metadata/project_settings.config"
+  },
+  "aeroflight": {
+    "path": "hardware/printed-parts/cold-core/magnetic-float/all-aero/mark2-print/v2/float-preflight.json"
+  },
+  "aerodesign": {
+    "path": "hardware/printed-parts/cold-core/magnetic-float/all-aero/design.json"
+  },
+  "aerodry": {
+    "path": "tools/magnetic-float-guide/build-recipe-sources.json"
+  },
+  "aerostrip": {
+    "path": "hardware/printed-parts/cold-core/magnetic-float/mark2-aero-print/v6/pair-preflight.json"
+  },
+  "aeroprint": {
+    "path": "hardware/printed-parts/cold-core/magnetic-float/all-aero/mark2-print/v1/float-preflight.json",
+    "revision": "7abb9dfd6"
+  },
+  "aeroprintdesign": {
+    "path": "hardware/printed-parts/cold-core/magnetic-float/all-aero/design.json",
+    "revision": "7abb9dfd6"
+  },
+  "petcf": {
+    "path": "hardware/printed-parts/faucet/faucet-pet-cf.3mf",
+    "member": "Metadata/project_settings.config"
+  },
+  "h2c-pieces": {
+    "path": "hardware/printed-parts/enclosure/trial-preparation/pieces.json"
+  },
+  "h2c-petgf": {
+    "path": "hardware/printed-parts/petgf.3mf",
+    "member": "Metadata/project_settings.config"
+  },
+  "h2c-reservoir": {
+    "path": "hardware/printed-parts/cold-core/reservoir/prints/2026-10-26-mark1-left-engineering-flow105-overlap50-temp260-left08-z000/settings.json"
+  },
+  "h2c-idset": {
+    "path": "hardware/printed-parts/enclosure/display-cover/prints/2026-11-08-identification-set-mark1-right-z005/HSM-identification-set-Mark1-right-z005.3mf",
+    "member": "Metadata/project_settings.config"
+  },
+  "h2c-elbow": {
+    "path": "future/pump-elbow-exploration/prints/2026-10-14-compact-single-siraya85a-overhang10-engineering-z000-mark1/2026-10-14-compact-single-elbow-siraya85a-overhang10-engineering-right06-z000-mark1.3mf",
+    "member": "Metadata/project_settings.config"
+  },
+  "h2c-float": {
+    "path": "hardware/printed-parts/cold-core/magnetic-float/all-aero/mark2-print/v2/all-aero-float.3mf",
+    "member": "Metadata/project_settings.config"
+  },
+  "h2c-reg": {
+    "path": "hardware/printed-parts/calibration/dual-nozzle-registration/mark2-registration.json"
+  },
+  "h2c-coupon": {
+    "path": "hardware/printed-parts/calibration/dual-nozzle-registration/geometry-check.json"
+  },
+  "h2c-frontjob": {
+    "path": "hardware/printed-parts/enclosure/enclosure/prints/2026-11-11-front-bottom-D-mark2/print-job.json"
+  },
+  "h2c-refused": {
+    "path": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-10-04-bulkhead-co2-raised-mark2-v1/rejected-send.json"
+  },
+  "h2c-accepted": {
+    "path": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-10-04-bulkhead-co2-raised-mark2-v1/launch.json"
+  },
+  "h2c-idresult": {
+    "path": "hardware/printed-parts/enclosure/display-cover/prints/2026-11-08-identification-set-mark1-right-z005/physical-result.json"
+  }
+}

@@ -1,0 +1,18 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>How this book is kept</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<article class="page card " style="--part:#111a22">
+<header class="run"><span><span class="chip"></span>At the back</span><span>Colophon</span></header>
+<main><div class="fit">
+<p class="kicker" style="margin-top:70px">How this book is kept</p><h1 class="rule" style="font-size:150px">The page you read is the file an agent reads.</h1><p class="lede">The book lives in the machine&rsquo;s repository, beside the parts it describes. Each page is one plain file.</p><div class="row" style="gap:90px; align-items:flex-start; margin-top:60px"><div style="flex:1 1 0; min-width:0"><h2>Where it is</h2><p class="">The pages are <span class='mono' style='font-size:36px'>hardware/printing-the-machine/NN-title.html</span>, numbered in reading order. <span class='mono' style='font-size:36px'>README.md</span> in the same folder is the index: every page&rsquo;s rule, by plastic, and where to start for the job in hand.</p><h2>Where its pictures come from</h2><p class="">Every photograph was taken at the bench and saved with the print it shows. <span class='mono' style='font-size:36px'>art/manifest.json</span> lists each one with the file and revision it was copied from. Pictures of the model are drawn from the same geometry the printers get.</p><h2>Where its numbers come from</h2><p class="">Settings in the current recipes are read from their project files each time the book is bound; <span class='mono' style='font-size:36px'>guide-inputs.json</span> names those files. Numbers from trials are as they were measured, with a date.</p></div><div style="flex:1 1 0; min-width:0"><h2>To add a page</h2><p class="">Start from a print: its date, printer, plastic, plate and nozzle, and a photograph. Say what happened, then the rule it taught, then how far that has been tested. Put it in the part for its plastic. Link the record.</p><h2>To bind it</h2><p class=""><span class='mono' style='font-size:36px'>tools/run hsm-manual-guides bind printing-the-machine</span> draws every page, stops on any whose content overflows, and writes the PDF this was read from.</p><h2>What is not in it yet</h2><p class="">How far PET-GF leans, and its bridges and fins. Screws and heat-set inserts. Why clear PETG moved to a glued plate, and PETG&rsquo;s molds. Reading back the file the printer receives. Each has prints on record and no page.</p><h2>Who made it</h2><p class="">The prints, the photographs and the judgements are Derek&rsquo;s, made with AI agents over nine months of 2026. The pages were written and drawn from that record by Claude (Fable 5.2) in November 2026.</p></div></div><div class="rulebar" style="margin:50px 0 40px"></div><blockquote style="font-size:54px">&ldquo;I&rsquo;d like the repo to be a clear memory to all agents, a written memory that builds FDM print expertise progressively as and when needed. And a PDF that gives a visual high level of it all, so I can see too.&rdquo;<footer>DEREK · 12 NOVEMBER 2026</footer></blockquote>
+</div><i class="end"></i></main>
+<footer><span>Printing the Machine</span><span class="folio">60</span></footer>
+
+</article>
+</body>
+</html>
