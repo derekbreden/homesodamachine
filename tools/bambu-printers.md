@@ -3,6 +3,9 @@
 Mark1 and Mark2 are Bambu Lab H2C printers. Their names identify the individual machines.
 Mark1 retains `H2C` as its local connection key.
 
+Use the [FDM print guide](../hardware/fdm-print-guide/README.md) for part and
+filament recipes, emitted-path examples and print observations.
+
 ## Status and chamber lights
 
 `hsm-printer` reads the printer names, hosts and access codes from

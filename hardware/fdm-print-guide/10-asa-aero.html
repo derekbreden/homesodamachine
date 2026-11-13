@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Print around a magnet</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<article class="card">
+  <header>
+    <p class="kicker">ASA AERO</p>
+    <h1>Print around a magnet</h1>
+    <p class="lede">Keep the float’s guide bore open and seat the ring below the pocket rims at the programmed pause.</p>
+  </header>
+  <main>
+<div class="stack">
+      <div class="two">
+        <figure>
+  <img class="frame render" src="art/aero-section.png" alt="Half section of the ASA Aero float with a gold ring magnet around the guide bore">
+  <figcaption><span class="caption-label">CAD section · float</span>The collar beside the bore and the outer band give the covering roads their landings.</figcaption>
+</figure>
+        <figure>
+  <img class="frame focus-top" src="art/aero-pause.jpg" alt="H2C laying the first covering roads above the inserted magnet">
+  <figcaption><span class="caption-label">Bench photograph · paused-insert trial</span>Derek seated the ring and observed the first covering courses.</figcaption>
+</figure>
+      </div>
+      <div class="two">
+        <table class="recipe">
+  <caption>Selected float recipe</caption>
+  <tbody>
+    <tr><th scope="row">Nozzle</th><td>{{aero:/material_mapping/nozzle}}</td></tr>
+    <tr><th scope="row">Nozzle / bed / chamber</th><td>{{aero:/recipe/nozzle_c}} / {{aero:/recipe/bed_c}} / {{aero:/recipe/chamber_c}} °C</td></tr>
+    <tr><th scope="row">Flow / layers</th><td>{{aero:/recipe/flow_ratio}} / {{aero:/recipe/layer_height_mm}} mm</td></tr>
+    <tr><th scope="row">Nested wall loops</th><td>{{aero:/recipe/wall_loops}}</td></tr>
+    <tr><th scope="row">Sparse infill / skins</th><td>Off</td></tr>
+  </tbody>
+</table>
+        <section class="lesson">
+          <h2>Review the pause and roof</h2>
+          <p>Use the recipe’s dried filament and glued Engineering Plate. Check the open pocket and first covering roads in the slice. Keep the part attached while inserting, clear loose strings and resume after the ring is seated.</p>
+          <p>Keep the heat and flow settings together because they control foaming and density. The pictured trial establishes initial overprinting. Qualify lift and reed response on the finished float.</p>
+        </section>
+      </div>
+      <p class="sources"><a href="https://github.com/derekbreden/homesodamachine/blob/main/hardware/printed-parts/cold-core/magnetic-float/all-aero/README.md#current-cad-and-print-preparation">Float recipe and dry-feed procedure</a> · <a href="https://github.com/derekbreden/homesodamachine/blob/dbac311987ea399ab1427d3f80f21d85656ce0a7/hardware/printed-parts/cold-core/magnetic-float/all-aero/mark2-print/v2/float-preflight.json">Pause and covering-path review</a> · <a href="https://github.com/derekbreden/homesodamachine/blob/a992c49c6069b824c81cbce32578fa2b4fa99490/hardware/printed-parts/cold-core/magnetic-float/all-aero/physical-observations.json">Overprint observation</a> · <a href="https://github.com/derekbreden/homesodamachine/blob/main/hardware/printed-parts/cold-core/magnetic-float/all-aero/installation.md#reed-calibration">Installed reed calibration</a></p>
+    </div>
+  </main>
+  <footer><span>Home Soda Machine · FDM print guide</span><span>ASA Aero · 10</span></footer>
+</article>
+</body>
+</html>

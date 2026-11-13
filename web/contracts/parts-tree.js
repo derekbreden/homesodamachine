@@ -59,6 +59,7 @@
 // entry naming nothing is the normal state and not a stale line.
 export const EXCLUDED_DIRS = [
   "assembly/scenes/out",
+  "fdm-print-guide/out",
   "gun-positioner-guide/out",
   "install-guide/out",
   "magnetic-float-guide/out",
