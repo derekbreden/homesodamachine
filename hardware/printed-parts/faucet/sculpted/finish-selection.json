@@ -168,6 +168,15 @@
     "outlet_depth_mm": [-0.65, 5.0],
     "scope": "Carry the dense interface to the inclined inner dispense face. Keep the actual outlet mouth clear for its bridging paths."
   },
+  "tip_end_cooling": {
+    "selected_date": "2026-11-12",
+    "part": "faucet-shell-tip",
+    "fan_percent": 70,
+    "back_from_dispense_face_mm": [-1.0, 9.0],
+    "scope": "Part cooling on the tip's model paths from its dispense face back to just short of the lip grooves, on both sides. Every other path keeps its native cooling.",
+    "selection_quote": "I want you to turn on part cooling for the area I highlighted in red there. You just need part cooling on for those surfaces that are rough on both sides, as you can see in the photos.",
+    "physical_evidence": "https://github.com/derekbreden/homesodamachine/blob/ffe670b3c4a83a970d2e52dd81c75eddb7f12522/hardware/printed-parts/faucet/sculpted/prints/2026-11-12-wing-end-relief-mark1/physical-result/tip-end-surface.json"
+  },
   "style": "Sculpted",
   "active_nozzle": 0,
   "layer_height_mm": 0.24,
