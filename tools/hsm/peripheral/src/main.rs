@@ -6,6 +6,7 @@ mod live;
 mod ota;
 mod panel;
 mod positioner;
+mod reed;
 mod serials;
 mod x1;
 
@@ -63,6 +64,7 @@ fn run() -> Result<()> {
         "console-session" => bench::session(&args),
         "x1-console" => x1::console(&args),
         "x1-capture" => x1::capture(&args),
+        "reed-sweep" => reed::sweep(&root, &args),
         "firmware-live-check" => live::enclosure(&args),
         "firmware-faucet-check" => live::faucet(&args),
         "panelcam-rectify" => panel::run(&root, &args),
@@ -75,7 +77,7 @@ fn run() -> Result<()> {
 }
 
 fn usage() -> &'static str {
-    "hsm-peripheral [--root CHECKOUT] COMMAND [OPTIONS]\nCommands: ios-checks, ios-capture, positioner-geometry, positioner-verify, uf2, pico-pad-checksum, firmware-pre-build, boards, display-usb, panelcam-console, panelcam-wake, ota, bench, bench-watch, console-session, x1-console, x1-capture, firmware-live-check, firmware-faucet-check, panelcam-rectify"
+    "hsm-peripheral [--root CHECKOUT] COMMAND [OPTIONS]\nCommands: ios-checks, ios-capture, positioner-geometry, positioner-verify, uf2, pico-pad-checksum, firmware-pre-build, boards, display-usb, panelcam-console, panelcam-wake, ota, bench, bench-watch, console-session, x1-console, x1-capture, reed-sweep, firmware-live-check, firmware-faucet-check, panelcam-rectify"
 }
 
 fn root() -> Result<PathBuf> {
