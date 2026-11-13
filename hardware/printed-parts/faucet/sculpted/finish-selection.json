@@ -161,12 +161,13 @@
     "part": "faucet-shell-tip",
     "mapping_margin_mm": 5.0,
     "mapping_edge_blend_mm": 2.0,
+    "outside_wall_inboard_blend_mm": [0.90, 2.65],
     "interior_full_mm": 0.25,
     "interior_end_mm": 2.35,
     "outlet_clearance_mm": 0.30,
     "outlet_shadow_clearance_mm": 0.90,
     "outlet_depth_mm": [-0.65, 5.0],
-    "scope": "Carry the dense interface to the inclined inner dispense face. Keep the actual outlet mouth clear for its bridging paths."
+    "scope": "Carry the dense interface to the inclined inner dispense face. Keep the actual outlet mouth clear for its bridging paths. The mapping fades out inboard of the tube's outside wall."
   },
   "tip_end_cooling": {
     "selected_date": "2026-11-12",

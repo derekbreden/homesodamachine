@@ -49,7 +49,7 @@ shows the band and reads the photographed plate's motion over it.
 | Part | CAD X rotation | Support treatment |
 | --- | ---: | --- |
 | Sculpted base | −15° | Slim trees and segmented outer fins carry a shared dense interface under the rim ellipse. The inboard contact band and first perimeter follow the inclined seat. Ordinary exterior courses stay level. Each mounting insert recess bridges its shoulder and pilot roof. |
-| Shared tip | −105° | Slim trees carry the dense shoulder roof with release breaks and clearance around the mating plug. The first outer perimeter follows the tilted rim. The inner dispense face has its own contact band and an outlet keepout. A removable disc anchors the hidden root. |
+| Shared tip | −105° | Slim trees carry the dense shoulder roof with release breaks and clearance around the mating plug. The first outer perimeter follows the tilted rim. The inner dispense face has its own contact band and an outlet keepout; the band fades out inboard of the tube's outside wall, whose courses stay level. A removable disc anchors the hidden root. |
 | Sculpted cover | −50° | Saved automatic supports |
 | Matching plate | 0° | Bridge the screw counterbore shoulders and keep the shank passages open. |
 | Side-down lever | 0° of print-oriented STL | Saved automatic supports |
@@ -83,8 +83,11 @@ The Sculpted tip's two lip grooves are its only relief for the display cover. Th
 bear on the groove roots and clear the rest of the neck when seated, as the
 [cover's geometry](../faucet-display-cover/README.md#geometry) describes. The
 [wing contact record](https://github.com/derekbreden/homesodamachine/blob/2ac8b452d916cb323d39cce42306069da7a25f91/hardware/printed-parts/faucet/sculpted/prints/2026-11-12-wing-end-relief-mark1/physical-result/physical-result.json)
-locates where a rigidly leaned cover's wing ends bore on the tip instead. Physical fit of the
-bowed cover on this tip remains a print result.
+locates where a rigidly leaned cover's wing ends bore on the tip instead. The
+[bowed cover's fit record](https://github.com/derekbreden/homesodamachine/blob/d4792f7b56c9645f29ceacbd7c33ce57d7f79e40/hardware/printed-parts/faucet/sculpted/prints/2026-11-12-bowed-cover-tip-end-cooling-mark2/physical-result/physical-result.json)
+holds Derek's approval of the bowed cover on this tip, with its aft tips touching the neck and
+its front edge lying on the tip for part of its run. The cover's end relief is for both; its
+fit remains a print result.
 
 [review_print.py](https://github.com/derekbreden/homesodamachine/blob/306268f870/hardware/printed-parts/faucet/sculpted/review_print.py) (in Git at `306268f870`) reads the native G-code's nominal courses,
 filament assignment, cooling, speed commands, complete bead footprint and
