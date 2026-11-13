@@ -51,7 +51,7 @@ fn main() -> Result<()> {
             _ => bail!("unknown argument {arg}"),
         }
     }
-    let trim = match printer.as_str() { "Mark1" => 0.18, "Mark2" => 0.04, other => bail!("no printer {other}; Mark1 or Mark2") };
+    let trim = hsm_print_prep::profile::petgf_z_trim(&root, &printer)?;
     let selection: Value = serde_json::from_slice(&std::fs::read(root.join(SELECTION))?)?;
     let row = selection["parts"].as_array().into_iter().flatten().find(|p| p["name"] == "sculpted-display-cover").context("no approved cover")?;
     let source = root.join(selection["settings_source"].as_str().context("settings source")?);

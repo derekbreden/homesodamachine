@@ -68,11 +68,7 @@ fn main() -> Result<()> {
     let include_base = !tip_only && !tip_and_cover;
     ensure!(!(tip_only && tip_and_cover) && (include_base || base_section.is_none()),
         "--tip-only, --tip-and-cover and --base-section are mutually exclusive");
-    let trim = match printer.as_str() {
-        "Mark1" => 0.18,
-        "Mark2" => 0.04,
-        _ => bail!("expected Mark1 or Mark2, got {printer}"),
-    };
+    let trim = hsm_print_prep::profile::petgf_z_trim(&root, &printer)?;
     let title = if tip_only {
         format!("Sculpted faucet tip PET-GF left {printer}")
     } else if tip_and_cover {

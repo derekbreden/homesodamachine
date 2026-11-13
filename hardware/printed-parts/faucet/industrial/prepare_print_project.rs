@@ -110,7 +110,7 @@ fn main() -> Result<()> {
         }
     }
     let printer = printer.unwrap_or_else(|| finish["default_printer"].as_str().unwrap_or("Mark2").to_string());
-    let trim = match printer.as_str() { "Mark1" => 0.18, "Mark2" => 0.04, other => bail!("no printer {other}; Mark1 or Mark2") };
+    let trim = hsm_print_prep::profile::petgf_z_trim(&root, &printer)?;
     let colour = colour.unwrap_or_else(|| finish["default_filament_colour"].as_str().unwrap_or("#161616").to_string());
     if project.extension().and_then(|e| e.to_str()).map(str::to_lowercase).as_deref() != Some("3mf") {
         bail!("the Industrial project needs a .3mf filename");

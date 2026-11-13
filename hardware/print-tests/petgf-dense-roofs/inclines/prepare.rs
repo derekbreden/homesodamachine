@@ -13,7 +13,8 @@ fn main() -> Result<()> {
     let run = run.canonicalize()?;
     let spec: Value = serde_json::from_slice(&std::fs::read(here.join("matrix.json"))?)?;
     let source = root.join("hardware/printed-parts/petgf.3mf");
-    let profile = profile::load(&source, Some(0.04), None, &root)?;
+    let trim = profile::petgf_z_trim(&root, "Mark2")?;
+    let profile = profile::load(&source, Some(trim), None, &root)?;
     for declared in spec["plates"].as_array().context("plates")? {
         let name = declared["id"].as_str().context("plate id")?;
         let directory = run.join(name);
@@ -61,7 +62,7 @@ fn main() -> Result<()> {
             record["native_result"] = result.clone();
             record["native_toolpaths"] = paths;
             record["trim_commands_mm"] = json!(refresh::trim_commands(&gcode));
-            ensure!(refresh::trim_commands(&gcode) == refresh::expected_trims(0.04), "Mark2 trim differs");
+            ensure!(refresh::trim_commands(&gcode) == refresh::expected_trims(trim), "Mark2 trim differs");
             record["archive_sha256"] = json!(sha256_hex(&std::fs::read(&archive)?));
             record["gcode_sha256"] = json!(sha256_hex(&gcode));
             record["estimated_seconds"] = result["sliced_plates"][0]["total_predication"].clone();

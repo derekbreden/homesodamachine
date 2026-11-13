@@ -205,6 +205,16 @@ pub fn relative(path: &Path, root: &Path) -> String {
     path.strip_prefix(root).map(|p| p.display().to_string()).unwrap_or_else(|_| path.display().to_string())
 }
 
+/// The print setup that owns each printer's PET-GF settings.
+pub const PETGF_SETUP: &str = "hardware/printed-parts/enclosure/trial-preparation/pieces.json";
+
+/// A printer's user Z trim for PET-GF on Textured PEI through its 0.4 mm nozzle, in millimetres,
+/// as the print setup gives it.
+pub fn petgf_z_trim(root: &Path, printer: &str) -> Result<f64> {
+    let setup: Value = serde_json::from_slice(&std::fs::read(root.join(PETGF_SETUP)).with_context(|| format!("reading {PETGF_SETUP}"))?)?;
+    setup["printers"][printer]["z_trim_mm"].as_f64().with_context(|| format!("{PETGF_SETUP} gives no Z trim for printer {printer}"))
+}
+
 /// The plate-compensation block with the user's Z trim, as the Python preparers wrote it.
 fn trim_block(z: f64) -> String {
     let z = format!("{z:.2}");
