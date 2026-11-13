@@ -226,9 +226,12 @@ numbers. Keep current deliverables and active print records at their recorded
 destinations outside `.cache`. Completed experiments, including their print records,
 are archived in Git and referenced by SHA; a scratch copy is not an archive.
 
-The existing six-hour cleanup removes individual run directories after three
-days without a write. A new run does not extend an older run's lifetime. Keep the
-shared geometry memo caches (`realized`, `meshes`, `boxes`) and installed runtimes.
+If we can regenerate something from Git history and it hasn't been used for days,
+there is no reason to keep it around: a build output, a cache entry, a change
+snapshot, a plate, an installed build. Delete it wherever it is, without asking me.
+The six-hour cleanup, [`repo-tools cache-gc`](tools/hsm/repo-tools/README.md),
+does this for the caches and installed builds and keeps what builds still use. A
+new run does not extend an older run's lifetime.
 
 ## Heavy Runs
 
