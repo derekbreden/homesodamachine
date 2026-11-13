@@ -272,5 +272,21 @@
     "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step.npz": "e029fa10eab4830904df0035cde34c2cb8ffc1182fdf65c72a38ca304bd5f38a",
     "hardware/print-tests/front-top-wago-fit/2026-11-12-mark1-dots-3-4-standard-layers/front-top-wago-fit-mark1-dots-3-4-standard-layers.3mf": "98943ea3c492e069cdd6f66edecbb14cf1faab8a9fe2846bbaae03658a74b668"
   },
-  "physical_fit": "Pending."
+  "physical_fit": "Pending.",
+  "status_at_handoff": {
+    "observed_at": "2026-11-13T05:55:22+00:00",
+    "gcode_state": "RUNNING",
+    "subtask_name": "front-top-wago-fit-mark1-five-dot-ready.gcode.3mf",
+    "layer_num": 1,
+    "total_layer_num": 504,
+    "mc_remaining_time": 54,
+    "mc_percent": 8,
+    "print_error": 0,
+    "hms": [],
+    "nozzle_temper": 261.0,
+    "nozzle_target_temper": 265.0,
+    "bed_temper": 80.0,
+    "bed_target_temper": 80.0,
+    "printer_task_id": "1437845842"
+  }
 }
