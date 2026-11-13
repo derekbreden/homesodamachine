@@ -1,0 +1,74 @@
+{
+  "date": "2026-11-13",
+  "reported_by": "Derek",
+  "printer": "Mark2",
+  "printer_task_id": "1437924119",
+  "submitted_archive": {
+    "gcode_sha256": "8497b4c1a6a2cd521393c715d47c5b02acdb46419f31337a6e102a0e9d99b429",
+    "name": "sculpted-tip-cover-end-relief-inboard-bend-black-mark2-ready.gcode.3mf",
+    "sha256": "6c8f254fee589ce800c11c5b62b5e492c08e688edd174495d5ebb48768bdcec6"
+  },
+  "scope": "The black Sculpted display cover with its sides' ends let out, snapped onto the Sculpted tip printed beside it, whose dispense-face bend stops short of the tube's outside wall.",
+  "tried": "the printed cover snapped onto the printed tip",
+  "observations": [
+    "On that previous print, I maybe hadn't let it cool enough, and so that may have contributed to the stickiness. Still, even on this one that I let cool overnight, it was just a bit more difficult than usual. All that said, I think I'd like to permanently bump Mark II up from 0.04 to 0.06 for its Z-layer offset for PetGF, and use that on the next print here.",
+    "I've attached some photos of that last print. As we expect, we have some gaps there, and I hope you can see where the gaps are."
+  ],
+  "agent_reading": {
+    "author": "Claude, from the photos; not Derek's words.",
+    "tip_end": "The tube's outside wall beside the dispense end shows even layer lines. Derek has not said how it compares with the plate before it.",
+    "front": "The front arch stands off the cap on both halves, from beside its centre round to where the front rim begins, and is closed at its centre, where its underside carries support marks. Below the arch no light shows under the front rim down to the fore tip.",
+    "rear": "Light shows between the rear rim and the neck up one flank, from above the aft tip to partway round. Toward the arch's centre the photos show none.",
+    "plate_release": "This plate printed with the same first-layer trim as the plate before it.",
+    "estimates": "Scaled against the dispense face's layer lines, the front arch stands roughly half a millimetre off the cap at its widest, which is what the cover's model leaves there. Scaled against the cover's own layer lines, the rear rim stands roughly 0.2 mm off the neck near the aft tip and 0.3 to 0.4 mm partway round; the relaxed model stands about that far off the neck at the same places.",
+    "limits": "Photographs only. No opening was measured on the part."
+  },
+  "image_processing": "Saved as this session received them, JPEGs about two thousand pixels on their long side.",
+  "images": [
+    {
+      "file": "01-tip-outside-wall-by-dispense-end.jpg",
+      "sha256": "b94c3d09462fac80abb9cf39be66b4ded3615841ae1e9e91153257de3cb36000",
+      "view": "The tip's outside wall beside the dispense end, from below and behind, with the cover's side beyond it."
+    },
+    {
+      "file": "02-rear-rim-from-below.jpg",
+      "sha256": "b9e742b17a9832692da8b0a94c646e57c705df08827945f705e5fd07990212ee",
+      "view": "The cover's rear rim on the neck, from behind and below: light between the rim and the neck up one flank."
+    },
+    {
+      "file": "03-rear-rim-from-below-closer.jpg",
+      "sha256": "523e966009f08811f1a15ff5702bede336542582967d58b2c5ef63e3a778fa01",
+      "view": "The same rear rim closer, the rear seam in view: the light runs from above the aft tip to partway round, in two stretches."
+    },
+    {
+      "file": "04-front-rim-and-shoulder.jpg",
+      "sha256": "cb943943cb01a2fd4da0dcb12ea34174c45a420e4cb05bcf2a22c7b590f3cb8e",
+      "view": "The dispense face from in front and one side: no light under the front rim from the fore tip up, then light where the arch begins."
+    },
+    {
+      "file": "05-front-from-one-side.jpg",
+      "sha256": "c8778499aa7f63c95078117e4be6eef02b9f70cc37c8e5fcb5cc006228c57121",
+      "view": "The same side from further back: light at the arch's shoulder, none at its centre."
+    },
+    {
+      "file": "06-front-shoulder-gap-close.jpg",
+      "sha256": "ea04a4fc4dd680bd0fc21e48a194dbba648d743bb1f550824706c9fb4770de2e",
+      "view": "Close view of that shoulder: the opening between the cap's rim and the arch, widest partway round and closing toward the front rim."
+    },
+    {
+      "file": "07-front-other-shoulder-close.jpg",
+      "sha256": "25d73c9060b0ca444c9fa0360afd2035b77a5214df83c03ee1584f1651cefe53",
+      "view": "The arch's other shoulder, close: the same opening, dark against the cover's inside."
+    },
+    {
+      "file": "08-front-crown-close.jpg",
+      "sha256": "ee79073c533f704393813f9d693f4bf780a3a1e16efc87f34cbac44ea776fff8",
+      "view": "The arch's centre, close, from in front: closed over the cap with support marks, open to either side."
+    },
+    {
+      "file": "09-front-arch-whole.jpg",
+      "sha256": "8d4c1c1076cd0d3dad90f8e5917fc6e2b564c74e6f8fa90759c4e51be563a566",
+      "view": "The whole front arch from in front and above: light at one shoulder, a thinner opening at the other, closed at the centre."
+    }
+  ]
+}
