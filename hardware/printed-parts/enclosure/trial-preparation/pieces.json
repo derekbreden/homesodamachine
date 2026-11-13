@@ -49,6 +49,12 @@
           "regions": "front-top",
           "features": [
             {
+              "name": "Wago pocket bridges",
+              "kind": "native_support_free",
+              "record": "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.print-features.json",
+              "reason": "Bridge the Wago pocket roofs between their sidewalls and keep the pockets clear of supports."
+            },
+            {
               "name": "R6 roof side edges, level run",
               "kind": "fine_band",
               "select": {

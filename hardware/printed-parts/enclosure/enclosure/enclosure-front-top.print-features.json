@@ -1,0 +1,68 @@
+{
+  "boundary_overlap_mm": 0.25,
+  "bridge_regions": [
+    {
+      "bounds_source_mm": [
+        94.2,
+        107.5,
+        166.3,
+        188.0,
+        291.75,
+        295.0
+      ],
+      "bridge_print_axis_source": [
+        0,
+        1,
+        0
+      ],
+      "name": "wago-mana insertion pocket",
+      "reason": "Bridge the flat roof and mouth between the two sidewalls."
+    },
+    {
+      "bounds_source_mm": [
+        94.05,
+        107.5,
+        166.35,
+        180.55,
+        257.85,
+        261.1
+      ],
+      "bridge_print_axis_source": [
+        0,
+        1,
+        0
+      ],
+      "name": "wago-manb insertion pocket",
+      "reason": "Bridge the flat roof and mouth between the two sidewalls."
+    }
+  ],
+  "producer": "enclosure-front-top",
+  "purpose": "Bind the front-top Wago pocket support exclusions and bridge direction to the printed mesh.",
+  "source_stl_sha256": "0fe1c4f6cad10a003be82101065b73eaea3d4a4f0824795a60ed37083355e3fc",
+  "support_free_regions": [
+    {
+      "bounds_source_mm": [
+        94.2,
+        104.5,
+        169.3,
+        185.0,
+        262.0,
+        292.0
+      ],
+      "name": "wago-mana insertion pocket",
+      "reason": "Keep the connector pocket and mouth clear of support."
+    },
+    {
+      "bounds_source_mm": [
+        94.05,
+        104.5,
+        169.35,
+        177.55,
+        227.9,
+        258.1
+      ],
+      "name": "wago-manb insertion pocket",
+      "reason": "Keep the connector pocket and mouth clear of support."
+    }
+  ]
+}

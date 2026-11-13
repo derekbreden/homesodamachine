@@ -28,6 +28,7 @@ use hsm_enclosure_solid::plan::{Graph, Shape};
 use hsm_enclosure_solid::sources::Sources;
 use hsm_enclosure_solid::structure::Silhouette;
 use hsm_enclosure_solid::{ops, skin};
+use serde_json::json;
 use spec::Box;
 use std::path::Path;
 
@@ -146,5 +147,36 @@ fn write(
         &dir.join(format!("{name}.stl.sources.json")),
         &serde_json::to_vec(&document)?,
     )?;
+    keep(
+        &dir.join(format!("{name}.print-features.json")),
+        &serde_json::to_vec_pretty(&wago_print_features(&stl))?,
+    )?;
     payload(dir, name, color, &stl, &step, Some(&sources), Some(identities))
+}
+
+/// The Wago roofs bridge along the opening's short path between its two sidewalls.
+fn wago_print_features(stl: &[u8]) -> serde_json::Value {
+    let mut exclusions = Vec::new();
+    let mut bridges = Vec::new();
+    for (name, bounds) in above::pocket_regions(quadrant::Y::Front) {
+        exclusions.push(json!({
+            "name": name, "bounds_source_mm": bounds,
+            "reason": "Keep the connector pocket and mouth clear of support."
+        }));
+        let [x0, x1, y0, y1, _, roof] = bounds;
+        bridges.push(json!({
+            "name": name,
+            "bounds_source_mm": [x0, x1 + WALL, y0 - WALL, y1 + WALL, roof - catalog::running(), roof + WALL],
+            "bridge_print_axis_source": [0, 1, 0],
+            "reason": "Bridge the flat roof and mouth between the two sidewalls."
+        }));
+    }
+    json!({
+        "purpose": "Bind the front-top Wago pocket support exclusions and bridge direction to the printed mesh.",
+        "producer": "enclosure-front-top",
+        "source_stl_sha256": digest(stl),
+        "boundary_overlap_mm": catalog::running(),
+        "support_free_regions": exclusions,
+        "bridge_regions": bridges
+    })
 }

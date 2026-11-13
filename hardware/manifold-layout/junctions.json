@@ -33,7 +33,9 @@
       "host": "front-top",
       "rotation": [[0.0, -1.0, 0.0], [0.0, 0.0, -1.0], [1.0, 0.0, 0.0]],
       "translation_mm": [95.20, 185.05, 277.0],
-      "mouth_mm": -0.75
+      "mouth_mm": -0.75,
+      "well_width_inset_mm": 0.05,
+      "well_height_inset_mm": 0.20
     },
     {
       "name": "wago-manb",
@@ -41,7 +43,9 @@
       "host": "front-top",
       "rotation": [[0.0, -1.0, 0.0], [0.0, 0.0, -1.0], [1.0, 0.0, 0.0]],
       "translation_mm": [95.05, 177.65, 243.0],
-      "mouth_mm": -0.75
+      "mouth_mm": -0.75,
+      "well_width_inset_mm": 0.05,
+      "well_height_inset_mm": 0.25
     }
   ]
 }

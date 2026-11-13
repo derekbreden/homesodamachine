@@ -6959,6 +6959,7 @@
     ],
     "rewritten": [],
     "writes": [
+      "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.print-features.json",
       "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step.mesh",
       "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step.npz",
       "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl",
