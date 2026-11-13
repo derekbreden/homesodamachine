@@ -53,10 +53,15 @@ s = + × n.
 The underside remains open.
 
 The raised bezel and skirt shoulder give the wings more reach from the bezel
-to the groove floors. The lips have radial clearance at the groove roots in
-the seated model and engage below both retaining shoulders. The relaxed print
-pulls the wings inward below the bezel's inner face. The lips' inner corners
-carry chamfers, and their flat lower lands seat on the groove floors.
+to the groove floors. The lips meet the groove roots in the seated model and
+engage below both retaining shoulders. The relaxed print bows each side inward
+below the bezel's inner face: most at mid-length, where the side flexes freely,
+fading toward the front and rear walls, which hold the side's ends. That bow is
+the shape a side springs back to when its lip is pushed out to the groove root,
+so the seated cover bears on its two lips and clears the neck along the rest of
+both sides. [`numbers.rs`](numbers.rs) holds the bow's shares of the lip's lean.
+The lips' inner corners carry chamfers, and their flat lower lands seat on the
+groove floors.
 
 The standalone STEP, STL and print project contain the relaxed shape.
 The faucet assembly shows the nominal seated fit surface. That surface

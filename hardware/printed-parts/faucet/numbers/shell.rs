@@ -534,16 +534,6 @@ pub const DISPLAY_GROOVE_HALF_X: f64 = DISPLAY_NECK_OUTER_R + DISPLAY_GROOVE_REA
 pub const DISPLAY_GROOVE_CORE_R: f64 = DISPLAY_NECK_OUTER_R - (DISPLAY_NECK_OUTER_R - DISPLAY_CLIP_GROOVE_RADIUS);
 /// Extra clearance along the display face at each end of the groove.
 pub const DISPLAY_GROOVE_END_CLEARANCE: f64 = 0.25;
-/// Extra depth towards the center of the neck on each side.
-pub const DISPLAY_GROOVE_X_CLEARANCE: f64 = 0.75;
-/// Inward travel available at the two lower corners of each Sculpted display wing.
-pub const DISPLAY_WING_CORNER_GROOVE_DEPTH: f64 = 1.1;
-/// The groove's transverse half span, including the blend to the tube skin.
-pub const DISPLAY_WING_CORNER_GROOVE_HALF_WIDTH: f64 = 1.4;
-/// The groove's run from a corner along the skirt's bottom edge toward the blade.
-pub const DISPLAY_WING_CORNER_GROOVE_RUN: f64 = 1.75;
-/// The height at which the rear groove fades into the arch.
-pub const DISPLAY_WING_CORNER_GROOVE_REAR_END_N: f64 = 8.6;
 
 /// The cover's face along s.
 pub fn display_cover_face_length() -> f64 {

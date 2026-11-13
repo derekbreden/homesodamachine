@@ -1,8 +1,8 @@
 //! The Sculpted faucet's display cover: a skin lofted from its skirt round the neck up to its face,
 //! hollowed for the display and opened for the glass and round the neck, its lower front and rear
 //! edges sloped up to the open underside, with the lips that snap into the shell's grooves; cut as
-//! it sits on the tip, which the faucet assembly stands in place, and printed with its wings leaned
-//! in.
+//! it sits on the tip, which the faucet assembly stands in place, and printed with its sides bowed
+//! in by what they spring back from on the neck.
 //!
 //!     faucet-display-cover [<output directory>]
 use anyhow::{Result, ensure};
@@ -28,7 +28,7 @@ fn main() -> Result<()> {
     let black = Some(catalog::faucet_black());
     let seated = seated_cover(&neck, false)?;
     let open = seated_cover(&neck, true)?;
-    let relaxed = display::relaxed(&neck, &seated, &open, cover::BEZEL_N_BOTTOM, cover::wing_slope())?;
+    let relaxed = display::relaxed_by(&neck, &seated, &open, cover::BEZEL_N_BOTTOM, cover::wing_inward)?;
     ensure!(relaxed.components().len() == 1, "the display cover is not one solid");
     println!("{}", printed::write(&out, PRINTED, Body { name: PRINTED, color: black, solid: &relaxed })?);
     println!("{}", write_shown(&out, SEATED, &[Body { name: SEATED, color: black, solid: &seated }])?);
