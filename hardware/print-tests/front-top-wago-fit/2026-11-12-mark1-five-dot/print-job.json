@@ -1,0 +1,276 @@
+{
+  "purpose": "Compare identical five-dot Wago receiver coupons with bridged and floor-supported pocket roofs.",
+  "baseline": "https://github.com/derekbreden/homesodamachine/blob/ae3a1e7b7f32f119eacd22981c5fe22108f52d30/hardware/print-tests/front-top-wago-fit/2026-11-12-mark1-dots-3-4-standard-layers/print-job.json",
+  "geometry": {
+    "crop_bounds_mm": [
+      [
+        95.8,
+        166.1,
+        224.85
+      ],
+      [
+        107.5,
+        188.2,
+        295.05
+      ]
+    ],
+    "part": "printed-parts/enclosure/enclosure/enclosure-front-top.step",
+    "pocket_depth_x_mm": 8.7,
+    "restored_crop_stock_volume_mm3": 18151.614001,
+    "coupon": {
+      "dots": 5,
+      "name": "wago-fit-5",
+      "per_side_reduction_yz_mm": [
+        0.2,
+        0.05
+      ],
+      "pockets": [
+        {
+          "bounds_mm": [
+            [
+              95.8,
+              169.3,
+              262.0
+            ],
+            [
+              104.5,
+              185.0,
+              292.0
+            ]
+          ],
+          "name": "wago-mana",
+          "opening_yz_mm": [
+            15.7,
+            30.0
+          ],
+          "side_wall_widths_y_mm": [
+            3.2,
+            3.2
+          ]
+        },
+        {
+          "bounds_mm": [
+            [
+              95.8,
+              169.3,
+              227.9
+            ],
+            [
+              104.5,
+              177.6,
+              258.1
+            ]
+          ],
+          "name": "wago-manb",
+          "opening_yz_mm": [
+            8.3,
+            30.2
+          ],
+          "side_wall_widths_y_mm": [
+            3.2,
+            10.6
+          ]
+        }
+      ],
+      "volume_mm3": 11866.365333,
+      "stl_sha256": "bfd939c3691eb2f7af9628a27bd5b8c9155f016f9acd332232893f455324fa6a",
+      "watertight": true
+    }
+  },
+  "plate": [
+    {
+      "build_transform": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        -0.0,
+        1.0,
+        142.5,
+        160.0,
+        35.099991
+      ],
+      "identify_id": 1901,
+      "name": "Wago five dots - bridge",
+      "plate_bounds_mm": [
+        [
+          136.650002,
+          148.950005,
+          0.0
+        ],
+        [
+          148.349998,
+          171.049995,
+          70.199982
+        ]
+      ]
+    },
+    {
+      "build_transform": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        -0.0,
+        1.0,
+        182.5,
+        160.0,
+        35.099991
+      ],
+      "identify_id": 1902,
+      "name": "Wago five dots - Tree Slim",
+      "plate_bounds_mm": [
+        [
+          176.650002,
+          148.950005,
+          0.0
+        ],
+        [
+          188.349998,
+          171.049995,
+          70.199982
+        ]
+      ]
+    }
+  ],
+  "source_project": "front-top-wago-fit-mark1-five-dot.3mf",
+  "source_project_sha256": "56202e8f68116edb8a21285f6914220e8140fbcee3a4007ab9946e899e2a11d7",
+  "ready_archive": "front-top-wago-fit-mark1-five-dot-ready.gcode.3mf",
+  "ready_archive_sha256": "07087ddfd92839234a0bd2b77d43dd47d61cb7c456e8649f7b400c90484987a5",
+  "gcode_sha256": "413d3f29b0121b713c8ec70e6247e21f500b7e9ef101a8f71e07c33531580f40",
+  "slice": {
+    "printer": "Mark1 (H2C)",
+    "material": "Black Polymaker Fiberon PET-GF15, left external spool",
+    "bed": "Textured PEI Plate",
+    "nozzle_diameter_mm": 0.4,
+    "firmware_z_trim_mm": 0.16,
+    "layer_height_mm": 0.24,
+    "first_layer_height_mm": 0.2,
+    "model_layers": 293,
+    "support_settings_changed_from_baseline": {
+      "enable_support": "1",
+      "support_object_xy_distance": "0.2",
+      "support_remove_small_overhang": "0",
+      "support_style": "tree_slim",
+      "tree_support_branch_angle": "0",
+      "tree_support_branch_diameter": "1",
+      "tree_support_branch_diameter_angle": "0",
+      "tree_support_branch_distance": "2"
+    },
+    "native_estimated_seconds": 3606.82373,
+    "cooling_added_commanded_seconds": 653.981034,
+    "estimated_filament_g": 18.211027,
+    "slicer_warnings": [],
+    "model_support_brim_footprint": {
+      "bounds_padding_mm": 0.41,
+      "extrusion_bounds_xy_mm": [
+        [
+          133.626,
+          145.926
+        ],
+        [
+          191.374,
+          174.074
+        ]
+      ],
+      "maximum_line_width_mm": 0.62
+    },
+    "pocket_roofs": [
+      {
+        "coupon": "Wago five dots - bridge",
+        "pocket": "wago-mana",
+        "cad_opening_yz_mm": [
+          15.7,
+          30.0
+        ],
+        "sliced_opening_y_mm": 15.7,
+        "sliced_opening_z_mm": 30.0,
+        "sliced_floor_top_mm": 37.16,
+        "sliced_roof_underside_mm": 67.16,
+        "bridge_crossings": 23,
+        "continuous_mouth_wall_crossings": 2
+      },
+      {
+        "coupon": "Wago five dots - bridge",
+        "pocket": "wago-manb",
+        "cad_opening_yz_mm": [
+          8.3,
+          30.2
+        ],
+        "sliced_opening_y_mm": 8.3,
+        "sliced_opening_z_mm": 30.24,
+        "sliced_floor_top_mm": 3.08,
+        "sliced_roof_underside_mm": 33.32,
+        "bridge_crossings": 23,
+        "continuous_mouth_wall_crossings": 2
+      },
+      {
+        "coupon": "Wago five dots - Tree Slim",
+        "pocket": "wago-mana",
+        "cad_opening_yz_mm": [
+          15.7,
+          30.0
+        ],
+        "sliced_opening_y_mm": 15.7,
+        "sliced_opening_z_mm": 30.0,
+        "sliced_floor_top_mm": 37.16,
+        "sliced_roof_underside_mm": 67.16,
+        "bridge_crossings": 23,
+        "continuous_mouth_wall_crossings": 2,
+        "support_first_layer_z_mm": 37.763,
+        "support_first_layer_roads": 249,
+        "root_bead_mouth_overhang_mm": 0.496,
+        "support_roof_interface_z_mm": [
+          66.3646,
+          66.6423,
+          66.92
+        ],
+        "support_roof_interface_gap_mm": 0.24,
+        "support_roads": 25332
+      },
+      {
+        "coupon": "Wago five dots - Tree Slim",
+        "pocket": "wago-manb",
+        "cad_opening_yz_mm": [
+          8.3,
+          30.2
+        ],
+        "sliced_opening_y_mm": 8.3,
+        "sliced_opening_z_mm": 30.24,
+        "sliced_floor_top_mm": 3.08,
+        "sliced_roof_underside_mm": 33.32,
+        "bridge_crossings": 23,
+        "continuous_mouth_wall_crossings": 2,
+        "support_first_layer_z_mm": 3.54373,
+        "support_first_layer_roads": 112,
+        "root_bead_mouth_overhang_mm": 0.496,
+        "support_roof_interface_z_mm": [
+          32.5227,
+          32.8014,
+          33.08
+        ],
+        "support_roof_interface_gap_mm": 0.24,
+        "support_roads": 11555
+      }
+    ],
+    "support_roads_by_role": {
+      "Support": 36573,
+      "Support transition": 108,
+      "Support interface": 206
+    },
+    "support_topology": "support-review.json"
+  },
+  "launch_record": "launch.json",
+  "previous_fit_result": "https://github.com/derekbreden/homesodamachine/blob/eb3ec0fcfb192c179362f20fa5e17cb1c4d9c5ff/hardware/print-tests/front-top-wago-fit/2026-11-12-mark1-dots-3-4-standard-layers/physical-result/physical-result.json",
+  "source_sha256": {
+    "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step.npz": "e029fa10eab4830904df0035cde34c2cb8ffc1182fdf65c72a38ca304bd5f38a",
+    "hardware/print-tests/front-top-wago-fit/2026-11-12-mark1-dots-3-4-standard-layers/front-top-wago-fit-mark1-dots-3-4-standard-layers.3mf": "98943ea3c492e069cdd6f66edecbb14cf1faab8a9fe2846bbaae03658a74b668"
+  },
+  "physical_fit": "Pending."
+}

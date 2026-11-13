@@ -1,0 +1,27 @@
+{
+  "archive": {
+    "gcode_sha256": "413d3f29b0121b713c8ec70e6247e21f500b7e9ef101a8f71e07c33531580f40",
+    "name": "front-top-wago-fit-mark1-five-dot-ready.gcode.3mf",
+    "objects": [
+      "Wago five dots - bridge",
+      "Wago five dots - Tree Slim"
+    ],
+    "sha256": "07087ddfd92839234a0bd2b77d43dd47d61cb7c456e8649f7b400c90484987a5",
+    "slots": {
+      "1": {
+        "colour": "000000",
+        "type": "PET-CF"
+      }
+    }
+  },
+  "gcode_state": "RUNNING",
+  "hms": [],
+  "layer_num": 0,
+  "mc_remaining_time": 60,
+  "observed_at": "2026-11-13T05:46:17+00:00",
+  "print_error": 0,
+  "printer": "H2C",
+  "printer_task_id": "1437845842",
+  "subtask_name": "front-top-wago-fit-mark1-five-dot-ready.gcode.3mf",
+  "total_layer_num": 504
+}
