@@ -1,0 +1,36 @@
+{
+  "date": "2026-11-13",
+  "reported_by": "Derek",
+  "scope": "Bench feedback on the five-dot front-top Wago receiver plate.",
+  "part": "HSM-0079",
+  "job": {
+    "printer": "H2C",
+    "task_id": "1437845842",
+    "archive": {
+      "gcode_sha256": "413d3f29b0121b713c8ec70e6247e21f500b7e9ef101a8f71e07c33531580f40",
+      "name": "front-top-wago-fit-mark1-five-dot-ready.gcode.3mf",
+      "objects": [
+        "Wago five dots - bridge",
+        "Wago five dots - Tree Slim"
+      ],
+      "sha256": "07087ddfd92839234a0bd2b77d43dd47d61cb7c456e8649f7b400c90484987a5",
+      "slots": {
+        "1": {
+          "colour": "000000",
+          "type": "PET-CF"
+        }
+      }
+    }
+  },
+  "observations": [
+    {
+      "topic": "fit",
+      "verbatim": "Size wise I think we're getting very good, I'd just like to go tighter again on the slimmer 5 conductor wago only, so 0.25 in Y on the lower wago holder and 0.20 still in Y on the higher wago holder, and same z for both"
+    },
+    {
+      "topic": "support shape",
+      "verbatim": "What I mean by \"thin trees\" is what we ***normally get*** in the enclosure rail cavities. What you did here is not that."
+    }
+  ],
+  "print_job": "../print-job.json"
+}
