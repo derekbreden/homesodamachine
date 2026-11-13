@@ -1,7 +1,7 @@
 //! The Sculpted display cover's numbers, in millimetres, in the tip frame: x across the neck, s
 //! back up it from the tube exit, n out through the glass. The cover is a skin lofted from its
 //! skirt round the neck up to its face over the display, its window opened for the glass, its
-//! lips snapping into the shell's grooves, printed with its wings leaned in.
+//! lips snapping into the shell's grooves, printed with its sides bowed in.
 
 use hsm_faucet_numbers::interface::{DISPLAY_CORNER_R, DISPLAY_COVER_OVER_FACE, DISPLAY_HOUSING_WIDTH, display_cover_slip};
 use hsm_faucet_numbers::shell::*;
@@ -21,9 +21,14 @@ pub const BEZEL_N_TOP: f64 = DISPLAY_COVER_TOP_N + WING_REACH;
 pub const REAR_SKIRT_EXTENSION: f64 = 1.2;
 /// What the lips' inner corners are relieved by.
 pub const LIP_RELIEF: f64 = snap::LIP_INNER_EDGE_RELIEF;
-/// Radial clearance for the printed lip to settle against the groove floor under spring preload.
-pub const LIP_ROOT_CLEARANCE: f64 = 0.2;
-pub const LIP_R: f64 = DISPLAY_CLIP_LIP_RADIUS + LIP_ROOT_CLEARANCE;
+/// The lips' radius about the neck: the grooves' roots, which the sides' preload bears on.
+pub const LIP_R: f64 = DISPLAY_CLIP_LIP_RADIUS;
+/// How a side springs back when its lip is pushed out to its seat, as a share of the lip's lean:
+/// a bow along s, most at its centre and falling off as the square of the distance, to nothing
+/// where the side is tied into the cover's front and rear walls. `[peak, centre s, reach toward
+/// the tube exit, reach toward the base]`, at the skirt's bottom and at the display's seat.
+pub const SPRING_BACK_LOW: [f64; 4] = [1.05, 21.0, 26.2, 29.1];
+pub const SPRING_BACK_HIGH: [f64; 4] = [0.99, 21.5, 22.75, 27.3];
 /// Clearance above the dispense cap at the front of the cover.
 pub const NOSE_ARCH_LIFT: f64 = 0.5;
 /// Clearance over the curved neck at the rear skirt, aft of both snap lips.
@@ -44,10 +49,22 @@ pub fn neck_clearance_r() -> f64 {
     DISPLAY_NECK_OUTER_R + display_cover_slip()
 }
 
-/// How far each wing leans in per millimetre down from the bezel: its preload, over its run from
-/// the bezel to the lips' tops.
+/// How far a side leans in per millimetre down from the bezel where it springs back whole: its
+/// preload, over its run from the bezel to the lips' tops.
 pub fn wing_slope() -> f64 {
     snap::X_PRELOAD / (BEZEL_N_BOTTOM - DISPLAY_CLIP_TOP_N)
+}
+
+/// How far the relaxed print's side stands in toward the neck from its seated place at (s, n):
+/// the lean, by the share of it the side springs back there.
+pub fn wing_inward(s: f64, n: f64) -> f64 {
+    let bow = |[peak, centre, fore, aft]: [f64; 4]| {
+        let reach = if s < centre { fore } else { aft };
+        peak * (1.0 - ((s - centre) / reach).powi(2)).max(0.0)
+    };
+    let up = ((n - DISPLAY_COVER_BOTTOM_N) / (DISPLAY_SEAT_REFERENCE_N - DISPLAY_COVER_BOTTOM_N)).clamp(0.0, 1.0);
+    let share = bow(SPRING_BACK_LOW) * (1.0 - up) + bow(SPRING_BACK_HIGH) * up;
+    wing_slope() * (BEZEL_N_BOTTOM - n).max(0.0) * share
 }
 
 /// The skin's outline rows, `[width, length, corner r, n, centre s]`: the skirt at its bottom and

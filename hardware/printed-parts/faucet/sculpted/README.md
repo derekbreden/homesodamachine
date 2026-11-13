@@ -75,10 +75,12 @@ cover seating on one wing. Its
 binds the seam gaps, exterior wall paths, shoulder support and nose clearance
 to the submitted toolpath.
 
-The Sculpted tip's grooves follow the lower front and rear corners of each display-cover wing.
-Their deepest points are where the skirt meets the arches, with the floor blending back into the
-tube along both legs. The [wing contact record](https://github.com/derekbreden/homesodamachine/blob/2ac8b452d916cb323d39cce42306069da7a25f91/hardware/printed-parts/faucet/sculpted/prints/2026-11-12-wing-end-relief-mark1/physical-result/physical-result.json)
-locates these corners from the hand fit and the picked model edges.
+The Sculpted tip's two lip grooves are its only relief for the display cover. The cover's sides
+bear on the groove roots and clear the rest of the neck when seated, as the
+[cover's geometry](../faucet-display-cover/README.md#geometry) describes. The
+[wing contact record](https://github.com/derekbreden/homesodamachine/blob/2ac8b452d916cb323d39cce42306069da7a25f91/hardware/printed-parts/faucet/sculpted/prints/2026-11-12-wing-end-relief-mark1/physical-result/physical-result.json)
+locates where a rigidly leaned cover's wing ends bore on the tip instead. Physical fit of the
+bowed cover on this tip remains a print result.
 
 [review_print.py](https://github.com/derekbreden/homesodamachine/blob/306268f870/hardware/printed-parts/faucet/sculpted/review_print.py) (in Git at `306268f870`) reads the native G-code's nominal courses,
 filament assignment, cooling, speed commands, complete bead footprint and

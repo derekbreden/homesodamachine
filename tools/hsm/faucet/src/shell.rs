@@ -291,20 +291,8 @@ fn retention_grooves(neck: &Gooseneck) -> Result<Solid> {
         (DISPLAY_CLIP_BOTTOM_N, DISPLAY_CLIP_TOP_N + snap::BEARING_SLIP),
         0.0,
     )?;
-    band.cut(&retention_core(neck, DISPLAY_GROOVE_CORE_R, DISPLAY_GROOVE_X_CLEARANCE)?)
-}
-
-// Each root follows the original circular profile shifted toward the center in X.
-fn retention_core(neck: &Gooseneck, r: f64, depth: f64) -> Result<Solid> {
-    let half_n = (r * r - depth * depth).sqrt();
-    let center = TUBE_SHELL_CENTER_Y;
-    let bottom = v2(0.0, center - half_n);
-    let top = v2(0.0, center + half_n);
-    let core = Pen::new(bottom)
-        .arc_through(v2(r - depth, center), top)?
-        .arc_through(v2(depth - r, center), bottom)?
-        .close()?;
-    neck.sweep(&Profile::new(core), 0.0, neck.length())
+    let core = Profile::circle(v2(0.0, TUBE_SHELL_CENTER_Y), DISPLAY_GROOVE_CORE_R);
+    band.cut(&neck.sweep(&core, 0.0, neck.length())?)
 }
 
 /// The flat rear cable lane and the opening that gathers the tubes and the cable from the
@@ -356,7 +344,7 @@ fn beverage_outlets(neck: &Gooseneck) -> Result<Solid> {
 /// The whole shell, before it is split into its two prints.
 pub fn shell(neck: &Gooseneck) -> Result<Solid> {
     let (lower, seam) = lower_outer()?;
-    shell_from(neck, lower, &seam, &crate::display::sculpted_wing_corner_grooves(neck)?)
+    shell_from(neck, lower, &seam, &[])
 }
 
 /// A shell whose stock below the zone-5 seam is `lower`, with `seam` the ring the gooseneck is
