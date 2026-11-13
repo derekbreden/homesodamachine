@@ -286,5 +286,18 @@
     "support_roads": 0,
     "layers": 293
   },
-  "physical_fit": "Pending."
+  "physical_fit": "Pending.",
+  "status_at_handoff": {
+    "state": "RUNNING",
+    "layer_num": 3,
+    "remaining_minutes": 33,
+    "print_error": 0,
+    "observed_at": "2026-11-13T02:57:23+00:00",
+    "hms": [
+      {
+        "code": "0C00-0100-0002-0017",
+        "message": "Dirty nozzle camera lens."
+      }
+    ]
+  }
 }
