@@ -3,7 +3,7 @@
 //!
 //!     sculpted-faucet-print-project <project.3mf> [--slice-output DIRECTORY]
 //!                                 [--printer Mark1|Mark2] [--filament-colour '#RRGGBB']
-//!                                 [--base-section SECTION.stl | --tip-only | --tip-and-cover]
+//!                                 [--base-only] [--base-section SECTION.stl | --tip-only | --tip-and-cover]
 //!
 //! The five rigid parts are the faucet shell's base and tip, the display cover, the
 //! above-counter plate and the side-down lever. Their object settings, the solid foot regions
@@ -43,11 +43,16 @@ fn main() -> Result<()> {
     let project = PathBuf::from(args.next().context("expected a Sculpted .3mf output path")?);
     let mut slice_output = None;
     let mut base_section = None;
+    let mut base_only = false;
     let mut tip_only = false;
     let mut tip_and_cover = false;
     let mut printer = "Mark2".to_owned();
     let mut colour = "#FFFFFF".to_owned();
     while let Some(arg) = args.next() {
+        if arg == "--base-only" {
+            base_only = true;
+            continue;
+        }
         if arg == "--tip-only" {
             tip_only = true;
             continue;
@@ -66,10 +71,12 @@ fn main() -> Result<()> {
         }
     }
     let include_base = !tip_only && !tip_and_cover;
-    ensure!(!(tip_only && tip_and_cover) && (include_base || base_section.is_none()),
-        "--tip-only, --tip-and-cover and --base-section are mutually exclusive");
+    ensure!(!(tip_only && tip_and_cover) && (include_base || (!base_only && base_section.is_none())),
+        "--base-only and --base-section cannot be combined with a tip plate");
     let trim = hsm_print_prep::profile::petgf_z_trim(&root, &printer)?;
-    let title = if tip_only {
+    let title = if base_only {
+        format!("Sculpted faucet base PET-GF left {printer}")
+    } else if tip_only {
         format!("Sculpted faucet tip PET-GF left {printer}")
     } else if tip_and_cover {
         format!("Sculpted faucet tip and display cover PET-GF left {printer}")
@@ -82,13 +89,15 @@ fn main() -> Result<()> {
     };
     let faucet = root.join(FAUCET);
     let selection = read_json(&root.join(FINISH))?;
-    let full_plate = include_base && base_section.is_none();
+    let full_plate = include_base && !base_only && base_section.is_none();
     let mut parts = Vec::new();
     if include_base {
         parts.push(Part::new("faucet-shell-base", base_section.unwrap_or_else(|| faucet.join("faucet-shell/faucet-shell-base.stl")), -PRINT_BASE_BUILD_ROT.to_degrees()));
     }
-    parts.push(Part::new("faucet-shell-tip", faucet.join("faucet-shell/faucet-shell-tip.stl"), -PRINT_TIP_BUILD_ROT.to_degrees()));
-    if !tip_only {
+    if !base_only {
+        parts.push(Part::new("faucet-shell-tip", faucet.join("faucet-shell/faucet-shell-tip.stl"), -PRINT_TIP_BUILD_ROT.to_degrees()));
+    }
+    if !base_only && !tip_only {
         parts.push(Part::new("faucet-display-cover", faucet.join("faucet-display-cover/faucet-display-cover.stl"), -50.0));
     }
     if full_plate {
@@ -97,7 +106,7 @@ fn main() -> Result<()> {
             Part::new("lever-replica", faucet.join("lever-replica/lever-replica-side-down.stl"), 0.0),
         ]);
     }
-    let offsets = if tip_only {
+    let offsets = if base_only || tip_only {
         &[[0.0, 0.0]][..]
     } else if tip_and_cover {
         &TIP_AND_COVER_OFFSETS[..]
@@ -164,7 +173,9 @@ fn main() -> Result<()> {
         r.plate.settings.set("filament_multi_colour", list(&[&colour]));
     }
     r.plate.filament_map_mode = "Manual".into();
-    let seam_keys = if tip_only {
+    let seam_keys = if base_only {
+        &["rear_seam_enforcement"][..]
+    } else if tip_only {
         &["tip_rear_seam_enforcement"][..]
     } else if tip_and_cover {
         &["tip_rear_seam_enforcement", "cover_rear_seam_enforcement"][..]
@@ -190,16 +201,21 @@ fn main() -> Result<()> {
         let counterbores = block_plate_counterbores(&mut r, "above-counter-plate", radial_clearance, depth_allowance)?;
         r.extra.insert("mounting_plate_counterbores".into(), counterbores);
     }
-    let tip = add_tip_root_anchor(&root, &mut r, &selection["tip_supports"])?;
-    r.extra.insert("tip_supports".into(), tip);
-    let tip_index = r.row("faucet-shell-tip")?.index;
-    let tip_contact = add_tip_dispense_contact(&mut r, &selection["tip_dispense_contact"], &mapping["parameters"])?;
-    let tip_band_spec = tip_contact["band"].clone();
-    r.extra.insert("tip_dispense_contact".into(), tip_contact);
-    let (tip_rim, joint) = add_tip_rim_contact(&mut r, &selection["tip_supports"], &mapping["parameters"])?;
-    let joint_band_spec = joint["band"].clone();
-    r.extra.insert("tip_rim_contact".into(), joint);
-    let tip_end = tip_end_stretch(&r, &selection["tip_end_cooling"])?;
+    let tip_finish = if base_only {
+        None
+    } else {
+        let tip = add_tip_root_anchor(&root, &mut r, &selection["tip_supports"])?;
+        r.extra.insert("tip_supports".into(), tip);
+        let index = r.row("faucet-shell-tip")?.index;
+        let contact = add_tip_dispense_contact(&mut r, &selection["tip_dispense_contact"], &mapping["parameters"])?;
+        let band = ContactBand::new(&contact["band"])?;
+        r.extra.insert("tip_dispense_contact".into(), contact);
+        let (rim, joint) = add_tip_rim_contact(&mut r, &selection["tip_supports"], &mapping["parameters"])?;
+        let joint_band = ContactBand::new(&joint["band"])?;
+        r.extra.insert("tip_rim_contact".into(), joint);
+        let cooling = tip_end_stretch(&r, &selection["tip_end_cooling"])?;
+        Some((index, band, joint_band, rim, cooling))
+    };
 
     let mut changes = r.profile.changes.clone();
     if let Json::Map(entries) = &r.plate.settings {
@@ -245,9 +261,10 @@ fn main() -> Result<()> {
     std::fs::write(project.with_extension("print.json"), serde_json::to_string_pretty(&report)? + "\n")?;
     println!("{}", project.display());
     if let Some(directory) = slice_output {
-        let tip_band = ContactBand::new(&tip_band_spec)?;
-        let joint = ContactBand::new(&joint_band_spec)?;
-        let mut bands = vec![(tip_index, &tip_band), (tip_index, &joint)];
+        let mut bands = Vec::new();
+        if let Some((index, band, joint, _, _)) = &tip_finish {
+            bands.extend([(*index, band), (*index, joint)]);
+        }
         if let Some((base, _, band)) = &base_contact {
             bands.insert(0, (*base, band));
         }
@@ -256,8 +273,10 @@ fn main() -> Result<()> {
             report["rim_contour"] = apply_rim_contour(&project, &directory, *contour, band)?;
         }
         report["nonplanar_motion"] = motion;
-        report["tip_rim_contour"] = apply_tip_rim_contour(&project, &directory, tip_rim, &joint)?;
-        report["tip_end_cooling"] = apply_stretch_cooling(&project, &directory, "tip-end-cooling", &tip_end)?;
+        if let Some((_, _, joint, rim, cooling)) = &tip_finish {
+            report["tip_rim_contour"] = apply_tip_rim_contour(&project, &directory, *rim, joint)?;
+            report["tip_end_cooling"] = apply_stretch_cooling(&project, &directory, "tip-end-cooling", cooling)?;
+        }
         report["preparation_only"] = json!(false);
         std::fs::write(project.with_extension("print.json"), serde_json::to_string_pretty(&report)? + "\n")?;
     }
