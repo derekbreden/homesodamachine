@@ -1,0 +1,347 @@
+{
+  "purpose": "Compare friction and lever operation in the two fits of the front-top Wago tower.",
+  "source_revision": "fd0a62cdbd5e389cb5cf4790e331c81ccc2e30e3",
+  "source_sha256": {
+    "hardware/manifold-layout/junctions.json": "9dc938e52afd235079fdeaa4a1f4bf726090277696ca286bda7cae788e548c40",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step.npz": "e029fa10eab4830904df0035cde34c2cb8ffc1182fdf65c72a38ca304bd5f38a",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl": "8263cda99078487fa0c2a68e02f00907145d8a7e9facb98028dea7f2be874f2e",
+    "hardware/reference/wago-221/wago-221-415.step.npz": "a0b44315a03722ad92caf236864068a435fa62c5c8ae24f0a6b623a8f3585a59",
+    "hardware/reference/wago-221/wago-221-420.step.npz": "02297655d704f49bccedff5dc1174cef5efb1e4c86fbd79627805c3911596c6f",
+    "hardware/printed-parts/petgf.3mf": "1be18bdfd75b33efc898b3e5c28a0c1975fc694ef4d94dd88a909472cb96b97f"
+  },
+  "installed_mesh_sha256": "91e3a8608bd4704c5a1c2727ae8b322ff689aa918c4310f834b9ed71a7a989fa",
+  "fit": {
+    "baseline_pocket_volume_in_cropped_stock": 0.0,
+    "coupons": [
+      {
+        "markers": 1,
+        "name": "wago-fit-1",
+        "per_side_reduction_y": 0.5,
+        "per_side_reduction_z": 0.2,
+        "wells": [
+          {
+            "depth_x": 8.7,
+            "gauge_y_bounds": [
+              169.6,
+              184.7
+            ],
+            "gauge_z_bounds": [
+              262.15,
+              291.85
+            ],
+            "lever_relief": {
+              "ends_at_x": 101.65,
+              "remaining_grip_depth_x": 2.85,
+              "sides_y": [
+                -1,
+                1
+              ],
+              "z_bounds": [
+                262.775,
+                291.225
+              ]
+            },
+            "mouth_x": 95.8,
+            "old_dimensions": {
+              "y": 16.1,
+              "z": 30.1
+            },
+            "opening_y": 15.1,
+            "opening_z": 29.7,
+            "seat_x": 104.5,
+            "well": "wago-mana",
+            "nominal_sampled_lever_overlap_with_coupon_mm3": 0.0
+          },
+          {
+            "depth_x": 8.7,
+            "gauge_y_bounds": [
+              169.6,
+              177.3
+            ],
+            "gauge_z_bounds": [
+              228.05,
+              257.95
+            ],
+            "lever_relief": {
+              "ends_at_x": 101.35,
+              "remaining_grip_depth_x": 3.15,
+              "sides_y": [
+                -1
+              ],
+              "z_bounds": [
+                228.775,
+                257.225
+              ]
+            },
+            "mouth_x": 95.8,
+            "old_dimensions": {
+              "y": 8.7,
+              "z": 30.3
+            },
+            "opening_y": 7.7,
+            "opening_z": 29.9,
+            "seat_x": 104.5,
+            "well": "wago-manb",
+            "nominal_sampled_lever_overlap_with_coupon_mm3": 0.0
+          }
+        ],
+        "stl_sha256": "ffff2f346163a2dafa916418741279beb32200c46a6d7a49fe0288368ddb55d0",
+        "watertight": true,
+        "plate_bounds_mm": [
+          [
+            136.65,
+            148.95,
+            0.0
+          ],
+          [
+            148.35,
+            171.05,
+            70.199997
+          ]
+        ],
+        "build_transform": [
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0,
+          142.5,
+          160.0,
+          35.099998
+        ]
+      },
+      {
+        "markers": 2,
+        "name": "wago-fit-2",
+        "per_side_reduction_y": 0.75,
+        "per_side_reduction_z": 0.3,
+        "wells": [
+          {
+            "depth_x": 8.7,
+            "gauge_y_bounds": [
+              169.85,
+              184.45
+            ],
+            "gauge_z_bounds": [
+              262.25,
+              291.75
+            ],
+            "lever_relief": {
+              "ends_at_x": 101.65,
+              "remaining_grip_depth_x": 2.85,
+              "sides_y": [
+                -1,
+                1
+              ],
+              "z_bounds": [
+                262.775,
+                291.225
+              ]
+            },
+            "mouth_x": 95.8,
+            "old_dimensions": {
+              "y": 16.1,
+              "z": 30.1
+            },
+            "opening_y": 14.6,
+            "opening_z": 29.5,
+            "seat_x": 104.5,
+            "well": "wago-mana",
+            "nominal_sampled_lever_overlap_with_coupon_mm3": 0.0
+          },
+          {
+            "depth_x": 8.7,
+            "gauge_y_bounds": [
+              169.85,
+              177.05
+            ],
+            "gauge_z_bounds": [
+              228.15,
+              257.85
+            ],
+            "lever_relief": {
+              "ends_at_x": 101.35,
+              "remaining_grip_depth_x": 3.15,
+              "sides_y": [
+                -1
+              ],
+              "z_bounds": [
+                228.775,
+                257.225
+              ]
+            },
+            "mouth_x": 95.8,
+            "old_dimensions": {
+              "y": 8.7,
+              "z": 30.3
+            },
+            "opening_y": 7.2,
+            "opening_z": 29.7,
+            "seat_x": 104.5,
+            "well": "wago-manb",
+            "nominal_sampled_lever_overlap_with_coupon_mm3": 0.0
+          }
+        ],
+        "stl_sha256": "c0d147fa780a5a9266a0da53263a01b0b116dbce53d2abe34971e6ac6b8e7b81",
+        "watertight": true,
+        "plate_bounds_mm": [
+          [
+            176.65,
+            148.95,
+            0.0
+          ],
+          [
+            188.35,
+            171.05,
+            70.199997
+          ]
+        ],
+        "build_transform": [
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0,
+          182.5,
+          160.0,
+          35.099998
+        ]
+      }
+    ],
+    "crop_bounds": [
+      [
+        95.8,
+        166.1,
+        224.85
+      ],
+      [
+        107.5,
+        188.2,
+        295.05
+      ]
+    ],
+    "part": "printed-parts/enclosure/enclosure/enclosure-front-top.step"
+  },
+  "motion_model": "Rigid rotations around the estimated hinge at the rear of the closed lever replica, sampled from closed to upright in the seated coupon. Thumb access, actual lever travel and insertion force are physical observations.",
+  "depth_choice": {
+    "nominal_x_depth_mm": 8.7,
+    "nominal_outer_backing_mm": 3.0,
+    "backing_center_ray_mm": {
+      "wago-mana": 3.0,
+      "wago-manb": 2.806319
+    },
+    "upper_body_gap_to_foam_lid_mm": 2.897372,
+    "trial_shallower_translation_x_mm": -5.8,
+    "trial_shallower_upper_body_overlap_with_foam_lid_mm3": 0.40989,
+    "design": "Keep the seat position and open the lip only across the moving lever rows. Retaining faces carry the molded bodies at the back of each pocket.",
+    "sampled_lever_sweeps": {
+      "increment_deg": 5,
+      "scope": "Estimated lever hinges against the printed front-top, foam lid and foam shell. Position zero uses the seated rear stop. Wire dressing and hand access are physical checks.",
+      "results": [
+        {
+          "well": "wago-mana",
+          "translation_x_mm": 0.0,
+          "foam_lid_max_overlap_mm3": 0.0,
+          "foam_lid_gap_at_full_open_mm": 13.96554,
+          "foam_shell_max_overlap_mm3": 0.0,
+          "current_holder_max_overlap_mm3": 52.45302
+        },
+        {
+          "well": "wago-mana",
+          "translation_x_mm": -2.5,
+          "foam_lid_max_overlap_mm3": 0.0,
+          "foam_lid_gap_at_full_open_mm": 12.31508,
+          "foam_shell_max_overlap_mm3": 0.0,
+          "current_holder_max_overlap_mm3": 18.75405
+        },
+        {
+          "well": "wago-manb",
+          "translation_x_mm": 0.0,
+          "foam_lid_max_overlap_mm3": 0.0,
+          "foam_lid_gap_at_full_open_mm": 20.80298,
+          "foam_shell_max_overlap_mm3": 0.0,
+          "current_holder_max_overlap_mm3": 52.45302
+        },
+        {
+          "well": "wago-manb",
+          "translation_x_mm": -2.5,
+          "foam_lid_max_overlap_mm3": 0.0,
+          "foam_lid_gap_at_full_open_mm": 19.21945,
+          "foam_shell_max_overlap_mm3": 0.0,
+          "current_holder_max_overlap_mm3": 5.45961
+        }
+      ]
+    }
+  },
+  "source_project": "front-top-wago-fit-mark2.3mf",
+  "source_project_sha256": "945555a28c2e72404f2b3fd36fe2520622755286a27222ca6935c5ebe0db78fa",
+  "launch_record": "launch.json",
+  "slice": {
+    "archive": {
+      "gcode_sha256": "9c03da760c4803d06c392645d94986c7dfa1b4754e83263a1a6f55fff7d77672",
+      "name": "front-top-wago-fit-mark2-ready.gcode.3mf",
+      "objects": [
+        "Wago fit 1",
+        "Wago fit 2"
+      ],
+      "sha256": "5e98a69222653b105d999e42c2b4ef05459ab937da4afc940ac3327c886f8dfe",
+      "slots": {
+        "1": {
+          "colour": "161616",
+          "type": "PET-CF"
+        }
+      }
+    },
+    "printer": "Mark2",
+    "material": "Black Polymaker Fiberon PET-GF15",
+    "bed": "Textured PEI Plate",
+    "left_nozzle_diameter_mm": 0.4,
+    "firmware_z_trim_mm": 0.02,
+    "first_layer_height_mm": 0.2,
+    "layer_height_mm": 0.24,
+    "bridge_angle_deg": 90,
+    "support_roads": 0,
+    "layers": 293,
+    "estimated_seconds": 2881.283769,
+    "estimated_filament_g": 14.513885,
+    "bead_envelope_plate_mm": [
+      [
+        133.615918,
+        145.915918
+      ],
+      [
+        191.384082,
+        174.084082
+      ]
+    ],
+    "minimum_bead_margin_mm": 133.615918,
+    "slicer_warnings": [],
+    "emitted_bridge_levels_mm": {
+      "wago-mana": [
+        66.68,
+        67.16
+      ],
+      "wago-manb": [
+        32.6,
+        33.32
+      ]
+    }
+  },
+  "physical_fit": "Pending.",
+  "status_at_handoff": {
+    "state": "PAUSE",
+    "layer_num": 0,
+    "observed_at": "2026-11-13T01:37:14+00:00",
+    "error": "0300-801E",
+    "message": "The extrusion motor is overloaded, please check the Assistant for details.",
+    "recovery": "Cut the left PET-GF, unload, remove the cut segment, and reload before resuming the same job."
+  }
+}

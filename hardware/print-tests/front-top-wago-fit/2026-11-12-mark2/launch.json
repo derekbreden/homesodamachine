@@ -1,0 +1,27 @@
+{
+  "archive": {
+    "gcode_sha256": "9c03da760c4803d06c392645d94986c7dfa1b4754e83263a1a6f55fff7d77672",
+    "name": "front-top-wago-fit-mark2-ready.gcode.3mf",
+    "objects": [
+      "Wago fit 1",
+      "Wago fit 2"
+    ],
+    "sha256": "5e98a69222653b105d999e42c2b4ef05459ab937da4afc940ac3327c886f8dfe",
+    "slots": {
+      "1": {
+        "colour": "161616",
+        "type": "PET-CF"
+      }
+    }
+  },
+  "gcode_state": "RUNNING",
+  "hms": [],
+  "layer_num": 0,
+  "mc_remaining_time": 37,
+  "observed_at": "2026-11-13T01:32:59+00:00",
+  "print_error": 0,
+  "printer": "Mark2",
+  "printer_task_id": "1437352592",
+  "subtask_name": "front-top-wago-fit-mark2-ready.gcode.3mf",
+  "total_layer_num": 293
+}
