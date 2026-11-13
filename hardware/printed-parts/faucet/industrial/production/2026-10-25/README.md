@@ -1,22 +1,21 @@
-# Approved Industrial faucet print sources
+# The approved Industrial faucet print's meshes
 
 The five STLs in this directory are byte-identical copies of the inputs to the
 approved physical prints. The [production selection](../../production-selection.json)
-identifies each source, its SHA-256 and its print task. The complete-faucet
-preparer uses these meshes for subsequent prints.
+names each beside the generated part that prints in its place, with its SHA-256
+and its print task. Nothing prints from this directory; a generated part is read
+against the mesh here.
 
-The set contains the Industrial base, lowered shared tip with four foot recesses
-and two switch pockets, extended-front-skirt Sculpted cover, rigid Industrial
-above-counter plate and side-down lever. The cover is task 1374330388; the
+The set contains the Industrial base, the lowered shared tip with four foot recesses
+and two switch pockets, the extended-front-skirt display cover, the rigid Industrial
+above-counter plate and the side-down lever. The cover is task 1374330388; the
 remaining four parts are from task 1372253517. The TPU gasket is a separate print.
 
-The [corrected tip STEP](faucet-shell-tip.step) and the
-[relaxed cover STEP](sculpted-display-cover-print.step) are the sources for
-the production tip and cover meshes. The
-[nominal seated cover STEP](sculpted-display-cover-seated.step) supplies the
-installed shape. Its frozen surface is tessellated from that same STEP using
-the kernel's import tolerances. The Industrial assembly seats the display and
-cover at the accepted lowered datum.
+The [tip STEP](faucet-shell-tip.step) and the
+[relaxed cover STEP](sculpted-display-cover-print.step) are the sources of the
+approved tip and cover meshes. The
+[nominal seated cover STEP](sculpted-display-cover-seated.step) is that cover's
+installed shape.
 
 The [physical acceptance and five photographs](../../../faucet-display-cover/prints/2026-10-25-front-overlap-black-mark2/physical-result/physical-result.json)
 record working fit and approval. A visible front-corner gap remains and is accepted

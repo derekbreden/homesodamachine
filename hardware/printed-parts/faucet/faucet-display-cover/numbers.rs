@@ -3,7 +3,7 @@
 //! skirt round the neck up to its face over the display, its window opened for the glass, its
 //! lips snapping into the shell's grooves, printed with its sides bowed in.
 
-use hsm_faucet_numbers::interface::{DISPLAY_CORNER_R, DISPLAY_COVER_OVER_FACE, DISPLAY_HOUSING_WIDTH, display_cover_slip};
+use hsm_faucet_numbers::interface::{DISPLAY_CORNER_R, DISPLAY_COVER_OVER_FACE, DISPLAY_HOUSING_WIDTH};
 use hsm_faucet_numbers::shell::*;
 use hsm_faucet_numbers::snap;
 
@@ -24,20 +24,25 @@ pub const LIP_RELIEF: f64 = snap::LIP_INNER_EDGE_RELIEF;
 /// The lips' radius about the neck: the grooves' roots, which the sides' preload bears on.
 pub const LIP_R: f64 = DISPLAY_CLIP_LIP_RADIUS;
 /// How a side springs back when its lip is pushed out to its seat, as a share of the lip's lean:
-/// a bow along s, most at its centre and falling off as the square of the distance, to nothing
-/// where the side is tied into the cover's front and rear walls. `[peak, centre s, reach toward
-/// the tube exit, reach toward the base]`, at the skirt's bottom and at the display's seat.
-pub const SPRING_BACK_LOW: [f64; 4] = [1.05, 21.0, 26.2, 29.1];
-pub const SPRING_BACK_HIGH: [f64; 4] = [0.99, 21.5, 22.75, 27.3];
-/// How far each side's ends are let out over what the bow leaves them, from the skirt's bottom
-/// up to the display's seat. A side's ends spring back less than the bow allows. Left to bear on
-/// the neck, they are wedged outward, which levers the arch beside them up off the neck.
-pub const END_RELIEF: f64 = 0.25;
+/// a bow along s, most at its centre and falling off as the square of the distance. The thin
+/// strip over the nose arch lets the fore end swing nearly whole, and the deeper rear wall holds
+/// the aft end. `[peak, centre s, reach toward the tube exit, reach toward the base]`, at the
+/// skirt's bottom and at the skirt's datum.
+pub const SPRING_BACK_LOW: [f64; 4] = [1.12, 12.0, 36.0, 40.2];
+pub const SPRING_BACK_HIGH: [f64; 4] = [1.16, 14.9, 32.0, 34.6];
+/// The share of that bow a side's ends really spring back, `[at the skirt's bottom, from the
+/// skirt's datum up]`. A side's ends spring back less than the bow allows, and less the higher
+/// up the side. Printed with the whole bow, they bear on the neck and are wedged outward, which
+/// levers the arch beside them up off it; printed with none, they stand off it by what they do
+/// spring.
+pub const END_SPRING: [f64; 2] = [0.86, 0.60];
+/// What the arches and the sides' ends clear the neck by, seated.
+pub const ARCH_SLIP: f64 = 0.05;
 /// The pockets over the neck's crown, one in the nose over the dispense cap and one in the rear
 /// skirt, where an arch's underside prints low over its support: how far a pocket stands off the
-/// neck's clearance at the crown, and the angle from the crown at which it runs out into that
-/// clearance. Past it an arch's underside prints clean and keeps the neck's clearance alone.
-pub const CROWN_POCKET: f64 = 0.5;
+/// arch's clearance at the crown, and the angle from the crown at which it runs out into that
+/// clearance. Past it an arch's underside prints clean and keeps the arch's clearance alone.
+pub const CROWN_POCKET: f64 = 0.6;
 pub const CROWN_POCKET_REACH: f64 = std::f64::consts::FRAC_PI_6;
 
 /// The window along s.
@@ -50,9 +55,9 @@ pub fn window_n() -> [f64; 2] {
     [BEZEL_N_BOTTOM - 0.1, BEZEL_N_TOP + 1.0]
 }
 
-/// What the cover clears the neck by.
+/// The round the arches and the sides' ends are cut to about the neck.
 pub fn neck_clearance_r() -> f64 {
-    DISPLAY_NECK_OUTER_R + display_cover_slip()
+    DISPLAY_NECK_OUTER_R + ARCH_SLIP
 }
 
 /// How far a side leans in per millimetre down from the bezel where it springs back whole: its
@@ -79,30 +84,31 @@ pub fn crown_pocket() -> [f64; 2] {
     [r + d - out, out]
 }
 
-/// The ends' relief at (s, n): none along the lips, all of it from each tip on, eased between a
-/// lip's end and its tip; by height, all of it up to the display's seat, then away to nothing at
-/// the bezel.
-pub fn end_relief(s: f64, n: f64) -> f64 {
+/// How far toward its tip a side's end runs at s: nothing along the lips, all of it from each
+/// tip on, eased between a lip's end and its tip.
+pub fn end_run(s: f64) -> f64 {
     let ease = |t: f64| {
         let t = t.clamp(0.0, 1.0);
         t * t * (3.0 - 2.0 * t)
     };
     let [fore, aft] = wing_tips_s();
     let (lip_fore, lip_aft) = (display_clip_s_bottom(), display_clip_s_top());
-    let by_height = ((BEZEL_N_BOTTOM - n) / (BEZEL_N_BOTTOM - DISPLAY_SEAT_REFERENCE_N)).clamp(0.0, 1.0);
-    ease((lip_fore - s) / (lip_fore - fore)).max(ease((s - lip_aft) / (aft - lip_aft))) * END_RELIEF * by_height
+    ease((lip_fore - s) / (lip_fore - fore)).max(ease((s - lip_aft) / (aft - lip_aft)))
 }
 
 /// How far the relaxed print's side stands in toward the neck from its seated place at (s, n):
-/// the lean, by the share of it the side springs back there, less the ends' relief.
+/// the lean, by the share of it the side springs back there, and at the side's ends by the share
+/// of that the ends really spring.
 pub fn wing_inward(s: f64, n: f64) -> f64 {
     let bow = |[peak, centre, fore, aft]: [f64; 4]| {
         let reach = if s < centre { fore } else { aft };
         peak * (1.0 - ((s - centre) / reach).powi(2)).max(0.0)
     };
-    let up = ((n - DISPLAY_COVER_BOTTOM_N) / (DISPLAY_SEAT_REFERENCE_N - DISPLAY_COVER_BOTTOM_N)).clamp(0.0, 1.0);
+    let up = ((n - DISPLAY_COVER_BOTTOM_N) / (DISPLAY_COVER_DATUM_N - DISPLAY_COVER_BOTTOM_N)).clamp(0.0, 1.0);
     let share = bow(SPRING_BACK_LOW) * (1.0 - up) + bow(SPRING_BACK_HIGH) * up;
-    (wing_slope() * (BEZEL_N_BOTTOM - n).max(0.0) * share - end_relief(s, n)).max(0.0)
+    let [low, high] = END_SPRING;
+    let ends = 1.0 - end_run(s) * (1.0 - (low + (high - low) * up));
+    wing_slope() * (BEZEL_N_BOTTOM - n).max(0.0) * share * ends
 }
 
 /// The skin's outline rows, `[width, length, corner r, n, centre s]`: the skirt at its bottom and

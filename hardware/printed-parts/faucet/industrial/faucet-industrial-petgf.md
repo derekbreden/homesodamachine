@@ -10,11 +10,12 @@ iteration on that gap is requested.
 
 The first bed layer retains **Bambu’s 0.20 mm default**; every later layer is
 **0.24 mm**. There are no fine layer bands, and independent support layer
-height is Off. The approved source meshes are preserved in
-[the production source set](production/2026-10-25/README.md),
-so preparation uses the actual printed parts. The display retains its 4.5 mm
-inward reduction, four 1 mm foot recesses and two 1 mm switch pockets. The cover
-retains the working glass and neck clearances and fixed snap datums.
+height is Off. The approved print's meshes are kept in
+[the approved print's folder](production/2026-10-25/README.md);
+preparation reads the generated parts the production selection names beside them.
+The tip's ledge holds the display low over the tube, with a recess for each foot and
+a pocket for each switch. The cover retains the working glass and neck clearances
+and fixed snap datums.
 
 The default project targets Mark2's fixed left hardened 0.4 mm Standard-flow
 nozzle, black Polymaker PET-GF on external slot 254, and Textured PEI. Each

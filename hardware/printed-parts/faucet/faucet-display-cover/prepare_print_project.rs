@@ -1,9 +1,9 @@
-//! faucet-cover-print-project — one approved Sculpted faucet cover on its own PET-GF plate.
+//! faucet-cover-print-project — the faucet's display cover on its own PET-GF plate.
 //! Never contacts a printer.
 //!
 //!     faucet-cover-print-project [--project P] [--printer Mark1|Mark2] [--filament-colour #RRGGBB]
 //!
-//! The cover is the exact approved STL in the production source set, in its approved pose, with
+//! The cover is the generated STL the production selection names, in its approved pose, with
 //! the approved cover print's settings and object settings, the printer's Z trim, and the
 //! selection's first bed layer and later layers.
 
@@ -18,7 +18,7 @@ use std::path::{Path, PathBuf};
 
 const HERE: &str = "hardware/printed-parts/faucet/faucet-display-cover";
 const SELECTION: &str = "hardware/printed-parts/faucet/industrial/production-selection.json";
-const TITLE: &str = "Approved Sculpted faucet display cover";
+const TITLE: &str = "Faucet display cover";
 /// The cover keeps this far inside the plate's edge.
 const PLATE_BORDER: f64 = 80.0;
 
@@ -53,7 +53,7 @@ fn main() -> Result<()> {
     }
     let trim = hsm_print_prep::profile::petgf_z_trim(&root, &printer)?;
     let selection: Value = serde_json::from_slice(&std::fs::read(root.join(SELECTION))?)?;
-    let row = selection["parts"].as_array().into_iter().flatten().find(|p| p["name"] == "sculpted-display-cover").context("no approved cover")?;
+    let row = selection["parts"].as_array().into_iter().flatten().find(|p| p["name"] == "sculpted-display-cover").context("the selection names no cover")?;
     let source = root.join(selection["settings_source"].as_str().context("settings source")?);
     let part = Part::new("sculpted-display-cover", root.join(row["source"].as_str().context("cover source")?), row["rotation_x_degrees"].as_f64().context("cover pose")?);
     let mut r = refresh::refresh(&root, &source, &[part], &[[0.0, 0.0]], TITLE, Some(trim), PLATE_BORDER)?;
@@ -99,6 +99,6 @@ fn main() -> Result<()> {
     report["settings_preserved_byte_for_byte"] = json!(preserved);
     report["settings_sha256"] = json!(sha256_hex((r.plate.settings.dumps() + "\n").as_bytes()));
     std::fs::write(project.with_extension("print.json"), serde_json::to_string_pretty(&report)? + "\n")?;
-    println!("{}: approved cover; {first:.2} mm first layer, {layer:.2} mm later layers; {printer}", relative(&project, &root));
+    println!("{}: display cover; {first:.2} mm first layer, {layer:.2} mm later layers; {printer}", relative(&project, &root));
     Ok(())
 }
