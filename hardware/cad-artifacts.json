@@ -55,7 +55,7 @@
     "hardware/install-guide/plumbing/modern/art/modern-tee-tug-check.png": "8f062e9ef1cee06b9cb01395c324d0e82806504b257a2049057ac6a7098d120f",
     "hardware/install-guide/plumbing/modern/art/modern-water-off.png": "208d30cfa3bad79f7173b338a3fe1f6f9fd42f8c2d7aae402fa4720906752e9d",
     "hardware/install-guide/plumbing/modern/art/modern-water-on.png": "28ae8937a70f7a55571a37a303b38477bef45d5c4c9d2aef2c22fe58da4c34f8",
-    "hardware/manifold-layout/enclosure-assembly.facts.json": "7fe5548b9972ab514f70becfbc21d981cd438531293d2c03d9f8014b6c473152",
+    "hardware/manifold-layout/enclosure-assembly.facts.json": "e000075f00e409ac78ebb4400f5e60ca057babe429c6b566db841a9523378210",
     "hardware/manifold-layout/enclosure-assembly.physical.step.mesh": "96be0d51a69a4bfce5f3984d9f08a82c5a97fa6c220bf7d72d389c15af217370",
     "hardware/manifold-layout/enclosure-assembly.step.mesh": "2b7353f35e04af284d13c148f2adee8facced01a0bf576cea3f82f8ec0b4baa5",
     "hardware/manifold-layout/manifold-layout.step": "3fd31ca1b78af2be4868175bb325370c9cfdebf1bb465778901b55c1912ec7eb",
@@ -154,7 +154,7 @@
     "hardware/printed-parts/cold-core/magnetic-float/body-aero.stl": "404d68abd9ea96fd53b77ec03ff403544a0c59bb59cafe8dc7f6a23c9c1e368c",
     "hardware/printed-parts/cold-core/magnetic-float/body-petg.step": "55e065e526dd5f3d97623908f646c586ebb9227c319d2b8cb1cd899f9188748f",
     "hardware/printed-parts/cold-core/magnetic-float/body-petg.step.mesh": "c44112acc02b8d33b361074c7f8e1a42c82910e4f0c0b4a8974cfefd42be2fc2",
-    "hardware/printed-parts/cold-core/magnetic-float/body-petg.stl": "c7a94f946d45024b98223e1606fc462d138d6341d5352d9518d14763f4910f46",
+    "hardware/printed-parts/cold-core/magnetic-float/body-petg.stl": "b31378bc31b0a8936e65f94d25bfece54062c28eca3c23c5bec42851cd43a867",
     "hardware/printed-parts/cold-core/magnetic-float/exploded.step": "a66ac3bf025fb51703034d54ed300553d1f643519eabf00d4022273dfc950503",
     "hardware/printed-parts/cold-core/magnetic-float/exploded.step.mesh": "0023b5e8d33e4b89501ffea958d690f66ee344b2393b9b855608991d21bfefc3",
     "hardware/printed-parts/cold-core/magnetic-float/insert-aero.step": "d54b8c4d27fea89e317d669ae41e0739bab388a7aa7a800463ea6b6d1d05c179",
@@ -956,7 +956,7 @@
       "hardware/faucet-layout/faucet-assembly.step.mesh": "30c2980f1725eed6ce21e162cb2fa90398905ad9dea12aabfcfec79db36085b2",
       "hardware/faucet-layout/faucet-industrial-assembly.step": "af50be9ea18c5c5ea9af5d8aaf718f9c0a72f6a0e9b8af8e9cdee0a8afd656d4",
       "hardware/faucet-layout/faucet-industrial-assembly.step.mesh": "30a1b7a2b1b1a8c4dbe5091e33f8884b9149b0f3fb8650ce906e106da5e28456",
-      "hardware/manifold-layout/enclosure-assembly.facts.json": "7fe5548b9972ab514f70becfbc21d981cd438531293d2c03d9f8014b6c473152",
+      "hardware/manifold-layout/enclosure-assembly.facts.json": "e000075f00e409ac78ebb4400f5e60ca057babe429c6b566db841a9523378210",
       "hardware/manifold-layout/enclosure-assembly.step.mesh": "2b7353f35e04af284d13c148f2adee8facced01a0bf576cea3f82f8ec0b4baa5",
       "hardware/pcb/pcba/out/pcba.bom.csv": "8e50da9512f4775249bb0a81e7ef8dc1059fbd3ed31513aaae1511838bb65209",
       "hardware/pcb/pcba/out/pcba.bottom.png": "9daeef19d29ef35ba7c6d0f04a7090ca88bb2d3795f5a9470c4447f6f3207f5a",
@@ -2515,7 +2515,7 @@
     "hardware/install-guide/plumbing/modern/art/modern-tee-tug-check.png": 1793690801,
     "hardware/install-guide/plumbing/modern/art/modern-water-off.png": 1793830497,
     "hardware/install-guide/plumbing/modern/art/modern-water-on.png": 1793830497,
-    "hardware/manifold-layout/enclosure-assembly.facts.json": 1794288165.406084,
+    "hardware/manifold-layout/enclosure-assembly.facts.json": 1794681692.275848,
     "hardware/manifold-layout/enclosure-assembly.physical.step.mesh": 1793858653,
     "hardware/manifold-layout/enclosure-assembly.step.mesh": 1794560556.574642,
     "hardware/manifold-layout/manifold-layout.step": 1794269272.362814,
@@ -2614,7 +2614,7 @@
     "hardware/printed-parts/cold-core/magnetic-float/body-aero.stl": 1793508101,
     "hardware/printed-parts/cold-core/magnetic-float/body-petg.step": 1793712586,
     "hardware/printed-parts/cold-core/magnetic-float/body-petg.step.mesh": 1793712586,
-    "hardware/printed-parts/cold-core/magnetic-float/body-petg.stl": 1794020573,
+    "hardware/printed-parts/cold-core/magnetic-float/body-petg.stl": 1794681692.275848,
     "hardware/printed-parts/cold-core/magnetic-float/exploded.step": 1793712586,
     "hardware/printed-parts/cold-core/magnetic-float/exploded.step.mesh": 1793938190,
     "hardware/printed-parts/cold-core/magnetic-float/insert-aero.step": 1793712586,
@@ -3546,8 +3546,7 @@
       "unproven": true
     },
     "hardware/manifold-layout/enclosure-assembly.facts.json": {
-      "commit": "7c98a7d9edc255e250bef1e0ff6e666eb5edc731",
-      "inputs": "8a9fea37d9fe264b0aac07c7f4f475699e12678ecdd541fd67be8bbd72982312",
+      "commit": "c6226fac7e88bd49802eab32d6980b7326c7175b",
       "unproven": true
     },
     "hardware/manifold-layout/enclosure-assembly.physical.step.mesh": {
@@ -3816,9 +3815,8 @@
       "unproven": true
     },
     "hardware/printed-parts/cold-core/magnetic-float/body-petg.stl": {
-      "commit": "df7625e834599bec270275679a9a1f4b4358e0c6",
-      "inputs": "a7840961c6ca20d1f00f7799c15b9c5498f91f4db9513e3fc2a6b23cde9a9c12",
-      "unproven": true
+      "commit": "c6226fac7e88bd49802eab32d6980b7326c7175b",
+      "inputs": "b9a06d807bd9f6c17000583d8d6e19854e7b2928b0714eb1ea6858733116012d"
     },
     "hardware/printed-parts/cold-core/magnetic-float/exploded.step": {
       "commit": "41976ea8aadc1cfeb0ae6b57aaba91944ba40bf2",
