@@ -78,12 +78,6 @@
       "tried": "the printed frame assembled with the enclosure quarters"
     },
     {
-      "material": "HSM-0078",
-      "date": "2026-10-07",
-      "said": "I have a front top printed for it and a front bottom and a back bottom and a cold core foam shell (no top or cap) and pump cradle and cap, and a tee carrier, and a funnel frame. Reservoirs are starting to print now. And all those prints fit together right now",
-      "tried": "the printed front bottom assembled with the other quarters, the foam shell and the funnel frame"
-    },
-    {
       "material": "HSM-0079",
       "date": "2026-10-07",
       "said": "I have a front top printed for it and a front bottom and a back bottom and a cold core foam shell (no top or cap) and pump cradle and cap, and a tee carrier, and a funnel frame. Reservoirs are starting to print now. And all those prints fit together right now",
@@ -329,6 +323,13 @@
       "said": "So this is the best looking faucet base bottom that we've had ever, at least at this angle. ... And it's still looking better than we've ever had before towards the fore side, towards the front side. But it is definitely looser there. ... And the same for the faucet base. What we just had there needs to be implemented as well, because it's better than anything we've had before, regardless of what we try next.",
       "tried": "the printed Sculpted base in hand, its underside after the support came off",
       "record": "https://github.com/derekbreden/homesodamachine/blob/727125473a61a56604e145292ffd41d6984f49a0/hardware/printed-parts/faucet/sculpted/prints/2026-11-13-sloped-underside-complete-mark2/physical-result/physical-result.json"
+    },
+    {
+      "material": "HSM-0079",
+      "date": "2026-11-14",
+      "said": "So on the latest print of the enclosure front top, we ended up with some corner lifting. Other than that, everything seems to be pretty good on this last print, except for one fit issue.",
+      "tried": "the full printed front top on the front-bottom rails, with corner lift at the seam and interference at the collet plate land",
+      "record": "hardware/printed-parts/enclosure/enclosure/prints/2026-11-13-front-top-wago-mark1/physical-result/physical-result.json"
     }
   ]
 }
