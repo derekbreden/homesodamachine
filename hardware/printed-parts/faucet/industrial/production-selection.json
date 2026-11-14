@@ -23,10 +23,11 @@
       "source": "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.stl",
       "rotation_x_degrees": -105.0,
       "approved_print": {
-        "mesh": "hardware/printed-parts/faucet/industrial/production/2026-10-25/faucet-shell-tip.stl",
-        "stl_sha256": "35ec9f0b99c5e90f038836549e6f5e8f112b2af03e1849b08b2d759050d260e6",
-        "printed_source": "hardware/printed-parts/faucet/faucet-display-cover/fit-review/2026-10-24/corrected-tip.stl",
-        "task_id": "1372253517"
+        "mesh": "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.stl",
+        "stl_sha256": "cf815f829c3925edc5f2b6cb268d771366fb75feb246eb39ba896c0c5770af4d",
+        "printed_source": "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.stl",
+        "task_id": "1440074146",
+        "physical_result": "hardware/printed-parts/faucet/sculpted/prints/2026-11-13-sloped-underside-complete-mark2/physical-result/physical-result.json"
       }
     },
     {
@@ -34,10 +35,11 @@
       "source": "hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.stl",
       "rotation_x_degrees": -50.0,
       "approved_print": {
-        "mesh": "hardware/printed-parts/faucet/industrial/production/2026-10-25/sculpted-display-cover.stl",
-        "stl_sha256": "3d4d2e05edde5a0e45aad36e9de072a57103c3b0f8da2bbd875cbfbedbe68133",
-        "printed_source": "hardware/printed-parts/faucet/faucet-display-cover/corner-overlap-review/2026-10-25/proposed-cover.stl",
-        "task_id": "1374330388"
+        "mesh": "hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.stl",
+        "stl_sha256": "d0d9c079bd60d82ccf8ed20f722db71983409166649a3d3c4136505d78911c52",
+        "printed_source": "hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.stl",
+        "task_id": "1440074146",
+        "physical_result": "hardware/printed-parts/faucet/sculpted/prints/2026-11-13-sloped-underside-complete-mark2/physical-result/physical-result.json"
       }
     },
     {
@@ -84,7 +86,7 @@
     "record": "hardware/printed-parts/faucet/faucet-display-cover/prints/2026-10-25-front-overlap-black-mark2/physical-result/physical-result.json"
   },
   "historical_shipping_acceptance": "hardware/printed-parts/faucet/industrial/physical-acceptance.json",
-  "scope": "The approval covers the head both faucet styles share, the tip with its lowered display seat and the Sculpted display cover, and the Industrial base, above-counter plate and lever printed with it. Each part prints from the mesh its generator makes; approved_print names the mesh Derek's approved print used, which is the check a generated part is read against. Historical physical records retain their own scope.",
+  "scope": "The approval covers the head both faucet styles share, the tip with its lowered display seat and the Sculpted display cover, and the Industrial base, above-counter plate and lever. The tip's and cover's approved print is the complete Sculpted faucet on Mark2 whose record each block names; the base, plate and lever keep the approved print their own blocks name. Each part prints from the mesh its generator makes; approved_print names the mesh Derek's approved print used, by its hash, which is the check a generated part is read against. Historical physical records retain their own scope.",
   "production_tag": "faucet-industrial-production-2026-10-25-first020",
   "first_layer_selection_quote": "I don't know why bambu defaults 0.24 layer height to a 0.20 first layer, but if I don't have a reason to muck with a bambu default choice, I don't muck with it. I haven't had a reason to muck with it ..."
 }
