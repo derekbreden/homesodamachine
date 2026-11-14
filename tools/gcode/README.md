@@ -11,6 +11,7 @@ sent, and answer questions about a whole part rather than a chosen window of it.
 | What speed is commanded at this place on the outer wall, layer by layer? | `hsm-gcode speeds` |
 | Show the commanded walls with seam markers or speed colours | `hsm-gcode view seams` or `hsm-gcode view speed` |
 | Watch consecutive layers deposit under the moving head and bed | `hsm-gcode view playback` |
+| Did a change to a print stage change what prints? | `hsm-gcode compare` |
 
 ```bash
 hsm-gcode seams SLICE.gcode.3mf PRINT.json --part industrial-shell-base --project PROJECT.3mf
@@ -25,22 +26,33 @@ hsm-gcode view speed "A=FIRST.gcode.3mf" "B=SECOND.gcode.3mf" --mark-layers FIRS
 ```
 
 ```bash
+hsm-gcode compare BEFORE.gcode.3mf AFTER.gcode.3mf
+```
+
+`compare` reads two slices or G-code files. For each feature it reports the bead length
+each lays, the plastic, and how much of each one's bead length lies on the other's beads of
+that feature. It then lists the layers that differ and the longest stretches only one slice
+lays. Beads are matched where they lie, so sloped and warped courses compare as level ones
+do. `--tolerance` sets how close counts as on; `--json` writes every group.
+
+```bash
 hsm-gcode view playback SLICE.gcode.3mf --layers FIRST-LAST --title "Print motion" --out PAGE.html
 hsm-gcode view playback SLICE.gcode.3mf --layers all --inline --title "Whole plate" --out PAGE.html
 ```
 
 Playback runs continuously across the selected layers, with a timeline, playback speed and
-print, nozzle-following and whole-printer cameras. It draws the emitted deposition paths,
-moves the bed and its deposited material opposite commanded Z, and keeps the head in the
-gantry plane. `--bed-model` accepts the binary build-plate STL from the printer's profile;
-the remaining H2C hardware is a simplified reference model. Start at the first layer when
+print, nozzle-following and whole-printer cameras. The Print and Whole printer cameras stay
+fixed relative to the frame during playback and scrubbing. The head moves in XY at gantry
+height as the bed and deposited paths move opposite commanded Z. Follow nozzle tracks the
+head in XY. `--bed-model` accepts the binary build-plate STL from the printer's profile.
+The remaining H2C hardware is a simplified reference model. Start at the first layer when
 the view needs all previously deposited material.
 
 `--inline` packs sampled head motion and simplified bead paths for the chat visualization
-reader. It retains the selected print timeline and uses the same motion planner as the
-detailed view. Larger plates can select a consecutive range with `--layers` to fit the
-inline limit. The Print camera follows the plate as it moves, and Whole printer keeps
-the frame in view.
+reader. It uses the shared website player and the same motion planner as the detailed view.
+For a custom playback, frame the bed's travel when setting the camera preset, then keep the
+camera and orbit target fixed as playback advances. Larger plates can select a consecutive
+range with `--layers` to fit the inline limit.
 
 `--inline --data` writes the sampled playback data for a [website Print view](../../print-playbacks/README.md).
 
