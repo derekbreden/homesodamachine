@@ -1,0 +1,235 @@
+{
+  "purpose": "Measure rigid clearance of the transferred cover lip under plausible inward spring variation.",
+  "nominal_addition_near_seam_volume_mm3": 42.022397148281655,
+  "relaxed_addition_near_seam_volume_mm3": 41.434113664788846,
+  "relaxed_addition_if_treated_rigid_shared_volume_mm3": 0.0,
+  "relaxed_addition_if_treated_rigid_clearance_mm_capped_1": 0.16000188452498065,
+  "cap_release_toward_display_normal": [
+    {
+      "s_mm": 0.02,
+      "tested_sections_across_x": 265,
+      "violation_count": 0,
+      "max_retained_tip_above_removed_tip_mm": 0.0
+    },
+    {
+      "s_mm": 0.25,
+      "tested_sections_across_x": 265,
+      "violation_count": 0,
+      "max_retained_tip_above_removed_tip_mm": 0.0
+    },
+    {
+      "s_mm": 0.5,
+      "tested_sections_across_x": 265,
+      "violation_count": 0,
+      "max_retained_tip_above_removed_tip_mm": 0.0
+    },
+    {
+      "s_mm": 1.0,
+      "tested_sections_across_x": 265,
+      "violation_count": 0,
+      "max_retained_tip_above_removed_tip_mm": 0.0
+    },
+    {
+      "s_mm": 1.44,
+      "tested_sections_across_x": 265,
+      "violation_count": 0,
+      "max_retained_tip_above_removed_tip_mm": 0.0
+    },
+    {
+      "s_mm": 1.8,
+      "tested_sections_across_x": 265,
+      "violation_count": 0,
+      "max_retained_tip_above_removed_tip_mm": 0.0
+    },
+    {
+      "s_mm": 1.99,
+      "tested_sections_across_x": 265,
+      "violation_count": 0,
+      "max_retained_tip_above_removed_tip_mm": 0.0
+    }
+  ],
+  "clearance_sensitivity_open_approach": [
+    {
+      "hypothetical_inward_mm_at_fascia_corner": 0.0,
+      "prescribed_x_scale": 1.0,
+      "interference_at_full_seat_mm3": 0.0,
+      "minimum_solid_clearance_mm_capped_1": 0.04592322430107308,
+      "at_insert_motion_first_3mm_interference_mm3": [
+        [
+          0.15,
+          0.0
+        ],
+        [
+          0.3,
+          0.0
+        ],
+        [
+          0.6,
+          0.0
+        ],
+        [
+          1.0,
+          0.0
+        ],
+        [
+          2.0,
+          0.0
+        ],
+        [
+          3.0,
+          0.0
+        ]
+      ]
+    },
+    {
+      "hypothetical_inward_mm_at_fascia_corner": 0.05,
+      "prescribed_x_scale": 0.9923076923076923,
+      "interference_at_full_seat_mm3": 6.418476861114186e-17,
+      "minimum_solid_clearance_mm_capped_1": 0.0,
+      "at_insert_motion_first_3mm_interference_mm3": []
+    },
+    {
+      "hypothetical_inward_mm_at_fascia_corner": 0.1,
+      "prescribed_x_scale": 0.9846153846153847,
+      "interference_at_full_seat_mm3": 4.024558537678472e-16,
+      "minimum_solid_clearance_mm_capped_1": 0.0,
+      "at_insert_motion_first_3mm_interference_mm3": [
+        [
+          0.15,
+          1.0495077029659683e-16
+        ],
+        [
+          0.3,
+          0.0
+        ],
+        [
+          0.6,
+          0.0
+        ],
+        [
+          1.0,
+          0.0
+        ],
+        [
+          2.0,
+          0.0
+        ],
+        [
+          3.0,
+          0.0
+        ]
+      ]
+    },
+    {
+      "hypothetical_inward_mm_at_fascia_corner": 0.15,
+      "prescribed_x_scale": 0.9769230769230769,
+      "interference_at_full_seat_mm3": 8.631439503263987e-16,
+      "minimum_solid_clearance_mm_capped_1": 0.0,
+      "at_insert_motion_first_3mm_interference_mm3": []
+    },
+    {
+      "hypothetical_inward_mm_at_fascia_corner": 0.2,
+      "prescribed_x_scale": 0.9692307692307692,
+      "interference_at_full_seat_mm3": 1.820632995327516e-15,
+      "minimum_solid_clearance_mm_capped_1": 0.0,
+      "at_insert_motion_first_3mm_interference_mm3": [
+        [
+          0.15,
+          1.096345236817342e-15
+        ],
+        [
+          0.3,
+          5.620504062164855e-16
+        ],
+        [
+          0.6,
+          3.903127820947816e-17
+        ],
+        [
+          1.0,
+          0.0
+        ],
+        [
+          2.0,
+          0.0
+        ],
+        [
+          3.0,
+          0.0
+        ]
+      ]
+    },
+    {
+      "hypothetical_inward_mm_at_fascia_corner": 0.3,
+      "prescribed_x_scale": 0.9538461538461539,
+      "interference_at_full_seat_mm3": 5.0124824195896055e-15,
+      "minimum_solid_clearance_mm_capped_1": 0.0,
+      "at_insert_motion_first_3mm_interference_mm3": [
+        [
+          0.15,
+          4.45476988630844e-15
+        ],
+        [
+          0.3,
+          3.427813588530171e-15
+        ],
+        [
+          0.6,
+          6.245004513516506e-16
+        ],
+        [
+          1.0,
+          1.6653345369377348e-16
+        ],
+        [
+          2.0,
+          0.0
+        ],
+        [
+          3.0,
+          0.0
+        ]
+      ]
+    },
+    {
+      "hypothetical_inward_mm_at_fascia_corner": 0.4,
+      "prescribed_x_scale": 0.9384615384615385,
+      "interference_at_full_seat_mm3": 5.925164023222183e-15,
+      "minimum_solid_clearance_mm_capped_1": 0.0,
+      "at_insert_motion_first_3mm_interference_mm3": [
+        [
+          0.15,
+          6.198275399882381e-15
+        ],
+        [
+          0.3,
+          5.413204606785625e-15
+        ],
+        [
+          0.6,
+          3.838075690598686e-15
+        ],
+        [
+          1.0,
+          3.9207461062507054e-16
+        ],
+        [
+          2.0,
+          0.0
+        ],
+        [
+          3.0,
+          0.0
+        ]
+      ]
+    },
+    {
+      "hypothetical_inward_mm_at_fascia_corner": 0.5,
+      "prescribed_x_scale": 0.9230769230769231,
+      "interference_at_full_seat_mm3": 8.033500951672015e-15,
+      "minimum_solid_clearance_mm_capped_1": 0.0,
+      "at_insert_motion_first_3mm_interference_mm3": []
+    }
+  ],
+  "scope": "The cover moves onto the tip along minus n. The cap relief must open in plus n. The cut is tested at axial sections. Clearance tests are geometric prescribed symmetric X scaling of the fascia only. Snap springback and interference force are physical results."
+}
