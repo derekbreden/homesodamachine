@@ -1,0 +1,70 @@
+{
+  "purpose": "Binds the Sculpted base's sloped foot to the courses this stage laid and what it kept of the plate.",
+  "input_archive": {
+    "path": ".cache/runs/faucet-sloped-slab-20261113/plate/slice/sculpted-faucet-sloped-foot-black-mark2.gcode.3mf",
+    "sha256": "a4b3063c8b8de065efebe822bcf9b7cafba7fac22e5e65fe504b1cefdb919cd4"
+  },
+  "gcode_sha256": "7eae6098f93a6286c7ba488b701377aac1cae0df05cf3521b48973d19672c5e6",
+  "seat_center_mm": [
+    85.49944496154785,
+    140.34437517845532,
+    7.635167989157424
+  ],
+  "tilt_x_degrees": -15,
+  "stack_normal_mm": {
+    "course": 0.24,
+    "air_asked": 0.24,
+    "roof_courses": 3,
+    "scaffold_ceiling": -0.96,
+    "roof_tops": [
+      -0.72,
+      -0.48,
+      -0.24
+    ],
+    "slab_top": 3.5999999999999996,
+    "shoulder_course": 14,
+    "plug_top": 2.88,
+    "deck_top": 3.5999999999999996
+  },
+  "roof_lip_mm": 2.0,
+  "laid": {
+    "ring_pieces": 324,
+    "narrow_rings": 288,
+    "fill_lines": 4269,
+    "scaffold_layers": 61,
+    "scaffold_top_mm": 14.6,
+    "sloped_courses": 15
+  },
+  "preamble": {
+    "seconds": 5922.2,
+    "filament_mm": 6273.89,
+    "extrusion_mm_by_feature": {
+      "Support": 60422.4,
+      "Support interface": 14358.3,
+      "Bottom surface": 3893.9,
+      "Outer wall": 6423.5,
+      "Internal solid infill": 50040.3,
+      "Bridge": 385.5
+    }
+  },
+  "plate": {
+    "kept_mm": 160929.648,
+    "dropped_mm": 141330.115,
+    "dropped_support_mm": 1526.419,
+    "lifted_travels": 1143,
+    "highest_lift_mm": 18.825,
+    "clipped_layers": 184,
+    "feathered_mm": 3318.419,
+    "least_base_head_clearance_mm": 2.187,
+    "least_other_head_clearance_mm": null,
+    "rewritten_travels": 15
+  },
+  "limits": {
+    "z_while_printing_mm_s": 7.5,
+    "z_while_travelling_mm_s": 15.0,
+    "head_travel_margin_mm": 3.0,
+    "nozzle_travel_margin_mm": 0.3,
+    "least_share_of_a_level_course_laid": 0.3,
+    "nozzle_over_slab_mm": 0.06
+  }
+}
