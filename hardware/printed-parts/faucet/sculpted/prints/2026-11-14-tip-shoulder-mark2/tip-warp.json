@@ -3,12 +3,12 @@
   "orientation_degrees": -105.0,
   "authored_plane_pick_world_xyz_mm": [
     186.49975395202637,
-    202.7935985002175,
+    202.7935984995988,
     24.97278027374805
   ],
   "physical_cad_to_plate_translation": [
     186.49975395202637,
-    -20.468862058499525,
+    -20.468862059118237,
     45.074331997790345
   ],
   "physical_rotation": [
@@ -43,15 +43,15 @@
     23.96
   ],
   "xy_limits_exact_plane_y_mm": [
-    193.58131372853504,
-    218.5984189243378
+    193.58131372791632,
+    218.5984189237191
   ],
   "outside_edge_blend_width_y_mm": 2.0,
   "full_angle_degrees": 35.0,
   "normal_course_mm": 0.24,
   "maximum_cad_error": {
     "max_sampled_edge_remap_error_mm": 0.012497699846981902,
-    "max_sampled_centroid_remap_error_mm": 0.012410999524220756,
+    "max_sampled_centroid_remap_error_mm": 0.012410999524234967,
     "tip_unchanged_under_z": 0.92,
     "tip_unchanged_above_z": 62.12
   },
@@ -59,13 +59,13 @@
     "physical_print_bounds_mm": [
       [
         173.00024604797363,
-        180.6951836840746,
+        180.6951836834559,
         0.0
       ],
       [
         199.99975395202637,
-        233.30481631177014,
-        136.93828624017087
+        233.30481631115143,
+        136.42083647808008
       ]
     ],
     "donor_nominal_physical_pitch_sample_mm": [
@@ -73,7 +73,7 @@
       0.40571871937800097
     ]
   },
-  "original_facet_count": 103290,
-  "warped_facet_count": 120538,
+  "original_facet_count": 103210,
+  "warped_facet_count": 120472,
   "minimum_invertibility_derivative": 0.25373955258700676
 }

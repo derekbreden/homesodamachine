@@ -1,186 +1,26 @@
 {
-  "purpose": "Bind the revised five-part Mark2 trial to the native sources for the revised dispense tip and cover.",
-  "prior_plate_commit": "ddd391f3d32bd8397f08b517ee58614fcd3e93ba",
-  "native_preparer_revision": "b6f0e6063170eeeb88f62527a1adeae12be4a3f6",
-  "finished_head_setting_source_revision": "c6cecb9b0acfdb41efaf5bbf9d7ee2777fda6d54",
-  "bambu_studio": "02.08.02.61",
-  "filament_profile": "Polymaker PET-GF @BBL H2C",
-  "bambu_spool_type": "PET-CF",
-  "printer": "Mark2",
-  "active_nozzle": "left hardened 0.4 mm",
-  "filament_color": "#161616",
-  "plate": "Textured PEI",
-  "operator_z_trim_mm": 0.1,
-  "keep_previous_body": [
-    1901,
-    1904,
-    1905
-  ],
-  "prior_archive_sha256": "3a66609d51b4e5df8e56758229892459836ce23b7cd1d55c80a5e094a9547390",
-  "prior_gcode_sha256": "f65174891a0a0a1886b4f2fa9b8e834633197cf7d9929f707e242e0a4bed0455",
+  "purpose": "Bind the revised Mark2 plate inputs, positions and sliced motion.",
+  "tip_shoulder_process_commit": "0849d44f937e237ba1d152ed45d5e370130fe779",
+  "native_preparer_commit": "b6f0e6063170eeeb88f62527a1adeae12be4a3f6",
+  "finish_settings_commit": "c6cecb9b0acfdb41efaf5bbf9d7ee2777fda6d54",
+  "retained_base_motion_commit": "ddd391f3d32bd8397f08b517ee58614fcd3e93ba",
+  "native_preparer_with_trial_settings_path_sha256": "28d04c05967d6db4d2f1a9a4f9189488f464f314106dad41de7755aed89afdc0",
+  "finished_base_mesh_sha256": "24ba0b3136a4aed9c437e8e2ae6c001c2d59c17b45ece10b2373541580fcdd44",
   "finish_selection_sha256": "0a3b931d193649c2d820aa3e8f6868029c43435bf5f70c901d0e3f90899aa6ec",
-  "filled_base_sha256": "24ba0b3136a4aed9c437e8e2ae6c001c2d59c17b45ece10b2373541580fcdd44",
-  "revised_native": {
-    "prepared_project_sha256": "77c064a881741efa6003ed517ec00d6db126b11228f844d512b35bcf1b8f3064",
+  "reference_base_mounting_plate_and_lever_gcode_sha256": "f65174891a0a0a1886b4f2fa9b8e834633197cf7d9929f707e242e0a4bed0455",
+  "printer": "Mark2",
+  "filament_profile": "Polymaker PET-GF @BBL H2C",
+  "active_nozzle": "left hardened 0.4 mm",
+  "operator_z_trim_mm": 0.1,
+  "plate": "Textured PEI",
+  "bambu_studio": "02.08.02.61",
+  "filament_color": "#161616",
+  "bambu_spool_type": "PET-CF",
+  "editable": {
+    "project_sha256": "17e91881883305d2dcba34975a47ed6f510f0d4ab51b722db016b212c4e37ab4",
     "native_settings_sha256": "5e658d48a6f1725a8981a08e4cebe06ed4cdb06cfb16ced962c84a0b9b9d0b30",
-    "native_first_bed_mm": 0.2,
-    "nominal_course_mm": 0.24,
-    "parts": [
-      {
-        "name": "faucet-shell-base",
-        "object_id": 1901,
-        "mesh_sha256": "24ba0b3136a4aed9c437e8e2ae6c001c2d59c17b45ece10b2373541580fcdd44",
-        "rotation_x_degrees": -14.999999999999998,
-        "cad_to_plate_origin_mm": [
-          85.49944496154785,
-          140.34437517845532,
-          7.635167989157424
-        ],
-        "plate_model_bounds_mm": [
-          [
-            55.03741455078125,
-            111.41052105960969,
-            0.0
-          ],
-          [
-            115.96258544921875,
-            208.58947894039034,
-            245.25146440494143
-          ]
-        ]
-      },
-      {
-        "name": "faucet-shell-tip",
-        "object_id": 1902,
-        "mesh_sha256": "d51f17ab76957c645b60e2de2248fa924f006e2b555954df4f5459f89834ad05",
-        "rotation_x_degrees": -105.0,
-        "cad_to_plate_origin_mm": [
-          186.49975395202637,
-          -20.468862056421926,
-          45.07433199779033
-        ],
-        "plate_model_bounds_mm": [
-          [
-            173.00024604797363,
-            180.69518368615223,
-            0.0
-          ],
-          [
-            199.99975395202637,
-            233.30481631384777,
-            136.93828624017084
-          ]
-        ]
-      },
-      {
-        "name": "faucet-display-cover",
-        "object_id": 1903,
-        "mesh_sha256": "9ac821c25c65b015625db98404938f8442745c18840849789a6a00f693fcae0c",
-        "rotation_x_degrees": -50.0,
-        "cad_to_plate_origin_mm": [
-          251.5,
-          158.3925714715828,
-          -221.89908476501478
-        ],
-        "plate_model_bounds_mm": [
-          [
-            236.71146392822266,
-            210.44692390926488,
-            0.0
-          ],
-          [
-            266.28853607177734,
-            261.5530760907351,
-            16.380017385268015
-          ]
-        ]
-      },
-      {
-        "name": "above-counter-plate",
-        "object_id": 1904,
-        "mesh_sha256": "cf69dac0a0ce01845ce261d050fbbb876be24baec78d3db77f8d97839bc32990",
-        "rotation_x_degrees": 0.0,
-        "cad_to_plate_origin_mm": [
-          205.5,
-          107.99751091003418,
-          4.0
-        ],
-        "plate_model_bounds_mm": [
-          [
-            176.50122261047363,
-            78.50248908996582,
-            0.0
-          ],
-          [
-            234.49877738952637,
-            137.49751091003418,
-            6.200000047683716
-          ]
-        ]
-      },
-      {
-        "name": "lever-replica",
-        "object_id": 1905,
-        "mesh_sha256": "19d420b9193d0d691959aadb80095523164afe380189aae1af9eb0c13f8f2d21",
-        "rotation_x_degrees": 0.0,
-        "cad_to_plate_origin_mm": [
-          259.4024670124054,
-          75.66057720035315,
-          1.8626522546583146e-10
-        ],
-        "plate_model_bounds_mm": [
-          [
-            249.16753315925598,
-            75.48246631771326,
-            0.0
-          ],
-          [
-            263.832466840744,
-            128.51753368228674,
-            12.399999618716539
-          ]
-        ]
-      }
-    ],
-    "archive_sha256": "323fb54b39ad443ce859c4f237407f6c72a1f94e4a0f61ce1922389215b2ec09",
-    "gcode_sha256": "31a724f2a200ce13e5ddcc53e48837f5fc31f8ca2d55701d4555d019b42f8d30",
-    "input_motion_archive_crc_valid": true,
-    "standalone_motion_matches_archive": true,
-    "tip_rim_contact": {
-      "seat_plate_mm": [
-        186.5,
-        206.08967073826534,
-        22.664843777467127
-      ],
-      "plane_normal": [
-        -0.0,
-        -0.5735764363510463,
-        -0.8191520442889917
-      ]
-    },
-    "tip_dispense_contact": {
-      "seat_plate_mm": [
-        186.49975395202637,
-        192.90048590967768,
-        128.48896553842707
-      ],
-      "plane_normal": [
-        0.0,
-        0.5735764363510459,
-        -0.819152044288992
-      ]
-    },
-    "artifact_use": "Native cover paths and tip nose reference; base motion is supplied by the prior executable archive.",
-    "prepared_project_matches_selected_preparer": true
-  },
-  "revised_editable": {
-    "prepared_project_sha256": "ef1fa9202912acdd8c64aa56ed1bff4938adeffdc2e88f62985fc9e3bcfb542d",
-    "native_settings_sha256": "5e658d48a6f1725a8981a08e4cebe06ed4cdb06cfb16ced962c84a0b9b9d0b30",
-    "native_first_bed_mm": 0.2,
-    "nominal_course_mm": 0.24,
-    "parts": [
-      {
-        "name": "faucet-shell-base",
+    "parts": {
+      "faucet-shell-base": {
         "object_id": 1901,
         "mesh_sha256": "f49e8818fa749ad57445aca26972ff107d840ed53102d33e6fff7837f46c1bfb",
         "rotation_x_degrees": -14.999999999999998,
@@ -202,15 +42,14 @@
           ]
         ]
       },
-      {
-        "name": "faucet-shell-tip",
+      "faucet-shell-tip": {
         "object_id": 1902,
-        "mesh_sha256": "d51f17ab76957c645b60e2de2248fa924f006e2b555954df4f5459f89834ad05",
+        "mesh_sha256": "a70d6b5af3ef74ca1a8e94bf0133b1a51bb201923a65a40ab191713c5467aad5",
         "rotation_x_degrees": -105.0,
         "cad_to_plate_origin_mm": [
           186.49975395202637,
-          -20.468862056421926,
-          45.07433199779033
+          -20.468862056421898,
+          45.074331997790345
         ],
         "plate_model_bounds_mm": [
           [
@@ -221,14 +60,13 @@
           [
             199.99975395202637,
             233.30481631384777,
-            136.93828624017084
+            136.42083647808005
           ]
         ]
       },
-      {
-        "name": "faucet-display-cover",
+      "faucet-display-cover": {
         "object_id": 1903,
-        "mesh_sha256": "9ac821c25c65b015625db98404938f8442745c18840849789a6a00f693fcae0c",
+        "mesh_sha256": "a6e21960c1a8f4646a8bbcdabe514b200cdea7533db07dc865344cb00b355262",
         "rotation_x_degrees": -50.0,
         "cad_to_plate_origin_mm": [
           251.5,
@@ -248,8 +86,7 @@
           ]
         ]
       },
-      {
-        "name": "above-counter-plate",
+      "above-counter-plate": {
         "object_id": 1904,
         "mesh_sha256": "cf69dac0a0ce01845ce261d050fbbb876be24baec78d3db77f8d97839bc32990",
         "rotation_x_degrees": 0.0,
@@ -271,8 +108,7 @@
           ]
         ]
       },
-      {
-        "name": "lever-replica",
+      "lever-replica": {
         "object_id": 1905,
         "mesh_sha256": "19d420b9193d0d691959aadb80095523164afe380189aae1af9eb0c13f8f2d21",
         "rotation_x_degrees": 0.0,
@@ -294,14 +130,61 @@
           ]
         ]
       }
-    ],
+    },
+    "relative_to_rounded_trial": {
+      "faucet-shell-base": {
+        "position_shift_mm": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "rotation_shift_degrees": 0.0,
+        "mesh_unchanged": true
+      },
+      "faucet-shell-tip": {
+        "position_shift_mm": [
+          0.0,
+          2.842170943040401e-14,
+          1.4210854715202004e-14
+        ],
+        "rotation_shift_degrees": 0.0,
+        "mesh_unchanged": false
+      },
+      "faucet-display-cover": {
+        "position_shift_mm": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "rotation_shift_degrees": 0.0,
+        "mesh_unchanged": false
+      },
+      "above-counter-plate": {
+        "position_shift_mm": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "rotation_shift_degrees": 0.0,
+        "mesh_unchanged": true
+      },
+      "lever-replica": {
+        "position_shift_mm": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "rotation_shift_degrees": 0.0,
+        "mesh_unchanged": true
+      }
+    },
     "tip_rim_contact": {
       "seat_plate_mm": [
         186.5,
         206.08967073826534,
-        22.664843777467127
+        22.66484377746711
       ],
-      "plane_normal": [
+      "outward_normal": [
         -0.0,
         -0.5735764363510463,
         -0.8191520442889917
@@ -310,26 +193,268 @@
     "tip_dispense_contact": {
       "seat_plate_mm": [
         186.49975395202637,
-        192.90048590967768,
+        192.9004859096777,
         128.48896553842707
       ],
-      "plane_normal": [
+      "outward_normal": [
+        0.0,
+        0.5735764363510459,
+        -0.819152044288992
+      ]
+    }
+  },
+  "native": {
+    "project_sha256": "7382dcda2b86ae7abe4520aaa5b8a42aec8e201d7505399d4b40faf6657d44e9",
+    "native_settings_sha256": "5e658d48a6f1725a8981a08e4cebe06ed4cdb06cfb16ced962c84a0b9b9d0b30",
+    "parts": {
+      "faucet-shell-base": {
+        "object_id": 1901,
+        "mesh_sha256": "24ba0b3136a4aed9c437e8e2ae6c001c2d59c17b45ece10b2373541580fcdd44",
+        "rotation_x_degrees": -14.999999999999998,
+        "cad_to_plate_origin_mm": [
+          85.49944496154785,
+          140.34437517845532,
+          7.635167989157424
+        ],
+        "plate_model_bounds_mm": [
+          [
+            55.03741455078125,
+            111.41052105960969,
+            0.0
+          ],
+          [
+            115.96258544921875,
+            208.58947894039034,
+            245.25146440494143
+          ]
+        ]
+      },
+      "faucet-shell-tip": {
+        "object_id": 1902,
+        "mesh_sha256": "a70d6b5af3ef74ca1a8e94bf0133b1a51bb201923a65a40ab191713c5467aad5",
+        "rotation_x_degrees": -105.0,
+        "cad_to_plate_origin_mm": [
+          186.49975395202637,
+          -20.468862056421898,
+          45.074331997790345
+        ],
+        "plate_model_bounds_mm": [
+          [
+            173.00024604797363,
+            180.69518368615223,
+            0.0
+          ],
+          [
+            199.99975395202637,
+            233.30481631384777,
+            136.42083647808005
+          ]
+        ]
+      },
+      "faucet-display-cover": {
+        "object_id": 1903,
+        "mesh_sha256": "a6e21960c1a8f4646a8bbcdabe514b200cdea7533db07dc865344cb00b355262",
+        "rotation_x_degrees": -50.0,
+        "cad_to_plate_origin_mm": [
+          251.5,
+          158.3925714715828,
+          -221.89908476501478
+        ],
+        "plate_model_bounds_mm": [
+          [
+            236.71146392822266,
+            210.44692390926488,
+            0.0
+          ],
+          [
+            266.28853607177734,
+            261.5530760907351,
+            16.380017385268015
+          ]
+        ]
+      },
+      "above-counter-plate": {
+        "object_id": 1904,
+        "mesh_sha256": "cf69dac0a0ce01845ce261d050fbbb876be24baec78d3db77f8d97839bc32990",
+        "rotation_x_degrees": 0.0,
+        "cad_to_plate_origin_mm": [
+          205.5,
+          107.99751091003418,
+          4.0
+        ],
+        "plate_model_bounds_mm": [
+          [
+            176.50122261047363,
+            78.50248908996582,
+            0.0
+          ],
+          [
+            234.49877738952637,
+            137.49751091003418,
+            6.200000047683716
+          ]
+        ]
+      },
+      "lever-replica": {
+        "object_id": 1905,
+        "mesh_sha256": "19d420b9193d0d691959aadb80095523164afe380189aae1af9eb0c13f8f2d21",
+        "rotation_x_degrees": 0.0,
+        "cad_to_plate_origin_mm": [
+          259.4024670124054,
+          75.66057720035315,
+          1.8626522546583146e-10
+        ],
+        "plate_model_bounds_mm": [
+          [
+            249.16753315925598,
+            75.48246631771326,
+            0.0
+          ],
+          [
+            263.832466840744,
+            128.51753368228674,
+            12.399999618716539
+          ]
+        ]
+      }
+    },
+    "relative_to_rounded_trial": {
+      "faucet-shell-base": {
+        "position_shift_mm": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "rotation_shift_degrees": 0.0,
+        "mesh_unchanged": true
+      },
+      "faucet-shell-tip": {
+        "position_shift_mm": [
+          0.0,
+          2.842170943040401e-14,
+          1.4210854715202004e-14
+        ],
+        "rotation_shift_degrees": 0.0,
+        "mesh_unchanged": false
+      },
+      "faucet-display-cover": {
+        "position_shift_mm": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "rotation_shift_degrees": 0.0,
+        "mesh_unchanged": false
+      },
+      "above-counter-plate": {
+        "position_shift_mm": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "rotation_shift_degrees": 0.0,
+        "mesh_unchanged": true
+      },
+      "lever-replica": {
+        "position_shift_mm": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "rotation_shift_degrees": 0.0,
+        "mesh_unchanged": true
+      }
+    },
+    "tip_rim_contact": {
+      "seat_plate_mm": [
+        186.5,
+        206.08967073826534,
+        22.66484377746711
+      ],
+      "outward_normal": [
+        -0.0,
+        -0.5735764363510463,
+        -0.8191520442889917
+      ]
+    },
+    "tip_dispense_contact": {
+      "seat_plate_mm": [
+        186.49975395202637,
+        192.9004859096777,
+        128.48896553842707
+      ],
+      "outward_normal": [
         0.0,
         0.5735764363510459,
         -0.819152044288992
       ]
     },
-    "file": "sculpted-faucet-tip-shoulder-black-mark2.3mf",
-    "prepared_project_matches_selected_preparer": true
+    "native_slice": {
+      "archive_sha256": "3863462966ee8bc7d571dae54d25fc94af492d4c6a8c078b5b11d9970fc28891",
+      "gcode_sha256": "0b5c580fbbb1e98f7ac53aa3684fa50c16de1c802687e65dd3a3abcd1a935255",
+      "active_archive_objects": {
+        "1901": "faucet-shell-base",
+        "1902": "faucet-shell-tip",
+        "1903": "faucet-display-cover",
+        "1904": "above-counter-plate",
+        "1905": "lever-replica"
+      },
+      "standalone_gcode_matches_archive": true
+    },
+    "tip_end_cooling": {
+      "cooled_moves": 68769,
+      "cooled_z_mm": [
+        115.16,
+        136.28
+      ],
+      "fan_percent": 70.0,
+      "fan_commands_added": 988,
+      "span_mm": [
+        -1.0,
+        9.0
+      ]
+    }
   },
-  "equivalent_selected_preparer_sha256": "bd0d8431d2b9b9e496ca16060f0fbdea9e5da136ac7372037cdc1baa40a3b382",
-  "revised_roof_warp": {
-    "project_sha256": "74139dad4546b3e8177d9392501ec0e8cf9e237392ef274745538f25234d5801",
-    "mesh_sha256": "254a9441e29e40378d75e7ff246e0cde6d08358ebe85e64d85a1509389825af1",
+  "warp": {
+    "project_sha256": "66c572cc87a4744b7bf6b24a1529bed1293defbbd971d8ae65cd3b9aac168115",
     "native_settings_sha256": "5e658d48a6f1725a8981a08e4cebe06ed4cdb06cfb16ced962c84a0b9b9d0b30",
-    "archive_sha256": "4c1ee2529986c75ccc91b445b90765aa677f10d6ecb8a799f77f80170748f0cb",
-    "gcode_sha256": "4394ad8a0f53db09013b73232e96d55c6ea93041163240ea100cd47c13aee009",
-    "virtual_course_bands_mm": [
+    "parts": {
+      "faucet-shell-tip": {
+        "object_id": 1901,
+        "mesh_sha256": "7102412179d657f54336e2a2a8d504e4281e3fe868d0af2f5048e4bf86a34aa8",
+        "rotation_x_degrees": -105.0,
+        "cad_to_plate_origin_mm": [
+          162.49975395202637,
+          -67.46886205642193,
+          45.07433199779035
+        ],
+        "plate_model_bounds_mm": [
+          [
+            149.00024604797363,
+            133.69518368615223,
+            0.0
+          ],
+          [
+            175.99975395202637,
+            186.30481631384777,
+            136.42083647808005
+          ]
+        ]
+      }
+    },
+    "tip_dispense_contact": {
+      "seat_plate_mm": [
+        162.49975395202637,
+        145.90048590967768,
+        128.4889655384271
+      ],
+      "outward_normal": [
+        0.0,
+        0.5735764363510459,
+        -0.819152044288992
+      ]
+    },
+    "tip_virtual_course_bands_mm": [
       [
         0.2,
         21.8,
@@ -341,19 +466,8 @@
         0.18
       ]
     ],
-    "native_support": {
-      "bed_rooted_bodies": 1,
-      "bodies_without_interface_labels": 2,
-      "explicit_interface_islands": 4,
-      "interface_islands": null,
-      "model_rooted_bodies": 2,
-      "shortest_build_up_mm": null,
-      "shortest_labelled_build_up_mm": 11.12,
-      "support_bodies": 3
-    },
-    "standalone_motion_matches_archive": true,
-    "shoulder_support": {
-      "plate_axis_ratio": 0.8191083012332926,
+    "warp_shoulder_support": {
+      "plate_axis_ratio": 0.8191083012332916,
       "plug_keepout": 9,
       "release_angle_half_degrees": 2.5,
       "release_blockers": [
@@ -375,35 +489,202 @@
       ],
       "virtual_seat_center_mm": [
         162.5,
-        159.0896753373685,
+        159.08967533736848,
         22.28
       ]
     },
-    "file_from_tip_inverse_warp": "tip-warped.stl",
-    "cad_to_donor_plate_origin_mm": [
-      162.49975395202637,
-      -67.46886205642193,
-      45.07433199779034
-    ],
-    "donor_plate_to_physical_plate_translation_mm": [
-      24.0,
-      47.0,
-      0.0
-    ],
-    "prepared_project_matches_selected_preparer": true,
-    "actual_virtual_phase_boundary_events_mm": [
-      0.2,
-      0.36,
-      21.64,
-      21.8,
-      22.04,
-      22.28,
-      22.52,
-      23.96,
-      24.14,
-      61.94,
-      62.12,
-      62.36
+    "native_slice": {
+      "archive_sha256": "ada8fbcd95c712cd3a5d55dcf5af6a72a6dc0d0070126494b69f0f9cbf723451",
+      "gcode_sha256": "320c5650efe3cbfc226369011d8e7aa73f10ce6688feb893878ac95a20b23eaf",
+      "active_archive_objects": {
+        "1901": "faucet-shell-tip"
+      },
+      "standalone_gcode_matches_archive": true
+    },
+    "tip_end_cooling": {
+      "cooled_moves": 62641,
+      "cooled_z_mm": [
+        115.16,
+        136.28
+      ],
+      "fan_percent": 70.0,
+      "fan_commands_added": 829,
+      "span_mm": [
+        -1.0,
+        9.0
+      ]
+    },
+    "native_support": {
+      "bed_rooted_bodies": 1,
+      "bodies_without_interface_labels": 0,
+      "explicit_interface_islands": 4,
+      "interface_islands": 4,
+      "model_rooted_bodies": 0,
+      "shortest_build_up_mm": 11.12,
+      "shortest_labelled_build_up_mm": 11.12,
+      "support_bodies": 1
+    },
+    "native_support_interface_islands": [
+      {
+        "bbox_cad_xyz_mm": [
+          -6.1,
+          -21.481,
+          209.115,
+          6.3,
+          -21.093,
+          210.295
+        ],
+        "bbox_xy_mm": [
+          156.4,
+          140.0,
+          168.8,
+          141.2
+        ],
+        "build_up_mm": 11.12,
+        "first_z_mm": 11.32,
+        "id": "interface-1",
+        "last_z_mm": 11.4,
+        "tree": "tree-1"
+      },
+      {
+        "bbox_cad_xyz_mm": [
+          -14.1,
+          -39.986,
+          213.578,
+          13.9,
+          -32.879,
+          236.642
+        ],
+        "bbox_xy_mm": [
+          148.4,
+          147.6,
+          176.4,
+          171.2
+        ],
+        "build_up_mm": 21.286,
+        "first_z_mm": 21.486,
+        "id": "interface-2",
+        "last_z_mm": 22.52,
+        "tree": "tree-1"
+      },
+      {
+        "bbox_cad_xyz_mm": [
+          -14.1,
+          -144.081,
+          180.382,
+          6.7,
+          -132.886,
+          194.857
+        ],
+        "bbox_xy_mm": [
+          148.4,
+          143.2,
+          169.2,
+          156.0
+        ],
+        "build_up_mm": 126.0,
+        "first_z_mm": 126.2,
+        "id": "interface-3",
+        "last_z_mm": 134.36,
+        "tree": "tree-1"
+      },
+      {
+        "bbox_cad_xyz_mm": [
+          8.7,
+          -141.606,
+          185.901,
+          13.9,
+          -137.942,
+          191.545
+        ],
+        "bbox_xy_mm": [
+          171.2,
+          148.4,
+          176.4,
+          153.6
+        ],
+        "build_up_mm": 129.84,
+        "first_z_mm": 130.04,
+        "id": "interface-4",
+        "last_z_mm": 132.44,
+        "tree": "tree-1"
+      }
     ]
-  }
+  },
+  "mapped_tip_gcode_sha256": "adaeb2e859e2ab1531e60c51165059d485763c3de06803631c0dcfcd3c20c8f1",
+  "mapped_tip": {
+    "purpose": "Replay the inverse-sliced tip in physical Z bands with bounded nozzle paths.",
+    "gcode_source_sha256": "320c5650efe3cbfc226369011d8e7aa73f10ce6688feb893878ac95a20b23eaf",
+    "warp_report_sha256": "488b0d1408c88ebae9c1f3ea379edd131bd285ec545682b783d14b7ad20d1d0a",
+    "tip_tape_sha256": "adaeb2e859e2ab1531e60c51165059d485763c3de06803631c0dcfcd3c20c8f1",
+    "shoulder_placement_mm": [
+      186.49975395202637,
+      202.7935984995988,
+      24.97278027374805
+    ],
+    "native_nose_from_physical_z_mm": 62.12,
+    "native_donor_translation_to_plate_mm": [
+      24.0,
+      46.99999999730369,
+      -7.105427357601002e-15
+    ],
+    "world_band_spacing_mm": 1.0,
+    "finer_band_spacing_mm": null,
+    "finer_physical_band_range_mm": null,
+    "physical_order": "world band, then virtual source height",
+    "uphill_wall_runs": false,
+    "uphill_all": true,
+    "retained_native_nose_travel": true,
+    "phase_stats": {
+      "tip anchor": {
+        "deposition_roads": 3853,
+        "filament_mm": 230.43151000000117,
+        "vertical_roads": 0,
+        "downward_bridge_roads": 0,
+        "courses": 7
+      },
+      "tip shoulder entry": {
+        "deposition_roads": 185218,
+        "filament_mm": 3568.909107923897,
+        "vertical_roads": 129089,
+        "downward_bridge_roads": 0,
+        "courses": 1985
+      },
+      "tip yellow shoulder": {
+        "deposition_roads": 13767,
+        "filament_mm": 439.39585023564257,
+        "vertical_roads": 11481,
+        "downward_bridge_roads": 259,
+        "courses": 233
+      },
+      "tip shoulder fade": {
+        "deposition_roads": 216952,
+        "filament_mm": 5560.968878064633,
+        "vertical_roads": 138127,
+        "downward_bridge_roads": 19,
+        "courses": 2911
+      },
+      "tip native nose": {
+        "deposition_roads": 256405,
+        "filament_mm": 6691.62048789881,
+        "vertical_roads": 24622,
+        "courses": 539
+      }
+    }
+  },
+  "native_nose_comparison": {
+    "purpose": "Compare donor and authored native-nose move sequences in an aligned physical frame.",
+    "donor_sha256": "320c5650efe3cbfc226369011d8e7aa73f10ce6688feb893878ac95a20b23eaf",
+    "authored_tape_sha256": "adaeb2e859e2ab1531e60c51165059d485763c3de06803631c0dcfcd3c20c8f1",
+    "nose_growth_first_virtual_layer_mm": 62.12,
+    "donor_deposition_motion_count": 256405,
+    "emitted_deposition_motion_count": 256405,
+    "mismatched_deposition_motion_count": 0,
+    "first_mismatches": [],
+    "retained_feed_max_difference_mm_per_min": 0.049999999999272404,
+    "retained_feed_max_relative_difference": 4.8964016345275525e-06,
+    "preserves_deposition_coordinates_e_fan_accel": true
+  },
+  "cover_support_report_sha256": "ef3424dc76a0657ae284b4f1ec3fdeef7321f29483957ec657bff2b8a4acba46",
+  "tip_warped_report_sha256": "488b0d1408c88ebae9c1f3ea379edd131bd285ec545682b783d14b7ad20d1d0a"
 }
