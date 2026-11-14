@@ -3,6 +3,7 @@
 //! job to a printer.
 
 pub mod audit;
+pub mod base_courses;
 pub mod cooling;
 pub mod course_field;
 pub mod derive;
@@ -27,6 +28,9 @@ pub mod refresh;
 pub mod review;
 pub mod seam;
 pub mod rim_contour;
+pub mod ring_offset;
+pub mod shaft_join_cooling;
+pub mod shaft_stitch;
 pub mod slice;
 pub mod stretch_cooling;
 pub mod tip_courses;
