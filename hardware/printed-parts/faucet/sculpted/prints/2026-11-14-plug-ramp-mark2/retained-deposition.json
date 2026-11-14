@@ -1,0 +1,90 @@
+{
+  "purpose": "Verify ordered deposition from the archived plate and the selected plug-ramp tape.",
+  "gcode_sha256": {
+    "archived_plate": "de1ed31c0a8f690d415cd1701c0404ab0e97b6cc46ce39342d143c5a3ab50d02",
+    "mapped_tip": "53b1ba057dec7fe094831a1a51953368d2db344b495085ac0a0991098c68207d",
+    "current_plate": "68656191e6f2c29bb5d1de32ae8e673bcd83624db2fd1e5bb3e8bdf4c8e41abf"
+  },
+  "signature_fields": [
+    "command",
+    "start_xyz",
+    "end_xyz",
+    "arc_center_offset_ijk",
+    "extrusion_length",
+    "feed",
+    "fan_pwm",
+    "acceleration"
+  ],
+  "signature_scopes_excluding_intentionally_changed_feed": [
+    "tip shoulder entry",
+    "tip shoulder fade",
+    "tip yellow shoulder"
+  ],
+  "exact_prior_deposition": [
+    "base",
+    "cover",
+    "mounting plate",
+    "lever",
+    "mounting plate counterbore supports"
+  ],
+  "exact_native_nose_suffix_starts_at_virtual_z_mm": null,
+  "exact_mapped_tip_deposition": [
+    "tip anchor",
+    "tip native nose",
+    "tip shoulder entry",
+    "tip shoulder fade",
+    "tip yellow shoulder"
+  ],
+  "current_deposition_by_scope": {
+    "base": {
+      "ordered_road_sha256": "30ef8abe95b72d391dbae5c7a422edd7b4f2f57d86fd07a1109ac7e8e8a31c82",
+      "road_count": 781947,
+      "filament_mm": 32750.77801
+    },
+    "cover": {
+      "ordered_road_sha256": "180ea7309174268d707b33f071cd5096af787145666eefb9cb90304b14eac302",
+      "road_count": 58935,
+      "filament_mm": 1945.50998
+    },
+    "tip anchor": {
+      "ordered_road_sha256": "5edd0706bf5ceeb1c238e3fb01a327cec4cd94092a8212999255cdce3d4a37ef",
+      "road_count": 3617,
+      "filament_mm": 224.83435
+    },
+    "mounting plate counterbore supports": {
+      "ordered_road_sha256": "fb8c3e19387ef435de48e862f5db2811da05d8d8f8ed59e719b5fa2f76c83d94",
+      "road_count": 2730,
+      "filament_mm": 41.47623
+    },
+    "mounting plate": {
+      "ordered_road_sha256": "4d7137d7c55b7904492ba15078e2a8692844fc666e443faaaa738dae17515e7e",
+      "road_count": 44617,
+      "filament_mm": 2461.35734
+    },
+    "lever": {
+      "ordered_road_sha256": "ab849c67c9e96aa247c9bc4dfe359c71f451cda8c1b796444533cb8d24f8d31b",
+      "road_count": 33735,
+      "filament_mm": 1365.86352
+    },
+    "tip shoulder entry": {
+      "ordered_road_sha256": "c59af7b2294cafc1fc771300b3f493a03c005fde100faaa7fc80ad5a162e3555",
+      "road_count": 94728,
+      "filament_mm": 2700.85496
+    },
+    "tip yellow shoulder": {
+      "ordered_road_sha256": "2f1dd41bed2da7fe5afd50db81cec4fce70a6ad0e7170f696ac3a26951024460",
+      "road_count": 86598,
+      "filament_mm": 1982.11758
+    },
+    "tip shoulder fade": {
+      "ordered_road_sha256": "482162cd54bbcf0a1ed62ad519169b66f282f4f139ce4231e3a71ea3e93835c3",
+      "road_count": 161010,
+      "filament_mm": 5170.88864
+    },
+    "tip native nose": {
+      "ordered_road_sha256": "efb73cdf3462719f681831459f4a31a35aa5f8eb90ce42d5ffce61d0390cfea1",
+      "road_count": 242221,
+      "filament_mm": 6191.93075
+    }
+  }
+}

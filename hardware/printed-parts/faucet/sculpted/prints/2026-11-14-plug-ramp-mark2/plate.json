@@ -1,0 +1,45 @@
+{
+  "purpose": "Binds the accepted complete Mark2 trial to its toolpaths, timeline and saved inputs.",
+  "displayed_name": "sculpted-faucet-plug-ramp-black-mark2-review.gcode.3mf",
+  "printer": "Mark2",
+  "printer_task_id": "1441898884",
+  "accepted_at": "2026-11-14T09:14:39+00:00",
+  "archive": {
+    "archive": "sculpted-faucet-plug-ramp-black-mark2-review.gcode.3mf",
+    "archive_sha256": "802cd07510ac998cec5c7c94e2d163b5099f536becc6e245a286e66b48d0bb42",
+    "raw_gcode_sha256": "68656191e6f2c29bb5d1de32ae8e673bcd83624db2fd1e5bb3e8bdf4c8e41abf",
+    "gcode_sha256": "eec7ce8c8c9d2b305397085277e82afd001b62d4778e5753734a2d44a74118e5",
+    "gcode_md5": "0957aba1effbbf3bdc7a12860d973b43",
+    "model_body_sha256": "d5c31cb6c3153d105be4eb82201702e65ce58de653cf5827726ac9fa8e1f5afb",
+    "startup_and_model_canonical_motion_sha256": "6726fa86afa133378aa64da30619c51a0bc177530776dd3d47fc2cbfbc63b087",
+    "model_motion_byte_identical": true,
+    "changed_header_line_numbers": [
+      4,
+      5,
+      6,
+      7,
+      8,
+      591,
+      917,
+      969
+    ],
+    "header_line_count": 1137
+  },
+  "complete_motion_time_seconds": 43850.570833707614,
+  "estimate_scope": "Commanded motion with acceleration. Printer warmup, thermal waits, firmware macros and physical execution are outside the clock.",
+  "first_bed_course_deposition_span_seconds": 473.2583851292329,
+  "first_deposition_seconds_by_part": {
+    "base": 2.448194226362645,
+    "tip": 157.6499548676557,
+    "cover": 93.80476347484895,
+    "mounting plate": 303.031209607624,
+    "lever": 417.5992369164188
+  },
+  "course_groups": 2470,
+  "timeline": {
+    "file": "faucet-mark2-plug-ramp-timeline.html",
+    "sha256": "8510284fe613f0f68ca390176b29e68cf6033ccd92867e9718eb90637f1ad66c",
+    "gcode_sha256": "eec7ce8c8c9d2b305397085277e82afd001b62d4778e5753734a2d44a74118e5"
+  },
+  "native_inputs": "run-inputs.zip"
+}

@@ -1,0 +1,30 @@
+{
+  "archive": {
+    "gcode_sha256": "eec7ce8c8c9d2b305397085277e82afd001b62d4778e5753734a2d44a74118e5",
+    "name": "sculpted-faucet-plug-ramp-black-mark2-review.gcode.3mf",
+    "objects": [
+      "faucet-shell-base",
+      "faucet-shell-tip",
+      "faucet-display-cover",
+      "above-counter-plate",
+      "lever-replica"
+    ],
+    "sha256": "802cd07510ac998cec5c7c94e2d163b5099f536becc6e245a286e66b48d0bb42",
+    "slots": {
+      "1": {
+        "colour": "161616",
+        "type": "PET-CF"
+      }
+    }
+  },
+  "gcode_state": "PREPARE",
+  "hms": [],
+  "layer_num": 1571,
+  "mc_remaining_time": 0,
+  "observed_at": "2026-11-14T09:14:39+00:00",
+  "print_error": 0,
+  "printer": "Mark2",
+  "printer_task_id": "1441898884",
+  "subtask_name": "sculpted-faucet-plug-ramp-black-mark2-review.gcode.3mf",
+  "total_layer_num": 2470
+}

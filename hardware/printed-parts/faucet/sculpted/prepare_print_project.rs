@@ -6,7 +6,8 @@
 //!                                 [--base-only] [--base-section SECTION.stl | --tip-only | --tip-and-cover]
 //!                                 [--filled-base FILLED.stl | --physical-base]
 //!                                 [--tip-mesh TIP.stl --cover-mesh COVER.stl]
-//!                                 [--warp-donor --tip-mesh TIP.stl] [--finish SELECTION.json]
+//!                                 [--warp-donor --tip-mesh TIP.stl [--warp-settings SETTINGS.json]]
+//!                                 [--finish SELECTION.json]
 //!
 //! The five rigid parts are the faucet shell's base and tip, the display cover, the
 //! above-counter plate and the side-down lever. Their object settings, the solid foot regions
@@ -20,8 +21,9 @@
 //! layout's editable project with the actual base. `--tip-mesh` and `--cover-mesh` put a trial's
 //! tip and cover on that plate; `--warp-donor` slices a warped tip alone, in fine course bands
 //! with a removable roof under its virtual shoulder, for the stage that lays its courses back
-//! onto the real shoulder. `--finish` reads a trial's finish selection in place of the standing
-//! one.
+//! onto the real shoulder. `--warp-settings` supplies the donor's course bands and support
+//! regions in the warped mesh's coordinates. `--finish` reads a trial's finish selection in
+//! place of the standing one.
 
 mod rim_supports;
 
@@ -66,6 +68,7 @@ fn main() -> Result<()> {
     let mut tip_mesh = None;
     let mut cover_mesh = None;
     let mut warp_donor = false;
+    let mut warp_settings_path = None;
     let mut finish = PathBuf::from(FINISH);
     let mut base_only = false;
     let mut tip_only = false;
@@ -101,6 +104,7 @@ fn main() -> Result<()> {
             Some("--filled-base") => filled_base = Some(PathBuf::from(value)),
             Some("--tip-mesh") => tip_mesh = Some(PathBuf::from(value)),
             Some("--cover-mesh") => cover_mesh = Some(PathBuf::from(value)),
+            Some("--warp-settings") => warp_settings_path = Some(PathBuf::from(value)),
             Some("--finish") => finish = PathBuf::from(value),
             Some("--printer") => printer = value.into_string().ok().context("printer name")?,
             Some("--filament-colour") => colour = value.into_string().ok().context("filament colour")?,
@@ -121,6 +125,8 @@ fn main() -> Result<()> {
     }
     ensure!(!(tip_only && tip_and_cover) && (include_base || (!base_only && base_section.is_none())),
         "--base-only and --base-section cannot be combined with a tip plate");
+    ensure!(warp_donor || warp_settings_path.is_none(), "--warp-settings requires --warp-donor");
+    let warp_settings = warp_settings_path.as_deref().map(WarpSettings::read).transpose()?;
     let trim = hsm_print_prep::profile::petgf_z_trim(&root, &printer)?;
     let title = if base_only {
         format!("Sculpted faucet base PET-GF left {printer}")
@@ -223,12 +229,13 @@ fn main() -> Result<()> {
     }
     let original = r.plate.settings.clone();
     if warp_donor {
+        let bands = warp_settings.as_ref().map_or(WARP_DONOR_BANDS.as_slice(), |settings| settings.course_bands_mm.as_slice());
         let index = r.row("faucet-shell-tip")?.index;
-        r.plate.objects[index].ranges = WARP_DONOR_BANDS.into_iter().map(|[min_z, max_z, height]|
+        r.plate.objects[index].ranges = bands.iter().copied().map(|[min_z, max_z, height]|
             hsm_print_prep::project::Range {
                 min_z, max_z, options: vec![("layer_height".into(), height.to_string())],
             }).collect();
-        r.extra.insert("tip_virtual_course_bands_mm".into(), json!(WARP_DONOR_BANDS));
+        r.extra.insert("tip_virtual_course_bands_mm".into(), json!(bands));
     }
     let hook = cooling_hook(&root);
     apply_overhang_recipe(&mut r.plate.settings, &selection["overhang_recipe"], &hook)?;
@@ -295,7 +302,10 @@ fn main() -> Result<()> {
         let band = ContactBand::new(&contact["band"])?;
         r.extra.insert("tip_dispense_contact".into(), contact);
         let lip = if warp_donor {
-            let support = add_warp_shoulder_support(&mut r)?;
+            let support = match &warp_settings {
+                Some(settings) => settings.add_support(&mut r)?,
+                None => add_warp_shoulder_support(&mut r)?,
+            };
             r.extra.insert("warp_shoulder_support".into(), support);
             None
         } else {
@@ -329,6 +339,9 @@ fn main() -> Result<()> {
         finish.as_str(), PROFILE, rim_footprint].iter().map(|p| root.join(p))
         .chain(parts.iter().map(|p| p.source.clone())) {
         sources.insert(relative(&p, &root), json!(file_sha(&p)?));
+    }
+    if let Some(path) = warp_settings_path {
+        sources.insert(relative(&path, &root), json!(file_sha(&path)?));
     }
     if underside.is_some() {
         for source in faucet_underside::SOURCES {
@@ -462,6 +475,61 @@ fn prepare_base_contact(root: &Path, r: &mut Refreshed, recipe: &Value, paramete
     r.extra.insert("base_rim_supports".into(), rim);
     r.extra.insert("nonplanar_contact".into(), spec);
     Ok((base, contour, band))
+}
+
+struct WarpSupport {
+    name: String,
+    role: String,
+    stl: PathBuf,
+}
+
+struct WarpSettings {
+    course_bands_mm: Vec<[f64; 3]>,
+    support_parts: Vec<WarpSupport>,
+}
+
+impl WarpSettings {
+    fn read(path: &Path) -> Result<Self> {
+        let recipe = read_json(path)?;
+        let course_bands_mm: Vec<[f64; 3]> =
+            serde_json::from_value(recipe["course_bands_mm"].clone()).context("course_bands_mm")?;
+        ensure!(course_bands_mm.iter().all(|[lo, hi, pitch]|
+                [lo, hi, pitch].into_iter().all(|value| value.is_finite())
+                    && *lo >= 0. && lo < hi && *pitch > 0.),
+            "course bands need ordered, nonnegative bounds and positive layer heights");
+        ensure!(course_bands_mm.windows(2).all(|pair| pair[0][1] <= pair[1][0]),
+            "course bands must be sorted and disjoint");
+        let folder = path.parent().context("warp settings directory")?;
+        let support_parts = recipe["support_parts"].as_array().context("support_parts")?
+            .iter().map(|part| {
+                let name = part["name"].as_str().context("support part name")?.to_owned();
+                let role = part["role"].as_str().context("support part role")?.to_owned();
+                let stl = folder.join(part["stl"].as_str().context("support part STL")?);
+                ensure!(!name.trim().is_empty() && matches!(role.as_str(), "support_enforcer" | "support_blocker"),
+                    "each support part needs a name and a native support subtype");
+                Ok(WarpSupport { name, role, stl })
+            }).collect::<Result<_>>()?;
+        Ok(Self { course_bands_mm, support_parts })
+    }
+
+    fn add_support(&self, project: &mut Refreshed) -> Result<Value> {
+        let row = project.row("faucet-shell-tip")?;
+        let center = row.center;
+        let index = row.index;
+        let mut regions = Vec::new();
+        for source in &self.support_parts {
+            let mut mesh = hsm_print_prep::mesh::Mesh::read_stl(&source.stl)?;
+            mesh.check_closed_single_body(&source.name)?;
+            for point in &mut mesh.vertices {
+                *point = [0, 1, 2].map(|axis| point[axis] - center[axis]);
+            }
+            let component = project.plate.add_part(index, &source.name, mesh.vertices, mesh.faces,
+                &source.role, Vec::new(), None);
+            regions.push(json!({"name": source.name, "role": source.role, "component_id": component,
+                "mesh_sha256": file_sha(&source.stl)?}));
+        }
+        Ok(json!({"selected_support_parts": regions, "mesh_coordinates": "warp donor source CAD"}))
+    }
 }
 
 /// Ask the native tree slicer for a removable annular roof below a warp donor's virtual shoulder:
