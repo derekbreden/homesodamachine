@@ -1,5 +1,6 @@
 //! Front-bottom's own wall work: its flanks' grown band, the lands under the collet plate's
 //! ends, and the lip it gives up across the pump bay.
+use crate::catalog::running;
 use crate::plan::{Bounds, Graph, Shape};
 use crate::shell::*;
 use crate::spec::ColletPlate;
@@ -14,16 +15,17 @@ pub fn front_bottom_flank_skin(g: &mut Graph, inner: &Bounds, y_joint: f64, zj: 
     g.union(west, &[east])
 }
 
-/// The two lands under the collet plate's ends: each continues the flank skin inboard under
-/// the seam plane, its underside rising off the flank at the corbel angle.
+/// The two lands under the collet plate's ends keep a running gap when the sliding top
+/// rests on the seam shoulders. Their undersides rise off the flanks at the corbel angle.
 pub fn plate_foot(g: &mut Graph, plate: &ColletPlate, zj: f64) -> Shape {
     let [fx0, fx1] = front_bottom_flank_face();
     let ym = (plate.fore_y + plate.aft_y) / 2.0;
     let (y0, y1) = (ym - PLATE_FOOT_Y / 2.0, (ym + PLATE_FOOT_Y / 2.0).max(plate.wall_aft_y));
+    let top = zj - running();
     let drop = PLATE_FOOT_REACH * PLATE_FOOT_CORBEL_ANGLE.to_radians().tan();
     let feet = [(fx0, 1.0), (fx1, -1.0)].map(|(x_face, into)| {
         let x_in = x_face + into * PLATE_FOOT_REACH;
-        g.xz_prism(y0, y1, vec![[x_in, zj], [x_face, zj], [x_face, zj - PLATE_FOOT_T - drop], [x_in, zj - PLATE_FOOT_T]])
+        g.xz_prism(y0, y1, vec![[x_in, top], [x_face, top], [x_face, zj - PLATE_FOOT_T - drop], [x_in, zj - PLATE_FOOT_T]])
     });
     g.union(feet[0], &[feet[1]])
 }
