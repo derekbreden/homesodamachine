@@ -8,7 +8,7 @@ against the slide's step count. It does by motor the sweep that step 3 of the fl
 asks for by hand.
 
 **Status: sliced, nothing printed.** The home switches and motor supply are acquired. The
-slide, its driver and the controller boards remain on order
+slide, its driver and the controller boards have shipped and await delivery
 ([purchases.md §12](/hardware/ledger/purchases.md)). Every fit to a bought
 part comes from its maker's drawing. The [controller's program](/firmware/src_reed_rig/README.md)
 and the [log reader](/tools/hsm/peripheral/src/reed.rs) are written and tested on this Mac, and
