@@ -91,6 +91,19 @@
     "paint_strip_half_width_mm": 0.35,
     "target": "Exterior rear wall on the tip's CAD center plane above the opening"
   },
+  "base_underside": {
+    "method": "Scaffold with a sloped roof and a sloped skin",
+    "physical_reference": "https://github.com/derekbreden/homesodamachine/blob/c8667107f964589be7dc69f8fb924f69a12729b3/hardware/printed-parts/faucet/sculpted/prints/2026-11-13-sloped-underside-complete-mark2/physical-result/physical-result.json",
+    "insert_blocker_radial_clearance_mm": 0.65,
+    "insert_blocker_depth_allowance_mm": [1.0, 0.55],
+    "object_settings": {
+      "brim_type": "no_brim",
+      "enable_support": "1",
+      "support_type": "tree(auto)",
+      "support_style": "tree_slim",
+      "support_bottom_z_distance": "0.30"
+    }
+  },
   "base_rim_supports": {
     "selected_date": "2026-11-11",
     "part": "faucet-shell-base",
@@ -125,7 +138,7 @@
   "edge_support_strategy": {
     "selection_quote": "I'm quite convinced that we need to do this everywhere, that we've got these rough edges on overhangs.",
     "method": "Keep the rim contact mapping inboard of the exterior wall and follow the seat with the first rim perimeter.",
-    "application": "Base fins feed the dense roof, and the insert recesses bridge. Tip trees feed the shoulder roof with release breaks and clearance from the mating plug."
+    "application": "The full base starts on the sloped scaffold and its insert recesses bridge. Tip trees feed the shoulder roof with release breaks and clearance from the mating plug."
   },
   "mounting_plate_counterbores": {
     "blocker_radial_clearance_mm": 0.45,
