@@ -20,10 +20,9 @@
 //!   sculpted-trial cap-feed UNCAPPED.gcode CAPPED.gcode
 //!   sculpted-trial bind-capped UNCAPPED.gcode CAPPED.gcode PLATE.gcode [--clamp-receipt CAPPED.json]
 
-use hsm_print_prep::{base_courses, base_foundation, feed_cap, plate_rings, plate_sequence, python_text, shaft_join_cooling, tip_courses, tip_supports, tip_warp, trial_archive};
-use std::path::Path;
 use anyhow::{bail, Context, Result};
-use std::path::PathBuf;
+use hsm_print_prep::{base_courses, base_foundation, feed_cap, plate_rings, plate_sequence, shaft_join_cooling, tip_courses, tip_supports, tip_warp, trial_archive};
+use std::path::{Path, PathBuf};
 
 struct Args {
     positional: Vec<String>,
@@ -70,13 +69,14 @@ impl Args {
 }
 
 fn number(args: &Args, name: &str) -> Result<f64> {
-    python_text::float(args.option(name).with_context(|| format!("{name} is required"))?)
+    let value = args.option(name).with_context(|| format!("{name} is required"))?;
+    value.trim().parse().with_context(|| format!("{name} needs a number, not {value:?}"))
 }
 
 fn main() -> Result<()> {
     let mut values: Vec<String> = std::env::args().skip(1).collect();
     if values.is_empty() {
-        bail!("usage: sculpted-trial warp|supports|tape|continued-base|cool-shaft-join|rings|sequence|sequence-shaft|package|merge|cap-feed|bind-capped ...");
+        bail!("usage: sculpted-trial warp|supports|tape|foundation|continued-base|cool-shaft-join|rings|sequence|sequence-shaft|package|merge|cap-feed|bind-capped ...");
     }
     let command = values.remove(0);
     match command.as_str() {
@@ -173,7 +173,7 @@ fn main() -> Result<()> {
             args.count(3)?;
             let summary = trial_archive::package(&args.path(0)?, &args.path(1)?, &args.path(2)?,
                                                  number(&args, "--motion-seconds")?, number(&args, "--first-course-seconds")?)?;
-            println!("{}", summary.dumps());
+            println!("{}", serde_json::to_string(&summary)?);
         }
         "merge" => {
             let reference = values.first().map(PathBuf::from).context("Missing the previous plate")?;
@@ -211,7 +211,7 @@ fn main() -> Result<()> {
             let receipt = args.option("--clamp-receipt").map(PathBuf::from);
             println!("{}", feed_cap::bind(&args.path(0)?, &args.path(1)?, &args.path(2)?, receipt.as_deref())?);
         }
-        _ => bail!("Unknown command {command}; use rings, sequence, sequence-shaft, package, merge, cap-feed or bind-capped"),
+        _ => bail!("Unknown command {command}; use warp, supports, tape, foundation, continued-base, cool-shaft-join, rings, sequence, sequence-shaft, package, merge, cap-feed or bind-capped"),
     }
     Ok(())
 }
