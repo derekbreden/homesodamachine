@@ -386,7 +386,7 @@ fn main() -> Result<()> {
         }
         let slicer = Path::new(slice::SLICER);
         let mut motion = match &underside {
-            Some(stage) => stage.slice_bands(&root, &mut r, &bands, &project, &directory, slicer, &selection["rear_seam_enforcement"])?,
+            Some(stage) => stage.slice_bands(&mut r, &bands, &project, &directory, slicer, &selection["rear_seam_enforcement"])?,
             None => ContactBand::slice_bands(&mut r.plate, &bands, &project, &directory, slicer)?,
         };
         if underside.is_some() {
