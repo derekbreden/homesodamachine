@@ -102,7 +102,7 @@ Stainless carbonator fabrication: 316 SS round-tube body + 1/4" laser-cut 316 SS
 | <!--purchase:pur-5416183adaae4c7888924bf7bf589cd8--> ASelected 1" × 1" mounted flap wheels, 1/4" shank, 80 grit aluminum oxide, 10-pack, rated to 35,000 rpm — stuck-wire stub dressing on the 316L welds, stainless-only. Sole item on its invoice, $8.99 + $0.65 NE tax, shipping $0.00. Amazon estimates 2026-09-25 | [B07M97KFZW](https://www.amazon.com/dp/B07M97KFZW) | 1 pk (10) | $9.64 | 112-1566032-1238659 | 2026-09-23 | 2026-09-25 | ACQUIRED |
 | <!--purchase:pur-52a72289085c4b57b86eb0be330227a9--> Knipex 70 11 110 diagonal cutters, 4-1/2", narrow head, opening spring, rated for hard steel wire to 3/64" — snips a stuck ER316L .030 wire between the wire nozzle and the bead, one-handed with the gun held where it stopped. Sole item on its invoice, $30.98 + $2.25 NE tax, shipping $0.00. Amazon estimates 2026-09-25 | [B005EXO806](https://www.amazon.com/dp/B005EXO806) | 1 | $33.23 | 112-6988436-4048226 | 2026-09-24 | 2026-09-26 | ACQUIRED |
 | <!--purchase:pur-770c1f0b7dfd4d458834d39d99185eb3--> uxcell M3 × 0.5 spiral-flute tap and Ø2.5 mm twist-drill set, M35 cobalt HSS — carbonator upper-rim earth attachment. $8.39 item + $0.61 estimated tax; free shipping | [B09TYSP9NV](https://www.amazon.com/dp/B09TYSP9NV) | 1 set | $9.00 | 112-9511233-2346613 | 2026-11-10 | 2026-11-11 | ACQUIRED |
-| <!--purchase:pur-36841266e8fb437a8d42247cbf7ee53d--> uxcell M3 × 0.5 spiral-flute tap and Ø2.5 mm twist-drill set, M35 cobalt HSS — additional earth-clamp tooling set. $8.39 item + $0.61 estimated tax; free shipping | [B09TYSP9NV](https://www.amazon.com/dp/B09TYSP9NV) | 1 set | $9.00 | 114-4687967-9041802 | 2026-11-12 | — | ON-ORDER |
+| <!--purchase:pur-36841266e8fb437a8d42247cbf7ee53d--> uxcell M3 × 0.5 spiral-flute tap and Ø2.5 mm twist-drill set, M35 cobalt HSS — additional earth-clamp tooling set. $8.39 item + $0.61 estimated tax; free shipping | [B09TYSP9NV](https://www.amazon.com/dp/B09TYSP9NV) | 1 set | $9.00 | 114-4687967-9041802 | 2026-11-12 | 2026-11-14 | ACQUIRED |
 | <!--purchase:pur-3bd4a5d8e22947b88ec7bcc9f7a8df8a--> Piutouyar M1–M6 adjustable tap wrench, 1/16"–1/4" tap capacity — small hand driver for the carbonator upper-rim M3 earth-clamp tap. $5.99 item + $0.43 estimated tax; free shipping | [B0F7K43T14](https://www.amazon.com/dp/B0F7K43T14) | 1 | $6.42 | 112-8461282-5610650 | 2026-11-10 | 2026-11-11 | ACQUIRED |
 
 ## 2. CO2 subsystem
@@ -578,9 +578,9 @@ General shop equipment supporting fabrication, assembly, and teardown. Not proje
 | <!--purchase:pur-fd0447880897405fb697a1c430b6bba0--> Befenybay BE069-2 linear stage actuator, 200 mm travel, SFU1605 ball screw on square rails, with its NEMA 17 stepper and motor cable (the listing's 200mm-NEMA17 option) — the motion axis of the [reed sweep rig](/hardware/assembly/reed-sweep-rig.md). Item price; order-level estimated tax recorded separately; free shipping | [B085TG12D1](https://www.amazon.com/dp/B085TG12D1) | 1 | $83.80 | 112-1265759-9506602 | 2026-11-12 | — | ON-ORDER |
 | <!--purchase:pur-79ed4268d7cf4c8ba55804d8d07a8adc--> BIGTREETECH TMC2209 V1.3 stepper driver, 1 pc — drives the reed sweep rig's stage in step/direction mode. Item price; order-level estimated tax recorded separately; free shipping | [B07ZPV4HFP](https://www.amazon.com/dp/B07ZPV4HFP) | 1 | $9.99 | 112-1265759-9506602 | 2026-11-12 | — | ON-ORDER |
 | <!--purchase:pur-c421deec9a2f4c7b868ae95b9e1499c1--> ZXXP 42 stepper-driver expansion board for A4988/DRV8825-format drivers, DIP microstep switches and screw terminals, 2 pc — carrier for the reed sweep rig's driver. Item price; order-level estimated tax recorded separately; free shipping | [B0FQC39GJ2](https://www.amazon.com/dp/B0FQC39GJ2) | 1 pk (2) | $7.99 | 112-1265759-9506602 | 2026-11-12 | — | ON-ORDER |
-| <!--purchase:pur-2ad02a3c76fc4de6b57a9424c7892858--> R REIFENG mechanical endstop limit switch with 22 AWG cable, 10 pc — the reed sweep rig's home switch. Item price; order-level estimated tax recorded separately; free shipping | [B07TWKH7F7](https://www.amazon.com/dp/B07TWKH7F7) | 1 pk (10) | $11.99 | 112-1265759-9506602 | 2026-11-12 | — | ON-ORDER |
+| <!--purchase:pur-2ad02a3c76fc4de6b57a9424c7892858--> R REIFENG mechanical endstop limit switch with 22 AWG cable, 10 pc — the reed sweep rig's home switch. Item price; order-level estimated tax recorded separately; free shipping | [B07TWKH7F7](https://www.amazon.com/dp/B07TWKH7F7) | 1 pk (10) | $11.99 | 112-1265759-9506602 | 2026-11-12 | 2026-11-14 | ACQUIRED |
 | <!--purchase:pur-c692f77e911c4e6fa40da3baf52ca7bd--> DORHEA ESP32 38-pin narrow USB-C development board with its screw-terminal breakout board, 3 sets (the listing's option A) — the reed sweep rig's controller. Item price; order-level estimated tax recorded separately; free shipping | [B0C8DBN29X](https://www.amazon.com/dp/B0C8DBN29X) | 1 pk (3 sets) | $19.99 | 112-1265759-9506602 | 2026-11-12 | — | ON-ORDER |
-| <!--purchase:pur-349e89ac22704ecaa32c57926e7c0d7e--> BTF-LIGHTING 12 V 3 A 36 W Class 2 power adapter, ETL listed, 5.5 × 2.1 mm DC plug with its female barrel connector — the reed sweep rig's motor supply. Item price; order-level estimated tax recorded separately; free shipping | [B01D8FLQHE](https://www.amazon.com/dp/B01D8FLQHE) | 1 | $14.99 | 112-1265759-9506602 | 2026-11-12 | — | ON-ORDER |
+| <!--purchase:pur-349e89ac22704ecaa32c57926e7c0d7e--> BTF-LIGHTING 12 V 3 A 36 W Class 2 power adapter, ETL listed, 5.5 × 2.1 mm DC plug with its female barrel connector — the reed sweep rig's motor supply. Item price; order-level estimated tax recorded separately; free shipping | [B01D8FLQHE](https://www.amazon.com/dp/B01D8FLQHE) | 1 | $14.99 | 112-1265759-9506602 | 2026-11-12 | 2026-11-14 | ACQUIRED |
 | <!--purchase:pur-dfd251509a3543c5b3bd9e358dcef85f--> Order-level estimated tax for the reed sweep rig components above; no line-level tax allocation supplied | — | 1 | $10.79 | 112-1265759-9506602 | 2026-11-12 | — | ON-ORDER |
 
 ## 13. Printing consumables
@@ -858,10 +858,10 @@ Printed copies of the [install guide](/hardware/install-guide/README.md). Lulu o
 
 | Status | $ |
 |---|---|
-| Acquired hardware valuation — includes replaced/returned originals | [$43,394.76](LEDGER_ACQUIRED_HW) |
+| Acquired hardware valuation — includes replaced/returned originals | [$43,430.74](LEDGER_ACQUIRED_HW) |
 | Engineering services (§18) | [$6,719.51](LEDGER_LABOR) |
-| Acquired procurement valuation (combined) | [$50,114.27](LEDGER_ACQUIRED_COMBINED) |
-| ON-ORDER | [$239.08](LEDGER_ON_ORDER) |
+| Acquired procurement valuation (combined) | [$50,150.25](LEDGER_ACQUIRED_COMBINED) |
+| ON-ORDER | [$203.10](LEDGER_ON_ORDER) |
 | MISSING — not in hand | [$53.07](LEDGER_MISSING) |
 | LIKELY-TO-BUY | $0.00 |
 | **Recorded procurement valuation — includes commitments** | [$50,406.42](LEDGER_GRAND_TOTAL) |
@@ -888,7 +888,7 @@ Acquired hardware valuation by section (includes replaced/returned originals):
 
 | § | Section | $ |
 |---|---|---|
-| 1 | Carbonator fabrication | [$4,918.99](LEDGER_SEC1) |
+| 1 | Carbonator fabrication | [$4,927.99](LEDGER_SEC1) |
 | 2 | CO2 subsystem (incl. Lillium prototype carbonator $1,129) | [$2,288.08](LEDGER_SEC2) |
 | 3 | Water supply + backflow prevention | [$1,641.36](LEDGER_SEC3) |
 | 4 | Carbonator plumbing | [$604.07](LEDGER_SEC4) |
@@ -899,7 +899,7 @@ Acquired hardware valuation by section (includes replaced/returned originals):
 | 9 | Electronics — I/O, drivers, sensors, power | [$2,571.20](LEDGER_SEC9) |
 | 10 | User interface | [$164.11](LEDGER_SEC10) |
 | 11 | Enclosure hardware | [$462.78](LEDGER_SEC11) |
-| 12 | Shop / bench infrastructure | [$3,128.75](LEDGER_SEC12) |
+| 12 | Shop / bench infrastructure | [$3,155.73](LEDGER_SEC12) |
 | 13 | Printing consumables | [$3,904.48](LEDGER_SEC13) |
 | 14 | Soldering + small-signal tools | [$859.66](LEDGER_SEC14) |
 | 15 | 3D printing equipment + filaments (Bambu direct) | [$9,684.84](LEDGER_SEC15) |

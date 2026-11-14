@@ -12,8 +12,9 @@ It does by motor the sweep in step 3 of the float's
 and what it measures goes in
 [`reed-calibration.json`](/hardware/printed-parts/cold-core/magnetic-float/all-aero/reed-calibration.json).
 
-**Status.** The bought parts are on order and nothing is printed. The controller's program and
-the log reader are written and tested on this Mac. Neither has met a board.
+**Status.** The endstops and motor supply are acquired. The slide, driver, carrier and controller
+remain on order, and nothing is printed. The controller's program and the log reader are written
+and tested on this Mac. Neither has met a board.
 
 ![The rig assembled](/hardware/printed-parts/fixtures/reed-sweep-rig/views/rig.png)
 

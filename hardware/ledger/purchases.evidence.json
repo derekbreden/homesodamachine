@@ -9899,7 +9899,8 @@
       "source_ids": [
         "src-f222afa30a654f9cb63b1cbf6992b390",
         "src-6e940ed7bbfe4e13ad74777db49f8ac9",
-        "src-794a27088a4441b09ee7d79219e71cd3"
+        "src-794a27088a4441b09ee7d79219e71cd3",
+        "src-575287e34a0e48b68470139996e8e4b9"
       ],
       "price_history": [
         {
@@ -9912,6 +9913,12 @@
           ],
           "verified_at": "2026-11-14",
           "note": "Prior order estimate retained as noncontributing history; the separately completed order-scoped merchant transaction confirms the same USD 9.00 total."
+        }
+      ],
+      "delivery_dates": [
+        {
+          "precision": "day",
+          "value": "2026-11-14"
         }
       ]
     },
@@ -10004,7 +10011,8 @@
       "source_ids": [
         "src-a84df1f538bc452984cd3d04e10595c3",
         "src-829a60a402c04c52b54328b2f840cf03",
-        "src-70ca7dc199ed4a9691b01d7003853de8"
+        "src-70ca7dc199ed4a9691b01d7003853de8",
+        "src-575287e34a0e48b68470139996e8e4b9"
       ],
       "price_history": [
         {
@@ -10016,6 +10024,12 @@
           ],
           "verified_at": "2026-11-13",
           "note": "Prior row estimate included a proportional share of order-level estimated tax. That line-tax allocation is not merchant-proven; the current row contains the item price and the order tax is a separate contributing row. This history is noncontributing."
+        }
+      ],
+      "delivery_dates": [
+        {
+          "precision": "day",
+          "value": "2026-11-14"
         }
       ]
     },
@@ -10056,7 +10070,8 @@
       "source_ids": [
         "src-a84df1f538bc452984cd3d04e10595c3",
         "src-829a60a402c04c52b54328b2f840cf03",
-        "src-70ca7dc199ed4a9691b01d7003853de8"
+        "src-70ca7dc199ed4a9691b01d7003853de8",
+        "src-575287e34a0e48b68470139996e8e4b9"
       ],
       "price_history": [
         {
@@ -10068,6 +10083,12 @@
           ],
           "verified_at": "2026-11-13",
           "note": "Prior row estimate included a proportional share of order-level estimated tax. That line-tax allocation is not merchant-proven; the current row contains the item price and the order tax is a separate contributing row. This history is noncontributing."
+        }
+      ],
+      "delivery_dates": [
+        {
+          "precision": "day",
+          "value": "2026-11-14"
         }
       ]
     },
@@ -16363,7 +16384,8 @@
       "source_ids": [
         "src-f222afa30a654f9cb63b1cbf6992b390",
         "src-6e940ed7bbfe4e13ad74777db49f8ac9",
-        "src-794a27088a4441b09ee7d79219e71cd3"
+        "src-794a27088a4441b09ee7d79219e71cd3",
+        "src-575287e34a0e48b68470139996e8e4b9"
       ]
     },
     "amazon:112-1265759-9506602": {
@@ -16377,7 +16399,8 @@
       "source_ids": [
         "src-a84df1f538bc452984cd3d04e10595c3",
         "src-70ca7dc199ed4a9691b01d7003853de8",
-        "src-829a60a402c04c52b54328b2f840cf03"
+        "src-829a60a402c04c52b54328b2f840cf03",
+        "src-575287e34a0e48b68470139996e8e4b9"
       ]
     }
   },
@@ -34705,7 +34728,21 @@
         "value": "2026-11-13"
       },
       "verified_at": "2026-11-14",
-      "note": "Live order-scoped Your Payments > Completed shows USD 9.00 dated 2026-11-13. This confirms the existing expected event in place; the order remains out for delivery, not delivered. No bank posting or funding ownership is inferred."
+      "note": "Live order-scoped Your Payments > Completed shows USD 9.00 dated 2026-11-13. This confirms the existing expected event in place. No bank posting or funding ownership is inferred."
+    },
+    "src-575287e34a0e48b68470139996e8e4b9": {
+      "vendor": "Amazon",
+      "document_type": "delivery_confirmation",
+      "reference": "114-4687967-9041802 and 112-1265759-9506602 shared package",
+      "document_date": {
+        "precision": "day",
+        "value": "2026-11-14"
+      },
+      "proves": [
+        "delivery"
+      ],
+      "verified_at": "2026-11-14",
+      "note": "Exact-order tracking lists two orders in one package and explicitly records delivery Saturday, November 14, 2026 at 1:18 PM local. The package contains the uxcell B09TYSP9NV tap/drill set, BTF-LIGHTING B01D8FLQHE adapter and REIFENG B07TWKH7F7 endstops. This confirms only those three purchase lines, not the remaining rig components, and does not establish another charge."
     }
   },
   "coverage": [
@@ -36882,7 +36919,28 @@
         "amazon:114-4687967-9041802",
         "amazon:112-1265759-9506602"
       ],
-      "note": "The additional tap order has a separate Completed USD 9.00 transaction. The reed sweep rig still shows In Progress / Pending USD 159.54, with estimated order-level tax and no completed or split transaction displayed. Neither order has an actual delivery date. Shipment totals do not establish completed payment allocations. No account-wide or bank coverage is claimed."
+      "note": "The additional tap order has a separate Completed USD 9.00 transaction. The reed sweep rig still shows In Progress / Pending USD 159.54, with estimated order-level tax and no completed or split transaction displayed. Shipment totals do not establish completed payment allocations. No account-wide or bank coverage is claimed."
+    },
+    {
+      "coverage_id": "coverage-551188b7ed324467806f9c4f28fccaf5",
+      "vendor": "Amazon",
+      "stream": "shared package across two named project orders",
+      "evidence_type": "delivery_tracking",
+      "checked_at": "2026-11-14",
+      "examined_period": {
+        "start": "2026-11-14",
+        "end": "2026-11-14"
+      },
+      "complete_period": null,
+      "coverage": "partial",
+      "source_ids": [
+        "src-575287e34a0e48b68470139996e8e4b9"
+      ],
+      "order_ids": [
+        "amazon:114-4687967-9041802",
+        "amazon:112-1265759-9506602"
+      ],
+      "note": "The exact shared-package item list and dated carrier timeline establish delivery for the tap, rig endstops and rig power adapter only. The other rig items remain on order. Delivery does not establish stock remaining, successful fit or a completed rig payment."
     }
   ],
   "gaps": [
@@ -37261,12 +37319,14 @@
       "source_ids": [
         "src-a84df1f538bc452984cd3d04e10595c3",
         "src-829a60a402c04c52b54328b2f840cf03",
-        "src-70ca7dc199ed4a9691b01d7003853de8"
+        "src-70ca7dc199ed4a9691b01d7003853de8",
+        "src-575287e34a0e48b68470139996e8e4b9"
       ],
-      "missing_fact": "Final vendor tax and completed merchant charge remain unverified. The Order Summary supplies only order-level estimated tax, recorded separately rather than spread across items. All components remain on order; relative arrival language is not an actual delivery date.",
+      "missing_fact": "Final vendor tax and completed merchant charge remain unverified. The Order Summary supplies only order-level estimated tax, recorded separately rather than spread across items. Endstops and the power adapter are delivered; the stage, driver, carrier and controller remain on order without actual delivery dates.",
       "sources_checked": [
         "Named Amazon Order Details and printable Order Summary",
-        "Named order-scoped In Progress / Pending transaction, checked November 13, 2026"
+        "Named order-scoped In Progress / Pending transaction, checked November 13, 2026",
+        "Exact-order shared-package tracking and order-scoped Pending transaction, checked November 14, 2026"
       ]
     }
   ],
