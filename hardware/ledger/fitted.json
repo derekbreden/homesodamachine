@@ -308,6 +308,27 @@
       "said": "On the prints that just finished, the fit turned out wonderful. Best faucet display cover fit so far, and very tight/firm. It is good enough. You can see in the photos it is not perfect though. ... on the aft side it is almost like that, but still a bit of a ramp where you can see the tip kissing the surface. But on the fore side, as we bring the camera around the side you see we do make quite a lot of contact with the surface there for a bit, and then we get gaps again.",
       "tried": "the printed cover snapped onto the printed Sculpted tip",
       "record": "https://github.com/derekbreden/homesodamachine/blob/2ec8379a49dab4833c363c0129f5298c7435f70f/hardware/printed-parts/faucet/sculpted/prints/2026-11-12-bowed-cover-tip-end-cooling-mark2/physical-result/physical-result.json"
+    },
+    {
+      "material": "HSM-0096",
+      "date": "2026-11-13",
+      "said": "Regarding the faucet tip and faucet display cover, that is the best fit that we've had of anything ever. It's amazing. I love it. I think the only tiny imperfection is a hole you can see, which isn't even a gap between the display cover and the faucet tip, even though it might look like a gap between them. It's not. It's actually like a hole in the faucet tip that just didn't get quite covered by the display cover. And other than that, I mean, I think it looks pretty damn good.",
+      "tried": "the printed cover snapped onto the printed tip from the same plate",
+      "record": "https://github.com/derekbreden/homesodamachine/blob/727125473a61a56604e145292ffd41d6984f49a0/hardware/printed-parts/faucet/sculpted/prints/2026-11-13-sloped-underside-complete-mark2/physical-result/physical-result.json"
+    },
+    {
+      "material": "HSM-0095",
+      "date": "2026-11-13",
+      "said": "Regarding the faucet tip and faucet display cover, that is the best fit that we've had of anything ever. It's amazing. I love it. I think the only tiny imperfection is a hole you can see, which isn't even a gap between the display cover and the faucet tip, even though it might look like a gap between them. It's not. It's actually like a hole in the faucet tip that just didn't get quite covered by the display cover. And other than that, I mean, I think it looks pretty damn good.",
+      "tried": "the printed tip with the printed cover snapped onto it, from the same plate",
+      "record": "https://github.com/derekbreden/homesodamachine/blob/727125473a61a56604e145292ffd41d6984f49a0/hardware/printed-parts/faucet/sculpted/prints/2026-11-13-sloped-underside-complete-mark2/physical-result/physical-result.json"
+    },
+    {
+      "material": "HSM-0094",
+      "date": "2026-11-13",
+      "said": "So this is the best looking faucet base bottom that we've had ever, at least at this angle. ... And it's still looking better than we've ever had before towards the fore side, towards the front side. But it is definitely looser there. ... And the same for the faucet base. What we just had there needs to be implemented as well, because it's better than anything we've had before, regardless of what we try next.",
+      "tried": "the printed Sculpted base in hand, its underside after the support came off",
+      "record": "https://github.com/derekbreden/homesodamachine/blob/727125473a61a56604e145292ffd41d6984f49a0/hardware/printed-parts/faucet/sculpted/prints/2026-11-13-sloped-underside-complete-mark2/physical-result/physical-result.json"
     }
   ]
 }
