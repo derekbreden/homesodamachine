@@ -1,0 +1,69 @@
+{
+  "date": "2026-11-13",
+  "reported_by": "Derek",
+  "printer": "Mark2",
+  "printer_task_id": "1440074146",
+  "submitted_archive": {
+    "gcode_sha256": "8bec1bac1848b4b92d4ef2f082f6cd67a862d2997ae192815c923f6a1688818e",
+    "name": "sculpted-faucet-sloped-underside-black-mark2-ready.gcode.3mf",
+    "sha256": "3b7b83e0e333f42592d323dcacbff6d8b6c955960e3ee28a7ca7cdb731d43e1b"
+  },
+  "scope": "The base of the complete black Sculpted faucet, its mounting face printed on a scaffold with a sloped roof and a sloped skin of two courses. Derek's words are about the base's underside and its support. He has not reported the tip, the cover, the plate or the lever.",
+  "tried": "the base in hand, its underside after the support came off",
+  "observations": [
+    "So this is the best looking faucet base bottom that we've had ever, at least at this angle. I mean, of course, hope you can see in the photos, it looks pretty amazing towards the back side, towards the aft side. And it's still looking better than we've ever had before towards the fore side, towards the front side. But it is definitely looser there. And I think this has to do with how we continue the print after that initial first layer of the print. It seems like we give up on our non-planar stuff pretty quickly there. And I'm wondering what we can do about that. I'm not sure that we've really put the effort in to really integrate this into the larger faucet print as well. Like, it seems like we, I don't know. I didn't look at all the details of the print, but I'm not sure the sequencing is really thought through completely as part of the whole there. And I'd just like to see if we can do more to continue the non-planar there in a way that's going to help us. You can also see in the photo, the last one there, that the support broke super cleanly off the bottom there. It just fell right off. I have to say, though, it's all one solid support, and that would be impossible to remove if it hadn't broke so cleanly. So that's pretty much why we don't do these solid supports, but because of how easily this dropped off, I'm okay with it here. I just wanted to be clear about that exception. But yeah, I hope you can see what I mean about it feels like the agent pretty much literally applied the non-planar thing to exactly where I asked for, which is good, but then didn't really even consider the transition very much or what was possible after that. I mean, I don't know. Maybe I'm misreading things, and there could be a lot of compromise and stuff I'm not thinking of. So I'd really like you to tell me what you think we should do next here, but I hope we can do some more layers like that first print layer, so that the first print layer turns out even better because it gets built on top of the way that we like. And the other thing I was going to say about the support, I think because it did break so cleanly, I'd like to try to continue it into the heat sets there. There's two levels of counterbore there, though, so we just want to go into the first one, not both of them. If you see what I mean there, I hope. And I think there's a chance those will be removable, so I'd like to try that on the next one here. And so please prepare a new test print of the faucet plate for me here with the changes I'm asking for. Thanks."
+  ],
+  "agent_reading": {
+    "author": "Claude, from the photos and the print's own record; not Derek's words.",
+    "aft_and_fore": "Aft is the face's low end as printed, where each line of the skin starts near the bed. Fore is its high end, on top of the scaffold, where each line ends.",
+    "fore_gaps": "The dark gaps along the fore side's ring are where the stage held each line's upper end a fifth of a millimetre short of the ring.",
+    "fore_recess": "Between the fore recess and the rim, and between it and the bore, the face is a strip narrower than a few lines are long, so the stage laid it as short separate dabs.",
+    "backing": "One more sloped course lay on the first before the level courses took over, and those reached the fore side last. The first course is a bridge over air and was pressed by little before then.",
+    "edge": "The slanted marks along the foot's edge are the blunt ends of the level courses' walls where each stops on the skin.",
+    "recesses": "The insert recesses were bridged with no support in them, as the plate's standing recipe has them.",
+    "limits": "Photographs only. Which recess each close view shows is not stated. Nothing was measured."
+  },
+  "image_processing": "Saved as this session received them, JPEGs about two thousand pixels on their long side.",
+  "images": [
+    {
+      "file": "01-foot-edge-from-the-side.jpg",
+      "sha256": "7b894936e4c6878d0384245b2ee30689ba7789f3a48448fc9d5943e4fc6ff092",
+      "view": "The foot's bottom edge from the side: the skin's band along the edge, a row of short slanted marks where the level courses end on it, and pale remnants on the face behind it."
+    },
+    {
+      "file": "02-face-close-by-a-recess.jpg",
+      "sha256": "38c0a84718fb7fde3c69cc402e5b4f4d3b7332a4f39b59c98ada3dd0b433fb8c",
+      "view": "The face close up from a low angle, by one insert recess: straight lines across the face and a patch beside the recess where they stand apart."
+    },
+    {
+      "file": "03-whole-underside.jpg",
+      "sha256": "a2acc471a6c03bac07be8f5ebc1d31fc575d79ab66190562926ccd814eb936ab",
+      "view": "The whole underside square on: the ring-shaped face, the bore with its slot, and the three insert recesses with strands across their mouths."
+    },
+    {
+      "file": "04-insert-recess-close.jpg",
+      "sha256": "aceedb5116ffd8bb267297cd7d5cf72b6f890b97de519c4b2ffb5ee22524b3fc",
+      "view": "One insert recess close up: loose strands across its mouth and shoulder, and the face's lines beside it standing apart."
+    },
+    {
+      "file": "05-fore-side-of-the-face.jpg",
+      "sha256": "85dcabb94da6b11ea066a80dd7ef8f606816e75ecc40e333153e7e9f26899c69",
+      "view": "The face by the rim and an insert recess: lines standing apart and wavy, and dark gaps between the rim's ring and the ends of the lines."
+    },
+    {
+      "file": "06-foot-from-the-side-and-below.jpg",
+      "sha256": "1e298a9d2273d0efa0d5676d155b3801ec58fcf540e4d192a29bdfb7ee227758",
+      "view": "The foot from the side and below: the bottom edge as a thin even band."
+    },
+    {
+      "file": "07-face-toward-the-aft.jpg",
+      "sha256": "6cc409355a03d83ba9559a136342ab67211e2e1eac6cdffb3f37147fc741bcd3",
+      "view": "The face seen along its lines: tight, even lines, with lifted strands at the bore's edge."
+    },
+    {
+      "file": "08-foot-edge-after-the-support.jpg",
+      "sha256": "583f9a15ff846000b47990907cfd0e0eb5b4aa6613b49492b06d053566085cfd",
+      "view": "The foot's bottom edge from the side after the support came off, the picture Derek names for the clean break."
+    }
+  ]
+}
