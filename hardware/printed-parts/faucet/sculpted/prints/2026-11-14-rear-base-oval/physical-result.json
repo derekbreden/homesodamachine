@@ -1,0 +1,180 @@
+{
+  "date_reported": "2026-11-14",
+  "reported_by": "Derek",
+  "material_number": "HSM-0094",
+  "scope": "Repeat appearance of an oval on the rear outside wall of the Sculpted faucet shell base.",
+  "observations": [
+    "This circle on the back of the base of the sculpted faucet has been present since the earliest prints of it that we've done.",
+    "I can't see it in the model, or even in the G-code, but maybe you can see what's happening there that's causing this.",
+    "I think it's easier to see in the white faucet, so that's why I included that photo, but it's definitely still exactly the same thing on the black faucets as well."
+  ],
+  "images": [
+    {
+      "file": "01-white-rear.jpg",
+      "sha256": "9ad79288eb64dde23f14b372019a1f6a37fd6f99334addfdcc898f895cb12be5",
+      "view": "White base from the rear, with its outline crossing the seam."
+    },
+    {
+      "file": "02-black-rear.jpg",
+      "sha256": "3128122a8dbb2e0c738ec5f39356f7dc9ef9219012b1bca89b481ed9bd0f7fa3",
+      "view": "Black base from the rear, with the oval lower on the wall intersecting the seam."
+    },
+    {
+      "file": "03-white-rear-detail.jpg",
+      "sha256": "38cce2419ea57253ad18129879e44026e3f230419446d70857c05fda4569fca7",
+      "view": "White base oblique close-up, showing the change in texture across the outline."
+    }
+  ],
+  "inspection": {
+    "speed_map": {
+      "file": "rear-wall-speed.png",
+      "sha256": "653ef29885048dfa5eb60bf9afc7edf5f0325077276ca781568a61bc9218b66f",
+      "view": "Orthographic rear projection of commanded exterior moves on the archived white and black plates."
+    },
+    "findings": [
+      "The oval crosses the rear seam on both prints. Its upper and lower edges are clearest in the oblique view of the white base.",
+      "The September and October project meshes have a continuous outer rear wall. In the archived build pose, one course extends farther out over the previous one near the middle of the patch than on the flanks.",
+      "The white and black submitted G-code carries the same oval of low commanded feed rate. Bambu Studio assigns overhang speeds to these moves under the Outer wall label. The same-lap samples carry nearly equal commanded filament length per XY distance through the speed change.",
+      "The two October jobs carry the same slow patch with different part-fan commands. A large speed change at the shallow rear overhang is the leading explanation for the visible finish change."
+    ],
+    "limits": "The photos are unassigned to specific printer jobs. The September evidence is the saved project mesh. The recorded feeds are commands. A physical comparison changing only the outer wall speed would test the cause.",
+    "speed_map_method": "Read the modal feed on each depositing G-code move for the base object. Transform XY and Z back to the part frame using each job report and the recorded nozzle registration. Project the outer wall moves on the rear surface to lateral position and height off the mounting face.",
+    "bambu_studio_source": [
+      "https://github.com/bambulab/BambuStudio/blob/v02.08.02.61/src/libslic3r/OverhangDetector.cpp#L213-L246",
+      "https://github.com/bambulab/BambuStudio/blob/v02.08.02.61/src/libslic3r/GCode.cpp#L6644-L6668"
+    ],
+    "geometry": {
+      "method": "Section the archived shell mesh at fixed lateral stations and measure the change of rear slice-plane Y at consecutive nominal course heights in the print pose.",
+      "cad_x_rotation_degrees": -15,
+      "layer_height_mm": 0.24,
+      "approximate_sample_cad_z_mm": 20,
+      "cad_x_stations_mm": [
+        0,
+        20
+      ],
+      "september_white": {
+        "revision": "14594f74e173b07709cb429b71c62f3e831a4c3d",
+        "project": "hardware/printed-parts/faucet/faucet-petgf.3mf",
+        "project_sha256": "74419053e5df8a96df0978813d2d0435aa1b0abdda8e547ce3bd64f427526122",
+        "rear_y_step_mm": [
+          0.0993,
+          -0.102
+        ]
+      },
+      "october_white": {
+        "revision": "0059432afc301d4c393a6d246c22345ba646d02c",
+        "project": "hardware/printed-parts/faucet/sculpted/prints/2026-10-15-white-right-mark2/2026-10-15-sculpted-white-complete-right04-z004-mark2.3mf",
+        "rear_y_step_mm": [
+          0.1008,
+          0.0412
+        ]
+      }
+    },
+    "approximate_plateau": {
+      "commanded_speed_mm_s": 15,
+      "white_cad_z_mm_near_rear_center": [
+        4.4,
+        30.1
+      ],
+      "white_cad_x_span_mm_near_mid_height": 28
+    },
+    "submitted_jobs": [
+      {
+        "plate": "October white",
+        "mark2_task_id": "1343785668",
+        "revision": "0059432afc301d4c393a6d246c22345ba646d02c",
+        "print_archive_path": "hardware/printed-parts/faucet/sculpted/prints/2026-10-15-white-right-mark2/2026-10-15-sculpted-white-complete-right04-z004-mark2-print-only.gcode.3mf",
+        "print_record_path": "hardware/printed-parts/faucet/sculpted/prints/2026-10-15-white-right-mark2/launch.json",
+        "pose_report_path": "hardware/printed-parts/faucet/sculpted/prints/2026-10-15-white-right-mark2/2026-10-15-sculpted-white-complete-right04-z004-mark2.print.json",
+        "archive_sha256": "2401413d09ca8e4273f6857eadc7d2d5a582ec1b660461490348ccf7a6a4e5ed",
+        "gcode_sha256": "079bf9d4aed066fd34a050070a4d6965de957f6ad4508d0e8480413c7b55bcfb",
+        "nominal_print_z_mm": 19.16,
+        "part_fan_percent_at_sampled_wall": 70,
+        "same_lap_samples": [
+          {
+            "cad_x_mm": -18,
+            "commanded_speed_mm_s": 173.47,
+            "filament_mm_per_xy_mm": 0.03513,
+            "gcode_line": 585165
+          },
+          {
+            "cad_x_mm": 1,
+            "commanded_speed_mm_s": 15,
+            "filament_mm_per_xy_mm": 0.03513,
+            "gcode_line": 585315
+          },
+          {
+            "cad_x_mm": 18,
+            "commanded_speed_mm_s": 173.47,
+            "filament_mm_per_xy_mm": 0.03508,
+            "gcode_line": 585274
+          }
+        ]
+      },
+      {
+        "plate": "October white, localized cooling",
+        "mark2_task_id": "1349558196",
+        "revision": "bfcb168364badbab135c3d2340a679232d1df991",
+        "print_archive_path": "hardware/printed-parts/faucet/sculpted/prints/2026-10-17-localized-cooling-display-clearance-mark2/2026-10-17-sculpted-white-localcool-clearance150-right04-z004-mark2-r2-print-only.gcode.3mf",
+        "print_record_path": "hardware/printed-parts/faucet/sculpted/prints/2026-10-17-localized-cooling-display-clearance-mark2/launch.json",
+        "pose_report_path": "hardware/printed-parts/faucet/sculpted/prints/2026-10-17-localized-cooling-display-clearance-mark2/2026-10-17-sculpted-white-localcool-clearance150-right04-z004-mark2.print.json",
+        "archive_sha256": "019aa62f3aa581af0077ebd37208794fd1636927754aa435c20fefec8cebb545",
+        "gcode_sha256": "2b3d747aa3007c12d7f3611b2b8ff1fe959ea57d103439803bedcb3686f37fb3",
+        "nominal_print_z_mm": 19.16,
+        "part_fan_percent_at_sampled_wall": 0,
+        "same_lap_samples": [
+          {
+            "cad_x_mm": -18,
+            "commanded_speed_mm_s": 173.47,
+            "filament_mm_per_xy_mm": 0.03513,
+            "gcode_line": 597082
+          },
+          {
+            "cad_x_mm": 1,
+            "commanded_speed_mm_s": 15,
+            "filament_mm_per_xy_mm": 0.03513,
+            "gcode_line": 597232
+          },
+          {
+            "cad_x_mm": 18,
+            "commanded_speed_mm_s": 173.47,
+            "filament_mm_per_xy_mm": 0.03508,
+            "gcode_line": 597191
+          }
+        ]
+      },
+      {
+        "plate": "November black, sloped underside",
+        "mark2_task_id": "1440074146",
+        "revision": "c8667107f964589be7dc69f8fb924f69a12729b3",
+        "print_archive_path": "hardware/printed-parts/faucet/sculpted/prints/2026-11-13-sloped-underside-complete-mark2/sculpted-faucet-sloped-underside-black-mark2-ready.gcode.3mf",
+        "print_record_path": "hardware/printed-parts/faucet/sculpted/prints/2026-11-13-sloped-underside-complete-mark2/physical-result/physical-result.json",
+        "pose_report_path": "hardware/printed-parts/faucet/sculpted/prints/2026-11-13-sloped-underside-complete-mark2/sculpted-faucet-sloped-underside-black-mark2.print.json",
+        "archive_sha256": "3b7b83e0e333f42592d323dcacbff6d8b6c955960e3ee28a7ca7cdb731d43e1b",
+        "gcode_sha256": "8bec1bac1848b4b92d4ef2f082f6cd67a862d2997ae192815c923f6a1688818e",
+        "nominal_print_z_mm": 19.16,
+        "part_fan_percent_at_sampled_wall": 0,
+        "same_lap_samples": [
+          {
+            "cad_x_mm": -18,
+            "commanded_speed_mm_s": 174.23,
+            "filament_mm_per_xy_mm": 0.03503,
+            "gcode_line": 511292
+          },
+          {
+            "cad_x_mm": 1,
+            "commanded_speed_mm_s": 15,
+            "filament_mm_per_xy_mm": 0.03511,
+            "gcode_line": 511445
+          },
+          {
+            "cad_x_mm": 18,
+            "commanded_speed_mm_s": 174.23,
+            "filament_mm_per_xy_mm": 0.03514,
+            "gcode_line": 511406
+          }
+        ]
+      }
+    ]
+  }
+}
