@@ -5,7 +5,7 @@
 //!                                 [--printer Mark1|Mark2] [--filament-colour '#RRGGBB']
 //!                                 [--base-only] [--base-section SECTION.stl | --tip-only | --tip-and-cover]
 //!                                 [--filled-base FILLED.stl | --physical-base]
-//!                                 [--tip-mesh TIP.stl --cover-mesh COVER.stl]
+//!                                 [--tip-mesh TIP.stl --cover-mesh COVER.stl] [--tip-rotation DEGREES]
 //!                                 [--warp-donor --tip-mesh TIP.stl [--warp-settings SETTINGS.json]]
 //!                                 [--finish SELECTION.json]
 //!
@@ -19,7 +19,8 @@
 //! sloped roof and skin: the base then takes no rim supports and no contact band here, and the
 //! lever stands clear of the toolhead's reach over that scaffold. `--physical-base` writes that
 //! layout's editable project with the actual base. `--tip-mesh` and `--cover-mesh` put a trial's
-//! tip and cover on that plate; `--warp-donor` slices a warped tip alone, in fine course bands
+//! tip and cover on that plate; `--tip-rotation` places that tip and its donor in the same
+//! trial pose. `--warp-donor` slices a warped tip alone, in fine course bands
 //! with a removable roof under its virtual shoulder, for the stage that lays its courses back
 //! onto the real shoulder. `--warp-settings` supplies the donor's course bands and support
 //! regions in the warped mesh's coordinates. `--finish` reads a trial's finish selection in
@@ -67,6 +68,7 @@ fn main() -> Result<()> {
     let mut physical_base = false;
     let mut tip_mesh = None;
     let mut cover_mesh = None;
+    let mut tip_rotation = None;
     let mut warp_donor = false;
     let mut warp_settings_path = None;
     let mut finish = PathBuf::from(FINISH);
@@ -104,6 +106,7 @@ fn main() -> Result<()> {
             Some("--filled-base") => filled_base = Some(PathBuf::from(value)),
             Some("--tip-mesh") => tip_mesh = Some(PathBuf::from(value)),
             Some("--cover-mesh") => cover_mesh = Some(PathBuf::from(value)),
+            Some("--tip-rotation") => tip_rotation = Some(value.to_str().context("tip rotation")?.parse::<f64>()?),
             Some("--warp-settings") => warp_settings_path = Some(PathBuf::from(value)),
             Some("--finish") => finish = PathBuf::from(value),
             Some("--printer") => printer = value.into_string().ok().context("printer name")?,
@@ -126,6 +129,7 @@ fn main() -> Result<()> {
     ensure!(!(tip_only && tip_and_cover) && (include_base || (!base_only && base_section.is_none())),
         "--base-only and --base-section cannot be combined with a tip plate");
     ensure!(warp_donor || warp_settings_path.is_none(), "--warp-settings requires --warp-donor");
+    ensure!(tip_rotation.is_none_or(|angle| angle.is_finite() && !base_only), "the tip rotation needs a finite angle and a tip");
     let warp_settings = warp_settings_path.as_deref().map(WarpSettings::read).transpose()?;
     let trim = hsm_print_prep::profile::petgf_z_trim(&root, &printer)?;
     let title = if base_only {
@@ -156,7 +160,8 @@ fn main() -> Result<()> {
     }
     if !base_only {
         let source = tip_mesh.unwrap_or_else(|| faucet.join("faucet-shell/faucet-shell-tip.stl"));
-        parts.push(Part::new("faucet-shell-tip", source, -PRINT_TIP_BUILD_ROT.to_degrees()));
+        let rotation = tip_rotation.unwrap_or_else(|| -PRINT_TIP_BUILD_ROT.to_degrees());
+        parts.push(Part::new("faucet-shell-tip", source, rotation));
     }
     if !base_only && !tip_only {
         let source = cover_mesh.unwrap_or_else(|| faucet.join("faucet-display-cover/faucet-display-cover.stl"));
@@ -236,6 +241,14 @@ fn main() -> Result<()> {
                 min_z, max_z, options: vec![("layer_height".into(), height.to_string())],
             }).collect();
         r.extra.insert("tip_virtual_course_bands_mm".into(), json!(bands));
+        if let Some(settings) = &warp_settings {
+            if let Some(independent) = settings.independent_support_layer_height {
+                r.plate.settings.set("independent_support_layer_height", Json::Text(if independent { "1" } else { "0" }.into()));
+            }
+            if let Some(gap) = settings.support_top_gap_mm {
+                r.plate.settings.set("support_top_z_distance", Json::Text(gap.to_string()));
+            }
+        }
     }
     let hook = cooling_hook(&root);
     apply_overhang_recipe(&mut r.plate.settings, &selection["overhang_recipe"], &hook)?;
@@ -298,8 +311,9 @@ fn main() -> Result<()> {
         let tip = add_tip_root_anchor(&root, &mut r, &selection["tip_supports"])?;
         r.extra.insert("tip_supports".into(), tip);
         let index = r.row("faucet-shell-tip")?.index;
-        let contact = add_tip_dispense_contact(&mut r, &selection["tip_dispense_contact"], &mapping["parameters"])?;
-        let band = ContactBand::new(&contact["band"])?;
+        let map_dispense = warp_settings.as_ref().map_or(tip_rotation.is_none(), |settings| settings.map_dispense_contact);
+        let contact = add_tip_dispense_contact(&mut r, &selection["tip_dispense_contact"], &mapping["parameters"], map_dispense)?;
+        let band = map_dispense.then(|| ContactBand::new(&contact["band"])).transpose()?;
         r.extra.insert("tip_dispense_contact".into(), contact);
         let lip = if warp_donor {
             let support = match &warp_settings {
@@ -376,7 +390,9 @@ fn main() -> Result<()> {
     if let Some(directory) = slice_output {
         let mut bands = Vec::new();
         if let Some((index, band, lip, _)) = &tip_finish {
-            bands.push((*index, band));
+            if let Some(band) = band {
+                bands.push((*index, band));
+            }
             if let Some((_, joint)) = lip {
                 bands.push((*index, joint));
             }
@@ -486,6 +502,9 @@ struct WarpSupport {
 struct WarpSettings {
     course_bands_mm: Vec<[f64; 3]>,
     support_parts: Vec<WarpSupport>,
+    map_dispense_contact: bool,
+    independent_support_layer_height: Option<bool>,
+    support_top_gap_mm: Option<f64>,
 }
 
 impl WarpSettings {
@@ -509,7 +528,13 @@ impl WarpSettings {
                     "each support part needs a name and a native support subtype");
                 Ok(WarpSupport { name, role, stl })
             }).collect::<Result<_>>()?;
-        Ok(Self { course_bands_mm, support_parts })
+        let map_dispense_contact = recipe.get("map_dispense_contact").map(|value|
+            value.as_bool().context("map_dispense_contact must be a boolean")).transpose()?.unwrap_or(true);
+        let independent_support_layer_height = recipe.get("independent_support_layer_height").map(|value|
+            value.as_bool().context("independent_support_layer_height must be a boolean")).transpose()?;
+        let support_top_gap_mm = recipe.get("support_top_gap_mm").map(|value|
+            value.as_f64().filter(|gap| *gap >= 0. && gap.is_finite()).context("support_top_gap_mm must be nonnegative")).transpose()?;
+        Ok(Self { course_bands_mm, support_parts, map_dispense_contact, independent_support_layer_height, support_top_gap_mm })
     }
 
     fn add_support(&self, project: &mut Refreshed) -> Result<Value> {

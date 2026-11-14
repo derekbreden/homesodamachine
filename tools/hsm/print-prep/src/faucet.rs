@@ -4,6 +4,7 @@
 //! them.
 
 use crate::json::{python_number, Json};
+use crate::mesh::bounds;
 use crate::project::Paint;
 use crate::refresh::Refreshed;
 use crate::{cooling, seam, sha256_hex, xml};
@@ -480,12 +481,51 @@ pub fn add_tip_root_anchor(root: &Path, r: &mut Refreshed, selected: &Value) -> 
     let old = selected["root_anchor_component_id"].as_i64().context("tip root anchor component")?;
     let mut carried = carry(&source, &origin_object, old, shift)?;
     carried.name = "tip-hidden-root-disc".into();
+    let row = &r.rows[index];
+    let source_angle = origin["rotation_x_degrees"].as_f64().context("tip root anchor source angle")?;
+    let mut reseated = None;
+    if (row.angle - source_angle).abs() > 1e-9 {
+        let source_rotation = crate::rotation_x(source_angle);
+        let object = &r.plate.objects[index];
+        let rotation = object.rotation;
+        let translation = object.translation;
+        let joint: [f64; 3] = serde_json::from_value(selected["joint_plane"]["point"].clone())?;
+        let inward: [f64; 3] = serde_json::from_value(selected["joint_plane"]["normal"].clone())?;
+        let inside_plug = |v: [f64; 3]| sub(v, joint).into_iter().zip(inward).map(|(d, n)| d * n).sum::<f64>() < 0.;
+        let plug_low = |r| -> Result<[f64; 3]> {
+            let (local, build) = object.vertices.iter().map(|v| (*v, crate::apply(r, *v)))
+                .min_by(|(_, a), (_, b)| a[2].total_cmp(&b[2])).context("tip plug low point")?;
+            let cad = [0, 1, 2].map(|i| local[i] + row.center[i]);
+            ensure!(inside_plug(cad), "the hidden end of the mating plug must still be the bed contact");
+            Ok(build)
+        };
+        let source_low = plug_low(&source_rotation)?;
+        let target_low = plug_low(&rotation)?;
+        let mut pad: Vec<_> = carried.vertices.iter().map(|p| crate::apply(&source_rotation, *p)).collect();
+        let (pad_low, _) = bounds(&pad);
+        let offset = [target_low[0] - source_low[0], target_low[1] - source_low[1], -translation[2] - pad_low[2]];
+        let inverse = [0, 1, 2].map(|i| [0, 1, 2].map(|j| rotation[j][i]));
+        for point in &mut pad {
+            *point = [0, 1, 2].map(|i| point[i] + offset[i]);
+        }
+        let to_world = |point: [f64; 3]| [0, 1, 2].map(|i| point[i] + translation[i]);
+        let (lo, hi) = bounds(&pad);
+        carried.vertices = pad.into_iter().map(|point| crate::apply(&inverse, point)).collect();
+        reseated = Some(json!({"plug_low_point_mm": to_world(target_low),
+            "pad_build_bounds_mm": [to_world(lo), to_world(hi)]}));
+    }
     let (member, sha) = (carried.source_member.clone(), carried.source_member_sha256.clone());
     let id = add_carried(r, index, carried);
-    let anchor = json!({"source_component_id": old, "component_id": id, "source_member": member, "source_member_sha256": sha});
-    Ok(json!({"part": selected["part"], "source_project": selected["source_project"], "source_project_sha256": file_sha(&source_path)?,
-              "source_preparation": selected["source_preparation"], "physical_result": selected["physical_result"], "components": [anchor],
-              "source_local_to_target_local_translation_mm": shift, "joint_plane": selected["joint_plane"],
-              "root_contact_scope": selected["root_contact_scope"]}))
+    let mut anchor = json!({"source_component_id": old, "component_id": id, "source_member": member, "source_member_sha256": sha});
+    let mut report = json!({"part": selected["part"], "source_project": selected["source_project"], "source_project_sha256": file_sha(&source_path)?,
+        "source_preparation": selected["source_preparation"], "physical_result": selected["physical_result"],
+        "joint_plane": selected["joint_plane"], "root_contact_scope": selected["root_contact_scope"]});
+    if let Some(reseated) = reseated {
+        anchor["reseated"] = reseated;
+    } else {
+        report["source_local_to_target_local_translation_mm"] = json!(shift);
+    }
+    report["components"] = json!([anchor]);
+    Ok(report)
 }
 

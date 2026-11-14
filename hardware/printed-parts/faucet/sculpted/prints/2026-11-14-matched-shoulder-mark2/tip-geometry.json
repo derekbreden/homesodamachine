@@ -1,0 +1,262 @@
+{
+  "purpose": "Measures the packaged tip’s nonplanar shoulder and checks the dispense nose and the retained companion paths.",
+  "archive_sha256": "983dfa8f26d5af5ba4014f113b1bcdd3dba13e2c5de21d23bf93463ab6ecbe58",
+  "gcode_sha256": "a72a4094858e1ca1d3ab2bc07af5031fb26086181cdc16a92b49c56a47c872d0",
+  "shoulder": {
+    "warp_entry_virtual_mm": [
+      0.68,
+      23.449970385871847
+    ],
+    "hold_virtual_mm": [
+      23.449970385871847,
+      25.849970385871845
+    ],
+    "warp_release_virtual_mm": [
+      25.849970385871845,
+      49.207024567837244
+    ],
+    "first_measured_tilt_virtual_mm": 1.2,
+    "axes_sampled": [
+      {
+        "virtual_z_mm": 0.2,
+        "measured_yz_angle_degrees": -0.0,
+        "model_mm": 134.36403566453896,
+        "interface_mm": 0.0
+      },
+      {
+        "virtual_z_mm": 1.2,
+        "measured_yz_angle_degrees": 0.03274548735302337,
+        "model_mm": 49.413973446058456,
+        "interface_mm": 0.0
+      },
+      {
+        "virtual_z_mm": 4.0,
+        "measured_yz_angle_degrees": 1.199094134203435,
+        "model_mm": 146.60807891985772,
+        "interface_mm": 0.0
+      },
+      {
+        "virtual_z_mm": 10.0,
+        "measured_yz_angle_degrees": 7.575479238501047,
+        "model_mm": 325.0362900804996,
+        "interface_mm": 27.99778752425053
+      },
+      {
+        "virtual_z_mm": 18.0,
+        "measured_yz_angle_degrees": 17.295239651796763,
+        "model_mm": 340.5673438326476,
+        "interface_mm": 0.0
+      },
+      {
+        "virtual_z_mm": 24.6,
+        "measured_yz_angle_degrees": 20.00017640763332,
+        "model_mm": 326.73935854352675,
+        "interface_mm": 85.44280591760638
+      },
+      {
+        "virtual_z_mm": 24.8,
+        "measured_yz_angle_degrees": 19.999608174637252,
+        "model_mm": 773.7356270611133,
+        "interface_mm": 0.0
+      },
+      {
+        "virtual_z_mm": 26.0,
+        "measured_yz_angle_degrees": 19.99718068778337,
+        "model_mm": 422.6618863768985,
+        "interface_mm": 0.0
+      },
+      {
+        "virtual_z_mm": 48.68,
+        "measured_yz_angle_degrees": 0.03147992252971027,
+        "model_mm": 429.2888925259337,
+        "interface_mm": 0.0
+      },
+      {
+        "virtual_z_mm": 49.04,
+        "measured_yz_angle_degrees": 0.0037524664722524952,
+        "model_mm": 424.7857114451419,
+        "interface_mm": 0.0
+      },
+      {
+        "virtual_z_mm": 49.22,
+        "measured_yz_angle_degrees": -0.0,
+        "model_mm": 412.99726720730166,
+        "interface_mm": 0.0
+      }
+    ],
+    "roof_stock_delta_along_bearing_normal": {
+      "Bridge": {
+        "coverage_within_0p28": 0.012940626052971931,
+        "coverage_within_0p34": 0.103065719124806,
+        "finite_gap_quantiles_mm": [
+          0.010085702297071732,
+          0.3321471170475748,
+          0.404708625692239,
+          0.5298997640223744,
+          1.4874871695358838
+        ],
+        "length_by_stock_feature_mm": {
+          "Outer wall": {
+            "total": 4.6679160948022735,
+            "touching": 0.0,
+            "within_0p28": 3.378362474265193,
+            "within_0p34": 3.378362474265193
+          },
+          "Support": {
+            "total": 0.4271737545008072,
+            "touching": 0.0,
+            "within_0p28": 0.0,
+            "within_0p34": 0.0
+          },
+          "Support interface": {
+            "total": 192.3856014861046,
+            "touching": 0.0,
+            "within_0p28": 0.0,
+            "within_0p34": 23.52863232251555
+          },
+          "Support transition": {
+            "total": 3.7448690485330633,
+            "touching": 0.0,
+            "within_0p28": 0.0,
+            "within_0p34": 0.0
+          },
+          "none": {
+            "total": 59.840825464470925,
+            "touching": 0.0,
+            "within_0p28": 0.0,
+            "within_0p34": 0.0
+          }
+        },
+        "sampled_road_mm": 261.0663858484128
+      },
+      "Overhang wall": {
+        "coverage_within_0p28": 0.06370000775301896,
+        "coverage_within_0p34": 0.4873048779233508,
+        "finite_gap_quantiles_mm": [
+          0.2368582888764643,
+          0.29041762104634467,
+          0.3419708949295656,
+          0.384724773456107,
+          1.4116581308329454
+        ],
+        "length_by_stock_feature_mm": {
+          "Support": {
+            "total": 0.15090374928667327,
+            "touching": 0.0,
+            "within_0p28": 0.0,
+            "within_0p34": 0.0
+          },
+          "Support interface": {
+            "total": 164.00630850042324,
+            "touching": 0.0,
+            "within_0p28": 10.461455519033109,
+            "within_0p34": 80.03010493136694
+          },
+          "Support transition": {
+            "total": 0.07283870404853224,
+            "touching": 0.0,
+            "within_0p28": 0.0,
+            "within_0p34": 0.0
+          }
+        },
+        "sampled_road_mm": 164.23005095375842
+      }
+    },
+    "sampled_road_interval_mm": 0.12,
+    "scope": "Ray intersection from deposited bead underside with previously laid bead solids in a different course. The largest finite search is 1.5 mm."
+  },
+  "dispense_nose": {
+    "exterior_support_surface_hits": [],
+    "internal_painted_face_support_features": [
+      "painted inner face / Support",
+      "painted inner face / Support interface",
+      "painted inner face / Support transition"
+    ],
+    "shallow_outer_wall": {
+      "world_z_range_mm": [
+        97.46,
+        113.78
+      ],
+      "shallowest_local_incline_degrees": 40.00081282681293,
+      "mean_width_mm": 0.4200000000000031,
+      "mean_bead_height_mm": 0.2399979776511107,
+      "road_mm": 772.3242459062562
+    },
+    "first_level_course_z_mm": 49.22,
+    "last_course_z_mm": 131.54,
+    "retained_emittent_passages": {
+      "drain vent": {
+        "sampled_axial_range_mm": [
+          -8.0,
+          0.0
+        ],
+        "total_cad_open_samples": 5457,
+        "centerline_model_samples_inside": 0,
+        "total_support_samples_inside": 0,
+        "model_samples_at_nominal_edges": 0,
+        "model_samples_inboard_of_nominal_edges": 0
+      },
+      "flavor left": {
+        "sampled_axial_range_mm": [
+          0.1,
+          4.0
+        ],
+        "total_cad_open_samples": 3197,
+        "centerline_model_samples_inside": 0,
+        "total_support_samples_inside": 0,
+        "model_samples_at_nominal_edges": 3,
+        "model_samples_inboard_of_nominal_edges": 0
+      },
+      "flavor right": {
+        "sampled_axial_range_mm": [
+          0.1,
+          4.0
+        ],
+        "total_cad_open_samples": 3197,
+        "centerline_model_samples_inside": 0,
+        "total_support_samples_inside": 0,
+        "model_samples_at_nominal_edges": 3,
+        "model_samples_inboard_of_nominal_edges": 0
+      },
+      "water": {
+        "sampled_axial_range_mm": [
+          0.1,
+          4.0
+        ],
+        "total_cad_open_samples": 3305,
+        "centerline_model_samples_inside": 0,
+        "total_support_samples_inside": 0,
+        "model_samples_at_nominal_edges": 107,
+        "model_samples_inboard_of_nominal_edges": 0
+      }
+    },
+    "scope": "Nominal bead model and sampled CAD-open radial points. Downward-facing patches are checked by positive-Z rays from support paths for up to 2 mm."
+  },
+  "retained_companions": {
+    "base": {
+      "matches": true,
+      "new_road_count": 781948,
+      "new_road_sha256": "c1a52bde6b7be7ee3bbc3896be505d073845b494a172e8b96853e90f4cbf7520"
+    },
+    "display cover": {
+      "matches": true,
+      "new_road_count": 58935,
+      "new_road_sha256": "90ff4f74e95c2c503fdf1a2ef65e3cad329c32176133525108a820858084ef06"
+    },
+    "lever": {
+      "matches": true,
+      "new_road_count": 33735,
+      "new_road_sha256": "f1305017972af4ae0f80c410ba79709a42ca11990107597deb14315b8c961a2a"
+    },
+    "mounting plate": {
+      "matches": true,
+      "new_road_count": 44617,
+      "new_road_sha256": "b3ac680f1adedf62fe53fb79b3f6581054eaab78e499f7070e46c18c87ee6153"
+    },
+    "mounting plate rings": {
+      "matches": true,
+      "new_road_count": 2730,
+      "new_road_sha256": "fd1fe5efdda5399c6f9ebebe3ed736d8620b83a24bfb174bb4908e459d19e4a3"
+    }
+  }
+}

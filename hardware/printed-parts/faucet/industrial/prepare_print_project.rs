@@ -227,7 +227,7 @@ fn main() -> Result<()> {
     if let Some(entries) = parameters.as_object_mut() {
         entries.remove("purpose");
     }
-    let tip_contact = add_tip_dispense_contact(&mut r, &finish["tip_dispense_contact"], &parameters)?;
+    let tip_contact = add_tip_dispense_contact(&mut r, &finish["tip_dispense_contact"], &parameters, true)?;
     r.extra.insert("tip_dispense_contact".into(), tip_contact);
     let (tip_rim, joint) = add_tip_rim_contact(&mut r, &finish["tip_supports"], &parameters)?;
     r.extra.insert("tip_rim_contact".into(), joint);

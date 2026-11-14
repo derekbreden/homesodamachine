@@ -1,0 +1,270 @@
+{
+  "tape_sha256": "b0bfbeb824782154a8453a771f9ad136c8e40067d155acf9d406306d35a09b78",
+  "mesh_sha256": "a70d6b5af3ef74ca1a8e94bf0133b1a51bb201923a65a40ab191713c5467aad5",
+  "frame": {
+    "origin": [
+      186.49975395202637,
+      219.35225476426575,
+      24.649970385871846
+    ],
+    "normal": [
+      0.0,
+      0.3420201433256688,
+      0.9396926207859083
+    ]
+  },
+  "mating_annulus_area_mm2": 167.935630054032,
+  "nearest_underside_interface": {
+    "virtual_z_mm": 24.2,
+    "normal_top_range_mm": [
+      -0.4505660260698287,
+      -0.4493856747515264
+    ],
+    "section_plane_mm": -0.44997543992427486,
+    "roof_mm2": 206.28856384435935,
+    "shoulder_mm2": 134.50751867297987,
+    "shoulder_coverage_fraction": 0.8009468784539833,
+    "overlap_with_plug_stock_mm2": 0.0,
+    "interface_paths": 508,
+    "actual_as_sliced_components": 1
+  },
+  "nearby_interface_by_virtual_z": [
+    {
+      "virtual_z_mm": 23.8,
+      "normal_top_range_mm": [
+        -0.8505923905042464,
+        -0.8493596001389135
+      ],
+      "section_plane_mm": -0.8499196174743869,
+      "roof_mm2": 203.49235325321501,
+      "shoulder_mm2": 133.67603359670377,
+      "shoulder_coverage_fraction": 0.795995665444519,
+      "overlap_with_plug_stock_mm2": 0.0,
+      "interface_paths": 496,
+      "actual_as_sliced_components": 1
+    },
+    {
+      "virtual_z_mm": 24.0,
+      "normal_top_range_mm": [
+        -0.650493596389275,
+        -0.6493667304637971
+      ],
+      "section_plane_mm": -0.6499608159710573,
+      "roof_mm2": 204.7071100482599,
+      "shoulder_mm2": 134.51214388743844,
+      "shoulder_coverage_fraction": 0.8009744200451101,
+      "overlap_with_plug_stock_mm2": 0.0,
+      "interface_paths": 505,
+      "actual_as_sliced_components": 1
+    },
+    {
+      "virtual_z_mm": 24.2,
+      "normal_top_range_mm": [
+        -0.4505660260698287,
+        -0.4493856747515264
+      ],
+      "section_plane_mm": -0.44997543992427486,
+      "roof_mm2": 206.28856384435935,
+      "shoulder_mm2": 134.50751867297987,
+      "shoulder_coverage_fraction": 0.8009468784539833,
+      "overlap_with_plug_stock_mm2": 0.0,
+      "interface_paths": 508,
+      "actual_as_sliced_components": 1
+    },
+    {
+      "virtual_z_mm": 24.4,
+      "normal_top_range_mm": [
+        -0.2505567151865213,
+        -0.24948179660907158
+      ],
+      "section_plane_mm": -0.2499888220286238,
+      "roof_mm2": 40.51964128231868,
+      "shoulder_mm2": 0.009067162513939624,
+      "shoulder_coverage_fraction": 5.39918926735341e-05,
+      "overlap_with_plug_stock_mm2": 0.0,
+      "interface_paths": 132,
+      "actual_as_sliced_components": 1
+    },
+    {
+      "virtual_z_mm": 24.6,
+      "normal_top_range_mm": [
+        -0.05054576267424552,
+        -0.04941208503510843
+      ],
+      "section_plane_mm": -0.049946503654188845,
+      "roof_mm2": 31.588066541853102,
+      "shoulder_mm2": 0.0,
+      "shoulder_coverage_fraction": 0.0,
+      "overlap_with_plug_stock_mm2": 0.0,
+      "interface_paths": 117,
+      "actual_as_sliced_components": 1
+    }
+  ],
+  "first_nearby_model_course": 24.8,
+  "first_model_normal_range_mm": [
+    0.14940613313475531,
+    0.15064605777375076
+  ],
+  "first_model_walls": {
+    "Overhang wall": {
+      "road_centerline_on_yellow_mm": 164.2300180029298,
+      "underlying_part_centerline_landing_fraction": 0.0,
+      "interface_centerline_landing_fraction": 0.9966807059954843,
+      "interface_bead_area_fraction": 0.9753225844590138,
+      "joint_support_or_part_centerline_fraction": 0.9966807059954843,
+      "centerline_on_actual_already_printed_support_fraction": 0.9966580374153334,
+      "landings_scheduled_after_deposit_length_mm": 0.003722861326282325,
+      "longest_free_centerline_mm": 0.1901193212992009,
+      "unbacked_continuous_roads": [
+        {
+          "length_mm": 0.1901193212992009,
+          "center_uv_mm": [
+            12.192349352026554,
+            -1.293885496190199
+          ],
+          "center_ring_azimuth_deg": 336.4353325708824
+        },
+        {
+          "length_mm": 0.13238077173588764,
+          "center_uv_mm": [
+            -11.608074022685905,
+            -2.4736600338828927
+          ],
+          "center_ring_azimuth_deg": 209.23666247014006
+        },
+        {
+          "length_mm": 0.0698272313217358,
+          "center_uv_mm": [
+            -10.4428787517701,
+            -4.219535578636805
+          ],
+          "center_ring_azimuth_deg": 218.28585584744098
+        },
+        {
+          "length_mm": 0.06973045571744933,
+          "center_uv_mm": [
+            10.443961333831231,
+            -4.219060538230774
+          ],
+          "center_ring_azimuth_deg": 321.71732543878596
+        }
+      ]
+    },
+    "Bridge": {
+      "road_centerline_on_yellow_mm": 260.664448966857,
+      "underlying_part_centerline_landing_fraction": 0.01609790746483096,
+      "interface_centerline_landing_fraction": 0.7312968121886111,
+      "interface_bead_area_fraction": 0.7342107906557274,
+      "joint_support_or_part_centerline_fraction": 0.7473947196534422,
+      "centerline_on_actual_already_printed_support_fraction": 0.7472835333876017,
+      "landings_scheduled_after_deposit_length_mm": 0.028982340589019977,
+      "longest_free_centerline_mm": 1.868513169921383,
+      "unbacked_continuous_roads": [
+        {
+          "length_mm": 1.868513169921383,
+          "center_uv_mm": [
+            2.3175449377911566,
+            -7.274726385953641
+          ],
+          "center_ring_azimuth_deg": 281.5905217449802
+        },
+        {
+          "length_mm": 1.7547271849615496,
+          "center_uv_mm": [
+            -2.0030093829557347,
+            -7.329843363191861
+          ],
+          "center_ring_azimuth_deg": 259.9935962896025
+        },
+        {
+          "length_mm": 1.6125154414864313,
+          "center_uv_mm": [
+            -2.4733206082612043,
+            15.240096454660785
+          ],
+          "center_ring_azimuth_deg": 102.43651892922173
+        },
+        {
+          "length_mm": 1.5587613788387888,
+          "center_uv_mm": [
+            2.1366995605068486,
+            15.298784904110677
+          ],
+          "center_ring_azimuth_deg": 79.27048610562036
+        },
+        {
+          "length_mm": 1.2968797169129653,
+          "center_uv_mm": [
+            -0.33027582209806416,
+            15.670638137207833
+          ],
+          "center_ring_azimuth_deg": 91.62553694022
+        },
+        {
+          "length_mm": 1.105948980731982,
+          "center_uv_mm": [
+            0.32802699597541285,
+            -7.7029406175478
+          ],
+          "center_ring_azimuth_deg": 271.6010959187284
+        },
+        {
+          "length_mm": 1.08737199899997,
+          "center_uv_mm": [
+            -3.644782678723036,
+            -6.947470407283149
+          ],
+          "center_ring_azimuth_deg": 251.62170092988964
+        },
+        {
+          "length_mm": 1.0324148569673186,
+          "center_uv_mm": [
+            3.9030667379258484,
+            -6.850320279906759
+          ],
+          "center_ring_azimuth_deg": 289.7435872994755
+        }
+      ]
+    }
+  },
+  "nearest_nominal_gap_mm": 0.3487918078862817,
+  "plug_support_overlap_by_nominal_plane": [],
+  "angular_seam_tool_access": [
+    {
+      "angular_seam_deg": 180.0,
+      "uv_centerline_start_and_end_mm": [
+        [
+          -12.249748696461445,
+          4.0235218554979735
+        ],
+        [
+          -15.499748696461445,
+          4.0235218554979735
+        ]
+      ],
+      "nipper_tip_path_half_width_mm": 0.7,
+      "centerline_in_top_roof_mm": 1.6281199941112021,
+      "nipper_plane_corridor_over_model_plug_mm2": 0.0,
+      "nipper_plane_corridor_over_roof_mm2": 2.278750277570817,
+      "outside_approach_to_roof_mm": 1.1554538563382268
+    },
+    {
+      "angular_seam_deg": 0.0,
+      "uv_centerline_start_and_end_mm": [
+        [
+          12.24975920759129,
+          4.023521855497972
+        ],
+        [
+          15.49975920759129,
+          4.023521855497972
+        ]
+      ],
+      "nipper_tip_path_half_width_mm": 0.7,
+      "centerline_in_top_roof_mm": 1.626617822030564,
+      "nipper_plane_corridor_over_model_plug_mm2": 0.0,
+      "nipper_plane_corridor_over_roof_mm2": 2.2774999466697503,
+      "outside_approach_to_roof_mm": 1.1720046011467076
+    }
+  ]
+}

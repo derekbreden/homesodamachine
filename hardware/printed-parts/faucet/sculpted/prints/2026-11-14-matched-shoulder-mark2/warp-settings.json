@@ -1,0 +1,44 @@
+{
+  "course_bands_mm": [
+    [
+      0.2,
+      26.0,
+      0.2
+    ],
+    [
+      26.0,
+      49.207024567837244,
+      0.18
+    ]
+  ],
+  "native_nose_handoff_mm": 49.207024567837244,
+  "support_parts": [
+    {
+      "name": "Shoulder roof sector 1",
+      "role": "support_enforcer",
+      "stl": "shoulder-roof-sector-1.stl"
+    },
+    {
+      "name": "Roof access slit 1",
+      "role": "support_blocker",
+      "stl": "roof-access-slit-1.stl"
+    },
+    {
+      "name": "Shoulder roof sector 2",
+      "role": "support_enforcer",
+      "stl": "shoulder-roof-sector-2.stl"
+    },
+    {
+      "name": "Roof access slit 2",
+      "role": "support_blocker",
+      "stl": "roof-access-slit-2.stl"
+    },
+    {
+      "name": "Mating plug keepout",
+      "role": "support_blocker",
+      "stl": "mating-plug-keepout.stl"
+    }
+  ],
+  "map_dispense_contact": false,
+  "independent_support_layer_height": false
+}

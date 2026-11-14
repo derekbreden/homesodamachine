@@ -1,0 +1,201 @@
+{
+  "purpose": "Measure whole-plate chronology from the unsampled repository acceleration planner.",
+  "gcode_sha256": "f0ed6e0470ef70a697969f16e085fe7195614fc0c1a3bd685591636f88eded82",
+  "estimate_scope": "Commanded motion with acceleration. Printer warmup, thermal waits, firmware macros and physical execution are outside the clock.",
+  "complete_motion_time_seconds": 38072.169841088624,
+  "first_bed_deposition_start_seconds": 2.448194226362645,
+  "first_bed_deposition_end_seconds": 427.0145766217625,
+  "first_bed_course_deposition_span_seconds": 424.56638239539984,
+  "course_groups": 2023,
+  "parts": {
+    "base": {
+      "first_deposition_start_seconds": 2.448194226362645,
+      "first_deposition_gcode_line": 1167,
+      "last_deposition_end_seconds": 38070.59603498986,
+      "longest_between_deposition_seconds": 1271.9516470759681,
+      "longest_gap_seconds_range": [
+        2436.313418228247,
+        3708.265065304215
+      ],
+      "longest_gap_world_z_mm": [
+        8.359999656677246,
+        8.600000381469727
+      ],
+      "longest_gap_gcode_lines": [
+        91950,
+        105800
+      ]
+    },
+    "tip": {
+      "first_deposition_start_seconds": 157.57740995671864,
+      "first_deposition_gcode_line": 2570,
+      "last_deposition_end_seconds": 34512.79066035852,
+      "longest_between_deposition_seconds": 1477.134731251177,
+      "longest_gap_seconds_range": [
+        12045.837173452519,
+        13522.971904703696
+      ],
+      "longest_gap_world_z_mm": [
+        10.711999893188477,
+        11.109000205993652
+      ],
+      "longest_gap_gcode_lines": [
+        281689,
+        303446
+      ]
+    },
+    "cover": {
+      "first_deposition_start_seconds": 93.80476347484895,
+      "first_deposition_gcode_line": 1575,
+      "last_deposition_end_seconds": 20319.153420897168,
+      "longest_between_deposition_seconds": 1483.225570573015,
+      "longest_gap_seconds_range": [
+        12061.049020285049,
+        13544.274590858064
+      ],
+      "longest_gap_world_z_mm": [
+        7.880000114440918,
+        8.119999885559082
+      ],
+      "longest_gap_gcode_lines": [
+        282985,
+        304702
+      ]
+    },
+    "mounting plate": {
+      "first_deposition_start_seconds": 254.33920687379072,
+      "first_deposition_gcode_line": 5067,
+      "last_deposition_end_seconds": 4278.5249893907585,
+      "longest_between_deposition_seconds": 227.96605335155255,
+      "longest_gap_seconds_range": [
+        1227.5708762786721,
+        1455.5369296302247
+      ],
+      "longest_gap_world_z_mm": [
+        1.6399999856948853,
+        1.8799999952316284
+      ],
+      "longest_gap_gcode_lines": [
+        46428,
+        53989
+      ]
+    },
+    "lever": {
+      "first_deposition_start_seconds": 368.90723418258574,
+      "first_deposition_gcode_line": 6992,
+      "last_deposition_end_seconds": 10609.815617150629,
+      "longest_between_deposition_seconds": 900.46675360055,
+      "longest_gap_seconds_range": [
+        4803.959517652471,
+        5704.426271253021
+      ],
+      "longest_gap_world_z_mm": [
+        7.880000114440918,
+        8.119999885559082
+      ],
+      "longest_gap_gcode_lines": [
+        146992,
+        155371
+      ]
+    }
+  },
+  "milestones": {
+    "mounting plate counterbore supports": {
+      "first_deposition_start_seconds": 254.33920687379072,
+      "last_deposition_end_seconds": 1999.9767799432773,
+      "first_and_last_deposition_gcode_lines": [
+        5067,
+        87113
+      ],
+      "other_parts_course_groups_between": {
+        "lever": 12,
+        "base": 26,
+        "cover": 12,
+        "tip": 12
+      }
+    },
+    "tip shoulder entry": {
+      "first_deposition_start_seconds": 843.7057489593383,
+      "last_deposition_end_seconds": 20938.026115467,
+      "first_and_last_deposition_gcode_lines": [
+        22236,
+        563271
+      ],
+      "other_parts_course_groups_between": {
+        "mounting plate": 33,
+        "lever": 49,
+        "base": 212,
+        "cover": 64
+      }
+    },
+    "sloped course": {
+      "first_deposition_start_seconds": 5070.179144836253,
+      "last_deposition_end_seconds": 11117.925579124647,
+      "first_and_last_deposition_gcode_lines": [
+        148485,
+        249904
+      ],
+      "other_parts_course_groups_between": {
+        "tip": 15,
+        "lever": 19,
+        "cover": 8
+      }
+    },
+    "native tilted base": {
+      "first_deposition_start_seconds": 11424.772953253254,
+      "last_deposition_end_seconds": 30801.699862238318,
+      "first_and_last_deposition_gcode_lines": [
+        270556,
+        1093150
+      ],
+      "other_parts_course_groups_between": {
+        "tip": 363,
+        "cover": 36
+      }
+    },
+    "tip yellow shoulder": {
+      "first_deposition_start_seconds": 20939.512064864626,
+      "last_deposition_end_seconds": 21960.542997615772,
+      "first_and_last_deposition_gcode_lines": [
+        563295,
+        601434
+      ],
+      "other_parts_course_groups_between": {
+        "base": 35
+      }
+    },
+    "tip shoulder fade": {
+      "first_deposition_start_seconds": 21961.202252839514,
+      "last_deposition_end_seconds": 26766.33130350824,
+      "first_and_last_deposition_gcode_lines": [
+        601458,
+        843996
+      ],
+      "other_parts_course_groups_between": {
+        "base": 147
+      }
+    },
+    "tip native nose": {
+      "first_deposition_start_seconds": 26766.840419134354,
+      "last_deposition_end_seconds": 34512.79066035852,
+      "first_and_last_deposition_gcode_lines": [
+        844020,
+        1358472
+      ],
+      "other_parts_course_groups_between": {
+        "base": 385
+      }
+    },
+    "graded shaft transition": {
+      "first_deposition_start_seconds": 30802.58137806589,
+      "last_deposition_end_seconds": 34898.93015134718,
+      "first_and_last_deposition_gcode_lines": [
+        1093175,
+        1391468
+      ],
+      "other_parts_course_groups_between": {
+        "tip": 193
+      }
+    }
+  }
+}
