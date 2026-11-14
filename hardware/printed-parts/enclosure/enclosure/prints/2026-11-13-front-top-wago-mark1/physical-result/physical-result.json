@@ -1,0 +1,61 @@
+{
+  "purpose": "Record the front-top bench result, the reported interference and the camera coverage of corner lift.",
+  "date": "2026-11-14",
+  "piece": "enclosure-front-top",
+  "material_number": "HSM-0079",
+  "print_job": "../print-job.json",
+  "printer_task_id": "1438216432",
+  "observations": {
+    "corner_lift": "The seam opens toward the corners in the bench photographs.",
+    "assembly": "The underside of the collet plate catches on a front-bottom land as the top slides aft.",
+    "user_words": [
+      "So on the latest print of the enclosure front top, we ended up with some corner lifting. Other than that, everything seems to be pretty good on this last print, except for one fit issue.",
+      "The surface or face that I have highlighted in yellow there, where I clicked, that is just a little bit high and interfering as we slide in.",
+      "Brim is not an option. It doesn't help. It just breaks away."
+    ]
+  },
+  "photos": [
+    "seam-1.jpg",
+    "seam-2.jpg",
+    "seam-3.jpg",
+    "collet-land-pick.jpg"
+  ],
+  "camera_review": {
+    "timelapse": {
+      "printer_path": "/timelapse/video_2026-11-13_17-19-27.mp4",
+      "sha256": "244d957c65823ef1d4aa9e0f58211b8001cd476421dbf630972d77d26ee28b99",
+      "closed_at": "2026-11-14T19:04:24Z"
+    },
+    "visible_corner": {
+      "image": "chamber-visible-corner.jpg",
+      "segment": "ipcam-record.2026-11-14_07-01-58.402.mp4",
+      "source_elapsed_seconds": 240,
+      "observed_at": "2026-11-13T23:05:58Z",
+      "observation": "The nearest rounded corner shows no clear gap at the plate. Its contact line drops below the frame as the bed descends."
+    },
+    "finish": {
+      "image": "chamber-at-finish.jpg",
+      "segment": "ipcam-record.2026-11-15_03-01-28.52.mp4",
+      "sha256": "892f5b727a0fd5e55ee76459ecd8470289a53bdec3495511ea9c30e2ab928405",
+      "source_elapsed_seconds": 174,
+      "observed_at": "2026-11-14T19:04:22Z",
+      "observation": "The rounded corner's contact line is out of frame. Recording ends at job completion."
+    },
+    "lift_onset": "Undetermined. The covered view leaves late deposition and cooldown open."
+  },
+  "native_slice": {
+    "bed_target_c": 80,
+    "active_chamber_heat_requested": false,
+    "brim_beads_emitted": false,
+    "minimum_bead_bed_margin_mm": 51.875
+  },
+  "geometry": {
+    "picked_face": "enclosure-front-bottom::collet-plate-lands",
+    "pick_xyz_mm": [92.232, 85.974, 160.0],
+    "change_commit": "b2155b1777cff562e234929f64fbc88c5a84838b",
+    "nominal_gap_before_mm": 0.25,
+    "nominal_gap_after_mm": 0.5,
+    "gap_on_seam_shoulders_after_mm": 0.25,
+    "physical_retest": "Pending"
+  }
+}
