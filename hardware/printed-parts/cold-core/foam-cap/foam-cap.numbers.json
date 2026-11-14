@@ -92,7 +92,7 @@
      6.107142384452413
     ],
     "frame": {
-     "reference": "hardware/reference/g-ganen-pump/g-ganen-pump.step",
+     "reference": "hardware/reference/g-ganen-pump/g-ganen-replica.step",
      "rotation": [
       [
        0.0,
@@ -230,7 +230,7 @@
    3.0
   ],
   "frame": {
-   "reference": "hardware/reference/g-ganen-pump/g-ganen-pump.step",
+   "reference": "hardware/reference/g-ganen-pump/g-ganen-replica.step",
    "rotation": [
     [
      0.0,

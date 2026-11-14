@@ -1,4 +1,5 @@
 {
+  "side_clearance": 0.2,
   "stations": [
     {
       "body_name": "bulkhead-ring-water",
@@ -91,5 +92,6 @@
       "word_name": "bulkhead-ring-flavor-b-word"
     }
   ],
-  "thick": 1.8
+  "thick": 1.8,
+  "width": 41.6
 }
