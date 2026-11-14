@@ -1,0 +1,24 @@
+--- a/prepare_print_project.rs
++++ b/prepare_print_project.rs
+@@ -7,0 +8 @@
++//!                                 [--tip-mesh TIP.stl --cover-mesh COVER.stl]
+@@ -53,0 +55,2 @@
++    let mut tip_mesh = None;
++    let mut cover_mesh = None;
+@@ -76,0 +80,2 @@
++            Some("--tip-mesh") => tip_mesh = Some(PathBuf::from(value)),
++            Some("--cover-mesh") => cover_mesh = Some(PathBuf::from(value)),
+@@ -84,0 +90,2 @@
++    ensure!(tip_mesh.is_some() == cover_mesh.is_some() && (tip_mesh.is_none() || filled_base.is_some()),
++        "the two trial head meshes replace the tip and cover on a complete filled-base plate");
+@@ -112 +119,2 @@
+-        parts.push(Part::new("faucet-shell-tip", faucet.join("faucet-shell/faucet-shell-tip.stl"), -PRINT_TIP_BUILD_ROT.to_degrees()));
++        let source = tip_mesh.unwrap_or_else(|| faucet.join("faucet-shell/faucet-shell-tip.stl"));
++        parts.push(Part::new("faucet-shell-tip", source, -PRINT_TIP_BUILD_ROT.to_degrees()));
+@@ -115 +123,2 @@
+-        parts.push(Part::new("faucet-display-cover", faucet.join("faucet-display-cover/faucet-display-cover.stl"), -50.0));
++        let source = cover_mesh.unwrap_or_else(|| faucet.join("faucet-display-cover/faucet-display-cover.stl"));
++        parts.push(Part::new("faucet-display-cover", source, -50.0));
+@@ -257 +266 @@
+-    for p in ["hardware/printed-parts/faucet/sculpted/prepare_print_project.rs",
++    for p in [option_env!("HSM_DISPENSE_TRIAL_PREPARER").unwrap_or("hardware/printed-parts/faucet/sculpted/prepare_print_project.rs"),

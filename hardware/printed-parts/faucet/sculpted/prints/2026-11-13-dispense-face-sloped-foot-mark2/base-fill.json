@@ -1,0 +1,14 @@
+{
+  "purpose": "Records the fill under the Sculpted base's mounting face that the sloped stage prints.",
+  "source": "hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.stl",
+  "triangles": 224810,
+  "volume_mm3": 160964.8452705102,
+  "base_volume_mm3": 142628.00990088526,
+  "bed_plate_z_in_rotated_cad_mm": -7.635161830524362,
+  "fill_embed_mm": 0.05,
+  "rim_semi_axes_mm": [
+    29.0,
+    29.5
+  ],
+  "tilt_degrees": 15.0
+}
