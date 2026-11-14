@@ -1,0 +1,30 @@
+[
+  {
+    "printer": "H2C",
+    "observed_at": "2026-11-14T23:35:29+00:00",
+    "gcode_state": "FINISH",
+    "print_error": 0,
+    "hms": [],
+    "subtask_name": "front-top-wago-mark1-ready.gcode.3mf",
+    "bed_target_temper": 0.0,
+    "mc_percent": 100,
+    "left_filament": {
+      "colour": "000000FF",
+      "type": "PET-CF"
+    }
+  },
+  {
+    "printer": "Mark2",
+    "observed_at": "2026-11-14T23:35:30+00:00",
+    "gcode_state": "FINISH",
+    "print_error": 0,
+    "hms": [],
+    "subtask_name": "sculpted-faucet-plug-ramp-black-mark2-review.gcode.3mf",
+    "bed_target_temper": 0.0,
+    "mc_percent": 100,
+    "left_filament": {
+      "colour": "161616FF",
+      "type": "PET-CF"
+    }
+  }
+]
