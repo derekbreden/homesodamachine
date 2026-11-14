@@ -30,6 +30,10 @@ hsm-aero-float-numbers = { path = "../aero-float-numbers" }
 hsm-kernel = { path = "../kernel" }
 
 [[bin]]
+name = "course-field"
+path = "src/bin/course_field.rs"
+
+[[bin]]
 name = "petgf-cooling"
 path = "../../../hardware/printed-parts/cadlib/petgf_cooling.rs"
 
