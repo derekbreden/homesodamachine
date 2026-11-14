@@ -1,0 +1,39 @@
+{
+  "input_tapes_sha256": {
+    "reference": "f65174891a0a0a1886b4f2fa9b8e834633197cf7d9929f707e242e0a4bed0455",
+    "revised_native": "31a724f2a200ce13e5ddcc53e48837f5fc31f8ca2d55701d4555d019b42f8d30",
+    "merged": "05d93026768feafc952e8de8e7ab2cf739fdcf5ed435ae093c56c7135e03db64"
+  },
+  "signature_fields": [
+    "command",
+    "start_xyz",
+    "end_xyz",
+    "arc_center_offset_ijk",
+    "extrusion_length",
+    "feed",
+    "fan_pwm",
+    "acceleration"
+  ],
+  "retained_ordered_deposition": {
+    "base": {
+      "ordered_road_sha256": "30ef8abe95b72d391dbae5c7a422edd7b4f2f57d86fd07a1109ac7e8e8a31c82",
+      "road_count": 781947,
+      "source": "reference"
+    },
+    "display_cover": {
+      "ordered_road_sha256": "74230e58620a2b6e2390778e1835864c617e7cd5381e15caa2027016ee8f086b",
+      "road_count": 57728,
+      "source": "revised_native"
+    },
+    "mounting_plate": {
+      "ordered_road_sha256": "4d7137d7c55b7904492ba15078e2a8692844fc666e443faaaa738dae17515e7e",
+      "road_count": 44617,
+      "source": "reference"
+    },
+    "lever": {
+      "ordered_road_sha256": "ab849c67c9e96aa247c9bc4dfe359c71f451cda8c1b796444533cb8d24f8d31b",
+      "road_count": 33735,
+      "source": "reference"
+    }
+  }
+}

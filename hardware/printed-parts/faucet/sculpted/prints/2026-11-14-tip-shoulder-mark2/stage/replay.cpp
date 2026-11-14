@@ -2,6 +2,7 @@
 // The terrain and head are sampled rasters. The native command timestamps below are feed-time estimates.
 #include <algorithm>
 #include <array>
+#include <charconv>
 #include <cmath>
 #include <cstddef>
 #include <cstdlib>
@@ -36,6 +37,10 @@ constexpr double tau = std::numbers::pi * 2.0;
 constexpr double unfilled = -1000.0;
 
 using Point = std::array<double, 3>;
+
+bool removable_feature(std::string_view feature) {
+    return feature.starts_with("Support") || feature == "Brim" || feature == "Skirt";
+}
 
 std::string_view trim(std::string_view text) {
     const auto start = text.find_first_not_of(" \t\r");
@@ -77,6 +82,7 @@ struct Cell {
     float height = 0.0f;
     float time = unfilled;
     int object = 0;
+    bool removable = false;
 };
 
 struct Terrain {
@@ -111,11 +117,11 @@ struct Terrain {
         const int producer = source[j * tiles_x + i];
         return producer != 0 && producer != object;
     }
-    void add(int i, int j, float z, float time, int object) {
+    void add(int i, int j, float z, float time, int object, bool removable) {
         if (i < 0 || j < 0 || i >= width || j >= height) return;
         Cell &cell = cells[j * width + i];
         if (z < cell.height - 1.0e-5f) return;
-        cell = {z, time, object};
+        cell = {z, time, object, removable};
         const int index = (j / tile) * tiles_x + i / tile;
         auto &top = highest[index];
         top = std::max(top, z);
@@ -144,6 +150,7 @@ struct Clearance {
     int object = 0;
     int obstacle = 0;
     int offset_x = 0, offset_y = 0;
+    bool earlier_bead_removable = false;
 };
 
 struct Head {
@@ -194,10 +201,13 @@ struct LocalClearance {
     std::size_t line = 0, source_line = 0;
     int object = 0, deposited_by = 0;
     std::string feature;
+    bool earlier_bead_removable = false;
 };
 
 struct NozzleClearance {
     LocalClearance fresh_flat, adjacent_flat, adjacent_cone, travel_flat, travel_cone;
+    LocalClearance earlier_support_flat, earlier_support_cone, earlier_part_flat, earlier_part_cone;
+    LocalClearance dry_support_flat, dry_support_cone, dry_part_flat, dry_part_cone, dry_center;
     double total_road_mm = 0.0, downslope_road_mm = 0.0;
     double fresh_flat_past_005_road_mm = 0.0;
     double sampled_fresh_flat_past_005_road_mm = 0.0;
@@ -217,13 +227,19 @@ struct LocalPoint {
     float height = 0.0f, time = unfilled;
     int run = 0, object = 0;
     std::size_t line = 0;
+    bool removable = false;
 };
 
 struct LocalTerrain {
-    static constexpr double x0 = 45.0, y0 = 73.0, x1 = 125.0, y1 = 213.0;
-    static constexpr int nx = 1 + int((x1 - x0) / nearby_pitch);
-    static constexpr int ny = 1 + int((y1 - y0) / nearby_pitch);
-    std::vector<LocalPoint> points = std::vector<LocalPoint>(nx * ny);
+    double x0, y0, x1, y1;
+    int nx, ny;
+    std::vector<LocalPoint> points;
+
+    LocalTerrain(double min_x, double min_y, double max_x, double max_y)
+        : x0(min_x), y0(min_y), x1(max_x), y1(max_y),
+          nx(1 + static_cast<int>(std::lround((x1 - x0) / nearby_pitch))),
+          ny(1 + static_cast<int>(std::lround((y1 - y0) / nearby_pitch))),
+          points(static_cast<std::size_t>(nx) * ny) {}
 
     double x(int i) const { return x0 + i * nearby_pitch; }
     double y(int j) const { return y0 + j * nearby_pitch; }
@@ -232,8 +248,13 @@ struct LocalTerrain {
         return p[0] > x0 - tip_cone_r && p[0] < x1 + tip_cone_r
             && p[1] > y0 - tip_cone_r && p[1] < y1 + tip_cone_r;
     }
+    bool possibly_crosses(const Point& first, const Point& last, double pad = 0.0) const {
+        const double extension = tip_cone_r + pad;
+        return std::min(first[0], last[0]) < x1 + extension && std::max(first[0], last[0]) > x0 - extension
+            && std::min(first[1], last[1]) < y1 + extension && std::max(first[1], last[1]) > y0 - extension;
+    }
     void add(const Point& a, const Point& b, double width, double height, double time0,
-             double time1, int run, int object, std::size_t line) {
+             double time1, int run, int object, std::size_t line, bool removable) {
         const double dx = b[0]-a[0], dy = b[1]-a[1], length2 = dx*dx+dy*dy;
         if (length2 <= 1e-16 || width <= 0.0 || (!nearby(a) && !nearby(b))) return;
         const double r = width / 2.0;
@@ -256,7 +277,7 @@ struct LocalTerrain {
                 auto &last = points[j*nx+i];
                 if (z >= last.height - 1e-5) {
                     last = {static_cast<float>(z), static_cast<float>(time0+(time1-time0)*t),
-                            run, object, line};
+                            run, object, line, removable};
                 }
             }
         }
@@ -276,14 +297,26 @@ struct LocalTerrain {
                 if (last.height <= p[2] && last.height < p[2] - 0.3) continue;
                 const double ux = x(i)-p[0], uy = y(j)-p[1];
                 const double r2 = ux*ux+uy*uy;
-                if (r2 > tip_cone_r*tip_cone_r || r2 < 0.20*0.20) continue;
+                if (r2 > tip_cone_r*tip_cone_r) continue;
+                if (r2 < 0.20*0.20) {
+                    const double gap = p[2]-last.height;
+                    if (!laying && last.object != 0 && gap < summary.dry_center.gap)
+                        summary.dry_center = {gap, p, {x(i), y(j), last.height}, time-last.time,
+                            std::sqrt(r2), line, last.line, object, last.object, feature, last.removable};
+                    continue;
+                }
                 const bool flat = r2 <= tip_flat_r*tip_flat_r;
                 const bool same_run = last.run == run && last.object == object;
                 const double radius = std::sqrt(r2);
                 const double rise = flat ? 0.0 : tip_cone_height * (radius-tip_flat_r) / (tip_cone_r-tip_flat_r);
                 const double gap = p[2] + rise - last.height;
                 LocalClearance* result;
-                if (!laying) result = flat ? &summary.travel_flat : &summary.travel_cone;
+                LocalClearance* material = nullptr;
+                if (!laying) {
+                    result = flat ? &summary.travel_flat : &summary.travel_cone;
+                    if (last.removable) material = flat ? &summary.dry_support_flat : &summary.dry_support_cone;
+                    else material = flat ? &summary.dry_part_flat : &summary.dry_part_cone;
+                }
                 else if (same_run) {
                     if (!flat) continue;
                     sampled.fresh_flat = std::min(sampled.fresh_flat, gap);
@@ -291,10 +324,15 @@ struct LocalTerrain {
                 } else {
                     sampled.adjacent = std::min(sampled.adjacent, gap);
                     result = flat ? &summary.adjacent_flat : &summary.adjacent_cone;
+                    if (last.removable) material = flat ? &summary.earlier_support_flat : &summary.earlier_support_cone;
+                    else material = flat ? &summary.earlier_part_flat : &summary.earlier_part_cone;
                 }
-                if (gap < result->gap)
-                    *result = {gap, p, {x(i), y(j), last.height}, time-last.time, radius, line,
-                               last.line, object, last.object, feature};
+                if (gap < result->gap || (material && gap < material->gap)) {
+                    const LocalClearance reading {gap, p, {x(i), y(j), last.height}, time-last.time,
+                        radius, line, last.line, object, last.object, feature, last.removable};
+                    if (gap < result->gap) *result = reading;
+                    if (material && gap < material->gap) *material = reading;
+                }
             }
         }
         return sampled;
@@ -371,17 +409,18 @@ struct Arc {
 struct Replay {
     Head head;
     Terrain terrain;
-    LocalTerrain local;
+    std::vector<LocalTerrain> local;
     std::map<std::string, NozzleClearance> local_by_phase;
     NozzleClearance* near_active = &local_by_phase["native"];
     std::string local_phase = "native";
-    bool local_check;
     std::map<std::string, Activity> phase_stats;
     std::map<int, Object> objects;
     std::map<std::string, std::size_t> opaque_commands;
     std::string phase = "native";
     Activity *active = &phase_stats[phase];
     std::string feature;
+    std::string native_tip_phase;
+    double native_tip_low = 0.0, native_tip_high = 0.0, native_z = 0.0;
     Point current{0.0, 0.0, 0.0}, offset{};
     double e = 0.0, debt = 0.0, feed = 0.0, rate_multiplier = 1.0, flow_multiplier = 1.0;
     double time = 0.0, fan = 0.0, nozzle = 0.0, bed_temperature = 0.0, width = 0.42;
@@ -397,14 +436,16 @@ struct Replay {
     Clearance cross_object_witness{};
     std::map<int, std::array<double, 6>> first_three_by_object;
 
-    explicit Replay(const std::string& map_file, bool nozzle_check)
-        : head(map_file), local_check(nozzle_check) {
+    explicit Replay(const std::string& map_file, std::vector<std::array<double, 4>> windows)
+        : head(map_file) {
+        for (const auto& limits : windows) local.emplace_back(limits[0], limits[1], limits[2], limits[3]);
         high_relative.gap = -infinity;
     }
 
     void witness(Clearance& best, double gap, const Point& p, double sample_time,
                  const Cell& obstacle, int dx, int dy) {
-        if (gap < best.gap) best = {gap, p, sample_time, line, object, obstacle.object, dx, dy};
+        if (gap < best.gap) best = {gap, p, sample_time, line, object, obstacle.object, dx, dy,
+                                   obstacle.removable};
     }
 
     bool sample(const Point& p, bool laying, double sample_time) {
@@ -439,7 +480,7 @@ struct Replay {
                     if (delta > verified) {
                         verified = delta;
                         high_relative = {delta, p, sample_time, line, object, floor.object,
-                                         item.x, item.y};
+                                         item.x, item.y, floor.removable};
                     }
                 }
                 largest_relative_obstacle = verified;
@@ -472,6 +513,7 @@ struct Replay {
     void deposit(const Point& from, const Point& to, double print_width, double start, double end) {
         // Stamp the swept nominal bead footprint. The nearest cell-center fallback retains thin beads.
         const double radius = print_width / 2.0;
+        const bool disposable = removable_feature(feature);
         const double dx = to[0] - from[0], dy = to[1] - from[1];
         const double denominator = dx * dx + dy * dy;
         if (denominator <= 1e-16) return;
@@ -485,21 +527,20 @@ struct Replay {
                 const double factor = std::clamp((rx * dx + ry * dy) / denominator, 0.0, 1.0);
                 if (std::hypot(rx - dx * factor, ry - dy * factor) <= radius) {
                     const double z = from[2] + (to[2] - from[2]) * factor;
-                    terrain.add(i, j, z, start + (end - start) * factor, object);
+                    terrain.add(i, j, z, start + (end - start) * factor, object, disposable);
                 }
             }
         }
         // Match the old centerline check even when a road is narrower than the grid.
         auto core = [&](const Point& p, double t) {
-            terrain.add(Terrain::index_x(p[0]), Terrain::index_y(p[1]), p[2], t, object);
+            terrain.add(Terrain::index_x(p[0]), Terrain::index_y(p[1]), p[2], t, object, disposable);
         };
         core(from, start);
         core(to, end);
     }
 
     void stat_extrusion(const Point& from, const Point& to, double amount) {
-        const bool solid = feature != "Support" && feature != "Support interface"
-            && feature != "Support transition" && feature != "Brim" && feature != "Skirt";
+        const bool solid = !removable_feature(feature);
         if (object == 0) ++unknown_deposit;
         Object &row = objects[object];
         if (row.first < 0.0) {
@@ -577,13 +618,19 @@ struct Replay {
         auto parse = [&](std::string_view key) { return std::strtod(type.data() + key.size(), nullptr); };
         if (starts("FEATURE:")) feature = trim(type.substr(8));
         else if (starts("LINE_WIDTH:")) width = parse("LINE_WIDTH:");
+        else if (starts("Z_HEIGHT:")) native_z = parse("Z_HEIGHT:");
         else if (starts("OBJECT_ID:")) {
             // OBJECT_ID sometimes anticipates a later start. The explicit start/stop label governs.
             // Whole-base study tapes carry that object identifier only.
             if (local_phase == "donated tilted base") object = std::lround(parse("OBJECT_ID:"));
         } else if (starts("start printing object, unique label id:")) {
             object = std::lround(parse("start printing object, unique label id:"));
-        } else if (starts("stop printing object")) object = 0;
+            if (!native_tip_phase.empty() && object == 1902 && native_z >= native_tip_low && native_z < native_tip_high)
+                set_phase(native_tip_phase);
+        } else if (starts("stop printing object")) {
+            object = 0;
+            if (!native_tip_phase.empty() && phase == native_tip_phase) set_phase("native");
+        }
         else if (starts("===== sloped underside")) {
             set_phase("sloped underside");
             object = 1901;
@@ -596,6 +643,7 @@ struct Replay {
             set_phase(name == "final clearance lift" ? name : "transfers between course groups");
         } else if (starts("HSM_DONOR_PHASE:")) set_phase(trim(type.substr(16)));
         else if (starts("HSM_BRIDGE_STITCH:")) set_phase(trim(type.substr(18)));
+        else if (starts("HSM_TIP_PHASE:")) set_phase(trim(type.substr(14)));
     }
 
     void command(std::string_view text) {
@@ -701,7 +749,9 @@ struct Replay {
             active->extrusion += printed;
         }
         if (length > 1e-9) {
-            const bool near_motion = local_check && (local.nearby(from) || local.nearby(to));
+            const bool near_motion = std::ranges::any_of(local, [&](const LocalTerrain& zone) {
+                return zone.possibly_crosses(from, to, arc ? 2.0 * curve.radius : 0.0);
+            });
             const int samples = std::max(1, int(std::ceil(length /
                 (near_motion ? nearby_pitch : arc ? arc_sample : motion_sample))));
             const double raw_section = printed * (std::numbers::pi * 1.75 * 1.75 / 4) / length;
@@ -712,6 +762,7 @@ struct Replay {
                 (width - std::sqrt(disc)) / (2 * factor), 0.0, std::max(0.0, width));
             const double horizontal_length = dxy / samples;
             const bool compare_fresh_flat = near_motion && laying && dz < -0.01 && local_height > 0.0;
+            const bool disposable = removable_feature(feature);
             if (near_motion && laying) {
                 const bool outer_wall = feature == "Outer wall";
                 near_active->total_road_mm += dxy;
@@ -739,8 +790,15 @@ struct Replay {
                 const bool depositing = laying && fraction > delay;
                 travel |= sample(p, depositing, at);
                 if (near_motion) {
-                    const LocalSample point = local.nozzle(p, at, run, object, line, feature,
-                                                           *near_active, depositing);
+                    LocalSample point;
+                    for (const auto& zone : local) {
+                        if (zone.nearby(p)) {
+                            const LocalSample one = zone.nozzle(p, at, run, object, line, feature,
+                                                                *near_active, depositing);
+                            point.fresh_flat = std::min(point.fresh_flat, one.fresh_flat);
+                            point.adjacent = std::min(point.adjacent, one.adjacent);
+                        }
+                    }
                     if (depositing) {
                         const bool outer_wall = feature == "Outer wall";
                         if (point.fresh_flat < -0.05) {
@@ -761,7 +819,12 @@ struct Replay {
                     }
                     const double start = time + (fraction - 1.0 / samples) * seconds;
                     deposit(a, p, width, start, at);
-                    if (near_motion) local.add(a, p, width, local_height, start, at, run, object, line);
+                    if (near_motion) {
+                        for (auto& zone : local) {
+                            if (zone.nearby(p) || zone.nearby(a))
+                                zone.add(a, p, width, local_height, start, at, run, object, line, disposable);
+                        }
+                    }
                     stat_extrusion(a, p, printed / samples);
                 }
                 a = p;
@@ -811,7 +874,9 @@ void output(std::ostream& os, const LocalClearance& found) {
        << ", \"object\": " << found.object << ", \"deposited_by\": " << found.deposited_by
        << ", \"feature\": ";
     quote(os, found.feature);
-    os << "}";
+    if (found.source_line > 0) os << ", \"deposited_material\": \""
+       << (found.earlier_bead_removable ? "support" : "part") << '"';
+    os << '}';
 }
 
 void output(std::ostream& os, const Clearance& found) {
@@ -820,7 +885,10 @@ void output(std::ostream& os, const Clearance& found) {
        << ", \"xyz_mm\": [" << found.xyz[0] << ", " << found.xyz[1] << ", " << found.xyz[2]
        << "], \"head_cell_offset_xy_mm\": [" << found.offset_x * pitch << ", " << found.offset_y * pitch
        << "], \"object\": " << found.object << ", \"deposited_by\": " << found.obstacle
-       << ", \"minimum_elapsed_s\": " << found.time << "}";
+       << ", \"minimum_elapsed_s\": " << found.time;
+    if (found.obstacle > 0) os << ", \"deposited_material\": \""
+       << (found.earlier_bead_removable ? "support" : "part") << '"';
+    os << '}';
 }
 
 void output(std::ostream& os, const Replay& replay) {
@@ -882,7 +950,7 @@ void output(std::ostream& os, const Replay& replay) {
            << ", \"max_commanded_extruding_z_mm_per_s\": " << stats.max_deposit_z_feed << "\n    }";
         comma = true;
     }
-    os << "\n  },\n  \"base_nozzle_model\": {";
+    os << "\n  },\n  \"local_nozzle_model\": {";
     comma = false;
     for (const auto& [key, contact]: replay.local_by_phase) {
         if (contact.sampled == 0 && contact.travel_sampled == 0) continue;
@@ -905,8 +973,17 @@ void output(std::ostream& os, const Replay& replay) {
            << ",\n      \"fresh_same_run_flat\": "; output(os, contact.fresh_flat);
         os << ",\n      \"prior_road_flat_during_extrusion\": "; output(os, contact.adjacent_flat);
         os << ",\n      \"prior_road_cone_during_extrusion\": "; output(os, contact.adjacent_cone);
+        os << ",\n      \"prior_support_flat_during_extrusion\": "; output(os, contact.earlier_support_flat);
+        os << ",\n      \"prior_support_cone_during_extrusion\": "; output(os, contact.earlier_support_cone);
+        os << ",\n      \"prior_part_flat_during_extrusion\": "; output(os, contact.earlier_part_flat);
+        os << ",\n      \"prior_part_cone_during_extrusion\": "; output(os, contact.earlier_part_cone);
         os << ",\n      \"dry_travel_flat\": "; output(os, contact.travel_flat);
         os << ",\n      \"dry_travel_cone\": "; output(os, contact.travel_cone);
+        os << ",\n      \"dry_travel_flat_against_support\": "; output(os, contact.dry_support_flat);
+        os << ",\n      \"dry_travel_cone_against_support\": "; output(os, contact.dry_support_cone);
+        os << ",\n      \"dry_travel_flat_against_part\": "; output(os, contact.dry_part_flat);
+        os << ",\n      \"dry_travel_cone_against_part\": "; output(os, contact.dry_part_cone);
+        os << ",\n      \"dry_travel_occupied_nominal_center\": "; output(os, contact.dry_center);
         os << "\n    }";
         comma = true;
     }
@@ -964,11 +1041,40 @@ void output(std::ostream& os, const Replay& replay) {
 
 int main(int argc, char **argv) {
     try {
-        if (argc != 3 && (argc != 4 || std::string_view(argv[3]) != "--base-nozzle"))
-            throw std::runtime_error("usage: replay gcode headmap.txt [--base-nozzle]");
+        if (argc < 3) throw std::runtime_error("usage: replay gcode headmap.txt [--base-nozzle] [--nozzle-box minX minY maxX maxY]...");
+        std::vector<std::array<double, 4>> windows;
+        std::array<double, 2> native_tip_span{};
+        const auto number = [](const char* raw) {
+            double value;
+            const std::string_view word = raw;
+            const auto [end, err] = std::from_chars(word.data(), word.data() + word.size(), value);
+            if (err != std::errc() || end != word.data() + word.size() || !std::isfinite(value))
+                throw std::runtime_error("invalid numeric argument");
+            return value;
+        };
+        for (int n = 3; n < argc; ++n) {
+            const std::string_view flag = argv[n];
+            if (flag == "--base-nozzle") windows.push_back({45, 73, 125, 213});
+            else if (flag == "--nozzle-box" && n + 4 < argc) {
+                std::array<double, 4> box;
+                for (double &field : box) field = number(argv[++n]);
+                if (box[0] >= box[2] || box[1] >= box[3]) throw std::runtime_error("nozzle box must have positive area");
+                if ((box[2] - box[0]) * (box[3] - box[1]) > bed_x*bed_y)
+                    throw std::runtime_error("nozzle box exceeds the plate area");
+                windows.push_back(box);
+            } else if (flag == "--native-tip-shoulder" && n + 2 < argc) {
+                for (double &height : native_tip_span) height = number(argv[++n]);
+                if (native_tip_span[0] >= native_tip_span[1]) throw std::runtime_error("invalid native-tip span");
+            } else throw std::runtime_error("unrecognized option " + std::string(flag));
+        }
         std::ifstream f(argv[1]);
         if (!f) throw std::runtime_error("cannot read G-code");
-        Replay replay(argv[2], argc == 4);
+        Replay replay(argv[2], windows);
+        if (native_tip_span[1]) {
+            replay.native_tip_low = native_tip_span[0];
+            replay.native_tip_high = native_tip_span[1];
+            replay.native_tip_phase = "native tip in shoulder height band";
+        }
         replay.read(f);
         output(std::cout, replay);
     } catch (const std::exception& err) {
