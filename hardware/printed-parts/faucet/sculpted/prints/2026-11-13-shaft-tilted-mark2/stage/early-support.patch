@@ -1,0 +1,15 @@
+--- a/prepare_print_project.rs
++++ b/prepare_print_project.rs
+@@ -222,6 +222,12 @@
+         // the base's support settings apply.
+         let seat = rim_supports::add(&mut r, &selection["base_rim_supports"], false)?;
+         r.extra.insert("base_rim_supports".into(), seat);
++        let index = r.row("faucet-shell-base")?.index;
++        let [x, y, z] = r.plate.objects[index].source_center;
++        let [n_min, n_max] = [180.0, 240.0];
++        let (vertices, faces) = refresh::box_mesh([-32.0 - x, -43.0 - y, n_min - z], [32.0 - x, 34.0 - y, n_max - z]);
++        r.plate.add_part(index, "Omit upper-bend support from the flat donor", vertices, faces, "support_blocker", Vec::new(), None);
++        r.extra.insert("flat_donor_support_ceiling".into(), json!({"blocker_cad_z_mm": [n_min, n_max]}));
+         None
+     } else {
+         include_base

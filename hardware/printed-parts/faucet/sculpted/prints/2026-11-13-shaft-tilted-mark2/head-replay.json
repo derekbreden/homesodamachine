@@ -1,0 +1,2481 @@
+{
+  "purpose": "Replays the packaged whole-plate toolpaths against material already deposited.",
+  "executable_archive": "sculpted-faucet-shaft-tilted-black-mark2-ready.gcode.3mf",
+  "integrity": {
+    "archive_sha256": "3a66609d51b4e5df8e56758229892459836ce23b7cd1d55c80a5e094a9547390",
+    "gcode_sha256": "f65174891a0a0a1886b4f2fa9b8e834633197cf7d9929f707e242e0a4bed0455",
+    "gcode_md5": "f4c5d2a0a2f517cb65ce8f6623d66bf0",
+    "raw_gcode_sha256": "11431c5cc5dfbf1a9574890d3001c9009f345bc70ed799f806c08e234e9b4b67",
+    "motion_checksum_ignoring_startup_progress_display": "416509f3e57e41276c21c0acf0272f089cda6d9ab7930b25ec42155c7f9733d5",
+    "unchanged_command_motion_after_config": true
+  },
+  "scope": {
+    "head": "The stock left-active H2C moving head is reconstructed from photographs. The replay follows the height envelope above the prior bead raster. Fixed printer structures and the actual installed head dimensions need separate observation.",
+    "motion": "Samples commanded model motion through the final clearance lift. Firmware homing, bed mesh, end parking, conditional macros, pauses, power loss and resume are outside scope.",
+    "coverage": "Models nominal deposited widths with a conservative retained centerline raster. The near-base nozzle reading approximates a rounded bead section and distinguishes the current road from earlier roads. Local flat overlap is geometric compression demand and cannot predict material flow, finish, curling or bond strength.",
+    "timing": "Replay timestamps and between-deposition intervals use commanded feed and configured axis limits. They omit acceleration, heat-settling time and firmware motions. Companion timings begin after machine startup.",
+    "nozzle": "Reports the modeled head body separately from the active-nozzle flank and near-flat envelope. A repeatable dry-travel threshold identifies locations for comparison with archived toolpaths."
+  },
+  "geometry_source": {
+    "reference": "hardware/reference/h2c-toolhead/h2c_toolhead.rs",
+    "left_active_mesh_sha256": "30016aede5227d71b2d2d0b83b53064cbe49affa8460ca9cec6874e50ae21e87",
+    "retained_lower_envelope": "tools/hsm/print-prep/faucet-underside/left-active-height.npz",
+    "retained_lower_envelope_sha256": "81ca425ded29dfb86f90ab069bfc2a3763e66558e158662a4eb77a62ed58fce8",
+    "full_map_sha256": "986c200b41e8c485748f242ec4104d1e78b58dd4d1a6fc02c91f5cb35b226374",
+    "generator": "stage/expand-headmap.py",
+    "replayer": "stage/replay.cpp",
+    "base_near_nozzle_grid_and_sample_mm": 0.1
+  },
+  "accelerated_playback_estimate": {
+    "tool": "hsm-gcode view playback",
+    "motion_seconds": 42401.67551040123,
+    "source_unstamped_gcode_sha256": "11431c5cc5dfbf1a9574890d3001c9009f345bc70ed799f806c08e234e9b4b67",
+    "scope": "The playback planner includes configured acceleration and jerk. Firmware startup, thermal waits and optional camera movements can add wall-clock time."
+  },
+  "shaft_join_cooling": {
+    "scope": "The complete centerline lies in a recent native-cooled model footprint. Motion coordinates and extrusion words are retained; only local part cooling and recovery feed rates change.",
+    "courses_z_mm": [
+      143.72,
+      143.96,
+      144.2
+    ],
+    "speed_limited_moves": 1125,
+    "additional_nominal_feed_time_s": 47.956560472555545,
+    "pre_cooling_gcode_sha256": "29b0d08052fff1cb72404bd80ba32da844e8d962493e55170f7461b8b94e0684"
+  },
+  "legacy_tip_witnesses": {
+    "prior_unprinted_plate": {
+      "commit": "c6cecb9b0acfdb41efaf5bbf9d7ee2777fda6d54",
+      "gcode_sha256": "46df0ca0eb828fc12634d1b1e812d84414152b9a03fe3ca070ef7bc7b8669da0",
+      "same_xyz_witnesses": 4
+    },
+    "completed_baseline": {
+      "commit": "c8667107f964589be7dc69f8fb924f69a12729b3",
+      "gcode_sha256": "8bec1bac1848b4b92d4ef2f082f6cd67a862d2997ae192815c923f6a1688818e",
+      "same_xyz_witnesses": 3
+    },
+    "xyz_match_tolerance_mm": 2e-05,
+    "witnesses": [
+      {
+        "packaged": {
+          "gap_mm": -0.31789,
+          "line": 494895,
+          "xyz_mm": [
+            179.826,
+            213.74,
+            18.04063
+          ],
+          "head_cell_offset_xy_mm": [
+            0.0,
+            0.0
+          ],
+          "object": 1902,
+          "deposited_by": 1902,
+          "minimum_elapsed_s": 16154.99973
+        },
+        "prior_plate": {
+          "gap_mm": -0.31789,
+          "line": 527717,
+          "xyz_mm": [
+            179.826,
+            213.74,
+            18.04063
+          ],
+          "head_cell_offset_xy_mm": [
+            0.0,
+            0.0
+          ],
+          "object": 1902,
+          "deposited_by": 1902,
+          "minimum_elapsed_s": 11234.25029
+        },
+        "completed_baseline": {
+          "gap_mm": -0.31789,
+          "line": 481190,
+          "xyz_mm": [
+            179.826,
+            213.74,
+            18.04063
+          ],
+          "head_cell_offset_xy_mm": [
+            0.0,
+            0.0
+          ],
+          "object": 1902,
+          "deposited_by": 1902,
+          "minimum_elapsed_s": 7857.34657
+        }
+      },
+      {
+        "packaged": {
+          "gap_mm": -0.31767,
+          "line": 688183,
+          "xyz_mm": [
+            179.437,
+            199.712,
+            26.89054
+          ],
+          "head_cell_offset_xy_mm": [
+            0.0,
+            0.0
+          ],
+          "object": 1902,
+          "deposited_by": 1902,
+          "minimum_elapsed_s": 18307.54371
+        },
+        "prior_plate": {
+          "gap_mm": -0.31767,
+          "line": 782264,
+          "xyz_mm": [
+            179.437,
+            199.712,
+            26.89054
+          ],
+          "head_cell_offset_xy_mm": [
+            0.0,
+            0.0
+          ],
+          "object": 1902,
+          "deposited_by": 1902,
+          "minimum_elapsed_s": 13070.5656
+        },
+        "completed_baseline": {
+          "gap_mm": -0.31767,
+          "line": 732539,
+          "xyz_mm": [
+            179.437,
+            199.712,
+            26.89054
+          ],
+          "head_cell_offset_xy_mm": [
+            0.0,
+            0.0
+          ],
+          "object": 1902,
+          "deposited_by": 1902,
+          "minimum_elapsed_s": 9655.05205
+        }
+      },
+      {
+        "packaged": {
+          "gap_mm": -0.31062,
+          "line": 1570811,
+          "xyz_mm": [
+            191.649,
+            187.785,
+            123.22802
+          ],
+          "head_cell_offset_xy_mm": [
+            0.0,
+            0.0
+          ],
+          "object": 1902,
+          "deposited_by": 1902,
+          "minimum_elapsed_s": 31025.27156
+        },
+        "prior_plate": {
+          "gap_mm": -0.31062,
+          "line": 1822196,
+          "xyz_mm": [
+            191.649,
+            187.785,
+            123.22802
+          ],
+          "head_cell_offset_xy_mm": [
+            0.0,
+            0.0
+          ],
+          "object": 1902,
+          "deposited_by": 1902,
+          "minimum_elapsed_s": 18559.31822
+        },
+        "completed_baseline": null
+      },
+      {
+        "packaged": {
+          "gap_mm": -0.3116,
+          "line": 1641540,
+          "xyz_mm": [
+            178.801,
+            195.202,
+            129.01949
+          ],
+          "head_cell_offset_xy_mm": [
+            0.0,
+            0.0
+          ],
+          "object": 1902,
+          "deposited_by": 1902,
+          "minimum_elapsed_s": 31472.8988
+        },
+        "prior_plate": {
+          "gap_mm": -0.3116,
+          "line": 1898843,
+          "xyz_mm": [
+            178.801,
+            195.202,
+            129.01949
+          ],
+          "head_cell_offset_xy_mm": [
+            0.0,
+            0.0
+          ],
+          "object": 1902,
+          "deposited_by": 1902,
+          "minimum_elapsed_s": 18913.65018
+        },
+        "completed_baseline": {
+          "gap_mm": -0.31159,
+          "line": 1867572,
+          "xyz_mm": [
+            178.801,
+            195.202,
+            129.0195
+          ],
+          "head_cell_offset_xy_mm": [
+            0.0,
+            0.0
+          ],
+          "object": 1902,
+          "deposited_by": 1902,
+          "minimum_elapsed_s": 15576.81525
+        }
+      }
+    ]
+  },
+  "grid_mm": 0.5,
+  "motion_sample_mm": 0.5,
+  "arc_step_mm": 0.25,
+  "arc_count": 3693,
+  "full_turn_lifts": 3693,
+  "declared_dwell_s": 0.0,
+  "minimum_feed_time_s": 34424.44882,
+  "unknown_extrusion_samples": 0,
+  "unexpanded_machine_commands": {
+    "M109": 1
+  },
+  "largest_prior_terrain_height_above_active_tip_mm": 7.25308,
+  "largest_prior_terrain_witness": {
+    "gap_mm": 7.25308,
+    "line": 652178,
+    "xyz_mm": [
+      95.31562,
+      172.57762,
+      18.62692
+    ],
+    "head_cell_offset_xy_mm": [
+      60.0,
+      19.0
+    ],
+    "object": 1901,
+    "deposited_by": 1902,
+    "minimum_elapsed_s": 17633.3562
+  },
+  "modeled_cross_object_clearance_witness_while_depositing": {
+    "gap_mm": 3.4,
+    "line": 418913,
+    "xyz_mm": [
+      211.3198,
+      208.8618,
+      16.04
+    ],
+    "head_cell_offset_xy_mm": [
+      28.0,
+      4.0
+    ],
+    "object": 1902,
+    "deposited_by": 1903,
+    "minimum_elapsed_s": 14083.83856
+  },
+  "first_three_companion_courses_by_extrusion_temperature": {
+    "1902": [
+      {
+        "net_filament_mm": 150.76042,
+        "net_at_nozzle_setpoint_over_270_c_mm": 0.0
+      },
+      {
+        "net_filament_mm": 5.87462,
+        "net_at_nozzle_setpoint_over_270_c_mm": 5.87462
+      },
+      {
+        "net_filament_mm": 33.94804,
+        "net_at_nozzle_setpoint_over_270_c_mm": 33.94804
+      }
+    ],
+    "1903": [
+      {
+        "net_filament_mm": 72.2428,
+        "net_at_nozzle_setpoint_over_270_c_mm": 0.0
+      },
+      {
+        "net_filament_mm": 34.63086,
+        "net_at_nozzle_setpoint_over_270_c_mm": 34.63086
+      },
+      {
+        "net_filament_mm": 33.95213,
+        "net_at_nozzle_setpoint_over_270_c_mm": 33.95213
+      }
+    ],
+    "1904": [
+      {
+        "net_filament_mm": 184.60562,
+        "net_at_nozzle_setpoint_over_270_c_mm": 0.0
+      },
+      {
+        "net_filament_mm": 225.56251,
+        "net_at_nozzle_setpoint_over_270_c_mm": 225.56251
+      },
+      {
+        "net_filament_mm": 225.31641,
+        "net_at_nozzle_setpoint_over_270_c_mm": 225.31641
+      }
+    ],
+    "1905": [
+      {
+        "net_filament_mm": 65.21036,
+        "net_at_nozzle_setpoint_over_270_c_mm": 0.0
+      },
+      {
+        "net_filament_mm": 49.61095,
+        "net_at_nozzle_setpoint_over_270_c_mm": 49.61095
+      },
+      {
+        "net_filament_mm": 49.28918,
+        "net_at_nozzle_setpoint_over_270_c_mm": 49.28918
+      }
+    ]
+  },
+  "phases": {
+    "final clearance lift": {
+      "moves": 1,
+      "samples": 12,
+      "travel_samples": 12,
+      "minimum_feed_time_s": 0.08,
+      "extrusion_mm": 0.0,
+      "minimum_head_body": {
+        "gap_mm": 3.79999,
+        "line": 2030535,
+        "xyz_mm": [
+          86.51,
+          170.511,
+          245.34
+        ],
+        "head_cell_offset_xy_mm": [
+          -2.5,
+          0.0
+        ],
+        "object": 0,
+        "deposited_by": 1901,
+        "minimum_elapsed_s": 34424.37549
+      },
+      "minimum_travel_head_body": {
+        "gap_mm": 3.79999,
+        "line": 2030535,
+        "xyz_mm": [
+          86.51,
+          170.511,
+          245.34
+        ],
+        "head_cell_offset_xy_mm": [
+          -2.5,
+          0.0
+        ],
+        "object": 0,
+        "deposited_by": 1901,
+        "minimum_elapsed_s": 34424.37549
+      },
+      "minimum_nozzle_flank": {
+        "gap_mm": 0.54667,
+        "line": 2030535,
+        "xyz_mm": [
+          86.51,
+          170.511,
+          245.34
+        ],
+        "head_cell_offset_xy_mm": [
+          -0.5,
+          0.5
+        ],
+        "object": 0,
+        "deposited_by": 1901,
+        "minimum_elapsed_s": 34424.37549
+      },
+      "minimum_travel_tip": {
+        "gap_mm": 0.09999,
+        "line": 2030535,
+        "xyz_mm": [
+          86.51,
+          170.511,
+          245.34
+        ],
+        "head_cell_offset_xy_mm": [
+          0.0,
+          0.0
+        ],
+        "object": 0,
+        "deposited_by": 1901,
+        "minimum_elapsed_s": 34424.37549
+      },
+      "travel_samples_below_prior_bead_by_over_0_31_mm": 0,
+      "affected_moves": 0,
+      "extrusion_travelling_with_retraction_debt": 0,
+      "maximum_retraction_mismatch_mm": 0.0,
+      "max_commanded_z_mm_per_s": 15.0,
+      "max_commanded_extruding_z_mm_per_s": 0.0
+    },
+    "graded shaft transition": {
+      "moves": 146318,
+      "samples": 1528416,
+      "travel_samples": 495122,
+      "minimum_feed_time_s": 2260.20441,
+      "extrusion_mm": 3596.68999,
+      "minimum_head_body": {
+        "gap_mm": 2.06071,
+        "line": 1301355,
+        "xyz_mm": [
+          72.55886,
+          172.74886,
+          90.38743
+        ],
+        "head_cell_offset_xy_mm": [
+          23.0,
+          -4.5
+        ],
+        "object": 1901,
+        "deposited_by": 1901,
+        "minimum_elapsed_s": 28121.97553
+      },
+      "minimum_travel_head_body": {
+        "gap_mm": 2.071,
+        "line": 1305475,
+        "xyz_mm": [
+          73.142,
+          178.241,
+          90.407
+        ],
+        "head_cell_offset_xy_mm": [
+          25.0,
+          -4.5
+        ],
+        "object": 1901,
+        "deposited_by": 1901,
+        "minimum_elapsed_s": 28224.91288
+      },
+      "minimum_nozzle_flank": {
+        "gap_mm": -0.06033,
+        "line": 1302297,
+        "xyz_mm": [
+          96.6512,
+          175.7482,
+          89.833
+        ],
+        "head_cell_offset_xy_mm": [
+          -0.5,
+          -0.5
+        ],
+        "object": 1901,
+        "deposited_by": 1901,
+        "minimum_elapsed_s": 28146.15064
+      },
+      "minimum_travel_tip": {
+        "gap_mm": -0.12349,
+        "line": 1319420,
+        "xyz_mm": [
+          80.896,
+          181.717,
+          91.225
+        ],
+        "head_cell_offset_xy_mm": [
+          0.0,
+          0.0
+        ],
+        "object": 1901,
+        "deposited_by": 1901,
+        "minimum_elapsed_s": 28391.37282
+      },
+      "travel_samples_below_prior_bead_by_over_0_31_mm": 0,
+      "affected_moves": 0,
+      "extrusion_travelling_with_retraction_debt": 0,
+      "maximum_retraction_mismatch_mm": 0.0,
+      "max_commanded_z_mm_per_s": 15.0,
+      "max_commanded_extruding_z_mm_per_s": 7.5
+    },
+    "native": {
+      "moves": 0,
+      "samples": 0,
+      "travel_samples": 0,
+      "minimum_feed_time_s": 0.0,
+      "extrusion_mm": 0.0,
+      "minimum_head_body": null,
+      "minimum_travel_head_body": null,
+      "minimum_nozzle_flank": null,
+      "minimum_travel_tip": null,
+      "travel_samples_below_prior_bead_by_over_0_31_mm": 0,
+      "affected_moves": 0,
+      "extrusion_travelling_with_retraction_debt": 0,
+      "maximum_retraction_mismatch_mm": 0.0,
+      "max_commanded_z_mm_per_s": 0.0,
+      "max_commanded_extruding_z_mm_per_s": 0.0
+    },
+    "native companions": {
+      "moves": 840201,
+      "samples": 1873218,
+      "travel_samples": 379693,
+      "minimum_feed_time_s": 8284.41299,
+      "extrusion_mm": 21643.29531,
+      "minimum_head_body": {
+        "gap_mm": 2.49715,
+        "line": 567346,
+        "xyz_mm": [
+          175.36933,
+          205.95433,
+          21.83486
+        ],
+        "head_cell_offset_xy_mm": [
+          22.0,
+          1.5
+        ],
+        "object": 1902,
+        "deposited_by": 1902,
+        "minimum_elapsed_s": 16576.05653
+      },
+      "minimum_travel_head_body": {
+        "gap_mm": 2.65373,
+        "line": 560533,
+        "xyz_mm": [
+          175.856,
+          208.74,
+          21.36518
+        ],
+        "head_cell_offset_xy_mm": [
+          22.0,
+          -1.0
+        ],
+        "object": 1902,
+        "deposited_by": 1902,
+        "minimum_elapsed_s": 16534.7482
+      },
+      "minimum_nozzle_flank": {
+        "gap_mm": -0.48824,
+        "line": 499298,
+        "xyz_mm": [
+          183.24114,
+          211.24843,
+          18.09264
+        ],
+        "head_cell_offset_xy_mm": [
+          -0.5,
+          -0.5
+        ],
+        "object": 1902,
+        "deposited_by": 1902,
+        "minimum_elapsed_s": 16180.64277
+      },
+      "minimum_travel_tip": {
+        "gap_mm": -0.31789,
+        "line": 494895,
+        "xyz_mm": [
+          179.826,
+          213.74,
+          18.04063
+        ],
+        "head_cell_offset_xy_mm": [
+          0.0,
+          0.0
+        ],
+        "object": 1902,
+        "deposited_by": 1902,
+        "minimum_elapsed_s": 16154.99973
+      },
+      "travel_samples_below_prior_bead_by_over_0_31_mm": 4,
+      "affected_moves": 4,
+      "extrusion_travelling_with_retraction_debt": 0,
+      "maximum_retraction_mismatch_mm": 0.0,
+      "max_commanded_z_mm_per_s": 1000.0,
+      "max_commanded_extruding_z_mm_per_s": 11.69978
+    },
+    "native level upper base": {
+      "moves": 264559,
+      "samples": 2145499,
+      "travel_samples": 242183,
+      "minimum_feed_time_s": 2063.87151,
+      "extrusion_mm": 6627.1718,
+      "minimum_head_body": {
+        "gap_mm": 3.39999,
+        "line": 1744377,
+        "xyz_mm": [
+          75.7218,
+          200.401,
+          147.32
+        ],
+        "head_cell_offset_xy_mm": [
+          22.0,
+          -4.5
+        ],
+        "object": 1901,
+        "deposited_by": 1901,
+        "minimum_elapsed_s": 32369.88502
+      },
+      "minimum_travel_head_body": {
+        "gap_mm": 3.39999,
+        "line": 1777877,
+        "xyz_mm": [
+          73.64,
+          189.766,
+          159.32
+        ],
+        "head_cell_offset_xy_mm": [
+          22.5,
+          -4.5
+        ],
+        "object": 1901,
+        "deposited_by": 1901,
+        "minimum_elapsed_s": 32540.13066
+      },
+      "minimum_nozzle_flank": {
+        "gap_mm": 0.20666,
+        "line": 1744235,
+        "xyz_mm": [
+          83.063,
+          204.23686,
+          147.32
+        ],
+        "head_cell_offset_xy_mm": [
+          0.5,
+          0.5
+        ],
+        "object": 1901,
+        "deposited_by": 1901,
+        "minimum_elapsed_s": 32369.11239
+      },
+      "minimum_travel_tip": {
+        "gap_mm": -1e-05,
+        "line": 1744352,
+        "xyz_mm": [
+          85.81725,
+          204.564,
+          147.32
+        ],
+        "head_cell_offset_xy_mm": [
+          0.0,
+          0.0
+        ],
+        "object": 1901,
+        "deposited_by": 1901,
+        "minimum_elapsed_s": 32369.53648
+      },
+      "travel_samples_below_prior_bead_by_over_0_31_mm": 0,
+      "affected_moves": 0,
+      "extrusion_travelling_with_retraction_debt": 0,
+      "maximum_retraction_mismatch_mm": 0.0,
+      "max_commanded_z_mm_per_s": 15.0,
+      "max_commanded_extruding_z_mm_per_s": 0.0
+    },
+    "native tilted base": {
+      "moves": 393109,
+      "samples": 6010032,
+      "travel_samples": 1630174,
+      "minimum_feed_time_s": 14351.34225,
+      "extrusion_mm": 16235.76343,
+      "minimum_head_body": {
+        "gap_mm": 2.03389,
+        "line": 474914,
+        "xyz_mm": [
+          71.86935,
+          128.74914,
+          24.65649
+        ],
+        "head_cell_offset_xy_mm": [
+          27.0,
+          -4.5
+        ],
+        "object": 1901,
+        "deposited_by": 1901,
+        "minimum_elapsed_s": 15588.65259
+      },
+      "minimum_travel_head_body": {
+        "gap_mm": 2.06133,
+        "line": 977995,
+        "xyz_mm": [
+          77.255,
+          153.749,
+          52.743
+        ],
+        "head_cell_offset_xy_mm": [
+          23.5,
+          -4.5
+        ],
+        "object": 1901,
+        "deposited_by": 1901,
+        "minimum_elapsed_s": 23488.24282
+      },
+      "minimum_nozzle_flank": {
+        "gap_mm": -0.09107,
+        "line": 470230,
+        "xyz_mm": [
+          88.3493,
+          120.2448,
+          26.18911
+        ],
+        "head_cell_offset_xy_mm": [
+          0.5,
+          -0.5
+        ],
+        "object": 1901,
+        "deposited_by": 1901,
+        "minimum_elapsed_s": 15209.82145
+      },
+      "minimum_travel_tip": {
+        "gap_mm": -0.14214,
+        "line": 387916,
+        "xyz_mm": [
+          73.677,
+          147.738,
+          15.35
+        ],
+        "head_cell_offset_xy_mm": [
+          0.0,
+          0.0
+        ],
+        "object": 1901,
+        "deposited_by": 1901,
+        "minimum_elapsed_s": 12934.52443
+      },
+      "travel_samples_below_prior_bead_by_over_0_31_mm": 0,
+      "affected_moves": 0,
+      "extrusion_travelling_with_retraction_debt": 0,
+      "maximum_retraction_mismatch_mm": 0.0,
+      "max_commanded_z_mm_per_s": 15.0,
+      "max_commanded_extruding_z_mm_per_s": 7.5
+    },
+    "scaffold layer": {
+      "moves": 13924,
+      "samples": 542293,
+      "travel_samples": 81788,
+      "minimum_feed_time_s": 809.45096,
+      "extrusion_mm": 2450.0607,
+      "minimum_head_body": {
+        "gap_mm": 3.4,
+        "line": 108289,
+        "xyz_mm": [
+          91.24541,
+          125.559,
+          10.52
+        ],
+        "head_cell_offset_xy_mm": [
+          22.0,
+          0.0
+        ],
+        "object": 1901,
+        "deposited_by": 1901,
+        "minimum_elapsed_s": 3063.76143
+      },
+      "minimum_travel_head_body": {
+        "gap_mm": 3.4,
+        "line": 108293,
+        "xyz_mm": [
+          60.499,
+          122.415,
+          10.52
+        ],
+        "head_cell_offset_xy_mm": [
+          22.0,
+          3.0
+        ],
+        "object": 1901,
+        "deposited_by": 1901,
+        "minimum_elapsed_s": 3064.28605
+      },
+      "minimum_nozzle_flank": {
+        "gap_mm": 0.20667,
+        "line": 108224,
+        "xyz_mm": [
+          58.44927,
+          125.24118,
+          10.52
+        ],
+        "head_cell_offset_xy_mm": [
+          -0.5,
+          0.5
+        ],
+        "object": 1901,
+        "deposited_by": 1901,
+        "minimum_elapsed_s": 3062.6708
+      },
+      "minimum_travel_tip": {
+        "gap_mm": -0.0,
+        "line": 108293,
+        "xyz_mm": [
+          60.499,
+          122.415,
+          10.52
+        ],
+        "head_cell_offset_xy_mm": [
+          0.0,
+          0.0
+        ],
+        "object": 1901,
+        "deposited_by": 1901,
+        "minimum_elapsed_s": 3064.28605
+      },
+      "travel_samples_below_prior_bead_by_over_0_31_mm": 0,
+      "affected_moves": 0,
+      "extrusion_travelling_with_retraction_debt": 0,
+      "maximum_retraction_mismatch_mm": 0.0,
+      "max_commanded_z_mm_per_s": 20.0,
+      "max_commanded_extruding_z_mm_per_s": 0.0
+    },
+    "shaft join bridge stitch": {
+      "moves": 626,
+      "samples": 25444,
+      "travel_samples": 17051,
+      "minimum_feed_time_s": 90.92518,
+      "extrusion_mm": 29.29611,
+      "minimum_head_body": {
+        "gap_mm": 3.4,
+        "line": 1733430,
+        "xyz_mm": [
+          76.224,
+          180.88,
+          143.48
+        ],
+        "head_cell_offset_xy_mm": [
+          22.0,
+          4.0
+        ],
+        "object": 1901,
+        "deposited_by": 1901,
+        "minimum_elapsed_s": 32182.7824
+      },
+      "minimum_travel_head_body": {
+        "gap_mm": 3.4,
+        "line": 1733430,
+        "xyz_mm": [
+          76.224,
+          180.88,
+          143.48
+        ],
+        "head_cell_offset_xy_mm": [
+          22.0,
+          4.0
+        ],
+        "object": 1901,
+        "deposited_by": 1901,
+        "minimum_elapsed_s": 32182.7824
+      },
+      "minimum_nozzle_flank": {
+        "gap_mm": 0.20667,
+        "line": 1733366,
+        "xyz_mm": [
+          88.21518,
+          177.1,
+          143.48
+        ],
+        "head_cell_offset_xy_mm": [
+          -0.5,
+          -0.5
+        ],
+        "object": 1901,
+        "deposited_by": 1901,
+        "minimum_elapsed_s": 32172.83383
+      },
+      "minimum_travel_tip": {
+        "gap_mm": 0.0,
+        "line": 1733370,
+        "xyz_mm": [
+          81.268,
+          177.52,
+          143.48
+        ],
+        "head_cell_offset_xy_mm": [
+          0.0,
+          0.0
+        ],
+        "object": 1901,
+        "deposited_by": 1901,
+        "minimum_elapsed_s": 32173.39085
+      },
+      "travel_samples_below_prior_bead_by_over_0_31_mm": 0,
+      "affected_moves": 0,
+      "extrusion_travelling_with_retraction_debt": 0,
+      "maximum_retraction_mismatch_mm": 0.0,
+      "max_commanded_z_mm_per_s": 15.0,
+      "max_commanded_extruding_z_mm_per_s": 0.0
+    },
+    "sloped course": {
+      "moves": 55524,
+      "samples": 1849053,
+      "travel_samples": 1090684,
+      "minimum_feed_time_s": 4490.01894,
+      "extrusion_mm": 2844.61025,
+      "minimum_head_body": {
+        "gap_mm": 2.01709,
+        "line": 240840,
+        "xyz_mm": [
+          77.129,
+          135.24892,
+          12.68403
+        ],
+        "head_cell_offset_xy_mm": [
+          22.0,
+          -4.5
+        ],
+        "object": 1901,
+        "deposited_by": 1901,
+        "minimum_elapsed_s": 8997.77659
+      },
+      "minimum_travel_head_body": {
+        "gap_mm": 2.0219,
+        "line": 240790,
+        "xyz_mm": [
+          82.089,
+          161.735,
+          5.587
+        ],
+        "head_cell_offset_xy_mm": [
+          22.0,
+          -4.5
+        ],
+        "object": 1901,
+        "deposited_by": 1901,
+        "minimum_elapsed_s": 8982.19726
+      },
+      "minimum_nozzle_flank": {
+        "gap_mm": -0.09233,
+        "line": 240592,
+        "xyz_mm": [
+          79.24225,
+          128.2195,
+          14.5675
+        ],
+        "head_cell_offset_xy_mm": [
+          -0.5,
+          -0.5
+        ],
+        "object": 1901,
+        "deposited_by": 1901,
+        "minimum_elapsed_s": 8934.95897
+      },
+      "minimum_travel_tip": {
+        "gap_mm": -0.14717,
+        "line": 232673,
+        "xyz_mm": [
+          93.499,
+          154.24917,
+          7.38783
+        ],
+        "head_cell_offset_xy_mm": [
+          0.0,
+          0.0
+        ],
+        "object": 1901,
+        "deposited_by": 1901,
+        "minimum_elapsed_s": 8486.4957
+      },
+      "travel_samples_below_prior_bead_by_over_0_31_mm": 0,
+      "affected_moves": 0,
+      "extrusion_travelling_with_retraction_debt": 0,
+      "maximum_retraction_mismatch_mm": 0.0,
+      "max_commanded_z_mm_per_s": 20.0,
+      "max_commanded_extruding_z_mm_per_s": 7.58262
+    },
+    "transfers between course groups": {
+      "moves": 7137,
+      "samples": 674759,
+      "travel_samples": 674759,
+      "minimum_feed_time_s": 1472.12812,
+      "extrusion_mm": 0.0,
+      "minimum_head_body": {
+        "gap_mm": 2.07918,
+        "line": 871393,
+        "xyz_mm": [
+          80.614,
+          155.746,
+          41.036
+        ],
+        "head_cell_offset_xy_mm": [
+          25.5,
+          -4.5
+        ],
+        "object": 0,
+        "deposited_by": 1901,
+        "minimum_elapsed_s": 21182.77403
+      },
+      "minimum_travel_head_body": {
+        "gap_mm": 2.07918,
+        "line": 871393,
+        "xyz_mm": [
+          80.614,
+          155.746,
+          41.036
+        ],
+        "head_cell_offset_xy_mm": [
+          25.5,
+          -4.5
+        ],
+        "object": 0,
+        "deposited_by": 1901,
+        "minimum_elapsed_s": 21182.77403
+      },
+      "minimum_nozzle_flank": {
+        "gap_mm": 0.03667,
+        "line": 395695,
+        "xyz_mm": [
+          74.044,
+          147.702,
+          16.603
+        ],
+        "head_cell_offset_xy_mm": [
+          -0.5,
+          -0.5
+        ],
+        "object": 0,
+        "deposited_by": 1901,
+        "minimum_elapsed_s": 13433.35309
+      },
+      "minimum_travel_tip": {
+        "gap_mm": -0.03388,
+        "line": 573472,
+        "xyz_mm": [
+          87.603,
+          122.24,
+          28.98358
+        ],
+        "head_cell_offset_xy_mm": [
+          0.0,
+          0.0
+        ],
+        "object": 0,
+        "deposited_by": 1901,
+        "minimum_elapsed_s": 16717.15893
+      },
+      "travel_samples_below_prior_bead_by_over_0_31_mm": 0,
+      "affected_moves": 0,
+      "extrusion_travelling_with_retraction_debt": 0,
+      "maximum_retraction_mismatch_mm": 0.0,
+      "max_commanded_z_mm_per_s": 15.0,
+      "max_commanded_extruding_z_mm_per_s": 0.0
+    },
+    "underside deck bedding": {
+      "moves": 833,
+      "samples": 20201,
+      "travel_samples": 3859,
+      "minimum_feed_time_s": 48.9596,
+      "extrusion_mm": 85.26177,
+      "minimum_head_body": {
+        "gap_mm": 2.04975,
+        "line": 136624,
+        "xyz_mm": [
+          73.7195,
+          148.7285,
+          5.3885
+        ],
+        "head_cell_offset_xy_mm": [
+          26.5,
+          -4.5
+        ],
+        "object": 1901,
+        "deposited_by": 1901,
+        "minimum_elapsed_s": 3870.12827
+      },
+      "minimum_travel_head_body": {
+        "gap_mm": 2.04975,
+        "line": 136624,
+        "xyz_mm": [
+          73.7195,
+          148.7285,
+          5.3885
+        ],
+        "head_cell_offset_xy_mm": [
+          26.5,
+          -4.5
+        ],
+        "object": 1901,
+        "deposited_by": 1901,
+        "minimum_elapsed_s": 3870.12827
+      },
+      "minimum_nozzle_flank": {
+        "gap_mm": -0.07608,
+        "line": 136923,
+        "xyz_mm": [
+          105.6599,
+          138.248,
+          8.197
+        ],
+        "head_cell_offset_xy_mm": [
+          -0.5,
+          -0.5
+        ],
+        "object": 1901,
+        "deposited_by": 1901,
+        "minimum_elapsed_s": 3899.88016
+      },
+      "minimum_travel_tip": {
+        "gap_mm": -0.14561,
+        "line": 136924,
+        "xyz_mm": [
+          105.04871,
+          137.73457,
+          8.33414
+        ],
+        "head_cell_offset_xy_mm": [
+          0.0,
+          0.0
+        ],
+        "object": 1901,
+        "deposited_by": 1901,
+        "minimum_elapsed_s": 3899.90655
+      },
+      "travel_samples_below_prior_bead_by_over_0_31_mm": 0,
+      "affected_moves": 0,
+      "extrusion_travelling_with_retraction_debt": 0,
+      "maximum_retraction_mismatch_mm": 0.0,
+      "max_commanded_z_mm_per_s": 20.0,
+      "max_commanded_extruding_z_mm_per_s": 7.5825
+    },
+    "underside roof course": {
+      "moves": 1381,
+      "samples": 244581,
+      "travel_samples": 100860,
+      "minimum_feed_time_s": 553.02819,
+      "extrusion_mm": 881.92396,
+      "minimum_head_body": {
+        "gap_mm": 2.04421,
+        "line": 131790,
+        "xyz_mm": [
+          80.849,
+          132.2497,
+          9.30717
+        ],
+        "head_cell_offset_xy_mm": [
+          26.5,
+          -4.5
+        ],
+        "object": 1901,
+        "deposited_by": 1901,
+        "minimum_elapsed_s": 3518.55614
+      },
+      "minimum_travel_head_body": {
+        "gap_mm": 2.04842,
+        "line": 131794,
+        "xyz_mm": [
+          80.229,
+          166.238,
+          0.2
+        ],
+        "head_cell_offset_xy_mm": [
+          22.5,
+          -4.5
+        ],
+        "object": 1901,
+        "deposited_by": 1901,
+        "minimum_elapsed_s": 3520.47463
+      },
+      "minimum_nozzle_flank": {
+        "gap_mm": -0.07614,
+        "line": 131790,
+        "xyz_mm": [
+          80.849,
+          132.2497,
+          9.30717
+        ],
+        "head_cell_offset_xy_mm": [
+          0.5,
+          -0.5
+        ],
+        "object": 1901,
+        "deposited_by": 1901,
+        "minimum_elapsed_s": 3518.55614
+      },
+      "minimum_travel_tip": {
+        "gap_mm": 0.00432,
+        "line": 128068,
+        "xyz_mm": [
+          78.61195,
+          110.49781,
+          14.88732
+        ],
+        "head_cell_offset_xy_mm": [
+          0.0,
+          0.0
+        ],
+        "object": 1901,
+        "deposited_by": 1901,
+        "minimum_elapsed_s": 3332.76491
+      },
+      "travel_samples_below_prior_bead_by_over_0_31_mm": 0,
+      "affected_moves": 0,
+      "extrusion_travelling_with_retraction_debt": 0,
+      "maximum_retraction_mismatch_mm": 0.0,
+      "max_commanded_z_mm_per_s": 20.0,
+      "max_commanded_extruding_z_mm_per_s": 7.5021
+    },
+    "whole-plate first layer": {
+      "moves": 1,
+      "samples": 0,
+      "travel_samples": 0,
+      "minimum_feed_time_s": 0.02667,
+      "extrusion_mm": 0.0,
+      "minimum_head_body": null,
+      "minimum_travel_head_body": null,
+      "minimum_nozzle_flank": null,
+      "minimum_travel_tip": null,
+      "travel_samples_below_prior_bead_by_over_0_31_mm": 0,
+      "affected_moves": 0,
+      "extrusion_travelling_with_retraction_debt": 0,
+      "maximum_retraction_mismatch_mm": 0.0,
+      "max_commanded_z_mm_per_s": 0.0,
+      "max_commanded_extruding_z_mm_per_s": 0.0
+    }
+  },
+  "base_nozzle_model": {
+    "final clearance lift": {
+      "extrusion_samples": 0,
+      "travel_samples": 12,
+      "tested_road_mm": 0.0,
+      "downhill_road_mm": 0.0,
+      "outer_wall_road_mm": 0.0,
+      "outer_wall_straight_descent_flat_relief_demand_over_0_05_mm_road_mm": 0.0,
+      "straight_descent_flat_relief_demand_over_0_05_mm_road_mm": 0.0,
+      "road_mm_sampled_fresh_flat_gap_below_minus_0_05": 0.0,
+      "outer_wall_road_mm_sampled_fresh_flat_gap_below_minus_0_05": 0.0,
+      "outer_wall_road_mm_adjacent_model_gap_below_minus_0_1": 0.0,
+      "road_mm_adjacent_model_gap_below_minus_0_1": 0.0,
+      "road_mm_adjacent_model_gap_below_minus_0_2": 0.0,
+      "fresh_same_run_flat": null,
+      "prior_road_flat_during_extrusion": null,
+      "prior_road_cone_during_extrusion": null,
+      "dry_travel_flat": {
+        "gap_mm": 0.09999,
+        "line": 2030535,
+        "from_line": 2030530,
+        "nozzle_xyz_mm": [
+          86.51,
+          170.511,
+          245.34
+        ],
+        "deposited_xyz_mm": [
+          86.2,
+          170.5,
+          245.24001
+        ],
+        "deposited_age_s_at_nominal_feed": 0.06299,
+        "distance_from_tip_center_mm": 0.3102,
+        "object": 0,
+        "deposited_by": 1901,
+        "feature": "Outer wall"
+      },
+      "dry_travel_cone": {
+        "gap_mm": 0.18717,
+        "line": 2030535,
+        "from_line": 2030530,
+        "nozzle_xyz_mm": [
+          86.51,
+          170.511,
+          245.34
+        ],
+        "deposited_xyz_mm": [
+          86.2,
+          170.7,
+          245.1873
+        ],
+        "deposited_age_s_at_nominal_feed": 0.06689,
+        "distance_from_tip_center_mm": 0.36307,
+        "object": 0,
+        "deposited_by": 1901,
+        "feature": "Outer wall"
+      }
+    },
+    "graded shaft transition": {
+      "extrusion_samples": 1033294,
+      "travel_samples": 495122,
+      "tested_road_mm": 96877.06753,
+      "downhill_road_mm": 18018.41926,
+      "outer_wall_road_mm": 30339.46932,
+      "outer_wall_straight_descent_flat_relief_demand_over_0_05_mm_road_mm": 0.0,
+      "straight_descent_flat_relief_demand_over_0_05_mm_road_mm": 4088.41947,
+      "road_mm_sampled_fresh_flat_gap_below_minus_0_05": 5021.29528,
+      "outer_wall_road_mm_sampled_fresh_flat_gap_below_minus_0_05": 0.0,
+      "outer_wall_road_mm_adjacent_model_gap_below_minus_0_1": 1169.18629,
+      "road_mm_adjacent_model_gap_below_minus_0_1": 1713.36839,
+      "road_mm_adjacent_model_gap_below_minus_0_2": 0.0,
+      "fresh_same_run_flat": {
+        "gap_mm": -0.12167,
+        "line": 1303014,
+        "from_line": 1303013,
+        "nozzle_xyz_mm": [
+          79.513,
+          183.739,
+          87.941
+        ],
+        "deposited_xyz_mm": [
+          79.5,
+          183.4,
+          88.06267
+        ],
+        "deposited_age_s_at_nominal_feed": 0.01793,
+        "distance_from_tip_center_mm": 0.33925,
+        "object": 1901,
+        "deposited_by": 1901,
+        "feature": "Sparse infill"
+      },
+      "prior_road_flat_during_extrusion": {
+        "gap_mm": -0.12286,
+        "line": 1304132,
+        "from_line": 1304056,
+        "nozzle_xyz_mm": [
+          88.723,
+          167.93814,
+          92.66643
+        ],
+        "deposited_xyz_mm": [
+          88.7,
+          167.6,
+          92.78928
+        ],
+        "deposited_age_s_at_nominal_feed": 3.1736,
+        "distance_from_tip_center_mm": 0.33892,
+        "object": 1901,
+        "deposited_by": 1901,
+        "feature": "Outer wall"
+      },
+      "prior_road_cone_during_extrusion": {
+        "gap_mm": -0.12235,
+        "line": 1315284,
+        "from_line": 1315153,
+        "nozzle_xyz_mm": [
+          93.091,
+          186.64,
+          88.414
+        ],
+        "deposited_xyz_mm": [
+          93.1,
+          186.3,
+          88.53653
+        ],
+        "deposited_age_s_at_nominal_feed": 3.12327,
+        "distance_from_tip_center_mm": 0.34012,
+        "object": 1901,
+        "deposited_by": 1901,
+        "feature": "Outer wall"
+      },
+      "dry_travel_flat": {
+        "gap_mm": -0.11713,
+        "line": 1318776,
+        "from_line": 1318700,
+        "nozzle_xyz_mm": [
+          80.979,
+          181.728,
+          90.973
+        ],
+        "deposited_xyz_mm": [
+          81.0,
+          181.4,
+          91.09013
+        ],
+        "deposited_age_s_at_nominal_feed": 3.01876,
+        "distance_from_tip_center_mm": 0.32867,
+        "object": 1901,
+        "deposited_by": 1901,
+        "feature": "Outer wall"
+      },
+      "dry_travel_cone": {
+        "gap_mm": -0.1134,
+        "line": 1334199,
+        "from_line": 1334098,
+        "nozzle_xyz_mm": [
+          89.022,
+          183.131,
+          92.604
+        ],
+        "deposited_xyz_mm": [
+          89.1,
+          182.8,
+          92.7175
+        ],
+        "deposited_age_s_at_nominal_feed": 4.0906,
+        "distance_from_tip_center_mm": 0.34007,
+        "object": 1901,
+        "deposited_by": 1901,
+        "feature": "Outer wall"
+      }
+    },
+    "native level upper base": {
+      "extrusion_samples": 1903316,
+      "travel_samples": 242183,
+      "tested_road_mm": 178437.2793,
+      "downhill_road_mm": 0.0,
+      "outer_wall_road_mm": 55149.67593,
+      "outer_wall_straight_descent_flat_relief_demand_over_0_05_mm_road_mm": 0.0,
+      "straight_descent_flat_relief_demand_over_0_05_mm_road_mm": 0.0,
+      "road_mm_sampled_fresh_flat_gap_below_minus_0_05": 0.0,
+      "outer_wall_road_mm_sampled_fresh_flat_gap_below_minus_0_05": 0.0,
+      "outer_wall_road_mm_adjacent_model_gap_below_minus_0_1": 0.0,
+      "road_mm_adjacent_model_gap_below_minus_0_1": 0.0,
+      "road_mm_adjacent_model_gap_below_minus_0_2": 0.0,
+      "fresh_same_run_flat": {
+        "gap_mm": -1e-05,
+        "line": 1744232,
+        "from_line": 1744232,
+        "nozzle_xyz_mm": [
+          85.599,
+          204.47029,
+          147.32
+        ],
+        "deposited_xyz_mm": [
+          85.8,
+          204.4,
+          147.32001
+        ],
+        "deposited_age_s_at_nominal_feed": 0.00117,
+        "distance_from_tip_center_mm": 0.21293,
+        "object": 1901,
+        "deposited_by": 1901,
+        "feature": "Inner wall"
+      },
+      "prior_road_flat_during_extrusion": {
+        "gap_mm": -1e-05,
+        "line": 1744357,
+        "from_line": 1744233,
+        "nozzle_xyz_mm": [
+          84.78845,
+          204.83527,
+          147.32
+        ],
+        "deposited_xyz_mm": [
+          84.8,
+          204.5,
+          147.32001
+        ],
+        "deposited_age_s_at_nominal_feed": 0.49915,
+        "distance_from_tip_center_mm": 0.33547,
+        "object": 1901,
+        "deposited_by": 1901,
+        "feature": "Outer wall"
+      },
+      "prior_road_cone_during_extrusion": {
+        "gap_mm": -1e-05,
+        "line": 1744549,
+        "from_line": 1744505,
+        "nozzle_xyz_mm": [
+          79.7,
+          194.54,
+          147.32
+        ],
+        "deposited_xyz_mm": [
+          79.4,
+          194.7,
+          147.32001
+        ],
+        "deposited_age_s_at_nominal_feed": 0.25908,
+        "distance_from_tip_center_mm": 0.34,
+        "object": 1901,
+        "deposited_by": 1901,
+        "feature": "Outer wall"
+      },
+      "dry_travel_flat": {
+        "gap_mm": -1e-05,
+        "line": 1744352,
+        "from_line": 1744232,
+        "nozzle_xyz_mm": [
+          85.81725,
+          204.564,
+          147.32
+        ],
+        "deposited_xyz_mm": [
+          85.6,
+          204.4,
+          147.32001
+        ],
+        "deposited_age_s_at_nominal_feed": 0.43687,
+        "distance_from_tip_center_mm": 0.2722,
+        "object": 1901,
+        "deposited_by": 1901,
+        "feature": "Inner wall"
+      },
+      "dry_travel_cone": {
+        "gap_mm": -1e-05,
+        "line": 1959662,
+        "from_line": 1959458,
+        "nozzle_xyz_mm": [
+          80.96,
+          185.9,
+          218.6
+        ],
+        "deposited_xyz_mm": [
+          81.3,
+          185.9,
+          218.60001
+        ],
+        "deposited_age_s_at_nominal_feed": 2.05023,
+        "distance_from_tip_center_mm": 0.34,
+        "object": 1901,
+        "deposited_by": 1901,
+        "feature": "Outer wall"
+      }
+    },
+    "native tilted base": {
+      "extrusion_samples": 4379858,
+      "travel_samples": 1630174,
+      "tested_road_mm": 412378.54111,
+      "downhill_road_mm": 124806.76195,
+      "outer_wall_road_mm": 70784.34433,
+      "outer_wall_straight_descent_flat_relief_demand_over_0_05_mm_road_mm": 0.0,
+      "straight_descent_flat_relief_demand_over_0_05_mm_road_mm": 106730.91785,
+      "road_mm_sampled_fresh_flat_gap_below_minus_0_05": 142472.74126,
+      "outer_wall_road_mm_sampled_fresh_flat_gap_below_minus_0_05": 0.0,
+      "outer_wall_road_mm_adjacent_model_gap_below_minus_0_1": 17026.3958,
+      "road_mm_adjacent_model_gap_below_minus_0_1": 30805.19154,
+      "road_mm_adjacent_model_gap_below_minus_0_2": 0.0,
+      "fresh_same_run_flat": {
+        "gap_mm": -0.14563,
+        "line": 960600,
+        "from_line": 960598,
+        "nozzle_xyz_mm": [
+          86.323,
+          154.436,
+          50.322
+        ],
+        "deposited_xyz_mm": [
+          86.3,
+          154.1,
+          50.46763
+        ],
+        "deposited_age_s_at_nominal_feed": 0.02066,
+        "distance_from_tip_center_mm": 0.33679,
+        "object": 1901,
+        "deposited_by": 1901,
+        "feature": "Support"
+      },
+      "prior_road_flat_during_extrusion": {
+        "gap_mm": -0.15974,
+        "line": 470197,
+        "from_line": 470173,
+        "nozzle_xyz_mm": [
+          104.64977,
+          128.33261,
+          24.02206
+        ],
+        "deposited_xyz_mm": [
+          104.6,
+          128.0,
+          24.18181
+        ],
+        "deposited_age_s_at_nominal_feed": 0.75552,
+        "distance_from_tip_center_mm": 0.33632,
+        "object": 1901,
+        "deposited_by": 1901,
+        "feature": "Sparse infill"
+      },
+      "prior_road_cone_during_extrusion": {
+        "gap_mm": -0.15757,
+        "line": 470615,
+        "from_line": 470127,
+        "nozzle_xyz_mm": [
+          78.46155,
+          120.53614,
+          26.11174
+        ],
+        "deposited_xyz_mm": [
+          78.4,
+          120.2,
+          26.27189
+        ],
+        "deposited_age_s_at_nominal_feed": 61.4387,
+        "distance_from_tip_center_mm": 0.34173,
+        "object": 1901,
+        "deposited_by": 1901,
+        "feature": "Sparse infill"
+      },
+      "dry_travel_flat": {
+        "gap_mm": -0.14478,
+        "line": 962356,
+        "from_line": 962349,
+        "nozzle_xyz_mm": [
+          78.765,
+          156.238,
+          50.088
+        ],
+        "deposited_xyz_mm": [
+          78.8,
+          155.9,
+          50.23278
+        ],
+        "deposited_age_s_at_nominal_feed": 1.27573,
+        "distance_from_tip_center_mm": 0.33981,
+        "object": 1901,
+        "deposited_by": 1901,
+        "feature": "Support transition"
+      },
+      "dry_travel_cone": {
+        "gap_mm": -0.14385,
+        "line": 962271,
+        "from_line": 962265,
+        "nozzle_xyz_mm": [
+          93.445,
+          156.238,
+          50.088
+        ],
+        "deposited_xyz_mm": [
+          93.4,
+          155.9,
+          50.23331
+        ],
+        "deposited_age_s_at_nominal_feed": 1.01926,
+        "distance_from_tip_center_mm": 0.34098,
+        "object": 1901,
+        "deposited_by": 1901,
+        "feature": "Support transition"
+      }
+    },
+    "scaffold layer": {
+      "extrusion_samples": 460505,
+      "travel_samples": 81788,
+      "tested_road_mm": 45652.25934,
+      "downhill_road_mm": 0.0,
+      "outer_wall_road_mm": 0.0,
+      "outer_wall_straight_descent_flat_relief_demand_over_0_05_mm_road_mm": 0.0,
+      "straight_descent_flat_relief_demand_over_0_05_mm_road_mm": 0.0,
+      "road_mm_sampled_fresh_flat_gap_below_minus_0_05": 0.0,
+      "outer_wall_road_mm_sampled_fresh_flat_gap_below_minus_0_05": 0.0,
+      "outer_wall_road_mm_adjacent_model_gap_below_minus_0_1": 0.0,
+      "road_mm_adjacent_model_gap_below_minus_0_1": 0.0,
+      "road_mm_adjacent_model_gap_below_minus_0_2": 0.0,
+      "fresh_same_run_flat": {
+        "gap_mm": -0.0,
+        "line": 108224,
+        "from_line": 108224,
+        "nozzle_xyz_mm": [
+          58.35764,
+          125.40009,
+          10.52
+        ],
+        "deposited_xyz_mm": [
+          58.1,
+          125.5,
+          10.52
+        ],
+        "deposited_age_s_at_nominal_feed": 0.00225,
+        "distance_from_tip_center_mm": 0.27633,
+        "object": 1901,
+        "deposited_by": 1901,
+        "feature": "Support"
+      },
+      "prior_road_flat_during_extrusion": {
+        "gap_mm": -0.0,
+        "line": 108295,
+        "from_line": 108228,
+        "nozzle_xyz_mm": [
+          60.499,
+          122.51272,
+          10.52
+        ],
+        "deposited_xyz_mm": [
+          60.4,
+          122.2,
+          10.52
+        ],
+        "deposited_age_s_at_nominal_feed": 1.59616,
+        "distance_from_tip_center_mm": 0.32802,
+        "object": 1901,
+        "deposited_by": 1901,
+        "feature": "Support"
+      },
+      "prior_road_cone_during_extrusion": {
+        "gap_mm": 0.0,
+        "line": 109522,
+        "from_line": 109510,
+        "nozzle_xyz_mm": [
+          67.999,
+          119.77535,
+          11.96
+        ],
+        "deposited_xyz_mm": [
+          68.1,
+          120.1,
+          11.96
+        ],
+        "deposited_age_s_at_nominal_feed": 0.38271,
+        "distance_from_tip_center_mm": 0.34,
+        "object": 1901,
+        "deposited_by": 1901,
+        "feature": "Support"
+      },
+      "dry_travel_flat": {
+        "gap_mm": -0.0,
+        "line": 108293,
+        "from_line": 108228,
+        "nozzle_xyz_mm": [
+          60.499,
+          122.415,
+          10.52
+        ],
+        "deposited_xyz_mm": [
+          60.4,
+          122.1,
+          10.52
+        ],
+        "deposited_age_s_at_nominal_feed": 1.56705,
+        "distance_from_tip_center_mm": 0.33019,
+        "object": 1901,
+        "deposited_by": 1901,
+        "feature": "Support"
+      },
+      "dry_travel_cone": {
+        "gap_mm": 0.0,
+        "line": 62636,
+        "from_line": 62537,
+        "nozzle_xyz_mm": [
+          55.499,
+          132.74,
+          4.76
+        ],
+        "deposited_xyz_mm": [
+          55.5,
+          132.4,
+          4.76
+        ],
+        "deposited_age_s_at_nominal_feed": 2.13129,
+        "distance_from_tip_center_mm": 0.34,
+        "object": 1901,
+        "deposited_by": 1901,
+        "feature": "Support"
+      }
+    },
+    "shaft join bridge stitch": {
+      "extrusion_samples": 8393,
+      "travel_samples": 17051,
+      "tested_road_mm": 833.865,
+      "downhill_road_mm": 0.0,
+      "outer_wall_road_mm": 0.0,
+      "outer_wall_straight_descent_flat_relief_demand_over_0_05_mm_road_mm": 0.0,
+      "straight_descent_flat_relief_demand_over_0_05_mm_road_mm": 0.0,
+      "road_mm_sampled_fresh_flat_gap_below_minus_0_05": 0.0,
+      "outer_wall_road_mm_sampled_fresh_flat_gap_below_minus_0_05": 0.0,
+      "outer_wall_road_mm_adjacent_model_gap_below_minus_0_1": 0.0,
+      "road_mm_adjacent_model_gap_below_minus_0_1": 0.0,
+      "road_mm_adjacent_model_gap_below_minus_0_2": 0.0,
+      "fresh_same_run_flat": {
+        "gap_mm": 0.0,
+        "line": 1733366,
+        "from_line": 1733366,
+        "nozzle_xyz_mm": [
+          88.11635,
+          177.1,
+          143.48
+        ],
+        "deposited_xyz_mm": [
+          88.3,
+          177.0,
+          143.48
+        ],
+        "deposited_age_s_at_nominal_feed": 0.0123,
+        "distance_from_tip_center_mm": 0.20911,
+        "object": 1901,
+        "deposited_by": 1901,
+        "feature": "Bridge"
+      },
+      "prior_road_flat_during_extrusion": {
+        "gap_mm": 0.0,
+        "line": 1733366,
+        "from_line": 1733074,
+        "nozzle_xyz_mm": [
+          88.21518,
+          177.1,
+          143.48
+        ],
+        "deposited_xyz_mm": [
+          88.0,
+          176.9,
+          143.48
+        ],
+        "deposited_age_s_at_nominal_feed": 2.21469,
+        "distance_from_tip_center_mm": 0.29377,
+        "object": 1901,
+        "deposited_by": 1901,
+        "feature": "Bridge"
+      },
+      "prior_road_cone_during_extrusion": {
+        "gap_mm": 0.0,
+        "line": 1733378,
+        "from_line": 1733372,
+        "nozzle_xyz_mm": [
+          85.5,
+          177.94,
+          143.48
+        ],
+        "deposited_xyz_mm": [
+          85.5,
+          177.6,
+          143.48
+        ],
+        "deposited_age_s_at_nominal_feed": 0.83982,
+        "distance_from_tip_center_mm": 0.34,
+        "object": 1901,
+        "deposited_by": 1901,
+        "feature": "Bridge"
+      },
+      "dry_travel_flat": {
+        "gap_mm": 0.0,
+        "line": 1733370,
+        "from_line": 1733065,
+        "nozzle_xyz_mm": [
+          81.268,
+          177.52,
+          143.48
+        ],
+        "deposited_xyz_mm": [
+          81.5,
+          177.3,
+          143.48
+        ],
+        "deposited_age_s_at_nominal_feed": 2.80687,
+        "distance_from_tip_center_mm": 0.31972,
+        "object": 1901,
+        "deposited_by": 1901,
+        "feature": "Bridge"
+      },
+      "dry_travel_cone": {
+        "gap_mm": 6e-05,
+        "line": 1733676,
+        "from_line": 1733298,
+        "nozzle_xyz_mm": [
+          92.015,
+          189.28,
+          143.48
+        ],
+        "deposited_xyz_mm": [
+          91.9,
+          189.6,
+          143.48
+        ],
+        "deposited_age_s_at_nominal_feed": 42.86402,
+        "distance_from_tip_center_mm": 0.34004,
+        "object": 1901,
+        "deposited_by": 1901,
+        "feature": "Bridge"
+      }
+    },
+    "sloped course": {
+      "extrusion_samples": 758369,
+      "travel_samples": 1090684,
+      "tested_road_mm": 72590.93278,
+      "downhill_road_mm": 342.42194,
+      "outer_wall_road_mm": 6689.27834,
+      "outer_wall_straight_descent_flat_relief_demand_over_0_05_mm_road_mm": 0.0,
+      "straight_descent_flat_relief_demand_over_0_05_mm_road_mm": 0.0,
+      "road_mm_sampled_fresh_flat_gap_below_minus_0_05": 0.0,
+      "outer_wall_road_mm_sampled_fresh_flat_gap_below_minus_0_05": 0.0,
+      "outer_wall_road_mm_adjacent_model_gap_below_minus_0_1": 275.63852,
+      "road_mm_adjacent_model_gap_below_minus_0_1": 873.99619,
+      "road_mm_adjacent_model_gap_below_minus_0_2": 0.0,
+      "fresh_same_run_flat": {
+        "gap_mm": -0.02725,
+        "line": 237315,
+        "from_line": 237314,
+        "nozzle_xyz_mm": [
+          86.377,
+          117.347,
+          17.524
+        ],
+        "deposited_xyz_mm": [
+          86.1,
+          117.2,
+          17.55125
+        ],
+        "deposited_age_s_at_nominal_feed": 0.01697,
+        "distance_from_tip_center_mm": 0.31359,
+        "object": 1901,
+        "deposited_by": 1901,
+        "feature": "Outer wall"
+      },
+      "prior_road_flat_during_extrusion": {
+        "gap_mm": -0.16847,
+        "line": 240456,
+        "from_line": 240388,
+        "nozzle_xyz_mm": [
+          77.534,
+          154.932,
+          7.41
+        ],
+        "deposited_xyz_mm": [
+          77.5,
+          154.6,
+          7.57847
+        ],
+        "deposited_age_s_at_nominal_feed": 1.22292,
+        "distance_from_tip_center_mm": 0.33374,
+        "object": 1901,
+        "deposited_by": 1901,
+        "feature": "Support"
+      },
+      "prior_road_cone_during_extrusion": {
+        "gap_mm": -0.16793,
+        "line": 183812,
+        "from_line": 183782,
+        "nozzle_xyz_mm": [
+          63.489,
+          136.3282,
+          10.45016
+        ],
+        "deposited_xyz_mm": [
+          63.4,
+          136.0,
+          10.61817
+        ],
+        "deposited_age_s_at_nominal_feed": 1.89289,
+        "distance_from_tip_center_mm": 0.34005,
+        "object": 1901,
+        "deposited_by": 1901,
+        "feature": "Support"
+      },
+      "dry_travel_flat": {
+        "gap_mm": -0.16916,
+        "line": 197091,
+        "from_line": 197090,
+        "nozzle_xyz_mm": [
+          93.499,
+          153.93917,
+          6.22883
+        ],
+        "deposited_xyz_mm": [
+          93.5,
+          153.6,
+          6.39799
+        ],
+        "deposited_age_s_at_nominal_feed": 0.02784,
+        "distance_from_tip_center_mm": 0.33917,
+        "object": 1901,
+        "deposited_by": 1901,
+        "feature": "Support"
+      },
+      "dry_travel_cone": {
+        "gap_mm": -0.16693,
+        "line": 140520,
+        "from_line": 140519,
+        "nozzle_xyz_mm": [
+          93.499,
+          153.44217,
+          4.37383
+        ],
+        "deposited_xyz_mm": [
+          93.5,
+          153.1,
+          4.544
+        ],
+        "deposited_age_s_at_nominal_feed": 0.02781,
+        "distance_from_tip_center_mm": 0.34217,
+        "object": 1901,
+        "deposited_by": 1901,
+        "feature": "Support"
+      }
+    },
+    "transfers between course groups": {
+      "extrusion_samples": 0,
+      "travel_samples": 433398,
+      "tested_road_mm": 0.0,
+      "downhill_road_mm": 0.0,
+      "outer_wall_road_mm": 0.0,
+      "outer_wall_straight_descent_flat_relief_demand_over_0_05_mm_road_mm": 0.0,
+      "straight_descent_flat_relief_demand_over_0_05_mm_road_mm": 0.0,
+      "road_mm_sampled_fresh_flat_gap_below_minus_0_05": 0.0,
+      "outer_wall_road_mm_sampled_fresh_flat_gap_below_minus_0_05": 0.0,
+      "outer_wall_road_mm_adjacent_model_gap_below_minus_0_1": 0.0,
+      "road_mm_adjacent_model_gap_below_minus_0_1": 0.0,
+      "road_mm_adjacent_model_gap_below_minus_0_2": 0.0,
+      "fresh_same_run_flat": null,
+      "prior_road_flat_during_extrusion": null,
+      "prior_road_cone_during_extrusion": null,
+      "dry_travel_flat": {
+        "gap_mm": -0.04332,
+        "line": 389484,
+        "from_line": 389342,
+        "nozzle_xyz_mm": [
+          69.073,
+          121.888,
+          22.61596
+        ],
+        "deposited_xyz_mm": [
+          69.2,
+          121.6,
+          22.65929
+        ],
+        "deposited_age_s_at_nominal_feed": 21.51163,
+        "distance_from_tip_center_mm": 0.31476,
+        "object": 0,
+        "deposited_by": 1901,
+        "feature": "Sparse infill"
+      },
+      "dry_travel_cone": {
+        "gap_mm": -0.03979,
+        "line": 474946,
+        "from_line": 474817,
+        "nozzle_xyz_mm": [
+          66.478,
+          129.049,
+          24.67558
+        ],
+        "deposited_xyz_mm": [
+          66.5,
+          128.7,
+          24.72985
+        ],
+        "deposited_age_s_at_nominal_feed": 14.0762,
+        "distance_from_tip_center_mm": 0.34969,
+        "object": 0,
+        "deposited_by": 1901,
+        "feature": "Sparse infill"
+      }
+    },
+    "underside deck bedding": {
+      "extrusion_samples": 16342,
+      "travel_samples": 3859,
+      "tested_road_mm": 1592.7053,
+      "downhill_road_mm": 7.76082,
+      "outer_wall_road_mm": 0.0,
+      "outer_wall_straight_descent_flat_relief_demand_over_0_05_mm_road_mm": 0.0,
+      "straight_descent_flat_relief_demand_over_0_05_mm_road_mm": 0.0,
+      "road_mm_sampled_fresh_flat_gap_below_minus_0_05": 0.0,
+      "outer_wall_road_mm_sampled_fresh_flat_gap_below_minus_0_05": 0.0,
+      "outer_wall_road_mm_adjacent_model_gap_below_minus_0_1": 0.0,
+      "road_mm_adjacent_model_gap_below_minus_0_1": 48.71679,
+      "road_mm_adjacent_model_gap_below_minus_0_2": 0.0,
+      "fresh_same_run_flat": {
+        "gap_mm": -0.01825,
+        "line": 136846,
+        "from_line": 136845,
+        "nozzle_xyz_mm": [
+          107.923,
+          141.586,
+          7.302
+        ],
+        "deposited_xyz_mm": [
+          107.6,
+          141.5,
+          7.32025
+        ],
+        "deposited_age_s_at_nominal_feed": 0.01949,
+        "distance_from_tip_center_mm": 0.33425,
+        "object": 1901,
+        "deposited_by": 1901,
+        "feature": "Support"
+      },
+      "prior_road_flat_during_extrusion": {
+        "gap_mm": -0.1615,
+        "line": 136889,
+        "from_line": 136839,
+        "nozzle_xyz_mm": [
+          104.72275,
+          138.6155,
+          8.0985
+        ],
+        "deposited_xyz_mm": [
+          104.7,
+          138.3,
+          8.26
+        ],
+        "deposited_age_s_at_nominal_feed": 0.90544,
+        "distance_from_tip_center_mm": 0.31632,
+        "object": 1901,
+        "deposited_by": 1901,
+        "feature": "Support"
+      },
+      "prior_road_cone_during_extrusion": {
+        "gap_mm": -0.16009,
+        "line": 136422,
+        "from_line": 136217,
+        "nozzle_xyz_mm": [
+          77.534,
+          154.14525,
+          3.937
+        ],
+        "deposited_xyz_mm": [
+          77.5,
+          153.8,
+          4.10743
+        ],
+        "deposited_age_s_at_nominal_feed": 3.4594,
+        "distance_from_tip_center_mm": 0.34692,
+        "object": 1901,
+        "deposited_by": 1901,
+        "feature": "Support"
+      },
+      "dry_travel_flat": {
+        "gap_mm": -0.1665,
+        "line": 136748,
+        "from_line": 136747,
+        "nozzle_xyz_mm": [
+          88.71425,
+          119.2285,
+          13.293
+        ],
+        "deposited_xyz_mm": [
+          88.8,
+          118.9,
+          13.4595
+        ],
+        "deposited_age_s_at_nominal_feed": 0.02351,
+        "distance_from_tip_center_mm": 0.33951,
+        "object": 1901,
+        "deposited_by": 1901,
+        "feature": "Support"
+      },
+      "dry_travel_cone": {
+        "gap_mm": -0.15958,
+        "line": 136864,
+        "from_line": 136863,
+        "nozzle_xyz_mm": [
+          111.21867,
+          138.74133,
+          8.06467
+        ],
+        "deposited_xyz_mm": [
+          111.2,
+          138.4,
+          8.227
+        ],
+        "deposited_age_s_at_nominal_feed": 0.0191,
+        "distance_from_tip_center_mm": 0.34184,
+        "object": 1901,
+        "deposited_by": 1901,
+        "feature": "Support"
+      }
+    },
+    "underside roof course": {
+      "extrusion_samples": 143721,
+      "travel_samples": 100860,
+      "tested_road_mm": 14113.55995,
+      "downhill_road_mm": 0.0,
+      "outer_wall_road_mm": 0.0,
+      "outer_wall_straight_descent_flat_relief_demand_over_0_05_mm_road_mm": 0.0,
+      "straight_descent_flat_relief_demand_over_0_05_mm_road_mm": 0.0,
+      "road_mm_sampled_fresh_flat_gap_below_minus_0_05": 0.0,
+      "outer_wall_road_mm_sampled_fresh_flat_gap_below_minus_0_05": 0.0,
+      "outer_wall_road_mm_adjacent_model_gap_below_minus_0_1": 0.0,
+      "road_mm_adjacent_model_gap_below_minus_0_1": 0.0,
+      "road_mm_adjacent_model_gap_below_minus_0_2": 0.0,
+      "fresh_same_run_flat": {
+        "gap_mm": -0.0,
+        "line": 128015,
+        "from_line": 128015,
+        "nozzle_xyz_mm": [
+          112.78411,
+          126.084,
+          10.711
+        ],
+        "deposited_xyz_mm": [
+          113.0,
+          126.0,
+          10.711
+        ],
+        "deposited_age_s_at_nominal_feed": 0.00412,
+        "distance_from_tip_center_mm": 0.23165,
+        "object": 1901,
+        "deposited_by": 1901,
+        "feature": "Support interface"
+      },
+      "prior_road_flat_during_extrusion": {
+        "gap_mm": 0.02453,
+        "line": 131484,
+        "from_line": 131478,
+        "nozzle_xyz_mm": [
+          112.469,
+          129.07704,
+          10.15705
+        ],
+        "deposited_xyz_mm": [
+          112.8,
+          129.0,
+          10.13251
+        ],
+        "deposited_age_s_at_nominal_feed": 1.69594,
+        "distance_from_tip_center_mm": 0.33985,
+        "object": 1901,
+        "deposited_by": 1901,
+        "feature": "Support interface"
+      },
+      "prior_road_cone_during_extrusion": {
+        "gap_mm": 0.0245,
+        "line": 131484,
+        "from_line": 131478,
+        "nozzle_xyz_mm": [
+          112.469,
+          128.98056,
+          10.18289
+        ],
+        "deposited_xyz_mm": [
+          112.8,
+          128.9,
+          10.15938
+        ],
+        "deposited_age_s_at_nominal_feed": 1.69597,
+        "distance_from_tip_center_mm": 0.34066,
+        "object": 1901,
+        "deposited_by": 1901,
+        "feature": "Support interface"
+      },
+      "dry_travel_flat": {
+        "gap_mm": 0.00432,
+        "line": 128068,
+        "from_line": 128067,
+        "nozzle_xyz_mm": [
+          78.61195,
+          110.49781,
+          14.88732
+        ],
+        "deposited_xyz_mm": [
+          78.4,
+          110.4,
+          14.883
+        ],
+        "deposited_age_s_at_nominal_feed": 0.00172,
+        "distance_from_tip_center_mm": 0.23343,
+        "object": 1901,
+        "deposited_by": 1901,
+        "feature": "Support interface"
+      },
+      "dry_travel_cone": {
+        "gap_mm": 0.01403,
+        "line": 128056,
+        "from_line": 128055,
+        "nozzle_xyz_mm": [
+          69.56438,
+          114.06092,
+          13.93238
+        ],
+        "deposited_xyz_mm": [
+          69.9,
+          114.0,
+          13.92
+        ],
+        "deposited_age_s_at_nominal_feed": 0.00754,
+        "distance_from_tip_center_mm": 0.3411,
+        "object": 1901,
+        "deposited_by": 1901,
+        "feature": "Support interface"
+      }
+    }
+  },
+  "objects": {
+    "1901": {
+      "first_extrusion_s": 2.41082,
+      "first_model_s": 3905.62927,
+      "first_extrusion_z_mm": 0.2,
+      "first_model_z_mm": 0.288,
+      "first_extrusion_commanded_nozzle_c": 265.0,
+      "first_extrusion_commanded_bed_c": 80.0,
+      "first_model_commanded_nozzle_c": 280.0,
+      "first_model_commanded_fan_pwm": 178.0,
+      "first_extrusion_commanded_fan_pwm": 0.0,
+      "first_extrusion_at_regular_nozzle_temp_s": 298.77154,
+      "max_model_idle_s": 579.0171,
+      "max_extrusion_idle_s": 1193.39782,
+      "max_extrusion_idle_between_z_mm": [
+        8.36,
+        8.6
+      ],
+      "max_extrusion_idle_at_s": [
+        1671.60838,
+        2865.0062
+      ],
+      "extrusion_mm": 32750.77801,
+      "first_bed_course_extrusion_mm": 133.45277,
+      "first_bed_course_max_commanded_nozzle_c": 265.0,
+      "bead_bounds_mm": [
+        [
+          54.189,
+          109.359,
+          0.2
+        ],
+        [
+          116.809,
+          208.584,
+          245.24
+        ]
+      ],
+      "extrusion_mm_by_commanded_fan_pwm": {
+        "0": 31262.15508,
+        "178": 1458.92604,
+        "179": 29.69689
+      }
+    },
+    "1902": {
+      "first_extrusion_s": 124.90547,
+      "first_model_s": 206.18492,
+      "first_extrusion_z_mm": 0.2,
+      "first_model_z_mm": 0.2,
+      "first_extrusion_commanded_nozzle_c": 265.0,
+      "first_extrusion_commanded_bed_c": 80.0,
+      "first_model_commanded_nozzle_c": 265.0,
+      "first_model_commanded_fan_pwm": 0.0,
+      "first_extrusion_commanded_fan_pwm": 0.0,
+      "first_extrusion_at_regular_nozzle_temp_s": 381.4768,
+      "max_model_idle_s": 1536.87629,
+      "max_extrusion_idle_s": 1517.01758,
+      "max_extrusion_idle_between_z_mm": [
+        11.48,
+        11.601
+      ],
+      "max_extrusion_idle_at_s": [
+        9889.19754,
+        11406.21511
+      ],
+      "extrusion_mm": 15901.92972,
+      "first_bed_course_extrusion_mm": 150.76042,
+      "first_bed_course_max_commanded_nozzle_c": 265.0,
+      "bead_bounds_mm": [
+        [
+          147.284,
+          180.805,
+          0.2
+        ],
+        [
+          218.999,
+          240.569,
+          137.72
+        ]
+      ],
+      "extrusion_mm_by_commanded_fan_pwm": {
+        "0": 11391.58058,
+        "179": 4510.34915
+      }
+    },
+    "1903": {
+      "first_extrusion_s": 82.3058,
+      "first_model_s": 116.67069,
+      "first_extrusion_z_mm": 0.2,
+      "first_model_z_mm": 0.2,
+      "first_extrusion_commanded_nozzle_c": 265.0,
+      "first_extrusion_commanded_bed_c": 80.0,
+      "first_model_commanded_nozzle_c": 265.0,
+      "first_model_commanded_fan_pwm": 0.0,
+      "first_extrusion_commanded_fan_pwm": 0.0,
+      "first_extrusion_at_regular_nozzle_temp_s": 369.5168,
+      "max_model_idle_s": 1533.4121,
+      "max_extrusion_idle_s": 1530.0631,
+      "max_extrusion_idle_between_z_mm": [
+        11.48,
+        11.72
+      ],
+      "max_extrusion_idle_at_s": [
+        9882.89042,
+        11412.95351
+      ],
+      "extrusion_mm": 1914.14472,
+      "first_bed_course_extrusion_mm": 72.2428,
+      "first_bed_course_max_commanded_nozzle_c": 265.0,
+      "bead_bounds_mm": [
+        [
+          236.718,
+          207.81,
+          0.2
+        ],
+        [
+          266.282,
+          264.216,
+          16.28
+        ]
+      ],
+      "extrusion_mm_by_commanded_fan_pwm": {
+        "0": 1437.12141,
+        "179": 477.02331
+      }
+    },
+    "1904": {
+      "first_extrusion_s": 209.29838,
+      "first_model_s": 209.29838,
+      "first_extrusion_z_mm": 0.2,
+      "first_model_z_mm": 0.2,
+      "first_extrusion_commanded_nozzle_c": 265.0,
+      "first_extrusion_commanded_bed_c": 80.0,
+      "first_model_commanded_nozzle_c": 265.0,
+      "first_model_commanded_fan_pwm": 0.0,
+      "first_extrusion_commanded_fan_pwm": 0.0,
+      "first_extrusion_at_regular_nozzle_temp_s": 384.03979,
+      "max_model_idle_s": 153.28954,
+      "max_extrusion_idle_s": 153.28954,
+      "max_extrusion_idle_between_z_mm": [
+        2.36,
+        2.6
+      ],
+      "max_extrusion_idle_at_s": [
+        1037.9101,
+        1191.19964
+      ],
+      "extrusion_mm": 2461.35734,
+      "first_bed_course_extrusion_mm": 184.60562,
+      "first_bed_course_max_commanded_nozzle_c": 265.0,
+      "bead_bounds_mm": [
+        [
+          176.501,
+          78.502,
+          0.2
+        ],
+        [
+          234.499,
+          137.497,
+          6.2
+        ]
+      ],
+      "extrusion_mm_by_commanded_fan_pwm": {
+        "0": 1583.05384,
+        "179": 878.3035
+      }
+    },
+    "1905": {
+      "first_extrusion_s": 266.90655,
+      "first_model_s": 285.69869,
+      "first_extrusion_z_mm": 0.2,
+      "first_model_z_mm": 0.2,
+      "first_extrusion_commanded_nozzle_c": 265.0,
+      "first_extrusion_commanded_bed_c": 80.0,
+      "first_model_commanded_nozzle_c": 265.0,
+      "first_model_commanded_fan_pwm": 0.0,
+      "first_extrusion_commanded_fan_pwm": 0.0,
+      "first_extrusion_at_regular_nozzle_temp_s": 418.22776,
+      "max_model_idle_s": 804.4046,
+      "max_extrusion_idle_s": 802.22982,
+      "max_extrusion_idle_between_z_mm": [
+        7.88,
+        8.12
+      ],
+      "max_extrusion_idle_at_s": [
+        3656.9786,
+        4459.20842
+      ],
+      "extrusion_mm": 1365.86352,
+      "first_bed_course_extrusion_mm": 65.21036,
+      "first_bed_course_max_commanded_nozzle_c": 265.0,
+      "bead_bounds_mm": [
+        [
+          241.43,
+          75.485,
+          0.2
+        ],
+        [
+          268.567,
+          135.601,
+          12.44
+        ]
+      ],
+      "extrusion_mm_by_commanded_fan_pwm": {
+        "0": 1047.06746,
+        "179": 318.79606
+      }
+    }
+  },
+  "extrusion_bounds_mm": [
+    [
+      54.189,
+      75.485,
+      0.2
+    ],
+    [
+      268.567,
+      264.216,
+      245.24
+    ]
+  ],
+  "minimum_shared_bed_edge_inset_mm": 54.189,
+  "height_available_above_deposited_mm": 79.76
+}

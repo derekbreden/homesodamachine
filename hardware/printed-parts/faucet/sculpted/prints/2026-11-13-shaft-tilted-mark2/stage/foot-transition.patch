@@ -1,0 +1,80 @@
+--- a/sloped.py
++++ b/sloped.py
+@@ -17 +17 @@
+-from shapely.geometry import Polygon, box
++from shapely.geometry import LineString, Polygon, box
+@@ -194 +194 @@
+-def build_preamble(frame, regions, shoulder, object_label):
++def build_preamble(frame, regions, shoulder, object_label, *, deck_top=None):
+@@ -209,0 +210,2 @@
++    deck_top = count * COURSE if deck_top is None else deck_top
++    assert (count - 1) * COURSE < deck_top <= count * COURSE
+@@ -243,0 +246 @@
++        w.raw(f"; scaffold layer {index + 1} of {len(layers)}")
+@@ -295,0 +299 @@
++    w.raw(f"; underside roof course 1 of {ROOF_COURSES}")
+@@ -306 +310,2 @@
+-    for n_top, angle in ((n_roof[1], 90.0), (n_roof[2], 45.0)):
++    for course, (n_top, angle) in enumerate(((n_roof[1], 90.0), (n_roof[2], 45.0)), 2):
++        w.raw(f"; underside roof course {course} of {ROOF_COURSES}")
+@@ -313 +318 @@
+-    def lay_pieces(pieces, n_top, width, speed, flow):
++    def lay_pieces(pieces, n_top, width, speed, flow, height=COURSE):
+@@ -319 +324 @@
+-            w.extrude(path, width, COURSE, speed, flow=flow, flows=shares)
++            w.extrude(path, width, height, speed, flow=flow, flows=shares)
+@@ -321 +326 @@
+-    def lay_lines(rows, n_top, angle, width, speed, flow):
++    def lay_lines(rows, n_top, angle, width, speed, flow, height=COURSE):
+@@ -327 +332 @@
+-            w.extrude(path, width, COURSE, speed, flow=flow)
++            w.extrude(path, width, height, speed, flow=flow)
+@@ -330 +335 @@
+-    def lay_course(region, n_top, angle, pitch, ring_speed, fill_speed, flow, ring_feature, fill_feature, lap=1.2):
++    def lay_course(region, n_top, angle, pitch, ring_speed, fill_speed, flow, ring_feature, fill_feature, lap=1.2, backing_wall=False):
+@@ -336 +341,5 @@
+-        fill = region.buffer(-(SKIN_WIDTH + pitch / 2.0 - OVERLAP))
++        inner_first, inner_last = ([], [])
++        added_wall_width = SKIN_WIDTH if backing_wall else 0.0
++        if backing_wall:
++            inner_first, inner_last = edge_pieces(region.buffer(-1.5 * SKIN_WIDTH), taper=lap)
++        fill = region.buffer(-(SKIN_WIDTH + added_wall_width + pitch / 2.0 - OVERLAP))
+@@ -339,0 +349,8 @@
++        if backing_wall:
++            # The inner pair replaces the first narrow-ring band; keep any narrower stock
++            # that lies farther in than that pair.
++            ring_stock = region.buffer(-2 * SKIN_WIDTH + 0.06)
++            narrow = [(pts, flows) for pts, flows in narrow
++                      if ring_stock.covers(LineString(pts))]
++            first += inner_first
++            last = inner_last + last
+@@ -350 +367 @@
+-    def lay_support(shape, n_top, angle, pitch):
++    def lay_support(shape, n_top, angle, pitch, height=COURSE):
+@@ -355,2 +372,2 @@
+-        lay_pieces(first + last, n_top, ROOF_WIDTH, 30.0, 1.0)
+-        lay_lines(hatch(shape.buffer(-ROOF_WIDTH * 0.9), angle, pitch, shortest=0.8), n_top, angle, ROOF_WIDTH, 40.0, 1.0)
++        lay_pieces(first + last, n_top, ROOF_WIDTH, 30.0, 1.0, height)
++        lay_lines(hatch(shape.buffer(-ROOF_WIDTH * 0.9), angle, pitch, shortest=0.8), n_top, angle, ROOF_WIDTH, 40.0, 1.0, height)
+@@ -358,0 +376 @@
++    w.raw("; underside deck bedding")
+@@ -385 +403,2 @@
+-            lay_course(region, n_top, angle, SKIN_WIDTH, 25.0, fill_speed, 1.05 if k == 2 else 1.0, "Outer wall", "Internal solid infill")
++            lay_course(region, n_top, angle, SKIN_WIDTH, 25.0, fill_speed, 1.05 if k == 2 else 1.0,
++                       "Outer wall", "Internal solid infill", backing_wall=deck_top < count * COURSE and k == count)
+@@ -387 +406,3 @@
+-        lay_support(deck, n_top, angle, ROOF_WIDTH if k > count - 3 else 3.0 * ROOF_WIDTH)
++        deck_n = min(n_top, deck_top)
++        lay_support(deck, deck_n, angle, ROOF_WIDTH if k > count - 3 else 3.0 * ROOF_WIDTH,
++                    deck_n - (k - 1) * COURSE)
+@@ -399 +420 @@
+-              "shoulder_course": shoulder, "plug_top": plug_top * COURSE, "deck_top": count * COURSE}
++              "shoulder_course": shoulder, "plug_top": plug_top * COURSE, "deck_top": deck_top}
+@@ -794,0 +816 @@
++    deck_top = float(sys.argv[6]) if len(sys.argv) > 6 else None
+@@ -819 +841 @@
+-    preamble, planes, laid = build_preamble(frame, regions, shoulder, label)
++    preamble, planes, laid = build_preamble(frame, regions, shoulder, label, deck_top=deck_top)
+@@ -824,0 +847,2 @@
++    with open(os.path.join(out_dir, "underside.gcode"), "w") as f:
++        f.write("\n".join(preamble.out) + "\n")
