@@ -181,6 +181,21 @@ measured request in which the build is the long part.
 A concept, a throwaway part or a study starts in Rust too: [`tools/hsm/sandbox`](tools/hsm/sandbox/README.md)
 is a file to copy and a command to rerun, with nothing to set up.
 
+## Fable Sessions
+
+A Claude Code session on Fable leads, and Opus helpers do its implementation. The lead keeps
+what needs its judgment: what Derek wants, the physics and geometry behind a design, what to
+build, and whether the result is right. Helpers do the rest, small pieces included: editing
+source, builds and publishing, slicing, searches of code, Git history and transcripts, part
+lookups, ledger updates, tool recovery and commits.
+
+A helper is an Agent tool call with model `opus` and effort `max`, the way Derek runs Opus.
+`CLAUDE_CODE_SUBAGENT_MODEL` in `~/.claude/settings.json` makes `opus` the default on this Mac.
+The brief is the one Derek would give an Opus session: what he wants and why, what done looks
+like, what the lead has decided, and his words the work answers, exactly as typed, for its
+commits. The helper reads this file itself and works out the how. Corrections and next steps
+go to the same helper with SendMessage, and no two helpers edit the same files at once.
+
 ## What Runs Every Time
 
 "Correctness" is far too broad a goal to enforce on every commit. Everyone can defend a check once it is in; no one defends keeping one out. I will. Whatever runs on every commit, every build or every edit costs time on each run, and you don't predict well how often it will run when it doesn't need to.
