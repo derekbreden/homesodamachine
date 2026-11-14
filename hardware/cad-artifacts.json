@@ -154,7 +154,7 @@
     "hardware/printed-parts/cold-core/magnetic-float/body-aero.stl": "404d68abd9ea96fd53b77ec03ff403544a0c59bb59cafe8dc7f6a23c9c1e368c",
     "hardware/printed-parts/cold-core/magnetic-float/body-petg.step": "55e065e526dd5f3d97623908f646c586ebb9227c319d2b8cb1cd899f9188748f",
     "hardware/printed-parts/cold-core/magnetic-float/body-petg.step.mesh": "c44112acc02b8d33b361074c7f8e1a42c82910e4f0c0b4a8974cfefd42be2fc2",
-    "hardware/printed-parts/cold-core/magnetic-float/body-petg.stl": "b31378bc31b0a8936e65f94d25bfece54062c28eca3c23c5bec42851cd43a867",
+    "hardware/printed-parts/cold-core/magnetic-float/body-petg.stl": "c7a94f946d45024b98223e1606fc462d138d6341d5352d9518d14763f4910f46",
     "hardware/printed-parts/cold-core/magnetic-float/exploded.step": "a66ac3bf025fb51703034d54ed300553d1f643519eabf00d4022273dfc950503",
     "hardware/printed-parts/cold-core/magnetic-float/exploded.step.mesh": "0023b5e8d33e4b89501ffea958d690f66ee344b2393b9b855608991d21bfefc3",
     "hardware/printed-parts/cold-core/magnetic-float/insert-aero.step": "d54b8c4d27fea89e317d669ae41e0739bab388a7aa7a800463ea6b6d1d05c179",
@@ -2614,7 +2614,7 @@
     "hardware/printed-parts/cold-core/magnetic-float/body-aero.stl": 1793508101,
     "hardware/printed-parts/cold-core/magnetic-float/body-petg.step": 1793712586,
     "hardware/printed-parts/cold-core/magnetic-float/body-petg.step.mesh": 1793712586,
-    "hardware/printed-parts/cold-core/magnetic-float/body-petg.stl": 1794682028.875108,
+    "hardware/printed-parts/cold-core/magnetic-float/body-petg.stl": 1794683315.708813,
     "hardware/printed-parts/cold-core/magnetic-float/exploded.step": 1793712586,
     "hardware/printed-parts/cold-core/magnetic-float/exploded.step.mesh": 1793938190,
     "hardware/printed-parts/cold-core/magnetic-float/insert-aero.step": 1793712586,
@@ -3816,7 +3816,7 @@
       "unproven": true
     },
     "hardware/printed-parts/cold-core/magnetic-float/body-petg.stl": {
-      "commit": "ac4793630d9642ea567f5867fcede0bdf57a2fb1",
+      "commit": "771d5a7e7775cc1106dbe0d9c7a3cc16b49e2b26",
       "inputs": "b9a06d807bd9f6c17000583d8d6e19854e7b2928b0714eb1ea6858733116012d"
     },
     "hardware/printed-parts/cold-core/magnetic-float/exploded.step": {
