@@ -10,6 +10,7 @@ pub mod faucet;
 pub mod faucet_contact;
 pub mod faucet_recesses;
 pub mod faucet_underside;
+pub mod filled_base;
 pub mod gcode;
 pub mod ids;
 pub mod json;
