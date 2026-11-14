@@ -1,0 +1,23 @@
+{
+  "purpose": "Limit commanded volumetric flow in the rebuilt tip's linear courses.",
+  "profile_cap_mm3_s": 18.0,
+  "filament_diameter_mm": 1.75,
+  "source_gcode_sha256": "ee15acf00170beb6f29968c88c4bfa90d2876197917b8126ba04ca47bf45e771",
+  "gcode_sha256": "68656191e6f2c29bb5d1de32ae8e673bcd83624db2fd1e5bb3e8bdf4c8e41abf",
+  "capped_moves_by_phase": {
+    "tip shoulder entry": 17448,
+    "tip yellow shoulder": 6,
+    "tip shoulder fade": 59138
+  },
+  "feed_only_additional_seconds_by_phase": {
+    "tip shoulder entry": 7.427915830366395,
+    "tip yellow shoulder": 7.738203806051589e-06,
+    "tip shoulder fade": 19.835441225377288
+  },
+  "minimum_capped_feed_mm_min": 5612.64,
+  "maximum_nominal_output_flow_mm3_s": 17.9999999998565,
+  "first_changed_gcode_line": 71274,
+  "identifies_only_explicit_feed_words_in_mapped_linear_tip_deposition": true,
+  "prior_nose_and_nontip_gcode_byte_identical": true,
+  "scope": "Compares flow at commanded feed and tightened scope from the source header filament settings."
+}

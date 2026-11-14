@@ -1,0 +1,60 @@
+{
+  "purpose": "Replay the inverse-sliced tip in physical Z bands with bounded nozzle paths.",
+  "gcode_source_sha256": "6602a18a62cc5fb0a98d33fe993e0d7ec82b70c0ec578f72034e50f769b4a71e",
+  "warp_report_sha256": "754d2e5a11249de4e63ea3b3f777a1cffbdc7d595a3ceb948d036e0a5d82e217",
+  "tip_tape_sha256": "53b1ba057dec7fe094831a1a51953368d2db344b495085ac0a0991098c68207d",
+  "shoulder_placement_mm": [
+    186.49975395202637,
+    202.79359850255713,
+    24.97278028733068
+  ],
+  "native_nose_from_physical_z_mm": 66.2,
+  "native_donor_translation_to_plate_mm": [
+    24.0,
+    47.00000106044416,
+    2.031072199315531e-09
+  ],
+  "world_band_spacing_mm": 0.0,
+  "finer_band_spacing_mm": null,
+  "finer_physical_band_range_mm": null,
+  "physical_order": "whole virtual course in source height order",
+  "uphill_wall_runs": false,
+  "uphill_all": false,
+  "retained_native_nose_travel": true,
+  "phase_stats": {
+    "tip anchor": {
+      "deposition_roads": 3617,
+      "filament_mm": 224.83435000000034,
+      "vertical_roads": 0,
+      "downward_bridge_roads": 0,
+      "courses": 6
+    },
+    "tip shoulder entry": {
+      "deposition_roads": 94728,
+      "filament_mm": 2700.856568706653,
+      "vertical_roads": 60582,
+      "downward_bridge_roads": 0,
+      "courses": 152
+    },
+    "tip yellow shoulder": {
+      "deposition_roads": 86598,
+      "filament_mm": 1982.1224424500183,
+      "vertical_roads": 66153,
+      "downward_bridge_roads": 92,
+      "courses": 102
+    },
+    "tip shoulder fade": {
+      "deposition_roads": 161010,
+      "filament_mm": 5170.8917769413465,
+      "vertical_roads": 87656,
+      "downward_bridge_roads": 6,
+      "courses": 282
+    },
+    "tip native nose": {
+      "deposition_roads": 242221,
+      "filament_mm": 6191.936580699814,
+      "vertical_roads": 23136,
+      "courses": 507
+    }
+  }
+}
