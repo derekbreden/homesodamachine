@@ -4,6 +4,15 @@
   "printed_tip_stl_sha256": "a70d6b5af3ef74ca1a8e94bf0133b1a51bb201923a65a40ab191713c5467aad5",
   "printed_relaxed_cover_stl_sha256": "a6e21960c1a8f4646a8bbcdabe514b200cdea7533db07dc865344cb00b355262",
   "printed_gcode_sha256": "eec7ce8c8c9d2b305397085277e82afd001b62d4778e5753734a2d44a74118e5",
+  "submitted_cover_paths": {
+    "gcode_sha256": "9815af5d41e0037d7250b9479e1b6d774333d8873486ab17e618acea679f1246",
+    "layer_span_n_mm": [8.05999, 8.29999],
+    "minimum_sampled_abs_x_mm": 11.2,
+    "maximum_nominal_aft_bead_extent_by_side_s_mm": [48.20807, 48.20807],
+    "tip_cavity_aft_edge_s_mm": 47.24,
+    "nominal_overlap_in_s_by_side_mm": [0.96807, 0.96807],
+    "scope": "Farthest outer wall bead centre plus half the emitted bead width through the ledge's course."
+  },
   "tip_frame_pick_mm": {
     "world_xyz": [
       11.474,

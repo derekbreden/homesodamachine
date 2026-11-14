@@ -24,7 +24,9 @@ tools/run -- "$stages" sequence "$run/matched.gcode" "$run/native.gcode" "$run/u
 tools/run -- "$stages" cap-feed "$run/uncapped.gcode" "$run/capped.gcode"
 tools/run -- "$stages" bind-capped "$run/uncapped.gcode" "$run/capped.gcode" "$run/pre-finish.gcode" \
   --clamp-receipt "$run/capped.json"
-tools/run -- "$stages" finish-base-wall "$run/pre-finish.gcode" "$run/plate.gcode"
+tools/run -- "$stages" finish-base-wall "$run/pre-finish.gcode" "$run/plate.gcode" > "$run/wall-speed.json"
+jq --slurpfile finish "$run/wall-speed.json" \
+  '.sequenced_gcode_sha256 = $finish[0].gcode_sha256' "$run/pre-finish.json" > "$run/plate.json"
 motion="$(jq -r .complete_motion_time_seconds "$trial/chronology.json")"
 first="$(jq -r .first_bed_course_deposition_span_seconds "$trial/chronology.json")"
 tools/run -- "$stages" package "$run/template/slice/full.gcode.3mf" "$run/plate.gcode" \
