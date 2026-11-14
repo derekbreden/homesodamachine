@@ -5,7 +5,7 @@
   "printers": {
     "Mark1": {
       "connection_key": "H2C",
-      "z_trim_mm": 0.18,
+      "z_trim_mm": 0.10,
       "filament_colour": "#000000"
     },
     "Mark2": {

@@ -7,10 +7,10 @@ The PET-GF trim belongs to the textured PEI plate. Each PETG Engineering Plate
 recipe records its emitted trim with its native print archive.
 Derek: *"No. That should be documented as for pet-gf on textured plate."*
 
-Each printer's PET-GF trim is set under `printers` in
-[`pieces.json`](enclosure/trial-preparation/pieces.json), and
-[the printer runbook](../../tools/bambu-printers.md#z-trim) tabulates it. Derek on Mark2's,
-13 November 2026: *"And let's use 0.10 z offset on mark2 now."*
+Both printers use the same default for PET-GF on textured PEI with the enclosure
+hotend. The `printers` section of [`pieces.json`](enclosure/trial-preparation/pieces.json)
+owns that setting, and [the printer runbook](../../tools/bambu-printers.md#z-trim)
+shows the command expected in a native slice.
 
 The [accepted identification-set print](enclosure/display-cover/prints/2026-11-08-identification-set-mark1-right-z005/physical-result.json)
 owns the right-side clearance setting for its PETG, plate and nozzle setup. It
