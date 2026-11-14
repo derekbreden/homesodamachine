@@ -4,6 +4,10 @@ The [launched plate](sculpted-faucet-plug-ramp-black-mark2-review.gcode.3mf) hol
 the Sculpted base, tip, display cover, mounting plate and lever in black PET-GF.
 The [launch record](launch.json) identifies the exact job accepted by Mark2.
 
+The [base in hand](physical-result/physical-result.json) records Derek's
+one-piece breakaway support removal, the acceptable rear seam and the rough
+second line on the front below the lever opening.
+
 The small free end of the male plug starts against a removable bed anchor.
 The model courses tilt gradually through the plug and reach the base's slope
 as the full-diameter mating shoulder starts. They hold that angle as the

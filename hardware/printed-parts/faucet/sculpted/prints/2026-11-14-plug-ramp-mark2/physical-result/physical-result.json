@@ -8,9 +8,10 @@
     "sha256": "802cd07510ac998cec5c7c94e2d163b5099f536becc6e245a286e66b48d0bb42",
     "gcode_sha256": "eec7ce8c8c9d2b305397085277e82afd001b62d4778e5753734a2d44a74118e5"
   },
-  "scope": "Appearance of the Sculpted base on the bed during the print.",
+  "scope": "Appearance of the Sculpted base on the bed and in hand, including the underside after support release.",
   "observations": [
-    "Also, we ended up with a pretty gnarly seam on the front side there, and I've got two questions about that. What the hell is it doing on the front side, and why is it so gnarly? Or rather, I don't really want those questions answered. I just want it fixed. Thanks."
+    "Also, we ended up with a pretty gnarly seam on the front side there, and I've got two questions about that. What the hell is it doing on the front side, and why is it so gnarly? Or rather, I don't really want those questions answered. I just want it fixed. Thanks.",
+    "So on the faucet, the base support broke off beautifully. Like, that turned out really, really well at the bottom there, you can see in the photos, that it just all broke off as, like, one clean piece, and it took a little bit of force, but that was great. Loved that. And the back of the faucet base, the seam that's back there where it normally is, that looks normal. It's fine. But then we've got this second seam in front that I don't understand how we ended up with that. I mean, we don't need two seams, right? And it's also all fuzzy and ugly. Like, there's something weird going on there. And I see some fuzziness other places too, and so, like, I'm worried it's just something about the technique we're using here that is doing something unusual, but I hope that's fixed in your next plate here. Please tell me if it is."
   ],
   "images": [
     {
@@ -27,6 +28,36 @@
       "file": "03-base-on-mark2.jpg",
       "sha256": "cfda0e4441b7e6d4571060d5c0a1a6abd37d6067a490c14d74f375ef5fff65b2",
       "view": "The Sculpted base on Mark2 while the plate is printing."
+    },
+    {
+      "file": "04-base-and-removed-support.jpg",
+      "sha256": "94fd7bca7571ca0f233620bc0a645c048e01af4abea4dd4c0cd3fc5cc65b162c",
+      "view": "Base mounting face beside the removed underside support and tree."
+    },
+    {
+      "file": "05-removed-support-contact-detail.jpg",
+      "sha256": "fcff1ef81bb7daeecb77b3d2af80f92d45c96d635b89b2770761f7633dd659fa",
+      "view": "Close view of a contact patch on the removed support."
+    },
+    {
+      "file": "06-removed-support-in-one-piece.jpg",
+      "sha256": "b9d19debaac407a65064a39b597c66b2ffb8326c345126284aac4c28fafcdde0",
+      "view": "Underside scaffold with its socket plugs and tree attached."
+    },
+    {
+      "file": "07-base-underside-after-release.jpg",
+      "sha256": "ca889db9a008797e134490260e03ea6ab819061ea55a8cedad712a99fc3a9cd8",
+      "view": "Close view of the mounting face and its insert recess after support release."
+    },
+    {
+      "file": "08-rear-base-seam.jpg",
+      "sha256": "1e27eb2b56778fc1501c1db6077bf1f05fab6cc79d2d08e5e31b4c098ddbbeab",
+      "view": "Ordinary rear seam of the printed base."
+    },
+    {
+      "file": "09-front-base-at-lever-opening.jpg",
+      "sha256": "2b3d3d63ee805932cca1109e4d3032fdc898b793139b4304df72f596ffc0a94c",
+      "view": "Front of the printed base around the lever opening, with the additional seam."
     }
   ]
 }

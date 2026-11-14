@@ -12,6 +12,9 @@ its interface, and ease to level where the tube's axis is vertical. The
 [deposition audit](tip-geometry.json) measures it in the packaged commands.
 The [base's rear seam](../2026-11-14-rear-seam-mark2/seam-evidence.json)
 and the other companions' deposited paths come from the rear seam plate.
+The [base comparison](base-finish-comparison.json) reads the front wall
+below the lever opening in the packaged plate and confirms that its support
+and first sloped layers match the printed plug-ramp plate.
 
 The shoulder uses the donor's dense Slim tree interface on the matching
 course planes. The [support reading](shoulder-support.json) measures projected
