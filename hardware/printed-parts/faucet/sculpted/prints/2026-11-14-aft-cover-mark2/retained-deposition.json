@@ -1,0 +1,55 @@
+{
+  "parts": {
+    "base": {
+      "first_different_road_if_any": null,
+      "matches": true,
+      "new_filament_mm": 32750.777940014235,
+      "new_road_count": 781948,
+      "new_road_sha256": "5d3c6afb57e8c8603dd5f650c4cf3bbfd29964b2ec9f8a752dcea16500f5ff45",
+      "prior_filament_mm": 32750.777940014235,
+      "prior_road_count": 781948,
+      "prior_road_sha256": "5d3c6afb57e8c8603dd5f650c4cf3bbfd29964b2ec9f8a752dcea16500f5ff45"
+    },
+    "lever": {
+      "first_different_road_if_any": null,
+      "matches": true,
+      "new_filament_mm": 1365.8635200000201,
+      "new_road_count": 33735,
+      "new_road_sha256": "f1305017972af4ae0f80c410ba79709a42ca11990107597deb14315b8c961a2a",
+      "prior_filament_mm": 1365.8635200000201,
+      "prior_road_count": 33735,
+      "prior_road_sha256": "f1305017972af4ae0f80c410ba79709a42ca11990107597deb14315b8c961a2a"
+    },
+    "mounting plate": {
+      "first_different_road_if_any": null,
+      "matches": true,
+      "new_filament_mm": 2461.3573400001924,
+      "new_road_count": 44617,
+      "new_road_sha256": "b3ac680f1adedf62fe53fb79b3f6581054eaab78e499f7070e46c18c87ee6153",
+      "prior_filament_mm": 2461.3573400001924,
+      "prior_road_count": 44617,
+      "prior_road_sha256": "b3ac680f1adedf62fe53fb79b3f6581054eaab78e499f7070e46c18c87ee6153"
+    },
+    "mounting plate rings": {
+      "first_different_road_if_any": null,
+      "matches": true,
+      "new_filament_mm": 41.47623000000014,
+      "new_road_count": 2730,
+      "new_road_sha256": "fd1fe5efdda5399c6f9ebebe3ed736d8620b83a24bfb174bb4908e459d19e4a3",
+      "prior_filament_mm": 41.47623000000014,
+      "prior_road_count": 2730,
+      "prior_road_sha256": "fd1fe5efdda5399c6f9ebebe3ed736d8620b83a24bfb174bb4908e459d19e4a3"
+    },
+    "tip": {
+      "first_different_road_if_any": null,
+      "matches": true,
+      "new_filament_mm": 11541.023009998284,
+      "new_road_count": 466881,
+      "new_road_sha256": "6401ec5e99f5cf954c616541ad383519b647e354f36392dc19510a9a8c3b2198",
+      "prior_filament_mm": 11541.023009998284,
+      "prior_road_count": 466881,
+      "prior_road_sha256": "6401ec5e99f5cf954c616541ad383519b647e354f36392dc19510a9a8c3b2198"
+    }
+  },
+  "purpose": "Verify emitted companion roads against the reviewed steady-base-wall plate."
+}

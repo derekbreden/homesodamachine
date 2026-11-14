@@ -234,7 +234,7 @@ fn printed(variant: Variant) -> [(&'static str, &'static str); 3] {
 /// The tip and the seated display cover both faucets share.
 const TIP: &str = "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.step";
 const SEATED_COVER: (&str, &str) =
-    ("faucet-display-cover-seated", "hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover-seated.step");
+    ("faucet-display-cover-seated", "hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover-seated.step.npz");
 
 /// The assembly's bodies.
 pub fn bodies(variant: Variant) -> Result<Vec<Shown>> {
@@ -264,7 +264,8 @@ pub fn bodies(variant: Variant) -> Result<Vec<Shown>> {
     add(gasket.0, tpu, part(gasket.1, V3::ZERO)?);
     add(base.0, faucet_black, part(base.1, V3::ZERO)?);
     add("shell_tip", faucet_black, part(TIP, V3::ZERO)?);
-    add(SEATED_COVER.0, faucet_black, part(SEATED_COVER.1, V3::ZERO)?);
+    let cover = import::model(SEATED_COVER.1)?;
+    add(SEATED_COVER.0, faucet_black, import::body(&cover, SEATED_COVER.0)?.clone());
     let brass = catalog::color("M_BRASS");
     for (i, [x, y]) in shell::BASE_POD_CENTERS.iter().enumerate() {
         add(&format!("base_screw_{}", i + 1), donor, screw(*x, *y)?);

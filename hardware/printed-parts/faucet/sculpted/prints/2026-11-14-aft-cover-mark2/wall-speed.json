@@ -1,0 +1,12 @@
+{
+  "changed_moves_by_phase": {
+    "graded shaft transition": 37304,
+    "native level upper base": 63659,
+    "native tilted base": 65972
+  },
+  "gcode_sha256": "58e0eb5b9363659d55a6ae35b667a9e5dab56a848e99337c410b25a7b2f8a29d",
+  "outer_wall_speed_mm_s": 28.0,
+  "purpose": "Hold the ordinary Sculpted base exterior at a steady finish speed.",
+  "source_gcode_sha256": "35bb6d8ebffd5b452f939179b0cd91fe6e5b816a5cc07d60c14693b48353e160",
+  "packaged_gcode_sha256": "9815af5d41e0037d7250b9479e1b6d774333d8873486ab17e618acea679f1246"
+}
