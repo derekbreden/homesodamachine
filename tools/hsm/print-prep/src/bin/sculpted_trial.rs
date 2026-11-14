@@ -1,12 +1,15 @@
 //! sculpted-trial runs the Sculpted faucet trial plate's stages.
 //!
-//! The stages are the tip's warp, its donor supports and its courses; the screw-seat rings; the
-//! tip-trial, shaft-trial and plug-ramp sequencers; the plug-ramp feed cap; and the print-only
-//! review archive.
+//! The stages are the tip's warp, its donor supports and its courses; the base's continued courses
+//! through the shaft and the cooling of their join; the screw-seat rings; the tip-trial,
+//! shaft-trial and plug-ramp sequencers; the plug-ramp feed cap; and the print-only review archive.
 //!
 //!   sculpted-trial warp tip-shoulder|plug-ramp TIP.stl EDITABLE.3mf OUT.stl
 //!   sculpted-trial supports WARP.json OUT.json
 //!   sculpted-trial tape DONOR.gcode DONOR.print.json WARP.json OUT.gcode --band-step STEP [--uphill-all] --native-nose
+//!   sculpted-trial continued-base DONOR.gcode DONOR.print.json PHYSICAL.gcode PHYSICAL.print.json OUT.gcode
+//!       [--uphill-wall-runs] [--stitch-mesh BASE.stl] [--fade-end MM] [--native-join-z MM]
+//!   sculpted-trial cool-shaft-join SEQUENCED.gcode PROJECT.3mf OUT.gcode [--catalog SCALARS.json]
 //!   sculpted-trial rings RINGS.gcode
 //!   sculpted-trial sequence PRIOR.gcode NATIVE.gcode PLATE.gcode --tip-model TIP.gcode --entire-tip-custom [--plate-rings RINGS.gcode]
 //!   sculpted-trial sequence-shaft FOUNDATION.gcode SEQUENCED.gcode [--donor CONTINUED-BASE.gcode]
@@ -16,7 +19,7 @@
 //!   sculpted-trial cap-feed UNCAPPED.gcode CAPPED.gcode
 //!   sculpted-trial bind-capped UNCAPPED.gcode CAPPED.gcode PLATE.gcode [--clamp-receipt CAPPED.json]
 
-use hsm_print_prep::{feed_cap, plate_rings, plate_sequence, python_text, tip_courses, tip_supports, tip_warp, trial_archive};
+use hsm_print_prep::{base_courses, feed_cap, plate_rings, plate_sequence, python_text, shaft_join_cooling, tip_courses, tip_supports, tip_warp, trial_archive};
 use std::path::Path;
 use anyhow::{bail, Context, Result};
 use std::path::PathBuf;
@@ -72,7 +75,7 @@ fn number(args: &Args, name: &str) -> Result<f64> {
 fn main() -> Result<()> {
     let mut values: Vec<String> = std::env::args().skip(1).collect();
     if values.is_empty() {
-        bail!("usage: sculpted-trial warp|supports|tape|rings|sequence|sequence-shaft|package|merge|cap-feed|bind-capped ...");
+        bail!("usage: sculpted-trial warp|supports|tape|continued-base|cool-shaft-join|rings|sequence|sequence-shaft|package|merge|cap-feed|bind-capped ...");
     }
     let command = values.remove(0);
     match command.as_str() {
@@ -113,6 +116,26 @@ fn main() -> Result<()> {
             }
             let banding = tip_courses::Banding { step: step.context("sculpted-trial tape needs --band-step")?, uphill };
             tip_courses::write(Path::new(gcode), Path::new(donor), Path::new(warp), Path::new(output), &banding)?;
+        }
+        "continued-base" => {
+            let p = paths(&values, 5, &["--uphill-wall-runs"])?;
+            let mesh = valued(&values, "--stitch-mesh").map(PathBuf::from);
+            let number = |name: &str, default: f64| -> Result<f64> {
+                valued(&values, name).map_or(Ok(default), |v| v.parse().with_context(|| format!("{name} needs a number")))
+            };
+            base_courses::continue_base(&base_courses::ContinuedBase {
+                donor_gcode: &p[0], donor_report: &p[1], physical_gcode: &p[2], physical_report: &p[3], output: &p[4],
+                uphill_wall_runs: values.iter().any(|a| a == "--uphill-wall-runs"),
+                stitch_mesh: mesh.as_deref(),
+                fade_end: number("--fade-end", base_courses::FADE_END)?,
+                native_join_z: number("--native-join-z", base_courses::NATIVE_JOIN_Z)?,
+            })?;
+        }
+        "cool-shaft-join" => {
+            let p = paths(&values, 3, &[])?;
+            let catalog = valued(&values, "--catalog").map(PathBuf::from)
+                .unwrap_or_else(|| hsm_print_prep::root().join(shaft_join_cooling::CATALOG));
+            shaft_join_cooling::cool_shaft_join(&p[0], &p[1], &p[2], &catalog)?;
         }
         "rings" => {
             let args = Args::parse(values, &[], &[])?;
@@ -183,4 +206,27 @@ fn main() -> Result<()> {
         _ => bail!("Unknown command {command}; use rings, sequence, sequence-shaft, package, merge, cap-feed or bind-capped"),
     }
     Ok(())
+}
+
+/// The value after option `name`, if given.
+fn valued(args: &[String], name: &str) -> Option<String> {
+    args.iter().position(|a| a == name).and_then(|i| args.get(i + 1)).cloned()
+}
+
+/// The first `count` paths among `args`, skipping each option and its value; `flags` take none.
+fn paths(args: &[String], count: usize, flags: &[&str]) -> Result<Vec<PathBuf>> {
+    let mut out = Vec::new();
+    let mut i = 0;
+    while i < args.len() && out.len() < count {
+        if args[i].starts_with("--") {
+            i += if flags.contains(&args[i].as_str()) { 1 } else { 2 };
+            continue;
+        }
+        out.push(PathBuf::from(&args[i]));
+        i += 1;
+    }
+    if out.len() < count {
+        bail!("expected {count} paths");
+    }
+    Ok(out)
 }
