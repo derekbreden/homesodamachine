@@ -213,6 +213,11 @@ host's visualization instructions. Reuse its shared theme helper for text,
 native controls, legends and canvas/WebGL colors. Save inline fragments in the
 current chat's visualization directory. This adds no automatic build or commit check.
 
+For print playback in chat, start with [`hsm-gcode view playback --inline`](tools/gcode/README.md).
+Custom replays also keep the camera fixed to the printer frame during playback and scrubbing.
+The head moves only in XY at gantry height, and the bed carries deposited material opposite
+commanded Z. A Follow nozzle view can track the head in XY.
+
 ## Engineering Drawings
 
 For requested dimensioned mechanical part drawings, use the
