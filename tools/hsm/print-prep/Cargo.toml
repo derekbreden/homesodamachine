@@ -29,6 +29,7 @@ hsm-enclosure-retainer-numbers = { path = "../enclosure-retainer-numbers" }
 hsm-aero-float-numbers = { path = "../aero-float-numbers" }
 hsm-kernel = { path = "../kernel" }
 hsm-manifold = { path = "../manifold" }
+clipper2-rust = "1.2.0"
 
 [[bin]]
 name = "course-field"
