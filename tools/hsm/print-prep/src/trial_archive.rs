@@ -3,7 +3,7 @@
 //! The native slice's archive supplies everything else: the archive carries the sequenced
 //! G-code with its estimates and filament, and leaves out the editable geometry.
 
-use crate::xml::{document, parse, Element};
+use crate::xml::{document, parse};
 use anyhow::{bail, ensure, Context, Result};
 use serde_json::{json, Value};
 use std::f64::consts::PI;
@@ -78,43 +78,30 @@ fn count(data: &[u8], pattern: &[u8]) -> usize {
     found
 }
 
-fn set(element: &mut Element, key: &str, value: String) {
-    match element.attributes.iter_mut().find(|(k, _)| k == key) {
-        Some(slot) => slot.1 = value,
-        None => element.attributes.push((key.to_string(), value)),
-    }
-}
-
-fn child<'a>(element: &'a mut Element, name: &str) -> Result<&'a mut Element> {
-    element.children.iter_mut().find(|c| c.local() == name).with_context(|| format!("No <{name}>"))
-}
-
-/// The element without the white space between its children.
-fn compact(element: &mut Element) {
-    if element.text.trim().is_empty() {
-        element.text.clear();
-    }
-    element.children.iter_mut().for_each(compact);
-}
-
 /// The slice record with the sequenced plate's prediction, weight, first-course time, filament
-/// and course groups.
+/// and course groups, edited in place so the record keeps the slicer's own layout.
 fn slice_info(template: &[u8], prediction: i64, grams: f64, first_course_seconds: f64, filament_mm: f64, groups: usize) -> Result<Vec<u8>> {
-    let mut info = parse(std::str::from_utf8(template)?)?;
-    let plate = child(&mut info, "plate")?;
+    /// Puts `value` in the quoted value after the first `marker` from `from` on.
+    fn put(info: &mut String, from: usize, marker: &str, value: &str, what: &str) -> Result<()> {
+        let at = from + info[from..].find(marker).with_context(|| format!("No {what}"))? + marker.len();
+        let end = at + info[at..].find('"').with_context(|| format!("Unclosed {what}"))?;
+        info.replace_range(at..end, value);
+        Ok(())
+    }
+    let mut info = String::from_utf8(template.to_vec())?;
     for (key, value) in [("prediction", prediction.to_string()), ("weight", format!("{grams:.2}")),
                          ("first_layer_time", format!("{first_course_seconds:.6}"))] {
-        let metadata = plate.children.iter_mut().filter(|c| c.local() == "metadata" && c.attribute("key") == Some(key)).last();
-        set(metadata.with_context(|| format!("No {key} metadata"))?, "value", value);
+        let marker = format!("key=\"{key}\" value=\"");
+        let from = info.rfind(&marker).with_context(|| format!("No {key} metadata"))?;
+        put(&mut info, from, &marker, &value, &format!("{key} metadata"))?;
     }
-    let filament = child(plate, "filament")?;
-    set(filament, "used_m", format!("{:.2}", filament_mm / 1000.0));
-    set(filament, "used_g", format!("{grams:.2}"));
-    let layers = child(plate, "layer_filament_lists")?;
-    let ranges = vec![("filament_list".into(), "0".into()), ("layer_ranges".into(), format!("0 {groups}"))];
-    *layers = Element { name: layers.name.clone(), children: vec![Element { name: "layer_filament_list".into(), attributes: ranges, ..Default::default() }], ..Default::default() };
-    compact(&mut info);
-    Ok(document(&info))
+    let filament = info.find("<filament ").context("No <filament>")?;
+    put(&mut info, filament, " used_m=\"", &format!("{:.2}", filament_mm / 1000.0), "filament length")?;
+    put(&mut info, filament, " used_g=\"", &format!("{grams:.2}"), "filament weight")?;
+    let open = info.find("<layer_filament_lists>").context("No <layer_filament_lists>")? + "<layer_filament_lists>".len();
+    let close = open + info[open..].find("</layer_filament_lists>").context("Unclosed <layer_filament_lists>")?;
+    info.replace_range(open..close, &format!("\n      <layer_filament_list filament_list=\"0\" layer_ranges=\"0 {groups}\" />\n    "));
+    Ok(info.into_bytes())
 }
 
 /// The model without its objects and build items, as a print-only archive carries it.
