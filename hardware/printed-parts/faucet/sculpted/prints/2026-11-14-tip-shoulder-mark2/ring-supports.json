@@ -1,0 +1,175 @@
+{
+  "purpose": "Records the toolpaths, ring gap and bench checks for removable supports under the mounting plate’s three screw seats.",
+  "object": 1904,
+  "seat_centers_xy_mm": [
+    [
+      183.0,
+      106.0
+    ],
+    [
+      205.5,
+      85.7
+    ],
+    [
+      228.0,
+      106.0
+    ]
+  ],
+  "gap_opening_angle_deg": 40,
+  "deposition_mm_filament": 41.47623,
+  "gcode_sha256": "66d3d7506a14d6d2919b69df8069417a22789318cc45f7500f22980fd2c6897f",
+  "first_bed_z_mm": 0.2,
+  "final_support_z_mm": 3.08,
+  "pitch_after_first_mm": 0.24,
+  "course_count": 13,
+  "first_course": {
+    "bead_height_mm": 0.2,
+    "bead_width_mm": 0.55,
+    "centerline_radii_mm": [
+      2.03,
+      2.53
+    ],
+    "outer_material_radius_mm": 2.805
+  },
+  "remaining_courses": {
+    "bead_height_mm": 0.24,
+    "bead_width_mm": 0.48,
+    "centerline_radii_mm": [
+      2.06,
+      2.49
+    ],
+    "outer_material_radius_mm": 2.73
+  },
+  "source": {
+    "part": "above-counter-plate",
+    "stl_sha256": "cf69dac0a0ce01845ce261d050fbbb876be24baec78d3db77f8d97839bc32990",
+    "reference_gcode_sha256": "f65174891a0a0a1886b4f2fa9b8e834633197cf7d9929f707e242e0a4bed0455",
+    "placement_world_from_cad_offset_mm": [
+      205.5,
+      108.0,
+      4.0
+    ],
+    "cad_screw_head_bore_radius_mm": 3.075,
+    "cad_screw_through_bore_radius_mm": 1.95,
+    "cad_shoulder_z_mm": -0.8
+  },
+  "native_seat": {
+    "first_supported_model_z_mm": 3.56,
+    "first_supported_actual_bead_height_mm": 0.3,
+    "space_below_bead_mm": 0.18,
+    "space_under_nominal_slice_mm": 0.24,
+    "space_under_cad_shoulder_mm": 0.12,
+    "readback_features": [
+      "Overhang wall",
+      "Bridge"
+    ]
+  },
+  "geometry_audit": {
+    "sample_pitch_max_mm": 0.025,
+    "measurement": "The emitted support trace is buffered by half its line width. Shoulder overlap includes half the native bead width. The bridge length includes its supported anchoring roads. Nominal readback does not measure PET-GF sag or adhesion.",
+    "seats": [
+      {
+        "center_xy_mm": [
+          183.0,
+          106.0
+        ],
+        "bed_course_wall_gap_mm": 0.4136,
+        "higher_courses_wall_gap_mm": 0.338573,
+        "features": {
+          "Overhang wall": {
+            "native_roads": 62,
+            "sampled_length_mm": 28.33,
+            "centerline_over_ring_fraction": 0.92868,
+            "bead_over_ring_fraction": 0.96387
+          },
+          "Bridge": {
+            "native_roads": 90,
+            "sampled_length_mm": 107.906,
+            "centerline_over_ring_fraction": 0.0,
+            "bead_over_ring_fraction": 0.111622
+          }
+        }
+      },
+      {
+        "center_xy_mm": [
+          205.5,
+          85.7
+        ],
+        "bed_course_wall_gap_mm": 0.4136,
+        "higher_courses_wall_gap_mm": 0.335366,
+        "features": {
+          "Overhang wall": {
+            "native_roads": 64,
+            "sampled_length_mm": 28.33,
+            "centerline_over_ring_fraction": 0.928681,
+            "bead_over_ring_fraction": 0.963871
+          },
+          "Bridge": {
+            "native_roads": 90,
+            "sampled_length_mm": 107.892,
+            "centerline_over_ring_fraction": 0.0,
+            "bead_over_ring_fraction": 0.109856
+          }
+        }
+      },
+      {
+        "center_xy_mm": [
+          228.0,
+          106.0
+        ],
+        "bed_course_wall_gap_mm": 0.4136,
+        "higher_courses_wall_gap_mm": 0.338573,
+        "features": {
+          "Overhang wall": {
+            "native_roads": 62,
+            "sampled_length_mm": 28.33,
+            "centerline_over_ring_fraction": 0.928682,
+            "bead_over_ring_fraction": 0.963871
+          },
+          "Bridge": {
+            "native_roads": 90,
+            "sampled_length_mm": 107.907,
+            "centerline_over_ring_fraction": 0.0,
+            "bead_over_ring_fraction": 0.111624
+          }
+        }
+      }
+    ]
+  },
+  "release_access": {
+    "direction": "Toward the bed face. Catch the split from the open center and collapse the annulus inward before pulling axially.",
+    "bed": {
+      "central_clear_diameter_mm": 3.49455,
+      "pick_slot_clearance_mm": 0.692745
+    },
+    "higher": {
+      "central_clear_diameter_mm": 3.624316,
+      "pick_slot_clearance_mm": 0.801547
+    }
+  },
+  "comparison_probe": {
+    "gcode_sha256": "5b8762f61404c0b52bdfcb4d864684d78ef904f248bf1cb9281b5e754022d9eb",
+    "screw_plate_model_ordered_roads_exact": {
+      "ordered_road_sha256": "4d7137d7c55b7904492ba15078e2a8692844fc666e443faaaa738dae17515e7e",
+      "road_count": 44617,
+      "source": "reference"
+    },
+    "signature_fields": [
+      "command",
+      "start_xyz",
+      "end_xyz",
+      "arc_center_offset_ijk",
+      "extrusion_length",
+      "feed",
+      "fan_pwm",
+      "acceleration"
+    ],
+    "minimum_modeled_toolhead_body_gap_mm": 3.6,
+    "dry_travel_depth_witnesses": 0,
+    "scope": "The independent probe uses the retained mounting plate with the authored rings and the revised cover."
+  },
+  "first_physical_print": {
+    "status": "Unverified",
+    "readback": "Confirm the support lifts from each screw-head bore in one piece, the shoulder is smooth and each screw head sits below the gasket face."
+  }
+}

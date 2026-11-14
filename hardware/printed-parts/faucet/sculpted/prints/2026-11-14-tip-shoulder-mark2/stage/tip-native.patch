@@ -1,0 +1,206 @@
+--- a/prepare_print_project.rs
++++ b/prepare_print_project.rs
+@@ -7 +7,3 @@
+-//!                                 [--filled-base FILLED.stl]
++//!                                 [--filled-base FILLED.stl | --physical-base]
++//!                                 [--tip-mesh TIP.stl --cover-mesh COVER.stl]
++//!                                 [--warp-donor --tip-mesh TIP.stl]
+@@ -24 +26 @@
+-use hsm_print_prep::faucet_contact::{add_base_rim_fins, add_tip_dispense_contact, add_tip_rim_contact, apply_rim_contour, apply_stretch_cooling, apply_tip_rim_contour, tip_end_stretch, ContactBand};
++use hsm_print_prep::faucet_contact::{add_base_rim_fins, add_tip_dispense_contact, add_tip_rim_contact, apply_rim_contour, apply_stretch_cooling, apply_tip_rim_contour, closed_rim_strip, tip_end_stretch, ContactBand};
+@@ -30 +32 @@
+-use hsm_print_prep::{root, sha256_hex, slice, xml};
++use hsm_print_prep::{apply, root, sha256_hex, slice, xml};
+@@ -37 +39 @@
+-const FINISH: &str = "hardware/printed-parts/faucet/sculpted/finish-selection.json";
++const FINISH: &str = ".cache/runs/faucet-tip-native-20261114/source/finish-selection.json";
+@@ -53,0 +56,3 @@
++    let mut physical_base = false;
++    let mut tip_mesh = None;
++    let mut cover_mesh = None;
+@@ -56,0 +62 @@
++    let mut warp_donor = false;
+@@ -59,0 +66,4 @@
++        if arg == "--physical-base" {
++            physical_base = true;
++            continue;
++        }
+@@ -67,0 +78,5 @@
++        if arg == "--warp-donor" {
++            tip_only = true;
++            warp_donor = true;
++            continue;
++        }
+@@ -76,0 +92,2 @@
++            Some("--tip-mesh") => tip_mesh = Some(PathBuf::from(value)),
++            Some("--cover-mesh") => cover_mesh = Some(PathBuf::from(value)),
+@@ -83,2 +100,11 @@
+-    ensure!(filled_base.is_none() || (include_base && !base_only && base_section.is_none()),
+-        "--filled-base prepares the complete plate");
++    let sloped_layout = filled_base.is_some() || physical_base;
++    ensure!(!physical_base || (filled_base.is_none() && slice_output.is_none()),
++        "--physical-base writes the editable project with the actual base mesh");
++    ensure!(!sloped_layout || (include_base && !base_only && base_section.is_none()),
++        "the sloped layout prepares the complete plate");
++    if warp_donor {
++        ensure!(tip_mesh.is_some() && cover_mesh.is_none(), "a donor needs only the tip mesh");
++    } else {
++        ensure!(tip_mesh.is_some() == cover_mesh.is_some() && (tip_mesh.is_none() || sloped_layout),
++            "the two trial head meshes replace the tip and cover on the sloped plate");
++    }
+@@ -89,0 +116,2 @@
++    } else if warp_donor {
++        format!("Sculpted faucet tip inverse warp donor PET-GF left {printer}")
+@@ -96 +124 @@
+-    } else if filled_base.is_some() {
++    } else if sloped_layout {
+@@ -112 +140,2 @@
+-        parts.push(Part::new("faucet-shell-tip", faucet.join("faucet-shell/faucet-shell-tip.stl"), -PRINT_TIP_BUILD_ROT.to_degrees()));
++        let source = tip_mesh.unwrap_or_else(|| faucet.join("faucet-shell/faucet-shell-tip.stl"));
++        parts.push(Part::new("faucet-shell-tip", source, -PRINT_TIP_BUILD_ROT.to_degrees()));
+@@ -115 +144,2 @@
+-        parts.push(Part::new("faucet-display-cover", faucet.join("faucet-display-cover/faucet-display-cover.stl"), -50.0));
++        let source = cover_mesh.unwrap_or_else(|| faucet.join("faucet-display-cover/faucet-display-cover.stl"));
++        parts.push(Part::new("faucet-display-cover", source, -50.0));
+@@ -127 +157 @@
+-    } else if filled_base.is_some() {
++    } else if sloped_layout {
+@@ -170,0 +201,4 @@
++        if obj.name == "faucet-shell-base" || (warp_donor && obj.name == "faucet-shell-tip") {
++            obj.settings.retain(|(key, _)| key != "seam_slope_type");
++            obj.settings.push(("seam_slope_type".into(), "none".into()));
++        }
+@@ -178,0 +213,9 @@
++    if warp_donor {
++        let bands = [[0.20, 21.80, 0.16], [23.96, 62.12, 0.18]];
++        let index = r.row("faucet-shell-tip")?.index;
++        r.plate.objects[index].ranges = bands.into_iter().map(|[min_z, max_z, height]|
++            hsm_print_prep::project::Range {
++                min_z, max_z, options: vec![("layer_height".into(), height.to_string())],
++            }).collect();
++        r.extra.insert("tip_virtual_course_bands_mm".into(), json!(bands));
++    }
+@@ -210 +253 @@
+-    let base_contact = if filled_base.is_some() {
++    let base_contact = if sloped_layout {
+@@ -237,3 +280,10 @@
+-        let (rim, joint) = add_tip_rim_contact(&mut r, &selection["tip_supports"], &mapping["parameters"])?;
+-        let joint_band = ContactBand::new(&joint["band"])?;
+-        r.extra.insert("tip_rim_contact".into(), joint);
++        let lip = if warp_donor {
++            let support = add_warp_shoulder_support(&mut r)?;
++            r.extra.insert("warp_shoulder_support".into(), support);
++            None
++        } else {
++            let (rim, joint) = add_tip_rim_contact(&mut r, &selection["tip_supports"], &mapping["parameters"])?;
++            let joint_band = ContactBand::new(&joint["band"])?;
++            r.extra.insert("tip_rim_contact".into(), joint);
++            Some((rim, joint_band))
++        };
+@@ -241 +291 @@
+-        Some((index, band, joint_band, rim, cooling))
++        Some((index, band, lip, cooling))
+@@ -257 +307 @@
+-    for p in ["hardware/printed-parts/faucet/sculpted/prepare_print_project.rs",
++    for p in [option_env!("HSM_DISPENSE_TRIAL_PREPARER").unwrap_or("hardware/printed-parts/faucet/sculpted/prepare_print_project.rs"),
+@@ -279,0 +330 @@
++        ("inverse_warp_donor", json!(warp_donor)),
+@@ -289,2 +340,5 @@
+-        if let Some((index, band, joint, _, _)) = &tip_finish {
+-            bands.extend([(*index, band), (*index, joint)]);
++        if let Some((index, band, lip, _)) = &tip_finish {
++            bands.push((*index, band));
++            if let Some((_, joint)) = lip {
++                bands.push((*index, joint));
++            }
+@@ -300,2 +354,4 @@
+-        if let Some((_, _, joint, rim, cooling)) = &tip_finish {
+-            report["tip_rim_contour"] = apply_tip_rim_contour(&project, &directory, *rim, joint)?;
++        if let Some((_, _, lip, cooling)) = &tip_finish {
++            if let Some((rim, joint)) = lip {
++                report["tip_rim_contour"] = apply_tip_rim_contour(&project, &directory, *rim, joint)?;
++            }
+@@ -309,0 +366,83 @@
++/// Ask the native tree slicer for a removable annular roof below the virtual shoulder.
++fn add_warp_shoulder_support(project: &mut Refreshed) -> Result<Value> {
++    const SHOULDER_Z: f64 = 22.28;
++    const HALF_DEPTH: f64 = 0.70;
++    const ENFORCER_RADII: [f64; 2] = [12.05, 14.10];
++    const RELEASE_HALF_ANGLE: f64 = 2.5;
++    const PLUG_KEEP_RADIUS: f64 = 11.35;
++    const PLUG_XY_GAP: f64 = 0.55;
++    let row = project.row("faucet-shell-tip")?;
++    let index = row.index;
++    let object = &project.plate.objects[index];
++    let matrix = object.rotation;
++    let translation = object.translation;
++    let inverse = [0, 1, 2].map(|axis| [0, 1, 2].map(|j| matrix[j][axis]));
++    let local = |p: [f64; 3]| apply(&inverse, [0, 1, 2].map(|i| p[i] - translation[i]));
++    let place = |p: [f64; 3]| {
++        let q = apply(&matrix, [0, 1, 2].map(|i| p[i] - row.center[i]));
++        [0, 1, 2].map(|i| q[i] + translation[i])
++    };
++    let mut xy_low = [f64::INFINITY; 2];
++    let mut xy_high = [f64::NEG_INFINITY; 2];
++    for face in &row.mesh.faces {
++        let points = face.map(|i| place(row.mesh.vertices[i]));
++        if points.iter().all(|p| (p[2] - SHOULDER_Z).abs() < 0.002) {
++            for point in points {
++                for axis in 0..2 {
++                    xy_low[axis] = xy_low[axis].min(point[axis]);
++                    xy_high[axis] = xy_high[axis].max(point[axis]);
++                }
++            }
++        }
++    }
++    ensure!((xy_high[0] - xy_low[0] - 27.).abs() < 0.03, "expected complete virtual mating shoulder");
++    let [cx, cy] = [0, 1].map(|axis| (xy_low[axis] + xy_high[axis]) / 2.);
++    let axis_ratio = (xy_high[1] - xy_low[1]) / (xy_high[0] - xy_low[0]);
++    let strip = |start: f64, stop: f64, radii: [f64; 2]| {
++        let count = (stop - start).ceil() as usize;
++        let sections: Vec<_> = (0..=count).map(|i| {
++            let t = start + (stop - start) * i as f64 / count as f64;
++            let (sine, cosine) = t.to_radians().sin_cos();
++            let [inner, outer] = radii;
++            [[inner, -HALF_DEPTH], [outer, -HALF_DEPTH], [outer, HALF_DEPTH], [inner, HALF_DEPTH]]
++                .map(|[radius, dz]| local([cx + radius * cosine, cy + radius * axis_ratio * sine, SHOULDER_Z + dz]))
++        }).collect();
++        closed_rim_strip(&sections)
++    };
++    let add = |project: &mut Refreshed, name: &str, subtype: &str, mesh: hsm_print_prep::mesh::Mesh| {
++        mesh.check_closed_single_body(name)?;
++        Ok::<_, anyhow::Error>(project.plate.add_part(index, name, mesh.vertices, mesh.faces,
++            subtype, Vec::new(), None))
++    };
++    let mut roofs = Vec::new();
++    let mut gaps = Vec::new();
++    for (number, at) in [0., 180.].into_iter().enumerate() {
++        roofs.push(add(project, &format!("Virtual shoulder roof {}", number + 1), "support_enforcer",
++            strip(at + RELEASE_HALF_ANGLE, at + 180. - RELEASE_HALF_ANGLE, ENFORCER_RADII))?);
++        gaps.push(add(project, &format!("Virtual shoulder roof release {}", number + 1), "support_blocker",
++            strip(at - RELEASE_HALF_ANGLE, at + RELEASE_HALF_ANGLE, ENFORCER_RADII))?);
++    }
++    let n = 96;
++    let mut vertices = Vec::with_capacity(2 * n + 2);
++    let radius = PLUG_KEEP_RADIUS + PLUG_XY_GAP;
++    let z = [SHOULDER_Z - 1.2, SHOULDER_Z + HALF_DEPTH];
++    for depth in z {
++        for i in 0..n {
++            let (sine, cosine) = (std::f64::consts::TAU * i as f64 / n as f64).sin_cos();
++            vertices.push(local([cx + radius * cosine, cy + radius * axis_ratio * sine, depth]));
++        }
++    }
++    vertices.extend(z.map(|depth| local([cx, cy, depth])));
++    let mut faces = Vec::with_capacity(4 * n);
++    for i in 0..n {
++        let j = (i + 1) % n;
++        faces.extend([[i, j, n + j], [i, n + j, n + i], [2*n, j, i], [2*n+1, n+i, n+j]]);
++    }
++    let plug = add(project, "Virtual shoulder plug keepout", "support_blocker",
++        hsm_print_prep::mesh::Mesh { vertices, faces })?;
++    Ok(json!({"roof_enforcers": roofs, "release_blockers": gaps, "plug_keepout": plug,
++        "virtual_seat_center_mm": [cx, cy, SHOULDER_Z], "plate_axis_ratio": axis_ratio,
++        "support_radial_mm": ENFORCER_RADII, "release_angle_half_degrees": RELEASE_HALF_ANGLE,
++        "virtual_plug_keepout_radial_mm": radius, "virtual_plug_z_mm": z}))
++}
++

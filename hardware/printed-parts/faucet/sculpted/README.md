@@ -110,9 +110,10 @@ The [current print report](../faucet-petgf.print.json) binds the meshes and
 recipe for the complete plate. An offline slice writes its sloped path report,
 tip contact reports and executable beside the slice. The current local print-only
 archive is `production/faucet-petgf.gcode.3mf`. The
-[complete Mark2 trial](prints/2026-11-13-shaft-tilted-mark2/README.md) interleaves
-the five parts and carries the foot's slope into the shaft. It includes removable
-first-counterbore supports and the trial tip's backed display-pocket corners.
+[complete Mark2 trial](prints/2026-11-14-tip-shoulder-mark2/README.md) interleaves
+the five parts, carries the foot's slope into the shaft and follows the tip's
+mating shoulder before easing back to level below the dispense nose. It includes
+the rounded dispense-face seam and removable mounting-plate counterbore rings.
 
 The display seat, foot recesses and cover bezel use their shared mounted datums.
 The [October 17 clearance reading](prints/2026-10-17-localized-cooling-display-clearance-mark2/display-clearance.json)

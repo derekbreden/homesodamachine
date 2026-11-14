@@ -1,0 +1,184 @@
+{
+  "purpose": "Checks the photographed seam on the revised printed tip and display cover, their assembled fit and the cover\u2019s first supported fascia road.",
+  "photo_datum": {
+    "source": "Screenshot 2026-11-14 at 12.44.00 AM.png",
+    "purpose": "Locates the blue witness mark on the outlet plane against the rigid tip export.",
+    "tip_part_source_sha256": "e845fd0b2003b7b548d31b6e79014fa7b089cfd3c805d52848f804cb788a3129",
+    "outlet_frame": {
+      "origin_xyz_mm": [
+        0.0,
+        -133.99672200476698,
+        180.38874339162197
+      ],
+      "axis_s": [
+        0.0,
+        0.6427876096865394,
+        0.7660444431189779
+      ],
+      "axis_n": [
+        0.0,
+        -0.7660444431189779,
+        0.6427876096865394
+      ]
+    },
+    "perspective_fit": {
+      "image_origin_pixels": [
+        1160,
+        1146
+      ],
+      "matrix_xn1_to_centered_image_uvw": [
+        [
+          21.7481061,
+          1.01570056,
+          -8.66739152
+        ],
+        [
+          0.995849213,
+          -20.0317059,
+          97.7347762
+        ],
+        [
+          8.84294896e-05,
+          -0.00456074739,
+          1
+        ]
+      ],
+      "sampled_cad_edges": [
+        "near outlet section outer circle",
+        "near outlet section shared water and flavor apertures"
+      ],
+      "pixel_edge_sample_count": 351,
+      "median_residual_px": 0.32257046644330967,
+      "target_inverse_frame_x_n_mm": [
+        [
+          -4.97144806,
+          15.10838031
+        ],
+        [
+          -0.0461038,
+          15.02306828
+        ],
+        [
+          4.88925333,
+          14.91990143
+        ]
+      ],
+      "nominal_seam_n_mm": 15.0
+    }
+  },
+  "trial_stl_sha256": {
+    "tip.stl": "d51f17ab76957c645b60e2de2248fa924f006e2b555954df4f5459f89834ad05",
+    "cover-seated.stl": "41033f20c45fc2d337cac9389f8cfc84546faf0a5f84df8967a5db21012e0e57",
+    "cover.stl": "9ac821c25c65b015625db98404938f8442745c18840849789a6a00f693fcae0c"
+  },
+  "tip_stock_removed_mm3": 49.57277807683994,
+  "cover_stock_added_mm3": 42.02239714828608,
+  "cover_fascia_union_overlap_mm3": 9.79724716566319,
+  "center_seam_measured_n_mm": [
+    15.00000949203968,
+    15.160001926124096
+  ],
+  "near_outlet_station_s_mm": 0.02,
+  "legacy_outlet_void": {
+    "area_mm2": 122.29791440827333,
+    "bounds_x_n_mm": [
+      -5.112500190734863,
+      -5.112497113645077,
+      5.112500190734863,
+      8.909987807273865
+    ]
+  },
+  "revised_outlet_void": {
+    "area_mm2": 122.29791439522623,
+    "bounds_x_n_mm": [
+      -5.112500190734863,
+      -5.112497113645077,
+      5.112500190734863,
+      8.909987807273865
+    ]
+  },
+  "largest_roundoff_area_outside_fascia_slices_mm2": 3.336765975747724e-07,
+  "relaxed_snap_lip_sections": [
+    {
+      "s_mm": 10.45,
+      "relaxed_shaped_lip_change_mm2": 0.0
+    },
+    {
+      "s_mm": 12.0,
+      "relaxed_shaped_lip_change_mm2": 0.0
+    },
+    {
+      "s_mm": 18.0,
+      "relaxed_shaped_lip_change_mm2": 0.0
+    },
+    {
+      "s_mm": 25.0,
+      "relaxed_shaped_lip_change_mm2": 0.0
+    },
+    {
+      "s_mm": 30.0,
+      "relaxed_shaped_lip_change_mm2": 0.0
+    },
+    {
+      "s_mm": 36.0,
+      "relaxed_shaped_lip_change_mm2": 0.0
+    }
+  ],
+  "seated_tip_cover_nominal_shared_volume_mm3": 5.261726422821285e-09,
+  "max_added_cover_interference_mm3_along_nominal_placement_trace": 3.6081678350376226e-13,
+  "installation_pose_count": 65,
+  "added_cover_clearance_against_assembly": {
+    "faucet_display": {
+      "added_stock_intersection_mm3": 0.0,
+      "added_stock_gap_mm_capped": 0.4514739014502902
+    },
+    "faucet_display_screen": {
+      "added_stock_intersection_mm3": 0.0,
+      "added_stock_gap_mm_capped": 2.408146324504484
+    },
+    "flavor_tube_neg_x": {
+      "added_stock_intersection_mm3": 0.0,
+      "added_stock_gap_mm_capped": 6.700424984184334
+    },
+    "flavor_tube_pos_x": {
+      "added_stock_intersection_mm3": 0.0,
+      "added_stock_gap_mm_capped": 6.700424984184334
+    },
+    "soda_faucet_tube": {
+      "added_stock_intersection_mm3": 0.0,
+      "added_stock_gap_mm_capped": 8.0
+    },
+    "display_signal_ribbon": {
+      "added_stock_intersection_mm3": 0.0,
+      "added_stock_gap_mm_capped": 8.0
+    }
+  },
+  "cover_motion_input_sha256": "31a724f2a200ce13e5ddcc53e48837f5fc31f8ca2d55701d4555d019b42f8d30",
+  "cover_fascia_first_deposition": {
+    "world_course_z_mm": 12.2,
+    "world_xy_bounds_mm": [
+      246.174,
+      210.657,
+      256.826,
+      211.687
+    ],
+    "road_length_mm": 43.52202807396938,
+    "nearest_interface_z_mm": 11.72,
+    "covered_length_mm": 43.35923369884187,
+    "longest_unsupported_segment_mm": 0.08159379566433245,
+    "accessible_lower_y_corridor_xyz_mm": [
+      [
+        244,
+        190,
+        11.0
+      ],
+      [
+        259,
+        211.3,
+        11.72
+      ]
+    ],
+    "intersecting_cover_sectional_area_mm2": 0.0
+  },
+  "scope": "Mesh-based clearances on the named existing solids and linear insertion trace. Support coverage estimates the emitted road widths and sampling. Snap force, adhesive strength, surface finish, and physical release are print results."
+}
