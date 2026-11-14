@@ -757,8 +757,8 @@ impl Clearance {
     }
 
     fn sample(&self, grid: &[f64], x: f64, y: f64) -> f64 {
-        let i = ((x - self.cx0) / self.step).round();
-        let j = ((y - self.cy0) / self.step).round();
+        let i = ((x - self.cx0) / self.step).round_ties_even();
+        let j = ((y - self.cy0) / self.step).round_ties_even();
         if i >= 0.0 && (i as usize) < self.cols && j >= 0.0 && (j as usize) < self.rows {
             grid[j as usize * self.cols + i as usize]
         } else {
