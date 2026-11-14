@@ -1,0 +1,40 @@
+{
+  "purpose": "Binds the retained donor and whole-plate inputs for the print accepted by Mark2.",
+  "run_archive": "run-inputs.zip",
+  "sha256": "9de9e42df0e12574f02e7d98e1b7a687c73b187756929929dbf4d784da601283",
+  "members_sha256": {
+    "native/editable.3mf": "17e91881883305d2dcba34975a47ed6f510f0d4ab51b722db016b212c4e37ab4",
+    "native/complete.gcode.3mf": "d5abef69f3319054e32c5d3ab448120d6b4e6b338c8f784cf5b19724b697f28f",
+    "native/finish-selection.json": "0a3b931d193649c2d820aa3e8f6868029c43435bf5f70c901d0e3f90899aa6ec",
+    "donor/ramp.3mf": "b72304ca29919942a347e0db9e5a43966616c8816d745e83d4ecead633e43a0e",
+    "donor/ramp.gcode.3mf": "74d4e1c860bea0cb8ce1be411dc2ce83b2e9e97a7c4b5ba29240384def789d1e",
+    "donor/ramp.print.json": "8d10aee092b76b4e1966afeb88afff39ee430df56a140dc96f825fcfe28b2c7e",
+    "donor/tip.stl": "a70d6b5af3ef74ca1a8e94bf0133b1a51bb201923a65a40ab191713c5467aad5",
+    "donor/tip-warped.stl": "1ead3015fc02366060e680d0292bb4e1c26f46385b94b1522edb8437cf78a5b3",
+    "donor/tip-warped.json": "754d2e5a11249de4e63ea3b3f777a1cffbdc7d595a3ceb948d036e0a5d82e217",
+    "donor/warp-settings.json": "47b51fe255bcc7f3bf63fd5e3affdd07cca3187e36a68ee969f2dbf298e285e2",
+    "motion/mapped-tip.gcode": "53b1ba057dec7fe094831a1a51953368d2db344b495085ac0a0991098c68207d",
+    "motion/mapped-tip.json": "22c9f553b5544f5b185f56e15d62f375ff528ee44e4e64cd0d8ac043c176e1e6",
+    "motion/rings.gcode": "66d3d7506a14d6d2919b69df8069417a22789318cc45f7500f22980fd2c6897f",
+    "motion/plate.gcode": "68656191e6f2c29bb5d1de32ae8e673bcd83624db2fd1e5bb3e8bdf4c8e41abf",
+    "donor/shoulder-roof-sector-1.stl": "2d2b7fa4e01caf2644eab5301220959b5b0d8cb59264f8399f5c641ebbbbf555",
+    "donor/roof-access-slit-1.stl": "9ea877c411acfc950a61901eb8560d744b202365a7079b0144fe05c9cfa0e748",
+    "donor/shoulder-roof-sector-2.stl": "98e27016d3f6528c47a3919c2ece1b1e1d8afbd1d6850fa0f612677411f153b6",
+    "donor/roof-access-slit-2.stl": "e44fc4671c0c26ac3620e2d5f6e84daf0892f10c3bbef0a650aac7e3566564b7",
+    "donor/mating-plug-keepout.stl": "c734c434bcbc32ff13a2bd56293d3f52c477c3f804e66f46bad069a3aed01de4"
+  },
+  "native_full_slice_gcode_sha256": "bf4abe1c50c535c5f83caf8a322734539c5a1d1c6c36ccdcfbf0a6e033de3626",
+  "native_tip_donor_gcode_sha256": "6602a18a62cc5fb0a98d33fe993e0d7ec82b70c0ec578f72034e50f769b4a71e",
+  "exact_companion_paths_source_commit": "f5dee32108832f6d0e1f5c50dbb8f7fd5c30576e",
+  "exact_companion_paths_archive_sha256": "24b4d562ebc6d136b4cc0e7fd4431cfd1eee42e36a376a6f4aa8b453b4d2ac85",
+  "exact_companion_paths_gcode_sha256": "de1ed31c0a8f690d415cd1701c0404ab0e97b6cc46ce39342d143c5a3ab50d02",
+  "standing_preparer_projects_byte_equal": {
+    "trial_donor": "b72304ca29919942a347e0db9e5a43966616c8816d745e83d4ecead633e43a0e",
+    "trial_editable": "17e91881883305d2dcba34975a47ed6f510f0d4ab51b722db016b212c4e37ab4",
+    "previous_donor": "66c572cc87a4744b7bf6b24a1529bed1293defbbd971d8ae65cd3b9aac168115"
+  },
+  "bed": "Textured PEI",
+  "filament": "Polymaker PET-GF, black #161616 on left external",
+  "operator_z_trim_mm": 0.1,
+  "timelapse": "Off"
+}

@@ -1,0 +1,987 @@
+{
+  "purpose": "Compare nominal backing and support release on the mapped plug and bearing annulus.",
+  "limits": {
+    "nominal_deposition_gap_to_previous_stock_mm": 0.34,
+    "first_bearing_sampling_increment_mm": 0.12
+  },
+  "scope": "Gap to prior stock uses rounded bead volume and vertical projection in the real shoulder frame. The signed normal projections compare the model bottom and support top at same XY. Shape recovery, release, and final fit are physical results.",
+  "variants": [
+    {
+      "variant": "prior_35_degree_fixed",
+      "gcode_sha256": "de1ed31c0a8f690d415cd1701c0404ab0e97b6cc46ce39342d143c5a3ab50d02",
+      "first_bearing_features": {
+        "Overhang wall": {
+          "sampled_centerline_mm": 162.98882353788008,
+          "fraction_with_earlier_backing_within_vertical_gap_limit": 0.9930533547359882,
+          "longest_contiguous_gap_mm": 0.4664633363628628,
+          "bearing_thirds": {
+            "low bearing third": {
+              "total_mm": 63.92941606611479,
+              "fraction_with_backing_within_gap_limit": 0.9822894434395374,
+              "fraction_with_backing_within_point_six_mm": 0.9965330695084925,
+              "no_prior_road_centerline_mm": 0
+            },
+            "middle bearing third": {
+              "total_mm": 35.92829293703024,
+              "fraction_with_backing_within_gap_limit": 1.0,
+              "fraction_with_backing_within_point_six_mm": 1.0,
+              "no_prior_road_centerline_mm": 0
+            },
+            "high bearing third": {
+              "total_mm": 63.131114534735055,
+              "fraction_with_backing_within_gap_limit": 1.0,
+              "fraction_with_backing_within_point_six_mm": 1.0,
+              "no_prior_road_centerline_mm": 0
+            }
+          }
+        },
+        "Bridge": {
+          "sampled_centerline_mm": 228.30170557037403,
+          "fraction_with_earlier_backing_within_vertical_gap_limit": 0.8014093516787656,
+          "longest_contiguous_gap_mm": 2.2412595425360293,
+          "bearing_thirds": {
+            "low bearing third": {
+              "total_mm": 87.77301324318738,
+              "fraction_with_backing_within_gap_limit": 0.7727766645715076,
+              "fraction_with_backing_within_point_six_mm": 0.8298770389697967,
+              "no_prior_road_centerline_mm": 0.11958763784179542
+            },
+            "middle bearing third": {
+              "total_mm": 59.28248283578357,
+              "fraction_with_backing_within_gap_limit": 0.7576592942458208,
+              "fraction_with_backing_within_point_six_mm": 0.8370631190900465,
+              "no_prior_road_centerline_mm": 4.701808091543801
+            },
+            "high bearing third": {
+              "total_mm": 81.24620949140308,
+              "fraction_with_backing_within_gap_limit": 0.8642650748620958,
+              "fraction_with_backing_within_point_six_mm": 0.9753795277134456,
+              "no_prior_road_centerline_mm": 0
+            }
+          }
+        }
+      },
+      "near_contact_interface_components": 1,
+      "near_contact_bearing_area_mm2": 144.07814636845956,
+      "maximum_local_section_overlap_interface_into_plug_mm2": 0.0,
+      "maximum_local_section_overlap_interface_into_bore_mm2": 0.0,
+      "exterior_release_corridors": [
+        {
+          "angle_degrees": 0,
+          "tool_center_line_in_roof_mm": 2.0303029709228486,
+          "tool_corridor_over_model_plug_mm2": 0.0
+        },
+        {
+          "angle_degrees": 90,
+          "tool_center_line_in_roof_mm": 2.728395996180126,
+          "tool_corridor_over_model_plug_mm2": 0.0
+        },
+        {
+          "angle_degrees": 180,
+          "tool_center_line_in_roof_mm": 2.0319999999999983,
+          "tool_corridor_over_model_plug_mm2": 0.0
+        },
+        {
+          "angle_degrees": 270,
+          "tool_center_line_in_roof_mm": 1.8638650988787457,
+          "tool_corridor_over_model_plug_mm2": 0.0
+        }
+      ]
+    },
+    {
+      "variant": "plugs_ramp_stock_gap_whole_course",
+      "gcode_sha256": "ee15acf00170beb6f29968c88c4bfa90d2876197917b8126ba04ca47bf45e771",
+      "first_bearing_features": {
+        "Outer wall": {
+          "sampled_centerline_mm": 50.94891633114173,
+          "fraction_with_earlier_backing_within_vertical_gap_limit": 0.2800237888587463,
+          "longest_contiguous_gap_mm": 1.552650981257615,
+          "fraction_of_support_backed_centerline_within_normal_gap_mm": {
+            "-0.025": 0.0,
+            "0.0": 0.0,
+            "0.025": 0.0,
+            "0.05": 0.0,
+            "0.075": 0.0,
+            "0.1": 0.0,
+            "0.15": 0.0067134910946635195,
+            "0.18": 0.027338575691642615,
+            "0.25": 0.027338575691642615,
+            "0.3": 0.027338575691642615,
+            "0.4": 0.6349915238481276,
+            "0.6": 0.9614491529590334,
+            "1.0": 0.9806401083670606
+          },
+          "min_projected_gap_to_support_along_bearing_normal_mm": 0.14017455991214545,
+          "bearing_thirds": {
+            "low bearing third": {
+              "total_mm": 22.642730259763976,
+              "fraction_with_backing_within_gap_limit": 0.5643017586133444,
+              "fraction_with_backing_within_point_six_mm": 0.963153962422132,
+              "no_prior_road_centerline_mm": 0
+            },
+            "middle bearing third": {
+              "total_mm": 10.786665395410484,
+              "fraction_with_backing_within_gap_limit": 0.13809421441170744,
+              "fraction_with_backing_within_point_six_mm": 0.5713596402577432,
+              "no_prior_road_centerline_mm": 2.145257337154356
+            },
+            "high bearing third": {
+              "total_mm": 17.51952067596727,
+              "fraction_with_backing_within_gap_limit": 0.0,
+              "fraction_with_backing_within_point_six_mm": 0.9440631009401209,
+              "no_prior_road_centerline_mm": 0
+            }
+          }
+        },
+        "Overhang wall": {
+          "sampled_centerline_mm": 239.9469495262592,
+          "fraction_with_earlier_backing_within_vertical_gap_limit": 0.8102613991780866,
+          "longest_contiguous_gap_mm": 2.2084803817686054,
+          "fraction_of_support_backed_centerline_within_normal_gap_mm": {
+            "-0.025": 0.0,
+            "0.0": 0.0,
+            "0.025": 0.0,
+            "0.05": 0.0,
+            "0.075": 0.0,
+            "0.1": 0.0020030462958227024,
+            "0.15": 0.8416983605306247,
+            "0.18": 0.8420715164450715,
+            "0.25": 0.8420715164450715,
+            "0.3": 0.8606818363000844,
+            "0.4": 0.9800368230087473,
+            "0.6": 0.9957493077810449,
+            "1.0": 0.9995286651093184
+          },
+          "min_projected_gap_to_support_along_bearing_normal_mm": 0.0987086278523132,
+          "bearing_thirds": {
+            "low bearing third": {
+              "total_mm": 88.87649681585373,
+              "fraction_with_backing_within_gap_limit": 0.9014532927725747,
+              "fraction_with_backing_within_point_six_mm": 0.9192567569109955,
+              "no_prior_road_centerline_mm": 0
+            },
+            "middle bearing third": {
+              "total_mm": 55.32497678384793,
+              "fraction_with_backing_within_gap_limit": 0.7292407936716021,
+              "fraction_with_backing_within_point_six_mm": 0.921082208184953,
+              "no_prior_road_centerline_mm": 0.7598750000000045
+            },
+            "high bearing third": {
+              "total_mm": 95.74547592655753,
+              "fraction_with_backing_within_gap_limit": 0.7724282494969343,
+              "fraction_with_backing_within_point_six_mm": 0.9933573324956497,
+              "no_prior_road_centerline_mm": 0
+            }
+          }
+        },
+        "Bridge": {
+          "sampled_centerline_mm": 0.2930605683825959,
+          "fraction_with_earlier_backing_within_vertical_gap_limit": 0.0,
+          "longest_contiguous_gap_mm": 0.10346723828163695,
+          "fraction_of_support_backed_centerline_within_normal_gap_mm": {
+            "-0.025": 0.0,
+            "0.0": 0.0,
+            "0.025": 0.0,
+            "0.05": 0.0,
+            "0.075": 0.0,
+            "0.1": 0.0,
+            "0.15": 0.0,
+            "0.18": 0.0,
+            "0.25": 0.0,
+            "0.3": 0.0,
+            "0.4": 0.0,
+            "0.6": 1.0,
+            "1.0": 1.0
+          },
+          "min_projected_gap_to_support_along_bearing_normal_mm": 0.5212465406152704,
+          "bearing_thirds": {
+            "low bearing third": {
+              "total_mm": 0,
+              "fraction_with_backing_within_gap_limit": null,
+              "fraction_with_backing_within_point_six_mm": null,
+              "no_prior_road_centerline_mm": 0
+            },
+            "middle bearing third": {
+              "total_mm": 0,
+              "fraction_with_backing_within_gap_limit": null,
+              "fraction_with_backing_within_point_six_mm": null,
+              "no_prior_road_centerline_mm": 0
+            },
+            "high bearing third": {
+              "total_mm": 0.2930605683825959,
+              "fraction_with_backing_within_gap_limit": 0.0,
+              "fraction_with_backing_within_point_six_mm": 0.0,
+              "no_prior_road_centerline_mm": 0
+            }
+          }
+        }
+      },
+      "near_contact_interface_components": 1,
+      "near_contact_bearing_area_mm2": 145.2579188807621,
+      "maximum_local_section_overlap_interface_into_plug_mm2": 0.0,
+      "maximum_local_section_overlap_interface_into_bore_mm2": 0.0,
+      "exterior_release_corridors": [
+        {
+          "angle_degrees": 0,
+          "tool_center_line_in_roof_mm": 1.7295468568355794,
+          "tool_corridor_over_model_plug_mm2": 0.0
+        },
+        {
+          "angle_degrees": 90,
+          "tool_center_line_in_roof_mm": 3.068731647811145,
+          "tool_corridor_over_model_plug_mm2": 0.0
+        },
+        {
+          "angle_degrees": 180,
+          "tool_center_line_in_roof_mm": 1.7168385070757317,
+          "tool_corridor_over_model_plug_mm2": 0.0
+        },
+        {
+          "angle_degrees": 270,
+          "tool_center_line_in_roof_mm": 2.1656684119556058,
+          "tool_corridor_over_model_plug_mm2": 0.0
+        }
+      ],
+      "early_plug_wall_check": {
+        "by_wall_type": {
+          "Outer wall": {
+            "sampled_centerline_mm": 9586.561414301403,
+            "fraction_with_earlier_backing_within_vertical_gap_limit": 0.9944396811311895,
+            "coverage_below_gap_limit_by_world_z_band": [
+              {
+                "world_z_band_mm": [
+                  0,
+                  2
+                ],
+                "fraction": 0.9650428774333683
+              },
+              {
+                "world_z_band_mm": [
+                  2,
+                  4
+                ],
+                "fraction": 0.9860331199414798
+              },
+              {
+                "world_z_band_mm": [
+                  4,
+                  6
+                ],
+                "fraction": 1.0
+              },
+              {
+                "world_z_band_mm": [
+                  6,
+                  8
+                ],
+                "fraction": 1.0
+              },
+              {
+                "world_z_band_mm": [
+                  8,
+                  10
+                ],
+                "fraction": 1.0
+              },
+              {
+                "world_z_band_mm": [
+                  10,
+                  12
+                ],
+                "fraction": 1.0
+              },
+              {
+                "world_z_band_mm": [
+                  12,
+                  14
+                ],
+                "fraction": 1.0
+              },
+              {
+                "world_z_band_mm": [
+                  14,
+                  16
+                ],
+                "fraction": 0.9876011450923967
+              },
+              {
+                "world_z_band_mm": [
+                  16,
+                  18
+                ],
+                "fraction": 0.9799360551658561
+              },
+              {
+                "world_z_band_mm": [
+                  18,
+                  20
+                ],
+                "fraction": 0.9973890122791946
+              },
+              {
+                "world_z_band_mm": [
+                  20,
+                  22
+                ],
+                "fraction": 1.0
+              },
+              {
+                "world_z_band_mm": [
+                  22,
+                  24
+                ],
+                "fraction": 1.0
+              }
+            ]
+          },
+          "Inner wall": {
+            "sampled_centerline_mm": 9293.710834718706,
+            "fraction_with_earlier_backing_within_vertical_gap_limit": 1.0,
+            "coverage_below_gap_limit_by_world_z_band": [
+              {
+                "world_z_band_mm": [
+                  0,
+                  2
+                ],
+                "fraction": 1.0
+              },
+              {
+                "world_z_band_mm": [
+                  2,
+                  4
+                ],
+                "fraction": 1.0
+              },
+              {
+                "world_z_band_mm": [
+                  4,
+                  6
+                ],
+                "fraction": 1.0
+              },
+              {
+                "world_z_band_mm": [
+                  6,
+                  8
+                ],
+                "fraction": 1.0
+              },
+              {
+                "world_z_band_mm": [
+                  8,
+                  10
+                ],
+                "fraction": 1.0
+              },
+              {
+                "world_z_band_mm": [
+                  10,
+                  12
+                ],
+                "fraction": 1.0
+              },
+              {
+                "world_z_band_mm": [
+                  12,
+                  14
+                ],
+                "fraction": 1.0
+              },
+              {
+                "world_z_band_mm": [
+                  14,
+                  16
+                ],
+                "fraction": 1.0
+              },
+              {
+                "world_z_band_mm": [
+                  16,
+                  18
+                ],
+                "fraction": 1.0
+              },
+              {
+                "world_z_band_mm": [
+                  18,
+                  20
+                ],
+                "fraction": 1.0
+              },
+              {
+                "world_z_band_mm": [
+                  20,
+                  22
+                ],
+                "fraction": 1.0
+              },
+              {
+                "world_z_band_mm": [
+                  22,
+                  24
+                ],
+                "fraction": 1.0
+              }
+            ]
+          }
+        },
+        "longest_contiguous_gap": {
+          "length_mm": 3.913885846377931,
+          "first_line": 366115,
+          "last_line": 366126,
+          "first_xyz_mm": [
+            184.69875,
+            188.28575,
+            16.209
+          ],
+          "last_xyz_mm": [
+            188.246,
+            188.2575,
+            16.209
+          ]
+        }
+      }
+    },
+    {
+      "variant": "plugs_ramp_stock_gap_height_bands",
+      "gcode_sha256": "d776102505fb28de7b47ba64f81b389fa5ff377df8df2721b37fc6776817bc06",
+      "first_bearing_features": {
+        "Outer wall": {
+          "sampled_centerline_mm": 50.94891633114173,
+          "fraction_with_earlier_backing_within_vertical_gap_limit": 0.2800237888587463,
+          "longest_contiguous_gap_mm": 1.552650981257615,
+          "fraction_of_support_backed_centerline_within_normal_gap_mm": {
+            "-0.025": 0.0,
+            "0.0": 0.0,
+            "0.025": 0.0,
+            "0.05": 0.0,
+            "0.075": 0.0,
+            "0.1": 0.0,
+            "0.15": 0.006713491094663519,
+            "0.18": 0.02733857569164261,
+            "0.25": 0.02733857569164261,
+            "0.3": 0.02733857569164261,
+            "0.4": 0.6349915238481275,
+            "0.6": 0.9614491529590333,
+            "1.0": 0.9806401083670605
+          },
+          "min_projected_gap_to_support_along_bearing_normal_mm": 0.14017455991214545,
+          "bearing_thirds": {
+            "low bearing third": {
+              "total_mm": 22.642730259763976,
+              "fraction_with_backing_within_gap_limit": 0.5643017586133444,
+              "fraction_with_backing_within_point_six_mm": 0.963153962422132,
+              "no_prior_road_centerline_mm": 0
+            },
+            "middle bearing third": {
+              "total_mm": 10.786665395410484,
+              "fraction_with_backing_within_gap_limit": 0.13809421441170744,
+              "fraction_with_backing_within_point_six_mm": 0.5713596402577432,
+              "no_prior_road_centerline_mm": 2.145257337154356
+            },
+            "high bearing third": {
+              "total_mm": 17.51952067596727,
+              "fraction_with_backing_within_gap_limit": 0.0,
+              "fraction_with_backing_within_point_six_mm": 0.9440631009401211,
+              "no_prior_road_centerline_mm": 0
+            }
+          }
+        },
+        "Overhang wall": {
+          "sampled_centerline_mm": 239.9469495262592,
+          "fraction_with_earlier_backing_within_vertical_gap_limit": 0.8102613991780866,
+          "longest_contiguous_gap_mm": 2.2084803817686054,
+          "fraction_of_support_backed_centerline_within_normal_gap_mm": {
+            "-0.025": 0.0,
+            "0.0": 0.0,
+            "0.025": 0.0,
+            "0.05": 0.0,
+            "0.075": 0.0,
+            "0.1": 0.0020030462958227024,
+            "0.15": 0.8416983605306247,
+            "0.18": 0.8420715164450715,
+            "0.25": 0.8420715164450715,
+            "0.3": 0.8606818363000844,
+            "0.4": 0.9800368230087473,
+            "0.6": 0.9957493077810449,
+            "1.0": 0.9995286651093184
+          },
+          "min_projected_gap_to_support_along_bearing_normal_mm": 0.0987086278523132,
+          "bearing_thirds": {
+            "low bearing third": {
+              "total_mm": 88.87649681585373,
+              "fraction_with_backing_within_gap_limit": 0.9014532927725747,
+              "fraction_with_backing_within_point_six_mm": 0.9192567569109955,
+              "no_prior_road_centerline_mm": 0
+            },
+            "middle bearing third": {
+              "total_mm": 55.32497678384793,
+              "fraction_with_backing_within_gap_limit": 0.7292407936716021,
+              "fraction_with_backing_within_point_six_mm": 0.921082208184953,
+              "no_prior_road_centerline_mm": 0.7598750000000045
+            },
+            "high bearing third": {
+              "total_mm": 95.74547592655753,
+              "fraction_with_backing_within_gap_limit": 0.7724282494969343,
+              "fraction_with_backing_within_point_six_mm": 0.9933573324956497,
+              "no_prior_road_centerline_mm": 0
+            }
+          }
+        },
+        "Bridge": {
+          "sampled_centerline_mm": 0.2930605683825959,
+          "fraction_with_earlier_backing_within_vertical_gap_limit": 0.0,
+          "longest_contiguous_gap_mm": 0.10346723828163695,
+          "fraction_of_support_backed_centerline_within_normal_gap_mm": {
+            "-0.025": 0.0,
+            "0.0": 0.0,
+            "0.025": 0.0,
+            "0.05": 0.0,
+            "0.075": 0.0,
+            "0.1": 0.0,
+            "0.15": 0.0,
+            "0.18": 0.0,
+            "0.25": 0.0,
+            "0.3": 0.0,
+            "0.4": 0.0,
+            "0.6": 1.0,
+            "1.0": 1.0
+          },
+          "min_projected_gap_to_support_along_bearing_normal_mm": 0.5212465406152704,
+          "bearing_thirds": {
+            "low bearing third": {
+              "total_mm": 0,
+              "fraction_with_backing_within_gap_limit": null,
+              "fraction_with_backing_within_point_six_mm": null,
+              "no_prior_road_centerline_mm": 0
+            },
+            "middle bearing third": {
+              "total_mm": 0,
+              "fraction_with_backing_within_gap_limit": null,
+              "fraction_with_backing_within_point_six_mm": null,
+              "no_prior_road_centerline_mm": 0
+            },
+            "high bearing third": {
+              "total_mm": 0.2930605683825959,
+              "fraction_with_backing_within_gap_limit": 0.0,
+              "fraction_with_backing_within_point_six_mm": 0.0,
+              "no_prior_road_centerline_mm": 0
+            }
+          }
+        }
+      },
+      "near_contact_interface_components": 1,
+      "near_contact_bearing_area_mm2": 145.2504990010875,
+      "maximum_local_section_overlap_interface_into_plug_mm2": 0.0,
+      "maximum_local_section_overlap_interface_into_bore_mm2": 0.0,
+      "exterior_release_corridors": [
+        {
+          "angle_degrees": 0,
+          "tool_center_line_in_roof_mm": 1.7295468568355794,
+          "tool_corridor_over_model_plug_mm2": 0.0
+        },
+        {
+          "angle_degrees": 90,
+          "tool_center_line_in_roof_mm": 3.068731647811145,
+          "tool_corridor_over_model_plug_mm2": 0.0
+        },
+        {
+          "angle_degrees": 180,
+          "tool_center_line_in_roof_mm": 1.7168385070757317,
+          "tool_corridor_over_model_plug_mm2": 0.0
+        },
+        {
+          "angle_degrees": 270,
+          "tool_center_line_in_roof_mm": 2.1656684119556058,
+          "tool_corridor_over_model_plug_mm2": 0.0
+        }
+      ],
+      "early_plug_wall_check": {
+        "by_wall_type": {
+          "Outer wall": {
+            "sampled_centerline_mm": 9586.564294332475,
+            "fraction_with_earlier_backing_within_vertical_gap_limit": 0.994449226998789,
+            "coverage_below_gap_limit_by_world_z_band": [
+              {
+                "world_z_band_mm": [
+                  0,
+                  2
+                ],
+                "fraction": 0.9650428774333683
+              },
+              {
+                "world_z_band_mm": [
+                  2,
+                  4
+                ],
+                "fraction": 0.9862861608151908
+              },
+              {
+                "world_z_band_mm": [
+                  4,
+                  6
+                ],
+                "fraction": 1.0
+              },
+              {
+                "world_z_band_mm": [
+                  6,
+                  8
+                ],
+                "fraction": 1.0
+              },
+              {
+                "world_z_band_mm": [
+                  8,
+                  10
+                ],
+                "fraction": 1.0
+              },
+              {
+                "world_z_band_mm": [
+                  10,
+                  12
+                ],
+                "fraction": 1.0
+              },
+              {
+                "world_z_band_mm": [
+                  12,
+                  14
+                ],
+                "fraction": 1.0
+              },
+              {
+                "world_z_band_mm": [
+                  14,
+                  16
+                ],
+                "fraction": 0.987590209317616
+              },
+              {
+                "world_z_band_mm": [
+                  16,
+                  18
+                ],
+                "fraction": 0.9799479422896681
+              },
+              {
+                "world_z_band_mm": [
+                  18,
+                  20
+                ],
+                "fraction": 0.997388399701815
+              },
+              {
+                "world_z_band_mm": [
+                  20,
+                  22
+                ],
+                "fraction": 1.0
+              },
+              {
+                "world_z_band_mm": [
+                  22,
+                  24
+                ],
+                "fraction": 1.0
+              }
+            ]
+          },
+          "Inner wall": {
+            "sampled_centerline_mm": 9293.712740602978,
+            "fraction_with_earlier_backing_within_vertical_gap_limit": 1.0,
+            "coverage_below_gap_limit_by_world_z_band": [
+              {
+                "world_z_band_mm": [
+                  0,
+                  2
+                ],
+                "fraction": 1.0
+              },
+              {
+                "world_z_band_mm": [
+                  2,
+                  4
+                ],
+                "fraction": 1.0
+              },
+              {
+                "world_z_band_mm": [
+                  4,
+                  6
+                ],
+                "fraction": 1.0
+              },
+              {
+                "world_z_band_mm": [
+                  6,
+                  8
+                ],
+                "fraction": 1.0
+              },
+              {
+                "world_z_band_mm": [
+                  8,
+                  10
+                ],
+                "fraction": 1.0
+              },
+              {
+                "world_z_band_mm": [
+                  10,
+                  12
+                ],
+                "fraction": 1.0
+              },
+              {
+                "world_z_band_mm": [
+                  12,
+                  14
+                ],
+                "fraction": 1.0
+              },
+              {
+                "world_z_band_mm": [
+                  14,
+                  16
+                ],
+                "fraction": 1.0
+              },
+              {
+                "world_z_band_mm": [
+                  16,
+                  18
+                ],
+                "fraction": 1.0
+              },
+              {
+                "world_z_band_mm": [
+                  18,
+                  20
+                ],
+                "fraction": 1.0
+              },
+              {
+                "world_z_band_mm": [
+                  20,
+                  22
+                ],
+                "fraction": 1.0
+              },
+              {
+                "world_z_band_mm": [
+                  22,
+                  24
+                ],
+                "fraction": 1.0
+              }
+            ]
+          }
+        },
+        "longest_contiguous_gap": {
+          "length_mm": 3.913885846377931,
+          "first_line": 471962,
+          "last_line": 471973,
+          "first_xyz_mm": [
+            184.69875,
+            188.28575,
+            16.209
+          ],
+          "last_xyz_mm": [
+            188.246,
+            188.2575,
+            16.209
+          ]
+        }
+      }
+    },
+    {
+      "variant": "plugs_ramp_narrow_gap_whole_course",
+      "gcode_sha256": "3c88cdbc63f20dc61f80a2e4a6747629848b991d68369b8c1fa082d2f58e69a4",
+      "first_bearing_features": {
+        "Outer wall": {
+          "sampled_centerline_mm": 50.94891633114173,
+          "fraction_with_earlier_backing_within_vertical_gap_limit": 0.7999404060145756,
+          "longest_contiguous_gap_mm": 0.23999999999999772,
+          "fraction_of_support_backed_centerline_within_normal_gap_mm": {
+            "-0.025": 0.0,
+            "0.0": 0.0,
+            "0.025": 0.0,
+            "0.05": 0.0,
+            "0.075": 0.0,
+            "0.1": 0.006820509025761038,
+            "0.15": 0.447288199781655,
+            "0.18": 0.8607262194669792,
+            "0.25": 0.875313562416228,
+            "0.3": 0.875313562416228,
+            "0.4": 0.9277948102302267,
+            "0.6": 0.9556116886174074,
+            "1.0": 0.974686125624507
+          },
+          "min_projected_gap_to_support_along_bearing_normal_mm": 0.09956501856080384,
+          "tight_support_samples": [],
+          "bearing_thirds": {
+            "low bearing third": {
+              "total_mm": 22.642730259763976,
+              "fraction_with_backing_within_gap_limit": 0.872565647397072,
+              "fraction_with_backing_within_point_six_mm": 0.963153962422132,
+              "no_prior_road_centerline_mm": 0
+            },
+            "middle bearing third": {
+              "total_mm": 10.786665395410484,
+              "fraction_with_backing_within_gap_limit": 0.538241984837229,
+              "fraction_with_backing_within_point_six_mm": 0.5713596402577432,
+              "no_prior_road_centerline_mm": 1.9556310575568316
+            },
+            "high bearing third": {
+              "total_mm": 17.51952067596727,
+              "fraction_with_backing_within_gap_limit": 0.8672036362632007,
+              "fraction_with_backing_within_point_six_mm": 0.9674672033610362,
+              "no_prior_road_centerline_mm": 0
+            }
+          }
+        },
+        "Overhang wall": {
+          "sampled_centerline_mm": 239.9469495262592,
+          "fraction_with_earlier_backing_within_vertical_gap_limit": 0.9211342484282515,
+          "longest_contiguous_gap_mm": 1.7681249999999977,
+          "fraction_of_support_backed_centerline_within_normal_gap_mm": {
+            "-0.025": 0.03808358111524165,
+            "0.0": 0.03808358111524165,
+            "0.025": 0.03808358111524165,
+            "0.05": 0.03808358111524165,
+            "0.075": 0.05255587120777281,
+            "0.1": 0.14364763433681768,
+            "0.15": 0.6915984819588856,
+            "0.18": 0.9522037527044472,
+            "0.25": 0.9553288397547618,
+            "0.3": 0.966687450974546,
+            "0.4": 0.9882190821009856,
+            "0.6": 0.9948143822923141,
+            "1.0": 0.9985908588690775
+          },
+          "min_projected_gap_to_support_along_bearing_normal_mm": -0.10581567816345855,
+          "tight_support_samples": [
+            {
+              "model_line": 638125,
+              "support_line": 635830,
+              "world_xyz_mm": [
+                193.7422857142857,
+                197.43,
+                28.923
+              ],
+              "virtual_z_mm": 27.4,
+              "estimated_gap_probe_mm": -0.10581567816345855,
+              "model_bottom_shoulder_coordinate_mm": -0.04293894825891459,
+              "support_top_shoulder_coordinate_mm": 0.06287672990454407,
+              "support_feature": "Support interface"
+            },
+            {
+              "model_line": 638125,
+              "support_line": 635830,
+              "world_xyz_mm": [
+                193.85685714285714,
+                197.43,
+                28.923
+              ],
+              "virtual_z_mm": 27.4,
+              "estimated_gap_probe_mm": -0.10494152986395887,
+              "model_bottom_shoulder_coordinate_mm": -0.04293894825891459,
+              "support_top_shoulder_coordinate_mm": 0.06200258160504424,
+              "support_feature": "Support interface"
+            }
+          ],
+          "bearing_thirds": {
+            "low bearing third": {
+              "total_mm": 88.87649681585373,
+              "fraction_with_backing_within_gap_limit": 0.9118705262976597,
+              "fraction_with_backing_within_point_six_mm": 0.9217753892856042,
+              "no_prior_road_centerline_mm": 0
+            },
+            "middle bearing third": {
+              "total_mm": 55.32497678384793,
+              "fraction_with_backing_within_gap_limit": 0.8737798837714336,
+              "fraction_with_backing_within_point_six_mm": 0.9564640576459637,
+              "no_prior_road_centerline_mm": 0.543125000000007
+            },
+            "high bearing third": {
+              "total_mm": 95.74547592655753,
+              "fraction_with_backing_within_gap_limit": 0.957096326660919,
+              "fraction_with_backing_within_point_six_mm": 1.0,
+              "no_prior_road_centerline_mm": 0
+            }
+          }
+        },
+        "Bridge": {
+          "sampled_centerline_mm": 0.2930605683825959,
+          "fraction_with_earlier_backing_within_vertical_gap_limit": 0.0,
+          "longest_contiguous_gap_mm": 0.10346723828163695,
+          "fraction_of_support_backed_centerline_within_normal_gap_mm": {
+            "-0.025": 0.0,
+            "0.0": 0.0,
+            "0.025": 0.0,
+            "0.05": 0.0,
+            "0.075": 0.0,
+            "0.1": 0.0,
+            "0.15": 0.0,
+            "0.18": 0.0,
+            "0.25": 0.0,
+            "0.3": 0.0,
+            "0.4": 1.0,
+            "0.6": 1.0,
+            "1.0": 1.0
+          },
+          "min_projected_gap_to_support_along_bearing_normal_mm": 0.3513816173769007,
+          "tight_support_samples": [],
+          "bearing_thirds": {
+            "low bearing third": {
+              "total_mm": 0,
+              "fraction_with_backing_within_gap_limit": null,
+              "fraction_with_backing_within_point_six_mm": null,
+              "no_prior_road_centerline_mm": 0
+            },
+            "middle bearing third": {
+              "total_mm": 0,
+              "fraction_with_backing_within_gap_limit": null,
+              "fraction_with_backing_within_point_six_mm": null,
+              "no_prior_road_centerline_mm": 0
+            },
+            "high bearing third": {
+              "total_mm": 0.2930605683825959,
+              "fraction_with_backing_within_gap_limit": 0.0,
+              "fraction_with_backing_within_point_six_mm": 1.0,
+              "no_prior_road_centerline_mm": 0
+            }
+          }
+        }
+      },
+      "near_contact_interface_components": 1,
+      "near_contact_bearing_area_mm2": 149.66687147718517,
+      "maximum_local_section_overlap_interface_into_plug_mm2": 0.23624973675180547,
+      "maximum_local_section_overlap_interface_into_bore_mm2": 0.0,
+      "exterior_release_corridors": [
+        {
+          "angle_degrees": 0,
+          "tool_center_line_in_roof_mm": 2.4065657963157427,
+          "tool_corridor_over_model_plug_mm2": 0.0
+        },
+        {
+          "angle_degrees": 90,
+          "tool_center_line_in_roof_mm": 2.693331773615,
+          "tool_corridor_over_model_plug_mm2": 0.0
+        },
+        {
+          "angle_degrees": 180,
+          "tool_center_line_in_roof_mm": 2.4196681389787127,
+          "tool_corridor_over_model_plug_mm2": 0.0
+        },
+        {
+          "angle_degrees": 270,
+          "tool_center_line_in_roof_mm": 2.1821196954264668,
+          "tool_corridor_over_model_plug_mm2": 0.0
+        }
+      ]
+    }
+  ]
+}
