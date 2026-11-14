@@ -336,8 +336,11 @@ fn main() -> Result<()> {
         let tip = r.row("faucet-shell-tip")?.index;
         let dispense = ContactBand::new(&r.extra["tip_dispense_contact"]["band"])?;
         let joint = ContactBand::new(&r.extra["tip_rim_contact"]["band"])?;
-        let contact = underside.slice_bands(&root, &mut r, &[(tip, &dispense), (tip, &joint)],
+        let mut contact = underside.slice_bands(&root, &mut r, &[(tip, &dispense), (tip, &joint)],
             &project, &directory, &slicer, &finish["rear_seam_enforcement"])?;
+        let contact_record = contact.as_object_mut().context("contact motion report")?;
+        contact_record.remove("archive");
+        contact_record.insert("archive_scope".into(), json!("Sliced contact-stage archive before the scaffold, roof and skin are inserted."));
         let tip_contour = apply_tip_rim_contour(&project, &directory, tip_rim, &joint)?;
         let tip_cooling = apply_stretch_cooling(&project, &directory, "tip-end-cooling", &tip_cooling)?;
         let mut reading = refresh::slice_review(&root, &project, &report, &directory)?;

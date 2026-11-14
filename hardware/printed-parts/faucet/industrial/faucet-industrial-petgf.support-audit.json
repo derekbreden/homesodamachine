@@ -94,7 +94,6 @@
   "mass_estimate_note": "Slicer grams use the saved profile density, not a measured PET-GF part mass.",
   "nonplanar_contact": {
     "added_commanded_motion_seconds": 824.7146617028374,
-    "archive": ".cache/runs/faucet-standing-underside-review/industrial/release/faucet-industrial-petgf.gcode.3mf",
     "archive_sha256": "9ec5b4cc36f59af1a2ca94db5590b766b9a4a5be75d3524363ac439fa10bd1b1",
     "gcode_input_sha256": "95f6056e365070e5ee927fc672a4e0901c8f13b2dc71b240098debb2c199d896",
     "gcode_sha256": "b389acf8d3b9768a1e88a9039972b16ab5b79b8eeada4bc417d3b77c75e87b43",
@@ -258,7 +257,8 @@
     "maximum_mapped_z_speed_mm_s": 7.499999953827274,
     "maximum_vertical_motion_offset_mm": 0.47990331157295074,
     "purpose": "Read the bounded restored movements of the full print.",
-    "restored_extrusion_delta_mm": 0.5409727343382281
+    "restored_extrusion_delta_mm": 0.5409727343382281,
+    "archive_scope": "Sliced contact-stage archive before the scaffold, roof and skin are inserted."
   },
   "parts": [
     {

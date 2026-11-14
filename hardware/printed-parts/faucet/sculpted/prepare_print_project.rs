@@ -305,10 +305,15 @@ fn main() -> Result<()> {
             bands.insert(0, (*base, band));
         }
         let slicer = Path::new(slice::SLICER);
-        let motion = match &underside {
+        let mut motion = match &underside {
             Some(stage) => stage.slice_bands(&root, &mut r, &bands, &project, &directory, slicer, &selection["rear_seam_enforcement"])?,
             None => ContactBand::slice_bands(&mut r.plate, &bands, &project, &directory, slicer)?,
         };
+        if underside.is_some() {
+            let record = motion.as_object_mut().context("contact motion report")?;
+            record.remove("archive");
+            record.insert("archive_scope".into(), json!("Sliced contact-stage archive before the scaffold, roof and skin are inserted."));
+        }
         if let Some((_, contour, band)) = &base_contact {
             report["rim_contour"] = apply_rim_contour(&project, &directory, *contour, band)?;
         }
