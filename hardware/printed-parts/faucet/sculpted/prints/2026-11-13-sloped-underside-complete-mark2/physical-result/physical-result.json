@@ -15,7 +15,6 @@
     "Regarding the faucet tip and faucet display cover, that is the best fit that we've had of anything ever. It's amazing. I love it. I think the only tiny imperfection is a hole you can see, which isn't even a gap between the display cover and the faucet tip, even though it might look like a gap between them. It's not. It's actually like a hole in the faucet tip that just didn't get quite covered by the display cover. And other than that, I mean, I think it looks pretty damn good. And so, yeah, please make sure this gets committed and applied to and implemented on everything it needs to be implemented on. And the same for the faucet base. What we just had there needs to be implemented as well, because it's better than anything we've had before, regardless of what we try next. And yeah, so make sure the tip and display changes get applied to the industrial as well. And then make sure you get tag that as like a whatever faucet version approved fit number this would be, and make sure it's all got approved fit there for what I showed you in the photos.",
     "And then regarding what we try next with the faucet tip, I'd like to reconsider this fascia that we've got there, the part that's, in a lot of ways purely cosmetic. I realize it being there does do quite a lot for how our display cover is supported right now, and allowed to bend around something. I mean, it's, maybe even necessary. I don't understand the geometry and forces and physics there, but hopefully you do better than I. And I'm just wondering, it looks so thin on the display cover there. I mean, should more of that or some of that or all of that thin piece of the front of the faucet tip not be there and be part of the display cover instead? I don't know what's possible and what would still snap good. It's very important that it snaps at least as good as it did now, because this worked great. It snapped great, and I'd like to keep that. So I don't know what's possible or what's necessary, but maybe you see what I mean about the thinness we have up front, and you can at least empathize with me a bit and talk to me about our options or show me what you think might be a good option."
   ],
-  "message_source": "Derek's second message did not arrive as text. He re-sent it as two screenshots of his phone's chat, message-screenshot-1.webp (its top) and message-screenshot-2.webp (the rest), with twelve of its thirteen photographs. Its words in observations are read from those two screenshots. His note with the re-send: \"Hm, I guess my mobile message did not come through before that last message like I had thought it did according to the mobile app.\"",
   "agent_reading": {
     "author": "Claude, from the photos and the print's own record; not Derek's words.",
     "aft_and_fore": "Aft is the face's low end as printed, where each line of the skin starts near the bed. Fore is its high end, on top of the scaffold, where each line ends.",
@@ -130,18 +129,6 @@
       "file": "20-front-plane-cover-edge-curve.jpg",
       "sha256": "fa40e87b95ce649d5bc7d8d1b35b4e4c9f491ab1eff185765ca0d07d0a833b9f",
       "view": "The front plane: the cover's curved front edge against the tip's outlet face."
-    }
-  ],
-  "message_screenshots": [
-    {
-      "file": "message-screenshot-1.webp",
-      "sha256": "a3df4bc04c1844a87c03d5c4300574ec77d93535744135e2c66834648b7a56aa",
-      "view": "The top of Derek's second message in his phone's chat, below four of its photographs."
-    },
-    {
-      "file": "message-screenshot-2.webp",
-      "sha256": "aa59eaa9e43a6582bd2fded17d98225a5728c98dbb5776774d68f0797c4485ad",
-      "view": "The rest of the same message, expanded."
     }
   ]
 }
