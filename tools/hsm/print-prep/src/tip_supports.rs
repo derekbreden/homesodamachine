@@ -3,8 +3,9 @@
 //! between the sectors that keeps it out, and a keepout over the male plug, each carried through
 //! the field into the donor's frame, with the course settings the preparer reads beside them.
 
+use crate::course_field::ShoulderHold;
 use crate::mesh::{write_stl, Mesh};
-use crate::tip_warp::{closed, column, dot, linspace, shoulder_field, CANONICAL_POINT, PLUG_RAMP};
+use crate::tip_warp::{closed, column, dot, linspace};
 use anyhow::{ensure, Context, Result};
 use serde_json::{json, Value};
 use std::path::Path;
@@ -26,6 +27,7 @@ const SLIT_POINTS: usize = 9;
 const PLUG_SECTIONS: usize = 144;
 /// The preparer's course bands, each a start, end and step in millimetres.
 const COURSE_BANDS: [[f64; 3]; 1] = [[0.2, 30.2, 0.2]];
+const TAPER_COURSE_HEIGHT: f64 = 0.18;
 
 /// Write the support settings to `output` and the support meshes beside it, for the warp in
 /// `warp_receipt`.
@@ -35,9 +37,18 @@ pub fn write(warp_receipt: &Path, output: &Path) -> Result<()> {
     let rotation: [[f64; 3]; 3] = serde_json::from_value(receipt["physical_rotation"].clone()).context("the receipt's rotation")?;
     let translation: [f64; 3] =
         serde_json::from_value(receipt["physical_cad_to_plate_translation"].clone()).context("the receipt's translation")?;
-    let shoulder = [0, 1, 2].map(|i| dot(rotation[i], CANONICAL_POINT) + translation[i]);
-    let field = shoulder_field(&PLUG_RAMP, shoulder);
-    let bearing = crate::rotation_x(-PLUG_RAMP.bearing_angle);
+    let field = ShoulderHold::from_receipt(&receipt, [0.; 3], 1.)?;
+    let bearing = receipt["bearing_plane_degrees"].as_f64().context("the receipt's bearing angle")?;
+    let course = receipt["normal_course_mm"].as_f64().context("the receipt's nominal course height")?;
+    let shoulder = field.shoulder;
+    let is_matched = (bearing.to_radians() - field.tangent.atan()).abs() <= 1e-9;
+    let course_bands = if is_matched {
+        let interface_end = (field.hold[1] / course).ceil() * course;
+        vec![[course, interface_end, course], [interface_end, field.normal_again, TAPER_COURSE_HEIGHT]]
+    } else {
+        COURSE_BANDS.to_vec()
+    };
+    let bearing = crate::rotation_x(-bearing);
     let folder = output.parent().unwrap_or(Path::new("."));
     let mut parts = Vec::new();
     let mut part = |name: String, role: &str, solid: Mesh| -> Result<()> {
@@ -69,11 +80,15 @@ pub fn write(warp_receipt: &Path, output: &Path) -> Result<()> {
         part(format!("Roof access slit {}", i + 1), "support_blocker", sector(&slit, SLIT_RADII, SLIT_DEPTH))?;
     }
     part("Mating plug keepout".into(), "support_blocker", plug())?;
-    let settings = json!({
-        "course_bands_mm": COURSE_BANDS,
-        "native_nose_handoff_mm": PLUG_RAMP.normal_again,
+    let mut settings = json!({
+        "course_bands_mm": course_bands,
+        "native_nose_handoff_mm": field.normal_again,
         "support_parts": parts,
     });
+    if is_matched {
+        settings["map_dispense_contact"] = json!(false);
+        settings["independent_support_layer_height"] = json!(false);
+    }
     std::fs::write(output, serde_json::to_string_pretty(&settings)? + "\n").with_context(|| format!("writing {}", output.display()))
 }
 

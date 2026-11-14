@@ -6,6 +6,7 @@
 use crate::course_field::ShoulderHold;
 use crate::mesh::{bounds, stl_corners, write_stl, Mesh};
 use anyhow::{bail, ensure, Context, Result};
+use hsm_faucet_numbers::paths;
 use serde_json::{json, Value};
 use std::collections::HashMap;
 use std::io::Read;
@@ -25,13 +26,18 @@ pub struct Recipe {
     pub shoulder_layer: Option<f64>,
     /// The slicing height up to which courses stay level on the bed.
     pub bed_through: f64,
-    /// The slicing heights between which courses hold the field's full incline.
-    pub hold: [f64; 2],
-    /// The slicing height from which courses are level again.
-    pub normal_again: f64,
+    pub transition: Transition,
     /// The donor's nominal course height.
     pub normal_course: f64,
     pub receipt: Receipt,
+}
+
+/// Where the courses hold their full tilt and where they become level.
+pub enum Transition {
+    /// All boundaries are slicing heights measured from the plate.
+    Plate { hold: [f64; 2], level_from: f64 },
+    /// Hold on either side of the mating plane and ease to level where the tube axis is vertical.
+    Tube { shoulder_offsets: [f64; 2] },
 }
 
 /// Where the tip stands on the plate while it is warped.
@@ -60,8 +66,7 @@ pub const TIP_SHOULDER: Recipe = Recipe {
     bearing_angle: 35.0,
     shoulder_layer: Some(JOINT_LAYER),
     bed_through: 0.92,
-    hold: [JOINT_LAYER - 0.48, JOINT_LAYER + 1.68],
-    normal_again: 62.12,
+    transition: Transition::Plate { hold: [JOINT_LAYER - 0.48, JOINT_LAYER + 1.68], level_from: 62.12 },
     normal_course: 0.24,
     receipt: Receipt::FirstCourse,
 };
@@ -75,8 +80,21 @@ pub const PLUG_RAMP: Recipe = Recipe {
     bearing_angle: 35.0,
     shoulder_layer: None,
     bed_through: 0.92,
-    hold: [18.44, 29.0],
-    normal_again: 66.2,
+    transition: Transition::Plate { hold: [18.44, 29.0], level_from: 66.2 },
+    normal_course: 0.2,
+    receipt: Receipt::BearingPlane,
+};
+
+/// The matched shoulder: start the tilt above the hidden bed anchor and hold the mating plane
+/// through the support interface and the first model courses.
+pub const MATCHED_SHOULDER: Recipe = Recipe {
+    purpose: FLATTEN,
+    pose: Pose::Project,
+    field_angle: 20.0,
+    bearing_angle: 20.0,
+    shoulder_layer: None,
+    bed_through: 0.68,
+    transition: Transition::Tube { shoulder_offsets: [-1.2, 1.2] },
     normal_course: 0.2,
     receipt: Receipt::BearingPlane,
 };
@@ -98,7 +116,8 @@ const FLAT_SHOULDER_Y_PADDING: f64 = 1.45;
 const EDGE_EASE_WIDTH: f64 = 2.0;
 /// The largest height error the field may leave along an edge or at a face's centre.
 const MAX_REMAP_EDGE_ERROR: f64 = 0.0125;
-const REFINE_ROUNDS: usize = 12;
+const EDGE_REFINE_ROUNDS: usize = 12;
+const FACE_REFINE_ROUNDS: usize = 4;
 /// The grid the field's rate of lift is checked on, and the least rate that keeps it invertible.
 const GRID_Y: usize = 221;
 const GRID_U: usize = 301;
@@ -150,10 +169,18 @@ pub fn warp(recipe: &Recipe, mesh: &Path, project: &Path) -> Result<Warped> {
             (physical, translation, world, shoulder)
         }
     };
+    if matches!(recipe.transition, Transition::Tube { .. }) {
+        let expected = crate::rotation_x(-paths::JOINT_ANGLE.to_degrees() - recipe.bearing_angle);
+        ensure!(
+            rotation.iter().flatten().zip(expected.iter().flatten()).all(|(actual, wanted)| (actual - wanted).abs() <= 1e-6),
+            "The editable tip pose must set the mating shoulder to {}° from the bed",
+            recipe.bearing_angle
+        );
+    }
     let field = shoulder_field(recipe, shoulder);
     let (low, high) = bounds(&world);
     let ys = linspace(low[1], high[1], GRID_Y);
-    let us = linspace(recipe.bed_through, recipe.normal_again, GRID_U);
+    let us = linspace(field.bed_through, field.normal_again, GRID_U);
     let f = &field;
     let least = ys.iter().flat_map(|y| us.iter().map(move |u| f.derivative(*y, *u))).fold(f64::INFINITY, f64::min);
     ensure!(least > MIN_DERIVATIVE, "Tip inverse needs a single, continuous crossing, got {least}");
@@ -179,9 +206,9 @@ pub fn warp(recipe: &Recipe, mesh: &Path, project: &Path) -> Result<Warped> {
         "physical_cad_to_plate_translation": placement,
         "physical_rotation": rotation,
         "virtual_shoulder_z_mm": field.shoulder_layer,
-        "incoming_fade_virtual_mm": [recipe.bed_through, recipe.hold[0]],
-        "outgoing_fade_virtual_mm": [recipe.hold[1], recipe.normal_again],
-        "exactly_inclined_virtual_mm": recipe.hold,
+        "incoming_fade_virtual_mm": [field.bed_through, field.hold[0]],
+        "outgoing_fade_virtual_mm": [field.hold[1], field.normal_again],
+        "exactly_inclined_virtual_mm": field.hold,
         "xy_limits_exact_plane_y_mm": field.exact_y,
         "outside_edge_blend_width_y_mm": EDGE_EASE_WIDTH,
         "full_angle_degrees": recipe.field_angle,
@@ -189,8 +216,8 @@ pub fn warp(recipe: &Recipe, mesh: &Path, project: &Path) -> Result<Warped> {
         "maximum_cad_error": {
             "max_sampled_edge_remap_error_mm": edge_error,
             "max_sampled_centroid_remap_error_mm": centroid_error,
-            "tip_unchanged_under_z": recipe.bed_through,
-            "tip_unchanged_above_z": recipe.normal_again,
+            "tip_unchanged_under_z": field.bed_through,
+            "tip_unchanged_above_z": field.normal_again,
         },
         "area_scope": {
             "physical_print_bounds_mm": [low, high],
@@ -219,14 +246,25 @@ pub fn write(recipe: &Recipe, mesh: &Path, project: &Path, output: &Path) -> Res
 pub(crate) fn shoulder_field(recipe: &Recipe, shoulder: [f64; 3]) -> ShoulderHold {
     let field = recipe.field_angle.to_radians();
     let c = recipe.bearing_angle.to_radians().cos();
+    let shoulder_layer = recipe.shoulder_layer.unwrap_or(shoulder[2]);
+    let (hold, normal_again) = match recipe.transition {
+        Transition::Plate { hold, level_from } => (hold, level_from),
+        Transition::Tube { shoulder_offsets } => {
+            let vertical_angle = paths::JOINT_ANGLE + recipe.bearing_angle.to_radians();
+            let vertical = paths::arc_point(vertical_angle, 0.0, 0.0);
+            let delta = std::array::from_fn(|i| vertical[i] - CANONICAL_POINT[i]);
+            let rotation = crate::rotation_x(-vertical_angle.to_degrees());
+            (shoulder_offsets.map(|offset| shoulder_layer + offset), shoulder[2] + dot(rotation[2], delta))
+        }
+    };
     ShoulderHold {
         shoulder,
-        shoulder_layer: recipe.shoulder_layer.unwrap_or(shoulder[2]),
+        shoulder_layer,
         tangent: field.tan(),
         sec_minus_one: 1.0 / field.cos() - 1.0,
         bed_through: recipe.bed_through,
-        hold: recipe.hold,
-        normal_again: recipe.normal_again,
+        hold,
+        normal_again,
         exact_y: [
             shoulder[1] + (SHOULDER_CENTRE - SHOULDER_RADIUS) * c - FLAT_SHOULDER_Y_PADDING,
             shoulder[1] + (SHOULDER_CENTRE + SHOULDER_RADIUS) * c + FLAT_SHOULDER_Y_PADDING,
@@ -303,7 +341,8 @@ fn unique_edges(faces: &[[usize; 3]]) -> (Vec<(usize, usize)>, Vec<[usize; 3]>) 
 /// The mesh cut at the midpoints of its edges until the field maps every edge's sample points
 /// and every face's centre within tolerance, with the largest errors left.
 fn refine(mut vertices: Vec<[f64; 3]>, mut faces: Vec<[usize; 3]>, field: &ShoulderHold) -> Result<(Vec<[f64; 3]>, Vec<[usize; 3]>, [f64; 2])> {
-    for _ in 0..REFINE_ROUNDS {
+    let mut residual = [0.0; 2];
+    for round in 0..=EDGE_REFINE_ROUNDS + FACE_REFINE_ROUNDS {
         let (edges, face_edges) = unique_edges(&faces);
         let mut edge_error = Vec::with_capacity(edges.len());
         let mut split = Vec::with_capacity(edges.len());
@@ -326,16 +365,21 @@ fn refine(mut vertices: Vec<[f64; 3]>, mut faces: Vec<[usize; 3]>, field: &Shoul
             let corners = f.map(|i| vertices[i]);
             let lifted = corners.map(|p| field.inverse(p[1], p[2]));
             let error = (field.forward(mean(corners.map(|p| p[1])), mean(lifted)) - mean(corners.map(|p| p[2]))).abs();
-            if error > MAX_REMAP_EDGE_ERROR {
+            // Splitting only one edge of a slender face can lay another long diagonal across
+            // the same bend in the field. Subdivide the whole affected face if this persists.
+            if error > MAX_REMAP_EDGE_ERROR || (round >= EDGE_REFINE_ROUNDS && owned.iter().any(|&e| edge_error[e] > MAX_REMAP_EDGE_ERROR)) {
                 for &e in owned {
                     split[e] = true;
                 }
             }
             centroid_error = centroid_error.max(error);
         }
+        residual = [edge_error.iter().copied().fold(f64::NEG_INFINITY, f64::max), centroid_error];
         if !split.contains(&true) {
-            let worst_edge = edge_error.iter().copied().fold(f64::NEG_INFINITY, f64::max);
-            return Ok((vertices, faces, [worst_edge, centroid_error]));
+            return Ok((vertices, faces, residual));
+        }
+        if round == EDGE_REFINE_ROUNDS + FACE_REFINE_ROUNDS {
+            break;
         }
         let mut middle = vec![usize::MAX; edges.len()];
         for (k, &(a, b)) in edges.iter().enumerate() {
@@ -347,7 +391,7 @@ fn refine(mut vertices: Vec<[f64; 3]>, mut faces: Vec<[usize; 3]>, field: &Shoul
         }
         faces = split_faces(&faces, &face_edges, &middle);
     }
-    bail!("Nonplanar slicing mesh refinement did not meet fidelity target")
+    bail!("Nonplanar slicing mesh refinement did not meet fidelity target: edge {:.5} mm, face {:.5} mm", residual[0], residual[1])
 }
 
 /// The faces a face is cut into, by the pattern of its split edges, as indices into its corners
