@@ -35,6 +35,10 @@ name = "course-field"
 path = "src/bin/course_field.rs"
 
 [[bin]]
+name = "sculpted-trial"
+path = "src/bin/sculpted_trial.rs"
+
+[[bin]]
 name = "petgf-cooling"
 path = "../../../hardware/printed-parts/cadlib/petgf_cooling.rs"
 
