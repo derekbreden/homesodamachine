@@ -147,7 +147,8 @@ fn moves(program: &str) -> Result<(Vec<Move>, Vec<Travel>, usize)> {
                             bail!("arc fitting must stay off: line {}", index + 1);
                         }
                         out.push(Move { line: index, layer: z, z: target[2], extrusion: delta,
-                            road: Road { x0: xyz[0], y0: xyz[1], x1: target[0], y1: target[1], width, feature: feature.clone(), object: Some(obj), tool: 0 } });
+                            road: Road { x0: xyz[0], y0: xyz[1], x1: target[0], y1: target[1], z0: xyz[2], z1: target[2], e: delta,
+                                width, feature: feature.clone(), object: Some(obj), tool: 0 } });
                         deposited.insert(z.to_bits());
                     } else if distance > 1e-6 {
                         travels.push(Travel { layer: z, distance, before_first: !deposited.contains(&z.to_bits()) });

@@ -15,6 +15,8 @@ use std::{
 
 #[path = "gcode_view.rs"]
 pub mod view;
+#[path = "gcode_compare.rs"]
+pub mod compare;
 
 pub const OUTER_WALLS: [&str; 2] = ["Outer wall", "Overhang wall"];
 
@@ -823,7 +825,7 @@ pub(crate) fn parse_coordinates(text: &str, count: usize) -> Result<Vec<f64>> {
 #[derive(Parser)]
 #[command(
     name = "hsm-gcode",
-    about = "Read commanded seams and speeds from an existing slice"
+    about = "Read commanded seams and speeds from an existing slice, or compare two slices' beads"
 )]
 struct Command {
     #[command(subcommand)]
@@ -835,6 +837,7 @@ enum Mode {
     #[command(alias = "speed")]
     Speeds(Speeds),
     View(view::Options),
+    Compare(compare::Options),
 }
 #[derive(Args)]
 struct Seams {
@@ -1002,6 +1005,7 @@ pub fn cli(args: &[String]) -> Result<i32> {
         Mode::Seams(args) => seams_cli(args),
         Mode::Speeds(args) => speeds_cli(args),
         Mode::View(args) => view::run(args),
+        Mode::Compare(args) => compare::run(args),
     }
 }
 

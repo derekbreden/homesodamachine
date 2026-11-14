@@ -1,5 +1,6 @@
 //! The paths a sliced plate's G-code deposits, layer by layer: each layer's top and height, and
-//! its roads, the straight runs a bead is laid along, with their width, feature and object.
+//! its roads, the straight runs a bead is laid along, with their heights, plastic, width, feature
+//! and object.
 
 use anyhow::{Context, Result};
 use std::io::{BufRead, BufReader, Read};
@@ -17,6 +18,11 @@ pub struct Road {
     pub y0: f64,
     pub x1: f64,
     pub y1: f64,
+    /// The nozzle's commanded height at each end, which differs on a sloped course.
+    pub z0: f64,
+    pub z1: f64,
+    /// The filament the road lays, in millimetres.
+    pub e: f64,
     pub width: f64,
     pub feature: Rc<str>,
     pub object: Option<i64>,
@@ -61,6 +67,8 @@ pub fn layers(gcode: &[u8], mut each: impl FnMut(Layer)) {
 struct Reader {
     x: f64,
     y: f64,
+    /// The nozzle's commanded height, apart from the layer's top.
+    nz: f64,
     e: f64,
     width: f64,
     height: f64,
@@ -75,7 +83,7 @@ struct Reader {
 
 impl Default for Reader {
     fn default() -> Reader {
-        Reader { x: 0.0, y: 0.0, e: 0.0, width: 0.42, height: 0.24, feature: Rc::from(""), object: None, tool: 0, z: None,
+        Reader { x: 0.0, y: 0.0, nz: 0.0, e: 0.0, width: 0.42, height: 0.24, feature: Rc::from(""), object: None, tool: 0, z: None,
                  roads: Vec::new(), absolute: true, relative_e: true }
     }
 }
@@ -202,11 +210,13 @@ impl Reader {
         if command == "G92" {
             self.x = word(&words, b'X').unwrap_or(self.x);
             self.y = word(&words, b'Y').unwrap_or(self.y);
+            self.nz = word(&words, b'Z').unwrap_or(self.nz);
             self.e = word(&words, b'E').unwrap_or(self.e);
             return None;
         }
         let nx = if self.absolute { word(&words, b'X').unwrap_or(self.x) } else { self.x + word(&words, b'X').unwrap_or(0.0) };
         let ny = if self.absolute { word(&words, b'Y').unwrap_or(self.y) } else { self.y + word(&words, b'Y').unwrap_or(0.0) };
+        let nz = if self.absolute { word(&words, b'Z').unwrap_or(self.nz) } else { self.nz + word(&words, b'Z').unwrap_or(0.0) };
         let de = match word(&words, b'E') {
             Some(v) => {
                 let de = if self.relative_e { v } else { v - self.e };
@@ -218,17 +228,21 @@ impl Reader {
         if self.z.is_some() && de > 1e-9 && (nx != self.x || ny != self.y) {
             if command == "G2" || command == "G3" {
                 let points = arc(self.x, self.y, nx, ny, &words, command == "G2", CHORD);
-                for pair in points.windows(2) {
-                    self.roads.push(Road { x0: pair[0].0, y0: pair[0].1, x1: pair[1].0, y1: pair[1].1, width: self.width,
-                                           feature: self.feature.clone(), object: self.object, tool: self.tool });
+                let chords = (points.len() - 1) as f64;
+                let height = |i: usize| self.nz + (nz - self.nz) * i as f64 / chords;
+                for (i, pair) in points.windows(2).enumerate() {
+                    self.roads.push(Road { x0: pair[0].0, y0: pair[0].1, x1: pair[1].0, y1: pair[1].1, z0: height(i),
+                                           z1: height(i + 1), e: de / chords, width: self.width, feature: self.feature.clone(),
+                                           object: self.object, tool: self.tool });
                 }
             } else {
-                self.roads.push(Road { x0: self.x, y0: self.y, x1: nx, y1: ny, width: self.width, feature: self.feature.clone(),
-                                       object: self.object, tool: self.tool });
+                self.roads.push(Road { x0: self.x, y0: self.y, x1: nx, y1: ny, z0: self.nz, z1: nz, e: de, width: self.width,
+                                       feature: self.feature.clone(), object: self.object, tool: self.tool });
             }
         }
         self.x = nx;
         self.y = ny;
+        self.nz = nz;
         None
     }
 
@@ -243,10 +257,10 @@ mod tests {
 
     #[test]
     fn roads_follow_moves_that_extrude() {
-        let gcode = b"; Z_HEIGHT: 0.2\n; LAYER_HEIGHT: 0.2\n; FEATURE: Outer wall\n; LINE_WIDTH: 0.45\nG1 X1 Y1\nG1 X2 Y1 E.05\nG1 X3 Y1\n; Z_HEIGHT: 0.44\nG1 X3 Y2 E0.1\n";
+        let gcode = b"; Z_HEIGHT: 0.2\n; LAYER_HEIGHT: 0.2\n; FEATURE: Outer wall\n; LINE_WIDTH: 0.45\nG1 X1 Y1 Z.2\nG1 X2 Y1 Z.3 E.05\nG1 X3 Y1\n; Z_HEIGHT: 0.44\nG1 X3 Y2 E0.1\n";
         let mut seen = Vec::new();
-        layers(gcode, |layer| seen.push((layer.z, layer.height, layer.roads.len(), layer.roads.first().map(|r| (r.x0, r.x1, r.width, r.feature.to_string())))));
-        assert_eq!(seen[0], (0.2, 0.2, 1, Some((1.0, 2.0, 0.45, "Outer wall".to_string()))));
+        layers(gcode, |layer| seen.push((layer.z, layer.height, layer.roads.len(), layer.roads.first().map(|r| (r.x0, r.x1, r.z0, r.z1, r.e, r.width, r.feature.to_string())))));
+        assert_eq!(seen[0], (0.2, 0.2, 1, Some((1.0, 2.0, 0.2, 0.3, 0.05, 0.45, "Outer wall".to_string()))));
         assert_eq!(seen[1].2, 1);
     }
 
