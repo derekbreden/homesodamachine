@@ -4,6 +4,7 @@
 
 pub mod audit;
 pub mod cooling;
+pub mod course_field;
 pub mod derive;
 pub mod faucet;
 pub mod faucet_contact;
