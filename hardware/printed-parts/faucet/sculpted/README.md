@@ -48,14 +48,15 @@ shows the band and reads the photographed plate's motion over it.
 
 | Part | CAD X rotation | Support treatment |
 | --- | ---: | --- |
-| Sculpted base | −15° | Slim trees and segmented outer fins carry a shared dense interface under the rim ellipse. The inboard contact band and first perimeter follow the inclined seat. Ordinary exterior courses stay level. Each mounting insert recess bridges its shoulder and pilot roof. |
+| Sculpted base | −15° | A removable scaffold and dense sloped roof carry the sloped skin. The level base courses start on that skin. Each mounting insert recess bridges its shoulder and pilot roof. Slim trees inside the base stand over the bore deck. |
 | Shared tip | −105° | Slim trees carry the dense shoulder roof with release breaks and clearance around the mating plug. The first outer perimeter follows the tilted rim. The inner dispense face has its own contact band and an outlet keepout; the band fades out inboard of the tube's outside wall, whose courses stay level. A removable disc anchors the hidden root. |
 | Sculpted cover | −50° | Saved automatic supports |
 | Matching plate | 0° | Bridge the screw counterbore shoulders and keep the shank passages open. |
 | Side-down lever | 0° of print-oriented STL | Saved automatic supports |
 
-The [shared PET-GF interface](../../petgf.3mf) joins the base fins and trees under
-the mating edge. The base prints without a brim. The cover prints on its flat lower lands with support
+The base's scaffold prints before the rest of the plate. The
+[accepted Sculpted base](https://github.com/derekbreden/homesodamachine/blob/c8667107f964589be7dc69f8fb924f69a12729b3/hardware/printed-parts/faucet/sculpted/prints/2026-11-13-sloped-underside-complete-mark2/physical-result/physical-result.json)
+records the fore-side finish and the one-piece release. The base prints without a brim. The cover prints on its flat lower lands with support
 accessible through its open underside. The side-down lever bridges its
 channel and uses accessible support at the attachment relief.
 Ordinary sparse infill follows the shared PET-GF profile.
@@ -64,9 +65,11 @@ Ordinary sparse infill follows the shared PET-GF profile.
 
 [prepare_print_project.rs](prepare_print_project.rs), the `sculpted-faucet-print-project`
 program, prepares the complete plate from current STLs. Pass
-`--slice-output DIRECTORY` for the executable offline slice with the base
-and tip nonplanar contact paths. The editable project carries the actual part meshes
-and support aids. Pass `--printer Mark1` and `--filament-colour` with the loaded
+`--slice-output DIRECTORY` for the executable offline slice with the base scaffold,
+sloped skin and tip contact paths. The editable project carries the actual part meshes.
+The [underside stage](../../../../tools/hsm/print-prep/faucet-underside/README.md)
+fills the space beneath the seat for the slicer and replaces its paths in the executable.
+Pass `--printer Mark1` and `--filament-colour` with the loaded
 spool's colour to prepare a Mark1 plate. `--base-section SECTION.stl` pairs a
 section of the base in its CAD frame with the full tip and cover. `--tip-only`
 prepares the complete tip by itself with its production support and seam settings.
@@ -104,10 +107,11 @@ and per-part seam CSVs bind the submitted commands. Physical white Sculpted
 finish, cleanup and fit remain a result of this complete print.
 
 The [current print report](../faucet-petgf.print.json) binds the meshes and
-recipes for the complete plate. The [contact review](production/contact-review.json)
-binds the production motion and the local executable at
-`production/faucet-petgf.gcode.3mf`. Physical removal and fit for this
-complete plate remain pending.
+recipe for the complete plate. An offline slice writes its sloped path report,
+tip contact reports and executable beside the slice. The current local print-only
+archive is `production/faucet-petgf.gcode.3mf`. The
+[socket-plug trial](https://github.com/derekbreden/homesodamachine/blob/b6f0e6063170eeeb88f62527a1adeae12be4a3f6/hardware/printed-parts/faucet/sculpted/prints/2026-11-13-sloped-foot-socket-plugs-mark2/README.md)
+carries its own deeper sloped foot and first-counterbore supports.
 
 The display seat, foot recesses and cover bezel use their shared mounted datums.
 The [October 17 clearance reading](prints/2026-10-17-localized-cooling-display-clearance-mark2/display-clearance.json)

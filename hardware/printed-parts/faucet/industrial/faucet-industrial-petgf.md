@@ -51,7 +51,7 @@ the selected support contacts and emitted bridges.
 | Qualifying bridges and overhangs | 70% after three fan-off layers; 50% unsupported-width threshold |
 | Wipe | Off |
 | Automatic supports | Tree(auto), saved Default style, 35° threshold |
-| Support gaps and interfaces | [Shared PET-GF recipe](../../petgf.3mf) with the [base contact overrides](finish-selection.json) |
+| Support gaps and interfaces | [Shared PET-GF recipe](../../petgf.3mf) with the [base underside recipe](finish-selection.json) |
 | Brim | Off for the base. Auto on the rest of the plate |
 | Z trim | [The selected printer’s PET-GF trim](../../z-trim.md) |
 | Timelapse / bed leveling | On / On |
@@ -63,9 +63,10 @@ application and inner-wall scarf. The base's full rear silhouette and the tip's
 exposed curved meridian retain their seam enforcement. Cover and lever keep
 Aligned, 15% seam gap and scarf Off.
 
-The base uses Slim trees and segmented outer fins beneath a shared dense
-interface. The first supported outer perimeter follows the inclined rim and
-joins the ordinary wall courses.
+The base starts with a removable scaffold, dense sloped roof and sloped skin.
+The level courses start on the skin and Slim trees inside the base stand over
+the bore deck. The physical result is for the Sculpted base. The Industrial
+preparation follows its own circular mounting face.
 The base's insert shoulders and blind pilot
 roofs bridge across the blocked recesses. The mounting plate uses bridges
 over its counterbores. The [process selection](finish-selection.json) owns the
@@ -86,8 +87,9 @@ tools/run -- tools/hsm/target/release/industrial-faucet-print-project --slice-ou
 ```
 
 The preparer uses the generated STLs and print profile in the production
-selection. The slice output contains the complete executable plate with shaped
-contact paths and rim perimeters. Optional
+selection. The slice output contains the complete executable plate with the
+sloped base paths, the tip's shaped contact paths and its localized dispense-end
+cooling. Optional
 `--printer Mark1 --filament-colour '#000000'` applies Mark1's own trim and the
 specified spool colour. Check the destination's actual material and nozzle
 mapping before sending.
@@ -97,7 +99,8 @@ The current [prepared project](faucet-industrial-petgf.3mf),
 [support reading](faucet-industrial-petgf.support-audit.json) and
 [readiness](faucet-industrial-petgf.readiness.json) describe the complete
 production set. The preparer writes the executable archive to the specified
-slice directory.
+slice directory. The current local print-only archive is
+`faucet-industrial-petgf.gcode.3mf` beside the editable project.
 A cover-only project is available through the
 [cover preparer](../faucet-display-cover/README.md#printing-and-checks).
 

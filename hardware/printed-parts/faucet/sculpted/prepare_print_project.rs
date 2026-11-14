@@ -8,8 +8,8 @@
 //!
 //! The five rigid parts are the faucet shell's base and tip, the display cover, the
 //! above-counter plate and the side-down lever. Their object settings, the solid foot regions
-//! and the finishing steps are the Industrial project's, by part. The Sculpted rim has
-//! a shared interface roof and clear mounting insert recesses. The tip's first mating-lip
+//! and the finishing steps are the Industrial project's, by part. The base starts on a
+//! sloped scaffold and keeps its mounting insert recesses clear. The tip's first mating-lip
 //! perimeter follows the inclined seat above a dense tree interface, and its model paths by the
 //! dispense face take part cooling. `--filled-base` gives the slicer the base with the space under
 //! its mounting face filled to the bed, for the stage that prints that space as a scaffold with a
@@ -23,6 +23,7 @@ use hsm_faucet_numbers::shell::{FOOT_DEPTH, FOOT_WIDTH, PRINT_BASE_BUILD_ROT, PR
 use hsm_print_prep::faucet::{add_tip_root_anchor, apply_overhang_recipe, archive_members, enforce_rear_seam, file_sha, read_json, recorded_member};
 use hsm_print_prep::faucet_contact::{add_base_rim_fins, add_tip_dispense_contact, add_tip_rim_contact, apply_rim_contour, apply_stretch_cooling, apply_tip_rim_contour, tip_end_stretch, ContactBand};
 use hsm_print_prep::faucet_recesses::block_plate_counterbores;
+use hsm_print_prep::faucet_underside::{self, Underside};
 use hsm_print_prep::json::Json;
 use hsm_print_prep::profile::{cooling_hook, petgf_infill_pattern, relative};
 use hsm_print_prep::refresh::{self, Part, Refreshed, Region};
@@ -124,7 +125,7 @@ fn main() -> Result<()> {
         &[[0.0, 0.0]][..]
     } else if tip_and_cover {
         &TIP_AND_COVER_OFFSETS[..]
-    } else if filled_base.is_some() {
+    } else if full_plate {
         &FILLED_BASE_OFFSETS[..]
     } else {
         &OFFSETS[..parts.len()]
@@ -207,6 +208,12 @@ fn main() -> Result<()> {
     let mapping_revision = contact["source_commit"].as_str().context("contact parameters revision")?;
     let mapping_bytes = recorded_member(&root, contact, "parameters_source")?;
     let mapping: Value = serde_json::from_slice(&mapping_bytes)?;
+    let underside = if include_base && filled_base.is_none() && (full_plate || base_only) {
+        Some(Underside::prepare(&mut r, "faucet-shell-base",
+            [FOOT_WIDTH / 2.0, FOOT_DEPTH / 2.0], &selection["base_underside"])?)
+    } else {
+        None
+    };
     let base_contact = if filled_base.is_some() {
         // The fill stands where the rim's supports would: only the insert recesses' blockers and
         // the base's support settings apply.
@@ -214,7 +221,7 @@ fn main() -> Result<()> {
         r.extra.insert("base_rim_supports".into(), seat);
         None
     } else {
-        include_base
+        (include_base && underside.is_none())
             .then(|| prepare_base_contact(&root, &mut r, &selection["base_rim_supports"], &mapping["parameters"]))
             .transpose()?
     };
@@ -263,6 +270,11 @@ fn main() -> Result<()> {
         .chain(parts.iter().map(|p| p.source.clone())) {
         sources.insert(relative(&p, &root), json!(file_sha(&p)?));
     }
+    if underside.is_some() {
+        for source in faucet_underside::SOURCES {
+            sources.insert(source.into(), json!(file_sha(&root.join(source))?));
+        }
+    }
     if let Some(parent) = project.parent() {
         std::fs::create_dir_all(parent)?;
     }
@@ -292,7 +304,11 @@ fn main() -> Result<()> {
         if let Some((base, _, band)) = &base_contact {
             bands.insert(0, (*base, band));
         }
-        let motion = ContactBand::slice_bands(&mut r.plate, &bands, &project, &directory, Path::new(slice::SLICER))?;
+        let slicer = Path::new(slice::SLICER);
+        let motion = match &underside {
+            Some(stage) => stage.slice_bands(&root, &mut r, &bands, &project, &directory, slicer, &selection["rear_seam_enforcement"])?,
+            None => ContactBand::slice_bands(&mut r.plate, &bands, &project, &directory, slicer)?,
+        };
         if let Some((_, contour, band)) = &base_contact {
             report["rim_contour"] = apply_rim_contour(&project, &directory, *contour, band)?;
         }
@@ -300,6 +316,33 @@ fn main() -> Result<()> {
         if let Some((_, _, joint, rim, cooling)) = &tip_finish {
             report["tip_rim_contour"] = apply_tip_rim_contour(&project, &directory, *rim, joint)?;
             report["tip_end_cooling"] = apply_stretch_cooling(&project, &directory, "tip-end-cooling", cooling)?;
+        }
+        if let Some(stage) = underside {
+            let native_supports = full_plate.then(|| refresh::slice_review(&root, &project, &report, &directory)).transpose()?;
+            report["sloped_underside"] = stage.finish(&root, &project, &directory, &report)?;
+            if let Some(mut reading) = native_supports {
+                reading["native_slice_scope"] = json!("Native toolpaths before the scaffold and skin replace the fill.");
+                // Keep the native envelope and source binding for each object.
+                reading["parts"] = json!(reading["parts"].as_array().into_iter().flatten().map(|part|
+                    json!({"piece": part["piece"], "inputs": part["inputs"], "toolpaths": part["toolpaths"]})
+                ).collect::<Vec<_>>());
+                reading["sloped_underside"] = report["sloped_underside"].clone();
+                let stage = report["sloped_underside"].clone();
+                let readiness = json!({
+                    "status": "editable project and complete offline slice prepared",
+                    "project": relative(&project, &root), "project_sha256": report["project_sha256"],
+                    "source_stls": report["parts"].clone(),
+                    "physical_base_record": report["base_underside"]["physical_reference"],
+                    "offline_slice": {
+                        "archive_sha256": stage["archive_sha256"],
+                        "gcode_sha256": stage["gcode_sha256"],
+                        "fit": stage["fit"],
+                    },
+                    "submitted": false,
+                });
+                std::fs::write(project.with_extension("support-audit.json"), serde_json::to_string_pretty(&reading)? + "\n")?;
+                std::fs::write(project.with_extension("readiness.json"), serde_json::to_string_pretty(&readiness)? + "\n")?;
+            }
         }
         report["preparation_only"] = json!(false);
         std::fs::write(project.with_extension("print.json"), serde_json::to_string_pretty(&report)? + "\n")?;

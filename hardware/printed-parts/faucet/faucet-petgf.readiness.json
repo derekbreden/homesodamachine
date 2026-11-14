@@ -1,217 +1,313 @@
 {
-  "status": "Current 4 mm flavor meshes prepared; native slice and support review pending.",
-  "project": "hardware/printed-parts/faucet/faucet-petgf.3mf",
-  "project_sha256": "acd55748bd829abf5164a8088e3827163fc600d5920c6c4fa2209eb04d2bbc8a",
-  "settings_sha256": "07f46991b6e7f746ddf9ab80ed91b3ea5967d8fa0402015cd939c20d41c73d1f",
-  "print_report_sha256": "29264f9bdf646135e563daef0555974bae027c1eb7bb1983723e67049a54ae96",
-  "source_sha256": {
-    "hardware/printed-parts/faucet/prepare_vent_prints.py": "d09bcb57e103ee6113172dfacb425e21ea9b93bd5f13b6b8026dbb7cb0cf6514",
-    "hardware/printed-parts/faucet/refresh_print_project.py": "333cfbc6c20f9f5f9d097bd066075347556e02d964885c29cbc0568399255f52",
-    "hardware/printed-parts/faucet/_faucet_interface.py": "18d2d0aebdb958efaebe23f0894a154af86f7d6e3ceb50029b9b24dfaaca193f",
-    "hardware/printed-parts/faucet/faucet_paths.py": "9ab8d1c28c5e7e83340de98e71a470397593129c9591d6199e736995db1b2f13",
-    "hardware/printed-parts/faucet/_display_snap.py": "344e9919836622bd68d7d5b1b1a0c0c3c79d5d28ccebedec864718a0fac90683",
-    "hardware/printed-parts/faucet/vent_seals.py": "e1fd40785e5c4cb2f9a87879eac054978a7e21d470e16703e43474bf30a68eca",
-    "hardware/printed-parts/faucet/faucet-shell/faucet_shell.py": "f1636fb6f3797a72ac511e97c9f2ccacc1e3b06488ea42824531d55ff8b43bbc",
-    "hardware/printed-parts/faucet/faucet-display-cover/faucet_display_cover.py": "4aa99d274d885f9cf5e7f4e074feb2f0b2c94e16b861d67b5b0b99a4e5dce1d3",
-    "hardware/printed-parts/faucet/above-counter-plate/above_counter_plate.py": "4fdcb70f9a93a21b9a784c03a0077ecfff2775a1f25a05a15ade3b962dd548a6",
-    "hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.stl": "ec3cecce69b122cda5b2a38441d9b730e25288ee3bcba0f46cb5f7543fe805f1",
-    "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.stl": "9e5b2b636e85adb343717801a544d66c4bf22529a649acdb18ebc37e013a432b",
-    "hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.stl": "1322c78dff3c0797ba04dd2c90b1a3b1fb92be601d022c2cebb0724bb1ce01a5",
-    "hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.stl": "86be12263a381f3d63afd7cbdff13ec2e9dafb0c109de64c389fb9cb81d7579d"
-  },
-  "native": {
-    "archive": "hardware/printed-parts/faucet/vent-print-readiness/faucet-black-z018-h2c/faucet-black-z018-h2c.gcode.3mf",
-    "archive_sha256": "071d4f62727df49858b70ee33cbd3cb37b9a7ac36a4c5838738f22cedacfd63e",
-    "gcode_sha256": "c10eb8fb99d50342a028e8cb818a6a5946dde9012e52b960aeb481c371dd6b4d",
-    "native_settings_normalizations": {
-      "filament_map_2": [
-        null,
-        [
-          "1"
-        ]
-      ],
-      "filament_prime_volume": [
-        [
-          "30"
-        ],
-        [
-          "45"
-        ]
-      ]
-    },
-    "emitted_process": {
-      "layer_height": "0.24",
-      "initial_layer_print_height": "0.2",
-      "wall_loops": "2",
-      "sparse_infill_density": "15%",
-      "enable_support": "1"
-    },
-    "actual_z_trim_commands_mm": [
-      0.0,
-      0.16
-    ],
-    "active_nozzle": 0,
-    "nozzle_diameter_mm": 0.4,
-    "layers": 916,
-    "estimated_seconds": 16583.634765625,
-    "estimated_grams_saved_profile_density": 127.98046112060547,
-    "slicer_return_code": 0,
-    "slicer_warning": "",
-    "objects": 4
-  },
-  "support_audit_sha256": "383212521536bbe4a6661bf127e59203eeacfe3206bf80d4eaea8ea775823b97",
-  "fit": {
-    "minimum_shared_bed_margin_mm": 26.330810499999984,
-    "complete_layer_bead_bounds": {
-      "extrusion_bounds_xy_mm": [
-        [
-          49.020939999999996,
-          78.22794
-        ],
-        [
-          265.94606000000005,
-          293.70406
-        ]
-      ],
-      "maximum_line_width_mm": 0.76612,
-      "bounds_padding_mm": 0.48306000000000004
-    },
-    "complete_layer_bead_minimum_bed_margin_mm": 26.295939999999973,
-    "minimum_toolpath_separation_mm": 37.671689500000014,
-    "pairwise_toolpath_separations": [
-      {
-        "parts": [
-          "faucet-shell-base",
-          "faucet-shell-tip"
-        ],
-        "separation_mm": 52.88462950000003
-      },
-      {
-        "parts": [
-          "faucet-shell-base",
-          "faucet-display-cover"
-        ],
-        "separation_mm": 124.50243195904449
-      },
-      {
-        "parts": [
-          "faucet-shell-tip",
-          "faucet-display-cover"
-        ],
-        "separation_mm": 40.833500000000015
-      },
-      {
-        "parts": [
-          "faucet-shell-base",
-          "above-counter-plate"
-        ],
-        "separation_mm": 60.43994000000002
-      },
-      {
-        "parts": [
-          "faucet-shell-tip",
-          "above-counter-plate"
-        ],
-        "separation_mm": 37.671689500000014
-      },
-      {
-        "parts": [
-          "faucet-display-cover",
-          "above-counter-plate"
-        ],
-        "separation_mm": 99.5504755428261
-      }
-    ]
-  },
-  "support_summary": {
-    "faucet-shell-base": {
-      "support_bodies": 2,
-      "interface_islands": null,
-      "bed_rooted_bodies": 1,
-      "model_rooted_bodies": 1,
-      "shortest_build_up_mm": null,
-      "bodies_without_interface_labels": 1,
-      "explicit_interface_islands": 21,
-      "shortest_labelled_build_up_mm": 0.0
-    },
-    "faucet-shell-tip": {
-      "support_bodies": 1,
-      "interface_islands": 1,
-      "bed_rooted_bodies": 1,
-      "model_rooted_bodies": 0,
-      "shortest_build_up_mm": 79.68,
-      "bodies_without_interface_labels": 0,
-      "explicit_interface_islands": 1,
-      "shortest_labelled_build_up_mm": 79.68
-    },
-    "faucet-display-cover": {
-      "support_bodies": 1,
-      "interface_islands": 2,
-      "bed_rooted_bodies": 1,
-      "model_rooted_bodies": 0,
-      "shortest_build_up_mm": 12.96,
-      "bodies_without_interface_labels": 0,
-      "explicit_interface_islands": 2,
-      "shortest_labelled_build_up_mm": 12.96
-    },
-    "above-counter-plate": {
-      "support_bodies": 3,
-      "interface_islands": null,
-      "bed_rooted_bodies": 3,
-      "model_rooted_bodies": 0,
-      "shortest_build_up_mm": null,
-      "bodies_without_interface_labels": 3,
-      "explicit_interface_islands": 0,
-      "shortest_labelled_build_up_mm": null
-    }
-  },
-  "submitted": false,
-  "physical_print_evaluated": false,
-  "review_sha256": {
-    "hardware/printed-parts/faucet/faucet-petgf.insert-beads.json": "c100c1dd691a1a0184b71f48159ffd84baa20d5ea50e42dc951adf2cd72c90eb",
-    "hardware/printed-parts/faucet/faucet-petgf.support-faces.json": "8df825cff5ac9c4cdc11811ead89af9265169901a37b954d7ec67ca0a2084376",
-    "hardware/printed-parts/faucet/faucet-petgf.lower-supports.json": "305c3143e271cfbc66da59582bbe7f6af2cba00c67a11ceb9e1c0d74e1ee6c2c"
-  },
-  "cleanup_route": [
-    "Base: cut sacrificial trees into short pieces and withdraw through the counter-end, donor bay and lever opening. Clear all three insert pilots and pedestal sockets before installing brass.",
-    "Lower cable route: remove supports through the common rear tube opening and open counter end. The flat ribbon must pass freely behind the flavor/drain bundle before the mounting stack closes.",
-    "Tip: release the connected tree through the open neck joint, the 12 by 22 mm bottom discharge port and the open display pocket. Remove cavity fragments before either bung is installed. Clear both gland lips, body seats and flange grooves; preserve their modeled edge and radius.",
-    "Continue through the dry S/F/ribbon guides from the joint and beverage/display ends. The source removes inaccessible interstice needles. Pass each actual tube freely before installing the bungs.",
-    "Cover: remove supports through the open underside before the display is fitted; retain the bezel, broad snap wings and their lip-bearing faces.",
-    "Counter plate: remove the three counterbore support bodies through their respective screw-head openings; retain every screw seat and locating pedestal.",
-    "Brush and rinse away loose fragments. Visually inspect gland seats through the open joint and bottom port; no support stock may remain in a tube guide, seal groove or drain opening."
-  ],
-  "review_scope": "Native meshes, process, placement, nominal insert-host deposition and geometrically accessible support cleanup. Actual support release, surface finish, insert retention and assembled lifetime remain physical acceptance items.",
-  "finalization_script_sha256": "79c1691477d8a947c9b1daaf5bad428e9b444ceabec12eb7716207c2d25c5601",
-  "consumer_assembly_qualified": false,
-  "geometry_review_pending": false,
-  "geometry_approval_sha256": {
-    "hardware/printed-parts/faucet/faucet-shell/centered-vent-check.json": "95d52bdcfb51e353183111bcf1b26f35fc2df506ea5955ceaed9f678f30f3bbe"
-  },
-  "preparation_only": true,
-  "launch_authorized": false,
-  "ready_to_launch": false,
   "offline_slice": {
-    "completed": false
+    "archive_sha256": "16c39313377fdbf580bd3bad927820d679aca8bbbcd21006a7f9b98c7286212a",
+    "fit": {
+      "complete_bead_bounds": {
+        "bounds_padding_mm": 0.5123285,
+        "extrusion_bounds_xy_mm": [
+          [
+            53.9866715,
+            75.1826715
+          ],
+          [
+            268.82932850000003,
+            264.47832850000003
+          ]
+        ],
+        "maximum_line_width_mm": 0.824657
+      },
+      "complete_bead_minimum_bed_margin_mm": 53.9866715
+    },
+    "gcode_sha256": "c7249cf5bc1ca17c30ff4c377fdb28d185e647c1ab509e274bec8dffc7917282",
+    "support_audit_sha256": "f39dff9c9066fe53467e2915cb2090dd6d59ec8011cf6f83b5d388a52fea443f",
+    "local_print_only_archive": "hardware/printed-parts/faucet/sculpted/production/faucet-petgf.gcode.3mf",
+    "local_print_only_archive_sha256": "133d18f642641d7b31dddc61bfa61c87f9dd4c309cff3eefb76a6b77864e7afc"
   },
-  "reinforcement": {
-    "region_count": 3,
-    "infill_percent": 100,
-    "pattern": "zig-zag",
-    "wall_setting_overrides": false
-  },
-  "printer_submission": {
-    "performed_by_this_preparation": false
-  },
-  "current_4mm_project": {
-    "project": "hardware/printed-parts/faucet/faucet-petgf.3mf",
-    "project_sha256": "523aca51a52146930133187ae873afeb1677849ffc4d15bf4cf56a7d2f15e055",
-    "print_report_sha256": "5c340eda872ef27accb10f0e2ba8692b00cb55be466258efae13102d03fc79d3",
-    "mesh_binding": "Source meshes and the selected rim/tip support aids are bound by the print report. Native slicing is pending.",
-    "native_slice_reviewed": false,
-    "physical_fit_on_black_4mm_stock": "unmeasured",
-    "rigid_parts": 5,
-    "printer": "Mark2 right hardened 0.4 mm"
-  },
-  "retained_native_record_scope": "The source_sha256, native and toolpath fields below retain their identified earlier article and do not qualify the current 4 mm project."
+  "physical_base_record": "https://github.com/derekbreden/homesodamachine/blob/c8667107f964589be7dc69f8fb924f69a12729b3/hardware/printed-parts/faucet/sculpted/prints/2026-11-13-sloped-underside-complete-mark2/physical-result/physical-result.json",
+  "project": "hardware/printed-parts/faucet/faucet-petgf.3mf",
+  "project_sha256": "cc404beeb081f317a332c649bb6ffb0eb739350839af34396170a699c32f37a7",
+  "source_stls": [
+    {
+      "body_count": 1,
+      "build_transform": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.9659258262890683,
+        -0.25881904510252074,
+        0.0,
+        0.25881904510252074,
+        0.9659258262890683,
+        85.5,
+        166.27563941233933,
+        123.53467916982929
+      ],
+      "embedded_vertex_error_mm": 5.000018177270249e-10,
+      "identify_id": 1901,
+      "member": "3D/Objects/object_1.model",
+      "name": "faucet-shell-base",
+      "object_id": "2",
+      "part_id": "1",
+      "plate": 1,
+      "plate_bounds_mm": [
+        [
+          55.03741645812988,
+          111.41051832692736,
+          0.0
+        ],
+        [
+          115.96258354187012,
+          208.58948167307267,
+          245.25145725899205
+        ]
+      ],
+      "plate_origin_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "plate_translation_mm": [
+        85.5,
+        166.27563941233933,
+        123.53467916982929
+      ],
+      "rotation_x_degrees": -14.999999999999998,
+      "source": "hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.stl",
+      "source_center_mm": [
+        0.0005550384521484375,
+        -4.949323654174805,
+        118.6618423461914
+      ],
+      "stl_sha256": "f49e8818fa749ad57445aca26972ff107d840ed53102d33e6fff7837f46c1bfb",
+      "triangles": 219328,
+      "watertight": true
+    },
+    {
+      "body_count": 1,
+      "build_transform": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        -0.25881904510252085,
+        -0.9659258262890683,
+        0.0,
+        0.9659258262890683,
+        -0.25881904510252085,
+        186.5,
+        201.785128820301,
+        68.93456774147909
+      ],
+      "embedded_vertex_error_mm": 5.000018177270249e-10,
+      "identify_id": 1902,
+      "member": "3D/Objects/object_2.model",
+      "name": "faucet-shell-tip",
+      "object_id": "4",
+      "part_id": "3",
+      "plate": 1,
+      "plate_bounds_mm": [
+        [
+          173.00024604797363,
+          180.69518368615223,
+          0.0
+        ],
+        [
+          199.99975395202637,
+          233.30481631384777,
+          137.87054537063977
+        ]
+      ],
+      "plate_origin_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "plate_translation_mm": [
+        186.5,
+        201.785128820301,
+        68.93456774147909
+      ],
+      "rotation_x_degrees": -105.0,
+      "source": "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.stl",
+      "source_center_mm": [
+        0.0002460479736328125,
+        -80.5707836151123,
+        208.50538635253906
+      ],
+      "stl_sha256": "cf815f829c3925edc5f2b6cb268d771366fb75feb246eb39ba896c0c5770af4d",
+      "triangles": 103296,
+      "watertight": true
+    },
+    {
+      "body_count": 1,
+      "build_transform": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.6427876096865394,
+        -0.766044443118978,
+        0.0,
+        0.766044443118978,
+        0.6427876096865394,
+        251.5,
+        234.95452958357183,
+        10.260568923016073
+      ],
+      "embedded_vertex_error_mm": 5.000000413701855e-10,
+      "identify_id": 1903,
+      "member": "3D/Objects/object_3.model",
+      "name": "faucet-display-cover",
+      "object_id": "6",
+      "part_id": "5",
+      "plate": 1,
+      "plate_bounds_mm": [
+        [
+          236.71146392822266,
+          210.44692390926488,
+          0.0
+        ],
+        [
+          266.28853607177734,
+          261.5530760907351,
+          16.380017385268015
+        ]
+      ],
+      "plate_origin_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "plate_translation_mm": [
+        251.5,
+        234.95452958357183,
+        10.260568923016073
+      ],
+      "rotation_x_degrees": -50.0,
+      "source": "hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.stl",
+      "source_center_mm": [
+        0.0,
+        -128.63153457641602,
+        207.87921142578125
+      ],
+      "stl_sha256": "d0d9c079bd60d82ccf8ed20f722db71983409166649a3d3c4136505d78911c52",
+      "triangles": 27294,
+      "watertight": true
+    },
+    {
+      "body_count": 1,
+      "build_transform": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        -0.0,
+        1.0,
+        205.5,
+        108.0,
+        3.100000023841858
+      ],
+      "embedded_vertex_error_mm": 4.999982650133461e-10,
+      "identify_id": 1904,
+      "member": "3D/Objects/object_4.model",
+      "name": "above-counter-plate",
+      "object_id": "8",
+      "part_id": "7",
+      "plate": 1,
+      "plate_bounds_mm": [
+        [
+          176.50122261047363,
+          78.50248908996582,
+          0.0
+        ],
+        [
+          234.49877738952637,
+          137.49751091003418,
+          6.200000047683716
+        ]
+      ],
+      "plate_origin_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "plate_translation_mm": [
+        205.5,
+        108.0,
+        3.100000023841858
+      ],
+      "rotation_x_degrees": 0.0,
+      "source": "hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.stl",
+      "source_center_mm": [
+        0.0,
+        0.0024890899658203125,
+        -0.8999999761581421
+      ],
+      "stl_sha256": "cf69dac0a0ce01845ce261d050fbbb876be24baec78d3db77f8d97839bc32990",
+      "triangles": 7108,
+      "watertight": true
+    },
+    {
+      "body_count": 1,
+      "build_transform": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        -0.0,
+        1.0,
+        256.5,
+        102.0,
+        6.199999809358269
+      ],
+      "embedded_vertex_error_mm": 4.999929359428279e-10,
+      "identify_id": 1905,
+      "member": "3D/Objects/object_5.model",
+      "name": "lever-replica",
+      "object_id": "10",
+      "part_id": "9",
+      "plate": 1,
+      "plate_bounds_mm": [
+        [
+          249.16753315925598,
+          75.48246631771326,
+          0.0
+        ],
+        [
+          263.832466840744,
+          128.51753368228674,
+          12.399999618716539
+        ]
+      ],
+      "plate_origin_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "plate_translation_mm": [
+        256.5,
+        102.0,
+        6.199999809358269
+      ],
+      "rotation_x_degrees": 0.0,
+      "source": "hardware/printed-parts/faucet/lever-replica/lever-replica-side-down.stl",
+      "source_center_mm": [
+        -2.9024670124053955,
+        26.339422799646854,
+        6.199999809172004
+      ],
+      "stl_sha256": "19d420b9193d0d691959aadb80095523164afe380189aae1af9eb0c13f8f2d21",
+      "triangles": 18596,
+      "watertight": true
+    }
+  ],
+  "status": "editable project and complete offline slice prepared",
+  "submitted": false
 }
