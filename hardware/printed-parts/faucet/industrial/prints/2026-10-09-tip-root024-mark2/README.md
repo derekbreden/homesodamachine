@@ -55,5 +55,5 @@ record Derek's failed tip and wing report. Local raised/ragged bands and
 loose extrusion are visible; nozzle contact, tipping and initiating layer lifting
 are unconfirmed. A matching-job reading at 2026-10-10 03:25:28 UTC reports FAILED.
 Further whole-faucet fine-layer iteration is deferred. The
-[selected complete variable-layer recipe](../../selected-print.json) is the
+[selected complete variable-layer recipe](https://github.com/derekbreden/homesodamachine/blob/a52c29539341168479df7e6e0f836ef37ed8c516/hardware/printed-parts/faucet/industrial/selected-print.json) is the
 identified successful five-part article with 0.08 mm on two base shoulder bands.

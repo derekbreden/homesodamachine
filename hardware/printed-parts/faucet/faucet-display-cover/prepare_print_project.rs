@@ -88,7 +88,8 @@ fn main() -> Result<()> {
     for (k, v) in [("printer", json!(printer)), ("requested_z_trim_mm", json!(trim)), ("active_nozzle", json!(0)),
                    ("first_bed_layer_height_mm", json!(first)), ("layer_height_mm", json!(layer)), ("layer_ranges", json!([])),
                    ("production_selection", json!(SELECTION)), ("physical_approval", selection["physical_result"].clone()),
-                   ("accepted_remaining_corner_gap", json!(true)), ("launch_authorized", json!(false)), ("submitted", json!(false))] {
+                   ("accepted_cosmetic_condition", selection["accepted_cosmetic_condition"].clone()),
+                   ("launch_authorized", json!(false)), ("submitted", json!(false))] {
         r.extra.insert(k.into(), v);
     }
     if let Some(parent) = project.parent() {

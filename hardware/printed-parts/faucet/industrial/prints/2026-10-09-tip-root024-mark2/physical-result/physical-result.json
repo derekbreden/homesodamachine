@@ -101,6 +101,6 @@
       "sha256": "8d3fbbd3a536125398c59b316d37991e1a24e74c7cc9b79254315844f23f3eb6"
     }
   ],
-  "disposition": "Further whole-faucet 0.08 mm iteration and research deferred; selected complete variable-layer recipe is hardware/printed-parts/faucet/industrial/selected-print.json.",
+  "disposition": "Further whole-faucet 0.08 mm iteration and research deferred; selected complete variable-layer recipe is https://github.com/derekbreden/homesodamachine/blob/a52c29539341168479df7e6e0f836ef37ed8c516/hardware/printed-parts/faucet/industrial/selected-print.json.",
   "scope": "Print failure reported by Derek and visible surface disruption only. No confirmed collision, tip-over, adhesion mechanism, structural strength or service-life result."
 }

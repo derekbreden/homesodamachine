@@ -26,7 +26,7 @@ symmetric beverage outlet locations are retained. The Ø4 mm hole has 2.56 times
 alone does not establish discharge flow. Physical threading, support cleanup,
 drip direction and complete fault-vent performance are unmeasured.
 
-The [centered mounting-set review](centered-layout-lint-review.json) binds the
+The [centered mounting-set review](https://github.com/derekbreden/homesodamachine/blob/23d6e62695ada26d985c3a5943565734a00388b3/hardware/printed-parts/faucet/vent-qualification/centered-layout-lint-review.json) binds the
 regenerated faucet, rigid plates, gaskets and organizer to the published
 artifacts. It records the exact local faces at low-thickness mesh picks,
 watertight STL topology and all answered lint locations. The Ø4 mm underside
@@ -34,14 +34,11 @@ cut opens through the complete curved clearance; the two picked inner fin
 locations contain no material. These local readings do not establish a global
 wall minimum, print finish, strength or lifetime. The centered set is unprinted.
 
-The [complete Industrial selection](../industrial/selected-print.json) has
-0.12 mm base shoulder bands, corrected screw reinforcement, 0.50 mm longer
-display-cover wings and all five rigid parts, including the lever. Its native
-slice, source bindings and launch receipt belong to the selected job.
-The [current centered Industrial review](../industrial/prints/2026-10-11-centered-mounting-review-mark2/README.md)
-binds current meshes and native support access to that accepted reference.
-Its complete five-part project awaits the scarf/seam and coarse-layer
-choices from the combined coupon plate.
+The [Industrial production selection](../industrial/production-selection.json)
+identifies the approved articles and the generated parts used for preparation.
+The [centered mounting trial](../industrial/prints/2026-10-11-centered-mounting-review-mark2/README.md)
+records its own native support access and references the
+[complete Industrial print used for comparison](https://github.com/derekbreden/homesodamachine/blob/23d6e62695ada26d985c3a5943565734a00388b3/hardware/printed-parts/faucet/industrial/selected-print.json).
 
 The retained [hydraulic report](hydraulic-report.json),
 [sealed-port witness](port-native-check.json) and
