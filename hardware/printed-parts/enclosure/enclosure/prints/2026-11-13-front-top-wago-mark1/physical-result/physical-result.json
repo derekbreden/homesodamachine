@@ -6,19 +6,22 @@
   "print_job": "../print-job.json",
   "printer_task_id": "1438216432",
   "observations": {
-    "corner_lift": "The seam opens toward the corners in the bench photographs.",
+    "corner_lift": "The seam opens toward the corners in the bench photographs. The back-left corner lifts during deposition.",
     "assembly": "The underside of the collet plate catches on a front-bottom land as the top slides aft.",
     "user_words": [
       "So on the latest print of the enclosure front top, we ended up with some corner lifting. Other than that, everything seems to be pretty good on this last print, except for one fit issue.",
       "The surface or face that I have highlighted in yellow there, where I clicked, that is just a little bit high and interfering as we slide in.",
-      "Brim is not an option. It doesn't help. It just breaks away."
+      "Brim is not an option. It doesn't help. It just breaks away.",
+      "Look at the back left corner there. It is clearly lifted at the point I show. Can you see what I mean?"
     ]
   },
   "photos": [
     "seam-1.jpg",
     "seam-2.jpg",
     "seam-3.jpg",
-    "collet-land-pick.jpg"
+    "collet-land-pick.jpg",
+    "back-left-lift-clip-start.png",
+    "back-left-lift-detail.png"
   ],
   "camera_review": {
     "timelapse": {
@@ -26,7 +29,37 @@
       "sha256": "244d957c65823ef1d4aa9e0f58211b8001cd476421dbf630972d77d26ee28b99",
       "closed_at": "2026-11-14T19:04:24Z"
     },
-    "visible_corner": {
+    "back_left_corner": {
+      "prior_frame": {
+        "image": "back-left-before-visible-lift.jpg",
+        "segment": "ipcam-record.2026-11-13_18-35-59.310-30x.mp4",
+        "source_elapsed_seconds": 461,
+        "observed_at": "2026-11-13T10:43:40Z",
+        "observation": "The tip appears to meet the plate under the printhead light."
+      },
+      "first_visible_lift": {
+        "image": "back-left-first-visible-lift.jpg",
+        "segment": "ipcam-record.2026-11-13_18-44-20.311-30x.mp4",
+        "source_elapsed_seconds": 55,
+        "observed_at": "2026-11-13T10:45:15Z",
+        "observation": "A thin strip of lit plate appears under the tip as the head passes."
+      },
+      "confirmation": {
+        "image": "back-left-confirmed-lift.jpg",
+        "segment": "ipcam-record.2026-11-13_18-44-20.311-30x.mp4",
+        "source_elapsed_seconds": 240,
+        "observed_at": "2026-11-13T10:48:20Z",
+        "observation": "The strip is visible again under the printhead light."
+      },
+      "user_frame": {
+        "image": "back-left-lift-clip-start.png",
+        "detail_image": "back-left-lift-detail.png",
+        "segment": "ipcam-record.2026-11-13_20-07-15.321-30x.mp4",
+        "source_elapsed_seconds": 0,
+        "observed_at": "2026-11-13T12:07:15Z"
+      }
+    },
+    "near_rounded_corner": {
       "image": "chamber-visible-corner.jpg",
       "segment": "ipcam-record.2026-11-14_07-01-58.402.mp4",
       "source_elapsed_seconds": 240,
@@ -41,7 +74,7 @@
       "observed_at": "2026-11-14T19:04:22Z",
       "observation": "The rounded corner's contact line is out of frame. Recording ends at job completion."
     },
-    "lift_onset": "Undetermined. The covered view leaves late deposition and cooldown open."
+    "lift_onset": "The back-left gap becomes visible while the lower walls are printing. The precise moment of release is below the resolution of the footage."
   },
   "native_slice": {
     "bed_target_c": 80,
