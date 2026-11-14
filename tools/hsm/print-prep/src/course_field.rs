@@ -9,6 +9,7 @@
 //! road's plastic among its pieces by its own rule.
 
 use crate::gcode::words;
+use crate::python_text::dist;
 use anyhow::{Context, Result, bail, ensure};
 use serde_json::Value;
 use std::rc::Rc;
@@ -51,7 +52,7 @@ pub struct Arc {
 impl Move {
     /// Whether the move lays plastic, or holds the nozzle on a road with none.
     pub fn deposition(&self) -> bool {
-        self.e.is_some_and(|e| e >= 0.0) && (self.arc.is_some() || distance(self.start, self.end) > SPATIAL)
+        self.e.is_some_and(|e| e >= 0.0) && (self.arc.is_some() || dist(&self.start, &self.end) > SPATIAL)
     }
 }
 
@@ -63,7 +64,7 @@ pub struct Road {
     pub e: f64,
 }
 
-/// The straight-line distance between two points.
+/// The straight-line distance between two points, summed as numpy's norm sums it.
 pub fn distance(a: [f64; 3], b: [f64; 3]) -> f64 {
     ((a[0] - b[0]) * (a[0] - b[0]) + (a[1] - b[1]) * (a[1] - b[1]) + (a[2] - b[2]) * (a[2] - b[2])).sqrt()
 }
@@ -168,9 +169,9 @@ pub fn arc_points(m: &Move) -> Vec<[f64; 3]> {
     let Some(arc) = m.arc else { return vec![m.end] };
     let ([x, y, z], [u, v, w]) = (m.start, m.end);
     let (cx, cy) = (x + arc.i, y + arc.j);
-    let radius = arc.i.hypot(arc.j);
+    let radius = dist(&[arc.i, arc.j], &[0.0, 0.0]);
     if radius < SPATIAL {
-        return if distance(m.start, m.end) > SPATIAL { vec![m.end] } else { Vec::new() };
+        return if dist(&m.start, &m.end) > SPATIAL { vec![m.end] } else { Vec::new() };
     }
     let angle = (y - cy).atan2(x - cx);
     let mut turn = (v - cy).atan2(u - cx) - angle;
@@ -425,7 +426,7 @@ impl CourseField for ShoulderHold {
         let mut prev = m.start;
         let mut points = vec![prev];
         for point in arc_points(m) {
-            let gap = distance(prev, point);
+            let gap = dist(&prev, &point);
             if gap <= MIN_PATH {
                 continue;
             }
