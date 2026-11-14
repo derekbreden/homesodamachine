@@ -63,11 +63,13 @@ pub struct Road {
     pub e: f64,
 }
 
-fn distance(a: [f64; 3], b: [f64; 3]) -> f64 {
+/// The straight-line distance between two points.
+pub fn distance(a: [f64; 3], b: [f64; 3]) -> f64 {
     ((a[0] - b[0]) * (a[0] - b[0]) + (a[1] - b[1]) * (a[1] - b[1]) + (a[2] - b[2]) * (a[2] - b[2])).sqrt()
 }
 
-fn mix(a: [f64; 3], b: [f64; 3], t: f64) -> [f64; 3] {
+/// The point `t` of the way from `a` to `b`.
+pub fn mix(a: [f64; 3], b: [f64; 3], t: f64) -> [f64; 3] {
     [0, 1, 2].map(|i| a[i] * (1.0 - t) + b[i] * t)
 }
 
@@ -229,15 +231,15 @@ fn smoothstep(t: f64) -> f64 {
 /// the foot and lower shaft, then ease to the plate's level layers inside the straight shaft,
 /// keeping each road's position across the shaft.
 pub struct ShaftEase {
-    sin: f64,
-    cos: f64,
-    tangent: f64,
-    end_derivative: f64,
-    donor: [f64; 3],
-    seat: [f64; 3],
-    fade: [f64; 2],
-    pivot_y: f64,
-    phase: f64,
+    pub sin: f64,
+    pub cos: f64,
+    pub tangent: f64,
+    pub end_derivative: f64,
+    pub donor: [f64; 3],
+    pub seat: [f64; 3],
+    pub fade: [f64; 2],
+    pub pivot_y: f64,
+    pub phase: f64,
 }
 
 impl ShaftEase {
@@ -277,7 +279,8 @@ impl ShaftEase {
         (normal, derivative)
     }
 
-    fn local(&self, p: [f64; 3]) -> [f64; 3] {
+    /// A donor point relative to the donor origin.
+    pub fn local(&self, p: [f64; 3]) -> [f64; 3] {
         [0, 1, 2].map(|i| p[i] - self.donor[i])
     }
 }
@@ -315,17 +318,17 @@ impl CourseField for ShaftEase {
 /// the shoulder's incline, hold it through the shoulder, and ease back to level below the nose,
 /// keeping each road's plan position on the plate.
 pub struct ShoulderHold {
-    shoulder: [f64; 3],
-    shoulder_layer: f64,
-    tangent: f64,
-    sec_minus_one: f64,
-    bed_through: f64,
-    hold: [f64; 2],
-    normal_again: f64,
-    exact_y: [f64; 2],
-    edge_width: f64,
-    displacement: [f64; 3],
-    piece: f64,
+    pub shoulder: [f64; 3],
+    pub shoulder_layer: f64,
+    pub tangent: f64,
+    pub sec_minus_one: f64,
+    pub bed_through: f64,
+    pub hold: [f64; 2],
+    pub normal_again: f64,
+    pub exact_y: [f64; 2],
+    pub edge_width: f64,
+    pub displacement: [f64; 3],
+    pub piece: f64,
 }
 
 impl ShoulderHold {
@@ -403,7 +406,8 @@ impl ShoulderHold {
         (low + high) * 0.5
     }
 
-    fn plate(&self, p: [f64; 3]) -> [f64; 3] {
+    /// A donor point moved onto the plate.
+    pub fn plate(&self, p: [f64; 3]) -> [f64; 3] {
         [0, 1, 2].map(|i| p[i] + self.displacement[i])
     }
 }
