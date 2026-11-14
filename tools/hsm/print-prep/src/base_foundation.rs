@@ -1,9 +1,9 @@
-//! Lays a faucet base's sloped underside ahead of its plate: a scaffold of level layers and three
-//! roof courses where the slicer's temporary fill stood, then courses parallel to the mounting
+//! Lays a faucet base's sloped underside ahead of its plate: a scaffold of level layers and the
+//! roof's courses where the slicer's temporary fill stood, then courses parallel to the mounting
 //! face. The plate's own G-code follows, the base's level courses kept above that stack and every
 //! travel the toolhead would carry into it lifted over it.
 //!
-//! Production plates lay two skin courses across the face with a deck in the bore. The Sculpted
+//! Production plates lay skin courses across the face with a deck in the bore. The Sculpted
 //! trial's foundation lays the foot instead: courses cut from the base's own sections up past its
 //! insert sockets' shoulders, with a plug rising in each socket and a deck in the bore.
 
@@ -361,7 +361,7 @@ pub fn scaffold_and_roof(w: &mut Writer, frame: &Frame, opening: &Opening) -> Re
         tops.iter().copied().filter(|z| *z <= limit + 1e-6).last().unwrap_or(0.0)
     };
     let roof = Region::ellipse(frame.rim[0] + LIP, frame.rim[1] + LIP, ELLIPSE_POINTS);
-    // course 1: level lines across the slope, each on the scaffold under it
+    // the first course: level lines across the slope, each on the scaffold under it
     w.raw(format!("; underside roof course 1 of {ROOF_COURSES}"));
     w.raw("M204 S2000");
     w.comment_feature("Support interface", ROOF_WIDTH);
@@ -381,7 +381,7 @@ pub fn scaffold_and_roof(w: &mut Writer, frame: &Frame, opening: &Opening) -> Re
         w.travel(p0, 0.5, hop);
         w.extrude(&[p0, p1], ROOF_WIDTH, height, 50.0, 1.0, None);
     }
-    // courses 2 and 3: lines up the slope, then diagonal; each line climbs, since coming down
+    // the others: lines up the slope, then diagonal; each line climbs, since coming down
     // the nozzle's shoulder would ride on the bead it had just laid
     for (course, (n_top, angle)) in [(n_roof[1], 90.0), (n_roof[2], 45.0)].into_iter().enumerate() {
         w.raw(format!("; underside roof course {} of {ROOF_COURSES}", course + 2));
@@ -664,14 +664,14 @@ pub fn lay_skin(w: &mut Writer, frame: &Frame, skin: &Skin) -> usize {
             w.extrude(&path, SKIN_WIDTH, COURSE, speed, flow, None);
         }
     };
-    // course 1 crosses the roof's air as a bridge: lines straight up the slope
+    // the first course crosses the roof's air as a bridge: lines straight up the slope
     w.raw("M204 S1000");
     w.raw(format!("{BRIDGE_FAN} ; the first course over air takes the bridge's fan"));
     w.comment_feature("Bottom surface", SKIN_WIDTH);
     rings(w, n_skin[0], 15.0, BRIDGE_FLOW);
     fill(w, lines(&skin.region.offset(-(SKIN_WIDTH + SKIN_PITCH / 2.0 - 0.06)), 90.0, SKIN_PITCH), n_skin[0], 15.0, BRIDGE_FLOW);
     w.raw("M106 S0");
-    // course 2: diagonal lines across the first
+    // the second: diagonal lines across the first
     w.comment_feature("Bottom surface", SKIN_WIDTH);
     rings(w, n_skin[1], 25.0, 1.0);
     w.comment_feature("Internal solid infill", SKIN_WIDTH);
@@ -875,7 +875,7 @@ pub enum Clip {
     /// Laid where it has room over the stack, with as much plastic as the room takes, and none
     /// where under the feather's share of the bead is left.
     Feather,
-    /// Kept where the level half its height down clears the stack, cut square there.
+    /// Kept where the course clears the stack by its kept share of height, cut square there.
     Half,
 }
 
