@@ -1,12 +1,14 @@
-//! Lays the Sculpted base's foundation ahead of the Mark2 plate: a scaffold of level layers and
-//! three roof courses where the slicer's temporary fill stood, then the foot as courses parallel
-//! to the mounting face, each cut from the base's own section, with a plug rising in each insert
-//! socket and a deck in the bore beside them. The plate's own G-code follows, the base's level
-//! courses kept above the foot's slab and every travel the toolhead would carry into it lifted
-//! over it.
+//! Lays a faucet base's sloped underside ahead of its plate: a scaffold of level layers and three
+//! roof courses where the slicer's temporary fill stood, then courses parallel to the mounting
+//! face. The plate's own G-code follows, the base's level courses kept above that stack and every
+//! travel the toolhead would carry into it lifted over it.
+//!
+//! Production plates lay two skin courses across the face with a deck in the bore. The Sculpted
+//! trial's foundation lays the foot instead: courses cut from the base's own sections up past its
+//! insert sockets' shoulders, with a plug rising in each socket and a deck in the bore.
 
 use crate::mesh::Mesh;
-use crate::sloped_courses::{Piece, Point, Region, edge_pieces, hatch, level_order, narrow_pieces, section};
+use crate::sloped_courses::{Piece, Point, Region, edge_pieces, hatch, level_order, narrow_pieces, section, uphill_halves};
 use anyhow::{Context, Result, ensure};
 use serde_json::{Value, json};
 use std::path::Path;
@@ -33,7 +35,10 @@ const SHOULDER_REACH: f64 = 0.3;
 const OVERLAP: f64 = 0.06;
 /// Half the least width the fill is laid in; narrower strips take rings.
 const OPEN: f64 = 1.0;
-const RIM: [f64; 2] = [29.0, 29.5];
+/// The Sculpted trial's rim half-width and half-depth.
+const SCULPTED_RIM: [f64; 2] = [29.0, 29.5];
+/// The skin courses a production plate lays.
+const SKIN_COURSES: usize = 2;
 const ELLIPSE_POINTS: usize = 720;
 // The scaffold.
 const FIRST_LAYER: f64 = 0.20;
@@ -48,13 +53,11 @@ const Z_PRINT_RATE: f64 = 7.5;
 const Z_TRAVEL_RATE: f64 = 15.0;
 const TRAVEL_LIFT: f64 = 1.0;
 const TRAVEL_SPEED: f64 = 150.0;
-const PARK_Z: f64 = 26.0;
 const BED_MIN_Z: f64 = 0.2;
 // Clearance.
 const HEAD_TRAVEL_MARGIN: f64 = 3.0;
 const NOZZLE_TRAVEL_MARGIN: f64 = 0.3;
 const NOZZLE_FLAT_R: f64 = 0.6;
-const NOZZLE_OVER_SKIN: f64 = 0.06;
 const FEATHER_MIN: f64 = 0.3;
 const KEEP_FRACTION: f64 = 0.5;
 
@@ -84,12 +87,14 @@ pub struct Frame {
     pub s: f64,
     pub c: f64,
     pub t: f64,
+    /// The rim's half-width and half-depth.
+    pub rim: [f64; 2],
 }
 
 impl Frame {
-    pub fn new(seat: [f64; 3]) -> Self {
+    pub fn new(seat: [f64; 3], rim: [f64; 2]) -> Self {
         let tilt = 15.0_f64.to_radians();
-        Self { cx: seat[0], cy: seat[1], cz: seat[2], s: tilt.sin(), c: tilt.cos(), t: tilt.tan() }
+        Self { cx: seat[0], cy: seat[1], cz: seat[2], s: tilt.sin(), c: tilt.cos(), t: tilt.tan(), rim }
     }
 
     pub fn xyz(&self, a: f64, b: f64, n: f64) -> [f64; 3] {
@@ -227,13 +232,15 @@ impl Writer {
         }
     }
 
-    /// Leaves above everything, retracted, as the plate's first layer expects.
-    pub fn park(&mut self) -> Result<()> {
+    /// Leaves at `z`, above everything, retracted and at the plate's first-layer temperature, as
+    /// the plate's first layer expects, and closes the base's object with `closing`.
+    pub fn park(&mut self, z: f64, temperature: &str, closing: &[String]) -> Result<()> {
         self.retract();
         let [x, y, _] = self.pos.context("the preamble laid nothing")?;
-        self.line([x, y, PARK_Z], None, 25.0);
-        self.raw("M104 S265 ; the plate's first-layer temperature");
+        self.line([x, y, z], None, 25.0);
+        self.raw(format!("M104 S{temperature} ; the plate's first-layer temperature"));
         self.raw("M625");
+        self.out.extend(closing.iter().cloned());
         self.raw("; ===== end of the sloped underside =====");
         Ok(())
     }
@@ -247,16 +254,29 @@ pub struct Stack {
     pub scaffold_top: f64,
 }
 
+/// How a method opens its preamble and lays its roof's first course.
+pub struct Opening {
+    /// The preamble's title.
+    pub title: String,
+    /// The lines that open the base's object on the plate.
+    pub object: Vec<String>,
+    /// The plate's nozzle temperature for its regular layers.
+    pub temperature: String,
+    /// Lay the roof's first course line by line, each after those just downhill of it, rather
+    /// than row by row.
+    pub level_roof: bool,
+}
+
 /// The preamble's opening, its scaffold of level layers and its roof courses.
-pub fn scaffold_and_roof(w: &mut Writer, frame: &Frame, object_label: &str) -> Result<Stack> {
+pub fn scaffold_and_roof(w: &mut Writer, frame: &Frame, opening: &Opening) -> Result<Stack> {
     let n_roof: [f64; ROOF_COURSES] = std::array::from_fn(|i| -AIR - COURSE * (ROOF_COURSES - 1 - i) as f64);
     let n_scaffold = -AIR - COURSE * ROOF_COURSES as f64;
-    w.raw("; ===== sloped underside of faucet-shell-base: scaffold, roof and foot =====");
-    w.raw(object_label);
+    w.raw(opening.title.clone());
+    w.out.extend(opening.object.iter().cloned());
     w.raw("G90");
     w.raw("M83");
     w.raw("M106 S0");
-    let (sx, sy) = (RIM[0] + LIP, (RIM[1] + LIP) * frame.c);
+    let (sx, sy) = (frame.rim[0] + LIP, (frame.rim[1] + LIP) * frame.c);
     let y_centre = frame.cy + n_scaffold * frame.s;
     let span_x = |y: f64| {
         let r = 1.0 - ((y - y_centre) / sy).powi(2);
@@ -283,7 +303,7 @@ pub fn scaffold_and_roof(w: &mut Writer, frame: &Frame, object_label: &str) -> R
         let height = if index == 0 { FIRST_LAYER } else { LAYER };
         let speed = if index == 0 { 40.0 } else { 80.0 };
         if index == 1 {
-            w.raw("M104 S280 ; the plate's own second-layer temperature");
+            w.raw(format!("M104 S{} ; the plate's regular-layer temperature", opening.temperature));
             w.raw("M204 S3000");
         }
         w.comment_feature("Support", ROOF_WIDTH);
@@ -340,16 +360,25 @@ pub fn scaffold_and_roof(w: &mut Writer, frame: &Frame, object_label: &str) -> R
         let limit = frame.face(y) + n_scaffold / frame.c;
         tops.iter().copied().filter(|z| *z <= limit + 1e-6).last().unwrap_or(0.0)
     };
-    let roof = Region::ellipse(RIM[0] + LIP, RIM[1] + LIP, ELLIPSE_POINTS);
+    let roof = Region::ellipse(frame.rim[0] + LIP, frame.rim[1] + LIP, ELLIPSE_POINTS);
     // course 1: level lines across the slope, each on the scaffold under it
     w.raw(format!("; underside roof course 1 of {ROOF_COURSES}"));
     w.raw("M204 S2000");
     w.comment_feature("Support interface", ROOF_WIDTH);
-    for (a, b) in level_order(&hatch(&frame.limited(&roof, n_roof[0]), 0.0, ROOF_WIDTH, 1.0)) {
+    let rows = hatch(&frame.limited(&roof, n_roof[0]), 0.0, ROOF_WIDTH, 1.0);
+    let (lines, hop) = if opening.level_roof {
+        (level_order(&rows), 4.0)
+    } else {
+        let back_and_forth = rows.iter().enumerate().flat_map(|(k, pieces)| -> Vec<(Point, Point)> {
+            if k % 2 == 0 { pieces.clone() } else { pieces.iter().rev().map(|&(p, q)| (q, p)).collect() }
+        });
+        (back_and_forth.collect(), 1.5)
+    };
+    for (a, b) in lines {
         let (p0, p1) = (frame.at(a, n_roof[0]), frame.at(b, n_roof[0]));
         let height = p0[2] - top_below(p0[1]);
         ensure!((0.19..=COURSE / frame.c + LAYER + 1e-6).contains(&height), "a roof line stands {height} over the scaffold");
-        w.travel(p0, 0.5, 4.0);
+        w.travel(p0, 0.5, hop);
         w.extrude(&[p0, p1], ROOF_WIDTH, height, 50.0, 1.0, None);
     }
     // courses 2 and 3: lines up the slope, then diagonal; each line climbs, since coming down
@@ -405,7 +434,7 @@ impl Foot {
             let (lo, hi) = r.bounds();
             [m[0].max(lo[0].abs()).max(hi[0].abs()), m[1].max(lo[1].abs()).max(hi[1].abs())]
         });
-        ensure!(reach[0] + SKIN_WIDTH < RIM[0] + LIP && reach[1] + SKIN_WIDTH < RIM[1] + LIP,
+        ensure!(reach[0] + SKIN_WIDTH < SCULPTED_RIM[0] + LIP && reach[1] + SKIN_WIDTH < SCULPTED_RIM[1] + LIP,
             "the foot's courses reach past the roof's lip");
         Ok(Foot { regions, shoulder })
     }
@@ -574,8 +603,84 @@ pub fn lay_foot(w: &mut Writer, frame: &Frame, foot: &Foot, deck_top: Option<f64
     Ok(lay.laid)
 }
 
+/// A production base's mounting face in its own plane, from the base's lowest faces: the face
+/// and its bore.
+pub struct Skin {
+    region: Region,
+    bore: Region,
+}
+
+impl Skin {
+    pub fn cut(stl: &Path) -> Result<Skin> {
+        let mesh = Mesh::read_stl(stl)?;
+        let low = mesh.vertices.iter().map(|p| p[2]).fold(f64::INFINITY, f64::min);
+        let faces: Vec<Vec<Point>> = mesh.faces.iter()
+            .filter(|f| f.iter().all(|&i| (mesh.vertices[i][2] - low).abs() < 1e-6))
+            .map(|f| f.iter().map(|&i| [mesh.vertices[i][0], -mesh.vertices[i][1]]).collect())
+            .collect();
+        let region = Region::from_rings(&faces);
+        let mut holes = region.holes();
+        ensure!(region.pieces() == 1 && holes.len() == 4, "the mounting face is not the ring with four openings");
+        holes.sort_by(|a, b| b.area().total_cmp(&a.area()));
+        Ok(Skin { region, bore: holes.swap_remove(0) })
+    }
+}
+
+/// The bore's deck and the skin's courses on the roof: in each course a ring at every edge, laid
+/// in halves up the slope, then lines across the face, each stopping short of the ring above it.
+/// Returns the ring halves laid.
+pub fn lay_skin(w: &mut Writer, frame: &Frame, skin: &Skin) -> usize {
+    const PULL_BACK: f64 = 0.2;
+    let n_skin: [f64; SKIN_COURSES] = std::array::from_fn(|i| COURSE * (i + 1) as f64);
+    let lines = |region: &Region, angle: f64, pitch: f64| -> Vec<(Point, Point)> {
+        let (s, c) = angle.to_radians().sin_cos();
+        hatch(region, angle, pitch, 0.5).into_iter().flatten()
+            .map(|(a, b)| if s > 1e-9 { (a, [b[0] - c * PULL_BACK, b[1] - s * PULL_BACK]) } else { (a, b) })
+            .collect()
+    };
+    // the bore's deck, level with the face, for the trees that stand inside the base
+    for (a, b) in hatch(&frame.limited(&skin.bore.offset(-DECK_KERF), 0.0), 135.0, ROOF_WIDTH, 1.0).into_iter().flatten() {
+        let (lo, hi) = if a[1] <= b[1] { (a, b) } else { (b, a) };
+        let path = [frame.at(lo, 0.0), frame.at(hi, 0.0)];
+        w.travel(path[0], TRAVEL_LIFT, 1.5);
+        w.extrude(&path, ROOF_WIDTH, COURSE, 40.0, 1.0, None);
+    }
+    let edge = skin.region.offset(-SKIN_WIDTH / 2.0);
+    let mut halves = 0;
+    let mut rings = |w: &mut Writer, n_top: f64, speed: f64, flow: f64| {
+        for ring in edge.rings() {
+            for half in uphill_halves(&ring) {
+                let path: Vec<[f64; 3]> = half.iter().map(|p| frame.at(*p, n_top)).collect();
+                w.travel(path[0], TRAVEL_LIFT, 1.5);
+                w.extrude(&path, SKIN_WIDTH, COURSE, speed, flow, None);
+                halves += 1;
+            }
+        }
+    };
+    let fill = |w: &mut Writer, lines: Vec<(Point, Point)>, n_top: f64, speed: f64, flow: f64| {
+        for (a, b) in lines {
+            let path = [frame.at(a, n_top), frame.at(b, n_top)];
+            w.travel(path[0], TRAVEL_LIFT, 1.5);
+            w.extrude(&path, SKIN_WIDTH, COURSE, speed, flow, None);
+        }
+    };
+    // course 1 crosses the roof's air as a bridge: lines straight up the slope
+    w.raw("M204 S1000");
+    w.raw(format!("{BRIDGE_FAN} ; the first course over air takes the bridge's fan"));
+    w.comment_feature("Bottom surface", SKIN_WIDTH);
+    rings(w, n_skin[0], 15.0, BRIDGE_FLOW);
+    fill(w, lines(&skin.region.offset(-(SKIN_WIDTH + SKIN_PITCH / 2.0 - 0.06)), 90.0, SKIN_PITCH), n_skin[0], 15.0, BRIDGE_FLOW);
+    w.raw("M106 S0");
+    // course 2: diagonal lines across the first
+    w.comment_feature("Bottom surface", SKIN_WIDTH);
+    rings(w, n_skin[1], 25.0, 1.0);
+    w.comment_feature("Internal solid infill", SKIN_WIDTH);
+    fill(w, lines(&skin.region.offset(-(SKIN_WIDTH + SKIN_WIDTH / 2.0 - 0.06)), 45.0, SKIN_WIDTH), n_skin[1], 40.0, 1.03);
+    halves
+}
+
 /// The lowest the active tip may sit at each plate position with the toolhead clear of the
-/// finished scaffold, roof and slab.
+/// finished scaffold, roof and courses.
 pub struct Clearance {
     step: f64,
     cx0: f64,
@@ -587,7 +692,8 @@ pub struct Clearance {
 }
 
 impl Clearance {
-    pub fn new(headmap: &Path, frame: &Frame, slab_top: f64) -> Result<Self> {
+    /// `top` gives the finished stack's top along the face's normal at a point of the face.
+    pub fn new(headmap: &Path, frame: &Frame, top: &dyn Fn(Point) -> f64) -> Result<Self> {
         let arrays = crate::npz::read_arrays(headmap)?;
         let get = |name: &str| arrays.get(name).with_context(|| format!("the head map has no {name}"));
         let (h, n) = (get("H")?, get("N")?);
@@ -598,22 +704,20 @@ impl Clearance {
         let (hr, hc) = (h.shape[0], h.shape[1]);
         ensure!(n.shape == h.shape, "the head and nozzle maps differ in shape");
         let (hv, nv) = (h.f64().context("H")?, n.f64().context("N")?);
-        // the terrain: the slab's top plane wherever the roof reaches; the lip and the bore's
-        // deck stand at or under it
-        let (ra, rb) = (RIM[0] + LIP, RIM[1] + LIP);
+        // the terrain: the stack's top wherever the roof reaches
+        let (ra, rb) = (frame.rim[0] + LIP, frame.rim[1] + LIP);
         let tx0 = ((frame.cx - ra - 1.0) / step).floor() * step;
         let ty0 = ((frame.cy - rb * frame.c - 1.5) / step).floor() * step;
         let nx = ((2.0 * ra + 2.0) / step).ceil() as usize + 1;
         let ny = ((2.0 * rb * frame.c + 3.0) / step).ceil() as usize + 1;
-        let lift = slab_top / frame.c;
         let mut terrain = vec![f64::NEG_INFINITY; nx * ny];
         for j in 0..ny {
             let y = ty0 + j as f64 * step;
             for i in 0..nx {
                 let x = tx0 + i as f64 * step;
-                let (a, b) = ((x - frame.cx) / ra, ((frame.cy - y) / frame.c) / rb);
-                if a * a + b * b <= 1.0 {
-                    terrain[j * nx + i] = (frame.face(y) + lift).max(0.0);
+                let (a, b) = (x - frame.cx, (frame.cy - y) / frame.c);
+                if (a / ra).powi(2) + (b / rb).powi(2) <= 1.0 {
+                    terrain[j * nx + i] = (frame.face(y) + top([a, b]) / frame.c).max(0.0);
                 }
             }
         }
@@ -765,11 +869,36 @@ impl PlateStats {
     }
 }
 
-/// The plate's own stream, with the base kept above the slab and travels lifted over the scaffold.
+/// How a level course of the base that reaches into the stack is cut.
+#[derive(Clone, Copy)]
+pub enum Clip {
+    /// Laid where it has room over the stack, with as much plastic as the room takes, and none
+    /// where under the feather's share of the bead is left.
+    Feather,
+    /// Kept where the level half its height down clears the stack, cut square there.
+    Half,
+}
+
+/// How a method's stack meets the plate's own courses.
+#[derive(Clone, Copy)]
+pub struct Rule {
+    /// The stack's top over the mounting face, along its normal.
+    pub top: f64,
+    /// What the plate's own supports stand on over the face, along its normal.
+    pub support_floor: f64,
+    pub clip: Clip,
+    /// The least the nozzle stands over the stack while laying a level course.
+    pub nozzle_over: f64,
+    /// Where the preamble parks the nozzle; travels above it need no lift.
+    pub park_z: f64,
+}
+
+/// The plate's own stream, with the base kept above the stack and travels lifted over the scaffold.
 struct Plate<'a> {
     frame: Frame,
     clear: &'a Clearance,
     base_id: i64,
+    rule: Rule,
     skin: f64,
     clip_until: f64,
     out: Vec<String>,
@@ -932,7 +1061,7 @@ impl Plate<'_> {
             "the nozzle is not where the plate's course expects it: {:?} against {:?}", self.real, self.virtual_);
         self.real_retracted = false;
         self.real_feed = self.virtual_feed;
-        if self.clear.near(target[0], target[1]) && target[2] < PARK_Z {
+        if self.clear.near(target[0], target[1]) && target[2] < self.rule.park_z {
             let gap = target[2] - self.clear.head_floor(target[0], target[1]);
             let least = if self.object == Some(self.base_id) {
                 &mut self.stats.least_base_head_clearance_mm
@@ -956,7 +1085,7 @@ impl Plate<'_> {
                 p.real_retracted = true;
             }
         };
-        if rz.min(tz) >= PARK_Z || !self.clear.crosses(rx, ry, tx, ty) {
+        if rz.min(tz) >= self.rule.park_z || !self.clear.crosses(rx, ry, tx, ty) {
             passed(self);
             return Ok(());
         }
@@ -994,9 +1123,8 @@ impl Plate<'_> {
         Ok(())
     }
 
-    /// A level course of the base where it crosses the slab: laid where it has room over the
-    /// slab, with as much plastic as the room takes, and none where under the feather's share
-    /// of the bead is left. A support line under the slab's top is dropped whole.
+    /// A level course of the base where it crosses the stack, cut by the rule's clip. A support
+    /// line under what the plate's supports stand on is dropped whole.
     fn clipped_extrusion(&mut self, a: [f64; 3], b: [f64; 3], e: f64) -> Result<()> {
         let ([x0, y0, z0], [x1, y1, z1]) = (a, b);
         let length = (x1 - x0).hypot(y1 - y0);
@@ -1004,18 +1132,54 @@ impl Plate<'_> {
         let (layer_z, layer_h) = (self.layer_z.context("a clipped road before its course")?, self.layer_h.context("a clipped road before its height")?);
         let mut parts: Vec<(f64, f64, f64)> = Vec::new();
         if self.feature.as_deref().is_some_and(|f| f.starts_with("Support")) {
-            if z1 - layer_h < f.face((y0 + y1) / 2.0) + self.skin - 0.05 {
+            if z1 - layer_h < f.face((y0 + y1) / 2.0) + self.rule.support_floor / f.c - 0.05 {
                 self.stats.dropped_support_mm += length;
                 return Ok(());
             }
             parts.push((0.0, 1.0, 1.0));
+        } else if let Clip::Half = self.rule.clip {
+            // keep the part of the bead over the stack: y at or beyond the cut for this course; a
+            // seam's ramp climbs inside its course, so the course's own height sets the cut
+            let cut = f.cy + (f.cz + self.skin - (layer_z - KEEP_FRACTION * layer_h)) / f.t;
+            let (a, b) = (y0 - cut, y1 - cut);
+            if a < 0.0 && b < 0.0 {
+                self.stats.dropped_mm += length;
+                return Ok(());
+            }
+            let (mut t0, mut t1) = (0.0_f64, 1.0_f64);
+            if a < 0.0 {
+                t0 = a / (a - b);
+            }
+            if b < 0.0 {
+                t1 = a / (a - b);
+            }
+            // and only where the nozzle itself stands over the stack
+            let g0 = z0 - (f.face(y0) + self.skin) - self.rule.nozzle_over;
+            let g1 = z1 - (f.face(y1) + self.skin) - self.rule.nozzle_over;
+            if g0 < 0.0 && g1 < 0.0 {
+                self.stats.dropped_mm += length;
+                return Ok(());
+            }
+            if g0 < 0.0 {
+                t0 = t0.max(g0 / (g0 - g1));
+            }
+            if g1 < 0.0 {
+                t1 = t1.min(g0 / (g0 - g1));
+            }
+            if (t1 - t0) * length < 0.05 {
+                self.stats.dropped_mm += length;
+                return Ok(());
+            }
+            self.stats.dropped_mm += (1.0 - (t1 - t0)) * length;
+            parts.push((t0, t1, 1.0));
         } else {
             let under = layer_z - layer_h;
             let room0 = z0 - (f.face(y0) + self.skin);
             let room1 = z1 - (f.face(y1) + self.skin);
             let (bead0, bead1) = ((z0 - under).max(1e-6), (z1 - under).max(1e-6));
             let (mut lo, mut hi) = (0.0_f64, 1.0_f64);
-            for (g0, g1) in [(room0 - FEATHER_MIN * bead0, room1 - FEATHER_MIN * bead1), (room0 - NOZZLE_OVER_SKIN, room1 - NOZZLE_OVER_SKIN)] {
+            let over = self.rule.nozzle_over;
+            for (g0, g1) in [(room0 - FEATHER_MIN * bead0, room1 - FEATHER_MIN * bead1), (room0 - over, room1 - over)] {
                 if g0 < 0.0 && g1 < 0.0 {
                     self.stats.dropped_mm += length;
                     return Ok(());
@@ -1083,16 +1247,16 @@ impl Plate<'_> {
 }
 
 /// The plate's lines with the preamble before its first layer's first object and the base kept
-/// above the slab; `parked` is where the preamble leaves the nozzle.
-pub fn rewrite(lines: &[&str], frame: &Frame, clearance: &Clearance, base_id: i64, slab_top: f64,
+/// above the stack by `rule`; `parked` is where the preamble leaves the nozzle.
+pub fn rewrite(lines: &[&str], frame: &Frame, clearance: &Clearance, base_id: i64, rule: Rule,
                preamble: &[String], parked: [f64; 3]) -> Result<(Vec<String>, PlateStats)> {
     let first_layer = lines.iter().position(|l| l.starts_with("; CHANGE_LAYER")).context("the plate has no layers")?;
     let insert = (first_layer..lines.len()).find(|&i| lines[i].starts_with("; OBJECT_ID:")).context("the plate has no object")?;
     let end = lines.iter().position(|l| l.starts_with("; MACHINE_END_GCODE_START")).context("the plate has no end G-code")?;
-    let skin = slab_top / frame.c;
+    let skin = rule.top / frame.c;
     let mut plate = Plate {
-        frame: *frame, clear: clearance, base_id, skin,
-        clip_until: frame.cz + (RIM[1] + LIP) * frame.s + skin + 0.6,
+        frame: *frame, clear: clearance, base_id, rule, skin,
+        clip_until: frame.cz + (frame.rim[1] + LIP) * frame.s + skin + 0.6,
         out: Vec::with_capacity(lines.len() + preamble.len()),
         real: parked, virtual_: [0.0; 3], real_retracted: true, virtual_retracted: true, real_feed: None,
         virtual_feed: None, layer_z: None, layer_h: None, object: None, feature: None,
@@ -1145,7 +1309,7 @@ pub fn plate_inputs(report: &Value, lines: &[&str]) -> Result<(Frame, [f64; 3], 
     let rims = &report["base_rim_supports"];
     let seat: [f64; 3] = serde_json::from_value(rims["seat_print_world_center_mm"].clone()).context("the seat")?;
     let normal: [f64; 3] = serde_json::from_value(rims["seat_print_world_outward_normal"].clone()).context("the seat normal")?;
-    let frame = Frame::new(seat);
+    let frame = Frame::new(seat, SCULPTED_RIM);
     ensure!(normal[0].abs() < 1e-9 && (normal[1] + frame.s).abs() < 1e-6 && (normal[2] + frame.c).abs() < 1e-6,
         "the seat is not turned 15 degrees about X");
     let base_id = report["parts"].as_array().context("the parts")?.iter()
@@ -1167,12 +1331,17 @@ pub fn foundation(args: &Foundation) -> Result<()> {
     let (frame, seat, base_id, label) = plate_inputs(&report, &lines)?;
     let foot = Foot::cut(args.stl)?;
     let mut w = Writer::new();
-    let stack = scaffold_and_roof(&mut w, &frame, &label)?;
+    let opening = Opening {
+        title: "; ===== sloped underside of faucet-shell-base: scaffold, roof and foot =====".into(),
+        object: vec![label], temperature: "280".into(), level_roof: true,
+    };
+    let stack = scaffold_and_roof(&mut w, &frame, &opening)?;
     let laid = lay_foot(&mut w, &frame, &foot, args.deck_top)?;
-    w.park()?;
-    let clearance = Clearance::new(args.headmap, &frame, laid.slab_top)?;
+    let rule = Rule { top: laid.slab_top, support_floor: laid.slab_top, clip: Clip::Feather, nozzle_over: 0.06, park_z: 26.0 };
+    w.park(rule.park_z, "265", &[])?;
+    let clearance = Clearance::new(args.headmap, &frame, &|_| laid.slab_top)?;
     let parked = w.pos.context("the preamble laid nothing")?;
-    let (out, stats) = rewrite(&lines, &frame, &clearance, base_id, laid.slab_top, &w.out, parked)?;
+    let (out, stats) = rewrite(&lines, &frame, &clearance, base_id, rule, &w.out, parked)?;
     let text = out.join("\n");
     std::fs::create_dir_all(args.out_dir)?;
     std::fs::write(args.out_dir.join("plate_1.gcode"), &text)?;
@@ -1201,9 +1370,73 @@ pub fn foundation(args: &Foundation) -> Result<()> {
         "limits": {
             "z_while_printing_mm_s": Z_PRINT_RATE, "z_while_travelling_mm_s": Z_TRAVEL_RATE,
             "head_travel_margin_mm": HEAD_TRAVEL_MARGIN, "nozzle_travel_margin_mm": NOZZLE_TRAVEL_MARGIN,
-            "least_share_of_a_level_course_laid": FEATHER_MIN, "nozzle_over_slab_mm": NOZZLE_OVER_SKIN,
+            "least_share_of_a_level_course_laid": FEATHER_MIN, "nozzle_over_slab_mm": rule.nozzle_over,
         },
     });
     std::fs::write(args.out_dir.join("sloped-underside.json"), serde_json::to_vec_pretty(&record)?)?;
     Ok(())
+}
+
+/// A production plate's sloped underside: the scaffold, the roof, the bore's deck and the skin
+/// ahead of the plate `raw` the slicer wrote from the filled base, and the plate with the base
+/// kept above the skin. `report` is the plate's preparation record; `stl` is the real base.
+/// Returns the plate's G-code and the stage's record.
+pub fn skin_underside(raw: &[u8], report: &Value, stl: &Path, headmap: &Path) -> Result<(String, Value)> {
+    let base = &report["base_underside"];
+    let seat: [f64; 3] = serde_json::from_value(base["seat_print_world_center_mm"].clone()).context("the seat")?;
+    let normal: [f64; 3] = serde_json::from_value(base["seat_print_world_outward_normal"].clone()).context("the seat normal")?;
+    let rim: [f64; 2] = serde_json::from_value(base["rim_semi_axes_mm"].clone()).context("the rim")?;
+    let base_id = base["identify_id"].as_i64().context("the base's id")?;
+    let temperature = |key: &str| base[key][0].as_str().map(str::to_string).with_context(|| format!("the base's {key}"));
+    let frame = Frame::new(seat, rim);
+    ensure!(normal[0].abs() < 1e-9 && (normal[1] + frame.s).abs() < 1e-6 && (normal[2] + frame.c).abs() < 1e-6,
+        "the seat is not turned 15 degrees about X");
+    let skin = Skin::cut(stl)?;
+    let text = std::str::from_utf8(raw)?;
+    let lines: Vec<&str> = text.split('\n').collect();
+    let start = format!("; start printing object, unique label id: {base_id}");
+    let label = lines.iter().position(|l| l.starts_with(&start)).and_then(|i| lines.get(i + 1)).context("the plate never starts the base")?;
+    ensure!(label.starts_with("M624 "), "{label}");
+    let mut w = Writer::new();
+    let opening = Opening {
+        title: "; ===== sloped underside: scaffold, roof and skin =====".into(),
+        object: vec![start, label.to_string()], temperature: temperature("nozzle_temperature")?, level_roof: false,
+    };
+    let stack = scaffold_and_roof(&mut w, &frame, &opening)?;
+    let halves = lay_skin(&mut w, &frame, &skin);
+    let n_skin: Vec<f64> = (1..=SKIN_COURSES).map(|i| COURSE * i as f64).collect();
+    let rule = Rule { top: n_skin[SKIN_COURSES - 1], support_floor: 0.0, clip: Clip::Half, nozzle_over: 0.05, park_z: 22.0 };
+    w.park(rule.park_z, &temperature("nozzle_temperature_initial_layer")?, &[format!("; stop printing object, unique label id: {base_id}")])?;
+    // the skin over the face, the deck in the bore, the roof elsewhere under the lip
+    let face = skin.region.offset(0.3);
+    let top = |p: Point| if face.contains(p) { rule.top } else if skin.bore.contains(p) { 0.0 } else { stack.n_roof[ROOF_COURSES - 1] };
+    let clearance = Clearance::new(headmap, &frame, &top)?;
+    let parked = w.pos.context("the preamble laid nothing")?;
+    let (out, stats) = rewrite(&lines, &frame, &clearance, base_id, rule, &w.out, parked)?;
+    let gcode = out.join("\n");
+    let round = |v: f64, places: i32| (v * 10f64.powi(places)).round() / 10f64.powi(places);
+    let record = json!({
+        "purpose": "Binds the base's sloped courses and the retained native paths to the resulting plate.",
+        "gcode_input_sha256": crate::sha256_hex(raw),
+        "gcode_sha256": crate::sha256_hex(gcode.as_bytes()),
+        "seat_center_mm": seat,
+        "tilt_x_degrees": -15,
+        "stack_normal_mm": {
+            "course": COURSE, "air_asked": AIR, "roof_courses": ROOF_COURSES, "skin_courses": SKIN_COURSES,
+            "scaffold_ceiling": stack.n_scaffold, "roof_tops": stack.n_roof, "skin_tops": n_skin, "deck_top": 0.0,
+        },
+        "roof_lip_mm": LIP,
+        "laid": {"scaffold_layers": stack.scaffold_layers, "scaffold_top_mm": stack.scaffold_top, "skin_ring_halves": halves},
+        "preamble": {
+            "seconds": round(w.time, 1), "filament_mm": round(w.filament, 2),
+            "extrusion_mm_by_feature": w.lengths.iter().map(|(k, v)| (k.clone(), json!(round(*v, 1)))).collect::<serde_json::Map<_, _>>(),
+        },
+        "plate": stats.to_json(),
+        "limits": {
+            "z_while_printing_mm_s": Z_PRINT_RATE, "z_while_travelling_mm_s": Z_TRAVEL_RATE,
+            "head_travel_margin_mm": HEAD_TRAVEL_MARGIN, "nozzle_travel_margin_mm": NOZZLE_TRAVEL_MARGIN,
+            "kept_fraction_of_course_height": KEEP_FRACTION,
+        },
+    });
+    Ok((gcode, record))
 }

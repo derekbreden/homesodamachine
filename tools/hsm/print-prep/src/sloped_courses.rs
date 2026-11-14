@@ -13,8 +13,10 @@ pub type Point = [f64; 2];
 
 /// The decimal places Clipper2 keeps of every coordinate.
 const PRECISION: i32 = 6;
-/// The spacing rings and pieces are resampled at.
+/// The spacing a foot's rings and pieces are resampled at.
 const STEP: f64 = 0.35;
+/// The spacing a skin's ring halves are resampled at.
+const HALF_STEP: f64 = 0.4;
 /// How far a path may dip against its climb before it is cut there.
 const CLIMB_TOLERANCE: f64 = 0.03;
 
@@ -137,6 +139,23 @@ impl Region {
         open.iter().map(points).filter(|l| l.len() >= 2).collect()
     }
 
+    /// Whether the point lies in the region.
+    pub fn contains(&self, p: Point) -> bool {
+        let mut winding = 0;
+        for ring in &self.0 {
+            for i in 0..ring.len() {
+                let (a, b) = (&ring[i], &ring[(i + 1) % ring.len()]);
+                let side = (b.x - a.x) * (p[1] - a.y) - (p[0] - a.x) * (b.y - a.y);
+                if a.y <= p[1] && b.y > p[1] && side > 0.0 {
+                    winding += 1;
+                } else if a.y > p[1] && b.y <= p[1] && side < 0.0 {
+                    winding -= 1;
+                }
+            }
+        }
+        winding != 0
+    }
+
     /// Whether the line lies wholly in the region, its boundary included.
     pub fn covers(&self, line: &[Point]) -> bool {
         self.clip_lines(&[line.to_vec()], ClipType::Difference).iter().map(|l| length(l)).sum::<f64>() < 1e-4
@@ -192,9 +211,10 @@ pub fn section(mesh: &Mesh, z: f64) -> Result<Vec<Vec<Point>>> {
     Ok(rings)
 }
 
-/// The points spaced evenly along a path from its first point, and its length. A closed path
-/// returns to its first point; an open one keeps its last.
-fn resample(line: &[Point], closed: bool) -> (Vec<Point>, f64) {
+/// At least `least` points spaced evenly along a path from its first point, no more than `step`
+/// apart, and the path's length. A closed path returns to its first point; an open one keeps its
+/// last.
+fn resample(line: &[Point], closed: bool, step: f64, least: usize) -> (Vec<Point>, f64) {
     let mut path = line.to_vec();
     if closed {
         path.push(line[0]);
@@ -204,7 +224,7 @@ fn resample(line: &[Point], closed: bool) -> (Vec<Point>, f64) {
         cum.push(cum.last().unwrap() + dist(w[0], w[1]));
     }
     let total = *cum.last().unwrap();
-    let count = ((total / STEP).ceil() as usize + usize::from(!closed)).max(if closed { 4 } else { 2 });
+    let count = ((total / step).ceil() as usize + usize::from(!closed)).max(least);
     let spacing = if closed { total / count as f64 } else { total / (count - 1) as f64 };
     let mut out = Vec::with_capacity(count);
     let mut j = 0;
@@ -283,7 +303,7 @@ pub type Piece = (Vec<Point>, Vec<f64>);
 pub fn edge_pieces(region: &Region, taper: f64) -> (Vec<Piece>, Vec<Piece>) {
     let (mut first, mut last) = (Vec::new(), Vec::new());
     for ring in region.rings() {
-        let (pts, total) = resample(&ring, true);
+        let (pts, total) = resample(&ring, true, STEP, 4);
         let n = pts.len();
         if total < 1.5 {
             continue;
@@ -347,7 +367,7 @@ pub fn edge_pieces(region: &Region, taper: f64) -> (Vec<Piece>, Vec<Piece>) {
                 continue;
             }
             let fade = taper.min(0.3 * span);
-            let (mut p, plen) = resample(&substring(&doubled, total + sa - fade, total + sb + fade), false);
+            let (mut p, plen) = resample(&substring(&doubled, total + sa - fade, total + sb + fade), false, STEP, 2);
             let count = p.len();
             let at: Vec<f64> = (0..count).map(|i| plen * i as f64 / (count - 1) as f64).collect();
             let mut flows: Vec<f64> = at.iter().map(|&t| (t / (2.0 * fade)).min((plen - t) / (2.0 * fade)).clamp(0.0, 1.0)).collect();
@@ -360,6 +380,39 @@ pub fn edge_pieces(region: &Region, taper: f64) -> (Vec<Piece>, Vec<Piece>) {
         }
     }
     (first, last)
+}
+
+/// A ring as its two halves, each from the ring's lowest point up to its highest, the second
+/// starting a little above the low point so the halves lap there without doubling, and each
+/// stopping short of the top.
+pub fn uphill_halves(ring: &[Point]) -> Vec<Vec<Point>> {
+    const TRIM_TOP: f64 = 0.1;
+    const TRIM_LOW: f64 = 0.25;
+    let (pts, _) = resample(ring, true, HALF_STEP, 8);
+    let n = pts.len();
+    let (mut lo, mut hi) = (0, 0);
+    for (i, p) in pts.iter().enumerate() {
+        if p[1] < pts[lo][1] {
+            lo = i;
+        }
+        if p[1] > pts[hi][1] {
+            hi = i;
+        }
+    }
+    let forward: Vec<Point> = (0..=(hi + n - lo) % n).map(|i| pts[(lo + i) % n]).collect();
+    let backward: Vec<Point> = (0..=(lo + n - hi) % n).map(|i| pts[(lo + n - i) % n]).collect();
+    let mut halves = Vec::new();
+    for (k, half) in [forward, backward].into_iter().enumerate() {
+        if half.len() < 2 {
+            continue;
+        }
+        let span = length(&half);
+        let start = if k == 1 { TRIM_LOW } else { 0.0 };
+        if span - TRIM_TOP - start >= 0.5 {
+            halves.push(substring(&half, start, span - TRIM_TOP));
+        }
+    }
+    halves
 }
 
 /// Cuts a run at its low or high points, nearest first, into `inner`.
@@ -438,7 +491,7 @@ pub fn narrow_pieces(region: &Region, width: f64, pitch: f64, fill: &Region) -> 
                 if length(&piece) < 0.8 {
                     continue;
                 }
-                let (p, _) = resample(&piece, false);
+                let (p, _) = resample(&piece, false, STEP, 2);
                 for part in climbing(&p, 0) {
                     if part.len() >= 2 && length(&part) >= 0.6 {
                         let flows = vec![1.0; part.len()];

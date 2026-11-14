@@ -336,7 +336,7 @@ fn main() -> Result<()> {
         let tip = r.row("faucet-shell-tip")?.index;
         let dispense = ContactBand::new(&r.extra["tip_dispense_contact"]["band"])?;
         let joint = ContactBand::new(&r.extra["tip_rim_contact"]["band"])?;
-        let mut contact = underside.slice_bands(&root, &mut r, &[(tip, &dispense), (tip, &joint)],
+        let mut contact = underside.slice_bands(&mut r, &[(tip, &dispense), (tip, &joint)],
             &project, &directory, &slicer, &finish["rear_seam_enforcement"])?;
         let contact_record = contact.as_object_mut().context("contact motion report")?;
         contact_record.remove("archive");

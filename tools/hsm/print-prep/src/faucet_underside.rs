@@ -1,6 +1,6 @@
 //! Prepares the slicer's temporary base fill and replaces it with the faucet's sloped underside.
 
-use crate::faucet::{file_sha, read_json};
+use crate::faucet::file_sha;
 use crate::faucet_contact::{ContactBand, replace_prediction, write_archive, write_motion_result};
 use crate::faucet_recesses::add_blocker;
 use crate::ids::md5_hex;
@@ -16,15 +16,15 @@ use serde_json::{Value, json};
 use std::collections::BTreeMap;
 use std::fs;
 use std::path::{Path, PathBuf};
-use std::process::Command;
 
-const STAGE: &str = "tools/hsm/print-prep/faucet-underside";
 const GCODE: &str = "Metadata/plate_1.gcode";
-pub const SOURCES: [&str; 4] = [
+const HEAD_MAP: &str = "tools/hsm/print-prep/faucet-underside/left-active-height.npz";
+pub const SOURCES: [&str; 5] = [
     "tools/hsm/print-prep/src/faucet_underside.rs",
-    "tools/hsm/print-prep/faucet-underside/fill.py",
-    "tools/hsm/print-prep/faucet-underside/courses.py",
-    "tools/hsm/print-prep/faucet-underside/left-active-height.npz",
+    "tools/hsm/print-prep/src/filled_base.rs",
+    "tools/hsm/print-prep/src/base_foundation.rs",
+    "tools/hsm/print-prep/src/sloped_courses.rs",
+    HEAD_MAP,
 ];
 
 pub struct Underside {
@@ -75,12 +75,12 @@ impl Underside {
 
     /// Give Bambu Studio a filled base in the same pose, restoring the real project meshes in its slice.
     pub fn slice_bands(
-        &self, root: &Path, r: &mut Refreshed, scopes: &[(usize, &ContactBand)], project: &Path,
+        &self, r: &mut Refreshed, scopes: &[(usize, &ContactBand)], project: &Path,
         directory: &Path, slicer: &Path, filled_seam: &Value,
     ) -> Result<Value> {
         ensure!(!directory.exists() || fs::read_dir(directory)?.next().is_none(),
             "the underside slice directory must be empty");
-        let filled = self.filled_mesh(root, r)?;
+        let filled = self.filled_mesh(r)?;
         let obj = &mut r.plate.objects[self.index];
         let local = filled.vertices.iter().map(|p| std::array::from_fn(|i| p[i] - obj.source_center[i]));
         let original_vertices = std::mem::replace(&mut obj.vertices, local.collect());
@@ -97,42 +97,29 @@ impl Underside {
         result
     }
 
-    fn filled_mesh(&self, root: &Path, r: &Refreshed) -> Result<Mesh> {
-        let runs = root.join(".cache/runs");
-        fs::create_dir_all(&runs)?;
-        let path = runs.join(format!("faucet-underside-fill-{}.stl", std::process::id()));
-        let result = (|| {
-            run(python(root, "fill.py")?.arg(&self.source).arg(&path)
-                .args(self.rim.map(|v| v.to_string())), "filling the base below its seat")?;
-            let mesh = Mesh::read_stl(&path)?;
-            mesh.check_closed_single_body("slicer base")?;
-            let row = &r.rows[self.index];
-            let object = &r.plate.objects[self.index];
-            let placed: Vec<_> = mesh.vertices.iter().map(|p| {
-                let local = std::array::from_fn(|i| p[i] - object.source_center[i]);
-                let turned = apply(&object.rotation, local);
-                std::array::from_fn(|i| turned[i] + object.translation[i])
-            }).collect();
-            let (lo, hi) = bounds(&placed);
-            ensure!((0..3).all(|i| (lo[i] - row.low[i]).abs().max((hi[i] - row.high[i]).abs()) < 0.005),
-                "the base fill changed its plate bounds");
-            Ok(mesh)
-        })();
-        let _ = fs::remove_file(path);
-        result
+    /// The base with closed stock below its mounting face, in the same pose on the plate.
+    fn filled_mesh(&self, r: &Refreshed) -> Result<Mesh> {
+        let mesh = crate::filled_base::fill(&Mesh::read_stl(&self.source)?, 15.0, self.rim)?;
+        let row = &r.rows[self.index];
+        let object = &r.plate.objects[self.index];
+        let placed: Vec<_> = mesh.vertices.iter().map(|p| {
+            let local = std::array::from_fn(|i| p[i] - object.source_center[i]);
+            let turned = apply(&object.rotation, local);
+            std::array::from_fn(|i| turned[i] + object.translation[i])
+        }).collect();
+        let (lo, hi) = bounds(&placed);
+        ensure!((0..3).all(|i| (lo[i] - row.low[i]).abs().max((hi[i] - row.high[i]).abs()) < 0.005),
+            "the base fill changed its plate bounds");
+        Ok(mesh)
     }
 
     /// Replace the cooled and mapped slice's fill paths with the shaped scaffold, roof and face.
     pub fn finish(&self, root: &Path, project: &Path, directory: &Path, preparation: &Value) -> Result<Value> {
         let raw = directory.join("plate_1.gcode");
-        let mapped = directory.join("mapped-slice");
-        let head = root.join(STAGE).join("left-active-height.npz");
-        run(python(root, "courses.py")?.arg(&raw).arg(project.with_extension("print.json")).arg(&self.source)
-            .arg(&head).arg(&mapped), "laying the sloped underside")?;
-        let stage_report = mapped.join("sloped-underside.json");
-        let mut report = read_json(&stage_report)?;
-        let output = mapped.join("plate_1.gcode");
-        let gcode = fs::read(&output)?;
+        let head = root.join(HEAD_MAP);
+        let (text, mut report) = crate::base_foundation::skin_underside(&fs::read(&raw)?, preparation, &self.source, &head)?;
+        let gcode = text.into_bytes();
+        fs::write(&raw, &gcode)?;
         let envelope = crate::refresh::object_toolpaths(&gcode, None)?;
         let [[x0, y0], [x1, y1]]: [[f64; 2]; 2] = serde_json::from_value(envelope["extrusion_bounds_xy_mm"].clone())?;
         let [[xmin, ymin], [xmax, ymax]]: [[f64; 2]; 2] = serde_json::from_value(preparation["shared_printable_area_mm"].clone())?;
@@ -152,25 +139,10 @@ impl Underside {
         let seconds = report["preamble"]["seconds"].as_f64().context("underside motion time")?;
         replace_prediction(&mut zip, &mut replaced, seconds)?;
         write_archive(zip, replaced, &archive, false)?;
-        fs::rename(output, raw)?;
         let result_path = directory.join("result.json");
         write_motion_result(&result_path, &result_path, seconds)?;
         report["archive_sha256"] = json!(file_sha(&archive)?);
         fs::write(directory.join("sloped-underside.json"), serde_json::to_vec_pretty(&report)?)?;
         Ok(report)
     }
-}
-
-fn python(root: &Path, script: &str) -> Result<Command> {
-    let interpreter = root.join("tools/cad-venv/bin/python");
-    ensure!(interpreter.is_file(), "the faucet underside needs tools/cad-venv with NumPy, Shapely, trimesh and manifold3d");
-    let mut command = Command::new(interpreter);
-    command.arg(root.join(STAGE).join(script));
-    Ok(command)
-}
-
-fn run(command: &mut Command, purpose: &str) -> Result<()> {
-    let output = command.output().with_context(|| purpose.to_owned())?;
-    ensure!(output.status.success(), "{purpose}: {}", String::from_utf8_lossy(&output.stderr).trim());
-    Ok(())
 }
