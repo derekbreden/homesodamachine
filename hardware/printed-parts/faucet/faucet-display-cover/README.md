@@ -24,14 +24,14 @@ pocket for each of its switches. The [lowered-head fit review](fit-review/2026-1
 and the [skirt-overlap print trial](corner-overlap-review/2026-10-25/README.md) record
 how that head was fitted. The extended-skirt cover's
 [physical approval](prints/2026-10-25-front-overlap-black-mark2/physical-result/physical-result.json)
-accepts its working fit and appearance, including the remaining visible gap.
-No further iteration on that gap is requested. The cover in its current shape, with
-reach on its sides and pockets at its crown, is approved on the shared tip by the
-[complete Sculpted faucet's result](https://github.com/derekbreden/homesodamachine/blob/727125473a61a56604e145292ffd41d6984f49a0/hardware/printed-parts/faucet/sculpted/prints/2026-11-13-sloped-underside-complete-mark2/physical-result/physical-result.json),
-which Derek calls the best fit so far. The one flaw he names is a hole in the tip
-that the cover does not quite cover. The
-[production selection](../industrial/production-selection.json) names the approved
-print's meshes beside the generated parts.
+records its working fit and appearance. The
+[complete Sculpted faucet's result](https://github.com/derekbreden/homesodamachine/blob/727125473a61a56604e145292ffd41d6984f49a0/hardware/printed-parts/faucet/sculpted/prints/2026-11-13-sloped-underside-complete-mark2/physical-result/physical-result.json)
+records the accepted snap fit on the shared tip. The
+[plug-ramp photographs](../sculpted/prints/2026-11-14-plug-ramp-mark2/physical-result/cover-fit.json)
+locate the exposed rear corners. The cover's rear reach brings the rim over
+those corners, with the front and snap datums held at their seated positions.
+The [production selection](../industrial/production-selection.json) names
+the meshes from the last approved print beside the generated parts.
 
 ## Geometry
 
@@ -44,11 +44,9 @@ recesses in the tip's ledge.
 
 The rear wall closes within the rounded skirt outline. Its inner face is
 vertical at the display's rear clearance plane; its lower edge slopes upward
-across the curved neck opening. The lower rear skirt extends
- aft along s, with its front edge and planar bezel
-at their shared display datums. Its rear opening follows
-s = + × n.
-The underside remains open.
+across the curved neck opening. The rear rim and bezel extend aft to cover the
+display pocket's corners. The front edge and bezel window use their shared
+display datums. The underside remains open.
 
 The skirt's shoulder gives the wings their reach from the bezel to the groove
 floors. The lips meet the groove roots in the seated model and engage below both

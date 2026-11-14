@@ -1,0 +1,51 @@
+{
+  "date": "2026-11-14",
+  "reported_by": "Derek",
+  "printer": "Mark2",
+  "printer_task_id": "1441898884",
+  "submitted_archive": {
+    "name": "sculpted-faucet-plug-ramp-black-mark2-review.gcode.3mf",
+    "sha256": "802cd07510ac998cec5c7c94e2d163b5099f536becc6e245a286e66b48d0bb42",
+    "gcode_sha256": "eec7ce8c8c9d2b305397085277e82afd001b62d4778e5753734a2d44a74118e5"
+  },
+  "scope": "Rear corners of the display cover when seated on the printed tip.",
+  "observations": [
+    "I hope you can see in my photos there that we very clearly have a hole exposed still on the back of the cover, on each side where the cover is just not long enough. I can see in the model we think it's long enough, but clearly something is different here. It would be great if you understand exactly what that is. I think it probably has something to do with the deformation of things. But in any case, I think if we just make the entire faucet display cover a small amount total longer, like don't mess with the shape of things too much. Just let's pull that cover back a bit without losing its current front position. Then I think we can cover that hole pretty well."
+  ],
+  "cad_pick": {
+    "solid": "shell_tip",
+    "source_revision": "10223d33",
+    "world_xyz_mm": [
+      11.474,
+      -109.837,
+      221.783
+    ]
+  },
+  "images": [
+    {
+      "file": "10-cover-aft-opening-first-side.jpg",
+      "sha256": "b45bf8b0d0917ca7f45b8a9aba87a4bf2473afb6df18107b03c3ce6448bdc2a5",
+      "view": "View of the opening at the cover’s aft corner on one side."
+    },
+    {
+      "file": "11-cover-aft-opening-first-side-detail.jpg",
+      "sha256": "9d6e61647193e9e0578e38fd5be69361c9938e263c3306bbd1708b953eb1e3bc",
+      "view": "Detail of the opening under the aft edge."
+    },
+    {
+      "file": "12-cover-aft-opening-opposite-side.jpg",
+      "sha256": "f2f8d42d5d550cc190ecd29efe6c9aaeec4f2ce62441cb7525f1ac11949cf013",
+      "view": "View of the opening from the opposite side."
+    },
+    {
+      "file": "13-cover-aft-opening-opposite-side-detail.jpg",
+      "sha256": "36ca61c08d570f9c273933fb22d3e1c60659c91bd944382013a93de3734ee0b0",
+      "view": "Detail of the opposite side around the aft corner."
+    },
+    {
+      "file": "14-cad-rear-opening-edge.png",
+      "sha256": "d133930ddbdbb589bf9f177302b141762fc0f32ceeccb49b0ffb13c6ef06756a",
+      "view": "CAD pick at the aft cavity edge on the Sculpted tip."
+    }
+  ]
+}
