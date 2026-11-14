@@ -1150,6 +1150,10 @@
       },
       "material": "Bambu PETG Basic, black",
       "filament_from": "hardware/printed-parts/zone-c/funnel-cover/funnel-cover-petg.3mf",
+      "z_trim_mm": {
+        "value": 0.18,
+        "reason": "Use the black PETG funnel cover’s trim on textured PEI."
+      },
       "filament_colour": {
         "value": "#000000",
         "reason": "Black PETG, the funnel cover's spool."
@@ -1210,6 +1214,10 @@
       },
       "material": "Bambu PETG Basic, black",
       "filament_from": "hardware/printed-parts/zone-c/funnel-cover/funnel-cover-petg.3mf",
+      "z_trim_mm": {
+        "value": 0.18,
+        "reason": "Use the black PETG funnel cover’s trim on textured PEI."
+      },
       "filament_colour": {
         "value": "#000000",
         "reason": "Black PETG, the funnel cover's spool."
@@ -1255,6 +1263,10 @@
       },
       "material": "Bambu PETG Basic, black",
       "filament_from": "hardware/printed-parts/zone-c/funnel-cover/funnel-cover-petg.3mf",
+      "z_trim_mm": {
+        "value": 0.18,
+        "reason": "Use the black PETG funnel cover’s trim on textured PEI."
+      },
       "filament_colour": {
         "value": "#000000",
         "reason": "Black PETG, the funnel cover's spool."
