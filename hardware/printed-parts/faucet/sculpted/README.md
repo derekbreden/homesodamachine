@@ -117,6 +117,9 @@ from its male plug into whole courses that match the mating angle and the
 support interface, then eases to level below the dispense nose. The plate
 includes the flat dispense-face seam with rounded
 ends and removable mounting-plate counterbore rings.
+The [Mark2 steady base wall plate](prints/2026-11-14-steady-base-wall-mark2/README.md)
+carries the matched shoulder and caps the Sculpted base's ordinary exterior
+speed across whole laps for an even rear-wall finish.
 
 The display seat, foot recesses and cover bezel use their shared mounted datums.
 The [October 17 clearance reading](prints/2026-10-17-localized-cooling-display-clearance-mark2/display-clearance.json)

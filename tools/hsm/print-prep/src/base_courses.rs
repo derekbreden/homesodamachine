@@ -35,9 +35,9 @@ pub const NATIVE_JOIN_Z: f64 = 143.48;
 const SHAFT_PIVOT_Y: f64 = 12.9;
 const SHAFT_RADIUS: f64 = 13.5;
 const BASE_ID: i64 = 1901;
-const FLOOR: &str = "native tilted base";
-const SHAFT: &str = "graded shaft transition";
-const UPPER: &str = "native level upper base";
+pub(crate) const FLOOR: &str = "native tilted base";
+pub(crate) const SHAFT: &str = "graded shaft transition";
+pub(crate) const UPPER: &str = "native level upper base";
 
 /// A point as the band writes it, to three places.
 fn output_point(p: [f64; 3]) -> [f64; 3] {
