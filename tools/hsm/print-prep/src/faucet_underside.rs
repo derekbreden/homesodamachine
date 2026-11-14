@@ -9,7 +9,7 @@ use crate::refresh::Refreshed;
 use crate::{apply, sha256_hex};
 use anyhow::{Context, Result, ensure};
 use hsm_faucet_numbers::shell::{
-    BASE_INSERT_BOTTOM_Z, BASE_POD_CENTERS, BASE_POD_INSERT_DEPTH, BASE_POD_Z_BOTTOM,
+    BASE_INSERT_BOTTOM_Z, BASE_POD_CENTERS, BASE_POD_INSERT_DEPTH, BASE_POD_Z_BOTTOM, PRINT_BASE_BUILD_ROT,
     base_pod_hole_dia,
 };
 use serde_json::{Value, json};
@@ -99,7 +99,7 @@ impl Underside {
 
     /// The base with closed stock below its mounting face, in the same pose on the plate.
     fn filled_mesh(&self, r: &Refreshed) -> Result<Mesh> {
-        let mesh = crate::filled_base::fill(&Mesh::read_stl(&self.source)?, 15.0, self.rim)?;
+        let mesh = crate::filled_base::fill(&Mesh::read_stl(&self.source)?, PRINT_BASE_BUILD_ROT.to_degrees(), self.rim)?;
         let row = &r.rows[self.index];
         let object = &r.plate.objects[self.index];
         let placed: Vec<_> = mesh.vertices.iter().map(|p| {

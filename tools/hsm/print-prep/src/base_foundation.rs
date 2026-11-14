@@ -93,7 +93,7 @@ pub struct Frame {
 
 impl Frame {
     pub fn new(seat: [f64; 3], rim: [f64; 2]) -> Self {
-        let tilt = 15.0_f64.to_radians();
+        let tilt = hsm_faucet_numbers::shell::PRINT_BASE_BUILD_ROT;
         Self { cx: seat[0], cy: seat[1], cz: seat[2], s: tilt.sin(), c: tilt.cos(), t: tilt.tan(), rim }
     }
 
