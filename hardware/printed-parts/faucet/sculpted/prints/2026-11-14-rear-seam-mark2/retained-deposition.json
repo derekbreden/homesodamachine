@@ -1,0 +1,65 @@
+{
+  "purpose": "Verify retained deposition and bind the review archive to its motion.",
+  "archive_sha256": "aff114e29ad5eead4f9a456f9308d16b3ce7d66c7cf420c3a21fcf8c33d76c18",
+  "packaged_gcode_sha256": "c29b5b40a75bb84ff8c581f0728b066e6e59e6c2a0382447a1a3d8e71b1781dd",
+  "source_gcode_sha256": "6f968ccd69efc2afeb34adf2180701d6145dd68fa1dd2ab680ecb61babfa5105",
+  "print_body_sha256": "29c4dc77f295ecb876244ff34ab6641c93d7306b9611d456e1d9144778e56c11",
+  "print_body_matches_replay": true,
+  "exact_ordered_non_base_deposition": {
+    "cover": {
+      "ordered_road_sha256": "180ea7309174268d707b33f071cd5096af787145666eefb9cb90304b14eac302",
+      "road_count": 58935,
+      "filament_mm": 1945.50998
+    },
+    "tip anchor": {
+      "ordered_road_sha256": "5edd0706bf5ceeb1c238e3fb01a327cec4cd94092a8212999255cdce3d4a37ef",
+      "road_count": 3617,
+      "filament_mm": 224.83435
+    },
+    "mounting plate counterbore supports": {
+      "ordered_road_sha256": "fb8c3e19387ef435de48e862f5db2811da05d8d8f8ed59e719b5fa2f76c83d94",
+      "road_count": 2730,
+      "filament_mm": 41.47623
+    },
+    "mounting plate": {
+      "ordered_road_sha256": "4d7137d7c55b7904492ba15078e2a8692844fc666e443faaaa738dae17515e7e",
+      "road_count": 44617,
+      "filament_mm": 2461.35734
+    },
+    "lever": {
+      "ordered_road_sha256": "ab849c67c9e96aa247c9bc4dfe359c71f451cda8c1b796444533cb8d24f8d31b",
+      "road_count": 33735,
+      "filament_mm": 1365.86352
+    },
+    "tip shoulder entry": {
+      "ordered_road_sha256": "e063d93f96dc1143d95ba28d856f7fda433625b7dac43f795621a72267603580",
+      "road_count": 94728,
+      "filament_mm": 2700.85496
+    },
+    "tip yellow shoulder": {
+      "ordered_road_sha256": "95ef21ccd91c7e72e690dc12e674372cb4edb96ade6b4583aa723d56eed08fcf",
+      "road_count": 86598,
+      "filament_mm": 1982.11758
+    },
+    "tip shoulder fade": {
+      "ordered_road_sha256": "c9f1d5fbd22263eaab3e4938fdac6eff129e046a411a4f93d9274db89a929eb2",
+      "road_count": 161010,
+      "filament_mm": 5170.88864
+    },
+    "tip native nose": {
+      "ordered_road_sha256": "efb73cdf3462719f681831459f4a31a35aa5f8eb90ce42d5ffce61d0390cfea1",
+      "road_count": 242221,
+      "filament_mm": 6191.93075
+    }
+  },
+  "deposition_signature": [
+    "command",
+    "start_xyz",
+    "end_xyz",
+    "arc_center_offset_ijk",
+    "extrusion_length",
+    "feed",
+    "fan_pwm",
+    "acceleration"
+  ]
+}

@@ -13,8 +13,8 @@ use std::fmt::Write as _;
 use std::path::Path;
 use std::rc::Rc;
 
-/// The features whose runs are reordered to climb.
-pub const WALLS: [&str; 4] = ["Outer wall", "Overhang wall", "Inner wall", "Floating vertical shell"];
+/// The wall features carried through the transition and its bridge stitch.
+const WALLS: [&str; 4] = ["Outer wall", "Overhang wall", "Inner wall", "Floating vertical shell"];
 /// The donor's nominal course.
 pub const BASE_NORMAL_LAYER: f64 = 0.24;
 const EXTRUSION_Z_FEED: f64 = 7.5 * 60.0;
@@ -272,8 +272,8 @@ fn climbing(run: Vec<Move>, map: &dyn Fn([f64; 3]) -> [f64; 3]) -> Result<Vec<Ve
     }).collect())
 }
 
-/// One course with each wall feature's runs laid uphill and the course's own travel lifted
-/// over what it has laid.
+/// One course with interior wall runs laid uphill and travel lifted over the laid course.
+/// The exterior follows the slicer's native runs so the painted rear seam stays intact.
 pub fn write_ordered_group(out: &mut String, height: &str, section: usize, total: usize, moves: &[Move],
                            map: &dyn Fn([f64; 3]) -> [f64; 3], seen: &mut Stats) -> Result<()> {
     let mut runs: Vec<Vec<Move>> = Vec::new();
@@ -285,7 +285,7 @@ pub fn write_ordered_group(out: &mut String, height: &str, section: usize, total
         while j < all.len() && all[j][0].feature == feature {
             j += 1;
         }
-        if WALLS.contains(&&*feature) {
+        if matches!(feature.as_ref(), "Inner wall" | "Floating vertical shell") {
             let mut pieces = Vec::new();
             for run in &all[i..j] {
                 pieces.extend(climbing(run.clone(), map)?);
@@ -524,6 +524,7 @@ pub struct ContinuedBase<'a> {
     pub physical_gcode: &'a Path,
     pub physical_report: &'a Path,
     pub output: &'a Path,
+    /// Turn interior walls uphill while keeping exterior laps continuous.
     pub uphill_wall_runs: bool,
     pub stitch_mesh: Option<&'a Path>,
     pub fade_end: f64,
